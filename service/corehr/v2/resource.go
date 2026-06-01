@@ -33,6 +33,7 @@ type V2 struct {
 	Department                         *department                         // department
 	Draft                              *draft                              // draft
 	Employee                           *employee                           // employee
+	EmployeeCustomOrg                  *employeeCustomOrg                  // employee.custom_org
 	EmployeesAdditionalJob             *employeesAdditionalJob             // employees.additional_job
 	EmployeesBp                        *employeesBp                        // employees.bp
 	EmployeesInternationalAssignment   *employeesInternationalAssignment   // employees.international_assignment
@@ -58,10 +59,12 @@ type V2 struct {
 	ProcessExtra                       *processExtra                       // process.extra
 	ProcessFormVariableData            *processFormVariableData            // process.form_variable_data
 	ProcessNode                        *processNode                        // process.node
+	ProcessQueryFlowDataTemplate       *processQueryFlowDataTemplate       // process.query_flow_data_template
 	ProcessStatus                      *processStatus                      // process.status
 	ProcessTransfer                    *processTransfer                    // process.transfer
 	ProcessCommentInfo                 *processCommentInfo                 // process_comment_info
 	ProcessRevoke                      *processRevoke                      // process_revoke
+	ProcessStart                       *processStart                       // process_start
 	ProcessWithdraw                    *processWithdraw                    // process_withdraw
 	ReportDetailRow                    *reportDetailRow                    // report_detail_row
 	SignatureFile                      *signatureFile                      // signature_file
@@ -98,6 +101,7 @@ func New(config *larkcore.Config) *V2 {
 		Department:                         &department{config: config},
 		Draft:                              &draft{config: config},
 		Employee:                           &employee{config: config},
+		EmployeeCustomOrg:                  &employeeCustomOrg{config: config},
 		EmployeesAdditionalJob:             &employeesAdditionalJob{config: config},
 		EmployeesBp:                        &employeesBp{config: config},
 		EmployeesInternationalAssignment:   &employeesInternationalAssignment{config: config},
@@ -123,10 +127,12 @@ func New(config *larkcore.Config) *V2 {
 		ProcessExtra:                       &processExtra{config: config},
 		ProcessFormVariableData:            &processFormVariableData{config: config},
 		ProcessNode:                        &processNode{config: config},
+		ProcessQueryFlowDataTemplate:       &processQueryFlowDataTemplate{config: config},
 		ProcessStatus:                      &processStatus{config: config},
 		ProcessTransfer:                    &processTransfer{config: config},
 		ProcessCommentInfo:                 &processCommentInfo{config: config},
 		ProcessRevoke:                      &processRevoke{config: config},
+		ProcessStart:                       &processStart{config: config},
 		ProcessWithdraw:                    &processWithdraw{config: config},
 		ReportDetailRow:                    &reportDetailRow{config: config},
 		SignatureFile:                      &signatureFile{config: config},
@@ -208,6 +214,9 @@ type draft struct {
 type employee struct {
 	config *larkcore.Config
 }
+type employeeCustomOrg struct {
+	config *larkcore.Config
+}
 type employeesAdditionalJob struct {
 	config *larkcore.Config
 }
@@ -283,6 +292,9 @@ type processFormVariableData struct {
 type processNode struct {
 	config *larkcore.Config
 }
+type processQueryFlowDataTemplate struct {
+	config *larkcore.Config
+}
 type processStatus struct {
 	config *larkcore.Config
 }
@@ -293,6 +305,9 @@ type processCommentInfo struct {
 	config *larkcore.Config
 }
 type processRevoke struct {
+	config *larkcore.Config
+}
+type processStart struct {
 	config *larkcore.Config
 }
 type processWithdraw struct {
@@ -913,6 +928,32 @@ func (c *company) BatchGet(ctx context.Context, req *BatchGetCompanyReq, options
 	return resp, err
 }
 
+// QueryMultiTimeline
+//
+// - 查询生效时间在指定时间范围的公司
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_multi_timeline&project=corehr&resource=company&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/queryMultiTimeline_company.go
+func (c *company) QueryMultiTimeline(ctx context.Context, req *QueryMultiTimelineCompanyReq, options ...larkcore.RequestOptionFunc) (*QueryMultiTimelineCompanyResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/companies/query_multi_timeline"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryMultiTimelineCompanyResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // QueryRecentChange
 //
 // -
@@ -1155,6 +1196,32 @@ func (c *costCenter) Patch(ctx context.Context, req *PatchCostCenterReq, options
 	return resp, err
 }
 
+// QueryMultiTimeline
+//
+// - 查询指定时间范围成本中心版本
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_multi_timeline&project=corehr&resource=cost_center&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/queryMultiTimeline_costCenter.go
+func (c *costCenter) QueryMultiTimeline(ctx context.Context, req *QueryMultiTimelineCostCenterReq, options ...larkcore.RequestOptionFunc) (*QueryMultiTimelineCostCenterResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/cost_centers/query_multi_timeline"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryMultiTimelineCostCenterResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // QueryRecentChange
 //
 // -
@@ -1200,6 +1267,32 @@ func (c *costCenter) Search(ctx context.Context, req *SearchCostCenterReq, optio
 	}
 	// 反序列响应结果
 	resp := &SearchCostCenterResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Tree
+//
+// - 查询指定生效日期的成本中心架构树
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=tree&project=corehr&resource=cost_center&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/tree_costCenter.go
+func (c *costCenter) Tree(ctx context.Context, req *TreeCostCenterReq, options ...larkcore.RequestOptionFunc) (*TreeCostCenterResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/cost_centers/tree"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &TreeCostCenterResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, c.config)
 	if err != nil {
 		return nil, err
@@ -1635,7 +1728,7 @@ func (d *department) Parents(ctx context.Context, req *ParentsDepartmentReq, opt
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/corehr/v2/departments/parents"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
 	apiResp, err := larkcore.Request(ctx, apiReq, d.config, options...)
 	if err != nil {
 		return nil, err
@@ -1791,7 +1884,7 @@ func (d *department) Search(ctx context.Context, req *SearchDepartmentReq, optio
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/corehr/v2/departments/search"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
 	apiResp, err := larkcore.Request(ctx, apiReq, d.config, options...)
 	if err != nil {
 		return nil, err
@@ -1825,7 +1918,7 @@ func (d *department) Tree(ctx context.Context, req *TreeDepartmentReq, options .
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/corehr/v2/departments/tree"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
 	apiResp, err := larkcore.Request(ctx, apiReq, d.config, options...)
 	if err != nil {
 		return nil, err
@@ -1949,6 +2042,136 @@ func (e *employee) SearchByIterator(ctx context.Context, req *SearchEmployeeReq,
 		listFunc: e.Search,
 		options:  options,
 		limit:    req.Limit}, nil
+}
+
+// CreateEmpCustomOrg
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create_emp_custom_org&project=corehr&resource=employee.custom_org&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/createEmpCustomOrg_employeeCustomOrg.go
+func (e *employeeCustomOrg) CreateEmpCustomOrg(ctx context.Context, req *CreateEmpCustomOrgEmployeeCustomOrgReq, options ...larkcore.RequestOptionFunc) (*CreateEmpCustomOrgEmployeeCustomOrgResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/custom_org/create_emp_custom_org"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateEmpCustomOrgEmployeeCustomOrgResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Del
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=del&project=corehr&resource=employee.custom_org&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/del_employeeCustomOrg.go
+func (e *employeeCustomOrg) Del(ctx context.Context, req *DelEmployeeCustomOrgReq, options ...larkcore.RequestOptionFunc) (*DelEmployeeCustomOrgResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/custom_org/del"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DelEmployeeCustomOrgResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// EditEmpCustomOrg
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=edit_emp_custom_org&project=corehr&resource=employee.custom_org&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/editEmpCustomOrg_employeeCustomOrg.go
+func (e *employeeCustomOrg) EditEmpCustomOrg(ctx context.Context, req *EditEmpCustomOrgEmployeeCustomOrgReq, options ...larkcore.RequestOptionFunc) (*EditEmpCustomOrgEmployeeCustomOrgResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/custom_org/edit_emp_custom_org"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &EditEmpCustomOrgEmployeeCustomOrgResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// EmploymentCustomOrgRecord
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=employment_custom_org_record&project=corehr&resource=employee.custom_org&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/employmentCustomOrgRecord_employeeCustomOrg.go
+func (e *employeeCustomOrg) EmploymentCustomOrgRecord(ctx context.Context, req *EmploymentCustomOrgRecordEmployeeCustomOrgReq, options ...larkcore.RequestOptionFunc) (*EmploymentCustomOrgRecordEmployeeCustomOrgResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/custom_org/employment_custom_org_record"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &EmploymentCustomOrgRecordEmployeeCustomOrgResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Querybyid
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=querybyid&project=corehr&resource=employee.custom_org&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/querybyid_employeeCustomOrg.go
+func (e *employeeCustomOrg) Querybyid(ctx context.Context, req *QuerybyidEmployeeCustomOrgReq, options ...larkcore.RequestOptionFunc) (*QuerybyidEmployeeCustomOrgResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/custom_org/querybyid"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QuerybyidEmployeeCustomOrgResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
 }
 
 // Batch
@@ -2465,7 +2688,7 @@ func (j *jobChange) Search(ctx context.Context, req *SearchJobChangeReq, options
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/corehr/v2/job_changes/search"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, j.config, options...)
 	if err != nil {
 		return nil, err
@@ -2818,6 +3041,32 @@ func (l *location) Patch(ctx context.Context, req *PatchLocationReq, options ...
 	}
 	// 反序列响应结果
 	resp := &PatchLocationResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, l.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// QueryMultiTimeline
+//
+// - 查询生效时间在指定时间范围的地点
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_multi_timeline&project=corehr&resource=location&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/queryMultiTimeline_location.go
+func (l *location) QueryMultiTimeline(ctx context.Context, req *QueryMultiTimelineLocationReq, options ...larkcore.RequestOptionFunc) (*QueryMultiTimelineLocationResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/locations/query_multi_timeline"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, l.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryMultiTimelineLocationResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, l.config)
 	if err != nil {
 		return nil, err
@@ -3621,6 +3870,32 @@ func (p *preHire) WithdrawOnboarding(ctx context.Context, req *WithdrawOnboardin
 	return resp, err
 }
 
+// Edit
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=edit&project=corehr&resource=probation&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/edit_probation.go
+func (p *probation) Edit(ctx context.Context, req *EditProbationReq, options ...larkcore.RequestOptionFunc) (*EditProbationResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/probation/edit"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &EditProbationResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // EnableDisableAssessment
 //
 // -
@@ -3975,6 +4250,32 @@ func (p *processFormVariableData) Get(ctx context.Context, req *GetProcessFormVa
 	return resp, err
 }
 
+// Create
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=process.query_flow_data_template&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/create_processQueryFlowDataTemplate.go
+func (p *processQueryFlowDataTemplate) Create(ctx context.Context, req *CreateProcessQueryFlowDataTemplateReq, options ...larkcore.RequestOptionFunc) (*CreateProcessQueryFlowDataTemplateResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/query_flow_data_template"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateProcessQueryFlowDataTemplateResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Update
 //
 // -
@@ -4020,6 +4321,32 @@ func (p *processRevoke) Update(ctx context.Context, req *UpdateProcessRevokeReq,
 	}
 	// 反序列响应结果
 	resp := &UpdateProcessRevokeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=process_start&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/create_processStart.go
+func (p *processStart) Create(ctx context.Context, req *CreateProcessStartReq, options ...larkcore.RequestOptionFunc) (*CreateProcessStartResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/process_start"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateProcessStartResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, p.config)
 	if err != nil {
 		return nil, err
@@ -4334,14 +4661,6 @@ func (s *signatureTemplateInfoWithThumbnail) List(ctx context.Context, req *List
 	}
 	return resp, err
 }
-func (s *signatureTemplateInfoWithThumbnail) ListByIterator(ctx context.Context, req *ListSignatureTemplateInfoWithThumbnailReq, options ...larkcore.RequestOptionFunc) (*ListSignatureTemplateInfoWithThumbnailIterator, error) {
-	return &ListSignatureTemplateInfoWithThumbnailIterator{
-		ctx:      ctx,
-		req:      req,
-		listFunc: s.List,
-		options:  options,
-		limit:    req.Limit}, nil
-}
 
 // List
 //
@@ -4355,7 +4674,7 @@ func (w *workforcePlan) List(ctx context.Context, req *ListWorkforcePlanReq, opt
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/corehr/v2/workforce_plans"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
 	if err != nil {
 		return nil, err
@@ -4389,7 +4708,7 @@ func (w *workforcePlanDetail) Batch(ctx context.Context, req *BatchWorkforcePlan
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/corehr/v2/workforce_plan_details/batch"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
 	if err != nil {
 		return nil, err
@@ -4415,7 +4734,7 @@ func (w *workforcePlanDetail) BatchV2(ctx context.Context, req *BatchV2Workforce
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/corehr/v2/workforce_plan_details/batch_v2"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
 	if err != nil {
 		return nil, err

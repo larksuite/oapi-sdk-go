@@ -32,11 +32,11 @@ type Action struct {
 }
 
 type ActionBuilder struct {
-	action     string // 操作类型 可选值有： - partial_update_setting：更新卡片设置，此时 parmas 结构参考更新卡片设置接口请求体的 config 和 card_link 字段 - add_elements，此时 parmas 结构参考添加组件接口请求体的 type、target_element_id、element_list 字段 - delete_elements，此时 parmas 结构内仅支持 element_id_list 参数，参数值为组件 ID 数组 - partial_update_element，此时 parmas 结构包括参考局部更新组件接口的路径参数 element_id 和请求体 partial_element 字段 - update_element，此时 parmas 结构参考全量更新组件接口的路径参数 element_id 和请求体 element 字段
-	actionFlag bool
+	action    string // 操作类型 可选值有： - partial_update_setting：更新卡片设置，此时 parmas 结构参考更新卡片设置接口请求体的 config 和 card_link 字段 - add_elements，此时 parmas 结构参考添加组件接口请求体的 type、target_element_id、element_list 字段 - delete_elements，此时 parmas 结构内仅支持 element_id_list 参数，参数值为组件 ID 数组 - partial_update_element，此时 parmas 结构包括参考局部更新组件接口的路径参数 element_id 和请求体 partial_element 字段 - update_element，此时 parmas 结构参考全量更新组件接口的路径参数 element_id 和请求体 element 字段
+	actionSet bool
 
-	params     *Params // 操作类型对应的参数
-	paramsFlag bool
+	params    *Params // 操作类型对应的参数
+	paramsSet bool
 }
 
 func NewActionBuilder() *ActionBuilder {
@@ -49,7 +49,7 @@ func NewActionBuilder() *ActionBuilder {
 // 示例值：partial_update_setting
 func (builder *ActionBuilder) Action(action string) *ActionBuilder {
 	builder.action = action
-	builder.actionFlag = true
+	builder.actionSet = true
 	return builder
 }
 
@@ -58,17 +58,17 @@ func (builder *ActionBuilder) Action(action string) *ActionBuilder {
 // 示例值：
 func (builder *ActionBuilder) Params(params *Params) *ActionBuilder {
 	builder.params = params
-	builder.paramsFlag = true
+	builder.paramsSet = true
 	return builder
 }
 
 func (builder *ActionBuilder) Build() *Action {
 	req := &Action{}
-	if builder.actionFlag {
+	if builder.actionSet {
 		req.Action = &builder.action
 
 	}
-	if builder.paramsFlag {
+	if builder.paramsSet {
 		req.Params = builder.params
 	}
 	return req
@@ -95,32 +95,32 @@ type CallbackAction struct {
 }
 
 type CallbackActionBuilder struct {
-	value     map[string]string // 交互组件绑定的开发者自定义回传数据，对应组件中的 value 属性。类型为 string 或 object，可由开发者指定
-	valueFlag bool
+	value    map[string]string // 交互组件绑定的开发者自定义回传数据，对应组件中的 value 属性。类型为 string 或 object，可由开发者指定
+	valueSet bool
 
-	tag     string // 用户操作交互组件的标签
-	tagFlag bool
+	tag    string // 用户操作交互组件的标签
+	tagSet bool
 
-	option     string // 用户操作单选组件的选项值
-	optionFlag bool
+	option    string // 用户操作单选组件的选项值
+	optionSet bool
 
-	options     []string // 用户操作多选组件的选项值
-	optionsFlag bool
+	options    []string // 用户操作多选组件的选项值
+	optionsSet bool
 
-	timezone     string // 用户当前所在地区的时区。当用户操作日期选择器、时间选择器、或日期时间选择器时返回
-	timezoneFlag bool
+	timezone    string // 用户当前所在地区的时区。当用户操作日期选择器、时间选择器、或日期时间选择器时返回
+	timezoneSet bool
 
-	inputValue     string // 用户操作输入组件的输入值
-	inputValueFlag bool
+	inputValue    string // 用户操作输入组件的输入值
+	inputValueSet bool
 
-	formValue     map[string]string // 用户操作表单容器内用户提交的数据
-	formValueFlag bool
+	formValue    map[string]string // 用户操作表单容器内用户提交的数据
+	formValueSet bool
 
-	name     string // 用户操作交互组件的名称，由开发者自定义
-	nameFlag bool
+	name    string // 用户操作交互组件的名称，由开发者自定义
+	nameSet bool
 
-	checked     bool // 用户操作勾选器组件的勾选状态
-	checkedFlag bool
+	checked    bool // 用户操作勾选器组件的勾选状态
+	checkedSet bool
 }
 
 func NewCallbackActionBuilder() *CallbackActionBuilder {
@@ -133,7 +133,7 @@ func NewCallbackActionBuilder() *CallbackActionBuilder {
 // 示例值：
 func (builder *CallbackActionBuilder) Value(value map[string]string) *CallbackActionBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
@@ -142,7 +142,7 @@ func (builder *CallbackActionBuilder) Value(value map[string]string) *CallbackAc
 // 示例值：button
 func (builder *CallbackActionBuilder) Tag(tag string) *CallbackActionBuilder {
 	builder.tag = tag
-	builder.tagFlag = true
+	builder.tagSet = true
 	return builder
 }
 
@@ -151,7 +151,7 @@ func (builder *CallbackActionBuilder) Tag(tag string) *CallbackActionBuilder {
 // 示例值：selectDemo1
 func (builder *CallbackActionBuilder) Option(option string) *CallbackActionBuilder {
 	builder.option = option
-	builder.optionFlag = true
+	builder.optionSet = true
 	return builder
 }
 
@@ -160,7 +160,7 @@ func (builder *CallbackActionBuilder) Option(option string) *CallbackActionBuild
 // 示例值：
 func (builder *CallbackActionBuilder) Options(options []string) *CallbackActionBuilder {
 	builder.options = options
-	builder.optionsFlag = true
+	builder.optionsSet = true
 	return builder
 }
 
@@ -169,7 +169,7 @@ func (builder *CallbackActionBuilder) Options(options []string) *CallbackActionB
 // 示例值：Asia/Shanghai
 func (builder *CallbackActionBuilder) Timezone(timezone string) *CallbackActionBuilder {
 	builder.timezone = timezone
-	builder.timezoneFlag = true
+	builder.timezoneSet = true
 	return builder
 }
 
@@ -178,7 +178,7 @@ func (builder *CallbackActionBuilder) Timezone(timezone string) *CallbackActionB
 // 示例值：input_value
 func (builder *CallbackActionBuilder) InputValue(inputValue string) *CallbackActionBuilder {
 	builder.inputValue = inputValue
-	builder.inputValueFlag = true
+	builder.inputValueSet = true
 	return builder
 }
 
@@ -187,7 +187,7 @@ func (builder *CallbackActionBuilder) InputValue(inputValue string) *CallbackAct
 // 示例值：
 func (builder *CallbackActionBuilder) FormValue(formValue map[string]string) *CallbackActionBuilder {
 	builder.formValue = formValue
-	builder.formValueFlag = true
+	builder.formValueSet = true
 	return builder
 }
 
@@ -196,7 +196,7 @@ func (builder *CallbackActionBuilder) FormValue(formValue map[string]string) *Ca
 // 示例值：approval_button
 func (builder *CallbackActionBuilder) Name(name string) *CallbackActionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -205,42 +205,42 @@ func (builder *CallbackActionBuilder) Name(name string) *CallbackActionBuilder {
 // 示例值：
 func (builder *CallbackActionBuilder) Checked(checked bool) *CallbackActionBuilder {
 	builder.checked = checked
-	builder.checkedFlag = true
+	builder.checkedSet = true
 	return builder
 }
 
 func (builder *CallbackActionBuilder) Build() *CallbackAction {
 	req := &CallbackAction{}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = builder.value
 	}
-	if builder.tagFlag {
+	if builder.tagSet {
 		req.Tag = &builder.tag
 
 	}
-	if builder.optionFlag {
+	if builder.optionSet {
 		req.Option = &builder.option
 
 	}
-	if builder.optionsFlag {
+	if builder.optionsSet {
 		req.Options = builder.options
 	}
-	if builder.timezoneFlag {
+	if builder.timezoneSet {
 		req.Timezone = &builder.timezone
 
 	}
-	if builder.inputValueFlag {
+	if builder.inputValueSet {
 		req.InputValue = &builder.inputValue
 
 	}
-	if builder.formValueFlag {
+	if builder.formValueSet {
 		req.FormValue = builder.formValue
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.checkedFlag {
+	if builder.checkedSet {
 		req.Checked = &builder.checked
 
 	}
@@ -254,11 +254,11 @@ type CallbackActionContext struct {
 }
 
 type CallbackActionContextBuilder struct {
-	openMessageId     string // 卡片所在的消息 ID
-	openMessageIdFlag bool
+	openMessageId    string // 卡片所在的消息 ID
+	openMessageIdSet bool
 
-	openChatId     string // 卡片所在的会话 ID
-	openChatIdFlag bool
+	openChatId    string // 卡片所在的会话 ID
+	openChatIdSet bool
 }
 
 func NewCallbackActionContextBuilder() *CallbackActionContextBuilder {
@@ -271,7 +271,7 @@ func NewCallbackActionContextBuilder() *CallbackActionContextBuilder {
 // 示例值：om_574d639e4a44e4dd646eaf628e2*****
 func (builder *CallbackActionContextBuilder) OpenMessageId(openMessageId string) *CallbackActionContextBuilder {
 	builder.openMessageId = openMessageId
-	builder.openMessageIdFlag = true
+	builder.openMessageIdSet = true
 	return builder
 }
 
@@ -280,17 +280,17 @@ func (builder *CallbackActionContextBuilder) OpenMessageId(openMessageId string)
 // 示例值：oc_e4d2605ca917e695f54f11aaf56*****
 func (builder *CallbackActionContextBuilder) OpenChatId(openChatId string) *CallbackActionContextBuilder {
 	builder.openChatId = openChatId
-	builder.openChatIdFlag = true
+	builder.openChatIdSet = true
 	return builder
 }
 
 func (builder *CallbackActionContextBuilder) Build() *CallbackActionContext {
 	req := &CallbackActionContext{}
-	if builder.openMessageIdFlag {
+	if builder.openMessageIdSet {
 		req.OpenMessageId = &builder.openMessageId
 
 	}
-	if builder.openChatIdFlag {
+	if builder.openChatIdSet {
 		req.OpenChatId = &builder.openChatId
 
 	}
@@ -305,10 +305,10 @@ type Card struct {
 
 type CardBuilder struct {
 	type_    string // 卡片数据的类型
-	typeFlag bool
+	type_Set bool
 
-	data     string // 卡片数据内容，与卡片数据的类型相对应
-	dataFlag bool
+	data    string // 卡片数据内容，与卡片数据的类型相对应
+	dataSet bool
 }
 
 func NewCardBuilder() *CardBuilder {
@@ -321,7 +321,7 @@ func NewCardBuilder() *CardBuilder {
 // 示例值：card_json
 func (builder *CardBuilder) Type(type_ string) *CardBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -330,17 +330,17 @@ func (builder *CardBuilder) Type(type_ string) *CardBuilder {
 // 示例值：{\"schema\":\"2.0\",\"header\":{\"title\":{\"content\":\"卡片标题\",\"tag\":\"plain_text\"}},\"body\":{\"elements\":[{\"tag\":\"markdown\",\"content\":\"卡片内容\"}]}}
 func (builder *CardBuilder) Data(data string) *CardBuilder {
 	builder.data = data
-	builder.dataFlag = true
+	builder.dataSet = true
 	return builder
 }
 
 func (builder *CardBuilder) Build() *Card {
 	req := &Card{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.dataFlag {
+	if builder.dataSet {
 		req.Data = &builder.data
 
 	}
@@ -358,17 +358,17 @@ type CardLink struct {
 }
 
 type CardLinkBuilder struct {
-	url     string // 默认的链接地址
-	urlFlag bool
+	url    string // 默认的链接地址
+	urlSet bool
 
-	pcUrl     string // PC端的链接地址
-	pcUrlFlag bool
+	pcUrl    string // PC端的链接地址
+	pcUrlSet bool
 
-	iosUrl     string // iOS端的链接地址
-	iosUrlFlag bool
+	iosUrl    string // iOS端的链接地址
+	iosUrlSet bool
 
-	androidUrl     string // Android 端的链接地址
-	androidUrlFlag bool
+	androidUrl    string // Android 端的链接地址
+	androidUrlSet bool
 }
 
 func NewCardLinkBuilder() *CardLinkBuilder {
@@ -381,7 +381,7 @@ func NewCardLinkBuilder() *CardLinkBuilder {
 // 示例值：https://www.baidu.com
 func (builder *CardLinkBuilder) Url(url string) *CardLinkBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -390,7 +390,7 @@ func (builder *CardLinkBuilder) Url(url string) *CardLinkBuilder {
 // 示例值：https://developer.windows.com/
 func (builder *CardLinkBuilder) PcUrl(pcUrl string) *CardLinkBuilder {
 	builder.pcUrl = pcUrl
-	builder.pcUrlFlag = true
+	builder.pcUrlSet = true
 	return builder
 }
 
@@ -399,7 +399,7 @@ func (builder *CardLinkBuilder) PcUrl(pcUrl string) *CardLinkBuilder {
 // 示例值：https://developer.apple.com/
 func (builder *CardLinkBuilder) IosUrl(iosUrl string) *CardLinkBuilder {
 	builder.iosUrl = iosUrl
-	builder.iosUrlFlag = true
+	builder.iosUrlSet = true
 	return builder
 }
 
@@ -408,25 +408,25 @@ func (builder *CardLinkBuilder) IosUrl(iosUrl string) *CardLinkBuilder {
 // 示例值：https://developer.android.com/
 func (builder *CardLinkBuilder) AndroidUrl(androidUrl string) *CardLinkBuilder {
 	builder.androidUrl = androidUrl
-	builder.androidUrlFlag = true
+	builder.androidUrlSet = true
 	return builder
 }
 
 func (builder *CardLinkBuilder) Build() *CardLink {
 	req := &CardLink{}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.pcUrlFlag {
+	if builder.pcUrlSet {
 		req.PcUrl = &builder.pcUrl
 
 	}
-	if builder.iosUrlFlag {
+	if builder.iosUrlSet {
 		req.IosUrl = &builder.iosUrl
 
 	}
-	if builder.androidUrlFlag {
+	if builder.androidUrlSet {
 		req.AndroidUrl = &builder.androidUrl
 
 	}
@@ -452,29 +452,29 @@ type CardTemplate struct {
 }
 
 type CardTemplateBuilder struct {
-	templateId     string // 卡片模板 ID
-	templateIdFlag bool
+	templateId    string // 卡片模板 ID
+	templateIdSet bool
 
-	templateName     string // 卡片模板名
-	templateNameFlag bool
+	templateName    string // 卡片模板名
+	templateNameSet bool
 
-	templateOwner     string // 卡片模板所有者
-	templateOwnerFlag bool
+	templateOwner    string // 卡片模板所有者
+	templateOwnerSet bool
 
-	templateVersionName     string // 卡片模板版本
-	templateVersionNameFlag bool
+	templateVersionName    string // 卡片模板版本
+	templateVersionNameSet bool
 
-	schemaVersion     string // 卡片 Schema 版本
-	schemaVersionFlag bool
+	schemaVersion    string // 卡片 Schema 版本
+	schemaVersionSet bool
 
-	status     string // 卡片模板发布状态
-	statusFlag bool
+	status    string // 卡片模板发布状态
+	statusSet bool
 
-	createTime     string // 卡片模板创建时间（毫秒）
-	createTimeFlag bool
+	createTime    string // 卡片模板创建时间（毫秒）
+	createTimeSet bool
 
-	updateTime     string // 卡片模板更新时间（毫秒）
-	updateTimeFlag bool
+	updateTime    string // 卡片模板更新时间（毫秒）
+	updateTimeSet bool
 }
 
 func NewCardTemplateBuilder() *CardTemplateBuilder {
@@ -487,7 +487,7 @@ func NewCardTemplateBuilder() *CardTemplateBuilder {
 // 示例值：AAqSZ3wf5hupo
 func (builder *CardTemplateBuilder) TemplateId(templateId string) *CardTemplateBuilder {
 	builder.templateId = templateId
-	builder.templateIdFlag = true
+	builder.templateIdSet = true
 	return builder
 }
 
@@ -496,7 +496,7 @@ func (builder *CardTemplateBuilder) TemplateId(templateId string) *CardTemplateB
 // 示例值：同事圈分享卡片
 func (builder *CardTemplateBuilder) TemplateName(templateName string) *CardTemplateBuilder {
 	builder.templateName = templateName
-	builder.templateNameFlag = true
+	builder.templateNameSet = true
 	return builder
 }
 
@@ -505,7 +505,7 @@ func (builder *CardTemplateBuilder) TemplateName(templateName string) *CardTempl
 // 示例值：cli_a62a4fe4e938d01c
 func (builder *CardTemplateBuilder) TemplateOwner(templateOwner string) *CardTemplateBuilder {
 	builder.templateOwner = templateOwner
-	builder.templateOwnerFlag = true
+	builder.templateOwnerSet = true
 	return builder
 }
 
@@ -514,7 +514,7 @@ func (builder *CardTemplateBuilder) TemplateOwner(templateOwner string) *CardTem
 // 示例值：1.0.0
 func (builder *CardTemplateBuilder) TemplateVersionName(templateVersionName string) *CardTemplateBuilder {
 	builder.templateVersionName = templateVersionName
-	builder.templateVersionNameFlag = true
+	builder.templateVersionNameSet = true
 	return builder
 }
 
@@ -523,7 +523,7 @@ func (builder *CardTemplateBuilder) TemplateVersionName(templateVersionName stri
 // 示例值：2.0
 func (builder *CardTemplateBuilder) SchemaVersion(schemaVersion string) *CardTemplateBuilder {
 	builder.schemaVersion = schemaVersion
-	builder.schemaVersionFlag = true
+	builder.schemaVersionSet = true
 	return builder
 }
 
@@ -532,7 +532,7 @@ func (builder *CardTemplateBuilder) SchemaVersion(schemaVersion string) *CardTem
 // 示例值：PUBLISHED
 func (builder *CardTemplateBuilder) Status(status string) *CardTemplateBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -541,7 +541,7 @@ func (builder *CardTemplateBuilder) Status(status string) *CardTemplateBuilder {
 // 示例值：1675742789470
 func (builder *CardTemplateBuilder) CreateTime(createTime string) *CardTemplateBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -550,41 +550,41 @@ func (builder *CardTemplateBuilder) CreateTime(createTime string) *CardTemplateB
 // 示例值：1675742789470
 func (builder *CardTemplateBuilder) UpdateTime(updateTime string) *CardTemplateBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
 func (builder *CardTemplateBuilder) Build() *CardTemplate {
 	req := &CardTemplate{}
-	if builder.templateIdFlag {
+	if builder.templateIdSet {
 		req.TemplateId = &builder.templateId
 
 	}
-	if builder.templateNameFlag {
+	if builder.templateNameSet {
 		req.TemplateName = &builder.templateName
 
 	}
-	if builder.templateOwnerFlag {
+	if builder.templateOwnerSet {
 		req.TemplateOwner = &builder.templateOwner
 
 	}
-	if builder.templateVersionNameFlag {
+	if builder.templateVersionNameSet {
 		req.TemplateVersionName = &builder.templateVersionName
 
 	}
-	if builder.schemaVersionFlag {
+	if builder.schemaVersionSet {
 		req.SchemaVersion = &builder.schemaVersion
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
@@ -600,14 +600,14 @@ type Config struct {
 }
 
 type ConfigBuilder struct {
-	enableForward     bool // 是否允许转发卡片。取值：  true：允许 false：不允许 默认值为 true，该字段要求飞书客户端的版本为 V3.31.0 及以上
-	enableForwardFlag bool
+	enableForward    bool // 是否允许转发卡片。取值：  true：允许 false：不允许 默认值为 true，该字段要求飞书客户端的版本为 V3.31.0 及以上
+	enableForwardSet bool
 
-	streamingMode     bool // 标识是否开启流式
-	streamingModeFlag bool
+	streamingMode    bool // 标识是否开启流式
+	streamingModeSet bool
 
-	summary     *Summary // 卡片摘要
-	summaryFlag bool
+	summary    *Summary // 卡片摘要
+	summarySet bool
 }
 
 func NewConfigBuilder() *ConfigBuilder {
@@ -620,7 +620,7 @@ func NewConfigBuilder() *ConfigBuilder {
 // 示例值：
 func (builder *ConfigBuilder) EnableForward(enableForward bool) *ConfigBuilder {
 	builder.enableForward = enableForward
-	builder.enableForwardFlag = true
+	builder.enableForwardSet = true
 	return builder
 }
 
@@ -629,7 +629,7 @@ func (builder *ConfigBuilder) EnableForward(enableForward bool) *ConfigBuilder {
 // 示例值：
 func (builder *ConfigBuilder) StreamingMode(streamingMode bool) *ConfigBuilder {
 	builder.streamingMode = streamingMode
-	builder.streamingModeFlag = true
+	builder.streamingModeSet = true
 	return builder
 }
 
@@ -638,21 +638,21 @@ func (builder *ConfigBuilder) StreamingMode(streamingMode bool) *ConfigBuilder {
 // 示例值：
 func (builder *ConfigBuilder) Summary(summary *Summary) *ConfigBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
 func (builder *ConfigBuilder) Build() *Config {
 	req := &Config{}
-	if builder.enableForwardFlag {
+	if builder.enableForwardSet {
 		req.EnableForward = &builder.enableForward
 
 	}
-	if builder.streamingModeFlag {
+	if builder.streamingModeSet {
 		req.StreamingMode = &builder.streamingMode
 
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = builder.summary
 	}
 	return req
@@ -669,17 +669,17 @@ type Data struct {
 }
 
 type DataBuilder struct {
-	schema     string // 卡片规范版本
-	schemaFlag bool
+	schema    string // 卡片规范版本
+	schemaSet bool
 
-	body     *Element // 卡片组件
-	bodyFlag bool
+	body    *Element // 卡片组件
+	bodySet bool
 
-	header     *Header // 用于配置卡片的标题
-	headerFlag bool
+	header    *Header // 用于配置卡片的标题
+	headerSet bool
 
-	cardLink     *CardLink // 用于指定卡片整体的跳转链接
-	cardLinkFlag bool
+	cardLink    *CardLink // 用于指定卡片整体的跳转链接
+	cardLinkSet bool
 }
 
 func NewDataBuilder() *DataBuilder {
@@ -692,7 +692,7 @@ func NewDataBuilder() *DataBuilder {
 // 示例值：2.0
 func (builder *DataBuilder) Schema(schema string) *DataBuilder {
 	builder.schema = schema
-	builder.schemaFlag = true
+	builder.schemaSet = true
 	return builder
 }
 
@@ -701,7 +701,7 @@ func (builder *DataBuilder) Schema(schema string) *DataBuilder {
 // 示例值：
 func (builder *DataBuilder) Body(body *Element) *DataBuilder {
 	builder.body = body
-	builder.bodyFlag = true
+	builder.bodySet = true
 	return builder
 }
 
@@ -710,7 +710,7 @@ func (builder *DataBuilder) Body(body *Element) *DataBuilder {
 // 示例值：
 func (builder *DataBuilder) Header(header *Header) *DataBuilder {
 	builder.header = header
-	builder.headerFlag = true
+	builder.headerSet = true
 	return builder
 }
 
@@ -719,23 +719,23 @@ func (builder *DataBuilder) Header(header *Header) *DataBuilder {
 // 示例值：
 func (builder *DataBuilder) CardLink(cardLink *CardLink) *DataBuilder {
 	builder.cardLink = cardLink
-	builder.cardLinkFlag = true
+	builder.cardLinkSet = true
 	return builder
 }
 
 func (builder *DataBuilder) Build() *Data {
 	req := &Data{}
-	if builder.schemaFlag {
+	if builder.schemaSet {
 		req.Schema = &builder.schema
 
 	}
-	if builder.bodyFlag {
+	if builder.bodySet {
 		req.Body = builder.body
 	}
-	if builder.headerFlag {
+	if builder.headerSet {
 		req.Header = builder.header
 	}
-	if builder.cardLinkFlag {
+	if builder.cardLinkSet {
 		req.CardLink = builder.cardLink
 	}
 	return req
@@ -748,11 +748,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -760,27 +760,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -794,11 +798,11 @@ type Element struct {
 }
 
 type ElementBuilder struct {
-	tag     string // 标识
-	tagFlag bool
+	tag    string // 标识
+	tagSet bool
 
-	elementId     string // 组件id
-	elementIdFlag bool
+	elementId    string // 组件id
+	elementIdSet bool
 }
 
 func NewElementBuilder() *ElementBuilder {
@@ -811,7 +815,7 @@ func NewElementBuilder() *ElementBuilder {
 // 示例值：button
 func (builder *ElementBuilder) Tag(tag string) *ElementBuilder {
 	builder.tag = tag
-	builder.tagFlag = true
+	builder.tagSet = true
 	return builder
 }
 
@@ -820,17 +824,17 @@ func (builder *ElementBuilder) Tag(tag string) *ElementBuilder {
 // 示例值：elem_1
 func (builder *ElementBuilder) ElementId(elementId string) *ElementBuilder {
 	builder.elementId = elementId
-	builder.elementIdFlag = true
+	builder.elementIdSet = true
 	return builder
 }
 
 func (builder *ElementBuilder) Build() *Element {
 	req := &Element{}
-	if builder.tagFlag {
+	if builder.tagSet {
 		req.Tag = &builder.tag
 
 	}
-	if builder.elementIdFlag {
+	if builder.elementIdSet {
 		req.ElementId = &builder.elementId
 
 	}
@@ -842,8 +846,8 @@ type Header struct {
 }
 
 type HeaderBuilder struct {
-	title     string // 卡片标题
-	titleFlag bool
+	title    string // 卡片标题
+	titleSet bool
 }
 
 func NewHeaderBuilder() *HeaderBuilder {
@@ -856,13 +860,13 @@ func NewHeaderBuilder() *HeaderBuilder {
 // 示例值：卡片标题
 func (builder *HeaderBuilder) Title(title string) *HeaderBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
 func (builder *HeaderBuilder) Build() *Header {
 	req := &Header{}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
@@ -892,35 +896,35 @@ type KaCardTemplate struct {
 }
 
 type KaCardTemplateBuilder struct {
-	templateId     string // 卡片模板 ID
-	templateIdFlag bool
+	templateId    string // 卡片模板 ID
+	templateIdSet bool
 
-	templateName     string // 卡片模板名
-	templateNameFlag bool
+	templateName    string // 卡片模板名
+	templateNameSet bool
 
-	templateOwner     string // 卡片模板所有者
-	templateOwnerFlag bool
+	templateOwner    string // 卡片模板所有者
+	templateOwnerSet bool
 
-	templateVersionName     string // 卡片模板版本名
-	templateVersionNameFlag bool
+	templateVersionName    string // 卡片模板版本名
+	templateVersionNameSet bool
 
-	status     string // 卡片模板发布状态
-	statusFlag bool
+	status    string // 卡片模板发布状态
+	statusSet bool
 
-	createTime     string // 卡片模板创建时间（毫秒）
-	createTimeFlag bool
+	createTime    string // 卡片模板创建时间（毫秒）
+	createTimeSet bool
 
-	updateTime     string // 卡片模板更新时间（毫秒）
-	updateTimeFlag bool
+	updateTime    string // 卡片模板更新时间（毫秒）
+	updateTimeSet bool
 
-	hostConfig     string // 调用权限配置
-	hostConfigFlag bool
+	hostConfig    string // 调用权限配置
+	hostConfigSet bool
 
-	templateVersions     []string // 未同步的卡片模板版本
-	templateVersionsFlag bool
+	templateVersions    []string // 未同步的卡片模板版本
+	templateVersionsSet bool
 
-	bindApps     []string // 绑定的 APP 列表
-	bindAppsFlag bool
+	bindApps    []string // 绑定的 APP 列表
+	bindAppsSet bool
 }
 
 func NewKaCardTemplateBuilder() *KaCardTemplateBuilder {
@@ -933,7 +937,7 @@ func NewKaCardTemplateBuilder() *KaCardTemplateBuilder {
 // 示例值：AAqSZ3wf5hupo
 func (builder *KaCardTemplateBuilder) TemplateId(templateId string) *KaCardTemplateBuilder {
 	builder.templateId = templateId
-	builder.templateIdFlag = true
+	builder.templateIdSet = true
 	return builder
 }
 
@@ -942,7 +946,7 @@ func (builder *KaCardTemplateBuilder) TemplateId(templateId string) *KaCardTempl
 // 示例值：卡片名称
 func (builder *KaCardTemplateBuilder) TemplateName(templateName string) *KaCardTemplateBuilder {
 	builder.templateName = templateName
-	builder.templateNameFlag = true
+	builder.templateNameSet = true
 	return builder
 }
 
@@ -951,7 +955,7 @@ func (builder *KaCardTemplateBuilder) TemplateName(templateName string) *KaCardT
 // 示例值：cli_a62a4fe4e938d01c
 func (builder *KaCardTemplateBuilder) TemplateOwner(templateOwner string) *KaCardTemplateBuilder {
 	builder.templateOwner = templateOwner
-	builder.templateOwnerFlag = true
+	builder.templateOwnerSet = true
 	return builder
 }
 
@@ -960,7 +964,7 @@ func (builder *KaCardTemplateBuilder) TemplateOwner(templateOwner string) *KaCar
 // 示例值：1.0.0
 func (builder *KaCardTemplateBuilder) TemplateVersionName(templateVersionName string) *KaCardTemplateBuilder {
 	builder.templateVersionName = templateVersionName
-	builder.templateVersionNameFlag = true
+	builder.templateVersionNameSet = true
 	return builder
 }
 
@@ -969,7 +973,7 @@ func (builder *KaCardTemplateBuilder) TemplateVersionName(templateVersionName st
 // 示例值：PUBLISHED
 func (builder *KaCardTemplateBuilder) Status(status string) *KaCardTemplateBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -978,7 +982,7 @@ func (builder *KaCardTemplateBuilder) Status(status string) *KaCardTemplateBuild
 // 示例值：1
 func (builder *KaCardTemplateBuilder) CreateTime(createTime string) *KaCardTemplateBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -987,7 +991,7 @@ func (builder *KaCardTemplateBuilder) CreateTime(createTime string) *KaCardTempl
 // 示例值：1
 func (builder *KaCardTemplateBuilder) UpdateTime(updateTime string) *KaCardTemplateBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -996,7 +1000,7 @@ func (builder *KaCardTemplateBuilder) UpdateTime(updateTime string) *KaCardTempl
 // 示例值：{"webhook_type":null,"webhook_ids":null,"app_type":2,"app_ids":null,"editor_webhook_ids":null,"editor_app_ids":null}
 func (builder *KaCardTemplateBuilder) HostConfig(hostConfig string) *KaCardTemplateBuilder {
 	builder.hostConfig = hostConfig
-	builder.hostConfigFlag = true
+	builder.hostConfigSet = true
 	return builder
 }
 
@@ -1005,7 +1009,7 @@ func (builder *KaCardTemplateBuilder) HostConfig(hostConfig string) *KaCardTempl
 // 示例值：
 func (builder *KaCardTemplateBuilder) TemplateVersions(templateVersions []string) *KaCardTemplateBuilder {
 	builder.templateVersions = templateVersions
-	builder.templateVersionsFlag = true
+	builder.templateVersionsSet = true
 	return builder
 }
 
@@ -1014,48 +1018,48 @@ func (builder *KaCardTemplateBuilder) TemplateVersions(templateVersions []string
 // 示例值：
 func (builder *KaCardTemplateBuilder) BindApps(bindApps []string) *KaCardTemplateBuilder {
 	builder.bindApps = bindApps
-	builder.bindAppsFlag = true
+	builder.bindAppsSet = true
 	return builder
 }
 
 func (builder *KaCardTemplateBuilder) Build() *KaCardTemplate {
 	req := &KaCardTemplate{}
-	if builder.templateIdFlag {
+	if builder.templateIdSet {
 		req.TemplateId = &builder.templateId
 
 	}
-	if builder.templateNameFlag {
+	if builder.templateNameSet {
 		req.TemplateName = &builder.templateName
 
 	}
-	if builder.templateOwnerFlag {
+	if builder.templateOwnerSet {
 		req.TemplateOwner = &builder.templateOwner
 
 	}
-	if builder.templateVersionNameFlag {
+	if builder.templateVersionNameSet {
 		req.TemplateVersionName = &builder.templateVersionName
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.hostConfigFlag {
+	if builder.hostConfigSet {
 		req.HostConfig = &builder.hostConfig
 
 	}
-	if builder.templateVersionsFlag {
+	if builder.templateVersionsSet {
 		req.TemplateVersions = builder.templateVersions
 	}
-	if builder.bindAppsFlag {
+	if builder.bindAppsSet {
 		req.BindApps = builder.bindApps
 	}
 	return req
@@ -1088,41 +1092,41 @@ type KaCardTemplateOld struct {
 }
 
 type KaCardTemplateOldBuilder struct {
-	templateId     string // 模板 ID
-	templateIdFlag bool
+	templateId    string // 模板 ID
+	templateIdSet bool
 
-	name     string // 模板名
-	nameFlag bool
+	name    string // 模板名
+	nameSet bool
 
-	bizExt     string //  扩展字段
-	bizExtFlag bool
+	bizExt    string //  扩展字段
+	bizExtSet bool
 
-	lockStatus     int // 锁定状态
-	lockStatusFlag bool
+	lockStatus    int // 锁定状态
+	lockStatusSet bool
 
-	status     int // 模板状态
-	statusFlag bool
+	status    int // 模板状态
+	statusSet bool
 
-	mockData     string // mock 数据
-	mockDataFlag bool
+	mockData    string // mock 数据
+	mockDataSet bool
 
-	content     string // 卡片内容
-	contentFlag bool
+	content    string // 卡片内容
+	contentSet bool
 
-	draftContent     string // 草稿内容
-	draftContentFlag bool
+	draftContent    string // 草稿内容
+	draftContentSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	creatorId     string // 创建者
-	creatorIdFlag bool
+	creatorId    string // 创建者
+	creatorIdSet bool
 
-	variables     []*KaCardTemplateVariable // 变量列表
-	variablesFlag bool
+	variables    []*KaCardTemplateVariable // 变量列表
+	variablesSet bool
 }
 
 func NewKaCardTemplateOldBuilder() *KaCardTemplateOldBuilder {
@@ -1135,7 +1139,7 @@ func NewKaCardTemplateOldBuilder() *KaCardTemplateOldBuilder {
 // 示例值：ctp_123
 func (builder *KaCardTemplateOldBuilder) TemplateId(templateId string) *KaCardTemplateOldBuilder {
 	builder.templateId = templateId
-	builder.templateIdFlag = true
+	builder.templateIdSet = true
 	return builder
 }
 
@@ -1144,16 +1148,16 @@ func (builder *KaCardTemplateOldBuilder) TemplateId(templateId string) *KaCardTe
 // 示例值：123
 func (builder *KaCardTemplateOldBuilder) Name(name string) *KaCardTemplateOldBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
-//	扩展字段
+//  扩展字段
 //
 // 示例值：{}
 func (builder *KaCardTemplateOldBuilder) BizExt(bizExt string) *KaCardTemplateOldBuilder {
 	builder.bizExt = bizExt
-	builder.bizExtFlag = true
+	builder.bizExtSet = true
 	return builder
 }
 
@@ -1162,7 +1166,7 @@ func (builder *KaCardTemplateOldBuilder) BizExt(bizExt string) *KaCardTemplateOl
 // 示例值：2
 func (builder *KaCardTemplateOldBuilder) LockStatus(lockStatus int) *KaCardTemplateOldBuilder {
 	builder.lockStatus = lockStatus
-	builder.lockStatusFlag = true
+	builder.lockStatusSet = true
 	return builder
 }
 
@@ -1171,7 +1175,7 @@ func (builder *KaCardTemplateOldBuilder) LockStatus(lockStatus int) *KaCardTempl
 // 示例值：0
 func (builder *KaCardTemplateOldBuilder) Status(status int) *KaCardTemplateOldBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -1180,7 +1184,7 @@ func (builder *KaCardTemplateOldBuilder) Status(status int) *KaCardTemplateOldBu
 // 示例值：{}
 func (builder *KaCardTemplateOldBuilder) MockData(mockData string) *KaCardTemplateOldBuilder {
 	builder.mockData = mockData
-	builder.mockDataFlag = true
+	builder.mockDataSet = true
 	return builder
 }
 
@@ -1189,7 +1193,7 @@ func (builder *KaCardTemplateOldBuilder) MockData(mockData string) *KaCardTempla
 // 示例值：{}
 func (builder *KaCardTemplateOldBuilder) Content(content string) *KaCardTemplateOldBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -1198,7 +1202,7 @@ func (builder *KaCardTemplateOldBuilder) Content(content string) *KaCardTemplate
 // 示例值：{}
 func (builder *KaCardTemplateOldBuilder) DraftContent(draftContent string) *KaCardTemplateOldBuilder {
 	builder.draftContent = draftContent
-	builder.draftContentFlag = true
+	builder.draftContentSet = true
 	return builder
 }
 
@@ -1207,7 +1211,7 @@ func (builder *KaCardTemplateOldBuilder) DraftContent(draftContent string) *KaCa
 // 示例值：123321
 func (builder *KaCardTemplateOldBuilder) CreateTime(createTime string) *KaCardTemplateOldBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -1216,7 +1220,7 @@ func (builder *KaCardTemplateOldBuilder) CreateTime(createTime string) *KaCardTe
 // 示例值：123321
 func (builder *KaCardTemplateOldBuilder) UpdateTime(updateTime string) *KaCardTemplateOldBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -1225,7 +1229,7 @@ func (builder *KaCardTemplateOldBuilder) UpdateTime(updateTime string) *KaCardTe
 // 示例值：ou_123
 func (builder *KaCardTemplateOldBuilder) CreatorId(creatorId string) *KaCardTemplateOldBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -1234,57 +1238,57 @@ func (builder *KaCardTemplateOldBuilder) CreatorId(creatorId string) *KaCardTemp
 // 示例值：
 func (builder *KaCardTemplateOldBuilder) Variables(variables []*KaCardTemplateVariable) *KaCardTemplateOldBuilder {
 	builder.variables = variables
-	builder.variablesFlag = true
+	builder.variablesSet = true
 	return builder
 }
 
 func (builder *KaCardTemplateOldBuilder) Build() *KaCardTemplateOld {
 	req := &KaCardTemplateOld{}
-	if builder.templateIdFlag {
+	if builder.templateIdSet {
 		req.TemplateId = &builder.templateId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.bizExtFlag {
+	if builder.bizExtSet {
 		req.BizExt = &builder.bizExt
 
 	}
-	if builder.lockStatusFlag {
+	if builder.lockStatusSet {
 		req.LockStatus = &builder.lockStatus
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.mockDataFlag {
+	if builder.mockDataSet {
 		req.MockData = &builder.mockData
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.draftContentFlag {
+	if builder.draftContentSet {
 		req.DraftContent = &builder.draftContent
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.variablesFlag {
+	if builder.variablesSet {
 		req.Variables = builder.variables
 	}
 	return req
@@ -1301,17 +1305,17 @@ type KaCardTemplateVariable struct {
 }
 
 type KaCardTemplateVariableBuilder struct {
-	variableType     string // 变量类型
-	variableTypeFlag bool
+	variableType    string // 变量类型
+	variableTypeSet bool
 
-	name     string // 变量名
-	nameFlag bool
+	name    string // 变量名
+	nameSet bool
 
-	description     string // 变量描述信息
-	descriptionFlag bool
+	description    string // 变量描述信息
+	descriptionSet bool
 
-	config     string // 配置信息
-	configFlag bool
+	config    string // 配置信息
+	configSet bool
 }
 
 func NewKaCardTemplateVariableBuilder() *KaCardTemplateVariableBuilder {
@@ -1324,7 +1328,7 @@ func NewKaCardTemplateVariableBuilder() *KaCardTemplateVariableBuilder {
 // 示例值：123
 func (builder *KaCardTemplateVariableBuilder) VariableType(variableType string) *KaCardTemplateVariableBuilder {
 	builder.variableType = variableType
-	builder.variableTypeFlag = true
+	builder.variableTypeSet = true
 	return builder
 }
 
@@ -1333,7 +1337,7 @@ func (builder *KaCardTemplateVariableBuilder) VariableType(variableType string) 
 // 示例值：123
 func (builder *KaCardTemplateVariableBuilder) Name(name string) *KaCardTemplateVariableBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1342,7 +1346,7 @@ func (builder *KaCardTemplateVariableBuilder) Name(name string) *KaCardTemplateV
 // 示例值：123
 func (builder *KaCardTemplateVariableBuilder) Description(description string) *KaCardTemplateVariableBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -1351,25 +1355,25 @@ func (builder *KaCardTemplateVariableBuilder) Description(description string) *K
 // 示例值：{}
 func (builder *KaCardTemplateVariableBuilder) Config(config string) *KaCardTemplateVariableBuilder {
 	builder.config = config
-	builder.configFlag = true
+	builder.configSet = true
 	return builder
 }
 
 func (builder *KaCardTemplateVariableBuilder) Build() *KaCardTemplateVariable {
 	req := &KaCardTemplateVariable{}
-	if builder.variableTypeFlag {
+	if builder.variableTypeSet {
 		req.VariableType = &builder.variableType
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.configFlag {
+	if builder.configSet {
 		req.Config = &builder.config
 
 	}
@@ -1387,17 +1391,17 @@ type Operator struct {
 }
 
 type OperatorBuilder struct {
-	tenantKey     string // 回调触发者的 tenant key，即租户唯一标识
-	tenantKeyFlag bool
+	tenantKey    string // 回调触发者的 tenant key，即租户唯一标识
+	tenantKeySet bool
 
-	userId     string // 回调触发者的 user ID
-	userIdFlag bool
+	userId    string // 回调触发者的 user ID
+	userIdSet bool
 
-	openId     string // 回调触发者的 open ID
-	openIdFlag bool
+	openId    string // 回调触发者的 open ID
+	openIdSet bool
 
-	unionId     string // 回调触发者的 union ID
-	unionIdFlag bool
+	unionId    string // 回调触发者的 union ID
+	unionIdSet bool
 }
 
 func NewOperatorBuilder() *OperatorBuilder {
@@ -1410,7 +1414,7 @@ func NewOperatorBuilder() *OperatorBuilder {
 // 示例值：2af7399175062872
 func (builder *OperatorBuilder) TenantKey(tenantKey string) *OperatorBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
@@ -1419,7 +1423,7 @@ func (builder *OperatorBuilder) TenantKey(tenantKey string) *OperatorBuilder {
 // 示例值：
 func (builder *OperatorBuilder) UserId(userId string) *OperatorBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -1428,7 +1432,7 @@ func (builder *OperatorBuilder) UserId(userId string) *OperatorBuilder {
 // 示例值：
 func (builder *OperatorBuilder) OpenId(openId string) *OperatorBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
@@ -1437,25 +1441,25 @@ func (builder *OperatorBuilder) OpenId(openId string) *OperatorBuilder {
 // 示例值：
 func (builder *OperatorBuilder) UnionId(unionId string) *OperatorBuilder {
 	builder.unionId = unionId
-	builder.unionIdFlag = true
+	builder.unionIdSet = true
 	return builder
 }
 
 func (builder *OperatorBuilder) Build() *Operator {
 	req := &Operator{}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.unionIdFlag {
+	if builder.unionIdSet {
 		req.UnionId = &builder.unionId
 
 	}
@@ -1482,28 +1486,28 @@ type Params struct {
 
 type ParamsBuilder struct {
 	type_    string // 添加组件的方式，action是add_elements使用。
-	typeFlag bool
+	type_Set bool
 
-	targetElementId     string // 目标组件的 ID。 当 type 为 insert_before、insert_after 时，为用于定位的目标组件。 当 type 为 append 时，该字段仅支持容器类组件，为用于指定末尾添加的目标组件，未填写默认为在卡片 body 末尾添加。action是add_elements使用。
-	targetElementIdFlag bool
+	targetElementId    string // 目标组件的 ID。 当 type 为 insert_before、insert_after 时，为用于定位的目标组件。 当 type 为 append 时，该字段仅支持容器类组件，为用于指定末尾添加的目标组件，未填写默认为在卡片 body 末尾添加。action是add_elements使用。
+	targetElementIdSet bool
 
-	elements     []string // 组件列表，action是add_elements使用。
-	elementsFlag bool
+	elements    []string // 组件列表，action是add_elements使用。
+	elementsSet bool
 
-	elementIds     []string // 删除的组件ID数组，action是delete_elements使用。
-	elementIdsFlag bool
+	elementIds    []string // 删除的组件ID数组，action是delete_elements使用。
+	elementIdsSet bool
 
-	elementId     string // 组件ID，action是partial_update_element或update_element使用
-	elementIdFlag bool
+	elementId    string // 组件ID，action是partial_update_element或update_element使用
+	elementIdSet bool
 
-	partialElement     string // 局部更新组件，action是partial_update_element使用
-	partialElementFlag bool
+	partialElement    string // 局部更新组件，action是partial_update_element使用
+	partialElementSet bool
 
-	element     string // 全量更新组件，action是update_element使用
-	elementFlag bool
+	element    string // 全量更新组件，action是update_element使用
+	elementSet bool
 
-	settings     string // 卡片设置
-	settingsFlag bool
+	settings    string // 卡片设置
+	settingsSet bool
 }
 
 func NewParamsBuilder() *ParamsBuilder {
@@ -1516,7 +1520,7 @@ func NewParamsBuilder() *ParamsBuilder {
 // 示例值：insert_before
 func (builder *ParamsBuilder) Type(type_ string) *ParamsBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1525,7 +1529,7 @@ func (builder *ParamsBuilder) Type(type_ string) *ParamsBuilder {
 // 示例值：elem_63529372
 func (builder *ParamsBuilder) TargetElementId(targetElementId string) *ParamsBuilder {
 	builder.targetElementId = targetElementId
-	builder.targetElementIdFlag = true
+	builder.targetElementIdSet = true
 	return builder
 }
 
@@ -1534,7 +1538,7 @@ func (builder *ParamsBuilder) TargetElementId(targetElementId string) *ParamsBui
 // 示例值：
 func (builder *ParamsBuilder) Elements(elements []string) *ParamsBuilder {
 	builder.elements = elements
-	builder.elementsFlag = true
+	builder.elementsSet = true
 	return builder
 }
 
@@ -1543,7 +1547,7 @@ func (builder *ParamsBuilder) Elements(elements []string) *ParamsBuilder {
 // 示例值：
 func (builder *ParamsBuilder) ElementIds(elementIds []string) *ParamsBuilder {
 	builder.elementIds = elementIds
-	builder.elementIdsFlag = true
+	builder.elementIdsSet = true
 	return builder
 }
 
@@ -1552,7 +1556,7 @@ func (builder *ParamsBuilder) ElementIds(elementIds []string) *ParamsBuilder {
 // 示例值：elem_63529372
 func (builder *ParamsBuilder) ElementId(elementId string) *ParamsBuilder {
 	builder.elementId = elementId
-	builder.elementIdFlag = true
+	builder.elementIdSet = true
 	return builder
 }
 
@@ -1561,7 +1565,7 @@ func (builder *ParamsBuilder) ElementId(elementId string) *ParamsBuilder {
 // 示例值：{\"content\":\"更新后的组件文本\"}
 func (builder *ParamsBuilder) PartialElement(partialElement string) *ParamsBuilder {
 	builder.partialElement = partialElement
-	builder.partialElementFlag = true
+	builder.partialElementSet = true
 	return builder
 }
 
@@ -1570,7 +1574,7 @@ func (builder *ParamsBuilder) PartialElement(partialElement string) *ParamsBuild
 // 示例值：{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}
 func (builder *ParamsBuilder) Element(element string) *ParamsBuilder {
 	builder.element = element
-	builder.elementFlag = true
+	builder.elementSet = true
 	return builder
 }
 
@@ -1579,39 +1583,39 @@ func (builder *ParamsBuilder) Element(element string) *ParamsBuilder {
 // 示例值：{\"config\":{\"streaming_mode\":true,\"enable_forward\":true,\"update_multi\":true,\"width_mode\":\"fill\",\"enable_forward_interaction\":false},\"card_link\":{\"url\":\"https://open.feishu.cn\",\"android_url\":\"https://open.feishu.cn\",\"ios_url\":\"https://open.feishu.cn\",\"pc_url\":\"https://open.feishu.cn\"}}
 func (builder *ParamsBuilder) Settings(settings string) *ParamsBuilder {
 	builder.settings = settings
-	builder.settingsFlag = true
+	builder.settingsSet = true
 	return builder
 }
 
 func (builder *ParamsBuilder) Build() *Params {
 	req := &Params{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.targetElementIdFlag {
+	if builder.targetElementIdSet {
 		req.TargetElementId = &builder.targetElementId
 
 	}
-	if builder.elementsFlag {
+	if builder.elementsSet {
 		req.Elements = builder.elements
 	}
-	if builder.elementIdsFlag {
+	if builder.elementIdsSet {
 		req.ElementIds = builder.elementIds
 	}
-	if builder.elementIdFlag {
+	if builder.elementIdSet {
 		req.ElementId = &builder.elementId
 
 	}
-	if builder.partialElementFlag {
+	if builder.partialElementSet {
 		req.PartialElement = &builder.partialElement
 
 	}
-	if builder.elementFlag {
+	if builder.elementSet {
 		req.Element = &builder.element
 
 	}
-	if builder.settingsFlag {
+	if builder.settingsSet {
 		req.Settings = &builder.settings
 
 	}
@@ -1625,11 +1629,11 @@ type Settings struct {
 }
 
 type SettingsBuilder struct {
-	cardLink     *CardLink // 卡片跳转链接
-	cardLinkFlag bool
+	cardLink    *CardLink // 卡片跳转链接
+	cardLinkSet bool
 
-	config     *Config // 用于配置卡片的属性
-	configFlag bool
+	config    *Config // 用于配置卡片的属性
+	configSet bool
 }
 
 func NewSettingsBuilder() *SettingsBuilder {
@@ -1642,7 +1646,7 @@ func NewSettingsBuilder() *SettingsBuilder {
 // 示例值：
 func (builder *SettingsBuilder) CardLink(cardLink *CardLink) *SettingsBuilder {
 	builder.cardLink = cardLink
-	builder.cardLinkFlag = true
+	builder.cardLinkSet = true
 	return builder
 }
 
@@ -1651,16 +1655,16 @@ func (builder *SettingsBuilder) CardLink(cardLink *CardLink) *SettingsBuilder {
 // 示例值：
 func (builder *SettingsBuilder) Config(config *Config) *SettingsBuilder {
 	builder.config = config
-	builder.configFlag = true
+	builder.configSet = true
 	return builder
 }
 
 func (builder *SettingsBuilder) Build() *Settings {
 	req := &Settings{}
-	if builder.cardLinkFlag {
+	if builder.cardLinkSet {
 		req.CardLink = builder.cardLink
 	}
-	if builder.configFlag {
+	if builder.configSet {
 		req.Config = builder.config
 	}
 	return req
@@ -1671,8 +1675,8 @@ type Summary struct {
 }
 
 type SummaryBuilder struct {
-	content     string // 卡片摘要
-	contentFlag bool
+	content    string // 卡片摘要
+	contentSet bool
 }
 
 func NewSummaryBuilder() *SummaryBuilder {
@@ -1685,13 +1689,13 @@ func NewSummaryBuilder() *SummaryBuilder {
 // 示例值：摘要生产中
 func (builder *SummaryBuilder) Content(content string) *SummaryBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *SummaryBuilder) Build() *Summary {
 	req := &Summary{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
@@ -1699,14 +1703,14 @@ func (builder *SummaryBuilder) Build() *Summary {
 }
 
 type BatchUpdateCardReqBodyBuilder struct {
-	uuid     string // 幂等 id，最大长度为 64。可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
-	uuidFlag bool
+	uuid    string // 幂等 id，最大长度为 64。可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	uuidSet bool
 
-	sequence     int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
-	sequenceFlag bool
+	sequence    int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	sequenceSet bool
 
-	actions     string // 操作列表，可选值有： partial_update_setting：更新卡片设置，此时 parmas 结构参考更新卡片设置接口请求体的 settings 字段 ；add_elements，此时 parmas 结构参考添加组件接口请求体的 type、target_element_id、elements 字段 ； delete_elements，此时 parmas 结构内仅支持 element_ids 参数，参数值为组件 ID 数组 ； partial_update_element，此时 parmas 结构包括参考局部更新组件接口的路径参数 element_id 和请求体 partial_element 字段 ; update_element，此时 parmas 结构参考全量更新组件接口的路径参数 element_id 和请求体 element 字段
-	actionsFlag bool
+	actions    string // 操作列表，可选值有： partial_update_setting：更新卡片设置，此时 parmas 结构参考更新卡片设置接口请求体的 settings 字段 ；add_elements，此时 parmas 结构参考添加组件接口请求体的 type、target_element_id、elements 字段 ； delete_elements，此时 parmas 结构内仅支持 element_ids 参数，参数值为组件 ID 数组 ； partial_update_element，此时 parmas 结构包括参考局部更新组件接口的路径参数 element_id 和请求体 partial_element 字段 ; update_element，此时 parmas 结构参考全量更新组件接口的路径参数 element_id 和请求体 element 字段
+	actionsSet bool
 }
 
 func NewBatchUpdateCardReqBodyBuilder() *BatchUpdateCardReqBodyBuilder {
@@ -1716,52 +1720,52 @@ func NewBatchUpdateCardReqBodyBuilder() *BatchUpdateCardReqBodyBuilder {
 
 // 幂等 id，最大长度为 64。可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+//示例值：191857678434
 func (builder *BatchUpdateCardReqBodyBuilder) Uuid(uuid string) *BatchUpdateCardReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
 // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
 //
-// 示例值：1712578784
+//示例值：1712578784
 func (builder *BatchUpdateCardReqBodyBuilder) Sequence(sequence int) *BatchUpdateCardReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
 // 操作列表，可选值有： partial_update_setting：更新卡片设置，此时 parmas 结构参考更新卡片设置接口请求体的 settings 字段 ；add_elements，此时 parmas 结构参考添加组件接口请求体的 type、target_element_id、elements 字段 ； delete_elements，此时 parmas 结构内仅支持 element_ids 参数，参数值为组件 ID 数组 ； partial_update_element，此时 parmas 结构包括参考局部更新组件接口的路径参数 element_id 和请求体 partial_element 字段 ; update_element，此时 parmas 结构参考全量更新组件接口的路径参数 element_id 和请求体 element 字段
 //
-// 示例值：[{\"action\":\"partial_update_setting\",\"params\":{\"config\":{\"streaming_mode\":true},\"card_link\":{\"url\":\"https://open.feishu.cn\"}}},{\"action\":\"add_elements\",\"params\":{\"type\":\"insert_before\",\"target_element_id\":\"text_1\",\"elements\":[{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"示例文本\"}]}},{\"action\":\"delete_elements\",\"params\":{\"element_ids\":[\"text_1\",\"text_2\"]}},{\"action\":\"partial_update_element\",\"params\":{\"element_id\":\"target_element\",\"partial_element\":{\"content\":\"更新后的组件文本\"}}},{\"action\":\"update_element\",\"params\":{\"element_id\":\"target_element\",\"element\":{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}}}]
+//示例值：[{\"action\":\"partial_update_setting\",\"params\":{\"config\":{\"streaming_mode\":true},\"card_link\":{\"url\":\"https://open.feishu.cn\"}}},{\"action\":\"add_elements\",\"params\":{\"type\":\"insert_before\",\"target_element_id\":\"text_1\",\"elements\":[{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"示例文本\"}]}},{\"action\":\"delete_elements\",\"params\":{\"element_ids\":[\"text_1\",\"text_2\"]}},{\"action\":\"partial_update_element\",\"params\":{\"element_id\":\"target_element\",\"partial_element\":{\"content\":\"更新后的组件文本\"}}},{\"action\":\"update_element\",\"params\":{\"element_id\":\"target_element\",\"element\":{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}}}]
 func (builder *BatchUpdateCardReqBodyBuilder) Actions(actions string) *BatchUpdateCardReqBodyBuilder {
 	builder.actions = actions
-	builder.actionsFlag = true
+	builder.actionsSet = true
 	return builder
 }
 
 func (builder *BatchUpdateCardReqBodyBuilder) Build() *BatchUpdateCardReqBody {
 	req := &BatchUpdateCardReqBody{}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
-	if builder.actionsFlag {
+	if builder.actionsSet {
 		req.Actions = &builder.actions
 	}
 	return req
 }
 
 type BatchUpdateCardPathReqBodyBuilder struct {
-	uuid         string
-	uuidFlag     bool
-	sequence     int
-	sequenceFlag bool
-	actions      string
-	actionsFlag  bool
+	uuid        string
+	uuidSet     bool
+	sequence    int
+	sequenceSet bool
+	actions     string
+	actionsSet  bool
 }
 
 func NewBatchUpdateCardPathReqBodyBuilder() *BatchUpdateCardPathReqBodyBuilder {
@@ -1774,7 +1778,7 @@ func NewBatchUpdateCardPathReqBodyBuilder() *BatchUpdateCardPathReqBodyBuilder {
 // 示例值：191857678434
 func (builder *BatchUpdateCardPathReqBodyBuilder) Uuid(uuid string) *BatchUpdateCardPathReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
@@ -1783,7 +1787,7 @@ func (builder *BatchUpdateCardPathReqBodyBuilder) Uuid(uuid string) *BatchUpdate
 // 示例值：1712578784
 func (builder *BatchUpdateCardPathReqBodyBuilder) Sequence(sequence int) *BatchUpdateCardPathReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
@@ -1792,19 +1796,19 @@ func (builder *BatchUpdateCardPathReqBodyBuilder) Sequence(sequence int) *BatchU
 // 示例值：[{\"action\":\"partial_update_setting\",\"params\":{\"config\":{\"streaming_mode\":true},\"card_link\":{\"url\":\"https://open.feishu.cn\"}}},{\"action\":\"add_elements\",\"params\":{\"type\":\"insert_before\",\"target_element_id\":\"text_1\",\"elements\":[{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"示例文本\"}]}},{\"action\":\"delete_elements\",\"params\":{\"element_ids\":[\"text_1\",\"text_2\"]}},{\"action\":\"partial_update_element\",\"params\":{\"element_id\":\"target_element\",\"partial_element\":{\"content\":\"更新后的组件文本\"}}},{\"action\":\"update_element\",\"params\":{\"element_id\":\"target_element\",\"element\":{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}}}]
 func (builder *BatchUpdateCardPathReqBodyBuilder) Actions(actions string) *BatchUpdateCardPathReqBodyBuilder {
 	builder.actions = actions
-	builder.actionsFlag = true
+	builder.actionsSet = true
 	return builder
 }
 
 func (builder *BatchUpdateCardPathReqBodyBuilder) Build() (*BatchUpdateCardReqBody, error) {
 	req := &BatchUpdateCardReqBody{}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
-	if builder.actionsFlag {
+	if builder.actionsSet {
 		req.Actions = &builder.actions
 	}
 	return req, nil
@@ -1870,10 +1874,10 @@ func (resp *BatchUpdateCardResp) Success() bool {
 
 type CreateCardReqBodyBuilder struct {
 	type_    string // 卡片数据的类型
-	typeFlag bool
+	type_Set bool
 
-	data     string // 卡片数据内容，与卡片数据的类型相对应
-	dataFlag bool
+	data    string // 卡片数据内容，与卡片数据的类型相对应
+	dataSet bool
 }
 
 func NewCreateCardReqBodyBuilder() *CreateCardReqBodyBuilder {
@@ -1883,28 +1887,28 @@ func NewCreateCardReqBodyBuilder() *CreateCardReqBodyBuilder {
 
 // 卡片数据的类型
 //
-// 示例值：card_json
+//示例值：card_json
 func (builder *CreateCardReqBodyBuilder) Type(type_ string) *CreateCardReqBodyBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
 // 卡片数据内容，与卡片数据的类型相对应
 //
-// 示例值：{\"schema\":\"2.0\",\"header\":{\"title\":{\"content\":\"卡片标题\",\"tag\":\"plain_text\"}},\"body\":{\"elements\":[{\"tag\":\"markdown\",\"content\":\"卡片内容\"}]}}
+//示例值：{\"schema\":\"2.0\",\"header\":{\"title\":{\"content\":\"卡片标题\",\"tag\":\"plain_text\"}},\"body\":{\"elements\":[{\"tag\":\"markdown\",\"content\":\"卡片内容\"}]}}
 func (builder *CreateCardReqBodyBuilder) Data(data string) *CreateCardReqBodyBuilder {
 	builder.data = data
-	builder.dataFlag = true
+	builder.dataSet = true
 	return builder
 }
 
 func (builder *CreateCardReqBodyBuilder) Build() *CreateCardReqBody {
 	req := &CreateCardReqBody{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 	}
-	if builder.dataFlag {
+	if builder.dataSet {
 		req.Data = &builder.data
 	}
 	return req
@@ -1912,9 +1916,9 @@ func (builder *CreateCardReqBodyBuilder) Build() *CreateCardReqBody {
 
 type CreateCardPathReqBodyBuilder struct {
 	type_    string
-	typeFlag bool
+	type_Set bool
 	data     string
-	dataFlag bool
+	dataSet  bool
 }
 
 func NewCreateCardPathReqBodyBuilder() *CreateCardPathReqBodyBuilder {
@@ -1927,7 +1931,7 @@ func NewCreateCardPathReqBodyBuilder() *CreateCardPathReqBodyBuilder {
 // 示例值：card_json
 func (builder *CreateCardPathReqBodyBuilder) Type(type_ string) *CreateCardPathReqBodyBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1936,16 +1940,16 @@ func (builder *CreateCardPathReqBodyBuilder) Type(type_ string) *CreateCardPathR
 // 示例值：{\"schema\":\"2.0\",\"header\":{\"title\":{\"content\":\"卡片标题\",\"tag\":\"plain_text\"}},\"body\":{\"elements\":[{\"tag\":\"markdown\",\"content\":\"卡片内容\"}]}}
 func (builder *CreateCardPathReqBodyBuilder) Data(data string) *CreateCardPathReqBodyBuilder {
 	builder.data = data
-	builder.dataFlag = true
+	builder.dataSet = true
 	return builder
 }
 
 func (builder *CreateCardPathReqBodyBuilder) Build() (*CreateCardReqBody, error) {
 	req := &CreateCardReqBody{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 	}
-	if builder.dataFlag {
+	if builder.dataSet {
 		req.Data = &builder.data
 	}
 	return req, nil
@@ -2004,8 +2008,8 @@ func (resp *CreateCardResp) Success() bool {
 }
 
 type IdConvertCardReqBodyBuilder struct {
-	messageId     string // 消息ID
-	messageIdFlag bool
+	messageId    string // 消息ID
+	messageIdSet bool
 }
 
 func NewIdConvertCardReqBodyBuilder() *IdConvertCardReqBodyBuilder {
@@ -2015,24 +2019,24 @@ func NewIdConvertCardReqBodyBuilder() *IdConvertCardReqBodyBuilder {
 
 // 消息ID
 //
-// 示例值：om_fbdf6ed2e17f1d98e78fb26c1370186e
+//示例值：om_fbdf6ed2e17f1d98e78fb26c1370186e
 func (builder *IdConvertCardReqBodyBuilder) MessageId(messageId string) *IdConvertCardReqBodyBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
 func (builder *IdConvertCardReqBodyBuilder) Build() *IdConvertCardReqBody {
 	req := &IdConvertCardReqBody{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 	}
 	return req
 }
 
 type IdConvertCardPathReqBodyBuilder struct {
-	messageId     string
-	messageIdFlag bool
+	messageId    string
+	messageIdSet bool
 }
 
 func NewIdConvertCardPathReqBodyBuilder() *IdConvertCardPathReqBodyBuilder {
@@ -2045,13 +2049,13 @@ func NewIdConvertCardPathReqBodyBuilder() *IdConvertCardPathReqBodyBuilder {
 // 示例值：om_fbdf6ed2e17f1d98e78fb26c1370186e
 func (builder *IdConvertCardPathReqBodyBuilder) MessageId(messageId string) *IdConvertCardPathReqBodyBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
 func (builder *IdConvertCardPathReqBodyBuilder) Build() (*IdConvertCardReqBody, error) {
 	req := &IdConvertCardReqBody{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 	}
 	return req, nil
@@ -2108,14 +2112,14 @@ func (resp *IdConvertCardResp) Success() bool {
 }
 
 type SettingsCardReqBodyBuilder struct {
-	settings     string // 卡片设置
-	settingsFlag bool
+	settings    string // 卡片设置
+	settingsSet bool
 
-	uuid     string // UUID
-	uuidFlag bool
+	uuid    string // UUID
+	uuidSet bool
 
-	sequence     int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
-	sequenceFlag bool
+	sequence    int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	sequenceSet bool
 }
 
 func NewSettingsCardReqBodyBuilder() *SettingsCardReqBodyBuilder {
@@ -2125,52 +2129,52 @@ func NewSettingsCardReqBodyBuilder() *SettingsCardReqBodyBuilder {
 
 // 卡片设置
 //
-// 示例值：{\"config\":{\"streaming_mode\":true,\"enable_forward\":true,\"update_multi\":true,\"width_mode\":\"fill\",\"enable_forward_interaction\":false},\"card_link\":{\"url\":\"https://open.feishu.cn\",\"android_url\":\"https://open.feishu.cn\",\"ios_url\":\"https://open.feishu.cn\",\"pc_url\":\"https://open.feishu.cn\"}}
+//示例值：{\"config\":{\"streaming_mode\":true,\"enable_forward\":true,\"update_multi\":true,\"width_mode\":\"fill\",\"enable_forward_interaction\":false},\"card_link\":{\"url\":\"https://open.feishu.cn\",\"android_url\":\"https://open.feishu.cn\",\"ios_url\":\"https://open.feishu.cn\",\"pc_url\":\"https://open.feishu.cn\"}}
 func (builder *SettingsCardReqBodyBuilder) Settings(settings string) *SettingsCardReqBodyBuilder {
 	builder.settings = settings
-	builder.settingsFlag = true
+	builder.settingsSet = true
 	return builder
 }
 
 // UUID
 //
-// 示例值：191857678434
+//示例值：191857678434
 func (builder *SettingsCardReqBodyBuilder) Uuid(uuid string) *SettingsCardReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
 // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
 //
-// 示例值：1712578784
+//示例值：1712578784
 func (builder *SettingsCardReqBodyBuilder) Sequence(sequence int) *SettingsCardReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
 func (builder *SettingsCardReqBodyBuilder) Build() *SettingsCardReqBody {
 	req := &SettingsCardReqBody{}
-	if builder.settingsFlag {
+	if builder.settingsSet {
 		req.Settings = &builder.settings
 	}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
 	return req
 }
 
 type SettingsCardPathReqBodyBuilder struct {
-	settings     string
-	settingsFlag bool
-	uuid         string
-	uuidFlag     bool
-	sequence     int
-	sequenceFlag bool
+	settings    string
+	settingsSet bool
+	uuid        string
+	uuidSet     bool
+	sequence    int
+	sequenceSet bool
 }
 
 func NewSettingsCardPathReqBodyBuilder() *SettingsCardPathReqBodyBuilder {
@@ -2183,7 +2187,7 @@ func NewSettingsCardPathReqBodyBuilder() *SettingsCardPathReqBodyBuilder {
 // 示例值：{\"config\":{\"streaming_mode\":true,\"enable_forward\":true,\"update_multi\":true,\"width_mode\":\"fill\",\"enable_forward_interaction\":false},\"card_link\":{\"url\":\"https://open.feishu.cn\",\"android_url\":\"https://open.feishu.cn\",\"ios_url\":\"https://open.feishu.cn\",\"pc_url\":\"https://open.feishu.cn\"}}
 func (builder *SettingsCardPathReqBodyBuilder) Settings(settings string) *SettingsCardPathReqBodyBuilder {
 	builder.settings = settings
-	builder.settingsFlag = true
+	builder.settingsSet = true
 	return builder
 }
 
@@ -2192,7 +2196,7 @@ func (builder *SettingsCardPathReqBodyBuilder) Settings(settings string) *Settin
 // 示例值：191857678434
 func (builder *SettingsCardPathReqBodyBuilder) Uuid(uuid string) *SettingsCardPathReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
@@ -2201,19 +2205,19 @@ func (builder *SettingsCardPathReqBodyBuilder) Uuid(uuid string) *SettingsCardPa
 // 示例值：1712578784
 func (builder *SettingsCardPathReqBodyBuilder) Sequence(sequence int) *SettingsCardPathReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
 func (builder *SettingsCardPathReqBodyBuilder) Build() (*SettingsCardReqBody, error) {
 	req := &SettingsCardReqBody{}
-	if builder.settingsFlag {
+	if builder.settingsSet {
 		req.Settings = &builder.settings
 	}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
 	return req, nil
@@ -2278,14 +2282,14 @@ func (resp *SettingsCardResp) Success() bool {
 }
 
 type UpdateCardReqBodyBuilder struct {
-	card     *Card // 卡片内容
-	cardFlag bool
+	card    *Card // 卡片内容
+	cardSet bool
 
-	uuid     string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
-	uuidFlag bool
+	uuid    string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	uuidSet bool
 
-	sequence     int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
-	sequenceFlag bool
+	sequence    int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	sequenceSet bool
 }
 
 func NewUpdateCardReqBodyBuilder() *UpdateCardReqBodyBuilder {
@@ -2295,52 +2299,52 @@ func NewUpdateCardReqBodyBuilder() *UpdateCardReqBodyBuilder {
 
 // 卡片内容
 //
-// 示例值：
+//示例值：
 func (builder *UpdateCardReqBodyBuilder) Card(card *Card) *UpdateCardReqBodyBuilder {
 	builder.card = card
-	builder.cardFlag = true
+	builder.cardSet = true
 	return builder
 }
 
 // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+//示例值：191857678434
 func (builder *UpdateCardReqBodyBuilder) Uuid(uuid string) *UpdateCardReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
 // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
 //
-// 示例值：1712578784
+//示例值：1712578784
 func (builder *UpdateCardReqBodyBuilder) Sequence(sequence int) *UpdateCardReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
 func (builder *UpdateCardReqBodyBuilder) Build() *UpdateCardReqBody {
 	req := &UpdateCardReqBody{}
-	if builder.cardFlag {
+	if builder.cardSet {
 		req.Card = builder.card
 	}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
 	return req
 }
 
 type UpdateCardPathReqBodyBuilder struct {
-	card         *Card
-	cardFlag     bool
-	uuid         string
-	uuidFlag     bool
-	sequence     int
-	sequenceFlag bool
+	card        *Card
+	cardSet     bool
+	uuid        string
+	uuidSet     bool
+	sequence    int
+	sequenceSet bool
 }
 
 func NewUpdateCardPathReqBodyBuilder() *UpdateCardPathReqBodyBuilder {
@@ -2353,7 +2357,7 @@ func NewUpdateCardPathReqBodyBuilder() *UpdateCardPathReqBodyBuilder {
 // 示例值：
 func (builder *UpdateCardPathReqBodyBuilder) Card(card *Card) *UpdateCardPathReqBodyBuilder {
 	builder.card = card
-	builder.cardFlag = true
+	builder.cardSet = true
 	return builder
 }
 
@@ -2362,7 +2366,7 @@ func (builder *UpdateCardPathReqBodyBuilder) Card(card *Card) *UpdateCardPathReq
 // 示例值：191857678434
 func (builder *UpdateCardPathReqBodyBuilder) Uuid(uuid string) *UpdateCardPathReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
@@ -2371,19 +2375,19 @@ func (builder *UpdateCardPathReqBodyBuilder) Uuid(uuid string) *UpdateCardPathRe
 // 示例值：1712578784
 func (builder *UpdateCardPathReqBodyBuilder) Sequence(sequence int) *UpdateCardPathReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
 func (builder *UpdateCardPathReqBodyBuilder) Build() (*UpdateCardReqBody, error) {
 	req := &UpdateCardReqBody{}
-	if builder.cardFlag {
+	if builder.cardSet {
 		req.Card = builder.card
 	}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
 	return req, nil
@@ -2448,14 +2452,14 @@ func (resp *UpdateCardResp) Success() bool {
 }
 
 type ContentCardElementReqBodyBuilder struct {
-	uuid     string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
-	uuidFlag bool
+	uuid    string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	uuidSet bool
 
-	content     string // 更新后的文本内容
-	contentFlag bool
+	content    string // 更新后的文本内容
+	contentSet bool
 
-	sequence     int // 顺序序号，用于保证更新文本内容的时序性。在卡片的单次 streaming 模式周期中（steaming 状态从开始到停止），该值需为递增的正整数，否则将报错。
-	sequenceFlag bool
+	sequence    int // 顺序序号，用于保证更新文本内容的时序性。在卡片的单次 streaming 模式周期中（steaming 状态从开始到停止），该值需为递增的正整数，否则将报错。
+	sequenceSet bool
 }
 
 func NewContentCardElementReqBodyBuilder() *ContentCardElementReqBodyBuilder {
@@ -2465,52 +2469,52 @@ func NewContentCardElementReqBodyBuilder() *ContentCardElementReqBodyBuilder {
 
 // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+//示例值：191857678434
 func (builder *ContentCardElementReqBodyBuilder) Uuid(uuid string) *ContentCardElementReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
 // 更新后的文本内容
 //
-// 示例值：{\"content\":\"更新后的文本内容\"}
+//示例值：{\"content\":\"更新后的文本内容\"}
 func (builder *ContentCardElementReqBodyBuilder) Content(content string) *ContentCardElementReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 // 顺序序号，用于保证更新文本内容的时序性。在卡片的单次 streaming 模式周期中（steaming 状态从开始到停止），该值需为递增的正整数，否则将报错。
 //
-// 示例值：1712578784
+//示例值：1712578784
 func (builder *ContentCardElementReqBodyBuilder) Sequence(sequence int) *ContentCardElementReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
 func (builder *ContentCardElementReqBodyBuilder) Build() *ContentCardElementReqBody {
 	req := &ContentCardElementReqBody{}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
 	return req
 }
 
 type ContentCardElementPathReqBodyBuilder struct {
-	uuid         string
-	uuidFlag     bool
-	content      string
-	contentFlag  bool
-	sequence     int
-	sequenceFlag bool
+	uuid        string
+	uuidSet     bool
+	content     string
+	contentSet  bool
+	sequence    int
+	sequenceSet bool
 }
 
 func NewContentCardElementPathReqBodyBuilder() *ContentCardElementPathReqBodyBuilder {
@@ -2523,7 +2527,7 @@ func NewContentCardElementPathReqBodyBuilder() *ContentCardElementPathReqBodyBui
 // 示例值：191857678434
 func (builder *ContentCardElementPathReqBodyBuilder) Uuid(uuid string) *ContentCardElementPathReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
@@ -2532,7 +2536,7 @@ func (builder *ContentCardElementPathReqBodyBuilder) Uuid(uuid string) *ContentC
 // 示例值：{\"content\":\"更新后的文本内容\"}
 func (builder *ContentCardElementPathReqBodyBuilder) Content(content string) *ContentCardElementPathReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -2541,19 +2545,19 @@ func (builder *ContentCardElementPathReqBodyBuilder) Content(content string) *Co
 // 示例值：1712578784
 func (builder *ContentCardElementPathReqBodyBuilder) Sequence(sequence int) *ContentCardElementPathReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
 func (builder *ContentCardElementPathReqBodyBuilder) Build() (*ContentCardElementReqBody, error) {
 	req := &ContentCardElementReqBody{}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
 	return req, nil
@@ -2627,19 +2631,19 @@ func (resp *ContentCardElementResp) Success() bool {
 
 type CreateCardElementReqBodyBuilder struct {
 	type_    string // 添加组件的方式
-	typeFlag bool
+	type_Set bool
 
-	targetElementId     string // 目标组件的 ID。 当 type 为 insert_before、insert_after 时，为用于定位的目标组件。 当 type 为 append 时，该字段仅支持容器类组件，为用于指定末尾添加的目标组件，未填写默认为在卡片 body 末尾添加。
-	targetElementIdFlag bool
+	targetElementId    string // 目标组件的 ID。 当 type 为 insert_before、insert_after 时，为用于定位的目标组件。 当 type 为 append 时，该字段仅支持容器类组件，为用于指定末尾添加的目标组件，未填写默认为在卡片 body 末尾添加。
+	targetElementIdSet bool
 
-	uuid     string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
-	uuidFlag bool
+	uuid    string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	uuidSet bool
 
-	sequence     int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
-	sequenceFlag bool
+	sequence    int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	sequenceSet bool
 
-	elements     string // 组件列表
-	elementsFlag bool
+	elements    string // 组件列表
+	elementsSet bool
 }
 
 func NewCreateCardElementReqBodyBuilder() *CreateCardElementReqBodyBuilder {
@@ -2649,80 +2653,80 @@ func NewCreateCardElementReqBodyBuilder() *CreateCardElementReqBodyBuilder {
 
 // 添加组件的方式
 //
-// 示例值：insert_before
+//示例值：insert_before
 func (builder *CreateCardElementReqBodyBuilder) Type(type_ string) *CreateCardElementReqBodyBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
 // 目标组件的 ID。 当 type 为 insert_before、insert_after 时，为用于定位的目标组件。 当 type 为 append 时，该字段仅支持容器类组件，为用于指定末尾添加的目标组件，未填写默认为在卡片 body 末尾添加。
 //
-// 示例值：elem_63529372
+//示例值：elem_63529372
 func (builder *CreateCardElementReqBodyBuilder) TargetElementId(targetElementId string) *CreateCardElementReqBodyBuilder {
 	builder.targetElementId = targetElementId
-	builder.targetElementIdFlag = true
+	builder.targetElementIdSet = true
 	return builder
 }
 
 // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+//示例值：191857678434
 func (builder *CreateCardElementReqBodyBuilder) Uuid(uuid string) *CreateCardElementReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
 // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
 //
-// 示例值：1712578784
+//示例值：1712578784
 func (builder *CreateCardElementReqBodyBuilder) Sequence(sequence int) *CreateCardElementReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
 // 组件列表
 //
-// 示例值：[{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"示例文本\"}]
+//示例值：[{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"示例文本\"}]
 func (builder *CreateCardElementReqBodyBuilder) Elements(elements string) *CreateCardElementReqBodyBuilder {
 	builder.elements = elements
-	builder.elementsFlag = true
+	builder.elementsSet = true
 	return builder
 }
 
 func (builder *CreateCardElementReqBodyBuilder) Build() *CreateCardElementReqBody {
 	req := &CreateCardElementReqBody{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 	}
-	if builder.targetElementIdFlag {
+	if builder.targetElementIdSet {
 		req.TargetElementId = &builder.targetElementId
 	}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
-	if builder.elementsFlag {
+	if builder.elementsSet {
 		req.Elements = &builder.elements
 	}
 	return req
 }
 
 type CreateCardElementPathReqBodyBuilder struct {
-	type_               string
-	typeFlag            bool
-	targetElementId     string
-	targetElementIdFlag bool
-	uuid                string
-	uuidFlag            bool
-	sequence            int
-	sequenceFlag        bool
-	elements            string
-	elementsFlag        bool
+	type_              string
+	type_Set           bool
+	targetElementId    string
+	targetElementIdSet bool
+	uuid               string
+	uuidSet            bool
+	sequence           int
+	sequenceSet        bool
+	elements           string
+	elementsSet        bool
 }
 
 func NewCreateCardElementPathReqBodyBuilder() *CreateCardElementPathReqBodyBuilder {
@@ -2735,7 +2739,7 @@ func NewCreateCardElementPathReqBodyBuilder() *CreateCardElementPathReqBodyBuild
 // 示例值：insert_before
 func (builder *CreateCardElementPathReqBodyBuilder) Type(type_ string) *CreateCardElementPathReqBodyBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -2744,7 +2748,7 @@ func (builder *CreateCardElementPathReqBodyBuilder) Type(type_ string) *CreateCa
 // 示例值：elem_63529372
 func (builder *CreateCardElementPathReqBodyBuilder) TargetElementId(targetElementId string) *CreateCardElementPathReqBodyBuilder {
 	builder.targetElementId = targetElementId
-	builder.targetElementIdFlag = true
+	builder.targetElementIdSet = true
 	return builder
 }
 
@@ -2753,7 +2757,7 @@ func (builder *CreateCardElementPathReqBodyBuilder) TargetElementId(targetElemen
 // 示例值：191857678434
 func (builder *CreateCardElementPathReqBodyBuilder) Uuid(uuid string) *CreateCardElementPathReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
@@ -2762,7 +2766,7 @@ func (builder *CreateCardElementPathReqBodyBuilder) Uuid(uuid string) *CreateCar
 // 示例值：1712578784
 func (builder *CreateCardElementPathReqBodyBuilder) Sequence(sequence int) *CreateCardElementPathReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
@@ -2771,25 +2775,25 @@ func (builder *CreateCardElementPathReqBodyBuilder) Sequence(sequence int) *Crea
 // 示例值：[{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"示例文本\"}]
 func (builder *CreateCardElementPathReqBodyBuilder) Elements(elements string) *CreateCardElementPathReqBodyBuilder {
 	builder.elements = elements
-	builder.elementsFlag = true
+	builder.elementsSet = true
 	return builder
 }
 
 func (builder *CreateCardElementPathReqBodyBuilder) Build() (*CreateCardElementReqBody, error) {
 	req := &CreateCardElementReqBody{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 	}
-	if builder.targetElementIdFlag {
+	if builder.targetElementIdSet {
 		req.TargetElementId = &builder.targetElementId
 	}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
-	if builder.elementsFlag {
+	if builder.elementsSet {
 		req.Elements = &builder.elements
 	}
 	return req, nil
@@ -2858,11 +2862,11 @@ func (resp *CreateCardElementResp) Success() bool {
 }
 
 type DeleteCardElementReqBodyBuilder struct {
-	uuid     string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
-	uuidFlag bool
+	uuid    string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	uuidSet bool
 
-	sequence     int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
-	sequenceFlag bool
+	sequence    int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	sequenceSet bool
 }
 
 func NewDeleteCardElementReqBodyBuilder() *DeleteCardElementReqBodyBuilder {
@@ -2872,38 +2876,38 @@ func NewDeleteCardElementReqBodyBuilder() *DeleteCardElementReqBodyBuilder {
 
 // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+//示例值：191857678434
 func (builder *DeleteCardElementReqBodyBuilder) Uuid(uuid string) *DeleteCardElementReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
 // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
 //
-// 示例值：1712578784
+//示例值：1712578784
 func (builder *DeleteCardElementReqBodyBuilder) Sequence(sequence int) *DeleteCardElementReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
 func (builder *DeleteCardElementReqBodyBuilder) Build() *DeleteCardElementReqBody {
 	req := &DeleteCardElementReqBody{}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
 	return req
 }
 
 type DeleteCardElementPathReqBodyBuilder struct {
-	uuid         string
-	uuidFlag     bool
-	sequence     int
-	sequenceFlag bool
+	uuid        string
+	uuidSet     bool
+	sequence    int
+	sequenceSet bool
 }
 
 func NewDeleteCardElementPathReqBodyBuilder() *DeleteCardElementPathReqBodyBuilder {
@@ -2916,7 +2920,7 @@ func NewDeleteCardElementPathReqBodyBuilder() *DeleteCardElementPathReqBodyBuild
 // 示例值：191857678434
 func (builder *DeleteCardElementPathReqBodyBuilder) Uuid(uuid string) *DeleteCardElementPathReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
@@ -2925,16 +2929,16 @@ func (builder *DeleteCardElementPathReqBodyBuilder) Uuid(uuid string) *DeleteCar
 // 示例值：1712578784
 func (builder *DeleteCardElementPathReqBodyBuilder) Sequence(sequence int) *DeleteCardElementPathReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
 func (builder *DeleteCardElementPathReqBodyBuilder) Build() (*DeleteCardElementReqBody, error) {
 	req := &DeleteCardElementReqBody{}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
 	return req, nil
@@ -3005,14 +3009,14 @@ func (resp *DeleteCardElementResp) Success() bool {
 }
 
 type PatchCardElementReqBodyBuilder struct {
-	partialElement     string // 要更改的组件部分配置内容，传入 id 参数后将对原有组件的 id 进行更新，不支持修改 tag 参数。
-	partialElementFlag bool
+	partialElement    string // 要更改的组件部分配置内容，传入 id 参数后将对原有组件的 id 进行更新，不支持修改 tag 参数。
+	partialElementSet bool
 
-	uuid     string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
-	uuidFlag bool
+	uuid    string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	uuidSet bool
 
-	sequence     int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
-	sequenceFlag bool
+	sequence    int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	sequenceSet bool
 }
 
 func NewPatchCardElementReqBodyBuilder() *PatchCardElementReqBodyBuilder {
@@ -3022,52 +3026,52 @@ func NewPatchCardElementReqBodyBuilder() *PatchCardElementReqBodyBuilder {
 
 // 要更改的组件部分配置内容，传入 id 参数后将对原有组件的 id 进行更新，不支持修改 tag 参数。
 //
-// 示例值：{\"content\":\"更新后的组件文本\"}
+//示例值：{\"content\":\"更新后的组件文本\"}
 func (builder *PatchCardElementReqBodyBuilder) PartialElement(partialElement string) *PatchCardElementReqBodyBuilder {
 	builder.partialElement = partialElement
-	builder.partialElementFlag = true
+	builder.partialElementSet = true
 	return builder
 }
 
 // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+//示例值：191857678434
 func (builder *PatchCardElementReqBodyBuilder) Uuid(uuid string) *PatchCardElementReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
 // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
 //
-// 示例值：1712578784
+//示例值：1712578784
 func (builder *PatchCardElementReqBodyBuilder) Sequence(sequence int) *PatchCardElementReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
 func (builder *PatchCardElementReqBodyBuilder) Build() *PatchCardElementReqBody {
 	req := &PatchCardElementReqBody{}
-	if builder.partialElementFlag {
+	if builder.partialElementSet {
 		req.PartialElement = &builder.partialElement
 	}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
 	return req
 }
 
 type PatchCardElementPathReqBodyBuilder struct {
-	partialElement     string
-	partialElementFlag bool
-	uuid               string
-	uuidFlag           bool
-	sequence           int
-	sequenceFlag       bool
+	partialElement    string
+	partialElementSet bool
+	uuid              string
+	uuidSet           bool
+	sequence          int
+	sequenceSet       bool
 }
 
 func NewPatchCardElementPathReqBodyBuilder() *PatchCardElementPathReqBodyBuilder {
@@ -3080,7 +3084,7 @@ func NewPatchCardElementPathReqBodyBuilder() *PatchCardElementPathReqBodyBuilder
 // 示例值：{\"content\":\"更新后的组件文本\"}
 func (builder *PatchCardElementPathReqBodyBuilder) PartialElement(partialElement string) *PatchCardElementPathReqBodyBuilder {
 	builder.partialElement = partialElement
-	builder.partialElementFlag = true
+	builder.partialElementSet = true
 	return builder
 }
 
@@ -3089,7 +3093,7 @@ func (builder *PatchCardElementPathReqBodyBuilder) PartialElement(partialElement
 // 示例值：191857678434
 func (builder *PatchCardElementPathReqBodyBuilder) Uuid(uuid string) *PatchCardElementPathReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
@@ -3098,19 +3102,19 @@ func (builder *PatchCardElementPathReqBodyBuilder) Uuid(uuid string) *PatchCardE
 // 示例值：1712578784
 func (builder *PatchCardElementPathReqBodyBuilder) Sequence(sequence int) *PatchCardElementPathReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
 func (builder *PatchCardElementPathReqBodyBuilder) Build() (*PatchCardElementReqBody, error) {
 	req := &PatchCardElementReqBody{}
-	if builder.partialElementFlag {
+	if builder.partialElementSet {
 		req.PartialElement = &builder.partialElement
 	}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
 	return req, nil
@@ -3183,14 +3187,14 @@ func (resp *PatchCardElementResp) Success() bool {
 }
 
 type UpdateCardElementReqBodyBuilder struct {
-	uuid     string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
-	uuidFlag bool
+	uuid    string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	uuidSet bool
 
-	element     string // 新的组件
-	elementFlag bool
+	element    string // 新的组件
+	elementSet bool
 
-	sequence     int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
-	sequenceFlag bool
+	sequence    int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	sequenceSet bool
 }
 
 func NewUpdateCardElementReqBodyBuilder() *UpdateCardElementReqBodyBuilder {
@@ -3200,52 +3204,52 @@ func NewUpdateCardElementReqBodyBuilder() *UpdateCardElementReqBodyBuilder {
 
 // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+//示例值：191857678434
 func (builder *UpdateCardElementReqBodyBuilder) Uuid(uuid string) *UpdateCardElementReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
 // 新的组件
 //
-// 示例值：{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}
+//示例值：{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}
 func (builder *UpdateCardElementReqBodyBuilder) Element(element string) *UpdateCardElementReqBodyBuilder {
 	builder.element = element
-	builder.elementFlag = true
+	builder.elementSet = true
 	return builder
 }
 
 // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
 //
-// 示例值：1712578784
+//示例值：1712578784
 func (builder *UpdateCardElementReqBodyBuilder) Sequence(sequence int) *UpdateCardElementReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
 func (builder *UpdateCardElementReqBodyBuilder) Build() *UpdateCardElementReqBody {
 	req := &UpdateCardElementReqBody{}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.elementFlag {
+	if builder.elementSet {
 		req.Element = &builder.element
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
 	return req
 }
 
 type UpdateCardElementPathReqBodyBuilder struct {
-	uuid         string
-	uuidFlag     bool
-	element      string
-	elementFlag  bool
-	sequence     int
-	sequenceFlag bool
+	uuid        string
+	uuidSet     bool
+	element     string
+	elementSet  bool
+	sequence    int
+	sequenceSet bool
 }
 
 func NewUpdateCardElementPathReqBodyBuilder() *UpdateCardElementPathReqBodyBuilder {
@@ -3258,7 +3262,7 @@ func NewUpdateCardElementPathReqBodyBuilder() *UpdateCardElementPathReqBodyBuild
 // 示例值：191857678434
 func (builder *UpdateCardElementPathReqBodyBuilder) Uuid(uuid string) *UpdateCardElementPathReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
@@ -3267,7 +3271,7 @@ func (builder *UpdateCardElementPathReqBodyBuilder) Uuid(uuid string) *UpdateCar
 // 示例值：{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}
 func (builder *UpdateCardElementPathReqBodyBuilder) Element(element string) *UpdateCardElementPathReqBodyBuilder {
 	builder.element = element
-	builder.elementFlag = true
+	builder.elementSet = true
 	return builder
 }
 
@@ -3276,19 +3280,19 @@ func (builder *UpdateCardElementPathReqBodyBuilder) Element(element string) *Upd
 // 示例值：1712578784
 func (builder *UpdateCardElementPathReqBodyBuilder) Sequence(sequence int) *UpdateCardElementPathReqBodyBuilder {
 	builder.sequence = sequence
-	builder.sequenceFlag = true
+	builder.sequenceSet = true
 	return builder
 }
 
 func (builder *UpdateCardElementPathReqBodyBuilder) Build() (*UpdateCardElementReqBody, error) {
 	req := &UpdateCardElementReqBody{}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
-	if builder.elementFlag {
+	if builder.elementSet {
 		req.Element = &builder.element
 	}
-	if builder.sequenceFlag {
+	if builder.sequenceSet {
 		req.Sequence = &builder.sequence
 	}
 	return req, nil

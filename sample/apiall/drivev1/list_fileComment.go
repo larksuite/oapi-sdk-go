@@ -34,6 +34,7 @@ func main() {
 		PageToken("7153511712153412356").
 		PageSize(10).
 		UserIdType("user_id").
+		NeedReaction(false).
 		Build()
 	// 发起请求
 	resp, err := client.Drive.V1.FileComment.List(context.Background(), req)

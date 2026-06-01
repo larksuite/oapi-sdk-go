@@ -107,29 +107,29 @@ type AccessRecord struct {
 }
 
 type AccessRecordBuilder struct {
-	accessRecordId     string // 门禁记录 ID
-	accessRecordIdFlag bool
+	accessRecordId    string // 门禁记录 ID
+	accessRecordIdSet bool
 
-	userId     string // 门禁记录所属用户 ID
-	userIdFlag bool
+	userId    string // 门禁记录所属用户 ID
+	userIdSet bool
 
-	deviceId     string // 门禁设备 ID
-	deviceIdFlag bool
+	deviceId    string // 门禁设备 ID
+	deviceIdSet bool
 
-	isClockIn     bool // 是否是打卡
-	isClockInFlag bool
+	isClockIn    bool // 是否是打卡
+	isClockInSet bool
 
-	accessTime     string // 访问时间，单位秒
-	accessTimeFlag bool
+	accessTime    string // 访问时间，单位秒
+	accessTimeSet bool
 
-	accessType     string // 识别方式
-	accessTypeFlag bool
+	accessType    string // 识别方式
+	accessTypeSet bool
 
-	accessData     string // 识别相关数据，根据 access_type 不同，取值不同
-	accessDataFlag bool
+	accessData    string // 识别相关数据，根据 access_type 不同，取值不同
+	accessDataSet bool
 
-	isDoorOpen     bool // 是否开门
-	isDoorOpenFlag bool
+	isDoorOpen    bool // 是否开门
+	isDoorOpenSet bool
 }
 
 func NewAccessRecordBuilder() *AccessRecordBuilder {
@@ -142,7 +142,7 @@ func NewAccessRecordBuilder() *AccessRecordBuilder {
 // 示例值：6939433228970082591
 func (builder *AccessRecordBuilder) AccessRecordId(accessRecordId string) *AccessRecordBuilder {
 	builder.accessRecordId = accessRecordId
-	builder.accessRecordIdFlag = true
+	builder.accessRecordIdSet = true
 	return builder
 }
 
@@ -151,7 +151,7 @@ func (builder *AccessRecordBuilder) AccessRecordId(accessRecordId string) *Acces
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *AccessRecordBuilder) UserId(userId string) *AccessRecordBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -160,7 +160,7 @@ func (builder *AccessRecordBuilder) UserId(userId string) *AccessRecordBuilder {
 // 示例值：6939433228970082593
 func (builder *AccessRecordBuilder) DeviceId(deviceId string) *AccessRecordBuilder {
 	builder.deviceId = deviceId
-	builder.deviceIdFlag = true
+	builder.deviceIdSet = true
 	return builder
 }
 
@@ -169,7 +169,7 @@ func (builder *AccessRecordBuilder) DeviceId(deviceId string) *AccessRecordBuild
 // 示例值：true
 func (builder *AccessRecordBuilder) IsClockIn(isClockIn bool) *AccessRecordBuilder {
 	builder.isClockIn = isClockIn
-	builder.isClockInFlag = true
+	builder.isClockInSet = true
 	return builder
 }
 
@@ -178,7 +178,7 @@ func (builder *AccessRecordBuilder) IsClockIn(isClockIn bool) *AccessRecordBuild
 // 示例值：1624520221
 func (builder *AccessRecordBuilder) AccessTime(accessTime string) *AccessRecordBuilder {
 	builder.accessTime = accessTime
-	builder.accessTimeFlag = true
+	builder.accessTimeSet = true
 	return builder
 }
 
@@ -187,7 +187,7 @@ func (builder *AccessRecordBuilder) AccessTime(accessTime string) *AccessRecordB
 // 示例值：FA
 func (builder *AccessRecordBuilder) AccessType(accessType string) *AccessRecordBuilder {
 	builder.accessType = accessType
-	builder.accessTypeFlag = true
+	builder.accessTypeSet = true
 	return builder
 }
 
@@ -196,7 +196,7 @@ func (builder *AccessRecordBuilder) AccessType(accessType string) *AccessRecordB
 // 示例值：{\"has_access_photo\":true}
 func (builder *AccessRecordBuilder) AccessData(accessData string) *AccessRecordBuilder {
 	builder.accessData = accessData
-	builder.accessDataFlag = true
+	builder.accessDataSet = true
 	return builder
 }
 
@@ -205,41 +205,41 @@ func (builder *AccessRecordBuilder) AccessData(accessData string) *AccessRecordB
 // 示例值：true
 func (builder *AccessRecordBuilder) IsDoorOpen(isDoorOpen bool) *AccessRecordBuilder {
 	builder.isDoorOpen = isDoorOpen
-	builder.isDoorOpenFlag = true
+	builder.isDoorOpenSet = true
 	return builder
 }
 
 func (builder *AccessRecordBuilder) Build() *AccessRecord {
 	req := &AccessRecord{}
-	if builder.accessRecordIdFlag {
+	if builder.accessRecordIdSet {
 		req.AccessRecordId = &builder.accessRecordId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.deviceIdFlag {
+	if builder.deviceIdSet {
 		req.DeviceId = &builder.deviceId
 
 	}
-	if builder.isClockInFlag {
+	if builder.isClockInSet {
 		req.IsClockIn = &builder.isClockIn
 
 	}
-	if builder.accessTimeFlag {
+	if builder.accessTimeSet {
 		req.AccessTime = &builder.accessTime
 
 	}
-	if builder.accessTypeFlag {
+	if builder.accessTypeSet {
 		req.AccessType = &builder.accessType
 
 	}
-	if builder.accessDataFlag {
+	if builder.accessDataSet {
 		req.AccessData = &builder.accessData
 
 	}
-	if builder.isDoorOpenFlag {
+	if builder.isDoorOpenSet {
 		req.IsDoorOpen = &builder.isDoorOpen
 
 	}
@@ -253,11 +253,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -265,27 +265,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -303,17 +307,17 @@ type Device struct {
 }
 
 type DeviceBuilder struct {
-	deviceId     string // 门禁设备 ID
-	deviceIdFlag bool
+	deviceId    string // 门禁设备 ID
+	deviceIdSet bool
 
-	deviceName     string // 设备名称
-	deviceNameFlag bool
+	deviceName    string // 设备名称
+	deviceNameSet bool
 
-	deviceSn     string // 设备 SN 码
-	deviceSnFlag bool
+	deviceSn    string // 设备 SN 码
+	deviceSnSet bool
 
-	property     *Property // 设备属性
-	propertyFlag bool
+	property    *Property // 设备属性
+	propertySet bool
 }
 
 func NewDeviceBuilder() *DeviceBuilder {
@@ -326,7 +330,7 @@ func NewDeviceBuilder() *DeviceBuilder {
 // 示例值：6939433228970082593
 func (builder *DeviceBuilder) DeviceId(deviceId string) *DeviceBuilder {
 	builder.deviceId = deviceId
-	builder.deviceIdFlag = true
+	builder.deviceIdSet = true
 	return builder
 }
 
@@ -335,7 +339,7 @@ func (builder *DeviceBuilder) DeviceId(deviceId string) *DeviceBuilder {
 // 示例值：东门
 func (builder *DeviceBuilder) DeviceName(deviceName string) *DeviceBuilder {
 	builder.deviceName = deviceName
-	builder.deviceNameFlag = true
+	builder.deviceNameSet = true
 	return builder
 }
 
@@ -344,7 +348,7 @@ func (builder *DeviceBuilder) DeviceName(deviceName string) *DeviceBuilder {
 // 示例值：3X811621174000240
 func (builder *DeviceBuilder) DeviceSn(deviceSn string) *DeviceBuilder {
 	builder.deviceSn = deviceSn
-	builder.deviceSnFlag = true
+	builder.deviceSnSet = true
 	return builder
 }
 
@@ -353,25 +357,25 @@ func (builder *DeviceBuilder) DeviceSn(deviceSn string) *DeviceBuilder {
 // 示例值：
 func (builder *DeviceBuilder) Property(property *Property) *DeviceBuilder {
 	builder.property = property
-	builder.propertyFlag = true
+	builder.propertySet = true
 	return builder
 }
 
 func (builder *DeviceBuilder) Build() *Device {
 	req := &Device{}
-	if builder.deviceIdFlag {
+	if builder.deviceIdSet {
 		req.DeviceId = &builder.deviceId
 
 	}
-	if builder.deviceNameFlag {
+	if builder.deviceNameSet {
 		req.DeviceName = &builder.deviceName
 
 	}
-	if builder.deviceSnFlag {
+	if builder.deviceSnSet {
 		req.DeviceSn = &builder.deviceSn
 
 	}
-	if builder.propertyFlag {
+	if builder.propertySet {
 		req.Property = builder.property
 	}
 	return req
@@ -384,11 +388,11 @@ type DeviceExternal struct {
 }
 
 type DeviceExternalBuilder struct {
-	id     string // 设备id
-	idFlag bool
+	id    string // 设备id
+	idSet bool
 
-	name     string // 设备名称
-	nameFlag bool
+	name    string // 设备名称
+	nameSet bool
 }
 
 func NewDeviceExternalBuilder() *DeviceExternalBuilder {
@@ -401,7 +405,7 @@ func NewDeviceExternalBuilder() *DeviceExternalBuilder {
 // 示例值：534545234523452345
 func (builder *DeviceExternalBuilder) Id(id string) *DeviceExternalBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -410,17 +414,17 @@ func (builder *DeviceExternalBuilder) Id(id string) *DeviceExternalBuilder {
 // 示例值：北门
 func (builder *DeviceExternalBuilder) Name(name string) *DeviceExternalBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *DeviceExternalBuilder) Build() *DeviceExternal {
 	req := &DeviceExternal{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -434,11 +438,11 @@ type Feature struct {
 }
 
 type FeatureBuilder struct {
-	card     int // 卡号
-	cardFlag bool
+	card    int // 卡号
+	cardSet bool
 
-	faceUploaded     bool // 是否已上传人脸图片
-	faceUploadedFlag bool
+	faceUploaded    bool // 是否已上传人脸图片
+	faceUploadedSet bool
 }
 
 func NewFeatureBuilder() *FeatureBuilder {
@@ -451,7 +455,7 @@ func NewFeatureBuilder() *FeatureBuilder {
 // 示例值：123456
 func (builder *FeatureBuilder) Card(card int) *FeatureBuilder {
 	builder.card = card
-	builder.cardFlag = true
+	builder.cardSet = true
 	return builder
 }
 
@@ -460,17 +464,17 @@ func (builder *FeatureBuilder) Card(card int) *FeatureBuilder {
 // 示例值：true
 func (builder *FeatureBuilder) FaceUploaded(faceUploaded bool) *FeatureBuilder {
 	builder.faceUploaded = faceUploaded
-	builder.faceUploadedFlag = true
+	builder.faceUploadedSet = true
 	return builder
 }
 
 func (builder *FeatureBuilder) Build() *Feature {
 	req := &Feature{}
-	if builder.cardFlag {
+	if builder.cardSet {
 		req.Card = &builder.card
 
 	}
-	if builder.faceUploadedFlag {
+	if builder.faceUploadedSet {
 		req.FaceUploaded = &builder.faceUploaded
 
 	}
@@ -486,14 +490,14 @@ type File struct {
 }
 
 type FileBuilder struct {
-	files     io.Reader // 人脸图片内容
-	filesFlag bool
+	files    io.Reader // 人脸图片内容
+	filesSet bool
 
-	fileType     string // 文件类型,可选的类型有jpg,png
-	fileTypeFlag bool
+	fileType    string // 文件类型,可选的类型有jpg,png
+	fileTypeSet bool
 
-	fileName     string // 带后缀的文件名
-	fileNameFlag bool
+	fileName    string // 带后缀的文件名
+	fileNameSet bool
 }
 
 func NewFileBuilder() *FileBuilder {
@@ -506,7 +510,7 @@ func NewFileBuilder() *FileBuilder {
 // 示例值：jpg图片
 func (builder *FileBuilder) Files(files io.Reader) *FileBuilder {
 	builder.files = files
-	builder.filesFlag = true
+	builder.filesSet = true
 	return builder
 }
 
@@ -515,7 +519,7 @@ func (builder *FileBuilder) Files(files io.Reader) *FileBuilder {
 // 示例值：jpg
 func (builder *FileBuilder) FileType(fileType string) *FileBuilder {
 	builder.fileType = fileType
-	builder.fileTypeFlag = true
+	builder.fileTypeSet = true
 	return builder
 }
 
@@ -524,20 +528,20 @@ func (builder *FileBuilder) FileType(fileType string) *FileBuilder {
 // 示例值：efeqz12f.jpg
 func (builder *FileBuilder) FileName(fileName string) *FileBuilder {
 	builder.fileName = fileName
-	builder.fileNameFlag = true
+	builder.fileNameSet = true
 	return builder
 }
 
 func (builder *FileBuilder) Build() *File {
 	req := &File{}
-	if builder.filesFlag {
+	if builder.filesSet {
 		req.Files = builder.files
 	}
-	if builder.fileTypeFlag {
+	if builder.fileTypeSet {
 		req.FileType = &builder.fileType
 
 	}
-	if builder.fileNameFlag {
+	if builder.fileNameSet {
 		req.FileName = &builder.fileName
 
 	}
@@ -553,14 +557,14 @@ type OpeningTimeExternal struct {
 }
 
 type OpeningTimeExternalBuilder struct {
-	validDay     *OpeningTimeValidDayExternal // 有效日期
-	validDayFlag bool
+	validDay    *OpeningTimeValidDayExternal // 有效日期
+	validDaySet bool
 
-	weekdays     []int // 有效星期
-	weekdaysFlag bool
+	weekdays    []int // 有效星期
+	weekdaysSet bool
 
-	dayTimes     []*OpeningTimePeriodExternal // 有效时间
-	dayTimesFlag bool
+	dayTimes    []*OpeningTimePeriodExternal // 有效时间
+	dayTimesSet bool
 }
 
 func NewOpeningTimeExternalBuilder() *OpeningTimeExternalBuilder {
@@ -573,7 +577,7 @@ func NewOpeningTimeExternalBuilder() *OpeningTimeExternalBuilder {
 // 示例值：
 func (builder *OpeningTimeExternalBuilder) ValidDay(validDay *OpeningTimeValidDayExternal) *OpeningTimeExternalBuilder {
 	builder.validDay = validDay
-	builder.validDayFlag = true
+	builder.validDaySet = true
 	return builder
 }
 
@@ -582,7 +586,7 @@ func (builder *OpeningTimeExternalBuilder) ValidDay(validDay *OpeningTimeValidDa
 // 示例值：
 func (builder *OpeningTimeExternalBuilder) Weekdays(weekdays []int) *OpeningTimeExternalBuilder {
 	builder.weekdays = weekdays
-	builder.weekdaysFlag = true
+	builder.weekdaysSet = true
 	return builder
 }
 
@@ -591,19 +595,19 @@ func (builder *OpeningTimeExternalBuilder) Weekdays(weekdays []int) *OpeningTime
 // 示例值：
 func (builder *OpeningTimeExternalBuilder) DayTimes(dayTimes []*OpeningTimePeriodExternal) *OpeningTimeExternalBuilder {
 	builder.dayTimes = dayTimes
-	builder.dayTimesFlag = true
+	builder.dayTimesSet = true
 	return builder
 }
 
 func (builder *OpeningTimeExternalBuilder) Build() *OpeningTimeExternal {
 	req := &OpeningTimeExternal{}
-	if builder.validDayFlag {
+	if builder.validDaySet {
 		req.ValidDay = builder.validDay
 	}
-	if builder.weekdaysFlag {
+	if builder.weekdaysSet {
 		req.Weekdays = builder.weekdays
 	}
-	if builder.dayTimesFlag {
+	if builder.dayTimesSet {
 		req.DayTimes = builder.dayTimes
 	}
 	return req
@@ -616,11 +620,11 @@ type OpeningTimePeriodExternal struct {
 }
 
 type OpeningTimePeriodExternalBuilder struct {
-	startHhmm     int // 起始时间
-	startHhmmFlag bool
+	startHhmm    int // 起始时间
+	startHhmmSet bool
 
-	endHhmm     int // 结束时间
-	endHhmmFlag bool
+	endHhmm    int // 结束时间
+	endHhmmSet bool
 }
 
 func NewOpeningTimePeriodExternalBuilder() *OpeningTimePeriodExternalBuilder {
@@ -633,7 +637,7 @@ func NewOpeningTimePeriodExternalBuilder() *OpeningTimePeriodExternalBuilder {
 // 示例值：1200
 func (builder *OpeningTimePeriodExternalBuilder) StartHhmm(startHhmm int) *OpeningTimePeriodExternalBuilder {
 	builder.startHhmm = startHhmm
-	builder.startHhmmFlag = true
+	builder.startHhmmSet = true
 	return builder
 }
 
@@ -642,17 +646,17 @@ func (builder *OpeningTimePeriodExternalBuilder) StartHhmm(startHhmm int) *Openi
 // 示例值：1400
 func (builder *OpeningTimePeriodExternalBuilder) EndHhmm(endHhmm int) *OpeningTimePeriodExternalBuilder {
 	builder.endHhmm = endHhmm
-	builder.endHhmmFlag = true
+	builder.endHhmmSet = true
 	return builder
 }
 
 func (builder *OpeningTimePeriodExternalBuilder) Build() *OpeningTimePeriodExternal {
 	req := &OpeningTimePeriodExternal{}
-	if builder.startHhmmFlag {
+	if builder.startHhmmSet {
 		req.StartHhmm = &builder.startHhmm
 
 	}
-	if builder.endHhmmFlag {
+	if builder.endHhmmSet {
 		req.EndHhmm = &builder.endHhmm
 
 	}
@@ -666,11 +670,11 @@ type OpeningTimeValidDayExternal struct {
 }
 
 type OpeningTimeValidDayExternalBuilder struct {
-	startDay     int // 权限开始时间
-	startDayFlag bool
+	startDay    int // 权限开始时间
+	startDaySet bool
 
-	endDay     int // 权限结束时间
-	endDayFlag bool
+	endDay    int // 权限结束时间
+	endDaySet bool
 }
 
 func NewOpeningTimeValidDayExternalBuilder() *OpeningTimeValidDayExternalBuilder {
@@ -683,7 +687,7 @@ func NewOpeningTimeValidDayExternalBuilder() *OpeningTimeValidDayExternalBuilder
 // 示例值：1699031483
 func (builder *OpeningTimeValidDayExternalBuilder) StartDay(startDay int) *OpeningTimeValidDayExternalBuilder {
 	builder.startDay = startDay
-	builder.startDayFlag = true
+	builder.startDaySet = true
 	return builder
 }
 
@@ -692,17 +696,17 @@ func (builder *OpeningTimeValidDayExternalBuilder) StartDay(startDay int) *Openi
 // 示例值：1699931483
 func (builder *OpeningTimeValidDayExternalBuilder) EndDay(endDay int) *OpeningTimeValidDayExternalBuilder {
 	builder.endDay = endDay
-	builder.endDayFlag = true
+	builder.endDaySet = true
 	return builder
 }
 
 func (builder *OpeningTimeValidDayExternalBuilder) Build() *OpeningTimeValidDayExternal {
 	req := &OpeningTimeValidDayExternal{}
-	if builder.startDayFlag {
+	if builder.startDaySet {
 		req.StartDay = &builder.startDay
 
 	}
-	if builder.endDayFlag {
+	if builder.endDaySet {
 		req.EndDay = &builder.endDay
 
 	}
@@ -724,23 +728,23 @@ type Property struct {
 }
 
 type PropertyBuilder struct {
-	version     string // 设备版本号
-	versionFlag bool
+	version    string // 设备版本号
+	versionSet bool
 
-	currentDeviceFaceCount     int // 当前设备人脸数量
-	currentDeviceFaceCountFlag bool
+	currentDeviceFaceCount    int // 当前设备人脸数量
+	currentDeviceFaceCountSet bool
 
-	maxFaceCapacity     int // 设备最大人脸容量
-	maxFaceCapacityFlag bool
+	maxFaceCapacity    int // 设备最大人脸容量
+	maxFaceCapacitySet bool
 
-	onlineStatus     int // 在线状态
-	onlineStatusFlag bool
+	onlineStatus    int // 在线状态
+	onlineStatusSet bool
 
-	deviceName     string // 设备名称
-	deviceNameFlag bool
+	deviceName    string // 设备名称
+	deviceNameSet bool
 
-	isClockIn     bool // 是否是打卡
-	isClockInFlag bool
+	isClockIn    bool // 是否是打卡
+	isClockInSet bool
 }
 
 func NewPropertyBuilder() *PropertyBuilder {
@@ -753,7 +757,7 @@ func NewPropertyBuilder() *PropertyBuilder {
 // 示例值：2.3.10
 func (builder *PropertyBuilder) Version(version string) *PropertyBuilder {
 	builder.version = version
-	builder.versionFlag = true
+	builder.versionSet = true
 	return builder
 }
 
@@ -762,7 +766,7 @@ func (builder *PropertyBuilder) Version(version string) *PropertyBuilder {
 // 示例值：300
 func (builder *PropertyBuilder) CurrentDeviceFaceCount(currentDeviceFaceCount int) *PropertyBuilder {
 	builder.currentDeviceFaceCount = currentDeviceFaceCount
-	builder.currentDeviceFaceCountFlag = true
+	builder.currentDeviceFaceCountSet = true
 	return builder
 }
 
@@ -771,7 +775,7 @@ func (builder *PropertyBuilder) CurrentDeviceFaceCount(currentDeviceFaceCount in
 // 示例值：5000
 func (builder *PropertyBuilder) MaxFaceCapacity(maxFaceCapacity int) *PropertyBuilder {
 	builder.maxFaceCapacity = maxFaceCapacity
-	builder.maxFaceCapacityFlag = true
+	builder.maxFaceCapacitySet = true
 	return builder
 }
 
@@ -780,7 +784,7 @@ func (builder *PropertyBuilder) MaxFaceCapacity(maxFaceCapacity int) *PropertyBu
 // 示例值：1
 func (builder *PropertyBuilder) OnlineStatus(onlineStatus int) *PropertyBuilder {
 	builder.onlineStatus = onlineStatus
-	builder.onlineStatusFlag = true
+	builder.onlineStatusSet = true
 	return builder
 }
 
@@ -789,7 +793,7 @@ func (builder *PropertyBuilder) OnlineStatus(onlineStatus int) *PropertyBuilder 
 // 示例值：南门
 func (builder *PropertyBuilder) DeviceName(deviceName string) *PropertyBuilder {
 	builder.deviceName = deviceName
-	builder.deviceNameFlag = true
+	builder.deviceNameSet = true
 	return builder
 }
 
@@ -798,33 +802,33 @@ func (builder *PropertyBuilder) DeviceName(deviceName string) *PropertyBuilder {
 // 示例值：true
 func (builder *PropertyBuilder) IsClockIn(isClockIn bool) *PropertyBuilder {
 	builder.isClockIn = isClockIn
-	builder.isClockInFlag = true
+	builder.isClockInSet = true
 	return builder
 }
 
 func (builder *PropertyBuilder) Build() *Property {
 	req := &Property{}
-	if builder.versionFlag {
+	if builder.versionSet {
 		req.Version = &builder.version
 
 	}
-	if builder.currentDeviceFaceCountFlag {
+	if builder.currentDeviceFaceCountSet {
 		req.CurrentDeviceFaceCount = &builder.currentDeviceFaceCount
 
 	}
-	if builder.maxFaceCapacityFlag {
+	if builder.maxFaceCapacitySet {
 		req.MaxFaceCapacity = &builder.maxFaceCapacity
 
 	}
-	if builder.onlineStatusFlag {
+	if builder.onlineStatusSet {
 		req.OnlineStatus = &builder.onlineStatus
 
 	}
-	if builder.deviceNameFlag {
+	if builder.deviceNameSet {
 		req.DeviceName = &builder.deviceName
 
 	}
-	if builder.isClockInFlag {
+	if builder.isClockInSet {
 		req.IsClockIn = &builder.isClockIn
 
 	}
@@ -854,35 +858,35 @@ type Rule struct {
 }
 
 type RuleBuilder struct {
-	id     string // 权限组id
-	idFlag bool
+	id    string // 权限组id
+	idSet bool
 
-	name     string // 权限组名称
-	nameFlag bool
+	name    string // 权限组名称
+	nameSet bool
 
-	devices     []*DeviceExternal // 权限组包含的设备
-	devicesFlag bool
+	devices    []*DeviceExternal // 权限组包含的设备
+	devicesSet bool
 
-	userCount     string // 权限组包含的员工个数
-	userCountFlag bool
+	userCount    string // 权限组包含的员工个数
+	userCountSet bool
 
-	users     []*UserExternal // 权限组包含的员工列表
-	usersFlag bool
+	users    []*UserExternal // 权限组包含的员工列表
+	usersSet bool
 
-	visitorCount     string // 权限组包含的访客个数
-	visitorCountFlag bool
+	visitorCount    string // 权限组包含的访客个数
+	visitorCountSet bool
 
-	visitors     []*UserExternal // 权限组包含的访客列表
-	visitorsFlag bool
+	visitors    []*UserExternal // 权限组包含的访客列表
+	visitorsSet bool
 
-	remindFace     bool // 是否通知人员录入
-	remindFaceFlag bool
+	remindFace    bool // 是否通知人员录入
+	remindFaceSet bool
 
-	openingTime     *OpeningTimeExternal // 开门时间段
-	openingTimeFlag bool
+	openingTime    *OpeningTimeExternal // 开门时间段
+	openingTimeSet bool
 
-	isTemp     bool // 是否为临时权限组
-	isTempFlag bool
+	isTemp    bool // 是否为临时权限组
+	isTempSet bool
 }
 
 func NewRuleBuilder() *RuleBuilder {
@@ -895,7 +899,7 @@ func NewRuleBuilder() *RuleBuilder {
 // 示例值：34252345234523
 func (builder *RuleBuilder) Id(id string) *RuleBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -904,7 +908,7 @@ func (builder *RuleBuilder) Id(id string) *RuleBuilder {
 // 示例值：南门
 func (builder *RuleBuilder) Name(name string) *RuleBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -913,7 +917,7 @@ func (builder *RuleBuilder) Name(name string) *RuleBuilder {
 // 示例值：
 func (builder *RuleBuilder) Devices(devices []*DeviceExternal) *RuleBuilder {
 	builder.devices = devices
-	builder.devicesFlag = true
+	builder.devicesSet = true
 	return builder
 }
 
@@ -922,7 +926,7 @@ func (builder *RuleBuilder) Devices(devices []*DeviceExternal) *RuleBuilder {
 // 示例值：3
 func (builder *RuleBuilder) UserCount(userCount string) *RuleBuilder {
 	builder.userCount = userCount
-	builder.userCountFlag = true
+	builder.userCountSet = true
 	return builder
 }
 
@@ -931,7 +935,7 @@ func (builder *RuleBuilder) UserCount(userCount string) *RuleBuilder {
 // 示例值：
 func (builder *RuleBuilder) Users(users []*UserExternal) *RuleBuilder {
 	builder.users = users
-	builder.usersFlag = true
+	builder.usersSet = true
 	return builder
 }
 
@@ -940,7 +944,7 @@ func (builder *RuleBuilder) Users(users []*UserExternal) *RuleBuilder {
 // 示例值：3
 func (builder *RuleBuilder) VisitorCount(visitorCount string) *RuleBuilder {
 	builder.visitorCount = visitorCount
-	builder.visitorCountFlag = true
+	builder.visitorCountSet = true
 	return builder
 }
 
@@ -949,7 +953,7 @@ func (builder *RuleBuilder) VisitorCount(visitorCount string) *RuleBuilder {
 // 示例值：
 func (builder *RuleBuilder) Visitors(visitors []*UserExternal) *RuleBuilder {
 	builder.visitors = visitors
-	builder.visitorsFlag = true
+	builder.visitorsSet = true
 	return builder
 }
 
@@ -958,7 +962,7 @@ func (builder *RuleBuilder) Visitors(visitors []*UserExternal) *RuleBuilder {
 // 示例值：false
 func (builder *RuleBuilder) RemindFace(remindFace bool) *RuleBuilder {
 	builder.remindFace = remindFace
-	builder.remindFaceFlag = true
+	builder.remindFaceSet = true
 	return builder
 }
 
@@ -967,7 +971,7 @@ func (builder *RuleBuilder) RemindFace(remindFace bool) *RuleBuilder {
 // 示例值：
 func (builder *RuleBuilder) OpeningTime(openingTime *OpeningTimeExternal) *RuleBuilder {
 	builder.openingTime = openingTime
-	builder.openingTimeFlag = true
+	builder.openingTimeSet = true
 	return builder
 }
 
@@ -976,45 +980,45 @@ func (builder *RuleBuilder) OpeningTime(openingTime *OpeningTimeExternal) *RuleB
 // 示例值：false
 func (builder *RuleBuilder) IsTemp(isTemp bool) *RuleBuilder {
 	builder.isTemp = isTemp
-	builder.isTempFlag = true
+	builder.isTempSet = true
 	return builder
 }
 
 func (builder *RuleBuilder) Build() *Rule {
 	req := &Rule{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.devicesFlag {
+	if builder.devicesSet {
 		req.Devices = builder.devices
 	}
-	if builder.userCountFlag {
+	if builder.userCountSet {
 		req.UserCount = &builder.userCount
 
 	}
-	if builder.usersFlag {
+	if builder.usersSet {
 		req.Users = builder.users
 	}
-	if builder.visitorCountFlag {
+	if builder.visitorCountSet {
 		req.VisitorCount = &builder.visitorCount
 
 	}
-	if builder.visitorsFlag {
+	if builder.visitorsSet {
 		req.Visitors = builder.visitors
 	}
-	if builder.remindFaceFlag {
+	if builder.remindFaceSet {
 		req.RemindFace = &builder.remindFace
 
 	}
-	if builder.openingTimeFlag {
+	if builder.openingTimeSet {
 		req.OpeningTime = builder.openingTime
 	}
-	if builder.isTempFlag {
+	if builder.isTempSet {
 		req.IsTemp = &builder.isTemp
 
 	}
@@ -1028,11 +1032,11 @@ type User struct {
 }
 
 type UserBuilder struct {
-	feature     *Feature // 用户特征
-	featureFlag bool
+	feature    *Feature // 用户特征
+	featureSet bool
 
-	userId     string // 用户 ID
-	userIdFlag bool
+	userId    string // 用户 ID
+	userIdSet bool
 }
 
 func NewUserBuilder() *UserBuilder {
@@ -1045,7 +1049,7 @@ func NewUserBuilder() *UserBuilder {
 // 示例值：
 func (builder *UserBuilder) Feature(feature *Feature) *UserBuilder {
 	builder.feature = feature
-	builder.featureFlag = true
+	builder.featureSet = true
 	return builder
 }
 
@@ -1054,16 +1058,16 @@ func (builder *UserBuilder) Feature(feature *Feature) *UserBuilder {
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserBuilder) UserId(userId string) *UserBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *UserBuilder) Build() *User {
 	req := &User{}
-	if builder.featureFlag {
+	if builder.featureSet {
 		req.Feature = builder.feature
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -1083,20 +1087,20 @@ type UserExternal struct {
 }
 
 type UserExternalBuilder struct {
-	userType     int // 用户类型
-	userTypeFlag bool
+	userType    int // 用户类型
+	userTypeSet bool
 
-	userId     string // 用户id
-	userIdFlag bool
+	userId    string // 用户id
+	userIdSet bool
 
-	userName     string // 用户名称
-	userNameFlag bool
+	userName    string // 用户名称
+	userNameSet bool
 
-	phoneNum     string // 电话号码
-	phoneNumFlag bool
+	phoneNum    string // 电话号码
+	phoneNumSet bool
 
-	departmentId     string // 部门id
-	departmentIdFlag bool
+	departmentId    string // 部门id
+	departmentIdSet bool
 }
 
 func NewUserExternalBuilder() *UserExternalBuilder {
@@ -1109,7 +1113,7 @@ func NewUserExternalBuilder() *UserExternalBuilder {
 // 示例值：1
 func (builder *UserExternalBuilder) UserType(userType int) *UserExternalBuilder {
 	builder.userType = userType
-	builder.userTypeFlag = true
+	builder.userTypeSet = true
 	return builder
 }
 
@@ -1118,7 +1122,7 @@ func (builder *UserExternalBuilder) UserType(userType int) *UserExternalBuilder 
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserExternalBuilder) UserId(userId string) *UserExternalBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -1127,7 +1131,7 @@ func (builder *UserExternalBuilder) UserId(userId string) *UserExternalBuilder {
 // 示例值：张三
 func (builder *UserExternalBuilder) UserName(userName string) *UserExternalBuilder {
 	builder.userName = userName
-	builder.userNameFlag = true
+	builder.userNameSet = true
 	return builder
 }
 
@@ -1136,7 +1140,7 @@ func (builder *UserExternalBuilder) UserName(userName string) *UserExternalBuild
 // 示例值：1357890001
 func (builder *UserExternalBuilder) PhoneNum(phoneNum string) *UserExternalBuilder {
 	builder.phoneNum = phoneNum
-	builder.phoneNumFlag = true
+	builder.phoneNumSet = true
 	return builder
 }
 
@@ -1145,29 +1149,29 @@ func (builder *UserExternalBuilder) PhoneNum(phoneNum string) *UserExternalBuild
 // 示例值：od-f7d44ab733f7602f5cc5194735fd9aaf
 func (builder *UserExternalBuilder) DepartmentId(departmentId string) *UserExternalBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
 func (builder *UserExternalBuilder) Build() *UserExternal {
 	req := &UserExternal{}
-	if builder.userTypeFlag {
+	if builder.userTypeSet {
 		req.UserType = &builder.userType
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.userNameFlag {
+	if builder.userNameSet {
 		req.UserName = &builder.userName
 
 	}
-	if builder.phoneNumFlag {
+	if builder.phoneNumSet {
 		req.PhoneNum = &builder.phoneNum
 
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
@@ -1183,14 +1187,14 @@ type UserId struct {
 }
 
 type UserIdBuilder struct {
-	userId     string //
-	userIdFlag bool
+	userId    string //
+	userIdSet bool
 
-	openId     string //
-	openIdFlag bool
+	openId    string //
+	openIdSet bool
 
-	unionId     string //
-	unionIdFlag bool
+	unionId    string //
+	unionIdSet bool
 }
 
 func NewUserIdBuilder() *UserIdBuilder {
@@ -1198,38 +1202,44 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
-	builder.unionIdFlag = true
+	builder.unionIdSet = true
 	return builder
 }
 
 func (builder *UserIdBuilder) Build() *UserId {
 	req := &UserId{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.unionIdFlag {
+	if builder.unionIdSet {
 		req.UnionId = &builder.unionId
 
 	}
@@ -1407,8 +1417,8 @@ func (resp *ListDeviceResp) Success() bool {
 }
 
 type CreateRuleExternalReqBodyBuilder struct {
-	rule     *Rule // 权限组信息
-	ruleFlag bool
+	rule    *Rule // 权限组信息
+	ruleSet bool
 }
 
 func NewCreateRuleExternalReqBodyBuilder() *CreateRuleExternalReqBodyBuilder {
@@ -1418,24 +1428,24 @@ func NewCreateRuleExternalReqBodyBuilder() *CreateRuleExternalReqBodyBuilder {
 
 // 权限组信息
 //
-// 示例值：
+//示例值：
 func (builder *CreateRuleExternalReqBodyBuilder) Rule(rule *Rule) *CreateRuleExternalReqBodyBuilder {
 	builder.rule = rule
-	builder.ruleFlag = true
+	builder.ruleSet = true
 	return builder
 }
 
 func (builder *CreateRuleExternalReqBodyBuilder) Build() *CreateRuleExternalReqBody {
 	req := &CreateRuleExternalReqBody{}
-	if builder.ruleFlag {
+	if builder.ruleSet {
 		req.Rule = builder.rule
 	}
 	return req
 }
 
 type CreateRuleExternalPathReqBodyBuilder struct {
-	rule     *Rule
-	ruleFlag bool
+	rule    *Rule
+	ruleSet bool
 }
 
 func NewCreateRuleExternalPathReqBodyBuilder() *CreateRuleExternalPathReqBodyBuilder {
@@ -1448,13 +1458,13 @@ func NewCreateRuleExternalPathReqBodyBuilder() *CreateRuleExternalPathReqBodyBui
 // 示例值：
 func (builder *CreateRuleExternalPathReqBodyBuilder) Rule(rule *Rule) *CreateRuleExternalPathReqBodyBuilder {
 	builder.rule = rule
-	builder.ruleFlag = true
+	builder.ruleSet = true
 	return builder
 }
 
 func (builder *CreateRuleExternalPathReqBodyBuilder) Build() (*CreateRuleExternalReqBody, error) {
 	req := &CreateRuleExternalReqBody{}
-	if builder.ruleFlag {
+	if builder.ruleSet {
 		req.Rule = builder.rule
 	}
 	return req, nil
@@ -1490,6 +1500,7 @@ func (builder *CreateRuleExternalReqBuilder) UserIdType(userIdType string) *Crea
 	return builder
 }
 
+//
 func (builder *CreateRuleExternalReqBuilder) Body(body *CreateRuleExternalReqBody) *CreateRuleExternalReqBuilder {
 	builder.body = body
 	return builder
@@ -1568,11 +1579,11 @@ func (resp *DeleteRuleExternalResp) Success() bool {
 }
 
 type DeviceBindRuleExternalReqBodyBuilder struct {
-	deviceId     string // 设备id
-	deviceIdFlag bool
+	deviceId    string // 设备id
+	deviceIdSet bool
 
-	ruleIds     []string // 权限组id列表
-	ruleIdsFlag bool
+	ruleIds    []string // 权限组id列表
+	ruleIdsSet bool
 }
 
 func NewDeviceBindRuleExternalReqBodyBuilder() *DeviceBindRuleExternalReqBodyBuilder {
@@ -1582,38 +1593,38 @@ func NewDeviceBindRuleExternalReqBodyBuilder() *DeviceBindRuleExternalReqBodyBui
 
 // 设备id
 //
-// 示例值：6939433228970082593
+//示例值：6939433228970082593
 func (builder *DeviceBindRuleExternalReqBodyBuilder) DeviceId(deviceId string) *DeviceBindRuleExternalReqBodyBuilder {
 	builder.deviceId = deviceId
-	builder.deviceIdFlag = true
+	builder.deviceIdSet = true
 	return builder
 }
 
 // 权限组id列表
 //
-// 示例值：
+//示例值：
 func (builder *DeviceBindRuleExternalReqBodyBuilder) RuleIds(ruleIds []string) *DeviceBindRuleExternalReqBodyBuilder {
 	builder.ruleIds = ruleIds
-	builder.ruleIdsFlag = true
+	builder.ruleIdsSet = true
 	return builder
 }
 
 func (builder *DeviceBindRuleExternalReqBodyBuilder) Build() *DeviceBindRuleExternalReqBody {
 	req := &DeviceBindRuleExternalReqBody{}
-	if builder.deviceIdFlag {
+	if builder.deviceIdSet {
 		req.DeviceId = &builder.deviceId
 	}
-	if builder.ruleIdsFlag {
+	if builder.ruleIdsSet {
 		req.RuleIds = builder.ruleIds
 	}
 	return req
 }
 
 type DeviceBindRuleExternalPathReqBodyBuilder struct {
-	deviceId     string
-	deviceIdFlag bool
-	ruleIds      []string
-	ruleIdsFlag  bool
+	deviceId    string
+	deviceIdSet bool
+	ruleIds     []string
+	ruleIdsSet  bool
 }
 
 func NewDeviceBindRuleExternalPathReqBodyBuilder() *DeviceBindRuleExternalPathReqBodyBuilder {
@@ -1626,7 +1637,7 @@ func NewDeviceBindRuleExternalPathReqBodyBuilder() *DeviceBindRuleExternalPathRe
 // 示例值：6939433228970082593
 func (builder *DeviceBindRuleExternalPathReqBodyBuilder) DeviceId(deviceId string) *DeviceBindRuleExternalPathReqBodyBuilder {
 	builder.deviceId = deviceId
-	builder.deviceIdFlag = true
+	builder.deviceIdSet = true
 	return builder
 }
 
@@ -1635,16 +1646,16 @@ func (builder *DeviceBindRuleExternalPathReqBodyBuilder) DeviceId(deviceId strin
 // 示例值：
 func (builder *DeviceBindRuleExternalPathReqBodyBuilder) RuleIds(ruleIds []string) *DeviceBindRuleExternalPathReqBodyBuilder {
 	builder.ruleIds = ruleIds
-	builder.ruleIdsFlag = true
+	builder.ruleIdsSet = true
 	return builder
 }
 
 func (builder *DeviceBindRuleExternalPathReqBodyBuilder) Build() (*DeviceBindRuleExternalReqBody, error) {
 	req := &DeviceBindRuleExternalReqBody{}
-	if builder.deviceIdFlag {
+	if builder.deviceIdSet {
 		req.DeviceId = &builder.deviceId
 	}
-	if builder.ruleIdsFlag {
+	if builder.ruleIdsSet {
 		req.RuleIds = builder.ruleIds
 	}
 	return req, nil
@@ -1664,6 +1675,7 @@ func NewDeviceBindRuleExternalReqBuilder() *DeviceBindRuleExternalReqBuilder {
 	return builder
 }
 
+//
 func (builder *DeviceBindRuleExternalReqBuilder) Body(body *DeviceBindRuleExternalReqBody) *DeviceBindRuleExternalReqBuilder {
 	builder.body = body
 	return builder
@@ -2073,8 +2085,8 @@ func (resp *UpdateUserFaceResp) Success() bool {
 }
 
 type CreateVisitorReqBodyBuilder struct {
-	user     *UserExternal // 访客信息
-	userFlag bool
+	user    *UserExternal // 访客信息
+	userSet bool
 }
 
 func NewCreateVisitorReqBodyBuilder() *CreateVisitorReqBodyBuilder {
@@ -2084,24 +2096,24 @@ func NewCreateVisitorReqBodyBuilder() *CreateVisitorReqBodyBuilder {
 
 // 访客信息
 //
-// 示例值：
+//示例值：
 func (builder *CreateVisitorReqBodyBuilder) User(user *UserExternal) *CreateVisitorReqBodyBuilder {
 	builder.user = user
-	builder.userFlag = true
+	builder.userSet = true
 	return builder
 }
 
 func (builder *CreateVisitorReqBodyBuilder) Build() *CreateVisitorReqBody {
 	req := &CreateVisitorReqBody{}
-	if builder.userFlag {
+	if builder.userSet {
 		req.User = builder.user
 	}
 	return req
 }
 
 type CreateVisitorPathReqBodyBuilder struct {
-	user     *UserExternal
-	userFlag bool
+	user    *UserExternal
+	userSet bool
 }
 
 func NewCreateVisitorPathReqBodyBuilder() *CreateVisitorPathReqBodyBuilder {
@@ -2114,13 +2126,13 @@ func NewCreateVisitorPathReqBodyBuilder() *CreateVisitorPathReqBodyBuilder {
 // 示例值：
 func (builder *CreateVisitorPathReqBodyBuilder) User(user *UserExternal) *CreateVisitorPathReqBodyBuilder {
 	builder.user = user
-	builder.userFlag = true
+	builder.userSet = true
 	return builder
 }
 
 func (builder *CreateVisitorPathReqBodyBuilder) Build() (*CreateVisitorReqBody, error) {
 	req := &CreateVisitorReqBody{}
-	if builder.userFlag {
+	if builder.userSet {
 		req.User = builder.user
 	}
 	return req, nil
@@ -2148,6 +2160,7 @@ func (builder *CreateVisitorReqBuilder) UserIdType(userIdType string) *CreateVis
 	return builder
 }
 
+//
 func (builder *CreateVisitorReqBuilder) Body(body *CreateVisitorReqBody) *CreateVisitorReqBuilder {
 	builder.body = body
 	return builder

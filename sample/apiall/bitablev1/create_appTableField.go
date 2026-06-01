@@ -35,7 +35,10 @@ func main() {
 			Type(0).
 			Property(larkbitable.NewAppTableFieldPropertyBuilder().Build()).
 			Description(larkbitable.NewAppTableFieldDescriptionBuilder().Build()).
+			IsPrimary(true).
+			FieldId("fldWJyCkFQ").
 			UiType("Progress").
+			IsHidden(false).
 			Build()).
 		Build()
 	// 发起请求

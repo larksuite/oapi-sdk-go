@@ -38,6 +38,32 @@ type minuteTranscript struct {
 	config *larkcore.Config
 }
 
+// Artifacts
+//
+// - 返回妙记AI产物
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=artifacts&project=minutes&resource=minute&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/minutesv1/artifacts_minute.go
+func (m *minute) Artifacts(ctx context.Context, req *ArtifactsMinuteReq, options ...larkcore.RequestOptionFunc) (*ArtifactsMinuteResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/minutes/v1/minutes/:minute_token/artifacts"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ArtifactsMinuteResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Get
 //
 // - 获取妙记的基础概括信息
@@ -57,6 +83,92 @@ func (m *minute) Get(ctx context.Context, req *GetMinuteReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &GetMinuteResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Search
+//
+// - 搜索妙记
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=minutes&resource=minute&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/minutesv1/search_minute.go
+func (m *minute) Search(ctx context.Context, req *SearchMinuteReq, options ...larkcore.RequestOptionFunc) (*SearchMinuteResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/minutes/v1/minutes/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchMinuteResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (m *minute) SearchByIterator(ctx context.Context, req *SearchMinuteReq, options ...larkcore.RequestOptionFunc) (*SearchMinuteIterator, error) {
+	return &SearchMinuteIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: m.Search,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// Subscription
+//
+// - 订阅妙记变更事件
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscription&project=minutes&resource=minute&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/minutesv1/subscription_minute.go
+func (m *minute) Subscription(ctx context.Context, req *SubscriptionMinuteReq, options ...larkcore.RequestOptionFunc) (*SubscriptionMinuteResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/minutes/v1/minutes/subscription"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SubscriptionMinuteResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Unsubscription
+//
+// - 取消订阅妙记变更事件
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=unsubscription&project=minutes&resource=minute&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/minutesv1/unsubscription_minute.go
+func (m *minute) Unsubscription(ctx context.Context, req *UnsubscriptionMinuteReq, options ...larkcore.RequestOptionFunc) (*UnsubscriptionMinuteResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/minutes/v1/minutes/unsubscription"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UnsubscriptionMinuteResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, m.config)
 	if err != nil {
 		return nil, err

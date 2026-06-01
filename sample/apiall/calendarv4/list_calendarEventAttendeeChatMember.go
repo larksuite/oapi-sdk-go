@@ -33,6 +33,7 @@ func main() {
 		PageToken("23jhysaxxxxsysy").
 		PageSize(20).
 		UserIdType("user_id").
+		OpUserId("ou_7d8a6e6df7621556ce0d21922b676706ccs").
 		Build()
 	// 发起请求
 	resp, err := client.Calendar.V4.CalendarEventAttendeeChatMember.List(context.Background(), req)

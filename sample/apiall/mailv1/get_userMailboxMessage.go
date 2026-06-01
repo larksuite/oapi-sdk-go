@@ -29,6 +29,7 @@ func main() {
 	req := larkmail.NewGetUserMailboxMessageReqBuilder().
 		UserMailboxId("user@xxx.xx 或 me").
 		MessageId("TUlHc1NoWFhJMXgyUi9VZTNVL3h6UnlkRUdzPQ==").
+		Format("full").
 		Build()
 	// 发起请求
 	resp, err := client.Mail.V1.UserMailboxMessage.Get(context.Background(), req)

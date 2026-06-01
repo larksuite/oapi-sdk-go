@@ -23,15 +23,15 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	BatchCloseSystemStatusUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	BatchCloseSystemStatusUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	BatchCloseSystemStatusUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeBatchOpenSystemStatusUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeBatchOpenSystemStatusUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeBatchOpenSystemStatusOpenId  = "open_id"  // 以open_id来识别用户
+	BatchOpenSystemStatusUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	BatchOpenSystemStatusUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	BatchOpenSystemStatusUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -78,11 +78,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -90,27 +90,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -134,26 +138,26 @@ type SystemStatus struct {
 }
 
 type SystemStatusBuilder struct {
-	systemStatusId     string // 系统状态ID
-	systemStatusIdFlag bool
+	systemStatusId    string // 系统状态ID
+	systemStatusIdSet bool
 
-	title     string // 系统状态名称，名称字符数要在1到20范围内。不同系统状态的title不能重复。;; **注意：** ;- 1中文=2英文=2其他语言字符=2字符
-	titleFlag bool
+	title    string // 系统状态名称，名称字符数要在1到20范围内。不同系统状态的title不能重复。;; **注意：** ;- 1中文=2英文=2其他语言字符=2字符
+	titleSet bool
 
-	i18nTitle     *SystemStatusI18nName // 系统状态国际化名称，名称字符数要在1到20范围内。不同系统状态之间i18n_title中任何一种title都不能重复。;; **注意：** ;- 1中文=2英文=2其他语言字符=2字符
-	i18nTitleFlag bool
+	i18nTitle    *SystemStatusI18nName // 系统状态国际化名称，名称字符数要在1到20范围内。不同系统状态之间i18n_title中任何一种title都不能重复。;; **注意：** ;- 1中文=2英文=2其他语言字符=2字符
+	i18nTitleSet bool
 
-	iconKey     string // 图标;;[**了解icon_key可选值**](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/overview)
-	iconKeyFlag bool
+	iconKey    string // 图标;;[**了解icon_key可选值**](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/overview)
+	iconKeySet bool
 
-	color     string // 颜色
-	colorFlag bool
+	color    string // 颜色
+	colorSet bool
 
-	priority     int // 优先级，数值越小，客户端展示的优先级越高。不同系统状态的优先级不能一样。
-	priorityFlag bool
+	priority    int // 优先级，数值越小，客户端展示的优先级越高。不同系统状态的优先级不能一样。
+	prioritySet bool
 
-	syncSetting     *SystemStatusSyncSetting // 同步设置
-	syncSettingFlag bool
+	syncSetting    *SystemStatusSyncSetting // 同步设置
+	syncSettingSet bool
 }
 
 func NewSystemStatusBuilder() *SystemStatusBuilder {
@@ -166,7 +170,7 @@ func NewSystemStatusBuilder() *SystemStatusBuilder {
 // 示例值：7101214603622940633
 func (builder *SystemStatusBuilder) SystemStatusId(systemStatusId string) *SystemStatusBuilder {
 	builder.systemStatusId = systemStatusId
-	builder.systemStatusIdFlag = true
+	builder.systemStatusIdSet = true
 	return builder
 }
 
@@ -175,7 +179,7 @@ func (builder *SystemStatusBuilder) SystemStatusId(systemStatusId string) *Syste
 // 示例值：出差
 func (builder *SystemStatusBuilder) Title(title string) *SystemStatusBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -184,7 +188,7 @@ func (builder *SystemStatusBuilder) Title(title string) *SystemStatusBuilder {
 // 示例值：
 func (builder *SystemStatusBuilder) I18nTitle(i18nTitle *SystemStatusI18nName) *SystemStatusBuilder {
 	builder.i18nTitle = i18nTitle
-	builder.i18nTitleFlag = true
+	builder.i18nTitleSet = true
 	return builder
 }
 
@@ -193,7 +197,7 @@ func (builder *SystemStatusBuilder) I18nTitle(i18nTitle *SystemStatusI18nName) *
 // 示例值：GeneralBusinessTrip
 func (builder *SystemStatusBuilder) IconKey(iconKey string) *SystemStatusBuilder {
 	builder.iconKey = iconKey
-	builder.iconKeyFlag = true
+	builder.iconKeySet = true
 	return builder
 }
 
@@ -202,7 +206,7 @@ func (builder *SystemStatusBuilder) IconKey(iconKey string) *SystemStatusBuilder
 // 示例值：BLUE
 func (builder *SystemStatusBuilder) Color(color string) *SystemStatusBuilder {
 	builder.color = color
-	builder.colorFlag = true
+	builder.colorSet = true
 	return builder
 }
 
@@ -211,7 +215,7 @@ func (builder *SystemStatusBuilder) Color(color string) *SystemStatusBuilder {
 // 示例值：1
 func (builder *SystemStatusBuilder) Priority(priority int) *SystemStatusBuilder {
 	builder.priority = priority
-	builder.priorityFlag = true
+	builder.prioritySet = true
 	return builder
 }
 
@@ -220,36 +224,36 @@ func (builder *SystemStatusBuilder) Priority(priority int) *SystemStatusBuilder 
 // 示例值：
 func (builder *SystemStatusBuilder) SyncSetting(syncSetting *SystemStatusSyncSetting) *SystemStatusBuilder {
 	builder.syncSetting = syncSetting
-	builder.syncSettingFlag = true
+	builder.syncSettingSet = true
 	return builder
 }
 
 func (builder *SystemStatusBuilder) Build() *SystemStatus {
 	req := &SystemStatus{}
-	if builder.systemStatusIdFlag {
+	if builder.systemStatusIdSet {
 		req.SystemStatusId = &builder.systemStatusId
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.i18nTitleFlag {
+	if builder.i18nTitleSet {
 		req.I18nTitle = builder.i18nTitle
 	}
-	if builder.iconKeyFlag {
+	if builder.iconKeySet {
 		req.IconKey = &builder.iconKey
 
 	}
-	if builder.colorFlag {
+	if builder.colorSet {
 		req.Color = &builder.color
 
 	}
-	if builder.priorityFlag {
+	if builder.prioritySet {
 		req.Priority = &builder.priority
 
 	}
-	if builder.syncSettingFlag {
+	if builder.syncSettingSet {
 		req.SyncSetting = builder.syncSetting
 	}
 	return req
@@ -264,14 +268,14 @@ type SystemStatusI18nName struct {
 }
 
 type SystemStatusI18nNameBuilder struct {
-	zhCn     string // 中文名
-	zhCnFlag bool
+	zhCn    string // 中文名
+	zhCnSet bool
 
-	enUs     string // 英文名
-	enUsFlag bool
+	enUs    string // 英文名
+	enUsSet bool
 
-	jaJp     string // 日文名
-	jaJpFlag bool
+	jaJp    string // 日文名
+	jaJpSet bool
 }
 
 func NewSystemStatusI18nNameBuilder() *SystemStatusI18nNameBuilder {
@@ -284,7 +288,7 @@ func NewSystemStatusI18nNameBuilder() *SystemStatusI18nNameBuilder {
 // 示例值：出差
 func (builder *SystemStatusI18nNameBuilder) ZhCn(zhCn string) *SystemStatusI18nNameBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -293,7 +297,7 @@ func (builder *SystemStatusI18nNameBuilder) ZhCn(zhCn string) *SystemStatusI18nN
 // 示例值：On business trip
 func (builder *SystemStatusI18nNameBuilder) EnUs(enUs string) *SystemStatusI18nNameBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
@@ -302,21 +306,21 @@ func (builder *SystemStatusI18nNameBuilder) EnUs(enUs string) *SystemStatusI18nN
 // 示例值：出張中
 func (builder *SystemStatusI18nNameBuilder) JaJp(jaJp string) *SystemStatusI18nNameBuilder {
 	builder.jaJp = jaJp
-	builder.jaJpFlag = true
+	builder.jaJpSet = true
 	return builder
 }
 
 func (builder *SystemStatusI18nNameBuilder) Build() *SystemStatusI18nName {
 	req := &SystemStatusI18nName{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
-	if builder.jaJpFlag {
+	if builder.jaJpSet {
 		req.JaJp = &builder.jaJp
 
 	}
@@ -332,14 +336,14 @@ type SystemStatusSyncI18nExplain struct {
 }
 
 type SystemStatusSyncI18nExplainBuilder struct {
-	zhCn     string // 中文名
-	zhCnFlag bool
+	zhCn    string // 中文名
+	zhCnSet bool
 
-	enUs     string // 英文名
-	enUsFlag bool
+	enUs    string // 英文名
+	enUsSet bool
 
-	jaJp     string // 日文名
-	jaJpFlag bool
+	jaJp    string // 日文名
+	jaJpSet bool
 }
 
 func NewSystemStatusSyncI18nExplainBuilder() *SystemStatusSyncI18nExplainBuilder {
@@ -352,7 +356,7 @@ func NewSystemStatusSyncI18nExplainBuilder() *SystemStatusSyncI18nExplainBuilder
 // 示例值：出差审批通过后，该状态将自动开启并优先展示
 func (builder *SystemStatusSyncI18nExplainBuilder) ZhCn(zhCn string) *SystemStatusSyncI18nExplainBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -361,7 +365,7 @@ func (builder *SystemStatusSyncI18nExplainBuilder) ZhCn(zhCn string) *SystemStat
 // 示例值：Auto-display after travel request is approved.
 func (builder *SystemStatusSyncI18nExplainBuilder) EnUs(enUs string) *SystemStatusSyncI18nExplainBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
@@ -370,21 +374,21 @@ func (builder *SystemStatusSyncI18nExplainBuilder) EnUs(enUs string) *SystemStat
 // 示例值：申請が承認されると、このステータスが優先的に表示されます
 func (builder *SystemStatusSyncI18nExplainBuilder) JaJp(jaJp string) *SystemStatusSyncI18nExplainBuilder {
 	builder.jaJp = jaJp
-	builder.jaJpFlag = true
+	builder.jaJpSet = true
 	return builder
 }
 
 func (builder *SystemStatusSyncI18nExplainBuilder) Build() *SystemStatusSyncI18nExplain {
 	req := &SystemStatusSyncI18nExplain{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
-	if builder.jaJpFlag {
+	if builder.jaJpSet {
 		req.JaJp = &builder.jaJp
 
 	}
@@ -400,14 +404,14 @@ type SystemStatusSyncI18nName struct {
 }
 
 type SystemStatusSyncI18nNameBuilder struct {
-	zhCn     string // 中文名
-	zhCnFlag bool
+	zhCn    string // 中文名
+	zhCnSet bool
 
-	enUs     string // 英文名
-	enUsFlag bool
+	enUs    string // 英文名
+	enUsSet bool
 
-	jaJp     string // 日文名
-	jaJpFlag bool
+	jaJp    string // 日文名
+	jaJpSet bool
 }
 
 func NewSystemStatusSyncI18nNameBuilder() *SystemStatusSyncI18nNameBuilder {
@@ -420,7 +424,7 @@ func NewSystemStatusSyncI18nNameBuilder() *SystemStatusSyncI18nNameBuilder {
 // 示例值：出差期间自动开启
 func (builder *SystemStatusSyncI18nNameBuilder) ZhCn(zhCn string) *SystemStatusSyncI18nNameBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -429,7 +433,7 @@ func (builder *SystemStatusSyncI18nNameBuilder) ZhCn(zhCn string) *SystemStatusS
 // 示例值：Auto display Business Trip
 func (builder *SystemStatusSyncI18nNameBuilder) EnUs(enUs string) *SystemStatusSyncI18nNameBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
@@ -438,21 +442,21 @@ func (builder *SystemStatusSyncI18nNameBuilder) EnUs(enUs string) *SystemStatusS
 // 示例值：出張中に自動的にオンにする
 func (builder *SystemStatusSyncI18nNameBuilder) JaJp(jaJp string) *SystemStatusSyncI18nNameBuilder {
 	builder.jaJp = jaJp
-	builder.jaJpFlag = true
+	builder.jaJpSet = true
 	return builder
 }
 
 func (builder *SystemStatusSyncI18nNameBuilder) Build() *SystemStatusSyncI18nName {
 	req := &SystemStatusSyncI18nName{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
-	if builder.jaJpFlag {
+	if builder.jaJpSet {
 		req.JaJp = &builder.jaJp
 
 	}
@@ -472,20 +476,20 @@ type SystemStatusSyncSetting struct {
 }
 
 type SystemStatusSyncSettingBuilder struct {
-	isOpenByDefault     bool // 是否默认开启
-	isOpenByDefaultFlag bool
+	isOpenByDefault    bool // 是否默认开启
+	isOpenByDefaultSet bool
 
-	title     string // 同步设置名称，名称字符数要在1到30范围内。;;**注意：** ;- 1中文=2英文=2其他语言字符=2字符
-	titleFlag bool
+	title    string // 同步设置名称，名称字符数要在1到30范围内。;;**注意：** ;- 1中文=2英文=2其他语言字符=2字符
+	titleSet bool
 
-	i18nTitle     *SystemStatusSyncI18nName // 同步设置国际化名称，名称字符数要在1到30范围内。;;**注意：** ;- 1中文=2英文=2其他语言字符=2字符
-	i18nTitleFlag bool
+	i18nTitle    *SystemStatusSyncI18nName // 同步设置国际化名称，名称字符数要在1到30范围内。;;**注意：** ;- 1中文=2英文=2其他语言字符=2字符
+	i18nTitleSet bool
 
-	explain     string // 同步设置解释文案，解释字符数要在1到60范围内。;;**注意：** ;- 1中文=2英文=2其他语言字符=2字符
-	explainFlag bool
+	explain    string // 同步设置解释文案，解释字符数要在1到60范围内。;;**注意：** ;- 1中文=2英文=2其他语言字符=2字符
+	explainSet bool
 
-	i18nExplain     *SystemStatusSyncI18nExplain // 同步设置国际化解释文案，解释字符数要在1到60范围内。;;**注意：** ;- 1中文=2英文=2其他语言字符=2字符
-	i18nExplainFlag bool
+	i18nExplain    *SystemStatusSyncI18nExplain // 同步设置国际化解释文案，解释字符数要在1到60范围内。;;**注意：** ;- 1中文=2英文=2其他语言字符=2字符
+	i18nExplainSet bool
 }
 
 func NewSystemStatusSyncSettingBuilder() *SystemStatusSyncSettingBuilder {
@@ -498,7 +502,7 @@ func NewSystemStatusSyncSettingBuilder() *SystemStatusSyncSettingBuilder {
 // 示例值：true
 func (builder *SystemStatusSyncSettingBuilder) IsOpenByDefault(isOpenByDefault bool) *SystemStatusSyncSettingBuilder {
 	builder.isOpenByDefault = isOpenByDefault
-	builder.isOpenByDefaultFlag = true
+	builder.isOpenByDefaultSet = true
 	return builder
 }
 
@@ -507,7 +511,7 @@ func (builder *SystemStatusSyncSettingBuilder) IsOpenByDefault(isOpenByDefault b
 // 示例值：出差期间自动开启
 func (builder *SystemStatusSyncSettingBuilder) Title(title string) *SystemStatusSyncSettingBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -516,7 +520,7 @@ func (builder *SystemStatusSyncSettingBuilder) Title(title string) *SystemStatus
 // 示例值：
 func (builder *SystemStatusSyncSettingBuilder) I18nTitle(i18nTitle *SystemStatusSyncI18nName) *SystemStatusSyncSettingBuilder {
 	builder.i18nTitle = i18nTitle
-	builder.i18nTitleFlag = true
+	builder.i18nTitleSet = true
 	return builder
 }
 
@@ -525,7 +529,7 @@ func (builder *SystemStatusSyncSettingBuilder) I18nTitle(i18nTitle *SystemStatus
 // 示例值：出差审批通过后，将自动开启并优先展示该状态。
 func (builder *SystemStatusSyncSettingBuilder) Explain(explain string) *SystemStatusSyncSettingBuilder {
 	builder.explain = explain
-	builder.explainFlag = true
+	builder.explainSet = true
 	return builder
 }
 
@@ -534,28 +538,28 @@ func (builder *SystemStatusSyncSettingBuilder) Explain(explain string) *SystemSt
 // 示例值：
 func (builder *SystemStatusSyncSettingBuilder) I18nExplain(i18nExplain *SystemStatusSyncI18nExplain) *SystemStatusSyncSettingBuilder {
 	builder.i18nExplain = i18nExplain
-	builder.i18nExplainFlag = true
+	builder.i18nExplainSet = true
 	return builder
 }
 
 func (builder *SystemStatusSyncSettingBuilder) Build() *SystemStatusSyncSetting {
 	req := &SystemStatusSyncSetting{}
-	if builder.isOpenByDefaultFlag {
+	if builder.isOpenByDefaultSet {
 		req.IsOpenByDefault = &builder.isOpenByDefault
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.i18nTitleFlag {
+	if builder.i18nTitleSet {
 		req.I18nTitle = builder.i18nTitle
 	}
-	if builder.explainFlag {
+	if builder.explainSet {
 		req.Explain = &builder.explain
 
 	}
-	if builder.i18nExplainFlag {
+	if builder.i18nExplainSet {
 		req.I18nExplain = builder.i18nExplain
 	}
 	return req
@@ -568,11 +572,11 @@ type SystemStatusUserCloseResultEntity struct {
 }
 
 type SystemStatusUserCloseResultEntityBuilder struct {
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 
-	result     string // 关闭结果
-	resultFlag bool
+	result    string // 关闭结果
+	resultSet bool
 }
 
 func NewSystemStatusUserCloseResultEntityBuilder() *SystemStatusUserCloseResultEntityBuilder {
@@ -585,7 +589,7 @@ func NewSystemStatusUserCloseResultEntityBuilder() *SystemStatusUserCloseResultE
 // 示例值：ou_53edd3282dbc2fdbe5c593cfa5ce82ab
 func (builder *SystemStatusUserCloseResultEntityBuilder) UserId(userId string) *SystemStatusUserCloseResultEntityBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -594,17 +598,17 @@ func (builder *SystemStatusUserCloseResultEntityBuilder) UserId(userId string) *
 // 示例值：success
 func (builder *SystemStatusUserCloseResultEntityBuilder) Result(result string) *SystemStatusUserCloseResultEntityBuilder {
 	builder.result = result
-	builder.resultFlag = true
+	builder.resultSet = true
 	return builder
 }
 
 func (builder *SystemStatusUserCloseResultEntityBuilder) Build() *SystemStatusUserCloseResultEntity {
 	req := &SystemStatusUserCloseResultEntity{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.resultFlag {
+	if builder.resultSet {
 		req.Result = &builder.result
 
 	}
@@ -614,15 +618,15 @@ func (builder *SystemStatusUserCloseResultEntityBuilder) Build() *SystemStatusUs
 type SystemStatusUserOpenParam struct {
 	UserId *string `json:"user_id,omitempty"` // 用户ID
 
-	EndTime *string `json:"end_time,omitempty"` // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
+	EndTime *int `json:"end_time,omitempty"` // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
 }
 
 type SystemStatusUserOpenParamBuilder struct {
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 
-	endTime     string // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
-	endTimeFlag bool
+	endTime    int // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
+	endTimeSet bool
 }
 
 func NewSystemStatusUserOpenParamBuilder() *SystemStatusUserOpenParamBuilder {
@@ -635,26 +639,26 @@ func NewSystemStatusUserOpenParamBuilder() *SystemStatusUserOpenParamBuilder {
 // 示例值：ou_53edd3282dbc2fdbe5c593cfa5ce82ab
 func (builder *SystemStatusUserOpenParamBuilder) UserId(userId string) *SystemStatusUserOpenParamBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
 //
 // 示例值：1665990378
-func (builder *SystemStatusUserOpenParamBuilder) EndTime(endTime string) *SystemStatusUserOpenParamBuilder {
+func (builder *SystemStatusUserOpenParamBuilder) EndTime(endTime int) *SystemStatusUserOpenParamBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
 func (builder *SystemStatusUserOpenParamBuilder) Build() *SystemStatusUserOpenParam {
 	req := &SystemStatusUserOpenParam{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
@@ -664,20 +668,20 @@ func (builder *SystemStatusUserOpenParamBuilder) Build() *SystemStatusUserOpenPa
 type SystemStatusUserOpenResultEntity struct {
 	UserId *string `json:"user_id,omitempty"` // 用户ID
 
-	EndTime *string `json:"end_time,omitempty"` // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
+	EndTime *int `json:"end_time,omitempty"` // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
 
 	Result *string `json:"result,omitempty"` // 开启结果
 }
 
 type SystemStatusUserOpenResultEntityBuilder struct {
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 
-	endTime     string // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
-	endTimeFlag bool
+	endTime    int // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
+	endTimeSet bool
 
-	result     string // 开启结果
-	resultFlag bool
+	result    string // 开启结果
+	resultSet bool
 }
 
 func NewSystemStatusUserOpenResultEntityBuilder() *SystemStatusUserOpenResultEntityBuilder {
@@ -690,16 +694,16 @@ func NewSystemStatusUserOpenResultEntityBuilder() *SystemStatusUserOpenResultEnt
 // 示例值：ou_53edd3282dbc2fdbe5c593cfa5ce82ab
 func (builder *SystemStatusUserOpenResultEntityBuilder) UserId(userId string) *SystemStatusUserOpenResultEntityBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
 //
 // 示例值：1665990378
-func (builder *SystemStatusUserOpenResultEntityBuilder) EndTime(endTime string) *SystemStatusUserOpenResultEntityBuilder {
+func (builder *SystemStatusUserOpenResultEntityBuilder) EndTime(endTime int) *SystemStatusUserOpenResultEntityBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -708,21 +712,21 @@ func (builder *SystemStatusUserOpenResultEntityBuilder) EndTime(endTime string) 
 // 示例值：success_show
 func (builder *SystemStatusUserOpenResultEntityBuilder) Result(result string) *SystemStatusUserOpenResultEntityBuilder {
 	builder.result = result
-	builder.resultFlag = true
+	builder.resultSet = true
 	return builder
 }
 
 func (builder *SystemStatusUserOpenResultEntityBuilder) Build() *SystemStatusUserOpenResultEntity {
 	req := &SystemStatusUserOpenResultEntity{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.resultFlag {
+	if builder.resultSet {
 		req.Result = &builder.result
 
 	}
@@ -730,8 +734,8 @@ func (builder *SystemStatusUserOpenResultEntityBuilder) Build() *SystemStatusUse
 }
 
 type BatchCloseSystemStatusReqBodyBuilder struct {
-	userList     []string // 成员列表
-	userListFlag bool
+	userList    []string // 成员列表
+	userListSet bool
 }
 
 func NewBatchCloseSystemStatusReqBodyBuilder() *BatchCloseSystemStatusReqBodyBuilder {
@@ -741,24 +745,24 @@ func NewBatchCloseSystemStatusReqBodyBuilder() *BatchCloseSystemStatusReqBodyBui
 
 // 成员列表
 //
-// 示例值：ou_53edd3282dbc2fdbe5c593cfa5ce82ab
+//示例值：ou_53edd3282dbc2fdbe5c593cfa5ce82ab
 func (builder *BatchCloseSystemStatusReqBodyBuilder) UserList(userList []string) *BatchCloseSystemStatusReqBodyBuilder {
 	builder.userList = userList
-	builder.userListFlag = true
+	builder.userListSet = true
 	return builder
 }
 
 func (builder *BatchCloseSystemStatusReqBodyBuilder) Build() *BatchCloseSystemStatusReqBody {
 	req := &BatchCloseSystemStatusReqBody{}
-	if builder.userListFlag {
+	if builder.userListSet {
 		req.UserList = builder.userList
 	}
 	return req
 }
 
 type BatchCloseSystemStatusPathReqBodyBuilder struct {
-	userList     []string
-	userListFlag bool
+	userList    []string
+	userListSet bool
 }
 
 func NewBatchCloseSystemStatusPathReqBodyBuilder() *BatchCloseSystemStatusPathReqBodyBuilder {
@@ -771,13 +775,13 @@ func NewBatchCloseSystemStatusPathReqBodyBuilder() *BatchCloseSystemStatusPathRe
 // 示例值：ou_53edd3282dbc2fdbe5c593cfa5ce82ab
 func (builder *BatchCloseSystemStatusPathReqBodyBuilder) UserList(userList []string) *BatchCloseSystemStatusPathReqBodyBuilder {
 	builder.userList = userList
-	builder.userListFlag = true
+	builder.userListSet = true
 	return builder
 }
 
 func (builder *BatchCloseSystemStatusPathReqBodyBuilder) Build() (*BatchCloseSystemStatusReqBody, error) {
 	req := &BatchCloseSystemStatusReqBody{}
-	if builder.userListFlag {
+	if builder.userListSet {
 		req.UserList = builder.userList
 	}
 	return req, nil
@@ -852,8 +856,8 @@ func (resp *BatchCloseSystemStatusResp) Success() bool {
 }
 
 type BatchOpenSystemStatusReqBodyBuilder struct {
-	userList     []*SystemStatusUserOpenParam // 开启列表
-	userListFlag bool
+	userList    []*SystemStatusUserOpenParam // 开启列表
+	userListSet bool
 }
 
 func NewBatchOpenSystemStatusReqBodyBuilder() *BatchOpenSystemStatusReqBodyBuilder {
@@ -863,24 +867,24 @@ func NewBatchOpenSystemStatusReqBodyBuilder() *BatchOpenSystemStatusReqBodyBuild
 
 // 开启列表
 //
-// 示例值：
+//示例值：
 func (builder *BatchOpenSystemStatusReqBodyBuilder) UserList(userList []*SystemStatusUserOpenParam) *BatchOpenSystemStatusReqBodyBuilder {
 	builder.userList = userList
-	builder.userListFlag = true
+	builder.userListSet = true
 	return builder
 }
 
 func (builder *BatchOpenSystemStatusReqBodyBuilder) Build() *BatchOpenSystemStatusReqBody {
 	req := &BatchOpenSystemStatusReqBody{}
-	if builder.userListFlag {
+	if builder.userListSet {
 		req.UserList = builder.userList
 	}
 	return req
 }
 
 type BatchOpenSystemStatusPathReqBodyBuilder struct {
-	userList     []*SystemStatusUserOpenParam
-	userListFlag bool
+	userList    []*SystemStatusUserOpenParam
+	userListSet bool
 }
 
 func NewBatchOpenSystemStatusPathReqBodyBuilder() *BatchOpenSystemStatusPathReqBodyBuilder {
@@ -893,13 +897,13 @@ func NewBatchOpenSystemStatusPathReqBodyBuilder() *BatchOpenSystemStatusPathReqB
 // 示例值：
 func (builder *BatchOpenSystemStatusPathReqBodyBuilder) UserList(userList []*SystemStatusUserOpenParam) *BatchOpenSystemStatusPathReqBodyBuilder {
 	builder.userList = userList
-	builder.userListFlag = true
+	builder.userListSet = true
 	return builder
 }
 
 func (builder *BatchOpenSystemStatusPathReqBodyBuilder) Build() (*BatchOpenSystemStatusReqBody, error) {
 	req := &BatchOpenSystemStatusReqBody{}
-	if builder.userListFlag {
+	if builder.userListSet {
 		req.UserList = builder.userList
 	}
 	return req, nil
@@ -1129,11 +1133,11 @@ func (resp *ListSystemStatusResp) Success() bool {
 }
 
 type PatchSystemStatusReqBodyBuilder struct {
-	systemStatus     *SystemStatus // 系统状态
-	systemStatusFlag bool
+	systemStatus    *SystemStatus // 系统状态
+	systemStatusSet bool
 
-	updateFields     []string // 需要更新的字段
-	updateFieldsFlag bool
+	updateFields    []string // 需要更新的字段
+	updateFieldsSet bool
 }
 
 func NewPatchSystemStatusReqBodyBuilder() *PatchSystemStatusReqBodyBuilder {
@@ -1143,38 +1147,38 @@ func NewPatchSystemStatusReqBodyBuilder() *PatchSystemStatusReqBodyBuilder {
 
 // 系统状态
 //
-// 示例值：
+//示例值：
 func (builder *PatchSystemStatusReqBodyBuilder) SystemStatus(systemStatus *SystemStatus) *PatchSystemStatusReqBodyBuilder {
 	builder.systemStatus = systemStatus
-	builder.systemStatusFlag = true
+	builder.systemStatusSet = true
 	return builder
 }
 
 // 需要更新的字段
 //
-// 示例值：['TITLE']
+//示例值：['TITLE']
 func (builder *PatchSystemStatusReqBodyBuilder) UpdateFields(updateFields []string) *PatchSystemStatusReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchSystemStatusReqBodyBuilder) Build() *PatchSystemStatusReqBody {
 	req := &PatchSystemStatusReqBody{}
-	if builder.systemStatusFlag {
+	if builder.systemStatusSet {
 		req.SystemStatus = builder.systemStatus
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req
 }
 
 type PatchSystemStatusPathReqBodyBuilder struct {
-	systemStatus     *SystemStatus
-	systemStatusFlag bool
-	updateFields     []string
-	updateFieldsFlag bool
+	systemStatus    *SystemStatus
+	systemStatusSet bool
+	updateFields    []string
+	updateFieldsSet bool
 }
 
 func NewPatchSystemStatusPathReqBodyBuilder() *PatchSystemStatusPathReqBodyBuilder {
@@ -1187,7 +1191,7 @@ func NewPatchSystemStatusPathReqBodyBuilder() *PatchSystemStatusPathReqBodyBuild
 // 示例值：
 func (builder *PatchSystemStatusPathReqBodyBuilder) SystemStatus(systemStatus *SystemStatus) *PatchSystemStatusPathReqBodyBuilder {
 	builder.systemStatus = systemStatus
-	builder.systemStatusFlag = true
+	builder.systemStatusSet = true
 	return builder
 }
 
@@ -1196,16 +1200,16 @@ func (builder *PatchSystemStatusPathReqBodyBuilder) SystemStatus(systemStatus *S
 // 示例值：['TITLE']
 func (builder *PatchSystemStatusPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchSystemStatusPathReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchSystemStatusPathReqBodyBuilder) Build() (*PatchSystemStatusReqBody, error) {
 	req := &PatchSystemStatusReqBody{}
-	if builder.systemStatusFlag {
+	if builder.systemStatusSet {
 		req.SystemStatus = builder.systemStatus
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req, nil

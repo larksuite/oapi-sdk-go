@@ -36,6 +36,7 @@ func main() {
 		Body(larkim.NewCreateImageReqBodyBuilder().
 			ImageType("message").
 			Image(file).
+			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

@@ -47,6 +47,7 @@ func main() {
 			IsKeyPosition(true).
 			EffectiveTime("2020-05-01").
 			CustomFields([]*larkcorehr.CustomFieldData{larkcorehr.NewCustomFieldDataBuilder().Build()}).
+			IsPreferManualEncoding(false).
 			Build()).
 		Build()
 	// 发起请求

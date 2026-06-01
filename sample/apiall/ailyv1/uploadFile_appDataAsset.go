@@ -37,6 +37,7 @@ func main() {
 		TenantType("dev").
 		Body(larkaily.NewUploadFileAppDataAssetReqBodyBuilder().
 			File(file).
+			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

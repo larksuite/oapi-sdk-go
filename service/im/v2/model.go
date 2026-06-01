@@ -67,6 +67,73 @@ const (
 	UserIdTypePatchFeedCardUnionId = "union_id" // 以union_id来识别用户
 )
 
+type AnnouncementPin struct {
+	UseOpendoc *bool `json:"use_opendoc,omitempty"` //
+
+	Url *string `json:"url,omitempty"` //
+
+	PreviewContent *PreviewContent `json:"preview_content,omitempty"` //
+}
+
+type AnnouncementPinBuilder struct {
+	useOpendoc    bool //
+	useOpendocSet bool
+
+	url    string //
+	urlSet bool
+
+	previewContent    *PreviewContent //
+	previewContentSet bool
+}
+
+func NewAnnouncementPinBuilder() *AnnouncementPinBuilder {
+	builder := &AnnouncementPinBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *AnnouncementPinBuilder) UseOpendoc(useOpendoc bool) *AnnouncementPinBuilder {
+	builder.useOpendoc = useOpendoc
+	builder.useOpendocSet = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *AnnouncementPinBuilder) Url(url string) *AnnouncementPinBuilder {
+	builder.url = url
+	builder.urlSet = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *AnnouncementPinBuilder) PreviewContent(previewContent *PreviewContent) *AnnouncementPinBuilder {
+	builder.previewContent = previewContent
+	builder.previewContentSet = true
+	return builder
+}
+
+func (builder *AnnouncementPinBuilder) Build() *AnnouncementPin {
+	req := &AnnouncementPin{}
+	if builder.useOpendocSet {
+		req.UseOpendoc = &builder.useOpendoc
+
+	}
+	if builder.urlSet {
+		req.Url = &builder.url
+
+	}
+	if builder.previewContentSet {
+		req.PreviewContent = builder.previewContent
+	}
+	return req
+}
+
 type AppFeedNotify struct {
 	CloseNotify *bool `json:"close_notify,omitempty"` // 是否关闭通知
 
@@ -76,14 +143,14 @@ type AppFeedNotify struct {
 }
 
 type AppFeedNotifyBuilder struct {
-	closeNotify     bool // 是否关闭通知
-	closeNotifyFlag bool
+	closeNotify    bool // 是否关闭通知
+	closeNotifySet bool
 
-	customSoundText     string // 自定义语音播报文本内容
-	customSoundTextFlag bool
+	customSoundText    string // 自定义语音播报文本内容
+	customSoundTextSet bool
 
-	withCustomSound     bool // 是否播报自定义语音
-	withCustomSoundFlag bool
+	withCustomSound    bool // 是否播报自定义语音
+	withCustomSoundSet bool
 }
 
 func NewAppFeedNotifyBuilder() *AppFeedNotifyBuilder {
@@ -96,7 +163,7 @@ func NewAppFeedNotifyBuilder() *AppFeedNotifyBuilder {
 // 示例值：true
 func (builder *AppFeedNotifyBuilder) CloseNotify(closeNotify bool) *AppFeedNotifyBuilder {
 	builder.closeNotify = closeNotify
-	builder.closeNotifyFlag = true
+	builder.closeNotifySet = true
 	return builder
 }
 
@@ -105,7 +172,7 @@ func (builder *AppFeedNotifyBuilder) CloseNotify(closeNotify bool) *AppFeedNotif
 // 示例值：您有新的订单
 func (builder *AppFeedNotifyBuilder) CustomSoundText(customSoundText string) *AppFeedNotifyBuilder {
 	builder.customSoundText = customSoundText
-	builder.customSoundTextFlag = true
+	builder.customSoundTextSet = true
 	return builder
 }
 
@@ -114,21 +181,21 @@ func (builder *AppFeedNotifyBuilder) CustomSoundText(customSoundText string) *Ap
 // 示例值：true
 func (builder *AppFeedNotifyBuilder) WithCustomSound(withCustomSound bool) *AppFeedNotifyBuilder {
 	builder.withCustomSound = withCustomSound
-	builder.withCustomSoundFlag = true
+	builder.withCustomSoundSet = true
 	return builder
 }
 
 func (builder *AppFeedNotifyBuilder) Build() *AppFeedNotify {
 	req := &AppFeedNotify{}
-	if builder.closeNotifyFlag {
+	if builder.closeNotifySet {
 		req.CloseNotify = &builder.closeNotify
 
 	}
-	if builder.customSoundTextFlag {
+	if builder.customSoundTextSet {
 		req.CustomSoundText = &builder.customSoundText
 
 	}
-	if builder.withCustomSoundFlag {
+	if builder.withCustomSoundSet {
 		req.WithCustomSound = &builder.withCustomSound
 
 	}
@@ -142,11 +209,11 @@ type ChatCommonHeader struct {
 }
 
 type ChatCommonHeaderBuilder struct {
-	chatId     string // 群ID
-	chatIdFlag bool
+	chatId    string // 群ID
+	chatIdSet bool
 
-	botId     string // botid，不对外展示
-	botIdFlag bool
+	botId    string // botid，不对外展示
+	botIdSet bool
 }
 
 func NewChatCommonHeaderBuilder() *ChatCommonHeaderBuilder {
@@ -159,7 +226,7 @@ func NewChatCommonHeaderBuilder() *ChatCommonHeaderBuilder {
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *ChatCommonHeaderBuilder) ChatId(chatId string) *ChatCommonHeaderBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -168,17 +235,17 @@ func (builder *ChatCommonHeaderBuilder) ChatId(chatId string) *ChatCommonHeaderB
 // 示例值：0
 func (builder *ChatCommonHeaderBuilder) BotId(botId string) *ChatCommonHeaderBuilder {
 	builder.botId = botId
-	builder.botIdFlag = true
+	builder.botIdSet = true
 	return builder
 }
 
 func (builder *ChatCommonHeaderBuilder) Build() *ChatCommonHeader {
 	req := &ChatCommonHeader{}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.botIdFlag {
+	if builder.botIdSet {
 		req.BotId = &builder.botId
 
 	}
@@ -206,32 +273,32 @@ type ChatPin struct {
 }
 
 type ChatPinBuilder struct {
-	chatPinId     string // 置顶ID
-	chatPinIdFlag bool
+	chatPinId    string // 置顶ID
+	chatPinIdSet bool
 
-	chatId     string // 群ID
-	chatIdFlag bool
+	chatId    string // 群ID
+	chatIdSet bool
 
-	chatPinType     string // 置顶类型
-	chatPinTypeFlag bool
+	chatPinType    string // 置顶类型
+	chatPinTypeSet bool
 
-	createTime     string // 置顶创建时间，毫秒级别
-	createTimeFlag bool
+	createTime    string // 置顶创建时间，毫秒级别
+	createTimeSet bool
 
-	chatterId     string // 创建置顶的操作者ID
-	chatterIdFlag bool
+	chatterId    string // 创建置顶的操作者ID
+	chatterIdSet bool
 
-	isFixed     bool // 该置顶是否固定在置顶列表的最前面
-	isFixedFlag bool
+	isFixed    bool // 该置顶是否固定在置顶列表的最前面
+	isFixedSet bool
 
-	operateFixChatterId     string // 固定置顶到置顶列表前面的操作者ID
-	operateFixChatterIdFlag bool
+	operateFixChatterId    string // 固定置顶到置顶列表前面的操作者ID
+	operateFixChatterIdSet bool
 
-	messagePinData     *MessagePin // 消息置顶数据
-	messagePinDataFlag bool
+	messagePinData    *MessagePin // 消息置顶数据
+	messagePinDataSet bool
 
-	urlPinData     *UrlPin // url类型置顶数据
-	urlPinDataFlag bool
+	urlPinData    *UrlPin // url类型置顶数据
+	urlPinDataSet bool
 }
 
 func NewChatPinBuilder() *ChatPinBuilder {
@@ -244,7 +311,7 @@ func NewChatPinBuilder() *ChatPinBuilder {
 // 示例值：7262656565168242692
 func (builder *ChatPinBuilder) ChatPinId(chatPinId string) *ChatPinBuilder {
 	builder.chatPinId = chatPinId
-	builder.chatPinIdFlag = true
+	builder.chatPinIdSet = true
 	return builder
 }
 
@@ -253,7 +320,7 @@ func (builder *ChatPinBuilder) ChatPinId(chatPinId string) *ChatPinBuilder {
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *ChatPinBuilder) ChatId(chatId string) *ChatPinBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -262,7 +329,7 @@ func (builder *ChatPinBuilder) ChatId(chatId string) *ChatPinBuilder {
 // 示例值：message_pin
 func (builder *ChatPinBuilder) ChatPinType(chatPinType string) *ChatPinBuilder {
 	builder.chatPinType = chatPinType
-	builder.chatPinTypeFlag = true
+	builder.chatPinTypeSet = true
 	return builder
 }
 
@@ -271,7 +338,7 @@ func (builder *ChatPinBuilder) ChatPinType(chatPinType string) *ChatPinBuilder {
 // 示例值：1694519103000
 func (builder *ChatPinBuilder) CreateTime(createTime string) *ChatPinBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -280,7 +347,7 @@ func (builder *ChatPinBuilder) CreateTime(createTime string) *ChatPinBuilder {
 // 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
 func (builder *ChatPinBuilder) ChatterId(chatterId string) *ChatPinBuilder {
 	builder.chatterId = chatterId
-	builder.chatterIdFlag = true
+	builder.chatterIdSet = true
 	return builder
 }
 
@@ -289,7 +356,7 @@ func (builder *ChatPinBuilder) ChatterId(chatterId string) *ChatPinBuilder {
 // 示例值：false
 func (builder *ChatPinBuilder) IsFixed(isFixed bool) *ChatPinBuilder {
 	builder.isFixed = isFixed
-	builder.isFixedFlag = true
+	builder.isFixedSet = true
 	return builder
 }
 
@@ -298,7 +365,7 @@ func (builder *ChatPinBuilder) IsFixed(isFixed bool) *ChatPinBuilder {
 // 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
 func (builder *ChatPinBuilder) OperateFixChatterId(operateFixChatterId string) *ChatPinBuilder {
 	builder.operateFixChatterId = operateFixChatterId
-	builder.operateFixChatterIdFlag = true
+	builder.operateFixChatterIdSet = true
 	return builder
 }
 
@@ -307,7 +374,7 @@ func (builder *ChatPinBuilder) OperateFixChatterId(operateFixChatterId string) *
 // 示例值：
 func (builder *ChatPinBuilder) MessagePinData(messagePinData *MessagePin) *ChatPinBuilder {
 	builder.messagePinData = messagePinData
-	builder.messagePinDataFlag = true
+	builder.messagePinDataSet = true
 	return builder
 }
 
@@ -316,44 +383,44 @@ func (builder *ChatPinBuilder) MessagePinData(messagePinData *MessagePin) *ChatP
 // 示例值：
 func (builder *ChatPinBuilder) UrlPinData(urlPinData *UrlPin) *ChatPinBuilder {
 	builder.urlPinData = urlPinData
-	builder.urlPinDataFlag = true
+	builder.urlPinDataSet = true
 	return builder
 }
 
 func (builder *ChatPinBuilder) Build() *ChatPin {
 	req := &ChatPin{}
-	if builder.chatPinIdFlag {
+	if builder.chatPinIdSet {
 		req.ChatPinId = &builder.chatPinId
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.chatPinTypeFlag {
+	if builder.chatPinTypeSet {
 		req.ChatPinType = &builder.chatPinType
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.chatterIdFlag {
+	if builder.chatterIdSet {
 		req.ChatterId = &builder.chatterId
 
 	}
-	if builder.isFixedFlag {
+	if builder.isFixedSet {
 		req.IsFixed = &builder.isFixed
 
 	}
-	if builder.operateFixChatterIdFlag {
+	if builder.operateFixChatterIdSet {
 		req.OperateFixChatterId = &builder.operateFixChatterId
 
 	}
-	if builder.messagePinDataFlag {
+	if builder.messagePinDataSet {
 		req.MessagePinData = builder.messagePinData
 	}
-	if builder.urlPinDataFlag {
+	if builder.urlPinDataSet {
 		req.UrlPinData = builder.urlPinData
 	}
 	return req
@@ -366,11 +433,11 @@ type ChatPinIcon struct {
 }
 
 type ChatPinIconBuilder struct {
-	chatPinIconType     string // 图标类型
-	chatPinIconTypeFlag bool
+	chatPinIconType    string // 图标类型
+	chatPinIconTypeSet bool
 
-	iconKey     string // 图标key
-	iconKeyFlag bool
+	iconKey    string // 图标key
+	iconKeySet bool
 }
 
 func NewChatPinIconBuilder() *ChatPinIconBuilder {
@@ -383,7 +450,7 @@ func NewChatPinIconBuilder() *ChatPinIconBuilder {
 // 示例值：0
 func (builder *ChatPinIconBuilder) ChatPinIconType(chatPinIconType string) *ChatPinIconBuilder {
 	builder.chatPinIconType = chatPinIconType
-	builder.chatPinIconTypeFlag = true
+	builder.chatPinIconTypeSet = true
 	return builder
 }
 
@@ -392,18 +459,399 @@ func (builder *ChatPinIconBuilder) ChatPinIconType(chatPinIconType string) *Chat
 // 示例值：img_v3_0237_9cba8614-abab-47c3-bb0e-318564d9d7ej
 func (builder *ChatPinIconBuilder) IconKey(iconKey string) *ChatPinIconBuilder {
 	builder.iconKey = iconKey
-	builder.iconKeyFlag = true
+	builder.iconKeySet = true
 	return builder
 }
 
 func (builder *ChatPinIconBuilder) Build() *ChatPinIcon {
 	req := &ChatPinIcon{}
-	if builder.chatPinIconTypeFlag {
+	if builder.chatPinIconTypeSet {
 		req.ChatPinIconType = &builder.chatPinIconType
 
 	}
-	if builder.iconKeyFlag {
+	if builder.iconKeySet {
 		req.IconKey = &builder.iconKey
+
+	}
+	return req
+}
+
+type ChatSearchFilter struct {
+	SearchTypes []string `json:"search_types,omitempty"` // 群组类型
+
+	MemberIds []string `json:"member_ids,omitempty"` // 群成员ID
+
+	IsManager *bool `json:"is_manager,omitempty"` // 是否自己创建或者管理的群组
+
+	DisableSearchByUser *bool `json:"disable_search_by_user,omitempty"` // 是否关闭以人搜群功能： 先通过群成员名搜索，再搜群组(默认开启)
+}
+
+type ChatSearchFilterBuilder struct {
+	searchTypes    []string // 群组类型
+	searchTypesSet bool
+
+	memberIds    []string // 群成员ID
+	memberIdsSet bool
+
+	isManager    bool // 是否自己创建或者管理的群组
+	isManagerSet bool
+
+	disableSearchByUser    bool // 是否关闭以人搜群功能： 先通过群成员名搜索，再搜群组(默认开启)
+	disableSearchByUserSet bool
+}
+
+func NewChatSearchFilterBuilder() *ChatSearchFilterBuilder {
+	builder := &ChatSearchFilterBuilder{}
+	return builder
+}
+
+// 群组类型
+//
+// 示例值：
+func (builder *ChatSearchFilterBuilder) SearchTypes(searchTypes []string) *ChatSearchFilterBuilder {
+	builder.searchTypes = searchTypes
+	builder.searchTypesSet = true
+	return builder
+}
+
+// 群成员ID
+//
+// 示例值：
+func (builder *ChatSearchFilterBuilder) MemberIds(memberIds []string) *ChatSearchFilterBuilder {
+	builder.memberIds = memberIds
+	builder.memberIdsSet = true
+	return builder
+}
+
+// 是否自己创建或者管理的群组
+//
+// 示例值：
+func (builder *ChatSearchFilterBuilder) IsManager(isManager bool) *ChatSearchFilterBuilder {
+	builder.isManager = isManager
+	builder.isManagerSet = true
+	return builder
+}
+
+// 是否关闭以人搜群功能： 先通过群成员名搜索，再搜群组(默认开启)
+//
+// 示例值：
+func (builder *ChatSearchFilterBuilder) DisableSearchByUser(disableSearchByUser bool) *ChatSearchFilterBuilder {
+	builder.disableSearchByUser = disableSearchByUser
+	builder.disableSearchByUserSet = true
+	return builder
+}
+
+func (builder *ChatSearchFilterBuilder) Build() *ChatSearchFilter {
+	req := &ChatSearchFilter{}
+	if builder.searchTypesSet {
+		req.SearchTypes = builder.searchTypes
+	}
+	if builder.memberIdsSet {
+		req.MemberIds = builder.memberIds
+	}
+	if builder.isManagerSet {
+		req.IsManager = &builder.isManager
+
+	}
+	if builder.disableSearchByUserSet {
+		req.DisableSearchByUser = &builder.disableSearchByUser
+
+	}
+	return req
+}
+
+type ChatSearchItem struct {
+	Id *string `json:"id,omitempty"` // 群组ID
+
+	DisplayInfo *string `json:"display_info,omitempty"` // 包含群组基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+
+	MetaData *ChatSearchMeta `json:"meta_data,omitempty"` // 群组元信息
+}
+
+type ChatSearchItemBuilder struct {
+	id    string // 群组ID
+	idSet bool
+
+	displayInfo    string // 包含群组基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+	displayInfoSet bool
+
+	metaData    *ChatSearchMeta // 群组元信息
+	metaDataSet bool
+}
+
+func NewChatSearchItemBuilder() *ChatSearchItemBuilder {
+	builder := &ChatSearchItemBuilder{}
+	return builder
+}
+
+// 群组ID
+//
+// 示例值：7890123456abcdef
+func (builder *ChatSearchItemBuilder) Id(id string) *ChatSearchItemBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 包含群组基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+//
+// 示例值：飞书<h>搜索</h>
+func (builder *ChatSearchItemBuilder) DisplayInfo(displayInfo string) *ChatSearchItemBuilder {
+	builder.displayInfo = displayInfo
+	builder.displayInfoSet = true
+	return builder
+}
+
+// 群组元信息
+//
+// 示例值：
+func (builder *ChatSearchItemBuilder) MetaData(metaData *ChatSearchMeta) *ChatSearchItemBuilder {
+	builder.metaData = metaData
+	builder.metaDataSet = true
+	return builder
+}
+
+func (builder *ChatSearchItemBuilder) Build() *ChatSearchItem {
+	req := &ChatSearchItem{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.displayInfoSet {
+		req.DisplayInfo = &builder.displayInfo
+
+	}
+	if builder.metaDataSet {
+		req.MetaData = builder.metaData
+	}
+	return req
+}
+
+type ChatSearchMeta struct {
+	ChatId *string `json:"chat_id,omitempty"` // 	 群组 ID
+
+	CreateTime *string `json:"create_time,omitempty"` // 创建时间(iso8601)
+
+	UpdateTime *string `json:"update_time,omitempty"` // 更新时间(iso8601)
+
+	External *bool `json:"external,omitempty"` // 是否是外部群
+
+	ChatMode *string `json:"chat_mode,omitempty"` // 群模式，group：群组 topic: 话题
+
+	Description *string `json:"description,omitempty"` // 群描述
+
+	Avatar *string `json:"avatar,omitempty"` // 群头像URL
+
+	Name *string `json:"name,omitempty"` // 群名称
+
+	OwnerId *string `json:"owner_id,omitempty"` // 群主ID
+
+	OwnerIdType *string `json:"owner_id_type,omitempty"` // 群主ID类型
+
+	TenantKey *string `json:"tenant_key,omitempty"` // tenant key
+
+	ChatStatus *string `json:"chat_status,omitempty"` // 群状态
+}
+
+type ChatSearchMetaBuilder struct {
+	chatId    string // 	 群组 ID
+	chatIdSet bool
+
+	createTime    string // 创建时间(iso8601)
+	createTimeSet bool
+
+	updateTime    string // 更新时间(iso8601)
+	updateTimeSet bool
+
+	external    bool // 是否是外部群
+	externalSet bool
+
+	chatMode    string // 群模式，group：群组 topic: 话题
+	chatModeSet bool
+
+	description    string // 群描述
+	descriptionSet bool
+
+	avatar    string // 群头像URL
+	avatarSet bool
+
+	name    string // 群名称
+	nameSet bool
+
+	ownerId    string // 群主ID
+	ownerIdSet bool
+
+	ownerIdType    string // 群主ID类型
+	ownerIdTypeSet bool
+
+	tenantKey    string // tenant key
+	tenantKeySet bool
+
+	chatStatus    string // 群状态
+	chatStatusSet bool
+}
+
+func NewChatSearchMetaBuilder() *ChatSearchMetaBuilder {
+	builder := &ChatSearchMetaBuilder{}
+	return builder
+}
+
+// 	 群组 ID
+//
+// 示例值：7890123456abcdef
+func (builder *ChatSearchMetaBuilder) ChatId(chatId string) *ChatSearchMetaBuilder {
+	builder.chatId = chatId
+	builder.chatIdSet = true
+	return builder
+}
+
+// 创建时间(iso8601)
+//
+// 示例值：2026-03-21T16:15:30+08:00
+func (builder *ChatSearchMetaBuilder) CreateTime(createTime string) *ChatSearchMetaBuilder {
+	builder.createTime = createTime
+	builder.createTimeSet = true
+	return builder
+}
+
+// 更新时间(iso8601)
+//
+// 示例值：iso8601
+func (builder *ChatSearchMetaBuilder) UpdateTime(updateTime string) *ChatSearchMetaBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeSet = true
+	return builder
+}
+
+// 是否是外部群
+//
+// 示例值：
+func (builder *ChatSearchMetaBuilder) External(external bool) *ChatSearchMetaBuilder {
+	builder.external = external
+	builder.externalSet = true
+	return builder
+}
+
+// 群模式，group：群组 topic: 话题
+//
+// 示例值：group
+func (builder *ChatSearchMetaBuilder) ChatMode(chatMode string) *ChatSearchMetaBuilder {
+	builder.chatMode = chatMode
+	builder.chatModeSet = true
+	return builder
+}
+
+// 群描述
+//
+// 示例值：群描述
+func (builder *ChatSearchMetaBuilder) Description(description string) *ChatSearchMetaBuilder {
+	builder.description = description
+	builder.descriptionSet = true
+	return builder
+}
+
+// 群头像URL
+//
+// 示例值：https://p3-lark-file.byteimg.com/img/lark-avatar-staging/default-avatar_44ae0ca3-e140-494b-956f-78091e348435~100x100.jpg
+func (builder *ChatSearchMetaBuilder) Avatar(avatar string) *ChatSearchMetaBuilder {
+	builder.avatar = avatar
+	builder.avatarSet = true
+	return builder
+}
+
+// 群名称
+//
+// 示例值：研发讨论群
+func (builder *ChatSearchMetaBuilder) Name(name string) *ChatSearchMetaBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 群主ID
+//
+// 示例值：4d7a3c6g
+func (builder *ChatSearchMetaBuilder) OwnerId(ownerId string) *ChatSearchMetaBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdSet = true
+	return builder
+}
+
+// 群主ID类型
+//
+// 示例值：user_id
+func (builder *ChatSearchMetaBuilder) OwnerIdType(ownerIdType string) *ChatSearchMetaBuilder {
+	builder.ownerIdType = ownerIdType
+	builder.ownerIdTypeSet = true
+	return builder
+}
+
+// tenant key
+//
+// 示例值：fawefawea
+func (builder *ChatSearchMetaBuilder) TenantKey(tenantKey string) *ChatSearchMetaBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeySet = true
+	return builder
+}
+
+// 群状态
+//
+// 示例值：
+func (builder *ChatSearchMetaBuilder) ChatStatus(chatStatus string) *ChatSearchMetaBuilder {
+	builder.chatStatus = chatStatus
+	builder.chatStatusSet = true
+	return builder
+}
+
+func (builder *ChatSearchMetaBuilder) Build() *ChatSearchMeta {
+	req := &ChatSearchMeta{}
+	if builder.chatIdSet {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.createTimeSet {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeSet {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.externalSet {
+		req.External = &builder.external
+
+	}
+	if builder.chatModeSet {
+		req.ChatMode = &builder.chatMode
+
+	}
+	if builder.descriptionSet {
+		req.Description = &builder.description
+
+	}
+	if builder.avatarSet {
+		req.Avatar = &builder.avatar
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.ownerIdSet {
+		req.OwnerId = &builder.ownerId
+
+	}
+	if builder.ownerIdTypeSet {
+		req.OwnerIdType = &builder.ownerIdType
+
+	}
+	if builder.tenantKeySet {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	if builder.chatStatusSet {
+		req.ChatStatus = &builder.chatStatus
 
 	}
 	return req
@@ -418,14 +866,14 @@ type CreateTag struct {
 }
 
 type CreateTagBuilder struct {
-	tagType     string // 标签类型
-	tagTypeFlag bool
+	tagType    string // 标签类型
+	tagTypeSet bool
 
-	name     string // 标签默认名称
-	nameFlag bool
+	name    string // 标签默认名称
+	nameSet bool
 
-	i18nNames     []*TagI18nName // i18n标签名称集合
-	i18nNamesFlag bool
+	i18nNames    []*TagI18nName // i18n标签名称集合
+	i18nNamesSet bool
 }
 
 func NewCreateTagBuilder() *CreateTagBuilder {
@@ -438,7 +886,7 @@ func NewCreateTagBuilder() *CreateTagBuilder {
 // 示例值：tenant
 func (builder *CreateTagBuilder) TagType(tagType string) *CreateTagBuilder {
 	builder.tagType = tagType
-	builder.tagTypeFlag = true
+	builder.tagTypeSet = true
 	return builder
 }
 
@@ -447,7 +895,7 @@ func (builder *CreateTagBuilder) TagType(tagType string) *CreateTagBuilder {
 // 示例值：default name
 func (builder *CreateTagBuilder) Name(name string) *CreateTagBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -456,21 +904,21 @@ func (builder *CreateTagBuilder) Name(name string) *CreateTagBuilder {
 // 示例值：
 func (builder *CreateTagBuilder) I18nNames(i18nNames []*TagI18nName) *CreateTagBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
 func (builder *CreateTagBuilder) Build() *CreateTag {
 	req := &CreateTag{}
-	if builder.tagTypeFlag {
+	if builder.tagTypeSet {
 		req.TagType = &builder.tagType
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
 	return req
@@ -481,8 +929,8 @@ type CreateTagFailReason struct {
 }
 
 type CreateTagFailReasonBuilder struct {
-	duplicateId     string // 名称重复的标签id
-	duplicateIdFlag bool
+	duplicateId    string // 名称重复的标签id
+	duplicateIdSet bool
 }
 
 func NewCreateTagFailReasonBuilder() *CreateTagFailReasonBuilder {
@@ -495,15 +943,550 @@ func NewCreateTagFailReasonBuilder() *CreateTagFailReasonBuilder {
 // 示例值：716168xxxxx
 func (builder *CreateTagFailReasonBuilder) DuplicateId(duplicateId string) *CreateTagFailReasonBuilder {
 	builder.duplicateId = duplicateId
-	builder.duplicateIdFlag = true
+	builder.duplicateIdSet = true
 	return builder
 }
 
 func (builder *CreateTagFailReasonBuilder) Build() *CreateTagFailReason {
 	req := &CreateTagFailReason{}
-	if builder.duplicateIdFlag {
+	if builder.duplicateIdSet {
 		req.DuplicateId = &builder.duplicateId
 
+	}
+	return req
+}
+
+type CustomAuthInfo struct {
+	SessionKey *string `json:"SessionKey,omitempty"` // session key
+
+	UserID *string `json:"UserID,omitempty"` // feishu id for internal app.
+
+	OpenAppID *string `json:"OpenAppID,omitempty"` // app id of open platform.
+
+	AuthType *string `json:"AuthType,omitempty"` // auth type
+
+	Extra map[string]string `json:"Extra,omitempty"` // extra
+}
+
+type CustomAuthInfoBuilder struct {
+	sessionKey    string // session key
+	sessionKeySet bool
+
+	userID    string // feishu id for internal app.
+	userIDSet bool
+
+	openAppID    string // app id of open platform.
+	openAppIDSet bool
+
+	authType    string // auth type
+	authTypeSet bool
+
+	extra    map[string]string // extra
+	extraSet bool
+}
+
+func NewCustomAuthInfoBuilder() *CustomAuthInfoBuilder {
+	builder := &CustomAuthInfoBuilder{}
+	return builder
+}
+
+// session key
+//
+// 示例值：wewrerewrwer
+func (builder *CustomAuthInfoBuilder) SessionKey(sessionKey string) *CustomAuthInfoBuilder {
+	builder.sessionKey = sessionKey
+	builder.sessionKeySet = true
+	return builder
+}
+
+// feishu id for internal app.
+//
+// 示例值：1
+func (builder *CustomAuthInfoBuilder) UserID(userID string) *CustomAuthInfoBuilder {
+	builder.userID = userID
+	builder.userIDSet = true
+	return builder
+}
+
+// app id of open platform.
+//
+// 示例值：1
+func (builder *CustomAuthInfoBuilder) OpenAppID(openAppID string) *CustomAuthInfoBuilder {
+	builder.openAppID = openAppID
+	builder.openAppIDSet = true
+	return builder
+}
+
+// auth type
+//
+// 示例值：1
+func (builder *CustomAuthInfoBuilder) AuthType(authType string) *CustomAuthInfoBuilder {
+	builder.authType = authType
+	builder.authTypeSet = true
+	return builder
+}
+
+// extra
+//
+// 示例值：
+func (builder *CustomAuthInfoBuilder) Extra(extra map[string]string) *CustomAuthInfoBuilder {
+	builder.extra = extra
+	builder.extraSet = true
+	return builder
+}
+
+func (builder *CustomAuthInfoBuilder) Build() *CustomAuthInfo {
+	req := &CustomAuthInfo{}
+	if builder.sessionKeySet {
+		req.SessionKey = &builder.sessionKey
+
+	}
+	if builder.userIDSet {
+		req.UserID = &builder.userID
+
+	}
+	if builder.openAppIDSet {
+		req.OpenAppID = &builder.openAppID
+
+	}
+	if builder.authTypeSet {
+		req.AuthType = &builder.authType
+
+	}
+	if builder.extraSet {
+		req.Extra = builder.extra
+	}
+	return req
+}
+
+type CustomClientInfo struct {
+	Platform *string `json:"Platform,omitempty"` // depracated 请求的平台
+
+	LarkVersion *string `json:"LarkVersion,omitempty"` // depracated 如果是来自Feisu, 这里是飞书的Version
+
+	AppForm *int `json:"AppForm,omitempty"` // depracated 应用形态 1-小程序
+
+	AppVersion *string `json:"AppVersion,omitempty"` // depracated 应用版本
+
+	OS *string `json:"OS,omitempty"` // depracated 操作系统
+
+	ClientIP *string `json:"ClientIP,omitempty"` // 客户端IP
+
+	DeviceID *string `json:"DeviceID,omitempty"` // depracated DeviceID
+}
+
+type CustomClientInfoBuilder struct {
+	platform    string // depracated 请求的平台
+	platformSet bool
+
+	larkVersion    string // depracated 如果是来自Feisu, 这里是飞书的Version
+	larkVersionSet bool
+
+	appForm    int // depracated 应用形态 1-小程序
+	appFormSet bool
+
+	appVersion    string // depracated 应用版本
+	appVersionSet bool
+
+	oS    string // depracated 操作系统
+	oSSet bool
+
+	clientIP    string // 客户端IP
+	clientIPSet bool
+
+	deviceID    string // depracated DeviceID
+	deviceIDSet bool
+}
+
+func NewCustomClientInfoBuilder() *CustomClientInfoBuilder {
+	builder := &CustomClientInfoBuilder{}
+	return builder
+}
+
+// depracated 请求的平台
+//
+// 示例值：1
+func (builder *CustomClientInfoBuilder) Platform(platform string) *CustomClientInfoBuilder {
+	builder.platform = platform
+	builder.platformSet = true
+	return builder
+}
+
+// depracated 如果是来自Feisu, 这里是飞书的Version
+//
+// 示例值：1
+func (builder *CustomClientInfoBuilder) LarkVersion(larkVersion string) *CustomClientInfoBuilder {
+	builder.larkVersion = larkVersion
+	builder.larkVersionSet = true
+	return builder
+}
+
+// depracated 应用形态 1-小程序
+//
+// 示例值：1
+func (builder *CustomClientInfoBuilder) AppForm(appForm int) *CustomClientInfoBuilder {
+	builder.appForm = appForm
+	builder.appFormSet = true
+	return builder
+}
+
+// depracated 应用版本
+//
+// 示例值：1
+func (builder *CustomClientInfoBuilder) AppVersion(appVersion string) *CustomClientInfoBuilder {
+	builder.appVersion = appVersion
+	builder.appVersionSet = true
+	return builder
+}
+
+// depracated 操作系统
+//
+// 示例值：1
+func (builder *CustomClientInfoBuilder) OS(oS string) *CustomClientInfoBuilder {
+	builder.oS = oS
+	builder.oSSet = true
+	return builder
+}
+
+// 客户端IP
+//
+// 示例值：1
+func (builder *CustomClientInfoBuilder) ClientIP(clientIP string) *CustomClientInfoBuilder {
+	builder.clientIP = clientIP
+	builder.clientIPSet = true
+	return builder
+}
+
+// depracated DeviceID
+//
+// 示例值：1
+func (builder *CustomClientInfoBuilder) DeviceID(deviceID string) *CustomClientInfoBuilder {
+	builder.deviceID = deviceID
+	builder.deviceIDSet = true
+	return builder
+}
+
+func (builder *CustomClientInfoBuilder) Build() *CustomClientInfo {
+	req := &CustomClientInfo{}
+	if builder.platformSet {
+		req.Platform = &builder.platform
+
+	}
+	if builder.larkVersionSet {
+		req.LarkVersion = &builder.larkVersion
+
+	}
+	if builder.appFormSet {
+		req.AppForm = &builder.appForm
+
+	}
+	if builder.appVersionSet {
+		req.AppVersion = &builder.appVersion
+
+	}
+	if builder.oSSet {
+		req.OS = &builder.oS
+
+	}
+	if builder.clientIPSet {
+		req.ClientIP = &builder.clientIP
+
+	}
+	if builder.deviceIDSet {
+		req.DeviceID = &builder.deviceID
+
+	}
+	return req
+}
+
+type CustomHead struct {
+	Id *string `json:"Id,omitempty"` // 请求方的id deprecated
+
+	TenantID *string `json:"TenantID,omitempty"` // 请求方的组织，在多租户业务中使用
+
+	AppID *string `json:"AppID,omitempty"` // 请求方的appid
+
+	OpenID *string `json:"OpenID,omitempty"` // 开放平台的OpenID
+
+	TenantKey *string `json:"TenantKey,omitempty"` // 如果小程序登录，这个是原始的信息，和OpenID是一个意思
+
+	Auth *CustomAuthInfo `json:"Auth,omitempty"` // 登录结果
+
+	HttpHeader *CustomHttpHeader `json:"HttpHeader,omitempty"` // http header
+
+	Locale *string `json:"Locale,omitempty"` // 所在区域，参考:A tour of Lobster
+
+	Client *CustomClientInfo `json:"Client,omitempty"` // 客户端信息
+
+	SessionUUID *string `json:"SessionUUID,omitempty"` // Session标识
+}
+
+type CustomHeadBuilder struct {
+	id    string // 请求方的id deprecated
+	idSet bool
+
+	tenantID    string // 请求方的组织，在多租户业务中使用
+	tenantIDSet bool
+
+	appID    string // 请求方的appid
+	appIDSet bool
+
+	openID    string // 开放平台的OpenID
+	openIDSet bool
+
+	tenantKey    string // 如果小程序登录，这个是原始的信息，和OpenID是一个意思
+	tenantKeySet bool
+
+	auth    *CustomAuthInfo // 登录结果
+	authSet bool
+
+	httpHeader    *CustomHttpHeader // http header
+	httpHeaderSet bool
+
+	locale    string // 所在区域，参考:A tour of Lobster
+	localeSet bool
+
+	client    *CustomClientInfo // 客户端信息
+	clientSet bool
+
+	sessionUUID    string // Session标识
+	sessionUUIDSet bool
+}
+
+func NewCustomHeadBuilder() *CustomHeadBuilder {
+	builder := &CustomHeadBuilder{}
+	return builder
+}
+
+// 请求方的id deprecated
+//
+// 示例值：1
+func (builder *CustomHeadBuilder) Id(id string) *CustomHeadBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 请求方的组织，在多租户业务中使用
+//
+// 示例值：1
+func (builder *CustomHeadBuilder) TenantID(tenantID string) *CustomHeadBuilder {
+	builder.tenantID = tenantID
+	builder.tenantIDSet = true
+	return builder
+}
+
+// 请求方的appid
+//
+// 示例值：1
+func (builder *CustomHeadBuilder) AppID(appID string) *CustomHeadBuilder {
+	builder.appID = appID
+	builder.appIDSet = true
+	return builder
+}
+
+// 开放平台的OpenID
+//
+// 示例值：1
+func (builder *CustomHeadBuilder) OpenID(openID string) *CustomHeadBuilder {
+	builder.openID = openID
+	builder.openIDSet = true
+	return builder
+}
+
+// 如果小程序登录，这个是原始的信息，和OpenID是一个意思
+//
+// 示例值：1
+func (builder *CustomHeadBuilder) TenantKey(tenantKey string) *CustomHeadBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeySet = true
+	return builder
+}
+
+// 登录结果
+//
+// 示例值：
+func (builder *CustomHeadBuilder) Auth(auth *CustomAuthInfo) *CustomHeadBuilder {
+	builder.auth = auth
+	builder.authSet = true
+	return builder
+}
+
+// http header
+//
+// 示例值：
+func (builder *CustomHeadBuilder) HttpHeader(httpHeader *CustomHttpHeader) *CustomHeadBuilder {
+	builder.httpHeader = httpHeader
+	builder.httpHeaderSet = true
+	return builder
+}
+
+// 所在区域，参考:A tour of Lobster
+//
+// 示例值：zh
+func (builder *CustomHeadBuilder) Locale(locale string) *CustomHeadBuilder {
+	builder.locale = locale
+	builder.localeSet = true
+	return builder
+}
+
+// 客户端信息
+//
+// 示例值：
+func (builder *CustomHeadBuilder) Client(client *CustomClientInfo) *CustomHeadBuilder {
+	builder.client = client
+	builder.clientSet = true
+	return builder
+}
+
+// Session标识
+//
+// 示例值：1
+func (builder *CustomHeadBuilder) SessionUUID(sessionUUID string) *CustomHeadBuilder {
+	builder.sessionUUID = sessionUUID
+	builder.sessionUUIDSet = true
+	return builder
+}
+
+func (builder *CustomHeadBuilder) Build() *CustomHead {
+	req := &CustomHead{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.tenantIDSet {
+		req.TenantID = &builder.tenantID
+
+	}
+	if builder.appIDSet {
+		req.AppID = &builder.appID
+
+	}
+	if builder.openIDSet {
+		req.OpenID = &builder.openID
+
+	}
+	if builder.tenantKeySet {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	if builder.authSet {
+		req.Auth = builder.auth
+	}
+	if builder.httpHeaderSet {
+		req.HttpHeader = builder.httpHeader
+	}
+	if builder.localeSet {
+		req.Locale = &builder.locale
+
+	}
+	if builder.clientSet {
+		req.Client = builder.client
+	}
+	if builder.sessionUUIDSet {
+		req.SessionUUID = &builder.sessionUUID
+
+	}
+	return req
+}
+
+type CustomHttpHeader struct {
+	Host *string `json:"Host,omitempty"` // 当前Http请求的Host
+
+	QueryParams map[string]string `json:"QueryParams,omitempty"` // 前端传递的参数, Request时有效, Response时, 会被丢弃
+
+	RequestCookies map[string]string `json:"RequestCookies,omitempty"` // 请求的cookie是不带域名也不带path
+
+	Path *string `json:"Path,omitempty"` // 当前Http请求的Path
+
+	Extra map[string]string `json:"Extra,omitempty"` // 请求header
+}
+
+type CustomHttpHeaderBuilder struct {
+	host    string // 当前Http请求的Host
+	hostSet bool
+
+	queryParams    map[string]string // 前端传递的参数, Request时有效, Response时, 会被丢弃
+	queryParamsSet bool
+
+	requestCookies    map[string]string // 请求的cookie是不带域名也不带path
+	requestCookiesSet bool
+
+	path    string // 当前Http请求的Path
+	pathSet bool
+
+	extra    map[string]string // 请求header
+	extraSet bool
+}
+
+func NewCustomHttpHeaderBuilder() *CustomHttpHeaderBuilder {
+	builder := &CustomHttpHeaderBuilder{}
+	return builder
+}
+
+// 当前Http请求的Host
+//
+// 示例值：
+func (builder *CustomHttpHeaderBuilder) Host(host string) *CustomHttpHeaderBuilder {
+	builder.host = host
+	builder.hostSet = true
+	return builder
+}
+
+// 前端传递的参数, Request时有效, Response时, 会被丢弃
+//
+// 示例值：
+func (builder *CustomHttpHeaderBuilder) QueryParams(queryParams map[string]string) *CustomHttpHeaderBuilder {
+	builder.queryParams = queryParams
+	builder.queryParamsSet = true
+	return builder
+}
+
+// 请求的cookie是不带域名也不带path
+//
+// 示例值：
+func (builder *CustomHttpHeaderBuilder) RequestCookies(requestCookies map[string]string) *CustomHttpHeaderBuilder {
+	builder.requestCookies = requestCookies
+	builder.requestCookiesSet = true
+	return builder
+}
+
+// 当前Http请求的Path
+//
+// 示例值：
+func (builder *CustomHttpHeaderBuilder) Path(path string) *CustomHttpHeaderBuilder {
+	builder.path = path
+	builder.pathSet = true
+	return builder
+}
+
+// 请求header
+//
+// 示例值：
+func (builder *CustomHttpHeaderBuilder) Extra(extra map[string]string) *CustomHttpHeaderBuilder {
+	builder.extra = extra
+	builder.extraSet = true
+	return builder
+}
+
+func (builder *CustomHttpHeaderBuilder) Build() *CustomHttpHeader {
+	req := &CustomHttpHeader{}
+	if builder.hostSet {
+		req.Host = &builder.host
+
+	}
+	if builder.queryParamsSet {
+		req.QueryParams = builder.queryParams
+	}
+	if builder.requestCookiesSet {
+		req.RequestCookies = builder.requestCookies
+	}
+	if builder.pathSet {
+		req.Path = &builder.path
+
+	}
+	if builder.extraSet {
+		req.Extra = builder.extra
 	}
 	return req
 }
@@ -515,11 +1498,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -527,27 +1510,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -563,14 +1550,14 @@ type FailedReason struct {
 }
 
 type FailedReasonBuilder struct {
-	errorCode     int // 错误码
-	errorCodeFlag bool
+	errorCode    int // 错误码
+	errorCodeSet bool
 
-	errorMessage     string // 错误信息
-	errorMessageFlag bool
+	errorMessage    string // 错误信息
+	errorMessageSet bool
 
-	userId     string // 用户id
-	userIdFlag bool
+	userId    string // 用户id
+	userIdSet bool
 }
 
 func NewFailedReasonBuilder() *FailedReasonBuilder {
@@ -583,7 +1570,7 @@ func NewFailedReasonBuilder() *FailedReasonBuilder {
 // 示例值：0
 func (builder *FailedReasonBuilder) ErrorCode(errorCode int) *FailedReasonBuilder {
 	builder.errorCode = errorCode
-	builder.errorCodeFlag = true
+	builder.errorCodeSet = true
 	return builder
 }
 
@@ -592,7 +1579,7 @@ func (builder *FailedReasonBuilder) ErrorCode(errorCode int) *FailedReasonBuilde
 // 示例值：The user is not in the chat
 func (builder *FailedReasonBuilder) ErrorMessage(errorMessage string) *FailedReasonBuilder {
 	builder.errorMessage = errorMessage
-	builder.errorMessageFlag = true
+	builder.errorMessageSet = true
 	return builder
 }
 
@@ -601,21 +1588,21 @@ func (builder *FailedReasonBuilder) ErrorMessage(errorMessage string) *FailedRea
 // 示例值：ou_679eaeb583654bff73fefcc6e6371301
 func (builder *FailedReasonBuilder) UserId(userId string) *FailedReasonBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *FailedReasonBuilder) Build() *FailedReason {
 	req := &FailedReason{}
-	if builder.errorCodeFlag {
+	if builder.errorCodeSet {
 		req.ErrorCode = &builder.errorCode
 
 	}
-	if builder.errorMessageFlag {
+	if builder.errorMessageSet {
 		req.ErrorMessage = &builder.errorMessage
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -631,14 +1618,14 @@ type FeedCardDisplayRuleFailedItem struct {
 }
 
 type FeedCardDisplayRuleFailedItemBuilder struct {
-	id     string // ..
-	idFlag bool
+	id    string // ..
+	idSet bool
 
-	errorCode     int // ..
-	errorCodeFlag bool
+	errorCode    int // ..
+	errorCodeSet bool
 
-	errorMessage     string // ..
-	errorMessageFlag bool
+	errorMessage    string // ..
+	errorMessageSet bool
 }
 
 func NewFeedCardDisplayRuleFailedItemBuilder() *FeedCardDisplayRuleFailedItemBuilder {
@@ -651,7 +1638,7 @@ func NewFeedCardDisplayRuleFailedItemBuilder() *FeedCardDisplayRuleFailedItemBui
 // 示例值：..
 func (builder *FeedCardDisplayRuleFailedItemBuilder) Id(id string) *FeedCardDisplayRuleFailedItemBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -660,7 +1647,7 @@ func (builder *FeedCardDisplayRuleFailedItemBuilder) Id(id string) *FeedCardDisp
 // 示例值：0
 func (builder *FeedCardDisplayRuleFailedItemBuilder) ErrorCode(errorCode int) *FeedCardDisplayRuleFailedItemBuilder {
 	builder.errorCode = errorCode
-	builder.errorCodeFlag = true
+	builder.errorCodeSet = true
 	return builder
 }
 
@@ -669,21 +1656,21 @@ func (builder *FeedCardDisplayRuleFailedItemBuilder) ErrorCode(errorCode int) *F
 // 示例值：..
 func (builder *FeedCardDisplayRuleFailedItemBuilder) ErrorMessage(errorMessage string) *FeedCardDisplayRuleFailedItemBuilder {
 	builder.errorMessage = errorMessage
-	builder.errorMessageFlag = true
+	builder.errorMessageSet = true
 	return builder
 }
 
 func (builder *FeedCardDisplayRuleFailedItemBuilder) Build() *FeedCardDisplayRuleFailedItem {
 	req := &FeedCardDisplayRuleFailedItem{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.errorCodeFlag {
+	if builder.errorCodeSet {
 		req.ErrorCode = &builder.errorCode
 
 	}
-	if builder.errorMessageFlag {
+	if builder.errorMessageSet {
 		req.ErrorMessage = &builder.errorMessage
 
 	}
@@ -699,14 +1686,14 @@ type FeedCardDisplayRuleUpdater struct {
 }
 
 type FeedCardDisplayRuleUpdaterBuilder struct {
-	id     string // id
-	idFlag bool
+	id    string // id
+	idSet bool
 
-	displayFeedRule     *OpenDisplayFeedRule // 消息展示规则
-	displayFeedRuleFlag bool
+	displayFeedRule    *OpenDisplayFeedRule // 消息展示规则
+	displayFeedRuleSet bool
 
-	displayFeedRuleUpdateType     string // 消息展示规则更新类型
-	displayFeedRuleUpdateTypeFlag bool
+	displayFeedRuleUpdateType    string // 消息展示规则更新类型
+	displayFeedRuleUpdateTypeSet bool
 }
 
 func NewFeedCardDisplayRuleUpdaterBuilder() *FeedCardDisplayRuleUpdaterBuilder {
@@ -719,7 +1706,7 @@ func NewFeedCardDisplayRuleUpdaterBuilder() *FeedCardDisplayRuleUpdaterBuilder {
 // 示例值：6881602603248009218
 func (builder *FeedCardDisplayRuleUpdaterBuilder) Id(id string) *FeedCardDisplayRuleUpdaterBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -728,7 +1715,7 @@ func (builder *FeedCardDisplayRuleUpdaterBuilder) Id(id string) *FeedCardDisplay
 // 示例值：
 func (builder *FeedCardDisplayRuleUpdaterBuilder) DisplayFeedRule(displayFeedRule *OpenDisplayFeedRule) *FeedCardDisplayRuleUpdaterBuilder {
 	builder.displayFeedRule = displayFeedRule
-	builder.displayFeedRuleFlag = true
+	builder.displayFeedRuleSet = true
 	return builder
 }
 
@@ -737,20 +1724,20 @@ func (builder *FeedCardDisplayRuleUpdaterBuilder) DisplayFeedRule(displayFeedRul
 // 示例值：filter
 func (builder *FeedCardDisplayRuleUpdaterBuilder) DisplayFeedRuleUpdateType(displayFeedRuleUpdateType string) *FeedCardDisplayRuleUpdaterBuilder {
 	builder.displayFeedRuleUpdateType = displayFeedRuleUpdateType
-	builder.displayFeedRuleUpdateTypeFlag = true
+	builder.displayFeedRuleUpdateTypeSet = true
 	return builder
 }
 
 func (builder *FeedCardDisplayRuleUpdaterBuilder) Build() *FeedCardDisplayRuleUpdater {
 	req := &FeedCardDisplayRuleUpdater{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.displayFeedRuleFlag {
+	if builder.displayFeedRuleSet {
 		req.DisplayFeedRule = builder.displayFeedRule
 	}
-	if builder.displayFeedRuleUpdateTypeFlag {
+	if builder.displayFeedRuleUpdateTypeSet {
 		req.DisplayFeedRuleUpdateType = &builder.displayFeedRuleUpdateType
 
 	}
@@ -766,14 +1753,14 @@ type FeedCardSettingFailedItem struct {
 }
 
 type FeedCardSettingFailedItemBuilder struct {
-	feedCardId     string // 消息流卡片 ID
-	feedCardIdFlag bool
+	feedCardId    string // 消息流卡片 ID
+	feedCardIdSet bool
 
-	errorCode     int // 错误码
-	errorCodeFlag bool
+	errorCode    int // 错误码
+	errorCodeSet bool
 
-	errorMessage     string // 错误信息
-	errorMessageFlag bool
+	errorMessage    string // 错误信息
+	errorMessageSet bool
 }
 
 func NewFeedCardSettingFailedItemBuilder() *FeedCardSettingFailedItemBuilder {
@@ -786,7 +1773,7 @@ func NewFeedCardSettingFailedItemBuilder() *FeedCardSettingFailedItemBuilder {
 // 示例值：oc_785fae31552ae88681bc69b4a1550289
 func (builder *FeedCardSettingFailedItemBuilder) FeedCardId(feedCardId string) *FeedCardSettingFailedItemBuilder {
 	builder.feedCardId = feedCardId
-	builder.feedCardIdFlag = true
+	builder.feedCardIdSet = true
 	return builder
 }
 
@@ -795,7 +1782,7 @@ func (builder *FeedCardSettingFailedItemBuilder) FeedCardId(feedCardId string) *
 // 示例值：0
 func (builder *FeedCardSettingFailedItemBuilder) ErrorCode(errorCode int) *FeedCardSettingFailedItemBuilder {
 	builder.errorCode = errorCode
-	builder.errorCodeFlag = true
+	builder.errorCodeSet = true
 	return builder
 }
 
@@ -804,21 +1791,21 @@ func (builder *FeedCardSettingFailedItemBuilder) ErrorCode(errorCode int) *FeedC
 // 示例值：test error message
 func (builder *FeedCardSettingFailedItemBuilder) ErrorMessage(errorMessage string) *FeedCardSettingFailedItemBuilder {
 	builder.errorMessage = errorMessage
-	builder.errorMessageFlag = true
+	builder.errorMessageSet = true
 	return builder
 }
 
 func (builder *FeedCardSettingFailedItemBuilder) Build() *FeedCardSettingFailedItem {
 	req := &FeedCardSettingFailedItem{}
-	if builder.feedCardIdFlag {
+	if builder.feedCardIdSet {
 		req.FeedCardId = &builder.feedCardId
 
 	}
-	if builder.errorCodeFlag {
+	if builder.errorCodeSet {
 		req.ErrorCode = &builder.errorCode
 
 	}
-	if builder.errorMessageFlag {
+	if builder.errorMessageSet {
 		req.ErrorMessage = &builder.errorMessage
 
 	}
@@ -834,14 +1821,14 @@ type FeedCardSettingUpdater struct {
 }
 
 type FeedCardSettingUpdaterBuilder struct {
-	feedCardId     string // 消息流卡片 ID
-	feedCardIdFlag bool
+	feedCardId    string // 消息流卡片 ID
+	feedCardIdSet bool
 
-	readTimestamp     string // 标记已读的时间戳
-	readTimestampFlag bool
+	readTimestamp    string // 标记已读的时间戳
+	readTimestampSet bool
 
-	muteWithSystemMessage     bool // 免打扰操作是否发送系统消息
-	muteWithSystemMessageFlag bool
+	muteWithSystemMessage    bool // 免打扰操作是否发送系统消息
+	muteWithSystemMessageSet bool
 }
 
 func NewFeedCardSettingUpdaterBuilder() *FeedCardSettingUpdaterBuilder {
@@ -854,7 +1841,7 @@ func NewFeedCardSettingUpdaterBuilder() *FeedCardSettingUpdaterBuilder {
 // 示例值：oc_785fae31552ae88681bc69b4a1550289
 func (builder *FeedCardSettingUpdaterBuilder) FeedCardId(feedCardId string) *FeedCardSettingUpdaterBuilder {
 	builder.feedCardId = feedCardId
-	builder.feedCardIdFlag = true
+	builder.feedCardIdSet = true
 	return builder
 }
 
@@ -863,7 +1850,7 @@ func (builder *FeedCardSettingUpdaterBuilder) FeedCardId(feedCardId string) *Fee
 // 示例值：1701246710
 func (builder *FeedCardSettingUpdaterBuilder) ReadTimestamp(readTimestamp string) *FeedCardSettingUpdaterBuilder {
 	builder.readTimestamp = readTimestamp
-	builder.readTimestampFlag = true
+	builder.readTimestampSet = true
 	return builder
 }
 
@@ -872,21 +1859,21 @@ func (builder *FeedCardSettingUpdaterBuilder) ReadTimestamp(readTimestamp string
 // 示例值：false
 func (builder *FeedCardSettingUpdaterBuilder) MuteWithSystemMessage(muteWithSystemMessage bool) *FeedCardSettingUpdaterBuilder {
 	builder.muteWithSystemMessage = muteWithSystemMessage
-	builder.muteWithSystemMessageFlag = true
+	builder.muteWithSystemMessageSet = true
 	return builder
 }
 
 func (builder *FeedCardSettingUpdaterBuilder) Build() *FeedCardSettingUpdater {
 	req := &FeedCardSettingUpdater{}
-	if builder.feedCardIdFlag {
+	if builder.feedCardIdSet {
 		req.FeedCardId = &builder.feedCardId
 
 	}
-	if builder.readTimestampFlag {
+	if builder.readTimestampSet {
 		req.ReadTimestamp = &builder.readTimestamp
 
 	}
-	if builder.muteWithSystemMessageFlag {
+	if builder.muteWithSystemMessageSet {
 		req.MuteWithSystemMessage = &builder.muteWithSystemMessage
 
 	}
@@ -900,21 +1887,21 @@ type FeedGroup struct {
 
 	Name *string `json:"name,omitempty"` // 标签名
 
-	Rules *FeedGroupRules `json:"rules,omitempty"` // 标签规则
+	Rules *FeedGroupRulesV2 `json:"rules,omitempty"` // 标签规则
 }
 
 type FeedGroupBuilder struct {
-	groupId     string // 标签 ID
-	groupIdFlag bool
+	groupId    string // 标签 ID
+	groupIdSet bool
 
 	type_    string // 标签类型
-	typeFlag bool
+	type_Set bool
 
-	name     string // 标签名
-	nameFlag bool
+	name    string // 标签名
+	nameSet bool
 
-	rules     *FeedGroupRules // 标签规则
-	rulesFlag bool
+	rules    *FeedGroupRulesV2 // 标签规则
+	rulesSet bool
 }
 
 func NewFeedGroupBuilder() *FeedGroupBuilder {
@@ -927,7 +1914,7 @@ func NewFeedGroupBuilder() *FeedGroupBuilder {
 // 示例值：7091086414609645828
 func (builder *FeedGroupBuilder) GroupId(groupId string) *FeedGroupBuilder {
 	builder.groupId = groupId
-	builder.groupIdFlag = true
+	builder.groupIdSet = true
 	return builder
 }
 
@@ -936,7 +1923,7 @@ func (builder *FeedGroupBuilder) GroupId(groupId string) *FeedGroupBuilder {
 // 示例值：normal
 func (builder *FeedGroupBuilder) Type(type_ string) *FeedGroupBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -945,34 +1932,34 @@ func (builder *FeedGroupBuilder) Type(type_ string) *FeedGroupBuilder {
 // 示例值：test
 func (builder *FeedGroupBuilder) Name(name string) *FeedGroupBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 // 标签规则
 //
 // 示例值：
-func (builder *FeedGroupBuilder) Rules(rules *FeedGroupRules) *FeedGroupBuilder {
+func (builder *FeedGroupBuilder) Rules(rules *FeedGroupRulesV2) *FeedGroupBuilder {
 	builder.rules = rules
-	builder.rulesFlag = true
+	builder.rulesSet = true
 	return builder
 }
 
 func (builder *FeedGroupBuilder) Build() *FeedGroup {
 	req := &FeedGroup{}
-	if builder.groupIdFlag {
+	if builder.groupIdSet {
 		req.GroupId = &builder.groupId
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.rulesFlag {
+	if builder.rulesSet {
 		req.Rules = builder.rules
 	}
 	return req
@@ -988,13 +1975,13 @@ type FeedGroupCreator struct {
 
 type FeedGroupCreatorBuilder struct {
 	type_    string // 标签类型
-	typeFlag bool
+	type_Set bool
 
-	name     string // 标签名
-	nameFlag bool
+	name    string // 标签名
+	nameSet bool
 
-	rules     *FeedGroupRules // 标签规则
-	rulesFlag bool
+	rules    *FeedGroupRules // 标签规则
+	rulesSet bool
 }
 
 func NewFeedGroupCreatorBuilder() *FeedGroupCreatorBuilder {
@@ -1007,7 +1994,7 @@ func NewFeedGroupCreatorBuilder() *FeedGroupCreatorBuilder {
 // 示例值：rule
 func (builder *FeedGroupCreatorBuilder) Type(type_ string) *FeedGroupCreatorBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1016,7 +2003,7 @@ func (builder *FeedGroupCreatorBuilder) Type(type_ string) *FeedGroupCreatorBuil
 // 示例值：测试标签
 func (builder *FeedGroupCreatorBuilder) Name(name string) *FeedGroupCreatorBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1025,21 +2012,21 @@ func (builder *FeedGroupCreatorBuilder) Name(name string) *FeedGroupCreatorBuild
 // 示例值：
 func (builder *FeedGroupCreatorBuilder) Rules(rules *FeedGroupRules) *FeedGroupCreatorBuilder {
 	builder.rules = rules
-	builder.rulesFlag = true
+	builder.rulesSet = true
 	return builder
 }
 
 func (builder *FeedGroupCreatorBuilder) Build() *FeedGroupCreator {
 	req := &FeedGroupCreator{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.rulesFlag {
+	if builder.rulesSet {
 		req.Rules = builder.rules
 	}
 	return req
@@ -1052,11 +2039,11 @@ type FeedGroupItem struct {
 }
 
 type FeedGroupItemBuilder struct {
-	feedId     string // 消息卡片 ID
-	feedIdFlag bool
+	feedId    string // 消息卡片 ID
+	feedIdSet bool
 
-	feedType     string // 消息卡片类型
-	feedTypeFlag bool
+	feedType    string // 消息卡片类型
+	feedTypeSet bool
 }
 
 func NewFeedGroupItemBuilder() *FeedGroupItemBuilder {
@@ -1069,7 +2056,7 @@ func NewFeedGroupItemBuilder() *FeedGroupItemBuilder {
 // 示例值：7191086414609645000
 func (builder *FeedGroupItemBuilder) FeedId(feedId string) *FeedGroupItemBuilder {
 	builder.feedId = feedId
-	builder.feedIdFlag = true
+	builder.feedIdSet = true
 	return builder
 }
 
@@ -1078,17 +2065,67 @@ func (builder *FeedGroupItemBuilder) FeedId(feedId string) *FeedGroupItemBuilder
 // 示例值：3
 func (builder *FeedGroupItemBuilder) FeedType(feedType string) *FeedGroupItemBuilder {
 	builder.feedType = feedType
-	builder.feedTypeFlag = true
+	builder.feedTypeSet = true
 	return builder
 }
 
 func (builder *FeedGroupItemBuilder) Build() *FeedGroupItem {
 	req := &FeedGroupItem{}
-	if builder.feedIdFlag {
+	if builder.feedIdSet {
 		req.FeedId = &builder.feedId
 
 	}
-	if builder.feedTypeFlag {
+	if builder.feedTypeSet {
+		req.FeedType = &builder.feedType
+
+	}
+	return req
+}
+
+type FeedGroupItemV2 struct {
+	FeedId *string `json:"feed_id,omitempty"` // 消息卡片 ID
+
+	FeedType *string `json:"feed_type,omitempty"` // 消息卡片类型
+}
+
+type FeedGroupItemV2Builder struct {
+	feedId    string // 消息卡片 ID
+	feedIdSet bool
+
+	feedType    string // 消息卡片类型
+	feedTypeSet bool
+}
+
+func NewFeedGroupItemV2Builder() *FeedGroupItemV2Builder {
+	builder := &FeedGroupItemV2Builder{}
+	return builder
+}
+
+// 消息卡片 ID
+//
+// 示例值：7191086414609645000
+func (builder *FeedGroupItemV2Builder) FeedId(feedId string) *FeedGroupItemV2Builder {
+	builder.feedId = feedId
+	builder.feedIdSet = true
+	return builder
+}
+
+// 消息卡片类型
+//
+// 示例值：3
+func (builder *FeedGroupItemV2Builder) FeedType(feedType string) *FeedGroupItemV2Builder {
+	builder.feedType = feedType
+	builder.feedTypeSet = true
+	return builder
+}
+
+func (builder *FeedGroupItemV2Builder) Build() *FeedGroupItemV2 {
+	req := &FeedGroupItemV2{}
+	if builder.feedIdSet {
+		req.FeedId = &builder.feedId
+
+	}
+	if builder.feedTypeSet {
 		req.FeedType = &builder.feedType
 
 	}
@@ -1102,11 +2139,11 @@ type FeedGroupRule struct {
 }
 
 type FeedGroupRuleBuilder struct {
-	condition     *FeedGroupRuleCond // 条件
-	conditionFlag bool
+	condition    *FeedGroupRuleCond // 条件
+	conditionSet bool
 
-	action     string // 动作
-	actionFlag bool
+	action    string // 动作
+	actionSet bool
 }
 
 func NewFeedGroupRuleBuilder() *FeedGroupRuleBuilder {
@@ -1119,7 +2156,7 @@ func NewFeedGroupRuleBuilder() *FeedGroupRuleBuilder {
 // 示例值：
 func (builder *FeedGroupRuleBuilder) Condition(condition *FeedGroupRuleCond) *FeedGroupRuleBuilder {
 	builder.condition = condition
-	builder.conditionFlag = true
+	builder.conditionSet = true
 	return builder
 }
 
@@ -1128,16 +2165,16 @@ func (builder *FeedGroupRuleBuilder) Condition(condition *FeedGroupRuleCond) *Fe
 // 示例值：add
 func (builder *FeedGroupRuleBuilder) Action(action string) *FeedGroupRuleBuilder {
 	builder.action = action
-	builder.actionFlag = true
+	builder.actionSet = true
 	return builder
 }
 
 func (builder *FeedGroupRuleBuilder) Build() *FeedGroupRule {
 	req := &FeedGroupRule{}
-	if builder.conditionFlag {
+	if builder.conditionSet {
 		req.Condition = builder.condition
 	}
-	if builder.actionFlag {
+	if builder.actionSet {
 		req.Action = &builder.action
 
 	}
@@ -1151,11 +2188,11 @@ type FeedGroupRuleCond struct {
 }
 
 type FeedGroupRuleCondBuilder struct {
-	matchType     string // 匹配类型
-	matchTypeFlag bool
+	matchType    string // 匹配类型
+	matchTypeSet bool
 
-	conditionItems     []*FeedGroupRuleCondItem // 条件项列表
-	conditionItemsFlag bool
+	conditionItems    []*FeedGroupRuleCondItem // 条件项列表
+	conditionItemsSet bool
 }
 
 func NewFeedGroupRuleCondBuilder() *FeedGroupRuleCondBuilder {
@@ -1168,7 +2205,7 @@ func NewFeedGroupRuleCondBuilder() *FeedGroupRuleCondBuilder {
 // 示例值：match_all
 func (builder *FeedGroupRuleCondBuilder) MatchType(matchType string) *FeedGroupRuleCondBuilder {
 	builder.matchType = matchType
-	builder.matchTypeFlag = true
+	builder.matchTypeSet = true
 	return builder
 }
 
@@ -1177,17 +2214,17 @@ func (builder *FeedGroupRuleCondBuilder) MatchType(matchType string) *FeedGroupR
 // 示例值：
 func (builder *FeedGroupRuleCondBuilder) ConditionItems(conditionItems []*FeedGroupRuleCondItem) *FeedGroupRuleCondBuilder {
 	builder.conditionItems = conditionItems
-	builder.conditionItemsFlag = true
+	builder.conditionItemsSet = true
 	return builder
 }
 
 func (builder *FeedGroupRuleCondBuilder) Build() *FeedGroupRuleCond {
 	req := &FeedGroupRuleCond{}
-	if builder.matchTypeFlag {
+	if builder.matchTypeSet {
 		req.MatchType = &builder.matchType
 
 	}
-	if builder.conditionItemsFlag {
+	if builder.conditionItemsSet {
 		req.ConditionItems = builder.conditionItems
 	}
 	return req
@@ -1207,19 +2244,19 @@ type FeedGroupRuleCondItem struct {
 
 type FeedGroupRuleCondItemBuilder struct {
 	type_    string // 条件类型
-	typeFlag bool
+	type_Set bool
 
-	operator     string // 操作符
-	operatorFlag bool
+	operator    string // 操作符
+	operatorSet bool
 
-	keyword     string // 关键词
-	keywordFlag bool
+	keyword    string // 关键词
+	keywordSet bool
 
-	userId     string // 用户 ID
-	userIdFlag bool
+	userId    string // 用户 ID
+	userIdSet bool
 
-	chatType     string // 会话类型
-	chatTypeFlag bool
+	chatType    string // 会话类型
+	chatTypeSet bool
 }
 
 func NewFeedGroupRuleCondItemBuilder() *FeedGroupRuleCondItemBuilder {
@@ -1232,7 +2269,7 @@ func NewFeedGroupRuleCondItemBuilder() *FeedGroupRuleCondItemBuilder {
 // 示例值：keyword
 func (builder *FeedGroupRuleCondItemBuilder) Type(type_ string) *FeedGroupRuleCondItemBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1241,7 +2278,7 @@ func (builder *FeedGroupRuleCondItemBuilder) Type(type_ string) *FeedGroupRuleCo
 // 示例值：contain
 func (builder *FeedGroupRuleCondItemBuilder) Operator(operator string) *FeedGroupRuleCondItemBuilder {
 	builder.operator = operator
-	builder.operatorFlag = true
+	builder.operatorSet = true
 	return builder
 }
 
@@ -1250,7 +2287,7 @@ func (builder *FeedGroupRuleCondItemBuilder) Operator(operator string) *FeedGrou
 // 示例值：test
 func (builder *FeedGroupRuleCondItemBuilder) Keyword(keyword string) *FeedGroupRuleCondItemBuilder {
 	builder.keyword = keyword
-	builder.keywordFlag = true
+	builder.keywordSet = true
 	return builder
 }
 
@@ -1259,7 +2296,7 @@ func (builder *FeedGroupRuleCondItemBuilder) Keyword(keyword string) *FeedGroupR
 // 示例值：ou_685fae31552ae88681bc69b4a15502df
 func (builder *FeedGroupRuleCondItemBuilder) UserId(userId string) *FeedGroupRuleCondItemBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -1268,30 +2305,232 @@ func (builder *FeedGroupRuleCondItemBuilder) UserId(userId string) *FeedGroupRul
 // 示例值：p2p
 func (builder *FeedGroupRuleCondItemBuilder) ChatType(chatType string) *FeedGroupRuleCondItemBuilder {
 	builder.chatType = chatType
-	builder.chatTypeFlag = true
+	builder.chatTypeSet = true
 	return builder
 }
 
 func (builder *FeedGroupRuleCondItemBuilder) Build() *FeedGroupRuleCondItem {
 	req := &FeedGroupRuleCondItem{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.operatorFlag {
+	if builder.operatorSet {
 		req.Operator = &builder.operator
 
 	}
-	if builder.keywordFlag {
+	if builder.keywordSet {
 		req.Keyword = &builder.keyword
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.chatTypeFlag {
+	if builder.chatTypeSet {
 		req.ChatType = &builder.chatType
+
+	}
+	return req
+}
+
+type FeedGroupRuleCondItemV2 struct {
+	Type *string `json:"type,omitempty"` // 条件类型
+
+	Operator *string `json:"operator,omitempty"` // 操作符
+
+	Keyword *string `json:"keyword,omitempty"` // 关键词
+
+	UserId *string `json:"user_id,omitempty"` // 用户 ID
+
+	ChatType *string `json:"chat_type,omitempty"` // 会话类型
+}
+
+type FeedGroupRuleCondItemV2Builder struct {
+	type_    string // 条件类型
+	type_Set bool
+
+	operator    string // 操作符
+	operatorSet bool
+
+	keyword    string // 关键词
+	keywordSet bool
+
+	userId    string // 用户 ID
+	userIdSet bool
+
+	chatType    string // 会话类型
+	chatTypeSet bool
+}
+
+func NewFeedGroupRuleCondItemV2Builder() *FeedGroupRuleCondItemV2Builder {
+	builder := &FeedGroupRuleCondItemV2Builder{}
+	return builder
+}
+
+// 条件类型
+//
+// 示例值：keyword
+func (builder *FeedGroupRuleCondItemV2Builder) Type(type_ string) *FeedGroupRuleCondItemV2Builder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 操作符
+//
+// 示例值：contain
+func (builder *FeedGroupRuleCondItemV2Builder) Operator(operator string) *FeedGroupRuleCondItemV2Builder {
+	builder.operator = operator
+	builder.operatorSet = true
+	return builder
+}
+
+// 关键词
+//
+// 示例值：test
+func (builder *FeedGroupRuleCondItemV2Builder) Keyword(keyword string) *FeedGroupRuleCondItemV2Builder {
+	builder.keyword = keyword
+	builder.keywordSet = true
+	return builder
+}
+
+// 用户 ID
+//
+// 示例值：ou_685fae31552ae88681bc69b4a15502df
+func (builder *FeedGroupRuleCondItemV2Builder) UserId(userId string) *FeedGroupRuleCondItemV2Builder {
+	builder.userId = userId
+	builder.userIdSet = true
+	return builder
+}
+
+// 会话类型
+//
+// 示例值：p2p
+func (builder *FeedGroupRuleCondItemV2Builder) ChatType(chatType string) *FeedGroupRuleCondItemV2Builder {
+	builder.chatType = chatType
+	builder.chatTypeSet = true
+	return builder
+}
+
+func (builder *FeedGroupRuleCondItemV2Builder) Build() *FeedGroupRuleCondItemV2 {
+	req := &FeedGroupRuleCondItemV2{}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.operatorSet {
+		req.Operator = &builder.operator
+
+	}
+	if builder.keywordSet {
+		req.Keyword = &builder.keyword
+
+	}
+	if builder.userIdSet {
+		req.UserId = &builder.userId
+
+	}
+	if builder.chatTypeSet {
+		req.ChatType = &builder.chatType
+
+	}
+	return req
+}
+
+type FeedGroupRuleCondV2 struct {
+	MatchType *string `json:"match_type,omitempty"` // 匹配类型
+
+	ConditionItems []*FeedGroupRuleCondItemV2 `json:"condition_items,omitempty"` // 条件项列表
+}
+
+type FeedGroupRuleCondV2Builder struct {
+	matchType    string // 匹配类型
+	matchTypeSet bool
+
+	conditionItems    []*FeedGroupRuleCondItemV2 // 条件项列表
+	conditionItemsSet bool
+}
+
+func NewFeedGroupRuleCondV2Builder() *FeedGroupRuleCondV2Builder {
+	builder := &FeedGroupRuleCondV2Builder{}
+	return builder
+}
+
+// 匹配类型
+//
+// 示例值：match_all
+func (builder *FeedGroupRuleCondV2Builder) MatchType(matchType string) *FeedGroupRuleCondV2Builder {
+	builder.matchType = matchType
+	builder.matchTypeSet = true
+	return builder
+}
+
+// 条件项列表
+//
+// 示例值：
+func (builder *FeedGroupRuleCondV2Builder) ConditionItems(conditionItems []*FeedGroupRuleCondItemV2) *FeedGroupRuleCondV2Builder {
+	builder.conditionItems = conditionItems
+	builder.conditionItemsSet = true
+	return builder
+}
+
+func (builder *FeedGroupRuleCondV2Builder) Build() *FeedGroupRuleCondV2 {
+	req := &FeedGroupRuleCondV2{}
+	if builder.matchTypeSet {
+		req.MatchType = &builder.matchType
+
+	}
+	if builder.conditionItemsSet {
+		req.ConditionItems = builder.conditionItems
+	}
+	return req
+}
+
+type FeedGroupRuleV2 struct {
+	Condition *FeedGroupRuleCondV2 `json:"condition,omitempty"` // 条件
+
+	Action *string `json:"action,omitempty"` // 动作
+}
+
+type FeedGroupRuleV2Builder struct {
+	condition    *FeedGroupRuleCondV2 // 条件
+	conditionSet bool
+
+	action    string // 动作
+	actionSet bool
+}
+
+func NewFeedGroupRuleV2Builder() *FeedGroupRuleV2Builder {
+	builder := &FeedGroupRuleV2Builder{}
+	return builder
+}
+
+// 条件
+//
+// 示例值：
+func (builder *FeedGroupRuleV2Builder) Condition(condition *FeedGroupRuleCondV2) *FeedGroupRuleV2Builder {
+	builder.condition = condition
+	builder.conditionSet = true
+	return builder
+}
+
+// 动作
+//
+// 示例值：add
+func (builder *FeedGroupRuleV2Builder) Action(action string) *FeedGroupRuleV2Builder {
+	builder.action = action
+	builder.actionSet = true
+	return builder
+}
+
+func (builder *FeedGroupRuleV2Builder) Build() *FeedGroupRuleV2 {
+	req := &FeedGroupRuleV2{}
+	if builder.conditionSet {
+		req.Condition = builder.condition
+	}
+	if builder.actionSet {
+		req.Action = &builder.action
 
 	}
 	return req
@@ -1302,8 +2541,8 @@ type FeedGroupRules struct {
 }
 
 type FeedGroupRulesBuilder struct {
-	rules     []*FeedGroupRule // 规则列表
-	rulesFlag bool
+	rules    []*FeedGroupRule // 规则列表
+	rulesSet bool
 }
 
 func NewFeedGroupRulesBuilder() *FeedGroupRulesBuilder {
@@ -1316,13 +2555,44 @@ func NewFeedGroupRulesBuilder() *FeedGroupRulesBuilder {
 // 示例值：
 func (builder *FeedGroupRulesBuilder) Rules(rules []*FeedGroupRule) *FeedGroupRulesBuilder {
 	builder.rules = rules
-	builder.rulesFlag = true
+	builder.rulesSet = true
 	return builder
 }
 
 func (builder *FeedGroupRulesBuilder) Build() *FeedGroupRules {
 	req := &FeedGroupRules{}
-	if builder.rulesFlag {
+	if builder.rulesSet {
+		req.Rules = builder.rules
+	}
+	return req
+}
+
+type FeedGroupRulesV2 struct {
+	Rules []*FeedGroupRuleV2 `json:"rules,omitempty"` // 规则列表
+}
+
+type FeedGroupRulesV2Builder struct {
+	rules    []*FeedGroupRuleV2 // 规则列表
+	rulesSet bool
+}
+
+func NewFeedGroupRulesV2Builder() *FeedGroupRulesV2Builder {
+	builder := &FeedGroupRulesV2Builder{}
+	return builder
+}
+
+// 规则列表
+//
+// 示例值：
+func (builder *FeedGroupRulesV2Builder) Rules(rules []*FeedGroupRuleV2) *FeedGroupRulesV2Builder {
+	builder.rules = rules
+	builder.rulesSet = true
+	return builder
+}
+
+func (builder *FeedGroupRulesV2Builder) Build() *FeedGroupRulesV2 {
+	req := &FeedGroupRulesV2{}
+	if builder.rulesSet {
 		req.Rules = builder.rules
 	}
 	return req
@@ -1339,17 +2609,17 @@ type FeedGroupUpdater struct {
 }
 
 type FeedGroupUpdaterBuilder struct {
-	groupId     string // 标签 ID
-	groupIdFlag bool
+	groupId    string // 标签 ID
+	groupIdSet bool
 
-	name     string // 标签名
-	nameFlag bool
+	name    string // 标签名
+	nameSet bool
 
-	rules     *FeedGroupRules // 标签规则列表
-	rulesFlag bool
+	rules    *FeedGroupRules // 标签规则列表
+	rulesSet bool
 
-	updateFields     []string // 更新字段列表
-	updateFieldsFlag bool
+	updateFields    []string // 更新字段列表
+	updateFieldsSet bool
 }
 
 func NewFeedGroupUpdaterBuilder() *FeedGroupUpdaterBuilder {
@@ -1362,7 +2632,7 @@ func NewFeedGroupUpdaterBuilder() *FeedGroupUpdaterBuilder {
 // 示例值：7091086414609645828
 func (builder *FeedGroupUpdaterBuilder) GroupId(groupId string) *FeedGroupUpdaterBuilder {
 	builder.groupId = groupId
-	builder.groupIdFlag = true
+	builder.groupIdSet = true
 	return builder
 }
 
@@ -1371,7 +2641,7 @@ func (builder *FeedGroupUpdaterBuilder) GroupId(groupId string) *FeedGroupUpdate
 // 示例值：test
 func (builder *FeedGroupUpdaterBuilder) Name(name string) *FeedGroupUpdaterBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1380,7 +2650,7 @@ func (builder *FeedGroupUpdaterBuilder) Name(name string) *FeedGroupUpdaterBuild
 // 示例值：
 func (builder *FeedGroupUpdaterBuilder) Rules(rules *FeedGroupRules) *FeedGroupUpdaterBuilder {
 	builder.rules = rules
-	builder.rulesFlag = true
+	builder.rulesSet = true
 	return builder
 }
 
@@ -1389,24 +2659,24 @@ func (builder *FeedGroupUpdaterBuilder) Rules(rules *FeedGroupRules) *FeedGroupU
 // 示例值：
 func (builder *FeedGroupUpdaterBuilder) UpdateFields(updateFields []string) *FeedGroupUpdaterBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *FeedGroupUpdaterBuilder) Build() *FeedGroupUpdater {
 	req := &FeedGroupUpdater{}
-	if builder.groupIdFlag {
+	if builder.groupIdSet {
 		req.GroupId = &builder.groupId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.rulesFlag {
+	if builder.rulesSet {
 		req.Rules = builder.rules
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req
@@ -1421,14 +2691,14 @@ type GroupFailedReason struct {
 }
 
 type GroupFailedReasonBuilder struct {
-	groupId     string // 标签 ID
-	groupIdFlag bool
+	groupId    string // 标签 ID
+	groupIdSet bool
 
-	errorCode     int // 错误码
-	errorCodeFlag bool
+	errorCode    int // 错误码
+	errorCodeSet bool
 
-	errorMessage     string // 错误信息
-	errorMessageFlag bool
+	errorMessage    string // 错误信息
+	errorMessageSet bool
 }
 
 func NewGroupFailedReasonBuilder() *GroupFailedReasonBuilder {
@@ -1441,7 +2711,7 @@ func NewGroupFailedReasonBuilder() *GroupFailedReasonBuilder {
 // 示例值：7091086414609645828
 func (builder *GroupFailedReasonBuilder) GroupId(groupId string) *GroupFailedReasonBuilder {
 	builder.groupId = groupId
-	builder.groupIdFlag = true
+	builder.groupIdSet = true
 	return builder
 }
 
@@ -1450,7 +2720,7 @@ func (builder *GroupFailedReasonBuilder) GroupId(groupId string) *GroupFailedRea
 // 示例值：0
 func (builder *GroupFailedReasonBuilder) ErrorCode(errorCode int) *GroupFailedReasonBuilder {
 	builder.errorCode = errorCode
-	builder.errorCodeFlag = true
+	builder.errorCodeSet = true
 	return builder
 }
 
@@ -1459,21 +2729,21 @@ func (builder *GroupFailedReasonBuilder) ErrorCode(errorCode int) *GroupFailedRe
 // 示例值：test error message
 func (builder *GroupFailedReasonBuilder) ErrorMessage(errorMessage string) *GroupFailedReasonBuilder {
 	builder.errorMessage = errorMessage
-	builder.errorMessageFlag = true
+	builder.errorMessageSet = true
 	return builder
 }
 
 func (builder *GroupFailedReasonBuilder) Build() *GroupFailedReason {
 	req := &GroupFailedReason{}
-	if builder.groupIdFlag {
+	if builder.groupIdSet {
 		req.GroupId = &builder.groupId
 
 	}
-	if builder.errorCodeFlag {
+	if builder.errorCodeSet {
 		req.ErrorCode = &builder.errorCode
 
 	}
-	if builder.errorMessageFlag {
+	if builder.errorMessageSet {
 		req.ErrorMessage = &builder.errorMessage
 
 	}
@@ -1481,7 +2751,7 @@ func (builder *GroupFailedReasonBuilder) Build() *GroupFailedReason {
 }
 
 type GroupItemFailedReason struct {
-	Item *FeedGroupItem `json:"item,omitempty"` // 标签项
+	Item *FeedGroupItemV2 `json:"item,omitempty"` // 标签项
 
 	ErrorCode *int `json:"error_code,omitempty"` // 错误码
 
@@ -1489,14 +2759,14 @@ type GroupItemFailedReason struct {
 }
 
 type GroupItemFailedReasonBuilder struct {
-	item     *FeedGroupItem // 标签项
-	itemFlag bool
+	item    *FeedGroupItemV2 // 标签项
+	itemSet bool
 
-	errorCode     int // 错误码
-	errorCodeFlag bool
+	errorCode    int // 错误码
+	errorCodeSet bool
 
-	errorMessage     string // 错误消息
-	errorMessageFlag bool
+	errorMessage    string // 错误消息
+	errorMessageSet bool
 }
 
 func NewGroupItemFailedReasonBuilder() *GroupItemFailedReasonBuilder {
@@ -1507,9 +2777,9 @@ func NewGroupItemFailedReasonBuilder() *GroupItemFailedReasonBuilder {
 // 标签项
 //
 // 示例值：
-func (builder *GroupItemFailedReasonBuilder) Item(item *FeedGroupItem) *GroupItemFailedReasonBuilder {
+func (builder *GroupItemFailedReasonBuilder) Item(item *FeedGroupItemV2) *GroupItemFailedReasonBuilder {
 	builder.item = item
-	builder.itemFlag = true
+	builder.itemSet = true
 	return builder
 }
 
@@ -1518,7 +2788,7 @@ func (builder *GroupItemFailedReasonBuilder) Item(item *FeedGroupItem) *GroupIte
 // 示例值：0
 func (builder *GroupItemFailedReasonBuilder) ErrorCode(errorCode int) *GroupItemFailedReasonBuilder {
 	builder.errorCode = errorCode
-	builder.errorCodeFlag = true
+	builder.errorCodeSet = true
 	return builder
 }
 
@@ -1527,20 +2797,20 @@ func (builder *GroupItemFailedReasonBuilder) ErrorCode(errorCode int) *GroupItem
 // 示例值：test error message
 func (builder *GroupItemFailedReasonBuilder) ErrorMessage(errorMessage string) *GroupItemFailedReasonBuilder {
 	builder.errorMessage = errorMessage
-	builder.errorMessageFlag = true
+	builder.errorMessageSet = true
 	return builder
 }
 
 func (builder *GroupItemFailedReasonBuilder) Build() *GroupItemFailedReason {
 	req := &GroupItemFailedReason{}
-	if builder.itemFlag {
+	if builder.itemSet {
 		req.Item = builder.item
 	}
-	if builder.errorCodeFlag {
+	if builder.errorCodeSet {
 		req.ErrorCode = &builder.errorCode
 
 	}
-	if builder.errorMessageFlag {
+	if builder.errorMessageSet {
 		req.ErrorMessage = &builder.errorMessage
 
 	}
@@ -1556,14 +2826,14 @@ type I18nNames struct {
 }
 
 type I18nNamesBuilder struct {
-	zhCn     string // 中文名称
-	zhCnFlag bool
+	zhCn    string // 中文名称
+	zhCnSet bool
 
-	enUs     string // 英文名称
-	enUsFlag bool
+	enUs    string // 英文名称
+	enUsSet bool
 
-	jaJp     string // 日文名称
-	jaJpFlag bool
+	jaJp    string // 日文名称
+	jaJpSet bool
 }
 
 func NewI18nNamesBuilder() *I18nNamesBuilder {
@@ -1576,7 +2846,7 @@ func NewI18nNamesBuilder() *I18nNamesBuilder {
 // 示例值：待办事项
 func (builder *I18nNamesBuilder) ZhCn(zhCn string) *I18nNamesBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -1585,7 +2855,7 @@ func (builder *I18nNamesBuilder) ZhCn(zhCn string) *I18nNamesBuilder {
 // 示例值：To-do items
 func (builder *I18nNamesBuilder) EnUs(enUs string) *I18nNamesBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
@@ -1594,21 +2864,21 @@ func (builder *I18nNamesBuilder) EnUs(enUs string) *I18nNamesBuilder {
 // 示例值：To Do アイテム
 func (builder *I18nNamesBuilder) JaJp(jaJp string) *I18nNamesBuilder {
 	builder.jaJp = jaJp
-	builder.jaJpFlag = true
+	builder.jaJpSet = true
 	return builder
 }
 
 func (builder *I18nNamesBuilder) Build() *I18nNames {
 	req := &I18nNames{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
-	if builder.jaJpFlag {
+	if builder.jaJpSet {
 		req.JaJp = &builder.jaJp
 
 	}
@@ -1620,8 +2890,8 @@ type MessageCommonHeader struct {
 }
 
 type MessageCommonHeaderBuilder struct {
-	botId     string // botid，不对外展示
-	botIdFlag bool
+	botId    string // botid，不对外展示
+	botIdSet bool
 }
 
 func NewMessageCommonHeaderBuilder() *MessageCommonHeaderBuilder {
@@ -1634,13 +2904,13 @@ func NewMessageCommonHeaderBuilder() *MessageCommonHeaderBuilder {
 // 示例值：0
 func (builder *MessageCommonHeaderBuilder) BotId(botId string) *MessageCommonHeaderBuilder {
 	builder.botId = botId
-	builder.botIdFlag = true
+	builder.botIdSet = true
 	return builder
 }
 
 func (builder *MessageCommonHeaderBuilder) Build() *MessageCommonHeader {
 	req := &MessageCommonHeader{}
-	if builder.botIdFlag {
+	if builder.botIdSet {
 		req.BotId = &builder.botId
 
 	}
@@ -1654,11 +2924,11 @@ type MessageLink struct {
 }
 
 type MessageLinkBuilder struct {
-	token     string // 消息链接化Token
-	tokenFlag bool
+	token    string // 消息链接化Token
+	tokenSet bool
 
-	tokenUrl     string // 消息链接化URL
-	tokenUrlFlag bool
+	tokenUrl    string // 消息链接化URL
+	tokenUrlSet bool
 }
 
 func NewMessageLinkBuilder() *MessageLinkBuilder {
@@ -1671,7 +2941,7 @@ func NewMessageLinkBuilder() *MessageLinkBuilder {
 // 示例值：Alx4rstyAAEHZNIAS0abcdefgh
 func (builder *MessageLinkBuilder) Token(token string) *MessageLinkBuilder {
 	builder.token = token
-	builder.tokenFlag = true
+	builder.tokenSet = true
 	return builder
 }
 
@@ -1680,17 +2950,17 @@ func (builder *MessageLinkBuilder) Token(token string) *MessageLinkBuilder {
 // 示例值：https://applink.feishu.cn/client/message/link/open?token=Alx4rstyAAEHZNIAS0abcdefgh
 func (builder *MessageLinkBuilder) TokenUrl(tokenUrl string) *MessageLinkBuilder {
 	builder.tokenUrl = tokenUrl
-	builder.tokenUrlFlag = true
+	builder.tokenUrlSet = true
 	return builder
 }
 
 func (builder *MessageLinkBuilder) Build() *MessageLink {
 	req := &MessageLink{}
-	if builder.tokenFlag {
+	if builder.tokenSet {
 		req.Token = &builder.token
 
 	}
-	if builder.tokenUrlFlag {
+	if builder.tokenUrlSet {
 		req.TokenUrl = &builder.tokenUrl
 
 	}
@@ -1702,8 +2972,8 @@ type MessagePin struct {
 }
 
 type MessagePinBuilder struct {
-	messageId     string // 消息ID
-	messageIdFlag bool
+	messageId    string // 消息ID
+	messageIdSet bool
 }
 
 func NewMessagePinBuilder() *MessagePinBuilder {
@@ -1716,13 +2986,13 @@ func NewMessagePinBuilder() *MessagePinBuilder {
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *MessagePinBuilder) MessageId(messageId string) *MessagePinBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
 func (builder *MessagePinBuilder) Build() *MessagePin {
 	req := &MessagePin{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
@@ -1750,32 +3020,32 @@ type OpenAppFeedCard struct {
 }
 
 type OpenAppFeedCardBuilder struct {
-	bizId     string // 业务 ID
-	bizIdFlag bool
+	bizId    string // 业务 ID
+	bizIdSet bool
 
-	title     string // 主标题
-	titleFlag bool
+	title    string // 主标题
+	titleSet bool
 
-	avatarKey     string // 头像 key
-	avatarKeyFlag bool
+	avatarKey    string // 头像 key
+	avatarKeySet bool
 
-	preview     string // 预览信息
-	previewFlag bool
+	preview    string // 预览信息
+	previewSet bool
 
-	statusLabel     *OpenFeedStatusLabel // 状态标签
-	statusLabelFlag bool
+	statusLabel    *OpenFeedStatusLabel // 状态标签
+	statusLabelSet bool
 
-	buttons     *OpenAppFeedCardButtons // 交互按钮
-	buttonsFlag bool
+	buttons    *OpenAppFeedCardButtons // 交互按钮
+	buttonsSet bool
 
-	link     *OpenAppFeedLink // 跳转链接
-	linkFlag bool
+	link    *OpenAppFeedLink // 跳转链接
+	linkSet bool
 
-	timeSensitive     bool // 即时提醒状态，true-打开，false-关闭
-	timeSensitiveFlag bool
+	timeSensitive    bool // 即时提醒状态，true-打开，false-关闭
+	timeSensitiveSet bool
 
-	notify     *AppFeedNotify // 通知设置，当前可设置通知是否关闭，为空时默认进行通知
-	notifyFlag bool
+	notify    *AppFeedNotify // 通知设置，当前可设置通知是否关闭，为空时默认进行通知
+	notifySet bool
 }
 
 func NewOpenAppFeedCardBuilder() *OpenAppFeedCardBuilder {
@@ -1788,7 +3058,7 @@ func NewOpenAppFeedCardBuilder() *OpenAppFeedCardBuilder {
 // 示例值：096e2927-40a6-41a3-9562-314d641d09ae
 func (builder *OpenAppFeedCardBuilder) BizId(bizId string) *OpenAppFeedCardBuilder {
 	builder.bizId = bizId
-	builder.bizIdFlag = true
+	builder.bizIdSet = true
 	return builder
 }
 
@@ -1797,7 +3067,7 @@ func (builder *OpenAppFeedCardBuilder) BizId(bizId string) *OpenAppFeedCardBuild
 // 示例值：主标题
 func (builder *OpenAppFeedCardBuilder) Title(title string) *OpenAppFeedCardBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -1806,7 +3076,7 @@ func (builder *OpenAppFeedCardBuilder) Title(title string) *OpenAppFeedCardBuild
 // 示例值：v3_0041_007bca9f-67ba-4199-bf00-4031b12cf226
 func (builder *OpenAppFeedCardBuilder) AvatarKey(avatarKey string) *OpenAppFeedCardBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
@@ -1815,7 +3085,7 @@ func (builder *OpenAppFeedCardBuilder) AvatarKey(avatarKey string) *OpenAppFeedC
 // 示例值：预览信息
 func (builder *OpenAppFeedCardBuilder) Preview(preview string) *OpenAppFeedCardBuilder {
 	builder.preview = preview
-	builder.previewFlag = true
+	builder.previewSet = true
 	return builder
 }
 
@@ -1824,7 +3094,7 @@ func (builder *OpenAppFeedCardBuilder) Preview(preview string) *OpenAppFeedCardB
 // 示例值：
 func (builder *OpenAppFeedCardBuilder) StatusLabel(statusLabel *OpenFeedStatusLabel) *OpenAppFeedCardBuilder {
 	builder.statusLabel = statusLabel
-	builder.statusLabelFlag = true
+	builder.statusLabelSet = true
 	return builder
 }
 
@@ -1833,7 +3103,7 @@ func (builder *OpenAppFeedCardBuilder) StatusLabel(statusLabel *OpenFeedStatusLa
 // 示例值：
 func (builder *OpenAppFeedCardBuilder) Buttons(buttons *OpenAppFeedCardButtons) *OpenAppFeedCardBuilder {
 	builder.buttons = buttons
-	builder.buttonsFlag = true
+	builder.buttonsSet = true
 	return builder
 }
 
@@ -1842,7 +3112,7 @@ func (builder *OpenAppFeedCardBuilder) Buttons(buttons *OpenAppFeedCardButtons) 
 // 示例值：
 func (builder *OpenAppFeedCardBuilder) Link(link *OpenAppFeedLink) *OpenAppFeedCardBuilder {
 	builder.link = link
-	builder.linkFlag = true
+	builder.linkSet = true
 	return builder
 }
 
@@ -1851,7 +3121,7 @@ func (builder *OpenAppFeedCardBuilder) Link(link *OpenAppFeedLink) *OpenAppFeedC
 // 示例值：false
 func (builder *OpenAppFeedCardBuilder) TimeSensitive(timeSensitive bool) *OpenAppFeedCardBuilder {
 	builder.timeSensitive = timeSensitive
-	builder.timeSensitiveFlag = true
+	builder.timeSensitiveSet = true
 	return builder
 }
 
@@ -1860,42 +3130,42 @@ func (builder *OpenAppFeedCardBuilder) TimeSensitive(timeSensitive bool) *OpenAp
 // 示例值：
 func (builder *OpenAppFeedCardBuilder) Notify(notify *AppFeedNotify) *OpenAppFeedCardBuilder {
 	builder.notify = notify
-	builder.notifyFlag = true
+	builder.notifySet = true
 	return builder
 }
 
 func (builder *OpenAppFeedCardBuilder) Build() *OpenAppFeedCard {
 	req := &OpenAppFeedCard{}
-	if builder.bizIdFlag {
+	if builder.bizIdSet {
 		req.BizId = &builder.bizId
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = &builder.avatarKey
 
 	}
-	if builder.previewFlag {
+	if builder.previewSet {
 		req.Preview = &builder.preview
 
 	}
-	if builder.statusLabelFlag {
+	if builder.statusLabelSet {
 		req.StatusLabel = builder.statusLabel
 	}
-	if builder.buttonsFlag {
+	if builder.buttonsSet {
 		req.Buttons = builder.buttons
 	}
-	if builder.linkFlag {
+	if builder.linkSet {
 		req.Link = builder.link
 	}
-	if builder.timeSensitiveFlag {
+	if builder.timeSensitiveSet {
 		req.TimeSensitive = &builder.timeSensitive
 
 	}
-	if builder.notifyFlag {
+	if builder.notifySet {
 		req.Notify = builder.notify
 	}
 	return req
@@ -1914,20 +3184,20 @@ type OpenAppFeedCardButton struct {
 }
 
 type OpenAppFeedCardButtonBuilder struct {
-	multiUrl     *OpenAppFeedCardUrl // 跳转 URL
-	multiUrlFlag bool
+	multiUrl    *OpenAppFeedCardUrl // 跳转 URL
+	multiUrlSet bool
 
-	actionType     string // 交互类型
-	actionTypeFlag bool
+	actionType    string // 交互类型
+	actionTypeSet bool
 
-	text     *OpenAppFeedCardText // 文字
-	textFlag bool
+	text    *OpenAppFeedCardText // 文字
+	textSet bool
 
-	buttonType     string // 按钮类型
-	buttonTypeFlag bool
+	buttonType    string // 按钮类型
+	buttonTypeSet bool
 
-	actionMap     map[string]string // action 字典
-	actionMapFlag bool
+	actionMap    map[string]string // action 字典
+	actionMapSet bool
 }
 
 func NewOpenAppFeedCardButtonBuilder() *OpenAppFeedCardButtonBuilder {
@@ -1940,7 +3210,7 @@ func NewOpenAppFeedCardButtonBuilder() *OpenAppFeedCardButtonBuilder {
 // 示例值：
 func (builder *OpenAppFeedCardButtonBuilder) MultiUrl(multiUrl *OpenAppFeedCardUrl) *OpenAppFeedCardButtonBuilder {
 	builder.multiUrl = multiUrl
-	builder.multiUrlFlag = true
+	builder.multiUrlSet = true
 	return builder
 }
 
@@ -1949,7 +3219,7 @@ func (builder *OpenAppFeedCardButtonBuilder) MultiUrl(multiUrl *OpenAppFeedCardU
 // 示例值：url_page
 func (builder *OpenAppFeedCardButtonBuilder) ActionType(actionType string) *OpenAppFeedCardButtonBuilder {
 	builder.actionType = actionType
-	builder.actionTypeFlag = true
+	builder.actionTypeSet = true
 	return builder
 }
 
@@ -1958,7 +3228,7 @@ func (builder *OpenAppFeedCardButtonBuilder) ActionType(actionType string) *Open
 // 示例值：
 func (builder *OpenAppFeedCardButtonBuilder) Text(text *OpenAppFeedCardText) *OpenAppFeedCardButtonBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -1967,7 +3237,7 @@ func (builder *OpenAppFeedCardButtonBuilder) Text(text *OpenAppFeedCardText) *Op
 // 示例值：default
 func (builder *OpenAppFeedCardButtonBuilder) ButtonType(buttonType string) *OpenAppFeedCardButtonBuilder {
 	builder.buttonType = buttonType
-	builder.buttonTypeFlag = true
+	builder.buttonTypeSet = true
 	return builder
 }
 
@@ -1976,27 +3246,27 @@ func (builder *OpenAppFeedCardButtonBuilder) ButtonType(buttonType string) *Open
 // 示例值：
 func (builder *OpenAppFeedCardButtonBuilder) ActionMap(actionMap map[string]string) *OpenAppFeedCardButtonBuilder {
 	builder.actionMap = actionMap
-	builder.actionMapFlag = true
+	builder.actionMapSet = true
 	return builder
 }
 
 func (builder *OpenAppFeedCardButtonBuilder) Build() *OpenAppFeedCardButton {
 	req := &OpenAppFeedCardButton{}
-	if builder.multiUrlFlag {
+	if builder.multiUrlSet {
 		req.MultiUrl = builder.multiUrl
 	}
-	if builder.actionTypeFlag {
+	if builder.actionTypeSet {
 		req.ActionType = &builder.actionType
 
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = builder.text
 	}
-	if builder.buttonTypeFlag {
+	if builder.buttonTypeSet {
 		req.ButtonType = &builder.buttonType
 
 	}
-	if builder.actionMapFlag {
+	if builder.actionMapSet {
 		req.ActionMap = builder.actionMap
 	}
 	return req
@@ -2007,8 +3277,8 @@ type OpenAppFeedCardButtons struct {
 }
 
 type OpenAppFeedCardButtonsBuilder struct {
-	buttons     []*OpenAppFeedCardButton // 按钮组合
-	buttonsFlag bool
+	buttons    []*OpenAppFeedCardButton // 按钮组合
+	buttonsSet bool
 }
 
 func NewOpenAppFeedCardButtonsBuilder() *OpenAppFeedCardButtonsBuilder {
@@ -2021,13 +3291,13 @@ func NewOpenAppFeedCardButtonsBuilder() *OpenAppFeedCardButtonsBuilder {
 // 示例值：
 func (builder *OpenAppFeedCardButtonsBuilder) Buttons(buttons []*OpenAppFeedCardButton) *OpenAppFeedCardButtonsBuilder {
 	builder.buttons = buttons
-	builder.buttonsFlag = true
+	builder.buttonsSet = true
 	return builder
 }
 
 func (builder *OpenAppFeedCardButtonsBuilder) Build() *OpenAppFeedCardButtons {
 	req := &OpenAppFeedCardButtons{}
-	if builder.buttonsFlag {
+	if builder.buttonsSet {
 		req.Buttons = builder.buttons
 	}
 	return req
@@ -2038,8 +3308,8 @@ type OpenAppFeedCardText struct {
 }
 
 type OpenAppFeedCardTextBuilder struct {
-	text     string // 文本
-	textFlag bool
+	text    string // 文本
+	textSet bool
 }
 
 func NewOpenAppFeedCardTextBuilder() *OpenAppFeedCardTextBuilder {
@@ -2052,13 +3322,13 @@ func NewOpenAppFeedCardTextBuilder() *OpenAppFeedCardTextBuilder {
 // 示例值：文本
 func (builder *OpenAppFeedCardTextBuilder) Text(text string) *OpenAppFeedCardTextBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
 func (builder *OpenAppFeedCardTextBuilder) Build() *OpenAppFeedCardText {
 	req := &OpenAppFeedCardText{}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
@@ -2076,17 +3346,17 @@ type OpenAppFeedCardUrl struct {
 }
 
 type OpenAppFeedCardUrlBuilder struct {
-	url     string // 默认 URL
-	urlFlag bool
+	url    string // 默认 URL
+	urlSet bool
 
-	androidUrl     string // Android 平台 URL
-	androidUrlFlag bool
+	androidUrl    string // Android 平台 URL
+	androidUrlSet bool
 
-	iosUrl     string // iOS 平台 URL
-	iosUrlFlag bool
+	iosUrl    string // iOS 平台 URL
+	iosUrlSet bool
 
-	pcUrl     string // PC URL
-	pcUrlFlag bool
+	pcUrl    string // PC URL
+	pcUrlSet bool
 }
 
 func NewOpenAppFeedCardUrlBuilder() *OpenAppFeedCardUrlBuilder {
@@ -2099,7 +3369,7 @@ func NewOpenAppFeedCardUrlBuilder() *OpenAppFeedCardUrlBuilder {
 // 示例值：https://www.feishu.cn/
 func (builder *OpenAppFeedCardUrlBuilder) Url(url string) *OpenAppFeedCardUrlBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -2108,7 +3378,7 @@ func (builder *OpenAppFeedCardUrlBuilder) Url(url string) *OpenAppFeedCardUrlBui
 // 示例值：https://www.feishu.cn/
 func (builder *OpenAppFeedCardUrlBuilder) AndroidUrl(androidUrl string) *OpenAppFeedCardUrlBuilder {
 	builder.androidUrl = androidUrl
-	builder.androidUrlFlag = true
+	builder.androidUrlSet = true
 	return builder
 }
 
@@ -2117,7 +3387,7 @@ func (builder *OpenAppFeedCardUrlBuilder) AndroidUrl(androidUrl string) *OpenApp
 // 示例值：https://www.feishu.cn/
 func (builder *OpenAppFeedCardUrlBuilder) IosUrl(iosUrl string) *OpenAppFeedCardUrlBuilder {
 	builder.iosUrl = iosUrl
-	builder.iosUrlFlag = true
+	builder.iosUrlSet = true
 	return builder
 }
 
@@ -2126,25 +3396,25 @@ func (builder *OpenAppFeedCardUrlBuilder) IosUrl(iosUrl string) *OpenAppFeedCard
 // 示例值：https://www.feishu.cn/
 func (builder *OpenAppFeedCardUrlBuilder) PcUrl(pcUrl string) *OpenAppFeedCardUrlBuilder {
 	builder.pcUrl = pcUrl
-	builder.pcUrlFlag = true
+	builder.pcUrlSet = true
 	return builder
 }
 
 func (builder *OpenAppFeedCardUrlBuilder) Build() *OpenAppFeedCardUrl {
 	req := &OpenAppFeedCardUrl{}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.androidUrlFlag {
+	if builder.androidUrlSet {
 		req.AndroidUrl = &builder.androidUrl
 
 	}
-	if builder.iosUrlFlag {
+	if builder.iosUrlSet {
 		req.IosUrl = &builder.iosUrl
 
 	}
-	if builder.pcUrlFlag {
+	if builder.pcUrlSet {
 		req.PcUrl = &builder.pcUrl
 
 	}
@@ -2156,8 +3426,8 @@ type OpenAppFeedLink struct {
 }
 
 type OpenAppFeedLinkBuilder struct {
-	link     string // 链接
-	linkFlag bool
+	link    string // 链接
+	linkSet bool
 }
 
 func NewOpenAppFeedLinkBuilder() *OpenAppFeedLinkBuilder {
@@ -2170,13 +3440,13 @@ func NewOpenAppFeedLinkBuilder() *OpenAppFeedLinkBuilder {
 // 示例值：https://www.feishu.cn/
 func (builder *OpenAppFeedLinkBuilder) Link(link string) *OpenAppFeedLinkBuilder {
 	builder.link = link
-	builder.linkFlag = true
+	builder.linkSet = true
 	return builder
 }
 
 func (builder *OpenAppFeedLinkBuilder) Build() *OpenAppFeedLink {
 	req := &OpenAppFeedLink{}
-	if builder.linkFlag {
+	if builder.linkSet {
 		req.Link = &builder.link
 
 	}
@@ -2190,11 +3460,11 @@ type OpenDisplayFeedRule struct {
 }
 
 type OpenDisplayFeedRuleBuilder struct {
-	mainRule     string // 主规则
-	mainRuleFlag bool
+	mainRule    string // 主规则
+	mainRuleSet bool
 
-	msgTypes     []string // 重要新消息类型
-	msgTypesFlag bool
+	msgTypes    []string // 重要新消息类型
+	msgTypesSet bool
 }
 
 func NewOpenDisplayFeedRuleBuilder() *OpenDisplayFeedRuleBuilder {
@@ -2207,7 +3477,7 @@ func NewOpenDisplayFeedRuleBuilder() *OpenDisplayFeedRuleBuilder {
 // 示例值：always_display
 func (builder *OpenDisplayFeedRuleBuilder) MainRule(mainRule string) *OpenDisplayFeedRuleBuilder {
 	builder.mainRule = mainRule
-	builder.mainRuleFlag = true
+	builder.mainRuleSet = true
 	return builder
 }
 
@@ -2216,18 +3486,67 @@ func (builder *OpenDisplayFeedRuleBuilder) MainRule(mainRule string) *OpenDispla
 // 示例值：
 func (builder *OpenDisplayFeedRuleBuilder) MsgTypes(msgTypes []string) *OpenDisplayFeedRuleBuilder {
 	builder.msgTypes = msgTypes
-	builder.msgTypesFlag = true
+	builder.msgTypesSet = true
 	return builder
 }
 
 func (builder *OpenDisplayFeedRuleBuilder) Build() *OpenDisplayFeedRule {
 	req := &OpenDisplayFeedRule{}
-	if builder.mainRuleFlag {
+	if builder.mainRuleSet {
 		req.MainRule = &builder.mainRule
 
 	}
-	if builder.msgTypesFlag {
+	if builder.msgTypesSet {
 		req.MsgTypes = builder.msgTypes
+	}
+	return req
+}
+
+type OpenFailedShortcutItem struct {
+	Shortcut *OpenShortcut `json:"shortcut,omitempty"` // OpenShortcut 是用户置顶列表中的一项。
+
+	Reason *int `json:"reason,omitempty"` // 该项失败的具体原因
+}
+
+type OpenFailedShortcutItemBuilder struct {
+	shortcut    *OpenShortcut // OpenShortcut 是用户置顶列表中的一项。
+	shortcutSet bool
+
+	reason    int // 该项失败的具体原因
+	reasonSet bool
+}
+
+func NewOpenFailedShortcutItemBuilder() *OpenFailedShortcutItemBuilder {
+	builder := &OpenFailedShortcutItemBuilder{}
+	return builder
+}
+
+// OpenShortcut 是用户置顶列表中的一项。
+//
+// 示例值：
+func (builder *OpenFailedShortcutItemBuilder) Shortcut(shortcut *OpenShortcut) *OpenFailedShortcutItemBuilder {
+	builder.shortcut = shortcut
+	builder.shortcutSet = true
+	return builder
+}
+
+// 该项失败的具体原因
+//
+// 示例值：
+func (builder *OpenFailedShortcutItemBuilder) Reason(reason int) *OpenFailedShortcutItemBuilder {
+	builder.reason = reason
+	builder.reasonSet = true
+	return builder
+}
+
+func (builder *OpenFailedShortcutItemBuilder) Build() *OpenFailedShortcutItem {
+	req := &OpenFailedShortcutItem{}
+	if builder.shortcutSet {
+		req.Shortcut = builder.shortcut
+	}
+	if builder.reasonSet {
+		req.Reason = &builder.reason
+
 	}
 	return req
 }
@@ -2241,14 +3560,14 @@ type OpenFailedUserAppFeedCardItem struct {
 }
 
 type OpenFailedUserAppFeedCardItemBuilder struct {
-	bizId     string // 业务 ID
-	bizIdFlag bool
+	bizId    string // 业务 ID
+	bizIdSet bool
 
-	userId     string // 用户 ID
-	userIdFlag bool
+	userId    string // 用户 ID
+	userIdSet bool
 
-	reason     string // 原因
-	reasonFlag bool
+	reason    string // 原因
+	reasonSet bool
 }
 
 func NewOpenFailedUserAppFeedCardItemBuilder() *OpenFailedUserAppFeedCardItemBuilder {
@@ -2261,7 +3580,7 @@ func NewOpenFailedUserAppFeedCardItemBuilder() *OpenFailedUserAppFeedCardItemBui
 // 示例值：bdf22389-87ec-4890-9eb6-78a7efaeecbb
 func (builder *OpenFailedUserAppFeedCardItemBuilder) BizId(bizId string) *OpenFailedUserAppFeedCardItemBuilder {
 	builder.bizId = bizId
-	builder.bizIdFlag = true
+	builder.bizIdSet = true
 	return builder
 }
 
@@ -2270,7 +3589,7 @@ func (builder *OpenFailedUserAppFeedCardItemBuilder) BizId(bizId string) *OpenFa
 // 示例值：
 func (builder *OpenFailedUserAppFeedCardItemBuilder) UserId(userId string) *OpenFailedUserAppFeedCardItemBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -2279,21 +3598,21 @@ func (builder *OpenFailedUserAppFeedCardItemBuilder) UserId(userId string) *Open
 // 示例值：
 func (builder *OpenFailedUserAppFeedCardItemBuilder) Reason(reason string) *OpenFailedUserAppFeedCardItemBuilder {
 	builder.reason = reason
-	builder.reasonFlag = true
+	builder.reasonSet = true
 	return builder
 }
 
 func (builder *OpenFailedUserAppFeedCardItemBuilder) Build() *OpenFailedUserAppFeedCardItem {
 	req := &OpenFailedUserAppFeedCardItem{}
-	if builder.bizIdFlag {
+	if builder.bizIdSet {
 		req.BizId = &builder.bizId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.reasonFlag {
+	if builder.reasonSet {
 		req.Reason = &builder.reason
 
 	}
@@ -2307,11 +3626,11 @@ type OpenFeedStatusLabel struct {
 }
 
 type OpenFeedStatusLabelBuilder struct {
-	text     string // 标签文字
-	textFlag bool
+	text    string // 标签文字
+	textSet bool
 
 	type_    string // 标签类型
-	typeFlag bool
+	type_Set bool
 }
 
 func NewOpenFeedStatusLabelBuilder() *OpenFeedStatusLabelBuilder {
@@ -2324,7 +3643,7 @@ func NewOpenFeedStatusLabelBuilder() *OpenFeedStatusLabelBuilder {
 // 示例值：标签文字
 func (builder *OpenFeedStatusLabelBuilder) Text(text string) *OpenFeedStatusLabelBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -2333,17 +3652,67 @@ func (builder *OpenFeedStatusLabelBuilder) Text(text string) *OpenFeedStatusLabe
 // 示例值：primary
 func (builder *OpenFeedStatusLabelBuilder) Type(type_ string) *OpenFeedStatusLabelBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
 func (builder *OpenFeedStatusLabelBuilder) Build() *OpenFeedStatusLabel {
 	req := &OpenFeedStatusLabel{}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	return req
+}
+
+type OpenShortcut struct {
+	FeedCardId *string `json:"feed_card_id,omitempty"` // 置顶项的Open ID；当前版本 CHAT 类型对应 open_chat_id（以 oc_ 开头）
+
+	Type *int `json:"type,omitempty"` // 置顶项类型；决定 feed_card_id 的语义；当前版本仅支持 CHAT(1)
+}
+
+type OpenShortcutBuilder struct {
+	feedCardId    string // 置顶项的Open ID；当前版本 CHAT 类型对应 open_chat_id（以 oc_ 开头）
+	feedCardIdSet bool
+
+	type_    int // 置顶项类型；决定 feed_card_id 的语义；当前版本仅支持 CHAT(1)
+	type_Set bool
+}
+
+func NewOpenShortcutBuilder() *OpenShortcutBuilder {
+	builder := &OpenShortcutBuilder{}
+	return builder
+}
+
+// 置顶项的Open ID；当前版本 CHAT 类型对应 open_chat_id（以 oc_ 开头）
+//
+// 示例值：ou_2f592462es0s63fda1137dq01c4e624f
+func (builder *OpenShortcutBuilder) FeedCardId(feedCardId string) *OpenShortcutBuilder {
+	builder.feedCardId = feedCardId
+	builder.feedCardIdSet = true
+	return builder
+}
+
+// 置顶项类型；决定 feed_card_id 的语义；当前版本仅支持 CHAT(1)
+//
+// 示例值：
+func (builder *OpenShortcutBuilder) Type(type_ int) *OpenShortcutBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+func (builder *OpenShortcutBuilder) Build() *OpenShortcut {
+	req := &OpenShortcut{}
+	if builder.feedCardIdSet {
+		req.FeedCardId = &builder.feedCardId
+
+	}
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
@@ -2359,14 +3728,14 @@ type PatchTag struct {
 }
 
 type PatchTagBuilder struct {
-	id     string // tagid
-	idFlag bool
+	id    string // tagid
+	idSet bool
 
-	name     string // tag name
-	nameFlag bool
+	name    string // tag name
+	nameSet bool
 
-	i18nNames     []*TagI18nName // i18n名称集合
-	i18nNamesFlag bool
+	i18nNames    []*TagI18nName // i18n名称集合
+	i18nNamesSet bool
 }
 
 func NewPatchTagBuilder() *PatchTagBuilder {
@@ -2379,7 +3748,7 @@ func NewPatchTagBuilder() *PatchTagBuilder {
 // 示例值：716168xxxxx
 func (builder *PatchTagBuilder) Id(id string) *PatchTagBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2388,7 +3757,7 @@ func (builder *PatchTagBuilder) Id(id string) *PatchTagBuilder {
 // 示例值：tag name
 func (builder *PatchTagBuilder) Name(name string) *PatchTagBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2397,21 +3766,21 @@ func (builder *PatchTagBuilder) Name(name string) *PatchTagBuilder {
 // 示例值：
 func (builder *PatchTagBuilder) I18nNames(i18nNames []*TagI18nName) *PatchTagBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
 func (builder *PatchTagBuilder) Build() *PatchTag {
 	req := &PatchTag{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
 	return req
@@ -2422,8 +3791,8 @@ type PatchTagFailReason struct {
 }
 
 type PatchTagFailReasonBuilder struct {
-	duplicateId     string // 名称重复的标签id
-	duplicateIdFlag bool
+	duplicateId    string // 名称重复的标签id
+	duplicateIdSet bool
 }
 
 func NewPatchTagFailReasonBuilder() *PatchTagFailReasonBuilder {
@@ -2436,14 +3805,64 @@ func NewPatchTagFailReasonBuilder() *PatchTagFailReasonBuilder {
 // 示例值：716168xxxxx
 func (builder *PatchTagFailReasonBuilder) DuplicateId(duplicateId string) *PatchTagFailReasonBuilder {
 	builder.duplicateId = duplicateId
-	builder.duplicateIdFlag = true
+	builder.duplicateIdSet = true
 	return builder
 }
 
 func (builder *PatchTagFailReasonBuilder) Build() *PatchTagFailReason {
 	req := &PatchTagFailReason{}
-	if builder.duplicateIdFlag {
+	if builder.duplicateIdSet {
 		req.DuplicateId = &builder.duplicateId
+
+	}
+	return req
+}
+
+type PreviewContent struct {
+	PreviewId *string `json:"preview_id,omitempty"` //
+
+	PreviewUrl *string `json:"preview_url,omitempty"` //
+}
+
+type PreviewContentBuilder struct {
+	previewId    string //
+	previewIdSet bool
+
+	previewUrl    string //
+	previewUrlSet bool
+}
+
+func NewPreviewContentBuilder() *PreviewContentBuilder {
+	builder := &PreviewContentBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *PreviewContentBuilder) PreviewId(previewId string) *PreviewContentBuilder {
+	builder.previewId = previewId
+	builder.previewIdSet = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *PreviewContentBuilder) PreviewUrl(previewUrl string) *PreviewContentBuilder {
+	builder.previewUrl = previewUrl
+	builder.previewUrlSet = true
+	return builder
+}
+
+func (builder *PreviewContentBuilder) Build() *PreviewContent {
+	req := &PreviewContent{}
+	if builder.previewIdSet {
+		req.PreviewId = &builder.previewId
+
+	}
+	if builder.previewUrlSet {
+		req.PreviewUrl = &builder.previewUrl
 
 	}
 	return req
@@ -2456,11 +3875,11 @@ type TagI18nName struct {
 }
 
 type TagI18nNameBuilder struct {
-	locale     string // 语言
-	localeFlag bool
+	locale    string // 语言
+	localeSet bool
 
-	name     string // 名称
-	nameFlag bool
+	name    string // 名称
+	nameSet bool
 }
 
 func NewTagI18nNameBuilder() *TagI18nNameBuilder {
@@ -2473,7 +3892,7 @@ func NewTagI18nNameBuilder() *TagI18nNameBuilder {
 // 示例值：zh-CN
 func (builder *TagI18nNameBuilder) Locale(locale string) *TagI18nNameBuilder {
 	builder.locale = locale
-	builder.localeFlag = true
+	builder.localeSet = true
 	return builder
 }
 
@@ -2482,17 +3901,67 @@ func (builder *TagI18nNameBuilder) Locale(locale string) *TagI18nNameBuilder {
 // 示例值：tagName1
 func (builder *TagI18nNameBuilder) Name(name string) *TagI18nNameBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *TagI18nNameBuilder) Build() *TagI18nName {
 	req := &TagI18nName{}
-	if builder.localeFlag {
+	if builder.localeSet {
 		req.Locale = &builder.locale
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+type TagI18nNameV2 struct {
+	Locale *string `json:"locale,omitempty"` // 语言
+
+	Name *string `json:"name,omitempty"` // 名称
+}
+
+type TagI18nNameV2Builder struct {
+	locale    string // 语言
+	localeSet bool
+
+	name    string // 名称
+	nameSet bool
+}
+
+func NewTagI18nNameV2Builder() *TagI18nNameV2Builder {
+	builder := &TagI18nNameV2Builder{}
+	return builder
+}
+
+// 语言
+//
+// 示例值：zh-CN
+func (builder *TagI18nNameV2Builder) Locale(locale string) *TagI18nNameV2Builder {
+	builder.locale = locale
+	builder.localeSet = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：tagName1
+func (builder *TagI18nNameV2Builder) Name(name string) *TagI18nNameV2Builder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+func (builder *TagI18nNameV2Builder) Build() *TagI18nNameV2 {
+	req := &TagI18nNameV2{}
+	if builder.localeSet {
+		req.Locale = &builder.locale
+
+	}
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -2508,7 +3977,7 @@ type TagInfo struct {
 
 	Name *string `json:"name,omitempty"` // name
 
-	I18nNames []*TagI18nName `json:"i18n_names,omitempty"` // i18n name
+	I18nNames []*TagI18nNameV2 `json:"i18n_names,omitempty"` // i18n name
 
 	CreatorId *string `json:"creator_id,omitempty"` // 创建人
 
@@ -2518,29 +3987,29 @@ type TagInfo struct {
 }
 
 type TagInfoBuilder struct {
-	id     string // id
-	idFlag bool
+	id    string // id
+	idSet bool
 
-	tenantId     string // 租户id
-	tenantIdFlag bool
+	tenantId    string // 租户id
+	tenantIdSet bool
 
-	tagType     string // 标签类型
-	tagTypeFlag bool
+	tagType    string // 标签类型
+	tagTypeSet bool
 
-	name     string // name
-	nameFlag bool
+	name    string // name
+	nameSet bool
 
-	i18nNames     []*TagI18nName // i18n name
-	i18nNamesFlag bool
+	i18nNames    []*TagI18nNameV2 // i18n name
+	i18nNamesSet bool
 
-	creatorId     string // 创建人
-	creatorIdFlag bool
+	creatorId    string // 创建人
+	creatorIdSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 }
 
 func NewTagInfoBuilder() *TagInfoBuilder {
@@ -2553,7 +4022,7 @@ func NewTagInfoBuilder() *TagInfoBuilder {
 // 示例值：716168xxxxx
 func (builder *TagInfoBuilder) Id(id string) *TagInfoBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2562,7 +4031,7 @@ func (builder *TagInfoBuilder) Id(id string) *TagInfoBuilder {
 // 示例值：716168xxxxx
 func (builder *TagInfoBuilder) TenantId(tenantId string) *TagInfoBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -2571,7 +4040,7 @@ func (builder *TagInfoBuilder) TenantId(tenantId string) *TagInfoBuilder {
 // 示例值：tenant
 func (builder *TagInfoBuilder) TagType(tagType string) *TagInfoBuilder {
 	builder.tagType = tagType
-	builder.tagTypeFlag = true
+	builder.tagTypeSet = true
 	return builder
 }
 
@@ -2580,16 +4049,16 @@ func (builder *TagInfoBuilder) TagType(tagType string) *TagInfoBuilder {
 // 示例值：tagName1
 func (builder *TagInfoBuilder) Name(name string) *TagInfoBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 // i18n name
 //
 // 示例值：
-func (builder *TagInfoBuilder) I18nNames(i18nNames []*TagI18nName) *TagInfoBuilder {
+func (builder *TagInfoBuilder) I18nNames(i18nNames []*TagI18nNameV2) *TagInfoBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
@@ -2598,7 +4067,7 @@ func (builder *TagInfoBuilder) I18nNames(i18nNames []*TagI18nName) *TagInfoBuild
 // 示例值：716168xxxxx
 func (builder *TagInfoBuilder) CreatorId(creatorId string) *TagInfoBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -2607,7 +4076,7 @@ func (builder *TagInfoBuilder) CreatorId(creatorId string) *TagInfoBuilder {
 // 示例值：1700793403850
 func (builder *TagInfoBuilder) CreateTime(createTime string) *TagInfoBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -2616,40 +4085,197 @@ func (builder *TagInfoBuilder) CreateTime(createTime string) *TagInfoBuilder {
 // 示例值：1700793403850
 func (builder *TagInfoBuilder) UpdateTime(updateTime string) *TagInfoBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
 func (builder *TagInfoBuilder) Build() *TagInfo {
 	req := &TagInfo{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.tagTypeFlag {
+	if builder.tagTypeSet {
 		req.TagType = &builder.tagType
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	return req
+}
+
+type TagInfoV2 struct {
+	Id *string `json:"id,omitempty"` // id
+
+	TenantId *string `json:"tenant_id,omitempty"` // 租户id
+
+	TagType *string `json:"tag_type,omitempty"` // 标签类型
+
+	Name *string `json:"name,omitempty"` // name
+
+	I18nNames []*TagI18nNameV2 `json:"i18n_names,omitempty"` // i18n name
+
+	CreatorId *string `json:"creator_id,omitempty"` // 创建人
+
+	CreateTime *string `json:"create_time,omitempty"` // 创建时间
+
+	UpdateTime *string `json:"update_time,omitempty"` // 更新时间
+}
+
+type TagInfoV2Builder struct {
+	id    string // id
+	idSet bool
+
+	tenantId    string // 租户id
+	tenantIdSet bool
+
+	tagType    string // 标签类型
+	tagTypeSet bool
+
+	name    string // name
+	nameSet bool
+
+	i18nNames    []*TagI18nNameV2 // i18n name
+	i18nNamesSet bool
+
+	creatorId    string // 创建人
+	creatorIdSet bool
+
+	createTime    string // 创建时间
+	createTimeSet bool
+
+	updateTime    string // 更新时间
+	updateTimeSet bool
+}
+
+func NewTagInfoV2Builder() *TagInfoV2Builder {
+	builder := &TagInfoV2Builder{}
+	return builder
+}
+
+// id
+//
+// 示例值：716168xxxxx
+func (builder *TagInfoV2Builder) Id(id string) *TagInfoV2Builder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 租户id
+//
+// 示例值：716168xxxxx
+func (builder *TagInfoV2Builder) TenantId(tenantId string) *TagInfoV2Builder {
+	builder.tenantId = tenantId
+	builder.tenantIdSet = true
+	return builder
+}
+
+// 标签类型
+//
+// 示例值：tenant
+func (builder *TagInfoV2Builder) TagType(tagType string) *TagInfoV2Builder {
+	builder.tagType = tagType
+	builder.tagTypeSet = true
+	return builder
+}
+
+// name
+//
+// 示例值：tagName1
+func (builder *TagInfoV2Builder) Name(name string) *TagInfoV2Builder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// i18n name
+//
+// 示例值：
+func (builder *TagInfoV2Builder) I18nNames(i18nNames []*TagI18nNameV2) *TagInfoV2Builder {
+	builder.i18nNames = i18nNames
+	builder.i18nNamesSet = true
+	return builder
+}
+
+// 创建人
+//
+// 示例值：716168xxxxx
+func (builder *TagInfoV2Builder) CreatorId(creatorId string) *TagInfoV2Builder {
+	builder.creatorId = creatorId
+	builder.creatorIdSet = true
+	return builder
+}
+
+// 创建时间
+//
+// 示例值：1700793403850
+func (builder *TagInfoV2Builder) CreateTime(createTime string) *TagInfoV2Builder {
+	builder.createTime = createTime
+	builder.createTimeSet = true
+	return builder
+}
+
+// 更新时间
+//
+// 示例值：1700793403850
+func (builder *TagInfoV2Builder) UpdateTime(updateTime string) *TagInfoV2Builder {
+	builder.updateTime = updateTime
+	builder.updateTimeSet = true
+	return builder
+}
+
+func (builder *TagInfoV2Builder) Build() *TagInfoV2 {
+	req := &TagInfoV2{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.tenantIdSet {
+		req.TenantId = &builder.tenantId
+
+	}
+	if builder.tagTypeSet {
+		req.TagType = &builder.tagType
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.i18nNamesSet {
+		req.I18nNames = builder.i18nNames
+	}
+	if builder.creatorIdSet {
+		req.CreatorId = &builder.creatorId
+
+	}
+	if builder.createTimeSet {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
@@ -2657,17 +4283,17 @@ func (builder *TagInfoBuilder) Build() *TagInfo {
 }
 
 type TagInfoWithBindVersion struct {
-	TagInfo *TagInfo `json:"tag_info,omitempty"` // 标签内容
+	TagInfo *TagInfoV2 `json:"tag_info,omitempty"` // 标签内容
 
 	BindVersion *string `json:"bind_version,omitempty"` // 绑定时间
 }
 
 type TagInfoWithBindVersionBuilder struct {
-	tagInfo     *TagInfo // 标签内容
-	tagInfoFlag bool
+	tagInfo    *TagInfoV2 // 标签内容
+	tagInfoSet bool
 
-	bindVersion     string // 绑定时间
-	bindVersionFlag bool
+	bindVersion    string // 绑定时间
+	bindVersionSet bool
 }
 
 func NewTagInfoWithBindVersionBuilder() *TagInfoWithBindVersionBuilder {
@@ -2678,9 +4304,9 @@ func NewTagInfoWithBindVersionBuilder() *TagInfoWithBindVersionBuilder {
 // 标签内容
 //
 // 示例值：
-func (builder *TagInfoWithBindVersionBuilder) TagInfo(tagInfo *TagInfo) *TagInfoWithBindVersionBuilder {
+func (builder *TagInfoWithBindVersionBuilder) TagInfo(tagInfo *TagInfoV2) *TagInfoWithBindVersionBuilder {
 	builder.tagInfo = tagInfo
-	builder.tagInfoFlag = true
+	builder.tagInfoSet = true
 	return builder
 }
 
@@ -2689,16 +4315,16 @@ func (builder *TagInfoWithBindVersionBuilder) TagInfo(tagInfo *TagInfo) *TagInfo
 // 示例值：1710401562336
 func (builder *TagInfoWithBindVersionBuilder) BindVersion(bindVersion string) *TagInfoWithBindVersionBuilder {
 	builder.bindVersion = bindVersion
-	builder.bindVersionFlag = true
+	builder.bindVersionSet = true
 	return builder
 }
 
 func (builder *TagInfoWithBindVersionBuilder) Build() *TagInfoWithBindVersion {
 	req := &TagInfoWithBindVersion{}
-	if builder.tagInfoFlag {
+	if builder.tagInfoSet {
 		req.TagInfo = builder.tagInfo
 	}
-	if builder.bindVersionFlag {
+	if builder.bindVersionSet {
 		req.BindVersion = &builder.bindVersion
 
 	}
@@ -2726,32 +4352,32 @@ type UnReadUrgentMessage struct {
 }
 
 type UnReadUrgentMessageBuilder struct {
-	id     string // id
-	idFlag bool
+	id    string // id
+	idSet bool
 
-	messageId     string // 消息id
-	messageIdFlag bool
+	messageId    string // 消息id
+	messageIdSet bool
 
-	chatterId     string // 加急接受者id
-	chatterIdFlag bool
+	chatterId    string // 加急接受者id
+	chatterIdSet bool
 
-	status     int // 加急状态
-	statusFlag bool
+	status    int // 加急状态
+	statusSet bool
 
-	confirmTime     string // 确定时间
-	confirmTimeFlag bool
+	confirmTime    string // 确定时间
+	confirmTimeSet bool
 
-	sendTime     string // 加急时间
-	sendTimeFlag bool
+	sendTime    string // 加急时间
+	sendTimeSet bool
 
 	type_    int // 加急类型
-	typeFlag bool
+	type_Set bool
 
-	fromId     string // 消息发送者
-	fromIdFlag bool
+	fromId    string // 消息发送者
+	fromIdSet bool
 
-	chatId     string // 群组id
-	chatIdFlag bool
+	chatId    string // 群组id
+	chatIdSet bool
 }
 
 func NewUnReadUrgentMessageBuilder() *UnReadUrgentMessageBuilder {
@@ -2764,7 +4390,7 @@ func NewUnReadUrgentMessageBuilder() *UnReadUrgentMessageBuilder {
 // 示例值：7220315920974954516
 func (builder *UnReadUrgentMessageBuilder) Id(id string) *UnReadUrgentMessageBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2773,7 +4399,7 @@ func (builder *UnReadUrgentMessageBuilder) Id(id string) *UnReadUrgentMessageBui
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *UnReadUrgentMessageBuilder) MessageId(messageId string) *UnReadUrgentMessageBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -2782,7 +4408,7 @@ func (builder *UnReadUrgentMessageBuilder) MessageId(messageId string) *UnReadUr
 // 示例值：ou_61c3751f5c2ba7f57aa14885a6512c02
 func (builder *UnReadUrgentMessageBuilder) ChatterId(chatterId string) *UnReadUrgentMessageBuilder {
 	builder.chatterId = chatterId
-	builder.chatterIdFlag = true
+	builder.chatterIdSet = true
 	return builder
 }
 
@@ -2791,7 +4417,7 @@ func (builder *UnReadUrgentMessageBuilder) ChatterId(chatterId string) *UnReadUr
 // 示例值：0
 func (builder *UnReadUrgentMessageBuilder) Status(status int) *UnReadUrgentMessageBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -2800,7 +4426,7 @@ func (builder *UnReadUrgentMessageBuilder) Status(status int) *UnReadUrgentMessa
 // 示例值：1704038400000
 func (builder *UnReadUrgentMessageBuilder) ConfirmTime(confirmTime string) *UnReadUrgentMessageBuilder {
 	builder.confirmTime = confirmTime
-	builder.confirmTimeFlag = true
+	builder.confirmTimeSet = true
 	return builder
 }
 
@@ -2809,7 +4435,7 @@ func (builder *UnReadUrgentMessageBuilder) ConfirmTime(confirmTime string) *UnRe
 // 示例值：1704038400000
 func (builder *UnReadUrgentMessageBuilder) SendTime(sendTime string) *UnReadUrgentMessageBuilder {
 	builder.sendTime = sendTime
-	builder.sendTimeFlag = true
+	builder.sendTimeSet = true
 	return builder
 }
 
@@ -2818,7 +4444,7 @@ func (builder *UnReadUrgentMessageBuilder) SendTime(sendTime string) *UnReadUrge
 // 示例值：0
 func (builder *UnReadUrgentMessageBuilder) Type(type_ int) *UnReadUrgentMessageBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -2827,7 +4453,7 @@ func (builder *UnReadUrgentMessageBuilder) Type(type_ int) *UnReadUrgentMessageB
 // 示例值：ou_a0553eda9014c201e6969b478895c230
 func (builder *UnReadUrgentMessageBuilder) FromId(fromId string) *UnReadUrgentMessageBuilder {
 	builder.fromId = fromId
-	builder.fromIdFlag = true
+	builder.fromIdSet = true
 	return builder
 }
 
@@ -2836,47 +4462,113 @@ func (builder *UnReadUrgentMessageBuilder) FromId(fromId string) *UnReadUrgentMe
 // 示例值：oc_a0553eda9014c201e6969b478895c2343
 func (builder *UnReadUrgentMessageBuilder) ChatId(chatId string) *UnReadUrgentMessageBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
 func (builder *UnReadUrgentMessageBuilder) Build() *UnReadUrgentMessage {
 	req := &UnReadUrgentMessage{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.chatterIdFlag {
+	if builder.chatterIdSet {
 		req.ChatterId = &builder.chatterId
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.confirmTimeFlag {
+	if builder.confirmTimeSet {
 		req.ConfirmTime = &builder.confirmTime
 
 	}
-	if builder.sendTimeFlag {
+	if builder.sendTimeSet {
 		req.SendTime = &builder.sendTime
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.fromIdFlag {
+	if builder.fromIdSet {
 		req.FromId = &builder.fromId
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
+	}
+	return req
+}
+
+type UnknownPin struct {
+	Title *string `json:"title,omitempty"` //
+
+	I18nTitle map[string]string `json:"i18n_title,omitempty"` //
+
+	Icon *ChatPinIcon `json:"icon,omitempty"` //
+}
+
+type UnknownPinBuilder struct {
+	title    string //
+	titleSet bool
+
+	i18nTitle    map[string]string //
+	i18nTitleSet bool
+
+	icon    *ChatPinIcon //
+	iconSet bool
+}
+
+func NewUnknownPinBuilder() *UnknownPinBuilder {
+	builder := &UnknownPinBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *UnknownPinBuilder) Title(title string) *UnknownPinBuilder {
+	builder.title = title
+	builder.titleSet = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *UnknownPinBuilder) I18nTitle(i18nTitle map[string]string) *UnknownPinBuilder {
+	builder.i18nTitle = i18nTitle
+	builder.i18nTitleSet = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *UnknownPinBuilder) Icon(icon *ChatPinIcon) *UnknownPinBuilder {
+	builder.icon = icon
+	builder.iconSet = true
+	return builder
+}
+
+func (builder *UnknownPinBuilder) Build() *UnknownPin {
+	req := &UnknownPin{}
+	if builder.titleSet {
+		req.Title = &builder.title
+
+	}
+	if builder.i18nTitleSet {
+		req.I18nTitle = builder.i18nTitle
+	}
+	if builder.iconSet {
+		req.Icon = builder.icon
 	}
 	return req
 }
@@ -2894,35 +4586,35 @@ type UnreadAtMessage struct {
 
 	UpdateTimeMs *string `json:"update_time_ms,omitempty"` // 更新时间毫秒
 
-	Type *int `json:"type,omitempty"` // 消息类型
+	Type *string `json:"type,omitempty"` // 消息类型
 
 	IsAtAll *bool `json:"is_at_all,omitempty"` // 是否为atall
 }
 
 type UnreadAtMessageBuilder struct {
-	messageId     string // 消息id
-	messageIdFlag bool
+	messageId    string // 消息id
+	messageIdSet bool
 
-	fromId     string // 消息发送者
-	fromIdFlag bool
+	fromId    string // 消息发送者
+	fromIdSet bool
 
-	chatId     string // 群组id
-	chatIdFlag bool
+	chatId    string // 群组id
+	chatIdSet bool
 
-	createTime     string // 发送时间
-	createTimeFlag bool
+	createTime    string // 发送时间
+	createTimeSet bool
 
-	createTimeMs     string // 发送时间毫秒
-	createTimeMsFlag bool
+	createTimeMs    string // 发送时间毫秒
+	createTimeMsSet bool
 
-	updateTimeMs     string // 更新时间毫秒
-	updateTimeMsFlag bool
+	updateTimeMs    string // 更新时间毫秒
+	updateTimeMsSet bool
 
-	type_    int // 消息类型
-	typeFlag bool
+	type_    string // 消息类型
+	type_Set bool
 
-	isAtAll     bool // 是否为atall
-	isAtAllFlag bool
+	isAtAll    bool // 是否为atall
+	isAtAllSet bool
 }
 
 func NewUnreadAtMessageBuilder() *UnreadAtMessageBuilder {
@@ -2935,7 +4627,7 @@ func NewUnreadAtMessageBuilder() *UnreadAtMessageBuilder {
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *UnreadAtMessageBuilder) MessageId(messageId string) *UnreadAtMessageBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -2944,7 +4636,7 @@ func (builder *UnreadAtMessageBuilder) MessageId(messageId string) *UnreadAtMess
 // 示例值：ou_a0553eda9014c201e6969b478895c230
 func (builder *UnreadAtMessageBuilder) FromId(fromId string) *UnreadAtMessageBuilder {
 	builder.fromId = fromId
-	builder.fromIdFlag = true
+	builder.fromIdSet = true
 	return builder
 }
 
@@ -2953,7 +4645,7 @@ func (builder *UnreadAtMessageBuilder) FromId(fromId string) *UnreadAtMessageBui
 // 示例值：oc_a0553eda9014c201e6969b478895c2343
 func (builder *UnreadAtMessageBuilder) ChatId(chatId string) *UnreadAtMessageBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -2962,7 +4654,7 @@ func (builder *UnreadAtMessageBuilder) ChatId(chatId string) *UnreadAtMessageBui
 // 示例值：1704038400000
 func (builder *UnreadAtMessageBuilder) CreateTime(createTime string) *UnreadAtMessageBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -2971,7 +4663,7 @@ func (builder *UnreadAtMessageBuilder) CreateTime(createTime string) *UnreadAtMe
 // 示例值：1704038400000
 func (builder *UnreadAtMessageBuilder) CreateTimeMs(createTimeMs string) *UnreadAtMessageBuilder {
 	builder.createTimeMs = createTimeMs
-	builder.createTimeMsFlag = true
+	builder.createTimeMsSet = true
 	return builder
 }
 
@@ -2980,16 +4672,16 @@ func (builder *UnreadAtMessageBuilder) CreateTimeMs(createTimeMs string) *Unread
 // 示例值：1704038400000
 func (builder *UnreadAtMessageBuilder) UpdateTimeMs(updateTimeMs string) *UnreadAtMessageBuilder {
 	builder.updateTimeMs = updateTimeMs
-	builder.updateTimeMsFlag = true
+	builder.updateTimeMsSet = true
 	return builder
 }
 
 // 消息类型
 //
 // 示例值：
-func (builder *UnreadAtMessageBuilder) Type(type_ int) *UnreadAtMessageBuilder {
+func (builder *UnreadAtMessageBuilder) Type(type_ string) *UnreadAtMessageBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -2998,41 +4690,41 @@ func (builder *UnreadAtMessageBuilder) Type(type_ int) *UnreadAtMessageBuilder {
 // 示例值：false
 func (builder *UnreadAtMessageBuilder) IsAtAll(isAtAll bool) *UnreadAtMessageBuilder {
 	builder.isAtAll = isAtAll
-	builder.isAtAllFlag = true
+	builder.isAtAllSet = true
 	return builder
 }
 
 func (builder *UnreadAtMessageBuilder) Build() *UnreadAtMessage {
 	req := &UnreadAtMessage{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.fromIdFlag {
+	if builder.fromIdSet {
 		req.FromId = &builder.fromId
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.createTimeMsFlag {
+	if builder.createTimeMsSet {
 		req.CreateTimeMs = &builder.createTimeMs
 
 	}
-	if builder.updateTimeMsFlag {
+	if builder.updateTimeMsSet {
 		req.UpdateTimeMs = &builder.updateTimeMs
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.isAtAllFlag {
+	if builder.isAtAllSet {
 		req.IsAtAll = &builder.isAtAll
 
 	}
@@ -3046,11 +4738,11 @@ type UpdateChatPin struct {
 }
 
 type UpdateChatPinBuilder struct {
-	isFixed     bool // 置顶是否被固定到置顶列表前方,目前每个群内最多可以固定一个置顶。
-	isFixedFlag bool
+	isFixed    bool // 置顶是否被固定到置顶列表前方,目前每个群内最多可以固定一个置顶。
+	isFixedSet bool
 
-	updateUrlPin     *UpdateUrlPin //
-	updateUrlPinFlag bool
+	updateUrlPin    *UpdateUrlPin //
+	updateUrlPinSet bool
 }
 
 func NewUpdateChatPinBuilder() *UpdateChatPinBuilder {
@@ -3063,24 +4755,26 @@ func NewUpdateChatPinBuilder() *UpdateChatPinBuilder {
 // 示例值：
 func (builder *UpdateChatPinBuilder) IsFixed(isFixed bool) *UpdateChatPinBuilder {
 	builder.isFixed = isFixed
-	builder.isFixedFlag = true
+	builder.isFixedSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UpdateChatPinBuilder) UpdateUrlPin(updateUrlPin *UpdateUrlPin) *UpdateChatPinBuilder {
 	builder.updateUrlPin = updateUrlPin
-	builder.updateUrlPinFlag = true
+	builder.updateUrlPinSet = true
 	return builder
 }
 
 func (builder *UpdateChatPinBuilder) Build() *UpdateChatPin {
 	req := &UpdateChatPin{}
-	if builder.isFixedFlag {
+	if builder.isFixedSet {
 		req.IsFixed = &builder.isFixed
 
 	}
-	if builder.updateUrlPinFlag {
+	if builder.updateUrlPinSet {
 		req.UpdateUrlPin = builder.updateUrlPin
 	}
 	return req
@@ -3095,14 +4789,14 @@ type UpdateUrlPin struct {
 }
 
 type UpdateUrlPinBuilder struct {
-	icon     *ChatPinIcon // 图标信息
-	iconFlag bool
+	icon    *ChatPinIcon // 图标信息
+	iconSet bool
 
-	title     string // 名称
-	titleFlag bool
+	title    string // 名称
+	titleSet bool
 
-	i18nTitle     *I18nNames // 国际化名称，如果客户端语言环境对应的i18n_title存在则会被优先展示，否则展示title。
-	i18nTitleFlag bool
+	i18nTitle    *I18nNames // 国际化名称，如果客户端语言环境对应的i18n_title存在则会被优先展示，否则展示title。
+	i18nTitleSet bool
 }
 
 func NewUpdateUrlPinBuilder() *UpdateUrlPinBuilder {
@@ -3115,7 +4809,7 @@ func NewUpdateUrlPinBuilder() *UpdateUrlPinBuilder {
 // 示例值：
 func (builder *UpdateUrlPinBuilder) Icon(icon *ChatPinIcon) *UpdateUrlPinBuilder {
 	builder.icon = icon
-	builder.iconFlag = true
+	builder.iconSet = true
 	return builder
 }
 
@@ -3124,7 +4818,7 @@ func (builder *UpdateUrlPinBuilder) Icon(icon *ChatPinIcon) *UpdateUrlPinBuilder
 // 示例值：待办事项
 func (builder *UpdateUrlPinBuilder) Title(title string) *UpdateUrlPinBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -3133,20 +4827,20 @@ func (builder *UpdateUrlPinBuilder) Title(title string) *UpdateUrlPinBuilder {
 // 示例值：
 func (builder *UpdateUrlPinBuilder) I18nTitle(i18nTitle *I18nNames) *UpdateUrlPinBuilder {
 	builder.i18nTitle = i18nTitle
-	builder.i18nTitleFlag = true
+	builder.i18nTitleSet = true
 	return builder
 }
 
 func (builder *UpdateUrlPinBuilder) Build() *UpdateUrlPin {
 	req := &UpdateUrlPin{}
-	if builder.iconFlag {
+	if builder.iconSet {
 		req.Icon = builder.icon
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.i18nTitleFlag {
+	if builder.i18nTitleSet {
 		req.I18nTitle = builder.i18nTitle
 	}
 	return req
@@ -3157,8 +4851,8 @@ type UrgentCommonHeader struct {
 }
 
 type UrgentCommonHeaderBuilder struct {
-	botId     string // botid，不对外展示
-	botIdFlag bool
+	botId    string // botid，不对外展示
+	botIdSet bool
 }
 
 func NewUrgentCommonHeaderBuilder() *UrgentCommonHeaderBuilder {
@@ -3171,13 +4865,13 @@ func NewUrgentCommonHeaderBuilder() *UrgentCommonHeaderBuilder {
 // 示例值：0
 func (builder *UrgentCommonHeaderBuilder) BotId(botId string) *UrgentCommonHeaderBuilder {
 	builder.botId = botId
-	builder.botIdFlag = true
+	builder.botIdSet = true
 	return builder
 }
 
 func (builder *UrgentCommonHeaderBuilder) Build() *UrgentCommonHeader {
 	req := &UrgentCommonHeader{}
-	if builder.botIdFlag {
+	if builder.botIdSet {
 		req.BotId = &builder.botId
 
 	}
@@ -3199,23 +4893,23 @@ type UrlPin struct {
 }
 
 type UrlPinBuilder struct {
-	url     string // url
-	urlFlag bool
+	url    string // url
+	urlSet bool
 
-	icon     *ChatPinIcon //
-	iconFlag bool
+	icon    *ChatPinIcon //
+	iconSet bool
 
-	title     string // 名称
-	titleFlag bool
+	title    string // 名称
+	titleSet bool
 
-	i18nTitle     *I18nNames // 国际化名称，如果客户端语言环境对应的i18n_title存在则会被优先展示，否则展示title。
-	i18nTitleFlag bool
+	i18nTitle    *I18nNames // 国际化名称，如果客户端语言环境对应的i18n_title存在则会被优先展示，否则展示title。
+	i18nTitleSet bool
 
-	titleDynamicUpdate     bool // 标题是否需要动态更新
-	titleDynamicUpdateFlag bool
+	titleDynamicUpdate    bool // 标题是否需要动态更新
+	titleDynamicUpdateSet bool
 
-	iconDynamicUpdate     bool // 图标是否需要动态更新
-	iconDynamicUpdateFlag bool
+	iconDynamicUpdate    bool // 图标是否需要动态更新
+	iconDynamicUpdateSet bool
 }
 
 func NewUrlPinBuilder() *UrlPinBuilder {
@@ -3228,14 +4922,16 @@ func NewUrlPinBuilder() *UrlPinBuilder {
 // 示例值：https://open.feishu.cn/
 func (builder *UrlPinBuilder) Url(url string) *UrlPinBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UrlPinBuilder) Icon(icon *ChatPinIcon) *UrlPinBuilder {
 	builder.icon = icon
-	builder.iconFlag = true
+	builder.iconSet = true
 	return builder
 }
 
@@ -3244,7 +4940,7 @@ func (builder *UrlPinBuilder) Icon(icon *ChatPinIcon) *UrlPinBuilder {
 // 示例值：待办事项
 func (builder *UrlPinBuilder) Title(title string) *UrlPinBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -3253,7 +4949,7 @@ func (builder *UrlPinBuilder) Title(title string) *UrlPinBuilder {
 // 示例值：
 func (builder *UrlPinBuilder) I18nTitle(i18nTitle *I18nNames) *UrlPinBuilder {
 	builder.i18nTitle = i18nTitle
-	builder.i18nTitleFlag = true
+	builder.i18nTitleSet = true
 	return builder
 }
 
@@ -3262,7 +4958,7 @@ func (builder *UrlPinBuilder) I18nTitle(i18nTitle *I18nNames) *UrlPinBuilder {
 // 示例值：false
 func (builder *UrlPinBuilder) TitleDynamicUpdate(titleDynamicUpdate bool) *UrlPinBuilder {
 	builder.titleDynamicUpdate = titleDynamicUpdate
-	builder.titleDynamicUpdateFlag = true
+	builder.titleDynamicUpdateSet = true
 	return builder
 }
 
@@ -3271,31 +4967,31 @@ func (builder *UrlPinBuilder) TitleDynamicUpdate(titleDynamicUpdate bool) *UrlPi
 // 示例值：false
 func (builder *UrlPinBuilder) IconDynamicUpdate(iconDynamicUpdate bool) *UrlPinBuilder {
 	builder.iconDynamicUpdate = iconDynamicUpdate
-	builder.iconDynamicUpdateFlag = true
+	builder.iconDynamicUpdateSet = true
 	return builder
 }
 
 func (builder *UrlPinBuilder) Build() *UrlPin {
 	req := &UrlPin{}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.iconFlag {
+	if builder.iconSet {
 		req.Icon = builder.icon
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.i18nTitleFlag {
+	if builder.i18nTitleSet {
 		req.I18nTitle = builder.i18nTitle
 	}
-	if builder.titleDynamicUpdateFlag {
+	if builder.titleDynamicUpdateSet {
 		req.TitleDynamicUpdate = &builder.titleDynamicUpdate
 
 	}
-	if builder.iconDynamicUpdateFlag {
+	if builder.iconDynamicUpdateSet {
 		req.IconDynamicUpdate = &builder.iconDynamicUpdate
 
 	}
@@ -3309,11 +5005,11 @@ type UserOpenAppFeedCardDeleter struct {
 }
 
 type UserOpenAppFeedCardDeleterBuilder struct {
-	bizId     string // 业务 ID
-	bizIdFlag bool
+	bizId    string // 业务 ID
+	bizIdSet bool
 
-	userId     string // 用户 ID
-	userIdFlag bool
+	userId    string // 用户 ID
+	userIdSet bool
 }
 
 func NewUserOpenAppFeedCardDeleterBuilder() *UserOpenAppFeedCardDeleterBuilder {
@@ -3326,7 +5022,7 @@ func NewUserOpenAppFeedCardDeleterBuilder() *UserOpenAppFeedCardDeleterBuilder {
 // 示例值：ed381d34-49ac-4876-8d9e-23447acb587e
 func (builder *UserOpenAppFeedCardDeleterBuilder) BizId(bizId string) *UserOpenAppFeedCardDeleterBuilder {
 	builder.bizId = bizId
-	builder.bizIdFlag = true
+	builder.bizIdSet = true
 	return builder
 }
 
@@ -3335,17 +5031,17 @@ func (builder *UserOpenAppFeedCardDeleterBuilder) BizId(bizId string) *UserOpenA
 // 示例值：
 func (builder *UserOpenAppFeedCardDeleterBuilder) UserId(userId string) *UserOpenAppFeedCardDeleterBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *UserOpenAppFeedCardDeleterBuilder) Build() *UserOpenAppFeedCardDeleter {
 	req := &UserOpenAppFeedCardDeleter{}
-	if builder.bizIdFlag {
+	if builder.bizIdSet {
 		req.BizId = &builder.bizId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -3361,14 +5057,14 @@ type UserOpenAppFeedCardUpdater struct {
 }
 
 type UserOpenAppFeedCardUpdaterBuilder struct {
-	appFeedCard     *OpenAppFeedCard // 应用消息卡片
-	appFeedCardFlag bool
+	appFeedCard    *OpenAppFeedCard // 应用消息卡片
+	appFeedCardSet bool
 
-	userId     string // 用户 id
-	userIdFlag bool
+	userId    string // 用户 id
+	userIdSet bool
 
-	updateFields     []string // 更新字段列表
-	updateFieldsFlag bool
+	updateFields    []string // 更新字段列表
+	updateFieldsSet bool
 }
 
 func NewUserOpenAppFeedCardUpdaterBuilder() *UserOpenAppFeedCardUpdaterBuilder {
@@ -3381,7 +5077,7 @@ func NewUserOpenAppFeedCardUpdaterBuilder() *UserOpenAppFeedCardUpdaterBuilder {
 // 示例值：
 func (builder *UserOpenAppFeedCardUpdaterBuilder) AppFeedCard(appFeedCard *OpenAppFeedCard) *UserOpenAppFeedCardUpdaterBuilder {
 	builder.appFeedCard = appFeedCard
-	builder.appFeedCardFlag = true
+	builder.appFeedCardSet = true
 	return builder
 }
 
@@ -3390,7 +5086,7 @@ func (builder *UserOpenAppFeedCardUpdaterBuilder) AppFeedCard(appFeedCard *OpenA
 // 示例值：
 func (builder *UserOpenAppFeedCardUpdaterBuilder) UserId(userId string) *UserOpenAppFeedCardUpdaterBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -3399,31 +5095,31 @@ func (builder *UserOpenAppFeedCardUpdaterBuilder) UserId(userId string) *UserOpe
 // 示例值：
 func (builder *UserOpenAppFeedCardUpdaterBuilder) UpdateFields(updateFields []string) *UserOpenAppFeedCardUpdaterBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *UserOpenAppFeedCardUpdaterBuilder) Build() *UserOpenAppFeedCardUpdater {
 	req := &UserOpenAppFeedCardUpdater{}
-	if builder.appFeedCardFlag {
+	if builder.appFeedCardSet {
 		req.AppFeedCard = builder.appFeedCard
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req
 }
 
 type CreateAppFeedCardReqBodyBuilder struct {
-	appFeedCard     *OpenAppFeedCard // 应用消息卡片
-	appFeedCardFlag bool
+	appFeedCard    *OpenAppFeedCard // 应用消息卡片
+	appFeedCardSet bool
 
-	userIds     []string // 用户 ID
-	userIdsFlag bool
+	userIds    []string // 用户 ID
+	userIdsSet bool
 }
 
 func NewCreateAppFeedCardReqBodyBuilder() *CreateAppFeedCardReqBodyBuilder {
@@ -3433,38 +5129,38 @@ func NewCreateAppFeedCardReqBodyBuilder() *CreateAppFeedCardReqBodyBuilder {
 
 // 应用消息卡片
 //
-// 示例值：
+//示例值：
 func (builder *CreateAppFeedCardReqBodyBuilder) AppFeedCard(appFeedCard *OpenAppFeedCard) *CreateAppFeedCardReqBodyBuilder {
 	builder.appFeedCard = appFeedCard
-	builder.appFeedCardFlag = true
+	builder.appFeedCardSet = true
 	return builder
 }
 
 // 用户 ID
 //
-// 示例值：
+//示例值：
 func (builder *CreateAppFeedCardReqBodyBuilder) UserIds(userIds []string) *CreateAppFeedCardReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 func (builder *CreateAppFeedCardReqBodyBuilder) Build() *CreateAppFeedCardReqBody {
 	req := &CreateAppFeedCardReqBody{}
-	if builder.appFeedCardFlag {
+	if builder.appFeedCardSet {
 		req.AppFeedCard = builder.appFeedCard
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
 	return req
 }
 
 type CreateAppFeedCardPathReqBodyBuilder struct {
-	appFeedCard     *OpenAppFeedCard
-	appFeedCardFlag bool
-	userIds         []string
-	userIdsFlag     bool
+	appFeedCard    *OpenAppFeedCard
+	appFeedCardSet bool
+	userIds        []string
+	userIdsSet     bool
 }
 
 func NewCreateAppFeedCardPathReqBodyBuilder() *CreateAppFeedCardPathReqBodyBuilder {
@@ -3477,7 +5173,7 @@ func NewCreateAppFeedCardPathReqBodyBuilder() *CreateAppFeedCardPathReqBodyBuild
 // 示例值：
 func (builder *CreateAppFeedCardPathReqBodyBuilder) AppFeedCard(appFeedCard *OpenAppFeedCard) *CreateAppFeedCardPathReqBodyBuilder {
 	builder.appFeedCard = appFeedCard
-	builder.appFeedCardFlag = true
+	builder.appFeedCardSet = true
 	return builder
 }
 
@@ -3486,16 +5182,16 @@ func (builder *CreateAppFeedCardPathReqBodyBuilder) AppFeedCard(appFeedCard *Ope
 // 示例值：
 func (builder *CreateAppFeedCardPathReqBodyBuilder) UserIds(userIds []string) *CreateAppFeedCardPathReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 func (builder *CreateAppFeedCardPathReqBodyBuilder) Build() (*CreateAppFeedCardReqBody, error) {
 	req := &CreateAppFeedCardReqBody{}
-	if builder.appFeedCardFlag {
+	if builder.appFeedCardSet {
 		req.AppFeedCard = builder.appFeedCard
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
 	return req, nil
@@ -3523,6 +5219,7 @@ func (builder *CreateAppFeedCardReqBuilder) UserIdType(userIdType string) *Creat
 	return builder
 }
 
+//
 func (builder *CreateAppFeedCardReqBuilder) Body(body *CreateAppFeedCardReqBody) *CreateAppFeedCardReqBuilder {
 	builder.body = body
 	return builder
@@ -3564,8 +5261,8 @@ func (resp *CreateAppFeedCardResp) Success() bool {
 }
 
 type DeleteAppFeedCardBatchReqBodyBuilder struct {
-	feedCards     []*UserOpenAppFeedCardDeleter // 应用消息卡片
-	feedCardsFlag bool
+	feedCards    []*UserOpenAppFeedCardDeleter // 应用消息卡片
+	feedCardsSet bool
 }
 
 func NewDeleteAppFeedCardBatchReqBodyBuilder() *DeleteAppFeedCardBatchReqBodyBuilder {
@@ -3575,24 +5272,24 @@ func NewDeleteAppFeedCardBatchReqBodyBuilder() *DeleteAppFeedCardBatchReqBodyBui
 
 // 应用消息卡片
 //
-// 示例值：
+//示例值：
 func (builder *DeleteAppFeedCardBatchReqBodyBuilder) FeedCards(feedCards []*UserOpenAppFeedCardDeleter) *DeleteAppFeedCardBatchReqBodyBuilder {
 	builder.feedCards = feedCards
-	builder.feedCardsFlag = true
+	builder.feedCardsSet = true
 	return builder
 }
 
 func (builder *DeleteAppFeedCardBatchReqBodyBuilder) Build() *DeleteAppFeedCardBatchReqBody {
 	req := &DeleteAppFeedCardBatchReqBody{}
-	if builder.feedCardsFlag {
+	if builder.feedCardsSet {
 		req.FeedCards = builder.feedCards
 	}
 	return req
 }
 
 type DeleteAppFeedCardBatchPathReqBodyBuilder struct {
-	feedCards     []*UserOpenAppFeedCardDeleter
-	feedCardsFlag bool
+	feedCards    []*UserOpenAppFeedCardDeleter
+	feedCardsSet bool
 }
 
 func NewDeleteAppFeedCardBatchPathReqBodyBuilder() *DeleteAppFeedCardBatchPathReqBodyBuilder {
@@ -3605,13 +5302,13 @@ func NewDeleteAppFeedCardBatchPathReqBodyBuilder() *DeleteAppFeedCardBatchPathRe
 // 示例值：
 func (builder *DeleteAppFeedCardBatchPathReqBodyBuilder) FeedCards(feedCards []*UserOpenAppFeedCardDeleter) *DeleteAppFeedCardBatchPathReqBodyBuilder {
 	builder.feedCards = feedCards
-	builder.feedCardsFlag = true
+	builder.feedCardsSet = true
 	return builder
 }
 
 func (builder *DeleteAppFeedCardBatchPathReqBodyBuilder) Build() (*DeleteAppFeedCardBatchReqBody, error) {
 	req := &DeleteAppFeedCardBatchReqBody{}
-	if builder.feedCardsFlag {
+	if builder.feedCardsSet {
 		req.FeedCards = builder.feedCards
 	}
 	return req, nil
@@ -3639,6 +5336,7 @@ func (builder *DeleteAppFeedCardBatchReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
+//
 func (builder *DeleteAppFeedCardBatchReqBuilder) Body(body *DeleteAppFeedCardBatchReqBody) *DeleteAppFeedCardBatchReqBuilder {
 	builder.body = body
 	return builder
@@ -3676,8 +5374,8 @@ func (resp *DeleteAppFeedCardBatchResp) Success() bool {
 }
 
 type UpdateAppFeedCardBatchReqBodyBuilder struct {
-	feedCards     []*UserOpenAppFeedCardUpdater // 应用消息卡片
-	feedCardsFlag bool
+	feedCards    []*UserOpenAppFeedCardUpdater // 应用消息卡片
+	feedCardsSet bool
 }
 
 func NewUpdateAppFeedCardBatchReqBodyBuilder() *UpdateAppFeedCardBatchReqBodyBuilder {
@@ -3687,24 +5385,24 @@ func NewUpdateAppFeedCardBatchReqBodyBuilder() *UpdateAppFeedCardBatchReqBodyBui
 
 // 应用消息卡片
 //
-// 示例值：
+//示例值：
 func (builder *UpdateAppFeedCardBatchReqBodyBuilder) FeedCards(feedCards []*UserOpenAppFeedCardUpdater) *UpdateAppFeedCardBatchReqBodyBuilder {
 	builder.feedCards = feedCards
-	builder.feedCardsFlag = true
+	builder.feedCardsSet = true
 	return builder
 }
 
 func (builder *UpdateAppFeedCardBatchReqBodyBuilder) Build() *UpdateAppFeedCardBatchReqBody {
 	req := &UpdateAppFeedCardBatchReqBody{}
-	if builder.feedCardsFlag {
+	if builder.feedCardsSet {
 		req.FeedCards = builder.feedCards
 	}
 	return req
 }
 
 type UpdateAppFeedCardBatchPathReqBodyBuilder struct {
-	feedCards     []*UserOpenAppFeedCardUpdater
-	feedCardsFlag bool
+	feedCards    []*UserOpenAppFeedCardUpdater
+	feedCardsSet bool
 }
 
 func NewUpdateAppFeedCardBatchPathReqBodyBuilder() *UpdateAppFeedCardBatchPathReqBodyBuilder {
@@ -3717,13 +5415,13 @@ func NewUpdateAppFeedCardBatchPathReqBodyBuilder() *UpdateAppFeedCardBatchPathRe
 // 示例值：
 func (builder *UpdateAppFeedCardBatchPathReqBodyBuilder) FeedCards(feedCards []*UserOpenAppFeedCardUpdater) *UpdateAppFeedCardBatchPathReqBodyBuilder {
 	builder.feedCards = feedCards
-	builder.feedCardsFlag = true
+	builder.feedCardsSet = true
 	return builder
 }
 
 func (builder *UpdateAppFeedCardBatchPathReqBodyBuilder) Build() (*UpdateAppFeedCardBatchReqBody, error) {
 	req := &UpdateAppFeedCardBatchReqBody{}
-	if builder.feedCardsFlag {
+	if builder.feedCardsSet {
 		req.FeedCards = builder.feedCards
 	}
 	return req, nil
@@ -3751,6 +5449,7 @@ func (builder *UpdateAppFeedCardBatchReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
+//
 func (builder *UpdateAppFeedCardBatchReqBuilder) Body(body *UpdateAppFeedCardBatchReqBody) *UpdateAppFeedCardBatchReqBuilder {
 	builder.body = body
 	return builder
@@ -3788,17 +5487,17 @@ func (resp *UpdateAppFeedCardBatchResp) Success() bool {
 }
 
 type CreateBizEntityTagRelationReqBodyBuilder struct {
-	tagBizType     string // 业务类型
-	tagBizTypeFlag bool
+	tagBizType    string // 业务类型
+	tagBizTypeSet bool
 
-	bizEntityId     string // 业务实体id
-	bizEntityIdFlag bool
+	bizEntityId    string // 业务实体id
+	bizEntityIdSet bool
 
-	tagIds     []string // 标签id
-	tagIdsFlag bool
+	tagIds    []string // 标签id
+	tagIdsSet bool
 
-	botId     string // 机器人id
-	botIdFlag bool
+	botId    string // 机器人id
+	botIdSet bool
 }
 
 func NewCreateBizEntityTagRelationReqBodyBuilder() *CreateBizEntityTagRelationReqBodyBuilder {
@@ -3808,54 +5507,54 @@ func NewCreateBizEntityTagRelationReqBodyBuilder() *CreateBizEntityTagRelationRe
 
 // 业务类型
 //
-// 示例值：chat
+//示例值：chat
 func (builder *CreateBizEntityTagRelationReqBodyBuilder) TagBizType(tagBizType string) *CreateBizEntityTagRelationReqBodyBuilder {
 	builder.tagBizType = tagBizType
-	builder.tagBizTypeFlag = true
+	builder.tagBizTypeSet = true
 	return builder
 }
 
 // 业务实体id
 //
-// 示例值：71616xxxx
+//示例值：71616xxxx
 func (builder *CreateBizEntityTagRelationReqBodyBuilder) BizEntityId(bizEntityId string) *CreateBizEntityTagRelationReqBodyBuilder {
 	builder.bizEntityId = bizEntityId
-	builder.bizEntityIdFlag = true
+	builder.bizEntityIdSet = true
 	return builder
 }
 
 // 标签id
 //
-// 示例值：
+//示例值：
 func (builder *CreateBizEntityTagRelationReqBodyBuilder) TagIds(tagIds []string) *CreateBizEntityTagRelationReqBodyBuilder {
 	builder.tagIds = tagIds
-	builder.tagIdsFlag = true
+	builder.tagIdsSet = true
 	return builder
 }
 
 func (builder *CreateBizEntityTagRelationReqBodyBuilder) Build() *CreateBizEntityTagRelationReqBody {
 	req := &CreateBizEntityTagRelationReqBody{}
-	if builder.tagBizTypeFlag {
+	if builder.tagBizTypeSet {
 		req.TagBizType = &builder.tagBizType
 	}
-	if builder.bizEntityIdFlag {
+	if builder.bizEntityIdSet {
 		req.BizEntityId = &builder.bizEntityId
 	}
-	if builder.tagIdsFlag {
+	if builder.tagIdsSet {
 		req.TagIds = builder.tagIds
 	}
 	return req
 }
 
 type CreateBizEntityTagRelationPathReqBodyBuilder struct {
-	tagBizType      string
-	tagBizTypeFlag  bool
-	bizEntityId     string
-	bizEntityIdFlag bool
-	tagIds          []string
-	tagIdsFlag      bool
-	botId           string
-	botIdFlag       bool
+	tagBizType     string
+	tagBizTypeSet  bool
+	bizEntityId    string
+	bizEntityIdSet bool
+	tagIds         []string
+	tagIdsSet      bool
+	botId          string
+	botIdSet       bool
 }
 
 func NewCreateBizEntityTagRelationPathReqBodyBuilder() *CreateBizEntityTagRelationPathReqBodyBuilder {
@@ -3868,7 +5567,7 @@ func NewCreateBizEntityTagRelationPathReqBodyBuilder() *CreateBizEntityTagRelati
 // 示例值：chat
 func (builder *CreateBizEntityTagRelationPathReqBodyBuilder) TagBizType(tagBizType string) *CreateBizEntityTagRelationPathReqBodyBuilder {
 	builder.tagBizType = tagBizType
-	builder.tagBizTypeFlag = true
+	builder.tagBizTypeSet = true
 	return builder
 }
 
@@ -3877,7 +5576,7 @@ func (builder *CreateBizEntityTagRelationPathReqBodyBuilder) TagBizType(tagBizTy
 // 示例值：71616xxxx
 func (builder *CreateBizEntityTagRelationPathReqBodyBuilder) BizEntityId(bizEntityId string) *CreateBizEntityTagRelationPathReqBodyBuilder {
 	builder.bizEntityId = bizEntityId
-	builder.bizEntityIdFlag = true
+	builder.bizEntityIdSet = true
 	return builder
 }
 
@@ -3886,19 +5585,19 @@ func (builder *CreateBizEntityTagRelationPathReqBodyBuilder) BizEntityId(bizEnti
 // 示例值：
 func (builder *CreateBizEntityTagRelationPathReqBodyBuilder) TagIds(tagIds []string) *CreateBizEntityTagRelationPathReqBodyBuilder {
 	builder.tagIds = tagIds
-	builder.tagIdsFlag = true
+	builder.tagIdsSet = true
 	return builder
 }
 
 func (builder *CreateBizEntityTagRelationPathReqBodyBuilder) Build() (*CreateBizEntityTagRelationReqBody, error) {
 	req := &CreateBizEntityTagRelationReqBody{}
-	if builder.tagBizTypeFlag {
+	if builder.tagBizTypeSet {
 		req.TagBizType = &builder.tagBizType
 	}
-	if builder.bizEntityIdFlag {
+	if builder.bizEntityIdSet {
 		req.BizEntityId = &builder.bizEntityId
 	}
-	if builder.tagIdsFlag {
+	if builder.tagIdsSet {
 		req.TagIds = builder.tagIds
 	}
 	return req, nil
@@ -3918,6 +5617,7 @@ func NewCreateBizEntityTagRelationReqBuilder() *CreateBizEntityTagRelationReqBui
 	return builder
 }
 
+//
 func (builder *CreateBizEntityTagRelationReqBuilder) Body(body *CreateBizEntityTagRelationReqBody) *CreateBizEntityTagRelationReqBuilder {
 	builder.body = body
 	return builder
@@ -4017,17 +5717,17 @@ func (resp *GetBizEntityTagRelationResp) Success() bool {
 }
 
 type UpdateBizEntityTagRelationReqBodyBuilder struct {
-	tagBizType     string // 业务类型
-	tagBizTypeFlag bool
+	tagBizType    string // 业务类型
+	tagBizTypeSet bool
 
-	bizEntityId     string // 业务实体id
-	bizEntityIdFlag bool
+	bizEntityId    string // 业务实体id
+	bizEntityIdSet bool
 
-	tagIds     []string // 标签id
-	tagIdsFlag bool
+	tagIds    []string // 标签id
+	tagIdsSet bool
 
-	botId     string // 机器人id
-	botIdFlag bool
+	botId    string // 机器人id
+	botIdSet bool
 }
 
 func NewUpdateBizEntityTagRelationReqBodyBuilder() *UpdateBizEntityTagRelationReqBodyBuilder {
@@ -4037,54 +5737,54 @@ func NewUpdateBizEntityTagRelationReqBodyBuilder() *UpdateBizEntityTagRelationRe
 
 // 业务类型
 //
-// 示例值：chat
+//示例值：chat
 func (builder *UpdateBizEntityTagRelationReqBodyBuilder) TagBizType(tagBizType string) *UpdateBizEntityTagRelationReqBodyBuilder {
 	builder.tagBizType = tagBizType
-	builder.tagBizTypeFlag = true
+	builder.tagBizTypeSet = true
 	return builder
 }
 
 // 业务实体id
 //
-// 示例值：7161681111
+//示例值：7161681111
 func (builder *UpdateBizEntityTagRelationReqBodyBuilder) BizEntityId(bizEntityId string) *UpdateBizEntityTagRelationReqBodyBuilder {
 	builder.bizEntityId = bizEntityId
-	builder.bizEntityIdFlag = true
+	builder.bizEntityIdSet = true
 	return builder
 }
 
 // 标签id
 //
-// 示例值：
+//示例值：
 func (builder *UpdateBizEntityTagRelationReqBodyBuilder) TagIds(tagIds []string) *UpdateBizEntityTagRelationReqBodyBuilder {
 	builder.tagIds = tagIds
-	builder.tagIdsFlag = true
+	builder.tagIdsSet = true
 	return builder
 }
 
 func (builder *UpdateBizEntityTagRelationReqBodyBuilder) Build() *UpdateBizEntityTagRelationReqBody {
 	req := &UpdateBizEntityTagRelationReqBody{}
-	if builder.tagBizTypeFlag {
+	if builder.tagBizTypeSet {
 		req.TagBizType = &builder.tagBizType
 	}
-	if builder.bizEntityIdFlag {
+	if builder.bizEntityIdSet {
 		req.BizEntityId = &builder.bizEntityId
 	}
-	if builder.tagIdsFlag {
+	if builder.tagIdsSet {
 		req.TagIds = builder.tagIds
 	}
 	return req
 }
 
 type UpdateBizEntityTagRelationPathReqBodyBuilder struct {
-	tagBizType      string
-	tagBizTypeFlag  bool
-	bizEntityId     string
-	bizEntityIdFlag bool
-	tagIds          []string
-	tagIdsFlag      bool
-	botId           string
-	botIdFlag       bool
+	tagBizType     string
+	tagBizTypeSet  bool
+	bizEntityId    string
+	bizEntityIdSet bool
+	tagIds         []string
+	tagIdsSet      bool
+	botId          string
+	botIdSet       bool
 }
 
 func NewUpdateBizEntityTagRelationPathReqBodyBuilder() *UpdateBizEntityTagRelationPathReqBodyBuilder {
@@ -4097,7 +5797,7 @@ func NewUpdateBizEntityTagRelationPathReqBodyBuilder() *UpdateBizEntityTagRelati
 // 示例值：chat
 func (builder *UpdateBizEntityTagRelationPathReqBodyBuilder) TagBizType(tagBizType string) *UpdateBizEntityTagRelationPathReqBodyBuilder {
 	builder.tagBizType = tagBizType
-	builder.tagBizTypeFlag = true
+	builder.tagBizTypeSet = true
 	return builder
 }
 
@@ -4106,7 +5806,7 @@ func (builder *UpdateBizEntityTagRelationPathReqBodyBuilder) TagBizType(tagBizTy
 // 示例值：7161681111
 func (builder *UpdateBizEntityTagRelationPathReqBodyBuilder) BizEntityId(bizEntityId string) *UpdateBizEntityTagRelationPathReqBodyBuilder {
 	builder.bizEntityId = bizEntityId
-	builder.bizEntityIdFlag = true
+	builder.bizEntityIdSet = true
 	return builder
 }
 
@@ -4115,19 +5815,19 @@ func (builder *UpdateBizEntityTagRelationPathReqBodyBuilder) BizEntityId(bizEnti
 // 示例值：
 func (builder *UpdateBizEntityTagRelationPathReqBodyBuilder) TagIds(tagIds []string) *UpdateBizEntityTagRelationPathReqBodyBuilder {
 	builder.tagIds = tagIds
-	builder.tagIdsFlag = true
+	builder.tagIdsSet = true
 	return builder
 }
 
 func (builder *UpdateBizEntityTagRelationPathReqBodyBuilder) Build() (*UpdateBizEntityTagRelationReqBody, error) {
 	req := &UpdateBizEntityTagRelationReqBody{}
-	if builder.tagBizTypeFlag {
+	if builder.tagBizTypeSet {
 		req.TagBizType = &builder.tagBizType
 	}
-	if builder.bizEntityIdFlag {
+	if builder.bizEntityIdSet {
 		req.BizEntityId = &builder.bizEntityId
 	}
-	if builder.tagIdsFlag {
+	if builder.tagIdsSet {
 		req.TagIds = builder.tagIds
 	}
 	return req, nil
@@ -4147,6 +5847,7 @@ func NewUpdateBizEntityTagRelationReqBuilder() *UpdateBizEntityTagRelationReqBui
 	return builder
 }
 
+//
 func (builder *UpdateBizEntityTagRelationReqBuilder) Body(body *UpdateBizEntityTagRelationReqBody) *UpdateBizEntityTagRelationReqBuilder {
 	builder.body = body
 	return builder
@@ -4184,17 +5885,17 @@ func (resp *UpdateBizEntityTagRelationResp) Success() bool {
 }
 
 type UpdateChatButtonReqBodyBuilder struct {
-	userIds     []string // 用户 ID 列表
-	userIdsFlag bool
+	botId    string // Bot id
+	botIdSet bool
 
-	chatId     string // 群 ID
-	chatIdFlag bool
+	userIds    []string // 用户 ID 列表
+	userIdsSet bool
 
-	buttons     *OpenAppFeedCardButtons // 按钮
-	buttonsFlag bool
+	chatId    string // 群 ID
+	chatIdSet bool
 
-	botId     string // Bot id
-	botIdFlag bool
+	buttons    *OpenAppFeedCardButtons // 按钮
+	buttonsSet bool
 }
 
 func NewUpdateChatButtonReqBodyBuilder() *UpdateChatButtonReqBodyBuilder {
@@ -4204,54 +5905,54 @@ func NewUpdateChatButtonReqBodyBuilder() *UpdateChatButtonReqBodyBuilder {
 
 // 用户 ID 列表
 //
-// 示例值：
+//示例值：
 func (builder *UpdateChatButtonReqBodyBuilder) UserIds(userIds []string) *UpdateChatButtonReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 // 群 ID
 //
-// 示例值：oc_a0553eda9014c201e6969b478895c230
+//示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *UpdateChatButtonReqBodyBuilder) ChatId(chatId string) *UpdateChatButtonReqBodyBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
 // 按钮
 //
-// 示例值：
+//示例值：
 func (builder *UpdateChatButtonReqBodyBuilder) Buttons(buttons *OpenAppFeedCardButtons) *UpdateChatButtonReqBodyBuilder {
 	builder.buttons = buttons
-	builder.buttonsFlag = true
+	builder.buttonsSet = true
 	return builder
 }
 
 func (builder *UpdateChatButtonReqBodyBuilder) Build() *UpdateChatButtonReqBody {
 	req := &UpdateChatButtonReqBody{}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 	}
-	if builder.buttonsFlag {
+	if builder.buttonsSet {
 		req.Buttons = builder.buttons
 	}
 	return req
 }
 
 type UpdateChatButtonPathReqBodyBuilder struct {
-	userIds     []string
-	userIdsFlag bool
-	chatId      string
-	chatIdFlag  bool
-	buttons     *OpenAppFeedCardButtons
-	buttonsFlag bool
-	botId       string
-	botIdFlag   bool
+	botId      string
+	botIdSet   bool
+	userIds    []string
+	userIdsSet bool
+	chatId     string
+	chatIdSet  bool
+	buttons    *OpenAppFeedCardButtons
+	buttonsSet bool
 }
 
 func NewUpdateChatButtonPathReqBodyBuilder() *UpdateChatButtonPathReqBodyBuilder {
@@ -4264,7 +5965,7 @@ func NewUpdateChatButtonPathReqBodyBuilder() *UpdateChatButtonPathReqBodyBuilder
 // 示例值：
 func (builder *UpdateChatButtonPathReqBodyBuilder) UserIds(userIds []string) *UpdateChatButtonPathReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
@@ -4273,7 +5974,7 @@ func (builder *UpdateChatButtonPathReqBodyBuilder) UserIds(userIds []string) *Up
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *UpdateChatButtonPathReqBodyBuilder) ChatId(chatId string) *UpdateChatButtonPathReqBodyBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -4282,19 +5983,19 @@ func (builder *UpdateChatButtonPathReqBodyBuilder) ChatId(chatId string) *Update
 // 示例值：
 func (builder *UpdateChatButtonPathReqBodyBuilder) Buttons(buttons *OpenAppFeedCardButtons) *UpdateChatButtonPathReqBodyBuilder {
 	builder.buttons = buttons
-	builder.buttonsFlag = true
+	builder.buttonsSet = true
 	return builder
 }
 
 func (builder *UpdateChatButtonPathReqBodyBuilder) Build() (*UpdateChatButtonReqBody, error) {
 	req := &UpdateChatButtonReqBody{}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 	}
-	if builder.buttonsFlag {
+	if builder.buttonsSet {
 		req.Buttons = builder.buttons
 	}
 	return req, nil
@@ -4322,6 +6023,7 @@ func (builder *UpdateChatButtonReqBuilder) UserIdType(userIdType string) *Update
 	return builder
 }
 
+//
 func (builder *UpdateChatButtonReqBuilder) Body(body *UpdateChatButtonReqBody) *UpdateChatButtonReqBuilder {
 	builder.body = body
 	return builder
@@ -4336,13 +6038,13 @@ func (builder *UpdateChatButtonReqBuilder) Build() *UpdateChatButtonReq {
 }
 
 type UpdateChatButtonReqBody struct {
+	BotId *string `json:"bot_id,omitempty"` // Bot id
+
 	UserIds []string `json:"user_ids,omitempty"` // 用户 ID 列表
 
 	ChatId *string `json:"chat_id,omitempty"` // 群 ID
 
 	Buttons *OpenAppFeedCardButtons `json:"buttons,omitempty"` // 按钮
-
-	BotId *string `json:"bot_id,omitempty"` // Bot id
 }
 
 type UpdateChatButtonReq struct {
@@ -4365,14 +6067,14 @@ func (resp *UpdateChatButtonResp) Success() bool {
 }
 
 type BotTimeSentiveFeedCardReqBodyBuilder struct {
-	botId     string // 机器人id
-	botIdFlag bool
+	botId    string // 机器人id
+	botIdSet bool
 
-	timeSensitive     bool // 临时置顶状态，true-打开，false-关闭
-	timeSensitiveFlag bool
+	timeSensitive    bool // 临时置顶状态，true-打开，false-关闭
+	timeSensitiveSet bool
 
-	userIds     []string // 用户id 列表
-	userIdsFlag bool
+	userIds    []string // 用户id 列表
+	userIdsSet bool
 }
 
 func NewBotTimeSentiveFeedCardReqBodyBuilder() *BotTimeSentiveFeedCardReqBodyBuilder {
@@ -4382,40 +6084,40 @@ func NewBotTimeSentiveFeedCardReqBodyBuilder() *BotTimeSentiveFeedCardReqBodyBui
 
 // 临时置顶状态，true-打开，false-关闭
 //
-// 示例值：true
+//示例值：true
 func (builder *BotTimeSentiveFeedCardReqBodyBuilder) TimeSensitive(timeSensitive bool) *BotTimeSentiveFeedCardReqBodyBuilder {
 	builder.timeSensitive = timeSensitive
-	builder.timeSensitiveFlag = true
+	builder.timeSensitiveSet = true
 	return builder
 }
 
 // 用户id 列表
 //
-// 示例值：
+//示例值：
 func (builder *BotTimeSentiveFeedCardReqBodyBuilder) UserIds(userIds []string) *BotTimeSentiveFeedCardReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 func (builder *BotTimeSentiveFeedCardReqBodyBuilder) Build() *BotTimeSentiveFeedCardReqBody {
 	req := &BotTimeSentiveFeedCardReqBody{}
-	if builder.timeSensitiveFlag {
+	if builder.timeSensitiveSet {
 		req.TimeSensitive = &builder.timeSensitive
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
 	return req
 }
 
 type BotTimeSentiveFeedCardPathReqBodyBuilder struct {
-	botId             string
-	botIdFlag         bool
-	timeSensitive     bool
-	timeSensitiveFlag bool
-	userIds           []string
-	userIdsFlag       bool
+	botId            string
+	botIdSet         bool
+	timeSensitive    bool
+	timeSensitiveSet bool
+	userIds          []string
+	userIdsSet       bool
 }
 
 func NewBotTimeSentiveFeedCardPathReqBodyBuilder() *BotTimeSentiveFeedCardPathReqBodyBuilder {
@@ -4428,7 +6130,7 @@ func NewBotTimeSentiveFeedCardPathReqBodyBuilder() *BotTimeSentiveFeedCardPathRe
 // 示例值：true
 func (builder *BotTimeSentiveFeedCardPathReqBodyBuilder) TimeSensitive(timeSensitive bool) *BotTimeSentiveFeedCardPathReqBodyBuilder {
 	builder.timeSensitive = timeSensitive
-	builder.timeSensitiveFlag = true
+	builder.timeSensitiveSet = true
 	return builder
 }
 
@@ -4437,16 +6139,16 @@ func (builder *BotTimeSentiveFeedCardPathReqBodyBuilder) TimeSensitive(timeSensi
 // 示例值：
 func (builder *BotTimeSentiveFeedCardPathReqBodyBuilder) UserIds(userIds []string) *BotTimeSentiveFeedCardPathReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 func (builder *BotTimeSentiveFeedCardPathReqBodyBuilder) Build() (*BotTimeSentiveFeedCardReqBody, error) {
 	req := &BotTimeSentiveFeedCardReqBody{}
-	if builder.timeSensitiveFlag {
+	if builder.timeSensitiveSet {
 		req.TimeSensitive = &builder.timeSensitive
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
 	return req, nil
@@ -4474,6 +6176,7 @@ func (builder *BotTimeSentiveFeedCardReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
+//
 func (builder *BotTimeSentiveFeedCardReqBuilder) Body(body *BotTimeSentiveFeedCardReqBody) *BotTimeSentiveFeedCardReqBuilder {
 	builder.body = body
 	return builder
@@ -4515,11 +6218,11 @@ func (resp *BotTimeSentiveFeedCardResp) Success() bool {
 }
 
 type PatchFeedCardReqBodyBuilder struct {
-	timeSensitive     bool // 临时置顶状态，true-打开，false-关闭
-	timeSensitiveFlag bool
+	timeSensitive    bool // 临时置顶状态，true-打开，false-关闭
+	timeSensitiveSet bool
 
-	userIds     []string // 用户id 列表
-	userIdsFlag bool
+	userIds    []string // 用户id 列表
+	userIdsSet bool
 }
 
 func NewPatchFeedCardReqBodyBuilder() *PatchFeedCardReqBodyBuilder {
@@ -4529,38 +6232,38 @@ func NewPatchFeedCardReqBodyBuilder() *PatchFeedCardReqBodyBuilder {
 
 // 临时置顶状态，true-打开，false-关闭
 //
-// 示例值：true
+//示例值：true
 func (builder *PatchFeedCardReqBodyBuilder) TimeSensitive(timeSensitive bool) *PatchFeedCardReqBodyBuilder {
 	builder.timeSensitive = timeSensitive
-	builder.timeSensitiveFlag = true
+	builder.timeSensitiveSet = true
 	return builder
 }
 
 // 用户id 列表
 //
-// 示例值：
+//示例值：
 func (builder *PatchFeedCardReqBodyBuilder) UserIds(userIds []string) *PatchFeedCardReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 func (builder *PatchFeedCardReqBodyBuilder) Build() *PatchFeedCardReqBody {
 	req := &PatchFeedCardReqBody{}
-	if builder.timeSensitiveFlag {
+	if builder.timeSensitiveSet {
 		req.TimeSensitive = &builder.timeSensitive
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
 	return req
 }
 
 type PatchFeedCardPathReqBodyBuilder struct {
-	timeSensitive     bool
-	timeSensitiveFlag bool
-	userIds           []string
-	userIdsFlag       bool
+	timeSensitive    bool
+	timeSensitiveSet bool
+	userIds          []string
+	userIdsSet       bool
 }
 
 func NewPatchFeedCardPathReqBodyBuilder() *PatchFeedCardPathReqBodyBuilder {
@@ -4573,7 +6276,7 @@ func NewPatchFeedCardPathReqBodyBuilder() *PatchFeedCardPathReqBodyBuilder {
 // 示例值：true
 func (builder *PatchFeedCardPathReqBodyBuilder) TimeSensitive(timeSensitive bool) *PatchFeedCardPathReqBodyBuilder {
 	builder.timeSensitive = timeSensitive
-	builder.timeSensitiveFlag = true
+	builder.timeSensitiveSet = true
 	return builder
 }
 
@@ -4582,16 +6285,16 @@ func (builder *PatchFeedCardPathReqBodyBuilder) TimeSensitive(timeSensitive bool
 // 示例值：
 func (builder *PatchFeedCardPathReqBodyBuilder) UserIds(userIds []string) *PatchFeedCardPathReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 func (builder *PatchFeedCardPathReqBodyBuilder) Build() (*PatchFeedCardReqBody, error) {
 	req := &PatchFeedCardReqBody{}
-	if builder.timeSensitiveFlag {
+	if builder.timeSensitiveSet {
 		req.TimeSensitive = &builder.timeSensitive
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
 	return req, nil
@@ -4627,6 +6330,7 @@ func (builder *PatchFeedCardReqBuilder) UserIdType(userIdType string) *PatchFeed
 	return builder
 }
 
+//
 func (builder *PatchFeedCardReqBuilder) Body(body *PatchFeedCardReqBody) *PatchFeedCardReqBuilder {
 	builder.body = body
 	return builder
@@ -4667,11 +6371,11 @@ func (resp *PatchFeedCardResp) Success() bool {
 }
 
 type CreateTagReqBodyBuilder struct {
-	createTag     *CreateTag // 创建标签
-	createTagFlag bool
+	createTag    *CreateTag // 创建标签
+	createTagSet bool
 
-	botId     string // 机器人id
-	botIdFlag bool
+	botId    string // 机器人id
+	botIdSet bool
 }
 
 func NewCreateTagReqBodyBuilder() *CreateTagReqBodyBuilder {
@@ -4681,26 +6385,26 @@ func NewCreateTagReqBodyBuilder() *CreateTagReqBodyBuilder {
 
 // 创建标签
 //
-// 示例值：
+//示例值：
 func (builder *CreateTagReqBodyBuilder) CreateTag(createTag *CreateTag) *CreateTagReqBodyBuilder {
 	builder.createTag = createTag
-	builder.createTagFlag = true
+	builder.createTagSet = true
 	return builder
 }
 
 func (builder *CreateTagReqBodyBuilder) Build() *CreateTagReqBody {
 	req := &CreateTagReqBody{}
-	if builder.createTagFlag {
+	if builder.createTagSet {
 		req.CreateTag = builder.createTag
 	}
 	return req
 }
 
 type CreateTagPathReqBodyBuilder struct {
-	createTag     *CreateTag
-	createTagFlag bool
-	botId         string
-	botIdFlag     bool
+	createTag    *CreateTag
+	createTagSet bool
+	botId        string
+	botIdSet     bool
 }
 
 func NewCreateTagPathReqBodyBuilder() *CreateTagPathReqBodyBuilder {
@@ -4713,13 +6417,13 @@ func NewCreateTagPathReqBodyBuilder() *CreateTagPathReqBodyBuilder {
 // 示例值：
 func (builder *CreateTagPathReqBodyBuilder) CreateTag(createTag *CreateTag) *CreateTagPathReqBodyBuilder {
 	builder.createTag = createTag
-	builder.createTagFlag = true
+	builder.createTagSet = true
 	return builder
 }
 
 func (builder *CreateTagPathReqBodyBuilder) Build() (*CreateTagReqBody, error) {
 	req := &CreateTagReqBody{}
-	if builder.createTagFlag {
+	if builder.createTagSet {
 		req.CreateTag = builder.createTag
 	}
 	return req, nil
@@ -4739,6 +6443,7 @@ func NewCreateTagReqBuilder() *CreateTagReqBuilder {
 	return builder
 }
 
+//
 func (builder *CreateTagReqBuilder) Body(body *CreateTagReqBody) *CreateTagReqBuilder {
 	builder.body = body
 	return builder
@@ -4779,11 +6484,11 @@ func (resp *CreateTagResp) Success() bool {
 }
 
 type PatchTagReqBodyBuilder struct {
-	patchTag     *PatchTag // 编辑标签
-	patchTagFlag bool
+	patchTag    *PatchTag // 编辑标签
+	patchTagSet bool
 
-	botId     string // 机器人id
-	botIdFlag bool
+	botId    string // 机器人id
+	botIdSet bool
 }
 
 func NewPatchTagReqBodyBuilder() *PatchTagReqBodyBuilder {
@@ -4793,26 +6498,26 @@ func NewPatchTagReqBodyBuilder() *PatchTagReqBodyBuilder {
 
 // 编辑标签
 //
-// 示例值：
+//示例值：
 func (builder *PatchTagReqBodyBuilder) PatchTag(patchTag *PatchTag) *PatchTagReqBodyBuilder {
 	builder.patchTag = patchTag
-	builder.patchTagFlag = true
+	builder.patchTagSet = true
 	return builder
 }
 
 func (builder *PatchTagReqBodyBuilder) Build() *PatchTagReqBody {
 	req := &PatchTagReqBody{}
-	if builder.patchTagFlag {
+	if builder.patchTagSet {
 		req.PatchTag = builder.patchTag
 	}
 	return req
 }
 
 type PatchTagPathReqBodyBuilder struct {
-	patchTag     *PatchTag
-	patchTagFlag bool
-	botId        string
-	botIdFlag    bool
+	patchTag    *PatchTag
+	patchTagSet bool
+	botId       string
+	botIdSet    bool
 }
 
 func NewPatchTagPathReqBodyBuilder() *PatchTagPathReqBodyBuilder {
@@ -4825,13 +6530,13 @@ func NewPatchTagPathReqBodyBuilder() *PatchTagPathReqBodyBuilder {
 // 示例值：
 func (builder *PatchTagPathReqBodyBuilder) PatchTag(patchTag *PatchTag) *PatchTagPathReqBodyBuilder {
 	builder.patchTag = patchTag
-	builder.patchTagFlag = true
+	builder.patchTagSet = true
 	return builder
 }
 
 func (builder *PatchTagPathReqBodyBuilder) Build() (*PatchTagReqBody, error) {
 	req := &PatchTagReqBody{}
-	if builder.patchTagFlag {
+	if builder.patchTagSet {
 		req.PatchTag = builder.patchTag
 	}
 	return req, nil
@@ -4859,6 +6564,7 @@ func (builder *PatchTagReqBuilder) TagId(tagId string) *PatchTagReqBuilder {
 	return builder
 }
 
+//
 func (builder *PatchTagReqBuilder) Body(body *PatchTagReqBody) *PatchTagReqBuilder {
 	builder.body = body
 	return builder
@@ -4900,11 +6606,11 @@ func (resp *PatchTagResp) Success() bool {
 }
 
 type BatchUpdateUrlPreviewReqBodyBuilder struct {
-	previewTokens     []string // URL预览的token列表
-	previewTokensFlag bool
+	previewTokens    []string // URL预览的token列表
+	previewTokensSet bool
 
-	openIds     []string // 需要更新URL预览的用户open_id。若不传，则默认更新URL所在会话成员；若用户不在URL所在会话，则无法更新该用户
-	openIdsFlag bool
+	openIds    []string // 需要更新URL预览的用户open_id。若不传，则默认更新URL所在会话成员；若用户不在URL所在会话，则无法更新该用户
+	openIdsSet bool
 }
 
 func NewBatchUpdateUrlPreviewReqBodyBuilder() *BatchUpdateUrlPreviewReqBodyBuilder {
@@ -4914,38 +6620,38 @@ func NewBatchUpdateUrlPreviewReqBodyBuilder() *BatchUpdateUrlPreviewReqBodyBuild
 
 // URL预览的token列表
 //
-// 示例值：
+//示例值：
 func (builder *BatchUpdateUrlPreviewReqBodyBuilder) PreviewTokens(previewTokens []string) *BatchUpdateUrlPreviewReqBodyBuilder {
 	builder.previewTokens = previewTokens
-	builder.previewTokensFlag = true
+	builder.previewTokensSet = true
 	return builder
 }
 
 // 需要更新URL预览的用户open_id。若不传，则默认更新URL所在会话成员；若用户不在URL所在会话，则无法更新该用户
 //
-// 示例值：
+//示例值：
 func (builder *BatchUpdateUrlPreviewReqBodyBuilder) OpenIds(openIds []string) *BatchUpdateUrlPreviewReqBodyBuilder {
 	builder.openIds = openIds
-	builder.openIdsFlag = true
+	builder.openIdsSet = true
 	return builder
 }
 
 func (builder *BatchUpdateUrlPreviewReqBodyBuilder) Build() *BatchUpdateUrlPreviewReqBody {
 	req := &BatchUpdateUrlPreviewReqBody{}
-	if builder.previewTokensFlag {
+	if builder.previewTokensSet {
 		req.PreviewTokens = builder.previewTokens
 	}
-	if builder.openIdsFlag {
+	if builder.openIdsSet {
 		req.OpenIds = builder.openIds
 	}
 	return req
 }
 
 type BatchUpdateUrlPreviewPathReqBodyBuilder struct {
-	previewTokens     []string
-	previewTokensFlag bool
-	openIds           []string
-	openIdsFlag       bool
+	previewTokens    []string
+	previewTokensSet bool
+	openIds          []string
+	openIdsSet       bool
 }
 
 func NewBatchUpdateUrlPreviewPathReqBodyBuilder() *BatchUpdateUrlPreviewPathReqBodyBuilder {
@@ -4958,7 +6664,7 @@ func NewBatchUpdateUrlPreviewPathReqBodyBuilder() *BatchUpdateUrlPreviewPathReqB
 // 示例值：
 func (builder *BatchUpdateUrlPreviewPathReqBodyBuilder) PreviewTokens(previewTokens []string) *BatchUpdateUrlPreviewPathReqBodyBuilder {
 	builder.previewTokens = previewTokens
-	builder.previewTokensFlag = true
+	builder.previewTokensSet = true
 	return builder
 }
 
@@ -4967,16 +6673,16 @@ func (builder *BatchUpdateUrlPreviewPathReqBodyBuilder) PreviewTokens(previewTok
 // 示例值：
 func (builder *BatchUpdateUrlPreviewPathReqBodyBuilder) OpenIds(openIds []string) *BatchUpdateUrlPreviewPathReqBodyBuilder {
 	builder.openIds = openIds
-	builder.openIdsFlag = true
+	builder.openIdsSet = true
 	return builder
 }
 
 func (builder *BatchUpdateUrlPreviewPathReqBodyBuilder) Build() (*BatchUpdateUrlPreviewReqBody, error) {
 	req := &BatchUpdateUrlPreviewReqBody{}
-	if builder.previewTokensFlag {
+	if builder.previewTokensSet {
 		req.PreviewTokens = builder.previewTokens
 	}
-	if builder.openIdsFlag {
+	if builder.openIdsSet {
 		req.OpenIds = builder.openIds
 	}
 	return req, nil
@@ -4996,6 +6702,7 @@ func NewBatchUpdateUrlPreviewReqBuilder() *BatchUpdateUrlPreviewReqBuilder {
 	return builder
 }
 
+//
 func (builder *BatchUpdateUrlPreviewReqBuilder) Body(body *BatchUpdateUrlPreviewReqBody) *BatchUpdateUrlPreviewReqBuilder {
 	builder.body = body
 	return builder

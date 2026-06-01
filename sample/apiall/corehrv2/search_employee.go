@@ -72,6 +72,8 @@ func main() {
 			AssignmentPayGroupIdList([]string{}).
 			ContractTypeList([]string{}).
 			ArchiveCpstPlanIdList([]string{}).
+			IsDirectLeader(false).
+			IsDottedLeader(false).
 			Build()).
 		Build()
 	// 发起请求

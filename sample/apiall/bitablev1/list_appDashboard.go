@@ -30,6 +30,7 @@ func main() {
 		AppToken("bascng7vrxcxpig7geggXiCtadY").
 		PageSize(10).
 		PageToken("blknkqrP3RqUkcAW").
+		WithShareConfig(false).
 		Build()
 	// 发起请求
 	resp, err := client.Bitable.V1.AppDashboard.List(context.Background(), req)

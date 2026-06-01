@@ -16,6 +16,7 @@ type V1 struct {
 	AppDataAssetTag        *appDataAssetTag        // app.data_asset_tag
 	AppKnowledge           *appKnowledge           // app.knowledge
 	AppSkill               *appSkill               // app.skill
+	TenantAppStat          *tenantAppStat          // tenant.app_stat
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -27,6 +28,7 @@ func New(config *larkcore.Config) *V1 {
 		AppDataAssetTag:        &appDataAssetTag{config: config},
 		AppKnowledge:           &appKnowledge{config: config},
 		AppSkill:               &appSkill{config: config},
+		TenantAppStat:          &tenantAppStat{config: config},
 	}
 }
 
@@ -49,6 +51,9 @@ type appKnowledge struct {
 	config *larkcore.Config
 }
 type appSkill struct {
+	config *larkcore.Config
+}
+type tenantAppStat struct {
 	config *larkcore.Config
 }
 
@@ -637,4 +642,38 @@ func (a *appSkill) Start(ctx context.Context, req *StartAppSkillReq, options ...
 		return nil, err
 	}
 	return resp, err
+}
+
+// List
+//
+// - ## 功能介绍获取租户下应用的统计数据列表，支持按时间范围筛选，包含日活用户数、运行次数、额度使用等核心指标，用于租户级应用运营分析与成本监控场景。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=aily&resource=tenant.app_stat&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ailyv1/list_tenantAppStat.go
+func (t *tenantAppStat) List(ctx context.Context, req *ListTenantAppStatReq, options ...larkcore.RequestOptionFunc) (*ListTenantAppStatResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/aily/v1/app_stats"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListTenantAppStatResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (t *tenantAppStat) ListByIterator(ctx context.Context, req *ListTenantAppStatReq, options ...larkcore.RequestOptionFunc) (*ListTenantAppStatIterator, error) {
+	return &ListTenantAppStatIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: t.List,
+		options:  options,
+		limit:    req.Limit}, nil
 }

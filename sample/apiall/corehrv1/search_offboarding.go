@@ -30,6 +30,7 @@ func main() {
 		PageSize(100).
 		PageToken("6891251722631890445").
 		UserIdType("open_id").
+		DepartmentIdType("open_department_id").
 		Body(larkcorehr.NewSearchOffboardingReqBodyBuilder().
 			EmploymentIds([]string{}).
 			ApplyInitiatingTimeStart("2022-01-01 11:22:33").
@@ -43,6 +44,8 @@ func main() {
 			Statuses([]string{}).
 			Reasons([]string{}).
 			EmployeeReasons([]string{}).
+			DepartmentIds([]string{}).
+			SelectFields([]string{}).
 			Build()).
 		Build()
 	// 发起请求

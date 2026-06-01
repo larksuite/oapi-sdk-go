@@ -24,11 +24,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -36,27 +36,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -80,8 +84,8 @@ func (builder *ImageBuilder) Build() *Image {
 }
 
 type BasicRecognizeImageReqBodyBuilder struct {
-	image     string // base64 后的图片数据
-	imageFlag bool
+	image    string // base64 后的图片数据
+	imageSet bool
 }
 
 func NewBasicRecognizeImageReqBodyBuilder() *BasicRecognizeImageReqBodyBuilder {
@@ -91,24 +95,24 @@ func NewBasicRecognizeImageReqBodyBuilder() *BasicRecognizeImageReqBodyBuilder {
 
 // base64 后的图片数据
 //
-// 示例值：base64后的图片二进制数据
+//示例值：base64后的图片二进制数据
 func (builder *BasicRecognizeImageReqBodyBuilder) Image(image string) *BasicRecognizeImageReqBodyBuilder {
 	builder.image = image
-	builder.imageFlag = true
+	builder.imageSet = true
 	return builder
 }
 
 func (builder *BasicRecognizeImageReqBodyBuilder) Build() *BasicRecognizeImageReqBody {
 	req := &BasicRecognizeImageReqBody{}
-	if builder.imageFlag {
+	if builder.imageSet {
 		req.Image = &builder.image
 	}
 	return req
 }
 
 type BasicRecognizeImagePathReqBodyBuilder struct {
-	image     string
-	imageFlag bool
+	image    string
+	imageSet bool
 }
 
 func NewBasicRecognizeImagePathReqBodyBuilder() *BasicRecognizeImagePathReqBodyBuilder {
@@ -121,13 +125,13 @@ func NewBasicRecognizeImagePathReqBodyBuilder() *BasicRecognizeImagePathReqBodyB
 // 示例值：base64后的图片二进制数据
 func (builder *BasicRecognizeImagePathReqBodyBuilder) Image(image string) *BasicRecognizeImagePathReqBodyBuilder {
 	builder.image = image
-	builder.imageFlag = true
+	builder.imageSet = true
 	return builder
 }
 
 func (builder *BasicRecognizeImagePathReqBodyBuilder) Build() (*BasicRecognizeImageReqBody, error) {
 	req := &BasicRecognizeImageReqBody{}
-	if builder.imageFlag {
+	if builder.imageSet {
 		req.Image = &builder.image
 	}
 	return req, nil

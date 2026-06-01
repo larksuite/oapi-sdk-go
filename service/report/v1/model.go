@@ -50,11 +50,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -62,27 +62,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -98,14 +102,14 @@ type FormContent struct {
 }
 
 type FormContentBuilder struct {
-	fieldId     string // 表单字段ID
-	fieldIdFlag bool
+	fieldId    string // 表单字段ID
+	fieldIdSet bool
 
-	fieldName     string // 表单字段名称
-	fieldNameFlag bool
+	fieldName    string // 表单字段名称
+	fieldNameSet bool
 
-	fieldValue     string // 表单字段值
-	fieldValueFlag bool
+	fieldValue    string // 表单字段值
+	fieldValueSet bool
 }
 
 func NewFormContentBuilder() *FormContentBuilder {
@@ -118,7 +122,7 @@ func NewFormContentBuilder() *FormContentBuilder {
 // 示例值：6968626905868156948
 func (builder *FormContentBuilder) FieldId(fieldId string) *FormContentBuilder {
 	builder.fieldId = fieldId
-	builder.fieldIdFlag = true
+	builder.fieldIdSet = true
 	return builder
 }
 
@@ -127,7 +131,7 @@ func (builder *FormContentBuilder) FieldId(fieldId string) *FormContentBuilder {
 // 示例值：表单测试
 func (builder *FormContentBuilder) FieldName(fieldName string) *FormContentBuilder {
 	builder.fieldName = fieldName
-	builder.fieldNameFlag = true
+	builder.fieldNameSet = true
 	return builder
 }
 
@@ -136,21 +140,21 @@ func (builder *FormContentBuilder) FieldName(fieldName string) *FormContentBuild
 // 示例值：测试数据
 func (builder *FormContentBuilder) FieldValue(fieldValue string) *FormContentBuilder {
 	builder.fieldValue = fieldValue
-	builder.fieldValueFlag = true
+	builder.fieldValueSet = true
 	return builder
 }
 
 func (builder *FormContentBuilder) Build() *FormContent {
 	req := &FormContent{}
-	if builder.fieldIdFlag {
+	if builder.fieldIdSet {
 		req.FieldId = &builder.fieldId
 
 	}
-	if builder.fieldNameFlag {
+	if builder.fieldNameSet {
 		req.FieldName = &builder.fieldName
 
 	}
-	if builder.fieldValueFlag {
+	if builder.fieldValueSet {
 		req.FieldValue = &builder.fieldValue
 
 	}
@@ -164,11 +168,11 @@ type FormField struct {
 }
 
 type FormFieldBuilder struct {
-	name     string // 字段名称
-	nameFlag bool
+	name    string // 字段名称
+	nameSet bool
 
 	type_    string // 字段类型
-	typeFlag bool
+	type_Set bool
 }
 
 func NewFormFieldBuilder() *FormFieldBuilder {
@@ -181,7 +185,7 @@ func NewFormFieldBuilder() *FormFieldBuilder {
 // 示例值：ou_133f0b6d0f097cf7d7ba00b38fffb112
 func (builder *FormFieldBuilder) Name(name string) *FormFieldBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -190,17 +194,17 @@ func (builder *FormFieldBuilder) Name(name string) *FormFieldBuilder {
 // 示例值：张三
 func (builder *FormFieldBuilder) Type(type_ string) *FormFieldBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
 func (builder *FormFieldBuilder) Build() *FormField {
 	req := &FormField{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
@@ -252,68 +256,68 @@ type Rule struct {
 }
 
 type RuleBuilder struct {
-	ruleId     string // 规则唯一标识
-	ruleIdFlag bool
+	ruleId    string // 规则唯一标识
+	ruleIdSet bool
 
-	name     string // 规则名称
-	nameFlag bool
+	name    string // 规则名称
+	nameSet bool
 
-	iconName     string // 规则图标
-	iconNameFlag bool
+	iconName    string // 规则图标
+	iconNameSet bool
 
-	createdAt     int // 创建时间
-	createdAtFlag bool
+	createdAt    int // 创建时间
+	createdAtSet bool
 
-	creatorUserId     string // 创建人ID
-	creatorUserIdFlag bool
+	creatorUserId    string // 创建人ID
+	creatorUserIdSet bool
 
-	creatorUserName     string // 创建人名称
-	creatorUserNameFlag bool
+	creatorUserName    string // 创建人名称
+	creatorUserNameSet bool
 
-	ownerUserId     string // 规则所有者ID
-	ownerUserIdFlag bool
+	ownerUserId    string // 规则所有者ID
+	ownerUserIdSet bool
 
-	ownerUserName     string // 规则所有者名称
-	ownerUserNameFlag bool
+	ownerUserName    string // 规则所有者名称
+	ownerUserNameSet bool
 
-	formSchema     []*FormField // 表单定义
-	formSchemaFlag bool
+	formSchema    []*FormField // 表单定义
+	formSchemaSet bool
 
-	isDeleted     int // 规则是否已删除
-	isDeletedFlag bool
+	isDeleted    int // 规则是否已删除
+	isDeletedSet bool
 
-	needReportUserIds     []string // 需要汇报的用户ID列表
-	needReportUserIdsFlag bool
+	needReportUserIds    []string // 需要汇报的用户ID列表
+	needReportUserIdsSet bool
 
-	needReportDepartmentIds     []string // 需要汇报的部门ID列表（如果id为0，表示全员）
-	needReportDepartmentIdsFlag bool
+	needReportDepartmentIds    []string // 需要汇报的部门ID列表（如果id为0，表示全员）
+	needReportDepartmentIdsSet bool
 
-	needReportChatIds     []string // 需要汇报的群ID列表
-	needReportChatIdsFlag bool
+	needReportChatIds    []string // 需要汇报的群ID列表
+	needReportChatIdsSet bool
 
-	ccUserIds     []string // 抄送用户ID列表
-	ccUserIdsFlag bool
+	ccUserIds    []string // 抄送用户ID列表
+	ccUserIdsSet bool
 
-	ccDepartmentIds     []string // 抄送部门ID列表
-	ccDepartmentIdsFlag bool
+	ccDepartmentIds    []string // 抄送部门ID列表
+	ccDepartmentIdsSet bool
 
-	toUserIds     []string // 汇报对象用户ID列表
-	toUserIdsFlag bool
+	toUserIds    []string // 汇报对象用户ID列表
+	toUserIdsSet bool
 
-	toChatIds     []string // 汇报对象群ID列表
-	toChatIdsFlag bool
+	toChatIds    []string // 汇报对象群ID列表
+	toChatIdsSet bool
 
-	toLeaders     []int // 上级汇报对象，0表示第一级，依次类推，最大为5表示第六级
-	toLeadersFlag bool
+	toLeaders    []int // 上级汇报对象，0表示第一级，依次类推，最大为5表示第六级
+	toLeadersSet bool
 
-	toDepartmentOwners     []int // 部门负责人汇报对象，0表示第一级，依次类推，最大为5表示第六级
-	toDepartmentOwnersFlag bool
+	toDepartmentOwners    []int // 部门负责人汇报对象，0表示第一级，依次类推，最大为5表示第六级
+	toDepartmentOwnersSet bool
 
-	managerUserIds     []string // 规则管理员用户ID列表
-	managerUserIdsFlag bool
+	managerUserIds    []string // 规则管理员用户ID列表
+	managerUserIdsSet bool
 
-	ccChatIds     []string // 抄送群ID列表
-	ccChatIdsFlag bool
+	ccChatIds    []string // 抄送群ID列表
+	ccChatIdsSet bool
 }
 
 func NewRuleBuilder() *RuleBuilder {
@@ -326,7 +330,7 @@ func NewRuleBuilder() *RuleBuilder {
 // 示例值：6894788526240432147
 func (builder *RuleBuilder) RuleId(ruleId string) *RuleBuilder {
 	builder.ruleId = ruleId
-	builder.ruleIdFlag = true
+	builder.ruleIdSet = true
 	return builder
 }
 
@@ -335,7 +339,7 @@ func (builder *RuleBuilder) RuleId(ruleId string) *RuleBuilder {
 // 示例值：工作月报
 func (builder *RuleBuilder) Name(name string) *RuleBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -344,7 +348,7 @@ func (builder *RuleBuilder) Name(name string) *RuleBuilder {
 // 示例值：日报
 func (builder *RuleBuilder) IconName(iconName string) *RuleBuilder {
 	builder.iconName = iconName
-	builder.iconNameFlag = true
+	builder.iconNameSet = true
 	return builder
 }
 
@@ -353,7 +357,7 @@ func (builder *RuleBuilder) IconName(iconName string) *RuleBuilder {
 // 示例值：1622427266
 func (builder *RuleBuilder) CreatedAt(createdAt int) *RuleBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -362,7 +366,7 @@ func (builder *RuleBuilder) CreatedAt(createdAt int) *RuleBuilder {
 // 示例值：ou_133f0b6d0f097cf7d7ba00b38fffb110
 func (builder *RuleBuilder) CreatorUserId(creatorUserId string) *RuleBuilder {
 	builder.creatorUserId = creatorUserId
-	builder.creatorUserIdFlag = true
+	builder.creatorUserIdSet = true
 	return builder
 }
 
@@ -371,7 +375,7 @@ func (builder *RuleBuilder) CreatorUserId(creatorUserId string) *RuleBuilder {
 // 示例值：张三
 func (builder *RuleBuilder) CreatorUserName(creatorUserName string) *RuleBuilder {
 	builder.creatorUserName = creatorUserName
-	builder.creatorUserNameFlag = true
+	builder.creatorUserNameSet = true
 	return builder
 }
 
@@ -380,7 +384,7 @@ func (builder *RuleBuilder) CreatorUserName(creatorUserName string) *RuleBuilder
 // 示例值：ou_133f0b6d0f097cf7d7ba00b38fffb111
 func (builder *RuleBuilder) OwnerUserId(ownerUserId string) *RuleBuilder {
 	builder.ownerUserId = ownerUserId
-	builder.ownerUserIdFlag = true
+	builder.ownerUserIdSet = true
 	return builder
 }
 
@@ -389,7 +393,7 @@ func (builder *RuleBuilder) OwnerUserId(ownerUserId string) *RuleBuilder {
 // 示例值：张三
 func (builder *RuleBuilder) OwnerUserName(ownerUserName string) *RuleBuilder {
 	builder.ownerUserName = ownerUserName
-	builder.ownerUserNameFlag = true
+	builder.ownerUserNameSet = true
 	return builder
 }
 
@@ -398,7 +402,7 @@ func (builder *RuleBuilder) OwnerUserName(ownerUserName string) *RuleBuilder {
 // 示例值：
 func (builder *RuleBuilder) FormSchema(formSchema []*FormField) *RuleBuilder {
 	builder.formSchema = formSchema
-	builder.formSchemaFlag = true
+	builder.formSchemaSet = true
 	return builder
 }
 
@@ -407,7 +411,7 @@ func (builder *RuleBuilder) FormSchema(formSchema []*FormField) *RuleBuilder {
 // 示例值：0
 func (builder *RuleBuilder) IsDeleted(isDeleted int) *RuleBuilder {
 	builder.isDeleted = isDeleted
-	builder.isDeletedFlag = true
+	builder.isDeletedSet = true
 	return builder
 }
 
@@ -416,7 +420,7 @@ func (builder *RuleBuilder) IsDeleted(isDeleted int) *RuleBuilder {
 // 示例值：['ou_c04cebc780341ab22bd311ba6902ffsd']
 func (builder *RuleBuilder) NeedReportUserIds(needReportUserIds []string) *RuleBuilder {
 	builder.needReportUserIds = needReportUserIds
-	builder.needReportUserIdsFlag = true
+	builder.needReportUserIdsSet = true
 	return builder
 }
 
@@ -425,7 +429,7 @@ func (builder *RuleBuilder) NeedReportUserIds(needReportUserIds []string) *RuleB
 // 示例值：
 func (builder *RuleBuilder) NeedReportDepartmentIds(needReportDepartmentIds []string) *RuleBuilder {
 	builder.needReportDepartmentIds = needReportDepartmentIds
-	builder.needReportDepartmentIdsFlag = true
+	builder.needReportDepartmentIdsSet = true
 	return builder
 }
 
@@ -434,7 +438,7 @@ func (builder *RuleBuilder) NeedReportDepartmentIds(needReportDepartmentIds []st
 // 示例值：['oc_a7bb9ca5efa68ab8b4fdd2e3b54ffref']
 func (builder *RuleBuilder) NeedReportChatIds(needReportChatIds []string) *RuleBuilder {
 	builder.needReportChatIds = needReportChatIds
-	builder.needReportChatIdsFlag = true
+	builder.needReportChatIdsSet = true
 	return builder
 }
 
@@ -443,7 +447,7 @@ func (builder *RuleBuilder) NeedReportChatIds(needReportChatIds []string) *RuleB
 // 示例值：['ou_45454c20ef2c92c173445abf6f4955rf']
 func (builder *RuleBuilder) CcUserIds(ccUserIds []string) *RuleBuilder {
 	builder.ccUserIds = ccUserIds
-	builder.ccUserIdsFlag = true
+	builder.ccUserIdsSet = true
 	return builder
 }
 
@@ -452,7 +456,7 @@ func (builder *RuleBuilder) CcUserIds(ccUserIds []string) *RuleBuilder {
 // 示例值：['od-251480c0bfb8c5c8784ea194ef8b734d']
 func (builder *RuleBuilder) CcDepartmentIds(ccDepartmentIds []string) *RuleBuilder {
 	builder.ccDepartmentIds = ccDepartmentIds
-	builder.ccDepartmentIdsFlag = true
+	builder.ccDepartmentIdsSet = true
 	return builder
 }
 
@@ -461,7 +465,7 @@ func (builder *RuleBuilder) CcDepartmentIds(ccDepartmentIds []string) *RuleBuild
 // 示例值：['ou_c04cebc780341ab22bd311ba6902fdfe']
 func (builder *RuleBuilder) ToUserIds(toUserIds []string) *RuleBuilder {
 	builder.toUserIds = toUserIds
-	builder.toUserIdsFlag = true
+	builder.toUserIdsSet = true
 	return builder
 }
 
@@ -470,7 +474,7 @@ func (builder *RuleBuilder) ToUserIds(toUserIds []string) *RuleBuilder {
 // 示例值：['oc_a7bb9ca5efa68ab8b4fdd2e3b54fcerf']
 func (builder *RuleBuilder) ToChatIds(toChatIds []string) *RuleBuilder {
 	builder.toChatIds = toChatIds
-	builder.toChatIdsFlag = true
+	builder.toChatIdsSet = true
 	return builder
 }
 
@@ -479,7 +483,7 @@ func (builder *RuleBuilder) ToChatIds(toChatIds []string) *RuleBuilder {
 // 示例值：[0]
 func (builder *RuleBuilder) ToLeaders(toLeaders []int) *RuleBuilder {
 	builder.toLeaders = toLeaders
-	builder.toLeadersFlag = true
+	builder.toLeadersSet = true
 	return builder
 }
 
@@ -488,7 +492,7 @@ func (builder *RuleBuilder) ToLeaders(toLeaders []int) *RuleBuilder {
 // 示例值：[0]
 func (builder *RuleBuilder) ToDepartmentOwners(toDepartmentOwners []int) *RuleBuilder {
 	builder.toDepartmentOwners = toDepartmentOwners
-	builder.toDepartmentOwnersFlag = true
+	builder.toDepartmentOwnersSet = true
 	return builder
 }
 
@@ -497,7 +501,7 @@ func (builder *RuleBuilder) ToDepartmentOwners(toDepartmentOwners []int) *RuleBu
 // 示例值：['ou_c04cebc780341ab22bd311ba6902sseb']
 func (builder *RuleBuilder) ManagerUserIds(managerUserIds []string) *RuleBuilder {
 	builder.managerUserIds = managerUserIds
-	builder.managerUserIdsFlag = true
+	builder.managerUserIdsSet = true
 	return builder
 }
 
@@ -506,82 +510,82 @@ func (builder *RuleBuilder) ManagerUserIds(managerUserIds []string) *RuleBuilder
 // 示例值：['oc_a7bb9ca5efa68ab8b4fdd2e3b54fffsf']
 func (builder *RuleBuilder) CcChatIds(ccChatIds []string) *RuleBuilder {
 	builder.ccChatIds = ccChatIds
-	builder.ccChatIdsFlag = true
+	builder.ccChatIdsSet = true
 	return builder
 }
 
 func (builder *RuleBuilder) Build() *Rule {
 	req := &Rule{}
-	if builder.ruleIdFlag {
+	if builder.ruleIdSet {
 		req.RuleId = &builder.ruleId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.iconNameFlag {
+	if builder.iconNameSet {
 		req.IconName = &builder.iconName
 
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.creatorUserIdFlag {
+	if builder.creatorUserIdSet {
 		req.CreatorUserId = &builder.creatorUserId
 
 	}
-	if builder.creatorUserNameFlag {
+	if builder.creatorUserNameSet {
 		req.CreatorUserName = &builder.creatorUserName
 
 	}
-	if builder.ownerUserIdFlag {
+	if builder.ownerUserIdSet {
 		req.OwnerUserId = &builder.ownerUserId
 
 	}
-	if builder.ownerUserNameFlag {
+	if builder.ownerUserNameSet {
 		req.OwnerUserName = &builder.ownerUserName
 
 	}
-	if builder.formSchemaFlag {
+	if builder.formSchemaSet {
 		req.FormSchema = builder.formSchema
 	}
-	if builder.isDeletedFlag {
+	if builder.isDeletedSet {
 		req.IsDeleted = &builder.isDeleted
 
 	}
-	if builder.needReportUserIdsFlag {
+	if builder.needReportUserIdsSet {
 		req.NeedReportUserIds = builder.needReportUserIds
 	}
-	if builder.needReportDepartmentIdsFlag {
+	if builder.needReportDepartmentIdsSet {
 		req.NeedReportDepartmentIds = builder.needReportDepartmentIds
 	}
-	if builder.needReportChatIdsFlag {
+	if builder.needReportChatIdsSet {
 		req.NeedReportChatIds = builder.needReportChatIds
 	}
-	if builder.ccUserIdsFlag {
+	if builder.ccUserIdsSet {
 		req.CcUserIds = builder.ccUserIds
 	}
-	if builder.ccDepartmentIdsFlag {
+	if builder.ccDepartmentIdsSet {
 		req.CcDepartmentIds = builder.ccDepartmentIds
 	}
-	if builder.toUserIdsFlag {
+	if builder.toUserIdsSet {
 		req.ToUserIds = builder.toUserIds
 	}
-	if builder.toChatIdsFlag {
+	if builder.toChatIdsSet {
 		req.ToChatIds = builder.toChatIds
 	}
-	if builder.toLeadersFlag {
+	if builder.toLeadersSet {
 		req.ToLeaders = builder.toLeaders
 	}
-	if builder.toDepartmentOwnersFlag {
+	if builder.toDepartmentOwnersSet {
 		req.ToDepartmentOwners = builder.toDepartmentOwners
 	}
-	if builder.managerUserIdsFlag {
+	if builder.managerUserIdsSet {
 		req.ManagerUserIds = builder.managerUserIds
 	}
-	if builder.ccChatIdsFlag {
+	if builder.ccChatIdsSet {
 		req.CcChatIds = builder.ccChatIds
 	}
 	return req
@@ -612,38 +616,38 @@ type Task struct {
 }
 
 type TaskBuilder struct {
-	taskId     string // 汇报任务ID
-	taskIdFlag bool
+	taskId    string // 汇报任务ID
+	taskIdSet bool
 
-	ruleName     string // 规则名称
-	ruleNameFlag bool
+	ruleName    string // 规则名称
+	ruleNameSet bool
 
-	fromUserId     string // 汇报用户ID
-	fromUserIdFlag bool
+	fromUserId    string // 汇报用户ID
+	fromUserIdSet bool
 
-	fromUserName     string // 汇报用户名称
-	fromUserNameFlag bool
+	fromUserName    string // 汇报用户名称
+	fromUserNameSet bool
 
-	departmentName     string // 汇报用户部门名称
-	departmentNameFlag bool
+	departmentName    string // 汇报用户部门名称
+	departmentNameSet bool
 
-	commitTime     int // 提交时间时间戳
-	commitTimeFlag bool
+	commitTime    int // 提交时间时间戳
+	commitTimeSet bool
 
-	formContents     []*FormContent // 汇报表单内容
-	formContentsFlag bool
+	formContents    []*FormContent // 汇报表单内容
+	formContentsSet bool
 
-	ruleId     string // 汇报规则ID
-	ruleIdFlag bool
+	ruleId    string // 汇报规则ID
+	ruleIdSet bool
 
-	departmentIds     []string // 部门id
-	departmentIdsFlag bool
+	departmentIds    []string // 部门id
+	departmentIdsSet bool
 
-	toUserIds     []string // 汇报给谁
-	toUserIdsFlag bool
+	toUserIds    []string // 汇报给谁
+	toUserIdsSet bool
 
-	toUserNames     []string // 汇报给谁的名字
-	toUserNamesFlag bool
+	toUserNames    []string // 汇报给谁的名字
+	toUserNamesSet bool
 }
 
 func NewTaskBuilder() *TaskBuilder {
@@ -656,7 +660,7 @@ func NewTaskBuilder() *TaskBuilder {
 // 示例值：6968793659214921747
 func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
 	builder.taskId = taskId
-	builder.taskIdFlag = true
+	builder.taskIdSet = true
 	return builder
 }
 
@@ -665,7 +669,7 @@ func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
 // 示例值：工作月报
 func (builder *TaskBuilder) RuleName(ruleName string) *TaskBuilder {
 	builder.ruleName = ruleName
-	builder.ruleNameFlag = true
+	builder.ruleNameSet = true
 	return builder
 }
 
@@ -674,7 +678,7 @@ func (builder *TaskBuilder) RuleName(ruleName string) *TaskBuilder {
 // 示例值：ou_c04cebc780341ab22bd311ba6902ffeb
 func (builder *TaskBuilder) FromUserId(fromUserId string) *TaskBuilder {
 	builder.fromUserId = fromUserId
-	builder.fromUserIdFlag = true
+	builder.fromUserIdSet = true
 	return builder
 }
 
@@ -683,7 +687,7 @@ func (builder *TaskBuilder) FromUserId(fromUserId string) *TaskBuilder {
 // 示例值：张三
 func (builder *TaskBuilder) FromUserName(fromUserName string) *TaskBuilder {
 	builder.fromUserName = fromUserName
-	builder.fromUserNameFlag = true
+	builder.fromUserNameSet = true
 	return builder
 }
 
@@ -692,7 +696,7 @@ func (builder *TaskBuilder) FromUserName(fromUserName string) *TaskBuilder {
 // 示例值：部门A
 func (builder *TaskBuilder) DepartmentName(departmentName string) *TaskBuilder {
 	builder.departmentName = departmentName
-	builder.departmentNameFlag = true
+	builder.departmentNameSet = true
 	return builder
 }
 
@@ -701,7 +705,7 @@ func (builder *TaskBuilder) DepartmentName(departmentName string) *TaskBuilder {
 // 示例值：1622548713
 func (builder *TaskBuilder) CommitTime(commitTime int) *TaskBuilder {
 	builder.commitTime = commitTime
-	builder.commitTimeFlag = true
+	builder.commitTimeSet = true
 	return builder
 }
 
@@ -710,7 +714,7 @@ func (builder *TaskBuilder) CommitTime(commitTime int) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) FormContents(formContents []*FormContent) *TaskBuilder {
 	builder.formContents = formContents
-	builder.formContentsFlag = true
+	builder.formContentsSet = true
 	return builder
 }
 
@@ -719,7 +723,7 @@ func (builder *TaskBuilder) FormContents(formContents []*FormContent) *TaskBuild
 // 示例值：6968793659214921747
 func (builder *TaskBuilder) RuleId(ruleId string) *TaskBuilder {
 	builder.ruleId = ruleId
-	builder.ruleIdFlag = true
+	builder.ruleIdSet = true
 	return builder
 }
 
@@ -728,7 +732,7 @@ func (builder *TaskBuilder) RuleId(ruleId string) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) DepartmentIds(departmentIds []string) *TaskBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
@@ -737,7 +741,7 @@ func (builder *TaskBuilder) DepartmentIds(departmentIds []string) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) ToUserIds(toUserIds []string) *TaskBuilder {
 	builder.toUserIds = toUserIds
-	builder.toUserIdsFlag = true
+	builder.toUserIdsSet = true
 	return builder
 }
 
@@ -746,50 +750,50 @@ func (builder *TaskBuilder) ToUserIds(toUserIds []string) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) ToUserNames(toUserNames []string) *TaskBuilder {
 	builder.toUserNames = toUserNames
-	builder.toUserNamesFlag = true
+	builder.toUserNamesSet = true
 	return builder
 }
 
 func (builder *TaskBuilder) Build() *Task {
 	req := &Task{}
-	if builder.taskIdFlag {
+	if builder.taskIdSet {
 		req.TaskId = &builder.taskId
 
 	}
-	if builder.ruleNameFlag {
+	if builder.ruleNameSet {
 		req.RuleName = &builder.ruleName
 
 	}
-	if builder.fromUserIdFlag {
+	if builder.fromUserIdSet {
 		req.FromUserId = &builder.fromUserId
 
 	}
-	if builder.fromUserNameFlag {
+	if builder.fromUserNameSet {
 		req.FromUserName = &builder.fromUserName
 
 	}
-	if builder.departmentNameFlag {
+	if builder.departmentNameSet {
 		req.DepartmentName = &builder.departmentName
 
 	}
-	if builder.commitTimeFlag {
+	if builder.commitTimeSet {
 		req.CommitTime = &builder.commitTime
 
 	}
-	if builder.formContentsFlag {
+	if builder.formContentsSet {
 		req.FormContents = builder.formContents
 	}
-	if builder.ruleIdFlag {
+	if builder.ruleIdSet {
 		req.RuleId = &builder.ruleId
 
 	}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.toUserIdsFlag {
+	if builder.toUserIdsSet {
 		req.ToUserIds = builder.toUserIds
 	}
-	if builder.toUserNamesFlag {
+	if builder.toUserNamesSet {
 		req.ToUserNames = builder.toUserNames
 	}
 	return req
@@ -874,8 +878,8 @@ func (resp *QueryRuleResp) Success() bool {
 }
 
 type RemoveRuleViewReqBodyBuilder struct {
-	userIds     []string // 列表为空删除规则下全用户视图，列表不为空删除指定用户视图，大小限制200。
-	userIdsFlag bool
+	userIds    []string // 列表为空删除规则下全用户视图，列表不为空删除指定用户视图，大小限制200。
+	userIdsSet bool
 }
 
 func NewRemoveRuleViewReqBodyBuilder() *RemoveRuleViewReqBodyBuilder {
@@ -885,24 +889,24 @@ func NewRemoveRuleViewReqBodyBuilder() *RemoveRuleViewReqBodyBuilder {
 
 // 列表为空删除规则下全用户视图，列表不为空删除指定用户视图，大小限制200。
 //
-// 示例值：["ou_d6a5b5a55c77ca0b5b6c6ca0dd628c85","ou_d6a5b5a55c77ca0b5b6c6ca0dd628c55"]
+//示例值：["ou_d6a5b5a55c77ca0b5b6c6ca0dd628c85","ou_d6a5b5a55c77ca0b5b6c6ca0dd628c55"]
 func (builder *RemoveRuleViewReqBodyBuilder) UserIds(userIds []string) *RemoveRuleViewReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 func (builder *RemoveRuleViewReqBodyBuilder) Build() *RemoveRuleViewReqBody {
 	req := &RemoveRuleViewReqBody{}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
 	return req
 }
 
 type RemoveRuleViewPathReqBodyBuilder struct {
-	userIds     []string
-	userIdsFlag bool
+	userIds    []string
+	userIdsSet bool
 }
 
 func NewRemoveRuleViewPathReqBodyBuilder() *RemoveRuleViewPathReqBodyBuilder {
@@ -915,13 +919,13 @@ func NewRemoveRuleViewPathReqBodyBuilder() *RemoveRuleViewPathReqBodyBuilder {
 // 示例值：["ou_d6a5b5a55c77ca0b5b6c6ca0dd628c85","ou_d6a5b5a55c77ca0b5b6c6ca0dd628c55"]
 func (builder *RemoveRuleViewPathReqBodyBuilder) UserIds(userIds []string) *RemoveRuleViewPathReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 func (builder *RemoveRuleViewPathReqBodyBuilder) Build() (*RemoveRuleViewReqBody, error) {
 	req := &RemoveRuleViewReqBody{}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
 	return req, nil
@@ -949,6 +953,8 @@ func (builder *RemoveRuleViewReqBuilder) RuleId(ruleId string) *RemoveRuleViewRe
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *RemoveRuleViewReqBuilder) UserIdType(userIdType string) *RemoveRuleViewReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -989,23 +995,23 @@ func (resp *RemoveRuleViewResp) Success() bool {
 }
 
 type QueryTaskReqBodyBuilder struct {
-	commitStartTime     int // 提交开始时间时间戳
-	commitStartTimeFlag bool
+	commitStartTime    int // 提交开始时间时间戳
+	commitStartTimeSet bool
 
-	commitEndTime     int // 提交结束时间时间戳
-	commitEndTimeFlag bool
+	commitEndTime    int // 提交结束时间时间戳
+	commitEndTimeSet bool
 
-	ruleId     string // 汇报规则ID
-	ruleIdFlag bool
+	ruleId    string // 汇报规则ID
+	ruleIdSet bool
 
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 
-	pageToken     string // 分页标识符
-	pageTokenFlag bool
+	pageToken    string // 分页标识符
+	pageTokenSet bool
 
-	pageSize     int // 单次分页返回的条数
-	pageSizeFlag bool
+	pageSize    int // 单次分页返回的条数
+	pageSizeSet bool
 }
 
 func NewQueryTaskReqBodyBuilder() *QueryTaskReqBodyBuilder {
@@ -1015,94 +1021,94 @@ func NewQueryTaskReqBodyBuilder() *QueryTaskReqBodyBuilder {
 
 // 提交开始时间时间戳
 //
-// 示例值：1622427266
+//示例值：1622427266
 func (builder *QueryTaskReqBodyBuilder) CommitStartTime(commitStartTime int) *QueryTaskReqBodyBuilder {
 	builder.commitStartTime = commitStartTime
-	builder.commitStartTimeFlag = true
+	builder.commitStartTimeSet = true
 	return builder
 }
 
 // 提交结束时间时间戳
 //
-// 示例值：1622427266
+//示例值：1622427266
 func (builder *QueryTaskReqBodyBuilder) CommitEndTime(commitEndTime int) *QueryTaskReqBodyBuilder {
 	builder.commitEndTime = commitEndTime
-	builder.commitEndTimeFlag = true
+	builder.commitEndTimeSet = true
 	return builder
 }
 
 // 汇报规则ID
 //
-// 示例值：6894419345318182932
+//示例值：6894419345318182932
 func (builder *QueryTaskReqBodyBuilder) RuleId(ruleId string) *QueryTaskReqBodyBuilder {
 	builder.ruleId = ruleId
-	builder.ruleIdFlag = true
+	builder.ruleIdSet = true
 	return builder
 }
 
 // 用户ID
 //
-// 示例值：ou_133f0b6d0f097cf7d7ba00b38fffb110
+//示例值：ou_133f0b6d0f097cf7d7ba00b38fffb110
 func (builder *QueryTaskReqBodyBuilder) UserId(userId string) *QueryTaskReqBodyBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 // 分页标识符
 //
-// 示例值：6895699275733778451
+//示例值：6895699275733778451
 func (builder *QueryTaskReqBodyBuilder) PageToken(pageToken string) *QueryTaskReqBodyBuilder {
 	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.pageTokenSet = true
 	return builder
 }
 
 // 单次分页返回的条数
 //
-// 示例值：10
+//示例值：10
 func (builder *QueryTaskReqBodyBuilder) PageSize(pageSize int) *QueryTaskReqBodyBuilder {
 	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.pageSizeSet = true
 	return builder
 }
 
 func (builder *QueryTaskReqBodyBuilder) Build() *QueryTaskReqBody {
 	req := &QueryTaskReqBody{}
-	if builder.commitStartTimeFlag {
+	if builder.commitStartTimeSet {
 		req.CommitStartTime = &builder.commitStartTime
 	}
-	if builder.commitEndTimeFlag {
+	if builder.commitEndTimeSet {
 		req.CommitEndTime = &builder.commitEndTime
 	}
-	if builder.ruleIdFlag {
+	if builder.ruleIdSet {
 		req.RuleId = &builder.ruleId
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 	}
-	if builder.pageTokenFlag {
+	if builder.pageTokenSet {
 		req.PageToken = &builder.pageToken
 	}
-	if builder.pageSizeFlag {
+	if builder.pageSizeSet {
 		req.PageSize = &builder.pageSize
 	}
 	return req
 }
 
 type QueryTaskPathReqBodyBuilder struct {
-	commitStartTime     int
-	commitStartTimeFlag bool
-	commitEndTime       int
-	commitEndTimeFlag   bool
-	ruleId              string
-	ruleIdFlag          bool
-	userId              string
-	userIdFlag          bool
-	pageToken           string
-	pageTokenFlag       bool
-	pageSize            int
-	pageSizeFlag        bool
+	commitStartTime    int
+	commitStartTimeSet bool
+	commitEndTime      int
+	commitEndTimeSet   bool
+	ruleId             string
+	ruleIdSet          bool
+	userId             string
+	userIdSet          bool
+	pageToken          string
+	pageTokenSet       bool
+	pageSize           int
+	pageSizeSet        bool
 }
 
 func NewQueryTaskPathReqBodyBuilder() *QueryTaskPathReqBodyBuilder {
@@ -1115,7 +1121,7 @@ func NewQueryTaskPathReqBodyBuilder() *QueryTaskPathReqBodyBuilder {
 // 示例值：1622427266
 func (builder *QueryTaskPathReqBodyBuilder) CommitStartTime(commitStartTime int) *QueryTaskPathReqBodyBuilder {
 	builder.commitStartTime = commitStartTime
-	builder.commitStartTimeFlag = true
+	builder.commitStartTimeSet = true
 	return builder
 }
 
@@ -1124,7 +1130,7 @@ func (builder *QueryTaskPathReqBodyBuilder) CommitStartTime(commitStartTime int)
 // 示例值：1622427266
 func (builder *QueryTaskPathReqBodyBuilder) CommitEndTime(commitEndTime int) *QueryTaskPathReqBodyBuilder {
 	builder.commitEndTime = commitEndTime
-	builder.commitEndTimeFlag = true
+	builder.commitEndTimeSet = true
 	return builder
 }
 
@@ -1133,7 +1139,7 @@ func (builder *QueryTaskPathReqBodyBuilder) CommitEndTime(commitEndTime int) *Qu
 // 示例值：6894419345318182932
 func (builder *QueryTaskPathReqBodyBuilder) RuleId(ruleId string) *QueryTaskPathReqBodyBuilder {
 	builder.ruleId = ruleId
-	builder.ruleIdFlag = true
+	builder.ruleIdSet = true
 	return builder
 }
 
@@ -1142,7 +1148,7 @@ func (builder *QueryTaskPathReqBodyBuilder) RuleId(ruleId string) *QueryTaskPath
 // 示例值：ou_133f0b6d0f097cf7d7ba00b38fffb110
 func (builder *QueryTaskPathReqBodyBuilder) UserId(userId string) *QueryTaskPathReqBodyBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -1151,7 +1157,7 @@ func (builder *QueryTaskPathReqBodyBuilder) UserId(userId string) *QueryTaskPath
 // 示例值：6895699275733778451
 func (builder *QueryTaskPathReqBodyBuilder) PageToken(pageToken string) *QueryTaskPathReqBodyBuilder {
 	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.pageTokenSet = true
 	return builder
 }
 
@@ -1160,28 +1166,28 @@ func (builder *QueryTaskPathReqBodyBuilder) PageToken(pageToken string) *QueryTa
 // 示例值：10
 func (builder *QueryTaskPathReqBodyBuilder) PageSize(pageSize int) *QueryTaskPathReqBodyBuilder {
 	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.pageSizeSet = true
 	return builder
 }
 
 func (builder *QueryTaskPathReqBodyBuilder) Build() (*QueryTaskReqBody, error) {
 	req := &QueryTaskReqBody{}
-	if builder.commitStartTimeFlag {
+	if builder.commitStartTimeSet {
 		req.CommitStartTime = &builder.commitStartTime
 	}
-	if builder.commitEndTimeFlag {
+	if builder.commitEndTimeSet {
 		req.CommitEndTime = &builder.commitEndTime
 	}
-	if builder.ruleIdFlag {
+	if builder.ruleIdSet {
 		req.RuleId = &builder.ruleId
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 	}
-	if builder.pageTokenFlag {
+	if builder.pageTokenSet {
 		req.PageToken = &builder.pageToken
 	}
-	if builder.pageSizeFlag {
+	if builder.pageSizeSet {
 		req.PageSize = &builder.pageSize
 	}
 	return req, nil

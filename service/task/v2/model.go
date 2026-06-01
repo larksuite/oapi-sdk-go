@@ -21,6 +21,8 @@ import (
 	"context"
 	"errors"
 
+	"github.com/larksuite/oapi-sdk-go/v3/event"
+
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
@@ -66,6 +68,18 @@ const (
 	UserIdTypePatchCustomFieldOpenId  = "open_id"  // open_id
 	UserIdTypePatchCustomFieldUnionId = "union_id" // union_id
 	UserIdTypePatchCustomFieldUserId  = "user_id"  // user_id
+)
+
+const (
+	UserIdTypeListRelatedTaskTaskV2UserId  = "user_id"  // user_id
+	UserIdTypeListRelatedTaskTaskV2UnionId = "union_id" // union_id
+	UserIdTypeListRelatedTaskTaskV2OpenId  = "open_id"  // open_id
+)
+
+const (
+	UserIdTypeTaskSubscriptionTaskV2UnionId = "union_id" // union_id
+	UserIdTypeTaskSubscriptionTaskV2UserId  = "user_id"  // user_id
+	UserIdTypeTaskSubscriptionTaskV2OpenId  = "open_id"  // open_id
 )
 
 const (
@@ -115,26 +129,26 @@ type ActivityRecord struct {
 }
 
 type ActivityRecordBuilder struct {
-	key     int // 动态类型的key
-	keyFlag bool
+	key    int // 动态类型的key
+	keySet bool
 
-	content     string // 动态的内容
-	contentFlag bool
+	content    string // 动态的内容
+	contentSet bool
 
-	createdAt     string // 动态的发生的时间戳(ms)
-	createdAtFlag bool
+	createdAt    string // 动态的发生的时间戳(ms)
+	createdAtSet bool
 
-	opUser     *Member // 动态发起者
-	opUserFlag bool
+	opUser    *Member // 动态发起者
+	opUserSet bool
 
-	keyName     string // key对应的名称
-	keyNameFlag bool
+	keyName    string // key对应的名称
+	keyNameSet bool
 
-	targetTaskGuid     string // 动态相关的任务的guid。当动态是一个任务的动态时有值。
-	targetTaskGuidFlag bool
+	targetTaskGuid    string // 动态相关的任务的guid。当动态是一个任务的动态时有值。
+	targetTaskGuidSet bool
 
-	targetTaskName     string // target_task_guid对应的任务的名称。当target_task_guid有值时会提供。
-	targetTaskNameFlag bool
+	targetTaskName    string // target_task_guid对应的任务的名称。当target_task_guid有值时会提供。
+	targetTaskNameSet bool
 }
 
 func NewActivityRecordBuilder() *ActivityRecordBuilder {
@@ -147,7 +161,7 @@ func NewActivityRecordBuilder() *ActivityRecordBuilder {
 // 示例值：138
 func (builder *ActivityRecordBuilder) Key(key int) *ActivityRecordBuilder {
 	builder.key = key
-	builder.keyFlag = true
+	builder.keySet = true
 	return builder
 }
 
@@ -156,7 +170,7 @@ func (builder *ActivityRecordBuilder) Key(key int) *ActivityRecordBuilder {
 // 示例值：@小明 完成了工作计划的任务
 func (builder *ActivityRecordBuilder) Content(content string) *ActivityRecordBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -165,7 +179,7 @@ func (builder *ActivityRecordBuilder) Content(content string) *ActivityRecordBui
 // 示例值：1665469397000
 func (builder *ActivityRecordBuilder) CreatedAt(createdAt string) *ActivityRecordBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -174,7 +188,7 @@ func (builder *ActivityRecordBuilder) CreatedAt(createdAt string) *ActivityRecor
 // 示例值：
 func (builder *ActivityRecordBuilder) OpUser(opUser *Member) *ActivityRecordBuilder {
 	builder.opUser = opUser
-	builder.opUserFlag = true
+	builder.opUserSet = true
 	return builder
 }
 
@@ -183,7 +197,7 @@ func (builder *ActivityRecordBuilder) OpUser(opUser *Member) *ActivityRecordBuil
 // 示例值："add task into tasklist"
 func (builder *ActivityRecordBuilder) KeyName(keyName string) *ActivityRecordBuilder {
 	builder.keyName = keyName
-	builder.keyNameFlag = true
+	builder.keyNameSet = true
 	return builder
 }
 
@@ -192,7 +206,7 @@ func (builder *ActivityRecordBuilder) KeyName(keyName string) *ActivityRecordBui
 // 示例值：ead413d9-4027-490e-9089-b1b241d3b15d
 func (builder *ActivityRecordBuilder) TargetTaskGuid(targetTaskGuid string) *ActivityRecordBuilder {
 	builder.targetTaskGuid = targetTaskGuid
-	builder.targetTaskGuidFlag = true
+	builder.targetTaskGuidSet = true
 	return builder
 }
 
@@ -201,37 +215,155 @@ func (builder *ActivityRecordBuilder) TargetTaskGuid(targetTaskGuid string) *Act
 // 示例值：完成本周周报。
 func (builder *ActivityRecordBuilder) TargetTaskName(targetTaskName string) *ActivityRecordBuilder {
 	builder.targetTaskName = targetTaskName
-	builder.targetTaskNameFlag = true
+	builder.targetTaskNameSet = true
 	return builder
 }
 
 func (builder *ActivityRecordBuilder) Build() *ActivityRecord {
 	req := &ActivityRecord{}
-	if builder.keyFlag {
+	if builder.keySet {
 		req.Key = &builder.key
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.opUserFlag {
+	if builder.opUserSet {
 		req.OpUser = builder.opUser
 	}
-	if builder.keyNameFlag {
+	if builder.keyNameSet {
 		req.KeyName = &builder.keyName
 
 	}
-	if builder.targetTaskGuidFlag {
+	if builder.targetTaskGuidSet {
 		req.TargetTaskGuid = &builder.targetTaskGuid
 
 	}
-	if builder.targetTaskNameFlag {
+	if builder.targetTaskNameSet {
 		req.TargetTaskName = &builder.targetTaskName
+
+	}
+	return req
+}
+
+type Agent struct {
+	AppId *string `json:"app_id,omitempty"` // 应用唯一标识，用于区分不同应用主体。可通过开放平台应用管理页面获取
+
+	AppName *string `json:"app_name,omitempty"` // 应用名称，用于展示应用的友好标识，支持中英文混合
+}
+
+type AgentBuilder struct {
+	appId    string // 应用唯一标识，用于区分不同应用主体。可通过开放平台应用管理页面获取
+	appIdSet bool
+
+	appName    string // 应用名称，用于展示应用的友好标识，支持中英文混合
+	appNameSet bool
+}
+
+func NewAgentBuilder() *AgentBuilder {
+	builder := &AgentBuilder{}
+	return builder
+}
+
+// 应用唯一标识，用于区分不同应用主体。可通过开放平台应用管理页面获取
+//
+// 示例值：cli_a1b2c3d4e5f6g7h8
+func (builder *AgentBuilder) AppId(appId string) *AgentBuilder {
+	builder.appId = appId
+	builder.appIdSet = true
+	return builder
+}
+
+// 应用名称，用于展示应用的友好标识，支持中英文混合
+//
+// 示例值：企业任务管理助手
+func (builder *AgentBuilder) AppName(appName string) *AgentBuilder {
+	builder.appName = appName
+	builder.appNameSet = true
+	return builder
+}
+
+func (builder *AgentBuilder) Build() *Agent {
+	req := &Agent{}
+	if builder.appIdSet {
+		req.AppId = &builder.appId
+
+	}
+	if builder.appNameSet {
+		req.AppName = &builder.appName
+
+	}
+	return req
+}
+
+type AgentTaskStepInfo struct {
+	Quote *string `json:"quote,omitempty"` // 引用信息
+
+	Content *string `json:"content,omitempty"` // 操作内容
+
+	Timestamp *int `json:"timestamp,omitempty"` // 操作时间
+}
+
+type AgentTaskStepInfoBuilder struct {
+	quote    string // 引用信息
+	quoteSet bool
+
+	content    string // 操作内容
+	contentSet bool
+
+	timestamp    int // 操作时间
+	timestampSet bool
+}
+
+func NewAgentTaskStepInfoBuilder() *AgentTaskStepInfoBuilder {
+	builder := &AgentTaskStepInfoBuilder{}
+	return builder
+}
+
+// 引用信息
+//
+// 示例值：引用自“开始做第一步”
+func (builder *AgentTaskStepInfoBuilder) Quote(quote string) *AgentTaskStepInfoBuilder {
+	builder.quote = quote
+	builder.quoteSet = true
+	return builder
+}
+
+// 操作内容
+//
+// 示例值：完成了第二步任务
+func (builder *AgentTaskStepInfoBuilder) Content(content string) *AgentTaskStepInfoBuilder {
+	builder.content = content
+	builder.contentSet = true
+	return builder
+}
+
+// 操作时间
+//
+// 示例值：1776254798779
+func (builder *AgentTaskStepInfoBuilder) Timestamp(timestamp int) *AgentTaskStepInfoBuilder {
+	builder.timestamp = timestamp
+	builder.timestampSet = true
+	return builder
+}
+
+func (builder *AgentTaskStepInfoBuilder) Build() *AgentTaskStepInfo {
+	req := &AgentTaskStepInfo{}
+	if builder.quoteSet {
+		req.Quote = &builder.quote
+
+	}
+	if builder.contentSet {
+		req.Content = &builder.content
+
+	}
+	if builder.timestampSet {
+		req.Timestamp = &builder.timestamp
 
 	}
 	return req
@@ -258,32 +390,32 @@ type Attachment struct {
 }
 
 type AttachmentBuilder struct {
-	guid     string // 附件guid
-	guidFlag bool
+	guid    string // 附件guid
+	guidSet bool
 
-	fileToken     string // 附件在云文档系统中的token
-	fileTokenFlag bool
+	fileToken    string // 附件在云文档系统中的token
+	fileTokenSet bool
 
-	name     string // 附件名
-	nameFlag bool
+	name    string // 附件名
+	nameSet bool
 
-	size     int // 附件的字节大小
-	sizeFlag bool
+	size    int // 附件的字节大小
+	sizeSet bool
 
-	resource     *Resource // 附件归属的资源
-	resourceFlag bool
+	resource    *Resource // 附件归属的资源
+	resourceSet bool
 
-	uploader     *Member // 附件上传者
-	uploaderFlag bool
+	uploader    *Member // 附件上传者
+	uploaderSet bool
 
-	isCover     bool // 是否是封面图
-	isCoverFlag bool
+	isCover    bool // 是否是封面图
+	isCoverSet bool
 
-	uploadedAt     string // 上传时间戳(ms)
-	uploadedAtFlag bool
+	uploadedAt    string // 上传时间戳(ms)
+	uploadedAtSet bool
 
-	url     string // 附件的临时下载url，有效时间3分钟，且只允许调用3次进行附件下载。只有在获取附件时会动态生成。
-	urlFlag bool
+	url    string // 附件的临时下载url，有效时间3分钟，且只允许调用3次进行附件下载。只有在获取附件时会动态生成。
+	urlSet bool
 }
 
 func NewAttachmentBuilder() *AttachmentBuilder {
@@ -296,7 +428,7 @@ func NewAttachmentBuilder() *AttachmentBuilder {
 // 示例值：f860de3e-6881-4ddd-9321-070f36d1af0b
 func (builder *AttachmentBuilder) Guid(guid string) *AttachmentBuilder {
 	builder.guid = guid
-	builder.guidFlag = true
+	builder.guidSet = true
 	return builder
 }
 
@@ -305,7 +437,7 @@ func (builder *AttachmentBuilder) Guid(guid string) *AttachmentBuilder {
 // 示例值：boxcnTDqPaRA6JbYnzQsZ2doB2b
 func (builder *AttachmentBuilder) FileToken(fileToken string) *AttachmentBuilder {
 	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
+	builder.fileTokenSet = true
 	return builder
 }
 
@@ -314,7 +446,7 @@ func (builder *AttachmentBuilder) FileToken(fileToken string) *AttachmentBuilder
 // 示例值：foo.jpg
 func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -323,7 +455,7 @@ func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
 // 示例值：62232
 func (builder *AttachmentBuilder) Size(size int) *AttachmentBuilder {
 	builder.size = size
-	builder.sizeFlag = true
+	builder.sizeSet = true
 	return builder
 }
 
@@ -332,7 +464,7 @@ func (builder *AttachmentBuilder) Size(size int) *AttachmentBuilder {
 // 示例值：
 func (builder *AttachmentBuilder) Resource(resource *Resource) *AttachmentBuilder {
 	builder.resource = resource
-	builder.resourceFlag = true
+	builder.resourceSet = true
 	return builder
 }
 
@@ -341,7 +473,7 @@ func (builder *AttachmentBuilder) Resource(resource *Resource) *AttachmentBuilde
 // 示例值：
 func (builder *AttachmentBuilder) Uploader(uploader *Member) *AttachmentBuilder {
 	builder.uploader = uploader
-	builder.uploaderFlag = true
+	builder.uploaderSet = true
 	return builder
 }
 
@@ -350,7 +482,7 @@ func (builder *AttachmentBuilder) Uploader(uploader *Member) *AttachmentBuilder 
 // 示例值：false
 func (builder *AttachmentBuilder) IsCover(isCover bool) *AttachmentBuilder {
 	builder.isCover = isCover
-	builder.isCoverFlag = true
+	builder.isCoverSet = true
 	return builder
 }
 
@@ -359,7 +491,7 @@ func (builder *AttachmentBuilder) IsCover(isCover bool) *AttachmentBuilder {
 // 示例值：1675742789470
 func (builder *AttachmentBuilder) UploadedAt(uploadedAt string) *AttachmentBuilder {
 	builder.uploadedAt = uploadedAt
-	builder.uploadedAtFlag = true
+	builder.uploadedAtSet = true
 	return builder
 }
 
@@ -368,43 +500,43 @@ func (builder *AttachmentBuilder) UploadedAt(uploadedAt string) *AttachmentBuild
 // 示例值：https://example.com/download/authcode/?code=OWMzNDlmMjJmZThkYzZkZGJlMjYwZTI0OTUxZTE2MDJfMDZmZmMwOWVj
 func (builder *AttachmentBuilder) Url(url string) *AttachmentBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
 func (builder *AttachmentBuilder) Build() *Attachment {
 	req := &Attachment{}
-	if builder.guidFlag {
+	if builder.guidSet {
 		req.Guid = &builder.guid
 
 	}
-	if builder.fileTokenFlag {
+	if builder.fileTokenSet {
 		req.FileToken = &builder.fileToken
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.sizeFlag {
+	if builder.sizeSet {
 		req.Size = &builder.size
 
 	}
-	if builder.resourceFlag {
+	if builder.resourceSet {
 		req.Resource = builder.resource
 	}
-	if builder.uploaderFlag {
+	if builder.uploaderSet {
 		req.Uploader = builder.uploader
 	}
-	if builder.isCoverFlag {
+	if builder.isCoverSet {
 		req.IsCover = &builder.isCover
 
 	}
-	if builder.uploadedAtFlag {
+	if builder.uploadedAtSet {
 		req.UploadedAt = &builder.uploadedAt
 
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
@@ -430,29 +562,29 @@ type Comment struct {
 }
 
 type CommentBuilder struct {
-	id     string // 评论id
-	idFlag bool
+	id    string // 评论id
+	idSet bool
 
-	content     string // 评论内容
-	contentFlag bool
+	content    string // 评论内容
+	contentSet bool
 
-	creator     *Member // 评论创建人
-	creatorFlag bool
+	creator    *Member // 评论创建人
+	creatorSet bool
 
-	replyToCommentId     string // 被回复评论的id。如果不是回复评论，则为空。
-	replyToCommentIdFlag bool
+	replyToCommentId    string // 被回复评论的id。如果不是回复评论，则为空。
+	replyToCommentIdSet bool
 
-	createdAt     string // 评论创建时间戳（ms)
-	createdAtFlag bool
+	createdAt    string // 评论创建时间戳（ms)
+	createdAtSet bool
 
-	updatedAt     string // 评论更新时间戳（ms）
-	updatedAtFlag bool
+	updatedAt    string // 评论更新时间戳（ms）
+	updatedAtSet bool
 
-	resourceType     string // 任务关联的资源类型
-	resourceTypeFlag bool
+	resourceType    string // 任务关联的资源类型
+	resourceTypeSet bool
 
-	resourceId     string // 任务关联的资源ID
-	resourceIdFlag bool
+	resourceId    string // 任务关联的资源ID
+	resourceIdSet bool
 }
 
 func NewCommentBuilder() *CommentBuilder {
@@ -465,7 +597,7 @@ func NewCommentBuilder() *CommentBuilder {
 // 示例值：7197020628442939411
 func (builder *CommentBuilder) Id(id string) *CommentBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -474,7 +606,7 @@ func (builder *CommentBuilder) Id(id string) *CommentBuilder {
 // 示例值：这是一条评论
 func (builder *CommentBuilder) Content(content string) *CommentBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -483,7 +615,7 @@ func (builder *CommentBuilder) Content(content string) *CommentBuilder {
 // 示例值：
 func (builder *CommentBuilder) Creator(creator *Member) *CommentBuilder {
 	builder.creator = creator
-	builder.creatorFlag = true
+	builder.creatorSet = true
 	return builder
 }
 
@@ -492,7 +624,7 @@ func (builder *CommentBuilder) Creator(creator *Member) *CommentBuilder {
 // 示例值：7166825117308174356
 func (builder *CommentBuilder) ReplyToCommentId(replyToCommentId string) *CommentBuilder {
 	builder.replyToCommentId = replyToCommentId
-	builder.replyToCommentIdFlag = true
+	builder.replyToCommentIdSet = true
 	return builder
 }
 
@@ -501,7 +633,7 @@ func (builder *CommentBuilder) ReplyToCommentId(replyToCommentId string) *Commen
 // 示例值：1675742789470
 func (builder *CommentBuilder) CreatedAt(createdAt string) *CommentBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -510,7 +642,7 @@ func (builder *CommentBuilder) CreatedAt(createdAt string) *CommentBuilder {
 // 示例值：1675742789470
 func (builder *CommentBuilder) UpdatedAt(updatedAt string) *CommentBuilder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
@@ -519,7 +651,7 @@ func (builder *CommentBuilder) UpdatedAt(updatedAt string) *CommentBuilder {
 // 示例值：task
 func (builder *CommentBuilder) ResourceType(resourceType string) *CommentBuilder {
 	builder.resourceType = resourceType
-	builder.resourceTypeFlag = true
+	builder.resourceTypeSet = true
 	return builder
 }
 
@@ -528,40 +660,40 @@ func (builder *CommentBuilder) ResourceType(resourceType string) *CommentBuilder
 // 示例值：ccb55625-95d2-2e80-655f-0e40bf67953f
 func (builder *CommentBuilder) ResourceId(resourceId string) *CommentBuilder {
 	builder.resourceId = resourceId
-	builder.resourceIdFlag = true
+	builder.resourceIdSet = true
 	return builder
 }
 
 func (builder *CommentBuilder) Build() *Comment {
 	req := &Comment{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.creatorFlag {
+	if builder.creatorSet {
 		req.Creator = builder.creator
 	}
-	if builder.replyToCommentIdFlag {
+	if builder.replyToCommentIdSet {
 		req.ReplyToCommentId = &builder.replyToCommentId
 
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
-	if builder.resourceTypeFlag {
+	if builder.resourceTypeSet {
 		req.ResourceType = &builder.resourceType
 
 	}
-	if builder.resourceIdFlag {
+	if builder.resourceIdSet {
 		req.ResourceId = &builder.resourceId
 
 	}
@@ -577,14 +709,14 @@ type CustomComplete struct {
 }
 
 type CustomCompleteBuilder struct {
-	pc     *CustomCompleteItem // pc客户端自定义完成配置（含mac和windows）
-	pcFlag bool
+	pc    *CustomCompleteItem // pc客户端自定义完成配置（含mac和windows）
+	pcSet bool
 
-	ios     *CustomCompleteItem // ios端的自定义完成配置
-	iosFlag bool
+	ios    *CustomCompleteItem // ios端的自定义完成配置
+	iosSet bool
 
-	android     *CustomCompleteItem // android端的自定义完成配置
-	androidFlag bool
+	android    *CustomCompleteItem // android端的自定义完成配置
+	androidSet bool
 }
 
 func NewCustomCompleteBuilder() *CustomCompleteBuilder {
@@ -597,7 +729,7 @@ func NewCustomCompleteBuilder() *CustomCompleteBuilder {
 // 示例值：
 func (builder *CustomCompleteBuilder) Pc(pc *CustomCompleteItem) *CustomCompleteBuilder {
 	builder.pc = pc
-	builder.pcFlag = true
+	builder.pcSet = true
 	return builder
 }
 
@@ -606,7 +738,7 @@ func (builder *CustomCompleteBuilder) Pc(pc *CustomCompleteItem) *CustomComplete
 // 示例值：
 func (builder *CustomCompleteBuilder) Ios(ios *CustomCompleteItem) *CustomCompleteBuilder {
 	builder.ios = ios
-	builder.iosFlag = true
+	builder.iosSet = true
 	return builder
 }
 
@@ -615,19 +747,19 @@ func (builder *CustomCompleteBuilder) Ios(ios *CustomCompleteItem) *CustomComple
 // 示例值：
 func (builder *CustomCompleteBuilder) Android(android *CustomCompleteItem) *CustomCompleteBuilder {
 	builder.android = android
-	builder.androidFlag = true
+	builder.androidSet = true
 	return builder
 }
 
 func (builder *CustomCompleteBuilder) Build() *CustomComplete {
 	req := &CustomComplete{}
-	if builder.pcFlag {
+	if builder.pcSet {
 		req.Pc = builder.pc
 	}
-	if builder.iosFlag {
+	if builder.iosSet {
 		req.Ios = builder.ios
 	}
-	if builder.androidFlag {
+	if builder.androidSet {
 		req.Android = builder.android
 	}
 	return req
@@ -640,11 +772,11 @@ type CustomCompleteItem struct {
 }
 
 type CustomCompleteItemBuilder struct {
-	href     string // 自定义完成的跳转url
-	hrefFlag bool
+	href    string // 自定义完成的跳转url
+	hrefSet bool
 
-	tip     *I18nText // 自定义完成的弹出提示为
-	tipFlag bool
+	tip    *I18nText // 自定义完成的弹出提示为
+	tipSet bool
 }
 
 func NewCustomCompleteItemBuilder() *CustomCompleteItemBuilder {
@@ -657,7 +789,7 @@ func NewCustomCompleteItemBuilder() *CustomCompleteItemBuilder {
 // 示例值：https://www.example.com
 func (builder *CustomCompleteItemBuilder) Href(href string) *CustomCompleteItemBuilder {
 	builder.href = href
-	builder.hrefFlag = true
+	builder.hrefSet = true
 	return builder
 }
 
@@ -666,17 +798,17 @@ func (builder *CustomCompleteItemBuilder) Href(href string) *CustomCompleteItemB
 // 示例值：
 func (builder *CustomCompleteItemBuilder) Tip(tip *I18nText) *CustomCompleteItemBuilder {
 	builder.tip = tip
-	builder.tipFlag = true
+	builder.tipSet = true
 	return builder
 }
 
 func (builder *CustomCompleteItemBuilder) Build() *CustomCompleteItem {
 	req := &CustomCompleteItem{}
-	if builder.hrefFlag {
+	if builder.hrefSet {
 		req.Href = &builder.href
 
 	}
-	if builder.tipFlag {
+	if builder.tipSet {
 		req.Tip = builder.tip
 	}
 	return req
@@ -709,41 +841,41 @@ type CustomField struct {
 }
 
 type CustomFieldBuilder struct {
-	guid     string // 自定义字段的GUID
-	guidFlag bool
+	guid    string // 自定义字段的GUID
+	guidSet bool
 
-	name     string // 自定义字段名称
-	nameFlag bool
+	name    string // 自定义字段名称
+	nameSet bool
 
 	type_    string // 自定义字段类型
-	typeFlag bool
+	type_Set bool
 
-	numberSetting     *NumberSetting // 数字类型的字段设置
-	numberSettingFlag bool
+	numberSetting    *NumberSetting // 数字类型的字段设置
+	numberSettingSet bool
 
-	memberSetting     *MemberSetting // 人员类型的字段设置
-	memberSettingFlag bool
+	memberSetting    *MemberSetting // 人员类型的字段设置
+	memberSettingSet bool
 
-	datetimeSetting     *DatetimeSetting // 时间日期类型的字段设置
-	datetimeSettingFlag bool
+	datetimeSetting    *DatetimeSetting // 时间日期类型的字段设置
+	datetimeSettingSet bool
 
-	singleSelectSetting     *SelectSetting // 单选类型的字段设置
-	singleSelectSettingFlag bool
+	singleSelectSetting    *SelectSetting // 单选类型的字段设置
+	singleSelectSettingSet bool
 
-	multiSelectSetting     *SelectSetting // 多选类型的字段设置
-	multiSelectSettingFlag bool
+	multiSelectSetting    *SelectSetting // 多选类型的字段设置
+	multiSelectSettingSet bool
 
-	creator     *Member // 创建人
-	creatorFlag bool
+	creator    *Member // 创建人
+	creatorSet bool
 
-	createdAt     string // 自定义字段创建的时间戳(ms)
-	createdAtFlag bool
+	createdAt    string // 自定义字段创建的时间戳(ms)
+	createdAtSet bool
 
-	updatedAt     string // 自定义字段的更新时间戳(ms)
-	updatedAtFlag bool
+	updatedAt    string // 自定义字段的更新时间戳(ms)
+	updatedAtSet bool
 
-	textSetting     *TextSetting // 文本字段配置
-	textSettingFlag bool
+	textSetting    *TextSetting // 文本字段配置
+	textSettingSet bool
 }
 
 func NewCustomFieldBuilder() *CustomFieldBuilder {
@@ -756,7 +888,7 @@ func NewCustomFieldBuilder() *CustomFieldBuilder {
 // 示例值：34d4b29f-3d58-4bc5-b752-6be80fb687c8
 func (builder *CustomFieldBuilder) Guid(guid string) *CustomFieldBuilder {
 	builder.guid = guid
-	builder.guidFlag = true
+	builder.guidSet = true
 	return builder
 }
 
@@ -765,7 +897,7 @@ func (builder *CustomFieldBuilder) Guid(guid string) *CustomFieldBuilder {
 // 示例值：优先级
 func (builder *CustomFieldBuilder) Name(name string) *CustomFieldBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -774,7 +906,7 @@ func (builder *CustomFieldBuilder) Name(name string) *CustomFieldBuilder {
 // 示例值：number
 func (builder *CustomFieldBuilder) Type(type_ string) *CustomFieldBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -783,7 +915,7 @@ func (builder *CustomFieldBuilder) Type(type_ string) *CustomFieldBuilder {
 // 示例值：
 func (builder *CustomFieldBuilder) NumberSetting(numberSetting *NumberSetting) *CustomFieldBuilder {
 	builder.numberSetting = numberSetting
-	builder.numberSettingFlag = true
+	builder.numberSettingSet = true
 	return builder
 }
 
@@ -792,7 +924,7 @@ func (builder *CustomFieldBuilder) NumberSetting(numberSetting *NumberSetting) *
 // 示例值：
 func (builder *CustomFieldBuilder) MemberSetting(memberSetting *MemberSetting) *CustomFieldBuilder {
 	builder.memberSetting = memberSetting
-	builder.memberSettingFlag = true
+	builder.memberSettingSet = true
 	return builder
 }
 
@@ -801,7 +933,7 @@ func (builder *CustomFieldBuilder) MemberSetting(memberSetting *MemberSetting) *
 // 示例值：
 func (builder *CustomFieldBuilder) DatetimeSetting(datetimeSetting *DatetimeSetting) *CustomFieldBuilder {
 	builder.datetimeSetting = datetimeSetting
-	builder.datetimeSettingFlag = true
+	builder.datetimeSettingSet = true
 	return builder
 }
 
@@ -810,7 +942,7 @@ func (builder *CustomFieldBuilder) DatetimeSetting(datetimeSetting *DatetimeSett
 // 示例值：
 func (builder *CustomFieldBuilder) SingleSelectSetting(singleSelectSetting *SelectSetting) *CustomFieldBuilder {
 	builder.singleSelectSetting = singleSelectSetting
-	builder.singleSelectSettingFlag = true
+	builder.singleSelectSettingSet = true
 	return builder
 }
 
@@ -819,7 +951,7 @@ func (builder *CustomFieldBuilder) SingleSelectSetting(singleSelectSetting *Sele
 // 示例值：
 func (builder *CustomFieldBuilder) MultiSelectSetting(multiSelectSetting *SelectSetting) *CustomFieldBuilder {
 	builder.multiSelectSetting = multiSelectSetting
-	builder.multiSelectSettingFlag = true
+	builder.multiSelectSettingSet = true
 	return builder
 }
 
@@ -828,7 +960,7 @@ func (builder *CustomFieldBuilder) MultiSelectSetting(multiSelectSetting *Select
 // 示例值：
 func (builder *CustomFieldBuilder) Creator(creator *Member) *CustomFieldBuilder {
 	builder.creator = creator
-	builder.creatorFlag = true
+	builder.creatorSet = true
 	return builder
 }
 
@@ -837,7 +969,7 @@ func (builder *CustomFieldBuilder) Creator(creator *Member) *CustomFieldBuilder 
 // 示例值：1688196600000
 func (builder *CustomFieldBuilder) CreatedAt(createdAt string) *CustomFieldBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -846,7 +978,7 @@ func (builder *CustomFieldBuilder) CreatedAt(createdAt string) *CustomFieldBuild
 // 示例值：1688196600000
 func (builder *CustomFieldBuilder) UpdatedAt(updatedAt string) *CustomFieldBuilder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
@@ -855,51 +987,51 @@ func (builder *CustomFieldBuilder) UpdatedAt(updatedAt string) *CustomFieldBuild
 // 示例值：
 func (builder *CustomFieldBuilder) TextSetting(textSetting *TextSetting) *CustomFieldBuilder {
 	builder.textSetting = textSetting
-	builder.textSettingFlag = true
+	builder.textSettingSet = true
 	return builder
 }
 
 func (builder *CustomFieldBuilder) Build() *CustomField {
 	req := &CustomField{}
-	if builder.guidFlag {
+	if builder.guidSet {
 		req.Guid = &builder.guid
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.numberSettingFlag {
+	if builder.numberSettingSet {
 		req.NumberSetting = builder.numberSetting
 	}
-	if builder.memberSettingFlag {
+	if builder.memberSettingSet {
 		req.MemberSetting = builder.memberSetting
 	}
-	if builder.datetimeSettingFlag {
+	if builder.datetimeSettingSet {
 		req.DatetimeSetting = builder.datetimeSetting
 	}
-	if builder.singleSelectSettingFlag {
+	if builder.singleSelectSettingSet {
 		req.SingleSelectSetting = builder.singleSelectSetting
 	}
-	if builder.multiSelectSettingFlag {
+	if builder.multiSelectSettingSet {
 		req.MultiSelectSetting = builder.multiSelectSetting
 	}
-	if builder.creatorFlag {
+	if builder.creatorSet {
 		req.Creator = builder.creator
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
-	if builder.textSettingFlag {
+	if builder.textSettingSet {
 		req.TextSetting = builder.textSetting
 	}
 	return req
@@ -926,32 +1058,32 @@ type CustomFieldValue struct {
 }
 
 type CustomFieldValueBuilder struct {
-	guid     string // 字段GUID
-	guidFlag bool
+	guid    string // 字段GUID
+	guidSet bool
 
 	type_    string // 自定义字段类型，支持"member", "datetime", "number", "single_select", "multi_select"五种类型
-	typeFlag bool
+	type_Set bool
 
-	numberValue     string // 数字类型的自定义字段值，填写一个合法数字的字符串表示，空字符串表示设为空。
-	numberValueFlag bool
+	numberValue    string // 数字类型的自定义字段值，填写一个合法数字的字符串表示，空字符串表示设为空。
+	numberValueSet bool
 
-	datetimeValue     string // 日期类型自定义字段值。可以输入一个表示日期的以毫秒为单位的字符串。设为空字符串表示设为空。
-	datetimeValueFlag bool
+	datetimeValue    string // 日期类型自定义字段值。可以输入一个表示日期的以毫秒为单位的字符串。设为空字符串表示设为空。
+	datetimeValueSet bool
 
-	memberValue     []*Member // 人员类型的自定义字段值，可以设置1个或多个用户的id（遵循member格式，只支持user类型）。当该字段的设置为“不能多选”时只能输入一个值。设为空数组表示设为空。
-	memberValueFlag bool
+	memberValue    []*Member // 人员类型的自定义字段值，可以设置1个或多个用户的id（遵循member格式，只支持user类型）。当该字段的设置为“不能多选”时只能输入一个值。设为空数组表示设为空。
+	memberValueSet bool
 
-	singleSelectValue     string // 单选类型字段值，填写一个字段选项的option_guid。设置为空字符串表示设为空。
-	singleSelectValueFlag bool
+	singleSelectValue    string // 单选类型字段值，填写一个字段选项的option_guid。设置为空字符串表示设为空。
+	singleSelectValueSet bool
 
-	multiSelectValue     []string // 多选类型字段值，可以填写一个或多个本字段的option_guid。设为空数组表示设为空。
-	multiSelectValueFlag bool
+	multiSelectValue    []string // 多选类型字段值，可以填写一个或多个本字段的option_guid。设为空数组表示设为空。
+	multiSelectValueSet bool
 
-	name     string // 自定义字段名
-	nameFlag bool
+	name    string // 自定义字段名
+	nameSet bool
 
-	textValue     string // 文本类型字段值。可以输入一段文本。空字符串表示清空。
-	textValueFlag bool
+	textValue    string // 文本类型字段值。可以输入一段文本。空字符串表示清空。
+	textValueSet bool
 }
 
 func NewCustomFieldValueBuilder() *CustomFieldValueBuilder {
@@ -964,7 +1096,7 @@ func NewCustomFieldValueBuilder() *CustomFieldValueBuilder {
 // 示例值：a4f648d7-76ef-477f-bc8e-0601b5a60093
 func (builder *CustomFieldValueBuilder) Guid(guid string) *CustomFieldValueBuilder {
 	builder.guid = guid
-	builder.guidFlag = true
+	builder.guidSet = true
 	return builder
 }
 
@@ -973,7 +1105,7 @@ func (builder *CustomFieldValueBuilder) Guid(guid string) *CustomFieldValueBuild
 // 示例值：number
 func (builder *CustomFieldValueBuilder) Type(type_ string) *CustomFieldValueBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -982,7 +1114,7 @@ func (builder *CustomFieldValueBuilder) Type(type_ string) *CustomFieldValueBuil
 // 示例值：10.23
 func (builder *CustomFieldValueBuilder) NumberValue(numberValue string) *CustomFieldValueBuilder {
 	builder.numberValue = numberValue
-	builder.numberValueFlag = true
+	builder.numberValueSet = true
 	return builder
 }
 
@@ -991,7 +1123,7 @@ func (builder *CustomFieldValueBuilder) NumberValue(numberValue string) *CustomF
 // 示例值：1687708260000
 func (builder *CustomFieldValueBuilder) DatetimeValue(datetimeValue string) *CustomFieldValueBuilder {
 	builder.datetimeValue = datetimeValue
-	builder.datetimeValueFlag = true
+	builder.datetimeValueSet = true
 	return builder
 }
 
@@ -1000,7 +1132,7 @@ func (builder *CustomFieldValueBuilder) DatetimeValue(datetimeValue string) *Cus
 // 示例值：
 func (builder *CustomFieldValueBuilder) MemberValue(memberValue []*Member) *CustomFieldValueBuilder {
 	builder.memberValue = memberValue
-	builder.memberValueFlag = true
+	builder.memberValueSet = true
 	return builder
 }
 
@@ -1009,7 +1141,7 @@ func (builder *CustomFieldValueBuilder) MemberValue(memberValue []*Member) *Cust
 // 示例值：4216f79b-3fda-4dc6-a0c4-a16022e47152
 func (builder *CustomFieldValueBuilder) SingleSelectValue(singleSelectValue string) *CustomFieldValueBuilder {
 	builder.singleSelectValue = singleSelectValue
-	builder.singleSelectValueFlag = true
+	builder.singleSelectValueSet = true
 	return builder
 }
 
@@ -1018,7 +1150,7 @@ func (builder *CustomFieldValueBuilder) SingleSelectValue(singleSelectValue stri
 // 示例值：
 func (builder *CustomFieldValueBuilder) MultiSelectValue(multiSelectValue []string) *CustomFieldValueBuilder {
 	builder.multiSelectValue = multiSelectValue
-	builder.multiSelectValueFlag = true
+	builder.multiSelectValueSet = true
 	return builder
 }
 
@@ -1027,7 +1159,7 @@ func (builder *CustomFieldValueBuilder) MultiSelectValue(multiSelectValue []stri
 // 示例值：优先级
 func (builder *CustomFieldValueBuilder) Name(name string) *CustomFieldValueBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1036,43 +1168,43 @@ func (builder *CustomFieldValueBuilder) Name(name string) *CustomFieldValueBuild
 // 示例值：这是一段文本介绍。
 func (builder *CustomFieldValueBuilder) TextValue(textValue string) *CustomFieldValueBuilder {
 	builder.textValue = textValue
-	builder.textValueFlag = true
+	builder.textValueSet = true
 	return builder
 }
 
 func (builder *CustomFieldValueBuilder) Build() *CustomFieldValue {
 	req := &CustomFieldValue{}
-	if builder.guidFlag {
+	if builder.guidSet {
 		req.Guid = &builder.guid
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.numberValueFlag {
+	if builder.numberValueSet {
 		req.NumberValue = &builder.numberValue
 
 	}
-	if builder.datetimeValueFlag {
+	if builder.datetimeValueSet {
 		req.DatetimeValue = &builder.datetimeValue
 
 	}
-	if builder.memberValueFlag {
+	if builder.memberValueSet {
 		req.MemberValue = builder.memberValue
 	}
-	if builder.singleSelectValueFlag {
+	if builder.singleSelectValueSet {
 		req.SingleSelectValue = &builder.singleSelectValue
 
 	}
-	if builder.multiSelectValueFlag {
+	if builder.multiSelectValueSet {
 		req.MultiSelectValue = builder.multiSelectValue
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.textValueFlag {
+	if builder.textValueSet {
 		req.TextValue = &builder.textValue
 
 	}
@@ -1084,8 +1216,8 @@ type DatetimeSetting struct {
 }
 
 type DatetimeSettingBuilder struct {
-	format     string // 日期显示格式
-	formatFlag bool
+	format    string // 日期显示格式
+	formatSet bool
 }
 
 func NewDatetimeSettingBuilder() *DatetimeSettingBuilder {
@@ -1098,13 +1230,13 @@ func NewDatetimeSettingBuilder() *DatetimeSettingBuilder {
 // 示例值：yyyy/mm/dd
 func (builder *DatetimeSettingBuilder) Format(format string) *DatetimeSettingBuilder {
 	builder.format = format
-	builder.formatFlag = true
+	builder.formatSet = true
 	return builder
 }
 
 func (builder *DatetimeSettingBuilder) Build() *DatetimeSetting {
 	req := &DatetimeSetting{}
-	if builder.formatFlag {
+	if builder.formatSet {
 		req.Format = &builder.format
 
 	}
@@ -1118,11 +1250,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -1130,27 +1262,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -1164,11 +1300,11 @@ type DocxSource struct {
 }
 
 type DocxSourceBuilder struct {
-	token     string // 任务关联的文档token，要求：如果使用tenant_access_token请求，则请求机器人有文档编辑权限；如果使用user_access_token，则请求用户有文档的编辑权限
-	tokenFlag bool
+	token    string // 任务关联的文档token，要求：如果使用tenant_access_token请求，则请求机器人有文档编辑权限；如果使用user_access_token，则请求用户有文档的编辑权限
+	tokenSet bool
 
-	blockId     string // 任务关联的文档block_id，要求block_id存在于token对应文档中、且block_id没有绑定过其他的任务
-	blockIdFlag bool
+	blockId    string // 任务关联的文档block_id，要求block_id存在于token对应文档中、且block_id没有绑定过其他的任务
+	blockIdSet bool
 }
 
 func NewDocxSourceBuilder() *DocxSourceBuilder {
@@ -1181,7 +1317,7 @@ func NewDocxSourceBuilder() *DocxSourceBuilder {
 // 示例值：SFZHdZLo2oXprexhDSrbtvmScHm
 func (builder *DocxSourceBuilder) Token(token string) *DocxSourceBuilder {
 	builder.token = token
-	builder.tokenFlag = true
+	builder.tokenSet = true
 	return builder
 }
 
@@ -1190,17 +1326,17 @@ func (builder *DocxSourceBuilder) Token(token string) *DocxSourceBuilder {
 // 示例值：O6wwd22uIoG8acxwxGtbljaUcfc
 func (builder *DocxSourceBuilder) BlockId(blockId string) *DocxSourceBuilder {
 	builder.blockId = blockId
-	builder.blockIdFlag = true
+	builder.blockIdSet = true
 	return builder
 }
 
 func (builder *DocxSourceBuilder) Build() *DocxSource {
 	req := &DocxSource{}
-	if builder.tokenFlag {
+	if builder.tokenSet {
 		req.Token = &builder.token
 
 	}
-	if builder.blockIdFlag {
+	if builder.blockIdSet {
 		req.BlockId = &builder.blockId
 
 	}
@@ -1214,11 +1350,11 @@ type Due struct {
 }
 
 type DueBuilder struct {
-	timestamp     string // 截止时间/日期的时间戳，距1970-01-01 00:00:00的毫秒数。如果截止时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true
-	timestampFlag bool
+	timestamp    string // 截止时间/日期的时间戳，距1970-01-01 00:00:00的毫秒数。如果截止时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true
+	timestampSet bool
 
-	isAllDay     bool // 是否截止到一个日期。如果设为true，timestamp中只有日期的部分会被解析和存储。
-	isAllDayFlag bool
+	isAllDay    bool // 是否截止到一个日期。如果设为true，timestamp中只有日期的部分会被解析和存储。
+	isAllDaySet bool
 }
 
 func NewDueBuilder() *DueBuilder {
@@ -1231,7 +1367,7 @@ func NewDueBuilder() *DueBuilder {
 // 示例值：1675454764000
 func (builder *DueBuilder) Timestamp(timestamp string) *DueBuilder {
 	builder.timestamp = timestamp
-	builder.timestampFlag = true
+	builder.timestampSet = true
 	return builder
 }
 
@@ -1240,17 +1376,17 @@ func (builder *DueBuilder) Timestamp(timestamp string) *DueBuilder {
 // 示例值：true
 func (builder *DueBuilder) IsAllDay(isAllDay bool) *DueBuilder {
 	builder.isAllDay = isAllDay
-	builder.isAllDayFlag = true
+	builder.isAllDaySet = true
 	return builder
 }
 
 func (builder *DueBuilder) Build() *Due {
 	req := &Due{}
-	if builder.timestampFlag {
+	if builder.timestampSet {
 		req.Timestamp = &builder.timestamp
 
 	}
-	if builder.isAllDayFlag {
+	if builder.isAllDaySet {
 		req.IsAllDay = &builder.isAllDay
 
 	}
@@ -1262,8 +1398,8 @@ type Dummy struct {
 }
 
 type DummyBuilder struct {
-	foo     string // amazing的api meta
-	fooFlag bool
+	foo    string // amazing的api meta
+	fooSet bool
 }
 
 func NewDummyBuilder() *DummyBuilder {
@@ -1276,13 +1412,13 @@ func NewDummyBuilder() *DummyBuilder {
 // 示例值：amazing the api meta haha
 func (builder *DummyBuilder) Foo(foo string) *DummyBuilder {
 	builder.foo = foo
-	builder.fooFlag = true
+	builder.fooSet = true
 	return builder
 }
 
 func (builder *DummyBuilder) Build() *Dummy {
 	req := &Dummy{}
-	if builder.fooFlag {
+	if builder.fooSet {
 		req.Foo = &builder.foo
 
 	}
@@ -1296,11 +1432,11 @@ type Href struct {
 }
 
 type HrefBuilder struct {
-	url     string // 链接对应的地址
-	urlFlag bool
+	url    string // 链接对应的地址
+	urlSet bool
 
-	title     string // 链接对应的标题
-	titleFlag bool
+	title    string // 链接对应的标题
+	titleSet bool
 }
 
 func NewHrefBuilder() *HrefBuilder {
@@ -1313,7 +1449,7 @@ func NewHrefBuilder() *HrefBuilder {
 // 示例值：https://www.example.com
 func (builder *HrefBuilder) Url(url string) *HrefBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -1322,17 +1458,17 @@ func (builder *HrefBuilder) Url(url string) *HrefBuilder {
 // 示例值：反馈一个问题，需要协助排查
 func (builder *HrefBuilder) Title(title string) *HrefBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
 func (builder *HrefBuilder) Build() *Href {
 	req := &Href{}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
@@ -1366,41 +1502,41 @@ type I18nText struct {
 }
 
 type I18nTextBuilder struct {
-	enUs     string // 英文
-	enUsFlag bool
+	enUs    string // 英文
+	enUsSet bool
 
-	zhCn     string // 中文
-	zhCnFlag bool
+	zhCn    string // 中文
+	zhCnSet bool
 
-	zhHk     string // 中文（香港地区）
-	zhHkFlag bool
+	zhHk    string // 中文（香港地区）
+	zhHkSet bool
 
-	zhTw     string // 中文（台湾地区）
-	zhTwFlag bool
+	zhTw    string // 中文（台湾地区）
+	zhTwSet bool
 
-	jaJp     string // 日语
-	jaJpFlag bool
+	jaJp    string // 日语
+	jaJpSet bool
 
-	frFr     string // 法语
-	frFrFlag bool
+	frFr    string // 法语
+	frFrSet bool
 
-	itIt     string // 意大利语
-	itItFlag bool
+	itIt    string // 意大利语
+	itItSet bool
 
-	deDe     string // 德语
-	deDeFlag bool
+	deDe    string // 德语
+	deDeSet bool
 
-	ruRu     string // 俄语
-	ruRuFlag bool
+	ruRu    string // 俄语
+	ruRuSet bool
 
-	thTh     string // 泰语
-	thThFlag bool
+	thTh    string // 泰语
+	thThSet bool
 
-	esEs     string // 西班牙语
-	esEsFlag bool
+	esEs    string // 西班牙语
+	esEsSet bool
 
-	koKr     string // 韩语
-	koKrFlag bool
+	koKr    string // 韩语
+	koKrSet bool
 }
 
 func NewI18nTextBuilder() *I18nTextBuilder {
@@ -1413,7 +1549,7 @@ func NewI18nTextBuilder() *I18nTextBuilder {
 // 示例值：workbench
 func (builder *I18nTextBuilder) EnUs(enUs string) *I18nTextBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
@@ -1422,7 +1558,7 @@ func (builder *I18nTextBuilder) EnUs(enUs string) *I18nTextBuilder {
 // 示例值：工作台
 func (builder *I18nTextBuilder) ZhCn(zhCn string) *I18nTextBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -1431,7 +1567,7 @@ func (builder *I18nTextBuilder) ZhCn(zhCn string) *I18nTextBuilder {
 // 示例值：工作臺
 func (builder *I18nTextBuilder) ZhHk(zhHk string) *I18nTextBuilder {
 	builder.zhHk = zhHk
-	builder.zhHkFlag = true
+	builder.zhHkSet = true
 	return builder
 }
 
@@ -1440,7 +1576,7 @@ func (builder *I18nTextBuilder) ZhHk(zhHk string) *I18nTextBuilder {
 // 示例值：工作臺
 func (builder *I18nTextBuilder) ZhTw(zhTw string) *I18nTextBuilder {
 	builder.zhTw = zhTw
-	builder.zhTwFlag = true
+	builder.zhTwSet = true
 	return builder
 }
 
@@ -1449,7 +1585,7 @@ func (builder *I18nTextBuilder) ZhTw(zhTw string) *I18nTextBuilder {
 // 示例值：作業台
 func (builder *I18nTextBuilder) JaJp(jaJp string) *I18nTextBuilder {
 	builder.jaJp = jaJp
-	builder.jaJpFlag = true
+	builder.jaJpSet = true
 	return builder
 }
 
@@ -1458,7 +1594,7 @@ func (builder *I18nTextBuilder) JaJp(jaJp string) *I18nTextBuilder {
 // 示例值：Table de travail
 func (builder *I18nTextBuilder) FrFr(frFr string) *I18nTextBuilder {
 	builder.frFr = frFr
-	builder.frFrFlag = true
+	builder.frFrSet = true
 	return builder
 }
 
@@ -1467,7 +1603,7 @@ func (builder *I18nTextBuilder) FrFr(frFr string) *I18nTextBuilder {
 // 示例值：banco di lavoro
 func (builder *I18nTextBuilder) ItIt(itIt string) *I18nTextBuilder {
 	builder.itIt = itIt
-	builder.itItFlag = true
+	builder.itItSet = true
 	return builder
 }
 
@@ -1476,7 +1612,7 @@ func (builder *I18nTextBuilder) ItIt(itIt string) *I18nTextBuilder {
 // 示例值：Werkbank
 func (builder *I18nTextBuilder) DeDe(deDe string) *I18nTextBuilder {
 	builder.deDe = deDe
-	builder.deDeFlag = true
+	builder.deDeSet = true
 	return builder
 }
 
@@ -1485,7 +1621,7 @@ func (builder *I18nTextBuilder) DeDe(deDe string) *I18nTextBuilder {
 // 示例值：верстак
 func (builder *I18nTextBuilder) RuRu(ruRu string) *I18nTextBuilder {
 	builder.ruRu = ruRu
-	builder.ruRuFlag = true
+	builder.ruRuSet = true
 	return builder
 }
 
@@ -1494,7 +1630,7 @@ func (builder *I18nTextBuilder) RuRu(ruRu string) *I18nTextBuilder {
 // 示例值：โต๊ะทำงาน
 func (builder *I18nTextBuilder) ThTh(thTh string) *I18nTextBuilder {
 	builder.thTh = thTh
-	builder.thThFlag = true
+	builder.thThSet = true
 	return builder
 }
 
@@ -1503,7 +1639,7 @@ func (builder *I18nTextBuilder) ThTh(thTh string) *I18nTextBuilder {
 // 示例值：banco de trabajo
 func (builder *I18nTextBuilder) EsEs(esEs string) *I18nTextBuilder {
 	builder.esEs = esEs
-	builder.esEsFlag = true
+	builder.esEsSet = true
 	return builder
 }
 
@@ -1512,57 +1648,57 @@ func (builder *I18nTextBuilder) EsEs(esEs string) *I18nTextBuilder {
 // 示例值：작업대
 func (builder *I18nTextBuilder) KoKr(koKr string) *I18nTextBuilder {
 	builder.koKr = koKr
-	builder.koKrFlag = true
+	builder.koKrSet = true
 	return builder
 }
 
 func (builder *I18nTextBuilder) Build() *I18nText {
 	req := &I18nText{}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.zhHkFlag {
+	if builder.zhHkSet {
 		req.ZhHk = &builder.zhHk
 
 	}
-	if builder.zhTwFlag {
+	if builder.zhTwSet {
 		req.ZhTw = &builder.zhTw
 
 	}
-	if builder.jaJpFlag {
+	if builder.jaJpSet {
 		req.JaJp = &builder.jaJp
 
 	}
-	if builder.frFrFlag {
+	if builder.frFrSet {
 		req.FrFr = &builder.frFr
 
 	}
-	if builder.itItFlag {
+	if builder.itItSet {
 		req.ItIt = &builder.itIt
 
 	}
-	if builder.deDeFlag {
+	if builder.deDeSet {
 		req.DeDe = &builder.deDe
 
 	}
-	if builder.ruRuFlag {
+	if builder.ruRuSet {
 		req.RuRu = &builder.ruRu
 
 	}
-	if builder.thThFlag {
+	if builder.thThSet {
 		req.ThTh = &builder.thTh
 
 	}
-	if builder.esEsFlag {
+	if builder.esEsSet {
 		req.EsEs = &builder.esEs
 
 	}
-	if builder.koKrFlag {
+	if builder.koKrSet {
 		req.KoKr = &builder.koKr
 
 	}
@@ -1578,14 +1714,14 @@ type InputAttachment struct {
 }
 
 type InputAttachmentBuilder struct {
-	resourceType     string // 附件归属资源的类型
-	resourceTypeFlag bool
+	resourceType    string // 附件归属资源的类型
+	resourceTypeSet bool
 
-	resourceId     string // 附件要归属资源的id。例如，要给任务添加附件，这里要填入任务的全局唯一ID
-	resourceIdFlag bool
+	resourceId    string // 附件要归属资源的id。例如，要给任务添加附件，这里要填入任务的全局唯一ID
+	resourceIdSet bool
 
-	file     io.Reader // 要上传的文件
-	fileFlag bool
+	file    io.Reader // 要上传的文件
+	fileSet bool
 }
 
 func NewInputAttachmentBuilder() *InputAttachmentBuilder {
@@ -1598,7 +1734,7 @@ func NewInputAttachmentBuilder() *InputAttachmentBuilder {
 // 示例值：task
 func (builder *InputAttachmentBuilder) ResourceType(resourceType string) *InputAttachmentBuilder {
 	builder.resourceType = resourceType
-	builder.resourceTypeFlag = true
+	builder.resourceTypeSet = true
 	return builder
 }
 
@@ -1607,7 +1743,7 @@ func (builder *InputAttachmentBuilder) ResourceType(resourceType string) *InputA
 // 示例值：fe96108d-b004-4a47-b2f8-6886e758b3a5
 func (builder *InputAttachmentBuilder) ResourceId(resourceId string) *InputAttachmentBuilder {
 	builder.resourceId = resourceId
-	builder.resourceIdFlag = true
+	builder.resourceIdSet = true
 	return builder
 }
 
@@ -1616,21 +1752,21 @@ func (builder *InputAttachmentBuilder) ResourceId(resourceId string) *InputAttac
 // 示例值：
 func (builder *InputAttachmentBuilder) File(file io.Reader) *InputAttachmentBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *InputAttachmentBuilder) Build() *InputAttachment {
 	req := &InputAttachment{}
-	if builder.resourceTypeFlag {
+	if builder.resourceTypeSet {
 		req.ResourceType = &builder.resourceType
 
 	}
-	if builder.resourceIdFlag {
+	if builder.resourceIdSet {
 		req.ResourceId = &builder.resourceId
 
 	}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -1647,17 +1783,17 @@ type InputComment struct {
 }
 
 type InputCommentBuilder struct {
-	content     string // 评论内容
-	contentFlag bool
+	content    string // 评论内容
+	contentSet bool
 
-	replyToCommentId     string // 回复给评论的id
-	replyToCommentIdFlag bool
+	replyToCommentId    string // 回复给评论的id
+	replyToCommentIdSet bool
 
-	resourceType     string // 评论归属的资源类型
-	resourceTypeFlag bool
+	resourceType    string // 评论归属的资源类型
+	resourceTypeSet bool
 
-	resourceId     string // 评论归属的资源ID
-	resourceIdFlag bool
+	resourceId    string // 评论归属的资源ID
+	resourceIdSet bool
 }
 
 func NewInputCommentBuilder() *InputCommentBuilder {
@@ -1670,7 +1806,7 @@ func NewInputCommentBuilder() *InputCommentBuilder {
 // 示例值：举杯邀明月，对影成三人
 func (builder *InputCommentBuilder) Content(content string) *InputCommentBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -1679,7 +1815,7 @@ func (builder *InputCommentBuilder) Content(content string) *InputCommentBuilder
 // 示例值：6937231762296684564
 func (builder *InputCommentBuilder) ReplyToCommentId(replyToCommentId string) *InputCommentBuilder {
 	builder.replyToCommentId = replyToCommentId
-	builder.replyToCommentIdFlag = true
+	builder.replyToCommentIdSet = true
 	return builder
 }
 
@@ -1688,7 +1824,7 @@ func (builder *InputCommentBuilder) ReplyToCommentId(replyToCommentId string) *I
 // 示例值：task
 func (builder *InputCommentBuilder) ResourceType(resourceType string) *InputCommentBuilder {
 	builder.resourceType = resourceType
-	builder.resourceTypeFlag = true
+	builder.resourceTypeSet = true
 	return builder
 }
 
@@ -1697,25 +1833,25 @@ func (builder *InputCommentBuilder) ResourceType(resourceType string) *InputComm
 // 示例值：ccb55625-95d2-2e80-655f-0e40bf67953f
 func (builder *InputCommentBuilder) ResourceId(resourceId string) *InputCommentBuilder {
 	builder.resourceId = resourceId
-	builder.resourceIdFlag = true
+	builder.resourceIdSet = true
 	return builder
 }
 
 func (builder *InputCommentBuilder) Build() *InputComment {
 	req := &InputComment{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.replyToCommentIdFlag {
+	if builder.replyToCommentIdSet {
 		req.ReplyToCommentId = &builder.replyToCommentId
 
 	}
-	if builder.resourceTypeFlag {
+	if builder.resourceTypeSet {
 		req.ResourceType = &builder.resourceType
 
 	}
-	if builder.resourceIdFlag {
+	if builder.resourceIdSet {
 		req.ResourceId = &builder.resourceId
 
 	}
@@ -1745,35 +1881,35 @@ type InputCustomField struct {
 }
 
 type InputCustomFieldBuilder struct {
-	resourceType     string // 自定义字段归属的资源类型
-	resourceTypeFlag bool
+	resourceType    string // 自定义字段归属的资源类型
+	resourceTypeSet bool
 
-	resourceId     string // 自定义字段归属的资源id，目前必然是tasklist_guid
-	resourceIdFlag bool
+	resourceId    string // 自定义字段归属的资源id，目前必然是tasklist_guid
+	resourceIdSet bool
 
-	name     string // 字段名称
-	nameFlag bool
+	name    string // 字段名称
+	nameSet bool
 
 	type_    string // 字段类型
-	typeFlag bool
+	type_Set bool
 
-	numberSetting     *NumberSetting // 数字类型的字段设置
-	numberSettingFlag bool
+	numberSetting    *NumberSetting // 数字类型的字段设置
+	numberSettingSet bool
 
-	memberSetting     *MemberSetting // 人员类型的字段设置
-	memberSettingFlag bool
+	memberSetting    *MemberSetting // 人员类型的字段设置
+	memberSettingSet bool
 
-	datetimeSetting     *DatetimeSetting // 时间日期类型的字段设置
-	datetimeSettingFlag bool
+	datetimeSetting    *DatetimeSetting // 时间日期类型的字段设置
+	datetimeSettingSet bool
 
-	singleSelectSetting     *SelectSetting // 单选类型的字段设置
-	singleSelectSettingFlag bool
+	singleSelectSetting    *SelectSetting // 单选类型的字段设置
+	singleSelectSettingSet bool
 
-	multiSelectSetting     *SelectSetting // 多选类型的字段设置
-	multiSelectSettingFlag bool
+	multiSelectSetting    *SelectSetting // 多选类型的字段设置
+	multiSelectSettingSet bool
 
-	textSetting     *TextSetting // 文本类型
-	textSettingFlag bool
+	textSetting    *TextSetting // 文本类型
+	textSettingSet bool
 }
 
 func NewInputCustomFieldBuilder() *InputCustomFieldBuilder {
@@ -1786,7 +1922,7 @@ func NewInputCustomFieldBuilder() *InputCustomFieldBuilder {
 // 示例值：tasklist
 func (builder *InputCustomFieldBuilder) ResourceType(resourceType string) *InputCustomFieldBuilder {
 	builder.resourceType = resourceType
-	builder.resourceTypeFlag = true
+	builder.resourceTypeSet = true
 	return builder
 }
 
@@ -1795,7 +1931,7 @@ func (builder *InputCustomFieldBuilder) ResourceType(resourceType string) *Input
 // 示例值：5ffbe0ca-6600-41e0-a634-2b38cbcf13b8
 func (builder *InputCustomFieldBuilder) ResourceId(resourceId string) *InputCustomFieldBuilder {
 	builder.resourceId = resourceId
-	builder.resourceIdFlag = true
+	builder.resourceIdSet = true
 	return builder
 }
 
@@ -1804,7 +1940,7 @@ func (builder *InputCustomFieldBuilder) ResourceId(resourceId string) *InputCust
 // 示例值：优先级
 func (builder *InputCustomFieldBuilder) Name(name string) *InputCustomFieldBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1813,7 +1949,7 @@ func (builder *InputCustomFieldBuilder) Name(name string) *InputCustomFieldBuild
 // 示例值：number
 func (builder *InputCustomFieldBuilder) Type(type_ string) *InputCustomFieldBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1822,7 +1958,7 @@ func (builder *InputCustomFieldBuilder) Type(type_ string) *InputCustomFieldBuil
 // 示例值：
 func (builder *InputCustomFieldBuilder) NumberSetting(numberSetting *NumberSetting) *InputCustomFieldBuilder {
 	builder.numberSetting = numberSetting
-	builder.numberSettingFlag = true
+	builder.numberSettingSet = true
 	return builder
 }
 
@@ -1831,7 +1967,7 @@ func (builder *InputCustomFieldBuilder) NumberSetting(numberSetting *NumberSetti
 // 示例值：
 func (builder *InputCustomFieldBuilder) MemberSetting(memberSetting *MemberSetting) *InputCustomFieldBuilder {
 	builder.memberSetting = memberSetting
-	builder.memberSettingFlag = true
+	builder.memberSettingSet = true
 	return builder
 }
 
@@ -1840,7 +1976,7 @@ func (builder *InputCustomFieldBuilder) MemberSetting(memberSetting *MemberSetti
 // 示例值：
 func (builder *InputCustomFieldBuilder) DatetimeSetting(datetimeSetting *DatetimeSetting) *InputCustomFieldBuilder {
 	builder.datetimeSetting = datetimeSetting
-	builder.datetimeSettingFlag = true
+	builder.datetimeSettingSet = true
 	return builder
 }
 
@@ -1849,7 +1985,7 @@ func (builder *InputCustomFieldBuilder) DatetimeSetting(datetimeSetting *Datetim
 // 示例值：
 func (builder *InputCustomFieldBuilder) SingleSelectSetting(singleSelectSetting *SelectSetting) *InputCustomFieldBuilder {
 	builder.singleSelectSetting = singleSelectSetting
-	builder.singleSelectSettingFlag = true
+	builder.singleSelectSettingSet = true
 	return builder
 }
 
@@ -1858,7 +1994,7 @@ func (builder *InputCustomFieldBuilder) SingleSelectSetting(singleSelectSetting 
 // 示例值：
 func (builder *InputCustomFieldBuilder) MultiSelectSetting(multiSelectSetting *SelectSetting) *InputCustomFieldBuilder {
 	builder.multiSelectSetting = multiSelectSetting
-	builder.multiSelectSettingFlag = true
+	builder.multiSelectSettingSet = true
 	return builder
 }
 
@@ -1867,44 +2003,44 @@ func (builder *InputCustomFieldBuilder) MultiSelectSetting(multiSelectSetting *S
 // 示例值：
 func (builder *InputCustomFieldBuilder) TextSetting(textSetting *TextSetting) *InputCustomFieldBuilder {
 	builder.textSetting = textSetting
-	builder.textSettingFlag = true
+	builder.textSettingSet = true
 	return builder
 }
 
 func (builder *InputCustomFieldBuilder) Build() *InputCustomField {
 	req := &InputCustomField{}
-	if builder.resourceTypeFlag {
+	if builder.resourceTypeSet {
 		req.ResourceType = &builder.resourceType
 
 	}
-	if builder.resourceIdFlag {
+	if builder.resourceIdSet {
 		req.ResourceId = &builder.resourceId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.numberSettingFlag {
+	if builder.numberSettingSet {
 		req.NumberSetting = builder.numberSetting
 	}
-	if builder.memberSettingFlag {
+	if builder.memberSettingSet {
 		req.MemberSetting = builder.memberSetting
 	}
-	if builder.datetimeSettingFlag {
+	if builder.datetimeSettingSet {
 		req.DatetimeSetting = builder.datetimeSetting
 	}
-	if builder.singleSelectSettingFlag {
+	if builder.singleSelectSettingSet {
 		req.SingleSelectSetting = builder.singleSelectSetting
 	}
-	if builder.multiSelectSettingFlag {
+	if builder.multiSelectSettingSet {
 		req.MultiSelectSetting = builder.multiSelectSetting
 	}
-	if builder.textSettingFlag {
+	if builder.textSettingSet {
 		req.TextSetting = builder.textSetting
 	}
 	return req
@@ -1927,26 +2063,26 @@ type InputCustomFieldValue struct {
 }
 
 type InputCustomFieldValueBuilder struct {
-	guid     string // 自定义字段guid
-	guidFlag bool
+	guid    string // 自定义字段guid
+	guidSet bool
 
-	numberValue     string // 数字类型的自定义字段值，填写一个合法数字的字符串表示，空字符串表示设为空。
-	numberValueFlag bool
+	numberValue    string // 数字类型的自定义字段值，填写一个合法数字的字符串表示，空字符串表示设为空。
+	numberValueSet bool
 
-	memberValue     []*Member // 人员类型的自定义字段值。可以设置1个或多个用户的id（遵循member格式，只支持user类型）。当字段设为只不能多选时只能输入一个值。设为空数组表示设为空。
-	memberValueFlag bool
+	memberValue    []*Member // 人员类型的自定义字段值。可以设置1个或多个用户的id（遵循member格式，只支持user类型）。当字段设为只不能多选时只能输入一个值。设为空数组表示设为空。
+	memberValueSet bool
 
-	datetimeValue     string // 日期类型自定义字段值，可以输入一个表示日期的以毫秒为单位的字符串。设为空字符串表示设为空。
-	datetimeValueFlag bool
+	datetimeValue    string // 日期类型自定义字段值，可以输入一个表示日期的以毫秒为单位的字符串。设为空字符串表示设为空。
+	datetimeValueSet bool
 
-	singleSelectValue     string // 单选类型字段值，填写一个字段选项的option_guid。设置为空字符串表示设为空。
-	singleSelectValueFlag bool
+	singleSelectValue    string // 单选类型字段值，填写一个字段选项的option_guid。设置为空字符串表示设为空。
+	singleSelectValueSet bool
 
-	multiSelectValue     []string // 多选类型字段值，可以填写一个或多个本字段的option_guid。设为空数组表示设为空。
-	multiSelectValueFlag bool
+	multiSelectValue    []string // 多选类型字段值，可以填写一个或多个本字段的option_guid。设为空数组表示设为空。
+	multiSelectValueSet bool
 
-	textValue     string // 文本类型字段值。可以填写最多3000字符。使用空字符串表示设为空。
-	textValueFlag bool
+	textValue    string // 文本类型字段值。可以填写最多3000字符。使用空字符串表示设为空。
+	textValueSet bool
 }
 
 func NewInputCustomFieldValueBuilder() *InputCustomFieldValueBuilder {
@@ -1959,7 +2095,7 @@ func NewInputCustomFieldValueBuilder() *InputCustomFieldValueBuilder {
 // 示例值：73b21903-0041-4796-a11e-f8be919a7063
 func (builder *InputCustomFieldValueBuilder) Guid(guid string) *InputCustomFieldValueBuilder {
 	builder.guid = guid
-	builder.guidFlag = true
+	builder.guidSet = true
 	return builder
 }
 
@@ -1968,7 +2104,7 @@ func (builder *InputCustomFieldValueBuilder) Guid(guid string) *InputCustomField
 // 示例值：10.23
 func (builder *InputCustomFieldValueBuilder) NumberValue(numberValue string) *InputCustomFieldValueBuilder {
 	builder.numberValue = numberValue
-	builder.numberValueFlag = true
+	builder.numberValueSet = true
 	return builder
 }
 
@@ -1977,7 +2113,7 @@ func (builder *InputCustomFieldValueBuilder) NumberValue(numberValue string) *In
 // 示例值：
 func (builder *InputCustomFieldValueBuilder) MemberValue(memberValue []*Member) *InputCustomFieldValueBuilder {
 	builder.memberValue = memberValue
-	builder.memberValueFlag = true
+	builder.memberValueSet = true
 	return builder
 }
 
@@ -1986,7 +2122,7 @@ func (builder *InputCustomFieldValueBuilder) MemberValue(memberValue []*Member) 
 // 示例值：1698192000000
 func (builder *InputCustomFieldValueBuilder) DatetimeValue(datetimeValue string) *InputCustomFieldValueBuilder {
 	builder.datetimeValue = datetimeValue
-	builder.datetimeValueFlag = true
+	builder.datetimeValueSet = true
 	return builder
 }
 
@@ -1995,7 +2131,7 @@ func (builder *InputCustomFieldValueBuilder) DatetimeValue(datetimeValue string)
 // 示例值：73b21903-0041-4796-a11e-f8be919a7063
 func (builder *InputCustomFieldValueBuilder) SingleSelectValue(singleSelectValue string) *InputCustomFieldValueBuilder {
 	builder.singleSelectValue = singleSelectValue
-	builder.singleSelectValueFlag = true
+	builder.singleSelectValueSet = true
 	return builder
 }
 
@@ -2004,7 +2140,7 @@ func (builder *InputCustomFieldValueBuilder) SingleSelectValue(singleSelectValue
 // 示例值：
 func (builder *InputCustomFieldValueBuilder) MultiSelectValue(multiSelectValue []string) *InputCustomFieldValueBuilder {
 	builder.multiSelectValue = multiSelectValue
-	builder.multiSelectValueFlag = true
+	builder.multiSelectValueSet = true
 	return builder
 }
 
@@ -2013,35 +2149,35 @@ func (builder *InputCustomFieldValueBuilder) MultiSelectValue(multiSelectValue [
 // 示例值：文本类型字段值。可以输入一段文本。空字符串表示清空。
 func (builder *InputCustomFieldValueBuilder) TextValue(textValue string) *InputCustomFieldValueBuilder {
 	builder.textValue = textValue
-	builder.textValueFlag = true
+	builder.textValueSet = true
 	return builder
 }
 
 func (builder *InputCustomFieldValueBuilder) Build() *InputCustomFieldValue {
 	req := &InputCustomFieldValue{}
-	if builder.guidFlag {
+	if builder.guidSet {
 		req.Guid = &builder.guid
 
 	}
-	if builder.numberValueFlag {
+	if builder.numberValueSet {
 		req.NumberValue = &builder.numberValue
 
 	}
-	if builder.memberValueFlag {
+	if builder.memberValueSet {
 		req.MemberValue = builder.memberValue
 	}
-	if builder.datetimeValueFlag {
+	if builder.datetimeValueSet {
 		req.DatetimeValue = &builder.datetimeValue
 
 	}
-	if builder.singleSelectValueFlag {
+	if builder.singleSelectValueSet {
 		req.SingleSelectValue = &builder.singleSelectValue
 
 	}
-	if builder.multiSelectValueFlag {
+	if builder.multiSelectValueSet {
 		req.MultiSelectValue = builder.multiSelectValue
 	}
-	if builder.textValueFlag {
+	if builder.textValueSet {
 		req.TextValue = &builder.textValue
 
 	}
@@ -2061,20 +2197,20 @@ type InputOption struct {
 }
 
 type InputOptionBuilder struct {
-	name     string // 选项名称
-	nameFlag bool
+	name    string // 选项名称
+	nameSet bool
 
-	colorIndex     int // 颜色索引值，支持0～54中的一个数字。如果不填写，则会随机选一个。
-	colorIndexFlag bool
+	colorIndex    int // 颜色索引值，支持0～54中的一个数字。如果不填写，则会随机选一个。
+	colorIndexSet bool
 
-	insertBefore     string // 要放到某个option之前的option_guid
-	insertBeforeFlag bool
+	insertBefore    string // 要放到某个option之前的option_guid
+	insertBeforeSet bool
 
-	insertAfter     string // 要放到某个option之后的option_guid
-	insertAfterFlag bool
+	insertAfter    string // 要放到某个option之后的option_guid
+	insertAfterSet bool
 
-	isHidden     bool // 是否隐藏
-	isHiddenFlag bool
+	isHidden    bool // 是否隐藏
+	isHiddenSet bool
 }
 
 func NewInputOptionBuilder() *InputOptionBuilder {
@@ -2087,7 +2223,7 @@ func NewInputOptionBuilder() *InputOptionBuilder {
 // 示例值：高优
 func (builder *InputOptionBuilder) Name(name string) *InputOptionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2096,7 +2232,7 @@ func (builder *InputOptionBuilder) Name(name string) *InputOptionBuilder {
 // 示例值：10
 func (builder *InputOptionBuilder) ColorIndex(colorIndex int) *InputOptionBuilder {
 	builder.colorIndex = colorIndex
-	builder.colorIndexFlag = true
+	builder.colorIndexSet = true
 	return builder
 }
 
@@ -2105,7 +2241,7 @@ func (builder *InputOptionBuilder) ColorIndex(colorIndex int) *InputOptionBuilde
 // 示例值：2bd905f8-ef38-408b-aa1f-2b2ad33b2913
 func (builder *InputOptionBuilder) InsertBefore(insertBefore string) *InputOptionBuilder {
 	builder.insertBefore = insertBefore
-	builder.insertBeforeFlag = true
+	builder.insertBeforeSet = true
 	return builder
 }
 
@@ -2114,7 +2250,7 @@ func (builder *InputOptionBuilder) InsertBefore(insertBefore string) *InputOptio
 // 示例值：b13adf3c-cad6-4e02-8929-550c112b5633
 func (builder *InputOptionBuilder) InsertAfter(insertAfter string) *InputOptionBuilder {
 	builder.insertAfter = insertAfter
-	builder.insertAfterFlag = true
+	builder.insertAfterSet = true
 	return builder
 }
 
@@ -2123,29 +2259,29 @@ func (builder *InputOptionBuilder) InsertAfter(insertAfter string) *InputOptionB
 // 示例值：false
 func (builder *InputOptionBuilder) IsHidden(isHidden bool) *InputOptionBuilder {
 	builder.isHidden = isHidden
-	builder.isHiddenFlag = true
+	builder.isHiddenSet = true
 	return builder
 }
 
 func (builder *InputOptionBuilder) Build() *InputOption {
 	req := &InputOption{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.colorIndexFlag {
+	if builder.colorIndexSet {
 		req.ColorIndex = &builder.colorIndex
 
 	}
-	if builder.insertBeforeFlag {
+	if builder.insertBeforeSet {
 		req.InsertBefore = &builder.insertBefore
 
 	}
-	if builder.insertAfterFlag {
+	if builder.insertAfterSet {
 		req.InsertAfter = &builder.insertAfter
 
 	}
-	if builder.isHiddenFlag {
+	if builder.isHiddenSet {
 		req.IsHidden = &builder.isHidden
 
 	}
@@ -2165,20 +2301,20 @@ type InputSection struct {
 }
 
 type InputSectionBuilder struct {
-	name     string // 自定义分组名
-	nameFlag bool
+	name    string // 自定义分组名
+	nameSet bool
 
-	resourceType     string // 自定义分组的资源类型
-	resourceTypeFlag bool
+	resourceType    string // 自定义分组的资源类型
+	resourceTypeSet bool
 
-	resourceId     string // 自定义分组要归属的资源id
-	resourceIdFlag bool
+	resourceId    string // 自定义分组要归属的资源id
+	resourceIdSet bool
 
-	insertBefore     string // 要将新分组插入到自定义分分组的前面的目标分组的guid。insert_before/insert_after二选一。也可以都不设置。都不设置时表示将新分组查到对应容器的最前面。
-	insertBeforeFlag bool
+	insertBefore    string // 要将新分组插入到自定义分分组的前面的目标分组的guid。insert_before/insert_after二选一。也可以都不设置。都不设置时表示将新分组查到对应容器的最前面。
+	insertBeforeSet bool
 
-	insertAfter     string // 要将新分组插入到自定义分分组的后面的目标分组的guid。insert_before/insert_after二选一。也可以都不设置。都不设置时表示将新分组查到对应容器的最前面。
-	insertAfterFlag bool
+	insertAfter    string // 要将新分组插入到自定义分分组的后面的目标分组的guid。insert_before/insert_after二选一。也可以都不设置。都不设置时表示将新分组查到对应容器的最前面。
+	insertAfterSet bool
 }
 
 func NewInputSectionBuilder() *InputSectionBuilder {
@@ -2191,7 +2327,7 @@ func NewInputSectionBuilder() *InputSectionBuilder {
 // 示例值：已经审核过的任务
 func (builder *InputSectionBuilder) Name(name string) *InputSectionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2200,7 +2336,7 @@ func (builder *InputSectionBuilder) Name(name string) *InputSectionBuilder {
 // 示例值：tasklist
 func (builder *InputSectionBuilder) ResourceType(resourceType string) *InputSectionBuilder {
 	builder.resourceType = resourceType
-	builder.resourceTypeFlag = true
+	builder.resourceTypeSet = true
 	return builder
 }
 
@@ -2209,7 +2345,7 @@ func (builder *InputSectionBuilder) ResourceType(resourceType string) *InputSect
 // 示例值：cc371766-6584-cf50-a222-c22cd9055004
 func (builder *InputSectionBuilder) ResourceId(resourceId string) *InputSectionBuilder {
 	builder.resourceId = resourceId
-	builder.resourceIdFlag = true
+	builder.resourceIdSet = true
 	return builder
 }
 
@@ -2218,7 +2354,7 @@ func (builder *InputSectionBuilder) ResourceId(resourceId string) *InputSectionB
 // 示例值：e6e37dcc-f75a-5936-f589-12fb4b5c80c2
 func (builder *InputSectionBuilder) InsertBefore(insertBefore string) *InputSectionBuilder {
 	builder.insertBefore = insertBefore
-	builder.insertBeforeFlag = true
+	builder.insertBeforeSet = true
 	return builder
 }
 
@@ -2227,29 +2363,29 @@ func (builder *InputSectionBuilder) InsertBefore(insertBefore string) *InputSect
 // 示例值：e6e37dcc-f75a-5936-f589-12fb4b5c80c2
 func (builder *InputSectionBuilder) InsertAfter(insertAfter string) *InputSectionBuilder {
 	builder.insertAfter = insertAfter
-	builder.insertAfterFlag = true
+	builder.insertAfterSet = true
 	return builder
 }
 
 func (builder *InputSectionBuilder) Build() *InputSection {
 	req := &InputSection{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.resourceTypeFlag {
+	if builder.resourceTypeSet {
 		req.ResourceType = &builder.resourceType
 
 	}
-	if builder.resourceIdFlag {
+	if builder.resourceIdSet {
 		req.ResourceId = &builder.resourceId
 
 	}
-	if builder.insertBeforeFlag {
+	if builder.insertBeforeSet {
 		req.InsertBefore = &builder.insertBefore
 
 	}
-	if builder.insertAfterFlag {
+	if builder.insertAfterSet {
 		req.InsertAfter = &builder.insertAfter
 
 	}
@@ -2292,62 +2428,77 @@ type InputTask struct {
 	DocxSource *DocxSource `json:"docx_source,omitempty"` // 任务的新版云文档来源
 
 	PositiveReminders []*Reminder `json:"positive_reminders,omitempty"` // 正数协议每日提醒
+
+	AgentTaskStatus *int `json:"agent_task_status,omitempty"` // 智能体任务状态
+
+	AgentTaskProgress *string `json:"agent_task_progress,omitempty"` // 智能体任务进度
+
+	TextDeliveries []string `json:"text_deliveries,omitempty"` // 智能体文本类交付物
 }
 
 type InputTaskBuilder struct {
-	summary     string // 任务标题
-	summaryFlag bool
+	summary    string // 任务标题
+	summarySet bool
 
-	description     string // 任务描述
-	descriptionFlag bool
+	description    string // 任务描述
+	descriptionSet bool
 
-	due     *Due // 任务截止时间戳(ms)，截止时间戳和截止日期选择一个填写。
-	dueFlag bool
+	due    *Due // 任务截止时间戳(ms)，截止时间戳和截止日期选择一个填写。
+	dueSet bool
 
-	origin     *Origin // 任务关联的第三方平台来源信息
-	originFlag bool
+	origin    *Origin // 任务关联的第三方平台来源信息
+	originSet bool
 
-	extra     string // 调用者可以传入的任意附带到任务上的数据。在获取任务详情时会原样返回。
-	extraFlag bool
+	extra    string // 调用者可以传入的任意附带到任务上的数据。在获取任务详情时会原样返回。
+	extraSet bool
 
-	completedAt     string // 任务的完成时刻时间戳(ms)
-	completedAtFlag bool
+	completedAt    string // 任务的完成时刻时间戳(ms)
+	completedAtSet bool
 
-	members     []*Member // 负责人ID列表
-	membersFlag bool
+	members    []*Member // 负责人ID列表
+	membersSet bool
 
-	repeatRule     string // 如果设置，则该任务为“重复任务”。该字段表示了重复任务的重复规则。
-	repeatRuleFlag bool
+	repeatRule    string // 如果设置，则该任务为“重复任务”。该字段表示了重复任务的重复规则。
+	repeatRuleSet bool
 
-	customComplete     *CustomComplete // 如果设置，则将任务设计为“自定义完成”。用户在任务中心点击“完成”时，不会直接完成任务，而是跳转到第三方配置好的地址或者现实自定义提示。
-	customCompleteFlag bool
+	customComplete    *CustomComplete // 如果设置，则将任务设计为“自定义完成”。用户在任务中心点击“完成”时，不会直接完成任务，而是跳转到第三方配置好的地址或者现实自定义提示。
+	customCompleteSet bool
 
-	tasklists     []*TaskInTasklistInfo // 任务所在清单的信息
-	tasklistsFlag bool
+	tasklists    []*TaskInTasklistInfo // 任务所在清单的信息
+	tasklistsSet bool
 
-	clientToken     string // 幂等token，如果填写则触发幂等行为。
-	clientTokenFlag bool
+	clientToken    string // 幂等token，如果填写则触发幂等行为。
+	clientTokenSet bool
 
-	start     *Start // 任务的开始时间(ms)
-	startFlag bool
+	start    *Start // 任务的开始时间(ms)
+	startSet bool
 
-	reminders     []*Reminder // 任务提醒
-	remindersFlag bool
+	reminders    []*Reminder // 任务提醒
+	remindersSet bool
 
-	mode     int // 任务的完成模式。1 - 会签任务；2 - 或签任务
-	modeFlag bool
+	mode    int // 任务的完成模式。1 - 会签任务；2 - 或签任务
+	modeSet bool
 
-	isMilestone     bool // 是否是里程碑任务
-	isMilestoneFlag bool
+	isMilestone    bool // 是否是里程碑任务
+	isMilestoneSet bool
 
-	customFields     []*InputCustomFieldValue // 自定义字段值
-	customFieldsFlag bool
+	customFields    []*InputCustomFieldValue // 自定义字段值
+	customFieldsSet bool
 
-	docxSource     *DocxSource // 任务的新版云文档来源
-	docxSourceFlag bool
+	docxSource    *DocxSource // 任务的新版云文档来源
+	docxSourceSet bool
 
-	positiveReminders     []*Reminder // 正数协议每日提醒
-	positiveRemindersFlag bool
+	positiveReminders    []*Reminder // 正数协议每日提醒
+	positiveRemindersSet bool
+
+	agentTaskStatus    int // 智能体任务状态
+	agentTaskStatusSet bool
+
+	agentTaskProgress    string // 智能体任务进度
+	agentTaskProgressSet bool
+
+	textDeliveries    []string // 智能体文本类交付物
+	textDeliveriesSet bool
 }
 
 func NewInputTaskBuilder() *InputTaskBuilder {
@@ -2360,7 +2511,7 @@ func NewInputTaskBuilder() *InputTaskBuilder {
 // 示例值：针对全年销售进行一次复盘
 func (builder *InputTaskBuilder) Summary(summary string) *InputTaskBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -2369,7 +2520,7 @@ func (builder *InputTaskBuilder) Summary(summary string) *InputTaskBuilder {
 // 示例值：需要事先阅读复盘总结文档
 func (builder *InputTaskBuilder) Description(description string) *InputTaskBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -2378,7 +2529,7 @@ func (builder *InputTaskBuilder) Description(description string) *InputTaskBuild
 // 示例值：1675742789470
 func (builder *InputTaskBuilder) Due(due *Due) *InputTaskBuilder {
 	builder.due = due
-	builder.dueFlag = true
+	builder.dueSet = true
 	return builder
 }
 
@@ -2387,7 +2538,7 @@ func (builder *InputTaskBuilder) Due(due *Due) *InputTaskBuilder {
 // 示例值：
 func (builder *InputTaskBuilder) Origin(origin *Origin) *InputTaskBuilder {
 	builder.origin = origin
-	builder.originFlag = true
+	builder.originSet = true
 	return builder
 }
 
@@ -2396,7 +2547,7 @@ func (builder *InputTaskBuilder) Origin(origin *Origin) *InputTaskBuilder {
 // 示例值：dGVzdA==
 func (builder *InputTaskBuilder) Extra(extra string) *InputTaskBuilder {
 	builder.extra = extra
-	builder.extraFlag = true
+	builder.extraSet = true
 	return builder
 }
 
@@ -2405,7 +2556,7 @@ func (builder *InputTaskBuilder) Extra(extra string) *InputTaskBuilder {
 // 示例值：1675742789470
 func (builder *InputTaskBuilder) CompletedAt(completedAt string) *InputTaskBuilder {
 	builder.completedAt = completedAt
-	builder.completedAtFlag = true
+	builder.completedAtSet = true
 	return builder
 }
 
@@ -2414,7 +2565,7 @@ func (builder *InputTaskBuilder) CompletedAt(completedAt string) *InputTaskBuild
 // 示例值：
 func (builder *InputTaskBuilder) Members(members []*Member) *InputTaskBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
@@ -2423,7 +2574,7 @@ func (builder *InputTaskBuilder) Members(members []*Member) *InputTaskBuilder {
 // 示例值：FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR
 func (builder *InputTaskBuilder) RepeatRule(repeatRule string) *InputTaskBuilder {
 	builder.repeatRule = repeatRule
-	builder.repeatRuleFlag = true
+	builder.repeatRuleSet = true
 	return builder
 }
 
@@ -2432,7 +2583,7 @@ func (builder *InputTaskBuilder) RepeatRule(repeatRule string) *InputTaskBuilder
 // 示例值：
 func (builder *InputTaskBuilder) CustomComplete(customComplete *CustomComplete) *InputTaskBuilder {
 	builder.customComplete = customComplete
-	builder.customCompleteFlag = true
+	builder.customCompleteSet = true
 	return builder
 }
 
@@ -2441,7 +2592,7 @@ func (builder *InputTaskBuilder) CustomComplete(customComplete *CustomComplete) 
 // 示例值：
 func (builder *InputTaskBuilder) Tasklists(tasklists []*TaskInTasklistInfo) *InputTaskBuilder {
 	builder.tasklists = tasklists
-	builder.tasklistsFlag = true
+	builder.tasklistsSet = true
 	return builder
 }
 
@@ -2450,7 +2601,7 @@ func (builder *InputTaskBuilder) Tasklists(tasklists []*TaskInTasklistInfo) *Inp
 // 示例值：daa2237f-8310-4707-a83b-52c8a81e0fb7
 func (builder *InputTaskBuilder) ClientToken(clientToken string) *InputTaskBuilder {
 	builder.clientToken = clientToken
-	builder.clientTokenFlag = true
+	builder.clientTokenSet = true
 	return builder
 }
 
@@ -2459,7 +2610,7 @@ func (builder *InputTaskBuilder) ClientToken(clientToken string) *InputTaskBuild
 // 示例值：
 func (builder *InputTaskBuilder) Start(start *Start) *InputTaskBuilder {
 	builder.start = start
-	builder.startFlag = true
+	builder.startSet = true
 	return builder
 }
 
@@ -2468,7 +2619,7 @@ func (builder *InputTaskBuilder) Start(start *Start) *InputTaskBuilder {
 // 示例值：
 func (builder *InputTaskBuilder) Reminders(reminders []*Reminder) *InputTaskBuilder {
 	builder.reminders = reminders
-	builder.remindersFlag = true
+	builder.remindersSet = true
 	return builder
 }
 
@@ -2477,7 +2628,7 @@ func (builder *InputTaskBuilder) Reminders(reminders []*Reminder) *InputTaskBuil
 // 示例值：2
 func (builder *InputTaskBuilder) Mode(mode int) *InputTaskBuilder {
 	builder.mode = mode
-	builder.modeFlag = true
+	builder.modeSet = true
 	return builder
 }
 
@@ -2486,7 +2637,7 @@ func (builder *InputTaskBuilder) Mode(mode int) *InputTaskBuilder {
 // 示例值：false
 func (builder *InputTaskBuilder) IsMilestone(isMilestone bool) *InputTaskBuilder {
 	builder.isMilestone = isMilestone
-	builder.isMilestoneFlag = true
+	builder.isMilestoneSet = true
 	return builder
 }
 
@@ -2495,7 +2646,7 @@ func (builder *InputTaskBuilder) IsMilestone(isMilestone bool) *InputTaskBuilder
 // 示例值：
 func (builder *InputTaskBuilder) CustomFields(customFields []*InputCustomFieldValue) *InputTaskBuilder {
 	builder.customFields = customFields
-	builder.customFieldsFlag = true
+	builder.customFieldsSet = true
 	return builder
 }
 
@@ -2504,7 +2655,7 @@ func (builder *InputTaskBuilder) CustomFields(customFields []*InputCustomFieldVa
 // 示例值：
 func (builder *InputTaskBuilder) DocxSource(docxSource *DocxSource) *InputTaskBuilder {
 	builder.docxSource = docxSource
-	builder.docxSourceFlag = true
+	builder.docxSourceSet = true
 	return builder
 }
 
@@ -2513,73 +2664,111 @@ func (builder *InputTaskBuilder) DocxSource(docxSource *DocxSource) *InputTaskBu
 // 示例值：
 func (builder *InputTaskBuilder) PositiveReminders(positiveReminders []*Reminder) *InputTaskBuilder {
 	builder.positiveReminders = positiveReminders
-	builder.positiveRemindersFlag = true
+	builder.positiveRemindersSet = true
+	return builder
+}
+
+// 智能体任务状态
+//
+// 示例值：1
+func (builder *InputTaskBuilder) AgentTaskStatus(agentTaskStatus int) *InputTaskBuilder {
+	builder.agentTaskStatus = agentTaskStatus
+	builder.agentTaskStatusSet = true
+	return builder
+}
+
+// 智能体任务进度
+//
+// 示例值：1/4
+func (builder *InputTaskBuilder) AgentTaskProgress(agentTaskProgress string) *InputTaskBuilder {
+	builder.agentTaskProgress = agentTaskProgress
+	builder.agentTaskProgressSet = true
+	return builder
+}
+
+// 智能体文本类交付物
+//
+// 示例值：
+func (builder *InputTaskBuilder) TextDeliveries(textDeliveries []string) *InputTaskBuilder {
+	builder.textDeliveries = textDeliveries
+	builder.textDeliveriesSet = true
 	return builder
 }
 
 func (builder *InputTaskBuilder) Build() *InputTask {
 	req := &InputTask{}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.dueFlag {
+	if builder.dueSet {
 		req.Due = builder.due
 	}
-	if builder.originFlag {
+	if builder.originSet {
 		req.Origin = builder.origin
 	}
-	if builder.extraFlag {
+	if builder.extraSet {
 		req.Extra = &builder.extra
 
 	}
-	if builder.completedAtFlag {
+	if builder.completedAtSet {
 		req.CompletedAt = &builder.completedAt
 
 	}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
-	if builder.repeatRuleFlag {
+	if builder.repeatRuleSet {
 		req.RepeatRule = &builder.repeatRule
 
 	}
-	if builder.customCompleteFlag {
+	if builder.customCompleteSet {
 		req.CustomComplete = builder.customComplete
 	}
-	if builder.tasklistsFlag {
+	if builder.tasklistsSet {
 		req.Tasklists = builder.tasklists
 	}
-	if builder.clientTokenFlag {
+	if builder.clientTokenSet {
 		req.ClientToken = &builder.clientToken
 
 	}
-	if builder.startFlag {
+	if builder.startSet {
 		req.Start = builder.start
 	}
-	if builder.remindersFlag {
+	if builder.remindersSet {
 		req.Reminders = builder.reminders
 	}
-	if builder.modeFlag {
+	if builder.modeSet {
 		req.Mode = &builder.mode
 
 	}
-	if builder.isMilestoneFlag {
+	if builder.isMilestoneSet {
 		req.IsMilestone = &builder.isMilestone
 
 	}
-	if builder.customFieldsFlag {
+	if builder.customFieldsSet {
 		req.CustomFields = builder.customFields
 	}
-	if builder.docxSourceFlag {
+	if builder.docxSourceSet {
 		req.DocxSource = builder.docxSource
 	}
-	if builder.positiveRemindersFlag {
+	if builder.positiveRemindersSet {
 		req.PositiveReminders = builder.positiveReminders
+	}
+	if builder.agentTaskStatusSet {
+		req.AgentTaskStatus = &builder.agentTaskStatus
+
+	}
+	if builder.agentTaskProgressSet {
+		req.AgentTaskProgress = &builder.agentTaskProgress
+
+	}
+	if builder.textDeliveriesSet {
+		req.TextDeliveries = builder.textDeliveries
 	}
 	return req
 }
@@ -2597,20 +2786,20 @@ type InputTasklist struct {
 }
 
 type InputTasklistBuilder struct {
-	name     string // 清单名称
-	nameFlag bool
+	name    string // 清单名称
+	nameSet bool
 
-	clientToken     string // 幂等token，如果提供则实现幂等行为
-	clientTokenFlag bool
+	clientToken    string // 幂等token，如果提供则实现幂等行为
+	clientTokenSet bool
 
-	members     []*Member // 清单的成员列表
-	membersFlag bool
+	members    []*Member // 清单的成员列表
+	membersSet bool
 
-	owner     *Member // 清单所有者
-	ownerFlag bool
+	owner    *Member // 清单所有者
+	ownerSet bool
 
-	archiveTasklist     bool // 是否归档清单
-	archiveTasklistFlag bool
+	archiveTasklist    bool // 是否归档清单
+	archiveTasklistSet bool
 }
 
 func NewInputTasklistBuilder() *InputTasklistBuilder {
@@ -2623,7 +2812,7 @@ func NewInputTasklistBuilder() *InputTasklistBuilder {
 // 示例值：年会工作任务清单
 func (builder *InputTasklistBuilder) Name(name string) *InputTasklistBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2632,7 +2821,7 @@ func (builder *InputTasklistBuilder) Name(name string) *InputTasklistBuilder {
 // 示例值：daa2237f-8310-4707-a83b-52c8a81e0fb7
 func (builder *InputTasklistBuilder) ClientToken(clientToken string) *InputTasklistBuilder {
 	builder.clientToken = clientToken
-	builder.clientTokenFlag = true
+	builder.clientTokenSet = true
 	return builder
 }
 
@@ -2641,7 +2830,7 @@ func (builder *InputTasklistBuilder) ClientToken(clientToken string) *InputTaskl
 // 示例值：
 func (builder *InputTasklistBuilder) Members(members []*Member) *InputTasklistBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
@@ -2650,7 +2839,7 @@ func (builder *InputTasklistBuilder) Members(members []*Member) *InputTasklistBu
 // 示例值：
 func (builder *InputTasklistBuilder) Owner(owner *Member) *InputTasklistBuilder {
 	builder.owner = owner
-	builder.ownerFlag = true
+	builder.ownerSet = true
 	return builder
 }
 
@@ -2659,27 +2848,27 @@ func (builder *InputTasklistBuilder) Owner(owner *Member) *InputTasklistBuilder 
 // 示例值：
 func (builder *InputTasklistBuilder) ArchiveTasklist(archiveTasklist bool) *InputTasklistBuilder {
 	builder.archiveTasklist = archiveTasklist
-	builder.archiveTasklistFlag = true
+	builder.archiveTasklistSet = true
 	return builder
 }
 
 func (builder *InputTasklistBuilder) Build() *InputTasklist {
 	req := &InputTasklist{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.clientTokenFlag {
+	if builder.clientTokenSet {
 		req.ClientToken = &builder.clientToken
 
 	}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
-	if builder.ownerFlag {
+	if builder.ownerSet {
 		req.Owner = builder.owner
 	}
-	if builder.archiveTasklistFlag {
+	if builder.archiveTasklistSet {
 		req.ArchiveTasklist = &builder.archiveTasklist
 
 	}
@@ -2697,17 +2886,17 @@ type Member struct {
 }
 
 type MemberBuilder struct {
-	id     string // 表示member的id
-	idFlag bool
+	id    string // 表示member的id
+	idSet bool
 
 	type_    string // 成员的类型
-	typeFlag bool
+	type_Set bool
 
-	role     string // 成员角色
-	roleFlag bool
+	role    string // 成员角色
+	roleSet bool
 
-	name     string // 成员名称
-	nameFlag bool
+	name    string // 成员名称
+	nameSet bool
 }
 
 func NewMemberBuilder() *MemberBuilder {
@@ -2720,7 +2909,7 @@ func NewMemberBuilder() *MemberBuilder {
 // 示例值：ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f
 func (builder *MemberBuilder) Id(id string) *MemberBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2729,7 +2918,7 @@ func (builder *MemberBuilder) Id(id string) *MemberBuilder {
 // 示例值：user
 func (builder *MemberBuilder) Type(type_ string) *MemberBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -2738,7 +2927,7 @@ func (builder *MemberBuilder) Type(type_ string) *MemberBuilder {
 // 示例值：editor
 func (builder *MemberBuilder) Role(role string) *MemberBuilder {
 	builder.role = role
-	builder.roleFlag = true
+	builder.roleSet = true
 	return builder
 }
 
@@ -2747,25 +2936,25 @@ func (builder *MemberBuilder) Role(role string) *MemberBuilder {
 // 示例值：张明德（明德）
 func (builder *MemberBuilder) Name(name string) *MemberBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *MemberBuilder) Build() *Member {
 	req := &Member{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.roleFlag {
+	if builder.roleSet {
 		req.Role = &builder.role
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -2777,8 +2966,8 @@ type MemberSetting struct {
 }
 
 type MemberSettingBuilder struct {
-	multi     bool // 是否支持多选
-	multiFlag bool
+	multi    bool // 是否支持多选
+	multiSet bool
 }
 
 func NewMemberSettingBuilder() *MemberSettingBuilder {
@@ -2791,13 +2980,13 @@ func NewMemberSettingBuilder() *MemberSettingBuilder {
 // 示例值：true
 func (builder *MemberSettingBuilder) Multi(multi bool) *MemberSettingBuilder {
 	builder.multi = multi
-	builder.multiFlag = true
+	builder.multiSet = true
 	return builder
 }
 
 func (builder *MemberSettingBuilder) Build() *MemberSetting {
 	req := &MemberSetting{}
-	if builder.multiFlag {
+	if builder.multiSet {
 		req.Multi = &builder.multi
 
 	}
@@ -2817,20 +3006,20 @@ type NumberSetting struct {
 }
 
 type NumberSettingBuilder struct {
-	format     string // 数字展示的格式
-	formatFlag bool
+	format    string // 数字展示的格式
+	formatSet bool
 
-	customSymbol     string // 自定义符号。只有`format`设为custom时才会生效。
-	customSymbolFlag bool
+	customSymbol    string // 自定义符号。只有`format`设为custom时才会生效。
+	customSymbolSet bool
 
-	customSymbolPosition     string // 自定义符号显示的位置。
-	customSymbolPositionFlag bool
+	customSymbolPosition    string // 自定义符号显示的位置。
+	customSymbolPositionSet bool
 
-	separator     string // 分隔符样式
-	separatorFlag bool
+	separator    string // 分隔符样式
+	separatorSet bool
 
-	decimalCount     int // 保留小数位数。输入的数字值的小数位数如果比该设置多，多余的位数将被四舍五入后舍弃。如果`format`为"percentage"，表示变为百分数之后的小数位数。
-	decimalCountFlag bool
+	decimalCount    int // 保留小数位数。输入的数字值的小数位数如果比该设置多，多余的位数将被四舍五入后舍弃。如果`format`为"percentage"，表示变为百分数之后的小数位数。
+	decimalCountSet bool
 }
 
 func NewNumberSettingBuilder() *NumberSettingBuilder {
@@ -2843,7 +3032,7 @@ func NewNumberSettingBuilder() *NumberSettingBuilder {
 // 示例值：normal
 func (builder *NumberSettingBuilder) Format(format string) *NumberSettingBuilder {
 	builder.format = format
-	builder.formatFlag = true
+	builder.formatSet = true
 	return builder
 }
 
@@ -2852,7 +3041,7 @@ func (builder *NumberSettingBuilder) Format(format string) *NumberSettingBuilder
 // 示例值：自定义符号
 func (builder *NumberSettingBuilder) CustomSymbol(customSymbol string) *NumberSettingBuilder {
 	builder.customSymbol = customSymbol
-	builder.customSymbolFlag = true
+	builder.customSymbolSet = true
 	return builder
 }
 
@@ -2861,7 +3050,7 @@ func (builder *NumberSettingBuilder) CustomSymbol(customSymbol string) *NumberSe
 // 示例值：left
 func (builder *NumberSettingBuilder) CustomSymbolPosition(customSymbolPosition string) *NumberSettingBuilder {
 	builder.customSymbolPosition = customSymbolPosition
-	builder.customSymbolPositionFlag = true
+	builder.customSymbolPositionSet = true
 	return builder
 }
 
@@ -2870,7 +3059,7 @@ func (builder *NumberSettingBuilder) CustomSymbolPosition(customSymbolPosition s
 // 示例值：thousand
 func (builder *NumberSettingBuilder) Separator(separator string) *NumberSettingBuilder {
 	builder.separator = separator
-	builder.separatorFlag = true
+	builder.separatorSet = true
 	return builder
 }
 
@@ -2879,29 +3068,29 @@ func (builder *NumberSettingBuilder) Separator(separator string) *NumberSettingB
 // 示例值：2
 func (builder *NumberSettingBuilder) DecimalCount(decimalCount int) *NumberSettingBuilder {
 	builder.decimalCount = decimalCount
-	builder.decimalCountFlag = true
+	builder.decimalCountSet = true
 	return builder
 }
 
 func (builder *NumberSettingBuilder) Build() *NumberSetting {
 	req := &NumberSetting{}
-	if builder.formatFlag {
+	if builder.formatSet {
 		req.Format = &builder.format
 
 	}
-	if builder.customSymbolFlag {
+	if builder.customSymbolSet {
 		req.CustomSymbol = &builder.customSymbol
 
 	}
-	if builder.customSymbolPositionFlag {
+	if builder.customSymbolPositionSet {
 		req.CustomSymbolPosition = &builder.customSymbolPosition
 
 	}
-	if builder.separatorFlag {
+	if builder.separatorSet {
 		req.Separator = &builder.separator
 
 	}
-	if builder.decimalCountFlag {
+	if builder.decimalCountSet {
 		req.DecimalCount = &builder.decimalCount
 
 	}
@@ -2919,17 +3108,17 @@ type Option struct {
 }
 
 type OptionBuilder struct {
-	guid     string // 选项的GUID
-	guidFlag bool
+	guid    string // 选项的GUID
+	guidSet bool
 
-	name     string // 选项名称，不能为空，最大50个字符
-	nameFlag bool
+	name    string // 选项名称，不能为空，最大50个字符
+	nameSet bool
 
-	colorIndex     int // 选项的颜色索引值，可以是0～54中的一个数字。如果不填写则会随机选一个。
-	colorIndexFlag bool
+	colorIndex    int // 选项的颜色索引值，可以是0～54中的一个数字。如果不填写则会随机选一个。
+	colorIndexSet bool
 
-	isHidden     bool // 选项是否隐藏。隐藏后的选项在界面不可见，也不可以再通过openapi将字段值设为该选项。
-	isHiddenFlag bool
+	isHidden    bool // 选项是否隐藏。隐藏后的选项在界面不可见，也不可以再通过openapi将字段值设为该选项。
+	isHiddenSet bool
 }
 
 func NewOptionBuilder() *OptionBuilder {
@@ -2942,7 +3131,7 @@ func NewOptionBuilder() *OptionBuilder {
 // 示例值：4216f79b-3fda-4dc6-a0c4-a16022e47152
 func (builder *OptionBuilder) Guid(guid string) *OptionBuilder {
 	builder.guid = guid
-	builder.guidFlag = true
+	builder.guidSet = true
 	return builder
 }
 
@@ -2951,7 +3140,7 @@ func (builder *OptionBuilder) Guid(guid string) *OptionBuilder {
 // 示例值：高优
 func (builder *OptionBuilder) Name(name string) *OptionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2960,7 +3149,7 @@ func (builder *OptionBuilder) Name(name string) *OptionBuilder {
 // 示例值：1
 func (builder *OptionBuilder) ColorIndex(colorIndex int) *OptionBuilder {
 	builder.colorIndex = colorIndex
-	builder.colorIndexFlag = true
+	builder.colorIndexSet = true
 	return builder
 }
 
@@ -2969,25 +3158,25 @@ func (builder *OptionBuilder) ColorIndex(colorIndex int) *OptionBuilder {
 // 示例值：false
 func (builder *OptionBuilder) IsHidden(isHidden bool) *OptionBuilder {
 	builder.isHidden = isHidden
-	builder.isHiddenFlag = true
+	builder.isHiddenSet = true
 	return builder
 }
 
 func (builder *OptionBuilder) Build() *Option {
 	req := &Option{}
-	if builder.guidFlag {
+	if builder.guidSet {
 		req.Guid = &builder.guid
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.colorIndexFlag {
+	if builder.colorIndexSet {
 		req.ColorIndex = &builder.colorIndex
 
 	}
-	if builder.isHiddenFlag {
+	if builder.isHiddenSet {
 		req.IsHidden = &builder.isHidden
 
 	}
@@ -3001,11 +3190,11 @@ type Origin struct {
 }
 
 type OriginBuilder struct {
-	platformI18nName     *I18nText // 任务导入来源的名称，用于在任务中心详情页展示。需提供多语言版本。
-	platformI18nNameFlag bool
+	platformI18nName    *I18nText // 任务导入来源的名称，用于在任务中心详情页展示。需提供多语言版本。
+	platformI18nNameSet bool
 
-	href     *Href // 任务关联的来源平台详情页链接
-	hrefFlag bool
+	href    *Href // 任务关联的来源平台详情页链接
+	hrefSet bool
 }
 
 func NewOriginBuilder() *OriginBuilder {
@@ -3018,7 +3207,7 @@ func NewOriginBuilder() *OriginBuilder {
 // 示例值：
 func (builder *OriginBuilder) PlatformI18nName(platformI18nName *I18nText) *OriginBuilder {
 	builder.platformI18nName = platformI18nName
-	builder.platformI18nNameFlag = true
+	builder.platformI18nNameSet = true
 	return builder
 }
 
@@ -3027,16 +3216,16 @@ func (builder *OriginBuilder) PlatformI18nName(platformI18nName *I18nText) *Orig
 // 示例值：
 func (builder *OriginBuilder) Href(href *Href) *OriginBuilder {
 	builder.href = href
-	builder.hrefFlag = true
+	builder.hrefSet = true
 	return builder
 }
 
 func (builder *OriginBuilder) Build() *Origin {
 	req := &Origin{}
-	if builder.platformI18nNameFlag {
+	if builder.platformI18nNameSet {
 		req.PlatformI18nName = builder.platformI18nName
 	}
-	if builder.hrefFlag {
+	if builder.hrefSet {
 		req.Href = builder.href
 	}
 	return req
@@ -3049,11 +3238,11 @@ type Reminder struct {
 }
 
 type ReminderBuilder struct {
-	id     string // 提醒时间设置的 ID
-	idFlag bool
+	id    string // 提醒时间设置的 ID
+	idSet bool
 
-	relativeFireMinute     int // 相对于截止时间的提醒时间分钟数。例如30表示截止时间前30分钟提醒；0表示截止时提醒。
-	relativeFireMinuteFlag bool
+	relativeFireMinute    int // 相对于截止时间的提醒时间分钟数。例如30表示截止时间前30分钟提醒；0表示截止时提醒。
+	relativeFireMinuteSet bool
 }
 
 func NewReminderBuilder() *ReminderBuilder {
@@ -3066,7 +3255,7 @@ func NewReminderBuilder() *ReminderBuilder {
 // 示例值：10
 func (builder *ReminderBuilder) Id(id string) *ReminderBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3075,17 +3264,17 @@ func (builder *ReminderBuilder) Id(id string) *ReminderBuilder {
 // 示例值：30
 func (builder *ReminderBuilder) RelativeFireMinute(relativeFireMinute int) *ReminderBuilder {
 	builder.relativeFireMinute = relativeFireMinute
-	builder.relativeFireMinuteFlag = true
+	builder.relativeFireMinuteSet = true
 	return builder
 }
 
 func (builder *ReminderBuilder) Build() *Reminder {
 	req := &Reminder{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.relativeFireMinuteFlag {
+	if builder.relativeFireMinuteSet {
 		req.RelativeFireMinute = &builder.relativeFireMinute
 
 	}
@@ -3100,10 +3289,10 @@ type Resource struct {
 
 type ResourceBuilder struct {
 	type_    string // 资源类型
-	typeFlag bool
+	type_Set bool
 
-	id     string // 资源ID
-	idFlag bool
+	id    string // 资源ID
+	idSet bool
 }
 
 func NewResourceBuilder() *ResourceBuilder {
@@ -3116,7 +3305,7 @@ func NewResourceBuilder() *ResourceBuilder {
 // 示例值：task
 func (builder *ResourceBuilder) Type(type_ string) *ResourceBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -3125,17 +3314,17 @@ func (builder *ResourceBuilder) Type(type_ string) *ResourceBuilder {
 // 示例值：e6e37dcc-f75a-5936-f589-12fb4b5c80c2
 func (builder *ResourceBuilder) Id(id string) *ResourceBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
 func (builder *ResourceBuilder) Build() *Resource {
 	req := &Resource{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
@@ -3161,29 +3350,29 @@ type Section struct {
 }
 
 type SectionBuilder struct {
-	guid     string // 自定义分组的guid
-	guidFlag bool
+	guid    string // 自定义分组的guid
+	guidSet bool
 
-	name     string // 自定义分组的名字
-	nameFlag bool
+	name    string // 自定义分组的名字
+	nameSet bool
 
-	resourceType     string // 资源类型
-	resourceTypeFlag bool
+	resourceType    string // 资源类型
+	resourceTypeSet bool
 
-	isDefault     bool // 分组是否为默认自定义分组
-	isDefaultFlag bool
+	isDefault    bool // 分组是否为默认自定义分组
+	isDefaultSet bool
 
-	creator     *Member // 自定义分组的创建者
-	creatorFlag bool
+	creator    *Member // 自定义分组的创建者
+	creatorSet bool
 
-	tasklist     *TasklistSummary // 如果该分组归属于清单，展示清单的简要信息
-	tasklistFlag bool
+	tasklist    *TasklistSummary // 如果该分组归属于清单，展示清单的简要信息
+	tasklistSet bool
 
-	createdAt     string // 自定义分组创建时间戳(ms)
-	createdAtFlag bool
+	createdAt    string // 自定义分组创建时间戳(ms)
+	createdAtSet bool
 
-	updatedAt     string // 自定义分组最近一次更新时间戳(ms)
-	updatedAtFlag bool
+	updatedAt    string // 自定义分组最近一次更新时间戳(ms)
+	updatedAtSet bool
 }
 
 func NewSectionBuilder() *SectionBuilder {
@@ -3196,7 +3385,7 @@ func NewSectionBuilder() *SectionBuilder {
 // 示例值：e6e37dcc-f75a-5936-f589-12fb4b5c80c2
 func (builder *SectionBuilder) Guid(guid string) *SectionBuilder {
 	builder.guid = guid
-	builder.guidFlag = true
+	builder.guidSet = true
 	return builder
 }
 
@@ -3205,7 +3394,7 @@ func (builder *SectionBuilder) Guid(guid string) *SectionBuilder {
 // 示例值：已经评审过的任务
 func (builder *SectionBuilder) Name(name string) *SectionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3214,7 +3403,7 @@ func (builder *SectionBuilder) Name(name string) *SectionBuilder {
 // 示例值：tasklist
 func (builder *SectionBuilder) ResourceType(resourceType string) *SectionBuilder {
 	builder.resourceType = resourceType
-	builder.resourceTypeFlag = true
+	builder.resourceTypeSet = true
 	return builder
 }
 
@@ -3223,7 +3412,7 @@ func (builder *SectionBuilder) ResourceType(resourceType string) *SectionBuilder
 // 示例值：true
 func (builder *SectionBuilder) IsDefault(isDefault bool) *SectionBuilder {
 	builder.isDefault = isDefault
-	builder.isDefaultFlag = true
+	builder.isDefaultSet = true
 	return builder
 }
 
@@ -3232,7 +3421,7 @@ func (builder *SectionBuilder) IsDefault(isDefault bool) *SectionBuilder {
 // 示例值：
 func (builder *SectionBuilder) Creator(creator *Member) *SectionBuilder {
 	builder.creator = creator
-	builder.creatorFlag = true
+	builder.creatorSet = true
 	return builder
 }
 
@@ -3241,7 +3430,7 @@ func (builder *SectionBuilder) Creator(creator *Member) *SectionBuilder {
 // 示例值：
 func (builder *SectionBuilder) Tasklist(tasklist *TasklistSummary) *SectionBuilder {
 	builder.tasklist = tasklist
-	builder.tasklistFlag = true
+	builder.tasklistSet = true
 	return builder
 }
 
@@ -3250,7 +3439,7 @@ func (builder *SectionBuilder) Tasklist(tasklist *TasklistSummary) *SectionBuild
 // 示例值：1675742789470
 func (builder *SectionBuilder) CreatedAt(createdAt string) *SectionBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -3259,39 +3448,39 @@ func (builder *SectionBuilder) CreatedAt(createdAt string) *SectionBuilder {
 // 示例值：1675742789470
 func (builder *SectionBuilder) UpdatedAt(updatedAt string) *SectionBuilder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
 func (builder *SectionBuilder) Build() *Section {
 	req := &Section{}
-	if builder.guidFlag {
+	if builder.guidSet {
 		req.Guid = &builder.guid
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.resourceTypeFlag {
+	if builder.resourceTypeSet {
 		req.ResourceType = &builder.resourceType
 
 	}
-	if builder.isDefaultFlag {
+	if builder.isDefaultSet {
 		req.IsDefault = &builder.isDefault
 
 	}
-	if builder.creatorFlag {
+	if builder.creatorSet {
 		req.Creator = builder.creator
 	}
-	if builder.tasklistFlag {
+	if builder.tasklistSet {
 		req.Tasklist = builder.tasklist
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
@@ -3307,14 +3496,14 @@ type SectionSummary struct {
 }
 
 type SectionSummaryBuilder struct {
-	guid     string // 自定义分组的全局唯一ID
-	guidFlag bool
+	guid    string // 自定义分组的全局唯一ID
+	guidSet bool
 
-	name     string // 自定义分组的名称
-	nameFlag bool
+	name    string // 自定义分组的名称
+	nameSet bool
 
-	isDefault     bool // 是否是默认分组
-	isDefaultFlag bool
+	isDefault    bool // 是否是默认分组
+	isDefaultSet bool
 }
 
 func NewSectionSummaryBuilder() *SectionSummaryBuilder {
@@ -3327,7 +3516,7 @@ func NewSectionSummaryBuilder() *SectionSummaryBuilder {
 // 示例值：e6e37dcc-f75a-5936-f589-12fb4b5c80c2
 func (builder *SectionSummaryBuilder) Guid(guid string) *SectionSummaryBuilder {
 	builder.guid = guid
-	builder.guidFlag = true
+	builder.guidSet = true
 	return builder
 }
 
@@ -3336,7 +3525,7 @@ func (builder *SectionSummaryBuilder) Guid(guid string) *SectionSummaryBuilder {
 // 示例值：审核过的任务
 func (builder *SectionSummaryBuilder) Name(name string) *SectionSummaryBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3345,21 +3534,21 @@ func (builder *SectionSummaryBuilder) Name(name string) *SectionSummaryBuilder {
 // 示例值：true
 func (builder *SectionSummaryBuilder) IsDefault(isDefault bool) *SectionSummaryBuilder {
 	builder.isDefault = isDefault
-	builder.isDefaultFlag = true
+	builder.isDefaultSet = true
 	return builder
 }
 
 func (builder *SectionSummaryBuilder) Build() *SectionSummary {
 	req := &SectionSummary{}
-	if builder.guidFlag {
+	if builder.guidSet {
 		req.Guid = &builder.guid
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.isDefaultFlag {
+	if builder.isDefaultSet {
 		req.IsDefault = &builder.isDefault
 
 	}
@@ -3371,8 +3560,8 @@ type SelectSetting struct {
 }
 
 type SelectSettingBuilder struct {
-	options     []*Option // 选项
-	optionsFlag bool
+	options    []*Option // 选项
+	optionsSet bool
 }
 
 func NewSelectSettingBuilder() *SelectSettingBuilder {
@@ -3385,13 +3574,13 @@ func NewSelectSettingBuilder() *SelectSettingBuilder {
 // 示例值：
 func (builder *SelectSettingBuilder) Options(options []*Option) *SelectSettingBuilder {
 	builder.options = options
-	builder.optionsFlag = true
+	builder.optionsSet = true
 	return builder
 }
 
 func (builder *SelectSettingBuilder) Build() *SelectSetting {
 	req := &SelectSetting{}
-	if builder.optionsFlag {
+	if builder.optionsSet {
 		req.Options = builder.options
 	}
 	return req
@@ -3404,11 +3593,11 @@ type Start struct {
 }
 
 type StartBuilder struct {
-	timestamp     string // 开始时间/日期的时间戳，距1970-01-01 00:00:00的毫秒数。如果开始时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true
-	timestampFlag bool
+	timestamp    string // 开始时间/日期的时间戳，距1970-01-01 00:00:00的毫秒数。如果开始时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true
+	timestampSet bool
 
-	isAllDay     bool // 是否开始于一个日期。如果设为true，timestamp中只有日期的部分会被解析和存储。
-	isAllDayFlag bool
+	isAllDay    bool // 是否开始于一个日期。如果设为true，timestamp中只有日期的部分会被解析和存储。
+	isAllDaySet bool
 }
 
 func NewStartBuilder() *StartBuilder {
@@ -3421,7 +3610,7 @@ func NewStartBuilder() *StartBuilder {
 // 示例值：1675454764000
 func (builder *StartBuilder) Timestamp(timestamp string) *StartBuilder {
 	builder.timestamp = timestamp
-	builder.timestampFlag = true
+	builder.timestampSet = true
 	return builder
 }
 
@@ -3430,17 +3619,17 @@ func (builder *StartBuilder) Timestamp(timestamp string) *StartBuilder {
 // 示例值：true
 func (builder *StartBuilder) IsAllDay(isAllDay bool) *StartBuilder {
 	builder.isAllDay = isAllDay
-	builder.isAllDayFlag = true
+	builder.isAllDaySet = true
 	return builder
 }
 
 func (builder *StartBuilder) Build() *Start {
 	req := &Start{}
-	if builder.timestampFlag {
+	if builder.timestampSet {
 		req.Timestamp = &builder.timestamp
 
 	}
-	if builder.isAllDayFlag {
+	if builder.isAllDaySet {
 		req.IsAllDay = &builder.isAllDay
 
 	}
@@ -3505,95 +3694,120 @@ type Task struct {
 	AssigneeRelated []*TaskAssignee `json:"assignee_related,omitempty"` // 任务执行者相关信息，如会签任务各执行者完成时间等
 
 	PositiveReminders []*Reminder `json:"positive_reminders,omitempty"` // 正数协议任务提醒
+
+	AgentTaskStatus *int `json:"agent_task_status,omitempty"` // 智能体任务状态
+
+	AgentTaskProgress *string `json:"agent_task_progress,omitempty"` // 智能体任务进度
+
+	TextDeliveries []string `json:"text_deliveries,omitempty"` // 智能体文本类交付物
+
+	AttachmentDeliveries []*Attachment `json:"attachment_deliveries,omitempty"` // 智能体附件类交付物
+
+	NextTaskGuid *string `json:"next_task_guid,omitempty"` // 重复任务的下一个任务
 }
 
 type TaskBuilder struct {
-	guid     string // 任务guid，任务的唯一ID
-	guidFlag bool
+	guid    string // 任务guid，任务的唯一ID
+	guidSet bool
 
-	summary     string // 任务标题
-	summaryFlag bool
+	summary    string // 任务标题
+	summarySet bool
 
-	description     string // 任务描述
-	descriptionFlag bool
+	description    string // 任务描述
+	descriptionSet bool
 
-	due     *Due // 任务截止时间
-	dueFlag bool
+	due    *Due // 任务截止时间
+	dueSet bool
 
-	reminders     []*Reminder // 任务的提醒配置列表。目前每个任务最多有1个。
-	remindersFlag bool
+	reminders    []*Reminder // 任务的提醒配置列表。目前每个任务最多有1个。
+	remindersSet bool
 
-	creator     *Member // 任务创建者
-	creatorFlag bool
+	creator    *Member // 任务创建者
+	creatorSet bool
 
-	members     []*Member // 任务成员列表
-	membersFlag bool
+	members    []*Member // 任务成员列表
+	membersSet bool
 
-	completedAt     string // 任务完成的时间戳(ms)
-	completedAtFlag bool
+	completedAt    string // 任务完成的时间戳(ms)
+	completedAtSet bool
 
-	attachments     []*Attachment // 任务的附件列表
-	attachmentsFlag bool
+	attachments    []*Attachment // 任务的附件列表
+	attachmentsSet bool
 
-	origin     *Origin // 任务关联的第三方平台来源信息。创建是设置后就不可更改。
-	originFlag bool
+	origin    *Origin // 任务关联的第三方平台来源信息。创建是设置后就不可更改。
+	originSet bool
 
-	extra     string // 任务附带的自定义数据。
-	extraFlag bool
+	extra    string // 任务附带的自定义数据。
+	extraSet bool
 
-	tasklists     []*TaskInTasklistInfo // 任务所属清单的名字。调用者只能看到有权限访问的清单的列表。
-	tasklistsFlag bool
+	tasklists    []*TaskInTasklistInfo // 任务所属清单的名字。调用者只能看到有权限访问的清单的列表。
+	tasklistsSet bool
 
-	repeatRule     string // 如果任务为重复任务，返回重复任务的配置
-	repeatRuleFlag bool
+	repeatRule    string // 如果任务为重复任务，返回重复任务的配置
+	repeatRuleSet bool
 
-	parentTaskGuid     string // 如果当前任务为某个任务的子任务，返回父任务的guid
-	parentTaskGuidFlag bool
+	parentTaskGuid    string // 如果当前任务为某个任务的子任务，返回父任务的guid
+	parentTaskGuidSet bool
 
-	mode     int // 任务的模式。1 - 会签任务；2 - 或签任务
-	modeFlag bool
+	mode    int // 任务的模式。1 - 会签任务；2 - 或签任务
+	modeSet bool
 
-	source     int // 任务创建的来源
-	sourceFlag bool
+	source    int // 任务创建的来源
+	sourceSet bool
 
-	customComplete     *CustomComplete // 任务的自定义完成配置
-	customCompleteFlag bool
+	customComplete    *CustomComplete // 任务的自定义完成配置
+	customCompleteSet bool
 
-	taskId     string // 任务界面上的代码
-	taskIdFlag bool
+	taskId    string // 任务界面上的代码
+	taskIdSet bool
 
-	createdAt     string // 任务创建时间戳(ms)
-	createdAtFlag bool
+	createdAt    string // 任务创建时间戳(ms)
+	createdAtSet bool
 
-	updatedAt     string // 任务最后一次更新的时间戳(ms)
-	updatedAtFlag bool
+	updatedAt    string // 任务最后一次更新的时间戳(ms)
+	updatedAtSet bool
 
-	status     string // 任务的状态，支持"todo"和"done"两种状态
-	statusFlag bool
+	status    string // 任务的状态，支持"todo"和"done"两种状态
+	statusSet bool
 
-	url     string // 任务的分享链接
-	urlFlag bool
+	url    string // 任务的分享链接
+	urlSet bool
 
-	start     *Start // 任务的开始时间
-	startFlag bool
+	start    *Start // 任务的开始时间
+	startSet bool
 
-	subtaskCount     int // 该任务的子任务的个数。
-	subtaskCountFlag bool
+	subtaskCount    int // 该任务的子任务的个数。
+	subtaskCountSet bool
 
-	isMilestone     bool // 是否是里程碑任务
-	isMilestoneFlag bool
+	isMilestone    bool // 是否是里程碑任务
+	isMilestoneSet bool
 
-	customFields     []*CustomFieldValue // 任务的自定义字段值
-	customFieldsFlag bool
+	customFields    []*CustomFieldValue // 任务的自定义字段值
+	customFieldsSet bool
 
-	dependencies     []*TaskDependency // 任务依赖
-	dependenciesFlag bool
+	dependencies    []*TaskDependency // 任务依赖
+	dependenciesSet bool
 
-	assigneeRelated     []*TaskAssignee // 任务执行者相关信息，如会签任务各执行者完成时间等
-	assigneeRelatedFlag bool
+	assigneeRelated    []*TaskAssignee // 任务执行者相关信息，如会签任务各执行者完成时间等
+	assigneeRelatedSet bool
 
-	positiveReminders     []*Reminder // 正数协议任务提醒
-	positiveRemindersFlag bool
+	positiveReminders    []*Reminder // 正数协议任务提醒
+	positiveRemindersSet bool
+
+	agentTaskStatus    int // 智能体任务状态
+	agentTaskStatusSet bool
+
+	agentTaskProgress    string // 智能体任务进度
+	agentTaskProgressSet bool
+
+	textDeliveries    []string // 智能体文本类交付物
+	textDeliveriesSet bool
+
+	attachmentDeliveries    []*Attachment // 智能体附件类交付物
+	attachmentDeliveriesSet bool
+
+	nextTaskGuid    string // 重复任务的下一个任务
+	nextTaskGuidSet bool
 }
 
 func NewTaskBuilder() *TaskBuilder {
@@ -3606,7 +3820,7 @@ func NewTaskBuilder() *TaskBuilder {
 // 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *TaskBuilder) Guid(guid string) *TaskBuilder {
 	builder.guid = guid
-	builder.guidFlag = true
+	builder.guidSet = true
 	return builder
 }
 
@@ -3615,7 +3829,7 @@ func (builder *TaskBuilder) Guid(guid string) *TaskBuilder {
 // 示例值：进行销售年中总结
 func (builder *TaskBuilder) Summary(summary string) *TaskBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -3624,7 +3838,7 @@ func (builder *TaskBuilder) Summary(summary string) *TaskBuilder {
 // 示例值：进行销售年中总结
 func (builder *TaskBuilder) Description(description string) *TaskBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -3633,7 +3847,7 @@ func (builder *TaskBuilder) Description(description string) *TaskBuilder {
 // 示例值：1675742789470
 func (builder *TaskBuilder) Due(due *Due) *TaskBuilder {
 	builder.due = due
-	builder.dueFlag = true
+	builder.dueSet = true
 	return builder
 }
 
@@ -3642,7 +3856,7 @@ func (builder *TaskBuilder) Due(due *Due) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) Reminders(reminders []*Reminder) *TaskBuilder {
 	builder.reminders = reminders
-	builder.remindersFlag = true
+	builder.remindersSet = true
 	return builder
 }
 
@@ -3651,7 +3865,7 @@ func (builder *TaskBuilder) Reminders(reminders []*Reminder) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) Creator(creator *Member) *TaskBuilder {
 	builder.creator = creator
-	builder.creatorFlag = true
+	builder.creatorSet = true
 	return builder
 }
 
@@ -3660,7 +3874,7 @@ func (builder *TaskBuilder) Creator(creator *Member) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) Members(members []*Member) *TaskBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
@@ -3669,7 +3883,7 @@ func (builder *TaskBuilder) Members(members []*Member) *TaskBuilder {
 // 示例值：1675742789470
 func (builder *TaskBuilder) CompletedAt(completedAt string) *TaskBuilder {
 	builder.completedAt = completedAt
-	builder.completedAtFlag = true
+	builder.completedAtSet = true
 	return builder
 }
 
@@ -3678,7 +3892,7 @@ func (builder *TaskBuilder) CompletedAt(completedAt string) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) Attachments(attachments []*Attachment) *TaskBuilder {
 	builder.attachments = attachments
-	builder.attachmentsFlag = true
+	builder.attachmentsSet = true
 	return builder
 }
 
@@ -3687,7 +3901,7 @@ func (builder *TaskBuilder) Attachments(attachments []*Attachment) *TaskBuilder 
 // 示例值：
 func (builder *TaskBuilder) Origin(origin *Origin) *TaskBuilder {
 	builder.origin = origin
-	builder.originFlag = true
+	builder.originSet = true
 	return builder
 }
 
@@ -3696,7 +3910,7 @@ func (builder *TaskBuilder) Origin(origin *Origin) *TaskBuilder {
 // 示例值：dGVzdA==
 func (builder *TaskBuilder) Extra(extra string) *TaskBuilder {
 	builder.extra = extra
-	builder.extraFlag = true
+	builder.extraSet = true
 	return builder
 }
 
@@ -3705,7 +3919,7 @@ func (builder *TaskBuilder) Extra(extra string) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) Tasklists(tasklists []*TaskInTasklistInfo) *TaskBuilder {
 	builder.tasklists = tasklists
-	builder.tasklistsFlag = true
+	builder.tasklistsSet = true
 	return builder
 }
 
@@ -3714,7 +3928,7 @@ func (builder *TaskBuilder) Tasklists(tasklists []*TaskInTasklistInfo) *TaskBuil
 // 示例值：FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR
 func (builder *TaskBuilder) RepeatRule(repeatRule string) *TaskBuilder {
 	builder.repeatRule = repeatRule
-	builder.repeatRuleFlag = true
+	builder.repeatRuleSet = true
 	return builder
 }
 
@@ -3723,7 +3937,7 @@ func (builder *TaskBuilder) RepeatRule(repeatRule string) *TaskBuilder {
 // 示例值：e297ddff-06ca-4166-b917-4ce57cd3a7a0
 func (builder *TaskBuilder) ParentTaskGuid(parentTaskGuid string) *TaskBuilder {
 	builder.parentTaskGuid = parentTaskGuid
-	builder.parentTaskGuidFlag = true
+	builder.parentTaskGuidSet = true
 	return builder
 }
 
@@ -3732,7 +3946,7 @@ func (builder *TaskBuilder) ParentTaskGuid(parentTaskGuid string) *TaskBuilder {
 // 示例值：2
 func (builder *TaskBuilder) Mode(mode int) *TaskBuilder {
 	builder.mode = mode
-	builder.modeFlag = true
+	builder.modeSet = true
 	return builder
 }
 
@@ -3741,7 +3955,7 @@ func (builder *TaskBuilder) Mode(mode int) *TaskBuilder {
 // 示例值：6
 func (builder *TaskBuilder) Source(source int) *TaskBuilder {
 	builder.source = source
-	builder.sourceFlag = true
+	builder.sourceSet = true
 	return builder
 }
 
@@ -3750,7 +3964,7 @@ func (builder *TaskBuilder) Source(source int) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) CustomComplete(customComplete *CustomComplete) *TaskBuilder {
 	builder.customComplete = customComplete
-	builder.customCompleteFlag = true
+	builder.customCompleteSet = true
 	return builder
 }
 
@@ -3759,7 +3973,7 @@ func (builder *TaskBuilder) CustomComplete(customComplete *CustomComplete) *Task
 // 示例值：t6272302
 func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
 	builder.taskId = taskId
-	builder.taskIdFlag = true
+	builder.taskIdSet = true
 	return builder
 }
 
@@ -3768,7 +3982,7 @@ func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
 // 示例值：1675742789470
 func (builder *TaskBuilder) CreatedAt(createdAt string) *TaskBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -3777,7 +3991,7 @@ func (builder *TaskBuilder) CreatedAt(createdAt string) *TaskBuilder {
 // 示例值：1675742789470
 func (builder *TaskBuilder) UpdatedAt(updatedAt string) *TaskBuilder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
@@ -3786,7 +4000,7 @@ func (builder *TaskBuilder) UpdatedAt(updatedAt string) *TaskBuilder {
 // 示例值：todo
 func (builder *TaskBuilder) Status(status string) *TaskBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -3795,7 +4009,7 @@ func (builder *TaskBuilder) Status(status string) *TaskBuilder {
 // 示例值：https://applink.feishu.cn/client/todo/detail?guid=70577c8f-91ab-4c91-b359-a21a751054e8&suite_entity_num=t192012
 func (builder *TaskBuilder) Url(url string) *TaskBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -3804,7 +4018,7 @@ func (builder *TaskBuilder) Url(url string) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) Start(start *Start) *TaskBuilder {
 	builder.start = start
-	builder.startFlag = true
+	builder.startSet = true
 	return builder
 }
 
@@ -3813,7 +4027,7 @@ func (builder *TaskBuilder) Start(start *Start) *TaskBuilder {
 // 示例值：1
 func (builder *TaskBuilder) SubtaskCount(subtaskCount int) *TaskBuilder {
 	builder.subtaskCount = subtaskCount
-	builder.subtaskCountFlag = true
+	builder.subtaskCountSet = true
 	return builder
 }
 
@@ -3822,7 +4036,7 @@ func (builder *TaskBuilder) SubtaskCount(subtaskCount int) *TaskBuilder {
 // 示例值：false
 func (builder *TaskBuilder) IsMilestone(isMilestone bool) *TaskBuilder {
 	builder.isMilestone = isMilestone
-	builder.isMilestoneFlag = true
+	builder.isMilestoneSet = true
 	return builder
 }
 
@@ -3831,7 +4045,7 @@ func (builder *TaskBuilder) IsMilestone(isMilestone bool) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) CustomFields(customFields []*CustomFieldValue) *TaskBuilder {
 	builder.customFields = customFields
-	builder.customFieldsFlag = true
+	builder.customFieldsSet = true
 	return builder
 }
 
@@ -3840,7 +4054,7 @@ func (builder *TaskBuilder) CustomFields(customFields []*CustomFieldValue) *Task
 // 示例值：
 func (builder *TaskBuilder) Dependencies(dependencies []*TaskDependency) *TaskBuilder {
 	builder.dependencies = dependencies
-	builder.dependenciesFlag = true
+	builder.dependenciesSet = true
 	return builder
 }
 
@@ -3849,7 +4063,7 @@ func (builder *TaskBuilder) Dependencies(dependencies []*TaskDependency) *TaskBu
 // 示例值：
 func (builder *TaskBuilder) AssigneeRelated(assigneeRelated []*TaskAssignee) *TaskBuilder {
 	builder.assigneeRelated = assigneeRelated
-	builder.assigneeRelatedFlag = true
+	builder.assigneeRelatedSet = true
 	return builder
 }
 
@@ -3858,114 +4072,177 @@ func (builder *TaskBuilder) AssigneeRelated(assigneeRelated []*TaskAssignee) *Ta
 // 示例值：
 func (builder *TaskBuilder) PositiveReminders(positiveReminders []*Reminder) *TaskBuilder {
 	builder.positiveReminders = positiveReminders
-	builder.positiveRemindersFlag = true
+	builder.positiveRemindersSet = true
+	return builder
+}
+
+// 智能体任务状态
+//
+// 示例值：1
+func (builder *TaskBuilder) AgentTaskStatus(agentTaskStatus int) *TaskBuilder {
+	builder.agentTaskStatus = agentTaskStatus
+	builder.agentTaskStatusSet = true
+	return builder
+}
+
+// 智能体任务进度
+//
+// 示例值：1/4
+func (builder *TaskBuilder) AgentTaskProgress(agentTaskProgress string) *TaskBuilder {
+	builder.agentTaskProgress = agentTaskProgress
+	builder.agentTaskProgressSet = true
+	return builder
+}
+
+// 智能体文本类交付物
+//
+// 示例值：
+func (builder *TaskBuilder) TextDeliveries(textDeliveries []string) *TaskBuilder {
+	builder.textDeliveries = textDeliveries
+	builder.textDeliveriesSet = true
+	return builder
+}
+
+// 智能体附件类交付物
+//
+// 示例值：
+func (builder *TaskBuilder) AttachmentDeliveries(attachmentDeliveries []*Attachment) *TaskBuilder {
+	builder.attachmentDeliveries = attachmentDeliveries
+	builder.attachmentDeliveriesSet = true
+	return builder
+}
+
+// 重复任务的下一个任务
+//
+// 示例值：83912691-2e43-47fc-94a4-d512e03984fa
+func (builder *TaskBuilder) NextTaskGuid(nextTaskGuid string) *TaskBuilder {
+	builder.nextTaskGuid = nextTaskGuid
+	builder.nextTaskGuidSet = true
 	return builder
 }
 
 func (builder *TaskBuilder) Build() *Task {
 	req := &Task{}
-	if builder.guidFlag {
+	if builder.guidSet {
 		req.Guid = &builder.guid
 
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.dueFlag {
+	if builder.dueSet {
 		req.Due = builder.due
 	}
-	if builder.remindersFlag {
+	if builder.remindersSet {
 		req.Reminders = builder.reminders
 	}
-	if builder.creatorFlag {
+	if builder.creatorSet {
 		req.Creator = builder.creator
 	}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
-	if builder.completedAtFlag {
+	if builder.completedAtSet {
 		req.CompletedAt = &builder.completedAt
 
 	}
-	if builder.attachmentsFlag {
+	if builder.attachmentsSet {
 		req.Attachments = builder.attachments
 	}
-	if builder.originFlag {
+	if builder.originSet {
 		req.Origin = builder.origin
 	}
-	if builder.extraFlag {
+	if builder.extraSet {
 		req.Extra = &builder.extra
 
 	}
-	if builder.tasklistsFlag {
+	if builder.tasklistsSet {
 		req.Tasklists = builder.tasklists
 	}
-	if builder.repeatRuleFlag {
+	if builder.repeatRuleSet {
 		req.RepeatRule = &builder.repeatRule
 
 	}
-	if builder.parentTaskGuidFlag {
+	if builder.parentTaskGuidSet {
 		req.ParentTaskGuid = &builder.parentTaskGuid
 
 	}
-	if builder.modeFlag {
+	if builder.modeSet {
 		req.Mode = &builder.mode
 
 	}
-	if builder.sourceFlag {
+	if builder.sourceSet {
 		req.Source = &builder.source
 
 	}
-	if builder.customCompleteFlag {
+	if builder.customCompleteSet {
 		req.CustomComplete = builder.customComplete
 	}
-	if builder.taskIdFlag {
+	if builder.taskIdSet {
 		req.TaskId = &builder.taskId
 
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.startFlag {
+	if builder.startSet {
 		req.Start = builder.start
 	}
-	if builder.subtaskCountFlag {
+	if builder.subtaskCountSet {
 		req.SubtaskCount = &builder.subtaskCount
 
 	}
-	if builder.isMilestoneFlag {
+	if builder.isMilestoneSet {
 		req.IsMilestone = &builder.isMilestone
 
 	}
-	if builder.customFieldsFlag {
+	if builder.customFieldsSet {
 		req.CustomFields = builder.customFields
 	}
-	if builder.dependenciesFlag {
+	if builder.dependenciesSet {
 		req.Dependencies = builder.dependencies
 	}
-	if builder.assigneeRelatedFlag {
+	if builder.assigneeRelatedSet {
 		req.AssigneeRelated = builder.assigneeRelated
 	}
-	if builder.positiveRemindersFlag {
+	if builder.positiveRemindersSet {
 		req.PositiveReminders = builder.positiveReminders
+	}
+	if builder.agentTaskStatusSet {
+		req.AgentTaskStatus = &builder.agentTaskStatus
+
+	}
+	if builder.agentTaskProgressSet {
+		req.AgentTaskProgress = &builder.agentTaskProgress
+
+	}
+	if builder.textDeliveriesSet {
+		req.TextDeliveries = builder.textDeliveries
+	}
+	if builder.attachmentDeliveriesSet {
+		req.AttachmentDeliveries = builder.attachmentDeliveries
+	}
+	if builder.nextTaskGuidSet {
+		req.NextTaskGuid = &builder.nextTaskGuid
+
 	}
 	return req
 }
@@ -3993,11 +4270,11 @@ type TaskAssignee struct {
 }
 
 type TaskAssigneeBuilder struct {
-	id     string // 任务执行者的id
-	idFlag bool
+	id    string // 任务执行者的id
+	idSet bool
 
-	completedAt     string // 会签任务中执行者完成的时间戳(ms)
-	completedAtFlag bool
+	completedAt    string // 会签任务中执行者完成的时间戳(ms)
+	completedAtSet bool
 }
 
 func NewTaskAssigneeBuilder() *TaskAssigneeBuilder {
@@ -4010,7 +4287,7 @@ func NewTaskAssigneeBuilder() *TaskAssigneeBuilder {
 // 示例值：ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f
 func (builder *TaskAssigneeBuilder) Id(id string) *TaskAssigneeBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4019,17 +4296,17 @@ func (builder *TaskAssigneeBuilder) Id(id string) *TaskAssigneeBuilder {
 // 示例值：1675742789470
 func (builder *TaskAssigneeBuilder) CompletedAt(completedAt string) *TaskAssigneeBuilder {
 	builder.completedAt = completedAt
-	builder.completedAtFlag = true
+	builder.completedAtSet = true
 	return builder
 }
 
 func (builder *TaskAssigneeBuilder) Build() *TaskAssignee {
 	req := &TaskAssignee{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.completedAtFlag {
+	if builder.completedAtSet {
 		req.CompletedAt = &builder.completedAt
 
 	}
@@ -4044,10 +4321,10 @@ type TaskDependency struct {
 
 type TaskDependencyBuilder struct {
 	type_    string // 依赖类型
-	typeFlag bool
+	type_Set bool
 
-	taskGuid     string // 依赖任务的GUID
-	taskGuidFlag bool
+	taskGuid    string // 依赖任务的GUID
+	taskGuidSet bool
 }
 
 func NewTaskDependencyBuilder() *TaskDependencyBuilder {
@@ -4060,7 +4337,7 @@ func NewTaskDependencyBuilder() *TaskDependencyBuilder {
 // 示例值：next
 func (builder *TaskDependencyBuilder) Type(type_ string) *TaskDependencyBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -4069,17 +4346,17 @@ func (builder *TaskDependencyBuilder) Type(type_ string) *TaskDependencyBuilder 
 // 示例值：93b7bd05-35e6-4371-b3c9-6b7cbd7100c0
 func (builder *TaskDependencyBuilder) TaskGuid(taskGuid string) *TaskDependencyBuilder {
 	builder.taskGuid = taskGuid
-	builder.taskGuidFlag = true
+	builder.taskGuidSet = true
 	return builder
 }
 
 func (builder *TaskDependencyBuilder) Build() *TaskDependency {
 	req := &TaskDependency{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.taskGuidFlag {
+	if builder.taskGuidSet {
 		req.TaskGuid = &builder.taskGuid
 
 	}
@@ -4093,11 +4370,11 @@ type TaskInTasklistInfo struct {
 }
 
 type TaskInTasklistInfoBuilder struct {
-	tasklistGuid     string // 任务所在清单的guid
-	tasklistGuidFlag bool
+	tasklistGuid    string // 任务所在清单的guid
+	tasklistGuidSet bool
 
-	sectionGuid     string // 任务所在清单的自定义分组guid
-	sectionGuidFlag bool
+	sectionGuid    string // 任务所在清单的自定义分组guid
+	sectionGuidSet bool
 }
 
 func NewTaskInTasklistInfoBuilder() *TaskInTasklistInfoBuilder {
@@ -4110,7 +4387,7 @@ func NewTaskInTasklistInfoBuilder() *TaskInTasklistInfoBuilder {
 // 示例值：cc371766-6584-cf50-a222-c22cd9055004
 func (builder *TaskInTasklistInfoBuilder) TasklistGuid(tasklistGuid string) *TaskInTasklistInfoBuilder {
 	builder.tasklistGuid = tasklistGuid
-	builder.tasklistGuidFlag = true
+	builder.tasklistGuidSet = true
 	return builder
 }
 
@@ -4119,18 +4396,253 @@ func (builder *TaskInTasklistInfoBuilder) TasklistGuid(tasklistGuid string) *Tas
 // 示例值：e6e37dcc-f75a-5936-f589-12fb4b5c80c2
 func (builder *TaskInTasklistInfoBuilder) SectionGuid(sectionGuid string) *TaskInTasklistInfoBuilder {
 	builder.sectionGuid = sectionGuid
-	builder.sectionGuidFlag = true
+	builder.sectionGuidSet = true
 	return builder
 }
 
 func (builder *TaskInTasklistInfoBuilder) Build() *TaskInTasklistInfo {
 	req := &TaskInTasklistInfo{}
-	if builder.tasklistGuidFlag {
+	if builder.tasklistGuidSet {
 		req.TasklistGuid = &builder.tasklistGuid
 
 	}
-	if builder.sectionGuidFlag {
+	if builder.sectionGuidSet {
 		req.SectionGuid = &builder.sectionGuid
+
+	}
+	return req
+}
+
+type TaskSearchFilter struct {
+	CreatorIds []string `json:"creator_ids,omitempty"` // 创建人 IDs
+
+	AssigneeIds []string `json:"assignee_ids,omitempty"` // 负责人 IDs
+
+	IsCompleted *bool `json:"is_completed,omitempty"` // 完成状态
+
+	DueTime *TimeRange `json:"due_time,omitempty"` // 截止时间
+
+	FollowerIds []string `json:"follower_ids,omitempty"` // 关注人 IDs
+}
+
+type TaskSearchFilterBuilder struct {
+	creatorIds    []string // 创建人 IDs
+	creatorIdsSet bool
+
+	assigneeIds    []string // 负责人 IDs
+	assigneeIdsSet bool
+
+	isCompleted    bool // 完成状态
+	isCompletedSet bool
+
+	dueTime    *TimeRange // 截止时间
+	dueTimeSet bool
+
+	followerIds    []string // 关注人 IDs
+	followerIdsSet bool
+}
+
+func NewTaskSearchFilterBuilder() *TaskSearchFilterBuilder {
+	builder := &TaskSearchFilterBuilder{}
+	return builder
+}
+
+// 创建人 IDs
+//
+// 示例值：
+func (builder *TaskSearchFilterBuilder) CreatorIds(creatorIds []string) *TaskSearchFilterBuilder {
+	builder.creatorIds = creatorIds
+	builder.creatorIdsSet = true
+	return builder
+}
+
+// 负责人 IDs
+//
+// 示例值：
+func (builder *TaskSearchFilterBuilder) AssigneeIds(assigneeIds []string) *TaskSearchFilterBuilder {
+	builder.assigneeIds = assigneeIds
+	builder.assigneeIdsSet = true
+	return builder
+}
+
+// 完成状态
+//
+// 示例值：
+func (builder *TaskSearchFilterBuilder) IsCompleted(isCompleted bool) *TaskSearchFilterBuilder {
+	builder.isCompleted = isCompleted
+	builder.isCompletedSet = true
+	return builder
+}
+
+// 截止时间
+//
+// 示例值：
+func (builder *TaskSearchFilterBuilder) DueTime(dueTime *TimeRange) *TaskSearchFilterBuilder {
+	builder.dueTime = dueTime
+	builder.dueTimeSet = true
+	return builder
+}
+
+// 关注人 IDs
+//
+// 示例值：
+func (builder *TaskSearchFilterBuilder) FollowerIds(followerIds []string) *TaskSearchFilterBuilder {
+	builder.followerIds = followerIds
+	builder.followerIdsSet = true
+	return builder
+}
+
+func (builder *TaskSearchFilterBuilder) Build() *TaskSearchFilter {
+	req := &TaskSearchFilter{}
+	if builder.creatorIdsSet {
+		req.CreatorIds = builder.creatorIds
+	}
+	if builder.assigneeIdsSet {
+		req.AssigneeIds = builder.assigneeIds
+	}
+	if builder.isCompletedSet {
+		req.IsCompleted = &builder.isCompleted
+
+	}
+	if builder.dueTimeSet {
+		req.DueTime = builder.dueTime
+	}
+	if builder.followerIdsSet {
+		req.FollowerIds = builder.followerIds
+	}
+	return req
+}
+
+type TaskSearchItem struct {
+	Id *string `json:"id,omitempty"` // 任务 ID
+
+	DisplayInfo *string `json:"display_info,omitempty"` // 包含任务基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+
+	MetaData *TaskSearchMeta `json:"meta_data,omitempty"` // 任务元信息
+}
+
+type TaskSearchItemBuilder struct {
+	id    string // 任务 ID
+	idSet bool
+
+	displayInfo    string // 包含任务基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+	displayInfoSet bool
+
+	metaData    *TaskSearchMeta // 任务元信息
+	metaDataSet bool
+}
+
+func NewTaskSearchItemBuilder() *TaskSearchItemBuilder {
+	builder := &TaskSearchItemBuilder{}
+	return builder
+}
+
+// 任务 ID
+//
+// 示例值：123456789
+func (builder *TaskSearchItemBuilder) Id(id string) *TaskSearchItemBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 包含任务基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+//
+// 示例值：任务<h>搜索</h>
+func (builder *TaskSearchItemBuilder) DisplayInfo(displayInfo string) *TaskSearchItemBuilder {
+	builder.displayInfo = displayInfo
+	builder.displayInfoSet = true
+	return builder
+}
+
+// 任务元信息
+//
+// 示例值：
+func (builder *TaskSearchItemBuilder) MetaData(metaData *TaskSearchMeta) *TaskSearchItemBuilder {
+	builder.metaData = metaData
+	builder.metaDataSet = true
+	return builder
+}
+
+func (builder *TaskSearchItemBuilder) Build() *TaskSearchItem {
+	req := &TaskSearchItem{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.displayInfoSet {
+		req.DisplayInfo = &builder.displayInfo
+
+	}
+	if builder.metaDataSet {
+		req.MetaData = builder.metaData
+	}
+	return req
+}
+
+type TaskSearchMeta struct {
+	AppLink *string `json:"app_link,omitempty"` // 任务的 AppLink
+
+	Avatar *string `json:"avatar,omitempty"` // 任务头像
+
+	Description *string `json:"description,omitempty"` // 任务描述
+}
+
+type TaskSearchMetaBuilder struct {
+	appLink    string // 任务的 AppLink
+	appLinkSet bool
+
+	avatar    string // 任务头像
+	avatarSet bool
+
+	description    string // 任务描述
+	descriptionSet bool
+}
+
+func NewTaskSearchMetaBuilder() *TaskSearchMetaBuilder {
+	builder := &TaskSearchMetaBuilder{}
+	return builder
+}
+
+// 任务的 AppLink
+//
+// 示例值：https://applink.feishu.cn/client/todo/detail?guid=ed03112a-0a25-451e-8453-ba1d80cc1b7e
+func (builder *TaskSearchMetaBuilder) AppLink(appLink string) *TaskSearchMetaBuilder {
+	builder.appLink = appLink
+	builder.appLinkSet = true
+	return builder
+}
+
+// 任务头像
+//
+// 示例值：https://p3-lark-file.byteimg.com/img/lark-avatar-staging/default-avatar_44ae0ca3-e140-494b-956f-78091e348435~100x100.jpg
+func (builder *TaskSearchMetaBuilder) Avatar(avatar string) *TaskSearchMetaBuilder {
+	builder.avatar = avatar
+	builder.avatarSet = true
+	return builder
+}
+
+// 任务描述
+//
+// 示例值：这是一个用来测试的任务
+func (builder *TaskSearchMetaBuilder) Description(description string) *TaskSearchMetaBuilder {
+	builder.description = description
+	builder.descriptionSet = true
+	return builder
+}
+
+func (builder *TaskSearchMetaBuilder) Build() *TaskSearchMeta {
+	req := &TaskSearchMeta{}
+	if builder.appLinkSet {
+		req.AppLink = &builder.appLink
+
+	}
+	if builder.avatarSet {
+		req.Avatar = &builder.avatar
+
+	}
+	if builder.descriptionSet {
+		req.Description = &builder.description
 
 	}
 	return req
@@ -4145,14 +4657,14 @@ type TaskStatistics struct {
 }
 
 type TaskStatisticsBuilder struct {
-	totalTasksCount     int // 任务总数
-	totalTasksCountFlag bool
+	totalTasksCount    int // 任务总数
+	totalTasksCountSet bool
 
-	totalCompletedTasksCount     int // 已完成任务的数量
-	totalCompletedTasksCountFlag bool
+	totalCompletedTasksCount    int // 已完成任务的数量
+	totalCompletedTasksCountSet bool
 
-	totalUncompletedTasksCount     int // 未完成任务的数量
-	totalUncompletedTasksCountFlag bool
+	totalUncompletedTasksCount    int // 未完成任务的数量
+	totalUncompletedTasksCountSet bool
 }
 
 func NewTaskStatisticsBuilder() *TaskStatisticsBuilder {
@@ -4165,7 +4677,7 @@ func NewTaskStatisticsBuilder() *TaskStatisticsBuilder {
 // 示例值：12
 func (builder *TaskStatisticsBuilder) TotalTasksCount(totalTasksCount int) *TaskStatisticsBuilder {
 	builder.totalTasksCount = totalTasksCount
-	builder.totalTasksCountFlag = true
+	builder.totalTasksCountSet = true
 	return builder
 }
 
@@ -4174,7 +4686,7 @@ func (builder *TaskStatisticsBuilder) TotalTasksCount(totalTasksCount int) *Task
 // 示例值：5
 func (builder *TaskStatisticsBuilder) TotalCompletedTasksCount(totalCompletedTasksCount int) *TaskStatisticsBuilder {
 	builder.totalCompletedTasksCount = totalCompletedTasksCount
-	builder.totalCompletedTasksCountFlag = true
+	builder.totalCompletedTasksCountSet = true
 	return builder
 }
 
@@ -4183,21 +4695,21 @@ func (builder *TaskStatisticsBuilder) TotalCompletedTasksCount(totalCompletedTas
 // 示例值：7
 func (builder *TaskStatisticsBuilder) TotalUncompletedTasksCount(totalUncompletedTasksCount int) *TaskStatisticsBuilder {
 	builder.totalUncompletedTasksCount = totalUncompletedTasksCount
-	builder.totalUncompletedTasksCountFlag = true
+	builder.totalUncompletedTasksCountSet = true
 	return builder
 }
 
 func (builder *TaskStatisticsBuilder) Build() *TaskStatistics {
 	req := &TaskStatistics{}
-	if builder.totalTasksCountFlag {
+	if builder.totalTasksCountSet {
 		req.TotalTasksCount = &builder.totalTasksCount
 
 	}
-	if builder.totalCompletedTasksCountFlag {
+	if builder.totalCompletedTasksCountSet {
 		req.TotalCompletedTasksCount = &builder.totalCompletedTasksCount
 
 	}
-	if builder.totalUncompletedTasksCountFlag {
+	if builder.totalUncompletedTasksCountSet {
 		req.TotalUncompletedTasksCount = &builder.totalUncompletedTasksCount
 
 	}
@@ -4221,26 +4733,26 @@ type TaskSummary struct {
 }
 
 type TaskSummaryBuilder struct {
-	guid     string // 任务GUID
-	guidFlag bool
+	guid    string // 任务GUID
+	guidSet bool
 
-	summary     string // 任务的标题
-	summaryFlag bool
+	summary    string // 任务的标题
+	summarySet bool
 
-	completedAt     string // 任务完成的时间戳(ms)，为0表示未完成
-	completedAtFlag bool
+	completedAt    string // 任务完成的时间戳(ms)，为0表示未完成
+	completedAtSet bool
 
-	start     *Start // 任务开始时间
-	startFlag bool
+	start    *Start // 任务开始时间
+	startSet bool
 
-	due     *Due // 任务截止时间
-	dueFlag bool
+	due    *Due // 任务截止时间
+	dueSet bool
 
-	members     []*Member // 任务成员列表
-	membersFlag bool
+	members    []*Member // 任务成员列表
+	membersSet bool
 
-	subtaskCount     int // 子任务的个数
-	subtaskCountFlag bool
+	subtaskCount    int // 子任务的个数
+	subtaskCountSet bool
 }
 
 func NewTaskSummaryBuilder() *TaskSummaryBuilder {
@@ -4253,7 +4765,7 @@ func NewTaskSummaryBuilder() *TaskSummaryBuilder {
 // 示例值：e297ddff-06ca-4166-b917-4ce57cd3a7a0
 func (builder *TaskSummaryBuilder) Guid(guid string) *TaskSummaryBuilder {
 	builder.guid = guid
-	builder.guidFlag = true
+	builder.guidSet = true
 	return builder
 }
 
@@ -4262,7 +4774,7 @@ func (builder *TaskSummaryBuilder) Guid(guid string) *TaskSummaryBuilder {
 // 示例值：年终总结
 func (builder *TaskSummaryBuilder) Summary(summary string) *TaskSummaryBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -4271,7 +4783,7 @@ func (builder *TaskSummaryBuilder) Summary(summary string) *TaskSummaryBuilder {
 // 示例值：1675742789470
 func (builder *TaskSummaryBuilder) CompletedAt(completedAt string) *TaskSummaryBuilder {
 	builder.completedAt = completedAt
-	builder.completedAtFlag = true
+	builder.completedAtSet = true
 	return builder
 }
 
@@ -4280,7 +4792,7 @@ func (builder *TaskSummaryBuilder) CompletedAt(completedAt string) *TaskSummaryB
 // 示例值：
 func (builder *TaskSummaryBuilder) Start(start *Start) *TaskSummaryBuilder {
 	builder.start = start
-	builder.startFlag = true
+	builder.startSet = true
 	return builder
 }
 
@@ -4289,7 +4801,7 @@ func (builder *TaskSummaryBuilder) Start(start *Start) *TaskSummaryBuilder {
 // 示例值：
 func (builder *TaskSummaryBuilder) Due(due *Due) *TaskSummaryBuilder {
 	builder.due = due
-	builder.dueFlag = true
+	builder.dueSet = true
 	return builder
 }
 
@@ -4298,7 +4810,7 @@ func (builder *TaskSummaryBuilder) Due(due *Due) *TaskSummaryBuilder {
 // 示例值：
 func (builder *TaskSummaryBuilder) Members(members []*Member) *TaskSummaryBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
@@ -4307,34 +4819,34 @@ func (builder *TaskSummaryBuilder) Members(members []*Member) *TaskSummaryBuilde
 // 示例值：1
 func (builder *TaskSummaryBuilder) SubtaskCount(subtaskCount int) *TaskSummaryBuilder {
 	builder.subtaskCount = subtaskCount
-	builder.subtaskCountFlag = true
+	builder.subtaskCountSet = true
 	return builder
 }
 
 func (builder *TaskSummaryBuilder) Build() *TaskSummary {
 	req := &TaskSummary{}
-	if builder.guidFlag {
+	if builder.guidSet {
 		req.Guid = &builder.guid
 
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 
 	}
-	if builder.completedAtFlag {
+	if builder.completedAtSet {
 		req.CompletedAt = &builder.completedAt
 
 	}
-	if builder.startFlag {
+	if builder.startSet {
 		req.Start = builder.start
 	}
-	if builder.dueFlag {
+	if builder.dueSet {
 		req.Due = builder.due
 	}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
-	if builder.subtaskCountFlag {
+	if builder.subtaskCountSet {
 		req.SubtaskCount = &builder.subtaskCount
 
 	}
@@ -4362,32 +4874,32 @@ type Tasklist struct {
 }
 
 type TasklistBuilder struct {
-	guid     string // 清单的全局唯一ID
-	guidFlag bool
+	guid    string // 清单的全局唯一ID
+	guidSet bool
 
-	name     string // 清单名
-	nameFlag bool
+	name    string // 清单名
+	nameSet bool
 
-	creator     *Member // 清单创建者
-	creatorFlag bool
+	creator    *Member // 清单创建者
+	creatorSet bool
 
-	owner     *Member // 清单负责人
-	ownerFlag bool
+	owner    *Member // 清单负责人
+	ownerSet bool
 
-	members     []*Member // 清单协作人
-	membersFlag bool
+	members    []*Member // 清单协作人
+	membersSet bool
 
-	url     string // 该清单分享的applink
-	urlFlag bool
+	url    string // 该清单分享的applink
+	urlSet bool
 
-	createdAt     string // 清单创建时间戳(ms)
-	createdAtFlag bool
+	createdAt    string // 清单创建时间戳(ms)
+	createdAtSet bool
 
-	updatedAt     string // 清单最后一次更新时间戳（ms)
-	updatedAtFlag bool
+	updatedAt    string // 清单最后一次更新时间戳（ms)
+	updatedAtSet bool
 
-	archiveMsec     string // 清单归档时间戳(ms)
-	archiveMsecFlag bool
+	archiveMsec    string // 清单归档时间戳(ms)
+	archiveMsecSet bool
 }
 
 func NewTasklistBuilder() *TasklistBuilder {
@@ -4400,7 +4912,7 @@ func NewTasklistBuilder() *TasklistBuilder {
 // 示例值：cc371766-6584-cf50-a222-c22cd9055004
 func (builder *TasklistBuilder) Guid(guid string) *TasklistBuilder {
 	builder.guid = guid
-	builder.guidFlag = true
+	builder.guidSet = true
 	return builder
 }
 
@@ -4409,7 +4921,7 @@ func (builder *TasklistBuilder) Guid(guid string) *TasklistBuilder {
 // 示例值：年会总结工作任务清单
 func (builder *TasklistBuilder) Name(name string) *TasklistBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4418,7 +4930,7 @@ func (builder *TasklistBuilder) Name(name string) *TasklistBuilder {
 // 示例值：
 func (builder *TasklistBuilder) Creator(creator *Member) *TasklistBuilder {
 	builder.creator = creator
-	builder.creatorFlag = true
+	builder.creatorSet = true
 	return builder
 }
 
@@ -4427,7 +4939,7 @@ func (builder *TasklistBuilder) Creator(creator *Member) *TasklistBuilder {
 // 示例值：
 func (builder *TasklistBuilder) Owner(owner *Member) *TasklistBuilder {
 	builder.owner = owner
-	builder.ownerFlag = true
+	builder.ownerSet = true
 	return builder
 }
 
@@ -4436,7 +4948,7 @@ func (builder *TasklistBuilder) Owner(owner *Member) *TasklistBuilder {
 // 示例值：
 func (builder *TasklistBuilder) Members(members []*Member) *TasklistBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
@@ -4445,7 +4957,7 @@ func (builder *TasklistBuilder) Members(members []*Member) *TasklistBuilder {
 // 示例值：https://applink.feishu.cn/client/todo/task_list?guid=b45b360f-1961-4058-b338-7f50c96e1b52
 func (builder *TasklistBuilder) Url(url string) *TasklistBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -4454,7 +4966,7 @@ func (builder *TasklistBuilder) Url(url string) *TasklistBuilder {
 // 示例值：1675742789470
 func (builder *TasklistBuilder) CreatedAt(createdAt string) *TasklistBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -4463,7 +4975,7 @@ func (builder *TasklistBuilder) CreatedAt(createdAt string) *TasklistBuilder {
 // 示例值：1675742789470
 func (builder *TasklistBuilder) UpdatedAt(updatedAt string) *TasklistBuilder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
@@ -4472,42 +4984,42 @@ func (builder *TasklistBuilder) UpdatedAt(updatedAt string) *TasklistBuilder {
 // 示例值：1675742789470
 func (builder *TasklistBuilder) ArchiveMsec(archiveMsec string) *TasklistBuilder {
 	builder.archiveMsec = archiveMsec
-	builder.archiveMsecFlag = true
+	builder.archiveMsecSet = true
 	return builder
 }
 
 func (builder *TasklistBuilder) Build() *Tasklist {
 	req := &Tasklist{}
-	if builder.guidFlag {
+	if builder.guidSet {
 		req.Guid = &builder.guid
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.creatorFlag {
+	if builder.creatorSet {
 		req.Creator = builder.creator
 	}
-	if builder.ownerFlag {
+	if builder.ownerSet {
 		req.Owner = builder.owner
 	}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
-	if builder.archiveMsecFlag {
+	if builder.archiveMsecSet {
 		req.ArchiveMsec = &builder.archiveMsec
 
 	}
@@ -4527,20 +5039,20 @@ type TasklistActivitySubscription struct {
 }
 
 type TasklistActivitySubscriptionBuilder struct {
-	guid     string // 订阅guid
-	guidFlag bool
+	guid    string // 订阅guid
+	guidSet bool
 
-	name     string // 订阅名称
-	nameFlag bool
+	name    string // 订阅名称
+	nameSet bool
 
-	subscribers     []*Member // 订阅者
-	subscribersFlag bool
+	subscribers    []*Member // 订阅者
+	subscribersSet bool
 
-	includeKeys     []int // 要订阅的清单动态类型
-	includeKeysFlag bool
+	includeKeys    []int // 要订阅的清单动态类型
+	includeKeysSet bool
 
-	disabled     bool // 该订阅是否为停用
-	disabledFlag bool
+	disabled    bool // 该订阅是否为停用
+	disabledSet bool
 }
 
 func NewTasklistActivitySubscriptionBuilder() *TasklistActivitySubscriptionBuilder {
@@ -4553,7 +5065,7 @@ func NewTasklistActivitySubscriptionBuilder() *TasklistActivitySubscriptionBuild
 // 示例值：d19e3a2a-edc0-4e4e-b7cc-950e162b53ae
 func (builder *TasklistActivitySubscriptionBuilder) Guid(guid string) *TasklistActivitySubscriptionBuilder {
 	builder.guid = guid
-	builder.guidFlag = true
+	builder.guidSet = true
 	return builder
 }
 
@@ -4562,7 +5074,7 @@ func (builder *TasklistActivitySubscriptionBuilder) Guid(guid string) *TasklistA
 // 示例值：Roadmap订阅
 func (builder *TasklistActivitySubscriptionBuilder) Name(name string) *TasklistActivitySubscriptionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4571,7 +5083,7 @@ func (builder *TasklistActivitySubscriptionBuilder) Name(name string) *TasklistA
 // 示例值：
 func (builder *TasklistActivitySubscriptionBuilder) Subscribers(subscribers []*Member) *TasklistActivitySubscriptionBuilder {
 	builder.subscribers = subscribers
-	builder.subscribersFlag = true
+	builder.subscribersSet = true
 	return builder
 }
 
@@ -4580,7 +5092,7 @@ func (builder *TasklistActivitySubscriptionBuilder) Subscribers(subscribers []*M
 // 示例值：
 func (builder *TasklistActivitySubscriptionBuilder) IncludeKeys(includeKeys []int) *TasklistActivitySubscriptionBuilder {
 	builder.includeKeys = includeKeys
-	builder.includeKeysFlag = true
+	builder.includeKeysSet = true
 	return builder
 }
 
@@ -4589,28 +5101,211 @@ func (builder *TasklistActivitySubscriptionBuilder) IncludeKeys(includeKeys []in
 // 示例值：false
 func (builder *TasklistActivitySubscriptionBuilder) Disabled(disabled bool) *TasklistActivitySubscriptionBuilder {
 	builder.disabled = disabled
-	builder.disabledFlag = true
+	builder.disabledSet = true
 	return builder
 }
 
 func (builder *TasklistActivitySubscriptionBuilder) Build() *TasklistActivitySubscription {
 	req := &TasklistActivitySubscription{}
-	if builder.guidFlag {
+	if builder.guidSet {
 		req.Guid = &builder.guid
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.subscribersFlag {
+	if builder.subscribersSet {
 		req.Subscribers = builder.subscribers
 	}
-	if builder.includeKeysFlag {
+	if builder.includeKeysSet {
 		req.IncludeKeys = builder.includeKeys
 	}
-	if builder.disabledFlag {
+	if builder.disabledSet {
 		req.Disabled = &builder.disabled
+
+	}
+	return req
+}
+
+type TasklistSearchFilter struct {
+	CreateTime *TimeRange `json:"create_time,omitempty"` // 创建时间
+
+	UserId []string `json:"user_id,omitempty"` // 创建人 IDs
+}
+
+type TasklistSearchFilterBuilder struct {
+	createTime    *TimeRange // 创建时间
+	createTimeSet bool
+
+	userId    []string // 创建人 IDs
+	userIdSet bool
+}
+
+func NewTasklistSearchFilterBuilder() *TasklistSearchFilterBuilder {
+	builder := &TasklistSearchFilterBuilder{}
+	return builder
+}
+
+// 创建时间
+//
+// 示例值：
+func (builder *TasklistSearchFilterBuilder) CreateTime(createTime *TimeRange) *TasklistSearchFilterBuilder {
+	builder.createTime = createTime
+	builder.createTimeSet = true
+	return builder
+}
+
+// 创建人 IDs
+//
+// 示例值：
+func (builder *TasklistSearchFilterBuilder) UserId(userId []string) *TasklistSearchFilterBuilder {
+	builder.userId = userId
+	builder.userIdSet = true
+	return builder
+}
+
+func (builder *TasklistSearchFilterBuilder) Build() *TasklistSearchFilter {
+	req := &TasklistSearchFilter{}
+	if builder.createTimeSet {
+		req.CreateTime = builder.createTime
+	}
+	if builder.userIdSet {
+		req.UserId = builder.userId
+	}
+	return req
+}
+
+type TasklistSearchItem struct {
+	Id *string `json:"id,omitempty"` // 任务清单 ID
+
+	DisplayInfo *string `json:"display_info,omitempty"` // 包含任务清单基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+
+	MetaData *TasklistSearchMeta `json:"meta_data,omitempty"` // 任务清单元信息
+}
+
+type TasklistSearchItemBuilder struct {
+	id    string // 任务清单 ID
+	idSet bool
+
+	displayInfo    string // 包含任务清单基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+	displayInfoSet bool
+
+	metaData    *TasklistSearchMeta // 任务清单元信息
+	metaDataSet bool
+}
+
+func NewTasklistSearchItemBuilder() *TasklistSearchItemBuilder {
+	builder := &TasklistSearchItemBuilder{}
+	return builder
+}
+
+// 任务清单 ID
+//
+// 示例值：123456789
+func (builder *TasklistSearchItemBuilder) Id(id string) *TasklistSearchItemBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 包含任务清单基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+//
+// 示例值：任务清单<h>搜索</h>
+func (builder *TasklistSearchItemBuilder) DisplayInfo(displayInfo string) *TasklistSearchItemBuilder {
+	builder.displayInfo = displayInfo
+	builder.displayInfoSet = true
+	return builder
+}
+
+// 任务清单元信息
+//
+// 示例值：
+func (builder *TasklistSearchItemBuilder) MetaData(metaData *TasklistSearchMeta) *TasklistSearchItemBuilder {
+	builder.metaData = metaData
+	builder.metaDataSet = true
+	return builder
+}
+
+func (builder *TasklistSearchItemBuilder) Build() *TasklistSearchItem {
+	req := &TasklistSearchItem{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.displayInfoSet {
+		req.DisplayInfo = &builder.displayInfo
+
+	}
+	if builder.metaDataSet {
+		req.MetaData = builder.metaData
+	}
+	return req
+}
+
+type TasklistSearchMeta struct {
+	AppLink *string `json:"app_link,omitempty"` // 任务清单的 AppLink
+
+	Avatar *string `json:"avatar,omitempty"` // 任务清单头像
+
+	Description *string `json:"description,omitempty"` // 任务清单描述
+}
+
+type TasklistSearchMetaBuilder struct {
+	appLink    string // 任务清单的 AppLink
+	appLinkSet bool
+
+	avatar    string // 任务清单头像
+	avatarSet bool
+
+	description    string // 任务清单描述
+	descriptionSet bool
+}
+
+func NewTasklistSearchMetaBuilder() *TasklistSearchMetaBuilder {
+	builder := &TasklistSearchMetaBuilder{}
+	return builder
+}
+
+// 任务清单的 AppLink
+//
+// 示例值：https://applink.feishu.cn/client/todo/detail?guid=ed03112a-0a25-451e-8453-ba1d80cc1b7e
+func (builder *TasklistSearchMetaBuilder) AppLink(appLink string) *TasklistSearchMetaBuilder {
+	builder.appLink = appLink
+	builder.appLinkSet = true
+	return builder
+}
+
+// 任务清单头像
+//
+// 示例值：https://p3-lark-file.byteimg.com/img/lark-avatar-staging/default-avatar_44ae0ca3-e140-494b-956f-78091e348435~100x100.jpg
+func (builder *TasklistSearchMetaBuilder) Avatar(avatar string) *TasklistSearchMetaBuilder {
+	builder.avatar = avatar
+	builder.avatarSet = true
+	return builder
+}
+
+// 任务清单描述
+//
+// 示例值：这是一个用来测试的任务清单
+func (builder *TasklistSearchMetaBuilder) Description(description string) *TasklistSearchMetaBuilder {
+	builder.description = description
+	builder.descriptionSet = true
+	return builder
+}
+
+func (builder *TasklistSearchMetaBuilder) Build() *TasklistSearchMeta {
+	req := &TasklistSearchMeta{}
+	if builder.appLinkSet {
+		req.AppLink = &builder.appLink
+
+	}
+	if builder.avatarSet {
+		req.Avatar = &builder.avatar
+
+	}
+	if builder.descriptionSet {
+		req.Description = &builder.description
 
 	}
 	return req
@@ -4623,11 +5318,11 @@ type TasklistSummary struct {
 }
 
 type TasklistSummaryBuilder struct {
-	guid     string // 清单的全局唯一ID
-	guidFlag bool
+	guid    string // 清单的全局唯一ID
+	guidSet bool
 
-	name     string // 清单名字
-	nameFlag bool
+	name    string // 清单名字
+	nameSet bool
 }
 
 func NewTasklistSummaryBuilder() *TasklistSummaryBuilder {
@@ -4640,7 +5335,7 @@ func NewTasklistSummaryBuilder() *TasklistSummaryBuilder {
 // 示例值：cc371766-6584-cf50-a222-c22cd9055004
 func (builder *TasklistSummaryBuilder) Guid(guid string) *TasklistSummaryBuilder {
 	builder.guid = guid
-	builder.guidFlag = true
+	builder.guidSet = true
 	return builder
 }
 
@@ -4649,17 +5344,17 @@ func (builder *TasklistSummaryBuilder) Guid(guid string) *TasklistSummaryBuilder
 // 示例值：活动分工任务列表
 func (builder *TasklistSummaryBuilder) Name(name string) *TasklistSummaryBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *TasklistSummaryBuilder) Build() *TasklistSummary {
 	req := &TasklistSummary{}
-	if builder.guidFlag {
+	if builder.guidSet {
 		req.Guid = &builder.guid
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -4679,6 +5374,56 @@ func NewTextSettingBuilder() *TextSettingBuilder {
 
 func (builder *TextSettingBuilder) Build() *TextSetting {
 	req := &TextSetting{}
+	return req
+}
+
+type TimeRange struct {
+	StartTime *string `json:"start_time,omitempty"` // 范围内的起始时间 (ISO 8601)
+
+	EndTime *string `json:"end_time,omitempty"` // 范围内的结束时间 (ISO 8601)
+}
+
+type TimeRangeBuilder struct {
+	startTime    string // 范围内的起始时间 (ISO 8601)
+	startTimeSet bool
+
+	endTime    string // 范围内的结束时间 (ISO 8601)
+	endTimeSet bool
+}
+
+func NewTimeRangeBuilder() *TimeRangeBuilder {
+	builder := &TimeRangeBuilder{}
+	return builder
+}
+
+// 范围内的起始时间 (ISO 8601)
+//
+// 示例值：2026-03-21T16:15:30+08:00
+func (builder *TimeRangeBuilder) StartTime(startTime string) *TimeRangeBuilder {
+	builder.startTime = startTime
+	builder.startTimeSet = true
+	return builder
+}
+
+// 范围内的结束时间 (ISO 8601)
+//
+// 示例值：2026-03-21T16:15:30+08:00
+func (builder *TimeRangeBuilder) EndTime(endTime string) *TimeRangeBuilder {
+	builder.endTime = endTime
+	builder.endTimeSet = true
+	return builder
+}
+
+func (builder *TimeRangeBuilder) Build() *TimeRange {
+	req := &TimeRange{}
+	if builder.startTimeSet {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeSet {
+		req.EndTime = &builder.endTime
+
+	}
 	return req
 }
 
@@ -4900,6 +5645,7 @@ func (builder *UploadAttachmentReqBuilder) UserIdType(userIdType string) *Upload
 	return builder
 }
 
+//
 func (builder *UploadAttachmentReqBuilder) InputAttachment(inputAttachment *InputAttachment) *UploadAttachmentReqBuilder {
 	builder.inputAttachment = inputAttachment
 	return builder
@@ -4954,6 +5700,7 @@ func (builder *CreateCommentReqBuilder) UserIdType(userIdType string) *CreateCom
 	return builder
 }
 
+//
 func (builder *CreateCommentReqBuilder) InputComment(inputComment *InputComment) *CreateCommentReqBuilder {
 	builder.inputComment = inputComment
 	return builder
@@ -5183,11 +5930,11 @@ func (resp *ListCommentResp) Success() bool {
 }
 
 type PatchCommentReqBodyBuilder struct {
-	comment     *InputComment // 要更新的评论数据，支持更新content, md_content
-	commentFlag bool
+	comment    *InputComment // 要更新的评论数据，支持更新content, md_content
+	commentSet bool
 
-	updateFields     []string // 要更新的字段
-	updateFieldsFlag bool
+	updateFields    []string // 要更新的字段
+	updateFieldsSet bool
 }
 
 func NewPatchCommentReqBodyBuilder() *PatchCommentReqBodyBuilder {
@@ -5197,38 +5944,38 @@ func NewPatchCommentReqBodyBuilder() *PatchCommentReqBodyBuilder {
 
 // 要更新的评论数据，支持更新content, md_content
 //
-// 示例值：
+//示例值：
 func (builder *PatchCommentReqBodyBuilder) Comment(comment *InputComment) *PatchCommentReqBodyBuilder {
 	builder.comment = comment
-	builder.commentFlag = true
+	builder.commentSet = true
 	return builder
 }
 
 // 要更新的字段
 //
-// 示例值：
+//示例值：
 func (builder *PatchCommentReqBodyBuilder) UpdateFields(updateFields []string) *PatchCommentReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchCommentReqBodyBuilder) Build() *PatchCommentReqBody {
 	req := &PatchCommentReqBody{}
-	if builder.commentFlag {
+	if builder.commentSet {
 		req.Comment = builder.comment
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req
 }
 
 type PatchCommentPathReqBodyBuilder struct {
-	comment          *InputComment
-	commentFlag      bool
-	updateFields     []string
-	updateFieldsFlag bool
+	comment         *InputComment
+	commentSet      bool
+	updateFields    []string
+	updateFieldsSet bool
 }
 
 func NewPatchCommentPathReqBodyBuilder() *PatchCommentPathReqBodyBuilder {
@@ -5241,7 +5988,7 @@ func NewPatchCommentPathReqBodyBuilder() *PatchCommentPathReqBodyBuilder {
 // 示例值：
 func (builder *PatchCommentPathReqBodyBuilder) Comment(comment *InputComment) *PatchCommentPathReqBodyBuilder {
 	builder.comment = comment
-	builder.commentFlag = true
+	builder.commentSet = true
 	return builder
 }
 
@@ -5250,16 +5997,16 @@ func (builder *PatchCommentPathReqBodyBuilder) Comment(comment *InputComment) *P
 // 示例值：
 func (builder *PatchCommentPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchCommentPathReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchCommentPathReqBodyBuilder) Build() (*PatchCommentReqBody, error) {
 	req := &PatchCommentReqBody{}
-	if builder.commentFlag {
+	if builder.commentSet {
 		req.Comment = builder.comment
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req, nil
@@ -5295,6 +6042,7 @@ func (builder *PatchCommentReqBuilder) UserIdType(userIdType string) *PatchComme
 	return builder
 }
 
+//
 func (builder *PatchCommentReqBuilder) Body(body *PatchCommentReqBody) *PatchCommentReqBuilder {
 	builder.body = body
 	return builder
@@ -5335,11 +6083,11 @@ func (resp *PatchCommentResp) Success() bool {
 }
 
 type AddCustomFieldReqBodyBuilder struct {
-	resourceType     string // 要将自定义字段添加到一个资源的资源类型。目前只支持tasklist
-	resourceTypeFlag bool
+	resourceType    string // 要将自定义字段添加到一个资源的资源类型。目前只支持tasklist
+	resourceTypeSet bool
 
-	resourceId     string // 要将自定义字段添加到的资源id，目前只支持tasklist_guid
-	resourceIdFlag bool
+	resourceId    string // 要将自定义字段添加到的资源id，目前只支持tasklist_guid
+	resourceIdSet bool
 }
 
 func NewAddCustomFieldReqBodyBuilder() *AddCustomFieldReqBodyBuilder {
@@ -5349,38 +6097,38 @@ func NewAddCustomFieldReqBodyBuilder() *AddCustomFieldReqBodyBuilder {
 
 // 要将自定义字段添加到一个资源的资源类型。目前只支持tasklist
 //
-// 示例值：tasklist
+//示例值：tasklist
 func (builder *AddCustomFieldReqBodyBuilder) ResourceType(resourceType string) *AddCustomFieldReqBodyBuilder {
 	builder.resourceType = resourceType
-	builder.resourceTypeFlag = true
+	builder.resourceTypeSet = true
 	return builder
 }
 
 // 要将自定义字段添加到的资源id，目前只支持tasklist_guid
 //
-// 示例值：0110a4bd-f24b-4a93-8c1a-1732b94f9593
+//示例值：0110a4bd-f24b-4a93-8c1a-1732b94f9593
 func (builder *AddCustomFieldReqBodyBuilder) ResourceId(resourceId string) *AddCustomFieldReqBodyBuilder {
 	builder.resourceId = resourceId
-	builder.resourceIdFlag = true
+	builder.resourceIdSet = true
 	return builder
 }
 
 func (builder *AddCustomFieldReqBodyBuilder) Build() *AddCustomFieldReqBody {
 	req := &AddCustomFieldReqBody{}
-	if builder.resourceTypeFlag {
+	if builder.resourceTypeSet {
 		req.ResourceType = &builder.resourceType
 	}
-	if builder.resourceIdFlag {
+	if builder.resourceIdSet {
 		req.ResourceId = &builder.resourceId
 	}
 	return req
 }
 
 type AddCustomFieldPathReqBodyBuilder struct {
-	resourceType     string
-	resourceTypeFlag bool
-	resourceId       string
-	resourceIdFlag   bool
+	resourceType    string
+	resourceTypeSet bool
+	resourceId      string
+	resourceIdSet   bool
 }
 
 func NewAddCustomFieldPathReqBodyBuilder() *AddCustomFieldPathReqBodyBuilder {
@@ -5393,7 +6141,7 @@ func NewAddCustomFieldPathReqBodyBuilder() *AddCustomFieldPathReqBodyBuilder {
 // 示例值：tasklist
 func (builder *AddCustomFieldPathReqBodyBuilder) ResourceType(resourceType string) *AddCustomFieldPathReqBodyBuilder {
 	builder.resourceType = resourceType
-	builder.resourceTypeFlag = true
+	builder.resourceTypeSet = true
 	return builder
 }
 
@@ -5402,16 +6150,16 @@ func (builder *AddCustomFieldPathReqBodyBuilder) ResourceType(resourceType strin
 // 示例值：0110a4bd-f24b-4a93-8c1a-1732b94f9593
 func (builder *AddCustomFieldPathReqBodyBuilder) ResourceId(resourceId string) *AddCustomFieldPathReqBodyBuilder {
 	builder.resourceId = resourceId
-	builder.resourceIdFlag = true
+	builder.resourceIdSet = true
 	return builder
 }
 
 func (builder *AddCustomFieldPathReqBodyBuilder) Build() (*AddCustomFieldReqBody, error) {
 	req := &AddCustomFieldReqBody{}
-	if builder.resourceTypeFlag {
+	if builder.resourceTypeSet {
 		req.ResourceType = &builder.resourceType
 	}
-	if builder.resourceIdFlag {
+	if builder.resourceIdSet {
 		req.ResourceId = &builder.resourceId
 	}
 	return req, nil
@@ -5439,6 +6187,7 @@ func (builder *AddCustomFieldReqBuilder) CustomFieldGuid(customFieldGuid string)
 	return builder
 }
 
+//
 func (builder *AddCustomFieldReqBuilder) Body(body *AddCustomFieldReqBody) *AddCustomFieldReqBuilder {
 	builder.body = body
 	return builder
@@ -5494,6 +6243,7 @@ func (builder *CreateCustomFieldReqBuilder) UserIdType(userIdType string) *Creat
 	return builder
 }
 
+//
 func (builder *CreateCustomFieldReqBuilder) InputCustomField(inputCustomField *InputCustomField) *CreateCustomFieldReqBuilder {
 	builder.inputCustomField = inputCustomField
 	return builder
@@ -5682,11 +6432,11 @@ func (resp *ListCustomFieldResp) Success() bool {
 }
 
 type PatchCustomFieldReqBodyBuilder struct {
-	customField     *InputCustomField // 要修改的自定义字段数据
-	customFieldFlag bool
+	customField    *InputCustomField // 要修改的自定义字段数据
+	customFieldSet bool
 
-	updateFields     []string // 要修改的自定义字段类型，支持name, member_setting, number_setting, datetime_setting, single_select_setting, multi_select_setting
-	updateFieldsFlag bool
+	updateFields    []string // 要修改的自定义字段类型，支持name, member_setting, number_setting, datetime_setting, single_select_setting, multi_select_setting
+	updateFieldsSet bool
 }
 
 func NewPatchCustomFieldReqBodyBuilder() *PatchCustomFieldReqBodyBuilder {
@@ -5696,38 +6446,38 @@ func NewPatchCustomFieldReqBodyBuilder() *PatchCustomFieldReqBodyBuilder {
 
 // 要修改的自定义字段数据
 //
-// 示例值：
+//示例值：
 func (builder *PatchCustomFieldReqBodyBuilder) CustomField(customField *InputCustomField) *PatchCustomFieldReqBodyBuilder {
 	builder.customField = customField
-	builder.customFieldFlag = true
+	builder.customFieldSet = true
 	return builder
 }
 
 // 要修改的自定义字段类型，支持name, member_setting, number_setting, datetime_setting, single_select_setting, multi_select_setting
 //
-// 示例值：
+//示例值：
 func (builder *PatchCustomFieldReqBodyBuilder) UpdateFields(updateFields []string) *PatchCustomFieldReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchCustomFieldReqBodyBuilder) Build() *PatchCustomFieldReqBody {
 	req := &PatchCustomFieldReqBody{}
-	if builder.customFieldFlag {
+	if builder.customFieldSet {
 		req.CustomField = builder.customField
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req
 }
 
 type PatchCustomFieldPathReqBodyBuilder struct {
-	customField      *InputCustomField
-	customFieldFlag  bool
-	updateFields     []string
-	updateFieldsFlag bool
+	customField     *InputCustomField
+	customFieldSet  bool
+	updateFields    []string
+	updateFieldsSet bool
 }
 
 func NewPatchCustomFieldPathReqBodyBuilder() *PatchCustomFieldPathReqBodyBuilder {
@@ -5740,7 +6490,7 @@ func NewPatchCustomFieldPathReqBodyBuilder() *PatchCustomFieldPathReqBodyBuilder
 // 示例值：
 func (builder *PatchCustomFieldPathReqBodyBuilder) CustomField(customField *InputCustomField) *PatchCustomFieldPathReqBodyBuilder {
 	builder.customField = customField
-	builder.customFieldFlag = true
+	builder.customFieldSet = true
 	return builder
 }
 
@@ -5749,16 +6499,16 @@ func (builder *PatchCustomFieldPathReqBodyBuilder) CustomField(customField *Inpu
 // 示例值：
 func (builder *PatchCustomFieldPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchCustomFieldPathReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchCustomFieldPathReqBodyBuilder) Build() (*PatchCustomFieldReqBody, error) {
 	req := &PatchCustomFieldReqBody{}
-	if builder.customFieldFlag {
+	if builder.customFieldSet {
 		req.CustomField = builder.customField
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req, nil
@@ -5794,6 +6544,7 @@ func (builder *PatchCustomFieldReqBuilder) UserIdType(userIdType string) *PatchC
 	return builder
 }
 
+//
 func (builder *PatchCustomFieldReqBuilder) Body(body *PatchCustomFieldReqBody) *PatchCustomFieldReqBuilder {
 	builder.body = body
 	return builder
@@ -5834,11 +6585,11 @@ func (resp *PatchCustomFieldResp) Success() bool {
 }
 
 type RemoveCustomFieldReqBodyBuilder struct {
-	resourceType     string // 要从某个资源移除自定义字段的资源类型，目前只支持清单"tasklist"。
-	resourceTypeFlag bool
+	resourceType    string // 要从某个资源移除自定义字段的资源类型，目前只支持清单"tasklist"。
+	resourceTypeSet bool
 
-	resourceId     string // 要从某个资源移除自定义字段的资源id，`resource_type`为"tasklist"时，需填写清单的GUID
-	resourceIdFlag bool
+	resourceId    string // 要从某个资源移除自定义字段的资源id，`resource_type`为"tasklist"时，需填写清单的GUID
+	resourceIdSet bool
 }
 
 func NewRemoveCustomFieldReqBodyBuilder() *RemoveCustomFieldReqBodyBuilder {
@@ -5848,38 +6599,38 @@ func NewRemoveCustomFieldReqBodyBuilder() *RemoveCustomFieldReqBodyBuilder {
 
 // 要从某个资源移除自定义字段的资源类型，目前只支持清单"tasklist"。
 //
-// 示例值：tasklist
+//示例值：tasklist
 func (builder *RemoveCustomFieldReqBodyBuilder) ResourceType(resourceType string) *RemoveCustomFieldReqBodyBuilder {
 	builder.resourceType = resourceType
-	builder.resourceTypeFlag = true
+	builder.resourceTypeSet = true
 	return builder
 }
 
 // 要从某个资源移除自定义字段的资源id，`resource_type`为"tasklist"时，需填写清单的GUID
 //
-// 示例值：0110a4bd-f24b-4a93-8c1a-1732b94f9593
+//示例值：0110a4bd-f24b-4a93-8c1a-1732b94f9593
 func (builder *RemoveCustomFieldReqBodyBuilder) ResourceId(resourceId string) *RemoveCustomFieldReqBodyBuilder {
 	builder.resourceId = resourceId
-	builder.resourceIdFlag = true
+	builder.resourceIdSet = true
 	return builder
 }
 
 func (builder *RemoveCustomFieldReqBodyBuilder) Build() *RemoveCustomFieldReqBody {
 	req := &RemoveCustomFieldReqBody{}
-	if builder.resourceTypeFlag {
+	if builder.resourceTypeSet {
 		req.ResourceType = &builder.resourceType
 	}
-	if builder.resourceIdFlag {
+	if builder.resourceIdSet {
 		req.ResourceId = &builder.resourceId
 	}
 	return req
 }
 
 type RemoveCustomFieldPathReqBodyBuilder struct {
-	resourceType     string
-	resourceTypeFlag bool
-	resourceId       string
-	resourceIdFlag   bool
+	resourceType    string
+	resourceTypeSet bool
+	resourceId      string
+	resourceIdSet   bool
 }
 
 func NewRemoveCustomFieldPathReqBodyBuilder() *RemoveCustomFieldPathReqBodyBuilder {
@@ -5892,7 +6643,7 @@ func NewRemoveCustomFieldPathReqBodyBuilder() *RemoveCustomFieldPathReqBodyBuild
 // 示例值：tasklist
 func (builder *RemoveCustomFieldPathReqBodyBuilder) ResourceType(resourceType string) *RemoveCustomFieldPathReqBodyBuilder {
 	builder.resourceType = resourceType
-	builder.resourceTypeFlag = true
+	builder.resourceTypeSet = true
 	return builder
 }
 
@@ -5901,16 +6652,16 @@ func (builder *RemoveCustomFieldPathReqBodyBuilder) ResourceType(resourceType st
 // 示例值：0110a4bd-f24b-4a93-8c1a-1732b94f9593
 func (builder *RemoveCustomFieldPathReqBodyBuilder) ResourceId(resourceId string) *RemoveCustomFieldPathReqBodyBuilder {
 	builder.resourceId = resourceId
-	builder.resourceIdFlag = true
+	builder.resourceIdSet = true
 	return builder
 }
 
 func (builder *RemoveCustomFieldPathReqBodyBuilder) Build() (*RemoveCustomFieldReqBody, error) {
 	req := &RemoveCustomFieldReqBody{}
-	if builder.resourceTypeFlag {
+	if builder.resourceTypeSet {
 		req.ResourceType = &builder.resourceType
 	}
-	if builder.resourceIdFlag {
+	if builder.resourceIdSet {
 		req.ResourceId = &builder.resourceId
 	}
 	return req, nil
@@ -5938,6 +6689,7 @@ func (builder *RemoveCustomFieldReqBuilder) CustomFieldGuid(customFieldGuid stri
 	return builder
 }
 
+//
 func (builder *RemoveCustomFieldReqBuilder) Body(body *RemoveCustomFieldReqBody) *RemoveCustomFieldReqBuilder {
 	builder.body = body
 	return builder
@@ -5993,6 +6745,7 @@ func (builder *CreateCustomFieldOptionReqBuilder) CustomFieldGuid(customFieldGui
 	return builder
 }
 
+//
 func (builder *CreateCustomFieldOptionReqBuilder) InputOption(inputOption *InputOption) *CreateCustomFieldOptionReqBuilder {
 	builder.inputOption = inputOption
 	return builder
@@ -6026,11 +6779,11 @@ func (resp *CreateCustomFieldOptionResp) Success() bool {
 }
 
 type PatchCustomFieldOptionReqBodyBuilder struct {
-	option     *InputOption // 要更新的option数据
-	optionFlag bool
+	option    *InputOption // 要更新的option数据
+	optionSet bool
 
-	updateFields     []string // 要更新的字段名，支持name,color,is_hidden,insert_before,insert_after
-	updateFieldsFlag bool
+	updateFields    []string // 要更新的字段名，支持name,color,is_hidden,insert_before,insert_after
+	updateFieldsSet bool
 }
 
 func NewPatchCustomFieldOptionReqBodyBuilder() *PatchCustomFieldOptionReqBodyBuilder {
@@ -6040,38 +6793,38 @@ func NewPatchCustomFieldOptionReqBodyBuilder() *PatchCustomFieldOptionReqBodyBui
 
 // 要更新的option数据
 //
-// 示例值：
+//示例值：
 func (builder *PatchCustomFieldOptionReqBodyBuilder) Option(option *InputOption) *PatchCustomFieldOptionReqBodyBuilder {
 	builder.option = option
-	builder.optionFlag = true
+	builder.optionSet = true
 	return builder
 }
 
 // 要更新的字段名，支持name,color,is_hidden,insert_before,insert_after
 //
-// 示例值：
+//示例值：
 func (builder *PatchCustomFieldOptionReqBodyBuilder) UpdateFields(updateFields []string) *PatchCustomFieldOptionReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchCustomFieldOptionReqBodyBuilder) Build() *PatchCustomFieldOptionReqBody {
 	req := &PatchCustomFieldOptionReqBody{}
-	if builder.optionFlag {
+	if builder.optionSet {
 		req.Option = builder.option
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req
 }
 
 type PatchCustomFieldOptionPathReqBodyBuilder struct {
-	option           *InputOption
-	optionFlag       bool
-	updateFields     []string
-	updateFieldsFlag bool
+	option          *InputOption
+	optionSet       bool
+	updateFields    []string
+	updateFieldsSet bool
 }
 
 func NewPatchCustomFieldOptionPathReqBodyBuilder() *PatchCustomFieldOptionPathReqBodyBuilder {
@@ -6084,7 +6837,7 @@ func NewPatchCustomFieldOptionPathReqBodyBuilder() *PatchCustomFieldOptionPathRe
 // 示例值：
 func (builder *PatchCustomFieldOptionPathReqBodyBuilder) Option(option *InputOption) *PatchCustomFieldOptionPathReqBodyBuilder {
 	builder.option = option
-	builder.optionFlag = true
+	builder.optionSet = true
 	return builder
 }
 
@@ -6093,16 +6846,16 @@ func (builder *PatchCustomFieldOptionPathReqBodyBuilder) Option(option *InputOpt
 // 示例值：
 func (builder *PatchCustomFieldOptionPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchCustomFieldOptionPathReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchCustomFieldOptionPathReqBodyBuilder) Build() (*PatchCustomFieldOptionReqBody, error) {
 	req := &PatchCustomFieldOptionReqBody{}
-	if builder.optionFlag {
+	if builder.optionSet {
 		req.Option = builder.option
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req, nil
@@ -6138,6 +6891,7 @@ func (builder *PatchCustomFieldOptionReqBuilder) OptionGuid(optionGuid string) *
 	return builder
 }
 
+//
 func (builder *PatchCustomFieldOptionReqBuilder) Body(body *PatchCustomFieldOptionReqBody) *PatchCustomFieldOptionReqBuilder {
 	builder.body = body
 	return builder
@@ -6198,6 +6952,7 @@ func (builder *CreateSectionReqBuilder) UserIdType(userIdType string) *CreateSec
 	return builder
 }
 
+//
 func (builder *CreateSectionReqBuilder) InputSection(inputSection *InputSection) *CreateSectionReqBuilder {
 	builder.inputSection = inputSection
 	return builder
@@ -6427,11 +7182,11 @@ func (resp *ListSectionResp) Success() bool {
 }
 
 type PatchSectionReqBodyBuilder struct {
-	section     *InputSection // 要更新的自定义分组的数据，仅支持name, insert_after, insert_before
-	sectionFlag bool
+	section    *InputSection // 要更新的自定义分组的数据，仅支持name, insert_after, insert_before
+	sectionSet bool
 
-	updateFields     []string // 要更新的字段名
-	updateFieldsFlag bool
+	updateFields    []string // 要更新的字段名
+	updateFieldsSet bool
 }
 
 func NewPatchSectionReqBodyBuilder() *PatchSectionReqBodyBuilder {
@@ -6441,38 +7196,38 @@ func NewPatchSectionReqBodyBuilder() *PatchSectionReqBodyBuilder {
 
 // 要更新的自定义分组的数据，仅支持name, insert_after, insert_before
 //
-// 示例值：
+//示例值：
 func (builder *PatchSectionReqBodyBuilder) Section(section *InputSection) *PatchSectionReqBodyBuilder {
 	builder.section = section
-	builder.sectionFlag = true
+	builder.sectionSet = true
 	return builder
 }
 
 // 要更新的字段名
 //
-// 示例值：
+//示例值：
 func (builder *PatchSectionReqBodyBuilder) UpdateFields(updateFields []string) *PatchSectionReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchSectionReqBodyBuilder) Build() *PatchSectionReqBody {
 	req := &PatchSectionReqBody{}
-	if builder.sectionFlag {
+	if builder.sectionSet {
 		req.Section = builder.section
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req
 }
 
 type PatchSectionPathReqBodyBuilder struct {
-	section          *InputSection
-	sectionFlag      bool
-	updateFields     []string
-	updateFieldsFlag bool
+	section         *InputSection
+	sectionSet      bool
+	updateFields    []string
+	updateFieldsSet bool
 }
 
 func NewPatchSectionPathReqBodyBuilder() *PatchSectionPathReqBodyBuilder {
@@ -6485,7 +7240,7 @@ func NewPatchSectionPathReqBodyBuilder() *PatchSectionPathReqBodyBuilder {
 // 示例值：
 func (builder *PatchSectionPathReqBodyBuilder) Section(section *InputSection) *PatchSectionPathReqBodyBuilder {
 	builder.section = section
-	builder.sectionFlag = true
+	builder.sectionSet = true
 	return builder
 }
 
@@ -6494,16 +7249,16 @@ func (builder *PatchSectionPathReqBodyBuilder) Section(section *InputSection) *P
 // 示例值：
 func (builder *PatchSectionPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchSectionPathReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchSectionPathReqBodyBuilder) Build() (*PatchSectionReqBody, error) {
 	req := &PatchSectionReqBody{}
-	if builder.sectionFlag {
+	if builder.sectionSet {
 		req.Section = builder.section
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req, nil
@@ -6539,6 +7294,7 @@ func (builder *PatchSectionReqBuilder) UserIdType(userIdType string) *PatchSecti
 	return builder
 }
 
+//
 func (builder *PatchSectionReqBuilder) Body(body *PatchSectionReqBody) *PatchSectionReqBuilder {
 	builder.body = body
 	return builder
@@ -6688,8 +7444,8 @@ func (resp *TasksSectionResp) Success() bool {
 }
 
 type AddDependenciesTaskReqBodyBuilder struct {
-	dependencies     []*TaskDependency // 要添加的依赖
-	dependenciesFlag bool
+	dependencies    []*TaskDependency // 要添加的依赖
+	dependenciesSet bool
 }
 
 func NewAddDependenciesTaskReqBodyBuilder() *AddDependenciesTaskReqBodyBuilder {
@@ -6699,24 +7455,24 @@ func NewAddDependenciesTaskReqBodyBuilder() *AddDependenciesTaskReqBodyBuilder {
 
 // 要添加的依赖
 //
-// 示例值：
+//示例值：
 func (builder *AddDependenciesTaskReqBodyBuilder) Dependencies(dependencies []*TaskDependency) *AddDependenciesTaskReqBodyBuilder {
 	builder.dependencies = dependencies
-	builder.dependenciesFlag = true
+	builder.dependenciesSet = true
 	return builder
 }
 
 func (builder *AddDependenciesTaskReqBodyBuilder) Build() *AddDependenciesTaskReqBody {
 	req := &AddDependenciesTaskReqBody{}
-	if builder.dependenciesFlag {
+	if builder.dependenciesSet {
 		req.Dependencies = builder.dependencies
 	}
 	return req
 }
 
 type AddDependenciesTaskPathReqBodyBuilder struct {
-	dependencies     []*TaskDependency
-	dependenciesFlag bool
+	dependencies    []*TaskDependency
+	dependenciesSet bool
 }
 
 func NewAddDependenciesTaskPathReqBodyBuilder() *AddDependenciesTaskPathReqBodyBuilder {
@@ -6729,13 +7485,13 @@ func NewAddDependenciesTaskPathReqBodyBuilder() *AddDependenciesTaskPathReqBodyB
 // 示例值：
 func (builder *AddDependenciesTaskPathReqBodyBuilder) Dependencies(dependencies []*TaskDependency) *AddDependenciesTaskPathReqBodyBuilder {
 	builder.dependencies = dependencies
-	builder.dependenciesFlag = true
+	builder.dependenciesSet = true
 	return builder
 }
 
 func (builder *AddDependenciesTaskPathReqBodyBuilder) Build() (*AddDependenciesTaskReqBody, error) {
 	req := &AddDependenciesTaskReqBody{}
-	if builder.dependenciesFlag {
+	if builder.dependenciesSet {
 		req.Dependencies = builder.dependencies
 	}
 	return req, nil
@@ -6763,6 +7519,7 @@ func (builder *AddDependenciesTaskReqBuilder) TaskGuid(taskGuid string) *AddDepe
 	return builder
 }
 
+//
 func (builder *AddDependenciesTaskReqBuilder) Body(body *AddDependenciesTaskReqBody) *AddDependenciesTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -6800,11 +7557,11 @@ func (resp *AddDependenciesTaskResp) Success() bool {
 }
 
 type AddMembersTaskReqBodyBuilder struct {
-	members     []*Member // 要添加的members列表
-	membersFlag bool
+	members    []*Member // 要添加的members列表
+	membersSet bool
 
-	clientToken     string // 幂等token，如果提供则实现幂等行为
-	clientTokenFlag bool
+	clientToken    string // 幂等token，如果提供则实现幂等行为
+	clientTokenSet bool
 }
 
 func NewAddMembersTaskReqBodyBuilder() *AddMembersTaskReqBodyBuilder {
@@ -6814,38 +7571,38 @@ func NewAddMembersTaskReqBodyBuilder() *AddMembersTaskReqBodyBuilder {
 
 // 要添加的members列表
 //
-// 示例值：
+//示例值：
 func (builder *AddMembersTaskReqBodyBuilder) Members(members []*Member) *AddMembersTaskReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 // 幂等token，如果提供则实现幂等行为
 //
-// 示例值：6d99f59c-4d7d-4452-98d6-3d0556393cf6
+//示例值：6d99f59c-4d7d-4452-98d6-3d0556393cf6
 func (builder *AddMembersTaskReqBodyBuilder) ClientToken(clientToken string) *AddMembersTaskReqBodyBuilder {
 	builder.clientToken = clientToken
-	builder.clientTokenFlag = true
+	builder.clientTokenSet = true
 	return builder
 }
 
 func (builder *AddMembersTaskReqBodyBuilder) Build() *AddMembersTaskReqBody {
 	req := &AddMembersTaskReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
-	if builder.clientTokenFlag {
+	if builder.clientTokenSet {
 		req.ClientToken = &builder.clientToken
 	}
 	return req
 }
 
 type AddMembersTaskPathReqBodyBuilder struct {
-	members         []*Member
-	membersFlag     bool
-	clientToken     string
-	clientTokenFlag bool
+	members        []*Member
+	membersSet     bool
+	clientToken    string
+	clientTokenSet bool
 }
 
 func NewAddMembersTaskPathReqBodyBuilder() *AddMembersTaskPathReqBodyBuilder {
@@ -6858,7 +7615,7 @@ func NewAddMembersTaskPathReqBodyBuilder() *AddMembersTaskPathReqBodyBuilder {
 // 示例值：
 func (builder *AddMembersTaskPathReqBodyBuilder) Members(members []*Member) *AddMembersTaskPathReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
@@ -6867,16 +7624,16 @@ func (builder *AddMembersTaskPathReqBodyBuilder) Members(members []*Member) *Add
 // 示例值：6d99f59c-4d7d-4452-98d6-3d0556393cf6
 func (builder *AddMembersTaskPathReqBodyBuilder) ClientToken(clientToken string) *AddMembersTaskPathReqBodyBuilder {
 	builder.clientToken = clientToken
-	builder.clientTokenFlag = true
+	builder.clientTokenSet = true
 	return builder
 }
 
 func (builder *AddMembersTaskPathReqBodyBuilder) Build() (*AddMembersTaskReqBody, error) {
 	req := &AddMembersTaskReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
-	if builder.clientTokenFlag {
+	if builder.clientTokenSet {
 		req.ClientToken = &builder.clientToken
 	}
 	return req, nil
@@ -6912,6 +7669,7 @@ func (builder *AddMembersTaskReqBuilder) UserIdType(userIdType string) *AddMembe
 	return builder
 }
 
+//
 func (builder *AddMembersTaskReqBuilder) Body(body *AddMembersTaskReqBody) *AddMembersTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -6952,8 +7710,8 @@ func (resp *AddMembersTaskResp) Success() bool {
 }
 
 type AddRemindersTaskReqBodyBuilder struct {
-	reminders     []*Reminder // 要添加的reminder的列表
-	remindersFlag bool
+	reminders    []*Reminder // 要添加的reminder的列表
+	remindersSet bool
 }
 
 func NewAddRemindersTaskReqBodyBuilder() *AddRemindersTaskReqBodyBuilder {
@@ -6963,24 +7721,24 @@ func NewAddRemindersTaskReqBodyBuilder() *AddRemindersTaskReqBodyBuilder {
 
 // 要添加的reminder的列表
 //
-// 示例值：
+//示例值：
 func (builder *AddRemindersTaskReqBodyBuilder) Reminders(reminders []*Reminder) *AddRemindersTaskReqBodyBuilder {
 	builder.reminders = reminders
-	builder.remindersFlag = true
+	builder.remindersSet = true
 	return builder
 }
 
 func (builder *AddRemindersTaskReqBodyBuilder) Build() *AddRemindersTaskReqBody {
 	req := &AddRemindersTaskReqBody{}
-	if builder.remindersFlag {
+	if builder.remindersSet {
 		req.Reminders = builder.reminders
 	}
 	return req
 }
 
 type AddRemindersTaskPathReqBodyBuilder struct {
-	reminders     []*Reminder
-	remindersFlag bool
+	reminders    []*Reminder
+	remindersSet bool
 }
 
 func NewAddRemindersTaskPathReqBodyBuilder() *AddRemindersTaskPathReqBodyBuilder {
@@ -6993,13 +7751,13 @@ func NewAddRemindersTaskPathReqBodyBuilder() *AddRemindersTaskPathReqBodyBuilder
 // 示例值：
 func (builder *AddRemindersTaskPathReqBodyBuilder) Reminders(reminders []*Reminder) *AddRemindersTaskPathReqBodyBuilder {
 	builder.reminders = reminders
-	builder.remindersFlag = true
+	builder.remindersSet = true
 	return builder
 }
 
 func (builder *AddRemindersTaskPathReqBodyBuilder) Build() (*AddRemindersTaskReqBody, error) {
 	req := &AddRemindersTaskReqBody{}
-	if builder.remindersFlag {
+	if builder.remindersSet {
 		req.Reminders = builder.reminders
 	}
 	return req, nil
@@ -7035,6 +7793,7 @@ func (builder *AddRemindersTaskReqBuilder) UserIdType(userIdType string) *AddRem
 	return builder
 }
 
+//
 func (builder *AddRemindersTaskReqBuilder) Body(body *AddRemindersTaskReqBody) *AddRemindersTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -7073,11 +7832,11 @@ func (resp *AddRemindersTaskResp) Success() bool {
 }
 
 type AddTasklistTaskReqBodyBuilder struct {
-	tasklistGuid     string // 要添加到的清单的全局唯一ID
-	tasklistGuidFlag bool
+	tasklistGuid    string // 要添加到的清单的全局唯一ID
+	tasklistGuidSet bool
 
-	sectionGuid     string // 要添加到清单的自定义分组全局唯一ID，如不填写表示添加到默认分组
-	sectionGuidFlag bool
+	sectionGuid    string // 要添加到清单的自定义分组全局唯一ID，如不填写表示添加到默认分组
+	sectionGuidSet bool
 }
 
 func NewAddTasklistTaskReqBodyBuilder() *AddTasklistTaskReqBodyBuilder {
@@ -7087,38 +7846,38 @@ func NewAddTasklistTaskReqBodyBuilder() *AddTasklistTaskReqBodyBuilder {
 
 // 要添加到的清单的全局唯一ID
 //
-// 示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
+//示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
 func (builder *AddTasklistTaskReqBodyBuilder) TasklistGuid(tasklistGuid string) *AddTasklistTaskReqBodyBuilder {
 	builder.tasklistGuid = tasklistGuid
-	builder.tasklistGuidFlag = true
+	builder.tasklistGuidSet = true
 	return builder
 }
 
 // 要添加到清单的自定义分组全局唯一ID，如不填写表示添加到默认分组
 //
-// 示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
+//示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
 func (builder *AddTasklistTaskReqBodyBuilder) SectionGuid(sectionGuid string) *AddTasklistTaskReqBodyBuilder {
 	builder.sectionGuid = sectionGuid
-	builder.sectionGuidFlag = true
+	builder.sectionGuidSet = true
 	return builder
 }
 
 func (builder *AddTasklistTaskReqBodyBuilder) Build() *AddTasklistTaskReqBody {
 	req := &AddTasklistTaskReqBody{}
-	if builder.tasklistGuidFlag {
+	if builder.tasklistGuidSet {
 		req.TasklistGuid = &builder.tasklistGuid
 	}
-	if builder.sectionGuidFlag {
+	if builder.sectionGuidSet {
 		req.SectionGuid = &builder.sectionGuid
 	}
 	return req
 }
 
 type AddTasklistTaskPathReqBodyBuilder struct {
-	tasklistGuid     string
-	tasklistGuidFlag bool
-	sectionGuid      string
-	sectionGuidFlag  bool
+	tasklistGuid    string
+	tasklistGuidSet bool
+	sectionGuid     string
+	sectionGuidSet  bool
 }
 
 func NewAddTasklistTaskPathReqBodyBuilder() *AddTasklistTaskPathReqBodyBuilder {
@@ -7131,7 +7890,7 @@ func NewAddTasklistTaskPathReqBodyBuilder() *AddTasklistTaskPathReqBodyBuilder {
 // 示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
 func (builder *AddTasklistTaskPathReqBodyBuilder) TasklistGuid(tasklistGuid string) *AddTasklistTaskPathReqBodyBuilder {
 	builder.tasklistGuid = tasklistGuid
-	builder.tasklistGuidFlag = true
+	builder.tasklistGuidSet = true
 	return builder
 }
 
@@ -7140,16 +7899,16 @@ func (builder *AddTasklistTaskPathReqBodyBuilder) TasklistGuid(tasklistGuid stri
 // 示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
 func (builder *AddTasklistTaskPathReqBodyBuilder) SectionGuid(sectionGuid string) *AddTasklistTaskPathReqBodyBuilder {
 	builder.sectionGuid = sectionGuid
-	builder.sectionGuidFlag = true
+	builder.sectionGuidSet = true
 	return builder
 }
 
 func (builder *AddTasklistTaskPathReqBodyBuilder) Build() (*AddTasklistTaskReqBody, error) {
 	req := &AddTasklistTaskReqBody{}
-	if builder.tasklistGuidFlag {
+	if builder.tasklistGuidSet {
 		req.TasklistGuid = &builder.tasklistGuid
 	}
-	if builder.sectionGuidFlag {
+	if builder.sectionGuidSet {
 		req.SectionGuid = &builder.sectionGuid
 	}
 	return req, nil
@@ -7185,6 +7944,7 @@ func (builder *AddTasklistTaskReqBuilder) UserIdType(userIdType string) *AddTask
 	return builder
 }
 
+//
 func (builder *AddTasklistTaskReqBuilder) Body(body *AddTasklistTaskReqBody) *AddTasklistTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -7246,6 +8006,7 @@ func (builder *CreateTaskReqBuilder) UserIdType(userIdType string) *CreateTaskRe
 	return builder
 }
 
+//
 func (builder *CreateTaskReqBuilder) InputTask(inputTask *InputTask) *CreateTaskReqBuilder {
 	builder.inputTask = inputTask
 	return builder
@@ -7434,6 +8195,14 @@ func (builder *ListTaskReqBuilder) UserIdType(userIdType string) *ListTaskReqBui
 	return builder
 }
 
+// 智能体任务状态，优先使用completed字段，如果要查细分状态，再使用agent_task_status
+//
+// 示例值：1
+func (builder *ListTaskReqBuilder) AgentTaskStatus(agentTaskStatus int) *ListTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("agent_task_status", fmt.Sprint(agentTaskStatus))
+	return builder
+}
+
 func (builder *ListTaskReqBuilder) Build() *ListTaskReq {
 	req := &ListTaskReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7467,11 +8236,11 @@ func (resp *ListTaskResp) Success() bool {
 }
 
 type PatchTaskReqBodyBuilder struct {
-	task     *InputTask // 要更新的任务数据，只需要写明要更新的字段
-	taskFlag bool
+	task    *InputTask // 要更新的任务数据，只需要写明要更新的字段
+	taskSet bool
 
-	updateFields     []string // 要更新的字段名称。支持summary, description, due, start, completed_at, extra, repeat_rule, custom_complete, mode, is_milestone, custom_fields。
-	updateFieldsFlag bool
+	updateFields    []string // 要更新的字段名称。支持summary, description, due, start, completed_at, extra, repeat_rule, custom_complete, mode, is_milestone, custom_fields。
+	updateFieldsSet bool
 }
 
 func NewPatchTaskReqBodyBuilder() *PatchTaskReqBodyBuilder {
@@ -7481,38 +8250,38 @@ func NewPatchTaskReqBodyBuilder() *PatchTaskReqBodyBuilder {
 
 // 要更新的任务数据，只需要写明要更新的字段
 //
-// 示例值：
+//示例值：
 func (builder *PatchTaskReqBodyBuilder) Task(task *InputTask) *PatchTaskReqBodyBuilder {
 	builder.task = task
-	builder.taskFlag = true
+	builder.taskSet = true
 	return builder
 }
 
 // 要更新的字段名称。支持summary, description, due, start, completed_at, extra, repeat_rule, custom_complete, mode, is_milestone, custom_fields。
 //
-// 示例值：
+//示例值：
 func (builder *PatchTaskReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchTaskReqBodyBuilder) Build() *PatchTaskReqBody {
 	req := &PatchTaskReqBody{}
-	if builder.taskFlag {
+	if builder.taskSet {
 		req.Task = builder.task
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req
 }
 
 type PatchTaskPathReqBodyBuilder struct {
-	task             *InputTask
-	taskFlag         bool
-	updateFields     []string
-	updateFieldsFlag bool
+	task            *InputTask
+	taskSet         bool
+	updateFields    []string
+	updateFieldsSet bool
 }
 
 func NewPatchTaskPathReqBodyBuilder() *PatchTaskPathReqBodyBuilder {
@@ -7525,7 +8294,7 @@ func NewPatchTaskPathReqBodyBuilder() *PatchTaskPathReqBodyBuilder {
 // 示例值：
 func (builder *PatchTaskPathReqBodyBuilder) Task(task *InputTask) *PatchTaskPathReqBodyBuilder {
 	builder.task = task
-	builder.taskFlag = true
+	builder.taskSet = true
 	return builder
 }
 
@@ -7534,16 +8303,16 @@ func (builder *PatchTaskPathReqBodyBuilder) Task(task *InputTask) *PatchTaskPath
 // 示例值：
 func (builder *PatchTaskPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskPathReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchTaskPathReqBodyBuilder) Build() (*PatchTaskReqBody, error) {
 	req := &PatchTaskReqBody{}
-	if builder.taskFlag {
+	if builder.taskSet {
 		req.Task = builder.task
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req, nil
@@ -7579,6 +8348,7 @@ func (builder *PatchTaskReqBuilder) UserIdType(userIdType string) *PatchTaskReqB
 	return builder
 }
 
+//
 func (builder *PatchTaskReqBuilder) Body(body *PatchTaskReqBody) *PatchTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -7619,8 +8389,8 @@ func (resp *PatchTaskResp) Success() bool {
 }
 
 type RemoveDependenciesTaskReqBodyBuilder struct {
-	dependencies     []*TaskDependency // 要移除的依赖
-	dependenciesFlag bool
+	dependencies    []*TaskDependency // 要移除的依赖
+	dependenciesSet bool
 }
 
 func NewRemoveDependenciesTaskReqBodyBuilder() *RemoveDependenciesTaskReqBodyBuilder {
@@ -7630,24 +8400,24 @@ func NewRemoveDependenciesTaskReqBodyBuilder() *RemoveDependenciesTaskReqBodyBui
 
 // 要移除的依赖
 //
-// 示例值：
+//示例值：
 func (builder *RemoveDependenciesTaskReqBodyBuilder) Dependencies(dependencies []*TaskDependency) *RemoveDependenciesTaskReqBodyBuilder {
 	builder.dependencies = dependencies
-	builder.dependenciesFlag = true
+	builder.dependenciesSet = true
 	return builder
 }
 
 func (builder *RemoveDependenciesTaskReqBodyBuilder) Build() *RemoveDependenciesTaskReqBody {
 	req := &RemoveDependenciesTaskReqBody{}
-	if builder.dependenciesFlag {
+	if builder.dependenciesSet {
 		req.Dependencies = builder.dependencies
 	}
 	return req
 }
 
 type RemoveDependenciesTaskPathReqBodyBuilder struct {
-	dependencies     []*TaskDependency
-	dependenciesFlag bool
+	dependencies    []*TaskDependency
+	dependenciesSet bool
 }
 
 func NewRemoveDependenciesTaskPathReqBodyBuilder() *RemoveDependenciesTaskPathReqBodyBuilder {
@@ -7660,13 +8430,13 @@ func NewRemoveDependenciesTaskPathReqBodyBuilder() *RemoveDependenciesTaskPathRe
 // 示例值：
 func (builder *RemoveDependenciesTaskPathReqBodyBuilder) Dependencies(dependencies []*TaskDependency) *RemoveDependenciesTaskPathReqBodyBuilder {
 	builder.dependencies = dependencies
-	builder.dependenciesFlag = true
+	builder.dependenciesSet = true
 	return builder
 }
 
 func (builder *RemoveDependenciesTaskPathReqBodyBuilder) Build() (*RemoveDependenciesTaskReqBody, error) {
 	req := &RemoveDependenciesTaskReqBody{}
-	if builder.dependenciesFlag {
+	if builder.dependenciesSet {
 		req.Dependencies = builder.dependencies
 	}
 	return req, nil
@@ -7694,6 +8464,7 @@ func (builder *RemoveDependenciesTaskReqBuilder) TaskGuid(taskGuid string) *Remo
 	return builder
 }
 
+//
 func (builder *RemoveDependenciesTaskReqBuilder) Body(body *RemoveDependenciesTaskReqBody) *RemoveDependenciesTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -7731,8 +8502,8 @@ func (resp *RemoveDependenciesTaskResp) Success() bool {
 }
 
 type RemoveMembersTaskReqBodyBuilder struct {
-	members     []*Member // 要移除的member列表
-	membersFlag bool
+	members    []*Member // 要移除的member列表
+	membersSet bool
 }
 
 func NewRemoveMembersTaskReqBodyBuilder() *RemoveMembersTaskReqBodyBuilder {
@@ -7742,24 +8513,24 @@ func NewRemoveMembersTaskReqBodyBuilder() *RemoveMembersTaskReqBodyBuilder {
 
 // 要移除的member列表
 //
-// 示例值：
+//示例值：
 func (builder *RemoveMembersTaskReqBodyBuilder) Members(members []*Member) *RemoveMembersTaskReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 func (builder *RemoveMembersTaskReqBodyBuilder) Build() *RemoveMembersTaskReqBody {
 	req := &RemoveMembersTaskReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
 	return req
 }
 
 type RemoveMembersTaskPathReqBodyBuilder struct {
-	members     []*Member
-	membersFlag bool
+	members    []*Member
+	membersSet bool
 }
 
 func NewRemoveMembersTaskPathReqBodyBuilder() *RemoveMembersTaskPathReqBodyBuilder {
@@ -7772,13 +8543,13 @@ func NewRemoveMembersTaskPathReqBodyBuilder() *RemoveMembersTaskPathReqBodyBuild
 // 示例值：
 func (builder *RemoveMembersTaskPathReqBodyBuilder) Members(members []*Member) *RemoveMembersTaskPathReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 func (builder *RemoveMembersTaskPathReqBodyBuilder) Build() (*RemoveMembersTaskReqBody, error) {
 	req := &RemoveMembersTaskReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
 	return req, nil
@@ -7814,6 +8585,7 @@ func (builder *RemoveMembersTaskReqBuilder) UserIdType(userIdType string) *Remov
 	return builder
 }
 
+//
 func (builder *RemoveMembersTaskReqBuilder) Body(body *RemoveMembersTaskReqBody) *RemoveMembersTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -7852,8 +8624,8 @@ func (resp *RemoveMembersTaskResp) Success() bool {
 }
 
 type RemoveRemindersTaskReqBodyBuilder struct {
-	reminderIds     []string // 要移除的reminder的id列表
-	reminderIdsFlag bool
+	reminderIds    []string // 要移除的reminder的id列表
+	reminderIdsSet bool
 }
 
 func NewRemoveRemindersTaskReqBodyBuilder() *RemoveRemindersTaskReqBodyBuilder {
@@ -7863,24 +8635,24 @@ func NewRemoveRemindersTaskReqBodyBuilder() *RemoveRemindersTaskReqBodyBuilder {
 
 // 要移除的reminder的id列表
 //
-// 示例值：
+//示例值：
 func (builder *RemoveRemindersTaskReqBodyBuilder) ReminderIds(reminderIds []string) *RemoveRemindersTaskReqBodyBuilder {
 	builder.reminderIds = reminderIds
-	builder.reminderIdsFlag = true
+	builder.reminderIdsSet = true
 	return builder
 }
 
 func (builder *RemoveRemindersTaskReqBodyBuilder) Build() *RemoveRemindersTaskReqBody {
 	req := &RemoveRemindersTaskReqBody{}
-	if builder.reminderIdsFlag {
+	if builder.reminderIdsSet {
 		req.ReminderIds = builder.reminderIds
 	}
 	return req
 }
 
 type RemoveRemindersTaskPathReqBodyBuilder struct {
-	reminderIds     []string
-	reminderIdsFlag bool
+	reminderIds    []string
+	reminderIdsSet bool
 }
 
 func NewRemoveRemindersTaskPathReqBodyBuilder() *RemoveRemindersTaskPathReqBodyBuilder {
@@ -7893,13 +8665,13 @@ func NewRemoveRemindersTaskPathReqBodyBuilder() *RemoveRemindersTaskPathReqBodyB
 // 示例值：
 func (builder *RemoveRemindersTaskPathReqBodyBuilder) ReminderIds(reminderIds []string) *RemoveRemindersTaskPathReqBodyBuilder {
 	builder.reminderIds = reminderIds
-	builder.reminderIdsFlag = true
+	builder.reminderIdsSet = true
 	return builder
 }
 
 func (builder *RemoveRemindersTaskPathReqBodyBuilder) Build() (*RemoveRemindersTaskReqBody, error) {
 	req := &RemoveRemindersTaskReqBody{}
-	if builder.reminderIdsFlag {
+	if builder.reminderIdsSet {
 		req.ReminderIds = builder.reminderIds
 	}
 	return req, nil
@@ -7935,6 +8707,7 @@ func (builder *RemoveRemindersTaskReqBuilder) UserIdType(userIdType string) *Rem
 	return builder
 }
 
+//
 func (builder *RemoveRemindersTaskReqBuilder) Body(body *RemoveRemindersTaskReqBody) *RemoveRemindersTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -7973,8 +8746,8 @@ func (resp *RemoveRemindersTaskResp) Success() bool {
 }
 
 type RemoveTasklistTaskReqBodyBuilder struct {
-	tasklistGuid     string // 要移除的清单的全局唯一ID
-	tasklistGuidFlag bool
+	tasklistGuid    string // 要移除的清单的全局唯一ID
+	tasklistGuidSet bool
 }
 
 func NewRemoveTasklistTaskReqBodyBuilder() *RemoveTasklistTaskReqBodyBuilder {
@@ -7984,24 +8757,24 @@ func NewRemoveTasklistTaskReqBodyBuilder() *RemoveTasklistTaskReqBodyBuilder {
 
 // 要移除的清单的全局唯一ID
 //
-// 示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
+//示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
 func (builder *RemoveTasklistTaskReqBodyBuilder) TasklistGuid(tasklistGuid string) *RemoveTasklistTaskReqBodyBuilder {
 	builder.tasklistGuid = tasklistGuid
-	builder.tasklistGuidFlag = true
+	builder.tasklistGuidSet = true
 	return builder
 }
 
 func (builder *RemoveTasklistTaskReqBodyBuilder) Build() *RemoveTasklistTaskReqBody {
 	req := &RemoveTasklistTaskReqBody{}
-	if builder.tasklistGuidFlag {
+	if builder.tasklistGuidSet {
 		req.TasklistGuid = &builder.tasklistGuid
 	}
 	return req
 }
 
 type RemoveTasklistTaskPathReqBodyBuilder struct {
-	tasklistGuid     string
-	tasklistGuidFlag bool
+	tasklistGuid    string
+	tasklistGuidSet bool
 }
 
 func NewRemoveTasklistTaskPathReqBodyBuilder() *RemoveTasklistTaskPathReqBodyBuilder {
@@ -8014,13 +8787,13 @@ func NewRemoveTasklistTaskPathReqBodyBuilder() *RemoveTasklistTaskPathReqBodyBui
 // 示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
 func (builder *RemoveTasklistTaskPathReqBodyBuilder) TasklistGuid(tasklistGuid string) *RemoveTasklistTaskPathReqBodyBuilder {
 	builder.tasklistGuid = tasklistGuid
-	builder.tasklistGuidFlag = true
+	builder.tasklistGuidSet = true
 	return builder
 }
 
 func (builder *RemoveTasklistTaskPathReqBodyBuilder) Build() (*RemoveTasklistTaskReqBody, error) {
 	req := &RemoveTasklistTaskReqBody{}
-	if builder.tasklistGuidFlag {
+	if builder.tasklistGuidSet {
 		req.TasklistGuid = &builder.tasklistGuid
 	}
 	return req, nil
@@ -8056,6 +8829,7 @@ func (builder *RemoveTasklistTaskReqBuilder) UserIdType(userIdType string) *Remo
 	return builder
 }
 
+//
 func (builder *RemoveTasklistTaskReqBuilder) Body(body *RemoveTasklistTaskReqBody) *RemoveTasklistTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -8090,6 +8864,152 @@ type RemoveTasklistTaskResp struct {
 }
 
 func (resp *RemoveTasklistTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SetAncestorTaskTaskReqBodyBuilder struct {
+	ancestorGuid    string // 父任务的guid
+	ancestorGuidSet bool
+
+	userIdType    string //
+	userIdTypeSet bool
+
+	targetUserId    string // 操作人的id
+	targetUserIdSet bool
+}
+
+func NewSetAncestorTaskTaskReqBodyBuilder() *SetAncestorTaskTaskReqBodyBuilder {
+	builder := &SetAncestorTaskTaskReqBodyBuilder{}
+	return builder
+}
+
+// 父任务的guid
+//
+//示例值：123
+func (builder *SetAncestorTaskTaskReqBodyBuilder) AncestorGuid(ancestorGuid string) *SetAncestorTaskTaskReqBodyBuilder {
+	builder.ancestorGuid = ancestorGuid
+	builder.ancestorGuidSet = true
+	return builder
+}
+
+//
+//
+//示例值：
+func (builder *SetAncestorTaskTaskReqBodyBuilder) UserIdType(userIdType string) *SetAncestorTaskTaskReqBodyBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeSet = true
+	return builder
+}
+
+func (builder *SetAncestorTaskTaskReqBodyBuilder) Build() *SetAncestorTaskTaskReqBody {
+	req := &SetAncestorTaskTaskReqBody{}
+	if builder.ancestorGuidSet {
+		req.AncestorGuid = &builder.ancestorGuid
+	}
+	if builder.userIdTypeSet {
+		req.UserIdType = &builder.userIdType
+	}
+	return req
+}
+
+type SetAncestorTaskTaskPathReqBodyBuilder struct {
+	ancestorGuid    string
+	ancestorGuidSet bool
+	userIdType      string
+	userIdTypeSet   bool
+	targetUserId    string
+	targetUserIdSet bool
+}
+
+func NewSetAncestorTaskTaskPathReqBodyBuilder() *SetAncestorTaskTaskPathReqBodyBuilder {
+	builder := &SetAncestorTaskTaskPathReqBodyBuilder{}
+	return builder
+}
+
+// 父任务的guid
+//
+// 示例值：123
+func (builder *SetAncestorTaskTaskPathReqBodyBuilder) AncestorGuid(ancestorGuid string) *SetAncestorTaskTaskPathReqBodyBuilder {
+	builder.ancestorGuid = ancestorGuid
+	builder.ancestorGuidSet = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *SetAncestorTaskTaskPathReqBodyBuilder) UserIdType(userIdType string) *SetAncestorTaskTaskPathReqBodyBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeSet = true
+	return builder
+}
+
+func (builder *SetAncestorTaskTaskPathReqBodyBuilder) Build() (*SetAncestorTaskTaskReqBody, error) {
+	req := &SetAncestorTaskTaskReqBody{}
+	if builder.ancestorGuidSet {
+		req.AncestorGuid = &builder.ancestorGuid
+	}
+	if builder.userIdTypeSet {
+		req.UserIdType = &builder.userIdType
+	}
+	return req, nil
+}
+
+type SetAncestorTaskTaskReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SetAncestorTaskTaskReqBody
+}
+
+func NewSetAncestorTaskTaskReqBuilder() *SetAncestorTaskTaskReqBuilder {
+	builder := &SetAncestorTaskTaskReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 任务的guid
+//
+// 示例值：1234
+func (builder *SetAncestorTaskTaskReqBuilder) TaskGuid(taskGuid string) *SetAncestorTaskTaskReqBuilder {
+	builder.apiReq.PathParams.Set("task_guid", fmt.Sprint(taskGuid))
+	return builder
+}
+
+//
+func (builder *SetAncestorTaskTaskReqBuilder) Body(body *SetAncestorTaskTaskReqBody) *SetAncestorTaskTaskReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SetAncestorTaskTaskReqBuilder) Build() *SetAncestorTaskTaskReq {
+	req := &SetAncestorTaskTaskReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SetAncestorTaskTaskReqBody struct {
+	AncestorGuid *string `json:"ancestor_guid,omitempty"` // 父任务的guid
+
+	UserIdType *string `json:"user_id_type,omitempty"` //
+
+	TargetUserId *string `json:"target_user_id,omitempty"` // 操作人的id
+}
+
+type SetAncestorTaskTaskReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SetAncestorTaskTaskReqBody `body:""`
+}
+
+type SetAncestorTaskTaskResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *SetAncestorTaskTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -8169,6 +9089,7 @@ func (builder *CreateTaskSubtaskReqBuilder) UserIdType(userIdType string) *Creat
 	return builder
 }
 
+//
 func (builder *CreateTaskSubtaskReqBuilder) InputTask(inputTask *InputTask) *CreateTaskSubtaskReqBuilder {
 	builder.inputTask = inputTask
 	return builder
@@ -8287,9 +9208,149 @@ func (resp *ListTaskSubtaskResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ListRelatedTaskTaskV2ReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListRelatedTaskTaskV2ReqBuilder() *ListRelatedTaskTaskV2ReqBuilder {
+	builder := &ListRelatedTaskTaskV2ReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListRelatedTaskTaskV2ReqBuilder) Limit(limit int) *ListRelatedTaskTaskV2ReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *ListRelatedTaskTaskV2ReqBuilder) PageSize(pageSize int) *ListRelatedTaskTaskV2ReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *ListRelatedTaskTaskV2ReqBuilder) PageToken(pageToken string) *ListRelatedTaskTaskV2ReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 是否按任务完成进行过滤。不填写表示不过滤。
+//
+// 示例值：
+func (builder *ListRelatedTaskTaskV2ReqBuilder) Completed(completed bool) *ListRelatedTaskTaskV2ReqBuilder {
+	builder.apiReq.QueryParams.Set("completed", fmt.Sprint(completed))
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *ListRelatedTaskTaskV2ReqBuilder) UserIdType(userIdType string) *ListRelatedTaskTaskV2ReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 任务最后更新时间
+//
+// 示例值：1775555156000
+func (builder *ListRelatedTaskTaskV2ReqBuilder) TaskUpdatedTime(taskUpdatedTime string) *ListRelatedTaskTaskV2ReqBuilder {
+	builder.apiReq.QueryParams.Set("task_updated_time", fmt.Sprint(taskUpdatedTime))
+	return builder
+}
+
+func (builder *ListRelatedTaskTaskV2ReqBuilder) Build() *ListRelatedTaskTaskV2Req {
+	req := &ListRelatedTaskTaskV2Req{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListRelatedTaskTaskV2Req struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListRelatedTaskTaskV2RespData struct {
+	Items []*Task `json:"items,omitempty"` // 返回的任务列表
+
+	PageToken *string `json:"page_token,omitempty"` //
+
+	HasMore *bool `json:"has_more,omitempty"` //
+}
+
+type ListRelatedTaskTaskV2Resp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListRelatedTaskTaskV2RespData `json:"data"` // 业务数据
+}
+
+func (resp *ListRelatedTaskTaskV2Resp) Success() bool {
+	return resp.Code == 0
+}
+
+type TaskSubscriptionTaskV2ReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewTaskSubscriptionTaskV2ReqBuilder() *TaskSubscriptionTaskV2ReqBuilder {
+	builder := &TaskSubscriptionTaskV2ReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *TaskSubscriptionTaskV2ReqBuilder) UserIdType(userIdType string) *TaskSubscriptionTaskV2ReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *TaskSubscriptionTaskV2ReqBuilder) Build() *TaskSubscriptionTaskV2Req {
+	req := &TaskSubscriptionTaskV2Req{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type TaskSubscriptionTaskV2Req struct {
+	apiReq *larkcore.ApiReq
+}
+
+type TaskSubscriptionTaskV2RespData struct {
+	Code *int `json:"code,omitempty"` // 状态码
+
+	Msg *string `json:"msg,omitempty"` // 响应信息
+}
+
+type TaskSubscriptionTaskV2Resp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *TaskSubscriptionTaskV2RespData `json:"data"` // 业务数据
+}
+
+func (resp *TaskSubscriptionTaskV2Resp) Success() bool {
+	return resp.Code == 0
+}
+
 type AddMembersTasklistReqBodyBuilder struct {
-	members     []*Member // 要添加的成员列表
-	membersFlag bool
+	members    []*Member // 要添加的成员列表
+	membersSet bool
 }
 
 func NewAddMembersTasklistReqBodyBuilder() *AddMembersTasklistReqBodyBuilder {
@@ -8299,24 +9360,24 @@ func NewAddMembersTasklistReqBodyBuilder() *AddMembersTasklistReqBodyBuilder {
 
 // 要添加的成员列表
 //
-// 示例值：
+//示例值：
 func (builder *AddMembersTasklistReqBodyBuilder) Members(members []*Member) *AddMembersTasklistReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 func (builder *AddMembersTasklistReqBodyBuilder) Build() *AddMembersTasklistReqBody {
 	req := &AddMembersTasklistReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
 	return req
 }
 
 type AddMembersTasklistPathReqBodyBuilder struct {
-	members     []*Member
-	membersFlag bool
+	members    []*Member
+	membersSet bool
 }
 
 func NewAddMembersTasklistPathReqBodyBuilder() *AddMembersTasklistPathReqBodyBuilder {
@@ -8329,13 +9390,13 @@ func NewAddMembersTasklistPathReqBodyBuilder() *AddMembersTasklistPathReqBodyBui
 // 示例值：
 func (builder *AddMembersTasklistPathReqBodyBuilder) Members(members []*Member) *AddMembersTasklistPathReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 func (builder *AddMembersTasklistPathReqBodyBuilder) Build() (*AddMembersTasklistReqBody, error) {
 	req := &AddMembersTasklistReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
 	return req, nil
@@ -8371,6 +9432,7 @@ func (builder *AddMembersTasklistReqBuilder) UserIdType(userIdType string) *AddM
 	return builder
 }
 
+//
 func (builder *AddMembersTasklistReqBuilder) Body(body *AddMembersTasklistReqBody) *AddMembersTasklistReqBuilder {
 	builder.body = body
 	return builder
@@ -8430,6 +9492,7 @@ func (builder *CreateTasklistReqBuilder) UserIdType(userIdType string) *CreateTa
 	return builder
 }
 
+//
 func (builder *CreateTasklistReqBuilder) InputTasklist(inputTasklist *InputTasklist) *CreateTasklistReqBuilder {
 	builder.inputTasklist = inputTasklist
 	return builder
@@ -8635,14 +9698,14 @@ func (resp *ListTasklistResp) Success() bool {
 }
 
 type PatchTasklistReqBodyBuilder struct {
-	tasklist     *InputTasklist // 要更新清单的数据
-	tasklistFlag bool
+	tasklist    *InputTasklist // 要更新清单的数据
+	tasklistSet bool
 
-	updateFields     []string // 要更新的字段名，只支持更新"owner", "name"两个字段
-	updateFieldsFlag bool
+	updateFields    []string // 要更新的字段名，只支持更新"owner", "name"两个字段
+	updateFieldsSet bool
 
-	originOwnerToRole     string // 该字段表示如果更新了新的负责人，则将原负责人设为指定的协作人角色。仅在update_fields包含owner字段时生效。根据清单的角色设计方式，不允许提前为清单的负责人添加其他角色，但负责人更新后，原有负责人会无法访问该清单。该字段可以帮助避免原负责人彻底退出清单。
-	originOwnerToRoleFlag bool
+	originOwnerToRole    string // 该字段表示如果更新了新的负责人，则将原负责人设为指定的协作人角色。仅在update_fields包含owner字段时生效。根据清单的角色设计方式，不允许提前为清单的负责人添加其他角色，但负责人更新后，原有负责人会无法访问该清单。该字段可以帮助避免原负责人彻底退出清单。
+	originOwnerToRoleSet bool
 }
 
 func NewPatchTasklistReqBodyBuilder() *PatchTasklistReqBodyBuilder {
@@ -8652,52 +9715,52 @@ func NewPatchTasklistReqBodyBuilder() *PatchTasklistReqBodyBuilder {
 
 // 要更新清单的数据
 //
-// 示例值：
+//示例值：
 func (builder *PatchTasklistReqBodyBuilder) Tasklist(tasklist *InputTasklist) *PatchTasklistReqBodyBuilder {
 	builder.tasklist = tasklist
-	builder.tasklistFlag = true
+	builder.tasklistSet = true
 	return builder
 }
 
 // 要更新的字段名，只支持更新"owner", "name"两个字段
 //
-// 示例值：
+//示例值：
 func (builder *PatchTasklistReqBodyBuilder) UpdateFields(updateFields []string) *PatchTasklistReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 // 该字段表示如果更新了新的负责人，则将原负责人设为指定的协作人角色。仅在update_fields包含owner字段时生效。根据清单的角色设计方式，不允许提前为清单的负责人添加其他角色，但负责人更新后，原有负责人会无法访问该清单。该字段可以帮助避免原负责人彻底退出清单。
 //
-// 示例值：editor
+//示例值：editor
 func (builder *PatchTasklistReqBodyBuilder) OriginOwnerToRole(originOwnerToRole string) *PatchTasklistReqBodyBuilder {
 	builder.originOwnerToRole = originOwnerToRole
-	builder.originOwnerToRoleFlag = true
+	builder.originOwnerToRoleSet = true
 	return builder
 }
 
 func (builder *PatchTasklistReqBodyBuilder) Build() *PatchTasklistReqBody {
 	req := &PatchTasklistReqBody{}
-	if builder.tasklistFlag {
+	if builder.tasklistSet {
 		req.Tasklist = builder.tasklist
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
-	if builder.originOwnerToRoleFlag {
+	if builder.originOwnerToRoleSet {
 		req.OriginOwnerToRole = &builder.originOwnerToRole
 	}
 	return req
 }
 
 type PatchTasklistPathReqBodyBuilder struct {
-	tasklist              *InputTasklist
-	tasklistFlag          bool
-	updateFields          []string
-	updateFieldsFlag      bool
-	originOwnerToRole     string
-	originOwnerToRoleFlag bool
+	tasklist             *InputTasklist
+	tasklistSet          bool
+	updateFields         []string
+	updateFieldsSet      bool
+	originOwnerToRole    string
+	originOwnerToRoleSet bool
 }
 
 func NewPatchTasklistPathReqBodyBuilder() *PatchTasklistPathReqBodyBuilder {
@@ -8710,7 +9773,7 @@ func NewPatchTasklistPathReqBodyBuilder() *PatchTasklistPathReqBodyBuilder {
 // 示例值：
 func (builder *PatchTasklistPathReqBodyBuilder) Tasklist(tasklist *InputTasklist) *PatchTasklistPathReqBodyBuilder {
 	builder.tasklist = tasklist
-	builder.tasklistFlag = true
+	builder.tasklistSet = true
 	return builder
 }
 
@@ -8719,7 +9782,7 @@ func (builder *PatchTasklistPathReqBodyBuilder) Tasklist(tasklist *InputTasklist
 // 示例值：
 func (builder *PatchTasklistPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchTasklistPathReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
@@ -8728,19 +9791,19 @@ func (builder *PatchTasklistPathReqBodyBuilder) UpdateFields(updateFields []stri
 // 示例值：editor
 func (builder *PatchTasklistPathReqBodyBuilder) OriginOwnerToRole(originOwnerToRole string) *PatchTasklistPathReqBodyBuilder {
 	builder.originOwnerToRole = originOwnerToRole
-	builder.originOwnerToRoleFlag = true
+	builder.originOwnerToRoleSet = true
 	return builder
 }
 
 func (builder *PatchTasklistPathReqBodyBuilder) Build() (*PatchTasklistReqBody, error) {
 	req := &PatchTasklistReqBody{}
-	if builder.tasklistFlag {
+	if builder.tasklistSet {
 		req.Tasklist = builder.tasklist
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
-	if builder.originOwnerToRoleFlag {
+	if builder.originOwnerToRoleSet {
 		req.OriginOwnerToRole = &builder.originOwnerToRole
 	}
 	return req, nil
@@ -8776,6 +9839,7 @@ func (builder *PatchTasklistReqBuilder) UserIdType(userIdType string) *PatchTask
 	return builder
 }
 
+//
 func (builder *PatchTasklistReqBuilder) Body(body *PatchTasklistReqBody) *PatchTasklistReqBuilder {
 	builder.body = body
 	return builder
@@ -8818,8 +9882,8 @@ func (resp *PatchTasklistResp) Success() bool {
 }
 
 type RemoveMembersTasklistReqBodyBuilder struct {
-	members     []*Member // 要移除的member列表
-	membersFlag bool
+	members    []*Member // 要移除的member列表
+	membersSet bool
 }
 
 func NewRemoveMembersTasklistReqBodyBuilder() *RemoveMembersTasklistReqBodyBuilder {
@@ -8829,24 +9893,24 @@ func NewRemoveMembersTasklistReqBodyBuilder() *RemoveMembersTasklistReqBodyBuild
 
 // 要移除的member列表
 //
-// 示例值：
+//示例值：
 func (builder *RemoveMembersTasklistReqBodyBuilder) Members(members []*Member) *RemoveMembersTasklistReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 func (builder *RemoveMembersTasklistReqBodyBuilder) Build() *RemoveMembersTasklistReqBody {
 	req := &RemoveMembersTasklistReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
 	return req
 }
 
 type RemoveMembersTasklistPathReqBodyBuilder struct {
-	members     []*Member
-	membersFlag bool
+	members    []*Member
+	membersSet bool
 }
 
 func NewRemoveMembersTasklistPathReqBodyBuilder() *RemoveMembersTasklistPathReqBodyBuilder {
@@ -8859,13 +9923,13 @@ func NewRemoveMembersTasklistPathReqBodyBuilder() *RemoveMembersTasklistPathReqB
 // 示例值：
 func (builder *RemoveMembersTasklistPathReqBodyBuilder) Members(members []*Member) *RemoveMembersTasklistPathReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 func (builder *RemoveMembersTasklistPathReqBodyBuilder) Build() (*RemoveMembersTasklistReqBody, error) {
 	req := &RemoveMembersTasklistReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
 	return req, nil
@@ -8901,6 +9965,7 @@ func (builder *RemoveMembersTasklistReqBuilder) UserIdType(userIdType string) *R
 	return builder
 }
 
+//
 func (builder *RemoveMembersTasklistReqBuilder) Body(body *RemoveMembersTasklistReqBody) *RemoveMembersTasklistReqBuilder {
 	builder.body = body
 	return builder
@@ -9067,6 +10132,7 @@ func (builder *CreateTasklistActivitySubscriptionReqBuilder) UserIdType(userIdTy
 	return builder
 }
 
+//
 func (builder *CreateTasklistActivitySubscriptionReqBuilder) TasklistActivitySubscription(tasklistActivitySubscription *TasklistActivitySubscription) *CreateTasklistActivitySubscriptionReqBuilder {
 	builder.tasklistActivitySubscription = tasklistActivitySubscription
 	return builder
@@ -9276,11 +10342,11 @@ func (resp *ListTasklistActivitySubscriptionResp) Success() bool {
 }
 
 type PatchTasklistActivitySubscriptionReqBodyBuilder struct {
-	activitySubscription     *TasklistActivitySubscription // 要更新的订阅数据
-	activitySubscriptionFlag bool
+	activitySubscription    *TasklistActivitySubscription // 要更新的订阅数据
+	activitySubscriptionSet bool
 
-	updateFields     []string // 要更新的字段
-	updateFieldsFlag bool
+	updateFields    []string // 要更新的字段
+	updateFieldsSet bool
 }
 
 func NewPatchTasklistActivitySubscriptionReqBodyBuilder() *PatchTasklistActivitySubscriptionReqBodyBuilder {
@@ -9290,38 +10356,38 @@ func NewPatchTasklistActivitySubscriptionReqBodyBuilder() *PatchTasklistActivity
 
 // 要更新的订阅数据
 //
-// 示例值：
+//示例值：
 func (builder *PatchTasklistActivitySubscriptionReqBodyBuilder) ActivitySubscription(activitySubscription *TasklistActivitySubscription) *PatchTasklistActivitySubscriptionReqBodyBuilder {
 	builder.activitySubscription = activitySubscription
-	builder.activitySubscriptionFlag = true
+	builder.activitySubscriptionSet = true
 	return builder
 }
 
 // 要更新的字段
 //
-// 示例值：
+//示例值：
 func (builder *PatchTasklistActivitySubscriptionReqBodyBuilder) UpdateFields(updateFields []string) *PatchTasklistActivitySubscriptionReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchTasklistActivitySubscriptionReqBodyBuilder) Build() *PatchTasklistActivitySubscriptionReqBody {
 	req := &PatchTasklistActivitySubscriptionReqBody{}
-	if builder.activitySubscriptionFlag {
+	if builder.activitySubscriptionSet {
 		req.ActivitySubscription = builder.activitySubscription
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req
 }
 
 type PatchTasklistActivitySubscriptionPathReqBodyBuilder struct {
-	activitySubscription     *TasklistActivitySubscription
-	activitySubscriptionFlag bool
-	updateFields             []string
-	updateFieldsFlag         bool
+	activitySubscription    *TasklistActivitySubscription
+	activitySubscriptionSet bool
+	updateFields            []string
+	updateFieldsSet         bool
 }
 
 func NewPatchTasklistActivitySubscriptionPathReqBodyBuilder() *PatchTasklistActivitySubscriptionPathReqBodyBuilder {
@@ -9334,7 +10400,7 @@ func NewPatchTasklistActivitySubscriptionPathReqBodyBuilder() *PatchTasklistActi
 // 示例值：
 func (builder *PatchTasklistActivitySubscriptionPathReqBodyBuilder) ActivitySubscription(activitySubscription *TasklistActivitySubscription) *PatchTasklistActivitySubscriptionPathReqBodyBuilder {
 	builder.activitySubscription = activitySubscription
-	builder.activitySubscriptionFlag = true
+	builder.activitySubscriptionSet = true
 	return builder
 }
 
@@ -9343,16 +10409,16 @@ func (builder *PatchTasklistActivitySubscriptionPathReqBodyBuilder) ActivitySubs
 // 示例值：
 func (builder *PatchTasklistActivitySubscriptionPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchTasklistActivitySubscriptionPathReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchTasklistActivitySubscriptionPathReqBodyBuilder) Build() (*PatchTasklistActivitySubscriptionReqBody, error) {
 	req := &PatchTasklistActivitySubscriptionReqBody{}
-	if builder.activitySubscriptionFlag {
+	if builder.activitySubscriptionSet {
 		req.ActivitySubscription = builder.activitySubscription
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req, nil
@@ -9396,6 +10462,7 @@ func (builder *PatchTasklistActivitySubscriptionReqBuilder) UserIdType(userIdTyp
 	return builder
 }
 
+//
 func (builder *PatchTasklistActivitySubscriptionReqBuilder) Body(body *PatchTasklistActivitySubscriptionReqBody) *PatchTasklistActivitySubscriptionReqBuilder {
 	builder.body = body
 	return builder
@@ -9433,6 +10500,22 @@ type PatchTasklistActivitySubscriptionResp struct {
 
 func (resp *PatchTasklistActivitySubscriptionResp) Success() bool {
 	return resp.Code == 0
+}
+
+type P2TaskUpdateUserAccessV2Data struct {
+	EventTypes []string `json:"event_types,omitempty"` // 事件类型
+
+	TaskGuid *string `json:"task_guid,omitempty"` // 任务GUID
+}
+
+type P2TaskUpdateUserAccessV2 struct {
+	*larkevent.EventV2Base                               // 事件基础数据
+	*larkevent.EventReq                                  // 请求原生数据
+	Event                  *P2TaskUpdateUserAccessV2Data `json:"event"` // 事件内容
+}
+
+func (m *P2TaskUpdateUserAccessV2) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
 }
 
 type ListAttachmentIterator struct {
@@ -9810,6 +10893,60 @@ func (iterator *ListTaskSubtaskIterator) Next() (bool, *Task, error) {
 }
 
 func (iterator *ListTaskSubtaskIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListRelatedTaskTaskV2Iterator struct {
+	nextPageToken *string
+	items         []*Task
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListRelatedTaskTaskV2Req
+	listFunc      func(ctx context.Context, req *ListRelatedTaskTaskV2Req, options ...larkcore.RequestOptionFunc) (*ListRelatedTaskTaskV2Resp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListRelatedTaskTaskV2Iterator) Next() (bool, *Task, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListRelatedTaskTaskV2Iterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 

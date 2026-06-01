@@ -40,6 +40,7 @@ func main() {
 			OrgRoles([]*larkcorehr.OrgRoleUpdate{larkcorehr.NewOrgRoleUpdateBuilder().Build()}).
 			MatchRuleGroups([]*larkcorehr.MatchRules{larkcorehr.NewMatchRulesBuilder().Build()}).
 			CustomFields([]*larkcorehr.CustomFieldData{larkcorehr.NewCustomFieldDataBuilder().Build()}).
+			IsPreferManualEncoding(false).
 			Build()).
 		Build()
 	// 发起请求

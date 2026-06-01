@@ -42,23 +42,23 @@ type Category struct {
 }
 
 type CategoryBuilder struct {
-	id     string // 板块的ID
-	idFlag bool
+	id    string // 板块的ID
+	idSet bool
 
-	name     string // 板块名
-	nameFlag bool
+	name    string // 板块名
+	nameSet bool
 
-	description     string // 板块描述
-	descriptionFlag bool
+	description    string // 板块描述
+	descriptionSet bool
 
-	createTime     string // 板块创建时间
-	createTimeFlag bool
+	createTime    string // 板块创建时间
+	createTimeSet bool
 
-	postCount     int // 板块下帖子总数
-	postCountFlag bool
+	postCount    int // 板块下帖子总数
+	postCountSet bool
 
-	participantCount     int // 板块参与人数
-	participantCountFlag bool
+	participantCount    int // 板块参与人数
+	participantCountSet bool
 }
 
 func NewCategoryBuilder() *CategoryBuilder {
@@ -71,7 +71,7 @@ func NewCategoryBuilder() *CategoryBuilder {
 // 示例值：6560906191909683220
 func (builder *CategoryBuilder) Id(id string) *CategoryBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -80,7 +80,7 @@ func (builder *CategoryBuilder) Id(id string) *CategoryBuilder {
 // 示例值：示例板块
 func (builder *CategoryBuilder) Name(name string) *CategoryBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -89,7 +89,7 @@ func (builder *CategoryBuilder) Name(name string) *CategoryBuilder {
 // 示例值：一个有趣的板块描述
 func (builder *CategoryBuilder) Description(description string) *CategoryBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -98,7 +98,7 @@ func (builder *CategoryBuilder) Description(description string) *CategoryBuilder
 // 示例值：2022-05-23T00:00:00+08:00
 func (builder *CategoryBuilder) CreateTime(createTime string) *CategoryBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -107,7 +107,7 @@ func (builder *CategoryBuilder) CreateTime(createTime string) *CategoryBuilder {
 // 示例值：5
 func (builder *CategoryBuilder) PostCount(postCount int) *CategoryBuilder {
 	builder.postCount = postCount
-	builder.postCountFlag = true
+	builder.postCountSet = true
 	return builder
 }
 
@@ -116,33 +116,33 @@ func (builder *CategoryBuilder) PostCount(postCount int) *CategoryBuilder {
 // 示例值：10
 func (builder *CategoryBuilder) ParticipantCount(participantCount int) *CategoryBuilder {
 	builder.participantCount = participantCount
-	builder.participantCountFlag = true
+	builder.participantCountSet = true
 	return builder
 }
 
 func (builder *CategoryBuilder) Build() *Category {
 	req := &Category{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.postCountFlag {
+	if builder.postCountSet {
 		req.PostCount = &builder.postCount
 
 	}
-	if builder.participantCountFlag {
+	if builder.participantCountSet {
 		req.ParticipantCount = &builder.participantCount
 
 	}
@@ -176,41 +176,41 @@ type Comment struct {
 }
 
 type CommentBuilder struct {
-	userId     string // 评论所属用户ID
-	userIdFlag bool
+	userId    string // 评论所属用户ID
+	userIdSet bool
 
-	content     string // 评论内容
-	contentFlag bool
+	content    string // 评论内容
+	contentSet bool
 
-	imageKey     string // 评论图片的key
-	imageKeyFlag bool
+	imageKey    string // 评论图片的key
+	imageKeySet bool
 
-	isHot     bool // 是否热评
-	isHotFlag bool
+	isHot    bool // 是否热评
+	isHotSet bool
 
-	reactionSet     *ReactionSet // 评论 reactions
-	reactionSetFlag bool
+	reactionSet    *ReactionSet // 评论 reactions
+	reactionSetSet bool
 
-	id     string // 评论 ID
-	idFlag bool
+	id    string // 评论 ID
+	idSet bool
 
-	createTime     string // 评论创建时间
-	createTimeFlag bool
+	createTime    string // 评论创建时间
+	createTimeSet bool
 
-	postId     string // 评论所属实体的ID
-	postIdFlag bool
+	postId    string // 评论所属实体的ID
+	postIdSet bool
 
-	replyCommentId     string // 回复的评论ID
-	replyCommentIdFlag bool
+	replyCommentId    string // 回复的评论ID
+	replyCommentIdSet bool
 
-	rootCommentId     string // 根评论ID
-	rootCommentIdFlag bool
+	rootCommentId    string // 根评论ID
+	rootCommentIdSet bool
 
-	cid     string // 创建评论时去重
-	cidFlag bool
+	cid    string // 创建评论时去重
+	cidSet bool
 
-	userType     int // 表情回复人类型
-	userTypeFlag bool
+	userType    int // 表情回复人类型
+	userTypeSet bool
 }
 
 func NewCommentBuilder() *CommentBuilder {
@@ -223,7 +223,7 @@ func NewCommentBuilder() *CommentBuilder {
 // 示例值："ou_xxxxx"
 func (builder *CommentBuilder) UserId(userId string) *CommentBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -232,7 +232,7 @@ func (builder *CommentBuilder) UserId(userId string) *CommentBuilder {
 // 示例值："[[{\"tag\":\"text\",\"text\":\"豪华中型车…………\"},{\"tag\":\"a\",\"text\":\"查看原文\",\"href\":\"https://www.autohome.com.cn/advice/202204/1244455.html\"}]]"
 func (builder *CommentBuilder) Content(content string) *CommentBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -241,7 +241,7 @@ func (builder *CommentBuilder) Content(content string) *CommentBuilder {
 // 示例值："img_v2_xxxxxx"
 func (builder *CommentBuilder) ImageKey(imageKey string) *CommentBuilder {
 	builder.imageKey = imageKey
-	builder.imageKeyFlag = true
+	builder.imageKeySet = true
 	return builder
 }
 
@@ -250,7 +250,7 @@ func (builder *CommentBuilder) ImageKey(imageKey string) *CommentBuilder {
 // 示例值：false
 func (builder *CommentBuilder) IsHot(isHot bool) *CommentBuilder {
 	builder.isHot = isHot
-	builder.isHotFlag = true
+	builder.isHotSet = true
 	return builder
 }
 
@@ -259,7 +259,7 @@ func (builder *CommentBuilder) IsHot(isHot bool) *CommentBuilder {
 // 示例值：
 func (builder *CommentBuilder) ReactionSet(reactionSet *ReactionSet) *CommentBuilder {
 	builder.reactionSet = reactionSet
-	builder.reactionSetFlag = true
+	builder.reactionSetSet = true
 	return builder
 }
 
@@ -268,7 +268,7 @@ func (builder *CommentBuilder) ReactionSet(reactionSet *ReactionSet) *CommentBui
 // 示例值："248381240"
 func (builder *CommentBuilder) Id(id string) *CommentBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -277,7 +277,7 @@ func (builder *CommentBuilder) Id(id string) *CommentBuilder {
 // 示例值："2022-05-23T00:00:00+08:00"
 func (builder *CommentBuilder) CreateTime(createTime string) *CommentBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -286,7 +286,7 @@ func (builder *CommentBuilder) CreateTime(createTime string) *CommentBuilder {
 // 示例值："248381241"
 func (builder *CommentBuilder) PostId(postId string) *CommentBuilder {
 	builder.postId = postId
-	builder.postIdFlag = true
+	builder.postIdSet = true
 	return builder
 }
 
@@ -295,7 +295,7 @@ func (builder *CommentBuilder) PostId(postId string) *CommentBuilder {
 // 示例值：""
 func (builder *CommentBuilder) ReplyCommentId(replyCommentId string) *CommentBuilder {
 	builder.replyCommentId = replyCommentId
-	builder.replyCommentIdFlag = true
+	builder.replyCommentIdSet = true
 	return builder
 }
 
@@ -304,7 +304,7 @@ func (builder *CommentBuilder) ReplyCommentId(replyCommentId string) *CommentBui
 // 示例值：""
 func (builder *CommentBuilder) RootCommentId(rootCommentId string) *CommentBuilder {
 	builder.rootCommentId = rootCommentId
-	builder.rootCommentIdFlag = true
+	builder.rootCommentIdSet = true
 	return builder
 }
 
@@ -313,7 +313,7 @@ func (builder *CommentBuilder) RootCommentId(rootCommentId string) *CommentBuild
 // 示例值："generate-a-uuid-here"
 func (builder *CommentBuilder) Cid(cid string) *CommentBuilder {
 	builder.cid = cid
-	builder.cidFlag = true
+	builder.cidSet = true
 	return builder
 }
 
@@ -322,56 +322,56 @@ func (builder *CommentBuilder) Cid(cid string) *CommentBuilder {
 // 示例值：1
 func (builder *CommentBuilder) UserType(userType int) *CommentBuilder {
 	builder.userType = userType
-	builder.userTypeFlag = true
+	builder.userTypeSet = true
 	return builder
 }
 
 func (builder *CommentBuilder) Build() *Comment {
 	req := &Comment{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.imageKeyFlag {
+	if builder.imageKeySet {
 		req.ImageKey = &builder.imageKey
 
 	}
-	if builder.isHotFlag {
+	if builder.isHotSet {
 		req.IsHot = &builder.isHot
 
 	}
-	if builder.reactionSetFlag {
+	if builder.reactionSetSet {
 		req.ReactionSet = builder.reactionSet
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.postIdFlag {
+	if builder.postIdSet {
 		req.PostId = &builder.postId
 
 	}
-	if builder.replyCommentIdFlag {
+	if builder.replyCommentIdSet {
 		req.ReplyCommentId = &builder.replyCommentId
 
 	}
-	if builder.rootCommentIdFlag {
+	if builder.rootCommentIdSet {
 		req.RootCommentId = &builder.rootCommentId
 
 	}
-	if builder.cidFlag {
+	if builder.cidSet {
 		req.Cid = &builder.cid
 
 	}
-	if builder.userTypeFlag {
+	if builder.userTypeSet {
 		req.UserType = &builder.userType
 
 	}
@@ -385,11 +385,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -397,27 +397,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -437,20 +441,20 @@ type Dislike struct {
 }
 
 type DislikeBuilder struct {
-	entityType     int // 点踩所属实体类型
-	entityTypeFlag bool
+	entityType    int // 点踩所属实体类型
+	entityTypeSet bool
 
-	entityId     string // 点踩所属实体ID
-	entityIdFlag bool
+	entityId    string // 点踩所属实体ID
+	entityIdSet bool
 
-	createTime     string // 点踩时间
-	createTimeFlag bool
+	createTime    string // 点踩时间
+	createTimeSet bool
 
-	userId     string // 点踩人ID
-	userIdFlag bool
+	userId    string // 点踩人ID
+	userIdSet bool
 
-	id     string // Dislike的ID
-	idFlag bool
+	id    string // Dislike的ID
+	idSet bool
 }
 
 func NewDislikeBuilder() *DislikeBuilder {
@@ -463,7 +467,7 @@ func NewDislikeBuilder() *DislikeBuilder {
 // 示例值：1
 func (builder *DislikeBuilder) EntityType(entityType int) *DislikeBuilder {
 	builder.entityType = entityType
-	builder.entityTypeFlag = true
+	builder.entityTypeSet = true
 	return builder
 }
 
@@ -472,7 +476,7 @@ func (builder *DislikeBuilder) EntityType(entityType int) *DislikeBuilder {
 // 示例值："111111"
 func (builder *DislikeBuilder) EntityId(entityId string) *DislikeBuilder {
 	builder.entityId = entityId
-	builder.entityIdFlag = true
+	builder.entityIdSet = true
 	return builder
 }
 
@@ -481,7 +485,7 @@ func (builder *DislikeBuilder) EntityId(entityId string) *DislikeBuilder {
 // 示例值："2022-05-23T00:00:00+08:00"
 func (builder *DislikeBuilder) CreateTime(createTime string) *DislikeBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -490,7 +494,7 @@ func (builder *DislikeBuilder) CreateTime(createTime string) *DislikeBuilder {
 // 示例值："ou_xxxxx"
 func (builder *DislikeBuilder) UserId(userId string) *DislikeBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -499,29 +503,29 @@ func (builder *DislikeBuilder) UserId(userId string) *DislikeBuilder {
 // 示例值："2222222"
 func (builder *DislikeBuilder) Id(id string) *DislikeBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
 func (builder *DislikeBuilder) Build() *Dislike {
 	req := &Dislike{}
-	if builder.entityTypeFlag {
+	if builder.entityTypeSet {
 		req.EntityType = &builder.entityType
 
 	}
-	if builder.entityIdFlag {
+	if builder.entityIdSet {
 		req.EntityId = &builder.entityId
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
@@ -559,47 +563,47 @@ type Post struct {
 }
 
 type PostBuilder struct {
-	userId     string // 发帖用户ID
-	userIdFlag bool
+	userId    string // 发帖用户ID
+	userIdSet bool
 
-	content     string // 帖子内容
-	contentFlag bool
+	content    string // 帖子内容
+	contentSet bool
 
-	imageKeyList     []string // 图片的key 列表
-	imageKeyListFlag bool
+	imageKeyList    []string // 图片的key 列表
+	imageKeyListSet bool
 
-	mediaFileToken     string // 媒体文件的 token
-	mediaFileTokenFlag bool
+	mediaFileToken    string // 媒体文件的 token
+	mediaFileTokenSet bool
 
-	commentCount     int // 评论数
-	commentCountFlag bool
+	commentCount    int // 评论数
+	commentCountSet bool
 
-	reactionSet     *ReactionSet // 帖子的reaction及其数量
-	reactionSetFlag bool
+	reactionSet    *ReactionSet // 帖子的reaction及其数量
+	reactionSetSet bool
 
-	id     string // 帖子ID
-	idFlag bool
+	id    string // 帖子ID
+	idSet bool
 
-	createTime     string // 帖子创建时间
-	createTimeFlag bool
+	createTime    string // 帖子创建时间
+	createTimeSet bool
 
-	mediaCoverImageKey     string // 视频封面图片
-	mediaCoverImageKeyFlag bool
+	mediaCoverImageKey    string // 视频封面图片
+	mediaCoverImageKeySet bool
 
-	cid     string // 创建帖子时去重用
-	cidFlag bool
+	cid    string // 创建帖子时去重用
+	cidSet bool
 
-	categoryIds     []string // 帖子所属板块
-	categoryIdsFlag bool
+	categoryIds    []string // 帖子所属板块
+	categoryIdsSet bool
 
-	link     string // 帖子链接
-	linkFlag bool
+	link    string // 帖子链接
+	linkSet bool
 
-	userType     int // 发帖人类型
-	userTypeFlag bool
+	userType    int // 发帖人类型
+	userTypeSet bool
 
-	dislikeCount     int // 点踩数量
-	dislikeCountFlag bool
+	dislikeCount    int // 点踩数量
+	dislikeCountSet bool
 }
 
 func NewPostBuilder() *PostBuilder {
@@ -612,7 +616,7 @@ func NewPostBuilder() *PostBuilder {
 // 示例值："ou_xxxxx"
 func (builder *PostBuilder) UserId(userId string) *PostBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -621,7 +625,7 @@ func (builder *PostBuilder) UserId(userId string) *PostBuilder {
 // 示例值："[[{\"tag\":\"text\",\"text\":\"豪华中型车…………\"},{\"tag\":\"a\",\"text\":\"查看原文\",\"href\":\"https://www.autohome.com.cn/advice/202204/1244455.html\"}]]"
 func (builder *PostBuilder) Content(content string) *PostBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -630,7 +634,7 @@ func (builder *PostBuilder) Content(content string) *PostBuilder {
 // 示例值：
 func (builder *PostBuilder) ImageKeyList(imageKeyList []string) *PostBuilder {
 	builder.imageKeyList = imageKeyList
-	builder.imageKeyListFlag = true
+	builder.imageKeyListSet = true
 	return builder
 }
 
@@ -639,7 +643,7 @@ func (builder *PostBuilder) ImageKeyList(imageKeyList []string) *PostBuilder {
 // 示例值：""
 func (builder *PostBuilder) MediaFileToken(mediaFileToken string) *PostBuilder {
 	builder.mediaFileToken = mediaFileToken
-	builder.mediaFileTokenFlag = true
+	builder.mediaFileTokenSet = true
 	return builder
 }
 
@@ -648,7 +652,7 @@ func (builder *PostBuilder) MediaFileToken(mediaFileToken string) *PostBuilder {
 // 示例值：1
 func (builder *PostBuilder) CommentCount(commentCount int) *PostBuilder {
 	builder.commentCount = commentCount
-	builder.commentCountFlag = true
+	builder.commentCountSet = true
 	return builder
 }
 
@@ -657,7 +661,7 @@ func (builder *PostBuilder) CommentCount(commentCount int) *PostBuilder {
 // 示例值：
 func (builder *PostBuilder) ReactionSet(reactionSet *ReactionSet) *PostBuilder {
 	builder.reactionSet = reactionSet
-	builder.reactionSetFlag = true
+	builder.reactionSetSet = true
 	return builder
 }
 
@@ -666,7 +670,7 @@ func (builder *PostBuilder) ReactionSet(reactionSet *ReactionSet) *PostBuilder {
 // 示例值："248381241"
 func (builder *PostBuilder) Id(id string) *PostBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -675,7 +679,7 @@ func (builder *PostBuilder) Id(id string) *PostBuilder {
 // 示例值："2022-05-23T00:00:00+08:00"
 func (builder *PostBuilder) CreateTime(createTime string) *PostBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -684,7 +688,7 @@ func (builder *PostBuilder) CreateTime(createTime string) *PostBuilder {
 // 示例值：""
 func (builder *PostBuilder) MediaCoverImageKey(mediaCoverImageKey string) *PostBuilder {
 	builder.mediaCoverImageKey = mediaCoverImageKey
-	builder.mediaCoverImageKeyFlag = true
+	builder.mediaCoverImageKeySet = true
 	return builder
 }
 
@@ -693,7 +697,7 @@ func (builder *PostBuilder) MediaCoverImageKey(mediaCoverImageKey string) *PostB
 // 示例值："generate-a-uuid-here"
 func (builder *PostBuilder) Cid(cid string) *PostBuilder {
 	builder.cid = cid
-	builder.cidFlag = true
+	builder.cidSet = true
 	return builder
 }
 
@@ -702,7 +706,7 @@ func (builder *PostBuilder) Cid(cid string) *PostBuilder {
 // 示例值：
 func (builder *PostBuilder) CategoryIds(categoryIds []string) *PostBuilder {
 	builder.categoryIds = categoryIds
-	builder.categoryIdsFlag = true
+	builder.categoryIdsSet = true
 	return builder
 }
 
@@ -711,7 +715,7 @@ func (builder *PostBuilder) CategoryIds(categoryIds []string) *PostBuilder {
 // 示例值："https://applink.feishu.cn/client/moments/detail?postId=7254"
 func (builder *PostBuilder) Link(link string) *PostBuilder {
 	builder.link = link
-	builder.linkFlag = true
+	builder.linkSet = true
 	return builder
 }
 
@@ -720,7 +724,7 @@ func (builder *PostBuilder) Link(link string) *PostBuilder {
 // 示例值：1
 func (builder *PostBuilder) UserType(userType int) *PostBuilder {
 	builder.userType = userType
-	builder.userTypeFlag = true
+	builder.userTypeSet = true
 	return builder
 }
 
@@ -729,62 +733,62 @@ func (builder *PostBuilder) UserType(userType int) *PostBuilder {
 // 示例值：0
 func (builder *PostBuilder) DislikeCount(dislikeCount int) *PostBuilder {
 	builder.dislikeCount = dislikeCount
-	builder.dislikeCountFlag = true
+	builder.dislikeCountSet = true
 	return builder
 }
 
 func (builder *PostBuilder) Build() *Post {
 	req := &Post{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.imageKeyListFlag {
+	if builder.imageKeyListSet {
 		req.ImageKeyList = builder.imageKeyList
 	}
-	if builder.mediaFileTokenFlag {
+	if builder.mediaFileTokenSet {
 		req.MediaFileToken = &builder.mediaFileToken
 
 	}
-	if builder.commentCountFlag {
+	if builder.commentCountSet {
 		req.CommentCount = &builder.commentCount
 
 	}
-	if builder.reactionSetFlag {
+	if builder.reactionSetSet {
 		req.ReactionSet = builder.reactionSet
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.mediaCoverImageKeyFlag {
+	if builder.mediaCoverImageKeySet {
 		req.MediaCoverImageKey = &builder.mediaCoverImageKey
 
 	}
-	if builder.cidFlag {
+	if builder.cidSet {
 		req.Cid = &builder.cid
 
 	}
-	if builder.categoryIdsFlag {
+	if builder.categoryIdsSet {
 		req.CategoryIds = builder.categoryIds
 	}
-	if builder.linkFlag {
+	if builder.linkSet {
 		req.Link = &builder.link
 
 	}
-	if builder.userTypeFlag {
+	if builder.userTypeSet {
 		req.UserType = &builder.userType
 
 	}
-	if builder.dislikeCountFlag {
+	if builder.dislikeCountSet {
 		req.DislikeCount = &builder.dislikeCount
 
 	}
@@ -796,8 +800,8 @@ type PostStatistics struct {
 }
 
 type PostStatisticsBuilder struct {
-	shareCount     int // 分享次数
-	shareCountFlag bool
+	shareCount    int // 分享次数
+	shareCountSet bool
 }
 
 func NewPostStatisticsBuilder() *PostStatisticsBuilder {
@@ -810,13 +814,13 @@ func NewPostStatisticsBuilder() *PostStatisticsBuilder {
 // 示例值：1
 func (builder *PostStatisticsBuilder) ShareCount(shareCount int) *PostStatisticsBuilder {
 	builder.shareCount = shareCount
-	builder.shareCountFlag = true
+	builder.shareCountSet = true
 	return builder
 }
 
 func (builder *PostStatisticsBuilder) Build() *PostStatistics {
 	req := &PostStatistics{}
-	if builder.shareCountFlag {
+	if builder.shareCountSet {
 		req.ShareCount = &builder.shareCount
 
 	}
@@ -841,25 +845,25 @@ type Reaction struct {
 
 type ReactionBuilder struct {
 	type_    string // reaction 类型
-	typeFlag bool
+	type_Set bool
 
-	userId     string // reaction 所属用户ID
-	userIdFlag bool
+	userId    string // reaction 所属用户ID
+	userIdSet bool
 
-	entityId     string // reaction 所属实体ID
-	entityIdFlag bool
+	entityId    string // reaction 所属实体ID
+	entityIdSet bool
 
-	id     string // Reaction的ID
-	idFlag bool
+	id    string // Reaction的ID
+	idSet bool
 
-	createTime     string // reaction创建时间
-	createTimeFlag bool
+	createTime    string // reaction创建时间
+	createTimeSet bool
 
-	entityType     int // 表情回复所属实体类型
-	entityTypeFlag bool
+	entityType    int // 表情回复所属实体类型
+	entityTypeSet bool
 
-	userType     int // 表情回复人类型
-	userTypeFlag bool
+	userType    int // 表情回复人类型
+	userTypeSet bool
 }
 
 func NewReactionBuilder() *ReactionBuilder {
@@ -872,7 +876,7 @@ func NewReactionBuilder() *ReactionBuilder {
 // 示例值："OK"
 func (builder *ReactionBuilder) Type(type_ string) *ReactionBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -881,7 +885,7 @@ func (builder *ReactionBuilder) Type(type_ string) *ReactionBuilder {
 // 示例值："ou_xxxxx"
 func (builder *ReactionBuilder) UserId(userId string) *ReactionBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -890,7 +894,7 @@ func (builder *ReactionBuilder) UserId(userId string) *ReactionBuilder {
 // 示例值："248381241"
 func (builder *ReactionBuilder) EntityId(entityId string) *ReactionBuilder {
 	builder.entityId = entityId
-	builder.entityIdFlag = true
+	builder.entityIdSet = true
 	return builder
 }
 
@@ -899,7 +903,7 @@ func (builder *ReactionBuilder) EntityId(entityId string) *ReactionBuilder {
 // 示例值："MS8yL1NPQg=="
 func (builder *ReactionBuilder) Id(id string) *ReactionBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -908,7 +912,7 @@ func (builder *ReactionBuilder) Id(id string) *ReactionBuilder {
 // 示例值："2022-05-23T00:00:00+08:00"
 func (builder *ReactionBuilder) CreateTime(createTime string) *ReactionBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -917,7 +921,7 @@ func (builder *ReactionBuilder) CreateTime(createTime string) *ReactionBuilder {
 // 示例值：1
 func (builder *ReactionBuilder) EntityType(entityType int) *ReactionBuilder {
 	builder.entityType = entityType
-	builder.entityTypeFlag = true
+	builder.entityTypeSet = true
 	return builder
 }
 
@@ -926,37 +930,37 @@ func (builder *ReactionBuilder) EntityType(entityType int) *ReactionBuilder {
 // 示例值：1
 func (builder *ReactionBuilder) UserType(userType int) *ReactionBuilder {
 	builder.userType = userType
-	builder.userTypeFlag = true
+	builder.userTypeSet = true
 	return builder
 }
 
 func (builder *ReactionBuilder) Build() *Reaction {
 	req := &Reaction{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.entityIdFlag {
+	if builder.entityIdSet {
 		req.EntityId = &builder.entityId
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.entityTypeFlag {
+	if builder.entityTypeSet {
 		req.EntityType = &builder.entityType
 
 	}
-	if builder.userTypeFlag {
+	if builder.userTypeSet {
 		req.UserType = &builder.userType
 
 	}
@@ -971,10 +975,10 @@ type ReactionList struct {
 
 type ReactionListBuilder struct {
 	type_    string // 表情类型
-	typeFlag bool
+	type_Set bool
 
-	count     int // 回复该表情的人数
-	countFlag bool
+	count    int // 回复该表情的人数
+	countSet bool
 }
 
 func NewReactionListBuilder() *ReactionListBuilder {
@@ -987,7 +991,7 @@ func NewReactionListBuilder() *ReactionListBuilder {
 // 示例值：OK
 func (builder *ReactionListBuilder) Type(type_ string) *ReactionListBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -996,17 +1000,17 @@ func (builder *ReactionListBuilder) Type(type_ string) *ReactionListBuilder {
 // 示例值：3
 func (builder *ReactionListBuilder) Count(count int) *ReactionListBuilder {
 	builder.count = count
-	builder.countFlag = true
+	builder.countSet = true
 	return builder
 }
 
 func (builder *ReactionListBuilder) Build() *ReactionList {
 	req := &ReactionList{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.countFlag {
+	if builder.countSet {
 		req.Count = &builder.count
 
 	}
@@ -1020,11 +1024,11 @@ type ReactionSet struct {
 }
 
 type ReactionSetBuilder struct {
-	reactions     []*ReactionList // 表情列表
-	reactionsFlag bool
+	reactions    []*ReactionList // 表情列表
+	reactionsSet bool
 
-	totalCount     int // 全部表情计数
-	totalCountFlag bool
+	totalCount    int // 全部表情计数
+	totalCountSet bool
 }
 
 func NewReactionSetBuilder() *ReactionSetBuilder {
@@ -1037,7 +1041,7 @@ func NewReactionSetBuilder() *ReactionSetBuilder {
 // 示例值：
 func (builder *ReactionSetBuilder) Reactions(reactions []*ReactionList) *ReactionSetBuilder {
 	builder.reactions = reactions
-	builder.reactionsFlag = true
+	builder.reactionsSet = true
 	return builder
 }
 
@@ -1046,16 +1050,16 @@ func (builder *ReactionSetBuilder) Reactions(reactions []*ReactionList) *Reactio
 // 示例值：20
 func (builder *ReactionSetBuilder) TotalCount(totalCount int) *ReactionSetBuilder {
 	builder.totalCount = totalCount
-	builder.totalCountFlag = true
+	builder.totalCountSet = true
 	return builder
 }
 
 func (builder *ReactionSetBuilder) Build() *ReactionSet {
 	req := &ReactionSet{}
-	if builder.reactionsFlag {
+	if builder.reactionsSet {
 		req.Reactions = builder.reactions
 	}
-	if builder.totalCountFlag {
+	if builder.totalCountSet {
 		req.TotalCount = &builder.totalCount
 
 	}
@@ -1071,14 +1075,14 @@ type UserId struct {
 }
 
 type UserIdBuilder struct {
-	userId     string //
-	userIdFlag bool
+	userId    string //
+	userIdSet bool
 
-	openId     string //
-	openIdFlag bool
+	openId    string //
+	openIdSet bool
 
-	unionId     string //
-	unionIdFlag bool
+	unionId    string //
+	unionIdSet bool
 }
 
 func NewUserIdBuilder() *UserIdBuilder {
@@ -1086,38 +1090,44 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
-	builder.unionIdFlag = true
+	builder.unionIdSet = true
 	return builder
 }
 
 func (builder *UserIdBuilder) Build() *UserId {
 	req := &UserId{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.unionIdFlag {
+	if builder.unionIdSet {
 		req.UnionId = &builder.unionId
 
 	}

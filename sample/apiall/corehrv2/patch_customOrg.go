@@ -40,6 +40,7 @@ func main() {
 			EffectiveTime("2020-01-01").
 			OrgRoles([]*larkcorehr.OrgRoleUpdate{larkcorehr.NewOrgRoleUpdateBuilder().Build()}).
 			CustomFields([]*larkcorehr.CustomFieldData{larkcorehr.NewCustomFieldDataBuilder().Build()}).
+			IsPreferManualEncoding(false).
 			Build()).
 		Build()
 	// 发起请求

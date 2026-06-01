@@ -24,11 +24,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -36,27 +36,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -70,11 +74,11 @@ type Verification struct {
 }
 
 type VerificationBuilder struct {
-	name     string // 企业主体名称
-	nameFlag bool
+	name    string // 企业主体名称
+	nameSet bool
 
-	hasVerification     bool // 企业是否完成认证； true 表示已经完成认证，false 表示未认证
-	hasVerificationFlag bool
+	hasVerification    bool // 企业是否完成认证； true 表示已经完成认证，false 表示未认证
+	hasVerificationSet bool
 }
 
 func NewVerificationBuilder() *VerificationBuilder {
@@ -87,7 +91,7 @@ func NewVerificationBuilder() *VerificationBuilder {
 // 示例值：无限未来科技公司
 func (builder *VerificationBuilder) Name(name string) *VerificationBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -96,17 +100,17 @@ func (builder *VerificationBuilder) Name(name string) *VerificationBuilder {
 // 示例值：
 func (builder *VerificationBuilder) HasVerification(hasVerification bool) *VerificationBuilder {
 	builder.hasVerification = hasVerification
-	builder.hasVerificationFlag = true
+	builder.hasVerificationSet = true
 	return builder
 }
 
 func (builder *VerificationBuilder) Build() *Verification {
 	req := &Verification{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.hasVerificationFlag {
+	if builder.hasVerificationSet {
 		req.HasVerification = &builder.hasVerification
 
 	}
@@ -132,29 +136,29 @@ type VerificationDetail struct {
 }
 
 type VerificationDetailBuilder struct {
-	verificationType     int // 认证类型
-	verificationTypeFlag bool
+	verificationType    int // 认证类型
+	verificationTypeSet bool
 
-	verificationSource     int // 认证方式
-	verificationSourceFlag bool
+	verificationSource    int // 认证方式
+	verificationSourceSet bool
 
-	orgName     string // 工商名称
-	orgNameFlag bool
+	orgName    string // 工商名称
+	orgNameSet bool
 
-	usci     string // 统一工商信用代码
-	usciFlag bool
+	usci    string // 统一工商信用代码
+	usciSet bool
 
-	orgType     int // 企业类型
-	orgTypeFlag bool
+	orgType    int // 企业类型
+	orgTypeSet bool
 
-	legalPersonName     string // 法人姓名
-	legalPersonNameFlag bool
+	legalPersonName    string // 法人姓名
+	legalPersonNameSet bool
 
-	enterpriseLicense     string // 企业经营许可证
-	enterpriseLicenseFlag bool
+	enterpriseLicense    string // 企业经营许可证
+	enterpriseLicenseSet bool
 
-	verificationLetter     string // 认证公函
-	verificationLetterFlag bool
+	verificationLetter    string // 认证公函
+	verificationLetterSet bool
 }
 
 func NewVerificationDetailBuilder() *VerificationDetailBuilder {
@@ -167,7 +171,7 @@ func NewVerificationDetailBuilder() *VerificationDetailBuilder {
 // 示例值：
 func (builder *VerificationDetailBuilder) VerificationType(verificationType int) *VerificationDetailBuilder {
 	builder.verificationType = verificationType
-	builder.verificationTypeFlag = true
+	builder.verificationTypeSet = true
 	return builder
 }
 
@@ -176,7 +180,7 @@ func (builder *VerificationDetailBuilder) VerificationType(verificationType int)
 // 示例值：
 func (builder *VerificationDetailBuilder) VerificationSource(verificationSource int) *VerificationDetailBuilder {
 	builder.verificationSource = verificationSource
-	builder.verificationSourceFlag = true
+	builder.verificationSourceSet = true
 	return builder
 }
 
@@ -185,7 +189,7 @@ func (builder *VerificationDetailBuilder) VerificationSource(verificationSource 
 // 示例值：未来有限公司
 func (builder *VerificationDetailBuilder) OrgName(orgName string) *VerificationDetailBuilder {
 	builder.orgName = orgName
-	builder.orgNameFlag = true
+	builder.orgNameSet = true
 	return builder
 }
 
@@ -194,7 +198,7 @@ func (builder *VerificationDetailBuilder) OrgName(orgName string) *VerificationD
 // 示例值：xxxx
 func (builder *VerificationDetailBuilder) Usci(usci string) *VerificationDetailBuilder {
 	builder.usci = usci
-	builder.usciFlag = true
+	builder.usciSet = true
 	return builder
 }
 
@@ -203,7 +207,7 @@ func (builder *VerificationDetailBuilder) Usci(usci string) *VerificationDetailB
 // 示例值：
 func (builder *VerificationDetailBuilder) OrgType(orgType int) *VerificationDetailBuilder {
 	builder.orgType = orgType
-	builder.orgTypeFlag = true
+	builder.orgTypeSet = true
 	return builder
 }
 
@@ -212,7 +216,7 @@ func (builder *VerificationDetailBuilder) OrgType(orgType int) *VerificationDeta
 // 示例值：张三
 func (builder *VerificationDetailBuilder) LegalPersonName(legalPersonName string) *VerificationDetailBuilder {
 	builder.legalPersonName = legalPersonName
-	builder.legalPersonNameFlag = true
+	builder.legalPersonNameSet = true
 	return builder
 }
 
@@ -221,7 +225,7 @@ func (builder *VerificationDetailBuilder) LegalPersonName(legalPersonName string
 // 示例值：https://xxx
 func (builder *VerificationDetailBuilder) EnterpriseLicense(enterpriseLicense string) *VerificationDetailBuilder {
 	builder.enterpriseLicense = enterpriseLicense
-	builder.enterpriseLicenseFlag = true
+	builder.enterpriseLicenseSet = true
 	return builder
 }
 
@@ -230,41 +234,41 @@ func (builder *VerificationDetailBuilder) EnterpriseLicense(enterpriseLicense st
 // 示例值：https://xxx
 func (builder *VerificationDetailBuilder) VerificationLetter(verificationLetter string) *VerificationDetailBuilder {
 	builder.verificationLetter = verificationLetter
-	builder.verificationLetterFlag = true
+	builder.verificationLetterSet = true
 	return builder
 }
 
 func (builder *VerificationDetailBuilder) Build() *VerificationDetail {
 	req := &VerificationDetail{}
-	if builder.verificationTypeFlag {
+	if builder.verificationTypeSet {
 		req.VerificationType = &builder.verificationType
 
 	}
-	if builder.verificationSourceFlag {
+	if builder.verificationSourceSet {
 		req.VerificationSource = &builder.verificationSource
 
 	}
-	if builder.orgNameFlag {
+	if builder.orgNameSet {
 		req.OrgName = &builder.orgName
 
 	}
-	if builder.usciFlag {
+	if builder.usciSet {
 		req.Usci = &builder.usci
 
 	}
-	if builder.orgTypeFlag {
+	if builder.orgTypeSet {
 		req.OrgType = &builder.orgType
 
 	}
-	if builder.legalPersonNameFlag {
+	if builder.legalPersonNameSet {
 		req.LegalPersonName = &builder.legalPersonName
 
 	}
-	if builder.enterpriseLicenseFlag {
+	if builder.enterpriseLicenseSet {
 		req.EnterpriseLicense = &builder.enterpriseLicense
 
 	}
-	if builder.verificationLetterFlag {
+	if builder.verificationLetterSet {
 		req.VerificationLetter = &builder.verificationLetter
 
 	}

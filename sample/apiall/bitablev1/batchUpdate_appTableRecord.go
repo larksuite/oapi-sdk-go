@@ -31,6 +31,7 @@ func main() {
 		TableId("tblsRc9GRRXKqhvW").
 		UserIdType("user_id").
 		IgnoreConsistencyCheck(true).
+		ClientToken("").
 		Body(larkbitable.NewBatchUpdateAppTableRecordReqBodyBuilder().
 			Records([]*larkbitable.AppTableRecord{larkbitable.NewAppTableRecordBuilder().Build()}).
 			Build()).

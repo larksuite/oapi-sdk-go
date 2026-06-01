@@ -33,6 +33,8 @@ func main() {
 		Active(false).
 		PageToken("34523459").
 		PageSize(100).
+		StartDate("2026-01-01").
+		EndDate("2026-12-31").
 		Build()
 	// 发起请求
 	resp, err := client.Corehr.V2.WorkforcePlan.List(context.Background(), req)

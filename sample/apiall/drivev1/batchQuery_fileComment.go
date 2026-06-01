@@ -32,6 +32,7 @@ func main() {
 		UserIdType("user_id").
 		Body(larkdrive.NewBatchQueryFileCommentReqBodyBuilder().
 			CommentIds([]string{}).
+			NeedReaction(false).
 			Build()).
 		Build()
 	// 发起请求

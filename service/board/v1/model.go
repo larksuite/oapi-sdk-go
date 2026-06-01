@@ -66,6 +66,11 @@ const (
 )
 
 const (
+	LookTypeLarkAI = 1 // LarkAI样式
+
+)
+
+const (
 	UserIdTypeListWhiteboardNodeUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeListWhiteboardNodeUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeListWhiteboardNodeOpenId  = "open_id"  // 以open_id来识别用户
@@ -90,29 +95,29 @@ type AuthInfo struct {
 }
 
 type AuthInfoBuilder struct {
-	sessionKey     string // $ session key
-	sessionKeyFlag bool
+	sessionKey    string // $ session key
+	sessionKeySet bool
 
-	userId     string // $ feishu id for internal app.
-	userIdFlag bool
+	userId    string // $ feishu id for internal app.
+	userIdSet bool
 
-	openAppId     string // $ app id of open platform.
-	openAppIdFlag bool
+	openAppId    string // $ app id of open platform.
+	openAppIdSet bool
 
-	region     string // $ user account region. cn for china; va for oversea
-	regionFlag bool
+	region    string // $ user account region. cn for china; va for oversea
+	regionSet bool
 
-	openBotId     string // $ open bot id
-	openBotIdFlag bool
+	openBotId    string // $ open bot id
+	openBotIdSet bool
 
-	botId     string // $ bot id
-	botIdFlag bool
+	botId    string // $ bot id
+	botIdSet bool
 
-	authType     string // $ 鉴权类型: LarkSession, TenantAccessToken, UserAccessToken, OpenSession等
-	authTypeFlag bool
+	authType    string // $ 鉴权类型: LarkSession, TenantAccessToken, UserAccessToken, OpenSession等
+	authTypeSet bool
 
-	extra     map[string]string //
-	extraFlag bool
+	extra    map[string]string //
+	extraSet bool
 }
 
 func NewAuthInfoBuilder() *AuthInfoBuilder {
@@ -125,7 +130,7 @@ func NewAuthInfoBuilder() *AuthInfoBuilder {
 // 示例值：
 func (builder *AuthInfoBuilder) SessionKey(sessionKey string) *AuthInfoBuilder {
 	builder.sessionKey = sessionKey
-	builder.sessionKeyFlag = true
+	builder.sessionKeySet = true
 	return builder
 }
 
@@ -134,7 +139,7 @@ func (builder *AuthInfoBuilder) SessionKey(sessionKey string) *AuthInfoBuilder {
 // 示例值：
 func (builder *AuthInfoBuilder) UserId(userId string) *AuthInfoBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -143,7 +148,7 @@ func (builder *AuthInfoBuilder) UserId(userId string) *AuthInfoBuilder {
 // 示例值：
 func (builder *AuthInfoBuilder) OpenAppId(openAppId string) *AuthInfoBuilder {
 	builder.openAppId = openAppId
-	builder.openAppIdFlag = true
+	builder.openAppIdSet = true
 	return builder
 }
 
@@ -152,7 +157,7 @@ func (builder *AuthInfoBuilder) OpenAppId(openAppId string) *AuthInfoBuilder {
 // 示例值：
 func (builder *AuthInfoBuilder) Region(region string) *AuthInfoBuilder {
 	builder.region = region
-	builder.regionFlag = true
+	builder.regionSet = true
 	return builder
 }
 
@@ -161,7 +166,7 @@ func (builder *AuthInfoBuilder) Region(region string) *AuthInfoBuilder {
 // 示例值：
 func (builder *AuthInfoBuilder) OpenBotId(openBotId string) *AuthInfoBuilder {
 	builder.openBotId = openBotId
-	builder.openBotIdFlag = true
+	builder.openBotIdSet = true
 	return builder
 }
 
@@ -170,7 +175,7 @@ func (builder *AuthInfoBuilder) OpenBotId(openBotId string) *AuthInfoBuilder {
 // 示例值：
 func (builder *AuthInfoBuilder) BotId(botId string) *AuthInfoBuilder {
 	builder.botId = botId
-	builder.botIdFlag = true
+	builder.botIdSet = true
 	return builder
 }
 
@@ -179,49 +184,137 @@ func (builder *AuthInfoBuilder) BotId(botId string) *AuthInfoBuilder {
 // 示例值：
 func (builder *AuthInfoBuilder) AuthType(authType string) *AuthInfoBuilder {
 	builder.authType = authType
-	builder.authTypeFlag = true
+	builder.authTypeSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *AuthInfoBuilder) Extra(extra map[string]string) *AuthInfoBuilder {
 	builder.extra = extra
-	builder.extraFlag = true
+	builder.extraSet = true
 	return builder
 }
 
 func (builder *AuthInfoBuilder) Build() *AuthInfo {
 	req := &AuthInfo{}
-	if builder.sessionKeyFlag {
+	if builder.sessionKeySet {
 		req.SessionKey = &builder.sessionKey
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.openAppIdFlag {
+	if builder.openAppIdSet {
 		req.OpenAppId = &builder.openAppId
 
 	}
-	if builder.regionFlag {
+	if builder.regionSet {
 		req.Region = &builder.region
 
 	}
-	if builder.openBotIdFlag {
+	if builder.openBotIdSet {
 		req.OpenBotId = &builder.openBotId
 
 	}
-	if builder.botIdFlag {
+	if builder.botIdSet {
 		req.BotId = &builder.botId
 
 	}
-	if builder.authTypeFlag {
+	if builder.authTypeSet {
 		req.AuthType = &builder.authType
 
 	}
-	if builder.extraFlag {
+	if builder.extraSet {
 		req.Extra = builder.extra
+	}
+	return req
+}
+
+type BorderRadius struct {
+	TopLeft *int `json:"top_left,omitempty"` // 左上角弧度半径
+
+	TopRight *int `json:"top_right,omitempty"` // 右上角弧度半径
+
+	BottomRight *int `json:"bottom_right,omitempty"` // 右下角弧度半径
+
+	BottomLeft *int `json:"bottom_left,omitempty"` // 左下角弧度半径
+}
+
+type BorderRadiusBuilder struct {
+	topLeft    int // 左上角弧度半径
+	topLeftSet bool
+
+	topRight    int // 右上角弧度半径
+	topRightSet bool
+
+	bottomRight    int // 右下角弧度半径
+	bottomRightSet bool
+
+	bottomLeft    int // 左下角弧度半径
+	bottomLeftSet bool
+}
+
+func NewBorderRadiusBuilder() *BorderRadiusBuilder {
+	builder := &BorderRadiusBuilder{}
+	return builder
+}
+
+// 左上角弧度半径
+//
+// 示例值：1
+func (builder *BorderRadiusBuilder) TopLeft(topLeft int) *BorderRadiusBuilder {
+	builder.topLeft = topLeft
+	builder.topLeftSet = true
+	return builder
+}
+
+// 右上角弧度半径
+//
+// 示例值：1
+func (builder *BorderRadiusBuilder) TopRight(topRight int) *BorderRadiusBuilder {
+	builder.topRight = topRight
+	builder.topRightSet = true
+	return builder
+}
+
+// 右下角弧度半径
+//
+// 示例值：0
+func (builder *BorderRadiusBuilder) BottomRight(bottomRight int) *BorderRadiusBuilder {
+	builder.bottomRight = bottomRight
+	builder.bottomRightSet = true
+	return builder
+}
+
+// 左下角弧度半径
+//
+// 示例值：1
+func (builder *BorderRadiusBuilder) BottomLeft(bottomLeft int) *BorderRadiusBuilder {
+	builder.bottomLeft = bottomLeft
+	builder.bottomLeftSet = true
+	return builder
+}
+
+func (builder *BorderRadiusBuilder) Build() *BorderRadius {
+	req := &BorderRadius{}
+	if builder.topLeftSet {
+		req.TopLeft = &builder.topLeft
+
+	}
+	if builder.topRightSet {
+		req.TopRight = &builder.topRight
+
+	}
+	if builder.bottomRightSet {
+		req.BottomRight = &builder.bottomRight
+
+	}
+	if builder.bottomLeftSet {
+		req.BottomLeft = &builder.bottomLeft
+
 	}
 	return req
 }
@@ -231,8 +324,8 @@ type ClientInfo struct {
 }
 
 type ClientInfoBuilder struct {
-	clientIp     string // 1: optional string Platform (gw.ctx="mw_platform"); //$ depracated 请求的平台\n2: optional string LarkVersion (gw.ctx="mw_lark_version"); //$ depracated 如果是来自Feisu, 这里是飞书的Version\n3: optional AppForm AppForm (gw.ctx="mw_app_form");   //$ depracated 应用形态 1-小程序\n4: optional string AppVersion (gw.ctx="mw_app_version"); //$ depracated 应用版本\n5: optional string OS (gw.ctx="mw_os"); //$ depracated 操作系统\n$ 客户端IP
-	clientIpFlag bool
+	clientIp    string // 1: optional string Platform (gw.ctx="mw_platform"); //$ depracated 请求的平台\n2: optional string LarkVersion (gw.ctx="mw_lark_version"); //$ depracated 如果是来自Feisu, 这里是飞书的Version\n3: optional AppForm AppForm (gw.ctx="mw_app_form");   //$ depracated 应用形态 1-小程序\n4: optional string AppVersion (gw.ctx="mw_app_version"); //$ depracated 应用版本\n5: optional string OS (gw.ctx="mw_os"); //$ depracated 操作系统\n$ 客户端IP
+	clientIpSet bool
 }
 
 func NewClientInfoBuilder() *ClientInfoBuilder {
@@ -245,13 +338,13 @@ func NewClientInfoBuilder() *ClientInfoBuilder {
 // 示例值：
 func (builder *ClientInfoBuilder) ClientIp(clientIp string) *ClientInfoBuilder {
 	builder.clientIp = clientIp
-	builder.clientIpFlag = true
+	builder.clientIpSet = true
 	return builder
 }
 
 func (builder *ClientInfoBuilder) Build() *ClientInfo {
 	req := &ClientInfo{}
-	if builder.clientIpFlag {
+	if builder.clientIpSet {
 		req.ClientIp = &builder.clientIp
 
 	}
@@ -272,19 +365,19 @@ type CompositeShape struct {
 
 type CompositeShapeBuilder struct {
 	type_    string // 基础图形的具体类型
-	typeFlag bool
+	type_Set bool
 
-	pie     *Pie // 饼图属性，type=pie时需要设置
-	pieFlag bool
+	pie    *Pie // 饼图属性，type=pie时需要设置
+	pieSet bool
 
-	circularRing     *Pie // 圆环属性，type=circular_ring时需要设置
-	circularRingFlag bool
+	circularRing    *Pie // 圆环属性，type=circular_ring时需要设置
+	circularRingSet bool
 
-	trapezoid     *Trapezoid // 梯形属性，type=trapezoid时可以设置
-	trapezoidFlag bool
+	trapezoid    *Trapezoid // 梯形属性，type=trapezoid时可以设置
+	trapezoidSet bool
 
-	cube     *Cube // 六面体属性，type=cube时可以设置
-	cubeFlag bool
+	cube    *Cube // 六面体属性，type=cube时可以设置
+	cubeSet bool
 }
 
 func NewCompositeShapeBuilder() *CompositeShapeBuilder {
@@ -297,7 +390,7 @@ func NewCompositeShapeBuilder() *CompositeShapeBuilder {
 // 示例值：
 func (builder *CompositeShapeBuilder) Type(type_ string) *CompositeShapeBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -306,7 +399,7 @@ func (builder *CompositeShapeBuilder) Type(type_ string) *CompositeShapeBuilder 
 // 示例值：
 func (builder *CompositeShapeBuilder) Pie(pie *Pie) *CompositeShapeBuilder {
 	builder.pie = pie
-	builder.pieFlag = true
+	builder.pieSet = true
 	return builder
 }
 
@@ -315,7 +408,7 @@ func (builder *CompositeShapeBuilder) Pie(pie *Pie) *CompositeShapeBuilder {
 // 示例值：
 func (builder *CompositeShapeBuilder) CircularRing(circularRing *Pie) *CompositeShapeBuilder {
 	builder.circularRing = circularRing
-	builder.circularRingFlag = true
+	builder.circularRingSet = true
 	return builder
 }
 
@@ -324,7 +417,7 @@ func (builder *CompositeShapeBuilder) CircularRing(circularRing *Pie) *Composite
 // 示例值：
 func (builder *CompositeShapeBuilder) Trapezoid(trapezoid *Trapezoid) *CompositeShapeBuilder {
 	builder.trapezoid = trapezoid
-	builder.trapezoidFlag = true
+	builder.trapezoidSet = true
 	return builder
 }
 
@@ -333,26 +426,26 @@ func (builder *CompositeShapeBuilder) Trapezoid(trapezoid *Trapezoid) *Composite
 // 示例值：
 func (builder *CompositeShapeBuilder) Cube(cube *Cube) *CompositeShapeBuilder {
 	builder.cube = cube
-	builder.cubeFlag = true
+	builder.cubeSet = true
 	return builder
 }
 
 func (builder *CompositeShapeBuilder) Build() *CompositeShape {
 	req := &CompositeShape{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.pieFlag {
+	if builder.pieSet {
 		req.Pie = builder.pie
 	}
-	if builder.circularRingFlag {
+	if builder.circularRingSet {
 		req.CircularRing = builder.circularRing
 	}
-	if builder.trapezoidFlag {
+	if builder.trapezoidSet {
 		req.Trapezoid = builder.trapezoid
 	}
-	if builder.cubeFlag {
+	if builder.cubeSet {
 		req.Cube = builder.cube
 	}
 	return req
@@ -383,38 +476,38 @@ type Connector struct {
 }
 
 type ConnectorBuilder struct {
-	startObject     *ConnectorAttachedObject // 开始连接节点信息（兼容线上数据，只读，写操作使用 start 字段）
-	startObjectFlag bool
+	startObject    *ConnectorAttachedObject // 开始连接节点信息（兼容线上数据，只读，写操作使用 start 字段）
+	startObjectSet bool
 
-	endObject     *ConnectorAttachedObject // 结束连接点信息（兼容线上数据， 只读，写操作使用 end 字段）
-	endObjectFlag bool
+	endObject    *ConnectorAttachedObject // 结束连接点信息（兼容线上数据， 只读，写操作使用 end 字段）
+	endObjectSet bool
 
-	start     *ConnectorInfo // 连线端点信息
-	startFlag bool
+	start    *ConnectorInfo // 连线端点信息
+	startSet bool
 
-	end     *ConnectorInfo // 连线端点信息
-	endFlag bool
+	end    *ConnectorInfo // 连线端点信息
+	endSet bool
 
-	captions     *ConnectorCaption // 连线文本
-	captionsFlag bool
+	captions    *ConnectorCaption // 连线文本
+	captionsSet bool
 
-	shape     string // 连线类型
-	shapeFlag bool
+	shape    string // 连线类型
+	shapeSet bool
 
-	turningPoints     []*Point // 连线转向点
-	turningPointsFlag bool
+	turningPoints    []*Point // 连线转向点
+	turningPointsSet bool
 
-	captionAutoDirection     bool // 连线上的文本方向是否自动跟随连线方向
-	captionAutoDirectionFlag bool
+	captionAutoDirection    bool // 连线上的文本方向是否自动跟随连线方向
+	captionAutoDirectionSet bool
 
-	captionPosition     float64 // 文本在连线上的相对位置，范围0-1，0表示在连线的起始点，1表示在连线的终点
-	captionPositionFlag bool
+	captionPosition    float64 // 文本在连线上的相对位置，范围0-1，0表示在连线的起始点，1表示在连线的终点
+	captionPositionSet bool
 
-	specifiedCoordinate     bool // 指定连线坐标及长宽。为 true 时需要用户设置连线的坐标及长宽信息。为 false 时会根据连线的开始、结束端点自动计算连线的坐标及长宽信息
-	specifiedCoordinateFlag bool
+	specifiedCoordinate    bool // 指定连线坐标及长宽。为 true 时需要用户设置连线的坐标及长宽信息。为 false 时会根据连线的开始、结束端点自动计算连线的坐标及长宽信息
+	specifiedCoordinateSet bool
 
-	captionPositionType     int // 文字相对连线的位置类型，0=OnLine，表示文字在连线那不；1=AboveLine，文字在连线的上方，文字在线的上方，连线走向的上边或左边；2=BellowLine，文字在连线的下方，文字在线的上方，连线走向的下边或右边
-	captionPositionTypeFlag bool
+	captionPositionType    int // 文字相对连线的位置类型，0=OnLine，表示文字在连线那不；1=AboveLine，文字在连线的上方，文字在线的上方，连线走向的上边或左边；2=BellowLine，文字在连线的下方，文字在线的上方，连线走向的下边或右边
+	captionPositionTypeSet bool
 }
 
 func NewConnectorBuilder() *ConnectorBuilder {
@@ -427,7 +520,7 @@ func NewConnectorBuilder() *ConnectorBuilder {
 // 示例值：
 func (builder *ConnectorBuilder) StartObject(startObject *ConnectorAttachedObject) *ConnectorBuilder {
 	builder.startObject = startObject
-	builder.startObjectFlag = true
+	builder.startObjectSet = true
 	return builder
 }
 
@@ -436,7 +529,7 @@ func (builder *ConnectorBuilder) StartObject(startObject *ConnectorAttachedObjec
 // 示例值：
 func (builder *ConnectorBuilder) EndObject(endObject *ConnectorAttachedObject) *ConnectorBuilder {
 	builder.endObject = endObject
-	builder.endObjectFlag = true
+	builder.endObjectSet = true
 	return builder
 }
 
@@ -445,7 +538,7 @@ func (builder *ConnectorBuilder) EndObject(endObject *ConnectorAttachedObject) *
 // 示例值：
 func (builder *ConnectorBuilder) Start(start *ConnectorInfo) *ConnectorBuilder {
 	builder.start = start
-	builder.startFlag = true
+	builder.startSet = true
 	return builder
 }
 
@@ -454,7 +547,7 @@ func (builder *ConnectorBuilder) Start(start *ConnectorInfo) *ConnectorBuilder {
 // 示例值：
 func (builder *ConnectorBuilder) End(end *ConnectorInfo) *ConnectorBuilder {
 	builder.end = end
-	builder.endFlag = true
+	builder.endSet = true
 	return builder
 }
 
@@ -463,7 +556,7 @@ func (builder *ConnectorBuilder) End(end *ConnectorInfo) *ConnectorBuilder {
 // 示例值：
 func (builder *ConnectorBuilder) Captions(captions *ConnectorCaption) *ConnectorBuilder {
 	builder.captions = captions
-	builder.captionsFlag = true
+	builder.captionsSet = true
 	return builder
 }
 
@@ -472,7 +565,7 @@ func (builder *ConnectorBuilder) Captions(captions *ConnectorCaption) *Connector
 // 示例值：straight
 func (builder *ConnectorBuilder) Shape(shape string) *ConnectorBuilder {
 	builder.shape = shape
-	builder.shapeFlag = true
+	builder.shapeSet = true
 	return builder
 }
 
@@ -481,7 +574,7 @@ func (builder *ConnectorBuilder) Shape(shape string) *ConnectorBuilder {
 // 示例值：
 func (builder *ConnectorBuilder) TurningPoints(turningPoints []*Point) *ConnectorBuilder {
 	builder.turningPoints = turningPoints
-	builder.turningPointsFlag = true
+	builder.turningPointsSet = true
 	return builder
 }
 
@@ -490,7 +583,7 @@ func (builder *ConnectorBuilder) TurningPoints(turningPoints []*Point) *Connecto
 // 示例值：true
 func (builder *ConnectorBuilder) CaptionAutoDirection(captionAutoDirection bool) *ConnectorBuilder {
 	builder.captionAutoDirection = captionAutoDirection
-	builder.captionAutoDirectionFlag = true
+	builder.captionAutoDirectionSet = true
 	return builder
 }
 
@@ -499,7 +592,7 @@ func (builder *ConnectorBuilder) CaptionAutoDirection(captionAutoDirection bool)
 // 示例值：0.5
 func (builder *ConnectorBuilder) CaptionPosition(captionPosition float64) *ConnectorBuilder {
 	builder.captionPosition = captionPosition
-	builder.captionPositionFlag = true
+	builder.captionPositionSet = true
 	return builder
 }
 
@@ -508,7 +601,7 @@ func (builder *ConnectorBuilder) CaptionPosition(captionPosition float64) *Conne
 // 示例值：
 func (builder *ConnectorBuilder) SpecifiedCoordinate(specifiedCoordinate bool) *ConnectorBuilder {
 	builder.specifiedCoordinate = specifiedCoordinate
-	builder.specifiedCoordinateFlag = true
+	builder.specifiedCoordinateSet = true
 	return builder
 }
 
@@ -517,47 +610,47 @@ func (builder *ConnectorBuilder) SpecifiedCoordinate(specifiedCoordinate bool) *
 // 示例值：
 func (builder *ConnectorBuilder) CaptionPositionType(captionPositionType int) *ConnectorBuilder {
 	builder.captionPositionType = captionPositionType
-	builder.captionPositionTypeFlag = true
+	builder.captionPositionTypeSet = true
 	return builder
 }
 
 func (builder *ConnectorBuilder) Build() *Connector {
 	req := &Connector{}
-	if builder.startObjectFlag {
+	if builder.startObjectSet {
 		req.StartObject = builder.startObject
 	}
-	if builder.endObjectFlag {
+	if builder.endObjectSet {
 		req.EndObject = builder.endObject
 	}
-	if builder.startFlag {
+	if builder.startSet {
 		req.Start = builder.start
 	}
-	if builder.endFlag {
+	if builder.endSet {
 		req.End = builder.end
 	}
-	if builder.captionsFlag {
+	if builder.captionsSet {
 		req.Captions = builder.captions
 	}
-	if builder.shapeFlag {
+	if builder.shapeSet {
 		req.Shape = &builder.shape
 
 	}
-	if builder.turningPointsFlag {
+	if builder.turningPointsSet {
 		req.TurningPoints = builder.turningPoints
 	}
-	if builder.captionAutoDirectionFlag {
+	if builder.captionAutoDirectionSet {
 		req.CaptionAutoDirection = &builder.captionAutoDirection
 
 	}
-	if builder.captionPositionFlag {
+	if builder.captionPositionSet {
 		req.CaptionPosition = &builder.captionPosition
 
 	}
-	if builder.specifiedCoordinateFlag {
+	if builder.specifiedCoordinateSet {
 		req.SpecifiedCoordinate = &builder.specifiedCoordinate
 
 	}
-	if builder.captionPositionTypeFlag {
+	if builder.captionPositionTypeSet {
 		req.CaptionPositionType = &builder.captionPositionType
 
 	}
@@ -573,14 +666,14 @@ type ConnectorAttachedObject struct {
 }
 
 type ConnectorAttachedObjectBuilder struct {
-	id     string // 连接图形的 id
-	idFlag bool
+	id    string // 连接图形的 id
+	idSet bool
 
-	snapTo     string // 连接图形的方向
-	snapToFlag bool
+	snapTo    string // 连接图形的方向
+	snapToSet bool
 
-	position     *Point // 连接图形的相对坐标，0-1
-	positionFlag bool
+	position    *Point // 连接图形的相对坐标，0-1
+	positionSet bool
 }
 
 func NewConnectorAttachedObjectBuilder() *ConnectorAttachedObjectBuilder {
@@ -593,7 +686,7 @@ func NewConnectorAttachedObjectBuilder() *ConnectorAttachedObjectBuilder {
 // 示例值：o1:1
 func (builder *ConnectorAttachedObjectBuilder) Id(id string) *ConnectorAttachedObjectBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -602,7 +695,7 @@ func (builder *ConnectorAttachedObjectBuilder) Id(id string) *ConnectorAttachedO
 // 示例值：auto
 func (builder *ConnectorAttachedObjectBuilder) SnapTo(snapTo string) *ConnectorAttachedObjectBuilder {
 	builder.snapTo = snapTo
-	builder.snapToFlag = true
+	builder.snapToSet = true
 	return builder
 }
 
@@ -611,21 +704,21 @@ func (builder *ConnectorAttachedObjectBuilder) SnapTo(snapTo string) *ConnectorA
 // 示例值：
 func (builder *ConnectorAttachedObjectBuilder) Position(position *Point) *ConnectorAttachedObjectBuilder {
 	builder.position = position
-	builder.positionFlag = true
+	builder.positionSet = true
 	return builder
 }
 
 func (builder *ConnectorAttachedObjectBuilder) Build() *ConnectorAttachedObject {
 	req := &ConnectorAttachedObject{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.snapToFlag {
+	if builder.snapToSet {
 		req.SnapTo = &builder.snapTo
 
 	}
-	if builder.positionFlag {
+	if builder.positionSet {
 		req.Position = builder.position
 	}
 	return req
@@ -636,8 +729,8 @@ type ConnectorCaption struct {
 }
 
 type ConnectorCaptionBuilder struct {
-	data     []*Text // 文本
-	dataFlag bool
+	data    []*Text // 文本
+	dataSet bool
 }
 
 func NewConnectorCaptionBuilder() *ConnectorCaptionBuilder {
@@ -650,13 +743,13 @@ func NewConnectorCaptionBuilder() *ConnectorCaptionBuilder {
 // 示例值：
 func (builder *ConnectorCaptionBuilder) Data(data []*Text) *ConnectorCaptionBuilder {
 	builder.data = data
-	builder.dataFlag = true
+	builder.dataSet = true
 	return builder
 }
 
 func (builder *ConnectorCaptionBuilder) Build() *ConnectorCaption {
 	req := &ConnectorCaption{}
-	if builder.dataFlag {
+	if builder.dataSet {
 		req.Data = builder.data
 	}
 	return req
@@ -671,14 +764,14 @@ type ConnectorInfo struct {
 }
 
 type ConnectorInfoBuilder struct {
-	attachedObject     *ConnectorAttachedObject // 连接图形信息
-	attachedObjectFlag bool
+	attachedObject    *ConnectorAttachedObject // 连接图形信息
+	attachedObjectSet bool
 
-	position     *Point // 连线端点在画布内的坐标，position与attached_object二选一
-	positionFlag bool
+	position    *Point // 连线端点在画布内的坐标，position与attached_object二选一
+	positionSet bool
 
-	arrowStyle     string // 连线端点箭头样式
-	arrowStyleFlag bool
+	arrowStyle    string // 连线端点箭头样式
+	arrowStyleSet bool
 }
 
 func NewConnectorInfoBuilder() *ConnectorInfoBuilder {
@@ -691,7 +784,7 @@ func NewConnectorInfoBuilder() *ConnectorInfoBuilder {
 // 示例值：
 func (builder *ConnectorInfoBuilder) AttachedObject(attachedObject *ConnectorAttachedObject) *ConnectorInfoBuilder {
 	builder.attachedObject = attachedObject
-	builder.attachedObjectFlag = true
+	builder.attachedObjectSet = true
 	return builder
 }
 
@@ -700,7 +793,7 @@ func (builder *ConnectorInfoBuilder) AttachedObject(attachedObject *ConnectorAtt
 // 示例值：
 func (builder *ConnectorInfoBuilder) Position(position *Point) *ConnectorInfoBuilder {
 	builder.position = position
-	builder.positionFlag = true
+	builder.positionSet = true
 	return builder
 }
 
@@ -709,19 +802,19 @@ func (builder *ConnectorInfoBuilder) Position(position *Point) *ConnectorInfoBui
 // 示例值：line_arrow
 func (builder *ConnectorInfoBuilder) ArrowStyle(arrowStyle string) *ConnectorInfoBuilder {
 	builder.arrowStyle = arrowStyle
-	builder.arrowStyleFlag = true
+	builder.arrowStyleSet = true
 	return builder
 }
 
 func (builder *ConnectorInfoBuilder) Build() *ConnectorInfo {
 	req := &ConnectorInfo{}
-	if builder.attachedObjectFlag {
+	if builder.attachedObjectSet {
 		req.AttachedObject = builder.attachedObject
 	}
-	if builder.positionFlag {
+	if builder.positionSet {
 		req.Position = builder.position
 	}
-	if builder.arrowStyleFlag {
+	if builder.arrowStyleSet {
 		req.ArrowStyle = &builder.arrowStyle
 
 	}
@@ -733,8 +826,8 @@ type Cube struct {
 }
 
 type CubeBuilder struct {
-	controlPoint     *Point // 六面体控制点，相对六面体外接矩形的相对坐标。默认控制点为外接矩形长的0.8，宽的0.25
-	controlPointFlag bool
+	controlPoint    *Point // 六面体控制点，相对六面体外接矩形的相对坐标。默认控制点为外接矩形长的0.8，宽的0.25
+	controlPointSet bool
 }
 
 func NewCubeBuilder() *CubeBuilder {
@@ -747,13 +840,13 @@ func NewCubeBuilder() *CubeBuilder {
 // 示例值：
 func (builder *CubeBuilder) ControlPoint(controlPoint *Point) *CubeBuilder {
 	builder.controlPoint = controlPoint
-	builder.controlPointFlag = true
+	builder.controlPointSet = true
 	return builder
 }
 
 func (builder *CubeBuilder) Build() *Cube {
 	req := &Cube{}
-	if builder.controlPointFlag {
+	if builder.controlPointSet {
 		req.ControlPoint = builder.controlPoint
 	}
 	return req
@@ -766,11 +859,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -778,28 +871,148 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	return req
+}
+
+type FillGradient struct {
+	Type *string `json:"type,omitempty"` // 渐变类别
+
+	HandlePositions []*Point `json:"handle_positions,omitempty"` // 图层内渐变的定位
+
+	Stops []*GradientStop `json:"stops,omitempty"` // 渐变中的色标数组
+}
+
+type FillGradientBuilder struct {
+	type_    string // 渐变类别
+	type_Set bool
+
+	handlePositions    []*Point // 图层内渐变的定位
+	handlePositionsSet bool
+
+	stops    []*GradientStop // 渐变中的色标数组
+	stopsSet bool
+}
+
+func NewFillGradientBuilder() *FillGradientBuilder {
+	builder := &FillGradientBuilder{}
+	return builder
+}
+
+// 渐变类别
+//
+// 示例值：
+func (builder *FillGradientBuilder) Type(type_ string) *FillGradientBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 图层内渐变的定位
+//
+// 示例值：
+func (builder *FillGradientBuilder) HandlePositions(handlePositions []*Point) *FillGradientBuilder {
+	builder.handlePositions = handlePositions
+	builder.handlePositionsSet = true
+	return builder
+}
+
+// 渐变中的色标数组
+//
+// 示例值：
+func (builder *FillGradientBuilder) Stops(stops []*GradientStop) *FillGradientBuilder {
+	builder.stops = stops
+	builder.stopsSet = true
+	return builder
+}
+
+func (builder *FillGradientBuilder) Build() *FillGradient {
+	req := &FillGradient{}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.handlePositionsSet {
+		req.HandlePositions = builder.handlePositions
+	}
+	if builder.stopsSet {
+		req.Stops = builder.stops
+	}
+	return req
+}
+
+type GradientStop struct {
+	Position *float64 `json:"position,omitempty"` // 色标位置（百分比）
+
+	Color *string `json:"color,omitempty"` // 颜色
+}
+
+type GradientStopBuilder struct {
+	position    float64 // 色标位置（百分比）
+	positionSet bool
+
+	color    string // 颜色
+	colorSet bool
+}
+
+func NewGradientStopBuilder() *GradientStopBuilder {
+	builder := &GradientStopBuilder{}
+	return builder
+}
+
+// 色标位置（百分比）
+//
+// 示例值：1.0
+func (builder *GradientStopBuilder) Position(position float64) *GradientStopBuilder {
+	builder.position = position
+	builder.positionSet = true
+	return builder
+}
+
+// 颜色
+//
+// 示例值：#FFFFFF
+func (builder *GradientStopBuilder) Color(color string) *GradientStopBuilder {
+	builder.color = color
+	builder.colorSet = true
+	return builder
+}
+
+func (builder *GradientStopBuilder) Build() *GradientStop {
+	req := &GradientStop{}
+	if builder.positionSet {
+		req.Position = &builder.position
+
+	}
+	if builder.colorSet {
+		req.Color = &builder.color
 
 	}
 	return req
@@ -830,38 +1043,38 @@ type Head struct {
 }
 
 type HeadBuilder struct {
-	id     string // 请求方的id deprecated
-	idFlag bool
+	id    string // 请求方的id deprecated
+	idSet bool
 
-	tenantId     string // 请求方的组织，在多租户业务中使用
-	tenantIdFlag bool
+	tenantId    string // 请求方的组织，在多租户业务中使用
+	tenantIdSet bool
 
-	appId     string // 请求方的appid
-	appIdFlag bool
+	appId    string // 请求方的appid
+	appIdSet bool
 
-	openId     string // 开放平台的OpenID
-	openIdFlag bool
+	openId    string // 开放平台的OpenID
+	openIdSet bool
 
-	tenantKey     string // 如果小程序登录，这个是原始的信息，和OpenID是一个意思
-	tenantKeyFlag bool
+	tenantKey    string // 如果小程序登录，这个是原始的信息，和OpenID是一个意思
+	tenantKeySet bool
 
-	auth     *AuthInfo // thrift --gen go idl/common.thrift
-	authFlag bool
+	auth    *AuthInfo // thrift --gen go idl/common.thrift
+	authSet bool
 
-	fields     map[string]string // $ plugin output
-	fieldsFlag bool
+	fields    map[string]string // $ plugin output
+	fieldsSet bool
 
-	env     string // Header的环境
-	envFlag bool
+	env    string // Header的环境
+	envSet bool
 
-	resource     string // 资源
-	resourceFlag bool
+	resource    string // 资源
+	resourceSet bool
 
-	locale     string // 200: optional HttpHeader HttpHeader (api.json="HttpHeader"), //$ 从HttpHeader透传的HttpHeader\n$ 所在区域，参考:https://zh.wikipedia.org/wiki/%E5%8C%BA%E5%9F%9F%E8%AE%BE%E7%BD%AE的简称
-	localeFlag bool
+	locale    string // 200: optional HttpHeader HttpHeader (api.json="HttpHeader"), //$ 从HttpHeader透传的HttpHeader\n$ 所在区域，参考:https://zh.wikipedia.org/wiki/%E5%8C%BA%E5%9F%9F%E8%AE%BE%E7%BD%AE的简称
+	localeSet bool
 
-	client     *ClientInfo // $ 客户端信息
-	clientFlag bool
+	client    *ClientInfo // $ 客户端信息
+	clientSet bool
 }
 
 func NewHeadBuilder() *HeadBuilder {
@@ -874,7 +1087,7 @@ func NewHeadBuilder() *HeadBuilder {
 // 示例值：
 func (builder *HeadBuilder) Id(id string) *HeadBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -883,7 +1096,7 @@ func (builder *HeadBuilder) Id(id string) *HeadBuilder {
 // 示例值：
 func (builder *HeadBuilder) TenantId(tenantId string) *HeadBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -892,7 +1105,7 @@ func (builder *HeadBuilder) TenantId(tenantId string) *HeadBuilder {
 // 示例值：
 func (builder *HeadBuilder) AppId(appId string) *HeadBuilder {
 	builder.appId = appId
-	builder.appIdFlag = true
+	builder.appIdSet = true
 	return builder
 }
 
@@ -901,7 +1114,7 @@ func (builder *HeadBuilder) AppId(appId string) *HeadBuilder {
 // 示例值：
 func (builder *HeadBuilder) OpenId(openId string) *HeadBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
@@ -910,7 +1123,7 @@ func (builder *HeadBuilder) OpenId(openId string) *HeadBuilder {
 // 示例值：
 func (builder *HeadBuilder) TenantKey(tenantKey string) *HeadBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
@@ -919,7 +1132,7 @@ func (builder *HeadBuilder) TenantKey(tenantKey string) *HeadBuilder {
 // 示例值：
 func (builder *HeadBuilder) Auth(auth *AuthInfo) *HeadBuilder {
 	builder.auth = auth
-	builder.authFlag = true
+	builder.authSet = true
 	return builder
 }
 
@@ -928,7 +1141,7 @@ func (builder *HeadBuilder) Auth(auth *AuthInfo) *HeadBuilder {
 // 示例值：
 func (builder *HeadBuilder) Fields(fields map[string]string) *HeadBuilder {
 	builder.fields = fields
-	builder.fieldsFlag = true
+	builder.fieldsSet = true
 	return builder
 }
 
@@ -937,7 +1150,7 @@ func (builder *HeadBuilder) Fields(fields map[string]string) *HeadBuilder {
 // 示例值：
 func (builder *HeadBuilder) Env(env string) *HeadBuilder {
 	builder.env = env
-	builder.envFlag = true
+	builder.envSet = true
 	return builder
 }
 
@@ -946,7 +1159,7 @@ func (builder *HeadBuilder) Env(env string) *HeadBuilder {
 // 示例值：
 func (builder *HeadBuilder) Resource(resource string) *HeadBuilder {
 	builder.resource = resource
-	builder.resourceFlag = true
+	builder.resourceSet = true
 	return builder
 }
 
@@ -955,7 +1168,7 @@ func (builder *HeadBuilder) Resource(resource string) *HeadBuilder {
 // 示例值：
 func (builder *HeadBuilder) Locale(locale string) *HeadBuilder {
 	builder.locale = locale
-	builder.localeFlag = true
+	builder.localeSet = true
 	return builder
 }
 
@@ -964,51 +1177,51 @@ func (builder *HeadBuilder) Locale(locale string) *HeadBuilder {
 // 示例值：
 func (builder *HeadBuilder) Client(client *ClientInfo) *HeadBuilder {
 	builder.client = client
-	builder.clientFlag = true
+	builder.clientSet = true
 	return builder
 }
 
 func (builder *HeadBuilder) Build() *Head {
 	req := &Head{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.appIdFlag {
+	if builder.appIdSet {
 		req.AppId = &builder.appId
 
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
-	if builder.authFlag {
+	if builder.authSet {
 		req.Auth = builder.auth
 	}
-	if builder.fieldsFlag {
+	if builder.fieldsSet {
 		req.Fields = builder.fields
 	}
-	if builder.envFlag {
+	if builder.envSet {
 		req.Env = &builder.env
 
 	}
-	if builder.resourceFlag {
+	if builder.resourceSet {
 		req.Resource = &builder.resource
 
 	}
-	if builder.localeFlag {
+	if builder.localeSet {
 		req.Locale = &builder.locale
 
 	}
-	if builder.clientFlag {
+	if builder.clientSet {
 		req.Client = builder.client
 	}
 	return req
@@ -1019,8 +1232,8 @@ type Image struct {
 }
 
 type ImageBuilder struct {
-	token     string // 图片 token
-	tokenFlag bool
+	token    string // 图片 token
+	tokenSet bool
 }
 
 func NewImageBuilder() *ImageBuilder {
@@ -1033,13 +1246,13 @@ func NewImageBuilder() *ImageBuilder {
 // 示例值：EeSHb3qs9oSBXoxvw33bqtOsczb
 func (builder *ImageBuilder) Token(token string) *ImageBuilder {
 	builder.token = token
-	builder.tokenFlag = true
+	builder.tokenSet = true
 	return builder
 }
 
 func (builder *ImageBuilder) Build() *Image {
 	req := &Image{}
-	if builder.tokenFlag {
+	if builder.tokenSet {
 		req.Token = &builder.token
 
 	}
@@ -1053,11 +1266,11 @@ type Lifeline struct {
 }
 
 type LifelineBuilder struct {
-	size     float64 // 生命线长度
-	sizeFlag bool
+	size    float64 // 生命线长度
+	sizeSet bool
 
 	type_    string // 生命线类型
-	typeFlag bool
+	type_Set bool
 }
 
 func NewLifelineBuilder() *LifelineBuilder {
@@ -1070,7 +1283,7 @@ func NewLifelineBuilder() *LifelineBuilder {
 // 示例值：10
 func (builder *LifelineBuilder) Size(size float64) *LifelineBuilder {
 	builder.size = size
-	builder.sizeFlag = true
+	builder.sizeSet = true
 	return builder
 }
 
@@ -1079,17 +1292,17 @@ func (builder *LifelineBuilder) Size(size float64) *LifelineBuilder {
 // 示例值：actor_lifeline
 func (builder *LifelineBuilder) Type(type_ string) *LifelineBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
 func (builder *LifelineBuilder) Build() *Lifeline {
 	req := &Lifeline{}
-	if builder.sizeFlag {
+	if builder.sizeSet {
 		req.Size = &builder.size
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
@@ -1101,8 +1314,8 @@ type MindMap struct {
 }
 
 type MindMapBuilder struct {
-	parentId     string // 父节点id
-	parentIdFlag bool
+	parentId    string // 父节点id
+	parentIdSet bool
 }
 
 func NewMindMapBuilder() *MindMapBuilder {
@@ -1115,13 +1328,13 @@ func NewMindMapBuilder() *MindMapBuilder {
 // 示例值：z1:1
 func (builder *MindMapBuilder) ParentId(parentId string) *MindMapBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
 func (builder *MindMapBuilder) Build() *MindMap {
 	req := &MindMap{}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
@@ -1143,23 +1356,23 @@ type MindMapNode struct {
 }
 
 type MindMapNodeBuilder struct {
-	parentId     string // 思维导图节点的父节点，必须为思维导图节点
-	parentIdFlag bool
+	parentId    string // 思维导图节点的父节点，必须为思维导图节点
+	parentIdSet bool
 
 	type_    string // 思维导图节点图形类型
-	typeFlag bool
+	type_Set bool
 
-	zIndex     int // 思维导图节点在兄弟节点中的位置index
-	zIndexFlag bool
+	zIndex    int // 思维导图节点在兄弟节点中的位置index
+	zIndexSet bool
 
-	layoutPosition     string // 子节点相对根节点的方向（根节点下的子节点设置才生效）
-	layoutPositionFlag bool
+	layoutPosition    string // 子节点相对根节点的方向（根节点下的子节点设置才生效）
+	layoutPositionSet bool
 
-	children     []string // 子节点列表
-	childrenFlag bool
+	children    []string // 子节点列表
+	childrenSet bool
 
-	collapsed     bool // 是否收起子节点
-	collapsedFlag bool
+	collapsed    bool // 是否收起子节点
+	collapsedSet bool
 }
 
 func NewMindMapNodeBuilder() *MindMapNodeBuilder {
@@ -1172,7 +1385,7 @@ func NewMindMapNodeBuilder() *MindMapNodeBuilder {
 // 示例值：z1:1
 func (builder *MindMapNodeBuilder) ParentId(parentId string) *MindMapNodeBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
@@ -1181,7 +1394,7 @@ func (builder *MindMapNodeBuilder) ParentId(parentId string) *MindMapNodeBuilder
 // 示例值：
 func (builder *MindMapNodeBuilder) Type(type_ string) *MindMapNodeBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1190,7 +1403,7 @@ func (builder *MindMapNodeBuilder) Type(type_ string) *MindMapNodeBuilder {
 // 示例值：2
 func (builder *MindMapNodeBuilder) ZIndex(zIndex int) *MindMapNodeBuilder {
 	builder.zIndex = zIndex
-	builder.zIndexFlag = true
+	builder.zIndexSet = true
 	return builder
 }
 
@@ -1199,7 +1412,7 @@ func (builder *MindMapNodeBuilder) ZIndex(zIndex int) *MindMapNodeBuilder {
 // 示例值：left
 func (builder *MindMapNodeBuilder) LayoutPosition(layoutPosition string) *MindMapNodeBuilder {
 	builder.layoutPosition = layoutPosition
-	builder.layoutPositionFlag = true
+	builder.layoutPositionSet = true
 	return builder
 }
 
@@ -1208,7 +1421,7 @@ func (builder *MindMapNodeBuilder) LayoutPosition(layoutPosition string) *MindMa
 // 示例值：
 func (builder *MindMapNodeBuilder) Children(children []string) *MindMapNodeBuilder {
 	builder.children = children
-	builder.childrenFlag = true
+	builder.childrenSet = true
 	return builder
 }
 
@@ -1217,32 +1430,32 @@ func (builder *MindMapNodeBuilder) Children(children []string) *MindMapNodeBuild
 // 示例值：
 func (builder *MindMapNodeBuilder) Collapsed(collapsed bool) *MindMapNodeBuilder {
 	builder.collapsed = collapsed
-	builder.collapsedFlag = true
+	builder.collapsedSet = true
 	return builder
 }
 
 func (builder *MindMapNodeBuilder) Build() *MindMapNode {
 	req := &MindMapNode{}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.zIndexFlag {
+	if builder.zIndexSet {
 		req.ZIndex = &builder.zIndex
 
 	}
-	if builder.layoutPositionFlag {
+	if builder.layoutPositionSet {
 		req.LayoutPosition = &builder.layoutPosition
 
 	}
-	if builder.childrenFlag {
+	if builder.childrenSet {
 		req.Children = builder.children
 	}
-	if builder.collapsedFlag {
+	if builder.collapsedSet {
 		req.Collapsed = &builder.collapsed
 
 	}
@@ -1266,26 +1479,26 @@ type MindMapRoot struct {
 }
 
 type MindMapRootBuilder struct {
-	layout     string // 思维导图布局方式
-	layoutFlag bool
+	layout    string // 思维导图布局方式
+	layoutSet bool
 
 	type_    string // 思维导图根节点图形类型
-	typeFlag bool
+	type_Set bool
 
-	lineStyle     string // 思维导图图形连接线样式
-	lineStyleFlag bool
+	lineStyle    string // 思维导图图形连接线样式
+	lineStyleSet bool
 
-	upChildren     []string // 思维导图上布局子节点关系树
-	upChildrenFlag bool
+	upChildren    []string // 思维导图上布局子节点关系树
+	upChildrenSet bool
 
-	downChildren     []string // 思维导图下布局子节点关系树
-	downChildrenFlag bool
+	downChildren    []string // 思维导图下布局子节点关系树
+	downChildrenSet bool
 
-	leftChildren     []string // 思维导图左布局子节点关系树
-	leftChildrenFlag bool
+	leftChildren    []string // 思维导图左布局子节点关系树
+	leftChildrenSet bool
 
-	rightChildren     []string // 思维导图右布局子节点关系树
-	rightChildrenFlag bool
+	rightChildren    []string // 思维导图右布局子节点关系树
+	rightChildrenSet bool
 }
 
 func NewMindMapRootBuilder() *MindMapRootBuilder {
@@ -1298,7 +1511,7 @@ func NewMindMapRootBuilder() *MindMapRootBuilder {
 // 示例值：
 func (builder *MindMapRootBuilder) Layout(layout string) *MindMapRootBuilder {
 	builder.layout = layout
-	builder.layoutFlag = true
+	builder.layoutSet = true
 	return builder
 }
 
@@ -1307,7 +1520,7 @@ func (builder *MindMapRootBuilder) Layout(layout string) *MindMapRootBuilder {
 // 示例值：
 func (builder *MindMapRootBuilder) Type(type_ string) *MindMapRootBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1316,7 +1529,7 @@ func (builder *MindMapRootBuilder) Type(type_ string) *MindMapRootBuilder {
 // 示例值：
 func (builder *MindMapRootBuilder) LineStyle(lineStyle string) *MindMapRootBuilder {
 	builder.lineStyle = lineStyle
-	builder.lineStyleFlag = true
+	builder.lineStyleSet = true
 	return builder
 }
 
@@ -1325,7 +1538,7 @@ func (builder *MindMapRootBuilder) LineStyle(lineStyle string) *MindMapRootBuild
 // 示例值：
 func (builder *MindMapRootBuilder) UpChildren(upChildren []string) *MindMapRootBuilder {
 	builder.upChildren = upChildren
-	builder.upChildrenFlag = true
+	builder.upChildrenSet = true
 	return builder
 }
 
@@ -1334,7 +1547,7 @@ func (builder *MindMapRootBuilder) UpChildren(upChildren []string) *MindMapRootB
 // 示例值：
 func (builder *MindMapRootBuilder) DownChildren(downChildren []string) *MindMapRootBuilder {
 	builder.downChildren = downChildren
-	builder.downChildrenFlag = true
+	builder.downChildrenSet = true
 	return builder
 }
 
@@ -1343,7 +1556,7 @@ func (builder *MindMapRootBuilder) DownChildren(downChildren []string) *MindMapR
 // 示例值：
 func (builder *MindMapRootBuilder) LeftChildren(leftChildren []string) *MindMapRootBuilder {
 	builder.leftChildren = leftChildren
-	builder.leftChildrenFlag = true
+	builder.leftChildrenSet = true
 	return builder
 }
 
@@ -1352,34 +1565,34 @@ func (builder *MindMapRootBuilder) LeftChildren(leftChildren []string) *MindMapR
 // 示例值：
 func (builder *MindMapRootBuilder) RightChildren(rightChildren []string) *MindMapRootBuilder {
 	builder.rightChildren = rightChildren
-	builder.rightChildrenFlag = true
+	builder.rightChildrenSet = true
 	return builder
 }
 
 func (builder *MindMapRootBuilder) Build() *MindMapRoot {
 	req := &MindMapRoot{}
-	if builder.layoutFlag {
+	if builder.layoutSet {
 		req.Layout = &builder.layout
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.lineStyleFlag {
+	if builder.lineStyleSet {
 		req.LineStyle = &builder.lineStyle
 
 	}
-	if builder.upChildrenFlag {
+	if builder.upChildrenSet {
 		req.UpChildren = builder.upChildren
 	}
-	if builder.downChildrenFlag {
+	if builder.downChildrenSet {
 		req.DownChildren = builder.downChildren
 	}
-	if builder.leftChildrenFlag {
+	if builder.leftChildrenSet {
 		req.LeftChildren = builder.leftChildren
 	}
-	if builder.rightChildrenFlag {
+	if builder.rightChildrenSet {
 		req.RightChildren = builder.rightChildren
 	}
 	return req
@@ -1397,16 +1610,16 @@ type Paint struct {
 
 type PaintBuilder struct {
 	type_    string // 画笔类型
-	typeFlag bool
+	type_Set bool
 
-	lines     []*Point // 画板线段，由系列坐标点表示
-	linesFlag bool
+	lines    []*Point // 画板线段，由系列坐标点表示
+	linesSet bool
 
-	width     int // 画笔粗细，单位px
-	widthFlag bool
+	width    int // 画笔粗细，单位px
+	widthSet bool
 
-	color     string // 画笔颜色
-	colorFlag bool
+	color    string // 画笔颜色
+	colorSet bool
 }
 
 func NewPaintBuilder() *PaintBuilder {
@@ -1419,7 +1632,7 @@ func NewPaintBuilder() *PaintBuilder {
 // 示例值：marker
 func (builder *PaintBuilder) Type(type_ string) *PaintBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1428,7 +1641,7 @@ func (builder *PaintBuilder) Type(type_ string) *PaintBuilder {
 // 示例值：
 func (builder *PaintBuilder) Lines(lines []*Point) *PaintBuilder {
 	builder.lines = lines
-	builder.linesFlag = true
+	builder.linesSet = true
 	return builder
 }
 
@@ -1437,7 +1650,7 @@ func (builder *PaintBuilder) Lines(lines []*Point) *PaintBuilder {
 // 示例值：7
 func (builder *PaintBuilder) Width(width int) *PaintBuilder {
 	builder.width = width
-	builder.widthFlag = true
+	builder.widthSet = true
 	return builder
 }
 
@@ -1446,24 +1659,24 @@ func (builder *PaintBuilder) Width(width int) *PaintBuilder {
 // 示例值：#ffffff
 func (builder *PaintBuilder) Color(color string) *PaintBuilder {
 	builder.color = color
-	builder.colorFlag = true
+	builder.colorSet = true
 	return builder
 }
 
 func (builder *PaintBuilder) Build() *Paint {
 	req := &Paint{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.linesFlag {
+	if builder.linesSet {
 		req.Lines = builder.lines
 	}
-	if builder.widthFlag {
+	if builder.widthSet {
 		req.Width = &builder.width
 
 	}
-	if builder.colorFlag {
+	if builder.colorSet {
 		req.Color = &builder.color
 
 	}
@@ -1481,17 +1694,17 @@ type Pie struct {
 }
 
 type PieBuilder struct {
-	startRadialLineAngle     float64 // 开始径向边角度，水平向右x轴正方向为0度，顺时针方向角度值递增
-	startRadialLineAngleFlag bool
+	startRadialLineAngle    float64 // 开始径向边角度，水平向右x轴正方向为0度，顺时针方向角度值递增
+	startRadialLineAngleSet bool
 
-	centralAngle     float64 // 圆心角角度，角度方向为始径向边逆时针方向
-	centralAngleFlag bool
+	centralAngle    float64 // 圆心角角度，角度方向为始径向边逆时针方向
+	centralAngleSet bool
 
-	radius     float64 // 半径长度
-	radiusFlag bool
+	radius    float64 // 半径长度
+	radiusSet bool
 
-	sectorRatio     float64 // 扇区占比，0为一个圆周线，1为一个圆盘
-	sectorRatioFlag bool
+	sectorRatio    float64 // 扇区占比，0为一个圆周线，1为一个圆盘
+	sectorRatioSet bool
 }
 
 func NewPieBuilder() *PieBuilder {
@@ -1504,7 +1717,7 @@ func NewPieBuilder() *PieBuilder {
 // 示例值：30.0
 func (builder *PieBuilder) StartRadialLineAngle(startRadialLineAngle float64) *PieBuilder {
 	builder.startRadialLineAngle = startRadialLineAngle
-	builder.startRadialLineAngleFlag = true
+	builder.startRadialLineAngleSet = true
 	return builder
 }
 
@@ -1513,7 +1726,7 @@ func (builder *PieBuilder) StartRadialLineAngle(startRadialLineAngle float64) *P
 // 示例值：40.0
 func (builder *PieBuilder) CentralAngle(centralAngle float64) *PieBuilder {
 	builder.centralAngle = centralAngle
-	builder.centralAngleFlag = true
+	builder.centralAngleSet = true
 	return builder
 }
 
@@ -1522,7 +1735,7 @@ func (builder *PieBuilder) CentralAngle(centralAngle float64) *PieBuilder {
 // 示例值：10
 func (builder *PieBuilder) Radius(radius float64) *PieBuilder {
 	builder.radius = radius
-	builder.radiusFlag = true
+	builder.radiusSet = true
 	return builder
 }
 
@@ -1531,25 +1744,25 @@ func (builder *PieBuilder) Radius(radius float64) *PieBuilder {
 // 示例值：1
 func (builder *PieBuilder) SectorRatio(sectorRatio float64) *PieBuilder {
 	builder.sectorRatio = sectorRatio
-	builder.sectorRatioFlag = true
+	builder.sectorRatioSet = true
 	return builder
 }
 
 func (builder *PieBuilder) Build() *Pie {
 	req := &Pie{}
-	if builder.startRadialLineAngleFlag {
+	if builder.startRadialLineAngleSet {
 		req.StartRadialLineAngle = &builder.startRadialLineAngle
 
 	}
-	if builder.centralAngleFlag {
+	if builder.centralAngleSet {
 		req.CentralAngle = &builder.centralAngle
 
 	}
-	if builder.radiusFlag {
+	if builder.radiusSet {
 		req.Radius = &builder.radius
 
 	}
-	if builder.sectorRatioFlag {
+	if builder.sectorRatioSet {
 		req.SectorRatio = &builder.sectorRatio
 
 	}
@@ -1563,11 +1776,11 @@ type Point struct {
 }
 
 type PointBuilder struct {
-	x     float64 // 点位置x坐标
-	xFlag bool
+	x    float64 // 点位置x坐标
+	xSet bool
 
-	y     float64 // 点位置y坐标
-	yFlag bool
+	y    float64 // 点位置y坐标
+	ySet bool
 }
 
 func NewPointBuilder() *PointBuilder {
@@ -1580,7 +1793,7 @@ func NewPointBuilder() *PointBuilder {
 // 示例值：10
 func (builder *PointBuilder) X(x float64) *PointBuilder {
 	builder.x = x
-	builder.xFlag = true
+	builder.xSet = true
 	return builder
 }
 
@@ -1589,17 +1802,17 @@ func (builder *PointBuilder) X(x float64) *PointBuilder {
 // 示例值：10
 func (builder *PointBuilder) Y(y float64) *PointBuilder {
 	builder.y = y
-	builder.yFlag = true
+	builder.ySet = true
 	return builder
 }
 
 func (builder *PointBuilder) Build() *Point {
 	req := &Point{}
-	if builder.xFlag {
+	if builder.xSet {
 		req.X = &builder.x
 
 	}
-	if builder.yFlag {
+	if builder.ySet {
 		req.Y = &builder.y
 
 	}
@@ -1611,8 +1824,8 @@ type RichText struct {
 }
 
 type RichTextBuilder struct {
-	paragraphs     []*RichTextParagraph // 段落列表
-	paragraphsFlag bool
+	paragraphs    []*RichTextParagraph // 段落列表
+	paragraphsSet bool
 }
 
 func NewRichTextBuilder() *RichTextBuilder {
@@ -1625,13 +1838,13 @@ func NewRichTextBuilder() *RichTextBuilder {
 // 示例值：
 func (builder *RichTextBuilder) Paragraphs(paragraphs []*RichTextParagraph) *RichTextBuilder {
 	builder.paragraphs = paragraphs
-	builder.paragraphsFlag = true
+	builder.paragraphsSet = true
 	return builder
 }
 
 func (builder *RichTextBuilder) Build() *RichText {
 	req := &RichText{}
-	if builder.paragraphsFlag {
+	if builder.paragraphsSet {
 		req.Paragraphs = builder.paragraphs
 	}
 	return req
@@ -1650,20 +1863,20 @@ type RichTextElement struct {
 }
 
 type RichTextElementBuilder struct {
-	elementType     int // 元素类别
-	elementTypeFlag bool
+	elementType    int // 元素类别
+	elementTypeSet bool
 
-	textElement     *RichTextElementText // 文本类别信息
-	textElementFlag bool
+	textElement    *RichTextElementText // 文本类别信息
+	textElementSet bool
 
-	linkElement     *RichTextElementLink // 超链接类别信息
-	linkElementFlag bool
+	linkElement    *RichTextElementLink // 超链接类别信息
+	linkElementSet bool
 
-	mentionUserElement     *RichTextElementMentionUser // @用户类别信息
-	mentionUserElementFlag bool
+	mentionUserElement    *RichTextElementMentionUser // @用户类别信息
+	mentionUserElementSet bool
 
-	mentionDocElement     *RichTextElementMentionDoc // 文档类别信息
-	mentionDocElementFlag bool
+	mentionDocElement    *RichTextElementMentionDoc // 文档类别信息
+	mentionDocElementSet bool
 }
 
 func NewRichTextElementBuilder() *RichTextElementBuilder {
@@ -1676,7 +1889,7 @@ func NewRichTextElementBuilder() *RichTextElementBuilder {
 // 示例值：
 func (builder *RichTextElementBuilder) ElementType(elementType int) *RichTextElementBuilder {
 	builder.elementType = elementType
-	builder.elementTypeFlag = true
+	builder.elementTypeSet = true
 	return builder
 }
 
@@ -1685,7 +1898,7 @@ func (builder *RichTextElementBuilder) ElementType(elementType int) *RichTextEle
 // 示例值：
 func (builder *RichTextElementBuilder) TextElement(textElement *RichTextElementText) *RichTextElementBuilder {
 	builder.textElement = textElement
-	builder.textElementFlag = true
+	builder.textElementSet = true
 	return builder
 }
 
@@ -1694,7 +1907,7 @@ func (builder *RichTextElementBuilder) TextElement(textElement *RichTextElementT
 // 示例值：
 func (builder *RichTextElementBuilder) LinkElement(linkElement *RichTextElementLink) *RichTextElementBuilder {
 	builder.linkElement = linkElement
-	builder.linkElementFlag = true
+	builder.linkElementSet = true
 	return builder
 }
 
@@ -1703,7 +1916,7 @@ func (builder *RichTextElementBuilder) LinkElement(linkElement *RichTextElementL
 // 示例值：
 func (builder *RichTextElementBuilder) MentionUserElement(mentionUserElement *RichTextElementMentionUser) *RichTextElementBuilder {
 	builder.mentionUserElement = mentionUserElement
-	builder.mentionUserElementFlag = true
+	builder.mentionUserElementSet = true
 	return builder
 }
 
@@ -1712,26 +1925,26 @@ func (builder *RichTextElementBuilder) MentionUserElement(mentionUserElement *Ri
 // 示例值：
 func (builder *RichTextElementBuilder) MentionDocElement(mentionDocElement *RichTextElementMentionDoc) *RichTextElementBuilder {
 	builder.mentionDocElement = mentionDocElement
-	builder.mentionDocElementFlag = true
+	builder.mentionDocElementSet = true
 	return builder
 }
 
 func (builder *RichTextElementBuilder) Build() *RichTextElement {
 	req := &RichTextElement{}
-	if builder.elementTypeFlag {
+	if builder.elementTypeSet {
 		req.ElementType = &builder.elementType
 
 	}
-	if builder.textElementFlag {
+	if builder.textElementSet {
 		req.TextElement = builder.textElement
 	}
-	if builder.linkElementFlag {
+	if builder.linkElementSet {
 		req.LinkElement = builder.linkElement
 	}
-	if builder.mentionUserElementFlag {
+	if builder.mentionUserElementSet {
 		req.MentionUserElement = builder.mentionUserElement
 	}
-	if builder.mentionDocElementFlag {
+	if builder.mentionDocElementSet {
 		req.MentionDocElement = builder.mentionDocElement
 	}
 	return req
@@ -1746,14 +1959,14 @@ type RichTextElementLink struct {
 }
 
 type RichTextElementLinkBuilder struct {
-	herf     string // 链接
-	herfFlag bool
+	herf    string // 链接
+	herfSet bool
 
-	text     string // 文字
-	textFlag bool
+	text    string // 文字
+	textSet bool
 
-	textStyle     *RichTextElementTextStyle // 文字样式
-	textStyleFlag bool
+	textStyle    *RichTextElementTextStyle // 文字样式
+	textStyleSet bool
 }
 
 func NewRichTextElementLinkBuilder() *RichTextElementLinkBuilder {
@@ -1766,7 +1979,7 @@ func NewRichTextElementLinkBuilder() *RichTextElementLinkBuilder {
 // 示例值：https://bytedance.larkoffice.com
 func (builder *RichTextElementLinkBuilder) Herf(herf string) *RichTextElementLinkBuilder {
 	builder.herf = herf
-	builder.herfFlag = true
+	builder.herfSet = true
 	return builder
 }
 
@@ -1775,7 +1988,7 @@ func (builder *RichTextElementLinkBuilder) Herf(herf string) *RichTextElementLin
 // 示例值：示例文案
 func (builder *RichTextElementLinkBuilder) Text(text string) *RichTextElementLinkBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -1784,21 +1997,21 @@ func (builder *RichTextElementLinkBuilder) Text(text string) *RichTextElementLin
 // 示例值：
 func (builder *RichTextElementLinkBuilder) TextStyle(textStyle *RichTextElementTextStyle) *RichTextElementLinkBuilder {
 	builder.textStyle = textStyle
-	builder.textStyleFlag = true
+	builder.textStyleSet = true
 	return builder
 }
 
 func (builder *RichTextElementLinkBuilder) Build() *RichTextElementLink {
 	req := &RichTextElementLink{}
-	if builder.herfFlag {
+	if builder.herfSet {
 		req.Herf = &builder.herf
 
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
-	if builder.textStyleFlag {
+	if builder.textStyleSet {
 		req.TextStyle = builder.textStyle
 	}
 	return req
@@ -1811,11 +2024,11 @@ type RichTextElementMentionDoc struct {
 }
 
 type RichTextElementMentionDocBuilder struct {
-	docUrl     string // 文档超链接
-	docUrlFlag bool
+	docUrl    string // 文档超链接
+	docUrlSet bool
 
-	textStyle     *RichTextElementTextStyle // 文字样式
-	textStyleFlag bool
+	textStyle    *RichTextElementTextStyle // 文字样式
+	textStyleSet bool
 }
 
 func NewRichTextElementMentionDocBuilder() *RichTextElementMentionDocBuilder {
@@ -1828,7 +2041,7 @@ func NewRichTextElementMentionDocBuilder() *RichTextElementMentionDocBuilder {
 // 示例值：https://bytedance.larkoffice.com/wiki/xxxxx
 func (builder *RichTextElementMentionDocBuilder) DocUrl(docUrl string) *RichTextElementMentionDocBuilder {
 	builder.docUrl = docUrl
-	builder.docUrlFlag = true
+	builder.docUrlSet = true
 	return builder
 }
 
@@ -1837,17 +2050,17 @@ func (builder *RichTextElementMentionDocBuilder) DocUrl(docUrl string) *RichText
 // 示例值：
 func (builder *RichTextElementMentionDocBuilder) TextStyle(textStyle *RichTextElementTextStyle) *RichTextElementMentionDocBuilder {
 	builder.textStyle = textStyle
-	builder.textStyleFlag = true
+	builder.textStyleSet = true
 	return builder
 }
 
 func (builder *RichTextElementMentionDocBuilder) Build() *RichTextElementMentionDoc {
 	req := &RichTextElementMentionDoc{}
-	if builder.docUrlFlag {
+	if builder.docUrlSet {
 		req.DocUrl = &builder.docUrl
 
 	}
-	if builder.textStyleFlag {
+	if builder.textStyleSet {
 		req.TextStyle = builder.textStyle
 	}
 	return req
@@ -1860,11 +2073,11 @@ type RichTextElementMentionUser struct {
 }
 
 type RichTextElementMentionUserBuilder struct {
-	userId     string // 用户id
-	userIdFlag bool
+	userId    string // 用户id
+	userIdSet bool
 
-	textStyle     *RichTextElementTextStyle // 文字属性
-	textStyleFlag bool
+	textStyle    *RichTextElementTextStyle // 文字属性
+	textStyleSet bool
 }
 
 func NewRichTextElementMentionUserBuilder() *RichTextElementMentionUserBuilder {
@@ -1877,7 +2090,7 @@ func NewRichTextElementMentionUserBuilder() *RichTextElementMentionUserBuilder {
 // 示例值：
 func (builder *RichTextElementMentionUserBuilder) UserId(userId string) *RichTextElementMentionUserBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -1886,17 +2099,17 @@ func (builder *RichTextElementMentionUserBuilder) UserId(userId string) *RichTex
 // 示例值：
 func (builder *RichTextElementMentionUserBuilder) TextStyle(textStyle *RichTextElementTextStyle) *RichTextElementMentionUserBuilder {
 	builder.textStyle = textStyle
-	builder.textStyleFlag = true
+	builder.textStyleSet = true
 	return builder
 }
 
 func (builder *RichTextElementMentionUserBuilder) Build() *RichTextElementMentionUser {
 	req := &RichTextElementMentionUser{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.textStyleFlag {
+	if builder.textStyleSet {
 		req.TextStyle = builder.textStyle
 	}
 	return req
@@ -1909,11 +2122,11 @@ type RichTextElementText struct {
 }
 
 type RichTextElementTextBuilder struct {
-	text     string // 文字
-	textFlag bool
+	text    string // 文字
+	textSet bool
 
-	textStyle     *RichTextElementTextStyle // 文字样式
-	textStyleFlag bool
+	textStyle    *RichTextElementTextStyle // 文字样式
+	textStyleSet bool
 }
 
 func NewRichTextElementTextBuilder() *RichTextElementTextBuilder {
@@ -1926,7 +2139,7 @@ func NewRichTextElementTextBuilder() *RichTextElementTextBuilder {
 // 示例值：示例文案
 func (builder *RichTextElementTextBuilder) Text(text string) *RichTextElementTextBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -1935,17 +2148,17 @@ func (builder *RichTextElementTextBuilder) Text(text string) *RichTextElementTex
 // 示例值：
 func (builder *RichTextElementTextBuilder) TextStyle(textStyle *RichTextElementTextStyle) *RichTextElementTextBuilder {
 	builder.textStyle = textStyle
-	builder.textStyleFlag = true
+	builder.textStyleSet = true
 	return builder
 }
 
 func (builder *RichTextElementTextBuilder) Build() *RichTextElementText {
 	req := &RichTextElementText{}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
-	if builder.textStyleFlag {
+	if builder.textStyleSet {
 		req.TextStyle = builder.textStyle
 	}
 	return req
@@ -1968,26 +2181,26 @@ type RichTextElementTextStyle struct {
 }
 
 type RichTextElementTextStyleBuilder struct {
-	fontWeight     string // 文字字重
-	fontWeightFlag bool
+	fontWeight    string // 文字字重
+	fontWeightSet bool
 
-	fontSize     int // 文字大小
-	fontSizeFlag bool
+	fontSize    int // 文字大小
+	fontSizeSet bool
 
-	textColor     string // 文字颜色，16 进制 rgb 值
-	textColorFlag bool
+	textColor    string // 文字颜色，16 进制 rgb 值
+	textColorSet bool
 
-	textBackgroundColor     string // 文字背景色，16 进制 rgb 值
-	textBackgroundColorFlag bool
+	textBackgroundColor    string // 文字背景色，16 进制 rgb 值
+	textBackgroundColorSet bool
 
-	lineThrough     bool // 是否存在删除线
-	lineThroughFlag bool
+	lineThrough    bool // 是否存在删除线
+	lineThroughSet bool
 
-	underline     bool // 是否存在下划线
-	underlineFlag bool
+	underline    bool // 是否存在下划线
+	underlineSet bool
 
-	italic     bool // 是否斜体
-	italicFlag bool
+	italic    bool // 是否斜体
+	italicSet bool
 }
 
 func NewRichTextElementTextStyleBuilder() *RichTextElementTextStyleBuilder {
@@ -2000,7 +2213,7 @@ func NewRichTextElementTextStyleBuilder() *RichTextElementTextStyleBuilder {
 // 示例值：bold
 func (builder *RichTextElementTextStyleBuilder) FontWeight(fontWeight string) *RichTextElementTextStyleBuilder {
 	builder.fontWeight = fontWeight
-	builder.fontWeightFlag = true
+	builder.fontWeightSet = true
 	return builder
 }
 
@@ -2009,7 +2222,7 @@ func (builder *RichTextElementTextStyleBuilder) FontWeight(fontWeight string) *R
 // 示例值：14
 func (builder *RichTextElementTextStyleBuilder) FontSize(fontSize int) *RichTextElementTextStyleBuilder {
 	builder.fontSize = fontSize
-	builder.fontSizeFlag = true
+	builder.fontSizeSet = true
 	return builder
 }
 
@@ -2018,7 +2231,7 @@ func (builder *RichTextElementTextStyleBuilder) FontSize(fontSize int) *RichText
 // 示例值：#000000
 func (builder *RichTextElementTextStyleBuilder) TextColor(textColor string) *RichTextElementTextStyleBuilder {
 	builder.textColor = textColor
-	builder.textColorFlag = true
+	builder.textColorSet = true
 	return builder
 }
 
@@ -2027,7 +2240,7 @@ func (builder *RichTextElementTextStyleBuilder) TextColor(textColor string) *Ric
 // 示例值：#000000
 func (builder *RichTextElementTextStyleBuilder) TextBackgroundColor(textBackgroundColor string) *RichTextElementTextStyleBuilder {
 	builder.textBackgroundColor = textBackgroundColor
-	builder.textBackgroundColorFlag = true
+	builder.textBackgroundColorSet = true
 	return builder
 }
 
@@ -2036,7 +2249,7 @@ func (builder *RichTextElementTextStyleBuilder) TextBackgroundColor(textBackgrou
 // 示例值：
 func (builder *RichTextElementTextStyleBuilder) LineThrough(lineThrough bool) *RichTextElementTextStyleBuilder {
 	builder.lineThrough = lineThrough
-	builder.lineThroughFlag = true
+	builder.lineThroughSet = true
 	return builder
 }
 
@@ -2045,7 +2258,7 @@ func (builder *RichTextElementTextStyleBuilder) LineThrough(lineThrough bool) *R
 // 示例值：
 func (builder *RichTextElementTextStyleBuilder) Underline(underline bool) *RichTextElementTextStyleBuilder {
 	builder.underline = underline
-	builder.underlineFlag = true
+	builder.underlineSet = true
 	return builder
 }
 
@@ -2054,37 +2267,37 @@ func (builder *RichTextElementTextStyleBuilder) Underline(underline bool) *RichT
 // 示例值：
 func (builder *RichTextElementTextStyleBuilder) Italic(italic bool) *RichTextElementTextStyleBuilder {
 	builder.italic = italic
-	builder.italicFlag = true
+	builder.italicSet = true
 	return builder
 }
 
 func (builder *RichTextElementTextStyleBuilder) Build() *RichTextElementTextStyle {
 	req := &RichTextElementTextStyle{}
-	if builder.fontWeightFlag {
+	if builder.fontWeightSet {
 		req.FontWeight = &builder.fontWeight
 
 	}
-	if builder.fontSizeFlag {
+	if builder.fontSizeSet {
 		req.FontSize = &builder.fontSize
 
 	}
-	if builder.textColorFlag {
+	if builder.textColorSet {
 		req.TextColor = &builder.textColor
 
 	}
-	if builder.textBackgroundColorFlag {
+	if builder.textBackgroundColorSet {
 		req.TextBackgroundColor = &builder.textBackgroundColor
 
 	}
-	if builder.lineThroughFlag {
+	if builder.lineThroughSet {
 		req.LineThrough = &builder.lineThrough
 
 	}
-	if builder.underlineFlag {
+	if builder.underlineSet {
 		req.Underline = &builder.underline
 
 	}
-	if builder.italicFlag {
+	if builder.italicSet {
 		req.Italic = &builder.italic
 
 	}
@@ -2104,20 +2317,20 @@ type RichTextParagraph struct {
 }
 
 type RichTextParagraphBuilder struct {
-	paragraphType     int // 段落类别
-	paragraphTypeFlag bool
+	paragraphType    int // 段落类别
+	paragraphTypeSet bool
 
-	elements     []*RichTextElement // 元素列表
-	elementsFlag bool
+	elements    []*RichTextElement // 元素列表
+	elementsSet bool
 
-	indent     int // 缩进
-	indentFlag bool
+	indent    int // 缩进
+	indentSet bool
 
-	listBeginIndex     int // 有序列表开始序号
-	listBeginIndexFlag bool
+	listBeginIndex    int // 有序列表开始序号
+	listBeginIndexSet bool
 
-	quote     bool // 引用
-	quoteFlag bool
+	quote    bool // 引用
+	quoteSet bool
 }
 
 func NewRichTextParagraphBuilder() *RichTextParagraphBuilder {
@@ -2130,7 +2343,7 @@ func NewRichTextParagraphBuilder() *RichTextParagraphBuilder {
 // 示例值：
 func (builder *RichTextParagraphBuilder) ParagraphType(paragraphType int) *RichTextParagraphBuilder {
 	builder.paragraphType = paragraphType
-	builder.paragraphTypeFlag = true
+	builder.paragraphTypeSet = true
 	return builder
 }
 
@@ -2139,7 +2352,7 @@ func (builder *RichTextParagraphBuilder) ParagraphType(paragraphType int) *RichT
 // 示例值：
 func (builder *RichTextParagraphBuilder) Elements(elements []*RichTextElement) *RichTextParagraphBuilder {
 	builder.elements = elements
-	builder.elementsFlag = true
+	builder.elementsSet = true
 	return builder
 }
 
@@ -2148,7 +2361,7 @@ func (builder *RichTextParagraphBuilder) Elements(elements []*RichTextElement) *
 // 示例值：0
 func (builder *RichTextParagraphBuilder) Indent(indent int) *RichTextParagraphBuilder {
 	builder.indent = indent
-	builder.indentFlag = true
+	builder.indentSet = true
 	return builder
 }
 
@@ -2157,7 +2370,7 @@ func (builder *RichTextParagraphBuilder) Indent(indent int) *RichTextParagraphBu
 // 示例值：0
 func (builder *RichTextParagraphBuilder) ListBeginIndex(listBeginIndex int) *RichTextParagraphBuilder {
 	builder.listBeginIndex = listBeginIndex
-	builder.listBeginIndexFlag = true
+	builder.listBeginIndexSet = true
 	return builder
 }
 
@@ -2166,28 +2379,28 @@ func (builder *RichTextParagraphBuilder) ListBeginIndex(listBeginIndex int) *Ric
 // 示例值：
 func (builder *RichTextParagraphBuilder) Quote(quote bool) *RichTextParagraphBuilder {
 	builder.quote = quote
-	builder.quoteFlag = true
+	builder.quoteSet = true
 	return builder
 }
 
 func (builder *RichTextParagraphBuilder) Build() *RichTextParagraph {
 	req := &RichTextParagraph{}
-	if builder.paragraphTypeFlag {
+	if builder.paragraphTypeSet {
 		req.ParagraphType = &builder.paragraphType
 
 	}
-	if builder.elementsFlag {
+	if builder.elementsSet {
 		req.Elements = builder.elements
 	}
-	if builder.indentFlag {
+	if builder.indentSet {
 		req.Indent = &builder.indent
 
 	}
-	if builder.listBeginIndexFlag {
+	if builder.listBeginIndexSet {
 		req.ListBeginIndex = &builder.listBeginIndex
 
 	}
-	if builder.quoteFlag {
+	if builder.quoteSet {
 		req.Quote = &builder.quote
 
 	}
@@ -2199,8 +2412,8 @@ type Section struct {
 }
 
 type SectionBuilder struct {
-	title     string // 分区标题
-	titleFlag bool
+	title    string // 分区标题
+	titleSet bool
 }
 
 func NewSectionBuilder() *SectionBuilder {
@@ -2213,14 +2426,118 @@ func NewSectionBuilder() *SectionBuilder {
 // 示例值：分区
 func (builder *SectionBuilder) Title(title string) *SectionBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
 func (builder *SectionBuilder) Build() *Section {
 	req := &Section{}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
+
+	}
+	return req
+}
+
+type Shadow struct {
+	Color *string `json:"color,omitempty"` // 阴影颜色
+
+	Blur *int `json:"blur,omitempty"` // 模糊效果，参数为数字，数值越大模糊程度越强，0 表示无模糊。
+
+	OffsetX *int `json:"offset_x,omitempty"` // x轴偏移量
+
+	OffsetY *int `json:"offset_y,omitempty"` // y轴偏移量
+
+	Opacity *float64 `json:"opacity,omitempty"` // 透明效果，参数为 0-1 数字，数值越小越透明，0 表示完全透明，1 表示完全不透明。
+}
+
+type ShadowBuilder struct {
+	color    string // 阴影颜色
+	colorSet bool
+
+	blur    int // 模糊效果，参数为数字，数值越大模糊程度越强，0 表示无模糊。
+	blurSet bool
+
+	offsetX    int // x轴偏移量
+	offsetXSet bool
+
+	offsetY    int // y轴偏移量
+	offsetYSet bool
+
+	opacity    float64 // 透明效果，参数为 0-1 数字，数值越小越透明，0 表示完全透明，1 表示完全不透明。
+	opacitySet bool
+}
+
+func NewShadowBuilder() *ShadowBuilder {
+	builder := &ShadowBuilder{}
+	return builder
+}
+
+// 阴影颜色
+//
+// 示例值：#000000
+func (builder *ShadowBuilder) Color(color string) *ShadowBuilder {
+	builder.color = color
+	builder.colorSet = true
+	return builder
+}
+
+// 模糊效果，参数为数字，数值越大模糊程度越强，0 表示无模糊。
+//
+// 示例值：1
+func (builder *ShadowBuilder) Blur(blur int) *ShadowBuilder {
+	builder.blur = blur
+	builder.blurSet = true
+	return builder
+}
+
+// x轴偏移量
+//
+// 示例值：0
+func (builder *ShadowBuilder) OffsetX(offsetX int) *ShadowBuilder {
+	builder.offsetX = offsetX
+	builder.offsetXSet = true
+	return builder
+}
+
+// y轴偏移量
+//
+// 示例值：0
+func (builder *ShadowBuilder) OffsetY(offsetY int) *ShadowBuilder {
+	builder.offsetY = offsetY
+	builder.offsetYSet = true
+	return builder
+}
+
+// 透明效果，参数为 0-1 数字，数值越小越透明，0 表示完全透明，1 表示完全不透明。
+//
+// 示例值：0.5
+func (builder *ShadowBuilder) Opacity(opacity float64) *ShadowBuilder {
+	builder.opacity = opacity
+	builder.opacitySet = true
+	return builder
+}
+
+func (builder *ShadowBuilder) Build() *Shadow {
+	req := &Shadow{}
+	if builder.colorSet {
+		req.Color = &builder.color
+
+	}
+	if builder.blurSet {
+		req.Blur = &builder.blur
+
+	}
+	if builder.offsetXSet {
+		req.OffsetX = &builder.offsetX
+
+	}
+	if builder.offsetYSet {
+		req.OffsetY = &builder.offsetY
+
+	}
+	if builder.opacitySet {
+		req.Opacity = &builder.opacity
 
 	}
 	return req
@@ -2233,11 +2550,11 @@ type StickyNote struct {
 }
 
 type StickyNoteBuilder struct {
-	userId     string // 用户id
-	userIdFlag bool
+	userId    string // 用户id
+	userIdSet bool
 
-	showAuthorInfo     bool // 是否展示用户信息
-	showAuthorInfoFlag bool
+	showAuthorInfo    bool // 是否展示用户信息
+	showAuthorInfoSet bool
 }
 
 func NewStickyNoteBuilder() *StickyNoteBuilder {
@@ -2250,7 +2567,7 @@ func NewStickyNoteBuilder() *StickyNoteBuilder {
 // 示例值：
 func (builder *StickyNoteBuilder) UserId(userId string) *StickyNoteBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -2259,17 +2576,17 @@ func (builder *StickyNoteBuilder) UserId(userId string) *StickyNoteBuilder {
 // 示例值：
 func (builder *StickyNoteBuilder) ShowAuthorInfo(showAuthorInfo bool) *StickyNoteBuilder {
 	builder.showAuthorInfo = showAuthorInfo
-	builder.showAuthorInfoFlag = true
+	builder.showAuthorInfoSet = true
 	return builder
 }
 
 func (builder *StickyNoteBuilder) Build() *StickyNote {
 	req := &StickyNote{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.showAuthorInfoFlag {
+	if builder.showAuthorInfoSet {
 		req.ShowAuthorInfo = &builder.showAuthorInfo
 
 	}
@@ -2300,44 +2617,69 @@ type Style struct {
 	FillColorType *int `json:"fill_color_type,omitempty"` // 填充颜色类型：0=系统颜色，取theme_fill_color_code，1=自定义颜色，取fill_color
 
 	BorderColorType *int `json:"border_color_type,omitempty"` // 边框颜色类型：0=系统颜色，取theme_border_color_code，1=自定义颜色，取border_color
+
+	BorderDasharrays []int `json:"border_dasharrays,omitempty"` // 定义虚线边框样式，参数为数字数组，依次表示实线段长度与空白间隔，循环构成虚线。
+
+	BorderRadius *BorderRadius `json:"border_radius,omitempty"` // 边框圆角半径，控制边角弧度。
+
+	Shadow *Shadow `json:"shadow,omitempty"` // 阴影参数
+
+	InnerShadow *Shadow `json:"inner_shadow,omitempty"` // 阴影参数
+
+	FillGradient *FillGradient `json:"fill_gradient,omitempty"` // 渐变
 }
 
 type StyleBuilder struct {
-	fillColor     string // 填充颜色，16 进制 rbg 值
-	fillColorFlag bool
+	fillColor    string // 填充颜色，16 进制 rbg 值
+	fillColorSet bool
 
-	fillOpacity     float64 // 填充透明度
-	fillOpacityFlag bool
+	fillOpacity    float64 // 填充透明度
+	fillOpacitySet bool
 
-	borderStyle     string // 边框样式
-	borderStyleFlag bool
+	borderStyle    string // 边框样式
+	borderStyleSet bool
 
-	borderWidth     string // 边框宽度
-	borderWidthFlag bool
+	borderWidth    string // 边框宽度
+	borderWidthSet bool
 
-	borderOpacity     float64 // 边框透明度
-	borderOpacityFlag bool
+	borderOpacity    float64 // 边框透明度
+	borderOpacitySet bool
 
-	hFlip     bool // 水平翻折
-	hFlipFlag bool
+	hFlip    bool // 水平翻折
+	hFlipSet bool
 
-	vFlip     bool // 垂直翻折
-	vFlipFlag bool
+	vFlip    bool // 垂直翻折
+	vFlipSet bool
 
-	borderColor     string // 边框颜色，16 进制 rgb 值
-	borderColorFlag bool
+	borderColor    string // 边框颜色，16 进制 rgb 值
+	borderColorSet bool
 
-	themeFillColorCode     int // 填充颜色主题配色编码值
-	themeFillColorCodeFlag bool
+	themeFillColorCode    int // 填充颜色主题配色编码值
+	themeFillColorCodeSet bool
 
-	themeBorderColorCode     int // 边框颜色主题配色编码值
-	themeBorderColorCodeFlag bool
+	themeBorderColorCode    int // 边框颜色主题配色编码值
+	themeBorderColorCodeSet bool
 
-	fillColorType     int // 填充颜色类型：0=系统颜色，取theme_fill_color_code，1=自定义颜色，取fill_color
-	fillColorTypeFlag bool
+	fillColorType    int // 填充颜色类型：0=系统颜色，取theme_fill_color_code，1=自定义颜色，取fill_color
+	fillColorTypeSet bool
 
-	borderColorType     int // 边框颜色类型：0=系统颜色，取theme_border_color_code，1=自定义颜色，取border_color
-	borderColorTypeFlag bool
+	borderColorType    int // 边框颜色类型：0=系统颜色，取theme_border_color_code，1=自定义颜色，取border_color
+	borderColorTypeSet bool
+
+	borderDasharrays    []int // 定义虚线边框样式，参数为数字数组，依次表示实线段长度与空白间隔，循环构成虚线。
+	borderDasharraysSet bool
+
+	borderRadius    *BorderRadius // 边框圆角半径，控制边角弧度。
+	borderRadiusSet bool
+
+	shadow    *Shadow // 阴影参数
+	shadowSet bool
+
+	innerShadow    *Shadow // 阴影参数
+	innerShadowSet bool
+
+	fillGradient    *FillGradient // 渐变
+	fillGradientSet bool
 }
 
 func NewStyleBuilder() *StyleBuilder {
@@ -2350,7 +2692,7 @@ func NewStyleBuilder() *StyleBuilder {
 // 示例值：#6db5a3
 func (builder *StyleBuilder) FillColor(fillColor string) *StyleBuilder {
 	builder.fillColor = fillColor
-	builder.fillColorFlag = true
+	builder.fillColorSet = true
 	return builder
 }
 
@@ -2359,7 +2701,7 @@ func (builder *StyleBuilder) FillColor(fillColor string) *StyleBuilder {
 // 示例值：50
 func (builder *StyleBuilder) FillOpacity(fillOpacity float64) *StyleBuilder {
 	builder.fillOpacity = fillOpacity
-	builder.fillOpacityFlag = true
+	builder.fillOpacitySet = true
 	return builder
 }
 
@@ -2368,7 +2710,7 @@ func (builder *StyleBuilder) FillOpacity(fillOpacity float64) *StyleBuilder {
 // 示例值：
 func (builder *StyleBuilder) BorderStyle(borderStyle string) *StyleBuilder {
 	builder.borderStyle = borderStyle
-	builder.borderStyleFlag = true
+	builder.borderStyleSet = true
 	return builder
 }
 
@@ -2377,7 +2719,7 @@ func (builder *StyleBuilder) BorderStyle(borderStyle string) *StyleBuilder {
 // 示例值：
 func (builder *StyleBuilder) BorderWidth(borderWidth string) *StyleBuilder {
 	builder.borderWidth = borderWidth
-	builder.borderWidthFlag = true
+	builder.borderWidthSet = true
 	return builder
 }
 
@@ -2386,7 +2728,7 @@ func (builder *StyleBuilder) BorderWidth(borderWidth string) *StyleBuilder {
 // 示例值：50
 func (builder *StyleBuilder) BorderOpacity(borderOpacity float64) *StyleBuilder {
 	builder.borderOpacity = borderOpacity
-	builder.borderOpacityFlag = true
+	builder.borderOpacitySet = true
 	return builder
 }
 
@@ -2395,7 +2737,7 @@ func (builder *StyleBuilder) BorderOpacity(borderOpacity float64) *StyleBuilder 
 // 示例值：false
 func (builder *StyleBuilder) HFlip(hFlip bool) *StyleBuilder {
 	builder.hFlip = hFlip
-	builder.hFlipFlag = true
+	builder.hFlipSet = true
 	return builder
 }
 
@@ -2404,7 +2746,7 @@ func (builder *StyleBuilder) HFlip(hFlip bool) *StyleBuilder {
 // 示例值：false
 func (builder *StyleBuilder) VFlip(vFlip bool) *StyleBuilder {
 	builder.vFlip = vFlip
-	builder.vFlipFlag = true
+	builder.vFlipSet = true
 	return builder
 }
 
@@ -2413,7 +2755,7 @@ func (builder *StyleBuilder) VFlip(vFlip bool) *StyleBuilder {
 // 示例值：#6db5a3
 func (builder *StyleBuilder) BorderColor(borderColor string) *StyleBuilder {
 	builder.borderColor = borderColor
-	builder.borderColorFlag = true
+	builder.borderColorSet = true
 	return builder
 }
 
@@ -2422,7 +2764,7 @@ func (builder *StyleBuilder) BorderColor(borderColor string) *StyleBuilder {
 // 示例值：3
 func (builder *StyleBuilder) ThemeFillColorCode(themeFillColorCode int) *StyleBuilder {
 	builder.themeFillColorCode = themeFillColorCode
-	builder.themeFillColorCodeFlag = true
+	builder.themeFillColorCodeSet = true
 	return builder
 }
 
@@ -2431,7 +2773,7 @@ func (builder *StyleBuilder) ThemeFillColorCode(themeFillColorCode int) *StyleBu
 // 示例值：4
 func (builder *StyleBuilder) ThemeBorderColorCode(themeBorderColorCode int) *StyleBuilder {
 	builder.themeBorderColorCode = themeBorderColorCode
-	builder.themeBorderColorCodeFlag = true
+	builder.themeBorderColorCodeSet = true
 	return builder
 }
 
@@ -2440,7 +2782,7 @@ func (builder *StyleBuilder) ThemeBorderColorCode(themeBorderColorCode int) *Sty
 // 示例值：
 func (builder *StyleBuilder) FillColorType(fillColorType int) *StyleBuilder {
 	builder.fillColorType = fillColorType
-	builder.fillColorTypeFlag = true
+	builder.fillColorTypeSet = true
 	return builder
 }
 
@@ -2449,70 +2791,140 @@ func (builder *StyleBuilder) FillColorType(fillColorType int) *StyleBuilder {
 // 示例值：
 func (builder *StyleBuilder) BorderColorType(borderColorType int) *StyleBuilder {
 	builder.borderColorType = borderColorType
-	builder.borderColorTypeFlag = true
+	builder.borderColorTypeSet = true
+	return builder
+}
+
+// 定义虚线边框样式，参数为数字数组，依次表示实线段长度与空白间隔，循环构成虚线。
+//
+// 示例值：
+func (builder *StyleBuilder) BorderDasharrays(borderDasharrays []int) *StyleBuilder {
+	builder.borderDasharrays = borderDasharrays
+	builder.borderDasharraysSet = true
+	return builder
+}
+
+// 边框圆角半径，控制边角弧度。
+//
+// 示例值：
+func (builder *StyleBuilder) BorderRadius(borderRadius *BorderRadius) *StyleBuilder {
+	builder.borderRadius = borderRadius
+	builder.borderRadiusSet = true
+	return builder
+}
+
+// 阴影参数
+//
+// 示例值：
+func (builder *StyleBuilder) Shadow(shadow *Shadow) *StyleBuilder {
+	builder.shadow = shadow
+	builder.shadowSet = true
+	return builder
+}
+
+// 阴影参数
+//
+// 示例值：
+func (builder *StyleBuilder) InnerShadow(innerShadow *Shadow) *StyleBuilder {
+	builder.innerShadow = innerShadow
+	builder.innerShadowSet = true
+	return builder
+}
+
+// 渐变
+//
+// 示例值：
+func (builder *StyleBuilder) FillGradient(fillGradient *FillGradient) *StyleBuilder {
+	builder.fillGradient = fillGradient
+	builder.fillGradientSet = true
 	return builder
 }
 
 func (builder *StyleBuilder) Build() *Style {
 	req := &Style{}
-	if builder.fillColorFlag {
+	if builder.fillColorSet {
 		req.FillColor = &builder.fillColor
 
 	}
-	if builder.fillOpacityFlag {
+	if builder.fillOpacitySet {
 		req.FillOpacity = &builder.fillOpacity
 
 	}
-	if builder.borderStyleFlag {
+	if builder.borderStyleSet {
 		req.BorderStyle = &builder.borderStyle
 
 	}
-	if builder.borderWidthFlag {
+	if builder.borderWidthSet {
 		req.BorderWidth = &builder.borderWidth
 
 	}
-	if builder.borderOpacityFlag {
+	if builder.borderOpacitySet {
 		req.BorderOpacity = &builder.borderOpacity
 
 	}
-	if builder.hFlipFlag {
+	if builder.hFlipSet {
 		req.HFlip = &builder.hFlip
 
 	}
-	if builder.vFlipFlag {
+	if builder.vFlipSet {
 		req.VFlip = &builder.vFlip
 
 	}
-	if builder.borderColorFlag {
+	if builder.borderColorSet {
 		req.BorderColor = &builder.borderColor
 
 	}
-	if builder.themeFillColorCodeFlag {
+	if builder.themeFillColorCodeSet {
 		req.ThemeFillColorCode = &builder.themeFillColorCode
 
 	}
-	if builder.themeBorderColorCodeFlag {
+	if builder.themeBorderColorCodeSet {
 		req.ThemeBorderColorCode = &builder.themeBorderColorCode
 
 	}
-	if builder.fillColorTypeFlag {
+	if builder.fillColorTypeSet {
 		req.FillColorType = &builder.fillColorType
 
 	}
-	if builder.borderColorTypeFlag {
+	if builder.borderColorTypeSet {
 		req.BorderColorType = &builder.borderColorType
 
+	}
+	if builder.borderDasharraysSet {
+		req.BorderDasharrays = builder.borderDasharrays
+	}
+	if builder.borderRadiusSet {
+		req.BorderRadius = builder.borderRadius
+	}
+	if builder.shadowSet {
+		req.Shadow = builder.shadow
+	}
+	if builder.innerShadowSet {
+		req.InnerShadow = builder.innerShadow
+	}
+	if builder.fillGradientSet {
+		req.FillGradient = builder.fillGradient
 	}
 	return req
 }
 
 type Svg struct {
 	SvgCode *string `json:"svg_code,omitempty"` // svg code
+
+	Key *string `json:"key,omitempty"` // 资源外部标识
+
+	Type *int `json:"type,omitempty"` // 资源类型
 }
 
 type SvgBuilder struct {
-	svgCode     string // svg code
-	svgCodeFlag bool
+	svgCode    string // svg code
+	svgCodeSet bool
+
+	key    string // 资源外部标识
+	keySet bool
+
+	type_    int // 资源类型
+	type_Set bool
 }
 
 func NewSvgBuilder() *SvgBuilder {
@@ -2525,14 +2937,108 @@ func NewSvgBuilder() *SvgBuilder {
 // 示例值：code
 func (builder *SvgBuilder) SvgCode(svgCode string) *SvgBuilder {
 	builder.svgCode = svgCode
-	builder.svgCodeFlag = true
+	builder.svgCodeSet = true
+	return builder
+}
+
+// 资源外部标识
+//
+// 示例值：emoji_ok_v2.png
+func (builder *SvgBuilder) Key(key string) *SvgBuilder {
+	builder.key = key
+	builder.keySet = true
+	return builder
+}
+
+// 资源类型
+//
+// 示例值：125
+func (builder *SvgBuilder) Type(type_ int) *SvgBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
 	return builder
 }
 
 func (builder *SvgBuilder) Build() *Svg {
 	req := &Svg{}
-	if builder.svgCodeFlag {
+	if builder.svgCodeSet {
 		req.SvgCode = &builder.svgCode
+
+	}
+	if builder.keySet {
+		req.Key = &builder.key
+
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	return req
+}
+
+type Syntax struct {
+	SyntaxType *int `json:"syntax_type,omitempty"` // 语法类别
+
+	Code *string `json:"code,omitempty"` // PlantUml/Mermaid源码
+
+	StyleType *int `json:"style_type,omitempty"` // 语法样式（画板样式/经典样式）
+}
+
+type SyntaxBuilder struct {
+	syntaxType    int // 语法类别
+	syntaxTypeSet bool
+
+	code    string // PlantUml/Mermaid源码
+	codeSet bool
+
+	styleType    int // 语法样式（画板样式/经典样式）
+	styleTypeSet bool
+}
+
+func NewSyntaxBuilder() *SyntaxBuilder {
+	builder := &SyntaxBuilder{}
+	return builder
+}
+
+// 语法类别
+//
+// 示例值：
+func (builder *SyntaxBuilder) SyntaxType(syntaxType int) *SyntaxBuilder {
+	builder.syntaxType = syntaxType
+	builder.syntaxTypeSet = true
+	return builder
+}
+
+// PlantUml/Mermaid源码
+//
+// 示例值：@startuml\\nAlice -> Bob: Authentication Request\\nBob --> Alice: Authentication Response\\n@enduml
+func (builder *SyntaxBuilder) Code(code string) *SyntaxBuilder {
+	builder.code = code
+	builder.codeSet = true
+	return builder
+}
+
+// 语法样式（画板样式/经典样式）
+//
+// 示例值：1
+func (builder *SyntaxBuilder) StyleType(styleType int) *SyntaxBuilder {
+	builder.styleType = styleType
+	builder.styleTypeSet = true
+	return builder
+}
+
+func (builder *SyntaxBuilder) Build() *Syntax {
+	req := &Syntax{}
+	if builder.syntaxTypeSet {
+		req.SyntaxType = &builder.syntaxType
+
+	}
+	if builder.codeSet {
+		req.Code = &builder.code
+
+	}
+	if builder.styleTypeSet {
+		req.StyleType = &builder.styleType
 
 	}
 	return req
@@ -2547,14 +3053,14 @@ type Table struct {
 }
 
 type TableBuilder struct {
-	meta     *TableMeta // 元信息
-	metaFlag bool
+	meta    *TableMeta // 元信息
+	metaSet bool
 
-	title     string // 标题
-	titleFlag bool
+	title    string // 标题
+	titleSet bool
 
-	cells     []*TableCell // 单元格列表
-	cellsFlag bool
+	cells    []*TableCell // 单元格列表
+	cellsSet bool
 }
 
 func NewTableBuilder() *TableBuilder {
@@ -2567,7 +3073,7 @@ func NewTableBuilder() *TableBuilder {
 // 示例值：
 func (builder *TableBuilder) Meta(meta *TableMeta) *TableBuilder {
 	builder.meta = meta
-	builder.metaFlag = true
+	builder.metaSet = true
 	return builder
 }
 
@@ -2576,7 +3082,7 @@ func (builder *TableBuilder) Meta(meta *TableMeta) *TableBuilder {
 // 示例值：表格
 func (builder *TableBuilder) Title(title string) *TableBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -2585,20 +3091,20 @@ func (builder *TableBuilder) Title(title string) *TableBuilder {
 // 示例值：
 func (builder *TableBuilder) Cells(cells []*TableCell) *TableBuilder {
 	builder.cells = cells
-	builder.cellsFlag = true
+	builder.cellsSet = true
 	return builder
 }
 
 func (builder *TableBuilder) Build() *Table {
 	req := &Table{}
-	if builder.metaFlag {
+	if builder.metaSet {
 		req.Meta = builder.meta
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.cellsFlag {
+	if builder.cellsSet {
 		req.Cells = builder.cells
 	}
 	return req
@@ -2619,23 +3125,23 @@ type TableCell struct {
 }
 
 type TableCellBuilder struct {
-	rowIndex     int // 行下标，从 1 开始
-	rowIndexFlag bool
+	rowIndex    int // 行下标，从 1 开始
+	rowIndexSet bool
 
-	colIndex     int // 列下标，从 1 开始
-	colIndexFlag bool
+	colIndex    int // 列下标，从 1 开始
+	colIndexSet bool
 
-	mergeInfo     *TableCellMergeInfo // 单元格合并信息
-	mergeInfoFlag bool
+	mergeInfo    *TableCellMergeInfo // 单元格合并信息
+	mergeInfoSet bool
 
-	children     []string // 单元格包含的子节点 id
-	childrenFlag bool
+	children    []string // 单元格包含的子节点 id
+	childrenSet bool
 
-	text     *Text // 单元格内文字
-	textFlag bool
+	text    *Text // 单元格内文字
+	textSet bool
 
-	style     *Style // 单元格样式，设置后会覆盖表格样式
-	styleFlag bool
+	style    *Style // 单元格样式，设置后会覆盖表格样式
+	styleSet bool
 }
 
 func NewTableCellBuilder() *TableCellBuilder {
@@ -2648,7 +3154,7 @@ func NewTableCellBuilder() *TableCellBuilder {
 // 示例值：1
 func (builder *TableCellBuilder) RowIndex(rowIndex int) *TableCellBuilder {
 	builder.rowIndex = rowIndex
-	builder.rowIndexFlag = true
+	builder.rowIndexSet = true
 	return builder
 }
 
@@ -2657,7 +3163,7 @@ func (builder *TableCellBuilder) RowIndex(rowIndex int) *TableCellBuilder {
 // 示例值：1
 func (builder *TableCellBuilder) ColIndex(colIndex int) *TableCellBuilder {
 	builder.colIndex = colIndex
-	builder.colIndexFlag = true
+	builder.colIndexSet = true
 	return builder
 }
 
@@ -2666,7 +3172,7 @@ func (builder *TableCellBuilder) ColIndex(colIndex int) *TableCellBuilder {
 // 示例值：
 func (builder *TableCellBuilder) MergeInfo(mergeInfo *TableCellMergeInfo) *TableCellBuilder {
 	builder.mergeInfo = mergeInfo
-	builder.mergeInfoFlag = true
+	builder.mergeInfoSet = true
 	return builder
 }
 
@@ -2675,7 +3181,7 @@ func (builder *TableCellBuilder) MergeInfo(mergeInfo *TableCellMergeInfo) *Table
 // 示例值：
 func (builder *TableCellBuilder) Children(children []string) *TableCellBuilder {
 	builder.children = children
-	builder.childrenFlag = true
+	builder.childrenSet = true
 	return builder
 }
 
@@ -2684,7 +3190,7 @@ func (builder *TableCellBuilder) Children(children []string) *TableCellBuilder {
 // 示例值：
 func (builder *TableCellBuilder) Text(text *Text) *TableCellBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -2693,30 +3199,30 @@ func (builder *TableCellBuilder) Text(text *Text) *TableCellBuilder {
 // 示例值：
 func (builder *TableCellBuilder) Style(style *Style) *TableCellBuilder {
 	builder.style = style
-	builder.styleFlag = true
+	builder.styleSet = true
 	return builder
 }
 
 func (builder *TableCellBuilder) Build() *TableCell {
 	req := &TableCell{}
-	if builder.rowIndexFlag {
+	if builder.rowIndexSet {
 		req.RowIndex = &builder.rowIndex
 
 	}
-	if builder.colIndexFlag {
+	if builder.colIndexSet {
 		req.ColIndex = &builder.colIndex
 
 	}
-	if builder.mergeInfoFlag {
+	if builder.mergeInfoSet {
 		req.MergeInfo = builder.mergeInfo
 	}
-	if builder.childrenFlag {
+	if builder.childrenSet {
 		req.Children = builder.children
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = builder.text
 	}
-	if builder.styleFlag {
+	if builder.styleSet {
 		req.Style = builder.style
 	}
 	return req
@@ -2729,11 +3235,11 @@ type TableCellMergeInfo struct {
 }
 
 type TableCellMergeInfoBuilder struct {
-	rowSpan     int // 从当前行索引起被合并的连续行数
-	rowSpanFlag bool
+	rowSpan    int // 从当前行索引起被合并的连续行数
+	rowSpanSet bool
 
-	colSpan     int // 从当前列索引起被合并的连续列数
-	colSpanFlag bool
+	colSpan    int // 从当前列索引起被合并的连续列数
+	colSpanSet bool
 }
 
 func NewTableCellMergeInfoBuilder() *TableCellMergeInfoBuilder {
@@ -2746,7 +3252,7 @@ func NewTableCellMergeInfoBuilder() *TableCellMergeInfoBuilder {
 // 示例值：2
 func (builder *TableCellMergeInfoBuilder) RowSpan(rowSpan int) *TableCellMergeInfoBuilder {
 	builder.rowSpan = rowSpan
-	builder.rowSpanFlag = true
+	builder.rowSpanSet = true
 	return builder
 }
 
@@ -2755,17 +3261,17 @@ func (builder *TableCellMergeInfoBuilder) RowSpan(rowSpan int) *TableCellMergeIn
 // 示例值：2
 func (builder *TableCellMergeInfoBuilder) ColSpan(colSpan int) *TableCellMergeInfoBuilder {
 	builder.colSpan = colSpan
-	builder.colSpanFlag = true
+	builder.colSpanSet = true
 	return builder
 }
 
 func (builder *TableCellMergeInfoBuilder) Build() *TableCellMergeInfo {
 	req := &TableCellMergeInfo{}
-	if builder.rowSpanFlag {
+	if builder.rowSpanSet {
 		req.RowSpan = &builder.rowSpan
 
 	}
-	if builder.colSpanFlag {
+	if builder.colSpanSet {
 		req.ColSpan = &builder.colSpan
 
 	}
@@ -2787,23 +3293,23 @@ type TableMeta struct {
 }
 
 type TableMetaBuilder struct {
-	rowNum     int // 行数
-	rowNumFlag bool
+	rowNum    int // 行数
+	rowNumSet bool
 
-	colNum     int // 列数
-	colNumFlag bool
+	colNum    int // 列数
+	colNumSet bool
 
-	rowSizes     []float64 // 行高
-	rowSizesFlag bool
+	rowSizes    []float64 // 行高
+	rowSizesSet bool
 
-	colSizes     []float64 // 列宽
-	colSizesFlag bool
+	colSizes    []float64 // 列宽
+	colSizesSet bool
 
-	style     *Style // 整个表格的样式
-	styleFlag bool
+	style    *Style // 整个表格的样式
+	styleSet bool
 
-	text     *Text // 整个表格的文字样式
-	textFlag bool
+	text    *Text // 整个表格的文字样式
+	textSet bool
 }
 
 func NewTableMetaBuilder() *TableMetaBuilder {
@@ -2816,7 +3322,7 @@ func NewTableMetaBuilder() *TableMetaBuilder {
 // 示例值：3
 func (builder *TableMetaBuilder) RowNum(rowNum int) *TableMetaBuilder {
 	builder.rowNum = rowNum
-	builder.rowNumFlag = true
+	builder.rowNumSet = true
 	return builder
 }
 
@@ -2825,7 +3331,7 @@ func (builder *TableMetaBuilder) RowNum(rowNum int) *TableMetaBuilder {
 // 示例值：2
 func (builder *TableMetaBuilder) ColNum(colNum int) *TableMetaBuilder {
 	builder.colNum = colNum
-	builder.colNumFlag = true
+	builder.colNumSet = true
 	return builder
 }
 
@@ -2834,7 +3340,7 @@ func (builder *TableMetaBuilder) ColNum(colNum int) *TableMetaBuilder {
 // 示例值：
 func (builder *TableMetaBuilder) RowSizes(rowSizes []float64) *TableMetaBuilder {
 	builder.rowSizes = rowSizes
-	builder.rowSizesFlag = true
+	builder.rowSizesSet = true
 	return builder
 }
 
@@ -2843,7 +3349,7 @@ func (builder *TableMetaBuilder) RowSizes(rowSizes []float64) *TableMetaBuilder 
 // 示例值：
 func (builder *TableMetaBuilder) ColSizes(colSizes []float64) *TableMetaBuilder {
 	builder.colSizes = colSizes
-	builder.colSizesFlag = true
+	builder.colSizesSet = true
 	return builder
 }
 
@@ -2852,7 +3358,7 @@ func (builder *TableMetaBuilder) ColSizes(colSizes []float64) *TableMetaBuilder 
 // 示例值：
 func (builder *TableMetaBuilder) Style(style *Style) *TableMetaBuilder {
 	builder.style = style
-	builder.styleFlag = true
+	builder.styleSet = true
 	return builder
 }
 
@@ -2861,30 +3367,30 @@ func (builder *TableMetaBuilder) Style(style *Style) *TableMetaBuilder {
 // 示例值：
 func (builder *TableMetaBuilder) Text(text *Text) *TableMetaBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
 func (builder *TableMetaBuilder) Build() *TableMeta {
 	req := &TableMeta{}
-	if builder.rowNumFlag {
+	if builder.rowNumSet {
 		req.RowNum = &builder.rowNum
 
 	}
-	if builder.colNumFlag {
+	if builder.colNumSet {
 		req.ColNum = &builder.colNum
 
 	}
-	if builder.rowSizesFlag {
+	if builder.rowSizesSet {
 		req.RowSizes = builder.rowSizes
 	}
-	if builder.colSizesFlag {
+	if builder.colSizesSet {
 		req.ColSizes = builder.colSizes
 	}
-	if builder.styleFlag {
+	if builder.styleSet {
 		req.Style = builder.style
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = builder.text
 	}
 	return req
@@ -2925,53 +3431,53 @@ type Text struct {
 }
 
 type TextBuilder struct {
-	text     string // 文字内容
-	textFlag bool
+	text    string // 文字内容
+	textSet bool
 
-	fontWeight     string // 文字字重
-	fontWeightFlag bool
+	fontWeight    string // 文字字重
+	fontWeightSet bool
 
-	fontSize     int // 文字大小
-	fontSizeFlag bool
+	fontSize    int // 文字大小
+	fontSizeSet bool
 
-	horizontalAlign     string // 水平对齐
-	horizontalAlignFlag bool
+	horizontalAlign    string // 水平对齐
+	horizontalAlignSet bool
 
-	verticalAlign     string // 垂直对齐
-	verticalAlignFlag bool
+	verticalAlign    string // 垂直对齐
+	verticalAlignSet bool
 
-	textColor     string // 文字颜色，16 进制 rgb 值
-	textColorFlag bool
+	textColor    string // 文字颜色，16 进制 rgb 值
+	textColorSet bool
 
-	textBackgroundColor     string // 文字背景色，16 进制 rgb 值
-	textBackgroundColorFlag bool
+	textBackgroundColor    string // 文字背景色，16 进制 rgb 值
+	textBackgroundColorSet bool
 
-	lineThrough     bool // 是否存在删除线
-	lineThroughFlag bool
+	lineThrough    bool // 是否存在删除线
+	lineThroughSet bool
 
-	underline     bool // 是否存在下划线
-	underlineFlag bool
+	underline    bool // 是否存在下划线
+	underlineSet bool
 
-	italic     bool // 是否斜体
-	italicFlag bool
+	italic    bool // 是否斜体
+	italicSet bool
 
-	angle     int // 文字旋转角度
-	angleFlag bool
+	angle    int // 文字旋转角度
+	angleSet bool
 
-	themeTextColorCode     int // 文字颜色主题配色编码值
-	themeTextColorCodeFlag bool
+	themeTextColorCode    int // 文字颜色主题配色编码值
+	themeTextColorCodeSet bool
 
-	themeTextBackgroundColorCode     int // 文字背景颜色主题配色编码值
-	themeTextBackgroundColorCodeFlag bool
+	themeTextBackgroundColorCode    int // 文字背景颜色主题配色编码值
+	themeTextBackgroundColorCodeSet bool
 
-	richText     *RichText // 富文本
-	richTextFlag bool
+	richText    *RichText // 富文本
+	richTextSet bool
 
-	textColorType     int // 文字颜色类型，0=系统颜色，1=自定义颜色
-	textColorTypeFlag bool
+	textColorType    int // 文字颜色类型，0=系统颜色，1=自定义颜色
+	textColorTypeSet bool
 
-	textBackgroundColorType     int // 文字背景颜色类型，0=系统颜色，1=自定义颜色
-	textBackgroundColorTypeFlag bool
+	textBackgroundColorType    int // 文字背景颜色类型，0=系统颜色，1=自定义颜色
+	textBackgroundColorTypeSet bool
 }
 
 func NewTextBuilder() *TextBuilder {
@@ -2984,7 +3490,7 @@ func NewTextBuilder() *TextBuilder {
 // 示例值：文字内容
 func (builder *TextBuilder) Text(text string) *TextBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -2993,7 +3499,7 @@ func (builder *TextBuilder) Text(text string) *TextBuilder {
 // 示例值：regular
 func (builder *TextBuilder) FontWeight(fontWeight string) *TextBuilder {
 	builder.fontWeight = fontWeight
-	builder.fontWeightFlag = true
+	builder.fontWeightSet = true
 	return builder
 }
 
@@ -3002,7 +3508,7 @@ func (builder *TextBuilder) FontWeight(fontWeight string) *TextBuilder {
 // 示例值：14
 func (builder *TextBuilder) FontSize(fontSize int) *TextBuilder {
 	builder.fontSize = fontSize
-	builder.fontSizeFlag = true
+	builder.fontSizeSet = true
 	return builder
 }
 
@@ -3011,7 +3517,7 @@ func (builder *TextBuilder) FontSize(fontSize int) *TextBuilder {
 // 示例值：
 func (builder *TextBuilder) HorizontalAlign(horizontalAlign string) *TextBuilder {
 	builder.horizontalAlign = horizontalAlign
-	builder.horizontalAlignFlag = true
+	builder.horizontalAlignSet = true
 	return builder
 }
 
@@ -3020,7 +3526,7 @@ func (builder *TextBuilder) HorizontalAlign(horizontalAlign string) *TextBuilder
 // 示例值：
 func (builder *TextBuilder) VerticalAlign(verticalAlign string) *TextBuilder {
 	builder.verticalAlign = verticalAlign
-	builder.verticalAlignFlag = true
+	builder.verticalAlignSet = true
 	return builder
 }
 
@@ -3029,7 +3535,7 @@ func (builder *TextBuilder) VerticalAlign(verticalAlign string) *TextBuilder {
 // 示例值：#6db5a3
 func (builder *TextBuilder) TextColor(textColor string) *TextBuilder {
 	builder.textColor = textColor
-	builder.textColorFlag = true
+	builder.textColorSet = true
 	return builder
 }
 
@@ -3038,7 +3544,7 @@ func (builder *TextBuilder) TextColor(textColor string) *TextBuilder {
 // 示例值：#6db5a3
 func (builder *TextBuilder) TextBackgroundColor(textBackgroundColor string) *TextBuilder {
 	builder.textBackgroundColor = textBackgroundColor
-	builder.textBackgroundColorFlag = true
+	builder.textBackgroundColorSet = true
 	return builder
 }
 
@@ -3047,7 +3553,7 @@ func (builder *TextBuilder) TextBackgroundColor(textBackgroundColor string) *Tex
 // 示例值：true
 func (builder *TextBuilder) LineThrough(lineThrough bool) *TextBuilder {
 	builder.lineThrough = lineThrough
-	builder.lineThroughFlag = true
+	builder.lineThroughSet = true
 	return builder
 }
 
@@ -3056,7 +3562,7 @@ func (builder *TextBuilder) LineThrough(lineThrough bool) *TextBuilder {
 // 示例值：true
 func (builder *TextBuilder) Underline(underline bool) *TextBuilder {
 	builder.underline = underline
-	builder.underlineFlag = true
+	builder.underlineSet = true
 	return builder
 }
 
@@ -3065,7 +3571,7 @@ func (builder *TextBuilder) Underline(underline bool) *TextBuilder {
 // 示例值：true
 func (builder *TextBuilder) Italic(italic bool) *TextBuilder {
 	builder.italic = italic
-	builder.italicFlag = true
+	builder.italicSet = true
 	return builder
 }
 
@@ -3074,7 +3580,7 @@ func (builder *TextBuilder) Italic(italic bool) *TextBuilder {
 // 示例值：90
 func (builder *TextBuilder) Angle(angle int) *TextBuilder {
 	builder.angle = angle
-	builder.angleFlag = true
+	builder.angleSet = true
 	return builder
 }
 
@@ -3083,7 +3589,7 @@ func (builder *TextBuilder) Angle(angle int) *TextBuilder {
 // 示例值：0
 func (builder *TextBuilder) ThemeTextColorCode(themeTextColorCode int) *TextBuilder {
 	builder.themeTextColorCode = themeTextColorCode
-	builder.themeTextColorCodeFlag = true
+	builder.themeTextColorCodeSet = true
 	return builder
 }
 
@@ -3092,7 +3598,7 @@ func (builder *TextBuilder) ThemeTextColorCode(themeTextColorCode int) *TextBuil
 // 示例值：-1
 func (builder *TextBuilder) ThemeTextBackgroundColorCode(themeTextBackgroundColorCode int) *TextBuilder {
 	builder.themeTextBackgroundColorCode = themeTextBackgroundColorCode
-	builder.themeTextBackgroundColorCodeFlag = true
+	builder.themeTextBackgroundColorCodeSet = true
 	return builder
 }
 
@@ -3101,7 +3607,7 @@ func (builder *TextBuilder) ThemeTextBackgroundColorCode(themeTextBackgroundColo
 // 示例值：
 func (builder *TextBuilder) RichText(richText *RichText) *TextBuilder {
 	builder.richText = richText
-	builder.richTextFlag = true
+	builder.richTextSet = true
 	return builder
 }
 
@@ -3110,7 +3616,7 @@ func (builder *TextBuilder) RichText(richText *RichText) *TextBuilder {
 // 示例值：
 func (builder *TextBuilder) TextColorType(textColorType int) *TextBuilder {
 	builder.textColorType = textColorType
-	builder.textColorTypeFlag = true
+	builder.textColorTypeSet = true
 	return builder
 }
 
@@ -3119,72 +3625,72 @@ func (builder *TextBuilder) TextColorType(textColorType int) *TextBuilder {
 // 示例值：
 func (builder *TextBuilder) TextBackgroundColorType(textBackgroundColorType int) *TextBuilder {
 	builder.textBackgroundColorType = textBackgroundColorType
-	builder.textBackgroundColorTypeFlag = true
+	builder.textBackgroundColorTypeSet = true
 	return builder
 }
 
 func (builder *TextBuilder) Build() *Text {
 	req := &Text{}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
-	if builder.fontWeightFlag {
+	if builder.fontWeightSet {
 		req.FontWeight = &builder.fontWeight
 
 	}
-	if builder.fontSizeFlag {
+	if builder.fontSizeSet {
 		req.FontSize = &builder.fontSize
 
 	}
-	if builder.horizontalAlignFlag {
+	if builder.horizontalAlignSet {
 		req.HorizontalAlign = &builder.horizontalAlign
 
 	}
-	if builder.verticalAlignFlag {
+	if builder.verticalAlignSet {
 		req.VerticalAlign = &builder.verticalAlign
 
 	}
-	if builder.textColorFlag {
+	if builder.textColorSet {
 		req.TextColor = &builder.textColor
 
 	}
-	if builder.textBackgroundColorFlag {
+	if builder.textBackgroundColorSet {
 		req.TextBackgroundColor = &builder.textBackgroundColor
 
 	}
-	if builder.lineThroughFlag {
+	if builder.lineThroughSet {
 		req.LineThrough = &builder.lineThrough
 
 	}
-	if builder.underlineFlag {
+	if builder.underlineSet {
 		req.Underline = &builder.underline
 
 	}
-	if builder.italicFlag {
+	if builder.italicSet {
 		req.Italic = &builder.italic
 
 	}
-	if builder.angleFlag {
+	if builder.angleSet {
 		req.Angle = &builder.angle
 
 	}
-	if builder.themeTextColorCodeFlag {
+	if builder.themeTextColorCodeSet {
 		req.ThemeTextColorCode = &builder.themeTextColorCode
 
 	}
-	if builder.themeTextBackgroundColorCodeFlag {
+	if builder.themeTextBackgroundColorCodeSet {
 		req.ThemeTextBackgroundColorCode = &builder.themeTextBackgroundColorCode
 
 	}
-	if builder.richTextFlag {
+	if builder.richTextSet {
 		req.RichText = builder.richText
 	}
-	if builder.textColorTypeFlag {
+	if builder.textColorTypeSet {
 		req.TextColorType = &builder.textColorType
 
 	}
-	if builder.textBackgroundColorTypeFlag {
+	if builder.textBackgroundColorTypeSet {
 		req.TextBackgroundColorType = &builder.textBackgroundColorType
 
 	}
@@ -3196,8 +3702,8 @@ type Trapezoid struct {
 }
 
 type TrapezoidBuilder struct {
-	topLength     float64 // 梯形上底长（短边）。默认为下底边长度的2/3，不能超过下底边长度。
-	topLengthFlag bool
+	topLength    float64 // 梯形上底长（短边）。默认为下底边长度的2/3，不能超过下底边长度。
+	topLengthSet bool
 }
 
 func NewTrapezoidBuilder() *TrapezoidBuilder {
@@ -3210,13 +3716,13 @@ func NewTrapezoidBuilder() *TrapezoidBuilder {
 // 示例值：10
 func (builder *TrapezoidBuilder) TopLength(topLength float64) *TrapezoidBuilder {
 	builder.topLength = topLength
-	builder.topLengthFlag = true
+	builder.topLengthSet = true
 	return builder
 }
 
 func (builder *TrapezoidBuilder) Build() *Trapezoid {
 	req := &Trapezoid{}
-	if builder.topLengthFlag {
+	if builder.topLengthSet {
 		req.TopLength = &builder.topLength
 
 	}
@@ -3273,83 +3779,88 @@ type WhiteboardNode struct {
 	MindMapRoot *MindMapRoot `json:"mind_map_root,omitempty"` // 思维导图根节点属性
 
 	MindMap *MindMap `json:"mind_map,omitempty"` // 思维导图节点（v1版本，只读，写操作请使用mind_map_root/mind_map_node结构）
+
+	Syntax *Syntax `json:"syntax,omitempty"` // PlantUml/Mermaid的语法信息
 }
 
 type WhiteboardNodeBuilder struct {
-	id     string // 节点 id
-	idFlag bool
+	id    string // 节点 id
+	idSet bool
 
 	type_    string // 节点图形类型，目前创建节点仅支持创建图片、文本、基础图形等类型
-	typeFlag bool
+	type_Set bool
 
-	parentId     string // 父节点 id
-	parentIdFlag bool
+	parentId    string // 父节点 id
+	parentIdSet bool
 
-	children     []string // 子节点
-	childrenFlag bool
+	children    []string // 子节点
+	childrenSet bool
 
-	x     float64 // 图形相对画布的 x 轴位置信息（存在父容器时为相对父容器的坐标，父容器为组合图形 group 时，坐标是穿透的），单位为 px
-	xFlag bool
+	x    float64 // 图形相对画布的 x 轴位置信息（存在父容器时为相对父容器的坐标，父容器为组合图形 group 时，坐标是穿透的），单位为 px
+	xSet bool
 
-	y     float64 // 图形相对画布的 y 轴位置信息（存在父容器时为相对父容器的坐标，父容器为组合图形 group 时，坐标是穿透的），单位为 px
-	yFlag bool
+	y    float64 // 图形相对画布的 y 轴位置信息（存在父容器时为相对父容器的坐标，父容器为组合图形 group 时，坐标是穿透的），单位为 px
+	ySet bool
 
-	angle     float64 // 图形旋转角度
-	angleFlag bool
+	angle    float64 // 图形旋转角度
+	angleSet bool
 
-	height     float64 // 图形高度，单位为 px
-	heightFlag bool
+	height    float64 // 图形高度，单位为 px
+	heightSet bool
 
-	text     *Text // 图形内文字
-	textFlag bool
+	text    *Text // 图形内文字
+	textSet bool
 
-	style     *Style // 图形样式
-	styleFlag bool
+	style    *Style // 图形样式
+	styleSet bool
 
-	image     *Image // 图片
-	imageFlag bool
+	image    *Image // 图片
+	imageSet bool
 
-	compositeShape     *CompositeShape // 基础图形属性
-	compositeShapeFlag bool
+	compositeShape    *CompositeShape // 基础图形属性
+	compositeShapeSet bool
 
-	connector     *Connector // 连线属性
-	connectorFlag bool
+	connector    *Connector // 连线属性
+	connectorSet bool
 
-	width     float64 // 图形宽度，单位为 px
-	widthFlag bool
+	width    float64 // 图形宽度，单位为 px
+	widthSet bool
 
-	section     *Section // 分区属性
-	sectionFlag bool
+	section    *Section // 分区属性
+	sectionSet bool
 
-	table     *Table // 表格属性
-	tableFlag bool
+	table    *Table // 表格属性
+	tableSet bool
 
-	locked     bool // 图形是否锁定
-	lockedFlag bool
+	locked    bool // 图形是否锁定
+	lockedSet bool
 
-	zIndex     int // 图形在兄弟节点中的层级，层级大的会覆盖层级小的
-	zIndexFlag bool
+	zIndex    int // 图形在兄弟节点中的层级，层级大的会覆盖层级小的
+	zIndexSet bool
 
-	lifeline     *Lifeline // 生命对象属性
-	lifelineFlag bool
+	lifeline    *Lifeline // 生命对象属性
+	lifelineSet bool
 
-	paint     *Paint // 画笔属性
-	paintFlag bool
+	paint    *Paint // 画笔属性
+	paintSet bool
 
-	svg     *Svg // svg图形属性
-	svgFlag bool
+	svg    *Svg // svg图形属性
+	svgSet bool
 
-	stickyNote     *StickyNote // 便签图形属性
-	stickyNoteFlag bool
+	stickyNote    *StickyNote // 便签图形属性
+	stickyNoteSet bool
 
-	mindMapNode     *MindMapNode // 思维导图节点属性
-	mindMapNodeFlag bool
+	mindMapNode    *MindMapNode // 思维导图节点属性
+	mindMapNodeSet bool
 
-	mindMapRoot     *MindMapRoot // 思维导图根节点属性
-	mindMapRootFlag bool
+	mindMapRoot    *MindMapRoot // 思维导图根节点属性
+	mindMapRootSet bool
 
-	mindMap     *MindMap // 思维导图节点（v1版本，只读，写操作请使用mind_map_root/mind_map_node结构）
-	mindMapFlag bool
+	mindMap    *MindMap // 思维导图节点（v1版本，只读，写操作请使用mind_map_root/mind_map_node结构）
+	mindMapSet bool
+
+	syntax    *Syntax // PlantUml/Mermaid的语法信息
+	syntaxSet bool
 }
 
 func NewWhiteboardNodeBuilder() *WhiteboardNodeBuilder {
@@ -3362,7 +3873,7 @@ func NewWhiteboardNodeBuilder() *WhiteboardNodeBuilder {
 // 示例值：o1:1
 func (builder *WhiteboardNodeBuilder) Id(id string) *WhiteboardNodeBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3371,7 +3882,7 @@ func (builder *WhiteboardNodeBuilder) Id(id string) *WhiteboardNodeBuilder {
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Type(type_ string) *WhiteboardNodeBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -3380,7 +3891,7 @@ func (builder *WhiteboardNodeBuilder) Type(type_ string) *WhiteboardNodeBuilder 
 // 示例值：o1:1
 func (builder *WhiteboardNodeBuilder) ParentId(parentId string) *WhiteboardNodeBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
@@ -3389,7 +3900,7 @@ func (builder *WhiteboardNodeBuilder) ParentId(parentId string) *WhiteboardNodeB
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Children(children []string) *WhiteboardNodeBuilder {
 	builder.children = children
-	builder.childrenFlag = true
+	builder.childrenSet = true
 	return builder
 }
 
@@ -3398,7 +3909,7 @@ func (builder *WhiteboardNodeBuilder) Children(children []string) *WhiteboardNod
 // 示例值：100
 func (builder *WhiteboardNodeBuilder) X(x float64) *WhiteboardNodeBuilder {
 	builder.x = x
-	builder.xFlag = true
+	builder.xSet = true
 	return builder
 }
 
@@ -3407,7 +3918,7 @@ func (builder *WhiteboardNodeBuilder) X(x float64) *WhiteboardNodeBuilder {
 // 示例值：100
 func (builder *WhiteboardNodeBuilder) Y(y float64) *WhiteboardNodeBuilder {
 	builder.y = y
-	builder.yFlag = true
+	builder.ySet = true
 	return builder
 }
 
@@ -3416,7 +3927,7 @@ func (builder *WhiteboardNodeBuilder) Y(y float64) *WhiteboardNodeBuilder {
 // 示例值：100
 func (builder *WhiteboardNodeBuilder) Angle(angle float64) *WhiteboardNodeBuilder {
 	builder.angle = angle
-	builder.angleFlag = true
+	builder.angleSet = true
 	return builder
 }
 
@@ -3425,7 +3936,7 @@ func (builder *WhiteboardNodeBuilder) Angle(angle float64) *WhiteboardNodeBuilde
 // 示例值：100
 func (builder *WhiteboardNodeBuilder) Height(height float64) *WhiteboardNodeBuilder {
 	builder.height = height
-	builder.heightFlag = true
+	builder.heightSet = true
 	return builder
 }
 
@@ -3434,7 +3945,7 @@ func (builder *WhiteboardNodeBuilder) Height(height float64) *WhiteboardNodeBuil
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Text(text *Text) *WhiteboardNodeBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -3443,7 +3954,7 @@ func (builder *WhiteboardNodeBuilder) Text(text *Text) *WhiteboardNodeBuilder {
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Style(style *Style) *WhiteboardNodeBuilder {
 	builder.style = style
-	builder.styleFlag = true
+	builder.styleSet = true
 	return builder
 }
 
@@ -3452,7 +3963,7 @@ func (builder *WhiteboardNodeBuilder) Style(style *Style) *WhiteboardNodeBuilder
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Image(image *Image) *WhiteboardNodeBuilder {
 	builder.image = image
-	builder.imageFlag = true
+	builder.imageSet = true
 	return builder
 }
 
@@ -3461,7 +3972,7 @@ func (builder *WhiteboardNodeBuilder) Image(image *Image) *WhiteboardNodeBuilder
 // 示例值：
 func (builder *WhiteboardNodeBuilder) CompositeShape(compositeShape *CompositeShape) *WhiteboardNodeBuilder {
 	builder.compositeShape = compositeShape
-	builder.compositeShapeFlag = true
+	builder.compositeShapeSet = true
 	return builder
 }
 
@@ -3470,7 +3981,7 @@ func (builder *WhiteboardNodeBuilder) CompositeShape(compositeShape *CompositeSh
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Connector(connector *Connector) *WhiteboardNodeBuilder {
 	builder.connector = connector
-	builder.connectorFlag = true
+	builder.connectorSet = true
 	return builder
 }
 
@@ -3479,7 +3990,7 @@ func (builder *WhiteboardNodeBuilder) Connector(connector *Connector) *Whiteboar
 // 示例值：100
 func (builder *WhiteboardNodeBuilder) Width(width float64) *WhiteboardNodeBuilder {
 	builder.width = width
-	builder.widthFlag = true
+	builder.widthSet = true
 	return builder
 }
 
@@ -3488,7 +3999,7 @@ func (builder *WhiteboardNodeBuilder) Width(width float64) *WhiteboardNodeBuilde
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Section(section *Section) *WhiteboardNodeBuilder {
 	builder.section = section
-	builder.sectionFlag = true
+	builder.sectionSet = true
 	return builder
 }
 
@@ -3497,7 +4008,7 @@ func (builder *WhiteboardNodeBuilder) Section(section *Section) *WhiteboardNodeB
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Table(table *Table) *WhiteboardNodeBuilder {
 	builder.table = table
-	builder.tableFlag = true
+	builder.tableSet = true
 	return builder
 }
 
@@ -3506,7 +4017,7 @@ func (builder *WhiteboardNodeBuilder) Table(table *Table) *WhiteboardNodeBuilder
 // 示例值：true
 func (builder *WhiteboardNodeBuilder) Locked(locked bool) *WhiteboardNodeBuilder {
 	builder.locked = locked
-	builder.lockedFlag = true
+	builder.lockedSet = true
 	return builder
 }
 
@@ -3515,7 +4026,7 @@ func (builder *WhiteboardNodeBuilder) Locked(locked bool) *WhiteboardNodeBuilder
 // 示例值：1
 func (builder *WhiteboardNodeBuilder) ZIndex(zIndex int) *WhiteboardNodeBuilder {
 	builder.zIndex = zIndex
-	builder.zIndexFlag = true
+	builder.zIndexSet = true
 	return builder
 }
 
@@ -3524,7 +4035,7 @@ func (builder *WhiteboardNodeBuilder) ZIndex(zIndex int) *WhiteboardNodeBuilder 
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Lifeline(lifeline *Lifeline) *WhiteboardNodeBuilder {
 	builder.lifeline = lifeline
-	builder.lifelineFlag = true
+	builder.lifelineSet = true
 	return builder
 }
 
@@ -3533,7 +4044,7 @@ func (builder *WhiteboardNodeBuilder) Lifeline(lifeline *Lifeline) *WhiteboardNo
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Paint(paint *Paint) *WhiteboardNodeBuilder {
 	builder.paint = paint
-	builder.paintFlag = true
+	builder.paintSet = true
 	return builder
 }
 
@@ -3542,7 +4053,7 @@ func (builder *WhiteboardNodeBuilder) Paint(paint *Paint) *WhiteboardNodeBuilder
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Svg(svg *Svg) *WhiteboardNodeBuilder {
 	builder.svg = svg
-	builder.svgFlag = true
+	builder.svgSet = true
 	return builder
 }
 
@@ -3551,7 +4062,7 @@ func (builder *WhiteboardNodeBuilder) Svg(svg *Svg) *WhiteboardNodeBuilder {
 // 示例值：
 func (builder *WhiteboardNodeBuilder) StickyNote(stickyNote *StickyNote) *WhiteboardNodeBuilder {
 	builder.stickyNote = stickyNote
-	builder.stickyNoteFlag = true
+	builder.stickyNoteSet = true
 	return builder
 }
 
@@ -3560,7 +4071,7 @@ func (builder *WhiteboardNodeBuilder) StickyNote(stickyNote *StickyNote) *Whiteb
 // 示例值：
 func (builder *WhiteboardNodeBuilder) MindMapNode(mindMapNode *MindMapNode) *WhiteboardNodeBuilder {
 	builder.mindMapNode = mindMapNode
-	builder.mindMapNodeFlag = true
+	builder.mindMapNodeSet = true
 	return builder
 }
 
@@ -3569,7 +4080,7 @@ func (builder *WhiteboardNodeBuilder) MindMapNode(mindMapNode *MindMapNode) *Whi
 // 示例值：
 func (builder *WhiteboardNodeBuilder) MindMapRoot(mindMapRoot *MindMapRoot) *WhiteboardNodeBuilder {
 	builder.mindMapRoot = mindMapRoot
-	builder.mindMapRootFlag = true
+	builder.mindMapRootSet = true
 	return builder
 }
 
@@ -3578,96 +4089,108 @@ func (builder *WhiteboardNodeBuilder) MindMapRoot(mindMapRoot *MindMapRoot) *Whi
 // 示例值：
 func (builder *WhiteboardNodeBuilder) MindMap(mindMap *MindMap) *WhiteboardNodeBuilder {
 	builder.mindMap = mindMap
-	builder.mindMapFlag = true
+	builder.mindMapSet = true
+	return builder
+}
+
+// PlantUml/Mermaid的语法信息
+//
+// 示例值：
+func (builder *WhiteboardNodeBuilder) Syntax(syntax *Syntax) *WhiteboardNodeBuilder {
+	builder.syntax = syntax
+	builder.syntaxSet = true
 	return builder
 }
 
 func (builder *WhiteboardNodeBuilder) Build() *WhiteboardNode {
 	req := &WhiteboardNode{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
-	if builder.childrenFlag {
+	if builder.childrenSet {
 		req.Children = builder.children
 	}
-	if builder.xFlag {
+	if builder.xSet {
 		req.X = &builder.x
 
 	}
-	if builder.yFlag {
+	if builder.ySet {
 		req.Y = &builder.y
 
 	}
-	if builder.angleFlag {
+	if builder.angleSet {
 		req.Angle = &builder.angle
 
 	}
-	if builder.heightFlag {
+	if builder.heightSet {
 		req.Height = &builder.height
 
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = builder.text
 	}
-	if builder.styleFlag {
+	if builder.styleSet {
 		req.Style = builder.style
 	}
-	if builder.imageFlag {
+	if builder.imageSet {
 		req.Image = builder.image
 	}
-	if builder.compositeShapeFlag {
+	if builder.compositeShapeSet {
 		req.CompositeShape = builder.compositeShape
 	}
-	if builder.connectorFlag {
+	if builder.connectorSet {
 		req.Connector = builder.connector
 	}
-	if builder.widthFlag {
+	if builder.widthSet {
 		req.Width = &builder.width
 
 	}
-	if builder.sectionFlag {
+	if builder.sectionSet {
 		req.Section = builder.section
 	}
-	if builder.tableFlag {
+	if builder.tableSet {
 		req.Table = builder.table
 	}
-	if builder.lockedFlag {
+	if builder.lockedSet {
 		req.Locked = &builder.locked
 
 	}
-	if builder.zIndexFlag {
+	if builder.zIndexSet {
 		req.ZIndex = &builder.zIndex
 
 	}
-	if builder.lifelineFlag {
+	if builder.lifelineSet {
 		req.Lifeline = builder.lifeline
 	}
-	if builder.paintFlag {
+	if builder.paintSet {
 		req.Paint = builder.paint
 	}
-	if builder.svgFlag {
+	if builder.svgSet {
 		req.Svg = builder.svg
 	}
-	if builder.stickyNoteFlag {
+	if builder.stickyNoteSet {
 		req.StickyNote = builder.stickyNote
 	}
-	if builder.mindMapNodeFlag {
+	if builder.mindMapNodeSet {
 		req.MindMapNode = builder.mindMapNode
 	}
-	if builder.mindMapRootFlag {
+	if builder.mindMapRootSet {
 		req.MindMapRoot = builder.mindMapRoot
 	}
-	if builder.mindMapFlag {
+	if builder.mindMapSet {
 		req.MindMap = builder.mindMap
+	}
+	if builder.syntaxSet {
+		req.Syntax = builder.syntax
 	}
 	return req
 }
@@ -3775,8 +4298,8 @@ func (resp *ThemeWhiteboardResp) Success() bool {
 }
 
 type UpdateThemeWhiteboardReqBodyBuilder struct {
-	theme     string // 主题名称
-	themeFlag bool
+	theme    string // 主题名称
+	themeSet bool
 }
 
 func NewUpdateThemeWhiteboardReqBodyBuilder() *UpdateThemeWhiteboardReqBodyBuilder {
@@ -3786,24 +4309,24 @@ func NewUpdateThemeWhiteboardReqBodyBuilder() *UpdateThemeWhiteboardReqBodyBuild
 
 // 主题名称
 //
-// 示例值：classic
+//示例值：classic
 func (builder *UpdateThemeWhiteboardReqBodyBuilder) Theme(theme string) *UpdateThemeWhiteboardReqBodyBuilder {
 	builder.theme = theme
-	builder.themeFlag = true
+	builder.themeSet = true
 	return builder
 }
 
 func (builder *UpdateThemeWhiteboardReqBodyBuilder) Build() *UpdateThemeWhiteboardReqBody {
 	req := &UpdateThemeWhiteboardReqBody{}
-	if builder.themeFlag {
+	if builder.themeSet {
 		req.Theme = &builder.theme
 	}
 	return req
 }
 
 type UpdateThemeWhiteboardPathReqBodyBuilder struct {
-	theme     string
-	themeFlag bool
+	theme    string
+	themeSet bool
 }
 
 func NewUpdateThemeWhiteboardPathReqBodyBuilder() *UpdateThemeWhiteboardPathReqBodyBuilder {
@@ -3816,13 +4339,13 @@ func NewUpdateThemeWhiteboardPathReqBodyBuilder() *UpdateThemeWhiteboardPathReqB
 // 示例值：classic
 func (builder *UpdateThemeWhiteboardPathReqBodyBuilder) Theme(theme string) *UpdateThemeWhiteboardPathReqBodyBuilder {
 	builder.theme = theme
-	builder.themeFlag = true
+	builder.themeSet = true
 	return builder
 }
 
 func (builder *UpdateThemeWhiteboardPathReqBodyBuilder) Build() (*UpdateThemeWhiteboardReqBody, error) {
 	req := &UpdateThemeWhiteboardReqBody{}
-	if builder.themeFlag {
+	if builder.themeSet {
 		req.Theme = &builder.theme
 	}
 	return req, nil
@@ -3882,9 +4405,134 @@ func (resp *UpdateThemeWhiteboardResp) Success() bool {
 	return resp.Code == 0
 }
 
+type BatchDeleteWhiteboardNodeReqBodyBuilder struct {
+	ids    []string // 需要删除的节点 id 列表
+	idsSet bool
+}
+
+func NewBatchDeleteWhiteboardNodeReqBodyBuilder() *BatchDeleteWhiteboardNodeReqBodyBuilder {
+	builder := &BatchDeleteWhiteboardNodeReqBodyBuilder{}
+	return builder
+}
+
+// 需要删除的节点 id 列表
+//
+//示例值：
+func (builder *BatchDeleteWhiteboardNodeReqBodyBuilder) Ids(ids []string) *BatchDeleteWhiteboardNodeReqBodyBuilder {
+	builder.ids = ids
+	builder.idsSet = true
+	return builder
+}
+
+func (builder *BatchDeleteWhiteboardNodeReqBodyBuilder) Build() *BatchDeleteWhiteboardNodeReqBody {
+	req := &BatchDeleteWhiteboardNodeReqBody{}
+	if builder.idsSet {
+		req.Ids = builder.ids
+	}
+	return req
+}
+
+type BatchDeleteWhiteboardNodePathReqBodyBuilder struct {
+	ids    []string
+	idsSet bool
+}
+
+func NewBatchDeleteWhiteboardNodePathReqBodyBuilder() *BatchDeleteWhiteboardNodePathReqBodyBuilder {
+	builder := &BatchDeleteWhiteboardNodePathReqBodyBuilder{}
+	return builder
+}
+
+// 需要删除的节点 id 列表
+//
+// 示例值：
+func (builder *BatchDeleteWhiteboardNodePathReqBodyBuilder) Ids(ids []string) *BatchDeleteWhiteboardNodePathReqBodyBuilder {
+	builder.ids = ids
+	builder.idsSet = true
+	return builder
+}
+
+func (builder *BatchDeleteWhiteboardNodePathReqBodyBuilder) Build() (*BatchDeleteWhiteboardNodeReqBody, error) {
+	req := &BatchDeleteWhiteboardNodeReqBody{}
+	if builder.idsSet {
+		req.Ids = builder.ids
+	}
+	return req, nil
+}
+
+type BatchDeleteWhiteboardNodeReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchDeleteWhiteboardNodeReqBody
+}
+
+func NewBatchDeleteWhiteboardNodeReqBuilder() *BatchDeleteWhiteboardNodeReqBuilder {
+	builder := &BatchDeleteWhiteboardNodeReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 画板唯一标识
+//
+// 示例值：Ru8nwrWFOhEmaFbEU2VbPRsHcxb
+func (builder *BatchDeleteWhiteboardNodeReqBuilder) WhiteboardId(whiteboardId string) *BatchDeleteWhiteboardNodeReqBuilder {
+	builder.apiReq.PathParams.Set("whiteboard_id", fmt.Sprint(whiteboardId))
+	return builder
+}
+
+// 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新
+//
+// 示例值：fe599b60-450f-46ff-b2ef-9f6675625b97
+func (builder *BatchDeleteWhiteboardNodeReqBuilder) ClientToken(clientToken string) *BatchDeleteWhiteboardNodeReqBuilder {
+	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
+	return builder
+}
+
+// 批量删除画板内的节点，存在子节点时子节点也被删除
+func (builder *BatchDeleteWhiteboardNodeReqBuilder) Body(body *BatchDeleteWhiteboardNodeReqBody) *BatchDeleteWhiteboardNodeReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchDeleteWhiteboardNodeReqBuilder) Build() *BatchDeleteWhiteboardNodeReq {
+	req := &BatchDeleteWhiteboardNodeReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchDeleteWhiteboardNodeReqBody struct {
+	Ids []string `json:"ids,omitempty"` // 需要删除的节点 id 列表
+}
+
+type BatchDeleteWhiteboardNodeReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchDeleteWhiteboardNodeReqBody `body:""`
+}
+
+type BatchDeleteWhiteboardNodeRespData struct {
+	ClientToken *string `json:"client_token,omitempty"` // 操作的唯一标识，更新请求中使用此值表示幂等的进行此次更新
+}
+
+type BatchDeleteWhiteboardNodeResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchDeleteWhiteboardNodeRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchDeleteWhiteboardNodeResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateWhiteboardNodeReqBodyBuilder struct {
-	nodes     []*WhiteboardNode // 子节点数据
-	nodesFlag bool
+	nodes    []*WhiteboardNode // 子节点数据
+	nodesSet bool
+
+	overwrite    bool // 是否覆盖画板中已存在的节点
+	overwriteSet bool
 }
 
 func NewCreateWhiteboardNodeReqBodyBuilder() *CreateWhiteboardNodeReqBodyBuilder {
@@ -3894,24 +4542,38 @@ func NewCreateWhiteboardNodeReqBodyBuilder() *CreateWhiteboardNodeReqBodyBuilder
 
 // 子节点数据
 //
-// 示例值：
+//示例值：
 func (builder *CreateWhiteboardNodeReqBodyBuilder) Nodes(nodes []*WhiteboardNode) *CreateWhiteboardNodeReqBodyBuilder {
 	builder.nodes = nodes
-	builder.nodesFlag = true
+	builder.nodesSet = true
+	return builder
+}
+
+// 是否覆盖画板中已存在的节点
+//
+//示例值：
+func (builder *CreateWhiteboardNodeReqBodyBuilder) Overwrite(overwrite bool) *CreateWhiteboardNodeReqBodyBuilder {
+	builder.overwrite = overwrite
+	builder.overwriteSet = true
 	return builder
 }
 
 func (builder *CreateWhiteboardNodeReqBodyBuilder) Build() *CreateWhiteboardNodeReqBody {
 	req := &CreateWhiteboardNodeReqBody{}
-	if builder.nodesFlag {
+	if builder.nodesSet {
 		req.Nodes = builder.nodes
+	}
+	if builder.overwriteSet {
+		req.Overwrite = &builder.overwrite
 	}
 	return req
 }
 
 type CreateWhiteboardNodePathReqBodyBuilder struct {
-	nodes     []*WhiteboardNode
-	nodesFlag bool
+	nodes        []*WhiteboardNode
+	nodesSet     bool
+	overwrite    bool
+	overwriteSet bool
 }
 
 func NewCreateWhiteboardNodePathReqBodyBuilder() *CreateWhiteboardNodePathReqBodyBuilder {
@@ -3924,14 +4586,26 @@ func NewCreateWhiteboardNodePathReqBodyBuilder() *CreateWhiteboardNodePathReqBod
 // 示例值：
 func (builder *CreateWhiteboardNodePathReqBodyBuilder) Nodes(nodes []*WhiteboardNode) *CreateWhiteboardNodePathReqBodyBuilder {
 	builder.nodes = nodes
-	builder.nodesFlag = true
+	builder.nodesSet = true
+	return builder
+}
+
+// 是否覆盖画板中已存在的节点
+//
+// 示例值：
+func (builder *CreateWhiteboardNodePathReqBodyBuilder) Overwrite(overwrite bool) *CreateWhiteboardNodePathReqBodyBuilder {
+	builder.overwrite = overwrite
+	builder.overwriteSet = true
 	return builder
 }
 
 func (builder *CreateWhiteboardNodePathReqBodyBuilder) Build() (*CreateWhiteboardNodeReqBody, error) {
 	req := &CreateWhiteboardNodeReqBody{}
-	if builder.nodesFlag {
+	if builder.nodesSet {
 		req.Nodes = builder.nodes
+	}
+	if builder.overwriteSet {
+		req.Overwrite = &builder.overwrite
 	}
 	return req, nil
 }
@@ -3991,6 +4665,8 @@ func (builder *CreateWhiteboardNodeReqBuilder) Build() *CreateWhiteboardNodeReq 
 
 type CreateWhiteboardNodeReqBody struct {
 	Nodes []*WhiteboardNode `json:"nodes,omitempty"` // 子节点数据
+
+	Overwrite *bool `json:"overwrite,omitempty"` // 是否覆盖画板中已存在的节点
 }
 
 type CreateWhiteboardNodeReq struct {
@@ -4015,23 +4691,26 @@ func (resp *CreateWhiteboardNodeResp) Success() bool {
 }
 
 type CreatePlantumlWhiteboardNodeReqBodyBuilder struct {
-	plantUmlCode     string // plant uml 代码
-	plantUmlCodeFlag bool
+	plantUmlCode    string // plant uml 代码
+	plantUmlCodeSet bool
 
-	styleType     int //
-	styleTypeFlag bool
+	styleType    int //
+	styleTypeSet bool
 
-	syntaxType     int // 语法类型
-	syntaxTypeFlag bool
+	syntaxType    int // 语法类型
+	syntaxTypeSet bool
 
-	diagramType     int //
-	diagramTypeFlag bool
+	diagramType    int //
+	diagramTypeSet bool
 
-	overwrite     bool // 是否覆盖画板内容：true=覆盖，会将画板当前内容清除再写入；false=不覆盖，直接写入画板。默认为 false
-	overwriteFlag bool
+	overwrite    bool // 是否覆盖画板内容：true=覆盖，会将画板当前内容清除再写入；false=不覆盖，直接写入画板。默认为 false
+	overwriteSet bool
 
-	parseMode     int // 解析模式
-	parseModeFlag bool
+	parseMode    int // 解析模式
+	parseModeSet bool
+
+	lookType    int // 外观类型
+	lookTypeSet bool
 }
 
 func NewCreatePlantumlWhiteboardNodeReqBodyBuilder() *CreatePlantumlWhiteboardNodeReqBodyBuilder {
@@ -4041,90 +4720,108 @@ func NewCreatePlantumlWhiteboardNodeReqBodyBuilder() *CreatePlantumlWhiteboardNo
 
 // plant uml 代码
 //
-// 示例值：@startuml\nAlice -> Bob: Authentication Request\nBob --> Alice: Authentication Response\n@enduml
+//示例值：@startuml\nAlice -> Bob: Authentication Request\nBob --> Alice: Authentication Response\n@enduml
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) PlantUmlCode(plantUmlCode string) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.plantUmlCode = plantUmlCode
-	builder.plantUmlCodeFlag = true
+	builder.plantUmlCodeSet = true
 	return builder
 }
 
-// 示例值：1
+//
+//
+//示例值：1
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) StyleType(styleType int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.styleType = styleType
-	builder.styleTypeFlag = true
+	builder.styleTypeSet = true
 	return builder
 }
 
 // 语法类型
 //
-// 示例值：
+//示例值：
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) SyntaxType(syntaxType int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.syntaxType = syntaxType
-	builder.syntaxTypeFlag = true
+	builder.syntaxTypeSet = true
 	return builder
 }
 
-// 示例值：
+//
+//
+//示例值：
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) DiagramType(diagramType int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.diagramType = diagramType
-	builder.diagramTypeFlag = true
+	builder.diagramTypeSet = true
 	return builder
 }
 
 // 是否覆盖画板内容：true=覆盖，会将画板当前内容清除再写入；false=不覆盖，直接写入画板。默认为 false
 //
-// 示例值：
+//示例值：
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) Overwrite(overwrite bool) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.overwrite = overwrite
-	builder.overwriteFlag = true
+	builder.overwriteSet = true
 	return builder
 }
 
 // 解析模式
 //
-// 示例值：0
+//示例值：0
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) ParseMode(parseMode int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.parseMode = parseMode
-	builder.parseModeFlag = true
+	builder.parseModeSet = true
+	return builder
+}
+
+// 外观类型
+//
+//示例值：
+func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) LookType(lookType int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
+	builder.lookType = lookType
+	builder.lookTypeSet = true
 	return builder
 }
 
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) Build() *CreatePlantumlWhiteboardNodeReqBody {
 	req := &CreatePlantumlWhiteboardNodeReqBody{}
-	if builder.plantUmlCodeFlag {
+	if builder.plantUmlCodeSet {
 		req.PlantUmlCode = &builder.plantUmlCode
 	}
-	if builder.styleTypeFlag {
+	if builder.styleTypeSet {
 		req.StyleType = &builder.styleType
 	}
-	if builder.syntaxTypeFlag {
+	if builder.syntaxTypeSet {
 		req.SyntaxType = &builder.syntaxType
 	}
-	if builder.diagramTypeFlag {
+	if builder.diagramTypeSet {
 		req.DiagramType = &builder.diagramType
 	}
-	if builder.overwriteFlag {
+	if builder.overwriteSet {
 		req.Overwrite = &builder.overwrite
 	}
-	if builder.parseModeFlag {
+	if builder.parseModeSet {
 		req.ParseMode = &builder.parseMode
+	}
+	if builder.lookTypeSet {
+		req.LookType = &builder.lookType
 	}
 	return req
 }
 
 type CreatePlantumlWhiteboardNodePathReqBodyBuilder struct {
-	plantUmlCode     string
-	plantUmlCodeFlag bool
-	styleType        int
-	styleTypeFlag    bool
-	syntaxType       int
-	syntaxTypeFlag   bool
-	diagramType      int
-	diagramTypeFlag  bool
-	overwrite        bool
-	overwriteFlag    bool
-	parseMode        int
-	parseModeFlag    bool
+	plantUmlCode    string
+	plantUmlCodeSet bool
+	styleType       int
+	styleTypeSet    bool
+	syntaxType      int
+	syntaxTypeSet   bool
+	diagramType     int
+	diagramTypeSet  bool
+	overwrite       bool
+	overwriteSet    bool
+	parseMode       int
+	parseModeSet    bool
+	lookType        int
+	lookTypeSet     bool
 }
 
 func NewCreatePlantumlWhiteboardNodePathReqBodyBuilder() *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
@@ -4137,14 +4834,16 @@ func NewCreatePlantumlWhiteboardNodePathReqBodyBuilder() *CreatePlantumlWhiteboa
 // 示例值：@startuml\nAlice -> Bob: Authentication Request\nBob --> Alice: Authentication Response\n@enduml
 func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) PlantUmlCode(plantUmlCode string) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
 	builder.plantUmlCode = plantUmlCode
-	builder.plantUmlCodeFlag = true
+	builder.plantUmlCodeSet = true
 	return builder
 }
 
+//
+//
 // 示例值：1
 func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) StyleType(styleType int) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
 	builder.styleType = styleType
-	builder.styleTypeFlag = true
+	builder.styleTypeSet = true
 	return builder
 }
 
@@ -4153,14 +4852,16 @@ func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) StyleType(styleTy
 // 示例值：
 func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) SyntaxType(syntaxType int) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
 	builder.syntaxType = syntaxType
-	builder.syntaxTypeFlag = true
+	builder.syntaxTypeSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) DiagramType(diagramType int) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
 	builder.diagramType = diagramType
-	builder.diagramTypeFlag = true
+	builder.diagramTypeSet = true
 	return builder
 }
 
@@ -4169,7 +4870,7 @@ func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) DiagramType(diagr
 // 示例值：
 func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) Overwrite(overwrite bool) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
 	builder.overwrite = overwrite
-	builder.overwriteFlag = true
+	builder.overwriteSet = true
 	return builder
 }
 
@@ -4178,29 +4879,41 @@ func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) Overwrite(overwri
 // 示例值：0
 func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) ParseMode(parseMode int) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
 	builder.parseMode = parseMode
-	builder.parseModeFlag = true
+	builder.parseModeSet = true
+	return builder
+}
+
+// 外观类型
+//
+// 示例值：
+func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) LookType(lookType int) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
+	builder.lookType = lookType
+	builder.lookTypeSet = true
 	return builder
 }
 
 func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) Build() (*CreatePlantumlWhiteboardNodeReqBody, error) {
 	req := &CreatePlantumlWhiteboardNodeReqBody{}
-	if builder.plantUmlCodeFlag {
+	if builder.plantUmlCodeSet {
 		req.PlantUmlCode = &builder.plantUmlCode
 	}
-	if builder.styleTypeFlag {
+	if builder.styleTypeSet {
 		req.StyleType = &builder.styleType
 	}
-	if builder.syntaxTypeFlag {
+	if builder.syntaxTypeSet {
 		req.SyntaxType = &builder.syntaxType
 	}
-	if builder.diagramTypeFlag {
+	if builder.diagramTypeSet {
 		req.DiagramType = &builder.diagramType
 	}
-	if builder.overwriteFlag {
+	if builder.overwriteSet {
 		req.Overwrite = &builder.overwrite
 	}
-	if builder.parseModeFlag {
+	if builder.parseModeSet {
 		req.ParseMode = &builder.parseMode
+	}
+	if builder.lookTypeSet {
+		req.LookType = &builder.lookType
 	}
 	return req, nil
 }
@@ -4253,6 +4966,8 @@ type CreatePlantumlWhiteboardNodeReqBody struct {
 	Overwrite *bool `json:"overwrite,omitempty"` // 是否覆盖画板内容：true=覆盖，会将画板当前内容清除再写入；false=不覆盖，直接写入画板。默认为 false
 
 	ParseMode *int `json:"parse_mode,omitempty"` // 解析模式
+
+	LookType *int `json:"look_type,omitempty"` // 外观类型
 }
 
 type CreatePlantumlWhiteboardNodeReq struct {

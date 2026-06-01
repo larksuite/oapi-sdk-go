@@ -28,8 +28,8 @@ func main() {
 	// 创建请求对象
 	req := larkbitable.NewListAppTableReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
-		PageToken("tblsRc9GRRXKqhvW").
 		PageSize(20).
+		PageToken("tblsRc9GRRXKqhvW").
 		Build()
 	// 发起请求
 	resp, err := client.Bitable.V1.AppTable.List(context.Background(), req)

@@ -41,6 +41,7 @@ func main() {
 			Checksum("123423882374238912356").
 			File(file).
 			FileName("filename.ext").
+			FileToken("").
 			Build()).
 		Build()
 	// 发起请求

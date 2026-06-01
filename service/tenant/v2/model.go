@@ -28,17 +28,17 @@ type Avatar struct {
 }
 
 type AvatarBuilder struct {
-	avatarOrigin     string // 企业头像
-	avatarOriginFlag bool
+	avatarOrigin    string // 企业头像
+	avatarOriginSet bool
 
-	avatar72     string // 企业头像 72x72
-	avatar72Flag bool
+	avatar72    string // 企业头像 72x72
+	avatar72Set bool
 
-	avatar240     string // 企业头像 240x240
-	avatar240Flag bool
+	avatar240    string // 企业头像 240x240
+	avatar240Set bool
 
-	avatar640     string // 企业头像 640x640
-	avatar640Flag bool
+	avatar640    string // 企业头像 640x640
+	avatar640Set bool
 }
 
 func NewAvatarBuilder() *AvatarBuilder {
@@ -51,7 +51,7 @@ func NewAvatarBuilder() *AvatarBuilder {
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarBuilder) AvatarOrigin(avatarOrigin string) *AvatarBuilder {
 	builder.avatarOrigin = avatarOrigin
-	builder.avatarOriginFlag = true
+	builder.avatarOriginSet = true
 	return builder
 }
 
@@ -60,7 +60,7 @@ func (builder *AvatarBuilder) AvatarOrigin(avatarOrigin string) *AvatarBuilder {
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarBuilder) Avatar72(avatar72 string) *AvatarBuilder {
 	builder.avatar72 = avatar72
-	builder.avatar72Flag = true
+	builder.avatar72Set = true
 	return builder
 }
 
@@ -69,7 +69,7 @@ func (builder *AvatarBuilder) Avatar72(avatar72 string) *AvatarBuilder {
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarBuilder) Avatar240(avatar240 string) *AvatarBuilder {
 	builder.avatar240 = avatar240
-	builder.avatar240Flag = true
+	builder.avatar240Set = true
 	return builder
 }
 
@@ -78,25 +78,25 @@ func (builder *AvatarBuilder) Avatar240(avatar240 string) *AvatarBuilder {
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarBuilder) Avatar640(avatar640 string) *AvatarBuilder {
 	builder.avatar640 = avatar640
-	builder.avatar640Flag = true
+	builder.avatar640Set = true
 	return builder
 }
 
 func (builder *AvatarBuilder) Build() *Avatar {
 	req := &Avatar{}
-	if builder.avatarOriginFlag {
+	if builder.avatarOriginSet {
 		req.AvatarOrigin = &builder.avatarOrigin
 
 	}
-	if builder.avatar72Flag {
+	if builder.avatar72Set {
 		req.Avatar72 = &builder.avatar72
 
 	}
-	if builder.avatar240Flag {
+	if builder.avatar240Set {
 		req.Avatar240 = &builder.avatar240
 
 	}
-	if builder.avatar640Flag {
+	if builder.avatar640Set {
 		req.Avatar640 = &builder.avatar640
 
 	}
@@ -110,11 +110,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -122,27 +122,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -158,14 +162,14 @@ type ProductI18nName struct {
 }
 
 type ProductI18nNameBuilder struct {
-	zhCn     string // 商业化产品的中文名
-	zhCnFlag bool
+	zhCn    string // 商业化产品的中文名
+	zhCnSet bool
 
-	jaJp     string // 商业化产品的日文名
-	jaJpFlag bool
+	jaJp    string // 商业化产品的日文名
+	jaJpSet bool
 
-	enUs     string // 商业化产品的英文名
-	enUsFlag bool
+	enUs    string // 商业化产品的英文名
+	enUsSet bool
 }
 
 func NewProductI18nNameBuilder() *ProductI18nNameBuilder {
@@ -178,7 +182,7 @@ func NewProductI18nNameBuilder() *ProductI18nNameBuilder {
 // 示例值：zh_cn_name
 func (builder *ProductI18nNameBuilder) ZhCn(zhCn string) *ProductI18nNameBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -187,7 +191,7 @@ func (builder *ProductI18nNameBuilder) ZhCn(zhCn string) *ProductI18nNameBuilder
 // 示例值：ja_jp_name
 func (builder *ProductI18nNameBuilder) JaJp(jaJp string) *ProductI18nNameBuilder {
 	builder.jaJp = jaJp
-	builder.jaJpFlag = true
+	builder.jaJpSet = true
 	return builder
 }
 
@@ -196,21 +200,21 @@ func (builder *ProductI18nNameBuilder) JaJp(jaJp string) *ProductI18nNameBuilder
 // 示例值：en_name
 func (builder *ProductI18nNameBuilder) EnUs(enUs string) *ProductI18nNameBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
 func (builder *ProductI18nNameBuilder) Build() *ProductI18nName {
 	req := &ProductI18nName{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.jaJpFlag {
+	if builder.jaJpSet {
 		req.JaJp = &builder.jaJp
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
@@ -232,23 +236,23 @@ type Tenant struct {
 }
 
 type TenantBuilder struct {
-	name     string // 企业名称
-	nameFlag bool
+	name    string // 企业名称
+	nameSet bool
 
-	displayId     string // 企业编号，平台内唯一
-	displayIdFlag bool
+	displayId    string // 企业编号，平台内唯一
+	displayIdSet bool
 
-	tenantTag     int // 个人版/团队版标志
-	tenantTagFlag bool
+	tenantTag    int // 个人版/团队版标志
+	tenantTagSet bool
 
-	tenantKey     string // 企业标识
-	tenantKeyFlag bool
+	tenantKey    string // 企业标识
+	tenantKeySet bool
 
-	avatar     *Avatar // 企业头像
-	avatarFlag bool
+	avatar    *Avatar // 企业头像
+	avatarSet bool
 
-	domain     string // 企业完整域名。企业域名可用于企业成员访问管理后台、云文档等含URL地址的网页。
-	domainFlag bool
+	domain    string // 企业完整域名。企业域名可用于企业成员访问管理后台、云文档等含URL地址的网页。
+	domainSet bool
 }
 
 func NewTenantBuilder() *TenantBuilder {
@@ -261,7 +265,7 @@ func NewTenantBuilder() *TenantBuilder {
 // 示例值：企业名称
 func (builder *TenantBuilder) Name(name string) *TenantBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -270,7 +274,7 @@ func (builder *TenantBuilder) Name(name string) *TenantBuilder {
 // 示例值：F123456789
 func (builder *TenantBuilder) DisplayId(displayId string) *TenantBuilder {
 	builder.displayId = displayId
-	builder.displayIdFlag = true
+	builder.displayIdSet = true
 	return builder
 }
 
@@ -279,7 +283,7 @@ func (builder *TenantBuilder) DisplayId(displayId string) *TenantBuilder {
 // 示例值：0
 func (builder *TenantBuilder) TenantTag(tenantTag int) *TenantBuilder {
 	builder.tenantTag = tenantTag
-	builder.tenantTagFlag = true
+	builder.tenantTagSet = true
 	return builder
 }
 
@@ -288,7 +292,7 @@ func (builder *TenantBuilder) TenantTag(tenantTag int) *TenantBuilder {
 // 示例值：abcdefghi
 func (builder *TenantBuilder) TenantKey(tenantKey string) *TenantBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
@@ -297,7 +301,7 @@ func (builder *TenantBuilder) TenantKey(tenantKey string) *TenantBuilder {
 // 示例值：
 func (builder *TenantBuilder) Avatar(avatar *Avatar) *TenantBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
@@ -306,32 +310,32 @@ func (builder *TenantBuilder) Avatar(avatar *Avatar) *TenantBuilder {
 // 示例值：newpoint.feishu-boe.cn
 func (builder *TenantBuilder) Domain(domain string) *TenantBuilder {
 	builder.domain = domain
-	builder.domainFlag = true
+	builder.domainSet = true
 	return builder
 }
 
 func (builder *TenantBuilder) Build() *Tenant {
 	req := &Tenant{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.displayIdFlag {
+	if builder.displayIdSet {
 		req.DisplayId = &builder.displayId
 
 	}
-	if builder.tenantTagFlag {
+	if builder.tenantTagSet {
 		req.TenantTag = &builder.tenantTag
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = builder.avatar
 	}
-	if builder.domainFlag {
+	if builder.domainSet {
 		req.Domain = &builder.domain
 
 	}
@@ -357,29 +361,29 @@ type TenantAssignInfo struct {
 }
 
 type TenantAssignInfoBuilder struct {
-	subscriptionId     string // 席位id
-	subscriptionIdFlag bool
+	subscriptionId    string // 席位id
+	subscriptionIdSet bool
 
-	licensePlanKey     string // license_plan_key
-	licensePlanKeyFlag bool
+	licensePlanKey    string // license_plan_key
+	licensePlanKeySet bool
 
-	productName     string // 商业化产品名称
-	productNameFlag bool
+	productName    string // 商业化产品名称
+	productNameSet bool
 
-	i18nName     *ProductI18nName // 国际化名称
-	i18nNameFlag bool
+	i18nName    *ProductI18nName // 国际化名称
+	i18nNameSet bool
 
-	totalSeats     string // 席位总数
-	totalSeatsFlag bool
+	totalSeats    string // 席位总数
+	totalSeatsSet bool
 
-	assignedSeats     string // 已分配席位数
-	assignedSeatsFlag bool
+	assignedSeats    string // 已分配席位数
+	assignedSeatsSet bool
 
-	startTime     string // 席位起始时间
-	startTimeFlag bool
+	startTime    string // 席位起始时间
+	startTimeSet bool
 
-	endTime     string // 席位结束时间
-	endTimeFlag bool
+	endTime    string // 席位结束时间
+	endTimeSet bool
 }
 
 func NewTenantAssignInfoBuilder() *TenantAssignInfoBuilder {
@@ -392,7 +396,7 @@ func NewTenantAssignInfoBuilder() *TenantAssignInfoBuilder {
 // 示例值：7079609167680782300
 func (builder *TenantAssignInfoBuilder) SubscriptionId(subscriptionId string) *TenantAssignInfoBuilder {
 	builder.subscriptionId = subscriptionId
-	builder.subscriptionIdFlag = true
+	builder.subscriptionIdSet = true
 	return builder
 }
 
@@ -401,7 +405,7 @@ func (builder *TenantAssignInfoBuilder) SubscriptionId(subscriptionId string) *T
 // 示例值：suite_enterprise_e5
 func (builder *TenantAssignInfoBuilder) LicensePlanKey(licensePlanKey string) *TenantAssignInfoBuilder {
 	builder.licensePlanKey = licensePlanKey
-	builder.licensePlanKeyFlag = true
+	builder.licensePlanKeySet = true
 	return builder
 }
 
@@ -410,7 +414,7 @@ func (builder *TenantAssignInfoBuilder) LicensePlanKey(licensePlanKey string) *T
 // 示例值：旗舰版 E5
 func (builder *TenantAssignInfoBuilder) ProductName(productName string) *TenantAssignInfoBuilder {
 	builder.productName = productName
-	builder.productNameFlag = true
+	builder.productNameSet = true
 	return builder
 }
 
@@ -419,7 +423,7 @@ func (builder *TenantAssignInfoBuilder) ProductName(productName string) *TenantA
 // 示例值：
 func (builder *TenantAssignInfoBuilder) I18nName(i18nName *ProductI18nName) *TenantAssignInfoBuilder {
 	builder.i18nName = i18nName
-	builder.i18nNameFlag = true
+	builder.i18nNameSet = true
 	return builder
 }
 
@@ -428,7 +432,7 @@ func (builder *TenantAssignInfoBuilder) I18nName(i18nName *ProductI18nName) *Ten
 // 示例值：500
 func (builder *TenantAssignInfoBuilder) TotalSeats(totalSeats string) *TenantAssignInfoBuilder {
 	builder.totalSeats = totalSeats
-	builder.totalSeatsFlag = true
+	builder.totalSeatsSet = true
 	return builder
 }
 
@@ -437,7 +441,7 @@ func (builder *TenantAssignInfoBuilder) TotalSeats(totalSeats string) *TenantAss
 // 示例值：20
 func (builder *TenantAssignInfoBuilder) AssignedSeats(assignedSeats string) *TenantAssignInfoBuilder {
 	builder.assignedSeats = assignedSeats
-	builder.assignedSeatsFlag = true
+	builder.assignedSeatsSet = true
 	return builder
 }
 
@@ -446,7 +450,7 @@ func (builder *TenantAssignInfoBuilder) AssignedSeats(assignedSeats string) *Ten
 // 示例值：1674981000
 func (builder *TenantAssignInfoBuilder) StartTime(startTime string) *TenantAssignInfoBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -455,40 +459,40 @@ func (builder *TenantAssignInfoBuilder) StartTime(startTime string) *TenantAssig
 // 示例值：1674991000
 func (builder *TenantAssignInfoBuilder) EndTime(endTime string) *TenantAssignInfoBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
 func (builder *TenantAssignInfoBuilder) Build() *TenantAssignInfo {
 	req := &TenantAssignInfo{}
-	if builder.subscriptionIdFlag {
+	if builder.subscriptionIdSet {
 		req.SubscriptionId = &builder.subscriptionId
 
 	}
-	if builder.licensePlanKeyFlag {
+	if builder.licensePlanKeySet {
 		req.LicensePlanKey = &builder.licensePlanKey
 
 	}
-	if builder.productNameFlag {
+	if builder.productNameSet {
 		req.ProductName = &builder.productName
 
 	}
-	if builder.i18nNameFlag {
+	if builder.i18nNameSet {
 		req.I18nName = builder.i18nName
 	}
-	if builder.totalSeatsFlag {
+	if builder.totalSeatsSet {
 		req.TotalSeats = &builder.totalSeats
 
 	}
-	if builder.assignedSeatsFlag {
+	if builder.assignedSeatsSet {
 		req.AssignedSeats = &builder.assignedSeats
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}

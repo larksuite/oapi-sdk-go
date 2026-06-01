@@ -28,6 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkdrive.NewDownloadFileReqBuilder().
 		FileToken("boxcnabCdefg12345").
+		Version("").
 		Build()
 	// 发起请求
 	resp, err := client.Drive.V1.File.Download(context.Background(), req)

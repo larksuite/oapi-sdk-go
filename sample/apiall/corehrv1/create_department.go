@@ -39,6 +39,7 @@ func main() {
 			CustomFields([]*larkcorehr.ObjectFieldData{larkcorehr.NewObjectFieldDataBuilder().Build()}).
 			CostCenterId("7142384817131652652").
 			StaffingModel(larkcorehr.NewEnumBuilder().Build()).
+			IsPreferManualEncoding(false).
 			Build()).
 		Build()
 	// 发起请求

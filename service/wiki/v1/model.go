@@ -29,11 +29,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -41,27 +41,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -103,53 +107,53 @@ type Node struct {
 }
 
 type NodeBuilder struct {
-	nodeId     string // node的唯一标识
-	nodeIdFlag bool
+	nodeId    string // node的唯一标识
+	nodeIdSet bool
 
-	spaceId     string // 所属空间id
-	spaceIdFlag bool
+	spaceId    string // 所属空间id
+	spaceIdSet bool
 
-	parentId     string // 父节点id
-	parentIdFlag bool
+	parentId    string // 父节点id
+	parentIdSet bool
 
-	objType     int // 对应的obj类型
-	objTypeFlag bool
+	objType    int // 对应的obj类型
+	objTypeSet bool
 
-	title     string // 名称
-	titleFlag bool
+	title    string // 名称
+	titleSet bool
 
-	url     string // 路径
-	urlFlag bool
+	url    string // 路径
+	urlSet bool
 
-	icon     string // icon
-	iconFlag bool
+	icon    string // icon
+	iconSet bool
 
-	areaId     string // 所属权限范围id
-	areaIdFlag bool
+	areaId    string // 所属权限范围id
+	areaIdSet bool
 
-	sortId     float64 // 序号
-	sortIdFlag bool
+	sortId    float64 // 序号
+	sortIdSet bool
 
-	domain     string // 所在域名
-	domainFlag bool
+	domain    string // 所在域名
+	domainSet bool
 
-	objToken     string // objToken
-	objTokenFlag bool
+	objToken    string // objToken
+	objTokenSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	deleteTime     string // 删除时间
-	deleteTimeFlag bool
+	deleteTime    string // 删除时间
+	deleteTimeSet bool
 
-	childNum     int // 子节点数
-	childNumFlag bool
+	childNum    int // 子节点数
+	childNumSet bool
 
-	version     int // 版本号
-	versionFlag bool
+	version    int // 版本号
+	versionSet bool
 }
 
 func NewNodeBuilder() *NodeBuilder {
@@ -162,7 +166,7 @@ func NewNodeBuilder() *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) NodeId(nodeId string) *NodeBuilder {
 	builder.nodeId = nodeId
-	builder.nodeIdFlag = true
+	builder.nodeIdSet = true
 	return builder
 }
 
@@ -171,7 +175,7 @@ func (builder *NodeBuilder) NodeId(nodeId string) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) SpaceId(spaceId string) *NodeBuilder {
 	builder.spaceId = spaceId
-	builder.spaceIdFlag = true
+	builder.spaceIdSet = true
 	return builder
 }
 
@@ -180,7 +184,7 @@ func (builder *NodeBuilder) SpaceId(spaceId string) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) ParentId(parentId string) *NodeBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
@@ -189,7 +193,7 @@ func (builder *NodeBuilder) ParentId(parentId string) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) ObjType(objType int) *NodeBuilder {
 	builder.objType = objType
-	builder.objTypeFlag = true
+	builder.objTypeSet = true
 	return builder
 }
 
@@ -198,7 +202,7 @@ func (builder *NodeBuilder) ObjType(objType int) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) Title(title string) *NodeBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -207,7 +211,7 @@ func (builder *NodeBuilder) Title(title string) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) Url(url string) *NodeBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -216,7 +220,7 @@ func (builder *NodeBuilder) Url(url string) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) Icon(icon string) *NodeBuilder {
 	builder.icon = icon
-	builder.iconFlag = true
+	builder.iconSet = true
 	return builder
 }
 
@@ -225,7 +229,7 @@ func (builder *NodeBuilder) Icon(icon string) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) AreaId(areaId string) *NodeBuilder {
 	builder.areaId = areaId
-	builder.areaIdFlag = true
+	builder.areaIdSet = true
 	return builder
 }
 
@@ -234,7 +238,7 @@ func (builder *NodeBuilder) AreaId(areaId string) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) SortId(sortId float64) *NodeBuilder {
 	builder.sortId = sortId
-	builder.sortIdFlag = true
+	builder.sortIdSet = true
 	return builder
 }
 
@@ -243,7 +247,7 @@ func (builder *NodeBuilder) SortId(sortId float64) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) Domain(domain string) *NodeBuilder {
 	builder.domain = domain
-	builder.domainFlag = true
+	builder.domainSet = true
 	return builder
 }
 
@@ -252,7 +256,7 @@ func (builder *NodeBuilder) Domain(domain string) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) ObjToken(objToken string) *NodeBuilder {
 	builder.objToken = objToken
-	builder.objTokenFlag = true
+	builder.objTokenSet = true
 	return builder
 }
 
@@ -261,7 +265,7 @@ func (builder *NodeBuilder) ObjToken(objToken string) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) CreateTime(createTime string) *NodeBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -270,7 +274,7 @@ func (builder *NodeBuilder) CreateTime(createTime string) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) UpdateTime(updateTime string) *NodeBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -279,7 +283,7 @@ func (builder *NodeBuilder) UpdateTime(updateTime string) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) DeleteTime(deleteTime string) *NodeBuilder {
 	builder.deleteTime = deleteTime
-	builder.deleteTimeFlag = true
+	builder.deleteTimeSet = true
 	return builder
 }
 
@@ -288,7 +292,7 @@ func (builder *NodeBuilder) DeleteTime(deleteTime string) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) ChildNum(childNum int) *NodeBuilder {
 	builder.childNum = childNum
-	builder.childNumFlag = true
+	builder.childNumSet = true
 	return builder
 }
 
@@ -297,73 +301,73 @@ func (builder *NodeBuilder) ChildNum(childNum int) *NodeBuilder {
 // 示例值：
 func (builder *NodeBuilder) Version(version int) *NodeBuilder {
 	builder.version = version
-	builder.versionFlag = true
+	builder.versionSet = true
 	return builder
 }
 
 func (builder *NodeBuilder) Build() *Node {
 	req := &Node{}
-	if builder.nodeIdFlag {
+	if builder.nodeIdSet {
 		req.NodeId = &builder.nodeId
 
 	}
-	if builder.spaceIdFlag {
+	if builder.spaceIdSet {
 		req.SpaceId = &builder.spaceId
 
 	}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
-	if builder.objTypeFlag {
+	if builder.objTypeSet {
 		req.ObjType = &builder.objType
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.iconFlag {
+	if builder.iconSet {
 		req.Icon = &builder.icon
 
 	}
-	if builder.areaIdFlag {
+	if builder.areaIdSet {
 		req.AreaId = &builder.areaId
 
 	}
-	if builder.sortIdFlag {
+	if builder.sortIdSet {
 		req.SortId = &builder.sortId
 
 	}
-	if builder.domainFlag {
+	if builder.domainSet {
 		req.Domain = &builder.domain
 
 	}
-	if builder.objTokenFlag {
+	if builder.objTokenSet {
 		req.ObjToken = &builder.objToken
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.deleteTimeFlag {
+	if builder.deleteTimeSet {
 		req.DeleteTime = &builder.deleteTime
 
 	}
-	if builder.childNumFlag {
+	if builder.childNumSet {
 		req.ChildNum = &builder.childNum
 
 	}
-	if builder.versionFlag {
+	if builder.versionSet {
 		req.Version = &builder.version
 
 	}
@@ -411,38 +415,38 @@ type Space struct {
 }
 
 type SpaceBuilder struct {
-	spaceId     string // space的唯一标识
-	spaceIdFlag bool
+	spaceId    string // space的唯一标识
+	spaceIdSet bool
 
-	name     string // 名称
-	nameFlag bool
+	name    string // 名称
+	nameSet bool
 
-	description     string // 描述
-	descriptionFlag bool
+	description    string // 描述
+	descriptionSet bool
 
-	avatarUrl     string // 头像url
-	avatarUrlFlag bool
+	avatarUrl    string // 头像url
+	avatarUrlSet bool
 
-	tenantId     string // 所属租户id
-	tenantIdFlag bool
+	tenantId    string // 所属租户id
+	tenantIdSet bool
 
-	domain     string // 所在域名
-	domainFlag bool
+	domain    string // 所在域名
+	domainSet bool
 
-	isCrossTenant     bool // 是否跨租户
-	isCrossTenantFlag bool
+	isCrossTenant    bool // 是否跨租户
+	isCrossTenantSet bool
 
-	defaultAttr     int // 默认属性
-	defaultAttrFlag bool
+	defaultAttr    int // 默认属性
+	defaultAttrSet bool
 
-	homePage     *SpaceHomePage // 空间主页
-	homePageFlag bool
+	homePage    *SpaceHomePage // 空间主页
+	homePageSet bool
 
-	coverInfo     *SpaceCoverInfo // 空间封面
-	coverInfoFlag bool
+	coverInfo    *SpaceCoverInfo // 空间封面
+	coverInfoSet bool
 
-	version     int // 版本号
-	versionFlag bool
+	version    int // 版本号
+	versionSet bool
 }
 
 func NewSpaceBuilder() *SpaceBuilder {
@@ -455,7 +459,7 @@ func NewSpaceBuilder() *SpaceBuilder {
 // 示例值：
 func (builder *SpaceBuilder) SpaceId(spaceId string) *SpaceBuilder {
 	builder.spaceId = spaceId
-	builder.spaceIdFlag = true
+	builder.spaceIdSet = true
 	return builder
 }
 
@@ -464,7 +468,7 @@ func (builder *SpaceBuilder) SpaceId(spaceId string) *SpaceBuilder {
 // 示例值：
 func (builder *SpaceBuilder) Name(name string) *SpaceBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -473,7 +477,7 @@ func (builder *SpaceBuilder) Name(name string) *SpaceBuilder {
 // 示例值：
 func (builder *SpaceBuilder) Description(description string) *SpaceBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -482,7 +486,7 @@ func (builder *SpaceBuilder) Description(description string) *SpaceBuilder {
 // 示例值：
 func (builder *SpaceBuilder) AvatarUrl(avatarUrl string) *SpaceBuilder {
 	builder.avatarUrl = avatarUrl
-	builder.avatarUrlFlag = true
+	builder.avatarUrlSet = true
 	return builder
 }
 
@@ -491,7 +495,7 @@ func (builder *SpaceBuilder) AvatarUrl(avatarUrl string) *SpaceBuilder {
 // 示例值：
 func (builder *SpaceBuilder) TenantId(tenantId string) *SpaceBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -500,7 +504,7 @@ func (builder *SpaceBuilder) TenantId(tenantId string) *SpaceBuilder {
 // 示例值：
 func (builder *SpaceBuilder) Domain(domain string) *SpaceBuilder {
 	builder.domain = domain
-	builder.domainFlag = true
+	builder.domainSet = true
 	return builder
 }
 
@@ -509,7 +513,7 @@ func (builder *SpaceBuilder) Domain(domain string) *SpaceBuilder {
 // 示例值：
 func (builder *SpaceBuilder) IsCrossTenant(isCrossTenant bool) *SpaceBuilder {
 	builder.isCrossTenant = isCrossTenant
-	builder.isCrossTenantFlag = true
+	builder.isCrossTenantSet = true
 	return builder
 }
 
@@ -518,7 +522,7 @@ func (builder *SpaceBuilder) IsCrossTenant(isCrossTenant bool) *SpaceBuilder {
 // 示例值：
 func (builder *SpaceBuilder) DefaultAttr(defaultAttr int) *SpaceBuilder {
 	builder.defaultAttr = defaultAttr
-	builder.defaultAttrFlag = true
+	builder.defaultAttrSet = true
 	return builder
 }
 
@@ -527,7 +531,7 @@ func (builder *SpaceBuilder) DefaultAttr(defaultAttr int) *SpaceBuilder {
 // 示例值：
 func (builder *SpaceBuilder) HomePage(homePage *SpaceHomePage) *SpaceBuilder {
 	builder.homePage = homePage
-	builder.homePageFlag = true
+	builder.homePageSet = true
 	return builder
 }
 
@@ -536,7 +540,7 @@ func (builder *SpaceBuilder) HomePage(homePage *SpaceHomePage) *SpaceBuilder {
 // 示例值：
 func (builder *SpaceBuilder) CoverInfo(coverInfo *SpaceCoverInfo) *SpaceBuilder {
 	builder.coverInfo = coverInfo
-	builder.coverInfoFlag = true
+	builder.coverInfoSet = true
 	return builder
 }
 
@@ -545,51 +549,51 @@ func (builder *SpaceBuilder) CoverInfo(coverInfo *SpaceCoverInfo) *SpaceBuilder 
 // 示例值：
 func (builder *SpaceBuilder) Version(version int) *SpaceBuilder {
 	builder.version = version
-	builder.versionFlag = true
+	builder.versionSet = true
 	return builder
 }
 
 func (builder *SpaceBuilder) Build() *Space {
 	req := &Space{}
-	if builder.spaceIdFlag {
+	if builder.spaceIdSet {
 		req.SpaceId = &builder.spaceId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.avatarUrlFlag {
+	if builder.avatarUrlSet {
 		req.AvatarUrl = &builder.avatarUrl
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.domainFlag {
+	if builder.domainSet {
 		req.Domain = &builder.domain
 
 	}
-	if builder.isCrossTenantFlag {
+	if builder.isCrossTenantSet {
 		req.IsCrossTenant = &builder.isCrossTenant
 
 	}
-	if builder.defaultAttrFlag {
+	if builder.defaultAttrSet {
 		req.DefaultAttr = &builder.defaultAttr
 
 	}
-	if builder.homePageFlag {
+	if builder.homePageSet {
 		req.HomePage = builder.homePage
 	}
-	if builder.coverInfoFlag {
+	if builder.coverInfoSet {
 		req.CoverInfo = builder.coverInfo
 	}
-	if builder.versionFlag {
+	if builder.versionSet {
 		req.Version = &builder.version
 
 	}
@@ -609,20 +613,20 @@ type SpaceCoverInfo struct {
 }
 
 type SpaceCoverInfoBuilder struct {
-	origin     string // 封面图片的url
-	originFlag bool
+	origin    string // 封面图片的url
+	originSet bool
 
-	thumbnail     string // 封面图片缩略图的url
-	thumbnailFlag bool
+	thumbnail    string // 封面图片缩略图的url
+	thumbnailSet bool
 
-	name     string // 封面图片的名称
-	nameFlag bool
+	name    string // 封面图片的名称
+	nameSet bool
 
-	isGraphDark     bool // 封面是否为深色，如果为深色，则封面标题应当为白色，反之应当为黑色
-	isGraphDarkFlag bool
+	isGraphDark    bool // 封面是否为深色，如果为深色，则封面标题应当为白色，反之应当为黑色
+	isGraphDarkSet bool
 
-	color     string // 封面的色值
-	colorFlag bool
+	color    string // 封面的色值
+	colorSet bool
 }
 
 func NewSpaceCoverInfoBuilder() *SpaceCoverInfoBuilder {
@@ -635,7 +639,7 @@ func NewSpaceCoverInfoBuilder() *SpaceCoverInfoBuilder {
 // 示例值：
 func (builder *SpaceCoverInfoBuilder) Origin(origin string) *SpaceCoverInfoBuilder {
 	builder.origin = origin
-	builder.originFlag = true
+	builder.originSet = true
 	return builder
 }
 
@@ -644,7 +648,7 @@ func (builder *SpaceCoverInfoBuilder) Origin(origin string) *SpaceCoverInfoBuild
 // 示例值：
 func (builder *SpaceCoverInfoBuilder) Thumbnail(thumbnail string) *SpaceCoverInfoBuilder {
 	builder.thumbnail = thumbnail
-	builder.thumbnailFlag = true
+	builder.thumbnailSet = true
 	return builder
 }
 
@@ -653,7 +657,7 @@ func (builder *SpaceCoverInfoBuilder) Thumbnail(thumbnail string) *SpaceCoverInf
 // 示例值：
 func (builder *SpaceCoverInfoBuilder) Name(name string) *SpaceCoverInfoBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -662,7 +666,7 @@ func (builder *SpaceCoverInfoBuilder) Name(name string) *SpaceCoverInfoBuilder {
 // 示例值：
 func (builder *SpaceCoverInfoBuilder) IsGraphDark(isGraphDark bool) *SpaceCoverInfoBuilder {
 	builder.isGraphDark = isGraphDark
-	builder.isGraphDarkFlag = true
+	builder.isGraphDarkSet = true
 	return builder
 }
 
@@ -671,29 +675,29 @@ func (builder *SpaceCoverInfoBuilder) IsGraphDark(isGraphDark bool) *SpaceCoverI
 // 示例值：
 func (builder *SpaceCoverInfoBuilder) Color(color string) *SpaceCoverInfoBuilder {
 	builder.color = color
-	builder.colorFlag = true
+	builder.colorSet = true
 	return builder
 }
 
 func (builder *SpaceCoverInfoBuilder) Build() *SpaceCoverInfo {
 	req := &SpaceCoverInfo{}
-	if builder.originFlag {
+	if builder.originSet {
 		req.Origin = &builder.origin
 
 	}
-	if builder.thumbnailFlag {
+	if builder.thumbnailSet {
 		req.Thumbnail = &builder.thumbnail
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.isGraphDarkFlag {
+	if builder.isGraphDarkSet {
 		req.IsGraphDark = &builder.isGraphDark
 
 	}
-	if builder.colorFlag {
+	if builder.colorSet {
 		req.Color = &builder.color
 
 	}
@@ -711,17 +715,17 @@ type SpaceHomePage struct {
 }
 
 type SpaceHomePageBuilder struct {
-	nodeId     string // 空间首页对应的node_id
-	nodeIdFlag bool
+	nodeId    string // 空间首页对应的node_id
+	nodeIdSet bool
 
-	objToken     string // 空间首页对应的obj_token
-	objTokenFlag bool
+	objToken    string // 空间首页对应的obj_token
+	objTokenSet bool
 
-	objType     int // 空间首页对应的obj_type
-	objTypeFlag bool
+	objType    int // 空间首页对应的obj_type
+	objTypeSet bool
 
-	url     string // 空间首页url
-	urlFlag bool
+	url    string // 空间首页url
+	urlSet bool
 }
 
 func NewSpaceHomePageBuilder() *SpaceHomePageBuilder {
@@ -734,7 +738,7 @@ func NewSpaceHomePageBuilder() *SpaceHomePageBuilder {
 // 示例值：
 func (builder *SpaceHomePageBuilder) NodeId(nodeId string) *SpaceHomePageBuilder {
 	builder.nodeId = nodeId
-	builder.nodeIdFlag = true
+	builder.nodeIdSet = true
 	return builder
 }
 
@@ -743,7 +747,7 @@ func (builder *SpaceHomePageBuilder) NodeId(nodeId string) *SpaceHomePageBuilder
 // 示例值：
 func (builder *SpaceHomePageBuilder) ObjToken(objToken string) *SpaceHomePageBuilder {
 	builder.objToken = objToken
-	builder.objTokenFlag = true
+	builder.objTokenSet = true
 	return builder
 }
 
@@ -752,7 +756,7 @@ func (builder *SpaceHomePageBuilder) ObjToken(objToken string) *SpaceHomePageBui
 // 示例值：
 func (builder *SpaceHomePageBuilder) ObjType(objType int) *SpaceHomePageBuilder {
 	builder.objType = objType
-	builder.objTypeFlag = true
+	builder.objTypeSet = true
 	return builder
 }
 
@@ -761,25 +765,25 @@ func (builder *SpaceHomePageBuilder) ObjType(objType int) *SpaceHomePageBuilder 
 // 示例值：
 func (builder *SpaceHomePageBuilder) Url(url string) *SpaceHomePageBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
 func (builder *SpaceHomePageBuilder) Build() *SpaceHomePage {
 	req := &SpaceHomePage{}
-	if builder.nodeIdFlag {
+	if builder.nodeIdSet {
 		req.NodeId = &builder.nodeId
 
 	}
-	if builder.objTokenFlag {
+	if builder.objTokenSet {
 		req.ObjToken = &builder.objToken
 
 	}
-	if builder.objTypeFlag {
+	if builder.objTypeSet {
 		req.ObjType = &builder.objType
 
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
@@ -787,14 +791,14 @@ func (builder *SpaceHomePageBuilder) Build() *SpaceHomePage {
 }
 
 type SearchNodeReqBodyBuilder struct {
-	query     string // 搜索关键词
-	queryFlag bool
+	query    string // 搜索关键词
+	querySet bool
 
-	spaceId     string // 文档所属的知识空间ID，为空搜索所有 wiki
-	spaceIdFlag bool
+	spaceId    string // 文档所属的知识空间ID，为空搜索所有 wiki
+	spaceIdSet bool
 
-	nodeId     string // wiki token，不为空搜索该节点及其所有子节点，为空搜索所有 wiki（根据 space_id 选择 space）
-	nodeIdFlag bool
+	nodeId    string // wiki token，不为空搜索该节点及其所有子节点，为空搜索所有 wiki（根据 space_id 选择 space）
+	nodeIdSet bool
 }
 
 func NewSearchNodeReqBodyBuilder() *SearchNodeReqBodyBuilder {
@@ -804,52 +808,52 @@ func NewSearchNodeReqBodyBuilder() *SearchNodeReqBodyBuilder {
 
 // 搜索关键词
 //
-// 示例值：123
+//示例值：123
 func (builder *SearchNodeReqBodyBuilder) Query(query string) *SearchNodeReqBodyBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
 // 文档所属的知识空间ID，为空搜索所有 wiki
 //
-// 示例值：6967549310762221587
+//示例值：6967549310762221587
 func (builder *SearchNodeReqBodyBuilder) SpaceId(spaceId string) *SearchNodeReqBodyBuilder {
 	builder.spaceId = spaceId
-	builder.spaceIdFlag = true
+	builder.spaceIdSet = true
 	return builder
 }
 
 // wiki token，不为空搜索该节点及其所有子节点，为空搜索所有 wiki（根据 space_id 选择 space）
 //
-// 示例值：O5UIw9NA8iW308kQQeybWLZqcXc
+//示例值：O5UIw9NA8iW308kQQeybWLZqcXc
 func (builder *SearchNodeReqBodyBuilder) NodeId(nodeId string) *SearchNodeReqBodyBuilder {
 	builder.nodeId = nodeId
-	builder.nodeIdFlag = true
+	builder.nodeIdSet = true
 	return builder
 }
 
 func (builder *SearchNodeReqBodyBuilder) Build() *SearchNodeReqBody {
 	req := &SearchNodeReqBody{}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 	}
-	if builder.spaceIdFlag {
+	if builder.spaceIdSet {
 		req.SpaceId = &builder.spaceId
 	}
-	if builder.nodeIdFlag {
+	if builder.nodeIdSet {
 		req.NodeId = &builder.nodeId
 	}
 	return req
 }
 
 type SearchNodePathReqBodyBuilder struct {
-	query       string
-	queryFlag   bool
-	spaceId     string
-	spaceIdFlag bool
-	nodeId      string
-	nodeIdFlag  bool
+	query      string
+	querySet   bool
+	spaceId    string
+	spaceIdSet bool
+	nodeId     string
+	nodeIdSet  bool
 }
 
 func NewSearchNodePathReqBodyBuilder() *SearchNodePathReqBodyBuilder {
@@ -862,7 +866,7 @@ func NewSearchNodePathReqBodyBuilder() *SearchNodePathReqBodyBuilder {
 // 示例值：123
 func (builder *SearchNodePathReqBodyBuilder) Query(query string) *SearchNodePathReqBodyBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
@@ -871,7 +875,7 @@ func (builder *SearchNodePathReqBodyBuilder) Query(query string) *SearchNodePath
 // 示例值：6967549310762221587
 func (builder *SearchNodePathReqBodyBuilder) SpaceId(spaceId string) *SearchNodePathReqBodyBuilder {
 	builder.spaceId = spaceId
-	builder.spaceIdFlag = true
+	builder.spaceIdSet = true
 	return builder
 }
 
@@ -880,19 +884,19 @@ func (builder *SearchNodePathReqBodyBuilder) SpaceId(spaceId string) *SearchNode
 // 示例值：O5UIw9NA8iW308kQQeybWLZqcXc
 func (builder *SearchNodePathReqBodyBuilder) NodeId(nodeId string) *SearchNodePathReqBodyBuilder {
 	builder.nodeId = nodeId
-	builder.nodeIdFlag = true
+	builder.nodeIdSet = true
 	return builder
 }
 
 func (builder *SearchNodePathReqBodyBuilder) Build() (*SearchNodeReqBody, error) {
 	req := &SearchNodeReqBody{}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 	}
-	if builder.spaceIdFlag {
+	if builder.spaceIdSet {
 		req.SpaceId = &builder.spaceId
 	}
-	if builder.nodeIdFlag {
+	if builder.nodeIdSet {
 		req.NodeId = &builder.nodeId
 	}
 	return req, nil
@@ -935,6 +939,7 @@ func (builder *SearchNodeReqBuilder) PageSize(pageSize int) *SearchNodeReqBuilde
 	return builder
 }
 
+//
 func (builder *SearchNodeReqBuilder) Body(body *SearchNodeReqBody) *SearchNodeReqBuilder {
 	builder.body = body
 	return builder

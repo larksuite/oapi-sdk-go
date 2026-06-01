@@ -35,6 +35,7 @@ func main() {
 		UpdateTimeEnd("2022-01-01 00:00:00").
 		UserIdType("people_corehr_id").
 		TemplateIds("7282756156156560940,6282751234556561278").
+		SelectSignUrl(false).
 		Build()
 	// 发起请求
 	resp, err := client.Corehr.V2.SignatureFile.List(context.Background(), req)

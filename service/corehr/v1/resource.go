@@ -2260,7 +2260,7 @@ func (o *offboarding) Query(ctx context.Context, req *QueryOffboardingReq, optio
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/corehr/v1/offboardings/query"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, o.config, options...)
 	if err != nil {
 		return nil, err
@@ -2286,7 +2286,7 @@ func (o *offboarding) Search(ctx context.Context, req *SearchOffboardingReq, opt
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/corehr/v1/offboardings/search"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, o.config, options...)
 	if err != nil {
 		return nil, err
@@ -2763,7 +2763,7 @@ func (t *transferReason) Query(ctx context.Context, req *QueryTransferReasonReq,
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/corehr/v1/transfer_reasons/query"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
 	if err != nil {
 		return nil, err
@@ -2789,7 +2789,7 @@ func (t *transferType) Query(ctx context.Context, req *QueryTransferTypeReq, opt
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/corehr/v1/transfer_types/query"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
 	if err != nil {
 		return nil, err

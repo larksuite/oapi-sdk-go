@@ -29,9 +29,17 @@ func main() {
 	req := larkdrive.NewCreateFileVersionReqBuilder().
 		FileToken("doxbcyvqZlSc9WlHvQMlSJwUrsb").
 		UserIdType("user_id").
-		Version(larkdrive.NewVersionBuilder().
-			Name("文档标题").
+		Body(larkdrive.NewCreateFileVersionReqBodyBuilder().
+			OwnerId("694699009591869450").
 			ObjType("docx").
+			ParentType("docx").
+			Name("文档标题").
+			ParentToken("doxcnMycg4ryxQofSeoKkJuXYOb").
+			CreatorId("694699009591869451").
+			CreateTime("1660708537").
+			UpdateTime("1660708537").
+			Status("0，1，2").
+			Version("version1").
 			Build()).
 		Build()
 	// 发起请求

@@ -28,6 +28,7 @@ func main() {
 	// 创建请求对象
 	req := larkcalendar.NewPrimaryCalendarReqBuilder().
 		UserIdType("user_id").
+		OpUserId("ou_7d8a6e6df7621556ce0d21922b676706ccs").
 		Build()
 	// 发起请求
 	resp, err := client.Calendar.V4.Calendar.Primary(context.Background(), req)

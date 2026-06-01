@@ -23,6 +23,11 @@ import (
 )
 
 const (
+	ActionAdd    = "add"    // 添加表情回复
+	ActionDelete = "delete" // 删除添加的reaction
+)
+
+const (
 	FileTypeDoc  = "doc"  // 旧版文档
 	FileTypeDocX = "docx" // 新版文档
 	FileTypeFile = "file" // 文件
@@ -113,17 +118,17 @@ type BizInfo struct {
 }
 
 type BizInfoBuilder struct {
-	name     string // 业务名称，ccm代表云文档容量，vc代表视频会议，mail代表邮箱，im代表聊天文件
-	nameFlag bool
+	name    string // 业务名称，ccm代表云文档容量，vc代表视频会议，mail代表邮箱，im代表聊天文件
+	nameSet bool
 
-	used     string // 业务已经使用的容量，单位byte，最大可能为int64，需要自己转换为数字
-	usedFlag bool
+	used    string // 业务已经使用的容量，单位byte，最大可能为int64，需要自己转换为数字
+	usedSet bool
 
-	quota     string // 额度，单位byte，最大可能为int64，需要自己转换为数字
-	quotaFlag bool
+	quota    string // 额度，单位byte，最大可能为int64，需要自己转换为数字
+	quotaSet bool
 
-	unlimited     bool // 是否没设置容量限制
-	unlimitedFlag bool
+	unlimited    bool // 是否没设置容量限制
+	unlimitedSet bool
 }
 
 func NewBizInfoBuilder() *BizInfoBuilder {
@@ -136,7 +141,7 @@ func NewBizInfoBuilder() *BizInfoBuilder {
 // 示例值：ccm
 func (builder *BizInfoBuilder) Name(name string) *BizInfoBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -145,7 +150,7 @@ func (builder *BizInfoBuilder) Name(name string) *BizInfoBuilder {
 // 示例值：345567888
 func (builder *BizInfoBuilder) Used(used string) *BizInfoBuilder {
 	builder.used = used
-	builder.usedFlag = true
+	builder.usedSet = true
 	return builder
 }
 
@@ -154,7 +159,7 @@ func (builder *BizInfoBuilder) Used(used string) *BizInfoBuilder {
 // 示例值：23455666
 func (builder *BizInfoBuilder) Quota(quota string) *BizInfoBuilder {
 	builder.quota = quota
-	builder.quotaFlag = true
+	builder.quotaSet = true
 	return builder
 }
 
@@ -163,27 +168,94 @@ func (builder *BizInfoBuilder) Quota(quota string) *BizInfoBuilder {
 // 示例值：true
 func (builder *BizInfoBuilder) Unlimited(unlimited bool) *BizInfoBuilder {
 	builder.unlimited = unlimited
-	builder.unlimitedFlag = true
+	builder.unlimitedSet = true
 	return builder
 }
 
 func (builder *BizInfoBuilder) Build() *BizInfo {
 	req := &BizInfo{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.usedFlag {
+	if builder.usedSet {
 		req.Used = &builder.used
 
 	}
-	if builder.quotaFlag {
+	if builder.quotaSet {
 		req.Quota = &builder.quota
 
 	}
-	if builder.unlimitedFlag {
+	if builder.unlimitedSet {
 		req.Unlimited = &builder.unlimited
 
+	}
+	return req
+}
+
+type CommentReaction struct {
+	ReactionKey *string `json:"reaction_key,omitempty"` // 表情回复的唯一标识，用于区分不同类型的评论表情（如点赞、鼓掌等）。
+
+	Count *int `json:"count,omitempty"` // 该表情回复的累计使用次数，统计范围为当前评论下所有用户的有效回复记录。
+
+	AheadUsers []string `json:"ahead_users,omitempty"` // 用于在界面优先展示核心互动用户。用户ID可通过用户信息查询接口获取。
+}
+
+type CommentReactionBuilder struct {
+	reactionKey    string // 表情回复的唯一标识，用于区分不同类型的评论表情（如点赞、鼓掌等）。
+	reactionKeySet bool
+
+	count    int // 该表情回复的累计使用次数，统计范围为当前评论下所有用户的有效回复记录。
+	countSet bool
+
+	aheadUsers    []string // 用于在界面优先展示核心互动用户。用户ID可通过用户信息查询接口获取。
+	aheadUsersSet bool
+}
+
+func NewCommentReactionBuilder() *CommentReactionBuilder {
+	builder := &CommentReactionBuilder{}
+	return builder
+}
+
+// 表情回复的唯一标识，用于区分不同类型的评论表情（如点赞、鼓掌等）。
+//
+// 示例值：like
+func (builder *CommentReactionBuilder) ReactionKey(reactionKey string) *CommentReactionBuilder {
+	builder.reactionKey = reactionKey
+	builder.reactionKeySet = true
+	return builder
+}
+
+// 该表情回复的累计使用次数，统计范围为当前评论下所有用户的有效回复记录。
+//
+// 示例值：10
+func (builder *CommentReactionBuilder) Count(count int) *CommentReactionBuilder {
+	builder.count = count
+	builder.countSet = true
+	return builder
+}
+
+// 用于在界面优先展示核心互动用户。用户ID可通过用户信息查询接口获取。
+//
+// 示例值：
+func (builder *CommentReactionBuilder) AheadUsers(aheadUsers []string) *CommentReactionBuilder {
+	builder.aheadUsers = aheadUsers
+	builder.aheadUsersSet = true
+	return builder
+}
+
+func (builder *CommentReactionBuilder) Build() *CommentReaction {
+	req := &CommentReaction{}
+	if builder.reactionKeySet {
+		req.ReactionKey = &builder.reactionKey
+
+	}
+	if builder.countSet {
+		req.Count = &builder.count
+
+	}
+	if builder.aheadUsersSet {
+		req.AheadUsers = builder.aheadUsers
 	}
 	return req
 }
@@ -198,13 +270,13 @@ type Condition struct {
 
 type ConditionBuilder struct {
 	range_    int // 条件类型
-	rangeFlag bool
+	range_Set bool
 
-	operator     string // 操作符
-	operatorFlag bool
+	operator    string // 操作符
+	operatorSet bool
 
-	params     []string // 参数，具体取值与range有关，见range描述
-	paramsFlag bool
+	params    []string // 参数，具体取值与range有关，见range描述
+	paramsSet bool
 }
 
 func NewConditionBuilder() *ConditionBuilder {
@@ -217,7 +289,7 @@ func NewConditionBuilder() *ConditionBuilder {
 // 示例值：范围
 func (builder *ConditionBuilder) Range(range_ int) *ConditionBuilder {
 	builder.range_ = range_
-	builder.rangeFlag = true
+	builder.range_Set = true
 	return builder
 }
 
@@ -226,7 +298,7 @@ func (builder *ConditionBuilder) Range(range_ int) *ConditionBuilder {
 // 示例值：resign
 func (builder *ConditionBuilder) Operator(operator string) *ConditionBuilder {
 	builder.operator = operator
-	builder.operatorFlag = true
+	builder.operatorSet = true
 	return builder
 }
 
@@ -235,21 +307,21 @@ func (builder *ConditionBuilder) Operator(operator string) *ConditionBuilder {
 // 示例值：
 func (builder *ConditionBuilder) Params(params []string) *ConditionBuilder {
 	builder.params = params
-	builder.paramsFlag = true
+	builder.paramsSet = true
 	return builder
 }
 
 func (builder *ConditionBuilder) Build() *Condition {
 	req := &Condition{}
-	if builder.rangeFlag {
+	if builder.range_Set {
 		req.Range = &builder.range_
 
 	}
-	if builder.operatorFlag {
+	if builder.operatorSet {
 		req.Operator = &builder.operator
 
 	}
-	if builder.paramsFlag {
+	if builder.paramsSet {
 		req.Params = builder.params
 	}
 	return req
@@ -262,11 +334,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -274,27 +346,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -310,14 +386,14 @@ type DepartmentInfo struct {
 }
 
 type DepartmentInfoBuilder struct {
-	departmentName     string // 部门名称
-	departmentNameFlag bool
+	departmentName    string // 部门名称
+	departmentNameSet bool
 
-	departmentFullPath     string // 部门全路径
-	departmentFullPathFlag bool
+	departmentFullPath    string // 部门全路径
+	departmentFullPathSet bool
 
-	customId     string // 部门id
-	customIdFlag bool
+	customId    string // 部门id
+	customIdSet bool
 }
 
 func NewDepartmentInfoBuilder() *DepartmentInfoBuilder {
@@ -330,7 +406,7 @@ func NewDepartmentInfoBuilder() *DepartmentInfoBuilder {
 // 示例值：部门
 func (builder *DepartmentInfoBuilder) DepartmentName(departmentName string) *DepartmentInfoBuilder {
 	builder.departmentName = departmentName
-	builder.departmentNameFlag = true
+	builder.departmentNameSet = true
 	return builder
 }
 
@@ -339,7 +415,7 @@ func (builder *DepartmentInfoBuilder) DepartmentName(departmentName string) *Dep
 // 示例值：根部门/次级部门/叶子部门
 func (builder *DepartmentInfoBuilder) DepartmentFullPath(departmentFullPath string) *DepartmentInfoBuilder {
 	builder.departmentFullPath = departmentFullPath
-	builder.departmentFullPathFlag = true
+	builder.departmentFullPathSet = true
 	return builder
 }
 
@@ -348,21 +424,21 @@ func (builder *DepartmentInfoBuilder) DepartmentFullPath(departmentFullPath stri
 // 示例值：dg25d5662fdd639g
 func (builder *DepartmentInfoBuilder) CustomId(customId string) *DepartmentInfoBuilder {
 	builder.customId = customId
-	builder.customIdFlag = true
+	builder.customIdSet = true
 	return builder
 }
 
 func (builder *DepartmentInfoBuilder) Build() *DepartmentInfo {
 	req := &DepartmentInfo{}
-	if builder.departmentNameFlag {
+	if builder.departmentNameSet {
 		req.DepartmentName = &builder.departmentName
 
 	}
-	if builder.departmentFullPathFlag {
+	if builder.departmentFullPathSet {
 		req.DepartmentFullPath = &builder.departmentFullPath
 
 	}
-	if builder.customIdFlag {
+	if builder.customIdSet {
 		req.CustomId = &builder.customId
 
 	}
@@ -386,26 +462,26 @@ type ExportJob struct {
 }
 
 type ExportJobBuilder struct {
-	fileExtension     string // 导出文件扩展名
-	fileExtensionFlag bool
+	fileExtension    string // 导出文件扩展名
+	fileExtensionSet bool
 
-	token     string // 导出文档 token
-	tokenFlag bool
+	token    string // 导出文档 token
+	tokenSet bool
 
 	type_    string // 导出文档类型
-	typeFlag bool
+	type_Set bool
 
-	fileName     string // 导出文件名
-	fileNameFlag bool
+	fileName    string // 导出文件名
+	fileNameSet bool
 
-	fileToken     string // 导出文件 Drive Token
-	fileTokenFlag bool
+	fileToken    string // 导出文件 Drive Token
+	fileTokenSet bool
 
-	jobErrorMsg     string // 任务失败原因
-	jobErrorMsgFlag bool
+	jobErrorMsg    string // 任务失败原因
+	jobErrorMsgSet bool
 
-	jobStatus     int // 任务状态
-	jobStatusFlag bool
+	jobStatus    int // 任务状态
+	jobStatusSet bool
 }
 
 func NewExportJobBuilder() *ExportJobBuilder {
@@ -418,7 +494,7 @@ func NewExportJobBuilder() *ExportJobBuilder {
 // 示例值：larkdoc
 func (builder *ExportJobBuilder) FileExtension(fileExtension string) *ExportJobBuilder {
 	builder.fileExtension = fileExtension
-	builder.fileExtensionFlag = true
+	builder.fileExtensionSet = true
 	return builder
 }
 
@@ -427,7 +503,7 @@ func (builder *ExportJobBuilder) FileExtension(fileExtension string) *ExportJobB
 // 示例值：doccnxe5OxxxxxxxSNdsJviENsk
 func (builder *ExportJobBuilder) Token(token string) *ExportJobBuilder {
 	builder.token = token
-	builder.tokenFlag = true
+	builder.tokenSet = true
 	return builder
 }
 
@@ -436,7 +512,7 @@ func (builder *ExportJobBuilder) Token(token string) *ExportJobBuilder {
 // 示例值：sheet
 func (builder *ExportJobBuilder) Type(type_ string) *ExportJobBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -445,7 +521,7 @@ func (builder *ExportJobBuilder) Type(type_ string) *ExportJobBuilder {
 // 示例值：docName
 func (builder *ExportJobBuilder) FileName(fileName string) *ExportJobBuilder {
 	builder.fileName = fileName
-	builder.fileNameFlag = true
+	builder.fileNameSet = true
 	return builder
 }
 
@@ -454,7 +530,7 @@ func (builder *ExportJobBuilder) FileName(fileName string) *ExportJobBuilder {
 // 示例值：boxcnxe5OxxxxxxxSNdsJviENsk
 func (builder *ExportJobBuilder) FileToken(fileToken string) *ExportJobBuilder {
 	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
+	builder.fileTokenSet = true
 	return builder
 }
 
@@ -463,7 +539,7 @@ func (builder *ExportJobBuilder) FileToken(fileToken string) *ExportJobBuilder {
 // 示例值：success
 func (builder *ExportJobBuilder) JobErrorMsg(jobErrorMsg string) *ExportJobBuilder {
 	builder.jobErrorMsg = jobErrorMsg
-	builder.jobErrorMsgFlag = true
+	builder.jobErrorMsgSet = true
 	return builder
 }
 
@@ -472,37 +548,37 @@ func (builder *ExportJobBuilder) JobErrorMsg(jobErrorMsg string) *ExportJobBuild
 // 示例值：0
 func (builder *ExportJobBuilder) JobStatus(jobStatus int) *ExportJobBuilder {
 	builder.jobStatus = jobStatus
-	builder.jobStatusFlag = true
+	builder.jobStatusSet = true
 	return builder
 }
 
 func (builder *ExportJobBuilder) Build() *ExportJob {
 	req := &ExportJob{}
-	if builder.fileExtensionFlag {
+	if builder.fileExtensionSet {
 		req.FileExtension = &builder.fileExtension
 
 	}
-	if builder.tokenFlag {
+	if builder.tokenSet {
 		req.Token = &builder.token
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.fileNameFlag {
+	if builder.fileNameSet {
 		req.FileName = &builder.fileName
 
 	}
-	if builder.fileTokenFlag {
+	if builder.fileTokenSet {
 		req.FileToken = &builder.fileToken
 
 	}
-	if builder.jobErrorMsgFlag {
+	if builder.jobErrorMsgSet {
 		req.JobErrorMsg = &builder.jobErrorMsg
 
 	}
-	if builder.jobStatusFlag {
+	if builder.jobStatusSet {
 		req.JobStatus = &builder.jobStatus
 
 	}
@@ -524,23 +600,23 @@ type FileLike struct {
 }
 
 type FileLikeBuilder struct {
-	userId     string // 用户 ID
-	userIdFlag bool
+	userId    string // 用户 ID
+	userIdSet bool
 
-	lastLikedTime     string // 用户最后点赞时间，秒级时间戳
-	lastLikedTimeFlag bool
+	lastLikedTime    string // 用户最后点赞时间，秒级时间戳
+	lastLikedTimeSet bool
 
-	userName     string // 用户名字，用户信息被脱敏时此值不会返回
-	userNameFlag bool
+	userName    string // 用户名字，用户信息被脱敏时此值不会返回
+	userNameSet bool
 
-	userEnName     string // 用户英文名字，用户信息被脱敏时此值不会返回
-	userEnNameFlag bool
+	userEnName    string // 用户英文名字，用户信息被脱敏时此值不会返回
+	userEnNameSet bool
 
-	userAvatarUrl     string // 用户头像，用户信息被脱敏时此值不会返回
-	userAvatarUrlFlag bool
+	userAvatarUrl    string // 用户头像，用户信息被脱敏时此值不会返回
+	userAvatarUrlSet bool
 
-	userIsDesensitized     bool // 用户信息是否脱敏
-	userIsDesensitizedFlag bool
+	userIsDesensitized    bool // 用户信息是否脱敏
+	userIsDesensitizedSet bool
 }
 
 func NewFileLikeBuilder() *FileLikeBuilder {
@@ -553,7 +629,7 @@ func NewFileLikeBuilder() *FileLikeBuilder {
 // 示例值：ou_3bbe8a09c20e89cce9bff989ed840674
 func (builder *FileLikeBuilder) UserId(userId string) *FileLikeBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -562,7 +638,7 @@ func (builder *FileLikeBuilder) UserId(userId string) *FileLikeBuilder {
 // 示例值：1690857821
 func (builder *FileLikeBuilder) LastLikedTime(lastLikedTime string) *FileLikeBuilder {
 	builder.lastLikedTime = lastLikedTime
-	builder.lastLikedTimeFlag = true
+	builder.lastLikedTimeSet = true
 	return builder
 }
 
@@ -571,7 +647,7 @@ func (builder *FileLikeBuilder) LastLikedTime(lastLikedTime string) *FileLikeBui
 // 示例值：张三
 func (builder *FileLikeBuilder) UserName(userName string) *FileLikeBuilder {
 	builder.userName = userName
-	builder.userNameFlag = true
+	builder.userNameSet = true
 	return builder
 }
 
@@ -580,7 +656,7 @@ func (builder *FileLikeBuilder) UserName(userName string) *FileLikeBuilder {
 // 示例值：San Zhang
 func (builder *FileLikeBuilder) UserEnName(userEnName string) *FileLikeBuilder {
 	builder.userEnName = userEnName
-	builder.userEnNameFlag = true
+	builder.userEnNameSet = true
 	return builder
 }
 
@@ -589,7 +665,7 @@ func (builder *FileLikeBuilder) UserEnName(userEnName string) *FileLikeBuilder {
 // 示例值：https://foo.icon.com/xxxx
 func (builder *FileLikeBuilder) UserAvatarUrl(userAvatarUrl string) *FileLikeBuilder {
 	builder.userAvatarUrl = userAvatarUrl
-	builder.userAvatarUrlFlag = true
+	builder.userAvatarUrlSet = true
 	return builder
 }
 
@@ -598,33 +674,33 @@ func (builder *FileLikeBuilder) UserAvatarUrl(userAvatarUrl string) *FileLikeBui
 // 示例值：false
 func (builder *FileLikeBuilder) UserIsDesensitized(userIsDesensitized bool) *FileLikeBuilder {
 	builder.userIsDesensitized = userIsDesensitized
-	builder.userIsDesensitizedFlag = true
+	builder.userIsDesensitizedSet = true
 	return builder
 }
 
 func (builder *FileLikeBuilder) Build() *FileLike {
 	req := &FileLike{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.lastLikedTimeFlag {
+	if builder.lastLikedTimeSet {
 		req.LastLikedTime = &builder.lastLikedTime
 
 	}
-	if builder.userNameFlag {
+	if builder.userNameSet {
 		req.UserName = &builder.userName
 
 	}
-	if builder.userEnNameFlag {
+	if builder.userEnNameSet {
 		req.UserEnName = &builder.userEnName
 
 	}
-	if builder.userAvatarUrlFlag {
+	if builder.userAvatarUrlSet {
 		req.UserAvatarUrl = &builder.userAvatarUrl
 
 	}
-	if builder.userIsDesensitizedFlag {
+	if builder.userIsDesensitizedSet {
 		req.UserIsDesensitized = &builder.userIsDesensitized
 
 	}
@@ -652,32 +728,32 @@ type ImportJob struct {
 }
 
 type ImportJobBuilder struct {
-	fileExtension     string // 导入文件扩展名
-	fileExtensionFlag bool
+	fileExtension    string // 导入文件扩展名
+	fileExtensionSet bool
 
-	fileToken     string // 导入文件 Drive File Token
-	fileTokenFlag bool
+	fileToken    string // 导入文件 Drive File Token
+	fileTokenSet bool
 
 	type_    string // 导入文档类型
-	typeFlag bool
+	type_Set bool
 
-	fileName     string // 导入目标云文档文件名，若为空使用 Drive 文件名
-	fileNameFlag bool
+	fileName    string // 导入目标云文档文件名，若为空使用 Drive 文件名
+	fileNameSet bool
 
-	point     *ImportJobMountPoint // 挂载点
-	pointFlag bool
+	point    *ImportJobMountPoint // 挂载点
+	pointSet bool
 
-	jobStatus     int // 任务状态
-	jobStatusFlag bool
+	jobStatus    int // 任务状态
+	jobStatusSet bool
 
-	jobErrorMsg     string // 任务失败原因
-	jobErrorMsgFlag bool
+	jobErrorMsg    string // 任务失败原因
+	jobErrorMsgSet bool
 
-	token     string // 导入云文档 Token
-	tokenFlag bool
+	token    string // 导入云文档 Token
+	tokenSet bool
 
-	url     string // 导入云文档 URL
-	urlFlag bool
+	url    string // 导入云文档 URL
+	urlSet bool
 }
 
 func NewImportJobBuilder() *ImportJobBuilder {
@@ -690,7 +766,7 @@ func NewImportJobBuilder() *ImportJobBuilder {
 // 示例值：larkdoc
 func (builder *ImportJobBuilder) FileExtension(fileExtension string) *ImportJobBuilder {
 	builder.fileExtension = fileExtension
-	builder.fileExtensionFlag = true
+	builder.fileExtensionSet = true
 	return builder
 }
 
@@ -699,7 +775,7 @@ func (builder *ImportJobBuilder) FileExtension(fileExtension string) *ImportJobB
 // 示例值：boxcnxe5OxxxxxxxSNdsJviENsk
 func (builder *ImportJobBuilder) FileToken(fileToken string) *ImportJobBuilder {
 	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
+	builder.fileTokenSet = true
 	return builder
 }
 
@@ -708,7 +784,7 @@ func (builder *ImportJobBuilder) FileToken(fileToken string) *ImportJobBuilder {
 // 示例值：sheet
 func (builder *ImportJobBuilder) Type(type_ string) *ImportJobBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -717,7 +793,7 @@ func (builder *ImportJobBuilder) Type(type_ string) *ImportJobBuilder {
 // 示例值：test
 func (builder *ImportJobBuilder) FileName(fileName string) *ImportJobBuilder {
 	builder.fileName = fileName
-	builder.fileNameFlag = true
+	builder.fileNameSet = true
 	return builder
 }
 
@@ -726,7 +802,7 @@ func (builder *ImportJobBuilder) FileName(fileName string) *ImportJobBuilder {
 // 示例值：
 func (builder *ImportJobBuilder) Point(point *ImportJobMountPoint) *ImportJobBuilder {
 	builder.point = point
-	builder.pointFlag = true
+	builder.pointSet = true
 	return builder
 }
 
@@ -735,7 +811,7 @@ func (builder *ImportJobBuilder) Point(point *ImportJobMountPoint) *ImportJobBui
 // 示例值：
 func (builder *ImportJobBuilder) JobStatus(jobStatus int) *ImportJobBuilder {
 	builder.jobStatus = jobStatus
-	builder.jobStatusFlag = true
+	builder.jobStatusSet = true
 	return builder
 }
 
@@ -744,7 +820,7 @@ func (builder *ImportJobBuilder) JobStatus(jobStatus int) *ImportJobBuilder {
 // 示例值：success
 func (builder *ImportJobBuilder) JobErrorMsg(jobErrorMsg string) *ImportJobBuilder {
 	builder.jobErrorMsg = jobErrorMsg
-	builder.jobErrorMsgFlag = true
+	builder.jobErrorMsgSet = true
 	return builder
 }
 
@@ -753,7 +829,7 @@ func (builder *ImportJobBuilder) JobErrorMsg(jobErrorMsg string) *ImportJobBuild
 // 示例值：shtcnVBTG6SuxxxxxxxkM2tUX
 func (builder *ImportJobBuilder) Token(token string) *ImportJobBuilder {
 	builder.token = token
-	builder.tokenFlag = true
+	builder.tokenSet = true
 	return builder
 }
 
@@ -762,44 +838,44 @@ func (builder *ImportJobBuilder) Token(token string) *ImportJobBuilder {
 // 示例值：https://example.feishu.cn/sheets/shtcnVBTG6SuxxxxxxxkM2tUX
 func (builder *ImportJobBuilder) Url(url string) *ImportJobBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
 func (builder *ImportJobBuilder) Build() *ImportJob {
 	req := &ImportJob{}
-	if builder.fileExtensionFlag {
+	if builder.fileExtensionSet {
 		req.FileExtension = &builder.fileExtension
 
 	}
-	if builder.fileTokenFlag {
+	if builder.fileTokenSet {
 		req.FileToken = &builder.fileToken
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.fileNameFlag {
+	if builder.fileNameSet {
 		req.FileName = &builder.fileName
 
 	}
-	if builder.pointFlag {
+	if builder.pointSet {
 		req.Point = builder.point
 	}
-	if builder.jobStatusFlag {
+	if builder.jobStatusSet {
 		req.JobStatus = &builder.jobStatus
 
 	}
-	if builder.jobErrorMsgFlag {
+	if builder.jobErrorMsgSet {
 		req.JobErrorMsg = &builder.jobErrorMsg
 
 	}
-	if builder.tokenFlag {
+	if builder.tokenSet {
 		req.Token = &builder.token
 
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
@@ -813,11 +889,11 @@ type ImportJobMountPoint struct {
 }
 
 type ImportJobMountPointBuilder struct {
-	mountType     int // 挂载类型
-	mountTypeFlag bool
+	mountType    int // 挂载类型
+	mountTypeSet bool
 
-	mountKey     string // 挂载位置，对于 mount_type=1 ，云空间目录 Token ，空表示根目录
-	mountKeyFlag bool
+	mountKey    string // 挂载位置，对于 mount_type=1 ，云空间目录 Token ，空表示根目录
+	mountKeySet bool
 }
 
 func NewImportJobMountPointBuilder() *ImportJobMountPointBuilder {
@@ -830,7 +906,7 @@ func NewImportJobMountPointBuilder() *ImportJobMountPointBuilder {
 // 示例值：
 func (builder *ImportJobMountPointBuilder) MountType(mountType int) *ImportJobMountPointBuilder {
 	builder.mountType = mountType
-	builder.mountTypeFlag = true
+	builder.mountTypeSet = true
 	return builder
 }
 
@@ -839,18 +915,366 @@ func (builder *ImportJobMountPointBuilder) MountType(mountType int) *ImportJobMo
 // 示例值：Y1HiwCGd8iOYixkLRUvb6viVcoZ
 func (builder *ImportJobMountPointBuilder) MountKey(mountKey string) *ImportJobMountPointBuilder {
 	builder.mountKey = mountKey
-	builder.mountKeyFlag = true
+	builder.mountKeySet = true
 	return builder
 }
 
 func (builder *ImportJobMountPointBuilder) Build() *ImportJobMountPoint {
 	req := &ImportJobMountPoint{}
-	if builder.mountTypeFlag {
+	if builder.mountTypeSet {
 		req.MountType = &builder.mountType
 
 	}
-	if builder.mountKeyFlag {
+	if builder.mountKeySet {
 		req.MountKey = &builder.mountKey
+
+	}
+	return req
+}
+
+type ListAccessedFile struct {
+	Token *string `json:"token,omitempty"` // 文档唯一标识
+
+	Title *string `json:"title,omitempty"` // 文档标题
+
+	Type *string `json:"type,omitempty"` // 文档类型
+
+	Url *string `json:"url,omitempty"` // 文档 url 链接
+
+	LastAccessedAt *string `json:"last_accessed_at,omitempty"` // 用户对文档的打开的时间，秒级时间戳
+
+	OwnerUserId *string `json:"owner_user_id,omitempty"` // 文档所有者 Open ID
+}
+
+type ListAccessedFileBuilder struct {
+	token    string // 文档唯一标识
+	tokenSet bool
+
+	title    string // 文档标题
+	titleSet bool
+
+	type_    string // 文档类型
+	type_Set bool
+
+	url    string // 文档 url 链接
+	urlSet bool
+
+	lastAccessedAt    string // 用户对文档的打开的时间，秒级时间戳
+	lastAccessedAtSet bool
+
+	ownerUserId    string // 文档所有者 Open ID
+	ownerUserIdSet bool
+}
+
+func NewListAccessedFileBuilder() *ListAccessedFileBuilder {
+	builder := &ListAccessedFileBuilder{}
+	return builder
+}
+
+// 文档唯一标识
+//
+// 示例值：doccnxxxxxxxxxxxxxxxxxabcef
+func (builder *ListAccessedFileBuilder) Token(token string) *ListAccessedFileBuilder {
+	builder.token = token
+	builder.tokenSet = true
+	return builder
+}
+
+// 文档标题
+//
+// 示例值：2026年第一季度OKR
+func (builder *ListAccessedFileBuilder) Title(title string) *ListAccessedFileBuilder {
+	builder.title = title
+	builder.titleSet = true
+	return builder
+}
+
+// 文档类型
+//
+// 示例值：
+func (builder *ListAccessedFileBuilder) Type(type_ string) *ListAccessedFileBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 文档 url 链接
+//
+// 示例值：https://bytedance.larkoffice.com/wiki/LBX6wOWhviGofqkWGfUcIIxnnHc
+func (builder *ListAccessedFileBuilder) Url(url string) *ListAccessedFileBuilder {
+	builder.url = url
+	builder.urlSet = true
+	return builder
+}
+
+// 用户对文档的打开的时间，秒级时间戳
+//
+// 示例值：1772361821
+func (builder *ListAccessedFileBuilder) LastAccessedAt(lastAccessedAt string) *ListAccessedFileBuilder {
+	builder.lastAccessedAt = lastAccessedAt
+	builder.lastAccessedAtSet = true
+	return builder
+}
+
+// 文档所有者 Open ID
+//
+// 示例值：7539742285739512356
+func (builder *ListAccessedFileBuilder) OwnerUserId(ownerUserId string) *ListAccessedFileBuilder {
+	builder.ownerUserId = ownerUserId
+	builder.ownerUserIdSet = true
+	return builder
+}
+
+func (builder *ListAccessedFileBuilder) Build() *ListAccessedFile {
+	req := &ListAccessedFile{}
+	if builder.tokenSet {
+		req.Token = &builder.token
+
+	}
+	if builder.titleSet {
+		req.Title = &builder.title
+
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.urlSet {
+		req.Url = &builder.url
+
+	}
+	if builder.lastAccessedAtSet {
+		req.LastAccessedAt = &builder.lastAccessedAt
+
+	}
+	if builder.ownerUserIdSet {
+		req.OwnerUserId = &builder.ownerUserId
+
+	}
+	return req
+}
+
+type ListEditedFile struct {
+	Token *string `json:"token,omitempty"` // 文档唯一标识
+
+	Title *string `json:"title,omitempty"` // 文档标题
+
+	Type *string `json:"type,omitempty"` // 文档类型
+
+	Url *string `json:"url,omitempty"` // 文档 url 链接
+
+	LastEditedAt *string `json:"last_edited_at,omitempty"` // 用户对文档的更新的时间，秒级时间戳
+
+	OwnerUserId *string `json:"owner_user_id,omitempty"` // 文档所有者 Open ID
+}
+
+type ListEditedFileBuilder struct {
+	token    string // 文档唯一标识
+	tokenSet bool
+
+	title    string // 文档标题
+	titleSet bool
+
+	type_    string // 文档类型
+	type_Set bool
+
+	url    string // 文档 url 链接
+	urlSet bool
+
+	lastEditedAt    string // 用户对文档的更新的时间，秒级时间戳
+	lastEditedAtSet bool
+
+	ownerUserId    string // 文档所有者 Open ID
+	ownerUserIdSet bool
+}
+
+func NewListEditedFileBuilder() *ListEditedFileBuilder {
+	builder := &ListEditedFileBuilder{}
+	return builder
+}
+
+// 文档唯一标识
+//
+// 示例值：doccnxxxxxxxxxxxxxxxxxabcef
+func (builder *ListEditedFileBuilder) Token(token string) *ListEditedFileBuilder {
+	builder.token = token
+	builder.tokenSet = true
+	return builder
+}
+
+// 文档标题
+//
+// 示例值：2026年第一季度OKR
+func (builder *ListEditedFileBuilder) Title(title string) *ListEditedFileBuilder {
+	builder.title = title
+	builder.titleSet = true
+	return builder
+}
+
+// 文档类型
+//
+// 示例值：
+func (builder *ListEditedFileBuilder) Type(type_ string) *ListEditedFileBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 文档 url 链接
+//
+// 示例值：https://bytedance.larkoffice.com/wiki/LBX6wOWhviGofqkWGfUcIIxnnHc
+func (builder *ListEditedFileBuilder) Url(url string) *ListEditedFileBuilder {
+	builder.url = url
+	builder.urlSet = true
+	return builder
+}
+
+// 用户对文档的更新的时间，秒级时间戳
+//
+// 示例值：1772361821
+func (builder *ListEditedFileBuilder) LastEditedAt(lastEditedAt string) *ListEditedFileBuilder {
+	builder.lastEditedAt = lastEditedAt
+	builder.lastEditedAtSet = true
+	return builder
+}
+
+// 文档所有者 Open ID
+//
+// 示例值：7539742285739512356
+func (builder *ListEditedFileBuilder) OwnerUserId(ownerUserId string) *ListEditedFileBuilder {
+	builder.ownerUserId = ownerUserId
+	builder.ownerUserIdSet = true
+	return builder
+}
+
+func (builder *ListEditedFileBuilder) Build() *ListEditedFile {
+	req := &ListEditedFile{}
+	if builder.tokenSet {
+		req.Token = &builder.token
+
+	}
+	if builder.titleSet {
+		req.Title = &builder.title
+
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.urlSet {
+		req.Url = &builder.url
+
+	}
+	if builder.lastEditedAtSet {
+		req.LastEditedAt = &builder.lastEditedAt
+
+	}
+	if builder.ownerUserIdSet {
+		req.OwnerUserId = &builder.ownerUserId
+
+	}
+	return req
+}
+
+type ListOwnedFile struct {
+	Token *string `json:"token,omitempty"` // 文档唯一标识
+
+	Title *string `json:"title,omitempty"` // 文档标题
+
+	Type *string `json:"type,omitempty"` // 文档类型
+
+	Url *string `json:"url,omitempty"` // 文档 url 链接
+
+	CreatedAt *string `json:"created_at,omitempty"` // 文档的创建时间
+}
+
+type ListOwnedFileBuilder struct {
+	token    string // 文档唯一标识
+	tokenSet bool
+
+	title    string // 文档标题
+	titleSet bool
+
+	type_    string // 文档类型
+	type_Set bool
+
+	url    string // 文档 url 链接
+	urlSet bool
+
+	createdAt    string // 文档的创建时间
+	createdAtSet bool
+}
+
+func NewListOwnedFileBuilder() *ListOwnedFileBuilder {
+	builder := &ListOwnedFileBuilder{}
+	return builder
+}
+
+// 文档唯一标识
+//
+// 示例值：doccnxxxxxxxxxxxxxxxxxabcef
+func (builder *ListOwnedFileBuilder) Token(token string) *ListOwnedFileBuilder {
+	builder.token = token
+	builder.tokenSet = true
+	return builder
+}
+
+// 文档标题
+//
+// 示例值：2026年第一季度OKR
+func (builder *ListOwnedFileBuilder) Title(title string) *ListOwnedFileBuilder {
+	builder.title = title
+	builder.titleSet = true
+	return builder
+}
+
+// 文档类型
+//
+// 示例值：
+func (builder *ListOwnedFileBuilder) Type(type_ string) *ListOwnedFileBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 文档 url 链接
+//
+// 示例值：https://bytedance.larkoffice.com/wiki/LBX6wOWhviGofqkWGfUcIIxnnHc
+func (builder *ListOwnedFileBuilder) Url(url string) *ListOwnedFileBuilder {
+	builder.url = url
+	builder.urlSet = true
+	return builder
+}
+
+// 文档的创建时间
+//
+// 示例值：1772361821
+func (builder *ListOwnedFileBuilder) CreatedAt(createdAt string) *ListOwnedFileBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtSet = true
+	return builder
+}
+
+func (builder *ListOwnedFileBuilder) Build() *ListOwnedFile {
+	req := &ListOwnedFile{}
+	if builder.tokenSet {
+		req.Token = &builder.token
+
+	}
+	if builder.titleSet {
+		req.Title = &builder.title
+
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.urlSet {
+		req.Url = &builder.url
+
+	}
+	if builder.createdAtSet {
+		req.CreatedAt = &builder.createdAt
 
 	}
 	return req
@@ -871,23 +1295,23 @@ type MyLike struct {
 }
 
 type MyLikeBuilder struct {
-	lastLikedTime     string // 用户最后点赞时间，秒级时间戳
-	lastLikedTimeFlag bool
+	lastLikedTime    string // 用户最后点赞时间，秒级时间戳
+	lastLikedTimeSet bool
 
-	fileToken     string // 点赞的文件 token
-	fileTokenFlag bool
+	fileToken    string // 点赞的文件 token
+	fileTokenSet bool
 
-	fileType     string // 点赞的文件类型
-	fileTypeFlag bool
+	fileType    string // 点赞的文件类型
+	fileTypeSet bool
 
-	fileName     string // 点赞的文件名，无文件阅读权限时不返回此字段
-	fileNameFlag bool
+	fileName    string // 点赞的文件名，无文件阅读权限时不返回此字段
+	fileNameSet bool
 
-	fileUrl     string // 点赞的文件链接，无文件阅读权限时不返回此字段
-	fileUrlFlag bool
+	fileUrl    string // 点赞的文件链接，无文件阅读权限时不返回此字段
+	fileUrlSet bool
 
-	fileIsDeleted     bool // 点赞的文件是否已被删除
-	fileIsDeletedFlag bool
+	fileIsDeleted    bool // 点赞的文件是否已被删除
+	fileIsDeletedSet bool
 }
 
 func NewMyLikeBuilder() *MyLikeBuilder {
@@ -900,7 +1324,7 @@ func NewMyLikeBuilder() *MyLikeBuilder {
 // 示例值：1690857821
 func (builder *MyLikeBuilder) LastLikedTime(lastLikedTime string) *MyLikeBuilder {
 	builder.lastLikedTime = lastLikedTime
-	builder.lastLikedTimeFlag = true
+	builder.lastLikedTimeSet = true
 	return builder
 }
 
@@ -909,7 +1333,7 @@ func (builder *MyLikeBuilder) LastLikedTime(lastLikedTime string) *MyLikeBuilder
 // 示例值：J6Lddz22AovnqkxWEXBcUJIingx
 func (builder *MyLikeBuilder) FileToken(fileToken string) *MyLikeBuilder {
 	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
+	builder.fileTokenSet = true
 	return builder
 }
 
@@ -918,7 +1342,7 @@ func (builder *MyLikeBuilder) FileToken(fileToken string) *MyLikeBuilder {
 // 示例值：doc
 func (builder *MyLikeBuilder) FileType(fileType string) *MyLikeBuilder {
 	builder.fileType = fileType
-	builder.fileTypeFlag = true
+	builder.fileTypeSet = true
 	return builder
 }
 
@@ -927,7 +1351,7 @@ func (builder *MyLikeBuilder) FileType(fileType string) *MyLikeBuilder {
 // 示例值：title
 func (builder *MyLikeBuilder) FileName(fileName string) *MyLikeBuilder {
 	builder.fileName = fileName
-	builder.fileNameFlag = true
+	builder.fileNameSet = true
 	return builder
 }
 
@@ -936,7 +1360,7 @@ func (builder *MyLikeBuilder) FileName(fileName string) *MyLikeBuilder {
 // 示例值：https://sample.feishu.cn/docs/doccnfYZzTlvXqZIGTdAHKabcef
 func (builder *MyLikeBuilder) FileUrl(fileUrl string) *MyLikeBuilder {
 	builder.fileUrl = fileUrl
-	builder.fileUrlFlag = true
+	builder.fileUrlSet = true
 	return builder
 }
 
@@ -945,33 +1369,33 @@ func (builder *MyLikeBuilder) FileUrl(fileUrl string) *MyLikeBuilder {
 // 示例值：false
 func (builder *MyLikeBuilder) FileIsDeleted(fileIsDeleted bool) *MyLikeBuilder {
 	builder.fileIsDeleted = fileIsDeleted
-	builder.fileIsDeletedFlag = true
+	builder.fileIsDeletedSet = true
 	return builder
 }
 
 func (builder *MyLikeBuilder) Build() *MyLike {
 	req := &MyLike{}
-	if builder.lastLikedTimeFlag {
+	if builder.lastLikedTimeSet {
 		req.LastLikedTime = &builder.lastLikedTime
 
 	}
-	if builder.fileTokenFlag {
+	if builder.fileTokenSet {
 		req.FileToken = &builder.fileToken
 
 	}
-	if builder.fileTypeFlag {
+	if builder.fileTypeSet {
 		req.FileType = &builder.fileType
 
 	}
-	if builder.fileNameFlag {
+	if builder.fileNameSet {
 		req.FileName = &builder.fileName
 
 	}
-	if builder.fileUrlFlag {
+	if builder.fileUrlSet {
 		req.FileUrl = &builder.fileUrl
 
 	}
-	if builder.fileIsDeletedFlag {
+	if builder.fileIsDeletedSet {
 		req.FileIsDeleted = &builder.fileIsDeleted
 
 	}
@@ -997,29 +1421,29 @@ type PermissionPublic struct {
 }
 
 type PermissionPublicBuilder struct {
-	externalAccessEntity     string // 允许内容被分享到组织外
-	externalAccessEntityFlag bool
+	externalAccessEntity    string // 允许内容被分享到组织外
+	externalAccessEntitySet bool
 
-	securityEntity     string // 谁可以创建副本、打印、下载
-	securityEntityFlag bool
+	securityEntity    string // 谁可以创建副本、打印、下载
+	securityEntitySet bool
 
-	commentEntity     string // 谁可以评论
-	commentEntityFlag bool
+	commentEntity    string // 谁可以评论
+	commentEntitySet bool
 
-	shareEntity     string // 谁可以添加和管理协作者-组织维度
-	shareEntityFlag bool
+	shareEntity    string // 谁可以添加和管理协作者-组织维度
+	shareEntitySet bool
 
-	manageCollaboratorEntity     string // 谁可以添加和管理协作者-协作者维度
-	manageCollaboratorEntityFlag bool
+	manageCollaboratorEntity    string // 谁可以添加和管理协作者-协作者维度
+	manageCollaboratorEntitySet bool
 
-	linkShareEntity     string // 链接分享设置
-	linkShareEntityFlag bool
+	linkShareEntity    string // 链接分享设置
+	linkShareEntitySet bool
 
-	copyEntity     string // 谁可以复制内容
-	copyEntityFlag bool
+	copyEntity    string // 谁可以复制内容
+	copyEntitySet bool
 
-	lockSwitch     bool // 节点是否已加锁，加锁之后不再继承父级页面的权限
-	lockSwitchFlag bool
+	lockSwitch    bool // 节点是否已加锁，加锁之后不再继承父级页面的权限
+	lockSwitchSet bool
 }
 
 func NewPermissionPublicBuilder() *PermissionPublicBuilder {
@@ -1032,7 +1456,7 @@ func NewPermissionPublicBuilder() *PermissionPublicBuilder {
 // 示例值：open
 func (builder *PermissionPublicBuilder) ExternalAccessEntity(externalAccessEntity string) *PermissionPublicBuilder {
 	builder.externalAccessEntity = externalAccessEntity
-	builder.externalAccessEntityFlag = true
+	builder.externalAccessEntitySet = true
 	return builder
 }
 
@@ -1041,7 +1465,7 @@ func (builder *PermissionPublicBuilder) ExternalAccessEntity(externalAccessEntit
 // 示例值：anyone_can_view
 func (builder *PermissionPublicBuilder) SecurityEntity(securityEntity string) *PermissionPublicBuilder {
 	builder.securityEntity = securityEntity
-	builder.securityEntityFlag = true
+	builder.securityEntitySet = true
 	return builder
 }
 
@@ -1050,7 +1474,7 @@ func (builder *PermissionPublicBuilder) SecurityEntity(securityEntity string) *P
 // 示例值：anyone_can_view
 func (builder *PermissionPublicBuilder) CommentEntity(commentEntity string) *PermissionPublicBuilder {
 	builder.commentEntity = commentEntity
-	builder.commentEntityFlag = true
+	builder.commentEntitySet = true
 	return builder
 }
 
@@ -1059,7 +1483,7 @@ func (builder *PermissionPublicBuilder) CommentEntity(commentEntity string) *Per
 // 示例值：anyone
 func (builder *PermissionPublicBuilder) ShareEntity(shareEntity string) *PermissionPublicBuilder {
 	builder.shareEntity = shareEntity
-	builder.shareEntityFlag = true
+	builder.shareEntitySet = true
 	return builder
 }
 
@@ -1068,7 +1492,7 @@ func (builder *PermissionPublicBuilder) ShareEntity(shareEntity string) *Permiss
 // 示例值：collaborator_can_view
 func (builder *PermissionPublicBuilder) ManageCollaboratorEntity(manageCollaboratorEntity string) *PermissionPublicBuilder {
 	builder.manageCollaboratorEntity = manageCollaboratorEntity
-	builder.manageCollaboratorEntityFlag = true
+	builder.manageCollaboratorEntitySet = true
 	return builder
 }
 
@@ -1077,7 +1501,7 @@ func (builder *PermissionPublicBuilder) ManageCollaboratorEntity(manageCollabora
 // 示例值：tenant_readable
 func (builder *PermissionPublicBuilder) LinkShareEntity(linkShareEntity string) *PermissionPublicBuilder {
 	builder.linkShareEntity = linkShareEntity
-	builder.linkShareEntityFlag = true
+	builder.linkShareEntitySet = true
 	return builder
 }
 
@@ -1086,7 +1510,7 @@ func (builder *PermissionPublicBuilder) LinkShareEntity(linkShareEntity string) 
 // 示例值：anyone_can_view
 func (builder *PermissionPublicBuilder) CopyEntity(copyEntity string) *PermissionPublicBuilder {
 	builder.copyEntity = copyEntity
-	builder.copyEntityFlag = true
+	builder.copyEntitySet = true
 	return builder
 }
 
@@ -1095,42 +1519,128 @@ func (builder *PermissionPublicBuilder) CopyEntity(copyEntity string) *Permissio
 // 示例值：false
 func (builder *PermissionPublicBuilder) LockSwitch(lockSwitch bool) *PermissionPublicBuilder {
 	builder.lockSwitch = lockSwitch
-	builder.lockSwitchFlag = true
+	builder.lockSwitchSet = true
 	return builder
 }
 
 func (builder *PermissionPublicBuilder) Build() *PermissionPublic {
 	req := &PermissionPublic{}
-	if builder.externalAccessEntityFlag {
+	if builder.externalAccessEntitySet {
 		req.ExternalAccessEntity = &builder.externalAccessEntity
 
 	}
-	if builder.securityEntityFlag {
+	if builder.securityEntitySet {
 		req.SecurityEntity = &builder.securityEntity
 
 	}
-	if builder.commentEntityFlag {
+	if builder.commentEntitySet {
 		req.CommentEntity = &builder.commentEntity
 
 	}
-	if builder.shareEntityFlag {
+	if builder.shareEntitySet {
 		req.ShareEntity = &builder.shareEntity
 
 	}
-	if builder.manageCollaboratorEntityFlag {
+	if builder.manageCollaboratorEntitySet {
 		req.ManageCollaboratorEntity = &builder.manageCollaboratorEntity
 
 	}
-	if builder.linkShareEntityFlag {
+	if builder.linkShareEntitySet {
 		req.LinkShareEntity = &builder.linkShareEntity
 
 	}
-	if builder.copyEntityFlag {
+	if builder.copyEntitySet {
 		req.CopyEntity = &builder.copyEntity
 
 	}
-	if builder.lockSwitchFlag {
+	if builder.lockSwitchSet {
 		req.LockSwitch = &builder.lockSwitch
+
+	}
+	return req
+}
+
+type QuotaConfig struct {
+	Id *string `json:"id,omitempty"` // 配额归属实体ID，租户/用户/部门三选一，具体含义由所在字段区分（TenantQuota/UserQuota/DepartmentQuota）。最大可能为int64，需要自己转换为数字
+
+	Limit *string `json:"limit,omitempty"` // 配额上限，单位byte，最大可能为int64，需要自己转换为数字
+
+	Usage *string `json:"usage,omitempty"` // 已使用容量，单位byte，最大可能为int64，需要自己转换为数字
+
+	Type *int `json:"type,omitempty"` // 配额作用范围
+}
+
+type QuotaConfigBuilder struct {
+	id    string // 配额归属实体ID，租户/用户/部门三选一，具体含义由所在字段区分（TenantQuota/UserQuota/DepartmentQuota）。最大可能为int64，需要自己转换为数字
+	idSet bool
+
+	limit    string // 配额上限，单位byte，最大可能为int64，需要自己转换为数字
+	limitSet bool
+
+	usage    string // 已使用容量，单位byte，最大可能为int64，需要自己转换为数字
+	usageSet bool
+
+	type_    int // 配额作用范围
+	type_Set bool
+}
+
+func NewQuotaConfigBuilder() *QuotaConfigBuilder {
+	builder := &QuotaConfigBuilder{}
+	return builder
+}
+
+// 配额归属实体ID，租户/用户/部门三选一，具体含义由所在字段区分（TenantQuota/UserQuota/DepartmentQuota）。最大可能为int64，需要自己转换为数字
+//
+// 示例值：7123456789012345678
+func (builder *QuotaConfigBuilder) Id(id string) *QuotaConfigBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 配额上限，单位byte，最大可能为int64，需要自己转换为数字
+//
+// 示例值：10737418240
+func (builder *QuotaConfigBuilder) Limit(limit string) *QuotaConfigBuilder {
+	builder.limit = limit
+	builder.limitSet = true
+	return builder
+}
+
+// 已使用容量，单位byte，最大可能为int64，需要自己转换为数字
+//
+// 示例值：2345678
+func (builder *QuotaConfigBuilder) Usage(usage string) *QuotaConfigBuilder {
+	builder.usage = usage
+	builder.usageSet = true
+	return builder
+}
+
+// 配额作用范围
+//
+// 示例值：1
+func (builder *QuotaConfigBuilder) Type(type_ int) *QuotaConfigBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+func (builder *QuotaConfigBuilder) Build() *QuotaConfig {
+	req := &QuotaConfig{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.limitSet {
+		req.Limit = &builder.limit
+
+	}
+	if builder.usageSet {
+		req.Usage = &builder.usage
+
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
 
 	}
 	return req
@@ -1145,14 +1655,14 @@ type QuotaDetail struct {
 }
 
 type QuotaDetailBuilder struct {
-	userInfo     *UserInfo // 用户信息
-	userInfoFlag bool
+	userInfo    *UserInfo // 用户信息
+	userInfoSet bool
 
-	departmentInfo     []*DepartmentInfo // 部门
-	departmentInfoFlag bool
+	departmentInfo    []*DepartmentInfo // 部门
+	departmentInfoSet bool
 
-	bizLists     []*BizInfo // 每个业务的使用量列表
-	bizListsFlag bool
+	bizLists    []*BizInfo // 每个业务的使用量列表
+	bizListsSet bool
 }
 
 func NewQuotaDetailBuilder() *QuotaDetailBuilder {
@@ -1165,7 +1675,7 @@ func NewQuotaDetailBuilder() *QuotaDetailBuilder {
 // 示例值：
 func (builder *QuotaDetailBuilder) UserInfo(userInfo *UserInfo) *QuotaDetailBuilder {
 	builder.userInfo = userInfo
-	builder.userInfoFlag = true
+	builder.userInfoSet = true
 	return builder
 }
 
@@ -1174,7 +1684,7 @@ func (builder *QuotaDetailBuilder) UserInfo(userInfo *UserInfo) *QuotaDetailBuil
 // 示例值：
 func (builder *QuotaDetailBuilder) DepartmentInfo(departmentInfo []*DepartmentInfo) *QuotaDetailBuilder {
 	builder.departmentInfo = departmentInfo
-	builder.departmentInfoFlag = true
+	builder.departmentInfoSet = true
 	return builder
 }
 
@@ -1183,19 +1693,19 @@ func (builder *QuotaDetailBuilder) DepartmentInfo(departmentInfo []*DepartmentIn
 // 示例值：
 func (builder *QuotaDetailBuilder) BizLists(bizLists []*BizInfo) *QuotaDetailBuilder {
 	builder.bizLists = bizLists
-	builder.bizListsFlag = true
+	builder.bizListsSet = true
 	return builder
 }
 
 func (builder *QuotaDetailBuilder) Build() *QuotaDetail {
 	req := &QuotaDetail{}
-	if builder.userInfoFlag {
+	if builder.userInfoSet {
 		req.UserInfo = builder.userInfo
 	}
-	if builder.departmentInfoFlag {
+	if builder.departmentInfoSet {
 		req.DepartmentInfo = builder.departmentInfo
 	}
-	if builder.bizListsFlag {
+	if builder.bizListsSet {
 		req.BizLists = builder.bizLists
 	}
 	return req
@@ -1208,11 +1718,11 @@ type SecureLabel struct {
 }
 
 type SecureLabelBuilder struct {
-	id     string // 密级标签 ID
-	idFlag bool
+	id    string // 密级标签 ID
+	idSet bool
 
-	name     string // 密级标签名称
-	nameFlag bool
+	name    string // 密级标签名称
+	nameSet bool
 }
 
 func NewSecureLabelBuilder() *SecureLabelBuilder {
@@ -1225,7 +1735,7 @@ func NewSecureLabelBuilder() *SecureLabelBuilder {
 // 示例值：7217780879644737540
 func (builder *SecureLabelBuilder) Id(id string) *SecureLabelBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1234,17 +1744,17 @@ func (builder *SecureLabelBuilder) Id(id string) *SecureLabelBuilder {
 // 示例值：L1
 func (builder *SecureLabelBuilder) Name(name string) *SecureLabelBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *SecureLabelBuilder) Build() *SecureLabel {
 	req := &SecureLabel{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -1262,17 +1772,17 @@ type StorageTask struct {
 }
 
 type StorageTaskBuilder struct {
-	policyId     int // 策略ID，固定1100
-	policyIdFlag bool
+	policyId    int // 策略ID，固定1100
+	policyIdSet bool
 
-	taskName     string // 清理任务名称
-	taskNameFlag bool
+	taskName    string // 清理任务名称
+	taskNameSet bool
 
-	config     *TaskConfig // 任务条件
-	configFlag bool
+	config    *TaskConfig // 任务条件
+	configSet bool
 
-	trashRemainDays     int // 回收站保留时间
-	trashRemainDaysFlag bool
+	trashRemainDays    int // 回收站保留时间
+	trashRemainDaysSet bool
 }
 
 func NewStorageTaskBuilder() *StorageTaskBuilder {
@@ -1285,7 +1795,7 @@ func NewStorageTaskBuilder() *StorageTaskBuilder {
 // 示例值：1100
 func (builder *StorageTaskBuilder) PolicyId(policyId int) *StorageTaskBuilder {
 	builder.policyId = policyId
-	builder.policyIdFlag = true
+	builder.policyIdSet = true
 	return builder
 }
 
@@ -1294,7 +1804,7 @@ func (builder *StorageTaskBuilder) PolicyId(policyId int) *StorageTaskBuilder {
 // 示例值：清理任务1
 func (builder *StorageTaskBuilder) TaskName(taskName string) *StorageTaskBuilder {
 	builder.taskName = taskName
-	builder.taskNameFlag = true
+	builder.taskNameSet = true
 	return builder
 }
 
@@ -1303,7 +1813,7 @@ func (builder *StorageTaskBuilder) TaskName(taskName string) *StorageTaskBuilder
 // 示例值：
 func (builder *StorageTaskBuilder) Config(config *TaskConfig) *StorageTaskBuilder {
 	builder.config = config
-	builder.configFlag = true
+	builder.configSet = true
 	return builder
 }
 
@@ -1312,24 +1822,24 @@ func (builder *StorageTaskBuilder) Config(config *TaskConfig) *StorageTaskBuilde
 // 示例值：30
 func (builder *StorageTaskBuilder) TrashRemainDays(trashRemainDays int) *StorageTaskBuilder {
 	builder.trashRemainDays = trashRemainDays
-	builder.trashRemainDaysFlag = true
+	builder.trashRemainDaysSet = true
 	return builder
 }
 
 func (builder *StorageTaskBuilder) Build() *StorageTask {
 	req := &StorageTask{}
-	if builder.policyIdFlag {
+	if builder.policyIdSet {
 		req.PolicyId = &builder.policyId
 
 	}
-	if builder.taskNameFlag {
+	if builder.taskNameSet {
 		req.TaskName = &builder.taskName
 
 	}
-	if builder.configFlag {
+	if builder.configSet {
 		req.Config = builder.config
 	}
-	if builder.trashRemainDaysFlag {
+	if builder.trashRemainDaysSet {
 		req.TrashRemainDays = &builder.trashRemainDays
 
 	}
@@ -1343,11 +1853,11 @@ type TaskConfig struct {
 }
 
 type TaskConfigBuilder struct {
-	includes     []*Condition // 被圈选的用户范围
-	includesFlag bool
+	includes    []*Condition // 被圈选的用户范围
+	includesSet bool
 
-	excludes     []*Condition // 白名单，即被剔除的用户范围
-	excludesFlag bool
+	excludes    []*Condition // 白名单，即被剔除的用户范围
+	excludesSet bool
 }
 
 func NewTaskConfigBuilder() *TaskConfigBuilder {
@@ -1360,7 +1870,7 @@ func NewTaskConfigBuilder() *TaskConfigBuilder {
 // 示例值：
 func (builder *TaskConfigBuilder) Includes(includes []*Condition) *TaskConfigBuilder {
 	builder.includes = includes
-	builder.includesFlag = true
+	builder.includesSet = true
 	return builder
 }
 
@@ -1369,17 +1879,67 @@ func (builder *TaskConfigBuilder) Includes(includes []*Condition) *TaskConfigBui
 // 示例值：
 func (builder *TaskConfigBuilder) Excludes(excludes []*Condition) *TaskConfigBuilder {
 	builder.excludes = excludes
-	builder.excludesFlag = true
+	builder.excludesSet = true
 	return builder
 }
 
 func (builder *TaskConfigBuilder) Build() *TaskConfig {
 	req := &TaskConfig{}
-	if builder.includesFlag {
+	if builder.includesSet {
 		req.Includes = builder.includes
 	}
-	if builder.excludesFlag {
+	if builder.excludesSet {
 		req.Excludes = builder.excludes
+	}
+	return req
+}
+
+type TimeRange struct {
+	StartAt *string `json:"start_at,omitempty"` // 用户查询的开始时间，秒级时间戳
+
+	EndAt *string `json:"end_at,omitempty"` // 用户查询的结束时间，秒级时间戳
+}
+
+type TimeRangeBuilder struct {
+	startAt    string // 用户查询的开始时间，秒级时间戳
+	startAtSet bool
+
+	endAt    string // 用户查询的结束时间，秒级时间戳
+	endAtSet bool
+}
+
+func NewTimeRangeBuilder() *TimeRangeBuilder {
+	builder := &TimeRangeBuilder{}
+	return builder
+}
+
+// 用户查询的开始时间，秒级时间戳
+//
+// 示例值：1345673356
+func (builder *TimeRangeBuilder) StartAt(startAt string) *TimeRangeBuilder {
+	builder.startAt = startAt
+	builder.startAtSet = true
+	return builder
+}
+
+// 用户查询的结束时间，秒级时间戳
+//
+// 示例值：1573456854
+func (builder *TimeRangeBuilder) EndAt(endAt string) *TimeRangeBuilder {
+	builder.endAt = endAt
+	builder.endAtSet = true
+	return builder
+}
+
+func (builder *TimeRangeBuilder) Build() *TimeRange {
+	req := &TimeRange{}
+	if builder.startAtSet {
+		req.StartAt = &builder.startAt
+
+	}
+	if builder.endAtSet {
+		req.EndAt = &builder.endAt
+
 	}
 	return req
 }
@@ -1395,17 +1955,17 @@ type UserInfo struct {
 }
 
 type UserInfoBuilder struct {
-	userName     string // 用户姓名
-	userNameFlag bool
+	userName    string // 用户姓名
+	userNameSet bool
 
-	avatarUrl     string // 头像url
-	avatarUrlFlag bool
+	avatarUrl    string // 头像url
+	avatarUrlSet bool
 
-	status     int // 用户状态，用二进制的位表示，总共6bit（如111111），从左到右，每个标识位分别代表：未加入，主动退出，设置自定义头像，未激活 ，离职，冻结。如返回satus=2，其二进制为000010，表示该员工已离职
-	statusFlag bool
+	status    int // 用户状态，用二进制的位表示，总共6bit（如111111），从左到右，每个标识位分别代表：未加入，主动退出，设置自定义头像，未激活 ，离职，冻结。如返回satus=2，其二进制为000010，表示该员工已离职
+	statusSet bool
 
-	employeeId     string // 雇员id
-	employeeIdFlag bool
+	employeeId    string // 雇员id
+	employeeIdSet bool
 }
 
 func NewUserInfoBuilder() *UserInfoBuilder {
@@ -1418,7 +1978,7 @@ func NewUserInfoBuilder() *UserInfoBuilder {
 // 示例值：张三
 func (builder *UserInfoBuilder) UserName(userName string) *UserInfoBuilder {
 	builder.userName = userName
-	builder.userNameFlag = true
+	builder.userNameSet = true
 	return builder
 }
 
@@ -1427,7 +1987,7 @@ func (builder *UserInfoBuilder) UserName(userName string) *UserInfoBuilder {
 // 示例值：https://xxx.feishu.cn/static-resource/v1/xxx
 func (builder *UserInfoBuilder) AvatarUrl(avatarUrl string) *UserInfoBuilder {
 	builder.avatarUrl = avatarUrl
-	builder.avatarUrlFlag = true
+	builder.avatarUrlSet = true
 	return builder
 }
 
@@ -1436,7 +1996,7 @@ func (builder *UserInfoBuilder) AvatarUrl(avatarUrl string) *UserInfoBuilder {
 // 示例值：1
 func (builder *UserInfoBuilder) Status(status int) *UserInfoBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -1445,29 +2005,208 @@ func (builder *UserInfoBuilder) Status(status int) *UserInfoBuilder {
 // 示例值：153dfegf
 func (builder *UserInfoBuilder) EmployeeId(employeeId string) *UserInfoBuilder {
 	builder.employeeId = employeeId
-	builder.employeeIdFlag = true
+	builder.employeeIdSet = true
 	return builder
 }
 
 func (builder *UserInfoBuilder) Build() *UserInfo {
 	req := &UserInfo{}
-	if builder.userNameFlag {
+	if builder.userNameSet {
 		req.UserName = &builder.userName
 
 	}
-	if builder.avatarUrlFlag {
+	if builder.avatarUrlSet {
 		req.AvatarUrl = &builder.avatarUrl
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.employeeIdFlag {
+	if builder.employeeIdSet {
 		req.EmployeeId = &builder.employeeId
 
 	}
 	return req
+}
+
+type UpdateReactionCommentReactionReqBodyBuilder struct {
+	action    string // 操作类型: add/delete
+	actionSet bool
+
+	replyId    string // 回复 ID
+	replyIdSet bool
+
+	reactionType    string // reaction 类型
+	reactionTypeSet bool
+}
+
+func NewUpdateReactionCommentReactionReqBodyBuilder() *UpdateReactionCommentReactionReqBodyBuilder {
+	builder := &UpdateReactionCommentReactionReqBodyBuilder{}
+	return builder
+}
+
+// 操作类型: add/delete
+//
+//示例值：add/delete
+func (builder *UpdateReactionCommentReactionReqBodyBuilder) Action(action string) *UpdateReactionCommentReactionReqBodyBuilder {
+	builder.action = action
+	builder.actionSet = true
+	return builder
+}
+
+// 回复 ID
+//
+//示例值：1234567890
+func (builder *UpdateReactionCommentReactionReqBodyBuilder) ReplyId(replyId string) *UpdateReactionCommentReactionReqBodyBuilder {
+	builder.replyId = replyId
+	builder.replyIdSet = true
+	return builder
+}
+
+// reaction 类型
+//
+//示例值：like
+func (builder *UpdateReactionCommentReactionReqBodyBuilder) ReactionType(reactionType string) *UpdateReactionCommentReactionReqBodyBuilder {
+	builder.reactionType = reactionType
+	builder.reactionTypeSet = true
+	return builder
+}
+
+func (builder *UpdateReactionCommentReactionReqBodyBuilder) Build() *UpdateReactionCommentReactionReqBody {
+	req := &UpdateReactionCommentReactionReqBody{}
+	if builder.actionSet {
+		req.Action = &builder.action
+	}
+	if builder.replyIdSet {
+		req.ReplyId = &builder.replyId
+	}
+	if builder.reactionTypeSet {
+		req.ReactionType = &builder.reactionType
+	}
+	return req
+}
+
+type UpdateReactionCommentReactionPathReqBodyBuilder struct {
+	action          string
+	actionSet       bool
+	replyId         string
+	replyIdSet      bool
+	reactionType    string
+	reactionTypeSet bool
+}
+
+func NewUpdateReactionCommentReactionPathReqBodyBuilder() *UpdateReactionCommentReactionPathReqBodyBuilder {
+	builder := &UpdateReactionCommentReactionPathReqBodyBuilder{}
+	return builder
+}
+
+// 操作类型: add/delete
+//
+// 示例值：add/delete
+func (builder *UpdateReactionCommentReactionPathReqBodyBuilder) Action(action string) *UpdateReactionCommentReactionPathReqBodyBuilder {
+	builder.action = action
+	builder.actionSet = true
+	return builder
+}
+
+// 回复 ID
+//
+// 示例值：1234567890
+func (builder *UpdateReactionCommentReactionPathReqBodyBuilder) ReplyId(replyId string) *UpdateReactionCommentReactionPathReqBodyBuilder {
+	builder.replyId = replyId
+	builder.replyIdSet = true
+	return builder
+}
+
+// reaction 类型
+//
+// 示例值：like
+func (builder *UpdateReactionCommentReactionPathReqBodyBuilder) ReactionType(reactionType string) *UpdateReactionCommentReactionPathReqBodyBuilder {
+	builder.reactionType = reactionType
+	builder.reactionTypeSet = true
+	return builder
+}
+
+func (builder *UpdateReactionCommentReactionPathReqBodyBuilder) Build() (*UpdateReactionCommentReactionReqBody, error) {
+	req := &UpdateReactionCommentReactionReqBody{}
+	if builder.actionSet {
+		req.Action = &builder.action
+	}
+	if builder.replyIdSet {
+		req.ReplyId = &builder.replyId
+	}
+	if builder.reactionTypeSet {
+		req.ReactionType = &builder.reactionType
+	}
+	return req, nil
+}
+
+type UpdateReactionCommentReactionReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *UpdateReactionCommentReactionReqBody
+}
+
+func NewUpdateReactionCommentReactionReqBuilder() *UpdateReactionCommentReactionReqBuilder {
+	builder := &UpdateReactionCommentReactionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 文件的唯一标识令牌，用于定位目标文件。可通过调用「获取文件元信息」或「文件上传」接口获取。
+//
+// 示例值：ppHV2Xepq2BQk3K79FTB
+func (builder *UpdateReactionCommentReactionReqBuilder) FileToken(fileToken string) *UpdateReactionCommentReactionReqBuilder {
+	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
+	return builder
+}
+
+// 文件类型，用于区分不同类型的云文档，可选值需参考开放平台文件类型枚举规范。
+//
+// 示例值：docx
+func (builder *UpdateReactionCommentReactionReqBuilder) FileType(fileType string) *UpdateReactionCommentReactionReqBuilder {
+	builder.apiReq.QueryParams.Set("file_type", fmt.Sprint(fileType))
+	return builder
+}
+
+// 开放平台：添加/删除 reaction
+func (builder *UpdateReactionCommentReactionReqBuilder) Body(body *UpdateReactionCommentReactionReqBody) *UpdateReactionCommentReactionReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *UpdateReactionCommentReactionReqBuilder) Build() *UpdateReactionCommentReactionReq {
+	req := &UpdateReactionCommentReactionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type UpdateReactionCommentReactionReqBody struct {
+	Action *string `json:"action,omitempty"` // 操作类型: add/delete
+
+	ReplyId *string `json:"reply_id,omitempty"` // 回复 ID
+
+	ReactionType *string `json:"reaction_type,omitempty"` // reaction 类型
+}
+
+type UpdateReactionCommentReactionReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *UpdateReactionCommentReactionReqBody `body:""`
+}
+
+type UpdateReactionCommentReactionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UpdateReactionCommentReactionResp) Success() bool {
+	return resp.Code == 0
 }
 
 type ListFileLikeReqBuilder struct {
@@ -1648,6 +2387,7 @@ func (builder *PatchPermissionPublicReqBuilder) Type(type_ string) *PatchPermiss
 	return builder
 }
 
+//
 func (builder *PatchPermissionPublicReqBuilder) PermissionPublic(permissionPublic *PermissionPublic) *PatchPermissionPublicReqBuilder {
 	builder.permissionPublic = permissionPublic
 	return builder

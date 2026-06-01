@@ -35,6 +35,9 @@ func main() {
 		DepartmentIdType("open_department_id").
 		JobLevelIdType("people_admin_job_level_id").
 		JobFamilyIdType("people_admin_job_category_id").
+		RecruiterIdList([]string{}).
+		HiringManagerIdList([]string{}).
+		AssistantIdList([]string{}).
 		Build()
 	// 发起请求
 	resp, err := client.Hire.V1.Job.List(context.Background(), req)

@@ -27,9 +27,11 @@ func main() {
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larksecurity_and_compliance.NewCreateDeviceRecordReqBuilder().
-		UserIdType("user_id").
-		DeviceRecord(larksecurity_and_compliance.NewDeviceRecordBuilder().
+		Body(larksecurity_and_compliance.NewCreateDeviceRecordReqBodyBuilder().
 			DeviceSystem(0).
+			DeviceOwnership(0).
+			DeviceStatus(0).
+			IsPublic(false).
 			SerialNumber("C02DTHRMML7H").
 			DiskSerialNumber("CC344362-5990-5A68-8DDD-64A23C99FA0C").
 			Uuid("621CDFF0-13D0-5AB1-9ADC-5F560095F6ED").
@@ -37,13 +39,6 @@ func main() {
 			AndroidId("02a11ac4a83b918e").
 			Idfv("968F0E5C-C297-4122-ACB6-102494DEFD9A").
 			Aaid("ff3c2237-cd76-4331-9d72-0a4470854567").
-			DeviceOwnership(0).
-			DeviceStatus(0).
-			LatestUserId("ou_b25e90585ef8c1adac4b379c2e257906").
-			Dids([]string{}).
-			IsManaged(false).
-			MdmDeviceId("123abc").
-			MdmProviderName("Workspace_ONE").
 			Build()).
 		Build()
 	// 发起请求

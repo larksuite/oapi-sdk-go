@@ -37,6 +37,7 @@ func main() {
 			Description("").
 			Required(false).
 			Visible(false).
+			RichDescription([]*larkbitable.AppRichDescriptionSegment{larkbitable.NewAppRichDescriptionSegmentBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

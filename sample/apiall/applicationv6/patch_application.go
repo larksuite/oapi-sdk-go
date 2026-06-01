@@ -31,6 +31,8 @@ func main() {
 		Lang("zh_cn").
 		Application(larkapplication.NewApplicationBuilder().
 			CommonCategories([]string{}).
+			AllowRefreshToken(false).
+			CallbackInfo(larkapplication.NewCallbackInfoBuilder().Build()).
 			Build()).
 		Build()
 	// 发起请求

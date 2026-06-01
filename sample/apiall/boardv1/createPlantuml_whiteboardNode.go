@@ -35,6 +35,7 @@ func main() {
 			DiagramType(0).
 			Overwrite(false).
 			ParseMode(0).
+			LookType(1).
 			Build()).
 		Build()
 	// 发起请求

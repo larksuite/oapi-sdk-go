@@ -46,6 +46,7 @@ func main() {
 			PreferredCityCodeList([]string{}).
 			SelfEvaluation(larkhire.NewTalentSelfEvaluationBuilder().Build()).
 			CustomizedData([]*larkhire.TalentCustomizedDataObjectValue{larkhire.NewTalentCustomizedDataObjectValueBuilder().Build()}).
+			OnlyParseResumeUpdateTalent(false).
 			Build()).
 		Build()
 	// 发起请求

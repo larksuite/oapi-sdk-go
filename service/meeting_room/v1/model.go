@@ -24,11 +24,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -36,27 +36,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -68,8 +72,8 @@ type EventTime struct {
 }
 
 type EventTimeBuilder struct {
-	timeStamp     int //
-	timeStampFlag bool
+	timeStamp    int //
+	timeStampSet bool
 }
 
 func NewEventTimeBuilder() *EventTimeBuilder {
@@ -77,16 +81,18 @@ func NewEventTimeBuilder() *EventTimeBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *EventTimeBuilder) TimeStamp(timeStamp int) *EventTimeBuilder {
 	builder.timeStamp = timeStamp
-	builder.timeStampFlag = true
+	builder.timeStampSet = true
 	return builder
 }
 
 func (builder *EventTimeBuilder) Build() *EventTime {
 	req := &EventTime{}
-	if builder.timeStampFlag {
+	if builder.timeStampSet {
 		req.TimeStamp = &builder.timeStamp
 
 	}
@@ -98,8 +104,8 @@ type MeetingRoom struct {
 }
 
 type MeetingRoomBuilder struct {
-	roomId     int // your description here
-	roomIdFlag bool
+	roomId    int // your description here
+	roomIdSet bool
 }
 
 func NewMeetingRoomBuilder() *MeetingRoomBuilder {
@@ -112,13 +118,13 @@ func NewMeetingRoomBuilder() *MeetingRoomBuilder {
 // 示例值：
 func (builder *MeetingRoomBuilder) RoomId(roomId int) *MeetingRoomBuilder {
 	builder.roomId = roomId
-	builder.roomIdFlag = true
+	builder.roomIdSet = true
 	return builder
 }
 
 func (builder *MeetingRoomBuilder) Build() *MeetingRoom {
 	req := &MeetingRoom{}
-	if builder.roomIdFlag {
+	if builder.roomIdSet {
 		req.RoomId = &builder.roomId
 
 	}
@@ -132,11 +138,11 @@ type UserInfo struct {
 }
 
 type UserInfoBuilder struct {
-	openId     string //
-	openIdFlag bool
+	openId    string //
+	openIdSet bool
 
-	userId     string // 用户在ISV下的唯一标识，申请了"获取用户 user ID"权限后才会返回
-	userIdFlag bool
+	userId    string // 用户在ISV下的唯一标识，申请了"获取用户 user ID"权限后才会返回
+	userIdSet bool
 }
 
 func NewUserInfoBuilder() *UserInfoBuilder {
@@ -144,10 +150,12 @@ func NewUserInfoBuilder() *UserInfoBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserInfoBuilder) OpenId(openId string) *UserInfoBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
@@ -156,17 +164,17 @@ func (builder *UserInfoBuilder) OpenId(openId string) *UserInfoBuilder {
 // 示例值：
 func (builder *UserInfoBuilder) UserId(userId string) *UserInfoBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *UserInfoBuilder) Build() *UserInfo {
 	req := &UserInfo{}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}

@@ -36,6 +36,7 @@ func main() {
 		File(larkbaike.NewFileBuilder().
 			Name("示例图片.png").
 			File(file).
+			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

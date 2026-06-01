@@ -24,11 +24,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -36,27 +36,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -78,23 +82,23 @@ type TokenInfo struct {
 }
 
 type TokenInfoBuilder struct {
-	accessToken     string // user_access_token，用于获取用户资源和访问某些open api
-	accessTokenFlag bool
+	accessToken    string // user_access_token，用于获取用户资源和访问某些open api
+	accessTokenSet bool
 
-	refreshToken     string // 刷新用户 `access_token` 时使用的 token
-	refreshTokenFlag bool
+	refreshToken    string // 刷新用户 `access_token` 时使用的 token
+	refreshTokenSet bool
 
-	tokenType     string // token 类型，固定值
-	tokenTypeFlag bool
+	tokenType    string // token 类型，固定值
+	tokenTypeSet bool
 
-	expiresIn     int // `access_token`的有效期，单位: 秒，一般是两个小时左右，需要以返回结果为准
-	expiresInFlag bool
+	expiresIn    int // `access_token`的有效期，单位: 秒，一般是两个小时左右，需要以返回结果为准
+	expiresInSet bool
 
-	refreshExpiresIn     int // `refresh_token` 的有效期，单位: 秒，一般是30天左右，需要以返回结果为准
-	refreshExpiresInFlag bool
+	refreshExpiresIn    int // `refresh_token` 的有效期，单位: 秒，一般是30天左右，需要以返回结果为准
+	refreshExpiresInSet bool
 
-	scope     string // 用户授予app的权限全集
-	scopeFlag bool
+	scope    string // 用户授予app的权限全集
+	scopeSet bool
 }
 
 func NewTokenInfoBuilder() *TokenInfoBuilder {
@@ -107,7 +111,7 @@ func NewTokenInfoBuilder() *TokenInfoBuilder {
 // 示例值：u-5Dak9ZAxJ9tFUn8MaTD_BFM51FNdg5xzO0y010000HWb
 func (builder *TokenInfoBuilder) AccessToken(accessToken string) *TokenInfoBuilder {
 	builder.accessToken = accessToken
-	builder.accessTokenFlag = true
+	builder.accessTokenSet = true
 	return builder
 }
 
@@ -116,7 +120,7 @@ func (builder *TokenInfoBuilder) AccessToken(accessToken string) *TokenInfoBuild
 // 示例值：ur-6EyFQZyplb9URrOx5NtT_HM53zrJg59HXwy040400G.e
 func (builder *TokenInfoBuilder) RefreshToken(refreshToken string) *TokenInfoBuilder {
 	builder.refreshToken = refreshToken
-	builder.refreshTokenFlag = true
+	builder.refreshTokenSet = true
 	return builder
 }
 
@@ -125,7 +129,7 @@ func (builder *TokenInfoBuilder) RefreshToken(refreshToken string) *TokenInfoBui
 // 示例值：Bearer
 func (builder *TokenInfoBuilder) TokenType(tokenType string) *TokenInfoBuilder {
 	builder.tokenType = tokenType
-	builder.tokenTypeFlag = true
+	builder.tokenTypeSet = true
 	return builder
 }
 
@@ -134,7 +138,7 @@ func (builder *TokenInfoBuilder) TokenType(tokenType string) *TokenInfoBuilder {
 // 示例值：7199
 func (builder *TokenInfoBuilder) ExpiresIn(expiresIn int) *TokenInfoBuilder {
 	builder.expiresIn = expiresIn
-	builder.expiresInFlag = true
+	builder.expiresInSet = true
 	return builder
 }
 
@@ -143,7 +147,7 @@ func (builder *TokenInfoBuilder) ExpiresIn(expiresIn int) *TokenInfoBuilder {
 // 示例值：2591999
 func (builder *TokenInfoBuilder) RefreshExpiresIn(refreshExpiresIn int) *TokenInfoBuilder {
 	builder.refreshExpiresIn = refreshExpiresIn
-	builder.refreshExpiresInFlag = true
+	builder.refreshExpiresInSet = true
 	return builder
 }
 
@@ -152,33 +156,33 @@ func (builder *TokenInfoBuilder) RefreshExpiresIn(refreshExpiresIn int) *TokenIn
 // 示例值：auth:user.id:read bitable:app
 func (builder *TokenInfoBuilder) Scope(scope string) *TokenInfoBuilder {
 	builder.scope = scope
-	builder.scopeFlag = true
+	builder.scopeSet = true
 	return builder
 }
 
 func (builder *TokenInfoBuilder) Build() *TokenInfo {
 	req := &TokenInfo{}
-	if builder.accessTokenFlag {
+	if builder.accessTokenSet {
 		req.AccessToken = &builder.accessToken
 
 	}
-	if builder.refreshTokenFlag {
+	if builder.refreshTokenSet {
 		req.RefreshToken = &builder.refreshToken
 
 	}
-	if builder.tokenTypeFlag {
+	if builder.tokenTypeSet {
 		req.TokenType = &builder.tokenType
 
 	}
-	if builder.expiresInFlag {
+	if builder.expiresInSet {
 		req.ExpiresIn = &builder.expiresIn
 
 	}
-	if builder.refreshExpiresInFlag {
+	if builder.refreshExpiresInSet {
 		req.RefreshExpiresIn = &builder.refreshExpiresIn
 
 	}
-	if builder.scopeFlag {
+	if builder.scopeSet {
 		req.Scope = &builder.scope
 
 	}
@@ -226,62 +230,62 @@ type UserAccessTokenInfo struct {
 }
 
 type UserAccessTokenInfoBuilder struct {
-	accessToken     string // user_access_token，用于获取用户资源
-	accessTokenFlag bool
+	accessToken    string // user_access_token，用于获取用户资源
+	accessTokenSet bool
 
-	tokenType     string // token 类型
-	tokenTypeFlag bool
+	tokenType    string // token 类型
+	tokenTypeSet bool
 
-	expiresIn     int // `access_token`的有效期，单位: 秒
-	expiresInFlag bool
+	expiresIn    int // `access_token`的有效期，单位: 秒
+	expiresInSet bool
 
-	name     string // 用户姓名
-	nameFlag bool
+	name    string // 用户姓名
+	nameSet bool
 
-	enName     string // 用户英文名称
-	enNameFlag bool
+	enName    string // 用户英文名称
+	enNameSet bool
 
-	avatarUrl     string // 用户头像
-	avatarUrlFlag bool
+	avatarUrl    string // 用户头像
+	avatarUrlSet bool
 
-	avatarThumb     string // 用户头像 72x72
-	avatarThumbFlag bool
+	avatarThumb    string // 用户头像 72x72
+	avatarThumbSet bool
 
-	avatarMiddle     string // 用户头像 240x240
-	avatarMiddleFlag bool
+	avatarMiddle    string // 用户头像 240x240
+	avatarMiddleSet bool
 
-	avatarBig     string // 用户头像 640x640
-	avatarBigFlag bool
+	avatarBig    string // 用户头像 640x640
+	avatarBigSet bool
 
-	openId     string // 用户在应用内的唯一标识
-	openIdFlag bool
+	openId    string // 用户在应用内的唯一标识
+	openIdSet bool
 
-	unionId     string // 用户统一ID
-	unionIdFlag bool
+	unionId    string // 用户统一ID
+	unionIdSet bool
 
-	email     string // 用户邮箱
-	emailFlag bool
+	email    string // 用户邮箱
+	emailSet bool
 
-	enterpriseEmail     string // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
-	enterpriseEmailFlag bool
+	enterpriseEmail    string // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
+	enterpriseEmailSet bool
 
-	userId     string // 用户 user_id
-	userIdFlag bool
+	userId    string // 用户 user_id
+	userIdSet bool
 
-	mobile     string // 用户手机号
-	mobileFlag bool
+	mobile    string // 用户手机号
+	mobileSet bool
 
-	tenantKey     string // 当前企业标识
-	tenantKeyFlag bool
+	tenantKey    string // 当前企业标识
+	tenantKeySet bool
 
-	refreshExpiresIn     int // `refresh_token` 的有效期，单位: 秒
-	refreshExpiresInFlag bool
+	refreshExpiresIn    int // `refresh_token` 的有效期，单位: 秒
+	refreshExpiresInSet bool
 
-	refreshToken     string // 刷新用户 `access_token` 时使用的 token
-	refreshTokenFlag bool
+	refreshToken    string // 刷新用户 `access_token` 时使用的 token
+	refreshTokenSet bool
 
-	sid     string // 用户当前登录态session的唯一标识，为空则不返回
-	sidFlag bool
+	sid    string // 用户当前登录态session的唯一标识，为空则不返回
+	sidSet bool
 }
 
 func NewUserAccessTokenInfoBuilder() *UserAccessTokenInfoBuilder {
@@ -294,7 +298,7 @@ func NewUserAccessTokenInfoBuilder() *UserAccessTokenInfoBuilder {
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) AccessToken(accessToken string) *UserAccessTokenInfoBuilder {
 	builder.accessToken = accessToken
-	builder.accessTokenFlag = true
+	builder.accessTokenSet = true
 	return builder
 }
 
@@ -303,7 +307,7 @@ func (builder *UserAccessTokenInfoBuilder) AccessToken(accessToken string) *User
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) TokenType(tokenType string) *UserAccessTokenInfoBuilder {
 	builder.tokenType = tokenType
-	builder.tokenTypeFlag = true
+	builder.tokenTypeSet = true
 	return builder
 }
 
@@ -312,7 +316,7 @@ func (builder *UserAccessTokenInfoBuilder) TokenType(tokenType string) *UserAcce
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) ExpiresIn(expiresIn int) *UserAccessTokenInfoBuilder {
 	builder.expiresIn = expiresIn
-	builder.expiresInFlag = true
+	builder.expiresInSet = true
 	return builder
 }
 
@@ -321,7 +325,7 @@ func (builder *UserAccessTokenInfoBuilder) ExpiresIn(expiresIn int) *UserAccessT
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) Name(name string) *UserAccessTokenInfoBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -330,7 +334,7 @@ func (builder *UserAccessTokenInfoBuilder) Name(name string) *UserAccessTokenInf
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) EnName(enName string) *UserAccessTokenInfoBuilder {
 	builder.enName = enName
-	builder.enNameFlag = true
+	builder.enNameSet = true
 	return builder
 }
 
@@ -339,7 +343,7 @@ func (builder *UserAccessTokenInfoBuilder) EnName(enName string) *UserAccessToke
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) AvatarUrl(avatarUrl string) *UserAccessTokenInfoBuilder {
 	builder.avatarUrl = avatarUrl
-	builder.avatarUrlFlag = true
+	builder.avatarUrlSet = true
 	return builder
 }
 
@@ -348,7 +352,7 @@ func (builder *UserAccessTokenInfoBuilder) AvatarUrl(avatarUrl string) *UserAcce
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) AvatarThumb(avatarThumb string) *UserAccessTokenInfoBuilder {
 	builder.avatarThumb = avatarThumb
-	builder.avatarThumbFlag = true
+	builder.avatarThumbSet = true
 	return builder
 }
 
@@ -357,7 +361,7 @@ func (builder *UserAccessTokenInfoBuilder) AvatarThumb(avatarThumb string) *User
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) AvatarMiddle(avatarMiddle string) *UserAccessTokenInfoBuilder {
 	builder.avatarMiddle = avatarMiddle
-	builder.avatarMiddleFlag = true
+	builder.avatarMiddleSet = true
 	return builder
 }
 
@@ -366,7 +370,7 @@ func (builder *UserAccessTokenInfoBuilder) AvatarMiddle(avatarMiddle string) *Us
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) AvatarBig(avatarBig string) *UserAccessTokenInfoBuilder {
 	builder.avatarBig = avatarBig
-	builder.avatarBigFlag = true
+	builder.avatarBigSet = true
 	return builder
 }
 
@@ -375,7 +379,7 @@ func (builder *UserAccessTokenInfoBuilder) AvatarBig(avatarBig string) *UserAcce
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) OpenId(openId string) *UserAccessTokenInfoBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
@@ -384,7 +388,7 @@ func (builder *UserAccessTokenInfoBuilder) OpenId(openId string) *UserAccessToke
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) UnionId(unionId string) *UserAccessTokenInfoBuilder {
 	builder.unionId = unionId
-	builder.unionIdFlag = true
+	builder.unionIdSet = true
 	return builder
 }
 
@@ -393,7 +397,7 @@ func (builder *UserAccessTokenInfoBuilder) UnionId(unionId string) *UserAccessTo
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) Email(email string) *UserAccessTokenInfoBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -402,7 +406,7 @@ func (builder *UserAccessTokenInfoBuilder) Email(email string) *UserAccessTokenI
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) EnterpriseEmail(enterpriseEmail string) *UserAccessTokenInfoBuilder {
 	builder.enterpriseEmail = enterpriseEmail
-	builder.enterpriseEmailFlag = true
+	builder.enterpriseEmailSet = true
 	return builder
 }
 
@@ -411,7 +415,7 @@ func (builder *UserAccessTokenInfoBuilder) EnterpriseEmail(enterpriseEmail strin
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) UserId(userId string) *UserAccessTokenInfoBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -420,7 +424,7 @@ func (builder *UserAccessTokenInfoBuilder) UserId(userId string) *UserAccessToke
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) Mobile(mobile string) *UserAccessTokenInfoBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -429,7 +433,7 @@ func (builder *UserAccessTokenInfoBuilder) Mobile(mobile string) *UserAccessToke
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) TenantKey(tenantKey string) *UserAccessTokenInfoBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
@@ -438,7 +442,7 @@ func (builder *UserAccessTokenInfoBuilder) TenantKey(tenantKey string) *UserAcce
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) RefreshExpiresIn(refreshExpiresIn int) *UserAccessTokenInfoBuilder {
 	builder.refreshExpiresIn = refreshExpiresIn
-	builder.refreshExpiresInFlag = true
+	builder.refreshExpiresInSet = true
 	return builder
 }
 
@@ -447,7 +451,7 @@ func (builder *UserAccessTokenInfoBuilder) RefreshExpiresIn(refreshExpiresIn int
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) RefreshToken(refreshToken string) *UserAccessTokenInfoBuilder {
 	builder.refreshToken = refreshToken
-	builder.refreshTokenFlag = true
+	builder.refreshTokenSet = true
 	return builder
 }
 
@@ -456,85 +460,85 @@ func (builder *UserAccessTokenInfoBuilder) RefreshToken(refreshToken string) *Us
 // 示例值：
 func (builder *UserAccessTokenInfoBuilder) Sid(sid string) *UserAccessTokenInfoBuilder {
 	builder.sid = sid
-	builder.sidFlag = true
+	builder.sidSet = true
 	return builder
 }
 
 func (builder *UserAccessTokenInfoBuilder) Build() *UserAccessTokenInfo {
 	req := &UserAccessTokenInfo{}
-	if builder.accessTokenFlag {
+	if builder.accessTokenSet {
 		req.AccessToken = &builder.accessToken
 
 	}
-	if builder.tokenTypeFlag {
+	if builder.tokenTypeSet {
 		req.TokenType = &builder.tokenType
 
 	}
-	if builder.expiresInFlag {
+	if builder.expiresInSet {
 		req.ExpiresIn = &builder.expiresIn
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.enNameFlag {
+	if builder.enNameSet {
 		req.EnName = &builder.enName
 
 	}
-	if builder.avatarUrlFlag {
+	if builder.avatarUrlSet {
 		req.AvatarUrl = &builder.avatarUrl
 
 	}
-	if builder.avatarThumbFlag {
+	if builder.avatarThumbSet {
 		req.AvatarThumb = &builder.avatarThumb
 
 	}
-	if builder.avatarMiddleFlag {
+	if builder.avatarMiddleSet {
 		req.AvatarMiddle = &builder.avatarMiddle
 
 	}
-	if builder.avatarBigFlag {
+	if builder.avatarBigSet {
 		req.AvatarBig = &builder.avatarBig
 
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.unionIdFlag {
+	if builder.unionIdSet {
 		req.UnionId = &builder.unionId
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.enterpriseEmailFlag {
+	if builder.enterpriseEmailSet {
 		req.EnterpriseEmail = &builder.enterpriseEmail
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
-	if builder.refreshExpiresInFlag {
+	if builder.refreshExpiresInSet {
 		req.RefreshExpiresIn = &builder.refreshExpiresIn
 
 	}
-	if builder.refreshTokenFlag {
+	if builder.refreshTokenSet {
 		req.RefreshToken = &builder.refreshToken
 
 	}
-	if builder.sidFlag {
+	if builder.sidSet {
 		req.Sid = &builder.sid
 
 	}
@@ -572,47 +576,47 @@ type UserInfo struct {
 }
 
 type UserInfoBuilder struct {
-	name     string // 用户姓名
-	nameFlag bool
+	name    string // 用户姓名
+	nameSet bool
 
-	enName     string // 用户英文名称
-	enNameFlag bool
+	enName    string // 用户英文名称
+	enNameSet bool
 
-	avatarUrl     string // 用户头像
-	avatarUrlFlag bool
+	avatarUrl    string // 用户头像
+	avatarUrlSet bool
 
-	avatarThumb     string // 用户头像 72x72
-	avatarThumbFlag bool
+	avatarThumb    string // 用户头像 72x72
+	avatarThumbSet bool
 
-	avatarMiddle     string // 用户头像 240x240
-	avatarMiddleFlag bool
+	avatarMiddle    string // 用户头像 240x240
+	avatarMiddleSet bool
 
-	avatarBig     string // 用户头像 640x640
-	avatarBigFlag bool
+	avatarBig    string // 用户头像 640x640
+	avatarBigSet bool
 
-	openId     string // 用户在应用内的唯一标识
-	openIdFlag bool
+	openId    string // 用户在应用内的唯一标识
+	openIdSet bool
 
-	unionId     string // 用户统一ID
-	unionIdFlag bool
+	unionId    string // 用户统一ID
+	unionIdSet bool
 
-	email     string // 用户邮箱
-	emailFlag bool
+	email    string // 用户邮箱
+	emailSet bool
 
-	enterpriseEmail     string // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
-	enterpriseEmailFlag bool
+	enterpriseEmail    string // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
+	enterpriseEmailSet bool
 
-	userId     string // 用户 user_id
-	userIdFlag bool
+	userId    string // 用户 user_id
+	userIdSet bool
 
-	mobile     string // 用户手机号
-	mobileFlag bool
+	mobile    string // 用户手机号
+	mobileSet bool
 
-	tenantKey     string // 当前企业标识
-	tenantKeyFlag bool
+	tenantKey    string // 当前企业标识
+	tenantKeySet bool
 
-	employeeNo     string // 用户工号
-	employeeNoFlag bool
+	employeeNo    string // 用户工号
+	employeeNoSet bool
 }
 
 func NewUserInfoBuilder() *UserInfoBuilder {
@@ -625,7 +629,7 @@ func NewUserInfoBuilder() *UserInfoBuilder {
 // 示例值：zhangsan
 func (builder *UserInfoBuilder) Name(name string) *UserInfoBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -634,7 +638,7 @@ func (builder *UserInfoBuilder) Name(name string) *UserInfoBuilder {
 // 示例值：zhangsan
 func (builder *UserInfoBuilder) EnName(enName string) *UserInfoBuilder {
 	builder.enName = enName
-	builder.enNameFlag = true
+	builder.enNameSet = true
 	return builder
 }
 
@@ -643,7 +647,7 @@ func (builder *UserInfoBuilder) EnName(enName string) *UserInfoBuilder {
 // 示例值：www.feishu.cn/avatar/icon
 func (builder *UserInfoBuilder) AvatarUrl(avatarUrl string) *UserInfoBuilder {
 	builder.avatarUrl = avatarUrl
-	builder.avatarUrlFlag = true
+	builder.avatarUrlSet = true
 	return builder
 }
 
@@ -652,7 +656,7 @@ func (builder *UserInfoBuilder) AvatarUrl(avatarUrl string) *UserInfoBuilder {
 // 示例值：www.feishu.cn/avatar/icon
 func (builder *UserInfoBuilder) AvatarThumb(avatarThumb string) *UserInfoBuilder {
 	builder.avatarThumb = avatarThumb
-	builder.avatarThumbFlag = true
+	builder.avatarThumbSet = true
 	return builder
 }
 
@@ -661,7 +665,7 @@ func (builder *UserInfoBuilder) AvatarThumb(avatarThumb string) *UserInfoBuilder
 // 示例值：www.feishu.cn/avatar/icon
 func (builder *UserInfoBuilder) AvatarMiddle(avatarMiddle string) *UserInfoBuilder {
 	builder.avatarMiddle = avatarMiddle
-	builder.avatarMiddleFlag = true
+	builder.avatarMiddleSet = true
 	return builder
 }
 
@@ -670,7 +674,7 @@ func (builder *UserInfoBuilder) AvatarMiddle(avatarMiddle string) *UserInfoBuild
 // 示例值：www.feishu.cn/avatar/icon
 func (builder *UserInfoBuilder) AvatarBig(avatarBig string) *UserInfoBuilder {
 	builder.avatarBig = avatarBig
-	builder.avatarBigFlag = true
+	builder.avatarBigSet = true
 	return builder
 }
 
@@ -679,7 +683,7 @@ func (builder *UserInfoBuilder) AvatarBig(avatarBig string) *UserInfoBuilder {
 // 示例值：ou-caecc734c2e3328a62489fe0648c4b98779515d3
 func (builder *UserInfoBuilder) OpenId(openId string) *UserInfoBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
@@ -688,7 +692,7 @@ func (builder *UserInfoBuilder) OpenId(openId string) *UserInfoBuilder {
 // 示例值：on-d89jhsdhjsajkda7828enjdj328ydhhw3u43yjhdj
 func (builder *UserInfoBuilder) UnionId(unionId string) *UserInfoBuilder {
 	builder.unionId = unionId
-	builder.unionIdFlag = true
+	builder.unionIdSet = true
 	return builder
 }
 
@@ -697,7 +701,7 @@ func (builder *UserInfoBuilder) UnionId(unionId string) *UserInfoBuilder {
 // 示例值：zhangsan@feishu.cn
 func (builder *UserInfoBuilder) Email(email string) *UserInfoBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -706,7 +710,7 @@ func (builder *UserInfoBuilder) Email(email string) *UserInfoBuilder {
 // 示例值：zhangsan@feishu.cn
 func (builder *UserInfoBuilder) EnterpriseEmail(enterpriseEmail string) *UserInfoBuilder {
 	builder.enterpriseEmail = enterpriseEmail
-	builder.enterpriseEmailFlag = true
+	builder.enterpriseEmailSet = true
 	return builder
 }
 
@@ -715,7 +719,7 @@ func (builder *UserInfoBuilder) EnterpriseEmail(enterpriseEmail string) *UserInf
 // 示例值：5d9bdxxx
 func (builder *UserInfoBuilder) UserId(userId string) *UserInfoBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -724,7 +728,7 @@ func (builder *UserInfoBuilder) UserId(userId string) *UserInfoBuilder {
 // 示例值：+86130002883xx
 func (builder *UserInfoBuilder) Mobile(mobile string) *UserInfoBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -733,7 +737,7 @@ func (builder *UserInfoBuilder) Mobile(mobile string) *UserInfoBuilder {
 // 示例值：736588c92lxf175d
 func (builder *UserInfoBuilder) TenantKey(tenantKey string) *UserInfoBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
@@ -742,65 +746,65 @@ func (builder *UserInfoBuilder) TenantKey(tenantKey string) *UserInfoBuilder {
 // 示例值：111222333
 func (builder *UserInfoBuilder) EmployeeNo(employeeNo string) *UserInfoBuilder {
 	builder.employeeNo = employeeNo
-	builder.employeeNoFlag = true
+	builder.employeeNoSet = true
 	return builder
 }
 
 func (builder *UserInfoBuilder) Build() *UserInfo {
 	req := &UserInfo{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.enNameFlag {
+	if builder.enNameSet {
 		req.EnName = &builder.enName
 
 	}
-	if builder.avatarUrlFlag {
+	if builder.avatarUrlSet {
 		req.AvatarUrl = &builder.avatarUrl
 
 	}
-	if builder.avatarThumbFlag {
+	if builder.avatarThumbSet {
 		req.AvatarThumb = &builder.avatarThumb
 
 	}
-	if builder.avatarMiddleFlag {
+	if builder.avatarMiddleSet {
 		req.AvatarMiddle = &builder.avatarMiddle
 
 	}
-	if builder.avatarBigFlag {
+	if builder.avatarBigSet {
 		req.AvatarBig = &builder.avatarBig
 
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.unionIdFlag {
+	if builder.unionIdSet {
 		req.UnionId = &builder.unionId
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.enterpriseEmailFlag {
+	if builder.enterpriseEmailSet {
 		req.EnterpriseEmail = &builder.enterpriseEmail
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
-	if builder.employeeNoFlag {
+	if builder.employeeNoSet {
 		req.EmployeeNo = &builder.employeeNo
 
 	}
@@ -808,11 +812,11 @@ func (builder *UserInfoBuilder) Build() *UserInfo {
 }
 
 type CreateAccessTokenReqBodyBuilder struct {
-	grantType     string // 授权类型，**固定值**
-	grantTypeFlag bool
+	grantType    string // 授权类型，**固定值**
+	grantTypeSet bool
 
-	code     string // 登录预授权码，调用[获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)接口获取
-	codeFlag bool
+	code    string // 登录预授权码，调用[获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)接口获取
+	codeSet bool
 }
 
 func NewCreateAccessTokenReqBodyBuilder() *CreateAccessTokenReqBodyBuilder {
@@ -822,38 +826,38 @@ func NewCreateAccessTokenReqBodyBuilder() *CreateAccessTokenReqBodyBuilder {
 
 // 授权类型，**固定值**
 //
-// 示例值：authorization_code
+//示例值：authorization_code
 func (builder *CreateAccessTokenReqBodyBuilder) GrantType(grantType string) *CreateAccessTokenReqBodyBuilder {
 	builder.grantType = grantType
-	builder.grantTypeFlag = true
+	builder.grantTypeSet = true
 	return builder
 }
 
 // 登录预授权码，调用[获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)接口获取
 //
-// 示例值：xMSldislSkdK
+//示例值：xMSldislSkdK
 func (builder *CreateAccessTokenReqBodyBuilder) Code(code string) *CreateAccessTokenReqBodyBuilder {
 	builder.code = code
-	builder.codeFlag = true
+	builder.codeSet = true
 	return builder
 }
 
 func (builder *CreateAccessTokenReqBodyBuilder) Build() *CreateAccessTokenReqBody {
 	req := &CreateAccessTokenReqBody{}
-	if builder.grantTypeFlag {
+	if builder.grantTypeSet {
 		req.GrantType = &builder.grantType
 	}
-	if builder.codeFlag {
+	if builder.codeSet {
 		req.Code = &builder.code
 	}
 	return req
 }
 
 type CreateAccessTokenPathReqBodyBuilder struct {
-	grantType     string
-	grantTypeFlag bool
-	code          string
-	codeFlag      bool
+	grantType    string
+	grantTypeSet bool
+	code         string
+	codeSet      bool
 }
 
 func NewCreateAccessTokenPathReqBodyBuilder() *CreateAccessTokenPathReqBodyBuilder {
@@ -866,7 +870,7 @@ func NewCreateAccessTokenPathReqBodyBuilder() *CreateAccessTokenPathReqBodyBuild
 // 示例值：authorization_code
 func (builder *CreateAccessTokenPathReqBodyBuilder) GrantType(grantType string) *CreateAccessTokenPathReqBodyBuilder {
 	builder.grantType = grantType
-	builder.grantTypeFlag = true
+	builder.grantTypeSet = true
 	return builder
 }
 
@@ -875,16 +879,16 @@ func (builder *CreateAccessTokenPathReqBodyBuilder) GrantType(grantType string) 
 // 示例值：xMSldislSkdK
 func (builder *CreateAccessTokenPathReqBodyBuilder) Code(code string) *CreateAccessTokenPathReqBodyBuilder {
 	builder.code = code
-	builder.codeFlag = true
+	builder.codeSet = true
 	return builder
 }
 
 func (builder *CreateAccessTokenPathReqBodyBuilder) Build() (*CreateAccessTokenReqBody, error) {
 	req := &CreateAccessTokenReqBody{}
-	if builder.grantTypeFlag {
+	if builder.grantTypeSet {
 		req.GrantType = &builder.grantType
 	}
-	if builder.codeFlag {
+	if builder.codeSet {
 		req.Code = &builder.code
 	}
 	return req, nil
@@ -904,6 +908,7 @@ func NewCreateAccessTokenReqBuilder() *CreateAccessTokenReqBuilder {
 	return builder
 }
 
+//
 func (builder *CreateAccessTokenReqBuilder) Body(body *CreateAccessTokenReqBody) *CreateAccessTokenReqBuilder {
 	builder.body = body
 	return builder
@@ -978,11 +983,11 @@ func (resp *CreateAccessTokenResp) Success() bool {
 }
 
 type CreateOidcAccessTokenReqBodyBuilder struct {
-	grantType     string // 授权类型，**固定值**
-	grantTypeFlag bool
+	grantType    string // 授权类型，**固定值**
+	grantTypeSet bool
 
-	code     string // 登录预授权码
-	codeFlag bool
+	code    string // 登录预授权码
+	codeSet bool
 }
 
 func NewCreateOidcAccessTokenReqBodyBuilder() *CreateOidcAccessTokenReqBodyBuilder {
@@ -992,38 +997,38 @@ func NewCreateOidcAccessTokenReqBodyBuilder() *CreateOidcAccessTokenReqBodyBuild
 
 // 授权类型，**固定值**
 //
-// 示例值：authorization_code
+//示例值：authorization_code
 func (builder *CreateOidcAccessTokenReqBodyBuilder) GrantType(grantType string) *CreateOidcAccessTokenReqBodyBuilder {
 	builder.grantType = grantType
-	builder.grantTypeFlag = true
+	builder.grantTypeSet = true
 	return builder
 }
 
 // 登录预授权码
 //
-// 示例值：xMSldislSkdK
+//示例值：xMSldislSkdK
 func (builder *CreateOidcAccessTokenReqBodyBuilder) Code(code string) *CreateOidcAccessTokenReqBodyBuilder {
 	builder.code = code
-	builder.codeFlag = true
+	builder.codeSet = true
 	return builder
 }
 
 func (builder *CreateOidcAccessTokenReqBodyBuilder) Build() *CreateOidcAccessTokenReqBody {
 	req := &CreateOidcAccessTokenReqBody{}
-	if builder.grantTypeFlag {
+	if builder.grantTypeSet {
 		req.GrantType = &builder.grantType
 	}
-	if builder.codeFlag {
+	if builder.codeSet {
 		req.Code = &builder.code
 	}
 	return req
 }
 
 type CreateOidcAccessTokenPathReqBodyBuilder struct {
-	grantType     string
-	grantTypeFlag bool
-	code          string
-	codeFlag      bool
+	grantType    string
+	grantTypeSet bool
+	code         string
+	codeSet      bool
 }
 
 func NewCreateOidcAccessTokenPathReqBodyBuilder() *CreateOidcAccessTokenPathReqBodyBuilder {
@@ -1036,7 +1041,7 @@ func NewCreateOidcAccessTokenPathReqBodyBuilder() *CreateOidcAccessTokenPathReqB
 // 示例值：authorization_code
 func (builder *CreateOidcAccessTokenPathReqBodyBuilder) GrantType(grantType string) *CreateOidcAccessTokenPathReqBodyBuilder {
 	builder.grantType = grantType
-	builder.grantTypeFlag = true
+	builder.grantTypeSet = true
 	return builder
 }
 
@@ -1045,16 +1050,16 @@ func (builder *CreateOidcAccessTokenPathReqBodyBuilder) GrantType(grantType stri
 // 示例值：xMSldislSkdK
 func (builder *CreateOidcAccessTokenPathReqBodyBuilder) Code(code string) *CreateOidcAccessTokenPathReqBodyBuilder {
 	builder.code = code
-	builder.codeFlag = true
+	builder.codeSet = true
 	return builder
 }
 
 func (builder *CreateOidcAccessTokenPathReqBodyBuilder) Build() (*CreateOidcAccessTokenReqBody, error) {
 	req := &CreateOidcAccessTokenReqBody{}
-	if builder.grantTypeFlag {
+	if builder.grantTypeSet {
 		req.GrantType = &builder.grantType
 	}
-	if builder.codeFlag {
+	if builder.codeSet {
 		req.Code = &builder.code
 	}
 	return req, nil
@@ -1074,6 +1079,7 @@ func NewCreateOidcAccessTokenReqBuilder() *CreateOidcAccessTokenReqBuilder {
 	return builder
 }
 
+//
 func (builder *CreateOidcAccessTokenReqBuilder) Body(body *CreateOidcAccessTokenReqBody) *CreateOidcAccessTokenReqBuilder {
 	builder.body = body
 	return builder
@@ -1122,11 +1128,11 @@ func (resp *CreateOidcAccessTokenResp) Success() bool {
 }
 
 type CreateOidcRefreshAccessTokenReqBodyBuilder struct {
-	grantType     string // 授权类型，**固定值**：
-	grantTypeFlag bool
+	grantType    string // 授权类型，**固定值**：
+	grantTypeSet bool
 
-	refreshToken     string // 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
-	refreshTokenFlag bool
+	refreshToken    string // 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
+	refreshTokenSet bool
 }
 
 func NewCreateOidcRefreshAccessTokenReqBodyBuilder() *CreateOidcRefreshAccessTokenReqBodyBuilder {
@@ -1136,38 +1142,38 @@ func NewCreateOidcRefreshAccessTokenReqBodyBuilder() *CreateOidcRefreshAccessTok
 
 // 授权类型，**固定值**：
 //
-// 示例值：refresh_token
+//示例值：refresh_token
 func (builder *CreateOidcRefreshAccessTokenReqBodyBuilder) GrantType(grantType string) *CreateOidcRefreshAccessTokenReqBodyBuilder {
 	builder.grantType = grantType
-	builder.grantTypeFlag = true
+	builder.grantTypeSet = true
 	return builder
 }
 
 // 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
 //
-// 示例值：ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL
+//示例值：ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL
 func (builder *CreateOidcRefreshAccessTokenReqBodyBuilder) RefreshToken(refreshToken string) *CreateOidcRefreshAccessTokenReqBodyBuilder {
 	builder.refreshToken = refreshToken
-	builder.refreshTokenFlag = true
+	builder.refreshTokenSet = true
 	return builder
 }
 
 func (builder *CreateOidcRefreshAccessTokenReqBodyBuilder) Build() *CreateOidcRefreshAccessTokenReqBody {
 	req := &CreateOidcRefreshAccessTokenReqBody{}
-	if builder.grantTypeFlag {
+	if builder.grantTypeSet {
 		req.GrantType = &builder.grantType
 	}
-	if builder.refreshTokenFlag {
+	if builder.refreshTokenSet {
 		req.RefreshToken = &builder.refreshToken
 	}
 	return req
 }
 
 type CreateOidcRefreshAccessTokenPathReqBodyBuilder struct {
-	grantType        string
-	grantTypeFlag    bool
-	refreshToken     string
-	refreshTokenFlag bool
+	grantType       string
+	grantTypeSet    bool
+	refreshToken    string
+	refreshTokenSet bool
 }
 
 func NewCreateOidcRefreshAccessTokenPathReqBodyBuilder() *CreateOidcRefreshAccessTokenPathReqBodyBuilder {
@@ -1180,7 +1186,7 @@ func NewCreateOidcRefreshAccessTokenPathReqBodyBuilder() *CreateOidcRefreshAcces
 // 示例值：refresh_token
 func (builder *CreateOidcRefreshAccessTokenPathReqBodyBuilder) GrantType(grantType string) *CreateOidcRefreshAccessTokenPathReqBodyBuilder {
 	builder.grantType = grantType
-	builder.grantTypeFlag = true
+	builder.grantTypeSet = true
 	return builder
 }
 
@@ -1189,16 +1195,16 @@ func (builder *CreateOidcRefreshAccessTokenPathReqBodyBuilder) GrantType(grantTy
 // 示例值：ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL
 func (builder *CreateOidcRefreshAccessTokenPathReqBodyBuilder) RefreshToken(refreshToken string) *CreateOidcRefreshAccessTokenPathReqBodyBuilder {
 	builder.refreshToken = refreshToken
-	builder.refreshTokenFlag = true
+	builder.refreshTokenSet = true
 	return builder
 }
 
 func (builder *CreateOidcRefreshAccessTokenPathReqBodyBuilder) Build() (*CreateOidcRefreshAccessTokenReqBody, error) {
 	req := &CreateOidcRefreshAccessTokenReqBody{}
-	if builder.grantTypeFlag {
+	if builder.grantTypeSet {
 		req.GrantType = &builder.grantType
 	}
-	if builder.refreshTokenFlag {
+	if builder.refreshTokenSet {
 		req.RefreshToken = &builder.refreshToken
 	}
 	return req, nil
@@ -1218,6 +1224,7 @@ func NewCreateOidcRefreshAccessTokenReqBuilder() *CreateOidcRefreshAccessTokenRe
 	return builder
 }
 
+//
 func (builder *CreateOidcRefreshAccessTokenReqBuilder) Body(body *CreateOidcRefreshAccessTokenReqBody) *CreateOidcRefreshAccessTokenReqBuilder {
 	builder.body = body
 	return builder
@@ -1266,11 +1273,11 @@ func (resp *CreateOidcRefreshAccessTokenResp) Success() bool {
 }
 
 type CreateRefreshAccessTokenReqBodyBuilder struct {
-	grantType     string // 授权类型，**固定值**：
-	grantTypeFlag bool
+	grantType    string // 授权类型，**固定值**：
+	grantTypeSet bool
 
-	refreshToken     string // 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
-	refreshTokenFlag bool
+	refreshToken    string // 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
+	refreshTokenSet bool
 }
 
 func NewCreateRefreshAccessTokenReqBodyBuilder() *CreateRefreshAccessTokenReqBodyBuilder {
@@ -1280,38 +1287,38 @@ func NewCreateRefreshAccessTokenReqBodyBuilder() *CreateRefreshAccessTokenReqBod
 
 // 授权类型，**固定值**：
 //
-// 示例值：refresh_token
+//示例值：refresh_token
 func (builder *CreateRefreshAccessTokenReqBodyBuilder) GrantType(grantType string) *CreateRefreshAccessTokenReqBodyBuilder {
 	builder.grantType = grantType
-	builder.grantTypeFlag = true
+	builder.grantTypeSet = true
 	return builder
 }
 
 // 刷新 `user_access_token` 需要的凭证<br>获取user_access_token`接口和本接口均返回 `refresh_token`，**每次请求，请注意使用最新获取到的`refresh_token`**
 //
-// 示例值：ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL
+//示例值：ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL
 func (builder *CreateRefreshAccessTokenReqBodyBuilder) RefreshToken(refreshToken string) *CreateRefreshAccessTokenReqBodyBuilder {
 	builder.refreshToken = refreshToken
-	builder.refreshTokenFlag = true
+	builder.refreshTokenSet = true
 	return builder
 }
 
 func (builder *CreateRefreshAccessTokenReqBodyBuilder) Build() *CreateRefreshAccessTokenReqBody {
 	req := &CreateRefreshAccessTokenReqBody{}
-	if builder.grantTypeFlag {
+	if builder.grantTypeSet {
 		req.GrantType = &builder.grantType
 	}
-	if builder.refreshTokenFlag {
+	if builder.refreshTokenSet {
 		req.RefreshToken = &builder.refreshToken
 	}
 	return req
 }
 
 type CreateRefreshAccessTokenPathReqBodyBuilder struct {
-	grantType        string
-	grantTypeFlag    bool
-	refreshToken     string
-	refreshTokenFlag bool
+	grantType       string
+	grantTypeSet    bool
+	refreshToken    string
+	refreshTokenSet bool
 }
 
 func NewCreateRefreshAccessTokenPathReqBodyBuilder() *CreateRefreshAccessTokenPathReqBodyBuilder {
@@ -1324,7 +1331,7 @@ func NewCreateRefreshAccessTokenPathReqBodyBuilder() *CreateRefreshAccessTokenPa
 // 示例值：refresh_token
 func (builder *CreateRefreshAccessTokenPathReqBodyBuilder) GrantType(grantType string) *CreateRefreshAccessTokenPathReqBodyBuilder {
 	builder.grantType = grantType
-	builder.grantTypeFlag = true
+	builder.grantTypeSet = true
 	return builder
 }
 
@@ -1333,16 +1340,16 @@ func (builder *CreateRefreshAccessTokenPathReqBodyBuilder) GrantType(grantType s
 // 示例值：ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL
 func (builder *CreateRefreshAccessTokenPathReqBodyBuilder) RefreshToken(refreshToken string) *CreateRefreshAccessTokenPathReqBodyBuilder {
 	builder.refreshToken = refreshToken
-	builder.refreshTokenFlag = true
+	builder.refreshTokenSet = true
 	return builder
 }
 
 func (builder *CreateRefreshAccessTokenPathReqBodyBuilder) Build() (*CreateRefreshAccessTokenReqBody, error) {
 	req := &CreateRefreshAccessTokenReqBody{}
-	if builder.grantTypeFlag {
+	if builder.grantTypeSet {
 		req.GrantType = &builder.grantType
 	}
-	if builder.refreshTokenFlag {
+	if builder.refreshTokenSet {
 		req.RefreshToken = &builder.refreshToken
 	}
 	return req, nil
@@ -1362,6 +1369,7 @@ func NewCreateRefreshAccessTokenReqBuilder() *CreateRefreshAccessTokenReqBuilder
 	return builder
 }
 
+//
 func (builder *CreateRefreshAccessTokenReqBuilder) Body(body *CreateRefreshAccessTokenReqBody) *CreateRefreshAccessTokenReqBuilder {
 	builder.body = body
 	return builder

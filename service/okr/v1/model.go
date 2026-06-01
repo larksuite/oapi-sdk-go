@@ -90,14 +90,14 @@ type AlignObjective struct {
 }
 
 type AlignObjectiveBuilder struct {
-	id     string // Objective ID
-	idFlag bool
+	id    string // Objective ID
+	idSet bool
 
-	okrId     string // OKR ID
-	okrIdFlag bool
+	okrId    string // OKR ID
+	okrIdSet bool
 
-	userId     string // 用户 UUID
-	userIdFlag bool
+	userId    string // 用户 UUID
+	userIdSet bool
 }
 
 func NewAlignObjectiveBuilder() *AlignObjectiveBuilder {
@@ -110,7 +110,7 @@ func NewAlignObjectiveBuilder() *AlignObjectiveBuilder {
 // 示例值：
 func (builder *AlignObjectiveBuilder) Id(id string) *AlignObjectiveBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -119,7 +119,7 @@ func (builder *AlignObjectiveBuilder) Id(id string) *AlignObjectiveBuilder {
 // 示例值：
 func (builder *AlignObjectiveBuilder) OkrId(okrId string) *AlignObjectiveBuilder {
 	builder.okrId = okrId
-	builder.okrIdFlag = true
+	builder.okrIdSet = true
 	return builder
 }
 
@@ -128,21 +128,21 @@ func (builder *AlignObjectiveBuilder) OkrId(okrId string) *AlignObjectiveBuilder
 // 示例值：
 func (builder *AlignObjectiveBuilder) UserId(userId string) *AlignObjectiveBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *AlignObjectiveBuilder) Build() *AlignObjective {
 	req := &AlignObjective{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.okrIdFlag {
+	if builder.okrIdSet {
 		req.OkrId = &builder.okrId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -154,8 +154,8 @@ type ContentBlock struct {
 }
 
 type ContentBlockBuilder struct {
-	blocks     []*ContentBlockElement // 文档结构是按行排列的，每行内容是一个 Block
-	blocksFlag bool
+	blocks    []*ContentBlockElement // 文档结构是按行排列的，每行内容是一个 Block
+	blocksSet bool
 }
 
 func NewContentBlockBuilder() *ContentBlockBuilder {
@@ -168,13 +168,13 @@ func NewContentBlockBuilder() *ContentBlockBuilder {
 // 示例值：
 func (builder *ContentBlockBuilder) Blocks(blocks []*ContentBlockElement) *ContentBlockBuilder {
 	builder.blocks = blocks
-	builder.blocksFlag = true
+	builder.blocksSet = true
 	return builder
 }
 
 func (builder *ContentBlockBuilder) Build() *ContentBlock {
 	req := &ContentBlock{}
-	if builder.blocksFlag {
+	if builder.blocksSet {
 		req.Blocks = builder.blocks
 	}
 	return req
@@ -190,13 +190,13 @@ type ContentBlockElement struct {
 
 type ContentBlockElementBuilder struct {
 	type_    string // 文档元素类型
-	typeFlag bool
+	type_Set bool
 
-	paragraph     *ContentParagraph // 文本段落
-	paragraphFlag bool
+	paragraph    *ContentParagraph // 文本段落
+	paragraphSet bool
 
-	gallery     *ContentGallery // 图片
-	galleryFlag bool
+	gallery    *ContentGallery // 图片
+	gallerySet bool
 }
 
 func NewContentBlockElementBuilder() *ContentBlockElementBuilder {
@@ -209,7 +209,7 @@ func NewContentBlockElementBuilder() *ContentBlockElementBuilder {
 // 示例值：paragraph
 func (builder *ContentBlockElementBuilder) Type(type_ string) *ContentBlockElementBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -218,7 +218,7 @@ func (builder *ContentBlockElementBuilder) Type(type_ string) *ContentBlockEleme
 // 示例值：
 func (builder *ContentBlockElementBuilder) Paragraph(paragraph *ContentParagraph) *ContentBlockElementBuilder {
 	builder.paragraph = paragraph
-	builder.paragraphFlag = true
+	builder.paragraphSet = true
 	return builder
 }
 
@@ -227,20 +227,20 @@ func (builder *ContentBlockElementBuilder) Paragraph(paragraph *ContentParagraph
 // 示例值：
 func (builder *ContentBlockElementBuilder) Gallery(gallery *ContentGallery) *ContentBlockElementBuilder {
 	builder.gallery = gallery
-	builder.galleryFlag = true
+	builder.gallerySet = true
 	return builder
 }
 
 func (builder *ContentBlockElementBuilder) Build() *ContentBlockElement {
 	req := &ContentBlockElement{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.paragraphFlag {
+	if builder.paragraphSet {
 		req.Paragraph = builder.paragraph
 	}
-	if builder.galleryFlag {
+	if builder.gallerySet {
 		req.Gallery = builder.gallery
 	}
 	return req
@@ -257,17 +257,17 @@ type ContentColor struct {
 }
 
 type ContentColorBuilder struct {
-	red     int // 红 取值范围[0,255]
-	redFlag bool
+	red    int // 红 取值范围[0,255]
+	redSet bool
 
-	green     int // 绿 取值范围[0,255]
-	greenFlag bool
+	green    int // 绿 取值范围[0,255]
+	greenSet bool
 
-	blue     int // 蓝 取值范围[0,255]
-	blueFlag bool
+	blue    int // 蓝 取值范围[0,255]
+	blueSet bool
 
-	alpha     float64 // 透明度 取值范围[0,1]
-	alphaFlag bool
+	alpha    float64 // 透明度 取值范围[0,1]
+	alphaSet bool
 }
 
 func NewContentColorBuilder() *ContentColorBuilder {
@@ -280,7 +280,7 @@ func NewContentColorBuilder() *ContentColorBuilder {
 // 示例值：216
 func (builder *ContentColorBuilder) Red(red int) *ContentColorBuilder {
 	builder.red = red
-	builder.redFlag = true
+	builder.redSet = true
 	return builder
 }
 
@@ -289,7 +289,7 @@ func (builder *ContentColorBuilder) Red(red int) *ContentColorBuilder {
 // 示例值：191
 func (builder *ContentColorBuilder) Green(green int) *ContentColorBuilder {
 	builder.green = green
-	builder.greenFlag = true
+	builder.greenSet = true
 	return builder
 }
 
@@ -298,7 +298,7 @@ func (builder *ContentColorBuilder) Green(green int) *ContentColorBuilder {
 // 示例值：188
 func (builder *ContentColorBuilder) Blue(blue int) *ContentColorBuilder {
 	builder.blue = blue
-	builder.blueFlag = true
+	builder.blueSet = true
 	return builder
 }
 
@@ -307,25 +307,25 @@ func (builder *ContentColorBuilder) Blue(blue int) *ContentColorBuilder {
 // 示例值：0.1
 func (builder *ContentColorBuilder) Alpha(alpha float64) *ContentColorBuilder {
 	builder.alpha = alpha
-	builder.alphaFlag = true
+	builder.alphaSet = true
 	return builder
 }
 
 func (builder *ContentColorBuilder) Build() *ContentColor {
 	req := &ContentColor{}
-	if builder.redFlag {
+	if builder.redSet {
 		req.Red = &builder.red
 
 	}
-	if builder.greenFlag {
+	if builder.greenSet {
 		req.Green = &builder.green
 
 	}
-	if builder.blueFlag {
+	if builder.blueSet {
 		req.Blue = &builder.blue
 
 	}
-	if builder.alphaFlag {
+	if builder.alphaSet {
 		req.Alpha = &builder.alpha
 
 	}
@@ -339,11 +339,11 @@ type ContentDocsLink struct {
 }
 
 type ContentDocsLinkBuilder struct {
-	url     string // 飞书云文档链接地址
-	urlFlag bool
+	url    string // 飞书云文档链接地址
+	urlSet bool
 
-	title     string // 飞书云文档标题
-	titleFlag bool
+	title    string // 飞书云文档标题
+	titleSet bool
 }
 
 func NewContentDocsLinkBuilder() *ContentDocsLinkBuilder {
@@ -356,7 +356,7 @@ func NewContentDocsLinkBuilder() *ContentDocsLinkBuilder {
 // 示例值：https://xxx.feishu.cn/docx/xxxxxxxx
 func (builder *ContentDocsLinkBuilder) Url(url string) *ContentDocsLinkBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -365,17 +365,17 @@ func (builder *ContentDocsLinkBuilder) Url(url string) *ContentDocsLinkBuilder {
 // 示例值：项目说明文档
 func (builder *ContentDocsLinkBuilder) Title(title string) *ContentDocsLinkBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
 func (builder *ContentDocsLinkBuilder) Build() *ContentDocsLink {
 	req := &ContentDocsLink{}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
@@ -387,8 +387,8 @@ type ContentGallery struct {
 }
 
 type ContentGalleryBuilder struct {
-	imageList     []*ContentImageItem // 图片元素
-	imageListFlag bool
+	imageList    []*ContentImageItem // 图片元素
+	imageListSet bool
 }
 
 func NewContentGalleryBuilder() *ContentGalleryBuilder {
@@ -401,13 +401,13 @@ func NewContentGalleryBuilder() *ContentGalleryBuilder {
 // 示例值：
 func (builder *ContentGalleryBuilder) ImageList(imageList []*ContentImageItem) *ContentGalleryBuilder {
 	builder.imageList = imageList
-	builder.imageListFlag = true
+	builder.imageListSet = true
 	return builder
 }
 
 func (builder *ContentGalleryBuilder) Build() *ContentGallery {
 	req := &ContentGallery{}
-	if builder.imageListFlag {
+	if builder.imageListSet {
 		req.ImageList = builder.imageList
 	}
 	return req
@@ -424,17 +424,17 @@ type ContentImageItem struct {
 }
 
 type ContentImageItemBuilder struct {
-	fileToken     string // 图片 token，通过上传图片接口获取
-	fileTokenFlag bool
+	fileToken    string // 图片 token，通过上传图片接口获取
+	fileTokenSet bool
 
-	src     string // 图片链接
-	srcFlag bool
+	src    string // 图片链接
+	srcSet bool
 
-	width     float64 // 图片宽，单位px
-	widthFlag bool
+	width    float64 // 图片宽，单位px
+	widthSet bool
 
-	height     float64 // 图片高，单位px
-	heightFlag bool
+	height    float64 // 图片高，单位px
+	heightSet bool
 }
 
 func NewContentImageItemBuilder() *ContentImageItemBuilder {
@@ -447,7 +447,7 @@ func NewContentImageItemBuilder() *ContentImageItemBuilder {
 // 示例值：boxcnOj88GDkmWGm2zsTyCBqoLb
 func (builder *ContentImageItemBuilder) FileToken(fileToken string) *ContentImageItemBuilder {
 	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
+	builder.fileTokenSet = true
 	return builder
 }
 
@@ -456,7 +456,7 @@ func (builder *ContentImageItemBuilder) FileToken(fileToken string) *ContentImag
 // 示例值：https://bytedance.feishu.cn/drive/home/
 func (builder *ContentImageItemBuilder) Src(src string) *ContentImageItemBuilder {
 	builder.src = src
-	builder.srcFlag = true
+	builder.srcSet = true
 	return builder
 }
 
@@ -465,7 +465,7 @@ func (builder *ContentImageItemBuilder) Src(src string) *ContentImageItemBuilder
 // 示例值：458
 func (builder *ContentImageItemBuilder) Width(width float64) *ContentImageItemBuilder {
 	builder.width = width
-	builder.widthFlag = true
+	builder.widthSet = true
 	return builder
 }
 
@@ -474,25 +474,25 @@ func (builder *ContentImageItemBuilder) Width(width float64) *ContentImageItemBu
 // 示例值：372
 func (builder *ContentImageItemBuilder) Height(height float64) *ContentImageItemBuilder {
 	builder.height = height
-	builder.heightFlag = true
+	builder.heightSet = true
 	return builder
 }
 
 func (builder *ContentImageItemBuilder) Build() *ContentImageItem {
 	req := &ContentImageItem{}
-	if builder.fileTokenFlag {
+	if builder.fileTokenSet {
 		req.FileToken = &builder.fileToken
 
 	}
-	if builder.srcFlag {
+	if builder.srcSet {
 		req.Src = &builder.src
 
 	}
-	if builder.widthFlag {
+	if builder.widthSet {
 		req.Width = &builder.width
 
 	}
-	if builder.heightFlag {
+	if builder.heightSet {
 		req.Height = &builder.height
 
 	}
@@ -504,8 +504,8 @@ type ContentLink struct {
 }
 
 type ContentLinkBuilder struct {
-	url     string // 链接地址
-	urlFlag bool
+	url    string // 链接地址
+	urlSet bool
 }
 
 func NewContentLinkBuilder() *ContentLinkBuilder {
@@ -518,13 +518,13 @@ func NewContentLinkBuilder() *ContentLinkBuilder {
 // 示例值：https://www.xxxxx.com/
 func (builder *ContentLinkBuilder) Url(url string) *ContentLinkBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
 func (builder *ContentLinkBuilder) Build() *ContentLink {
 	req := &ContentLink{}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
@@ -541,13 +541,13 @@ type ContentList struct {
 
 type ContentListBuilder struct {
 	type_    string // 列表类型
-	typeFlag bool
+	type_Set bool
 
-	indentLevel     int // 列表的缩进级别，支持指定一行的缩进 除代码块以外的列表都支持设置缩进，支持 1-16 级缩进，取值范围：[1,16]
-	indentLevelFlag bool
+	indentLevel    int // 列表的缩进级别，支持指定一行的缩进 除代码块以外的列表都支持设置缩进，支持 1-16 级缩进，取值范围：[1,16]
+	indentLevelSet bool
 
-	number     int // 用于指定列表的行号，仅对有序列表和代码块生效 如果为有序列表设置了缩进，行号可能会显示为字母或者罗马数字
-	numberFlag bool
+	number    int // 用于指定列表的行号，仅对有序列表和代码块生效 如果为有序列表设置了缩进，行号可能会显示为字母或者罗马数字
+	numberSet bool
 }
 
 func NewContentListBuilder() *ContentListBuilder {
@@ -560,7 +560,7 @@ func NewContentListBuilder() *ContentListBuilder {
 // 示例值：number
 func (builder *ContentListBuilder) Type(type_ string) *ContentListBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -569,7 +569,7 @@ func (builder *ContentListBuilder) Type(type_ string) *ContentListBuilder {
 // 示例值：1
 func (builder *ContentListBuilder) IndentLevel(indentLevel int) *ContentListBuilder {
 	builder.indentLevel = indentLevel
-	builder.indentLevelFlag = true
+	builder.indentLevelSet = true
 	return builder
 }
 
@@ -578,21 +578,21 @@ func (builder *ContentListBuilder) IndentLevel(indentLevel int) *ContentListBuil
 // 示例值：1
 func (builder *ContentListBuilder) Number(number int) *ContentListBuilder {
 	builder.number = number
-	builder.numberFlag = true
+	builder.numberSet = true
 	return builder
 }
 
 func (builder *ContentListBuilder) Build() *ContentList {
 	req := &ContentList{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.indentLevelFlag {
+	if builder.indentLevelSet {
 		req.IndentLevel = &builder.indentLevel
 
 	}
-	if builder.numberFlag {
+	if builder.numberSet {
 		req.Number = &builder.number
 
 	}
@@ -606,11 +606,11 @@ type ContentParagraph struct {
 }
 
 type ContentParagraphBuilder struct {
-	style     *ContentParagraphStyle // 段落样式
-	styleFlag bool
+	style    *ContentParagraphStyle // 段落样式
+	styleSet bool
 
-	elements     []*ContentParagraphElement // 段落元素组成一个段落
-	elementsFlag bool
+	elements    []*ContentParagraphElement // 段落元素组成一个段落
+	elementsSet bool
 }
 
 func NewContentParagraphBuilder() *ContentParagraphBuilder {
@@ -623,7 +623,7 @@ func NewContentParagraphBuilder() *ContentParagraphBuilder {
 // 示例值：
 func (builder *ContentParagraphBuilder) Style(style *ContentParagraphStyle) *ContentParagraphBuilder {
 	builder.style = style
-	builder.styleFlag = true
+	builder.styleSet = true
 	return builder
 }
 
@@ -632,16 +632,16 @@ func (builder *ContentParagraphBuilder) Style(style *ContentParagraphStyle) *Con
 // 示例值：
 func (builder *ContentParagraphBuilder) Elements(elements []*ContentParagraphElement) *ContentParagraphBuilder {
 	builder.elements = elements
-	builder.elementsFlag = true
+	builder.elementsSet = true
 	return builder
 }
 
 func (builder *ContentParagraphBuilder) Build() *ContentParagraph {
 	req := &ContentParagraph{}
-	if builder.styleFlag {
+	if builder.styleSet {
 		req.Style = builder.style
 	}
-	if builder.elementsFlag {
+	if builder.elementsSet {
 		req.Elements = builder.elements
 	}
 	return req
@@ -659,16 +659,16 @@ type ContentParagraphElement struct {
 
 type ContentParagraphElementBuilder struct {
 	type_    string // 元素类型
-	typeFlag bool
+	type_Set bool
 
-	textRun     *ContentTextRun // 文本
-	textRunFlag bool
+	textRun    *ContentTextRun // 文本
+	textRunSet bool
 
-	docsLink     *ContentDocsLink // 飞书云文档
-	docsLinkFlag bool
+	docsLink    *ContentDocsLink // 飞书云文档
+	docsLinkSet bool
 
-	person     *ContentPerson // 艾特用户
-	personFlag bool
+	person    *ContentPerson // 艾特用户
+	personSet bool
 }
 
 func NewContentParagraphElementBuilder() *ContentParagraphElementBuilder {
@@ -681,7 +681,7 @@ func NewContentParagraphElementBuilder() *ContentParagraphElementBuilder {
 // 示例值：textRun
 func (builder *ContentParagraphElementBuilder) Type(type_ string) *ContentParagraphElementBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -690,7 +690,7 @@ func (builder *ContentParagraphElementBuilder) Type(type_ string) *ContentParagr
 // 示例值：
 func (builder *ContentParagraphElementBuilder) TextRun(textRun *ContentTextRun) *ContentParagraphElementBuilder {
 	builder.textRun = textRun
-	builder.textRunFlag = true
+	builder.textRunSet = true
 	return builder
 }
 
@@ -699,7 +699,7 @@ func (builder *ContentParagraphElementBuilder) TextRun(textRun *ContentTextRun) 
 // 示例值：
 func (builder *ContentParagraphElementBuilder) DocsLink(docsLink *ContentDocsLink) *ContentParagraphElementBuilder {
 	builder.docsLink = docsLink
-	builder.docsLinkFlag = true
+	builder.docsLinkSet = true
 	return builder
 }
 
@@ -708,23 +708,23 @@ func (builder *ContentParagraphElementBuilder) DocsLink(docsLink *ContentDocsLin
 // 示例值：
 func (builder *ContentParagraphElementBuilder) Person(person *ContentPerson) *ContentParagraphElementBuilder {
 	builder.person = person
-	builder.personFlag = true
+	builder.personSet = true
 	return builder
 }
 
 func (builder *ContentParagraphElementBuilder) Build() *ContentParagraphElement {
 	req := &ContentParagraphElement{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.textRunFlag {
+	if builder.textRunSet {
 		req.TextRun = builder.textRun
 	}
-	if builder.docsLinkFlag {
+	if builder.docsLinkSet {
 		req.DocsLink = builder.docsLink
 	}
-	if builder.personFlag {
+	if builder.personSet {
 		req.Person = builder.person
 	}
 	return req
@@ -735,8 +735,8 @@ type ContentParagraphStyle struct {
 }
 
 type ContentParagraphStyleBuilder struct {
-	list     *ContentList // 有序列表/无序列表/任务列表
-	listFlag bool
+	list    *ContentList // 有序列表/无序列表/任务列表
+	listSet bool
 }
 
 func NewContentParagraphStyleBuilder() *ContentParagraphStyleBuilder {
@@ -749,13 +749,13 @@ func NewContentParagraphStyleBuilder() *ContentParagraphStyleBuilder {
 // 示例值：
 func (builder *ContentParagraphStyleBuilder) List(list *ContentList) *ContentParagraphStyleBuilder {
 	builder.list = list
-	builder.listFlag = true
+	builder.listSet = true
 	return builder
 }
 
 func (builder *ContentParagraphStyleBuilder) Build() *ContentParagraphStyle {
 	req := &ContentParagraphStyle{}
-	if builder.listFlag {
+	if builder.listSet {
 		req.List = builder.list
 	}
 	return req
@@ -766,8 +766,8 @@ type ContentPerson struct {
 }
 
 type ContentPersonBuilder struct {
-	openId     string // 员工的OpenID
-	openIdFlag bool
+	openId    string // 员工的OpenID
+	openIdSet bool
 }
 
 func NewContentPersonBuilder() *ContentPersonBuilder {
@@ -780,13 +780,13 @@ func NewContentPersonBuilder() *ContentPersonBuilder {
 // 示例值：ou_3bbe8a09c20e89cce9bff989ed840674
 func (builder *ContentPersonBuilder) OpenId(openId string) *ContentPersonBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
 func (builder *ContentPersonBuilder) Build() *ContentPerson {
 	req := &ContentPerson{}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
@@ -800,11 +800,11 @@ type ContentTextRun struct {
 }
 
 type ContentTextRunBuilder struct {
-	text     string // 具体的文本内容
-	textFlag bool
+	text    string // 具体的文本内容
+	textSet bool
 
-	style     *ContentTextStyle // 文本内容的样式，支持 BIUS、颜色等
-	styleFlag bool
+	style    *ContentTextStyle // 文本内容的样式，支持 BIUS、颜色等
+	styleSet bool
 }
 
 func NewContentTextRunBuilder() *ContentTextRunBuilder {
@@ -817,7 +817,7 @@ func NewContentTextRunBuilder() *ContentTextRunBuilder {
 // 示例值：周报内容
 func (builder *ContentTextRunBuilder) Text(text string) *ContentTextRunBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -826,17 +826,17 @@ func (builder *ContentTextRunBuilder) Text(text string) *ContentTextRunBuilder {
 // 示例值：
 func (builder *ContentTextRunBuilder) Style(style *ContentTextStyle) *ContentTextRunBuilder {
 	builder.style = style
-	builder.styleFlag = true
+	builder.styleSet = true
 	return builder
 }
 
 func (builder *ContentTextRunBuilder) Build() *ContentTextRun {
 	req := &ContentTextRun{}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
-	if builder.styleFlag {
+	if builder.styleSet {
 		req.Style = builder.style
 	}
 	return req
@@ -855,20 +855,20 @@ type ContentTextStyle struct {
 }
 
 type ContentTextStyleBuilder struct {
-	bold     bool // 是否加粗
-	boldFlag bool
+	bold    bool // 是否加粗
+	boldSet bool
 
-	strikeThrough     bool // 是否删除
-	strikeThroughFlag bool
+	strikeThrough    bool // 是否删除
+	strikeThroughSet bool
 
-	backColor     *ContentColor // 背景颜色
-	backColorFlag bool
+	backColor    *ContentColor // 背景颜色
+	backColorSet bool
 
-	textColor     *ContentColor // 字体颜色
-	textColorFlag bool
+	textColor    *ContentColor // 字体颜色
+	textColorSet bool
 
-	link     *ContentLink // 链接地址
-	linkFlag bool
+	link    *ContentLink // 链接地址
+	linkSet bool
 }
 
 func NewContentTextStyleBuilder() *ContentTextStyleBuilder {
@@ -881,7 +881,7 @@ func NewContentTextStyleBuilder() *ContentTextStyleBuilder {
 // 示例值：true
 func (builder *ContentTextStyleBuilder) Bold(bold bool) *ContentTextStyleBuilder {
 	builder.bold = bold
-	builder.boldFlag = true
+	builder.boldSet = true
 	return builder
 }
 
@@ -890,7 +890,7 @@ func (builder *ContentTextStyleBuilder) Bold(bold bool) *ContentTextStyleBuilder
 // 示例值：true
 func (builder *ContentTextStyleBuilder) StrikeThrough(strikeThrough bool) *ContentTextStyleBuilder {
 	builder.strikeThrough = strikeThrough
-	builder.strikeThroughFlag = true
+	builder.strikeThroughSet = true
 	return builder
 }
 
@@ -899,7 +899,7 @@ func (builder *ContentTextStyleBuilder) StrikeThrough(strikeThrough bool) *Conte
 // 示例值：
 func (builder *ContentTextStyleBuilder) BackColor(backColor *ContentColor) *ContentTextStyleBuilder {
 	builder.backColor = backColor
-	builder.backColorFlag = true
+	builder.backColorSet = true
 	return builder
 }
 
@@ -908,7 +908,7 @@ func (builder *ContentTextStyleBuilder) BackColor(backColor *ContentColor) *Cont
 // 示例值：
 func (builder *ContentTextStyleBuilder) TextColor(textColor *ContentColor) *ContentTextStyleBuilder {
 	builder.textColor = textColor
-	builder.textColorFlag = true
+	builder.textColorSet = true
 	return builder
 }
 
@@ -917,27 +917,27 @@ func (builder *ContentTextStyleBuilder) TextColor(textColor *ContentColor) *Cont
 // 示例值：
 func (builder *ContentTextStyleBuilder) Link(link *ContentLink) *ContentTextStyleBuilder {
 	builder.link = link
-	builder.linkFlag = true
+	builder.linkSet = true
 	return builder
 }
 
 func (builder *ContentTextStyleBuilder) Build() *ContentTextStyle {
 	req := &ContentTextStyle{}
-	if builder.boldFlag {
+	if builder.boldSet {
 		req.Bold = &builder.bold
 
 	}
-	if builder.strikeThroughFlag {
+	if builder.strikeThroughSet {
 		req.StrikeThrough = &builder.strikeThrough
 
 	}
-	if builder.backColorFlag {
+	if builder.backColorSet {
 		req.BackColor = builder.backColor
 	}
-	if builder.textColorFlag {
+	if builder.textColorSet {
 		req.TextColor = builder.textColor
 	}
-	if builder.linkFlag {
+	if builder.linkSet {
 		req.Link = builder.link
 	}
 	return req
@@ -950,11 +950,11 @@ type CurrentOkrSimple struct {
 }
 
 type CurrentOkrSimpleBuilder struct {
-	okrId     string // OKR ID
-	okrIdFlag bool
+	okrId    string // OKR ID
+	okrIdSet bool
 
-	periodId     string // 周期 ID
-	periodIdFlag bool
+	periodId    string // 周期 ID
+	periodIdSet bool
 }
 
 func NewCurrentOkrSimpleBuilder() *CurrentOkrSimpleBuilder {
@@ -967,7 +967,7 @@ func NewCurrentOkrSimpleBuilder() *CurrentOkrSimpleBuilder {
 // 示例值：
 func (builder *CurrentOkrSimpleBuilder) OkrId(okrId string) *CurrentOkrSimpleBuilder {
 	builder.okrId = okrId
-	builder.okrIdFlag = true
+	builder.okrIdSet = true
 	return builder
 }
 
@@ -976,17 +976,17 @@ func (builder *CurrentOkrSimpleBuilder) OkrId(okrId string) *CurrentOkrSimpleBui
 // 示例值：
 func (builder *CurrentOkrSimpleBuilder) PeriodId(periodId string) *CurrentOkrSimpleBuilder {
 	builder.periodId = periodId
-	builder.periodIdFlag = true
+	builder.periodIdSet = true
 	return builder
 }
 
 func (builder *CurrentOkrSimpleBuilder) Build() *CurrentOkrSimple {
 	req := &CurrentOkrSimple{}
-	if builder.okrIdFlag {
+	if builder.okrIdSet {
 		req.OkrId = &builder.okrId
 
 	}
-	if builder.periodIdFlag {
+	if builder.periodIdSet {
 		req.PeriodId = &builder.periodId
 
 	}
@@ -1000,11 +1000,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -1012,27 +1012,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -1044,8 +1048,8 @@ type Dummy struct {
 }
 
 type DummyBuilder struct {
-	id     string // id
-	idFlag bool
+	id    string // id
+	idSet bool
 }
 
 func NewDummyBuilder() *DummyBuilder {
@@ -1058,13 +1062,13 @@ func NewDummyBuilder() *DummyBuilder {
 // 示例值：
 func (builder *DummyBuilder) Id(id string) *DummyBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
 func (builder *DummyBuilder) Build() *Dummy {
 	req := &Dummy{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
@@ -1078,11 +1082,11 @@ type FailedMetricItem struct {
 }
 
 type FailedMetricItemBuilder struct {
-	metricItemId     string // 指标项ID
-	metricItemIdFlag bool
+	metricItemId    string // 指标项ID
+	metricItemIdSet bool
 
-	reason     string // 失败原因
-	reasonFlag bool
+	reason    string // 失败原因
+	reasonSet bool
 }
 
 func NewFailedMetricItemBuilder() *FailedMetricItemBuilder {
@@ -1095,7 +1099,7 @@ func NewFailedMetricItemBuilder() *FailedMetricItemBuilder {
 // 示例值：7139040982003302420
 func (builder *FailedMetricItemBuilder) MetricItemId(metricItemId string) *FailedMetricItemBuilder {
 	builder.metricItemId = metricItemId
-	builder.metricItemIdFlag = true
+	builder.metricItemIdSet = true
 	return builder
 }
 
@@ -1104,17 +1108,17 @@ func (builder *FailedMetricItemBuilder) MetricItemId(metricItemId string) *Faile
 // 示例值：start value equals target value
 func (builder *FailedMetricItemBuilder) Reason(reason string) *FailedMetricItemBuilder {
 	builder.reason = reason
-	builder.reasonFlag = true
+	builder.reasonSet = true
 	return builder
 }
 
 func (builder *FailedMetricItemBuilder) Build() *FailedMetricItem {
 	req := &FailedMetricItem{}
-	if builder.metricItemIdFlag {
+	if builder.metricItemIdSet {
 		req.MetricItemId = &builder.metricItemId
 
 	}
-	if builder.reasonFlag {
+	if builder.reasonSet {
 		req.Reason = &builder.reason
 
 	}
@@ -1128,11 +1132,11 @@ type ImageInfo struct {
 }
 
 type ImageInfoBuilder struct {
-	fileToken     string // 图片token
-	fileTokenFlag bool
+	fileToken    string // 图片token
+	fileTokenSet bool
 
-	url     string // 图片下载链接
-	urlFlag bool
+	url    string // 图片下载链接
+	urlSet bool
 }
 
 func NewImageInfoBuilder() *ImageInfoBuilder {
@@ -1145,7 +1149,7 @@ func NewImageInfoBuilder() *ImageInfoBuilder {
 // 示例值：boxbcLxEnhUE3REJSAwAbVFZwPf
 func (builder *ImageInfoBuilder) FileToken(fileToken string) *ImageInfoBuilder {
 	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
+	builder.fileTokenSet = true
 	return builder
 }
 
@@ -1154,17 +1158,17 @@ func (builder *ImageInfoBuilder) FileToken(fileToken string) *ImageInfoBuilder {
 // 示例值：https://bytedance.feishu.cn/drive/home/
 func (builder *ImageInfoBuilder) Url(url string) *ImageInfoBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
 func (builder *ImageInfoBuilder) Build() *ImageInfo {
 	req := &ImageInfo{}
-	if builder.fileTokenFlag {
+	if builder.fileTokenSet {
 		req.FileToken = &builder.fileToken
 
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
@@ -1188,26 +1192,26 @@ type Kr struct {
 }
 
 type KrBuilder struct {
-	id     string // KeyResult ID
-	idFlag bool
+	id    string // KeyResult ID
+	idSet bool
 
-	pos     string // KeyResult 在所属 Objective 中的排序
-	posFlag bool
+	pos    string // KeyResult 在所属 Objective 中的排序
+	posSet bool
 
-	score     string // KeyResult 评分，返回值为百分制分数，需要除以 100 以获得 OKR 页面上显示的 1 分制分数
-	scoreFlag bool
+	score    string // KeyResult 评分，返回值为百分制分数，需要除以 100 以获得 OKR 页面上显示的 1 分制分数
+	scoreSet bool
 
-	weight     string // KeyResult 的权重
-	weightFlag bool
+	weight    string // KeyResult 的权重
+	weightSet bool
 
-	content     *KrContent // KeyResult 对应的 Content 详细内容
-	contentFlag bool
+	content    *KrContent // KeyResult 对应的 Content 详细内容
+	contentSet bool
 
-	createTime     int // KeyResult 的创建时间 毫秒
-	createTimeFlag bool
+	createTime    int // KeyResult 的创建时间 毫秒
+	createTimeSet bool
 
-	modifyTime     int // KeyResult 的最后修改时间 毫秒
-	modifyTimeFlag bool
+	modifyTime    int // KeyResult 的最后修改时间 毫秒
+	modifyTimeSet bool
 }
 
 func NewKrBuilder() *KrBuilder {
@@ -1220,7 +1224,7 @@ func NewKrBuilder() *KrBuilder {
 // 示例值：
 func (builder *KrBuilder) Id(id string) *KrBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1229,7 +1233,7 @@ func (builder *KrBuilder) Id(id string) *KrBuilder {
 // 示例值：
 func (builder *KrBuilder) Pos(pos string) *KrBuilder {
 	builder.pos = pos
-	builder.posFlag = true
+	builder.posSet = true
 	return builder
 }
 
@@ -1238,7 +1242,7 @@ func (builder *KrBuilder) Pos(pos string) *KrBuilder {
 // 示例值：
 func (builder *KrBuilder) Score(score string) *KrBuilder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
@@ -1247,7 +1251,7 @@ func (builder *KrBuilder) Score(score string) *KrBuilder {
 // 示例值：
 func (builder *KrBuilder) Weight(weight string) *KrBuilder {
 	builder.weight = weight
-	builder.weightFlag = true
+	builder.weightSet = true
 	return builder
 }
 
@@ -1256,7 +1260,7 @@ func (builder *KrBuilder) Weight(weight string) *KrBuilder {
 // 示例值：
 func (builder *KrBuilder) Content(content *KrContent) *KrBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -1265,7 +1269,7 @@ func (builder *KrBuilder) Content(content *KrContent) *KrBuilder {
 // 示例值：
 func (builder *KrBuilder) CreateTime(createTime int) *KrBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -1274,36 +1278,36 @@ func (builder *KrBuilder) CreateTime(createTime int) *KrBuilder {
 // 示例值：
 func (builder *KrBuilder) ModifyTime(modifyTime int) *KrBuilder {
 	builder.modifyTime = modifyTime
-	builder.modifyTimeFlag = true
+	builder.modifyTimeSet = true
 	return builder
 }
 
 func (builder *KrBuilder) Build() *Kr {
 	req := &Kr{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.posFlag {
+	if builder.posSet {
 		req.Pos = &builder.pos
 
 	}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
-	if builder.weightFlag {
+	if builder.weightSet {
 		req.Weight = &builder.weight
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = builder.content
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.modifyTimeFlag {
+	if builder.modifyTimeSet {
 		req.ModifyTime = &builder.modifyTime
 
 	}
@@ -1317,11 +1321,11 @@ type KrContent struct {
 }
 
 type KrContentBuilder struct {
-	zh     string // 中文内容
-	zhFlag bool
+	zh    string // 中文内容
+	zhSet bool
 
-	en     string // 英文内容
-	enFlag bool
+	en    string // 英文内容
+	enSet bool
 }
 
 func NewKrContentBuilder() *KrContentBuilder {
@@ -1334,7 +1338,7 @@ func NewKrContentBuilder() *KrContentBuilder {
 // 示例值：
 func (builder *KrContentBuilder) Zh(zh string) *KrContentBuilder {
 	builder.zh = zh
-	builder.zhFlag = true
+	builder.zhSet = true
 	return builder
 }
 
@@ -1343,17 +1347,17 @@ func (builder *KrContentBuilder) Zh(zh string) *KrContentBuilder {
 // 示例值：
 func (builder *KrContentBuilder) En(en string) *KrContentBuilder {
 	builder.en = en
-	builder.enFlag = true
+	builder.enSet = true
 	return builder
 }
 
 func (builder *KrContentBuilder) Build() *KrContent {
 	req := &KrContent{}
-	if builder.zhFlag {
+	if builder.zhSet {
 		req.Zh = &builder.zh
 
 	}
-	if builder.enFlag {
+	if builder.enSet {
 		req.En = &builder.en
 
 	}
@@ -1385,38 +1389,38 @@ type MetricItem struct {
 }
 
 type MetricItemBuilder struct {
-	metricItemId     string // 指标项id
-	metricItemIdFlag bool
+	metricItemId    string // 指标项id
+	metricItemIdSet bool
 
-	userId     string // 指标承接人员id
-	userIdFlag bool
+	userId    string // 指标承接人员id
+	userIdSet bool
 
-	periodId     string // 指标的okr周期
-	periodIdFlag bool
+	periodId    string // 指标的okr周期
+	periodIdSet bool
 
-	metricUnit     *MetricUnit // 指标单位
-	metricUnitFlag bool
+	metricUnit    *MetricUnit // 指标单位
+	metricUnitSet bool
 
-	metricInitialValue     float64 // 指标起始值
-	metricInitialValueFlag bool
+	metricInitialValue    float64 // 指标起始值
+	metricInitialValueSet bool
 
-	metricTargetValue     float64 // 指标目标值
-	metricTargetValueFlag bool
+	metricTargetValue    float64 // 指标目标值
+	metricTargetValueSet bool
 
-	metricCurrentValue     float64 // 指标进度值
-	metricCurrentValueFlag bool
+	metricCurrentValue    float64 // 指标进度值
+	metricCurrentValueSet bool
 
-	supportedUserId     string // 指标支撑的上级人员id
-	supportedUserIdFlag bool
+	supportedUserId    string // 指标支撑的上级人员id
+	supportedUserIdSet bool
 
-	krId     string // 指标关联的kr
-	krIdFlag bool
+	krId    string // 指标关联的kr
+	krIdSet bool
 
-	updatedAt     string // 更新时间
-	updatedAtFlag bool
+	updatedAt    string // 更新时间
+	updatedAtSet bool
 
-	updatedBy     string // 更新人
-	updatedByFlag bool
+	updatedBy    string // 更新人
+	updatedBySet bool
 }
 
 func NewMetricItemBuilder() *MetricItemBuilder {
@@ -1429,7 +1433,7 @@ func NewMetricItemBuilder() *MetricItemBuilder {
 // 示例值：635782378412311
 func (builder *MetricItemBuilder) MetricItemId(metricItemId string) *MetricItemBuilder {
 	builder.metricItemId = metricItemId
-	builder.metricItemIdFlag = true
+	builder.metricItemIdSet = true
 	return builder
 }
 
@@ -1438,7 +1442,7 @@ func (builder *MetricItemBuilder) MetricItemId(metricItemId string) *MetricItemB
 // 示例值：635782378412311
 func (builder *MetricItemBuilder) UserId(userId string) *MetricItemBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -1447,7 +1451,7 @@ func (builder *MetricItemBuilder) UserId(userId string) *MetricItemBuilder {
 // 示例值：635782378412311
 func (builder *MetricItemBuilder) PeriodId(periodId string) *MetricItemBuilder {
 	builder.periodId = periodId
-	builder.periodIdFlag = true
+	builder.periodIdSet = true
 	return builder
 }
 
@@ -1456,7 +1460,7 @@ func (builder *MetricItemBuilder) PeriodId(periodId string) *MetricItemBuilder {
 // 示例值：
 func (builder *MetricItemBuilder) MetricUnit(metricUnit *MetricUnit) *MetricItemBuilder {
 	builder.metricUnit = metricUnit
-	builder.metricUnitFlag = true
+	builder.metricUnitSet = true
 	return builder
 }
 
@@ -1465,7 +1469,7 @@ func (builder *MetricItemBuilder) MetricUnit(metricUnit *MetricUnit) *MetricItem
 // 示例值：10.01
 func (builder *MetricItemBuilder) MetricInitialValue(metricInitialValue float64) *MetricItemBuilder {
 	builder.metricInitialValue = metricInitialValue
-	builder.metricInitialValueFlag = true
+	builder.metricInitialValueSet = true
 	return builder
 }
 
@@ -1474,7 +1478,7 @@ func (builder *MetricItemBuilder) MetricInitialValue(metricInitialValue float64)
 // 示例值：10.01
 func (builder *MetricItemBuilder) MetricTargetValue(metricTargetValue float64) *MetricItemBuilder {
 	builder.metricTargetValue = metricTargetValue
-	builder.metricTargetValueFlag = true
+	builder.metricTargetValueSet = true
 	return builder
 }
 
@@ -1483,7 +1487,7 @@ func (builder *MetricItemBuilder) MetricTargetValue(metricTargetValue float64) *
 // 示例值：10.01
 func (builder *MetricItemBuilder) MetricCurrentValue(metricCurrentValue float64) *MetricItemBuilder {
 	builder.metricCurrentValue = metricCurrentValue
-	builder.metricCurrentValueFlag = true
+	builder.metricCurrentValueSet = true
 	return builder
 }
 
@@ -1492,7 +1496,7 @@ func (builder *MetricItemBuilder) MetricCurrentValue(metricCurrentValue float64)
 // 示例值：ou_8e7d79ca2327bf4f0b3c37899d6abbd5
 func (builder *MetricItemBuilder) SupportedUserId(supportedUserId string) *MetricItemBuilder {
 	builder.supportedUserId = supportedUserId
-	builder.supportedUserIdFlag = true
+	builder.supportedUserIdSet = true
 	return builder
 }
 
@@ -1501,7 +1505,7 @@ func (builder *MetricItemBuilder) SupportedUserId(supportedUserId string) *Metri
 // 示例值：7139040982003302420
 func (builder *MetricItemBuilder) KrId(krId string) *MetricItemBuilder {
 	builder.krId = krId
-	builder.krIdFlag = true
+	builder.krIdSet = true
 	return builder
 }
 
@@ -1510,7 +1514,7 @@ func (builder *MetricItemBuilder) KrId(krId string) *MetricItemBuilder {
 // 示例值：1663145941129
 func (builder *MetricItemBuilder) UpdatedAt(updatedAt string) *MetricItemBuilder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
@@ -1519,52 +1523,52 @@ func (builder *MetricItemBuilder) UpdatedAt(updatedAt string) *MetricItemBuilder
 // 示例值：ou_8e7d79ca2327bf4f0b3c37899d6abbd5
 func (builder *MetricItemBuilder) UpdatedBy(updatedBy string) *MetricItemBuilder {
 	builder.updatedBy = updatedBy
-	builder.updatedByFlag = true
+	builder.updatedBySet = true
 	return builder
 }
 
 func (builder *MetricItemBuilder) Build() *MetricItem {
 	req := &MetricItem{}
-	if builder.metricItemIdFlag {
+	if builder.metricItemIdSet {
 		req.MetricItemId = &builder.metricItemId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.periodIdFlag {
+	if builder.periodIdSet {
 		req.PeriodId = &builder.periodId
 
 	}
-	if builder.metricUnitFlag {
+	if builder.metricUnitSet {
 		req.MetricUnit = builder.metricUnit
 	}
-	if builder.metricInitialValueFlag {
+	if builder.metricInitialValueSet {
 		req.MetricInitialValue = &builder.metricInitialValue
 
 	}
-	if builder.metricTargetValueFlag {
+	if builder.metricTargetValueSet {
 		req.MetricTargetValue = &builder.metricTargetValue
 
 	}
-	if builder.metricCurrentValueFlag {
+	if builder.metricCurrentValueSet {
 		req.MetricCurrentValue = &builder.metricCurrentValue
 
 	}
-	if builder.supportedUserIdFlag {
+	if builder.supportedUserIdSet {
 		req.SupportedUserId = &builder.supportedUserId
 
 	}
-	if builder.krIdFlag {
+	if builder.krIdSet {
 		req.KrId = &builder.krId
 
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
-	if builder.updatedByFlag {
+	if builder.updatedBySet {
 		req.UpdatedBy = &builder.updatedBy
 
 	}
@@ -1584,20 +1588,20 @@ type MetricItemRequest struct {
 }
 
 type MetricItemRequestBuilder struct {
-	metricItemId     string // 指标表id
-	metricItemIdFlag bool
+	metricItemId    string // 指标表id
+	metricItemIdSet bool
 
-	metricInitialValue     float64 // 指标起始值
-	metricInitialValueFlag bool
+	metricInitialValue    float64 // 指标起始值
+	metricInitialValueSet bool
 
-	metricTargetValue     float64 // 指标目标值
-	metricTargetValueFlag bool
+	metricTargetValue    float64 // 指标目标值
+	metricTargetValueSet bool
 
-	metricCurrentValue     float64 // 指标进度值
-	metricCurrentValueFlag bool
+	metricCurrentValue    float64 // 指标进度值
+	metricCurrentValueSet bool
 
-	supportedUserId     string // 指标支撑的上级人员 id
-	supportedUserIdFlag bool
+	supportedUserId    string // 指标支撑的上级人员 id
+	supportedUserIdSet bool
 }
 
 func NewMetricItemRequestBuilder() *MetricItemRequestBuilder {
@@ -1610,7 +1614,7 @@ func NewMetricItemRequestBuilder() *MetricItemRequestBuilder {
 // 示例值：635782378412311
 func (builder *MetricItemRequestBuilder) MetricItemId(metricItemId string) *MetricItemRequestBuilder {
 	builder.metricItemId = metricItemId
-	builder.metricItemIdFlag = true
+	builder.metricItemIdSet = true
 	return builder
 }
 
@@ -1619,7 +1623,7 @@ func (builder *MetricItemRequestBuilder) MetricItemId(metricItemId string) *Metr
 // 示例值：1.0
 func (builder *MetricItemRequestBuilder) MetricInitialValue(metricInitialValue float64) *MetricItemRequestBuilder {
 	builder.metricInitialValue = metricInitialValue
-	builder.metricInitialValueFlag = true
+	builder.metricInitialValueSet = true
 	return builder
 }
 
@@ -1628,7 +1632,7 @@ func (builder *MetricItemRequestBuilder) MetricInitialValue(metricInitialValue f
 // 示例值：3.0
 func (builder *MetricItemRequestBuilder) MetricTargetValue(metricTargetValue float64) *MetricItemRequestBuilder {
 	builder.metricTargetValue = metricTargetValue
-	builder.metricTargetValueFlag = true
+	builder.metricTargetValueSet = true
 	return builder
 }
 
@@ -1637,7 +1641,7 @@ func (builder *MetricItemRequestBuilder) MetricTargetValue(metricTargetValue flo
 // 示例值：2.0
 func (builder *MetricItemRequestBuilder) MetricCurrentValue(metricCurrentValue float64) *MetricItemRequestBuilder {
 	builder.metricCurrentValue = metricCurrentValue
-	builder.metricCurrentValueFlag = true
+	builder.metricCurrentValueSet = true
 	return builder
 }
 
@@ -1646,29 +1650,29 @@ func (builder *MetricItemRequestBuilder) MetricCurrentValue(metricCurrentValue f
 // 示例值：7041857032248410131
 func (builder *MetricItemRequestBuilder) SupportedUserId(supportedUserId string) *MetricItemRequestBuilder {
 	builder.supportedUserId = supportedUserId
-	builder.supportedUserIdFlag = true
+	builder.supportedUserIdSet = true
 	return builder
 }
 
 func (builder *MetricItemRequestBuilder) Build() *MetricItemRequest {
 	req := &MetricItemRequest{}
-	if builder.metricItemIdFlag {
+	if builder.metricItemIdSet {
 		req.MetricItemId = &builder.metricItemId
 
 	}
-	if builder.metricInitialValueFlag {
+	if builder.metricInitialValueSet {
 		req.MetricInitialValue = &builder.metricInitialValue
 
 	}
-	if builder.metricTargetValueFlag {
+	if builder.metricTargetValueSet {
 		req.MetricTargetValue = &builder.metricTargetValue
 
 	}
-	if builder.metricCurrentValueFlag {
+	if builder.metricCurrentValueSet {
 		req.MetricCurrentValue = &builder.metricCurrentValue
 
 	}
-	if builder.supportedUserIdFlag {
+	if builder.supportedUserIdSet {
 		req.SupportedUserId = &builder.supportedUserId
 
 	}
@@ -1686,17 +1690,17 @@ type MetricSource struct {
 }
 
 type MetricSourceBuilder struct {
-	metricSourceId     string // 指标库 id
-	metricSourceIdFlag bool
+	metricSourceId    string // 指标库 id
+	metricSourceIdSet bool
 
-	metricSourceName     string // 指标库名称
-	metricSourceNameFlag bool
+	metricSourceName    string // 指标库名称
+	metricSourceNameSet bool
 
-	metricName     string // 指标名称
-	metricNameFlag bool
+	metricName    string // 指标名称
+	metricNameSet bool
 
-	metricUnit     *MetricUnit // 指标单位
-	metricUnitFlag bool
+	metricUnit    *MetricUnit // 指标单位
+	metricUnitSet bool
 }
 
 func NewMetricSourceBuilder() *MetricSourceBuilder {
@@ -1709,7 +1713,7 @@ func NewMetricSourceBuilder() *MetricSourceBuilder {
 // 示例值：7139040982003302420
 func (builder *MetricSourceBuilder) MetricSourceId(metricSourceId string) *MetricSourceBuilder {
 	builder.metricSourceId = metricSourceId
-	builder.metricSourceIdFlag = true
+	builder.metricSourceIdSet = true
 	return builder
 }
 
@@ -1718,7 +1722,7 @@ func (builder *MetricSourceBuilder) MetricSourceId(metricSourceId string) *Metri
 // 示例值：指标库A
 func (builder *MetricSourceBuilder) MetricSourceName(metricSourceName string) *MetricSourceBuilder {
 	builder.metricSourceName = metricSourceName
-	builder.metricSourceNameFlag = true
+	builder.metricSourceNameSet = true
 	return builder
 }
 
@@ -1727,7 +1731,7 @@ func (builder *MetricSourceBuilder) MetricSourceName(metricSourceName string) *M
 // 示例值：指标A
 func (builder *MetricSourceBuilder) MetricName(metricName string) *MetricSourceBuilder {
 	builder.metricName = metricName
-	builder.metricNameFlag = true
+	builder.metricNameSet = true
 	return builder
 }
 
@@ -1736,25 +1740,25 @@ func (builder *MetricSourceBuilder) MetricName(metricName string) *MetricSourceB
 // 示例值：
 func (builder *MetricSourceBuilder) MetricUnit(metricUnit *MetricUnit) *MetricSourceBuilder {
 	builder.metricUnit = metricUnit
-	builder.metricUnitFlag = true
+	builder.metricUnitSet = true
 	return builder
 }
 
 func (builder *MetricSourceBuilder) Build() *MetricSource {
 	req := &MetricSource{}
-	if builder.metricSourceIdFlag {
+	if builder.metricSourceIdSet {
 		req.MetricSourceId = &builder.metricSourceId
 
 	}
-	if builder.metricSourceNameFlag {
+	if builder.metricSourceNameSet {
 		req.MetricSourceName = &builder.metricSourceName
 
 	}
-	if builder.metricNameFlag {
+	if builder.metricNameSet {
 		req.MetricName = &builder.metricName
 
 	}
-	if builder.metricUnitFlag {
+	if builder.metricUnitSet {
 		req.MetricUnit = builder.metricUnit
 	}
 	return req
@@ -1769,14 +1773,14 @@ type MetricTable struct {
 }
 
 type MetricTableBuilder struct {
-	metricTableId     string // 指标表 id
-	metricTableIdFlag bool
+	metricTableId    string // 指标表 id
+	metricTableIdSet bool
 
-	metricTableName     string // 指标表名称
-	metricTableNameFlag bool
+	metricTableName    string // 指标表名称
+	metricTableNameSet bool
 
-	periodId     string // okr周期
-	periodIdFlag bool
+	periodId    string // okr周期
+	periodIdSet bool
 }
 
 func NewMetricTableBuilder() *MetricTableBuilder {
@@ -1789,7 +1793,7 @@ func NewMetricTableBuilder() *MetricTableBuilder {
 // 示例值：635782378412311
 func (builder *MetricTableBuilder) MetricTableId(metricTableId string) *MetricTableBuilder {
 	builder.metricTableId = metricTableId
-	builder.metricTableIdFlag = true
+	builder.metricTableIdSet = true
 	return builder
 }
 
@@ -1798,7 +1802,7 @@ func (builder *MetricTableBuilder) MetricTableId(metricTableId string) *MetricTa
 // 示例值：指标表a
 func (builder *MetricTableBuilder) MetricTableName(metricTableName string) *MetricTableBuilder {
 	builder.metricTableName = metricTableName
-	builder.metricTableNameFlag = true
+	builder.metricTableNameSet = true
 	return builder
 }
 
@@ -1807,21 +1811,21 @@ func (builder *MetricTableBuilder) MetricTableName(metricTableName string) *Metr
 // 示例值：635782378221221
 func (builder *MetricTableBuilder) PeriodId(periodId string) *MetricTableBuilder {
 	builder.periodId = periodId
-	builder.periodIdFlag = true
+	builder.periodIdSet = true
 	return builder
 }
 
 func (builder *MetricTableBuilder) Build() *MetricTable {
 	req := &MetricTable{}
-	if builder.metricTableIdFlag {
+	if builder.metricTableIdSet {
 		req.MetricTableId = &builder.metricTableId
 
 	}
-	if builder.metricTableNameFlag {
+	if builder.metricTableNameSet {
 		req.MetricTableName = &builder.metricTableName
 
 	}
-	if builder.periodIdFlag {
+	if builder.periodIdSet {
 		req.PeriodId = &builder.periodId
 
 	}
@@ -1837,14 +1841,14 @@ type MetricUnit struct {
 }
 
 type MetricUnitBuilder struct {
-	zhCn     string // 指标单位中文
-	zhCnFlag bool
+	zhCn    string // 指标单位中文
+	zhCnSet bool
 
-	enUs     string // 指标单位英文
-	enUsFlag bool
+	enUs    string // 指标单位英文
+	enUsSet bool
 
-	jaJp     string // 指标单位日文
-	jaJpFlag bool
+	jaJp    string // 指标单位日文
+	jaJpSet bool
 }
 
 func NewMetricUnitBuilder() *MetricUnitBuilder {
@@ -1857,7 +1861,7 @@ func NewMetricUnitBuilder() *MetricUnitBuilder {
 // 示例值：小明
 func (builder *MetricUnitBuilder) ZhCn(zhCn string) *MetricUnitBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -1866,7 +1870,7 @@ func (builder *MetricUnitBuilder) ZhCn(zhCn string) *MetricUnitBuilder {
 // 示例值：jack
 func (builder *MetricUnitBuilder) EnUs(enUs string) *MetricUnitBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
@@ -1875,21 +1879,21 @@ func (builder *MetricUnitBuilder) EnUs(enUs string) *MetricUnitBuilder {
 // 示例值：シャオ・ミン
 func (builder *MetricUnitBuilder) JaJp(jaJp string) *MetricUnitBuilder {
 	builder.jaJp = jaJp
-	builder.jaJpFlag = true
+	builder.jaJpSet = true
 	return builder
 }
 
 func (builder *MetricUnitBuilder) Build() *MetricUnit {
 	req := &MetricUnit{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
-	if builder.jaJpFlag {
+	if builder.jaJpSet {
 		req.JaJp = &builder.jaJp
 
 	}
@@ -1923,41 +1927,41 @@ type Objective struct {
 }
 
 type ObjectiveBuilder struct {
-	id     string // 目标的ID
-	idFlag bool
+	id    string // 目标的ID
+	idSet bool
 
-	okrId     string // 所属的OKR ID
-	okrIdFlag bool
+	okrId    string // 所属的OKR ID
+	okrIdSet bool
 
-	userId     string // 拥有者的用户 UUID
-	userIdFlag bool
+	userId    string // 拥有者的用户 UUID
+	userIdSet bool
 
-	pos     string // Objective 在所属 OKR 中的排序
-	posFlag bool
+	pos    string // Objective 在所属 OKR 中的排序
+	posSet bool
 
-	score     string // Objective 评分，返回值为百分制分数，需要除以 100 以获得 OKR 页面上显示的 1 分制分数
-	scoreFlag bool
+	score    string // Objective 评分，返回值为百分制分数，需要除以 100 以获得 OKR 页面上显示的 1 分制分数
+	scoreSet bool
 
-	name     *ObjectiveName // Objective 的详细内容
-	nameFlag bool
+	name    *ObjectiveName // Objective 的详细内容
+	nameSet bool
 
-	progress     *ObjectiveProgress // Objective 对应的 Progress 详细内容
-	progressFlag bool
+	progress    *ObjectiveProgress // Objective 对应的 Progress 详细内容
+	progressSet bool
 
-	createTime     int // Objective 的创建时间
-	createTimeFlag bool
+	createTime    int // Objective 的创建时间
+	createTimeSet bool
 
-	modifyTime     int // Objective 的最后修改时间
-	modifyTimeFlag bool
+	modifyTime    int // Objective 的最后修改时间
+	modifyTimeSet bool
 
-	krList     []*Kr // Objective 下的 KeyResult 列表
-	krListFlag bool
+	krList    []*Kr // Objective 下的 KeyResult 列表
+	krListSet bool
 
-	aligningObjectiveList     []*AlignObjective // Objective 对齐别人的 Objective 列表
-	aligningObjectiveListFlag bool
+	aligningObjectiveList    []*AlignObjective // Objective 对齐别人的 Objective 列表
+	aligningObjectiveListSet bool
 
-	alignedObjectiveList     []*AlignObjective // 被别人对齐的 Objective 列表
-	alignedObjectiveListFlag bool
+	alignedObjectiveList    []*AlignObjective // 被别人对齐的 Objective 列表
+	alignedObjectiveListSet bool
 }
 
 func NewObjectiveBuilder() *ObjectiveBuilder {
@@ -1970,7 +1974,7 @@ func NewObjectiveBuilder() *ObjectiveBuilder {
 // 示例值：
 func (builder *ObjectiveBuilder) Id(id string) *ObjectiveBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1979,7 +1983,7 @@ func (builder *ObjectiveBuilder) Id(id string) *ObjectiveBuilder {
 // 示例值：
 func (builder *ObjectiveBuilder) OkrId(okrId string) *ObjectiveBuilder {
 	builder.okrId = okrId
-	builder.okrIdFlag = true
+	builder.okrIdSet = true
 	return builder
 }
 
@@ -1988,7 +1992,7 @@ func (builder *ObjectiveBuilder) OkrId(okrId string) *ObjectiveBuilder {
 // 示例值：
 func (builder *ObjectiveBuilder) UserId(userId string) *ObjectiveBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -1997,7 +2001,7 @@ func (builder *ObjectiveBuilder) UserId(userId string) *ObjectiveBuilder {
 // 示例值：
 func (builder *ObjectiveBuilder) Pos(pos string) *ObjectiveBuilder {
 	builder.pos = pos
-	builder.posFlag = true
+	builder.posSet = true
 	return builder
 }
 
@@ -2006,7 +2010,7 @@ func (builder *ObjectiveBuilder) Pos(pos string) *ObjectiveBuilder {
 // 示例值：
 func (builder *ObjectiveBuilder) Score(score string) *ObjectiveBuilder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
@@ -2015,7 +2019,7 @@ func (builder *ObjectiveBuilder) Score(score string) *ObjectiveBuilder {
 // 示例值：
 func (builder *ObjectiveBuilder) Name(name *ObjectiveName) *ObjectiveBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2024,7 +2028,7 @@ func (builder *ObjectiveBuilder) Name(name *ObjectiveName) *ObjectiveBuilder {
 // 示例值：
 func (builder *ObjectiveBuilder) Progress(progress *ObjectiveProgress) *ObjectiveBuilder {
 	builder.progress = progress
-	builder.progressFlag = true
+	builder.progressSet = true
 	return builder
 }
 
@@ -2033,7 +2037,7 @@ func (builder *ObjectiveBuilder) Progress(progress *ObjectiveProgress) *Objectiv
 // 示例值：
 func (builder *ObjectiveBuilder) CreateTime(createTime int) *ObjectiveBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -2042,7 +2046,7 @@ func (builder *ObjectiveBuilder) CreateTime(createTime int) *ObjectiveBuilder {
 // 示例值：
 func (builder *ObjectiveBuilder) ModifyTime(modifyTime int) *ObjectiveBuilder {
 	builder.modifyTime = modifyTime
-	builder.modifyTimeFlag = true
+	builder.modifyTimeSet = true
 	return builder
 }
 
@@ -2051,7 +2055,7 @@ func (builder *ObjectiveBuilder) ModifyTime(modifyTime int) *ObjectiveBuilder {
 // 示例值：
 func (builder *ObjectiveBuilder) KrList(krList []*Kr) *ObjectiveBuilder {
 	builder.krList = krList
-	builder.krListFlag = true
+	builder.krListSet = true
 	return builder
 }
 
@@ -2060,7 +2064,7 @@ func (builder *ObjectiveBuilder) KrList(krList []*Kr) *ObjectiveBuilder {
 // 示例值：
 func (builder *ObjectiveBuilder) AligningObjectiveList(aligningObjectiveList []*AlignObjective) *ObjectiveBuilder {
 	builder.aligningObjectiveList = aligningObjectiveList
-	builder.aligningObjectiveListFlag = true
+	builder.aligningObjectiveListSet = true
 	return builder
 }
 
@@ -2069,53 +2073,53 @@ func (builder *ObjectiveBuilder) AligningObjectiveList(aligningObjectiveList []*
 // 示例值：
 func (builder *ObjectiveBuilder) AlignedObjectiveList(alignedObjectiveList []*AlignObjective) *ObjectiveBuilder {
 	builder.alignedObjectiveList = alignedObjectiveList
-	builder.alignedObjectiveListFlag = true
+	builder.alignedObjectiveListSet = true
 	return builder
 }
 
 func (builder *ObjectiveBuilder) Build() *Objective {
 	req := &Objective{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.okrIdFlag {
+	if builder.okrIdSet {
 		req.OkrId = &builder.okrId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.posFlag {
+	if builder.posSet {
 		req.Pos = &builder.pos
 
 	}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.progressFlag {
+	if builder.progressSet {
 		req.Progress = builder.progress
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.modifyTimeFlag {
+	if builder.modifyTimeSet {
 		req.ModifyTime = &builder.modifyTime
 
 	}
-	if builder.krListFlag {
+	if builder.krListSet {
 		req.KrList = builder.krList
 	}
-	if builder.aligningObjectiveListFlag {
+	if builder.aligningObjectiveListSet {
 		req.AligningObjectiveList = builder.aligningObjectiveList
 	}
-	if builder.alignedObjectiveListFlag {
+	if builder.alignedObjectiveListSet {
 		req.AlignedObjectiveList = builder.alignedObjectiveList
 	}
 	return req
@@ -2128,11 +2132,11 @@ type ObjectiveName struct {
 }
 
 type ObjectiveNameBuilder struct {
-	zh     string // 中文内容
-	zhFlag bool
+	zh    string // 中文内容
+	zhSet bool
 
-	en     string // 英文内容
-	enFlag bool
+	en    string // 英文内容
+	enSet bool
 }
 
 func NewObjectiveNameBuilder() *ObjectiveNameBuilder {
@@ -2145,7 +2149,7 @@ func NewObjectiveNameBuilder() *ObjectiveNameBuilder {
 // 示例值：
 func (builder *ObjectiveNameBuilder) Zh(zh string) *ObjectiveNameBuilder {
 	builder.zh = zh
-	builder.zhFlag = true
+	builder.zhSet = true
 	return builder
 }
 
@@ -2154,17 +2158,17 @@ func (builder *ObjectiveNameBuilder) Zh(zh string) *ObjectiveNameBuilder {
 // 示例值：
 func (builder *ObjectiveNameBuilder) En(en string) *ObjectiveNameBuilder {
 	builder.en = en
-	builder.enFlag = true
+	builder.enSet = true
 	return builder
 }
 
 func (builder *ObjectiveNameBuilder) Build() *ObjectiveName {
 	req := &ObjectiveName{}
-	if builder.zhFlag {
+	if builder.zhSet {
 		req.Zh = &builder.zh
 
 	}
-	if builder.enFlag {
+	if builder.enSet {
 		req.En = &builder.en
 
 	}
@@ -2178,11 +2182,11 @@ type ObjectiveProgress struct {
 }
 
 type ObjectiveProgressBuilder struct {
-	zh     string // 中文内容
-	zhFlag bool
+	zh    string // 中文内容
+	zhSet bool
 
-	en     string // 英文内容
-	enFlag bool
+	en    string // 英文内容
+	enSet bool
 }
 
 func NewObjectiveProgressBuilder() *ObjectiveProgressBuilder {
@@ -2195,7 +2199,7 @@ func NewObjectiveProgressBuilder() *ObjectiveProgressBuilder {
 // 示例值：
 func (builder *ObjectiveProgressBuilder) Zh(zh string) *ObjectiveProgressBuilder {
 	builder.zh = zh
-	builder.zhFlag = true
+	builder.zhSet = true
 	return builder
 }
 
@@ -2204,17 +2208,17 @@ func (builder *ObjectiveProgressBuilder) Zh(zh string) *ObjectiveProgressBuilder
 // 示例值：
 func (builder *ObjectiveProgressBuilder) En(en string) *ObjectiveProgressBuilder {
 	builder.en = en
-	builder.enFlag = true
+	builder.enSet = true
 	return builder
 }
 
 func (builder *ObjectiveProgressBuilder) Build() *ObjectiveProgress {
 	req := &ObjectiveProgress{}
-	if builder.zhFlag {
+	if builder.zhSet {
 		req.Zh = &builder.zh
 
 	}
-	if builder.enFlag {
+	if builder.enSet {
 		req.En = &builder.en
 
 	}
@@ -2240,29 +2244,29 @@ type Okr struct {
 }
 
 type OkrBuilder struct {
-	okrId     string // OKR ID
-	okrIdFlag bool
+	okrId    string // OKR ID
+	okrIdSet bool
 
-	periodId     string // 周期 ID
-	periodIdFlag bool
+	periodId    string // 周期 ID
+	periodIdSet bool
 
-	periodType     string // 周期类型：1、月周期；2、年周期
-	periodTypeFlag bool
+	periodType    string // 周期类型：1、月周期；2、年周期
+	periodTypeSet bool
 
-	name     *OkrName // 周期展示名称
-	nameFlag bool
+	name    *OkrName // 周期展示名称
+	nameSet bool
 
-	createTime     int // 创建时间 毫秒
-	createTimeFlag bool
+	createTime    int // 创建时间 毫秒
+	createTimeSet bool
 
-	modifyTime     int // 修改时间 毫秒
-	modifyTimeFlag bool
+	modifyTime    int // 修改时间 毫秒
+	modifyTimeSet bool
 
-	objectiveList     []*OkrDetailObjective // objective 列表
-	objectiveListFlag bool
+	objectiveList    []*OkrDetailObjective // objective 列表
+	objectiveListSet bool
 
-	okrScore     int // 打分
-	okrScoreFlag bool
+	okrScore    int // 打分
+	okrScoreSet bool
 }
 
 func NewOkrBuilder() *OkrBuilder {
@@ -2275,7 +2279,7 @@ func NewOkrBuilder() *OkrBuilder {
 // 示例值：6976173067307927084
 func (builder *OkrBuilder) OkrId(okrId string) *OkrBuilder {
 	builder.okrId = okrId
-	builder.okrIdFlag = true
+	builder.okrIdSet = true
 	return builder
 }
 
@@ -2284,7 +2288,7 @@ func (builder *OkrBuilder) OkrId(okrId string) *OkrBuilder {
 // 示例值：6974586812973581868
 func (builder *OkrBuilder) PeriodId(periodId string) *OkrBuilder {
 	builder.periodId = periodId
-	builder.periodIdFlag = true
+	builder.periodIdSet = true
 	return builder
 }
 
@@ -2293,7 +2297,7 @@ func (builder *OkrBuilder) PeriodId(periodId string) *OkrBuilder {
 // 示例值：1
 func (builder *OkrBuilder) PeriodType(periodType string) *OkrBuilder {
 	builder.periodType = periodType
-	builder.periodTypeFlag = true
+	builder.periodTypeSet = true
 	return builder
 }
 
@@ -2302,7 +2306,7 @@ func (builder *OkrBuilder) PeriodType(periodType string) *OkrBuilder {
 // 示例值：
 func (builder *OkrBuilder) Name(name *OkrName) *OkrBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2311,7 +2315,7 @@ func (builder *OkrBuilder) Name(name *OkrName) *OkrBuilder {
 // 示例值：1624267575928
 func (builder *OkrBuilder) CreateTime(createTime int) *OkrBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -2320,7 +2324,7 @@ func (builder *OkrBuilder) CreateTime(createTime int) *OkrBuilder {
 // 示例值：1624329170463
 func (builder *OkrBuilder) ModifyTime(modifyTime int) *OkrBuilder {
 	builder.modifyTime = modifyTime
-	builder.modifyTimeFlag = true
+	builder.modifyTimeSet = true
 	return builder
 }
 
@@ -2329,7 +2333,7 @@ func (builder *OkrBuilder) ModifyTime(modifyTime int) *OkrBuilder {
 // 示例值：
 func (builder *OkrBuilder) ObjectiveList(objectiveList []*OkrDetailObjective) *OkrBuilder {
 	builder.objectiveList = objectiveList
-	builder.objectiveListFlag = true
+	builder.objectiveListSet = true
 	return builder
 }
 
@@ -2338,39 +2342,39 @@ func (builder *OkrBuilder) ObjectiveList(objectiveList []*OkrDetailObjective) *O
 // 示例值：0.5
 func (builder *OkrBuilder) OkrScore(okrScore int) *OkrBuilder {
 	builder.okrScore = okrScore
-	builder.okrScoreFlag = true
+	builder.okrScoreSet = true
 	return builder
 }
 
 func (builder *OkrBuilder) Build() *Okr {
 	req := &Okr{}
-	if builder.okrIdFlag {
+	if builder.okrIdSet {
 		req.OkrId = &builder.okrId
 
 	}
-	if builder.periodIdFlag {
+	if builder.periodIdSet {
 		req.PeriodId = &builder.periodId
 
 	}
-	if builder.periodTypeFlag {
+	if builder.periodTypeSet {
 		req.PeriodType = &builder.periodType
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.modifyTimeFlag {
+	if builder.modifyTimeSet {
 		req.ModifyTime = &builder.modifyTime
 
 	}
-	if builder.objectiveListFlag {
+	if builder.objectiveListSet {
 		req.ObjectiveList = builder.objectiveList
 	}
-	if builder.okrScoreFlag {
+	if builder.okrScoreSet {
 		req.OkrScore = &builder.okrScore
 
 	}
@@ -2394,26 +2398,26 @@ type OkrComment struct {
 }
 
 type OkrCommentBuilder struct {
-	id     string // 全局评论ID
-	idFlag bool
+	id    string // 全局评论ID
+	idSet bool
 
-	content     string // 全局评论内容
-	contentFlag bool
+	content    string // 全局评论内容
+	contentSet bool
 
-	commentTime     int // 全局评论时间 毫秒
-	commentTimeFlag bool
+	commentTime    int // 全局评论时间 毫秒
+	commentTimeSet bool
 
-	commentator     *OkrObjectiveAlignedObjectiveOwner // 评论人员
-	commentatorFlag bool
+	commentator    *OkrObjectiveAlignedObjectiveOwner // 评论人员
+	commentatorSet bool
 
-	lastModifier     *OkrObjectiveAlignedObjectiveOwner // 修改评论的用户
-	lastModifierFlag bool
+	lastModifier    *OkrObjectiveAlignedObjectiveOwner // 修改评论的用户
+	lastModifierSet bool
 
-	contentModifyTime     int // 评论的被修改时间  0 表示未被修改过， ms级别时间戳
-	contentModifyTimeFlag bool
+	contentModifyTime    int // 评论的被修改时间  0 表示未被修改过， ms级别时间戳
+	contentModifyTimeSet bool
 
-	solvedTime     int // 评论被解决的时间   0 表示未解决过， ms级别时间戳
-	solvedTimeFlag bool
+	solvedTime    int // 评论被解决的时间   0 表示未解决过， ms级别时间戳
+	solvedTimeSet bool
 }
 
 func NewOkrCommentBuilder() *OkrCommentBuilder {
@@ -2426,7 +2430,7 @@ func NewOkrCommentBuilder() *OkrCommentBuilder {
 // 示例值：6976173067307927084
 func (builder *OkrCommentBuilder) Id(id string) *OkrCommentBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2435,7 +2439,7 @@ func (builder *OkrCommentBuilder) Id(id string) *OkrCommentBuilder {
 // 示例值：well done
 func (builder *OkrCommentBuilder) Content(content string) *OkrCommentBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -2444,7 +2448,7 @@ func (builder *OkrCommentBuilder) Content(content string) *OkrCommentBuilder {
 // 示例值：1624267575928
 func (builder *OkrCommentBuilder) CommentTime(commentTime int) *OkrCommentBuilder {
 	builder.commentTime = commentTime
-	builder.commentTimeFlag = true
+	builder.commentTimeSet = true
 	return builder
 }
 
@@ -2453,7 +2457,7 @@ func (builder *OkrCommentBuilder) CommentTime(commentTime int) *OkrCommentBuilde
 // 示例值：
 func (builder *OkrCommentBuilder) Commentator(commentator *OkrObjectiveAlignedObjectiveOwner) *OkrCommentBuilder {
 	builder.commentator = commentator
-	builder.commentatorFlag = true
+	builder.commentatorSet = true
 	return builder
 }
 
@@ -2462,7 +2466,7 @@ func (builder *OkrCommentBuilder) Commentator(commentator *OkrObjectiveAlignedOb
 // 示例值：
 func (builder *OkrCommentBuilder) LastModifier(lastModifier *OkrObjectiveAlignedObjectiveOwner) *OkrCommentBuilder {
 	builder.lastModifier = lastModifier
-	builder.lastModifierFlag = true
+	builder.lastModifierSet = true
 	return builder
 }
 
@@ -2471,7 +2475,7 @@ func (builder *OkrCommentBuilder) LastModifier(lastModifier *OkrObjectiveAligned
 // 示例值：1624267575928
 func (builder *OkrCommentBuilder) ContentModifyTime(contentModifyTime int) *OkrCommentBuilder {
 	builder.contentModifyTime = contentModifyTime
-	builder.contentModifyTimeFlag = true
+	builder.contentModifyTimeSet = true
 	return builder
 }
 
@@ -2480,35 +2484,35 @@ func (builder *OkrCommentBuilder) ContentModifyTime(contentModifyTime int) *OkrC
 // 示例值：1624267575928
 func (builder *OkrCommentBuilder) SolvedTime(solvedTime int) *OkrCommentBuilder {
 	builder.solvedTime = solvedTime
-	builder.solvedTimeFlag = true
+	builder.solvedTimeSet = true
 	return builder
 }
 
 func (builder *OkrCommentBuilder) Build() *OkrComment {
 	req := &OkrComment{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.commentTimeFlag {
+	if builder.commentTimeSet {
 		req.CommentTime = &builder.commentTime
 
 	}
-	if builder.commentatorFlag {
+	if builder.commentatorSet {
 		req.Commentator = builder.commentator
 	}
-	if builder.lastModifierFlag {
+	if builder.lastModifierSet {
 		req.LastModifier = builder.lastModifier
 	}
-	if builder.contentModifyTimeFlag {
+	if builder.contentModifyTimeSet {
 		req.ContentModifyTime = &builder.contentModifyTime
 
 	}
-	if builder.solvedTimeFlag {
+	if builder.solvedTimeSet {
 		req.SolvedTime = &builder.solvedTime
 
 	}
@@ -2524,14 +2528,14 @@ type OkrObjectiveAlignment struct {
 }
 
 type OkrObjectiveAlignmentBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	toId     string // 目标id
-	toIdFlag bool
+	toId    string // 目标id
+	toIdSet bool
 
-	toType     int // 目标类型
-	toTypeFlag bool
+	toType    int // 目标类型
+	toTypeSet bool
 }
 
 func NewOkrObjectiveAlignmentBuilder() *OkrObjectiveAlignmentBuilder {
@@ -2544,7 +2548,7 @@ func NewOkrObjectiveAlignmentBuilder() *OkrObjectiveAlignmentBuilder {
 // 示例值：
 func (builder *OkrObjectiveAlignmentBuilder) Id(id string) *OkrObjectiveAlignmentBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2553,7 +2557,7 @@ func (builder *OkrObjectiveAlignmentBuilder) Id(id string) *OkrObjectiveAlignmen
 // 示例值：
 func (builder *OkrObjectiveAlignmentBuilder) ToId(toId string) *OkrObjectiveAlignmentBuilder {
 	builder.toId = toId
-	builder.toIdFlag = true
+	builder.toIdSet = true
 	return builder
 }
 
@@ -2562,21 +2566,21 @@ func (builder *OkrObjectiveAlignmentBuilder) ToId(toId string) *OkrObjectiveAlig
 // 示例值：
 func (builder *OkrObjectiveAlignmentBuilder) ToType(toType int) *OkrObjectiveAlignmentBuilder {
 	builder.toType = toType
-	builder.toTypeFlag = true
+	builder.toTypeSet = true
 	return builder
 }
 
 func (builder *OkrObjectiveAlignmentBuilder) Build() *OkrObjectiveAlignment {
 	req := &OkrObjectiveAlignment{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.toIdFlag {
+	if builder.toIdSet {
 		req.ToId = &builder.toId
 
 	}
-	if builder.toTypeFlag {
+	if builder.toTypeSet {
 		req.ToType = &builder.toType
 
 	}
@@ -2598,23 +2602,23 @@ type OkrBatch struct {
 }
 
 type OkrBatchBuilder struct {
-	id     string // id
-	idFlag bool
+	id    string // id
+	idSet bool
 
-	permission     int // OKR的访问权限
-	permissionFlag bool
+	permission    int // OKR的访问权限
+	permissionSet bool
 
-	periodId     string // period_id
-	periodIdFlag bool
+	periodId    string // period_id
+	periodIdSet bool
 
-	name     string // 名称
-	nameFlag bool
+	name    string // 名称
+	nameSet bool
 
-	objectiveList     []*OkrObjective // Objective列表
-	objectiveListFlag bool
+	objectiveList    []*OkrObjective // Objective列表
+	objectiveListSet bool
 
-	confirmStatus     int // OKR确认状态
-	confirmStatusFlag bool
+	confirmStatus    int // OKR确认状态
+	confirmStatusSet bool
 }
 
 func NewOkrBatchBuilder() *OkrBatchBuilder {
@@ -2627,7 +2631,7 @@ func NewOkrBatchBuilder() *OkrBatchBuilder {
 // 示例值：11123123123123
 func (builder *OkrBatchBuilder) Id(id string) *OkrBatchBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2636,7 +2640,7 @@ func (builder *OkrBatchBuilder) Id(id string) *OkrBatchBuilder {
 // 示例值：0
 func (builder *OkrBatchBuilder) Permission(permission int) *OkrBatchBuilder {
 	builder.permission = permission
-	builder.permissionFlag = true
+	builder.permissionSet = true
 	return builder
 }
 
@@ -2645,7 +2649,7 @@ func (builder *OkrBatchBuilder) Permission(permission int) *OkrBatchBuilder {
 // 示例值：11123123123123
 func (builder *OkrBatchBuilder) PeriodId(periodId string) *OkrBatchBuilder {
 	builder.periodId = periodId
-	builder.periodIdFlag = true
+	builder.periodIdSet = true
 	return builder
 }
 
@@ -2654,7 +2658,7 @@ func (builder *OkrBatchBuilder) PeriodId(periodId string) *OkrBatchBuilder {
 // 示例值：My OKR
 func (builder *OkrBatchBuilder) Name(name string) *OkrBatchBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2663,7 +2667,7 @@ func (builder *OkrBatchBuilder) Name(name string) *OkrBatchBuilder {
 // 示例值：
 func (builder *OkrBatchBuilder) ObjectiveList(objectiveList []*OkrObjective) *OkrBatchBuilder {
 	builder.objectiveList = objectiveList
-	builder.objectiveListFlag = true
+	builder.objectiveListSet = true
 	return builder
 }
 
@@ -2672,32 +2676,32 @@ func (builder *OkrBatchBuilder) ObjectiveList(objectiveList []*OkrObjective) *Ok
 // 示例值：0
 func (builder *OkrBatchBuilder) ConfirmStatus(confirmStatus int) *OkrBatchBuilder {
 	builder.confirmStatus = confirmStatus
-	builder.confirmStatusFlag = true
+	builder.confirmStatusSet = true
 	return builder
 }
 
 func (builder *OkrBatchBuilder) Build() *OkrBatch {
 	req := &OkrBatch{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.permissionFlag {
+	if builder.permissionSet {
 		req.Permission = &builder.permission
 
 	}
-	if builder.periodIdFlag {
+	if builder.periodIdSet {
 		req.PeriodId = &builder.periodId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.objectiveListFlag {
+	if builder.objectiveListSet {
 		req.ObjectiveList = builder.objectiveList
 	}
-	if builder.confirmStatusFlag {
+	if builder.confirmStatusSet {
 		req.ConfirmStatus = &builder.confirmStatus
 
 	}
@@ -2723,29 +2727,29 @@ type OkrDetail struct {
 }
 
 type OkrDetailBuilder struct {
-	okrId     string // OKR ID
-	okrIdFlag bool
+	okrId    string // OKR ID
+	okrIdSet bool
 
-	periodId     string // 周期 ID
-	periodIdFlag bool
+	periodId    string // 周期 ID
+	periodIdSet bool
 
-	periodType     string // 周期类型：1、月周期；2、年周期
-	periodTypeFlag bool
+	periodType    string // 周期类型：1、月周期；2、年周期
+	periodTypeSet bool
 
-	name     *OkrName // 周期展示名称
-	nameFlag bool
+	name    *OkrName // 周期展示名称
+	nameSet bool
 
-	createTime     int // 创建时间
-	createTimeFlag bool
+	createTime    int // 创建时间
+	createTimeSet bool
 
-	modifyTime     int // 修改时间
-	modifyTimeFlag bool
+	modifyTime    int // 修改时间
+	modifyTimeSet bool
 
-	objectiveList     []*OkrDetailObjective // objective 列表
-	objectiveListFlag bool
+	objectiveList    []*OkrDetailObjective // objective 列表
+	objectiveListSet bool
 
-	okrScore     int // 打分
-	okrScoreFlag bool
+	okrScore    int // 打分
+	okrScoreSet bool
 }
 
 func NewOkrDetailBuilder() *OkrDetailBuilder {
@@ -2758,7 +2762,7 @@ func NewOkrDetailBuilder() *OkrDetailBuilder {
 // 示例值：6976173067307927084
 func (builder *OkrDetailBuilder) OkrId(okrId string) *OkrDetailBuilder {
 	builder.okrId = okrId
-	builder.okrIdFlag = true
+	builder.okrIdSet = true
 	return builder
 }
 
@@ -2767,7 +2771,7 @@ func (builder *OkrDetailBuilder) OkrId(okrId string) *OkrDetailBuilder {
 // 示例值：6974586812973581868
 func (builder *OkrDetailBuilder) PeriodId(periodId string) *OkrDetailBuilder {
 	builder.periodId = periodId
-	builder.periodIdFlag = true
+	builder.periodIdSet = true
 	return builder
 }
 
@@ -2776,7 +2780,7 @@ func (builder *OkrDetailBuilder) PeriodId(periodId string) *OkrDetailBuilder {
 // 示例值：1
 func (builder *OkrDetailBuilder) PeriodType(periodType string) *OkrDetailBuilder {
 	builder.periodType = periodType
-	builder.periodTypeFlag = true
+	builder.periodTypeSet = true
 	return builder
 }
 
@@ -2785,7 +2789,7 @@ func (builder *OkrDetailBuilder) PeriodType(periodType string) *OkrDetailBuilder
 // 示例值：
 func (builder *OkrDetailBuilder) Name(name *OkrName) *OkrDetailBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2794,7 +2798,7 @@ func (builder *OkrDetailBuilder) Name(name *OkrName) *OkrDetailBuilder {
 // 示例值：1624267575928
 func (builder *OkrDetailBuilder) CreateTime(createTime int) *OkrDetailBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -2803,7 +2807,7 @@ func (builder *OkrDetailBuilder) CreateTime(createTime int) *OkrDetailBuilder {
 // 示例值：1624329170463
 func (builder *OkrDetailBuilder) ModifyTime(modifyTime int) *OkrDetailBuilder {
 	builder.modifyTime = modifyTime
-	builder.modifyTimeFlag = true
+	builder.modifyTimeSet = true
 	return builder
 }
 
@@ -2812,7 +2816,7 @@ func (builder *OkrDetailBuilder) ModifyTime(modifyTime int) *OkrDetailBuilder {
 // 示例值：
 func (builder *OkrDetailBuilder) ObjectiveList(objectiveList []*OkrDetailObjective) *OkrDetailBuilder {
 	builder.objectiveList = objectiveList
-	builder.objectiveListFlag = true
+	builder.objectiveListSet = true
 	return builder
 }
 
@@ -2821,39 +2825,39 @@ func (builder *OkrDetailBuilder) ObjectiveList(objectiveList []*OkrDetailObjecti
 // 示例值：0.5
 func (builder *OkrDetailBuilder) OkrScore(okrScore int) *OkrDetailBuilder {
 	builder.okrScore = okrScore
-	builder.okrScoreFlag = true
+	builder.okrScoreSet = true
 	return builder
 }
 
 func (builder *OkrDetailBuilder) Build() *OkrDetail {
 	req := &OkrDetail{}
-	if builder.okrIdFlag {
+	if builder.okrIdSet {
 		req.OkrId = &builder.okrId
 
 	}
-	if builder.periodIdFlag {
+	if builder.periodIdSet {
 		req.PeriodId = &builder.periodId
 
 	}
-	if builder.periodTypeFlag {
+	if builder.periodTypeSet {
 		req.PeriodType = &builder.periodType
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.modifyTimeFlag {
+	if builder.modifyTimeSet {
 		req.ModifyTime = &builder.modifyTime
 
 	}
-	if builder.objectiveListFlag {
+	if builder.objectiveListSet {
 		req.ObjectiveList = builder.objectiveList
 	}
-	if builder.okrScoreFlag {
+	if builder.okrScoreSet {
 		req.OkrScore = &builder.okrScore
 
 	}
@@ -2889,44 +2893,44 @@ type OkrDetailObjective struct {
 }
 
 type OkrDetailObjectiveBuilder struct {
-	id     string // Objective ID
-	idFlag bool
+	id    string // Objective ID
+	idSet bool
 
-	okrId     string // 所属okr id
-	okrIdFlag bool
+	okrId    string // 所属okr id
+	okrIdSet bool
 
-	userId     string // 用户id
-	userIdFlag bool
+	userId    string // 用户id
+	userIdSet bool
 
-	pos     int // pos
-	posFlag bool
+	pos    int // pos
+	posSet bool
 
-	score     int // 得分
-	scoreFlag bool
+	score    int // 得分
+	scoreSet bool
 
-	name     *OkrName // Objective 名称
-	nameFlag bool
+	name    *OkrName // Objective 名称
+	nameSet bool
 
-	progress     *OkrName // Objective 进度描述
-	progressFlag bool
+	progress    *OkrName // Objective 进度描述
+	progressSet bool
 
-	createTime     int // 创建时间 毫秒
-	createTimeFlag bool
+	createTime    int // 创建时间 毫秒
+	createTimeSet bool
 
-	modifyTime     int // 修改时间 毫秒
-	modifyTimeFlag bool
+	modifyTime    int // 修改时间 毫秒
+	modifyTimeSet bool
 
-	krList     []*OkrDetailObjectiveKr // Kr list
-	krListFlag bool
+	krList    []*OkrDetailObjectiveKr // Kr list
+	krListSet bool
 
-	aligningObjectiveList     []*OkrDetailObjectiveAlign // aligning_objective_list list
-	aligningObjectiveListFlag bool
+	aligningObjectiveList    []*OkrDetailObjectiveAlign // aligning_objective_list list
+	aligningObjectiveListSet bool
 
-	alignedObjectiveList     []*OkrDetailObjectiveAlign // aligned_objective_list list
-	alignedObjectiveListFlag bool
+	alignedObjectiveList    []*OkrDetailObjectiveAlign // aligned_objective_list list
+	alignedObjectiveListSet bool
 
-	weight     float64 // 权重
-	weightFlag bool
+	weight    float64 // 权重
+	weightSet bool
 }
 
 func NewOkrDetailObjectiveBuilder() *OkrDetailObjectiveBuilder {
@@ -2939,7 +2943,7 @@ func NewOkrDetailObjectiveBuilder() *OkrDetailObjectiveBuilder {
 // 示例值：6976243668438730284
 func (builder *OkrDetailObjectiveBuilder) Id(id string) *OkrDetailObjectiveBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2948,7 +2952,7 @@ func (builder *OkrDetailObjectiveBuilder) Id(id string) *OkrDetailObjectiveBuild
 // 示例值：6976173067307927084
 func (builder *OkrDetailObjectiveBuilder) OkrId(okrId string) *OkrDetailObjectiveBuilder {
 	builder.okrId = okrId
-	builder.okrIdFlag = true
+	builder.okrIdSet = true
 	return builder
 }
 
@@ -2957,7 +2961,7 @@ func (builder *OkrDetailObjectiveBuilder) OkrId(okrId string) *OkrDetailObjectiv
 // 示例值：ou_186301103180d3469a0bfd6e80977ec9
 func (builder *OkrDetailObjectiveBuilder) UserId(userId string) *OkrDetailObjectiveBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -2966,7 +2970,7 @@ func (builder *OkrDetailObjectiveBuilder) UserId(userId string) *OkrDetailObject
 // 示例值：0
 func (builder *OkrDetailObjectiveBuilder) Pos(pos int) *OkrDetailObjectiveBuilder {
 	builder.pos = pos
-	builder.posFlag = true
+	builder.posSet = true
 	return builder
 }
 
@@ -2975,7 +2979,7 @@ func (builder *OkrDetailObjectiveBuilder) Pos(pos int) *OkrDetailObjectiveBuilde
 // 示例值：0
 func (builder *OkrDetailObjectiveBuilder) Score(score int) *OkrDetailObjectiveBuilder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
@@ -2984,7 +2988,7 @@ func (builder *OkrDetailObjectiveBuilder) Score(score int) *OkrDetailObjectiveBu
 // 示例值：
 func (builder *OkrDetailObjectiveBuilder) Name(name *OkrName) *OkrDetailObjectiveBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2993,7 +2997,7 @@ func (builder *OkrDetailObjectiveBuilder) Name(name *OkrName) *OkrDetailObjectiv
 // 示例值：
 func (builder *OkrDetailObjectiveBuilder) Progress(progress *OkrName) *OkrDetailObjectiveBuilder {
 	builder.progress = progress
-	builder.progressFlag = true
+	builder.progressSet = true
 	return builder
 }
 
@@ -3002,7 +3006,7 @@ func (builder *OkrDetailObjectiveBuilder) Progress(progress *OkrName) *OkrDetail
 // 示例值：1624327915435
 func (builder *OkrDetailObjectiveBuilder) CreateTime(createTime int) *OkrDetailObjectiveBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -3011,7 +3015,7 @@ func (builder *OkrDetailObjectiveBuilder) CreateTime(createTime int) *OkrDetailO
 // 示例值：1624329170551
 func (builder *OkrDetailObjectiveBuilder) ModifyTime(modifyTime int) *OkrDetailObjectiveBuilder {
 	builder.modifyTime = modifyTime
-	builder.modifyTimeFlag = true
+	builder.modifyTimeSet = true
 	return builder
 }
 
@@ -3020,7 +3024,7 @@ func (builder *OkrDetailObjectiveBuilder) ModifyTime(modifyTime int) *OkrDetailO
 // 示例值：
 func (builder *OkrDetailObjectiveBuilder) KrList(krList []*OkrDetailObjectiveKr) *OkrDetailObjectiveBuilder {
 	builder.krList = krList
-	builder.krListFlag = true
+	builder.krListSet = true
 	return builder
 }
 
@@ -3029,7 +3033,7 @@ func (builder *OkrDetailObjectiveBuilder) KrList(krList []*OkrDetailObjectiveKr)
 // 示例值：
 func (builder *OkrDetailObjectiveBuilder) AligningObjectiveList(aligningObjectiveList []*OkrDetailObjectiveAlign) *OkrDetailObjectiveBuilder {
 	builder.aligningObjectiveList = aligningObjectiveList
-	builder.aligningObjectiveListFlag = true
+	builder.aligningObjectiveListSet = true
 	return builder
 }
 
@@ -3038,7 +3042,7 @@ func (builder *OkrDetailObjectiveBuilder) AligningObjectiveList(aligningObjectiv
 // 示例值：
 func (builder *OkrDetailObjectiveBuilder) AlignedObjectiveList(alignedObjectiveList []*OkrDetailObjectiveAlign) *OkrDetailObjectiveBuilder {
 	builder.alignedObjectiveList = alignedObjectiveList
-	builder.alignedObjectiveListFlag = true
+	builder.alignedObjectiveListSet = true
 	return builder
 }
 
@@ -3047,56 +3051,56 @@ func (builder *OkrDetailObjectiveBuilder) AlignedObjectiveList(alignedObjectiveL
 // 示例值：100
 func (builder *OkrDetailObjectiveBuilder) Weight(weight float64) *OkrDetailObjectiveBuilder {
 	builder.weight = weight
-	builder.weightFlag = true
+	builder.weightSet = true
 	return builder
 }
 
 func (builder *OkrDetailObjectiveBuilder) Build() *OkrDetailObjective {
 	req := &OkrDetailObjective{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.okrIdFlag {
+	if builder.okrIdSet {
 		req.OkrId = &builder.okrId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.posFlag {
+	if builder.posSet {
 		req.Pos = &builder.pos
 
 	}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.progressFlag {
+	if builder.progressSet {
 		req.Progress = builder.progress
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.modifyTimeFlag {
+	if builder.modifyTimeSet {
 		req.ModifyTime = &builder.modifyTime
 
 	}
-	if builder.krListFlag {
+	if builder.krListSet {
 		req.KrList = builder.krList
 	}
-	if builder.aligningObjectiveListFlag {
+	if builder.aligningObjectiveListSet {
 		req.AligningObjectiveList = builder.aligningObjectiveList
 	}
-	if builder.alignedObjectiveListFlag {
+	if builder.alignedObjectiveListSet {
 		req.AlignedObjectiveList = builder.alignedObjectiveList
 	}
-	if builder.weightFlag {
+	if builder.weightSet {
 		req.Weight = &builder.weight
 
 	}
@@ -3112,14 +3116,14 @@ type OkrDetailObjectiveAlign struct {
 }
 
 type OkrDetailObjectiveAlignBuilder struct {
-	id     string // Objective的ID
-	idFlag bool
+	id    string // Objective的ID
+	idSet bool
 
-	okrId     string // OKR的ID
-	okrIdFlag bool
+	okrId    string // OKR的ID
+	okrIdSet bool
 
-	userId     string // 该Objective的Owner
-	userIdFlag bool
+	userId    string // 该Objective的Owner
+	userIdSet bool
 }
 
 func NewOkrDetailObjectiveAlignBuilder() *OkrDetailObjectiveAlignBuilder {
@@ -3132,7 +3136,7 @@ func NewOkrDetailObjectiveAlignBuilder() *OkrDetailObjectiveAlignBuilder {
 // 示例值：6975871409026975276
 func (builder *OkrDetailObjectiveAlignBuilder) Id(id string) *OkrDetailObjectiveAlignBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3141,7 +3145,7 @@ func (builder *OkrDetailObjectiveAlignBuilder) Id(id string) *OkrDetailObjective
 // 示例值：6975085709464143404
 func (builder *OkrDetailObjectiveAlignBuilder) OkrId(okrId string) *OkrDetailObjectiveAlignBuilder {
 	builder.okrId = okrId
-	builder.okrIdFlag = true
+	builder.okrIdSet = true
 	return builder
 }
 
@@ -3150,21 +3154,21 @@ func (builder *OkrDetailObjectiveAlignBuilder) OkrId(okrId string) *OkrDetailObj
 // 示例值：6975085709464143404
 func (builder *OkrDetailObjectiveAlignBuilder) UserId(userId string) *OkrDetailObjectiveAlignBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *OkrDetailObjectiveAlignBuilder) Build() *OkrDetailObjectiveAlign {
 	req := &OkrDetailObjectiveAlign{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.okrIdFlag {
+	if builder.okrIdSet {
 		req.OkrId = &builder.okrId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -3188,26 +3192,26 @@ type OkrDetailObjectiveKr struct {
 }
 
 type OkrDetailObjectiveKrBuilder struct {
-	id     string // Key Result ID
-	idFlag bool
+	id    string // Key Result ID
+	idSet bool
 
-	pos     int // pos
-	posFlag bool
+	pos    int // pos
+	posSet bool
 
-	score     int // KeyResult打分（0 - 100）
-	scoreFlag bool
+	score    int // KeyResult打分（0 - 100）
+	scoreSet bool
 
-	weight     float64 // KeyResult的权重（0 - 100）（废弃）
-	weightFlag bool
+	weight    float64 // KeyResult的权重（0 - 100）（废弃）
+	weightSet bool
 
-	content     *OkrName // KeyResult 内容
-	contentFlag bool
+	content    *OkrName // KeyResult 内容
+	contentSet bool
 
-	createTime     int // 创建时间 毫秒
-	createTimeFlag bool
+	createTime    int // 创建时间 毫秒
+	createTimeSet bool
 
-	modifyTime     int // 修改时间 毫秒
-	modifyTimeFlag bool
+	modifyTime    int // 修改时间 毫秒
+	modifyTimeSet bool
 }
 
 func NewOkrDetailObjectiveKrBuilder() *OkrDetailObjectiveKrBuilder {
@@ -3220,7 +3224,7 @@ func NewOkrDetailObjectiveKrBuilder() *OkrDetailObjectiveKrBuilder {
 // 示例值：6976243668438992428
 func (builder *OkrDetailObjectiveKrBuilder) Id(id string) *OkrDetailObjectiveKrBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3229,7 +3233,7 @@ func (builder *OkrDetailObjectiveKrBuilder) Id(id string) *OkrDetailObjectiveKrB
 // 示例值：100
 func (builder *OkrDetailObjectiveKrBuilder) Pos(pos int) *OkrDetailObjectiveKrBuilder {
 	builder.pos = pos
-	builder.posFlag = true
+	builder.posSet = true
 	return builder
 }
 
@@ -3238,7 +3242,7 @@ func (builder *OkrDetailObjectiveKrBuilder) Pos(pos int) *OkrDetailObjectiveKrBu
 // 示例值：100
 func (builder *OkrDetailObjectiveKrBuilder) Score(score int) *OkrDetailObjectiveKrBuilder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
@@ -3247,7 +3251,7 @@ func (builder *OkrDetailObjectiveKrBuilder) Score(score int) *OkrDetailObjective
 // 示例值：100
 func (builder *OkrDetailObjectiveKrBuilder) Weight(weight float64) *OkrDetailObjectiveKrBuilder {
 	builder.weight = weight
-	builder.weightFlag = true
+	builder.weightSet = true
 	return builder
 }
 
@@ -3256,7 +3260,7 @@ func (builder *OkrDetailObjectiveKrBuilder) Weight(weight float64) *OkrDetailObj
 // 示例值：
 func (builder *OkrDetailObjectiveKrBuilder) Content(content *OkrName) *OkrDetailObjectiveKrBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -3265,7 +3269,7 @@ func (builder *OkrDetailObjectiveKrBuilder) Content(content *OkrName) *OkrDetail
 // 示例值：1624327915448
 func (builder *OkrDetailObjectiveKrBuilder) CreateTime(createTime int) *OkrDetailObjectiveKrBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -3274,36 +3278,36 @@ func (builder *OkrDetailObjectiveKrBuilder) CreateTime(createTime int) *OkrDetai
 // 示例值：1624327915448
 func (builder *OkrDetailObjectiveKrBuilder) ModifyTime(modifyTime int) *OkrDetailObjectiveKrBuilder {
 	builder.modifyTime = modifyTime
-	builder.modifyTimeFlag = true
+	builder.modifyTimeSet = true
 	return builder
 }
 
 func (builder *OkrDetailObjectiveKrBuilder) Build() *OkrDetailObjectiveKr {
 	req := &OkrDetailObjectiveKr{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.posFlag {
+	if builder.posSet {
 		req.Pos = &builder.pos
 
 	}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
-	if builder.weightFlag {
+	if builder.weightSet {
 		req.Weight = &builder.weight
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = builder.content
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.modifyTimeFlag {
+	if builder.modifyTimeSet {
 		req.ModifyTime = &builder.modifyTime
 
 	}
@@ -3317,11 +3321,11 @@ type OkrListInfo struct {
 }
 
 type OkrListInfoBuilder struct {
-	currentOkr     *Okr // 中文内容
-	currentOkrFlag bool
+	currentOkr    *Okr // 中文内容
+	currentOkrSet bool
 
-	okrList     []*Okr // 英文内容
-	okrListFlag bool
+	okrList    []*Okr // 英文内容
+	okrListSet bool
 }
 
 func NewOkrListInfoBuilder() *OkrListInfoBuilder {
@@ -3334,7 +3338,7 @@ func NewOkrListInfoBuilder() *OkrListInfoBuilder {
 // 示例值：
 func (builder *OkrListInfoBuilder) CurrentOkr(currentOkr *Okr) *OkrListInfoBuilder {
 	builder.currentOkr = currentOkr
-	builder.currentOkrFlag = true
+	builder.currentOkrSet = true
 	return builder
 }
 
@@ -3343,16 +3347,16 @@ func (builder *OkrListInfoBuilder) CurrentOkr(currentOkr *Okr) *OkrListInfoBuild
 // 示例值：
 func (builder *OkrListInfoBuilder) OkrList(okrList []*Okr) *OkrListInfoBuilder {
 	builder.okrList = okrList
-	builder.okrListFlag = true
+	builder.okrListSet = true
 	return builder
 }
 
 func (builder *OkrListInfoBuilder) Build() *OkrListInfo {
 	req := &OkrListInfo{}
-	if builder.currentOkrFlag {
+	if builder.currentOkrSet {
 		req.CurrentOkr = builder.currentOkr
 	}
-	if builder.okrListFlag {
+	if builder.okrListSet {
 		req.OkrList = builder.okrList
 	}
 	return req
@@ -3365,11 +3369,11 @@ type OkrName struct {
 }
 
 type OkrNameBuilder struct {
-	zh     string // 中文内容
-	zhFlag bool
+	zh    string // 中文内容
+	zhSet bool
 
-	en     string // 英文内容
-	enFlag bool
+	en    string // 英文内容
+	enSet bool
 }
 
 func NewOkrNameBuilder() *OkrNameBuilder {
@@ -3382,7 +3386,7 @@ func NewOkrNameBuilder() *OkrNameBuilder {
 // 示例值：
 func (builder *OkrNameBuilder) Zh(zh string) *OkrNameBuilder {
 	builder.zh = zh
-	builder.zhFlag = true
+	builder.zhSet = true
 	return builder
 }
 
@@ -3391,17 +3395,17 @@ func (builder *OkrNameBuilder) Zh(zh string) *OkrNameBuilder {
 // 示例值：
 func (builder *OkrNameBuilder) En(en string) *OkrNameBuilder {
 	builder.en = en
-	builder.enFlag = true
+	builder.enSet = true
 	return builder
 }
 
 func (builder *OkrNameBuilder) Build() *OkrName {
 	req := &OkrName{}
-	if builder.zhFlag {
+	if builder.zhSet {
 		req.Zh = &builder.zh
 
 	}
-	if builder.enFlag {
+	if builder.enSet {
 		req.En = &builder.en
 
 	}
@@ -3447,59 +3451,59 @@ type OkrObjective struct {
 }
 
 type OkrObjectiveBuilder struct {
-	id     string // Objective ID
-	idFlag bool
+	id    string // Objective ID
+	idSet bool
 
-	permission     int // 权限
-	permissionFlag bool
+	permission    int // 权限
+	permissionSet bool
 
-	content     string // Objective 内容
-	contentFlag bool
+	content    string // Objective 内容
+	contentSet bool
 
-	progressReport     string // Objective 备注内容
-	progressReportFlag bool
+	progressReport    string // Objective 备注内容
+	progressReportSet bool
 
-	score     int // Objective 分数（0 - 100）
-	scoreFlag bool
+	score    int // Objective 分数（0 - 100）
+	scoreSet bool
 
-	weight     float64 // Objective的权重（0 - 100）
-	weightFlag bool
+	weight    float64 // Objective的权重（0 - 100）
+	weightSet bool
 
-	progressRate     *OkrObjectiveProgressRate // Objective进度
-	progressRateFlag bool
+	progressRate    *OkrObjectiveProgressRate // Objective进度
+	progressRateSet bool
 
-	krList     []*OkrObjectiveKr // Objective KeyResult 列表
-	krListFlag bool
+	krList    []*OkrObjectiveKr // Objective KeyResult 列表
+	krListSet bool
 
-	alignedObjectiveList     []*OkrObjectiveAlignedObjective // 对齐到该Objective的Objective列表
-	alignedObjectiveListFlag bool
+	alignedObjectiveList    []*OkrObjectiveAlignedObjective // 对齐到该Objective的Objective列表
+	alignedObjectiveListSet bool
 
-	aligningObjectiveList     []*OkrObjectiveAlignedObjective // 该Objective对齐到的Objective列表
-	aligningObjectiveListFlag bool
+	aligningObjectiveList    []*OkrObjectiveAlignedObjective // 该Objective对齐到的Objective列表
+	aligningObjectiveListSet bool
 
-	progressRecordList     []*ProgressRecordSimplify // 该Objective的进度列表
-	progressRecordListFlag bool
+	progressRecordList    []*ProgressRecordSimplify // 该Objective的进度列表
+	progressRecordListSet bool
 
-	progressRatePercentLastUpdatedTime     string // 最后一次进度百分比更新时间 毫秒
-	progressRatePercentLastUpdatedTimeFlag bool
+	progressRatePercentLastUpdatedTime    string // 最后一次进度百分比更新时间 毫秒
+	progressRatePercentLastUpdatedTimeSet bool
 
-	progressRateStatusLastUpdatedTime     string // 最后一次状态更新时间 毫秒
-	progressRateStatusLastUpdatedTimeFlag bool
+	progressRateStatusLastUpdatedTime    string // 最后一次状态更新时间 毫秒
+	progressRateStatusLastUpdatedTimeSet bool
 
-	progressRecordLastUpdatedTime     string // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
-	progressRecordLastUpdatedTimeFlag bool
+	progressRecordLastUpdatedTime    string // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
+	progressRecordLastUpdatedTimeSet bool
 
-	progressReportLastUpdatedTime     string // 最后一次编辑备注的时间 毫秒
-	progressReportLastUpdatedTimeFlag bool
+	progressReportLastUpdatedTime    string // 最后一次编辑备注的时间 毫秒
+	progressReportLastUpdatedTimeSet bool
 
-	scoreLastUpdatedTime     string // 最后一次打分更新时间 毫秒
-	scoreLastUpdatedTimeFlag bool
+	scoreLastUpdatedTime    string // 最后一次打分更新时间 毫秒
+	scoreLastUpdatedTimeSet bool
 
-	deadline     string // 截止时间 毫秒
-	deadlineFlag bool
+	deadline    string // 截止时间 毫秒
+	deadlineSet bool
 
-	mentionedUserList     []*OkrObjectiveAlignedObjectiveOwner // 该Objective提到的人员列表
-	mentionedUserListFlag bool
+	mentionedUserList    []*OkrObjectiveAlignedObjectiveOwner // 该Objective提到的人员列表
+	mentionedUserListSet bool
 }
 
 func NewOkrObjectiveBuilder() *OkrObjectiveBuilder {
@@ -3512,7 +3516,7 @@ func NewOkrObjectiveBuilder() *OkrObjectiveBuilder {
 // 示例值：1231231231231
 func (builder *OkrObjectiveBuilder) Id(id string) *OkrObjectiveBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3521,7 +3525,7 @@ func (builder *OkrObjectiveBuilder) Id(id string) *OkrObjectiveBuilder {
 // 示例值：0
 func (builder *OkrObjectiveBuilder) Permission(permission int) *OkrObjectiveBuilder {
 	builder.permission = permission
-	builder.permissionFlag = true
+	builder.permissionSet = true
 	return builder
 }
 
@@ -3530,7 +3534,7 @@ func (builder *OkrObjectiveBuilder) Permission(permission int) *OkrObjectiveBuil
 // 示例值：Objective 内容
 func (builder *OkrObjectiveBuilder) Content(content string) *OkrObjectiveBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -3539,7 +3543,7 @@ func (builder *OkrObjectiveBuilder) Content(content string) *OkrObjectiveBuilder
 // 示例值：Objective 进度记录内容
 func (builder *OkrObjectiveBuilder) ProgressReport(progressReport string) *OkrObjectiveBuilder {
 	builder.progressReport = progressReport
-	builder.progressReportFlag = true
+	builder.progressReportSet = true
 	return builder
 }
 
@@ -3548,7 +3552,7 @@ func (builder *OkrObjectiveBuilder) ProgressReport(progressReport string) *OkrOb
 // 示例值：100
 func (builder *OkrObjectiveBuilder) Score(score int) *OkrObjectiveBuilder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
@@ -3557,7 +3561,7 @@ func (builder *OkrObjectiveBuilder) Score(score int) *OkrObjectiveBuilder {
 // 示例值：33.33
 func (builder *OkrObjectiveBuilder) Weight(weight float64) *OkrObjectiveBuilder {
 	builder.weight = weight
-	builder.weightFlag = true
+	builder.weightSet = true
 	return builder
 }
 
@@ -3566,7 +3570,7 @@ func (builder *OkrObjectiveBuilder) Weight(weight float64) *OkrObjectiveBuilder 
 // 示例值：
 func (builder *OkrObjectiveBuilder) ProgressRate(progressRate *OkrObjectiveProgressRate) *OkrObjectiveBuilder {
 	builder.progressRate = progressRate
-	builder.progressRateFlag = true
+	builder.progressRateSet = true
 	return builder
 }
 
@@ -3575,7 +3579,7 @@ func (builder *OkrObjectiveBuilder) ProgressRate(progressRate *OkrObjectiveProgr
 // 示例值：
 func (builder *OkrObjectiveBuilder) KrList(krList []*OkrObjectiveKr) *OkrObjectiveBuilder {
 	builder.krList = krList
-	builder.krListFlag = true
+	builder.krListSet = true
 	return builder
 }
 
@@ -3584,7 +3588,7 @@ func (builder *OkrObjectiveBuilder) KrList(krList []*OkrObjectiveKr) *OkrObjecti
 // 示例值：
 func (builder *OkrObjectiveBuilder) AlignedObjectiveList(alignedObjectiveList []*OkrObjectiveAlignedObjective) *OkrObjectiveBuilder {
 	builder.alignedObjectiveList = alignedObjectiveList
-	builder.alignedObjectiveListFlag = true
+	builder.alignedObjectiveListSet = true
 	return builder
 }
 
@@ -3593,7 +3597,7 @@ func (builder *OkrObjectiveBuilder) AlignedObjectiveList(alignedObjectiveList []
 // 示例值：
 func (builder *OkrObjectiveBuilder) AligningObjectiveList(aligningObjectiveList []*OkrObjectiveAlignedObjective) *OkrObjectiveBuilder {
 	builder.aligningObjectiveList = aligningObjectiveList
-	builder.aligningObjectiveListFlag = true
+	builder.aligningObjectiveListSet = true
 	return builder
 }
 
@@ -3602,7 +3606,7 @@ func (builder *OkrObjectiveBuilder) AligningObjectiveList(aligningObjectiveList 
 // 示例值：
 func (builder *OkrObjectiveBuilder) ProgressRecordList(progressRecordList []*ProgressRecordSimplify) *OkrObjectiveBuilder {
 	builder.progressRecordList = progressRecordList
-	builder.progressRecordListFlag = true
+	builder.progressRecordListSet = true
 	return builder
 }
 
@@ -3611,7 +3615,7 @@ func (builder *OkrObjectiveBuilder) ProgressRecordList(progressRecordList []*Pro
 // 示例值：1618500278663
 func (builder *OkrObjectiveBuilder) ProgressRatePercentLastUpdatedTime(progressRatePercentLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.progressRatePercentLastUpdatedTime = progressRatePercentLastUpdatedTime
-	builder.progressRatePercentLastUpdatedTimeFlag = true
+	builder.progressRatePercentLastUpdatedTimeSet = true
 	return builder
 }
 
@@ -3620,7 +3624,7 @@ func (builder *OkrObjectiveBuilder) ProgressRatePercentLastUpdatedTime(progressR
 // 示例值：1618500278663
 func (builder *OkrObjectiveBuilder) ProgressRateStatusLastUpdatedTime(progressRateStatusLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.progressRateStatusLastUpdatedTime = progressRateStatusLastUpdatedTime
-	builder.progressRateStatusLastUpdatedTimeFlag = true
+	builder.progressRateStatusLastUpdatedTimeSet = true
 	return builder
 }
 
@@ -3629,7 +3633,7 @@ func (builder *OkrObjectiveBuilder) ProgressRateStatusLastUpdatedTime(progressRa
 // 示例值：1618500278663
 func (builder *OkrObjectiveBuilder) ProgressRecordLastUpdatedTime(progressRecordLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.progressRecordLastUpdatedTime = progressRecordLastUpdatedTime
-	builder.progressRecordLastUpdatedTimeFlag = true
+	builder.progressRecordLastUpdatedTimeSet = true
 	return builder
 }
 
@@ -3638,7 +3642,7 @@ func (builder *OkrObjectiveBuilder) ProgressRecordLastUpdatedTime(progressRecord
 // 示例值：1618500278663
 func (builder *OkrObjectiveBuilder) ProgressReportLastUpdatedTime(progressReportLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.progressReportLastUpdatedTime = progressReportLastUpdatedTime
-	builder.progressReportLastUpdatedTimeFlag = true
+	builder.progressReportLastUpdatedTimeSet = true
 	return builder
 }
 
@@ -3647,7 +3651,7 @@ func (builder *OkrObjectiveBuilder) ProgressReportLastUpdatedTime(progressReport
 // 示例值：1618500278663
 func (builder *OkrObjectiveBuilder) ScoreLastUpdatedTime(scoreLastUpdatedTime string) *OkrObjectiveBuilder {
 	builder.scoreLastUpdatedTime = scoreLastUpdatedTime
-	builder.scoreLastUpdatedTimeFlag = true
+	builder.scoreLastUpdatedTimeSet = true
 	return builder
 }
 
@@ -3656,7 +3660,7 @@ func (builder *OkrObjectiveBuilder) ScoreLastUpdatedTime(scoreLastUpdatedTime st
 // 示例值：1618500278663
 func (builder *OkrObjectiveBuilder) Deadline(deadline string) *OkrObjectiveBuilder {
 	builder.deadline = deadline
-	builder.deadlineFlag = true
+	builder.deadlineSet = true
 	return builder
 }
 
@@ -3665,76 +3669,76 @@ func (builder *OkrObjectiveBuilder) Deadline(deadline string) *OkrObjectiveBuild
 // 示例值：
 func (builder *OkrObjectiveBuilder) MentionedUserList(mentionedUserList []*OkrObjectiveAlignedObjectiveOwner) *OkrObjectiveBuilder {
 	builder.mentionedUserList = mentionedUserList
-	builder.mentionedUserListFlag = true
+	builder.mentionedUserListSet = true
 	return builder
 }
 
 func (builder *OkrObjectiveBuilder) Build() *OkrObjective {
 	req := &OkrObjective{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.permissionFlag {
+	if builder.permissionSet {
 		req.Permission = &builder.permission
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.progressReportFlag {
+	if builder.progressReportSet {
 		req.ProgressReport = &builder.progressReport
 
 	}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
-	if builder.weightFlag {
+	if builder.weightSet {
 		req.Weight = &builder.weight
 
 	}
-	if builder.progressRateFlag {
+	if builder.progressRateSet {
 		req.ProgressRate = builder.progressRate
 	}
-	if builder.krListFlag {
+	if builder.krListSet {
 		req.KrList = builder.krList
 	}
-	if builder.alignedObjectiveListFlag {
+	if builder.alignedObjectiveListSet {
 		req.AlignedObjectiveList = builder.alignedObjectiveList
 	}
-	if builder.aligningObjectiveListFlag {
+	if builder.aligningObjectiveListSet {
 		req.AligningObjectiveList = builder.aligningObjectiveList
 	}
-	if builder.progressRecordListFlag {
+	if builder.progressRecordListSet {
 		req.ProgressRecordList = builder.progressRecordList
 	}
-	if builder.progressRatePercentLastUpdatedTimeFlag {
+	if builder.progressRatePercentLastUpdatedTimeSet {
 		req.ProgressRatePercentLastUpdatedTime = &builder.progressRatePercentLastUpdatedTime
 
 	}
-	if builder.progressRateStatusLastUpdatedTimeFlag {
+	if builder.progressRateStatusLastUpdatedTimeSet {
 		req.ProgressRateStatusLastUpdatedTime = &builder.progressRateStatusLastUpdatedTime
 
 	}
-	if builder.progressRecordLastUpdatedTimeFlag {
+	if builder.progressRecordLastUpdatedTimeSet {
 		req.ProgressRecordLastUpdatedTime = &builder.progressRecordLastUpdatedTime
 
 	}
-	if builder.progressReportLastUpdatedTimeFlag {
+	if builder.progressReportLastUpdatedTimeSet {
 		req.ProgressReportLastUpdatedTime = &builder.progressReportLastUpdatedTime
 
 	}
-	if builder.scoreLastUpdatedTimeFlag {
+	if builder.scoreLastUpdatedTimeSet {
 		req.ScoreLastUpdatedTime = &builder.scoreLastUpdatedTime
 
 	}
-	if builder.deadlineFlag {
+	if builder.deadlineSet {
 		req.Deadline = &builder.deadline
 
 	}
-	if builder.mentionedUserListFlag {
+	if builder.mentionedUserListSet {
 		req.MentionedUserList = builder.mentionedUserList
 	}
 	return req
@@ -3749,14 +3753,14 @@ type OkrObjectiveAlignedObjective struct {
 }
 
 type OkrObjectiveAlignedObjectiveBuilder struct {
-	id     string // Objective的ID
-	idFlag bool
+	id    string // Objective的ID
+	idSet bool
 
-	okrId     string // OKR的ID
-	okrIdFlag bool
+	okrId    string // OKR的ID
+	okrIdSet bool
 
-	owner     *OkrObjectiveAlignedObjectiveOwner // 该Objective的Owner
-	ownerFlag bool
+	owner    *OkrObjectiveAlignedObjectiveOwner // 该Objective的Owner
+	ownerSet bool
 }
 
 func NewOkrObjectiveAlignedObjectiveBuilder() *OkrObjectiveAlignedObjectiveBuilder {
@@ -3769,7 +3773,7 @@ func NewOkrObjectiveAlignedObjectiveBuilder() *OkrObjectiveAlignedObjectiveBuild
 // 示例值：1231231231213
 func (builder *OkrObjectiveAlignedObjectiveBuilder) Id(id string) *OkrObjectiveAlignedObjectiveBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3778,7 +3782,7 @@ func (builder *OkrObjectiveAlignedObjectiveBuilder) Id(id string) *OkrObjectiveA
 // 示例值：12323231231213
 func (builder *OkrObjectiveAlignedObjectiveBuilder) OkrId(okrId string) *OkrObjectiveAlignedObjectiveBuilder {
 	builder.okrId = okrId
-	builder.okrIdFlag = true
+	builder.okrIdSet = true
 	return builder
 }
 
@@ -3787,21 +3791,21 @@ func (builder *OkrObjectiveAlignedObjectiveBuilder) OkrId(okrId string) *OkrObje
 // 示例值：
 func (builder *OkrObjectiveAlignedObjectiveBuilder) Owner(owner *OkrObjectiveAlignedObjectiveOwner) *OkrObjectiveAlignedObjectiveBuilder {
 	builder.owner = owner
-	builder.ownerFlag = true
+	builder.ownerSet = true
 	return builder
 }
 
 func (builder *OkrObjectiveAlignedObjectiveBuilder) Build() *OkrObjectiveAlignedObjective {
 	req := &OkrObjectiveAlignedObjective{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.okrIdFlag {
+	if builder.okrIdSet {
 		req.OkrId = &builder.okrId
 
 	}
-	if builder.ownerFlag {
+	if builder.ownerSet {
 		req.Owner = builder.owner
 	}
 	return req
@@ -3814,11 +3818,11 @@ type OkrObjectiveAlignedObjectiveOwner struct {
 }
 
 type OkrObjectiveAlignedObjectiveOwnerBuilder struct {
-	openId     string // 用户的 open_id
-	openIdFlag bool
+	openId    string // 用户的 open_id
+	openIdSet bool
 
-	userId     string // 用户的 user_id
-	userIdFlag bool
+	userId    string // 用户的 user_id
+	userIdSet bool
 }
 
 func NewOkrObjectiveAlignedObjectiveOwnerBuilder() *OkrObjectiveAlignedObjectiveOwnerBuilder {
@@ -3831,7 +3835,7 @@ func NewOkrObjectiveAlignedObjectiveOwnerBuilder() *OkrObjectiveAlignedObjective
 // 示例值：od-asd2dasdasd
 func (builder *OkrObjectiveAlignedObjectiveOwnerBuilder) OpenId(openId string) *OkrObjectiveAlignedObjectiveOwnerBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
@@ -3840,17 +3844,17 @@ func (builder *OkrObjectiveAlignedObjectiveOwnerBuilder) OpenId(openId string) *
 // 示例值：ou-ux987dsf6x
 func (builder *OkrObjectiveAlignedObjectiveOwnerBuilder) UserId(userId string) *OkrObjectiveAlignedObjectiveOwnerBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *OkrObjectiveAlignedObjectiveOwnerBuilder) Build() *OkrObjectiveAlignedObjectiveOwner {
 	req := &OkrObjectiveAlignedObjectiveOwner{}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -3888,47 +3892,47 @@ type OkrObjectiveKr struct {
 }
 
 type OkrObjectiveKrBuilder struct {
-	id     string // Key Result ID
-	idFlag bool
+	id    string // Key Result ID
+	idSet bool
 
-	content     string // KeyResult 内容
-	contentFlag bool
+	content    string // KeyResult 内容
+	contentSet bool
 
-	score     int // KeyResult打分（0 - 100）
-	scoreFlag bool
+	score    int // KeyResult打分（0 - 100）
+	scoreSet bool
 
-	weight     int // KeyResult权重（0 - 100）（废弃）
-	weightFlag bool
+	weight    int // KeyResult权重（0 - 100）（废弃）
+	weightSet bool
 
-	krWeight     float64 // KeyResult的权重（0 - 100）
-	krWeightFlag bool
+	krWeight    float64 // KeyResult的权重（0 - 100）
+	krWeightSet bool
 
-	progressRate     *OkrObjectiveProgressRate // KR进度
-	progressRateFlag bool
+	progressRate    *OkrObjectiveProgressRate // KR进度
+	progressRateSet bool
 
-	progressRecordList     []*ProgressRecordSimplify // 该KR的进度列表
-	progressRecordListFlag bool
+	progressRecordList    []*ProgressRecordSimplify // 该KR的进度列表
+	progressRecordListSet bool
 
-	progressRatePercentLastUpdatedTime     string // 最后一次进度百分比更新时间 毫秒
-	progressRatePercentLastUpdatedTimeFlag bool
+	progressRatePercentLastUpdatedTime    string // 最后一次进度百分比更新时间 毫秒
+	progressRatePercentLastUpdatedTimeSet bool
 
-	progressRateStatusLastUpdatedTime     string // 最后一次状态更新时间 毫秒
-	progressRateStatusLastUpdatedTimeFlag bool
+	progressRateStatusLastUpdatedTime    string // 最后一次状态更新时间 毫秒
+	progressRateStatusLastUpdatedTimeSet bool
 
-	progressRecordLastUpdatedTime     string // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
-	progressRecordLastUpdatedTimeFlag bool
+	progressRecordLastUpdatedTime    string // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
+	progressRecordLastUpdatedTimeSet bool
 
-	progressReportLastUpdatedTime     string // 最后一次编辑备注的时间 毫秒
-	progressReportLastUpdatedTimeFlag bool
+	progressReportLastUpdatedTime    string // 最后一次编辑备注的时间 毫秒
+	progressReportLastUpdatedTimeSet bool
 
-	scoreLastUpdatedTime     string // 最后一次打分更新时间 毫秒
-	scoreLastUpdatedTimeFlag bool
+	scoreLastUpdatedTime    string // 最后一次打分更新时间 毫秒
+	scoreLastUpdatedTimeSet bool
 
-	deadline     string // 截止时间 毫秒
-	deadlineFlag bool
+	deadline    string // 截止时间 毫秒
+	deadlineSet bool
 
-	mentionedUserList     []*OkrObjectiveAlignedObjectiveOwner // 该Objective提到的人员列表
-	mentionedUserListFlag bool
+	mentionedUserList    []*OkrObjectiveAlignedObjectiveOwner // 该Objective提到的人员列表
+	mentionedUserListSet bool
 }
 
 func NewOkrObjectiveKrBuilder() *OkrObjectiveKrBuilder {
@@ -3941,7 +3945,7 @@ func NewOkrObjectiveKrBuilder() *OkrObjectiveKrBuilder {
 // 示例值：1231231223
 func (builder *OkrObjectiveKrBuilder) Id(id string) *OkrObjectiveKrBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3950,7 +3954,7 @@ func (builder *OkrObjectiveKrBuilder) Id(id string) *OkrObjectiveKrBuilder {
 // 示例值：KeyResult 内容
 func (builder *OkrObjectiveKrBuilder) Content(content string) *OkrObjectiveKrBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -3959,7 +3963,7 @@ func (builder *OkrObjectiveKrBuilder) Content(content string) *OkrObjectiveKrBui
 // 示例值：100
 func (builder *OkrObjectiveKrBuilder) Score(score int) *OkrObjectiveKrBuilder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
@@ -3968,7 +3972,7 @@ func (builder *OkrObjectiveKrBuilder) Score(score int) *OkrObjectiveKrBuilder {
 // 示例值：100
 func (builder *OkrObjectiveKrBuilder) Weight(weight int) *OkrObjectiveKrBuilder {
 	builder.weight = weight
-	builder.weightFlag = true
+	builder.weightSet = true
 	return builder
 }
 
@@ -3977,7 +3981,7 @@ func (builder *OkrObjectiveKrBuilder) Weight(weight int) *OkrObjectiveKrBuilder 
 // 示例值：33.33
 func (builder *OkrObjectiveKrBuilder) KrWeight(krWeight float64) *OkrObjectiveKrBuilder {
 	builder.krWeight = krWeight
-	builder.krWeightFlag = true
+	builder.krWeightSet = true
 	return builder
 }
 
@@ -3986,7 +3990,7 @@ func (builder *OkrObjectiveKrBuilder) KrWeight(krWeight float64) *OkrObjectiveKr
 // 示例值：
 func (builder *OkrObjectiveKrBuilder) ProgressRate(progressRate *OkrObjectiveProgressRate) *OkrObjectiveKrBuilder {
 	builder.progressRate = progressRate
-	builder.progressRateFlag = true
+	builder.progressRateSet = true
 	return builder
 }
 
@@ -3995,7 +3999,7 @@ func (builder *OkrObjectiveKrBuilder) ProgressRate(progressRate *OkrObjectivePro
 // 示例值：
 func (builder *OkrObjectiveKrBuilder) ProgressRecordList(progressRecordList []*ProgressRecordSimplify) *OkrObjectiveKrBuilder {
 	builder.progressRecordList = progressRecordList
-	builder.progressRecordListFlag = true
+	builder.progressRecordListSet = true
 	return builder
 }
 
@@ -4004,7 +4008,7 @@ func (builder *OkrObjectiveKrBuilder) ProgressRecordList(progressRecordList []*P
 // 示例值：1618500278663
 func (builder *OkrObjectiveKrBuilder) ProgressRatePercentLastUpdatedTime(progressRatePercentLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.progressRatePercentLastUpdatedTime = progressRatePercentLastUpdatedTime
-	builder.progressRatePercentLastUpdatedTimeFlag = true
+	builder.progressRatePercentLastUpdatedTimeSet = true
 	return builder
 }
 
@@ -4013,7 +4017,7 @@ func (builder *OkrObjectiveKrBuilder) ProgressRatePercentLastUpdatedTime(progres
 // 示例值：1618500278663
 func (builder *OkrObjectiveKrBuilder) ProgressRateStatusLastUpdatedTime(progressRateStatusLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.progressRateStatusLastUpdatedTime = progressRateStatusLastUpdatedTime
-	builder.progressRateStatusLastUpdatedTimeFlag = true
+	builder.progressRateStatusLastUpdatedTimeSet = true
 	return builder
 }
 
@@ -4022,7 +4026,7 @@ func (builder *OkrObjectiveKrBuilder) ProgressRateStatusLastUpdatedTime(progress
 // 示例值：1618500278663
 func (builder *OkrObjectiveKrBuilder) ProgressRecordLastUpdatedTime(progressRecordLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.progressRecordLastUpdatedTime = progressRecordLastUpdatedTime
-	builder.progressRecordLastUpdatedTimeFlag = true
+	builder.progressRecordLastUpdatedTimeSet = true
 	return builder
 }
 
@@ -4031,7 +4035,7 @@ func (builder *OkrObjectiveKrBuilder) ProgressRecordLastUpdatedTime(progressReco
 // 示例值：1618500278663
 func (builder *OkrObjectiveKrBuilder) ProgressReportLastUpdatedTime(progressReportLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.progressReportLastUpdatedTime = progressReportLastUpdatedTime
-	builder.progressReportLastUpdatedTimeFlag = true
+	builder.progressReportLastUpdatedTimeSet = true
 	return builder
 }
 
@@ -4040,7 +4044,7 @@ func (builder *OkrObjectiveKrBuilder) ProgressReportLastUpdatedTime(progressRepo
 // 示例值：1618500278663
 func (builder *OkrObjectiveKrBuilder) ScoreLastUpdatedTime(scoreLastUpdatedTime string) *OkrObjectiveKrBuilder {
 	builder.scoreLastUpdatedTime = scoreLastUpdatedTime
-	builder.scoreLastUpdatedTimeFlag = true
+	builder.scoreLastUpdatedTimeSet = true
 	return builder
 }
 
@@ -4049,7 +4053,7 @@ func (builder *OkrObjectiveKrBuilder) ScoreLastUpdatedTime(scoreLastUpdatedTime 
 // 示例值：1618500278663
 func (builder *OkrObjectiveKrBuilder) Deadline(deadline string) *OkrObjectiveKrBuilder {
 	builder.deadline = deadline
-	builder.deadlineFlag = true
+	builder.deadlineSet = true
 	return builder
 }
 
@@ -4058,63 +4062,63 @@ func (builder *OkrObjectiveKrBuilder) Deadline(deadline string) *OkrObjectiveKrB
 // 示例值：
 func (builder *OkrObjectiveKrBuilder) MentionedUserList(mentionedUserList []*OkrObjectiveAlignedObjectiveOwner) *OkrObjectiveKrBuilder {
 	builder.mentionedUserList = mentionedUserList
-	builder.mentionedUserListFlag = true
+	builder.mentionedUserListSet = true
 	return builder
 }
 
 func (builder *OkrObjectiveKrBuilder) Build() *OkrObjectiveKr {
 	req := &OkrObjectiveKr{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
-	if builder.weightFlag {
+	if builder.weightSet {
 		req.Weight = &builder.weight
 
 	}
-	if builder.krWeightFlag {
+	if builder.krWeightSet {
 		req.KrWeight = &builder.krWeight
 
 	}
-	if builder.progressRateFlag {
+	if builder.progressRateSet {
 		req.ProgressRate = builder.progressRate
 	}
-	if builder.progressRecordListFlag {
+	if builder.progressRecordListSet {
 		req.ProgressRecordList = builder.progressRecordList
 	}
-	if builder.progressRatePercentLastUpdatedTimeFlag {
+	if builder.progressRatePercentLastUpdatedTimeSet {
 		req.ProgressRatePercentLastUpdatedTime = &builder.progressRatePercentLastUpdatedTime
 
 	}
-	if builder.progressRateStatusLastUpdatedTimeFlag {
+	if builder.progressRateStatusLastUpdatedTimeSet {
 		req.ProgressRateStatusLastUpdatedTime = &builder.progressRateStatusLastUpdatedTime
 
 	}
-	if builder.progressRecordLastUpdatedTimeFlag {
+	if builder.progressRecordLastUpdatedTimeSet {
 		req.ProgressRecordLastUpdatedTime = &builder.progressRecordLastUpdatedTime
 
 	}
-	if builder.progressReportLastUpdatedTimeFlag {
+	if builder.progressReportLastUpdatedTimeSet {
 		req.ProgressReportLastUpdatedTime = &builder.progressReportLastUpdatedTime
 
 	}
-	if builder.scoreLastUpdatedTimeFlag {
+	if builder.scoreLastUpdatedTimeSet {
 		req.ScoreLastUpdatedTime = &builder.scoreLastUpdatedTime
 
 	}
-	if builder.deadlineFlag {
+	if builder.deadlineSet {
 		req.Deadline = &builder.deadline
 
 	}
-	if builder.mentionedUserListFlag {
+	if builder.mentionedUserListSet {
 		req.MentionedUserList = builder.mentionedUserList
 	}
 	return req
@@ -4127,11 +4131,11 @@ type OkrObjectiveProgressRate struct {
 }
 
 type OkrObjectiveProgressRateBuilder struct {
-	percent     int // Objective 进度百分比 >= 0
-	percentFlag bool
+	percent    int // Objective 进度百分比 >= 0
+	percentSet bool
 
-	status     string // Objective 进度状态:;- "-1" 暂无;- "0" 正常;- "1" 风险;- "2" 延期
-	statusFlag bool
+	status    string // Objective 进度状态:;- "-1" 暂无;- "0" 正常;- "1" 风险;- "2" 延期
+	statusSet bool
 }
 
 func NewOkrObjectiveProgressRateBuilder() *OkrObjectiveProgressRateBuilder {
@@ -4144,7 +4148,7 @@ func NewOkrObjectiveProgressRateBuilder() *OkrObjectiveProgressRateBuilder {
 // 示例值：50
 func (builder *OkrObjectiveProgressRateBuilder) Percent(percent int) *OkrObjectiveProgressRateBuilder {
 	builder.percent = percent
-	builder.percentFlag = true
+	builder.percentSet = true
 	return builder
 }
 
@@ -4153,17 +4157,17 @@ func (builder *OkrObjectiveProgressRateBuilder) Percent(percent int) *OkrObjecti
 // 示例值：1
 func (builder *OkrObjectiveProgressRateBuilder) Status(status string) *OkrObjectiveProgressRateBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *OkrObjectiveProgressRateBuilder) Build() *OkrObjectiveProgressRate {
 	req := &OkrObjectiveProgressRate{}
-	if builder.percentFlag {
+	if builder.percentSet {
 		req.Percent = &builder.percent
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
@@ -4177,11 +4181,11 @@ type OkrReview struct {
 }
 
 type OkrReviewBuilder struct {
-	userId     *OkrObjectiveAlignedObjectiveOwner // 复盘的用户
-	userIdFlag bool
+	userId    *OkrObjectiveAlignedObjectiveOwner // 复盘的用户
+	userIdSet bool
 
-	reviewPeriodList     []*OkrReviewPeriod // 用户对应的OKR复盘列表
-	reviewPeriodListFlag bool
+	reviewPeriodList    []*OkrReviewPeriod // 用户对应的OKR复盘列表
+	reviewPeriodListSet bool
 }
 
 func NewOkrReviewBuilder() *OkrReviewBuilder {
@@ -4194,7 +4198,7 @@ func NewOkrReviewBuilder() *OkrReviewBuilder {
 // 示例值：
 func (builder *OkrReviewBuilder) UserId(userId *OkrObjectiveAlignedObjectiveOwner) *OkrReviewBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -4203,16 +4207,16 @@ func (builder *OkrReviewBuilder) UserId(userId *OkrObjectiveAlignedObjectiveOwne
 // 示例值：
 func (builder *OkrReviewBuilder) ReviewPeriodList(reviewPeriodList []*OkrReviewPeriod) *OkrReviewBuilder {
 	builder.reviewPeriodList = reviewPeriodList
-	builder.reviewPeriodListFlag = true
+	builder.reviewPeriodListSet = true
 	return builder
 }
 
 func (builder *OkrReviewBuilder) Build() *OkrReview {
 	req := &OkrReview{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = builder.userId
 	}
-	if builder.reviewPeriodListFlag {
+	if builder.reviewPeriodListSet {
 		req.ReviewPeriodList = builder.reviewPeriodList
 	}
 	return req
@@ -4227,14 +4231,14 @@ type OkrReviewPeriod struct {
 }
 
 type OkrReviewPeriodBuilder struct {
-	periodId     string // 周期ID
-	periodIdFlag bool
+	periodId    string // 周期ID
+	periodIdSet bool
 
-	cycleReviewList     []*OkrReviewPeriodUrl // 复盘文档
-	cycleReviewListFlag bool
+	cycleReviewList    []*OkrReviewPeriodUrl // 复盘文档
+	cycleReviewListSet bool
 
-	progressReportList     []*OkrReviewPeriodUrl // 进展报告
-	progressReportListFlag bool
+	progressReportList    []*OkrReviewPeriodUrl // 进展报告
+	progressReportListSet bool
 }
 
 func NewOkrReviewPeriodBuilder() *OkrReviewPeriodBuilder {
@@ -4247,7 +4251,7 @@ func NewOkrReviewPeriodBuilder() *OkrReviewPeriodBuilder {
 // 示例值：6951461264858777132
 func (builder *OkrReviewPeriodBuilder) PeriodId(periodId string) *OkrReviewPeriodBuilder {
 	builder.periodId = periodId
-	builder.periodIdFlag = true
+	builder.periodIdSet = true
 	return builder
 }
 
@@ -4256,7 +4260,7 @@ func (builder *OkrReviewPeriodBuilder) PeriodId(periodId string) *OkrReviewPerio
 // 示例值：
 func (builder *OkrReviewPeriodBuilder) CycleReviewList(cycleReviewList []*OkrReviewPeriodUrl) *OkrReviewPeriodBuilder {
 	builder.cycleReviewList = cycleReviewList
-	builder.cycleReviewListFlag = true
+	builder.cycleReviewListSet = true
 	return builder
 }
 
@@ -4265,20 +4269,20 @@ func (builder *OkrReviewPeriodBuilder) CycleReviewList(cycleReviewList []*OkrRev
 // 示例值：
 func (builder *OkrReviewPeriodBuilder) ProgressReportList(progressReportList []*OkrReviewPeriodUrl) *OkrReviewPeriodBuilder {
 	builder.progressReportList = progressReportList
-	builder.progressReportListFlag = true
+	builder.progressReportListSet = true
 	return builder
 }
 
 func (builder *OkrReviewPeriodBuilder) Build() *OkrReviewPeriod {
 	req := &OkrReviewPeriod{}
-	if builder.periodIdFlag {
+	if builder.periodIdSet {
 		req.PeriodId = &builder.periodId
 
 	}
-	if builder.cycleReviewListFlag {
+	if builder.cycleReviewListSet {
 		req.CycleReviewList = builder.cycleReviewList
 	}
-	if builder.progressReportListFlag {
+	if builder.progressReportListSet {
 		req.ProgressReportList = builder.progressReportList
 	}
 	return req
@@ -4291,11 +4295,11 @@ type OkrReviewPeriodUrl struct {
 }
 
 type OkrReviewPeriodUrlBuilder struct {
-	url     string // 文档链接
-	urlFlag bool
+	url    string // 文档链接
+	urlSet bool
 
-	createTime     string // 创建时间 毫秒
-	createTimeFlag bool
+	createTime    string // 创建时间 毫秒
+	createTimeSet bool
 }
 
 func NewOkrReviewPeriodUrlBuilder() *OkrReviewPeriodUrlBuilder {
@@ -4308,7 +4312,7 @@ func NewOkrReviewPeriodUrlBuilder() *OkrReviewPeriodUrlBuilder {
 // 示例值：https://bytedance.feishu.cn/drive/home/
 func (builder *OkrReviewPeriodUrlBuilder) Url(url string) *OkrReviewPeriodUrlBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -4317,17 +4321,17 @@ func (builder *OkrReviewPeriodUrlBuilder) Url(url string) *OkrReviewPeriodUrlBui
 // 示例值：1618500278663
 func (builder *OkrReviewPeriodUrlBuilder) CreateTime(createTime string) *OkrReviewPeriodUrlBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
 func (builder *OkrReviewPeriodUrlBuilder) Build() *OkrReviewPeriodUrl {
 	req := &OkrReviewPeriodUrl{}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
@@ -4345,17 +4349,17 @@ type OkrSimple struct {
 }
 
 type OkrSimpleBuilder struct {
-	name     *OkrName // 周期展示名称
-	nameFlag bool
+	name    *OkrName // 周期展示名称
+	nameSet bool
 
-	okrId     string // OKR ID
-	okrIdFlag bool
+	okrId    string // OKR ID
+	okrIdSet bool
 
-	periodId     string // 周期 ID
-	periodIdFlag bool
+	periodId    string // 周期 ID
+	periodIdSet bool
 
-	periodType     string // 周期类型：1、月周期；2、年周期
-	periodTypeFlag bool
+	periodType    string // 周期类型：1、月周期；2、年周期
+	periodTypeSet bool
 }
 
 func NewOkrSimpleBuilder() *OkrSimpleBuilder {
@@ -4368,7 +4372,7 @@ func NewOkrSimpleBuilder() *OkrSimpleBuilder {
 // 示例值：
 func (builder *OkrSimpleBuilder) Name(name *OkrName) *OkrSimpleBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4377,7 +4381,7 @@ func (builder *OkrSimpleBuilder) Name(name *OkrName) *OkrSimpleBuilder {
 // 示例值：
 func (builder *OkrSimpleBuilder) OkrId(okrId string) *OkrSimpleBuilder {
 	builder.okrId = okrId
-	builder.okrIdFlag = true
+	builder.okrIdSet = true
 	return builder
 }
 
@@ -4386,7 +4390,7 @@ func (builder *OkrSimpleBuilder) OkrId(okrId string) *OkrSimpleBuilder {
 // 示例值：
 func (builder *OkrSimpleBuilder) PeriodId(periodId string) *OkrSimpleBuilder {
 	builder.periodId = periodId
-	builder.periodIdFlag = true
+	builder.periodIdSet = true
 	return builder
 }
 
@@ -4395,24 +4399,24 @@ func (builder *OkrSimpleBuilder) PeriodId(periodId string) *OkrSimpleBuilder {
 // 示例值：
 func (builder *OkrSimpleBuilder) PeriodType(periodType string) *OkrSimpleBuilder {
 	builder.periodType = periodType
-	builder.periodTypeFlag = true
+	builder.periodTypeSet = true
 	return builder
 }
 
 func (builder *OkrSimpleBuilder) Build() *OkrSimple {
 	req := &OkrSimple{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.okrIdFlag {
+	if builder.okrIdSet {
 		req.OkrId = &builder.okrId
 
 	}
-	if builder.periodIdFlag {
+	if builder.periodIdSet {
 		req.PeriodId = &builder.periodId
 
 	}
-	if builder.periodTypeFlag {
+	if builder.periodTypeSet {
 		req.PeriodType = &builder.periodType
 
 	}
@@ -4434,23 +4438,23 @@ type Period struct {
 }
 
 type PeriodBuilder struct {
-	id     string // id
-	idFlag bool
+	id    string // id
+	idSet bool
 
-	zhName     string // 中文名称
-	zhNameFlag bool
+	zhName    string // 中文名称
+	zhNameSet bool
 
-	enName     string // 英文名称
-	enNameFlag bool
+	enName    string // 英文名称
+	enNameSet bool
 
-	status     int // 启用状态
-	statusFlag bool
+	status    int // 启用状态
+	statusSet bool
 
-	periodStartTime     string // 周期开始时间
-	periodStartTimeFlag bool
+	periodStartTime    string // 周期开始时间
+	periodStartTimeSet bool
 
-	periodEndTime     string // 周期结束时间
-	periodEndTimeFlag bool
+	periodEndTime    string // 周期结束时间
+	periodEndTimeSet bool
 }
 
 func NewPeriodBuilder() *PeriodBuilder {
@@ -4463,7 +4467,7 @@ func NewPeriodBuilder() *PeriodBuilder {
 // 示例值：635782378412311
 func (builder *PeriodBuilder) Id(id string) *PeriodBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4472,7 +4476,7 @@ func (builder *PeriodBuilder) Id(id string) *PeriodBuilder {
 // 示例值：中文周期
 func (builder *PeriodBuilder) ZhName(zhName string) *PeriodBuilder {
 	builder.zhName = zhName
-	builder.zhNameFlag = true
+	builder.zhNameSet = true
 	return builder
 }
 
@@ -4481,7 +4485,7 @@ func (builder *PeriodBuilder) ZhName(zhName string) *PeriodBuilder {
 // 示例值：english period
 func (builder *PeriodBuilder) EnName(enName string) *PeriodBuilder {
 	builder.enName = enName
-	builder.enNameFlag = true
+	builder.enNameSet = true
 	return builder
 }
 
@@ -4490,7 +4494,7 @@ func (builder *PeriodBuilder) EnName(enName string) *PeriodBuilder {
 // 示例值：0
 func (builder *PeriodBuilder) Status(status int) *PeriodBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -4499,7 +4503,7 @@ func (builder *PeriodBuilder) Status(status int) *PeriodBuilder {
 // 示例值：1686740948123
 func (builder *PeriodBuilder) PeriodStartTime(periodStartTime string) *PeriodBuilder {
 	builder.periodStartTime = periodStartTime
-	builder.periodStartTimeFlag = true
+	builder.periodStartTimeSet = true
 	return builder
 }
 
@@ -4508,33 +4512,33 @@ func (builder *PeriodBuilder) PeriodStartTime(periodStartTime string) *PeriodBui
 // 示例值：1686740948123
 func (builder *PeriodBuilder) PeriodEndTime(periodEndTime string) *PeriodBuilder {
 	builder.periodEndTime = periodEndTime
-	builder.periodEndTimeFlag = true
+	builder.periodEndTimeSet = true
 	return builder
 }
 
 func (builder *PeriodBuilder) Build() *Period {
 	req := &Period{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.zhNameFlag {
+	if builder.zhNameSet {
 		req.ZhName = &builder.zhName
 
 	}
-	if builder.enNameFlag {
+	if builder.enNameSet {
 		req.EnName = &builder.enName
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.periodStartTimeFlag {
+	if builder.periodStartTimeSet {
 		req.PeriodStartTime = &builder.periodStartTime
 
 	}
-	if builder.periodEndTimeFlag {
+	if builder.periodEndTimeSet {
 		req.PeriodEndTime = &builder.periodEndTime
 
 	}
@@ -4552,17 +4556,17 @@ type PeriodRule struct {
 }
 
 type PeriodRuleBuilder struct {
-	periodRuleId     string // 周期规则ID
-	periodRuleIdFlag bool
+	periodRuleId    string // 周期规则ID
+	periodRuleIdSet bool
 
 	type_    string // 周期类型;- year: 年度周期;- month: 月度周期
-	typeFlag bool
+	type_Set bool
 
-	length     int // 周期长度（月)
-	lengthFlag bool
+	length    int // 周期长度（月)
+	lengthSet bool
 
-	firstMonth     int // 每年首个开始月份
-	firstMonthFlag bool
+	firstMonth    int // 每年首个开始月份
+	firstMonthSet bool
 }
 
 func NewPeriodRuleBuilder() *PeriodRuleBuilder {
@@ -4575,7 +4579,7 @@ func NewPeriodRuleBuilder() *PeriodRuleBuilder {
 // 示例值：134
 func (builder *PeriodRuleBuilder) PeriodRuleId(periodRuleId string) *PeriodRuleBuilder {
 	builder.periodRuleId = periodRuleId
-	builder.periodRuleIdFlag = true
+	builder.periodRuleIdSet = true
 	return builder
 }
 
@@ -4584,7 +4588,7 @@ func (builder *PeriodRuleBuilder) PeriodRuleId(periodRuleId string) *PeriodRuleB
 // 示例值：year
 func (builder *PeriodRuleBuilder) Type(type_ string) *PeriodRuleBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -4593,7 +4597,7 @@ func (builder *PeriodRuleBuilder) Type(type_ string) *PeriodRuleBuilder {
 // 示例值：12
 func (builder *PeriodRuleBuilder) Length(length int) *PeriodRuleBuilder {
 	builder.length = length
-	builder.lengthFlag = true
+	builder.lengthSet = true
 	return builder
 }
 
@@ -4602,25 +4606,25 @@ func (builder *PeriodRuleBuilder) Length(length int) *PeriodRuleBuilder {
 // 示例值：12
 func (builder *PeriodRuleBuilder) FirstMonth(firstMonth int) *PeriodRuleBuilder {
 	builder.firstMonth = firstMonth
-	builder.firstMonthFlag = true
+	builder.firstMonthSet = true
 	return builder
 }
 
 func (builder *PeriodRuleBuilder) Build() *PeriodRule {
 	req := &PeriodRule{}
-	if builder.periodRuleIdFlag {
+	if builder.periodRuleIdSet {
 		req.PeriodRuleId = &builder.periodRuleId
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.lengthFlag {
+	if builder.lengthSet {
 		req.Length = &builder.length
 
 	}
-	if builder.firstMonthFlag {
+	if builder.firstMonthSet {
 		req.FirstMonth = &builder.firstMonth
 
 	}
@@ -4636,14 +4640,14 @@ type ProgressItem struct {
 }
 
 type ProgressItemBuilder struct {
-	content     string // 进度内容
-	contentFlag bool
+	content    string // 进度内容
+	contentSet bool
 
-	timestamp     string // 更新时间
-	timestampFlag bool
+	timestamp    string // 更新时间
+	timestampSet bool
 
-	mentionList     []string // 负责人
-	mentionListFlag bool
+	mentionList    []string // 负责人
+	mentionListSet bool
 }
 
 func NewProgressItemBuilder() *ProgressItemBuilder {
@@ -4656,7 +4660,7 @@ func NewProgressItemBuilder() *ProgressItemBuilder {
 // 示例值：
 func (builder *ProgressItemBuilder) Content(content string) *ProgressItemBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -4665,7 +4669,7 @@ func (builder *ProgressItemBuilder) Content(content string) *ProgressItemBuilder
 // 示例值：
 func (builder *ProgressItemBuilder) Timestamp(timestamp string) *ProgressItemBuilder {
 	builder.timestamp = timestamp
-	builder.timestampFlag = true
+	builder.timestampSet = true
 	return builder
 }
 
@@ -4674,21 +4678,21 @@ func (builder *ProgressItemBuilder) Timestamp(timestamp string) *ProgressItemBui
 // 示例值：
 func (builder *ProgressItemBuilder) MentionList(mentionList []string) *ProgressItemBuilder {
 	builder.mentionList = mentionList
-	builder.mentionListFlag = true
+	builder.mentionListSet = true
 	return builder
 }
 
 func (builder *ProgressItemBuilder) Build() *ProgressItem {
 	req := &ProgressItem{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.timestampFlag {
+	if builder.timestampSet {
 		req.Timestamp = &builder.timestamp
 
 	}
-	if builder.mentionListFlag {
+	if builder.mentionListSet {
 		req.MentionList = builder.mentionList
 	}
 	return req
@@ -4701,11 +4705,11 @@ type ProgressRate struct {
 }
 
 type ProgressRateBuilder struct {
-	percent     int // 进度百分比
-	percentFlag bool
+	percent    int // 进度百分比
+	percentSet bool
 
-	status     int // 状态
-	statusFlag bool
+	status    int // 状态
+	statusSet bool
 }
 
 func NewProgressRateBuilder() *ProgressRateBuilder {
@@ -4718,7 +4722,7 @@ func NewProgressRateBuilder() *ProgressRateBuilder {
 // 示例值：
 func (builder *ProgressRateBuilder) Percent(percent int) *ProgressRateBuilder {
 	builder.percent = percent
-	builder.percentFlag = true
+	builder.percentSet = true
 	return builder
 }
 
@@ -4727,17 +4731,17 @@ func (builder *ProgressRateBuilder) Percent(percent int) *ProgressRateBuilder {
 // 示例值：0
 func (builder *ProgressRateBuilder) Status(status int) *ProgressRateBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *ProgressRateBuilder) Build() *ProgressRate {
 	req := &ProgressRate{}
-	if builder.percentFlag {
+	if builder.percentSet {
 		req.Percent = &builder.percent
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
@@ -4751,11 +4755,11 @@ type ProgressRateNew struct {
 }
 
 type ProgressRateNewBuilder struct {
-	percent     float64 // 进展百分比，保留两位小数
-	percentFlag bool
+	percent    float64 // 进展百分比，保留两位小数
+	percentSet bool
 
-	status     int // 进展状态
-	statusFlag bool
+	status    int // 进展状态
+	statusSet bool
 }
 
 func NewProgressRateNewBuilder() *ProgressRateNewBuilder {
@@ -4768,7 +4772,7 @@ func NewProgressRateNewBuilder() *ProgressRateNewBuilder {
 // 示例值：50.21
 func (builder *ProgressRateNewBuilder) Percent(percent float64) *ProgressRateNewBuilder {
 	builder.percent = percent
-	builder.percentFlag = true
+	builder.percentSet = true
 	return builder
 }
 
@@ -4777,17 +4781,17 @@ func (builder *ProgressRateNewBuilder) Percent(percent float64) *ProgressRateNew
 // 示例值：0
 func (builder *ProgressRateNewBuilder) Status(status int) *ProgressRateNewBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *ProgressRateNewBuilder) Build() *ProgressRateNew {
 	req := &ProgressRateNew{}
-	if builder.percentFlag {
+	if builder.percentSet {
 		req.Percent = &builder.percent
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
@@ -4805,17 +4809,17 @@ type ProgressRecord struct {
 }
 
 type ProgressRecordBuilder struct {
-	progressId     string // OKR 进展ID
-	progressIdFlag bool
+	progressId    string // OKR 进展ID
+	progressIdSet bool
 
-	modifyTime     string // 进展更新时间 毫秒
-	modifyTimeFlag bool
+	modifyTime    string // 进展更新时间 毫秒
+	modifyTimeSet bool
 
-	content     *ContentBlock // 进展 对应的 Content 详细内容
-	contentFlag bool
+	content    *ContentBlock // 进展 对应的 Content 详细内容
+	contentSet bool
 
-	progressRate     *ProgressRateNew // 进展，包括百分比和状态
-	progressRateFlag bool
+	progressRate    *ProgressRateNew // 进展，包括百分比和状态
+	progressRateSet bool
 }
 
 func NewProgressRecordBuilder() *ProgressRecordBuilder {
@@ -4828,7 +4832,7 @@ func NewProgressRecordBuilder() *ProgressRecordBuilder {
 // 示例值：7041469619902693396
 func (builder *ProgressRecordBuilder) ProgressId(progressId string) *ProgressRecordBuilder {
 	builder.progressId = progressId
-	builder.progressIdFlag = true
+	builder.progressIdSet = true
 	return builder
 }
 
@@ -4837,7 +4841,7 @@ func (builder *ProgressRecordBuilder) ProgressId(progressId string) *ProgressRec
 // 示例值：1618500278663
 func (builder *ProgressRecordBuilder) ModifyTime(modifyTime string) *ProgressRecordBuilder {
 	builder.modifyTime = modifyTime
-	builder.modifyTimeFlag = true
+	builder.modifyTimeSet = true
 	return builder
 }
 
@@ -4846,7 +4850,7 @@ func (builder *ProgressRecordBuilder) ModifyTime(modifyTime string) *ProgressRec
 // 示例值：
 func (builder *ProgressRecordBuilder) Content(content *ContentBlock) *ProgressRecordBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -4855,24 +4859,24 @@ func (builder *ProgressRecordBuilder) Content(content *ContentBlock) *ProgressRe
 // 示例值：
 func (builder *ProgressRecordBuilder) ProgressRate(progressRate *ProgressRateNew) *ProgressRecordBuilder {
 	builder.progressRate = progressRate
-	builder.progressRateFlag = true
+	builder.progressRateSet = true
 	return builder
 }
 
 func (builder *ProgressRecordBuilder) Build() *ProgressRecord {
 	req := &ProgressRecord{}
-	if builder.progressIdFlag {
+	if builder.progressIdSet {
 		req.ProgressId = &builder.progressId
 
 	}
-	if builder.modifyTimeFlag {
+	if builder.modifyTimeSet {
 		req.ModifyTime = &builder.modifyTime
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = builder.content
 	}
-	if builder.progressRateFlag {
+	if builder.progressRateSet {
 		req.ProgressRate = builder.progressRate
 	}
 	return req
@@ -4883,8 +4887,8 @@ type ProgressRecordSimplify struct {
 }
 
 type ProgressRecordSimplifyBuilder struct {
-	id     string // OKR 进展记录ID
-	idFlag bool
+	id    string // OKR 进展记录ID
+	idSet bool
 }
 
 func NewProgressRecordSimplifyBuilder() *ProgressRecordSimplifyBuilder {
@@ -4897,13 +4901,13 @@ func NewProgressRecordSimplifyBuilder() *ProgressRecordSimplifyBuilder {
 // 示例值：7041469619902693396
 func (builder *ProgressRecordSimplifyBuilder) Id(id string) *ProgressRecordSimplifyBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
 func (builder *ProgressRecordSimplifyBuilder) Build() *ProgressRecordSimplify {
 	req := &ProgressRecordSimplify{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
@@ -4923,20 +4927,20 @@ type TaskInfo struct {
 }
 
 type TaskInfoBuilder struct {
-	taskId     string // 任务管理多维表格的 id
-	taskIdFlag bool
+	taskId    string // 任务管理多维表格的 id
+	taskIdSet bool
 
-	appToken     string // 多维表格作为文档的 token
-	appTokenFlag bool
+	appToken    string // 多维表格作为文档的 token
+	appTokenSet bool
 
-	userId     string // 用户 id
-	userIdFlag bool
+	userId    string // 用户 id
+	userIdSet bool
 
-	okrId     string // OKR 内容 id
-	okrIdFlag bool
+	okrId    string // OKR 内容 id
+	okrIdSet bool
 
-	periodId     string // OKR 周期 id
-	periodIdFlag bool
+	periodId    string // OKR 周期 id
+	periodIdSet bool
 }
 
 func NewTaskInfoBuilder() *TaskInfoBuilder {
@@ -4949,7 +4953,7 @@ func NewTaskInfoBuilder() *TaskInfoBuilder {
 // 示例值：1234454545656575
 func (builder *TaskInfoBuilder) TaskId(taskId string) *TaskInfoBuilder {
 	builder.taskId = taskId
-	builder.taskIdFlag = true
+	builder.taskIdSet = true
 	return builder
 }
 
@@ -4958,7 +4962,7 @@ func (builder *TaskInfoBuilder) TaskId(taskId string) *TaskInfoBuilder {
 // 示例值：fdhjaskfhasdfhlkasdhfldkshgh
 func (builder *TaskInfoBuilder) AppToken(appToken string) *TaskInfoBuilder {
 	builder.appToken = appToken
-	builder.appTokenFlag = true
+	builder.appTokenSet = true
 	return builder
 }
 
@@ -4967,7 +4971,7 @@ func (builder *TaskInfoBuilder) AppToken(appToken string) *TaskInfoBuilder {
 // 示例值：ou-ux987dsf6x
 func (builder *TaskInfoBuilder) UserId(userId string) *TaskInfoBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -4976,7 +4980,7 @@ func (builder *TaskInfoBuilder) UserId(userId string) *TaskInfoBuilder {
 // 示例值：1234454545656575
 func (builder *TaskInfoBuilder) OkrId(okrId string) *TaskInfoBuilder {
 	builder.okrId = okrId
-	builder.okrIdFlag = true
+	builder.okrIdSet = true
 	return builder
 }
 
@@ -4985,29 +4989,29 @@ func (builder *TaskInfoBuilder) OkrId(okrId string) *TaskInfoBuilder {
 // 示例值：1234454545656575
 func (builder *TaskInfoBuilder) PeriodId(periodId string) *TaskInfoBuilder {
 	builder.periodId = periodId
-	builder.periodIdFlag = true
+	builder.periodIdSet = true
 	return builder
 }
 
 func (builder *TaskInfoBuilder) Build() *TaskInfo {
 	req := &TaskInfo{}
-	if builder.taskIdFlag {
+	if builder.taskIdSet {
 		req.TaskId = &builder.taskId
 
 	}
-	if builder.appTokenFlag {
+	if builder.appTokenSet {
 		req.AppToken = &builder.appToken
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.okrIdFlag {
+	if builder.okrIdSet {
 		req.OkrId = &builder.okrId
 
 	}
-	if builder.periodIdFlag {
+	if builder.periodIdSet {
 		req.PeriodId = &builder.periodId
 
 	}
@@ -5029,23 +5033,23 @@ type UpsertObjective struct {
 }
 
 type UpsertObjectiveBuilder struct {
-	content     string // OKR内容
-	contentFlag bool
+	content    string // OKR内容
+	contentSet bool
 
-	mentionList     []string // 负责人列表
-	mentionListFlag bool
+	mentionList    []string // 负责人列表
+	mentionListSet bool
 
-	krList     []*UpsertObjectiveKr // KR列表
-	krListFlag bool
+	krList    []*UpsertObjectiveKr // KR列表
+	krListSet bool
 
-	progressRate     *ProgressRate // Objective进度状态
-	progressRateFlag bool
+	progressRate    *ProgressRate // Objective进度状态
+	progressRateSet bool
 
-	progressList     []*ProgressItem // Objective进度列表
-	progressListFlag bool
+	progressList    []*ProgressItem // Objective进度列表
+	progressListSet bool
 
-	weight     float64 // OKR权重
-	weightFlag bool
+	weight    float64 // OKR权重
+	weightSet bool
 }
 
 func NewUpsertObjectiveBuilder() *UpsertObjectiveBuilder {
@@ -5058,7 +5062,7 @@ func NewUpsertObjectiveBuilder() *UpsertObjectiveBuilder {
 // 示例值：okr
 func (builder *UpsertObjectiveBuilder) Content(content string) *UpsertObjectiveBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -5067,7 +5071,7 @@ func (builder *UpsertObjectiveBuilder) Content(content string) *UpsertObjectiveB
 // 示例值：
 func (builder *UpsertObjectiveBuilder) MentionList(mentionList []string) *UpsertObjectiveBuilder {
 	builder.mentionList = mentionList
-	builder.mentionListFlag = true
+	builder.mentionListSet = true
 	return builder
 }
 
@@ -5076,7 +5080,7 @@ func (builder *UpsertObjectiveBuilder) MentionList(mentionList []string) *Upsert
 // 示例值：
 func (builder *UpsertObjectiveBuilder) KrList(krList []*UpsertObjectiveKr) *UpsertObjectiveBuilder {
 	builder.krList = krList
-	builder.krListFlag = true
+	builder.krListSet = true
 	return builder
 }
 
@@ -5085,7 +5089,7 @@ func (builder *UpsertObjectiveBuilder) KrList(krList []*UpsertObjectiveKr) *Upse
 // 示例值：
 func (builder *UpsertObjectiveBuilder) ProgressRate(progressRate *ProgressRate) *UpsertObjectiveBuilder {
 	builder.progressRate = progressRate
-	builder.progressRateFlag = true
+	builder.progressRateSet = true
 	return builder
 }
 
@@ -5094,7 +5098,7 @@ func (builder *UpsertObjectiveBuilder) ProgressRate(progressRate *ProgressRate) 
 // 示例值：
 func (builder *UpsertObjectiveBuilder) ProgressList(progressList []*ProgressItem) *UpsertObjectiveBuilder {
 	builder.progressList = progressList
-	builder.progressListFlag = true
+	builder.progressListSet = true
 	return builder
 }
 
@@ -5103,29 +5107,29 @@ func (builder *UpsertObjectiveBuilder) ProgressList(progressList []*ProgressItem
 // 示例值：100
 func (builder *UpsertObjectiveBuilder) Weight(weight float64) *UpsertObjectiveBuilder {
 	builder.weight = weight
-	builder.weightFlag = true
+	builder.weightSet = true
 	return builder
 }
 
 func (builder *UpsertObjectiveBuilder) Build() *UpsertObjective {
 	req := &UpsertObjective{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.mentionListFlag {
+	if builder.mentionListSet {
 		req.MentionList = builder.mentionList
 	}
-	if builder.krListFlag {
+	if builder.krListSet {
 		req.KrList = builder.krList
 	}
-	if builder.progressRateFlag {
+	if builder.progressRateSet {
 		req.ProgressRate = builder.progressRate
 	}
-	if builder.progressListFlag {
+	if builder.progressListSet {
 		req.ProgressList = builder.progressList
 	}
-	if builder.weightFlag {
+	if builder.weightSet {
 		req.Weight = &builder.weight
 
 	}
@@ -5147,23 +5151,23 @@ type UpsertObjectiveKr struct {
 }
 
 type UpsertObjectiveKrBuilder struct {
-	content     string // OKR内容
-	contentFlag bool
+	content    string // OKR内容
+	contentSet bool
 
-	mentionList     []string // 负责人列表
-	mentionListFlag bool
+	mentionList    []string // 负责人列表
+	mentionListSet bool
 
-	score     int // 得分
-	scoreFlag bool
+	score    int // 得分
+	scoreSet bool
 
-	progressRate     *ProgressRate // Objective进度状态
-	progressRateFlag bool
+	progressRate    *ProgressRate // Objective进度状态
+	progressRateSet bool
 
-	progressList     []*ProgressItem // Objective进度列表
-	progressListFlag bool
+	progressList    []*ProgressItem // Objective进度列表
+	progressListSet bool
 
-	weight     float64 // OKR权重
-	weightFlag bool
+	weight    float64 // OKR权重
+	weightSet bool
 }
 
 func NewUpsertObjectiveKrBuilder() *UpsertObjectiveKrBuilder {
@@ -5176,7 +5180,7 @@ func NewUpsertObjectiveKrBuilder() *UpsertObjectiveKrBuilder {
 // 示例值：okr
 func (builder *UpsertObjectiveKrBuilder) Content(content string) *UpsertObjectiveKrBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -5185,7 +5189,7 @@ func (builder *UpsertObjectiveKrBuilder) Content(content string) *UpsertObjectiv
 // 示例值：
 func (builder *UpsertObjectiveKrBuilder) MentionList(mentionList []string) *UpsertObjectiveKrBuilder {
 	builder.mentionList = mentionList
-	builder.mentionListFlag = true
+	builder.mentionListSet = true
 	return builder
 }
 
@@ -5194,7 +5198,7 @@ func (builder *UpsertObjectiveKrBuilder) MentionList(mentionList []string) *Upse
 // 示例值：100
 func (builder *UpsertObjectiveKrBuilder) Score(score int) *UpsertObjectiveKrBuilder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
@@ -5203,7 +5207,7 @@ func (builder *UpsertObjectiveKrBuilder) Score(score int) *UpsertObjectiveKrBuil
 // 示例值：
 func (builder *UpsertObjectiveKrBuilder) ProgressRate(progressRate *ProgressRate) *UpsertObjectiveKrBuilder {
 	builder.progressRate = progressRate
-	builder.progressRateFlag = true
+	builder.progressRateSet = true
 	return builder
 }
 
@@ -5212,7 +5216,7 @@ func (builder *UpsertObjectiveKrBuilder) ProgressRate(progressRate *ProgressRate
 // 示例值：
 func (builder *UpsertObjectiveKrBuilder) ProgressList(progressList []*ProgressItem) *UpsertObjectiveKrBuilder {
 	builder.progressList = progressList
-	builder.progressListFlag = true
+	builder.progressListSet = true
 	return builder
 }
 
@@ -5221,30 +5225,30 @@ func (builder *UpsertObjectiveKrBuilder) ProgressList(progressList []*ProgressIt
 // 示例值：100
 func (builder *UpsertObjectiveKrBuilder) Weight(weight float64) *UpsertObjectiveKrBuilder {
 	builder.weight = weight
-	builder.weightFlag = true
+	builder.weightSet = true
 	return builder
 }
 
 func (builder *UpsertObjectiveKrBuilder) Build() *UpsertObjectiveKr {
 	req := &UpsertObjectiveKr{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.mentionListFlag {
+	if builder.mentionListSet {
 		req.MentionList = builder.mentionList
 	}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
-	if builder.progressRateFlag {
+	if builder.progressRateSet {
 		req.ProgressRate = builder.progressRate
 	}
-	if builder.progressListFlag {
+	if builder.progressListSet {
 		req.ProgressList = builder.progressList
 	}
-	if builder.weightFlag {
+	if builder.weightSet {
 		req.Weight = &builder.weight
 
 	}
@@ -5256,8 +5260,8 @@ type User struct {
 }
 
 type UserBuilder struct {
-	id     string // id
-	idFlag bool
+	id    string // id
+	idSet bool
 }
 
 func NewUserBuilder() *UserBuilder {
@@ -5270,13 +5274,13 @@ func NewUserBuilder() *UserBuilder {
 // 示例值：
 func (builder *UserBuilder) Id(id string) *UserBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
 func (builder *UserBuilder) Build() *User {
 	req := &User{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
@@ -5294,17 +5298,17 @@ type UserOkr struct {
 }
 
 type UserOkrBuilder struct {
-	id     string // OKR ID
-	idFlag bool
+	id    string // OKR ID
+	idSet bool
 
-	name     string // OKR周期名称(lang指定中英文)
-	nameFlag bool
+	name    string // OKR周期名称(lang指定中英文)
+	nameSet bool
 
-	permission     int // 权限，0无权限，1有权限
-	permissionFlag bool
+	permission    int // 权限，0无权限，1有权限
+	permissionSet bool
 
-	objectiveList     []*UserOkrObjective // OKR的Objective 列表
-	objectiveListFlag bool
+	objectiveList    []*UserOkrObjective // OKR的Objective 列表
+	objectiveListSet bool
 }
 
 func NewUserOkrBuilder() *UserOkrBuilder {
@@ -5317,7 +5321,7 @@ func NewUserOkrBuilder() *UserOkrBuilder {
 // 示例值：
 func (builder *UserOkrBuilder) Id(id string) *UserOkrBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5326,7 +5330,7 @@ func (builder *UserOkrBuilder) Id(id string) *UserOkrBuilder {
 // 示例值：
 func (builder *UserOkrBuilder) Name(name string) *UserOkrBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -5335,7 +5339,7 @@ func (builder *UserOkrBuilder) Name(name string) *UserOkrBuilder {
 // 示例值：
 func (builder *UserOkrBuilder) Permission(permission int) *UserOkrBuilder {
 	builder.permission = permission
-	builder.permissionFlag = true
+	builder.permissionSet = true
 	return builder
 }
 
@@ -5344,25 +5348,25 @@ func (builder *UserOkrBuilder) Permission(permission int) *UserOkrBuilder {
 // 示例值：
 func (builder *UserOkrBuilder) ObjectiveList(objectiveList []*UserOkrObjective) *UserOkrBuilder {
 	builder.objectiveList = objectiveList
-	builder.objectiveListFlag = true
+	builder.objectiveListSet = true
 	return builder
 }
 
 func (builder *UserOkrBuilder) Build() *UserOkr {
 	req := &UserOkr{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.permissionFlag {
+	if builder.permissionSet {
 		req.Permission = &builder.permission
 
 	}
-	if builder.objectiveListFlag {
+	if builder.objectiveListSet {
 		req.ObjectiveList = builder.objectiveList
 	}
 	return req
@@ -5389,32 +5393,32 @@ type UserOkrObjective struct {
 }
 
 type UserOkrObjectiveBuilder struct {
-	id     string // Objective ID
-	idFlag bool
+	id    string // Objective ID
+	idSet bool
 
-	permission     int // 权限，0无权限，1有权限
-	permissionFlag bool
+	permission    int // 权限，0无权限，1有权限
+	permissionSet bool
 
-	content     string // Objective 内容
-	contentFlag bool
+	content    string // Objective 内容
+	contentSet bool
 
-	progressReport     string // Objective 进度记录内容
-	progressReportFlag bool
+	progressReport    string // Objective 进度记录内容
+	progressReportSet bool
 
-	score     string // Objective 分数（0 - 100）
-	scoreFlag bool
+	score    string // Objective 分数（0 - 100）
+	scoreSet bool
 
-	progressRate     *UserOkrObjectiveProgressRate // Objective进度
-	progressRateFlag bool
+	progressRate    *UserOkrObjectiveProgressRate // Objective进度
+	progressRateSet bool
 
-	krList     []*UserOkrObjectiveKr // Objective KeyResult 列表
-	krListFlag bool
+	krList    []*UserOkrObjectiveKr // Objective KeyResult 列表
+	krListSet bool
 
-	alignedObjectiveList     []*UserOkrObjectiveAlignedObjective // 对齐到该Objective的Objective列表
-	alignedObjectiveListFlag bool
+	alignedObjectiveList    []*UserOkrObjectiveAlignedObjective // 对齐到该Objective的Objective列表
+	alignedObjectiveListSet bool
 
-	aligningObjectiveList     []*UserOkrObjectiveAlignedObjective // 该Objective对齐到的Objective列表
-	aligningObjectiveListFlag bool
+	aligningObjectiveList    []*UserOkrObjectiveAlignedObjective // 该Objective对齐到的Objective列表
+	aligningObjectiveListSet bool
 }
 
 func NewUserOkrObjectiveBuilder() *UserOkrObjectiveBuilder {
@@ -5427,7 +5431,7 @@ func NewUserOkrObjectiveBuilder() *UserOkrObjectiveBuilder {
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) Id(id string) *UserOkrObjectiveBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5436,7 +5440,7 @@ func (builder *UserOkrObjectiveBuilder) Id(id string) *UserOkrObjectiveBuilder {
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) Permission(permission int) *UserOkrObjectiveBuilder {
 	builder.permission = permission
-	builder.permissionFlag = true
+	builder.permissionSet = true
 	return builder
 }
 
@@ -5445,7 +5449,7 @@ func (builder *UserOkrObjectiveBuilder) Permission(permission int) *UserOkrObjec
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) Content(content string) *UserOkrObjectiveBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -5454,7 +5458,7 @@ func (builder *UserOkrObjectiveBuilder) Content(content string) *UserOkrObjectiv
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) ProgressReport(progressReport string) *UserOkrObjectiveBuilder {
 	builder.progressReport = progressReport
-	builder.progressReportFlag = true
+	builder.progressReportSet = true
 	return builder
 }
 
@@ -5463,7 +5467,7 @@ func (builder *UserOkrObjectiveBuilder) ProgressReport(progressReport string) *U
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) Score(score string) *UserOkrObjectiveBuilder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
@@ -5472,7 +5476,7 @@ func (builder *UserOkrObjectiveBuilder) Score(score string) *UserOkrObjectiveBui
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) ProgressRate(progressRate *UserOkrObjectiveProgressRate) *UserOkrObjectiveBuilder {
 	builder.progressRate = progressRate
-	builder.progressRateFlag = true
+	builder.progressRateSet = true
 	return builder
 }
 
@@ -5481,7 +5485,7 @@ func (builder *UserOkrObjectiveBuilder) ProgressRate(progressRate *UserOkrObject
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) KrList(krList []*UserOkrObjectiveKr) *UserOkrObjectiveBuilder {
 	builder.krList = krList
-	builder.krListFlag = true
+	builder.krListSet = true
 	return builder
 }
 
@@ -5490,7 +5494,7 @@ func (builder *UserOkrObjectiveBuilder) KrList(krList []*UserOkrObjectiveKr) *Us
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) AlignedObjectiveList(alignedObjectiveList []*UserOkrObjectiveAlignedObjective) *UserOkrObjectiveBuilder {
 	builder.alignedObjectiveList = alignedObjectiveList
-	builder.alignedObjectiveListFlag = true
+	builder.alignedObjectiveListSet = true
 	return builder
 }
 
@@ -5499,42 +5503,42 @@ func (builder *UserOkrObjectiveBuilder) AlignedObjectiveList(alignedObjectiveLis
 // 示例值：
 func (builder *UserOkrObjectiveBuilder) AligningObjectiveList(aligningObjectiveList []*UserOkrObjectiveAlignedObjective) *UserOkrObjectiveBuilder {
 	builder.aligningObjectiveList = aligningObjectiveList
-	builder.aligningObjectiveListFlag = true
+	builder.aligningObjectiveListSet = true
 	return builder
 }
 
 func (builder *UserOkrObjectiveBuilder) Build() *UserOkrObjective {
 	req := &UserOkrObjective{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.permissionFlag {
+	if builder.permissionSet {
 		req.Permission = &builder.permission
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.progressReportFlag {
+	if builder.progressReportSet {
 		req.ProgressReport = &builder.progressReport
 
 	}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
-	if builder.progressRateFlag {
+	if builder.progressRateSet {
 		req.ProgressRate = builder.progressRate
 	}
-	if builder.krListFlag {
+	if builder.krListSet {
 		req.KrList = builder.krList
 	}
-	if builder.alignedObjectiveListFlag {
+	if builder.alignedObjectiveListSet {
 		req.AlignedObjectiveList = builder.alignedObjectiveList
 	}
-	if builder.aligningObjectiveListFlag {
+	if builder.aligningObjectiveListSet {
 		req.AligningObjectiveList = builder.aligningObjectiveList
 	}
 	return req
@@ -5549,14 +5553,14 @@ type UserOkrObjectiveAlignedObjective struct {
 }
 
 type UserOkrObjectiveAlignedObjectiveBuilder struct {
-	id     string // Objective的ID
-	idFlag bool
+	id    string // Objective的ID
+	idSet bool
 
-	okrId     string // OKR的ID
-	okrIdFlag bool
+	okrId    string // OKR的ID
+	okrIdSet bool
 
-	owner     *UserOkrObjectiveAlignedObjectiveOwner // 该Objective的Owner
-	ownerFlag bool
+	owner    *UserOkrObjectiveAlignedObjectiveOwner // 该Objective的Owner
+	ownerSet bool
 }
 
 func NewUserOkrObjectiveAlignedObjectiveBuilder() *UserOkrObjectiveAlignedObjectiveBuilder {
@@ -5569,7 +5573,7 @@ func NewUserOkrObjectiveAlignedObjectiveBuilder() *UserOkrObjectiveAlignedObject
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveBuilder) Id(id string) *UserOkrObjectiveAlignedObjectiveBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5578,7 +5582,7 @@ func (builder *UserOkrObjectiveAlignedObjectiveBuilder) Id(id string) *UserOkrOb
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveBuilder) OkrId(okrId string) *UserOkrObjectiveAlignedObjectiveBuilder {
 	builder.okrId = okrId
-	builder.okrIdFlag = true
+	builder.okrIdSet = true
 	return builder
 }
 
@@ -5587,21 +5591,21 @@ func (builder *UserOkrObjectiveAlignedObjectiveBuilder) OkrId(okrId string) *Use
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveBuilder) Owner(owner *UserOkrObjectiveAlignedObjectiveOwner) *UserOkrObjectiveAlignedObjectiveBuilder {
 	builder.owner = owner
-	builder.ownerFlag = true
+	builder.ownerSet = true
 	return builder
 }
 
 func (builder *UserOkrObjectiveAlignedObjectiveBuilder) Build() *UserOkrObjectiveAlignedObjective {
 	req := &UserOkrObjectiveAlignedObjective{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.okrIdFlag {
+	if builder.okrIdSet {
 		req.OkrId = &builder.okrId
 
 	}
-	if builder.ownerFlag {
+	if builder.ownerSet {
 		req.Owner = builder.owner
 	}
 	return req
@@ -5620,20 +5624,20 @@ type UserOkrObjectiveAlignedObjectiveOwner struct {
 }
 
 type UserOkrObjectiveAlignedObjectiveOwnerBuilder struct {
-	openId     string // 用户的 open_id
-	openIdFlag bool
+	openId    string // 用户的 open_id
+	openIdSet bool
 
-	employeeId     string // 用户的 employee_id
-	employeeIdFlag bool
+	employeeId    string // 用户的 employee_id
+	employeeIdSet bool
 
-	employeeNo     string // 工号
-	employeeNoFlag bool
+	employeeNo    string // 工号
+	employeeNoSet bool
 
-	unionId     string // 用户的 union_id
-	unionIdFlag bool
+	unionId    string // 用户的 union_id
+	unionIdSet bool
 
-	name     string // 用户名
-	nameFlag bool
+	name    string // 用户名
+	nameSet bool
 }
 
 func NewUserOkrObjectiveAlignedObjectiveOwnerBuilder() *UserOkrObjectiveAlignedObjectiveOwnerBuilder {
@@ -5646,7 +5650,7 @@ func NewUserOkrObjectiveAlignedObjectiveOwnerBuilder() *UserOkrObjectiveAlignedO
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) OpenId(openId string) *UserOkrObjectiveAlignedObjectiveOwnerBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
@@ -5655,7 +5659,7 @@ func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) OpenId(openId strin
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) EmployeeId(employeeId string) *UserOkrObjectiveAlignedObjectiveOwnerBuilder {
 	builder.employeeId = employeeId
-	builder.employeeIdFlag = true
+	builder.employeeIdSet = true
 	return builder
 }
 
@@ -5664,7 +5668,7 @@ func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) EmployeeId(employee
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) EmployeeNo(employeeNo string) *UserOkrObjectiveAlignedObjectiveOwnerBuilder {
 	builder.employeeNo = employeeNo
-	builder.employeeNoFlag = true
+	builder.employeeNoSet = true
 	return builder
 }
 
@@ -5673,7 +5677,7 @@ func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) EmployeeNo(employee
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) UnionId(unionId string) *UserOkrObjectiveAlignedObjectiveOwnerBuilder {
 	builder.unionId = unionId
-	builder.unionIdFlag = true
+	builder.unionIdSet = true
 	return builder
 }
 
@@ -5682,29 +5686,29 @@ func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) UnionId(unionId str
 // 示例值：
 func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) Name(name string) *UserOkrObjectiveAlignedObjectiveOwnerBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *UserOkrObjectiveAlignedObjectiveOwnerBuilder) Build() *UserOkrObjectiveAlignedObjectiveOwner {
 	req := &UserOkrObjectiveAlignedObjectiveOwner{}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.employeeIdFlag {
+	if builder.employeeIdSet {
 		req.EmployeeId = &builder.employeeId
 
 	}
-	if builder.employeeNoFlag {
+	if builder.employeeNoSet {
 		req.EmployeeNo = &builder.employeeNo
 
 	}
-	if builder.unionIdFlag {
+	if builder.unionIdSet {
 		req.UnionId = &builder.unionId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -5724,20 +5728,20 @@ type UserOkrObjectiveKr struct {
 }
 
 type UserOkrObjectiveKrBuilder struct {
-	id     string // Key Result ID
-	idFlag bool
+	id    string // Key Result ID
+	idSet bool
 
-	content     string // KeyResult 内容
-	contentFlag bool
+	content    string // KeyResult 内容
+	contentSet bool
 
-	score     int // KeyResult打分（0 - 100）
-	scoreFlag bool
+	score    int // KeyResult打分（0 - 100）
+	scoreSet bool
 
-	weight     int // KeyResult权重（0 - 100）
-	weightFlag bool
+	weight    int // KeyResult权重（0 - 100）
+	weightSet bool
 
-	progressRate     *UserOkrObjectiveProgressRate // Objective进度
-	progressRateFlag bool
+	progressRate    *UserOkrObjectiveProgressRate // Objective进度
+	progressRateSet bool
 }
 
 func NewUserOkrObjectiveKrBuilder() *UserOkrObjectiveKrBuilder {
@@ -5750,7 +5754,7 @@ func NewUserOkrObjectiveKrBuilder() *UserOkrObjectiveKrBuilder {
 // 示例值：
 func (builder *UserOkrObjectiveKrBuilder) Id(id string) *UserOkrObjectiveKrBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5759,7 +5763,7 @@ func (builder *UserOkrObjectiveKrBuilder) Id(id string) *UserOkrObjectiveKrBuild
 // 示例值：
 func (builder *UserOkrObjectiveKrBuilder) Content(content string) *UserOkrObjectiveKrBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -5768,7 +5772,7 @@ func (builder *UserOkrObjectiveKrBuilder) Content(content string) *UserOkrObject
 // 示例值：
 func (builder *UserOkrObjectiveKrBuilder) Score(score int) *UserOkrObjectiveKrBuilder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
@@ -5777,7 +5781,7 @@ func (builder *UserOkrObjectiveKrBuilder) Score(score int) *UserOkrObjectiveKrBu
 // 示例值：
 func (builder *UserOkrObjectiveKrBuilder) Weight(weight int) *UserOkrObjectiveKrBuilder {
 	builder.weight = weight
-	builder.weightFlag = true
+	builder.weightSet = true
 	return builder
 }
 
@@ -5786,29 +5790,29 @@ func (builder *UserOkrObjectiveKrBuilder) Weight(weight int) *UserOkrObjectiveKr
 // 示例值：
 func (builder *UserOkrObjectiveKrBuilder) ProgressRate(progressRate *UserOkrObjectiveProgressRate) *UserOkrObjectiveKrBuilder {
 	builder.progressRate = progressRate
-	builder.progressRateFlag = true
+	builder.progressRateSet = true
 	return builder
 }
 
 func (builder *UserOkrObjectiveKrBuilder) Build() *UserOkrObjectiveKr {
 	req := &UserOkrObjectiveKr{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
-	if builder.weightFlag {
+	if builder.weightSet {
 		req.Weight = &builder.weight
 
 	}
-	if builder.progressRateFlag {
+	if builder.progressRateSet {
 		req.ProgressRate = builder.progressRate
 	}
 	return req
@@ -5821,11 +5825,11 @@ type UserOkrObjectiveProgressRate struct {
 }
 
 type UserOkrObjectiveProgressRateBuilder struct {
-	percent     int // Objective 进度百分比 >= 0
-	percentFlag bool
+	percent    int // Objective 进度百分比 >= 0
+	percentSet bool
 
-	status     string // Objective 进度状态,undefined 未更新,normal 正常,risky 有风险,overdue 已延期
-	statusFlag bool
+	status    string // Objective 进度状态,undefined 未更新,normal 正常,risky 有风险,overdue 已延期
+	statusSet bool
 }
 
 func NewUserOkrObjectiveProgressRateBuilder() *UserOkrObjectiveProgressRateBuilder {
@@ -5838,7 +5842,7 @@ func NewUserOkrObjectiveProgressRateBuilder() *UserOkrObjectiveProgressRateBuild
 // 示例值：
 func (builder *UserOkrObjectiveProgressRateBuilder) Percent(percent int) *UserOkrObjectiveProgressRateBuilder {
 	builder.percent = percent
-	builder.percentFlag = true
+	builder.percentSet = true
 	return builder
 }
 
@@ -5847,17 +5851,17 @@ func (builder *UserOkrObjectiveProgressRateBuilder) Percent(percent int) *UserOk
 // 示例值：
 func (builder *UserOkrObjectiveProgressRateBuilder) Status(status string) *UserOkrObjectiveProgressRateBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *UserOkrObjectiveProgressRateBuilder) Build() *UserOkrObjectiveProgressRate {
 	req := &UserOkrObjectiveProgressRate{}
-	if builder.percentFlag {
+	if builder.percentSet {
 		req.Percent = &builder.percent
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
@@ -5865,14 +5869,14 @@ func (builder *UserOkrObjectiveProgressRateBuilder) Build() *UserOkrObjectivePro
 }
 
 type UploadImageReqBodyBuilder struct {
-	data     io.Reader // 图片
-	dataFlag bool
+	data    io.Reader // 图片
+	dataSet bool
 
-	targetId     string // 图片的目标ID
-	targetIdFlag bool
+	targetId    string // 图片的目标ID
+	targetIdSet bool
 
-	targetType     int // 图片使用的目标类型
-	targetTypeFlag bool
+	targetType    int // 图片使用的目标类型
+	targetTypeSet bool
 }
 
 func NewUploadImageReqBodyBuilder() *UploadImageReqBodyBuilder {
@@ -5882,52 +5886,52 @@ func NewUploadImageReqBodyBuilder() *UploadImageReqBodyBuilder {
 
 // 图片
 //
-// 示例值：file binary
+//示例值：file binary
 func (builder *UploadImageReqBodyBuilder) Data(data io.Reader) *UploadImageReqBodyBuilder {
 	builder.data = data
-	builder.dataFlag = true
+	builder.dataSet = true
 	return builder
 }
 
 // 图片的目标ID
 //
-// 示例值：6974586812998174252
+//示例值：6974586812998174252
 func (builder *UploadImageReqBodyBuilder) TargetId(targetId string) *UploadImageReqBodyBuilder {
 	builder.targetId = targetId
-	builder.targetIdFlag = true
+	builder.targetIdSet = true
 	return builder
 }
 
 // 图片使用的目标类型
 //
-// 示例值：1
+//示例值：1
 func (builder *UploadImageReqBodyBuilder) TargetType(targetType int) *UploadImageReqBodyBuilder {
 	builder.targetType = targetType
-	builder.targetTypeFlag = true
+	builder.targetTypeSet = true
 	return builder
 }
 
 func (builder *UploadImageReqBodyBuilder) Build() *UploadImageReqBody {
 	req := &UploadImageReqBody{}
-	if builder.dataFlag {
+	if builder.dataSet {
 		req.Data = builder.data
 	}
-	if builder.targetIdFlag {
+	if builder.targetIdSet {
 		req.TargetId = &builder.targetId
 	}
-	if builder.targetTypeFlag {
+	if builder.targetTypeSet {
 		req.TargetType = &builder.targetType
 	}
 	return req
 }
 
 type UploadImagePathReqBodyBuilder struct {
-	dataPath       string // 图片
-	dataPathFlag   bool
-	targetId       string
-	targetIdFlag   bool
-	targetType     int
-	targetTypeFlag bool
+	dataPath      string // 图片
+	dataPathFlag  bool
+	targetId      string
+	targetIdSet   bool
+	targetType    int
+	targetTypeSet bool
 }
 
 func NewUploadImagePathReqBodyBuilder() *UploadImagePathReqBodyBuilder {
@@ -5949,7 +5953,7 @@ func (builder *UploadImagePathReqBodyBuilder) DataPath(dataPath string) *UploadI
 // 示例值：6974586812998174252
 func (builder *UploadImagePathReqBodyBuilder) TargetId(targetId string) *UploadImagePathReqBodyBuilder {
 	builder.targetId = targetId
-	builder.targetIdFlag = true
+	builder.targetIdSet = true
 	return builder
 }
 
@@ -5958,7 +5962,7 @@ func (builder *UploadImagePathReqBodyBuilder) TargetId(targetId string) *UploadI
 // 示例值：1
 func (builder *UploadImagePathReqBodyBuilder) TargetType(targetType int) *UploadImagePathReqBodyBuilder {
 	builder.targetType = targetType
-	builder.targetTypeFlag = true
+	builder.targetTypeSet = true
 	return builder
 }
 
@@ -5971,10 +5975,10 @@ func (builder *UploadImagePathReqBodyBuilder) Build() (*UploadImageReqBody, erro
 		}
 		req.Data = bytes.NewBuffer(data)
 	}
-	if builder.targetIdFlag {
+	if builder.targetIdSet {
 		req.TargetId = &builder.targetId
 	}
-	if builder.targetTypeFlag {
+	if builder.targetTypeSet {
 		req.TargetType = &builder.targetType
 	}
 	return req, nil
@@ -6101,11 +6105,11 @@ func (resp *BatchGetOkrResp) Success() bool {
 }
 
 type CreatePeriodReqBodyBuilder struct {
-	periodRuleId     string // 周期规则 id
-	periodRuleIdFlag bool
+	periodRuleId    string // 周期规则 id
+	periodRuleIdSet bool
 
-	startMonth     string // 周期起始年月
-	startMonthFlag bool
+	startMonth    string // 周期起始年月
+	startMonthSet bool
 }
 
 func NewCreatePeriodReqBodyBuilder() *CreatePeriodReqBodyBuilder {
@@ -6115,38 +6119,38 @@ func NewCreatePeriodReqBodyBuilder() *CreatePeriodReqBodyBuilder {
 
 // 周期规则 id
 //
-// 示例值：6969864184272078374
+//示例值：6969864184272078374
 func (builder *CreatePeriodReqBodyBuilder) PeriodRuleId(periodRuleId string) *CreatePeriodReqBodyBuilder {
 	builder.periodRuleId = periodRuleId
-	builder.periodRuleIdFlag = true
+	builder.periodRuleIdSet = true
 	return builder
 }
 
 // 周期起始年月
 //
-// 示例值：2022-01
+//示例值：2022-01
 func (builder *CreatePeriodReqBodyBuilder) StartMonth(startMonth string) *CreatePeriodReqBodyBuilder {
 	builder.startMonth = startMonth
-	builder.startMonthFlag = true
+	builder.startMonthSet = true
 	return builder
 }
 
 func (builder *CreatePeriodReqBodyBuilder) Build() *CreatePeriodReqBody {
 	req := &CreatePeriodReqBody{}
-	if builder.periodRuleIdFlag {
+	if builder.periodRuleIdSet {
 		req.PeriodRuleId = &builder.periodRuleId
 	}
-	if builder.startMonthFlag {
+	if builder.startMonthSet {
 		req.StartMonth = &builder.startMonth
 	}
 	return req
 }
 
 type CreatePeriodPathReqBodyBuilder struct {
-	periodRuleId     string
-	periodRuleIdFlag bool
-	startMonth       string
-	startMonthFlag   bool
+	periodRuleId    string
+	periodRuleIdSet bool
+	startMonth      string
+	startMonthSet   bool
 }
 
 func NewCreatePeriodPathReqBodyBuilder() *CreatePeriodPathReqBodyBuilder {
@@ -6159,7 +6163,7 @@ func NewCreatePeriodPathReqBodyBuilder() *CreatePeriodPathReqBodyBuilder {
 // 示例值：6969864184272078374
 func (builder *CreatePeriodPathReqBodyBuilder) PeriodRuleId(periodRuleId string) *CreatePeriodPathReqBodyBuilder {
 	builder.periodRuleId = periodRuleId
-	builder.periodRuleIdFlag = true
+	builder.periodRuleIdSet = true
 	return builder
 }
 
@@ -6168,16 +6172,16 @@ func (builder *CreatePeriodPathReqBodyBuilder) PeriodRuleId(periodRuleId string)
 // 示例值：2022-01
 func (builder *CreatePeriodPathReqBodyBuilder) StartMonth(startMonth string) *CreatePeriodPathReqBodyBuilder {
 	builder.startMonth = startMonth
-	builder.startMonthFlag = true
+	builder.startMonthSet = true
 	return builder
 }
 
 func (builder *CreatePeriodPathReqBodyBuilder) Build() (*CreatePeriodReqBody, error) {
 	req := &CreatePeriodReqBody{}
-	if builder.periodRuleIdFlag {
+	if builder.periodRuleIdSet {
 		req.PeriodRuleId = &builder.periodRuleId
 	}
-	if builder.startMonthFlag {
+	if builder.startMonthSet {
 		req.StartMonth = &builder.startMonth
 	}
 	return req, nil
@@ -6298,8 +6302,8 @@ func (resp *ListPeriodResp) Success() bool {
 }
 
 type PatchPeriodReqBodyBuilder struct {
-	status     int // 周期显示状态
-	statusFlag bool
+	status    int // 周期显示状态
+	statusSet bool
 }
 
 func NewPatchPeriodReqBodyBuilder() *PatchPeriodReqBodyBuilder {
@@ -6309,24 +6313,24 @@ func NewPatchPeriodReqBodyBuilder() *PatchPeriodReqBodyBuilder {
 
 // 周期显示状态
 //
-// 示例值：1
+//示例值：1
 func (builder *PatchPeriodReqBodyBuilder) Status(status int) *PatchPeriodReqBodyBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *PatchPeriodReqBodyBuilder) Build() *PatchPeriodReqBody {
 	req := &PatchPeriodReqBody{}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 	}
 	return req
 }
 
 type PatchPeriodPathReqBodyBuilder struct {
-	status     int
-	statusFlag bool
+	status    int
+	statusSet bool
 }
 
 func NewPatchPeriodPathReqBodyBuilder() *PatchPeriodPathReqBodyBuilder {
@@ -6339,13 +6343,13 @@ func NewPatchPeriodPathReqBodyBuilder() *PatchPeriodPathReqBodyBuilder {
 // 示例值：1
 func (builder *PatchPeriodPathReqBodyBuilder) Status(status int) *PatchPeriodPathReqBodyBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *PatchPeriodPathReqBodyBuilder) Build() (*PatchPeriodReqBody, error) {
 	req := &PatchPeriodReqBody{}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 	}
 	return req, nil
@@ -6427,29 +6431,29 @@ func (resp *ListPeriodRuleResp) Success() bool {
 }
 
 type CreateProgressRecordReqBodyBuilder struct {
-	sourceTitle     string // 进展来源
-	sourceTitleFlag bool
+	sourceTitle    string // 进展来源
+	sourceTitleSet bool
 
-	sourceUrl     string // 进展来源链接
-	sourceUrlFlag bool
+	sourceUrl    string // 进展来源链接
+	sourceUrlSet bool
 
-	targetId     string // 目标id，与target_type对应
-	targetIdFlag bool
+	targetId    string // 目标id，与target_type对应
+	targetIdSet bool
 
-	targetType     int // 目标类型
-	targetTypeFlag bool
+	targetType    int // 目标类型
+	targetTypeSet bool
 
-	content     *ContentBlock // 进展详情 富文本格式
-	contentFlag bool
+	content    *ContentBlock // 进展详情 富文本格式
+	contentSet bool
 
-	sourceUrlPc     string // pc进展来源链接
-	sourceUrlPcFlag bool
+	sourceUrlPc    string // pc进展来源链接
+	sourceUrlPcSet bool
 
-	sourceUrlMobile     string // mobile进展来源链接
-	sourceUrlMobileFlag bool
+	sourceUrlMobile    string // mobile进展来源链接
+	sourceUrlMobileSet bool
 
-	progressRate     *ProgressRateNew // 进展，包括百分比和状态
-	progressRateFlag bool
+	progressRate    *ProgressRateNew // 进展，包括百分比和状态
+	progressRateSet bool
 }
 
 func NewCreateProgressRecordReqBodyBuilder() *CreateProgressRecordReqBodyBuilder {
@@ -6459,122 +6463,122 @@ func NewCreateProgressRecordReqBodyBuilder() *CreateProgressRecordReqBodyBuilder
 
 // 进展来源
 //
-// 示例值：周报系统
+//示例值：周报系统
 func (builder *CreateProgressRecordReqBodyBuilder) SourceTitle(sourceTitle string) *CreateProgressRecordReqBodyBuilder {
 	builder.sourceTitle = sourceTitle
-	builder.sourceTitleFlag = true
+	builder.sourceTitleSet = true
 	return builder
 }
 
 // 进展来源链接
 //
-// 示例值：https://www.zhoubao.com
+//示例值：https://www.zhoubao.com
 func (builder *CreateProgressRecordReqBodyBuilder) SourceUrl(sourceUrl string) *CreateProgressRecordReqBodyBuilder {
 	builder.sourceUrl = sourceUrl
-	builder.sourceUrlFlag = true
+	builder.sourceUrlSet = true
 	return builder
 }
 
 // 目标id，与target_type对应
 //
-// 示例值：7041430377642082323
+//示例值：7041430377642082323
 func (builder *CreateProgressRecordReqBodyBuilder) TargetId(targetId string) *CreateProgressRecordReqBodyBuilder {
 	builder.targetId = targetId
-	builder.targetIdFlag = true
+	builder.targetIdSet = true
 	return builder
 }
 
 // 目标类型
 //
-// 示例值：1
+//示例值：1
 func (builder *CreateProgressRecordReqBodyBuilder) TargetType(targetType int) *CreateProgressRecordReqBodyBuilder {
 	builder.targetType = targetType
-	builder.targetTypeFlag = true
+	builder.targetTypeSet = true
 	return builder
 }
 
 // 进展详情 富文本格式
 //
-// 示例值：
+//示例值：
 func (builder *CreateProgressRecordReqBodyBuilder) Content(content *ContentBlock) *CreateProgressRecordReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 // pc进展来源链接
 //
-// 示例值：open.feishu.cn
+//示例值：open.feishu.cn
 func (builder *CreateProgressRecordReqBodyBuilder) SourceUrlPc(sourceUrlPc string) *CreateProgressRecordReqBodyBuilder {
 	builder.sourceUrlPc = sourceUrlPc
-	builder.sourceUrlPcFlag = true
+	builder.sourceUrlPcSet = true
 	return builder
 }
 
 // mobile进展来源链接
 //
-// 示例值：open.feishu.cn
+//示例值：open.feishu.cn
 func (builder *CreateProgressRecordReqBodyBuilder) SourceUrlMobile(sourceUrlMobile string) *CreateProgressRecordReqBodyBuilder {
 	builder.sourceUrlMobile = sourceUrlMobile
-	builder.sourceUrlMobileFlag = true
+	builder.sourceUrlMobileSet = true
 	return builder
 }
 
 // 进展，包括百分比和状态
 //
-// 示例值：
+//示例值：
 func (builder *CreateProgressRecordReqBodyBuilder) ProgressRate(progressRate *ProgressRateNew) *CreateProgressRecordReqBodyBuilder {
 	builder.progressRate = progressRate
-	builder.progressRateFlag = true
+	builder.progressRateSet = true
 	return builder
 }
 
 func (builder *CreateProgressRecordReqBodyBuilder) Build() *CreateProgressRecordReqBody {
 	req := &CreateProgressRecordReqBody{}
-	if builder.sourceTitleFlag {
+	if builder.sourceTitleSet {
 		req.SourceTitle = &builder.sourceTitle
 	}
-	if builder.sourceUrlFlag {
+	if builder.sourceUrlSet {
 		req.SourceUrl = &builder.sourceUrl
 	}
-	if builder.targetIdFlag {
+	if builder.targetIdSet {
 		req.TargetId = &builder.targetId
 	}
-	if builder.targetTypeFlag {
+	if builder.targetTypeSet {
 		req.TargetType = &builder.targetType
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = builder.content
 	}
-	if builder.sourceUrlPcFlag {
+	if builder.sourceUrlPcSet {
 		req.SourceUrlPc = &builder.sourceUrlPc
 	}
-	if builder.sourceUrlMobileFlag {
+	if builder.sourceUrlMobileSet {
 		req.SourceUrlMobile = &builder.sourceUrlMobile
 	}
-	if builder.progressRateFlag {
+	if builder.progressRateSet {
 		req.ProgressRate = builder.progressRate
 	}
 	return req
 }
 
 type CreateProgressRecordPathReqBodyBuilder struct {
-	sourceTitle         string
-	sourceTitleFlag     bool
-	sourceUrl           string
-	sourceUrlFlag       bool
-	targetId            string
-	targetIdFlag        bool
-	targetType          int
-	targetTypeFlag      bool
-	content             *ContentBlock
-	contentFlag         bool
-	sourceUrlPc         string
-	sourceUrlPcFlag     bool
-	sourceUrlMobile     string
-	sourceUrlMobileFlag bool
-	progressRate        *ProgressRateNew
-	progressRateFlag    bool
+	sourceTitle        string
+	sourceTitleSet     bool
+	sourceUrl          string
+	sourceUrlSet       bool
+	targetId           string
+	targetIdSet        bool
+	targetType         int
+	targetTypeSet      bool
+	content            *ContentBlock
+	contentSet         bool
+	sourceUrlPc        string
+	sourceUrlPcSet     bool
+	sourceUrlMobile    string
+	sourceUrlMobileSet bool
+	progressRate       *ProgressRateNew
+	progressRateSet    bool
 }
 
 func NewCreateProgressRecordPathReqBodyBuilder() *CreateProgressRecordPathReqBodyBuilder {
@@ -6587,7 +6591,7 @@ func NewCreateProgressRecordPathReqBodyBuilder() *CreateProgressRecordPathReqBod
 // 示例值：周报系统
 func (builder *CreateProgressRecordPathReqBodyBuilder) SourceTitle(sourceTitle string) *CreateProgressRecordPathReqBodyBuilder {
 	builder.sourceTitle = sourceTitle
-	builder.sourceTitleFlag = true
+	builder.sourceTitleSet = true
 	return builder
 }
 
@@ -6596,7 +6600,7 @@ func (builder *CreateProgressRecordPathReqBodyBuilder) SourceTitle(sourceTitle s
 // 示例值：https://www.zhoubao.com
 func (builder *CreateProgressRecordPathReqBodyBuilder) SourceUrl(sourceUrl string) *CreateProgressRecordPathReqBodyBuilder {
 	builder.sourceUrl = sourceUrl
-	builder.sourceUrlFlag = true
+	builder.sourceUrlSet = true
 	return builder
 }
 
@@ -6605,7 +6609,7 @@ func (builder *CreateProgressRecordPathReqBodyBuilder) SourceUrl(sourceUrl strin
 // 示例值：7041430377642082323
 func (builder *CreateProgressRecordPathReqBodyBuilder) TargetId(targetId string) *CreateProgressRecordPathReqBodyBuilder {
 	builder.targetId = targetId
-	builder.targetIdFlag = true
+	builder.targetIdSet = true
 	return builder
 }
 
@@ -6614,7 +6618,7 @@ func (builder *CreateProgressRecordPathReqBodyBuilder) TargetId(targetId string)
 // 示例值：1
 func (builder *CreateProgressRecordPathReqBodyBuilder) TargetType(targetType int) *CreateProgressRecordPathReqBodyBuilder {
 	builder.targetType = targetType
-	builder.targetTypeFlag = true
+	builder.targetTypeSet = true
 	return builder
 }
 
@@ -6623,7 +6627,7 @@ func (builder *CreateProgressRecordPathReqBodyBuilder) TargetType(targetType int
 // 示例值：
 func (builder *CreateProgressRecordPathReqBodyBuilder) Content(content *ContentBlock) *CreateProgressRecordPathReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -6632,7 +6636,7 @@ func (builder *CreateProgressRecordPathReqBodyBuilder) Content(content *ContentB
 // 示例值：open.feishu.cn
 func (builder *CreateProgressRecordPathReqBodyBuilder) SourceUrlPc(sourceUrlPc string) *CreateProgressRecordPathReqBodyBuilder {
 	builder.sourceUrlPc = sourceUrlPc
-	builder.sourceUrlPcFlag = true
+	builder.sourceUrlPcSet = true
 	return builder
 }
 
@@ -6641,7 +6645,7 @@ func (builder *CreateProgressRecordPathReqBodyBuilder) SourceUrlPc(sourceUrlPc s
 // 示例值：open.feishu.cn
 func (builder *CreateProgressRecordPathReqBodyBuilder) SourceUrlMobile(sourceUrlMobile string) *CreateProgressRecordPathReqBodyBuilder {
 	builder.sourceUrlMobile = sourceUrlMobile
-	builder.sourceUrlMobileFlag = true
+	builder.sourceUrlMobileSet = true
 	return builder
 }
 
@@ -6650,34 +6654,34 @@ func (builder *CreateProgressRecordPathReqBodyBuilder) SourceUrlMobile(sourceUrl
 // 示例值：
 func (builder *CreateProgressRecordPathReqBodyBuilder) ProgressRate(progressRate *ProgressRateNew) *CreateProgressRecordPathReqBodyBuilder {
 	builder.progressRate = progressRate
-	builder.progressRateFlag = true
+	builder.progressRateSet = true
 	return builder
 }
 
 func (builder *CreateProgressRecordPathReqBodyBuilder) Build() (*CreateProgressRecordReqBody, error) {
 	req := &CreateProgressRecordReqBody{}
-	if builder.sourceTitleFlag {
+	if builder.sourceTitleSet {
 		req.SourceTitle = &builder.sourceTitle
 	}
-	if builder.sourceUrlFlag {
+	if builder.sourceUrlSet {
 		req.SourceUrl = &builder.sourceUrl
 	}
-	if builder.targetIdFlag {
+	if builder.targetIdSet {
 		req.TargetId = &builder.targetId
 	}
-	if builder.targetTypeFlag {
+	if builder.targetTypeSet {
 		req.TargetType = &builder.targetType
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = builder.content
 	}
-	if builder.sourceUrlPcFlag {
+	if builder.sourceUrlPcSet {
 		req.SourceUrlPc = &builder.sourceUrlPc
 	}
-	if builder.sourceUrlMobileFlag {
+	if builder.sourceUrlMobileSet {
 		req.SourceUrlMobile = &builder.sourceUrlMobile
 	}
-	if builder.progressRateFlag {
+	if builder.progressRateSet {
 		req.ProgressRate = builder.progressRate
 	}
 	return req, nil
@@ -6865,11 +6869,11 @@ func (resp *GetProgressRecordResp) Success() bool {
 }
 
 type UpdateProgressRecordReqBodyBuilder struct {
-	content     *ContentBlock // 进展详情 富文本格式
-	contentFlag bool
+	content    *ContentBlock // 进展详情 富文本格式
+	contentSet bool
 
-	progressRate     *ProgressRateNew // 进展，包括百分比和状态
-	progressRateFlag bool
+	progressRate    *ProgressRateNew // 进展，包括百分比和状态
+	progressRateSet bool
 }
 
 func NewUpdateProgressRecordReqBodyBuilder() *UpdateProgressRecordReqBodyBuilder {
@@ -6879,38 +6883,38 @@ func NewUpdateProgressRecordReqBodyBuilder() *UpdateProgressRecordReqBodyBuilder
 
 // 进展详情 富文本格式
 //
-// 示例值：
+//示例值：
 func (builder *UpdateProgressRecordReqBodyBuilder) Content(content *ContentBlock) *UpdateProgressRecordReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 // 进展，包括百分比和状态
 //
-// 示例值：
+//示例值：
 func (builder *UpdateProgressRecordReqBodyBuilder) ProgressRate(progressRate *ProgressRateNew) *UpdateProgressRecordReqBodyBuilder {
 	builder.progressRate = progressRate
-	builder.progressRateFlag = true
+	builder.progressRateSet = true
 	return builder
 }
 
 func (builder *UpdateProgressRecordReqBodyBuilder) Build() *UpdateProgressRecordReqBody {
 	req := &UpdateProgressRecordReqBody{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = builder.content
 	}
-	if builder.progressRateFlag {
+	if builder.progressRateSet {
 		req.ProgressRate = builder.progressRate
 	}
 	return req
 }
 
 type UpdateProgressRecordPathReqBodyBuilder struct {
-	content          *ContentBlock
-	contentFlag      bool
-	progressRate     *ProgressRateNew
-	progressRateFlag bool
+	content         *ContentBlock
+	contentSet      bool
+	progressRate    *ProgressRateNew
+	progressRateSet bool
 }
 
 func NewUpdateProgressRecordPathReqBodyBuilder() *UpdateProgressRecordPathReqBodyBuilder {
@@ -6923,7 +6927,7 @@ func NewUpdateProgressRecordPathReqBodyBuilder() *UpdateProgressRecordPathReqBod
 // 示例值：
 func (builder *UpdateProgressRecordPathReqBodyBuilder) Content(content *ContentBlock) *UpdateProgressRecordPathReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -6932,16 +6936,16 @@ func (builder *UpdateProgressRecordPathReqBodyBuilder) Content(content *ContentB
 // 示例值：
 func (builder *UpdateProgressRecordPathReqBodyBuilder) ProgressRate(progressRate *ProgressRateNew) *UpdateProgressRecordPathReqBodyBuilder {
 	builder.progressRate = progressRate
-	builder.progressRateFlag = true
+	builder.progressRateSet = true
 	return builder
 }
 
 func (builder *UpdateProgressRecordPathReqBodyBuilder) Build() (*UpdateProgressRecordReqBody, error) {
 	req := &UpdateProgressRecordReqBody{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = builder.content
 	}
-	if builder.progressRateFlag {
+	if builder.progressRateSet {
 		req.ProgressRate = builder.progressRate
 	}
 	return req, nil

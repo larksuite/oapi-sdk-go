@@ -158,6 +158,18 @@ const (
 )
 
 const (
+	UserIdTypeSubscriptionCalendarEventUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeSubscriptionCalendarEventUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeSubscriptionCalendarEventOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeUnsubscriptionCalendarEventUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnsubscriptionCalendarEventUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeUnsubscriptionCalendarEventOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	UserIdTypeBatchDeleteCalendarEventAttendeeUserId  = "user_id"  // 以user_id来识别用户id
 	UserIdTypeBatchDeleteCalendarEventAttendeeUnionId = "union_id" // 以union_id来识别用户id
 	UserIdTypeBatchDeleteCalendarEventAttendeeOpenId  = "open_id"  // 以open_id来识别用户id
@@ -219,10 +231,10 @@ type AclScope struct {
 
 type AclScopeBuilder struct {
 	type_    string // 权限类型，当type为User时，值为open_id/user_id/union_id
-	typeFlag bool
+	type_Set bool
 
-	userId     string // 用户ID，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	userIdFlag bool
+	userId    string // 用户ID，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	userIdSet bool
 }
 
 func NewAclScopeBuilder() *AclScopeBuilder {
@@ -235,7 +247,7 @@ func NewAclScopeBuilder() *AclScopeBuilder {
 // 示例值：user
 func (builder *AclScopeBuilder) Type(type_ string) *AclScopeBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -244,17 +256,17 @@ func (builder *AclScopeBuilder) Type(type_ string) *AclScopeBuilder {
 // 示例值：ou_xxxxxx
 func (builder *AclScopeBuilder) UserId(userId string) *AclScopeBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *AclScopeBuilder) Build() *AclScope {
 	req := &AclScope{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -269,10 +281,10 @@ type AclScopeEvent struct {
 
 type AclScopeEventBuilder struct {
 	type_    string // 权限类型，当type为User时，值为open_id/user_id/union_id
-	typeFlag bool
+	type_Set bool
 
-	userId     *UserId // 用户 ID
-	userIdFlag bool
+	userId    *UserId // 用户 ID
+	userIdSet bool
 }
 
 func NewAclScopeEventBuilder() *AclScopeEventBuilder {
@@ -285,7 +297,7 @@ func NewAclScopeEventBuilder() *AclScopeEventBuilder {
 // 示例值：user
 func (builder *AclScopeEventBuilder) Type(type_ string) *AclScopeEventBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -294,17 +306,17 @@ func (builder *AclScopeEventBuilder) Type(type_ string) *AclScopeEventBuilder {
 // 示例值：
 func (builder *AclScopeEventBuilder) UserId(userId *UserId) *AclScopeEventBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *AclScopeEventBuilder) Build() *AclScopeEvent {
 	req := &AclScopeEvent{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = builder.userId
 	}
 	return req
@@ -321,17 +333,17 @@ type Attachment struct {
 }
 
 type AttachmentBuilder struct {
-	fileToken     string // 附件token
-	fileTokenFlag bool
+	fileToken    string // 附件token
+	fileTokenSet bool
 
-	fileSize     string // 附件大小
-	fileSizeFlag bool
+	fileSize    string // 附件大小
+	fileSizeSet bool
 
-	isDeleted     bool // 是否删除附件
-	isDeletedFlag bool
+	isDeleted    bool // 是否删除附件
+	isDeletedSet bool
 
-	name     string // 附件名称
-	nameFlag bool
+	name    string // 附件名称
+	nameSet bool
 }
 
 func NewAttachmentBuilder() *AttachmentBuilder {
@@ -344,7 +356,7 @@ func NewAttachmentBuilder() *AttachmentBuilder {
 // 示例值：xAAAAA
 func (builder *AttachmentBuilder) FileToken(fileToken string) *AttachmentBuilder {
 	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
+	builder.fileTokenSet = true
 	return builder
 }
 
@@ -353,7 +365,7 @@ func (builder *AttachmentBuilder) FileToken(fileToken string) *AttachmentBuilder
 // 示例值：2345
 func (builder *AttachmentBuilder) FileSize(fileSize string) *AttachmentBuilder {
 	builder.fileSize = fileSize
-	builder.fileSizeFlag = true
+	builder.fileSizeSet = true
 	return builder
 }
 
@@ -362,7 +374,7 @@ func (builder *AttachmentBuilder) FileSize(fileSize string) *AttachmentBuilder {
 // 示例值：true
 func (builder *AttachmentBuilder) IsDeleted(isDeleted bool) *AttachmentBuilder {
 	builder.isDeleted = isDeleted
-	builder.isDeletedFlag = true
+	builder.isDeletedSet = true
 	return builder
 }
 
@@ -371,25 +383,25 @@ func (builder *AttachmentBuilder) IsDeleted(isDeleted bool) *AttachmentBuilder {
 // 示例值：附件.jpeg
 func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *AttachmentBuilder) Build() *Attachment {
 	req := &Attachment{}
-	if builder.fileTokenFlag {
+	if builder.fileTokenSet {
 		req.FileToken = &builder.fileToken
 
 	}
-	if builder.fileSizeFlag {
+	if builder.fileSizeSet {
 		req.FileSize = &builder.fileSize
 
 	}
-	if builder.isDeletedFlag {
+	if builder.isDeletedSet {
 		req.IsDeleted = &builder.isDeleted
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -409,20 +421,20 @@ type AttendeeChatMember struct {
 }
 
 type AttendeeChatMemberBuilder struct {
-	rsvpStatus     string // 参与人RSVP状态
-	rsvpStatusFlag bool
+	rsvpStatus    string // 参与人RSVP状态
+	rsvpStatusSet bool
 
-	isOptional     bool // 参与人是否为「可选参加」
-	isOptionalFlag bool
+	isOptional    bool // 参与人是否为「可选参加」
+	isOptionalSet bool
 
-	displayName     string // 参与人名称
-	displayNameFlag bool
+	displayName    string // 参与人名称
+	displayNameSet bool
 
-	isOrganizer     bool // 参与人是否为日程组织者
-	isOrganizerFlag bool
+	isOrganizer    bool // 参与人是否为日程组织者
+	isOrganizerSet bool
 
-	isExternal     bool // 参与人是否为外部参与人
-	isExternalFlag bool
+	isExternal    bool // 参与人是否为外部参与人
+	isExternalSet bool
 }
 
 func NewAttendeeChatMemberBuilder() *AttendeeChatMemberBuilder {
@@ -435,7 +447,7 @@ func NewAttendeeChatMemberBuilder() *AttendeeChatMemberBuilder {
 // 示例值：needs_action
 func (builder *AttendeeChatMemberBuilder) RsvpStatus(rsvpStatus string) *AttendeeChatMemberBuilder {
 	builder.rsvpStatus = rsvpStatus
-	builder.rsvpStatusFlag = true
+	builder.rsvpStatusSet = true
 	return builder
 }
 
@@ -444,7 +456,7 @@ func (builder *AttendeeChatMemberBuilder) RsvpStatus(rsvpStatus string) *Attende
 // 示例值：true
 func (builder *AttendeeChatMemberBuilder) IsOptional(isOptional bool) *AttendeeChatMemberBuilder {
 	builder.isOptional = isOptional
-	builder.isOptionalFlag = true
+	builder.isOptionalSet = true
 	return builder
 }
 
@@ -453,7 +465,7 @@ func (builder *AttendeeChatMemberBuilder) IsOptional(isOptional bool) *AttendeeC
 // 示例值：Group
 func (builder *AttendeeChatMemberBuilder) DisplayName(displayName string) *AttendeeChatMemberBuilder {
 	builder.displayName = displayName
-	builder.displayNameFlag = true
+	builder.displayNameSet = true
 	return builder
 }
 
@@ -462,7 +474,7 @@ func (builder *AttendeeChatMemberBuilder) DisplayName(displayName string) *Atten
 // 示例值：false
 func (builder *AttendeeChatMemberBuilder) IsOrganizer(isOrganizer bool) *AttendeeChatMemberBuilder {
 	builder.isOrganizer = isOrganizer
-	builder.isOrganizerFlag = true
+	builder.isOrganizerSet = true
 	return builder
 }
 
@@ -471,29 +483,29 @@ func (builder *AttendeeChatMemberBuilder) IsOrganizer(isOrganizer bool) *Attende
 // 示例值：false
 func (builder *AttendeeChatMemberBuilder) IsExternal(isExternal bool) *AttendeeChatMemberBuilder {
 	builder.isExternal = isExternal
-	builder.isExternalFlag = true
+	builder.isExternalSet = true
 	return builder
 }
 
 func (builder *AttendeeChatMemberBuilder) Build() *AttendeeChatMember {
 	req := &AttendeeChatMember{}
-	if builder.rsvpStatusFlag {
+	if builder.rsvpStatusSet {
 		req.RsvpStatus = &builder.rsvpStatus
 
 	}
-	if builder.isOptionalFlag {
+	if builder.isOptionalSet {
 		req.IsOptional = &builder.isOptional
 
 	}
-	if builder.displayNameFlag {
+	if builder.displayNameSet {
 		req.DisplayName = &builder.displayName
 
 	}
-	if builder.isOrganizerFlag {
+	if builder.isOrganizerSet {
 		req.IsOrganizer = &builder.isOrganizer
 
 	}
-	if builder.isExternalFlag {
+	if builder.isExternalSet {
 		req.IsExternal = &builder.isExternal
 
 	}
@@ -511,17 +523,17 @@ type BookMeetingRoomData struct {
 }
 
 type BookMeetingRoomDataBuilder struct {
-	meetingRoomId     string // 会议室ID
-	meetingRoomIdFlag bool
+	meetingRoomId    string // 会议室ID
+	meetingRoomIdSet bool
 
-	hint     string // 返回给ai的会议室描述数据
-	hintFlag bool
+	hint    string // 返回给ai的会议室描述数据
+	hintSet bool
 
-	rooms     []*RoomMeta // 日历实体列表
-	roomsFlag bool
+	rooms    []*RoomMeta // 日历实体列表
+	roomsSet bool
 
-	recurrenceRule     string // 重复性日程规则
-	recurrenceRuleFlag bool
+	recurrenceRule    string // 重复性日程规则
+	recurrenceRuleSet bool
 }
 
 func NewBookMeetingRoomDataBuilder() *BookMeetingRoomDataBuilder {
@@ -534,7 +546,7 @@ func NewBookMeetingRoomDataBuilder() *BookMeetingRoomDataBuilder {
 // 示例值：none
 func (builder *BookMeetingRoomDataBuilder) MeetingRoomId(meetingRoomId string) *BookMeetingRoomDataBuilder {
 	builder.meetingRoomId = meetingRoomId
-	builder.meetingRoomIdFlag = true
+	builder.meetingRoomIdSet = true
 	return builder
 }
 
@@ -543,7 +555,7 @@ func (builder *BookMeetingRoomDataBuilder) MeetingRoomId(meetingRoomId string) *
 // 示例值：none
 func (builder *BookMeetingRoomDataBuilder) Hint(hint string) *BookMeetingRoomDataBuilder {
 	builder.hint = hint
-	builder.hintFlag = true
+	builder.hintSet = true
 	return builder
 }
 
@@ -552,7 +564,7 @@ func (builder *BookMeetingRoomDataBuilder) Hint(hint string) *BookMeetingRoomDat
 // 示例值：
 func (builder *BookMeetingRoomDataBuilder) Rooms(rooms []*RoomMeta) *BookMeetingRoomDataBuilder {
 	builder.rooms = rooms
-	builder.roomsFlag = true
+	builder.roomsSet = true
 	return builder
 }
 
@@ -561,24 +573,24 @@ func (builder *BookMeetingRoomDataBuilder) Rooms(rooms []*RoomMeta) *BookMeeting
 // 示例值：none
 func (builder *BookMeetingRoomDataBuilder) RecurrenceRule(recurrenceRule string) *BookMeetingRoomDataBuilder {
 	builder.recurrenceRule = recurrenceRule
-	builder.recurrenceRuleFlag = true
+	builder.recurrenceRuleSet = true
 	return builder
 }
 
 func (builder *BookMeetingRoomDataBuilder) Build() *BookMeetingRoomData {
 	req := &BookMeetingRoomData{}
-	if builder.meetingRoomIdFlag {
+	if builder.meetingRoomIdSet {
 		req.MeetingRoomId = &builder.meetingRoomId
 
 	}
-	if builder.hintFlag {
+	if builder.hintSet {
 		req.Hint = &builder.hint
 
 	}
-	if builder.roomsFlag {
+	if builder.roomsSet {
 		req.Rooms = builder.rooms
 	}
-	if builder.recurrenceRuleFlag {
+	if builder.recurrenceRuleSet {
 		req.RecurrenceRule = &builder.recurrenceRule
 
 	}
@@ -608,35 +620,35 @@ type Calendar struct {
 }
 
 type CalendarBuilder struct {
-	calendarId     string // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
-	calendarIdFlag bool
+	calendarId    string // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
+	calendarIdSet bool
 
-	summary     string // 日历标题
-	summaryFlag bool
+	summary    string // 日历标题
+	summarySet bool
 
-	description     string // 日历描述
-	descriptionFlag bool
+	description    string // 日历描述
+	descriptionSet bool
 
-	permissions     string // 日历公开范围
-	permissionsFlag bool
+	permissions    string // 日历公开范围
+	permissionsSet bool
 
-	color     int // 日历颜色，颜色RGB值的int32表示。客户端展示时会映射到色板上最接近的一种颜色。仅对当前身份生效
-	colorFlag bool
+	color    int // 日历颜色，颜色RGB值的int32表示。客户端展示时会映射到色板上最接近的一种颜色。仅对当前身份生效
+	colorSet bool
 
 	type_    string // 日历类型
-	typeFlag bool
+	type_Set bool
 
-	summaryAlias     string // 日历备注名，修改或添加后仅对当前身份生效
-	summaryAliasFlag bool
+	summaryAlias    string // 日历备注名，修改或添加后仅对当前身份生效
+	summaryAliasSet bool
 
-	isDeleted     bool // 对于当前身份，日历是否已经被标记为删除
-	isDeletedFlag bool
+	isDeleted    bool // 对于当前身份，日历是否已经被标记为删除
+	isDeletedSet bool
 
-	isThirdParty     bool // 当前日历是否是第三方数据；三方日历及日程只支持读，不支持写入
-	isThirdPartyFlag bool
+	isThirdParty    bool // 当前日历是否是第三方数据；三方日历及日程只支持读，不支持写入
+	isThirdPartySet bool
 
-	role     string // 当前身份对于该日历的访问权限
-	roleFlag bool
+	role    string // 当前身份对于该日历的访问权限
+	roleSet bool
 }
 
 func NewCalendarBuilder() *CalendarBuilder {
@@ -649,7 +661,7 @@ func NewCalendarBuilder() *CalendarBuilder {
 // 示例值：feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn
 func (builder *CalendarBuilder) CalendarId(calendarId string) *CalendarBuilder {
 	builder.calendarId = calendarId
-	builder.calendarIdFlag = true
+	builder.calendarIdSet = true
 	return builder
 }
 
@@ -658,7 +670,7 @@ func (builder *CalendarBuilder) CalendarId(calendarId string) *CalendarBuilder {
 // 示例值：测试日历
 func (builder *CalendarBuilder) Summary(summary string) *CalendarBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -667,7 +679,7 @@ func (builder *CalendarBuilder) Summary(summary string) *CalendarBuilder {
 // 示例值：使用开放接口创建日历
 func (builder *CalendarBuilder) Description(description string) *CalendarBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -676,7 +688,7 @@ func (builder *CalendarBuilder) Description(description string) *CalendarBuilder
 // 示例值：private
 func (builder *CalendarBuilder) Permissions(permissions string) *CalendarBuilder {
 	builder.permissions = permissions
-	builder.permissionsFlag = true
+	builder.permissionsSet = true
 	return builder
 }
 
@@ -685,7 +697,7 @@ func (builder *CalendarBuilder) Permissions(permissions string) *CalendarBuilder
 // 示例值：-1
 func (builder *CalendarBuilder) Color(color int) *CalendarBuilder {
 	builder.color = color
-	builder.colorFlag = true
+	builder.colorSet = true
 	return builder
 }
 
@@ -694,7 +706,7 @@ func (builder *CalendarBuilder) Color(color int) *CalendarBuilder {
 // 示例值：shared
 func (builder *CalendarBuilder) Type(type_ string) *CalendarBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -703,7 +715,7 @@ func (builder *CalendarBuilder) Type(type_ string) *CalendarBuilder {
 // 示例值：日历备注名
 func (builder *CalendarBuilder) SummaryAlias(summaryAlias string) *CalendarBuilder {
 	builder.summaryAlias = summaryAlias
-	builder.summaryAliasFlag = true
+	builder.summaryAliasSet = true
 	return builder
 }
 
@@ -712,7 +724,7 @@ func (builder *CalendarBuilder) SummaryAlias(summaryAlias string) *CalendarBuild
 // 示例值：false
 func (builder *CalendarBuilder) IsDeleted(isDeleted bool) *CalendarBuilder {
 	builder.isDeleted = isDeleted
-	builder.isDeletedFlag = true
+	builder.isDeletedSet = true
 	return builder
 }
 
@@ -721,7 +733,7 @@ func (builder *CalendarBuilder) IsDeleted(isDeleted bool) *CalendarBuilder {
 // 示例值：false
 func (builder *CalendarBuilder) IsThirdParty(isThirdParty bool) *CalendarBuilder {
 	builder.isThirdParty = isThirdParty
-	builder.isThirdPartyFlag = true
+	builder.isThirdPartySet = true
 	return builder
 }
 
@@ -730,49 +742,49 @@ func (builder *CalendarBuilder) IsThirdParty(isThirdParty bool) *CalendarBuilder
 // 示例值：owner
 func (builder *CalendarBuilder) Role(role string) *CalendarBuilder {
 	builder.role = role
-	builder.roleFlag = true
+	builder.roleSet = true
 	return builder
 }
 
 func (builder *CalendarBuilder) Build() *Calendar {
 	req := &Calendar{}
-	if builder.calendarIdFlag {
+	if builder.calendarIdSet {
 		req.CalendarId = &builder.calendarId
 
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.permissionsFlag {
+	if builder.permissionsSet {
 		req.Permissions = &builder.permissions
 
 	}
-	if builder.colorFlag {
+	if builder.colorSet {
 		req.Color = &builder.color
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.summaryAliasFlag {
+	if builder.summaryAliasSet {
 		req.SummaryAlias = &builder.summaryAlias
 
 	}
-	if builder.isDeletedFlag {
+	if builder.isDeletedSet {
 		req.IsDeleted = &builder.isDeleted
 
 	}
-	if builder.isThirdPartyFlag {
+	if builder.isThirdPartySet {
 		req.IsThirdParty = &builder.isThirdParty
 
 	}
-	if builder.roleFlag {
+	if builder.roleSet {
 		req.Role = &builder.role
 
 	}
@@ -788,14 +800,14 @@ type CalendarAcl struct {
 }
 
 type CalendarAclBuilder struct {
-	aclId     string // acl资源ID。参见[ACL ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/introduction)
-	aclIdFlag bool
+	aclId    string // acl资源ID。参见[ACL ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/introduction)
+	aclIdSet bool
 
-	role     string // 对日历的访问权限
-	roleFlag bool
+	role    string // 对日历的访问权限
+	roleSet bool
 
-	scope     *AclScope // 权限范围
-	scopeFlag bool
+	scope    *AclScope // 权限范围
+	scopeSet bool
 }
 
 func NewCalendarAclBuilder() *CalendarAclBuilder {
@@ -808,7 +820,7 @@ func NewCalendarAclBuilder() *CalendarAclBuilder {
 // 示例值：user_xxxxxx
 func (builder *CalendarAclBuilder) AclId(aclId string) *CalendarAclBuilder {
 	builder.aclId = aclId
-	builder.aclIdFlag = true
+	builder.aclIdSet = true
 	return builder
 }
 
@@ -817,7 +829,7 @@ func (builder *CalendarAclBuilder) AclId(aclId string) *CalendarAclBuilder {
 // 示例值：writer
 func (builder *CalendarAclBuilder) Role(role string) *CalendarAclBuilder {
 	builder.role = role
-	builder.roleFlag = true
+	builder.roleSet = true
 	return builder
 }
 
@@ -826,21 +838,21 @@ func (builder *CalendarAclBuilder) Role(role string) *CalendarAclBuilder {
 // 示例值：
 func (builder *CalendarAclBuilder) Scope(scope *AclScope) *CalendarAclBuilder {
 	builder.scope = scope
-	builder.scopeFlag = true
+	builder.scopeSet = true
 	return builder
 }
 
 func (builder *CalendarAclBuilder) Build() *CalendarAcl {
 	req := &CalendarAcl{}
-	if builder.aclIdFlag {
+	if builder.aclIdSet {
 		req.AclId = &builder.aclId
 
 	}
-	if builder.roleFlag {
+	if builder.roleSet {
 		req.Role = &builder.role
 
 	}
-	if builder.scopeFlag {
+	if builder.scopeSet {
 		req.Scope = builder.scope
 	}
 	return req
@@ -857,17 +869,17 @@ type CalendarAclEvent struct {
 }
 
 type CalendarAclEventBuilder struct {
-	aclId     string // acl资源ID
-	aclIdFlag bool
+	aclId    string // acl资源ID
+	aclIdSet bool
 
-	role     string // 对日历的访问权限
-	roleFlag bool
+	role    string // 对日历的访问权限
+	roleSet bool
 
-	scope     *AclScopeEvent // 权限范围
-	scopeFlag bool
+	scope    *AclScopeEvent // 权限范围
+	scopeSet bool
 
-	userIdList     []*UserId // 需要推送事件的用户列表
-	userIdListFlag bool
+	userIdList    []*UserId // 需要推送事件的用户列表
+	userIdListSet bool
 }
 
 func NewCalendarAclEventBuilder() *CalendarAclEventBuilder {
@@ -880,7 +892,7 @@ func NewCalendarAclEventBuilder() *CalendarAclEventBuilder {
 // 示例值：user_xxxxx
 func (builder *CalendarAclEventBuilder) AclId(aclId string) *CalendarAclEventBuilder {
 	builder.aclId = aclId
-	builder.aclIdFlag = true
+	builder.aclIdSet = true
 	return builder
 }
 
@@ -889,7 +901,7 @@ func (builder *CalendarAclEventBuilder) AclId(aclId string) *CalendarAclEventBui
 // 示例值：unknown
 func (builder *CalendarAclEventBuilder) Role(role string) *CalendarAclEventBuilder {
 	builder.role = role
-	builder.roleFlag = true
+	builder.roleSet = true
 	return builder
 }
 
@@ -898,7 +910,7 @@ func (builder *CalendarAclEventBuilder) Role(role string) *CalendarAclEventBuild
 // 示例值：
 func (builder *CalendarAclEventBuilder) Scope(scope *AclScopeEvent) *CalendarAclEventBuilder {
 	builder.scope = scope
-	builder.scopeFlag = true
+	builder.scopeSet = true
 	return builder
 }
 
@@ -907,24 +919,24 @@ func (builder *CalendarAclEventBuilder) Scope(scope *AclScopeEvent) *CalendarAcl
 // 示例值：
 func (builder *CalendarAclEventBuilder) UserIdList(userIdList []*UserId) *CalendarAclEventBuilder {
 	builder.userIdList = userIdList
-	builder.userIdListFlag = true
+	builder.userIdListSet = true
 	return builder
 }
 
 func (builder *CalendarAclEventBuilder) Build() *CalendarAclEvent {
 	req := &CalendarAclEvent{}
-	if builder.aclIdFlag {
+	if builder.aclIdSet {
 		req.AclId = &builder.aclId
 
 	}
-	if builder.roleFlag {
+	if builder.roleSet {
 		req.Role = &builder.role
 
 	}
-	if builder.scopeFlag {
+	if builder.scopeSet {
 		req.Scope = builder.scope
 	}
-	if builder.userIdListFlag {
+	if builder.userIdListSet {
 		req.UserIdList = builder.userIdList
 	}
 	return req
@@ -939,14 +951,14 @@ type CalendarAttendeeResourceCustomization struct {
 }
 
 type CalendarAttendeeResourceCustomizationBuilder struct {
-	indexKey     string // 每个配置的唯一ID
-	indexKeyFlag bool
+	indexKey    string // 每个配置的唯一ID
+	indexKeySet bool
 
-	inputContent     string // 当type类型为填空时，该参数需要填入
-	inputContentFlag bool
+	inputContent    string // 当type类型为填空时，该参数需要填入
+	inputContentSet bool
 
-	options     []*CustomizationOption // 每个配置的选项
-	optionsFlag bool
+	options    []*CustomizationOption // 每个配置的选项
+	optionsSet bool
 }
 
 func NewCalendarAttendeeResourceCustomizationBuilder() *CalendarAttendeeResourceCustomizationBuilder {
@@ -959,7 +971,7 @@ func NewCalendarAttendeeResourceCustomizationBuilder() *CalendarAttendeeResource
 // 示例值：16281481596100
 func (builder *CalendarAttendeeResourceCustomizationBuilder) IndexKey(indexKey string) *CalendarAttendeeResourceCustomizationBuilder {
 	builder.indexKey = indexKey
-	builder.indexKeyFlag = true
+	builder.indexKeySet = true
 	return builder
 }
 
@@ -968,7 +980,7 @@ func (builder *CalendarAttendeeResourceCustomizationBuilder) IndexKey(indexKey s
 // 示例值：xxx
 func (builder *CalendarAttendeeResourceCustomizationBuilder) InputContent(inputContent string) *CalendarAttendeeResourceCustomizationBuilder {
 	builder.inputContent = inputContent
-	builder.inputContentFlag = true
+	builder.inputContentSet = true
 	return builder
 }
 
@@ -977,21 +989,21 @@ func (builder *CalendarAttendeeResourceCustomizationBuilder) InputContent(inputC
 // 示例值：无
 func (builder *CalendarAttendeeResourceCustomizationBuilder) Options(options []*CustomizationOption) *CalendarAttendeeResourceCustomizationBuilder {
 	builder.options = options
-	builder.optionsFlag = true
+	builder.optionsSet = true
 	return builder
 }
 
 func (builder *CalendarAttendeeResourceCustomizationBuilder) Build() *CalendarAttendeeResourceCustomization {
 	req := &CalendarAttendeeResourceCustomization{}
-	if builder.indexKeyFlag {
+	if builder.indexKeySet {
 		req.IndexKey = &builder.indexKey
 
 	}
-	if builder.inputContentFlag {
+	if builder.inputContentSet {
 		req.InputContent = &builder.inputContent
 
 	}
-	if builder.optionsFlag {
+	if builder.optionsSet {
 		req.Options = builder.options
 	}
 	return req
@@ -1051,89 +1063,94 @@ type CalendarEvent struct {
 	EventCheckIn *EventCheckIn `json:"event_check_in,omitempty"` // 日程签到设置，为空则不进行日程签到设置
 
 	Source *string `json:"source,omitempty"` // 日程source
+
+	SelfRsvpStatus *string `json:"self_rsvp_status,omitempty"` // 当前日历的RSVP状态
 }
 
 type CalendarEventBuilder struct {
-	eventId     string // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction)
-	eventIdFlag bool
+	eventId    string // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction)
+	eventIdSet bool
 
-	organizerCalendarId     string // 日程组织者日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
-	organizerCalendarIdFlag bool
+	organizerCalendarId    string // 日程组织者日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
+	organizerCalendarIdSet bool
 
-	summary     string // 日程标题
-	summaryFlag bool
+	summary    string // 日程标题
+	summarySet bool
 
-	description     string // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失
-	descriptionFlag bool
+	description    string // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失
+	descriptionSet bool
 
-	needNotification     bool // 更新日程是否给日程参与人发送bot通知，默认为true
-	needNotificationFlag bool
+	needNotification    bool // 更新日程是否给日程参与人发送bot通知，默认为true
+	needNotificationSet bool
 
-	startTime     *TimeInfo // 日程开始时间
-	startTimeFlag bool
+	startTime    *TimeInfo // 日程开始时间
+	startTimeSet bool
 
-	endTime     *TimeInfo // 日程结束时间
-	endTimeFlag bool
+	endTime    *TimeInfo // 日程结束时间
+	endTimeSet bool
 
-	vchat     *Vchat // 视频会议信息。
-	vchatFlag bool
+	vchat    *Vchat // 视频会议信息。
+	vchatSet bool
 
-	visibility     string // 日程公开范围，新建日程默认为Default；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
-	visibilityFlag bool
+	visibility    string // 日程公开范围，新建日程默认为Default；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
+	visibilitySet bool
 
-	attendeeAbility     string // 参与人权限
-	attendeeAbilityFlag bool
+	attendeeAbility    string // 参与人权限
+	attendeeAbilitySet bool
 
-	freeBusyStatus     string // 日程占用的忙闲状态，新建日程默认为Busy；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
-	freeBusyStatusFlag bool
+	freeBusyStatus    string // 日程占用的忙闲状态，新建日程默认为Busy；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
+	freeBusyStatusSet bool
 
-	location     *EventLocation // 日程地点
-	locationFlag bool
+	location    *EventLocation // 日程地点
+	locationSet bool
 
-	color     int // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
-	colorFlag bool
+	color    int // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
+	colorSet bool
 
-	reminders     []*Reminder // 日程提醒列表
-	remindersFlag bool
+	reminders    []*Reminder // 日程提醒列表
+	remindersSet bool
 
-	recurrence     string // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；;- 不支持COUNT和UNTIL同时出现；;- 预定会议室重复日程长度不得超过两年。
-	recurrenceFlag bool
+	recurrence    string // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；;- 不支持COUNT和UNTIL同时出现；;- 预定会议室重复日程长度不得超过两年。
+	recurrenceSet bool
 
-	status     string // 日程状态
-	statusFlag bool
+	status    string // 日程状态
+	statusSet bool
 
-	isException     bool // 日程是否是一个重复日程的例外日程
-	isExceptionFlag bool
+	isException    bool // 日程是否是一个重复日程的例外日程
+	isExceptionSet bool
 
-	recurringEventId     string // 例外日程的原重复日程的event_id
-	recurringEventIdFlag bool
+	recurringEventId    string // 例外日程的原重复日程的event_id
+	recurringEventIdSet bool
 
-	createTime     string // 日程的创建时间（秒级时间戳）
-	createTimeFlag bool
+	createTime    string // 日程的创建时间（秒级时间戳）
+	createTimeSet bool
 
-	schemas     []*Schema // 日程自定义信息；控制日程详情页的ui展示。
-	schemasFlag bool
+	schemas    []*Schema // 日程自定义信息；控制日程详情页的ui展示。
+	schemasSet bool
 
-	eventOrganizer     *EventOrganizer // 日程组织者信息
-	eventOrganizerFlag bool
+	eventOrganizer    *EventOrganizer // 日程组织者信息
+	eventOrganizerSet bool
 
-	appLink     string // 日程的app_link,跳转到具体的某个日程
-	appLinkFlag bool
+	appLink    string // 日程的app_link,跳转到具体的某个日程
+	appLinkSet bool
 
-	attendees     []*CalendarEventAttendee // 日程参与人信息
-	attendeesFlag bool
+	attendees    []*CalendarEventAttendee // 日程参与人信息
+	attendeesSet bool
 
-	hasMoreAttendee     bool // 是否有更多的参与人
-	hasMoreAttendeeFlag bool
+	hasMoreAttendee    bool // 是否有更多的参与人
+	hasMoreAttendeeSet bool
 
-	attachments     []*Attachment // 日程附件
-	attachmentsFlag bool
+	attachments    []*Attachment // 日程附件
+	attachmentsSet bool
 
-	eventCheckIn     *EventCheckIn // 日程签到设置，为空则不进行日程签到设置
-	eventCheckInFlag bool
+	eventCheckIn    *EventCheckIn // 日程签到设置，为空则不进行日程签到设置
+	eventCheckInSet bool
 
-	source     string // 日程source
-	sourceFlag bool
+	source    string // 日程source
+	sourceSet bool
+
+	selfRsvpStatus    string // 当前日历的RSVP状态
+	selfRsvpStatusSet bool
 }
 
 func NewCalendarEventBuilder() *CalendarEventBuilder {
@@ -1146,7 +1163,7 @@ func NewCalendarEventBuilder() *CalendarEventBuilder {
 // 示例值：00592a0e-7edf-4678-bc9d-1b77383ef08e_0
 func (builder *CalendarEventBuilder) EventId(eventId string) *CalendarEventBuilder {
 	builder.eventId = eventId
-	builder.eventIdFlag = true
+	builder.eventIdSet = true
 	return builder
 }
 
@@ -1155,7 +1172,7 @@ func (builder *CalendarEventBuilder) EventId(eventId string) *CalendarEventBuild
 // 示例值：feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn
 func (builder *CalendarEventBuilder) OrganizerCalendarId(organizerCalendarId string) *CalendarEventBuilder {
 	builder.organizerCalendarId = organizerCalendarId
-	builder.organizerCalendarIdFlag = true
+	builder.organizerCalendarIdSet = true
 	return builder
 }
 
@@ -1164,7 +1181,7 @@ func (builder *CalendarEventBuilder) OrganizerCalendarId(organizerCalendarId str
 // 示例值：日程标题
 func (builder *CalendarEventBuilder) Summary(summary string) *CalendarEventBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -1173,7 +1190,7 @@ func (builder *CalendarEventBuilder) Summary(summary string) *CalendarEventBuild
 // 示例值：日程描述
 func (builder *CalendarEventBuilder) Description(description string) *CalendarEventBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -1182,7 +1199,7 @@ func (builder *CalendarEventBuilder) Description(description string) *CalendarEv
 // 示例值：false
 func (builder *CalendarEventBuilder) NeedNotification(needNotification bool) *CalendarEventBuilder {
 	builder.needNotification = needNotification
-	builder.needNotificationFlag = true
+	builder.needNotificationSet = true
 	return builder
 }
 
@@ -1191,7 +1208,7 @@ func (builder *CalendarEventBuilder) NeedNotification(needNotification bool) *Ca
 // 示例值：
 func (builder *CalendarEventBuilder) StartTime(startTime *TimeInfo) *CalendarEventBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -1200,7 +1217,7 @@ func (builder *CalendarEventBuilder) StartTime(startTime *TimeInfo) *CalendarEve
 // 示例值：
 func (builder *CalendarEventBuilder) EndTime(endTime *TimeInfo) *CalendarEventBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -1209,7 +1226,7 @@ func (builder *CalendarEventBuilder) EndTime(endTime *TimeInfo) *CalendarEventBu
 // 示例值：
 func (builder *CalendarEventBuilder) Vchat(vchat *Vchat) *CalendarEventBuilder {
 	builder.vchat = vchat
-	builder.vchatFlag = true
+	builder.vchatSet = true
 	return builder
 }
 
@@ -1218,7 +1235,7 @@ func (builder *CalendarEventBuilder) Vchat(vchat *Vchat) *CalendarEventBuilder {
 // 示例值：default
 func (builder *CalendarEventBuilder) Visibility(visibility string) *CalendarEventBuilder {
 	builder.visibility = visibility
-	builder.visibilityFlag = true
+	builder.visibilitySet = true
 	return builder
 }
 
@@ -1227,7 +1244,7 @@ func (builder *CalendarEventBuilder) Visibility(visibility string) *CalendarEven
 // 示例值：can_see_others
 func (builder *CalendarEventBuilder) AttendeeAbility(attendeeAbility string) *CalendarEventBuilder {
 	builder.attendeeAbility = attendeeAbility
-	builder.attendeeAbilityFlag = true
+	builder.attendeeAbilitySet = true
 	return builder
 }
 
@@ -1236,7 +1253,7 @@ func (builder *CalendarEventBuilder) AttendeeAbility(attendeeAbility string) *Ca
 // 示例值：busy
 func (builder *CalendarEventBuilder) FreeBusyStatus(freeBusyStatus string) *CalendarEventBuilder {
 	builder.freeBusyStatus = freeBusyStatus
-	builder.freeBusyStatusFlag = true
+	builder.freeBusyStatusSet = true
 	return builder
 }
 
@@ -1245,7 +1262,7 @@ func (builder *CalendarEventBuilder) FreeBusyStatus(freeBusyStatus string) *Cale
 // 示例值：
 func (builder *CalendarEventBuilder) Location(location *EventLocation) *CalendarEventBuilder {
 	builder.location = location
-	builder.locationFlag = true
+	builder.locationSet = true
 	return builder
 }
 
@@ -1254,7 +1271,7 @@ func (builder *CalendarEventBuilder) Location(location *EventLocation) *Calendar
 // 示例值：-1
 func (builder *CalendarEventBuilder) Color(color int) *CalendarEventBuilder {
 	builder.color = color
-	builder.colorFlag = true
+	builder.colorSet = true
 	return builder
 }
 
@@ -1263,7 +1280,7 @@ func (builder *CalendarEventBuilder) Color(color int) *CalendarEventBuilder {
 // 示例值：
 func (builder *CalendarEventBuilder) Reminders(reminders []*Reminder) *CalendarEventBuilder {
 	builder.reminders = reminders
-	builder.remindersFlag = true
+	builder.remindersSet = true
 	return builder
 }
 
@@ -1272,7 +1289,7 @@ func (builder *CalendarEventBuilder) Reminders(reminders []*Reminder) *CalendarE
 // 示例值：FREQ=DAILY;INTERVAL=1
 func (builder *CalendarEventBuilder) Recurrence(recurrence string) *CalendarEventBuilder {
 	builder.recurrence = recurrence
-	builder.recurrenceFlag = true
+	builder.recurrenceSet = true
 	return builder
 }
 
@@ -1281,7 +1298,7 @@ func (builder *CalendarEventBuilder) Recurrence(recurrence string) *CalendarEven
 // 示例值：confirmed
 func (builder *CalendarEventBuilder) Status(status string) *CalendarEventBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -1290,7 +1307,7 @@ func (builder *CalendarEventBuilder) Status(status string) *CalendarEventBuilder
 // 示例值：false
 func (builder *CalendarEventBuilder) IsException(isException bool) *CalendarEventBuilder {
 	builder.isException = isException
-	builder.isExceptionFlag = true
+	builder.isExceptionSet = true
 	return builder
 }
 
@@ -1299,7 +1316,7 @@ func (builder *CalendarEventBuilder) IsException(isException bool) *CalendarEven
 // 示例值：1cd45aaa-fa70-4195-80b7-c93b2e208f45
 func (builder *CalendarEventBuilder) RecurringEventId(recurringEventId string) *CalendarEventBuilder {
 	builder.recurringEventId = recurringEventId
-	builder.recurringEventIdFlag = true
+	builder.recurringEventIdSet = true
 	return builder
 }
 
@@ -1308,7 +1325,7 @@ func (builder *CalendarEventBuilder) RecurringEventId(recurringEventId string) *
 // 示例值：1602504000
 func (builder *CalendarEventBuilder) CreateTime(createTime string) *CalendarEventBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -1317,7 +1334,7 @@ func (builder *CalendarEventBuilder) CreateTime(createTime string) *CalendarEven
 // 示例值：
 func (builder *CalendarEventBuilder) Schemas(schemas []*Schema) *CalendarEventBuilder {
 	builder.schemas = schemas
-	builder.schemasFlag = true
+	builder.schemasSet = true
 	return builder
 }
 
@@ -1326,7 +1343,7 @@ func (builder *CalendarEventBuilder) Schemas(schemas []*Schema) *CalendarEventBu
 // 示例值：
 func (builder *CalendarEventBuilder) EventOrganizer(eventOrganizer *EventOrganizer) *CalendarEventBuilder {
 	builder.eventOrganizer = eventOrganizer
-	builder.eventOrganizerFlag = true
+	builder.eventOrganizerSet = true
 	return builder
 }
 
@@ -1335,7 +1352,7 @@ func (builder *CalendarEventBuilder) EventOrganizer(eventOrganizer *EventOrganiz
 // 示例值：https://applink.larkoffice.com/client/calendar/event/detail?calendarId=7039673579105026066&key=aeac9c56-aeb1-4179-a21b-02f278f59048&originalTime=0&startTime=1700496000
 func (builder *CalendarEventBuilder) AppLink(appLink string) *CalendarEventBuilder {
 	builder.appLink = appLink
-	builder.appLinkFlag = true
+	builder.appLinkSet = true
 	return builder
 }
 
@@ -1344,7 +1361,7 @@ func (builder *CalendarEventBuilder) AppLink(appLink string) *CalendarEventBuild
 // 示例值：
 func (builder *CalendarEventBuilder) Attendees(attendees []*CalendarEventAttendee) *CalendarEventBuilder {
 	builder.attendees = attendees
-	builder.attendeesFlag = true
+	builder.attendeesSet = true
 	return builder
 }
 
@@ -1353,7 +1370,7 @@ func (builder *CalendarEventBuilder) Attendees(attendees []*CalendarEventAttende
 // 示例值：
 func (builder *CalendarEventBuilder) HasMoreAttendee(hasMoreAttendee bool) *CalendarEventBuilder {
 	builder.hasMoreAttendee = hasMoreAttendee
-	builder.hasMoreAttendeeFlag = true
+	builder.hasMoreAttendeeSet = true
 	return builder
 }
 
@@ -1362,7 +1379,7 @@ func (builder *CalendarEventBuilder) HasMoreAttendee(hasMoreAttendee bool) *Cale
 // 示例值：
 func (builder *CalendarEventBuilder) Attachments(attachments []*Attachment) *CalendarEventBuilder {
 	builder.attachments = attachments
-	builder.attachmentsFlag = true
+	builder.attachmentsSet = true
 	return builder
 }
 
@@ -1371,7 +1388,7 @@ func (builder *CalendarEventBuilder) Attachments(attachments []*Attachment) *Cal
 // 示例值：
 func (builder *CalendarEventBuilder) EventCheckIn(eventCheckIn *EventCheckIn) *CalendarEventBuilder {
 	builder.eventCheckIn = eventCheckIn
-	builder.eventCheckInFlag = true
+	builder.eventCheckInSet = true
 	return builder
 }
 
@@ -1380,108 +1397,121 @@ func (builder *CalendarEventBuilder) EventCheckIn(eventCheckIn *EventCheckIn) *C
 // 示例值：source
 func (builder *CalendarEventBuilder) Source(source string) *CalendarEventBuilder {
 	builder.source = source
-	builder.sourceFlag = true
+	builder.sourceSet = true
+	return builder
+}
+
+// 当前日历的RSVP状态
+//
+// 示例值：
+func (builder *CalendarEventBuilder) SelfRsvpStatus(selfRsvpStatus string) *CalendarEventBuilder {
+	builder.selfRsvpStatus = selfRsvpStatus
+	builder.selfRsvpStatusSet = true
 	return builder
 }
 
 func (builder *CalendarEventBuilder) Build() *CalendarEvent {
 	req := &CalendarEvent{}
-	if builder.eventIdFlag {
+	if builder.eventIdSet {
 		req.EventId = &builder.eventId
 
 	}
-	if builder.organizerCalendarIdFlag {
+	if builder.organizerCalendarIdSet {
 		req.OrganizerCalendarId = &builder.organizerCalendarId
 
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.needNotificationFlag {
+	if builder.needNotificationSet {
 		req.NeedNotification = &builder.needNotification
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = builder.startTime
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = builder.endTime
 	}
-	if builder.vchatFlag {
+	if builder.vchatSet {
 		req.Vchat = builder.vchat
 	}
-	if builder.visibilityFlag {
+	if builder.visibilitySet {
 		req.Visibility = &builder.visibility
 
 	}
-	if builder.attendeeAbilityFlag {
+	if builder.attendeeAbilitySet {
 		req.AttendeeAbility = &builder.attendeeAbility
 
 	}
-	if builder.freeBusyStatusFlag {
+	if builder.freeBusyStatusSet {
 		req.FreeBusyStatus = &builder.freeBusyStatus
 
 	}
-	if builder.locationFlag {
+	if builder.locationSet {
 		req.Location = builder.location
 	}
-	if builder.colorFlag {
+	if builder.colorSet {
 		req.Color = &builder.color
 
 	}
-	if builder.remindersFlag {
+	if builder.remindersSet {
 		req.Reminders = builder.reminders
 	}
-	if builder.recurrenceFlag {
+	if builder.recurrenceSet {
 		req.Recurrence = &builder.recurrence
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.isExceptionFlag {
+	if builder.isExceptionSet {
 		req.IsException = &builder.isException
 
 	}
-	if builder.recurringEventIdFlag {
+	if builder.recurringEventIdSet {
 		req.RecurringEventId = &builder.recurringEventId
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.schemasFlag {
+	if builder.schemasSet {
 		req.Schemas = builder.schemas
 	}
-	if builder.eventOrganizerFlag {
+	if builder.eventOrganizerSet {
 		req.EventOrganizer = builder.eventOrganizer
 	}
-	if builder.appLinkFlag {
+	if builder.appLinkSet {
 		req.AppLink = &builder.appLink
 
 	}
-	if builder.attendeesFlag {
+	if builder.attendeesSet {
 		req.Attendees = builder.attendees
 	}
-	if builder.hasMoreAttendeeFlag {
+	if builder.hasMoreAttendeeSet {
 		req.HasMoreAttendee = &builder.hasMoreAttendee
 
 	}
-	if builder.attachmentsFlag {
+	if builder.attachmentsSet {
 		req.Attachments = builder.attachments
 	}
-	if builder.eventCheckInFlag {
+	if builder.eventCheckInSet {
 		req.EventCheckIn = builder.eventCheckIn
 	}
-	if builder.sourceFlag {
+	if builder.sourceSet {
 		req.Source = &builder.source
+
+	}
+	if builder.selfRsvpStatusSet {
+		req.SelfRsvpStatus = &builder.selfRsvpStatus
 
 	}
 	return req
@@ -1521,49 +1551,49 @@ type CalendarEventAttendee struct {
 
 type CalendarEventAttendeeBuilder struct {
 	type_    string // 参与人类型
-	typeFlag bool
+	type_Set bool
 
-	attendeeId     string // 参与人ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c)
-	attendeeIdFlag bool
+	attendeeId    string // 参与人ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c)
+	attendeeIdSet bool
 
-	rsvpStatus     string // 参与人RSVP状态
-	rsvpStatusFlag bool
+	rsvpStatus    string // 参与人RSVP状态
+	rsvpStatusSet bool
 
-	isOptional     bool // 参与人是否为「可选参加」，无法编辑群参与人的此字段
-	isOptionalFlag bool
+	isOptional    bool // 参与人是否为「可选参加」，无法编辑群参与人的此字段
+	isOptionalSet bool
 
-	isOrganizer     bool // 参与人是否为日程组织者
-	isOrganizerFlag bool
+	isOrganizer    bool // 参与人是否为日程组织者
+	isOrganizerSet bool
 
-	isExternal     bool // 参与人是否为外部参与人；外部参与人不支持编辑
-	isExternalFlag bool
+	isExternal    bool // 参与人是否为外部参与人；外部参与人不支持编辑
+	isExternalSet bool
 
-	displayName     string // 参与人名称
-	displayNameFlag bool
+	displayName    string // 参与人名称
+	displayNameSet bool
 
-	chatMembers     []*AttendeeChatMember // 群中的群成员，当type为Chat时有效；群成员不支持编辑
-	chatMembersFlag bool
+	chatMembers    []*AttendeeChatMember // 群中的群成员，当type为Chat时有效；群成员不支持编辑
+	chatMembersSet bool
 
-	userId     string // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	userIdFlag bool
+	userId    string // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	userIdSet bool
 
-	chatId     string // chat类型参与人的群组chat_id，参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
-	chatIdFlag bool
+	chatId    string // chat类型参与人的群组chat_id，参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	chatIdSet bool
 
-	roomId     string // resource类型参与人的会议室room_id
-	roomIdFlag bool
+	roomId    string // resource类型参与人的会议室room_id
+	roomIdSet bool
 
-	thirdPartyEmail     string // third_party类型参与人的邮箱
-	thirdPartyEmailFlag bool
+	thirdPartyEmail    string // third_party类型参与人的邮箱
+	thirdPartyEmailSet bool
 
-	operateId     string // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	operateIdFlag bool
+	operateId    string // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	operateIdSet bool
 
-	resourceCustomization     []*CalendarAttendeeResourceCustomization // 会议室的个性化配置
-	resourceCustomizationFlag bool
+	resourceCustomization    []*CalendarAttendeeResourceCustomization // 会议室的个性化配置
+	resourceCustomizationSet bool
 
-	approvalReason     string // 会议室审批原因
-	approvalReasonFlag bool
+	approvalReason    string // 会议室审批原因
+	approvalReasonSet bool
 }
 
 func NewCalendarEventAttendeeBuilder() *CalendarEventAttendeeBuilder {
@@ -1576,7 +1606,7 @@ func NewCalendarEventAttendeeBuilder() *CalendarEventAttendeeBuilder {
 // 示例值：user
 func (builder *CalendarEventAttendeeBuilder) Type(type_ string) *CalendarEventAttendeeBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1585,7 +1615,7 @@ func (builder *CalendarEventAttendeeBuilder) Type(type_ string) *CalendarEventAt
 // 示例值：user_xxxxxx
 func (builder *CalendarEventAttendeeBuilder) AttendeeId(attendeeId string) *CalendarEventAttendeeBuilder {
 	builder.attendeeId = attendeeId
-	builder.attendeeIdFlag = true
+	builder.attendeeIdSet = true
 	return builder
 }
 
@@ -1594,7 +1624,7 @@ func (builder *CalendarEventAttendeeBuilder) AttendeeId(attendeeId string) *Cale
 // 示例值：needs_action
 func (builder *CalendarEventAttendeeBuilder) RsvpStatus(rsvpStatus string) *CalendarEventAttendeeBuilder {
 	builder.rsvpStatus = rsvpStatus
-	builder.rsvpStatusFlag = true
+	builder.rsvpStatusSet = true
 	return builder
 }
 
@@ -1603,7 +1633,7 @@ func (builder *CalendarEventAttendeeBuilder) RsvpStatus(rsvpStatus string) *Cale
 // 示例值：true
 func (builder *CalendarEventAttendeeBuilder) IsOptional(isOptional bool) *CalendarEventAttendeeBuilder {
 	builder.isOptional = isOptional
-	builder.isOptionalFlag = true
+	builder.isOptionalSet = true
 	return builder
 }
 
@@ -1612,7 +1642,7 @@ func (builder *CalendarEventAttendeeBuilder) IsOptional(isOptional bool) *Calend
 // 示例值：true
 func (builder *CalendarEventAttendeeBuilder) IsOrganizer(isOrganizer bool) *CalendarEventAttendeeBuilder {
 	builder.isOrganizer = isOrganizer
-	builder.isOrganizerFlag = true
+	builder.isOrganizerSet = true
 	return builder
 }
 
@@ -1621,7 +1651,7 @@ func (builder *CalendarEventAttendeeBuilder) IsOrganizer(isOrganizer bool) *Cale
 // 示例值：false
 func (builder *CalendarEventAttendeeBuilder) IsExternal(isExternal bool) *CalendarEventAttendeeBuilder {
 	builder.isExternal = isExternal
-	builder.isExternalFlag = true
+	builder.isExternalSet = true
 	return builder
 }
 
@@ -1630,7 +1660,7 @@ func (builder *CalendarEventAttendeeBuilder) IsExternal(isExternal bool) *Calend
 // 示例值：Zhang San
 func (builder *CalendarEventAttendeeBuilder) DisplayName(displayName string) *CalendarEventAttendeeBuilder {
 	builder.displayName = displayName
-	builder.displayNameFlag = true
+	builder.displayNameSet = true
 	return builder
 }
 
@@ -1639,7 +1669,7 @@ func (builder *CalendarEventAttendeeBuilder) DisplayName(displayName string) *Ca
 // 示例值：
 func (builder *CalendarEventAttendeeBuilder) ChatMembers(chatMembers []*AttendeeChatMember) *CalendarEventAttendeeBuilder {
 	builder.chatMembers = chatMembers
-	builder.chatMembersFlag = true
+	builder.chatMembersSet = true
 	return builder
 }
 
@@ -1648,7 +1678,7 @@ func (builder *CalendarEventAttendeeBuilder) ChatMembers(chatMembers []*Attendee
 // 示例值：ou_xxxxxxxx
 func (builder *CalendarEventAttendeeBuilder) UserId(userId string) *CalendarEventAttendeeBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -1657,7 +1687,7 @@ func (builder *CalendarEventAttendeeBuilder) UserId(userId string) *CalendarEven
 // 示例值：oc_xxxxxxxxx
 func (builder *CalendarEventAttendeeBuilder) ChatId(chatId string) *CalendarEventAttendeeBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -1666,7 +1696,7 @@ func (builder *CalendarEventAttendeeBuilder) ChatId(chatId string) *CalendarEven
 // 示例值：omm_xxxxxxxx
 func (builder *CalendarEventAttendeeBuilder) RoomId(roomId string) *CalendarEventAttendeeBuilder {
 	builder.roomId = roomId
-	builder.roomIdFlag = true
+	builder.roomIdSet = true
 	return builder
 }
 
@@ -1675,7 +1705,7 @@ func (builder *CalendarEventAttendeeBuilder) RoomId(roomId string) *CalendarEven
 // 示例值：wangwu@email.com
 func (builder *CalendarEventAttendeeBuilder) ThirdPartyEmail(thirdPartyEmail string) *CalendarEventAttendeeBuilder {
 	builder.thirdPartyEmail = thirdPartyEmail
-	builder.thirdPartyEmailFlag = true
+	builder.thirdPartyEmailSet = true
 	return builder
 }
 
@@ -1684,7 +1714,7 @@ func (builder *CalendarEventAttendeeBuilder) ThirdPartyEmail(thirdPartyEmail str
 // 示例值：ou_xxxxxxxx
 func (builder *CalendarEventAttendeeBuilder) OperateId(operateId string) *CalendarEventAttendeeBuilder {
 	builder.operateId = operateId
-	builder.operateIdFlag = true
+	builder.operateIdSet = true
 	return builder
 }
 
@@ -1693,7 +1723,7 @@ func (builder *CalendarEventAttendeeBuilder) OperateId(operateId string) *Calend
 // 示例值：
 func (builder *CalendarEventAttendeeBuilder) ResourceCustomization(resourceCustomization []*CalendarAttendeeResourceCustomization) *CalendarEventAttendeeBuilder {
 	builder.resourceCustomization = resourceCustomization
-	builder.resourceCustomizationFlag = true
+	builder.resourceCustomizationSet = true
 	return builder
 }
 
@@ -1702,67 +1732,67 @@ func (builder *CalendarEventAttendeeBuilder) ResourceCustomization(resourceCusto
 // 示例值：申请审批原因
 func (builder *CalendarEventAttendeeBuilder) ApprovalReason(approvalReason string) *CalendarEventAttendeeBuilder {
 	builder.approvalReason = approvalReason
-	builder.approvalReasonFlag = true
+	builder.approvalReasonSet = true
 	return builder
 }
 
 func (builder *CalendarEventAttendeeBuilder) Build() *CalendarEventAttendee {
 	req := &CalendarEventAttendee{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.attendeeIdFlag {
+	if builder.attendeeIdSet {
 		req.AttendeeId = &builder.attendeeId
 
 	}
-	if builder.rsvpStatusFlag {
+	if builder.rsvpStatusSet {
 		req.RsvpStatus = &builder.rsvpStatus
 
 	}
-	if builder.isOptionalFlag {
+	if builder.isOptionalSet {
 		req.IsOptional = &builder.isOptional
 
 	}
-	if builder.isOrganizerFlag {
+	if builder.isOrganizerSet {
 		req.IsOrganizer = &builder.isOrganizer
 
 	}
-	if builder.isExternalFlag {
+	if builder.isExternalSet {
 		req.IsExternal = &builder.isExternal
 
 	}
-	if builder.displayNameFlag {
+	if builder.displayNameSet {
 		req.DisplayName = &builder.displayName
 
 	}
-	if builder.chatMembersFlag {
+	if builder.chatMembersSet {
 		req.ChatMembers = builder.chatMembers
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.roomIdFlag {
+	if builder.roomIdSet {
 		req.RoomId = &builder.roomId
 
 	}
-	if builder.thirdPartyEmailFlag {
+	if builder.thirdPartyEmailSet {
 		req.ThirdPartyEmail = &builder.thirdPartyEmail
 
 	}
-	if builder.operateIdFlag {
+	if builder.operateIdSet {
 		req.OperateId = &builder.operateId
 
 	}
-	if builder.resourceCustomizationFlag {
+	if builder.resourceCustomizationSet {
 		req.ResourceCustomization = builder.resourceCustomization
 	}
-	if builder.approvalReasonFlag {
+	if builder.approvalReasonSet {
 		req.ApprovalReason = &builder.approvalReason
 
 	}
@@ -1784,23 +1814,23 @@ type CalendarEventAttendeeChatMember struct {
 }
 
 type CalendarEventAttendeeChatMemberBuilder struct {
-	rsvpStatus     string // 参与人RSVP状态
-	rsvpStatusFlag bool
+	rsvpStatus    string // 参与人RSVP状态
+	rsvpStatusSet bool
 
-	isOptional     bool // 参与人是否为「可选参加」
-	isOptionalFlag bool
+	isOptional    bool // 参与人是否为「可选参加」
+	isOptionalSet bool
 
-	displayName     string // 参与人名称
-	displayNameFlag bool
+	displayName    string // 参与人名称
+	displayNameSet bool
 
-	openId     string // 参与人open_id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);;**示例值**："ou_xxxxxxxx"
-	openIdFlag bool
+	openId    string // 参与人open_id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);;**示例值**："ou_xxxxxxxx"
+	openIdSet bool
 
-	isOrganizer     bool // 参与人是否为日程组织者
-	isOrganizerFlag bool
+	isOrganizer    bool // 参与人是否为日程组织者
+	isOrganizerSet bool
 
-	isExternal     bool // 参与人是否为外部参与人
-	isExternalFlag bool
+	isExternal    bool // 参与人是否为外部参与人
+	isExternalSet bool
 }
 
 func NewCalendarEventAttendeeChatMemberBuilder() *CalendarEventAttendeeChatMemberBuilder {
@@ -1813,7 +1843,7 @@ func NewCalendarEventAttendeeChatMemberBuilder() *CalendarEventAttendeeChatMembe
 // 示例值：needs_action
 func (builder *CalendarEventAttendeeChatMemberBuilder) RsvpStatus(rsvpStatus string) *CalendarEventAttendeeChatMemberBuilder {
 	builder.rsvpStatus = rsvpStatus
-	builder.rsvpStatusFlag = true
+	builder.rsvpStatusSet = true
 	return builder
 }
 
@@ -1822,7 +1852,7 @@ func (builder *CalendarEventAttendeeChatMemberBuilder) RsvpStatus(rsvpStatus str
 // 示例值：true
 func (builder *CalendarEventAttendeeChatMemberBuilder) IsOptional(isOptional bool) *CalendarEventAttendeeChatMemberBuilder {
 	builder.isOptional = isOptional
-	builder.isOptionalFlag = true
+	builder.isOptionalSet = true
 	return builder
 }
 
@@ -1831,7 +1861,7 @@ func (builder *CalendarEventAttendeeChatMemberBuilder) IsOptional(isOptional boo
 // 示例值：Zhang San
 func (builder *CalendarEventAttendeeChatMemberBuilder) DisplayName(displayName string) *CalendarEventAttendeeChatMemberBuilder {
 	builder.displayName = displayName
-	builder.displayNameFlag = true
+	builder.displayNameSet = true
 	return builder
 }
 
@@ -1840,7 +1870,7 @@ func (builder *CalendarEventAttendeeChatMemberBuilder) DisplayName(displayName s
 // 示例值：ou_143669c5a53647f00f6c80a0253aa68b
 func (builder *CalendarEventAttendeeChatMemberBuilder) OpenId(openId string) *CalendarEventAttendeeChatMemberBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
@@ -1849,7 +1879,7 @@ func (builder *CalendarEventAttendeeChatMemberBuilder) OpenId(openId string) *Ca
 // 示例值：true
 func (builder *CalendarEventAttendeeChatMemberBuilder) IsOrganizer(isOrganizer bool) *CalendarEventAttendeeChatMemberBuilder {
 	builder.isOrganizer = isOrganizer
-	builder.isOrganizerFlag = true
+	builder.isOrganizerSet = true
 	return builder
 }
 
@@ -1858,33 +1888,33 @@ func (builder *CalendarEventAttendeeChatMemberBuilder) IsOrganizer(isOrganizer b
 // 示例值：false
 func (builder *CalendarEventAttendeeChatMemberBuilder) IsExternal(isExternal bool) *CalendarEventAttendeeChatMemberBuilder {
 	builder.isExternal = isExternal
-	builder.isExternalFlag = true
+	builder.isExternalSet = true
 	return builder
 }
 
 func (builder *CalendarEventAttendeeChatMemberBuilder) Build() *CalendarEventAttendeeChatMember {
 	req := &CalendarEventAttendeeChatMember{}
-	if builder.rsvpStatusFlag {
+	if builder.rsvpStatusSet {
 		req.RsvpStatus = &builder.rsvpStatus
 
 	}
-	if builder.isOptionalFlag {
+	if builder.isOptionalSet {
 		req.IsOptional = &builder.isOptional
 
 	}
-	if builder.displayNameFlag {
+	if builder.displayNameSet {
 		req.DisplayName = &builder.displayName
 
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.isOrganizerFlag {
+	if builder.isOrganizerSet {
 		req.IsOrganizer = &builder.isOrganizer
 
 	}
-	if builder.isExternalFlag {
+	if builder.isExternalSet {
 		req.IsExternal = &builder.isExternal
 
 	}
@@ -1907,22 +1937,22 @@ type CalendarEventAttendeeId struct {
 
 type CalendarEventAttendeeIdBuilder struct {
 	type_    string // 参与人类型，仅当新建参与人时可设置类型
-	typeFlag bool
+	type_Set bool
 
-	attendeeId     string // 参与人ID
-	attendeeIdFlag bool
+	attendeeId    string // 参与人ID
+	attendeeIdSet bool
 
-	userId     string // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id
-	userIdFlag bool
+	userId    string // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id
+	userIdSet bool
 
-	chatId     string // chat类型参与人的群组chat_id
-	chatIdFlag bool
+	chatId    string // chat类型参与人的群组chat_id
+	chatIdSet bool
 
-	roomId     string // resource类型参与人的会议室room_id
-	roomIdFlag bool
+	roomId    string // resource类型参与人的会议室room_id
+	roomIdSet bool
 
-	thirdPartyEmail     string // third_party类型参与人的邮箱
-	thirdPartyEmailFlag bool
+	thirdPartyEmail    string // third_party类型参与人的邮箱
+	thirdPartyEmailSet bool
 }
 
 func NewCalendarEventAttendeeIdBuilder() *CalendarEventAttendeeIdBuilder {
@@ -1935,7 +1965,7 @@ func NewCalendarEventAttendeeIdBuilder() *CalendarEventAttendeeIdBuilder {
 // 示例值：user
 func (builder *CalendarEventAttendeeIdBuilder) Type(type_ string) *CalendarEventAttendeeIdBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1944,7 +1974,7 @@ func (builder *CalendarEventAttendeeIdBuilder) Type(type_ string) *CalendarEvent
 // 示例值：user_xxxxxx
 func (builder *CalendarEventAttendeeIdBuilder) AttendeeId(attendeeId string) *CalendarEventAttendeeIdBuilder {
 	builder.attendeeId = attendeeId
-	builder.attendeeIdFlag = true
+	builder.attendeeIdSet = true
 	return builder
 }
 
@@ -1953,7 +1983,7 @@ func (builder *CalendarEventAttendeeIdBuilder) AttendeeId(attendeeId string) *Ca
 // 示例值：ou_xxxxxxxx
 func (builder *CalendarEventAttendeeIdBuilder) UserId(userId string) *CalendarEventAttendeeIdBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -1962,7 +1992,7 @@ func (builder *CalendarEventAttendeeIdBuilder) UserId(userId string) *CalendarEv
 // 示例值：oc_xxxxxxxxx
 func (builder *CalendarEventAttendeeIdBuilder) ChatId(chatId string) *CalendarEventAttendeeIdBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -1971,7 +2001,7 @@ func (builder *CalendarEventAttendeeIdBuilder) ChatId(chatId string) *CalendarEv
 // 示例值：omm_xxxxxxxx
 func (builder *CalendarEventAttendeeIdBuilder) RoomId(roomId string) *CalendarEventAttendeeIdBuilder {
 	builder.roomId = roomId
-	builder.roomIdFlag = true
+	builder.roomIdSet = true
 	return builder
 }
 
@@ -1980,33 +2010,33 @@ func (builder *CalendarEventAttendeeIdBuilder) RoomId(roomId string) *CalendarEv
 // 示例值：wangwu@email.com
 func (builder *CalendarEventAttendeeIdBuilder) ThirdPartyEmail(thirdPartyEmail string) *CalendarEventAttendeeIdBuilder {
 	builder.thirdPartyEmail = thirdPartyEmail
-	builder.thirdPartyEmailFlag = true
+	builder.thirdPartyEmailSet = true
 	return builder
 }
 
 func (builder *CalendarEventAttendeeIdBuilder) Build() *CalendarEventAttendeeId {
 	req := &CalendarEventAttendeeId{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.attendeeIdFlag {
+	if builder.attendeeIdSet {
 		req.AttendeeId = &builder.attendeeId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.roomIdFlag {
+	if builder.roomIdSet {
 		req.RoomId = &builder.roomId
 
 	}
-	if builder.thirdPartyEmailFlag {
+	if builder.thirdPartyEmailSet {
 		req.ThirdPartyEmail = &builder.thirdPartyEmail
 
 	}
@@ -2045,46 +2075,46 @@ type CalendarEventAttendeeResp struct {
 
 type CalendarEventAttendeeRespBuilder struct {
 	type_    string // 参与人类型，仅当新建参与人时可设置类型。
-	typeFlag bool
+	type_Set bool
 
-	attendeeId     string // 参与人ID
-	attendeeIdFlag bool
+	attendeeId    string // 参与人ID
+	attendeeIdSet bool
 
-	rsvpStatus     string // 参与人RSVP状态
-	rsvpStatusFlag bool
+	rsvpStatus    string // 参与人RSVP状态
+	rsvpStatusSet bool
 
-	isOptional     bool // 参与人是否为「可选参加」，无法编辑群参与人的此字段
-	isOptionalFlag bool
+	isOptional    bool // 参与人是否为「可选参加」，无法编辑群参与人的此字段
+	isOptionalSet bool
 
-	isOrganizer     bool // 参与人是否为日程组织者
-	isOrganizerFlag bool
+	isOrganizer    bool // 参与人是否为日程组织者
+	isOrganizerSet bool
 
-	isExternal     bool // 参与人是否为外部参与人；外部参与人不支持编辑
-	isExternalFlag bool
+	isExternal    bool // 参与人是否为外部参与人；外部参与人不支持编辑
+	isExternalSet bool
 
-	displayName     string // 参与人名称
-	displayNameFlag bool
+	displayName    string // 参与人名称
+	displayNameSet bool
 
-	chatMembers     []*AttendeeChatMember // 群中的群成员，当type为Chat时有效；群成员不支持编辑
-	chatMembersFlag bool
+	chatMembers    []*AttendeeChatMember // 群中的群成员，当type为Chat时有效；群成员不支持编辑
+	chatMembersSet bool
 
-	userId     string // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id
-	userIdFlag bool
+	userId    string // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id
+	userIdSet bool
 
-	chatId     string // chat类型参与人的群组chat_id
-	chatIdFlag bool
+	chatId    string // chat类型参与人的群组chat_id
+	chatIdSet bool
 
-	roomId     string // resource类型参与人的会议室room_id
-	roomIdFlag bool
+	roomId    string // resource类型参与人的会议室room_id
+	roomIdSet bool
 
-	thirdPartyEmail     string // third_party类型参与人的邮箱
-	thirdPartyEmailFlag bool
+	thirdPartyEmail    string // third_party类型参与人的邮箱
+	thirdPartyEmailSet bool
 
-	operateId     string // bot身份操作时，为预定的会议室指定实际预定人
-	operateIdFlag bool
+	operateId    string // bot身份操作时，为预定的会议室指定实际预定人
+	operateIdSet bool
 
-	resourceCustomization     []*CalendarAttendeeResourceCustomization // 会议室的个性化配置
-	resourceCustomizationFlag bool
+	resourceCustomization    []*CalendarAttendeeResourceCustomization // 会议室的个性化配置
+	resourceCustomizationSet bool
 }
 
 func NewCalendarEventAttendeeRespBuilder() *CalendarEventAttendeeRespBuilder {
@@ -2097,7 +2127,7 @@ func NewCalendarEventAttendeeRespBuilder() *CalendarEventAttendeeRespBuilder {
 // 示例值：
 func (builder *CalendarEventAttendeeRespBuilder) Type(type_ string) *CalendarEventAttendeeRespBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -2106,7 +2136,7 @@ func (builder *CalendarEventAttendeeRespBuilder) Type(type_ string) *CalendarEve
 // 示例值：ou_xxxxx
 func (builder *CalendarEventAttendeeRespBuilder) AttendeeId(attendeeId string) *CalendarEventAttendeeRespBuilder {
 	builder.attendeeId = attendeeId
-	builder.attendeeIdFlag = true
+	builder.attendeeIdSet = true
 	return builder
 }
 
@@ -2115,7 +2145,7 @@ func (builder *CalendarEventAttendeeRespBuilder) AttendeeId(attendeeId string) *
 // 示例值：
 func (builder *CalendarEventAttendeeRespBuilder) RsvpStatus(rsvpStatus string) *CalendarEventAttendeeRespBuilder {
 	builder.rsvpStatus = rsvpStatus
-	builder.rsvpStatusFlag = true
+	builder.rsvpStatusSet = true
 	return builder
 }
 
@@ -2124,7 +2154,7 @@ func (builder *CalendarEventAttendeeRespBuilder) RsvpStatus(rsvpStatus string) *
 // 示例值：false
 func (builder *CalendarEventAttendeeRespBuilder) IsOptional(isOptional bool) *CalendarEventAttendeeRespBuilder {
 	builder.isOptional = isOptional
-	builder.isOptionalFlag = true
+	builder.isOptionalSet = true
 	return builder
 }
 
@@ -2133,7 +2163,7 @@ func (builder *CalendarEventAttendeeRespBuilder) IsOptional(isOptional bool) *Ca
 // 示例值：false
 func (builder *CalendarEventAttendeeRespBuilder) IsOrganizer(isOrganizer bool) *CalendarEventAttendeeRespBuilder {
 	builder.isOrganizer = isOrganizer
-	builder.isOrganizerFlag = true
+	builder.isOrganizerSet = true
 	return builder
 }
 
@@ -2142,7 +2172,7 @@ func (builder *CalendarEventAttendeeRespBuilder) IsOrganizer(isOrganizer bool) *
 // 示例值：
 func (builder *CalendarEventAttendeeRespBuilder) IsExternal(isExternal bool) *CalendarEventAttendeeRespBuilder {
 	builder.isExternal = isExternal
-	builder.isExternalFlag = true
+	builder.isExternalSet = true
 	return builder
 }
 
@@ -2151,7 +2181,7 @@ func (builder *CalendarEventAttendeeRespBuilder) IsExternal(isExternal bool) *Ca
 // 示例值：lijian
 func (builder *CalendarEventAttendeeRespBuilder) DisplayName(displayName string) *CalendarEventAttendeeRespBuilder {
 	builder.displayName = displayName
-	builder.displayNameFlag = true
+	builder.displayNameSet = true
 	return builder
 }
 
@@ -2160,7 +2190,7 @@ func (builder *CalendarEventAttendeeRespBuilder) DisplayName(displayName string)
 // 示例值：
 func (builder *CalendarEventAttendeeRespBuilder) ChatMembers(chatMembers []*AttendeeChatMember) *CalendarEventAttendeeRespBuilder {
 	builder.chatMembers = chatMembers
-	builder.chatMembersFlag = true
+	builder.chatMembersSet = true
 	return builder
 }
 
@@ -2169,7 +2199,7 @@ func (builder *CalendarEventAttendeeRespBuilder) ChatMembers(chatMembers []*Atte
 // 示例值：ou_xxxxxxxx
 func (builder *CalendarEventAttendeeRespBuilder) UserId(userId string) *CalendarEventAttendeeRespBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -2178,7 +2208,7 @@ func (builder *CalendarEventAttendeeRespBuilder) UserId(userId string) *Calendar
 // 示例值：oc_xxxxxxxxx
 func (builder *CalendarEventAttendeeRespBuilder) ChatId(chatId string) *CalendarEventAttendeeRespBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -2187,7 +2217,7 @@ func (builder *CalendarEventAttendeeRespBuilder) ChatId(chatId string) *Calendar
 // 示例值：omm_xxxxxxxx
 func (builder *CalendarEventAttendeeRespBuilder) RoomId(roomId string) *CalendarEventAttendeeRespBuilder {
 	builder.roomId = roomId
-	builder.roomIdFlag = true
+	builder.roomIdSet = true
 	return builder
 }
 
@@ -2196,7 +2226,7 @@ func (builder *CalendarEventAttendeeRespBuilder) RoomId(roomId string) *Calendar
 // 示例值：wangwu@email.com
 func (builder *CalendarEventAttendeeRespBuilder) ThirdPartyEmail(thirdPartyEmail string) *CalendarEventAttendeeRespBuilder {
 	builder.thirdPartyEmail = thirdPartyEmail
-	builder.thirdPartyEmailFlag = true
+	builder.thirdPartyEmailSet = true
 	return builder
 }
 
@@ -2205,7 +2235,7 @@ func (builder *CalendarEventAttendeeRespBuilder) ThirdPartyEmail(thirdPartyEmail
 // 示例值：ou_xxxxxxxx
 func (builder *CalendarEventAttendeeRespBuilder) OperateId(operateId string) *CalendarEventAttendeeRespBuilder {
 	builder.operateId = operateId
-	builder.operateIdFlag = true
+	builder.operateIdSet = true
 	return builder
 }
 
@@ -2214,64 +2244,64 @@ func (builder *CalendarEventAttendeeRespBuilder) OperateId(operateId string) *Ca
 // 示例值：
 func (builder *CalendarEventAttendeeRespBuilder) ResourceCustomization(resourceCustomization []*CalendarAttendeeResourceCustomization) *CalendarEventAttendeeRespBuilder {
 	builder.resourceCustomization = resourceCustomization
-	builder.resourceCustomizationFlag = true
+	builder.resourceCustomizationSet = true
 	return builder
 }
 
 func (builder *CalendarEventAttendeeRespBuilder) Build() *CalendarEventAttendeeResp {
 	req := &CalendarEventAttendeeResp{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.attendeeIdFlag {
+	if builder.attendeeIdSet {
 		req.AttendeeId = &builder.attendeeId
 
 	}
-	if builder.rsvpStatusFlag {
+	if builder.rsvpStatusSet {
 		req.RsvpStatus = &builder.rsvpStatus
 
 	}
-	if builder.isOptionalFlag {
+	if builder.isOptionalSet {
 		req.IsOptional = &builder.isOptional
 
 	}
-	if builder.isOrganizerFlag {
+	if builder.isOrganizerSet {
 		req.IsOrganizer = &builder.isOrganizer
 
 	}
-	if builder.isExternalFlag {
+	if builder.isExternalSet {
 		req.IsExternal = &builder.isExternal
 
 	}
-	if builder.displayNameFlag {
+	if builder.displayNameSet {
 		req.DisplayName = &builder.displayName
 
 	}
-	if builder.chatMembersFlag {
+	if builder.chatMembersSet {
 		req.ChatMembers = builder.chatMembers
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.roomIdFlag {
+	if builder.roomIdSet {
 		req.RoomId = &builder.roomId
 
 	}
-	if builder.thirdPartyEmailFlag {
+	if builder.thirdPartyEmailSet {
 		req.ThirdPartyEmail = &builder.thirdPartyEmail
 
 	}
-	if builder.operateIdFlag {
+	if builder.operateIdSet {
 		req.OperateId = &builder.operateId
 
 	}
-	if builder.resourceCustomizationFlag {
+	if builder.resourceCustomizationSet {
 		req.ResourceCustomization = builder.resourceCustomization
 	}
 	return req
@@ -2320,65 +2350,65 @@ type CalendarEventResp struct {
 }
 
 type CalendarEventRespBuilder struct {
-	eventId     string // 日程ID
-	eventIdFlag bool
+	eventId    string // 日程ID
+	eventIdSet bool
 
-	organizerCalendarId     string // 日程组织者日历ID
-	organizerCalendarIdFlag bool
+	organizerCalendarId    string // 日程组织者日历ID
+	organizerCalendarIdSet bool
 
-	summary     string // 日程标题
-	summaryFlag bool
+	summary    string // 日程标题
+	summarySet bool
 
-	description     string // 日程描述
-	descriptionFlag bool
+	description    string // 日程描述
+	descriptionSet bool
 
-	needNotification     bool // 是否发送通知消息
-	needNotificationFlag bool
+	needNotification    bool // 是否发送通知消息
+	needNotificationSet bool
 
-	startTime     *TimeInfo // 日程开始时间
-	startTimeFlag bool
+	startTime    *TimeInfo // 日程开始时间
+	startTimeSet bool
 
-	endTime     *TimeInfo // 日程结束时间
-	endTimeFlag bool
+	endTime    *TimeInfo // 日程结束时间
+	endTimeSet bool
 
-	vchat     *Vchat // 视频会议信息，仅当日程至少有一位attendee时生效
-	vchatFlag bool
+	vchat    *Vchat // 视频会议信息，仅当日程至少有一位attendee时生效
+	vchatSet bool
 
-	visibility     string // 日程公开范围，新建日程默认为Default；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
-	visibilityFlag bool
+	visibility    string // 日程公开范围，新建日程默认为Default；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
+	visibilitySet bool
 
-	attendeeAbility     string // 参与人权限
-	attendeeAbilityFlag bool
+	attendeeAbility    string // 参与人权限
+	attendeeAbilitySet bool
 
-	freeBusyStatus     string // 日程占用的忙闲状态，新建日程默认为Busy；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
-	freeBusyStatusFlag bool
+	freeBusyStatus    string // 日程占用的忙闲状态，新建日程默认为Busy；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
+	freeBusyStatusSet bool
 
-	location     *EventLocation // 日程地点
-	locationFlag bool
+	location    *EventLocation // 日程地点
+	locationSet bool
 
-	color     int // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
-	colorFlag bool
+	color    int // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
+	colorSet bool
 
-	reminders     []*Reminder // 日程提醒列表
-	remindersFlag bool
+	reminders    []*Reminder // 日程提醒列表
+	remindersSet bool
 
-	recurrence     string // 重复日程的重复性规则
-	recurrenceFlag bool
+	recurrence    string // 重复日程的重复性规则
+	recurrenceSet bool
 
-	status     string // 日程状态
-	statusFlag bool
+	status    string // 日程状态
+	statusSet bool
 
-	isException     bool // 日程是否是一个重复日程的例外日程
-	isExceptionFlag bool
+	isException    bool // 日程是否是一个重复日程的例外日程
+	isExceptionSet bool
 
-	recurringEventId     string // 例外日程的原重复日程的event_id
-	recurringEventIdFlag bool
+	recurringEventId    string // 例外日程的原重复日程的event_id
+	recurringEventIdSet bool
 
-	createTime     string // 日程的创建时间戳
-	createTimeFlag bool
+	createTime    string // 日程的创建时间戳
+	createTimeSet bool
 
-	schemas     []*Schema // 日程自定义信息
-	schemasFlag bool
+	schemas    []*Schema // 日程自定义信息
+	schemasSet bool
 }
 
 func NewCalendarEventRespBuilder() *CalendarEventRespBuilder {
@@ -2391,7 +2421,7 @@ func NewCalendarEventRespBuilder() *CalendarEventRespBuilder {
 // 示例值：75d28f9b-e35c-4230-8a83-4a661497db54_0
 func (builder *CalendarEventRespBuilder) EventId(eventId string) *CalendarEventRespBuilder {
 	builder.eventId = eventId
-	builder.eventIdFlag = true
+	builder.eventIdSet = true
 	return builder
 }
 
@@ -2400,7 +2430,7 @@ func (builder *CalendarEventRespBuilder) EventId(eventId string) *CalendarEventR
 // 示例值：feishu.cn_HF9U2MbibE8PPpjro6xjqa@group.calendar.feishu.cn
 func (builder *CalendarEventRespBuilder) OrganizerCalendarId(organizerCalendarId string) *CalendarEventRespBuilder {
 	builder.organizerCalendarId = organizerCalendarId
-	builder.organizerCalendarIdFlag = true
+	builder.organizerCalendarIdSet = true
 	return builder
 }
 
@@ -2409,7 +2439,7 @@ func (builder *CalendarEventRespBuilder) OrganizerCalendarId(organizerCalendarId
 // 示例值：日程主题
 func (builder *CalendarEventRespBuilder) Summary(summary string) *CalendarEventRespBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -2418,7 +2448,7 @@ func (builder *CalendarEventRespBuilder) Summary(summary string) *CalendarEventR
 // 示例值：日程描述
 func (builder *CalendarEventRespBuilder) Description(description string) *CalendarEventRespBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -2427,7 +2457,7 @@ func (builder *CalendarEventRespBuilder) Description(description string) *Calend
 // 示例值：true
 func (builder *CalendarEventRespBuilder) NeedNotification(needNotification bool) *CalendarEventRespBuilder {
 	builder.needNotification = needNotification
-	builder.needNotificationFlag = true
+	builder.needNotificationSet = true
 	return builder
 }
 
@@ -2436,7 +2466,7 @@ func (builder *CalendarEventRespBuilder) NeedNotification(needNotification bool)
 // 示例值：
 func (builder *CalendarEventRespBuilder) StartTime(startTime *TimeInfo) *CalendarEventRespBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -2445,7 +2475,7 @@ func (builder *CalendarEventRespBuilder) StartTime(startTime *TimeInfo) *Calenda
 // 示例值：
 func (builder *CalendarEventRespBuilder) EndTime(endTime *TimeInfo) *CalendarEventRespBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -2454,7 +2484,7 @@ func (builder *CalendarEventRespBuilder) EndTime(endTime *TimeInfo) *CalendarEve
 // 示例值：
 func (builder *CalendarEventRespBuilder) Vchat(vchat *Vchat) *CalendarEventRespBuilder {
 	builder.vchat = vchat
-	builder.vchatFlag = true
+	builder.vchatSet = true
 	return builder
 }
 
@@ -2463,7 +2493,7 @@ func (builder *CalendarEventRespBuilder) Vchat(vchat *Vchat) *CalendarEventRespB
 // 示例值：
 func (builder *CalendarEventRespBuilder) Visibility(visibility string) *CalendarEventRespBuilder {
 	builder.visibility = visibility
-	builder.visibilityFlag = true
+	builder.visibilitySet = true
 	return builder
 }
 
@@ -2472,7 +2502,7 @@ func (builder *CalendarEventRespBuilder) Visibility(visibility string) *Calendar
 // 示例值：
 func (builder *CalendarEventRespBuilder) AttendeeAbility(attendeeAbility string) *CalendarEventRespBuilder {
 	builder.attendeeAbility = attendeeAbility
-	builder.attendeeAbilityFlag = true
+	builder.attendeeAbilitySet = true
 	return builder
 }
 
@@ -2481,7 +2511,7 @@ func (builder *CalendarEventRespBuilder) AttendeeAbility(attendeeAbility string)
 // 示例值：
 func (builder *CalendarEventRespBuilder) FreeBusyStatus(freeBusyStatus string) *CalendarEventRespBuilder {
 	builder.freeBusyStatus = freeBusyStatus
-	builder.freeBusyStatusFlag = true
+	builder.freeBusyStatusSet = true
 	return builder
 }
 
@@ -2490,7 +2520,7 @@ func (builder *CalendarEventRespBuilder) FreeBusyStatus(freeBusyStatus string) *
 // 示例值：
 func (builder *CalendarEventRespBuilder) Location(location *EventLocation) *CalendarEventRespBuilder {
 	builder.location = location
-	builder.locationFlag = true
+	builder.locationSet = true
 	return builder
 }
 
@@ -2499,7 +2529,7 @@ func (builder *CalendarEventRespBuilder) Location(location *EventLocation) *Cale
 // 示例值：-1
 func (builder *CalendarEventRespBuilder) Color(color int) *CalendarEventRespBuilder {
 	builder.color = color
-	builder.colorFlag = true
+	builder.colorSet = true
 	return builder
 }
 
@@ -2508,7 +2538,7 @@ func (builder *CalendarEventRespBuilder) Color(color int) *CalendarEventRespBuil
 // 示例值：
 func (builder *CalendarEventRespBuilder) Reminders(reminders []*Reminder) *CalendarEventRespBuilder {
 	builder.reminders = reminders
-	builder.remindersFlag = true
+	builder.remindersSet = true
 	return builder
 }
 
@@ -2517,7 +2547,7 @@ func (builder *CalendarEventRespBuilder) Reminders(reminders []*Reminder) *Calen
 // 示例值：FREQ=DAILY;INTERVAL=1
 func (builder *CalendarEventRespBuilder) Recurrence(recurrence string) *CalendarEventRespBuilder {
 	builder.recurrence = recurrence
-	builder.recurrenceFlag = true
+	builder.recurrenceSet = true
 	return builder
 }
 
@@ -2526,7 +2556,7 @@ func (builder *CalendarEventRespBuilder) Recurrence(recurrence string) *Calendar
 // 示例值：
 func (builder *CalendarEventRespBuilder) Status(status string) *CalendarEventRespBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -2535,7 +2565,7 @@ func (builder *CalendarEventRespBuilder) Status(status string) *CalendarEventRes
 // 示例值：true
 func (builder *CalendarEventRespBuilder) IsException(isException bool) *CalendarEventRespBuilder {
 	builder.isException = isException
-	builder.isExceptionFlag = true
+	builder.isExceptionSet = true
 	return builder
 }
 
@@ -2544,7 +2574,7 @@ func (builder *CalendarEventRespBuilder) IsException(isException bool) *Calendar
 // 示例值：75d28f9b-e35c-4230-8a83-4a661497db54_0
 func (builder *CalendarEventRespBuilder) RecurringEventId(recurringEventId string) *CalendarEventRespBuilder {
 	builder.recurringEventId = recurringEventId
-	builder.recurringEventIdFlag = true
+	builder.recurringEventIdSet = true
 	return builder
 }
 
@@ -2553,7 +2583,7 @@ func (builder *CalendarEventRespBuilder) RecurringEventId(recurringEventId strin
 // 示例值：1682585100
 func (builder *CalendarEventRespBuilder) CreateTime(createTime string) *CalendarEventRespBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -2562,85 +2592,442 @@ func (builder *CalendarEventRespBuilder) CreateTime(createTime string) *Calendar
 // 示例值：
 func (builder *CalendarEventRespBuilder) Schemas(schemas []*Schema) *CalendarEventRespBuilder {
 	builder.schemas = schemas
-	builder.schemasFlag = true
+	builder.schemasSet = true
 	return builder
 }
 
 func (builder *CalendarEventRespBuilder) Build() *CalendarEventResp {
 	req := &CalendarEventResp{}
-	if builder.eventIdFlag {
+	if builder.eventIdSet {
 		req.EventId = &builder.eventId
 
 	}
-	if builder.organizerCalendarIdFlag {
+	if builder.organizerCalendarIdSet {
 		req.OrganizerCalendarId = &builder.organizerCalendarId
 
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.needNotificationFlag {
+	if builder.needNotificationSet {
 		req.NeedNotification = &builder.needNotification
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = builder.startTime
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = builder.endTime
 	}
-	if builder.vchatFlag {
+	if builder.vchatSet {
 		req.Vchat = builder.vchat
 	}
-	if builder.visibilityFlag {
+	if builder.visibilitySet {
 		req.Visibility = &builder.visibility
 
 	}
-	if builder.attendeeAbilityFlag {
+	if builder.attendeeAbilitySet {
 		req.AttendeeAbility = &builder.attendeeAbility
 
 	}
-	if builder.freeBusyStatusFlag {
+	if builder.freeBusyStatusSet {
 		req.FreeBusyStatus = &builder.freeBusyStatus
 
 	}
-	if builder.locationFlag {
+	if builder.locationSet {
 		req.Location = builder.location
 	}
-	if builder.colorFlag {
+	if builder.colorSet {
 		req.Color = &builder.color
 
 	}
-	if builder.remindersFlag {
+	if builder.remindersSet {
 		req.Reminders = builder.reminders
 	}
-	if builder.recurrenceFlag {
+	if builder.recurrenceSet {
 		req.Recurrence = &builder.recurrence
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.isExceptionFlag {
+	if builder.isExceptionSet {
 		req.IsException = &builder.isException
 
 	}
-	if builder.recurringEventIdFlag {
+	if builder.recurringEventIdSet {
 		req.RecurringEventId = &builder.recurringEventId
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.schemasFlag {
+	if builder.schemasSet {
 		req.Schemas = builder.schemas
+	}
+	return req
+}
+
+type CalendarEventSearchFilter struct {
+	CalendarIds []string `json:"calendar_ids,omitempty"` // 日历 ID 列表
+
+	OrganizerUserIds []string `json:"organizer_user_ids,omitempty"` // 组织者用户 ID 列表
+
+	AttendeeUserIds []string `json:"attendee_user_ids,omitempty"` // 参与者用户 ID 列表
+
+	AttendeeChatIds []string `json:"attendee_chat_ids,omitempty"` // 参与者群 ID 列表
+
+	MeetingRoomIds []string `json:"meeting_room_ids,omitempty"` // 会议室 ID 列表
+
+	TimeRange *TimeRange `json:"time_range,omitempty"` // 日程时间范围
+}
+
+type CalendarEventSearchFilterBuilder struct {
+	calendarIds    []string // 日历 ID 列表
+	calendarIdsSet bool
+
+	organizerUserIds    []string // 组织者用户 ID 列表
+	organizerUserIdsSet bool
+
+	attendeeUserIds    []string // 参与者用户 ID 列表
+	attendeeUserIdsSet bool
+
+	attendeeChatIds    []string // 参与者群 ID 列表
+	attendeeChatIdsSet bool
+
+	meetingRoomIds    []string // 会议室 ID 列表
+	meetingRoomIdsSet bool
+
+	timeRange    *TimeRange // 日程时间范围
+	timeRangeSet bool
+}
+
+func NewCalendarEventSearchFilterBuilder() *CalendarEventSearchFilterBuilder {
+	builder := &CalendarEventSearchFilterBuilder{}
+	return builder
+}
+
+// 日历 ID 列表
+//
+// 示例值：
+func (builder *CalendarEventSearchFilterBuilder) CalendarIds(calendarIds []string) *CalendarEventSearchFilterBuilder {
+	builder.calendarIds = calendarIds
+	builder.calendarIdsSet = true
+	return builder
+}
+
+// 组织者用户 ID 列表
+//
+// 示例值：
+func (builder *CalendarEventSearchFilterBuilder) OrganizerUserIds(organizerUserIds []string) *CalendarEventSearchFilterBuilder {
+	builder.organizerUserIds = organizerUserIds
+	builder.organizerUserIdsSet = true
+	return builder
+}
+
+// 参与者用户 ID 列表
+//
+// 示例值：
+func (builder *CalendarEventSearchFilterBuilder) AttendeeUserIds(attendeeUserIds []string) *CalendarEventSearchFilterBuilder {
+	builder.attendeeUserIds = attendeeUserIds
+	builder.attendeeUserIdsSet = true
+	return builder
+}
+
+// 参与者群 ID 列表
+//
+// 示例值：
+func (builder *CalendarEventSearchFilterBuilder) AttendeeChatIds(attendeeChatIds []string) *CalendarEventSearchFilterBuilder {
+	builder.attendeeChatIds = attendeeChatIds
+	builder.attendeeChatIdsSet = true
+	return builder
+}
+
+// 会议室 ID 列表
+//
+// 示例值：
+func (builder *CalendarEventSearchFilterBuilder) MeetingRoomIds(meetingRoomIds []string) *CalendarEventSearchFilterBuilder {
+	builder.meetingRoomIds = meetingRoomIds
+	builder.meetingRoomIdsSet = true
+	return builder
+}
+
+// 日程时间范围
+//
+// 示例值：
+func (builder *CalendarEventSearchFilterBuilder) TimeRange(timeRange *TimeRange) *CalendarEventSearchFilterBuilder {
+	builder.timeRange = timeRange
+	builder.timeRangeSet = true
+	return builder
+}
+
+func (builder *CalendarEventSearchFilterBuilder) Build() *CalendarEventSearchFilter {
+	req := &CalendarEventSearchFilter{}
+	if builder.calendarIdsSet {
+		req.CalendarIds = builder.calendarIds
+	}
+	if builder.organizerUserIdsSet {
+		req.OrganizerUserIds = builder.organizerUserIds
+	}
+	if builder.attendeeUserIdsSet {
+		req.AttendeeUserIds = builder.attendeeUserIds
+	}
+	if builder.attendeeChatIdsSet {
+		req.AttendeeChatIds = builder.attendeeChatIds
+	}
+	if builder.meetingRoomIdsSet {
+		req.MeetingRoomIds = builder.meetingRoomIds
+	}
+	if builder.timeRangeSet {
+		req.TimeRange = builder.timeRange
+	}
+	return req
+}
+
+type CalendarEventSearchItem struct {
+	Id *string `json:"id,omitempty"` // 日程 ID
+
+	DisplayInfo *string `json:"display_info,omitempty"` // 包含日程基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+
+	MetaData *CalendarEventSearchMeta `json:"meta_data,omitempty"` // 日程元信息，包含搜索日程的基本数据；更多数据可通过获取日程接口拉取。
+}
+
+type CalendarEventSearchItemBuilder struct {
+	id    string // 日程 ID
+	idSet bool
+
+	displayInfo    string // 包含日程基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+	displayInfoSet bool
+
+	metaData    *CalendarEventSearchMeta // 日程元信息，包含搜索日程的基本数据；更多数据可通过获取日程接口拉取。
+	metaDataSet bool
+}
+
+func NewCalendarEventSearchItemBuilder() *CalendarEventSearchItemBuilder {
+	builder := &CalendarEventSearchItemBuilder{}
+	return builder
+}
+
+// 日程 ID
+//
+// 示例值：calevt_1234567890abcdef
+func (builder *CalendarEventSearchItemBuilder) Id(id string) *CalendarEventSearchItemBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 包含日程基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+//
+// 示例值：Q2 <h>周会</h>\n2026-04-23 15:00-16:00\n会议室 A103
+func (builder *CalendarEventSearchItemBuilder) DisplayInfo(displayInfo string) *CalendarEventSearchItemBuilder {
+	builder.displayInfo = displayInfo
+	builder.displayInfoSet = true
+	return builder
+}
+
+// 日程元信息，包含搜索日程的基本数据；更多数据可通过获取日程接口拉取。
+//
+// 示例值：
+func (builder *CalendarEventSearchItemBuilder) MetaData(metaData *CalendarEventSearchMeta) *CalendarEventSearchItemBuilder {
+	builder.metaData = metaData
+	builder.metaDataSet = true
+	return builder
+}
+
+func (builder *CalendarEventSearchItemBuilder) Build() *CalendarEventSearchItem {
+	req := &CalendarEventSearchItem{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.displayInfoSet {
+		req.DisplayInfo = &builder.displayInfo
+
+	}
+	if builder.metaDataSet {
+		req.MetaData = builder.metaData
+	}
+	return req
+}
+
+type CalendarEventSearchMeta struct {
+	AppLink *string `json:"app_link,omitempty"` // 日程的 app_link，跳转到具体的某个日程。
+
+	Avatar *string `json:"avatar,omitempty"` // 日程头像
+
+	Description *string `json:"description,omitempty"` // 日程描述
+
+	CalendarId *string `json:"calendar_id,omitempty"` // 日程所在的日历 ID
+
+	EventId *string `json:"event_id,omitempty"` // 日程 ID。后续可通过该 ID 查询、更新或删除日程信息。
+
+	Start *TimeInfo `json:"start,omitempty"` // 日程开始时间
+
+	End *TimeInfo `json:"end,omitempty"` // 日程结束时间
+
+	IsAllDay *bool `json:"is_all_day,omitempty"` // true表示全天日程，默认是非全天日程
+
+	Summary *string `json:"summary,omitempty"` // 日程标题
+}
+
+type CalendarEventSearchMetaBuilder struct {
+	appLink    string // 日程的 app_link，跳转到具体的某个日程。
+	appLinkSet bool
+
+	avatar    string // 日程头像
+	avatarSet bool
+
+	description    string // 日程描述
+	descriptionSet bool
+
+	calendarId    string // 日程所在的日历 ID
+	calendarIdSet bool
+
+	eventId    string // 日程 ID。后续可通过该 ID 查询、更新或删除日程信息。
+	eventIdSet bool
+
+	start    *TimeInfo // 日程开始时间
+	startSet bool
+
+	end    *TimeInfo // 日程结束时间
+	endSet bool
+
+	isAllDay    bool // true表示全天日程，默认是非全天日程
+	isAllDaySet bool
+
+	summary    string // 日程标题
+	summarySet bool
+}
+
+func NewCalendarEventSearchMetaBuilder() *CalendarEventSearchMetaBuilder {
+	builder := &CalendarEventSearchMetaBuilder{}
+	return builder
+}
+
+// 日程的 app_link，跳转到具体的某个日程。
+//
+// 示例值：https://applink.feishu.cn/client/calendar/event/detail?calendarId=feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn&key=xxxxxxxx
+func (builder *CalendarEventSearchMetaBuilder) AppLink(appLink string) *CalendarEventSearchMetaBuilder {
+	builder.appLink = appLink
+	builder.appLinkSet = true
+	return builder
+}
+
+// 日程头像
+//
+// 示例值：https://p3-lark-file.byteimg.com/img/lark-avatar-staging/default-calendar-avatar~100x100.png
+func (builder *CalendarEventSearchMetaBuilder) Avatar(avatar string) *CalendarEventSearchMetaBuilder {
+	builder.avatar = avatar
+	builder.avatarSet = true
+	return builder
+}
+
+// 日程描述
+//
+// 示例值：日程描述
+func (builder *CalendarEventSearchMetaBuilder) Description(description string) *CalendarEventSearchMetaBuilder {
+	builder.description = description
+	builder.descriptionSet = true
+	return builder
+}
+
+// 日程所在的日历 ID
+//
+// 示例值：feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn
+func (builder *CalendarEventSearchMetaBuilder) CalendarId(calendarId string) *CalendarEventSearchMetaBuilder {
+	builder.calendarId = calendarId
+	builder.calendarIdSet = true
+	return builder
+}
+
+// 日程 ID。后续可通过该 ID 查询、更新或删除日程信息。
+//
+// 示例值：00592a0e-7edf-4678-bc9d-1b77383ef08e_0
+func (builder *CalendarEventSearchMetaBuilder) EventId(eventId string) *CalendarEventSearchMetaBuilder {
+	builder.eventId = eventId
+	builder.eventIdSet = true
+	return builder
+}
+
+// 日程开始时间
+//
+// 示例值：
+func (builder *CalendarEventSearchMetaBuilder) Start(start *TimeInfo) *CalendarEventSearchMetaBuilder {
+	builder.start = start
+	builder.startSet = true
+	return builder
+}
+
+// 日程结束时间
+//
+// 示例值：
+func (builder *CalendarEventSearchMetaBuilder) End(end *TimeInfo) *CalendarEventSearchMetaBuilder {
+	builder.end = end
+	builder.endSet = true
+	return builder
+}
+
+// true表示全天日程，默认是非全天日程
+//
+// 示例值：false
+func (builder *CalendarEventSearchMetaBuilder) IsAllDay(isAllDay bool) *CalendarEventSearchMetaBuilder {
+	builder.isAllDay = isAllDay
+	builder.isAllDaySet = true
+	return builder
+}
+
+// 日程标题
+//
+// 示例值：日程标题
+func (builder *CalendarEventSearchMetaBuilder) Summary(summary string) *CalendarEventSearchMetaBuilder {
+	builder.summary = summary
+	builder.summarySet = true
+	return builder
+}
+
+func (builder *CalendarEventSearchMetaBuilder) Build() *CalendarEventSearchMeta {
+	req := &CalendarEventSearchMeta{}
+	if builder.appLinkSet {
+		req.AppLink = &builder.appLink
+
+	}
+	if builder.avatarSet {
+		req.Avatar = &builder.avatar
+
+	}
+	if builder.descriptionSet {
+		req.Description = &builder.description
+
+	}
+	if builder.calendarIdSet {
+		req.CalendarId = &builder.calendarId
+
+	}
+	if builder.eventIdSet {
+		req.EventId = &builder.eventId
+
+	}
+	if builder.startSet {
+		req.Start = builder.start
+	}
+	if builder.endSet {
+		req.End = builder.end
+	}
+	if builder.isAllDaySet {
+		req.IsAllDay = &builder.isAllDay
+
+	}
+	if builder.summarySet {
+		req.Summary = &builder.summary
+
 	}
 	return req
 }
@@ -2654,14 +3041,14 @@ type CalendarFreebusy struct {
 }
 
 type CalendarFreebusyBuilder struct {
-	startTime     string // 忙闲信息开始时间，RFC3339 date_time格式
-	startTimeFlag bool
+	startTime    string // 忙闲信息开始时间，RFC3339 date_time格式
+	startTimeSet bool
 
-	endTime     string // 忙闲信息结束时间，RFC3339 date_time格式
-	endTimeFlag bool
+	endTime    string // 忙闲信息结束时间，RFC3339 date_time格式
+	endTimeSet bool
 
-	calendarId     string // 日历id
-	calendarIdFlag bool
+	calendarId    string // 日历id
+	calendarIdSet bool
 }
 
 func NewCalendarFreebusyBuilder() *CalendarFreebusyBuilder {
@@ -2674,7 +3061,7 @@ func NewCalendarFreebusyBuilder() *CalendarFreebusyBuilder {
 // 示例值：2020-10-28T22:30:00+08:00
 func (builder *CalendarFreebusyBuilder) StartTime(startTime string) *CalendarFreebusyBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -2683,7 +3070,7 @@ func (builder *CalendarFreebusyBuilder) StartTime(startTime string) *CalendarFre
 // 示例值：2020-10-28T22:30:00+08:00
 func (builder *CalendarFreebusyBuilder) EndTime(endTime string) *CalendarFreebusyBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -2692,21 +3079,21 @@ func (builder *CalendarFreebusyBuilder) EndTime(endTime string) *CalendarFreebus
 // 示例值：feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn
 func (builder *CalendarFreebusyBuilder) CalendarId(calendarId string) *CalendarFreebusyBuilder {
 	builder.calendarId = calendarId
-	builder.calendarIdFlag = true
+	builder.calendarIdSet = true
 	return builder
 }
 
 func (builder *CalendarFreebusyBuilder) Build() *CalendarFreebusy {
 	req := &CalendarFreebusy{}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.calendarIdFlag {
+	if builder.calendarIdSet {
 		req.CalendarId = &builder.calendarId
 
 	}
@@ -2720,11 +3107,11 @@ type CalendarFreebusyError struct {
 }
 
 type CalendarFreebusyErrorBuilder struct {
-	calendarId     string // 日历id
-	calendarIdFlag bool
+	calendarId    string // 日历id
+	calendarIdSet bool
 
-	errorMsg     string // 错误信息
-	errorMsgFlag bool
+	errorMsg    string // 错误信息
+	errorMsgSet bool
 }
 
 func NewCalendarFreebusyErrorBuilder() *CalendarFreebusyErrorBuilder {
@@ -2737,7 +3124,7 @@ func NewCalendarFreebusyErrorBuilder() *CalendarFreebusyErrorBuilder {
 // 示例值：feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn
 func (builder *CalendarFreebusyErrorBuilder) CalendarId(calendarId string) *CalendarFreebusyErrorBuilder {
 	builder.calendarId = calendarId
-	builder.calendarIdFlag = true
+	builder.calendarIdSet = true
 	return builder
 }
 
@@ -2746,17 +3133,17 @@ func (builder *CalendarFreebusyErrorBuilder) CalendarId(calendarId string) *Cale
 // 示例值：xxx
 func (builder *CalendarFreebusyErrorBuilder) ErrorMsg(errorMsg string) *CalendarFreebusyErrorBuilder {
 	builder.errorMsg = errorMsg
-	builder.errorMsgFlag = true
+	builder.errorMsgSet = true
 	return builder
 }
 
 func (builder *CalendarFreebusyErrorBuilder) Build() *CalendarFreebusyError {
 	req := &CalendarFreebusyError{}
-	if builder.calendarIdFlag {
+	if builder.calendarIdSet {
 		req.CalendarId = &builder.calendarId
 
 	}
-	if builder.errorMsgFlag {
+	if builder.errorMsgSet {
 		req.ErrorMsg = &builder.errorMsg
 
 	}
@@ -2768,8 +3155,8 @@ type CalendarPrimaryBatchReq struct {
 }
 
 type CalendarPrimaryBatchReqBuilder struct {
-	userIds     []string // 用户ID列表
-	userIdsFlag bool
+	userIds    []string // 用户ID列表
+	userIdsSet bool
 }
 
 func NewCalendarPrimaryBatchReqBuilder() *CalendarPrimaryBatchReqBuilder {
@@ -2782,13 +3169,13 @@ func NewCalendarPrimaryBatchReqBuilder() *CalendarPrimaryBatchReqBuilder {
 // 示例值：
 func (builder *CalendarPrimaryBatchReqBuilder) UserIds(userIds []string) *CalendarPrimaryBatchReqBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 func (builder *CalendarPrimaryBatchReqBuilder) Build() *CalendarPrimaryBatchReq {
 	req := &CalendarPrimaryBatchReq{}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
 	return req
@@ -2803,14 +3190,14 @@ type CalendarUnderstandExtra struct {
 }
 
 type CalendarUnderstandExtraBuilder struct {
-	aiTaskId     string // ai任务唯一标识
-	aiTaskIdFlag bool
+	aiTaskId    string // ai任务唯一标识
+	aiTaskIdSet bool
 
-	eventUid     string // 日程uid
-	eventUidFlag bool
+	eventUid    string // 日程uid
+	eventUidSet bool
 
-	originTime     string // 日程origin_time
-	originTimeFlag bool
+	originTime    string // 日程origin_time
+	originTimeSet bool
 }
 
 func NewCalendarUnderstandExtraBuilder() *CalendarUnderstandExtraBuilder {
@@ -2823,7 +3210,7 @@ func NewCalendarUnderstandExtraBuilder() *CalendarUnderstandExtraBuilder {
 // 示例值：none
 func (builder *CalendarUnderstandExtraBuilder) AiTaskId(aiTaskId string) *CalendarUnderstandExtraBuilder {
 	builder.aiTaskId = aiTaskId
-	builder.aiTaskIdFlag = true
+	builder.aiTaskIdSet = true
 	return builder
 }
 
@@ -2832,7 +3219,7 @@ func (builder *CalendarUnderstandExtraBuilder) AiTaskId(aiTaskId string) *Calend
 // 示例值：b60bbd53-a52c-45a5-940a-1987de6a000f
 func (builder *CalendarUnderstandExtraBuilder) EventUid(eventUid string) *CalendarUnderstandExtraBuilder {
 	builder.eventUid = eventUid
-	builder.eventUidFlag = true
+	builder.eventUidSet = true
 	return builder
 }
 
@@ -2841,21 +3228,21 @@ func (builder *CalendarUnderstandExtraBuilder) EventUid(eventUid string) *Calend
 // 示例值：1695355200
 func (builder *CalendarUnderstandExtraBuilder) OriginTime(originTime string) *CalendarUnderstandExtraBuilder {
 	builder.originTime = originTime
-	builder.originTimeFlag = true
+	builder.originTimeSet = true
 	return builder
 }
 
 func (builder *CalendarUnderstandExtraBuilder) Build() *CalendarUnderstandExtra {
 	req := &CalendarUnderstandExtra{}
-	if builder.aiTaskIdFlag {
+	if builder.aiTaskIdSet {
 		req.AiTaskId = &builder.aiTaskId
 
 	}
-	if builder.eventUidFlag {
+	if builder.eventUidSet {
 		req.EventUid = &builder.eventUid
 
 	}
-	if builder.originTimeFlag {
+	if builder.originTimeSet {
 		req.OriginTime = &builder.originTime
 
 	}
@@ -2873,17 +3260,17 @@ type CalendarUnderstandScenarioContext struct {
 }
 
 type CalendarUnderstandScenarioContextBuilder struct {
-	scenario     string // 会话所处的业务场景
-	scenarioFlag bool
+	scenario    string // 会话所处的业务场景
+	scenarioSet bool
 
-	workMode     int // 会话所处的业务模式
-	workModeFlag bool
+	workMode    int // 会话所处的业务模式
+	workModeSet bool
 
-	extra     *CalendarUnderstandExtra // 透传数据
-	extraFlag bool
+	extra    *CalendarUnderstandExtra // 透传数据
+	extraSet bool
 
-	systemInfo     *SystemInfo // 系统信息
-	systemInfoFlag bool
+	systemInfo    *SystemInfo // 系统信息
+	systemInfoSet bool
 }
 
 func NewCalendarUnderstandScenarioContextBuilder() *CalendarUnderstandScenarioContextBuilder {
@@ -2896,7 +3283,7 @@ func NewCalendarUnderstandScenarioContextBuilder() *CalendarUnderstandScenarioCo
 // 示例值：IM
 func (builder *CalendarUnderstandScenarioContextBuilder) Scenario(scenario string) *CalendarUnderstandScenarioContextBuilder {
 	builder.scenario = scenario
-	builder.scenarioFlag = true
+	builder.scenarioSet = true
 	return builder
 }
 
@@ -2905,7 +3292,7 @@ func (builder *CalendarUnderstandScenarioContextBuilder) Scenario(scenario strin
 // 示例值：1
 func (builder *CalendarUnderstandScenarioContextBuilder) WorkMode(workMode int) *CalendarUnderstandScenarioContextBuilder {
 	builder.workMode = workMode
-	builder.workModeFlag = true
+	builder.workModeSet = true
 	return builder
 }
 
@@ -2914,7 +3301,7 @@ func (builder *CalendarUnderstandScenarioContextBuilder) WorkMode(workMode int) 
 // 示例值：
 func (builder *CalendarUnderstandScenarioContextBuilder) Extra(extra *CalendarUnderstandExtra) *CalendarUnderstandScenarioContextBuilder {
 	builder.extra = extra
-	builder.extraFlag = true
+	builder.extraSet = true
 	return builder
 }
 
@@ -2923,24 +3310,24 @@ func (builder *CalendarUnderstandScenarioContextBuilder) Extra(extra *CalendarUn
 // 示例值：
 func (builder *CalendarUnderstandScenarioContextBuilder) SystemInfo(systemInfo *SystemInfo) *CalendarUnderstandScenarioContextBuilder {
 	builder.systemInfo = systemInfo
-	builder.systemInfoFlag = true
+	builder.systemInfoSet = true
 	return builder
 }
 
 func (builder *CalendarUnderstandScenarioContextBuilder) Build() *CalendarUnderstandScenarioContext {
 	req := &CalendarUnderstandScenarioContext{}
-	if builder.scenarioFlag {
+	if builder.scenarioSet {
 		req.Scenario = &builder.scenario
 
 	}
-	if builder.workModeFlag {
+	if builder.workModeSet {
 		req.WorkMode = &builder.workMode
 
 	}
-	if builder.extraFlag {
+	if builder.extraSet {
 		req.Extra = builder.extra
 	}
-	if builder.systemInfoFlag {
+	if builder.systemInfoSet {
 		req.SystemInfo = builder.systemInfo
 	}
 	return req
@@ -2955,14 +3342,14 @@ type CardCallback struct {
 }
 
 type CardCallbackBuilder struct {
-	messageId     string // 卡片的消息ID
-	messageIdFlag bool
+	messageId    string // 卡片的消息ID
+	messageIdSet bool
 
-	status     *MyaiCardStatus // 卡片状态
-	statusFlag bool
+	status    *MyaiCardStatus // 卡片状态
+	statusSet bool
 
-	callbackInfo     string // 业务定义的回调数据，json格式
-	callbackInfoFlag bool
+	callbackInfo    string // 业务定义的回调数据，json格式
+	callbackInfoSet bool
 }
 
 func NewCardCallbackBuilder() *CardCallbackBuilder {
@@ -2975,7 +3362,7 @@ func NewCardCallbackBuilder() *CardCallbackBuilder {
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *CardCallbackBuilder) MessageId(messageId string) *CardCallbackBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -2984,7 +3371,7 @@ func (builder *CardCallbackBuilder) MessageId(messageId string) *CardCallbackBui
 // 示例值：
 func (builder *CardCallbackBuilder) Status(status *MyaiCardStatus) *CardCallbackBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -2993,20 +3380,20 @@ func (builder *CardCallbackBuilder) Status(status *MyaiCardStatus) *CardCallback
 // 示例值：无
 func (builder *CardCallbackBuilder) CallbackInfo(callbackInfo string) *CardCallbackBuilder {
 	builder.callbackInfo = callbackInfo
-	builder.callbackInfoFlag = true
+	builder.callbackInfoSet = true
 	return builder
 }
 
 func (builder *CardCallbackBuilder) Build() *CardCallback {
 	req := &CardCallback{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = builder.status
 	}
-	if builder.callbackInfoFlag {
+	if builder.callbackInfoSet {
 		req.CallbackInfo = &builder.callbackInfo
 
 	}
@@ -3026,20 +3413,20 @@ type CardPresent struct {
 }
 
 type CardPresentBuilder struct {
-	body     string // 卡片json内容
-	bodyFlag bool
+	body    string // 卡片json内容
+	bodySet bool
 
-	interactable     bool // 是否为交互卡片
-	interactableFlag bool
+	interactable    bool // 是否为交互卡片
+	interactableSet bool
 
 	type_    string // 卡片类型
-	typeFlag bool
+	type_Set bool
 
-	operationType     string // 操作类型
-	operationTypeFlag bool
+	operationType    string // 操作类型
+	operationTypeSet bool
 
-	callbackInfo     string // 业务定义的卡片回调信息
-	callbackInfoFlag bool
+	callbackInfo    string // 业务定义的卡片回调信息
+	callbackInfoSet bool
 }
 
 func NewCardPresentBuilder() *CardPresentBuilder {
@@ -3052,7 +3439,7 @@ func NewCardPresentBuilder() *CardPresentBuilder {
 // 示例值：无
 func (builder *CardPresentBuilder) Body(body string) *CardPresentBuilder {
 	builder.body = body
-	builder.bodyFlag = true
+	builder.bodySet = true
 	return builder
 }
 
@@ -3061,7 +3448,7 @@ func (builder *CardPresentBuilder) Body(body string) *CardPresentBuilder {
 // 示例值：true
 func (builder *CardPresentBuilder) Interactable(interactable bool) *CardPresentBuilder {
 	builder.interactable = interactable
-	builder.interactableFlag = true
+	builder.interactableSet = true
 	return builder
 }
 
@@ -3070,7 +3457,7 @@ func (builder *CardPresentBuilder) Interactable(interactable bool) *CardPresentB
 // 示例值：14
 func (builder *CardPresentBuilder) Type(type_ string) *CardPresentBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -3079,7 +3466,7 @@ func (builder *CardPresentBuilder) Type(type_ string) *CardPresentBuilder {
 // 示例值：UPDATE
 func (builder *CardPresentBuilder) OperationType(operationType string) *CardPresentBuilder {
 	builder.operationType = operationType
-	builder.operationTypeFlag = true
+	builder.operationTypeSet = true
 	return builder
 }
 
@@ -3088,29 +3475,29 @@ func (builder *CardPresentBuilder) OperationType(operationType string) *CardPres
 // 示例值：无
 func (builder *CardPresentBuilder) CallbackInfo(callbackInfo string) *CardPresentBuilder {
 	builder.callbackInfo = callbackInfo
-	builder.callbackInfoFlag = true
+	builder.callbackInfoSet = true
 	return builder
 }
 
 func (builder *CardPresentBuilder) Build() *CardPresent {
 	req := &CardPresent{}
-	if builder.bodyFlag {
+	if builder.bodySet {
 		req.Body = &builder.body
 
 	}
-	if builder.interactableFlag {
+	if builder.interactableSet {
 		req.Interactable = &builder.interactable
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.operationTypeFlag {
+	if builder.operationTypeSet {
 		req.OperationType = &builder.operationType
 
 	}
-	if builder.callbackInfoFlag {
+	if builder.callbackInfoSet {
 		req.CallbackInfo = &builder.callbackInfo
 
 	}
@@ -3124,11 +3511,11 @@ type CheckInTime struct {
 }
 
 type CheckInTimeBuilder struct {
-	timeType     string // (分钟)偏移量相对于的日程时间节点类型
-	timeTypeFlag bool
+	timeType    string // (分钟)偏移量相对于的日程时间节点类型
+	timeTypeSet bool
 
-	duration     int // 相对于日程开始或者结束的偏移量(分钟)
-	durationFlag bool
+	duration    int // 相对于日程开始或者结束的偏移量(分钟)
+	durationSet bool
 }
 
 func NewCheckInTimeBuilder() *CheckInTimeBuilder {
@@ -3141,7 +3528,7 @@ func NewCheckInTimeBuilder() *CheckInTimeBuilder {
 // 示例值：
 func (builder *CheckInTimeBuilder) TimeType(timeType string) *CheckInTimeBuilder {
 	builder.timeType = timeType
-	builder.timeTypeFlag = true
+	builder.timeTypeSet = true
 	return builder
 }
 
@@ -3150,17 +3537,17 @@ func (builder *CheckInTimeBuilder) TimeType(timeType string) *CheckInTimeBuilder
 // 示例值：15
 func (builder *CheckInTimeBuilder) Duration(duration int) *CheckInTimeBuilder {
 	builder.duration = duration
-	builder.durationFlag = true
+	builder.durationSet = true
 	return builder
 }
 
 func (builder *CheckInTimeBuilder) Build() *CheckInTime {
 	req := &CheckInTime{}
-	if builder.timeTypeFlag {
+	if builder.timeTypeSet {
 		req.TimeType = &builder.timeType
 
 	}
-	if builder.durationFlag {
+	if builder.durationSet {
 		req.Duration = &builder.duration
 
 	}
@@ -3174,11 +3561,11 @@ type CustomizationOption struct {
 }
 
 type CustomizationOptionBuilder struct {
-	optionKey     string // 每个选项的唯一ID
-	optionKeyFlag bool
+	optionKey    string // 每个选项的唯一ID
+	optionKeySet bool
 
-	othersContent     string // 当type类型为其它选项时，该参数需要填入
-	othersContentFlag bool
+	othersContent    string // 当type类型为其它选项时，该参数需要填入
+	othersContentSet bool
 }
 
 func NewCustomizationOptionBuilder() *CustomizationOptionBuilder {
@@ -3191,7 +3578,7 @@ func NewCustomizationOptionBuilder() *CustomizationOptionBuilder {
 // 示例值：16281481596185
 func (builder *CustomizationOptionBuilder) OptionKey(optionKey string) *CustomizationOptionBuilder {
 	builder.optionKey = optionKey
-	builder.optionKeyFlag = true
+	builder.optionKeySet = true
 	return builder
 }
 
@@ -3200,17 +3587,17 @@ func (builder *CustomizationOptionBuilder) OptionKey(optionKey string) *Customiz
 // 示例值：xxx
 func (builder *CustomizationOptionBuilder) OthersContent(othersContent string) *CustomizationOptionBuilder {
 	builder.othersContent = othersContent
-	builder.othersContentFlag = true
+	builder.othersContentSet = true
 	return builder
 }
 
 func (builder *CustomizationOptionBuilder) Build() *CustomizationOption {
 	req := &CustomizationOption{}
-	if builder.optionKeyFlag {
+	if builder.optionKeySet {
 		req.OptionKey = &builder.optionKey
 
 	}
-	if builder.othersContentFlag {
+	if builder.othersContentSet {
 		req.OthersContent = &builder.othersContent
 
 	}
@@ -3224,11 +3611,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -3236,27 +3623,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -3278,23 +3669,23 @@ type EventBriefInfoAi struct {
 }
 
 type EventBriefInfoAiBuilder struct {
-	eventId     string // 日程ID
-	eventIdFlag bool
+	eventId    string // 日程ID
+	eventIdSet bool
 
-	summary     string // 日程名称
-	summaryFlag bool
+	summary    string // 日程名称
+	summarySet bool
 
-	startTime     string // 日程开始时间
-	startTimeFlag bool
+	startTime    string // 日程开始时间
+	startTimeSet bool
 
-	endTime     string // 日程结束时间
-	endTimeFlag bool
+	endTime    string // 日程结束时间
+	endTimeSet bool
 
-	appLink     string // 日程链接
-	appLinkFlag bool
+	appLink    string // 日程链接
+	appLinkSet bool
 
-	organizer     *EventOrganizer // 日程组织者
-	organizerFlag bool
+	organizer    *EventOrganizer // 日程组织者
+	organizerSet bool
 }
 
 func NewEventBriefInfoAiBuilder() *EventBriefInfoAiBuilder {
@@ -3307,7 +3698,7 @@ func NewEventBriefInfoAiBuilder() *EventBriefInfoAiBuilder {
 // 示例值：00592a0e-7edf-4678-bc9d-1b77383ef08e_0
 func (builder *EventBriefInfoAiBuilder) EventId(eventId string) *EventBriefInfoAiBuilder {
 	builder.eventId = eventId
-	builder.eventIdFlag = true
+	builder.eventIdSet = true
 	return builder
 }
 
@@ -3316,7 +3707,7 @@ func (builder *EventBriefInfoAiBuilder) EventId(eventId string) *EventBriefInfoA
 // 示例值：会议
 func (builder *EventBriefInfoAiBuilder) Summary(summary string) *EventBriefInfoAiBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -3325,7 +3716,7 @@ func (builder *EventBriefInfoAiBuilder) Summary(summary string) *EventBriefInfoA
 // 示例值：2022-10-01 10:00:00
 func (builder *EventBriefInfoAiBuilder) StartTime(startTime string) *EventBriefInfoAiBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -3334,7 +3725,7 @@ func (builder *EventBriefInfoAiBuilder) StartTime(startTime string) *EventBriefI
 // 示例值：2022-10-01 11:00:00
 func (builder *EventBriefInfoAiBuilder) EndTime(endTime string) *EventBriefInfoAiBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -3343,7 +3734,7 @@ func (builder *EventBriefInfoAiBuilder) EndTime(endTime string) *EventBriefInfoA
 // 示例值：https://applink.feishu.cn/client/calendar/event/detail?calendarId=xxxxxx&key=xxxxxx&originalTime=xxxxxx&startTime=xxxxxx
 func (builder *EventBriefInfoAiBuilder) AppLink(appLink string) *EventBriefInfoAiBuilder {
 	builder.appLink = appLink
-	builder.appLinkFlag = true
+	builder.appLinkSet = true
 	return builder
 }
 
@@ -3352,33 +3743,33 @@ func (builder *EventBriefInfoAiBuilder) AppLink(appLink string) *EventBriefInfoA
 // 示例值：
 func (builder *EventBriefInfoAiBuilder) Organizer(organizer *EventOrganizer) *EventBriefInfoAiBuilder {
 	builder.organizer = organizer
-	builder.organizerFlag = true
+	builder.organizerSet = true
 	return builder
 }
 
 func (builder *EventBriefInfoAiBuilder) Build() *EventBriefInfoAi {
 	req := &EventBriefInfoAi{}
-	if builder.eventIdFlag {
+	if builder.eventIdSet {
 		req.EventId = &builder.eventId
 
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.appLinkFlag {
+	if builder.appLinkSet {
 		req.AppLink = &builder.appLink
 
 	}
-	if builder.organizerFlag {
+	if builder.organizerSet {
 		req.Organizer = builder.organizer
 	}
 	return req
@@ -3411,41 +3802,41 @@ type EventCard struct {
 }
 
 type EventCardBuilder struct {
-	summary     string // 日程主题
-	summaryFlag bool
+	summary    string // 日程主题
+	summarySet bool
 
-	startTime     string // 日程开始时间，日期+时间格式
-	startTimeFlag bool
+	startTime    string // 日程开始时间，日期+时间格式
+	startTimeSet bool
 
-	endTime     string // 日程结束时间，日期+时间格式
-	endTimeFlag bool
+	endTime    string // 日程结束时间，日期+时间格式
+	endTimeSet bool
 
-	startTimezone     string // 日程开始时间时区
-	startTimezoneFlag bool
+	startTimezone    string // 日程开始时间时区
+	startTimezoneSet bool
 
-	participantIds     string // 日程参与人open ID
-	participantIdsFlag bool
+	participantIds    string // 日程参与人open ID
+	participantIdsSet bool
 
-	recurrenceRule     string // 日程的重复性规则
-	recurrenceRuleFlag bool
+	recurrenceRule    string // 日程的重复性规则
+	recurrenceRuleSet bool
 
-	meetingRoomIds     string // 需要预定的会议室ID列表
-	meetingRoomIdsFlag bool
+	meetingRoomIds    string // 需要预定的会议室ID列表
+	meetingRoomIdsSet bool
 
-	duration     string // 需要预定的日程长度
-	durationFlag bool
+	duration    string // 需要预定的日程长度
+	durationSet bool
 
-	needMeetingNotes     string // 是否需要生成会议纪要
-	needMeetingNotesFlag bool
+	needMeetingNotes    string // 是否需要生成会议纪要
+	needMeetingNotesSet bool
 
-	scenarioContextSchemaVersion     string // 上下文信息 schema 版本
-	scenarioContextSchemaVersionFlag bool
+	scenarioContextSchemaVersion    string // 上下文信息 schema 版本
+	scenarioContextSchemaVersionSet bool
 
-	scenarioContext     *CalendarUnderstandScenarioContext // 上下文信息
-	scenarioContextFlag bool
+	scenarioContext    *CalendarUnderstandScenarioContext // 上下文信息
+	scenarioContextSet bool
 
-	eventId     string // 日程的uid_originTime
-	eventIdFlag bool
+	eventId    string // 日程的uid_originTime
+	eventIdSet bool
 }
 
 func NewEventCardBuilder() *EventCardBuilder {
@@ -3458,7 +3849,7 @@ func NewEventCardBuilder() *EventCardBuilder {
 // 示例值：日程主题
 func (builder *EventCardBuilder) Summary(summary string) *EventCardBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -3467,7 +3858,7 @@ func (builder *EventCardBuilder) Summary(summary string) *EventCardBuilder {
 // 示例值：2023-01-01T00:00
 func (builder *EventCardBuilder) StartTime(startTime string) *EventCardBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -3476,7 +3867,7 @@ func (builder *EventCardBuilder) StartTime(startTime string) *EventCardBuilder {
 // 示例值：2023-01-01T01:00
 func (builder *EventCardBuilder) EndTime(endTime string) *EventCardBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -3485,7 +3876,7 @@ func (builder *EventCardBuilder) EndTime(endTime string) *EventCardBuilder {
 // 示例值：Asia/Shanghai
 func (builder *EventCardBuilder) StartTimezone(startTimezone string) *EventCardBuilder {
 	builder.startTimezone = startTimezone
-	builder.startTimezoneFlag = true
+	builder.startTimezoneSet = true
 	return builder
 }
 
@@ -3494,7 +3885,7 @@ func (builder *EventCardBuilder) StartTimezone(startTimezone string) *EventCardB
 // 示例值：ou_xxx;ou_yyy
 func (builder *EventCardBuilder) ParticipantIds(participantIds string) *EventCardBuilder {
 	builder.participantIds = participantIds
-	builder.participantIdsFlag = true
+	builder.participantIdsSet = true
 	return builder
 }
 
@@ -3503,7 +3894,7 @@ func (builder *EventCardBuilder) ParticipantIds(participantIds string) *EventCar
 // 示例值：FREQ=DAILY;INTERVAL=1
 func (builder *EventCardBuilder) RecurrenceRule(recurrenceRule string) *EventCardBuilder {
 	builder.recurrenceRule = recurrenceRule
-	builder.recurrenceRuleFlag = true
+	builder.recurrenceRuleSet = true
 	return builder
 }
 
@@ -3512,7 +3903,7 @@ func (builder *EventCardBuilder) RecurrenceRule(recurrenceRule string) *EventCar
 // 示例值：omm_xxx;omm_yyy
 func (builder *EventCardBuilder) MeetingRoomIds(meetingRoomIds string) *EventCardBuilder {
 	builder.meetingRoomIds = meetingRoomIds
-	builder.meetingRoomIdsFlag = true
+	builder.meetingRoomIdsSet = true
 	return builder
 }
 
@@ -3521,7 +3912,7 @@ func (builder *EventCardBuilder) MeetingRoomIds(meetingRoomIds string) *EventCar
 // 示例值：1小时30分钟
 func (builder *EventCardBuilder) Duration(duration string) *EventCardBuilder {
 	builder.duration = duration
-	builder.durationFlag = true
+	builder.durationSet = true
 	return builder
 }
 
@@ -3530,7 +3921,7 @@ func (builder *EventCardBuilder) Duration(duration string) *EventCardBuilder {
 // 示例值：true
 func (builder *EventCardBuilder) NeedMeetingNotes(needMeetingNotes string) *EventCardBuilder {
 	builder.needMeetingNotes = needMeetingNotes
-	builder.needMeetingNotesFlag = true
+	builder.needMeetingNotesSet = true
 	return builder
 }
 
@@ -3539,7 +3930,7 @@ func (builder *EventCardBuilder) NeedMeetingNotes(needMeetingNotes string) *Even
 // 示例值：v1
 func (builder *EventCardBuilder) ScenarioContextSchemaVersion(scenarioContextSchemaVersion string) *EventCardBuilder {
 	builder.scenarioContextSchemaVersion = scenarioContextSchemaVersion
-	builder.scenarioContextSchemaVersionFlag = true
+	builder.scenarioContextSchemaVersionSet = true
 	return builder
 }
 
@@ -3548,7 +3939,7 @@ func (builder *EventCardBuilder) ScenarioContextSchemaVersion(scenarioContextSch
 // 示例值：
 func (builder *EventCardBuilder) ScenarioContext(scenarioContext *CalendarUnderstandScenarioContext) *EventCardBuilder {
 	builder.scenarioContext = scenarioContext
-	builder.scenarioContextFlag = true
+	builder.scenarioContextSet = true
 	return builder
 }
 
@@ -3557,56 +3948,56 @@ func (builder *EventCardBuilder) ScenarioContext(scenarioContext *CalendarUnders
 // 示例值：11dd1004-7cfb-4ad2-89a0-aa3c82f34dda_0
 func (builder *EventCardBuilder) EventId(eventId string) *EventCardBuilder {
 	builder.eventId = eventId
-	builder.eventIdFlag = true
+	builder.eventIdSet = true
 	return builder
 }
 
 func (builder *EventCardBuilder) Build() *EventCard {
 	req := &EventCard{}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.startTimezoneFlag {
+	if builder.startTimezoneSet {
 		req.StartTimezone = &builder.startTimezone
 
 	}
-	if builder.participantIdsFlag {
+	if builder.participantIdsSet {
 		req.ParticipantIds = &builder.participantIds
 
 	}
-	if builder.recurrenceRuleFlag {
+	if builder.recurrenceRuleSet {
 		req.RecurrenceRule = &builder.recurrenceRule
 
 	}
-	if builder.meetingRoomIdsFlag {
+	if builder.meetingRoomIdsSet {
 		req.MeetingRoomIds = &builder.meetingRoomIds
 
 	}
-	if builder.durationFlag {
+	if builder.durationSet {
 		req.Duration = &builder.duration
 
 	}
-	if builder.needMeetingNotesFlag {
+	if builder.needMeetingNotesSet {
 		req.NeedMeetingNotes = &builder.needMeetingNotes
 
 	}
-	if builder.scenarioContextSchemaVersionFlag {
+	if builder.scenarioContextSchemaVersionSet {
 		req.ScenarioContextSchemaVersion = &builder.scenarioContextSchemaVersion
 
 	}
-	if builder.scenarioContextFlag {
+	if builder.scenarioContextSet {
 		req.ScenarioContext = builder.scenarioContext
 	}
-	if builder.eventIdFlag {
+	if builder.eventIdSet {
 		req.EventId = &builder.eventId
 
 	}
@@ -3624,17 +4015,17 @@ type EventCheckIn struct {
 }
 
 type EventCheckInBuilder struct {
-	enableCheckIn     bool // 是否启用日程签到
-	enableCheckInFlag bool
+	enableCheckIn    bool // 是否启用日程签到
+	enableCheckInSet bool
 
-	checkInStartTime     *CheckInTime // 日程签到开始时间
-	checkInStartTimeFlag bool
+	checkInStartTime    *CheckInTime // 日程签到开始时间
+	checkInStartTimeSet bool
 
-	checkInEndTime     *CheckInTime // 日程签到结束时间
-	checkInEndTimeFlag bool
+	checkInEndTime    *CheckInTime // 日程签到结束时间
+	checkInEndTimeSet bool
 
-	needNotifyAttendees     bool // 签到开始时是否自动发送签到通知给参与者
-	needNotifyAttendeesFlag bool
+	needNotifyAttendees    bool // 签到开始时是否自动发送签到通知给参与者
+	needNotifyAttendeesSet bool
 }
 
 func NewEventCheckInBuilder() *EventCheckInBuilder {
@@ -3647,7 +4038,7 @@ func NewEventCheckInBuilder() *EventCheckInBuilder {
 // 示例值：
 func (builder *EventCheckInBuilder) EnableCheckIn(enableCheckIn bool) *EventCheckInBuilder {
 	builder.enableCheckIn = enableCheckIn
-	builder.enableCheckInFlag = true
+	builder.enableCheckInSet = true
 	return builder
 }
 
@@ -3656,7 +4047,7 @@ func (builder *EventCheckInBuilder) EnableCheckIn(enableCheckIn bool) *EventChec
 // 示例值：
 func (builder *EventCheckInBuilder) CheckInStartTime(checkInStartTime *CheckInTime) *EventCheckInBuilder {
 	builder.checkInStartTime = checkInStartTime
-	builder.checkInStartTimeFlag = true
+	builder.checkInStartTimeSet = true
 	return builder
 }
 
@@ -3665,7 +4056,7 @@ func (builder *EventCheckInBuilder) CheckInStartTime(checkInStartTime *CheckInTi
 // 示例值：
 func (builder *EventCheckInBuilder) CheckInEndTime(checkInEndTime *CheckInTime) *EventCheckInBuilder {
 	builder.checkInEndTime = checkInEndTime
-	builder.checkInEndTimeFlag = true
+	builder.checkInEndTimeSet = true
 	return builder
 }
 
@@ -3674,23 +4065,23 @@ func (builder *EventCheckInBuilder) CheckInEndTime(checkInEndTime *CheckInTime) 
 // 示例值：
 func (builder *EventCheckInBuilder) NeedNotifyAttendees(needNotifyAttendees bool) *EventCheckInBuilder {
 	builder.needNotifyAttendees = needNotifyAttendees
-	builder.needNotifyAttendeesFlag = true
+	builder.needNotifyAttendeesSet = true
 	return builder
 }
 
 func (builder *EventCheckInBuilder) Build() *EventCheckIn {
 	req := &EventCheckIn{}
-	if builder.enableCheckInFlag {
+	if builder.enableCheckInSet {
 		req.EnableCheckIn = &builder.enableCheckIn
 
 	}
-	if builder.checkInStartTimeFlag {
+	if builder.checkInStartTimeSet {
 		req.CheckInStartTime = builder.checkInStartTime
 	}
-	if builder.checkInEndTimeFlag {
+	if builder.checkInEndTimeSet {
 		req.CheckInEndTime = builder.checkInEndTime
 	}
-	if builder.needNotifyAttendeesFlag {
+	if builder.needNotifyAttendeesSet {
 		req.NeedNotifyAttendees = &builder.needNotifyAttendees
 
 	}
@@ -3708,17 +4099,17 @@ type EventLocation struct {
 }
 
 type EventLocationBuilder struct {
-	name     string // 地点名称
-	nameFlag bool
+	name    string // 地点名称
+	nameSet bool
 
-	address     string // 地点地址
-	addressFlag bool
+	address    string // 地点地址
+	addressSet bool
 
-	latitude     float64 // 地点坐标纬度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
-	latitudeFlag bool
+	latitude    float64 // 地点坐标纬度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
+	latitudeSet bool
 
-	longitude     float64 // 地点坐标经度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
-	longitudeFlag bool
+	longitude    float64 // 地点坐标经度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
+	longitudeSet bool
 }
 
 func NewEventLocationBuilder() *EventLocationBuilder {
@@ -3731,7 +4122,7 @@ func NewEventLocationBuilder() *EventLocationBuilder {
 // 示例值：地点名称
 func (builder *EventLocationBuilder) Name(name string) *EventLocationBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3740,7 +4131,7 @@ func (builder *EventLocationBuilder) Name(name string) *EventLocationBuilder {
 // 示例值：地点地址
 func (builder *EventLocationBuilder) Address(address string) *EventLocationBuilder {
 	builder.address = address
-	builder.addressFlag = true
+	builder.addressSet = true
 	return builder
 }
 
@@ -3749,7 +4140,7 @@ func (builder *EventLocationBuilder) Address(address string) *EventLocationBuild
 // 示例值：1.100000023841858
 func (builder *EventLocationBuilder) Latitude(latitude float64) *EventLocationBuilder {
 	builder.latitude = latitude
-	builder.latitudeFlag = true
+	builder.latitudeSet = true
 	return builder
 }
 
@@ -3758,25 +4149,25 @@ func (builder *EventLocationBuilder) Latitude(latitude float64) *EventLocationBu
 // 示例值：2.200000047683716
 func (builder *EventLocationBuilder) Longitude(longitude float64) *EventLocationBuilder {
 	builder.longitude = longitude
-	builder.longitudeFlag = true
+	builder.longitudeSet = true
 	return builder
 }
 
 func (builder *EventLocationBuilder) Build() *EventLocation {
 	req := &EventLocation{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.addressFlag {
+	if builder.addressSet {
 		req.Address = &builder.address
 
 	}
-	if builder.latitudeFlag {
+	if builder.latitudeSet {
 		req.Latitude = &builder.latitude
 
 	}
-	if builder.longitudeFlag {
+	if builder.longitudeSet {
 		req.Longitude = &builder.longitude
 
 	}
@@ -3790,11 +4181,11 @@ type EventOrganizer struct {
 }
 
 type EventOrganizerBuilder struct {
-	userId     string // 日程组织者user ID
-	userIdFlag bool
+	userId    string // 日程组织者user ID
+	userIdSet bool
 
-	displayName     string // 日程组织者姓名
-	displayNameFlag bool
+	displayName    string // 日程组织者姓名
+	displayNameSet bool
 }
 
 func NewEventOrganizerBuilder() *EventOrganizerBuilder {
@@ -3807,7 +4198,7 @@ func NewEventOrganizerBuilder() *EventOrganizerBuilder {
 // 示例值：ou_xxxxxx
 func (builder *EventOrganizerBuilder) UserId(userId string) *EventOrganizerBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -3816,17 +4207,17 @@ func (builder *EventOrganizerBuilder) UserId(userId string) *EventOrganizerBuild
 // 示例值：孙二二
 func (builder *EventOrganizerBuilder) DisplayName(displayName string) *EventOrganizerBuilder {
 	builder.displayName = displayName
-	builder.displayNameFlag = true
+	builder.displayNameSet = true
 	return builder
 }
 
 func (builder *EventOrganizerBuilder) Build() *EventOrganizer {
 	req := &EventOrganizer{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.displayNameFlag {
+	if builder.displayNameSet {
 		req.DisplayName = &builder.displayName
 
 	}
@@ -3846,20 +4237,20 @@ type EventSearchFilter struct {
 }
 
 type EventSearchFilterBuilder struct {
-	startTime     *TimeInfo // 搜索过滤项，日程搜索区间的开始时间，被搜索日程的事件必须与搜索区间有交集
-	startTimeFlag bool
+	startTime    *TimeInfo // 搜索过滤项，日程搜索区间的开始时间，被搜索日程的事件必须与搜索区间有交集
+	startTimeSet bool
 
-	endTime     *TimeInfo // 搜索过滤项，日程搜索区间的结束时间，被搜索日程的事件必须与搜索区间有交集
-	endTimeFlag bool
+	endTime    *TimeInfo // 搜索过滤项，日程搜索区间的结束时间，被搜索日程的事件必须与搜索区间有交集
+	endTimeSet bool
 
-	userIds     []string // 搜索过滤项，参与人的用户ID列表，被搜索日程中必须包含至少一个其中的参与人。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	userIdsFlag bool
+	userIds    []string // 搜索过滤项，参与人的用户ID列表，被搜索日程中必须包含至少一个其中的参与人。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	userIdsSet bool
 
-	roomIds     []string // 搜索过滤项，会议室ID列表，被搜索日程中必须包含至少一个其中的会议室
-	roomIdsFlag bool
+	roomIds    []string // 搜索过滤项，会议室ID列表，被搜索日程中必须包含至少一个其中的会议室
+	roomIdsSet bool
 
-	chatIds     []string // 搜索过滤项，群ID列表，被搜索日程的参与人中必须包含至少一个其中的群。参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
-	chatIdsFlag bool
+	chatIds    []string // 搜索过滤项，群ID列表，被搜索日程的参与人中必须包含至少一个其中的群。参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	chatIdsSet bool
 }
 
 func NewEventSearchFilterBuilder() *EventSearchFilterBuilder {
@@ -3872,7 +4263,7 @@ func NewEventSearchFilterBuilder() *EventSearchFilterBuilder {
 // 示例值：
 func (builder *EventSearchFilterBuilder) StartTime(startTime *TimeInfo) *EventSearchFilterBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -3881,7 +4272,7 @@ func (builder *EventSearchFilterBuilder) StartTime(startTime *TimeInfo) *EventSe
 // 示例值：
 func (builder *EventSearchFilterBuilder) EndTime(endTime *TimeInfo) *EventSearchFilterBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -3890,7 +4281,7 @@ func (builder *EventSearchFilterBuilder) EndTime(endTime *TimeInfo) *EventSearch
 // 示例值：xxxxx
 func (builder *EventSearchFilterBuilder) UserIds(userIds []string) *EventSearchFilterBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
@@ -3899,7 +4290,7 @@ func (builder *EventSearchFilterBuilder) UserIds(userIds []string) *EventSearchF
 // 示例值：xxxxx
 func (builder *EventSearchFilterBuilder) RoomIds(roomIds []string) *EventSearchFilterBuilder {
 	builder.roomIds = roomIds
-	builder.roomIdsFlag = true
+	builder.roomIdsSet = true
 	return builder
 }
 
@@ -3908,25 +4299,25 @@ func (builder *EventSearchFilterBuilder) RoomIds(roomIds []string) *EventSearchF
 // 示例值：xxxxx
 func (builder *EventSearchFilterBuilder) ChatIds(chatIds []string) *EventSearchFilterBuilder {
 	builder.chatIds = chatIds
-	builder.chatIdsFlag = true
+	builder.chatIdsSet = true
 	return builder
 }
 
 func (builder *EventSearchFilterBuilder) Build() *EventSearchFilter {
 	req := &EventSearchFilter{}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = builder.startTime
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = builder.endTime
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
-	if builder.roomIdsFlag {
+	if builder.roomIdsSet {
 		req.RoomIds = builder.roomIds
 	}
-	if builder.chatIdsFlag {
+	if builder.chatIdsSet {
 		req.ChatIds = builder.chatIds
 	}
 	return req
@@ -3937,8 +4328,8 @@ type EventTime struct {
 }
 
 type EventTimeBuilder struct {
-	timeStamp     string // 时间戳
-	timeStampFlag bool
+	timeStamp    string // 时间戳
+	timeStampSet bool
 }
 
 func NewEventTimeBuilder() *EventTimeBuilder {
@@ -3951,13 +4342,13 @@ func NewEventTimeBuilder() *EventTimeBuilder {
 // 示例值：171214912293
 func (builder *EventTimeBuilder) TimeStamp(timeStamp string) *EventTimeBuilder {
 	builder.timeStamp = timeStamp
-	builder.timeStampFlag = true
+	builder.timeStampSet = true
 	return builder
 }
 
 func (builder *EventTimeBuilder) Build() *EventTime {
 	req := &EventTime{}
-	if builder.timeStampFlag {
+	if builder.timeStampSet {
 		req.TimeStamp = &builder.timeStamp
 
 	}
@@ -3977,20 +4368,20 @@ type ExchangeBinding struct {
 }
 
 type ExchangeBindingBuilder struct {
-	adminAccount     string // admin账户
-	adminAccountFlag bool
+	adminAccount    string // admin账户
+	adminAccountSet bool
 
-	exchangeAccount     string // 用户绑定的exchange账户
-	exchangeAccountFlag bool
+	exchangeAccount    string // 用户绑定的exchange账户
+	exchangeAccountSet bool
 
-	userId     string // exchange账户绑定user唯一标识id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	userIdFlag bool
+	userId    string // exchange账户绑定user唯一标识id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	userIdSet bool
 
-	status     string // exchange账户同步状态
-	statusFlag bool
+	status    string // exchange账户同步状态
+	statusSet bool
 
-	exchangeBindingId     string // exchange绑定唯一标识id。参见[exchange绑定ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/introduction#12533d5e)
-	exchangeBindingIdFlag bool
+	exchangeBindingId    string // exchange绑定唯一标识id。参见[exchange绑定ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/introduction#12533d5e)
+	exchangeBindingIdSet bool
 }
 
 func NewExchangeBindingBuilder() *ExchangeBindingBuilder {
@@ -4003,7 +4394,7 @@ func NewExchangeBindingBuilder() *ExchangeBindingBuilder {
 // 示例值：email_admin_example@outlook.com
 func (builder *ExchangeBindingBuilder) AdminAccount(adminAccount string) *ExchangeBindingBuilder {
 	builder.adminAccount = adminAccount
-	builder.adminAccountFlag = true
+	builder.adminAccountSet = true
 	return builder
 }
 
@@ -4012,7 +4403,7 @@ func (builder *ExchangeBindingBuilder) AdminAccount(adminAccount string) *Exchan
 // 示例值：email_account_example@outlook.com
 func (builder *ExchangeBindingBuilder) ExchangeAccount(exchangeAccount string) *ExchangeBindingBuilder {
 	builder.exchangeAccount = exchangeAccount
-	builder.exchangeAccountFlag = true
+	builder.exchangeAccountSet = true
 	return builder
 }
 
@@ -4021,7 +4412,7 @@ func (builder *ExchangeBindingBuilder) ExchangeAccount(exchangeAccount string) *
 // 示例值：ou_xxxxxxxxxxxxxxxxxx
 func (builder *ExchangeBindingBuilder) UserId(userId string) *ExchangeBindingBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -4030,7 +4421,7 @@ func (builder *ExchangeBindingBuilder) UserId(userId string) *ExchangeBindingBui
 // 示例值：doing
 func (builder *ExchangeBindingBuilder) Status(status string) *ExchangeBindingBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -4039,30 +4430,80 @@ func (builder *ExchangeBindingBuilder) Status(status string) *ExchangeBindingBui
 // 示例值：ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20=
 func (builder *ExchangeBindingBuilder) ExchangeBindingId(exchangeBindingId string) *ExchangeBindingBuilder {
 	builder.exchangeBindingId = exchangeBindingId
-	builder.exchangeBindingIdFlag = true
+	builder.exchangeBindingIdSet = true
 	return builder
 }
 
 func (builder *ExchangeBindingBuilder) Build() *ExchangeBinding {
 	req := &ExchangeBinding{}
-	if builder.adminAccountFlag {
+	if builder.adminAccountSet {
 		req.AdminAccount = &builder.adminAccount
 
 	}
-	if builder.exchangeAccountFlag {
+	if builder.exchangeAccountSet {
 		req.ExchangeAccount = &builder.exchangeAccount
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.exchangeBindingIdFlag {
+	if builder.exchangeBindingIdSet {
 		req.ExchangeBindingId = &builder.exchangeBindingId
+
+	}
+	return req
+}
+
+type ExcludedEventTime struct {
+	EventStartTime *string `json:"event_start_time,omitempty"` // 开始时间
+
+	EventEndTime *string `json:"event_end_time,omitempty"` // 结束时间
+}
+
+type ExcludedEventTimeBuilder struct {
+	eventStartTime    string // 开始时间
+	eventStartTimeSet bool
+
+	eventEndTime    string // 结束时间
+	eventEndTimeSet bool
+}
+
+func NewExcludedEventTimeBuilder() *ExcludedEventTimeBuilder {
+	builder := &ExcludedEventTimeBuilder{}
+	return builder
+}
+
+// 开始时间
+//
+// 示例值：none
+func (builder *ExcludedEventTimeBuilder) EventStartTime(eventStartTime string) *ExcludedEventTimeBuilder {
+	builder.eventStartTime = eventStartTime
+	builder.eventStartTimeSet = true
+	return builder
+}
+
+// 结束时间
+//
+// 示例值：none
+func (builder *ExcludedEventTimeBuilder) EventEndTime(eventEndTime string) *ExcludedEventTimeBuilder {
+	builder.eventEndTime = eventEndTime
+	builder.eventEndTimeSet = true
+	return builder
+}
+
+func (builder *ExcludedEventTimeBuilder) Build() *ExcludedEventTime {
+	req := &ExcludedEventTime{}
+	if builder.eventStartTimeSet {
+		req.EventStartTime = &builder.eventStartTime
+
+	}
+	if builder.eventEndTimeSet {
+		req.EventEndTime = &builder.eventEndTime
 
 	}
 	return req
@@ -4077,14 +4518,14 @@ type File struct {
 }
 
 type FileBuilder struct {
-	fileToken     string // 附件token
-	fileTokenFlag bool
+	fileToken    string // 附件token
+	fileTokenSet bool
 
-	fileSize     string // 附件大小
-	fileSizeFlag bool
+	fileSize    string // 附件大小
+	fileSizeSet bool
 
-	name     string // 附件名称
-	nameFlag bool
+	name    string // 附件名称
+	nameSet bool
 }
 
 func NewFileBuilder() *FileBuilder {
@@ -4097,7 +4538,7 @@ func NewFileBuilder() *FileBuilder {
 // 示例值：xAAAAA
 func (builder *FileBuilder) FileToken(fileToken string) *FileBuilder {
 	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
+	builder.fileTokenSet = true
 	return builder
 }
 
@@ -4106,7 +4547,7 @@ func (builder *FileBuilder) FileToken(fileToken string) *FileBuilder {
 // 示例值：2345
 func (builder *FileBuilder) FileSize(fileSize string) *FileBuilder {
 	builder.fileSize = fileSize
-	builder.fileSizeFlag = true
+	builder.fileSizeSet = true
 	return builder
 }
 
@@ -4115,21 +4556,21 @@ func (builder *FileBuilder) FileSize(fileSize string) *FileBuilder {
 // 示例值：附件.jpeg
 func (builder *FileBuilder) Name(name string) *FileBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *FileBuilder) Build() *File {
 	req := &File{}
-	if builder.fileTokenFlag {
+	if builder.fileTokenSet {
 		req.FileToken = &builder.fileToken
 
 	}
-	if builder.fileSizeFlag {
+	if builder.fileSizeSet {
 		req.FileSize = &builder.fileSize
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -4145,14 +4586,14 @@ type FreeTime struct {
 }
 
 type FreeTimeBuilder struct {
-	freeTimeStart     string // 空闲开始时间
-	freeTimeStartFlag bool
+	freeTimeStart    string // 空闲开始时间
+	freeTimeStartSet bool
 
-	freeTimeEnd     string // 空闲结束时间
-	freeTimeEndFlag bool
+	freeTimeEnd    string // 空闲结束时间
+	freeTimeEndSet bool
 
-	freeTimeList     string // 空闲时间列表
-	freeTimeListFlag bool
+	freeTimeList    string // 空闲时间列表
+	freeTimeListSet bool
 }
 
 func NewFreeTimeBuilder() *FreeTimeBuilder {
@@ -4165,7 +4606,7 @@ func NewFreeTimeBuilder() *FreeTimeBuilder {
 // 示例值：none
 func (builder *FreeTimeBuilder) FreeTimeStart(freeTimeStart string) *FreeTimeBuilder {
 	builder.freeTimeStart = freeTimeStart
-	builder.freeTimeStartFlag = true
+	builder.freeTimeStartSet = true
 	return builder
 }
 
@@ -4174,7 +4615,7 @@ func (builder *FreeTimeBuilder) FreeTimeStart(freeTimeStart string) *FreeTimeBui
 // 示例值：none
 func (builder *FreeTimeBuilder) FreeTimeEnd(freeTimeEnd string) *FreeTimeBuilder {
 	builder.freeTimeEnd = freeTimeEnd
-	builder.freeTimeEndFlag = true
+	builder.freeTimeEndSet = true
 	return builder
 }
 
@@ -4183,21 +4624,21 @@ func (builder *FreeTimeBuilder) FreeTimeEnd(freeTimeEnd string) *FreeTimeBuilder
 // 示例值：none
 func (builder *FreeTimeBuilder) FreeTimeList(freeTimeList string) *FreeTimeBuilder {
 	builder.freeTimeList = freeTimeList
-	builder.freeTimeListFlag = true
+	builder.freeTimeListSet = true
 	return builder
 }
 
 func (builder *FreeTimeBuilder) Build() *FreeTime {
 	req := &FreeTime{}
-	if builder.freeTimeStartFlag {
+	if builder.freeTimeStartSet {
 		req.FreeTimeStart = &builder.freeTimeStart
 
 	}
-	if builder.freeTimeEndFlag {
+	if builder.freeTimeEndSet {
 		req.FreeTimeEnd = &builder.freeTimeEnd
 
 	}
-	if builder.freeTimeListFlag {
+	if builder.freeTimeListSet {
 		req.FreeTimeList = &builder.freeTimeList
 
 	}
@@ -4209,8 +4650,8 @@ type FreeTimeAi struct {
 }
 
 type FreeTimeAiBuilder struct {
-	freeTimeList     string // 空闲时间列表
-	freeTimeListFlag bool
+	freeTimeList    string // 空闲时间列表
+	freeTimeListSet bool
 }
 
 func NewFreeTimeAiBuilder() *FreeTimeAiBuilder {
@@ -4223,13 +4664,13 @@ func NewFreeTimeAiBuilder() *FreeTimeAiBuilder {
 // 示例值：2023-12-05T15:00:00--2023-12-05T15:30:00;2023-12-05T15:30:00--2023-12-05T16:00:00;
 func (builder *FreeTimeAiBuilder) FreeTimeList(freeTimeList string) *FreeTimeAiBuilder {
 	builder.freeTimeList = freeTimeList
-	builder.freeTimeListFlag = true
+	builder.freeTimeListSet = true
 	return builder
 }
 
 func (builder *FreeTimeAiBuilder) Build() *FreeTimeAi {
 	req := &FreeTimeAi{}
-	if builder.freeTimeListFlag {
+	if builder.freeTimeListSet {
 		req.FreeTimeList = &builder.freeTimeList
 
 	}
@@ -4245,14 +4686,14 @@ type FreeTimeSlot struct {
 }
 
 type FreeTimeSlotBuilder struct {
-	startTime     string // 空闲时间段的开始时间
-	startTimeFlag bool
+	startTime    string // 空闲时间段的开始时间
+	startTimeSet bool
 
-	endTime     string // 空闲时间段的结束时间
-	endTimeFlag bool
+	endTime    string // 空闲时间段的结束时间
+	endTimeSet bool
 
-	length     int // 空闲时间段长度，单位 s
-	lengthFlag bool
+	length    int // 空闲时间段长度，单位 s
+	lengthSet bool
 }
 
 func NewFreeTimeSlotBuilder() *FreeTimeSlotBuilder {
@@ -4265,7 +4706,7 @@ func NewFreeTimeSlotBuilder() *FreeTimeSlotBuilder {
 // 示例值：2023-09-01 15:00:00
 func (builder *FreeTimeSlotBuilder) StartTime(startTime string) *FreeTimeSlotBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -4274,7 +4715,7 @@ func (builder *FreeTimeSlotBuilder) StartTime(startTime string) *FreeTimeSlotBui
 // 示例值：2023-09-01 16:00:00
 func (builder *FreeTimeSlotBuilder) EndTime(endTime string) *FreeTimeSlotBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -4283,21 +4724,21 @@ func (builder *FreeTimeSlotBuilder) EndTime(endTime string) *FreeTimeSlotBuilder
 // 示例值：3600
 func (builder *FreeTimeSlotBuilder) Length(length int) *FreeTimeSlotBuilder {
 	builder.length = length
-	builder.lengthFlag = true
+	builder.lengthSet = true
 	return builder
 }
 
 func (builder *FreeTimeSlotBuilder) Build() *FreeTimeSlot {
 	req := &FreeTimeSlot{}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.lengthFlag {
+	if builder.lengthSet {
 		req.Length = &builder.length
 
 	}
@@ -4313,14 +4754,14 @@ type Freebusy struct {
 }
 
 type FreebusyBuilder struct {
-	startTime     string // 忙闲信息开始时间，RFC3339 date_time 格式
-	startTimeFlag bool
+	startTime    string // 忙闲信息开始时间，RFC3339 date_time 格式
+	startTimeSet bool
 
-	endTime     string // 忙闲信息结束时间，RFC3339 date_time 格式
-	endTimeFlag bool
+	endTime    string // 忙闲信息结束时间，RFC3339 date_time 格式
+	endTimeSet bool
 
-	rsvpStatus     string // 参与人RSVP状态
-	rsvpStatusFlag bool
+	rsvpStatus    string // 参与人RSVP状态
+	rsvpStatusSet bool
 }
 
 func NewFreebusyBuilder() *FreebusyBuilder {
@@ -4333,7 +4774,7 @@ func NewFreebusyBuilder() *FreebusyBuilder {
 // 示例值：2020-10-28T22:30:00+08:00
 func (builder *FreebusyBuilder) StartTime(startTime string) *FreebusyBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -4342,7 +4783,7 @@ func (builder *FreebusyBuilder) StartTime(startTime string) *FreebusyBuilder {
 // 示例值：2020-10-28T22:45:00+08:00
 func (builder *FreebusyBuilder) EndTime(endTime string) *FreebusyBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -4351,21 +4792,21 @@ func (builder *FreebusyBuilder) EndTime(endTime string) *FreebusyBuilder {
 // 示例值：
 func (builder *FreebusyBuilder) RsvpStatus(rsvpStatus string) *FreebusyBuilder {
 	builder.rsvpStatus = rsvpStatus
-	builder.rsvpStatusFlag = true
+	builder.rsvpStatusSet = true
 	return builder
 }
 
 func (builder *FreebusyBuilder) Build() *Freebusy {
 	req := &Freebusy{}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.rsvpStatusFlag {
+	if builder.rsvpStatusSet {
 		req.RsvpStatus = &builder.rsvpStatus
 
 	}
@@ -4379,11 +4820,11 @@ type I18nMeetingDescription struct {
 }
 
 type I18nMeetingDescriptionBuilder struct {
-	lang     string // 语言
-	langFlag bool
+	lang    string // 语言
+	langSet bool
 
-	description     string // 会议描述
-	descriptionFlag bool
+	description    string // 会议描述
+	descriptionSet bool
 }
 
 func NewI18nMeetingDescriptionBuilder() *I18nMeetingDescriptionBuilder {
@@ -4396,7 +4837,7 @@ func NewI18nMeetingDescriptionBuilder() *I18nMeetingDescriptionBuilder {
 // 示例值：zh-cn
 func (builder *I18nMeetingDescriptionBuilder) Lang(lang string) *I18nMeetingDescriptionBuilder {
 	builder.lang = lang
-	builder.langFlag = true
+	builder.langSet = true
 	return builder
 }
 
@@ -4405,17 +4846,17 @@ func (builder *I18nMeetingDescriptionBuilder) Lang(lang string) *I18nMeetingDesc
 // 示例值：www.example.com
 func (builder *I18nMeetingDescriptionBuilder) Description(description string) *I18nMeetingDescriptionBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
 func (builder *I18nMeetingDescriptionBuilder) Build() *I18nMeetingDescription {
 	req := &I18nMeetingDescription{}
-	if builder.langFlag {
+	if builder.langSet {
 		req.Lang = &builder.lang
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
@@ -4458,62 +4899,67 @@ type Instance struct {
 	EventOrganizer *EventOrganizer `json:"event_organizer,omitempty"` // 日程组织者信息
 
 	Attendees []*CalendarEventAttendee `json:"attendees,omitempty"` // 日程参与人信息
+
+	SelfRsvpStatus *string `json:"self_rsvp_status,omitempty"` // 当前日历的RSVP状态
 }
 
 type InstanceBuilder struct {
-	eventId     string // 日程实例ID
-	eventIdFlag bool
+	eventId    string // 日程实例ID
+	eventIdSet bool
 
-	summary     string // 日程主题
-	summaryFlag bool
+	summary    string // 日程主题
+	summarySet bool
 
-	description     string // 日程描述
-	descriptionFlag bool
+	description    string // 日程描述
+	descriptionSet bool
 
-	startTime     *TimeInfo // 开始时间
-	startTimeFlag bool
+	startTime    *TimeInfo // 开始时间
+	startTimeSet bool
 
-	endTime     *TimeInfo // 结束时间
-	endTimeFlag bool
+	endTime    *TimeInfo // 结束时间
+	endTimeSet bool
 
-	status     string // 日程状态
-	statusFlag bool
+	status    string // 日程状态
+	statusSet bool
 
-	isException     bool // 是否是例外日程实例
-	isExceptionFlag bool
+	isException    bool // 是否是例外日程实例
+	isExceptionSet bool
 
-	appLink     string // 日程的app_link,跳转到具体的某个日程
-	appLinkFlag bool
+	appLink    string // 日程的app_link,跳转到具体的某个日程
+	appLinkSet bool
 
-	organizerCalendarId     string // 日程组织者日历ID
-	organizerCalendarIdFlag bool
+	organizerCalendarId    string // 日程组织者日历ID
+	organizerCalendarIdSet bool
 
-	vchat     *Vchat // 视频会议信息，仅当日程至少有一位attendee时生效
-	vchatFlag bool
+	vchat    *Vchat // 视频会议信息，仅当日程至少有一位attendee时生效
+	vchatSet bool
 
-	visibility     string // 日程公开范围，新建日程默认为Default；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
-	visibilityFlag bool
+	visibility    string // 日程公开范围，新建日程默认为Default；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
+	visibilitySet bool
 
-	attendeeAbility     string // 参与人权限
-	attendeeAbilityFlag bool
+	attendeeAbility    string // 参与人权限
+	attendeeAbilitySet bool
 
-	freeBusyStatus     string // 日程占用的忙闲状态，新建日程默认为Busy；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
-	freeBusyStatusFlag bool
+	freeBusyStatus    string // 日程占用的忙闲状态，新建日程默认为Busy；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
+	freeBusyStatusSet bool
 
-	location     *EventLocation // 日程地点
-	locationFlag bool
+	location    *EventLocation // 日程地点
+	locationSet bool
 
-	color     int // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
-	colorFlag bool
+	color    int // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
+	colorSet bool
 
-	recurringEventId     string // 例外日程的原重复日程的event_id
-	recurringEventIdFlag bool
+	recurringEventId    string // 例外日程的原重复日程的event_id
+	recurringEventIdSet bool
 
-	eventOrganizer     *EventOrganizer // 日程组织者信息
-	eventOrganizerFlag bool
+	eventOrganizer    *EventOrganizer // 日程组织者信息
+	eventOrganizerSet bool
 
-	attendees     []*CalendarEventAttendee // 日程参与人信息
-	attendeesFlag bool
+	attendees    []*CalendarEventAttendee // 日程参与人信息
+	attendeesSet bool
+
+	selfRsvpStatus    string // 当前日历的RSVP状态
+	selfRsvpStatusSet bool
 }
 
 func NewInstanceBuilder() *InstanceBuilder {
@@ -4526,7 +4972,7 @@ func NewInstanceBuilder() *InstanceBuilder {
 // 示例值：75d28f9b-e35c-4230-8a83-4a661497db54_1602504000
 func (builder *InstanceBuilder) EventId(eventId string) *InstanceBuilder {
 	builder.eventId = eventId
-	builder.eventIdFlag = true
+	builder.eventIdSet = true
 	return builder
 }
 
@@ -4535,7 +4981,7 @@ func (builder *InstanceBuilder) EventId(eventId string) *InstanceBuilder {
 // 示例值：日程主题
 func (builder *InstanceBuilder) Summary(summary string) *InstanceBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -4544,7 +4990,7 @@ func (builder *InstanceBuilder) Summary(summary string) *InstanceBuilder {
 // 示例值：desc
 func (builder *InstanceBuilder) Description(description string) *InstanceBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -4553,7 +4999,7 @@ func (builder *InstanceBuilder) Description(description string) *InstanceBuilder
 // 示例值：
 func (builder *InstanceBuilder) StartTime(startTime *TimeInfo) *InstanceBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -4562,7 +5008,7 @@ func (builder *InstanceBuilder) StartTime(startTime *TimeInfo) *InstanceBuilder 
 // 示例值：
 func (builder *InstanceBuilder) EndTime(endTime *TimeInfo) *InstanceBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -4571,7 +5017,7 @@ func (builder *InstanceBuilder) EndTime(endTime *TimeInfo) *InstanceBuilder {
 // 示例值：confirmed
 func (builder *InstanceBuilder) Status(status string) *InstanceBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -4580,7 +5026,7 @@ func (builder *InstanceBuilder) Status(status string) *InstanceBuilder {
 // 示例值：false
 func (builder *InstanceBuilder) IsException(isException bool) *InstanceBuilder {
 	builder.isException = isException
-	builder.isExceptionFlag = true
+	builder.isExceptionSet = true
 	return builder
 }
 
@@ -4589,7 +5035,7 @@ func (builder *InstanceBuilder) IsException(isException bool) *InstanceBuilder {
 // 示例值：https://applink.larkoffice.com/client/calendar/event/detail?calendarId=7039673579105026066&key=aeac9c56-aeb1-4179-a21b-02f278f59048&originalTime=0&startTime=1700496000
 func (builder *InstanceBuilder) AppLink(appLink string) *InstanceBuilder {
 	builder.appLink = appLink
-	builder.appLinkFlag = true
+	builder.appLinkSet = true
 	return builder
 }
 
@@ -4598,7 +5044,7 @@ func (builder *InstanceBuilder) AppLink(appLink string) *InstanceBuilder {
 // 示例值：feishu.cn_HF9U2MbibE8PPpjro6xjqa@group.calendar.feishu.cn
 func (builder *InstanceBuilder) OrganizerCalendarId(organizerCalendarId string) *InstanceBuilder {
 	builder.organizerCalendarId = organizerCalendarId
-	builder.organizerCalendarIdFlag = true
+	builder.organizerCalendarIdSet = true
 	return builder
 }
 
@@ -4607,7 +5053,7 @@ func (builder *InstanceBuilder) OrganizerCalendarId(organizerCalendarId string) 
 // 示例值：
 func (builder *InstanceBuilder) Vchat(vchat *Vchat) *InstanceBuilder {
 	builder.vchat = vchat
-	builder.vchatFlag = true
+	builder.vchatSet = true
 	return builder
 }
 
@@ -4616,7 +5062,7 @@ func (builder *InstanceBuilder) Vchat(vchat *Vchat) *InstanceBuilder {
 // 示例值：
 func (builder *InstanceBuilder) Visibility(visibility string) *InstanceBuilder {
 	builder.visibility = visibility
-	builder.visibilityFlag = true
+	builder.visibilitySet = true
 	return builder
 }
 
@@ -4625,7 +5071,7 @@ func (builder *InstanceBuilder) Visibility(visibility string) *InstanceBuilder {
 // 示例值：
 func (builder *InstanceBuilder) AttendeeAbility(attendeeAbility string) *InstanceBuilder {
 	builder.attendeeAbility = attendeeAbility
-	builder.attendeeAbilityFlag = true
+	builder.attendeeAbilitySet = true
 	return builder
 }
 
@@ -4634,7 +5080,7 @@ func (builder *InstanceBuilder) AttendeeAbility(attendeeAbility string) *Instanc
 // 示例值：
 func (builder *InstanceBuilder) FreeBusyStatus(freeBusyStatus string) *InstanceBuilder {
 	builder.freeBusyStatus = freeBusyStatus
-	builder.freeBusyStatusFlag = true
+	builder.freeBusyStatusSet = true
 	return builder
 }
 
@@ -4643,7 +5089,7 @@ func (builder *InstanceBuilder) FreeBusyStatus(freeBusyStatus string) *InstanceB
 // 示例值：
 func (builder *InstanceBuilder) Location(location *EventLocation) *InstanceBuilder {
 	builder.location = location
-	builder.locationFlag = true
+	builder.locationSet = true
 	return builder
 }
 
@@ -4652,7 +5098,7 @@ func (builder *InstanceBuilder) Location(location *EventLocation) *InstanceBuild
 // 示例值：0
 func (builder *InstanceBuilder) Color(color int) *InstanceBuilder {
 	builder.color = color
-	builder.colorFlag = true
+	builder.colorSet = true
 	return builder
 }
 
@@ -4661,7 +5107,7 @@ func (builder *InstanceBuilder) Color(color int) *InstanceBuilder {
 // 示例值：75d28f9b-e35c-4230-8a83-4a661497db54_0
 func (builder *InstanceBuilder) RecurringEventId(recurringEventId string) *InstanceBuilder {
 	builder.recurringEventId = recurringEventId
-	builder.recurringEventIdFlag = true
+	builder.recurringEventIdSet = true
 	return builder
 }
 
@@ -4670,7 +5116,7 @@ func (builder *InstanceBuilder) RecurringEventId(recurringEventId string) *Insta
 // 示例值：
 func (builder *InstanceBuilder) EventOrganizer(eventOrganizer *EventOrganizer) *InstanceBuilder {
 	builder.eventOrganizer = eventOrganizer
-	builder.eventOrganizerFlag = true
+	builder.eventOrganizerSet = true
 	return builder
 }
 
@@ -4679,97 +5125,212 @@ func (builder *InstanceBuilder) EventOrganizer(eventOrganizer *EventOrganizer) *
 // 示例值：
 func (builder *InstanceBuilder) Attendees(attendees []*CalendarEventAttendee) *InstanceBuilder {
 	builder.attendees = attendees
-	builder.attendeesFlag = true
+	builder.attendeesSet = true
+	return builder
+}
+
+// 当前日历的RSVP状态
+//
+// 示例值：
+func (builder *InstanceBuilder) SelfRsvpStatus(selfRsvpStatus string) *InstanceBuilder {
+	builder.selfRsvpStatus = selfRsvpStatus
+	builder.selfRsvpStatusSet = true
 	return builder
 }
 
 func (builder *InstanceBuilder) Build() *Instance {
 	req := &Instance{}
-	if builder.eventIdFlag {
+	if builder.eventIdSet {
 		req.EventId = &builder.eventId
 
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = builder.startTime
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = builder.endTime
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.isExceptionFlag {
+	if builder.isExceptionSet {
 		req.IsException = &builder.isException
 
 	}
-	if builder.appLinkFlag {
+	if builder.appLinkSet {
 		req.AppLink = &builder.appLink
 
 	}
-	if builder.organizerCalendarIdFlag {
+	if builder.organizerCalendarIdSet {
 		req.OrganizerCalendarId = &builder.organizerCalendarId
 
 	}
-	if builder.vchatFlag {
+	if builder.vchatSet {
 		req.Vchat = builder.vchat
 	}
-	if builder.visibilityFlag {
+	if builder.visibilitySet {
 		req.Visibility = &builder.visibility
 
 	}
-	if builder.attendeeAbilityFlag {
+	if builder.attendeeAbilitySet {
 		req.AttendeeAbility = &builder.attendeeAbility
 
 	}
-	if builder.freeBusyStatusFlag {
+	if builder.freeBusyStatusSet {
 		req.FreeBusyStatus = &builder.freeBusyStatus
 
 	}
-	if builder.locationFlag {
+	if builder.locationSet {
 		req.Location = builder.location
 	}
-	if builder.colorFlag {
+	if builder.colorSet {
 		req.Color = &builder.color
 
 	}
-	if builder.recurringEventIdFlag {
+	if builder.recurringEventIdSet {
 		req.RecurringEventId = &builder.recurringEventId
 
 	}
-	if builder.eventOrganizerFlag {
+	if builder.eventOrganizerSet {
 		req.EventOrganizer = builder.eventOrganizer
 	}
-	if builder.attendeesFlag {
+	if builder.attendeesSet {
 		req.Attendees = builder.attendees
+	}
+	if builder.selfRsvpStatusSet {
+		req.SelfRsvpStatus = &builder.selfRsvpStatus
+
+	}
+	return req
+}
+
+type InstanceRelationInfo struct {
+	InstanceId *string `json:"instance_id,omitempty"` // 日程实例id
+
+	MeetingInstanceIds []string `json:"meeting_instance_ids,omitempty"` // 历史视频会议ID
+
+	MeetingNotes []string `json:"meeting_notes,omitempty"` // 普通会议纪要的文档token
+
+	AiMeetingNotes []string `json:"ai_meeting_notes,omitempty"` // 智能纪要的文档token
+}
+
+type InstanceRelationInfoBuilder struct {
+	instanceId    string // 日程实例id
+	instanceIdSet bool
+
+	meetingInstanceIds    []string // 历史视频会议ID
+	meetingInstanceIdsSet bool
+
+	meetingNotes    []string // 普通会议纪要的文档token
+	meetingNotesSet bool
+
+	aiMeetingNotes    []string // 智能纪要的文档token
+	aiMeetingNotesSet bool
+}
+
+func NewInstanceRelationInfoBuilder() *InstanceRelationInfoBuilder {
+	builder := &InstanceRelationInfoBuilder{}
+	return builder
+}
+
+// 日程实例id
+//
+// 示例值：00592a0e-7edf-4678-bc9d-1b77383ef08e_1769911200
+func (builder *InstanceRelationInfoBuilder) InstanceId(instanceId string) *InstanceRelationInfoBuilder {
+	builder.instanceId = instanceId
+	builder.instanceIdSet = true
+	return builder
+}
+
+// 历史视频会议ID
+//
+// 示例值：
+func (builder *InstanceRelationInfoBuilder) MeetingInstanceIds(meetingInstanceIds []string) *InstanceRelationInfoBuilder {
+	builder.meetingInstanceIds = meetingInstanceIds
+	builder.meetingInstanceIdsSet = true
+	return builder
+}
+
+// 普通会议纪要的文档token
+//
+// 示例值：
+func (builder *InstanceRelationInfoBuilder) MeetingNotes(meetingNotes []string) *InstanceRelationInfoBuilder {
+	builder.meetingNotes = meetingNotes
+	builder.meetingNotesSet = true
+	return builder
+}
+
+// 智能纪要的文档token
+//
+// 示例值：
+func (builder *InstanceRelationInfoBuilder) AiMeetingNotes(aiMeetingNotes []string) *InstanceRelationInfoBuilder {
+	builder.aiMeetingNotes = aiMeetingNotes
+	builder.aiMeetingNotesSet = true
+	return builder
+}
+
+func (builder *InstanceRelationInfoBuilder) Build() *InstanceRelationInfo {
+	req := &InstanceRelationInfo{}
+	if builder.instanceIdSet {
+		req.InstanceId = &builder.instanceId
+
+	}
+	if builder.meetingInstanceIdsSet {
+		req.MeetingInstanceIds = builder.meetingInstanceIds
+	}
+	if builder.meetingNotesSet {
+		req.MeetingNotes = builder.meetingNotes
+	}
+	if builder.aiMeetingNotesSet {
+		req.AiMeetingNotes = builder.aiMeetingNotes
 	}
 	return req
 }
 
 type MeetingChat struct {
+	EventId *string `json:"event_id,omitempty"` // 日程id
+
 	MeetingChatId *string `json:"meeting_chat_id,omitempty"` // 会议群ID
 
 	Applink *string `json:"applink,omitempty"` // 群分享链接
+
+	MeetingChatType *string `json:"meeting_chat_type,omitempty"` // 会议群绑定类型
 }
 
 type MeetingChatBuilder struct {
-	meetingChatId     string // 会议群ID
-	meetingChatIdFlag bool
+	eventId    string // 日程id
+	eventIdSet bool
 
-	applink     string // 群分享链接
-	applinkFlag bool
+	meetingChatId    string // 会议群ID
+	meetingChatIdSet bool
+
+	applink    string // 群分享链接
+	applinkSet bool
+
+	meetingChatType    string // 会议群绑定类型
+	meetingChatTypeSet bool
 }
 
 func NewMeetingChatBuilder() *MeetingChatBuilder {
 	builder := &MeetingChatBuilder{}
+	return builder
+}
+
+// 日程id
+//
+// 示例值：00592a0e-7edf-4678-bc9d-1b77383ef08e_0
+func (builder *MeetingChatBuilder) EventId(eventId string) *MeetingChatBuilder {
+	builder.eventId = eventId
+	builder.eventIdSet = true
 	return builder
 }
 
@@ -4778,7 +5339,7 @@ func NewMeetingChatBuilder() *MeetingChatBuilder {
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *MeetingChatBuilder) MeetingChatId(meetingChatId string) *MeetingChatBuilder {
 	builder.meetingChatId = meetingChatId
-	builder.meetingChatIdFlag = true
+	builder.meetingChatIdSet = true
 	return builder
 }
 
@@ -4787,18 +5348,35 @@ func (builder *MeetingChatBuilder) MeetingChatId(meetingChatId string) *MeetingC
 // 示例值：https://applink.feishu.cn/client/chat/open?openChatId=oc_a0553eda9014c201e6969b478895c230
 func (builder *MeetingChatBuilder) Applink(applink string) *MeetingChatBuilder {
 	builder.applink = applink
-	builder.applinkFlag = true
+	builder.applinkSet = true
+	return builder
+}
+
+// 会议群绑定类型
+//
+// 示例值：
+func (builder *MeetingChatBuilder) MeetingChatType(meetingChatType string) *MeetingChatBuilder {
+	builder.meetingChatType = meetingChatType
+	builder.meetingChatTypeSet = true
 	return builder
 }
 
 func (builder *MeetingChatBuilder) Build() *MeetingChat {
 	req := &MeetingChat{}
-	if builder.meetingChatIdFlag {
+	if builder.eventIdSet {
+		req.EventId = &builder.eventId
+
+	}
+	if builder.meetingChatIdSet {
 		req.MeetingChatId = &builder.meetingChatId
 
 	}
-	if builder.applinkFlag {
+	if builder.applinkSet {
 		req.Applink = &builder.applink
+
+	}
+	if builder.meetingChatTypeSet {
+		req.MeetingChatType = &builder.meetingChatType
 
 	}
 	return req
@@ -4811,11 +5389,11 @@ type MeetingMinute struct {
 }
 
 type MeetingMinuteBuilder struct {
-	docToken     string // 文档token
-	docTokenFlag bool
+	docToken    string // 文档token
+	docTokenSet bool
 
-	docUrl     string // 文档URL
-	docUrlFlag bool
+	docUrl    string // 文档URL
+	docUrlSet bool
 }
 
 func NewMeetingMinuteBuilder() *MeetingMinuteBuilder {
@@ -4828,7 +5406,7 @@ func NewMeetingMinuteBuilder() *MeetingMinuteBuilder {
 // 示例值：WCEZdjUSSoH5rvx6hEhcyMjxn6c
 func (builder *MeetingMinuteBuilder) DocToken(docToken string) *MeetingMinuteBuilder {
 	builder.docToken = docToken
-	builder.docTokenFlag = true
+	builder.docTokenSet = true
 	return builder
 }
 
@@ -4837,17 +5415,17 @@ func (builder *MeetingMinuteBuilder) DocToken(docToken string) *MeetingMinuteBui
 // 示例值：https://bytedance.feishu.cn/docx/WCEZdjUSSoH5rvx6hEhcyMjxn6c
 func (builder *MeetingMinuteBuilder) DocUrl(docUrl string) *MeetingMinuteBuilder {
 	builder.docUrl = docUrl
-	builder.docUrlFlag = true
+	builder.docUrlSet = true
 	return builder
 }
 
 func (builder *MeetingMinuteBuilder) Build() *MeetingMinute {
 	req := &MeetingMinute{}
-	if builder.docTokenFlag {
+	if builder.docTokenSet {
 		req.DocToken = &builder.docToken
 
 	}
-	if builder.docUrlFlag {
+	if builder.docUrlSet {
 		req.DocUrl = &builder.docUrl
 
 	}
@@ -4871,26 +5449,26 @@ type MeetingSettings struct {
 }
 
 type MeetingSettingsBuilder struct {
-	ownerId     string // 设置会议 owner
-	ownerIdFlag bool
+	ownerId    string // 设置会议 owner
+	ownerIdSet bool
 
-	joinMeetingPermission     string // 设置入会范围
-	joinMeetingPermissionFlag bool
+	joinMeetingPermission    string // 设置入会范围
+	joinMeetingPermissionSet bool
 
-	password     string // 设置会议密码，仅支持 4-9 位数字
-	passwordFlag bool
+	password    string // 设置会议密码，仅支持 4-9 位数字
+	passwordSet bool
 
-	assignHosts     []string // 指定主持人
-	assignHostsFlag bool
+	assignHosts    []string // 指定主持人
+	assignHostsSet bool
 
-	autoRecord     bool // 设置自动录制
-	autoRecordFlag bool
+	autoRecord    bool // 设置自动录制
+	autoRecordSet bool
 
-	openLobby     bool // 开启等候室
-	openLobbyFlag bool
+	openLobby    bool // 开启等候室
+	openLobbySet bool
 
-	allowAttendeesStart     bool // 允许日程参与者发起会议
-	allowAttendeesStartFlag bool
+	allowAttendeesStart    bool // 允许日程参与者发起会议
+	allowAttendeesStartSet bool
 }
 
 func NewMeetingSettingsBuilder() *MeetingSettingsBuilder {
@@ -4903,7 +5481,7 @@ func NewMeetingSettingsBuilder() *MeetingSettingsBuilder {
 // 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
 func (builder *MeetingSettingsBuilder) OwnerId(ownerId string) *MeetingSettingsBuilder {
 	builder.ownerId = ownerId
-	builder.ownerIdFlag = true
+	builder.ownerIdSet = true
 	return builder
 }
 
@@ -4912,7 +5490,7 @@ func (builder *MeetingSettingsBuilder) OwnerId(ownerId string) *MeetingSettingsB
 // 示例值：
 func (builder *MeetingSettingsBuilder) JoinMeetingPermission(joinMeetingPermission string) *MeetingSettingsBuilder {
 	builder.joinMeetingPermission = joinMeetingPermission
-	builder.joinMeetingPermissionFlag = true
+	builder.joinMeetingPermissionSet = true
 	return builder
 }
 
@@ -4921,7 +5499,7 @@ func (builder *MeetingSettingsBuilder) JoinMeetingPermission(joinMeetingPermissi
 // 示例值：971024
 func (builder *MeetingSettingsBuilder) Password(password string) *MeetingSettingsBuilder {
 	builder.password = password
-	builder.passwordFlag = true
+	builder.passwordSet = true
 	return builder
 }
 
@@ -4930,7 +5508,7 @@ func (builder *MeetingSettingsBuilder) Password(password string) *MeetingSetting
 // 示例值：
 func (builder *MeetingSettingsBuilder) AssignHosts(assignHosts []string) *MeetingSettingsBuilder {
 	builder.assignHosts = assignHosts
-	builder.assignHostsFlag = true
+	builder.assignHostsSet = true
 	return builder
 }
 
@@ -4939,7 +5517,7 @@ func (builder *MeetingSettingsBuilder) AssignHosts(assignHosts []string) *Meetin
 // 示例值：false
 func (builder *MeetingSettingsBuilder) AutoRecord(autoRecord bool) *MeetingSettingsBuilder {
 	builder.autoRecord = autoRecord
-	builder.autoRecordFlag = true
+	builder.autoRecordSet = true
 	return builder
 }
 
@@ -4948,7 +5526,7 @@ func (builder *MeetingSettingsBuilder) AutoRecord(autoRecord bool) *MeetingSetti
 // 示例值：true
 func (builder *MeetingSettingsBuilder) OpenLobby(openLobby bool) *MeetingSettingsBuilder {
 	builder.openLobby = openLobby
-	builder.openLobbyFlag = true
+	builder.openLobbySet = true
 	return builder
 }
 
@@ -4957,37 +5535,137 @@ func (builder *MeetingSettingsBuilder) OpenLobby(openLobby bool) *MeetingSetting
 // 示例值：true
 func (builder *MeetingSettingsBuilder) AllowAttendeesStart(allowAttendeesStart bool) *MeetingSettingsBuilder {
 	builder.allowAttendeesStart = allowAttendeesStart
-	builder.allowAttendeesStartFlag = true
+	builder.allowAttendeesStartSet = true
 	return builder
 }
 
 func (builder *MeetingSettingsBuilder) Build() *MeetingSettings {
 	req := &MeetingSettings{}
-	if builder.ownerIdFlag {
+	if builder.ownerIdSet {
 		req.OwnerId = &builder.ownerId
 
 	}
-	if builder.joinMeetingPermissionFlag {
+	if builder.joinMeetingPermissionSet {
 		req.JoinMeetingPermission = &builder.joinMeetingPermission
 
 	}
-	if builder.passwordFlag {
+	if builder.passwordSet {
 		req.Password = &builder.password
 
 	}
-	if builder.assignHostsFlag {
+	if builder.assignHostsSet {
 		req.AssignHosts = builder.assignHosts
 	}
-	if builder.autoRecordFlag {
+	if builder.autoRecordSet {
 		req.AutoRecord = &builder.autoRecord
 
 	}
-	if builder.openLobbyFlag {
+	if builder.openLobbySet {
 		req.OpenLobby = &builder.openLobby
 
 	}
-	if builder.allowAttendeesStartFlag {
+	if builder.allowAttendeesStartSet {
 		req.AllowAttendeesStart = &builder.allowAttendeesStart
+
+	}
+	return req
+}
+
+type MgetInstanceInfoFailMsg struct {
+	InstanceId *string `json:"instance_id,omitempty"` // 日程实例id
+
+	FailMsg *string `json:"fail_msg,omitempty"` // 失败信息
+}
+
+type MgetInstanceInfoFailMsgBuilder struct {
+	instanceId    string // 日程实例id
+	instanceIdSet bool
+
+	failMsg    string // 失败信息
+	failMsgSet bool
+}
+
+func NewMgetInstanceInfoFailMsgBuilder() *MgetInstanceInfoFailMsgBuilder {
+	builder := &MgetInstanceInfoFailMsgBuilder{}
+	return builder
+}
+
+// 日程实例id
+//
+// 示例值：00592a0e-7edf-4678-bc9d-1b77383ef08e_1769911200
+func (builder *MgetInstanceInfoFailMsgBuilder) InstanceId(instanceId string) *MgetInstanceInfoFailMsgBuilder {
+	builder.instanceId = instanceId
+	builder.instanceIdSet = true
+	return builder
+}
+
+// 失败信息
+//
+// 示例值：No Permission
+func (builder *MgetInstanceInfoFailMsgBuilder) FailMsg(failMsg string) *MgetInstanceInfoFailMsgBuilder {
+	builder.failMsg = failMsg
+	builder.failMsgSet = true
+	return builder
+}
+
+func (builder *MgetInstanceInfoFailMsgBuilder) Build() *MgetInstanceInfoFailMsg {
+	req := &MgetInstanceInfoFailMsg{}
+	if builder.instanceIdSet {
+		req.InstanceId = &builder.instanceId
+
+	}
+	if builder.failMsgSet {
+		req.FailMsg = &builder.failMsg
+
+	}
+	return req
+}
+
+type MgetMeetingChatFailMsg struct {
+	EventId *string `json:"event_id,omitempty"` // 日程id
+
+	FailMsg *string `json:"fail_msg,omitempty"` // 失败信息
+}
+
+type MgetMeetingChatFailMsgBuilder struct {
+	eventId    string // 日程id
+	eventIdSet bool
+
+	failMsg    string // 失败信息
+	failMsgSet bool
+}
+
+func NewMgetMeetingChatFailMsgBuilder() *MgetMeetingChatFailMsgBuilder {
+	builder := &MgetMeetingChatFailMsgBuilder{}
+	return builder
+}
+
+// 日程id
+//
+// 示例值：00592a0e-7edf-4678-bc9d-1b77383ef08e_0
+func (builder *MgetMeetingChatFailMsgBuilder) EventId(eventId string) *MgetMeetingChatFailMsgBuilder {
+	builder.eventId = eventId
+	builder.eventIdSet = true
+	return builder
+}
+
+// 失败信息
+//
+// 示例值：No Permission
+func (builder *MgetMeetingChatFailMsgBuilder) FailMsg(failMsg string) *MgetMeetingChatFailMsgBuilder {
+	builder.failMsg = failMsg
+	builder.failMsgSet = true
+	return builder
+}
+
+func (builder *MgetMeetingChatFailMsgBuilder) Build() *MgetMeetingChatFailMsg {
+	req := &MgetMeetingChatFailMsg{}
+	if builder.eventIdSet {
+		req.EventId = &builder.eventId
+
+	}
+	if builder.failMsgSet {
+		req.FailMsg = &builder.failMsg
 
 	}
 	return req
@@ -5014,32 +5692,32 @@ type MyAiEventDetail struct {
 }
 
 type MyAiEventDetailBuilder struct {
-	eventId     string // 日程的uid_originTime
-	eventIdFlag bool
+	eventId    string // 日程的uid_originTime
+	eventIdSet bool
 
-	summary     string // 日程主题
-	summaryFlag bool
+	summary    string // 日程主题
+	summarySet bool
 
-	startTime     string // 日程开始时间
-	startTimeFlag bool
+	startTime    string // 日程开始时间
+	startTimeSet bool
 
-	endTime     string // 日程结束时间
-	endTimeFlag bool
+	endTime    string // 日程结束时间
+	endTimeSet bool
 
-	timezone     string // 时区
-	timezoneFlag bool
+	timezone    string // 时区
+	timezoneSet bool
 
-	recurrenceRule     string // 日程的重复性规则
-	recurrenceRuleFlag bool
+	recurrenceRule    string // 日程的重复性规则
+	recurrenceRuleSet bool
 
-	participants     []*UserMeta // 参与人实体列表
-	participantsFlag bool
+	participants    []*UserMeta // 参与人实体列表
+	participantsSet bool
 
-	rooms     []*RoomMeta // 会议室实体列表
-	roomsFlag bool
+	rooms    []*RoomMeta // 会议室实体列表
+	roomsSet bool
 
-	accessRole     string // 日程的权限
-	accessRoleFlag bool
+	accessRole    string // 日程的权限
+	accessRoleSet bool
 }
 
 func NewMyAiEventDetailBuilder() *MyAiEventDetailBuilder {
@@ -5052,7 +5730,7 @@ func NewMyAiEventDetailBuilder() *MyAiEventDetailBuilder {
 // 示例值：11dd1004-7cfb-4ad2-89a0-aa3c82f34dda_0
 func (builder *MyAiEventDetailBuilder) EventId(eventId string) *MyAiEventDetailBuilder {
 	builder.eventId = eventId
-	builder.eventIdFlag = true
+	builder.eventIdSet = true
 	return builder
 }
 
@@ -5061,7 +5739,7 @@ func (builder *MyAiEventDetailBuilder) EventId(eventId string) *MyAiEventDetailB
 // 示例值：none
 func (builder *MyAiEventDetailBuilder) Summary(summary string) *MyAiEventDetailBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -5070,7 +5748,7 @@ func (builder *MyAiEventDetailBuilder) Summary(summary string) *MyAiEventDetailB
 // 示例值：none
 func (builder *MyAiEventDetailBuilder) StartTime(startTime string) *MyAiEventDetailBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -5079,7 +5757,7 @@ func (builder *MyAiEventDetailBuilder) StartTime(startTime string) *MyAiEventDet
 // 示例值：none
 func (builder *MyAiEventDetailBuilder) EndTime(endTime string) *MyAiEventDetailBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -5088,7 +5766,7 @@ func (builder *MyAiEventDetailBuilder) EndTime(endTime string) *MyAiEventDetailB
 // 示例值：Asia/Shanghai
 func (builder *MyAiEventDetailBuilder) Timezone(timezone string) *MyAiEventDetailBuilder {
 	builder.timezone = timezone
-	builder.timezoneFlag = true
+	builder.timezoneSet = true
 	return builder
 }
 
@@ -5097,7 +5775,7 @@ func (builder *MyAiEventDetailBuilder) Timezone(timezone string) *MyAiEventDetai
 // 示例值：FREQ=DAILY;INTERVAL=1
 func (builder *MyAiEventDetailBuilder) RecurrenceRule(recurrenceRule string) *MyAiEventDetailBuilder {
 	builder.recurrenceRule = recurrenceRule
-	builder.recurrenceRuleFlag = true
+	builder.recurrenceRuleSet = true
 	return builder
 }
 
@@ -5106,7 +5784,7 @@ func (builder *MyAiEventDetailBuilder) RecurrenceRule(recurrenceRule string) *My
 // 示例值：
 func (builder *MyAiEventDetailBuilder) Participants(participants []*UserMeta) *MyAiEventDetailBuilder {
 	builder.participants = participants
-	builder.participantsFlag = true
+	builder.participantsSet = true
 	return builder
 }
 
@@ -5115,7 +5793,7 @@ func (builder *MyAiEventDetailBuilder) Participants(participants []*UserMeta) *M
 // 示例值：
 func (builder *MyAiEventDetailBuilder) Rooms(rooms []*RoomMeta) *MyAiEventDetailBuilder {
 	builder.rooms = rooms
-	builder.roomsFlag = true
+	builder.roomsSet = true
 	return builder
 }
 
@@ -5124,43 +5802,43 @@ func (builder *MyAiEventDetailBuilder) Rooms(rooms []*RoomMeta) *MyAiEventDetail
 // 示例值：read/invite/edit
 func (builder *MyAiEventDetailBuilder) AccessRole(accessRole string) *MyAiEventDetailBuilder {
 	builder.accessRole = accessRole
-	builder.accessRoleFlag = true
+	builder.accessRoleSet = true
 	return builder
 }
 
 func (builder *MyAiEventDetailBuilder) Build() *MyAiEventDetail {
 	req := &MyAiEventDetail{}
-	if builder.eventIdFlag {
+	if builder.eventIdSet {
 		req.EventId = &builder.eventId
 
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.timezoneFlag {
+	if builder.timezoneSet {
 		req.Timezone = &builder.timezone
 
 	}
-	if builder.recurrenceRuleFlag {
+	if builder.recurrenceRuleSet {
 		req.RecurrenceRule = &builder.recurrenceRule
 
 	}
-	if builder.participantsFlag {
+	if builder.participantsSet {
 		req.Participants = builder.participants
 	}
-	if builder.roomsFlag {
+	if builder.roomsSet {
 		req.Rooms = builder.rooms
 	}
-	if builder.accessRoleFlag {
+	if builder.accessRoleSet {
 		req.AccessRole = &builder.accessRole
 
 	}
@@ -5186,29 +5864,29 @@ type MyAiEventInfo struct {
 }
 
 type MyAiEventInfoBuilder struct {
-	eventId     string // 日程的uid_originTime
-	eventIdFlag bool
+	eventId    string // 日程的uid_originTime
+	eventIdSet bool
 
-	summary     string // 日程主题
-	summaryFlag bool
+	summary    string // 日程主题
+	summarySet bool
 
-	startTime     string // 日程开始时间，日期+时间格式
-	startTimeFlag bool
+	startTime    string // 日程开始时间，日期+时间格式
+	startTimeSet bool
 
-	endTime     string // 日程结束时间，日期+时间格式
-	endTimeFlag bool
+	endTime    string // 日程结束时间，日期+时间格式
+	endTimeSet bool
 
-	startTimezone     string // 日程开始时间时区
-	startTimezoneFlag bool
+	startTimezone    string // 日程开始时间时区
+	startTimezoneSet bool
 
-	recurrenceRule     string // 日程的重复性规则
-	recurrenceRuleFlag bool
+	recurrenceRule    string // 日程的重复性规则
+	recurrenceRuleSet bool
 
-	participantIds     string // 日程参与人open ID
-	participantIdsFlag bool
+	participantIds    string // 日程参与人open ID
+	participantIdsSet bool
 
-	meetingRoomIds     string // 需要预定的会议室ID列表
-	meetingRoomIdsFlag bool
+	meetingRoomIds    string // 需要预定的会议室ID列表
+	meetingRoomIdsSet bool
 }
 
 func NewMyAiEventInfoBuilder() *MyAiEventInfoBuilder {
@@ -5221,7 +5899,7 @@ func NewMyAiEventInfoBuilder() *MyAiEventInfoBuilder {
 // 示例值：11dd1004-7cfb-4ad2-89a0-aa3c82f34dda_0
 func (builder *MyAiEventInfoBuilder) EventId(eventId string) *MyAiEventInfoBuilder {
 	builder.eventId = eventId
-	builder.eventIdFlag = true
+	builder.eventIdSet = true
 	return builder
 }
 
@@ -5230,7 +5908,7 @@ func (builder *MyAiEventInfoBuilder) EventId(eventId string) *MyAiEventInfoBuild
 // 示例值：日程主题
 func (builder *MyAiEventInfoBuilder) Summary(summary string) *MyAiEventInfoBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -5239,7 +5917,7 @@ func (builder *MyAiEventInfoBuilder) Summary(summary string) *MyAiEventInfoBuild
 // 示例值：2023-01-01T00:00
 func (builder *MyAiEventInfoBuilder) StartTime(startTime string) *MyAiEventInfoBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -5248,7 +5926,7 @@ func (builder *MyAiEventInfoBuilder) StartTime(startTime string) *MyAiEventInfoB
 // 示例值：2023-01-01T01:00
 func (builder *MyAiEventInfoBuilder) EndTime(endTime string) *MyAiEventInfoBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -5257,7 +5935,7 @@ func (builder *MyAiEventInfoBuilder) EndTime(endTime string) *MyAiEventInfoBuild
 // 示例值：Asia/Shanghai
 func (builder *MyAiEventInfoBuilder) StartTimezone(startTimezone string) *MyAiEventInfoBuilder {
 	builder.startTimezone = startTimezone
-	builder.startTimezoneFlag = true
+	builder.startTimezoneSet = true
 	return builder
 }
 
@@ -5266,7 +5944,7 @@ func (builder *MyAiEventInfoBuilder) StartTimezone(startTimezone string) *MyAiEv
 // 示例值：FREQ=DAILY;INTERVAL=1
 func (builder *MyAiEventInfoBuilder) RecurrenceRule(recurrenceRule string) *MyAiEventInfoBuilder {
 	builder.recurrenceRule = recurrenceRule
-	builder.recurrenceRuleFlag = true
+	builder.recurrenceRuleSet = true
 	return builder
 }
 
@@ -5275,7 +5953,7 @@ func (builder *MyAiEventInfoBuilder) RecurrenceRule(recurrenceRule string) *MyAi
 // 示例值：ou_xxx;ou_yyy
 func (builder *MyAiEventInfoBuilder) ParticipantIds(participantIds string) *MyAiEventInfoBuilder {
 	builder.participantIds = participantIds
-	builder.participantIdsFlag = true
+	builder.participantIdsSet = true
 	return builder
 }
 
@@ -5284,41 +5962,41 @@ func (builder *MyAiEventInfoBuilder) ParticipantIds(participantIds string) *MyAi
 // 示例值：omm_xxx;omm_yyy
 func (builder *MyAiEventInfoBuilder) MeetingRoomIds(meetingRoomIds string) *MyAiEventInfoBuilder {
 	builder.meetingRoomIds = meetingRoomIds
-	builder.meetingRoomIdsFlag = true
+	builder.meetingRoomIdsSet = true
 	return builder
 }
 
 func (builder *MyAiEventInfoBuilder) Build() *MyAiEventInfo {
 	req := &MyAiEventInfo{}
-	if builder.eventIdFlag {
+	if builder.eventIdSet {
 		req.EventId = &builder.eventId
 
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.startTimezoneFlag {
+	if builder.startTimezoneSet {
 		req.StartTimezone = &builder.startTimezone
 
 	}
-	if builder.recurrenceRuleFlag {
+	if builder.recurrenceRuleSet {
 		req.RecurrenceRule = &builder.recurrenceRule
 
 	}
-	if builder.participantIdsFlag {
+	if builder.participantIdsSet {
 		req.ParticipantIds = &builder.participantIds
 
 	}
-	if builder.meetingRoomIdsFlag {
+	if builder.meetingRoomIdsSet {
 		req.MeetingRoomIds = &builder.meetingRoomIds
 
 	}
@@ -5332,11 +6010,11 @@ type MyaiCardStatus struct {
 }
 
 type MyaiCardStatusBuilder struct {
-	fromStatus     string // 卡片原来的状态
-	fromStatusFlag bool
+	fromStatus    string // 卡片原来的状态
+	fromStatusSet bool
 
-	toStatus     string // 卡片的新状态
-	toStatusFlag bool
+	toStatus    string // 卡片的新状态
+	toStatusSet bool
 }
 
 func NewMyaiCardStatusBuilder() *MyaiCardStatusBuilder {
@@ -5349,7 +6027,7 @@ func NewMyaiCardStatusBuilder() *MyaiCardStatusBuilder {
 // 示例值：CREATED
 func (builder *MyaiCardStatusBuilder) FromStatus(fromStatus string) *MyaiCardStatusBuilder {
 	builder.fromStatus = fromStatus
-	builder.fromStatusFlag = true
+	builder.fromStatusSet = true
 	return builder
 }
 
@@ -5358,17 +6036,17 @@ func (builder *MyaiCardStatusBuilder) FromStatus(fromStatus string) *MyaiCardSta
 // 示例值：INVALIDATED
 func (builder *MyaiCardStatusBuilder) ToStatus(toStatus string) *MyaiCardStatusBuilder {
 	builder.toStatus = toStatus
-	builder.toStatusFlag = true
+	builder.toStatusSet = true
 	return builder
 }
 
 func (builder *MyaiCardStatusBuilder) Build() *MyaiCardStatus {
 	req := &MyaiCardStatus{}
-	if builder.fromStatusFlag {
+	if builder.fromStatusSet {
 		req.FromStatus = &builder.fromStatus
 
 	}
-	if builder.toStatusFlag {
+	if builder.toStatusSet {
 		req.ToStatus = &builder.toStatus
 
 	}
@@ -5388,20 +6066,20 @@ type MyaiDocDetail struct {
 }
 
 type MyaiDocDetailBuilder struct {
-	title     string // 文档标题
-	titleFlag bool
+	title    string // 文档标题
+	titleSet bool
 
-	url     string // 文档链接
-	urlFlag bool
+	url    string // 文档链接
+	urlSet bool
 
-	token     string // 文档Token
-	tokenFlag bool
+	token    string // 文档Token
+	tokenSet bool
 
-	docType     string // 文档类型
-	docTypeFlag bool
+	docType    string // 文档类型
+	docTypeSet bool
 
-	extra     string // 文档附加信息
-	extraFlag bool
+	extra    string // 文档附加信息
+	extraSet bool
 }
 
 func NewMyaiDocDetailBuilder() *MyaiDocDetailBuilder {
@@ -5414,7 +6092,7 @@ func NewMyaiDocDetailBuilder() *MyaiDocDetailBuilder {
 // 示例值：none
 func (builder *MyaiDocDetailBuilder) Title(title string) *MyaiDocDetailBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -5423,7 +6101,7 @@ func (builder *MyaiDocDetailBuilder) Title(title string) *MyaiDocDetailBuilder {
 // 示例值：none
 func (builder *MyaiDocDetailBuilder) Url(url string) *MyaiDocDetailBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -5432,7 +6110,7 @@ func (builder *MyaiDocDetailBuilder) Url(url string) *MyaiDocDetailBuilder {
 // 示例值：none
 func (builder *MyaiDocDetailBuilder) Token(token string) *MyaiDocDetailBuilder {
 	builder.token = token
-	builder.tokenFlag = true
+	builder.tokenSet = true
 	return builder
 }
 
@@ -5441,7 +6119,7 @@ func (builder *MyaiDocDetailBuilder) Token(token string) *MyaiDocDetailBuilder {
 // 示例值：none
 func (builder *MyaiDocDetailBuilder) DocType(docType string) *MyaiDocDetailBuilder {
 	builder.docType = docType
-	builder.docTypeFlag = true
+	builder.docTypeSet = true
 	return builder
 }
 
@@ -5450,29 +6128,29 @@ func (builder *MyaiDocDetailBuilder) DocType(docType string) *MyaiDocDetailBuild
 // 示例值：none
 func (builder *MyaiDocDetailBuilder) Extra(extra string) *MyaiDocDetailBuilder {
 	builder.extra = extra
-	builder.extraFlag = true
+	builder.extraSet = true
 	return builder
 }
 
 func (builder *MyaiDocDetailBuilder) Build() *MyaiDocDetail {
 	req := &MyaiDocDetail{}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.tokenFlag {
+	if builder.tokenSet {
 		req.Token = &builder.token
 
 	}
-	if builder.docTypeFlag {
+	if builder.docTypeSet {
 		req.DocType = &builder.docType
 
 	}
-	if builder.extraFlag {
+	if builder.extraSet {
 		req.Extra = &builder.extra
 
 	}
@@ -5498,29 +6176,29 @@ type MyaiReply struct {
 }
 
 type MyaiReplyBuilder struct {
-	reply     string // 返回给myai的自然语言描述
-	replyFlag bool
+	reply    string // 返回给myai的自然语言描述
+	replySet bool
 
-	startTime     string // 日程开始时间
-	startTimeFlag bool
+	startTime    string // 日程开始时间
+	startTimeSet bool
 
-	endTime     string // 日程结束时间
-	endTimeFlag bool
+	endTime    string // 日程结束时间
+	endTimeSet bool
 
-	rooms     []*RoomMeta // 会议室实体列表
-	roomsFlag bool
+	rooms    []*RoomMeta // 会议室实体列表
+	roomsSet bool
 
-	summary     string // 日程主题
-	summaryFlag bool
+	summary    string // 日程主题
+	summarySet bool
 
-	participants     []*UserMeta // 参与人实体列表
-	participantsFlag bool
+	participants    []*UserMeta // 参与人实体列表
+	participantsSet bool
 
-	eventId     string // 日程的uid_originTime
-	eventIdFlag bool
+	eventId    string // 日程的uid_originTime
+	eventIdSet bool
 
-	recurrenceRule     string // 日程的重复性规则
-	recurrenceRuleFlag bool
+	recurrenceRule    string // 日程的重复性规则
+	recurrenceRuleSet bool
 }
 
 func NewMyaiReplyBuilder() *MyaiReplyBuilder {
@@ -5533,7 +6211,7 @@ func NewMyaiReplyBuilder() *MyaiReplyBuilder {
 // 示例值：none
 func (builder *MyaiReplyBuilder) Reply(reply string) *MyaiReplyBuilder {
 	builder.reply = reply
-	builder.replyFlag = true
+	builder.replySet = true
 	return builder
 }
 
@@ -5542,7 +6220,7 @@ func (builder *MyaiReplyBuilder) Reply(reply string) *MyaiReplyBuilder {
 // 示例值：none
 func (builder *MyaiReplyBuilder) StartTime(startTime string) *MyaiReplyBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -5551,7 +6229,7 @@ func (builder *MyaiReplyBuilder) StartTime(startTime string) *MyaiReplyBuilder {
 // 示例值：none
 func (builder *MyaiReplyBuilder) EndTime(endTime string) *MyaiReplyBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -5560,7 +6238,7 @@ func (builder *MyaiReplyBuilder) EndTime(endTime string) *MyaiReplyBuilder {
 // 示例值：
 func (builder *MyaiReplyBuilder) Rooms(rooms []*RoomMeta) *MyaiReplyBuilder {
 	builder.rooms = rooms
-	builder.roomsFlag = true
+	builder.roomsSet = true
 	return builder
 }
 
@@ -5569,7 +6247,7 @@ func (builder *MyaiReplyBuilder) Rooms(rooms []*RoomMeta) *MyaiReplyBuilder {
 // 示例值：none
 func (builder *MyaiReplyBuilder) Summary(summary string) *MyaiReplyBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -5578,7 +6256,7 @@ func (builder *MyaiReplyBuilder) Summary(summary string) *MyaiReplyBuilder {
 // 示例值：
 func (builder *MyaiReplyBuilder) Participants(participants []*UserMeta) *MyaiReplyBuilder {
 	builder.participants = participants
-	builder.participantsFlag = true
+	builder.participantsSet = true
 	return builder
 }
 
@@ -5587,7 +6265,7 @@ func (builder *MyaiReplyBuilder) Participants(participants []*UserMeta) *MyaiRep
 // 示例值：11dd1004-7cfb-4ad2-89a0-aa3c82f34dda_0
 func (builder *MyaiReplyBuilder) EventId(eventId string) *MyaiReplyBuilder {
 	builder.eventId = eventId
-	builder.eventIdFlag = true
+	builder.eventIdSet = true
 	return builder
 }
 
@@ -5596,39 +6274,39 @@ func (builder *MyaiReplyBuilder) EventId(eventId string) *MyaiReplyBuilder {
 // 示例值：FREQ=DAILY;INTERVAL=1
 func (builder *MyaiReplyBuilder) RecurrenceRule(recurrenceRule string) *MyaiReplyBuilder {
 	builder.recurrenceRule = recurrenceRule
-	builder.recurrenceRuleFlag = true
+	builder.recurrenceRuleSet = true
 	return builder
 }
 
 func (builder *MyaiReplyBuilder) Build() *MyaiReply {
 	req := &MyaiReply{}
-	if builder.replyFlag {
+	if builder.replySet {
 		req.Reply = &builder.reply
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.roomsFlag {
+	if builder.roomsSet {
 		req.Rooms = builder.rooms
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 
 	}
-	if builder.participantsFlag {
+	if builder.participantsSet {
 		req.Participants = builder.participants
 	}
-	if builder.eventIdFlag {
+	if builder.eventIdSet {
 		req.EventId = &builder.eventId
 
 	}
-	if builder.recurrenceRuleFlag {
+	if builder.recurrenceRuleSet {
 		req.RecurrenceRule = &builder.recurrenceRule
 
 	}
@@ -5642,11 +6320,11 @@ type MyaiSearchDocResult struct {
 }
 
 type MyaiSearchDocResultBuilder struct {
-	docItems     []*MyaiDocDetail // 返回的文档列表
-	docItemsFlag bool
+	docItems    []*MyaiDocDetail // 返回的文档列表
+	docItemsSet bool
 
-	message     string // 返回给AI的信息
-	messageFlag bool
+	message    string // 返回给AI的信息
+	messageSet bool
 }
 
 func NewMyaiSearchDocResultBuilder() *MyaiSearchDocResultBuilder {
@@ -5659,7 +6337,7 @@ func NewMyaiSearchDocResultBuilder() *MyaiSearchDocResultBuilder {
 // 示例值：
 func (builder *MyaiSearchDocResultBuilder) DocItems(docItems []*MyaiDocDetail) *MyaiSearchDocResultBuilder {
 	builder.docItems = docItems
-	builder.docItemsFlag = true
+	builder.docItemsSet = true
 	return builder
 }
 
@@ -5668,16 +6346,16 @@ func (builder *MyaiSearchDocResultBuilder) DocItems(docItems []*MyaiDocDetail) *
 // 示例值：以下是返回的文档内容
 func (builder *MyaiSearchDocResultBuilder) Message(message string) *MyaiSearchDocResultBuilder {
 	builder.message = message
-	builder.messageFlag = true
+	builder.messageSet = true
 	return builder
 }
 
 func (builder *MyaiSearchDocResultBuilder) Build() *MyaiSearchDocResult {
 	req := &MyaiSearchDocResult{}
-	if builder.docItemsFlag {
+	if builder.docItemsSet {
 		req.DocItems = builder.docItems
 	}
-	if builder.messageFlag {
+	if builder.messageSet {
 		req.Message = &builder.message
 
 	}
@@ -5691,11 +6369,11 @@ type OpenEventRsvpInfo struct {
 }
 
 type OpenEventRsvpInfoBuilder struct {
-	fromUserId     *UserId // RSVP操作者
-	fromUserIdFlag bool
+	fromUserId    *UserId // RSVP操作者
+	fromUserIdSet bool
 
-	rsvpStatus     string // RSVP操作状态
-	rsvpStatusFlag bool
+	rsvpStatus    string // RSVP操作状态
+	rsvpStatusSet bool
 }
 
 func NewOpenEventRsvpInfoBuilder() *OpenEventRsvpInfoBuilder {
@@ -5708,7 +6386,7 @@ func NewOpenEventRsvpInfoBuilder() *OpenEventRsvpInfoBuilder {
 // 示例值：
 func (builder *OpenEventRsvpInfoBuilder) FromUserId(fromUserId *UserId) *OpenEventRsvpInfoBuilder {
 	builder.fromUserId = fromUserId
-	builder.fromUserIdFlag = true
+	builder.fromUserIdSet = true
 	return builder
 }
 
@@ -5717,16 +6395,16 @@ func (builder *OpenEventRsvpInfoBuilder) FromUserId(fromUserId *UserId) *OpenEve
 // 示例值：accept
 func (builder *OpenEventRsvpInfoBuilder) RsvpStatus(rsvpStatus string) *OpenEventRsvpInfoBuilder {
 	builder.rsvpStatus = rsvpStatus
-	builder.rsvpStatusFlag = true
+	builder.rsvpStatusSet = true
 	return builder
 }
 
 func (builder *OpenEventRsvpInfoBuilder) Build() *OpenEventRsvpInfo {
 	req := &OpenEventRsvpInfo{}
-	if builder.fromUserIdFlag {
+	if builder.fromUserIdSet {
 		req.FromUserId = builder.fromUserId
 	}
-	if builder.rsvpStatusFlag {
+	if builder.rsvpStatusSet {
 		req.RsvpStatus = &builder.rsvpStatus
 
 	}
@@ -5740,11 +6418,11 @@ type OperateCardData struct {
 }
 
 type OperateCardDataBuilder struct {
-	meetingUrl     string // 视频会议链接
-	meetingUrlFlag bool
+	meetingUrl    string // 视频会议链接
+	meetingUrlSet bool
 
-	meetingNo     string // 视频会议no
-	meetingNoFlag bool
+	meetingNo    string // 视频会议no
+	meetingNoSet bool
 }
 
 func NewOperateCardDataBuilder() *OperateCardDataBuilder {
@@ -5757,7 +6435,7 @@ func NewOperateCardDataBuilder() *OperateCardDataBuilder {
 // 示例值：https://vc.feishu.cn/j/152568231
 func (builder *OperateCardDataBuilder) MeetingUrl(meetingUrl string) *OperateCardDataBuilder {
 	builder.meetingUrl = meetingUrl
-	builder.meetingUrlFlag = true
+	builder.meetingUrlSet = true
 	return builder
 }
 
@@ -5766,18 +6444,190 @@ func (builder *OperateCardDataBuilder) MeetingUrl(meetingUrl string) *OperateCar
 // 示例值：808056935
 func (builder *OperateCardDataBuilder) MeetingNo(meetingNo string) *OperateCardDataBuilder {
 	builder.meetingNo = meetingNo
-	builder.meetingNoFlag = true
+	builder.meetingNoSet = true
 	return builder
 }
 
 func (builder *OperateCardDataBuilder) Build() *OperateCardData {
 	req := &OperateCardData{}
-	if builder.meetingUrlFlag {
+	if builder.meetingUrlSet {
 		req.MeetingUrl = &builder.meetingUrl
 
 	}
-	if builder.meetingNoFlag {
+	if builder.meetingNoSet {
 		req.MeetingNo = &builder.meetingNo
+
+	}
+	return req
+}
+
+type RecommendEventInfo struct {
+	EventStartTime *string `json:"event_start_time,omitempty"` // 日程开始时间
+
+	EventEndTime *string `json:"event_end_time,omitempty"` // 日程结束时间
+
+	RecommendReason *string `json:"recommend_reason,omitempty"` // 推荐原因
+}
+
+type RecommendEventInfoBuilder struct {
+	eventStartTime    string // 日程开始时间
+	eventStartTimeSet bool
+
+	eventEndTime    string // 日程结束时间
+	eventEndTimeSet bool
+
+	recommendReason    string // 推荐原因
+	recommendReasonSet bool
+}
+
+func NewRecommendEventInfoBuilder() *RecommendEventInfoBuilder {
+	builder := &RecommendEventInfoBuilder{}
+	return builder
+}
+
+// 日程开始时间
+//
+// 示例值：2025-03-01 14:00:00
+func (builder *RecommendEventInfoBuilder) EventStartTime(eventStartTime string) *RecommendEventInfoBuilder {
+	builder.eventStartTime = eventStartTime
+	builder.eventStartTimeSet = true
+	return builder
+}
+
+// 日程结束时间
+//
+// 示例值：2025-03-01 15:00:00
+func (builder *RecommendEventInfoBuilder) EventEndTime(eventEndTime string) *RecommendEventInfoBuilder {
+	builder.eventEndTime = eventEndTime
+	builder.eventEndTimeSet = true
+	return builder
+}
+
+// 推荐原因
+//
+// 示例值：无
+func (builder *RecommendEventInfoBuilder) RecommendReason(recommendReason string) *RecommendEventInfoBuilder {
+	builder.recommendReason = recommendReason
+	builder.recommendReasonSet = true
+	return builder
+}
+
+func (builder *RecommendEventInfoBuilder) Build() *RecommendEventInfo {
+	req := &RecommendEventInfo{}
+	if builder.eventStartTimeSet {
+		req.EventStartTime = &builder.eventStartTime
+
+	}
+	if builder.eventEndTimeSet {
+		req.EventEndTime = &builder.eventEndTime
+
+	}
+	if builder.recommendReasonSet {
+		req.RecommendReason = &builder.recommendReason
+
+	}
+	return req
+}
+
+type RecommendRoomInfo struct {
+	RoomId *string `json:"room_id,omitempty"` // 会议室ID
+
+	RoomName *string `json:"room_name,omitempty"` // 会议室展示名称
+
+	FullName *string `json:"full_name,omitempty"` // 会议室完整名称
+
+	Capacity *int `json:"capacity,omitempty"` // 会议室容量
+
+	ReserveUntilTime *string `json:"reserve_until_time,omitempty"` // 会议室预定截止时间
+}
+
+type RecommendRoomInfoBuilder struct {
+	roomId    string // 会议室ID
+	roomIdSet bool
+
+	roomName    string // 会议室展示名称
+	roomNameSet bool
+
+	fullName    string // 会议室完整名称
+	fullNameSet bool
+
+	capacity    int // 会议室容量
+	capacitySet bool
+
+	reserveUntilTime    string // 会议室预定截止时间
+	reserveUntilTimeSet bool
+}
+
+func NewRecommendRoomInfoBuilder() *RecommendRoomInfoBuilder {
+	builder := &RecommendRoomInfoBuilder{}
+	return builder
+}
+
+// 会议室ID
+//
+// 示例值：omm_83d09ad4f6896e02029a6a075f71c9d1
+func (builder *RecommendRoomInfoBuilder) RoomId(roomId string) *RecommendRoomInfoBuilder {
+	builder.roomId = roomId
+	builder.roomIdSet = true
+	return builder
+}
+
+// 会议室展示名称
+//
+// 示例值：xx建筑-F2-01
+func (builder *RecommendRoomInfoBuilder) RoomName(roomName string) *RecommendRoomInfoBuilder {
+	builder.roomName = roomName
+	builder.roomNameSet = true
+	return builder
+}
+
+// 会议室完整名称
+//
+// 示例值：无
+func (builder *RecommendRoomInfoBuilder) FullName(fullName string) *RecommendRoomInfoBuilder {
+	builder.fullName = fullName
+	builder.fullNameSet = true
+	return builder
+}
+
+// 会议室容量
+//
+// 示例值：2
+func (builder *RecommendRoomInfoBuilder) Capacity(capacity int) *RecommendRoomInfoBuilder {
+	builder.capacity = capacity
+	builder.capacitySet = true
+	return builder
+}
+
+// 会议室预定截止时间
+//
+// 示例值：2027-03-01T15:00:00Z
+func (builder *RecommendRoomInfoBuilder) ReserveUntilTime(reserveUntilTime string) *RecommendRoomInfoBuilder {
+	builder.reserveUntilTime = reserveUntilTime
+	builder.reserveUntilTimeSet = true
+	return builder
+}
+
+func (builder *RecommendRoomInfoBuilder) Build() *RecommendRoomInfo {
+	req := &RecommendRoomInfo{}
+	if builder.roomIdSet {
+		req.RoomId = &builder.roomId
+
+	}
+	if builder.roomNameSet {
+		req.RoomName = &builder.roomName
+
+	}
+	if builder.fullNameSet {
+		req.FullName = &builder.fullName
+
+	}
+	if builder.capacitySet {
+		req.Capacity = &builder.capacity
+
+	}
+	if builder.reserveUntilTimeSet {
+		req.ReserveUntilTime = &builder.reserveUntilTime
 
 	}
 	return req
@@ -5788,8 +6638,8 @@ type Reminder struct {
 }
 
 type ReminderBuilder struct {
-	minutes     int // 日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒;新建或更新日程时传入该字段，仅对当前身份生效
-	minutesFlag bool
+	minutes    int // 日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒;新建或更新日程时传入该字段，仅对当前身份生效
+	minutesSet bool
 }
 
 func NewReminderBuilder() *ReminderBuilder {
@@ -5802,14 +6652,170 @@ func NewReminderBuilder() *ReminderBuilder {
 // 示例值：5
 func (builder *ReminderBuilder) Minutes(minutes int) *ReminderBuilder {
 	builder.minutes = minutes
-	builder.minutesFlag = true
+	builder.minutesSet = true
 	return builder
 }
 
 func (builder *ReminderBuilder) Build() *Reminder {
 	req := &Reminder{}
-	if builder.minutesFlag {
+	if builder.minutesSet {
 		req.Minutes = &builder.minutes
+
+	}
+	return req
+}
+
+type ResourceWaitlist struct {
+	ResourceWaitlistId *string `json:"resource_waitlist_id,omitempty"` // 候补单ID
+
+	RoomLevelIds []string `json:"room_level_ids,omitempty"` // 会议室层级ID列表
+
+	MinCapacity *int `json:"min_capacity,omitempty"` // 候补会议室最小人数
+
+	MaxCapacity *int `json:"max_capacity,omitempty"` // 候补会议室最大人数
+
+	LastWaitTimeType *string `json:"last_wait_time_type,omitempty"` // 候补会议室最后等待时间类型
+
+	EquipmentRequireType *string `json:"equipment_require_type,omitempty"` // 候补会议室设备要求
+
+	BuildingZoneCodes []string `json:"building_zone_codes,omitempty"` // 候补建筑区域列表
+
+	Status *string `json:"status,omitempty"` // 候补状态
+}
+
+type ResourceWaitlistBuilder struct {
+	resourceWaitlistId    string // 候补单ID
+	resourceWaitlistIdSet bool
+
+	roomLevelIds    []string // 会议室层级ID列表
+	roomLevelIdsSet bool
+
+	minCapacity    int // 候补会议室最小人数
+	minCapacitySet bool
+
+	maxCapacity    int // 候补会议室最大人数
+	maxCapacitySet bool
+
+	lastWaitTimeType    string // 候补会议室最后等待时间类型
+	lastWaitTimeTypeSet bool
+
+	equipmentRequireType    string // 候补会议室设备要求
+	equipmentRequireTypeSet bool
+
+	buildingZoneCodes    []string // 候补建筑区域列表
+	buildingZoneCodesSet bool
+
+	status    string // 候补状态
+	statusSet bool
+}
+
+func NewResourceWaitlistBuilder() *ResourceWaitlistBuilder {
+	builder := &ResourceWaitlistBuilder{}
+	return builder
+}
+
+// 候补单ID
+//
+// 示例值：1b4jwbvxn3d7mo3yxbhmpjxg4e
+func (builder *ResourceWaitlistBuilder) ResourceWaitlistId(resourceWaitlistId string) *ResourceWaitlistBuilder {
+	builder.resourceWaitlistId = resourceWaitlistId
+	builder.resourceWaitlistIdSet = true
+	return builder
+}
+
+// 会议室层级ID列表
+//
+// 示例值：
+func (builder *ResourceWaitlistBuilder) RoomLevelIds(roomLevelIds []string) *ResourceWaitlistBuilder {
+	builder.roomLevelIds = roomLevelIds
+	builder.roomLevelIdsSet = true
+	return builder
+}
+
+// 候补会议室最小人数
+//
+// 示例值：5
+func (builder *ResourceWaitlistBuilder) MinCapacity(minCapacity int) *ResourceWaitlistBuilder {
+	builder.minCapacity = minCapacity
+	builder.minCapacitySet = true
+	return builder
+}
+
+// 候补会议室最大人数
+//
+// 示例值：10
+func (builder *ResourceWaitlistBuilder) MaxCapacity(maxCapacity int) *ResourceWaitlistBuilder {
+	builder.maxCapacity = maxCapacity
+	builder.maxCapacitySet = true
+	return builder
+}
+
+// 候补会议室最后等待时间类型
+//
+// 示例值：
+func (builder *ResourceWaitlistBuilder) LastWaitTimeType(lastWaitTimeType string) *ResourceWaitlistBuilder {
+	builder.lastWaitTimeType = lastWaitTimeType
+	builder.lastWaitTimeTypeSet = true
+	return builder
+}
+
+// 候补会议室设备要求
+//
+// 示例值：
+func (builder *ResourceWaitlistBuilder) EquipmentRequireType(equipmentRequireType string) *ResourceWaitlistBuilder {
+	builder.equipmentRequireType = equipmentRequireType
+	builder.equipmentRequireTypeSet = true
+	return builder
+}
+
+// 候补建筑区域列表
+//
+// 示例值：
+func (builder *ResourceWaitlistBuilder) BuildingZoneCodes(buildingZoneCodes []string) *ResourceWaitlistBuilder {
+	builder.buildingZoneCodes = buildingZoneCodes
+	builder.buildingZoneCodesSet = true
+	return builder
+}
+
+// 候补状态
+//
+// 示例值：
+func (builder *ResourceWaitlistBuilder) Status(status string) *ResourceWaitlistBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+func (builder *ResourceWaitlistBuilder) Build() *ResourceWaitlist {
+	req := &ResourceWaitlist{}
+	if builder.resourceWaitlistIdSet {
+		req.ResourceWaitlistId = &builder.resourceWaitlistId
+
+	}
+	if builder.roomLevelIdsSet {
+		req.RoomLevelIds = builder.roomLevelIds
+	}
+	if builder.minCapacitySet {
+		req.MinCapacity = &builder.minCapacity
+
+	}
+	if builder.maxCapacitySet {
+		req.MaxCapacity = &builder.maxCapacity
+
+	}
+	if builder.lastWaitTimeTypeSet {
+		req.LastWaitTimeType = &builder.lastWaitTimeType
+
+	}
+	if builder.equipmentRequireTypeSet {
+		req.EquipmentRequireType = &builder.equipmentRequireType
+
+	}
+	if builder.buildingZoneCodesSet {
+		req.BuildingZoneCodes = builder.buildingZoneCodes
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
 
 	}
 	return req
@@ -5822,11 +6828,11 @@ type RoomMeta struct {
 }
 
 type RoomMetaBuilder struct {
-	name     string // 会议室名称
-	nameFlag bool
+	name    string // 会议室名称
+	nameSet bool
 
-	roomId     string // 会议室ID
-	roomIdFlag bool
+	roomId    string // 会议室ID
+	roomIdSet bool
 }
 
 func NewRoomMetaBuilder() *RoomMetaBuilder {
@@ -5839,7 +6845,7 @@ func NewRoomMetaBuilder() *RoomMetaBuilder {
 // 示例值：none
 func (builder *RoomMetaBuilder) Name(name string) *RoomMetaBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -5848,17 +6854,17 @@ func (builder *RoomMetaBuilder) Name(name string) *RoomMetaBuilder {
 // 示例值：none
 func (builder *RoomMetaBuilder) RoomId(roomId string) *RoomMetaBuilder {
 	builder.roomId = roomId
-	builder.roomIdFlag = true
+	builder.roomIdSet = true
 	return builder
 }
 
 func (builder *RoomMetaBuilder) Build() *RoomMeta {
 	req := &RoomMeta{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.roomIdFlag {
+	if builder.roomIdSet {
 		req.RoomId = &builder.roomId
 
 	}
@@ -5874,14 +6880,14 @@ type Schema struct {
 }
 
 type SchemaBuilder struct {
-	uiName     string // UI名称。取值范围如下： ;- ForwardIcon: 日程转发按钮 ;- MeetingChatIcon: 会议群聊按钮 ;- MeetingMinutesIcon: 会议纪要按钮 ;- MeetingVideo: 视频会议区域 ;- RSVP: 接受/拒绝/待定区域 ;- Attendee: 参与者区域 ;- OrganizerOrCreator: 组织者/创建者区域
-	uiNameFlag bool
+	uiName    string // UI名称。取值范围如下： ;- ForwardIcon: 日程转发按钮 ;- MeetingChatIcon: 会议群聊按钮 ;- MeetingMinutesIcon: 会议纪要按钮 ;- MeetingVideo: 视频会议区域 ;- RSVP: 接受/拒绝/待定区域 ;- Attendee: 参与者区域 ;- OrganizerOrCreator: 组织者/创建者区域
+	uiNameSet bool
 
-	uiStatus     string // UI项自定义状态。**目前只支持hide**
-	uiStatusFlag bool
+	uiStatus    string // UI项自定义状态。**目前只支持hide**
+	uiStatusSet bool
 
-	appLink     string // 按钮点击后跳转的链接; **该字段暂不支持传入。**
-	appLinkFlag bool
+	appLink    string // 按钮点击后跳转的链接; **该字段暂不支持传入。**
+	appLinkSet bool
 }
 
 func NewSchemaBuilder() *SchemaBuilder {
@@ -5894,7 +6900,7 @@ func NewSchemaBuilder() *SchemaBuilder {
 // 示例值：ForwardIcon
 func (builder *SchemaBuilder) UiName(uiName string) *SchemaBuilder {
 	builder.uiName = uiName
-	builder.uiNameFlag = true
+	builder.uiNameSet = true
 	return builder
 }
 
@@ -5903,7 +6909,7 @@ func (builder *SchemaBuilder) UiName(uiName string) *SchemaBuilder {
 // 示例值：hide
 func (builder *SchemaBuilder) UiStatus(uiStatus string) *SchemaBuilder {
 	builder.uiStatus = uiStatus
-	builder.uiStatusFlag = true
+	builder.uiStatusSet = true
 	return builder
 }
 
@@ -5912,21 +6918,21 @@ func (builder *SchemaBuilder) UiStatus(uiStatus string) *SchemaBuilder {
 // 示例值：https://applink.feishu.cn/client/calendar/event/detail?calendarId=xxxxxx&key=xxxxxx&originalTime=xxxxxx&startTime=xxxxxx
 func (builder *SchemaBuilder) AppLink(appLink string) *SchemaBuilder {
 	builder.appLink = appLink
-	builder.appLinkFlag = true
+	builder.appLinkSet = true
 	return builder
 }
 
 func (builder *SchemaBuilder) Build() *Schema {
 	req := &Schema{}
-	if builder.uiNameFlag {
+	if builder.uiNameSet {
 		req.UiName = &builder.uiName
 
 	}
-	if builder.uiStatusFlag {
+	if builder.uiStatusSet {
 		req.UiStatus = &builder.uiStatus
 
 	}
-	if builder.appLinkFlag {
+	if builder.appLinkSet {
 		req.AppLink = &builder.appLink
 
 	}
@@ -5940,11 +6946,11 @@ type SearchEventData struct {
 }
 
 type SearchEventDataBuilder struct {
-	events     []*EventBriefInfoAi // 日程列表
-	eventsFlag bool
+	events    []*EventBriefInfoAi // 日程列表
+	eventsSet bool
 
-	msg     string // 返回给prompt展示内容
-	msgFlag bool
+	msg    string // 返回给prompt展示内容
+	msgSet bool
 }
 
 func NewSearchEventDataBuilder() *SearchEventDataBuilder {
@@ -5957,7 +6963,7 @@ func NewSearchEventDataBuilder() *SearchEventDataBuilder {
 // 示例值：
 func (builder *SearchEventDataBuilder) Events(events []*EventBriefInfoAi) *SearchEventDataBuilder {
 	builder.events = events
-	builder.eventsFlag = true
+	builder.eventsSet = true
 	return builder
 }
 
@@ -5966,16 +6972,16 @@ func (builder *SearchEventDataBuilder) Events(events []*EventBriefInfoAi) *Searc
 // 示例值：帮我展示卡片消息
 func (builder *SearchEventDataBuilder) Msg(msg string) *SearchEventDataBuilder {
 	builder.msg = msg
-	builder.msgFlag = true
+	builder.msgSet = true
 	return builder
 }
 
 func (builder *SearchEventDataBuilder) Build() *SearchEventData {
 	req := &SearchEventData{}
-	if builder.eventsFlag {
+	if builder.eventsSet {
 		req.Events = builder.events
 	}
-	if builder.msgFlag {
+	if builder.msgSet {
 		req.Msg = &builder.msg
 
 	}
@@ -5989,11 +6995,11 @@ type SearchUserDataAi struct {
 }
 
 type SearchUserDataAiBuilder struct {
-	queryKeyword     string // 查询传入的单个Keyword
-	queryKeywordFlag bool
+	queryKeyword    string // 查询传入的单个Keyword
+	queryKeywordSet bool
 
-	userInfo     *UserMeta // 搜索到的用户信息
-	userInfoFlag bool
+	userInfo    *UserMeta // 搜索到的用户信息
+	userInfoSet bool
 }
 
 func NewSearchUserDataAiBuilder() *SearchUserDataAiBuilder {
@@ -6006,7 +7012,7 @@ func NewSearchUserDataAiBuilder() *SearchUserDataAiBuilder {
 // 示例值：UserName
 func (builder *SearchUserDataAiBuilder) QueryKeyword(queryKeyword string) *SearchUserDataAiBuilder {
 	builder.queryKeyword = queryKeyword
-	builder.queryKeywordFlag = true
+	builder.queryKeywordSet = true
 	return builder
 }
 
@@ -6015,17 +7021,17 @@ func (builder *SearchUserDataAiBuilder) QueryKeyword(queryKeyword string) *Searc
 // 示例值：
 func (builder *SearchUserDataAiBuilder) UserInfo(userInfo *UserMeta) *SearchUserDataAiBuilder {
 	builder.userInfo = userInfo
-	builder.userInfoFlag = true
+	builder.userInfoSet = true
 	return builder
 }
 
 func (builder *SearchUserDataAiBuilder) Build() *SearchUserDataAi {
 	req := &SearchUserDataAi{}
-	if builder.queryKeywordFlag {
+	if builder.queryKeywordSet {
 		req.QueryKeyword = &builder.queryKeyword
 
 	}
-	if builder.userInfoFlag {
+	if builder.userInfoSet {
 		req.UserInfo = builder.userInfo
 	}
 	return req
@@ -6036,8 +7042,8 @@ type SearchUserResultAi struct {
 }
 
 type SearchUserResultAiBuilder struct {
-	searchResults     []*SearchUserDataAi // 搜索结果
-	searchResultsFlag bool
+	searchResults    []*SearchUserDataAi // 搜索结果
+	searchResultsSet bool
 }
 
 func NewSearchUserResultAiBuilder() *SearchUserResultAiBuilder {
@@ -6050,13 +7056,13 @@ func NewSearchUserResultAiBuilder() *SearchUserResultAiBuilder {
 // 示例值：
 func (builder *SearchUserResultAiBuilder) SearchResults(searchResults []*SearchUserDataAi) *SearchUserResultAiBuilder {
 	builder.searchResults = searchResults
-	builder.searchResultsFlag = true
+	builder.searchResultsSet = true
 	return builder
 }
 
 func (builder *SearchUserResultAiBuilder) Build() *SearchUserResultAi {
 	req := &SearchUserResultAi{}
-	if builder.searchResultsFlag {
+	if builder.searchResultsSet {
 		req.SearchResults = builder.searchResults
 	}
 	return req
@@ -6087,14 +7093,14 @@ type SystemInfo struct {
 }
 
 type SystemInfoBuilder struct {
-	sessionId     string // session_id
-	sessionIdFlag bool
+	sessionId    string // session_id
+	sessionIdSet bool
 
-	lang     string // 用户问题的语种
-	langFlag bool
+	lang    string // 用户问题的语种
+	langSet bool
 
-	locale     string // 请求客户端的语种类
-	localeFlag bool
+	locale    string // 请求客户端的语种类
+	localeSet bool
 }
 
 func NewSystemInfoBuilder() *SystemInfoBuilder {
@@ -6107,7 +7113,7 @@ func NewSystemInfoBuilder() *SystemInfoBuilder {
 // 示例值：56786545678765456785345678
 func (builder *SystemInfoBuilder) SessionId(sessionId string) *SystemInfoBuilder {
 	builder.sessionId = sessionId
-	builder.sessionIdFlag = true
+	builder.sessionIdSet = true
 	return builder
 }
 
@@ -6116,7 +7122,7 @@ func (builder *SystemInfoBuilder) SessionId(sessionId string) *SystemInfoBuilder
 // 示例值：zh
 func (builder *SystemInfoBuilder) Lang(lang string) *SystemInfoBuilder {
 	builder.lang = lang
-	builder.langFlag = true
+	builder.langSet = true
 	return builder
 }
 
@@ -6125,21 +7131,21 @@ func (builder *SystemInfoBuilder) Lang(lang string) *SystemInfoBuilder {
 // 示例值：en_us
 func (builder *SystemInfoBuilder) Locale(locale string) *SystemInfoBuilder {
 	builder.locale = locale
-	builder.localeFlag = true
+	builder.localeSet = true
 	return builder
 }
 
 func (builder *SystemInfoBuilder) Build() *SystemInfo {
 	req := &SystemInfo{}
-	if builder.sessionIdFlag {
+	if builder.sessionIdSet {
 		req.SessionId = &builder.sessionId
 
 	}
-	if builder.langFlag {
+	if builder.langSet {
 		req.Lang = &builder.lang
 
 	}
-	if builder.localeFlag {
+	if builder.localeSet {
 		req.Locale = &builder.locale
 
 	}
@@ -6159,20 +7165,20 @@ type ThirdPartyMeetingSettings struct {
 }
 
 type ThirdPartyMeetingSettingsBuilder struct {
-	meetingType     string // 三方会议类型
-	meetingTypeFlag bool
+	meetingType    string // 三方会议类型
+	meetingTypeSet bool
 
-	meetingId     string // 会议ID
-	meetingIdFlag bool
+	meetingId    string // 会议ID
+	meetingIdSet bool
 
-	meetingNo     string // 会议号
-	meetingNoFlag bool
+	meetingNo    string // 会议号
+	meetingNoSet bool
 
-	password     string // 密码
-	passwordFlag bool
+	password    string // 密码
+	passwordSet bool
 
-	meetingDescriptions     []*I18nMeetingDescription // 多语言会议描述
-	meetingDescriptionsFlag bool
+	meetingDescriptions    []*I18nMeetingDescription // 多语言会议描述
+	meetingDescriptionsSet bool
 }
 
 func NewThirdPartyMeetingSettingsBuilder() *ThirdPartyMeetingSettingsBuilder {
@@ -6185,7 +7191,7 @@ func NewThirdPartyMeetingSettingsBuilder() *ThirdPartyMeetingSettingsBuilder {
 // 示例值：julinker
 func (builder *ThirdPartyMeetingSettingsBuilder) MeetingType(meetingType string) *ThirdPartyMeetingSettingsBuilder {
 	builder.meetingType = meetingType
-	builder.meetingTypeFlag = true
+	builder.meetingTypeSet = true
 	return builder
 }
 
@@ -6194,7 +7200,7 @@ func (builder *ThirdPartyMeetingSettingsBuilder) MeetingType(meetingType string)
 // 示例值：123
 func (builder *ThirdPartyMeetingSettingsBuilder) MeetingId(meetingId string) *ThirdPartyMeetingSettingsBuilder {
 	builder.meetingId = meetingId
-	builder.meetingIdFlag = true
+	builder.meetingIdSet = true
 	return builder
 }
 
@@ -6203,7 +7209,7 @@ func (builder *ThirdPartyMeetingSettingsBuilder) MeetingId(meetingId string) *Th
 // 示例值：123
 func (builder *ThirdPartyMeetingSettingsBuilder) MeetingNo(meetingNo string) *ThirdPartyMeetingSettingsBuilder {
 	builder.meetingNo = meetingNo
-	builder.meetingNoFlag = true
+	builder.meetingNoSet = true
 	return builder
 }
 
@@ -6212,7 +7218,7 @@ func (builder *ThirdPartyMeetingSettingsBuilder) MeetingNo(meetingNo string) *Th
 // 示例值：123
 func (builder *ThirdPartyMeetingSettingsBuilder) Password(password string) *ThirdPartyMeetingSettingsBuilder {
 	builder.password = password
-	builder.passwordFlag = true
+	builder.passwordSet = true
 	return builder
 }
 
@@ -6221,29 +7227,29 @@ func (builder *ThirdPartyMeetingSettingsBuilder) Password(password string) *Thir
 // 示例值：
 func (builder *ThirdPartyMeetingSettingsBuilder) MeetingDescriptions(meetingDescriptions []*I18nMeetingDescription) *ThirdPartyMeetingSettingsBuilder {
 	builder.meetingDescriptions = meetingDescriptions
-	builder.meetingDescriptionsFlag = true
+	builder.meetingDescriptionsSet = true
 	return builder
 }
 
 func (builder *ThirdPartyMeetingSettingsBuilder) Build() *ThirdPartyMeetingSettings {
 	req := &ThirdPartyMeetingSettings{}
-	if builder.meetingTypeFlag {
+	if builder.meetingTypeSet {
 		req.MeetingType = &builder.meetingType
 
 	}
-	if builder.meetingIdFlag {
+	if builder.meetingIdSet {
 		req.MeetingId = &builder.meetingId
 
 	}
-	if builder.meetingNoFlag {
+	if builder.meetingNoSet {
 		req.MeetingNo = &builder.meetingNo
 
 	}
-	if builder.passwordFlag {
+	if builder.passwordSet {
 		req.Password = &builder.password
 
 	}
-	if builder.meetingDescriptionsFlag {
+	if builder.meetingDescriptionsSet {
 		req.MeetingDescriptions = builder.meetingDescriptions
 	}
 	return req
@@ -6252,20 +7258,25 @@ func (builder *ThirdPartyMeetingSettingsBuilder) Build() *ThirdPartyMeetingSetti
 type TimeInfo struct {
 	Date *string `json:"date,omitempty"` // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定
 
+	DateTime *string `json:"date_time,omitempty"` // 时间日期字符串，非全天日程使用
+
 	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区)
 
 	Timezone *string `json:"timezone,omitempty"` // 时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai
 }
 
 type TimeInfoBuilder struct {
-	date     string // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定
-	dateFlag bool
+	date    string // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定
+	dateSet bool
 
-	timestamp     string // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区)
-	timestampFlag bool
+	dateTime    string // 时间日期字符串，非全天日程使用
+	dateTimeSet bool
 
-	timezone     string // 时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai
-	timezoneFlag bool
+	timestamp    string // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区)
+	timestampSet bool
+
+	timezone    string // 时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai
+	timezoneSet bool
 }
 
 func NewTimeInfoBuilder() *TimeInfoBuilder {
@@ -6278,7 +7289,16 @@ func NewTimeInfoBuilder() *TimeInfoBuilder {
 // 示例值：2018-09-01
 func (builder *TimeInfoBuilder) Date(date string) *TimeInfoBuilder {
 	builder.date = date
-	builder.dateFlag = true
+	builder.dateSet = true
+	return builder
+}
+
+// 时间日期字符串，非全天日程使用
+//
+// 示例值：2018-09-01T14:00:00+08:00
+func (builder *TimeInfoBuilder) DateTime(dateTime string) *TimeInfoBuilder {
+	builder.dateTime = dateTime
+	builder.dateTimeSet = true
 	return builder
 }
 
@@ -6287,7 +7307,7 @@ func (builder *TimeInfoBuilder) Date(date string) *TimeInfoBuilder {
 // 示例值：1602504000
 func (builder *TimeInfoBuilder) Timestamp(timestamp string) *TimeInfoBuilder {
 	builder.timestamp = timestamp
-	builder.timestampFlag = true
+	builder.timestampSet = true
 	return builder
 }
 
@@ -6296,39 +7316,93 @@ func (builder *TimeInfoBuilder) Timestamp(timestamp string) *TimeInfoBuilder {
 // 示例值：Asia/Shanghai
 func (builder *TimeInfoBuilder) Timezone(timezone string) *TimeInfoBuilder {
 	builder.timezone = timezone
-	builder.timezoneFlag = true
+	builder.timezoneSet = true
 	return builder
 }
 
 func (builder *TimeInfoBuilder) Build() *TimeInfo {
 	req := &TimeInfo{}
-	if builder.dateFlag {
+	if builder.dateSet {
 		req.Date = &builder.date
 
 	}
-	if builder.timestampFlag {
+	if builder.dateTimeSet {
+		req.DateTime = &builder.dateTime
+
+	}
+	if builder.timestampSet {
 		req.Timestamp = &builder.timestamp
 
 	}
-	if builder.timezoneFlag {
+	if builder.timezoneSet {
 		req.Timezone = &builder.timezone
 
 	}
 	return req
 }
 
-type TimeSpan struct {
-	StartTime *string `json:"start_time,omitempty"` // 空闲时间-开始时间
+type TimeRange struct {
+	StartTime *string `json:"start_time,omitempty"` // 范围内的起始时间 (RFC 3339)
 
-	EndTime *string `json:"end_time,omitempty"` // 空闲时间-结束时间
+	EndTime *string `json:"end_time,omitempty"` // 范围内的结束时间 (RFC 3339)
+}
+
+type TimeRangeBuilder struct {
+	startTime    string // 范围内的起始时间 (RFC 3339)
+	startTimeSet bool
+
+	endTime    string // 范围内的结束时间 (RFC 3339)
+	endTimeSet bool
+}
+
+func NewTimeRangeBuilder() *TimeRangeBuilder {
+	builder := &TimeRangeBuilder{}
+	return builder
+}
+
+// 范围内的起始时间 (RFC 3339)
+//
+// 示例值：2026-03-21T16:15:30+08:00
+func (builder *TimeRangeBuilder) StartTime(startTime string) *TimeRangeBuilder {
+	builder.startTime = startTime
+	builder.startTimeSet = true
+	return builder
+}
+
+// 范围内的结束时间 (RFC 3339)
+//
+// 示例值：2026-03-21T16:15:30+08:00
+func (builder *TimeRangeBuilder) EndTime(endTime string) *TimeRangeBuilder {
+	builder.endTime = endTime
+	builder.endTimeSet = true
+	return builder
+}
+
+func (builder *TimeRangeBuilder) Build() *TimeRange {
+	req := &TimeRange{}
+	if builder.startTimeSet {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeSet {
+		req.EndTime = &builder.endTime
+
+	}
+	return req
+}
+
+type TimeSpan struct {
+	StartTime *string `json:"start_time,omitempty"` // 开始时间
+
+	EndTime *string `json:"end_time,omitempty"` // 结束时间
 }
 
 type TimeSpanBuilder struct {
-	startTime     string // 空闲时间-开始时间
-	startTimeFlag bool
+	startTime    string // 开始时间
+	startTimeSet bool
 
-	endTime     string // 空闲时间-结束时间
-	endTimeFlag bool
+	endTime    string // 结束时间
+	endTimeSet bool
 }
 
 func NewTimeSpanBuilder() *TimeSpanBuilder {
@@ -6336,31 +7410,31 @@ func NewTimeSpanBuilder() *TimeSpanBuilder {
 	return builder
 }
 
-// 空闲时间-开始时间
+// 开始时间
 //
 // 示例值：none
 func (builder *TimeSpanBuilder) StartTime(startTime string) *TimeSpanBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
-// 空闲时间-结束时间
+// 结束时间
 //
 // 示例值：none
 func (builder *TimeSpanBuilder) EndTime(endTime string) *TimeSpanBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
 func (builder *TimeSpanBuilder) Build() *TimeSpan {
 	req := &TimeSpan{}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
@@ -6384,26 +7458,26 @@ type TimeoffEvent struct {
 }
 
 type TimeoffEventBuilder struct {
-	timeoffEventId     string // 请假日程ID。参见[请假日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/introduction#b6611a02)
-	timeoffEventIdFlag bool
+	timeoffEventId    string // 请假日程ID。参见[请假日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/introduction#b6611a02)
+	timeoffEventIdSet bool
 
-	userId     string // 用户id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	userIdFlag bool
+	userId    string // 用户id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	userIdSet bool
 
-	timezone     string // 时区
-	timezoneFlag bool
+	timezone    string // 时区
+	timezoneSet bool
 
-	startTime     string // 休假开始时间：;有时间戳(1609430400)和日期(2021-01-01)两种格式，其它格式无效；;时间戳格式是按小时休假日程，日期格式是全天休假日程；;start_time与end_time格式需保持一致，否则无效。
-	startTimeFlag bool
+	startTime    string // 休假开始时间：;有时间戳(1609430400)和日期(2021-01-01)两种格式，其它格式无效；;时间戳格式是按小时休假日程，日期格式是全天休假日程；;start_time与end_time格式需保持一致，否则无效。
+	startTimeSet bool
 
-	endTime     string // 休假结束时间：;有时间戳(1609430400)和日期(2021-01-01)两种格式，其它格式无效；;时间戳格式是按小时休假日程，日期格式是全天休假日程；;start_time与end_time格式需保持一致，否则无效。
-	endTimeFlag bool
+	endTime    string // 休假结束时间：;有时间戳(1609430400)和日期(2021-01-01)两种格式，其它格式无效；;时间戳格式是按小时休假日程，日期格式是全天休假日程；;start_time与end_time格式需保持一致，否则无效。
+	endTimeSet bool
 
-	title     string // 自定义请假日程标题，没有设置则为默认日程标题
-	titleFlag bool
+	title    string // 自定义请假日程标题，没有设置则为默认日程标题
+	titleSet bool
 
-	description     string // 自定义请假日程描述，没有设置则为默认日程描述
-	descriptionFlag bool
+	description    string // 自定义请假日程描述，没有设置则为默认日程描述
+	descriptionSet bool
 }
 
 func NewTimeoffEventBuilder() *TimeoffEventBuilder {
@@ -6416,7 +7490,7 @@ func NewTimeoffEventBuilder() *TimeoffEventBuilder {
 // 示例值：timeoff:XXXXXX-XXXX-0917-1623-aa493d591a39-XXXXXX
 func (builder *TimeoffEventBuilder) TimeoffEventId(timeoffEventId string) *TimeoffEventBuilder {
 	builder.timeoffEventId = timeoffEventId
-	builder.timeoffEventIdFlag = true
+	builder.timeoffEventIdSet = true
 	return builder
 }
 
@@ -6425,7 +7499,7 @@ func (builder *TimeoffEventBuilder) TimeoffEventId(timeoffEventId string) *Timeo
 // 示例值：ou_XXXXXXXXXX
 func (builder *TimeoffEventBuilder) UserId(userId string) *TimeoffEventBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -6434,7 +7508,7 @@ func (builder *TimeoffEventBuilder) UserId(userId string) *TimeoffEventBuilder {
 // 示例值：Asia/Shanghai
 func (builder *TimeoffEventBuilder) Timezone(timezone string) *TimeoffEventBuilder {
 	builder.timezone = timezone
-	builder.timezoneFlag = true
+	builder.timezoneSet = true
 	return builder
 }
 
@@ -6443,7 +7517,7 @@ func (builder *TimeoffEventBuilder) Timezone(timezone string) *TimeoffEventBuild
 // 示例值：2021-01-01
 func (builder *TimeoffEventBuilder) StartTime(startTime string) *TimeoffEventBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -6452,7 +7526,7 @@ func (builder *TimeoffEventBuilder) StartTime(startTime string) *TimeoffEventBui
 // 示例值：2021-01-01
 func (builder *TimeoffEventBuilder) EndTime(endTime string) *TimeoffEventBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -6461,7 +7535,7 @@ func (builder *TimeoffEventBuilder) EndTime(endTime string) *TimeoffEventBuilder
 // 示例值：请假中(全天) / 1-Day Time Off
 func (builder *TimeoffEventBuilder) Title(title string) *TimeoffEventBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -6470,37 +7544,37 @@ func (builder *TimeoffEventBuilder) Title(title string) *TimeoffEventBuilder {
 // 示例值：若删除此日程，飞书中相应的“请假”标签将自动消失，而请假系统中的休假申请不会被撤销。
 func (builder *TimeoffEventBuilder) Description(description string) *TimeoffEventBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
 func (builder *TimeoffEventBuilder) Build() *TimeoffEvent {
 	req := &TimeoffEvent{}
-	if builder.timeoffEventIdFlag {
+	if builder.timeoffEventIdSet {
 		req.TimeoffEventId = &builder.timeoffEventId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.timezoneFlag {
+	if builder.timezoneSet {
 		req.Timezone = &builder.timezone
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
@@ -6514,11 +7588,11 @@ type UserCalendar struct {
 }
 
 type UserCalendarBuilder struct {
-	calendar     *Calendar // 日历实体信息
-	calendarFlag bool
+	calendar    *Calendar // 日历实体信息
+	calendarSet bool
 
-	userId     string // 日历的创建者user ID，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	userIdFlag bool
+	userId    string // 日历的创建者user ID，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	userIdSet bool
 }
 
 func NewUserCalendarBuilder() *UserCalendarBuilder {
@@ -6531,7 +7605,7 @@ func NewUserCalendarBuilder() *UserCalendarBuilder {
 // 示例值：
 func (builder *UserCalendarBuilder) Calendar(calendar *Calendar) *UserCalendarBuilder {
 	builder.calendar = calendar
-	builder.calendarFlag = true
+	builder.calendarSet = true
 	return builder
 }
 
@@ -6540,16 +7614,16 @@ func (builder *UserCalendarBuilder) Calendar(calendar *Calendar) *UserCalendarBu
 // 示例值：ou_xxxxxx
 func (builder *UserCalendarBuilder) UserId(userId string) *UserCalendarBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *UserCalendarBuilder) Build() *UserCalendar {
 	req := &UserCalendar{}
-	if builder.calendarFlag {
+	if builder.calendarSet {
 		req.Calendar = builder.calendar
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -6563,11 +7637,11 @@ type UserFreebusy struct {
 }
 
 type UserFreebusyBuilder struct {
-	freebusyItems     []*Freebusy // 日历上请求时间区间内的忙闲信息
-	freebusyItemsFlag bool
+	freebusyItems    []*Freebusy // 日历上请求时间区间内的忙闲信息
+	freebusyItemsSet bool
 
-	userId     string // 日历的创建者userID
-	userIdFlag bool
+	userId    string // 日历的创建者userID
+	userIdSet bool
 }
 
 func NewUserFreebusyBuilder() *UserFreebusyBuilder {
@@ -6580,7 +7654,7 @@ func NewUserFreebusyBuilder() *UserFreebusyBuilder {
 // 示例值：
 func (builder *UserFreebusyBuilder) FreebusyItems(freebusyItems []*Freebusy) *UserFreebusyBuilder {
 	builder.freebusyItems = freebusyItems
-	builder.freebusyItemsFlag = true
+	builder.freebusyItemsSet = true
 	return builder
 }
 
@@ -6589,16 +7663,16 @@ func (builder *UserFreebusyBuilder) FreebusyItems(freebusyItems []*Freebusy) *Us
 // 示例值：
 func (builder *UserFreebusyBuilder) UserId(userId string) *UserFreebusyBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *UserFreebusyBuilder) Build() *UserFreebusy {
 	req := &UserFreebusy{}
-	if builder.freebusyItemsFlag {
+	if builder.freebusyItemsSet {
 		req.FreebusyItems = builder.freebusyItems
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -6614,14 +7688,14 @@ type UserId struct {
 }
 
 type UserIdBuilder struct {
-	userId     string //
-	userIdFlag bool
+	userId    string //
+	userIdSet bool
 
-	openId     string //
-	openIdFlag bool
+	openId    string //
+	openIdSet bool
 
-	unionId     string //
-	unionIdFlag bool
+	unionId    string //
+	unionIdSet bool
 }
 
 func NewUserIdBuilder() *UserIdBuilder {
@@ -6629,38 +7703,44 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
-	builder.unionIdFlag = true
+	builder.unionIdSet = true
 	return builder
 }
 
 func (builder *UserIdBuilder) Build() *UserId {
 	req := &UserId{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.unionIdFlag {
+	if builder.unionIdSet {
 		req.UnionId = &builder.unionId
 
 	}
@@ -6674,11 +7754,11 @@ type UserMeta struct {
 }
 
 type UserMetaBuilder struct {
-	name     string // 用户名称
-	nameFlag bool
+	name    string // 用户名称
+	nameSet bool
 
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 }
 
 func NewUserMetaBuilder() *UserMetaBuilder {
@@ -6691,7 +7771,7 @@ func NewUserMetaBuilder() *UserMetaBuilder {
 // 示例值：none
 func (builder *UserMetaBuilder) Name(name string) *UserMetaBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -6700,17 +7780,17 @@ func (builder *UserMetaBuilder) Name(name string) *UserMetaBuilder {
 // 示例值：none
 func (builder *UserMetaBuilder) UserId(userId string) *UserMetaBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *UserMetaBuilder) Build() *UserMeta {
 	req := &UserMeta{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -6724,11 +7804,11 @@ type VcInfo struct {
 }
 
 type VcInfoBuilder struct {
-	uniqueId     string // 会议唯一ID
-	uniqueIdFlag bool
+	uniqueId    string // 会议唯一ID
+	uniqueIdSet bool
 
-	meetingNo     string // 会议号
-	meetingNoFlag bool
+	meetingNo    string // 会议号
+	meetingNoSet bool
 }
 
 func NewVcInfoBuilder() *VcInfoBuilder {
@@ -6741,7 +7821,7 @@ func NewVcInfoBuilder() *VcInfoBuilder {
 // 示例值：7226647229510582291
 func (builder *VcInfoBuilder) UniqueId(uniqueId string) *VcInfoBuilder {
 	builder.uniqueId = uniqueId
-	builder.uniqueIdFlag = true
+	builder.uniqueIdSet = true
 	return builder
 }
 
@@ -6750,17 +7830,17 @@ func (builder *VcInfoBuilder) UniqueId(uniqueId string) *VcInfoBuilder {
 // 示例值：808056935
 func (builder *VcInfoBuilder) MeetingNo(meetingNo string) *VcInfoBuilder {
 	builder.meetingNo = meetingNo
-	builder.meetingNoFlag = true
+	builder.meetingNoSet = true
 	return builder
 }
 
 func (builder *VcInfoBuilder) Build() *VcInfo {
 	req := &VcInfo{}
-	if builder.uniqueIdFlag {
+	if builder.uniqueIdSet {
 		req.UniqueId = &builder.uniqueId
 
 	}
-	if builder.meetingNoFlag {
+	if builder.meetingNoSet {
 		req.MeetingNo = &builder.meetingNo
 
 	}
@@ -6786,29 +7866,29 @@ type Vchat struct {
 }
 
 type VchatBuilder struct {
-	vcType     string // 视频会议类型
-	vcTypeFlag bool
+	vcType    string // 视频会议类型
+	vcTypeSet bool
 
-	iconType     string // 第三方视频会议icon类型；可以为空，为空展示默认icon。
-	iconTypeFlag bool
+	iconType    string // 第三方视频会议icon类型；可以为空，为空展示默认icon。
+	iconTypeSet bool
 
-	description     string // 第三方视频会议文案，可以为空，为空展示默认文案
-	descriptionFlag bool
+	description    string // 第三方视频会议文案，可以为空，为空展示默认文案
+	descriptionSet bool
 
-	meetingUrl     string // 视频会议URL
-	meetingUrlFlag bool
+	meetingUrl    string // 视频会议URL
+	meetingUrlSet bool
 
-	liveLink     string // VC视频会议转直播URL，当vc_type=vc时有值。
-	liveLinkFlag bool
+	liveLink    string // VC视频会议转直播URL，当vc_type=vc时有值。
+	liveLinkSet bool
 
-	vcInfo     *VcInfo // VC视频会议原生信息。
-	vcInfoFlag bool
+	vcInfo    *VcInfo // VC视频会议原生信息。
+	vcInfoSet bool
 
-	meetingSettings     *MeetingSettings // VC视频会议的会前设置
-	meetingSettingsFlag bool
+	meetingSettings    *MeetingSettings // VC视频会议的会前设置
+	meetingSettingsSet bool
 
-	thirdPartyMeetingSettings     *ThirdPartyMeetingSettings // 三方会议设置
-	thirdPartyMeetingSettingsFlag bool
+	thirdPartyMeetingSettings    *ThirdPartyMeetingSettings // 三方会议设置
+	thirdPartyMeetingSettingsSet bool
 }
 
 func NewVchatBuilder() *VchatBuilder {
@@ -6821,7 +7901,7 @@ func NewVchatBuilder() *VchatBuilder {
 // 示例值：third_party
 func (builder *VchatBuilder) VcType(vcType string) *VchatBuilder {
 	builder.vcType = vcType
-	builder.vcTypeFlag = true
+	builder.vcTypeSet = true
 	return builder
 }
 
@@ -6830,7 +7910,7 @@ func (builder *VchatBuilder) VcType(vcType string) *VchatBuilder {
 // 示例值：vc
 func (builder *VchatBuilder) IconType(iconType string) *VchatBuilder {
 	builder.iconType = iconType
-	builder.iconTypeFlag = true
+	builder.iconTypeSet = true
 	return builder
 }
 
@@ -6839,7 +7919,7 @@ func (builder *VchatBuilder) IconType(iconType string) *VchatBuilder {
 // 示例值：发起视频会议
 func (builder *VchatBuilder) Description(description string) *VchatBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -6848,7 +7928,7 @@ func (builder *VchatBuilder) Description(description string) *VchatBuilder {
 // 示例值：https://example.com
 func (builder *VchatBuilder) MeetingUrl(meetingUrl string) *VchatBuilder {
 	builder.meetingUrl = meetingUrl
-	builder.meetingUrlFlag = true
+	builder.meetingUrlSet = true
 	return builder
 }
 
@@ -6857,7 +7937,7 @@ func (builder *VchatBuilder) MeetingUrl(meetingUrl string) *VchatBuilder {
 // 示例值：https://meetings.feishu.cn/s/1iof4hpw6i51w
 func (builder *VchatBuilder) LiveLink(liveLink string) *VchatBuilder {
 	builder.liveLink = liveLink
-	builder.liveLinkFlag = true
+	builder.liveLinkSet = true
 	return builder
 }
 
@@ -6866,7 +7946,7 @@ func (builder *VchatBuilder) LiveLink(liveLink string) *VchatBuilder {
 // 示例值：
 func (builder *VchatBuilder) VcInfo(vcInfo *VcInfo) *VchatBuilder {
 	builder.vcInfo = vcInfo
-	builder.vcInfoFlag = true
+	builder.vcInfoSet = true
 	return builder
 }
 
@@ -6875,7 +7955,7 @@ func (builder *VchatBuilder) VcInfo(vcInfo *VcInfo) *VchatBuilder {
 // 示例值：
 func (builder *VchatBuilder) MeetingSettings(meetingSettings *MeetingSettings) *VchatBuilder {
 	builder.meetingSettings = meetingSettings
-	builder.meetingSettingsFlag = true
+	builder.meetingSettingsSet = true
 	return builder
 }
 
@@ -6884,39 +7964,39 @@ func (builder *VchatBuilder) MeetingSettings(meetingSettings *MeetingSettings) *
 // 示例值：
 func (builder *VchatBuilder) ThirdPartyMeetingSettings(thirdPartyMeetingSettings *ThirdPartyMeetingSettings) *VchatBuilder {
 	builder.thirdPartyMeetingSettings = thirdPartyMeetingSettings
-	builder.thirdPartyMeetingSettingsFlag = true
+	builder.thirdPartyMeetingSettingsSet = true
 	return builder
 }
 
 func (builder *VchatBuilder) Build() *Vchat {
 	req := &Vchat{}
-	if builder.vcTypeFlag {
+	if builder.vcTypeSet {
 		req.VcType = &builder.vcType
 
 	}
-	if builder.iconTypeFlag {
+	if builder.iconTypeSet {
 		req.IconType = &builder.iconType
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.meetingUrlFlag {
+	if builder.meetingUrlSet {
 		req.MeetingUrl = &builder.meetingUrl
 
 	}
-	if builder.liveLinkFlag {
+	if builder.liveLinkSet {
 		req.LiveLink = &builder.liveLink
 
 	}
-	if builder.vcInfoFlag {
+	if builder.vcInfoSet {
 		req.VcInfo = builder.vcInfo
 	}
-	if builder.meetingSettingsFlag {
+	if builder.meetingSettingsSet {
 		req.MeetingSettings = builder.meetingSettings
 	}
-	if builder.thirdPartyMeetingSettingsFlag {
+	if builder.thirdPartyMeetingSettingsSet {
 		req.ThirdPartyMeetingSettings = builder.thirdPartyMeetingSettings
 	}
 	return req
@@ -6931,14 +8011,14 @@ type Workhour struct {
 }
 
 type WorkhourBuilder struct {
-	dayOfWeek     int // 工作日，定义每周的星期几为工作日.枚举值 0-6 代表 周日-周六
-	dayOfWeekFlag bool
+	dayOfWeek    int // 工作日，定义每周的星期几为工作日.枚举值 0-6 代表 周日-周六
+	dayOfWeekSet bool
 
-	startTime     int // 工作时间的开始时间，单位为分钟，取值 0 - 1440
-	startTimeFlag bool
+	startTime    int // 工作时间的开始时间，单位为分钟，取值 0 - 1440
+	startTimeSet bool
 
-	endTime     int // 工作时间的结束时间，单位为分钟，取值 start_time - 1440
-	endTimeFlag bool
+	endTime    int // 工作时间的结束时间，单位为分钟，取值 start_time - 1440
+	endTimeSet bool
 }
 
 func NewWorkhourBuilder() *WorkhourBuilder {
@@ -6951,7 +8031,7 @@ func NewWorkhourBuilder() *WorkhourBuilder {
 // 示例值：1
 func (builder *WorkhourBuilder) DayOfWeek(dayOfWeek int) *WorkhourBuilder {
 	builder.dayOfWeek = dayOfWeek
-	builder.dayOfWeekFlag = true
+	builder.dayOfWeekSet = true
 	return builder
 }
 
@@ -6960,7 +8040,7 @@ func (builder *WorkhourBuilder) DayOfWeek(dayOfWeek int) *WorkhourBuilder {
 // 示例值：480
 func (builder *WorkhourBuilder) StartTime(startTime int) *WorkhourBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -6969,21 +8049,21 @@ func (builder *WorkhourBuilder) StartTime(startTime int) *WorkhourBuilder {
 // 示例值：1020
 func (builder *WorkhourBuilder) EndTime(endTime int) *WorkhourBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
 func (builder *WorkhourBuilder) Build() *Workhour {
 	req := &Workhour{}
-	if builder.dayOfWeekFlag {
+	if builder.dayOfWeekSet {
 		req.DayOfWeek = &builder.dayOfWeek
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
@@ -7001,17 +8081,17 @@ type WorkhourSetting struct {
 }
 
 type WorkhourSettingBuilder struct {
-	timezone     string // 用户设置的对外展示时区
-	timezoneFlag bool
+	timezone    string // 用户设置的对外展示时区
+	timezoneSet bool
 
-	workhours     []*Workhour // 工作时间设置
-	workhoursFlag bool
+	workhours    []*Workhour // 工作时间设置
+	workhoursSet bool
 
-	enableWorkHour     bool // 用户是否启用工作时间设置
-	enableWorkHourFlag bool
+	enableWorkHour    bool // 用户是否启用工作时间设置
+	enableWorkHourSet bool
 
-	userId     string // 用户user id
-	userIdFlag bool
+	userId    string // 用户user id
+	userIdSet bool
 }
 
 func NewWorkhourSettingBuilder() *WorkhourSettingBuilder {
@@ -7024,7 +8104,7 @@ func NewWorkhourSettingBuilder() *WorkhourSettingBuilder {
 // 示例值：Asia/Shanghai
 func (builder *WorkhourSettingBuilder) Timezone(timezone string) *WorkhourSettingBuilder {
 	builder.timezone = timezone
-	builder.timezoneFlag = true
+	builder.timezoneSet = true
 	return builder
 }
 
@@ -7033,7 +8113,7 @@ func (builder *WorkhourSettingBuilder) Timezone(timezone string) *WorkhourSettin
 // 示例值：
 func (builder *WorkhourSettingBuilder) Workhours(workhours []*Workhour) *WorkhourSettingBuilder {
 	builder.workhours = workhours
-	builder.workhoursFlag = true
+	builder.workhoursSet = true
 	return builder
 }
 
@@ -7042,7 +8122,7 @@ func (builder *WorkhourSettingBuilder) Workhours(workhours []*Workhour) *Workhou
 // 示例值：false
 func (builder *WorkhourSettingBuilder) EnableWorkHour(enableWorkHour bool) *WorkhourSettingBuilder {
 	builder.enableWorkHour = enableWorkHour
-	builder.enableWorkHourFlag = true
+	builder.enableWorkHourSet = true
 	return builder
 }
 
@@ -7051,24 +8131,24 @@ func (builder *WorkhourSettingBuilder) EnableWorkHour(enableWorkHour bool) *Work
 // 示例值：ou_xxxxxx
 func (builder *WorkhourSettingBuilder) UserId(userId string) *WorkhourSettingBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *WorkhourSettingBuilder) Build() *WorkhourSetting {
 	req := &WorkhourSetting{}
-	if builder.timezoneFlag {
+	if builder.timezoneSet {
 		req.Timezone = &builder.timezone
 
 	}
-	if builder.workhoursFlag {
+	if builder.workhoursSet {
 		req.Workhours = builder.workhours
 	}
-	if builder.enableWorkHourFlag {
+	if builder.enableWorkHourSet {
 		req.EnableWorkHour = &builder.enableWorkHour
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -7295,8 +8375,8 @@ func (resp *ListCalendarResp) Success() bool {
 }
 
 type MgetCalendarReqBodyBuilder struct {
-	calendarIds     []string // 日历ID列表
-	calendarIdsFlag bool
+	calendarIds    []string // 日历ID列表
+	calendarIdsSet bool
 }
 
 func NewMgetCalendarReqBodyBuilder() *MgetCalendarReqBodyBuilder {
@@ -7306,24 +8386,24 @@ func NewMgetCalendarReqBodyBuilder() *MgetCalendarReqBodyBuilder {
 
 // 日历ID列表
 //
-// 示例值：
+//示例值：
 func (builder *MgetCalendarReqBodyBuilder) CalendarIds(calendarIds []string) *MgetCalendarReqBodyBuilder {
 	builder.calendarIds = calendarIds
-	builder.calendarIdsFlag = true
+	builder.calendarIdsSet = true
 	return builder
 }
 
 func (builder *MgetCalendarReqBodyBuilder) Build() *MgetCalendarReqBody {
 	req := &MgetCalendarReqBody{}
-	if builder.calendarIdsFlag {
+	if builder.calendarIdsSet {
 		req.CalendarIds = builder.calendarIds
 	}
 	return req
 }
 
 type MgetCalendarPathReqBodyBuilder struct {
-	calendarIds     []string
-	calendarIdsFlag bool
+	calendarIds    []string
+	calendarIdsSet bool
 }
 
 func NewMgetCalendarPathReqBodyBuilder() *MgetCalendarPathReqBodyBuilder {
@@ -7336,13 +8416,13 @@ func NewMgetCalendarPathReqBodyBuilder() *MgetCalendarPathReqBodyBuilder {
 // 示例值：
 func (builder *MgetCalendarPathReqBodyBuilder) CalendarIds(calendarIds []string) *MgetCalendarPathReqBodyBuilder {
 	builder.calendarIds = calendarIds
-	builder.calendarIdsFlag = true
+	builder.calendarIdsSet = true
 	return builder
 }
 
 func (builder *MgetCalendarPathReqBodyBuilder) Build() (*MgetCalendarReqBody, error) {
 	req := &MgetCalendarReqBody{}
-	if builder.calendarIdsFlag {
+	if builder.calendarIdsSet {
 		req.CalendarIds = builder.calendarIds
 	}
 	return req, nil
@@ -7370,6 +8450,7 @@ func (builder *MgetCalendarReqBuilder) UserIdType(userIdType string) *MgetCalend
 	return builder
 }
 
+//
 func (builder *MgetCalendarReqBuilder) Body(body *MgetCalendarReqBody) *MgetCalendarReqBuilder {
 	builder.body = body
 	return builder
@@ -7482,6 +8563,14 @@ func (builder *PrimaryCalendarReqBuilder) UserIdType(userIdType string) *Primary
 	return builder
 }
 
+// 应用身份下指定操作用户的日历日程数据
+//
+// 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
+func (builder *PrimaryCalendarReqBuilder) OpUserId(opUserId string) *PrimaryCalendarReqBuilder {
+	builder.apiReq.QueryParams.Set("op_user_id", fmt.Sprint(opUserId))
+	return builder
+}
+
 func (builder *PrimaryCalendarReqBuilder) Build() *PrimaryCalendarReq {
 	req := &PrimaryCalendarReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -7508,8 +8597,8 @@ func (resp *PrimaryCalendarResp) Success() bool {
 }
 
 type PrimarysCalendarReqBodyBuilder struct {
-	userIds     []string // 用户ID列表
-	userIdsFlag bool
+	userIds    []string // 用户ID列表
+	userIdsSet bool
 }
 
 func NewPrimarysCalendarReqBodyBuilder() *PrimarysCalendarReqBodyBuilder {
@@ -7519,24 +8608,24 @@ func NewPrimarysCalendarReqBodyBuilder() *PrimarysCalendarReqBodyBuilder {
 
 // 用户ID列表
 //
-// 示例值：
+//示例值：
 func (builder *PrimarysCalendarReqBodyBuilder) UserIds(userIds []string) *PrimarysCalendarReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 func (builder *PrimarysCalendarReqBodyBuilder) Build() *PrimarysCalendarReqBody {
 	req := &PrimarysCalendarReqBody{}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
 	return req
 }
 
 type PrimarysCalendarPathReqBodyBuilder struct {
-	userIds     []string
-	userIdsFlag bool
+	userIds    []string
+	userIdsSet bool
 }
 
 func NewPrimarysCalendarPathReqBodyBuilder() *PrimarysCalendarPathReqBodyBuilder {
@@ -7549,13 +8638,13 @@ func NewPrimarysCalendarPathReqBodyBuilder() *PrimarysCalendarPathReqBodyBuilder
 // 示例值：
 func (builder *PrimarysCalendarPathReqBodyBuilder) UserIds(userIds []string) *PrimarysCalendarPathReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 func (builder *PrimarysCalendarPathReqBodyBuilder) Build() (*PrimarysCalendarReqBody, error) {
 	req := &PrimarysCalendarReqBody{}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
 	return req, nil
@@ -7583,6 +8672,7 @@ func (builder *PrimarysCalendarReqBuilder) UserIdType(userIdType string) *Primar
 	return builder
 }
 
+//
 func (builder *PrimarysCalendarReqBuilder) Body(body *PrimarysCalendarReqBody) *PrimarysCalendarReqBuilder {
 	builder.body = body
 	return builder
@@ -7620,8 +8710,8 @@ func (resp *PrimarysCalendarResp) Success() bool {
 }
 
 type SearchCalendarReqBodyBuilder struct {
-	query     string // 搜索关键字
-	queryFlag bool
+	query    string // 搜索关键字
+	querySet bool
 }
 
 func NewSearchCalendarReqBodyBuilder() *SearchCalendarReqBodyBuilder {
@@ -7631,24 +8721,24 @@ func NewSearchCalendarReqBodyBuilder() *SearchCalendarReqBodyBuilder {
 
 // 搜索关键字
 //
-// 示例值：query words
+//示例值：query words
 func (builder *SearchCalendarReqBodyBuilder) Query(query string) *SearchCalendarReqBodyBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
 func (builder *SearchCalendarReqBodyBuilder) Build() *SearchCalendarReqBody {
 	req := &SearchCalendarReqBody{}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 	}
 	return req
 }
 
 type SearchCalendarPathReqBodyBuilder struct {
-	query     string
-	queryFlag bool
+	query    string
+	querySet bool
 }
 
 func NewSearchCalendarPathReqBodyBuilder() *SearchCalendarPathReqBodyBuilder {
@@ -7661,13 +8751,13 @@ func NewSearchCalendarPathReqBodyBuilder() *SearchCalendarPathReqBodyBuilder {
 // 示例值：query words
 func (builder *SearchCalendarPathReqBodyBuilder) Query(query string) *SearchCalendarPathReqBodyBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
 func (builder *SearchCalendarPathReqBodyBuilder) Build() (*SearchCalendarReqBody, error) {
 	req := &SearchCalendarReqBody{}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 	}
 	return req, nil
@@ -8332,6 +9422,14 @@ func (builder *GetCalendarEventReqBuilder) UserIdType(userIdType string) *GetCal
 	return builder
 }
 
+// 应用身份下指定操作用户的日历日程数据
+//
+// 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
+func (builder *GetCalendarEventReqBuilder) OpUserId(opUserId string) *GetCalendarEventReqBuilder {
+	builder.apiReq.QueryParams.Set("op_user_id", fmt.Sprint(opUserId))
+	return builder
+}
+
 func (builder *GetCalendarEventReqBuilder) Build() *GetCalendarEventReq {
 	req := &GetCalendarEventReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -8597,6 +9695,14 @@ func (builder *ListCalendarEventReqBuilder) UserIdType(userIdType string) *ListC
 	return builder
 }
 
+// 应用身份下指定操作用户的日历日程数据
+//
+// 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
+func (builder *ListCalendarEventReqBuilder) OpUserId(opUserId string) *ListCalendarEventReqBuilder {
+	builder.apiReq.QueryParams.Set("op_user_id", fmt.Sprint(opUserId))
+	return builder
+}
+
 func (builder *ListCalendarEventReqBuilder) Build() *ListCalendarEventReq {
 	req := &ListCalendarEventReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -8702,8 +9808,8 @@ func (resp *PatchCalendarEventResp) Success() bool {
 }
 
 type ReplyCalendarEventReqBodyBuilder struct {
-	rsvpStatus     string // rsvp-日程状态
-	rsvpStatusFlag bool
+	rsvpStatus    string // rsvp-日程状态
+	rsvpStatusSet bool
 }
 
 func NewReplyCalendarEventReqBodyBuilder() *ReplyCalendarEventReqBodyBuilder {
@@ -8713,24 +9819,24 @@ func NewReplyCalendarEventReqBodyBuilder() *ReplyCalendarEventReqBodyBuilder {
 
 // rsvp-日程状态
 //
-// 示例值：accept
+//示例值：accept
 func (builder *ReplyCalendarEventReqBodyBuilder) RsvpStatus(rsvpStatus string) *ReplyCalendarEventReqBodyBuilder {
 	builder.rsvpStatus = rsvpStatus
-	builder.rsvpStatusFlag = true
+	builder.rsvpStatusSet = true
 	return builder
 }
 
 func (builder *ReplyCalendarEventReqBodyBuilder) Build() *ReplyCalendarEventReqBody {
 	req := &ReplyCalendarEventReqBody{}
-	if builder.rsvpStatusFlag {
+	if builder.rsvpStatusSet {
 		req.RsvpStatus = &builder.rsvpStatus
 	}
 	return req
 }
 
 type ReplyCalendarEventPathReqBodyBuilder struct {
-	rsvpStatus     string
-	rsvpStatusFlag bool
+	rsvpStatus    string
+	rsvpStatusSet bool
 }
 
 func NewReplyCalendarEventPathReqBodyBuilder() *ReplyCalendarEventPathReqBodyBuilder {
@@ -8743,13 +9849,13 @@ func NewReplyCalendarEventPathReqBodyBuilder() *ReplyCalendarEventPathReqBodyBui
 // 示例值：accept
 func (builder *ReplyCalendarEventPathReqBodyBuilder) RsvpStatus(rsvpStatus string) *ReplyCalendarEventPathReqBodyBuilder {
 	builder.rsvpStatus = rsvpStatus
-	builder.rsvpStatusFlag = true
+	builder.rsvpStatusSet = true
 	return builder
 }
 
 func (builder *ReplyCalendarEventPathReqBodyBuilder) Build() (*ReplyCalendarEventReqBody, error) {
 	req := &ReplyCalendarEventReqBody{}
-	if builder.rsvpStatusFlag {
+	if builder.rsvpStatusSet {
 		req.RsvpStatus = &builder.rsvpStatus
 	}
 	return req, nil
@@ -8785,6 +9891,7 @@ func (builder *ReplyCalendarEventReqBuilder) EventId(eventId string) *ReplyCalen
 	return builder
 }
 
+//
 func (builder *ReplyCalendarEventReqBuilder) Body(body *ReplyCalendarEventReqBody) *ReplyCalendarEventReqBuilder {
 	builder.body = body
 	return builder
@@ -8817,11 +9924,11 @@ func (resp *ReplyCalendarEventResp) Success() bool {
 }
 
 type SearchCalendarEventReqBodyBuilder struct {
-	query     string // 搜索关键字
-	queryFlag bool
+	query    string // 搜索关键字
+	querySet bool
 
-	filter     *EventSearchFilter // 搜索过滤器
-	filterFlag bool
+	filter    *EventSearchFilter // 搜索过滤器
+	filterSet bool
 }
 
 func NewSearchCalendarEventReqBodyBuilder() *SearchCalendarEventReqBodyBuilder {
@@ -8831,38 +9938,38 @@ func NewSearchCalendarEventReqBodyBuilder() *SearchCalendarEventReqBodyBuilder {
 
 // 搜索关键字
 //
-// 示例值：query words
+//示例值：query words
 func (builder *SearchCalendarEventReqBodyBuilder) Query(query string) *SearchCalendarEventReqBodyBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
 // 搜索过滤器
 //
-// 示例值：
+//示例值：
 func (builder *SearchCalendarEventReqBodyBuilder) Filter(filter *EventSearchFilter) *SearchCalendarEventReqBodyBuilder {
 	builder.filter = filter
-	builder.filterFlag = true
+	builder.filterSet = true
 	return builder
 }
 
 func (builder *SearchCalendarEventReqBodyBuilder) Build() *SearchCalendarEventReqBody {
 	req := &SearchCalendarEventReqBody{}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 	}
-	if builder.filterFlag {
+	if builder.filterSet {
 		req.Filter = builder.filter
 	}
 	return req
 }
 
 type SearchCalendarEventPathReqBodyBuilder struct {
-	query      string
-	queryFlag  bool
-	filter     *EventSearchFilter
-	filterFlag bool
+	query     string
+	querySet  bool
+	filter    *EventSearchFilter
+	filterSet bool
 }
 
 func NewSearchCalendarEventPathReqBodyBuilder() *SearchCalendarEventPathReqBodyBuilder {
@@ -8875,7 +9982,7 @@ func NewSearchCalendarEventPathReqBodyBuilder() *SearchCalendarEventPathReqBodyB
 // 示例值：query words
 func (builder *SearchCalendarEventPathReqBodyBuilder) Query(query string) *SearchCalendarEventPathReqBodyBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
@@ -8884,16 +9991,16 @@ func (builder *SearchCalendarEventPathReqBodyBuilder) Query(query string) *Searc
 // 示例值：
 func (builder *SearchCalendarEventPathReqBodyBuilder) Filter(filter *EventSearchFilter) *SearchCalendarEventPathReqBodyBuilder {
 	builder.filter = filter
-	builder.filterFlag = true
+	builder.filterSet = true
 	return builder
 }
 
 func (builder *SearchCalendarEventPathReqBodyBuilder) Build() (*SearchCalendarEventReqBody, error) {
 	req := &SearchCalendarEventReqBody{}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 	}
-	if builder.filterFlag {
+	if builder.filterSet {
 		req.Filter = builder.filter
 	}
 	return req, nil
@@ -9018,10 +10125,27 @@ func (builder *SubscriptionCalendarEventReqBuilder) CalendarId(calendarId string
 	return builder
 }
 
+// 应用身份下指定操作用户的日历日程数据
+//
+// 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
+func (builder *SubscriptionCalendarEventReqBuilder) OpUserId(opUserId string) *SubscriptionCalendarEventReqBuilder {
+	builder.apiReq.QueryParams.Set("op_user_id", fmt.Sprint(opUserId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *SubscriptionCalendarEventReqBuilder) UserIdType(userIdType string) *SubscriptionCalendarEventReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 func (builder *SubscriptionCalendarEventReqBuilder) Build() *SubscriptionCalendarEventReq {
 	req := &SubscriptionCalendarEventReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
@@ -9059,10 +10183,27 @@ func (builder *UnsubscriptionCalendarEventReqBuilder) CalendarId(calendarId stri
 	return builder
 }
 
+// 应用身份下指定操作用户的日历日程数据
+//
+// 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
+func (builder *UnsubscriptionCalendarEventReqBuilder) OpUserId(opUserId string) *UnsubscriptionCalendarEventReqBuilder {
+	builder.apiReq.QueryParams.Set("op_user_id", fmt.Sprint(opUserId))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *UnsubscriptionCalendarEventReqBuilder) UserIdType(userIdType string) *UnsubscriptionCalendarEventReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
 func (builder *UnsubscriptionCalendarEventReqBuilder) Build() *UnsubscriptionCalendarEventReq {
 	req := &UnsubscriptionCalendarEventReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
@@ -9080,20 +10221,20 @@ func (resp *UnsubscriptionCalendarEventResp) Success() bool {
 }
 
 type BatchDeleteCalendarEventAttendeeReqBodyBuilder struct {
-	attendeeIds     []string // 要移除的参与人 ID 列表。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c)
-	attendeeIdsFlag bool
+	attendeeIds    []string // 要移除的参与人 ID 列表。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c)
+	attendeeIdsSet bool
 
-	deleteIds     []*CalendarEventAttendeeId // 需要删除的参与人类型实体ID，作为attendee_ids字段的补充。
-	deleteIdsFlag bool
+	deleteIds    []*CalendarEventAttendeeId // 需要删除的参与人类型实体ID，作为attendee_ids字段的补充。
+	deleteIdsSet bool
 
-	needNotification     bool // 删除日程参与人时是否要给参与人发送bot通知，默认为true
-	needNotificationFlag bool
+	needNotification    bool // 删除日程参与人时是否要给参与人发送bot通知，默认为true
+	needNotificationSet bool
 
-	instanceStartTimeAdmin     string // 使用管理员身份访问时要修改的实例
-	instanceStartTimeAdminFlag bool
+	instanceStartTimeAdmin    string // 使用管理员身份访问时要修改的实例
+	instanceStartTimeAdminSet bool
 
-	isEnableAdmin     bool // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员)
-	isEnableAdminFlag bool
+	isEnableAdmin    bool // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员)
+	isEnableAdminSet bool
 }
 
 func NewBatchDeleteCalendarEventAttendeeReqBodyBuilder() *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
@@ -9103,80 +10244,80 @@ func NewBatchDeleteCalendarEventAttendeeReqBodyBuilder() *BatchDeleteCalendarEve
 
 // 要移除的参与人 ID 列表。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c)
 //
-// 示例值：["user_xxxxx", "chat_xxxxx", "resource_xxxxx", "third_party_xxxxx"]
+//示例值：["user_xxxxx", "chat_xxxxx", "resource_xxxxx", "third_party_xxxxx"]
 func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) AttendeeIds(attendeeIds []string) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
 	builder.attendeeIds = attendeeIds
-	builder.attendeeIdsFlag = true
+	builder.attendeeIdsSet = true
 	return builder
 }
 
 // 需要删除的参与人类型实体ID，作为attendee_ids字段的补充。
 //
-// 示例值：
+//示例值：
 func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) DeleteIds(deleteIds []*CalendarEventAttendeeId) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
 	builder.deleteIds = deleteIds
-	builder.deleteIdsFlag = true
+	builder.deleteIdsSet = true
 	return builder
 }
 
 // 删除日程参与人时是否要给参与人发送bot通知，默认为true
 //
-// 示例值：false
+//示例值：false
 func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) NeedNotification(needNotification bool) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
 	builder.needNotification = needNotification
-	builder.needNotificationFlag = true
+	builder.needNotificationSet = true
 	return builder
 }
 
 // 使用管理员身份访问时要修改的实例
 //
-// 示例值：1647320400
+//示例值：1647320400
 func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) InstanceStartTimeAdmin(instanceStartTimeAdmin string) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
 	builder.instanceStartTimeAdmin = instanceStartTimeAdmin
-	builder.instanceStartTimeAdminFlag = true
+	builder.instanceStartTimeAdminSet = true
 	return builder
 }
 
 // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员)
 //
-// 示例值：false
+//示例值：false
 func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) IsEnableAdmin(isEnableAdmin bool) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
 	builder.isEnableAdmin = isEnableAdmin
-	builder.isEnableAdminFlag = true
+	builder.isEnableAdminSet = true
 	return builder
 }
 
 func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) Build() *BatchDeleteCalendarEventAttendeeReqBody {
 	req := &BatchDeleteCalendarEventAttendeeReqBody{}
-	if builder.attendeeIdsFlag {
+	if builder.attendeeIdsSet {
 		req.AttendeeIds = builder.attendeeIds
 	}
-	if builder.deleteIdsFlag {
+	if builder.deleteIdsSet {
 		req.DeleteIds = builder.deleteIds
 	}
-	if builder.needNotificationFlag {
+	if builder.needNotificationSet {
 		req.NeedNotification = &builder.needNotification
 	}
-	if builder.instanceStartTimeAdminFlag {
+	if builder.instanceStartTimeAdminSet {
 		req.InstanceStartTimeAdmin = &builder.instanceStartTimeAdmin
 	}
-	if builder.isEnableAdminFlag {
+	if builder.isEnableAdminSet {
 		req.IsEnableAdmin = &builder.isEnableAdmin
 	}
 	return req
 }
 
 type BatchDeleteCalendarEventAttendeePathReqBodyBuilder struct {
-	attendeeIds                []string
-	attendeeIdsFlag            bool
-	deleteIds                  []*CalendarEventAttendeeId
-	deleteIdsFlag              bool
-	needNotification           bool
-	needNotificationFlag       bool
-	instanceStartTimeAdmin     string
-	instanceStartTimeAdminFlag bool
-	isEnableAdmin              bool
-	isEnableAdminFlag          bool
+	attendeeIds               []string
+	attendeeIdsSet            bool
+	deleteIds                 []*CalendarEventAttendeeId
+	deleteIdsSet              bool
+	needNotification          bool
+	needNotificationSet       bool
+	instanceStartTimeAdmin    string
+	instanceStartTimeAdminSet bool
+	isEnableAdmin             bool
+	isEnableAdminSet          bool
 }
 
 func NewBatchDeleteCalendarEventAttendeePathReqBodyBuilder() *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
@@ -9189,7 +10330,7 @@ func NewBatchDeleteCalendarEventAttendeePathReqBodyBuilder() *BatchDeleteCalenda
 // 示例值：["user_xxxxx", "chat_xxxxx", "resource_xxxxx", "third_party_xxxxx"]
 func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) AttendeeIds(attendeeIds []string) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
 	builder.attendeeIds = attendeeIds
-	builder.attendeeIdsFlag = true
+	builder.attendeeIdsSet = true
 	return builder
 }
 
@@ -9198,7 +10339,7 @@ func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) AttendeeIds(a
 // 示例值：
 func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) DeleteIds(deleteIds []*CalendarEventAttendeeId) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
 	builder.deleteIds = deleteIds
-	builder.deleteIdsFlag = true
+	builder.deleteIdsSet = true
 	return builder
 }
 
@@ -9207,7 +10348,7 @@ func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) DeleteIds(del
 // 示例值：false
 func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) NeedNotification(needNotification bool) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
 	builder.needNotification = needNotification
-	builder.needNotificationFlag = true
+	builder.needNotificationSet = true
 	return builder
 }
 
@@ -9216,7 +10357,7 @@ func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) NeedNotificat
 // 示例值：1647320400
 func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) InstanceStartTimeAdmin(instanceStartTimeAdmin string) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
 	builder.instanceStartTimeAdmin = instanceStartTimeAdmin
-	builder.instanceStartTimeAdminFlag = true
+	builder.instanceStartTimeAdminSet = true
 	return builder
 }
 
@@ -9225,25 +10366,25 @@ func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) InstanceStart
 // 示例值：false
 func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) IsEnableAdmin(isEnableAdmin bool) *BatchDeleteCalendarEventAttendeePathReqBodyBuilder {
 	builder.isEnableAdmin = isEnableAdmin
-	builder.isEnableAdminFlag = true
+	builder.isEnableAdminSet = true
 	return builder
 }
 
 func (builder *BatchDeleteCalendarEventAttendeePathReqBodyBuilder) Build() (*BatchDeleteCalendarEventAttendeeReqBody, error) {
 	req := &BatchDeleteCalendarEventAttendeeReqBody{}
-	if builder.attendeeIdsFlag {
+	if builder.attendeeIdsSet {
 		req.AttendeeIds = builder.attendeeIds
 	}
-	if builder.deleteIdsFlag {
+	if builder.deleteIdsSet {
 		req.DeleteIds = builder.deleteIds
 	}
-	if builder.needNotificationFlag {
+	if builder.needNotificationSet {
 		req.NeedNotification = &builder.needNotification
 	}
-	if builder.instanceStartTimeAdminFlag {
+	if builder.instanceStartTimeAdminSet {
 		req.InstanceStartTimeAdmin = &builder.instanceStartTimeAdmin
 	}
-	if builder.isEnableAdminFlag {
+	if builder.isEnableAdminSet {
 		req.IsEnableAdmin = &builder.isEnableAdmin
 	}
 	return req, nil
@@ -9329,20 +10470,20 @@ func (resp *BatchDeleteCalendarEventAttendeeResp) Success() bool {
 }
 
 type CreateCalendarEventAttendeeReqBodyBuilder struct {
-	attendees     []*CalendarEventAttendee // 新增参与人列表；;- 单次请求会议室的数量限制为100。
-	attendeesFlag bool
+	attendees    []*CalendarEventAttendee // 新增参与人列表；;- 单次请求会议室的数量限制为100。
+	attendeesSet bool
 
-	needNotification     bool // 是否给参与人发送bot通知 默认为true
-	needNotificationFlag bool
+	needNotification    bool // 是否给参与人发送bot通知 默认为true
+	needNotificationSet bool
 
-	instanceStartTimeAdmin     string // 使用管理员身份访问时要修改的实例(仅用于重复日程修改其中的一个实例，非重复日程无需填此字段)
-	instanceStartTimeAdminFlag bool
+	instanceStartTimeAdmin    string // 使用管理员身份访问时要修改的实例(仅用于重复日程修改其中的一个实例，非重复日程无需填此字段)
+	instanceStartTimeAdminSet bool
 
-	isEnableAdmin     bool // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员)
-	isEnableAdminFlag bool
+	isEnableAdmin    bool // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员)
+	isEnableAdminSet bool
 
-	addOperatorToAttendee     bool // 是否添加会议室operate_id标识的用户到参与人
-	addOperatorToAttendeeFlag bool
+	addOperatorToAttendee    bool // 是否添加会议室operate_id标识的用户到参与人
+	addOperatorToAttendeeSet bool
 }
 
 func NewCreateCalendarEventAttendeeReqBodyBuilder() *CreateCalendarEventAttendeeReqBodyBuilder {
@@ -9352,80 +10493,80 @@ func NewCreateCalendarEventAttendeeReqBodyBuilder() *CreateCalendarEventAttendee
 
 // 新增参与人列表；;- 单次请求会议室的数量限制为100。
 //
-// 示例值：
+//示例值：
 func (builder *CreateCalendarEventAttendeeReqBodyBuilder) Attendees(attendees []*CalendarEventAttendee) *CreateCalendarEventAttendeeReqBodyBuilder {
 	builder.attendees = attendees
-	builder.attendeesFlag = true
+	builder.attendeesSet = true
 	return builder
 }
 
 // 是否给参与人发送bot通知 默认为true
 //
-// 示例值：false
+//示例值：false
 func (builder *CreateCalendarEventAttendeeReqBodyBuilder) NeedNotification(needNotification bool) *CreateCalendarEventAttendeeReqBodyBuilder {
 	builder.needNotification = needNotification
-	builder.needNotificationFlag = true
+	builder.needNotificationSet = true
 	return builder
 }
 
 // 使用管理员身份访问时要修改的实例(仅用于重复日程修改其中的一个实例，非重复日程无需填此字段)
 //
-// 示例值：1647320400
+//示例值：1647320400
 func (builder *CreateCalendarEventAttendeeReqBodyBuilder) InstanceStartTimeAdmin(instanceStartTimeAdmin string) *CreateCalendarEventAttendeeReqBodyBuilder {
 	builder.instanceStartTimeAdmin = instanceStartTimeAdmin
-	builder.instanceStartTimeAdminFlag = true
+	builder.instanceStartTimeAdminSet = true
 	return builder
 }
 
 // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员)
 //
-// 示例值：false
+//示例值：false
 func (builder *CreateCalendarEventAttendeeReqBodyBuilder) IsEnableAdmin(isEnableAdmin bool) *CreateCalendarEventAttendeeReqBodyBuilder {
 	builder.isEnableAdmin = isEnableAdmin
-	builder.isEnableAdminFlag = true
+	builder.isEnableAdminSet = true
 	return builder
 }
 
 // 是否添加会议室operate_id标识的用户到参与人
 //
-// 示例值：false
+//示例值：false
 func (builder *CreateCalendarEventAttendeeReqBodyBuilder) AddOperatorToAttendee(addOperatorToAttendee bool) *CreateCalendarEventAttendeeReqBodyBuilder {
 	builder.addOperatorToAttendee = addOperatorToAttendee
-	builder.addOperatorToAttendeeFlag = true
+	builder.addOperatorToAttendeeSet = true
 	return builder
 }
 
 func (builder *CreateCalendarEventAttendeeReqBodyBuilder) Build() *CreateCalendarEventAttendeeReqBody {
 	req := &CreateCalendarEventAttendeeReqBody{}
-	if builder.attendeesFlag {
+	if builder.attendeesSet {
 		req.Attendees = builder.attendees
 	}
-	if builder.needNotificationFlag {
+	if builder.needNotificationSet {
 		req.NeedNotification = &builder.needNotification
 	}
-	if builder.instanceStartTimeAdminFlag {
+	if builder.instanceStartTimeAdminSet {
 		req.InstanceStartTimeAdmin = &builder.instanceStartTimeAdmin
 	}
-	if builder.isEnableAdminFlag {
+	if builder.isEnableAdminSet {
 		req.IsEnableAdmin = &builder.isEnableAdmin
 	}
-	if builder.addOperatorToAttendeeFlag {
+	if builder.addOperatorToAttendeeSet {
 		req.AddOperatorToAttendee = &builder.addOperatorToAttendee
 	}
 	return req
 }
 
 type CreateCalendarEventAttendeePathReqBodyBuilder struct {
-	attendees                  []*CalendarEventAttendee
-	attendeesFlag              bool
-	needNotification           bool
-	needNotificationFlag       bool
-	instanceStartTimeAdmin     string
-	instanceStartTimeAdminFlag bool
-	isEnableAdmin              bool
-	isEnableAdminFlag          bool
-	addOperatorToAttendee      bool
-	addOperatorToAttendeeFlag  bool
+	attendees                 []*CalendarEventAttendee
+	attendeesSet              bool
+	needNotification          bool
+	needNotificationSet       bool
+	instanceStartTimeAdmin    string
+	instanceStartTimeAdminSet bool
+	isEnableAdmin             bool
+	isEnableAdminSet          bool
+	addOperatorToAttendee     bool
+	addOperatorToAttendeeSet  bool
 }
 
 func NewCreateCalendarEventAttendeePathReqBodyBuilder() *CreateCalendarEventAttendeePathReqBodyBuilder {
@@ -9438,7 +10579,7 @@ func NewCreateCalendarEventAttendeePathReqBodyBuilder() *CreateCalendarEventAtte
 // 示例值：
 func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) Attendees(attendees []*CalendarEventAttendee) *CreateCalendarEventAttendeePathReqBodyBuilder {
 	builder.attendees = attendees
-	builder.attendeesFlag = true
+	builder.attendeesSet = true
 	return builder
 }
 
@@ -9447,7 +10588,7 @@ func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) Attendees(attendee
 // 示例值：false
 func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) NeedNotification(needNotification bool) *CreateCalendarEventAttendeePathReqBodyBuilder {
 	builder.needNotification = needNotification
-	builder.needNotificationFlag = true
+	builder.needNotificationSet = true
 	return builder
 }
 
@@ -9456,7 +10597,7 @@ func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) NeedNotification(n
 // 示例值：1647320400
 func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) InstanceStartTimeAdmin(instanceStartTimeAdmin string) *CreateCalendarEventAttendeePathReqBodyBuilder {
 	builder.instanceStartTimeAdmin = instanceStartTimeAdmin
-	builder.instanceStartTimeAdminFlag = true
+	builder.instanceStartTimeAdminSet = true
 	return builder
 }
 
@@ -9465,7 +10606,7 @@ func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) InstanceStartTimeA
 // 示例值：false
 func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) IsEnableAdmin(isEnableAdmin bool) *CreateCalendarEventAttendeePathReqBodyBuilder {
 	builder.isEnableAdmin = isEnableAdmin
-	builder.isEnableAdminFlag = true
+	builder.isEnableAdminSet = true
 	return builder
 }
 
@@ -9474,25 +10615,25 @@ func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) IsEnableAdmin(isEn
 // 示例值：false
 func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) AddOperatorToAttendee(addOperatorToAttendee bool) *CreateCalendarEventAttendeePathReqBodyBuilder {
 	builder.addOperatorToAttendee = addOperatorToAttendee
-	builder.addOperatorToAttendeeFlag = true
+	builder.addOperatorToAttendeeSet = true
 	return builder
 }
 
 func (builder *CreateCalendarEventAttendeePathReqBodyBuilder) Build() (*CreateCalendarEventAttendeeReqBody, error) {
 	req := &CreateCalendarEventAttendeeReqBody{}
-	if builder.attendeesFlag {
+	if builder.attendeesSet {
 		req.Attendees = builder.attendees
 	}
-	if builder.needNotificationFlag {
+	if builder.needNotificationSet {
 		req.NeedNotification = &builder.needNotification
 	}
-	if builder.instanceStartTimeAdminFlag {
+	if builder.instanceStartTimeAdminSet {
 		req.InstanceStartTimeAdmin = &builder.instanceStartTimeAdmin
 	}
-	if builder.isEnableAdminFlag {
+	if builder.isEnableAdminSet {
 		req.IsEnableAdmin = &builder.isEnableAdmin
 	}
-	if builder.addOperatorToAttendeeFlag {
+	if builder.addOperatorToAttendeeSet {
 		req.AddOperatorToAttendee = &builder.addOperatorToAttendee
 	}
 	return req, nil
@@ -9650,6 +10791,14 @@ func (builder *ListCalendarEventAttendeeReqBuilder) PageSize(pageSize int) *List
 	return builder
 }
 
+// 应用身份下指定操作用户的日历日程数据
+//
+// 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
+func (builder *ListCalendarEventAttendeeReqBuilder) OpUserId(opUserId string) *ListCalendarEventAttendeeReqBuilder {
+	builder.apiReq.QueryParams.Set("op_user_id", fmt.Sprint(opUserId))
+	return builder
+}
+
 func (builder *ListCalendarEventAttendeeReqBuilder) Build() *ListCalendarEventAttendeeReq {
 	req := &ListCalendarEventAttendeeReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -9748,6 +10897,14 @@ func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) PageSize(pageSize 
 // 示例值：
 func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) UserIdType(userIdType string) *ListCalendarEventAttendeeChatMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 应用身份下指定操作用户的日历日程数据
+//
+// 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
+func (builder *ListCalendarEventAttendeeChatMemberReqBuilder) OpUserId(opUserId string) *ListCalendarEventAttendeeChatMemberReqBuilder {
+	builder.apiReq.QueryParams.Set("op_user_id", fmt.Sprint(opUserId))
 	return builder
 }
 
@@ -10120,23 +11277,23 @@ func (resp *GetExchangeBindingResp) Success() bool {
 }
 
 type BatchFreebusyReqBodyBuilder struct {
-	timeMin     string // 获取忙闲信息的开始时间，RFC3339 date_time格式；time_min与time_max的时间区间不能超过3个月。
-	timeMinFlag bool
+	timeMin    string // 获取忙闲信息的开始时间，RFC3339 date_time格式；time_min与time_max的时间区间不能超过3个月。
+	timeMinSet bool
 
-	timeMax     string // 获取忙闲信息的开始时间，RFC3339 date_time格式；time_min与time_max的时间区间不能超过3个月。
-	timeMaxFlag bool
+	timeMax    string // 获取忙闲信息的开始时间，RFC3339 date_time格式；time_min与time_max的时间区间不能超过3个月。
+	timeMaxSet bool
 
-	userIds     []string // 用户ID列表
-	userIdsFlag bool
+	userIds    []string // 用户ID列表
+	userIdsSet bool
 
-	includeExternalCalendar     bool // 是否包含绑定的三方日历中的日程，不传默认为true，即包含。
-	includeExternalCalendarFlag bool
+	includeExternalCalendar    bool // 是否包含绑定的三方日历中的日程，不传默认为true，即包含。
+	includeExternalCalendarSet bool
 
-	onlyBusy     bool // 是否包含标记为空闲的日程，不传默认为true，即包含空闲日程。
-	onlyBusyFlag bool
+	onlyBusy    bool // 是否包含标记为空闲的日程，不传默认为true，即包含空闲日程。
+	onlyBusySet bool
 
-	needRsvpStatus     bool // 是否需要RSVP状态信息
-	needRsvpStatusFlag bool
+	needRsvpStatus    bool // 是否需要RSVP状态信息
+	needRsvpStatusSet bool
 }
 
 func NewBatchFreebusyReqBodyBuilder() *BatchFreebusyReqBodyBuilder {
@@ -10146,94 +11303,94 @@ func NewBatchFreebusyReqBodyBuilder() *BatchFreebusyReqBodyBuilder {
 
 // 获取忙闲信息的开始时间，RFC3339 date_time格式；time_min与time_max的时间区间不能超过3个月。
 //
-// 示例值：2020-10-28T12:00:00+08:00
+//示例值：2020-10-28T12:00:00+08:00
 func (builder *BatchFreebusyReqBodyBuilder) TimeMin(timeMin string) *BatchFreebusyReqBodyBuilder {
 	builder.timeMin = timeMin
-	builder.timeMinFlag = true
+	builder.timeMinSet = true
 	return builder
 }
 
 // 获取忙闲信息的开始时间，RFC3339 date_time格式；time_min与time_max的时间区间不能超过3个月。
 //
-// 示例值：2020-10-28T12:00:00+08:00
+//示例值：2020-10-28T12:00:00+08:00
 func (builder *BatchFreebusyReqBodyBuilder) TimeMax(timeMax string) *BatchFreebusyReqBodyBuilder {
 	builder.timeMax = timeMax
-	builder.timeMaxFlag = true
+	builder.timeMaxSet = true
 	return builder
 }
 
 // 用户ID列表
 //
-// 示例值：
+//示例值：
 func (builder *BatchFreebusyReqBodyBuilder) UserIds(userIds []string) *BatchFreebusyReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 // 是否包含绑定的三方日历中的日程，不传默认为true，即包含。
 //
-// 示例值：true
+//示例值：true
 func (builder *BatchFreebusyReqBodyBuilder) IncludeExternalCalendar(includeExternalCalendar bool) *BatchFreebusyReqBodyBuilder {
 	builder.includeExternalCalendar = includeExternalCalendar
-	builder.includeExternalCalendarFlag = true
+	builder.includeExternalCalendarSet = true
 	return builder
 }
 
 // 是否包含标记为空闲的日程，不传默认为true，即包含空闲日程。
 //
-// 示例值：true
+//示例值：true
 func (builder *BatchFreebusyReqBodyBuilder) OnlyBusy(onlyBusy bool) *BatchFreebusyReqBodyBuilder {
 	builder.onlyBusy = onlyBusy
-	builder.onlyBusyFlag = true
+	builder.onlyBusySet = true
 	return builder
 }
 
 // 是否需要RSVP状态信息
 //
-// 示例值：true
+//示例值：true
 func (builder *BatchFreebusyReqBodyBuilder) NeedRsvpStatus(needRsvpStatus bool) *BatchFreebusyReqBodyBuilder {
 	builder.needRsvpStatus = needRsvpStatus
-	builder.needRsvpStatusFlag = true
+	builder.needRsvpStatusSet = true
 	return builder
 }
 
 func (builder *BatchFreebusyReqBodyBuilder) Build() *BatchFreebusyReqBody {
 	req := &BatchFreebusyReqBody{}
-	if builder.timeMinFlag {
+	if builder.timeMinSet {
 		req.TimeMin = &builder.timeMin
 	}
-	if builder.timeMaxFlag {
+	if builder.timeMaxSet {
 		req.TimeMax = &builder.timeMax
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
-	if builder.includeExternalCalendarFlag {
+	if builder.includeExternalCalendarSet {
 		req.IncludeExternalCalendar = &builder.includeExternalCalendar
 	}
-	if builder.onlyBusyFlag {
+	if builder.onlyBusySet {
 		req.OnlyBusy = &builder.onlyBusy
 	}
-	if builder.needRsvpStatusFlag {
+	if builder.needRsvpStatusSet {
 		req.NeedRsvpStatus = &builder.needRsvpStatus
 	}
 	return req
 }
 
 type BatchFreebusyPathReqBodyBuilder struct {
-	timeMin                     string
-	timeMinFlag                 bool
-	timeMax                     string
-	timeMaxFlag                 bool
-	userIds                     []string
-	userIdsFlag                 bool
-	includeExternalCalendar     bool
-	includeExternalCalendarFlag bool
-	onlyBusy                    bool
-	onlyBusyFlag                bool
-	needRsvpStatus              bool
-	needRsvpStatusFlag          bool
+	timeMin                    string
+	timeMinSet                 bool
+	timeMax                    string
+	timeMaxSet                 bool
+	userIds                    []string
+	userIdsSet                 bool
+	includeExternalCalendar    bool
+	includeExternalCalendarSet bool
+	onlyBusy                   bool
+	onlyBusySet                bool
+	needRsvpStatus             bool
+	needRsvpStatusSet          bool
 }
 
 func NewBatchFreebusyPathReqBodyBuilder() *BatchFreebusyPathReqBodyBuilder {
@@ -10246,7 +11403,7 @@ func NewBatchFreebusyPathReqBodyBuilder() *BatchFreebusyPathReqBodyBuilder {
 // 示例值：2020-10-28T12:00:00+08:00
 func (builder *BatchFreebusyPathReqBodyBuilder) TimeMin(timeMin string) *BatchFreebusyPathReqBodyBuilder {
 	builder.timeMin = timeMin
-	builder.timeMinFlag = true
+	builder.timeMinSet = true
 	return builder
 }
 
@@ -10255,7 +11412,7 @@ func (builder *BatchFreebusyPathReqBodyBuilder) TimeMin(timeMin string) *BatchFr
 // 示例值：2020-10-28T12:00:00+08:00
 func (builder *BatchFreebusyPathReqBodyBuilder) TimeMax(timeMax string) *BatchFreebusyPathReqBodyBuilder {
 	builder.timeMax = timeMax
-	builder.timeMaxFlag = true
+	builder.timeMaxSet = true
 	return builder
 }
 
@@ -10264,7 +11421,7 @@ func (builder *BatchFreebusyPathReqBodyBuilder) TimeMax(timeMax string) *BatchFr
 // 示例值：
 func (builder *BatchFreebusyPathReqBodyBuilder) UserIds(userIds []string) *BatchFreebusyPathReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
@@ -10273,7 +11430,7 @@ func (builder *BatchFreebusyPathReqBodyBuilder) UserIds(userIds []string) *Batch
 // 示例值：true
 func (builder *BatchFreebusyPathReqBodyBuilder) IncludeExternalCalendar(includeExternalCalendar bool) *BatchFreebusyPathReqBodyBuilder {
 	builder.includeExternalCalendar = includeExternalCalendar
-	builder.includeExternalCalendarFlag = true
+	builder.includeExternalCalendarSet = true
 	return builder
 }
 
@@ -10282,7 +11439,7 @@ func (builder *BatchFreebusyPathReqBodyBuilder) IncludeExternalCalendar(includeE
 // 示例值：true
 func (builder *BatchFreebusyPathReqBodyBuilder) OnlyBusy(onlyBusy bool) *BatchFreebusyPathReqBodyBuilder {
 	builder.onlyBusy = onlyBusy
-	builder.onlyBusyFlag = true
+	builder.onlyBusySet = true
 	return builder
 }
 
@@ -10291,28 +11448,28 @@ func (builder *BatchFreebusyPathReqBodyBuilder) OnlyBusy(onlyBusy bool) *BatchFr
 // 示例值：true
 func (builder *BatchFreebusyPathReqBodyBuilder) NeedRsvpStatus(needRsvpStatus bool) *BatchFreebusyPathReqBodyBuilder {
 	builder.needRsvpStatus = needRsvpStatus
-	builder.needRsvpStatusFlag = true
+	builder.needRsvpStatusSet = true
 	return builder
 }
 
 func (builder *BatchFreebusyPathReqBodyBuilder) Build() (*BatchFreebusyReqBody, error) {
 	req := &BatchFreebusyReqBody{}
-	if builder.timeMinFlag {
+	if builder.timeMinSet {
 		req.TimeMin = &builder.timeMin
 	}
-	if builder.timeMaxFlag {
+	if builder.timeMaxSet {
 		req.TimeMax = &builder.timeMax
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
-	if builder.includeExternalCalendarFlag {
+	if builder.includeExternalCalendarSet {
 		req.IncludeExternalCalendar = &builder.includeExternalCalendar
 	}
-	if builder.onlyBusyFlag {
+	if builder.onlyBusySet {
 		req.OnlyBusy = &builder.onlyBusy
 	}
-	if builder.needRsvpStatusFlag {
+	if builder.needRsvpStatusSet {
 		req.NeedRsvpStatus = &builder.needRsvpStatus
 	}
 	return req, nil
@@ -10340,6 +11497,7 @@ func (builder *BatchFreebusyReqBuilder) UserIdType(userIdType string) *BatchFree
 	return builder
 }
 
+//
 func (builder *BatchFreebusyReqBuilder) Body(body *BatchFreebusyReqBody) *BatchFreebusyReqBuilder {
 	builder.body = body
 	return builder
@@ -10387,26 +11545,26 @@ func (resp *BatchFreebusyResp) Success() bool {
 }
 
 type ListFreebusyReqBodyBuilder struct {
-	timeMin     string // 查询时段开始时间，需要url编码
-	timeMinFlag bool
+	timeMin    string // 查询时段开始时间，需要url编码
+	timeMinSet bool
 
-	timeMax     string // 查询时段结束时间，需要url编码
-	timeMaxFlag bool
+	timeMax    string // 查询时段结束时间，需要url编码
+	timeMaxSet bool
 
-	userId     string // 用户user_id，输入时与 room_id 二选一。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	userIdFlag bool
+	userId    string // 用户user_id，输入时与 room_id 二选一。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	userIdSet bool
 
-	roomId     string // 会议室room_id，输入时与 user_id 二选一
-	roomIdFlag bool
+	roomId    string // 会议室room_id，输入时与 user_id 二选一
+	roomIdSet bool
 
-	includeExternalCalendar     bool // 是否包含绑定的三方日历中的日程，不传默认为true，即包含。
-	includeExternalCalendarFlag bool
+	includeExternalCalendar    bool // 是否包含绑定的三方日历中的日程，不传默认为true，即包含。
+	includeExternalCalendarSet bool
 
-	onlyBusy     bool // 是否包含标记为空闲的日程，不传默认为true，即包含。
-	onlyBusyFlag bool
+	onlyBusy    bool // 是否包含标记为空闲的日程，不传默认为true，即包含。
+	onlyBusySet bool
 
-	needRsvpStatus     bool // 是否需要RSVP状态信息
-	needRsvpStatusFlag bool
+	needRsvpStatus    bool // 是否需要RSVP状态信息
+	needRsvpStatusSet bool
 }
 
 func NewListFreebusyReqBodyBuilder() *ListFreebusyReqBodyBuilder {
@@ -10416,108 +11574,108 @@ func NewListFreebusyReqBodyBuilder() *ListFreebusyReqBodyBuilder {
 
 // 查询时段开始时间，需要url编码
 //
-// 示例值：2020-10-28T12:00:00+08:00
+//示例值：2020-10-28T12:00:00+08:00
 func (builder *ListFreebusyReqBodyBuilder) TimeMin(timeMin string) *ListFreebusyReqBodyBuilder {
 	builder.timeMin = timeMin
-	builder.timeMinFlag = true
+	builder.timeMinSet = true
 	return builder
 }
 
 // 查询时段结束时间，需要url编码
 //
-// 示例值：2020-12-28T12:00:00+08:00
+//示例值：2020-12-28T12:00:00+08:00
 func (builder *ListFreebusyReqBodyBuilder) TimeMax(timeMax string) *ListFreebusyReqBodyBuilder {
 	builder.timeMax = timeMax
-	builder.timeMaxFlag = true
+	builder.timeMaxSet = true
 	return builder
 }
 
 // 用户user_id，输入时与 room_id 二选一。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 //
-// 示例值：ou_xxxxxxxxxx
+//示例值：ou_xxxxxxxxxx
 func (builder *ListFreebusyReqBodyBuilder) UserId(userId string) *ListFreebusyReqBodyBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 // 会议室room_id，输入时与 user_id 二选一
 //
-// 示例值：omm_xxxxxxxxxx
+//示例值：omm_xxxxxxxxxx
 func (builder *ListFreebusyReqBodyBuilder) RoomId(roomId string) *ListFreebusyReqBodyBuilder {
 	builder.roomId = roomId
-	builder.roomIdFlag = true
+	builder.roomIdSet = true
 	return builder
 }
 
 // 是否包含绑定的三方日历中的日程，不传默认为true，即包含。
 //
-// 示例值：true
+//示例值：true
 func (builder *ListFreebusyReqBodyBuilder) IncludeExternalCalendar(includeExternalCalendar bool) *ListFreebusyReqBodyBuilder {
 	builder.includeExternalCalendar = includeExternalCalendar
-	builder.includeExternalCalendarFlag = true
+	builder.includeExternalCalendarSet = true
 	return builder
 }
 
 // 是否包含标记为空闲的日程，不传默认为true，即包含。
 //
-// 示例值：true
+//示例值：true
 func (builder *ListFreebusyReqBodyBuilder) OnlyBusy(onlyBusy bool) *ListFreebusyReqBodyBuilder {
 	builder.onlyBusy = onlyBusy
-	builder.onlyBusyFlag = true
+	builder.onlyBusySet = true
 	return builder
 }
 
 // 是否需要RSVP状态信息
 //
-// 示例值：true
+//示例值：true
 func (builder *ListFreebusyReqBodyBuilder) NeedRsvpStatus(needRsvpStatus bool) *ListFreebusyReqBodyBuilder {
 	builder.needRsvpStatus = needRsvpStatus
-	builder.needRsvpStatusFlag = true
+	builder.needRsvpStatusSet = true
 	return builder
 }
 
 func (builder *ListFreebusyReqBodyBuilder) Build() *ListFreebusyReqBody {
 	req := &ListFreebusyReqBody{}
-	if builder.timeMinFlag {
+	if builder.timeMinSet {
 		req.TimeMin = &builder.timeMin
 	}
-	if builder.timeMaxFlag {
+	if builder.timeMaxSet {
 		req.TimeMax = &builder.timeMax
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 	}
-	if builder.roomIdFlag {
+	if builder.roomIdSet {
 		req.RoomId = &builder.roomId
 	}
-	if builder.includeExternalCalendarFlag {
+	if builder.includeExternalCalendarSet {
 		req.IncludeExternalCalendar = &builder.includeExternalCalendar
 	}
-	if builder.onlyBusyFlag {
+	if builder.onlyBusySet {
 		req.OnlyBusy = &builder.onlyBusy
 	}
-	if builder.needRsvpStatusFlag {
+	if builder.needRsvpStatusSet {
 		req.NeedRsvpStatus = &builder.needRsvpStatus
 	}
 	return req
 }
 
 type ListFreebusyPathReqBodyBuilder struct {
-	timeMin                     string
-	timeMinFlag                 bool
-	timeMax                     string
-	timeMaxFlag                 bool
-	userId                      string
-	userIdFlag                  bool
-	roomId                      string
-	roomIdFlag                  bool
-	includeExternalCalendar     bool
-	includeExternalCalendarFlag bool
-	onlyBusy                    bool
-	onlyBusyFlag                bool
-	needRsvpStatus              bool
-	needRsvpStatusFlag          bool
+	timeMin                    string
+	timeMinSet                 bool
+	timeMax                    string
+	timeMaxSet                 bool
+	userId                     string
+	userIdSet                  bool
+	roomId                     string
+	roomIdSet                  bool
+	includeExternalCalendar    bool
+	includeExternalCalendarSet bool
+	onlyBusy                   bool
+	onlyBusySet                bool
+	needRsvpStatus             bool
+	needRsvpStatusSet          bool
 }
 
 func NewListFreebusyPathReqBodyBuilder() *ListFreebusyPathReqBodyBuilder {
@@ -10530,7 +11688,7 @@ func NewListFreebusyPathReqBodyBuilder() *ListFreebusyPathReqBodyBuilder {
 // 示例值：2020-10-28T12:00:00+08:00
 func (builder *ListFreebusyPathReqBodyBuilder) TimeMin(timeMin string) *ListFreebusyPathReqBodyBuilder {
 	builder.timeMin = timeMin
-	builder.timeMinFlag = true
+	builder.timeMinSet = true
 	return builder
 }
 
@@ -10539,7 +11697,7 @@ func (builder *ListFreebusyPathReqBodyBuilder) TimeMin(timeMin string) *ListFree
 // 示例值：2020-12-28T12:00:00+08:00
 func (builder *ListFreebusyPathReqBodyBuilder) TimeMax(timeMax string) *ListFreebusyPathReqBodyBuilder {
 	builder.timeMax = timeMax
-	builder.timeMaxFlag = true
+	builder.timeMaxSet = true
 	return builder
 }
 
@@ -10548,7 +11706,7 @@ func (builder *ListFreebusyPathReqBodyBuilder) TimeMax(timeMax string) *ListFree
 // 示例值：ou_xxxxxxxxxx
 func (builder *ListFreebusyPathReqBodyBuilder) UserId(userId string) *ListFreebusyPathReqBodyBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -10557,7 +11715,7 @@ func (builder *ListFreebusyPathReqBodyBuilder) UserId(userId string) *ListFreebu
 // 示例值：omm_xxxxxxxxxx
 func (builder *ListFreebusyPathReqBodyBuilder) RoomId(roomId string) *ListFreebusyPathReqBodyBuilder {
 	builder.roomId = roomId
-	builder.roomIdFlag = true
+	builder.roomIdSet = true
 	return builder
 }
 
@@ -10566,7 +11724,7 @@ func (builder *ListFreebusyPathReqBodyBuilder) RoomId(roomId string) *ListFreebu
 // 示例值：true
 func (builder *ListFreebusyPathReqBodyBuilder) IncludeExternalCalendar(includeExternalCalendar bool) *ListFreebusyPathReqBodyBuilder {
 	builder.includeExternalCalendar = includeExternalCalendar
-	builder.includeExternalCalendarFlag = true
+	builder.includeExternalCalendarSet = true
 	return builder
 }
 
@@ -10575,7 +11733,7 @@ func (builder *ListFreebusyPathReqBodyBuilder) IncludeExternalCalendar(includeEx
 // 示例值：true
 func (builder *ListFreebusyPathReqBodyBuilder) OnlyBusy(onlyBusy bool) *ListFreebusyPathReqBodyBuilder {
 	builder.onlyBusy = onlyBusy
-	builder.onlyBusyFlag = true
+	builder.onlyBusySet = true
 	return builder
 }
 
@@ -10584,31 +11742,31 @@ func (builder *ListFreebusyPathReqBodyBuilder) OnlyBusy(onlyBusy bool) *ListFree
 // 示例值：true
 func (builder *ListFreebusyPathReqBodyBuilder) NeedRsvpStatus(needRsvpStatus bool) *ListFreebusyPathReqBodyBuilder {
 	builder.needRsvpStatus = needRsvpStatus
-	builder.needRsvpStatusFlag = true
+	builder.needRsvpStatusSet = true
 	return builder
 }
 
 func (builder *ListFreebusyPathReqBodyBuilder) Build() (*ListFreebusyReqBody, error) {
 	req := &ListFreebusyReqBody{}
-	if builder.timeMinFlag {
+	if builder.timeMinSet {
 		req.TimeMin = &builder.timeMin
 	}
-	if builder.timeMaxFlag {
+	if builder.timeMaxSet {
 		req.TimeMax = &builder.timeMax
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 	}
-	if builder.roomIdFlag {
+	if builder.roomIdSet {
 		req.RoomId = &builder.roomId
 	}
-	if builder.includeExternalCalendarFlag {
+	if builder.includeExternalCalendarSet {
 		req.IncludeExternalCalendar = &builder.includeExternalCalendar
 	}
-	if builder.onlyBusyFlag {
+	if builder.onlyBusySet {
 		req.OnlyBusy = &builder.onlyBusy
 	}
-	if builder.needRsvpStatusFlag {
+	if builder.needRsvpStatusSet {
 		req.NeedRsvpStatus = &builder.needRsvpStatus
 	}
 	return req, nil
@@ -10686,8 +11844,8 @@ func (resp *ListFreebusyResp) Success() bool {
 }
 
 type GenerateCaldavConfSettingReqBodyBuilder struct {
-	deviceName     string // 需要同步日历的设备名，在日历中展示用来管理密码
-	deviceNameFlag bool
+	deviceName    string // 需要同步日历的设备名，在日历中展示用来管理密码
+	deviceNameSet bool
 }
 
 func NewGenerateCaldavConfSettingReqBodyBuilder() *GenerateCaldavConfSettingReqBodyBuilder {
@@ -10697,24 +11855,24 @@ func NewGenerateCaldavConfSettingReqBodyBuilder() *GenerateCaldavConfSettingReqB
 
 // 需要同步日历的设备名，在日历中展示用来管理密码
 //
-// 示例值：iPhone
+//示例值：iPhone
 func (builder *GenerateCaldavConfSettingReqBodyBuilder) DeviceName(deviceName string) *GenerateCaldavConfSettingReqBodyBuilder {
 	builder.deviceName = deviceName
-	builder.deviceNameFlag = true
+	builder.deviceNameSet = true
 	return builder
 }
 
 func (builder *GenerateCaldavConfSettingReqBodyBuilder) Build() *GenerateCaldavConfSettingReqBody {
 	req := &GenerateCaldavConfSettingReqBody{}
-	if builder.deviceNameFlag {
+	if builder.deviceNameSet {
 		req.DeviceName = &builder.deviceName
 	}
 	return req
 }
 
 type GenerateCaldavConfSettingPathReqBodyBuilder struct {
-	deviceName     string
-	deviceNameFlag bool
+	deviceName    string
+	deviceNameSet bool
 }
 
 func NewGenerateCaldavConfSettingPathReqBodyBuilder() *GenerateCaldavConfSettingPathReqBodyBuilder {
@@ -10727,13 +11885,13 @@ func NewGenerateCaldavConfSettingPathReqBodyBuilder() *GenerateCaldavConfSetting
 // 示例值：iPhone
 func (builder *GenerateCaldavConfSettingPathReqBodyBuilder) DeviceName(deviceName string) *GenerateCaldavConfSettingPathReqBodyBuilder {
 	builder.deviceName = deviceName
-	builder.deviceNameFlag = true
+	builder.deviceNameSet = true
 	return builder
 }
 
 func (builder *GenerateCaldavConfSettingPathReqBodyBuilder) Build() (*GenerateCaldavConfSettingReqBody, error) {
 	req := &GenerateCaldavConfSettingReqBody{}
-	if builder.deviceNameFlag {
+	if builder.deviceNameSet {
 		req.DeviceName = &builder.deviceName
 	}
 	return req, nil

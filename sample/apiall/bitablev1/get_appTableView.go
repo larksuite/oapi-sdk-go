@@ -30,6 +30,7 @@ func main() {
 		AppToken("bascnCMII2ORej2RItqpZZUNMIe").
 		TableId("tblsRc9GRRXKqhvW").
 		ViewId("vewTpR1urY").
+		UserIdType("").
 		Build()
 	// 发起请求
 	resp, err := client.Bitable.V1.AppTableView.Get(context.Background(), req)

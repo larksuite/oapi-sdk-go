@@ -64,6 +64,11 @@ func main() {
 			ResidentTaxes([]*larkcorehr.ResidentTax{larkcorehr.NewResidentTaxBuilder().Build()}).
 			FirstEntryTime("2021-01-02").
 			LeaveTime("2022-01-02").
+			LegalNameV2s([]*larkcorehr.PersonName{larkcorehr.NewPersonNameBuilder().Build()}).
+			NationalIdV2s([]*larkcorehr.NationalId{larkcorehr.NewNationalIdBuilder().Build()}).
+			Visas([]*larkcorehr.Visa{larkcorehr.NewVisaBuilder().Build()}).
+			Passports([]*larkcorehr.Passport{larkcorehr.NewPassportBuilder().Build()}).
+			PersonForCountries([]*larkcorehr.PersonForCountry{larkcorehr.NewPersonForCountryBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

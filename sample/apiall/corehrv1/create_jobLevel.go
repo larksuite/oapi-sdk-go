@@ -37,6 +37,7 @@ func main() {
 			CustomFields([]*larkcorehr.ObjectFieldData{larkcorehr.NewObjectFieldDataBuilder().Build()}).
 			JobGrade([]string{}).
 			PathwayIds([]string{}).
+			ViewOrder(123).
 			Build()).
 		Build()
 	// 发起请求

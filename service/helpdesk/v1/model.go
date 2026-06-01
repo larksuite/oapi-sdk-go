@@ -79,23 +79,23 @@ type Agent struct {
 }
 
 type AgentBuilder struct {
-	id     string // user id
-	idFlag bool
+	id    string // user id
+	idSet bool
 
-	avatarUrl     string // user avatar url
-	avatarUrlFlag bool
+	avatarUrl    string // user avatar url
+	avatarUrlSet bool
 
-	name     string // user name
-	nameFlag bool
+	name    string // user name
+	nameSet bool
 
-	email     string // user email
-	emailFlag bool
+	email    string // user email
+	emailSet bool
 
-	department     string // user department
-	departmentFlag bool
+	department    string // user department
+	departmentSet bool
 
-	companyName     string // company
-	companyNameFlag bool
+	companyName    string // company
+	companyNameSet bool
 }
 
 func NewAgentBuilder() *AgentBuilder {
@@ -108,7 +108,7 @@ func NewAgentBuilder() *AgentBuilder {
 // 示例值：ou_ea651a5c09e2d01af8acd34059f5359b
 func (builder *AgentBuilder) Id(id string) *AgentBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -117,7 +117,7 @@ func (builder *AgentBuilder) Id(id string) *AgentBuilder {
 // 示例值：https://avatar-url.com/test.png
 func (builder *AgentBuilder) AvatarUrl(avatarUrl string) *AgentBuilder {
 	builder.avatarUrl = avatarUrl
-	builder.avatarUrlFlag = true
+	builder.avatarUrlSet = true
 	return builder
 }
 
@@ -126,7 +126,7 @@ func (builder *AgentBuilder) AvatarUrl(avatarUrl string) *AgentBuilder {
 // 示例值：test-user
 func (builder *AgentBuilder) Name(name string) *AgentBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -135,7 +135,7 @@ func (builder *AgentBuilder) Name(name string) *AgentBuilder {
 // 示例值：
 func (builder *AgentBuilder) Email(email string) *AgentBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -144,7 +144,7 @@ func (builder *AgentBuilder) Email(email string) *AgentBuilder {
 // 示例值：
 func (builder *AgentBuilder) Department(department string) *AgentBuilder {
 	builder.department = department
-	builder.departmentFlag = true
+	builder.departmentSet = true
 	return builder
 }
 
@@ -153,33 +153,33 @@ func (builder *AgentBuilder) Department(department string) *AgentBuilder {
 // 示例值：
 func (builder *AgentBuilder) CompanyName(companyName string) *AgentBuilder {
 	builder.companyName = companyName
-	builder.companyNameFlag = true
+	builder.companyNameSet = true
 	return builder
 }
 
 func (builder *AgentBuilder) Build() *Agent {
 	req := &Agent{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.avatarUrlFlag {
+	if builder.avatarUrlSet {
 		req.AvatarUrl = &builder.avatarUrl
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.departmentFlag {
+	if builder.departmentSet {
 		req.Department = &builder.department
 
 	}
-	if builder.companyNameFlag {
+	if builder.companyNameSet {
 		req.CompanyName = &builder.companyName
 
 	}
@@ -197,17 +197,17 @@ type AgentSchedules struct {
 }
 
 type AgentSchedulesBuilder struct {
-	status     int // status of agent
-	statusFlag bool
+	status    int // status of agent
+	statusSet bool
 
-	agent     *AgentUser // agent info
-	agentFlag bool
+	agent    *AgentUser // agent info
+	agentSet bool
 
-	schedule     []*WeekdaySchedule // day schedule
-	scheduleFlag bool
+	schedule    []*WeekdaySchedule // day schedule
+	scheduleSet bool
 
-	agentSkills     []*AgentSkillLessInfo // agent skills
-	agentSkillsFlag bool
+	agentSkills    []*AgentSkillLessInfo // agent skills
+	agentSkillsSet bool
 }
 
 func NewAgentSchedulesBuilder() *AgentSchedulesBuilder {
@@ -220,7 +220,7 @@ func NewAgentSchedulesBuilder() *AgentSchedulesBuilder {
 // 示例值：
 func (builder *AgentSchedulesBuilder) Status(status int) *AgentSchedulesBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -229,7 +229,7 @@ func (builder *AgentSchedulesBuilder) Status(status int) *AgentSchedulesBuilder 
 // 示例值：
 func (builder *AgentSchedulesBuilder) Agent(agent *AgentUser) *AgentSchedulesBuilder {
 	builder.agent = agent
-	builder.agentFlag = true
+	builder.agentSet = true
 	return builder
 }
 
@@ -238,7 +238,7 @@ func (builder *AgentSchedulesBuilder) Agent(agent *AgentUser) *AgentSchedulesBui
 // 示例值：
 func (builder *AgentSchedulesBuilder) Schedule(schedule []*WeekdaySchedule) *AgentSchedulesBuilder {
 	builder.schedule = schedule
-	builder.scheduleFlag = true
+	builder.scheduleSet = true
 	return builder
 }
 
@@ -247,23 +247,23 @@ func (builder *AgentSchedulesBuilder) Schedule(schedule []*WeekdaySchedule) *Age
 // 示例值：
 func (builder *AgentSchedulesBuilder) AgentSkills(agentSkills []*AgentSkillLessInfo) *AgentSchedulesBuilder {
 	builder.agentSkills = agentSkills
-	builder.agentSkillsFlag = true
+	builder.agentSkillsSet = true
 	return builder
 }
 
 func (builder *AgentSchedulesBuilder) Build() *AgentSchedules {
 	req := &AgentSchedules{}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.agentFlag {
+	if builder.agentSet {
 		req.Agent = builder.agent
 	}
-	if builder.scheduleFlag {
+	if builder.scheduleSet {
 		req.Schedule = builder.schedule
 	}
-	if builder.agentSkillsFlag {
+	if builder.agentSkillsSet {
 		req.AgentSkills = builder.agentSkills
 	}
 	return req
@@ -280,17 +280,17 @@ type AgentSchedule struct {
 }
 
 type AgentScheduleBuilder struct {
-	status     int // 客服状态, 1 - online客服, 2 - offline(手动)客服, 3 - off duty(下班)自动处于非服务时间段
-	statusFlag bool
+	status    int // 客服状态, 1 - online客服, 2 - offline(手动)客服, 3 - off duty(下班)自动处于非服务时间段
+	statusSet bool
 
-	agent     *AgentUser // 客服信息
-	agentFlag bool
+	agent    *AgentUser // 客服信息
+	agentSet bool
 
-	schedule     []*WeekdaySchedule // 工作日程列表
-	scheduleFlag bool
+	schedule    []*WeekdaySchedule // 工作日程列表
+	scheduleSet bool
 
-	agentSkills     []*AgentSkillLessInfo // 客服技能
-	agentSkillsFlag bool
+	agentSkills    []*AgentSkillLessInfo // 客服技能
+	agentSkillsSet bool
 }
 
 func NewAgentScheduleBuilder() *AgentScheduleBuilder {
@@ -303,7 +303,7 @@ func NewAgentScheduleBuilder() *AgentScheduleBuilder {
 // 示例值：1
 func (builder *AgentScheduleBuilder) Status(status int) *AgentScheduleBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -312,7 +312,7 @@ func (builder *AgentScheduleBuilder) Status(status int) *AgentScheduleBuilder {
 // 示例值：
 func (builder *AgentScheduleBuilder) Agent(agent *AgentUser) *AgentScheduleBuilder {
 	builder.agent = agent
-	builder.agentFlag = true
+	builder.agentSet = true
 	return builder
 }
 
@@ -321,7 +321,7 @@ func (builder *AgentScheduleBuilder) Agent(agent *AgentUser) *AgentScheduleBuild
 // 示例值：
 func (builder *AgentScheduleBuilder) Schedule(schedule []*WeekdaySchedule) *AgentScheduleBuilder {
 	builder.schedule = schedule
-	builder.scheduleFlag = true
+	builder.scheduleSet = true
 	return builder
 }
 
@@ -330,23 +330,23 @@ func (builder *AgentScheduleBuilder) Schedule(schedule []*WeekdaySchedule) *Agen
 // 示例值：
 func (builder *AgentScheduleBuilder) AgentSkills(agentSkills []*AgentSkillLessInfo) *AgentScheduleBuilder {
 	builder.agentSkills = agentSkills
-	builder.agentSkillsFlag = true
+	builder.agentSkillsSet = true
 	return builder
 }
 
 func (builder *AgentScheduleBuilder) Build() *AgentSchedule {
 	req := &AgentSchedule{}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.agentFlag {
+	if builder.agentSet {
 		req.Agent = builder.agent
 	}
-	if builder.scheduleFlag {
+	if builder.scheduleSet {
 		req.Schedule = builder.schedule
 	}
-	if builder.agentSkillsFlag {
+	if builder.agentSkillsSet {
 		req.AgentSkills = builder.agentSkills
 	}
 	return req
@@ -361,14 +361,14 @@ type AgentScheduleUpdateInfo struct {
 }
 
 type AgentScheduleUpdateInfoBuilder struct {
-	agentId     string // 客服id;;[可以以普通用户身份在服务台发起工单，从工单详情里面获取用户guest.id](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)
-	agentIdFlag bool
+	agentId    string // 客服id;;[可以以普通用户身份在服务台发起工单，从工单详情里面获取用户guest.id](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)
+	agentIdSet bool
 
-	schedule     []*WeekdaySchedule // 工作日程列表
-	scheduleFlag bool
+	schedule    []*WeekdaySchedule // 工作日程列表
+	scheduleSet bool
 
-	agentSkillIds     []string // 客服技能 ids
-	agentSkillIdsFlag bool
+	agentSkillIds    []string // 客服技能 ids
+	agentSkillIdsSet bool
 }
 
 func NewAgentScheduleUpdateInfoBuilder() *AgentScheduleUpdateInfoBuilder {
@@ -381,7 +381,7 @@ func NewAgentScheduleUpdateInfoBuilder() *AgentScheduleUpdateInfoBuilder {
 // 示例值：agent-id
 func (builder *AgentScheduleUpdateInfoBuilder) AgentId(agentId string) *AgentScheduleUpdateInfoBuilder {
 	builder.agentId = agentId
-	builder.agentIdFlag = true
+	builder.agentIdSet = true
 	return builder
 }
 
@@ -390,7 +390,7 @@ func (builder *AgentScheduleUpdateInfoBuilder) AgentId(agentId string) *AgentSch
 // 示例值：
 func (builder *AgentScheduleUpdateInfoBuilder) Schedule(schedule []*WeekdaySchedule) *AgentScheduleUpdateInfoBuilder {
 	builder.schedule = schedule
-	builder.scheduleFlag = true
+	builder.scheduleSet = true
 	return builder
 }
 
@@ -399,20 +399,20 @@ func (builder *AgentScheduleUpdateInfoBuilder) Schedule(schedule []*WeekdaySched
 // 示例值：[“test-skill-id”]
 func (builder *AgentScheduleUpdateInfoBuilder) AgentSkillIds(agentSkillIds []string) *AgentScheduleUpdateInfoBuilder {
 	builder.agentSkillIds = agentSkillIds
-	builder.agentSkillIdsFlag = true
+	builder.agentSkillIdsSet = true
 	return builder
 }
 
 func (builder *AgentScheduleUpdateInfoBuilder) Build() *AgentScheduleUpdateInfo {
 	req := &AgentScheduleUpdateInfo{}
-	if builder.agentIdFlag {
+	if builder.agentIdSet {
 		req.AgentId = &builder.agentId
 
 	}
-	if builder.scheduleFlag {
+	if builder.scheduleSet {
 		req.Schedule = builder.schedule
 	}
-	if builder.agentSkillIdsFlag {
+	if builder.agentSkillIdsSet {
 		req.AgentSkillIds = builder.agentSkillIds
 	}
 	return req
@@ -437,29 +437,29 @@ type AgentSkill struct {
 }
 
 type AgentSkillBuilder struct {
-	id     string // 技能id
-	idFlag bool
+	id    string // 技能id
+	idSet bool
 
-	helpdeskId     string // helpdesk id
-	helpdeskIdFlag bool
+	helpdeskId    string // helpdesk id
+	helpdeskIdSet bool
 
-	name     string // 技能名
-	nameFlag bool
+	name    string // 技能名
+	nameSet bool
 
-	rules     []*AgentSkillRule // 技能rules
-	rulesFlag bool
+	rules    []*AgentSkillRule // 技能rules
+	rulesSet bool
 
-	agentIds     []string // 具有此技能的客服ids
-	agentIdsFlag bool
+	agentIds    []string // 具有此技能的客服ids
+	agentIdsSet bool
 
-	isDefault     bool // 默认技能
-	isDefaultFlag bool
+	isDefault    bool // 默认技能
+	isDefaultSet bool
 
-	agents     []*Agent // 客服 info
-	agentsFlag bool
+	agents    []*Agent // 客服 info
+	agentsSet bool
 
-	agentSkillId     string // agent skill id
-	agentSkillIdFlag bool
+	agentSkillId    string // agent skill id
+	agentSkillIdSet bool
 }
 
 func NewAgentSkillBuilder() *AgentSkillBuilder {
@@ -472,7 +472,7 @@ func NewAgentSkillBuilder() *AgentSkillBuilder {
 // 示例值：test-skill-id
 func (builder *AgentSkillBuilder) Id(id string) *AgentSkillBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -481,7 +481,7 @@ func (builder *AgentSkillBuilder) Id(id string) *AgentSkillBuilder {
 // 示例值：
 func (builder *AgentSkillBuilder) HelpdeskId(helpdeskId string) *AgentSkillBuilder {
 	builder.helpdeskId = helpdeskId
-	builder.helpdeskIdFlag = true
+	builder.helpdeskIdSet = true
 	return builder
 }
 
@@ -490,7 +490,7 @@ func (builder *AgentSkillBuilder) HelpdeskId(helpdeskId string) *AgentSkillBuild
 // 示例值：skill-name
 func (builder *AgentSkillBuilder) Name(name string) *AgentSkillBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -499,7 +499,7 @@ func (builder *AgentSkillBuilder) Name(name string) *AgentSkillBuilder {
 // 示例值：
 func (builder *AgentSkillBuilder) Rules(rules []*AgentSkillRule) *AgentSkillBuilder {
 	builder.rules = rules
-	builder.rulesFlag = true
+	builder.rulesSet = true
 	return builder
 }
 
@@ -508,7 +508,7 @@ func (builder *AgentSkillBuilder) Rules(rules []*AgentSkillRule) *AgentSkillBuil
 // 示例值：["ou_ea21d7f018e1155d960e40d33191f966"]
 func (builder *AgentSkillBuilder) AgentIds(agentIds []string) *AgentSkillBuilder {
 	builder.agentIds = agentIds
-	builder.agentIdsFlag = true
+	builder.agentIdsSet = true
 	return builder
 }
 
@@ -517,7 +517,7 @@ func (builder *AgentSkillBuilder) AgentIds(agentIds []string) *AgentSkillBuilder
 // 示例值：false
 func (builder *AgentSkillBuilder) IsDefault(isDefault bool) *AgentSkillBuilder {
 	builder.isDefault = isDefault
-	builder.isDefaultFlag = true
+	builder.isDefaultSet = true
 	return builder
 }
 
@@ -526,7 +526,7 @@ func (builder *AgentSkillBuilder) IsDefault(isDefault bool) *AgentSkillBuilder {
 // 示例值：
 func (builder *AgentSkillBuilder) Agents(agents []*Agent) *AgentSkillBuilder {
 	builder.agents = agents
-	builder.agentsFlag = true
+	builder.agentsSet = true
 	return builder
 }
 
@@ -535,38 +535,38 @@ func (builder *AgentSkillBuilder) Agents(agents []*Agent) *AgentSkillBuilder {
 // 示例值：
 func (builder *AgentSkillBuilder) AgentSkillId(agentSkillId string) *AgentSkillBuilder {
 	builder.agentSkillId = agentSkillId
-	builder.agentSkillIdFlag = true
+	builder.agentSkillIdSet = true
 	return builder
 }
 
 func (builder *AgentSkillBuilder) Build() *AgentSkill {
 	req := &AgentSkill{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.helpdeskIdFlag {
+	if builder.helpdeskIdSet {
 		req.HelpdeskId = &builder.helpdeskId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.rulesFlag {
+	if builder.rulesSet {
 		req.Rules = builder.rules
 	}
-	if builder.agentIdsFlag {
+	if builder.agentIdsSet {
 		req.AgentIds = builder.agentIds
 	}
-	if builder.isDefaultFlag {
+	if builder.isDefaultSet {
 		req.IsDefault = &builder.isDefault
 
 	}
-	if builder.agentsFlag {
+	if builder.agentsSet {
 		req.Agents = builder.agents
 	}
-	if builder.agentSkillIdFlag {
+	if builder.agentSkillIdSet {
 		req.AgentSkillId = &builder.agentSkillId
 
 	}
@@ -582,14 +582,14 @@ type AgentSkillLessInfo struct {
 }
 
 type AgentSkillLessInfoBuilder struct {
-	id     string // 客服技能 id
-	idFlag bool
+	id    string // 客服技能 id
+	idSet bool
 
-	name     string // 客服技能名
-	nameFlag bool
+	name    string // 客服技能名
+	nameSet bool
 
-	isDefault     bool // 是默认技能
-	isDefaultFlag bool
+	isDefault    bool // 是默认技能
+	isDefaultSet bool
 }
 
 func NewAgentSkillLessInfoBuilder() *AgentSkillLessInfoBuilder {
@@ -602,7 +602,7 @@ func NewAgentSkillLessInfoBuilder() *AgentSkillLessInfoBuilder {
 // 示例值：agent-skill-id
 func (builder *AgentSkillLessInfoBuilder) Id(id string) *AgentSkillLessInfoBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -611,7 +611,7 @@ func (builder *AgentSkillLessInfoBuilder) Id(id string) *AgentSkillLessInfoBuild
 // 示例值：agent-skill
 func (builder *AgentSkillLessInfoBuilder) Name(name string) *AgentSkillLessInfoBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -620,21 +620,21 @@ func (builder *AgentSkillLessInfoBuilder) Name(name string) *AgentSkillLessInfoB
 // 示例值：false
 func (builder *AgentSkillLessInfoBuilder) IsDefault(isDefault bool) *AgentSkillLessInfoBuilder {
 	builder.isDefault = isDefault
-	builder.isDefaultFlag = true
+	builder.isDefaultSet = true
 	return builder
 }
 
 func (builder *AgentSkillLessInfoBuilder) Build() *AgentSkillLessInfo {
 	req := &AgentSkillLessInfo{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.isDefaultFlag {
+	if builder.isDefaultSet {
 		req.IsDefault = &builder.isDefault
 
 	}
@@ -656,23 +656,23 @@ type AgentSkillRule struct {
 }
 
 type AgentSkillRuleBuilder struct {
-	id     string // rule id, 参考[获取客服技能rules](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options
-	idFlag bool
+	id    string // rule id, 参考[获取客服技能rules](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options
+	idSet bool
 
-	selectedOperator     int // 运算符比较, 参考[客服技能运算符选项](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
-	selectedOperatorFlag bool
+	selectedOperator    int // 运算符比较, 参考[客服技能运算符选项](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+	selectedOperatorSet bool
 
-	operatorOptions     []int // rule操作数value，[客服技能及运算符](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
-	operatorOptionsFlag bool
+	operatorOptions    []int // rule操作数value，[客服技能及运算符](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+	operatorOptionsSet bool
 
-	operand     string // rule 操作数的值
-	operandFlag bool
+	operand    string // rule 操作数的值
+	operandSet bool
 
-	category     int // rule 类型，1-知识库，2-工单信息，3-用户飞书信息
-	categoryFlag bool
+	category    int // rule 类型，1-知识库，2-工单信息，3-用户飞书信息
+	categorySet bool
 
-	displayName     string // rule 名
-	displayNameFlag bool
+	displayName    string // rule 名
+	displayNameSet bool
 }
 
 func NewAgentSkillRuleBuilder() *AgentSkillRuleBuilder {
@@ -685,7 +685,7 @@ func NewAgentSkillRuleBuilder() *AgentSkillRuleBuilder {
 // 示例值：test-skill-id
 func (builder *AgentSkillRuleBuilder) Id(id string) *AgentSkillRuleBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -694,7 +694,7 @@ func (builder *AgentSkillRuleBuilder) Id(id string) *AgentSkillRuleBuilder {
 // 示例值：8
 func (builder *AgentSkillRuleBuilder) SelectedOperator(selectedOperator int) *AgentSkillRuleBuilder {
 	builder.selectedOperator = selectedOperator
-	builder.selectedOperatorFlag = true
+	builder.selectedOperatorSet = true
 	return builder
 }
 
@@ -703,7 +703,7 @@ func (builder *AgentSkillRuleBuilder) SelectedOperator(selectedOperator int) *Ag
 // 示例值：[3]
 func (builder *AgentSkillRuleBuilder) OperatorOptions(operatorOptions []int) *AgentSkillRuleBuilder {
 	builder.operatorOptions = operatorOptions
-	builder.operatorOptionsFlag = true
+	builder.operatorOptionsSet = true
 	return builder
 }
 
@@ -712,7 +712,7 @@ func (builder *AgentSkillRuleBuilder) OperatorOptions(operatorOptions []int) *Ag
 // 示例值：{;				"selected_departments": [;					{;						"id": "部门ID",;						"name": "IT";					};				];			}
 func (builder *AgentSkillRuleBuilder) Operand(operand string) *AgentSkillRuleBuilder {
 	builder.operand = operand
-	builder.operandFlag = true
+	builder.operandSet = true
 	return builder
 }
 
@@ -721,7 +721,7 @@ func (builder *AgentSkillRuleBuilder) Operand(operand string) *AgentSkillRuleBui
 // 示例值：3
 func (builder *AgentSkillRuleBuilder) Category(category int) *AgentSkillRuleBuilder {
 	builder.category = category
-	builder.categoryFlag = true
+	builder.categorySet = true
 	return builder
 }
 
@@ -730,32 +730,32 @@ func (builder *AgentSkillRuleBuilder) Category(category int) *AgentSkillRuleBuil
 // 示例值：中文知识库分类
 func (builder *AgentSkillRuleBuilder) DisplayName(displayName string) *AgentSkillRuleBuilder {
 	builder.displayName = displayName
-	builder.displayNameFlag = true
+	builder.displayNameSet = true
 	return builder
 }
 
 func (builder *AgentSkillRuleBuilder) Build() *AgentSkillRule {
 	req := &AgentSkillRule{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.selectedOperatorFlag {
+	if builder.selectedOperatorSet {
 		req.SelectedOperator = &builder.selectedOperator
 
 	}
-	if builder.operatorOptionsFlag {
+	if builder.operatorOptionsSet {
 		req.OperatorOptions = builder.operatorOptions
 	}
-	if builder.operandFlag {
+	if builder.operandSet {
 		req.Operand = &builder.operand
 
 	}
-	if builder.categoryFlag {
+	if builder.categorySet {
 		req.Category = &builder.category
 
 	}
-	if builder.displayNameFlag {
+	if builder.displayNameSet {
 		req.DisplayName = &builder.displayName
 
 	}
@@ -777,23 +777,23 @@ type AgentUser struct {
 }
 
 type AgentUserBuilder struct {
-	id     string // 客服 id
-	idFlag bool
+	id    string // 客服 id
+	idSet bool
 
-	avatarUrl     string // avatar url
-	avatarUrlFlag bool
+	avatarUrl    string // avatar url
+	avatarUrlSet bool
 
-	name     string // 客服名字
-	nameFlag bool
+	name    string // 客服名字
+	nameSet bool
 
-	email     string // email
-	emailFlag bool
+	email    string // email
+	emailSet bool
 
-	department     string // 部门
-	departmentFlag bool
+	department    string // 部门
+	departmentSet bool
 
-	companyName     string // 公司名
-	companyNameFlag bool
+	companyName    string // 公司名
+	companyNameSet bool
 }
 
 func NewAgentUserBuilder() *AgentUserBuilder {
@@ -806,7 +806,7 @@ func NewAgentUserBuilder() *AgentUserBuilder {
 // 示例值：ou_ea651a5c09e2d01af8acd34059f5359b
 func (builder *AgentUserBuilder) Id(id string) *AgentUserBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -815,7 +815,7 @@ func (builder *AgentUserBuilder) Id(id string) *AgentUserBuilder {
 // 示例值：https://avatar-url.com/test.png
 func (builder *AgentUserBuilder) AvatarUrl(avatarUrl string) *AgentUserBuilder {
 	builder.avatarUrl = avatarUrl
-	builder.avatarUrlFlag = true
+	builder.avatarUrlSet = true
 	return builder
 }
 
@@ -824,7 +824,7 @@ func (builder *AgentUserBuilder) AvatarUrl(avatarUrl string) *AgentUserBuilder {
 // 示例值：test-user
 func (builder *AgentUserBuilder) Name(name string) *AgentUserBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -833,7 +833,7 @@ func (builder *AgentUserBuilder) Name(name string) *AgentUserBuilder {
 // 示例值：test@bytedance.com
 func (builder *AgentUserBuilder) Email(email string) *AgentUserBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -842,7 +842,7 @@ func (builder *AgentUserBuilder) Email(email string) *AgentUserBuilder {
 // 示例值：测试部门
 func (builder *AgentUserBuilder) Department(department string) *AgentUserBuilder {
 	builder.department = department
-	builder.departmentFlag = true
+	builder.departmentSet = true
 	return builder
 }
 
@@ -851,33 +851,33 @@ func (builder *AgentUserBuilder) Department(department string) *AgentUserBuilder
 // 示例值：test-company
 func (builder *AgentUserBuilder) CompanyName(companyName string) *AgentUserBuilder {
 	builder.companyName = companyName
-	builder.companyNameFlag = true
+	builder.companyNameSet = true
 	return builder
 }
 
 func (builder *AgentUserBuilder) Build() *AgentUser {
 	req := &AgentUser{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.avatarUrlFlag {
+	if builder.avatarUrlSet {
 		req.AvatarUrl = &builder.avatarUrl
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.departmentFlag {
+	if builder.departmentSet {
 		req.Department = &builder.department
 
 	}
-	if builder.companyNameFlag {
+	if builder.companyNameSet {
 		req.CompanyName = &builder.companyName
 
 	}
@@ -895,17 +895,17 @@ type BotMessage struct {
 }
 
 type BotMessageBuilder struct {
-	msgType     string // 消息类型
-	msgTypeFlag bool
+	msgType    string // 消息类型
+	msgTypeSet bool
 
-	content     string // 消息内容，json格式结构序列化成string。格式说明参考: [发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
-	contentFlag bool
+	content    string // 消息内容，json格式结构序列化成string。格式说明参考: [发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	contentSet bool
 
-	receiverId     string // 接收消息用户id
-	receiverIdFlag bool
+	receiverId    string // 接收消息用户id
+	receiverIdSet bool
 
-	receiveType     string // 接收消息方式，chat(服务台专属服务群)或user(服务台机器人私聊)。若选择专属服务群，用户有正在处理的工单将会发送失败。默认以chat方式发送。
-	receiveTypeFlag bool
+	receiveType    string // 接收消息方式，chat(服务台专属服务群)或user(服务台机器人私聊)。若选择专属服务群，用户有正在处理的工单将会发送失败。默认以chat方式发送。
+	receiveTypeSet bool
 }
 
 func NewBotMessageBuilder() *BotMessageBuilder {
@@ -918,7 +918,7 @@ func NewBotMessageBuilder() *BotMessageBuilder {
 // 示例值：post
 func (builder *BotMessageBuilder) MsgType(msgType string) *BotMessageBuilder {
 	builder.msgType = msgType
-	builder.msgTypeFlag = true
+	builder.msgTypeSet = true
 	return builder
 }
 
@@ -927,7 +927,7 @@ func (builder *BotMessageBuilder) MsgType(msgType string) *BotMessageBuilder {
 // 示例值：{\"post\":{\"zh_cn\":{\"title\":\"some title\",\"content\":[[{\"tag\":\"text\",\"text\":\"some content\"}]]}}}
 func (builder *BotMessageBuilder) Content(content string) *BotMessageBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -936,7 +936,7 @@ func (builder *BotMessageBuilder) Content(content string) *BotMessageBuilder {
 // 示例值：ou_7346484524
 func (builder *BotMessageBuilder) ReceiverId(receiverId string) *BotMessageBuilder {
 	builder.receiverId = receiverId
-	builder.receiverIdFlag = true
+	builder.receiverIdSet = true
 	return builder
 }
 
@@ -945,25 +945,25 @@ func (builder *BotMessageBuilder) ReceiverId(receiverId string) *BotMessageBuild
 // 示例值：chat
 func (builder *BotMessageBuilder) ReceiveType(receiveType string) *BotMessageBuilder {
 	builder.receiveType = receiveType
-	builder.receiveTypeFlag = true
+	builder.receiveTypeSet = true
 	return builder
 }
 
 func (builder *BotMessageBuilder) Build() *BotMessage {
 	req := &BotMessage{}
-	if builder.msgTypeFlag {
+	if builder.msgTypeSet {
 		req.MsgType = &builder.msgType
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.receiverIdFlag {
+	if builder.receiverIdSet {
 		req.ReceiverId = &builder.receiverId
 
 	}
-	if builder.receiveTypeFlag {
+	if builder.receiveTypeSet {
 		req.ReceiveType = &builder.receiveType
 
 	}
@@ -985,23 +985,23 @@ type Category struct {
 }
 
 type CategoryBuilder struct {
-	categoryId     string // 知识库分类ID
-	categoryIdFlag bool
+	categoryId    string // 知识库分类ID
+	categoryIdSet bool
 
-	id     string // 知识库分类ID，（旧版，请使用category_id）
-	idFlag bool
+	id    string // 知识库分类ID，（旧版，请使用category_id）
+	idSet bool
 
-	name     string // 名称
-	nameFlag bool
+	name    string // 名称
+	nameSet bool
 
-	parentId     string // 父知识库分类ID
-	parentIdFlag bool
+	parentId    string // 父知识库分类ID
+	parentIdSet bool
 
-	helpdeskId     string // 服务台ID
-	helpdeskIdFlag bool
+	helpdeskId    string // 服务台ID
+	helpdeskIdSet bool
 
-	language     string // 语言
-	languageFlag bool
+	language    string // 语言
+	languageSet bool
 }
 
 func NewCategoryBuilder() *CategoryBuilder {
@@ -1014,7 +1014,7 @@ func NewCategoryBuilder() *CategoryBuilder {
 // 示例值：6948728206392295444
 func (builder *CategoryBuilder) CategoryId(categoryId string) *CategoryBuilder {
 	builder.categoryId = categoryId
-	builder.categoryIdFlag = true
+	builder.categoryIdSet = true
 	return builder
 }
 
@@ -1023,7 +1023,7 @@ func (builder *CategoryBuilder) CategoryId(categoryId string) *CategoryBuilder {
 // 示例值：6948728206392295444
 func (builder *CategoryBuilder) Id(id string) *CategoryBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1032,7 +1032,7 @@ func (builder *CategoryBuilder) Id(id string) *CategoryBuilder {
 // 示例值：创建团队和邀请成员
 func (builder *CategoryBuilder) Name(name string) *CategoryBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1041,7 +1041,7 @@ func (builder *CategoryBuilder) Name(name string) *CategoryBuilder {
 // 示例值：0
 func (builder *CategoryBuilder) ParentId(parentId string) *CategoryBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
@@ -1050,7 +1050,7 @@ func (builder *CategoryBuilder) ParentId(parentId string) *CategoryBuilder {
 // 示例值：6939771743531696147
 func (builder *CategoryBuilder) HelpdeskId(helpdeskId string) *CategoryBuilder {
 	builder.helpdeskId = helpdeskId
-	builder.helpdeskIdFlag = true
+	builder.helpdeskIdSet = true
 	return builder
 }
 
@@ -1059,33 +1059,33 @@ func (builder *CategoryBuilder) HelpdeskId(helpdeskId string) *CategoryBuilder {
 // 示例值：zh_cn
 func (builder *CategoryBuilder) Language(language string) *CategoryBuilder {
 	builder.language = language
-	builder.languageFlag = true
+	builder.languageSet = true
 	return builder
 }
 
 func (builder *CategoryBuilder) Build() *Category {
 	req := &Category{}
-	if builder.categoryIdFlag {
+	if builder.categoryIdSet {
 		req.CategoryId = &builder.categoryId
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
-	if builder.helpdeskIdFlag {
+	if builder.helpdeskIdSet {
 		req.HelpdeskId = &builder.helpdeskId
 
 	}
-	if builder.languageFlag {
+	if builder.languageSet {
 		req.Language = &builder.language
 
 	}
@@ -1107,23 +1107,23 @@ type Comments struct {
 }
 
 type CommentsBuilder struct {
-	content     string // 备注
-	contentFlag bool
+	content    string // 备注
+	contentSet bool
 
-	createdAt     int // 备注时间，单位毫秒
-	createdAtFlag bool
+	createdAt    int // 备注时间，单位毫秒
+	createdAtSet bool
 
-	id     int // 备注ID
-	idFlag bool
+	id    int // 备注ID
+	idSet bool
 
-	userAvatarUrl     string // 备注人头像
-	userAvatarUrlFlag bool
+	userAvatarUrl    string // 备注人头像
+	userAvatarUrlSet bool
 
-	userName     string // 备注人姓名
-	userNameFlag bool
+	userName    string // 备注人姓名
+	userNameSet bool
 
-	userId     int // 备注人ID
-	userIdFlag bool
+	userId    int // 备注人ID
+	userIdSet bool
 }
 
 func NewCommentsBuilder() *CommentsBuilder {
@@ -1136,7 +1136,7 @@ func NewCommentsBuilder() *CommentsBuilder {
 // 示例值：备注内容
 func (builder *CommentsBuilder) Content(content string) *CommentsBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -1145,7 +1145,7 @@ func (builder *CommentsBuilder) Content(content string) *CommentsBuilder {
 // 示例值：备注时间
 func (builder *CommentsBuilder) CreatedAt(createdAt int) *CommentsBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -1154,7 +1154,7 @@ func (builder *CommentsBuilder) CreatedAt(createdAt int) *CommentsBuilder {
 // 示例值：备注id
 func (builder *CommentsBuilder) Id(id int) *CommentsBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1163,7 +1163,7 @@ func (builder *CommentsBuilder) Id(id int) *CommentsBuilder {
 // 示例值：备注人头像
 func (builder *CommentsBuilder) UserAvatarUrl(userAvatarUrl string) *CommentsBuilder {
 	builder.userAvatarUrl = userAvatarUrl
-	builder.userAvatarUrlFlag = true
+	builder.userAvatarUrlSet = true
 	return builder
 }
 
@@ -1172,7 +1172,7 @@ func (builder *CommentsBuilder) UserAvatarUrl(userAvatarUrl string) *CommentsBui
 // 示例值：备注人姓名
 func (builder *CommentsBuilder) UserName(userName string) *CommentsBuilder {
 	builder.userName = userName
-	builder.userNameFlag = true
+	builder.userNameSet = true
 	return builder
 }
 
@@ -1181,33 +1181,33 @@ func (builder *CommentsBuilder) UserName(userName string) *CommentsBuilder {
 // 示例值：备注人id
 func (builder *CommentsBuilder) UserId(userId int) *CommentsBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *CommentsBuilder) Build() *Comments {
 	req := &Comments{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.userAvatarUrlFlag {
+	if builder.userAvatarUrlSet {
 		req.UserAvatarUrl = &builder.userAvatarUrl
 
 	}
-	if builder.userNameFlag {
+	if builder.userNameSet {
 		req.UserName = &builder.userName
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -1231,26 +1231,26 @@ type CustomizedFieldDisplayItem struct {
 }
 
 type CustomizedFieldDisplayItemBuilder struct {
-	id     string // 自定义字段ID
-	idFlag bool
+	id    string // 自定义字段ID
+	idSet bool
 
-	value     string // 自定义字段值
-	valueFlag bool
+	value    string // 自定义字段值
+	valueSet bool
 
-	keyName     string // 键名
-	keyNameFlag bool
+	keyName    string // 键名
+	keyNameSet bool
 
-	displayName     string // 展示名称
-	displayNameFlag bool
+	displayName    string // 展示名称
+	displayNameSet bool
 
-	position     int // 展示位置
-	positionFlag bool
+	position    int // 展示位置
+	positionSet bool
 
-	required     bool // 是否必填
-	requiredFlag bool
+	required    bool // 是否必填
+	requiredSet bool
 
-	editable     bool // 是否可修改
-	editableFlag bool
+	editable    bool // 是否可修改
+	editableSet bool
 }
 
 func NewCustomizedFieldDisplayItemBuilder() *CustomizedFieldDisplayItemBuilder {
@@ -1263,7 +1263,7 @@ func NewCustomizedFieldDisplayItemBuilder() *CustomizedFieldDisplayItemBuilder {
 // 示例值：123
 func (builder *CustomizedFieldDisplayItemBuilder) Id(id string) *CustomizedFieldDisplayItemBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1272,7 +1272,7 @@ func (builder *CustomizedFieldDisplayItemBuilder) Id(id string) *CustomizedField
 // 示例值：value
 func (builder *CustomizedFieldDisplayItemBuilder) Value(value string) *CustomizedFieldDisplayItemBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
@@ -1281,7 +1281,7 @@ func (builder *CustomizedFieldDisplayItemBuilder) Value(value string) *Customize
 // 示例值：key
 func (builder *CustomizedFieldDisplayItemBuilder) KeyName(keyName string) *CustomizedFieldDisplayItemBuilder {
 	builder.keyName = keyName
-	builder.keyNameFlag = true
+	builder.keyNameSet = true
 	return builder
 }
 
@@ -1290,7 +1290,7 @@ func (builder *CustomizedFieldDisplayItemBuilder) KeyName(keyName string) *Custo
 // 示例值：display name
 func (builder *CustomizedFieldDisplayItemBuilder) DisplayName(displayName string) *CustomizedFieldDisplayItemBuilder {
 	builder.displayName = displayName
-	builder.displayNameFlag = true
+	builder.displayNameSet = true
 	return builder
 }
 
@@ -1299,7 +1299,7 @@ func (builder *CustomizedFieldDisplayItemBuilder) DisplayName(displayName string
 // 示例值：1
 func (builder *CustomizedFieldDisplayItemBuilder) Position(position int) *CustomizedFieldDisplayItemBuilder {
 	builder.position = position
-	builder.positionFlag = true
+	builder.positionSet = true
 	return builder
 }
 
@@ -1308,7 +1308,7 @@ func (builder *CustomizedFieldDisplayItemBuilder) Position(position int) *Custom
 // 示例值：true
 func (builder *CustomizedFieldDisplayItemBuilder) Required(required bool) *CustomizedFieldDisplayItemBuilder {
 	builder.required = required
-	builder.requiredFlag = true
+	builder.requiredSet = true
 	return builder
 }
 
@@ -1317,37 +1317,37 @@ func (builder *CustomizedFieldDisplayItemBuilder) Required(required bool) *Custo
 // 示例值：true
 func (builder *CustomizedFieldDisplayItemBuilder) Editable(editable bool) *CustomizedFieldDisplayItemBuilder {
 	builder.editable = editable
-	builder.editableFlag = true
+	builder.editableSet = true
 	return builder
 }
 
 func (builder *CustomizedFieldDisplayItemBuilder) Build() *CustomizedFieldDisplayItem {
 	req := &CustomizedFieldDisplayItem{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
-	if builder.keyNameFlag {
+	if builder.keyNameSet {
 		req.KeyName = &builder.keyName
 
 	}
-	if builder.displayNameFlag {
+	if builder.displayNameSet {
 		req.DisplayName = &builder.displayName
 
 	}
-	if builder.positionFlag {
+	if builder.positionSet {
 		req.Position = &builder.position
 
 	}
-	if builder.requiredFlag {
+	if builder.requiredSet {
 		req.Required = &builder.required
 
 	}
-	if builder.editableFlag {
+	if builder.editableSet {
 		req.Editable = &builder.editable
 
 	}
@@ -1361,11 +1361,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -1373,27 +1373,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -1408,10 +1412,10 @@ type Event struct {
 
 type EventBuilder struct {
 	type_    string // 事件类型
-	typeFlag bool
+	type_Set bool
 
-	subtype     string // 事件子类型
-	subtypeFlag bool
+	subtype    string // 事件子类型
+	subtypeSet bool
 }
 
 func NewEventBuilder() *EventBuilder {
@@ -1424,7 +1428,7 @@ func NewEventBuilder() *EventBuilder {
 // 示例值：helpdesk.ticket_message
 func (builder *EventBuilder) Type(type_ string) *EventBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1433,17 +1437,17 @@ func (builder *EventBuilder) Type(type_ string) *EventBuilder {
 // 示例值：ticket_message.created_v1
 func (builder *EventBuilder) Subtype(subtype string) *EventBuilder {
 	builder.subtype = subtype
-	builder.subtypeFlag = true
+	builder.subtypeSet = true
 	return builder
 }
 
 func (builder *EventBuilder) Build() *Event {
 	req := &Event{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.subtypeFlag {
+	if builder.subtypeSet {
 		req.Subtype = &builder.subtype
 
 	}
@@ -1467,26 +1471,26 @@ type ExportTicketMessageContent struct {
 }
 
 type ExportTicketMessageContentBuilder struct {
-	content     string // 消息内容
-	contentFlag bool
+	content    string // 消息内容
+	contentSet bool
 
-	msgType     string // 消息类型
-	msgTypeFlag bool
+	msgType    string // 消息类型
+	msgTypeSet bool
 
-	imageKeys     []string // 图片 Keys
-	imageKeysFlag bool
+	imageKeys    []string // 图片 Keys
+	imageKeysSet bool
 
-	imageKey     string // 图片 Key
-	imageKeyFlag bool
+	imageKey    string // 图片 Key
+	imageKeySet bool
 
-	audioKey     string // 音频消息文件 Key
-	audioKeyFlag bool
+	audioKey    string // 音频消息文件 Key
+	audioKeySet bool
 
-	mediaKey     string // 视频文件 Key
-	mediaKeyFlag bool
+	mediaKey    string // 视频文件 Key
+	mediaKeySet bool
 
-	fileKey     string // 文件 Key
-	fileKeyFlag bool
+	fileKey    string // 文件 Key
+	fileKeySet bool
 }
 
 func NewExportTicketMessageContentBuilder() *ExportTicketMessageContentBuilder {
@@ -1499,7 +1503,7 @@ func NewExportTicketMessageContentBuilder() *ExportTicketMessageContentBuilder {
 // 示例值：test message text
 func (builder *ExportTicketMessageContentBuilder) Content(content string) *ExportTicketMessageContentBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -1508,7 +1512,7 @@ func (builder *ExportTicketMessageContentBuilder) Content(content string) *Expor
 // 示例值：text
 func (builder *ExportTicketMessageContentBuilder) MsgType(msgType string) *ExportTicketMessageContentBuilder {
 	builder.msgType = msgType
-	builder.msgTypeFlag = true
+	builder.msgTypeSet = true
 	return builder
 }
 
@@ -1517,7 +1521,7 @@ func (builder *ExportTicketMessageContentBuilder) MsgType(msgType string) *Expor
 // 示例值：
 func (builder *ExportTicketMessageContentBuilder) ImageKeys(imageKeys []string) *ExportTicketMessageContentBuilder {
 	builder.imageKeys = imageKeys
-	builder.imageKeysFlag = true
+	builder.imageKeysSet = true
 	return builder
 }
 
@@ -1526,7 +1530,7 @@ func (builder *ExportTicketMessageContentBuilder) ImageKeys(imageKeys []string) 
 // 示例值：file_18acc4bd98d9a8c79a
 func (builder *ExportTicketMessageContentBuilder) ImageKey(imageKey string) *ExportTicketMessageContentBuilder {
 	builder.imageKey = imageKey
-	builder.imageKeyFlag = true
+	builder.imageKeySet = true
 	return builder
 }
 
@@ -1535,7 +1539,7 @@ func (builder *ExportTicketMessageContentBuilder) ImageKey(imageKey string) *Exp
 // 示例值："file_18accbd98d9a8c79a"
 func (builder *ExportTicketMessageContentBuilder) AudioKey(audioKey string) *ExportTicketMessageContentBuilder {
 	builder.audioKey = audioKey
-	builder.audioKeyFlag = true
+	builder.audioKeySet = true
 	return builder
 }
 
@@ -1544,7 +1548,7 @@ func (builder *ExportTicketMessageContentBuilder) AudioKey(audioKey string) *Exp
 // 示例值：file_18acc4bd98d9a8c79a
 func (builder *ExportTicketMessageContentBuilder) MediaKey(mediaKey string) *ExportTicketMessageContentBuilder {
 	builder.mediaKey = mediaKey
-	builder.mediaKeyFlag = true
+	builder.mediaKeySet = true
 	return builder
 }
 
@@ -1553,36 +1557,36 @@ func (builder *ExportTicketMessageContentBuilder) MediaKey(mediaKey string) *Exp
 // 示例值：file_18acc4bd98d9a8c79a
 func (builder *ExportTicketMessageContentBuilder) FileKey(fileKey string) *ExportTicketMessageContentBuilder {
 	builder.fileKey = fileKey
-	builder.fileKeyFlag = true
+	builder.fileKeySet = true
 	return builder
 }
 
 func (builder *ExportTicketMessageContentBuilder) Build() *ExportTicketMessageContent {
 	req := &ExportTicketMessageContent{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.msgTypeFlag {
+	if builder.msgTypeSet {
 		req.MsgType = &builder.msgType
 
 	}
-	if builder.imageKeysFlag {
+	if builder.imageKeysSet {
 		req.ImageKeys = builder.imageKeys
 	}
-	if builder.imageKeyFlag {
+	if builder.imageKeySet {
 		req.ImageKey = &builder.imageKey
 
 	}
-	if builder.audioKeyFlag {
+	if builder.audioKeySet {
 		req.AudioKey = &builder.audioKey
 
 	}
-	if builder.mediaKeyFlag {
+	if builder.mediaKeySet {
 		req.MediaKey = &builder.mediaKey
 
 	}
-	if builder.fileKeyFlag {
+	if builder.fileKeySet {
 		req.FileKey = &builder.fileKey
 
 	}
@@ -1618,44 +1622,44 @@ type Faq struct {
 }
 
 type FaqBuilder struct {
-	faqId     string // 知识库ID
-	faqIdFlag bool
+	faqId    string // 知识库ID
+	faqIdSet bool
 
-	id     string // 知识库旧版ID，请使用faq_id
-	idFlag bool
+	id    string // 知识库旧版ID，请使用faq_id
+	idSet bool
 
-	helpdeskId     string // 服务台ID
-	helpdeskIdFlag bool
+	helpdeskId    string // 服务台ID
+	helpdeskIdSet bool
 
-	question     string // 问题
-	questionFlag bool
+	question    string // 问题
+	questionSet bool
 
-	answer     string // 答案
-	answerFlag bool
+	answer    string // 答案
+	answerSet bool
 
-	answerRichtext     []*Richtext // 富文本答案
-	answerRichtextFlag bool
+	answerRichtext    []*Richtext // 富文本答案
+	answerRichtextSet bool
 
-	createTime     int // 创建时间
-	createTimeFlag bool
+	createTime    int // 创建时间
+	createTimeSet bool
 
-	updateTime     int // 修改时间
-	updateTimeFlag bool
+	updateTime    int // 修改时间
+	updateTimeSet bool
 
-	categories     []*Category // 分类
-	categoriesFlag bool
+	categories    []*Category // 分类
+	categoriesSet bool
 
-	tags     []string // 相似问题列表
-	tagsFlag bool
+	tags    []string // 相似问题列表
+	tagsSet bool
 
-	expireTime     int // 失效时间
-	expireTimeFlag bool
+	expireTime    int // 失效时间
+	expireTimeSet bool
 
-	updateUser     *TicketUser // 更新用户
-	updateUserFlag bool
+	updateUser    *TicketUser // 更新用户
+	updateUserSet bool
 
-	createUser     *TicketUser // 创建用户
-	createUserFlag bool
+	createUser    *TicketUser // 创建用户
+	createUserSet bool
 }
 
 func NewFaqBuilder() *FaqBuilder {
@@ -1668,7 +1672,7 @@ func NewFaqBuilder() *FaqBuilder {
 // 示例值：6936004780707807231
 func (builder *FaqBuilder) FaqId(faqId string) *FaqBuilder {
 	builder.faqId = faqId
-	builder.faqIdFlag = true
+	builder.faqIdSet = true
 	return builder
 }
 
@@ -1677,7 +1681,7 @@ func (builder *FaqBuilder) FaqId(faqId string) *FaqBuilder {
 // 示例值：6936004780707807231
 func (builder *FaqBuilder) Id(id string) *FaqBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1686,7 +1690,7 @@ func (builder *FaqBuilder) Id(id string) *FaqBuilder {
 // 示例值：6936004780707807251
 func (builder *FaqBuilder) HelpdeskId(helpdeskId string) *FaqBuilder {
 	builder.helpdeskId = helpdeskId
-	builder.helpdeskIdFlag = true
+	builder.helpdeskIdSet = true
 	return builder
 }
 
@@ -1695,7 +1699,7 @@ func (builder *FaqBuilder) HelpdeskId(helpdeskId string) *FaqBuilder {
 // 示例值：问题
 func (builder *FaqBuilder) Question(question string) *FaqBuilder {
 	builder.question = question
-	builder.questionFlag = true
+	builder.questionSet = true
 	return builder
 }
 
@@ -1704,7 +1708,7 @@ func (builder *FaqBuilder) Question(question string) *FaqBuilder {
 // 示例值：答案
 func (builder *FaqBuilder) Answer(answer string) *FaqBuilder {
 	builder.answer = answer
-	builder.answerFlag = true
+	builder.answerSet = true
 	return builder
 }
 
@@ -1713,7 +1717,7 @@ func (builder *FaqBuilder) Answer(answer string) *FaqBuilder {
 // 示例值：
 func (builder *FaqBuilder) AnswerRichtext(answerRichtext []*Richtext) *FaqBuilder {
 	builder.answerRichtext = answerRichtext
-	builder.answerRichtextFlag = true
+	builder.answerRichtextSet = true
 	return builder
 }
 
@@ -1722,7 +1726,7 @@ func (builder *FaqBuilder) AnswerRichtext(answerRichtext []*Richtext) *FaqBuilde
 // 示例值：1596379008
 func (builder *FaqBuilder) CreateTime(createTime int) *FaqBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -1731,7 +1735,7 @@ func (builder *FaqBuilder) CreateTime(createTime int) *FaqBuilder {
 // 示例值：1596379008
 func (builder *FaqBuilder) UpdateTime(updateTime int) *FaqBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -1740,7 +1744,7 @@ func (builder *FaqBuilder) UpdateTime(updateTime int) *FaqBuilder {
 // 示例值：
 func (builder *FaqBuilder) Categories(categories []*Category) *FaqBuilder {
 	builder.categories = categories
-	builder.categoriesFlag = true
+	builder.categoriesSet = true
 	return builder
 }
 
@@ -1749,7 +1753,7 @@ func (builder *FaqBuilder) Categories(categories []*Category) *FaqBuilder {
 // 示例值：
 func (builder *FaqBuilder) Tags(tags []string) *FaqBuilder {
 	builder.tags = tags
-	builder.tagsFlag = true
+	builder.tagsSet = true
 	return builder
 }
 
@@ -1758,7 +1762,7 @@ func (builder *FaqBuilder) Tags(tags []string) *FaqBuilder {
 // 示例值：1596379008
 func (builder *FaqBuilder) ExpireTime(expireTime int) *FaqBuilder {
 	builder.expireTime = expireTime
-	builder.expireTimeFlag = true
+	builder.expireTimeSet = true
 	return builder
 }
 
@@ -1767,7 +1771,7 @@ func (builder *FaqBuilder) ExpireTime(expireTime int) *FaqBuilder {
 // 示例值：
 func (builder *FaqBuilder) UpdateUser(updateUser *TicketUser) *FaqBuilder {
 	builder.updateUser = updateUser
-	builder.updateUserFlag = true
+	builder.updateUserSet = true
 	return builder
 }
 
@@ -1776,57 +1780,57 @@ func (builder *FaqBuilder) UpdateUser(updateUser *TicketUser) *FaqBuilder {
 // 示例值：
 func (builder *FaqBuilder) CreateUser(createUser *TicketUser) *FaqBuilder {
 	builder.createUser = createUser
-	builder.createUserFlag = true
+	builder.createUserSet = true
 	return builder
 }
 
 func (builder *FaqBuilder) Build() *Faq {
 	req := &Faq{}
-	if builder.faqIdFlag {
+	if builder.faqIdSet {
 		req.FaqId = &builder.faqId
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.helpdeskIdFlag {
+	if builder.helpdeskIdSet {
 		req.HelpdeskId = &builder.helpdeskId
 
 	}
-	if builder.questionFlag {
+	if builder.questionSet {
 		req.Question = &builder.question
 
 	}
-	if builder.answerFlag {
+	if builder.answerSet {
 		req.Answer = &builder.answer
 
 	}
-	if builder.answerRichtextFlag {
+	if builder.answerRichtextSet {
 		req.AnswerRichtext = builder.answerRichtext
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.categoriesFlag {
+	if builder.categoriesSet {
 		req.Categories = builder.categories
 	}
-	if builder.tagsFlag {
+	if builder.tagsSet {
 		req.Tags = builder.tags
 	}
-	if builder.expireTimeFlag {
+	if builder.expireTimeSet {
 		req.ExpireTime = &builder.expireTime
 
 	}
-	if builder.updateUserFlag {
+	if builder.updateUserSet {
 		req.UpdateUser = builder.updateUser
 	}
-	if builder.createUserFlag {
+	if builder.createUserSet {
 		req.CreateUser = builder.createUser
 	}
 	return req
@@ -1845,20 +1849,20 @@ type FaqCreateInfo struct {
 }
 
 type FaqCreateInfoBuilder struct {
-	categoryId     string // faq category id
-	categoryIdFlag bool
+	categoryId    string // faq category id
+	categoryIdSet bool
 
-	question     string // faq question
-	questionFlag bool
+	question    string // faq question
+	questionSet bool
 
-	answer     string // faq answer
-	answerFlag bool
+	answer    string // faq answer
+	answerSet bool
 
-	answerRichtext     string // faq answer in richtext
-	answerRichtextFlag bool
+	answerRichtext    string // faq answer in richtext
+	answerRichtextSet bool
 
-	tags     []string // faq tags
-	tagsFlag bool
+	tags    []string // faq tags
+	tagsSet bool
 }
 
 func NewFaqCreateInfoBuilder() *FaqCreateInfoBuilder {
@@ -1871,7 +1875,7 @@ func NewFaqCreateInfoBuilder() *FaqCreateInfoBuilder {
 // 示例值：6836004780707807251
 func (builder *FaqCreateInfoBuilder) CategoryId(categoryId string) *FaqCreateInfoBuilder {
 	builder.categoryId = categoryId
-	builder.categoryIdFlag = true
+	builder.categoryIdSet = true
 	return builder
 }
 
@@ -1880,7 +1884,7 @@ func (builder *FaqCreateInfoBuilder) CategoryId(categoryId string) *FaqCreateInf
 // 示例值：问题
 func (builder *FaqCreateInfoBuilder) Question(question string) *FaqCreateInfoBuilder {
 	builder.question = question
-	builder.questionFlag = true
+	builder.questionSet = true
 	return builder
 }
 
@@ -1889,7 +1893,7 @@ func (builder *FaqCreateInfoBuilder) Question(question string) *FaqCreateInfoBui
 // 示例值："答案"
 func (builder *FaqCreateInfoBuilder) Answer(answer string) *FaqCreateInfoBuilder {
 	builder.answer = answer
-	builder.answerFlag = true
+	builder.answerSet = true
 	return builder
 }
 
@@ -1898,7 +1902,7 @@ func (builder *FaqCreateInfoBuilder) Answer(answer string) *FaqCreateInfoBuilder
 // 示例值："[{"content":"答案","type":"text"},{"content":"这只是一个测试，医保问题","type":"text"}]"
 func (builder *FaqCreateInfoBuilder) AnswerRichtext(answerRichtext string) *FaqCreateInfoBuilder {
 	builder.answerRichtext = answerRichtext
-	builder.answerRichtextFlag = true
+	builder.answerRichtextSet = true
 	return builder
 }
 
@@ -1907,29 +1911,29 @@ func (builder *FaqCreateInfoBuilder) AnswerRichtext(answerRichtext string) *FaqC
 // 示例值：
 func (builder *FaqCreateInfoBuilder) Tags(tags []string) *FaqCreateInfoBuilder {
 	builder.tags = tags
-	builder.tagsFlag = true
+	builder.tagsSet = true
 	return builder
 }
 
 func (builder *FaqCreateInfoBuilder) Build() *FaqCreateInfo {
 	req := &FaqCreateInfo{}
-	if builder.categoryIdFlag {
+	if builder.categoryIdSet {
 		req.CategoryId = &builder.categoryId
 
 	}
-	if builder.questionFlag {
+	if builder.questionSet {
 		req.Question = &builder.question
 
 	}
-	if builder.answerFlag {
+	if builder.answerSet {
 		req.Answer = &builder.answer
 
 	}
-	if builder.answerRichtextFlag {
+	if builder.answerRichtextSet {
 		req.AnswerRichtext = &builder.answerRichtext
 
 	}
-	if builder.tagsFlag {
+	if builder.tagsSet {
 		req.Tags = builder.tags
 	}
 	return req
@@ -1948,20 +1952,20 @@ type FaqUpdateInfo struct {
 }
 
 type FaqUpdateInfoBuilder struct {
-	categoryId     string // 知识库分类ID
-	categoryIdFlag bool
+	categoryId    string // 知识库分类ID
+	categoryIdSet bool
 
-	question     string // 问题
-	questionFlag bool
+	question    string // 问题
+	questionSet bool
 
-	answer     string // 答案
-	answerFlag bool
+	answer    string // 答案
+	answerSet bool
 
-	answerRichtext     []*Richtext // 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)
-	answerRichtextFlag bool
+	answerRichtext    []*Richtext // 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)
+	answerRichtextSet bool
 
-	tags     []string // 相似问题
-	tagsFlag bool
+	tags    []string // 相似问题
+	tagsSet bool
 }
 
 func NewFaqUpdateInfoBuilder() *FaqUpdateInfoBuilder {
@@ -1974,7 +1978,7 @@ func NewFaqUpdateInfoBuilder() *FaqUpdateInfoBuilder {
 // 示例值：6836004780707807251
 func (builder *FaqUpdateInfoBuilder) CategoryId(categoryId string) *FaqUpdateInfoBuilder {
 	builder.categoryId = categoryId
-	builder.categoryIdFlag = true
+	builder.categoryIdSet = true
 	return builder
 }
 
@@ -1983,7 +1987,7 @@ func (builder *FaqUpdateInfoBuilder) CategoryId(categoryId string) *FaqUpdateInf
 // 示例值：问题
 func (builder *FaqUpdateInfoBuilder) Question(question string) *FaqUpdateInfoBuilder {
 	builder.question = question
-	builder.questionFlag = true
+	builder.questionSet = true
 	return builder
 }
 
@@ -1992,7 +1996,7 @@ func (builder *FaqUpdateInfoBuilder) Question(question string) *FaqUpdateInfoBui
 // 示例值：答案
 func (builder *FaqUpdateInfoBuilder) Answer(answer string) *FaqUpdateInfoBuilder {
 	builder.answer = answer
-	builder.answerFlag = true
+	builder.answerSet = true
 	return builder
 }
 
@@ -2001,7 +2005,7 @@ func (builder *FaqUpdateInfoBuilder) Answer(answer string) *FaqUpdateInfoBuilder
 // 示例值：[{"content":"答案","type":"text"},{"content":"\n","type":"text"}]
 func (builder *FaqUpdateInfoBuilder) AnswerRichtext(answerRichtext []*Richtext) *FaqUpdateInfoBuilder {
 	builder.answerRichtext = answerRichtext
-	builder.answerRichtextFlag = true
+	builder.answerRichtextSet = true
 	return builder
 }
 
@@ -2010,28 +2014,28 @@ func (builder *FaqUpdateInfoBuilder) AnswerRichtext(answerRichtext []*Richtext) 
 // 示例值：["tag1","tag2","tag3"]
 func (builder *FaqUpdateInfoBuilder) Tags(tags []string) *FaqUpdateInfoBuilder {
 	builder.tags = tags
-	builder.tagsFlag = true
+	builder.tagsSet = true
 	return builder
 }
 
 func (builder *FaqUpdateInfoBuilder) Build() *FaqUpdateInfo {
 	req := &FaqUpdateInfo{}
-	if builder.categoryIdFlag {
+	if builder.categoryIdSet {
 		req.CategoryId = &builder.categoryId
 
 	}
-	if builder.questionFlag {
+	if builder.questionSet {
 		req.Question = &builder.question
 
 	}
-	if builder.answerFlag {
+	if builder.answerSet {
 		req.Answer = &builder.answer
 
 	}
-	if builder.answerRichtextFlag {
+	if builder.answerRichtextSet {
 		req.AnswerRichtext = builder.answerRichtext
 	}
-	if builder.tagsFlag {
+	if builder.tagsSet {
 		req.Tags = builder.tags
 	}
 	return req
@@ -2046,14 +2050,14 @@ type I18n struct {
 }
 
 type I18nBuilder struct {
-	zhCn     string // 中文描述
-	zhCnFlag bool
+	zhCn    string // 中文描述
+	zhCnSet bool
 
-	enUs     string // 英文描述
-	enUsFlag bool
+	enUs    string // 英文描述
+	enUsSet bool
 
-	jaJp     string // 日文描述
-	jaJpFlag bool
+	jaJp    string // 日文描述
+	jaJpSet bool
 }
 
 func NewI18nBuilder() *I18nBuilder {
@@ -2066,7 +2070,7 @@ func NewI18nBuilder() *I18nBuilder {
 // 示例值：答案看不懂
 func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -2075,7 +2079,7 @@ func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 // 示例值：I don't understand
 func (builder *I18nBuilder) EnUs(enUs string) *I18nBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
@@ -2084,21 +2088,21 @@ func (builder *I18nBuilder) EnUs(enUs string) *I18nBuilder {
 // 示例值：回答が複雑すぎる
 func (builder *I18nBuilder) JaJp(jaJp string) *I18nBuilder {
 	builder.jaJp = jaJp
-	builder.jaJpFlag = true
+	builder.jaJpSet = true
 	return builder
 }
 
 func (builder *I18nBuilder) Build() *I18n {
 	req := &I18n{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
-	if builder.jaJpFlag {
+	if builder.jaJpSet {
 		req.JaJp = &builder.jaJp
 
 	}
@@ -2166,92 +2170,92 @@ type MigrationTicket struct {
 }
 
 type MigrationTicketBuilder struct {
-	guestId     string // 工单用户 ID
-	guestIdFlag bool
+	guestId    string // 工单用户 ID
+	guestIdSet bool
 
-	closeBy     string // 关闭工单用户 ID
-	closeByFlag bool
+	closeBy    string // 关闭工单用户 ID
+	closeBySet bool
 
-	creatorId     string // 工单创建用户 ID
-	creatorIdFlag bool
+	creatorId    string // 工单创建用户 ID
+	creatorIdSet bool
 
-	ownerAgentId     string // 工单主责客服 ID
-	ownerAgentIdFlag bool
+	ownerAgentId    string // 工单主责客服 ID
+	ownerAgentIdSet bool
 
-	createAtMs     string // 工单创建时间（毫秒）
-	createAtMsFlag bool
+	createAtMs    string // 工单创建时间（毫秒）
+	createAtMsSet bool
 
-	closeAtMs     string // 工单关闭时间（毫秒）
-	closeAtMsFlag bool
+	closeAtMs    string // 工单关闭时间（毫秒）
+	closeAtMsSet bool
 
-	updateAtMs     string // 工单更新时间（毫秒）
-	updateAtMsFlag bool
+	updateAtMs    string // 工单更新时间（毫秒）
+	updateAtMsSet bool
 
-	queuedAtMs     string // 工单用户开始排队时间（毫秒）
-	queuedAtMsFlag bool
+	queuedAtMs    string // 工单用户开始排队时间（毫秒）
+	queuedAtMsSet bool
 
-	firstResponseMs     string // 客服首次响应时间（毫秒）
-	firstResponseMsFlag bool
+	firstResponseMs    string // 客服首次响应时间（毫秒）
+	firstResponseMsSet bool
 
-	lastResponseMs     string // 客服最后响应时间（毫秒）
-	lastResponseMsFlag bool
+	lastResponseMs    string // 客服最后响应时间（毫秒）
+	lastResponseMsSet bool
 
-	stage     int // 工单阶段：1. 机器人 2. 人工
-	stageFlag bool
+	stage    int // 工单阶段：1. 机器人 2. 人工
+	stageSet bool
 
-	status     int // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
-	statusFlag bool
+	status    int // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+	statusSet bool
 
-	score     int // 工单评分，1：不满意，2:一般，3:满意
-	scoreFlag bool
+	score    int // 工单评分，1：不满意，2:一般，3:满意
+	scoreSet bool
 
-	channel     int // 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
-	channelFlag bool
+	channel    int // 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
+	channelSet bool
 
-	agentEntryTimeMs     string // 客服进入时间，单位毫秒
-	agentEntryTimeMsFlag bool
+	agentEntryTimeMs    string // 客服进入时间，单位毫秒
+	agentEntryTimeMsSet bool
 
-	comments     []*MigrationTicketComment // 工单备注
-	commentsFlag bool
+	comments    []*MigrationTicketComment // 工单备注
+	commentsSet bool
 
-	dissatisfactionReasons     []*I18n // 不满意原因
-	dissatisfactionReasonsFlag bool
+	dissatisfactionReasons    []*I18n // 不满意原因
+	dissatisfactionReasonsSet bool
 
-	actualProcessingTime     string // 工单实际处理时长，处理时长=解决时长-工单待定时长（将工单状态修改为待定后的时间），单位秒
-	actualProcessingTimeFlag bool
+	actualProcessingTime    string // 工单实际处理时长，处理时长=解决时长-工单待定时长（将工单状态修改为待定后的时间），单位秒
+	actualProcessingTimeSet bool
 
-	language     string // 工单语言（中文：zh_cn，日文： ja_jp，英文：en_us）
-	languageFlag bool
+	language    string // 工单语言（中文：zh_cn，日文： ja_jp，英文：en_us）
+	languageSet bool
 
-	firstAgentEntryChatTime     string // 第一个客服进群的时间，单位秒
-	firstAgentEntryChatTimeFlag bool
+	firstAgentEntryChatTime    string // 第一个客服进群的时间，单位秒
+	firstAgentEntryChatTimeSet bool
 
-	guestCountry     string // 工单用户国家信息
-	guestCountryFlag bool
+	guestCountry    string // 工单用户国家信息
+	guestCountrySet bool
 
-	guestCity     string // 工单用户城市
-	guestCityFlag bool
+	guestCity    string // 工单用户城市
+	guestCitySet bool
 
-	agentGroupName     string // 工单客服技能组名称
-	agentGroupNameFlag bool
+	agentGroupName    string // 工单客服技能组名称
+	agentGroupNameSet bool
 
-	transferComment     string // 转单备注
-	transferCommentFlag bool
+	transferComment    string // 转单备注
+	transferCommentSet bool
 
-	description     string // 工单描述
-	descriptionFlag bool
+	description    string // 工单描述
+	descriptionSet bool
 
-	closeWay     int // 工单关单方式（1：客服直接结束，2：客服转接结束）
-	closeWayFlag bool
+	closeWay    int // 工单关单方式（1：客服直接结束，2：客服转接结束）
+	closeWaySet bool
 
-	collaborators     []string // 工单协作者 ID
-	collaboratorsFlag bool
+	collaborators    []string // 工单协作者 ID
+	collaboratorsSet bool
 
-	agentIds     []string // 工单关联客服 ID
-	agentIdsFlag bool
+	agentIds    []string // 工单关联客服 ID
+	agentIdsSet bool
 
-	id     string // 工单 ID
-	idFlag bool
+	id    string // 工单 ID
+	idSet bool
 }
 
 func NewMigrationTicketBuilder() *MigrationTicketBuilder {
@@ -2264,7 +2268,7 @@ func NewMigrationTicketBuilder() *MigrationTicketBuilder {
 // 示例值：ou_37019b7c830210acd88fdce886e25c71
 func (builder *MigrationTicketBuilder) GuestId(guestId string) *MigrationTicketBuilder {
 	builder.guestId = guestId
-	builder.guestIdFlag = true
+	builder.guestIdSet = true
 	return builder
 }
 
@@ -2273,7 +2277,7 @@ func (builder *MigrationTicketBuilder) GuestId(guestId string) *MigrationTicketB
 // 示例值：ou_37019b7c830210acd88fdce886e25c71
 func (builder *MigrationTicketBuilder) CloseBy(closeBy string) *MigrationTicketBuilder {
 	builder.closeBy = closeBy
-	builder.closeByFlag = true
+	builder.closeBySet = true
 	return builder
 }
 
@@ -2282,7 +2286,7 @@ func (builder *MigrationTicketBuilder) CloseBy(closeBy string) *MigrationTicketB
 // 示例值：ou_37019b7c830210acd88fdce886e25c71
 func (builder *MigrationTicketBuilder) CreatorId(creatorId string) *MigrationTicketBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -2291,7 +2295,7 @@ func (builder *MigrationTicketBuilder) CreatorId(creatorId string) *MigrationTic
 // 示例值：ou_41119b7c830210abb12fdce886e25b98
 func (builder *MigrationTicketBuilder) OwnerAgentId(ownerAgentId string) *MigrationTicketBuilder {
 	builder.ownerAgentId = ownerAgentId
-	builder.ownerAgentIdFlag = true
+	builder.ownerAgentIdSet = true
 	return builder
 }
 
@@ -2300,7 +2304,7 @@ func (builder *MigrationTicketBuilder) OwnerAgentId(ownerAgentId string) *Migrat
 // 示例值：1742377835277
 func (builder *MigrationTicketBuilder) CreateAtMs(createAtMs string) *MigrationTicketBuilder {
 	builder.createAtMs = createAtMs
-	builder.createAtMsFlag = true
+	builder.createAtMsSet = true
 	return builder
 }
 
@@ -2309,7 +2313,7 @@ func (builder *MigrationTicketBuilder) CreateAtMs(createAtMs string) *MigrationT
 // 示例值：1742377835277
 func (builder *MigrationTicketBuilder) CloseAtMs(closeAtMs string) *MigrationTicketBuilder {
 	builder.closeAtMs = closeAtMs
-	builder.closeAtMsFlag = true
+	builder.closeAtMsSet = true
 	return builder
 }
 
@@ -2318,7 +2322,7 @@ func (builder *MigrationTicketBuilder) CloseAtMs(closeAtMs string) *MigrationTic
 // 示例值：1742377835277
 func (builder *MigrationTicketBuilder) UpdateAtMs(updateAtMs string) *MigrationTicketBuilder {
 	builder.updateAtMs = updateAtMs
-	builder.updateAtMsFlag = true
+	builder.updateAtMsSet = true
 	return builder
 }
 
@@ -2327,7 +2331,7 @@ func (builder *MigrationTicketBuilder) UpdateAtMs(updateAtMs string) *MigrationT
 // 示例值：1742377835277
 func (builder *MigrationTicketBuilder) QueuedAtMs(queuedAtMs string) *MigrationTicketBuilder {
 	builder.queuedAtMs = queuedAtMs
-	builder.queuedAtMsFlag = true
+	builder.queuedAtMsSet = true
 	return builder
 }
 
@@ -2336,7 +2340,7 @@ func (builder *MigrationTicketBuilder) QueuedAtMs(queuedAtMs string) *MigrationT
 // 示例值：1741849380
 func (builder *MigrationTicketBuilder) FirstResponseMs(firstResponseMs string) *MigrationTicketBuilder {
 	builder.firstResponseMs = firstResponseMs
-	builder.firstResponseMsFlag = true
+	builder.firstResponseMsSet = true
 	return builder
 }
 
@@ -2345,7 +2349,7 @@ func (builder *MigrationTicketBuilder) FirstResponseMs(firstResponseMs string) *
 // 示例值：1741849380
 func (builder *MigrationTicketBuilder) LastResponseMs(lastResponseMs string) *MigrationTicketBuilder {
 	builder.lastResponseMs = lastResponseMs
-	builder.lastResponseMsFlag = true
+	builder.lastResponseMsSet = true
 	return builder
 }
 
@@ -2354,7 +2358,7 @@ func (builder *MigrationTicketBuilder) LastResponseMs(lastResponseMs string) *Mi
 // 示例值：1
 func (builder *MigrationTicketBuilder) Stage(stage int) *MigrationTicketBuilder {
 	builder.stage = stage
-	builder.stageFlag = true
+	builder.stageSet = true
 	return builder
 }
 
@@ -2363,7 +2367,7 @@ func (builder *MigrationTicketBuilder) Stage(stage int) *MigrationTicketBuilder 
 // 示例值：1
 func (builder *MigrationTicketBuilder) Status(status int) *MigrationTicketBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -2372,7 +2376,7 @@ func (builder *MigrationTicketBuilder) Status(status int) *MigrationTicketBuilde
 // 示例值：3
 func (builder *MigrationTicketBuilder) Score(score int) *MigrationTicketBuilder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
@@ -2381,7 +2385,7 @@ func (builder *MigrationTicketBuilder) Score(score int) *MigrationTicketBuilder 
 // 示例值：9
 func (builder *MigrationTicketBuilder) Channel(channel int) *MigrationTicketBuilder {
 	builder.channel = channel
-	builder.channelFlag = true
+	builder.channelSet = true
 	return builder
 }
 
@@ -2390,7 +2394,7 @@ func (builder *MigrationTicketBuilder) Channel(channel int) *MigrationTicketBuil
 // 示例值：1742377835277
 func (builder *MigrationTicketBuilder) AgentEntryTimeMs(agentEntryTimeMs string) *MigrationTicketBuilder {
 	builder.agentEntryTimeMs = agentEntryTimeMs
-	builder.agentEntryTimeMsFlag = true
+	builder.agentEntryTimeMsSet = true
 	return builder
 }
 
@@ -2399,7 +2403,7 @@ func (builder *MigrationTicketBuilder) AgentEntryTimeMs(agentEntryTimeMs string)
 // 示例值：
 func (builder *MigrationTicketBuilder) Comments(comments []*MigrationTicketComment) *MigrationTicketBuilder {
 	builder.comments = comments
-	builder.commentsFlag = true
+	builder.commentsSet = true
 	return builder
 }
 
@@ -2408,7 +2412,7 @@ func (builder *MigrationTicketBuilder) Comments(comments []*MigrationTicketComme
 // 示例值：
 func (builder *MigrationTicketBuilder) DissatisfactionReasons(dissatisfactionReasons []*I18n) *MigrationTicketBuilder {
 	builder.dissatisfactionReasons = dissatisfactionReasons
-	builder.dissatisfactionReasonsFlag = true
+	builder.dissatisfactionReasonsSet = true
 	return builder
 }
 
@@ -2417,7 +2421,7 @@ func (builder *MigrationTicketBuilder) DissatisfactionReasons(dissatisfactionRea
 // 示例值：1741849380
 func (builder *MigrationTicketBuilder) ActualProcessingTime(actualProcessingTime string) *MigrationTicketBuilder {
 	builder.actualProcessingTime = actualProcessingTime
-	builder.actualProcessingTimeFlag = true
+	builder.actualProcessingTimeSet = true
 	return builder
 }
 
@@ -2426,7 +2430,7 @@ func (builder *MigrationTicketBuilder) ActualProcessingTime(actualProcessingTime
 // 示例值：zh_cn
 func (builder *MigrationTicketBuilder) Language(language string) *MigrationTicketBuilder {
 	builder.language = language
-	builder.languageFlag = true
+	builder.languageSet = true
 	return builder
 }
 
@@ -2435,7 +2439,7 @@ func (builder *MigrationTicketBuilder) Language(language string) *MigrationTicke
 // 示例值：1742377835277
 func (builder *MigrationTicketBuilder) FirstAgentEntryChatTime(firstAgentEntryChatTime string) *MigrationTicketBuilder {
 	builder.firstAgentEntryChatTime = firstAgentEntryChatTime
-	builder.firstAgentEntryChatTimeFlag = true
+	builder.firstAgentEntryChatTimeSet = true
 	return builder
 }
 
@@ -2444,7 +2448,7 @@ func (builder *MigrationTicketBuilder) FirstAgentEntryChatTime(firstAgentEntryCh
 // 示例值：国家
 func (builder *MigrationTicketBuilder) GuestCountry(guestCountry string) *MigrationTicketBuilder {
 	builder.guestCountry = guestCountry
-	builder.guestCountryFlag = true
+	builder.guestCountrySet = true
 	return builder
 }
 
@@ -2453,7 +2457,7 @@ func (builder *MigrationTicketBuilder) GuestCountry(guestCountry string) *Migrat
 // 示例值：城市
 func (builder *MigrationTicketBuilder) GuestCity(guestCity string) *MigrationTicketBuilder {
 	builder.guestCity = guestCity
-	builder.guestCityFlag = true
+	builder.guestCitySet = true
 	return builder
 }
 
@@ -2462,7 +2466,7 @@ func (builder *MigrationTicketBuilder) GuestCity(guestCity string) *MigrationTic
 // 示例值：测试技能组
 func (builder *MigrationTicketBuilder) AgentGroupName(agentGroupName string) *MigrationTicketBuilder {
 	builder.agentGroupName = agentGroupName
-	builder.agentGroupNameFlag = true
+	builder.agentGroupNameSet = true
 	return builder
 }
 
@@ -2471,7 +2475,7 @@ func (builder *MigrationTicketBuilder) AgentGroupName(agentGroupName string) *Mi
 // 示例值：这是一个转接工单备注
 func (builder *MigrationTicketBuilder) TransferComment(transferComment string) *MigrationTicketBuilder {
 	builder.transferComment = transferComment
-	builder.transferCommentFlag = true
+	builder.transferCommentSet = true
 	return builder
 }
 
@@ -2480,7 +2484,7 @@ func (builder *MigrationTicketBuilder) TransferComment(transferComment string) *
 // 示例值：这是一个工单描述
 func (builder *MigrationTicketBuilder) Description(description string) *MigrationTicketBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -2489,7 +2493,7 @@ func (builder *MigrationTicketBuilder) Description(description string) *Migratio
 // 示例值：1
 func (builder *MigrationTicketBuilder) CloseWay(closeWay int) *MigrationTicketBuilder {
 	builder.closeWay = closeWay
-	builder.closeWayFlag = true
+	builder.closeWaySet = true
 	return builder
 }
 
@@ -2498,7 +2502,7 @@ func (builder *MigrationTicketBuilder) CloseWay(closeWay int) *MigrationTicketBu
 // 示例值：
 func (builder *MigrationTicketBuilder) Collaborators(collaborators []string) *MigrationTicketBuilder {
 	builder.collaborators = collaborators
-	builder.collaboratorsFlag = true
+	builder.collaboratorsSet = true
 	return builder
 }
 
@@ -2507,7 +2511,7 @@ func (builder *MigrationTicketBuilder) Collaborators(collaborators []string) *Mi
 // 示例值：
 func (builder *MigrationTicketBuilder) AgentIds(agentIds []string) *MigrationTicketBuilder {
 	builder.agentIds = agentIds
-	builder.agentIdsFlag = true
+	builder.agentIdsSet = true
 	return builder
 }
 
@@ -2516,121 +2520,121 @@ func (builder *MigrationTicketBuilder) AgentIds(agentIds []string) *MigrationTic
 // 示例值：7475259964853534722
 func (builder *MigrationTicketBuilder) Id(id string) *MigrationTicketBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
 func (builder *MigrationTicketBuilder) Build() *MigrationTicket {
 	req := &MigrationTicket{}
-	if builder.guestIdFlag {
+	if builder.guestIdSet {
 		req.GuestId = &builder.guestId
 
 	}
-	if builder.closeByFlag {
+	if builder.closeBySet {
 		req.CloseBy = &builder.closeBy
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.ownerAgentIdFlag {
+	if builder.ownerAgentIdSet {
 		req.OwnerAgentId = &builder.ownerAgentId
 
 	}
-	if builder.createAtMsFlag {
+	if builder.createAtMsSet {
 		req.CreateAtMs = &builder.createAtMs
 
 	}
-	if builder.closeAtMsFlag {
+	if builder.closeAtMsSet {
 		req.CloseAtMs = &builder.closeAtMs
 
 	}
-	if builder.updateAtMsFlag {
+	if builder.updateAtMsSet {
 		req.UpdateAtMs = &builder.updateAtMs
 
 	}
-	if builder.queuedAtMsFlag {
+	if builder.queuedAtMsSet {
 		req.QueuedAtMs = &builder.queuedAtMs
 
 	}
-	if builder.firstResponseMsFlag {
+	if builder.firstResponseMsSet {
 		req.FirstResponseMs = &builder.firstResponseMs
 
 	}
-	if builder.lastResponseMsFlag {
+	if builder.lastResponseMsSet {
 		req.LastResponseMs = &builder.lastResponseMs
 
 	}
-	if builder.stageFlag {
+	if builder.stageSet {
 		req.Stage = &builder.stage
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
-	if builder.channelFlag {
+	if builder.channelSet {
 		req.Channel = &builder.channel
 
 	}
-	if builder.agentEntryTimeMsFlag {
+	if builder.agentEntryTimeMsSet {
 		req.AgentEntryTimeMs = &builder.agentEntryTimeMs
 
 	}
-	if builder.commentsFlag {
+	if builder.commentsSet {
 		req.Comments = builder.comments
 	}
-	if builder.dissatisfactionReasonsFlag {
+	if builder.dissatisfactionReasonsSet {
 		req.DissatisfactionReasons = builder.dissatisfactionReasons
 	}
-	if builder.actualProcessingTimeFlag {
+	if builder.actualProcessingTimeSet {
 		req.ActualProcessingTime = &builder.actualProcessingTime
 
 	}
-	if builder.languageFlag {
+	if builder.languageSet {
 		req.Language = &builder.language
 
 	}
-	if builder.firstAgentEntryChatTimeFlag {
+	if builder.firstAgentEntryChatTimeSet {
 		req.FirstAgentEntryChatTime = &builder.firstAgentEntryChatTime
 
 	}
-	if builder.guestCountryFlag {
+	if builder.guestCountrySet {
 		req.GuestCountry = &builder.guestCountry
 
 	}
-	if builder.guestCityFlag {
+	if builder.guestCitySet {
 		req.GuestCity = &builder.guestCity
 
 	}
-	if builder.agentGroupNameFlag {
+	if builder.agentGroupNameSet {
 		req.AgentGroupName = &builder.agentGroupName
 
 	}
-	if builder.transferCommentFlag {
+	if builder.transferCommentSet {
 		req.TransferComment = &builder.transferComment
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.closeWayFlag {
+	if builder.closeWaySet {
 		req.CloseWay = &builder.closeWay
 
 	}
-	if builder.collaboratorsFlag {
+	if builder.collaboratorsSet {
 		req.Collaborators = builder.collaborators
 	}
-	if builder.agentIdsFlag {
+	if builder.agentIdsSet {
 		req.AgentIds = builder.agentIds
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
@@ -2646,14 +2650,14 @@ type MigrationTicketComment struct {
 }
 
 type MigrationTicketCommentBuilder struct {
-	userId     string // 评论用户 ID
-	userIdFlag bool
+	userId    string // 评论用户 ID
+	userIdSet bool
 
-	createAtMs     string // 评论创建时间（毫秒）
-	createAtMsFlag bool
+	createAtMs    string // 评论创建时间（毫秒）
+	createAtMsSet bool
 
-	content     string // 评论内容
-	contentFlag bool
+	content    string // 评论内容
+	contentSet bool
 }
 
 func NewMigrationTicketCommentBuilder() *MigrationTicketCommentBuilder {
@@ -2666,7 +2670,7 @@ func NewMigrationTicketCommentBuilder() *MigrationTicketCommentBuilder {
 // 示例值：ou_37019b7c830210acd88fdce886e25c71
 func (builder *MigrationTicketCommentBuilder) UserId(userId string) *MigrationTicketCommentBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -2675,7 +2679,7 @@ func (builder *MigrationTicketCommentBuilder) UserId(userId string) *MigrationTi
 // 示例值：1741849380
 func (builder *MigrationTicketCommentBuilder) CreateAtMs(createAtMs string) *MigrationTicketCommentBuilder {
 	builder.createAtMs = createAtMs
-	builder.createAtMsFlag = true
+	builder.createAtMsSet = true
 	return builder
 }
 
@@ -2684,21 +2688,21 @@ func (builder *MigrationTicketCommentBuilder) CreateAtMs(createAtMs string) *Mig
 // 示例值：这是一条工单评论
 func (builder *MigrationTicketCommentBuilder) Content(content string) *MigrationTicketCommentBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *MigrationTicketCommentBuilder) Build() *MigrationTicketComment {
 	req := &MigrationTicketComment{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.createAtMsFlag {
+	if builder.createAtMsSet {
 		req.CreateAtMs = &builder.createAtMs
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
@@ -2718,20 +2722,20 @@ type MigrationTicketMessage struct {
 }
 
 type MigrationTicketMessageBuilder struct {
-	uuid     string // 导入工单消息幂等 ID（当前幂等时间支持 24 小时）
-	uuidFlag bool
+	uuid    string // 导入工单消息幂等 ID（当前幂等时间支持 24 小时）
+	uuidSet bool
 
-	userId     string // 发送消息的用户 ID
-	userIdFlag bool
+	userId    string // 发送消息的用户 ID
+	userIdSet bool
 
-	messageType     string // 消息类型
-	messageTypeFlag bool
+	messageType    string // 消息类型
+	messageTypeSet bool
 
-	content     *ExportTicketMessageContent // 消息内容
-	contentFlag bool
+	content    *ExportTicketMessageContent // 消息内容
+	contentSet bool
 
-	createdAtMs     string // 消息创建时间，单位毫秒
-	createdAtMsFlag bool
+	createdAtMs    string // 消息创建时间，单位毫秒
+	createdAtMsSet bool
 }
 
 func NewMigrationTicketMessageBuilder() *MigrationTicketMessageBuilder {
@@ -2744,7 +2748,7 @@ func NewMigrationTicketMessageBuilder() *MigrationTicketMessageBuilder {
 // 示例值：9263a772-3849-401b-883b-16e5c3f25127
 func (builder *MigrationTicketMessageBuilder) Uuid(uuid string) *MigrationTicketMessageBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
@@ -2753,7 +2757,7 @@ func (builder *MigrationTicketMessageBuilder) Uuid(uuid string) *MigrationTicket
 // 示例值：ou_41119b7c830210abb12fdce886e25b98
 func (builder *MigrationTicketMessageBuilder) UserId(userId string) *MigrationTicketMessageBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -2762,7 +2766,7 @@ func (builder *MigrationTicketMessageBuilder) UserId(userId string) *MigrationTi
 // 示例值：text
 func (builder *MigrationTicketMessageBuilder) MessageType(messageType string) *MigrationTicketMessageBuilder {
 	builder.messageType = messageType
-	builder.messageTypeFlag = true
+	builder.messageTypeSet = true
 	return builder
 }
 
@@ -2771,7 +2775,7 @@ func (builder *MigrationTicketMessageBuilder) MessageType(messageType string) *M
 // 示例值：
 func (builder *MigrationTicketMessageBuilder) Content(content *ExportTicketMessageContent) *MigrationTicketMessageBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -2780,28 +2784,28 @@ func (builder *MigrationTicketMessageBuilder) Content(content *ExportTicketMessa
 // 示例值：1741856554686
 func (builder *MigrationTicketMessageBuilder) CreatedAtMs(createdAtMs string) *MigrationTicketMessageBuilder {
 	builder.createdAtMs = createdAtMs
-	builder.createdAtMsFlag = true
+	builder.createdAtMsSet = true
 	return builder
 }
 
 func (builder *MigrationTicketMessageBuilder) Build() *MigrationTicketMessage {
 	req := &MigrationTicketMessage{}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.messageTypeFlag {
+	if builder.messageTypeSet {
 		req.MessageType = &builder.messageType
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = builder.content
 	}
-	if builder.createdAtMsFlag {
+	if builder.createdAtMsSet {
 		req.CreatedAtMs = &builder.createdAtMs
 
 	}
@@ -2851,65 +2855,65 @@ type Notification struct {
 }
 
 type NotificationBuilder struct {
-	id     string // 非必填，创建成功后返回
-	idFlag bool
+	id    string // 非必填，创建成功后返回
+	idSet bool
 
-	jobName     string // 必填，任务名称
-	jobNameFlag bool
+	jobName    string // 必填，任务名称
+	jobNameSet bool
 
-	status     int // 非必填，创建成功后返回
-	statusFlag bool
+	status    int // 非必填，创建成功后返回
+	statusSet bool
 
-	createUser     *NotificationUser // 非必填，创建人
-	createUserFlag bool
+	createUser    *NotificationUser // 非必填，创建人
+	createUserSet bool
 
-	createdAt     string // 非必填，创建时间（毫秒时间戳）
-	createdAtFlag bool
+	createdAt    string // 非必填，创建时间（毫秒时间戳）
+	createdAtSet bool
 
-	updateUser     *NotificationUser // 非必填，更新用户
-	updateUserFlag bool
+	updateUser    *NotificationUser // 非必填，更新用户
+	updateUserSet bool
 
-	updatedAt     string // 非必填，更新时间（毫秒时间戳）
-	updatedAtFlag bool
+	updatedAt    string // 非必填，更新时间（毫秒时间戳）
+	updatedAtSet bool
 
-	targetUserCount     int // 非必填，目标推送用户总数
-	targetUserCountFlag bool
+	targetUserCount    int // 非必填，目标推送用户总数
+	targetUserCountSet bool
 
-	sentUserCount     int // 非必填，已推送用户总数
-	sentUserCountFlag bool
+	sentUserCount    int // 非必填，已推送用户总数
+	sentUserCountSet bool
 
-	readUserCount     int // 非必填，已读用户总数
-	readUserCountFlag bool
+	readUserCount    int // 非必填，已读用户总数
+	readUserCountSet bool
 
-	sendAt     string // 非必填，推送任务触发时间（毫秒时间戳）
-	sendAtFlag bool
+	sendAt    string // 非必填，推送任务触发时间（毫秒时间戳）
+	sendAtSet bool
 
-	pushContent     string // 必填，推送内容，详见：https://open.feishu.cn/tool/cardbuilder?from=howtoguide
-	pushContentFlag bool
+	pushContent    string // 必填，推送内容，详见：https://open.feishu.cn/tool/cardbuilder?from=howtoguide
+	pushContentSet bool
 
-	pushType     int // 必填，;0（定时推送：push_scope不能等于3） 1（新人入职推送：push_scope必须等于1或者3；new_staff_scope_type不能为空）
-	pushTypeFlag bool
+	pushType    int // 必填，;0（定时推送：push_scope不能等于3） 1（新人入职推送：push_scope必须等于1或者3；new_staff_scope_type不能为空）
+	pushTypeSet bool
 
-	pushScopeType     int // 必填，;推送范围（服务台私信） 0：组织内全部成员（user_list和department_list必须为空） 1：不推送任何成员（user_list和department_list必须为空，chat_list不可为空） 2：推送到部分成员（user_list或department_list不能为空） 3：入职新人 以上四种状态，chat_list都相对独立，只有在推送范围为1时，必须需要设置chat_list
-	pushScopeTypeFlag bool
+	pushScopeType    int // 必填，;推送范围（服务台私信） 0：组织内全部成员（user_list和department_list必须为空） 1：不推送任何成员（user_list和department_list必须为空，chat_list不可为空） 2：推送到部分成员（user_list或department_list不能为空） 3：入职新人 以上四种状态，chat_list都相对独立，只有在推送范围为1时，必须需要设置chat_list
+	pushScopeTypeSet bool
 
-	newStaffScopeType     int // 非必填，;新人入职范围类型（push_type为1时生效） 0：组织内所有新人 1：组织内特定的部门（new_staff_scope_department_list 字段不能为空）
-	newStaffScopeTypeFlag bool
+	newStaffScopeType    int // 非必填，;新人入职范围类型（push_type为1时生效） 0：组织内所有新人 1：组织内特定的部门（new_staff_scope_department_list 字段不能为空）
+	newStaffScopeTypeSet bool
 
-	newStaffScopeDepartmentList     []*NotificationDepartment // 非必填，新人入职生效部门列表
-	newStaffScopeDepartmentListFlag bool
+	newStaffScopeDepartmentList    []*NotificationDepartment // 非必填，新人入职生效部门列表
+	newStaffScopeDepartmentListSet bool
 
-	userList     []*NotificationUser // 非必填，push推送到成员列表
-	userListFlag bool
+	userList    []*NotificationUser // 非必填，push推送到成员列表
+	userListSet bool
 
-	departmentList     []*NotificationDepartment // 非必填，push推送到的部门信息列表
-	departmentListFlag bool
+	departmentList    []*NotificationDepartment // 非必填，push推送到的部门信息列表
+	departmentListSet bool
 
-	chatList     []*NotificationChat // 非必填，push推送到的会话列表(群)
-	chatListFlag bool
+	chatList    []*NotificationChat // 非必填，push推送到的会话列表(群)
+	chatListSet bool
 
-	ext     string // 非必填，预留扩展字段
-	extFlag bool
+	ext    string // 非必填，预留扩展字段
+	extSet bool
 }
 
 func NewNotificationBuilder() *NotificationBuilder {
@@ -2922,7 +2926,7 @@ func NewNotificationBuilder() *NotificationBuilder {
 // 示例值：6981801914270744596
 func (builder *NotificationBuilder) Id(id string) *NotificationBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2931,7 +2935,7 @@ func (builder *NotificationBuilder) Id(id string) *NotificationBuilder {
 // 示例值：测试推送任务
 func (builder *NotificationBuilder) JobName(jobName string) *NotificationBuilder {
 	builder.jobName = jobName
-	builder.jobNameFlag = true
+	builder.jobNameSet = true
 	return builder
 }
 
@@ -2940,7 +2944,7 @@ func (builder *NotificationBuilder) JobName(jobName string) *NotificationBuilder
 // 示例值：0
 func (builder *NotificationBuilder) Status(status int) *NotificationBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -2949,7 +2953,7 @@ func (builder *NotificationBuilder) Status(status int) *NotificationBuilder {
 // 示例值：{"avatar_url":"","name":"","user_id":"ou_7277fd1262bfafc363d5b2a1f9c2ac90"}
 func (builder *NotificationBuilder) CreateUser(createUser *NotificationUser) *NotificationBuilder {
 	builder.createUser = createUser
-	builder.createUserFlag = true
+	builder.createUserSet = true
 	return builder
 }
 
@@ -2958,7 +2962,7 @@ func (builder *NotificationBuilder) CreateUser(createUser *NotificationUser) *No
 // 示例值：1626332244719
 func (builder *NotificationBuilder) CreatedAt(createdAt string) *NotificationBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -2967,7 +2971,7 @@ func (builder *NotificationBuilder) CreatedAt(createdAt string) *NotificationBui
 // 示例值：{"avatar_url":"","name":"","user_id":"ou_7277fd1262bfafc363d5b2a1f9c2ac90"}
 func (builder *NotificationBuilder) UpdateUser(updateUser *NotificationUser) *NotificationBuilder {
 	builder.updateUser = updateUser
-	builder.updateUserFlag = true
+	builder.updateUserSet = true
 	return builder
 }
 
@@ -2976,7 +2980,7 @@ func (builder *NotificationBuilder) UpdateUser(updateUser *NotificationUser) *No
 // 示例值：1626332244719
 func (builder *NotificationBuilder) UpdatedAt(updatedAt string) *NotificationBuilder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
@@ -2985,7 +2989,7 @@ func (builder *NotificationBuilder) UpdatedAt(updatedAt string) *NotificationBui
 // 示例值：1
 func (builder *NotificationBuilder) TargetUserCount(targetUserCount int) *NotificationBuilder {
 	builder.targetUserCount = targetUserCount
-	builder.targetUserCountFlag = true
+	builder.targetUserCountSet = true
 	return builder
 }
 
@@ -2994,7 +2998,7 @@ func (builder *NotificationBuilder) TargetUserCount(targetUserCount int) *Notifi
 // 示例值：1
 func (builder *NotificationBuilder) SentUserCount(sentUserCount int) *NotificationBuilder {
 	builder.sentUserCount = sentUserCount
-	builder.sentUserCountFlag = true
+	builder.sentUserCountSet = true
 	return builder
 }
 
@@ -3003,7 +3007,7 @@ func (builder *NotificationBuilder) SentUserCount(sentUserCount int) *Notificati
 // 示例值：1
 func (builder *NotificationBuilder) ReadUserCount(readUserCount int) *NotificationBuilder {
 	builder.readUserCount = readUserCount
-	builder.readUserCountFlag = true
+	builder.readUserCountSet = true
 	return builder
 }
 
@@ -3012,7 +3016,7 @@ func (builder *NotificationBuilder) ReadUserCount(readUserCount int) *Notificati
 // 示例值：1626332244719
 func (builder *NotificationBuilder) SendAt(sendAt string) *NotificationBuilder {
 	builder.sendAt = sendAt
-	builder.sendAtFlag = true
+	builder.sendAtSet = true
 	return builder
 }
 
@@ -3021,7 +3025,7 @@ func (builder *NotificationBuilder) SendAt(sendAt string) *NotificationBuilder {
 // 示例值：{   \"config\": {	 \"wide_screen_mode\": true   },   \"elements\": [	 {	   \"tag\": \"div\",	   \"text\": {		 \"tag\": \"lark_md\",		 \"content\": \"[飞书](https://www.feishu.cn)整合即时沟通、日历、音视频会议、云文档、云盘、工作台等功能于一体，成就组织和个人，更高效、更愉悦。\"	   }	 }   ] }
 func (builder *NotificationBuilder) PushContent(pushContent string) *NotificationBuilder {
 	builder.pushContent = pushContent
-	builder.pushContentFlag = true
+	builder.pushContentSet = true
 	return builder
 }
 
@@ -3030,7 +3034,7 @@ func (builder *NotificationBuilder) PushContent(pushContent string) *Notificatio
 // 示例值：0
 func (builder *NotificationBuilder) PushType(pushType int) *NotificationBuilder {
 	builder.pushType = pushType
-	builder.pushTypeFlag = true
+	builder.pushTypeSet = true
 	return builder
 }
 
@@ -3039,7 +3043,7 @@ func (builder *NotificationBuilder) PushType(pushType int) *NotificationBuilder 
 // 示例值：0
 func (builder *NotificationBuilder) PushScopeType(pushScopeType int) *NotificationBuilder {
 	builder.pushScopeType = pushScopeType
-	builder.pushScopeTypeFlag = true
+	builder.pushScopeTypeSet = true
 	return builder
 }
 
@@ -3048,7 +3052,7 @@ func (builder *NotificationBuilder) PushScopeType(pushScopeType int) *Notificati
 // 示例值：0
 func (builder *NotificationBuilder) NewStaffScopeType(newStaffScopeType int) *NotificationBuilder {
 	builder.newStaffScopeType = newStaffScopeType
-	builder.newStaffScopeTypeFlag = true
+	builder.newStaffScopeTypeSet = true
 	return builder
 }
 
@@ -3057,7 +3061,7 @@ func (builder *NotificationBuilder) NewStaffScopeType(newStaffScopeType int) *No
 // 示例值：[{"department_id":"od_7c1a2815c9846b5e518b950de0e62de8"}]
 func (builder *NotificationBuilder) NewStaffScopeDepartmentList(newStaffScopeDepartmentList []*NotificationDepartment) *NotificationBuilder {
 	builder.newStaffScopeDepartmentList = newStaffScopeDepartmentList
-	builder.newStaffScopeDepartmentListFlag = true
+	builder.newStaffScopeDepartmentListSet = true
 	return builder
 }
 
@@ -3066,7 +3070,7 @@ func (builder *NotificationBuilder) NewStaffScopeDepartmentList(newStaffScopeDep
 // 示例值：[{"user_id":"ou_7277fd1262bfafc363d5b2a1f9c2ac90"}]
 func (builder *NotificationBuilder) UserList(userList []*NotificationUser) *NotificationBuilder {
 	builder.userList = userList
-	builder.userListFlag = true
+	builder.userListSet = true
 	return builder
 }
 
@@ -3075,7 +3079,7 @@ func (builder *NotificationBuilder) UserList(userList []*NotificationUser) *Noti
 // 示例值：[{"department_id":"od_7c1a2815c9846b5e518b950de0e62de8"}]
 func (builder *NotificationBuilder) DepartmentList(departmentList []*NotificationDepartment) *NotificationBuilder {
 	builder.departmentList = departmentList
-	builder.departmentListFlag = true
+	builder.departmentListSet = true
 	return builder
 }
 
@@ -3084,7 +3088,7 @@ func (builder *NotificationBuilder) DepartmentList(departmentList []*Notificatio
 // 示例值：[{"chat_id":"oc_7c1a2815c9846b5e518b950de0e62de8"}]
 func (builder *NotificationBuilder) ChatList(chatList []*NotificationChat) *NotificationBuilder {
 	builder.chatList = chatList
-	builder.chatListFlag = true
+	builder.chatListSet = true
 	return builder
 }
 
@@ -3093,83 +3097,83 @@ func (builder *NotificationBuilder) ChatList(chatList []*NotificationChat) *Noti
 // 示例值：{}
 func (builder *NotificationBuilder) Ext(ext string) *NotificationBuilder {
 	builder.ext = ext
-	builder.extFlag = true
+	builder.extSet = true
 	return builder
 }
 
 func (builder *NotificationBuilder) Build() *Notification {
 	req := &Notification{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.jobNameFlag {
+	if builder.jobNameSet {
 		req.JobName = &builder.jobName
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.createUserFlag {
+	if builder.createUserSet {
 		req.CreateUser = builder.createUser
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.updateUserFlag {
+	if builder.updateUserSet {
 		req.UpdateUser = builder.updateUser
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
-	if builder.targetUserCountFlag {
+	if builder.targetUserCountSet {
 		req.TargetUserCount = &builder.targetUserCount
 
 	}
-	if builder.sentUserCountFlag {
+	if builder.sentUserCountSet {
 		req.SentUserCount = &builder.sentUserCount
 
 	}
-	if builder.readUserCountFlag {
+	if builder.readUserCountSet {
 		req.ReadUserCount = &builder.readUserCount
 
 	}
-	if builder.sendAtFlag {
+	if builder.sendAtSet {
 		req.SendAt = &builder.sendAt
 
 	}
-	if builder.pushContentFlag {
+	if builder.pushContentSet {
 		req.PushContent = &builder.pushContent
 
 	}
-	if builder.pushTypeFlag {
+	if builder.pushTypeSet {
 		req.PushType = &builder.pushType
 
 	}
-	if builder.pushScopeTypeFlag {
+	if builder.pushScopeTypeSet {
 		req.PushScopeType = &builder.pushScopeType
 
 	}
-	if builder.newStaffScopeTypeFlag {
+	if builder.newStaffScopeTypeSet {
 		req.NewStaffScopeType = &builder.newStaffScopeType
 
 	}
-	if builder.newStaffScopeDepartmentListFlag {
+	if builder.newStaffScopeDepartmentListSet {
 		req.NewStaffScopeDepartmentList = builder.newStaffScopeDepartmentList
 	}
-	if builder.userListFlag {
+	if builder.userListSet {
 		req.UserList = builder.userList
 	}
-	if builder.departmentListFlag {
+	if builder.departmentListSet {
 		req.DepartmentList = builder.departmentList
 	}
-	if builder.chatListFlag {
+	if builder.chatListSet {
 		req.ChatList = builder.chatList
 	}
-	if builder.extFlag {
+	if builder.extSet {
 		req.Ext = &builder.ext
 
 	}
@@ -3183,11 +3187,11 @@ type NotificationChat struct {
 }
 
 type NotificationChatBuilder struct {
-	chatId     string // 非必填，会话ID
-	chatIdFlag bool
+	chatId    string // 非必填，会话ID
+	chatIdSet bool
 
-	name     string // 非必填，会话名称
-	nameFlag bool
+	name    string // 非必填，会话名称
+	nameSet bool
 }
 
 func NewNotificationChatBuilder() *NotificationChatBuilder {
@@ -3200,7 +3204,7 @@ func NewNotificationChatBuilder() *NotificationChatBuilder {
 // 示例值：oc_7277fd1262bfafc363d5b2a1f9c2ac90
 func (builder *NotificationChatBuilder) ChatId(chatId string) *NotificationChatBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -3209,17 +3213,17 @@ func (builder *NotificationChatBuilder) ChatId(chatId string) *NotificationChatB
 // 示例值：测试群聊
 func (builder *NotificationChatBuilder) Name(name string) *NotificationChatBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *NotificationChatBuilder) Build() *NotificationChat {
 	req := &NotificationChat{}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -3233,11 +3237,11 @@ type NotificationDepartment struct {
 }
 
 type NotificationDepartmentBuilder struct {
-	departmentId     string // 部门ID
-	departmentIdFlag bool
+	departmentId    string // 部门ID
+	departmentIdSet bool
 
-	name     string // 非必填，部门名称
-	nameFlag bool
+	name    string // 非必填，部门名称
+	nameSet bool
 }
 
 func NewNotificationDepartmentBuilder() *NotificationDepartmentBuilder {
@@ -3250,7 +3254,7 @@ func NewNotificationDepartmentBuilder() *NotificationDepartmentBuilder {
 // 示例值：od_7277fd1262bfafc363d5b2a1f9c2ac90
 func (builder *NotificationDepartmentBuilder) DepartmentId(departmentId string) *NotificationDepartmentBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -3259,17 +3263,17 @@ func (builder *NotificationDepartmentBuilder) DepartmentId(departmentId string) 
 // 示例值：测试部门
 func (builder *NotificationDepartmentBuilder) Name(name string) *NotificationDepartmentBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *NotificationDepartmentBuilder) Build() *NotificationDepartment {
 	req := &NotificationDepartment{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -3285,14 +3289,14 @@ type NotificationUser struct {
 }
 
 type NotificationUserBuilder struct {
-	userId     string // 非必填，用户id
-	userIdFlag bool
+	userId    string // 非必填，用户id
+	userIdSet bool
 
-	avatarUrl     string // 非必填，头像地址
-	avatarUrlFlag bool
+	avatarUrl    string // 非必填，头像地址
+	avatarUrlSet bool
 
-	name     string // 非必填，用户名称
-	nameFlag bool
+	name    string // 非必填，用户名称
+	nameSet bool
 }
 
 func NewNotificationUserBuilder() *NotificationUserBuilder {
@@ -3305,7 +3309,7 @@ func NewNotificationUserBuilder() *NotificationUserBuilder {
 // 示例值：ou_7277fd1262bfafc363d5b2a1f9c2ac90
 func (builder *NotificationUserBuilder) UserId(userId string) *NotificationUserBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -3314,7 +3318,7 @@ func (builder *NotificationUserBuilder) UserId(userId string) *NotificationUserB
 // 示例值：http://*.com/*.png
 func (builder *NotificationUserBuilder) AvatarUrl(avatarUrl string) *NotificationUserBuilder {
 	builder.avatarUrl = avatarUrl
-	builder.avatarUrlFlag = true
+	builder.avatarUrlSet = true
 	return builder
 }
 
@@ -3323,21 +3327,21 @@ func (builder *NotificationUserBuilder) AvatarUrl(avatarUrl string) *Notificatio
 // 示例值：test
 func (builder *NotificationUserBuilder) Name(name string) *NotificationUserBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *NotificationUserBuilder) Build() *NotificationUser {
 	req := &NotificationUser{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.avatarUrlFlag {
+	if builder.avatarUrlSet {
 		req.AvatarUrl = &builder.avatarUrl
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -3351,11 +3355,11 @@ type Richtext struct {
 }
 
 type RichtextBuilder struct {
-	content     string // 内容
-	contentFlag bool
+	content    string // 内容
+	contentSet bool
 
 	type_    string // 类型
-	typeFlag bool
+	type_Set bool
 }
 
 func NewRichtextBuilder() *RichtextBuilder {
@@ -3368,7 +3372,7 @@ func NewRichtextBuilder() *RichtextBuilder {
 // 示例值：我的答案
 func (builder *RichtextBuilder) Content(content string) *RichtextBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -3377,17 +3381,17 @@ func (builder *RichtextBuilder) Content(content string) *RichtextBuilder {
 // 示例值：text
 func (builder *RichtextBuilder) Type(type_ string) *RichtextBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
 func (builder *RichtextBuilder) Build() *Richtext {
 	req := &Richtext{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
@@ -3449,83 +3453,83 @@ type Ticket struct {
 }
 
 type TicketBuilder struct {
-	ticketId     string // 工单ID;;[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
-	ticketIdFlag bool
+	ticketId    string // 工单ID;;[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+	ticketIdSet bool
 
-	helpdeskId     string // 服务台ID
-	helpdeskIdFlag bool
+	helpdeskId    string // 服务台ID
+	helpdeskIdSet bool
 
-	guest     *TicketUser // 工单创建用户
-	guestFlag bool
+	guest    *TicketUser // 工单创建用户
+	guestSet bool
 
-	comments     []*Comments // 备注
-	commentsFlag bool
+	comments    []*Comments // 备注
+	commentsSet bool
 
-	ticketType     int // 工单阶段：1. 机器人 2. 人工
-	ticketTypeFlag bool
+	ticketType    int // 工单阶段：1. 机器人 2. 人工
+	ticketTypeSet bool
 
-	status     int // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
-	statusFlag bool
+	status    int // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+	statusSet bool
 
-	score     int // 工单评分，1：不满意，2:一般，3:满意
-	scoreFlag bool
+	score    int // 工单评分，1：不满意，2:一般，3:满意
+	scoreSet bool
 
-	createdAt     int64 // 工单创建时间
-	createdAtFlag bool
+	createdAt    int64 // 工单创建时间
+	createdAtSet bool
 
-	updatedAt     int64 // 工单更新时间，没有值时为-1
-	updatedAtFlag bool
+	updatedAt    int64 // 工单更新时间，没有值时为-1
+	updatedAtSet bool
 
-	closedAt     int64 // 工单结束时间
-	closedAtFlag bool
+	closedAt    int64 // 工单结束时间
+	closedAtSet bool
 
-	dissatisfactionReason     *I18n // 不满意原因
-	dissatisfactionReasonFlag bool
+	dissatisfactionReason    *I18n // 不满意原因
+	dissatisfactionReasonSet bool
 
-	agents     []*TicketUser // 工单客服
-	agentsFlag bool
+	agents    []*TicketUser // 工单客服
+	agentsSet bool
 
-	channel     int // 工单渠道，描述：;9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
-	channelFlag bool
+	channel    int // 工单渠道，描述：;9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
+	channelSet bool
 
-	solve     int // 工单是否解决 1:没解决 2:已解决
-	solveFlag bool
+	solve    int // 工单是否解决 1:没解决 2:已解决
+	solveSet bool
 
-	closedBy     *TicketUser // 关单用户ID
-	closedByFlag bool
+	closedBy    *TicketUser // 关单用户ID
+	closedBySet bool
 
-	collaborators     []*TicketUser // 工单协作者
-	collaboratorsFlag bool
+	collaborators    []*TicketUser // 工单协作者
+	collaboratorsSet bool
 
-	customizedFields     []*CustomizedFieldDisplayItem // 自定义字段列表，没有值时不设置  ;下拉菜单的value对应工单字段里面的children.display_name;[获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
-	customizedFieldsFlag bool
+	customizedFields    []*CustomizedFieldDisplayItem // 自定义字段列表，没有值时不设置  ;下拉菜单的value对应工单字段里面的children.display_name;[获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
+	customizedFieldsSet bool
 
-	agentServiceDuration     float64 // 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位分钟
-	agentServiceDurationFlag bool
+	agentServiceDuration    float64 // 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位分钟
+	agentServiceDurationSet bool
 
-	agentFirstResponseDuration     int64 // 客服首次回复时间距离客服进入时间的间隔(秒)
-	agentFirstResponseDurationFlag bool
+	agentFirstResponseDuration    int64 // 客服首次回复时间距离客服进入时间的间隔(秒)
+	agentFirstResponseDurationSet bool
 
-	botServiceDuration     int64 // 机器人服务时间：客服进入时间距离工单创建时间的间隔，单位秒
-	botServiceDurationFlag bool
+	botServiceDuration    int64 // 机器人服务时间：客服进入时间距离工单创建时间的间隔，单位秒
+	botServiceDurationSet bool
 
-	agentResolutionTime     int64 // 客服解决时长，关单时间距离客服进入时间的间隔，单位秒
-	agentResolutionTimeFlag bool
+	agentResolutionTime    int64 // 客服解决时长，关单时间距离客服进入时间的间隔，单位秒
+	agentResolutionTimeSet bool
 
-	actualProcessingTime     int64 // 工单实际处理时间：从客服进入到关单，单位秒
-	actualProcessingTimeFlag bool
+	actualProcessingTime    int64 // 工单实际处理时间：从客服进入到关单，单位秒
+	actualProcessingTimeSet bool
 
-	agentEntryTime     int64 // 客服进入时间，单位毫秒
-	agentEntryTimeFlag bool
+	agentEntryTime    int64 // 客服进入时间，单位毫秒
+	agentEntryTimeSet bool
 
-	agentFirstResponseTime     int64 // 客服首次回复时间，单位毫秒
-	agentFirstResponseTimeFlag bool
+	agentFirstResponseTime    int64 // 客服首次回复时间，单位毫秒
+	agentFirstResponseTimeSet bool
 
-	agentLastResponseTime     int64 // 客服最后回复时间，单位毫秒
-	agentLastResponseTimeFlag bool
+	agentLastResponseTime    int64 // 客服最后回复时间，单位毫秒
+	agentLastResponseTimeSet bool
 
-	agentOwner     *TicketUser // 主责客服
-	agentOwnerFlag bool
+	agentOwner    *TicketUser // 主责客服
+	agentOwnerSet bool
 }
 
 func NewTicketBuilder() *TicketBuilder {
@@ -3538,7 +3542,7 @@ func NewTicketBuilder() *TicketBuilder {
 // 示例值：6626871355780366331
 func (builder *TicketBuilder) TicketId(ticketId string) *TicketBuilder {
 	builder.ticketId = ticketId
-	builder.ticketIdFlag = true
+	builder.ticketIdSet = true
 	return builder
 }
 
@@ -3547,7 +3551,7 @@ func (builder *TicketBuilder) TicketId(ticketId string) *TicketBuilder {
 // 示例值：6626871355780366330
 func (builder *TicketBuilder) HelpdeskId(helpdeskId string) *TicketBuilder {
 	builder.helpdeskId = helpdeskId
-	builder.helpdeskIdFlag = true
+	builder.helpdeskIdSet = true
 	return builder
 }
 
@@ -3556,7 +3560,7 @@ func (builder *TicketBuilder) HelpdeskId(helpdeskId string) *TicketBuilder {
 // 示例值：
 func (builder *TicketBuilder) Guest(guest *TicketUser) *TicketBuilder {
 	builder.guest = guest
-	builder.guestFlag = true
+	builder.guestSet = true
 	return builder
 }
 
@@ -3565,7 +3569,7 @@ func (builder *TicketBuilder) Guest(guest *TicketUser) *TicketBuilder {
 // 示例值：
 func (builder *TicketBuilder) Comments(comments []*Comments) *TicketBuilder {
 	builder.comments = comments
-	builder.commentsFlag = true
+	builder.commentsSet = true
 	return builder
 }
 
@@ -3574,7 +3578,7 @@ func (builder *TicketBuilder) Comments(comments []*Comments) *TicketBuilder {
 // 示例值：1
 func (builder *TicketBuilder) TicketType(ticketType int) *TicketBuilder {
 	builder.ticketType = ticketType
-	builder.ticketTypeFlag = true
+	builder.ticketTypeSet = true
 	return builder
 }
 
@@ -3583,7 +3587,7 @@ func (builder *TicketBuilder) TicketType(ticketType int) *TicketBuilder {
 // 示例值：50
 func (builder *TicketBuilder) Status(status int) *TicketBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -3592,7 +3596,7 @@ func (builder *TicketBuilder) Status(status int) *TicketBuilder {
 // 示例值：1
 func (builder *TicketBuilder) Score(score int) *TicketBuilder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
@@ -3601,7 +3605,7 @@ func (builder *TicketBuilder) Score(score int) *TicketBuilder {
 // 示例值：1616920429000
 func (builder *TicketBuilder) CreatedAt(createdAt int64) *TicketBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -3610,7 +3614,7 @@ func (builder *TicketBuilder) CreatedAt(createdAt int64) *TicketBuilder {
 // 示例值：1616920429000
 func (builder *TicketBuilder) UpdatedAt(updatedAt int64) *TicketBuilder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
@@ -3619,7 +3623,7 @@ func (builder *TicketBuilder) UpdatedAt(updatedAt int64) *TicketBuilder {
 // 示例值：1616920429000
 func (builder *TicketBuilder) ClosedAt(closedAt int64) *TicketBuilder {
 	builder.closedAt = closedAt
-	builder.closedAtFlag = true
+	builder.closedAtSet = true
 	return builder
 }
 
@@ -3628,7 +3632,7 @@ func (builder *TicketBuilder) ClosedAt(closedAt int64) *TicketBuilder {
 // 示例值：
 func (builder *TicketBuilder) DissatisfactionReason(dissatisfactionReason *I18n) *TicketBuilder {
 	builder.dissatisfactionReason = dissatisfactionReason
-	builder.dissatisfactionReasonFlag = true
+	builder.dissatisfactionReasonSet = true
 	return builder
 }
 
@@ -3637,7 +3641,7 @@ func (builder *TicketBuilder) DissatisfactionReason(dissatisfactionReason *I18n)
 // 示例值：
 func (builder *TicketBuilder) Agents(agents []*TicketUser) *TicketBuilder {
 	builder.agents = agents
-	builder.agentsFlag = true
+	builder.agentsSet = true
 	return builder
 }
 
@@ -3646,7 +3650,7 @@ func (builder *TicketBuilder) Agents(agents []*TicketUser) *TicketBuilder {
 // 示例值：0
 func (builder *TicketBuilder) Channel(channel int) *TicketBuilder {
 	builder.channel = channel
-	builder.channelFlag = true
+	builder.channelSet = true
 	return builder
 }
 
@@ -3655,7 +3659,7 @@ func (builder *TicketBuilder) Channel(channel int) *TicketBuilder {
 // 示例值：1
 func (builder *TicketBuilder) Solve(solve int) *TicketBuilder {
 	builder.solve = solve
-	builder.solveFlag = true
+	builder.solveSet = true
 	return builder
 }
 
@@ -3664,7 +3668,7 @@ func (builder *TicketBuilder) Solve(solve int) *TicketBuilder {
 // 示例值：
 func (builder *TicketBuilder) ClosedBy(closedBy *TicketUser) *TicketBuilder {
 	builder.closedBy = closedBy
-	builder.closedByFlag = true
+	builder.closedBySet = true
 	return builder
 }
 
@@ -3673,7 +3677,7 @@ func (builder *TicketBuilder) ClosedBy(closedBy *TicketUser) *TicketBuilder {
 // 示例值：
 func (builder *TicketBuilder) Collaborators(collaborators []*TicketUser) *TicketBuilder {
 	builder.collaborators = collaborators
-	builder.collaboratorsFlag = true
+	builder.collaboratorsSet = true
 	return builder
 }
 
@@ -3682,7 +3686,7 @@ func (builder *TicketBuilder) Collaborators(collaborators []*TicketUser) *Ticket
 // 示例值：
 func (builder *TicketBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *TicketBuilder {
 	builder.customizedFields = customizedFields
-	builder.customizedFieldsFlag = true
+	builder.customizedFieldsSet = true
 	return builder
 }
 
@@ -3691,7 +3695,7 @@ func (builder *TicketBuilder) CustomizedFields(customizedFields []*CustomizedFie
 // 示例值：42624.95
 func (builder *TicketBuilder) AgentServiceDuration(agentServiceDuration float64) *TicketBuilder {
 	builder.agentServiceDuration = agentServiceDuration
-	builder.agentServiceDurationFlag = true
+	builder.agentServiceDurationSet = true
 	return builder
 }
 
@@ -3700,7 +3704,7 @@ func (builder *TicketBuilder) AgentServiceDuration(agentServiceDuration float64)
 // 示例值：1616920429000
 func (builder *TicketBuilder) AgentFirstResponseDuration(agentFirstResponseDuration int64) *TicketBuilder {
 	builder.agentFirstResponseDuration = agentFirstResponseDuration
-	builder.agentFirstResponseDurationFlag = true
+	builder.agentFirstResponseDurationSet = true
 	return builder
 }
 
@@ -3709,7 +3713,7 @@ func (builder *TicketBuilder) AgentFirstResponseDuration(agentFirstResponseDurat
 // 示例值：1616920429000
 func (builder *TicketBuilder) BotServiceDuration(botServiceDuration int64) *TicketBuilder {
 	builder.botServiceDuration = botServiceDuration
-	builder.botServiceDurationFlag = true
+	builder.botServiceDurationSet = true
 	return builder
 }
 
@@ -3718,7 +3722,7 @@ func (builder *TicketBuilder) BotServiceDuration(botServiceDuration int64) *Tick
 // 示例值：1616920429000
 func (builder *TicketBuilder) AgentResolutionTime(agentResolutionTime int64) *TicketBuilder {
 	builder.agentResolutionTime = agentResolutionTime
-	builder.agentResolutionTimeFlag = true
+	builder.agentResolutionTimeSet = true
 	return builder
 }
 
@@ -3727,7 +3731,7 @@ func (builder *TicketBuilder) AgentResolutionTime(agentResolutionTime int64) *Ti
 // 示例值：1616920429000
 func (builder *TicketBuilder) ActualProcessingTime(actualProcessingTime int64) *TicketBuilder {
 	builder.actualProcessingTime = actualProcessingTime
-	builder.actualProcessingTimeFlag = true
+	builder.actualProcessingTimeSet = true
 	return builder
 }
 
@@ -3736,7 +3740,7 @@ func (builder *TicketBuilder) ActualProcessingTime(actualProcessingTime int64) *
 // 示例值：1616920429000
 func (builder *TicketBuilder) AgentEntryTime(agentEntryTime int64) *TicketBuilder {
 	builder.agentEntryTime = agentEntryTime
-	builder.agentEntryTimeFlag = true
+	builder.agentEntryTimeSet = true
 	return builder
 }
 
@@ -3745,7 +3749,7 @@ func (builder *TicketBuilder) AgentEntryTime(agentEntryTime int64) *TicketBuilde
 // 示例值：1616920429000
 func (builder *TicketBuilder) AgentFirstResponseTime(agentFirstResponseTime int64) *TicketBuilder {
 	builder.agentFirstResponseTime = agentFirstResponseTime
-	builder.agentFirstResponseTimeFlag = true
+	builder.agentFirstResponseTimeSet = true
 	return builder
 }
 
@@ -3754,7 +3758,7 @@ func (builder *TicketBuilder) AgentFirstResponseTime(agentFirstResponseTime int6
 // 示例值：1616920429000
 func (builder *TicketBuilder) AgentLastResponseTime(agentLastResponseTime int64) *TicketBuilder {
 	builder.agentLastResponseTime = agentLastResponseTime
-	builder.agentLastResponseTimeFlag = true
+	builder.agentLastResponseTimeSet = true
 	return builder
 }
 
@@ -3763,106 +3767,106 @@ func (builder *TicketBuilder) AgentLastResponseTime(agentLastResponseTime int64)
 // 示例值：
 func (builder *TicketBuilder) AgentOwner(agentOwner *TicketUser) *TicketBuilder {
 	builder.agentOwner = agentOwner
-	builder.agentOwnerFlag = true
+	builder.agentOwnerSet = true
 	return builder
 }
 
 func (builder *TicketBuilder) Build() *Ticket {
 	req := &Ticket{}
-	if builder.ticketIdFlag {
+	if builder.ticketIdSet {
 		req.TicketId = &builder.ticketId
 
 	}
-	if builder.helpdeskIdFlag {
+	if builder.helpdeskIdSet {
 		req.HelpdeskId = &builder.helpdeskId
 
 	}
-	if builder.guestFlag {
+	if builder.guestSet {
 		req.Guest = builder.guest
 	}
-	if builder.commentsFlag {
+	if builder.commentsSet {
 		req.Comments = builder.comments
 	}
-	if builder.ticketTypeFlag {
+	if builder.ticketTypeSet {
 		req.TicketType = &builder.ticketType
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
-	if builder.closedAtFlag {
+	if builder.closedAtSet {
 		req.ClosedAt = &builder.closedAt
 
 	}
-	if builder.dissatisfactionReasonFlag {
+	if builder.dissatisfactionReasonSet {
 		req.DissatisfactionReason = builder.dissatisfactionReason
 	}
-	if builder.agentsFlag {
+	if builder.agentsSet {
 		req.Agents = builder.agents
 	}
-	if builder.channelFlag {
+	if builder.channelSet {
 		req.Channel = &builder.channel
 
 	}
-	if builder.solveFlag {
+	if builder.solveSet {
 		req.Solve = &builder.solve
 
 	}
-	if builder.closedByFlag {
+	if builder.closedBySet {
 		req.ClosedBy = builder.closedBy
 	}
-	if builder.collaboratorsFlag {
+	if builder.collaboratorsSet {
 		req.Collaborators = builder.collaborators
 	}
-	if builder.customizedFieldsFlag {
+	if builder.customizedFieldsSet {
 		req.CustomizedFields = builder.customizedFields
 	}
-	if builder.agentServiceDurationFlag {
+	if builder.agentServiceDurationSet {
 		req.AgentServiceDuration = &builder.agentServiceDuration
 
 	}
-	if builder.agentFirstResponseDurationFlag {
+	if builder.agentFirstResponseDurationSet {
 		req.AgentFirstResponseDuration = &builder.agentFirstResponseDuration
 
 	}
-	if builder.botServiceDurationFlag {
+	if builder.botServiceDurationSet {
 		req.BotServiceDuration = &builder.botServiceDuration
 
 	}
-	if builder.agentResolutionTimeFlag {
+	if builder.agentResolutionTimeSet {
 		req.AgentResolutionTime = &builder.agentResolutionTime
 
 	}
-	if builder.actualProcessingTimeFlag {
+	if builder.actualProcessingTimeSet {
 		req.ActualProcessingTime = &builder.actualProcessingTime
 
 	}
-	if builder.agentEntryTimeFlag {
+	if builder.agentEntryTimeSet {
 		req.AgentEntryTime = &builder.agentEntryTime
 
 	}
-	if builder.agentFirstResponseTimeFlag {
+	if builder.agentFirstResponseTimeSet {
 		req.AgentFirstResponseTime = &builder.agentFirstResponseTime
 
 	}
-	if builder.agentLastResponseTimeFlag {
+	if builder.agentLastResponseTimeSet {
 		req.AgentLastResponseTime = &builder.agentLastResponseTime
 
 	}
-	if builder.agentOwnerFlag {
+	if builder.agentOwnerSet {
 		req.AgentOwner = builder.agentOwner
 	}
 	return req
@@ -3887,29 +3891,29 @@ type TicketMessage struct {
 }
 
 type TicketMessageBuilder struct {
-	id     string // 工单消息ID
-	idFlag bool
+	id    string // 工单消息ID
+	idSet bool
 
-	messageId     string // chat消息ID
-	messageIdFlag bool
+	messageId    string // chat消息ID
+	messageIdSet bool
 
-	messageType     string // 消息类型；text：纯文本；post：富文本
-	messageTypeFlag bool
+	messageType    string // 消息类型；text：纯文本；post：富文本
+	messageTypeSet bool
 
-	createdAt     int // 创建时间
-	createdAtFlag bool
+	createdAt    int // 创建时间
+	createdAtSet bool
 
-	content     string // 内容
-	contentFlag bool
+	content    string // 内容
+	contentSet bool
 
-	userName     string // 用户名
-	userNameFlag bool
+	userName    string // 用户名
+	userNameSet bool
 
-	avatarUrl     string // 用户图片url
-	avatarUrlFlag bool
+	avatarUrl    string // 用户图片url
+	avatarUrlSet bool
 
-	userId     string // 用户open ID
-	userIdFlag bool
+	userId    string // 用户open ID
+	userIdSet bool
 }
 
 func NewTicketMessageBuilder() *TicketMessageBuilder {
@@ -3922,7 +3926,7 @@ func NewTicketMessageBuilder() *TicketMessageBuilder {
 // 示例值：6948728206392295444
 func (builder *TicketMessageBuilder) Id(id string) *TicketMessageBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3931,7 +3935,7 @@ func (builder *TicketMessageBuilder) Id(id string) *TicketMessageBuilder {
 // 示例值：6949088236610273307
 func (builder *TicketMessageBuilder) MessageId(messageId string) *TicketMessageBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -3940,7 +3944,7 @@ func (builder *TicketMessageBuilder) MessageId(messageId string) *TicketMessageB
 // 示例值：text
 func (builder *TicketMessageBuilder) MessageType(messageType string) *TicketMessageBuilder {
 	builder.messageType = messageType
-	builder.messageTypeFlag = true
+	builder.messageTypeSet = true
 	return builder
 }
 
@@ -3949,7 +3953,7 @@ func (builder *TicketMessageBuilder) MessageType(messageType string) *TicketMess
 // 示例值：1617960686000
 func (builder *TicketMessageBuilder) CreatedAt(createdAt int) *TicketMessageBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -3958,7 +3962,7 @@ func (builder *TicketMessageBuilder) CreatedAt(createdAt int) *TicketMessageBuil
 // 示例值："{\"content\":\"进入人工服务。 @李宁  为你提供服务，开始聊起来吧~\",\"msg_type\":\"text\"}"
 func (builder *TicketMessageBuilder) Content(content string) *TicketMessageBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -3967,7 +3971,7 @@ func (builder *TicketMessageBuilder) Content(content string) *TicketMessageBuild
 // 示例值：李宁
 func (builder *TicketMessageBuilder) UserName(userName string) *TicketMessageBuilder {
 	builder.userName = userName
-	builder.userNameFlag = true
+	builder.userNameSet = true
 	return builder
 }
 
@@ -3976,7 +3980,7 @@ func (builder *TicketMessageBuilder) UserName(userName string) *TicketMessageBui
 // 示例值：https://internal-api-lark-file.feishu-boe.cn/static-resource/v1/3e73cdce-54b0-4c6a-8226-b131fb2825dj~?image_size=72x72&cut_type=&quality=&format=image&sticker_format=.webp
 func (builder *TicketMessageBuilder) AvatarUrl(avatarUrl string) *TicketMessageBuilder {
 	builder.avatarUrl = avatarUrl
-	builder.avatarUrlFlag = true
+	builder.avatarUrlSet = true
 	return builder
 }
 
@@ -3985,41 +3989,41 @@ func (builder *TicketMessageBuilder) AvatarUrl(avatarUrl string) *TicketMessageB
 // 示例值：ou_37019b7c830210acd88fdce886e25c71
 func (builder *TicketMessageBuilder) UserId(userId string) *TicketMessageBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *TicketMessageBuilder) Build() *TicketMessage {
 	req := &TicketMessage{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.messageTypeFlag {
+	if builder.messageTypeSet {
 		req.MessageType = &builder.messageType
 
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.userNameFlag {
+	if builder.userNameSet {
 		req.UserName = &builder.userName
 
 	}
-	if builder.avatarUrlFlag {
+	if builder.avatarUrlSet {
 		req.AvatarUrl = &builder.avatarUrl
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -4059,50 +4063,50 @@ type TicketCustomizedField struct {
 }
 
 type TicketCustomizedFieldBuilder struct {
-	ticketCustomizedFieldId     string // 工单自定义字段ID
-	ticketCustomizedFieldIdFlag bool
+	ticketCustomizedFieldId    string // 工单自定义字段ID
+	ticketCustomizedFieldIdSet bool
 
-	helpdeskId     string // 服务台ID
-	helpdeskIdFlag bool
+	helpdeskId    string // 服务台ID
+	helpdeskIdSet bool
 
-	keyName     string // 键名
-	keyNameFlag bool
+	keyName    string // 键名
+	keyNameSet bool
 
-	displayName     string // 名称
-	displayNameFlag bool
+	displayName    string // 名称
+	displayNameSet bool
 
-	position     string // 字段在列表后台管理列表中的位置
-	positionFlag bool
+	position    string // 字段在列表后台管理列表中的位置
+	positionSet bool
 
-	fieldType     string // 类型;;string - 单行文本;;multiline - 多行文本;;dropdown - 下拉列表;;dropdown_nested - 级联下拉
-	fieldTypeFlag bool
+	fieldType    string // 类型;;string - 单行文本;;multiline - 多行文本;;dropdown - 下拉列表;;dropdown_nested - 级联下拉
+	fieldTypeSet bool
 
-	description     string // 描述
-	descriptionFlag bool
+	description    string // 描述
+	descriptionSet bool
 
-	visible     bool // 是否可见
-	visibleFlag bool
+	visible    bool // 是否可见
+	visibleSet bool
 
-	editable     bool // 是否可以修改
-	editableFlag bool
+	editable    bool // 是否可以修改
+	editableSet bool
 
-	required     bool // 是否必填
-	requiredFlag bool
+	required    bool // 是否必填
+	requiredSet bool
 
-	createdAt     string // 创建时间
-	createdAtFlag bool
+	createdAt    string // 创建时间
+	createdAtSet bool
 
-	updatedAt     string // 更新时间
-	updatedAtFlag bool
+	updatedAt    string // 更新时间
+	updatedAtSet bool
 
-	createdBy     *TicketUser // 创建用户
-	createdByFlag bool
+	createdBy    *TicketUser // 创建用户
+	createdBySet bool
 
-	updatedBy     *TicketUser // 更新用户
-	updatedByFlag bool
+	updatedBy    *TicketUser // 更新用户
+	updatedBySet bool
 
-	dropdownAllowMultiple     bool // 是否支持多选，仅在字段类型是dropdown的时候有效
-	dropdownAllowMultipleFlag bool
+	dropdownAllowMultiple    bool // 是否支持多选，仅在字段类型是dropdown的时候有效
+	dropdownAllowMultipleSet bool
 }
 
 func NewTicketCustomizedFieldBuilder() *TicketCustomizedFieldBuilder {
@@ -4115,7 +4119,7 @@ func NewTicketCustomizedFieldBuilder() *TicketCustomizedFieldBuilder {
 // 示例值：6834320707288072194
 func (builder *TicketCustomizedFieldBuilder) TicketCustomizedFieldId(ticketCustomizedFieldId string) *TicketCustomizedFieldBuilder {
 	builder.ticketCustomizedFieldId = ticketCustomizedFieldId
-	builder.ticketCustomizedFieldIdFlag = true
+	builder.ticketCustomizedFieldIdSet = true
 	return builder
 }
 
@@ -4124,7 +4128,7 @@ func (builder *TicketCustomizedFieldBuilder) TicketCustomizedFieldId(ticketCusto
 // 示例值：1542164574896126
 func (builder *TicketCustomizedFieldBuilder) HelpdeskId(helpdeskId string) *TicketCustomizedFieldBuilder {
 	builder.helpdeskId = helpdeskId
-	builder.helpdeskIdFlag = true
+	builder.helpdeskIdSet = true
 	return builder
 }
 
@@ -4133,7 +4137,7 @@ func (builder *TicketCustomizedFieldBuilder) HelpdeskId(helpdeskId string) *Tick
 // 示例值：test dropdown
 func (builder *TicketCustomizedFieldBuilder) KeyName(keyName string) *TicketCustomizedFieldBuilder {
 	builder.keyName = keyName
-	builder.keyNameFlag = true
+	builder.keyNameSet = true
 	return builder
 }
 
@@ -4142,7 +4146,7 @@ func (builder *TicketCustomizedFieldBuilder) KeyName(keyName string) *TicketCust
 // 示例值：test dropdown
 func (builder *TicketCustomizedFieldBuilder) DisplayName(displayName string) *TicketCustomizedFieldBuilder {
 	builder.displayName = displayName
-	builder.displayNameFlag = true
+	builder.displayNameSet = true
 	return builder
 }
 
@@ -4151,7 +4155,7 @@ func (builder *TicketCustomizedFieldBuilder) DisplayName(displayName string) *Ti
 // 示例值：3
 func (builder *TicketCustomizedFieldBuilder) Position(position string) *TicketCustomizedFieldBuilder {
 	builder.position = position
-	builder.positionFlag = true
+	builder.positionSet = true
 	return builder
 }
 
@@ -4160,7 +4164,7 @@ func (builder *TicketCustomizedFieldBuilder) Position(position string) *TicketCu
 // 示例值：dropdown
 func (builder *TicketCustomizedFieldBuilder) FieldType(fieldType string) *TicketCustomizedFieldBuilder {
 	builder.fieldType = fieldType
-	builder.fieldTypeFlag = true
+	builder.fieldTypeSet = true
 	return builder
 }
 
@@ -4169,7 +4173,7 @@ func (builder *TicketCustomizedFieldBuilder) FieldType(fieldType string) *Ticket
 // 示例值：下拉示例
 func (builder *TicketCustomizedFieldBuilder) Description(description string) *TicketCustomizedFieldBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -4178,7 +4182,7 @@ func (builder *TicketCustomizedFieldBuilder) Description(description string) *Ti
 // 示例值：true
 func (builder *TicketCustomizedFieldBuilder) Visible(visible bool) *TicketCustomizedFieldBuilder {
 	builder.visible = visible
-	builder.visibleFlag = true
+	builder.visibleSet = true
 	return builder
 }
 
@@ -4187,7 +4191,7 @@ func (builder *TicketCustomizedFieldBuilder) Visible(visible bool) *TicketCustom
 // 示例值：true
 func (builder *TicketCustomizedFieldBuilder) Editable(editable bool) *TicketCustomizedFieldBuilder {
 	builder.editable = editable
-	builder.editableFlag = true
+	builder.editableSet = true
 	return builder
 }
 
@@ -4196,7 +4200,7 @@ func (builder *TicketCustomizedFieldBuilder) Editable(editable bool) *TicketCust
 // 示例值：false
 func (builder *TicketCustomizedFieldBuilder) Required(required bool) *TicketCustomizedFieldBuilder {
 	builder.required = required
-	builder.requiredFlag = true
+	builder.requiredSet = true
 	return builder
 }
 
@@ -4205,7 +4209,7 @@ func (builder *TicketCustomizedFieldBuilder) Required(required bool) *TicketCust
 // 示例值：1591239289000
 func (builder *TicketCustomizedFieldBuilder) CreatedAt(createdAt string) *TicketCustomizedFieldBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -4214,7 +4218,7 @@ func (builder *TicketCustomizedFieldBuilder) CreatedAt(createdAt string) *Ticket
 // 示例值：1591239289000
 func (builder *TicketCustomizedFieldBuilder) UpdatedAt(updatedAt string) *TicketCustomizedFieldBuilder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
@@ -4223,7 +4227,7 @@ func (builder *TicketCustomizedFieldBuilder) UpdatedAt(updatedAt string) *Ticket
 // 示例值：
 func (builder *TicketCustomizedFieldBuilder) CreatedBy(createdBy *TicketUser) *TicketCustomizedFieldBuilder {
 	builder.createdBy = createdBy
-	builder.createdByFlag = true
+	builder.createdBySet = true
 	return builder
 }
 
@@ -4232,7 +4236,7 @@ func (builder *TicketCustomizedFieldBuilder) CreatedBy(createdBy *TicketUser) *T
 // 示例值：
 func (builder *TicketCustomizedFieldBuilder) UpdatedBy(updatedBy *TicketUser) *TicketCustomizedFieldBuilder {
 	builder.updatedBy = updatedBy
-	builder.updatedByFlag = true
+	builder.updatedBySet = true
 	return builder
 }
 
@@ -4241,67 +4245,67 @@ func (builder *TicketCustomizedFieldBuilder) UpdatedBy(updatedBy *TicketUser) *T
 // 示例值：true
 func (builder *TicketCustomizedFieldBuilder) DropdownAllowMultiple(dropdownAllowMultiple bool) *TicketCustomizedFieldBuilder {
 	builder.dropdownAllowMultiple = dropdownAllowMultiple
-	builder.dropdownAllowMultipleFlag = true
+	builder.dropdownAllowMultipleSet = true
 	return builder
 }
 
 func (builder *TicketCustomizedFieldBuilder) Build() *TicketCustomizedField {
 	req := &TicketCustomizedField{}
-	if builder.ticketCustomizedFieldIdFlag {
+	if builder.ticketCustomizedFieldIdSet {
 		req.TicketCustomizedFieldId = &builder.ticketCustomizedFieldId
 
 	}
-	if builder.helpdeskIdFlag {
+	if builder.helpdeskIdSet {
 		req.HelpdeskId = &builder.helpdeskId
 
 	}
-	if builder.keyNameFlag {
+	if builder.keyNameSet {
 		req.KeyName = &builder.keyName
 
 	}
-	if builder.displayNameFlag {
+	if builder.displayNameSet {
 		req.DisplayName = &builder.displayName
 
 	}
-	if builder.positionFlag {
+	if builder.positionSet {
 		req.Position = &builder.position
 
 	}
-	if builder.fieldTypeFlag {
+	if builder.fieldTypeSet {
 		req.FieldType = &builder.fieldType
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.visibleFlag {
+	if builder.visibleSet {
 		req.Visible = &builder.visible
 
 	}
-	if builder.editableFlag {
+	if builder.editableSet {
 		req.Editable = &builder.editable
 
 	}
-	if builder.requiredFlag {
+	if builder.requiredSet {
 		req.Required = &builder.required
 
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
-	if builder.createdByFlag {
+	if builder.createdBySet {
 		req.CreatedBy = builder.createdBy
 	}
-	if builder.updatedByFlag {
+	if builder.updatedBySet {
 		req.UpdatedBy = builder.updatedBy
 	}
-	if builder.dropdownAllowMultipleFlag {
+	if builder.dropdownAllowMultipleSet {
 		req.DropdownAllowMultiple = &builder.dropdownAllowMultiple
 
 	}
@@ -4343,53 +4347,53 @@ type TicketEvent struct {
 }
 
 type TicketEventBuilder struct {
-	ticketId     string // 工单ID;;[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
-	ticketIdFlag bool
+	ticketId    string // 工单ID;;[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list);;[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+	ticketIdSet bool
 
-	helpdeskId     string // 服务台id
-	helpdeskIdFlag bool
+	helpdeskId    string // 服务台id
+	helpdeskIdSet bool
 
-	guest     *TicketUserEvent // 用户id
-	guestFlag bool
+	guest    *TicketUserEvent // 用户id
+	guestSet bool
 
-	stage     int // 工单阶段：1. 机器人 2. 人工
-	stageFlag bool
+	stage    int // 工单阶段：1. 机器人 2. 人工
+	stageSet bool
 
-	status     int // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
-	statusFlag bool
+	status    int // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+	statusSet bool
 
-	score     int // 工单评分，1：不满意，2:一般，3:满意
-	scoreFlag bool
+	score    int // 工单评分，1：不满意，2:一般，3:满意
+	scoreSet bool
 
-	createdAt     int // 创建时间
-	createdAtFlag bool
+	createdAt    int // 创建时间
+	createdAtSet bool
 
-	updatedAt     int // 工单更新时间，没有值时为-1
-	updatedAtFlag bool
+	updatedAt    int // 工单更新时间，没有值时为-1
+	updatedAtSet bool
 
-	closedAt     int // 关单时间
-	closedAtFlag bool
+	closedAt    int // 关单时间
+	closedAtSet bool
 
-	agents     []*TicketUserEvent // agents of this ticket
-	agentsFlag bool
+	agents    []*TicketUserEvent // agents of this ticket
+	agentsSet bool
 
-	channel     int // 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
-	channelFlag bool
+	channel    int // 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
+	channelSet bool
 
-	solve     int // 工单是否解决 1:没解决 2:已解决
-	solveFlag bool
+	solve    int // 工单是否解决 1:没解决 2:已解决
+	solveSet bool
 
-	closedBy     *TicketUserEvent // closed user of this ticket
-	closedByFlag bool
+	closedBy    *TicketUserEvent // closed user of this ticket
+	closedBySet bool
 
-	collaborators     []*TicketUserEvent // collaborators of this ticket
-	collaboratorsFlag bool
+	collaborators    []*TicketUserEvent // collaborators of this ticket
+	collaboratorsSet bool
 
-	customizedFields     []*CustomizedFieldDisplayItem // 自定义字段
-	customizedFieldsFlag bool
+	customizedFields    []*CustomizedFieldDisplayItem // 自定义字段
+	customizedFieldsSet bool
 
-	chatId     string // oc_xxxxxxx
-	chatIdFlag bool
+	chatId    string // oc_xxxxxxx
+	chatIdSet bool
 }
 
 func NewTicketEventBuilder() *TicketEventBuilder {
@@ -4402,7 +4406,7 @@ func NewTicketEventBuilder() *TicketEventBuilder {
 // 示例值：6626871355780366331
 func (builder *TicketEventBuilder) TicketId(ticketId string) *TicketEventBuilder {
 	builder.ticketId = ticketId
-	builder.ticketIdFlag = true
+	builder.ticketIdSet = true
 	return builder
 }
 
@@ -4411,7 +4415,7 @@ func (builder *TicketEventBuilder) TicketId(ticketId string) *TicketEventBuilder
 // 示例值：6626871355780366330
 func (builder *TicketEventBuilder) HelpdeskId(helpdeskId string) *TicketEventBuilder {
 	builder.helpdeskId = helpdeskId
-	builder.helpdeskIdFlag = true
+	builder.helpdeskIdSet = true
 	return builder
 }
 
@@ -4420,7 +4424,7 @@ func (builder *TicketEventBuilder) HelpdeskId(helpdeskId string) *TicketEventBui
 // 示例值：
 func (builder *TicketEventBuilder) Guest(guest *TicketUserEvent) *TicketEventBuilder {
 	builder.guest = guest
-	builder.guestFlag = true
+	builder.guestSet = true
 	return builder
 }
 
@@ -4429,7 +4433,7 @@ func (builder *TicketEventBuilder) Guest(guest *TicketUserEvent) *TicketEventBui
 // 示例值：1
 func (builder *TicketEventBuilder) Stage(stage int) *TicketEventBuilder {
 	builder.stage = stage
-	builder.stageFlag = true
+	builder.stageSet = true
 	return builder
 }
 
@@ -4438,7 +4442,7 @@ func (builder *TicketEventBuilder) Stage(stage int) *TicketEventBuilder {
 // 示例值：1
 func (builder *TicketEventBuilder) Status(status int) *TicketEventBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -4447,7 +4451,7 @@ func (builder *TicketEventBuilder) Status(status int) *TicketEventBuilder {
 // 示例值：1
 func (builder *TicketEventBuilder) Score(score int) *TicketEventBuilder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
@@ -4456,7 +4460,7 @@ func (builder *TicketEventBuilder) Score(score int) *TicketEventBuilder {
 // 示例值：1616920429000
 func (builder *TicketEventBuilder) CreatedAt(createdAt int) *TicketEventBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -4465,7 +4469,7 @@ func (builder *TicketEventBuilder) CreatedAt(createdAt int) *TicketEventBuilder 
 // 示例值：1616920429000
 func (builder *TicketEventBuilder) UpdatedAt(updatedAt int) *TicketEventBuilder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
@@ -4474,7 +4478,7 @@ func (builder *TicketEventBuilder) UpdatedAt(updatedAt int) *TicketEventBuilder 
 // 示例值：1616920429000
 func (builder *TicketEventBuilder) ClosedAt(closedAt int) *TicketEventBuilder {
 	builder.closedAt = closedAt
-	builder.closedAtFlag = true
+	builder.closedAtSet = true
 	return builder
 }
 
@@ -4483,7 +4487,7 @@ func (builder *TicketEventBuilder) ClosedAt(closedAt int) *TicketEventBuilder {
 // 示例值：
 func (builder *TicketEventBuilder) Agents(agents []*TicketUserEvent) *TicketEventBuilder {
 	builder.agents = agents
-	builder.agentsFlag = true
+	builder.agentsSet = true
 	return builder
 }
 
@@ -4492,7 +4496,7 @@ func (builder *TicketEventBuilder) Agents(agents []*TicketUserEvent) *TicketEven
 // 示例值：0
 func (builder *TicketEventBuilder) Channel(channel int) *TicketEventBuilder {
 	builder.channel = channel
-	builder.channelFlag = true
+	builder.channelSet = true
 	return builder
 }
 
@@ -4501,7 +4505,7 @@ func (builder *TicketEventBuilder) Channel(channel int) *TicketEventBuilder {
 // 示例值：1
 func (builder *TicketEventBuilder) Solve(solve int) *TicketEventBuilder {
 	builder.solve = solve
-	builder.solveFlag = true
+	builder.solveSet = true
 	return builder
 }
 
@@ -4510,7 +4514,7 @@ func (builder *TicketEventBuilder) Solve(solve int) *TicketEventBuilder {
 // 示例值：
 func (builder *TicketEventBuilder) ClosedBy(closedBy *TicketUserEvent) *TicketEventBuilder {
 	builder.closedBy = closedBy
-	builder.closedByFlag = true
+	builder.closedBySet = true
 	return builder
 }
 
@@ -4519,7 +4523,7 @@ func (builder *TicketEventBuilder) ClosedBy(closedBy *TicketUserEvent) *TicketEv
 // 示例值：
 func (builder *TicketEventBuilder) Collaborators(collaborators []*TicketUserEvent) *TicketEventBuilder {
 	builder.collaborators = collaborators
-	builder.collaboratorsFlag = true
+	builder.collaboratorsSet = true
 	return builder
 }
 
@@ -4528,7 +4532,7 @@ func (builder *TicketEventBuilder) Collaborators(collaborators []*TicketUserEven
 // 示例值：
 func (builder *TicketEventBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *TicketEventBuilder {
 	builder.customizedFields = customizedFields
-	builder.customizedFieldsFlag = true
+	builder.customizedFieldsSet = true
 	return builder
 }
 
@@ -4537,68 +4541,68 @@ func (builder *TicketEventBuilder) CustomizedFields(customizedFields []*Customiz
 // 示例值：oc_xxxxxxx
 func (builder *TicketEventBuilder) ChatId(chatId string) *TicketEventBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
 func (builder *TicketEventBuilder) Build() *TicketEvent {
 	req := &TicketEvent{}
-	if builder.ticketIdFlag {
+	if builder.ticketIdSet {
 		req.TicketId = &builder.ticketId
 
 	}
-	if builder.helpdeskIdFlag {
+	if builder.helpdeskIdSet {
 		req.HelpdeskId = &builder.helpdeskId
 
 	}
-	if builder.guestFlag {
+	if builder.guestSet {
 		req.Guest = builder.guest
 	}
-	if builder.stageFlag {
+	if builder.stageSet {
 		req.Stage = &builder.stage
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
-	if builder.closedAtFlag {
+	if builder.closedAtSet {
 		req.ClosedAt = &builder.closedAt
 
 	}
-	if builder.agentsFlag {
+	if builder.agentsSet {
 		req.Agents = builder.agents
 	}
-	if builder.channelFlag {
+	if builder.channelSet {
 		req.Channel = &builder.channel
 
 	}
-	if builder.solveFlag {
+	if builder.solveSet {
 		req.Solve = &builder.solve
 
 	}
-	if builder.closedByFlag {
+	if builder.closedBySet {
 		req.ClosedBy = builder.closedBy
 	}
-	if builder.collaboratorsFlag {
+	if builder.collaboratorsSet {
 		req.Collaborators = builder.collaborators
 	}
-	if builder.customizedFieldsFlag {
+	if builder.customizedFieldsSet {
 		req.CustomizedFields = builder.customizedFields
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
@@ -4614,14 +4618,14 @@ type TicketEventUpdateInfo struct {
 }
 
 type TicketEventUpdateInfoBuilder struct {
-	stage     int // ticket stage
-	stageFlag bool
+	stage    int // ticket stage
+	stageSet bool
 
-	status     int // ticket status
-	statusFlag bool
+	status    int // ticket status
+	statusSet bool
 
-	updatedAt     int // ticket update time
-	updatedAtFlag bool
+	updatedAt    int // ticket update time
+	updatedAtSet bool
 }
 
 func NewTicketEventUpdateInfoBuilder() *TicketEventUpdateInfoBuilder {
@@ -4634,7 +4638,7 @@ func NewTicketEventUpdateInfoBuilder() *TicketEventUpdateInfoBuilder {
 // 示例值：1
 func (builder *TicketEventUpdateInfoBuilder) Stage(stage int) *TicketEventUpdateInfoBuilder {
 	builder.stage = stage
-	builder.stageFlag = true
+	builder.stageSet = true
 	return builder
 }
 
@@ -4643,7 +4647,7 @@ func (builder *TicketEventUpdateInfoBuilder) Stage(stage int) *TicketEventUpdate
 // 示例值：50
 func (builder *TicketEventUpdateInfoBuilder) Status(status int) *TicketEventUpdateInfoBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -4652,21 +4656,21 @@ func (builder *TicketEventUpdateInfoBuilder) Status(status int) *TicketEventUpda
 // 示例值：1616920429000
 func (builder *TicketEventUpdateInfoBuilder) UpdatedAt(updatedAt int) *TicketEventUpdateInfoBuilder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
 func (builder *TicketEventUpdateInfoBuilder) Build() *TicketEventUpdateInfo {
 	req := &TicketEventUpdateInfo{}
-	if builder.stageFlag {
+	if builder.stageSet {
 		req.Stage = &builder.stage
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
@@ -4684,17 +4688,17 @@ type TicketMessageContent struct {
 }
 
 type TicketMessageContentBuilder struct {
-	content     string // 内容
-	contentFlag bool
+	content    string // 内容
+	contentSet bool
 
-	msgType     string // 消息类型；text：纯文本；post：富文本；image：图片
-	msgTypeFlag bool
+	msgType    string // 消息类型；text：纯文本；post：富文本；image：图片
+	msgTypeSet bool
 
-	imageKeys     []string // 图片ID
-	imageKeysFlag bool
+	imageKeys    []string // 图片ID
+	imageKeysSet bool
 
-	imageKey     string // 图片ID
-	imageKeyFlag bool
+	imageKey    string // 图片ID
+	imageKeySet bool
 }
 
 func NewTicketMessageContentBuilder() *TicketMessageContentBuilder {
@@ -4707,7 +4711,7 @@ func NewTicketMessageContentBuilder() *TicketMessageContentBuilder {
 // 示例值：请问vpn怎么下载
 func (builder *TicketMessageContentBuilder) Content(content string) *TicketMessageContentBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -4716,7 +4720,7 @@ func (builder *TicketMessageContentBuilder) Content(content string) *TicketMessa
 // 示例值：text
 func (builder *TicketMessageContentBuilder) MsgType(msgType string) *TicketMessageContentBuilder {
 	builder.msgType = msgType
-	builder.msgTypeFlag = true
+	builder.msgTypeSet = true
 	return builder
 }
 
@@ -4725,7 +4729,7 @@ func (builder *TicketMessageContentBuilder) MsgType(msgType string) *TicketMessa
 // 示例值：
 func (builder *TicketMessageContentBuilder) ImageKeys(imageKeys []string) *TicketMessageContentBuilder {
 	builder.imageKeys = imageKeys
-	builder.imageKeysFlag = true
+	builder.imageKeysSet = true
 	return builder
 }
 
@@ -4734,24 +4738,24 @@ func (builder *TicketMessageContentBuilder) ImageKeys(imageKeys []string) *Ticke
 // 示例值：xxx
 func (builder *TicketMessageContentBuilder) ImageKey(imageKey string) *TicketMessageContentBuilder {
 	builder.imageKey = imageKey
-	builder.imageKeyFlag = true
+	builder.imageKeySet = true
 	return builder
 }
 
 func (builder *TicketMessageContentBuilder) Build() *TicketMessageContent {
 	req := &TicketMessageContent{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.msgTypeFlag {
+	if builder.msgTypeSet {
 		req.MsgType = &builder.msgType
 
 	}
-	if builder.imageKeysFlag {
+	if builder.imageKeysSet {
 		req.ImageKeys = builder.imageKeys
 	}
-	if builder.imageKeyFlag {
+	if builder.imageKeySet {
 		req.ImageKey = &builder.imageKey
 
 	}
@@ -4783,38 +4787,38 @@ type TicketMessageEvent struct {
 }
 
 type TicketMessageEventBuilder struct {
-	ticketMessageId     string // ticket message id
-	ticketMessageIdFlag bool
+	ticketMessageId    string // ticket message id
+	ticketMessageIdSet bool
 
-	messageId     string // open message id
-	messageIdFlag bool
+	messageId    string // open message id
+	messageIdSet bool
 
-	msgType     string // message type, text is the only supported type
-	msgTypeFlag bool
+	msgType    string // message type, text is the only supported type
+	msgTypeSet bool
 
-	position     string // position of the message
-	positionFlag bool
+	position    string // position of the message
+	positionSet bool
 
-	senderId     *UserId // 用户 ID
-	senderIdFlag bool
+	senderId    *UserId // 用户 ID
+	senderIdSet bool
 
-	senderType     int // sender type, 1 for bot, 2 for guest, 3 for agent
-	senderTypeFlag bool
+	senderType    int // sender type, 1 for bot, 2 for guest, 3 for agent
+	senderTypeSet bool
 
-	text     string // message content
-	textFlag bool
+	text    string // message content
+	textSet bool
 
-	ticket     *Ticket // ticket related information
-	ticketFlag bool
+	ticket    *Ticket // ticket related information
+	ticketSet bool
 
-	eventId     string // event id
-	eventIdFlag bool
+	eventId    string // event id
+	eventIdSet bool
 
-	chatId     string // chat id
-	chatIdFlag bool
+	chatId    string // chat id
+	chatIdSet bool
 
-	content     *TicketMessageContent // message content
-	contentFlag bool
+	content    *TicketMessageContent // message content
+	contentSet bool
 }
 
 func NewTicketMessageEventBuilder() *TicketMessageEventBuilder {
@@ -4827,7 +4831,7 @@ func NewTicketMessageEventBuilder() *TicketMessageEventBuilder {
 // 示例值：6949088240624222236
 func (builder *TicketMessageEventBuilder) TicketMessageId(ticketMessageId string) *TicketMessageEventBuilder {
 	builder.ticketMessageId = ticketMessageId
-	builder.ticketMessageIdFlag = true
+	builder.ticketMessageIdSet = true
 	return builder
 }
 
@@ -4836,7 +4840,7 @@ func (builder *TicketMessageEventBuilder) TicketMessageId(ticketMessageId string
 // 示例值：om_8baa3656c7b41900d29bf9104bf5310b
 func (builder *TicketMessageEventBuilder) MessageId(messageId string) *TicketMessageEventBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -4845,7 +4849,7 @@ func (builder *TicketMessageEventBuilder) MessageId(messageId string) *TicketMes
 // 示例值：text
 func (builder *TicketMessageEventBuilder) MsgType(msgType string) *TicketMessageEventBuilder {
 	builder.msgType = msgType
-	builder.msgTypeFlag = true
+	builder.msgTypeSet = true
 	return builder
 }
 
@@ -4854,7 +4858,7 @@ func (builder *TicketMessageEventBuilder) MsgType(msgType string) *TicketMessage
 // 示例值：10
 func (builder *TicketMessageEventBuilder) Position(position string) *TicketMessageEventBuilder {
 	builder.position = position
-	builder.positionFlag = true
+	builder.positionSet = true
 	return builder
 }
 
@@ -4863,7 +4867,7 @@ func (builder *TicketMessageEventBuilder) Position(position string) *TicketMessa
 // 示例值：
 func (builder *TicketMessageEventBuilder) SenderId(senderId *UserId) *TicketMessageEventBuilder {
 	builder.senderId = senderId
-	builder.senderIdFlag = true
+	builder.senderIdSet = true
 	return builder
 }
 
@@ -4872,7 +4876,7 @@ func (builder *TicketMessageEventBuilder) SenderId(senderId *UserId) *TicketMess
 // 示例值：1
 func (builder *TicketMessageEventBuilder) SenderType(senderType int) *TicketMessageEventBuilder {
 	builder.senderType = senderType
-	builder.senderTypeFlag = true
+	builder.senderTypeSet = true
 	return builder
 }
 
@@ -4881,7 +4885,7 @@ func (builder *TicketMessageEventBuilder) SenderType(senderType int) *TicketMess
 // 示例值：请问vpn怎么下载
 func (builder *TicketMessageEventBuilder) Text(text string) *TicketMessageEventBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -4890,7 +4894,7 @@ func (builder *TicketMessageEventBuilder) Text(text string) *TicketMessageEventB
 // 示例值：
 func (builder *TicketMessageEventBuilder) Ticket(ticket *Ticket) *TicketMessageEventBuilder {
 	builder.ticket = ticket
-	builder.ticketFlag = true
+	builder.ticketSet = true
 	return builder
 }
 
@@ -4899,7 +4903,7 @@ func (builder *TicketMessageEventBuilder) Ticket(ticket *Ticket) *TicketMessageE
 // 示例值：118a6492-122d-04ad-4370-010a3bb384d3
 func (builder *TicketMessageEventBuilder) EventId(eventId string) *TicketMessageEventBuilder {
 	builder.eventId = eventId
-	builder.eventIdFlag = true
+	builder.eventIdSet = true
 	return builder
 }
 
@@ -4908,7 +4912,7 @@ func (builder *TicketMessageEventBuilder) EventId(eventId string) *TicketMessage
 // 示例值：6949088236610273307
 func (builder *TicketMessageEventBuilder) ChatId(chatId string) *TicketMessageEventBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -4917,51 +4921,51 @@ func (builder *TicketMessageEventBuilder) ChatId(chatId string) *TicketMessageEv
 // 示例值：
 func (builder *TicketMessageEventBuilder) Content(content *TicketMessageContent) *TicketMessageEventBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *TicketMessageEventBuilder) Build() *TicketMessageEvent {
 	req := &TicketMessageEvent{}
-	if builder.ticketMessageIdFlag {
+	if builder.ticketMessageIdSet {
 		req.TicketMessageId = &builder.ticketMessageId
 
 	}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.msgTypeFlag {
+	if builder.msgTypeSet {
 		req.MsgType = &builder.msgType
 
 	}
-	if builder.positionFlag {
+	if builder.positionSet {
 		req.Position = &builder.position
 
 	}
-	if builder.senderIdFlag {
+	if builder.senderIdSet {
 		req.SenderId = builder.senderId
 	}
-	if builder.senderTypeFlag {
+	if builder.senderTypeSet {
 		req.SenderType = &builder.senderType
 
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
-	if builder.ticketFlag {
+	if builder.ticketSet {
 		req.Ticket = builder.ticket
 	}
-	if builder.eventIdFlag {
+	if builder.eventIdSet {
 		req.EventId = &builder.eventId
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = builder.content
 	}
 	return req
@@ -4980,20 +4984,20 @@ type TicketMessageExportEntity struct {
 }
 
 type TicketMessageExportEntityBuilder struct {
-	id     string // 实体 ID
-	idFlag bool
+	id    string // 实体 ID
+	idSet bool
 
-	messageType     string // 消息类型
-	messageTypeFlag bool
+	messageType    string // 消息类型
+	messageTypeSet bool
 
-	createdAtMs     string // 消息创建时间（单位毫秒）
-	createdAtMsFlag bool
+	createdAtMs    string // 消息创建时间（单位毫秒）
+	createdAtMsSet bool
 
-	userId     string // 发送消息用户 ID
-	userIdFlag bool
+	userId    string // 发送消息用户 ID
+	userIdSet bool
 
-	content     *ExportTicketMessageContent // 消息内容
-	contentFlag bool
+	content    *ExportTicketMessageContent // 消息内容
+	contentSet bool
 }
 
 func NewTicketMessageExportEntityBuilder() *TicketMessageExportEntityBuilder {
@@ -5006,7 +5010,7 @@ func NewTicketMessageExportEntityBuilder() *TicketMessageExportEntityBuilder {
 // 示例值：7482725333856829443
 func (builder *TicketMessageExportEntityBuilder) Id(id string) *TicketMessageExportEntityBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5015,7 +5019,7 @@ func (builder *TicketMessageExportEntityBuilder) Id(id string) *TicketMessageExp
 // 示例值：text
 func (builder *TicketMessageExportEntityBuilder) MessageType(messageType string) *TicketMessageExportEntityBuilder {
 	builder.messageType = messageType
-	builder.messageTypeFlag = true
+	builder.messageTypeSet = true
 	return builder
 }
 
@@ -5024,7 +5028,7 @@ func (builder *TicketMessageExportEntityBuilder) MessageType(messageType string)
 // 示例值：1742376324964
 func (builder *TicketMessageExportEntityBuilder) CreatedAtMs(createdAtMs string) *TicketMessageExportEntityBuilder {
 	builder.createdAtMs = createdAtMs
-	builder.createdAtMsFlag = true
+	builder.createdAtMsSet = true
 	return builder
 }
 
@@ -5033,7 +5037,7 @@ func (builder *TicketMessageExportEntityBuilder) CreatedAtMs(createdAtMs string)
 // 示例值：ou_41119b7c830210abb12fdce886e25b98
 func (builder *TicketMessageExportEntityBuilder) UserId(userId string) *TicketMessageExportEntityBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -5042,29 +5046,29 @@ func (builder *TicketMessageExportEntityBuilder) UserId(userId string) *TicketMe
 // 示例值：test
 func (builder *TicketMessageExportEntityBuilder) Content(content *ExportTicketMessageContent) *TicketMessageExportEntityBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *TicketMessageExportEntityBuilder) Build() *TicketMessageExportEntity {
 	req := &TicketMessageExportEntity{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.messageTypeFlag {
+	if builder.messageTypeSet {
 		req.MessageType = &builder.messageType
 
 	}
-	if builder.createdAtMsFlag {
+	if builder.createdAtMsSet {
 		req.CreatedAtMs = &builder.createdAtMs
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = builder.content
 	}
 	return req
@@ -5077,11 +5081,11 @@ type TicketTag struct {
 }
 
 type TicketTagBuilder struct {
-	id     string // ticket tag
-	idFlag bool
+	id    string // ticket tag
+	idSet bool
 
-	name     string // tag name
-	nameFlag bool
+	name    string // tag name
+	nameSet bool
 }
 
 func NewTicketTagBuilder() *TicketTagBuilder {
@@ -5094,7 +5098,7 @@ func NewTicketTagBuilder() *TicketTagBuilder {
 // 示例值："7474857595946745884"
 func (builder *TicketTagBuilder) Id(id string) *TicketTagBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5103,17 +5107,17 @@ func (builder *TicketTagBuilder) Id(id string) *TicketTagBuilder {
 // 示例值："tag name"
 func (builder *TicketTagBuilder) Name(name string) *TicketTagBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *TicketTagBuilder) Build() *TicketTag {
 	req := &TicketTag{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -5137,26 +5141,26 @@ type TicketUser struct {
 }
 
 type TicketUserBuilder struct {
-	id     string // 用户ID
-	idFlag bool
+	id    string // 用户ID
+	idSet bool
 
-	avatarUrl     string // 用户头像url
-	avatarUrlFlag bool
+	avatarUrl    string // 用户头像url
+	avatarUrlSet bool
 
-	name     string // 用户名
-	nameFlag bool
+	name    string // 用户名
+	nameSet bool
 
-	email     string // 用户邮箱
-	emailFlag bool
+	email    string // 用户邮箱
+	emailSet bool
 
-	department     string // 所在部门名称
-	departmentFlag bool
+	department    string // 所在部门名称
+	departmentSet bool
 
-	city     string // 城市
-	cityFlag bool
+	city    string // 城市
+	citySet bool
 
-	country     string // 国家代号(CountryCode)，参考：http://www.mamicode.com/info-detail-2186501.html
-	countryFlag bool
+	country    string // 国家代号(CountryCode)，参考：http://www.mamicode.com/info-detail-2186501.html
+	countrySet bool
 }
 
 func NewTicketUserBuilder() *TicketUserBuilder {
@@ -5169,7 +5173,7 @@ func NewTicketUserBuilder() *TicketUserBuilder {
 // 示例值：ou_37019b7c830210acd88fdce886e25c71
 func (builder *TicketUserBuilder) Id(id string) *TicketUserBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5178,7 +5182,7 @@ func (builder *TicketUserBuilder) Id(id string) *TicketUserBuilder {
 // 示例值：https://xxxx
 func (builder *TicketUserBuilder) AvatarUrl(avatarUrl string) *TicketUserBuilder {
 	builder.avatarUrl = avatarUrl
-	builder.avatarUrlFlag = true
+	builder.avatarUrlSet = true
 	return builder
 }
 
@@ -5187,7 +5191,7 @@ func (builder *TicketUserBuilder) AvatarUrl(avatarUrl string) *TicketUserBuilder
 // 示例值：abc
 func (builder *TicketUserBuilder) Name(name string) *TicketUserBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -5196,7 +5200,7 @@ func (builder *TicketUserBuilder) Name(name string) *TicketUserBuilder {
 // 示例值：xxxx@abc.com
 func (builder *TicketUserBuilder) Email(email string) *TicketUserBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -5205,7 +5209,7 @@ func (builder *TicketUserBuilder) Email(email string) *TicketUserBuilder {
 // 示例值：用户部门名称(有权限才展示)
 func (builder *TicketUserBuilder) Department(department string) *TicketUserBuilder {
 	builder.department = department
-	builder.departmentFlag = true
+	builder.departmentSet = true
 	return builder
 }
 
@@ -5214,7 +5218,7 @@ func (builder *TicketUserBuilder) Department(department string) *TicketUserBuild
 // 示例值：城市
 func (builder *TicketUserBuilder) City(city string) *TicketUserBuilder {
 	builder.city = city
-	builder.cityFlag = true
+	builder.citySet = true
 	return builder
 }
 
@@ -5223,37 +5227,37 @@ func (builder *TicketUserBuilder) City(city string) *TicketUserBuilder {
 // 示例值：国家
 func (builder *TicketUserBuilder) Country(country string) *TicketUserBuilder {
 	builder.country = country
-	builder.countryFlag = true
+	builder.countrySet = true
 	return builder
 }
 
 func (builder *TicketUserBuilder) Build() *TicketUser {
 	req := &TicketUser{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.avatarUrlFlag {
+	if builder.avatarUrlSet {
 		req.AvatarUrl = &builder.avatarUrl
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.departmentFlag {
+	if builder.departmentSet {
 		req.Department = &builder.department
 
 	}
-	if builder.cityFlag {
+	if builder.citySet {
 		req.City = &builder.city
 
 	}
-	if builder.countryFlag {
+	if builder.countrySet {
 		req.Country = &builder.country
 
 	}
@@ -5271,17 +5275,17 @@ type TicketUserEvent struct {
 }
 
 type TicketUserEventBuilder struct {
-	id     *UserId // id
-	idFlag bool
+	id    *UserId // id
+	idSet bool
 
-	avatarUrl     string // user avartal url
-	avatarUrlFlag bool
+	avatarUrl    string // user avartal url
+	avatarUrlSet bool
 
-	name     string // 名称
-	nameFlag bool
+	name    string // 名称
+	nameSet bool
 
-	email     string // user email
-	emailFlag bool
+	email    string // user email
+	emailSet bool
 }
 
 func NewTicketUserEventBuilder() *TicketUserEventBuilder {
@@ -5294,7 +5298,7 @@ func NewTicketUserEventBuilder() *TicketUserEventBuilder {
 // 示例值：
 func (builder *TicketUserEventBuilder) Id(id *UserId) *TicketUserEventBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5303,7 +5307,7 @@ func (builder *TicketUserEventBuilder) Id(id *UserId) *TicketUserEventBuilder {
 // 示例值：
 func (builder *TicketUserEventBuilder) AvatarUrl(avatarUrl string) *TicketUserEventBuilder {
 	builder.avatarUrl = avatarUrl
-	builder.avatarUrlFlag = true
+	builder.avatarUrlSet = true
 	return builder
 }
 
@@ -5312,7 +5316,7 @@ func (builder *TicketUserEventBuilder) AvatarUrl(avatarUrl string) *TicketUserEv
 // 示例值：abc
 func (builder *TicketUserEventBuilder) Name(name string) *TicketUserEventBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -5321,24 +5325,24 @@ func (builder *TicketUserEventBuilder) Name(name string) *TicketUserEventBuilder
 // 示例值：
 func (builder *TicketUserEventBuilder) Email(email string) *TicketUserEventBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
 func (builder *TicketUserEventBuilder) Build() *TicketUserEvent {
 	req := &TicketUserEvent{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = builder.id
 	}
-	if builder.avatarUrlFlag {
+	if builder.avatarUrlSet {
 		req.AvatarUrl = &builder.avatarUrl
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
@@ -5402,86 +5406,86 @@ type TicketV2 struct {
 }
 
 type TicketV2Builder struct {
-	ticketId     string // ticket id
-	ticketIdFlag bool
+	ticketId    string // ticket id
+	ticketIdSet bool
 
-	helpdeskId     string // helpdesk id
-	helpdeskIdFlag bool
+	helpdeskId    string // helpdesk id
+	helpdeskIdSet bool
 
-	guest     *TicketUser // guest of this ticket
-	guestFlag bool
+	guest    *TicketUser // guest of this ticket
+	guestSet bool
 
-	comments     *Comments // 备注
-	commentsFlag bool
+	comments    *Comments // 备注
+	commentsSet bool
 
-	ticketType     int // ticket type
-	ticketTypeFlag bool
+	ticketType    int // ticket type
+	ticketTypeSet bool
 
-	status     int // ticket status
-	statusFlag bool
+	status    int // ticket status
+	statusSet bool
 
-	score     int // ticket score
-	scoreFlag bool
+	score    int // ticket score
+	scoreSet bool
 
-	createdAt     int64 // the time when the ticket is created
-	createdAtFlag bool
+	createdAt    int64 // the time when the ticket is created
+	createdAtSet bool
 
-	updatedAt     int64 // the time when the ticket is updated
-	updatedAtFlag bool
+	updatedAt    int64 // the time when the ticket is updated
+	updatedAtSet bool
 
-	closedAt     int64 // the time when the ticket is closed
-	closedAtFlag bool
+	closedAt    int64 // the time when the ticket is closed
+	closedAtSet bool
 
-	dissatisfactionReason     *I18n // 不满意原因
-	dissatisfactionReasonFlag bool
+	dissatisfactionReason    *I18n // 不满意原因
+	dissatisfactionReasonSet bool
 
-	agents     []*TicketUser // agents of this ticket
-	agentsFlag bool
+	agents    []*TicketUser // agents of this ticket
+	agentsSet bool
 
-	channel     int // the ticket channel
-	channelFlag bool
+	channel    int // the ticket channel
+	channelSet bool
 
-	solve     int // if ticket is solved
-	solveFlag bool
+	solve    int // if ticket is solved
+	solveSet bool
 
-	closedBy     *TicketUser // closed user of this ticket
-	closedByFlag bool
+	closedBy    *TicketUser // closed user of this ticket
+	closedBySet bool
 
-	collaborators     []*TicketUser // collaborators of this ticket
-	collaboratorsFlag bool
+	collaborators    []*TicketUser // collaborators of this ticket
+	collaboratorsSet bool
 
-	customizedFields     []*CustomizedFieldDisplayItem // ticket customized fields
-	customizedFieldsFlag bool
+	customizedFields    []*CustomizedFieldDisplayItem // ticket customized fields
+	customizedFieldsSet bool
 
-	agentServiceDuration     float64 // 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位秒
-	agentServiceDurationFlag bool
+	agentServiceDuration    float64 // 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位秒
+	agentServiceDurationSet bool
 
-	agentFirstResponseDuration     int64 // 客服首次回复时间距离客服进入时间的间隔，单位秒
-	agentFirstResponseDurationFlag bool
+	agentFirstResponseDuration    int64 // 客服首次回复时间距离客服进入时间的间隔，单位秒
+	agentFirstResponseDurationSet bool
 
-	botServiceDuration     int64 // 机器人服务时间：客服进入时间距离工单创建时间的间隔，单位秒
-	botServiceDurationFlag bool
+	botServiceDuration    int64 // 机器人服务时间：客服进入时间距离工单创建时间的间隔，单位秒
+	botServiceDurationSet bool
 
-	agentResolutionTime     int64 //  客服解决时长，关单时间距离客服进入时间的间隔，单位秒
-	agentResolutionTimeFlag bool
+	agentResolutionTime    int64 //  客服解决时长，关单时间距离客服进入时间的间隔，单位秒
+	agentResolutionTimeSet bool
 
-	actualProcessingTime     int64 // 工单实际处理时间：从客服进入到关单，单位秒
-	actualProcessingTimeFlag bool
+	actualProcessingTime    int64 // 工单实际处理时间：从客服进入到关单，单位秒
+	actualProcessingTimeSet bool
 
-	agentEntryTime     int64 // 客服进入时间，单位毫秒
-	agentEntryTimeFlag bool
+	agentEntryTime    int64 // 客服进入时间，单位毫秒
+	agentEntryTimeSet bool
 
-	agentFirstResponseTime     int64 // 客服首次回复时间，单位毫秒
-	agentFirstResponseTimeFlag bool
+	agentFirstResponseTime    int64 // 客服首次回复时间，单位毫秒
+	agentFirstResponseTimeSet bool
 
-	agentLastResponseTime     int64 // 客服最后回复时间，单位毫秒
-	agentLastResponseTimeFlag bool
+	agentLastResponseTime    int64 // 客服最后回复时间，单位毫秒
+	agentLastResponseTimeSet bool
 
-	agentOwner     *TicketUser // 主责客服
-	agentOwnerFlag bool
+	agentOwner    *TicketUser // 主责客服
+	agentOwnerSet bool
 
-	tags     []*TicketTag // 工单标签
-	tagsFlag bool
+	tags    []*TicketTag // 工单标签
+	tagsSet bool
 }
 
 func NewTicketV2Builder() *TicketV2Builder {
@@ -5494,7 +5498,7 @@ func NewTicketV2Builder() *TicketV2Builder {
 // 示例值：123456
 func (builder *TicketV2Builder) TicketId(ticketId string) *TicketV2Builder {
 	builder.ticketId = ticketId
-	builder.ticketIdFlag = true
+	builder.ticketIdSet = true
 	return builder
 }
 
@@ -5503,7 +5507,7 @@ func (builder *TicketV2Builder) TicketId(ticketId string) *TicketV2Builder {
 // 示例值：123456
 func (builder *TicketV2Builder) HelpdeskId(helpdeskId string) *TicketV2Builder {
 	builder.helpdeskId = helpdeskId
-	builder.helpdeskIdFlag = true
+	builder.helpdeskIdSet = true
 	return builder
 }
 
@@ -5512,7 +5516,7 @@ func (builder *TicketV2Builder) HelpdeskId(helpdeskId string) *TicketV2Builder {
 // 示例值：
 func (builder *TicketV2Builder) Guest(guest *TicketUser) *TicketV2Builder {
 	builder.guest = guest
-	builder.guestFlag = true
+	builder.guestSet = true
 	return builder
 }
 
@@ -5521,7 +5525,7 @@ func (builder *TicketV2Builder) Guest(guest *TicketUser) *TicketV2Builder {
 // 示例值：
 func (builder *TicketV2Builder) Comments(comments *Comments) *TicketV2Builder {
 	builder.comments = comments
-	builder.commentsFlag = true
+	builder.commentsSet = true
 	return builder
 }
 
@@ -5530,7 +5534,7 @@ func (builder *TicketV2Builder) Comments(comments *Comments) *TicketV2Builder {
 // 示例值：1
 func (builder *TicketV2Builder) TicketType(ticketType int) *TicketV2Builder {
 	builder.ticketType = ticketType
-	builder.ticketTypeFlag = true
+	builder.ticketTypeSet = true
 	return builder
 }
 
@@ -5539,7 +5543,7 @@ func (builder *TicketV2Builder) TicketType(ticketType int) *TicketV2Builder {
 // 示例值：1
 func (builder *TicketV2Builder) Status(status int) *TicketV2Builder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -5548,7 +5552,7 @@ func (builder *TicketV2Builder) Status(status int) *TicketV2Builder {
 // 示例值：1
 func (builder *TicketV2Builder) Score(score int) *TicketV2Builder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
@@ -5557,7 +5561,7 @@ func (builder *TicketV2Builder) Score(score int) *TicketV2Builder {
 // 示例值：1616920429000
 func (builder *TicketV2Builder) CreatedAt(createdAt int64) *TicketV2Builder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -5566,7 +5570,7 @@ func (builder *TicketV2Builder) CreatedAt(createdAt int64) *TicketV2Builder {
 // 示例值：1616920429000
 func (builder *TicketV2Builder) UpdatedAt(updatedAt int64) *TicketV2Builder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
@@ -5575,7 +5579,7 @@ func (builder *TicketV2Builder) UpdatedAt(updatedAt int64) *TicketV2Builder {
 // 示例值：1616920429000
 func (builder *TicketV2Builder) ClosedAt(closedAt int64) *TicketV2Builder {
 	builder.closedAt = closedAt
-	builder.closedAtFlag = true
+	builder.closedAtSet = true
 	return builder
 }
 
@@ -5584,7 +5588,7 @@ func (builder *TicketV2Builder) ClosedAt(closedAt int64) *TicketV2Builder {
 // 示例值：
 func (builder *TicketV2Builder) DissatisfactionReason(dissatisfactionReason *I18n) *TicketV2Builder {
 	builder.dissatisfactionReason = dissatisfactionReason
-	builder.dissatisfactionReasonFlag = true
+	builder.dissatisfactionReasonSet = true
 	return builder
 }
 
@@ -5593,7 +5597,7 @@ func (builder *TicketV2Builder) DissatisfactionReason(dissatisfactionReason *I18
 // 示例值：
 func (builder *TicketV2Builder) Agents(agents []*TicketUser) *TicketV2Builder {
 	builder.agents = agents
-	builder.agentsFlag = true
+	builder.agentsSet = true
 	return builder
 }
 
@@ -5602,7 +5606,7 @@ func (builder *TicketV2Builder) Agents(agents []*TicketUser) *TicketV2Builder {
 // 示例值：1
 func (builder *TicketV2Builder) Channel(channel int) *TicketV2Builder {
 	builder.channel = channel
-	builder.channelFlag = true
+	builder.channelSet = true
 	return builder
 }
 
@@ -5611,7 +5615,7 @@ func (builder *TicketV2Builder) Channel(channel int) *TicketV2Builder {
 // 示例值：1
 func (builder *TicketV2Builder) Solve(solve int) *TicketV2Builder {
 	builder.solve = solve
-	builder.solveFlag = true
+	builder.solveSet = true
 	return builder
 }
 
@@ -5620,7 +5624,7 @@ func (builder *TicketV2Builder) Solve(solve int) *TicketV2Builder {
 // 示例值：
 func (builder *TicketV2Builder) ClosedBy(closedBy *TicketUser) *TicketV2Builder {
 	builder.closedBy = closedBy
-	builder.closedByFlag = true
+	builder.closedBySet = true
 	return builder
 }
 
@@ -5629,7 +5633,7 @@ func (builder *TicketV2Builder) ClosedBy(closedBy *TicketUser) *TicketV2Builder 
 // 示例值：
 func (builder *TicketV2Builder) Collaborators(collaborators []*TicketUser) *TicketV2Builder {
 	builder.collaborators = collaborators
-	builder.collaboratorsFlag = true
+	builder.collaboratorsSet = true
 	return builder
 }
 
@@ -5638,7 +5642,7 @@ func (builder *TicketV2Builder) Collaborators(collaborators []*TicketUser) *Tick
 // 示例值：
 func (builder *TicketV2Builder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *TicketV2Builder {
 	builder.customizedFields = customizedFields
-	builder.customizedFieldsFlag = true
+	builder.customizedFieldsSet = true
 	return builder
 }
 
@@ -5647,7 +5651,7 @@ func (builder *TicketV2Builder) CustomizedFields(customizedFields []*CustomizedF
 // 示例值：1.0
 func (builder *TicketV2Builder) AgentServiceDuration(agentServiceDuration float64) *TicketV2Builder {
 	builder.agentServiceDuration = agentServiceDuration
-	builder.agentServiceDurationFlag = true
+	builder.agentServiceDurationSet = true
 	return builder
 }
 
@@ -5656,7 +5660,7 @@ func (builder *TicketV2Builder) AgentServiceDuration(agentServiceDuration float6
 // 示例值：1741145995
 func (builder *TicketV2Builder) AgentFirstResponseDuration(agentFirstResponseDuration int64) *TicketV2Builder {
 	builder.agentFirstResponseDuration = agentFirstResponseDuration
-	builder.agentFirstResponseDurationFlag = true
+	builder.agentFirstResponseDurationSet = true
 	return builder
 }
 
@@ -5665,16 +5669,16 @@ func (builder *TicketV2Builder) AgentFirstResponseDuration(agentFirstResponseDur
 // 示例值：1741145995
 func (builder *TicketV2Builder) BotServiceDuration(botServiceDuration int64) *TicketV2Builder {
 	builder.botServiceDuration = botServiceDuration
-	builder.botServiceDurationFlag = true
+	builder.botServiceDurationSet = true
 	return builder
 }
 
-//	客服解决时长，关单时间距离客服进入时间的间隔，单位秒
+//  客服解决时长，关单时间距离客服进入时间的间隔，单位秒
 //
 // 示例值：1741145995
 func (builder *TicketV2Builder) AgentResolutionTime(agentResolutionTime int64) *TicketV2Builder {
 	builder.agentResolutionTime = agentResolutionTime
-	builder.agentResolutionTimeFlag = true
+	builder.agentResolutionTimeSet = true
 	return builder
 }
 
@@ -5683,7 +5687,7 @@ func (builder *TicketV2Builder) AgentResolutionTime(agentResolutionTime int64) *
 // 示例值：1741145995
 func (builder *TicketV2Builder) ActualProcessingTime(actualProcessingTime int64) *TicketV2Builder {
 	builder.actualProcessingTime = actualProcessingTime
-	builder.actualProcessingTimeFlag = true
+	builder.actualProcessingTimeSet = true
 	return builder
 }
 
@@ -5692,7 +5696,7 @@ func (builder *TicketV2Builder) ActualProcessingTime(actualProcessingTime int64)
 // 示例值：1616920429000
 func (builder *TicketV2Builder) AgentEntryTime(agentEntryTime int64) *TicketV2Builder {
 	builder.agentEntryTime = agentEntryTime
-	builder.agentEntryTimeFlag = true
+	builder.agentEntryTimeSet = true
 	return builder
 }
 
@@ -5701,7 +5705,7 @@ func (builder *TicketV2Builder) AgentEntryTime(agentEntryTime int64) *TicketV2Bu
 // 示例值：1616920429000
 func (builder *TicketV2Builder) AgentFirstResponseTime(agentFirstResponseTime int64) *TicketV2Builder {
 	builder.agentFirstResponseTime = agentFirstResponseTime
-	builder.agentFirstResponseTimeFlag = true
+	builder.agentFirstResponseTimeSet = true
 	return builder
 }
 
@@ -5710,7 +5714,7 @@ func (builder *TicketV2Builder) AgentFirstResponseTime(agentFirstResponseTime in
 // 示例值：1616920429000
 func (builder *TicketV2Builder) AgentLastResponseTime(agentLastResponseTime int64) *TicketV2Builder {
 	builder.agentLastResponseTime = agentLastResponseTime
-	builder.agentLastResponseTimeFlag = true
+	builder.agentLastResponseTimeSet = true
 	return builder
 }
 
@@ -5719,7 +5723,7 @@ func (builder *TicketV2Builder) AgentLastResponseTime(agentLastResponseTime int6
 // 示例值：
 func (builder *TicketV2Builder) AgentOwner(agentOwner *TicketUser) *TicketV2Builder {
 	builder.agentOwner = agentOwner
-	builder.agentOwnerFlag = true
+	builder.agentOwnerSet = true
 	return builder
 }
 
@@ -5728,109 +5732,109 @@ func (builder *TicketV2Builder) AgentOwner(agentOwner *TicketUser) *TicketV2Buil
 // 示例值：
 func (builder *TicketV2Builder) Tags(tags []*TicketTag) *TicketV2Builder {
 	builder.tags = tags
-	builder.tagsFlag = true
+	builder.tagsSet = true
 	return builder
 }
 
 func (builder *TicketV2Builder) Build() *TicketV2 {
 	req := &TicketV2{}
-	if builder.ticketIdFlag {
+	if builder.ticketIdSet {
 		req.TicketId = &builder.ticketId
 
 	}
-	if builder.helpdeskIdFlag {
+	if builder.helpdeskIdSet {
 		req.HelpdeskId = &builder.helpdeskId
 
 	}
-	if builder.guestFlag {
+	if builder.guestSet {
 		req.Guest = builder.guest
 	}
-	if builder.commentsFlag {
+	if builder.commentsSet {
 		req.Comments = builder.comments
 	}
-	if builder.ticketTypeFlag {
+	if builder.ticketTypeSet {
 		req.TicketType = &builder.ticketType
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
-	if builder.closedAtFlag {
+	if builder.closedAtSet {
 		req.ClosedAt = &builder.closedAt
 
 	}
-	if builder.dissatisfactionReasonFlag {
+	if builder.dissatisfactionReasonSet {
 		req.DissatisfactionReason = builder.dissatisfactionReason
 	}
-	if builder.agentsFlag {
+	if builder.agentsSet {
 		req.Agents = builder.agents
 	}
-	if builder.channelFlag {
+	if builder.channelSet {
 		req.Channel = &builder.channel
 
 	}
-	if builder.solveFlag {
+	if builder.solveSet {
 		req.Solve = &builder.solve
 
 	}
-	if builder.closedByFlag {
+	if builder.closedBySet {
 		req.ClosedBy = builder.closedBy
 	}
-	if builder.collaboratorsFlag {
+	if builder.collaboratorsSet {
 		req.Collaborators = builder.collaborators
 	}
-	if builder.customizedFieldsFlag {
+	if builder.customizedFieldsSet {
 		req.CustomizedFields = builder.customizedFields
 	}
-	if builder.agentServiceDurationFlag {
+	if builder.agentServiceDurationSet {
 		req.AgentServiceDuration = &builder.agentServiceDuration
 
 	}
-	if builder.agentFirstResponseDurationFlag {
+	if builder.agentFirstResponseDurationSet {
 		req.AgentFirstResponseDuration = &builder.agentFirstResponseDuration
 
 	}
-	if builder.botServiceDurationFlag {
+	if builder.botServiceDurationSet {
 		req.BotServiceDuration = &builder.botServiceDuration
 
 	}
-	if builder.agentResolutionTimeFlag {
+	if builder.agentResolutionTimeSet {
 		req.AgentResolutionTime = &builder.agentResolutionTime
 
 	}
-	if builder.actualProcessingTimeFlag {
+	if builder.actualProcessingTimeSet {
 		req.ActualProcessingTime = &builder.actualProcessingTime
 
 	}
-	if builder.agentEntryTimeFlag {
+	if builder.agentEntryTimeSet {
 		req.AgentEntryTime = &builder.agentEntryTime
 
 	}
-	if builder.agentFirstResponseTimeFlag {
+	if builder.agentFirstResponseTimeSet {
 		req.AgentFirstResponseTime = &builder.agentFirstResponseTime
 
 	}
-	if builder.agentLastResponseTimeFlag {
+	if builder.agentLastResponseTimeSet {
 		req.AgentLastResponseTime = &builder.agentLastResponseTime
 
 	}
-	if builder.agentOwnerFlag {
+	if builder.agentOwnerSet {
 		req.AgentOwner = builder.agentOwner
 	}
-	if builder.tagsFlag {
+	if builder.tagsSet {
 		req.Tags = builder.tags
 	}
 	return req
@@ -5865,44 +5869,44 @@ type UserCustomizedField struct {
 }
 
 type UserCustomizedFieldBuilder struct {
-	userCustomizedFieldId     string // 字段ID
-	userCustomizedFieldIdFlag bool
+	userCustomizedFieldId    string // 字段ID
+	userCustomizedFieldIdSet bool
 
-	id     string // 旧字段ID，向后兼容用
-	idFlag bool
+	id    string // 旧字段ID，向后兼容用
+	idSet bool
 
-	helpdeskId     string // 服务台ID
-	helpdeskIdFlag bool
+	helpdeskId    string // 服务台ID
+	helpdeskIdSet bool
 
-	keyName     string // 字段键
-	keyNameFlag bool
+	keyName    string // 字段键
+	keyNameSet bool
 
-	displayName     string // 字段展示名称
-	displayNameFlag bool
+	displayName    string // 字段展示名称
+	displayNameSet bool
 
-	position     string // 字段在列表中的展示位置
-	positionFlag bool
+	position    string // 字段在列表中的展示位置
+	positionSet bool
 
-	fieldType     string // 字段类型
-	fieldTypeFlag bool
+	fieldType    string // 字段类型
+	fieldTypeSet bool
 
-	description     string // 字段描述信息
-	descriptionFlag bool
+	description    string // 字段描述信息
+	descriptionSet bool
 
-	visible     bool // 字段是否可见
-	visibleFlag bool
+	visible    bool // 字段是否可见
+	visibleSet bool
 
-	editable     bool // 字段是否可编辑
-	editableFlag bool
+	editable    bool // 字段是否可编辑
+	editableSet bool
 
-	required     bool // 字段是否必填
-	requiredFlag bool
+	required    bool // 字段是否必填
+	requiredSet bool
 
-	createdAt     string // 字段创建时间
-	createdAtFlag bool
+	createdAt    string // 字段创建时间
+	createdAtSet bool
 
-	updatedAt     string // 字段修改时间
-	updatedAtFlag bool
+	updatedAt    string // 字段修改时间
+	updatedAtSet bool
 }
 
 func NewUserCustomizedFieldBuilder() *UserCustomizedFieldBuilder {
@@ -5915,7 +5919,7 @@ func NewUserCustomizedFieldBuilder() *UserCustomizedFieldBuilder {
 // 示例值：6746384425543548981
 func (builder *UserCustomizedFieldBuilder) UserCustomizedFieldId(userCustomizedFieldId string) *UserCustomizedFieldBuilder {
 	builder.userCustomizedFieldId = userCustomizedFieldId
-	builder.userCustomizedFieldIdFlag = true
+	builder.userCustomizedFieldIdSet = true
 	return builder
 }
 
@@ -5924,7 +5928,7 @@ func (builder *UserCustomizedFieldBuilder) UserCustomizedFieldId(userCustomizedF
 // 示例值：6746384425543548981
 func (builder *UserCustomizedFieldBuilder) Id(id string) *UserCustomizedFieldBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5933,7 +5937,7 @@ func (builder *UserCustomizedFieldBuilder) Id(id string) *UserCustomizedFieldBui
 // 示例值：1542164574896126
 func (builder *UserCustomizedFieldBuilder) HelpdeskId(helpdeskId string) *UserCustomizedFieldBuilder {
 	builder.helpdeskId = helpdeskId
-	builder.helpdeskIdFlag = true
+	builder.helpdeskIdSet = true
 	return builder
 }
 
@@ -5942,7 +5946,7 @@ func (builder *UserCustomizedFieldBuilder) HelpdeskId(helpdeskId string) *UserCu
 // 示例值：company_id3
 func (builder *UserCustomizedFieldBuilder) KeyName(keyName string) *UserCustomizedFieldBuilder {
 	builder.keyName = keyName
-	builder.keyNameFlag = true
+	builder.keyNameSet = true
 	return builder
 }
 
@@ -5951,7 +5955,7 @@ func (builder *UserCustomizedFieldBuilder) KeyName(keyName string) *UserCustomiz
 // 示例值：Company ID
 func (builder *UserCustomizedFieldBuilder) DisplayName(displayName string) *UserCustomizedFieldBuilder {
 	builder.displayName = displayName
-	builder.displayNameFlag = true
+	builder.displayNameSet = true
 	return builder
 }
 
@@ -5960,7 +5964,7 @@ func (builder *UserCustomizedFieldBuilder) DisplayName(displayName string) *User
 // 示例值：1
 func (builder *UserCustomizedFieldBuilder) Position(position string) *UserCustomizedFieldBuilder {
 	builder.position = position
-	builder.positionFlag = true
+	builder.positionSet = true
 	return builder
 }
 
@@ -5969,7 +5973,7 @@ func (builder *UserCustomizedFieldBuilder) Position(position string) *UserCustom
 // 示例值：string
 func (builder *UserCustomizedFieldBuilder) FieldType(fieldType string) *UserCustomizedFieldBuilder {
 	builder.fieldType = fieldType
-	builder.fieldTypeFlag = true
+	builder.fieldTypeSet = true
 	return builder
 }
 
@@ -5978,7 +5982,7 @@ func (builder *UserCustomizedFieldBuilder) FieldType(fieldType string) *UserCust
 // 示例值：租户ID
 func (builder *UserCustomizedFieldBuilder) Description(description string) *UserCustomizedFieldBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -5987,7 +5991,7 @@ func (builder *UserCustomizedFieldBuilder) Description(description string) *User
 // 示例值：false
 func (builder *UserCustomizedFieldBuilder) Visible(visible bool) *UserCustomizedFieldBuilder {
 	builder.visible = visible
-	builder.visibleFlag = true
+	builder.visibleSet = true
 	return builder
 }
 
@@ -5996,7 +6000,7 @@ func (builder *UserCustomizedFieldBuilder) Visible(visible bool) *UserCustomized
 // 示例值：false
 func (builder *UserCustomizedFieldBuilder) Editable(editable bool) *UserCustomizedFieldBuilder {
 	builder.editable = editable
-	builder.editableFlag = true
+	builder.editableSet = true
 	return builder
 }
 
@@ -6005,7 +6009,7 @@ func (builder *UserCustomizedFieldBuilder) Editable(editable bool) *UserCustomiz
 // 示例值：false
 func (builder *UserCustomizedFieldBuilder) Required(required bool) *UserCustomizedFieldBuilder {
 	builder.required = required
-	builder.requiredFlag = true
+	builder.requiredSet = true
 	return builder
 }
 
@@ -6014,7 +6018,7 @@ func (builder *UserCustomizedFieldBuilder) Required(required bool) *UserCustomiz
 // 示例值：1574040677000
 func (builder *UserCustomizedFieldBuilder) CreatedAt(createdAt string) *UserCustomizedFieldBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -6023,61 +6027,61 @@ func (builder *UserCustomizedFieldBuilder) CreatedAt(createdAt string) *UserCust
 // 示例值：1574040677000
 func (builder *UserCustomizedFieldBuilder) UpdatedAt(updatedAt string) *UserCustomizedFieldBuilder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
 func (builder *UserCustomizedFieldBuilder) Build() *UserCustomizedField {
 	req := &UserCustomizedField{}
-	if builder.userCustomizedFieldIdFlag {
+	if builder.userCustomizedFieldIdSet {
 		req.UserCustomizedFieldId = &builder.userCustomizedFieldId
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.helpdeskIdFlag {
+	if builder.helpdeskIdSet {
 		req.HelpdeskId = &builder.helpdeskId
 
 	}
-	if builder.keyNameFlag {
+	if builder.keyNameSet {
 		req.KeyName = &builder.keyName
 
 	}
-	if builder.displayNameFlag {
+	if builder.displayNameSet {
 		req.DisplayName = &builder.displayName
 
 	}
-	if builder.positionFlag {
+	if builder.positionSet {
 		req.Position = &builder.position
 
 	}
-	if builder.fieldTypeFlag {
+	if builder.fieldTypeSet {
 		req.FieldType = &builder.fieldType
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.visibleFlag {
+	if builder.visibleSet {
 		req.Visible = &builder.visible
 
 	}
-	if builder.editableFlag {
+	if builder.editableSet {
 		req.Editable = &builder.editable
 
 	}
-	if builder.requiredFlag {
+	if builder.requiredSet {
 		req.Required = &builder.required
 
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
@@ -6093,14 +6097,14 @@ type UserId struct {
 }
 
 type UserIdBuilder struct {
-	userId     string //
-	userIdFlag bool
+	userId    string //
+	userIdSet bool
 
-	openId     string //
-	openIdFlag bool
+	openId    string //
+	openIdSet bool
 
-	unionId     string //
-	unionIdFlag bool
+	unionId    string //
+	unionIdSet bool
 }
 
 func NewUserIdBuilder() *UserIdBuilder {
@@ -6108,38 +6112,44 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
-	builder.unionIdFlag = true
+	builder.unionIdSet = true
 	return builder
 }
 
 func (builder *UserIdBuilder) Build() *UserId {
 	req := &UserId{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.unionIdFlag {
+	if builder.unionIdSet {
 		req.UnionId = &builder.unionId
 
 	}
@@ -6153,11 +6163,11 @@ type UserQueryFaqInfo struct {
 }
 
 type UserQueryFaqInfoBuilder struct {
-	id     string // faq服务台内唯一标识
-	idFlag bool
+	id    string // faq服务台内唯一标识
+	idSet bool
 
-	score     float64 // faq匹配得分
-	scoreFlag bool
+	score    float64 // faq匹配得分
+	scoreSet bool
 }
 
 func NewUserQueryFaqInfoBuilder() *UserQueryFaqInfoBuilder {
@@ -6170,7 +6180,7 @@ func NewUserQueryFaqInfoBuilder() *UserQueryFaqInfoBuilder {
 // 示例值：12345
 func (builder *UserQueryFaqInfoBuilder) Id(id string) *UserQueryFaqInfoBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -6179,17 +6189,17 @@ func (builder *UserQueryFaqInfoBuilder) Id(id string) *UserQueryFaqInfoBuilder {
 // 示例值：0.9
 func (builder *UserQueryFaqInfoBuilder) Score(score float64) *UserQueryFaqInfoBuilder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
 func (builder *UserQueryFaqInfoBuilder) Build() *UserQueryFaqInfo {
 	req := &UserQueryFaqInfo{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
@@ -6205,14 +6215,14 @@ type WeekdaySchedule struct {
 }
 
 type WeekdayScheduleBuilder struct {
-	startTime     string // 开始时间, format 00:00 - 23:59
-	startTimeFlag bool
+	startTime    string // 开始时间, format 00:00 - 23:59
+	startTimeSet bool
 
-	endTime     string // 结束时间, format 00:00 - 23:59
-	endTimeFlag bool
+	endTime    string // 结束时间, format 00:00 - 23:59
+	endTimeSet bool
 
-	weekday     int // 星期几, 1 - Monday, 2 - Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday, 7 - Sunday, 9 - Everday, 10 - Weekday, 11 - Weekend
-	weekdayFlag bool
+	weekday    int // 星期几, 1 - Monday, 2 - Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday, 7 - Sunday, 9 - Everday, 10 - Weekday, 11 - Weekend
+	weekdaySet bool
 }
 
 func NewWeekdayScheduleBuilder() *WeekdayScheduleBuilder {
@@ -6225,7 +6235,7 @@ func NewWeekdayScheduleBuilder() *WeekdayScheduleBuilder {
 // 示例值：00:00
 func (builder *WeekdayScheduleBuilder) StartTime(startTime string) *WeekdayScheduleBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -6234,7 +6244,7 @@ func (builder *WeekdayScheduleBuilder) StartTime(startTime string) *WeekdaySched
 // 示例值：24:00
 func (builder *WeekdayScheduleBuilder) EndTime(endTime string) *WeekdayScheduleBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -6243,21 +6253,21 @@ func (builder *WeekdayScheduleBuilder) EndTime(endTime string) *WeekdayScheduleB
 // 示例值：9
 func (builder *WeekdayScheduleBuilder) Weekday(weekday int) *WeekdayScheduleBuilder {
 	builder.weekday = weekday
-	builder.weekdayFlag = true
+	builder.weekdaySet = true
 	return builder
 }
 
 func (builder *WeekdayScheduleBuilder) Build() *WeekdaySchedule {
 	req := &WeekdaySchedule{}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.weekdayFlag {
+	if builder.weekdaySet {
 		req.Weekday = &builder.weekday
 
 	}
@@ -6279,8 +6289,8 @@ func (resp *AgentEmailAgentResp) Success() bool {
 }
 
 type PatchAgentReqBodyBuilder struct {
-	status     int // agent status
-	statusFlag bool
+	status    int // agent status
+	statusSet bool
 }
 
 func NewPatchAgentReqBodyBuilder() *PatchAgentReqBodyBuilder {
@@ -6290,24 +6300,24 @@ func NewPatchAgentReqBodyBuilder() *PatchAgentReqBodyBuilder {
 
 // agent status
 //
-// 示例值：1：在线；2：离线
+//示例值：1：在线；2：离线
 func (builder *PatchAgentReqBodyBuilder) Status(status int) *PatchAgentReqBodyBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *PatchAgentReqBodyBuilder) Build() *PatchAgentReqBody {
 	req := &PatchAgentReqBody{}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 	}
 	return req
 }
 
 type PatchAgentPathReqBodyBuilder struct {
-	status     int
-	statusFlag bool
+	status    int
+	statusSet bool
 }
 
 func NewPatchAgentPathReqBodyBuilder() *PatchAgentPathReqBodyBuilder {
@@ -6320,13 +6330,13 @@ func NewPatchAgentPathReqBodyBuilder() *PatchAgentPathReqBodyBuilder {
 // 示例值：1：在线；2：离线
 func (builder *PatchAgentPathReqBodyBuilder) Status(status int) *PatchAgentPathReqBodyBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *PatchAgentPathReqBodyBuilder) Build() (*PatchAgentReqBody, error) {
 	req := &PatchAgentReqBody{}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 	}
 	return req, nil
@@ -6440,7 +6450,7 @@ func NewGetAgentSchedulesReqBuilder() *GetAgentSchedulesReqBuilder {
 	return builder
 }
 
-//	客服 id
+// 	客服 id
 //
 // 示例值：	客服 id
 func (builder *GetAgentSchedulesReqBuilder) AgentId(agentId string) *GetAgentSchedulesReqBuilder {
@@ -6474,8 +6484,8 @@ func (resp *GetAgentSchedulesResp) Success() bool {
 }
 
 type PatchAgentSchedulesReqBodyBuilder struct {
-	agentSchedule     *AgentScheduleUpdateInfo // 工作日程列表
-	agentScheduleFlag bool
+	agentSchedule    *AgentScheduleUpdateInfo // 工作日程列表
+	agentScheduleSet bool
 }
 
 func NewPatchAgentSchedulesReqBodyBuilder() *PatchAgentSchedulesReqBodyBuilder {
@@ -6485,24 +6495,24 @@ func NewPatchAgentSchedulesReqBodyBuilder() *PatchAgentSchedulesReqBodyBuilder {
 
 // 工作日程列表
 //
-// 示例值：
+//示例值：
 func (builder *PatchAgentSchedulesReqBodyBuilder) AgentSchedule(agentSchedule *AgentScheduleUpdateInfo) *PatchAgentSchedulesReqBodyBuilder {
 	builder.agentSchedule = agentSchedule
-	builder.agentScheduleFlag = true
+	builder.agentScheduleSet = true
 	return builder
 }
 
 func (builder *PatchAgentSchedulesReqBodyBuilder) Build() *PatchAgentSchedulesReqBody {
 	req := &PatchAgentSchedulesReqBody{}
-	if builder.agentScheduleFlag {
+	if builder.agentScheduleSet {
 		req.AgentSchedule = builder.agentSchedule
 	}
 	return req
 }
 
 type PatchAgentSchedulesPathReqBodyBuilder struct {
-	agentSchedule     *AgentScheduleUpdateInfo
-	agentScheduleFlag bool
+	agentSchedule    *AgentScheduleUpdateInfo
+	agentScheduleSet bool
 }
 
 func NewPatchAgentSchedulesPathReqBodyBuilder() *PatchAgentSchedulesPathReqBodyBuilder {
@@ -6515,13 +6525,13 @@ func NewPatchAgentSchedulesPathReqBodyBuilder() *PatchAgentSchedulesPathReqBodyB
 // 示例值：
 func (builder *PatchAgentSchedulesPathReqBodyBuilder) AgentSchedule(agentSchedule *AgentScheduleUpdateInfo) *PatchAgentSchedulesPathReqBodyBuilder {
 	builder.agentSchedule = agentSchedule
-	builder.agentScheduleFlag = true
+	builder.agentScheduleSet = true
 	return builder
 }
 
 func (builder *PatchAgentSchedulesPathReqBodyBuilder) Build() (*PatchAgentSchedulesReqBody, error) {
 	req := &PatchAgentSchedulesReqBody{}
-	if builder.agentScheduleFlag {
+	if builder.agentScheduleSet {
 		req.AgentSchedule = builder.agentSchedule
 	}
 	return req, nil
@@ -6582,8 +6592,8 @@ func (resp *PatchAgentSchedulesResp) Success() bool {
 }
 
 type CreateAgentScheduleReqBodyBuilder struct {
-	agentSchedules     []*AgentScheduleUpdateInfo // 新客服日程
-	agentSchedulesFlag bool
+	agentSchedules    []*AgentScheduleUpdateInfo // 新客服日程
+	agentSchedulesSet bool
 }
 
 func NewCreateAgentScheduleReqBodyBuilder() *CreateAgentScheduleReqBodyBuilder {
@@ -6593,24 +6603,24 @@ func NewCreateAgentScheduleReqBodyBuilder() *CreateAgentScheduleReqBodyBuilder {
 
 // 新客服日程
 //
-// 示例值：
+//示例值：
 func (builder *CreateAgentScheduleReqBodyBuilder) AgentSchedules(agentSchedules []*AgentScheduleUpdateInfo) *CreateAgentScheduleReqBodyBuilder {
 	builder.agentSchedules = agentSchedules
-	builder.agentSchedulesFlag = true
+	builder.agentSchedulesSet = true
 	return builder
 }
 
 func (builder *CreateAgentScheduleReqBodyBuilder) Build() *CreateAgentScheduleReqBody {
 	req := &CreateAgentScheduleReqBody{}
-	if builder.agentSchedulesFlag {
+	if builder.agentSchedulesSet {
 		req.AgentSchedules = builder.agentSchedules
 	}
 	return req
 }
 
 type CreateAgentSchedulePathReqBodyBuilder struct {
-	agentSchedules     []*AgentScheduleUpdateInfo
-	agentSchedulesFlag bool
+	agentSchedules    []*AgentScheduleUpdateInfo
+	agentSchedulesSet bool
 }
 
 func NewCreateAgentSchedulePathReqBodyBuilder() *CreateAgentSchedulePathReqBodyBuilder {
@@ -6623,13 +6633,13 @@ func NewCreateAgentSchedulePathReqBodyBuilder() *CreateAgentSchedulePathReqBodyB
 // 示例值：
 func (builder *CreateAgentSchedulePathReqBodyBuilder) AgentSchedules(agentSchedules []*AgentScheduleUpdateInfo) *CreateAgentSchedulePathReqBodyBuilder {
 	builder.agentSchedules = agentSchedules
-	builder.agentSchedulesFlag = true
+	builder.agentSchedulesSet = true
 	return builder
 }
 
 func (builder *CreateAgentSchedulePathReqBodyBuilder) Build() (*CreateAgentScheduleReqBody, error) {
 	req := &CreateAgentScheduleReqBody{}
-	if builder.agentSchedulesFlag {
+	if builder.agentSchedulesSet {
 		req.AgentSchedules = builder.agentSchedules
 	}
 	return req, nil
@@ -6729,14 +6739,14 @@ func (resp *ListAgentScheduleResp) Success() bool {
 }
 
 type CreateAgentSkillReqBodyBuilder struct {
-	name     string // 技能名
-	nameFlag bool
+	name    string // 技能名
+	nameSet bool
 
-	rules     []*AgentSkillRule // 技能rules
-	rulesFlag bool
+	rules    []*AgentSkillRule // 技能rules
+	rulesSet bool
 
-	agentIds     []string // 客服 ids
-	agentIdsFlag bool
+	agentIds    []string // 客服 ids
+	agentIdsSet bool
 }
 
 func NewCreateAgentSkillReqBodyBuilder() *CreateAgentSkillReqBodyBuilder {
@@ -6746,52 +6756,52 @@ func NewCreateAgentSkillReqBodyBuilder() *CreateAgentSkillReqBodyBuilder {
 
 // 技能名
 //
-// 示例值：test-skill
+//示例值：test-skill
 func (builder *CreateAgentSkillReqBodyBuilder) Name(name string) *CreateAgentSkillReqBodyBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 // 技能rules
 //
-// 示例值：
+//示例值：
 func (builder *CreateAgentSkillReqBodyBuilder) Rules(rules []*AgentSkillRule) *CreateAgentSkillReqBodyBuilder {
 	builder.rules = rules
-	builder.rulesFlag = true
+	builder.rulesSet = true
 	return builder
 }
 
 // 客服 ids
 //
-// 示例值：["客服ID"]
+//示例值：["客服ID"]
 func (builder *CreateAgentSkillReqBodyBuilder) AgentIds(agentIds []string) *CreateAgentSkillReqBodyBuilder {
 	builder.agentIds = agentIds
-	builder.agentIdsFlag = true
+	builder.agentIdsSet = true
 	return builder
 }
 
 func (builder *CreateAgentSkillReqBodyBuilder) Build() *CreateAgentSkillReqBody {
 	req := &CreateAgentSkillReqBody{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 	}
-	if builder.rulesFlag {
+	if builder.rulesSet {
 		req.Rules = builder.rules
 	}
-	if builder.agentIdsFlag {
+	if builder.agentIdsSet {
 		req.AgentIds = builder.agentIds
 	}
 	return req
 }
 
 type CreateAgentSkillPathReqBodyBuilder struct {
-	name         string
-	nameFlag     bool
-	rules        []*AgentSkillRule
-	rulesFlag    bool
-	agentIds     []string
-	agentIdsFlag bool
+	name        string
+	nameSet     bool
+	rules       []*AgentSkillRule
+	rulesSet    bool
+	agentIds    []string
+	agentIdsSet bool
 }
 
 func NewCreateAgentSkillPathReqBodyBuilder() *CreateAgentSkillPathReqBodyBuilder {
@@ -6804,7 +6814,7 @@ func NewCreateAgentSkillPathReqBodyBuilder() *CreateAgentSkillPathReqBodyBuilder
 // 示例值：test-skill
 func (builder *CreateAgentSkillPathReqBodyBuilder) Name(name string) *CreateAgentSkillPathReqBodyBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -6813,7 +6823,7 @@ func (builder *CreateAgentSkillPathReqBodyBuilder) Name(name string) *CreateAgen
 // 示例值：
 func (builder *CreateAgentSkillPathReqBodyBuilder) Rules(rules []*AgentSkillRule) *CreateAgentSkillPathReqBodyBuilder {
 	builder.rules = rules
-	builder.rulesFlag = true
+	builder.rulesSet = true
 	return builder
 }
 
@@ -6822,19 +6832,19 @@ func (builder *CreateAgentSkillPathReqBodyBuilder) Rules(rules []*AgentSkillRule
 // 示例值：["客服ID"]
 func (builder *CreateAgentSkillPathReqBodyBuilder) AgentIds(agentIds []string) *CreateAgentSkillPathReqBodyBuilder {
 	builder.agentIds = agentIds
-	builder.agentIdsFlag = true
+	builder.agentIdsSet = true
 	return builder
 }
 
 func (builder *CreateAgentSkillPathReqBodyBuilder) Build() (*CreateAgentSkillReqBody, error) {
 	req := &CreateAgentSkillReqBody{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 	}
-	if builder.rulesFlag {
+	if builder.rulesSet {
 		req.Rules = builder.rules
 	}
-	if builder.agentIdsFlag {
+	if builder.agentIdsSet {
 		req.AgentIds = builder.agentIds
 	}
 	return req, nil
@@ -6996,8 +7006,8 @@ func (resp *ListAgentSkillResp) Success() bool {
 }
 
 type PatchAgentSkillReqBodyBuilder struct {
-	agentSkill     *AgentSkill // 更新技能
-	agentSkillFlag bool
+	agentSkill    *AgentSkill // 更新技能
+	agentSkillSet bool
 }
 
 func NewPatchAgentSkillReqBodyBuilder() *PatchAgentSkillReqBodyBuilder {
@@ -7007,24 +7017,24 @@ func NewPatchAgentSkillReqBodyBuilder() *PatchAgentSkillReqBodyBuilder {
 
 // 更新技能
 //
-// 示例值：
+//示例值：
 func (builder *PatchAgentSkillReqBodyBuilder) AgentSkill(agentSkill *AgentSkill) *PatchAgentSkillReqBodyBuilder {
 	builder.agentSkill = agentSkill
-	builder.agentSkillFlag = true
+	builder.agentSkillSet = true
 	return builder
 }
 
 func (builder *PatchAgentSkillReqBodyBuilder) Build() *PatchAgentSkillReqBody {
 	req := &PatchAgentSkillReqBody{}
-	if builder.agentSkillFlag {
+	if builder.agentSkillSet {
 		req.AgentSkill = builder.agentSkill
 	}
 	return req
 }
 
 type PatchAgentSkillPathReqBodyBuilder struct {
-	agentSkill     *AgentSkill
-	agentSkillFlag bool
+	agentSkill    *AgentSkill
+	agentSkillSet bool
 }
 
 func NewPatchAgentSkillPathReqBodyBuilder() *PatchAgentSkillPathReqBodyBuilder {
@@ -7037,13 +7047,13 @@ func NewPatchAgentSkillPathReqBodyBuilder() *PatchAgentSkillPathReqBodyBuilder {
 // 示例值：
 func (builder *PatchAgentSkillPathReqBodyBuilder) AgentSkill(agentSkill *AgentSkill) *PatchAgentSkillPathReqBodyBuilder {
 	builder.agentSkill = agentSkill
-	builder.agentSkillFlag = true
+	builder.agentSkillSet = true
 	return builder
 }
 
 func (builder *PatchAgentSkillPathReqBodyBuilder) Build() (*PatchAgentSkillReqBody, error) {
 	req := &PatchAgentSkillReqBody{}
-	if builder.agentSkillFlag {
+	if builder.agentSkillSet {
 		req.AgentSkill = builder.agentSkill
 	}
 	return req, nil
@@ -7426,8 +7436,8 @@ func (resp *PatchCategoryResp) Success() bool {
 }
 
 type SubscribeEventReqBodyBuilder struct {
-	events     []*Event // 可订阅的事件列表
-	eventsFlag bool
+	events    []*Event // 可订阅的事件列表
+	eventsSet bool
 }
 
 func NewSubscribeEventReqBodyBuilder() *SubscribeEventReqBodyBuilder {
@@ -7437,24 +7447,24 @@ func NewSubscribeEventReqBodyBuilder() *SubscribeEventReqBodyBuilder {
 
 // 可订阅的事件列表
 //
-// 示例值：
+//示例值：
 func (builder *SubscribeEventReqBodyBuilder) Events(events []*Event) *SubscribeEventReqBodyBuilder {
 	builder.events = events
-	builder.eventsFlag = true
+	builder.eventsSet = true
 	return builder
 }
 
 func (builder *SubscribeEventReqBodyBuilder) Build() *SubscribeEventReqBody {
 	req := &SubscribeEventReqBody{}
-	if builder.eventsFlag {
+	if builder.eventsSet {
 		req.Events = builder.events
 	}
 	return req
 }
 
 type SubscribeEventPathReqBodyBuilder struct {
-	events     []*Event
-	eventsFlag bool
+	events    []*Event
+	eventsSet bool
 }
 
 func NewSubscribeEventPathReqBodyBuilder() *SubscribeEventPathReqBodyBuilder {
@@ -7467,13 +7477,13 @@ func NewSubscribeEventPathReqBodyBuilder() *SubscribeEventPathReqBodyBuilder {
 // 示例值：
 func (builder *SubscribeEventPathReqBodyBuilder) Events(events []*Event) *SubscribeEventPathReqBodyBuilder {
 	builder.events = events
-	builder.eventsFlag = true
+	builder.eventsSet = true
 	return builder
 }
 
 func (builder *SubscribeEventPathReqBodyBuilder) Build() (*SubscribeEventReqBody, error) {
 	req := &SubscribeEventReqBody{}
-	if builder.eventsFlag {
+	if builder.eventsSet {
 		req.Events = builder.events
 	}
 	return req, nil
@@ -7525,8 +7535,8 @@ func (resp *SubscribeEventResp) Success() bool {
 }
 
 type UnsubscribeEventReqBodyBuilder struct {
-	events     []*Event // event list to unsubscribe
-	eventsFlag bool
+	events    []*Event // event list to unsubscribe
+	eventsSet bool
 }
 
 func NewUnsubscribeEventReqBodyBuilder() *UnsubscribeEventReqBodyBuilder {
@@ -7536,24 +7546,24 @@ func NewUnsubscribeEventReqBodyBuilder() *UnsubscribeEventReqBodyBuilder {
 
 // event list to unsubscribe
 //
-// 示例值：
+//示例值：
 func (builder *UnsubscribeEventReqBodyBuilder) Events(events []*Event) *UnsubscribeEventReqBodyBuilder {
 	builder.events = events
-	builder.eventsFlag = true
+	builder.eventsSet = true
 	return builder
 }
 
 func (builder *UnsubscribeEventReqBodyBuilder) Build() *UnsubscribeEventReqBody {
 	req := &UnsubscribeEventReqBody{}
-	if builder.eventsFlag {
+	if builder.eventsSet {
 		req.Events = builder.events
 	}
 	return req
 }
 
 type UnsubscribeEventPathReqBodyBuilder struct {
-	events     []*Event
-	eventsFlag bool
+	events    []*Event
+	eventsSet bool
 }
 
 func NewUnsubscribeEventPathReqBodyBuilder() *UnsubscribeEventPathReqBodyBuilder {
@@ -7566,13 +7576,13 @@ func NewUnsubscribeEventPathReqBodyBuilder() *UnsubscribeEventPathReqBodyBuilder
 // 示例值：
 func (builder *UnsubscribeEventPathReqBodyBuilder) Events(events []*Event) *UnsubscribeEventPathReqBodyBuilder {
 	builder.events = events
-	builder.eventsFlag = true
+	builder.eventsSet = true
 	return builder
 }
 
 func (builder *UnsubscribeEventPathReqBodyBuilder) Build() (*UnsubscribeEventReqBody, error) {
 	req := &UnsubscribeEventReqBody{}
-	if builder.eventsFlag {
+	if builder.eventsSet {
 		req.Events = builder.events
 	}
 	return req, nil
@@ -7624,8 +7634,8 @@ func (resp *UnsubscribeEventResp) Success() bool {
 }
 
 type CreateFaqReqBodyBuilder struct {
-	faq     *FaqCreateInfo // 知识库详情
-	faqFlag bool
+	faq    *FaqCreateInfo // 知识库详情
+	faqSet bool
 }
 
 func NewCreateFaqReqBodyBuilder() *CreateFaqReqBodyBuilder {
@@ -7635,24 +7645,24 @@ func NewCreateFaqReqBodyBuilder() *CreateFaqReqBodyBuilder {
 
 // 知识库详情
 //
-// 示例值：
+//示例值：
 func (builder *CreateFaqReqBodyBuilder) Faq(faq *FaqCreateInfo) *CreateFaqReqBodyBuilder {
 	builder.faq = faq
-	builder.faqFlag = true
+	builder.faqSet = true
 	return builder
 }
 
 func (builder *CreateFaqReqBodyBuilder) Build() *CreateFaqReqBody {
 	req := &CreateFaqReqBody{}
-	if builder.faqFlag {
+	if builder.faqSet {
 		req.Faq = builder.faq
 	}
 	return req
 }
 
 type CreateFaqPathReqBodyBuilder struct {
-	faq     *FaqCreateInfo
-	faqFlag bool
+	faq    *FaqCreateInfo
+	faqSet bool
 }
 
 func NewCreateFaqPathReqBodyBuilder() *CreateFaqPathReqBodyBuilder {
@@ -7665,13 +7675,13 @@ func NewCreateFaqPathReqBodyBuilder() *CreateFaqPathReqBodyBuilder {
 // 示例值：
 func (builder *CreateFaqPathReqBodyBuilder) Faq(faq *FaqCreateInfo) *CreateFaqPathReqBodyBuilder {
 	builder.faq = faq
-	builder.faqFlag = true
+	builder.faqSet = true
 	return builder
 }
 
 func (builder *CreateFaqPathReqBodyBuilder) Build() (*CreateFaqReqBody, error) {
 	req := &CreateFaqReqBody{}
-	if builder.faqFlag {
+	if builder.faqSet {
 		req.Faq = builder.faq
 	}
 	return req, nil
@@ -7898,7 +7908,7 @@ func (builder *ListFaqReqBuilder) Limit(limit int) *ListFaqReqBuilder {
 	return builder
 }
 
-//	知识库分类ID
+//  知识库分类ID
 //
 // 示例值：6856395522433908739
 func (builder *ListFaqReqBuilder) CategoryId(categoryId string) *ListFaqReqBuilder {
@@ -7975,8 +7985,8 @@ func (resp *ListFaqResp) Success() bool {
 }
 
 type PatchFaqReqBodyBuilder struct {
-	faq     *FaqUpdateInfo // 修改的知识库内容
-	faqFlag bool
+	faq    *FaqUpdateInfo // 修改的知识库内容
+	faqSet bool
 }
 
 func NewPatchFaqReqBodyBuilder() *PatchFaqReqBodyBuilder {
@@ -7986,24 +7996,24 @@ func NewPatchFaqReqBodyBuilder() *PatchFaqReqBodyBuilder {
 
 // 修改的知识库内容
 //
-// 示例值：
+//示例值：
 func (builder *PatchFaqReqBodyBuilder) Faq(faq *FaqUpdateInfo) *PatchFaqReqBodyBuilder {
 	builder.faq = faq
-	builder.faqFlag = true
+	builder.faqSet = true
 	return builder
 }
 
 func (builder *PatchFaqReqBodyBuilder) Build() *PatchFaqReqBody {
 	req := &PatchFaqReqBody{}
-	if builder.faqFlag {
+	if builder.faqSet {
 		req.Faq = builder.faq
 	}
 	return req
 }
 
 type PatchFaqPathReqBodyBuilder struct {
-	faq     *FaqUpdateInfo
-	faqFlag bool
+	faq    *FaqUpdateInfo
+	faqSet bool
 }
 
 func NewPatchFaqPathReqBodyBuilder() *PatchFaqPathReqBodyBuilder {
@@ -8016,13 +8026,13 @@ func NewPatchFaqPathReqBodyBuilder() *PatchFaqPathReqBodyBuilder {
 // 示例值：
 func (builder *PatchFaqPathReqBodyBuilder) Faq(faq *FaqUpdateInfo) *PatchFaqPathReqBodyBuilder {
 	builder.faq = faq
-	builder.faqFlag = true
+	builder.faqSet = true
 	return builder
 }
 
 func (builder *PatchFaqPathReqBodyBuilder) Build() (*PatchFaqReqBody, error) {
 	req := &PatchFaqReqBody{}
-	if builder.faqFlag {
+	if builder.faqSet {
 		req.Faq = builder.faq
 	}
 	return req, nil
@@ -8208,8 +8218,8 @@ func (resp *CancelApproveNotificationResp) Success() bool {
 }
 
 type CancelSendNotificationReqBodyBuilder struct {
-	isRecall     bool // 是否召回已发送的消息,新人入职消息同样适用
-	isRecallFlag bool
+	isRecall    bool // 是否召回已发送的消息,新人入职消息同样适用
+	isRecallSet bool
 }
 
 func NewCancelSendNotificationReqBodyBuilder() *CancelSendNotificationReqBodyBuilder {
@@ -8219,24 +8229,24 @@ func NewCancelSendNotificationReqBodyBuilder() *CancelSendNotificationReqBodyBui
 
 // 是否召回已发送的消息,新人入职消息同样适用
 //
-// 示例值：true
+//示例值：true
 func (builder *CancelSendNotificationReqBodyBuilder) IsRecall(isRecall bool) *CancelSendNotificationReqBodyBuilder {
 	builder.isRecall = isRecall
-	builder.isRecallFlag = true
+	builder.isRecallSet = true
 	return builder
 }
 
 func (builder *CancelSendNotificationReqBodyBuilder) Build() *CancelSendNotificationReqBody {
 	req := &CancelSendNotificationReqBody{}
-	if builder.isRecallFlag {
+	if builder.isRecallSet {
 		req.IsRecall = &builder.isRecall
 	}
 	return req
 }
 
 type CancelSendNotificationPathReqBodyBuilder struct {
-	isRecall     bool
-	isRecallFlag bool
+	isRecall    bool
+	isRecallSet bool
 }
 
 func NewCancelSendNotificationPathReqBodyBuilder() *CancelSendNotificationPathReqBodyBuilder {
@@ -8249,13 +8259,13 @@ func NewCancelSendNotificationPathReqBodyBuilder() *CancelSendNotificationPathRe
 // 示例值：true
 func (builder *CancelSendNotificationPathReqBodyBuilder) IsRecall(isRecall bool) *CancelSendNotificationPathReqBodyBuilder {
 	builder.isRecall = isRecall
-	builder.isRecallFlag = true
+	builder.isRecallSet = true
 	return builder
 }
 
 func (builder *CancelSendNotificationPathReqBodyBuilder) Build() (*CancelSendNotificationReqBody, error) {
 	req := &CancelSendNotificationReqBody{}
-	if builder.isRecallFlag {
+	if builder.isRecallSet {
 		req.IsRecall = &builder.isRecall
 	}
 	return req, nil
@@ -8373,8 +8383,8 @@ func (resp *CreateNotificationResp) Success() bool {
 }
 
 type ExecuteSendNotificationReqBodyBuilder struct {
-	sendAt     string // 发送时间戳(毫秒)
-	sendAtFlag bool
+	sendAt    string // 发送时间戳(毫秒)
+	sendAtSet bool
 }
 
 func NewExecuteSendNotificationReqBodyBuilder() *ExecuteSendNotificationReqBodyBuilder {
@@ -8384,24 +8394,24 @@ func NewExecuteSendNotificationReqBodyBuilder() *ExecuteSendNotificationReqBodyB
 
 // 发送时间戳(毫秒)
 //
-// 示例值：1624326025000
+//示例值：1624326025000
 func (builder *ExecuteSendNotificationReqBodyBuilder) SendAt(sendAt string) *ExecuteSendNotificationReqBodyBuilder {
 	builder.sendAt = sendAt
-	builder.sendAtFlag = true
+	builder.sendAtSet = true
 	return builder
 }
 
 func (builder *ExecuteSendNotificationReqBodyBuilder) Build() *ExecuteSendNotificationReqBody {
 	req := &ExecuteSendNotificationReqBody{}
-	if builder.sendAtFlag {
+	if builder.sendAtSet {
 		req.SendAt = &builder.sendAt
 	}
 	return req
 }
 
 type ExecuteSendNotificationPathReqBodyBuilder struct {
-	sendAt     string
-	sendAtFlag bool
+	sendAt    string
+	sendAtSet bool
 }
 
 func NewExecuteSendNotificationPathReqBodyBuilder() *ExecuteSendNotificationPathReqBodyBuilder {
@@ -8414,13 +8424,13 @@ func NewExecuteSendNotificationPathReqBodyBuilder() *ExecuteSendNotificationPath
 // 示例值：1624326025000
 func (builder *ExecuteSendNotificationPathReqBodyBuilder) SendAt(sendAt string) *ExecuteSendNotificationPathReqBodyBuilder {
 	builder.sendAt = sendAt
-	builder.sendAtFlag = true
+	builder.sendAtSet = true
 	return builder
 }
 
 func (builder *ExecuteSendNotificationPathReqBodyBuilder) Build() (*ExecuteSendNotificationReqBody, error) {
 	req := &ExecuteSendNotificationReqBody{}
-	if builder.sendAtFlag {
+	if builder.sendAtSet {
 		req.SendAt = &builder.sendAt
 	}
 	return req, nil
@@ -8638,8 +8648,8 @@ func (resp *PreviewNotificationResp) Success() bool {
 }
 
 type SubmitApproveNotificationReqBodyBuilder struct {
-	reason     string // 提交审批理由
-	reasonFlag bool
+	reason    string // 提交审批理由
+	reasonSet bool
 }
 
 func NewSubmitApproveNotificationReqBodyBuilder() *SubmitApproveNotificationReqBodyBuilder {
@@ -8649,24 +8659,24 @@ func NewSubmitApproveNotificationReqBodyBuilder() *SubmitApproveNotificationReqB
 
 // 提交审批理由
 //
-// 示例值：测试发送消息
+//示例值：测试发送消息
 func (builder *SubmitApproveNotificationReqBodyBuilder) Reason(reason string) *SubmitApproveNotificationReqBodyBuilder {
 	builder.reason = reason
-	builder.reasonFlag = true
+	builder.reasonSet = true
 	return builder
 }
 
 func (builder *SubmitApproveNotificationReqBodyBuilder) Build() *SubmitApproveNotificationReqBody {
 	req := &SubmitApproveNotificationReqBody{}
-	if builder.reasonFlag {
+	if builder.reasonSet {
 		req.Reason = &builder.reason
 	}
 	return req
 }
 
 type SubmitApproveNotificationPathReqBodyBuilder struct {
-	reason     string
-	reasonFlag bool
+	reason    string
+	reasonSet bool
 }
 
 func NewSubmitApproveNotificationPathReqBodyBuilder() *SubmitApproveNotificationPathReqBodyBuilder {
@@ -8679,13 +8689,13 @@ func NewSubmitApproveNotificationPathReqBodyBuilder() *SubmitApproveNotification
 // 示例值：测试发送消息
 func (builder *SubmitApproveNotificationPathReqBodyBuilder) Reason(reason string) *SubmitApproveNotificationPathReqBodyBuilder {
 	builder.reason = reason
-	builder.reasonFlag = true
+	builder.reasonSet = true
 	return builder
 }
 
 func (builder *SubmitApproveNotificationPathReqBodyBuilder) Build() (*SubmitApproveNotificationReqBody, error) {
 	req := &SubmitApproveNotificationReqBody{}
-	if builder.reasonFlag {
+	if builder.reasonSet {
 		req.Reason = &builder.reason
 	}
 	return req, nil
@@ -8751,11 +8761,11 @@ func (resp *SubmitApproveNotificationResp) Success() bool {
 }
 
 type AnswerUserQueryTicketReqBodyBuilder struct {
-	eventId     string // 事件ID,可从订阅事件中提取
-	eventIdFlag bool
+	eventId    string // 事件ID,可从订阅事件中提取
+	eventIdSet bool
 
-	faqs     []*UserQueryFaqInfo // faq结果列表
-	faqsFlag bool
+	faqs    []*UserQueryFaqInfo // faq结果列表
+	faqsSet bool
 }
 
 func NewAnswerUserQueryTicketReqBodyBuilder() *AnswerUserQueryTicketReqBodyBuilder {
@@ -8765,38 +8775,38 @@ func NewAnswerUserQueryTicketReqBodyBuilder() *AnswerUserQueryTicketReqBodyBuild
 
 // 事件ID,可从订阅事件中提取
 //
-// 示例值：abcd
+//示例值：abcd
 func (builder *AnswerUserQueryTicketReqBodyBuilder) EventId(eventId string) *AnswerUserQueryTicketReqBodyBuilder {
 	builder.eventId = eventId
-	builder.eventIdFlag = true
+	builder.eventIdSet = true
 	return builder
 }
 
 // faq结果列表
 //
-// 示例值：
+//示例值：
 func (builder *AnswerUserQueryTicketReqBodyBuilder) Faqs(faqs []*UserQueryFaqInfo) *AnswerUserQueryTicketReqBodyBuilder {
 	builder.faqs = faqs
-	builder.faqsFlag = true
+	builder.faqsSet = true
 	return builder
 }
 
 func (builder *AnswerUserQueryTicketReqBodyBuilder) Build() *AnswerUserQueryTicketReqBody {
 	req := &AnswerUserQueryTicketReqBody{}
-	if builder.eventIdFlag {
+	if builder.eventIdSet {
 		req.EventId = &builder.eventId
 	}
-	if builder.faqsFlag {
+	if builder.faqsSet {
 		req.Faqs = builder.faqs
 	}
 	return req
 }
 
 type AnswerUserQueryTicketPathReqBodyBuilder struct {
-	eventId     string
-	eventIdFlag bool
-	faqs        []*UserQueryFaqInfo
-	faqsFlag    bool
+	eventId    string
+	eventIdSet bool
+	faqs       []*UserQueryFaqInfo
+	faqsSet    bool
 }
 
 func NewAnswerUserQueryTicketPathReqBodyBuilder() *AnswerUserQueryTicketPathReqBodyBuilder {
@@ -8809,7 +8819,7 @@ func NewAnswerUserQueryTicketPathReqBodyBuilder() *AnswerUserQueryTicketPathReqB
 // 示例值：abcd
 func (builder *AnswerUserQueryTicketPathReqBodyBuilder) EventId(eventId string) *AnswerUserQueryTicketPathReqBodyBuilder {
 	builder.eventId = eventId
-	builder.eventIdFlag = true
+	builder.eventIdSet = true
 	return builder
 }
 
@@ -8818,16 +8828,16 @@ func (builder *AnswerUserQueryTicketPathReqBodyBuilder) EventId(eventId string) 
 // 示例值：
 func (builder *AnswerUserQueryTicketPathReqBodyBuilder) Faqs(faqs []*UserQueryFaqInfo) *AnswerUserQueryTicketPathReqBodyBuilder {
 	builder.faqs = faqs
-	builder.faqsFlag = true
+	builder.faqsSet = true
 	return builder
 }
 
 func (builder *AnswerUserQueryTicketPathReqBodyBuilder) Build() (*AnswerUserQueryTicketReqBody, error) {
 	req := &AnswerUserQueryTicketReqBody{}
-	if builder.eventIdFlag {
+	if builder.eventIdSet {
 		req.EventId = &builder.eventId
 	}
-	if builder.faqsFlag {
+	if builder.faqsSet {
 		req.Faqs = builder.faqs
 	}
 	return req, nil
@@ -9164,17 +9174,17 @@ func (resp *ListTicketResp) Success() bool {
 }
 
 type StartServiceTicketReqBodyBuilder struct {
-	humanService     bool // 是否直接进入人工(若appointed_agents填写了，该值为必填)
-	humanServiceFlag bool
+	humanService    bool // 是否直接进入人工(若appointed_agents填写了，该值为必填)
+	humanServiceSet bool
 
-	appointedAgents     []string // 客服 open ids (获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
-	appointedAgentsFlag bool
+	appointedAgents    []string // 客服 open ids (获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
+	appointedAgentsSet bool
 
-	openId     string // 用户 open id,(获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
-	openIdFlag bool
+	openId    string // 用户 open id,(获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
+	openIdSet bool
 
-	customizedInfo     string // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
-	customizedInfoFlag bool
+	customizedInfo    string // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
+	customizedInfoSet bool
 }
 
 func NewStartServiceTicketReqBodyBuilder() *StartServiceTicketReqBodyBuilder {
@@ -9184,66 +9194,66 @@ func NewStartServiceTicketReqBodyBuilder() *StartServiceTicketReqBodyBuilder {
 
 // 是否直接进入人工(若appointed_agents填写了，该值为必填)
 //
-// 示例值：false
+//示例值：false
 func (builder *StartServiceTicketReqBodyBuilder) HumanService(humanService bool) *StartServiceTicketReqBodyBuilder {
 	builder.humanService = humanService
-	builder.humanServiceFlag = true
+	builder.humanServiceSet = true
 	return builder
 }
 
 // 客服 open ids (获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
 //
-// 示例值：[ou_7dab8a3d3cdcc9da365777c7ad535d62]
+//示例值：[ou_7dab8a3d3cdcc9da365777c7ad535d62]
 func (builder *StartServiceTicketReqBodyBuilder) AppointedAgents(appointedAgents []string) *StartServiceTicketReqBodyBuilder {
 	builder.appointedAgents = appointedAgents
-	builder.appointedAgentsFlag = true
+	builder.appointedAgentsSet = true
 	return builder
 }
 
 // 用户 open id,(获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
 //
-// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *StartServiceTicketReqBodyBuilder) OpenId(openId string) *StartServiceTicketReqBodyBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
 // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
 //
-// 示例值：测试自定义字段信息
+//示例值：测试自定义字段信息
 func (builder *StartServiceTicketReqBodyBuilder) CustomizedInfo(customizedInfo string) *StartServiceTicketReqBodyBuilder {
 	builder.customizedInfo = customizedInfo
-	builder.customizedInfoFlag = true
+	builder.customizedInfoSet = true
 	return builder
 }
 
 func (builder *StartServiceTicketReqBodyBuilder) Build() *StartServiceTicketReqBody {
 	req := &StartServiceTicketReqBody{}
-	if builder.humanServiceFlag {
+	if builder.humanServiceSet {
 		req.HumanService = &builder.humanService
 	}
-	if builder.appointedAgentsFlag {
+	if builder.appointedAgentsSet {
 		req.AppointedAgents = builder.appointedAgents
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 	}
-	if builder.customizedInfoFlag {
+	if builder.customizedInfoSet {
 		req.CustomizedInfo = &builder.customizedInfo
 	}
 	return req
 }
 
 type StartServiceTicketPathReqBodyBuilder struct {
-	humanService        bool
-	humanServiceFlag    bool
-	appointedAgents     []string
-	appointedAgentsFlag bool
-	openId              string
-	openIdFlag          bool
-	customizedInfo      string
-	customizedInfoFlag  bool
+	humanService       bool
+	humanServiceSet    bool
+	appointedAgents    []string
+	appointedAgentsSet bool
+	openId             string
+	openIdSet          bool
+	customizedInfo     string
+	customizedInfoSet  bool
 }
 
 func NewStartServiceTicketPathReqBodyBuilder() *StartServiceTicketPathReqBodyBuilder {
@@ -9256,7 +9266,7 @@ func NewStartServiceTicketPathReqBodyBuilder() *StartServiceTicketPathReqBodyBui
 // 示例值：false
 func (builder *StartServiceTicketPathReqBodyBuilder) HumanService(humanService bool) *StartServiceTicketPathReqBodyBuilder {
 	builder.humanService = humanService
-	builder.humanServiceFlag = true
+	builder.humanServiceSet = true
 	return builder
 }
 
@@ -9265,7 +9275,7 @@ func (builder *StartServiceTicketPathReqBodyBuilder) HumanService(humanService b
 // 示例值：[ou_7dab8a3d3cdcc9da365777c7ad535d62]
 func (builder *StartServiceTicketPathReqBodyBuilder) AppointedAgents(appointedAgents []string) *StartServiceTicketPathReqBodyBuilder {
 	builder.appointedAgents = appointedAgents
-	builder.appointedAgentsFlag = true
+	builder.appointedAgentsSet = true
 	return builder
 }
 
@@ -9274,7 +9284,7 @@ func (builder *StartServiceTicketPathReqBodyBuilder) AppointedAgents(appointedAg
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *StartServiceTicketPathReqBodyBuilder) OpenId(openId string) *StartServiceTicketPathReqBodyBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
@@ -9283,22 +9293,22 @@ func (builder *StartServiceTicketPathReqBodyBuilder) OpenId(openId string) *Star
 // 示例值：测试自定义字段信息
 func (builder *StartServiceTicketPathReqBodyBuilder) CustomizedInfo(customizedInfo string) *StartServiceTicketPathReqBodyBuilder {
 	builder.customizedInfo = customizedInfo
-	builder.customizedInfoFlag = true
+	builder.customizedInfoSet = true
 	return builder
 }
 
 func (builder *StartServiceTicketPathReqBodyBuilder) Build() (*StartServiceTicketReqBody, error) {
 	req := &StartServiceTicketReqBody{}
-	if builder.humanServiceFlag {
+	if builder.humanServiceSet {
 		req.HumanService = &builder.humanService
 	}
-	if builder.appointedAgentsFlag {
+	if builder.appointedAgentsSet {
 		req.AppointedAgents = builder.appointedAgents
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 	}
-	if builder.customizedInfoFlag {
+	if builder.customizedInfoSet {
 		req.CustomizedInfo = &builder.customizedInfo
 	}
 	return req, nil
@@ -9435,26 +9445,26 @@ func (resp *TicketImageTicketResp) WriteFile(fileName string) error {
 }
 
 type UpdateTicketReqBodyBuilder struct {
-	status     int // new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单
-	statusFlag bool
+	status    int // new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单
+	statusSet bool
 
-	tagNames     []string // 新标签名
-	tagNamesFlag bool
+	tagNames    []string // 新标签名
+	tagNamesSet bool
 
-	comment     string // 新评论
-	commentFlag bool
+	comment    string // 新评论
+	commentSet bool
 
-	customizedFields     []*CustomizedFieldDisplayItem // 自定义字段
-	customizedFieldsFlag bool
+	customizedFields    []*CustomizedFieldDisplayItem // 自定义字段
+	customizedFieldsSet bool
 
-	ticketType     int // ticket stage
-	ticketTypeFlag bool
+	ticketType    int // ticket stage
+	ticketTypeSet bool
 
-	solved     int // 工单是否解决，1: 未解决, 2: 已解决
-	solvedFlag bool
+	solved    int // 工单是否解决，1: 未解决, 2: 已解决
+	solvedSet bool
 
-	channel     int // 工单来源渠道ID
-	channelFlag bool
+	channel    int // 工单来源渠道ID
+	channelSet bool
 }
 
 func NewUpdateTicketReqBodyBuilder() *UpdateTicketReqBodyBuilder {
@@ -9464,108 +9474,108 @@ func NewUpdateTicketReqBodyBuilder() *UpdateTicketReqBodyBuilder {
 
 // new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单
 //
-// 示例值：1
+//示例值：1
 func (builder *UpdateTicketReqBodyBuilder) Status(status int) *UpdateTicketReqBodyBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 // 新标签名
 //
-// 示例值：abc
+//示例值：abc
 func (builder *UpdateTicketReqBodyBuilder) TagNames(tagNames []string) *UpdateTicketReqBodyBuilder {
 	builder.tagNames = tagNames
-	builder.tagNamesFlag = true
+	builder.tagNamesSet = true
 	return builder
 }
 
 // 新评论
 //
-// 示例值：good
+//示例值：good
 func (builder *UpdateTicketReqBodyBuilder) Comment(comment string) *UpdateTicketReqBodyBuilder {
 	builder.comment = comment
-	builder.commentFlag = true
+	builder.commentSet = true
 	return builder
 }
 
 // 自定义字段
 //
-// 示例值：
+//示例值：
 func (builder *UpdateTicketReqBodyBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *UpdateTicketReqBodyBuilder {
 	builder.customizedFields = customizedFields
-	builder.customizedFieldsFlag = true
+	builder.customizedFieldsSet = true
 	return builder
 }
 
 // ticket stage
 //
-// 示例值：1
+//示例值：1
 func (builder *UpdateTicketReqBodyBuilder) TicketType(ticketType int) *UpdateTicketReqBodyBuilder {
 	builder.ticketType = ticketType
-	builder.ticketTypeFlag = true
+	builder.ticketTypeSet = true
 	return builder
 }
 
 // 工单是否解决，1: 未解决, 2: 已解决
 //
-// 示例值：1
+//示例值：1
 func (builder *UpdateTicketReqBodyBuilder) Solved(solved int) *UpdateTicketReqBodyBuilder {
 	builder.solved = solved
-	builder.solvedFlag = true
+	builder.solvedSet = true
 	return builder
 }
 
 // 工单来源渠道ID
 //
-// 示例值：1
+//示例值：1
 func (builder *UpdateTicketReqBodyBuilder) Channel(channel int) *UpdateTicketReqBodyBuilder {
 	builder.channel = channel
-	builder.channelFlag = true
+	builder.channelSet = true
 	return builder
 }
 
 func (builder *UpdateTicketReqBodyBuilder) Build() *UpdateTicketReqBody {
 	req := &UpdateTicketReqBody{}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 	}
-	if builder.tagNamesFlag {
+	if builder.tagNamesSet {
 		req.TagNames = builder.tagNames
 	}
-	if builder.commentFlag {
+	if builder.commentSet {
 		req.Comment = &builder.comment
 	}
-	if builder.customizedFieldsFlag {
+	if builder.customizedFieldsSet {
 		req.CustomizedFields = builder.customizedFields
 	}
-	if builder.ticketTypeFlag {
+	if builder.ticketTypeSet {
 		req.TicketType = &builder.ticketType
 	}
-	if builder.solvedFlag {
+	if builder.solvedSet {
 		req.Solved = &builder.solved
 	}
-	if builder.channelFlag {
+	if builder.channelSet {
 		req.Channel = &builder.channel
 	}
 	return req
 }
 
 type UpdateTicketPathReqBodyBuilder struct {
-	status               int
-	statusFlag           bool
-	tagNames             []string
-	tagNamesFlag         bool
-	comment              string
-	commentFlag          bool
-	customizedFields     []*CustomizedFieldDisplayItem
-	customizedFieldsFlag bool
-	ticketType           int
-	ticketTypeFlag       bool
-	solved               int
-	solvedFlag           bool
-	channel              int
-	channelFlag          bool
+	status              int
+	statusSet           bool
+	tagNames            []string
+	tagNamesSet         bool
+	comment             string
+	commentSet          bool
+	customizedFields    []*CustomizedFieldDisplayItem
+	customizedFieldsSet bool
+	ticketType          int
+	ticketTypeSet       bool
+	solved              int
+	solvedSet           bool
+	channel             int
+	channelSet          bool
 }
 
 func NewUpdateTicketPathReqBodyBuilder() *UpdateTicketPathReqBodyBuilder {
@@ -9578,7 +9588,7 @@ func NewUpdateTicketPathReqBodyBuilder() *UpdateTicketPathReqBodyBuilder {
 // 示例值：1
 func (builder *UpdateTicketPathReqBodyBuilder) Status(status int) *UpdateTicketPathReqBodyBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -9587,7 +9597,7 @@ func (builder *UpdateTicketPathReqBodyBuilder) Status(status int) *UpdateTicketP
 // 示例值：abc
 func (builder *UpdateTicketPathReqBodyBuilder) TagNames(tagNames []string) *UpdateTicketPathReqBodyBuilder {
 	builder.tagNames = tagNames
-	builder.tagNamesFlag = true
+	builder.tagNamesSet = true
 	return builder
 }
 
@@ -9596,7 +9606,7 @@ func (builder *UpdateTicketPathReqBodyBuilder) TagNames(tagNames []string) *Upda
 // 示例值：good
 func (builder *UpdateTicketPathReqBodyBuilder) Comment(comment string) *UpdateTicketPathReqBodyBuilder {
 	builder.comment = comment
-	builder.commentFlag = true
+	builder.commentSet = true
 	return builder
 }
 
@@ -9605,7 +9615,7 @@ func (builder *UpdateTicketPathReqBodyBuilder) Comment(comment string) *UpdateTi
 // 示例值：
 func (builder *UpdateTicketPathReqBodyBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *UpdateTicketPathReqBodyBuilder {
 	builder.customizedFields = customizedFields
-	builder.customizedFieldsFlag = true
+	builder.customizedFieldsSet = true
 	return builder
 }
 
@@ -9614,7 +9624,7 @@ func (builder *UpdateTicketPathReqBodyBuilder) CustomizedFields(customizedFields
 // 示例值：1
 func (builder *UpdateTicketPathReqBodyBuilder) TicketType(ticketType int) *UpdateTicketPathReqBodyBuilder {
 	builder.ticketType = ticketType
-	builder.ticketTypeFlag = true
+	builder.ticketTypeSet = true
 	return builder
 }
 
@@ -9623,7 +9633,7 @@ func (builder *UpdateTicketPathReqBodyBuilder) TicketType(ticketType int) *Updat
 // 示例值：1
 func (builder *UpdateTicketPathReqBodyBuilder) Solved(solved int) *UpdateTicketPathReqBodyBuilder {
 	builder.solved = solved
-	builder.solvedFlag = true
+	builder.solvedSet = true
 	return builder
 }
 
@@ -9632,31 +9642,31 @@ func (builder *UpdateTicketPathReqBodyBuilder) Solved(solved int) *UpdateTicketP
 // 示例值：1
 func (builder *UpdateTicketPathReqBodyBuilder) Channel(channel int) *UpdateTicketPathReqBodyBuilder {
 	builder.channel = channel
-	builder.channelFlag = true
+	builder.channelSet = true
 	return builder
 }
 
 func (builder *UpdateTicketPathReqBodyBuilder) Build() (*UpdateTicketReqBody, error) {
 	req := &UpdateTicketReqBody{}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 	}
-	if builder.tagNamesFlag {
+	if builder.tagNamesSet {
 		req.TagNames = builder.tagNames
 	}
-	if builder.commentFlag {
+	if builder.commentSet {
 		req.Comment = &builder.comment
 	}
-	if builder.customizedFieldsFlag {
+	if builder.customizedFieldsSet {
 		req.CustomizedFields = builder.customizedFields
 	}
-	if builder.ticketTypeFlag {
+	if builder.ticketTypeSet {
 		req.TicketType = &builder.ticketType
 	}
-	if builder.solvedFlag {
+	if builder.solvedSet {
 		req.Solved = &builder.solved
 	}
-	if builder.channelFlag {
+	if builder.channelSet {
 		req.Channel = &builder.channel
 	}
 	return req, nil
@@ -9729,11 +9739,11 @@ func (resp *UpdateTicketResp) Success() bool {
 }
 
 type CreateTicketMessageReqBodyBuilder struct {
-	msgType     string // 消息类型；text：纯文本；post：富文本
-	msgTypeFlag bool
+	msgType    string // 消息类型；text：纯文本；post：富文本
+	msgTypeSet bool
 
-	content     string // - 纯文本，参考[发送文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
-	contentFlag bool
+	content    string // - 纯文本，参考[发送文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
+	contentSet bool
 }
 
 func NewCreateTicketMessageReqBodyBuilder() *CreateTicketMessageReqBodyBuilder {
@@ -9743,38 +9753,38 @@ func NewCreateTicketMessageReqBodyBuilder() *CreateTicketMessageReqBodyBuilder {
 
 // 消息类型；text：纯文本；post：富文本
 //
-// 示例值：post
+//示例值：post
 func (builder *CreateTicketMessageReqBodyBuilder) MsgType(msgType string) *CreateTicketMessageReqBodyBuilder {
 	builder.msgType = msgType
-	builder.msgTypeFlag = true
+	builder.msgTypeSet = true
 	return builder
 }
 
 // - 纯文本，参考[发送文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
 //
-// 示例值：{;	"msg_type": "post",;	"content": {;		"post": {;			"zh_cn": {;				"title": "this is title",;				"content": [;					[;						{;							"tag": "text",;							"un_escape": true,;							"text": "第一行&nbsp;:";						},;						{;							"tag": "a",;							"text": "超链接",;							"href": "http://www.feishu.cn";						};					],;					[;						{;							"tag": "text",;							"text": "第二行 :";						},;						{;							"tag": "text",;							"text": "文本测试";						};					];				];			};		};	};}
+//示例值：{;	"msg_type": "post",;	"content": {;		"post": {;			"zh_cn": {;				"title": "this is title",;				"content": [;					[;						{;							"tag": "text",;							"un_escape": true,;							"text": "第一行&nbsp;:";						},;						{;							"tag": "a",;							"text": "超链接",;							"href": "http://www.feishu.cn";						};					],;					[;						{;							"tag": "text",;							"text": "第二行 :";						},;						{;							"tag": "text",;							"text": "文本测试";						};					];				];			};		};	};}
 func (builder *CreateTicketMessageReqBodyBuilder) Content(content string) *CreateTicketMessageReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *CreateTicketMessageReqBodyBuilder) Build() *CreateTicketMessageReqBody {
 	req := &CreateTicketMessageReqBody{}
-	if builder.msgTypeFlag {
+	if builder.msgTypeSet {
 		req.MsgType = &builder.msgType
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 	}
 	return req
 }
 
 type CreateTicketMessagePathReqBodyBuilder struct {
-	msgType     string
-	msgTypeFlag bool
-	content     string
-	contentFlag bool
+	msgType    string
+	msgTypeSet bool
+	content    string
+	contentSet bool
 }
 
 func NewCreateTicketMessagePathReqBodyBuilder() *CreateTicketMessagePathReqBodyBuilder {
@@ -9787,7 +9797,7 @@ func NewCreateTicketMessagePathReqBodyBuilder() *CreateTicketMessagePathReqBodyB
 // 示例值：post
 func (builder *CreateTicketMessagePathReqBodyBuilder) MsgType(msgType string) *CreateTicketMessagePathReqBodyBuilder {
 	builder.msgType = msgType
-	builder.msgTypeFlag = true
+	builder.msgTypeSet = true
 	return builder
 }
 
@@ -9796,16 +9806,16 @@ func (builder *CreateTicketMessagePathReqBodyBuilder) MsgType(msgType string) *C
 // 示例值：{;	"msg_type": "post",;	"content": {;		"post": {;			"zh_cn": {;				"title": "this is title",;				"content": [;					[;						{;							"tag": "text",;							"un_escape": true,;							"text": "第一行&nbsp;:";						},;						{;							"tag": "a",;							"text": "超链接",;							"href": "http://www.feishu.cn";						};					],;					[;						{;							"tag": "text",;							"text": "第二行 :";						},;						{;							"tag": "text",;							"text": "文本测试";						};					];				];			};		};	};}
 func (builder *CreateTicketMessagePathReqBodyBuilder) Content(content string) *CreateTicketMessagePathReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *CreateTicketMessagePathReqBodyBuilder) Build() (*CreateTicketMessageReqBody, error) {
 	req := &CreateTicketMessageReqBody{}
-	if builder.msgTypeFlag {
+	if builder.msgTypeSet {
 		req.MsgType = &builder.msgType
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 	}
 	return req, nil
@@ -10110,8 +10120,8 @@ func (resp *GetTicketCustomizedFieldResp) Success() bool {
 }
 
 type ListTicketCustomizedFieldReqBodyBuilder struct {
-	visible     bool // 是否可见
-	visibleFlag bool
+	visible    bool // 是否可见
+	visibleSet bool
 }
 
 func NewListTicketCustomizedFieldReqBodyBuilder() *ListTicketCustomizedFieldReqBodyBuilder {
@@ -10121,24 +10131,24 @@ func NewListTicketCustomizedFieldReqBodyBuilder() *ListTicketCustomizedFieldReqB
 
 // 是否可见
 //
-// 示例值：true
+//示例值：true
 func (builder *ListTicketCustomizedFieldReqBodyBuilder) Visible(visible bool) *ListTicketCustomizedFieldReqBodyBuilder {
 	builder.visible = visible
-	builder.visibleFlag = true
+	builder.visibleSet = true
 	return builder
 }
 
 func (builder *ListTicketCustomizedFieldReqBodyBuilder) Build() *ListTicketCustomizedFieldReqBody {
 	req := &ListTicketCustomizedFieldReqBody{}
-	if builder.visibleFlag {
+	if builder.visibleSet {
 		req.Visible = &builder.visible
 	}
 	return req
 }
 
 type ListTicketCustomizedFieldPathReqBodyBuilder struct {
-	visible     bool
-	visibleFlag bool
+	visible    bool
+	visibleSet bool
 }
 
 func NewListTicketCustomizedFieldPathReqBodyBuilder() *ListTicketCustomizedFieldPathReqBodyBuilder {
@@ -10151,13 +10161,13 @@ func NewListTicketCustomizedFieldPathReqBodyBuilder() *ListTicketCustomizedField
 // 示例值：true
 func (builder *ListTicketCustomizedFieldPathReqBodyBuilder) Visible(visible bool) *ListTicketCustomizedFieldPathReqBodyBuilder {
 	builder.visible = visible
-	builder.visibleFlag = true
+	builder.visibleSet = true
 	return builder
 }
 
 func (builder *ListTicketCustomizedFieldPathReqBodyBuilder) Build() (*ListTicketCustomizedFieldReqBody, error) {
 	req := &ListTicketCustomizedFieldReqBody{}
-	if builder.visibleFlag {
+	if builder.visibleSet {
 		req.Visible = &builder.visible
 	}
 	return req, nil

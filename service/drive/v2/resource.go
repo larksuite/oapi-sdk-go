@@ -9,22 +9,53 @@ import (
 )
 
 type V2 struct {
+	CommentReaction  *commentReaction  // comment_reaction
 	FileLike         *fileLike         // file.like
 	PermissionPublic *permissionPublic // permission.public
 }
 
 func New(config *larkcore.Config) *V2 {
 	return &V2{
+		CommentReaction:  &commentReaction{config: config},
 		FileLike:         &fileLike{config: config},
 		PermissionPublic: &permissionPublic{config: config},
 	}
 }
 
+type commentReaction struct {
+	config *larkcore.Config
+}
 type fileLike struct {
 	config *larkcore.Config
 }
 type permissionPublic struct {
 	config *larkcore.Config
+}
+
+// UpdateReaction
+//
+// - 开放平台：添加/删除 reaction
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_reaction&project=drive&resource=comment_reaction&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev2/updateReaction_commentReaction.go
+func (c *commentReaction) UpdateReaction(ctx context.Context, req *UpdateReactionCommentReactionReq, options ...larkcore.RequestOptionFunc) (*UpdateReactionCommentReactionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v2/files/:file_token/comments/reaction"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateReactionCommentReactionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
 }
 
 // List

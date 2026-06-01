@@ -35,6 +35,7 @@ func main() {
 	req := larkdocument_ai.NewFieldExtractionContractReqBuilder().
 		Body(larkdocument_ai.NewFieldExtractionContractReqBodyBuilder().
 			File(file).
+			FileName("filename.ext").
 			PdfPageLimit(15).
 			OcrMode("auto").
 			Build()).

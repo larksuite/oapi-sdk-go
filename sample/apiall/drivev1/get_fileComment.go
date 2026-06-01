@@ -31,6 +31,7 @@ func main() {
 		CommentId("6916106822734578184").
 		FileType("doc").
 		UserIdType("user_id").
+		NeedReaction(false).
 		Build()
 	// 发起请求
 	resp, err := client.Drive.V1.FileComment.Get(context.Background(), req)

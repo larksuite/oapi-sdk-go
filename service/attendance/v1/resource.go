@@ -1069,7 +1069,7 @@ func (u *userTask) Query(ctx context.Context, req *QueryUserTaskReq, options ...
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/attendance/v1/user_tasks/query"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
 	if err != nil {
 		return nil, err

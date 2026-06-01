@@ -29,15 +29,10 @@ func main() {
 	req := larksecurity_and_compliance.NewUpdateDeviceRecordReqBuilder().
 		DeviceRecordId("7089353870308032531").
 		Version("0").
-		UserIdType("user_id").
-		DeviceRecord(larksecurity_and_compliance.NewDeviceRecordBuilder().
+		Body(larksecurity_and_compliance.NewUpdateDeviceRecordReqBodyBuilder().
 			DeviceOwnership(0).
 			DeviceStatus(0).
-			LatestUserId("ou_b25e90585ef8c1adac4b379c2e257906").
-			Dids([]string{}).
-			IsManaged(false).
-			MdmDeviceId("123abc").
-			MdmProviderName("Workspace_ONE").
+			IsPublic(false).
 			Build()).
 		Build()
 	// 发起请求

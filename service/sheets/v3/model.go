@@ -32,11 +32,11 @@ type AddSheet struct {
 }
 
 type AddSheetBuilder struct {
-	title     string // 工作表标题
-	titleFlag bool
+	title    string // 工作表标题
+	titleSet bool
 
-	index     int // 工作表位置
-	indexFlag bool
+	index    int // 工作表位置
+	indexSet bool
 }
 
 func NewAddSheetBuilder() *AddSheetBuilder {
@@ -49,7 +49,7 @@ func NewAddSheetBuilder() *AddSheetBuilder {
 // 示例值：abc
 func (builder *AddSheetBuilder) Title(title string) *AddSheetBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -58,17 +58,17 @@ func (builder *AddSheetBuilder) Title(title string) *AddSheetBuilder {
 // 示例值：0
 func (builder *AddSheetBuilder) Index(index int) *AddSheetBuilder {
 	builder.index = index
-	builder.indexFlag = true
+	builder.indexSet = true
 	return builder
 }
 
 func (builder *AddSheetBuilder) Build() *AddSheet {
 	req := &AddSheet{}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.indexFlag {
+	if builder.indexSet {
 		req.Index = &builder.index
 
 	}
@@ -82,11 +82,11 @@ type AlignmentStyle struct {
 }
 
 type AlignmentStyleBuilder struct {
-	horizontalAlignment     string // 水平对齐策略
-	horizontalAlignmentFlag bool
+	horizontalAlignment    string // 水平对齐策略
+	horizontalAlignmentSet bool
 
-	verticalAlignment     string // 垂直对齐策略
-	verticalAlignmentFlag bool
+	verticalAlignment    string // 垂直对齐策略
+	verticalAlignmentSet bool
 }
 
 func NewAlignmentStyleBuilder() *AlignmentStyleBuilder {
@@ -99,7 +99,7 @@ func NewAlignmentStyleBuilder() *AlignmentStyleBuilder {
 // 示例值：Left
 func (builder *AlignmentStyleBuilder) HorizontalAlignment(horizontalAlignment string) *AlignmentStyleBuilder {
 	builder.horizontalAlignment = horizontalAlignment
-	builder.horizontalAlignmentFlag = true
+	builder.horizontalAlignmentSet = true
 	return builder
 }
 
@@ -108,17 +108,17 @@ func (builder *AlignmentStyleBuilder) HorizontalAlignment(horizontalAlignment st
 // 示例值：Top
 func (builder *AlignmentStyleBuilder) VerticalAlignment(verticalAlignment string) *AlignmentStyleBuilder {
 	builder.verticalAlignment = verticalAlignment
-	builder.verticalAlignmentFlag = true
+	builder.verticalAlignmentSet = true
 	return builder
 }
 
 func (builder *AlignmentStyleBuilder) Build() *AlignmentStyle {
 	req := &AlignmentStyle{}
-	if builder.horizontalAlignmentFlag {
+	if builder.horizontalAlignmentSet {
 		req.HorizontalAlignment = &builder.horizontalAlignment
 
 	}
-	if builder.verticalAlignmentFlag {
+	if builder.verticalAlignmentSet {
 		req.VerticalAlignment = &builder.verticalAlignment
 
 	}
@@ -134,14 +134,14 @@ type AppendDimension struct {
 }
 
 type AppendDimensionBuilder struct {
-	majorDimension     string // 操作行还是列，取值：ROWS、COLUMNS
-	majorDimensionFlag bool
+	majorDimension    string // 操作行还是列，取值：ROWS、COLUMNS
+	majorDimensionSet bool
 
-	length     int // 数量
-	lengthFlag bool
+	length    int // 数量
+	lengthSet bool
 
-	inheritFromBefore     bool // 是否继承上一行/列的样式
-	inheritFromBeforeFlag bool
+	inheritFromBefore    bool // 是否继承上一行/列的样式
+	inheritFromBeforeSet bool
 }
 
 func NewAppendDimensionBuilder() *AppendDimensionBuilder {
@@ -154,7 +154,7 @@ func NewAppendDimensionBuilder() *AppendDimensionBuilder {
 // 示例值：ROWS
 func (builder *AppendDimensionBuilder) MajorDimension(majorDimension string) *AppendDimensionBuilder {
 	builder.majorDimension = majorDimension
-	builder.majorDimensionFlag = true
+	builder.majorDimensionSet = true
 	return builder
 }
 
@@ -163,7 +163,7 @@ func (builder *AppendDimensionBuilder) MajorDimension(majorDimension string) *Ap
 // 示例值：10
 func (builder *AppendDimensionBuilder) Length(length int) *AppendDimensionBuilder {
 	builder.length = length
-	builder.lengthFlag = true
+	builder.lengthSet = true
 	return builder
 }
 
@@ -172,21 +172,21 @@ func (builder *AppendDimensionBuilder) Length(length int) *AppendDimensionBuilde
 // 示例值：false
 func (builder *AppendDimensionBuilder) InheritFromBefore(inheritFromBefore bool) *AppendDimensionBuilder {
 	builder.inheritFromBefore = inheritFromBefore
-	builder.inheritFromBeforeFlag = true
+	builder.inheritFromBeforeSet = true
 	return builder
 }
 
 func (builder *AppendDimensionBuilder) Build() *AppendDimension {
 	req := &AppendDimension{}
-	if builder.majorDimensionFlag {
+	if builder.majorDimensionSet {
 		req.MajorDimension = &builder.majorDimension
 
 	}
-	if builder.lengthFlag {
+	if builder.lengthSet {
 		req.Length = &builder.length
 
 	}
-	if builder.inheritFromBeforeFlag {
+	if builder.inheritFromBeforeSet {
 		req.InheritFromBefore = &builder.inheritFromBefore
 
 	}
@@ -200,11 +200,11 @@ type BitableProperties struct {
 }
 
 type BitablePropertiesBuilder struct {
-	bitableToken     string // 多维表格token
-	bitableTokenFlag bool
+	bitableToken    string // 多维表格token
+	bitableTokenSet bool
 
-	tableId     string // 数据表id
-	tableIdFlag bool
+	tableId    string // 数据表id
+	tableIdSet bool
 }
 
 func NewBitablePropertiesBuilder() *BitablePropertiesBuilder {
@@ -217,7 +217,7 @@ func NewBitablePropertiesBuilder() *BitablePropertiesBuilder {
 // 示例值：basxxxxxxxxxxxxxxxx
 func (builder *BitablePropertiesBuilder) BitableToken(bitableToken string) *BitablePropertiesBuilder {
 	builder.bitableToken = bitableToken
-	builder.bitableTokenFlag = true
+	builder.bitableTokenSet = true
 	return builder
 }
 
@@ -226,17 +226,17 @@ func (builder *BitablePropertiesBuilder) BitableToken(bitableToken string) *Bita
 // 示例值：tblxxxxxxxxxx
 func (builder *BitablePropertiesBuilder) TableId(tableId string) *BitablePropertiesBuilder {
 	builder.tableId = tableId
-	builder.tableIdFlag = true
+	builder.tableIdSet = true
 	return builder
 }
 
 func (builder *BitablePropertiesBuilder) Build() *BitableProperties {
 	req := &BitableProperties{}
-	if builder.bitableTokenFlag {
+	if builder.bitableTokenSet {
 		req.BitableToken = &builder.bitableToken
 
 	}
-	if builder.tableIdFlag {
+	if builder.tableIdSet {
 		req.TableId = &builder.tableId
 
 	}
@@ -255,16 +255,16 @@ type BoolRuleValue struct {
 
 type BoolRuleValueBuilder struct {
 	type_    string // 条件值类型
-	typeFlag bool
+	type_Set bool
 
-	number     string // 数值，当type=Number时必须有
-	numberFlag bool
+	number    string // 数值，当type=Number时必须有
+	numberSet bool
 
-	text     string // 文本，当type=Text时必须有
-	textFlag bool
+	text    string // 文本，当type=Text时必须有
+	textSet bool
 
-	timePeriod     string // 时间区间
-	timePeriodFlag bool
+	timePeriod    string // 时间区间
+	timePeriodSet bool
 }
 
 func NewBoolRuleValueBuilder() *BoolRuleValueBuilder {
@@ -277,7 +277,7 @@ func NewBoolRuleValueBuilder() *BoolRuleValueBuilder {
 // 示例值：Number
 func (builder *BoolRuleValueBuilder) Type(type_ string) *BoolRuleValueBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -286,7 +286,7 @@ func (builder *BoolRuleValueBuilder) Type(type_ string) *BoolRuleValueBuilder {
 // 示例值：12
 func (builder *BoolRuleValueBuilder) Number(number string) *BoolRuleValueBuilder {
 	builder.number = number
-	builder.numberFlag = true
+	builder.numberSet = true
 	return builder
 }
 
@@ -295,7 +295,7 @@ func (builder *BoolRuleValueBuilder) Number(number string) *BoolRuleValueBuilder
 // 示例值：abc
 func (builder *BoolRuleValueBuilder) Text(text string) *BoolRuleValueBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -304,25 +304,25 @@ func (builder *BoolRuleValueBuilder) Text(text string) *BoolRuleValueBuilder {
 // 示例值：Today
 func (builder *BoolRuleValueBuilder) TimePeriod(timePeriod string) *BoolRuleValueBuilder {
 	builder.timePeriod = timePeriod
-	builder.timePeriodFlag = true
+	builder.timePeriodSet = true
 	return builder
 }
 
 func (builder *BoolRuleValueBuilder) Build() *BoolRuleValue {
 	req := &BoolRuleValue{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.numberFlag {
+	if builder.numberSet {
 		req.Number = &builder.number
 
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
-	if builder.timePeriodFlag {
+	if builder.timePeriodSet {
 		req.TimePeriod = &builder.timePeriod
 
 	}
@@ -337,10 +337,10 @@ type BooleanRuleCondition struct {
 
 type BooleanRuleConditionBuilder struct {
 	type_    string // 条件格式类型
-	typeFlag bool
+	type_Set bool
 
-	booleanConditionalValues     []*BoolRuleValue // 条件格式值，根据条件格式类型传入相应的值
-	booleanConditionalValuesFlag bool
+	booleanConditionalValues    []*BoolRuleValue // 条件格式值，根据条件格式类型传入相应的值
+	booleanConditionalValuesSet bool
 }
 
 func NewBooleanRuleConditionBuilder() *BooleanRuleConditionBuilder {
@@ -353,7 +353,7 @@ func NewBooleanRuleConditionBuilder() *BooleanRuleConditionBuilder {
 // 示例值：CellEqual
 func (builder *BooleanRuleConditionBuilder) Type(type_ string) *BooleanRuleConditionBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -362,17 +362,17 @@ func (builder *BooleanRuleConditionBuilder) Type(type_ string) *BooleanRuleCondi
 // 示例值：
 func (builder *BooleanRuleConditionBuilder) BooleanConditionalValues(booleanConditionalValues []*BoolRuleValue) *BooleanRuleConditionBuilder {
 	builder.booleanConditionalValues = booleanConditionalValues
-	builder.booleanConditionalValuesFlag = true
+	builder.booleanConditionalValuesSet = true
 	return builder
 }
 
 func (builder *BooleanRuleConditionBuilder) Build() *BooleanRuleCondition {
 	req := &BooleanRuleCondition{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.booleanConditionalValuesFlag {
+	if builder.booleanConditionalValuesSet {
 		req.BooleanConditionalValues = builder.booleanConditionalValues
 	}
 	return req
@@ -389,17 +389,17 @@ type BorderStyle struct {
 }
 
 type BorderStyleBuilder struct {
-	top     *TopBorderStyle // 上边框样式
-	topFlag bool
+	top    *TopBorderStyle // 上边框样式
+	topSet bool
 
-	left     *LeftBorderStyle // 左边框样式
-	leftFlag bool
+	left    *LeftBorderStyle // 左边框样式
+	leftSet bool
 
-	right     *RightBorderStyle // 右边框样式
-	rightFlag bool
+	right    *RightBorderStyle // 右边框样式
+	rightSet bool
 
-	bottom     *BottomBorderStyle // 下边框样式
-	bottomFlag bool
+	bottom    *BottomBorderStyle // 下边框样式
+	bottomSet bool
 }
 
 func NewBorderStyleBuilder() *BorderStyleBuilder {
@@ -412,7 +412,7 @@ func NewBorderStyleBuilder() *BorderStyleBuilder {
 // 示例值：
 func (builder *BorderStyleBuilder) Top(top *TopBorderStyle) *BorderStyleBuilder {
 	builder.top = top
-	builder.topFlag = true
+	builder.topSet = true
 	return builder
 }
 
@@ -421,7 +421,7 @@ func (builder *BorderStyleBuilder) Top(top *TopBorderStyle) *BorderStyleBuilder 
 // 示例值：
 func (builder *BorderStyleBuilder) Left(left *LeftBorderStyle) *BorderStyleBuilder {
 	builder.left = left
-	builder.leftFlag = true
+	builder.leftSet = true
 	return builder
 }
 
@@ -430,7 +430,7 @@ func (builder *BorderStyleBuilder) Left(left *LeftBorderStyle) *BorderStyleBuild
 // 示例值：
 func (builder *BorderStyleBuilder) Right(right *RightBorderStyle) *BorderStyleBuilder {
 	builder.right = right
-	builder.rightFlag = true
+	builder.rightSet = true
 	return builder
 }
 
@@ -439,22 +439,22 @@ func (builder *BorderStyleBuilder) Right(right *RightBorderStyle) *BorderStyleBu
 // 示例值：
 func (builder *BorderStyleBuilder) Bottom(bottom *BottomBorderStyle) *BorderStyleBuilder {
 	builder.bottom = bottom
-	builder.bottomFlag = true
+	builder.bottomSet = true
 	return builder
 }
 
 func (builder *BorderStyleBuilder) Build() *BorderStyle {
 	req := &BorderStyle{}
-	if builder.topFlag {
+	if builder.topSet {
 		req.Top = builder.top
 	}
-	if builder.leftFlag {
+	if builder.leftSet {
 		req.Left = builder.left
 	}
-	if builder.rightFlag {
+	if builder.rightSet {
 		req.Right = builder.right
 	}
-	if builder.bottomFlag {
+	if builder.bottomSet {
 		req.Bottom = builder.bottom
 	}
 	return req
@@ -467,11 +467,11 @@ type BottomBorderStyle struct {
 }
 
 type BottomBorderStyleBuilder struct {
-	style     string // 边框样式
-	styleFlag bool
+	style    string // 边框样式
+	styleSet bool
 
-	color     string // 边框颜色
-	colorFlag bool
+	color    string // 边框颜色
+	colorSet bool
 }
 
 func NewBottomBorderStyleBuilder() *BottomBorderStyleBuilder {
@@ -484,7 +484,7 @@ func NewBottomBorderStyleBuilder() *BottomBorderStyleBuilder {
 // 示例值：
 func (builder *BottomBorderStyleBuilder) Style(style string) *BottomBorderStyleBuilder {
 	builder.style = style
-	builder.styleFlag = true
+	builder.styleSet = true
 	return builder
 }
 
@@ -493,17 +493,17 @@ func (builder *BottomBorderStyleBuilder) Style(style string) *BottomBorderStyleB
 // 示例值：#ff00ff
 func (builder *BottomBorderStyleBuilder) Color(color string) *BottomBorderStyleBuilder {
 	builder.color = color
-	builder.colorFlag = true
+	builder.colorSet = true
 	return builder
 }
 
 func (builder *BottomBorderStyleBuilder) Build() *BottomBorderStyle {
 	req := &BottomBorderStyle{}
-	if builder.styleFlag {
+	if builder.styleSet {
 		req.Style = &builder.style
 
 	}
-	if builder.colorFlag {
+	if builder.colorSet {
 		req.Color = &builder.color
 
 	}
@@ -525,23 +525,23 @@ type CellFontStyle struct {
 }
 
 type CellFontStyleBuilder struct {
-	bold     bool // 是否加粗
-	boldFlag bool
+	bold    bool // 是否加粗
+	boldSet bool
 
-	italic     bool // 是否斜体
-	italicFlag bool
+	italic    bool // 是否斜体
+	italicSet bool
 
-	strikethrough     bool // 是否设置删除线
-	strikethroughFlag bool
+	strikethrough    bool // 是否设置删除线
+	strikethroughSet bool
 
-	underline     bool // 是否展示下划线
-	underlineFlag bool
+	underline    bool // 是否展示下划线
+	underlineSet bool
 
-	foregroundColor     string // 字体颜色
-	foregroundColorFlag bool
+	foregroundColor    string // 字体颜色
+	foregroundColorSet bool
 
-	backgroundColor     string // 背景颜色
-	backgroundColorFlag bool
+	backgroundColor    string // 背景颜色
+	backgroundColorSet bool
 }
 
 func NewCellFontStyleBuilder() *CellFontStyleBuilder {
@@ -554,7 +554,7 @@ func NewCellFontStyleBuilder() *CellFontStyleBuilder {
 // 示例值：true
 func (builder *CellFontStyleBuilder) Bold(bold bool) *CellFontStyleBuilder {
 	builder.bold = bold
-	builder.boldFlag = true
+	builder.boldSet = true
 	return builder
 }
 
@@ -563,7 +563,7 @@ func (builder *CellFontStyleBuilder) Bold(bold bool) *CellFontStyleBuilder {
 // 示例值：true
 func (builder *CellFontStyleBuilder) Italic(italic bool) *CellFontStyleBuilder {
 	builder.italic = italic
-	builder.italicFlag = true
+	builder.italicSet = true
 	return builder
 }
 
@@ -572,7 +572,7 @@ func (builder *CellFontStyleBuilder) Italic(italic bool) *CellFontStyleBuilder {
 // 示例值：true
 func (builder *CellFontStyleBuilder) Strikethrough(strikethrough bool) *CellFontStyleBuilder {
 	builder.strikethrough = strikethrough
-	builder.strikethroughFlag = true
+	builder.strikethroughSet = true
 	return builder
 }
 
@@ -581,7 +581,7 @@ func (builder *CellFontStyleBuilder) Strikethrough(strikethrough bool) *CellFont
 // 示例值：true
 func (builder *CellFontStyleBuilder) Underline(underline bool) *CellFontStyleBuilder {
 	builder.underline = underline
-	builder.underlineFlag = true
+	builder.underlineSet = true
 	return builder
 }
 
@@ -590,7 +590,7 @@ func (builder *CellFontStyleBuilder) Underline(underline bool) *CellFontStyleBui
 // 示例值：#ff00ff
 func (builder *CellFontStyleBuilder) ForegroundColor(foregroundColor string) *CellFontStyleBuilder {
 	builder.foregroundColor = foregroundColor
-	builder.foregroundColorFlag = true
+	builder.foregroundColorSet = true
 	return builder
 }
 
@@ -599,33 +599,33 @@ func (builder *CellFontStyleBuilder) ForegroundColor(foregroundColor string) *Ce
 // 示例值：#ff00ff
 func (builder *CellFontStyleBuilder) BackgroundColor(backgroundColor string) *CellFontStyleBuilder {
 	builder.backgroundColor = backgroundColor
-	builder.backgroundColorFlag = true
+	builder.backgroundColorSet = true
 	return builder
 }
 
 func (builder *CellFontStyleBuilder) Build() *CellFontStyle {
 	req := &CellFontStyle{}
-	if builder.boldFlag {
+	if builder.boldSet {
 		req.Bold = &builder.bold
 
 	}
-	if builder.italicFlag {
+	if builder.italicSet {
 		req.Italic = &builder.italic
 
 	}
-	if builder.strikethroughFlag {
+	if builder.strikethroughSet {
 		req.Strikethrough = &builder.strikethrough
 
 	}
-	if builder.underlineFlag {
+	if builder.underlineSet {
 		req.Underline = &builder.underline
 
 	}
-	if builder.foregroundColorFlag {
+	if builder.foregroundColorSet {
 		req.ForegroundColor = &builder.foregroundColor
 
 	}
-	if builder.backgroundColorFlag {
+	if builder.backgroundColorSet {
 		req.BackgroundColor = &builder.backgroundColor
 
 	}
@@ -645,20 +645,20 @@ type CellStyle struct {
 }
 
 type CellStyleBuilder struct {
-	fontStyle     *CellFontStyle // 字体样式
-	fontStyleFlag bool
+	fontStyle    *CellFontStyle // 字体样式
+	fontStyleSet bool
 
-	borderStyle     *BorderStyle // 边框颜色
-	borderStyleFlag bool
+	borderStyle    *BorderStyle // 边框颜色
+	borderStyleSet bool
 
-	alignmentStyle     *AlignmentStyle // 对齐方式
-	alignmentStyleFlag bool
+	alignmentStyle    *AlignmentStyle // 对齐方式
+	alignmentStyleSet bool
 
-	wrapStrategy     string // 文本换行
-	wrapStrategyFlag bool
+	wrapStrategy    string // 文本换行
+	wrapStrategySet bool
 
-	format     string // 数字格式
-	formatFlag bool
+	format    string // 数字格式
+	formatSet bool
 }
 
 func NewCellStyleBuilder() *CellStyleBuilder {
@@ -671,7 +671,7 @@ func NewCellStyleBuilder() *CellStyleBuilder {
 // 示例值：
 func (builder *CellStyleBuilder) FontStyle(fontStyle *CellFontStyle) *CellStyleBuilder {
 	builder.fontStyle = fontStyle
-	builder.fontStyleFlag = true
+	builder.fontStyleSet = true
 	return builder
 }
 
@@ -680,7 +680,7 @@ func (builder *CellStyleBuilder) FontStyle(fontStyle *CellFontStyle) *CellStyleB
 // 示例值：
 func (builder *CellStyleBuilder) BorderStyle(borderStyle *BorderStyle) *CellStyleBuilder {
 	builder.borderStyle = borderStyle
-	builder.borderStyleFlag = true
+	builder.borderStyleSet = true
 	return builder
 }
 
@@ -689,7 +689,7 @@ func (builder *CellStyleBuilder) BorderStyle(borderStyle *BorderStyle) *CellStyl
 // 示例值：
 func (builder *CellStyleBuilder) AlignmentStyle(alignmentStyle *AlignmentStyle) *CellStyleBuilder {
 	builder.alignmentStyle = alignmentStyle
-	builder.alignmentStyleFlag = true
+	builder.alignmentStyleSet = true
 	return builder
 }
 
@@ -698,7 +698,7 @@ func (builder *CellStyleBuilder) AlignmentStyle(alignmentStyle *AlignmentStyle) 
 // 示例值：Overflow
 func (builder *CellStyleBuilder) WrapStrategy(wrapStrategy string) *CellStyleBuilder {
 	builder.wrapStrategy = wrapStrategy
-	builder.wrapStrategyFlag = true
+	builder.wrapStrategySet = true
 	return builder
 }
 
@@ -707,26 +707,26 @@ func (builder *CellStyleBuilder) WrapStrategy(wrapStrategy string) *CellStyleBui
 // 示例值：yyyy/MM/dd
 func (builder *CellStyleBuilder) Format(format string) *CellStyleBuilder {
 	builder.format = format
-	builder.formatFlag = true
+	builder.formatSet = true
 	return builder
 }
 
 func (builder *CellStyleBuilder) Build() *CellStyle {
 	req := &CellStyle{}
-	if builder.fontStyleFlag {
+	if builder.fontStyleSet {
 		req.FontStyle = builder.fontStyle
 	}
-	if builder.borderStyleFlag {
+	if builder.borderStyleSet {
 		req.BorderStyle = builder.borderStyle
 	}
-	if builder.alignmentStyleFlag {
+	if builder.alignmentStyleSet {
 		req.AlignmentStyle = builder.alignmentStyle
 	}
-	if builder.wrapStrategyFlag {
+	if builder.wrapStrategySet {
 		req.WrapStrategy = &builder.wrapStrategy
 
 	}
-	if builder.formatFlag {
+	if builder.formatSet {
 		req.Format = &builder.format
 
 	}
@@ -759,37 +759,37 @@ type CellValue struct {
 
 type CellValueBuilder struct {
 	type_    string // 元素类型
-	typeFlag bool
+	type_Set bool
 
-	text     *Text //
-	textFlag bool
+	text    *Text //
+	textSet bool
 
-	mentionUser     *MentionUser //
-	mentionUserFlag bool
+	mentionUser    *MentionUser //
+	mentionUserSet bool
 
-	mentionDocument     *MentionDocument //
-	mentionDocumentFlag bool
+	mentionDocument    *MentionDocument //
+	mentionDocumentSet bool
 
-	value     *ValueElement //
-	valueFlag bool
+	value    *ValueElement //
+	valueSet bool
 
-	dateTime     *DateTime //
-	dateTimeFlag bool
+	dateTime    *DateTime //
+	dateTimeSet bool
 
-	file     *File //
-	fileFlag bool
+	file    *File //
+	fileSet bool
 
-	image     *Image //
-	imageFlag bool
+	image    *Image //
+	imageSet bool
 
-	link     *Link //
-	linkFlag bool
+	link    *Link //
+	linkSet bool
 
-	reminder     *Reminder //
-	reminderFlag bool
+	reminder    *Reminder //
+	reminderSet bool
 
-	formula     *Formula //
-	formulaFlag bool
+	formula    *Formula //
+	formulaSet bool
 }
 
 func NewCellValueBuilder() *CellValueBuilder {
@@ -802,114 +802,134 @@ func NewCellValueBuilder() *CellValueBuilder {
 // 示例值：text
 func (builder *CellValueBuilder) Type(type_ string) *CellValueBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *CellValueBuilder) Text(text *Text) *CellValueBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *CellValueBuilder) MentionUser(mentionUser *MentionUser) *CellValueBuilder {
 	builder.mentionUser = mentionUser
-	builder.mentionUserFlag = true
+	builder.mentionUserSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *CellValueBuilder) MentionDocument(mentionDocument *MentionDocument) *CellValueBuilder {
 	builder.mentionDocument = mentionDocument
-	builder.mentionDocumentFlag = true
+	builder.mentionDocumentSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *CellValueBuilder) Value(value *ValueElement) *CellValueBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *CellValueBuilder) DateTime(dateTime *DateTime) *CellValueBuilder {
 	builder.dateTime = dateTime
-	builder.dateTimeFlag = true
+	builder.dateTimeSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *CellValueBuilder) File(file *File) *CellValueBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *CellValueBuilder) Image(image *Image) *CellValueBuilder {
 	builder.image = image
-	builder.imageFlag = true
+	builder.imageSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *CellValueBuilder) Link(link *Link) *CellValueBuilder {
 	builder.link = link
-	builder.linkFlag = true
+	builder.linkSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *CellValueBuilder) Reminder(reminder *Reminder) *CellValueBuilder {
 	builder.reminder = reminder
-	builder.reminderFlag = true
+	builder.reminderSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *CellValueBuilder) Formula(formula *Formula) *CellValueBuilder {
 	builder.formula = formula
-	builder.formulaFlag = true
+	builder.formulaSet = true
 	return builder
 }
 
 func (builder *CellValueBuilder) Build() *CellValue {
 	req := &CellValue{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = builder.text
 	}
-	if builder.mentionUserFlag {
+	if builder.mentionUserSet {
 		req.MentionUser = builder.mentionUser
 	}
-	if builder.mentionDocumentFlag {
+	if builder.mentionDocumentSet {
 		req.MentionDocument = builder.mentionDocument
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = builder.value
 	}
-	if builder.dateTimeFlag {
+	if builder.dateTimeSet {
 		req.DateTime = builder.dateTime
 	}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
-	if builder.imageFlag {
+	if builder.imageSet {
 		req.Image = builder.image
 	}
-	if builder.linkFlag {
+	if builder.linkSet {
 		req.Link = builder.link
 	}
-	if builder.reminderFlag {
+	if builder.reminderSet {
 		req.Reminder = builder.reminder
 	}
-	if builder.formulaFlag {
+	if builder.formulaSet {
 		req.Formula = builder.formula
 	}
 	return req
@@ -922,11 +942,11 @@ type Checkbox struct {
 }
 
 type CheckboxBuilder struct {
-	dataValidationId     int // 数据校验ID
-	dataValidationIdFlag bool
+	dataValidationId    int // 数据校验ID
+	dataValidationIdSet bool
 
-	dataValiditonValue     string // 复选框值
-	dataValiditonValueFlag bool
+	dataValiditonValue    string // 复选框值
+	dataValiditonValueSet bool
 }
 
 func NewCheckboxBuilder() *CheckboxBuilder {
@@ -939,7 +959,7 @@ func NewCheckboxBuilder() *CheckboxBuilder {
 // 示例值：1
 func (builder *CheckboxBuilder) DataValidationId(dataValidationId int) *CheckboxBuilder {
 	builder.dataValidationId = dataValidationId
-	builder.dataValidationIdFlag = true
+	builder.dataValidationIdSet = true
 	return builder
 }
 
@@ -948,17 +968,17 @@ func (builder *CheckboxBuilder) DataValidationId(dataValidationId int) *Checkbox
 // 示例值：TRUE
 func (builder *CheckboxBuilder) DataValiditonValue(dataValiditonValue string) *CheckboxBuilder {
 	builder.dataValiditonValue = dataValiditonValue
-	builder.dataValiditonValueFlag = true
+	builder.dataValiditonValueSet = true
 	return builder
 }
 
 func (builder *CheckboxBuilder) Build() *Checkbox {
 	req := &Checkbox{}
-	if builder.dataValidationIdFlag {
+	if builder.dataValidationIdSet {
 		req.DataValidationId = &builder.dataValidationId
 
 	}
-	if builder.dataValiditonValueFlag {
+	if builder.dataValiditonValueSet {
 		req.DataValiditonValue = &builder.dataValiditonValue
 
 	}
@@ -970,8 +990,8 @@ type ClearDataValidation struct {
 }
 
 type ClearDataValidationBuilder struct {
-	ranges     []string // 清除数据检验的范围
-	rangesFlag bool
+	ranges    []string // 清除数据检验的范围
+	rangesSet bool
 }
 
 func NewClearDataValidationBuilder() *ClearDataValidationBuilder {
@@ -984,13 +1004,13 @@ func NewClearDataValidationBuilder() *ClearDataValidationBuilder {
 // 示例值：
 func (builder *ClearDataValidationBuilder) Ranges(ranges []string) *ClearDataValidationBuilder {
 	builder.ranges = ranges
-	builder.rangesFlag = true
+	builder.rangesSet = true
 	return builder
 }
 
 func (builder *ClearDataValidationBuilder) Build() *ClearDataValidation {
 	req := &ClearDataValidation{}
-	if builder.rangesFlag {
+	if builder.rangesSet {
 		req.Ranges = builder.ranges
 	}
 	return req
@@ -1001,8 +1021,8 @@ type ClearStyleMultiRange struct {
 }
 
 type ClearStyleMultiRangeBuilder struct {
-	ranges     []string // 范围
-	rangesFlag bool
+	ranges    []string // 范围
+	rangesSet bool
 }
 
 func NewClearStyleMultiRangeBuilder() *ClearStyleMultiRangeBuilder {
@@ -1015,13 +1035,13 @@ func NewClearStyleMultiRangeBuilder() *ClearStyleMultiRangeBuilder {
 // 示例值：
 func (builder *ClearStyleMultiRangeBuilder) Ranges(ranges []string) *ClearStyleMultiRangeBuilder {
 	builder.ranges = ranges
-	builder.rangesFlag = true
+	builder.rangesSet = true
 	return builder
 }
 
 func (builder *ClearStyleMultiRangeBuilder) Build() *ClearStyleMultiRange {
 	req := &ClearStyleMultiRange{}
-	if builder.rangesFlag {
+	if builder.rangesSet {
 		req.Ranges = builder.ranges
 	}
 	return req
@@ -1032,8 +1052,8 @@ type ClearStyleRanges struct {
 }
 
 type ClearStyleRangesBuilder struct {
-	ranges     []string // 范围
-	rangesFlag bool
+	ranges    []string // 范围
+	rangesSet bool
 }
 
 func NewClearStyleRangesBuilder() *ClearStyleRangesBuilder {
@@ -1046,13 +1066,13 @@ func NewClearStyleRangesBuilder() *ClearStyleRangesBuilder {
 // 示例值：["sheet1!A1:A1"]
 func (builder *ClearStyleRangesBuilder) Ranges(ranges []string) *ClearStyleRangesBuilder {
 	builder.ranges = ranges
-	builder.rangesFlag = true
+	builder.rangesSet = true
 	return builder
 }
 
 func (builder *ClearStyleRangesBuilder) Build() *ClearStyleRanges {
 	req := &ClearStyleRanges{}
-	if builder.rangesFlag {
+	if builder.rangesSet {
 		req.Ranges = builder.ranges
 	}
 	return req
@@ -1067,14 +1087,14 @@ type Condition struct {
 }
 
 type ConditionBuilder struct {
-	filterType     string // 筛选类型
-	filterTypeFlag bool
+	filterType    string // 筛选类型
+	filterTypeSet bool
 
-	compareType     string // 比较类型
-	compareTypeFlag bool
+	compareType    string // 比较类型
+	compareTypeSet bool
 
-	expected     []string // 筛选参数
-	expectedFlag bool
+	expected    []string // 筛选参数
+	expectedSet bool
 }
 
 func NewConditionBuilder() *ConditionBuilder {
@@ -1087,7 +1107,7 @@ func NewConditionBuilder() *ConditionBuilder {
 // 示例值：number
 func (builder *ConditionBuilder) FilterType(filterType string) *ConditionBuilder {
 	builder.filterType = filterType
-	builder.filterTypeFlag = true
+	builder.filterTypeSet = true
 	return builder
 }
 
@@ -1096,7 +1116,7 @@ func (builder *ConditionBuilder) FilterType(filterType string) *ConditionBuilder
 // 示例值：less
 func (builder *ConditionBuilder) CompareType(compareType string) *ConditionBuilder {
 	builder.compareType = compareType
-	builder.compareTypeFlag = true
+	builder.compareTypeSet = true
 	return builder
 }
 
@@ -1105,21 +1125,21 @@ func (builder *ConditionBuilder) CompareType(compareType string) *ConditionBuild
 // 示例值：6
 func (builder *ConditionBuilder) Expected(expected []string) *ConditionBuilder {
 	builder.expected = expected
-	builder.expectedFlag = true
+	builder.expectedSet = true
 	return builder
 }
 
 func (builder *ConditionBuilder) Build() *Condition {
 	req := &Condition{}
-	if builder.filterTypeFlag {
+	if builder.filterTypeSet {
 		req.FilterType = &builder.filterType
 
 	}
-	if builder.compareTypeFlag {
+	if builder.compareTypeSet {
 		req.CompareType = &builder.compareType
 
 	}
-	if builder.expectedFlag {
+	if builder.expectedSet {
 		req.Expected = builder.expected
 	}
 	return req
@@ -1136,17 +1156,17 @@ type ConditionalFormat struct {
 }
 
 type ConditionalFormatBuilder struct {
-	conditionalFormatId     string // 条件格式ID
-	conditionalFormatIdFlag bool
+	conditionalFormatId    string // 条件格式ID
+	conditionalFormatIdSet bool
 
-	conditionalFormatRule     *ConditionalFormatRule // 条件格式
-	conditionalFormatRuleFlag bool
+	conditionalFormatRule    *ConditionalFormatRule // 条件格式
+	conditionalFormatRuleSet bool
 
-	index     int // 规则索引位置，默认为最后一个
-	indexFlag bool
+	index    int // 规则索引位置，默认为最后一个
+	indexSet bool
 
-	ranges     *ConditionalFormatRange // 条件格式应用范围
-	rangesFlag bool
+	ranges    *ConditionalFormatRange // 条件格式应用范围
+	rangesSet bool
 }
 
 func NewConditionalFormatBuilder() *ConditionalFormatBuilder {
@@ -1159,7 +1179,7 @@ func NewConditionalFormatBuilder() *ConditionalFormatBuilder {
 // 示例值：hKc9HDZhrJ
 func (builder *ConditionalFormatBuilder) ConditionalFormatId(conditionalFormatId string) *ConditionalFormatBuilder {
 	builder.conditionalFormatId = conditionalFormatId
-	builder.conditionalFormatIdFlag = true
+	builder.conditionalFormatIdSet = true
 	return builder
 }
 
@@ -1168,7 +1188,7 @@ func (builder *ConditionalFormatBuilder) ConditionalFormatId(conditionalFormatId
 // 示例值：
 func (builder *ConditionalFormatBuilder) ConditionalFormatRule(conditionalFormatRule *ConditionalFormatRule) *ConditionalFormatBuilder {
 	builder.conditionalFormatRule = conditionalFormatRule
-	builder.conditionalFormatRuleFlag = true
+	builder.conditionalFormatRuleSet = true
 	return builder
 }
 
@@ -1177,7 +1197,7 @@ func (builder *ConditionalFormatBuilder) ConditionalFormatRule(conditionalFormat
 // 示例值：
 func (builder *ConditionalFormatBuilder) Index(index int) *ConditionalFormatBuilder {
 	builder.index = index
-	builder.indexFlag = true
+	builder.indexSet = true
 	return builder
 }
 
@@ -1186,24 +1206,24 @@ func (builder *ConditionalFormatBuilder) Index(index int) *ConditionalFormatBuil
 // 示例值：
 func (builder *ConditionalFormatBuilder) Ranges(ranges *ConditionalFormatRange) *ConditionalFormatBuilder {
 	builder.ranges = ranges
-	builder.rangesFlag = true
+	builder.rangesSet = true
 	return builder
 }
 
 func (builder *ConditionalFormatBuilder) Build() *ConditionalFormat {
 	req := &ConditionalFormat{}
-	if builder.conditionalFormatIdFlag {
+	if builder.conditionalFormatIdSet {
 		req.ConditionalFormatId = &builder.conditionalFormatId
 
 	}
-	if builder.conditionalFormatRuleFlag {
+	if builder.conditionalFormatRuleSet {
 		req.ConditionalFormatRule = builder.conditionalFormatRule
 	}
-	if builder.indexFlag {
+	if builder.indexSet {
 		req.Index = &builder.index
 
 	}
-	if builder.rangesFlag {
+	if builder.rangesSet {
 		req.Ranges = builder.ranges
 	}
 	return req
@@ -1222,20 +1242,20 @@ type ConditionalFormatRange struct {
 }
 
 type ConditionalFormatRangeBuilder struct {
-	sheetId     string // 工作表ID
-	sheetIdFlag bool
+	sheetId    string // 工作表ID
+	sheetIdSet bool
 
-	startRowIndex     int // 起始行索引
-	startRowIndexFlag bool
+	startRowIndex    int // 起始行索引
+	startRowIndexSet bool
 
-	endRowIndex     int // 结束行索引
-	endRowIndexFlag bool
+	endRowIndex    int // 结束行索引
+	endRowIndexSet bool
 
-	startColumnIndex     int // 起始列索引
-	startColumnIndexFlag bool
+	startColumnIndex    int // 起始列索引
+	startColumnIndexSet bool
 
-	endColumnIndex     int // 结束列索引
-	endColumnIndexFlag bool
+	endColumnIndex    int // 结束列索引
+	endColumnIndexSet bool
 }
 
 func NewConditionalFormatRangeBuilder() *ConditionalFormatRangeBuilder {
@@ -1248,7 +1268,7 @@ func NewConditionalFormatRangeBuilder() *ConditionalFormatRangeBuilder {
 // 示例值：
 func (builder *ConditionalFormatRangeBuilder) SheetId(sheetId string) *ConditionalFormatRangeBuilder {
 	builder.sheetId = sheetId
-	builder.sheetIdFlag = true
+	builder.sheetIdSet = true
 	return builder
 }
 
@@ -1257,7 +1277,7 @@ func (builder *ConditionalFormatRangeBuilder) SheetId(sheetId string) *Condition
 // 示例值：0
 func (builder *ConditionalFormatRangeBuilder) StartRowIndex(startRowIndex int) *ConditionalFormatRangeBuilder {
 	builder.startRowIndex = startRowIndex
-	builder.startRowIndexFlag = true
+	builder.startRowIndexSet = true
 	return builder
 }
 
@@ -1266,7 +1286,7 @@ func (builder *ConditionalFormatRangeBuilder) StartRowIndex(startRowIndex int) *
 // 示例值：0
 func (builder *ConditionalFormatRangeBuilder) EndRowIndex(endRowIndex int) *ConditionalFormatRangeBuilder {
 	builder.endRowIndex = endRowIndex
-	builder.endRowIndexFlag = true
+	builder.endRowIndexSet = true
 	return builder
 }
 
@@ -1275,7 +1295,7 @@ func (builder *ConditionalFormatRangeBuilder) EndRowIndex(endRowIndex int) *Cond
 // 示例值：0
 func (builder *ConditionalFormatRangeBuilder) StartColumnIndex(startColumnIndex int) *ConditionalFormatRangeBuilder {
 	builder.startColumnIndex = startColumnIndex
-	builder.startColumnIndexFlag = true
+	builder.startColumnIndexSet = true
 	return builder
 }
 
@@ -1284,29 +1304,29 @@ func (builder *ConditionalFormatRangeBuilder) StartColumnIndex(startColumnIndex 
 // 示例值：0
 func (builder *ConditionalFormatRangeBuilder) EndColumnIndex(endColumnIndex int) *ConditionalFormatRangeBuilder {
 	builder.endColumnIndex = endColumnIndex
-	builder.endColumnIndexFlag = true
+	builder.endColumnIndexSet = true
 	return builder
 }
 
 func (builder *ConditionalFormatRangeBuilder) Build() *ConditionalFormatRange {
 	req := &ConditionalFormatRange{}
-	if builder.sheetIdFlag {
+	if builder.sheetIdSet {
 		req.SheetId = &builder.sheetId
 
 	}
-	if builder.startRowIndexFlag {
+	if builder.startRowIndexSet {
 		req.StartRowIndex = &builder.startRowIndex
 
 	}
-	if builder.endRowIndexFlag {
+	if builder.endRowIndexSet {
 		req.EndRowIndex = &builder.endRowIndex
 
 	}
-	if builder.startColumnIndexFlag {
+	if builder.startColumnIndexSet {
 		req.StartColumnIndex = &builder.startColumnIndex
 
 	}
-	if builder.endColumnIndexFlag {
+	if builder.endColumnIndexSet {
 		req.EndColumnIndex = &builder.endColumnIndex
 
 	}
@@ -1320,11 +1340,11 @@ type ConditionalFormatRule struct {
 }
 
 type ConditionalFormatRuleBuilder struct {
-	booleanRule     *BooleanRuleCondition // 布尔类型条件格式
-	booleanRuleFlag bool
+	booleanRule    *BooleanRuleCondition // 布尔类型条件格式
+	booleanRuleSet bool
 
 	type_    string // 条件格式类型
-	typeFlag bool
+	type_Set bool
 }
 
 func NewConditionalFormatRuleBuilder() *ConditionalFormatRuleBuilder {
@@ -1337,7 +1357,7 @@ func NewConditionalFormatRuleBuilder() *ConditionalFormatRuleBuilder {
 // 示例值：
 func (builder *ConditionalFormatRuleBuilder) BooleanRule(booleanRule *BooleanRuleCondition) *ConditionalFormatRuleBuilder {
 	builder.booleanRule = booleanRule
-	builder.booleanRuleFlag = true
+	builder.booleanRuleSet = true
 	return builder
 }
 
@@ -1346,16 +1366,16 @@ func (builder *ConditionalFormatRuleBuilder) BooleanRule(booleanRule *BooleanRul
 // 示例值：BooleanRuleCondition
 func (builder *ConditionalFormatRuleBuilder) Type(type_ string) *ConditionalFormatRuleBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
 func (builder *ConditionalFormatRuleBuilder) Build() *ConditionalFormatRule {
 	req := &ConditionalFormatRule{}
-	if builder.booleanRuleFlag {
+	if builder.booleanRuleSet {
 		req.BooleanRule = builder.booleanRule
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
@@ -1377,23 +1397,23 @@ type ConditionalFormatStyle struct {
 }
 
 type ConditionalFormatStyleBuilder struct {
-	backgroundColor     string // 背景颜色
-	backgroundColorFlag bool
+	backgroundColor    string // 背景颜色
+	backgroundColorSet bool
 
-	foregroundColor     string // 字体颜色
-	foregroundColorFlag bool
+	foregroundColor    string // 字体颜色
+	foregroundColorSet bool
 
-	underline     bool // 是否设置下划线
-	underlineFlag bool
+	underline    bool // 是否设置下划线
+	underlineSet bool
 
-	bold     bool // 是否加粗
-	boldFlag bool
+	bold    bool // 是否加粗
+	boldSet bool
 
-	italic     bool // 是否设置斜体
-	italicFlag bool
+	italic    bool // 是否设置斜体
+	italicSet bool
 
-	strikethrough     bool // 是否设置删除线
-	strikethroughFlag bool
+	strikethrough    bool // 是否设置删除线
+	strikethroughSet bool
 }
 
 func NewConditionalFormatStyleBuilder() *ConditionalFormatStyleBuilder {
@@ -1406,7 +1426,7 @@ func NewConditionalFormatStyleBuilder() *ConditionalFormatStyleBuilder {
 // 示例值：#ff00ff
 func (builder *ConditionalFormatStyleBuilder) BackgroundColor(backgroundColor string) *ConditionalFormatStyleBuilder {
 	builder.backgroundColor = backgroundColor
-	builder.backgroundColorFlag = true
+	builder.backgroundColorSet = true
 	return builder
 }
 
@@ -1415,7 +1435,7 @@ func (builder *ConditionalFormatStyleBuilder) BackgroundColor(backgroundColor st
 // 示例值：#ff00ff
 func (builder *ConditionalFormatStyleBuilder) ForegroundColor(foregroundColor string) *ConditionalFormatStyleBuilder {
 	builder.foregroundColor = foregroundColor
-	builder.foregroundColorFlag = true
+	builder.foregroundColorSet = true
 	return builder
 }
 
@@ -1424,7 +1444,7 @@ func (builder *ConditionalFormatStyleBuilder) ForegroundColor(foregroundColor st
 // 示例值：true
 func (builder *ConditionalFormatStyleBuilder) Underline(underline bool) *ConditionalFormatStyleBuilder {
 	builder.underline = underline
-	builder.underlineFlag = true
+	builder.underlineSet = true
 	return builder
 }
 
@@ -1433,7 +1453,7 @@ func (builder *ConditionalFormatStyleBuilder) Underline(underline bool) *Conditi
 // 示例值：true
 func (builder *ConditionalFormatStyleBuilder) Bold(bold bool) *ConditionalFormatStyleBuilder {
 	builder.bold = bold
-	builder.boldFlag = true
+	builder.boldSet = true
 	return builder
 }
 
@@ -1442,7 +1462,7 @@ func (builder *ConditionalFormatStyleBuilder) Bold(bold bool) *ConditionalFormat
 // 示例值：true
 func (builder *ConditionalFormatStyleBuilder) Italic(italic bool) *ConditionalFormatStyleBuilder {
 	builder.italic = italic
-	builder.italicFlag = true
+	builder.italicSet = true
 	return builder
 }
 
@@ -1451,33 +1471,33 @@ func (builder *ConditionalFormatStyleBuilder) Italic(italic bool) *ConditionalFo
 // 示例值：true
 func (builder *ConditionalFormatStyleBuilder) Strikethrough(strikethrough bool) *ConditionalFormatStyleBuilder {
 	builder.strikethrough = strikethrough
-	builder.strikethroughFlag = true
+	builder.strikethroughSet = true
 	return builder
 }
 
 func (builder *ConditionalFormatStyleBuilder) Build() *ConditionalFormatStyle {
 	req := &ConditionalFormatStyle{}
-	if builder.backgroundColorFlag {
+	if builder.backgroundColorSet {
 		req.BackgroundColor = &builder.backgroundColor
 
 	}
-	if builder.foregroundColorFlag {
+	if builder.foregroundColorSet {
 		req.ForegroundColor = &builder.foregroundColor
 
 	}
-	if builder.underlineFlag {
+	if builder.underlineSet {
 		req.Underline = &builder.underline
 
 	}
-	if builder.boldFlag {
+	if builder.boldSet {
 		req.Bold = &builder.bold
 
 	}
-	if builder.italicFlag {
+	if builder.italicSet {
 		req.Italic = &builder.italic
 
 	}
-	if builder.strikethroughFlag {
+	if builder.strikethroughSet {
 		req.Strikethrough = &builder.strikethrough
 
 	}
@@ -1492,10 +1512,10 @@ type CreateDataValidation struct {
 
 type CreateDataValidationBuilder struct {
 	range_    string // 数据校验设置的范围
-	rangeFlag bool
+	range_Set bool
 
-	rule     *DataValidation // 数据校验规则
-	ruleFlag bool
+	rule    *DataValidation // 数据校验规则
+	ruleSet bool
 }
 
 func NewCreateDataValidationBuilder() *CreateDataValidationBuilder {
@@ -1508,7 +1528,7 @@ func NewCreateDataValidationBuilder() *CreateDataValidationBuilder {
 // 示例值：sjls29!A1:B2
 func (builder *CreateDataValidationBuilder) Range(range_ string) *CreateDataValidationBuilder {
 	builder.range_ = range_
-	builder.rangeFlag = true
+	builder.range_Set = true
 	return builder
 }
 
@@ -1517,17 +1537,17 @@ func (builder *CreateDataValidationBuilder) Range(range_ string) *CreateDataVali
 // 示例值：
 func (builder *CreateDataValidationBuilder) Rule(rule *DataValidation) *CreateDataValidationBuilder {
 	builder.rule = rule
-	builder.ruleFlag = true
+	builder.ruleSet = true
 	return builder
 }
 
 func (builder *CreateDataValidationBuilder) Build() *CreateDataValidation {
 	req := &CreateDataValidation{}
-	if builder.rangeFlag {
+	if builder.range_Set {
 		req.Range = &builder.range_
 
 	}
-	if builder.ruleFlag {
+	if builder.ruleSet {
 		req.Rule = builder.rule
 	}
 	return req
@@ -1543,13 +1563,13 @@ type CreateSheetFilter struct {
 
 type CreateSheetFilterBuilder struct {
 	range_    string // 筛选应用范围
-	rangeFlag bool
+	range_Set bool
 
-	col     string // 设置筛选条件的列
-	colFlag bool
+	col    string // 设置筛选条件的列
+	colSet bool
 
-	condition     *Condition // 筛选的条件
-	conditionFlag bool
+	condition    *Condition // 筛选的条件
+	conditionSet bool
 }
 
 func NewCreateSheetFilterBuilder() *CreateSheetFilterBuilder {
@@ -1562,7 +1582,7 @@ func NewCreateSheetFilterBuilder() *CreateSheetFilterBuilder {
 // 示例值：xxxxxx!C1:H14
 func (builder *CreateSheetFilterBuilder) Range(range_ string) *CreateSheetFilterBuilder {
 	builder.range_ = range_
-	builder.rangeFlag = true
+	builder.range_Set = true
 	return builder
 }
 
@@ -1571,7 +1591,7 @@ func (builder *CreateSheetFilterBuilder) Range(range_ string) *CreateSheetFilter
 // 示例值：E
 func (builder *CreateSheetFilterBuilder) Col(col string) *CreateSheetFilterBuilder {
 	builder.col = col
-	builder.colFlag = true
+	builder.colSet = true
 	return builder
 }
 
@@ -1580,21 +1600,21 @@ func (builder *CreateSheetFilterBuilder) Col(col string) *CreateSheetFilterBuild
 // 示例值：
 func (builder *CreateSheetFilterBuilder) Condition(condition *Condition) *CreateSheetFilterBuilder {
 	builder.condition = condition
-	builder.conditionFlag = true
+	builder.conditionSet = true
 	return builder
 }
 
 func (builder *CreateSheetFilterBuilder) Build() *CreateSheetFilter {
 	req := &CreateSheetFilter{}
-	if builder.rangeFlag {
+	if builder.range_Set {
 		req.Range = &builder.range_
 
 	}
-	if builder.colFlag {
+	if builder.colSet {
 		req.Col = &builder.col
 
 	}
-	if builder.conditionFlag {
+	if builder.conditionSet {
 		req.Condition = builder.condition
 	}
 	return req
@@ -1611,17 +1631,17 @@ type DataValidation struct {
 }
 
 type DataValidationBuilder struct {
-	dataValidationId     int // 数据校验ID
-	dataValidationIdFlag bool
+	dataValidationId    int // 数据校验ID
+	dataValidationIdSet bool
 
-	dataValidationRule     *DataValidationRule // 数据校验规则
-	dataValidationRuleFlag bool
+	dataValidationRule    *DataValidationRule // 数据校验规则
+	dataValidationRuleSet bool
 
-	strict     string // 校验模式，数据非法时是否拒绝输入
-	strictFlag bool
+	strict    string // 校验模式，数据非法时是否拒绝输入
+	strictSet bool
 
-	helpText     string // 输入提示
-	helpTextFlag bool
+	helpText    string // 输入提示
+	helpTextSet bool
 }
 
 func NewDataValidationBuilder() *DataValidationBuilder {
@@ -1634,7 +1654,7 @@ func NewDataValidationBuilder() *DataValidationBuilder {
 // 示例值：1
 func (builder *DataValidationBuilder) DataValidationId(dataValidationId int) *DataValidationBuilder {
 	builder.dataValidationId = dataValidationId
-	builder.dataValidationIdFlag = true
+	builder.dataValidationIdSet = true
 	return builder
 }
 
@@ -1643,7 +1663,7 @@ func (builder *DataValidationBuilder) DataValidationId(dataValidationId int) *Da
 // 示例值：
 func (builder *DataValidationBuilder) DataValidationRule(dataValidationRule *DataValidationRule) *DataValidationBuilder {
 	builder.dataValidationRule = dataValidationRule
-	builder.dataValidationRuleFlag = true
+	builder.dataValidationRuleSet = true
 	return builder
 }
 
@@ -1652,7 +1672,7 @@ func (builder *DataValidationBuilder) DataValidationRule(dataValidationRule *Dat
 // 示例值：true
 func (builder *DataValidationBuilder) Strict(strict string) *DataValidationBuilder {
 	builder.strict = strict
-	builder.strictFlag = true
+	builder.strictSet = true
 	return builder
 }
 
@@ -1661,24 +1681,24 @@ func (builder *DataValidationBuilder) Strict(strict string) *DataValidationBuild
 // 示例值：number between 1 and 2
 func (builder *DataValidationBuilder) HelpText(helpText string) *DataValidationBuilder {
 	builder.helpText = helpText
-	builder.helpTextFlag = true
+	builder.helpTextSet = true
 	return builder
 }
 
 func (builder *DataValidationBuilder) Build() *DataValidation {
 	req := &DataValidation{}
-	if builder.dataValidationIdFlag {
+	if builder.dataValidationIdSet {
 		req.DataValidationId = &builder.dataValidationId
 
 	}
-	if builder.dataValidationRuleFlag {
+	if builder.dataValidationRuleSet {
 		req.DataValidationRule = builder.dataValidationRule
 	}
-	if builder.strictFlag {
+	if builder.strictSet {
 		req.Strict = &builder.strict
 
 	}
-	if builder.helpTextFlag {
+	if builder.helpTextSet {
 		req.HelpText = &builder.helpText
 
 	}
@@ -1695,13 +1715,13 @@ type DataValidationRule struct {
 
 type DataValidationRuleBuilder struct {
 	type_    string // 数据校验类型
-	typeFlag bool
+	type_Set bool
 
-	singleOption     *SingleOption // 单选
-	singleOptionFlag bool
+	singleOption    *SingleOption // 单选
+	singleOptionSet bool
 
-	multipleOption     *MultipleOption // 多选
-	multipleOptionFlag bool
+	multipleOption    *MultipleOption // 多选
+	multipleOptionSet bool
 }
 
 func NewDataValidationRuleBuilder() *DataValidationRuleBuilder {
@@ -1714,7 +1734,7 @@ func NewDataValidationRuleBuilder() *DataValidationRuleBuilder {
 // 示例值：SingleOption
 func (builder *DataValidationRuleBuilder) Type(type_ string) *DataValidationRuleBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1723,7 +1743,7 @@ func (builder *DataValidationRuleBuilder) Type(type_ string) *DataValidationRule
 // 示例值：
 func (builder *DataValidationRuleBuilder) SingleOption(singleOption *SingleOption) *DataValidationRuleBuilder {
 	builder.singleOption = singleOption
-	builder.singleOptionFlag = true
+	builder.singleOptionSet = true
 	return builder
 }
 
@@ -1732,20 +1752,20 @@ func (builder *DataValidationRuleBuilder) SingleOption(singleOption *SingleOptio
 // 示例值：
 func (builder *DataValidationRuleBuilder) MultipleOption(multipleOption *MultipleOption) *DataValidationRuleBuilder {
 	builder.multipleOption = multipleOption
-	builder.multipleOptionFlag = true
+	builder.multipleOptionSet = true
 	return builder
 }
 
 func (builder *DataValidationRuleBuilder) Build() *DataValidationRule {
 	req := &DataValidationRule{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.singleOptionFlag {
+	if builder.singleOptionSet {
 		req.SingleOption = builder.singleOption
 	}
-	if builder.multipleOptionFlag {
+	if builder.multipleOptionSet {
 		req.MultipleOption = builder.multipleOption
 	}
 	return req
@@ -1758,11 +1778,11 @@ type DataValidationValue struct {
 }
 
 type DataValidationValueBuilder struct {
-	optionValue     string // 选项值
-	optionValueFlag bool
+	optionValue    string // 选项值
+	optionValueSet bool
 
-	optionColor     string // 选项颜色
-	optionColorFlag bool
+	optionColor    string // 选项颜色
+	optionColorSet bool
 }
 
 func NewDataValidationValueBuilder() *DataValidationValueBuilder {
@@ -1775,7 +1795,7 @@ func NewDataValidationValueBuilder() *DataValidationValueBuilder {
 // 示例值：Option1
 func (builder *DataValidationValueBuilder) OptionValue(optionValue string) *DataValidationValueBuilder {
 	builder.optionValue = optionValue
-	builder.optionValueFlag = true
+	builder.optionValueSet = true
 	return builder
 }
 
@@ -1784,17 +1804,17 @@ func (builder *DataValidationValueBuilder) OptionValue(optionValue string) *Data
 // 示例值：#ff00ff
 func (builder *DataValidationValueBuilder) OptionColor(optionColor string) *DataValidationValueBuilder {
 	builder.optionColor = optionColor
-	builder.optionColorFlag = true
+	builder.optionColorSet = true
 	return builder
 }
 
 func (builder *DataValidationValueBuilder) Build() *DataValidationValue {
 	req := &DataValidationValue{}
-	if builder.optionValueFlag {
+	if builder.optionValueSet {
 		req.OptionValue = &builder.optionValue
 
 	}
-	if builder.optionColorFlag {
+	if builder.optionColorSet {
 		req.OptionColor = &builder.optionColor
 
 	}
@@ -1806,8 +1826,8 @@ type DateTime struct {
 }
 
 type DateTimeBuilder struct {
-	dateTime     string // 时间日期
-	dateTimeFlag bool
+	dateTime    string // 时间日期
+	dateTimeSet bool
 }
 
 func NewDateTimeBuilder() *DateTimeBuilder {
@@ -1820,13 +1840,13 @@ func NewDateTimeBuilder() *DateTimeBuilder {
 // 示例值：2022/02/22
 func (builder *DateTimeBuilder) DateTime(dateTime string) *DateTimeBuilder {
 	builder.dateTime = dateTime
-	builder.dateTimeFlag = true
+	builder.dateTimeSet = true
 	return builder
 }
 
 func (builder *DateTimeBuilder) Build() *DateTime {
 	req := &DateTime{}
-	if builder.dateTimeFlag {
+	if builder.dateTimeSet {
 		req.DateTime = &builder.dateTime
 
 	}
@@ -1840,11 +1860,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -1852,27 +1872,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -1888,14 +1912,14 @@ type Dimension struct {
 }
 
 type DimensionBuilder struct {
-	majorDimension     string // 操作行还是列，取值：ROWS、COLUMNS
-	majorDimensionFlag bool
+	majorDimension    string // 操作行还是列，取值：ROWS、COLUMNS
+	majorDimensionSet bool
 
-	startIndex     int // 起始行或者列号
-	startIndexFlag bool
+	startIndex    int // 起始行或者列号
+	startIndexSet bool
 
-	endIndex     int // 结束行或者列号
-	endIndexFlag bool
+	endIndex    int // 结束行或者列号
+	endIndexSet bool
 }
 
 func NewDimensionBuilder() *DimensionBuilder {
@@ -1908,7 +1932,7 @@ func NewDimensionBuilder() *DimensionBuilder {
 // 示例值：ROWS
 func (builder *DimensionBuilder) MajorDimension(majorDimension string) *DimensionBuilder {
 	builder.majorDimension = majorDimension
-	builder.majorDimensionFlag = true
+	builder.majorDimensionSet = true
 	return builder
 }
 
@@ -1917,7 +1941,7 @@ func (builder *DimensionBuilder) MajorDimension(majorDimension string) *Dimensio
 // 示例值：0
 func (builder *DimensionBuilder) StartIndex(startIndex int) *DimensionBuilder {
 	builder.startIndex = startIndex
-	builder.startIndexFlag = true
+	builder.startIndexSet = true
 	return builder
 }
 
@@ -1926,21 +1950,21 @@ func (builder *DimensionBuilder) StartIndex(startIndex int) *DimensionBuilder {
 // 示例值：1
 func (builder *DimensionBuilder) EndIndex(endIndex int) *DimensionBuilder {
 	builder.endIndex = endIndex
-	builder.endIndexFlag = true
+	builder.endIndexSet = true
 	return builder
 }
 
 func (builder *DimensionBuilder) Build() *Dimension {
 	req := &Dimension{}
-	if builder.majorDimensionFlag {
+	if builder.majorDimensionSet {
 		req.MajorDimension = &builder.majorDimension
 
 	}
-	if builder.startIndexFlag {
+	if builder.startIndexSet {
 		req.StartIndex = &builder.startIndex
 
 	}
-	if builder.endIndexFlag {
+	if builder.endIndexSet {
 		req.EndIndex = &builder.endIndex
 
 	}
@@ -1954,11 +1978,11 @@ type DimensionProperties struct {
 }
 
 type DimensionPropertiesBuilder struct {
-	hidden     bool // 是否隐藏
-	hiddenFlag bool
+	hidden    bool // 是否隐藏
+	hiddenSet bool
 
-	pixelSize     int // 行/列像素大小
-	pixelSizeFlag bool
+	pixelSize    int // 行/列像素大小
+	pixelSizeSet bool
 }
 
 func NewDimensionPropertiesBuilder() *DimensionPropertiesBuilder {
@@ -1971,7 +1995,7 @@ func NewDimensionPropertiesBuilder() *DimensionPropertiesBuilder {
 // 示例值：false
 func (builder *DimensionPropertiesBuilder) Hidden(hidden bool) *DimensionPropertiesBuilder {
 	builder.hidden = hidden
-	builder.hiddenFlag = true
+	builder.hiddenSet = true
 	return builder
 }
 
@@ -1980,17 +2004,17 @@ func (builder *DimensionPropertiesBuilder) Hidden(hidden bool) *DimensionPropert
 // 示例值：100
 func (builder *DimensionPropertiesBuilder) PixelSize(pixelSize int) *DimensionPropertiesBuilder {
 	builder.pixelSize = pixelSize
-	builder.pixelSizeFlag = true
+	builder.pixelSizeSet = true
 	return builder
 }
 
 func (builder *DimensionPropertiesBuilder) Build() *DimensionProperties {
 	req := &DimensionProperties{}
-	if builder.hiddenFlag {
+	if builder.hiddenSet {
 		req.Hidden = &builder.hidden
 
 	}
-	if builder.pixelSizeFlag {
+	if builder.pixelSizeSet {
 		req.PixelSize = &builder.pixelSize
 
 	}
@@ -2006,14 +2030,14 @@ type File struct {
 }
 
 type FileBuilder struct {
-	fileToken     string // 附件token
-	fileTokenFlag bool
+	fileToken    string // 附件token
+	fileTokenSet bool
 
-	name     string // 附件名称
-	nameFlag bool
+	name    string // 附件名称
+	nameSet bool
 
-	segmentStyle     *SegmentStyle //
-	segmentStyleFlag bool
+	segmentStyle    *SegmentStyle //
+	segmentStyleSet bool
 }
 
 func NewFileBuilder() *FileBuilder {
@@ -2026,7 +2050,7 @@ func NewFileBuilder() *FileBuilder {
 // 示例值：boxxxxxxx
 func (builder *FileBuilder) FileToken(fileToken string) *FileBuilder {
 	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
+	builder.fileTokenSet = true
 	return builder
 }
 
@@ -2035,28 +2059,30 @@ func (builder *FileBuilder) FileToken(fileToken string) *FileBuilder {
 // 示例值：a.png
 func (builder *FileBuilder) Name(name string) *FileBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *FileBuilder) SegmentStyle(segmentStyle *SegmentStyle) *FileBuilder {
 	builder.segmentStyle = segmentStyle
-	builder.segmentStyleFlag = true
+	builder.segmentStyleSet = true
 	return builder
 }
 
 func (builder *FileBuilder) Build() *File {
 	req := &File{}
-	if builder.fileTokenFlag {
+	if builder.fileTokenSet {
 		req.FileToken = &builder.fileToken
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.segmentStyleFlag {
+	if builder.segmentStyleSet {
 		req.SegmentStyle = builder.segmentStyle
 	}
 	return req
@@ -2069,11 +2095,11 @@ type FilterInfo struct {
 }
 
 type FilterInfoBuilder struct {
-	col     string // 设置了筛选条件的列
-	colFlag bool
+	col    string // 设置了筛选条件的列
+	colSet bool
 
-	conditions     []*Condition // 筛选条件
-	conditionsFlag bool
+	conditions    []*Condition // 筛选条件
+	conditionsSet bool
 }
 
 func NewFilterInfoBuilder() *FilterInfoBuilder {
@@ -2086,7 +2112,7 @@ func NewFilterInfoBuilder() *FilterInfoBuilder {
 // 示例值：E
 func (builder *FilterInfoBuilder) Col(col string) *FilterInfoBuilder {
 	builder.col = col
-	builder.colFlag = true
+	builder.colSet = true
 	return builder
 }
 
@@ -2095,17 +2121,17 @@ func (builder *FilterInfoBuilder) Col(col string) *FilterInfoBuilder {
 // 示例值：
 func (builder *FilterInfoBuilder) Conditions(conditions []*Condition) *FilterInfoBuilder {
 	builder.conditions = conditions
-	builder.conditionsFlag = true
+	builder.conditionsSet = true
 	return builder
 }
 
 func (builder *FilterInfoBuilder) Build() *FilterInfo {
 	req := &FilterInfo{}
-	if builder.colFlag {
+	if builder.colSet {
 		req.Col = &builder.col
 
 	}
-	if builder.conditionsFlag {
+	if builder.conditionsSet {
 		req.Conditions = builder.conditions
 	}
 	return req
@@ -2120,14 +2146,14 @@ type FilterView struct {
 }
 
 type FilterViewBuilder struct {
-	filterViewId     string // 筛选视图 id
-	filterViewIdFlag bool
+	filterViewId    string // 筛选视图 id
+	filterViewIdSet bool
 
-	filterViewName     string // 筛选视图名字
-	filterViewNameFlag bool
+	filterViewName    string // 筛选视图名字
+	filterViewNameSet bool
 
 	range_    string // 筛选视图的筛选范围
-	rangeFlag bool
+	range_Set bool
 }
 
 func NewFilterViewBuilder() *FilterViewBuilder {
@@ -2140,7 +2166,7 @@ func NewFilterViewBuilder() *FilterViewBuilder {
 // 示例值：pH9hbVcCXA
 func (builder *FilterViewBuilder) FilterViewId(filterViewId string) *FilterViewBuilder {
 	builder.filterViewId = filterViewId
-	builder.filterViewIdFlag = true
+	builder.filterViewIdSet = true
 	return builder
 }
 
@@ -2149,7 +2175,7 @@ func (builder *FilterViewBuilder) FilterViewId(filterViewId string) *FilterViewB
 // 示例值：筛选视图 1
 func (builder *FilterViewBuilder) FilterViewName(filterViewName string) *FilterViewBuilder {
 	builder.filterViewName = filterViewName
-	builder.filterViewNameFlag = true
+	builder.filterViewNameSet = true
 	return builder
 }
 
@@ -2158,21 +2184,21 @@ func (builder *FilterViewBuilder) FilterViewName(filterViewName string) *FilterV
 // 示例值：0b**12!C1:H14
 func (builder *FilterViewBuilder) Range(range_ string) *FilterViewBuilder {
 	builder.range_ = range_
-	builder.rangeFlag = true
+	builder.range_Set = true
 	return builder
 }
 
 func (builder *FilterViewBuilder) Build() *FilterView {
 	req := &FilterView{}
-	if builder.filterViewIdFlag {
+	if builder.filterViewIdSet {
 		req.FilterViewId = &builder.filterViewId
 
 	}
-	if builder.filterViewNameFlag {
+	if builder.filterViewNameSet {
 		req.FilterViewName = &builder.filterViewName
 
 	}
-	if builder.rangeFlag {
+	if builder.range_Set {
 		req.Range = &builder.range_
 
 	}
@@ -2190,17 +2216,17 @@ type FilterViewCondition struct {
 }
 
 type FilterViewConditionBuilder struct {
-	conditionId     string // 设置筛选条件的列，使用字母号
-	conditionIdFlag bool
+	conditionId    string // 设置筛选条件的列，使用字母号
+	conditionIdSet bool
 
-	filterType     string // 筛选类型
-	filterTypeFlag bool
+	filterType    string // 筛选类型
+	filterTypeSet bool
 
-	compareType     string // 比较类型
-	compareTypeFlag bool
+	compareType    string // 比较类型
+	compareTypeSet bool
 
-	expected     []string // 筛选参数
-	expectedFlag bool
+	expected    []string // 筛选参数
+	expectedSet bool
 }
 
 func NewFilterViewConditionBuilder() *FilterViewConditionBuilder {
@@ -2213,7 +2239,7 @@ func NewFilterViewConditionBuilder() *FilterViewConditionBuilder {
 // 示例值：E
 func (builder *FilterViewConditionBuilder) ConditionId(conditionId string) *FilterViewConditionBuilder {
 	builder.conditionId = conditionId
-	builder.conditionIdFlag = true
+	builder.conditionIdSet = true
 	return builder
 }
 
@@ -2222,7 +2248,7 @@ func (builder *FilterViewConditionBuilder) ConditionId(conditionId string) *Filt
 // 示例值：number
 func (builder *FilterViewConditionBuilder) FilterType(filterType string) *FilterViewConditionBuilder {
 	builder.filterType = filterType
-	builder.filterTypeFlag = true
+	builder.filterTypeSet = true
 	return builder
 }
 
@@ -2231,7 +2257,7 @@ func (builder *FilterViewConditionBuilder) FilterType(filterType string) *Filter
 // 示例值：less
 func (builder *FilterViewConditionBuilder) CompareType(compareType string) *FilterViewConditionBuilder {
 	builder.compareType = compareType
-	builder.compareTypeFlag = true
+	builder.compareTypeSet = true
 	return builder
 }
 
@@ -2240,25 +2266,25 @@ func (builder *FilterViewConditionBuilder) CompareType(compareType string) *Filt
 // 示例值：6
 func (builder *FilterViewConditionBuilder) Expected(expected []string) *FilterViewConditionBuilder {
 	builder.expected = expected
-	builder.expectedFlag = true
+	builder.expectedSet = true
 	return builder
 }
 
 func (builder *FilterViewConditionBuilder) Build() *FilterViewCondition {
 	req := &FilterViewCondition{}
-	if builder.conditionIdFlag {
+	if builder.conditionIdSet {
 		req.ConditionId = &builder.conditionId
 
 	}
-	if builder.filterTypeFlag {
+	if builder.filterTypeSet {
 		req.FilterType = &builder.filterType
 
 	}
-	if builder.compareTypeFlag {
+	if builder.compareTypeSet {
 		req.CompareType = &builder.compareType
 
 	}
-	if builder.expectedFlag {
+	if builder.expectedSet {
 		req.Expected = builder.expected
 	}
 	return req
@@ -2271,11 +2297,11 @@ type Find struct {
 }
 
 type FindBuilder struct {
-	findCondition     *FindCondition // 查找条件
-	findConditionFlag bool
+	findCondition    *FindCondition // 查找条件
+	findConditionSet bool
 
-	find     string // 查找的字符串，当`search_by_regex`字段为 true 时，该字段为正则表达式
-	findFlag bool
+	find    string // 查找的字符串，当`search_by_regex`字段为 true 时，该字段为正则表达式
+	findSet bool
 }
 
 func NewFindBuilder() *FindBuilder {
@@ -2288,7 +2314,7 @@ func NewFindBuilder() *FindBuilder {
 // 示例值：
 func (builder *FindBuilder) FindCondition(findCondition *FindCondition) *FindBuilder {
 	builder.findCondition = findCondition
-	builder.findConditionFlag = true
+	builder.findConditionSet = true
 	return builder
 }
 
@@ -2297,16 +2323,16 @@ func (builder *FindBuilder) FindCondition(findCondition *FindCondition) *FindBui
 // 示例值：如下;;- 普通查找示例: "hello";- 正则查找示例: "[A-Z]\w+"
 func (builder *FindBuilder) Find(find string) *FindBuilder {
 	builder.find = find
-	builder.findFlag = true
+	builder.findSet = true
 	return builder
 }
 
 func (builder *FindBuilder) Build() *Find {
 	req := &Find{}
-	if builder.findConditionFlag {
+	if builder.findConditionSet {
 		req.FindCondition = builder.findCondition
 	}
-	if builder.findFlag {
+	if builder.findSet {
 		req.Find = &builder.find
 
 	}
@@ -2327,19 +2353,19 @@ type FindCondition struct {
 
 type FindConditionBuilder struct {
 	range_    string // 查找范围，参考 [名词解释 Range](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	rangeFlag bool
+	range_Set bool
 
-	matchCase     bool // 是否忽略大小写，默认为 false;- `true`：表示忽略字符串中字母大小写差异;- `false`：表示区分字符串中字母大小写
-	matchCaseFlag bool
+	matchCase    bool // 是否忽略大小写，默认为 false;- `true`：表示忽略字符串中字母大小写差异;- `false`：表示区分字符串中字母大小写
+	matchCaseSet bool
 
-	matchEntireCell     bool // 是否完全匹配整个单元格，默认值为 false;- `true`：表示完全匹配单元格，比如 find 取值为 "hello"，则单元格中的内容必须为 "hello";- `false`：表示允许部分匹配单元格，比如 find 取值为 "hello"，则单元格中的内容包含 "hello" 即可
-	matchEntireCellFlag bool
+	matchEntireCell    bool // 是否完全匹配整个单元格，默认值为 false;- `true`：表示完全匹配单元格，比如 find 取值为 "hello"，则单元格中的内容必须为 "hello";- `false`：表示允许部分匹配单元格，比如 find 取值为 "hello"，则单元格中的内容包含 "hello" 即可
+	matchEntireCellSet bool
 
-	searchByRegex     bool // 是否为正则匹配，默认值为 false;- `true`：表示使用正则匹配;- `false`：表示不使用正则匹配
-	searchByRegexFlag bool
+	searchByRegex    bool // 是否为正则匹配，默认值为 false;- `true`：表示使用正则匹配;- `false`：表示不使用正则匹配
+	searchByRegexSet bool
 
-	includeFormulas     bool // 是否仅搜索单元格公式，默认值为 false;- `true`：表示仅搜索单元格公式;- `false`：表示仅搜索单元格内容
-	includeFormulasFlag bool
+	includeFormulas    bool // 是否仅搜索单元格公式，默认值为 false;- `true`：表示仅搜索单元格公式;- `false`：表示仅搜索单元格内容
+	includeFormulasSet bool
 }
 
 func NewFindConditionBuilder() *FindConditionBuilder {
@@ -2352,7 +2378,7 @@ func NewFindConditionBuilder() *FindConditionBuilder {
 // 示例值：PNIfrm!A1:C5
 func (builder *FindConditionBuilder) Range(range_ string) *FindConditionBuilder {
 	builder.range_ = range_
-	builder.rangeFlag = true
+	builder.range_Set = true
 	return builder
 }
 
@@ -2361,7 +2387,7 @@ func (builder *FindConditionBuilder) Range(range_ string) *FindConditionBuilder 
 // 示例值：true
 func (builder *FindConditionBuilder) MatchCase(matchCase bool) *FindConditionBuilder {
 	builder.matchCase = matchCase
-	builder.matchCaseFlag = true
+	builder.matchCaseSet = true
 	return builder
 }
 
@@ -2370,7 +2396,7 @@ func (builder *FindConditionBuilder) MatchCase(matchCase bool) *FindConditionBui
 // 示例值：false
 func (builder *FindConditionBuilder) MatchEntireCell(matchEntireCell bool) *FindConditionBuilder {
 	builder.matchEntireCell = matchEntireCell
-	builder.matchEntireCellFlag = true
+	builder.matchEntireCellSet = true
 	return builder
 }
 
@@ -2379,7 +2405,7 @@ func (builder *FindConditionBuilder) MatchEntireCell(matchEntireCell bool) *Find
 // 示例值：false
 func (builder *FindConditionBuilder) SearchByRegex(searchByRegex bool) *FindConditionBuilder {
 	builder.searchByRegex = searchByRegex
-	builder.searchByRegexFlag = true
+	builder.searchByRegexSet = true
 	return builder
 }
 
@@ -2388,29 +2414,29 @@ func (builder *FindConditionBuilder) SearchByRegex(searchByRegex bool) *FindCond
 // 示例值：false
 func (builder *FindConditionBuilder) IncludeFormulas(includeFormulas bool) *FindConditionBuilder {
 	builder.includeFormulas = includeFormulas
-	builder.includeFormulasFlag = true
+	builder.includeFormulasSet = true
 	return builder
 }
 
 func (builder *FindConditionBuilder) Build() *FindCondition {
 	req := &FindCondition{}
-	if builder.rangeFlag {
+	if builder.range_Set {
 		req.Range = &builder.range_
 
 	}
-	if builder.matchCaseFlag {
+	if builder.matchCaseSet {
 		req.MatchCase = &builder.matchCase
 
 	}
-	if builder.matchEntireCellFlag {
+	if builder.matchEntireCellSet {
 		req.MatchEntireCell = &builder.matchEntireCell
 
 	}
-	if builder.searchByRegexFlag {
+	if builder.searchByRegexSet {
 		req.SearchByRegex = &builder.searchByRegex
 
 	}
-	if builder.includeFormulasFlag {
+	if builder.includeFormulasSet {
 		req.IncludeFormulas = &builder.includeFormulas
 
 	}
@@ -2426,14 +2452,14 @@ type FindReplaceResult struct {
 }
 
 type FindReplaceResultBuilder struct {
-	matchedCells     []string // 符合查找条件的单元格数组，不包含公式，例如["A1", "A2"...]
-	matchedCellsFlag bool
+	matchedCells    []string // 符合查找条件的单元格数组，不包含公式，例如["A1", "A2"...]
+	matchedCellsSet bool
 
-	matchedFormulaCells     []string // 符合查找条件的含有公式的单元格数组，例如["B3", "H7"...]
-	matchedFormulaCellsFlag bool
+	matchedFormulaCells    []string // 符合查找条件的含有公式的单元格数组，例如["B3", "H7"...]
+	matchedFormulaCellsSet bool
 
-	rowsCount     int // 符合查找条件的总行数
-	rowsCountFlag bool
+	rowsCount    int // 符合查找条件的总行数
+	rowsCountSet bool
 }
 
 func NewFindReplaceResultBuilder() *FindReplaceResultBuilder {
@@ -2446,7 +2472,7 @@ func NewFindReplaceResultBuilder() *FindReplaceResultBuilder {
 // 示例值：
 func (builder *FindReplaceResultBuilder) MatchedCells(matchedCells []string) *FindReplaceResultBuilder {
 	builder.matchedCells = matchedCells
-	builder.matchedCellsFlag = true
+	builder.matchedCellsSet = true
 	return builder
 }
 
@@ -2455,7 +2481,7 @@ func (builder *FindReplaceResultBuilder) MatchedCells(matchedCells []string) *Fi
 // 示例值：
 func (builder *FindReplaceResultBuilder) MatchedFormulaCells(matchedFormulaCells []string) *FindReplaceResultBuilder {
 	builder.matchedFormulaCells = matchedFormulaCells
-	builder.matchedFormulaCellsFlag = true
+	builder.matchedFormulaCellsSet = true
 	return builder
 }
 
@@ -2464,19 +2490,19 @@ func (builder *FindReplaceResultBuilder) MatchedFormulaCells(matchedFormulaCells
 // 示例值：2
 func (builder *FindReplaceResultBuilder) RowsCount(rowsCount int) *FindReplaceResultBuilder {
 	builder.rowsCount = rowsCount
-	builder.rowsCountFlag = true
+	builder.rowsCountSet = true
 	return builder
 }
 
 func (builder *FindReplaceResultBuilder) Build() *FindReplaceResult {
 	req := &FindReplaceResult{}
-	if builder.matchedCellsFlag {
+	if builder.matchedCellsSet {
 		req.MatchedCells = builder.matchedCells
 	}
-	if builder.matchedFormulaCellsFlag {
+	if builder.matchedFormulaCellsSet {
 		req.MatchedFormulaCells = builder.matchedFormulaCells
 	}
-	if builder.rowsCountFlag {
+	if builder.rowsCountSet {
 		req.RowsCount = &builder.rowsCount
 
 	}
@@ -2500,26 +2526,26 @@ type FloatImage struct {
 }
 
 type FloatImageBuilder struct {
-	floatImageId     string // 浮动图片 id
-	floatImageIdFlag bool
+	floatImageId    string // 浮动图片 id
+	floatImageIdSet bool
 
-	floatImageToken     string // 【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
-	floatImageTokenFlag bool
+	floatImageToken    string // 【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
+	floatImageTokenSet bool
 
 	range_    string // 浮动图片的左上角单元格定位，只支持一个单元格
-	rangeFlag bool
+	range_Set bool
 
-	width     float64 // 浮动图片的宽度，大于等于 20px
-	widthFlag bool
+	width    float64 // 浮动图片的宽度，大于等于 20px
+	widthSet bool
 
-	height     float64 // 浮动图片的高度，大于等于 20px
-	heightFlag bool
+	height    float64 // 浮动图片的高度，大于等于 20px
+	heightSet bool
 
-	offsetX     float64 // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移，大于等于0且小于所在单元格的宽度
-	offsetXFlag bool
+	offsetX    float64 // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移，大于等于0且小于所在单元格的宽度
+	offsetXSet bool
 
-	offsetY     float64 // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移，大于等于0且小于所在单元格的高度
-	offsetYFlag bool
+	offsetY    float64 // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移，大于等于0且小于所在单元格的高度
+	offsetYSet bool
 }
 
 func NewFloatImageBuilder() *FloatImageBuilder {
@@ -2532,7 +2558,7 @@ func NewFloatImageBuilder() *FloatImageBuilder {
 // 示例值：ye06SS14ph
 func (builder *FloatImageBuilder) FloatImageId(floatImageId string) *FloatImageBuilder {
 	builder.floatImageId = floatImageId
-	builder.floatImageIdFlag = true
+	builder.floatImageIdSet = true
 	return builder
 }
 
@@ -2541,7 +2567,7 @@ func (builder *FloatImageBuilder) FloatImageId(floatImageId string) *FloatImageB
 // 示例值：boxbcbQsaSqIXsxxxxx1HCPJFbh
 func (builder *FloatImageBuilder) FloatImageToken(floatImageToken string) *FloatImageBuilder {
 	builder.floatImageToken = floatImageToken
-	builder.floatImageTokenFlag = true
+	builder.floatImageTokenSet = true
 	return builder
 }
 
@@ -2550,7 +2576,7 @@ func (builder *FloatImageBuilder) FloatImageToken(floatImageToken string) *Float
 // 示例值：0b**12!A1:A1
 func (builder *FloatImageBuilder) Range(range_ string) *FloatImageBuilder {
 	builder.range_ = range_
-	builder.rangeFlag = true
+	builder.range_Set = true
 	return builder
 }
 
@@ -2559,7 +2585,7 @@ func (builder *FloatImageBuilder) Range(range_ string) *FloatImageBuilder {
 // 示例值：100
 func (builder *FloatImageBuilder) Width(width float64) *FloatImageBuilder {
 	builder.width = width
-	builder.widthFlag = true
+	builder.widthSet = true
 	return builder
 }
 
@@ -2568,7 +2594,7 @@ func (builder *FloatImageBuilder) Width(width float64) *FloatImageBuilder {
 // 示例值：100
 func (builder *FloatImageBuilder) Height(height float64) *FloatImageBuilder {
 	builder.height = height
-	builder.heightFlag = true
+	builder.heightSet = true
 	return builder
 }
 
@@ -2577,7 +2603,7 @@ func (builder *FloatImageBuilder) Height(height float64) *FloatImageBuilder {
 // 示例值：0
 func (builder *FloatImageBuilder) OffsetX(offsetX float64) *FloatImageBuilder {
 	builder.offsetX = offsetX
-	builder.offsetXFlag = true
+	builder.offsetXSet = true
 	return builder
 }
 
@@ -2586,37 +2612,37 @@ func (builder *FloatImageBuilder) OffsetX(offsetX float64) *FloatImageBuilder {
 // 示例值：0
 func (builder *FloatImageBuilder) OffsetY(offsetY float64) *FloatImageBuilder {
 	builder.offsetY = offsetY
-	builder.offsetYFlag = true
+	builder.offsetYSet = true
 	return builder
 }
 
 func (builder *FloatImageBuilder) Build() *FloatImage {
 	req := &FloatImage{}
-	if builder.floatImageIdFlag {
+	if builder.floatImageIdSet {
 		req.FloatImageId = &builder.floatImageId
 
 	}
-	if builder.floatImageTokenFlag {
+	if builder.floatImageTokenSet {
 		req.FloatImageToken = &builder.floatImageToken
 
 	}
-	if builder.rangeFlag {
+	if builder.range_Set {
 		req.Range = &builder.range_
 
 	}
-	if builder.widthFlag {
+	if builder.widthSet {
 		req.Width = &builder.width
 
 	}
-	if builder.heightFlag {
+	if builder.heightSet {
 		req.Height = &builder.height
 
 	}
-	if builder.offsetXFlag {
+	if builder.offsetXSet {
 		req.OffsetX = &builder.offsetX
 
 	}
-	if builder.offsetYFlag {
+	if builder.offsetYSet {
 		req.OffsetY = &builder.offsetY
 
 	}
@@ -2632,14 +2658,14 @@ type Formula struct {
 }
 
 type FormulaBuilder struct {
-	formula     string // 公式
-	formulaFlag bool
+	formula    string // 公式
+	formulaSet bool
 
-	formulaValue     string // 公式结果
-	formulaValueFlag bool
+	formulaValue    string // 公式结果
+	formulaValueSet bool
 
-	affectedRange     string // 公式影响的范围
-	affectedRangeFlag bool
+	affectedRange    string // 公式影响的范围
+	affectedRangeSet bool
 }
 
 func NewFormulaBuilder() *FormulaBuilder {
@@ -2652,7 +2678,7 @@ func NewFormulaBuilder() *FormulaBuilder {
 // 示例值：=SUM(A:A)
 func (builder *FormulaBuilder) Formula(formula string) *FormulaBuilder {
 	builder.formula = formula
-	builder.formulaFlag = true
+	builder.formulaSet = true
 	return builder
 }
 
@@ -2661,7 +2687,7 @@ func (builder *FormulaBuilder) Formula(formula string) *FormulaBuilder {
 // 示例值：123
 func (builder *FormulaBuilder) FormulaValue(formulaValue string) *FormulaBuilder {
 	builder.formulaValue = formulaValue
-	builder.formulaValueFlag = true
+	builder.formulaValueSet = true
 	return builder
 }
 
@@ -2670,21 +2696,21 @@ func (builder *FormulaBuilder) FormulaValue(formulaValue string) *FormulaBuilder
 // 示例值：Xkhr2d!A1:B2
 func (builder *FormulaBuilder) AffectedRange(affectedRange string) *FormulaBuilder {
 	builder.affectedRange = affectedRange
-	builder.affectedRangeFlag = true
+	builder.affectedRangeSet = true
 	return builder
 }
 
 func (builder *FormulaBuilder) Build() *Formula {
 	req := &Formula{}
-	if builder.formulaFlag {
+	if builder.formulaSet {
 		req.Formula = &builder.formula
 
 	}
-	if builder.formulaValueFlag {
+	if builder.formulaValueSet {
 		req.FormulaValue = &builder.formulaValue
 
 	}
-	if builder.affectedRangeFlag {
+	if builder.affectedRangeSet {
 		req.AffectedRange = &builder.affectedRange
 
 	}
@@ -2702,17 +2728,17 @@ type GetSpreadsheet struct {
 }
 
 type GetSpreadsheetBuilder struct {
-	title     string // 电子表格标题
-	titleFlag bool
+	title    string // 电子表格标题
+	titleSet bool
 
-	ownerId     string // 电子表格owner
-	ownerIdFlag bool
+	ownerId    string // 电子表格owner
+	ownerIdSet bool
 
-	token     string // 电子表格token
-	tokenFlag bool
+	token    string // 电子表格token
+	tokenSet bool
 
-	url     string // 电子表格url
-	urlFlag bool
+	url    string // 电子表格url
+	urlSet bool
 }
 
 func NewGetSpreadsheetBuilder() *GetSpreadsheetBuilder {
@@ -2725,7 +2751,7 @@ func NewGetSpreadsheetBuilder() *GetSpreadsheetBuilder {
 // 示例值：title
 func (builder *GetSpreadsheetBuilder) Title(title string) *GetSpreadsheetBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -2734,7 +2760,7 @@ func (builder *GetSpreadsheetBuilder) Title(title string) *GetSpreadsheetBuilder
 // 示例值：ou_xxxxxxxxxxxx
 func (builder *GetSpreadsheetBuilder) OwnerId(ownerId string) *GetSpreadsheetBuilder {
 	builder.ownerId = ownerId
-	builder.ownerIdFlag = true
+	builder.ownerIdSet = true
 	return builder
 }
 
@@ -2743,7 +2769,7 @@ func (builder *GetSpreadsheetBuilder) OwnerId(ownerId string) *GetSpreadsheetBui
 // 示例值：shtxxxxxxxxxxxxxx
 func (builder *GetSpreadsheetBuilder) Token(token string) *GetSpreadsheetBuilder {
 	builder.token = token
-	builder.tokenFlag = true
+	builder.tokenSet = true
 	return builder
 }
 
@@ -2752,25 +2778,25 @@ func (builder *GetSpreadsheetBuilder) Token(token string) *GetSpreadsheetBuilder
 // 示例值：https://bytedance.feishu.cn/sheets/shtcnmBA*****yGehy8
 func (builder *GetSpreadsheetBuilder) Url(url string) *GetSpreadsheetBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
 func (builder *GetSpreadsheetBuilder) Build() *GetSpreadsheet {
 	req := &GetSpreadsheet{}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.ownerIdFlag {
+	if builder.ownerIdSet {
 		req.OwnerId = &builder.ownerId
 
 	}
-	if builder.tokenFlag {
+	if builder.tokenSet {
 		req.Token = &builder.token
 
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
@@ -2788,17 +2814,17 @@ type GridProperties struct {
 }
 
 type GridPropertiesBuilder struct {
-	frozenRowCount     int // 冻结的行数量
-	frozenRowCountFlag bool
+	frozenRowCount    int // 冻结的行数量
+	frozenRowCountSet bool
 
-	frozenColumnCount     int // 冻结的列数量
-	frozenColumnCountFlag bool
+	frozenColumnCount    int // 冻结的列数量
+	frozenColumnCountSet bool
 
-	rowCount     int // 工作表的行数
-	rowCountFlag bool
+	rowCount    int // 工作表的行数
+	rowCountSet bool
 
-	columnCount     int // 工作表的列数量
-	columnCountFlag bool
+	columnCount    int // 工作表的列数量
+	columnCountSet bool
 }
 
 func NewGridPropertiesBuilder() *GridPropertiesBuilder {
@@ -2811,7 +2837,7 @@ func NewGridPropertiesBuilder() *GridPropertiesBuilder {
 // 示例值：0
 func (builder *GridPropertiesBuilder) FrozenRowCount(frozenRowCount int) *GridPropertiesBuilder {
 	builder.frozenRowCount = frozenRowCount
-	builder.frozenRowCountFlag = true
+	builder.frozenRowCountSet = true
 	return builder
 }
 
@@ -2820,7 +2846,7 @@ func (builder *GridPropertiesBuilder) FrozenRowCount(frozenRowCount int) *GridPr
 // 示例值：0
 func (builder *GridPropertiesBuilder) FrozenColumnCount(frozenColumnCount int) *GridPropertiesBuilder {
 	builder.frozenColumnCount = frozenColumnCount
-	builder.frozenColumnCountFlag = true
+	builder.frozenColumnCountSet = true
 	return builder
 }
 
@@ -2829,7 +2855,7 @@ func (builder *GridPropertiesBuilder) FrozenColumnCount(frozenColumnCount int) *
 // 示例值：200
 func (builder *GridPropertiesBuilder) RowCount(rowCount int) *GridPropertiesBuilder {
 	builder.rowCount = rowCount
-	builder.rowCountFlag = true
+	builder.rowCountSet = true
 	return builder
 }
 
@@ -2838,25 +2864,25 @@ func (builder *GridPropertiesBuilder) RowCount(rowCount int) *GridPropertiesBuil
 // 示例值：20
 func (builder *GridPropertiesBuilder) ColumnCount(columnCount int) *GridPropertiesBuilder {
 	builder.columnCount = columnCount
-	builder.columnCountFlag = true
+	builder.columnCountSet = true
 	return builder
 }
 
 func (builder *GridPropertiesBuilder) Build() *GridProperties {
 	req := &GridProperties{}
-	if builder.frozenRowCountFlag {
+	if builder.frozenRowCountSet {
 		req.FrozenRowCount = &builder.frozenRowCount
 
 	}
-	if builder.frozenColumnCountFlag {
+	if builder.frozenColumnCountSet {
 		req.FrozenColumnCount = &builder.frozenColumnCount
 
 	}
-	if builder.rowCountFlag {
+	if builder.rowCountSet {
 		req.RowCount = &builder.rowCount
 
 	}
-	if builder.columnCountFlag {
+	if builder.columnCountSet {
 		req.ColumnCount = &builder.columnCount
 
 	}
@@ -2868,8 +2894,8 @@ type Image struct {
 }
 
 type ImageBuilder struct {
-	imageToken     string // 图片token
-	imageTokenFlag bool
+	imageToken    string // 图片token
+	imageTokenSet bool
 }
 
 func NewImageBuilder() *ImageBuilder {
@@ -2882,13 +2908,13 @@ func NewImageBuilder() *ImageBuilder {
 // 示例值：boxxxxxxxxxx
 func (builder *ImageBuilder) ImageToken(imageToken string) *ImageBuilder {
 	builder.imageToken = imageToken
-	builder.imageTokenFlag = true
+	builder.imageTokenSet = true
 	return builder
 }
 
 func (builder *ImageBuilder) Build() *Image {
 	req := &Image{}
-	if builder.imageTokenFlag {
+	if builder.imageTokenSet {
 		req.ImageToken = &builder.imageToken
 
 	}
@@ -2902,11 +2928,11 @@ type InsertDimension struct {
 }
 
 type InsertDimensionBuilder struct {
-	dimensionRange     *Dimension // 行列操作的维度
-	dimensionRangeFlag bool
+	dimensionRange    *Dimension // 行列操作的维度
+	dimensionRangeSet bool
 
-	inheritFrom     string // 是否继承上/下一行/列样式
-	inheritFromFlag bool
+	inheritFrom    string // 是否继承上/下一行/列样式
+	inheritFromSet bool
 }
 
 func NewInsertDimensionBuilder() *InsertDimensionBuilder {
@@ -2919,7 +2945,7 @@ func NewInsertDimensionBuilder() *InsertDimensionBuilder {
 // 示例值：
 func (builder *InsertDimensionBuilder) DimensionRange(dimensionRange *Dimension) *InsertDimensionBuilder {
 	builder.dimensionRange = dimensionRange
-	builder.dimensionRangeFlag = true
+	builder.dimensionRangeSet = true
 	return builder
 }
 
@@ -2928,16 +2954,16 @@ func (builder *InsertDimensionBuilder) DimensionRange(dimensionRange *Dimension)
 // 示例值：Before
 func (builder *InsertDimensionBuilder) InheritFrom(inheritFrom string) *InsertDimensionBuilder {
 	builder.inheritFrom = inheritFrom
-	builder.inheritFromFlag = true
+	builder.inheritFromSet = true
 	return builder
 }
 
 func (builder *InsertDimensionBuilder) Build() *InsertDimension {
 	req := &InsertDimension{}
-	if builder.dimensionRangeFlag {
+	if builder.dimensionRangeSet {
 		req.DimensionRange = builder.dimensionRange
 	}
-	if builder.inheritFromFlag {
+	if builder.inheritFromSet {
 		req.InheritFrom = &builder.inheritFrom
 
 	}
@@ -2951,11 +2977,11 @@ type LeftBorderStyle struct {
 }
 
 type LeftBorderStyleBuilder struct {
-	style     string // 边框样式
-	styleFlag bool
+	style    string // 边框样式
+	styleSet bool
 
-	color     string // 边框颜色
-	colorFlag bool
+	color    string // 边框颜色
+	colorSet bool
 }
 
 func NewLeftBorderStyleBuilder() *LeftBorderStyleBuilder {
@@ -2968,7 +2994,7 @@ func NewLeftBorderStyleBuilder() *LeftBorderStyleBuilder {
 // 示例值：
 func (builder *LeftBorderStyleBuilder) Style(style string) *LeftBorderStyleBuilder {
 	builder.style = style
-	builder.styleFlag = true
+	builder.styleSet = true
 	return builder
 }
 
@@ -2977,17 +3003,17 @@ func (builder *LeftBorderStyleBuilder) Style(style string) *LeftBorderStyleBuild
 // 示例值：#ff00ff
 func (builder *LeftBorderStyleBuilder) Color(color string) *LeftBorderStyleBuilder {
 	builder.color = color
-	builder.colorFlag = true
+	builder.colorSet = true
 	return builder
 }
 
 func (builder *LeftBorderStyleBuilder) Build() *LeftBorderStyle {
 	req := &LeftBorderStyle{}
-	if builder.styleFlag {
+	if builder.styleSet {
 		req.Style = &builder.style
 
 	}
-	if builder.colorFlag {
+	if builder.colorSet {
 		req.Color = &builder.color
 
 	}
@@ -3003,14 +3029,14 @@ type Link struct {
 }
 
 type LinkBuilder struct {
-	text     string // 文本
-	textFlag bool
+	text    string // 文本
+	textSet bool
 
-	link     string // 链接
-	linkFlag bool
+	link    string // 链接
+	linkSet bool
 
-	segmentStyles     []*SegmentStyle //
-	segmentStylesFlag bool
+	segmentStyles    []*SegmentStyle //
+	segmentStylesSet bool
 }
 
 func NewLinkBuilder() *LinkBuilder {
@@ -3023,7 +3049,7 @@ func NewLinkBuilder() *LinkBuilder {
 // 示例值：text
 func (builder *LinkBuilder) Text(text string) *LinkBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -3032,28 +3058,30 @@ func (builder *LinkBuilder) Text(text string) *LinkBuilder {
 // 示例值：www.xxxx.cn
 func (builder *LinkBuilder) Link(link string) *LinkBuilder {
 	builder.link = link
-	builder.linkFlag = true
+	builder.linkSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *LinkBuilder) SegmentStyles(segmentStyles []*SegmentStyle) *LinkBuilder {
 	builder.segmentStyles = segmentStyles
-	builder.segmentStylesFlag = true
+	builder.segmentStylesSet = true
 	return builder
 }
 
 func (builder *LinkBuilder) Build() *Link {
 	req := &Link{}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
-	if builder.linkFlag {
+	if builder.linkSet {
 		req.Link = &builder.link
 
 	}
-	if builder.segmentStylesFlag {
+	if builder.segmentStylesSet {
 		req.SegmentStyles = builder.segmentStyles
 	}
 	return req
@@ -3072,20 +3100,20 @@ type MentionDocument struct {
 }
 
 type MentionDocumentBuilder struct {
-	title     string // 文档标题
-	titleFlag bool
+	title    string // 文档标题
+	titleSet bool
 
-	objectType     string // 文档类型
-	objectTypeFlag bool
+	objectType    string // 文档类型
+	objectTypeSet bool
 
-	token     string // 文档token
-	tokenFlag bool
+	token    string // 文档token
+	tokenSet bool
 
-	segmentStyle     *SegmentStyle // 局部样式
-	segmentStyleFlag bool
+	segmentStyle    *SegmentStyle // 局部样式
+	segmentStyleSet bool
 
-	link     string // mention 链接
-	linkFlag bool
+	link    string // mention 链接
+	linkSet bool
 }
 
 func NewMentionDocumentBuilder() *MentionDocumentBuilder {
@@ -3098,7 +3126,7 @@ func NewMentionDocumentBuilder() *MentionDocumentBuilder {
 // 示例值：abc
 func (builder *MentionDocumentBuilder) Title(title string) *MentionDocumentBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -3107,7 +3135,7 @@ func (builder *MentionDocumentBuilder) Title(title string) *MentionDocumentBuild
 // 示例值：sheet
 func (builder *MentionDocumentBuilder) ObjectType(objectType string) *MentionDocumentBuilder {
 	builder.objectType = objectType
-	builder.objectTypeFlag = true
+	builder.objectTypeSet = true
 	return builder
 }
 
@@ -3116,7 +3144,7 @@ func (builder *MentionDocumentBuilder) ObjectType(objectType string) *MentionDoc
 // 示例值：shtxxxxxxxxx
 func (builder *MentionDocumentBuilder) Token(token string) *MentionDocumentBuilder {
 	builder.token = token
-	builder.tokenFlag = true
+	builder.tokenSet = true
 	return builder
 }
 
@@ -3125,7 +3153,7 @@ func (builder *MentionDocumentBuilder) Token(token string) *MentionDocumentBuild
 // 示例值：
 func (builder *MentionDocumentBuilder) SegmentStyle(segmentStyle *SegmentStyle) *MentionDocumentBuilder {
 	builder.segmentStyle = segmentStyle
-	builder.segmentStyleFlag = true
+	builder.segmentStyleSet = true
 	return builder
 }
 
@@ -3134,28 +3162,28 @@ func (builder *MentionDocumentBuilder) SegmentStyle(segmentStyle *SegmentStyle) 
 // 示例值：https://example.feishu.cn/sheets/TLLKdcpDro9ijQxA33ycNMabcef
 func (builder *MentionDocumentBuilder) Link(link string) *MentionDocumentBuilder {
 	builder.link = link
-	builder.linkFlag = true
+	builder.linkSet = true
 	return builder
 }
 
 func (builder *MentionDocumentBuilder) Build() *MentionDocument {
 	req := &MentionDocument{}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.objectTypeFlag {
+	if builder.objectTypeSet {
 		req.ObjectType = &builder.objectType
 
 	}
-	if builder.tokenFlag {
+	if builder.tokenSet {
 		req.Token = &builder.token
 
 	}
-	if builder.segmentStyleFlag {
+	if builder.segmentStyleSet {
 		req.SegmentStyle = builder.segmentStyle
 	}
-	if builder.linkFlag {
+	if builder.linkSet {
 		req.Link = &builder.link
 
 	}
@@ -3173,17 +3201,17 @@ type MentionUser struct {
 }
 
 type MentionUserBuilder struct {
-	name     string // 用户名
-	nameFlag bool
+	name    string // 用户名
+	nameSet bool
 
-	userId     string // 用户id
-	userIdFlag bool
+	userId    string // 用户id
+	userIdSet bool
 
-	notify     bool // 是否通知用户
-	notifyFlag bool
+	notify    bool // 是否通知用户
+	notifySet bool
 
-	segmentStyle     *SegmentStyle // 局部样式
-	segmentStyleFlag bool
+	segmentStyle    *SegmentStyle // 局部样式
+	segmentStyleSet bool
 }
 
 func NewMentionUserBuilder() *MentionUserBuilder {
@@ -3196,7 +3224,7 @@ func NewMentionUserBuilder() *MentionUserBuilder {
 // 示例值：李四
 func (builder *MentionUserBuilder) Name(name string) *MentionUserBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3205,7 +3233,7 @@ func (builder *MentionUserBuilder) Name(name string) *MentionUserBuilder {
 // 示例值：ou_xxxxxxx
 func (builder *MentionUserBuilder) UserId(userId string) *MentionUserBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -3214,7 +3242,7 @@ func (builder *MentionUserBuilder) UserId(userId string) *MentionUserBuilder {
 // 示例值：true
 func (builder *MentionUserBuilder) Notify(notify bool) *MentionUserBuilder {
 	builder.notify = notify
-	builder.notifyFlag = true
+	builder.notifySet = true
 	return builder
 }
 
@@ -3223,25 +3251,25 @@ func (builder *MentionUserBuilder) Notify(notify bool) *MentionUserBuilder {
 // 示例值：
 func (builder *MentionUserBuilder) SegmentStyle(segmentStyle *SegmentStyle) *MentionUserBuilder {
 	builder.segmentStyle = segmentStyle
-	builder.segmentStyleFlag = true
+	builder.segmentStyleSet = true
 	return builder
 }
 
 func (builder *MentionUserBuilder) Build() *MentionUser {
 	req := &MentionUser{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.notifyFlag {
+	if builder.notifySet {
 		req.Notify = &builder.notify
 
 	}
-	if builder.segmentStyleFlag {
+	if builder.segmentStyleSet {
 		req.SegmentStyle = builder.segmentStyle
 	}
 	return req
@@ -3255,10 +3283,10 @@ type MergeCell struct {
 
 type MergeCellBuilder struct {
 	range_    *MergeRange // 合并单元格的范围
-	rangeFlag bool
+	range_Set bool
 
-	mergeType     string // 合并单元格类型
-	mergeTypeFlag bool
+	mergeType    string // 合并单元格类型
+	mergeTypeSet bool
 }
 
 func NewMergeCellBuilder() *MergeCellBuilder {
@@ -3271,7 +3299,7 @@ func NewMergeCellBuilder() *MergeCellBuilder {
 // 示例值：Zj2ts!A1:B2
 func (builder *MergeCellBuilder) Range(range_ *MergeRange) *MergeCellBuilder {
 	builder.range_ = range_
-	builder.rangeFlag = true
+	builder.range_Set = true
 	return builder
 }
 
@@ -3280,16 +3308,16 @@ func (builder *MergeCellBuilder) Range(range_ *MergeRange) *MergeCellBuilder {
 // 示例值：MergeAll
 func (builder *MergeCellBuilder) MergeType(mergeType string) *MergeCellBuilder {
 	builder.mergeType = mergeType
-	builder.mergeTypeFlag = true
+	builder.mergeTypeSet = true
 	return builder
 }
 
 func (builder *MergeCellBuilder) Build() *MergeCell {
 	req := &MergeCell{}
-	if builder.rangeFlag {
+	if builder.range_Set {
 		req.Range = builder.range_
 	}
-	if builder.mergeTypeFlag {
+	if builder.mergeTypeSet {
 		req.MergeType = &builder.mergeType
 
 	}
@@ -3307,17 +3335,17 @@ type MergeRange struct {
 }
 
 type MergeRangeBuilder struct {
-	startRowIndex     int // 起始行
-	startRowIndexFlag bool
+	startRowIndex    int // 起始行
+	startRowIndexSet bool
 
-	endRowIndex     int // 结束行
-	endRowIndexFlag bool
+	endRowIndex    int // 结束行
+	endRowIndexSet bool
 
-	startColumnIndex     int // 起始列
-	startColumnIndexFlag bool
+	startColumnIndex    int // 起始列
+	startColumnIndexSet bool
 
-	endColumnIndex     int // 结束列
-	endColumnIndexFlag bool
+	endColumnIndex    int // 结束列
+	endColumnIndexSet bool
 }
 
 func NewMergeRangeBuilder() *MergeRangeBuilder {
@@ -3330,7 +3358,7 @@ func NewMergeRangeBuilder() *MergeRangeBuilder {
 // 示例值：0
 func (builder *MergeRangeBuilder) StartRowIndex(startRowIndex int) *MergeRangeBuilder {
 	builder.startRowIndex = startRowIndex
-	builder.startRowIndexFlag = true
+	builder.startRowIndexSet = true
 	return builder
 }
 
@@ -3339,7 +3367,7 @@ func (builder *MergeRangeBuilder) StartRowIndex(startRowIndex int) *MergeRangeBu
 // 示例值：0
 func (builder *MergeRangeBuilder) EndRowIndex(endRowIndex int) *MergeRangeBuilder {
 	builder.endRowIndex = endRowIndex
-	builder.endRowIndexFlag = true
+	builder.endRowIndexSet = true
 	return builder
 }
 
@@ -3348,7 +3376,7 @@ func (builder *MergeRangeBuilder) EndRowIndex(endRowIndex int) *MergeRangeBuilde
 // 示例值：0
 func (builder *MergeRangeBuilder) StartColumnIndex(startColumnIndex int) *MergeRangeBuilder {
 	builder.startColumnIndex = startColumnIndex
-	builder.startColumnIndexFlag = true
+	builder.startColumnIndexSet = true
 	return builder
 }
 
@@ -3357,25 +3385,25 @@ func (builder *MergeRangeBuilder) StartColumnIndex(startColumnIndex int) *MergeR
 // 示例值：0
 func (builder *MergeRangeBuilder) EndColumnIndex(endColumnIndex int) *MergeRangeBuilder {
 	builder.endColumnIndex = endColumnIndex
-	builder.endColumnIndexFlag = true
+	builder.endColumnIndexSet = true
 	return builder
 }
 
 func (builder *MergeRangeBuilder) Build() *MergeRange {
 	req := &MergeRange{}
-	if builder.startRowIndexFlag {
+	if builder.startRowIndexSet {
 		req.StartRowIndex = &builder.startRowIndex
 
 	}
-	if builder.endRowIndexFlag {
+	if builder.endRowIndexSet {
 		req.EndRowIndex = &builder.endRowIndex
 
 	}
-	if builder.startColumnIndexFlag {
+	if builder.startColumnIndexSet {
 		req.StartColumnIndex = &builder.startColumnIndex
 
 	}
-	if builder.endColumnIndexFlag {
+	if builder.endColumnIndexSet {
 		req.EndColumnIndex = &builder.endColumnIndex
 
 	}
@@ -3389,11 +3417,11 @@ type MoveDimension struct {
 }
 
 type MoveDimensionBuilder struct {
-	source     *Dimension // 移动源位置参数
-	sourceFlag bool
+	source    *Dimension // 移动源位置参数
+	sourceSet bool
 
-	destinationIndex     int // 移动的目标位置行或者列号
-	destinationIndexFlag bool
+	destinationIndex    int // 移动的目标位置行或者列号
+	destinationIndexSet bool
 }
 
 func NewMoveDimensionBuilder() *MoveDimensionBuilder {
@@ -3406,7 +3434,7 @@ func NewMoveDimensionBuilder() *MoveDimensionBuilder {
 // 示例值：
 func (builder *MoveDimensionBuilder) Source(source *Dimension) *MoveDimensionBuilder {
 	builder.source = source
-	builder.sourceFlag = true
+	builder.sourceSet = true
 	return builder
 }
 
@@ -3415,16 +3443,16 @@ func (builder *MoveDimensionBuilder) Source(source *Dimension) *MoveDimensionBui
 // 示例值：4
 func (builder *MoveDimensionBuilder) DestinationIndex(destinationIndex int) *MoveDimensionBuilder {
 	builder.destinationIndex = destinationIndex
-	builder.destinationIndexFlag = true
+	builder.destinationIndexSet = true
 	return builder
 }
 
 func (builder *MoveDimensionBuilder) Build() *MoveDimension {
 	req := &MoveDimension{}
-	if builder.sourceFlag {
+	if builder.sourceSet {
 		req.Source = builder.source
 	}
-	if builder.destinationIndexFlag {
+	if builder.destinationIndexSet {
 		req.DestinationIndex = &builder.destinationIndex
 
 	}
@@ -3436,8 +3464,8 @@ type MultiRange struct {
 }
 
 type MultiRangeBuilder struct {
-	ranges     []string // 同一个工作表的多个范围
-	rangesFlag bool
+	ranges    []string // 同一个工作表的多个范围
+	rangesSet bool
 }
 
 func NewMultiRangeBuilder() *MultiRangeBuilder {
@@ -3450,13 +3478,13 @@ func NewMultiRangeBuilder() *MultiRangeBuilder {
 // 示例值：Sheet1!A1:B2
 func (builder *MultiRangeBuilder) Ranges(ranges []string) *MultiRangeBuilder {
 	builder.ranges = ranges
-	builder.rangesFlag = true
+	builder.rangesSet = true
 	return builder
 }
 
 func (builder *MultiRangeBuilder) Build() *MultiRange {
 	req := &MultiRange{}
-	if builder.rangesFlag {
+	if builder.rangesSet {
 		req.Ranges = builder.ranges
 	}
 	return req
@@ -3474,16 +3502,16 @@ type MultipleOption struct {
 
 type MultipleOptionBuilder struct {
 	type_    string // 多选类型
-	typeFlag bool
+	type_Set bool
 
 	range_    string // 数据引用范围，当type=MultipleOfRange时必须有
-	rangeFlag bool
+	range_Set bool
 
-	dataValidationValues     []*DataValidationValue // 多选列表，当type=MultipleOfList时必须有
-	dataValidationValuesFlag bool
+	dataValidationValues    []*DataValidationValue // 多选列表，当type=MultipleOfList时必须有
+	dataValidationValuesSet bool
 
-	properties     *OptionProperties // 属性
-	propertiesFlag bool
+	properties    *OptionProperties // 属性
+	propertiesSet bool
 }
 
 func NewMultipleOptionBuilder() *MultipleOptionBuilder {
@@ -3496,7 +3524,7 @@ func NewMultipleOptionBuilder() *MultipleOptionBuilder {
 // 示例值：OneOfList
 func (builder *MultipleOptionBuilder) Type(type_ string) *MultipleOptionBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -3505,7 +3533,7 @@ func (builder *MultipleOptionBuilder) Type(type_ string) *MultipleOptionBuilder 
 // 示例值：a8KL0B!A2:B3
 func (builder *MultipleOptionBuilder) Range(range_ string) *MultipleOptionBuilder {
 	builder.range_ = range_
-	builder.rangeFlag = true
+	builder.range_Set = true
 	return builder
 }
 
@@ -3514,7 +3542,7 @@ func (builder *MultipleOptionBuilder) Range(range_ string) *MultipleOptionBuilde
 // 示例值：
 func (builder *MultipleOptionBuilder) DataValidationValues(dataValidationValues []*DataValidationValue) *MultipleOptionBuilder {
 	builder.dataValidationValues = dataValidationValues
-	builder.dataValidationValuesFlag = true
+	builder.dataValidationValuesSet = true
 	return builder
 }
 
@@ -3523,24 +3551,24 @@ func (builder *MultipleOptionBuilder) DataValidationValues(dataValidationValues 
 // 示例值：
 func (builder *MultipleOptionBuilder) Properties(properties *OptionProperties) *MultipleOptionBuilder {
 	builder.properties = properties
-	builder.propertiesFlag = true
+	builder.propertiesSet = true
 	return builder
 }
 
 func (builder *MultipleOptionBuilder) Build() *MultipleOption {
 	req := &MultipleOption{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.rangeFlag {
+	if builder.range_Set {
 		req.Range = &builder.range_
 
 	}
-	if builder.dataValidationValuesFlag {
+	if builder.dataValidationValuesSet {
 		req.DataValidationValues = builder.dataValidationValues
 	}
-	if builder.propertiesFlag {
+	if builder.propertiesSet {
 		req.Properties = builder.properties
 	}
 	return req
@@ -3551,8 +3579,8 @@ type OptionProperties struct {
 }
 
 type OptionPropertiesBuilder struct {
-	showDropdownIcon     bool // 是否展示下拉按钮
-	showDropdownIconFlag bool
+	showDropdownIcon    bool // 是否展示下拉按钮
+	showDropdownIconSet bool
 }
 
 func NewOptionPropertiesBuilder() *OptionPropertiesBuilder {
@@ -3565,13 +3593,13 @@ func NewOptionPropertiesBuilder() *OptionPropertiesBuilder {
 // 示例值：true
 func (builder *OptionPropertiesBuilder) ShowDropdownIcon(showDropdownIcon bool) *OptionPropertiesBuilder {
 	builder.showDropdownIcon = showDropdownIcon
-	builder.showDropdownIconFlag = true
+	builder.showDropdownIconSet = true
 	return builder
 }
 
 func (builder *OptionPropertiesBuilder) Build() *OptionProperties {
 	req := &OptionProperties{}
-	if builder.showDropdownIconFlag {
+	if builder.showDropdownIconSet {
 		req.ShowDropdownIcon = &builder.showDropdownIcon
 
 	}
@@ -3587,14 +3615,14 @@ type PatchConditionalFormat struct {
 }
 
 type PatchConditionalFormatBuilder struct {
-	ranges     []*ConditionalFormatRange // 条件格式应用范围
-	rangesFlag bool
+	ranges    []*ConditionalFormatRange // 条件格式应用范围
+	rangesSet bool
 
-	conditionalFormatRule     *ConditionalFormatRule // 条件格式规则
-	conditionalFormatRuleFlag bool
+	conditionalFormatRule    *ConditionalFormatRule // 条件格式规则
+	conditionalFormatRuleSet bool
 
-	index     int // 条件格式索引位置
-	indexFlag bool
+	index    int // 条件格式索引位置
+	indexSet bool
 }
 
 func NewPatchConditionalFormatBuilder() *PatchConditionalFormatBuilder {
@@ -3607,7 +3635,7 @@ func NewPatchConditionalFormatBuilder() *PatchConditionalFormatBuilder {
 // 示例值：
 func (builder *PatchConditionalFormatBuilder) Ranges(ranges []*ConditionalFormatRange) *PatchConditionalFormatBuilder {
 	builder.ranges = ranges
-	builder.rangesFlag = true
+	builder.rangesSet = true
 	return builder
 }
 
@@ -3616,7 +3644,7 @@ func (builder *PatchConditionalFormatBuilder) Ranges(ranges []*ConditionalFormat
 // 示例值：
 func (builder *PatchConditionalFormatBuilder) ConditionalFormatRule(conditionalFormatRule *ConditionalFormatRule) *PatchConditionalFormatBuilder {
 	builder.conditionalFormatRule = conditionalFormatRule
-	builder.conditionalFormatRuleFlag = true
+	builder.conditionalFormatRuleSet = true
 	return builder
 }
 
@@ -3625,19 +3653,19 @@ func (builder *PatchConditionalFormatBuilder) ConditionalFormatRule(conditionalF
 // 示例值：0
 func (builder *PatchConditionalFormatBuilder) Index(index int) *PatchConditionalFormatBuilder {
 	builder.index = index
-	builder.indexFlag = true
+	builder.indexSet = true
 	return builder
 }
 
 func (builder *PatchConditionalFormatBuilder) Build() *PatchConditionalFormat {
 	req := &PatchConditionalFormat{}
-	if builder.rangesFlag {
+	if builder.rangesSet {
 		req.Ranges = builder.ranges
 	}
-	if builder.conditionalFormatRuleFlag {
+	if builder.conditionalFormatRuleSet {
 		req.ConditionalFormatRule = builder.conditionalFormatRule
 	}
-	if builder.indexFlag {
+	if builder.indexSet {
 		req.Index = &builder.index
 
 	}
@@ -3653,14 +3681,14 @@ type PatchDataValidation struct {
 }
 
 type PatchDataValidationBuilder struct {
-	dataValidationRule     *DataValidationRule // 数据校验规则
-	dataValidationRuleFlag bool
+	dataValidationRule    *DataValidationRule // 数据校验规则
+	dataValidationRuleSet bool
 
-	strict     bool // 校验模式，数据非法时是否拒绝输入
-	strictFlag bool
+	strict    bool // 校验模式，数据非法时是否拒绝输入
+	strictSet bool
 
-	helpText     string // 帮助文本
-	helpTextFlag bool
+	helpText    string // 帮助文本
+	helpTextSet bool
 }
 
 func NewPatchDataValidationBuilder() *PatchDataValidationBuilder {
@@ -3673,7 +3701,7 @@ func NewPatchDataValidationBuilder() *PatchDataValidationBuilder {
 // 示例值：
 func (builder *PatchDataValidationBuilder) DataValidationRule(dataValidationRule *DataValidationRule) *PatchDataValidationBuilder {
 	builder.dataValidationRule = dataValidationRule
-	builder.dataValidationRuleFlag = true
+	builder.dataValidationRuleSet = true
 	return builder
 }
 
@@ -3682,7 +3710,7 @@ func (builder *PatchDataValidationBuilder) DataValidationRule(dataValidationRule
 // 示例值：true
 func (builder *PatchDataValidationBuilder) Strict(strict bool) *PatchDataValidationBuilder {
 	builder.strict = strict
-	builder.strictFlag = true
+	builder.strictSet = true
 	return builder
 }
 
@@ -3691,20 +3719,20 @@ func (builder *PatchDataValidationBuilder) Strict(strict bool) *PatchDataValidat
 // 示例值：
 func (builder *PatchDataValidationBuilder) HelpText(helpText string) *PatchDataValidationBuilder {
 	builder.helpText = helpText
-	builder.helpTextFlag = true
+	builder.helpTextSet = true
 	return builder
 }
 
 func (builder *PatchDataValidationBuilder) Build() *PatchDataValidation {
 	req := &PatchDataValidation{}
-	if builder.dataValidationRuleFlag {
+	if builder.dataValidationRuleSet {
 		req.DataValidationRule = builder.dataValidationRule
 	}
-	if builder.strictFlag {
+	if builder.strictSet {
 		req.Strict = &builder.strict
 
 	}
-	if builder.helpTextFlag {
+	if builder.helpTextSet {
 		req.HelpText = &builder.helpText
 
 	}
@@ -3720,14 +3748,14 @@ type PatchProtectedRange struct {
 }
 
 type PatchProtectedRangeBuilder struct {
-	description     string // 保护范围描述
-	descriptionFlag bool
+	description    string // 保护范围描述
+	descriptionSet bool
 
-	protectedRows     *ProtectedRows // 保护行范围
-	protectedRowsFlag bool
+	protectedRows    *ProtectedRows // 保护行范围
+	protectedRowsSet bool
 
-	protectedColumns     *ProtectedColumns // 保护列范围
-	protectedColumnsFlag bool
+	protectedColumns    *ProtectedColumns // 保护列范围
+	protectedColumnsSet bool
 }
 
 func NewPatchProtectedRangeBuilder() *PatchProtectedRangeBuilder {
@@ -3740,7 +3768,7 @@ func NewPatchProtectedRangeBuilder() *PatchProtectedRangeBuilder {
 // 示例值：这是一个保护范围
 func (builder *PatchProtectedRangeBuilder) Description(description string) *PatchProtectedRangeBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -3749,7 +3777,7 @@ func (builder *PatchProtectedRangeBuilder) Description(description string) *Patc
 // 示例值：
 func (builder *PatchProtectedRangeBuilder) ProtectedRows(protectedRows *ProtectedRows) *PatchProtectedRangeBuilder {
 	builder.protectedRows = protectedRows
-	builder.protectedRowsFlag = true
+	builder.protectedRowsSet = true
 	return builder
 }
 
@@ -3758,20 +3786,20 @@ func (builder *PatchProtectedRangeBuilder) ProtectedRows(protectedRows *Protecte
 // 示例值：
 func (builder *PatchProtectedRangeBuilder) ProtectedColumns(protectedColumns *ProtectedColumns) *PatchProtectedRangeBuilder {
 	builder.protectedColumns = protectedColumns
-	builder.protectedColumnsFlag = true
+	builder.protectedColumnsSet = true
 	return builder
 }
 
 func (builder *PatchProtectedRangeBuilder) Build() *PatchProtectedRange {
 	req := &PatchProtectedRange{}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.protectedRowsFlag {
+	if builder.protectedRowsSet {
 		req.ProtectedRows = builder.protectedRows
 	}
-	if builder.protectedColumnsFlag {
+	if builder.protectedColumnsSet {
 		req.ProtectedColumns = builder.protectedColumns
 	}
 	return req
@@ -3787,13 +3815,13 @@ type PatchProtectedRangeEditors struct {
 
 type PatchProtectedRangeEditorsBuilder struct {
 	type_    string // 修改类型
-	typeFlag bool
+	type_Set bool
 
-	addEditors     *ProtectedRangeEditors // 增加可编辑人员
-	addEditorsFlag bool
+	addEditors    *ProtectedRangeEditors // 增加可编辑人员
+	addEditorsSet bool
 
-	removeEditors     *ProtectedRangeEditors // 删除可编辑人员
-	removeEditorsFlag bool
+	removeEditors    *ProtectedRangeEditors // 删除可编辑人员
+	removeEditorsSet bool
 }
 
 func NewPatchProtectedRangeEditorsBuilder() *PatchProtectedRangeEditorsBuilder {
@@ -3806,7 +3834,7 @@ func NewPatchProtectedRangeEditorsBuilder() *PatchProtectedRangeEditorsBuilder {
 // 示例值：AddEditors
 func (builder *PatchProtectedRangeEditorsBuilder) Type(type_ string) *PatchProtectedRangeEditorsBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -3815,7 +3843,7 @@ func (builder *PatchProtectedRangeEditorsBuilder) Type(type_ string) *PatchProte
 // 示例值：
 func (builder *PatchProtectedRangeEditorsBuilder) AddEditors(addEditors *ProtectedRangeEditors) *PatchProtectedRangeEditorsBuilder {
 	builder.addEditors = addEditors
-	builder.addEditorsFlag = true
+	builder.addEditorsSet = true
 	return builder
 }
 
@@ -3824,20 +3852,20 @@ func (builder *PatchProtectedRangeEditorsBuilder) AddEditors(addEditors *Protect
 // 示例值：
 func (builder *PatchProtectedRangeEditorsBuilder) RemoveEditors(removeEditors *ProtectedRangeEditors) *PatchProtectedRangeEditorsBuilder {
 	builder.removeEditors = removeEditors
-	builder.removeEditorsFlag = true
+	builder.removeEditorsSet = true
 	return builder
 }
 
 func (builder *PatchProtectedRangeEditorsBuilder) Build() *PatchProtectedRangeEditors {
 	req := &PatchProtectedRangeEditors{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.addEditorsFlag {
+	if builder.addEditorsSet {
 		req.AddEditors = builder.addEditors
 	}
-	if builder.removeEditorsFlag {
+	if builder.removeEditorsSet {
 		req.RemoveEditors = builder.removeEditors
 	}
 	return req
@@ -3851,10 +3879,10 @@ type PlainTextValueRange struct {
 
 type PlainTextValueRangeBuilder struct {
 	range_    string // 范围
-	rangeFlag bool
+	range_Set bool
 
-	values     [][]string // 数据
-	valuesFlag bool
+	values    [][]string // 数据
+	valuesSet bool
 }
 
 func NewPlainTextValueRangeBuilder() *PlainTextValueRangeBuilder {
@@ -3867,7 +3895,7 @@ func NewPlainTextValueRangeBuilder() *PlainTextValueRangeBuilder {
 // 示例值：Sheet1!A1:B2
 func (builder *PlainTextValueRangeBuilder) Range(range_ string) *PlainTextValueRangeBuilder {
 	builder.range_ = range_
-	builder.rangeFlag = true
+	builder.range_Set = true
 	return builder
 }
 
@@ -3876,17 +3904,17 @@ func (builder *PlainTextValueRangeBuilder) Range(range_ string) *PlainTextValueR
 // 示例值：
 func (builder *PlainTextValueRangeBuilder) Values(values [][]string) *PlainTextValueRangeBuilder {
 	builder.values = values
-	builder.valuesFlag = true
+	builder.valuesSet = true
 	return builder
 }
 
 func (builder *PlainTextValueRangeBuilder) Build() *PlainTextValueRange {
 	req := &PlainTextValueRange{}
-	if builder.rangeFlag {
+	if builder.range_Set {
 		req.Range = &builder.range_
 
 	}
-	if builder.valuesFlag {
+	if builder.valuesSet {
 		req.Values = builder.values
 	}
 	return req
@@ -3901,14 +3929,14 @@ type ProtectedColumns struct {
 }
 
 type ProtectedColumnsBuilder struct {
-	sheetId     string // 工作表ID
-	sheetIdFlag bool
+	sheetId    string // 工作表ID
+	sheetIdSet bool
 
-	startIndex     int // 起始列
-	startIndexFlag bool
+	startIndex    int // 起始列
+	startIndexSet bool
 
-	endIndex     int // 结束列
-	endIndexFlag bool
+	endIndex    int // 结束列
+	endIndexSet bool
 }
 
 func NewProtectedColumnsBuilder() *ProtectedColumnsBuilder {
@@ -3921,7 +3949,7 @@ func NewProtectedColumnsBuilder() *ProtectedColumnsBuilder {
 // 示例值：ah9IJ2
 func (builder *ProtectedColumnsBuilder) SheetId(sheetId string) *ProtectedColumnsBuilder {
 	builder.sheetId = sheetId
-	builder.sheetIdFlag = true
+	builder.sheetIdSet = true
 	return builder
 }
 
@@ -3930,7 +3958,7 @@ func (builder *ProtectedColumnsBuilder) SheetId(sheetId string) *ProtectedColumn
 // 示例值：0
 func (builder *ProtectedColumnsBuilder) StartIndex(startIndex int) *ProtectedColumnsBuilder {
 	builder.startIndex = startIndex
-	builder.startIndexFlag = true
+	builder.startIndexSet = true
 	return builder
 }
 
@@ -3939,21 +3967,21 @@ func (builder *ProtectedColumnsBuilder) StartIndex(startIndex int) *ProtectedCol
 // 示例值：2
 func (builder *ProtectedColumnsBuilder) EndIndex(endIndex int) *ProtectedColumnsBuilder {
 	builder.endIndex = endIndex
-	builder.endIndexFlag = true
+	builder.endIndexSet = true
 	return builder
 }
 
 func (builder *ProtectedColumnsBuilder) Build() *ProtectedColumns {
 	req := &ProtectedColumns{}
-	if builder.sheetIdFlag {
+	if builder.sheetIdSet {
 		req.SheetId = &builder.sheetId
 
 	}
-	if builder.startIndexFlag {
+	if builder.startIndexSet {
 		req.StartIndex = &builder.startIndex
 
 	}
-	if builder.endIndexFlag {
+	if builder.endIndexSet {
 		req.EndIndex = &builder.endIndex
 
 	}
@@ -3977,26 +4005,26 @@ type ProtectedRange struct {
 }
 
 type ProtectedRangeBuilder struct {
-	protectedId     string // 保护范围ID
-	protectedIdFlag bool
+	protectedId    string // 保护范围ID
+	protectedIdSet bool
 
-	description     string // 保护范围描述
-	descriptionFlag bool
+	description    string // 保护范围描述
+	descriptionSet bool
 
-	protectedDimension     string // 保护类型
-	protectedDimensionFlag bool
+	protectedDimension    string // 保护类型
+	protectedDimensionSet bool
 
-	protectedRows     *ProtectedRows // 保护行范围
-	protectedRowsFlag bool
+	protectedRows    *ProtectedRows // 保护行范围
+	protectedRowsSet bool
 
-	protectedColumns     *ProtectedColumns // 保护列范围
-	protectedColumnsFlag bool
+	protectedColumns    *ProtectedColumns // 保护列范围
+	protectedColumnsSet bool
 
-	protectedSheet     *ProtectedSheet // 保护工作表范围
-	protectedSheetFlag bool
+	protectedSheet    *ProtectedSheet // 保护工作表范围
+	protectedSheetSet bool
 
-	editors     *ProtectedRangeEditors // 保护范围可编辑用户
-	editorsFlag bool
+	editors    *ProtectedRangeEditors // 保护范围可编辑用户
+	editorsSet bool
 }
 
 func NewProtectedRangeBuilder() *ProtectedRangeBuilder {
@@ -4009,7 +4037,7 @@ func NewProtectedRangeBuilder() *ProtectedRangeBuilder {
 // 示例值：1650435126216662
 func (builder *ProtectedRangeBuilder) ProtectedId(protectedId string) *ProtectedRangeBuilder {
 	builder.protectedId = protectedId
-	builder.protectedIdFlag = true
+	builder.protectedIdSet = true
 	return builder
 }
 
@@ -4018,7 +4046,7 @@ func (builder *ProtectedRangeBuilder) ProtectedId(protectedId string) *Protected
 // 示例值：这是一个保护范围
 func (builder *ProtectedRangeBuilder) Description(description string) *ProtectedRangeBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -4027,7 +4055,7 @@ func (builder *ProtectedRangeBuilder) Description(description string) *Protected
 // 示例值：Rows
 func (builder *ProtectedRangeBuilder) ProtectedDimension(protectedDimension string) *ProtectedRangeBuilder {
 	builder.protectedDimension = protectedDimension
-	builder.protectedDimensionFlag = true
+	builder.protectedDimensionSet = true
 	return builder
 }
 
@@ -4036,7 +4064,7 @@ func (builder *ProtectedRangeBuilder) ProtectedDimension(protectedDimension stri
 // 示例值：
 func (builder *ProtectedRangeBuilder) ProtectedRows(protectedRows *ProtectedRows) *ProtectedRangeBuilder {
 	builder.protectedRows = protectedRows
-	builder.protectedRowsFlag = true
+	builder.protectedRowsSet = true
 	return builder
 }
 
@@ -4045,7 +4073,7 @@ func (builder *ProtectedRangeBuilder) ProtectedRows(protectedRows *ProtectedRows
 // 示例值：
 func (builder *ProtectedRangeBuilder) ProtectedColumns(protectedColumns *ProtectedColumns) *ProtectedRangeBuilder {
 	builder.protectedColumns = protectedColumns
-	builder.protectedColumnsFlag = true
+	builder.protectedColumnsSet = true
 	return builder
 }
 
@@ -4054,7 +4082,7 @@ func (builder *ProtectedRangeBuilder) ProtectedColumns(protectedColumns *Protect
 // 示例值：
 func (builder *ProtectedRangeBuilder) ProtectedSheet(protectedSheet *ProtectedSheet) *ProtectedRangeBuilder {
 	builder.protectedSheet = protectedSheet
-	builder.protectedSheetFlag = true
+	builder.protectedSheetSet = true
 	return builder
 }
 
@@ -4063,34 +4091,34 @@ func (builder *ProtectedRangeBuilder) ProtectedSheet(protectedSheet *ProtectedSh
 // 示例值：
 func (builder *ProtectedRangeBuilder) Editors(editors *ProtectedRangeEditors) *ProtectedRangeBuilder {
 	builder.editors = editors
-	builder.editorsFlag = true
+	builder.editorsSet = true
 	return builder
 }
 
 func (builder *ProtectedRangeBuilder) Build() *ProtectedRange {
 	req := &ProtectedRange{}
-	if builder.protectedIdFlag {
+	if builder.protectedIdSet {
 		req.ProtectedId = &builder.protectedId
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.protectedDimensionFlag {
+	if builder.protectedDimensionSet {
 		req.ProtectedDimension = &builder.protectedDimension
 
 	}
-	if builder.protectedRowsFlag {
+	if builder.protectedRowsSet {
 		req.ProtectedRows = builder.protectedRows
 	}
-	if builder.protectedColumnsFlag {
+	if builder.protectedColumnsSet {
 		req.ProtectedColumns = builder.protectedColumns
 	}
-	if builder.protectedSheetFlag {
+	if builder.protectedSheetSet {
 		req.ProtectedSheet = builder.protectedSheet
 	}
-	if builder.editorsFlag {
+	if builder.editorsSet {
 		req.Editors = builder.editors
 	}
 	return req
@@ -4105,14 +4133,14 @@ type ProtectedRangeEditors struct {
 }
 
 type ProtectedRangeEditorsBuilder struct {
-	users     []string // 可编辑人员
-	usersFlag bool
+	users    []string // 可编辑人员
+	usersSet bool
 
-	departments     []string // 可编辑部门
-	departmentsFlag bool
+	departments    []string // 可编辑部门
+	departmentsSet bool
 
-	chats     []string // 可编辑群
-	chatsFlag bool
+	chats    []string // 可编辑群
+	chatsSet bool
 }
 
 func NewProtectedRangeEditorsBuilder() *ProtectedRangeEditorsBuilder {
@@ -4125,7 +4153,7 @@ func NewProtectedRangeEditorsBuilder() *ProtectedRangeEditorsBuilder {
 // 示例值：o
 func (builder *ProtectedRangeEditorsBuilder) Users(users []string) *ProtectedRangeEditorsBuilder {
 	builder.users = users
-	builder.usersFlag = true
+	builder.usersSet = true
 	return builder
 }
 
@@ -4134,7 +4162,7 @@ func (builder *ProtectedRangeEditorsBuilder) Users(users []string) *ProtectedRan
 // 示例值：
 func (builder *ProtectedRangeEditorsBuilder) Departments(departments []string) *ProtectedRangeEditorsBuilder {
 	builder.departments = departments
-	builder.departmentsFlag = true
+	builder.departmentsSet = true
 	return builder
 }
 
@@ -4143,19 +4171,19 @@ func (builder *ProtectedRangeEditorsBuilder) Departments(departments []string) *
 // 示例值：
 func (builder *ProtectedRangeEditorsBuilder) Chats(chats []string) *ProtectedRangeEditorsBuilder {
 	builder.chats = chats
-	builder.chatsFlag = true
+	builder.chatsSet = true
 	return builder
 }
 
 func (builder *ProtectedRangeEditorsBuilder) Build() *ProtectedRangeEditors {
 	req := &ProtectedRangeEditors{}
-	if builder.usersFlag {
+	if builder.usersSet {
 		req.Users = builder.users
 	}
-	if builder.departmentsFlag {
+	if builder.departmentsSet {
 		req.Departments = builder.departments
 	}
-	if builder.chatsFlag {
+	if builder.chatsSet {
 		req.Chats = builder.chats
 	}
 	return req
@@ -4170,14 +4198,14 @@ type ProtectedRows struct {
 }
 
 type ProtectedRowsBuilder struct {
-	sheetId     string // 工作表ID
-	sheetIdFlag bool
+	sheetId    string // 工作表ID
+	sheetIdSet bool
 
-	startIndex     int // 起始行
-	startIndexFlag bool
+	startIndex    int // 起始行
+	startIndexSet bool
 
-	endIndex     int // 结束行
-	endIndexFlag bool
+	endIndex    int // 结束行
+	endIndexSet bool
 }
 
 func NewProtectedRowsBuilder() *ProtectedRowsBuilder {
@@ -4190,7 +4218,7 @@ func NewProtectedRowsBuilder() *ProtectedRowsBuilder {
 // 示例值：s92jkL
 func (builder *ProtectedRowsBuilder) SheetId(sheetId string) *ProtectedRowsBuilder {
 	builder.sheetId = sheetId
-	builder.sheetIdFlag = true
+	builder.sheetIdSet = true
 	return builder
 }
 
@@ -4199,7 +4227,7 @@ func (builder *ProtectedRowsBuilder) SheetId(sheetId string) *ProtectedRowsBuild
 // 示例值：0
 func (builder *ProtectedRowsBuilder) StartIndex(startIndex int) *ProtectedRowsBuilder {
 	builder.startIndex = startIndex
-	builder.startIndexFlag = true
+	builder.startIndexSet = true
 	return builder
 }
 
@@ -4208,21 +4236,21 @@ func (builder *ProtectedRowsBuilder) StartIndex(startIndex int) *ProtectedRowsBu
 // 示例值：0
 func (builder *ProtectedRowsBuilder) EndIndex(endIndex int) *ProtectedRowsBuilder {
 	builder.endIndex = endIndex
-	builder.endIndexFlag = true
+	builder.endIndexSet = true
 	return builder
 }
 
 func (builder *ProtectedRowsBuilder) Build() *ProtectedRows {
 	req := &ProtectedRows{}
-	if builder.sheetIdFlag {
+	if builder.sheetIdSet {
 		req.SheetId = &builder.sheetId
 
 	}
-	if builder.startIndexFlag {
+	if builder.startIndexSet {
 		req.StartIndex = &builder.startIndex
 
 	}
-	if builder.endIndexFlag {
+	if builder.endIndexSet {
 		req.EndIndex = &builder.endIndex
 
 	}
@@ -4234,8 +4262,8 @@ type ProtectedSheet struct {
 }
 
 type ProtectedSheetBuilder struct {
-	sheetId     string // 工作表ID
-	sheetIdFlag bool
+	sheetId    string // 工作表ID
+	sheetIdSet bool
 }
 
 func NewProtectedSheetBuilder() *ProtectedSheetBuilder {
@@ -4248,13 +4276,13 @@ func NewProtectedSheetBuilder() *ProtectedSheetBuilder {
 // 示例值：Kd7L09
 func (builder *ProtectedSheetBuilder) SheetId(sheetId string) *ProtectedSheetBuilder {
 	builder.sheetId = sheetId
-	builder.sheetIdFlag = true
+	builder.sheetIdSet = true
 	return builder
 }
 
 func (builder *ProtectedSheetBuilder) Build() *ProtectedSheet {
 	req := &ProtectedSheet{}
-	if builder.sheetIdFlag {
+	if builder.sheetIdSet {
 		req.SheetId = &builder.sheetId
 
 	}
@@ -4272,17 +4300,17 @@ type Reminder struct {
 }
 
 type ReminderBuilder struct {
-	notifyDateTime     string // 时间日期
-	notifyDateTimeFlag bool
+	notifyDateTime    string // 时间日期
+	notifyDateTimeSet bool
 
-	notifyUserId     []string // 提醒人员
-	notifyUserIdFlag bool
+	notifyUserId    []string // 提醒人员
+	notifyUserIdSet bool
 
-	notifyText     string // 提醒内容
-	notifyTextFlag bool
+	notifyText    string // 提醒内容
+	notifyTextSet bool
 
-	notifyStrategy     string // 提醒策略
-	notifyStrategyFlag bool
+	notifyStrategy    string // 提醒策略
+	notifyStrategySet bool
 }
 
 func NewReminderBuilder() *ReminderBuilder {
@@ -4295,7 +4323,7 @@ func NewReminderBuilder() *ReminderBuilder {
 // 示例值：2022/2/2 13:33
 func (builder *ReminderBuilder) NotifyDateTime(notifyDateTime string) *ReminderBuilder {
 	builder.notifyDateTime = notifyDateTime
-	builder.notifyDateTimeFlag = true
+	builder.notifyDateTimeSet = true
 	return builder
 }
 
@@ -4304,7 +4332,7 @@ func (builder *ReminderBuilder) NotifyDateTime(notifyDateTime string) *ReminderB
 // 示例值：ou_xxxxxx
 func (builder *ReminderBuilder) NotifyUserId(notifyUserId []string) *ReminderBuilder {
 	builder.notifyUserId = notifyUserId
-	builder.notifyUserIdFlag = true
+	builder.notifyUserIdSet = true
 	return builder
 }
 
@@ -4313,7 +4341,7 @@ func (builder *ReminderBuilder) NotifyUserId(notifyUserId []string) *ReminderBui
 // 示例值：hello
 func (builder *ReminderBuilder) NotifyText(notifyText string) *ReminderBuilder {
 	builder.notifyText = notifyText
-	builder.notifyTextFlag = true
+	builder.notifyTextSet = true
 	return builder
 }
 
@@ -4322,24 +4350,24 @@ func (builder *ReminderBuilder) NotifyText(notifyText string) *ReminderBuilder {
 // 示例值：AT_TIME
 func (builder *ReminderBuilder) NotifyStrategy(notifyStrategy string) *ReminderBuilder {
 	builder.notifyStrategy = notifyStrategy
-	builder.notifyStrategyFlag = true
+	builder.notifyStrategySet = true
 	return builder
 }
 
 func (builder *ReminderBuilder) Build() *Reminder {
 	req := &Reminder{}
-	if builder.notifyDateTimeFlag {
+	if builder.notifyDateTimeSet {
 		req.NotifyDateTime = &builder.notifyDateTime
 
 	}
-	if builder.notifyUserIdFlag {
+	if builder.notifyUserIdSet {
 		req.NotifyUserId = builder.notifyUserId
 	}
-	if builder.notifyTextFlag {
+	if builder.notifyTextSet {
 		req.NotifyText = &builder.notifyText
 
 	}
-	if builder.notifyStrategyFlag {
+	if builder.notifyStrategySet {
 		req.NotifyStrategy = &builder.notifyStrategy
 
 	}
@@ -4355,14 +4383,14 @@ type Replace struct {
 }
 
 type ReplaceBuilder struct {
-	findCondition     *FindCondition // 查找条件
-	findConditionFlag bool
+	findCondition    *FindCondition // 查找条件
+	findConditionSet bool
 
-	find     string // 查找的字符串
-	findFlag bool
+	find    string // 查找的字符串
+	findSet bool
 
-	replacement     string // 替换的字符串
-	replacementFlag bool
+	replacement    string // 替换的字符串
+	replacementSet bool
 }
 
 func NewReplaceBuilder() *ReplaceBuilder {
@@ -4375,7 +4403,7 @@ func NewReplaceBuilder() *ReplaceBuilder {
 // 示例值：
 func (builder *ReplaceBuilder) FindCondition(findCondition *FindCondition) *ReplaceBuilder {
 	builder.findCondition = findCondition
-	builder.findConditionFlag = true
+	builder.findConditionSet = true
 	return builder
 }
 
@@ -4384,7 +4412,7 @@ func (builder *ReplaceBuilder) FindCondition(findCondition *FindCondition) *Repl
 // 示例值：hello
 func (builder *ReplaceBuilder) Find(find string) *ReplaceBuilder {
 	builder.find = find
-	builder.findFlag = true
+	builder.findSet = true
 	return builder
 }
 
@@ -4393,20 +4421,20 @@ func (builder *ReplaceBuilder) Find(find string) *ReplaceBuilder {
 // 示例值：world
 func (builder *ReplaceBuilder) Replacement(replacement string) *ReplaceBuilder {
 	builder.replacement = replacement
-	builder.replacementFlag = true
+	builder.replacementSet = true
 	return builder
 }
 
 func (builder *ReplaceBuilder) Build() *Replace {
 	req := &Replace{}
-	if builder.findConditionFlag {
+	if builder.findConditionSet {
 		req.FindCondition = builder.findCondition
 	}
-	if builder.findFlag {
+	if builder.findSet {
 		req.Find = &builder.find
 
 	}
-	if builder.replacementFlag {
+	if builder.replacementSet {
 		req.Replacement = &builder.replacement
 
 	}
@@ -4421,10 +4449,10 @@ type RichTextValueRange struct {
 
 type RichTextValueRangeBuilder struct {
 	range_    string // 范围
-	rangeFlag bool
+	range_Set bool
 
-	values     [][][]*CellValue // 数据
-	valuesFlag bool
+	values    [][][]*CellValue // 数据
+	valuesSet bool
 }
 
 func NewRichTextValueRangeBuilder() *RichTextValueRangeBuilder {
@@ -4437,7 +4465,7 @@ func NewRichTextValueRangeBuilder() *RichTextValueRangeBuilder {
 // 示例值：Sheet1!A1:A2
 func (builder *RichTextValueRangeBuilder) Range(range_ string) *RichTextValueRangeBuilder {
 	builder.range_ = range_
-	builder.rangeFlag = true
+	builder.range_Set = true
 	return builder
 }
 
@@ -4446,17 +4474,17 @@ func (builder *RichTextValueRangeBuilder) Range(range_ string) *RichTextValueRan
 // 示例值：
 func (builder *RichTextValueRangeBuilder) Values(values [][][]*CellValue) *RichTextValueRangeBuilder {
 	builder.values = values
-	builder.valuesFlag = true
+	builder.valuesSet = true
 	return builder
 }
 
 func (builder *RichTextValueRangeBuilder) Build() *RichTextValueRange {
 	req := &RichTextValueRange{}
-	if builder.rangeFlag {
+	if builder.range_Set {
 		req.Range = &builder.range_
 
 	}
-	if builder.valuesFlag {
+	if builder.valuesSet {
 		req.Values = builder.values
 	}
 	return req
@@ -4467,8 +4495,8 @@ type RichValue struct {
 }
 
 type RichValueBuilder struct {
-	values     [][][]*CellValue // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
-	valuesFlag bool
+	values    [][][]*CellValue // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+	valuesSet bool
 }
 
 func NewRichValueBuilder() *RichValueBuilder {
@@ -4481,13 +4509,13 @@ func NewRichValueBuilder() *RichValueBuilder {
 // 示例值：数据
 func (builder *RichValueBuilder) Values(values [][][]*CellValue) *RichValueBuilder {
 	builder.values = values
-	builder.valuesFlag = true
+	builder.valuesSet = true
 	return builder
 }
 
 func (builder *RichValueBuilder) Build() *RichValue {
 	req := &RichValue{}
-	if builder.valuesFlag {
+	if builder.valuesSet {
 		req.Values = builder.values
 	}
 	return req
@@ -4500,11 +4528,11 @@ type RightBorderStyle struct {
 }
 
 type RightBorderStyleBuilder struct {
-	style     string // 边框样式
-	styleFlag bool
+	style    string // 边框样式
+	styleSet bool
 
-	color     string // 边框颜色
-	colorFlag bool
+	color    string // 边框颜色
+	colorSet bool
 }
 
 func NewRightBorderStyleBuilder() *RightBorderStyleBuilder {
@@ -4517,7 +4545,7 @@ func NewRightBorderStyleBuilder() *RightBorderStyleBuilder {
 // 示例值：
 func (builder *RightBorderStyleBuilder) Style(style string) *RightBorderStyleBuilder {
 	builder.style = style
-	builder.styleFlag = true
+	builder.styleSet = true
 	return builder
 }
 
@@ -4526,17 +4554,17 @@ func (builder *RightBorderStyleBuilder) Style(style string) *RightBorderStyleBui
 // 示例值：#ff00ff
 func (builder *RightBorderStyleBuilder) Color(color string) *RightBorderStyleBuilder {
 	builder.color = color
-	builder.colorFlag = true
+	builder.colorSet = true
 	return builder
 }
 
 func (builder *RightBorderStyleBuilder) Build() *RightBorderStyle {
 	req := &RightBorderStyle{}
-	if builder.styleFlag {
+	if builder.styleSet {
 		req.Style = &builder.style
 
 	}
-	if builder.colorFlag {
+	if builder.colorSet {
 		req.Color = &builder.color
 
 	}
@@ -4550,11 +4578,11 @@ type SegmentStyle struct {
 }
 
 type SegmentStyleBuilder struct {
-	affectedText     string // 影响的文本
-	affectedTextFlag bool
+	affectedText    string // 影响的文本
+	affectedTextSet bool
 
-	style     *SegmentStyleStyle // 样式
-	styleFlag bool
+	style    *SegmentStyleStyle // 样式
+	styleSet bool
 }
 
 func NewSegmentStyleBuilder() *SegmentStyleBuilder {
@@ -4567,7 +4595,7 @@ func NewSegmentStyleBuilder() *SegmentStyleBuilder {
 // 示例值：a
 func (builder *SegmentStyleBuilder) AffectedText(affectedText string) *SegmentStyleBuilder {
 	builder.affectedText = affectedText
-	builder.affectedTextFlag = true
+	builder.affectedTextSet = true
 	return builder
 }
 
@@ -4576,17 +4604,17 @@ func (builder *SegmentStyleBuilder) AffectedText(affectedText string) *SegmentSt
 // 示例值：
 func (builder *SegmentStyleBuilder) Style(style *SegmentStyleStyle) *SegmentStyleBuilder {
 	builder.style = style
-	builder.styleFlag = true
+	builder.styleSet = true
 	return builder
 }
 
 func (builder *SegmentStyleBuilder) Build() *SegmentStyle {
 	req := &SegmentStyle{}
-	if builder.affectedTextFlag {
+	if builder.affectedTextSet {
 		req.AffectedText = &builder.affectedText
 
 	}
-	if builder.styleFlag {
+	if builder.styleSet {
 		req.Style = builder.style
 	}
 	return req
@@ -4607,23 +4635,23 @@ type SegmentStyleStyle struct {
 }
 
 type SegmentStyleStyleBuilder struct {
-	bold     bool // 加粗
-	boldFlag bool
+	bold    bool // 加粗
+	boldSet bool
 
-	italic     bool // 斜体
-	italicFlag bool
+	italic    bool // 斜体
+	italicSet bool
 
-	strikeThrough     bool // 删除线
-	strikeThroughFlag bool
+	strikeThrough    bool // 删除线
+	strikeThroughSet bool
 
-	underline     bool // 下划线
-	underlineFlag bool
+	underline    bool // 下划线
+	underlineSet bool
 
-	foreColor     string // 字体颜色
-	foreColorFlag bool
+	foreColor    string // 字体颜色
+	foreColorSet bool
 
-	fontSize     int // 字体大小
-	fontSizeFlag bool
+	fontSize    int // 字体大小
+	fontSizeSet bool
 }
 
 func NewSegmentStyleStyleBuilder() *SegmentStyleStyleBuilder {
@@ -4636,7 +4664,7 @@ func NewSegmentStyleStyleBuilder() *SegmentStyleStyleBuilder {
 // 示例值：true
 func (builder *SegmentStyleStyleBuilder) Bold(bold bool) *SegmentStyleStyleBuilder {
 	builder.bold = bold
-	builder.boldFlag = true
+	builder.boldSet = true
 	return builder
 }
 
@@ -4645,7 +4673,7 @@ func (builder *SegmentStyleStyleBuilder) Bold(bold bool) *SegmentStyleStyleBuild
 // 示例值：true
 func (builder *SegmentStyleStyleBuilder) Italic(italic bool) *SegmentStyleStyleBuilder {
 	builder.italic = italic
-	builder.italicFlag = true
+	builder.italicSet = true
 	return builder
 }
 
@@ -4654,7 +4682,7 @@ func (builder *SegmentStyleStyleBuilder) Italic(italic bool) *SegmentStyleStyleB
 // 示例值：true
 func (builder *SegmentStyleStyleBuilder) StrikeThrough(strikeThrough bool) *SegmentStyleStyleBuilder {
 	builder.strikeThrough = strikeThrough
-	builder.strikeThroughFlag = true
+	builder.strikeThroughSet = true
 	return builder
 }
 
@@ -4663,7 +4691,7 @@ func (builder *SegmentStyleStyleBuilder) StrikeThrough(strikeThrough bool) *Segm
 // 示例值：true
 func (builder *SegmentStyleStyleBuilder) Underline(underline bool) *SegmentStyleStyleBuilder {
 	builder.underline = underline
-	builder.underlineFlag = true
+	builder.underlineSet = true
 	return builder
 }
 
@@ -4672,7 +4700,7 @@ func (builder *SegmentStyleStyleBuilder) Underline(underline bool) *SegmentStyle
 // 示例值：#ff00ff
 func (builder *SegmentStyleStyleBuilder) ForeColor(foreColor string) *SegmentStyleStyleBuilder {
 	builder.foreColor = foreColor
-	builder.foreColorFlag = true
+	builder.foreColorSet = true
 	return builder
 }
 
@@ -4681,33 +4709,33 @@ func (builder *SegmentStyleStyleBuilder) ForeColor(foreColor string) *SegmentSty
 // 示例值：
 func (builder *SegmentStyleStyleBuilder) FontSize(fontSize int) *SegmentStyleStyleBuilder {
 	builder.fontSize = fontSize
-	builder.fontSizeFlag = true
+	builder.fontSizeSet = true
 	return builder
 }
 
 func (builder *SegmentStyleStyleBuilder) Build() *SegmentStyleStyle {
 	req := &SegmentStyleStyle{}
-	if builder.boldFlag {
+	if builder.boldSet {
 		req.Bold = &builder.bold
 
 	}
-	if builder.italicFlag {
+	if builder.italicSet {
 		req.Italic = &builder.italic
 
 	}
-	if builder.strikeThroughFlag {
+	if builder.strikeThroughSet {
 		req.StrikeThrough = &builder.strikeThrough
 
 	}
-	if builder.underlineFlag {
+	if builder.underlineSet {
 		req.Underline = &builder.underline
 
 	}
-	if builder.foreColorFlag {
+	if builder.foreColorSet {
 		req.ForeColor = &builder.foreColor
 
 	}
-	if builder.fontSizeFlag {
+	if builder.fontSizeSet {
 		req.FontSize = &builder.fontSize
 
 	}
@@ -4731,26 +4759,26 @@ type Sheet struct {
 }
 
 type SheetBuilder struct {
-	sheetId     string // 工作表id
-	sheetIdFlag bool
+	sheetId    string // 工作表id
+	sheetIdSet bool
 
-	title     string // 工作表标题
-	titleFlag bool
+	title    string // 工作表标题
+	titleSet bool
 
-	index     int // 工作表索引位置，索引从 0 开始计数。
-	indexFlag bool
+	index    int // 工作表索引位置，索引从 0 开始计数。
+	indexSet bool
 
-	hidden     bool // 工作表是否被隐藏;- `true`：表示被隐藏;- `false`：表示未被隐藏
-	hiddenFlag bool
+	hidden    bool // 工作表是否被隐藏;- `true`：表示被隐藏;- `false`：表示未被隐藏
+	hiddenSet bool
 
-	gridProperties     *GridProperties // 单元格属性
-	gridPropertiesFlag bool
+	gridProperties    *GridProperties // 单元格属性
+	gridPropertiesSet bool
 
-	resourceType     string // 工作表类型;- `sheet`：工作表;- `bitable`：多维表格，[多维表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview);- `#UNSUPPORTED_TYPE`：不支持的类型
-	resourceTypeFlag bool
+	resourceType    string // 工作表类型;- `sheet`：工作表;- `bitable`：多维表格，[多维表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview);- `#UNSUPPORTED_TYPE`：不支持的类型
+	resourceTypeSet bool
 
-	merges     []*MergeRange // 合并单元格的相关信息
-	mergesFlag bool
+	merges    []*MergeRange // 合并单元格的相关信息
+	mergesSet bool
 }
 
 func NewSheetBuilder() *SheetBuilder {
@@ -4763,7 +4791,7 @@ func NewSheetBuilder() *SheetBuilder {
 // 示例值：sxj5ws
 func (builder *SheetBuilder) SheetId(sheetId string) *SheetBuilder {
 	builder.sheetId = sheetId
-	builder.sheetIdFlag = true
+	builder.sheetIdSet = true
 	return builder
 }
 
@@ -4772,7 +4800,7 @@ func (builder *SheetBuilder) SheetId(sheetId string) *SheetBuilder {
 // 示例值：title
 func (builder *SheetBuilder) Title(title string) *SheetBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -4781,7 +4809,7 @@ func (builder *SheetBuilder) Title(title string) *SheetBuilder {
 // 示例值：0
 func (builder *SheetBuilder) Index(index int) *SheetBuilder {
 	builder.index = index
-	builder.indexFlag = true
+	builder.indexSet = true
 	return builder
 }
 
@@ -4790,7 +4818,7 @@ func (builder *SheetBuilder) Index(index int) *SheetBuilder {
 // 示例值：false
 func (builder *SheetBuilder) Hidden(hidden bool) *SheetBuilder {
 	builder.hidden = hidden
-	builder.hiddenFlag = true
+	builder.hiddenSet = true
 	return builder
 }
 
@@ -4799,7 +4827,7 @@ func (builder *SheetBuilder) Hidden(hidden bool) *SheetBuilder {
 // 示例值：
 func (builder *SheetBuilder) GridProperties(gridProperties *GridProperties) *SheetBuilder {
 	builder.gridProperties = gridProperties
-	builder.gridPropertiesFlag = true
+	builder.gridPropertiesSet = true
 	return builder
 }
 
@@ -4808,7 +4836,7 @@ func (builder *SheetBuilder) GridProperties(gridProperties *GridProperties) *She
 // 示例值：sheet
 func (builder *SheetBuilder) ResourceType(resourceType string) *SheetBuilder {
 	builder.resourceType = resourceType
-	builder.resourceTypeFlag = true
+	builder.resourceTypeSet = true
 	return builder
 }
 
@@ -4817,36 +4845,36 @@ func (builder *SheetBuilder) ResourceType(resourceType string) *SheetBuilder {
 // 示例值：
 func (builder *SheetBuilder) Merges(merges []*MergeRange) *SheetBuilder {
 	builder.merges = merges
-	builder.mergesFlag = true
+	builder.mergesSet = true
 	return builder
 }
 
 func (builder *SheetBuilder) Build() *Sheet {
 	req := &Sheet{}
-	if builder.sheetIdFlag {
+	if builder.sheetIdSet {
 		req.SheetId = &builder.sheetId
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.indexFlag {
+	if builder.indexSet {
 		req.Index = &builder.index
 
 	}
-	if builder.hiddenFlag {
+	if builder.hiddenSet {
 		req.Hidden = &builder.hidden
 
 	}
-	if builder.gridPropertiesFlag {
+	if builder.gridPropertiesSet {
 		req.GridProperties = builder.gridProperties
 	}
-	if builder.resourceTypeFlag {
+	if builder.resourceTypeSet {
 		req.ResourceType = &builder.resourceType
 
 	}
-	if builder.mergesFlag {
+	if builder.mergesSet {
 		req.Merges = builder.merges
 	}
 	return req
@@ -4862,13 +4890,13 @@ type SheetFilterInfo struct {
 
 type SheetFilterInfoBuilder struct {
 	range_    string // 筛选应用范围
-	rangeFlag bool
+	range_Set bool
 
-	filteredOutRows     []int // 筛选出来隐藏的行
-	filteredOutRowsFlag bool
+	filteredOutRows    []int // 筛选出来隐藏的行
+	filteredOutRowsSet bool
 
-	filterInfos     []*FilterInfo // sheet的筛选条件
-	filterInfosFlag bool
+	filterInfos    []*FilterInfo // sheet的筛选条件
+	filterInfosSet bool
 }
 
 func NewSheetFilterInfoBuilder() *SheetFilterInfoBuilder {
@@ -4881,7 +4909,7 @@ func NewSheetFilterInfoBuilder() *SheetFilterInfoBuilder {
 // 示例值：xxxxxx!A1:H14
 func (builder *SheetFilterInfoBuilder) Range(range_ string) *SheetFilterInfoBuilder {
 	builder.range_ = range_
-	builder.rangeFlag = true
+	builder.range_Set = true
 	return builder
 }
 
@@ -4890,7 +4918,7 @@ func (builder *SheetFilterInfoBuilder) Range(range_ string) *SheetFilterInfoBuil
 // 示例值：
 func (builder *SheetFilterInfoBuilder) FilteredOutRows(filteredOutRows []int) *SheetFilterInfoBuilder {
 	builder.filteredOutRows = filteredOutRows
-	builder.filteredOutRowsFlag = true
+	builder.filteredOutRowsSet = true
 	return builder
 }
 
@@ -4899,20 +4927,20 @@ func (builder *SheetFilterInfoBuilder) FilteredOutRows(filteredOutRows []int) *S
 // 示例值：
 func (builder *SheetFilterInfoBuilder) FilterInfos(filterInfos []*FilterInfo) *SheetFilterInfoBuilder {
 	builder.filterInfos = filterInfos
-	builder.filterInfosFlag = true
+	builder.filterInfosSet = true
 	return builder
 }
 
 func (builder *SheetFilterInfoBuilder) Build() *SheetFilterInfo {
 	req := &SheetFilterInfo{}
-	if builder.rangeFlag {
+	if builder.range_Set {
 		req.Range = &builder.range_
 
 	}
-	if builder.filteredOutRowsFlag {
+	if builder.filteredOutRowsSet {
 		req.FilteredOutRows = builder.filteredOutRows
 	}
-	if builder.filterInfosFlag {
+	if builder.filterInfosSet {
 		req.FilterInfos = builder.filterInfos
 	}
 	return req
@@ -4929,17 +4957,17 @@ type SheetProperties struct {
 }
 
 type SheetPropertiesBuilder struct {
-	rowCount     int // 工作表行数
-	rowCountFlag bool
+	rowCount    int // 工作表行数
+	rowCountSet bool
 
-	columnCount     int // 工作表列数
-	columnCountFlag bool
+	columnCount    int // 工作表列数
+	columnCountSet bool
 
-	frozenRowCount     int // 冻结行数
-	frozenRowCountFlag bool
+	frozenRowCount    int // 冻结行数
+	frozenRowCountSet bool
 
-	frozenColumnCount     int // 冻结列数
-	frozenColumnCountFlag bool
+	frozenColumnCount    int // 冻结列数
+	frozenColumnCountSet bool
 }
 
 func NewSheetPropertiesBuilder() *SheetPropertiesBuilder {
@@ -4952,7 +4980,7 @@ func NewSheetPropertiesBuilder() *SheetPropertiesBuilder {
 // 示例值：1
 func (builder *SheetPropertiesBuilder) RowCount(rowCount int) *SheetPropertiesBuilder {
 	builder.rowCount = rowCount
-	builder.rowCountFlag = true
+	builder.rowCountSet = true
 	return builder
 }
 
@@ -4961,7 +4989,7 @@ func (builder *SheetPropertiesBuilder) RowCount(rowCount int) *SheetPropertiesBu
 // 示例值：1
 func (builder *SheetPropertiesBuilder) ColumnCount(columnCount int) *SheetPropertiesBuilder {
 	builder.columnCount = columnCount
-	builder.columnCountFlag = true
+	builder.columnCountSet = true
 	return builder
 }
 
@@ -4970,7 +4998,7 @@ func (builder *SheetPropertiesBuilder) ColumnCount(columnCount int) *SheetProper
 // 示例值：1
 func (builder *SheetPropertiesBuilder) FrozenRowCount(frozenRowCount int) *SheetPropertiesBuilder {
 	builder.frozenRowCount = frozenRowCount
-	builder.frozenRowCountFlag = true
+	builder.frozenRowCountSet = true
 	return builder
 }
 
@@ -4979,25 +5007,25 @@ func (builder *SheetPropertiesBuilder) FrozenRowCount(frozenRowCount int) *Sheet
 // 示例值：1
 func (builder *SheetPropertiesBuilder) FrozenColumnCount(frozenColumnCount int) *SheetPropertiesBuilder {
 	builder.frozenColumnCount = frozenColumnCount
-	builder.frozenColumnCountFlag = true
+	builder.frozenColumnCountSet = true
 	return builder
 }
 
 func (builder *SheetPropertiesBuilder) Build() *SheetProperties {
 	req := &SheetProperties{}
-	if builder.rowCountFlag {
+	if builder.rowCountSet {
 		req.RowCount = &builder.rowCount
 
 	}
-	if builder.columnCountFlag {
+	if builder.columnCountSet {
 		req.ColumnCount = &builder.columnCount
 
 	}
-	if builder.frozenRowCountFlag {
+	if builder.frozenRowCountSet {
 		req.FrozenRowCount = &builder.frozenRowCount
 
 	}
-	if builder.frozenColumnCountFlag {
+	if builder.frozenColumnCountSet {
 		req.FrozenColumnCount = &builder.frozenColumnCount
 
 	}
@@ -5016,16 +5044,16 @@ type SingleOption struct {
 
 type SingleOptionBuilder struct {
 	type_    string // 单选类型
-	typeFlag bool
+	type_Set bool
 
 	range_    string // 引用数据的范围，当type=OneOfRange时必须存在
-	rangeFlag bool
+	range_Set bool
 
-	dataValidationValues     []*DataValidationValue // 选项
-	dataValidationValuesFlag bool
+	dataValidationValues    []*DataValidationValue // 选项
+	dataValidationValuesSet bool
 
-	properties     *OptionProperties // 属性
-	propertiesFlag bool
+	properties    *OptionProperties // 属性
+	propertiesSet bool
 }
 
 func NewSingleOptionBuilder() *SingleOptionBuilder {
@@ -5038,7 +5066,7 @@ func NewSingleOptionBuilder() *SingleOptionBuilder {
 // 示例值：OneOfList
 func (builder *SingleOptionBuilder) Type(type_ string) *SingleOptionBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -5047,7 +5075,7 @@ func (builder *SingleOptionBuilder) Type(type_ string) *SingleOptionBuilder {
 // 示例值：as8jJ0!A1:B2
 func (builder *SingleOptionBuilder) Range(range_ string) *SingleOptionBuilder {
 	builder.range_ = range_
-	builder.rangeFlag = true
+	builder.range_Set = true
 	return builder
 }
 
@@ -5056,7 +5084,7 @@ func (builder *SingleOptionBuilder) Range(range_ string) *SingleOptionBuilder {
 // 示例值：
 func (builder *SingleOptionBuilder) DataValidationValues(dataValidationValues []*DataValidationValue) *SingleOptionBuilder {
 	builder.dataValidationValues = dataValidationValues
-	builder.dataValidationValuesFlag = true
+	builder.dataValidationValuesSet = true
 	return builder
 }
 
@@ -5065,24 +5093,24 @@ func (builder *SingleOptionBuilder) DataValidationValues(dataValidationValues []
 // 示例值：
 func (builder *SingleOptionBuilder) Properties(properties *OptionProperties) *SingleOptionBuilder {
 	builder.properties = properties
-	builder.propertiesFlag = true
+	builder.propertiesSet = true
 	return builder
 }
 
 func (builder *SingleOptionBuilder) Build() *SingleOption {
 	req := &SingleOption{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.rangeFlag {
+	if builder.range_Set {
 		req.Range = &builder.range_
 
 	}
-	if builder.dataValidationValuesFlag {
+	if builder.dataValidationValuesSet {
 		req.DataValidationValues = builder.dataValidationValues
 	}
-	if builder.propertiesFlag {
+	if builder.propertiesSet {
 		req.Properties = builder.properties
 	}
 	return req
@@ -5101,20 +5129,20 @@ type Spreadsheet struct {
 }
 
 type SpreadsheetBuilder struct {
-	title     string // 表格标题
-	titleFlag bool
+	title    string // 表格标题
+	titleSet bool
 
-	folderToken     string // 文件夹token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
-	folderTokenFlag bool
+	folderToken    string // 文件夹token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
+	folderTokenSet bool
 
-	url     string // 文档url
-	urlFlag bool
+	url    string // 文档url
+	urlSet bool
 
-	spreadsheetToken     string // 表格token
-	spreadsheetTokenFlag bool
+	spreadsheetToken    string // 表格token
+	spreadsheetTokenSet bool
 
-	withoutMount     bool // 是否挂载到云空间
-	withoutMountFlag bool
+	withoutMount    bool // 是否挂载到云空间
+	withoutMountSet bool
 }
 
 func NewSpreadsheetBuilder() *SpreadsheetBuilder {
@@ -5127,7 +5155,7 @@ func NewSpreadsheetBuilder() *SpreadsheetBuilder {
 // 示例值：title
 func (builder *SpreadsheetBuilder) Title(title string) *SpreadsheetBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -5136,7 +5164,7 @@ func (builder *SpreadsheetBuilder) Title(title string) *SpreadsheetBuilder {
 // 示例值：fldcnMsNb*****hIW9IjG1LVswg
 func (builder *SpreadsheetBuilder) FolderToken(folderToken string) *SpreadsheetBuilder {
 	builder.folderToken = folderToken
-	builder.folderTokenFlag = true
+	builder.folderTokenSet = true
 	return builder
 }
 
@@ -5145,7 +5173,7 @@ func (builder *SpreadsheetBuilder) FolderToken(folderToken string) *SpreadsheetB
 // 示例值：https://bytedance.feishu.cn/sheets/shtcnmBA*****yGehy8
 func (builder *SpreadsheetBuilder) Url(url string) *SpreadsheetBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -5154,7 +5182,7 @@ func (builder *SpreadsheetBuilder) Url(url string) *SpreadsheetBuilder {
 // 示例值：shtcnmBA*****yGehy8
 func (builder *SpreadsheetBuilder) SpreadsheetToken(spreadsheetToken string) *SpreadsheetBuilder {
 	builder.spreadsheetToken = spreadsheetToken
-	builder.spreadsheetTokenFlag = true
+	builder.spreadsheetTokenSet = true
 	return builder
 }
 
@@ -5163,29 +5191,29 @@ func (builder *SpreadsheetBuilder) SpreadsheetToken(spreadsheetToken string) *Sp
 // 示例值：false
 func (builder *SpreadsheetBuilder) WithoutMount(withoutMount bool) *SpreadsheetBuilder {
 	builder.withoutMount = withoutMount
-	builder.withoutMountFlag = true
+	builder.withoutMountSet = true
 	return builder
 }
 
 func (builder *SpreadsheetBuilder) Build() *Spreadsheet {
 	req := &Spreadsheet{}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.folderTokenFlag {
+	if builder.folderTokenSet {
 		req.FolderToken = &builder.folderToken
 
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.spreadsheetTokenFlag {
+	if builder.spreadsheetTokenSet {
 		req.SpreadsheetToken = &builder.spreadsheetToken
 
 	}
-	if builder.withoutMountFlag {
+	if builder.withoutMountSet {
 		req.WithoutMount = &builder.withoutMount
 
 	}
@@ -5200,10 +5228,10 @@ type Style struct {
 
 type StyleBuilder struct {
 	range_    string // 范围
-	rangeFlag bool
+	range_Set bool
 
-	styles     [][]*CellStyle // 单元格样式
-	stylesFlag bool
+	styles    [][]*CellStyle // 单元格样式
+	stylesSet bool
 }
 
 func NewStyleBuilder() *StyleBuilder {
@@ -5216,7 +5244,7 @@ func NewStyleBuilder() *StyleBuilder {
 // 示例值：aokNvv
 func (builder *StyleBuilder) Range(range_ string) *StyleBuilder {
 	builder.range_ = range_
-	builder.rangeFlag = true
+	builder.range_Set = true
 	return builder
 }
 
@@ -5225,17 +5253,17 @@ func (builder *StyleBuilder) Range(range_ string) *StyleBuilder {
 // 示例值：
 func (builder *StyleBuilder) Styles(styles [][]*CellStyle) *StyleBuilder {
 	builder.styles = styles
-	builder.stylesFlag = true
+	builder.stylesSet = true
 	return builder
 }
 
 func (builder *StyleBuilder) Build() *Style {
 	req := &Style{}
-	if builder.rangeFlag {
+	if builder.range_Set {
 		req.Range = &builder.range_
 
 	}
-	if builder.stylesFlag {
+	if builder.stylesSet {
 		req.Styles = builder.styles
 	}
 	return req
@@ -5246,8 +5274,8 @@ type StyleRanges struct {
 }
 
 type StyleRangesBuilder struct {
-	styleRanges     []*Style // 单元格样式
-	styleRangesFlag bool
+	styleRanges    []*Style // 单元格样式
+	styleRangesSet bool
 }
 
 func NewStyleRangesBuilder() *StyleRangesBuilder {
@@ -5260,13 +5288,13 @@ func NewStyleRangesBuilder() *StyleRangesBuilder {
 // 示例值：
 func (builder *StyleRangesBuilder) StyleRanges(styleRanges []*Style) *StyleRangesBuilder {
 	builder.styleRanges = styleRanges
-	builder.styleRangesFlag = true
+	builder.styleRangesSet = true
 	return builder
 }
 
 func (builder *StyleRangesBuilder) Build() *StyleRanges {
 	req := &StyleRanges{}
-	if builder.styleRangesFlag {
+	if builder.styleRangesSet {
 		req.StyleRanges = builder.styleRanges
 	}
 	return req
@@ -5279,11 +5307,11 @@ type Text struct {
 }
 
 type TextBuilder struct {
-	text     string // 文本值
-	textFlag bool
+	text    string // 文本值
+	textSet bool
 
-	segmentStyle     *SegmentStyle //
-	segmentStyleFlag bool
+	segmentStyle    *SegmentStyle //
+	segmentStyleSet bool
 }
 
 func NewTextBuilder() *TextBuilder {
@@ -5296,24 +5324,26 @@ func NewTextBuilder() *TextBuilder {
 // 示例值：abc
 func (builder *TextBuilder) Text(text string) *TextBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *TextBuilder) SegmentStyle(segmentStyle *SegmentStyle) *TextBuilder {
 	builder.segmentStyle = segmentStyle
-	builder.segmentStyleFlag = true
+	builder.segmentStyleSet = true
 	return builder
 }
 
 func (builder *TextBuilder) Build() *Text {
 	req := &Text{}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
-	if builder.segmentStyleFlag {
+	if builder.segmentStyleSet {
 		req.SegmentStyle = builder.segmentStyle
 	}
 	return req
@@ -5326,11 +5356,11 @@ type TopBorderStyle struct {
 }
 
 type TopBorderStyleBuilder struct {
-	style     string // 边框样式
-	styleFlag bool
+	style    string // 边框样式
+	styleSet bool
 
-	color     string // 边框颜色
-	colorFlag bool
+	color    string // 边框颜色
+	colorSet bool
 }
 
 func NewTopBorderStyleBuilder() *TopBorderStyleBuilder {
@@ -5343,7 +5373,7 @@ func NewTopBorderStyleBuilder() *TopBorderStyleBuilder {
 // 示例值：
 func (builder *TopBorderStyleBuilder) Style(style string) *TopBorderStyleBuilder {
 	builder.style = style
-	builder.styleFlag = true
+	builder.styleSet = true
 	return builder
 }
 
@@ -5352,17 +5382,17 @@ func (builder *TopBorderStyleBuilder) Style(style string) *TopBorderStyleBuilder
 // 示例值：#ff00ff
 func (builder *TopBorderStyleBuilder) Color(color string) *TopBorderStyleBuilder {
 	builder.color = color
-	builder.colorFlag = true
+	builder.colorSet = true
 	return builder
 }
 
 func (builder *TopBorderStyleBuilder) Build() *TopBorderStyle {
 	req := &TopBorderStyle{}
-	if builder.styleFlag {
+	if builder.styleSet {
 		req.Style = &builder.style
 
 	}
-	if builder.colorFlag {
+	if builder.colorSet {
 		req.Color = &builder.color
 
 	}
@@ -5376,11 +5406,11 @@ type UpdateDimensionProperties struct {
 }
 
 type UpdateDimensionPropertiesBuilder struct {
-	dimensionRange     *Dimension // 需要更新的行列信息
-	dimensionRangeFlag bool
+	dimensionRange    *Dimension // 需要更新的行列信息
+	dimensionRangeSet bool
 
-	properties     *DimensionProperties // 更新的属性
-	propertiesFlag bool
+	properties    *DimensionProperties // 更新的属性
+	propertiesSet bool
 }
 
 func NewUpdateDimensionPropertiesBuilder() *UpdateDimensionPropertiesBuilder {
@@ -5393,7 +5423,7 @@ func NewUpdateDimensionPropertiesBuilder() *UpdateDimensionPropertiesBuilder {
 // 示例值：
 func (builder *UpdateDimensionPropertiesBuilder) DimensionRange(dimensionRange *Dimension) *UpdateDimensionPropertiesBuilder {
 	builder.dimensionRange = dimensionRange
-	builder.dimensionRangeFlag = true
+	builder.dimensionRangeSet = true
 	return builder
 }
 
@@ -5402,16 +5432,16 @@ func (builder *UpdateDimensionPropertiesBuilder) DimensionRange(dimensionRange *
 // 示例值：
 func (builder *UpdateDimensionPropertiesBuilder) Properties(properties *DimensionProperties) *UpdateDimensionPropertiesBuilder {
 	builder.properties = properties
-	builder.propertiesFlag = true
+	builder.propertiesSet = true
 	return builder
 }
 
 func (builder *UpdateDimensionPropertiesBuilder) Build() *UpdateDimensionProperties {
 	req := &UpdateDimensionProperties{}
-	if builder.dimensionRangeFlag {
+	if builder.dimensionRangeSet {
 		req.DimensionRange = builder.dimensionRange
 	}
-	if builder.propertiesFlag {
+	if builder.propertiesSet {
 		req.Properties = builder.properties
 	}
 	return req
@@ -5424,11 +5454,11 @@ type UpdateGridProperties struct {
 }
 
 type UpdateGridPropertiesBuilder struct {
-	frozenRowCount     int // 冻结行数
-	frozenRowCountFlag bool
+	frozenRowCount    int // 冻结行数
+	frozenRowCountSet bool
 
-	frozenColumnCount     int // 冻结列数
-	frozenColumnCountFlag bool
+	frozenColumnCount    int // 冻结列数
+	frozenColumnCountSet bool
 }
 
 func NewUpdateGridPropertiesBuilder() *UpdateGridPropertiesBuilder {
@@ -5441,7 +5471,7 @@ func NewUpdateGridPropertiesBuilder() *UpdateGridPropertiesBuilder {
 // 示例值：1
 func (builder *UpdateGridPropertiesBuilder) FrozenRowCount(frozenRowCount int) *UpdateGridPropertiesBuilder {
 	builder.frozenRowCount = frozenRowCount
-	builder.frozenRowCountFlag = true
+	builder.frozenRowCountSet = true
 	return builder
 }
 
@@ -5450,17 +5480,17 @@ func (builder *UpdateGridPropertiesBuilder) FrozenRowCount(frozenRowCount int) *
 // 示例值：1
 func (builder *UpdateGridPropertiesBuilder) FrozenColumnCount(frozenColumnCount int) *UpdateGridPropertiesBuilder {
 	builder.frozenColumnCount = frozenColumnCount
-	builder.frozenColumnCountFlag = true
+	builder.frozenColumnCountSet = true
 	return builder
 }
 
 func (builder *UpdateGridPropertiesBuilder) Build() *UpdateGridProperties {
 	req := &UpdateGridProperties{}
-	if builder.frozenRowCountFlag {
+	if builder.frozenRowCountSet {
 		req.FrozenRowCount = &builder.frozenRowCount
 
 	}
-	if builder.frozenColumnCountFlag {
+	if builder.frozenColumnCountSet {
 		req.FrozenColumnCount = &builder.frozenColumnCount
 
 	}
@@ -5474,11 +5504,11 @@ type UpdateSheetFilter struct {
 }
 
 type UpdateSheetFilterBuilder struct {
-	col     string // 更新筛选条件的列
-	colFlag bool
+	col    string // 更新筛选条件的列
+	colSet bool
 
-	condition     *Condition // 筛选条件
-	conditionFlag bool
+	condition    *Condition // 筛选条件
+	conditionSet bool
 }
 
 func NewUpdateSheetFilterBuilder() *UpdateSheetFilterBuilder {
@@ -5491,7 +5521,7 @@ func NewUpdateSheetFilterBuilder() *UpdateSheetFilterBuilder {
 // 示例值：E
 func (builder *UpdateSheetFilterBuilder) Col(col string) *UpdateSheetFilterBuilder {
 	builder.col = col
-	builder.colFlag = true
+	builder.colSet = true
 	return builder
 }
 
@@ -5500,17 +5530,17 @@ func (builder *UpdateSheetFilterBuilder) Col(col string) *UpdateSheetFilterBuild
 // 示例值：
 func (builder *UpdateSheetFilterBuilder) Condition(condition *Condition) *UpdateSheetFilterBuilder {
 	builder.condition = condition
-	builder.conditionFlag = true
+	builder.conditionSet = true
 	return builder
 }
 
 func (builder *UpdateSheetFilterBuilder) Build() *UpdateSheetFilter {
 	req := &UpdateSheetFilter{}
-	if builder.colFlag {
+	if builder.colSet {
 		req.Col = &builder.col
 
 	}
-	if builder.conditionFlag {
+	if builder.conditionSet {
 		req.Condition = builder.condition
 	}
 	return req
@@ -5521,8 +5551,8 @@ type UpdateSpreadsheetProperties struct {
 }
 
 type UpdateSpreadsheetPropertiesBuilder struct {
-	title     string // 表格标题
-	titleFlag bool
+	title    string // 表格标题
+	titleSet bool
 }
 
 func NewUpdateSpreadsheetPropertiesBuilder() *UpdateSpreadsheetPropertiesBuilder {
@@ -5535,13 +5565,13 @@ func NewUpdateSpreadsheetPropertiesBuilder() *UpdateSpreadsheetPropertiesBuilder
 // 示例值：title
 func (builder *UpdateSpreadsheetPropertiesBuilder) Title(title string) *UpdateSpreadsheetPropertiesBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
 func (builder *UpdateSpreadsheetPropertiesBuilder) Build() *UpdateSpreadsheetProperties {
 	req := &UpdateSpreadsheetProperties{}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
@@ -5556,10 +5586,10 @@ type Value struct {
 
 type ValueBuilder struct {
 	range_    string // 范围
-	rangeFlag bool
+	range_Set bool
 
-	values     [][][]*CellValue // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
-	valuesFlag bool
+	values    [][][]*CellValue // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+	valuesSet bool
 }
 
 func NewValueBuilder() *ValueBuilder {
@@ -5572,7 +5602,7 @@ func NewValueBuilder() *ValueBuilder {
 // 示例值：Sheet1!A1:A2
 func (builder *ValueBuilder) Range(range_ string) *ValueBuilder {
 	builder.range_ = range_
-	builder.rangeFlag = true
+	builder.range_Set = true
 	return builder
 }
 
@@ -5581,17 +5611,17 @@ func (builder *ValueBuilder) Range(range_ string) *ValueBuilder {
 // 示例值：[]
 func (builder *ValueBuilder) Values(values [][][]*CellValue) *ValueBuilder {
 	builder.values = values
-	builder.valuesFlag = true
+	builder.valuesSet = true
 	return builder
 }
 
 func (builder *ValueBuilder) Build() *Value {
 	req := &Value{}
-	if builder.rangeFlag {
+	if builder.range_Set {
 		req.Range = &builder.range_
 
 	}
-	if builder.valuesFlag {
+	if builder.valuesSet {
 		req.Values = builder.values
 	}
 	return req
@@ -5602,8 +5632,8 @@ type ValueElement struct {
 }
 
 type ValueElementBuilder struct {
-	value     string // 整型或浮点型数值
-	valueFlag bool
+	value    string // 整型或浮点型数值
+	valueSet bool
 }
 
 func NewValueElementBuilder() *ValueElementBuilder {
@@ -5616,13 +5646,13 @@ func NewValueElementBuilder() *ValueElementBuilder {
 // 示例值：
 func (builder *ValueElementBuilder) Value(value string) *ValueElementBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *ValueElementBuilder) Build() *ValueElement {
 	req := &ValueElement{}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -5636,11 +5666,11 @@ type ValueElementSingleOption struct {
 }
 
 type ValueElementSingleOptionBuilder struct {
-	dataValidationId     int // 数据校验ID
-	dataValidationIdFlag bool
+	dataValidationId    int // 数据校验ID
+	dataValidationIdSet bool
 
-	dataValiditonValue     string // 选项值
-	dataValiditonValueFlag bool
+	dataValiditonValue    string // 选项值
+	dataValiditonValueSet bool
 }
 
 func NewValueElementSingleOptionBuilder() *ValueElementSingleOptionBuilder {
@@ -5653,7 +5683,7 @@ func NewValueElementSingleOptionBuilder() *ValueElementSingleOptionBuilder {
 // 示例值：1
 func (builder *ValueElementSingleOptionBuilder) DataValidationId(dataValidationId int) *ValueElementSingleOptionBuilder {
 	builder.dataValidationId = dataValidationId
-	builder.dataValidationIdFlag = true
+	builder.dataValidationIdSet = true
 	return builder
 }
 
@@ -5662,17 +5692,17 @@ func (builder *ValueElementSingleOptionBuilder) DataValidationId(dataValidationI
 // 示例值：option1
 func (builder *ValueElementSingleOptionBuilder) DataValiditonValue(dataValiditonValue string) *ValueElementSingleOptionBuilder {
 	builder.dataValiditonValue = dataValiditonValue
-	builder.dataValiditonValueFlag = true
+	builder.dataValiditonValueSet = true
 	return builder
 }
 
 func (builder *ValueElementSingleOptionBuilder) Build() *ValueElementSingleOption {
 	req := &ValueElementSingleOption{}
-	if builder.dataValidationIdFlag {
+	if builder.dataValidationIdSet {
 		req.DataValidationId = &builder.dataValidationId
 
 	}
-	if builder.dataValiditonValueFlag {
+	if builder.dataValiditonValueSet {
 		req.DataValiditonValue = &builder.dataValiditonValue
 
 	}

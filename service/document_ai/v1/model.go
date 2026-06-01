@@ -32,8 +32,8 @@ type BankCard struct {
 }
 
 type BankCardBuilder struct {
-	entities     []*BankCardEntity // 识别出的实体类型
-	entitiesFlag bool
+	entities    []*BankCardEntity // 识别出的实体类型
+	entitiesSet bool
 }
 
 func NewBankCardBuilder() *BankCardBuilder {
@@ -46,13 +46,13 @@ func NewBankCardBuilder() *BankCardBuilder {
 // 示例值：
 func (builder *BankCardBuilder) Entities(entities []*BankCardEntity) *BankCardBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *BankCardBuilder) Build() *BankCard {
 	req := &BankCard{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
@@ -66,10 +66,10 @@ type BankCardEntity struct {
 
 type BankCardEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewBankCardEntityBuilder() *BankCardEntityBuilder {
@@ -82,7 +82,7 @@ func NewBankCardEntityBuilder() *BankCardEntityBuilder {
 // 示例值：card_number
 func (builder *BankCardEntityBuilder) Type(type_ string) *BankCardEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -91,17 +91,17 @@ func (builder *BankCardEntityBuilder) Type(type_ string) *BankCardEntityBuilder 
 // 示例值：5184********8888
 func (builder *BankCardEntityBuilder) Value(value string) *BankCardEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *BankCardEntityBuilder) Build() *BankCardEntity {
 	req := &BankCardEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -129,32 +129,32 @@ type BankEntity struct {
 }
 
 type BankEntityBuilder struct {
-	accountName     string // 账户名
-	accountNameFlag bool
+	accountName    string // 账户名
+	accountNameSet bool
 
-	bankName     string // 银行名称
-	bankNameFlag bool
+	bankName    string // 银行名称
+	bankNameSet bool
 
-	accountNumber     string // 账户ID
-	accountNumberFlag bool
+	accountNumber    string // 账户ID
+	accountNumberSet bool
 
-	phone     string // 电话
-	phoneFlag bool
+	phone    string // 电话
+	phoneSet bool
 
-	contacts     string // 联系人
-	contactsFlag bool
+	contacts    string // 联系人
+	contactsSet bool
 
-	taxNumber     string // 传真号码
-	taxNumberFlag bool
+	taxNumber    string // 传真号码
+	taxNumberSet bool
 
-	address     string // 联系地址
-	addressFlag bool
+	address    string // 联系地址
+	addressSet bool
 
-	idNumber     string // id号
-	idNumberFlag bool
+	idNumber    string // id号
+	idNumberSet bool
 
-	email     string // 邮箱
-	emailFlag bool
+	email    string // 邮箱
+	emailSet bool
 }
 
 func NewBankEntityBuilder() *BankEntityBuilder {
@@ -167,7 +167,7 @@ func NewBankEntityBuilder() *BankEntityBuilder {
 // 示例值：北京字节跳动网络技术有限公司
 func (builder *BankEntityBuilder) AccountName(accountName string) *BankEntityBuilder {
 	builder.accountName = accountName
-	builder.accountNameFlag = true
+	builder.accountNameSet = true
 	return builder
 }
 
@@ -176,7 +176,7 @@ func (builder *BankEntityBuilder) AccountName(accountName string) *BankEntityBui
 // 示例值：中国农业银行北京和平里支行
 func (builder *BankEntityBuilder) BankName(bankName string) *BankEntityBuilder {
 	builder.bankName = bankName
-	builder.bankNameFlag = true
+	builder.bankNameSet = true
 	return builder
 }
 
@@ -185,7 +185,7 @@ func (builder *BankEntityBuilder) BankName(bankName string) *BankEntityBuilder {
 // 示例值：1123012345004701
 func (builder *BankEntityBuilder) AccountNumber(accountNumber string) *BankEntityBuilder {
 	builder.accountNumber = accountNumber
-	builder.accountNumberFlag = true
+	builder.accountNumberSet = true
 	return builder
 }
 
@@ -194,7 +194,7 @@ func (builder *BankEntityBuilder) AccountNumber(accountNumber string) *BankEntit
 // 示例值：010-81234688
 func (builder *BankEntityBuilder) Phone(phone string) *BankEntityBuilder {
 	builder.phone = phone
-	builder.phoneFlag = true
+	builder.phoneSet = true
 	return builder
 }
 
@@ -203,7 +203,7 @@ func (builder *BankEntityBuilder) Phone(phone string) *BankEntityBuilder {
 // 示例值：张三
 func (builder *BankEntityBuilder) Contacts(contacts string) *BankEntityBuilder {
 	builder.contacts = contacts
-	builder.contactsFlag = true
+	builder.contactsSet = true
 	return builder
 }
 
@@ -212,7 +212,7 @@ func (builder *BankEntityBuilder) Contacts(contacts string) *BankEntityBuilder {
 // 示例值：91110112345684235
 func (builder *BankEntityBuilder) TaxNumber(taxNumber string) *BankEntityBuilder {
 	builder.taxNumber = taxNumber
-	builder.taxNumberFlag = true
+	builder.taxNumberSet = true
 	return builder
 }
 
@@ -221,7 +221,7 @@ func (builder *BankEntityBuilder) TaxNumber(taxNumber string) *BankEntityBuilder
 // 示例值：A市B区C园D楼3-8
 func (builder *BankEntityBuilder) Address(address string) *BankEntityBuilder {
 	builder.address = address
-	builder.addressFlag = true
+	builder.addressSet = true
 	return builder
 }
 
@@ -230,7 +230,7 @@ func (builder *BankEntityBuilder) Address(address string) *BankEntityBuilder {
 // 示例值：1123012345004701
 func (builder *BankEntityBuilder) IdNumber(idNumber string) *BankEntityBuilder {
 	builder.idNumber = idNumber
-	builder.idNumberFlag = true
+	builder.idNumberSet = true
 	return builder
 }
 
@@ -239,45 +239,45 @@ func (builder *BankEntityBuilder) IdNumber(idNumber string) *BankEntityBuilder {
 // 示例值：zhangsan.1111@bytedance.com
 func (builder *BankEntityBuilder) Email(email string) *BankEntityBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
 func (builder *BankEntityBuilder) Build() *BankEntity {
 	req := &BankEntity{}
-	if builder.accountNameFlag {
+	if builder.accountNameSet {
 		req.AccountName = &builder.accountName
 
 	}
-	if builder.bankNameFlag {
+	if builder.bankNameSet {
 		req.BankName = &builder.bankName
 
 	}
-	if builder.accountNumberFlag {
+	if builder.accountNumberSet {
 		req.AccountNumber = &builder.accountNumber
 
 	}
-	if builder.phoneFlag {
+	if builder.phoneSet {
 		req.Phone = &builder.phone
 
 	}
-	if builder.contactsFlag {
+	if builder.contactsSet {
 		req.Contacts = &builder.contacts
 
 	}
-	if builder.taxNumberFlag {
+	if builder.taxNumberSet {
 		req.TaxNumber = &builder.taxNumber
 
 	}
-	if builder.addressFlag {
+	if builder.addressSet {
 		req.Address = &builder.address
 
 	}
-	if builder.idNumberFlag {
+	if builder.idNumberSet {
 		req.IdNumber = &builder.idNumber
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
@@ -291,11 +291,11 @@ type BankInfo struct {
 }
 
 type BankInfoBuilder struct {
-	bankType     string // 甲乙方信息类型
-	bankTypeFlag bool
+	bankType    string // 甲乙方信息类型
+	bankTypeSet bool
 
-	value     *BankEntity // 值
-	valueFlag bool
+	value    *BankEntity // 值
+	valueSet bool
 }
 
 func NewBankInfoBuilder() *BankInfoBuilder {
@@ -308,7 +308,7 @@ func NewBankInfoBuilder() *BankInfoBuilder {
 // 示例值：buy
 func (builder *BankInfoBuilder) BankType(bankType string) *BankInfoBuilder {
 	builder.bankType = bankType
-	builder.bankTypeFlag = true
+	builder.bankTypeSet = true
 	return builder
 }
 
@@ -317,17 +317,17 @@ func (builder *BankInfoBuilder) BankType(bankType string) *BankInfoBuilder {
 // 示例值：value
 func (builder *BankInfoBuilder) Value(value *BankEntity) *BankInfoBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *BankInfoBuilder) Build() *BankInfo {
 	req := &BankInfo{}
-	if builder.bankTypeFlag {
+	if builder.bankTypeSet {
 		req.BankType = &builder.bankType
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = builder.value
 	}
 	return req
@@ -350,26 +350,26 @@ type BodyEntity struct {
 }
 
 type BodyEntityBuilder struct {
-	address     string // 地址
-	addressFlag bool
+	address    string // 地址
+	addressSet bool
 
-	contacts     string // 联系人
-	contactsFlag bool
+	contacts    string // 联系人
+	contactsSet bool
 
-	email     string // 邮箱
-	emailFlag bool
+	email    string // 邮箱
+	emailSet bool
 
-	phone     string // 电话
-	phoneFlag bool
+	phone    string // 电话
+	phoneSet bool
 
-	idNumber     string // ID
-	idNumberFlag bool
+	idNumber    string // ID
+	idNumberSet bool
 
-	legalRepresentative     string // 法人代表
-	legalRepresentativeFlag bool
+	legalRepresentative    string // 法人代表
+	legalRepresentativeSet bool
 
-	party     string // 当事人
-	partyFlag bool
+	party    string // 当事人
+	partySet bool
 }
 
 func NewBodyEntityBuilder() *BodyEntityBuilder {
@@ -382,7 +382,7 @@ func NewBodyEntityBuilder() *BodyEntityBuilder {
 // 示例值：北京市海淀区紫金数码园4号楼
 func (builder *BodyEntityBuilder) Address(address string) *BodyEntityBuilder {
 	builder.address = address
-	builder.addressFlag = true
+	builder.addressSet = true
 	return builder
 }
 
@@ -391,7 +391,7 @@ func (builder *BodyEntityBuilder) Address(address string) *BodyEntityBuilder {
 // 示例值：张三
 func (builder *BodyEntityBuilder) Contacts(contacts string) *BodyEntityBuilder {
 	builder.contacts = contacts
-	builder.contactsFlag = true
+	builder.contactsSet = true
 	return builder
 }
 
@@ -400,7 +400,7 @@ func (builder *BodyEntityBuilder) Contacts(contacts string) *BodyEntityBuilder {
 // 示例值：zhangsan.1111@bytedance.com
 func (builder *BodyEntityBuilder) Email(email string) *BodyEntityBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -409,7 +409,7 @@ func (builder *BodyEntityBuilder) Email(email string) *BodyEntityBuilder {
 // 示例值：13600000000
 func (builder *BodyEntityBuilder) Phone(phone string) *BodyEntityBuilder {
 	builder.phone = phone
-	builder.phoneFlag = true
+	builder.phoneSet = true
 	return builder
 }
 
@@ -418,7 +418,7 @@ func (builder *BodyEntityBuilder) Phone(phone string) *BodyEntityBuilder {
 // 示例值：310XXXXXXXXXXXXXXX
 func (builder *BodyEntityBuilder) IdNumber(idNumber string) *BodyEntityBuilder {
 	builder.idNumber = idNumber
-	builder.idNumberFlag = true
+	builder.idNumberSet = true
 	return builder
 }
 
@@ -427,7 +427,7 @@ func (builder *BodyEntityBuilder) IdNumber(idNumber string) *BodyEntityBuilder {
 // 示例值：张三
 func (builder *BodyEntityBuilder) LegalRepresentative(legalRepresentative string) *BodyEntityBuilder {
 	builder.legalRepresentative = legalRepresentative
-	builder.legalRepresentativeFlag = true
+	builder.legalRepresentativeSet = true
 	return builder
 }
 
@@ -436,37 +436,37 @@ func (builder *BodyEntityBuilder) LegalRepresentative(legalRepresentative string
 // 示例值：北京字节跳动网络技术有限公司
 func (builder *BodyEntityBuilder) Party(party string) *BodyEntityBuilder {
 	builder.party = party
-	builder.partyFlag = true
+	builder.partySet = true
 	return builder
 }
 
 func (builder *BodyEntityBuilder) Build() *BodyEntity {
 	req := &BodyEntity{}
-	if builder.addressFlag {
+	if builder.addressSet {
 		req.Address = &builder.address
 
 	}
-	if builder.contactsFlag {
+	if builder.contactsSet {
 		req.Contacts = &builder.contacts
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.phoneFlag {
+	if builder.phoneSet {
 		req.Phone = &builder.phone
 
 	}
-	if builder.idNumberFlag {
+	if builder.idNumberSet {
 		req.IdNumber = &builder.idNumber
 
 	}
-	if builder.legalRepresentativeFlag {
+	if builder.legalRepresentativeSet {
 		req.LegalRepresentative = &builder.legalRepresentative
 
 	}
-	if builder.partyFlag {
+	if builder.partySet {
 		req.Party = &builder.party
 
 	}
@@ -480,11 +480,11 @@ type BodyInfo struct {
 }
 
 type BodyInfoBuilder struct {
-	bodyType     string // 主体类型
-	bodyTypeFlag bool
+	bodyType    string // 主体类型
+	bodyTypeSet bool
 
-	value     *BodyEntity // 值
-	valueFlag bool
+	value    *BodyEntity // 值
+	valueSet bool
 }
 
 func NewBodyInfoBuilder() *BodyInfoBuilder {
@@ -497,7 +497,7 @@ func NewBodyInfoBuilder() *BodyInfoBuilder {
 // 示例值：buy
 func (builder *BodyInfoBuilder) BodyType(bodyType string) *BodyInfoBuilder {
 	builder.bodyType = bodyType
-	builder.bodyTypeFlag = true
+	builder.bodyTypeSet = true
 	return builder
 }
 
@@ -506,17 +506,17 @@ func (builder *BodyInfoBuilder) BodyType(bodyType string) *BodyInfoBuilder {
 // 示例值：value
 func (builder *BodyInfoBuilder) Value(value *BodyEntity) *BodyInfoBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *BodyInfoBuilder) Build() *BodyInfo {
 	req := &BodyInfo{}
-	if builder.bodyTypeFlag {
+	if builder.bodyTypeSet {
 		req.BodyType = &builder.bodyType
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = builder.value
 	}
 	return req
@@ -530,10 +530,10 @@ type BusinessEntity struct {
 
 type BusinessEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewBusinessEntityBuilder() *BusinessEntityBuilder {
@@ -546,7 +546,7 @@ func NewBusinessEntityBuilder() *BusinessEntityBuilder {
 // 示例值：legal_representative
 func (builder *BusinessEntityBuilder) Type(type_ string) *BusinessEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -555,17 +555,17 @@ func (builder *BusinessEntityBuilder) Type(type_ string) *BusinessEntityBuilder 
 // 示例值：张三
 func (builder *BusinessEntityBuilder) Value(value string) *BusinessEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *BusinessEntityBuilder) Build() *BusinessEntity {
 	req := &BusinessEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -577,8 +577,8 @@ type BusinessLicense struct {
 }
 
 type BusinessLicenseBuilder struct {
-	entities     []*BusinessEntity // 识别出的实体类型
-	entitiesFlag bool
+	entities    []*BusinessEntity // 识别出的实体类型
+	entitiesSet bool
 }
 
 func NewBusinessLicenseBuilder() *BusinessLicenseBuilder {
@@ -591,13 +591,13 @@ func NewBusinessLicenseBuilder() *BusinessLicenseBuilder {
 // 示例值：
 func (builder *BusinessLicenseBuilder) Entities(entities []*BusinessEntity) *BusinessLicenseBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *BusinessLicenseBuilder) Build() *BusinessLicense {
 	req := &BusinessLicense{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
@@ -608,8 +608,8 @@ type ChinesePassport struct {
 }
 
 type ChinesePassportBuilder struct {
-	entities     []*ChinesePassportEntity // 识别出的实体类型
-	entitiesFlag bool
+	entities    []*ChinesePassportEntity // 识别出的实体类型
+	entitiesSet bool
 }
 
 func NewChinesePassportBuilder() *ChinesePassportBuilder {
@@ -622,13 +622,13 @@ func NewChinesePassportBuilder() *ChinesePassportBuilder {
 // 示例值：
 func (builder *ChinesePassportBuilder) Entities(entities []*ChinesePassportEntity) *ChinesePassportBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *ChinesePassportBuilder) Build() *ChinesePassport {
 	req := &ChinesePassport{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
@@ -642,10 +642,10 @@ type ChinesePassportEntity struct {
 
 type ChinesePassportEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewChinesePassportEntityBuilder() *ChinesePassportEntityBuilder {
@@ -658,7 +658,7 @@ func NewChinesePassportEntityBuilder() *ChinesePassportEntityBuilder {
 // 示例值：full_name_cn
 func (builder *ChinesePassportEntityBuilder) Type(type_ string) *ChinesePassportEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -667,17 +667,17 @@ func (builder *ChinesePassportEntityBuilder) Type(type_ string) *ChinesePassport
 // 示例值：张三
 func (builder *ChinesePassportEntityBuilder) Value(value string) *ChinesePassportEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *ChinesePassportEntityBuilder) Build() *ChinesePassportEntity {
 	req := &ChinesePassportEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -693,14 +693,14 @@ type CodeDetail struct {
 }
 
 type CodeDetailBuilder struct {
-	language     string // 语言ID
-	languageFlag bool
+	language    string // 语言ID
+	languageSet bool
 
-	languageName     string // 语言名字
-	languageNameFlag bool
+	languageName    string // 语言名字
+	languageNameSet bool
 
-	content     string // 代码块内容
-	contentFlag bool
+	content    string // 代码块内容
+	contentSet bool
 }
 
 func NewCodeDetailBuilder() *CodeDetailBuilder {
@@ -713,7 +713,7 @@ func NewCodeDetailBuilder() *CodeDetailBuilder {
 // 示例值：22
 func (builder *CodeDetailBuilder) Language(language string) *CodeDetailBuilder {
 	builder.language = language
-	builder.languageFlag = true
+	builder.languageSet = true
 	return builder
 }
 
@@ -722,7 +722,7 @@ func (builder *CodeDetailBuilder) Language(language string) *CodeDetailBuilder {
 // 示例值：Go
 func (builder *CodeDetailBuilder) LanguageName(languageName string) *CodeDetailBuilder {
 	builder.languageName = languageName
-	builder.languageNameFlag = true
+	builder.languageNameSet = true
 	return builder
 }
 
@@ -731,21 +731,21 @@ func (builder *CodeDetailBuilder) LanguageName(languageName string) *CodeDetailB
 // 示例值：//引用中代码块\npackage main\n\nimport "fmt"\n\nfunc main() {\n	fmt.Println("Hello, World!")\n}\n
 func (builder *CodeDetailBuilder) Content(content string) *CodeDetailBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *CodeDetailBuilder) Build() *CodeDetail {
 	req := &CodeDetail{}
-	if builder.languageFlag {
+	if builder.languageSet {
 		req.Language = &builder.language
 
 	}
-	if builder.languageNameFlag {
+	if builder.languageNameSet {
 		req.LanguageName = &builder.languageName
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
@@ -759,11 +759,11 @@ type Currency struct {
 }
 
 type CurrencyBuilder struct {
-	currencyName     string // 币种名称
-	currencyNameFlag bool
+	currencyName    string // 币种名称
+	currencyNameSet bool
 
-	currencyText     string // 币种符号
-	currencyTextFlag bool
+	currencyText    string // 币种符号
+	currencyTextSet bool
 }
 
 func NewCurrencyBuilder() *CurrencyBuilder {
@@ -776,7 +776,7 @@ func NewCurrencyBuilder() *CurrencyBuilder {
 // 示例值：CNY
 func (builder *CurrencyBuilder) CurrencyName(currencyName string) *CurrencyBuilder {
 	builder.currencyName = currencyName
-	builder.currencyNameFlag = true
+	builder.currencyNameSet = true
 	return builder
 }
 
@@ -785,17 +785,17 @@ func (builder *CurrencyBuilder) CurrencyName(currencyName string) *CurrencyBuild
 // 示例值：¥
 func (builder *CurrencyBuilder) CurrencyText(currencyText string) *CurrencyBuilder {
 	builder.currencyText = currencyText
-	builder.currencyTextFlag = true
+	builder.currencyTextSet = true
 	return builder
 }
 
 func (builder *CurrencyBuilder) Build() *Currency {
 	req := &Currency{}
-	if builder.currencyNameFlag {
+	if builder.currencyNameSet {
 		req.CurrencyName = &builder.currencyName
 
 	}
-	if builder.currencyTextFlag {
+	if builder.currencyTextSet {
 		req.CurrencyText = &builder.currencyText
 
 	}
@@ -809,11 +809,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -821,27 +821,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -853,8 +857,8 @@ type DocChunkBboxItem struct {
 }
 
 type DocChunkBboxItemBuilder struct {
-	bboxPositions     []string // bbox坐标列表
-	bboxPositionsFlag bool
+	bboxPositions    []string // bbox坐标列表
+	bboxPositionsSet bool
 }
 
 func NewDocChunkBboxItemBuilder() *DocChunkBboxItemBuilder {
@@ -867,13 +871,13 @@ func NewDocChunkBboxItemBuilder() *DocChunkBboxItemBuilder {
 // 示例值：
 func (builder *DocChunkBboxItemBuilder) BboxPositions(bboxPositions []string) *DocChunkBboxItemBuilder {
 	builder.bboxPositions = bboxPositions
-	builder.bboxPositionsFlag = true
+	builder.bboxPositionsSet = true
 	return builder
 }
 
 func (builder *DocChunkBboxItemBuilder) Build() *DocChunkBboxItem {
 	req := &DocChunkBboxItem{}
-	if builder.bboxPositionsFlag {
+	if builder.bboxPositionsSet {
 		req.BboxPositions = builder.bboxPositions
 	}
 	return req
@@ -886,11 +890,11 @@ type DocChunkPosition struct {
 }
 
 type DocChunkPositionBuilder struct {
-	pageNumbers     []int // pdf文件解析结果所在页数
-	pageNumbersFlag bool
+	pageNumbers    []int // pdf文件解析结果所在页数
+	pageNumbersSet bool
 
-	bboxes     []*DocChunkBboxItem // pdf文件解析结果bbox信息
-	bboxesFlag bool
+	bboxes    []*DocChunkBboxItem // pdf文件解析结果bbox信息
+	bboxesSet bool
 }
 
 func NewDocChunkPositionBuilder() *DocChunkPositionBuilder {
@@ -903,7 +907,7 @@ func NewDocChunkPositionBuilder() *DocChunkPositionBuilder {
 // 示例值：
 func (builder *DocChunkPositionBuilder) PageNumbers(pageNumbers []int) *DocChunkPositionBuilder {
 	builder.pageNumbers = pageNumbers
-	builder.pageNumbersFlag = true
+	builder.pageNumbersSet = true
 	return builder
 }
 
@@ -912,16 +916,16 @@ func (builder *DocChunkPositionBuilder) PageNumbers(pageNumbers []int) *DocChunk
 // 示例值：
 func (builder *DocChunkPositionBuilder) Bboxes(bboxes []*DocChunkBboxItem) *DocChunkPositionBuilder {
 	builder.bboxes = bboxes
-	builder.bboxesFlag = true
+	builder.bboxesSet = true
 	return builder
 }
 
 func (builder *DocChunkPositionBuilder) Build() *DocChunkPosition {
 	req := &DocChunkPosition{}
-	if builder.pageNumbersFlag {
+	if builder.pageNumbersSet {
 		req.PageNumbers = builder.pageNumbers
 	}
-	if builder.bboxesFlag {
+	if builder.bboxesSet {
 		req.Bboxes = builder.bboxes
 	}
 	return req
@@ -964,56 +968,56 @@ type DocChunkResult struct {
 }
 
 type DocChunkResultBuilder struct {
-	id     int // 段落索引
-	idFlag bool
+	id    int // 段落索引
+	idSet bool
 
 	type_    string // 该chunk属于哪一种文档元素
-	typeFlag bool
+	type_Set bool
 
-	positions     *DocChunkPosition // chunk的位置信息，pdf文档中会有bbox和page_no
-	positionsFlag bool
+	positions    *DocChunkPosition // chunk的位置信息，pdf文档中会有bbox和page_no
+	positionsSet bool
 
-	text     string // 段落文本内容
-	textFlag bool
+	text    string // 段落文本内容
+	textSet bool
 
-	level     int // 段落层级，类似飞书文档的Hn
-	levelFlag bool
+	level    int // 段落层级，类似飞书文档的Hn
+	levelSet bool
 
-	parent     int // 当前段落父节点索引
-	parentFlag bool
+	parent    int // 当前段落父节点索引
+	parentSet bool
 
-	children     []int // 当前段落所有子节点索引
-	childrenFlag bool
+	children    []int // 当前段落所有子节点索引
+	childrenSet bool
 
-	label     string // 段落的语义标签，（以论文为例，会有title, author, abstract, introduction, related works...）
-	labelFlag bool
+	label    string // 段落的语义标签，（以论文为例，会有title, author, abstract, introduction, related works...）
+	labelSet bool
 
-	blockId     string // 飞书文档的block_id字段
-	blockIdFlag bool
+	blockId    string // 飞书文档的block_id字段
+	blockIdSet bool
 
-	tableDetail     *DocChunkTableDetail // 如chunk=table，则此字段包含表格信息
-	tableDetailFlag bool
+	tableDetail    *DocChunkTableDetail // 如chunk=table，则此字段包含表格信息
+	tableDetailSet bool
 
-	llmDetail     *LlmDetail // 多模态返回的详细信息
-	llmDetailFlag bool
+	llmDetail    *LlmDetail // 多模态返回的详细信息
+	llmDetailSet bool
 
-	imageDetail     *ImageDetail // 图片内容详细信息
-	imageDetailFlag bool
+	imageDetail    *ImageDetail // 图片内容详细信息
+	imageDetailSet bool
 
-	slideIndex     int // pptx文件里面的页码
-	slideIndexFlag bool
+	slideIndex    int // pptx文件里面的页码
+	slideIndexSet bool
 
-	mdText     string // 若to_md设置为true, md_collapsed设置为false, 各chunk转成markdown的结果；若chunk为表格，不管开启与否返回的都是表格的markdown结果
-	mdTextFlag bool
+	mdText    string // 若to_md设置为true, md_collapsed设置为false, 各chunk转成markdown的结果；若chunk为表格，不管开启与否返回的都是表格的markdown结果
+	mdTextSet bool
 
-	htmlText     string // 当chunk为表格的情况下，返回html的结果
-	htmlTextFlag bool
+	htmlText    string // 当chunk为表格的情况下，返回html的结果
+	htmlTextSet bool
 
-	fileDetail     *FileDetail // 文件信息 在type为file时用来表示文件信息
-	fileDetailFlag bool
+	fileDetail    *FileDetail // 文件信息 在type为file时用来表示文件信息
+	fileDetailSet bool
 
-	codeDetail     *CodeDetail // 飞书云文档返回的代码块信息
-	codeDetailFlag bool
+	codeDetail    *CodeDetail // 飞书云文档返回的代码块信息
+	codeDetailSet bool
 }
 
 func NewDocChunkResultBuilder() *DocChunkResultBuilder {
@@ -1026,7 +1030,7 @@ func NewDocChunkResultBuilder() *DocChunkResultBuilder {
 // 示例值：1
 func (builder *DocChunkResultBuilder) Id(id int) *DocChunkResultBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1035,7 +1039,7 @@ func (builder *DocChunkResultBuilder) Id(id int) *DocChunkResultBuilder {
 // 示例值：title
 func (builder *DocChunkResultBuilder) Type(type_ string) *DocChunkResultBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1044,7 +1048,7 @@ func (builder *DocChunkResultBuilder) Type(type_ string) *DocChunkResultBuilder 
 // 示例值：
 func (builder *DocChunkResultBuilder) Positions(positions *DocChunkPosition) *DocChunkResultBuilder {
 	builder.positions = positions
-	builder.positionsFlag = true
+	builder.positionsSet = true
 	return builder
 }
 
@@ -1053,7 +1057,7 @@ func (builder *DocChunkResultBuilder) Positions(positions *DocChunkPosition) *Do
 // 示例值：设备采购合同...
 func (builder *DocChunkResultBuilder) Text(text string) *DocChunkResultBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -1062,7 +1066,7 @@ func (builder *DocChunkResultBuilder) Text(text string) *DocChunkResultBuilder {
 // 示例值：1
 func (builder *DocChunkResultBuilder) Level(level int) *DocChunkResultBuilder {
 	builder.level = level
-	builder.levelFlag = true
+	builder.levelSet = true
 	return builder
 }
 
@@ -1071,7 +1075,7 @@ func (builder *DocChunkResultBuilder) Level(level int) *DocChunkResultBuilder {
 // 示例值：1
 func (builder *DocChunkResultBuilder) Parent(parent int) *DocChunkResultBuilder {
 	builder.parent = parent
-	builder.parentFlag = true
+	builder.parentSet = true
 	return builder
 }
 
@@ -1080,7 +1084,7 @@ func (builder *DocChunkResultBuilder) Parent(parent int) *DocChunkResultBuilder 
 // 示例值：
 func (builder *DocChunkResultBuilder) Children(children []int) *DocChunkResultBuilder {
 	builder.children = children
-	builder.childrenFlag = true
+	builder.childrenSet = true
 	return builder
 }
 
@@ -1089,7 +1093,7 @@ func (builder *DocChunkResultBuilder) Children(children []int) *DocChunkResultBu
 // 示例值：author
 func (builder *DocChunkResultBuilder) Label(label string) *DocChunkResultBuilder {
 	builder.label = label
-	builder.labelFlag = true
+	builder.labelSet = true
 	return builder
 }
 
@@ -1098,7 +1102,7 @@ func (builder *DocChunkResultBuilder) Label(label string) *DocChunkResultBuilder
 // 示例值：123
 func (builder *DocChunkResultBuilder) BlockId(blockId string) *DocChunkResultBuilder {
 	builder.blockId = blockId
-	builder.blockIdFlag = true
+	builder.blockIdSet = true
 	return builder
 }
 
@@ -1107,7 +1111,7 @@ func (builder *DocChunkResultBuilder) BlockId(blockId string) *DocChunkResultBui
 // 示例值：
 func (builder *DocChunkResultBuilder) TableDetail(tableDetail *DocChunkTableDetail) *DocChunkResultBuilder {
 	builder.tableDetail = tableDetail
-	builder.tableDetailFlag = true
+	builder.tableDetailSet = true
 	return builder
 }
 
@@ -1116,7 +1120,7 @@ func (builder *DocChunkResultBuilder) TableDetail(tableDetail *DocChunkTableDeta
 // 示例值：
 func (builder *DocChunkResultBuilder) LlmDetail(llmDetail *LlmDetail) *DocChunkResultBuilder {
 	builder.llmDetail = llmDetail
-	builder.llmDetailFlag = true
+	builder.llmDetailSet = true
 	return builder
 }
 
@@ -1125,7 +1129,7 @@ func (builder *DocChunkResultBuilder) LlmDetail(llmDetail *LlmDetail) *DocChunkR
 // 示例值：
 func (builder *DocChunkResultBuilder) ImageDetail(imageDetail *ImageDetail) *DocChunkResultBuilder {
 	builder.imageDetail = imageDetail
-	builder.imageDetailFlag = true
+	builder.imageDetailSet = true
 	return builder
 }
 
@@ -1134,7 +1138,7 @@ func (builder *DocChunkResultBuilder) ImageDetail(imageDetail *ImageDetail) *Doc
 // 示例值：0
 func (builder *DocChunkResultBuilder) SlideIndex(slideIndex int) *DocChunkResultBuilder {
 	builder.slideIndex = slideIndex
-	builder.slideIndexFlag = true
+	builder.slideIndexSet = true
 	return builder
 }
 
@@ -1143,7 +1147,7 @@ func (builder *DocChunkResultBuilder) SlideIndex(slideIndex int) *DocChunkResult
 // 示例值：本项目旨在提供一个简洁高效的视频处理服务，支持以下功能：  - 视频分段切片 - 精准帧抽取 - 帧图重命名与排序 - 多线程并发处理 - 抽帧结果打包上传
 func (builder *DocChunkResultBuilder) MdText(mdText string) *DocChunkResultBuilder {
 	builder.mdText = mdText
-	builder.mdTextFlag = true
+	builder.mdTextSet = true
 	return builder
 }
 
@@ -1152,7 +1156,7 @@ func (builder *DocChunkResultBuilder) MdText(mdText string) *DocChunkResultBuild
 // 示例值：<table border="1">   <thead>	 <tr>	   <th>用户名</th>	   <th>年龄</th>	   <th>邮箱</th>	   <th>状态</th>	 </tr>   </thead>   <tbody>	 <tr>	   <td>Alice</td>	   <td>24</td>	   <td>alice@example.com</td>	   <td>启用</td>	 </tr>	 <tr>	   <td>Bob</td>	   <td>30</td>	   <td>bob@example.com</td>	   <td>禁用</td>	 </tr>	 <tr>	   <td>Charlie</td>	   <td>28</td>	   <td>charlie@example.com</td>	   <td>启用</td>	 </tr>   </tbody> </table>
 func (builder *DocChunkResultBuilder) HtmlText(htmlText string) *DocChunkResultBuilder {
 	builder.htmlText = htmlText
-	builder.htmlTextFlag = true
+	builder.htmlTextSet = true
 	return builder
 }
 
@@ -1161,7 +1165,7 @@ func (builder *DocChunkResultBuilder) HtmlText(htmlText string) *DocChunkResultB
 // 示例值：
 func (builder *DocChunkResultBuilder) FileDetail(fileDetail *FileDetail) *DocChunkResultBuilder {
 	builder.fileDetail = fileDetail
-	builder.fileDetailFlag = true
+	builder.fileDetailSet = true
 	return builder
 }
 
@@ -1170,71 +1174,71 @@ func (builder *DocChunkResultBuilder) FileDetail(fileDetail *FileDetail) *DocChu
 // 示例值：
 func (builder *DocChunkResultBuilder) CodeDetail(codeDetail *CodeDetail) *DocChunkResultBuilder {
 	builder.codeDetail = codeDetail
-	builder.codeDetailFlag = true
+	builder.codeDetailSet = true
 	return builder
 }
 
 func (builder *DocChunkResultBuilder) Build() *DocChunkResult {
 	req := &DocChunkResult{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.positionsFlag {
+	if builder.positionsSet {
 		req.Positions = builder.positions
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
-	if builder.levelFlag {
+	if builder.levelSet {
 		req.Level = &builder.level
 
 	}
-	if builder.parentFlag {
+	if builder.parentSet {
 		req.Parent = &builder.parent
 
 	}
-	if builder.childrenFlag {
+	if builder.childrenSet {
 		req.Children = builder.children
 	}
-	if builder.labelFlag {
+	if builder.labelSet {
 		req.Label = &builder.label
 
 	}
-	if builder.blockIdFlag {
+	if builder.blockIdSet {
 		req.BlockId = &builder.blockId
 
 	}
-	if builder.tableDetailFlag {
+	if builder.tableDetailSet {
 		req.TableDetail = builder.tableDetail
 	}
-	if builder.llmDetailFlag {
+	if builder.llmDetailSet {
 		req.LlmDetail = builder.llmDetail
 	}
-	if builder.imageDetailFlag {
+	if builder.imageDetailSet {
 		req.ImageDetail = builder.imageDetail
 	}
-	if builder.slideIndexFlag {
+	if builder.slideIndexSet {
 		req.SlideIndex = &builder.slideIndex
 
 	}
-	if builder.mdTextFlag {
+	if builder.mdTextSet {
 		req.MdText = &builder.mdText
 
 	}
-	if builder.htmlTextFlag {
+	if builder.htmlTextSet {
 		req.HtmlText = &builder.htmlText
 
 	}
-	if builder.fileDetailFlag {
+	if builder.fileDetailSet {
 		req.FileDetail = builder.fileDetail
 	}
-	if builder.codeDetailFlag {
+	if builder.codeDetailSet {
 		req.CodeDetail = builder.codeDetail
 	}
 	return req
@@ -1272,46 +1276,46 @@ type DocChunkTableCell struct {
 
 type DocChunkTableCellBuilder struct {
 	type_    string // 现在只有paragraph，目前只支持文本形式的单元格内容返回
-	typeFlag bool
+	type_Set bool
 
-	text     string // 文本内容
-	textFlag bool
+	text    string // 文本内容
+	textSet bool
 
-	x0     string // 单元格的bbox坐标（左）
-	x0Flag bool
+	x0    string // 单元格的bbox坐标（左）
+	x0Set bool
 
-	y0     string // 单元格的bbox坐标（上）
-	y0Flag bool
+	y0    string // 单元格的bbox坐标（上）
+	y0Set bool
 
-	x1     string // 单元格的bbox坐标（右）
-	x1Flag bool
+	x1    string // 单元格的bbox坐标（右）
+	x1Set bool
 
-	y1     string // 单元格的bbox坐标（下）
-	y1Flag bool
+	y1    string // 单元格的bbox坐标（下）
+	y1Set bool
 
-	rowIndex     int // 单元格行逻辑坐标，表示当前单元格在第rowIndex行
-	rowIndexFlag bool
+	rowIndex    int // 单元格行逻辑坐标，表示当前单元格在第rowIndex行
+	rowIndexSet bool
 
-	colIndex     int // 单元格列逻辑坐标，表示当前单元格在第colIndex列
-	colIndexFlag bool
+	colIndex    int // 单元格列逻辑坐标，表示当前单元格在第colIndex列
+	colIndexSet bool
 
-	rowSpan     int // 单元格占的行数
-	rowSpanFlag bool
+	rowSpan    int // 单元格占的行数
+	rowSpanSet bool
 
-	colSpan     int // 单元格占的列数
-	colSpanFlag bool
+	colSpan    int // 单元格占的列数
+	colSpanSet bool
 
-	isMergeCell     bool // 是否为合并单元格
-	isMergeCellFlag bool
+	isMergeCell    bool // 是否为合并单元格
+	isMergeCellSet bool
 
-	images     []string // 单元格内部图片列表（base64 / 文件token）
-	imagesFlag bool
+	images    []string // 单元格内部图片列表（base64 / 文件token）
+	imagesSet bool
 
-	files     []string // 单元格内部文件列表（临时链接 / 文件token）
-	filesFlag bool
+	files    []string // 单元格内部文件列表（临时链接 / 文件token）
+	filesSet bool
 
-	isHeader     bool // 是否是表头
-	isHeaderFlag bool
+	isHeader    bool // 是否是表头
+	isHeaderSet bool
 }
 
 func NewDocChunkTableCellBuilder() *DocChunkTableCellBuilder {
@@ -1324,7 +1328,7 @@ func NewDocChunkTableCellBuilder() *DocChunkTableCellBuilder {
 // 示例值：paragraph
 func (builder *DocChunkTableCellBuilder) Type(type_ string) *DocChunkTableCellBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1333,7 +1337,7 @@ func (builder *DocChunkTableCellBuilder) Type(type_ string) *DocChunkTableCellBu
 // 示例值：Transformer-CC...
 func (builder *DocChunkTableCellBuilder) Text(text string) *DocChunkTableCellBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -1342,7 +1346,7 @@ func (builder *DocChunkTableCellBuilder) Text(text string) *DocChunkTableCellBui
 // 示例值：181.0478
 func (builder *DocChunkTableCellBuilder) X0(x0 string) *DocChunkTableCellBuilder {
 	builder.x0 = x0
-	builder.x0Flag = true
+	builder.x0Set = true
 	return builder
 }
 
@@ -1351,7 +1355,7 @@ func (builder *DocChunkTableCellBuilder) X0(x0 string) *DocChunkTableCellBuilder
 // 示例值：57.51546
 func (builder *DocChunkTableCellBuilder) Y0(y0 string) *DocChunkTableCellBuilder {
 	builder.y0 = y0
-	builder.y0Flag = true
+	builder.y0Set = true
 	return builder
 }
 
@@ -1360,7 +1364,7 @@ func (builder *DocChunkTableCellBuilder) Y0(y0 string) *DocChunkTableCellBuilder
 // 示例值：197.11617
 func (builder *DocChunkTableCellBuilder) X1(x1 string) *DocChunkTableCellBuilder {
 	builder.x1 = x1
-	builder.x1Flag = true
+	builder.x1Set = true
 	return builder
 }
 
@@ -1369,7 +1373,7 @@ func (builder *DocChunkTableCellBuilder) X1(x1 string) *DocChunkTableCellBuilder
 // 示例值：62.600098
 func (builder *DocChunkTableCellBuilder) Y1(y1 string) *DocChunkTableCellBuilder {
 	builder.y1 = y1
-	builder.y1Flag = true
+	builder.y1Set = true
 	return builder
 }
 
@@ -1378,7 +1382,7 @@ func (builder *DocChunkTableCellBuilder) Y1(y1 string) *DocChunkTableCellBuilder
 // 示例值：10
 func (builder *DocChunkTableCellBuilder) RowIndex(rowIndex int) *DocChunkTableCellBuilder {
 	builder.rowIndex = rowIndex
-	builder.rowIndexFlag = true
+	builder.rowIndexSet = true
 	return builder
 }
 
@@ -1387,7 +1391,7 @@ func (builder *DocChunkTableCellBuilder) RowIndex(rowIndex int) *DocChunkTableCe
 // 示例值：10
 func (builder *DocChunkTableCellBuilder) ColIndex(colIndex int) *DocChunkTableCellBuilder {
 	builder.colIndex = colIndex
-	builder.colIndexFlag = true
+	builder.colIndexSet = true
 	return builder
 }
 
@@ -1396,7 +1400,7 @@ func (builder *DocChunkTableCellBuilder) ColIndex(colIndex int) *DocChunkTableCe
 // 示例值：3
 func (builder *DocChunkTableCellBuilder) RowSpan(rowSpan int) *DocChunkTableCellBuilder {
 	builder.rowSpan = rowSpan
-	builder.rowSpanFlag = true
+	builder.rowSpanSet = true
 	return builder
 }
 
@@ -1405,7 +1409,7 @@ func (builder *DocChunkTableCellBuilder) RowSpan(rowSpan int) *DocChunkTableCell
 // 示例值：3
 func (builder *DocChunkTableCellBuilder) ColSpan(colSpan int) *DocChunkTableCellBuilder {
 	builder.colSpan = colSpan
-	builder.colSpanFlag = true
+	builder.colSpanSet = true
 	return builder
 }
 
@@ -1414,7 +1418,7 @@ func (builder *DocChunkTableCellBuilder) ColSpan(colSpan int) *DocChunkTableCell
 // 示例值：
 func (builder *DocChunkTableCellBuilder) IsMergeCell(isMergeCell bool) *DocChunkTableCellBuilder {
 	builder.isMergeCell = isMergeCell
-	builder.isMergeCellFlag = true
+	builder.isMergeCellSet = true
 	return builder
 }
 
@@ -1423,7 +1427,7 @@ func (builder *DocChunkTableCellBuilder) IsMergeCell(isMergeCell bool) *DocChunk
 // 示例值：
 func (builder *DocChunkTableCellBuilder) Images(images []string) *DocChunkTableCellBuilder {
 	builder.images = images
-	builder.imagesFlag = true
+	builder.imagesSet = true
 	return builder
 }
 
@@ -1432,7 +1436,7 @@ func (builder *DocChunkTableCellBuilder) Images(images []string) *DocChunkTableC
 // 示例值：
 func (builder *DocChunkTableCellBuilder) Files(files []string) *DocChunkTableCellBuilder {
 	builder.files = files
-	builder.filesFlag = true
+	builder.filesSet = true
 	return builder
 }
 
@@ -1441,63 +1445,63 @@ func (builder *DocChunkTableCellBuilder) Files(files []string) *DocChunkTableCel
 // 示例值：
 func (builder *DocChunkTableCellBuilder) IsHeader(isHeader bool) *DocChunkTableCellBuilder {
 	builder.isHeader = isHeader
-	builder.isHeaderFlag = true
+	builder.isHeaderSet = true
 	return builder
 }
 
 func (builder *DocChunkTableCellBuilder) Build() *DocChunkTableCell {
 	req := &DocChunkTableCell{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
-	if builder.x0Flag {
+	if builder.x0Set {
 		req.X0 = &builder.x0
 
 	}
-	if builder.y0Flag {
+	if builder.y0Set {
 		req.Y0 = &builder.y0
 
 	}
-	if builder.x1Flag {
+	if builder.x1Set {
 		req.X1 = &builder.x1
 
 	}
-	if builder.y1Flag {
+	if builder.y1Set {
 		req.Y1 = &builder.y1
 
 	}
-	if builder.rowIndexFlag {
+	if builder.rowIndexSet {
 		req.RowIndex = &builder.rowIndex
 
 	}
-	if builder.colIndexFlag {
+	if builder.colIndexSet {
 		req.ColIndex = &builder.colIndex
 
 	}
-	if builder.rowSpanFlag {
+	if builder.rowSpanSet {
 		req.RowSpan = &builder.rowSpan
 
 	}
-	if builder.colSpanFlag {
+	if builder.colSpanSet {
 		req.ColSpan = &builder.colSpan
 
 	}
-	if builder.isMergeCellFlag {
+	if builder.isMergeCellSet {
 		req.IsMergeCell = &builder.isMergeCell
 
 	}
-	if builder.imagesFlag {
+	if builder.imagesSet {
 		req.Images = builder.images
 	}
-	if builder.filesFlag {
+	if builder.filesSet {
 		req.Files = builder.files
 	}
-	if builder.isHeaderFlag {
+	if builder.isHeaderSet {
 		req.IsHeader = &builder.isHeader
 
 	}
@@ -1531,41 +1535,41 @@ type DocChunkTableDetail struct {
 }
 
 type DocChunkTableDetailBuilder struct {
-	tableIdx     int // 全文的第n个表格
-	tableIdxFlag bool
+	tableIdx    int // 全文的第n个表格
+	tableIdxSet bool
 
-	text     string // 表格的所有文字内容，'\t\n'代表换行，'\t'代表新单元格
-	textFlag bool
+	text    string // 表格的所有文字内容，'\t\n'代表换行，'\t'代表新单元格
+	textSet bool
 
-	cells     []*DocChunkTableRow // 表格中全部cell的数据
-	cellsFlag bool
+	cells    []*DocChunkTableRow // 表格中全部cell的数据
+	cellsSet bool
 
-	tableName     string // 表格名称
-	tableNameFlag bool
+	tableName    string // 表格名称
+	tableNameSet bool
 
-	caption     string // 表格描述，当前为表格上下文
-	captionFlag bool
+	caption    string // 表格描述，当前为表格上下文
+	captionSet bool
 
-	mdText     string // 表格的markdown结果
-	mdTextFlag bool
+	mdText    string // 表格的markdown结果
+	mdTextSet bool
 
-	htmlText     string // 表格的html结果
-	htmlTextFlag bool
+	htmlText    string // 表格的html结果
+	htmlTextSet bool
 
-	tableImg     *TableImg // 整个表格区域直接转的图片
-	tableImgFlag bool
+	tableImg    *TableImg // 整个表格区域直接转的图片
+	tableImgSet bool
 
-	subTableIdx     int // 识别表头后拆分的子表ID
-	subTableIdxFlag bool
+	subTableIdx    int // 识别表头后拆分的子表ID
+	subTableIdxSet bool
 
-	tableRange     string // 子表的范围
-	tableRangeFlag bool
+	tableRange    string // 子表的范围
+	tableRangeSet bool
 
-	headerRanges     []string // 表头范围
-	headerRangesFlag bool
+	headerRanges    []string // 表头范围
+	headerRangesSet bool
 
-	descRanges     []string // 表格描述行的范围
-	descRangesFlag bool
+	descRanges    []string // 表格描述行的范围
+	descRangesSet bool
 }
 
 func NewDocChunkTableDetailBuilder() *DocChunkTableDetailBuilder {
@@ -1578,7 +1582,7 @@ func NewDocChunkTableDetailBuilder() *DocChunkTableDetailBuilder {
 // 示例值：1
 func (builder *DocChunkTableDetailBuilder) TableIdx(tableIdx int) *DocChunkTableDetailBuilder {
 	builder.tableIdx = tableIdx
-	builder.tableIdxFlag = true
+	builder.tableIdxSet = true
 	return builder
 }
 
@@ -1587,7 +1591,7 @@ func (builder *DocChunkTableDetailBuilder) TableIdx(tableIdx int) *DocChunkTable
 // 示例值：Code\tExecutable\tAST Matching\...
 func (builder *DocChunkTableDetailBuilder) Text(text string) *DocChunkTableDetailBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -1596,7 +1600,7 @@ func (builder *DocChunkTableDetailBuilder) Text(text string) *DocChunkTableDetai
 // 示例值：
 func (builder *DocChunkTableDetailBuilder) Cells(cells []*DocChunkTableRow) *DocChunkTableDetailBuilder {
 	builder.cells = cells
-	builder.cellsFlag = true
+	builder.cellsSet = true
 	return builder
 }
 
@@ -1605,7 +1609,7 @@ func (builder *DocChunkTableDetailBuilder) Cells(cells []*DocChunkTableRow) *Doc
 // 示例值：表格1
 func (builder *DocChunkTableDetailBuilder) TableName(tableName string) *DocChunkTableDetailBuilder {
 	builder.tableName = tableName
-	builder.tableNameFlag = true
+	builder.tableNameSet = true
 	return builder
 }
 
@@ -1614,7 +1618,7 @@ func (builder *DocChunkTableDetailBuilder) TableName(tableName string) *DocChunk
 // 示例值：表格描述了xxx
 func (builder *DocChunkTableDetailBuilder) Caption(caption string) *DocChunkTableDetailBuilder {
 	builder.caption = caption
-	builder.captionFlag = true
+	builder.captionSet = true
 	return builder
 }
 
@@ -1623,7 +1627,7 @@ func (builder *DocChunkTableDetailBuilder) Caption(caption string) *DocChunkTabl
 // 示例值：| 用户名   | 年龄 | 邮箱					| 状态   | |----------|------|-------------------------|--------| | Alice	| 24   | alice@example.com	   | 启用   | | Bob	  | 30   | bob@example.com		 | 禁用   | | Charlie  | 28   | charlie@example.com	 | 启用   |
 func (builder *DocChunkTableDetailBuilder) MdText(mdText string) *DocChunkTableDetailBuilder {
 	builder.mdText = mdText
-	builder.mdTextFlag = true
+	builder.mdTextSet = true
 	return builder
 }
 
@@ -1632,7 +1636,7 @@ func (builder *DocChunkTableDetailBuilder) MdText(mdText string) *DocChunkTableD
 // 示例值：<table border="1">   <thead>	 <tr>	   <th>用户名</th>	   <th>年龄</th>	   <th>邮箱</th>	   <th>状态</th>	 </tr>   </thead>   <tbody>	 <tr>	   <td>Alice</td>	   <td>24</td>	   <td>alice@example.com</td>	   <td>启用</td>	 </tr>	 <tr>	   <td>Bob</td>	   <td>30</td>	   <td>bob@example.com</td>	   <td>禁用</td>	 </tr>	 <tr>	   <td>Charlie</td>	   <td>28</td>	   <td>charlie@example.com</td>	   <td>启用</td>	 </tr>   </tbody> </table>
 func (builder *DocChunkTableDetailBuilder) HtmlText(htmlText string) *DocChunkTableDetailBuilder {
 	builder.htmlText = htmlText
-	builder.htmlTextFlag = true
+	builder.htmlTextSet = true
 	return builder
 }
 
@@ -1641,7 +1645,7 @@ func (builder *DocChunkTableDetailBuilder) HtmlText(htmlText string) *DocChunkTa
 // 示例值：
 func (builder *DocChunkTableDetailBuilder) TableImg(tableImg *TableImg) *DocChunkTableDetailBuilder {
 	builder.tableImg = tableImg
-	builder.tableImgFlag = true
+	builder.tableImgSet = true
 	return builder
 }
 
@@ -1650,7 +1654,7 @@ func (builder *DocChunkTableDetailBuilder) TableImg(tableImg *TableImg) *DocChun
 // 示例值：1
 func (builder *DocChunkTableDetailBuilder) SubTableIdx(subTableIdx int) *DocChunkTableDetailBuilder {
 	builder.subTableIdx = subTableIdx
-	builder.subTableIdxFlag = true
+	builder.subTableIdxSet = true
 	return builder
 }
 
@@ -1659,7 +1663,7 @@ func (builder *DocChunkTableDetailBuilder) SubTableIdx(subTableIdx int) *DocChun
 // 示例值：A1:B1
 func (builder *DocChunkTableDetailBuilder) TableRange(tableRange string) *DocChunkTableDetailBuilder {
 	builder.tableRange = tableRange
-	builder.tableRangeFlag = true
+	builder.tableRangeSet = true
 	return builder
 }
 
@@ -1668,7 +1672,7 @@ func (builder *DocChunkTableDetailBuilder) TableRange(tableRange string) *DocChu
 // 示例值：
 func (builder *DocChunkTableDetailBuilder) HeaderRanges(headerRanges []string) *DocChunkTableDetailBuilder {
 	builder.headerRanges = headerRanges
-	builder.headerRangesFlag = true
+	builder.headerRangesSet = true
 	return builder
 }
 
@@ -1677,54 +1681,54 @@ func (builder *DocChunkTableDetailBuilder) HeaderRanges(headerRanges []string) *
 // 示例值：
 func (builder *DocChunkTableDetailBuilder) DescRanges(descRanges []string) *DocChunkTableDetailBuilder {
 	builder.descRanges = descRanges
-	builder.descRangesFlag = true
+	builder.descRangesSet = true
 	return builder
 }
 
 func (builder *DocChunkTableDetailBuilder) Build() *DocChunkTableDetail {
 	req := &DocChunkTableDetail{}
-	if builder.tableIdxFlag {
+	if builder.tableIdxSet {
 		req.TableIdx = &builder.tableIdx
 
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
-	if builder.cellsFlag {
+	if builder.cellsSet {
 		req.Cells = builder.cells
 	}
-	if builder.tableNameFlag {
+	if builder.tableNameSet {
 		req.TableName = &builder.tableName
 
 	}
-	if builder.captionFlag {
+	if builder.captionSet {
 		req.Caption = &builder.caption
 
 	}
-	if builder.mdTextFlag {
+	if builder.mdTextSet {
 		req.MdText = &builder.mdText
 
 	}
-	if builder.htmlTextFlag {
+	if builder.htmlTextSet {
 		req.HtmlText = &builder.htmlText
 
 	}
-	if builder.tableImgFlag {
+	if builder.tableImgSet {
 		req.TableImg = builder.tableImg
 	}
-	if builder.subTableIdxFlag {
+	if builder.subTableIdxSet {
 		req.SubTableIdx = &builder.subTableIdx
 
 	}
-	if builder.tableRangeFlag {
+	if builder.tableRangeSet {
 		req.TableRange = &builder.tableRange
 
 	}
-	if builder.headerRangesFlag {
+	if builder.headerRangesSet {
 		req.HeaderRanges = builder.headerRanges
 	}
-	if builder.descRangesFlag {
+	if builder.descRangesSet {
 		req.DescRanges = builder.descRanges
 	}
 	return req
@@ -1735,8 +1739,8 @@ type DocChunkTableRow struct {
 }
 
 type DocChunkTableRowBuilder struct {
-	rowCells     []*DocChunkTableCell // 表格解析单行数据
-	rowCellsFlag bool
+	rowCells    []*DocChunkTableCell // 表格解析单行数据
+	rowCellsSet bool
 }
 
 func NewDocChunkTableRowBuilder() *DocChunkTableRowBuilder {
@@ -1749,13 +1753,13 @@ func NewDocChunkTableRowBuilder() *DocChunkTableRowBuilder {
 // 示例值：
 func (builder *DocChunkTableRowBuilder) RowCells(rowCells []*DocChunkTableCell) *DocChunkTableRowBuilder {
 	builder.rowCells = rowCells
-	builder.rowCellsFlag = true
+	builder.rowCellsSet = true
 	return builder
 }
 
 func (builder *DocChunkTableRowBuilder) Build() *DocChunkTableRow {
 	req := &DocChunkTableRow{}
-	if builder.rowCellsFlag {
+	if builder.rowCellsSet {
 		req.RowCells = builder.rowCells
 	}
 	return req
@@ -1769,10 +1773,10 @@ type DrivingEntity struct {
 
 type DrivingEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewDrivingEntityBuilder() *DrivingEntityBuilder {
@@ -1785,7 +1789,7 @@ func NewDrivingEntityBuilder() *DrivingEntityBuilder {
 // 示例值：name
 func (builder *DrivingEntityBuilder) Type(type_ string) *DrivingEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1794,17 +1798,17 @@ func (builder *DrivingEntityBuilder) Type(type_ string) *DrivingEntityBuilder {
 // 示例值：张三
 func (builder *DrivingEntityBuilder) Value(value string) *DrivingEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *DrivingEntityBuilder) Build() *DrivingEntity {
 	req := &DrivingEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -1816,8 +1820,8 @@ type DrvingLicense struct {
 }
 
 type DrvingLicenseBuilder struct {
-	entities     []*DrivingEntity // 识别出的实体类型
-	entitiesFlag bool
+	entities    []*DrivingEntity // 识别出的实体类型
+	entitiesSet bool
 }
 
 func NewDrvingLicenseBuilder() *DrvingLicenseBuilder {
@@ -1830,13 +1834,13 @@ func NewDrvingLicenseBuilder() *DrvingLicenseBuilder {
 // 示例值：
 func (builder *DrvingLicenseBuilder) Entities(entities []*DrivingEntity) *DrvingLicenseBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *DrvingLicenseBuilder) Build() *DrvingLicense {
 	req := &DrvingLicense{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
@@ -1853,17 +1857,17 @@ type ExtractCopy struct {
 }
 
 type ExtractCopyBuilder struct {
-	copyNum     int // 盖章份数
-	copyNumFlag bool
+	copyNum    int // 盖章份数
+	copyNumSet bool
 
-	originalCopy     string // 从原文中抽取的盖章份数
-	originalCopyFlag bool
+	originalCopy    string // 从原文中抽取的盖章份数
+	originalCopySet bool
 
-	key     string // 盖章文件类型
-	keyFlag bool
+	key    string // 盖章文件类型
+	keySet bool
 
-	text     string // 原文有关盖章份数的描述
-	textFlag bool
+	text    string // 原文有关盖章份数的描述
+	textSet bool
 }
 
 func NewExtractCopyBuilder() *ExtractCopyBuilder {
@@ -1876,7 +1880,7 @@ func NewExtractCopyBuilder() *ExtractCopyBuilder {
 // 示例值：2
 func (builder *ExtractCopyBuilder) CopyNum(copyNum int) *ExtractCopyBuilder {
 	builder.copyNum = copyNum
-	builder.copyNumFlag = true
+	builder.copyNumSet = true
 	return builder
 }
 
@@ -1885,7 +1889,7 @@ func (builder *ExtractCopyBuilder) CopyNum(copyNum int) *ExtractCopyBuilder {
 // 示例值：一式贰份
 func (builder *ExtractCopyBuilder) OriginalCopy(originalCopy string) *ExtractCopyBuilder {
 	builder.originalCopy = originalCopy
-	builder.originalCopyFlag = true
+	builder.originalCopySet = true
 	return builder
 }
 
@@ -1894,7 +1898,7 @@ func (builder *ExtractCopyBuilder) OriginalCopy(originalCopy string) *ExtractCop
 // 示例值：协议
 func (builder *ExtractCopyBuilder) Key(key string) *ExtractCopyBuilder {
 	builder.key = key
-	builder.keyFlag = true
+	builder.keySet = true
 	return builder
 }
 
@@ -1903,25 +1907,25 @@ func (builder *ExtractCopyBuilder) Key(key string) *ExtractCopyBuilder {
 // 示例值：此协议一式贰份，双方各执壹份，具有同等法律效力。
 func (builder *ExtractCopyBuilder) Text(text string) *ExtractCopyBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
 func (builder *ExtractCopyBuilder) Build() *ExtractCopy {
 	req := &ExtractCopy{}
-	if builder.copyNumFlag {
+	if builder.copyNumSet {
 		req.CopyNum = &builder.copyNum
 
 	}
-	if builder.originalCopyFlag {
+	if builder.originalCopySet {
 		req.OriginalCopy = &builder.originalCopy
 
 	}
-	if builder.keyFlag {
+	if builder.keySet {
 		req.Key = &builder.key
 
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
@@ -1935,11 +1939,11 @@ type ExtractCurrency struct {
 }
 
 type ExtractCurrencyBuilder struct {
-	currencyName     string // 币种名称
-	currencyNameFlag bool
+	currencyName    string // 币种名称
+	currencyNameSet bool
 
-	currencyText     string // 币种符号
-	currencyTextFlag bool
+	currencyText    string // 币种符号
+	currencyTextSet bool
 }
 
 func NewExtractCurrencyBuilder() *ExtractCurrencyBuilder {
@@ -1952,7 +1956,7 @@ func NewExtractCurrencyBuilder() *ExtractCurrencyBuilder {
 // 示例值：CNY
 func (builder *ExtractCurrencyBuilder) CurrencyName(currencyName string) *ExtractCurrencyBuilder {
 	builder.currencyName = currencyName
-	builder.currencyNameFlag = true
+	builder.currencyNameSet = true
 	return builder
 }
 
@@ -1961,17 +1965,17 @@ func (builder *ExtractCurrencyBuilder) CurrencyName(currencyName string) *Extrac
 // 示例值：¥
 func (builder *ExtractCurrencyBuilder) CurrencyText(currencyText string) *ExtractCurrencyBuilder {
 	builder.currencyText = currencyText
-	builder.currencyTextFlag = true
+	builder.currencyTextSet = true
 	return builder
 }
 
 func (builder *ExtractCurrencyBuilder) Build() *ExtractCurrency {
 	req := &ExtractCurrency{}
-	if builder.currencyNameFlag {
+	if builder.currencyNameSet {
 		req.CurrencyName = &builder.currencyName
 
 	}
-	if builder.currencyTextFlag {
+	if builder.currencyTextSet {
 		req.CurrencyText = &builder.currencyText
 
 	}
@@ -1987,14 +1991,14 @@ type ExtractPrice struct {
 }
 
 type ExtractPriceBuilder struct {
-	contractPrice     float64 // 交易金额
-	contractPriceFlag bool
+	contractPrice    float64 // 交易金额
+	contractPriceSet bool
 
-	contractPriceOriginal     string // 从原文中抽取的交易金额
-	contractPriceOriginalFlag bool
+	contractPriceOriginal    string // 从原文中抽取的交易金额
+	contractPriceOriginalSet bool
 
-	text     string // 原文中描述交易金额的文字
-	textFlag bool
+	text    string // 原文中描述交易金额的文字
+	textSet bool
 }
 
 func NewExtractPriceBuilder() *ExtractPriceBuilder {
@@ -2007,7 +2011,7 @@ func NewExtractPriceBuilder() *ExtractPriceBuilder {
 // 示例值：200000
 func (builder *ExtractPriceBuilder) ContractPrice(contractPrice float64) *ExtractPriceBuilder {
 	builder.contractPrice = contractPrice
-	builder.contractPriceFlag = true
+	builder.contractPriceSet = true
 	return builder
 }
 
@@ -2016,7 +2020,7 @@ func (builder *ExtractPriceBuilder) ContractPrice(contractPrice float64) *Extrac
 // 示例值："200000"
 func (builder *ExtractPriceBuilder) ContractPriceOriginal(contractPriceOriginal string) *ExtractPriceBuilder {
 	builder.contractPriceOriginal = contractPriceOriginal
-	builder.contractPriceOriginalFlag = true
+	builder.contractPriceOriginalSet = true
 	return builder
 }
 
@@ -2025,21 +2029,21 @@ func (builder *ExtractPriceBuilder) ContractPriceOriginal(contractPriceOriginal 
 // 示例值：本合同项下总金额共计￥200000（贰拾万元整）
 func (builder *ExtractPriceBuilder) Text(text string) *ExtractPriceBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
 func (builder *ExtractPriceBuilder) Build() *ExtractPrice {
 	req := &ExtractPrice{}
-	if builder.contractPriceFlag {
+	if builder.contractPriceSet {
 		req.ContractPrice = &builder.contractPrice
 
 	}
-	if builder.contractPriceOriginalFlag {
+	if builder.contractPriceOriginalSet {
 		req.ContractPriceOriginal = &builder.contractPriceOriginal
 
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
@@ -2053,11 +2057,11 @@ type ExtractTerm struct {
 }
 
 type ExtractTermBuilder struct {
-	initialTime     string // 合同持续时长
-	initialTimeFlag bool
+	initialTime    string // 合同持续时长
+	initialTimeSet bool
 
-	initialUnit     string // 持续时长单位
-	initialUnitFlag bool
+	initialUnit    string // 持续时长单位
+	initialUnitSet bool
 }
 
 func NewExtractTermBuilder() *ExtractTermBuilder {
@@ -2070,7 +2074,7 @@ func NewExtractTermBuilder() *ExtractTermBuilder {
 // 示例值：2
 func (builder *ExtractTermBuilder) InitialTime(initialTime string) *ExtractTermBuilder {
 	builder.initialTime = initialTime
-	builder.initialTimeFlag = true
+	builder.initialTimeSet = true
 	return builder
 }
 
@@ -2079,17 +2083,17 @@ func (builder *ExtractTermBuilder) InitialTime(initialTime string) *ExtractTermB
 // 示例值：年
 func (builder *ExtractTermBuilder) InitialUnit(initialUnit string) *ExtractTermBuilder {
 	builder.initialUnit = initialUnit
-	builder.initialUnitFlag = true
+	builder.initialUnitSet = true
 	return builder
 }
 
 func (builder *ExtractTermBuilder) Build() *ExtractTerm {
 	req := &ExtractTerm{}
-	if builder.initialTimeFlag {
+	if builder.initialTimeSet {
 		req.InitialTime = &builder.initialTime
 
 	}
-	if builder.initialUnitFlag {
+	if builder.initialUnitSet {
 		req.InitialUnit = &builder.initialUnit
 
 	}
@@ -2115,29 +2119,29 @@ type ExtractTime struct {
 }
 
 type ExtractTimeBuilder struct {
-	timeStart     string // 开始时间
-	timeStartFlag bool
+	timeStart    string // 开始时间
+	timeStartSet bool
 
-	timeEnd     string // 结束时间
-	timeEndFlag bool
+	timeEnd    string // 结束时间
+	timeEndSet bool
 
-	originalTimeStart     string // 原文中抽取出的开始时间
-	originalTimeStartFlag bool
+	originalTimeStart    string // 原文中抽取出的开始时间
+	originalTimeStartSet bool
 
-	originalTimeEnd     string // 原文中抽取出的结束时间
-	originalTimeEndFlag bool
+	originalTimeEnd    string // 原文中抽取出的结束时间
+	originalTimeEndSet bool
 
-	textStart     string // 原文中关于开始时间的描述
-	textStartFlag bool
+	textStart    string // 原文中关于开始时间的描述
+	textStartSet bool
 
-	textEnd     string // 原文中关于结束时间的描述
-	textEndFlag bool
+	textEnd    string // 原文中关于结束时间的描述
+	textEndSet bool
 
-	initialTerm     *ExtractTerm // 合同持续时长
-	initialTermFlag bool
+	initialTerm    *ExtractTerm // 合同持续时长
+	initialTermSet bool
 
-	textInitialTerm     string // 原文中关于持续时间的描述
-	textInitialTermFlag bool
+	textInitialTerm    string // 原文中关于持续时间的描述
+	textInitialTermSet bool
 }
 
 func NewExtractTimeBuilder() *ExtractTimeBuilder {
@@ -2150,7 +2154,7 @@ func NewExtractTimeBuilder() *ExtractTimeBuilder {
 // 示例值：2020-07-01
 func (builder *ExtractTimeBuilder) TimeStart(timeStart string) *ExtractTimeBuilder {
 	builder.timeStart = timeStart
-	builder.timeStartFlag = true
+	builder.timeStartSet = true
 	return builder
 }
 
@@ -2159,7 +2163,7 @@ func (builder *ExtractTimeBuilder) TimeStart(timeStart string) *ExtractTimeBuild
 // 示例值：2022-06-30
 func (builder *ExtractTimeBuilder) TimeEnd(timeEnd string) *ExtractTimeBuilder {
 	builder.timeEnd = timeEnd
-	builder.timeEndFlag = true
+	builder.timeEndSet = true
 	return builder
 }
 
@@ -2168,7 +2172,7 @@ func (builder *ExtractTimeBuilder) TimeEnd(timeEnd string) *ExtractTimeBuilder {
 // 示例值：2020年07月1日
 func (builder *ExtractTimeBuilder) OriginalTimeStart(originalTimeStart string) *ExtractTimeBuilder {
 	builder.originalTimeStart = originalTimeStart
-	builder.originalTimeStartFlag = true
+	builder.originalTimeStartSet = true
 	return builder
 }
 
@@ -2177,7 +2181,7 @@ func (builder *ExtractTimeBuilder) OriginalTimeStart(originalTimeStart string) *
 // 示例值：2022年6月30日
 func (builder *ExtractTimeBuilder) OriginalTimeEnd(originalTimeEnd string) *ExtractTimeBuilder {
 	builder.originalTimeEnd = originalTimeEnd
-	builder.originalTimeEndFlag = true
+	builder.originalTimeEndSet = true
 	return builder
 }
 
@@ -2186,7 +2190,7 @@ func (builder *ExtractTimeBuilder) OriginalTimeEnd(originalTimeEnd string) *Extr
 // 示例值：本协议自有效期自【2020】年【07】月【1】日至【2022】年【6】月【30】日，有效期2年。
 func (builder *ExtractTimeBuilder) TextStart(textStart string) *ExtractTimeBuilder {
 	builder.textStart = textStart
-	builder.textStartFlag = true
+	builder.textStartSet = true
 	return builder
 }
 
@@ -2195,7 +2199,7 @@ func (builder *ExtractTimeBuilder) TextStart(textStart string) *ExtractTimeBuild
 // 示例值：本协议自有效期自【2020】年【07】月【1】日至【2022】年【6】月【30】日，有效期2年。
 func (builder *ExtractTimeBuilder) TextEnd(textEnd string) *ExtractTimeBuilder {
 	builder.textEnd = textEnd
-	builder.textEndFlag = true
+	builder.textEndSet = true
 	return builder
 }
 
@@ -2204,7 +2208,7 @@ func (builder *ExtractTimeBuilder) TextEnd(textEnd string) *ExtractTimeBuilder {
 // 示例值：
 func (builder *ExtractTimeBuilder) InitialTerm(initialTerm *ExtractTerm) *ExtractTimeBuilder {
 	builder.initialTerm = initialTerm
-	builder.initialTermFlag = true
+	builder.initialTermSet = true
 	return builder
 }
 
@@ -2213,40 +2217,40 @@ func (builder *ExtractTimeBuilder) InitialTerm(initialTerm *ExtractTerm) *Extrac
 // 示例值：2年
 func (builder *ExtractTimeBuilder) TextInitialTerm(textInitialTerm string) *ExtractTimeBuilder {
 	builder.textInitialTerm = textInitialTerm
-	builder.textInitialTermFlag = true
+	builder.textInitialTermSet = true
 	return builder
 }
 
 func (builder *ExtractTimeBuilder) Build() *ExtractTime {
 	req := &ExtractTime{}
-	if builder.timeStartFlag {
+	if builder.timeStartSet {
 		req.TimeStart = &builder.timeStart
 
 	}
-	if builder.timeEndFlag {
+	if builder.timeEndSet {
 		req.TimeEnd = &builder.timeEnd
 
 	}
-	if builder.originalTimeStartFlag {
+	if builder.originalTimeStartSet {
 		req.OriginalTimeStart = &builder.originalTimeStart
 
 	}
-	if builder.originalTimeEndFlag {
+	if builder.originalTimeEndSet {
 		req.OriginalTimeEnd = &builder.originalTimeEnd
 
 	}
-	if builder.textStartFlag {
+	if builder.textStartSet {
 		req.TextStart = &builder.textStart
 
 	}
-	if builder.textEndFlag {
+	if builder.textEndSet {
 		req.TextEnd = &builder.textEnd
 
 	}
-	if builder.initialTermFlag {
+	if builder.initialTermSet {
 		req.InitialTerm = builder.initialTerm
 	}
-	if builder.textInitialTermFlag {
+	if builder.textInitialTermSet {
 		req.TextInitialTerm = &builder.textInitialTerm
 
 	}
@@ -2262,14 +2266,14 @@ type FileDetail struct {
 }
 
 type FileDetailBuilder struct {
-	token     string // 飞书云文档内部对文件的标记
-	tokenFlag bool
+	token    string // 飞书云文档内部对文件的标记
+	tokenSet bool
 
-	name     string // 文件名
-	nameFlag bool
+	name    string // 文件名
+	nameSet bool
 
-	links     []string // 临时下载链接 （24小时内部链接）
-	linksFlag bool
+	links    []string // 临时下载链接 （24小时内部链接）
+	linksSet bool
 }
 
 func NewFileDetailBuilder() *FileDetailBuilder {
@@ -2282,7 +2286,7 @@ func NewFileDetailBuilder() *FileDetailBuilder {
 // 示例值：xxx
 func (builder *FileDetailBuilder) Token(token string) *FileDetailBuilder {
 	builder.token = token
-	builder.tokenFlag = true
+	builder.tokenSet = true
 	return builder
 }
 
@@ -2291,7 +2295,7 @@ func (builder *FileDetailBuilder) Token(token string) *FileDetailBuilder {
 // 示例值：文件
 func (builder *FileDetailBuilder) Name(name string) *FileDetailBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2300,21 +2304,21 @@ func (builder *FileDetailBuilder) Name(name string) *FileDetailBuilder {
 // 示例值：
 func (builder *FileDetailBuilder) Links(links []string) *FileDetailBuilder {
 	builder.links = links
-	builder.linksFlag = true
+	builder.linksSet = true
 	return builder
 }
 
 func (builder *FileDetailBuilder) Build() *FileDetail {
 	req := &FileDetail{}
-	if builder.tokenFlag {
+	if builder.tokenSet {
 		req.Token = &builder.token
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.linksFlag {
+	if builder.linksSet {
 		req.Links = builder.links
 	}
 	return req
@@ -2328,10 +2332,10 @@ type FoodManageEntity struct {
 
 type FoodManageEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewFoodManageEntityBuilder() *FoodManageEntityBuilder {
@@ -2344,7 +2348,7 @@ func NewFoodManageEntityBuilder() *FoodManageEntityBuilder {
 // 示例值：issuer
 func (builder *FoodManageEntityBuilder) Type(type_ string) *FoodManageEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -2353,17 +2357,17 @@ func (builder *FoodManageEntityBuilder) Type(type_ string) *FoodManageEntityBuil
 // 示例值：张三
 func (builder *FoodManageEntityBuilder) Value(value string) *FoodManageEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *FoodManageEntityBuilder) Build() *FoodManageEntity {
 	req := &FoodManageEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -2375,8 +2379,8 @@ type FoodManageLicense struct {
 }
 
 type FoodManageLicenseBuilder struct {
-	entities     []*FoodManageEntity // 识别出的实体列表
-	entitiesFlag bool
+	entities    []*FoodManageEntity // 识别出的实体列表
+	entitiesSet bool
 }
 
 func NewFoodManageLicenseBuilder() *FoodManageLicenseBuilder {
@@ -2389,13 +2393,13 @@ func NewFoodManageLicenseBuilder() *FoodManageLicenseBuilder {
 // 示例值：
 func (builder *FoodManageLicenseBuilder) Entities(entities []*FoodManageEntity) *FoodManageLicenseBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *FoodManageLicenseBuilder) Build() *FoodManageLicense {
 	req := &FoodManageLicense{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
@@ -2409,10 +2413,10 @@ type FoodProduceEntity struct {
 
 type FoodProduceEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewFoodProduceEntityBuilder() *FoodProduceEntityBuilder {
@@ -2425,7 +2429,7 @@ func NewFoodProduceEntityBuilder() *FoodProduceEntityBuilder {
 // 示例值：issuer
 func (builder *FoodProduceEntityBuilder) Type(type_ string) *FoodProduceEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -2434,17 +2438,17 @@ func (builder *FoodProduceEntityBuilder) Type(type_ string) *FoodProduceEntityBu
 // 示例值：张三
 func (builder *FoodProduceEntityBuilder) Value(value string) *FoodProduceEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *FoodProduceEntityBuilder) Build() *FoodProduceEntity {
 	req := &FoodProduceEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -2456,8 +2460,8 @@ type FoodProduceLicense struct {
 }
 
 type FoodProduceLicenseBuilder struct {
-	entities     []*FoodProduceEntity // 识别出的实体列表
-	entitiesFlag bool
+	entities    []*FoodProduceEntity // 识别出的实体列表
+	entitiesSet bool
 }
 
 func NewFoodProduceLicenseBuilder() *FoodProduceLicenseBuilder {
@@ -2470,13 +2474,13 @@ func NewFoodProduceLicenseBuilder() *FoodProduceLicenseBuilder {
 // 示例值：
 func (builder *FoodProduceLicenseBuilder) Entities(entities []*FoodProduceEntity) *FoodProduceLicenseBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *FoodProduceLicenseBuilder) Build() *FoodProduceLicense {
 	req := &FoodProduceLicense{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
@@ -2487,8 +2491,8 @@ type HealthCertificate struct {
 }
 
 type HealthCertificateBuilder struct {
-	entities     []*HealthCertificateEntity // 识别出的实体类型
-	entitiesFlag bool
+	entities    []*HealthCertificateEntity // 识别出的实体类型
+	entitiesSet bool
 }
 
 func NewHealthCertificateBuilder() *HealthCertificateBuilder {
@@ -2501,13 +2505,13 @@ func NewHealthCertificateBuilder() *HealthCertificateBuilder {
 // 示例值：
 func (builder *HealthCertificateBuilder) Entities(entities []*HealthCertificateEntity) *HealthCertificateBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *HealthCertificateBuilder) Build() *HealthCertificate {
 	req := &HealthCertificate{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
@@ -2521,10 +2525,10 @@ type HealthCertificateEntity struct {
 
 type HealthCertificateEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewHealthCertificateEntityBuilder() *HealthCertificateEntityBuilder {
@@ -2537,7 +2541,7 @@ func NewHealthCertificateEntityBuilder() *HealthCertificateEntityBuilder {
 // 示例值：id_number
 func (builder *HealthCertificateEntityBuilder) Type(type_ string) *HealthCertificateEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -2546,17 +2550,17 @@ func (builder *HealthCertificateEntityBuilder) Type(type_ string) *HealthCertifi
 // 示例值：张三
 func (builder *HealthCertificateEntityBuilder) Value(value string) *HealthCertificateEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *HealthCertificateEntityBuilder) Build() *HealthCertificateEntity {
 	req := &HealthCertificateEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -2568,8 +2572,8 @@ type HkmMainlandTravelPermit struct {
 }
 
 type HkmMainlandTravelPermitBuilder struct {
-	entities     []*HkmMainlandTravelPermitEntity // 识别出的实体类型
-	entitiesFlag bool
+	entities    []*HkmMainlandTravelPermitEntity // 识别出的实体类型
+	entitiesSet bool
 }
 
 func NewHkmMainlandTravelPermitBuilder() *HkmMainlandTravelPermitBuilder {
@@ -2582,13 +2586,13 @@ func NewHkmMainlandTravelPermitBuilder() *HkmMainlandTravelPermitBuilder {
 // 示例值：
 func (builder *HkmMainlandTravelPermitBuilder) Entities(entities []*HkmMainlandTravelPermitEntity) *HkmMainlandTravelPermitBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *HkmMainlandTravelPermitBuilder) Build() *HkmMainlandTravelPermit {
 	req := &HkmMainlandTravelPermit{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
@@ -2602,10 +2606,10 @@ type HkmMainlandTravelPermitEntity struct {
 
 type HkmMainlandTravelPermitEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewHkmMainlandTravelPermitEntityBuilder() *HkmMainlandTravelPermitEntityBuilder {
@@ -2618,7 +2622,7 @@ func NewHkmMainlandTravelPermitEntityBuilder() *HkmMainlandTravelPermitEntityBui
 // 示例值：full_name_cn
 func (builder *HkmMainlandTravelPermitEntityBuilder) Type(type_ string) *HkmMainlandTravelPermitEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -2627,17 +2631,17 @@ func (builder *HkmMainlandTravelPermitEntityBuilder) Type(type_ string) *HkmMain
 // 示例值：张三
 func (builder *HkmMainlandTravelPermitEntityBuilder) Value(value string) *HkmMainlandTravelPermitEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *HkmMainlandTravelPermitEntityBuilder) Build() *HkmMainlandTravelPermitEntity {
 	req := &HkmMainlandTravelPermitEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -2655,17 +2659,17 @@ type IdCard struct {
 }
 
 type IdCardBuilder struct {
-	entities     []*IdEntity // 识别的实体列表
-	entitiesFlag bool
+	entities    []*IdEntity // 识别的实体列表
+	entitiesSet bool
 
-	side     int // 正反面，1为身份证-姓名页，0为身份证-国徽页
-	sideFlag bool
+	side    int // 正反面，1为身份证-姓名页，0为身份证-国徽页
+	sideSet bool
 
-	conners     []int // 四角坐标[x0,y0,x1,y1,x2,y2,x3,y3]
-	connersFlag bool
+	conners    []int // 四角坐标[x0,y0,x1,y1,x2,y2,x3,y3]
+	connersSet bool
 
-	faceConners     []int // 人像四角坐标[x0,y0,x1,y1,x2,y2,x3,y3]
-	faceConnersFlag bool
+	faceConners    []int // 人像四角坐标[x0,y0,x1,y1,x2,y2,x3,y3]
+	faceConnersSet bool
 }
 
 func NewIdCardBuilder() *IdCardBuilder {
@@ -2678,7 +2682,7 @@ func NewIdCardBuilder() *IdCardBuilder {
 // 示例值：
 func (builder *IdCardBuilder) Entities(entities []*IdEntity) *IdCardBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
@@ -2687,7 +2691,7 @@ func (builder *IdCardBuilder) Entities(entities []*IdEntity) *IdCardBuilder {
 // 示例值：0
 func (builder *IdCardBuilder) Side(side int) *IdCardBuilder {
 	builder.side = side
-	builder.sideFlag = true
+	builder.sideSet = true
 	return builder
 }
 
@@ -2696,7 +2700,7 @@ func (builder *IdCardBuilder) Side(side int) *IdCardBuilder {
 // 示例值：
 func (builder *IdCardBuilder) Conners(conners []int) *IdCardBuilder {
 	builder.conners = conners
-	builder.connersFlag = true
+	builder.connersSet = true
 	return builder
 }
 
@@ -2705,23 +2709,23 @@ func (builder *IdCardBuilder) Conners(conners []int) *IdCardBuilder {
 // 示例值：
 func (builder *IdCardBuilder) FaceConners(faceConners []int) *IdCardBuilder {
 	builder.faceConners = faceConners
-	builder.faceConnersFlag = true
+	builder.faceConnersSet = true
 	return builder
 }
 
 func (builder *IdCardBuilder) Build() *IdCard {
 	req := &IdCard{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
-	if builder.sideFlag {
+	if builder.sideSet {
 		req.Side = &builder.side
 
 	}
-	if builder.connersFlag {
+	if builder.connersSet {
 		req.Conners = builder.conners
 	}
-	if builder.faceConnersFlag {
+	if builder.faceConnersSet {
 		req.FaceConners = builder.faceConners
 	}
 	return req
@@ -2735,10 +2739,10 @@ type IdEntity struct {
 
 type IdEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewIdEntityBuilder() *IdEntityBuilder {
@@ -2751,7 +2755,7 @@ func NewIdEntityBuilder() *IdEntityBuilder {
 // 示例值：identity_name
 func (builder *IdEntityBuilder) Type(type_ string) *IdEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -2760,17 +2764,17 @@ func (builder *IdEntityBuilder) Type(type_ string) *IdEntityBuilder {
 // 示例值：张三
 func (builder *IdEntityBuilder) Value(value string) *IdEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *IdEntityBuilder) Build() *IdEntity {
 	req := &IdEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -2788,17 +2792,17 @@ type ImageDetail struct {
 }
 
 type ImageDetailBuilder struct {
-	base64     string // 图片完整内容base64字符串
-	base64Flag bool
+	base64    string // 图片完整内容base64字符串
+	base64Set bool
 
-	caption     string // 图片描述，目前为当前图片的前一段和后一段\n拼接
-	captionFlag bool
+	caption    string // 图片描述，目前为当前图片的前一段和后一段\n拼接
+	captionSet bool
 
-	links     []string // 图片url
-	linksFlag bool
+	links    []string // 图片url
+	linksSet bool
 
-	token     string // 飞书云文档内部对图片的标记
-	tokenFlag bool
+	token    string // 飞书云文档内部对图片的标记
+	tokenSet bool
 }
 
 func NewImageDetailBuilder() *ImageDetailBuilder {
@@ -2811,7 +2815,7 @@ func NewImageDetailBuilder() *ImageDetailBuilder {
 // 示例值：MTEx
 func (builder *ImageDetailBuilder) Base64(base64 string) *ImageDetailBuilder {
 	builder.base64 = base64
-	builder.base64Flag = true
+	builder.base64Set = true
 	return builder
 }
 
@@ -2820,7 +2824,7 @@ func (builder *ImageDetailBuilder) Base64(base64 string) *ImageDetailBuilder {
 // 示例值：这是一个示例
 func (builder *ImageDetailBuilder) Caption(caption string) *ImageDetailBuilder {
 	builder.caption = caption
-	builder.captionFlag = true
+	builder.captionSet = true
 	return builder
 }
 
@@ -2829,7 +2833,7 @@ func (builder *ImageDetailBuilder) Caption(caption string) *ImageDetailBuilder {
 // 示例值：
 func (builder *ImageDetailBuilder) Links(links []string) *ImageDetailBuilder {
 	builder.links = links
-	builder.linksFlag = true
+	builder.linksSet = true
 	return builder
 }
 
@@ -2838,24 +2842,24 @@ func (builder *ImageDetailBuilder) Links(links []string) *ImageDetailBuilder {
 // 示例值：DkHObJB33orSVixjfEab3ZMDcre
 func (builder *ImageDetailBuilder) Token(token string) *ImageDetailBuilder {
 	builder.token = token
-	builder.tokenFlag = true
+	builder.tokenSet = true
 	return builder
 }
 
 func (builder *ImageDetailBuilder) Build() *ImageDetail {
 	req := &ImageDetail{}
-	if builder.base64Flag {
+	if builder.base64Set {
 		req.Base64 = &builder.base64
 
 	}
-	if builder.captionFlag {
+	if builder.captionSet {
 		req.Caption = &builder.caption
 
 	}
-	if builder.linksFlag {
+	if builder.linksSet {
 		req.Links = builder.links
 	}
-	if builder.tokenFlag {
+	if builder.tokenSet {
 		req.Token = &builder.token
 
 	}
@@ -2867,8 +2871,8 @@ type Kie struct {
 }
 
 type KieBuilder struct {
-	kies     []*KieEntity // 目标信息识别结果
-	kiesFlag bool
+	kies    []*KieEntity // 目标信息识别结果
+	kiesSet bool
 }
 
 func NewKieBuilder() *KieBuilder {
@@ -2881,13 +2885,13 @@ func NewKieBuilder() *KieBuilder {
 // 示例值：
 func (builder *KieBuilder) Kies(kies []*KieEntity) *KieBuilder {
 	builder.kies = kies
-	builder.kiesFlag = true
+	builder.kiesSet = true
 	return builder
 }
 
 func (builder *KieBuilder) Build() *Kie {
 	req := &Kie{}
-	if builder.kiesFlag {
+	if builder.kiesSet {
 		req.Kies = builder.kies
 	}
 	return req
@@ -2900,11 +2904,11 @@ type KieEntity struct {
 }
 
 type KieEntityBuilder struct {
-	key     string // 识别信息的key
-	keyFlag bool
+	key    string // 识别信息的key
+	keySet bool
 
-	value     string // 识别信息的值
-	valueFlag bool
+	value    string // 识别信息的值
+	valueSet bool
 }
 
 func NewKieEntityBuilder() *KieEntityBuilder {
@@ -2917,7 +2921,7 @@ func NewKieEntityBuilder() *KieEntityBuilder {
 // 示例值：取样地点
 func (builder *KieEntityBuilder) Key(key string) *KieEntityBuilder {
 	builder.key = key
-	builder.keyFlag = true
+	builder.keySet = true
 	return builder
 }
 
@@ -2926,17 +2930,17 @@ func (builder *KieEntityBuilder) Key(key string) *KieEntityBuilder {
 // 示例值：库房
 func (builder *KieEntityBuilder) Value(value string) *KieEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *KieEntityBuilder) Build() *KieEntity {
 	req := &KieEntity{}
-	if builder.keyFlag {
+	if builder.keySet {
 		req.Key = &builder.key
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -2951,10 +2955,10 @@ type KvEntity struct {
 
 type KvEntityBuilder struct {
 	type_    string // 识别的实体类型
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewKvEntityBuilder() *KvEntityBuilder {
@@ -2967,7 +2971,7 @@ func NewKvEntityBuilder() *KvEntityBuilder {
 // 示例值：entry_name
 func (builder *KvEntityBuilder) Type(type_ string) *KvEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -2976,17 +2980,17 @@ func (builder *KvEntityBuilder) Type(type_ string) *KvEntityBuilder {
 // 示例值：餐饮服务
 func (builder *KvEntityBuilder) Value(value string) *KvEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *KvEntityBuilder) Build() *KvEntity {
 	req := &KvEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -3012,29 +3016,29 @@ type LlmConfig struct {
 }
 
 type LlmConfigBuilder struct {
-	model     string // 模型名称
-	modelFlag bool
+	model    string // 模型名称
+	modelSet bool
 
-	messages     []*LlmMessage // 消息
-	messagesFlag bool
+	messages    []*LlmMessage // 消息
+	messagesSet bool
 
-	maxTokens     int // 默认1024，最多生成多少个tokens
-	maxTokensFlag bool
+	maxTokens    int // 默认1024，最多生成多少个tokens
+	maxTokensSet bool
 
-	messageType     string // 消息类型
-	messageTypeFlag bool
+	messageType    string // 消息类型
+	messageTypeSet bool
 
-	n     int // 默认1，每个query返回多少个预测结果
-	nFlag bool
+	n    int // 默认1，每个query返回多少个预测结果
+	nSet bool
 
-	temperature     float64 // 默认0，越大模型结果越发散，如果为0默认每次取概率最高的作为next token。
-	temperatureFlag bool
+	temperature    float64 // 默认0，越大模型结果越发散，如果为0默认每次取概率最高的作为next token。
+	temperatureSet bool
 
-	presencePenalty     float64 // 默认0，>0惩罚模型输出已经在输出中出现过的token
-	presencePenaltyFlag bool
+	presencePenalty    float64 // 默认0，>0惩罚模型输出已经在输出中出现过的token
+	presencePenaltySet bool
 
-	frequencyPenalty     float64 // 默认0，>0惩罚模型输出同样的token，输出次数越多惩罚越大
-	frequencyPenaltyFlag bool
+	frequencyPenalty    float64 // 默认0，>0惩罚模型输出同样的token，输出次数越多惩罚越大
+	frequencyPenaltySet bool
 }
 
 func NewLlmConfigBuilder() *LlmConfigBuilder {
@@ -3047,7 +3051,7 @@ func NewLlmConfigBuilder() *LlmConfigBuilder {
 // 示例值：miniCPM
 func (builder *LlmConfigBuilder) Model(model string) *LlmConfigBuilder {
 	builder.model = model
-	builder.modelFlag = true
+	builder.modelSet = true
 	return builder
 }
 
@@ -3056,7 +3060,7 @@ func (builder *LlmConfigBuilder) Model(model string) *LlmConfigBuilder {
 // 示例值：
 func (builder *LlmConfigBuilder) Messages(messages []*LlmMessage) *LlmConfigBuilder {
 	builder.messages = messages
-	builder.messagesFlag = true
+	builder.messagesSet = true
 	return builder
 }
 
@@ -3065,7 +3069,7 @@ func (builder *LlmConfigBuilder) Messages(messages []*LlmMessage) *LlmConfigBuil
 // 示例值：1
 func (builder *LlmConfigBuilder) MaxTokens(maxTokens int) *LlmConfigBuilder {
 	builder.maxTokens = maxTokens
-	builder.maxTokensFlag = true
+	builder.maxTokensSet = true
 	return builder
 }
 
@@ -3074,7 +3078,7 @@ func (builder *LlmConfigBuilder) MaxTokens(maxTokens int) *LlmConfigBuilder {
 // 示例值：single-round
 func (builder *LlmConfigBuilder) MessageType(messageType string) *LlmConfigBuilder {
 	builder.messageType = messageType
-	builder.messageTypeFlag = true
+	builder.messageTypeSet = true
 	return builder
 }
 
@@ -3083,7 +3087,7 @@ func (builder *LlmConfigBuilder) MessageType(messageType string) *LlmConfigBuild
 // 示例值：1
 func (builder *LlmConfigBuilder) N(n int) *LlmConfigBuilder {
 	builder.n = n
-	builder.nFlag = true
+	builder.nSet = true
 	return builder
 }
 
@@ -3092,7 +3096,7 @@ func (builder *LlmConfigBuilder) N(n int) *LlmConfigBuilder {
 // 示例值：0.0
 func (builder *LlmConfigBuilder) Temperature(temperature float64) *LlmConfigBuilder {
 	builder.temperature = temperature
-	builder.temperatureFlag = true
+	builder.temperatureSet = true
 	return builder
 }
 
@@ -3101,7 +3105,7 @@ func (builder *LlmConfigBuilder) Temperature(temperature float64) *LlmConfigBuil
 // 示例值：0.0
 func (builder *LlmConfigBuilder) PresencePenalty(presencePenalty float64) *LlmConfigBuilder {
 	builder.presencePenalty = presencePenalty
-	builder.presencePenaltyFlag = true
+	builder.presencePenaltySet = true
 	return builder
 }
 
@@ -3110,40 +3114,40 @@ func (builder *LlmConfigBuilder) PresencePenalty(presencePenalty float64) *LlmCo
 // 示例值：0.0
 func (builder *LlmConfigBuilder) FrequencyPenalty(frequencyPenalty float64) *LlmConfigBuilder {
 	builder.frequencyPenalty = frequencyPenalty
-	builder.frequencyPenaltyFlag = true
+	builder.frequencyPenaltySet = true
 	return builder
 }
 
 func (builder *LlmConfigBuilder) Build() *LlmConfig {
 	req := &LlmConfig{}
-	if builder.modelFlag {
+	if builder.modelSet {
 		req.Model = &builder.model
 
 	}
-	if builder.messagesFlag {
+	if builder.messagesSet {
 		req.Messages = builder.messages
 	}
-	if builder.maxTokensFlag {
+	if builder.maxTokensSet {
 		req.MaxTokens = &builder.maxTokens
 
 	}
-	if builder.messageTypeFlag {
+	if builder.messageTypeSet {
 		req.MessageType = &builder.messageType
 
 	}
-	if builder.nFlag {
+	if builder.nSet {
 		req.N = &builder.n
 
 	}
-	if builder.temperatureFlag {
+	if builder.temperatureSet {
 		req.Temperature = &builder.temperature
 
 	}
-	if builder.presencePenaltyFlag {
+	if builder.presencePenaltySet {
 		req.PresencePenalty = &builder.presencePenalty
 
 	}
-	if builder.frequencyPenaltyFlag {
+	if builder.frequencyPenaltySet {
 		req.FrequencyPenalty = &builder.frequencyPenalty
 
 	}
@@ -3158,10 +3162,10 @@ type LlmContent struct {
 
 type LlmContentBuilder struct {
 	type_    string // 内容类型：text, image_zip
-	typeFlag bool
+	type_Set bool
 
-	content     string // 内容：text类型就是对应的输入文本， image_zip是文件的相对路径，文件需要以zip格式输入
-	contentFlag bool
+	content    string // 内容：text类型就是对应的输入文本， image_zip是文件的相对路径，文件需要以zip格式输入
+	contentSet bool
 }
 
 func NewLlmContentBuilder() *LlmContentBuilder {
@@ -3174,7 +3178,7 @@ func NewLlmContentBuilder() *LlmContentBuilder {
 // 示例值：text
 func (builder *LlmContentBuilder) Type(type_ string) *LlmContentBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -3183,17 +3187,17 @@ func (builder *LlmContentBuilder) Type(type_ string) *LlmContentBuilder {
 // 示例值：输入图片按顺序描述了一件什么事情
 func (builder *LlmContentBuilder) Content(content string) *LlmContentBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *LlmContentBuilder) Build() *LlmContent {
 	req := &LlmContent{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
@@ -3209,14 +3213,14 @@ type LlmDetail struct {
 }
 
 type LlmDetailBuilder struct {
-	queryId     int // query在原始输入batch中的序号，从0开始
-	queryIdFlag bool
+	queryId    int // query在原始输入batch中的序号，从0开始
+	queryIdSet bool
 
-	usage     *LlmUsage // 统计输入和输出的token个数
-	usageFlag bool
+	usage    *LlmUsage // 统计输入和输出的token个数
+	usageSet bool
 
-	finishReason     string // 表明模型停止生成的原因，如'length', 'stop'
-	finishReasonFlag bool
+	finishReason    string // 表明模型停止生成的原因，如'length', 'stop'
+	finishReasonSet bool
 }
 
 func NewLlmDetailBuilder() *LlmDetailBuilder {
@@ -3229,7 +3233,7 @@ func NewLlmDetailBuilder() *LlmDetailBuilder {
 // 示例值：0
 func (builder *LlmDetailBuilder) QueryId(queryId int) *LlmDetailBuilder {
 	builder.queryId = queryId
-	builder.queryIdFlag = true
+	builder.queryIdSet = true
 	return builder
 }
 
@@ -3238,7 +3242,7 @@ func (builder *LlmDetailBuilder) QueryId(queryId int) *LlmDetailBuilder {
 // 示例值：
 func (builder *LlmDetailBuilder) Usage(usage *LlmUsage) *LlmDetailBuilder {
 	builder.usage = usage
-	builder.usageFlag = true
+	builder.usageSet = true
 	return builder
 }
 
@@ -3247,20 +3251,20 @@ func (builder *LlmDetailBuilder) Usage(usage *LlmUsage) *LlmDetailBuilder {
 // 示例值：stop
 func (builder *LlmDetailBuilder) FinishReason(finishReason string) *LlmDetailBuilder {
 	builder.finishReason = finishReason
-	builder.finishReasonFlag = true
+	builder.finishReasonSet = true
 	return builder
 }
 
 func (builder *LlmDetailBuilder) Build() *LlmDetail {
 	req := &LlmDetail{}
-	if builder.queryIdFlag {
+	if builder.queryIdSet {
 		req.QueryId = &builder.queryId
 
 	}
-	if builder.usageFlag {
+	if builder.usageSet {
 		req.Usage = builder.usage
 	}
-	if builder.finishReasonFlag {
+	if builder.finishReasonSet {
 		req.FinishReason = &builder.finishReason
 
 	}
@@ -3274,11 +3278,11 @@ type LlmMessage struct {
 }
 
 type LlmMessageBuilder struct {
-	role     string // 角色名
-	roleFlag bool
+	role    string // 角色名
+	roleSet bool
 
-	contents     []*LlmContent // 内容信息，如果同时输入多张图片和多段文本，默认将所有图片置于开头，取第一段文本作为输入的prompt；如果是图片，目前1个query (dict)最多输入3张图片，每张图片大小不超过3000*3000
-	contentsFlag bool
+	contents    []*LlmContent // 内容信息，如果同时输入多张图片和多段文本，默认将所有图片置于开头，取第一段文本作为输入的prompt；如果是图片，目前1个query (dict)最多输入3张图片，每张图片大小不超过3000*3000
+	contentsSet bool
 }
 
 func NewLlmMessageBuilder() *LlmMessageBuilder {
@@ -3291,7 +3295,7 @@ func NewLlmMessageBuilder() *LlmMessageBuilder {
 // 示例值：user
 func (builder *LlmMessageBuilder) Role(role string) *LlmMessageBuilder {
 	builder.role = role
-	builder.roleFlag = true
+	builder.roleSet = true
 	return builder
 }
 
@@ -3300,17 +3304,17 @@ func (builder *LlmMessageBuilder) Role(role string) *LlmMessageBuilder {
 // 示例值：
 func (builder *LlmMessageBuilder) Contents(contents []*LlmContent) *LlmMessageBuilder {
 	builder.contents = contents
-	builder.contentsFlag = true
+	builder.contentsSet = true
 	return builder
 }
 
 func (builder *LlmMessageBuilder) Build() *LlmMessage {
 	req := &LlmMessage{}
-	if builder.roleFlag {
+	if builder.roleSet {
 		req.Role = &builder.role
 
 	}
-	if builder.contentsFlag {
+	if builder.contentsSet {
 		req.Contents = builder.contents
 	}
 	return req
@@ -3325,14 +3329,14 @@ type LlmUsage struct {
 }
 
 type LlmUsageBuilder struct {
-	promptTokens     int // 当前输入token的个数
-	promptTokensFlag bool
+	promptTokens    int // 当前输入token的个数
+	promptTokensSet bool
 
-	completionTokens     int // 当前输出token的个数
-	completionTokensFlag bool
+	completionTokens    int // 当前输出token的个数
+	completionTokensSet bool
 
-	totalTokens     int // 输入+输出token的总个数
-	totalTokensFlag bool
+	totalTokens    int // 输入+输出token的总个数
+	totalTokensSet bool
 }
 
 func NewLlmUsageBuilder() *LlmUsageBuilder {
@@ -3345,7 +3349,7 @@ func NewLlmUsageBuilder() *LlmUsageBuilder {
 // 示例值：226
 func (builder *LlmUsageBuilder) PromptTokens(promptTokens int) *LlmUsageBuilder {
 	builder.promptTokens = promptTokens
-	builder.promptTokensFlag = true
+	builder.promptTokensSet = true
 	return builder
 }
 
@@ -3354,7 +3358,7 @@ func (builder *LlmUsageBuilder) PromptTokens(promptTokens int) *LlmUsageBuilder 
 // 示例值：115
 func (builder *LlmUsageBuilder) CompletionTokens(completionTokens int) *LlmUsageBuilder {
 	builder.completionTokens = completionTokens
-	builder.completionTokensFlag = true
+	builder.completionTokensSet = true
 	return builder
 }
 
@@ -3363,21 +3367,21 @@ func (builder *LlmUsageBuilder) CompletionTokens(completionTokens int) *LlmUsage
 // 示例值：341
 func (builder *LlmUsageBuilder) TotalTokens(totalTokens int) *LlmUsageBuilder {
 	builder.totalTokens = totalTokens
-	builder.totalTokensFlag = true
+	builder.totalTokensSet = true
 	return builder
 }
 
 func (builder *LlmUsageBuilder) Build() *LlmUsage {
 	req := &LlmUsage{}
-	if builder.promptTokensFlag {
+	if builder.promptTokensSet {
 		req.PromptTokens = &builder.promptTokens
 
 	}
-	if builder.completionTokensFlag {
+	if builder.completionTokensSet {
 		req.CompletionTokens = &builder.completionTokens
 
 	}
-	if builder.totalTokensFlag {
+	if builder.totalTokensSet {
 		req.TotalTokens = &builder.totalTokens
 
 	}
@@ -3389,8 +3393,8 @@ type RecognizedEntities struct {
 }
 
 type RecognizedEntitiesBuilder struct {
-	entities     []*RecognizedEntity // 识别的实体列表
-	entitiesFlag bool
+	entities    []*RecognizedEntity // 识别的实体列表
+	entitiesSet bool
 }
 
 func NewRecognizedEntitiesBuilder() *RecognizedEntitiesBuilder {
@@ -3403,13 +3407,13 @@ func NewRecognizedEntitiesBuilder() *RecognizedEntitiesBuilder {
 // 示例值：
 func (builder *RecognizedEntitiesBuilder) Entities(entities []*RecognizedEntity) *RecognizedEntitiesBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *RecognizedEntitiesBuilder) Build() *RecognizedEntities {
 	req := &RecognizedEntities{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
@@ -3423,10 +3427,10 @@ type RecognizedEntity struct {
 
 type RecognizedEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewRecognizedEntityBuilder() *RecognizedEntityBuilder {
@@ -3439,7 +3443,7 @@ func NewRecognizedEntityBuilder() *RecognizedEntityBuilder {
 // 示例值：contact_names
 func (builder *RecognizedEntityBuilder) Type(type_ string) *RecognizedEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -3448,17 +3452,17 @@ func (builder *RecognizedEntityBuilder) Type(type_ string) *RecognizedEntityBuil
 // 示例值：张三
 func (builder *RecognizedEntityBuilder) Value(value string) *RecognizedEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *RecognizedEntityBuilder) Build() *RecognizedEntity {
 	req := &RecognizedEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -3518,80 +3522,80 @@ type Resume struct {
 }
 
 type ResumeBuilder struct {
-	fileMd5     string // 文件标识ID，依据文件内容自动生成
-	fileMd5Flag bool
+	fileMd5    string // 文件标识ID，依据文件内容自动生成
+	fileMd5Set bool
 
-	content     string // 文本内容，当接口返回成功时，该字段才存在
-	contentFlag bool
+	content    string // 文本内容，当接口返回成功时，该字段才存在
+	contentSet bool
 
-	newContent     string // 经过排序后的文本内容，当接口返回成功时，该字段才存在
-	newContentFlag bool
+	newContent    string // 经过排序后的文本内容，当接口返回成功时，该字段才存在
+	newContentSet bool
 
-	name     string // 名称
-	nameFlag bool
+	name    string // 名称
+	nameSet bool
 
-	email     string // 邮箱
-	emailFlag bool
+	email    string // 邮箱
+	emailSet bool
 
-	mobile     string // 手机号码
-	mobileFlag bool
+	mobile    string // 手机号码
+	mobileSet bool
 
-	mobileIsVirtual     bool // 手机号码是否虚拟号码
-	mobileIsVirtualFlag bool
+	mobileIsVirtual    bool // 手机号码是否虚拟号码
+	mobileIsVirtualSet bool
 
-	countryCode     string // 手机号码国家编码
-	countryCodeFlag bool
+	countryCode    string // 手机号码国家编码
+	countryCodeSet bool
 
-	educations     []*ResumeEducation // 教育经历
-	educationsFlag bool
+	educations    []*ResumeEducation // 教育经历
+	educationsSet bool
 
-	careers     []*ResumeCareer // 职业经历
-	careersFlag bool
+	careers    []*ResumeCareer // 职业经历
+	careersSet bool
 
-	projects     []*ResumeProject // 项目经历
-	projectsFlag bool
+	projects    []*ResumeProject // 项目经历
+	projectsSet bool
 
-	workYear     int // 工作年限，为空表示工作年限未知，数字单位为年，整数
-	workYearFlag bool
+	workYear    int // 工作年限，为空表示工作年限未知，数字单位为年，整数
+	workYearSet bool
 
-	dateOfBirth     string // 生日，格式YYYY-MM-DD
-	dateOfBirthFlag bool
+	dateOfBirth    string // 生日，格式YYYY-MM-DD
+	dateOfBirthSet bool
 
-	gender     int // 性别
-	genderFlag bool
+	gender    int // 性别
+	genderSet bool
 
-	willingPositions     []string // 希望获得的职位列表
-	willingPositionsFlag bool
+	willingPositions    []string // 希望获得的职位列表
+	willingPositionsSet bool
 
-	currentLocation     string // 当前工作地点(城市)
-	currentLocationFlag bool
+	currentLocation    string // 当前工作地点(城市)
+	currentLocationSet bool
 
-	willingLocations     []string // 希望工作地点列表
-	willingLocationsFlag bool
+	willingLocations    []string // 希望工作地点列表
+	willingLocationsSet bool
 
-	homeLocation     string // 家乡(城市)
-	homeLocationFlag bool
+	homeLocation    string // 家乡(城市)
+	homeLocationSet bool
 
-	languages     []*ResumeLanguage // 语言
-	languagesFlag bool
+	languages    []*ResumeLanguage // 语言
+	languagesSet bool
 
-	awards     []*ResumeAward // 获奖
-	awardsFlag bool
+	awards    []*ResumeAward // 获奖
+	awardsSet bool
 
-	certificates     []*ResumeCertificate // 证书
-	certificatesFlag bool
+	certificates    []*ResumeCertificate // 证书
+	certificatesSet bool
 
-	competitions     []*ResumeCompetition // 竞赛
-	competitionsFlag bool
+	competitions    []*ResumeCompetition // 竞赛
+	competitionsSet bool
 
-	selfEvaluation     string // 自我评价
-	selfEvaluationFlag bool
+	selfEvaluation    string // 自我评价
+	selfEvaluationSet bool
 
-	urls     []string // 链接列表
-	urlsFlag bool
+	urls    []string // 链接列表
+	urlsSet bool
 
-	socialLinks     []string // 社交链接
-	socialLinksFlag bool
+	socialLinks    []string // 社交链接
+	socialLinksSet bool
 }
 
 func NewResumeBuilder() *ResumeBuilder {
@@ -3604,7 +3608,7 @@ func NewResumeBuilder() *ResumeBuilder {
 // 示例值：825c59042dxxxxx3ff90b45xxxxx88
 func (builder *ResumeBuilder) FileMd5(fileMd5 string) *ResumeBuilder {
 	builder.fileMd5 = fileMd5
-	builder.fileMd5Flag = true
+	builder.fileMd5Set = true
 	return builder
 }
 
@@ -3613,7 +3617,7 @@ func (builder *ResumeBuilder) FileMd5(fileMd5 string) *ResumeBuilder {
 // 示例值：XX负责行政人事管理和日常事务...
 func (builder *ResumeBuilder) Content(content string) *ResumeBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -3622,7 +3626,7 @@ func (builder *ResumeBuilder) Content(content string) *ResumeBuilder {
 // 示例值：XX负责行政人事管理和日常事务...
 func (builder *ResumeBuilder) NewContent(newContent string) *ResumeBuilder {
 	builder.newContent = newContent
-	builder.newContentFlag = true
+	builder.newContentSet = true
 	return builder
 }
 
@@ -3631,7 +3635,7 @@ func (builder *ResumeBuilder) NewContent(newContent string) *ResumeBuilder {
 // 示例值：张三
 func (builder *ResumeBuilder) Name(name string) *ResumeBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3640,7 +3644,7 @@ func (builder *ResumeBuilder) Name(name string) *ResumeBuilder {
 // 示例值：zhangsan.1111@bytedance.com
 func (builder *ResumeBuilder) Email(email string) *ResumeBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -3649,7 +3653,7 @@ func (builder *ResumeBuilder) Email(email string) *ResumeBuilder {
 // 示例值：13600000000
 func (builder *ResumeBuilder) Mobile(mobile string) *ResumeBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -3658,7 +3662,7 @@ func (builder *ResumeBuilder) Mobile(mobile string) *ResumeBuilder {
 // 示例值：false
 func (builder *ResumeBuilder) MobileIsVirtual(mobileIsVirtual bool) *ResumeBuilder {
 	builder.mobileIsVirtual = mobileIsVirtual
-	builder.mobileIsVirtualFlag = true
+	builder.mobileIsVirtualSet = true
 	return builder
 }
 
@@ -3667,7 +3671,7 @@ func (builder *ResumeBuilder) MobileIsVirtual(mobileIsVirtual bool) *ResumeBuild
 // 示例值：86
 func (builder *ResumeBuilder) CountryCode(countryCode string) *ResumeBuilder {
 	builder.countryCode = countryCode
-	builder.countryCodeFlag = true
+	builder.countryCodeSet = true
 	return builder
 }
 
@@ -3676,7 +3680,7 @@ func (builder *ResumeBuilder) CountryCode(countryCode string) *ResumeBuilder {
 // 示例值：
 func (builder *ResumeBuilder) Educations(educations []*ResumeEducation) *ResumeBuilder {
 	builder.educations = educations
-	builder.educationsFlag = true
+	builder.educationsSet = true
 	return builder
 }
 
@@ -3685,7 +3689,7 @@ func (builder *ResumeBuilder) Educations(educations []*ResumeEducation) *ResumeB
 // 示例值：
 func (builder *ResumeBuilder) Careers(careers []*ResumeCareer) *ResumeBuilder {
 	builder.careers = careers
-	builder.careersFlag = true
+	builder.careersSet = true
 	return builder
 }
 
@@ -3694,7 +3698,7 @@ func (builder *ResumeBuilder) Careers(careers []*ResumeCareer) *ResumeBuilder {
 // 示例值：
 func (builder *ResumeBuilder) Projects(projects []*ResumeProject) *ResumeBuilder {
 	builder.projects = projects
-	builder.projectsFlag = true
+	builder.projectsSet = true
 	return builder
 }
 
@@ -3703,7 +3707,7 @@ func (builder *ResumeBuilder) Projects(projects []*ResumeProject) *ResumeBuilder
 // 示例值：5
 func (builder *ResumeBuilder) WorkYear(workYear int) *ResumeBuilder {
 	builder.workYear = workYear
-	builder.workYearFlag = true
+	builder.workYearSet = true
 	return builder
 }
 
@@ -3712,7 +3716,7 @@ func (builder *ResumeBuilder) WorkYear(workYear int) *ResumeBuilder {
 // 示例值：1995-01-01
 func (builder *ResumeBuilder) DateOfBirth(dateOfBirth string) *ResumeBuilder {
 	builder.dateOfBirth = dateOfBirth
-	builder.dateOfBirthFlag = true
+	builder.dateOfBirthSet = true
 	return builder
 }
 
@@ -3721,7 +3725,7 @@ func (builder *ResumeBuilder) DateOfBirth(dateOfBirth string) *ResumeBuilder {
 // 示例值：1
 func (builder *ResumeBuilder) Gender(gender int) *ResumeBuilder {
 	builder.gender = gender
-	builder.genderFlag = true
+	builder.genderSet = true
 	return builder
 }
 
@@ -3730,7 +3734,7 @@ func (builder *ResumeBuilder) Gender(gender int) *ResumeBuilder {
 // 示例值：xxx岗位
 func (builder *ResumeBuilder) WillingPositions(willingPositions []string) *ResumeBuilder {
 	builder.willingPositions = willingPositions
-	builder.willingPositionsFlag = true
+	builder.willingPositionsSet = true
 	return builder
 }
 
@@ -3739,7 +3743,7 @@ func (builder *ResumeBuilder) WillingPositions(willingPositions []string) *Resum
 // 示例值：上海
 func (builder *ResumeBuilder) CurrentLocation(currentLocation string) *ResumeBuilder {
 	builder.currentLocation = currentLocation
-	builder.currentLocationFlag = true
+	builder.currentLocationSet = true
 	return builder
 }
 
@@ -3748,7 +3752,7 @@ func (builder *ResumeBuilder) CurrentLocation(currentLocation string) *ResumeBui
 // 示例值：
 func (builder *ResumeBuilder) WillingLocations(willingLocations []string) *ResumeBuilder {
 	builder.willingLocations = willingLocations
-	builder.willingLocationsFlag = true
+	builder.willingLocationsSet = true
 	return builder
 }
 
@@ -3757,7 +3761,7 @@ func (builder *ResumeBuilder) WillingLocations(willingLocations []string) *Resum
 // 示例值：上海
 func (builder *ResumeBuilder) HomeLocation(homeLocation string) *ResumeBuilder {
 	builder.homeLocation = homeLocation
-	builder.homeLocationFlag = true
+	builder.homeLocationSet = true
 	return builder
 }
 
@@ -3766,7 +3770,7 @@ func (builder *ResumeBuilder) HomeLocation(homeLocation string) *ResumeBuilder {
 // 示例值：
 func (builder *ResumeBuilder) Languages(languages []*ResumeLanguage) *ResumeBuilder {
 	builder.languages = languages
-	builder.languagesFlag = true
+	builder.languagesSet = true
 	return builder
 }
 
@@ -3775,7 +3779,7 @@ func (builder *ResumeBuilder) Languages(languages []*ResumeLanguage) *ResumeBuil
 // 示例值：
 func (builder *ResumeBuilder) Awards(awards []*ResumeAward) *ResumeBuilder {
 	builder.awards = awards
-	builder.awardsFlag = true
+	builder.awardsSet = true
 	return builder
 }
 
@@ -3784,7 +3788,7 @@ func (builder *ResumeBuilder) Awards(awards []*ResumeAward) *ResumeBuilder {
 // 示例值：
 func (builder *ResumeBuilder) Certificates(certificates []*ResumeCertificate) *ResumeBuilder {
 	builder.certificates = certificates
-	builder.certificatesFlag = true
+	builder.certificatesSet = true
 	return builder
 }
 
@@ -3793,7 +3797,7 @@ func (builder *ResumeBuilder) Certificates(certificates []*ResumeCertificate) *R
 // 示例值：
 func (builder *ResumeBuilder) Competitions(competitions []*ResumeCompetition) *ResumeBuilder {
 	builder.competitions = competitions
-	builder.competitionsFlag = true
+	builder.competitionsSet = true
 	return builder
 }
 
@@ -3802,7 +3806,7 @@ func (builder *ResumeBuilder) Competitions(competitions []*ResumeCompetition) *R
 // 示例值：我是一个...
 func (builder *ResumeBuilder) SelfEvaluation(selfEvaluation string) *ResumeBuilder {
 	builder.selfEvaluation = selfEvaluation
-	builder.selfEvaluationFlag = true
+	builder.selfEvaluationSet = true
 	return builder
 }
 
@@ -3811,7 +3815,7 @@ func (builder *ResumeBuilder) SelfEvaluation(selfEvaluation string) *ResumeBuild
 // 示例值：
 func (builder *ResumeBuilder) Urls(urls []string) *ResumeBuilder {
 	builder.urls = urls
-	builder.urlsFlag = true
+	builder.urlsSet = true
 	return builder
 }
 
@@ -3820,99 +3824,99 @@ func (builder *ResumeBuilder) Urls(urls []string) *ResumeBuilder {
 // 示例值：
 func (builder *ResumeBuilder) SocialLinks(socialLinks []string) *ResumeBuilder {
 	builder.socialLinks = socialLinks
-	builder.socialLinksFlag = true
+	builder.socialLinksSet = true
 	return builder
 }
 
 func (builder *ResumeBuilder) Build() *Resume {
 	req := &Resume{}
-	if builder.fileMd5Flag {
+	if builder.fileMd5Set {
 		req.FileMd5 = &builder.fileMd5
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.newContentFlag {
+	if builder.newContentSet {
 		req.NewContent = &builder.newContent
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.mobileIsVirtualFlag {
+	if builder.mobileIsVirtualSet {
 		req.MobileIsVirtual = &builder.mobileIsVirtual
 
 	}
-	if builder.countryCodeFlag {
+	if builder.countryCodeSet {
 		req.CountryCode = &builder.countryCode
 
 	}
-	if builder.educationsFlag {
+	if builder.educationsSet {
 		req.Educations = builder.educations
 	}
-	if builder.careersFlag {
+	if builder.careersSet {
 		req.Careers = builder.careers
 	}
-	if builder.projectsFlag {
+	if builder.projectsSet {
 		req.Projects = builder.projects
 	}
-	if builder.workYearFlag {
+	if builder.workYearSet {
 		req.WorkYear = &builder.workYear
 
 	}
-	if builder.dateOfBirthFlag {
+	if builder.dateOfBirthSet {
 		req.DateOfBirth = &builder.dateOfBirth
 
 	}
-	if builder.genderFlag {
+	if builder.genderSet {
 		req.Gender = &builder.gender
 
 	}
-	if builder.willingPositionsFlag {
+	if builder.willingPositionsSet {
 		req.WillingPositions = builder.willingPositions
 	}
-	if builder.currentLocationFlag {
+	if builder.currentLocationSet {
 		req.CurrentLocation = &builder.currentLocation
 
 	}
-	if builder.willingLocationsFlag {
+	if builder.willingLocationsSet {
 		req.WillingLocations = builder.willingLocations
 	}
-	if builder.homeLocationFlag {
+	if builder.homeLocationSet {
 		req.HomeLocation = &builder.homeLocation
 
 	}
-	if builder.languagesFlag {
+	if builder.languagesSet {
 		req.Languages = builder.languages
 	}
-	if builder.awardsFlag {
+	if builder.awardsSet {
 		req.Awards = builder.awards
 	}
-	if builder.certificatesFlag {
+	if builder.certificatesSet {
 		req.Certificates = builder.certificates
 	}
-	if builder.competitionsFlag {
+	if builder.competitionsSet {
 		req.Competitions = builder.competitions
 	}
-	if builder.selfEvaluationFlag {
+	if builder.selfEvaluationSet {
 		req.SelfEvaluation = &builder.selfEvaluation
 
 	}
-	if builder.urlsFlag {
+	if builder.urlsSet {
 		req.Urls = builder.urls
 	}
-	if builder.socialLinksFlag {
+	if builder.socialLinksSet {
 		req.SocialLinks = builder.socialLinks
 	}
 	return req
@@ -3927,14 +3931,14 @@ type ResumeAward struct {
 }
 
 type ResumeAwardBuilder struct {
-	award     string // 奖项
-	awardFlag bool
+	award    string // 奖项
+	awardSet bool
 
-	date     string // 获奖时间，格式：YYYY
-	dateFlag bool
+	date    string // 获奖时间，格式：YYYY
+	dateSet bool
 
-	description     string // 描述
-	descriptionFlag bool
+	description    string // 描述
+	descriptionSet bool
 }
 
 func NewResumeAwardBuilder() *ResumeAwardBuilder {
@@ -3947,7 +3951,7 @@ func NewResumeAwardBuilder() *ResumeAwardBuilder {
 // 示例值：XXX大赛奖项
 func (builder *ResumeAwardBuilder) Award(award string) *ResumeAwardBuilder {
 	builder.award = award
-	builder.awardFlag = true
+	builder.awardSet = true
 	return builder
 }
 
@@ -3956,7 +3960,7 @@ func (builder *ResumeAwardBuilder) Award(award string) *ResumeAwardBuilder {
 // 示例值：2015
 func (builder *ResumeAwardBuilder) Date(date string) *ResumeAwardBuilder {
 	builder.date = date
-	builder.dateFlag = true
+	builder.dateSet = true
 	return builder
 }
 
@@ -3965,21 +3969,21 @@ func (builder *ResumeAwardBuilder) Date(date string) *ResumeAwardBuilder {
 // 示例值：曾获XXX大赛奖项...
 func (builder *ResumeAwardBuilder) Description(description string) *ResumeAwardBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
 func (builder *ResumeAwardBuilder) Build() *ResumeAward {
 	req := &ResumeAward{}
-	if builder.awardFlag {
+	if builder.awardSet {
 		req.Award = &builder.award
 
 	}
-	if builder.dateFlag {
+	if builder.dateSet {
 		req.Date = &builder.date
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
@@ -4007,32 +4011,32 @@ type ResumeCareer struct {
 }
 
 type ResumeCareerBuilder struct {
-	company     string // 公司名称
-	companyFlag bool
+	company    string // 公司名称
+	companySet bool
 
-	startDate     string // 开始时间,格式：YYYY-MM-DD
-	startDateFlag bool
+	startDate    string // 开始时间,格式：YYYY-MM-DD
+	startDateSet bool
 
-	startTime     string // 始时间,格式：YYYY-MM-DD,跟start_date值一样
-	startTimeFlag bool
+	startTime    string // 始时间,格式：YYYY-MM-DD,跟start_date值一样
+	startTimeSet bool
 
-	endDate     string // 结束时间,格式：YYYY-MM-DD
-	endDateFlag bool
+	endDate    string // 结束时间,格式：YYYY-MM-DD
+	endDateSet bool
 
-	endTime     string // 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值为其他时，end_date==end_time
-	endTimeFlag bool
+	endTime    string // 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值为其他时，end_date==end_time
+	endTimeSet bool
 
-	title     string // 职位
-	titleFlag bool
+	title    string // 职位
+	titleSet bool
 
 	type_    int // 工作类型
-	typeFlag bool
+	type_Set bool
 
-	typeStr     string // 工作类型——'实习'、'全职'
-	typeStrFlag bool
+	typeStr    string // 工作类型——'实习'、'全职'
+	typeStrSet bool
 
-	jobDescription     string // 工作描述
-	jobDescriptionFlag bool
+	jobDescription    string // 工作描述
+	jobDescriptionSet bool
 }
 
 func NewResumeCareerBuilder() *ResumeCareerBuilder {
@@ -4045,7 +4049,7 @@ func NewResumeCareerBuilder() *ResumeCareerBuilder {
 // 示例值：XX公司
 func (builder *ResumeCareerBuilder) Company(company string) *ResumeCareerBuilder {
 	builder.company = company
-	builder.companyFlag = true
+	builder.companySet = true
 	return builder
 }
 
@@ -4054,7 +4058,7 @@ func (builder *ResumeCareerBuilder) Company(company string) *ResumeCareerBuilder
 // 示例值：2022-01-03
 func (builder *ResumeCareerBuilder) StartDate(startDate string) *ResumeCareerBuilder {
 	builder.startDate = startDate
-	builder.startDateFlag = true
+	builder.startDateSet = true
 	return builder
 }
 
@@ -4063,7 +4067,7 @@ func (builder *ResumeCareerBuilder) StartDate(startDate string) *ResumeCareerBui
 // 示例值：2022-01-03
 func (builder *ResumeCareerBuilder) StartTime(startTime string) *ResumeCareerBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -4072,7 +4076,7 @@ func (builder *ResumeCareerBuilder) StartTime(startTime string) *ResumeCareerBui
 // 示例值：2023-01-03
 func (builder *ResumeCareerBuilder) EndDate(endDate string) *ResumeCareerBuilder {
 	builder.endDate = endDate
-	builder.endDateFlag = true
+	builder.endDateSet = true
 	return builder
 }
 
@@ -4081,7 +4085,7 @@ func (builder *ResumeCareerBuilder) EndDate(endDate string) *ResumeCareerBuilder
 // 示例值：2023-01-03
 func (builder *ResumeCareerBuilder) EndTime(endTime string) *ResumeCareerBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -4090,7 +4094,7 @@ func (builder *ResumeCareerBuilder) EndTime(endTime string) *ResumeCareerBuilder
 // 示例值：XXX工程师
 func (builder *ResumeCareerBuilder) Title(title string) *ResumeCareerBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -4099,7 +4103,7 @@ func (builder *ResumeCareerBuilder) Title(title string) *ResumeCareerBuilder {
 // 示例值：2
 func (builder *ResumeCareerBuilder) Type(type_ int) *ResumeCareerBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -4108,7 +4112,7 @@ func (builder *ResumeCareerBuilder) Type(type_ int) *ResumeCareerBuilder {
 // 示例值：全职
 func (builder *ResumeCareerBuilder) TypeStr(typeStr string) *ResumeCareerBuilder {
 	builder.typeStr = typeStr
-	builder.typeStrFlag = true
+	builder.typeStrSet = true
 	return builder
 }
 
@@ -4117,45 +4121,45 @@ func (builder *ResumeCareerBuilder) TypeStr(typeStr string) *ResumeCareerBuilder
 // 示例值：负责XXX开发...
 func (builder *ResumeCareerBuilder) JobDescription(jobDescription string) *ResumeCareerBuilder {
 	builder.jobDescription = jobDescription
-	builder.jobDescriptionFlag = true
+	builder.jobDescriptionSet = true
 	return builder
 }
 
 func (builder *ResumeCareerBuilder) Build() *ResumeCareer {
 	req := &ResumeCareer{}
-	if builder.companyFlag {
+	if builder.companySet {
 		req.Company = &builder.company
 
 	}
-	if builder.startDateFlag {
+	if builder.startDateSet {
 		req.StartDate = &builder.startDate
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endDateFlag {
+	if builder.endDateSet {
 		req.EndDate = &builder.endDate
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.typeStrFlag {
+	if builder.typeStrSet {
 		req.TypeStr = &builder.typeStr
 
 	}
-	if builder.jobDescriptionFlag {
+	if builder.jobDescriptionSet {
 		req.JobDescription = &builder.jobDescription
 
 	}
@@ -4169,11 +4173,11 @@ type ResumeCertificate struct {
 }
 
 type ResumeCertificateBuilder struct {
-	name     string // 证书名称
-	nameFlag bool
+	name    string // 证书名称
+	nameSet bool
 
-	desc     string // 描述
-	descFlag bool
+	desc    string // 描述
+	descSet bool
 }
 
 func NewResumeCertificateBuilder() *ResumeCertificateBuilder {
@@ -4186,7 +4190,7 @@ func NewResumeCertificateBuilder() *ResumeCertificateBuilder {
 // 示例值：XXX证书
 func (builder *ResumeCertificateBuilder) Name(name string) *ResumeCertificateBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4195,17 +4199,17 @@ func (builder *ResumeCertificateBuilder) Name(name string) *ResumeCertificateBui
 // 示例值：曾获得XXX证书...
 func (builder *ResumeCertificateBuilder) Desc(desc string) *ResumeCertificateBuilder {
 	builder.desc = desc
-	builder.descFlag = true
+	builder.descSet = true
 	return builder
 }
 
 func (builder *ResumeCertificateBuilder) Build() *ResumeCertificate {
 	req := &ResumeCertificate{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.descFlag {
+	if builder.descSet {
 		req.Desc = &builder.desc
 
 	}
@@ -4219,11 +4223,11 @@ type ResumeCompetition struct {
 }
 
 type ResumeCompetitionBuilder struct {
-	name     string // 竞赛名称
-	nameFlag bool
+	name    string // 竞赛名称
+	nameSet bool
 
-	desc     string // 描述
-	descFlag bool
+	desc    string // 描述
+	descSet bool
 }
 
 func NewResumeCompetitionBuilder() *ResumeCompetitionBuilder {
@@ -4236,7 +4240,7 @@ func NewResumeCompetitionBuilder() *ResumeCompetitionBuilder {
 // 示例值：XXX竞赛
 func (builder *ResumeCompetitionBuilder) Name(name string) *ResumeCompetitionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4245,17 +4249,17 @@ func (builder *ResumeCompetitionBuilder) Name(name string) *ResumeCompetitionBui
 // 示例值：曾参加XXX竞赛...
 func (builder *ResumeCompetitionBuilder) Desc(desc string) *ResumeCompetitionBuilder {
 	builder.desc = desc
-	builder.descFlag = true
+	builder.descSet = true
 	return builder
 }
 
 func (builder *ResumeCompetitionBuilder) Build() *ResumeCompetition {
 	req := &ResumeCompetition{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.descFlag {
+	if builder.descSet {
 		req.Desc = &builder.desc
 
 	}
@@ -4281,29 +4285,29 @@ type ResumeEducation struct {
 }
 
 type ResumeEducationBuilder struct {
-	school     string // 学校名称
-	schoolFlag bool
+	school    string // 学校名称
+	schoolSet bool
 
-	startDate     string // 开始时间,格式：YYYY-MM-DD
-	startDateFlag bool
+	startDate    string // 开始时间,格式：YYYY-MM-DD
+	startDateSet bool
 
-	startTime     string // 开始时间,格式：YYYY-MM-DD,跟start_date值一样
-	startTimeFlag bool
+	startTime    string // 开始时间,格式：YYYY-MM-DD,跟start_date值一样
+	startTimeSet bool
 
-	endDate     string // 结束时间,格式：YYYY-MM-DD
-	endDateFlag bool
+	endDate    string // 结束时间,格式：YYYY-MM-DD
+	endDateSet bool
 
-	endTime     string // 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值为其他时，end_date==end_time
-	endTimeFlag bool
+	endTime    string // 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值为其他时，end_date==end_time
+	endTimeSet bool
 
-	major     string // 专业
-	majorFlag bool
+	major    string // 专业
+	majorSet bool
 
-	degree     string // 学历——小学、初中、中职、高中、专科、本科、硕士、博士、其他
-	degreeFlag bool
+	degree    string // 学历——小学、初中、中职、高中、专科、本科、硕士、博士、其他
+	degreeSet bool
 
-	qualification     int // 学历对应ID
-	qualificationFlag bool
+	qualification    int // 学历对应ID
+	qualificationSet bool
 }
 
 func NewResumeEducationBuilder() *ResumeEducationBuilder {
@@ -4316,7 +4320,7 @@ func NewResumeEducationBuilder() *ResumeEducationBuilder {
 // 示例值：A大学
 func (builder *ResumeEducationBuilder) School(school string) *ResumeEducationBuilder {
 	builder.school = school
-	builder.schoolFlag = true
+	builder.schoolSet = true
 	return builder
 }
 
@@ -4325,7 +4329,7 @@ func (builder *ResumeEducationBuilder) School(school string) *ResumeEducationBui
 // 示例值：2020-01-03
 func (builder *ResumeEducationBuilder) StartDate(startDate string) *ResumeEducationBuilder {
 	builder.startDate = startDate
-	builder.startDateFlag = true
+	builder.startDateSet = true
 	return builder
 }
 
@@ -4334,7 +4338,7 @@ func (builder *ResumeEducationBuilder) StartDate(startDate string) *ResumeEducat
 // 示例值：2020-01-03
 func (builder *ResumeEducationBuilder) StartTime(startTime string) *ResumeEducationBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -4343,7 +4347,7 @@ func (builder *ResumeEducationBuilder) StartTime(startTime string) *ResumeEducat
 // 示例值：2021-01-03
 func (builder *ResumeEducationBuilder) EndDate(endDate string) *ResumeEducationBuilder {
 	builder.endDate = endDate
-	builder.endDateFlag = true
+	builder.endDateSet = true
 	return builder
 }
 
@@ -4352,7 +4356,7 @@ func (builder *ResumeEducationBuilder) EndDate(endDate string) *ResumeEducationB
 // 示例值：至今
 func (builder *ResumeEducationBuilder) EndTime(endTime string) *ResumeEducationBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -4361,7 +4365,7 @@ func (builder *ResumeEducationBuilder) EndTime(endTime string) *ResumeEducationB
 // 示例值：XX工程
 func (builder *ResumeEducationBuilder) Major(major string) *ResumeEducationBuilder {
 	builder.major = major
-	builder.majorFlag = true
+	builder.majorSet = true
 	return builder
 }
 
@@ -4370,7 +4374,7 @@ func (builder *ResumeEducationBuilder) Major(major string) *ResumeEducationBuild
 // 示例值：本科
 func (builder *ResumeEducationBuilder) Degree(degree string) *ResumeEducationBuilder {
 	builder.degree = degree
-	builder.degreeFlag = true
+	builder.degreeSet = true
 	return builder
 }
 
@@ -4379,41 +4383,41 @@ func (builder *ResumeEducationBuilder) Degree(degree string) *ResumeEducationBui
 // 示例值：6
 func (builder *ResumeEducationBuilder) Qualification(qualification int) *ResumeEducationBuilder {
 	builder.qualification = qualification
-	builder.qualificationFlag = true
+	builder.qualificationSet = true
 	return builder
 }
 
 func (builder *ResumeEducationBuilder) Build() *ResumeEducation {
 	req := &ResumeEducation{}
-	if builder.schoolFlag {
+	if builder.schoolSet {
 		req.School = &builder.school
 
 	}
-	if builder.startDateFlag {
+	if builder.startDateSet {
 		req.StartDate = &builder.startDate
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endDateFlag {
+	if builder.endDateSet {
 		req.EndDate = &builder.endDate
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.majorFlag {
+	if builder.majorSet {
 		req.Major = &builder.major
 
 	}
-	if builder.degreeFlag {
+	if builder.degreeSet {
 		req.Degree = &builder.degree
 
 	}
-	if builder.qualificationFlag {
+	if builder.qualificationSet {
 		req.Qualification = &builder.qualification
 
 	}
@@ -4427,11 +4431,11 @@ type ResumeLanguage struct {
 }
 
 type ResumeLanguageBuilder struct {
-	level     int // 语言等级
-	levelFlag bool
+	level    int // 语言等级
+	levelSet bool
 
-	description     string // 语言描述
-	descriptionFlag bool
+	description    string // 语言描述
+	descriptionSet bool
 }
 
 func NewResumeLanguageBuilder() *ResumeLanguageBuilder {
@@ -4444,7 +4448,7 @@ func NewResumeLanguageBuilder() *ResumeLanguageBuilder {
 // 示例值：6
 func (builder *ResumeLanguageBuilder) Level(level int) *ResumeLanguageBuilder {
 	builder.level = level
-	builder.levelFlag = true
+	builder.levelSet = true
 	return builder
 }
 
@@ -4453,17 +4457,17 @@ func (builder *ResumeLanguageBuilder) Level(level int) *ResumeLanguageBuilder {
 // 示例值：英语
 func (builder *ResumeLanguageBuilder) Description(description string) *ResumeLanguageBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
 func (builder *ResumeLanguageBuilder) Build() *ResumeLanguage {
 	req := &ResumeLanguage{}
-	if builder.levelFlag {
+	if builder.levelSet {
 		req.Level = &builder.level
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
@@ -4487,26 +4491,26 @@ type ResumeProject struct {
 }
 
 type ResumeProjectBuilder struct {
-	name     string // 项目名称
-	nameFlag bool
+	name    string // 项目名称
+	nameSet bool
 
-	title     string // 项目岗位
-	titleFlag bool
+	title    string // 项目岗位
+	titleSet bool
 
-	startDate     string // 开始时间,格式：YYYY-MM-DD
-	startDateFlag bool
+	startDate    string // 开始时间,格式：YYYY-MM-DD
+	startDateSet bool
 
-	startTime     string // 开始时间,格式：YYYY-MM-DD,跟start_date值一样
-	startTimeFlag bool
+	startTime    string // 开始时间,格式：YYYY-MM-DD,跟start_date值一样
+	startTimeSet bool
 
-	endDate     string // 结束时间,格式：YYYY-MM-DD
-	endDateFlag bool
+	endDate    string // 结束时间,格式：YYYY-MM-DD
+	endDateSet bool
 
-	endTime     string // 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值
-	endTimeFlag bool
+	endTime    string // 结束时间,格式：YYYY-MM-DD 或 “至今”，当值为“至今”时，end_date=="",值
+	endTimeSet bool
 
-	description     string // 项目描述
-	descriptionFlag bool
+	description    string // 项目描述
+	descriptionSet bool
 }
 
 func NewResumeProjectBuilder() *ResumeProjectBuilder {
@@ -4519,7 +4523,7 @@ func NewResumeProjectBuilder() *ResumeProjectBuilder {
 // 示例值：XX项目
 func (builder *ResumeProjectBuilder) Name(name string) *ResumeProjectBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4528,7 +4532,7 @@ func (builder *ResumeProjectBuilder) Name(name string) *ResumeProjectBuilder {
 // 示例值：客户端研发
 func (builder *ResumeProjectBuilder) Title(title string) *ResumeProjectBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -4537,7 +4541,7 @@ func (builder *ResumeProjectBuilder) Title(title string) *ResumeProjectBuilder {
 // 示例值：2023-01-03
 func (builder *ResumeProjectBuilder) StartDate(startDate string) *ResumeProjectBuilder {
 	builder.startDate = startDate
-	builder.startDateFlag = true
+	builder.startDateSet = true
 	return builder
 }
 
@@ -4546,7 +4550,7 @@ func (builder *ResumeProjectBuilder) StartDate(startDate string) *ResumeProjectB
 // 示例值：2023-01-03
 func (builder *ResumeProjectBuilder) StartTime(startTime string) *ResumeProjectBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -4555,7 +4559,7 @@ func (builder *ResumeProjectBuilder) StartTime(startTime string) *ResumeProjectB
 // 示例值：2023-01-04
 func (builder *ResumeProjectBuilder) EndDate(endDate string) *ResumeProjectBuilder {
 	builder.endDate = endDate
-	builder.endDateFlag = true
+	builder.endDateSet = true
 	return builder
 }
 
@@ -4564,7 +4568,7 @@ func (builder *ResumeProjectBuilder) EndDate(endDate string) *ResumeProjectBuild
 // 示例值：2023-01-04
 func (builder *ResumeProjectBuilder) EndTime(endTime string) *ResumeProjectBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -4573,37 +4577,37 @@ func (builder *ResumeProjectBuilder) EndTime(endTime string) *ResumeProjectBuild
 // 示例值：XXX项目是一个...
 func (builder *ResumeProjectBuilder) Description(description string) *ResumeProjectBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
 func (builder *ResumeProjectBuilder) Build() *ResumeProject {
 	req := &ResumeProject{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.startDateFlag {
+	if builder.startDateSet {
 		req.StartDate = &builder.startDate
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endDateFlag {
+	if builder.endDateSet {
 		req.EndDate = &builder.endDate
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
@@ -4620,13 +4624,13 @@ type TableImg struct {
 
 type TableImgBuilder struct {
 	type_    string // 图片返回的结果是base64还是url
-	typeFlag bool
+	type_Set bool
 
-	base64     string // 图片的base64
-	base64Flag bool
+	base64    string // 图片的base64
+	base64Set bool
 
-	url     string // 图片链接
-	urlFlag bool
+	url    string // 图片链接
+	urlSet bool
 }
 
 func NewTableImgBuilder() *TableImgBuilder {
@@ -4639,7 +4643,7 @@ func NewTableImgBuilder() *TableImgBuilder {
 // 示例值：base64
 func (builder *TableImgBuilder) Type(type_ string) *TableImgBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -4648,7 +4652,7 @@ func (builder *TableImgBuilder) Type(type_ string) *TableImgBuilder {
 // 示例值：data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=
 func (builder *TableImgBuilder) Base64(base64 string) *TableImgBuilder {
 	builder.base64 = base64
-	builder.base64Flag = true
+	builder.base64Set = true
 	return builder
 }
 
@@ -4657,21 +4661,21 @@ func (builder *TableImgBuilder) Base64(base64 string) *TableImgBuilder {
 // 示例值：https://picsum.photos/400/300
 func (builder *TableImgBuilder) Url(url string) *TableImgBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
 func (builder *TableImgBuilder) Build() *TableImg {
 	req := &TableImg{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.base64Flag {
+	if builder.base64Set {
 		req.Base64 = &builder.base64
 
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
@@ -4686,10 +4690,10 @@ type TaxiEnitity struct {
 
 type TaxiEnitityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewTaxiEnitityBuilder() *TaxiEnitityBuilder {
@@ -4702,7 +4706,7 @@ func NewTaxiEnitityBuilder() *TaxiEnitityBuilder {
 // 示例值：car_number
 func (builder *TaxiEnitityBuilder) Type(type_ string) *TaxiEnitityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -4711,17 +4715,17 @@ func (builder *TaxiEnitityBuilder) Type(type_ string) *TaxiEnitityBuilder {
 // 示例值：BDK6231
 func (builder *TaxiEnitityBuilder) Value(value string) *TaxiEnitityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *TaxiEnitityBuilder) Build() *TaxiEnitity {
 	req := &TaxiEnitity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -4736,10 +4740,10 @@ type TaxiEntity struct {
 
 type TaxiEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewTaxiEntityBuilder() *TaxiEntityBuilder {
@@ -4752,7 +4756,7 @@ func NewTaxiEntityBuilder() *TaxiEntityBuilder {
 // 示例值：car_number
 func (builder *TaxiEntityBuilder) Type(type_ string) *TaxiEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -4761,17 +4765,17 @@ func (builder *TaxiEntityBuilder) Type(type_ string) *TaxiEntityBuilder {
 // 示例值：BDK6231
 func (builder *TaxiEntityBuilder) Value(value string) *TaxiEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *TaxiEntityBuilder) Build() *TaxiEntity {
 	req := &TaxiEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -4783,8 +4787,8 @@ type TaxiInvoice struct {
 }
 
 type TaxiInvoiceBuilder struct {
-	entities     []*TaxiEntity // 识别出的实体类型
-	entitiesFlag bool
+	entities    []*TaxiEntity // 识别出的实体类型
+	entitiesSet bool
 }
 
 func NewTaxiInvoiceBuilder() *TaxiInvoiceBuilder {
@@ -4797,13 +4801,13 @@ func NewTaxiInvoiceBuilder() *TaxiInvoiceBuilder {
 // 示例值：
 func (builder *TaxiInvoiceBuilder) Entities(entities []*TaxiEntity) *TaxiInvoiceBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *TaxiInvoiceBuilder) Build() *TaxiInvoice {
 	req := &TaxiInvoice{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
@@ -4817,10 +4821,10 @@ type TrainEntity struct {
 
 type TrainEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewTrainEntityBuilder() *TrainEntityBuilder {
@@ -4833,7 +4837,7 @@ func NewTrainEntityBuilder() *TrainEntityBuilder {
 // 示例值：end_station
 func (builder *TrainEntityBuilder) Type(type_ string) *TrainEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -4842,17 +4846,17 @@ func (builder *TrainEntityBuilder) Type(type_ string) *TrainEntityBuilder {
 // 示例值：长沙南
 func (builder *TrainEntityBuilder) Value(value string) *TrainEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *TrainEntityBuilder) Build() *TrainEntity {
 	req := &TrainEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -4864,8 +4868,8 @@ type TrainInvoice struct {
 }
 
 type TrainInvoiceBuilder struct {
-	entities     []*TrainEntity // 识别出的实体列表
-	entitiesFlag bool
+	entities    []*TrainEntity // 识别出的实体列表
+	entitiesSet bool
 }
 
 func NewTrainInvoiceBuilder() *TrainInvoiceBuilder {
@@ -4878,13 +4882,13 @@ func NewTrainInvoiceBuilder() *TrainInvoiceBuilder {
 // 示例值：
 func (builder *TrainInvoiceBuilder) Entities(entities []*TrainEntity) *TrainInvoiceBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *TrainInvoiceBuilder) Build() *TrainInvoice {
 	req := &TrainInvoice{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
@@ -4895,8 +4899,8 @@ type TwMainlandTravelPermit struct {
 }
 
 type TwMainlandTravelPermitBuilder struct {
-	entities     []*TwMainlandTravelPermitEntity // 识别出的实体类型
-	entitiesFlag bool
+	entities    []*TwMainlandTravelPermitEntity // 识别出的实体类型
+	entitiesSet bool
 }
 
 func NewTwMainlandTravelPermitBuilder() *TwMainlandTravelPermitBuilder {
@@ -4909,13 +4913,13 @@ func NewTwMainlandTravelPermitBuilder() *TwMainlandTravelPermitBuilder {
 // 示例值：
 func (builder *TwMainlandTravelPermitBuilder) Entities(entities []*TwMainlandTravelPermitEntity) *TwMainlandTravelPermitBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *TwMainlandTravelPermitBuilder) Build() *TwMainlandTravelPermit {
 	req := &TwMainlandTravelPermit{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
@@ -4929,10 +4933,10 @@ type TwMainlandTravelPermitEntity struct {
 
 type TwMainlandTravelPermitEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewTwMainlandTravelPermitEntityBuilder() *TwMainlandTravelPermitEntityBuilder {
@@ -4945,7 +4949,7 @@ func NewTwMainlandTravelPermitEntityBuilder() *TwMainlandTravelPermitEntityBuild
 // 示例值：full_name_cn
 func (builder *TwMainlandTravelPermitEntityBuilder) Type(type_ string) *TwMainlandTravelPermitEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -4954,17 +4958,17 @@ func (builder *TwMainlandTravelPermitEntityBuilder) Type(type_ string) *TwMainla
 // 示例值：张三
 func (builder *TwMainlandTravelPermitEntityBuilder) Value(value string) *TwMainlandTravelPermitEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *TwMainlandTravelPermitEntityBuilder) Build() *TwMainlandTravelPermitEntity {
 	req := &TwMainlandTravelPermitEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -4981,13 +4985,13 @@ type VatEntity struct {
 
 type VatEntityBuilder struct {
 	type_    string // 识别的实体类型
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 
-	items     [][]*KvEntity // 识别出的票据详细信息
-	itemsFlag bool
+	items    [][]*KvEntity // 识别出的票据详细信息
+	itemsSet bool
 }
 
 func NewVatEntityBuilder() *VatEntityBuilder {
@@ -5000,7 +5004,7 @@ func NewVatEntityBuilder() *VatEntityBuilder {
 // 示例值：buyer_name
 func (builder *VatEntityBuilder) Type(type_ string) *VatEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -5009,7 +5013,7 @@ func (builder *VatEntityBuilder) Type(type_ string) *VatEntityBuilder {
 // 示例值：发呆公司
 func (builder *VatEntityBuilder) Value(value string) *VatEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
@@ -5018,21 +5022,21 @@ func (builder *VatEntityBuilder) Value(value string) *VatEntityBuilder {
 // 示例值：
 func (builder *VatEntityBuilder) Items(items [][]*KvEntity) *VatEntityBuilder {
 	builder.items = items
-	builder.itemsFlag = true
+	builder.itemsSet = true
 	return builder
 }
 
 func (builder *VatEntityBuilder) Build() *VatEntity {
 	req := &VatEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
-	if builder.itemsFlag {
+	if builder.itemsSet {
 		req.Items = builder.items
 	}
 	return req
@@ -5043,8 +5047,8 @@ type VatInvoice struct {
 }
 
 type VatInvoiceBuilder struct {
-	entities     []*VatEntity // 识别出的实体列表
-	entitiesFlag bool
+	entities    []*VatEntity // 识别出的实体列表
+	entitiesSet bool
 }
 
 func NewVatInvoiceBuilder() *VatInvoiceBuilder {
@@ -5057,13 +5061,13 @@ func NewVatInvoiceBuilder() *VatInvoiceBuilder {
 // 示例值：
 func (builder *VatInvoiceBuilder) Entities(entities []*VatEntity) *VatInvoiceBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *VatInvoiceBuilder) Build() *VatInvoice {
 	req := &VatInvoice{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
@@ -5077,10 +5081,10 @@ type VehicleEntity struct {
 
 type VehicleEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewVehicleEntityBuilder() *VehicleEntityBuilder {
@@ -5093,7 +5097,7 @@ func NewVehicleEntityBuilder() *VehicleEntityBuilder {
 // 示例值：vehicle_type
 func (builder *VehicleEntityBuilder) Type(type_ string) *VehicleEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -5102,17 +5106,17 @@ func (builder *VehicleEntityBuilder) Type(type_ string) *VehicleEntityBuilder {
 // 示例值：小型普通客车
 func (builder *VehicleEntityBuilder) Value(value string) *VehicleEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *VehicleEntityBuilder) Build() *VehicleEntity {
 	req := &VehicleEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -5124,8 +5128,8 @@ type VehicleInvoice struct {
 }
 
 type VehicleInvoiceBuilder struct {
-	entities     []*VehicleInvoiceEntity // 识别出的实体类型
-	entitiesFlag bool
+	entities    []*VehicleInvoiceEntity // 识别出的实体类型
+	entitiesSet bool
 }
 
 func NewVehicleInvoiceBuilder() *VehicleInvoiceBuilder {
@@ -5138,13 +5142,13 @@ func NewVehicleInvoiceBuilder() *VehicleInvoiceBuilder {
 // 示例值：
 func (builder *VehicleInvoiceBuilder) Entities(entities []*VehicleInvoiceEntity) *VehicleInvoiceBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *VehicleInvoiceBuilder) Build() *VehicleInvoice {
 	req := &VehicleInvoice{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
@@ -5158,10 +5162,10 @@ type VehicleInvoiceEntity struct {
 
 type VehicleInvoiceEntityBuilder struct {
 	type_    string // 识别的字段种类
-	typeFlag bool
+	type_Set bool
 
-	value     string // 识别出字段的文本信息
-	valueFlag bool
+	value    string // 识别出字段的文本信息
+	valueSet bool
 }
 
 func NewVehicleInvoiceEntityBuilder() *VehicleInvoiceEntityBuilder {
@@ -5174,7 +5178,7 @@ func NewVehicleInvoiceEntityBuilder() *VehicleInvoiceEntityBuilder {
 // 示例值：SalerName
 func (builder *VehicleInvoiceEntityBuilder) Type(type_ string) *VehicleInvoiceEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -5183,17 +5187,17 @@ func (builder *VehicleInvoiceEntityBuilder) Type(type_ string) *VehicleInvoiceEn
 // 示例值：xxxx公司
 func (builder *VehicleInvoiceEntityBuilder) Value(value string) *VehicleInvoiceEntityBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *VehicleInvoiceEntityBuilder) Build() *VehicleInvoiceEntity {
 	req := &VehicleInvoiceEntity{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -5205,8 +5209,8 @@ type VehicleLicense struct {
 }
 
 type VehicleLicenseBuilder struct {
-	entities     []*VehicleEntity // 识别出的实体类型
-	entitiesFlag bool
+	entities    []*VehicleEntity // 识别出的实体类型
+	entitiesSet bool
 }
 
 func NewVehicleLicenseBuilder() *VehicleLicenseBuilder {
@@ -5219,21 +5223,21 @@ func NewVehicleLicenseBuilder() *VehicleLicenseBuilder {
 // 示例值：
 func (builder *VehicleLicenseBuilder) Entities(entities []*VehicleEntity) *VehicleLicenseBuilder {
 	builder.entities = entities
-	builder.entitiesFlag = true
+	builder.entitiesSet = true
 	return builder
 }
 
 func (builder *VehicleLicenseBuilder) Build() *VehicleLicense {
 	req := &VehicleLicense{}
-	if builder.entitiesFlag {
+	if builder.entitiesSet {
 		req.Entities = builder.entities
 	}
 	return req
 }
 
 type RecognizeBankCardReqBodyBuilder struct {
-	file     io.Reader // 识别的银行卡源文件
-	fileFlag bool
+	file    io.Reader // 识别的银行卡源文件
+	fileSet bool
 }
 
 func NewRecognizeBankCardReqBodyBuilder() *RecognizeBankCardReqBodyBuilder {
@@ -5243,16 +5247,16 @@ func NewRecognizeBankCardReqBodyBuilder() *RecognizeBankCardReqBodyBuilder {
 
 // 识别的银行卡源文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeBankCardReqBodyBuilder) File(file io.Reader) *RecognizeBankCardReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeBankCardReqBodyBuilder) Build() *RecognizeBankCardReqBody {
 	req := &RecognizeBankCardReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -5303,6 +5307,7 @@ func NewRecognizeBankCardReqBuilder() *RecognizeBankCardReqBuilder {
 	return builder
 }
 
+//
 func (builder *RecognizeBankCardReqBuilder) Body(body *RecognizeBankCardReqBody) *RecognizeBankCardReqBuilder {
 	builder.body = body
 	return builder
@@ -5339,8 +5344,8 @@ func (resp *RecognizeBankCardResp) Success() bool {
 }
 
 type RecognizeBusinessCardReqBodyBuilder struct {
-	file     io.Reader // 识别名片的源文件（支持 JPG / PNG / PDF）
-	fileFlag bool
+	file    io.Reader // 识别名片的源文件（支持 JPG / PNG / PDF）
+	fileSet bool
 }
 
 func NewRecognizeBusinessCardReqBodyBuilder() *RecognizeBusinessCardReqBodyBuilder {
@@ -5350,16 +5355,16 @@ func NewRecognizeBusinessCardReqBodyBuilder() *RecognizeBusinessCardReqBodyBuild
 
 // 识别名片的源文件（支持 JPG / PNG / PDF）
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeBusinessCardReqBodyBuilder) File(file io.Reader) *RecognizeBusinessCardReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeBusinessCardReqBodyBuilder) Build() *RecognizeBusinessCardReqBody {
 	req := &RecognizeBusinessCardReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -5410,6 +5415,7 @@ func NewRecognizeBusinessCardReqBuilder() *RecognizeBusinessCardReqBuilder {
 	return builder
 }
 
+//
 func (builder *RecognizeBusinessCardReqBuilder) Body(body *RecognizeBusinessCardReqBody) *RecognizeBusinessCardReqBuilder {
 	builder.body = body
 	return builder
@@ -5446,8 +5452,8 @@ func (resp *RecognizeBusinessCardResp) Success() bool {
 }
 
 type RecognizeBusinessLicenseReqBodyBuilder struct {
-	file     io.Reader // 识别的营业执照源文件
-	fileFlag bool
+	file    io.Reader // 识别的营业执照源文件
+	fileSet bool
 }
 
 func NewRecognizeBusinessLicenseReqBodyBuilder() *RecognizeBusinessLicenseReqBodyBuilder {
@@ -5457,16 +5463,16 @@ func NewRecognizeBusinessLicenseReqBodyBuilder() *RecognizeBusinessLicenseReqBod
 
 // 识别的营业执照源文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeBusinessLicenseReqBodyBuilder) File(file io.Reader) *RecognizeBusinessLicenseReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeBusinessLicenseReqBodyBuilder) Build() *RecognizeBusinessLicenseReqBody {
 	req := &RecognizeBusinessLicenseReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -5517,6 +5523,7 @@ func NewRecognizeBusinessLicenseReqBuilder() *RecognizeBusinessLicenseReqBuilder
 	return builder
 }
 
+//
 func (builder *RecognizeBusinessLicenseReqBuilder) Body(body *RecognizeBusinessLicenseReqBody) *RecognizeBusinessLicenseReqBuilder {
 	builder.body = body
 	return builder
@@ -5553,8 +5560,8 @@ func (resp *RecognizeBusinessLicenseResp) Success() bool {
 }
 
 type RecognizeChinesePassportReqBodyBuilder struct {
-	file     io.Reader // 识别的中国护照源文件
-	fileFlag bool
+	file    io.Reader // 识别的中国护照源文件
+	fileSet bool
 }
 
 func NewRecognizeChinesePassportReqBodyBuilder() *RecognizeChinesePassportReqBodyBuilder {
@@ -5564,16 +5571,16 @@ func NewRecognizeChinesePassportReqBodyBuilder() *RecognizeChinesePassportReqBod
 
 // 识别的中国护照源文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeChinesePassportReqBodyBuilder) File(file io.Reader) *RecognizeChinesePassportReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeChinesePassportReqBodyBuilder) Build() *RecognizeChinesePassportReqBody {
 	req := &RecognizeChinesePassportReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -5624,6 +5631,7 @@ func NewRecognizeChinesePassportReqBuilder() *RecognizeChinesePassportReqBuilder
 	return builder
 }
 
+//
 func (builder *RecognizeChinesePassportReqBuilder) Body(body *RecognizeChinesePassportReqBody) *RecognizeChinesePassportReqBuilder {
 	builder.body = body
 	return builder
@@ -5660,14 +5668,14 @@ func (resp *RecognizeChinesePassportResp) Success() bool {
 }
 
 type FieldExtractionContractReqBodyBuilder struct {
-	file     io.Reader // 合同字段解析的源文件，当前只支持pdf, doc, docx三种类型的文件
-	fileFlag bool
+	file    io.Reader // 合同字段解析的源文件，当前只支持pdf, doc, docx三种类型的文件
+	fileSet bool
 
-	pdfPageLimit     int // pdf页数限制，太长会导致latency增加，最大允许100页
-	pdfPageLimitFlag bool
+	pdfPageLimit    int // pdf页数限制，太长会导致latency增加，最大允许100页
+	pdfPageLimitSet bool
 
-	ocrMode     string // ocr 参数，当前支持force, pdf, unused三种格式
-	ocrModeFlag bool
+	ocrMode    string // ocr 参数，当前支持force, pdf, unused三种格式
+	ocrModeSet bool
 }
 
 func NewFieldExtractionContractReqBodyBuilder() *FieldExtractionContractReqBodyBuilder {
@@ -5677,52 +5685,52 @@ func NewFieldExtractionContractReqBodyBuilder() *FieldExtractionContractReqBodyB
 
 // 合同字段解析的源文件，当前只支持pdf, doc, docx三种类型的文件
 //
-// 示例值：
+//示例值：
 func (builder *FieldExtractionContractReqBodyBuilder) File(file io.Reader) *FieldExtractionContractReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 // pdf页数限制，太长会导致latency增加，最大允许100页
 //
-// 示例值：15
+//示例值：15
 func (builder *FieldExtractionContractReqBodyBuilder) PdfPageLimit(pdfPageLimit int) *FieldExtractionContractReqBodyBuilder {
 	builder.pdfPageLimit = pdfPageLimit
-	builder.pdfPageLimitFlag = true
+	builder.pdfPageLimitSet = true
 	return builder
 }
 
 // ocr 参数，当前支持force, pdf, unused三种格式
 //
-// 示例值：auto
+//示例值：auto
 func (builder *FieldExtractionContractReqBodyBuilder) OcrMode(ocrMode string) *FieldExtractionContractReqBodyBuilder {
 	builder.ocrMode = ocrMode
-	builder.ocrModeFlag = true
+	builder.ocrModeSet = true
 	return builder
 }
 
 func (builder *FieldExtractionContractReqBodyBuilder) Build() *FieldExtractionContractReqBody {
 	req := &FieldExtractionContractReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
-	if builder.pdfPageLimitFlag {
+	if builder.pdfPageLimitSet {
 		req.PdfPageLimit = &builder.pdfPageLimit
 	}
-	if builder.ocrModeFlag {
+	if builder.ocrModeSet {
 		req.OcrMode = &builder.ocrMode
 	}
 	return req
 }
 
 type FieldExtractionContractPathReqBodyBuilder struct {
-	filePath         string // 合同字段解析的源文件，当前只支持pdf, doc, docx三种类型的文件
-	filePathFlag     bool
-	pdfPageLimit     int
-	pdfPageLimitFlag bool
-	ocrMode          string
-	ocrModeFlag      bool
+	filePath        string // 合同字段解析的源文件，当前只支持pdf, doc, docx三种类型的文件
+	filePathFlag    bool
+	pdfPageLimit    int
+	pdfPageLimitSet bool
+	ocrMode         string
+	ocrModeSet      bool
 }
 
 func NewFieldExtractionContractPathReqBodyBuilder() *FieldExtractionContractPathReqBodyBuilder {
@@ -5744,7 +5752,7 @@ func (builder *FieldExtractionContractPathReqBodyBuilder) FilePath(filePath stri
 // 示例值：15
 func (builder *FieldExtractionContractPathReqBodyBuilder) PdfPageLimit(pdfPageLimit int) *FieldExtractionContractPathReqBodyBuilder {
 	builder.pdfPageLimit = pdfPageLimit
-	builder.pdfPageLimitFlag = true
+	builder.pdfPageLimitSet = true
 	return builder
 }
 
@@ -5753,7 +5761,7 @@ func (builder *FieldExtractionContractPathReqBodyBuilder) PdfPageLimit(pdfPageLi
 // 示例值：auto
 func (builder *FieldExtractionContractPathReqBodyBuilder) OcrMode(ocrMode string) *FieldExtractionContractPathReqBodyBuilder {
 	builder.ocrMode = ocrMode
-	builder.ocrModeFlag = true
+	builder.ocrModeSet = true
 	return builder
 }
 
@@ -5766,10 +5774,10 @@ func (builder *FieldExtractionContractPathReqBodyBuilder) Build() (*FieldExtract
 		}
 		req.File = bytes.NewBuffer(data)
 	}
-	if builder.pdfPageLimitFlag {
+	if builder.pdfPageLimitSet {
 		req.PdfPageLimit = &builder.pdfPageLimit
 	}
-	if builder.ocrModeFlag {
+	if builder.ocrModeSet {
 		req.OcrMode = &builder.ocrMode
 	}
 	return req, nil
@@ -5789,6 +5797,7 @@ func NewFieldExtractionContractReqBuilder() *FieldExtractionContractReqBuilder {
 	return builder
 }
 
+//
 func (builder *FieldExtractionContractReqBuilder) Body(body *FieldExtractionContractReqBody) *FieldExtractionContractReqBuilder {
 	builder.body = body
 	return builder
@@ -5843,8 +5852,8 @@ func (resp *FieldExtractionContractResp) Success() bool {
 }
 
 type RecognizeDrivingLicenseReqBodyBuilder struct {
-	file     io.Reader // 识别的驾驶证源文件
-	fileFlag bool
+	file    io.Reader // 识别的驾驶证源文件
+	fileSet bool
 }
 
 func NewRecognizeDrivingLicenseReqBodyBuilder() *RecognizeDrivingLicenseReqBodyBuilder {
@@ -5854,16 +5863,16 @@ func NewRecognizeDrivingLicenseReqBodyBuilder() *RecognizeDrivingLicenseReqBodyB
 
 // 识别的驾驶证源文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeDrivingLicenseReqBodyBuilder) File(file io.Reader) *RecognizeDrivingLicenseReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeDrivingLicenseReqBodyBuilder) Build() *RecognizeDrivingLicenseReqBody {
 	req := &RecognizeDrivingLicenseReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -5914,6 +5923,7 @@ func NewRecognizeDrivingLicenseReqBuilder() *RecognizeDrivingLicenseReqBuilder {
 	return builder
 }
 
+//
 func (builder *RecognizeDrivingLicenseReqBuilder) Body(body *RecognizeDrivingLicenseReqBody) *RecognizeDrivingLicenseReqBuilder {
 	builder.body = body
 	return builder
@@ -5950,8 +5960,8 @@ func (resp *RecognizeDrivingLicenseResp) Success() bool {
 }
 
 type RecognizeFoodManageLicenseReqBodyBuilder struct {
-	file     io.Reader // 识别的食品经营许可证源文件
-	fileFlag bool
+	file    io.Reader // 识别的食品经营许可证源文件
+	fileSet bool
 }
 
 func NewRecognizeFoodManageLicenseReqBodyBuilder() *RecognizeFoodManageLicenseReqBodyBuilder {
@@ -5961,16 +5971,16 @@ func NewRecognizeFoodManageLicenseReqBodyBuilder() *RecognizeFoodManageLicenseRe
 
 // 识别的食品经营许可证源文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeFoodManageLicenseReqBodyBuilder) File(file io.Reader) *RecognizeFoodManageLicenseReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeFoodManageLicenseReqBodyBuilder) Build() *RecognizeFoodManageLicenseReqBody {
 	req := &RecognizeFoodManageLicenseReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -6021,6 +6031,7 @@ func NewRecognizeFoodManageLicenseReqBuilder() *RecognizeFoodManageLicenseReqBui
 	return builder
 }
 
+//
 func (builder *RecognizeFoodManageLicenseReqBuilder) Body(body *RecognizeFoodManageLicenseReqBody) *RecognizeFoodManageLicenseReqBuilder {
 	builder.body = body
 	return builder
@@ -6057,8 +6068,8 @@ func (resp *RecognizeFoodManageLicenseResp) Success() bool {
 }
 
 type RecognizeFoodProduceLicenseReqBodyBuilder struct {
-	file     io.Reader // 识别的食品生产许可证源文件
-	fileFlag bool
+	file    io.Reader // 识别的食品生产许可证源文件
+	fileSet bool
 }
 
 func NewRecognizeFoodProduceLicenseReqBodyBuilder() *RecognizeFoodProduceLicenseReqBodyBuilder {
@@ -6068,16 +6079,16 @@ func NewRecognizeFoodProduceLicenseReqBodyBuilder() *RecognizeFoodProduceLicense
 
 // 识别的食品生产许可证源文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeFoodProduceLicenseReqBodyBuilder) File(file io.Reader) *RecognizeFoodProduceLicenseReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeFoodProduceLicenseReqBodyBuilder) Build() *RecognizeFoodProduceLicenseReqBody {
 	req := &RecognizeFoodProduceLicenseReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -6128,6 +6139,7 @@ func NewRecognizeFoodProduceLicenseReqBuilder() *RecognizeFoodProduceLicenseReqB
 	return builder
 }
 
+//
 func (builder *RecognizeFoodProduceLicenseReqBuilder) Body(body *RecognizeFoodProduceLicenseReqBody) *RecognizeFoodProduceLicenseReqBuilder {
 	builder.body = body
 	return builder
@@ -6164,8 +6176,8 @@ func (resp *RecognizeFoodProduceLicenseResp) Success() bool {
 }
 
 type RecognizeHealthCertificateReqBodyBuilder struct {
-	file     io.Reader // 识别的健康证源文件
-	fileFlag bool
+	file    io.Reader // 识别的健康证源文件
+	fileSet bool
 }
 
 func NewRecognizeHealthCertificateReqBodyBuilder() *RecognizeHealthCertificateReqBodyBuilder {
@@ -6175,16 +6187,16 @@ func NewRecognizeHealthCertificateReqBodyBuilder() *RecognizeHealthCertificateRe
 
 // 识别的健康证源文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeHealthCertificateReqBodyBuilder) File(file io.Reader) *RecognizeHealthCertificateReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeHealthCertificateReqBodyBuilder) Build() *RecognizeHealthCertificateReqBody {
 	req := &RecognizeHealthCertificateReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -6235,6 +6247,7 @@ func NewRecognizeHealthCertificateReqBuilder() *RecognizeHealthCertificateReqBui
 	return builder
 }
 
+//
 func (builder *RecognizeHealthCertificateReqBuilder) Body(body *RecognizeHealthCertificateReqBody) *RecognizeHealthCertificateReqBuilder {
 	builder.body = body
 	return builder
@@ -6271,8 +6284,8 @@ func (resp *RecognizeHealthCertificateResp) Success() bool {
 }
 
 type RecognizeHkmMainlandTravelPermitReqBodyBuilder struct {
-	file     io.Reader // 识别的港澳居民来往内地通行证源文件
-	fileFlag bool
+	file    io.Reader // 识别的港澳居民来往内地通行证源文件
+	fileSet bool
 }
 
 func NewRecognizeHkmMainlandTravelPermitReqBodyBuilder() *RecognizeHkmMainlandTravelPermitReqBodyBuilder {
@@ -6282,16 +6295,16 @@ func NewRecognizeHkmMainlandTravelPermitReqBodyBuilder() *RecognizeHkmMainlandTr
 
 // 识别的港澳居民来往内地通行证源文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeHkmMainlandTravelPermitReqBodyBuilder) File(file io.Reader) *RecognizeHkmMainlandTravelPermitReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeHkmMainlandTravelPermitReqBodyBuilder) Build() *RecognizeHkmMainlandTravelPermitReqBody {
 	req := &RecognizeHkmMainlandTravelPermitReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -6342,6 +6355,7 @@ func NewRecognizeHkmMainlandTravelPermitReqBuilder() *RecognizeHkmMainlandTravel
 	return builder
 }
 
+//
 func (builder *RecognizeHkmMainlandTravelPermitReqBuilder) Body(body *RecognizeHkmMainlandTravelPermitReqBody) *RecognizeHkmMainlandTravelPermitReqBuilder {
 	builder.body = body
 	return builder
@@ -6378,8 +6392,8 @@ func (resp *RecognizeHkmMainlandTravelPermitResp) Success() bool {
 }
 
 type RecognizeIdCardReqBodyBuilder struct {
-	file     io.Reader // 识别身份证的源文件
-	fileFlag bool
+	file    io.Reader // 识别身份证的源文件
+	fileSet bool
 }
 
 func NewRecognizeIdCardReqBodyBuilder() *RecognizeIdCardReqBodyBuilder {
@@ -6389,16 +6403,16 @@ func NewRecognizeIdCardReqBodyBuilder() *RecognizeIdCardReqBodyBuilder {
 
 // 识别身份证的源文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeIdCardReqBodyBuilder) File(file io.Reader) *RecognizeIdCardReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeIdCardReqBodyBuilder) Build() *RecognizeIdCardReqBody {
 	req := &RecognizeIdCardReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -6449,6 +6463,7 @@ func NewRecognizeIdCardReqBuilder() *RecognizeIdCardReqBuilder {
 	return builder
 }
 
+//
 func (builder *RecognizeIdCardReqBuilder) Body(body *RecognizeIdCardReqBody) *RecognizeIdCardReqBuilder {
 	builder.body = body
 	return builder
@@ -6485,8 +6500,8 @@ func (resp *RecognizeIdCardResp) Success() bool {
 }
 
 type ParseResumeReqBodyBuilder struct {
-	file     io.Reader // 简历文件，支持 PDF / DOCX / PNG / JPG
-	fileFlag bool
+	file    io.Reader // 简历文件，支持 PDF / DOCX / PNG / JPG
+	fileSet bool
 }
 
 func NewParseResumeReqBodyBuilder() *ParseResumeReqBodyBuilder {
@@ -6496,16 +6511,16 @@ func NewParseResumeReqBodyBuilder() *ParseResumeReqBodyBuilder {
 
 // 简历文件，支持 PDF / DOCX / PNG / JPG
 //
-// 示例值：
+//示例值：
 func (builder *ParseResumeReqBodyBuilder) File(file io.Reader) *ParseResumeReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *ParseResumeReqBodyBuilder) Build() *ParseResumeReqBody {
 	req := &ParseResumeReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -6556,6 +6571,7 @@ func NewParseResumeReqBuilder() *ParseResumeReqBuilder {
 	return builder
 }
 
+//
 func (builder *ParseResumeReqBuilder) Body(body *ParseResumeReqBody) *ParseResumeReqBuilder {
 	builder.body = body
 	return builder
@@ -6592,8 +6608,8 @@ func (resp *ParseResumeResp) Success() bool {
 }
 
 type RecognizeTaxiInvoiceReqBodyBuilder struct {
-	file     io.Reader // 识别的出租车票源文件
-	fileFlag bool
+	file    io.Reader // 识别的出租车票源文件
+	fileSet bool
 }
 
 func NewRecognizeTaxiInvoiceReqBodyBuilder() *RecognizeTaxiInvoiceReqBodyBuilder {
@@ -6603,16 +6619,16 @@ func NewRecognizeTaxiInvoiceReqBodyBuilder() *RecognizeTaxiInvoiceReqBodyBuilder
 
 // 识别的出租车票源文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeTaxiInvoiceReqBodyBuilder) File(file io.Reader) *RecognizeTaxiInvoiceReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeTaxiInvoiceReqBodyBuilder) Build() *RecognizeTaxiInvoiceReqBody {
 	req := &RecognizeTaxiInvoiceReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -6663,6 +6679,7 @@ func NewRecognizeTaxiInvoiceReqBuilder() *RecognizeTaxiInvoiceReqBuilder {
 	return builder
 }
 
+//
 func (builder *RecognizeTaxiInvoiceReqBuilder) Body(body *RecognizeTaxiInvoiceReqBody) *RecognizeTaxiInvoiceReqBuilder {
 	builder.body = body
 	return builder
@@ -6699,8 +6716,8 @@ func (resp *RecognizeTaxiInvoiceResp) Success() bool {
 }
 
 type RecognizeTrainInvoiceReqBodyBuilder struct {
-	file     io.Reader // 识别的火车票源文件
-	fileFlag bool
+	file    io.Reader // 识别的火车票源文件
+	fileSet bool
 }
 
 func NewRecognizeTrainInvoiceReqBodyBuilder() *RecognizeTrainInvoiceReqBodyBuilder {
@@ -6710,16 +6727,16 @@ func NewRecognizeTrainInvoiceReqBodyBuilder() *RecognizeTrainInvoiceReqBodyBuild
 
 // 识别的火车票源文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeTrainInvoiceReqBodyBuilder) File(file io.Reader) *RecognizeTrainInvoiceReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeTrainInvoiceReqBodyBuilder) Build() *RecognizeTrainInvoiceReqBody {
 	req := &RecognizeTrainInvoiceReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -6770,6 +6787,7 @@ func NewRecognizeTrainInvoiceReqBuilder() *RecognizeTrainInvoiceReqBuilder {
 	return builder
 }
 
+//
 func (builder *RecognizeTrainInvoiceReqBuilder) Body(body *RecognizeTrainInvoiceReqBody) *RecognizeTrainInvoiceReqBuilder {
 	builder.body = body
 	return builder
@@ -6806,8 +6824,8 @@ func (resp *RecognizeTrainInvoiceResp) Success() bool {
 }
 
 type RecognizeTwMainlandTravelPermitReqBodyBuilder struct {
-	file     io.Reader // 识别的台湾居民来往大陆通行证源文件
-	fileFlag bool
+	file    io.Reader // 识别的台湾居民来往大陆通行证源文件
+	fileSet bool
 }
 
 func NewRecognizeTwMainlandTravelPermitReqBodyBuilder() *RecognizeTwMainlandTravelPermitReqBodyBuilder {
@@ -6817,16 +6835,16 @@ func NewRecognizeTwMainlandTravelPermitReqBodyBuilder() *RecognizeTwMainlandTrav
 
 // 识别的台湾居民来往大陆通行证源文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeTwMainlandTravelPermitReqBodyBuilder) File(file io.Reader) *RecognizeTwMainlandTravelPermitReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeTwMainlandTravelPermitReqBodyBuilder) Build() *RecognizeTwMainlandTravelPermitReqBody {
 	req := &RecognizeTwMainlandTravelPermitReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -6877,6 +6895,7 @@ func NewRecognizeTwMainlandTravelPermitReqBuilder() *RecognizeTwMainlandTravelPe
 	return builder
 }
 
+//
 func (builder *RecognizeTwMainlandTravelPermitReqBuilder) Body(body *RecognizeTwMainlandTravelPermitReqBody) *RecognizeTwMainlandTravelPermitReqBuilder {
 	builder.body = body
 	return builder
@@ -6913,8 +6932,8 @@ func (resp *RecognizeTwMainlandTravelPermitResp) Success() bool {
 }
 
 type RecognizeVatInvoiceReqBodyBuilder struct {
-	file     io.Reader // 识别的增值税发票文件
-	fileFlag bool
+	file    io.Reader // 识别的增值税发票文件
+	fileSet bool
 }
 
 func NewRecognizeVatInvoiceReqBodyBuilder() *RecognizeVatInvoiceReqBodyBuilder {
@@ -6924,16 +6943,16 @@ func NewRecognizeVatInvoiceReqBodyBuilder() *RecognizeVatInvoiceReqBodyBuilder {
 
 // 识别的增值税发票文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeVatInvoiceReqBodyBuilder) File(file io.Reader) *RecognizeVatInvoiceReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeVatInvoiceReqBodyBuilder) Build() *RecognizeVatInvoiceReqBody {
 	req := &RecognizeVatInvoiceReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -6984,6 +7003,7 @@ func NewRecognizeVatInvoiceReqBuilder() *RecognizeVatInvoiceReqBuilder {
 	return builder
 }
 
+//
 func (builder *RecognizeVatInvoiceReqBuilder) Body(body *RecognizeVatInvoiceReqBody) *RecognizeVatInvoiceReqBuilder {
 	builder.body = body
 	return builder
@@ -7020,8 +7040,8 @@ func (resp *RecognizeVatInvoiceResp) Success() bool {
 }
 
 type RecognizeVehicleInvoiceReqBodyBuilder struct {
-	file     io.Reader // 识别的机动车发票源文件
-	fileFlag bool
+	file    io.Reader // 识别的机动车发票源文件
+	fileSet bool
 }
 
 func NewRecognizeVehicleInvoiceReqBodyBuilder() *RecognizeVehicleInvoiceReqBodyBuilder {
@@ -7031,16 +7051,16 @@ func NewRecognizeVehicleInvoiceReqBodyBuilder() *RecognizeVehicleInvoiceReqBodyB
 
 // 识别的机动车发票源文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeVehicleInvoiceReqBodyBuilder) File(file io.Reader) *RecognizeVehicleInvoiceReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeVehicleInvoiceReqBodyBuilder) Build() *RecognizeVehicleInvoiceReqBody {
 	req := &RecognizeVehicleInvoiceReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -7091,6 +7111,7 @@ func NewRecognizeVehicleInvoiceReqBuilder() *RecognizeVehicleInvoiceReqBuilder {
 	return builder
 }
 
+//
 func (builder *RecognizeVehicleInvoiceReqBuilder) Body(body *RecognizeVehicleInvoiceReqBody) *RecognizeVehicleInvoiceReqBuilder {
 	builder.body = body
 	return builder
@@ -7127,8 +7148,8 @@ func (resp *RecognizeVehicleInvoiceResp) Success() bool {
 }
 
 type RecognizeVehicleLicenseReqBodyBuilder struct {
-	file     io.Reader // 识别的行驶证源文件
-	fileFlag bool
+	file    io.Reader // 识别的行驶证源文件
+	fileSet bool
 }
 
 func NewRecognizeVehicleLicenseReqBodyBuilder() *RecognizeVehicleLicenseReqBodyBuilder {
@@ -7138,16 +7159,16 @@ func NewRecognizeVehicleLicenseReqBodyBuilder() *RecognizeVehicleLicenseReqBodyB
 
 // 识别的行驶证源文件
 //
-// 示例值：
+//示例值：
 func (builder *RecognizeVehicleLicenseReqBodyBuilder) File(file io.Reader) *RecognizeVehicleLicenseReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *RecognizeVehicleLicenseReqBodyBuilder) Build() *RecognizeVehicleLicenseReqBody {
 	req := &RecognizeVehicleLicenseReqBody{}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -7198,6 +7219,7 @@ func NewRecognizeVehicleLicenseReqBuilder() *RecognizeVehicleLicenseReqBuilder {
 	return builder
 }
 
+//
 func (builder *RecognizeVehicleLicenseReqBuilder) Body(body *RecognizeVehicleLicenseReqBody) *RecognizeVehicleLicenseReqBuilder {
 	builder.body = body
 	return builder

@@ -33,6 +33,7 @@ func main() {
 		UpdateTimeStart("2022-01-01 00:00:00").
 		UpdateTimeEnd("2022-01-01 00:00:00").
 		UserIdType("people_corehr_id").
+		SelectSignUrl(false).
 		Body(larkcorehr.NewQuerySignatureFileReqBodyBuilder().
 			States([]string{}).
 			TemplateIds([]string{}).

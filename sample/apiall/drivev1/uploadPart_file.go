@@ -39,6 +39,7 @@ func main() {
 			Size(4194304).
 			Checksum("12342388237783212356").
 			File(file).
+			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

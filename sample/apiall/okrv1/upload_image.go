@@ -35,6 +35,7 @@ func main() {
 	req := larkokr.NewUploadImageReqBuilder().
 		Body(larkokr.NewUploadImageReqBodyBuilder().
 			Data(file).
+			FileName("filename.ext").
 			TargetId("6974586812998174252").
 			TargetType(1).
 			Build()).

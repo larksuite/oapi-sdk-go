@@ -32,11 +32,13 @@ func main() {
 		UserIdType("people_corehr_id").
 		Body(larkcorehr.NewPatchCostCenterVersionReqBodyBuilder().
 			Name([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).
+			Code("MDPD00000023").
 			ParentCostCenterId("6862995757234914824").
 			Managers([]string{}).
 			Description([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).
 			EffectiveTime("2020-01-01").
 			OperationReason("强行操作").
+			IsPreferManualEncoding(false).
 			Build()).
 		Build()
 	// 发起请求

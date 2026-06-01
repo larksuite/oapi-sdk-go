@@ -10,10 +10,11 @@ import (
 
 type V4 struct {
 	Approval         *approval         // 原生审批定义
+	District         *district         // district
 	ExternalApproval *externalApproval // 三方审批定义
 	ExternalInstance *externalInstance // 三方审批实例
 	ExternalTask     *externalTask     // 三方审批任务
-	Instance         *instance         // 原生审批实例
+	Instance         *instance         // 审批查询
 	InstanceComment  *instanceComment  // 原生审批评论
 	Task             *task             // 原生审批任务
 }
@@ -21,6 +22,7 @@ type V4 struct {
 func New(config *larkcore.Config) *V4 {
 	return &V4{
 		Approval:         &approval{config: config},
+		District:         &district{config: config},
 		ExternalApproval: &externalApproval{config: config},
 		ExternalInstance: &externalInstance{config: config},
 		ExternalTask:     &externalTask{config: config},
@@ -31,6 +33,9 @@ func New(config *larkcore.Config) *V4 {
 }
 
 type approval struct {
+	config *larkcore.Config
+}
+type district struct {
 	config *larkcore.Config
 }
 type externalApproval struct {
@@ -156,6 +161,74 @@ func (a *approval) Unsubscribe(ctx context.Context, req *UnsubscribeApprovalReq,
 		return nil, err
 	}
 	return resp, err
+}
+
+// List
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=approval&resource=district&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/list_district.go
+func (d *district) List(ctx context.Context, req *ListDistrictReq, options ...larkcore.RequestOptionFunc) (*ListDistrictResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/districts"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, d.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListDistrictResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, d.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (d *district) ListByIterator(ctx context.Context, req *ListDistrictReq, options ...larkcore.RequestOptionFunc) (*ListDistrictIterator, error) {
+	return &ListDistrictIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: d.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// Search
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=approval&resource=district&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/search_district.go
+func (d *district) Search(ctx context.Context, req *SearchDistrictReq, options ...larkcore.RequestOptionFunc) (*SearchDistrictResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/districts/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, d.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchDistrictResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, d.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (d *district) SearchByIterator(ctx context.Context, req *SearchDistrictReq, options ...larkcore.RequestOptionFunc) (*SearchDistrictIterator, error) {
+	return &SearchDistrictIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: d.Search,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 
 // Create 三方审批定义创建

@@ -24,11 +24,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -36,27 +36,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -70,11 +74,11 @@ type Term struct {
 }
 
 type TermBuilder struct {
-	from     string // 原文
-	fromFlag bool
+	from    string // 原文
+	fromSet bool
 
-	to     string // 译文
-	toFlag bool
+	to    string // 译文
+	toSet bool
 }
 
 func NewTermBuilder() *TermBuilder {
@@ -87,7 +91,7 @@ func NewTermBuilder() *TermBuilder {
 // 示例值：飞书
 func (builder *TermBuilder) From(from string) *TermBuilder {
 	builder.from = from
-	builder.fromFlag = true
+	builder.fromSet = true
 	return builder
 }
 
@@ -96,17 +100,17 @@ func (builder *TermBuilder) From(from string) *TermBuilder {
 // 示例值：Lark
 func (builder *TermBuilder) To(to string) *TermBuilder {
 	builder.to = to
-	builder.toFlag = true
+	builder.toSet = true
 	return builder
 }
 
 func (builder *TermBuilder) Build() *Term {
 	req := &Term{}
-	if builder.fromFlag {
+	if builder.fromSet {
 		req.From = &builder.from
 
 	}
-	if builder.toFlag {
+	if builder.toSet {
 		req.To = &builder.to
 
 	}
@@ -130,8 +134,8 @@ func (builder *TextBuilder) Build() *Text {
 }
 
 type DetectTextReqBodyBuilder struct {
-	text     string // 需要被识别语种的文本
-	textFlag bool
+	text    string // 需要被识别语种的文本
+	textSet bool
 }
 
 func NewDetectTextReqBodyBuilder() *DetectTextReqBodyBuilder {
@@ -141,24 +145,24 @@ func NewDetectTextReqBodyBuilder() *DetectTextReqBodyBuilder {
 
 // 需要被识别语种的文本
 //
-// 示例值：你好
+//示例值：你好
 func (builder *DetectTextReqBodyBuilder) Text(text string) *DetectTextReqBodyBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
 func (builder *DetectTextReqBodyBuilder) Build() *DetectTextReqBody {
 	req := &DetectTextReqBody{}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 	}
 	return req
 }
 
 type DetectTextPathReqBodyBuilder struct {
-	text     string
-	textFlag bool
+	text    string
+	textSet bool
 }
 
 func NewDetectTextPathReqBodyBuilder() *DetectTextPathReqBodyBuilder {
@@ -171,13 +175,13 @@ func NewDetectTextPathReqBodyBuilder() *DetectTextPathReqBodyBuilder {
 // 示例值：你好
 func (builder *DetectTextPathReqBodyBuilder) Text(text string) *DetectTextPathReqBodyBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
 func (builder *DetectTextPathReqBodyBuilder) Build() (*DetectTextReqBody, error) {
 	req := &DetectTextReqBody{}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 	}
 	return req, nil
@@ -234,17 +238,17 @@ func (resp *DetectTextResp) Success() bool {
 }
 
 type TranslateTextReqBodyBuilder struct {
-	sourceLanguage     string // 源语言
-	sourceLanguageFlag bool
+	sourceLanguage    string // 源语言
+	sourceLanguageSet bool
 
-	text     string // 源文本
-	textFlag bool
+	text    string // 源文本
+	textSet bool
 
-	targetLanguage     string // 目标语言
-	targetLanguageFlag bool
+	targetLanguage    string // 目标语言
+	targetLanguageSet bool
 
-	glossary     []*Term // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
-	glossaryFlag bool
+	glossary    []*Term // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
+	glossarySet bool
 }
 
 func NewTranslateTextReqBodyBuilder() *TranslateTextReqBodyBuilder {
@@ -254,66 +258,66 @@ func NewTranslateTextReqBodyBuilder() *TranslateTextReqBodyBuilder {
 
 // 源语言
 //
-// 示例值：zh
+//示例值：zh
 func (builder *TranslateTextReqBodyBuilder) SourceLanguage(sourceLanguage string) *TranslateTextReqBodyBuilder {
 	builder.sourceLanguage = sourceLanguage
-	builder.sourceLanguageFlag = true
+	builder.sourceLanguageSet = true
 	return builder
 }
 
 // 源文本
 //
-// 示例值：尝试使用一下飞书吧
+//示例值：尝试使用一下飞书吧
 func (builder *TranslateTextReqBodyBuilder) Text(text string) *TranslateTextReqBodyBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
 // 目标语言
 //
-// 示例值：en
+//示例值：en
 func (builder *TranslateTextReqBodyBuilder) TargetLanguage(targetLanguage string) *TranslateTextReqBodyBuilder {
 	builder.targetLanguage = targetLanguage
-	builder.targetLanguageFlag = true
+	builder.targetLanguageSet = true
 	return builder
 }
 
 // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
 //
-// 示例值：
+//示例值：
 func (builder *TranslateTextReqBodyBuilder) Glossary(glossary []*Term) *TranslateTextReqBodyBuilder {
 	builder.glossary = glossary
-	builder.glossaryFlag = true
+	builder.glossarySet = true
 	return builder
 }
 
 func (builder *TranslateTextReqBodyBuilder) Build() *TranslateTextReqBody {
 	req := &TranslateTextReqBody{}
-	if builder.sourceLanguageFlag {
+	if builder.sourceLanguageSet {
 		req.SourceLanguage = &builder.sourceLanguage
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 	}
-	if builder.targetLanguageFlag {
+	if builder.targetLanguageSet {
 		req.TargetLanguage = &builder.targetLanguage
 	}
-	if builder.glossaryFlag {
+	if builder.glossarySet {
 		req.Glossary = builder.glossary
 	}
 	return req
 }
 
 type TranslateTextPathReqBodyBuilder struct {
-	sourceLanguage     string
-	sourceLanguageFlag bool
-	text               string
-	textFlag           bool
-	targetLanguage     string
-	targetLanguageFlag bool
-	glossary           []*Term
-	glossaryFlag       bool
+	sourceLanguage    string
+	sourceLanguageSet bool
+	text              string
+	textSet           bool
+	targetLanguage    string
+	targetLanguageSet bool
+	glossary          []*Term
+	glossarySet       bool
 }
 
 func NewTranslateTextPathReqBodyBuilder() *TranslateTextPathReqBodyBuilder {
@@ -326,7 +330,7 @@ func NewTranslateTextPathReqBodyBuilder() *TranslateTextPathReqBodyBuilder {
 // 示例值：zh
 func (builder *TranslateTextPathReqBodyBuilder) SourceLanguage(sourceLanguage string) *TranslateTextPathReqBodyBuilder {
 	builder.sourceLanguage = sourceLanguage
-	builder.sourceLanguageFlag = true
+	builder.sourceLanguageSet = true
 	return builder
 }
 
@@ -335,7 +339,7 @@ func (builder *TranslateTextPathReqBodyBuilder) SourceLanguage(sourceLanguage st
 // 示例值：尝试使用一下飞书吧
 func (builder *TranslateTextPathReqBodyBuilder) Text(text string) *TranslateTextPathReqBodyBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -344,7 +348,7 @@ func (builder *TranslateTextPathReqBodyBuilder) Text(text string) *TranslateText
 // 示例值：en
 func (builder *TranslateTextPathReqBodyBuilder) TargetLanguage(targetLanguage string) *TranslateTextPathReqBodyBuilder {
 	builder.targetLanguage = targetLanguage
-	builder.targetLanguageFlag = true
+	builder.targetLanguageSet = true
 	return builder
 }
 
@@ -353,22 +357,22 @@ func (builder *TranslateTextPathReqBodyBuilder) TargetLanguage(targetLanguage st
 // 示例值：
 func (builder *TranslateTextPathReqBodyBuilder) Glossary(glossary []*Term) *TranslateTextPathReqBodyBuilder {
 	builder.glossary = glossary
-	builder.glossaryFlag = true
+	builder.glossarySet = true
 	return builder
 }
 
 func (builder *TranslateTextPathReqBodyBuilder) Build() (*TranslateTextReqBody, error) {
 	req := &TranslateTextReqBody{}
-	if builder.sourceLanguageFlag {
+	if builder.sourceLanguageSet {
 		req.SourceLanguage = &builder.sourceLanguage
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 	}
-	if builder.targetLanguageFlag {
+	if builder.targetLanguageSet {
 		req.TargetLanguage = &builder.targetLanguage
 	}
-	if builder.glossaryFlag {
+	if builder.glossarySet {
 		req.Glossary = builder.glossary
 	}
 	return req, nil

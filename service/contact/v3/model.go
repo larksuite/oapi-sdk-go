@@ -25,140 +25,140 @@ import (
 )
 
 const (
-	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 指定使用open_department_id作为部门ID类型
-	DepartmentIdTypeDepartmentId     = "department_id"      // 指定使用department_id作为部门ID类型
+	BatchGetDepartmentV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 指定使用open_department_id作为部门ID类型
+	BatchGetDepartmentV3DepartmentIDTypeDepartmentId     = "department_id"      // 指定使用department_id作为部门ID类型
 )
 
 const (
-	UserIdTypeOpenId  = "open_id"  // 指定使用open_id作为用户ID类型
-	UserIdTypeUnionId = "union_id" // 指定使用union_id作为用户ID类型
-	UserIdTypeUserId  = "user_id"  // 指定使用user_id作为用户ID类型
+	BatchGetDepartmentV3UserIDTypeOpenId  = "open_id"  // 指定使用open_id作为用户ID类型
+	BatchGetDepartmentV3UserIDTypeUnionId = "union_id" // 指定使用union_id作为用户ID类型
+	BatchGetDepartmentV3UserIDTypeUserId  = "user_id"  // 指定使用user_id作为用户ID类型
 )
 
 const (
-	UserIdTypeChildrenDepartmentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeChildrenDepartmentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeChildrenDepartmentOpenId  = "open_id"  // 以open_id来识别用户
+	ListDepartmentChildrenUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListDepartmentChildrenUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListDepartmentChildrenUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeChildrenDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeChildrenDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	ListDepartmentChildrenDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	ListDepartmentChildrenDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeCreateDepartmentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateDepartmentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateDepartmentOpenId  = "open_id"  // 以open_id来识别用户
+	CreateDepartmentV3UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateDepartmentV3UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateDepartmentV3UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeCreateDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeCreateDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	CreateDepartmentV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	CreateDepartmentV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	DepartmentIdTypeDeleteDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeDeleteDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DeleteDepartmentV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DeleteDepartmentV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeGetDepartmentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetDepartmentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetDepartmentOpenId  = "open_id"  // 以open_id来识别用户
+	GetDepartmentV3UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetDepartmentV3UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetDepartmentV3UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeGetDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeGetDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	GetDepartmentV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	GetDepartmentV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeListDepartmentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListDepartmentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListDepartmentOpenId  = "open_id"  // 以open_id来识别用户
+	ListDepartmentV3UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListDepartmentV3UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListDepartmentV3UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeListDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeListDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	ListDepartmentV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	ListDepartmentV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeParentDepartmentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeParentDepartmentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeParentDepartmentOpenId  = "open_id"  // 以open_id来识别用户
+	GetDepartmentParentV3UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetDepartmentParentV3UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetDepartmentParentV3UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeParentDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeParentDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	GetDepartmentParentV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	GetDepartmentParentV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypePatchDepartmentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchDepartmentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchDepartmentOpenId  = "open_id"  // 以open_id来识别用户
+	PatchDepartmentV3UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	PatchDepartmentV3UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	PatchDepartmentV3UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypePatchDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypePatchDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	PatchDepartmentV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	PatchDepartmentV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeSearchDepartmentUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeSearchDepartmentUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeSearchDepartmentOpenId  = "open_id"  // 以 open_id 来识别用户
+	SearchDepartmentUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	SearchDepartmentUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	SearchDepartmentUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	DepartmentIdTypeSearchDepartmentDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
-	DepartmentIdTypeSearchDepartmentOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	SearchDepartmentDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义 department_id 来标识部门
+	SearchDepartmentDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
 )
 
 const (
-	DepartmentIdTypeUnbindDepartmentChatDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUnbindDepartmentChatDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	NormalizeDepartmentChatV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	NormalizeDepartmentChatV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeUpdateDepartmentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateDepartmentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateDepartmentOpenId  = "open_id"  // 以open_id来识别用户
+	UpdateDepartmentV3UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	UpdateDepartmentV3UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	UpdateDepartmentV3UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeUpdateDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUpdateDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	UpdateDepartmentV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	UpdateDepartmentV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	DepartmentIdTypeUpdateDepartmentIdDepartmentDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUpdateDepartmentIdDepartmentOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	UpdateDepartmentIDV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	UpdateDepartmentIDV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	EnumTypeDefualt = 1 // 内置类型
-	EnumTypeCustom  = 2 // 自定义
-
-)
-
-const (
-	EnumStatusActive   = 1 // 激活
-	EnumStatusInactive = 2 // 未激活
+	EmployeeTypeEnumEnumTypeDefualt = 1 // 内置类型
+	EmployeeTypeEnumEnumTypeCustom  = 2 // 自定义
 
 )
 
 const (
-	EnumTypeUpdateEmployeeTypeEnumDefualt = 1 // 内置类型
-	EnumTypeUpdateEmployeeTypeEnumCustom  = 2 // 自定义
+	EmployeeTypeEnumEnumStatusActive   = 1 // 激活
+	EmployeeTypeEnumEnumStatusInactive = 2 // 未激活
 
 )
 
 const (
-	EnumStatusUpdateEmployeeTypeEnumActive   = 1 // 激活
-	EnumStatusUpdateEmployeeTypeEnumInactive = 2 // 未激活
+	EmployeeTypeEnumEnumTypeUpdateEmployeeTypeEnumDefualt = 1 // 内置类型
+	EmployeeTypeEnumEnumTypeUpdateEmployeeTypeEnumCustom  = 2 // 自定义
+
+)
+
+const (
+	EmployeeTypeEnumEnumStatusUpdateEmployeeTypeEnumActive   = 1 // 激活
+	EmployeeTypeEnumEnumStatusUpdateEmployeeTypeEnumInactive = 2 // 未激活
 
 )
 
@@ -214,14 +214,14 @@ const (
 )
 
 const (
-	UserIdTypeCreateGroupUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateGroupUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateGroupOpenId  = "open_id"  // 以open_id来识别用户
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeCreateGroupOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
-	DepartmentIdTypeCreateGroupDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	DepartmentIdTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
 )
 
 const (
@@ -236,14 +236,14 @@ const (
 )
 
 const (
-	MemberIdTypeOpenID  = "open_id"  //
-	MemberIdTypeUnionID = "union_id" //
-	MemberIdTypeUserID  = "user_id"  //
+	ListMemberGroupsMemberIDTypeOpenID  = "open_id"  //
+	ListMemberGroupsMemberIDTypeUnionID = "union_id" //
+	ListMemberGroupsMemberIDTypeUserID  = "user_id"  //
 )
 
 const (
-	GroupTypeMemberBelongGroupAssign  = 1 // 普通用户组
-	GroupTypeMemberBelongGroupDynamic = 2 // 动态用户组
+	ListMemberGroupsGroupTypeAssign  = 1 // 普通用户组
+	ListMemberGroupsGroupTypeDynamic = 2 // 动态用户组
 
 )
 
@@ -269,9 +269,9 @@ const (
 )
 
 const (
-	MemberIdTypeAddGroupMemberOpenID  = "open_id"  // member_type =user时候，表示用户的open_id
-	MemberIdTypeAddGroupMemberUnionID = "union_id" // member_type =user时候，表示用户的union_id
-	MemberIdTypeAddGroupMemberUserID  = "user_id"  // member_type =user时候，表示用户的user_id
+	MemberIdTypeOpenID  = "open_id"  // member_type =user时候，表示用户的open_id
+	MemberIdTypeUnionID = "union_id" // member_type =user时候，表示用户的union_id
+	MemberIdTypeUserID  = "user_id"  // member_type =user时候，表示用户的user_id
 )
 
 const (
@@ -323,14 +323,20 @@ const (
 )
 
 const (
-	UserIdTypeBatchUserOpenId  = "open_id"  // 以open_id来识别用户
-	UserIdTypeBatchUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeBatchUserUserId  = "user_id"  // 以user_id来识别用户
+	UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeBatchUserOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
-	DepartmentIdTypeBatchUserDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	BatchGetUserV3UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
+	BatchGetUserV3UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	BatchGetUserV3UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+)
+
+const (
+	BatchGetUserV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	BatchGetUserV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
 )
 
 const (
@@ -348,53 +354,53 @@ const (
 )
 
 const (
-	UserIdTypeCreateUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateUserOpenId  = "open_id"  // 以open_id来识别用户
+	CreateUserV3UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateUserV3UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateUserV3UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeCreateUserDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeCreateUserOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	CreateUserV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	CreateUserV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeDeleteUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDeleteUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDeleteUserOpenId  = "open_id"  // 以open_id来识别用户
+	DeleteUserV3UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	DeleteUserV3UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	DeleteUserV3UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeFindByDepartmentUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeFindByDepartmentUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeFindByDepartmentUserOpenId  = "open_id"  // 以open_id来识别用户
+	ListDepartmentUserUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListDepartmentUserUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListDepartmentUserUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeFindByDepartmentUserDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeFindByDepartmentUserOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	ListDepartmentUserDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	ListDepartmentUserDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeGetUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetUserOpenId  = "open_id"  // 以open_id来识别用户
+	GetUserV3UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetUserV3UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetUserV3UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeGetUserDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeGetUserOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	GetUserV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	GetUserV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeListUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListUserOpenId  = "open_id"  // 以open_id来识别用户
+	ListUserV3UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListUserV3UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListUserV3UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeListUserDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeListUserOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	ListUserV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	ListUserV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
@@ -406,14 +412,14 @@ const (
 )
 
 const (
-	UserIdTypePatchUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchUserOpenId  = "open_id"  // 以open_id来识别用户
+	PatchUserV3UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	PatchUserV3UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	PatchUserV3UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypePatchUserDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypePatchUserOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	PatchUserV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	PatchUserV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
@@ -436,20 +442,20 @@ const (
 )
 
 const (
-	UserIdTypeUpdateUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateUserOpenId  = "open_id"  // 以open_id来识别用户
+	UpdateUserV3UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	UpdateUserV3UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	UpdateUserV3UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeUpdateUserDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUpdateUserOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	UpdateUserV3DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	UpdateUserV3DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeUpdateUserIdUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateUserIdUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateUserIdUserOpenId  = "open_id"  // 以open_id来识别用户
+	UpdateUserIDV3UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	UpdateUserIDV3UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	UpdateUserIDV3UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type AvatarInfo struct {
@@ -463,17 +469,17 @@ type AvatarInfo struct {
 }
 
 type AvatarInfoBuilder struct {
-	avatar72     string // 72*72像素头像链接
-	avatar72Flag bool
+	avatar72    string // 72*72像素头像链接
+	avatar72Set bool
 
-	avatar240     string // 240*240像素头像链接
-	avatar240Flag bool
+	avatar240    string // 240*240像素头像链接
+	avatar240Set bool
 
-	avatar640     string // 640*640像素头像链接
-	avatar640Flag bool
+	avatar640    string // 640*640像素头像链接
+	avatar640Set bool
 
-	avatarOrigin     string // 原始头像链接
-	avatarOriginFlag bool
+	avatarOrigin    string // 原始头像链接
+	avatarOriginSet bool
 }
 
 func NewAvatarInfoBuilder() *AvatarInfoBuilder {
@@ -486,7 +492,7 @@ func NewAvatarInfoBuilder() *AvatarInfoBuilder {
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarInfoBuilder) Avatar72(avatar72 string) *AvatarInfoBuilder {
 	builder.avatar72 = avatar72
-	builder.avatar72Flag = true
+	builder.avatar72Set = true
 	return builder
 }
 
@@ -495,7 +501,7 @@ func (builder *AvatarInfoBuilder) Avatar72(avatar72 string) *AvatarInfoBuilder {
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarInfoBuilder) Avatar240(avatar240 string) *AvatarInfoBuilder {
 	builder.avatar240 = avatar240
-	builder.avatar240Flag = true
+	builder.avatar240Set = true
 	return builder
 }
 
@@ -504,7 +510,7 @@ func (builder *AvatarInfoBuilder) Avatar240(avatar240 string) *AvatarInfoBuilder
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarInfoBuilder) Avatar640(avatar640 string) *AvatarInfoBuilder {
 	builder.avatar640 = avatar640
-	builder.avatar640Flag = true
+	builder.avatar640Set = true
 	return builder
 }
 
@@ -513,27 +519,94 @@ func (builder *AvatarInfoBuilder) Avatar640(avatar640 string) *AvatarInfoBuilder
 // 示例值：https://foo.icon.com/xxxx
 func (builder *AvatarInfoBuilder) AvatarOrigin(avatarOrigin string) *AvatarInfoBuilder {
 	builder.avatarOrigin = avatarOrigin
-	builder.avatarOriginFlag = true
+	builder.avatarOriginSet = true
 	return builder
 }
 
 func (builder *AvatarInfoBuilder) Build() *AvatarInfo {
 	req := &AvatarInfo{}
-	if builder.avatar72Flag {
+	if builder.avatar72Set {
 		req.Avatar72 = &builder.avatar72
 
 	}
-	if builder.avatar240Flag {
+	if builder.avatar240Set {
 		req.Avatar240 = &builder.avatar240
 
 	}
-	if builder.avatar640Flag {
+	if builder.avatar640Set {
 		req.Avatar640 = &builder.avatar640
 
 	}
-	if builder.avatarOriginFlag {
+	if builder.avatarOriginSet {
 		req.AvatarOrigin = &builder.avatarOrigin
 
+	}
+	return req
+}
+
+type BasicUser struct {
+	UserId *string `json:"user_id,omitempty"` // 用户ID
+
+	Name *string `json:"name,omitempty"` // 用户名
+
+	I18nName *I18nName `json:"i18n_name,omitempty"` // 用户国际化名
+}
+
+type BasicUserBuilder struct {
+	userId    string // 用户ID
+	userIdSet bool
+
+	name    string // 用户名
+	nameSet bool
+
+	i18nName    *I18nName // 用户国际化名
+	i18nNameSet bool
+}
+
+func NewBasicUserBuilder() *BasicUserBuilder {
+	builder := &BasicUserBuilder{}
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：
+func (builder *BasicUserBuilder) UserId(userId string) *BasicUserBuilder {
+	builder.userId = userId
+	builder.userIdSet = true
+	return builder
+}
+
+// 用户名
+//
+// 示例值：用户名
+func (builder *BasicUserBuilder) Name(name string) *BasicUserBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 用户国际化名
+//
+// 示例值：
+func (builder *BasicUserBuilder) I18nName(i18nName *I18nName) *BasicUserBuilder {
+	builder.i18nName = i18nName
+	builder.i18nNameSet = true
+	return builder
+}
+
+func (builder *BasicUserBuilder) Build() *BasicUser {
+	req := &BasicUser{}
+	if builder.userIdSet {
+		req.UserId = &builder.userId
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.i18nNameSet {
+		req.I18nName = builder.i18nName
 	}
 	return req
 }
@@ -553,23 +626,23 @@ type CollaborationTenant struct {
 }
 
 type CollaborationTenantBuilder struct {
-	tenantKey     string // 关联租户ID
-	tenantKeyFlag bool
+	tenantKey    string // 关联租户ID
+	tenantKeySet bool
 
-	name     string // 关联租户实际名称
-	nameFlag bool
+	name    string // 关联租户实际名称
+	nameSet bool
 
-	nickname     string // 别名
-	nicknameFlag bool
+	nickname    string // 别名
+	nicknameSet bool
 
-	connectTime     int // 关联时间
-	connectTimeFlag bool
+	connectTime    int // 关联时间
+	connectTimeSet bool
 
-	avatar     *AvatarInfo // 租户icon信息
-	avatarFlag bool
+	avatar    *AvatarInfo // 租户icon信息
+	avatarSet bool
 
-	brand     string // 租户品牌
-	brandFlag bool
+	brand    string // 租户品牌
+	brandSet bool
 }
 
 func NewCollaborationTenantBuilder() *CollaborationTenantBuilder {
@@ -582,7 +655,7 @@ func NewCollaborationTenantBuilder() *CollaborationTenantBuilder {
 // 示例值：130426ba5b8f174f
 func (builder *CollaborationTenantBuilder) TenantKey(tenantKey string) *CollaborationTenantBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
@@ -591,7 +664,7 @@ func (builder *CollaborationTenantBuilder) TenantKey(tenantKey string) *Collabor
 // 示例值：testName
 func (builder *CollaborationTenantBuilder) Name(name string) *CollaborationTenantBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -600,7 +673,7 @@ func (builder *CollaborationTenantBuilder) Name(name string) *CollaborationTenan
 // 示例值：testNickName
 func (builder *CollaborationTenantBuilder) Nickname(nickname string) *CollaborationTenantBuilder {
 	builder.nickname = nickname
-	builder.nicknameFlag = true
+	builder.nicknameSet = true
 	return builder
 }
 
@@ -609,7 +682,7 @@ func (builder *CollaborationTenantBuilder) Nickname(nickname string) *Collaborat
 // 示例值：1642041636
 func (builder *CollaborationTenantBuilder) ConnectTime(connectTime int) *CollaborationTenantBuilder {
 	builder.connectTime = connectTime
-	builder.connectTimeFlag = true
+	builder.connectTimeSet = true
 	return builder
 }
 
@@ -618,7 +691,7 @@ func (builder *CollaborationTenantBuilder) ConnectTime(connectTime int) *Collabo
 // 示例值：
 func (builder *CollaborationTenantBuilder) Avatar(avatar *AvatarInfo) *CollaborationTenantBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
@@ -627,32 +700,32 @@ func (builder *CollaborationTenantBuilder) Avatar(avatar *AvatarInfo) *Collabora
 // 示例值：
 func (builder *CollaborationTenantBuilder) Brand(brand string) *CollaborationTenantBuilder {
 	builder.brand = brand
-	builder.brandFlag = true
+	builder.brandSet = true
 	return builder
 }
 
 func (builder *CollaborationTenantBuilder) Build() *CollaborationTenant {
 	req := &CollaborationTenant{}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.nicknameFlag {
+	if builder.nicknameSet {
 		req.Nickname = &builder.nickname
 
 	}
-	if builder.connectTimeFlag {
+	if builder.connectTimeSet {
 		req.ConnectTime = &builder.connectTime
 
 	}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = builder.avatar
 	}
-	if builder.brandFlag {
+	if builder.brandSet {
 		req.Brand = &builder.brand
 
 	}
@@ -666,11 +739,11 @@ type ConfidentialMember struct {
 }
 
 type ConfidentialMemberBuilder struct {
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 
-	isConfidential     bool // 是否机密
-	isConfidentialFlag bool
+	isConfidential    bool // 是否机密
+	isConfidentialSet bool
 }
 
 func NewConfidentialMemberBuilder() *ConfidentialMemberBuilder {
@@ -683,7 +756,7 @@ func NewConfidentialMemberBuilder() *ConfidentialMemberBuilder {
 // 示例值：ou_ddbbb39b7b4a1a6366e6021f2efec495
 func (builder *ConfidentialMemberBuilder) UserId(userId string) *ConfidentialMemberBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -692,17 +765,17 @@ func (builder *ConfidentialMemberBuilder) UserId(userId string) *ConfidentialMem
 // 示例值：true
 func (builder *ConfidentialMemberBuilder) IsConfidential(isConfidential bool) *ConfidentialMemberBuilder {
 	builder.isConfidential = isConfidential
-	builder.isConfidentialFlag = true
+	builder.isConfidentialSet = true
 	return builder
 }
 
 func (builder *ConfidentialMemberBuilder) Build() *ConfidentialMember {
 	req := &ConfidentialMember{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.isConfidentialFlag {
+	if builder.isConfidentialSet {
 		req.IsConfidential = &builder.isConfidential
 
 	}
@@ -720,17 +793,17 @@ type CustomAttr struct {
 }
 
 type CustomAttrBuilder struct {
-	id     string // 自定义字段id
-	idFlag bool
+	id    string // 自定义字段id
+	idSet bool
 
 	type_    string // 自定义字段类型，可选值有:;- `TEXT`：纯文本，用于纯文本描述人员，如备注;- `HREF`：静态 URL，用于人员 Profile 跳转链接;- `ENUMERATION`：枚举，用于结构化描述人员，如民族;- `GENERIC_USER`：用户，用于描述人和人关系，如 HRBP;- `PICTURE_ENUM`：枚举图片，以结构化的图片描述人员，如在人员 Profile 展示荣誉徽章
-	typeFlag bool
+	type_Set bool
 
-	options     *CustomAttrOptions // 选项定义，当type为`ENUMERATION`或者`PICTURE_ENUM`时此项有值，列举所有可选项
-	optionsFlag bool
+	options    *CustomAttrOptions // 选项定义，当type为`ENUMERATION`或者`PICTURE_ENUM`时此项有值，列举所有可选项
+	optionsSet bool
 
-	i18nName     []*I18nContent // 自定义字段的字段名称
-	i18nNameFlag bool
+	i18nName    []*I18nContent // 自定义字段的字段名称
+	i18nNameSet bool
 }
 
 func NewCustomAttrBuilder() *CustomAttrBuilder {
@@ -743,7 +816,7 @@ func NewCustomAttrBuilder() *CustomAttrBuilder {
 // 示例值：C-6965457429001748507
 func (builder *CustomAttrBuilder) Id(id string) *CustomAttrBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -752,7 +825,7 @@ func (builder *CustomAttrBuilder) Id(id string) *CustomAttrBuilder {
 // 示例值：TEXT
 func (builder *CustomAttrBuilder) Type(type_ string) *CustomAttrBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -761,7 +834,7 @@ func (builder *CustomAttrBuilder) Type(type_ string) *CustomAttrBuilder {
 // 示例值：{}
 func (builder *CustomAttrBuilder) Options(options *CustomAttrOptions) *CustomAttrBuilder {
 	builder.options = options
-	builder.optionsFlag = true
+	builder.optionsSet = true
 	return builder
 }
 
@@ -770,24 +843,24 @@ func (builder *CustomAttrBuilder) Options(options *CustomAttrOptions) *CustomAtt
 // 示例值：{}
 func (builder *CustomAttrBuilder) I18nName(i18nName []*I18nContent) *CustomAttrBuilder {
 	builder.i18nName = i18nName
-	builder.i18nNameFlag = true
+	builder.i18nNameSet = true
 	return builder
 }
 
 func (builder *CustomAttrBuilder) Build() *CustomAttr {
 	req := &CustomAttr{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.optionsFlag {
+	if builder.optionsSet {
 		req.Options = builder.options
 	}
-	if builder.i18nNameFlag {
+	if builder.i18nNameSet {
 		req.I18nName = builder.i18nName
 	}
 	return req
@@ -800,11 +873,11 @@ type CustomAttrEvent struct {
 }
 
 type CustomAttrEventBuilder struct {
-	contactFieldKey     []string // 通讯录字段键值
-	contactFieldKeyFlag bool
+	contactFieldKey    []string // 通讯录字段键值
+	contactFieldKeySet bool
 
-	allowOpenQuery     bool // 开关是否打开
-	allowOpenQueryFlag bool
+	allowOpenQuery    bool // 开关是否打开
+	allowOpenQuerySet bool
 }
 
 func NewCustomAttrEventBuilder() *CustomAttrEventBuilder {
@@ -817,7 +890,7 @@ func NewCustomAttrEventBuilder() *CustomAttrEventBuilder {
 // 示例值：
 func (builder *CustomAttrEventBuilder) ContactFieldKey(contactFieldKey []string) *CustomAttrEventBuilder {
 	builder.contactFieldKey = contactFieldKey
-	builder.contactFieldKeyFlag = true
+	builder.contactFieldKeySet = true
 	return builder
 }
 
@@ -826,16 +899,16 @@ func (builder *CustomAttrEventBuilder) ContactFieldKey(contactFieldKey []string)
 // 示例值：true
 func (builder *CustomAttrEventBuilder) AllowOpenQuery(allowOpenQuery bool) *CustomAttrEventBuilder {
 	builder.allowOpenQuery = allowOpenQuery
-	builder.allowOpenQueryFlag = true
+	builder.allowOpenQuerySet = true
 	return builder
 }
 
 func (builder *CustomAttrEventBuilder) Build() *CustomAttrEvent {
 	req := &CustomAttrEvent{}
-	if builder.contactFieldKeyFlag {
+	if builder.contactFieldKeySet {
 		req.ContactFieldKey = builder.contactFieldKey
 	}
-	if builder.allowOpenQueryFlag {
+	if builder.allowOpenQuerySet {
 		req.AllowOpenQuery = &builder.allowOpenQuery
 
 	}
@@ -849,11 +922,11 @@ type CustomAttrGenericUser struct {
 }
 
 type CustomAttrGenericUserBuilder struct {
-	id     string // 用户的user_id ，具体参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	idFlag bool
+	id    string // 用户的user_id ，具体参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	idSet bool
 
 	type_    int // 用户类型:  ;1：用户;;目前固定为1，表示用户类型
-	typeFlag bool
+	type_Set bool
 }
 
 func NewCustomAttrGenericUserBuilder() *CustomAttrGenericUserBuilder {
@@ -866,7 +939,7 @@ func NewCustomAttrGenericUserBuilder() *CustomAttrGenericUserBuilder {
 // 示例值：9b2fabg5
 func (builder *CustomAttrGenericUserBuilder) Id(id string) *CustomAttrGenericUserBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -875,17 +948,17 @@ func (builder *CustomAttrGenericUserBuilder) Id(id string) *CustomAttrGenericUse
 // 示例值：1
 func (builder *CustomAttrGenericUserBuilder) Type(type_ int) *CustomAttrGenericUserBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
 func (builder *CustomAttrGenericUserBuilder) Build() *CustomAttrGenericUser {
 	req := &CustomAttrGenericUser{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
@@ -901,14 +974,14 @@ type CustomAttrOption struct {
 }
 
 type CustomAttrOptionBuilder struct {
-	id     string // 枚举类型选项id
-	idFlag bool
+	id    string // 枚举类型选项id
+	idSet bool
 
-	value     string // 枚举选项值，当option_type为`TEXT`为文本值，当option_type为`PICTURE`时为图片链接
-	valueFlag bool
+	value    string // 枚举选项值，当option_type为`TEXT`为文本值，当option_type为`PICTURE`时为图片链接
+	valueSet bool
 
-	name     string // 名称，仅option_type为PICTURE时有效
-	nameFlag bool
+	name    string // 名称，仅option_type为PICTURE时有效
+	nameSet bool
 }
 
 func NewCustomAttrOptionBuilder() *CustomAttrOptionBuilder {
@@ -921,7 +994,7 @@ func NewCustomAttrOptionBuilder() *CustomAttrOptionBuilder {
 // 示例值：qasdefgr
 func (builder *CustomAttrOptionBuilder) Id(id string) *CustomAttrOptionBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -930,7 +1003,7 @@ func (builder *CustomAttrOptionBuilder) Id(id string) *CustomAttrOptionBuilder {
 // 示例值：Option
 func (builder *CustomAttrOptionBuilder) Value(value string) *CustomAttrOptionBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
@@ -939,21 +1012,21 @@ func (builder *CustomAttrOptionBuilder) Value(value string) *CustomAttrOptionBui
 // 示例值：Name
 func (builder *CustomAttrOptionBuilder) Name(name string) *CustomAttrOptionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *CustomAttrOptionBuilder) Build() *CustomAttrOption {
 	req := &CustomAttrOption{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -969,14 +1042,14 @@ type CustomAttrOptions struct {
 }
 
 type CustomAttrOptionsBuilder struct {
-	defaultOptionId     string // 默认选项id
-	defaultOptionIdFlag bool
+	defaultOptionId    string // 默认选项id
+	defaultOptionIdSet bool
 
-	optionType     string // 选项类型
-	optionTypeFlag bool
+	optionType    string // 选项类型
+	optionTypeSet bool
 
-	options     []*CustomAttrOption // 选项列表
-	optionsFlag bool
+	options    []*CustomAttrOption // 选项列表
+	optionsSet bool
 }
 
 func NewCustomAttrOptionsBuilder() *CustomAttrOptionsBuilder {
@@ -989,7 +1062,7 @@ func NewCustomAttrOptionsBuilder() *CustomAttrOptionsBuilder {
 // 示例值：qasdefgr
 func (builder *CustomAttrOptionsBuilder) DefaultOptionId(defaultOptionId string) *CustomAttrOptionsBuilder {
 	builder.defaultOptionId = defaultOptionId
-	builder.defaultOptionIdFlag = true
+	builder.defaultOptionIdSet = true
 	return builder
 }
 
@@ -998,7 +1071,7 @@ func (builder *CustomAttrOptionsBuilder) DefaultOptionId(defaultOptionId string)
 // 示例值：TEXT
 func (builder *CustomAttrOptionsBuilder) OptionType(optionType string) *CustomAttrOptionsBuilder {
 	builder.optionType = optionType
-	builder.optionTypeFlag = true
+	builder.optionTypeSet = true
 	return builder
 }
 
@@ -1007,21 +1080,21 @@ func (builder *CustomAttrOptionsBuilder) OptionType(optionType string) *CustomAt
 // 示例值：[]
 func (builder *CustomAttrOptionsBuilder) Options(options []*CustomAttrOption) *CustomAttrOptionsBuilder {
 	builder.options = options
-	builder.optionsFlag = true
+	builder.optionsSet = true
 	return builder
 }
 
 func (builder *CustomAttrOptionsBuilder) Build() *CustomAttrOptions {
 	req := &CustomAttrOptions{}
-	if builder.defaultOptionIdFlag {
+	if builder.defaultOptionIdSet {
 		req.DefaultOptionId = &builder.defaultOptionId
 
 	}
-	if builder.optionTypeFlag {
+	if builder.optionTypeSet {
 		req.OptionType = &builder.optionType
 
 	}
-	if builder.optionsFlag {
+	if builder.optionsSet {
 		req.Options = builder.options
 	}
 	return req
@@ -1040,20 +1113,20 @@ type DeparmentCount struct {
 }
 
 type DeparmentCountBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	directDepartmentCount     int // 部门下的直属部门数量
-	directDepartmentCountFlag bool
+	directDepartmentCount    int // 部门下的直属部门数量
+	directDepartmentCountSet bool
 
-	directUserCount     int // 部门下的直属成员数量，包含部门负责人
-	directUserCountFlag bool
+	directUserCount    int // 部门下的直属成员数量，包含部门负责人
+	directUserCountSet bool
 
-	departmentCount     int // 部门下所有部门的数量，包含递归的子部门
-	departmentCountFlag bool
+	departmentCount    int // 部门下所有部门的数量，包含递归的子部门
+	departmentCountSet bool
 
-	userCount     int // 部门下所有成员数，包含递归子部门的成员，包含部门负责人
-	userCountFlag bool
+	userCount    int // 部门下所有成员数，包含递归子部门的成员，包含部门负责人
+	userCountSet bool
 }
 
 func NewDeparmentCountBuilder() *DeparmentCountBuilder {
@@ -1061,10 +1134,12 @@ func NewDeparmentCountBuilder() *DeparmentCountBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DeparmentCountBuilder) DepartmentId(departmentId string) *DeparmentCountBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -1073,7 +1148,7 @@ func (builder *DeparmentCountBuilder) DepartmentId(departmentId string) *Deparme
 // 示例值：
 func (builder *DeparmentCountBuilder) DirectDepartmentCount(directDepartmentCount int) *DeparmentCountBuilder {
 	builder.directDepartmentCount = directDepartmentCount
-	builder.directDepartmentCountFlag = true
+	builder.directDepartmentCountSet = true
 	return builder
 }
 
@@ -1082,7 +1157,7 @@ func (builder *DeparmentCountBuilder) DirectDepartmentCount(directDepartmentCoun
 // 示例值：
 func (builder *DeparmentCountBuilder) DirectUserCount(directUserCount int) *DeparmentCountBuilder {
 	builder.directUserCount = directUserCount
-	builder.directUserCountFlag = true
+	builder.directUserCountSet = true
 	return builder
 }
 
@@ -1091,7 +1166,7 @@ func (builder *DeparmentCountBuilder) DirectUserCount(directUserCount int) *Depa
 // 示例值：
 func (builder *DeparmentCountBuilder) DepartmentCount(departmentCount int) *DeparmentCountBuilder {
 	builder.departmentCount = departmentCount
-	builder.departmentCountFlag = true
+	builder.departmentCountSet = true
 	return builder
 }
 
@@ -1100,29 +1175,29 @@ func (builder *DeparmentCountBuilder) DepartmentCount(departmentCount int) *Depa
 // 示例值：
 func (builder *DeparmentCountBuilder) UserCount(userCount int) *DeparmentCountBuilder {
 	builder.userCount = userCount
-	builder.userCountFlag = true
+	builder.userCountSet = true
 	return builder
 }
 
 func (builder *DeparmentCountBuilder) Build() *DeparmentCount {
 	req := &DeparmentCount{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.directDepartmentCountFlag {
+	if builder.directDepartmentCountSet {
 		req.DirectDepartmentCount = &builder.directDepartmentCount
 
 	}
-	if builder.directUserCountFlag {
+	if builder.directUserCountSet {
 		req.DirectUserCount = &builder.directUserCount
 
 	}
-	if builder.departmentCountFlag {
+	if builder.departmentCountSet {
 		req.DepartmentCount = &builder.departmentCount
 
 	}
-	if builder.userCountFlag {
+	if builder.userCountSet {
 		req.UserCount = &builder.userCount
 
 	}
@@ -1164,53 +1239,53 @@ type Department struct {
 }
 
 type DepartmentBuilder struct {
-	name     string // 部门名称
-	nameFlag bool
+	name    string // 部门名称
+	nameSet bool
 
-	i18nName     *DepartmentI18nName // 国际化的部门名称
-	i18nNameFlag bool
+	i18nName    *DepartmentI18nName // 国际化的部门名称
+	i18nNameSet bool
 
-	parentDepartmentId     string // 父部门的ID;;* 在根部门下创建新部门，该参数值为 “0”
-	parentDepartmentIdFlag bool
+	parentDepartmentId    string // 父部门的ID;;* 在根部门下创建新部门，该参数值为 “0”
+	parentDepartmentIdSet bool
 
-	departmentId     string // 本部门的自定义部门ID;;注意：除需要满足正则规则外，同时不能以`od-`开头
-	departmentIdFlag bool
+	departmentId    string // 本部门的自定义部门ID;;注意：除需要满足正则规则外，同时不能以`od-`开头
+	departmentIdSet bool
 
-	openDepartmentId     string // 部门的open_id，类型与通过请求的查询参数传入的department_id_type相同
-	openDepartmentIdFlag bool
+	openDepartmentId    string // 部门的open_id，类型与通过请求的查询参数传入的department_id_type相同
+	openDepartmentIdSet bool
 
-	leaderUserId     string // 部门主管用户ID
-	leaderUserIdFlag bool
+	leaderUserId    string // 部门主管用户ID
+	leaderUserIdSet bool
 
-	chatId     string // 部门群ID
-	chatIdFlag bool
+	chatId    string // 部门群ID
+	chatIdSet bool
 
-	order     string // 部门的排序，即部门在其同级部门的展示顺序
-	orderFlag bool
+	order    string // 部门的排序，即部门在其同级部门的展示顺序
+	orderSet bool
 
-	unitIds     []string // 部门单位自定义ID列表，当前只支持一个
-	unitIdsFlag bool
+	unitIds    []string // 部门单位自定义ID列表，当前只支持一个
+	unitIdsSet bool
 
-	memberCount     int // 部门下用户的个数
-	memberCountFlag bool
+	memberCount    int // 部门下用户的个数
+	memberCountSet bool
 
-	status     *DepartmentStatus // 部门状态
-	statusFlag bool
+	status    *DepartmentStatus // 部门状态
+	statusSet bool
 
-	createGroupChat     bool // 是否创建部门群，默认不创建
-	createGroupChatFlag bool
+	createGroupChat    bool // 是否创建部门群，默认不创建
+	createGroupChatSet bool
 
-	leaders     []*DepartmentLeader // 部门负责人
-	leadersFlag bool
+	leaders    []*DepartmentLeader // 部门负责人
+	leadersSet bool
 
-	groupChatEmployeeTypes     []int // 部门群雇员类型限制。[]空列表时，表示为无任何雇员类型。类型字段可包含以下值，支持多个类型值；若有多个，用英文','分隔：;1、正式员工;2、实习生;3、外包;4、劳务;5、顾问;6、其他自定义类型字段，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)。
-	groupChatEmployeeTypesFlag bool
+	groupChatEmployeeTypes    []int // 部门群雇员类型限制。[]空列表时，表示为无任何雇员类型。类型字段可包含以下值，支持多个类型值；若有多个，用英文','分隔：;1、正式员工;2、实习生;3、外包;4、劳务;5、顾问;6、其他自定义类型字段，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)。
+	groupChatEmployeeTypesSet bool
 
-	departmentHrbps     []string // 部门HRBP
-	departmentHrbpsFlag bool
+	departmentHrbps    []string // 部门HRBP
+	departmentHrbpsSet bool
 
-	primaryMemberCount     int // 部门下主属用户的个数
-	primaryMemberCountFlag bool
+	primaryMemberCount    int // 部门下主属用户的个数
+	primaryMemberCountSet bool
 }
 
 func NewDepartmentBuilder() *DepartmentBuilder {
@@ -1223,7 +1298,7 @@ func NewDepartmentBuilder() *DepartmentBuilder {
 // 示例值：DemoName
 func (builder *DepartmentBuilder) Name(name string) *DepartmentBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1232,7 +1307,7 @@ func (builder *DepartmentBuilder) Name(name string) *DepartmentBuilder {
 // 示例值：
 func (builder *DepartmentBuilder) I18nName(i18nName *DepartmentI18nName) *DepartmentBuilder {
 	builder.i18nName = i18nName
-	builder.i18nNameFlag = true
+	builder.i18nNameSet = true
 	return builder
 }
 
@@ -1241,7 +1316,7 @@ func (builder *DepartmentBuilder) I18nName(i18nName *DepartmentI18nName) *Depart
 // 示例值：D067
 func (builder *DepartmentBuilder) ParentDepartmentId(parentDepartmentId string) *DepartmentBuilder {
 	builder.parentDepartmentId = parentDepartmentId
-	builder.parentDepartmentIdFlag = true
+	builder.parentDepartmentIdSet = true
 	return builder
 }
 
@@ -1250,7 +1325,7 @@ func (builder *DepartmentBuilder) ParentDepartmentId(parentDepartmentId string) 
 // 示例值：D096
 func (builder *DepartmentBuilder) DepartmentId(departmentId string) *DepartmentBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -1259,7 +1334,7 @@ func (builder *DepartmentBuilder) DepartmentId(departmentId string) *DepartmentB
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *DepartmentBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
@@ -1268,7 +1343,7 @@ func (builder *DepartmentBuilder) OpenDepartmentId(openDepartmentId string) *Dep
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DepartmentBuilder) LeaderUserId(leaderUserId string) *DepartmentBuilder {
 	builder.leaderUserId = leaderUserId
-	builder.leaderUserIdFlag = true
+	builder.leaderUserIdSet = true
 	return builder
 }
 
@@ -1277,7 +1352,7 @@ func (builder *DepartmentBuilder) LeaderUserId(leaderUserId string) *DepartmentB
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *DepartmentBuilder) ChatId(chatId string) *DepartmentBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -1286,7 +1361,7 @@ func (builder *DepartmentBuilder) ChatId(chatId string) *DepartmentBuilder {
 // 示例值：100
 func (builder *DepartmentBuilder) Order(order string) *DepartmentBuilder {
 	builder.order = order
-	builder.orderFlag = true
+	builder.orderSet = true
 	return builder
 }
 
@@ -1295,7 +1370,7 @@ func (builder *DepartmentBuilder) Order(order string) *DepartmentBuilder {
 // 示例值：custom_unit_id
 func (builder *DepartmentBuilder) UnitIds(unitIds []string) *DepartmentBuilder {
 	builder.unitIds = unitIds
-	builder.unitIdsFlag = true
+	builder.unitIdsSet = true
 	return builder
 }
 
@@ -1304,7 +1379,7 @@ func (builder *DepartmentBuilder) UnitIds(unitIds []string) *DepartmentBuilder {
 // 示例值：100
 func (builder *DepartmentBuilder) MemberCount(memberCount int) *DepartmentBuilder {
 	builder.memberCount = memberCount
-	builder.memberCountFlag = true
+	builder.memberCountSet = true
 	return builder
 }
 
@@ -1313,7 +1388,7 @@ func (builder *DepartmentBuilder) MemberCount(memberCount int) *DepartmentBuilde
 // 示例值：
 func (builder *DepartmentBuilder) Status(status *DepartmentStatus) *DepartmentBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -1322,7 +1397,7 @@ func (builder *DepartmentBuilder) Status(status *DepartmentStatus) *DepartmentBu
 // 示例值：false
 func (builder *DepartmentBuilder) CreateGroupChat(createGroupChat bool) *DepartmentBuilder {
 	builder.createGroupChat = createGroupChat
-	builder.createGroupChatFlag = true
+	builder.createGroupChatSet = true
 	return builder
 }
 
@@ -1331,7 +1406,7 @@ func (builder *DepartmentBuilder) CreateGroupChat(createGroupChat bool) *Departm
 // 示例值：
 func (builder *DepartmentBuilder) Leaders(leaders []*DepartmentLeader) *DepartmentBuilder {
 	builder.leaders = leaders
-	builder.leadersFlag = true
+	builder.leadersSet = true
 	return builder
 }
 
@@ -1340,7 +1415,7 @@ func (builder *DepartmentBuilder) Leaders(leaders []*DepartmentLeader) *Departme
 // 示例值：[1,2,3]
 func (builder *DepartmentBuilder) GroupChatEmployeeTypes(groupChatEmployeeTypes []int) *DepartmentBuilder {
 	builder.groupChatEmployeeTypes = groupChatEmployeeTypes
-	builder.groupChatEmployeeTypesFlag = true
+	builder.groupChatEmployeeTypesSet = true
 	return builder
 }
 
@@ -1349,7 +1424,7 @@ func (builder *DepartmentBuilder) GroupChatEmployeeTypes(groupChatEmployeeTypes 
 // 示例值：
 func (builder *DepartmentBuilder) DepartmentHrbps(departmentHrbps []string) *DepartmentBuilder {
 	builder.departmentHrbps = departmentHrbps
-	builder.departmentHrbpsFlag = true
+	builder.departmentHrbpsSet = true
 	return builder
 }
 
@@ -1358,67 +1433,67 @@ func (builder *DepartmentBuilder) DepartmentHrbps(departmentHrbps []string) *Dep
 // 示例值：100
 func (builder *DepartmentBuilder) PrimaryMemberCount(primaryMemberCount int) *DepartmentBuilder {
 	builder.primaryMemberCount = primaryMemberCount
-	builder.primaryMemberCountFlag = true
+	builder.primaryMemberCountSet = true
 	return builder
 }
 
 func (builder *DepartmentBuilder) Build() *Department {
 	req := &Department{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.i18nNameFlag {
+	if builder.i18nNameSet {
 		req.I18nName = builder.i18nName
 	}
-	if builder.parentDepartmentIdFlag {
+	if builder.parentDepartmentIdSet {
 		req.ParentDepartmentId = &builder.parentDepartmentId
 
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
-	if builder.leaderUserIdFlag {
+	if builder.leaderUserIdSet {
 		req.LeaderUserId = &builder.leaderUserId
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.orderFlag {
+	if builder.orderSet {
 		req.Order = &builder.order
 
 	}
-	if builder.unitIdsFlag {
+	if builder.unitIdsSet {
 		req.UnitIds = builder.unitIds
 	}
-	if builder.memberCountFlag {
+	if builder.memberCountSet {
 		req.MemberCount = &builder.memberCount
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = builder.status
 	}
-	if builder.createGroupChatFlag {
+	if builder.createGroupChatSet {
 		req.CreateGroupChat = &builder.createGroupChat
 
 	}
-	if builder.leadersFlag {
+	if builder.leadersSet {
 		req.Leaders = builder.leaders
 	}
-	if builder.groupChatEmployeeTypesFlag {
+	if builder.groupChatEmployeeTypesSet {
 		req.GroupChatEmployeeTypes = builder.groupChatEmployeeTypes
 	}
-	if builder.departmentHrbpsFlag {
+	if builder.departmentHrbpsSet {
 		req.DepartmentHrbps = builder.departmentHrbps
 	}
-	if builder.primaryMemberCountFlag {
+	if builder.primaryMemberCountSet {
 		req.PrimaryMemberCount = &builder.primaryMemberCount
 
 	}
@@ -1432,11 +1507,11 @@ type DepartmentLeader struct {
 }
 
 type DepartmentLeaderBuilder struct {
-	leaderType     int // 负责人类型
-	leaderTypeFlag bool
+	leaderType    int // 负责人类型
+	leaderTypeSet bool
 
-	leaderID     string // 负责人ID
-	leaderIDFlag bool
+	leaderID    string // 负责人ID
+	leaderIDSet bool
 }
 
 func NewDepartmentLeaderBuilder() *DepartmentLeaderBuilder {
@@ -1449,7 +1524,7 @@ func NewDepartmentLeaderBuilder() *DepartmentLeaderBuilder {
 // 示例值：1
 func (builder *DepartmentLeaderBuilder) LeaderType(leaderType int) *DepartmentLeaderBuilder {
 	builder.leaderType = leaderType
-	builder.leaderTypeFlag = true
+	builder.leaderTypeSet = true
 	return builder
 }
 
@@ -1458,17 +1533,17 @@ func (builder *DepartmentLeaderBuilder) LeaderType(leaderType int) *DepartmentLe
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DepartmentLeaderBuilder) LeaderID(leaderID string) *DepartmentLeaderBuilder {
 	builder.leaderID = leaderID
-	builder.leaderIDFlag = true
+	builder.leaderIDSet = true
 	return builder
 }
 
 func (builder *DepartmentLeaderBuilder) Build() *DepartmentLeader {
 	req := &DepartmentLeader{}
-	if builder.leaderTypeFlag {
+	if builder.leaderTypeSet {
 		req.LeaderType = &builder.leaderType
 
 	}
-	if builder.leaderIDFlag {
+	if builder.leaderIDSet {
 		req.LeaderID = &builder.leaderID
 
 	}
@@ -1488,20 +1563,20 @@ type DepartmentCount struct {
 }
 
 type DepartmentCountBuilder struct {
-	departmentId     string // 部门ID
-	departmentIdFlag bool
+	departmentId    string // 部门ID
+	departmentIdSet bool
 
-	directDepartmentCount     int // 部门下的直属部门数量
-	directDepartmentCountFlag bool
+	directDepartmentCount    int // 部门下的直属部门数量
+	directDepartmentCountSet bool
 
-	directUserCount     int // 部门下的直属成员数量，包含部门负责人
-	directUserCountFlag bool
+	directUserCount    int // 部门下的直属成员数量，包含部门负责人
+	directUserCountSet bool
 
-	departmentCount     int // 部门下所有部门的数量，包含递归的子部门
-	departmentCountFlag bool
+	departmentCount    int // 部门下所有部门的数量，包含递归的子部门
+	departmentCountSet bool
 
-	userCount     int // 部门下所有成员数，包含递归子部门的成员，包含部门负责人
-	userCountFlag bool
+	userCount    int // 部门下所有成员数，包含递归子部门的成员，包含部门负责人
+	userCountSet bool
 }
 
 func NewDepartmentCountBuilder() *DepartmentCountBuilder {
@@ -1514,7 +1589,7 @@ func NewDepartmentCountBuilder() *DepartmentCountBuilder {
 // 示例值：
 func (builder *DepartmentCountBuilder) DepartmentId(departmentId string) *DepartmentCountBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -1523,7 +1598,7 @@ func (builder *DepartmentCountBuilder) DepartmentId(departmentId string) *Depart
 // 示例值：
 func (builder *DepartmentCountBuilder) DirectDepartmentCount(directDepartmentCount int) *DepartmentCountBuilder {
 	builder.directDepartmentCount = directDepartmentCount
-	builder.directDepartmentCountFlag = true
+	builder.directDepartmentCountSet = true
 	return builder
 }
 
@@ -1532,7 +1607,7 @@ func (builder *DepartmentCountBuilder) DirectDepartmentCount(directDepartmentCou
 // 示例值：
 func (builder *DepartmentCountBuilder) DirectUserCount(directUserCount int) *DepartmentCountBuilder {
 	builder.directUserCount = directUserCount
-	builder.directUserCountFlag = true
+	builder.directUserCountSet = true
 	return builder
 }
 
@@ -1541,7 +1616,7 @@ func (builder *DepartmentCountBuilder) DirectUserCount(directUserCount int) *Dep
 // 示例值：
 func (builder *DepartmentCountBuilder) DepartmentCount(departmentCount int) *DepartmentCountBuilder {
 	builder.departmentCount = departmentCount
-	builder.departmentCountFlag = true
+	builder.departmentCountSet = true
 	return builder
 }
 
@@ -1550,29 +1625,29 @@ func (builder *DepartmentCountBuilder) DepartmentCount(departmentCount int) *Dep
 // 示例值：
 func (builder *DepartmentCountBuilder) UserCount(userCount int) *DepartmentCountBuilder {
 	builder.userCount = userCount
-	builder.userCountFlag = true
+	builder.userCountSet = true
 	return builder
 }
 
 func (builder *DepartmentCountBuilder) Build() *DepartmentCount {
 	req := &DepartmentCount{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.directDepartmentCountFlag {
+	if builder.directDepartmentCountSet {
 		req.DirectDepartmentCount = &builder.directDepartmentCount
 
 	}
-	if builder.directUserCountFlag {
+	if builder.directUserCountSet {
 		req.DirectUserCount = &builder.directUserCount
 
 	}
-	if builder.departmentCountFlag {
+	if builder.departmentCountSet {
 		req.DepartmentCount = &builder.departmentCount
 
 	}
-	if builder.userCountFlag {
+	if builder.userCountSet {
 		req.UserCount = &builder.userCount
 
 	}
@@ -1588,14 +1663,14 @@ type DepartmentDetail struct {
 }
 
 type DepartmentDetailBuilder struct {
-	departmentId     string // 部门ID
-	departmentIdFlag bool
+	departmentId    string // 部门ID
+	departmentIdSet bool
 
-	departmentName     *DepartmentPathName // 部门名
-	departmentNameFlag bool
+	departmentName    *DepartmentPathName // 部门名
+	departmentNameSet bool
 
-	departmentPath     *DepartmentPath // 部门路径
-	departmentPathFlag bool
+	departmentPath    *DepartmentPath // 部门路径
+	departmentPathSet bool
 }
 
 func NewDepartmentDetailBuilder() *DepartmentDetailBuilder {
@@ -1608,7 +1683,7 @@ func NewDepartmentDetailBuilder() *DepartmentDetailBuilder {
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *DepartmentDetailBuilder) DepartmentId(departmentId string) *DepartmentDetailBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -1617,7 +1692,7 @@ func (builder *DepartmentDetailBuilder) DepartmentId(departmentId string) *Depar
 // 示例值：
 func (builder *DepartmentDetailBuilder) DepartmentName(departmentName *DepartmentPathName) *DepartmentDetailBuilder {
 	builder.departmentName = departmentName
-	builder.departmentNameFlag = true
+	builder.departmentNameSet = true
 	return builder
 }
 
@@ -1626,20 +1701,20 @@ func (builder *DepartmentDetailBuilder) DepartmentName(departmentName *Departmen
 // 示例值：
 func (builder *DepartmentDetailBuilder) DepartmentPath(departmentPath *DepartmentPath) *DepartmentDetailBuilder {
 	builder.departmentPath = departmentPath
-	builder.departmentPathFlag = true
+	builder.departmentPathSet = true
 	return builder
 }
 
 func (builder *DepartmentDetailBuilder) Build() *DepartmentDetail {
 	req := &DepartmentDetail{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.departmentNameFlag {
+	if builder.departmentNameSet {
 		req.DepartmentName = builder.departmentName
 	}
-	if builder.departmentPathFlag {
+	if builder.departmentPathSet {
 		req.DepartmentPath = builder.departmentPath
 	}
 	return req
@@ -1670,38 +1745,38 @@ type DepartmentEvent struct {
 }
 
 type DepartmentEventBuilder struct {
-	name     string // 部门名称
-	nameFlag bool
+	name    string // 部门名称
+	nameSet bool
 
-	parentDepartmentId     string // 父部门的部门open_department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
-	parentDepartmentIdFlag bool
+	parentDepartmentId    string // 父部门的部门open_department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+	parentDepartmentIdSet bool
 
-	departmentId     string // 本部门的department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
-	departmentIdFlag bool
+	departmentId    string // 本部门的department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+	departmentIdSet bool
 
-	openDepartmentId     string // 部门的open_department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
-	openDepartmentIdFlag bool
+	openDepartmentId    string // 部门的open_department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+	openDepartmentIdSet bool
 
-	leaderUserId     string // 部门主管用户open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	leaderUserIdFlag bool
+	leaderUserId    string // 部门主管用户open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	leaderUserIdSet bool
 
-	chatId     string // 部门群ID
-	chatIdFlag bool
+	chatId    string // 部门群ID
+	chatIdSet bool
 
-	order     int // 部门的排序
-	orderFlag bool
+	order    int // 部门的排序
+	orderSet bool
 
-	unitIds     []string // 部门单位自定义ID列表，当前只支持一个
-	unitIdsFlag bool
+	unitIds    []string // 部门单位自定义ID列表，当前只支持一个
+	unitIdsSet bool
 
-	status     *DepartmentStatus // 部门状态
-	statusFlag bool
+	status    *DepartmentStatus // 部门状态
+	statusSet bool
 
-	leaders     []*DepartmentLeader // 部门负责人
-	leadersFlag bool
+	leaders    []*DepartmentLeader // 部门负责人
+	leadersSet bool
 
-	departmentHrbps     []*UserId // 部门HRBP
-	departmentHrbpsFlag bool
+	departmentHrbps    []*UserId // 部门HRBP
+	departmentHrbpsSet bool
 }
 
 func NewDepartmentEventBuilder() *DepartmentEventBuilder {
@@ -1714,7 +1789,7 @@ func NewDepartmentEventBuilder() *DepartmentEventBuilder {
 // 示例值：测试部门
 func (builder *DepartmentEventBuilder) Name(name string) *DepartmentEventBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1723,7 +1798,7 @@ func (builder *DepartmentEventBuilder) Name(name string) *DepartmentEventBuilder
 // 示例值：jkfsd89782
 func (builder *DepartmentEventBuilder) ParentDepartmentId(parentDepartmentId string) *DepartmentEventBuilder {
 	builder.parentDepartmentId = parentDepartmentId
-	builder.parentDepartmentIdFlag = true
+	builder.parentDepartmentIdSet = true
 	return builder
 }
 
@@ -1732,7 +1807,7 @@ func (builder *DepartmentEventBuilder) ParentDepartmentId(parentDepartmentId str
 // 示例值：yd7sa8yf2j
 func (builder *DepartmentEventBuilder) DepartmentId(departmentId string) *DepartmentEventBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -1741,7 +1816,7 @@ func (builder *DepartmentEventBuilder) DepartmentId(departmentId string) *Depart
 // 示例值：od_j10j52hjksd9g0isdfg43
 func (builder *DepartmentEventBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentEventBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
@@ -1750,7 +1825,7 @@ func (builder *DepartmentEventBuilder) OpenDepartmentId(openDepartmentId string)
 // 示例值：ou_3j1kh45jk18fgh23hf
 func (builder *DepartmentEventBuilder) LeaderUserId(leaderUserId string) *DepartmentEventBuilder {
 	builder.leaderUserId = leaderUserId
-	builder.leaderUserIdFlag = true
+	builder.leaderUserIdSet = true
 	return builder
 }
 
@@ -1759,7 +1834,7 @@ func (builder *DepartmentEventBuilder) LeaderUserId(leaderUserId string) *Depart
 // 示例值：oc_uiy325uy23bnv48gdf
 func (builder *DepartmentEventBuilder) ChatId(chatId string) *DepartmentEventBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -1768,7 +1843,7 @@ func (builder *DepartmentEventBuilder) ChatId(chatId string) *DepartmentEventBui
 // 示例值：100
 func (builder *DepartmentEventBuilder) Order(order int) *DepartmentEventBuilder {
 	builder.order = order
-	builder.orderFlag = true
+	builder.orderSet = true
 	return builder
 }
 
@@ -1777,7 +1852,7 @@ func (builder *DepartmentEventBuilder) Order(order int) *DepartmentEventBuilder 
 // 示例值：
 func (builder *DepartmentEventBuilder) UnitIds(unitIds []string) *DepartmentEventBuilder {
 	builder.unitIds = unitIds
-	builder.unitIdsFlag = true
+	builder.unitIdsSet = true
 	return builder
 }
 
@@ -1786,7 +1861,7 @@ func (builder *DepartmentEventBuilder) UnitIds(unitIds []string) *DepartmentEven
 // 示例值：
 func (builder *DepartmentEventBuilder) Status(status *DepartmentStatus) *DepartmentEventBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -1795,7 +1870,7 @@ func (builder *DepartmentEventBuilder) Status(status *DepartmentStatus) *Departm
 // 示例值：
 func (builder *DepartmentEventBuilder) Leaders(leaders []*DepartmentLeader) *DepartmentEventBuilder {
 	builder.leaders = leaders
-	builder.leadersFlag = true
+	builder.leadersSet = true
 	return builder
 }
 
@@ -1804,50 +1879,50 @@ func (builder *DepartmentEventBuilder) Leaders(leaders []*DepartmentLeader) *Dep
 // 示例值：
 func (builder *DepartmentEventBuilder) DepartmentHrbps(departmentHrbps []*UserId) *DepartmentEventBuilder {
 	builder.departmentHrbps = departmentHrbps
-	builder.departmentHrbpsFlag = true
+	builder.departmentHrbpsSet = true
 	return builder
 }
 
 func (builder *DepartmentEventBuilder) Build() *DepartmentEvent {
 	req := &DepartmentEvent{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.parentDepartmentIdFlag {
+	if builder.parentDepartmentIdSet {
 		req.ParentDepartmentId = &builder.parentDepartmentId
 
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
-	if builder.leaderUserIdFlag {
+	if builder.leaderUserIdSet {
 		req.LeaderUserId = &builder.leaderUserId
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.orderFlag {
+	if builder.orderSet {
 		req.Order = &builder.order
 
 	}
-	if builder.unitIdsFlag {
+	if builder.unitIdsSet {
 		req.UnitIds = builder.unitIds
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = builder.status
 	}
-	if builder.leadersFlag {
+	if builder.leadersSet {
 		req.Leaders = builder.leaders
 	}
-	if builder.departmentHrbpsFlag {
+	if builder.departmentHrbpsSet {
 		req.DepartmentHrbps = builder.departmentHrbps
 	}
 	return req
@@ -1862,14 +1937,14 @@ type DepartmentI18nName struct {
 }
 
 type DepartmentI18nNameBuilder struct {
-	zhCn     string // 部门的中文名
-	zhCnFlag bool
+	zhCn    string // 部门的中文名
+	zhCnSet bool
 
-	jaJp     string // 部门的日文名
-	jaJpFlag bool
+	jaJp    string // 部门的日文名
+	jaJpSet bool
 
-	enUs     string // 部门的英文名
-	enUsFlag bool
+	enUs    string // 部门的英文名
+	enUsSet bool
 }
 
 func NewDepartmentI18nNameBuilder() *DepartmentI18nNameBuilder {
@@ -1882,7 +1957,7 @@ func NewDepartmentI18nNameBuilder() *DepartmentI18nNameBuilder {
 // 示例值：Demo名称
 func (builder *DepartmentI18nNameBuilder) ZhCn(zhCn string) *DepartmentI18nNameBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -1891,7 +1966,7 @@ func (builder *DepartmentI18nNameBuilder) ZhCn(zhCn string) *DepartmentI18nNameB
 // 示例值：デモ名
 func (builder *DepartmentI18nNameBuilder) JaJp(jaJp string) *DepartmentI18nNameBuilder {
 	builder.jaJp = jaJp
-	builder.jaJpFlag = true
+	builder.jaJpSet = true
 	return builder
 }
 
@@ -1900,21 +1975,21 @@ func (builder *DepartmentI18nNameBuilder) JaJp(jaJp string) *DepartmentI18nNameB
 // 示例值：Demo Name
 func (builder *DepartmentI18nNameBuilder) EnUs(enUs string) *DepartmentI18nNameBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
 func (builder *DepartmentI18nNameBuilder) Build() *DepartmentI18nName {
 	req := &DepartmentI18nName{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.jaJpFlag {
+	if builder.jaJpSet {
 		req.JaJp = &builder.jaJp
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
@@ -1928,11 +2003,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -1940,27 +2015,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -1974,11 +2053,11 @@ type DepartmentParent struct {
 }
 
 type DepartmentParentBuilder struct {
-	departmentId     string // 部门ID
-	departmentIdFlag bool
+	departmentId    string // 部门ID
+	departmentIdSet bool
 
-	parentIds     []string // 父部门ID列表，从直接父部门到根部门
-	parentIdsFlag bool
+	parentIds    []string // 父部门ID列表，从直接父部门到根部门
+	parentIdsSet bool
 }
 
 func NewDepartmentParentBuilder() *DepartmentParentBuilder {
@@ -1991,7 +2070,7 @@ func NewDepartmentParentBuilder() *DepartmentParentBuilder {
 // 示例值：
 func (builder *DepartmentParentBuilder) DepartmentId(departmentId string) *DepartmentParentBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -2000,17 +2079,17 @@ func (builder *DepartmentParentBuilder) DepartmentId(departmentId string) *Depar
 // 示例值：
 func (builder *DepartmentParentBuilder) ParentIds(parentIds []string) *DepartmentParentBuilder {
 	builder.parentIds = parentIds
-	builder.parentIdsFlag = true
+	builder.parentIdsSet = true
 	return builder
 }
 
 func (builder *DepartmentParentBuilder) Build() *DepartmentParent {
 	req := &DepartmentParent{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.parentIdsFlag {
+	if builder.parentIdsSet {
 		req.ParentIds = builder.parentIds
 	}
 	return req
@@ -2023,11 +2102,11 @@ type DepartmentPath struct {
 }
 
 type DepartmentPathBuilder struct {
-	departmentIds     []string // 部门路径IDs
-	departmentIdsFlag bool
+	departmentIds    []string // 部门路径IDs
+	departmentIdsSet bool
 
-	departmentPathName     *DepartmentPathName // 部门路径名字
-	departmentPathNameFlag bool
+	departmentPathName    *DepartmentPathName // 部门路径名字
+	departmentPathNameSet bool
 }
 
 func NewDepartmentPathBuilder() *DepartmentPathBuilder {
@@ -2040,7 +2119,7 @@ func NewDepartmentPathBuilder() *DepartmentPathBuilder {
 // 示例值：
 func (builder *DepartmentPathBuilder) DepartmentIds(departmentIds []string) *DepartmentPathBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
@@ -2049,16 +2128,16 @@ func (builder *DepartmentPathBuilder) DepartmentIds(departmentIds []string) *Dep
 // 示例值：
 func (builder *DepartmentPathBuilder) DepartmentPathName(departmentPathName *DepartmentPathName) *DepartmentPathBuilder {
 	builder.departmentPathName = departmentPathName
-	builder.departmentPathNameFlag = true
+	builder.departmentPathNameSet = true
 	return builder
 }
 
 func (builder *DepartmentPathBuilder) Build() *DepartmentPath {
 	req := &DepartmentPath{}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.departmentPathNameFlag {
+	if builder.departmentPathNameSet {
 		req.DepartmentPathName = builder.departmentPathName
 	}
 	return req
@@ -2071,11 +2150,11 @@ type DepartmentPathName struct {
 }
 
 type DepartmentPathNameBuilder struct {
-	name     string // 部门名
-	nameFlag bool
+	name    string // 部门名
+	nameSet bool
 
-	i18nName     *DepartmentI18nName // 部门国际化名
-	i18nNameFlag bool
+	i18nName    *DepartmentI18nName // 部门国际化名
+	i18nNameSet bool
 }
 
 func NewDepartmentPathNameBuilder() *DepartmentPathNameBuilder {
@@ -2088,7 +2167,7 @@ func NewDepartmentPathNameBuilder() *DepartmentPathNameBuilder {
 // 示例值：测试部门名1
 func (builder *DepartmentPathNameBuilder) Name(name string) *DepartmentPathNameBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2097,17 +2176,17 @@ func (builder *DepartmentPathNameBuilder) Name(name string) *DepartmentPathNameB
 // 示例值：
 func (builder *DepartmentPathNameBuilder) I18nName(i18nName *DepartmentI18nName) *DepartmentPathNameBuilder {
 	builder.i18nName = i18nName
-	builder.i18nNameFlag = true
+	builder.i18nNameSet = true
 	return builder
 }
 
 func (builder *DepartmentPathNameBuilder) Build() *DepartmentPathName {
 	req := &DepartmentPathName{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.i18nNameFlag {
+	if builder.i18nNameSet {
 		req.I18nName = builder.i18nName
 	}
 	return req
@@ -2118,8 +2197,8 @@ type DepartmentStatus struct {
 }
 
 type DepartmentStatusBuilder struct {
-	isDeleted     bool // 是否被删除
-	isDeletedFlag bool
+	isDeleted    bool // 是否被删除
+	isDeletedSet bool
 }
 
 func NewDepartmentStatusBuilder() *DepartmentStatusBuilder {
@@ -2132,13 +2211,13 @@ func NewDepartmentStatusBuilder() *DepartmentStatusBuilder {
 // 示例值：false
 func (builder *DepartmentStatusBuilder) IsDeleted(isDeleted bool) *DepartmentStatusBuilder {
 	builder.isDeleted = isDeleted
-	builder.isDeletedFlag = true
+	builder.isDeletedSet = true
 	return builder
 }
 
 func (builder *DepartmentStatusBuilder) Build() *DepartmentStatus {
 	req := &DepartmentStatus{}
-	if builder.isDeletedFlag {
+	if builder.isDeletedSet {
 		req.IsDeleted = &builder.isDeleted
 
 	}
@@ -2154,14 +2233,14 @@ type DepartmentUnit struct {
 }
 
 type DepartmentUnitBuilder struct {
-	unitId     string // 部门单元自定义ID
-	unitIdFlag bool
+	unitId    string // 部门单元自定义ID
+	unitIdSet bool
 
-	unitType     string // 部门单元类型
-	unitTypeFlag bool
+	unitType    string // 部门单元类型
+	unitTypeSet bool
 
-	unitName     string // 部门单元名称
-	unitNameFlag bool
+	unitName    string // 部门单元名称
+	unitNameSet bool
 }
 
 func NewDepartmentUnitBuilder() *DepartmentUnitBuilder {
@@ -2174,7 +2253,7 @@ func NewDepartmentUnitBuilder() *DepartmentUnitBuilder {
 // 示例值：
 func (builder *DepartmentUnitBuilder) UnitId(unitId string) *DepartmentUnitBuilder {
 	builder.unitId = unitId
-	builder.unitIdFlag = true
+	builder.unitIdSet = true
 	return builder
 }
 
@@ -2183,7 +2262,7 @@ func (builder *DepartmentUnitBuilder) UnitId(unitId string) *DepartmentUnitBuild
 // 示例值：
 func (builder *DepartmentUnitBuilder) UnitType(unitType string) *DepartmentUnitBuilder {
 	builder.unitType = unitType
-	builder.unitTypeFlag = true
+	builder.unitTypeSet = true
 	return builder
 }
 
@@ -2192,21 +2271,21 @@ func (builder *DepartmentUnitBuilder) UnitType(unitType string) *DepartmentUnitB
 // 示例值：
 func (builder *DepartmentUnitBuilder) UnitName(unitName string) *DepartmentUnitBuilder {
 	builder.unitName = unitName
-	builder.unitNameFlag = true
+	builder.unitNameSet = true
 	return builder
 }
 
 func (builder *DepartmentUnitBuilder) Build() *DepartmentUnit {
 	req := &DepartmentUnit{}
-	if builder.unitIdFlag {
+	if builder.unitIdSet {
 		req.UnitId = &builder.unitId
 
 	}
-	if builder.unitTypeFlag {
+	if builder.unitTypeSet {
 		req.UnitType = &builder.unitType
 
 	}
-	if builder.unitNameFlag {
+	if builder.unitNameSet {
 		req.UnitName = &builder.unitName
 
 	}
@@ -2224,17 +2303,17 @@ type DynamicGroupExpression struct {
 }
 
 type DynamicGroupExpressionBuilder struct {
-	field     string // 动态用户组表达式的左值，属性名称
-	fieldFlag bool
+	field    string // 动态用户组表达式的左值，属性名称
+	fieldSet bool
 
-	operator     string // 操作符，表示左值进行什么操作
-	operatorFlag bool
+	operator    string // 操作符，表示左值进行什么操作
+	operatorSet bool
 
-	value     string // 值，单个结果，用于单值运算，比如：等于操作
-	valueFlag bool
+	value    string // 值，单个结果，用于单值运算，比如：等于操作
+	valueSet bool
 
-	values     []string // 值，多个结果，用于多值操作，比如属于
-	valuesFlag bool
+	values    []string // 值，多个结果，用于多值操作，比如属于
+	valuesSet bool
 }
 
 func NewDynamicGroupExpressionBuilder() *DynamicGroupExpressionBuilder {
@@ -2247,7 +2326,7 @@ func NewDynamicGroupExpressionBuilder() *DynamicGroupExpressionBuilder {
 // 示例值：user.name
 func (builder *DynamicGroupExpressionBuilder) Field(field string) *DynamicGroupExpressionBuilder {
 	builder.field = field
-	builder.fieldFlag = true
+	builder.fieldSet = true
 	return builder
 }
 
@@ -2256,7 +2335,7 @@ func (builder *DynamicGroupExpressionBuilder) Field(field string) *DynamicGroupE
 // 示例值：-eq
 func (builder *DynamicGroupExpressionBuilder) Operator(operator string) *DynamicGroupExpressionBuilder {
 	builder.operator = operator
-	builder.operatorFlag = true
+	builder.operatorSet = true
 	return builder
 }
 
@@ -2265,7 +2344,7 @@ func (builder *DynamicGroupExpressionBuilder) Operator(operator string) *Dynamic
 // 示例值：value
 func (builder *DynamicGroupExpressionBuilder) Value(value string) *DynamicGroupExpressionBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
@@ -2274,25 +2353,25 @@ func (builder *DynamicGroupExpressionBuilder) Value(value string) *DynamicGroupE
 // 示例值：
 func (builder *DynamicGroupExpressionBuilder) Values(values []string) *DynamicGroupExpressionBuilder {
 	builder.values = values
-	builder.valuesFlag = true
+	builder.valuesSet = true
 	return builder
 }
 
 func (builder *DynamicGroupExpressionBuilder) Build() *DynamicGroupExpression {
 	req := &DynamicGroupExpression{}
-	if builder.fieldFlag {
+	if builder.fieldSet {
 		req.Field = &builder.field
 
 	}
-	if builder.operatorFlag {
+	if builder.operatorSet {
 		req.Operator = &builder.operator
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
-	if builder.valuesFlag {
+	if builder.valuesSet {
 		req.Values = builder.values
 	}
 	return req
@@ -2309,17 +2388,17 @@ type DynamicGroupRule struct {
 }
 
 type DynamicGroupRuleBuilder struct {
-	departmentLevel     string // 动态用户组匹配部门层级
-	departmentLevelFlag bool
+	departmentLevel    string // 动态用户组匹配部门层级
+	departmentLevelSet bool
 
-	expressions     []*DynamicGroupExpression // 动态用户组规则表达式
-	expressionsFlag bool
+	expressions    []*DynamicGroupExpression // 动态用户组规则表达式
+	expressionsSet bool
 
-	joinerRule     string // 动态用户组表达式组合关系
-	joinerRuleFlag bool
+	joinerRule    string // 动态用户组表达式组合关系
+	joinerRuleSet bool
 
-	groupStatus     string // 动态用户组计算状态，只读，创建、更新用户组时不需要填写
-	groupStatusFlag bool
+	groupStatus    string // 动态用户组计算状态，只读，创建、更新用户组时不需要填写
+	groupStatusSet bool
 }
 
 func NewDynamicGroupRuleBuilder() *DynamicGroupRuleBuilder {
@@ -2332,7 +2411,7 @@ func NewDynamicGroupRuleBuilder() *DynamicGroupRuleBuilder {
 // 示例值：recursive
 func (builder *DynamicGroupRuleBuilder) DepartmentLevel(departmentLevel string) *DynamicGroupRuleBuilder {
 	builder.departmentLevel = departmentLevel
-	builder.departmentLevelFlag = true
+	builder.departmentLevelSet = true
 	return builder
 }
 
@@ -2341,7 +2420,7 @@ func (builder *DynamicGroupRuleBuilder) DepartmentLevel(departmentLevel string) 
 // 示例值：
 func (builder *DynamicGroupRuleBuilder) Expressions(expressions []*DynamicGroupExpression) *DynamicGroupRuleBuilder {
 	builder.expressions = expressions
-	builder.expressionsFlag = true
+	builder.expressionsSet = true
 	return builder
 }
 
@@ -2350,7 +2429,7 @@ func (builder *DynamicGroupRuleBuilder) Expressions(expressions []*DynamicGroupE
 // 示例值：1 and (2 or 3)
 func (builder *DynamicGroupRuleBuilder) JoinerRule(joinerRule string) *DynamicGroupRuleBuilder {
 	builder.joinerRule = joinerRule
-	builder.joinerRuleFlag = true
+	builder.joinerRuleSet = true
 	return builder
 }
 
@@ -2359,24 +2438,24 @@ func (builder *DynamicGroupRuleBuilder) JoinerRule(joinerRule string) *DynamicGr
 // 示例值：1
 func (builder *DynamicGroupRuleBuilder) GroupStatus(groupStatus string) *DynamicGroupRuleBuilder {
 	builder.groupStatus = groupStatus
-	builder.groupStatusFlag = true
+	builder.groupStatusSet = true
 	return builder
 }
 
 func (builder *DynamicGroupRuleBuilder) Build() *DynamicGroupRule {
 	req := &DynamicGroupRule{}
-	if builder.departmentLevelFlag {
+	if builder.departmentLevelSet {
 		req.DepartmentLevel = &builder.departmentLevel
 
 	}
-	if builder.expressionsFlag {
+	if builder.expressionsSet {
 		req.Expressions = builder.expressions
 	}
-	if builder.joinerRuleFlag {
+	if builder.joinerRuleSet {
 		req.JoinerRule = &builder.joinerRule
 
 	}
-	if builder.groupStatusFlag {
+	if builder.groupStatusSet {
 		req.GroupStatus = &builder.groupStatus
 
 	}
@@ -2398,23 +2477,23 @@ type EmployeeTypeEnum struct {
 }
 
 type EmployeeTypeEnumBuilder struct {
-	enumId     string // 枚举值id
-	enumIdFlag bool
+	enumId    string // 枚举值id
+	enumIdSet bool
 
-	enumValue     string // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	enumValueFlag bool
+	enumValue    string // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	enumValueSet bool
 
-	content     string // 枚举内容
-	contentFlag bool
+	content    string // 枚举内容
+	contentSet bool
 
-	enumType     int // 类型
-	enumTypeFlag bool
+	enumType    int // 类型
+	enumTypeSet bool
 
-	enumStatus     int // 使用状态
-	enumStatusFlag bool
+	enumStatus    int // 使用状态
+	enumStatusSet bool
 
-	i18nContent     []*I18nContent // i18n定义
-	i18nContentFlag bool
+	i18nContent    []*I18nContent // i18n定义
+	i18nContentSet bool
 }
 
 func NewEmployeeTypeEnumBuilder() *EmployeeTypeEnumBuilder {
@@ -2427,7 +2506,7 @@ func NewEmployeeTypeEnumBuilder() *EmployeeTypeEnumBuilder {
 // 示例值：exGeIjow7zIqWMy+ONkFxA==
 func (builder *EmployeeTypeEnumBuilder) EnumId(enumId string) *EmployeeTypeEnumBuilder {
 	builder.enumId = enumId
-	builder.enumIdFlag = true
+	builder.enumIdSet = true
 	return builder
 }
 
@@ -2436,7 +2515,7 @@ func (builder *EmployeeTypeEnumBuilder) EnumId(enumId string) *EmployeeTypeEnumB
 // 示例值：2
 func (builder *EmployeeTypeEnumBuilder) EnumValue(enumValue string) *EmployeeTypeEnumBuilder {
 	builder.enumValue = enumValue
-	builder.enumValueFlag = true
+	builder.enumValueSet = true
 	return builder
 }
 
@@ -2445,7 +2524,7 @@ func (builder *EmployeeTypeEnumBuilder) EnumValue(enumValue string) *EmployeeTyp
 // 示例值：专家
 func (builder *EmployeeTypeEnumBuilder) Content(content string) *EmployeeTypeEnumBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -2454,7 +2533,7 @@ func (builder *EmployeeTypeEnumBuilder) Content(content string) *EmployeeTypeEnu
 // 示例值：2
 func (builder *EmployeeTypeEnumBuilder) EnumType(enumType int) *EmployeeTypeEnumBuilder {
 	builder.enumType = enumType
-	builder.enumTypeFlag = true
+	builder.enumTypeSet = true
 	return builder
 }
 
@@ -2463,7 +2542,7 @@ func (builder *EmployeeTypeEnumBuilder) EnumType(enumType int) *EmployeeTypeEnum
 // 示例值：1
 func (builder *EmployeeTypeEnumBuilder) EnumStatus(enumStatus int) *EmployeeTypeEnumBuilder {
 	builder.enumStatus = enumStatus
-	builder.enumStatusFlag = true
+	builder.enumStatusSet = true
 	return builder
 }
 
@@ -2472,33 +2551,33 @@ func (builder *EmployeeTypeEnumBuilder) EnumStatus(enumStatus int) *EmployeeType
 // 示例值：
 func (builder *EmployeeTypeEnumBuilder) I18nContent(i18nContent []*I18nContent) *EmployeeTypeEnumBuilder {
 	builder.i18nContent = i18nContent
-	builder.i18nContentFlag = true
+	builder.i18nContentSet = true
 	return builder
 }
 
 func (builder *EmployeeTypeEnumBuilder) Build() *EmployeeTypeEnum {
 	req := &EmployeeTypeEnum{}
-	if builder.enumIdFlag {
+	if builder.enumIdSet {
 		req.EnumId = &builder.enumId
 
 	}
-	if builder.enumValueFlag {
+	if builder.enumValueSet {
 		req.EnumValue = &builder.enumValue
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.enumTypeFlag {
+	if builder.enumTypeSet {
 		req.EnumType = &builder.enumType
 
 	}
-	if builder.enumStatusFlag {
+	if builder.enumStatusSet {
 		req.EnumStatus = &builder.enumStatus
 
 	}
-	if builder.i18nContentFlag {
+	if builder.i18nContentSet {
 		req.I18nContent = builder.i18nContent
 	}
 	return req
@@ -2511,11 +2590,11 @@ type FunctionalRole struct {
 }
 
 type FunctionalRoleBuilder struct {
-	roleId     string // 角色内部ID
-	roleIdFlag bool
+	roleId    string // 角色内部ID
+	roleIdSet bool
 
-	roleName     string // 角色名称
-	roleNameFlag bool
+	roleName    string // 角色名称
+	roleNameSet bool
 }
 
 func NewFunctionalRoleBuilder() *FunctionalRoleBuilder {
@@ -2528,7 +2607,7 @@ func NewFunctionalRoleBuilder() *FunctionalRoleBuilder {
 // 示例值：7vrj3vk70xk7v5r
 func (builder *FunctionalRoleBuilder) RoleId(roleId string) *FunctionalRoleBuilder {
 	builder.roleId = roleId
-	builder.roleIdFlag = true
+	builder.roleIdSet = true
 	return builder
 }
 
@@ -2537,17 +2616,17 @@ func (builder *FunctionalRoleBuilder) RoleId(roleId string) *FunctionalRoleBuild
 // 示例值：测试角色
 func (builder *FunctionalRoleBuilder) RoleName(roleName string) *FunctionalRoleBuilder {
 	builder.roleName = roleName
-	builder.roleNameFlag = true
+	builder.roleNameSet = true
 	return builder
 }
 
 func (builder *FunctionalRoleBuilder) Build() *FunctionalRole {
 	req := &FunctionalRole{}
-	if builder.roleIdFlag {
+	if builder.roleIdSet {
 		req.RoleId = &builder.roleId
 
 	}
-	if builder.roleNameFlag {
+	if builder.roleNameSet {
 		req.RoleName = &builder.roleName
 
 	}
@@ -2563,14 +2642,14 @@ type FunctionalRoleMember struct {
 }
 
 type FunctionalRoleMemberBuilder struct {
-	userId     string // 成员ID
-	userIdFlag bool
+	userId    string // 成员ID
+	userIdSet bool
 
-	scopeType     string // 管理范围的类型
-	scopeTypeFlag bool
+	scopeType    string // 管理范围的类型
+	scopeTypeSet bool
 
-	departmentIds     []string // 表示该角色成员的管理范围，scope_type为“指定范围”时，返回该值
-	departmentIdsFlag bool
+	departmentIds    []string // 表示该角色成员的管理范围，scope_type为“指定范围”时，返回该值
+	departmentIdsSet bool
 }
 
 func NewFunctionalRoleMemberBuilder() *FunctionalRoleMemberBuilder {
@@ -2583,7 +2662,7 @@ func NewFunctionalRoleMemberBuilder() *FunctionalRoleMemberBuilder {
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *FunctionalRoleMemberBuilder) UserId(userId string) *FunctionalRoleMemberBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -2592,7 +2671,7 @@ func (builder *FunctionalRoleMemberBuilder) UserId(userId string) *FunctionalRol
 // 示例值：All
 func (builder *FunctionalRoleMemberBuilder) ScopeType(scopeType string) *FunctionalRoleMemberBuilder {
 	builder.scopeType = scopeType
-	builder.scopeTypeFlag = true
+	builder.scopeTypeSet = true
 	return builder
 }
 
@@ -2601,21 +2680,21 @@ func (builder *FunctionalRoleMemberBuilder) ScopeType(scopeType string) *Functio
 // 示例值：
 func (builder *FunctionalRoleMemberBuilder) DepartmentIds(departmentIds []string) *FunctionalRoleMemberBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
 func (builder *FunctionalRoleMemberBuilder) Build() *FunctionalRoleMember {
 	req := &FunctionalRoleMember{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.scopeTypeFlag {
+	if builder.scopeTypeSet {
 		req.ScopeType = &builder.scopeType
 
 	}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
 	return req
@@ -2628,11 +2707,11 @@ type FunctionalRoleMemberResult struct {
 }
 
 type FunctionalRoleMemberResultBuilder struct {
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 
-	reason     int // 成员处理结果
-	reasonFlag bool
+	reason    int // 成员处理结果
+	reasonSet bool
 }
 
 func NewFunctionalRoleMemberResultBuilder() *FunctionalRoleMemberResultBuilder {
@@ -2645,7 +2724,7 @@ func NewFunctionalRoleMemberResultBuilder() *FunctionalRoleMemberResultBuilder {
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *FunctionalRoleMemberResultBuilder) UserId(userId string) *FunctionalRoleMemberResultBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -2654,17 +2733,17 @@ func (builder *FunctionalRoleMemberResultBuilder) UserId(userId string) *Functio
 // 示例值：1
 func (builder *FunctionalRoleMemberResultBuilder) Reason(reason int) *FunctionalRoleMemberResultBuilder {
 	builder.reason = reason
-	builder.reasonFlag = true
+	builder.reasonSet = true
 	return builder
 }
 
 func (builder *FunctionalRoleMemberResultBuilder) Build() *FunctionalRoleMemberResult {
 	req := &FunctionalRoleMemberResult{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.reasonFlag {
+	if builder.reasonSet {
 		req.Reason = &builder.reason
 
 	}
@@ -2694,35 +2773,35 @@ type Group struct {
 }
 
 type GroupBuilder struct {
-	id     string // 用户组ID
-	idFlag bool
+	id    string // 用户组ID
+	idSet bool
 
-	name     string // 用户组名字
-	nameFlag bool
+	name    string // 用户组名字
+	nameSet bool
 
-	description     string // 用户组描述
-	descriptionFlag bool
+	description    string // 用户组描述
+	descriptionSet bool
 
-	memberUserCount     int // 用户组成员中用户的数量
-	memberUserCountFlag bool
+	memberUserCount    int // 用户组成员中用户的数量
+	memberUserCountSet bool
 
-	memberDepartmentCount     int // 普通用户组成员中部门的数量，动态用户组成员中没有部门。
-	memberDepartmentCountFlag bool
+	memberDepartmentCount    int // 普通用户组成员中部门的数量，动态用户组成员中没有部门。
+	memberDepartmentCountSet bool
 
 	type_    int // 用户组的类型
-	typeFlag bool
+	type_Set bool
 
-	dynamicGroupRule     *DynamicGroupRule // 动态用户组的规则
-	dynamicGroupRuleFlag bool
+	dynamicGroupRule    *DynamicGroupRule // 动态用户组的规则
+	dynamicGroupRuleSet bool
 
-	visibleScope     *GroupVisibleScope // 用户组指定可见范围
-	visibleScopeFlag bool
+	visibleScope    *GroupVisibleScope // 用户组指定可见范围
+	visibleScopeSet bool
 
-	departmentScopeList     []string // 部门范围
-	departmentScopeListFlag bool
+	departmentScopeList    []string // 部门范围
+	departmentScopeListSet bool
 
-	groupId     string // 自定义用户组ID
-	groupIdFlag bool
+	groupId    string // 自定义用户组ID
+	groupIdSet bool
 }
 
 func NewGroupBuilder() *GroupBuilder {
@@ -2735,7 +2814,7 @@ func NewGroupBuilder() *GroupBuilder {
 // 示例值：g193821
 func (builder *GroupBuilder) Id(id string) *GroupBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2744,7 +2823,7 @@ func (builder *GroupBuilder) Id(id string) *GroupBuilder {
 // 示例值：IT 外包组
 func (builder *GroupBuilder) Name(name string) *GroupBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2753,7 +2832,7 @@ func (builder *GroupBuilder) Name(name string) *GroupBuilder {
 // 示例值：IT 外包组，需要对该组人群进行细颗粒度权限管控。
 func (builder *GroupBuilder) Description(description string) *GroupBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -2762,7 +2841,7 @@ func (builder *GroupBuilder) Description(description string) *GroupBuilder {
 // 示例值：2
 func (builder *GroupBuilder) MemberUserCount(memberUserCount int) *GroupBuilder {
 	builder.memberUserCount = memberUserCount
-	builder.memberUserCountFlag = true
+	builder.memberUserCountSet = true
 	return builder
 }
 
@@ -2771,7 +2850,7 @@ func (builder *GroupBuilder) MemberUserCount(memberUserCount int) *GroupBuilder 
 // 示例值：0
 func (builder *GroupBuilder) MemberDepartmentCount(memberDepartmentCount int) *GroupBuilder {
 	builder.memberDepartmentCount = memberDepartmentCount
-	builder.memberDepartmentCountFlag = true
+	builder.memberDepartmentCountSet = true
 	return builder
 }
 
@@ -2780,7 +2859,7 @@ func (builder *GroupBuilder) MemberDepartmentCount(memberDepartmentCount int) *G
 // 示例值：1
 func (builder *GroupBuilder) Type(type_ int) *GroupBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -2789,7 +2868,7 @@ func (builder *GroupBuilder) Type(type_ int) *GroupBuilder {
 // 示例值：
 func (builder *GroupBuilder) DynamicGroupRule(dynamicGroupRule *DynamicGroupRule) *GroupBuilder {
 	builder.dynamicGroupRule = dynamicGroupRule
-	builder.dynamicGroupRuleFlag = true
+	builder.dynamicGroupRuleSet = true
 	return builder
 }
 
@@ -2798,7 +2877,7 @@ func (builder *GroupBuilder) DynamicGroupRule(dynamicGroupRule *DynamicGroupRule
 // 示例值：
 func (builder *GroupBuilder) VisibleScope(visibleScope *GroupVisibleScope) *GroupBuilder {
 	builder.visibleScope = visibleScope
-	builder.visibleScopeFlag = true
+	builder.visibleScopeSet = true
 	return builder
 }
 
@@ -2807,7 +2886,7 @@ func (builder *GroupBuilder) VisibleScope(visibleScope *GroupVisibleScope) *Grou
 // 示例值：
 func (builder *GroupBuilder) DepartmentScopeList(departmentScopeList []string) *GroupBuilder {
 	builder.departmentScopeList = departmentScopeList
-	builder.departmentScopeListFlag = true
+	builder.departmentScopeListSet = true
 	return builder
 }
 
@@ -2816,46 +2895,46 @@ func (builder *GroupBuilder) DepartmentScopeList(departmentScopeList []string) *
 // 示例值：4ba51ab38648f9cd
 func (builder *GroupBuilder) GroupId(groupId string) *GroupBuilder {
 	builder.groupId = groupId
-	builder.groupIdFlag = true
+	builder.groupIdSet = true
 	return builder
 }
 
 func (builder *GroupBuilder) Build() *Group {
 	req := &Group{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.memberUserCountFlag {
+	if builder.memberUserCountSet {
 		req.MemberUserCount = &builder.memberUserCount
 
 	}
-	if builder.memberDepartmentCountFlag {
+	if builder.memberDepartmentCountSet {
 		req.MemberDepartmentCount = &builder.memberDepartmentCount
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.dynamicGroupRuleFlag {
+	if builder.dynamicGroupRuleSet {
 		req.DynamicGroupRule = builder.dynamicGroupRule
 	}
-	if builder.visibleScopeFlag {
+	if builder.visibleScopeSet {
 		req.VisibleScope = builder.visibleScope
 	}
-	if builder.departmentScopeListFlag {
+	if builder.departmentScopeListSet {
 		req.DepartmentScopeList = builder.departmentScopeList
 	}
-	if builder.groupIdFlag {
+	if builder.groupIdSet {
 		req.GroupId = &builder.groupId
 
 	}
@@ -2869,11 +2948,11 @@ type GroupEvent struct {
 }
 
 type GroupEventBuilder struct {
-	userGroupId     string // 用户组的自定义ID
-	userGroupIdFlag bool
+	userGroupId    string // 用户组的自定义ID
+	userGroupIdSet bool
 
-	name     string // 用户组的名称
-	nameFlag bool
+	name    string // 用户组的名称
+	nameSet bool
 }
 
 func NewGroupEventBuilder() *GroupEventBuilder {
@@ -2886,7 +2965,7 @@ func NewGroupEventBuilder() *GroupEventBuilder {
 // 示例值：
 func (builder *GroupEventBuilder) UserGroupId(userGroupId string) *GroupEventBuilder {
 	builder.userGroupId = userGroupId
-	builder.userGroupIdFlag = true
+	builder.userGroupIdSet = true
 	return builder
 }
 
@@ -2895,17 +2974,17 @@ func (builder *GroupEventBuilder) UserGroupId(userGroupId string) *GroupEventBui
 // 示例值：
 func (builder *GroupEventBuilder) Name(name string) *GroupEventBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *GroupEventBuilder) Build() *GroupEvent {
 	req := &GroupEvent{}
-	if builder.userGroupIdFlag {
+	if builder.userGroupIdSet {
 		req.UserGroupId = &builder.userGroupId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -2923,17 +3002,17 @@ type GroupVisibleScope struct {
 }
 
 type GroupVisibleScopeBuilder struct {
-	visibleScopeType     string // 可见范围的 id 类型，包用户、部门两类
-	visibleScopeTypeFlag bool
+	visibleScopeType    string // 可见范围的 id 类型，包用户、部门两类
+	visibleScopeTypeSet bool
 
-	visibleUsers     []string // 指定可见用户组的用户 ID列表
-	visibleUsersFlag bool
+	visibleUsers    []string // 指定可见用户组的用户 ID列表
+	visibleUsersSet bool
 
-	visibleDepartments     []string // 指定可见用户组的部门 ID 列表
-	visibleDepartmentsFlag bool
+	visibleDepartments    []string // 指定可见用户组的部门 ID 列表
+	visibleDepartmentsSet bool
 
-	sceneTypes     []int // 用户组可用范围
-	sceneTypesFlag bool
+	sceneTypes    []int // 用户组可用范围
+	sceneTypesSet bool
 }
 
 func NewGroupVisibleScopeBuilder() *GroupVisibleScopeBuilder {
@@ -2946,7 +3025,7 @@ func NewGroupVisibleScopeBuilder() *GroupVisibleScopeBuilder {
 // 示例值：invisible
 func (builder *GroupVisibleScopeBuilder) VisibleScopeType(visibleScopeType string) *GroupVisibleScopeBuilder {
 	builder.visibleScopeType = visibleScopeType
-	builder.visibleScopeTypeFlag = true
+	builder.visibleScopeTypeSet = true
 	return builder
 }
 
@@ -2955,7 +3034,7 @@ func (builder *GroupVisibleScopeBuilder) VisibleScopeType(visibleScopeType strin
 // 示例值：
 func (builder *GroupVisibleScopeBuilder) VisibleUsers(visibleUsers []string) *GroupVisibleScopeBuilder {
 	builder.visibleUsers = visibleUsers
-	builder.visibleUsersFlag = true
+	builder.visibleUsersSet = true
 	return builder
 }
 
@@ -2964,7 +3043,7 @@ func (builder *GroupVisibleScopeBuilder) VisibleUsers(visibleUsers []string) *Gr
 // 示例值：
 func (builder *GroupVisibleScopeBuilder) VisibleDepartments(visibleDepartments []string) *GroupVisibleScopeBuilder {
 	builder.visibleDepartments = visibleDepartments
-	builder.visibleDepartmentsFlag = true
+	builder.visibleDepartmentsSet = true
 	return builder
 }
 
@@ -2973,23 +3052,23 @@ func (builder *GroupVisibleScopeBuilder) VisibleDepartments(visibleDepartments [
 // 示例值：
 func (builder *GroupVisibleScopeBuilder) SceneTypes(sceneTypes []int) *GroupVisibleScopeBuilder {
 	builder.sceneTypes = sceneTypes
-	builder.sceneTypesFlag = true
+	builder.sceneTypesSet = true
 	return builder
 }
 
 func (builder *GroupVisibleScopeBuilder) Build() *GroupVisibleScope {
 	req := &GroupVisibleScope{}
-	if builder.visibleScopeTypeFlag {
+	if builder.visibleScopeTypeSet {
 		req.VisibleScopeType = &builder.visibleScopeType
 
 	}
-	if builder.visibleUsersFlag {
+	if builder.visibleUsersSet {
 		req.VisibleUsers = builder.visibleUsers
 	}
-	if builder.visibleDepartmentsFlag {
+	if builder.visibleDepartmentsSet {
 		req.VisibleDepartments = builder.visibleDepartments
 	}
-	if builder.sceneTypesFlag {
+	if builder.sceneTypesSet {
 		req.SceneTypes = builder.sceneTypes
 	}
 	return req
@@ -3002,11 +3081,11 @@ type I18nContent struct {
 }
 
 type I18nContentBuilder struct {
-	locale     string // 语言版本
-	localeFlag bool
+	locale    string // 语言版本
+	localeSet bool
 
-	value     string // 字段名
-	valueFlag bool
+	value    string // 字段名
+	valueSet bool
 }
 
 func NewI18nContentBuilder() *I18nContentBuilder {
@@ -3019,7 +3098,7 @@ func NewI18nContentBuilder() *I18nContentBuilder {
 // 示例值：zh_cn
 func (builder *I18nContentBuilder) Locale(locale string) *I18nContentBuilder {
 	builder.locale = locale
-	builder.localeFlag = true
+	builder.localeSet = true
 	return builder
 }
 
@@ -3028,19 +3107,136 @@ func (builder *I18nContentBuilder) Locale(locale string) *I18nContentBuilder {
 // 示例值：专家
 func (builder *I18nContentBuilder) Value(value string) *I18nContentBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *I18nContentBuilder) Build() *I18nContent {
 	req := &I18nContent{}
-	if builder.localeFlag {
+	if builder.localeSet {
 		req.Locale = &builder.locale
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
+	}
+	return req
+}
+
+type I18nName struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文名
+
+	JaJp *string `json:"ja_jp,omitempty"` // 日文名
+
+	EnUs *string `json:"en_us,omitempty"` // 英文名
+}
+
+type I18nNameBuilder struct {
+	zhCn    string // 中文名
+	zhCnSet bool
+
+	jaJp    string // 日文名
+	jaJpSet bool
+
+	enUs    string // 英文名
+	enUsSet bool
+}
+
+func NewI18nNameBuilder() *I18nNameBuilder {
+	builder := &I18nNameBuilder{}
+	return builder
+}
+
+// 中文名
+//
+// 示例值：中文名
+func (builder *I18nNameBuilder) ZhCn(zhCn string) *I18nNameBuilder {
+	builder.zhCn = zhCn
+	builder.zhCnSet = true
+	return builder
+}
+
+// 日文名
+//
+// 示例值：日本語名
+func (builder *I18nNameBuilder) JaJp(jaJp string) *I18nNameBuilder {
+	builder.jaJp = jaJp
+	builder.jaJpSet = true
+	return builder
+}
+
+// 英文名
+//
+// 示例值：English
+func (builder *I18nNameBuilder) EnUs(enUs string) *I18nNameBuilder {
+	builder.enUs = enUs
+	builder.enUsSet = true
+	return builder
+}
+
+func (builder *I18nNameBuilder) Build() *I18nName {
+	req := &I18nName{}
+	if builder.zhCnSet {
+		req.ZhCn = &builder.zhCn
+
+	}
+	if builder.jaJpSet {
+		req.JaJp = &builder.jaJp
+
+	}
+	if builder.enUsSet {
+		req.EnUs = &builder.enUs
+
+	}
+	return req
+}
+
+type I18nText struct {
+	Value *string `json:"value,omitempty"` // 默认值
+
+	I18nValue map[string]string `json:"i18n_value,omitempty"` // 国际化值，key为语种(取值包括zh_cn,ja_jp,en_us等)
+}
+
+type I18nTextBuilder struct {
+	value    string // 默认值
+	valueSet bool
+
+	i18nValue    map[string]string // 国际化值，key为语种(取值包括zh_cn,ja_jp,en_us等)
+	i18nValueSet bool
+}
+
+func NewI18nTextBuilder() *I18nTextBuilder {
+	builder := &I18nTextBuilder{}
+	return builder
+}
+
+// 默认值
+//
+// 示例值：用户名
+func (builder *I18nTextBuilder) Value(value string) *I18nTextBuilder {
+	builder.value = value
+	builder.valueSet = true
+	return builder
+}
+
+// 国际化值，key为语种(取值包括zh_cn,ja_jp,en_us等)
+//
+// 示例值：
+func (builder *I18nTextBuilder) I18nValue(i18nValue map[string]string) *I18nTextBuilder {
+	builder.i18nValue = i18nValue
+	builder.i18nValueSet = true
+	return builder
+}
+
+func (builder *I18nTextBuilder) Build() *I18nText {
+	req := &I18nText{}
+	if builder.valueSet {
+		req.Value = &builder.value
+
+	}
+	if builder.i18nValueSet {
+		req.I18nValue = builder.i18nValue
 	}
 	return req
 }
@@ -3062,26 +3258,26 @@ type JobFamily struct {
 }
 
 type JobFamilyBuilder struct {
-	name     string // 序列名称。1-100字符，支持中、英文及符号
-	nameFlag bool
+	name    string // 序列名称。1-100字符，支持中、英文及符号
+	nameSet bool
 
-	description     string // 序列描述，描述序列详情信息
-	descriptionFlag bool
+	description    string // 序列描述，描述序列详情信息
+	descriptionSet bool
 
-	parentJobFamilyId     string // 上级序列ID。需是该租户的序列ID列表中的值，对应唯一的序列名称。
-	parentJobFamilyIdFlag bool
+	parentJobFamilyId    string // 上级序列ID。需是该租户的序列ID列表中的值，对应唯一的序列名称。
+	parentJobFamilyIdSet bool
 
-	status     bool // 是否启用
-	statusFlag bool
+	status    bool // 是否启用
+	statusSet bool
 
-	i18nName     []*I18nContent // 多语言序列名称
-	i18nNameFlag bool
+	i18nName    []*I18nContent // 多语言序列名称
+	i18nNameSet bool
 
-	i18nDescription     []*I18nContent // 多语言描述
-	i18nDescriptionFlag bool
+	i18nDescription    []*I18nContent // 多语言描述
+	i18nDescriptionSet bool
 
-	jobFamilyId     string // 职级序列ID
-	jobFamilyIdFlag bool
+	jobFamilyId    string // 职级序列ID
+	jobFamilyIdSet bool
 }
 
 func NewJobFamilyBuilder() *JobFamilyBuilder {
@@ -3094,7 +3290,7 @@ func NewJobFamilyBuilder() *JobFamilyBuilder {
 // 示例值：产品
 func (builder *JobFamilyBuilder) Name(name string) *JobFamilyBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3103,7 +3299,7 @@ func (builder *JobFamilyBuilder) Name(name string) *JobFamilyBuilder {
 // 示例值：负责产品策略制定的相关工作
 func (builder *JobFamilyBuilder) Description(description string) *JobFamilyBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -3112,7 +3308,7 @@ func (builder *JobFamilyBuilder) Description(description string) *JobFamilyBuild
 // 示例值：mga5oa8ayjlp9rb
 func (builder *JobFamilyBuilder) ParentJobFamilyId(parentJobFamilyId string) *JobFamilyBuilder {
 	builder.parentJobFamilyId = parentJobFamilyId
-	builder.parentJobFamilyIdFlag = true
+	builder.parentJobFamilyIdSet = true
 	return builder
 }
 
@@ -3121,7 +3317,7 @@ func (builder *JobFamilyBuilder) ParentJobFamilyId(parentJobFamilyId string) *Jo
 // 示例值：true 表示启用, false表示未启用
 func (builder *JobFamilyBuilder) Status(status bool) *JobFamilyBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -3130,7 +3326,7 @@ func (builder *JobFamilyBuilder) Status(status bool) *JobFamilyBuilder {
 // 示例值：
 func (builder *JobFamilyBuilder) I18nName(i18nName []*I18nContent) *JobFamilyBuilder {
 	builder.i18nName = i18nName
-	builder.i18nNameFlag = true
+	builder.i18nNameSet = true
 	return builder
 }
 
@@ -3139,7 +3335,7 @@ func (builder *JobFamilyBuilder) I18nName(i18nName []*I18nContent) *JobFamilyBui
 // 示例值：
 func (builder *JobFamilyBuilder) I18nDescription(i18nDescription []*I18nContent) *JobFamilyBuilder {
 	builder.i18nDescription = i18nDescription
-	builder.i18nDescriptionFlag = true
+	builder.i18nDescriptionSet = true
 	return builder
 }
 
@@ -3148,35 +3344,35 @@ func (builder *JobFamilyBuilder) I18nDescription(i18nDescription []*I18nContent)
 // 示例值：mga5oa8ayjlp9rb
 func (builder *JobFamilyBuilder) JobFamilyId(jobFamilyId string) *JobFamilyBuilder {
 	builder.jobFamilyId = jobFamilyId
-	builder.jobFamilyIdFlag = true
+	builder.jobFamilyIdSet = true
 	return builder
 }
 
 func (builder *JobFamilyBuilder) Build() *JobFamily {
 	req := &JobFamily{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.parentJobFamilyIdFlag {
+	if builder.parentJobFamilyIdSet {
 		req.ParentJobFamilyId = &builder.parentJobFamilyId
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.i18nNameFlag {
+	if builder.i18nNameSet {
 		req.I18nName = builder.i18nName
 	}
-	if builder.i18nDescriptionFlag {
+	if builder.i18nDescriptionSet {
 		req.I18nDescription = builder.i18nDescription
 	}
-	if builder.jobFamilyIdFlag {
+	if builder.jobFamilyIdSet {
 		req.JobFamilyId = &builder.jobFamilyId
 
 	}
@@ -3200,26 +3396,26 @@ type JobLevel struct {
 }
 
 type JobLevelBuilder struct {
-	name     string // 职级名称
-	nameFlag bool
+	name    string // 职级名称
+	nameSet bool
 
-	description     string // 职级描述
-	descriptionFlag bool
+	description    string // 职级描述
+	descriptionSet bool
 
-	order     int // 职级的排序，可填入自然数100-100000的数值，系统按照数值大小从小到大排序。不填写该字段时，默认新增排序在当前职级列表中最后位（最大值）
-	orderFlag bool
+	order    int // 职级的排序，可填入自然数100-100000的数值，系统按照数值大小从小到大排序。不填写该字段时，默认新增排序在当前职级列表中最后位（最大值）
+	orderSet bool
 
-	status     bool // 是否启用
-	statusFlag bool
+	status    bool // 是否启用
+	statusSet bool
 
-	jobLevelId     string // 职级ID
-	jobLevelIdFlag bool
+	jobLevelId    string // 职级ID
+	jobLevelIdSet bool
 
-	i18nName     []*I18nContent // 多语言名称
-	i18nNameFlag bool
+	i18nName    []*I18nContent // 多语言名称
+	i18nNameSet bool
 
-	i18nDescription     []*I18nContent // 多语言描述
-	i18nDescriptionFlag bool
+	i18nDescription    []*I18nContent // 多语言描述
+	i18nDescriptionSet bool
 }
 
 func NewJobLevelBuilder() *JobLevelBuilder {
@@ -3232,7 +3428,7 @@ func NewJobLevelBuilder() *JobLevelBuilder {
 // 示例值：高级专家
 func (builder *JobLevelBuilder) Name(name string) *JobLevelBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3241,7 +3437,7 @@ func (builder *JobLevelBuilder) Name(name string) *JobLevelBuilder {
 // 示例值：公司内部中高级职称，有一定专业技术能力的人员
 func (builder *JobLevelBuilder) Description(description string) *JobLevelBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -3250,7 +3446,7 @@ func (builder *JobLevelBuilder) Description(description string) *JobLevelBuilder
 // 示例值：200
 func (builder *JobLevelBuilder) Order(order int) *JobLevelBuilder {
 	builder.order = order
-	builder.orderFlag = true
+	builder.orderSet = true
 	return builder
 }
 
@@ -3259,7 +3455,7 @@ func (builder *JobLevelBuilder) Order(order int) *JobLevelBuilder {
 // 示例值：true
 func (builder *JobLevelBuilder) Status(status bool) *JobLevelBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -3268,7 +3464,7 @@ func (builder *JobLevelBuilder) Status(status bool) *JobLevelBuilder {
 // 示例值：mga5oa8ayjlp9rb
 func (builder *JobLevelBuilder) JobLevelId(jobLevelId string) *JobLevelBuilder {
 	builder.jobLevelId = jobLevelId
-	builder.jobLevelIdFlag = true
+	builder.jobLevelIdSet = true
 	return builder
 }
 
@@ -3277,7 +3473,7 @@ func (builder *JobLevelBuilder) JobLevelId(jobLevelId string) *JobLevelBuilder {
 // 示例值：
 func (builder *JobLevelBuilder) I18nName(i18nName []*I18nContent) *JobLevelBuilder {
 	builder.i18nName = i18nName
-	builder.i18nNameFlag = true
+	builder.i18nNameSet = true
 	return builder
 }
 
@@ -3286,36 +3482,36 @@ func (builder *JobLevelBuilder) I18nName(i18nName []*I18nContent) *JobLevelBuild
 // 示例值：
 func (builder *JobLevelBuilder) I18nDescription(i18nDescription []*I18nContent) *JobLevelBuilder {
 	builder.i18nDescription = i18nDescription
-	builder.i18nDescriptionFlag = true
+	builder.i18nDescriptionSet = true
 	return builder
 }
 
 func (builder *JobLevelBuilder) Build() *JobLevel {
 	req := &JobLevel{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.orderFlag {
+	if builder.orderSet {
 		req.Order = &builder.order
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.jobLevelIdFlag {
+	if builder.jobLevelIdSet {
 		req.JobLevelId = &builder.jobLevelId
 
 	}
-	if builder.i18nNameFlag {
+	if builder.i18nNameSet {
 		req.I18nName = builder.i18nName
 	}
-	if builder.i18nDescriptionFlag {
+	if builder.i18nDescriptionSet {
 		req.I18nDescription = builder.i18nDescription
 	}
 	return req
@@ -3332,17 +3528,17 @@ type JobTitle struct {
 }
 
 type JobTitleBuilder struct {
-	jobTitleId     string // 职务ID
-	jobTitleIdFlag bool
+	jobTitleId    string // 职务ID
+	jobTitleIdSet bool
 
-	name     string // 职务名称。1-100字符，支持中、英文及符号
-	nameFlag bool
+	name    string // 职务名称。1-100字符，支持中、英文及符号
+	nameSet bool
 
-	i18nName     []*I18nContent // 多语言职务名称
-	i18nNameFlag bool
+	i18nName    []*I18nContent // 多语言职务名称
+	i18nNameSet bool
 
-	status     bool // 是否启用
-	statusFlag bool
+	status    bool // 是否启用
+	statusSet bool
 }
 
 func NewJobTitleBuilder() *JobTitleBuilder {
@@ -3355,7 +3551,7 @@ func NewJobTitleBuilder() *JobTitleBuilder {
 // 示例值：b5565c46b749
 func (builder *JobTitleBuilder) JobTitleId(jobTitleId string) *JobTitleBuilder {
 	builder.jobTitleId = jobTitleId
-	builder.jobTitleIdFlag = true
+	builder.jobTitleIdSet = true
 	return builder
 }
 
@@ -3364,7 +3560,7 @@ func (builder *JobTitleBuilder) JobTitleId(jobTitleId string) *JobTitleBuilder {
 // 示例值：高级工程师
 func (builder *JobTitleBuilder) Name(name string) *JobTitleBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3373,7 +3569,7 @@ func (builder *JobTitleBuilder) Name(name string) *JobTitleBuilder {
 // 示例值：
 func (builder *JobTitleBuilder) I18nName(i18nName []*I18nContent) *JobTitleBuilder {
 	builder.i18nName = i18nName
-	builder.i18nNameFlag = true
+	builder.i18nNameSet = true
 	return builder
 }
 
@@ -3382,24 +3578,24 @@ func (builder *JobTitleBuilder) I18nName(i18nName []*I18nContent) *JobTitleBuild
 // 示例值：true 表示启用, false表示未启用
 func (builder *JobTitleBuilder) Status(status bool) *JobTitleBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *JobTitleBuilder) Build() *JobTitle {
 	req := &JobTitle{}
-	if builder.jobTitleIdFlag {
+	if builder.jobTitleIdSet {
 		req.JobTitleId = &builder.jobTitleId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.i18nNameFlag {
+	if builder.i18nNameSet {
 		req.I18nName = builder.i18nName
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
@@ -3413,11 +3609,11 @@ type MemberResult struct {
 }
 
 type MemberResultBuilder struct {
-	memberId     string // 成员ID
-	memberIdFlag bool
+	memberId    string // 成员ID
+	memberIdSet bool
 
-	code     int // 结果响应码，0表示成功
-	codeFlag bool
+	code    int // 结果响应码，0表示成功
+	codeSet bool
 }
 
 func NewMemberResultBuilder() *MemberResultBuilder {
@@ -3430,7 +3626,7 @@ func NewMemberResultBuilder() *MemberResultBuilder {
 // 示例值：u287xj12
 func (builder *MemberResultBuilder) MemberId(memberId string) *MemberResultBuilder {
 	builder.memberId = memberId
-	builder.memberIdFlag = true
+	builder.memberIdSet = true
 	return builder
 }
 
@@ -3439,17 +3635,17 @@ func (builder *MemberResultBuilder) MemberId(memberId string) *MemberResultBuild
 // 示例值：0
 func (builder *MemberResultBuilder) Code(code int) *MemberResultBuilder {
 	builder.code = code
-	builder.codeFlag = true
+	builder.codeSet = true
 	return builder
 }
 
 func (builder *MemberResultBuilder) Build() *MemberResult {
 	req := &MemberResult{}
-	if builder.memberIdFlag {
+	if builder.memberIdSet {
 		req.MemberId = &builder.memberId
 
 	}
-	if builder.codeFlag {
+	if builder.codeSet {
 		req.Code = &builder.code
 
 	}
@@ -3465,14 +3661,14 @@ type Memberlist struct {
 }
 
 type MemberlistBuilder struct {
-	memberId     string // 成员ID
-	memberIdFlag bool
+	memberId    string // 成员ID
+	memberIdSet bool
 
-	memberType     string // 用户组成员的类型，取值为 user或department。
-	memberTypeFlag bool
+	memberType    string // 用户组成员的类型，取值为 user或department。
+	memberTypeSet bool
 
-	memberIdType     string // 当member_type为user时，member_id_type表示user_id_type，可选值为open_id, union_id, user_id。仅在请求参数中有效，响应体中不会返回此参数。
-	memberIdTypeFlag bool
+	memberIdType    string // 当member_type为user时，member_id_type表示user_id_type，可选值为open_id, union_id, user_id。仅在请求参数中有效，响应体中不会返回此参数。
+	memberIdTypeSet bool
 }
 
 func NewMemberlistBuilder() *MemberlistBuilder {
@@ -3485,7 +3681,7 @@ func NewMemberlistBuilder() *MemberlistBuilder {
 // 示例值：u287xj12
 func (builder *MemberlistBuilder) MemberId(memberId string) *MemberlistBuilder {
 	builder.memberId = memberId
-	builder.memberIdFlag = true
+	builder.memberIdSet = true
 	return builder
 }
 
@@ -3494,7 +3690,7 @@ func (builder *MemberlistBuilder) MemberId(memberId string) *MemberlistBuilder {
 // 示例值：user
 func (builder *MemberlistBuilder) MemberType(memberType string) *MemberlistBuilder {
 	builder.memberType = memberType
-	builder.memberTypeFlag = true
+	builder.memberTypeSet = true
 	return builder
 }
 
@@ -3503,23 +3699,72 @@ func (builder *MemberlistBuilder) MemberType(memberType string) *MemberlistBuild
 // 示例值：user_id
 func (builder *MemberlistBuilder) MemberIdType(memberIdType string) *MemberlistBuilder {
 	builder.memberIdType = memberIdType
-	builder.memberIdTypeFlag = true
+	builder.memberIdTypeSet = true
 	return builder
 }
 
 func (builder *MemberlistBuilder) Build() *Memberlist {
 	req := &Memberlist{}
-	if builder.memberIdFlag {
+	if builder.memberIdSet {
 		req.MemberId = &builder.memberId
 
 	}
-	if builder.memberTypeFlag {
+	if builder.memberTypeSet {
 		req.MemberType = &builder.memberType
 
 	}
-	if builder.memberIdTypeFlag {
+	if builder.memberIdTypeSet {
 		req.MemberIdType = &builder.memberIdType
 
+	}
+	return req
+}
+
+type MinimalUser struct {
+	UserId *string `json:"user_id,omitempty"` // 用户id
+
+	Name *I18nText `json:"name,omitempty"` // i18n文本
+}
+
+type MinimalUserBuilder struct {
+	userId    string // 用户id
+	userIdSet bool
+
+	name    *I18nText // i18n文本
+	nameSet bool
+}
+
+func NewMinimalUserBuilder() *MinimalUserBuilder {
+	builder := &MinimalUserBuilder{}
+	return builder
+}
+
+// 用户id
+//
+// 示例值：
+func (builder *MinimalUserBuilder) UserId(userId string) *MinimalUserBuilder {
+	builder.userId = userId
+	builder.userIdSet = true
+	return builder
+}
+
+// i18n文本
+//
+// 示例值：
+func (builder *MinimalUserBuilder) Name(name *I18nText) *MinimalUserBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+func (builder *MinimalUserBuilder) Build() *MinimalUser {
+	req := &MinimalUser{}
+	if builder.userIdSet {
+		req.UserId = &builder.userId
+
+	}
+	if builder.nameSet {
+		req.Name = builder.name
 	}
 	return req
 }
@@ -3531,11 +3776,11 @@ type NotificationOption struct {
 }
 
 type NotificationOptionBuilder struct {
-	channels     []string // 通道列表
-	channelsFlag bool
+	channels    []string // 通道列表
+	channelsSet bool
 
-	language     string // 语言类型
-	languageFlag bool
+	language    string // 语言类型
+	languageSet bool
 }
 
 func NewNotificationOptionBuilder() *NotificationOptionBuilder {
@@ -3548,7 +3793,7 @@ func NewNotificationOptionBuilder() *NotificationOptionBuilder {
 // 示例值：["sms", "email"]
 func (builder *NotificationOptionBuilder) Channels(channels []string) *NotificationOptionBuilder {
 	builder.channels = channels
-	builder.channelsFlag = true
+	builder.channelsSet = true
 	return builder
 }
 
@@ -3557,16 +3802,16 @@ func (builder *NotificationOptionBuilder) Channels(channels []string) *Notificat
 // 示例值：zh-CN
 func (builder *NotificationOptionBuilder) Language(language string) *NotificationOptionBuilder {
 	builder.language = language
-	builder.languageFlag = true
+	builder.languageSet = true
 	return builder
 }
 
 func (builder *NotificationOptionBuilder) Build() *NotificationOption {
 	req := &NotificationOption{}
-	if builder.channelsFlag {
+	if builder.channelsSet {
 		req.Channels = builder.channels
 	}
-	if builder.languageFlag {
+	if builder.languageSet {
 		req.Language = &builder.language
 
 	}
@@ -3580,11 +3825,11 @@ type OldDepartmentObject struct {
 }
 
 type OldDepartmentObjectBuilder struct {
-	status     *DepartmentStatus // 部门状态
-	statusFlag bool
+	status    *DepartmentStatus // 部门状态
+	statusSet bool
 
-	openDepartmentId     string // 部门open_id
-	openDepartmentIdFlag bool
+	openDepartmentId    string // 部门open_id
+	openDepartmentIdSet bool
 }
 
 func NewOldDepartmentObjectBuilder() *OldDepartmentObjectBuilder {
@@ -3597,7 +3842,7 @@ func NewOldDepartmentObjectBuilder() *OldDepartmentObjectBuilder {
 // 示例值：
 func (builder *OldDepartmentObjectBuilder) Status(status *DepartmentStatus) *OldDepartmentObjectBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -3606,16 +3851,16 @@ func (builder *OldDepartmentObjectBuilder) Status(status *DepartmentStatus) *Old
 // 示例值：od-xxxxxxxx
 func (builder *OldDepartmentObjectBuilder) OpenDepartmentId(openDepartmentId string) *OldDepartmentObjectBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *OldDepartmentObjectBuilder) Build() *OldDepartmentObject {
 	req := &OldDepartmentObject{}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = builder.status
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -3629,11 +3874,11 @@ type OldUserObject struct {
 }
 
 type OldUserObjectBuilder struct {
-	departmentIds     []string // 用户所属部门的ID列表
-	departmentIdsFlag bool
+	departmentIds    []string // 用户所属部门的ID列表
+	departmentIdsSet bool
 
-	openId     string // 用户open_id
-	openIdFlag bool
+	openId    string // 用户open_id
+	openIdSet bool
 }
 
 func NewOldUserObjectBuilder() *OldUserObjectBuilder {
@@ -3646,7 +3891,7 @@ func NewOldUserObjectBuilder() *OldUserObjectBuilder {
 // 示例值：
 func (builder *OldUserObjectBuilder) DepartmentIds(departmentIds []string) *OldUserObjectBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
@@ -3655,16 +3900,16 @@ func (builder *OldUserObjectBuilder) DepartmentIds(departmentIds []string) *OldU
 // 示例值：ou_xxxxxxxxxx
 func (builder *OldUserObjectBuilder) OpenId(openId string) *OldUserObjectBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
 func (builder *OldUserObjectBuilder) Build() *OldUserObject {
 	req := &OldUserObject{}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
@@ -3680,14 +3925,14 @@ type ProductI18nName struct {
 }
 
 type ProductI18nNameBuilder struct {
-	zhCn     string // 席位中文名
-	zhCnFlag bool
+	zhCn    string // 席位中文名
+	zhCnSet bool
 
-	jaJp     string // 席位日文名
-	jaJpFlag bool
+	jaJp    string // 席位日文名
+	jaJpSet bool
 
-	enUs     string // 席位英文名
-	enUsFlag bool
+	enUs    string // 席位英文名
+	enUsSet bool
 }
 
 func NewProductI18nNameBuilder() *ProductI18nNameBuilder {
@@ -3700,7 +3945,7 @@ func NewProductI18nNameBuilder() *ProductI18nNameBuilder {
 // 示例值：zh_cn_name
 func (builder *ProductI18nNameBuilder) ZhCn(zhCn string) *ProductI18nNameBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -3709,7 +3954,7 @@ func (builder *ProductI18nNameBuilder) ZhCn(zhCn string) *ProductI18nNameBuilder
 // 示例值：ja_jp_name
 func (builder *ProductI18nNameBuilder) JaJp(jaJp string) *ProductI18nNameBuilder {
 	builder.jaJp = jaJp
-	builder.jaJpFlag = true
+	builder.jaJpSet = true
 	return builder
 }
 
@@ -3718,21 +3963,21 @@ func (builder *ProductI18nNameBuilder) JaJp(jaJp string) *ProductI18nNameBuilder
 // 示例值：en_name
 func (builder *ProductI18nNameBuilder) EnUs(enUs string) *ProductI18nNameBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
 func (builder *ProductI18nNameBuilder) Build() *ProductI18nName {
 	req := &ProductI18nName{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.jaJpFlag {
+	if builder.jaJpSet {
 		req.JaJp = &builder.jaJp
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
@@ -3746,11 +3991,11 @@ type ResourceAccept struct {
 }
 
 type ResourceAcceptBuilder struct {
-	processingType     string // 资源处理类型
-	processingTypeFlag bool
+	processingType    string // 资源处理类型
+	processingTypeSet bool
 
-	acceptorUserId     string // 转移资源时，资源接收者
-	acceptorUserIdFlag bool
+	acceptorUserId    string // 转移资源时，资源接收者
+	acceptorUserIdSet bool
 }
 
 func NewResourceAcceptBuilder() *ResourceAcceptBuilder {
@@ -3763,7 +4008,7 @@ func NewResourceAcceptBuilder() *ResourceAcceptBuilder {
 // 示例值：
 func (builder *ResourceAcceptBuilder) ProcessingType(processingType string) *ResourceAcceptBuilder {
 	builder.processingType = processingType
-	builder.processingTypeFlag = true
+	builder.processingTypeSet = true
 	return builder
 }
 
@@ -3772,17 +4017,17 @@ func (builder *ResourceAcceptBuilder) ProcessingType(processingType string) *Res
 // 示例值：
 func (builder *ResourceAcceptBuilder) AcceptorUserId(acceptorUserId string) *ResourceAcceptBuilder {
 	builder.acceptorUserId = acceptorUserId
-	builder.acceptorUserIdFlag = true
+	builder.acceptorUserIdSet = true
 	return builder
 }
 
 func (builder *ResourceAcceptBuilder) Build() *ResourceAccept {
 	req := &ResourceAccept{}
-	if builder.processingTypeFlag {
+	if builder.processingTypeSet {
 		req.ProcessingType = &builder.processingType
 
 	}
-	if builder.acceptorUserIdFlag {
+	if builder.acceptorUserIdSet {
 		req.AcceptorUserId = &builder.acceptorUserId
 
 	}
@@ -3796,11 +4041,11 @@ type ResourceAcceptor struct {
 }
 
 type ResourceAcceptorBuilder struct {
-	processingType     string // 邮件处理方式
-	processingTypeFlag bool
+	processingType    string // 邮件处理方式
+	processingTypeSet bool
 
-	acceptorUserId     string // 在 processing_type 为 1 （转移资源时），邮件资源接收者
-	acceptorUserIdFlag bool
+	acceptorUserId    string // 在 processing_type 为 1 （转移资源时），邮件资源接收者
+	acceptorUserIdSet bool
 }
 
 func NewResourceAcceptorBuilder() *ResourceAcceptorBuilder {
@@ -3813,7 +4058,7 @@ func NewResourceAcceptorBuilder() *ResourceAcceptorBuilder {
 // 示例值：1
 func (builder *ResourceAcceptorBuilder) ProcessingType(processingType string) *ResourceAcceptorBuilder {
 	builder.processingType = processingType
-	builder.processingTypeFlag = true
+	builder.processingTypeSet = true
 	return builder
 }
 
@@ -3822,17 +4067,17 @@ func (builder *ResourceAcceptorBuilder) ProcessingType(processingType string) *R
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *ResourceAcceptorBuilder) AcceptorUserId(acceptorUserId string) *ResourceAcceptorBuilder {
 	builder.acceptorUserId = acceptorUserId
-	builder.acceptorUserIdFlag = true
+	builder.acceptorUserIdSet = true
 	return builder
 }
 
 func (builder *ResourceAcceptorBuilder) Build() *ResourceAcceptor {
 	req := &ResourceAcceptor{}
-	if builder.processingTypeFlag {
+	if builder.processingTypeSet {
 		req.ProcessingType = &builder.processingType
 
 	}
-	if builder.acceptorUserIdFlag {
+	if builder.acceptorUserIdSet {
 		req.AcceptorUserId = &builder.acceptorUserId
 
 	}
@@ -3848,14 +4093,14 @@ type Scope struct {
 }
 
 type ScopeBuilder struct {
-	departments     []*Department // 部门对象
-	departmentsFlag bool
+	departments    []*Department // 部门对象
+	departmentsSet bool
 
-	users     []*User // 用户对象
-	usersFlag bool
+	users    []*User // 用户对象
+	usersSet bool
 
-	userGroups     []*UserGroup // 用户组对象
-	userGroupsFlag bool
+	userGroups    []*UserGroup // 用户组对象
+	userGroupsSet bool
 }
 
 func NewScopeBuilder() *ScopeBuilder {
@@ -3868,7 +4113,7 @@ func NewScopeBuilder() *ScopeBuilder {
 // 示例值：
 func (builder *ScopeBuilder) Departments(departments []*Department) *ScopeBuilder {
 	builder.departments = departments
-	builder.departmentsFlag = true
+	builder.departmentsSet = true
 	return builder
 }
 
@@ -3877,7 +4122,7 @@ func (builder *ScopeBuilder) Departments(departments []*Department) *ScopeBuilde
 // 示例值：
 func (builder *ScopeBuilder) Users(users []*User) *ScopeBuilder {
 	builder.users = users
-	builder.usersFlag = true
+	builder.usersSet = true
 	return builder
 }
 
@@ -3886,19 +4131,19 @@ func (builder *ScopeBuilder) Users(users []*User) *ScopeBuilder {
 // 示例值：
 func (builder *ScopeBuilder) UserGroups(userGroups []*UserGroup) *ScopeBuilder {
 	builder.userGroups = userGroups
-	builder.userGroupsFlag = true
+	builder.userGroupsSet = true
 	return builder
 }
 
 func (builder *ScopeBuilder) Build() *Scope {
 	req := &Scope{}
-	if builder.departmentsFlag {
+	if builder.departmentsSet {
 		req.Departments = builder.departments
 	}
-	if builder.usersFlag {
+	if builder.usersSet {
 		req.Users = builder.users
 	}
-	if builder.userGroupsFlag {
+	if builder.userGroupsSet {
 		req.UserGroups = builder.userGroups
 	}
 	return req
@@ -3915,17 +4160,17 @@ type ShareDepartment struct {
 }
 
 type ShareDepartmentBuilder struct {
-	openId     string // 共享部门的open id
-	openIdFlag bool
+	openId    string // 共享部门的open id
+	openIdSet bool
 
-	name     string // 部门名称
-	nameFlag bool
+	name    string // 部门名称
+	nameSet bool
 
-	i18nName     *DepartmentI18nName // 国际化的部门名称
-	i18nNameFlag bool
+	i18nName    *DepartmentI18nName // 国际化的部门名称
+	i18nNameSet bool
 
-	order     string // 部门的排序
-	orderFlag bool
+	order    string // 部门的排序
+	orderSet bool
 }
 
 func NewShareDepartmentBuilder() *ShareDepartmentBuilder {
@@ -3938,7 +4183,7 @@ func NewShareDepartmentBuilder() *ShareDepartmentBuilder {
 // 示例值：od-b025f41e599bf3d3fb5dc56b7f86142b
 func (builder *ShareDepartmentBuilder) OpenId(openId string) *ShareDepartmentBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
@@ -3947,7 +4192,7 @@ func (builder *ShareDepartmentBuilder) OpenId(openId string) *ShareDepartmentBui
 // 示例值：测试部门
 func (builder *ShareDepartmentBuilder) Name(name string) *ShareDepartmentBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3956,7 +4201,7 @@ func (builder *ShareDepartmentBuilder) Name(name string) *ShareDepartmentBuilder
 // 示例值：
 func (builder *ShareDepartmentBuilder) I18nName(i18nName *DepartmentI18nName) *ShareDepartmentBuilder {
 	builder.i18nName = i18nName
-	builder.i18nNameFlag = true
+	builder.i18nNameSet = true
 	return builder
 }
 
@@ -3965,24 +4210,24 @@ func (builder *ShareDepartmentBuilder) I18nName(i18nName *DepartmentI18nName) *S
 // 示例值：6000
 func (builder *ShareDepartmentBuilder) Order(order string) *ShareDepartmentBuilder {
 	builder.order = order
-	builder.orderFlag = true
+	builder.orderSet = true
 	return builder
 }
 
 func (builder *ShareDepartmentBuilder) Build() *ShareDepartment {
 	req := &ShareDepartment{}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.i18nNameFlag {
+	if builder.i18nNameSet {
 		req.I18nName = builder.i18nName
 	}
-	if builder.orderFlag {
+	if builder.orderSet {
 		req.Order = &builder.order
 
 	}
@@ -4000,17 +4245,17 @@ type ShareUser struct {
 }
 
 type ShareUserBuilder struct {
-	openId     string // 用户的open_id
-	openIdFlag bool
+	openId    string // 用户的open_id
+	openIdSet bool
 
-	name     string // 用户的名称
-	nameFlag bool
+	name    string // 用户的名称
+	nameSet bool
 
-	enName     string // 英文名
-	enNameFlag bool
+	enName    string // 英文名
+	enNameSet bool
 
-	avatar     *AvatarInfo // 用户头像信息
-	avatarFlag bool
+	avatar    *AvatarInfo // 用户头像信息
+	avatarSet bool
 }
 
 func NewShareUserBuilder() *ShareUserBuilder {
@@ -4023,7 +4268,7 @@ func NewShareUserBuilder() *ShareUserBuilder {
 // 示例值：ou_496670738e90fb26f899088a125226c5
 func (builder *ShareUserBuilder) OpenId(openId string) *ShareUserBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
@@ -4032,7 +4277,7 @@ func (builder *ShareUserBuilder) OpenId(openId string) *ShareUserBuilder {
 // 示例值：测试用户
 func (builder *ShareUserBuilder) Name(name string) *ShareUserBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4041,7 +4286,7 @@ func (builder *ShareUserBuilder) Name(name string) *ShareUserBuilder {
 // 示例值：testUser
 func (builder *ShareUserBuilder) EnName(enName string) *ShareUserBuilder {
 	builder.enName = enName
-	builder.enNameFlag = true
+	builder.enNameSet = true
 	return builder
 }
 
@@ -4050,25 +4295,25 @@ func (builder *ShareUserBuilder) EnName(enName string) *ShareUserBuilder {
 // 示例值：
 func (builder *ShareUserBuilder) Avatar(avatar *AvatarInfo) *ShareUserBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
 func (builder *ShareUserBuilder) Build() *ShareUser {
 	req := &ShareUser{}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.enNameFlag {
+	if builder.enNameSet {
 		req.EnName = &builder.enName
 
 	}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = builder.avatar
 	}
 	return req
@@ -4083,14 +4328,14 @@ type Unit struct {
 }
 
 type UnitBuilder struct {
-	unitId     string // 单位ID
-	unitIdFlag bool
+	unitId    string // 单位ID
+	unitIdSet bool
 
-	name     string // 单位的名字
-	nameFlag bool
+	name    string // 单位的名字
+	nameSet bool
 
-	unitType     string // 单位的类型
-	unitTypeFlag bool
+	unitType    string // 单位的类型
+	unitTypeSet bool
 }
 
 func NewUnitBuilder() *UnitBuilder {
@@ -4103,7 +4348,7 @@ func NewUnitBuilder() *UnitBuilder {
 // 示例值：BU121
 func (builder *UnitBuilder) UnitId(unitId string) *UnitBuilder {
 	builder.unitId = unitId
-	builder.unitIdFlag = true
+	builder.unitIdSet = true
 	return builder
 }
 
@@ -4112,7 +4357,7 @@ func (builder *UnitBuilder) UnitId(unitId string) *UnitBuilder {
 // 示例值：消费者事业部
 func (builder *UnitBuilder) Name(name string) *UnitBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4121,21 +4366,21 @@ func (builder *UnitBuilder) Name(name string) *UnitBuilder {
 // 示例值：事业部
 func (builder *UnitBuilder) UnitType(unitType string) *UnitBuilder {
 	builder.unitType = unitType
-	builder.unitTypeFlag = true
+	builder.unitTypeSet = true
 	return builder
 }
 
 func (builder *UnitBuilder) Build() *Unit {
 	req := &Unit{}
-	if builder.unitIdFlag {
+	if builder.unitIdSet {
 		req.UnitId = &builder.unitId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.unitTypeFlag {
+	if builder.unitTypeSet {
 		req.UnitType = &builder.unitType
 
 	}
@@ -4149,11 +4394,11 @@ type UnitDepartment struct {
 }
 
 type UnitDepartmentBuilder struct {
-	unitId     string // 单位ID
-	unitIdFlag bool
+	unitId    string // 单位ID
+	unitIdSet bool
 
-	departmentId     string // 部门ID
-	departmentIdFlag bool
+	departmentId    string // 部门ID
+	departmentIdSet bool
 }
 
 func NewUnitDepartmentBuilder() *UnitDepartmentBuilder {
@@ -4166,7 +4411,7 @@ func NewUnitDepartmentBuilder() *UnitDepartmentBuilder {
 // 示例值：BU121
 func (builder *UnitDepartmentBuilder) UnitId(unitId string) *UnitDepartmentBuilder {
 	builder.unitId = unitId
-	builder.unitIdFlag = true
+	builder.unitIdSet = true
 	return builder
 }
 
@@ -4175,17 +4420,17 @@ func (builder *UnitDepartmentBuilder) UnitId(unitId string) *UnitDepartmentBuild
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *UnitDepartmentBuilder) DepartmentId(departmentId string) *UnitDepartmentBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
 func (builder *UnitDepartmentBuilder) Build() *UnitDepartment {
 	req := &UnitDepartment{}
-	if builder.unitIdFlag {
+	if builder.unitIdSet {
 		req.UnitId = &builder.unitId
 
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
@@ -4275,125 +4520,125 @@ type User struct {
 }
 
 type UserBuilder struct {
-	unionId     string // 用户的union_id，应用开发商发布的不同应用中同一用户的标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	unionIdFlag bool
+	unionId    string // 用户的union_id，应用开发商发布的不同应用中同一用户的标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	unionIdSet bool
 
-	userId     string // 用户的user_id，租户内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	userIdFlag bool
+	userId    string // 用户的user_id，租户内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	userIdSet bool
 
-	openId     string // 用户的open_id，应用内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	openIdFlag bool
+	openId    string // 用户的open_id，应用内用户的唯一标识，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	openIdSet bool
 
-	name     string // 用户名
-	nameFlag bool
+	name    string // 用户名
+	nameSet bool
 
-	enName     string // 英文名
-	enNameFlag bool
+	enName    string // 英文名
+	enNameSet bool
 
-	nickname     string // 别名
-	nicknameFlag bool
+	nickname    string // 别名
+	nicknameSet bool
 
-	email     string // 邮箱;;注意：;1. 非中国大陆手机号成员必须同时添加邮箱;2. 邮箱不可重复
-	emailFlag bool
+	email    string // 邮箱;;注意：;1. 非中国大陆手机号成员必须同时添加邮箱;2. 邮箱不可重复
+	emailSet bool
 
-	mobile     string // 手机号，在本企业内不可重复；未认证企业仅支持添加中国大陆手机号，通过飞书认证的企业允许添加海外手机号，注意国际电话区号前缀中必须包含加号 +
-	mobileFlag bool
+	mobile    string // 手机号，在本企业内不可重复；未认证企业仅支持添加中国大陆手机号，通过飞书认证的企业允许添加海外手机号，注意国际电话区号前缀中必须包含加号 +
+	mobileSet bool
 
-	mobileVisible     bool // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
-	mobileVisibleFlag bool
+	mobileVisible    bool // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
+	mobileVisibleSet bool
 
-	gender     int // 性别
-	genderFlag bool
+	gender    int // 性别
+	genderSet bool
 
-	avatarKey     string // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key;;“上传图片”功能参见[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
-	avatarKeyFlag bool
+	avatarKey    string // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key;;“上传图片”功能参见[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
+	avatarKeySet bool
 
-	avatar     *AvatarInfo // 用户头像信息
-	avatarFlag bool
+	avatar    *AvatarInfo // 用户头像信息
+	avatarSet bool
 
-	status     *UserStatus // 用户状态，枚举类型，包括is_frozen、is_resigned、is_activated、is_exited 。;;用户状态转移参见：[用户状态图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1)
-	statusFlag bool
+	status    *UserStatus // 用户状态，枚举类型，包括is_frozen、is_resigned、is_activated、is_exited 。;;用户状态转移参见：[用户状态图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1)
+	statusSet bool
 
-	departmentIds     []string // 用户所属部门的ID列表，一个用户可属于多个部门。;;ID值的类型与查询参数中的department_id_type 对应。;;不同 ID 的说明与department_id的获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
-	departmentIdsFlag bool
+	departmentIds    []string // 用户所属部门的ID列表，一个用户可属于多个部门。;;ID值的类型与查询参数中的department_id_type 对应。;;不同 ID 的说明与department_id的获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+	departmentIdsSet bool
 
-	leaderUserId     string // 用户的直接主管的用户ID，ID值与查询参数中的user_id_type 对应。;;不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);;获取方式参见[如何获取user_id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
-	leaderUserIdFlag bool
+	leaderUserId    string // 用户的直接主管的用户ID，ID值与查询参数中的user_id_type 对应。;;不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction);;获取方式参见[如何获取user_id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
+	leaderUserIdSet bool
 
-	city     string // 工作城市
-	cityFlag bool
+	city    string // 工作城市
+	citySet bool
 
-	country     string // 国家或地区Code缩写，具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description)
-	countryFlag bool
+	country    string // 国家或地区Code缩写，具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description)
+	countrySet bool
 
-	workStation     string // 工位
-	workStationFlag bool
+	workStation    string // 工位
+	workStationSet bool
 
-	joinTime     int // 入职时间，时间戳格式，表示从1970年1月1日开始所经过的秒数
-	joinTimeFlag bool
+	joinTime    int // 入职时间，时间戳格式，表示从1970年1月1日开始所经过的秒数
+	joinTimeSet bool
 
-	isTenantManager     bool // 是否是租户超级管理员
-	isTenantManagerFlag bool
+	isTenantManager    bool // 是否是租户超级管理员
+	isTenantManagerSet bool
 
-	employeeNo     string // 工号
-	employeeNoFlag bool
+	employeeNo    string // 工号
+	employeeNoSet bool
 
-	employeeType     int // 员工类型，可选值有：;- `1`：正式员工;- `2`：实习生;- `3`：外包;- `4`：劳务;- `5`：顾问   ;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
-	employeeTypeFlag bool
+	employeeType    int // 员工类型，可选值有：;- `1`：正式员工;- `2`：实习生;- `3`：外包;- `4`：劳务;- `5`：顾问   ;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称，参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
+	employeeTypeSet bool
 
-	positions     []*UserPosition // 职位信息
-	positionsFlag bool
+	positions    []*UserPosition // 职位信息
+	positionsSet bool
 
-	orders     []*UserOrder // 用户排序信息。;;用于标记通讯录下组织架构的人员顺序，人员可能存在多个部门中，且有不同的排序。
-	ordersFlag bool
+	orders    []*UserOrder // 用户排序信息。;;用于标记通讯录下组织架构的人员顺序，人员可能存在多个部门中，且有不同的排序。
+	ordersSet bool
 
-	customAttrs     []*UserCustomAttr // 自定义字段，请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“，否则该字段不会生效/返回。;;更多详情参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
-	customAttrsFlag bool
+	customAttrs    []*UserCustomAttr // 自定义字段，请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“，否则该字段不会生效/返回。;;更多详情参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
+	customAttrsSet bool
 
-	enterpriseEmail     string // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务;;创建用户时，企业邮箱的使用方式参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
-	enterpriseEmailFlag bool
+	enterpriseEmail    string // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务;;创建用户时，企业邮箱的使用方式参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
+	enterpriseEmailSet bool
 
-	idpType     string // 租户类型
-	idpTypeFlag bool
+	idpType    string // 租户类型
+	idpTypeSet bool
 
-	timeZone     string // 用户时区
-	timeZoneFlag bool
+	timeZone    string // 用户时区
+	timeZoneSet bool
 
-	description     string // 用户签名
-	descriptionFlag bool
+	description    string // 用户签名
+	descriptionSet bool
 
-	jobTitle     string // 职务
-	jobTitleFlag bool
+	jobTitle    string // 职务
+	jobTitleSet bool
 
-	needSendNotification     bool // 是否发送提示消息
-	needSendNotificationFlag bool
+	needSendNotification    bool // 是否发送提示消息
+	needSendNotificationSet bool
 
-	notificationOption     *NotificationOption //
-	notificationOptionFlag bool
+	notificationOption    *NotificationOption //
+	notificationOptionSet bool
 
-	isFrozen     bool // 是否暂停用户
-	isFrozenFlag bool
+	isFrozen    bool // 是否暂停用户
+	isFrozenSet bool
 
-	geo     string // 数据驻留地
-	geoFlag bool
+	geo    string // 数据驻留地
+	geoSet bool
 
-	jobLevelId     string // 职级ID
-	jobLevelIdFlag bool
+	jobLevelId    string // 职级ID
+	jobLevelIdSet bool
 
-	jobFamilyId     string // 序列ID
-	jobFamilyIdFlag bool
+	jobFamilyId    string // 序列ID
+	jobFamilyIdSet bool
 
-	subscriptionIds     []string // 分配给用户的席位ID列表
-	subscriptionIdsFlag bool
+	subscriptionIds    []string // 分配给用户的席位ID列表
+	subscriptionIdsSet bool
 
-	assignInfo     []*UserAssignInfo // 用户席位列表
-	assignInfoFlag bool
+	assignInfo    []*UserAssignInfo // 用户席位列表
+	assignInfoSet bool
 
-	departmentPath     []*DepartmentDetail // 部门路径
-	departmentPathFlag bool
+	departmentPath    []*DepartmentDetail // 部门路径
+	departmentPathSet bool
 
-	dottedLineLeaderUserIds     []string // 虚线上级ID
-	dottedLineLeaderUserIdsFlag bool
+	dottedLineLeaderUserIds    []string // 虚线上级ID
+	dottedLineLeaderUserIdsSet bool
 }
 
 func NewUserBuilder() *UserBuilder {
@@ -4406,7 +4651,7 @@ func NewUserBuilder() *UserBuilder {
 // 示例值：on_94a1ee5551019f18cd73d9f111898cf2
 func (builder *UserBuilder) UnionId(unionId string) *UserBuilder {
 	builder.unionId = unionId
-	builder.unionIdFlag = true
+	builder.unionIdSet = true
 	return builder
 }
 
@@ -4415,7 +4660,7 @@ func (builder *UserBuilder) UnionId(unionId string) *UserBuilder {
 // 示例值：3e3cf96b
 func (builder *UserBuilder) UserId(userId string) *UserBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -4424,7 +4669,7 @@ func (builder *UserBuilder) UserId(userId string) *UserBuilder {
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserBuilder) OpenId(openId string) *UserBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
@@ -4433,7 +4678,7 @@ func (builder *UserBuilder) OpenId(openId string) *UserBuilder {
 // 示例值：张三
 func (builder *UserBuilder) Name(name string) *UserBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4442,7 +4687,7 @@ func (builder *UserBuilder) Name(name string) *UserBuilder {
 // 示例值：San Zhang
 func (builder *UserBuilder) EnName(enName string) *UserBuilder {
 	builder.enName = enName
-	builder.enNameFlag = true
+	builder.enNameSet = true
 	return builder
 }
 
@@ -4451,7 +4696,7 @@ func (builder *UserBuilder) EnName(enName string) *UserBuilder {
 // 示例值：Alex Zhang
 func (builder *UserBuilder) Nickname(nickname string) *UserBuilder {
 	builder.nickname = nickname
-	builder.nicknameFlag = true
+	builder.nicknameSet = true
 	return builder
 }
 
@@ -4460,7 +4705,7 @@ func (builder *UserBuilder) Nickname(nickname string) *UserBuilder {
 // 示例值：zhangsan@gmail.com
 func (builder *UserBuilder) Email(email string) *UserBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -4469,7 +4714,7 @@ func (builder *UserBuilder) Email(email string) *UserBuilder {
 // 示例值：13011111111 (其他例子，中国大陆手机号: 13011111111 或 +8613011111111, 非中国大陆手机号:  +41446681800)
 func (builder *UserBuilder) Mobile(mobile string) *UserBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -4478,7 +4723,7 @@ func (builder *UserBuilder) Mobile(mobile string) *UserBuilder {
 // 示例值：false
 func (builder *UserBuilder) MobileVisible(mobileVisible bool) *UserBuilder {
 	builder.mobileVisible = mobileVisible
-	builder.mobileVisibleFlag = true
+	builder.mobileVisibleSet = true
 	return builder
 }
 
@@ -4487,7 +4732,7 @@ func (builder *UserBuilder) MobileVisible(mobileVisible bool) *UserBuilder {
 // 示例值：1
 func (builder *UserBuilder) Gender(gender int) *UserBuilder {
 	builder.gender = gender
-	builder.genderFlag = true
+	builder.genderSet = true
 	return builder
 }
 
@@ -4496,7 +4741,7 @@ func (builder *UserBuilder) Gender(gender int) *UserBuilder {
 // 示例值：2500c7a9-5fff-4d9a-a2de-3d59614ae28g
 func (builder *UserBuilder) AvatarKey(avatarKey string) *UserBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
@@ -4505,7 +4750,7 @@ func (builder *UserBuilder) AvatarKey(avatarKey string) *UserBuilder {
 // 示例值：
 func (builder *UserBuilder) Avatar(avatar *AvatarInfo) *UserBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
@@ -4514,7 +4759,7 @@ func (builder *UserBuilder) Avatar(avatar *AvatarInfo) *UserBuilder {
 // 示例值：
 func (builder *UserBuilder) Status(status *UserStatus) *UserBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -4523,7 +4768,7 @@ func (builder *UserBuilder) Status(status *UserStatus) *UserBuilder {
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *UserBuilder) DepartmentIds(departmentIds []string) *UserBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
@@ -4532,7 +4777,7 @@ func (builder *UserBuilder) DepartmentIds(departmentIds []string) *UserBuilder {
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserBuilder) LeaderUserId(leaderUserId string) *UserBuilder {
 	builder.leaderUserId = leaderUserId
-	builder.leaderUserIdFlag = true
+	builder.leaderUserIdSet = true
 	return builder
 }
 
@@ -4541,7 +4786,7 @@ func (builder *UserBuilder) LeaderUserId(leaderUserId string) *UserBuilder {
 // 示例值：杭州
 func (builder *UserBuilder) City(city string) *UserBuilder {
 	builder.city = city
-	builder.cityFlag = true
+	builder.citySet = true
 	return builder
 }
 
@@ -4550,7 +4795,7 @@ func (builder *UserBuilder) City(city string) *UserBuilder {
 // 示例值：CN
 func (builder *UserBuilder) Country(country string) *UserBuilder {
 	builder.country = country
-	builder.countryFlag = true
+	builder.countrySet = true
 	return builder
 }
 
@@ -4559,7 +4804,7 @@ func (builder *UserBuilder) Country(country string) *UserBuilder {
 // 示例值：北楼-H34
 func (builder *UserBuilder) WorkStation(workStation string) *UserBuilder {
 	builder.workStation = workStation
-	builder.workStationFlag = true
+	builder.workStationSet = true
 	return builder
 }
 
@@ -4568,7 +4813,7 @@ func (builder *UserBuilder) WorkStation(workStation string) *UserBuilder {
 // 示例值：2147483647
 func (builder *UserBuilder) JoinTime(joinTime int) *UserBuilder {
 	builder.joinTime = joinTime
-	builder.joinTimeFlag = true
+	builder.joinTimeSet = true
 	return builder
 }
 
@@ -4577,7 +4822,7 @@ func (builder *UserBuilder) JoinTime(joinTime int) *UserBuilder {
 // 示例值：false
 func (builder *UserBuilder) IsTenantManager(isTenantManager bool) *UserBuilder {
 	builder.isTenantManager = isTenantManager
-	builder.isTenantManagerFlag = true
+	builder.isTenantManagerSet = true
 	return builder
 }
 
@@ -4586,7 +4831,7 @@ func (builder *UserBuilder) IsTenantManager(isTenantManager bool) *UserBuilder {
 // 示例值：1
 func (builder *UserBuilder) EmployeeNo(employeeNo string) *UserBuilder {
 	builder.employeeNo = employeeNo
-	builder.employeeNoFlag = true
+	builder.employeeNoSet = true
 	return builder
 }
 
@@ -4595,7 +4840,7 @@ func (builder *UserBuilder) EmployeeNo(employeeNo string) *UserBuilder {
 // 示例值：1
 func (builder *UserBuilder) EmployeeType(employeeType int) *UserBuilder {
 	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.employeeTypeSet = true
 	return builder
 }
 
@@ -4604,7 +4849,7 @@ func (builder *UserBuilder) EmployeeType(employeeType int) *UserBuilder {
 // 示例值：
 func (builder *UserBuilder) Positions(positions []*UserPosition) *UserBuilder {
 	builder.positions = positions
-	builder.positionsFlag = true
+	builder.positionsSet = true
 	return builder
 }
 
@@ -4613,7 +4858,7 @@ func (builder *UserBuilder) Positions(positions []*UserPosition) *UserBuilder {
 // 示例值：
 func (builder *UserBuilder) Orders(orders []*UserOrder) *UserBuilder {
 	builder.orders = orders
-	builder.ordersFlag = true
+	builder.ordersSet = true
 	return builder
 }
 
@@ -4622,7 +4867,7 @@ func (builder *UserBuilder) Orders(orders []*UserOrder) *UserBuilder {
 // 示例值：
 func (builder *UserBuilder) CustomAttrs(customAttrs []*UserCustomAttr) *UserBuilder {
 	builder.customAttrs = customAttrs
-	builder.customAttrsFlag = true
+	builder.customAttrsSet = true
 	return builder
 }
 
@@ -4631,7 +4876,7 @@ func (builder *UserBuilder) CustomAttrs(customAttrs []*UserCustomAttr) *UserBuil
 // 示例值：demo@mail.com
 func (builder *UserBuilder) EnterpriseEmail(enterpriseEmail string) *UserBuilder {
 	builder.enterpriseEmail = enterpriseEmail
-	builder.enterpriseEmailFlag = true
+	builder.enterpriseEmailSet = true
 	return builder
 }
 
@@ -4640,7 +4885,7 @@ func (builder *UserBuilder) EnterpriseEmail(enterpriseEmail string) *UserBuilder
 // 示例值：6645182361178734852
 func (builder *UserBuilder) IdpType(idpType string) *UserBuilder {
 	builder.idpType = idpType
-	builder.idpTypeFlag = true
+	builder.idpTypeSet = true
 	return builder
 }
 
@@ -4649,7 +4894,7 @@ func (builder *UserBuilder) IdpType(idpType string) *UserBuilder {
 // 示例值：
 func (builder *UserBuilder) TimeZone(timeZone string) *UserBuilder {
 	builder.timeZone = timeZone
-	builder.timeZoneFlag = true
+	builder.timeZoneSet = true
 	return builder
 }
 
@@ -4658,7 +4903,7 @@ func (builder *UserBuilder) TimeZone(timeZone string) *UserBuilder {
 // 示例值：xxx
 func (builder *UserBuilder) Description(description string) *UserBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -4667,7 +4912,7 @@ func (builder *UserBuilder) Description(description string) *UserBuilder {
 // 示例值：xxxxx
 func (builder *UserBuilder) JobTitle(jobTitle string) *UserBuilder {
 	builder.jobTitle = jobTitle
-	builder.jobTitleFlag = true
+	builder.jobTitleSet = true
 	return builder
 }
 
@@ -4676,14 +4921,16 @@ func (builder *UserBuilder) JobTitle(jobTitle string) *UserBuilder {
 // 示例值：true
 func (builder *UserBuilder) NeedSendNotification(needSendNotification bool) *UserBuilder {
 	builder.needSendNotification = needSendNotification
-	builder.needSendNotificationFlag = true
+	builder.needSendNotificationSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserBuilder) NotificationOption(notificationOption *NotificationOption) *UserBuilder {
 	builder.notificationOption = notificationOption
-	builder.notificationOptionFlag = true
+	builder.notificationOptionSet = true
 	return builder
 }
 
@@ -4692,7 +4939,7 @@ func (builder *UserBuilder) NotificationOption(notificationOption *NotificationO
 // 示例值：false
 func (builder *UserBuilder) IsFrozen(isFrozen bool) *UserBuilder {
 	builder.isFrozen = isFrozen
-	builder.isFrozenFlag = true
+	builder.isFrozenSet = true
 	return builder
 }
 
@@ -4701,7 +4948,7 @@ func (builder *UserBuilder) IsFrozen(isFrozen bool) *UserBuilder {
 // 示例值：cn
 func (builder *UserBuilder) Geo(geo string) *UserBuilder {
 	builder.geo = geo
-	builder.geoFlag = true
+	builder.geoSet = true
 	return builder
 }
 
@@ -4710,7 +4957,7 @@ func (builder *UserBuilder) Geo(geo string) *UserBuilder {
 // 示例值：mga5oa8ayjlp9rb
 func (builder *UserBuilder) JobLevelId(jobLevelId string) *UserBuilder {
 	builder.jobLevelId = jobLevelId
-	builder.jobLevelIdFlag = true
+	builder.jobLevelIdSet = true
 	return builder
 }
 
@@ -4719,7 +4966,7 @@ func (builder *UserBuilder) JobLevelId(jobLevelId string) *UserBuilder {
 // 示例值：mga5oa8ayjlp9rb
 func (builder *UserBuilder) JobFamilyId(jobFamilyId string) *UserBuilder {
 	builder.jobFamilyId = jobFamilyId
-	builder.jobFamilyIdFlag = true
+	builder.jobFamilyIdSet = true
 	return builder
 }
 
@@ -4728,7 +4975,7 @@ func (builder *UserBuilder) JobFamilyId(jobFamilyId string) *UserBuilder {
 // 示例值：
 func (builder *UserBuilder) SubscriptionIds(subscriptionIds []string) *UserBuilder {
 	builder.subscriptionIds = subscriptionIds
-	builder.subscriptionIdsFlag = true
+	builder.subscriptionIdsSet = true
 	return builder
 }
 
@@ -4737,7 +4984,7 @@ func (builder *UserBuilder) SubscriptionIds(subscriptionIds []string) *UserBuild
 // 示例值：
 func (builder *UserBuilder) AssignInfo(assignInfo []*UserAssignInfo) *UserBuilder {
 	builder.assignInfo = assignInfo
-	builder.assignInfoFlag = true
+	builder.assignInfoSet = true
 	return builder
 }
 
@@ -4746,7 +4993,7 @@ func (builder *UserBuilder) AssignInfo(assignInfo []*UserAssignInfo) *UserBuilde
 // 示例值：
 func (builder *UserBuilder) DepartmentPath(departmentPath []*DepartmentDetail) *UserBuilder {
 	builder.departmentPath = departmentPath
-	builder.departmentPathFlag = true
+	builder.departmentPathSet = true
 	return builder
 }
 
@@ -4755,159 +5002,159 @@ func (builder *UserBuilder) DepartmentPath(departmentPath []*DepartmentDetail) *
 // 示例值：
 func (builder *UserBuilder) DottedLineLeaderUserIds(dottedLineLeaderUserIds []string) *UserBuilder {
 	builder.dottedLineLeaderUserIds = dottedLineLeaderUserIds
-	builder.dottedLineLeaderUserIdsFlag = true
+	builder.dottedLineLeaderUserIdsSet = true
 	return builder
 }
 
 func (builder *UserBuilder) Build() *User {
 	req := &User{}
-	if builder.unionIdFlag {
+	if builder.unionIdSet {
 		req.UnionId = &builder.unionId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.enNameFlag {
+	if builder.enNameSet {
 		req.EnName = &builder.enName
 
 	}
-	if builder.nicknameFlag {
+	if builder.nicknameSet {
 		req.Nickname = &builder.nickname
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.mobileVisibleFlag {
+	if builder.mobileVisibleSet {
 		req.MobileVisible = &builder.mobileVisible
 
 	}
-	if builder.genderFlag {
+	if builder.genderSet {
 		req.Gender = &builder.gender
 
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = &builder.avatarKey
 
 	}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = builder.avatar
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = builder.status
 	}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.leaderUserIdFlag {
+	if builder.leaderUserIdSet {
 		req.LeaderUserId = &builder.leaderUserId
 
 	}
-	if builder.cityFlag {
+	if builder.citySet {
 		req.City = &builder.city
 
 	}
-	if builder.countryFlag {
+	if builder.countrySet {
 		req.Country = &builder.country
 
 	}
-	if builder.workStationFlag {
+	if builder.workStationSet {
 		req.WorkStation = &builder.workStation
 
 	}
-	if builder.joinTimeFlag {
+	if builder.joinTimeSet {
 		req.JoinTime = &builder.joinTime
 
 	}
-	if builder.isTenantManagerFlag {
+	if builder.isTenantManagerSet {
 		req.IsTenantManager = &builder.isTenantManager
 
 	}
-	if builder.employeeNoFlag {
+	if builder.employeeNoSet {
 		req.EmployeeNo = &builder.employeeNo
 
 	}
-	if builder.employeeTypeFlag {
+	if builder.employeeTypeSet {
 		req.EmployeeType = &builder.employeeType
 
 	}
-	if builder.positionsFlag {
+	if builder.positionsSet {
 		req.Positions = builder.positions
 	}
-	if builder.ordersFlag {
+	if builder.ordersSet {
 		req.Orders = builder.orders
 	}
-	if builder.customAttrsFlag {
+	if builder.customAttrsSet {
 		req.CustomAttrs = builder.customAttrs
 	}
-	if builder.enterpriseEmailFlag {
+	if builder.enterpriseEmailSet {
 		req.EnterpriseEmail = &builder.enterpriseEmail
 
 	}
-	if builder.idpTypeFlag {
+	if builder.idpTypeSet {
 		req.IdpType = &builder.idpType
 
 	}
-	if builder.timeZoneFlag {
+	if builder.timeZoneSet {
 		req.TimeZone = &builder.timeZone
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.jobTitleFlag {
+	if builder.jobTitleSet {
 		req.JobTitle = &builder.jobTitle
 
 	}
-	if builder.needSendNotificationFlag {
+	if builder.needSendNotificationSet {
 		req.NeedSendNotification = &builder.needSendNotification
 
 	}
-	if builder.notificationOptionFlag {
+	if builder.notificationOptionSet {
 		req.NotificationOption = builder.notificationOption
 	}
-	if builder.isFrozenFlag {
+	if builder.isFrozenSet {
 		req.IsFrozen = &builder.isFrozen
 
 	}
-	if builder.geoFlag {
+	if builder.geoSet {
 		req.Geo = &builder.geo
 
 	}
-	if builder.jobLevelIdFlag {
+	if builder.jobLevelIdSet {
 		req.JobLevelId = &builder.jobLevelId
 
 	}
-	if builder.jobFamilyIdFlag {
+	if builder.jobFamilyIdSet {
 		req.JobFamilyId = &builder.jobFamilyId
 
 	}
-	if builder.subscriptionIdsFlag {
+	if builder.subscriptionIdsSet {
 		req.SubscriptionIds = builder.subscriptionIds
 	}
-	if builder.assignInfoFlag {
+	if builder.assignInfoSet {
 		req.AssignInfo = builder.assignInfo
 	}
-	if builder.departmentPathFlag {
+	if builder.departmentPathSet {
 		req.DepartmentPath = builder.departmentPath
 	}
-	if builder.dottedLineLeaderUserIdsFlag {
+	if builder.dottedLineLeaderUserIdsSet {
 		req.DottedLineLeaderUserIds = builder.dottedLineLeaderUserIds
 	}
 	return req
@@ -4928,23 +5175,23 @@ type UserAssignInfo struct {
 }
 
 type UserAssignInfoBuilder struct {
-	subscriptionId     string // 席位id
-	subscriptionIdFlag bool
+	subscriptionId    string // 席位id
+	subscriptionIdSet bool
 
-	licensePlanKey     string // license_plan_key
-	licensePlanKeyFlag bool
+	licensePlanKey    string // license_plan_key
+	licensePlanKeySet bool
 
-	productName     string // 席位名称
-	productNameFlag bool
+	productName    string // 席位名称
+	productNameSet bool
 
-	i18nName     *ProductI18nName // 国际化名称
-	i18nNameFlag bool
+	i18nName    *ProductI18nName // 国际化名称
+	i18nNameSet bool
 
-	startTime     string // 席位起始时间
-	startTimeFlag bool
+	startTime    string // 席位起始时间
+	startTimeSet bool
 
-	endTime     string // 席位结束时间
-	endTimeFlag bool
+	endTime    string // 席位结束时间
+	endTimeSet bool
 }
 
 func NewUserAssignInfoBuilder() *UserAssignInfoBuilder {
@@ -4957,7 +5204,7 @@ func NewUserAssignInfoBuilder() *UserAssignInfoBuilder {
 // 示例值：7079609167680782300
 func (builder *UserAssignInfoBuilder) SubscriptionId(subscriptionId string) *UserAssignInfoBuilder {
 	builder.subscriptionId = subscriptionId
-	builder.subscriptionIdFlag = true
+	builder.subscriptionIdSet = true
 	return builder
 }
 
@@ -4966,7 +5213,7 @@ func (builder *UserAssignInfoBuilder) SubscriptionId(subscriptionId string) *Use
 // 示例值：suite_enterprise_e5
 func (builder *UserAssignInfoBuilder) LicensePlanKey(licensePlanKey string) *UserAssignInfoBuilder {
 	builder.licensePlanKey = licensePlanKey
-	builder.licensePlanKeyFlag = true
+	builder.licensePlanKeySet = true
 	return builder
 }
 
@@ -4975,7 +5222,7 @@ func (builder *UserAssignInfoBuilder) LicensePlanKey(licensePlanKey string) *Use
 // 示例值：旗舰版 E5
 func (builder *UserAssignInfoBuilder) ProductName(productName string) *UserAssignInfoBuilder {
 	builder.productName = productName
-	builder.productNameFlag = true
+	builder.productNameSet = true
 	return builder
 }
 
@@ -4984,7 +5231,7 @@ func (builder *UserAssignInfoBuilder) ProductName(productName string) *UserAssig
 // 示例值：
 func (builder *UserAssignInfoBuilder) I18nName(i18nName *ProductI18nName) *UserAssignInfoBuilder {
 	builder.i18nName = i18nName
-	builder.i18nNameFlag = true
+	builder.i18nNameSet = true
 	return builder
 }
 
@@ -4993,7 +5240,7 @@ func (builder *UserAssignInfoBuilder) I18nName(i18nName *ProductI18nName) *UserA
 // 示例值：1674981000
 func (builder *UserAssignInfoBuilder) StartTime(startTime string) *UserAssignInfoBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -5002,32 +5249,32 @@ func (builder *UserAssignInfoBuilder) StartTime(startTime string) *UserAssignInf
 // 示例值：1674991000
 func (builder *UserAssignInfoBuilder) EndTime(endTime string) *UserAssignInfoBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
 func (builder *UserAssignInfoBuilder) Build() *UserAssignInfo {
 	req := &UserAssignInfo{}
-	if builder.subscriptionIdFlag {
+	if builder.subscriptionIdSet {
 		req.SubscriptionId = &builder.subscriptionId
 
 	}
-	if builder.licensePlanKeyFlag {
+	if builder.licensePlanKeySet {
 		req.LicensePlanKey = &builder.licensePlanKey
 
 	}
-	if builder.productNameFlag {
+	if builder.productNameSet {
 		req.ProductName = &builder.productName
 
 	}
-	if builder.i18nNameFlag {
+	if builder.i18nNameSet {
 		req.I18nName = builder.i18nName
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
@@ -5045,17 +5292,17 @@ type UserContactInfo struct {
 }
 
 type UserContactInfoBuilder struct {
-	userId     string // 用户id，值为user_id_type所指定的类型。如果查询的手机号、邮箱不存在，或者无权限查看对应的用户，则此项为空。
-	userIdFlag bool
+	userId    string // 用户id，值为user_id_type所指定的类型。如果查询的手机号、邮箱不存在，或者无权限查看对应的用户，则此项为空。
+	userIdSet bool
 
-	mobile     string // 手机号，通过手机号查询时返回
-	mobileFlag bool
+	mobile    string // 手机号，通过手机号查询时返回
+	mobileSet bool
 
-	email     string // 邮箱，通过邮箱查询时返回
-	emailFlag bool
+	email    string // 邮箱，通过邮箱查询时返回
+	emailSet bool
 
-	status     *UserStatus // 用户状态
-	statusFlag bool
+	status    *UserStatus // 用户状态
+	statusSet bool
 }
 
 func NewUserContactInfoBuilder() *UserContactInfoBuilder {
@@ -5068,7 +5315,7 @@ func NewUserContactInfoBuilder() *UserContactInfoBuilder {
 // 示例值：ou_979112345678741d29069abcdef089d4
 func (builder *UserContactInfoBuilder) UserId(userId string) *UserContactInfoBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -5077,7 +5324,7 @@ func (builder *UserContactInfoBuilder) UserId(userId string) *UserContactInfoBui
 // 示例值：13812345678
 func (builder *UserContactInfoBuilder) Mobile(mobile string) *UserContactInfoBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -5086,7 +5333,7 @@ func (builder *UserContactInfoBuilder) Mobile(mobile string) *UserContactInfoBui
 // 示例值：lisi@z.com
 func (builder *UserContactInfoBuilder) Email(email string) *UserContactInfoBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -5095,25 +5342,25 @@ func (builder *UserContactInfoBuilder) Email(email string) *UserContactInfoBuild
 // 示例值：
 func (builder *UserContactInfoBuilder) Status(status *UserStatus) *UserContactInfoBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *UserContactInfoBuilder) Build() *UserContactInfo {
 	req := &UserContactInfo{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = builder.status
 	}
 	return req
@@ -5129,13 +5376,13 @@ type UserCustomAttr struct {
 
 type UserCustomAttrBuilder struct {
 	type_    string // 自定义字段类型   ;- `TEXT`：文本;- `HREF`：网页;- `ENUMERATION`：枚举;- `PICTURE_ENUM`：图片;- `GENERIC_USER`：用户;;具体说明参见常见问题的[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
-	typeFlag bool
+	type_Set bool
 
-	id     string // 自定义字段ID
-	idFlag bool
+	id    string // 自定义字段ID
+	idSet bool
 
-	value     *UserCustomAttrValue // 自定义字段取值
-	valueFlag bool
+	value    *UserCustomAttrValue // 自定义字段取值
+	valueSet bool
 }
 
 func NewUserCustomAttrBuilder() *UserCustomAttrBuilder {
@@ -5148,7 +5395,7 @@ func NewUserCustomAttrBuilder() *UserCustomAttrBuilder {
 // 示例值：TEXT
 func (builder *UserCustomAttrBuilder) Type(type_ string) *UserCustomAttrBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -5157,7 +5404,7 @@ func (builder *UserCustomAttrBuilder) Type(type_ string) *UserCustomAttrBuilder 
 // 示例值：DemoId
 func (builder *UserCustomAttrBuilder) Id(id string) *UserCustomAttrBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5166,21 +5413,21 @@ func (builder *UserCustomAttrBuilder) Id(id string) *UserCustomAttrBuilder {
 // 示例值：
 func (builder *UserCustomAttrBuilder) Value(value *UserCustomAttrValue) *UserCustomAttrBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *UserCustomAttrBuilder) Build() *UserCustomAttr {
 	req := &UserCustomAttr{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = builder.value
 	}
 	return req
@@ -5205,29 +5452,29 @@ type UserCustomAttrValue struct {
 }
 
 type UserCustomAttrValueBuilder struct {
-	text     string // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
-	textFlag bool
+	text    string // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
+	textSet bool
 
-	url     string // 字段类型为 HREF 时，该参数定义默认 URL，例如手机端跳转小程序，PC端跳转网页
-	urlFlag bool
+	url    string // 字段类型为 HREF 时，该参数定义默认 URL，例如手机端跳转小程序，PC端跳转网页
+	urlSet bool
 
-	pcUrl     string // 字段类型为 HREF 时，该参数定义PC端 URL
-	pcUrlFlag bool
+	pcUrl    string // 字段类型为 HREF 时，该参数定义PC端 URL
+	pcUrlSet bool
 
-	optionId     string // 字段类型为 ENUMERATION 或 PICTURE_ENUM 时，该参数定义选项值
-	optionIdFlag bool
+	optionId    string // 字段类型为 ENUMERATION 或 PICTURE_ENUM 时，该参数定义选项值
+	optionIdSet bool
 
-	optionValue     string // 选项类型的值。;;表示 成员详情/自定义字段 中选项选中的值
-	optionValueFlag bool
+	optionValue    string // 选项类型的值。;;表示 成员详情/自定义字段 中选项选中的值
+	optionValueSet bool
 
-	name     string // 选项类型为图片时，表示图片的名称
-	nameFlag bool
+	name    string // 选项类型为图片时，表示图片的名称
+	nameSet bool
 
-	pictureUrl     string // 图片链接
-	pictureUrlFlag bool
+	pictureUrl    string // 图片链接
+	pictureUrlSet bool
 
-	genericUser     *CustomAttrGenericUser // 字段类型为 GENERIC_USER 时，该参数定义引用人员
-	genericUserFlag bool
+	genericUser    *CustomAttrGenericUser // 字段类型为 GENERIC_USER 时，该参数定义引用人员
+	genericUserSet bool
 }
 
 func NewUserCustomAttrValueBuilder() *UserCustomAttrValueBuilder {
@@ -5240,7 +5487,7 @@ func NewUserCustomAttrValueBuilder() *UserCustomAttrValueBuilder {
 // 示例值：DemoText
 func (builder *UserCustomAttrValueBuilder) Text(text string) *UserCustomAttrValueBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -5249,7 +5496,7 @@ func (builder *UserCustomAttrValueBuilder) Text(text string) *UserCustomAttrValu
 // 示例值：http://www.fs.cn
 func (builder *UserCustomAttrValueBuilder) Url(url string) *UserCustomAttrValueBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -5258,7 +5505,7 @@ func (builder *UserCustomAttrValueBuilder) Url(url string) *UserCustomAttrValueB
 // 示例值：http://www.fs.cn
 func (builder *UserCustomAttrValueBuilder) PcUrl(pcUrl string) *UserCustomAttrValueBuilder {
 	builder.pcUrl = pcUrl
-	builder.pcUrlFlag = true
+	builder.pcUrlSet = true
 	return builder
 }
 
@@ -5267,7 +5514,7 @@ func (builder *UserCustomAttrValueBuilder) PcUrl(pcUrl string) *UserCustomAttrVa
 // 示例值：edcvfrtg
 func (builder *UserCustomAttrValueBuilder) OptionId(optionId string) *UserCustomAttrValueBuilder {
 	builder.optionId = optionId
-	builder.optionIdFlag = true
+	builder.optionIdSet = true
 	return builder
 }
 
@@ -5276,7 +5523,7 @@ func (builder *UserCustomAttrValueBuilder) OptionId(optionId string) *UserCustom
 // 示例值：option
 func (builder *UserCustomAttrValueBuilder) OptionValue(optionValue string) *UserCustomAttrValueBuilder {
 	builder.optionValue = optionValue
-	builder.optionValueFlag = true
+	builder.optionValueSet = true
 	return builder
 }
 
@@ -5285,7 +5532,7 @@ func (builder *UserCustomAttrValueBuilder) OptionValue(optionValue string) *User
 // 示例值：name
 func (builder *UserCustomAttrValueBuilder) Name(name string) *UserCustomAttrValueBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -5294,7 +5541,7 @@ func (builder *UserCustomAttrValueBuilder) Name(name string) *UserCustomAttrValu
 // 示例值：https://xxxxxxxxxxxxxxxxxx
 func (builder *UserCustomAttrValueBuilder) PictureUrl(pictureUrl string) *UserCustomAttrValueBuilder {
 	builder.pictureUrl = pictureUrl
-	builder.pictureUrlFlag = true
+	builder.pictureUrlSet = true
 	return builder
 }
 
@@ -5303,41 +5550,41 @@ func (builder *UserCustomAttrValueBuilder) PictureUrl(pictureUrl string) *UserCu
 // 示例值：
 func (builder *UserCustomAttrValueBuilder) GenericUser(genericUser *CustomAttrGenericUser) *UserCustomAttrValueBuilder {
 	builder.genericUser = genericUser
-	builder.genericUserFlag = true
+	builder.genericUserSet = true
 	return builder
 }
 
 func (builder *UserCustomAttrValueBuilder) Build() *UserCustomAttrValue {
 	req := &UserCustomAttrValue{}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.pcUrlFlag {
+	if builder.pcUrlSet {
 		req.PcUrl = &builder.pcUrl
 
 	}
-	if builder.optionIdFlag {
+	if builder.optionIdSet {
 		req.OptionId = &builder.optionId
 
 	}
-	if builder.optionValueFlag {
+	if builder.optionValueSet {
 		req.OptionValue = &builder.optionValue
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.pictureUrlFlag {
+	if builder.pictureUrlSet {
 		req.PictureUrl = &builder.pictureUrl
 
 	}
-	if builder.genericUserFlag {
+	if builder.genericUserSet {
 		req.GenericUser = builder.genericUser
 	}
 	return req
@@ -5352,14 +5599,14 @@ type UserDepartmentInfo struct {
 }
 
 type UserDepartmentInfoBuilder struct {
-	departmentId     string // 对应的部门ID
-	departmentIdFlag bool
+	departmentId    string // 对应的部门ID
+	departmentIdSet bool
 
-	userOrder     int // 用户在部门内的排序
-	userOrderFlag bool
+	userOrder    int // 用户在部门内的排序
+	userOrderSet bool
 
-	departmentOrder     int // 用户的部门间的排序
-	departmentOrderFlag bool
+	departmentOrder    int // 用户的部门间的排序
+	departmentOrderSet bool
 }
 
 func NewUserDepartmentInfoBuilder() *UserDepartmentInfoBuilder {
@@ -5372,7 +5619,7 @@ func NewUserDepartmentInfoBuilder() *UserDepartmentInfoBuilder {
 // 示例值：
 func (builder *UserDepartmentInfoBuilder) DepartmentId(departmentId string) *UserDepartmentInfoBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -5381,7 +5628,7 @@ func (builder *UserDepartmentInfoBuilder) DepartmentId(departmentId string) *Use
 // 示例值：
 func (builder *UserDepartmentInfoBuilder) UserOrder(userOrder int) *UserDepartmentInfoBuilder {
 	builder.userOrder = userOrder
-	builder.userOrderFlag = true
+	builder.userOrderSet = true
 	return builder
 }
 
@@ -5390,21 +5637,21 @@ func (builder *UserDepartmentInfoBuilder) UserOrder(userOrder int) *UserDepartme
 // 示例值：
 func (builder *UserDepartmentInfoBuilder) DepartmentOrder(departmentOrder int) *UserDepartmentInfoBuilder {
 	builder.departmentOrder = departmentOrder
-	builder.departmentOrderFlag = true
+	builder.departmentOrderSet = true
 	return builder
 }
 
 func (builder *UserDepartmentInfoBuilder) Build() *UserDepartmentInfo {
 	req := &UserDepartmentInfo{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.userOrderFlag {
+	if builder.userOrderSet {
 		req.UserOrder = &builder.userOrder
 
 	}
-	if builder.departmentOrderFlag {
+	if builder.departmentOrderSet {
 		req.DepartmentOrder = &builder.departmentOrder
 
 	}
@@ -5474,95 +5721,95 @@ type UserEvent struct {
 }
 
 type UserEventBuilder struct {
-	openId     string // 用户的open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	openIdFlag bool
+	openId    string // 用户的open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	openIdSet bool
 
-	unionId     string // 用户的union_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	unionIdFlag bool
+	unionId    string // 用户的union_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	unionIdSet bool
 
-	userId     string // 租户内用户的唯一标识 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	userIdFlag bool
+	userId    string // 租户内用户的唯一标识 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	userIdSet bool
 
-	name     string // 用户名
-	nameFlag bool
+	name    string // 用户名
+	nameSet bool
 
-	enName     string // 英文名
-	enNameFlag bool
+	enName    string // 英文名
+	enNameSet bool
 
-	nickname     string // 别名
-	nicknameFlag bool
+	nickname    string // 别名
+	nicknameSet bool
 
-	email     string // 邮箱
-	emailFlag bool
+	email    string // 邮箱
+	emailSet bool
 
-	enterpriseEmail     string // 企业邮箱
-	enterpriseEmailFlag bool
+	enterpriseEmail    string // 企业邮箱
+	enterpriseEmailSet bool
 
-	jobTitle     string // 职务
-	jobTitleFlag bool
+	jobTitle    string // 职务
+	jobTitleSet bool
 
-	mobile     string // 手机号
-	mobileFlag bool
+	mobile    string // 手机号
+	mobileSet bool
 
-	mobileVisible     bool // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
-	mobileVisibleFlag bool
+	mobileVisible    bool // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
+	mobileVisibleSet bool
 
-	gender     int // 性别
-	genderFlag bool
+	gender    int // 性别
+	genderSet bool
 
-	avatar     *AvatarInfo // 用户头像信息
-	avatarFlag bool
+	avatar    *AvatarInfo // 用户头像信息
+	avatarSet bool
 
-	status     *UserStatus // 用户状态
-	statusFlag bool
+	status    *UserStatus // 用户状态
+	statusSet bool
 
-	departmentIds     []string // 用户所属部门的ID列表
-	departmentIdsFlag bool
+	departmentIds    []string // 用户所属部门的ID列表
+	departmentIdsSet bool
 
-	leaderUserId     string // 用户的直接主管的用户open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	leaderUserIdFlag bool
+	leaderUserId    string // 用户的直接主管的用户open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	leaderUserIdSet bool
 
-	city     string // 城市
-	cityFlag bool
+	city    string // 城市
+	citySet bool
 
-	country     string // 国家
-	countryFlag bool
+	country    string // 国家
+	countrySet bool
 
-	workStation     string // 工位
-	workStationFlag bool
+	workStation    string // 工位
+	workStationSet bool
 
-	joinTime     int // 入职时间
-	joinTimeFlag bool
+	joinTime    int // 入职时间
+	joinTimeSet bool
 
-	isTenantManager     bool // 是否是租户管理员
-	isTenantManagerFlag bool
+	isTenantManager    bool // 是否是租户管理员
+	isTenantManagerSet bool
 
-	employeeNo     string // 工号
-	employeeNoFlag bool
+	employeeNo    string // 工号
+	employeeNoSet bool
 
-	employeeType     int // 员工类型
-	employeeTypeFlag bool
+	employeeType    int // 员工类型
+	employeeTypeSet bool
 
-	positions     []*UserPosition // 职位信息
-	positionsFlag bool
+	positions    []*UserPosition // 职位信息
+	positionsSet bool
 
-	orders     []*UserOrder // 用户排序信息
-	ordersFlag bool
+	orders    []*UserOrder // 用户排序信息
+	ordersSet bool
 
-	timeZone     string // 时区
-	timeZoneFlag bool
+	timeZone    string // 时区
+	timeZoneSet bool
 
-	customAttrs     []*UserCustomAttr // 自定义属性
-	customAttrsFlag bool
+	customAttrs    []*UserCustomAttr // 自定义属性
+	customAttrsSet bool
 
-	jobLevelId     string // 职级ID
-	jobLevelIdFlag bool
+	jobLevelId    string // 职级ID
+	jobLevelIdSet bool
 
-	jobFamilyId     string // 序列ID
-	jobFamilyIdFlag bool
+	jobFamilyId    string // 序列ID
+	jobFamilyIdSet bool
 
-	dottedLineLeaderUserIds     []string // 虚线上级ID
-	dottedLineLeaderUserIdsFlag bool
+	dottedLineLeaderUserIds    []string // 虚线上级ID
+	dottedLineLeaderUserIdsSet bool
 }
 
 func NewUserEventBuilder() *UserEventBuilder {
@@ -5575,7 +5822,7 @@ func NewUserEventBuilder() *UserEventBuilder {
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserEventBuilder) OpenId(openId string) *UserEventBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
@@ -5584,7 +5831,7 @@ func (builder *UserEventBuilder) OpenId(openId string) *UserEventBuilder {
 // 示例值：on_576833b917gda3d939b9a3c2d53e72c8
 func (builder *UserEventBuilder) UnionId(unionId string) *UserEventBuilder {
 	builder.unionId = unionId
-	builder.unionIdFlag = true
+	builder.unionIdSet = true
 	return builder
 }
 
@@ -5593,7 +5840,7 @@ func (builder *UserEventBuilder) UnionId(unionId string) *UserEventBuilder {
 // 示例值：e33ggbyz
 func (builder *UserEventBuilder) UserId(userId string) *UserEventBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -5602,7 +5849,7 @@ func (builder *UserEventBuilder) UserId(userId string) *UserEventBuilder {
 // 示例值：张三
 func (builder *UserEventBuilder) Name(name string) *UserEventBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -5611,7 +5858,7 @@ func (builder *UserEventBuilder) Name(name string) *UserEventBuilder {
 // 示例值：San Zhang
 func (builder *UserEventBuilder) EnName(enName string) *UserEventBuilder {
 	builder.enName = enName
-	builder.enNameFlag = true
+	builder.enNameSet = true
 	return builder
 }
 
@@ -5620,7 +5867,7 @@ func (builder *UserEventBuilder) EnName(enName string) *UserEventBuilder {
 // 示例值：Sunny Zhang
 func (builder *UserEventBuilder) Nickname(nickname string) *UserEventBuilder {
 	builder.nickname = nickname
-	builder.nicknameFlag = true
+	builder.nicknameSet = true
 	return builder
 }
 
@@ -5629,7 +5876,7 @@ func (builder *UserEventBuilder) Nickname(nickname string) *UserEventBuilder {
 // 示例值：zhangsan@gmail.com
 func (builder *UserEventBuilder) Email(email string) *UserEventBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -5638,7 +5885,7 @@ func (builder *UserEventBuilder) Email(email string) *UserEventBuilder {
 // 示例值：demo@mail.com
 func (builder *UserEventBuilder) EnterpriseEmail(enterpriseEmail string) *UserEventBuilder {
 	builder.enterpriseEmail = enterpriseEmail
-	builder.enterpriseEmailFlag = true
+	builder.enterpriseEmailSet = true
 	return builder
 }
 
@@ -5647,7 +5894,7 @@ func (builder *UserEventBuilder) EnterpriseEmail(enterpriseEmail string) *UserEv
 // 示例值：软件工程师
 func (builder *UserEventBuilder) JobTitle(jobTitle string) *UserEventBuilder {
 	builder.jobTitle = jobTitle
-	builder.jobTitleFlag = true
+	builder.jobTitleSet = true
 	return builder
 }
 
@@ -5656,7 +5903,7 @@ func (builder *UserEventBuilder) JobTitle(jobTitle string) *UserEventBuilder {
 // 示例值：12345678910
 func (builder *UserEventBuilder) Mobile(mobile string) *UserEventBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -5665,7 +5912,7 @@ func (builder *UserEventBuilder) Mobile(mobile string) *UserEventBuilder {
 // 示例值：false
 func (builder *UserEventBuilder) MobileVisible(mobileVisible bool) *UserEventBuilder {
 	builder.mobileVisible = mobileVisible
-	builder.mobileVisibleFlag = true
+	builder.mobileVisibleSet = true
 	return builder
 }
 
@@ -5674,7 +5921,7 @@ func (builder *UserEventBuilder) MobileVisible(mobileVisible bool) *UserEventBui
 // 示例值：1
 func (builder *UserEventBuilder) Gender(gender int) *UserEventBuilder {
 	builder.gender = gender
-	builder.genderFlag = true
+	builder.genderSet = true
 	return builder
 }
 
@@ -5683,7 +5930,7 @@ func (builder *UserEventBuilder) Gender(gender int) *UserEventBuilder {
 // 示例值：
 func (builder *UserEventBuilder) Avatar(avatar *AvatarInfo) *UserEventBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
@@ -5692,7 +5939,7 @@ func (builder *UserEventBuilder) Avatar(avatar *AvatarInfo) *UserEventBuilder {
 // 示例值：
 func (builder *UserEventBuilder) Status(status *UserStatus) *UserEventBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -5701,7 +5948,7 @@ func (builder *UserEventBuilder) Status(status *UserStatus) *UserEventBuilder {
 // 示例值：
 func (builder *UserEventBuilder) DepartmentIds(departmentIds []string) *UserEventBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
@@ -5710,7 +5957,7 @@ func (builder *UserEventBuilder) DepartmentIds(departmentIds []string) *UserEven
 // 示例值：ou_3ghm8a2u0eftg0ff377125s5dd275z09
 func (builder *UserEventBuilder) LeaderUserId(leaderUserId string) *UserEventBuilder {
 	builder.leaderUserId = leaderUserId
-	builder.leaderUserIdFlag = true
+	builder.leaderUserIdSet = true
 	return builder
 }
 
@@ -5719,7 +5966,7 @@ func (builder *UserEventBuilder) LeaderUserId(leaderUserId string) *UserEventBui
 // 示例值：杭州
 func (builder *UserEventBuilder) City(city string) *UserEventBuilder {
 	builder.city = city
-	builder.cityFlag = true
+	builder.citySet = true
 	return builder
 }
 
@@ -5728,7 +5975,7 @@ func (builder *UserEventBuilder) City(city string) *UserEventBuilder {
 // 示例值：中国
 func (builder *UserEventBuilder) Country(country string) *UserEventBuilder {
 	builder.country = country
-	builder.countryFlag = true
+	builder.countrySet = true
 	return builder
 }
 
@@ -5737,7 +5984,7 @@ func (builder *UserEventBuilder) Country(country string) *UserEventBuilder {
 // 示例值：杭州
 func (builder *UserEventBuilder) WorkStation(workStation string) *UserEventBuilder {
 	builder.workStation = workStation
-	builder.workStationFlag = true
+	builder.workStationSet = true
 	return builder
 }
 
@@ -5746,7 +5993,7 @@ func (builder *UserEventBuilder) WorkStation(workStation string) *UserEventBuild
 // 示例值：1615381702
 func (builder *UserEventBuilder) JoinTime(joinTime int) *UserEventBuilder {
 	builder.joinTime = joinTime
-	builder.joinTimeFlag = true
+	builder.joinTimeSet = true
 	return builder
 }
 
@@ -5755,7 +6002,7 @@ func (builder *UserEventBuilder) JoinTime(joinTime int) *UserEventBuilder {
 // 示例值：false
 func (builder *UserEventBuilder) IsTenantManager(isTenantManager bool) *UserEventBuilder {
 	builder.isTenantManager = isTenantManager
-	builder.isTenantManagerFlag = true
+	builder.isTenantManagerSet = true
 	return builder
 }
 
@@ -5764,7 +6011,7 @@ func (builder *UserEventBuilder) IsTenantManager(isTenantManager bool) *UserEven
 // 示例值：e33ggbyz
 func (builder *UserEventBuilder) EmployeeNo(employeeNo string) *UserEventBuilder {
 	builder.employeeNo = employeeNo
-	builder.employeeNoFlag = true
+	builder.employeeNoSet = true
 	return builder
 }
 
@@ -5773,7 +6020,7 @@ func (builder *UserEventBuilder) EmployeeNo(employeeNo string) *UserEventBuilder
 // 示例值：1
 func (builder *UserEventBuilder) EmployeeType(employeeType int) *UserEventBuilder {
 	builder.employeeType = employeeType
-	builder.employeeTypeFlag = true
+	builder.employeeTypeSet = true
 	return builder
 }
 
@@ -5782,7 +6029,7 @@ func (builder *UserEventBuilder) EmployeeType(employeeType int) *UserEventBuilde
 // 示例值：
 func (builder *UserEventBuilder) Positions(positions []*UserPosition) *UserEventBuilder {
 	builder.positions = positions
-	builder.positionsFlag = true
+	builder.positionsSet = true
 	return builder
 }
 
@@ -5791,7 +6038,7 @@ func (builder *UserEventBuilder) Positions(positions []*UserPosition) *UserEvent
 // 示例值：
 func (builder *UserEventBuilder) Orders(orders []*UserOrder) *UserEventBuilder {
 	builder.orders = orders
-	builder.ordersFlag = true
+	builder.ordersSet = true
 	return builder
 }
 
@@ -5800,7 +6047,7 @@ func (builder *UserEventBuilder) Orders(orders []*UserOrder) *UserEventBuilder {
 // 示例值：
 func (builder *UserEventBuilder) TimeZone(timeZone string) *UserEventBuilder {
 	builder.timeZone = timeZone
-	builder.timeZoneFlag = true
+	builder.timeZoneSet = true
 	return builder
 }
 
@@ -5809,7 +6056,7 @@ func (builder *UserEventBuilder) TimeZone(timeZone string) *UserEventBuilder {
 // 示例值：
 func (builder *UserEventBuilder) CustomAttrs(customAttrs []*UserCustomAttr) *UserEventBuilder {
 	builder.customAttrs = customAttrs
-	builder.customAttrsFlag = true
+	builder.customAttrsSet = true
 	return builder
 }
 
@@ -5818,7 +6065,7 @@ func (builder *UserEventBuilder) CustomAttrs(customAttrs []*UserCustomAttr) *Use
 // 示例值：mga5oa8ayjlp9rb
 func (builder *UserEventBuilder) JobLevelId(jobLevelId string) *UserEventBuilder {
 	builder.jobLevelId = jobLevelId
-	builder.jobLevelIdFlag = true
+	builder.jobLevelIdSet = true
 	return builder
 }
 
@@ -5827,7 +6074,7 @@ func (builder *UserEventBuilder) JobLevelId(jobLevelId string) *UserEventBuilder
 // 示例值：mga5oa8ayjlp9rb
 func (builder *UserEventBuilder) JobFamilyId(jobFamilyId string) *UserEventBuilder {
 	builder.jobFamilyId = jobFamilyId
-	builder.jobFamilyIdFlag = true
+	builder.jobFamilyIdSet = true
 	return builder
 }
 
@@ -5836,123 +6083,123 @@ func (builder *UserEventBuilder) JobFamilyId(jobFamilyId string) *UserEventBuild
 // 示例值：
 func (builder *UserEventBuilder) DottedLineLeaderUserIds(dottedLineLeaderUserIds []string) *UserEventBuilder {
 	builder.dottedLineLeaderUserIds = dottedLineLeaderUserIds
-	builder.dottedLineLeaderUserIdsFlag = true
+	builder.dottedLineLeaderUserIdsSet = true
 	return builder
 }
 
 func (builder *UserEventBuilder) Build() *UserEvent {
 	req := &UserEvent{}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.unionIdFlag {
+	if builder.unionIdSet {
 		req.UnionId = &builder.unionId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.enNameFlag {
+	if builder.enNameSet {
 		req.EnName = &builder.enName
 
 	}
-	if builder.nicknameFlag {
+	if builder.nicknameSet {
 		req.Nickname = &builder.nickname
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.enterpriseEmailFlag {
+	if builder.enterpriseEmailSet {
 		req.EnterpriseEmail = &builder.enterpriseEmail
 
 	}
-	if builder.jobTitleFlag {
+	if builder.jobTitleSet {
 		req.JobTitle = &builder.jobTitle
 
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.mobileVisibleFlag {
+	if builder.mobileVisibleSet {
 		req.MobileVisible = &builder.mobileVisible
 
 	}
-	if builder.genderFlag {
+	if builder.genderSet {
 		req.Gender = &builder.gender
 
 	}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = builder.avatar
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = builder.status
 	}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.leaderUserIdFlag {
+	if builder.leaderUserIdSet {
 		req.LeaderUserId = &builder.leaderUserId
 
 	}
-	if builder.cityFlag {
+	if builder.citySet {
 		req.City = &builder.city
 
 	}
-	if builder.countryFlag {
+	if builder.countrySet {
 		req.Country = &builder.country
 
 	}
-	if builder.workStationFlag {
+	if builder.workStationSet {
 		req.WorkStation = &builder.workStation
 
 	}
-	if builder.joinTimeFlag {
+	if builder.joinTimeSet {
 		req.JoinTime = &builder.joinTime
 
 	}
-	if builder.isTenantManagerFlag {
+	if builder.isTenantManagerSet {
 		req.IsTenantManager = &builder.isTenantManager
 
 	}
-	if builder.employeeNoFlag {
+	if builder.employeeNoSet {
 		req.EmployeeNo = &builder.employeeNo
 
 	}
-	if builder.employeeTypeFlag {
+	if builder.employeeTypeSet {
 		req.EmployeeType = &builder.employeeType
 
 	}
-	if builder.positionsFlag {
+	if builder.positionsSet {
 		req.Positions = builder.positions
 	}
-	if builder.ordersFlag {
+	if builder.ordersSet {
 		req.Orders = builder.orders
 	}
-	if builder.timeZoneFlag {
+	if builder.timeZoneSet {
 		req.TimeZone = &builder.timeZone
 
 	}
-	if builder.customAttrsFlag {
+	if builder.customAttrsSet {
 		req.CustomAttrs = builder.customAttrs
 	}
-	if builder.jobLevelIdFlag {
+	if builder.jobLevelIdSet {
 		req.JobLevelId = &builder.jobLevelId
 
 	}
-	if builder.jobFamilyIdFlag {
+	if builder.jobFamilyIdSet {
 		req.JobFamilyId = &builder.jobFamilyId
 
 	}
-	if builder.dottedLineLeaderUserIdsFlag {
+	if builder.dottedLineLeaderUserIdsSet {
 		req.DottedLineLeaderUserIds = builder.dottedLineLeaderUserIds
 	}
 	return req
@@ -5971,20 +6218,20 @@ type UserGroup struct {
 }
 
 type UserGroupBuilder struct {
-	userGroupId     string // 用户组的自定义ID
-	userGroupIdFlag bool
+	userGroupId    string // 用户组的自定义ID
+	userGroupIdSet bool
 
-	name     string // 用户组的名称
-	nameFlag bool
+	name    string // 用户组的名称
+	nameSet bool
 
 	type_    int // 用户组的类型
-	typeFlag bool
+	type_Set bool
 
-	memberCount     int // 成员数量
-	memberCountFlag bool
+	memberCount    int // 成员数量
+	memberCountSet bool
 
-	status     int // 用户组状态
-	statusFlag bool
+	status    int // 用户组状态
+	statusSet bool
 }
 
 func NewUserGroupBuilder() *UserGroupBuilder {
@@ -5997,7 +6244,7 @@ func NewUserGroupBuilder() *UserGroupBuilder {
 // 示例值：test
 func (builder *UserGroupBuilder) UserGroupId(userGroupId string) *UserGroupBuilder {
 	builder.userGroupId = userGroupId
-	builder.userGroupIdFlag = true
+	builder.userGroupIdSet = true
 	return builder
 }
 
@@ -6006,7 +6253,7 @@ func (builder *UserGroupBuilder) UserGroupId(userGroupId string) *UserGroupBuild
 // 示例值：userGroupName
 func (builder *UserGroupBuilder) Name(name string) *UserGroupBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -6015,7 +6262,7 @@ func (builder *UserGroupBuilder) Name(name string) *UserGroupBuilder {
 // 示例值：1
 func (builder *UserGroupBuilder) Type(type_ int) *UserGroupBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -6024,7 +6271,7 @@ func (builder *UserGroupBuilder) Type(type_ int) *UserGroupBuilder {
 // 示例值：10
 func (builder *UserGroupBuilder) MemberCount(memberCount int) *UserGroupBuilder {
 	builder.memberCount = memberCount
-	builder.memberCountFlag = true
+	builder.memberCountSet = true
 	return builder
 }
 
@@ -6033,29 +6280,29 @@ func (builder *UserGroupBuilder) MemberCount(memberCount int) *UserGroupBuilder 
 // 示例值：1
 func (builder *UserGroupBuilder) Status(status int) *UserGroupBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *UserGroupBuilder) Build() *UserGroup {
 	req := &UserGroup{}
-	if builder.userGroupIdFlag {
+	if builder.userGroupIdSet {
 		req.UserGroupId = &builder.userGroupId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.memberCountFlag {
+	if builder.memberCountSet {
 		req.MemberCount = &builder.memberCount
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
@@ -6087,14 +6334,14 @@ type UserI18nName struct {
 }
 
 type UserI18nNameBuilder struct {
-	zhCn     string // 用户的中文名
-	zhCnFlag bool
+	zhCn    string // 用户的中文名
+	zhCnSet bool
 
-	jaJp     string // 用户的日文名
-	jaJpFlag bool
+	jaJp    string // 用户的日文名
+	jaJpSet bool
 
-	enUs     string // 用户的英文名
-	enUsFlag bool
+	enUs    string // 用户的英文名
+	enUsSet bool
 }
 
 func NewUserI18nNameBuilder() *UserI18nNameBuilder {
@@ -6107,7 +6354,7 @@ func NewUserI18nNameBuilder() *UserI18nNameBuilder {
 // 示例值：zh_cn_name
 func (builder *UserI18nNameBuilder) ZhCn(zhCn string) *UserI18nNameBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -6116,7 +6363,7 @@ func (builder *UserI18nNameBuilder) ZhCn(zhCn string) *UserI18nNameBuilder {
 // 示例值：ja_jp_name
 func (builder *UserI18nNameBuilder) JaJp(jaJp string) *UserI18nNameBuilder {
 	builder.jaJp = jaJp
-	builder.jaJpFlag = true
+	builder.jaJpSet = true
 	return builder
 }
 
@@ -6125,21 +6372,21 @@ func (builder *UserI18nNameBuilder) JaJp(jaJp string) *UserI18nNameBuilder {
 // 示例值：en_name
 func (builder *UserI18nNameBuilder) EnUs(enUs string) *UserI18nNameBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
 func (builder *UserI18nNameBuilder) Build() *UserI18nName {
 	req := &UserI18nName{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.jaJpFlag {
+	if builder.jaJpSet {
 		req.JaJp = &builder.jaJp
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
@@ -6155,14 +6402,14 @@ type UserId struct {
 }
 
 type UserIdBuilder struct {
-	userId     string //
-	userIdFlag bool
+	userId    string //
+	userIdSet bool
 
-	openId     string //
-	openIdFlag bool
+	openId    string //
+	openIdSet bool
 
-	unionId     string //
-	unionIdFlag bool
+	unionId    string //
+	unionIdSet bool
 }
 
 func NewUserIdBuilder() *UserIdBuilder {
@@ -6170,38 +6417,44 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
-	builder.unionIdFlag = true
+	builder.unionIdSet = true
 	return builder
 }
 
 func (builder *UserIdBuilder) Build() *UserId {
 	req := &UserId{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.unionIdFlag {
+	if builder.unionIdSet {
 		req.UnionId = &builder.unionId
 
 	}
@@ -6219,17 +6472,17 @@ type UserOrder struct {
 }
 
 type UserOrderBuilder struct {
-	departmentId     string // 排序信息对应的部门ID， ID值与查询参数中的department_id_type 对应。;;表示用户所在的、且需要排序的部门。;;不同 ID 的说明参见及获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
-	departmentIdFlag bool
+	departmentId    string // 排序信息对应的部门ID， ID值与查询参数中的department_id_type 对应。;;表示用户所在的、且需要排序的部门。;;不同 ID 的说明参见及获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
+	departmentIdSet bool
 
-	userOrder     int // 用户在其直属部门内的排序，数值越大，排序越靠前
-	userOrderFlag bool
+	userOrder    int // 用户在其直属部门内的排序，数值越大，排序越靠前
+	userOrderSet bool
 
-	departmentOrder     int // 用户所属的多个部门间的排序，数值越大，排序越靠前
-	departmentOrderFlag bool
+	departmentOrder    int // 用户所属的多个部门间的排序，数值越大，排序越靠前
+	departmentOrderSet bool
 
-	isPrimaryDept     bool // 是否为用户主部门
-	isPrimaryDeptFlag bool
+	isPrimaryDept    bool // 是否为用户主部门
+	isPrimaryDeptSet bool
 }
 
 func NewUserOrderBuilder() *UserOrderBuilder {
@@ -6242,7 +6495,7 @@ func NewUserOrderBuilder() *UserOrderBuilder {
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *UserOrderBuilder) DepartmentId(departmentId string) *UserOrderBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -6251,7 +6504,7 @@ func (builder *UserOrderBuilder) DepartmentId(departmentId string) *UserOrderBui
 // 示例值：100
 func (builder *UserOrderBuilder) UserOrder(userOrder int) *UserOrderBuilder {
 	builder.userOrder = userOrder
-	builder.userOrderFlag = true
+	builder.userOrderSet = true
 	return builder
 }
 
@@ -6260,7 +6513,7 @@ func (builder *UserOrderBuilder) UserOrder(userOrder int) *UserOrderBuilder {
 // 示例值：100
 func (builder *UserOrderBuilder) DepartmentOrder(departmentOrder int) *UserOrderBuilder {
 	builder.departmentOrder = departmentOrder
-	builder.departmentOrderFlag = true
+	builder.departmentOrderSet = true
 	return builder
 }
 
@@ -6269,25 +6522,25 @@ func (builder *UserOrderBuilder) DepartmentOrder(departmentOrder int) *UserOrder
 // 示例值：true
 func (builder *UserOrderBuilder) IsPrimaryDept(isPrimaryDept bool) *UserOrderBuilder {
 	builder.isPrimaryDept = isPrimaryDept
-	builder.isPrimaryDeptFlag = true
+	builder.isPrimaryDeptSet = true
 	return builder
 }
 
 func (builder *UserOrderBuilder) Build() *UserOrder {
 	req := &UserOrder{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.userOrderFlag {
+	if builder.userOrderSet {
 		req.UserOrder = &builder.userOrder
 
 	}
-	if builder.departmentOrderFlag {
+	if builder.departmentOrderSet {
 		req.DepartmentOrder = &builder.departmentOrder
 
 	}
-	if builder.isPrimaryDeptFlag {
+	if builder.isPrimaryDeptSet {
 		req.IsPrimaryDept = &builder.isPrimaryDept
 
 	}
@@ -6309,23 +6562,23 @@ type UserPosition struct {
 }
 
 type UserPositionBuilder struct {
-	positionCode     string // 岗位Code
-	positionCodeFlag bool
+	positionCode    string // 岗位Code
+	positionCodeSet bool
 
-	positionName     string // 岗位名称
-	positionNameFlag bool
+	positionName    string // 岗位名称
+	positionNameSet bool
 
-	departmentId     string // 岗位部门ID
-	departmentIdFlag bool
+	departmentId    string // 岗位部门ID
+	departmentIdSet bool
 
-	leaderUserId     string // 上级领导ID
-	leaderUserIdFlag bool
+	leaderUserId    string // 上级领导ID
+	leaderUserIdSet bool
 
-	leaderPositionCode     string // 本岗位领导的岗位code
-	leaderPositionCodeFlag bool
+	leaderPositionCode    string // 本岗位领导的岗位code
+	leaderPositionCodeSet bool
 
-	isMajor     bool // 是否主岗，只允许一个主岗sd
-	isMajorFlag bool
+	isMajor    bool // 是否主岗，只允许一个主岗sd
+	isMajorSet bool
 }
 
 func NewUserPositionBuilder() *UserPositionBuilder {
@@ -6338,7 +6591,7 @@ func NewUserPositionBuilder() *UserPositionBuilder {
 // 示例值：
 func (builder *UserPositionBuilder) PositionCode(positionCode string) *UserPositionBuilder {
 	builder.positionCode = positionCode
-	builder.positionCodeFlag = true
+	builder.positionCodeSet = true
 	return builder
 }
 
@@ -6347,7 +6600,7 @@ func (builder *UserPositionBuilder) PositionCode(positionCode string) *UserPosit
 // 示例值：
 func (builder *UserPositionBuilder) PositionName(positionName string) *UserPositionBuilder {
 	builder.positionName = positionName
-	builder.positionNameFlag = true
+	builder.positionNameSet = true
 	return builder
 }
 
@@ -6356,7 +6609,7 @@ func (builder *UserPositionBuilder) PositionName(positionName string) *UserPosit
 // 示例值：
 func (builder *UserPositionBuilder) DepartmentId(departmentId string) *UserPositionBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -6365,7 +6618,7 @@ func (builder *UserPositionBuilder) DepartmentId(departmentId string) *UserPosit
 // 示例值：
 func (builder *UserPositionBuilder) LeaderUserId(leaderUserId string) *UserPositionBuilder {
 	builder.leaderUserId = leaderUserId
-	builder.leaderUserIdFlag = true
+	builder.leaderUserIdSet = true
 	return builder
 }
 
@@ -6374,7 +6627,7 @@ func (builder *UserPositionBuilder) LeaderUserId(leaderUserId string) *UserPosit
 // 示例值：
 func (builder *UserPositionBuilder) LeaderPositionCode(leaderPositionCode string) *UserPositionBuilder {
 	builder.leaderPositionCode = leaderPositionCode
-	builder.leaderPositionCodeFlag = true
+	builder.leaderPositionCodeSet = true
 	return builder
 }
 
@@ -6383,34 +6636,361 @@ func (builder *UserPositionBuilder) LeaderPositionCode(leaderPositionCode string
 // 示例值：
 func (builder *UserPositionBuilder) IsMajor(isMajor bool) *UserPositionBuilder {
 	builder.isMajor = isMajor
-	builder.isMajorFlag = true
+	builder.isMajorSet = true
 	return builder
 }
 
 func (builder *UserPositionBuilder) Build() *UserPosition {
 	req := &UserPosition{}
-	if builder.positionCodeFlag {
+	if builder.positionCodeSet {
 		req.PositionCode = &builder.positionCode
 
 	}
-	if builder.positionNameFlag {
+	if builder.positionNameSet {
 		req.PositionName = &builder.positionName
 
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.leaderUserIdFlag {
+	if builder.leaderUserIdSet {
 		req.LeaderUserId = &builder.leaderUserId
 
 	}
-	if builder.leaderPositionCodeFlag {
+	if builder.leaderPositionCodeSet {
 		req.LeaderPositionCode = &builder.leaderPositionCode
 
 	}
-	if builder.isMajorFlag {
+	if builder.isMajorSet {
 		req.IsMajor = &builder.isMajor
+
+	}
+	return req
+}
+
+type UserSearchFilter struct {
+	IsResigned *bool `json:"is_resigned,omitempty"` // 是否离职（默认在职+离职且聊过天，设置true，仅搜离职且聊过天）
+
+	HasContact *bool `json:"has_contact,omitempty"` // 是否有聊天记录
+
+	ExcludeOuterContact *bool `json:"exclude_outer_contact,omitempty"` // 是否排除外部好友（默认搜索同租户+外部好友，设置true仅搜同租户）
+
+	HasEnterpriseEmail *bool `json:"has_enterprise_email,omitempty"` // 是否存在企业邮箱
+
+	UserIds []string `json:"user_ids,omitempty"` // 指定用户ID列表
+}
+
+type UserSearchFilterBuilder struct {
+	isResigned    bool // 是否离职（默认在职+离职且聊过天，设置true，仅搜离职且聊过天）
+	isResignedSet bool
+
+	hasContact    bool // 是否有聊天记录
+	hasContactSet bool
+
+	excludeOuterContact    bool // 是否排除外部好友（默认搜索同租户+外部好友，设置true仅搜同租户）
+	excludeOuterContactSet bool
+
+	hasEnterpriseEmail    bool // 是否存在企业邮箱
+	hasEnterpriseEmailSet bool
+
+	userIds    []string // 指定用户ID列表
+	userIdsSet bool
+}
+
+func NewUserSearchFilterBuilder() *UserSearchFilterBuilder {
+	builder := &UserSearchFilterBuilder{}
+	return builder
+}
+
+// 是否离职（默认在职+离职且聊过天，设置true，仅搜离职且聊过天）
+//
+// 示例值：
+func (builder *UserSearchFilterBuilder) IsResigned(isResigned bool) *UserSearchFilterBuilder {
+	builder.isResigned = isResigned
+	builder.isResignedSet = true
+	return builder
+}
+
+// 是否有聊天记录
+//
+// 示例值：
+func (builder *UserSearchFilterBuilder) HasContact(hasContact bool) *UserSearchFilterBuilder {
+	builder.hasContact = hasContact
+	builder.hasContactSet = true
+	return builder
+}
+
+// 是否排除外部好友（默认搜索同租户+外部好友，设置true仅搜同租户）
+//
+// 示例值：
+func (builder *UserSearchFilterBuilder) ExcludeOuterContact(excludeOuterContact bool) *UserSearchFilterBuilder {
+	builder.excludeOuterContact = excludeOuterContact
+	builder.excludeOuterContactSet = true
+	return builder
+}
+
+// 是否存在企业邮箱
+//
+// 示例值：
+func (builder *UserSearchFilterBuilder) HasEnterpriseEmail(hasEnterpriseEmail bool) *UserSearchFilterBuilder {
+	builder.hasEnterpriseEmail = hasEnterpriseEmail
+	builder.hasEnterpriseEmailSet = true
+	return builder
+}
+
+// 指定用户ID列表
+//
+// 示例值：
+func (builder *UserSearchFilterBuilder) UserIds(userIds []string) *UserSearchFilterBuilder {
+	builder.userIds = userIds
+	builder.userIdsSet = true
+	return builder
+}
+
+func (builder *UserSearchFilterBuilder) Build() *UserSearchFilter {
+	req := &UserSearchFilter{}
+	if builder.isResignedSet {
+		req.IsResigned = &builder.isResigned
+
+	}
+	if builder.hasContactSet {
+		req.HasContact = &builder.hasContact
+
+	}
+	if builder.excludeOuterContactSet {
+		req.ExcludeOuterContact = &builder.excludeOuterContact
+
+	}
+	if builder.hasEnterpriseEmailSet {
+		req.HasEnterpriseEmail = &builder.hasEnterpriseEmail
+
+	}
+	if builder.userIdsSet {
+		req.UserIds = builder.userIds
+	}
+	return req
+}
+
+type UserSearchItem struct {
+	Id *string `json:"id,omitempty"` // 用户ID
+
+	DisplayInfo *string `json:"display_info,omitempty"` // 包含用户基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+
+	MetaData *UserSearchMeta `json:"meta_data,omitempty"` // 用户元信息
+}
+
+type UserSearchItemBuilder struct {
+	id    string // 用户ID
+	idSet bool
+
+	displayInfo    string // 包含用户基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+	displayInfoSet bool
+
+	metaData    *UserSearchMeta // 用户元信息
+	metaDataSet bool
+}
+
+func NewUserSearchItemBuilder() *UserSearchItemBuilder {
+	builder := &UserSearchItemBuilder{}
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：4d7a3c6g
+func (builder *UserSearchItemBuilder) Id(id string) *UserSearchItemBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 包含用户基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
+//
+// 示例值：飞书<h>搜索</h>
+func (builder *UserSearchItemBuilder) DisplayInfo(displayInfo string) *UserSearchItemBuilder {
+	builder.displayInfo = displayInfo
+	builder.displayInfoSet = true
+	return builder
+}
+
+// 用户元信息
+//
+// 示例值：
+func (builder *UserSearchItemBuilder) MetaData(metaData *UserSearchMeta) *UserSearchItemBuilder {
+	builder.metaData = metaData
+	builder.metaDataSet = true
+	return builder
+}
+
+func (builder *UserSearchItemBuilder) Build() *UserSearchItem {
+	req := &UserSearchItem{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.displayInfoSet {
+		req.DisplayInfo = &builder.displayInfo
+
+	}
+	if builder.metaDataSet {
+		req.MetaData = builder.metaData
+	}
+	return req
+}
+
+type UserSearchMeta struct {
+	IsRegistered *bool `json:"is_registered,omitempty"` // 是否已激活
+
+	TenantId *string `json:"tenant_id,omitempty"` // 租户ID
+
+	MailAddress *string `json:"mail_address,omitempty"` // 联系邮箱地址
+
+	ChatId *string `json:"chat_id,omitempty"` // 关联的单聊ID
+
+	EnterpriseMailAddress *string `json:"enterprise_mail_address,omitempty"` // 企业邮箱地址
+
+	I18nNames map[string]string `json:"i18n_names,omitempty"` // 多语言名称，key为语言代码(如zh_cn、en_us、ja_jp)，value为对应语言的名称
+
+	IsCrossTenant *bool `json:"is_cross_tenant,omitempty"` // 是否跨租户
+
+	Description *string `json:"description,omitempty"` // 用户签名/描述
+}
+
+type UserSearchMetaBuilder struct {
+	isRegistered    bool // 是否已激活
+	isRegisteredSet bool
+
+	tenantId    string // 租户ID
+	tenantIdSet bool
+
+	mailAddress    string // 联系邮箱地址
+	mailAddressSet bool
+
+	chatId    string // 关联的单聊ID
+	chatIdSet bool
+
+	enterpriseMailAddress    string // 企业邮箱地址
+	enterpriseMailAddressSet bool
+
+	i18nNames    map[string]string // 多语言名称，key为语言代码(如zh_cn、en_us、ja_jp)，value为对应语言的名称
+	i18nNamesSet bool
+
+	isCrossTenant    bool // 是否跨租户
+	isCrossTenantSet bool
+
+	description    string // 用户签名/描述
+	descriptionSet bool
+}
+
+func NewUserSearchMetaBuilder() *UserSearchMetaBuilder {
+	builder := &UserSearchMetaBuilder{}
+	return builder
+}
+
+// 是否已激活
+//
+// 示例值：
+func (builder *UserSearchMetaBuilder) IsRegistered(isRegistered bool) *UserSearchMetaBuilder {
+	builder.isRegistered = isRegistered
+	builder.isRegisteredSet = true
+	return builder
+}
+
+// 租户ID
+//
+// 示例值：7168668599198941203
+func (builder *UserSearchMetaBuilder) TenantId(tenantId string) *UserSearchMetaBuilder {
+	builder.tenantId = tenantId
+	builder.tenantIdSet = true
+	return builder
+}
+
+// 联系邮箱地址
+//
+// 示例值：zhangsan@gmail.com
+func (builder *UserSearchMetaBuilder) MailAddress(mailAddress string) *UserSearchMetaBuilder {
+	builder.mailAddress = mailAddress
+	builder.mailAddressSet = true
+	return builder
+}
+
+// 关联的单聊ID
+//
+// 示例值：7890123456abcdef
+func (builder *UserSearchMetaBuilder) ChatId(chatId string) *UserSearchMetaBuilder {
+	builder.chatId = chatId
+	builder.chatIdSet = true
+	return builder
+}
+
+// 企业邮箱地址
+//
+// 示例值：zhangsan@gmail.com
+func (builder *UserSearchMetaBuilder) EnterpriseMailAddress(enterpriseMailAddress string) *UserSearchMetaBuilder {
+	builder.enterpriseMailAddress = enterpriseMailAddress
+	builder.enterpriseMailAddressSet = true
+	return builder
+}
+
+// 多语言名称，key为语言代码(如zh_cn、en_us、ja_jp)，value为对应语言的名称
+//
+// 示例值：
+func (builder *UserSearchMetaBuilder) I18nNames(i18nNames map[string]string) *UserSearchMetaBuilder {
+	builder.i18nNames = i18nNames
+	builder.i18nNamesSet = true
+	return builder
+}
+
+// 是否跨租户
+//
+// 示例值：
+func (builder *UserSearchMetaBuilder) IsCrossTenant(isCrossTenant bool) *UserSearchMetaBuilder {
+	builder.isCrossTenant = isCrossTenant
+	builder.isCrossTenantSet = true
+	return builder
+}
+
+// 用户签名/描述
+//
+// 示例值：激发创造，丰富生活
+func (builder *UserSearchMetaBuilder) Description(description string) *UserSearchMetaBuilder {
+	builder.description = description
+	builder.descriptionSet = true
+	return builder
+}
+
+func (builder *UserSearchMetaBuilder) Build() *UserSearchMeta {
+	req := &UserSearchMeta{}
+	if builder.isRegisteredSet {
+		req.IsRegistered = &builder.isRegistered
+
+	}
+	if builder.tenantIdSet {
+		req.TenantId = &builder.tenantId
+
+	}
+	if builder.mailAddressSet {
+		req.MailAddress = &builder.mailAddress
+
+	}
+	if builder.chatIdSet {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.enterpriseMailAddressSet {
+		req.EnterpriseMailAddress = &builder.enterpriseMailAddress
+
+	}
+	if builder.i18nNamesSet {
+		req.I18nNames = builder.i18nNames
+	}
+	if builder.isCrossTenantSet {
+		req.IsCrossTenant = &builder.isCrossTenant
+
+	}
+	if builder.descriptionSet {
+		req.Description = &builder.description
 
 	}
 	return req
@@ -6429,20 +7009,20 @@ type UserStatus struct {
 }
 
 type UserStatusBuilder struct {
-	isFrozen     bool // 是否暂停
-	isFrozenFlag bool
+	isFrozen    bool // 是否暂停
+	isFrozenSet bool
 
-	isResigned     bool // 是否离职
-	isResignedFlag bool
+	isResigned    bool // 是否离职
+	isResignedSet bool
 
-	isActivated     bool // 是否激活
-	isActivatedFlag bool
+	isActivated    bool // 是否激活
+	isActivatedSet bool
 
-	isExited     bool // 是否主动退出，主动退出一段时间后用户会自动转为已离职
-	isExitedFlag bool
+	isExited    bool // 是否主动退出，主动退出一段时间后用户会自动转为已离职
+	isExitedSet bool
 
-	isUnjoin     bool // 是否未加入，需要用户自主确认才能加入团队
-	isUnjoinFlag bool
+	isUnjoin    bool // 是否未加入，需要用户自主确认才能加入团队
+	isUnjoinSet bool
 }
 
 func NewUserStatusBuilder() *UserStatusBuilder {
@@ -6455,7 +7035,7 @@ func NewUserStatusBuilder() *UserStatusBuilder {
 // 示例值：false
 func (builder *UserStatusBuilder) IsFrozen(isFrozen bool) *UserStatusBuilder {
 	builder.isFrozen = isFrozen
-	builder.isFrozenFlag = true
+	builder.isFrozenSet = true
 	return builder
 }
 
@@ -6464,7 +7044,7 @@ func (builder *UserStatusBuilder) IsFrozen(isFrozen bool) *UserStatusBuilder {
 // 示例值：false
 func (builder *UserStatusBuilder) IsResigned(isResigned bool) *UserStatusBuilder {
 	builder.isResigned = isResigned
-	builder.isResignedFlag = true
+	builder.isResignedSet = true
 	return builder
 }
 
@@ -6473,7 +7053,7 @@ func (builder *UserStatusBuilder) IsResigned(isResigned bool) *UserStatusBuilder
 // 示例值：true
 func (builder *UserStatusBuilder) IsActivated(isActivated bool) *UserStatusBuilder {
 	builder.isActivated = isActivated
-	builder.isActivatedFlag = true
+	builder.isActivatedSet = true
 	return builder
 }
 
@@ -6482,7 +7062,7 @@ func (builder *UserStatusBuilder) IsActivated(isActivated bool) *UserStatusBuild
 // 示例值：false
 func (builder *UserStatusBuilder) IsExited(isExited bool) *UserStatusBuilder {
 	builder.isExited = isExited
-	builder.isExitedFlag = true
+	builder.isExitedSet = true
 	return builder
 }
 
@@ -6491,29 +7071,29 @@ func (builder *UserStatusBuilder) IsExited(isExited bool) *UserStatusBuilder {
 // 示例值：false
 func (builder *UserStatusBuilder) IsUnjoin(isUnjoin bool) *UserStatusBuilder {
 	builder.isUnjoin = isUnjoin
-	builder.isUnjoinFlag = true
+	builder.isUnjoinSet = true
 	return builder
 }
 
 func (builder *UserStatusBuilder) Build() *UserStatus {
 	req := &UserStatus{}
-	if builder.isFrozenFlag {
+	if builder.isFrozenSet {
 		req.IsFrozen = &builder.isFrozen
 
 	}
-	if builder.isResignedFlag {
+	if builder.isResignedSet {
 		req.IsResigned = &builder.isResigned
 
 	}
-	if builder.isActivatedFlag {
+	if builder.isActivatedSet {
 		req.IsActivated = &builder.isActivated
 
 	}
-	if builder.isExitedFlag {
+	if builder.isExitedSet {
 		req.IsExited = &builder.isExited
 
 	}
-	if builder.isUnjoinFlag {
+	if builder.isUnjoinSet {
 		req.IsUnjoin = &builder.isUnjoin
 
 	}
@@ -6531,17 +7111,17 @@ type WorkCity struct {
 }
 
 type WorkCityBuilder struct {
-	workCityId     string // 工作城市ID
-	workCityIdFlag bool
+	workCityId    string // 工作城市ID
+	workCityIdSet bool
 
-	name     string // 工作城市名称。1-100字符，支持中、英文及符号
-	nameFlag bool
+	name    string // 工作城市名称。1-100字符，支持中、英文及符号
+	nameSet bool
 
-	i18nName     []*I18nContent // 多语言工作城市
-	i18nNameFlag bool
+	i18nName    []*I18nContent // 多语言工作城市
+	i18nNameSet bool
 
-	status     bool // 是否启用
-	statusFlag bool
+	status    bool // 是否启用
+	statusSet bool
 }
 
 func NewWorkCityBuilder() *WorkCityBuilder {
@@ -6554,7 +7134,7 @@ func NewWorkCityBuilder() *WorkCityBuilder {
 // 示例值：0dd1ec95f021
 func (builder *WorkCityBuilder) WorkCityId(workCityId string) *WorkCityBuilder {
 	builder.workCityId = workCityId
-	builder.workCityIdFlag = true
+	builder.workCityIdSet = true
 	return builder
 }
 
@@ -6563,7 +7143,7 @@ func (builder *WorkCityBuilder) WorkCityId(workCityId string) *WorkCityBuilder {
 // 示例值：北京
 func (builder *WorkCityBuilder) Name(name string) *WorkCityBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -6572,7 +7152,7 @@ func (builder *WorkCityBuilder) Name(name string) *WorkCityBuilder {
 // 示例值：
 func (builder *WorkCityBuilder) I18nName(i18nName []*I18nContent) *WorkCityBuilder {
 	builder.i18nName = i18nName
-	builder.i18nNameFlag = true
+	builder.i18nNameSet = true
 	return builder
 }
 
@@ -6581,24 +7161,24 @@ func (builder *WorkCityBuilder) I18nName(i18nName []*I18nContent) *WorkCityBuild
 // 示例值：true 表示启用, false表示未启用
 func (builder *WorkCityBuilder) Status(status bool) *WorkCityBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *WorkCityBuilder) Build() *WorkCity {
 	req := &WorkCity{}
-	if builder.workCityIdFlag {
+	if builder.workCityIdSet {
 		req.WorkCityId = &builder.workCityId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.i18nNameFlag {
+	if builder.i18nNameSet {
 		req.I18nName = builder.i18nName
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
@@ -7287,8 +7867,8 @@ func (resp *PatchDepartmentResp) Success() bool {
 }
 
 type SearchDepartmentReqBodyBuilder struct {
-	query     string // 搜索关键词，匹配字段为部门名称（不支持匹配部门国际化名称）
-	queryFlag bool
+	query    string // 搜索关键词，匹配字段为部门名称（不支持匹配部门国际化名称）
+	querySet bool
 }
 
 func NewSearchDepartmentReqBodyBuilder() *SearchDepartmentReqBodyBuilder {
@@ -7298,24 +7878,24 @@ func NewSearchDepartmentReqBodyBuilder() *SearchDepartmentReqBodyBuilder {
 
 // 搜索关键词，匹配字段为部门名称（不支持匹配部门国际化名称）
 //
-// 示例值：DemoName
+//示例值：DemoName
 func (builder *SearchDepartmentReqBodyBuilder) Query(query string) *SearchDepartmentReqBodyBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
 func (builder *SearchDepartmentReqBodyBuilder) Build() *SearchDepartmentReqBody {
 	req := &SearchDepartmentReqBody{}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 	}
 	return req
 }
 
 type SearchDepartmentPathReqBodyBuilder struct {
-	query     string
-	queryFlag bool
+	query    string
+	querySet bool
 }
 
 func NewSearchDepartmentPathReqBodyBuilder() *SearchDepartmentPathReqBodyBuilder {
@@ -7328,13 +7908,13 @@ func NewSearchDepartmentPathReqBodyBuilder() *SearchDepartmentPathReqBodyBuilder
 // 示例值：DemoName
 func (builder *SearchDepartmentPathReqBodyBuilder) Query(query string) *SearchDepartmentPathReqBodyBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
 func (builder *SearchDepartmentPathReqBodyBuilder) Build() (*SearchDepartmentReqBody, error) {
 	req := &SearchDepartmentReqBody{}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 	}
 	return req, nil
@@ -7438,8 +8018,8 @@ func (resp *SearchDepartmentResp) Success() bool {
 }
 
 type UnbindDepartmentChatDepartmentReqBodyBuilder struct {
-	departmentId     string // 部门ID
-	departmentIdFlag bool
+	departmentId    string // 部门ID
+	departmentIdSet bool
 }
 
 func NewUnbindDepartmentChatDepartmentReqBodyBuilder() *UnbindDepartmentChatDepartmentReqBodyBuilder {
@@ -7449,24 +8029,24 @@ func NewUnbindDepartmentChatDepartmentReqBodyBuilder() *UnbindDepartmentChatDepa
 
 // 部门ID
 //
-// 示例值：D096
+//示例值：D096
 func (builder *UnbindDepartmentChatDepartmentReqBodyBuilder) DepartmentId(departmentId string) *UnbindDepartmentChatDepartmentReqBodyBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
 func (builder *UnbindDepartmentChatDepartmentReqBodyBuilder) Build() *UnbindDepartmentChatDepartmentReqBody {
 	req := &UnbindDepartmentChatDepartmentReqBody{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 	}
 	return req
 }
 
 type UnbindDepartmentChatDepartmentPathReqBodyBuilder struct {
-	departmentId     string
-	departmentIdFlag bool
+	departmentId    string
+	departmentIdSet bool
 }
 
 func NewUnbindDepartmentChatDepartmentPathReqBodyBuilder() *UnbindDepartmentChatDepartmentPathReqBodyBuilder {
@@ -7479,13 +8059,13 @@ func NewUnbindDepartmentChatDepartmentPathReqBodyBuilder() *UnbindDepartmentChat
 // 示例值：D096
 func (builder *UnbindDepartmentChatDepartmentPathReqBodyBuilder) DepartmentId(departmentId string) *UnbindDepartmentChatDepartmentPathReqBodyBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
 func (builder *UnbindDepartmentChatDepartmentPathReqBodyBuilder) Build() (*UnbindDepartmentChatDepartmentReqBody, error) {
 	req := &UnbindDepartmentChatDepartmentReqBody{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 	}
 	return req, nil
@@ -7618,8 +8198,8 @@ func (resp *UpdateDepartmentResp) Success() bool {
 }
 
 type UpdateDepartmentIdDepartmentReqBodyBuilder struct {
-	newDepartmentId     string // 本部门的自定义部门新ID
-	newDepartmentIdFlag bool
+	newDepartmentId    string // 本部门的自定义部门新ID
+	newDepartmentIdSet bool
 }
 
 func NewUpdateDepartmentIdDepartmentReqBodyBuilder() *UpdateDepartmentIdDepartmentReqBodyBuilder {
@@ -7629,24 +8209,24 @@ func NewUpdateDepartmentIdDepartmentReqBodyBuilder() *UpdateDepartmentIdDepartme
 
 // 本部门的自定义部门新ID
 //
-// 示例值：
+//示例值：
 func (builder *UpdateDepartmentIdDepartmentReqBodyBuilder) NewDepartmentId(newDepartmentId string) *UpdateDepartmentIdDepartmentReqBodyBuilder {
 	builder.newDepartmentId = newDepartmentId
-	builder.newDepartmentIdFlag = true
+	builder.newDepartmentIdSet = true
 	return builder
 }
 
 func (builder *UpdateDepartmentIdDepartmentReqBodyBuilder) Build() *UpdateDepartmentIdDepartmentReqBody {
 	req := &UpdateDepartmentIdDepartmentReqBody{}
-	if builder.newDepartmentIdFlag {
+	if builder.newDepartmentIdSet {
 		req.NewDepartmentId = &builder.newDepartmentId
 	}
 	return req
 }
 
 type UpdateDepartmentIdDepartmentPathReqBodyBuilder struct {
-	newDepartmentId     string
-	newDepartmentIdFlag bool
+	newDepartmentId    string
+	newDepartmentIdSet bool
 }
 
 func NewUpdateDepartmentIdDepartmentPathReqBodyBuilder() *UpdateDepartmentIdDepartmentPathReqBodyBuilder {
@@ -7659,13 +8239,13 @@ func NewUpdateDepartmentIdDepartmentPathReqBodyBuilder() *UpdateDepartmentIdDepa
 // 示例值：
 func (builder *UpdateDepartmentIdDepartmentPathReqBodyBuilder) NewDepartmentId(newDepartmentId string) *UpdateDepartmentIdDepartmentPathReqBodyBuilder {
 	builder.newDepartmentId = newDepartmentId
-	builder.newDepartmentIdFlag = true
+	builder.newDepartmentIdSet = true
 	return builder
 }
 
 func (builder *UpdateDepartmentIdDepartmentPathReqBodyBuilder) Build() (*UpdateDepartmentIdDepartmentReqBody, error) {
 	req := &UpdateDepartmentIdDepartmentReqBody{}
-	if builder.newDepartmentIdFlag {
+	if builder.newDepartmentIdSet {
 		req.NewDepartmentId = &builder.newDepartmentId
 	}
 	return req, nil
@@ -7701,6 +8281,7 @@ func (builder *UpdateDepartmentIdDepartmentReqBuilder) DepartmentIdType(departme
 	return builder
 }
 
+//
 func (builder *UpdateDepartmentIdDepartmentReqBuilder) Body(body *UpdateDepartmentIdDepartmentReqBody) *UpdateDepartmentIdDepartmentReqBuilder {
 	builder.body = body
 	return builder
@@ -7944,8 +8525,8 @@ func (resp *UpdateEmployeeTypeEnumResp) Success() bool {
 }
 
 type CreateFunctionalRoleReqBodyBuilder struct {
-	roleName     string // 角色名称，在单租户下唯一
-	roleNameFlag bool
+	roleName    string // 角色名称，在单租户下唯一
+	roleNameSet bool
 }
 
 func NewCreateFunctionalRoleReqBodyBuilder() *CreateFunctionalRoleReqBodyBuilder {
@@ -7955,24 +8536,24 @@ func NewCreateFunctionalRoleReqBodyBuilder() *CreateFunctionalRoleReqBodyBuilder
 
 // 角色名称，在单租户下唯一
 //
-// 示例值：考勤管理员
+//示例值：考勤管理员
 func (builder *CreateFunctionalRoleReqBodyBuilder) RoleName(roleName string) *CreateFunctionalRoleReqBodyBuilder {
 	builder.roleName = roleName
-	builder.roleNameFlag = true
+	builder.roleNameSet = true
 	return builder
 }
 
 func (builder *CreateFunctionalRoleReqBodyBuilder) Build() *CreateFunctionalRoleReqBody {
 	req := &CreateFunctionalRoleReqBody{}
-	if builder.roleNameFlag {
+	if builder.roleNameSet {
 		req.RoleName = &builder.roleName
 	}
 	return req
 }
 
 type CreateFunctionalRolePathReqBodyBuilder struct {
-	roleName     string
-	roleNameFlag bool
+	roleName    string
+	roleNameSet bool
 }
 
 func NewCreateFunctionalRolePathReqBodyBuilder() *CreateFunctionalRolePathReqBodyBuilder {
@@ -7985,13 +8566,13 @@ func NewCreateFunctionalRolePathReqBodyBuilder() *CreateFunctionalRolePathReqBod
 // 示例值：考勤管理员
 func (builder *CreateFunctionalRolePathReqBodyBuilder) RoleName(roleName string) *CreateFunctionalRolePathReqBodyBuilder {
 	builder.roleName = roleName
-	builder.roleNameFlag = true
+	builder.roleNameSet = true
 	return builder
 }
 
 func (builder *CreateFunctionalRolePathReqBodyBuilder) Build() (*CreateFunctionalRoleReqBody, error) {
 	req := &CreateFunctionalRoleReqBody{}
-	if builder.roleNameFlag {
+	if builder.roleNameSet {
 		req.RoleName = &builder.roleName
 	}
 	return req, nil
@@ -8011,6 +8592,7 @@ func NewCreateFunctionalRoleReqBuilder() *CreateFunctionalRoleReqBuilder {
 	return builder
 }
 
+//
 func (builder *CreateFunctionalRoleReqBuilder) Body(body *CreateFunctionalRoleReqBody) *CreateFunctionalRoleReqBuilder {
 	builder.body = body
 	return builder
@@ -8088,8 +8670,8 @@ func (resp *DeleteFunctionalRoleResp) Success() bool {
 }
 
 type UpdateFunctionalRoleReqBodyBuilder struct {
-	roleName     string // 修改的角色名称，在单租户下唯一
-	roleNameFlag bool
+	roleName    string // 修改的角色名称，在单租户下唯一
+	roleNameSet bool
 }
 
 func NewUpdateFunctionalRoleReqBodyBuilder() *UpdateFunctionalRoleReqBodyBuilder {
@@ -8099,24 +8681,24 @@ func NewUpdateFunctionalRoleReqBodyBuilder() *UpdateFunctionalRoleReqBodyBuilder
 
 // 修改的角色名称，在单租户下唯一
 //
-// 示例值：考勤管理员
+//示例值：考勤管理员
 func (builder *UpdateFunctionalRoleReqBodyBuilder) RoleName(roleName string) *UpdateFunctionalRoleReqBodyBuilder {
 	builder.roleName = roleName
-	builder.roleNameFlag = true
+	builder.roleNameSet = true
 	return builder
 }
 
 func (builder *UpdateFunctionalRoleReqBodyBuilder) Build() *UpdateFunctionalRoleReqBody {
 	req := &UpdateFunctionalRoleReqBody{}
-	if builder.roleNameFlag {
+	if builder.roleNameSet {
 		req.RoleName = &builder.roleName
 	}
 	return req
 }
 
 type UpdateFunctionalRolePathReqBodyBuilder struct {
-	roleName     string
-	roleNameFlag bool
+	roleName    string
+	roleNameSet bool
 }
 
 func NewUpdateFunctionalRolePathReqBodyBuilder() *UpdateFunctionalRolePathReqBodyBuilder {
@@ -8129,13 +8711,13 @@ func NewUpdateFunctionalRolePathReqBodyBuilder() *UpdateFunctionalRolePathReqBod
 // 示例值：考勤管理员
 func (builder *UpdateFunctionalRolePathReqBodyBuilder) RoleName(roleName string) *UpdateFunctionalRolePathReqBodyBuilder {
 	builder.roleName = roleName
-	builder.roleNameFlag = true
+	builder.roleNameSet = true
 	return builder
 }
 
 func (builder *UpdateFunctionalRolePathReqBodyBuilder) Build() (*UpdateFunctionalRoleReqBody, error) {
 	req := &UpdateFunctionalRoleReqBody{}
-	if builder.roleNameFlag {
+	if builder.roleNameSet {
 		req.RoleName = &builder.roleName
 	}
 	return req, nil
@@ -8163,6 +8745,7 @@ func (builder *UpdateFunctionalRoleReqBuilder) RoleId(roleId string) *UpdateFunc
 	return builder
 }
 
+//
 func (builder *UpdateFunctionalRoleReqBuilder) Body(body *UpdateFunctionalRoleReqBody) *UpdateFunctionalRoleReqBuilder {
 	builder.body = body
 	return builder
@@ -8195,8 +8778,8 @@ func (resp *UpdateFunctionalRoleResp) Success() bool {
 }
 
 type BatchCreateFunctionalRoleMemberReqBodyBuilder struct {
-	members     []string // 角色添加的角色成员列表（一批用户的UserID列表)
-	membersFlag bool
+	members    []string // 角色添加的角色成员列表（一批用户的UserID列表)
+	membersSet bool
 }
 
 func NewBatchCreateFunctionalRoleMemberReqBodyBuilder() *BatchCreateFunctionalRoleMemberReqBodyBuilder {
@@ -8206,24 +8789,24 @@ func NewBatchCreateFunctionalRoleMemberReqBodyBuilder() *BatchCreateFunctionalRo
 
 // 角色添加的角色成员列表（一批用户的UserID列表)
 //
-// 示例值：
+//示例值：
 func (builder *BatchCreateFunctionalRoleMemberReqBodyBuilder) Members(members []string) *BatchCreateFunctionalRoleMemberReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 func (builder *BatchCreateFunctionalRoleMemberReqBodyBuilder) Build() *BatchCreateFunctionalRoleMemberReqBody {
 	req := &BatchCreateFunctionalRoleMemberReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
 	return req
 }
 
 type BatchCreateFunctionalRoleMemberPathReqBodyBuilder struct {
-	members     []string
-	membersFlag bool
+	members    []string
+	membersSet bool
 }
 
 func NewBatchCreateFunctionalRoleMemberPathReqBodyBuilder() *BatchCreateFunctionalRoleMemberPathReqBodyBuilder {
@@ -8236,13 +8819,13 @@ func NewBatchCreateFunctionalRoleMemberPathReqBodyBuilder() *BatchCreateFunction
 // 示例值：
 func (builder *BatchCreateFunctionalRoleMemberPathReqBodyBuilder) Members(members []string) *BatchCreateFunctionalRoleMemberPathReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 func (builder *BatchCreateFunctionalRoleMemberPathReqBodyBuilder) Build() (*BatchCreateFunctionalRoleMemberReqBody, error) {
 	req := &BatchCreateFunctionalRoleMemberReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
 	return req, nil
@@ -8278,6 +8861,7 @@ func (builder *BatchCreateFunctionalRoleMemberReqBuilder) UserIdType(userIdType 
 	return builder
 }
 
+//
 func (builder *BatchCreateFunctionalRoleMemberReqBuilder) Body(body *BatchCreateFunctionalRoleMemberReqBody) *BatchCreateFunctionalRoleMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -8316,8 +8900,8 @@ func (resp *BatchCreateFunctionalRoleMemberResp) Success() bool {
 }
 
 type BatchDeleteFunctionalRoleMemberReqBodyBuilder struct {
-	members     []string // 角色删除的角色成员列表（一批用户的UserID列表)
-	membersFlag bool
+	members    []string // 角色删除的角色成员列表（一批用户的UserID列表)
+	membersSet bool
 }
 
 func NewBatchDeleteFunctionalRoleMemberReqBodyBuilder() *BatchDeleteFunctionalRoleMemberReqBodyBuilder {
@@ -8327,24 +8911,24 @@ func NewBatchDeleteFunctionalRoleMemberReqBodyBuilder() *BatchDeleteFunctionalRo
 
 // 角色删除的角色成员列表（一批用户的UserID列表)
 //
-// 示例值：
+//示例值：
 func (builder *BatchDeleteFunctionalRoleMemberReqBodyBuilder) Members(members []string) *BatchDeleteFunctionalRoleMemberReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 func (builder *BatchDeleteFunctionalRoleMemberReqBodyBuilder) Build() *BatchDeleteFunctionalRoleMemberReqBody {
 	req := &BatchDeleteFunctionalRoleMemberReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
 	return req
 }
 
 type BatchDeleteFunctionalRoleMemberPathReqBodyBuilder struct {
-	members     []string
-	membersFlag bool
+	members    []string
+	membersSet bool
 }
 
 func NewBatchDeleteFunctionalRoleMemberPathReqBodyBuilder() *BatchDeleteFunctionalRoleMemberPathReqBodyBuilder {
@@ -8357,13 +8941,13 @@ func NewBatchDeleteFunctionalRoleMemberPathReqBodyBuilder() *BatchDeleteFunction
 // 示例值：
 func (builder *BatchDeleteFunctionalRoleMemberPathReqBodyBuilder) Members(members []string) *BatchDeleteFunctionalRoleMemberPathReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 func (builder *BatchDeleteFunctionalRoleMemberPathReqBodyBuilder) Build() (*BatchDeleteFunctionalRoleMemberReqBody, error) {
 	req := &BatchDeleteFunctionalRoleMemberReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
 	return req, nil
@@ -8399,6 +8983,7 @@ func (builder *BatchDeleteFunctionalRoleMemberReqBuilder) UserIdType(userIdType 
 	return builder
 }
 
+//
 func (builder *BatchDeleteFunctionalRoleMemberReqBuilder) Body(body *BatchDeleteFunctionalRoleMemberReqBody) *BatchDeleteFunctionalRoleMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -8601,11 +9186,11 @@ func (resp *ListFunctionalRoleMemberResp) Success() bool {
 }
 
 type ScopesFunctionalRoleMemberReqBodyBuilder struct {
-	members     []string // 角色修改的角色成员列表（一批用户的UserID列表)
-	membersFlag bool
+	members    []string // 角色修改的角色成员列表（一批用户的UserID列表)
+	membersSet bool
 
-	departments     []string // 角色内用户的管理范围
-	departmentsFlag bool
+	departments    []string // 角色内用户的管理范围
+	departmentsSet bool
 }
 
 func NewScopesFunctionalRoleMemberReqBodyBuilder() *ScopesFunctionalRoleMemberReqBodyBuilder {
@@ -8615,38 +9200,38 @@ func NewScopesFunctionalRoleMemberReqBodyBuilder() *ScopesFunctionalRoleMemberRe
 
 // 角色修改的角色成员列表（一批用户的UserID列表)
 //
-// 示例值：
+//示例值：
 func (builder *ScopesFunctionalRoleMemberReqBodyBuilder) Members(members []string) *ScopesFunctionalRoleMemberReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 // 角色内用户的管理范围
 //
-// 示例值：
+//示例值：
 func (builder *ScopesFunctionalRoleMemberReqBodyBuilder) Departments(departments []string) *ScopesFunctionalRoleMemberReqBodyBuilder {
 	builder.departments = departments
-	builder.departmentsFlag = true
+	builder.departmentsSet = true
 	return builder
 }
 
 func (builder *ScopesFunctionalRoleMemberReqBodyBuilder) Build() *ScopesFunctionalRoleMemberReqBody {
 	req := &ScopesFunctionalRoleMemberReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
-	if builder.departmentsFlag {
+	if builder.departmentsSet {
 		req.Departments = builder.departments
 	}
 	return req
 }
 
 type ScopesFunctionalRoleMemberPathReqBodyBuilder struct {
-	members         []string
-	membersFlag     bool
-	departments     []string
-	departmentsFlag bool
+	members        []string
+	membersSet     bool
+	departments    []string
+	departmentsSet bool
 }
 
 func NewScopesFunctionalRoleMemberPathReqBodyBuilder() *ScopesFunctionalRoleMemberPathReqBodyBuilder {
@@ -8659,7 +9244,7 @@ func NewScopesFunctionalRoleMemberPathReqBodyBuilder() *ScopesFunctionalRoleMemb
 // 示例值：
 func (builder *ScopesFunctionalRoleMemberPathReqBodyBuilder) Members(members []string) *ScopesFunctionalRoleMemberPathReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
@@ -8668,16 +9253,16 @@ func (builder *ScopesFunctionalRoleMemberPathReqBodyBuilder) Members(members []s
 // 示例值：
 func (builder *ScopesFunctionalRoleMemberPathReqBodyBuilder) Departments(departments []string) *ScopesFunctionalRoleMemberPathReqBodyBuilder {
 	builder.departments = departments
-	builder.departmentsFlag = true
+	builder.departmentsSet = true
 	return builder
 }
 
 func (builder *ScopesFunctionalRoleMemberPathReqBodyBuilder) Build() (*ScopesFunctionalRoleMemberReqBody, error) {
 	req := &ScopesFunctionalRoleMemberReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
-	if builder.departmentsFlag {
+	if builder.departmentsSet {
 		req.Departments = builder.departments
 	}
 	return req, nil
@@ -8721,6 +9306,7 @@ func (builder *ScopesFunctionalRoleMemberReqBuilder) DepartmentIdType(department
 	return builder
 }
 
+//
 func (builder *ScopesFunctionalRoleMemberReqBuilder) Body(body *ScopesFunctionalRoleMemberReqBody) *ScopesFunctionalRoleMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -9153,14 +9739,14 @@ func (resp *SimplelistGroupResp) Success() bool {
 }
 
 type AddGroupMemberReqBodyBuilder struct {
-	memberType     string // 用户组成员的类型，取值为 user
-	memberTypeFlag bool
+	memberType    string // 用户组成员的类型，取值为 user
+	memberTypeSet bool
 
-	memberIdType     string // 当member_type =user时候，member_id_type表示user_id_type，枚举值为open_id, union_id, user_id
-	memberIdTypeFlag bool
+	memberIdType    string // 当member_type =user时候，member_id_type表示user_id_type，枚举值为open_id, union_id, user_id
+	memberIdTypeSet bool
 
-	memberId     string // 添加的成员ID
-	memberIdFlag bool
+	memberId    string // 添加的成员ID
+	memberIdSet bool
 }
 
 func NewAddGroupMemberReqBodyBuilder() *AddGroupMemberReqBodyBuilder {
@@ -9170,52 +9756,52 @@ func NewAddGroupMemberReqBodyBuilder() *AddGroupMemberReqBodyBuilder {
 
 // 用户组成员的类型，取值为 user
 //
-// 示例值：user
+//示例值：user
 func (builder *AddGroupMemberReqBodyBuilder) MemberType(memberType string) *AddGroupMemberReqBodyBuilder {
 	builder.memberType = memberType
-	builder.memberTypeFlag = true
+	builder.memberTypeSet = true
 	return builder
 }
 
 // 当member_type =user时候，member_id_type表示user_id_type，枚举值为open_id, union_id, user_id
 //
-// 示例值：open_id
+//示例值：open_id
 func (builder *AddGroupMemberReqBodyBuilder) MemberIdType(memberIdType string) *AddGroupMemberReqBodyBuilder {
 	builder.memberIdType = memberIdType
-	builder.memberIdTypeFlag = true
+	builder.memberIdTypeSet = true
 	return builder
 }
 
 // 添加的成员ID
 //
-// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *AddGroupMemberReqBodyBuilder) MemberId(memberId string) *AddGroupMemberReqBodyBuilder {
 	builder.memberId = memberId
-	builder.memberIdFlag = true
+	builder.memberIdSet = true
 	return builder
 }
 
 func (builder *AddGroupMemberReqBodyBuilder) Build() *AddGroupMemberReqBody {
 	req := &AddGroupMemberReqBody{}
-	if builder.memberTypeFlag {
+	if builder.memberTypeSet {
 		req.MemberType = &builder.memberType
 	}
-	if builder.memberIdTypeFlag {
+	if builder.memberIdTypeSet {
 		req.MemberIdType = &builder.memberIdType
 	}
-	if builder.memberIdFlag {
+	if builder.memberIdSet {
 		req.MemberId = &builder.memberId
 	}
 	return req
 }
 
 type AddGroupMemberPathReqBodyBuilder struct {
-	memberType       string
-	memberTypeFlag   bool
-	memberIdType     string
-	memberIdTypeFlag bool
-	memberId         string
-	memberIdFlag     bool
+	memberType      string
+	memberTypeSet   bool
+	memberIdType    string
+	memberIdTypeSet bool
+	memberId        string
+	memberIdSet     bool
 }
 
 func NewAddGroupMemberPathReqBodyBuilder() *AddGroupMemberPathReqBodyBuilder {
@@ -9228,7 +9814,7 @@ func NewAddGroupMemberPathReqBodyBuilder() *AddGroupMemberPathReqBodyBuilder {
 // 示例值：user
 func (builder *AddGroupMemberPathReqBodyBuilder) MemberType(memberType string) *AddGroupMemberPathReqBodyBuilder {
 	builder.memberType = memberType
-	builder.memberTypeFlag = true
+	builder.memberTypeSet = true
 	return builder
 }
 
@@ -9237,7 +9823,7 @@ func (builder *AddGroupMemberPathReqBodyBuilder) MemberType(memberType string) *
 // 示例值：open_id
 func (builder *AddGroupMemberPathReqBodyBuilder) MemberIdType(memberIdType string) *AddGroupMemberPathReqBodyBuilder {
 	builder.memberIdType = memberIdType
-	builder.memberIdTypeFlag = true
+	builder.memberIdTypeSet = true
 	return builder
 }
 
@@ -9246,19 +9832,19 @@ func (builder *AddGroupMemberPathReqBodyBuilder) MemberIdType(memberIdType strin
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *AddGroupMemberPathReqBodyBuilder) MemberId(memberId string) *AddGroupMemberPathReqBodyBuilder {
 	builder.memberId = memberId
-	builder.memberIdFlag = true
+	builder.memberIdSet = true
 	return builder
 }
 
 func (builder *AddGroupMemberPathReqBodyBuilder) Build() (*AddGroupMemberReqBody, error) {
 	req := &AddGroupMemberReqBody{}
-	if builder.memberTypeFlag {
+	if builder.memberTypeSet {
 		req.MemberType = &builder.memberType
 	}
-	if builder.memberIdTypeFlag {
+	if builder.memberIdTypeSet {
 		req.MemberIdType = &builder.memberIdType
 	}
-	if builder.memberIdFlag {
+	if builder.memberIdSet {
 		req.MemberId = &builder.memberId
 	}
 	return req, nil
@@ -9323,8 +9909,8 @@ func (resp *AddGroupMemberResp) Success() bool {
 }
 
 type BatchAddGroupMemberReqBodyBuilder struct {
-	members     []*Memberlist // 待添加成员
-	membersFlag bool
+	members    []*Memberlist // 待添加成员
+	membersSet bool
 }
 
 func NewBatchAddGroupMemberReqBodyBuilder() *BatchAddGroupMemberReqBodyBuilder {
@@ -9334,24 +9920,24 @@ func NewBatchAddGroupMemberReqBodyBuilder() *BatchAddGroupMemberReqBodyBuilder {
 
 // 待添加成员
 //
-// 示例值：
+//示例值：
 func (builder *BatchAddGroupMemberReqBodyBuilder) Members(members []*Memberlist) *BatchAddGroupMemberReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 func (builder *BatchAddGroupMemberReqBodyBuilder) Build() *BatchAddGroupMemberReqBody {
 	req := &BatchAddGroupMemberReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
 	return req
 }
 
 type BatchAddGroupMemberPathReqBodyBuilder struct {
-	members     []*Memberlist
-	membersFlag bool
+	members    []*Memberlist
+	membersSet bool
 }
 
 func NewBatchAddGroupMemberPathReqBodyBuilder() *BatchAddGroupMemberPathReqBodyBuilder {
@@ -9364,13 +9950,13 @@ func NewBatchAddGroupMemberPathReqBodyBuilder() *BatchAddGroupMemberPathReqBodyB
 // 示例值：
 func (builder *BatchAddGroupMemberPathReqBodyBuilder) Members(members []*Memberlist) *BatchAddGroupMemberPathReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 func (builder *BatchAddGroupMemberPathReqBodyBuilder) Build() (*BatchAddGroupMemberReqBody, error) {
 	req := &BatchAddGroupMemberReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
 	return req, nil
@@ -9436,8 +10022,8 @@ func (resp *BatchAddGroupMemberResp) Success() bool {
 }
 
 type BatchRemoveGroupMemberReqBodyBuilder struct {
-	members     []*Memberlist // 待移除成员
-	membersFlag bool
+	members    []*Memberlist // 待移除成员
+	membersSet bool
 }
 
 func NewBatchRemoveGroupMemberReqBodyBuilder() *BatchRemoveGroupMemberReqBodyBuilder {
@@ -9447,24 +10033,24 @@ func NewBatchRemoveGroupMemberReqBodyBuilder() *BatchRemoveGroupMemberReqBodyBui
 
 // 待移除成员
 //
-// 示例值：
+//示例值：
 func (builder *BatchRemoveGroupMemberReqBodyBuilder) Members(members []*Memberlist) *BatchRemoveGroupMemberReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 func (builder *BatchRemoveGroupMemberReqBodyBuilder) Build() *BatchRemoveGroupMemberReqBody {
 	req := &BatchRemoveGroupMemberReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
 	return req
 }
 
 type BatchRemoveGroupMemberPathReqBodyBuilder struct {
-	members     []*Memberlist
-	membersFlag bool
+	members    []*Memberlist
+	membersSet bool
 }
 
 func NewBatchRemoveGroupMemberPathReqBodyBuilder() *BatchRemoveGroupMemberPathReqBodyBuilder {
@@ -9477,13 +10063,13 @@ func NewBatchRemoveGroupMemberPathReqBodyBuilder() *BatchRemoveGroupMemberPathRe
 // 示例值：
 func (builder *BatchRemoveGroupMemberPathReqBodyBuilder) Members(members []*Memberlist) *BatchRemoveGroupMemberPathReqBodyBuilder {
 	builder.members = members
-	builder.membersFlag = true
+	builder.membersSet = true
 	return builder
 }
 
 func (builder *BatchRemoveGroupMemberPathReqBodyBuilder) Build() (*BatchRemoveGroupMemberReqBody, error) {
 	req := &BatchRemoveGroupMemberReqBody{}
-	if builder.membersFlag {
+	if builder.membersSet {
 		req.Members = builder.members
 	}
 	return req, nil
@@ -9544,14 +10130,14 @@ func (resp *BatchRemoveGroupMemberResp) Success() bool {
 }
 
 type RemoveGroupMemberReqBodyBuilder struct {
-	memberType     string // 用户组成员的类型，取值为 user
-	memberTypeFlag bool
+	memberType    string // 用户组成员的类型，取值为 user
+	memberTypeSet bool
 
-	memberId     string // 操作移除的用户组成员ID
-	memberIdFlag bool
+	memberId    string // 操作移除的用户组成员ID
+	memberIdSet bool
 
-	memberIdType     string // 当member_type =user时候，member_id_type表示user_id_type，枚举值为open_id, union_id, user_id
-	memberIdTypeFlag bool
+	memberIdType    string // 当member_type =user时候，member_id_type表示user_id_type，枚举值为open_id, union_id, user_id
+	memberIdTypeSet bool
 }
 
 func NewRemoveGroupMemberReqBodyBuilder() *RemoveGroupMemberReqBodyBuilder {
@@ -9561,52 +10147,52 @@ func NewRemoveGroupMemberReqBodyBuilder() *RemoveGroupMemberReqBodyBuilder {
 
 // 用户组成员的类型，取值为 user
 //
-// 示例值：user
+//示例值：user
 func (builder *RemoveGroupMemberReqBodyBuilder) MemberType(memberType string) *RemoveGroupMemberReqBodyBuilder {
 	builder.memberType = memberType
-	builder.memberTypeFlag = true
+	builder.memberTypeSet = true
 	return builder
 }
 
 // 操作移除的用户组成员ID
 //
-// 示例值：xj82871k
+//示例值：xj82871k
 func (builder *RemoveGroupMemberReqBodyBuilder) MemberId(memberId string) *RemoveGroupMemberReqBodyBuilder {
 	builder.memberId = memberId
-	builder.memberIdFlag = true
+	builder.memberIdSet = true
 	return builder
 }
 
 // 当member_type =user时候，member_id_type表示user_id_type，枚举值为open_id, union_id, user_id
 //
-// 示例值：open_id
+//示例值：open_id
 func (builder *RemoveGroupMemberReqBodyBuilder) MemberIdType(memberIdType string) *RemoveGroupMemberReqBodyBuilder {
 	builder.memberIdType = memberIdType
-	builder.memberIdTypeFlag = true
+	builder.memberIdTypeSet = true
 	return builder
 }
 
 func (builder *RemoveGroupMemberReqBodyBuilder) Build() *RemoveGroupMemberReqBody {
 	req := &RemoveGroupMemberReqBody{}
-	if builder.memberTypeFlag {
+	if builder.memberTypeSet {
 		req.MemberType = &builder.memberType
 	}
-	if builder.memberIdFlag {
+	if builder.memberIdSet {
 		req.MemberId = &builder.memberId
 	}
-	if builder.memberIdTypeFlag {
+	if builder.memberIdTypeSet {
 		req.MemberIdType = &builder.memberIdType
 	}
 	return req
 }
 
 type RemoveGroupMemberPathReqBodyBuilder struct {
-	memberType       string
-	memberTypeFlag   bool
-	memberId         string
-	memberIdFlag     bool
-	memberIdType     string
-	memberIdTypeFlag bool
+	memberType      string
+	memberTypeSet   bool
+	memberId        string
+	memberIdSet     bool
+	memberIdType    string
+	memberIdTypeSet bool
 }
 
 func NewRemoveGroupMemberPathReqBodyBuilder() *RemoveGroupMemberPathReqBodyBuilder {
@@ -9619,7 +10205,7 @@ func NewRemoveGroupMemberPathReqBodyBuilder() *RemoveGroupMemberPathReqBodyBuild
 // 示例值：user
 func (builder *RemoveGroupMemberPathReqBodyBuilder) MemberType(memberType string) *RemoveGroupMemberPathReqBodyBuilder {
 	builder.memberType = memberType
-	builder.memberTypeFlag = true
+	builder.memberTypeSet = true
 	return builder
 }
 
@@ -9628,7 +10214,7 @@ func (builder *RemoveGroupMemberPathReqBodyBuilder) MemberType(memberType string
 // 示例值：xj82871k
 func (builder *RemoveGroupMemberPathReqBodyBuilder) MemberId(memberId string) *RemoveGroupMemberPathReqBodyBuilder {
 	builder.memberId = memberId
-	builder.memberIdFlag = true
+	builder.memberIdSet = true
 	return builder
 }
 
@@ -9637,19 +10223,19 @@ func (builder *RemoveGroupMemberPathReqBodyBuilder) MemberId(memberId string) *R
 // 示例值：open_id
 func (builder *RemoveGroupMemberPathReqBodyBuilder) MemberIdType(memberIdType string) *RemoveGroupMemberPathReqBodyBuilder {
 	builder.memberIdType = memberIdType
-	builder.memberIdTypeFlag = true
+	builder.memberIdTypeSet = true
 	return builder
 }
 
 func (builder *RemoveGroupMemberPathReqBodyBuilder) Build() (*RemoveGroupMemberReqBody, error) {
 	req := &RemoveGroupMemberReqBody{}
-	if builder.memberTypeFlag {
+	if builder.memberTypeSet {
 		req.MemberType = &builder.memberType
 	}
-	if builder.memberIdFlag {
+	if builder.memberIdSet {
 		req.MemberId = &builder.memberId
 	}
-	if builder.memberIdTypeFlag {
+	if builder.memberIdTypeSet {
 		req.MemberIdType = &builder.memberIdType
 	}
 	return req, nil
@@ -9810,6 +10396,7 @@ func NewCreateJobFamilyReqBuilder() *CreateJobFamilyReqBuilder {
 	return builder
 }
 
+//
 func (builder *CreateJobFamilyReqBuilder) JobFamily(jobFamily *JobFamily) *CreateJobFamilyReqBuilder {
 	builder.jobFamily = jobFamily
 	return builder
@@ -10026,6 +10613,7 @@ func (builder *UpdateJobFamilyReqBuilder) JobFamilyId(jobFamilyId string) *Updat
 	return builder
 }
 
+//
 func (builder *UpdateJobFamilyReqBuilder) JobFamily(jobFamily *JobFamily) *UpdateJobFamilyReqBuilder {
 	builder.jobFamily = jobFamily
 	return builder
@@ -10072,6 +10660,7 @@ func NewCreateJobLevelReqBuilder() *CreateJobLevelReqBuilder {
 	return builder
 }
 
+//
 func (builder *CreateJobLevelReqBuilder) JobLevel(jobLevel *JobLevel) *CreateJobLevelReqBuilder {
 	builder.jobLevel = jobLevel
 	return builder
@@ -10288,6 +10877,7 @@ func (builder *UpdateJobLevelReqBuilder) JobLevelId(jobLevelId string) *UpdateJo
 	return builder
 }
 
+//
 func (builder *UpdateJobLevelReqBuilder) JobLevel(jobLevel *JobLevel) *UpdateJobLevelReqBuilder {
 	builder.jobLevel = jobLevel
 	return builder
@@ -10513,14 +11103,14 @@ func (resp *ListScopeResp) Success() bool {
 }
 
 type BindDepartmentUnitReqBodyBuilder struct {
-	unitId     string // 单位ID
-	unitIdFlag bool
+	unitId    string // 单位ID
+	unitIdSet bool
 
-	departmentId     string // 单位关联的部门ID
-	departmentIdFlag bool
+	departmentId    string // 单位关联的部门ID
+	departmentIdSet bool
 
-	departmentIdType     string // 此次调用中使用的部门ID的类型
-	departmentIdTypeFlag bool
+	departmentIdType    string // 此次调用中使用的部门ID的类型
+	departmentIdTypeSet bool
 }
 
 func NewBindDepartmentUnitReqBodyBuilder() *BindDepartmentUnitReqBodyBuilder {
@@ -10530,52 +11120,52 @@ func NewBindDepartmentUnitReqBodyBuilder() *BindDepartmentUnitReqBodyBuilder {
 
 // 单位ID
 //
-// 示例值：BU121
+//示例值：BU121
 func (builder *BindDepartmentUnitReqBodyBuilder) UnitId(unitId string) *BindDepartmentUnitReqBodyBuilder {
 	builder.unitId = unitId
-	builder.unitIdFlag = true
+	builder.unitIdSet = true
 	return builder
 }
 
 // 单位关联的部门ID
 //
-// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+//示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *BindDepartmentUnitReqBodyBuilder) DepartmentId(departmentId string) *BindDepartmentUnitReqBodyBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
 // 此次调用中使用的部门ID的类型
 //
-// 示例值：open_department_id
+//示例值：open_department_id
 func (builder *BindDepartmentUnitReqBodyBuilder) DepartmentIdType(departmentIdType string) *BindDepartmentUnitReqBodyBuilder {
 	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
+	builder.departmentIdTypeSet = true
 	return builder
 }
 
 func (builder *BindDepartmentUnitReqBodyBuilder) Build() *BindDepartmentUnitReqBody {
 	req := &BindDepartmentUnitReqBody{}
-	if builder.unitIdFlag {
+	if builder.unitIdSet {
 		req.UnitId = &builder.unitId
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 	}
-	if builder.departmentIdTypeFlag {
+	if builder.departmentIdTypeSet {
 		req.DepartmentIdType = &builder.departmentIdType
 	}
 	return req
 }
 
 type BindDepartmentUnitPathReqBodyBuilder struct {
-	unitId               string
-	unitIdFlag           bool
-	departmentId         string
-	departmentIdFlag     bool
-	departmentIdType     string
-	departmentIdTypeFlag bool
+	unitId              string
+	unitIdSet           bool
+	departmentId        string
+	departmentIdSet     bool
+	departmentIdType    string
+	departmentIdTypeSet bool
 }
 
 func NewBindDepartmentUnitPathReqBodyBuilder() *BindDepartmentUnitPathReqBodyBuilder {
@@ -10588,7 +11178,7 @@ func NewBindDepartmentUnitPathReqBodyBuilder() *BindDepartmentUnitPathReqBodyBui
 // 示例值：BU121
 func (builder *BindDepartmentUnitPathReqBodyBuilder) UnitId(unitId string) *BindDepartmentUnitPathReqBodyBuilder {
 	builder.unitId = unitId
-	builder.unitIdFlag = true
+	builder.unitIdSet = true
 	return builder
 }
 
@@ -10597,7 +11187,7 @@ func (builder *BindDepartmentUnitPathReqBodyBuilder) UnitId(unitId string) *Bind
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *BindDepartmentUnitPathReqBodyBuilder) DepartmentId(departmentId string) *BindDepartmentUnitPathReqBodyBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -10606,19 +11196,19 @@ func (builder *BindDepartmentUnitPathReqBodyBuilder) DepartmentId(departmentId s
 // 示例值：open_department_id
 func (builder *BindDepartmentUnitPathReqBodyBuilder) DepartmentIdType(departmentIdType string) *BindDepartmentUnitPathReqBodyBuilder {
 	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
+	builder.departmentIdTypeSet = true
 	return builder
 }
 
 func (builder *BindDepartmentUnitPathReqBodyBuilder) Build() (*BindDepartmentUnitReqBody, error) {
 	req := &BindDepartmentUnitReqBody{}
-	if builder.unitIdFlag {
+	if builder.unitIdSet {
 		req.UnitId = &builder.unitId
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 	}
-	if builder.departmentIdTypeFlag {
+	if builder.departmentIdTypeSet {
 		req.DepartmentIdType = &builder.departmentIdType
 	}
 	return req, nil
@@ -10674,14 +11264,14 @@ func (resp *BindDepartmentUnitResp) Success() bool {
 }
 
 type CreateUnitReqBodyBuilder struct {
-	unitId     string // 单位ID。可自定义，不传时默认自动生成。1-64字节范围大小，需为数字字母
-	unitIdFlag bool
+	unitId    string // 单位ID。可自定义，不传时默认自动生成。1-64字节范围大小，需为数字字母
+	unitIdSet bool
 
-	name     string // 单位的名字，长度范围为1-100个字符
-	nameFlag bool
+	name    string // 单位的名字，长度范围为1-100个字符
+	nameSet bool
 
-	unitType     string // 单位类型，长度范围为1-100个字符，创建后不可修改
-	unitTypeFlag bool
+	unitType    string // 单位类型，长度范围为1-100个字符，创建后不可修改
+	unitTypeSet bool
 }
 
 func NewCreateUnitReqBodyBuilder() *CreateUnitReqBodyBuilder {
@@ -10691,52 +11281,52 @@ func NewCreateUnitReqBodyBuilder() *CreateUnitReqBodyBuilder {
 
 // 单位ID。可自定义，不传时默认自动生成。1-64字节范围大小，需为数字字母
 //
-// 示例值：BU121
+//示例值：BU121
 func (builder *CreateUnitReqBodyBuilder) UnitId(unitId string) *CreateUnitReqBodyBuilder {
 	builder.unitId = unitId
-	builder.unitIdFlag = true
+	builder.unitIdSet = true
 	return builder
 }
 
 // 单位的名字，长度范围为1-100个字符
 //
-// 示例值：消费者事业部
+//示例值：消费者事业部
 func (builder *CreateUnitReqBodyBuilder) Name(name string) *CreateUnitReqBodyBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 // 单位类型，长度范围为1-100个字符，创建后不可修改
 //
-// 示例值：子公司
+//示例值：子公司
 func (builder *CreateUnitReqBodyBuilder) UnitType(unitType string) *CreateUnitReqBodyBuilder {
 	builder.unitType = unitType
-	builder.unitTypeFlag = true
+	builder.unitTypeSet = true
 	return builder
 }
 
 func (builder *CreateUnitReqBodyBuilder) Build() *CreateUnitReqBody {
 	req := &CreateUnitReqBody{}
-	if builder.unitIdFlag {
+	if builder.unitIdSet {
 		req.UnitId = &builder.unitId
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 	}
-	if builder.unitTypeFlag {
+	if builder.unitTypeSet {
 		req.UnitType = &builder.unitType
 	}
 	return req
 }
 
 type CreateUnitPathReqBodyBuilder struct {
-	unitId       string
-	unitIdFlag   bool
-	name         string
-	nameFlag     bool
-	unitType     string
-	unitTypeFlag bool
+	unitId      string
+	unitIdSet   bool
+	name        string
+	nameSet     bool
+	unitType    string
+	unitTypeSet bool
 }
 
 func NewCreateUnitPathReqBodyBuilder() *CreateUnitPathReqBodyBuilder {
@@ -10749,7 +11339,7 @@ func NewCreateUnitPathReqBodyBuilder() *CreateUnitPathReqBodyBuilder {
 // 示例值：BU121
 func (builder *CreateUnitPathReqBodyBuilder) UnitId(unitId string) *CreateUnitPathReqBodyBuilder {
 	builder.unitId = unitId
-	builder.unitIdFlag = true
+	builder.unitIdSet = true
 	return builder
 }
 
@@ -10758,7 +11348,7 @@ func (builder *CreateUnitPathReqBodyBuilder) UnitId(unitId string) *CreateUnitPa
 // 示例值：消费者事业部
 func (builder *CreateUnitPathReqBodyBuilder) Name(name string) *CreateUnitPathReqBodyBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -10767,19 +11357,19 @@ func (builder *CreateUnitPathReqBodyBuilder) Name(name string) *CreateUnitPathRe
 // 示例值：子公司
 func (builder *CreateUnitPathReqBodyBuilder) UnitType(unitType string) *CreateUnitPathReqBodyBuilder {
 	builder.unitType = unitType
-	builder.unitTypeFlag = true
+	builder.unitTypeSet = true
 	return builder
 }
 
 func (builder *CreateUnitPathReqBodyBuilder) Build() (*CreateUnitReqBody, error) {
 	req := &CreateUnitReqBody{}
-	if builder.unitIdFlag {
+	if builder.unitIdSet {
 		req.UnitId = &builder.unitId
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 	}
-	if builder.unitTypeFlag {
+	if builder.unitTypeSet {
 		req.UnitType = &builder.unitType
 	}
 	return req, nil
@@ -11059,8 +11649,8 @@ func (resp *ListDepartmentUnitResp) Success() bool {
 }
 
 type PatchUnitReqBodyBuilder struct {
-	name     string // 单位的名字
-	nameFlag bool
+	name    string // 单位的名字
+	nameSet bool
 }
 
 func NewPatchUnitReqBodyBuilder() *PatchUnitReqBodyBuilder {
@@ -11070,24 +11660,24 @@ func NewPatchUnitReqBodyBuilder() *PatchUnitReqBodyBuilder {
 
 // 单位的名字
 //
-// 示例值：消费者事业部
+//示例值：消费者事业部
 func (builder *PatchUnitReqBodyBuilder) Name(name string) *PatchUnitReqBodyBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *PatchUnitReqBodyBuilder) Build() *PatchUnitReqBody {
 	req := &PatchUnitReqBody{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 	}
 	return req
 }
 
 type PatchUnitPathReqBodyBuilder struct {
-	name     string
-	nameFlag bool
+	name    string
+	nameSet bool
 }
 
 func NewPatchUnitPathReqBodyBuilder() *PatchUnitPathReqBodyBuilder {
@@ -11100,13 +11690,13 @@ func NewPatchUnitPathReqBodyBuilder() *PatchUnitPathReqBodyBuilder {
 // 示例值：消费者事业部
 func (builder *PatchUnitPathReqBodyBuilder) Name(name string) *PatchUnitPathReqBodyBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *PatchUnitPathReqBodyBuilder) Build() (*PatchUnitReqBody, error) {
 	req := &PatchUnitReqBody{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 	}
 	return req, nil
@@ -11167,14 +11757,14 @@ func (resp *PatchUnitResp) Success() bool {
 }
 
 type UnbindDepartmentUnitReqBodyBuilder struct {
-	unitId     string // 单位ID
-	unitIdFlag bool
+	unitId    string // 单位ID
+	unitIdSet bool
 
-	departmentId     string // 预解除关联的部门ID
-	departmentIdFlag bool
+	departmentId    string // 预解除关联的部门ID
+	departmentIdSet bool
 
-	departmentIdType     string // 此次调用中使用的部门ID的类型
-	departmentIdTypeFlag bool
+	departmentIdType    string // 此次调用中使用的部门ID的类型
+	departmentIdTypeSet bool
 }
 
 func NewUnbindDepartmentUnitReqBodyBuilder() *UnbindDepartmentUnitReqBodyBuilder {
@@ -11184,52 +11774,52 @@ func NewUnbindDepartmentUnitReqBodyBuilder() *UnbindDepartmentUnitReqBodyBuilder
 
 // 单位ID
 //
-// 示例值：BU121
+//示例值：BU121
 func (builder *UnbindDepartmentUnitReqBodyBuilder) UnitId(unitId string) *UnbindDepartmentUnitReqBodyBuilder {
 	builder.unitId = unitId
-	builder.unitIdFlag = true
+	builder.unitIdSet = true
 	return builder
 }
 
 // 预解除关联的部门ID
 //
-// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+//示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *UnbindDepartmentUnitReqBodyBuilder) DepartmentId(departmentId string) *UnbindDepartmentUnitReqBodyBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
 // 此次调用中使用的部门ID的类型
 //
-// 示例值：open_department_id
+//示例值：open_department_id
 func (builder *UnbindDepartmentUnitReqBodyBuilder) DepartmentIdType(departmentIdType string) *UnbindDepartmentUnitReqBodyBuilder {
 	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
+	builder.departmentIdTypeSet = true
 	return builder
 }
 
 func (builder *UnbindDepartmentUnitReqBodyBuilder) Build() *UnbindDepartmentUnitReqBody {
 	req := &UnbindDepartmentUnitReqBody{}
-	if builder.unitIdFlag {
+	if builder.unitIdSet {
 		req.UnitId = &builder.unitId
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 	}
-	if builder.departmentIdTypeFlag {
+	if builder.departmentIdTypeSet {
 		req.DepartmentIdType = &builder.departmentIdType
 	}
 	return req
 }
 
 type UnbindDepartmentUnitPathReqBodyBuilder struct {
-	unitId               string
-	unitIdFlag           bool
-	departmentId         string
-	departmentIdFlag     bool
-	departmentIdType     string
-	departmentIdTypeFlag bool
+	unitId              string
+	unitIdSet           bool
+	departmentId        string
+	departmentIdSet     bool
+	departmentIdType    string
+	departmentIdTypeSet bool
 }
 
 func NewUnbindDepartmentUnitPathReqBodyBuilder() *UnbindDepartmentUnitPathReqBodyBuilder {
@@ -11242,7 +11832,7 @@ func NewUnbindDepartmentUnitPathReqBodyBuilder() *UnbindDepartmentUnitPathReqBod
 // 示例值：BU121
 func (builder *UnbindDepartmentUnitPathReqBodyBuilder) UnitId(unitId string) *UnbindDepartmentUnitPathReqBodyBuilder {
 	builder.unitId = unitId
-	builder.unitIdFlag = true
+	builder.unitIdSet = true
 	return builder
 }
 
@@ -11251,7 +11841,7 @@ func (builder *UnbindDepartmentUnitPathReqBodyBuilder) UnitId(unitId string) *Un
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *UnbindDepartmentUnitPathReqBodyBuilder) DepartmentId(departmentId string) *UnbindDepartmentUnitPathReqBodyBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -11260,19 +11850,19 @@ func (builder *UnbindDepartmentUnitPathReqBodyBuilder) DepartmentId(departmentId
 // 示例值：open_department_id
 func (builder *UnbindDepartmentUnitPathReqBodyBuilder) DepartmentIdType(departmentIdType string) *UnbindDepartmentUnitPathReqBodyBuilder {
 	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
+	builder.departmentIdTypeSet = true
 	return builder
 }
 
 func (builder *UnbindDepartmentUnitPathReqBodyBuilder) Build() (*UnbindDepartmentUnitReqBody, error) {
 	req := &UnbindDepartmentUnitReqBody{}
-	if builder.unitIdFlag {
+	if builder.unitIdSet {
 		req.UnitId = &builder.unitId
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 	}
-	if builder.departmentIdTypeFlag {
+	if builder.departmentIdTypeSet {
 		req.DepartmentIdType = &builder.departmentIdType
 	}
 	return req, nil
@@ -11324,6 +11914,119 @@ type UnbindDepartmentUnitResp struct {
 }
 
 func (resp *UnbindDepartmentUnitResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BasicBatchUserReqBodyBuilder struct {
+	userIds    []string // 用户ID
+	userIdsSet bool
+}
+
+func NewBasicBatchUserReqBodyBuilder() *BasicBatchUserReqBodyBuilder {
+	builder := &BasicBatchUserReqBodyBuilder{}
+	return builder
+}
+
+// 用户ID
+//
+//示例值：
+func (builder *BasicBatchUserReqBodyBuilder) UserIds(userIds []string) *BasicBatchUserReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsSet = true
+	return builder
+}
+
+func (builder *BasicBatchUserReqBodyBuilder) Build() *BasicBatchUserReqBody {
+	req := &BasicBatchUserReqBody{}
+	if builder.userIdsSet {
+		req.UserIds = builder.userIds
+	}
+	return req
+}
+
+type BasicBatchUserPathReqBodyBuilder struct {
+	userIds    []string
+	userIdsSet bool
+}
+
+func NewBasicBatchUserPathReqBodyBuilder() *BasicBatchUserPathReqBodyBuilder {
+	builder := &BasicBatchUserPathReqBodyBuilder{}
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：
+func (builder *BasicBatchUserPathReqBodyBuilder) UserIds(userIds []string) *BasicBatchUserPathReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsSet = true
+	return builder
+}
+
+func (builder *BasicBatchUserPathReqBodyBuilder) Build() (*BasicBatchUserReqBody, error) {
+	req := &BasicBatchUserReqBody{}
+	if builder.userIdsSet {
+		req.UserIds = builder.userIds
+	}
+	return req, nil
+}
+
+type BasicBatchUserReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BasicBatchUserReqBody
+}
+
+func NewBasicBatchUserReqBuilder() *BasicBatchUserReqBuilder {
+	builder := &BasicBatchUserReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *BasicBatchUserReqBuilder) UserIdType(userIdType string) *BasicBatchUserReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 批量获取用户基本信息
+func (builder *BasicBatchUserReqBuilder) Body(body *BasicBatchUserReqBody) *BasicBatchUserReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BasicBatchUserReqBuilder) Build() *BasicBatchUserReq {
+	req := &BasicBatchUserReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BasicBatchUserReqBody struct {
+	UserIds []string `json:"user_ids,omitempty"` // 用户ID
+}
+
+type BasicBatchUserReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BasicBatchUserReqBody `body:""`
+}
+
+type BasicBatchUserRespData struct {
+	Users []*BasicUser `json:"users,omitempty"` // 用户信息
+}
+
+type BasicBatchUserResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BasicBatchUserRespData `json:"data"` // 业务数据
+}
+
+func (resp *BasicBatchUserResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -11392,14 +12095,14 @@ func (resp *BatchUserResp) Success() bool {
 }
 
 type BatchGetIdUserReqBodyBuilder struct {
-	emails     []string // 要查询的用户邮箱，最多 50 条。;;注意，emails与mobiles相互独立，每条用户邮箱返回对应的用户ID。;;本接口返回的用户ID数量为emails数量与mobiles数量的和。
-	emailsFlag bool
+	emails    []string // 要查询的用户邮箱，最多 50 条。;;注意，emails与mobiles相互独立，每条用户邮箱返回对应的用户ID。;;本接口返回的用户ID数量为emails数量与mobiles数量的和。
+	emailsSet bool
 
-	mobiles     []string // 要查询的用户手机号，最多 50 条。;;注意;1. emails与mobiles相互独立，每条用户手机号返回对应的用户ID。;2.  非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码。
-	mobilesFlag bool
+	mobiles    []string // 要查询的用户手机号，最多 50 条。;;注意;1. emails与mobiles相互独立，每条用户手机号返回对应的用户ID。;2.  非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码。
+	mobilesSet bool
 
-	includeResigned     bool // 查询结果包含离职员工，可查询离职用户的ID
-	includeResignedFlag bool
+	includeResigned    bool // 查询结果包含离职员工，可查询离职用户的ID
+	includeResignedSet bool
 }
 
 func NewBatchGetIdUserReqBodyBuilder() *BatchGetIdUserReqBodyBuilder {
@@ -11409,52 +12112,52 @@ func NewBatchGetIdUserReqBodyBuilder() *BatchGetIdUserReqBodyBuilder {
 
 // 要查询的用户邮箱，最多 50 条。;;注意，emails与mobiles相互独立，每条用户邮箱返回对应的用户ID。;;本接口返回的用户ID数量为emails数量与mobiles数量的和。
 //
-// 示例值：zhangsan@a.com
+//示例值：zhangsan@a.com
 func (builder *BatchGetIdUserReqBodyBuilder) Emails(emails []string) *BatchGetIdUserReqBodyBuilder {
 	builder.emails = emails
-	builder.emailsFlag = true
+	builder.emailsSet = true
 	return builder
 }
 
 // 要查询的用户手机号，最多 50 条。;;注意;1. emails与mobiles相互独立，每条用户手机号返回对应的用户ID。;2.  非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码。
 //
-// 示例值：13812345678
+//示例值：13812345678
 func (builder *BatchGetIdUserReqBodyBuilder) Mobiles(mobiles []string) *BatchGetIdUserReqBodyBuilder {
 	builder.mobiles = mobiles
-	builder.mobilesFlag = true
+	builder.mobilesSet = true
 	return builder
 }
 
 // 查询结果包含离职员工，可查询离职用户的ID
 //
-// 示例值：true
+//示例值：true
 func (builder *BatchGetIdUserReqBodyBuilder) IncludeResigned(includeResigned bool) *BatchGetIdUserReqBodyBuilder {
 	builder.includeResigned = includeResigned
-	builder.includeResignedFlag = true
+	builder.includeResignedSet = true
 	return builder
 }
 
 func (builder *BatchGetIdUserReqBodyBuilder) Build() *BatchGetIdUserReqBody {
 	req := &BatchGetIdUserReqBody{}
-	if builder.emailsFlag {
+	if builder.emailsSet {
 		req.Emails = builder.emails
 	}
-	if builder.mobilesFlag {
+	if builder.mobilesSet {
 		req.Mobiles = builder.mobiles
 	}
-	if builder.includeResignedFlag {
+	if builder.includeResignedSet {
 		req.IncludeResigned = &builder.includeResigned
 	}
 	return req
 }
 
 type BatchGetIdUserPathReqBodyBuilder struct {
-	emails              []string
-	emailsFlag          bool
-	mobiles             []string
-	mobilesFlag         bool
-	includeResigned     bool
-	includeResignedFlag bool
+	emails             []string
+	emailsSet          bool
+	mobiles            []string
+	mobilesSet         bool
+	includeResigned    bool
+	includeResignedSet bool
 }
 
 func NewBatchGetIdUserPathReqBodyBuilder() *BatchGetIdUserPathReqBodyBuilder {
@@ -11467,7 +12170,7 @@ func NewBatchGetIdUserPathReqBodyBuilder() *BatchGetIdUserPathReqBodyBuilder {
 // 示例值：zhangsan@a.com
 func (builder *BatchGetIdUserPathReqBodyBuilder) Emails(emails []string) *BatchGetIdUserPathReqBodyBuilder {
 	builder.emails = emails
-	builder.emailsFlag = true
+	builder.emailsSet = true
 	return builder
 }
 
@@ -11476,7 +12179,7 @@ func (builder *BatchGetIdUserPathReqBodyBuilder) Emails(emails []string) *BatchG
 // 示例值：13812345678
 func (builder *BatchGetIdUserPathReqBodyBuilder) Mobiles(mobiles []string) *BatchGetIdUserPathReqBodyBuilder {
 	builder.mobiles = mobiles
-	builder.mobilesFlag = true
+	builder.mobilesSet = true
 	return builder
 }
 
@@ -11485,19 +12188,19 @@ func (builder *BatchGetIdUserPathReqBodyBuilder) Mobiles(mobiles []string) *Batc
 // 示例值：true
 func (builder *BatchGetIdUserPathReqBodyBuilder) IncludeResigned(includeResigned bool) *BatchGetIdUserPathReqBodyBuilder {
 	builder.includeResigned = includeResigned
-	builder.includeResignedFlag = true
+	builder.includeResignedSet = true
 	return builder
 }
 
 func (builder *BatchGetIdUserPathReqBodyBuilder) Build() (*BatchGetIdUserReqBody, error) {
 	req := &BatchGetIdUserReqBody{}
-	if builder.emailsFlag {
+	if builder.emailsSet {
 		req.Emails = builder.emails
 	}
-	if builder.mobilesFlag {
+	if builder.mobilesSet {
 		req.Mobiles = builder.mobiles
 	}
-	if builder.includeResignedFlag {
+	if builder.includeResignedSet {
 		req.IncludeResigned = &builder.includeResigned
 	}
 	return req, nil
@@ -11638,32 +12341,32 @@ func (resp *CreateUserResp) Success() bool {
 }
 
 type DeleteUserReqBodyBuilder struct {
-	departmentChatAcceptorUserId     string // 部门群接收者。被删除用户为部门群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内第一个入群的人
-	departmentChatAcceptorUserIdFlag bool
+	departmentChatAcceptorUserId    string // 部门群接收者。被删除用户为部门群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内第一个入群的人
+	departmentChatAcceptorUserIdSet bool
 
-	externalChatAcceptorUserId     string // 外部群接收者。被删除用户为外部群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人，如果组织内只有该用户在群里，则解散外部群
-	externalChatAcceptorUserIdFlag bool
+	externalChatAcceptorUserId    string // 外部群接收者。被删除用户为外部群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人，如果组织内只有该用户在群里，则解散外部群
+	externalChatAcceptorUserIdSet bool
 
-	docsAcceptorUserId     string // 文档接收者。用户被删除时，其拥有的文档转让给接收者。不指定接收者则默认转让给直属上级，如果无直属上级则将文档资源保留在该用户名下。
-	docsAcceptorUserIdFlag bool
+	docsAcceptorUserId    string // 文档接收者。用户被删除时，其拥有的文档转让给接收者。不指定接收者则默认转让给直属上级，如果无直属上级则将文档资源保留在该用户名下。
+	docsAcceptorUserIdSet bool
 
-	calendarAcceptorUserId     string // 日程接收者。用户被删除时，其拥有的日程转让给接收者，不指定接收者则默认转让给直属上级，如果无直属上级则直接删除日程资源。
-	calendarAcceptorUserIdFlag bool
+	calendarAcceptorUserId    string // 日程接收者。用户被删除时，其拥有的日程转让给接收者，不指定接收者则默认转让给直属上级，如果无直属上级则直接删除日程资源。
+	calendarAcceptorUserIdSet bool
 
-	applicationAcceptorUserId     string // 应用接受者。用户被删除时，其创建的应用转让给接收者，不指定接收者则默认转让给直属上级。如果无直属上级则保留应用在该用户名下，但该用户无法登录开发者后台进行应用管理，管理员可以在管理后台手动转移应用给其他人。
-	applicationAcceptorUserIdFlag bool
+	applicationAcceptorUserId    string // 应用接受者。用户被删除时，其创建的应用转让给接收者，不指定接收者则默认转让给直属上级。如果无直属上级则保留应用在该用户名下，但该用户无法登录开发者后台进行应用管理，管理员可以在管理后台手动转移应用给其他人。
+	applicationAcceptorUserIdSet bool
 
-	minutesAcceptorUserId     string // 妙记接收者。用户被删除时，其拥有的妙记资源转让给接收者。如果不指定接收者，则默认转让给直属上级。如果无直属上级则将妙记保留在该用户名下。
-	minutesAcceptorUserIdFlag bool
+	minutesAcceptorUserId    string // 妙记接收者。用户被删除时，其拥有的妙记资源转让给接收者。如果不指定接收者，则默认转让给直属上级。如果无直属上级则将妙记保留在该用户名下。
+	minutesAcceptorUserIdSet bool
 
-	surveyAcceptorUserId     string // 飞书问卷接收者。用户被删除时，其拥有的飞书问卷资源转让给接收者，不指定接收者则默认转让给直属上级，如果无直属上级则直接删除飞书问卷资源。
-	surveyAcceptorUserIdFlag bool
+	surveyAcceptorUserId    string // 飞书问卷接收者。用户被删除时，其拥有的飞书问卷资源转让给接收者，不指定接收者则默认转让给直属上级，如果无直属上级则直接删除飞书问卷资源。
+	surveyAcceptorUserIdSet bool
 
-	emailAcceptor     *ResourceAcceptor // 用户邮件资源处理方式。用户被删除时，根据传递的操作指令对其拥有的邮件资源做对应处理。未传递指令时默认将邮件资源转让给直属上级，如果无直属上级则保留邮件资源在该用户名下。
-	emailAcceptorFlag bool
+	emailAcceptor    *ResourceAcceptor // 用户邮件资源处理方式。用户被删除时，根据传递的操作指令对其拥有的邮件资源做对应处理。未传递指令时默认将邮件资源转让给直属上级，如果无直属上级则保留邮件资源在该用户名下。
+	emailAcceptorSet bool
 
-	anycrossAcceptorUserId     string // 用户集成平台资源接收者
-	anycrossAcceptorUserIdFlag bool
+	anycrossAcceptorUserId    string // 用户集成平台资源接收者
+	anycrossAcceptorUserIdSet bool
 }
 
 func NewDeleteUserReqBodyBuilder() *DeleteUserReqBodyBuilder {
@@ -11673,136 +12376,136 @@ func NewDeleteUserReqBodyBuilder() *DeleteUserReqBodyBuilder {
 
 // 部门群接收者。被删除用户为部门群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内第一个入群的人
 //
-// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserReqBodyBuilder) DepartmentChatAcceptorUserId(departmentChatAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.departmentChatAcceptorUserId = departmentChatAcceptorUserId
-	builder.departmentChatAcceptorUserIdFlag = true
+	builder.departmentChatAcceptorUserIdSet = true
 	return builder
 }
 
 // 外部群接收者。被删除用户为外部群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人，如果组织内只有该用户在群里，则解散外部群
 //
-// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserReqBodyBuilder) ExternalChatAcceptorUserId(externalChatAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.externalChatAcceptorUserId = externalChatAcceptorUserId
-	builder.externalChatAcceptorUserIdFlag = true
+	builder.externalChatAcceptorUserIdSet = true
 	return builder
 }
 
 // 文档接收者。用户被删除时，其拥有的文档转让给接收者。不指定接收者则默认转让给直属上级，如果无直属上级则将文档资源保留在该用户名下。
 //
-// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserReqBodyBuilder) DocsAcceptorUserId(docsAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.docsAcceptorUserId = docsAcceptorUserId
-	builder.docsAcceptorUserIdFlag = true
+	builder.docsAcceptorUserIdSet = true
 	return builder
 }
 
 // 日程接收者。用户被删除时，其拥有的日程转让给接收者，不指定接收者则默认转让给直属上级，如果无直属上级则直接删除日程资源。
 //
-// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserReqBodyBuilder) CalendarAcceptorUserId(calendarAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.calendarAcceptorUserId = calendarAcceptorUserId
-	builder.calendarAcceptorUserIdFlag = true
+	builder.calendarAcceptorUserIdSet = true
 	return builder
 }
 
 // 应用接受者。用户被删除时，其创建的应用转让给接收者，不指定接收者则默认转让给直属上级。如果无直属上级则保留应用在该用户名下，但该用户无法登录开发者后台进行应用管理，管理员可以在管理后台手动转移应用给其他人。
 //
-// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserReqBodyBuilder) ApplicationAcceptorUserId(applicationAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.applicationAcceptorUserId = applicationAcceptorUserId
-	builder.applicationAcceptorUserIdFlag = true
+	builder.applicationAcceptorUserIdSet = true
 	return builder
 }
 
 // 妙记接收者。用户被删除时，其拥有的妙记资源转让给接收者。如果不指定接收者，则默认转让给直属上级。如果无直属上级则将妙记保留在该用户名下。
 //
-// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserReqBodyBuilder) MinutesAcceptorUserId(minutesAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.minutesAcceptorUserId = minutesAcceptorUserId
-	builder.minutesAcceptorUserIdFlag = true
+	builder.minutesAcceptorUserIdSet = true
 	return builder
 }
 
 // 飞书问卷接收者。用户被删除时，其拥有的飞书问卷资源转让给接收者，不指定接收者则默认转让给直属上级，如果无直属上级则直接删除飞书问卷资源。
 //
-// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserReqBodyBuilder) SurveyAcceptorUserId(surveyAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.surveyAcceptorUserId = surveyAcceptorUserId
-	builder.surveyAcceptorUserIdFlag = true
+	builder.surveyAcceptorUserIdSet = true
 	return builder
 }
 
 // 用户邮件资源处理方式。用户被删除时，根据传递的操作指令对其拥有的邮件资源做对应处理。未传递指令时默认将邮件资源转让给直属上级，如果无直属上级则保留邮件资源在该用户名下。
 //
-// 示例值：
+//示例值：
 func (builder *DeleteUserReqBodyBuilder) EmailAcceptor(emailAcceptor *ResourceAcceptor) *DeleteUserReqBodyBuilder {
 	builder.emailAcceptor = emailAcceptor
-	builder.emailAcceptorFlag = true
+	builder.emailAcceptorSet = true
 	return builder
 }
 
 // 用户集成平台资源接收者
 //
-// 示例值：
+//示例值：
 func (builder *DeleteUserReqBodyBuilder) AnycrossAcceptorUserId(anycrossAcceptorUserId string) *DeleteUserReqBodyBuilder {
 	builder.anycrossAcceptorUserId = anycrossAcceptorUserId
-	builder.anycrossAcceptorUserIdFlag = true
+	builder.anycrossAcceptorUserIdSet = true
 	return builder
 }
 
 func (builder *DeleteUserReqBodyBuilder) Build() *DeleteUserReqBody {
 	req := &DeleteUserReqBody{}
-	if builder.departmentChatAcceptorUserIdFlag {
+	if builder.departmentChatAcceptorUserIdSet {
 		req.DepartmentChatAcceptorUserId = &builder.departmentChatAcceptorUserId
 	}
-	if builder.externalChatAcceptorUserIdFlag {
+	if builder.externalChatAcceptorUserIdSet {
 		req.ExternalChatAcceptorUserId = &builder.externalChatAcceptorUserId
 	}
-	if builder.docsAcceptorUserIdFlag {
+	if builder.docsAcceptorUserIdSet {
 		req.DocsAcceptorUserId = &builder.docsAcceptorUserId
 	}
-	if builder.calendarAcceptorUserIdFlag {
+	if builder.calendarAcceptorUserIdSet {
 		req.CalendarAcceptorUserId = &builder.calendarAcceptorUserId
 	}
-	if builder.applicationAcceptorUserIdFlag {
+	if builder.applicationAcceptorUserIdSet {
 		req.ApplicationAcceptorUserId = &builder.applicationAcceptorUserId
 	}
-	if builder.minutesAcceptorUserIdFlag {
+	if builder.minutesAcceptorUserIdSet {
 		req.MinutesAcceptorUserId = &builder.minutesAcceptorUserId
 	}
-	if builder.surveyAcceptorUserIdFlag {
+	if builder.surveyAcceptorUserIdSet {
 		req.SurveyAcceptorUserId = &builder.surveyAcceptorUserId
 	}
-	if builder.emailAcceptorFlag {
+	if builder.emailAcceptorSet {
 		req.EmailAcceptor = builder.emailAcceptor
 	}
-	if builder.anycrossAcceptorUserIdFlag {
+	if builder.anycrossAcceptorUserIdSet {
 		req.AnycrossAcceptorUserId = &builder.anycrossAcceptorUserId
 	}
 	return req
 }
 
 type DeleteUserPathReqBodyBuilder struct {
-	departmentChatAcceptorUserId     string
-	departmentChatAcceptorUserIdFlag bool
-	externalChatAcceptorUserId       string
-	externalChatAcceptorUserIdFlag   bool
-	docsAcceptorUserId               string
-	docsAcceptorUserIdFlag           bool
-	calendarAcceptorUserId           string
-	calendarAcceptorUserIdFlag       bool
-	applicationAcceptorUserId        string
-	applicationAcceptorUserIdFlag    bool
-	minutesAcceptorUserId            string
-	minutesAcceptorUserIdFlag        bool
-	surveyAcceptorUserId             string
-	surveyAcceptorUserIdFlag         bool
-	emailAcceptor                    *ResourceAcceptor
-	emailAcceptorFlag                bool
-	anycrossAcceptorUserId           string
-	anycrossAcceptorUserIdFlag       bool
+	departmentChatAcceptorUserId    string
+	departmentChatAcceptorUserIdSet bool
+	externalChatAcceptorUserId      string
+	externalChatAcceptorUserIdSet   bool
+	docsAcceptorUserId              string
+	docsAcceptorUserIdSet           bool
+	calendarAcceptorUserId          string
+	calendarAcceptorUserIdSet       bool
+	applicationAcceptorUserId       string
+	applicationAcceptorUserIdSet    bool
+	minutesAcceptorUserId           string
+	minutesAcceptorUserIdSet        bool
+	surveyAcceptorUserId            string
+	surveyAcceptorUserIdSet         bool
+	emailAcceptor                   *ResourceAcceptor
+	emailAcceptorSet                bool
+	anycrossAcceptorUserId          string
+	anycrossAcceptorUserIdSet       bool
 }
 
 func NewDeleteUserPathReqBodyBuilder() *DeleteUserPathReqBodyBuilder {
@@ -11815,7 +12518,7 @@ func NewDeleteUserPathReqBodyBuilder() *DeleteUserPathReqBodyBuilder {
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserPathReqBodyBuilder) DepartmentChatAcceptorUserId(departmentChatAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
 	builder.departmentChatAcceptorUserId = departmentChatAcceptorUserId
-	builder.departmentChatAcceptorUserIdFlag = true
+	builder.departmentChatAcceptorUserIdSet = true
 	return builder
 }
 
@@ -11824,7 +12527,7 @@ func (builder *DeleteUserPathReqBodyBuilder) DepartmentChatAcceptorUserId(depart
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserPathReqBodyBuilder) ExternalChatAcceptorUserId(externalChatAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
 	builder.externalChatAcceptorUserId = externalChatAcceptorUserId
-	builder.externalChatAcceptorUserIdFlag = true
+	builder.externalChatAcceptorUserIdSet = true
 	return builder
 }
 
@@ -11833,7 +12536,7 @@ func (builder *DeleteUserPathReqBodyBuilder) ExternalChatAcceptorUserId(external
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserPathReqBodyBuilder) DocsAcceptorUserId(docsAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
 	builder.docsAcceptorUserId = docsAcceptorUserId
-	builder.docsAcceptorUserIdFlag = true
+	builder.docsAcceptorUserIdSet = true
 	return builder
 }
 
@@ -11842,7 +12545,7 @@ func (builder *DeleteUserPathReqBodyBuilder) DocsAcceptorUserId(docsAcceptorUser
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserPathReqBodyBuilder) CalendarAcceptorUserId(calendarAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
 	builder.calendarAcceptorUserId = calendarAcceptorUserId
-	builder.calendarAcceptorUserIdFlag = true
+	builder.calendarAcceptorUserIdSet = true
 	return builder
 }
 
@@ -11851,7 +12554,7 @@ func (builder *DeleteUserPathReqBodyBuilder) CalendarAcceptorUserId(calendarAcce
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserPathReqBodyBuilder) ApplicationAcceptorUserId(applicationAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
 	builder.applicationAcceptorUserId = applicationAcceptorUserId
-	builder.applicationAcceptorUserIdFlag = true
+	builder.applicationAcceptorUserIdSet = true
 	return builder
 }
 
@@ -11860,7 +12563,7 @@ func (builder *DeleteUserPathReqBodyBuilder) ApplicationAcceptorUserId(applicati
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserPathReqBodyBuilder) MinutesAcceptorUserId(minutesAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
 	builder.minutesAcceptorUserId = minutesAcceptorUserId
-	builder.minutesAcceptorUserIdFlag = true
+	builder.minutesAcceptorUserIdSet = true
 	return builder
 }
 
@@ -11869,7 +12572,7 @@ func (builder *DeleteUserPathReqBodyBuilder) MinutesAcceptorUserId(minutesAccept
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *DeleteUserPathReqBodyBuilder) SurveyAcceptorUserId(surveyAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
 	builder.surveyAcceptorUserId = surveyAcceptorUserId
-	builder.surveyAcceptorUserIdFlag = true
+	builder.surveyAcceptorUserIdSet = true
 	return builder
 }
 
@@ -11878,7 +12581,7 @@ func (builder *DeleteUserPathReqBodyBuilder) SurveyAcceptorUserId(surveyAcceptor
 // 示例值：
 func (builder *DeleteUserPathReqBodyBuilder) EmailAcceptor(emailAcceptor *ResourceAcceptor) *DeleteUserPathReqBodyBuilder {
 	builder.emailAcceptor = emailAcceptor
-	builder.emailAcceptorFlag = true
+	builder.emailAcceptorSet = true
 	return builder
 }
 
@@ -11887,37 +12590,37 @@ func (builder *DeleteUserPathReqBodyBuilder) EmailAcceptor(emailAcceptor *Resour
 // 示例值：
 func (builder *DeleteUserPathReqBodyBuilder) AnycrossAcceptorUserId(anycrossAcceptorUserId string) *DeleteUserPathReqBodyBuilder {
 	builder.anycrossAcceptorUserId = anycrossAcceptorUserId
-	builder.anycrossAcceptorUserIdFlag = true
+	builder.anycrossAcceptorUserIdSet = true
 	return builder
 }
 
 func (builder *DeleteUserPathReqBodyBuilder) Build() (*DeleteUserReqBody, error) {
 	req := &DeleteUserReqBody{}
-	if builder.departmentChatAcceptorUserIdFlag {
+	if builder.departmentChatAcceptorUserIdSet {
 		req.DepartmentChatAcceptorUserId = &builder.departmentChatAcceptorUserId
 	}
-	if builder.externalChatAcceptorUserIdFlag {
+	if builder.externalChatAcceptorUserIdSet {
 		req.ExternalChatAcceptorUserId = &builder.externalChatAcceptorUserId
 	}
-	if builder.docsAcceptorUserIdFlag {
+	if builder.docsAcceptorUserIdSet {
 		req.DocsAcceptorUserId = &builder.docsAcceptorUserId
 	}
-	if builder.calendarAcceptorUserIdFlag {
+	if builder.calendarAcceptorUserIdSet {
 		req.CalendarAcceptorUserId = &builder.calendarAcceptorUserId
 	}
-	if builder.applicationAcceptorUserIdFlag {
+	if builder.applicationAcceptorUserIdSet {
 		req.ApplicationAcceptorUserId = &builder.applicationAcceptorUserId
 	}
-	if builder.minutesAcceptorUserIdFlag {
+	if builder.minutesAcceptorUserIdSet {
 		req.MinutesAcceptorUserId = &builder.minutesAcceptorUserId
 	}
-	if builder.surveyAcceptorUserIdFlag {
+	if builder.surveyAcceptorUserIdSet {
 		req.SurveyAcceptorUserId = &builder.surveyAcceptorUserId
 	}
-	if builder.emailAcceptorFlag {
+	if builder.emailAcceptorSet {
 		req.EmailAcceptor = builder.emailAcceptor
 	}
-	if builder.anycrossAcceptorUserIdFlag {
+	if builder.anycrossAcceptorUserIdSet {
 		req.AnycrossAcceptorUserId = &builder.anycrossAcceptorUserId
 	}
 	return req, nil
@@ -12322,11 +13025,11 @@ func (resp *PatchUserResp) Success() bool {
 }
 
 type ResurrectUserReqBodyBuilder struct {
-	departments     []*UserDepartmentInfo // 指定恢复后用户所在部门
-	departmentsFlag bool
+	departments    []*UserDepartmentInfo // 指定恢复后用户所在部门
+	departmentsSet bool
 
-	subscriptionIds     []string // 指定恢复后分配的席位
-	subscriptionIdsFlag bool
+	subscriptionIds    []string // 指定恢复后分配的席位
+	subscriptionIdsSet bool
 }
 
 func NewResurrectUserReqBodyBuilder() *ResurrectUserReqBodyBuilder {
@@ -12336,38 +13039,38 @@ func NewResurrectUserReqBodyBuilder() *ResurrectUserReqBodyBuilder {
 
 // 指定恢复后用户所在部门
 //
-// 示例值：
+//示例值：
 func (builder *ResurrectUserReqBodyBuilder) Departments(departments []*UserDepartmentInfo) *ResurrectUserReqBodyBuilder {
 	builder.departments = departments
-	builder.departmentsFlag = true
+	builder.departmentsSet = true
 	return builder
 }
 
 // 指定恢复后分配的席位
 //
-// 示例值：
+//示例值：
 func (builder *ResurrectUserReqBodyBuilder) SubscriptionIds(subscriptionIds []string) *ResurrectUserReqBodyBuilder {
 	builder.subscriptionIds = subscriptionIds
-	builder.subscriptionIdsFlag = true
+	builder.subscriptionIdsSet = true
 	return builder
 }
 
 func (builder *ResurrectUserReqBodyBuilder) Build() *ResurrectUserReqBody {
 	req := &ResurrectUserReqBody{}
-	if builder.departmentsFlag {
+	if builder.departmentsSet {
 		req.Departments = builder.departments
 	}
-	if builder.subscriptionIdsFlag {
+	if builder.subscriptionIdsSet {
 		req.SubscriptionIds = builder.subscriptionIds
 	}
 	return req
 }
 
 type ResurrectUserPathReqBodyBuilder struct {
-	departments         []*UserDepartmentInfo
-	departmentsFlag     bool
-	subscriptionIds     []string
-	subscriptionIdsFlag bool
+	departments        []*UserDepartmentInfo
+	departmentsSet     bool
+	subscriptionIds    []string
+	subscriptionIdsSet bool
 }
 
 func NewResurrectUserPathReqBodyBuilder() *ResurrectUserPathReqBodyBuilder {
@@ -12380,7 +13083,7 @@ func NewResurrectUserPathReqBodyBuilder() *ResurrectUserPathReqBodyBuilder {
 // 示例值：
 func (builder *ResurrectUserPathReqBodyBuilder) Departments(departments []*UserDepartmentInfo) *ResurrectUserPathReqBodyBuilder {
 	builder.departments = departments
-	builder.departmentsFlag = true
+	builder.departmentsSet = true
 	return builder
 }
 
@@ -12389,16 +13092,16 @@ func (builder *ResurrectUserPathReqBodyBuilder) Departments(departments []*UserD
 // 示例值：
 func (builder *ResurrectUserPathReqBodyBuilder) SubscriptionIds(subscriptionIds []string) *ResurrectUserPathReqBodyBuilder {
 	builder.subscriptionIds = subscriptionIds
-	builder.subscriptionIdsFlag = true
+	builder.subscriptionIdsSet = true
 	return builder
 }
 
 func (builder *ResurrectUserPathReqBodyBuilder) Build() (*ResurrectUserReqBody, error) {
 	req := &ResurrectUserReqBody{}
-	if builder.departmentsFlag {
+	if builder.departmentsSet {
 		req.Departments = builder.departments
 	}
-	if builder.subscriptionIdsFlag {
+	if builder.subscriptionIdsSet {
 		req.SubscriptionIds = builder.subscriptionIds
 	}
 	return req, nil
@@ -12550,8 +13253,8 @@ func (resp *UpdateUserResp) Success() bool {
 }
 
 type UpdateUserIdUserReqBodyBuilder struct {
-	newUserId     string // 自定义新用户ID
-	newUserIdFlag bool
+	newUserId    string // 自定义新用户ID
+	newUserIdSet bool
 }
 
 func NewUpdateUserIdUserReqBodyBuilder() *UpdateUserIdUserReqBodyBuilder {
@@ -12561,24 +13264,24 @@ func NewUpdateUserIdUserReqBodyBuilder() *UpdateUserIdUserReqBodyBuilder {
 
 // 自定义新用户ID
 //
-// 示例值：3e3cf96b
+//示例值：3e3cf96b
 func (builder *UpdateUserIdUserReqBodyBuilder) NewUserId(newUserId string) *UpdateUserIdUserReqBodyBuilder {
 	builder.newUserId = newUserId
-	builder.newUserIdFlag = true
+	builder.newUserIdSet = true
 	return builder
 }
 
 func (builder *UpdateUserIdUserReqBodyBuilder) Build() *UpdateUserIdUserReqBody {
 	req := &UpdateUserIdUserReqBody{}
-	if builder.newUserIdFlag {
+	if builder.newUserIdSet {
 		req.NewUserId = &builder.newUserId
 	}
 	return req
 }
 
 type UpdateUserIdUserPathReqBodyBuilder struct {
-	newUserId     string
-	newUserIdFlag bool
+	newUserId    string
+	newUserIdSet bool
 }
 
 func NewUpdateUserIdUserPathReqBodyBuilder() *UpdateUserIdUserPathReqBodyBuilder {
@@ -12591,13 +13294,13 @@ func NewUpdateUserIdUserPathReqBodyBuilder() *UpdateUserIdUserPathReqBodyBuilder
 // 示例值：3e3cf96b
 func (builder *UpdateUserIdUserPathReqBodyBuilder) NewUserId(newUserId string) *UpdateUserIdUserPathReqBodyBuilder {
 	builder.newUserId = newUserId
-	builder.newUserIdFlag = true
+	builder.newUserIdSet = true
 	return builder
 }
 
 func (builder *UpdateUserIdUserPathReqBodyBuilder) Build() (*UpdateUserIdUserReqBody, error) {
 	req := &UpdateUserIdUserReqBody{}
-	if builder.newUserIdFlag {
+	if builder.newUserIdSet {
 		req.NewUserId = &builder.newUserId
 	}
 	return req, nil
@@ -12633,6 +13336,7 @@ func (builder *UpdateUserIdUserReqBuilder) UserIdType(userIdType string) *Update
 	return builder
 }
 
+//
 func (builder *UpdateUserIdUserReqBuilder) Body(body *UpdateUserIdUserReqBody) *UpdateUserIdUserReqBuilder {
 	builder.body = body
 	return builder

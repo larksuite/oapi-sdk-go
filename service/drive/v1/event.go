@@ -236,3 +236,23 @@ func (h *P2FileTrashedV1Handler) Event() interface{} {
 func (h *P2FileTrashedV1Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2FileTrashedV1))
 }
+
+// 消息处理器定义
+type P2NoticeCommentAddV1Handler struct {
+	handler func(context.Context, *P2NoticeCommentAddV1) error
+}
+
+func NewP2NoticeCommentAddV1Handler(handler func(context.Context, *P2NoticeCommentAddV1) error) *P2NoticeCommentAddV1Handler {
+	h := &P2NoticeCommentAddV1Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2NoticeCommentAddV1Handler) Event() interface{} {
+	return &P2NoticeCommentAddV1{}
+}
+
+// 回调开发者注册的handle
+func (h *P2NoticeCommentAddV1Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2NoticeCommentAddV1))
+}

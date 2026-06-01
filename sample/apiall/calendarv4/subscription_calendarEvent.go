@@ -28,6 +28,8 @@ func main() {
 	// 创建请求对象
 	req := larkcalendar.NewSubscriptionCalendarEventReqBuilder().
 		CalendarId("feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn").
+		OpUserId("ou_7d8a6e6df7621556ce0d21922b676706ccs").
+		UserIdType("user_id").
 		Build()
 	// 发起请求
 	resp, err := client.Calendar.V4.CalendarEvent.Subscription(context.Background(), req)

@@ -112,6 +112,32 @@ func (w *whiteboard) UpdateTheme(ctx context.Context, req *UpdateThemeWhiteboard
 	return resp, err
 }
 
+// BatchDelete
+//
+// - 批量删除画板内的节点，存在子节点时子节点也被删除
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=board&resource=whiteboard.node&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/boardv1/batchDelete_whiteboardNode.go
+func (w *whiteboardNode) BatchDelete(ctx context.Context, req *BatchDeleteWhiteboardNodeReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteWhiteboardNodeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/board/v1/whiteboards/:whiteboard_id/nodes/batch_delete"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchDeleteWhiteboardNodeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Create
 //
 // - 在画板中创建节点

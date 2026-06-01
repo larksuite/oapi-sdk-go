@@ -30,6 +30,7 @@ func main() {
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		TableId("tblsRc9GRRXKqhvW").
 		RecordId("recpCsf4ME").
+		IgnoreConsistencyCheck(false).
 		Build()
 	// 发起请求
 	resp, err := client.Bitable.V1.AppTableRecord.Delete(context.Background(), req)

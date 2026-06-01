@@ -31,6 +31,7 @@ func main() {
 		SortType("ByCreateTimeAsc").
 		PageToken("dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ==").
 		PageSize(20).
+		Types("group").
 		Build()
 	// 发起请求
 	resp, err := client.Im.V1.Chat.List(context.Background(), req)

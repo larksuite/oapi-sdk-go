@@ -852,7 +852,7 @@ func (c *calendarEvent) Subscription(ctx context.Context, req *SubscriptionCalen
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events/subscription"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
 	if err != nil {
 		return nil, err
@@ -880,7 +880,7 @@ func (c *calendarEvent) Unsubscription(ctx context.Context, req *UnsubscriptionC
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/calendar/v4/calendars/:calendar_id/events/unsubscription"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
 	if err != nil {
 		return nil, err

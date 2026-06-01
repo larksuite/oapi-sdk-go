@@ -35,6 +35,7 @@ func main() {
 	req := larkdocument_ai.NewRecognizeFoodManageLicenseReqBuilder().
 		Body(larkdocument_ai.NewRecognizeFoodManageLicenseReqBodyBuilder().
 			File(file).
+			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

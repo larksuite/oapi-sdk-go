@@ -19,11 +19,13 @@ type V1 struct {
 	FileVersion              *fileVersion              // 文档版本
 	FileViewRecord           *fileViewRecord           // file.view_record
 	ImportTask               *importTask               // 导入
-	Media                    *media                    // 分片上传
+	Media                    *media                    // 素材
 	Meta                     *meta                     // meta
+	Notice                   *notice                   // notice
 	PermissionMember         *permissionMember         // 成员
 	PermissionPublic         *permissionPublic         // 设置
 	PermissionPublicPassword *permissionPublicPassword // permission.public.password
+	User                     *user                     // user
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -39,9 +41,11 @@ func New(config *larkcore.Config) *V1 {
 		ImportTask:               &importTask{config: config},
 		Media:                    &media{config: config},
 		Meta:                     &meta{config: config},
+		Notice:                   &notice{config: config},
 		PermissionMember:         &permissionMember{config: config},
 		PermissionPublic:         &permissionPublic{config: config},
 		PermissionPublicPassword: &permissionPublicPassword{config: config},
+		User:                     &user{config: config},
 	}
 }
 
@@ -78,6 +82,9 @@ type media struct {
 type meta struct {
 	config *larkcore.Config
 }
+type notice struct {
+	config *larkcore.Config
+}
 type permissionMember struct {
 	config *larkcore.Config
 }
@@ -85,6 +92,9 @@ type permissionPublic struct {
 	config *larkcore.Config
 }
 type permissionPublicPassword struct {
+	config *larkcore.Config
+}
+type user struct {
 	config *larkcore.Config
 }
 
@@ -723,6 +733,32 @@ func (f *fileComment) Patch(ctx context.Context, req *PatchFileCommentReq, optio
 	}
 	// 反序列响应结果
 	resp := &PatchFileCommentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, f.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=drive&resource=file.comment.reply&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/create_fileCommentReply.go
+func (f *fileCommentReply) Create(ctx context.Context, req *CreateFileCommentReplyReq, options ...larkcore.RequestOptionFunc) (*CreateFileCommentReplyResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, f.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateFileCommentReplyResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, f.config)
 	if err != nil {
 		return nil, err
@@ -1634,6 +1670,84 @@ func (p *permissionPublicPassword) Update(ctx context.Context, req *UpdatePermis
 	// 反序列响应结果
 	resp := &UpdatePermissionPublicPasswordResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// RemoveSubscription
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=remove_subscription&project=drive&resource=user&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/removeSubscription_user.go
+func (u *user) RemoveSubscription(ctx context.Context, req *RemoveSubscriptionUserReq, options ...larkcore.RequestOptionFunc) (*RemoveSubscriptionUserResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/user/remove_subscription"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RemoveSubscriptionUserResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Subscription
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscription&project=drive&resource=user&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/subscription_user.go
+func (u *user) Subscription(ctx context.Context, req *SubscriptionUserReq, options ...larkcore.RequestOptionFunc) (*SubscriptionUserResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/user/subscription"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SubscriptionUserResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// SubscriptionStatus
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscription_status&project=drive&resource=user&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/subscriptionStatus_user.go
+func (u *user) SubscriptionStatus(ctx context.Context, req *SubscriptionStatusUserReq, options ...larkcore.RequestOptionFunc) (*SubscriptionStatusUserResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/user/subscription_status"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SubscriptionStatusUserResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
 	if err != nil {
 		return nil, err
 	}

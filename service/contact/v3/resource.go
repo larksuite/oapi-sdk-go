@@ -1684,6 +1684,32 @@ func (u *unit) UnbindDepartment(ctx context.Context, req *UnbindDepartmentUnitRe
 	return resp, err
 }
 
+// BasicBatch
+//
+// - 批量获取用户基本信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=basic_batch&project=contact&resource=user&version=v3
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/basicBatch_user.go
+func (u *user) BasicBatch(ctx context.Context, req *BasicBatchUserReq, options ...larkcore.RequestOptionFunc) (*BasicBatchUserResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/contact/v3/users/basic_batch"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BasicBatchUserResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Batch
 //
 // -

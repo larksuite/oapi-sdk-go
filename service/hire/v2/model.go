@@ -48,11 +48,11 @@ type Ability struct {
 }
 
 type AbilityBuilder struct {
-	name     *I18n // 能力项名称
-	nameFlag bool
+	name    *I18n // 能力项名称
+	nameSet bool
 
-	description     *I18n // 能力项描述
-	descriptionFlag bool
+	description    *I18n // 能力项描述
+	descriptionSet bool
 }
 
 func NewAbilityBuilder() *AbilityBuilder {
@@ -65,7 +65,7 @@ func NewAbilityBuilder() *AbilityBuilder {
 // 示例值：
 func (builder *AbilityBuilder) Name(name *I18n) *AbilityBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -74,16 +74,16 @@ func (builder *AbilityBuilder) Name(name *I18n) *AbilityBuilder {
 // 示例值：
 func (builder *AbilityBuilder) Description(description *I18n) *AbilityBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
 func (builder *AbilityBuilder) Build() *Ability {
 	req := &Ability{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
 	return req
@@ -98,14 +98,14 @@ type AbilityAssessment struct {
 }
 
 type AbilityAssessmentBuilder struct {
-	id     string // 能力项评价id
-	idFlag bool
+	id    string // 能力项评价id
+	idSet bool
 
-	abilityId     string // 能力项id
-	abilityIdFlag bool
+	abilityId    string // 能力项id
+	abilityIdSet bool
 
-	content     string // 能力项评价内容
-	contentFlag bool
+	content    string // 能力项评价内容
+	contentSet bool
 }
 
 func NewAbilityAssessmentBuilder() *AbilityAssessmentBuilder {
@@ -118,7 +118,7 @@ func NewAbilityAssessmentBuilder() *AbilityAssessmentBuilder {
 // 示例值：6949805467799537964
 func (builder *AbilityAssessmentBuilder) Id(id string) *AbilityAssessmentBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -127,7 +127,7 @@ func (builder *AbilityAssessmentBuilder) Id(id string) *AbilityAssessmentBuilder
 // 示例值：7270798542321666366
 func (builder *AbilityAssessmentBuilder) AbilityId(abilityId string) *AbilityAssessmentBuilder {
 	builder.abilityId = abilityId
-	builder.abilityIdFlag = true
+	builder.abilityIdSet = true
 	return builder
 }
 
@@ -136,21 +136,21 @@ func (builder *AbilityAssessmentBuilder) AbilityId(abilityId string) *AbilityAss
 // 示例值：能力项评价
 func (builder *AbilityAssessmentBuilder) Content(content string) *AbilityAssessmentBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *AbilityAssessmentBuilder) Build() *AbilityAssessment {
 	req := &AbilityAssessment{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.abilityIdFlag {
+	if builder.abilityIdSet {
 		req.AbilityId = &builder.abilityId
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
@@ -170,20 +170,20 @@ type Attachment struct {
 }
 
 type AttachmentBuilder struct {
-	fileId     string // 附件 ID
-	fileIdFlag bool
+	fileId    string // 附件 ID
+	fileIdSet bool
 
-	fileName     string // 附件名称
-	fileNameFlag bool
+	fileName    string // 附件名称
+	fileNameSet bool
 
-	contentType     string // 附件类型
-	contentTypeFlag bool
+	contentType    string // 附件类型
+	contentTypeSet bool
 
-	fileSize     int64 // 附件大小
-	fileSizeFlag bool
+	fileSize    int64 // 附件大小
+	fileSizeSet bool
 
-	createTime     string // 附件创建时间(ms)
-	createTimeFlag bool
+	createTime    string // 附件创建时间(ms)
+	createTimeSet bool
 }
 
 func NewAttachmentBuilder() *AttachmentBuilder {
@@ -196,7 +196,7 @@ func NewAttachmentBuilder() *AttachmentBuilder {
 // 示例值：7140517838785481004
 func (builder *AttachmentBuilder) FileId(fileId string) *AttachmentBuilder {
 	builder.fileId = fileId
-	builder.fileIdFlag = true
+	builder.fileIdSet = true
 	return builder
 }
 
@@ -205,7 +205,7 @@ func (builder *AttachmentBuilder) FileId(fileId string) *AttachmentBuilder {
 // 示例值：1.13测试1的面试记录.pdf
 func (builder *AttachmentBuilder) FileName(fileName string) *AttachmentBuilder {
 	builder.fileName = fileName
-	builder.fileNameFlag = true
+	builder.fileNameSet = true
 	return builder
 }
 
@@ -214,7 +214,7 @@ func (builder *AttachmentBuilder) FileName(fileName string) *AttachmentBuilder {
 // 示例值：application/pdf
 func (builder *AttachmentBuilder) ContentType(contentType string) *AttachmentBuilder {
 	builder.contentType = contentType
-	builder.contentTypeFlag = true
+	builder.contentTypeSet = true
 	return builder
 }
 
@@ -223,7 +223,7 @@ func (builder *AttachmentBuilder) ContentType(contentType string) *AttachmentBui
 // 示例值：16615
 func (builder *AttachmentBuilder) FileSize(fileSize int64) *AttachmentBuilder {
 	builder.fileSize = fileSize
-	builder.fileSizeFlag = true
+	builder.fileSizeSet = true
 	return builder
 }
 
@@ -232,29 +232,29 @@ func (builder *AttachmentBuilder) FileSize(fileSize int64) *AttachmentBuilder {
 // 示例值：1710399930151
 func (builder *AttachmentBuilder) CreateTime(createTime string) *AttachmentBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
 func (builder *AttachmentBuilder) Build() *Attachment {
 	req := &Attachment{}
-	if builder.fileIdFlag {
+	if builder.fileIdSet {
 		req.FileId = &builder.fileId
 
 	}
-	if builder.fileNameFlag {
+	if builder.fileNameSet {
 		req.FileName = &builder.fileName
 
 	}
-	if builder.contentTypeFlag {
+	if builder.contentTypeSet {
 		req.ContentType = &builder.contentType
 
 	}
-	if builder.fileSizeFlag {
+	if builder.fileSizeSet {
 		req.FileSize = &builder.fileSize
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
@@ -316,83 +316,83 @@ type CompositeTalent struct {
 }
 
 type CompositeTalentBuilder struct {
-	talentId     string // ID
-	talentIdFlag bool
+	talentId    string // ID
+	talentIdSet bool
 
-	basicInfo     *CompositeTalentBasicInfo // 基础信息
-	basicInfoFlag bool
+	basicInfo    *CompositeTalentBasicInfo // 基础信息
+	basicInfoSet bool
 
-	educationList     []*CompositeTalentEducationInfo // 教育经历
-	educationListFlag bool
+	educationList    []*CompositeTalentEducationInfo // 教育经历
+	educationListSet bool
 
-	careerList     []*CompositeTalentCareerInfo // 工作经历
-	careerListFlag bool
+	careerList    []*CompositeTalentCareerInfo // 工作经历
+	careerListSet bool
 
-	projectList     []*CompositeTalentProjectInfo // 项目经历
-	projectListFlag bool
+	projectList    []*CompositeTalentProjectInfo // 项目经历
+	projectListSet bool
 
-	worksList     []*CompositeTalentWorksInfo // 作品集
-	worksListFlag bool
+	worksList    []*CompositeTalentWorksInfo // 作品集
+	worksListSet bool
 
-	awardList     []*CompositeTalentAwardInfo // 获奖列表
-	awardListFlag bool
+	awardList    []*CompositeTalentAwardInfo // 获奖列表
+	awardListSet bool
 
-	languageList     []*CompositeTalentLanguageInfo // 语言列表
-	languageListFlag bool
+	languageList    []*CompositeTalentLanguageInfo // 语言列表
+	languageListSet bool
 
-	snsList     []*CompositeTalentSnsInfo // SNS列表
-	snsListFlag bool
+	snsList    []*CompositeTalentSnsInfo // SNS列表
+	snsListSet bool
 
-	resumeSourceList     []*TalentResumeSource // 简历来源
-	resumeSourceListFlag bool
+	resumeSourceList    []*TalentResumeSource // 简历来源
+	resumeSourceListSet bool
 
-	internshipList     []*CompositeTalentInternshipInfo // 实习经历
-	internshipListFlag bool
+	internshipList    []*CompositeTalentInternshipInfo // 实习经历
+	internshipListSet bool
 
-	customizedDataList     []*CompositeTalentCustomizedData // 自定义字段
-	customizedDataListFlag bool
+	customizedDataList    []*CompositeTalentCustomizedData // 自定义字段
+	customizedDataListSet bool
 
-	resumeAttachmentIdList     []string // 简历附件id列表（按照简历创建时间降序）
-	resumeAttachmentIdListFlag bool
+	resumeAttachmentIdList    []string // 简历附件id列表（按照简历创建时间降序）
+	resumeAttachmentIdListSet bool
 
-	resumeAttachmentList     []*TalentResumeAttachment // 简历附件列表（按照简历创建时间降序）
-	resumeAttachmentListFlag bool
+	resumeAttachmentList    []*TalentResumeAttachment // 简历附件列表（按照简历创建时间降序）
+	resumeAttachmentListSet bool
 
-	interviewRegistrationList     []*TalentInterviewRegistrationSimple // 面试登记表
-	interviewRegistrationListFlag bool
+	interviewRegistrationList    []*TalentInterviewRegistrationSimple // 面试登记表
+	interviewRegistrationListSet bool
 
-	registrationList     []*RegistrationBasicInfo // 登记表列表
-	registrationListFlag bool
+	registrationList    []*RegistrationBasicInfo // 登记表列表
+	registrationListSet bool
 
-	isOnboarded     bool // 是否已入职
-	isOnboardedFlag bool
+	isOnboarded    bool // 是否已入职
+	isOnboardedSet bool
 
-	isInAgencyPeriod     bool // 是否在猎头保护期
-	isInAgencyPeriodFlag bool
+	isInAgencyPeriod    bool // 是否在猎头保护期
+	isInAgencyPeriodSet bool
 
-	topDegree     int // 最高学历 参考 DegreeType 枚举
-	topDegreeFlag bool
+	topDegree    int // 最高学历 参考 DegreeType 枚举
+	topDegreeSet bool
 
-	talentPoolIdList     []string // 人才已加入的人才库列表
-	talentPoolIdListFlag bool
+	talentPoolIdList    []string // 人才已加入的人才库列表
+	talentPoolIdListSet bool
 
-	talentFolderRefListV2     []*TalentFolder // 文件夹列表
-	talentFolderRefListV2Flag bool
+	talentFolderRefListV2    []*TalentFolder // 文件夹列表
+	talentFolderRefListV2Set bool
 
-	tagList     []*TalentTag // 标签列表
-	tagListFlag bool
+	tagList    []*TalentTag // 标签列表
+	tagListSet bool
 
-	similarInfoV2     *TalentSimilar // 相似人才信息
-	similarInfoV2Flag bool
+	similarInfoV2    *TalentSimilar // 相似人才信息
+	similarInfoV2Set bool
 
-	blockInfo     *TalentBlock // 人才黑名单详情
-	blockInfoFlag bool
+	blockInfo    *TalentBlock // 人才黑名单详情
+	blockInfoSet bool
 
-	talentPoolRefListV2     []*TalentPool // 人才已经加入的人才库列表
-	talentPoolRefListV2Flag bool
+	talentPoolRefListV2    []*TalentPool // 人才已经加入的人才库列表
+	talentPoolRefListV2Set bool
 
-	noteListV2     []*TalentNote // 备注列表
-	noteListV2Flag bool
+	noteListV2    []*TalentNote // 备注列表
+	noteListV2Set bool
 }
 
 func NewCompositeTalentBuilder() *CompositeTalentBuilder {
@@ -405,7 +405,7 @@ func NewCompositeTalentBuilder() *CompositeTalentBuilder {
 // 示例值：6761694410053798151
 func (builder *CompositeTalentBuilder) TalentId(talentId string) *CompositeTalentBuilder {
 	builder.talentId = talentId
-	builder.talentIdFlag = true
+	builder.talentIdSet = true
 	return builder
 }
 
@@ -414,7 +414,7 @@ func (builder *CompositeTalentBuilder) TalentId(talentId string) *CompositeTalen
 // 示例值：
 func (builder *CompositeTalentBuilder) BasicInfo(basicInfo *CompositeTalentBasicInfo) *CompositeTalentBuilder {
 	builder.basicInfo = basicInfo
-	builder.basicInfoFlag = true
+	builder.basicInfoSet = true
 	return builder
 }
 
@@ -423,7 +423,7 @@ func (builder *CompositeTalentBuilder) BasicInfo(basicInfo *CompositeTalentBasic
 // 示例值：
 func (builder *CompositeTalentBuilder) EducationList(educationList []*CompositeTalentEducationInfo) *CompositeTalentBuilder {
 	builder.educationList = educationList
-	builder.educationListFlag = true
+	builder.educationListSet = true
 	return builder
 }
 
@@ -432,7 +432,7 @@ func (builder *CompositeTalentBuilder) EducationList(educationList []*CompositeT
 // 示例值：
 func (builder *CompositeTalentBuilder) CareerList(careerList []*CompositeTalentCareerInfo) *CompositeTalentBuilder {
 	builder.careerList = careerList
-	builder.careerListFlag = true
+	builder.careerListSet = true
 	return builder
 }
 
@@ -441,7 +441,7 @@ func (builder *CompositeTalentBuilder) CareerList(careerList []*CompositeTalentC
 // 示例值：
 func (builder *CompositeTalentBuilder) ProjectList(projectList []*CompositeTalentProjectInfo) *CompositeTalentBuilder {
 	builder.projectList = projectList
-	builder.projectListFlag = true
+	builder.projectListSet = true
 	return builder
 }
 
@@ -450,7 +450,7 @@ func (builder *CompositeTalentBuilder) ProjectList(projectList []*CompositeTalen
 // 示例值：
 func (builder *CompositeTalentBuilder) WorksList(worksList []*CompositeTalentWorksInfo) *CompositeTalentBuilder {
 	builder.worksList = worksList
-	builder.worksListFlag = true
+	builder.worksListSet = true
 	return builder
 }
 
@@ -459,7 +459,7 @@ func (builder *CompositeTalentBuilder) WorksList(worksList []*CompositeTalentWor
 // 示例值：
 func (builder *CompositeTalentBuilder) AwardList(awardList []*CompositeTalentAwardInfo) *CompositeTalentBuilder {
 	builder.awardList = awardList
-	builder.awardListFlag = true
+	builder.awardListSet = true
 	return builder
 }
 
@@ -468,7 +468,7 @@ func (builder *CompositeTalentBuilder) AwardList(awardList []*CompositeTalentAwa
 // 示例值：
 func (builder *CompositeTalentBuilder) LanguageList(languageList []*CompositeTalentLanguageInfo) *CompositeTalentBuilder {
 	builder.languageList = languageList
-	builder.languageListFlag = true
+	builder.languageListSet = true
 	return builder
 }
 
@@ -477,7 +477,7 @@ func (builder *CompositeTalentBuilder) LanguageList(languageList []*CompositeTal
 // 示例值：
 func (builder *CompositeTalentBuilder) SnsList(snsList []*CompositeTalentSnsInfo) *CompositeTalentBuilder {
 	builder.snsList = snsList
-	builder.snsListFlag = true
+	builder.snsListSet = true
 	return builder
 }
 
@@ -486,7 +486,7 @@ func (builder *CompositeTalentBuilder) SnsList(snsList []*CompositeTalentSnsInfo
 // 示例值：
 func (builder *CompositeTalentBuilder) ResumeSourceList(resumeSourceList []*TalentResumeSource) *CompositeTalentBuilder {
 	builder.resumeSourceList = resumeSourceList
-	builder.resumeSourceListFlag = true
+	builder.resumeSourceListSet = true
 	return builder
 }
 
@@ -495,7 +495,7 @@ func (builder *CompositeTalentBuilder) ResumeSourceList(resumeSourceList []*Tale
 // 示例值：
 func (builder *CompositeTalentBuilder) InternshipList(internshipList []*CompositeTalentInternshipInfo) *CompositeTalentBuilder {
 	builder.internshipList = internshipList
-	builder.internshipListFlag = true
+	builder.internshipListSet = true
 	return builder
 }
 
@@ -504,7 +504,7 @@ func (builder *CompositeTalentBuilder) InternshipList(internshipList []*Composit
 // 示例值：
 func (builder *CompositeTalentBuilder) CustomizedDataList(customizedDataList []*CompositeTalentCustomizedData) *CompositeTalentBuilder {
 	builder.customizedDataList = customizedDataList
-	builder.customizedDataListFlag = true
+	builder.customizedDataListSet = true
 	return builder
 }
 
@@ -513,7 +513,7 @@ func (builder *CompositeTalentBuilder) CustomizedDataList(customizedDataList []*
 // 示例值：
 func (builder *CompositeTalentBuilder) ResumeAttachmentIdList(resumeAttachmentIdList []string) *CompositeTalentBuilder {
 	builder.resumeAttachmentIdList = resumeAttachmentIdList
-	builder.resumeAttachmentIdListFlag = true
+	builder.resumeAttachmentIdListSet = true
 	return builder
 }
 
@@ -522,7 +522,7 @@ func (builder *CompositeTalentBuilder) ResumeAttachmentIdList(resumeAttachmentId
 // 示例值：
 func (builder *CompositeTalentBuilder) ResumeAttachmentList(resumeAttachmentList []*TalentResumeAttachment) *CompositeTalentBuilder {
 	builder.resumeAttachmentList = resumeAttachmentList
-	builder.resumeAttachmentListFlag = true
+	builder.resumeAttachmentListSet = true
 	return builder
 }
 
@@ -531,7 +531,7 @@ func (builder *CompositeTalentBuilder) ResumeAttachmentList(resumeAttachmentList
 // 示例值：
 func (builder *CompositeTalentBuilder) InterviewRegistrationList(interviewRegistrationList []*TalentInterviewRegistrationSimple) *CompositeTalentBuilder {
 	builder.interviewRegistrationList = interviewRegistrationList
-	builder.interviewRegistrationListFlag = true
+	builder.interviewRegistrationListSet = true
 	return builder
 }
 
@@ -540,7 +540,7 @@ func (builder *CompositeTalentBuilder) InterviewRegistrationList(interviewRegist
 // 示例值：
 func (builder *CompositeTalentBuilder) RegistrationList(registrationList []*RegistrationBasicInfo) *CompositeTalentBuilder {
 	builder.registrationList = registrationList
-	builder.registrationListFlag = true
+	builder.registrationListSet = true
 	return builder
 }
 
@@ -549,7 +549,7 @@ func (builder *CompositeTalentBuilder) RegistrationList(registrationList []*Regi
 // 示例值：true
 func (builder *CompositeTalentBuilder) IsOnboarded(isOnboarded bool) *CompositeTalentBuilder {
 	builder.isOnboarded = isOnboarded
-	builder.isOnboardedFlag = true
+	builder.isOnboardedSet = true
 	return builder
 }
 
@@ -558,7 +558,7 @@ func (builder *CompositeTalentBuilder) IsOnboarded(isOnboarded bool) *CompositeT
 // 示例值：true
 func (builder *CompositeTalentBuilder) IsInAgencyPeriod(isInAgencyPeriod bool) *CompositeTalentBuilder {
 	builder.isInAgencyPeriod = isInAgencyPeriod
-	builder.isInAgencyPeriodFlag = true
+	builder.isInAgencyPeriodSet = true
 	return builder
 }
 
@@ -567,7 +567,7 @@ func (builder *CompositeTalentBuilder) IsInAgencyPeriod(isInAgencyPeriod bool) *
 // 示例值：1
 func (builder *CompositeTalentBuilder) TopDegree(topDegree int) *CompositeTalentBuilder {
 	builder.topDegree = topDegree
-	builder.topDegreeFlag = true
+	builder.topDegreeSet = true
 	return builder
 }
 
@@ -576,7 +576,7 @@ func (builder *CompositeTalentBuilder) TopDegree(topDegree int) *CompositeTalent
 // 示例值：
 func (builder *CompositeTalentBuilder) TalentPoolIdList(talentPoolIdList []string) *CompositeTalentBuilder {
 	builder.talentPoolIdList = talentPoolIdList
-	builder.talentPoolIdListFlag = true
+	builder.talentPoolIdListSet = true
 	return builder
 }
 
@@ -585,7 +585,7 @@ func (builder *CompositeTalentBuilder) TalentPoolIdList(talentPoolIdList []strin
 // 示例值：
 func (builder *CompositeTalentBuilder) TalentFolderRefListV2(talentFolderRefListV2 []*TalentFolder) *CompositeTalentBuilder {
 	builder.talentFolderRefListV2 = talentFolderRefListV2
-	builder.talentFolderRefListV2Flag = true
+	builder.talentFolderRefListV2Set = true
 	return builder
 }
 
@@ -594,7 +594,7 @@ func (builder *CompositeTalentBuilder) TalentFolderRefListV2(talentFolderRefList
 // 示例值：
 func (builder *CompositeTalentBuilder) TagList(tagList []*TalentTag) *CompositeTalentBuilder {
 	builder.tagList = tagList
-	builder.tagListFlag = true
+	builder.tagListSet = true
 	return builder
 }
 
@@ -603,7 +603,7 @@ func (builder *CompositeTalentBuilder) TagList(tagList []*TalentTag) *CompositeT
 // 示例值：
 func (builder *CompositeTalentBuilder) SimilarInfoV2(similarInfoV2 *TalentSimilar) *CompositeTalentBuilder {
 	builder.similarInfoV2 = similarInfoV2
-	builder.similarInfoV2Flag = true
+	builder.similarInfoV2Set = true
 	return builder
 }
 
@@ -612,7 +612,7 @@ func (builder *CompositeTalentBuilder) SimilarInfoV2(similarInfoV2 *TalentSimila
 // 示例值：
 func (builder *CompositeTalentBuilder) BlockInfo(blockInfo *TalentBlock) *CompositeTalentBuilder {
 	builder.blockInfo = blockInfo
-	builder.blockInfoFlag = true
+	builder.blockInfoSet = true
 	return builder
 }
 
@@ -621,7 +621,7 @@ func (builder *CompositeTalentBuilder) BlockInfo(blockInfo *TalentBlock) *Compos
 // 示例值：
 func (builder *CompositeTalentBuilder) TalentPoolRefListV2(talentPoolRefListV2 []*TalentPool) *CompositeTalentBuilder {
 	builder.talentPoolRefListV2 = talentPoolRefListV2
-	builder.talentPoolRefListV2Flag = true
+	builder.talentPoolRefListV2Set = true
 	return builder
 }
 
@@ -630,92 +630,92 @@ func (builder *CompositeTalentBuilder) TalentPoolRefListV2(talentPoolRefListV2 [
 // 示例值：
 func (builder *CompositeTalentBuilder) NoteListV2(noteListV2 []*TalentNote) *CompositeTalentBuilder {
 	builder.noteListV2 = noteListV2
-	builder.noteListV2Flag = true
+	builder.noteListV2Set = true
 	return builder
 }
 
 func (builder *CompositeTalentBuilder) Build() *CompositeTalent {
 	req := &CompositeTalent{}
-	if builder.talentIdFlag {
+	if builder.talentIdSet {
 		req.TalentId = &builder.talentId
 
 	}
-	if builder.basicInfoFlag {
+	if builder.basicInfoSet {
 		req.BasicInfo = builder.basicInfo
 	}
-	if builder.educationListFlag {
+	if builder.educationListSet {
 		req.EducationList = builder.educationList
 	}
-	if builder.careerListFlag {
+	if builder.careerListSet {
 		req.CareerList = builder.careerList
 	}
-	if builder.projectListFlag {
+	if builder.projectListSet {
 		req.ProjectList = builder.projectList
 	}
-	if builder.worksListFlag {
+	if builder.worksListSet {
 		req.WorksList = builder.worksList
 	}
-	if builder.awardListFlag {
+	if builder.awardListSet {
 		req.AwardList = builder.awardList
 	}
-	if builder.languageListFlag {
+	if builder.languageListSet {
 		req.LanguageList = builder.languageList
 	}
-	if builder.snsListFlag {
+	if builder.snsListSet {
 		req.SnsList = builder.snsList
 	}
-	if builder.resumeSourceListFlag {
+	if builder.resumeSourceListSet {
 		req.ResumeSourceList = builder.resumeSourceList
 	}
-	if builder.internshipListFlag {
+	if builder.internshipListSet {
 		req.InternshipList = builder.internshipList
 	}
-	if builder.customizedDataListFlag {
+	if builder.customizedDataListSet {
 		req.CustomizedDataList = builder.customizedDataList
 	}
-	if builder.resumeAttachmentIdListFlag {
+	if builder.resumeAttachmentIdListSet {
 		req.ResumeAttachmentIdList = builder.resumeAttachmentIdList
 	}
-	if builder.resumeAttachmentListFlag {
+	if builder.resumeAttachmentListSet {
 		req.ResumeAttachmentList = builder.resumeAttachmentList
 	}
-	if builder.interviewRegistrationListFlag {
+	if builder.interviewRegistrationListSet {
 		req.InterviewRegistrationList = builder.interviewRegistrationList
 	}
-	if builder.registrationListFlag {
+	if builder.registrationListSet {
 		req.RegistrationList = builder.registrationList
 	}
-	if builder.isOnboardedFlag {
+	if builder.isOnboardedSet {
 		req.IsOnboarded = &builder.isOnboarded
 
 	}
-	if builder.isInAgencyPeriodFlag {
+	if builder.isInAgencyPeriodSet {
 		req.IsInAgencyPeriod = &builder.isInAgencyPeriod
 
 	}
-	if builder.topDegreeFlag {
+	if builder.topDegreeSet {
 		req.TopDegree = &builder.topDegree
 
 	}
-	if builder.talentPoolIdListFlag {
+	if builder.talentPoolIdListSet {
 		req.TalentPoolIdList = builder.talentPoolIdList
 	}
-	if builder.talentFolderRefListV2Flag {
+	if builder.talentFolderRefListV2Set {
 		req.TalentFolderRefListV2 = builder.talentFolderRefListV2
 	}
-	if builder.tagListFlag {
+	if builder.tagListSet {
 		req.TagList = builder.tagList
 	}
-	if builder.similarInfoV2Flag {
+	if builder.similarInfoV2Set {
 		req.SimilarInfoV2 = builder.similarInfoV2
 	}
-	if builder.blockInfoFlag {
+	if builder.blockInfoSet {
 		req.BlockInfo = builder.blockInfo
 	}
-	if builder.talentPoolRefListV2Flag {
+	if builder.talentPoolRefListV2Set {
 		req.TalentPoolRefListV2 = builder.talentPoolRefListV2
 	}
-	if builder.noteListV2Flag {
+	if builder.noteListV2Set {
 		req.NoteListV2 = builder.noteListV2
 	}
 	return req
@@ -732,17 +732,17 @@ type CompositeTalentAwardInfo struct {
 }
 
 type CompositeTalentAwardInfoBuilder struct {
-	awardName     string // 名称
-	awardNameFlag bool
+	awardName    string // 名称
+	awardNameSet bool
 
-	awardTime     string // 获奖时间
-	awardTimeFlag bool
+	awardTime    string // 获奖时间
+	awardTimeSet bool
 
-	description     string // 描述
-	descriptionFlag bool
+	description    string // 描述
+	descriptionSet bool
 
-	customizedDataList     []*TalentCustomizedDataChild // 自定义字段
-	customizedDataListFlag bool
+	customizedDataList    []*TalentCustomizedDataChild // 自定义字段
+	customizedDataListSet bool
 }
 
 func NewCompositeTalentAwardInfoBuilder() *CompositeTalentAwardInfoBuilder {
@@ -755,7 +755,7 @@ func NewCompositeTalentAwardInfoBuilder() *CompositeTalentAwardInfoBuilder {
 // 示例值：最佳新人奖
 func (builder *CompositeTalentAwardInfoBuilder) AwardName(awardName string) *CompositeTalentAwardInfoBuilder {
 	builder.awardName = awardName
-	builder.awardNameFlag = true
+	builder.awardNameSet = true
 	return builder
 }
 
@@ -764,7 +764,7 @@ func (builder *CompositeTalentAwardInfoBuilder) AwardName(awardName string) *Com
 // 示例值：1991
 func (builder *CompositeTalentAwardInfoBuilder) AwardTime(awardTime string) *CompositeTalentAwardInfoBuilder {
 	builder.awardTime = awardTime
-	builder.awardTimeFlag = true
+	builder.awardTimeSet = true
 	return builder
 }
 
@@ -773,7 +773,7 @@ func (builder *CompositeTalentAwardInfoBuilder) AwardTime(awardTime string) *Com
 // 示例值：最优秀的新人奖
 func (builder *CompositeTalentAwardInfoBuilder) Description(description string) *CompositeTalentAwardInfoBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -782,25 +782,25 @@ func (builder *CompositeTalentAwardInfoBuilder) Description(description string) 
 // 示例值：
 func (builder *CompositeTalentAwardInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *CompositeTalentAwardInfoBuilder {
 	builder.customizedDataList = customizedDataList
-	builder.customizedDataListFlag = true
+	builder.customizedDataListSet = true
 	return builder
 }
 
 func (builder *CompositeTalentAwardInfoBuilder) Build() *CompositeTalentAwardInfo {
 	req := &CompositeTalentAwardInfo{}
-	if builder.awardNameFlag {
+	if builder.awardNameSet {
 		req.AwardName = &builder.awardName
 
 	}
-	if builder.awardTimeFlag {
+	if builder.awardTimeSet {
 		req.AwardTime = &builder.awardTime
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.customizedDataListFlag {
+	if builder.customizedDataListSet {
 		req.CustomizedDataList = builder.customizedDataList
 	}
 	return req
@@ -851,68 +851,68 @@ type CompositeTalentBasicInfo struct {
 }
 
 type CompositeTalentBasicInfoBuilder struct {
-	name     string // 名字
-	nameFlag bool
+	name    string // 名字
+	nameSet bool
 
-	mobileNumber     string // 手机
-	mobileNumberFlag bool
+	mobileNumber    string // 手机
+	mobileNumberSet bool
 
-	mobileCode     string // 手机国家区号
-	mobileCodeFlag bool
+	mobileCode    string // 手机国家区号
+	mobileCodeSet bool
 
-	email     string // 邮箱
-	emailFlag bool
+	email    string // 邮箱
+	emailSet bool
 
-	experienceYears     int64 // 工作年限
-	experienceYearsFlag bool
+	experienceYears    int64 // 工作年限
+	experienceYearsSet bool
 
-	age     int64 // 年龄
-	ageFlag bool
+	age    int64 // 年龄
+	ageSet bool
 
-	nationalityCode     string // 国籍
-	nationalityCodeFlag bool
+	nationalityCode    string // 国籍
+	nationalityCodeSet bool
 
-	gender     int // 性别
-	genderFlag bool
+	gender    int // 性别
+	genderSet bool
 
-	currentLocationCode     string // 所在地点
-	currentLocationCodeFlag bool
+	currentLocationCode    string // 所在地点
+	currentLocationCodeSet bool
 
-	hometownLocationCode     string // 家乡
-	hometownLocationCodeFlag bool
+	hometownLocationCode    string // 家乡
+	hometownLocationCodeSet bool
 
-	preferredLocationCodeList     []string // 意向地点
-	preferredLocationCodeListFlag bool
+	preferredLocationCodeList    []string // 意向地点
+	preferredLocationCodeListSet bool
 
-	homeAddress     string // 家庭住址
-	homeAddressFlag bool
+	homeAddress    string // 家庭住址
+	homeAddressSet bool
 
-	identificationType     int // 证件类型
-	identificationTypeFlag bool
+	identificationType    int // 证件类型
+	identificationTypeSet bool
 
-	identificationNumber     string // 证件号
-	identificationNumberFlag bool
+	identificationNumber    string // 证件号
+	identificationNumberSet bool
 
-	birthday     int64 // 生日
-	birthdayFlag bool
+	birthday    int64 // 生日
+	birthdaySet bool
 
-	maritalStatus     int // 婚姻状况
-	maritalStatusFlag bool
+	maritalStatus    int // 婚姻状况
+	maritalStatusSet bool
 
-	customizedDataList     []*TalentCustomizedDataChild // 自定义字段
-	customizedDataListFlag bool
+	customizedDataList    []*TalentCustomizedDataChild // 自定义字段
+	customizedDataListSet bool
 
-	hukouLocationCode     string // 户口所在地
-	hukouLocationCodeFlag bool
+	hukouLocationCode    string // 户口所在地
+	hukouLocationCodeSet bool
 
-	updateTime     string // 人才更新时间
-	updateTimeFlag bool
+	updateTime    string // 人才更新时间
+	updateTimeSet bool
 
-	createTime     string // 人才创建时间
-	createTimeFlag bool
+	createTime    string // 人才创建时间
+	createTimeSet bool
 
-	confidential     int // 人才隐藏状态
-	confidentialFlag bool
+	confidential    int // 人才隐藏状态
+	confidentialSet bool
 }
 
 func NewCompositeTalentBasicInfoBuilder() *CompositeTalentBasicInfoBuilder {
@@ -925,7 +925,7 @@ func NewCompositeTalentBasicInfoBuilder() *CompositeTalentBasicInfoBuilder {
 // 示例值：测试
 func (builder *CompositeTalentBasicInfoBuilder) Name(name string) *CompositeTalentBasicInfoBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -934,7 +934,7 @@ func (builder *CompositeTalentBasicInfoBuilder) Name(name string) *CompositeTale
 // 示例值：18312341234
 func (builder *CompositeTalentBasicInfoBuilder) MobileNumber(mobileNumber string) *CompositeTalentBasicInfoBuilder {
 	builder.mobileNumber = mobileNumber
-	builder.mobileNumberFlag = true
+	builder.mobileNumberSet = true
 	return builder
 }
 
@@ -943,7 +943,7 @@ func (builder *CompositeTalentBasicInfoBuilder) MobileNumber(mobileNumber string
 // 示例值：86
 func (builder *CompositeTalentBasicInfoBuilder) MobileCode(mobileCode string) *CompositeTalentBasicInfoBuilder {
 	builder.mobileCode = mobileCode
-	builder.mobileCodeFlag = true
+	builder.mobileCodeSet = true
 	return builder
 }
 
@@ -952,7 +952,7 @@ func (builder *CompositeTalentBasicInfoBuilder) MobileCode(mobileCode string) *C
 // 示例值：16xx1@126.com
 func (builder *CompositeTalentBasicInfoBuilder) Email(email string) *CompositeTalentBasicInfoBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -961,7 +961,7 @@ func (builder *CompositeTalentBasicInfoBuilder) Email(email string) *CompositeTa
 // 示例值：5
 func (builder *CompositeTalentBasicInfoBuilder) ExperienceYears(experienceYears int64) *CompositeTalentBasicInfoBuilder {
 	builder.experienceYears = experienceYears
-	builder.experienceYearsFlag = true
+	builder.experienceYearsSet = true
 	return builder
 }
 
@@ -970,7 +970,7 @@ func (builder *CompositeTalentBasicInfoBuilder) ExperienceYears(experienceYears 
 // 示例值：22
 func (builder *CompositeTalentBasicInfoBuilder) Age(age int64) *CompositeTalentBasicInfoBuilder {
 	builder.age = age
-	builder.ageFlag = true
+	builder.ageSet = true
 	return builder
 }
 
@@ -979,7 +979,7 @@ func (builder *CompositeTalentBasicInfoBuilder) Age(age int64) *CompositeTalentB
 // 示例值：CN_1
 func (builder *CompositeTalentBasicInfoBuilder) NationalityCode(nationalityCode string) *CompositeTalentBasicInfoBuilder {
 	builder.nationalityCode = nationalityCode
-	builder.nationalityCodeFlag = true
+	builder.nationalityCodeSet = true
 	return builder
 }
 
@@ -988,7 +988,7 @@ func (builder *CompositeTalentBasicInfoBuilder) NationalityCode(nationalityCode 
 // 示例值：1
 func (builder *CompositeTalentBasicInfoBuilder) Gender(gender int) *CompositeTalentBasicInfoBuilder {
 	builder.gender = gender
-	builder.genderFlag = true
+	builder.genderSet = true
 	return builder
 }
 
@@ -997,7 +997,7 @@ func (builder *CompositeTalentBasicInfoBuilder) Gender(gender int) *CompositeTal
 // 示例值：CN_2
 func (builder *CompositeTalentBasicInfoBuilder) CurrentLocationCode(currentLocationCode string) *CompositeTalentBasicInfoBuilder {
 	builder.currentLocationCode = currentLocationCode
-	builder.currentLocationCodeFlag = true
+	builder.currentLocationCodeSet = true
 	return builder
 }
 
@@ -1006,7 +1006,7 @@ func (builder *CompositeTalentBasicInfoBuilder) CurrentLocationCode(currentLocat
 // 示例值：CN_3
 func (builder *CompositeTalentBasicInfoBuilder) HometownLocationCode(hometownLocationCode string) *CompositeTalentBasicInfoBuilder {
 	builder.hometownLocationCode = hometownLocationCode
-	builder.hometownLocationCodeFlag = true
+	builder.hometownLocationCodeSet = true
 	return builder
 }
 
@@ -1015,7 +1015,7 @@ func (builder *CompositeTalentBasicInfoBuilder) HometownLocationCode(hometownLoc
 // 示例值：
 func (builder *CompositeTalentBasicInfoBuilder) PreferredLocationCodeList(preferredLocationCodeList []string) *CompositeTalentBasicInfoBuilder {
 	builder.preferredLocationCodeList = preferredLocationCodeList
-	builder.preferredLocationCodeListFlag = true
+	builder.preferredLocationCodeListSet = true
 	return builder
 }
 
@@ -1024,7 +1024,7 @@ func (builder *CompositeTalentBasicInfoBuilder) PreferredLocationCodeList(prefer
 // 示例值：北京市朝阳区
 func (builder *CompositeTalentBasicInfoBuilder) HomeAddress(homeAddress string) *CompositeTalentBasicInfoBuilder {
 	builder.homeAddress = homeAddress
-	builder.homeAddressFlag = true
+	builder.homeAddressSet = true
 	return builder
 }
 
@@ -1033,7 +1033,7 @@ func (builder *CompositeTalentBasicInfoBuilder) HomeAddress(homeAddress string) 
 // 示例值：1
 func (builder *CompositeTalentBasicInfoBuilder) IdentificationType(identificationType int) *CompositeTalentBasicInfoBuilder {
 	builder.identificationType = identificationType
-	builder.identificationTypeFlag = true
+	builder.identificationTypeSet = true
 	return builder
 }
 
@@ -1042,7 +1042,7 @@ func (builder *CompositeTalentBasicInfoBuilder) IdentificationType(identificatio
 // 示例值：511699199x1x111234
 func (builder *CompositeTalentBasicInfoBuilder) IdentificationNumber(identificationNumber string) *CompositeTalentBasicInfoBuilder {
 	builder.identificationNumber = identificationNumber
-	builder.identificationNumberFlag = true
+	builder.identificationNumberSet = true
 	return builder
 }
 
@@ -1051,7 +1051,7 @@ func (builder *CompositeTalentBasicInfoBuilder) IdentificationNumber(identificat
 // 示例值：293016767159
 func (builder *CompositeTalentBasicInfoBuilder) Birthday(birthday int64) *CompositeTalentBasicInfoBuilder {
 	builder.birthday = birthday
-	builder.birthdayFlag = true
+	builder.birthdaySet = true
 	return builder
 }
 
@@ -1060,7 +1060,7 @@ func (builder *CompositeTalentBasicInfoBuilder) Birthday(birthday int64) *Compos
 // 示例值：1
 func (builder *CompositeTalentBasicInfoBuilder) MaritalStatus(maritalStatus int) *CompositeTalentBasicInfoBuilder {
 	builder.maritalStatus = maritalStatus
-	builder.maritalStatusFlag = true
+	builder.maritalStatusSet = true
 	return builder
 }
 
@@ -1069,7 +1069,7 @@ func (builder *CompositeTalentBasicInfoBuilder) MaritalStatus(maritalStatus int)
 // 示例值：
 func (builder *CompositeTalentBasicInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *CompositeTalentBasicInfoBuilder {
 	builder.customizedDataList = customizedDataList
-	builder.customizedDataListFlag = true
+	builder.customizedDataListSet = true
 	return builder
 }
 
@@ -1078,7 +1078,7 @@ func (builder *CompositeTalentBasicInfoBuilder) CustomizedDataList(customizedDat
 // 示例值：CN_1
 func (builder *CompositeTalentBasicInfoBuilder) HukouLocationCode(hukouLocationCode string) *CompositeTalentBasicInfoBuilder {
 	builder.hukouLocationCode = hukouLocationCode
-	builder.hukouLocationCodeFlag = true
+	builder.hukouLocationCodeSet = true
 	return builder
 }
 
@@ -1087,7 +1087,7 @@ func (builder *CompositeTalentBasicInfoBuilder) HukouLocationCode(hukouLocationC
 // 示例值：1634801678103
 func (builder *CompositeTalentBasicInfoBuilder) UpdateTime(updateTime string) *CompositeTalentBasicInfoBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -1096,7 +1096,7 @@ func (builder *CompositeTalentBasicInfoBuilder) UpdateTime(updateTime string) *C
 // 示例值：1634801678103
 func (builder *CompositeTalentBasicInfoBuilder) CreateTime(createTime string) *CompositeTalentBasicInfoBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -1105,91 +1105,91 @@ func (builder *CompositeTalentBasicInfoBuilder) CreateTime(createTime string) *C
 // 示例值：1
 func (builder *CompositeTalentBasicInfoBuilder) Confidential(confidential int) *CompositeTalentBasicInfoBuilder {
 	builder.confidential = confidential
-	builder.confidentialFlag = true
+	builder.confidentialSet = true
 	return builder
 }
 
 func (builder *CompositeTalentBasicInfoBuilder) Build() *CompositeTalentBasicInfo {
 	req := &CompositeTalentBasicInfo{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.mobileNumberFlag {
+	if builder.mobileNumberSet {
 		req.MobileNumber = &builder.mobileNumber
 
 	}
-	if builder.mobileCodeFlag {
+	if builder.mobileCodeSet {
 		req.MobileCode = &builder.mobileCode
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.experienceYearsFlag {
+	if builder.experienceYearsSet {
 		req.ExperienceYears = &builder.experienceYears
 
 	}
-	if builder.ageFlag {
+	if builder.ageSet {
 		req.Age = &builder.age
 
 	}
-	if builder.nationalityCodeFlag {
+	if builder.nationalityCodeSet {
 		req.NationalityCode = &builder.nationalityCode
 
 	}
-	if builder.genderFlag {
+	if builder.genderSet {
 		req.Gender = &builder.gender
 
 	}
-	if builder.currentLocationCodeFlag {
+	if builder.currentLocationCodeSet {
 		req.CurrentLocationCode = &builder.currentLocationCode
 
 	}
-	if builder.hometownLocationCodeFlag {
+	if builder.hometownLocationCodeSet {
 		req.HometownLocationCode = &builder.hometownLocationCode
 
 	}
-	if builder.preferredLocationCodeListFlag {
+	if builder.preferredLocationCodeListSet {
 		req.PreferredLocationCodeList = builder.preferredLocationCodeList
 	}
-	if builder.homeAddressFlag {
+	if builder.homeAddressSet {
 		req.HomeAddress = &builder.homeAddress
 
 	}
-	if builder.identificationTypeFlag {
+	if builder.identificationTypeSet {
 		req.IdentificationType = &builder.identificationType
 
 	}
-	if builder.identificationNumberFlag {
+	if builder.identificationNumberSet {
 		req.IdentificationNumber = &builder.identificationNumber
 
 	}
-	if builder.birthdayFlag {
+	if builder.birthdaySet {
 		req.Birthday = &builder.birthday
 
 	}
-	if builder.maritalStatusFlag {
+	if builder.maritalStatusSet {
 		req.MaritalStatus = &builder.maritalStatus
 
 	}
-	if builder.customizedDataListFlag {
+	if builder.customizedDataListSet {
 		req.CustomizedDataList = builder.customizedDataList
 	}
-	if builder.hukouLocationCodeFlag {
+	if builder.hukouLocationCodeSet {
 		req.HukouLocationCode = &builder.hukouLocationCode
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.confidentialFlag {
+	if builder.confidentialSet {
 		req.Confidential = &builder.confidential
 
 	}
@@ -1211,23 +1211,23 @@ type CompositeTalentCareerInfo struct {
 }
 
 type CompositeTalentCareerInfoBuilder struct {
-	companyName     string // 公司
-	companyNameFlag bool
+	companyName    string // 公司
+	companyNameSet bool
 
-	description     string // 描述
-	descriptionFlag bool
+	description    string // 描述
+	descriptionSet bool
 
-	endTime     string // 结束时间
-	endTimeFlag bool
+	endTime    string // 结束时间
+	endTimeSet bool
 
-	startTime     string // 开始时间
-	startTimeFlag bool
+	startTime    string // 开始时间
+	startTimeSet bool
 
-	title     string // 职称
-	titleFlag bool
+	title    string // 职称
+	titleSet bool
 
-	customizedDataList     []*TalentCustomizedDataChild // 自定义字段
-	customizedDataListFlag bool
+	customizedDataList    []*TalentCustomizedDataChild // 自定义字段
+	customizedDataListSet bool
 }
 
 func NewCompositeTalentCareerInfoBuilder() *CompositeTalentCareerInfoBuilder {
@@ -1240,7 +1240,7 @@ func NewCompositeTalentCareerInfoBuilder() *CompositeTalentCareerInfoBuilder {
 // 示例值：xx网络科技有限公司
 func (builder *CompositeTalentCareerInfoBuilder) CompanyName(companyName string) *CompositeTalentCareerInfoBuilder {
 	builder.companyName = companyName
-	builder.companyNameFlag = true
+	builder.companyNameSet = true
 	return builder
 }
 
@@ -1249,7 +1249,7 @@ func (builder *CompositeTalentCareerInfoBuilder) CompanyName(companyName string)
 // 示例值：主营短视频
 func (builder *CompositeTalentCareerInfoBuilder) Description(description string) *CompositeTalentCareerInfoBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -1258,7 +1258,7 @@ func (builder *CompositeTalentCareerInfoBuilder) Description(description string)
 // 示例值：1687854583
 func (builder *CompositeTalentCareerInfoBuilder) EndTime(endTime string) *CompositeTalentCareerInfoBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -1267,7 +1267,7 @@ func (builder *CompositeTalentCareerInfoBuilder) EndTime(endTime string) *Compos
 // 示例值：1687854583
 func (builder *CompositeTalentCareerInfoBuilder) StartTime(startTime string) *CompositeTalentCareerInfoBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -1276,7 +1276,7 @@ func (builder *CompositeTalentCareerInfoBuilder) StartTime(startTime string) *Co
 // 示例值：高级工程师
 func (builder *CompositeTalentCareerInfoBuilder) Title(title string) *CompositeTalentCareerInfoBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -1285,33 +1285,33 @@ func (builder *CompositeTalentCareerInfoBuilder) Title(title string) *CompositeT
 // 示例值：
 func (builder *CompositeTalentCareerInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *CompositeTalentCareerInfoBuilder {
 	builder.customizedDataList = customizedDataList
-	builder.customizedDataListFlag = true
+	builder.customizedDataListSet = true
 	return builder
 }
 
 func (builder *CompositeTalentCareerInfoBuilder) Build() *CompositeTalentCareerInfo {
 	req := &CompositeTalentCareerInfo{}
-	if builder.companyNameFlag {
+	if builder.companyNameSet {
 		req.CompanyName = &builder.companyName
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.customizedDataListFlag {
+	if builder.customizedDataListSet {
 		req.CustomizedDataList = builder.customizedDataList
 	}
 	return req
@@ -1328,17 +1328,17 @@ type CompositeTalentCustomizedData struct {
 }
 
 type CompositeTalentCustomizedDataBuilder struct {
-	moduleId     string // 模块 ID
-	moduleIdFlag bool
+	moduleId    string // 模块 ID
+	moduleIdSet bool
 
-	name     *I18n // 模块名称
-	nameFlag bool
+	name    *I18n // 模块名称
+	nameSet bool
 
-	objectType     int // 类型
-	objectTypeFlag bool
+	objectType    int // 类型
+	objectTypeSet bool
 
-	children     []*TalentCustomizedDataChild // 模块下的字段
-	childrenFlag bool
+	children    []*TalentCustomizedDataChild // 模块下的字段
+	childrenSet bool
 }
 
 func NewCompositeTalentCustomizedDataBuilder() *CompositeTalentCustomizedDataBuilder {
@@ -1351,7 +1351,7 @@ func NewCompositeTalentCustomizedDataBuilder() *CompositeTalentCustomizedDataBui
 // 示例值：7106698109352479020
 func (builder *CompositeTalentCustomizedDataBuilder) ModuleId(moduleId string) *CompositeTalentCustomizedDataBuilder {
 	builder.moduleId = moduleId
-	builder.moduleIdFlag = true
+	builder.moduleIdSet = true
 	return builder
 }
 
@@ -1360,7 +1360,7 @@ func (builder *CompositeTalentCustomizedDataBuilder) ModuleId(moduleId string) *
 // 示例值：
 func (builder *CompositeTalentCustomizedDataBuilder) Name(name *I18n) *CompositeTalentCustomizedDataBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1369,7 +1369,7 @@ func (builder *CompositeTalentCustomizedDataBuilder) Name(name *I18n) *Composite
 // 示例值：1
 func (builder *CompositeTalentCustomizedDataBuilder) ObjectType(objectType int) *CompositeTalentCustomizedDataBuilder {
 	builder.objectType = objectType
-	builder.objectTypeFlag = true
+	builder.objectTypeSet = true
 	return builder
 }
 
@@ -1378,24 +1378,24 @@ func (builder *CompositeTalentCustomizedDataBuilder) ObjectType(objectType int) 
 // 示例值：
 func (builder *CompositeTalentCustomizedDataBuilder) Children(children []*TalentCustomizedDataChild) *CompositeTalentCustomizedDataBuilder {
 	builder.children = children
-	builder.childrenFlag = true
+	builder.childrenSet = true
 	return builder
 }
 
 func (builder *CompositeTalentCustomizedDataBuilder) Build() *CompositeTalentCustomizedData {
 	req := &CompositeTalentCustomizedData{}
-	if builder.moduleIdFlag {
+	if builder.moduleIdSet {
 		req.ModuleId = &builder.moduleId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.objectTypeFlag {
+	if builder.objectTypeSet {
 		req.ObjectType = &builder.objectType
 
 	}
-	if builder.childrenFlag {
+	if builder.childrenSet {
 		req.Children = builder.children
 	}
 	return req
@@ -1422,32 +1422,32 @@ type CompositeTalentEducationInfo struct {
 }
 
 type CompositeTalentEducationInfoBuilder struct {
-	degree     int // 学位
-	degreeFlag bool
+	degree    int // 学位
+	degreeSet bool
 
-	schoolName     string // 学校
-	schoolNameFlag bool
+	schoolName    string // 学校
+	schoolNameSet bool
 
-	major     string // 专业
-	majorFlag bool
+	major    string // 专业
+	majorSet bool
 
-	startTime     string // 开始时间
-	startTimeFlag bool
+	startTime    string // 开始时间
+	startTimeSet bool
 
-	endTime     string // 结束时间
-	endTimeFlag bool
+	endTime    string // 结束时间
+	endTimeSet bool
 
-	educationType     int // 学历类型
-	educationTypeFlag bool
+	educationType    int // 学历类型
+	educationTypeSet bool
 
-	academicRanking     int // 成绩排名
-	academicRankingFlag bool
+	academicRanking    int // 成绩排名
+	academicRankingSet bool
 
-	tagList     []int // 教育经历标签
-	tagListFlag bool
+	tagList    []int // 教育经历标签
+	tagListSet bool
 
-	customizedDataList     []*TalentCustomizedDataChild // 自定义字段
-	customizedDataListFlag bool
+	customizedDataList    []*TalentCustomizedDataChild // 自定义字段
+	customizedDataListSet bool
 }
 
 func NewCompositeTalentEducationInfoBuilder() *CompositeTalentEducationInfoBuilder {
@@ -1460,7 +1460,7 @@ func NewCompositeTalentEducationInfoBuilder() *CompositeTalentEducationInfoBuild
 // 示例值：1
 func (builder *CompositeTalentEducationInfoBuilder) Degree(degree int) *CompositeTalentEducationInfoBuilder {
 	builder.degree = degree
-	builder.degreeFlag = true
+	builder.degreeSet = true
 	return builder
 }
 
@@ -1469,7 +1469,7 @@ func (builder *CompositeTalentEducationInfoBuilder) Degree(degree int) *Composit
 // 示例值：湘港大学
 func (builder *CompositeTalentEducationInfoBuilder) SchoolName(schoolName string) *CompositeTalentEducationInfoBuilder {
 	builder.schoolName = schoolName
-	builder.schoolNameFlag = true
+	builder.schoolNameSet = true
 	return builder
 }
 
@@ -1478,7 +1478,7 @@ func (builder *CompositeTalentEducationInfoBuilder) SchoolName(schoolName string
 // 示例值：考古
 func (builder *CompositeTalentEducationInfoBuilder) Major(major string) *CompositeTalentEducationInfoBuilder {
 	builder.major = major
-	builder.majorFlag = true
+	builder.majorSet = true
 	return builder
 }
 
@@ -1487,7 +1487,7 @@ func (builder *CompositeTalentEducationInfoBuilder) Major(major string) *Composi
 // 示例值：1992-01
 func (builder *CompositeTalentEducationInfoBuilder) StartTime(startTime string) *CompositeTalentEducationInfoBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -1496,7 +1496,7 @@ func (builder *CompositeTalentEducationInfoBuilder) StartTime(startTime string) 
 // 示例值：1994-01
 func (builder *CompositeTalentEducationInfoBuilder) EndTime(endTime string) *CompositeTalentEducationInfoBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -1505,7 +1505,7 @@ func (builder *CompositeTalentEducationInfoBuilder) EndTime(endTime string) *Com
 // 示例值：1
 func (builder *CompositeTalentEducationInfoBuilder) EducationType(educationType int) *CompositeTalentEducationInfoBuilder {
 	builder.educationType = educationType
-	builder.educationTypeFlag = true
+	builder.educationTypeSet = true
 	return builder
 }
 
@@ -1514,7 +1514,7 @@ func (builder *CompositeTalentEducationInfoBuilder) EducationType(educationType 
 // 示例值：5
 func (builder *CompositeTalentEducationInfoBuilder) AcademicRanking(academicRanking int) *CompositeTalentEducationInfoBuilder {
 	builder.academicRanking = academicRanking
-	builder.academicRankingFlag = true
+	builder.academicRankingSet = true
 	return builder
 }
 
@@ -1523,7 +1523,7 @@ func (builder *CompositeTalentEducationInfoBuilder) AcademicRanking(academicRank
 // 示例值：
 func (builder *CompositeTalentEducationInfoBuilder) TagList(tagList []int) *CompositeTalentEducationInfoBuilder {
 	builder.tagList = tagList
-	builder.tagListFlag = true
+	builder.tagListSet = true
 	return builder
 }
 
@@ -1532,44 +1532,44 @@ func (builder *CompositeTalentEducationInfoBuilder) TagList(tagList []int) *Comp
 // 示例值：
 func (builder *CompositeTalentEducationInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *CompositeTalentEducationInfoBuilder {
 	builder.customizedDataList = customizedDataList
-	builder.customizedDataListFlag = true
+	builder.customizedDataListSet = true
 	return builder
 }
 
 func (builder *CompositeTalentEducationInfoBuilder) Build() *CompositeTalentEducationInfo {
 	req := &CompositeTalentEducationInfo{}
-	if builder.degreeFlag {
+	if builder.degreeSet {
 		req.Degree = &builder.degree
 
 	}
-	if builder.schoolNameFlag {
+	if builder.schoolNameSet {
 		req.SchoolName = &builder.schoolName
 
 	}
-	if builder.majorFlag {
+	if builder.majorSet {
 		req.Major = &builder.major
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.educationTypeFlag {
+	if builder.educationTypeSet {
 		req.EducationType = &builder.educationType
 
 	}
-	if builder.academicRankingFlag {
+	if builder.academicRankingSet {
 		req.AcademicRanking = &builder.academicRanking
 
 	}
-	if builder.tagListFlag {
+	if builder.tagListSet {
 		req.TagList = builder.tagList
 	}
-	if builder.customizedDataListFlag {
+	if builder.customizedDataListSet {
 		req.CustomizedDataList = builder.customizedDataList
 	}
 	return req
@@ -1590,23 +1590,23 @@ type CompositeTalentInternshipInfo struct {
 }
 
 type CompositeTalentInternshipInfoBuilder struct {
-	companyName     string // 公司
-	companyNameFlag bool
+	companyName    string // 公司
+	companyNameSet bool
 
-	description     string // 描述
-	descriptionFlag bool
+	description    string // 描述
+	descriptionSet bool
 
-	endTime     string // 结束时间
-	endTimeFlag bool
+	endTime    string // 结束时间
+	endTimeSet bool
 
-	startTime     string // 开始时间
-	startTimeFlag bool
+	startTime    string // 开始时间
+	startTimeSet bool
 
-	title     string // 职称
-	titleFlag bool
+	title    string // 职称
+	titleSet bool
 
-	customizedDataList     []*TalentCustomizedDataChild // 自定义字段
-	customizedDataListFlag bool
+	customizedDataList    []*TalentCustomizedDataChild // 自定义字段
+	customizedDataListSet bool
 }
 
 func NewCompositeTalentInternshipInfoBuilder() *CompositeTalentInternshipInfoBuilder {
@@ -1619,7 +1619,7 @@ func NewCompositeTalentInternshipInfoBuilder() *CompositeTalentInternshipInfoBui
 // 示例值：xx网络科技有限公司
 func (builder *CompositeTalentInternshipInfoBuilder) CompanyName(companyName string) *CompositeTalentInternshipInfoBuilder {
 	builder.companyName = companyName
-	builder.companyNameFlag = true
+	builder.companyNameSet = true
 	return builder
 }
 
@@ -1628,7 +1628,7 @@ func (builder *CompositeTalentInternshipInfoBuilder) CompanyName(companyName str
 // 示例值：作为测试实习生参与公司xx项目的测试工作
 func (builder *CompositeTalentInternshipInfoBuilder) Description(description string) *CompositeTalentInternshipInfoBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -1637,7 +1637,7 @@ func (builder *CompositeTalentInternshipInfoBuilder) Description(description str
 // 示例值：2020-09
 func (builder *CompositeTalentInternshipInfoBuilder) EndTime(endTime string) *CompositeTalentInternshipInfoBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -1646,7 +1646,7 @@ func (builder *CompositeTalentInternshipInfoBuilder) EndTime(endTime string) *Co
 // 示例值：2020-01
 func (builder *CompositeTalentInternshipInfoBuilder) StartTime(startTime string) *CompositeTalentInternshipInfoBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -1655,7 +1655,7 @@ func (builder *CompositeTalentInternshipInfoBuilder) StartTime(startTime string)
 // 示例值：测试工程师
 func (builder *CompositeTalentInternshipInfoBuilder) Title(title string) *CompositeTalentInternshipInfoBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -1664,33 +1664,33 @@ func (builder *CompositeTalentInternshipInfoBuilder) Title(title string) *Compos
 // 示例值：
 func (builder *CompositeTalentInternshipInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *CompositeTalentInternshipInfoBuilder {
 	builder.customizedDataList = customizedDataList
-	builder.customizedDataListFlag = true
+	builder.customizedDataListSet = true
 	return builder
 }
 
 func (builder *CompositeTalentInternshipInfoBuilder) Build() *CompositeTalentInternshipInfo {
 	req := &CompositeTalentInternshipInfo{}
-	if builder.companyNameFlag {
+	if builder.companyNameSet {
 		req.CompanyName = &builder.companyName
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.customizedDataListFlag {
+	if builder.customizedDataListSet {
 		req.CustomizedDataList = builder.customizedDataList
 	}
 	return req
@@ -1705,14 +1705,14 @@ type CompositeTalentLanguageInfo struct {
 }
 
 type CompositeTalentLanguageInfoBuilder struct {
-	language     int // 语言
-	languageFlag bool
+	language    int // 语言
+	languageSet bool
 
-	proficiency     int // 熟练程度
-	proficiencyFlag bool
+	proficiency    int // 熟练程度
+	proficiencySet bool
 
-	customizedDataList     []*TalentCustomizedDataChild // 自定义字段
-	customizedDataListFlag bool
+	customizedDataList    []*TalentCustomizedDataChild // 自定义字段
+	customizedDataListSet bool
 }
 
 func NewCompositeTalentLanguageInfoBuilder() *CompositeTalentLanguageInfoBuilder {
@@ -1725,7 +1725,7 @@ func NewCompositeTalentLanguageInfoBuilder() *CompositeTalentLanguageInfoBuilder
 // 示例值：1
 func (builder *CompositeTalentLanguageInfoBuilder) Language(language int) *CompositeTalentLanguageInfoBuilder {
 	builder.language = language
-	builder.languageFlag = true
+	builder.languageSet = true
 	return builder
 }
 
@@ -1734,7 +1734,7 @@ func (builder *CompositeTalentLanguageInfoBuilder) Language(language int) *Compo
 // 示例值：1
 func (builder *CompositeTalentLanguageInfoBuilder) Proficiency(proficiency int) *CompositeTalentLanguageInfoBuilder {
 	builder.proficiency = proficiency
-	builder.proficiencyFlag = true
+	builder.proficiencySet = true
 	return builder
 }
 
@@ -1743,21 +1743,21 @@ func (builder *CompositeTalentLanguageInfoBuilder) Proficiency(proficiency int) 
 // 示例值：
 func (builder *CompositeTalentLanguageInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *CompositeTalentLanguageInfoBuilder {
 	builder.customizedDataList = customizedDataList
-	builder.customizedDataListFlag = true
+	builder.customizedDataListSet = true
 	return builder
 }
 
 func (builder *CompositeTalentLanguageInfoBuilder) Build() *CompositeTalentLanguageInfo {
 	req := &CompositeTalentLanguageInfo{}
-	if builder.languageFlag {
+	if builder.languageSet {
 		req.Language = &builder.language
 
 	}
-	if builder.proficiencyFlag {
+	if builder.proficiencySet {
 		req.Proficiency = &builder.proficiency
 
 	}
-	if builder.customizedDataListFlag {
+	if builder.customizedDataListSet {
 		req.CustomizedDataList = builder.customizedDataList
 	}
 	return req
@@ -1780,26 +1780,26 @@ type CompositeTalentProjectInfo struct {
 }
 
 type CompositeTalentProjectInfoBuilder struct {
-	projectName     string // 项目名称
-	projectNameFlag bool
+	projectName    string // 项目名称
+	projectNameSet bool
 
-	role     string // 项目角色
-	roleFlag bool
+	role    string // 项目角色
+	roleSet bool
 
-	link     string // 项目链接
-	linkFlag bool
+	link    string // 项目链接
+	linkSet bool
 
-	description     string // 描述
-	descriptionFlag bool
+	description    string // 描述
+	descriptionSet bool
 
-	startTime     string // 开始时间
-	startTimeFlag bool
+	startTime    string // 开始时间
+	startTimeSet bool
 
-	endTime     string // 结束时间
-	endTimeFlag bool
+	endTime    string // 结束时间
+	endTimeSet bool
 
-	customizedDataList     []*TalentCustomizedDataChild // 自定义字段
-	customizedDataListFlag bool
+	customizedDataList    []*TalentCustomizedDataChild // 自定义字段
+	customizedDataListSet bool
 }
 
 func NewCompositeTalentProjectInfoBuilder() *CompositeTalentProjectInfoBuilder {
@@ -1812,7 +1812,7 @@ func NewCompositeTalentProjectInfoBuilder() *CompositeTalentProjectInfoBuilder {
 // 示例值：测试
 func (builder *CompositeTalentProjectInfoBuilder) ProjectName(projectName string) *CompositeTalentProjectInfoBuilder {
 	builder.projectName = projectName
-	builder.projectNameFlag = true
+	builder.projectNameSet = true
 	return builder
 }
 
@@ -1821,7 +1821,7 @@ func (builder *CompositeTalentProjectInfoBuilder) ProjectName(projectName string
 // 示例值：test
 func (builder *CompositeTalentProjectInfoBuilder) Role(role string) *CompositeTalentProjectInfoBuilder {
 	builder.role = role
-	builder.roleFlag = true
+	builder.roleSet = true
 	return builder
 }
 
@@ -1830,7 +1830,7 @@ func (builder *CompositeTalentProjectInfoBuilder) Role(role string) *CompositeTa
 // 示例值：项目链接
 func (builder *CompositeTalentProjectInfoBuilder) Link(link string) *CompositeTalentProjectInfoBuilder {
 	builder.link = link
-	builder.linkFlag = true
+	builder.linkSet = true
 	return builder
 }
 
@@ -1839,7 +1839,7 @@ func (builder *CompositeTalentProjectInfoBuilder) Link(link string) *CompositeTa
 // 示例值：直播项目
 func (builder *CompositeTalentProjectInfoBuilder) Description(description string) *CompositeTalentProjectInfoBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -1848,7 +1848,7 @@ func (builder *CompositeTalentProjectInfoBuilder) Description(description string
 // 示例值：1990-01
 func (builder *CompositeTalentProjectInfoBuilder) StartTime(startTime string) *CompositeTalentProjectInfoBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -1857,7 +1857,7 @@ func (builder *CompositeTalentProjectInfoBuilder) StartTime(startTime string) *C
 // 示例值：1991-01
 func (builder *CompositeTalentProjectInfoBuilder) EndTime(endTime string) *CompositeTalentProjectInfoBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -1866,37 +1866,37 @@ func (builder *CompositeTalentProjectInfoBuilder) EndTime(endTime string) *Compo
 // 示例值：
 func (builder *CompositeTalentProjectInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *CompositeTalentProjectInfoBuilder {
 	builder.customizedDataList = customizedDataList
-	builder.customizedDataListFlag = true
+	builder.customizedDataListSet = true
 	return builder
 }
 
 func (builder *CompositeTalentProjectInfoBuilder) Build() *CompositeTalentProjectInfo {
 	req := &CompositeTalentProjectInfo{}
-	if builder.projectNameFlag {
+	if builder.projectNameSet {
 		req.ProjectName = &builder.projectName
 
 	}
-	if builder.roleFlag {
+	if builder.roleSet {
 		req.Role = &builder.role
 
 	}
-	if builder.linkFlag {
+	if builder.linkSet {
 		req.Link = &builder.link
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.customizedDataListFlag {
+	if builder.customizedDataListSet {
 		req.CustomizedDataList = builder.customizedDataList
 	}
 	return req
@@ -1909,11 +1909,11 @@ type CompositeTalentSelfIntroduction struct {
 }
 
 type CompositeTalentSelfIntroductionBuilder struct {
-	selfIntroduction     string // 自我评价
-	selfIntroductionFlag bool
+	selfIntroduction    string // 自我评价
+	selfIntroductionSet bool
 
-	customizedDataList     []*TalentCustomizedDataChild // 自定义字段
-	customizedDataListFlag bool
+	customizedDataList    []*TalentCustomizedDataChild // 自定义字段
+	customizedDataListSet bool
 }
 
 func NewCompositeTalentSelfIntroductionBuilder() *CompositeTalentSelfIntroductionBuilder {
@@ -1926,7 +1926,7 @@ func NewCompositeTalentSelfIntroductionBuilder() *CompositeTalentSelfIntroductio
 // 示例值：
 func (builder *CompositeTalentSelfIntroductionBuilder) SelfIntroduction(selfIntroduction string) *CompositeTalentSelfIntroductionBuilder {
 	builder.selfIntroduction = selfIntroduction
-	builder.selfIntroductionFlag = true
+	builder.selfIntroductionSet = true
 	return builder
 }
 
@@ -1935,17 +1935,17 @@ func (builder *CompositeTalentSelfIntroductionBuilder) SelfIntroduction(selfIntr
 // 示例值：
 func (builder *CompositeTalentSelfIntroductionBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *CompositeTalentSelfIntroductionBuilder {
 	builder.customizedDataList = customizedDataList
-	builder.customizedDataListFlag = true
+	builder.customizedDataListSet = true
 	return builder
 }
 
 func (builder *CompositeTalentSelfIntroductionBuilder) Build() *CompositeTalentSelfIntroduction {
 	req := &CompositeTalentSelfIntroduction{}
-	if builder.selfIntroductionFlag {
+	if builder.selfIntroductionSet {
 		req.SelfIntroduction = &builder.selfIntroduction
 
 	}
-	if builder.customizedDataListFlag {
+	if builder.customizedDataListSet {
 		req.CustomizedDataList = builder.customizedDataList
 	}
 	return req
@@ -1960,14 +1960,14 @@ type CompositeTalentSnsInfo struct {
 }
 
 type CompositeTalentSnsInfoBuilder struct {
-	snsType     int // SNS类型
-	snsTypeFlag bool
+	snsType    int // SNS类型
+	snsTypeSet bool
 
-	link     string // SNS链接
-	linkFlag bool
+	link    string // SNS链接
+	linkSet bool
 
-	customizedDataList     []*TalentCustomizedDataChild // 自定义字段
-	customizedDataListFlag bool
+	customizedDataList    []*TalentCustomizedDataChild // 自定义字段
+	customizedDataListSet bool
 }
 
 func NewCompositeTalentSnsInfoBuilder() *CompositeTalentSnsInfoBuilder {
@@ -1980,7 +1980,7 @@ func NewCompositeTalentSnsInfoBuilder() *CompositeTalentSnsInfoBuilder {
 // 示例值：1
 func (builder *CompositeTalentSnsInfoBuilder) SnsType(snsType int) *CompositeTalentSnsInfoBuilder {
 	builder.snsType = snsType
-	builder.snsTypeFlag = true
+	builder.snsTypeSet = true
 	return builder
 }
 
@@ -1989,7 +1989,7 @@ func (builder *CompositeTalentSnsInfoBuilder) SnsType(snsType int) *CompositeTal
 // 示例值：www.test.com
 func (builder *CompositeTalentSnsInfoBuilder) Link(link string) *CompositeTalentSnsInfoBuilder {
 	builder.link = link
-	builder.linkFlag = true
+	builder.linkSet = true
 	return builder
 }
 
@@ -1998,21 +1998,21 @@ func (builder *CompositeTalentSnsInfoBuilder) Link(link string) *CompositeTalent
 // 示例值：
 func (builder *CompositeTalentSnsInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *CompositeTalentSnsInfoBuilder {
 	builder.customizedDataList = customizedDataList
-	builder.customizedDataListFlag = true
+	builder.customizedDataListSet = true
 	return builder
 }
 
 func (builder *CompositeTalentSnsInfoBuilder) Build() *CompositeTalentSnsInfo {
 	req := &CompositeTalentSnsInfo{}
-	if builder.snsTypeFlag {
+	if builder.snsTypeSet {
 		req.SnsType = &builder.snsType
 
 	}
-	if builder.linkFlag {
+	if builder.linkSet {
 		req.Link = &builder.link
 
 	}
-	if builder.customizedDataListFlag {
+	if builder.customizedDataListSet {
 		req.CustomizedDataList = builder.customizedDataList
 	}
 	return req
@@ -2029,17 +2029,17 @@ type CompositeTalentWorksInfo struct {
 }
 
 type CompositeTalentWorksInfoBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	link     string // 链接
-	linkFlag bool
+	link    string // 链接
+	linkSet bool
 
-	description     string // 描述
-	descriptionFlag bool
+	description    string // 描述
+	descriptionSet bool
 
-	customizedDataList     []*TalentCustomizedDataChild // 自定义字段
-	customizedDataListFlag bool
+	customizedDataList    []*TalentCustomizedDataChild // 自定义字段
+	customizedDataListSet bool
 }
 
 func NewCompositeTalentWorksInfoBuilder() *CompositeTalentWorksInfoBuilder {
@@ -2052,7 +2052,7 @@ func NewCompositeTalentWorksInfoBuilder() *CompositeTalentWorksInfoBuilder {
 // 示例值：6891560630172518670
 func (builder *CompositeTalentWorksInfoBuilder) Id(id string) *CompositeTalentWorksInfoBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2061,7 +2061,7 @@ func (builder *CompositeTalentWorksInfoBuilder) Id(id string) *CompositeTalentWo
 // 示例值：作品链接
 func (builder *CompositeTalentWorksInfoBuilder) Link(link string) *CompositeTalentWorksInfoBuilder {
 	builder.link = link
-	builder.linkFlag = true
+	builder.linkSet = true
 	return builder
 }
 
@@ -2070,7 +2070,7 @@ func (builder *CompositeTalentWorksInfoBuilder) Link(link string) *CompositeTale
 // 示例值：毕设作品
 func (builder *CompositeTalentWorksInfoBuilder) Description(description string) *CompositeTalentWorksInfoBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -2079,25 +2079,25 @@ func (builder *CompositeTalentWorksInfoBuilder) Description(description string) 
 // 示例值：
 func (builder *CompositeTalentWorksInfoBuilder) CustomizedDataList(customizedDataList []*TalentCustomizedDataChild) *CompositeTalentWorksInfoBuilder {
 	builder.customizedDataList = customizedDataList
-	builder.customizedDataListFlag = true
+	builder.customizedDataListSet = true
 	return builder
 }
 
 func (builder *CompositeTalentWorksInfoBuilder) Build() *CompositeTalentWorksInfo {
 	req := &CompositeTalentWorksInfo{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.linkFlag {
+	if builder.linkSet {
 		req.Link = &builder.link
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.customizedDataListFlag {
+	if builder.customizedDataListSet {
 		req.CustomizedDataList = builder.customizedDataList
 	}
 	return req
@@ -2110,11 +2110,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -2122,27 +2122,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -2174,38 +2178,38 @@ type DimensionAssessment struct {
 }
 
 type DimensionAssessmentBuilder struct {
-	interviewFeedbackFormDimensionId     string // 对应模版中维度ID
-	interviewFeedbackFormDimensionIdFlag bool
+	interviewFeedbackFormDimensionId    string // 对应模版中维度ID
+	interviewFeedbackFormDimensionIdSet bool
 
-	dimensionName     *I18n // 维度名称
-	dimensionNameFlag bool
+	dimensionName    *I18n // 维度名称
+	dimensionNameSet bool
 
-	dimensionType     int // 维度类型
-	dimensionTypeFlag bool
+	dimensionType    int // 维度类型
+	dimensionTypeSet bool
 
-	weight     float64 // 维度权重
-	weightFlag bool
+	weight    float64 // 维度权重
+	weightSet bool
 
-	dimensionContent     string // 当维度类型为描述题时，从此取值
-	dimensionContentFlag bool
+	dimensionContent    string // 当维度类型为描述题时，从此取值
+	dimensionContentSet bool
 
-	dimensionOption     *DimensionOption // 当维度类型为单选题时，从此取值
-	dimensionOptionFlag bool
+	dimensionOption    *DimensionOption // 当维度类型为单选题时，从此取值
+	dimensionOptionSet bool
 
-	dimensionOptions     []*DimensionOption // 当维度类型为多选题时，从此取值
-	dimensionOptionsFlag bool
+	dimensionOptions    []*DimensionOption // 当维度类型为多选题时，从此取值
+	dimensionOptionsSet bool
 
-	dimensionScore     int64 // 当维度评价方式为「打分题(填空)时」，从此取值
-	dimensionScoreFlag bool
+	dimensionScore    int64 // 当维度评价方式为「打分题(填空)时」，从此取值
+	dimensionScoreSet bool
 
-	recommendedJobLevel     *RecommendedJobLevel // 当维度为「职级建议」时，从此取值
-	recommendedJobLevelFlag bool
+	recommendedJobLevel    *RecommendedJobLevel // 当维度为「职级建议」时，从此取值
+	recommendedJobLevelSet bool
 
-	questionAssessments     []*QuestionAssessment // 维度关联面试题
-	questionAssessmentsFlag bool
+	questionAssessments    []*QuestionAssessment // 维度关联面试题
+	questionAssessmentsSet bool
 
-	abilityAssessments     []*AbilityAssessment // 能力项评价
-	abilityAssessmentsFlag bool
+	abilityAssessments    []*AbilityAssessment // 能力项评价
+	abilityAssessmentsSet bool
 }
 
 func NewDimensionAssessmentBuilder() *DimensionAssessmentBuilder {
@@ -2218,7 +2222,7 @@ func NewDimensionAssessmentBuilder() *DimensionAssessmentBuilder {
 // 示例值：7171693733661327361
 func (builder *DimensionAssessmentBuilder) InterviewFeedbackFormDimensionId(interviewFeedbackFormDimensionId string) *DimensionAssessmentBuilder {
 	builder.interviewFeedbackFormDimensionId = interviewFeedbackFormDimensionId
-	builder.interviewFeedbackFormDimensionIdFlag = true
+	builder.interviewFeedbackFormDimensionIdSet = true
 	return builder
 }
 
@@ -2227,7 +2231,7 @@ func (builder *DimensionAssessmentBuilder) InterviewFeedbackFormDimensionId(inte
 // 示例值：
 func (builder *DimensionAssessmentBuilder) DimensionName(dimensionName *I18n) *DimensionAssessmentBuilder {
 	builder.dimensionName = dimensionName
-	builder.dimensionNameFlag = true
+	builder.dimensionNameSet = true
 	return builder
 }
 
@@ -2236,7 +2240,7 @@ func (builder *DimensionAssessmentBuilder) DimensionName(dimensionName *I18n) *D
 // 示例值：1
 func (builder *DimensionAssessmentBuilder) DimensionType(dimensionType int) *DimensionAssessmentBuilder {
 	builder.dimensionType = dimensionType
-	builder.dimensionTypeFlag = true
+	builder.dimensionTypeSet = true
 	return builder
 }
 
@@ -2245,7 +2249,7 @@ func (builder *DimensionAssessmentBuilder) DimensionType(dimensionType int) *Dim
 // 示例值：1
 func (builder *DimensionAssessmentBuilder) Weight(weight float64) *DimensionAssessmentBuilder {
 	builder.weight = weight
-	builder.weightFlag = true
+	builder.weightSet = true
 	return builder
 }
 
@@ -2254,7 +2258,7 @@ func (builder *DimensionAssessmentBuilder) Weight(weight float64) *DimensionAsse
 // 示例值：描述题作答
 func (builder *DimensionAssessmentBuilder) DimensionContent(dimensionContent string) *DimensionAssessmentBuilder {
 	builder.dimensionContent = dimensionContent
-	builder.dimensionContentFlag = true
+	builder.dimensionContentSet = true
 	return builder
 }
 
@@ -2263,7 +2267,7 @@ func (builder *DimensionAssessmentBuilder) DimensionContent(dimensionContent str
 // 示例值：
 func (builder *DimensionAssessmentBuilder) DimensionOption(dimensionOption *DimensionOption) *DimensionAssessmentBuilder {
 	builder.dimensionOption = dimensionOption
-	builder.dimensionOptionFlag = true
+	builder.dimensionOptionSet = true
 	return builder
 }
 
@@ -2272,7 +2276,7 @@ func (builder *DimensionAssessmentBuilder) DimensionOption(dimensionOption *Dime
 // 示例值：
 func (builder *DimensionAssessmentBuilder) DimensionOptions(dimensionOptions []*DimensionOption) *DimensionAssessmentBuilder {
 	builder.dimensionOptions = dimensionOptions
-	builder.dimensionOptionsFlag = true
+	builder.dimensionOptionsSet = true
 	return builder
 }
 
@@ -2281,7 +2285,7 @@ func (builder *DimensionAssessmentBuilder) DimensionOptions(dimensionOptions []*
 // 示例值：10
 func (builder *DimensionAssessmentBuilder) DimensionScore(dimensionScore int64) *DimensionAssessmentBuilder {
 	builder.dimensionScore = dimensionScore
-	builder.dimensionScoreFlag = true
+	builder.dimensionScoreSet = true
 	return builder
 }
 
@@ -2290,7 +2294,7 @@ func (builder *DimensionAssessmentBuilder) DimensionScore(dimensionScore int64) 
 // 示例值：
 func (builder *DimensionAssessmentBuilder) RecommendedJobLevel(recommendedJobLevel *RecommendedJobLevel) *DimensionAssessmentBuilder {
 	builder.recommendedJobLevel = recommendedJobLevel
-	builder.recommendedJobLevelFlag = true
+	builder.recommendedJobLevelSet = true
 	return builder
 }
 
@@ -2299,7 +2303,7 @@ func (builder *DimensionAssessmentBuilder) RecommendedJobLevel(recommendedJobLev
 // 示例值：
 func (builder *DimensionAssessmentBuilder) QuestionAssessments(questionAssessments []*QuestionAssessment) *DimensionAssessmentBuilder {
 	builder.questionAssessments = questionAssessments
-	builder.questionAssessmentsFlag = true
+	builder.questionAssessmentsSet = true
 	return builder
 }
 
@@ -2308,48 +2312,48 @@ func (builder *DimensionAssessmentBuilder) QuestionAssessments(questionAssessmen
 // 示例值：
 func (builder *DimensionAssessmentBuilder) AbilityAssessments(abilityAssessments []*AbilityAssessment) *DimensionAssessmentBuilder {
 	builder.abilityAssessments = abilityAssessments
-	builder.abilityAssessmentsFlag = true
+	builder.abilityAssessmentsSet = true
 	return builder
 }
 
 func (builder *DimensionAssessmentBuilder) Build() *DimensionAssessment {
 	req := &DimensionAssessment{}
-	if builder.interviewFeedbackFormDimensionIdFlag {
+	if builder.interviewFeedbackFormDimensionIdSet {
 		req.InterviewFeedbackFormDimensionId = &builder.interviewFeedbackFormDimensionId
 
 	}
-	if builder.dimensionNameFlag {
+	if builder.dimensionNameSet {
 		req.DimensionName = builder.dimensionName
 	}
-	if builder.dimensionTypeFlag {
+	if builder.dimensionTypeSet {
 		req.DimensionType = &builder.dimensionType
 
 	}
-	if builder.weightFlag {
+	if builder.weightSet {
 		req.Weight = &builder.weight
 
 	}
-	if builder.dimensionContentFlag {
+	if builder.dimensionContentSet {
 		req.DimensionContent = &builder.dimensionContent
 
 	}
-	if builder.dimensionOptionFlag {
+	if builder.dimensionOptionSet {
 		req.DimensionOption = builder.dimensionOption
 	}
-	if builder.dimensionOptionsFlag {
+	if builder.dimensionOptionsSet {
 		req.DimensionOptions = builder.dimensionOptions
 	}
-	if builder.dimensionScoreFlag {
+	if builder.dimensionScoreSet {
 		req.DimensionScore = &builder.dimensionScore
 
 	}
-	if builder.recommendedJobLevelFlag {
+	if builder.recommendedJobLevelSet {
 		req.RecommendedJobLevel = builder.recommendedJobLevel
 	}
-	if builder.questionAssessmentsFlag {
+	if builder.questionAssessmentsSet {
 		req.QuestionAssessments = builder.questionAssessments
 	}
-	if builder.abilityAssessmentsFlag {
+	if builder.abilityAssessmentsSet {
 		req.AbilityAssessments = builder.abilityAssessments
 	}
 	return req
@@ -2366,17 +2370,17 @@ type DimensionOption struct {
 }
 
 type DimensionOptionBuilder struct {
-	id     string // 选项ID
-	idFlag bool
+	id    string // 选项ID
+	idSet bool
 
-	name     *I18n // 选项名称
-	nameFlag bool
+	name    *I18n // 选项名称
+	nameSet bool
 
-	scoreVal     int64 // 选项对应的分数
-	scoreValFlag bool
+	scoreVal    int64 // 选项对应的分数
+	scoreValSet bool
 
-	aliasName     *I18n // 选项全称
-	aliasNameFlag bool
+	aliasName    *I18n // 选项全称
+	aliasNameSet bool
 }
 
 func NewDimensionOptionBuilder() *DimensionOptionBuilder {
@@ -2389,7 +2393,7 @@ func NewDimensionOptionBuilder() *DimensionOptionBuilder {
 // 示例值：7171693733661327361
 func (builder *DimensionOptionBuilder) Id(id string) *DimensionOptionBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2398,7 +2402,7 @@ func (builder *DimensionOptionBuilder) Id(id string) *DimensionOptionBuilder {
 // 示例值：7171693733661327361
 func (builder *DimensionOptionBuilder) Name(name *I18n) *DimensionOptionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2407,7 +2411,7 @@ func (builder *DimensionOptionBuilder) Name(name *I18n) *DimensionOptionBuilder 
 // 示例值：10
 func (builder *DimensionOptionBuilder) ScoreVal(scoreVal int64) *DimensionOptionBuilder {
 	builder.scoreVal = scoreVal
-	builder.scoreValFlag = true
+	builder.scoreValSet = true
 	return builder
 }
 
@@ -2416,24 +2420,24 @@ func (builder *DimensionOptionBuilder) ScoreVal(scoreVal int64) *DimensionOption
 // 示例值：
 func (builder *DimensionOptionBuilder) AliasName(aliasName *I18n) *DimensionOptionBuilder {
 	builder.aliasName = aliasName
-	builder.aliasNameFlag = true
+	builder.aliasNameSet = true
 	return builder
 }
 
 func (builder *DimensionOptionBuilder) Build() *DimensionOption {
 	req := &DimensionOption{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.scoreValFlag {
+	if builder.scoreValSet {
 		req.ScoreVal = &builder.scoreVal
 
 	}
-	if builder.aliasNameFlag {
+	if builder.aliasNameSet {
 		req.AliasName = builder.aliasName
 	}
 	return req
@@ -2446,11 +2450,11 @@ type I18n struct {
 }
 
 type I18nBuilder struct {
-	zhCn     string // 中文
-	zhCnFlag bool
+	zhCn    string // 中文
+	zhCnSet bool
 
-	enUs     string // 英文
-	enUsFlag bool
+	enUs    string // 英文
+	enUsSet bool
 }
 
 func NewI18nBuilder() *I18nBuilder {
@@ -2463,7 +2467,7 @@ func NewI18nBuilder() *I18nBuilder {
 // 示例值：测试
 func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -2472,17 +2476,17 @@ func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 // 示例值：test
 func (builder *I18nBuilder) EnUs(enUs string) *I18nBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
 func (builder *I18nBuilder) Build() *I18n {
 	req := &I18n{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
@@ -2496,11 +2500,11 @@ type IdNameObject struct {
 }
 
 type IdNameObjectBuilder struct {
-	id     string // 用户 ID
-	idFlag bool
+	id    string // 用户 ID
+	idSet bool
 
-	name     *I18n //  用户姓名
-	nameFlag bool
+	name    *I18n //  用户姓名
+	nameSet bool
 }
 
 func NewIdNameObjectBuilder() *IdNameObjectBuilder {
@@ -2513,26 +2517,26 @@ func NewIdNameObjectBuilder() *IdNameObjectBuilder {
 // 示例值：7171693733661327364
 func (builder *IdNameObjectBuilder) Id(id string) *IdNameObjectBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
-//	用户姓名
+//  用户姓名
 //
 // 示例值：
 func (builder *IdNameObjectBuilder) Name(name *I18n) *IdNameObjectBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *IdNameObjectBuilder) Build() *IdNameObject {
 	req := &IdNameObject{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
 	return req
@@ -2557,29 +2561,29 @@ type InterviewRecord struct {
 }
 
 type InterviewRecordBuilder struct {
-	id     string // 面试评价ID
-	idFlag bool
+	id    string // 面试评价ID
+	idSet bool
 
-	feedbackFormId     string // 面试评价表ID
-	feedbackFormIdFlag bool
+	feedbackFormId    string // 面试评价表ID
+	feedbackFormIdSet bool
 
-	commitStatus     int // 提交状态
-	commitStatusFlag bool
+	commitStatus    int // 提交状态
+	commitStatusSet bool
 
-	submitTime     string // 面试评价提交时间
-	submitTimeFlag bool
+	submitTime    string // 面试评价提交时间
+	submitTimeSet bool
 
-	recordScore     *RecordScore // 面试评价分数
-	recordScoreFlag bool
+	recordScore    *RecordScore // 面试评价分数
+	recordScoreSet bool
 
-	interviewer     *IdNameObject // 面试官信息
-	interviewerFlag bool
+	interviewer    *IdNameObject // 面试官信息
+	interviewerSet bool
 
-	attachments     []*Attachment // 面试评价附件列表
-	attachmentsFlag bool
+	attachments    []*Attachment // 面试评价附件列表
+	attachmentsSet bool
 
-	moduleAssessments     []*ModuleAssessment // 模块评价列表
-	moduleAssessmentsFlag bool
+	moduleAssessments    []*ModuleAssessment // 模块评价列表
+	moduleAssessmentsSet bool
 }
 
 func NewInterviewRecordBuilder() *InterviewRecordBuilder {
@@ -2592,7 +2596,7 @@ func NewInterviewRecordBuilder() *InterviewRecordBuilder {
 // 示例值：7171693733661327361
 func (builder *InterviewRecordBuilder) Id(id string) *InterviewRecordBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2601,7 +2605,7 @@ func (builder *InterviewRecordBuilder) Id(id string) *InterviewRecordBuilder {
 // 示例值：71716937336613273612
 func (builder *InterviewRecordBuilder) FeedbackFormId(feedbackFormId string) *InterviewRecordBuilder {
 	builder.feedbackFormId = feedbackFormId
-	builder.feedbackFormIdFlag = true
+	builder.feedbackFormIdSet = true
 	return builder
 }
 
@@ -2610,7 +2614,7 @@ func (builder *InterviewRecordBuilder) FeedbackFormId(feedbackFormId string) *In
 // 示例值：1
 func (builder *InterviewRecordBuilder) CommitStatus(commitStatus int) *InterviewRecordBuilder {
 	builder.commitStatus = commitStatus
-	builder.commitStatusFlag = true
+	builder.commitStatusSet = true
 	return builder
 }
 
@@ -2619,7 +2623,7 @@ func (builder *InterviewRecordBuilder) CommitStatus(commitStatus int) *Interview
 // 示例值：1710405457390
 func (builder *InterviewRecordBuilder) SubmitTime(submitTime string) *InterviewRecordBuilder {
 	builder.submitTime = submitTime
-	builder.submitTimeFlag = true
+	builder.submitTimeSet = true
 	return builder
 }
 
@@ -2628,7 +2632,7 @@ func (builder *InterviewRecordBuilder) SubmitTime(submitTime string) *InterviewR
 // 示例值：
 func (builder *InterviewRecordBuilder) RecordScore(recordScore *RecordScore) *InterviewRecordBuilder {
 	builder.recordScore = recordScore
-	builder.recordScoreFlag = true
+	builder.recordScoreSet = true
 	return builder
 }
 
@@ -2637,7 +2641,7 @@ func (builder *InterviewRecordBuilder) RecordScore(recordScore *RecordScore) *In
 // 示例值：
 func (builder *InterviewRecordBuilder) Interviewer(interviewer *IdNameObject) *InterviewRecordBuilder {
 	builder.interviewer = interviewer
-	builder.interviewerFlag = true
+	builder.interviewerSet = true
 	return builder
 }
 
@@ -2646,7 +2650,7 @@ func (builder *InterviewRecordBuilder) Interviewer(interviewer *IdNameObject) *I
 // 示例值：
 func (builder *InterviewRecordBuilder) Attachments(attachments []*Attachment) *InterviewRecordBuilder {
 	builder.attachments = attachments
-	builder.attachmentsFlag = true
+	builder.attachmentsSet = true
 	return builder
 }
 
@@ -2655,38 +2659,38 @@ func (builder *InterviewRecordBuilder) Attachments(attachments []*Attachment) *I
 // 示例值：
 func (builder *InterviewRecordBuilder) ModuleAssessments(moduleAssessments []*ModuleAssessment) *InterviewRecordBuilder {
 	builder.moduleAssessments = moduleAssessments
-	builder.moduleAssessmentsFlag = true
+	builder.moduleAssessmentsSet = true
 	return builder
 }
 
 func (builder *InterviewRecordBuilder) Build() *InterviewRecord {
 	req := &InterviewRecord{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.feedbackFormIdFlag {
+	if builder.feedbackFormIdSet {
 		req.FeedbackFormId = &builder.feedbackFormId
 
 	}
-	if builder.commitStatusFlag {
+	if builder.commitStatusSet {
 		req.CommitStatus = &builder.commitStatus
 
 	}
-	if builder.submitTimeFlag {
+	if builder.submitTimeSet {
 		req.SubmitTime = &builder.submitTime
 
 	}
-	if builder.recordScoreFlag {
+	if builder.recordScoreSet {
 		req.RecordScore = builder.recordScore
 	}
-	if builder.interviewerFlag {
+	if builder.interviewerSet {
 		req.Interviewer = builder.interviewer
 	}
-	if builder.attachmentsFlag {
+	if builder.attachmentsSet {
 		req.Attachments = builder.attachments
 	}
-	if builder.moduleAssessmentsFlag {
+	if builder.moduleAssessmentsSet {
 		req.ModuleAssessments = builder.moduleAssessments
 	}
 	return req
@@ -2707,23 +2711,23 @@ type ModuleAssessment struct {
 }
 
 type ModuleAssessmentBuilder struct {
-	interviewFeedbackFormModuleId     string // 对应面试评价表中模块 ID
-	interviewFeedbackFormModuleIdFlag bool
+	interviewFeedbackFormModuleId    string // 对应面试评价表中模块 ID
+	interviewFeedbackFormModuleIdSet bool
 
-	moduleName     *I18n // 模块名称
-	moduleNameFlag bool
+	moduleName    *I18n // 模块名称
+	moduleNameSet bool
 
-	moduleType     int // 模块类型
-	moduleTypeFlag bool
+	moduleType    int // 模块类型
+	moduleTypeSet bool
 
-	moduleWeight     float64 // 模块权重
-	moduleWeightFlag bool
+	moduleWeight    float64 // 模块权重
+	moduleWeightSet bool
 
-	moduleScore     float64 // 模块打分
-	moduleScoreFlag bool
+	moduleScore    float64 // 模块打分
+	moduleScoreSet bool
 
-	dimensionAssessments     []*DimensionAssessment // 模块评价
-	dimensionAssessmentsFlag bool
+	dimensionAssessments    []*DimensionAssessment // 模块评价
+	dimensionAssessmentsSet bool
 }
 
 func NewModuleAssessmentBuilder() *ModuleAssessmentBuilder {
@@ -2736,7 +2740,7 @@ func NewModuleAssessmentBuilder() *ModuleAssessmentBuilder {
 // 示例值：7171693733661327361
 func (builder *ModuleAssessmentBuilder) InterviewFeedbackFormModuleId(interviewFeedbackFormModuleId string) *ModuleAssessmentBuilder {
 	builder.interviewFeedbackFormModuleId = interviewFeedbackFormModuleId
-	builder.interviewFeedbackFormModuleIdFlag = true
+	builder.interviewFeedbackFormModuleIdSet = true
 	return builder
 }
 
@@ -2745,7 +2749,7 @@ func (builder *ModuleAssessmentBuilder) InterviewFeedbackFormModuleId(interviewF
 // 示例值：
 func (builder *ModuleAssessmentBuilder) ModuleName(moduleName *I18n) *ModuleAssessmentBuilder {
 	builder.moduleName = moduleName
-	builder.moduleNameFlag = true
+	builder.moduleNameSet = true
 	return builder
 }
 
@@ -2754,7 +2758,7 @@ func (builder *ModuleAssessmentBuilder) ModuleName(moduleName *I18n) *ModuleAsse
 // 示例值：
 func (builder *ModuleAssessmentBuilder) ModuleType(moduleType int) *ModuleAssessmentBuilder {
 	builder.moduleType = moduleType
-	builder.moduleTypeFlag = true
+	builder.moduleTypeSet = true
 	return builder
 }
 
@@ -2763,7 +2767,7 @@ func (builder *ModuleAssessmentBuilder) ModuleType(moduleType int) *ModuleAssess
 // 示例值：10
 func (builder *ModuleAssessmentBuilder) ModuleWeight(moduleWeight float64) *ModuleAssessmentBuilder {
 	builder.moduleWeight = moduleWeight
-	builder.moduleWeightFlag = true
+	builder.moduleWeightSet = true
 	return builder
 }
 
@@ -2772,7 +2776,7 @@ func (builder *ModuleAssessmentBuilder) ModuleWeight(moduleWeight float64) *Modu
 // 示例值：10
 func (builder *ModuleAssessmentBuilder) ModuleScore(moduleScore float64) *ModuleAssessmentBuilder {
 	builder.moduleScore = moduleScore
-	builder.moduleScoreFlag = true
+	builder.moduleScoreSet = true
 	return builder
 }
 
@@ -2781,32 +2785,32 @@ func (builder *ModuleAssessmentBuilder) ModuleScore(moduleScore float64) *Module
 // 示例值：
 func (builder *ModuleAssessmentBuilder) DimensionAssessments(dimensionAssessments []*DimensionAssessment) *ModuleAssessmentBuilder {
 	builder.dimensionAssessments = dimensionAssessments
-	builder.dimensionAssessmentsFlag = true
+	builder.dimensionAssessmentsSet = true
 	return builder
 }
 
 func (builder *ModuleAssessmentBuilder) Build() *ModuleAssessment {
 	req := &ModuleAssessment{}
-	if builder.interviewFeedbackFormModuleIdFlag {
+	if builder.interviewFeedbackFormModuleIdSet {
 		req.InterviewFeedbackFormModuleId = &builder.interviewFeedbackFormModuleId
 
 	}
-	if builder.moduleNameFlag {
+	if builder.moduleNameSet {
 		req.ModuleName = builder.moduleName
 	}
-	if builder.moduleTypeFlag {
+	if builder.moduleTypeSet {
 		req.ModuleType = &builder.moduleType
 
 	}
-	if builder.moduleWeightFlag {
+	if builder.moduleWeightSet {
 		req.ModuleWeight = &builder.moduleWeight
 
 	}
-	if builder.moduleScoreFlag {
+	if builder.moduleScoreSet {
 		req.ModuleScore = &builder.moduleScore
 
 	}
-	if builder.dimensionAssessmentsFlag {
+	if builder.dimensionAssessmentsSet {
 		req.DimensionAssessments = builder.dimensionAssessments
 	}
 	return req
@@ -2825,20 +2829,20 @@ type QuestionAssessment struct {
 }
 
 type QuestionAssessmentBuilder struct {
-	questionType     int // 所关联面试题的类型
-	questionTypeFlag bool
+	questionType    int // 所关联面试题的类型
+	questionTypeSet bool
 
-	title     *I18n // 关联面试题的名称
-	titleFlag bool
+	title    *I18n // 关联面试题的名称
+	titleSet bool
 
-	description     *I18n // 关联面试题的描述
-	descriptionFlag bool
+	description    *I18n // 关联面试题的描述
+	descriptionSet bool
 
-	content     string // 面试者作答内容
-	contentFlag bool
+	content    string // 面试者作答内容
+	contentSet bool
 
-	abilities     []*Ability // 能力项列表
-	abilitiesFlag bool
+	abilities    []*Ability // 能力项列表
+	abilitiesSet bool
 }
 
 func NewQuestionAssessmentBuilder() *QuestionAssessmentBuilder {
@@ -2851,7 +2855,7 @@ func NewQuestionAssessmentBuilder() *QuestionAssessmentBuilder {
 // 示例值：1
 func (builder *QuestionAssessmentBuilder) QuestionType(questionType int) *QuestionAssessmentBuilder {
 	builder.questionType = questionType
-	builder.questionTypeFlag = true
+	builder.questionTypeSet = true
 	return builder
 }
 
@@ -2860,7 +2864,7 @@ func (builder *QuestionAssessmentBuilder) QuestionType(questionType int) *Questi
 // 示例值：
 func (builder *QuestionAssessmentBuilder) Title(title *I18n) *QuestionAssessmentBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -2869,7 +2873,7 @@ func (builder *QuestionAssessmentBuilder) Title(title *I18n) *QuestionAssessment
 // 示例值：
 func (builder *QuestionAssessmentBuilder) Description(description *I18n) *QuestionAssessmentBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -2878,7 +2882,7 @@ func (builder *QuestionAssessmentBuilder) Description(description *I18n) *Questi
 // 示例值：test
 func (builder *QuestionAssessmentBuilder) Content(content string) *QuestionAssessmentBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -2887,27 +2891,27 @@ func (builder *QuestionAssessmentBuilder) Content(content string) *QuestionAsses
 // 示例值：
 func (builder *QuestionAssessmentBuilder) Abilities(abilities []*Ability) *QuestionAssessmentBuilder {
 	builder.abilities = abilities
-	builder.abilitiesFlag = true
+	builder.abilitiesSet = true
 	return builder
 }
 
 func (builder *QuestionAssessmentBuilder) Build() *QuestionAssessment {
 	req := &QuestionAssessment{}
-	if builder.questionTypeFlag {
+	if builder.questionTypeSet {
 		req.QuestionType = &builder.questionType
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = builder.title
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.abilitiesFlag {
+	if builder.abilitiesSet {
 		req.Abilities = builder.abilities
 	}
 	return req
@@ -2920,11 +2924,11 @@ type RecommendedJobLevel struct {
 }
 
 type RecommendedJobLevelBuilder struct {
-	lowerLimitJobLevelName     *I18n // 最低职级建议
-	lowerLimitJobLevelNameFlag bool
+	lowerLimitJobLevelName    *I18n // 最低职级建议
+	lowerLimitJobLevelNameSet bool
 
-	higherLimitJobLevelName     *I18n // 最低职级建议
-	higherLimitJobLevelNameFlag bool
+	higherLimitJobLevelName    *I18n // 最低职级建议
+	higherLimitJobLevelNameSet bool
 }
 
 func NewRecommendedJobLevelBuilder() *RecommendedJobLevelBuilder {
@@ -2937,7 +2941,7 @@ func NewRecommendedJobLevelBuilder() *RecommendedJobLevelBuilder {
 // 示例值：
 func (builder *RecommendedJobLevelBuilder) LowerLimitJobLevelName(lowerLimitJobLevelName *I18n) *RecommendedJobLevelBuilder {
 	builder.lowerLimitJobLevelName = lowerLimitJobLevelName
-	builder.lowerLimitJobLevelNameFlag = true
+	builder.lowerLimitJobLevelNameSet = true
 	return builder
 }
 
@@ -2946,16 +2950,16 @@ func (builder *RecommendedJobLevelBuilder) LowerLimitJobLevelName(lowerLimitJobL
 // 示例值：
 func (builder *RecommendedJobLevelBuilder) HigherLimitJobLevelName(higherLimitJobLevelName *I18n) *RecommendedJobLevelBuilder {
 	builder.higherLimitJobLevelName = higherLimitJobLevelName
-	builder.higherLimitJobLevelNameFlag = true
+	builder.higherLimitJobLevelNameSet = true
 	return builder
 }
 
 func (builder *RecommendedJobLevelBuilder) Build() *RecommendedJobLevel {
 	req := &RecommendedJobLevel{}
-	if builder.lowerLimitJobLevelNameFlag {
+	if builder.lowerLimitJobLevelNameSet {
 		req.LowerLimitJobLevelName = builder.lowerLimitJobLevelName
 	}
-	if builder.higherLimitJobLevelNameFlag {
+	if builder.higherLimitJobLevelNameSet {
 		req.HigherLimitJobLevelName = builder.higherLimitJobLevelName
 	}
 	return req
@@ -2968,11 +2972,11 @@ type RecordScore struct {
 }
 
 type RecordScoreBuilder struct {
-	score     float64 // 分数，即面试评价得分，精确到小数点后两位
-	scoreFlag bool
+	score    float64 // 分数，即面试评价得分，精确到小数点后两位
+	scoreSet bool
 
-	totalScore     float64 // 满分，即面试评价的总分
-	totalScoreFlag bool
+	totalScore    float64 // 满分，即面试评价的总分
+	totalScoreSet bool
 }
 
 func NewRecordScoreBuilder() *RecordScoreBuilder {
@@ -2985,7 +2989,7 @@ func NewRecordScoreBuilder() *RecordScoreBuilder {
 // 示例值：100
 func (builder *RecordScoreBuilder) Score(score float64) *RecordScoreBuilder {
 	builder.score = score
-	builder.scoreFlag = true
+	builder.scoreSet = true
 	return builder
 }
 
@@ -2994,17 +2998,17 @@ func (builder *RecordScoreBuilder) Score(score float64) *RecordScoreBuilder {
 // 示例值：100
 func (builder *RecordScoreBuilder) TotalScore(totalScore float64) *RecordScoreBuilder {
 	builder.totalScore = totalScore
-	builder.totalScoreFlag = true
+	builder.totalScoreSet = true
 	return builder
 }
 
 func (builder *RecordScoreBuilder) Build() *RecordScore {
 	req := &RecordScore{}
-	if builder.scoreFlag {
+	if builder.scoreSet {
 		req.Score = &builder.score
 
 	}
-	if builder.totalScoreFlag {
+	if builder.totalScoreSet {
 		req.TotalScore = &builder.totalScore
 
 	}
@@ -3022,17 +3026,17 @@ type RegistrationBasicInfo struct {
 }
 
 type RegistrationBasicInfoBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	registrationTime     int64 // 创建时间
-	registrationTimeFlag bool
+	registrationTime    int64 // 创建时间
+	registrationTimeSet bool
 
-	downloadUrl     string // 下载链接
-	downloadUrlFlag bool
+	downloadUrl    string // 下载链接
+	downloadUrlSet bool
 
-	scenario     int // 登记表场景
-	scenarioFlag bool
+	scenario    int // 登记表场景
+	scenarioSet bool
 }
 
 func NewRegistrationBasicInfoBuilder() *RegistrationBasicInfoBuilder {
@@ -3045,7 +3049,7 @@ func NewRegistrationBasicInfoBuilder() *RegistrationBasicInfoBuilder {
 // 示例值：6833685612520950030
 func (builder *RegistrationBasicInfoBuilder) Id(id string) *RegistrationBasicInfoBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3054,7 +3058,7 @@ func (builder *RegistrationBasicInfoBuilder) Id(id string) *RegistrationBasicInf
 // 示例值：1618494330932
 func (builder *RegistrationBasicInfoBuilder) RegistrationTime(registrationTime int64) *RegistrationBasicInfoBuilder {
 	builder.registrationTime = registrationTime
-	builder.registrationTimeFlag = true
+	builder.registrationTimeSet = true
 	return builder
 }
 
@@ -3063,7 +3067,7 @@ func (builder *RegistrationBasicInfoBuilder) RegistrationTime(registrationTime i
 // 示例值：https://hire.feishu.cn/hire/file/blob/...token.../
 func (builder *RegistrationBasicInfoBuilder) DownloadUrl(downloadUrl string) *RegistrationBasicInfoBuilder {
 	builder.downloadUrl = downloadUrl
-	builder.downloadUrlFlag = true
+	builder.downloadUrlSet = true
 	return builder
 }
 
@@ -3072,25 +3076,25 @@ func (builder *RegistrationBasicInfoBuilder) DownloadUrl(downloadUrl string) *Re
 // 示例值：5
 func (builder *RegistrationBasicInfoBuilder) Scenario(scenario int) *RegistrationBasicInfoBuilder {
 	builder.scenario = scenario
-	builder.scenarioFlag = true
+	builder.scenarioSet = true
 	return builder
 }
 
 func (builder *RegistrationBasicInfoBuilder) Build() *RegistrationBasicInfo {
 	req := &RegistrationBasicInfo{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.registrationTimeFlag {
+	if builder.registrationTimeSet {
 		req.RegistrationTime = &builder.registrationTime
 
 	}
-	if builder.downloadUrlFlag {
+	if builder.downloadUrlSet {
 		req.DownloadUrl = &builder.downloadUrl
 
 	}
-	if builder.scenarioFlag {
+	if builder.scenarioSet {
 		req.Scenario = &builder.scenario
 
 	}
@@ -3106,14 +3110,14 @@ type TalentBlock struct {
 }
 
 type TalentBlockBuilder struct {
-	blockedTime     string // 加入黑名单时间，毫秒级时间戳
-	blockedTimeFlag bool
+	blockedTime    string // 加入黑名单时间，毫秒级时间戳
+	blockedTimeSet bool
 
-	creatorId     string // 黑名单创建者 ID
-	creatorIdFlag bool
+	creatorId    string // 黑名单创建者 ID
+	creatorIdSet bool
 
-	reason     string // 加入黑名单原因
-	reasonFlag bool
+	reason    string // 加入黑名单原因
+	reasonSet bool
 }
 
 func NewTalentBlockBuilder() *TalentBlockBuilder {
@@ -3126,7 +3130,7 @@ func NewTalentBlockBuilder() *TalentBlockBuilder {
 // 示例值：1625656721
 func (builder *TalentBlockBuilder) BlockedTime(blockedTime string) *TalentBlockBuilder {
 	builder.blockedTime = blockedTime
-	builder.blockedTimeFlag = true
+	builder.blockedTimeSet = true
 	return builder
 }
 
@@ -3135,7 +3139,7 @@ func (builder *TalentBlockBuilder) BlockedTime(blockedTime string) *TalentBlockB
 // 示例值：6891560630172518670
 func (builder *TalentBlockBuilder) CreatorId(creatorId string) *TalentBlockBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -3144,21 +3148,21 @@ func (builder *TalentBlockBuilder) CreatorId(creatorId string) *TalentBlockBuild
 // 示例值：人才作弊
 func (builder *TalentBlockBuilder) Reason(reason string) *TalentBlockBuilder {
 	builder.reason = reason
-	builder.reasonFlag = true
+	builder.reasonSet = true
 	return builder
 }
 
 func (builder *TalentBlockBuilder) Build() *TalentBlock {
 	req := &TalentBlock{}
-	if builder.blockedTimeFlag {
+	if builder.blockedTimeSet {
 		req.BlockedTime = &builder.blockedTime
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.reasonFlag {
+	if builder.reasonSet {
 		req.Reason = &builder.reason
 
 	}
@@ -3176,17 +3180,17 @@ type TalentCustomizedAttachment struct {
 }
 
 type TalentCustomizedAttachmentBuilder struct {
-	fileId     string // 附件 ID
-	fileIdFlag bool
+	fileId    string // 附件 ID
+	fileIdSet bool
 
-	fileName     string // 附件名称
-	fileNameFlag bool
+	fileName    string // 附件名称
+	fileNameSet bool
 
-	contentType     string // 附件类型
-	contentTypeFlag bool
+	contentType    string // 附件类型
+	contentTypeSet bool
 
-	fileSize     int64 // 附件大小
-	fileSizeFlag bool
+	fileSize    int64 // 附件大小
+	fileSizeSet bool
 }
 
 func NewTalentCustomizedAttachmentBuilder() *TalentCustomizedAttachmentBuilder {
@@ -3199,7 +3203,7 @@ func NewTalentCustomizedAttachmentBuilder() *TalentCustomizedAttachmentBuilder {
 // 示例值：7140517838785481004
 func (builder *TalentCustomizedAttachmentBuilder) FileId(fileId string) *TalentCustomizedAttachmentBuilder {
 	builder.fileId = fileId
-	builder.fileIdFlag = true
+	builder.fileIdSet = true
 	return builder
 }
 
@@ -3208,7 +3212,7 @@ func (builder *TalentCustomizedAttachmentBuilder) FileId(fileId string) *TalentC
 // 示例值：1.13测试1的面试记录.pdf
 func (builder *TalentCustomizedAttachmentBuilder) FileName(fileName string) *TalentCustomizedAttachmentBuilder {
 	builder.fileName = fileName
-	builder.fileNameFlag = true
+	builder.fileNameSet = true
 	return builder
 }
 
@@ -3217,7 +3221,7 @@ func (builder *TalentCustomizedAttachmentBuilder) FileName(fileName string) *Tal
 // 示例值：application/pdf
 func (builder *TalentCustomizedAttachmentBuilder) ContentType(contentType string) *TalentCustomizedAttachmentBuilder {
 	builder.contentType = contentType
-	builder.contentTypeFlag = true
+	builder.contentTypeSet = true
 	return builder
 }
 
@@ -3226,25 +3230,25 @@ func (builder *TalentCustomizedAttachmentBuilder) ContentType(contentType string
 // 示例值：16615
 func (builder *TalentCustomizedAttachmentBuilder) FileSize(fileSize int64) *TalentCustomizedAttachmentBuilder {
 	builder.fileSize = fileSize
-	builder.fileSizeFlag = true
+	builder.fileSizeSet = true
 	return builder
 }
 
 func (builder *TalentCustomizedAttachmentBuilder) Build() *TalentCustomizedAttachment {
 	req := &TalentCustomizedAttachment{}
-	if builder.fileIdFlag {
+	if builder.fileIdSet {
 		req.FileId = &builder.fileId
 
 	}
-	if builder.fileNameFlag {
+	if builder.fileNameSet {
 		req.FileName = &builder.fileName
 
 	}
-	if builder.contentTypeFlag {
+	if builder.contentTypeSet {
 		req.ContentType = &builder.contentType
 
 	}
-	if builder.fileSizeFlag {
+	if builder.fileSizeSet {
 		req.FileSize = &builder.fileSize
 
 	}
@@ -3262,17 +3266,17 @@ type TalentCustomizedDataChild struct {
 }
 
 type TalentCustomizedDataChildBuilder struct {
-	objectId     string // 自定义字段 ID
-	objectIdFlag bool
+	objectId    string // 自定义字段 ID
+	objectIdSet bool
 
-	name     *I18n // 字段名称
-	nameFlag bool
+	name    *I18n // 字段名称
+	nameSet bool
 
-	objectType     int // 字段类型
-	objectTypeFlag bool
+	objectType    int // 字段类型
+	objectTypeSet bool
 
-	value     *TalentCustomizedValue // 自定义字段值
-	valueFlag bool
+	value    *TalentCustomizedValue // 自定义字段值
+	valueSet bool
 }
 
 func NewTalentCustomizedDataChildBuilder() *TalentCustomizedDataChildBuilder {
@@ -3285,7 +3289,7 @@ func NewTalentCustomizedDataChildBuilder() *TalentCustomizedDataChildBuilder {
 // 示例值：xxxx
 func (builder *TalentCustomizedDataChildBuilder) ObjectId(objectId string) *TalentCustomizedDataChildBuilder {
 	builder.objectId = objectId
-	builder.objectIdFlag = true
+	builder.objectIdSet = true
 	return builder
 }
 
@@ -3294,7 +3298,7 @@ func (builder *TalentCustomizedDataChildBuilder) ObjectId(objectId string) *Tale
 // 示例值：
 func (builder *TalentCustomizedDataChildBuilder) Name(name *I18n) *TalentCustomizedDataChildBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3303,7 +3307,7 @@ func (builder *TalentCustomizedDataChildBuilder) Name(name *I18n) *TalentCustomi
 // 示例值：1
 func (builder *TalentCustomizedDataChildBuilder) ObjectType(objectType int) *TalentCustomizedDataChildBuilder {
 	builder.objectType = objectType
-	builder.objectTypeFlag = true
+	builder.objectTypeSet = true
 	return builder
 }
 
@@ -3312,24 +3316,24 @@ func (builder *TalentCustomizedDataChildBuilder) ObjectType(objectType int) *Tal
 // 示例值：
 func (builder *TalentCustomizedDataChildBuilder) Value(value *TalentCustomizedValue) *TalentCustomizedDataChildBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *TalentCustomizedDataChildBuilder) Build() *TalentCustomizedDataChild {
 	req := &TalentCustomizedDataChild{}
-	if builder.objectIdFlag {
+	if builder.objectIdSet {
 		req.ObjectId = &builder.objectId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.objectTypeFlag {
+	if builder.objectTypeSet {
 		req.ObjectType = &builder.objectType
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = builder.value
 	}
 	return req
@@ -3342,11 +3346,11 @@ type TalentCustomizedOption struct {
 }
 
 type TalentCustomizedOptionBuilder struct {
-	key     string // 选项 ID
-	keyFlag bool
+	key    string // 选项 ID
+	keySet bool
 
-	name     *I18n // 选项名称
-	nameFlag bool
+	name    *I18n // 选项名称
+	nameSet bool
 }
 
 func NewTalentCustomizedOptionBuilder() *TalentCustomizedOptionBuilder {
@@ -3359,7 +3363,7 @@ func NewTalentCustomizedOptionBuilder() *TalentCustomizedOptionBuilder {
 // 示例值：AA
 func (builder *TalentCustomizedOptionBuilder) Key(key string) *TalentCustomizedOptionBuilder {
 	builder.key = key
-	builder.keyFlag = true
+	builder.keySet = true
 	return builder
 }
 
@@ -3368,17 +3372,17 @@ func (builder *TalentCustomizedOptionBuilder) Key(key string) *TalentCustomizedO
 // 示例值：
 func (builder *TalentCustomizedOptionBuilder) Name(name *I18n) *TalentCustomizedOptionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *TalentCustomizedOptionBuilder) Build() *TalentCustomizedOption {
 	req := &TalentCustomizedOption{}
-	if builder.keyFlag {
+	if builder.keySet {
 		req.Key = &builder.key
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
 	return req
@@ -3391,11 +3395,11 @@ type TalentCustomizedTimeRange struct {
 }
 
 type TalentCustomizedTimeRangeBuilder struct {
-	startTime     string // 开始时间
-	startTimeFlag bool
+	startTime    string // 开始时间
+	startTimeSet bool
 
-	endTime     string // 结束时间，当值为至今时，返回「-」
-	endTimeFlag bool
+	endTime    string // 结束时间，当值为至今时，返回「-」
+	endTimeSet bool
 }
 
 func NewTalentCustomizedTimeRangeBuilder() *TalentCustomizedTimeRangeBuilder {
@@ -3408,7 +3412,7 @@ func NewTalentCustomizedTimeRangeBuilder() *TalentCustomizedTimeRangeBuilder {
 // 示例值：1625456721
 func (builder *TalentCustomizedTimeRangeBuilder) StartTime(startTime string) *TalentCustomizedTimeRangeBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -3417,17 +3421,17 @@ func (builder *TalentCustomizedTimeRangeBuilder) StartTime(startTime string) *Ta
 // 示例值：1625656721
 func (builder *TalentCustomizedTimeRangeBuilder) EndTime(endTime string) *TalentCustomizedTimeRangeBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
 func (builder *TalentCustomizedTimeRangeBuilder) Build() *TalentCustomizedTimeRange {
 	req := &TalentCustomizedTimeRange{}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
@@ -3451,26 +3455,26 @@ type TalentCustomizedValue struct {
 }
 
 type TalentCustomizedValueBuilder struct {
-	content     string // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
-	contentFlag bool
+	content    string // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
+	contentSet bool
 
-	option     *TalentCustomizedOption // 当字段类型为单选时，从此字段取值
-	optionFlag bool
+	option    *TalentCustomizedOption // 当字段类型为单选时，从此字段取值
+	optionSet bool
 
-	optionList     []*TalentCustomizedOption // 当字段类型为多选时，从此字段取值
-	optionListFlag bool
+	optionList    []*TalentCustomizedOption // 当字段类型为多选时，从此字段取值
+	optionListSet bool
 
-	timeRange     *TalentCustomizedTimeRange // 当字段类型为时间段时，从此字段取值
-	timeRangeFlag bool
+	timeRange    *TalentCustomizedTimeRange // 当字段类型为时间段时，从此字段取值
+	timeRangeSet bool
 
-	time     string // 当字段类型为日期选择、月份选择、年份选择时，从此字段取值，该字段是秒级时间戳
-	timeFlag bool
+	time    string // 当字段类型为日期选择、月份选择、年份选择时，从此字段取值，该字段是秒级时间戳
+	timeSet bool
 
-	number     string // 当字段类型为数字时，从此字段取值
-	numberFlag bool
+	number    string // 当字段类型为数字时，从此字段取值
+	numberSet bool
 
-	customizedAttachment     []*TalentCustomizedAttachment // 当字段类型为附件时，从此字段取值
-	customizedAttachmentFlag bool
+	customizedAttachment    []*TalentCustomizedAttachment // 当字段类型为附件时，从此字段取值
+	customizedAttachmentSet bool
 }
 
 func NewTalentCustomizedValueBuilder() *TalentCustomizedValueBuilder {
@@ -3483,7 +3487,7 @@ func NewTalentCustomizedValueBuilder() *TalentCustomizedValueBuilder {
 // 示例值：text
 func (builder *TalentCustomizedValueBuilder) Content(content string) *TalentCustomizedValueBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -3492,7 +3496,7 @@ func (builder *TalentCustomizedValueBuilder) Content(content string) *TalentCust
 // 示例值：
 func (builder *TalentCustomizedValueBuilder) Option(option *TalentCustomizedOption) *TalentCustomizedValueBuilder {
 	builder.option = option
-	builder.optionFlag = true
+	builder.optionSet = true
 	return builder
 }
 
@@ -3501,7 +3505,7 @@ func (builder *TalentCustomizedValueBuilder) Option(option *TalentCustomizedOpti
 // 示例值：
 func (builder *TalentCustomizedValueBuilder) OptionList(optionList []*TalentCustomizedOption) *TalentCustomizedValueBuilder {
 	builder.optionList = optionList
-	builder.optionListFlag = true
+	builder.optionListSet = true
 	return builder
 }
 
@@ -3510,7 +3514,7 @@ func (builder *TalentCustomizedValueBuilder) OptionList(optionList []*TalentCust
 // 示例值：
 func (builder *TalentCustomizedValueBuilder) TimeRange(timeRange *TalentCustomizedTimeRange) *TalentCustomizedValueBuilder {
 	builder.timeRange = timeRange
-	builder.timeRangeFlag = true
+	builder.timeRangeSet = true
 	return builder
 }
 
@@ -3519,7 +3523,7 @@ func (builder *TalentCustomizedValueBuilder) TimeRange(timeRange *TalentCustomiz
 // 示例值：1625456721
 func (builder *TalentCustomizedValueBuilder) Time(time string) *TalentCustomizedValueBuilder {
 	builder.time = time
-	builder.timeFlag = true
+	builder.timeSet = true
 	return builder
 }
 
@@ -3528,7 +3532,7 @@ func (builder *TalentCustomizedValueBuilder) Time(time string) *TalentCustomized
 // 示例值：111
 func (builder *TalentCustomizedValueBuilder) Number(number string) *TalentCustomizedValueBuilder {
 	builder.number = number
-	builder.numberFlag = true
+	builder.numberSet = true
 	return builder
 }
 
@@ -3537,34 +3541,34 @@ func (builder *TalentCustomizedValueBuilder) Number(number string) *TalentCustom
 // 示例值：
 func (builder *TalentCustomizedValueBuilder) CustomizedAttachment(customizedAttachment []*TalentCustomizedAttachment) *TalentCustomizedValueBuilder {
 	builder.customizedAttachment = customizedAttachment
-	builder.customizedAttachmentFlag = true
+	builder.customizedAttachmentSet = true
 	return builder
 }
 
 func (builder *TalentCustomizedValueBuilder) Build() *TalentCustomizedValue {
 	req := &TalentCustomizedValue{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.optionFlag {
+	if builder.optionSet {
 		req.Option = builder.option
 	}
-	if builder.optionListFlag {
+	if builder.optionListSet {
 		req.OptionList = builder.optionList
 	}
-	if builder.timeRangeFlag {
+	if builder.timeRangeSet {
 		req.TimeRange = builder.timeRange
 	}
-	if builder.timeFlag {
+	if builder.timeSet {
 		req.Time = &builder.time
 
 	}
-	if builder.numberFlag {
+	if builder.numberSet {
 		req.Number = &builder.number
 
 	}
-	if builder.customizedAttachmentFlag {
+	if builder.customizedAttachmentSet {
 		req.CustomizedAttachment = builder.customizedAttachment
 	}
 	return req
@@ -3581,17 +3585,17 @@ type TalentFolder struct {
 }
 
 type TalentFolderBuilder struct {
-	name     string // 名称
-	nameFlag bool
+	name    string // 名称
+	nameSet bool
 
-	folderId     string // 文件夹 ID
-	folderIdFlag bool
+	folderId    string // 文件夹 ID
+	folderIdSet bool
 
-	ownerId     string // 所有者 ID
-	ownerIdFlag bool
+	ownerId    string // 所有者 ID
+	ownerIdSet bool
 
-	addTime     string // 文件夹加入时间,毫秒级时间戳
-	addTimeFlag bool
+	addTime    string // 文件夹加入时间,毫秒级时间戳
+	addTimeSet bool
 }
 
 func NewTalentFolderBuilder() *TalentFolderBuilder {
@@ -3604,7 +3608,7 @@ func NewTalentFolderBuilder() *TalentFolderBuilder {
 // 示例值：人才文件夹A1
 func (builder *TalentFolderBuilder) Name(name string) *TalentFolderBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3613,7 +3617,7 @@ func (builder *TalentFolderBuilder) Name(name string) *TalentFolderBuilder {
 // 示例值：7041806543797995820
 func (builder *TalentFolderBuilder) FolderId(folderId string) *TalentFolderBuilder {
 	builder.folderId = folderId
-	builder.folderIdFlag = true
+	builder.folderIdSet = true
 	return builder
 }
 
@@ -3622,7 +3626,7 @@ func (builder *TalentFolderBuilder) FolderId(folderId string) *TalentFolderBuild
 // 示例值：ou_85bb308c57f597471cd2bb5b4f580245
 func (builder *TalentFolderBuilder) OwnerId(ownerId string) *TalentFolderBuilder {
 	builder.ownerId = ownerId
-	builder.ownerIdFlag = true
+	builder.ownerIdSet = true
 	return builder
 }
 
@@ -3631,25 +3635,25 @@ func (builder *TalentFolderBuilder) OwnerId(ownerId string) *TalentFolderBuilder
 // 示例值：1634801678103
 func (builder *TalentFolderBuilder) AddTime(addTime string) *TalentFolderBuilder {
 	builder.addTime = addTime
-	builder.addTimeFlag = true
+	builder.addTimeSet = true
 	return builder
 }
 
 func (builder *TalentFolderBuilder) Build() *TalentFolder {
 	req := &TalentFolder{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.folderIdFlag {
+	if builder.folderIdSet {
 		req.FolderId = &builder.folderId
 
 	}
-	if builder.ownerIdFlag {
+	if builder.ownerIdSet {
 		req.OwnerId = &builder.ownerId
 
 	}
-	if builder.addTimeFlag {
+	if builder.addTimeSet {
 		req.AddTime = &builder.addTime
 
 	}
@@ -3665,14 +3669,14 @@ type TalentInterviewRegistrationSimple struct {
 }
 
 type TalentInterviewRegistrationSimpleBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	registrationTime     int64 // 创建时间
-	registrationTimeFlag bool
+	registrationTime    int64 // 创建时间
+	registrationTimeSet bool
 
-	downloadUrl     string // 下载链接
-	downloadUrlFlag bool
+	downloadUrl    string // 下载链接
+	downloadUrlSet bool
 }
 
 func NewTalentInterviewRegistrationSimpleBuilder() *TalentInterviewRegistrationSimpleBuilder {
@@ -3685,7 +3689,7 @@ func NewTalentInterviewRegistrationSimpleBuilder() *TalentInterviewRegistrationS
 // 示例值：6833685612520950030
 func (builder *TalentInterviewRegistrationSimpleBuilder) Id(id string) *TalentInterviewRegistrationSimpleBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3694,7 +3698,7 @@ func (builder *TalentInterviewRegistrationSimpleBuilder) Id(id string) *TalentIn
 // 示例值：1618494330932
 func (builder *TalentInterviewRegistrationSimpleBuilder) RegistrationTime(registrationTime int64) *TalentInterviewRegistrationSimpleBuilder {
 	builder.registrationTime = registrationTime
-	builder.registrationTimeFlag = true
+	builder.registrationTimeSet = true
 	return builder
 }
 
@@ -3703,21 +3707,21 @@ func (builder *TalentInterviewRegistrationSimpleBuilder) RegistrationTime(regist
 // 示例值：https://hire.feishu.cn/hire/file/blob/...token.../
 func (builder *TalentInterviewRegistrationSimpleBuilder) DownloadUrl(downloadUrl string) *TalentInterviewRegistrationSimpleBuilder {
 	builder.downloadUrl = downloadUrl
-	builder.downloadUrlFlag = true
+	builder.downloadUrlSet = true
 	return builder
 }
 
 func (builder *TalentInterviewRegistrationSimpleBuilder) Build() *TalentInterviewRegistrationSimple {
 	req := &TalentInterviewRegistrationSimple{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.registrationTimeFlag {
+	if builder.registrationTimeSet {
 		req.RegistrationTime = &builder.registrationTime
 
 	}
-	if builder.downloadUrlFlag {
+	if builder.downloadUrlSet {
 		req.DownloadUrl = &builder.downloadUrl
 
 	}
@@ -3743,29 +3747,29 @@ type TalentNote struct {
 }
 
 type TalentNoteBuilder struct {
-	id     string // 备注 ID
-	idFlag bool
+	id    string // 备注 ID
+	idSet bool
 
-	talentId     string // 人才 ID
-	talentIdFlag bool
+	talentId    string // 人才 ID
+	talentIdSet bool
 
-	applicationId     string // 投递 ID
-	applicationIdFlag bool
+	applicationId    string // 投递 ID
+	applicationIdSet bool
 
-	createTime     string // 人才备注创建时间,毫秒级时间戳
-	createTimeFlag bool
+	createTime    string // 人才备注创建时间,毫秒级时间戳
+	createTimeSet bool
 
-	updateTime     string // 人才备注更新时间,毫秒级时间戳
-	updateTimeFlag bool
+	updateTime    string // 人才备注更新时间,毫秒级时间戳
+	updateTimeSet bool
 
-	creatorId     string // 创建人ID
-	creatorIdFlag bool
+	creatorId    string // 创建人ID
+	creatorIdSet bool
 
-	content     string // 备注内容
-	contentFlag bool
+	content    string // 备注内容
+	contentSet bool
 
-	privacy     int // 备注私密属性
-	privacyFlag bool
+	privacy    int // 备注私密属性
+	privacySet bool
 }
 
 func NewTalentNoteBuilder() *TalentNoteBuilder {
@@ -3778,7 +3782,7 @@ func NewTalentNoteBuilder() *TalentNoteBuilder {
 // 示例值：6949805467799537964
 func (builder *TalentNoteBuilder) Id(id string) *TalentNoteBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3787,7 +3791,7 @@ func (builder *TalentNoteBuilder) Id(id string) *TalentNoteBuilder {
 // 示例值：6916472453069883661
 func (builder *TalentNoteBuilder) TalentId(talentId string) *TalentNoteBuilder {
 	builder.talentId = talentId
-	builder.talentIdFlag = true
+	builder.talentIdSet = true
 	return builder
 }
 
@@ -3796,7 +3800,7 @@ func (builder *TalentNoteBuilder) TalentId(talentId string) *TalentNoteBuilder {
 // 示例值：6891565253964859661
 func (builder *TalentNoteBuilder) ApplicationId(applicationId string) *TalentNoteBuilder {
 	builder.applicationId = applicationId
-	builder.applicationIdFlag = true
+	builder.applicationIdSet = true
 	return builder
 }
 
@@ -3805,7 +3809,7 @@ func (builder *TalentNoteBuilder) ApplicationId(applicationId string) *TalentNot
 // 示例值：1618209327096
 func (builder *TalentNoteBuilder) CreateTime(createTime string) *TalentNoteBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -3814,7 +3818,7 @@ func (builder *TalentNoteBuilder) CreateTime(createTime string) *TalentNoteBuild
 // 示例值：1618209327096
 func (builder *TalentNoteBuilder) UpdateTime(updateTime string) *TalentNoteBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -3823,7 +3827,7 @@ func (builder *TalentNoteBuilder) UpdateTime(updateTime string) *TalentNoteBuild
 // 示例值：ou_f476cb099ac9227c9bae09ce46112579
 func (builder *TalentNoteBuilder) CreatorId(creatorId string) *TalentNoteBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -3832,7 +3836,7 @@ func (builder *TalentNoteBuilder) CreatorId(creatorId string) *TalentNoteBuilder
 // 示例值：测试备注内容
 func (builder *TalentNoteBuilder) Content(content string) *TalentNoteBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -3841,41 +3845,41 @@ func (builder *TalentNoteBuilder) Content(content string) *TalentNoteBuilder {
 // 示例值：1
 func (builder *TalentNoteBuilder) Privacy(privacy int) *TalentNoteBuilder {
 	builder.privacy = privacy
-	builder.privacyFlag = true
+	builder.privacySet = true
 	return builder
 }
 
 func (builder *TalentNoteBuilder) Build() *TalentNote {
 	req := &TalentNote{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.talentIdFlag {
+	if builder.talentIdSet {
 		req.TalentId = &builder.talentId
 
 	}
-	if builder.applicationIdFlag {
+	if builder.applicationIdSet {
 		req.ApplicationId = &builder.applicationId
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.privacyFlag {
+	if builder.privacySet {
 		req.Privacy = &builder.privacy
 
 	}
@@ -3893,17 +3897,17 @@ type TalentPool struct {
 }
 
 type TalentPoolBuilder struct {
-	id     string // 人才库 ID
-	idFlag bool
+	id    string // 人才库 ID
+	idSet bool
 
-	name     *I18n // 人才库名称
-	nameFlag bool
+	name    *I18n // 人才库名称
+	nameSet bool
 
-	description     *I18n // 人才库描述
-	descriptionFlag bool
+	description    *I18n // 人才库描述
+	descriptionSet bool
 
-	addTime     string // 人才库加入时间,毫秒级时间戳
-	addTimeFlag bool
+	addTime    string // 人才库加入时间,毫秒级时间戳
+	addTimeSet bool
 }
 
 func NewTalentPoolBuilder() *TalentPoolBuilder {
@@ -3916,7 +3920,7 @@ func NewTalentPoolBuilder() *TalentPoolBuilder {
 // 示例值：6891560630172518670
 func (builder *TalentPoolBuilder) Id(id string) *TalentPoolBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3925,7 +3929,7 @@ func (builder *TalentPoolBuilder) Id(id string) *TalentPoolBuilder {
 // 示例值：
 func (builder *TalentPoolBuilder) Name(name *I18n) *TalentPoolBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3934,7 +3938,7 @@ func (builder *TalentPoolBuilder) Name(name *I18n) *TalentPoolBuilder {
 // 示例值：
 func (builder *TalentPoolBuilder) Description(description *I18n) *TalentPoolBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -3943,23 +3947,23 @@ func (builder *TalentPoolBuilder) Description(description *I18n) *TalentPoolBuil
 // 示例值：1634801678103
 func (builder *TalentPoolBuilder) AddTime(addTime string) *TalentPoolBuilder {
 	builder.addTime = addTime
-	builder.addTimeFlag = true
+	builder.addTimeSet = true
 	return builder
 }
 
 func (builder *TalentPoolBuilder) Build() *TalentPool {
 	req := &TalentPool{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.addTimeFlag {
+	if builder.addTimeSet {
 		req.AddTime = &builder.addTime
 
 	}
@@ -3977,17 +3981,17 @@ type TalentResumeAttachment struct {
 }
 
 type TalentResumeAttachmentBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	name     string // 附件名
-	nameFlag bool
+	name    string // 附件名
+	nameSet bool
 
-	mime     string // 附件MIME类型
-	mimeFlag bool
+	mime    string // 附件MIME类型
+	mimeSet bool
 
-	createTime     string // 创建时间戳
-	createTimeFlag bool
+	createTime    string // 创建时间戳
+	createTimeSet bool
 }
 
 func NewTalentResumeAttachmentBuilder() *TalentResumeAttachmentBuilder {
@@ -4000,7 +4004,7 @@ func NewTalentResumeAttachmentBuilder() *TalentResumeAttachmentBuilder {
 // 示例值：6891560630172518670
 func (builder *TalentResumeAttachmentBuilder) Id(id string) *TalentResumeAttachmentBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4009,7 +4013,7 @@ func (builder *TalentResumeAttachmentBuilder) Id(id string) *TalentResumeAttachm
 // 示例值：1.pdf
 func (builder *TalentResumeAttachmentBuilder) Name(name string) *TalentResumeAttachmentBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4018,7 +4022,7 @@ func (builder *TalentResumeAttachmentBuilder) Name(name string) *TalentResumeAtt
 // 示例值：application/pdf
 func (builder *TalentResumeAttachmentBuilder) Mime(mime string) *TalentResumeAttachmentBuilder {
 	builder.mime = mime
-	builder.mimeFlag = true
+	builder.mimeSet = true
 	return builder
 }
 
@@ -4027,25 +4031,25 @@ func (builder *TalentResumeAttachmentBuilder) Mime(mime string) *TalentResumeAtt
 // 示例值：1734348840749
 func (builder *TalentResumeAttachmentBuilder) CreateTime(createTime string) *TalentResumeAttachmentBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
 func (builder *TalentResumeAttachmentBuilder) Build() *TalentResumeAttachment {
 	req := &TalentResumeAttachment{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.mimeFlag {
+	if builder.mimeSet {
 		req.Mime = &builder.mime
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
@@ -4061,14 +4065,14 @@ type TalentResumeSource struct {
 }
 
 type TalentResumeSourceBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	zhName     string // 中文名
-	zhNameFlag bool
+	zhName    string // 中文名
+	zhNameSet bool
 
-	enName     string // 英文名
-	enNameFlag bool
+	enName    string // 英文名
+	enNameSet bool
 }
 
 func NewTalentResumeSourceBuilder() *TalentResumeSourceBuilder {
@@ -4081,7 +4085,7 @@ func NewTalentResumeSourceBuilder() *TalentResumeSourceBuilder {
 // 示例值：6891560630172518670
 func (builder *TalentResumeSourceBuilder) Id(id string) *TalentResumeSourceBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4090,7 +4094,7 @@ func (builder *TalentResumeSourceBuilder) Id(id string) *TalentResumeSourceBuild
 // 示例值：猎头
 func (builder *TalentResumeSourceBuilder) ZhName(zhName string) *TalentResumeSourceBuilder {
 	builder.zhName = zhName
-	builder.zhNameFlag = true
+	builder.zhNameSet = true
 	return builder
 }
 
@@ -4099,21 +4103,21 @@ func (builder *TalentResumeSourceBuilder) ZhName(zhName string) *TalentResumeSou
 // 示例值：Hunter
 func (builder *TalentResumeSourceBuilder) EnName(enName string) *TalentResumeSourceBuilder {
 	builder.enName = enName
-	builder.enNameFlag = true
+	builder.enNameSet = true
 	return builder
 }
 
 func (builder *TalentResumeSourceBuilder) Build() *TalentResumeSource {
 	req := &TalentResumeSource{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.zhNameFlag {
+	if builder.zhNameSet {
 		req.ZhName = &builder.zhName
 
 	}
-	if builder.enNameFlag {
+	if builder.enNameSet {
 		req.EnName = &builder.enName
 
 	}
@@ -4127,11 +4131,11 @@ type TalentSimilar struct {
 }
 
 type TalentSimilarBuilder struct {
-	isSimilarTalent     bool // 是否相似人才
-	isSimilarTalentFlag bool
+	isSimilarTalent    bool // 是否相似人才
+	isSimilarTalentSet bool
 
-	similarTalentIdList     []string // 相似人才 ID 列表
-	similarTalentIdListFlag bool
+	similarTalentIdList    []string // 相似人才 ID 列表
+	similarTalentIdListSet bool
 }
 
 func NewTalentSimilarBuilder() *TalentSimilarBuilder {
@@ -4144,7 +4148,7 @@ func NewTalentSimilarBuilder() *TalentSimilarBuilder {
 // 示例值：true
 func (builder *TalentSimilarBuilder) IsSimilarTalent(isSimilarTalent bool) *TalentSimilarBuilder {
 	builder.isSimilarTalent = isSimilarTalent
-	builder.isSimilarTalentFlag = true
+	builder.isSimilarTalentSet = true
 	return builder
 }
 
@@ -4153,17 +4157,17 @@ func (builder *TalentSimilarBuilder) IsSimilarTalent(isSimilarTalent bool) *Tale
 // 示例值：
 func (builder *TalentSimilarBuilder) SimilarTalentIdList(similarTalentIdList []string) *TalentSimilarBuilder {
 	builder.similarTalentIdList = similarTalentIdList
-	builder.similarTalentIdListFlag = true
+	builder.similarTalentIdListSet = true
 	return builder
 }
 
 func (builder *TalentSimilarBuilder) Build() *TalentSimilar {
 	req := &TalentSimilar{}
-	if builder.isSimilarTalentFlag {
+	if builder.isSimilarTalentSet {
 		req.IsSimilarTalent = &builder.isSimilarTalent
 
 	}
-	if builder.similarTalentIdListFlag {
+	if builder.similarTalentIdListSet {
 		req.SimilarTalentIdList = builder.similarTalentIdList
 	}
 	return req
@@ -4180,17 +4184,17 @@ type TalentTag struct {
 }
 
 type TalentTagBuilder struct {
-	id     string // 标签 ID
-	idFlag bool
+	id    string // 标签 ID
+	idSet bool
 
-	name     *I18n // 标签名称
-	nameFlag bool
+	name    *I18n // 标签名称
+	nameSet bool
 
-	description     *I18n // 描述名称
-	descriptionFlag bool
+	description    *I18n // 描述名称
+	descriptionSet bool
 
 	type_    int // 标签类型
-	typeFlag bool
+	type_Set bool
 }
 
 func NewTalentTagBuilder() *TalentTagBuilder {
@@ -4203,7 +4207,7 @@ func NewTalentTagBuilder() *TalentTagBuilder {
 // 示例值：7140517838785481004
 func (builder *TalentTagBuilder) Id(id string) *TalentTagBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4212,7 +4216,7 @@ func (builder *TalentTagBuilder) Id(id string) *TalentTagBuilder {
 // 示例值：
 func (builder *TalentTagBuilder) Name(name *I18n) *TalentTagBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4221,7 +4225,7 @@ func (builder *TalentTagBuilder) Name(name *I18n) *TalentTagBuilder {
 // 示例值：
 func (builder *TalentTagBuilder) Description(description *I18n) *TalentTagBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -4230,23 +4234,23 @@ func (builder *TalentTagBuilder) Description(description *I18n) *TalentTagBuilde
 // 示例值：1
 func (builder *TalentTagBuilder) Type(type_ int) *TalentTagBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
 func (builder *TalentTagBuilder) Build() *TalentTag {
 	req := &TalentTag{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}

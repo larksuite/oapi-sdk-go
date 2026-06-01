@@ -33,6 +33,7 @@ func main() {
 			MemberType("openid").
 			MemberRole("admin").
 			Type("user").
+			MemberPerm("admin").
 			Build()).
 		Build()
 	// 发起请求

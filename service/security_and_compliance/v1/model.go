@@ -14,7 +14,33 @@
 package larksecurity_and_compliance
 
 import (
+	"fmt"
+
 	"github.com/larksuite/oapi-sdk-go/v3/core"
+)
+
+const (
+	CancelUserMigrationUserIDTypeUserId  = "user_id"  // 以user_id来标识用户
+	CancelUserMigrationUserIDTypeUnionId = "union_id" // 以union_id来标识用户
+	CancelUserMigrationUserIDTypeOpenId  = "open_id"  // 以open_id来标识用户
+)
+
+const (
+	CreateUserMigrationUserIDTypeUserId  = "user_id"  // 以user_id来标识用户
+	CreateUserMigrationUserIDTypeUnionId = "union_id" // 以union_id来标识用户
+	CreateUserMigrationUserIDTypeOpenId  = "open_id"  // 以open_id来标识用户
+)
+
+const (
+	GetUserMigrationUserIDTypeUserId  = "user_id"  // 以user_id来标识用户
+	GetUserMigrationUserIDTypeUnionId = "union_id" // 以union_id来标识用户
+	GetUserMigrationUserIDTypeOpenId  = "open_id"  // 以open_id来标识用户
+)
+
+const (
+	SearchUserMigrationUserIDTypeUserId  = "user_id"  // 以user_id来标识用户
+	SearchUserMigrationUserIDTypeUnionId = "union_id" // 以union_id来标识用户
+	SearchUserMigrationUserIDTypeOpenId  = "open_id"  // 以open_id来标识用户
 )
 
 type AdminLog struct {
@@ -36,29 +62,29 @@ type AdminLog struct {
 }
 
 type AdminLogBuilder struct {
-	uniqueId     string // 唯一id
-	uniqueIdFlag bool
+	uniqueId    string // 唯一id
+	uniqueIdSet bool
 
-	userId     string // 管理员id
-	userIdFlag bool
+	userId    string // 管理员id
+	userIdSet bool
 
-	categoryName     string // 一级类目
-	categoryNameFlag bool
+	categoryName    string // 一级类目
+	categoryNameSet bool
 
-	eventName     string // 事件名称
-	eventNameFlag bool
+	eventName    string // 事件名称
+	eventNameSet bool
 
-	ipAddress     string // ip地址
-	ipAddressFlag bool
+	ipAddress    string // ip地址
+	ipAddressSet bool
 
-	createTime     string // 创建时间戳
-	createTimeFlag bool
+	createTime    string // 创建时间戳
+	createTimeSet bool
 
-	content     string // 事件详情
-	contentFlag bool
+	content    string // 事件详情
+	contentSet bool
 
-	operationStatus     int // 操作状态
-	operationStatusFlag bool
+	operationStatus    int // 操作状态
+	operationStatusSet bool
 }
 
 func NewAdminLogBuilder() *AdminLogBuilder {
@@ -71,7 +97,7 @@ func NewAdminLogBuilder() *AdminLogBuilder {
 // 示例值：1
 func (builder *AdminLogBuilder) UniqueId(uniqueId string) *AdminLogBuilder {
 	builder.uniqueId = uniqueId
-	builder.uniqueIdFlag = true
+	builder.uniqueIdSet = true
 	return builder
 }
 
@@ -80,7 +106,7 @@ func (builder *AdminLogBuilder) UniqueId(uniqueId string) *AdminLogBuilder {
 // 示例值：1
 func (builder *AdminLogBuilder) UserId(userId string) *AdminLogBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -89,7 +115,7 @@ func (builder *AdminLogBuilder) UserId(userId string) *AdminLogBuilder {
 // 示例值：1
 func (builder *AdminLogBuilder) CategoryName(categoryName string) *AdminLogBuilder {
 	builder.categoryName = categoryName
-	builder.categoryNameFlag = true
+	builder.categoryNameSet = true
 	return builder
 }
 
@@ -98,7 +124,7 @@ func (builder *AdminLogBuilder) CategoryName(categoryName string) *AdminLogBuild
 // 示例值：1
 func (builder *AdminLogBuilder) EventName(eventName string) *AdminLogBuilder {
 	builder.eventName = eventName
-	builder.eventNameFlag = true
+	builder.eventNameSet = true
 	return builder
 }
 
@@ -107,7 +133,7 @@ func (builder *AdminLogBuilder) EventName(eventName string) *AdminLogBuilder {
 // 示例值：1.0.0.127
 func (builder *AdminLogBuilder) IpAddress(ipAddress string) *AdminLogBuilder {
 	builder.ipAddress = ipAddress
-	builder.ipAddressFlag = true
+	builder.ipAddressSet = true
 	return builder
 }
 
@@ -116,7 +142,7 @@ func (builder *AdminLogBuilder) IpAddress(ipAddress string) *AdminLogBuilder {
 // 示例值：1692773562
 func (builder *AdminLogBuilder) CreateTime(createTime string) *AdminLogBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -125,7 +151,7 @@ func (builder *AdminLogBuilder) CreateTime(createTime string) *AdminLogBuilder {
 // 示例值：content
 func (builder *AdminLogBuilder) Content(content string) *AdminLogBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -134,41 +160,41 @@ func (builder *AdminLogBuilder) Content(content string) *AdminLogBuilder {
 // 示例值：1
 func (builder *AdminLogBuilder) OperationStatus(operationStatus int) *AdminLogBuilder {
 	builder.operationStatus = operationStatus
-	builder.operationStatusFlag = true
+	builder.operationStatusSet = true
 	return builder
 }
 
 func (builder *AdminLogBuilder) Build() *AdminLog {
 	req := &AdminLog{}
-	if builder.uniqueIdFlag {
+	if builder.uniqueIdSet {
 		req.UniqueId = &builder.uniqueId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.categoryNameFlag {
+	if builder.categoryNameSet {
 		req.CategoryName = &builder.categoryName
 
 	}
-	if builder.eventNameFlag {
+	if builder.eventNameSet {
 		req.EventName = &builder.eventName
 
 	}
-	if builder.ipAddressFlag {
+	if builder.ipAddressSet {
 		req.IpAddress = &builder.ipAddress
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.operationStatusFlag {
+	if builder.operationStatusSet {
 		req.OperationStatus = &builder.operationStatus
 
 	}
@@ -180,8 +206,8 @@ type ApiAuditCommonDrawers struct {
 }
 
 type ApiAuditCommonDrawersBuilder struct {
-	commonDrawInfoList     []*ApiAuditDrawerInfo // 扩展字段信息
-	commonDrawInfoListFlag bool
+	commonDrawInfoList    []*ApiAuditDrawerInfo // 扩展字段信息
+	commonDrawInfoListSet bool
 }
 
 func NewApiAuditCommonDrawersBuilder() *ApiAuditCommonDrawersBuilder {
@@ -194,13 +220,13 @@ func NewApiAuditCommonDrawersBuilder() *ApiAuditCommonDrawersBuilder {
 // 示例值：
 func (builder *ApiAuditCommonDrawersBuilder) CommonDrawInfoList(commonDrawInfoList []*ApiAuditDrawerInfo) *ApiAuditCommonDrawersBuilder {
 	builder.commonDrawInfoList = commonDrawInfoList
-	builder.commonDrawInfoListFlag = true
+	builder.commonDrawInfoListSet = true
 	return builder
 }
 
 func (builder *ApiAuditCommonDrawersBuilder) Build() *ApiAuditCommonDrawers {
 	req := &ApiAuditCommonDrawers{}
-	if builder.commonDrawInfoListFlag {
+	if builder.commonDrawInfoListSet {
 		req.CommonDrawInfoList = builder.commonDrawInfoList
 	}
 	return req
@@ -219,20 +245,20 @@ type ApiAuditDrawerInfo struct {
 }
 
 type ApiAuditDrawerInfoBuilder struct {
-	infoKey     string // key信息
-	infoKeyFlag bool
+	infoKey    string // key信息
+	infoKeySet bool
 
-	infoVal     string // val值
-	infoValFlag bool
+	infoVal    string // val值
+	infoValSet bool
 
-	keyI18nKey     string // key对应的i18nkey
-	keyI18nKeyFlag bool
+	keyI18nKey    string // key对应的i18nkey
+	keyI18nKeySet bool
 
-	valType     string // val类型
-	valTypeFlag bool
+	valType    string // val类型
+	valTypeSet bool
 
-	valI18nKey     string // val对应的i18nkey
-	valI18nKeyFlag bool
+	valI18nKey    string // val对应的i18nkey
+	valI18nKeySet bool
 }
 
 func NewApiAuditDrawerInfoBuilder() *ApiAuditDrawerInfoBuilder {
@@ -245,7 +271,7 @@ func NewApiAuditDrawerInfoBuilder() *ApiAuditDrawerInfoBuilder {
 // 示例值：k
 func (builder *ApiAuditDrawerInfoBuilder) InfoKey(infoKey string) *ApiAuditDrawerInfoBuilder {
 	builder.infoKey = infoKey
-	builder.infoKeyFlag = true
+	builder.infoKeySet = true
 	return builder
 }
 
@@ -254,7 +280,7 @@ func (builder *ApiAuditDrawerInfoBuilder) InfoKey(infoKey string) *ApiAuditDrawe
 // 示例值：v
 func (builder *ApiAuditDrawerInfoBuilder) InfoVal(infoVal string) *ApiAuditDrawerInfoBuilder {
 	builder.infoVal = infoVal
-	builder.infoValFlag = true
+	builder.infoValSet = true
 	return builder
 }
 
@@ -263,7 +289,7 @@ func (builder *ApiAuditDrawerInfoBuilder) InfoVal(infoVal string) *ApiAuditDrawe
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) KeyI18nKey(keyI18nKey string) *ApiAuditDrawerInfoBuilder {
 	builder.keyI18nKey = keyI18nKey
-	builder.keyI18nKeyFlag = true
+	builder.keyI18nKeySet = true
 	return builder
 }
 
@@ -272,7 +298,7 @@ func (builder *ApiAuditDrawerInfoBuilder) KeyI18nKey(keyI18nKey string) *ApiAudi
 // 示例值：1
 func (builder *ApiAuditDrawerInfoBuilder) ValType(valType string) *ApiAuditDrawerInfoBuilder {
 	builder.valType = valType
-	builder.valTypeFlag = true
+	builder.valTypeSet = true
 	return builder
 }
 
@@ -281,29 +307,29 @@ func (builder *ApiAuditDrawerInfoBuilder) ValType(valType string) *ApiAuditDrawe
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) ValI18nKey(valI18nKey string) *ApiAuditDrawerInfoBuilder {
 	builder.valI18nKey = valI18nKey
-	builder.valI18nKeyFlag = true
+	builder.valI18nKeySet = true
 	return builder
 }
 
 func (builder *ApiAuditDrawerInfoBuilder) Build() *ApiAuditDrawerInfo {
 	req := &ApiAuditDrawerInfo{}
-	if builder.infoKeyFlag {
+	if builder.infoKeySet {
 		req.InfoKey = &builder.infoKey
 
 	}
-	if builder.infoValFlag {
+	if builder.infoValSet {
 		req.InfoVal = &builder.infoVal
 
 	}
-	if builder.keyI18nKeyFlag {
+	if builder.keyI18nKeySet {
 		req.KeyI18nKey = &builder.keyI18nKey
 
 	}
-	if builder.valTypeFlag {
+	if builder.valTypeSet {
 		req.ValType = &builder.valType
 
 	}
-	if builder.valI18nKeyFlag {
+	if builder.valI18nKeySet {
 		req.ValI18nKey = &builder.valI18nKey
 
 	}
@@ -327,26 +353,26 @@ type AppDlpExecuteLog struct {
 }
 
 type AppDlpExecuteLogBuilder struct {
-	eventName     string // 事件名称
-	eventNameFlag bool
+	eventName    string // 事件名称
+	eventNameSet bool
 
-	userId     string // 用户的open_id
-	userIdFlag bool
+	userId    string // 用户的open_id
+	userIdSet bool
 
-	executeTime     string // 执行时间
-	executeTimeFlag bool
+	executeTime    string // 执行时间
+	executeTimeSet bool
 
-	actionName     string // 执行动作
-	actionNameFlag bool
+	actionName    string // 执行动作
+	actionNameSet bool
 
-	hitPolicies     []string // 命中策略列表
-	hitPoliciesFlag bool
+	hitPolicies    []string // 命中策略列表
+	hitPoliciesSet bool
 
-	entityId     string // 指令id
-	entityIdFlag bool
+	entityId    string // 指令id
+	entityIdSet bool
 
-	evidences     *DlpExecuteEvidence // 证据
-	evidencesFlag bool
+	evidences    *DlpExecuteEvidence // 证据
+	evidencesSet bool
 }
 
 func NewAppDlpExecuteLogBuilder() *AppDlpExecuteLogBuilder {
@@ -359,7 +385,7 @@ func NewAppDlpExecuteLogBuilder() *AppDlpExecuteLogBuilder {
 // 示例值："MYAIDLP"
 func (builder *AppDlpExecuteLogBuilder) EventName(eventName string) *AppDlpExecuteLogBuilder {
 	builder.eventName = eventName
-	builder.eventNameFlag = true
+	builder.eventNameSet = true
 	return builder
 }
 
@@ -368,7 +394,7 @@ func (builder *AppDlpExecuteLogBuilder) EventName(eventName string) *AppDlpExecu
 // 示例值："ou_04444ce34fe049fb495d150dddeac36a"
 func (builder *AppDlpExecuteLogBuilder) UserId(userId string) *AppDlpExecuteLogBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -377,7 +403,7 @@ func (builder *AppDlpExecuteLogBuilder) UserId(userId string) *AppDlpExecuteLogB
 // 示例值：1689685605
 func (builder *AppDlpExecuteLogBuilder) ExecuteTime(executeTime string) *AppDlpExecuteLogBuilder {
 	builder.executeTime = executeTime
-	builder.executeTimeFlag = true
+	builder.executeTimeSet = true
 	return builder
 }
 
@@ -386,7 +412,7 @@ func (builder *AppDlpExecuteLogBuilder) ExecuteTime(executeTime string) *AppDlpE
 // 示例值："拦截"
 func (builder *AppDlpExecuteLogBuilder) ActionName(actionName string) *AppDlpExecuteLogBuilder {
 	builder.actionName = actionName
-	builder.actionNameFlag = true
+	builder.actionNameSet = true
 	return builder
 }
 
@@ -395,7 +421,7 @@ func (builder *AppDlpExecuteLogBuilder) ActionName(actionName string) *AppDlpExe
 // 示例值：
 func (builder *AppDlpExecuteLogBuilder) HitPolicies(hitPolicies []string) *AppDlpExecuteLogBuilder {
 	builder.hitPolicies = hitPolicies
-	builder.hitPoliciesFlag = true
+	builder.hitPoliciesSet = true
 	return builder
 }
 
@@ -404,7 +430,7 @@ func (builder *AppDlpExecuteLogBuilder) HitPolicies(hitPolicies []string) *AppDl
 // 示例值："7d8a6e6df7621556ce0d21922b676706ccs"
 func (builder *AppDlpExecuteLogBuilder) EntityId(entityId string) *AppDlpExecuteLogBuilder {
 	builder.entityId = entityId
-	builder.entityIdFlag = true
+	builder.entityIdSet = true
 	return builder
 }
 
@@ -413,36 +439,36 @@ func (builder *AppDlpExecuteLogBuilder) EntityId(entityId string) *AppDlpExecute
 // 示例值：
 func (builder *AppDlpExecuteLogBuilder) Evidences(evidences *DlpExecuteEvidence) *AppDlpExecuteLogBuilder {
 	builder.evidences = evidences
-	builder.evidencesFlag = true
+	builder.evidencesSet = true
 	return builder
 }
 
 func (builder *AppDlpExecuteLogBuilder) Build() *AppDlpExecuteLog {
 	req := &AppDlpExecuteLog{}
-	if builder.eventNameFlag {
+	if builder.eventNameSet {
 		req.EventName = &builder.eventName
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.executeTimeFlag {
+	if builder.executeTimeSet {
 		req.ExecuteTime = &builder.executeTime
 
 	}
-	if builder.actionNameFlag {
+	if builder.actionNameSet {
 		req.ActionName = &builder.actionName
 
 	}
-	if builder.hitPoliciesFlag {
+	if builder.hitPoliciesSet {
 		req.HitPolicies = builder.hitPolicies
 	}
-	if builder.entityIdFlag {
+	if builder.entityIdSet {
 		req.EntityId = &builder.entityId
 
 	}
-	if builder.evidencesFlag {
+	if builder.evidencesSet {
 		req.Evidences = builder.evidences
 	}
 	return req
@@ -491,65 +517,65 @@ type AuditAndroidContext struct {
 }
 
 type AuditAndroidContextBuilder struct {
-	udid     string // UDID
-	udidFlag bool
+	udid    string // UDID
+	udidSet bool
 
-	did     string // 设备ID
-	didFlag bool
+	did    string // 设备ID
+	didSet bool
 
-	appVer     string // app的版本
-	appVerFlag bool
+	appVer    string // app的版本
+	appVerSet bool
 
-	ver     string // SecSDK版本
-	verFlag bool
+	ver    string // SecSDK版本
+	verSet bool
 
-	region     string // 设备语言
-	regionFlag bool
+	region    string // 设备语言
+	regionSet bool
 
-	idI     string // 安卓版本号
-	idIFlag bool
+	idI    string // 安卓版本号
+	idISet bool
 
-	idR     string // 安卓版本
-	idRFlag bool
+	idR    string // 安卓版本
+	idRSet bool
 
-	hwBrand     string // Brand
-	hwBrandFlag bool
+	hwBrand    string // Brand
+	hwBrandSet bool
 
-	hwManuf     string // 制造商
-	hwManufFlag bool
+	hwManuf    string // 制造商
+	hwManufSet bool
 
-	wifip     string // wifi ip
-	wifipFlag bool
+	wifip    string // wifi ip
+	wifipSet bool
 
-	routeIip     string // 路由IP
-	routeIipFlag bool
+	routeIip    string // 路由IP
+	routeIipSet bool
 
-	routeGip     string // 路由网关IP
-	routeGipFlag bool
+	routeGip    string // 路由网关IP
+	routeGipSet bool
 
-	envSu     string // 表示当前是否root
-	envSuFlag bool
+	envSu    string // 表示当前是否root
+	envSuSet bool
 
-	envTz     string // 手机系统时区
-	envTzFlag bool
+	envTz    string // 手机系统时区
+	envTzSet bool
 
-	envMl     string // 手机系统语言
-	envMlFlag bool
+	envMl    string // 手机系统语言
+	envMlSet bool
 
-	location     string // GPS经纬度
-	locationFlag bool
+	location    string // GPS经纬度
+	locationSet bool
 
-	activeIp     string // 当前设备活跃ip
-	activeIpFlag bool
+	activeIp    string // 当前设备活跃ip
+	activeIpSet bool
 
-	activeIpDetail     string // 当前设备活跃ip对应网卡类型
-	activeIpDetailFlag bool
+	activeIpDetail    string // 当前设备活跃ip对应网卡类型
+	activeIpDetailSet bool
 
-	cellBaseStation     string // 基站信息
-	cellBaseStationFlag bool
+	cellBaseStation    string // 基站信息
+	cellBaseStationSet bool
 
-	iP     string // 公网ip
-	iPFlag bool
+	iP    string // 公网ip
+	iPSet bool
 }
 
 func NewAuditAndroidContextBuilder() *AuditAndroidContextBuilder {
@@ -562,7 +588,7 @@ func NewAuditAndroidContextBuilder() *AuditAndroidContextBuilder {
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Udid(udid string) *AuditAndroidContextBuilder {
 	builder.udid = udid
-	builder.udidFlag = true
+	builder.udidSet = true
 	return builder
 }
 
@@ -571,7 +597,7 @@ func (builder *AuditAndroidContextBuilder) Udid(udid string) *AuditAndroidContex
 // 示例值：7204623689634104876
 func (builder *AuditAndroidContextBuilder) Did(did string) *AuditAndroidContextBuilder {
 	builder.did = did
-	builder.didFlag = true
+	builder.didSet = true
 	return builder
 }
 
@@ -580,7 +606,7 @@ func (builder *AuditAndroidContextBuilder) Did(did string) *AuditAndroidContextB
 // 示例值：7.26.0-beta3
 func (builder *AuditAndroidContextBuilder) AppVer(appVer string) *AuditAndroidContextBuilder {
 	builder.appVer = appVer
-	builder.appVerFlag = true
+	builder.appVerSet = true
 	return builder
 }
 
@@ -589,7 +615,7 @@ func (builder *AuditAndroidContextBuilder) AppVer(appVer string) *AuditAndroidCo
 // 示例值：3.0.0.0
 func (builder *AuditAndroidContextBuilder) Ver(ver string) *AuditAndroidContextBuilder {
 	builder.ver = ver
-	builder.verFlag = true
+	builder.verSet = true
 	return builder
 }
 
@@ -598,7 +624,7 @@ func (builder *AuditAndroidContextBuilder) Ver(ver string) *AuditAndroidContextB
 // 示例值：zh_CN
 func (builder *AuditAndroidContextBuilder) Region(region string) *AuditAndroidContextBuilder {
 	builder.region = region
-	builder.regionFlag = true
+	builder.regionSet = true
 	return builder
 }
 
@@ -607,7 +633,7 @@ func (builder *AuditAndroidContextBuilder) Region(region string) *AuditAndroidCo
 // 示例值：33
 func (builder *AuditAndroidContextBuilder) IdI(idI string) *AuditAndroidContextBuilder {
 	builder.idI = idI
-	builder.idIFlag = true
+	builder.idISet = true
 	return builder
 }
 
@@ -616,7 +642,7 @@ func (builder *AuditAndroidContextBuilder) IdI(idI string) *AuditAndroidContextB
 // 示例值：13
 func (builder *AuditAndroidContextBuilder) IdR(idR string) *AuditAndroidContextBuilder {
 	builder.idR = idR
-	builder.idRFlag = true
+	builder.idRSet = true
 	return builder
 }
 
@@ -625,7 +651,7 @@ func (builder *AuditAndroidContextBuilder) IdR(idR string) *AuditAndroidContextB
 // 示例值：Xiaomi
 func (builder *AuditAndroidContextBuilder) HwBrand(hwBrand string) *AuditAndroidContextBuilder {
 	builder.hwBrand = hwBrand
-	builder.hwBrandFlag = true
+	builder.hwBrandSet = true
 	return builder
 }
 
@@ -634,7 +660,7 @@ func (builder *AuditAndroidContextBuilder) HwBrand(hwBrand string) *AuditAndroid
 // 示例值：Xiaomi
 func (builder *AuditAndroidContextBuilder) HwManuf(hwManuf string) *AuditAndroidContextBuilder {
 	builder.hwManuf = hwManuf
-	builder.hwManufFlag = true
+	builder.hwManufSet = true
 	return builder
 }
 
@@ -643,7 +669,7 @@ func (builder *AuditAndroidContextBuilder) HwManuf(hwManuf string) *AuditAndroid
 // 示例值：1.1.1.1
 func (builder *AuditAndroidContextBuilder) Wifip(wifip string) *AuditAndroidContextBuilder {
 	builder.wifip = wifip
-	builder.wifipFlag = true
+	builder.wifipSet = true
 	return builder
 }
 
@@ -652,7 +678,7 @@ func (builder *AuditAndroidContextBuilder) Wifip(wifip string) *AuditAndroidCont
 // 示例值：1.1.1.1
 func (builder *AuditAndroidContextBuilder) RouteIip(routeIip string) *AuditAndroidContextBuilder {
 	builder.routeIip = routeIip
-	builder.routeIipFlag = true
+	builder.routeIipSet = true
 	return builder
 }
 
@@ -661,7 +687,7 @@ func (builder *AuditAndroidContextBuilder) RouteIip(routeIip string) *AuditAndro
 // 示例值：1.1.1.1
 func (builder *AuditAndroidContextBuilder) RouteGip(routeGip string) *AuditAndroidContextBuilder {
 	builder.routeGip = routeGip
-	builder.routeGipFlag = true
+	builder.routeGipSet = true
 	return builder
 }
 
@@ -670,7 +696,7 @@ func (builder *AuditAndroidContextBuilder) RouteGip(routeGip string) *AuditAndro
 // 示例值：0
 func (builder *AuditAndroidContextBuilder) EnvSu(envSu string) *AuditAndroidContextBuilder {
 	builder.envSu = envSu
-	builder.envSuFlag = true
+	builder.envSuSet = true
 	return builder
 }
 
@@ -679,7 +705,7 @@ func (builder *AuditAndroidContextBuilder) EnvSu(envSu string) *AuditAndroidCont
 // 示例值：GMT+8:00
 func (builder *AuditAndroidContextBuilder) EnvTz(envTz string) *AuditAndroidContextBuilder {
 	builder.envTz = envTz
-	builder.envTzFlag = true
+	builder.envTzSet = true
 	return builder
 }
 
@@ -688,7 +714,7 @@ func (builder *AuditAndroidContextBuilder) EnvTz(envTz string) *AuditAndroidCont
 // 示例值：zh_CN
 func (builder *AuditAndroidContextBuilder) EnvMl(envMl string) *AuditAndroidContextBuilder {
 	builder.envMl = envMl
-	builder.envMlFlag = true
+	builder.envMlSet = true
 	return builder
 }
 
@@ -697,7 +723,7 @@ func (builder *AuditAndroidContextBuilder) EnvMl(envMl string) *AuditAndroidCont
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Location(location string) *AuditAndroidContextBuilder {
 	builder.location = location
-	builder.locationFlag = true
+	builder.locationSet = true
 	return builder
 }
 
@@ -706,7 +732,7 @@ func (builder *AuditAndroidContextBuilder) Location(location string) *AuditAndro
 // 示例值：1.1.1.1
 func (builder *AuditAndroidContextBuilder) ActiveIp(activeIp string) *AuditAndroidContextBuilder {
 	builder.activeIp = activeIp
-	builder.activeIpFlag = true
+	builder.activeIpSet = true
 	return builder
 }
 
@@ -715,7 +741,7 @@ func (builder *AuditAndroidContextBuilder) ActiveIp(activeIp string) *AuditAndro
 // 示例值：wlan0
 func (builder *AuditAndroidContextBuilder) ActiveIpDetail(activeIpDetail string) *AuditAndroidContextBuilder {
 	builder.activeIpDetail = activeIpDetail
-	builder.activeIpDetailFlag = true
+	builder.activeIpDetailSet = true
 	return builder
 }
 
@@ -724,7 +750,7 @@ func (builder *AuditAndroidContextBuilder) ActiveIpDetail(activeIpDetail string)
 // 示例值：
 func (builder *AuditAndroidContextBuilder) CellBaseStation(cellBaseStation string) *AuditAndroidContextBuilder {
 	builder.cellBaseStation = cellBaseStation
-	builder.cellBaseStationFlag = true
+	builder.cellBaseStationSet = true
 	return builder
 }
 
@@ -733,89 +759,89 @@ func (builder *AuditAndroidContextBuilder) CellBaseStation(cellBaseStation strin
 // 示例值：1.1.1.1
 func (builder *AuditAndroidContextBuilder) IP(iP string) *AuditAndroidContextBuilder {
 	builder.iP = iP
-	builder.iPFlag = true
+	builder.iPSet = true
 	return builder
 }
 
 func (builder *AuditAndroidContextBuilder) Build() *AuditAndroidContext {
 	req := &AuditAndroidContext{}
-	if builder.udidFlag {
+	if builder.udidSet {
 		req.Udid = &builder.udid
 
 	}
-	if builder.didFlag {
+	if builder.didSet {
 		req.Did = &builder.did
 
 	}
-	if builder.appVerFlag {
+	if builder.appVerSet {
 		req.AppVer = &builder.appVer
 
 	}
-	if builder.verFlag {
+	if builder.verSet {
 		req.Ver = &builder.ver
 
 	}
-	if builder.regionFlag {
+	if builder.regionSet {
 		req.Region = &builder.region
 
 	}
-	if builder.idIFlag {
+	if builder.idISet {
 		req.IdI = &builder.idI
 
 	}
-	if builder.idRFlag {
+	if builder.idRSet {
 		req.IdR = &builder.idR
 
 	}
-	if builder.hwBrandFlag {
+	if builder.hwBrandSet {
 		req.HwBrand = &builder.hwBrand
 
 	}
-	if builder.hwManufFlag {
+	if builder.hwManufSet {
 		req.HwManuf = &builder.hwManuf
 
 	}
-	if builder.wifipFlag {
+	if builder.wifipSet {
 		req.Wifip = &builder.wifip
 
 	}
-	if builder.routeIipFlag {
+	if builder.routeIipSet {
 		req.RouteIip = &builder.routeIip
 
 	}
-	if builder.routeGipFlag {
+	if builder.routeGipSet {
 		req.RouteGip = &builder.routeGip
 
 	}
-	if builder.envSuFlag {
+	if builder.envSuSet {
 		req.EnvSu = &builder.envSu
 
 	}
-	if builder.envTzFlag {
+	if builder.envTzSet {
 		req.EnvTz = &builder.envTz
 
 	}
-	if builder.envMlFlag {
+	if builder.envMlSet {
 		req.EnvMl = &builder.envMl
 
 	}
-	if builder.locationFlag {
+	if builder.locationSet {
 		req.Location = &builder.location
 
 	}
-	if builder.activeIpFlag {
+	if builder.activeIpSet {
 		req.ActiveIp = &builder.activeIp
 
 	}
-	if builder.activeIpDetailFlag {
+	if builder.activeIpDetailSet {
 		req.ActiveIpDetail = &builder.activeIpDetail
 
 	}
-	if builder.cellBaseStationFlag {
+	if builder.cellBaseStationSet {
 		req.CellBaseStation = &builder.cellBaseStation
 
 	}
-	if builder.iPFlag {
+	if builder.iPSet {
 		req.IP = &builder.iP
 
 	}
@@ -835,20 +861,20 @@ type AuditContext struct {
 }
 
 type AuditContextBuilder struct {
-	terminalType     int // 终端类型
-	terminalTypeFlag bool
+	terminalType    int // 终端类型
+	terminalTypeSet bool
 
-	iosContext     *AuditIosContext // ios的环境信息
-	iosContextFlag bool
+	iosContext    *AuditIosContext // ios的环境信息
+	iosContextSet bool
 
-	pcContext     *AuditPcContext // pc的环境信息
-	pcContextFlag bool
+	pcContext    *AuditPcContext // pc的环境信息
+	pcContextSet bool
 
-	webContext     *AuditWebContext // web的环境信息
-	webContextFlag bool
+	webContext    *AuditWebContext // web的环境信息
+	webContextSet bool
 
-	androidContext     *AuditAndroidContext // android的环境信息
-	androidContextFlag bool
+	androidContext    *AuditAndroidContext // android的环境信息
+	androidContextSet bool
 }
 
 func NewAuditContextBuilder() *AuditContextBuilder {
@@ -861,7 +887,7 @@ func NewAuditContextBuilder() *AuditContextBuilder {
 // 示例值：
 func (builder *AuditContextBuilder) TerminalType(terminalType int) *AuditContextBuilder {
 	builder.terminalType = terminalType
-	builder.terminalTypeFlag = true
+	builder.terminalTypeSet = true
 	return builder
 }
 
@@ -870,7 +896,7 @@ func (builder *AuditContextBuilder) TerminalType(terminalType int) *AuditContext
 // 示例值：
 func (builder *AuditContextBuilder) IosContext(iosContext *AuditIosContext) *AuditContextBuilder {
 	builder.iosContext = iosContext
-	builder.iosContextFlag = true
+	builder.iosContextSet = true
 	return builder
 }
 
@@ -879,7 +905,7 @@ func (builder *AuditContextBuilder) IosContext(iosContext *AuditIosContext) *Aud
 // 示例值：
 func (builder *AuditContextBuilder) PcContext(pcContext *AuditPcContext) *AuditContextBuilder {
 	builder.pcContext = pcContext
-	builder.pcContextFlag = true
+	builder.pcContextSet = true
 	return builder
 }
 
@@ -888,7 +914,7 @@ func (builder *AuditContextBuilder) PcContext(pcContext *AuditPcContext) *AuditC
 // 示例值：
 func (builder *AuditContextBuilder) WebContext(webContext *AuditWebContext) *AuditContextBuilder {
 	builder.webContext = webContext
-	builder.webContextFlag = true
+	builder.webContextSet = true
 	return builder
 }
 
@@ -897,26 +923,26 @@ func (builder *AuditContextBuilder) WebContext(webContext *AuditWebContext) *Aud
 // 示例值：
 func (builder *AuditContextBuilder) AndroidContext(androidContext *AuditAndroidContext) *AuditContextBuilder {
 	builder.androidContext = androidContext
-	builder.androidContextFlag = true
+	builder.androidContextSet = true
 	return builder
 }
 
 func (builder *AuditContextBuilder) Build() *AuditContext {
 	req := &AuditContext{}
-	if builder.terminalTypeFlag {
+	if builder.terminalTypeSet {
 		req.TerminalType = &builder.terminalType
 
 	}
-	if builder.iosContextFlag {
+	if builder.iosContextSet {
 		req.IosContext = builder.iosContext
 	}
-	if builder.pcContextFlag {
+	if builder.pcContextSet {
 		req.PcContext = builder.pcContext
 	}
-	if builder.webContextFlag {
+	if builder.webContextSet {
 		req.WebContext = builder.webContext
 	}
-	if builder.androidContextFlag {
+	if builder.androidContextSet {
 		req.AndroidContext = builder.androidContext
 	}
 	return req
@@ -933,17 +959,17 @@ type AuditDetail struct {
 }
 
 type AuditDetailBuilder struct {
-	mc     string // mac地址
-	mcFlag bool
+	mc    string // mac地址
+	mcSet bool
 
-	deviceModel     string // 设备模型
-	deviceModelFlag bool
+	deviceModel    string // 设备模型
+	deviceModelSet bool
 
-	os     string // 操作系统
-	osFlag bool
+	os    string // 操作系统
+	osSet bool
 
-	city     string // ip属地
-	cityFlag bool
+	city    string // ip属地
+	citySet bool
 }
 
 func NewAuditDetailBuilder() *AuditDetailBuilder {
@@ -956,7 +982,7 @@ func NewAuditDetailBuilder() *AuditDetailBuilder {
 // 示例值：08:00:20:0A:8C:6D
 func (builder *AuditDetailBuilder) Mc(mc string) *AuditDetailBuilder {
 	builder.mc = mc
-	builder.mcFlag = true
+	builder.mcSet = true
 	return builder
 }
 
@@ -965,7 +991,7 @@ func (builder *AuditDetailBuilder) Mc(mc string) *AuditDetailBuilder {
 // 示例值：iphone14
 func (builder *AuditDetailBuilder) DeviceModel(deviceModel string) *AuditDetailBuilder {
 	builder.deviceModel = deviceModel
-	builder.deviceModelFlag = true
+	builder.deviceModelSet = true
 	return builder
 }
 
@@ -974,7 +1000,7 @@ func (builder *AuditDetailBuilder) DeviceModel(deviceModel string) *AuditDetailB
 // 示例值：mac os
 func (builder *AuditDetailBuilder) Os(os string) *AuditDetailBuilder {
 	builder.os = os
-	builder.osFlag = true
+	builder.osSet = true
 	return builder
 }
 
@@ -983,25 +1009,25 @@ func (builder *AuditDetailBuilder) Os(os string) *AuditDetailBuilder {
 // 示例值：北京
 func (builder *AuditDetailBuilder) City(city string) *AuditDetailBuilder {
 	builder.city = city
-	builder.cityFlag = true
+	builder.citySet = true
 	return builder
 }
 
 func (builder *AuditDetailBuilder) Build() *AuditDetail {
 	req := &AuditDetail{}
-	if builder.mcFlag {
+	if builder.mcSet {
 		req.Mc = &builder.mc
 
 	}
-	if builder.deviceModelFlag {
+	if builder.deviceModelSet {
 		req.DeviceModel = &builder.deviceModel
 
 	}
-	if builder.osFlag {
+	if builder.osSet {
 		req.Os = &builder.os
 
 	}
-	if builder.cityFlag {
+	if builder.citySet {
 		req.City = &builder.city
 
 	}
@@ -1031,35 +1057,35 @@ type AuditEventExtend struct {
 }
 
 type AuditEventExtendBuilder struct {
-	commentType     string // 评论类型
-	commentTypeFlag bool
+	commentType    string // 评论类型
+	commentTypeSet bool
 
-	appDetail     string // app信息
-	appDetailFlag bool
+	appDetail    string // app信息
+	appDetailSet bool
 
-	twoStepValidation     bool // 是否两步验证
-	twoStepValidationFlag bool
+	twoStepValidation    bool // 是否两步验证
+	twoStepValidationSet bool
 
-	loginMethod     string // 登录方式
-	loginMethodFlag bool
+	loginMethod    string // 登录方式
+	loginMethodSet bool
 
-	newPeopleNumInVideo     int // 创建新的{x}人会议/通话
-	newPeopleNumInVideoFlag bool
+	newPeopleNumInVideo    int // 创建新的{x}人会议/通话
+	newPeopleNumInVideoSet bool
 
-	externalPeopleNumInVideo     int // 将{x}名外部用户加入/退出通话
-	externalPeopleNumInVideoFlag bool
+	externalPeopleNumInVideo    int // 将{x}名外部用户加入/退出通话
+	externalPeopleNumInVideoSet bool
 
-	externalPeopleNumInChat     int // 将{x}名外部用户加入/退出群组
-	externalPeopleNumInChatFlag bool
+	externalPeopleNumInChat    int // 将{x}名外部用户加入/退出群组
+	externalPeopleNumInChatSet bool
 
-	joinGroup     int // 创建{x}人数的群组
-	joinGroupFlag bool
+	joinGroup    int // 创建{x}人数的群组
+	joinGroupSet bool
 
-	quitGroup     int // 解散{x}人数的群组
-	quitGroupFlag bool
+	quitGroup    int // 解散{x}人数的群组
+	quitGroupSet bool
 
-	externalPeopleNumInDocShare     int // 分享文档给{x}名外部用户
-	externalPeopleNumInDocShareFlag bool
+	externalPeopleNumInDocShare    int // 分享文档给{x}名外部用户
+	externalPeopleNumInDocShareSet bool
 }
 
 func NewAuditEventExtendBuilder() *AuditEventExtendBuilder {
@@ -1072,7 +1098,7 @@ func NewAuditEventExtendBuilder() *AuditEventExtendBuilder {
 // 示例值：
 func (builder *AuditEventExtendBuilder) CommentType(commentType string) *AuditEventExtendBuilder {
 	builder.commentType = commentType
-	builder.commentTypeFlag = true
+	builder.commentTypeSet = true
 	return builder
 }
 
@@ -1081,7 +1107,7 @@ func (builder *AuditEventExtendBuilder) CommentType(commentType string) *AuditEv
 // 示例值：
 func (builder *AuditEventExtendBuilder) AppDetail(appDetail string) *AuditEventExtendBuilder {
 	builder.appDetail = appDetail
-	builder.appDetailFlag = true
+	builder.appDetailSet = true
 	return builder
 }
 
@@ -1090,7 +1116,7 @@ func (builder *AuditEventExtendBuilder) AppDetail(appDetail string) *AuditEventE
 // 示例值：false
 func (builder *AuditEventExtendBuilder) TwoStepValidation(twoStepValidation bool) *AuditEventExtendBuilder {
 	builder.twoStepValidation = twoStepValidation
-	builder.twoStepValidationFlag = true
+	builder.twoStepValidationSet = true
 	return builder
 }
 
@@ -1099,7 +1125,7 @@ func (builder *AuditEventExtendBuilder) TwoStepValidation(twoStepValidation bool
 // 示例值：NormalLogin
 func (builder *AuditEventExtendBuilder) LoginMethod(loginMethod string) *AuditEventExtendBuilder {
 	builder.loginMethod = loginMethod
-	builder.loginMethodFlag = true
+	builder.loginMethodSet = true
 	return builder
 }
 
@@ -1108,7 +1134,7 @@ func (builder *AuditEventExtendBuilder) LoginMethod(loginMethod string) *AuditEv
 // 示例值：1
 func (builder *AuditEventExtendBuilder) NewPeopleNumInVideo(newPeopleNumInVideo int) *AuditEventExtendBuilder {
 	builder.newPeopleNumInVideo = newPeopleNumInVideo
-	builder.newPeopleNumInVideoFlag = true
+	builder.newPeopleNumInVideoSet = true
 	return builder
 }
 
@@ -1117,7 +1143,7 @@ func (builder *AuditEventExtendBuilder) NewPeopleNumInVideo(newPeopleNumInVideo 
 // 示例值：1
 func (builder *AuditEventExtendBuilder) ExternalPeopleNumInVideo(externalPeopleNumInVideo int) *AuditEventExtendBuilder {
 	builder.externalPeopleNumInVideo = externalPeopleNumInVideo
-	builder.externalPeopleNumInVideoFlag = true
+	builder.externalPeopleNumInVideoSet = true
 	return builder
 }
 
@@ -1126,7 +1152,7 @@ func (builder *AuditEventExtendBuilder) ExternalPeopleNumInVideo(externalPeopleN
 // 示例值：1
 func (builder *AuditEventExtendBuilder) ExternalPeopleNumInChat(externalPeopleNumInChat int) *AuditEventExtendBuilder {
 	builder.externalPeopleNumInChat = externalPeopleNumInChat
-	builder.externalPeopleNumInChatFlag = true
+	builder.externalPeopleNumInChatSet = true
 	return builder
 }
 
@@ -1135,7 +1161,7 @@ func (builder *AuditEventExtendBuilder) ExternalPeopleNumInChat(externalPeopleNu
 // 示例值：1
 func (builder *AuditEventExtendBuilder) JoinGroup(joinGroup int) *AuditEventExtendBuilder {
 	builder.joinGroup = joinGroup
-	builder.joinGroupFlag = true
+	builder.joinGroupSet = true
 	return builder
 }
 
@@ -1144,7 +1170,7 @@ func (builder *AuditEventExtendBuilder) JoinGroup(joinGroup int) *AuditEventExte
 // 示例值：1
 func (builder *AuditEventExtendBuilder) QuitGroup(quitGroup int) *AuditEventExtendBuilder {
 	builder.quitGroup = quitGroup
-	builder.quitGroupFlag = true
+	builder.quitGroupSet = true
 	return builder
 }
 
@@ -1153,49 +1179,49 @@ func (builder *AuditEventExtendBuilder) QuitGroup(quitGroup int) *AuditEventExte
 // 示例值：1
 func (builder *AuditEventExtendBuilder) ExternalPeopleNumInDocShare(externalPeopleNumInDocShare int) *AuditEventExtendBuilder {
 	builder.externalPeopleNumInDocShare = externalPeopleNumInDocShare
-	builder.externalPeopleNumInDocShareFlag = true
+	builder.externalPeopleNumInDocShareSet = true
 	return builder
 }
 
 func (builder *AuditEventExtendBuilder) Build() *AuditEventExtend {
 	req := &AuditEventExtend{}
-	if builder.commentTypeFlag {
+	if builder.commentTypeSet {
 		req.CommentType = &builder.commentType
 
 	}
-	if builder.appDetailFlag {
+	if builder.appDetailSet {
 		req.AppDetail = &builder.appDetail
 
 	}
-	if builder.twoStepValidationFlag {
+	if builder.twoStepValidationSet {
 		req.TwoStepValidation = &builder.twoStepValidation
 
 	}
-	if builder.loginMethodFlag {
+	if builder.loginMethodSet {
 		req.LoginMethod = &builder.loginMethod
 
 	}
-	if builder.newPeopleNumInVideoFlag {
+	if builder.newPeopleNumInVideoSet {
 		req.NewPeopleNumInVideo = &builder.newPeopleNumInVideo
 
 	}
-	if builder.externalPeopleNumInVideoFlag {
+	if builder.externalPeopleNumInVideoSet {
 		req.ExternalPeopleNumInVideo = &builder.externalPeopleNumInVideo
 
 	}
-	if builder.externalPeopleNumInChatFlag {
+	if builder.externalPeopleNumInChatSet {
 		req.ExternalPeopleNumInChat = &builder.externalPeopleNumInChat
 
 	}
-	if builder.joinGroupFlag {
+	if builder.joinGroupSet {
 		req.JoinGroup = &builder.joinGroup
 
 	}
-	if builder.quitGroupFlag {
+	if builder.quitGroupSet {
 		req.QuitGroup = &builder.quitGroup
 
 	}
-	if builder.externalPeopleNumInDocShareFlag {
+	if builder.externalPeopleNumInDocShareSet {
 		req.ExternalPeopleNumInDocShare = &builder.externalPeopleNumInDocShare
 
 	}
@@ -1241,59 +1267,59 @@ type AuditInfo struct {
 }
 
 type AuditInfoBuilder struct {
-	eventName     string // 事件名称
-	eventNameFlag bool
+	eventName    string // 事件名称
+	eventNameSet bool
 
-	departmentIds     []string // 用户所属部门的ID列表
-	departmentIdsFlag bool
+	departmentIds    []string // 用户所属部门的ID列表
+	departmentIdsSet bool
 
-	eventModule     int // 模块
-	eventModuleFlag bool
+	eventModule    int // 模块
+	eventModuleSet bool
 
-	operatorType     int // 操作人类型
-	operatorTypeFlag bool
+	operatorType    int // 操作人类型
+	operatorTypeSet bool
 
-	operatorValue     string // 操作人id
-	operatorValueFlag bool
+	operatorValue    string // 操作人id
+	operatorValueSet bool
 
-	objects     []*AuditObjectEntity // 操作对象列表
-	objectsFlag bool
+	objects    []*AuditObjectEntity // 操作对象列表
+	objectsSet bool
 
-	recipients     []*AuditRecipientEntity // 接收者对象列表
-	recipientsFlag bool
+	recipients    []*AuditRecipientEntity // 接收者对象列表
+	recipientsSet bool
 
-	eventTime     int // 事件时间
-	eventTimeFlag bool
+	eventTime    int // 事件时间
+	eventTimeSet bool
 
-	ip     string // ip信息
-	ipFlag bool
+	ip    string // ip信息
+	ipSet bool
 
-	operatorApp     string // 第三方isvID
-	operatorAppFlag bool
+	operatorApp    string // 第三方isvID
+	operatorAppSet bool
 
-	auditContext     *AuditContext // 环境信息
-	auditContextFlag bool
+	auditContext    *AuditContext // 环境信息
+	auditContextSet bool
 
-	extend     *AuditEventExtend // 事件级别的扩展
-	extendFlag bool
+	extend    *AuditEventExtend // 事件级别的扩展
+	extendSet bool
 
-	eventId     string // 事件id
-	eventIdFlag bool
+	eventId    string // 事件id
+	eventIdSet bool
 
-	operatorAppName     string // 第三方isv名称
-	operatorAppNameFlag bool
+	operatorAppName    string // 第三方isv名称
+	operatorAppNameSet bool
 
-	uniqueId     string // 唯一id
-	uniqueIdFlag bool
+	uniqueId    string // 唯一id
+	uniqueIdSet bool
 
-	commonDrawers     *ApiAuditCommonDrawers // 扩展字段信息
-	commonDrawersFlag bool
+	commonDrawers    *ApiAuditCommonDrawers // 扩展字段信息
+	commonDrawersSet bool
 
-	auditDetail     *AuditDetail // 日志扩展信息
-	auditDetailFlag bool
+	auditDetail    *AuditDetail // 日志扩展信息
+	auditDetailSet bool
 
-	operatorTenant     string // 操作人企业编号
-	operatorTenantFlag bool
+	operatorTenant    string // 操作人企业编号
+	operatorTenantSet bool
 }
 
 func NewAuditInfoBuilder() *AuditInfoBuilder {
@@ -1306,7 +1332,7 @@ func NewAuditInfoBuilder() *AuditInfoBuilder {
 // 示例值：space_read_doc
 func (builder *AuditInfoBuilder) EventName(eventName string) *AuditInfoBuilder {
 	builder.eventName = eventName
-	builder.eventNameFlag = true
+	builder.eventNameSet = true
 	return builder
 }
 
@@ -1315,7 +1341,7 @@ func (builder *AuditInfoBuilder) EventName(eventName string) *AuditInfoBuilder {
 // 示例值：
 func (builder *AuditInfoBuilder) DepartmentIds(departmentIds []string) *AuditInfoBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
@@ -1324,7 +1350,7 @@ func (builder *AuditInfoBuilder) DepartmentIds(departmentIds []string) *AuditInf
 // 示例值：1
 func (builder *AuditInfoBuilder) EventModule(eventModule int) *AuditInfoBuilder {
 	builder.eventModule = eventModule
-	builder.eventModuleFlag = true
+	builder.eventModuleSet = true
 	return builder
 }
 
@@ -1333,7 +1359,7 @@ func (builder *AuditInfoBuilder) EventModule(eventModule int) *AuditInfoBuilder 
 // 示例值：
 func (builder *AuditInfoBuilder) OperatorType(operatorType int) *AuditInfoBuilder {
 	builder.operatorType = operatorType
-	builder.operatorTypeFlag = true
+	builder.operatorTypeSet = true
 	return builder
 }
 
@@ -1342,7 +1368,7 @@ func (builder *AuditInfoBuilder) OperatorType(operatorType int) *AuditInfoBuilde
 // 示例值：4a3b8541
 func (builder *AuditInfoBuilder) OperatorValue(operatorValue string) *AuditInfoBuilder {
 	builder.operatorValue = operatorValue
-	builder.operatorValueFlag = true
+	builder.operatorValueSet = true
 	return builder
 }
 
@@ -1351,7 +1377,7 @@ func (builder *AuditInfoBuilder) OperatorValue(operatorValue string) *AuditInfoB
 // 示例值：
 func (builder *AuditInfoBuilder) Objects(objects []*AuditObjectEntity) *AuditInfoBuilder {
 	builder.objects = objects
-	builder.objectsFlag = true
+	builder.objectsSet = true
 	return builder
 }
 
@@ -1360,7 +1386,7 @@ func (builder *AuditInfoBuilder) Objects(objects []*AuditObjectEntity) *AuditInf
 // 示例值：
 func (builder *AuditInfoBuilder) Recipients(recipients []*AuditRecipientEntity) *AuditInfoBuilder {
 	builder.recipients = recipients
-	builder.recipientsFlag = true
+	builder.recipientsSet = true
 	return builder
 }
 
@@ -1369,7 +1395,7 @@ func (builder *AuditInfoBuilder) Recipients(recipients []*AuditRecipientEntity) 
 // 示例值：1669046400
 func (builder *AuditInfoBuilder) EventTime(eventTime int) *AuditInfoBuilder {
 	builder.eventTime = eventTime
-	builder.eventTimeFlag = true
+	builder.eventTimeSet = true
 	return builder
 }
 
@@ -1378,7 +1404,7 @@ func (builder *AuditInfoBuilder) EventTime(eventTime int) *AuditInfoBuilder {
 // 示例值：192.168.168.1
 func (builder *AuditInfoBuilder) Ip(ip string) *AuditInfoBuilder {
 	builder.ip = ip
-	builder.ipFlag = true
+	builder.ipSet = true
 	return builder
 }
 
@@ -1387,7 +1413,7 @@ func (builder *AuditInfoBuilder) Ip(ip string) *AuditInfoBuilder {
 // 示例值：example_value
 func (builder *AuditInfoBuilder) OperatorApp(operatorApp string) *AuditInfoBuilder {
 	builder.operatorApp = operatorApp
-	builder.operatorAppFlag = true
+	builder.operatorAppSet = true
 	return builder
 }
 
@@ -1396,7 +1422,7 @@ func (builder *AuditInfoBuilder) OperatorApp(operatorApp string) *AuditInfoBuild
 // 示例值：
 func (builder *AuditInfoBuilder) AuditContext(auditContext *AuditContext) *AuditInfoBuilder {
 	builder.auditContext = auditContext
-	builder.auditContextFlag = true
+	builder.auditContextSet = true
 	return builder
 }
 
@@ -1405,7 +1431,7 @@ func (builder *AuditInfoBuilder) AuditContext(auditContext *AuditContext) *Audit
 // 示例值：
 func (builder *AuditInfoBuilder) Extend(extend *AuditEventExtend) *AuditInfoBuilder {
 	builder.extend = extend
-	builder.extendFlag = true
+	builder.extendSet = true
 	return builder
 }
 
@@ -1414,7 +1440,7 @@ func (builder *AuditInfoBuilder) Extend(extend *AuditEventExtend) *AuditInfoBuil
 // 示例值：7126195947859656705
 func (builder *AuditInfoBuilder) EventId(eventId string) *AuditInfoBuilder {
 	builder.eventId = eventId
-	builder.eventIdFlag = true
+	builder.eventIdSet = true
 	return builder
 }
 
@@ -1423,7 +1449,7 @@ func (builder *AuditInfoBuilder) EventId(eventId string) *AuditInfoBuilder {
 // 示例值：example_value
 func (builder *AuditInfoBuilder) OperatorAppName(operatorAppName string) *AuditInfoBuilder {
 	builder.operatorAppName = operatorAppName
-	builder.operatorAppNameFlag = true
+	builder.operatorAppNameSet = true
 	return builder
 }
 
@@ -1432,7 +1458,7 @@ func (builder *AuditInfoBuilder) OperatorAppName(operatorAppName string) *AuditI
 // 示例值：7126195947859656705
 func (builder *AuditInfoBuilder) UniqueId(uniqueId string) *AuditInfoBuilder {
 	builder.uniqueId = uniqueId
-	builder.uniqueIdFlag = true
+	builder.uniqueIdSet = true
 	return builder
 }
 
@@ -1441,7 +1467,7 @@ func (builder *AuditInfoBuilder) UniqueId(uniqueId string) *AuditInfoBuilder {
 // 示例值：
 func (builder *AuditInfoBuilder) CommonDrawers(commonDrawers *ApiAuditCommonDrawers) *AuditInfoBuilder {
 	builder.commonDrawers = commonDrawers
-	builder.commonDrawersFlag = true
+	builder.commonDrawersSet = true
 	return builder
 }
 
@@ -1450,7 +1476,7 @@ func (builder *AuditInfoBuilder) CommonDrawers(commonDrawers *ApiAuditCommonDraw
 // 示例值：
 func (builder *AuditInfoBuilder) AuditDetail(auditDetail *AuditDetail) *AuditInfoBuilder {
 	builder.auditDetail = auditDetail
-	builder.auditDetailFlag = true
+	builder.auditDetailSet = true
 	return builder
 }
 
@@ -1459,75 +1485,512 @@ func (builder *AuditInfoBuilder) AuditDetail(auditDetail *AuditDetail) *AuditInf
 // 示例值：F2823442
 func (builder *AuditInfoBuilder) OperatorTenant(operatorTenant string) *AuditInfoBuilder {
 	builder.operatorTenant = operatorTenant
-	builder.operatorTenantFlag = true
+	builder.operatorTenantSet = true
 	return builder
 }
 
 func (builder *AuditInfoBuilder) Build() *AuditInfo {
 	req := &AuditInfo{}
-	if builder.eventNameFlag {
+	if builder.eventNameSet {
 		req.EventName = &builder.eventName
 
 	}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.eventModuleFlag {
+	if builder.eventModuleSet {
 		req.EventModule = &builder.eventModule
 
 	}
-	if builder.operatorTypeFlag {
+	if builder.operatorTypeSet {
 		req.OperatorType = &builder.operatorType
 
 	}
-	if builder.operatorValueFlag {
+	if builder.operatorValueSet {
 		req.OperatorValue = &builder.operatorValue
 
 	}
-	if builder.objectsFlag {
+	if builder.objectsSet {
 		req.Objects = builder.objects
 	}
-	if builder.recipientsFlag {
+	if builder.recipientsSet {
 		req.Recipients = builder.recipients
 	}
-	if builder.eventTimeFlag {
+	if builder.eventTimeSet {
 		req.EventTime = &builder.eventTime
 
 	}
-	if builder.ipFlag {
+	if builder.ipSet {
 		req.Ip = &builder.ip
 
 	}
-	if builder.operatorAppFlag {
+	if builder.operatorAppSet {
 		req.OperatorApp = &builder.operatorApp
 
 	}
-	if builder.auditContextFlag {
+	if builder.auditContextSet {
 		req.AuditContext = builder.auditContext
 	}
-	if builder.extendFlag {
+	if builder.extendSet {
 		req.Extend = builder.extend
 	}
-	if builder.eventIdFlag {
+	if builder.eventIdSet {
 		req.EventId = &builder.eventId
 
 	}
-	if builder.operatorAppNameFlag {
+	if builder.operatorAppNameSet {
 		req.OperatorAppName = &builder.operatorAppName
 
 	}
-	if builder.uniqueIdFlag {
+	if builder.uniqueIdSet {
 		req.UniqueId = &builder.uniqueId
 
 	}
-	if builder.commonDrawersFlag {
+	if builder.commonDrawersSet {
 		req.CommonDrawers = builder.commonDrawers
 	}
-	if builder.auditDetailFlag {
+	if builder.auditDetailSet {
 		req.AuditDetail = builder.auditDetail
 	}
-	if builder.operatorTenantFlag {
+	if builder.operatorTenantSet {
 		req.OperatorTenant = &builder.operatorTenant
+
+	}
+	return req
+}
+
+type AuditInfoFilter struct {
+	Latest *int `json:"latest,omitempty"` // 查询时间范围的结束时间戳，单位为秒。
+
+	Oldest *int `json:"oldest,omitempty"` // 查询时间范围的开始时间戳，单位为秒。
+
+	EventName *string `json:"event_name,omitempty"` // 审计事件的具体名称。
+
+	OperatorType *int `json:"operator_type,omitempty"` // 操作发起者的类型。
+
+	OperatorValue *string `json:"operator_value,omitempty"` // 操作发起者的唯一标识。
+
+	EventModule *int `json:"event_module,omitempty"` // 审计事件所属的业务模块。
+
+	ObjectType *int `json:"object_type,omitempty"` // 操作对象的类型。
+
+	ObjectValue *string `json:"object_value,omitempty"` // 操作对象的唯一标识。
+}
+
+type AuditInfoFilterBuilder struct {
+	latest    int // 查询时间范围的结束时间戳，单位为秒。
+	latestSet bool
+
+	oldest    int // 查询时间范围的开始时间戳，单位为秒。
+	oldestSet bool
+
+	eventName    string // 审计事件的具体名称。
+	eventNameSet bool
+
+	operatorType    int // 操作发起者的类型。
+	operatorTypeSet bool
+
+	operatorValue    string // 操作发起者的唯一标识。
+	operatorValueSet bool
+
+	eventModule    int // 审计事件所属的业务模块。
+	eventModuleSet bool
+
+	objectType    int // 操作对象的类型。
+	objectTypeSet bool
+
+	objectValue    string // 操作对象的唯一标识。
+	objectValueSet bool
+}
+
+func NewAuditInfoFilterBuilder() *AuditInfoFilterBuilder {
+	builder := &AuditInfoFilterBuilder{}
+	return builder
+}
+
+// 查询时间范围的结束时间戳，单位为秒。
+//
+// 示例值：1719888000000
+func (builder *AuditInfoFilterBuilder) Latest(latest int) *AuditInfoFilterBuilder {
+	builder.latest = latest
+	builder.latestSet = true
+	return builder
+}
+
+// 查询时间范围的开始时间戳，单位为秒。
+//
+// 示例值：1717296000000
+func (builder *AuditInfoFilterBuilder) Oldest(oldest int) *AuditInfoFilterBuilder {
+	builder.oldest = oldest
+	builder.oldestSet = true
+	return builder
+}
+
+// 审计事件的具体名称。
+//
+// 示例值：user_password_modify
+func (builder *AuditInfoFilterBuilder) EventName(eventName string) *AuditInfoFilterBuilder {
+	builder.eventName = eventName
+	builder.eventNameSet = true
+	return builder
+}
+
+// 操作发起者的类型。
+//
+// 示例值：
+func (builder *AuditInfoFilterBuilder) OperatorType(operatorType int) *AuditInfoFilterBuilder {
+	builder.operatorType = operatorType
+	builder.operatorTypeSet = true
+	return builder
+}
+
+// 操作发起者的唯一标识。
+//
+// 示例值：U123456789
+func (builder *AuditInfoFilterBuilder) OperatorValue(operatorValue string) *AuditInfoFilterBuilder {
+	builder.operatorValue = operatorValue
+	builder.operatorValueSet = true
+	return builder
+}
+
+// 审计事件所属的业务模块。
+//
+// 示例值：
+func (builder *AuditInfoFilterBuilder) EventModule(eventModule int) *AuditInfoFilterBuilder {
+	builder.eventModule = eventModule
+	builder.eventModuleSet = true
+	return builder
+}
+
+// 操作对象的类型。
+//
+// 示例值：
+func (builder *AuditInfoFilterBuilder) ObjectType(objectType int) *AuditInfoFilterBuilder {
+	builder.objectType = objectType
+	builder.objectTypeSet = true
+	return builder
+}
+
+// 操作对象的唯一标识。
+//
+// 示例值：R987654321
+func (builder *AuditInfoFilterBuilder) ObjectValue(objectValue string) *AuditInfoFilterBuilder {
+	builder.objectValue = objectValue
+	builder.objectValueSet = true
+	return builder
+}
+
+func (builder *AuditInfoFilterBuilder) Build() *AuditInfoFilter {
+	req := &AuditInfoFilter{}
+	if builder.latestSet {
+		req.Latest = &builder.latest
+
+	}
+	if builder.oldestSet {
+		req.Oldest = &builder.oldest
+
+	}
+	if builder.eventNameSet {
+		req.EventName = &builder.eventName
+
+	}
+	if builder.operatorTypeSet {
+		req.OperatorType = &builder.operatorType
+
+	}
+	if builder.operatorValueSet {
+		req.OperatorValue = &builder.operatorValue
+
+	}
+	if builder.eventModuleSet {
+		req.EventModule = &builder.eventModule
+
+	}
+	if builder.objectTypeSet {
+		req.ObjectType = &builder.objectType
+
+	}
+	if builder.objectValueSet {
+		req.ObjectValue = &builder.objectValue
+
+	}
+	return req
+}
+
+type AuditInfoItem struct {
+	Count *int `json:"count,omitempty"` // 统计次数
+
+	EventName *string `json:"event_name,omitempty"` // 操作事件的名称，如“用户登录”“数据导出”
+
+	EventNameId *int `json:"event_name_id,omitempty"` // 操作事件的唯一标识ID，与event_name一一对应
+
+	EventModule *int `json:"event_module,omitempty"` // 操作事件所属的模块ID，用于区分不同业务模块的操作
+
+	OperatorType *int `json:"operator_type,omitempty"` // 操作发起者的类型
+
+	OperatorValue *string `json:"operator_value,omitempty"` // 操作发起者的唯一标识，根据operator_type取值不同
+
+	ObjectType *int `json:"object_type,omitempty"` // 操作对象的类型
+
+	ObjectValue *string `json:"object_value,omitempty"` // 操作对象的唯一标识，根据object_type取值不同
+
+	ObjectTenant *string `json:"object_tenant,omitempty"` // 操作对象所属的租户
+
+	Ip *string `json:"ip,omitempty"` // 操作发起者的IP地址
+
+	AuditDetail *AuditDetail `json:"audit_detail,omitempty"` // 操作的详细审计信息，主要是城市
+
+	OperatorTenant *string `json:"operator_tenant,omitempty"` // 操作人所属租户
+}
+
+type AuditInfoItemBuilder struct {
+	count    int // 统计次数
+	countSet bool
+
+	eventName    string // 操作事件的名称，如“用户登录”“数据导出”
+	eventNameSet bool
+
+	eventNameId    int // 操作事件的唯一标识ID，与event_name一一对应
+	eventNameIdSet bool
+
+	eventModule    int // 操作事件所属的模块ID，用于区分不同业务模块的操作
+	eventModuleSet bool
+
+	operatorType    int // 操作发起者的类型
+	operatorTypeSet bool
+
+	operatorValue    string // 操作发起者的唯一标识，根据operator_type取值不同
+	operatorValueSet bool
+
+	objectType    int // 操作对象的类型
+	objectTypeSet bool
+
+	objectValue    string // 操作对象的唯一标识，根据object_type取值不同
+	objectValueSet bool
+
+	objectTenant    string // 操作对象所属的租户
+	objectTenantSet bool
+
+	ip    string // 操作发起者的IP地址
+	ipSet bool
+
+	auditDetail    *AuditDetail // 操作的详细审计信息，主要是城市
+	auditDetailSet bool
+
+	operatorTenant    string // 操作人所属租户
+	operatorTenantSet bool
+}
+
+func NewAuditInfoItemBuilder() *AuditInfoItemBuilder {
+	builder := &AuditInfoItemBuilder{}
+	return builder
+}
+
+// 统计次数
+//
+// 示例值：3
+func (builder *AuditInfoItemBuilder) Count(count int) *AuditInfoItemBuilder {
+	builder.count = count
+	builder.countSet = true
+	return builder
+}
+
+// 操作事件的名称，如“用户登录”“数据导出”
+//
+// 示例值：用户登录
+func (builder *AuditInfoItemBuilder) EventName(eventName string) *AuditInfoItemBuilder {
+	builder.eventName = eventName
+	builder.eventNameSet = true
+	return builder
+}
+
+// 操作事件的唯一标识ID，与event_name一一对应
+//
+// 示例值：1001
+func (builder *AuditInfoItemBuilder) EventNameId(eventNameId int) *AuditInfoItemBuilder {
+	builder.eventNameId = eventNameId
+	builder.eventNameIdSet = true
+	return builder
+}
+
+// 操作事件所属的模块ID，用于区分不同业务模块的操作
+//
+// 示例值：2
+func (builder *AuditInfoItemBuilder) EventModule(eventModule int) *AuditInfoItemBuilder {
+	builder.eventModule = eventModule
+	builder.eventModuleSet = true
+	return builder
+}
+
+// 操作发起者的类型
+//
+// 示例值：1
+func (builder *AuditInfoItemBuilder) OperatorType(operatorType int) *AuditInfoItemBuilder {
+	builder.operatorType = operatorType
+	builder.operatorTypeSet = true
+	return builder
+}
+
+// 操作发起者的唯一标识，根据operator_type取值不同
+//
+// 示例值：EMP00123
+func (builder *AuditInfoItemBuilder) OperatorValue(operatorValue string) *AuditInfoItemBuilder {
+	builder.operatorValue = operatorValue
+	builder.operatorValueSet = true
+	return builder
+}
+
+// 操作对象的类型
+//
+// 示例值：1
+func (builder *AuditInfoItemBuilder) ObjectType(objectType int) *AuditInfoItemBuilder {
+	builder.objectType = objectType
+	builder.objectTypeSet = true
+	return builder
+}
+
+// 操作对象的唯一标识，根据object_type取值不同
+//
+// 示例值：USER45678
+func (builder *AuditInfoItemBuilder) ObjectValue(objectValue string) *AuditInfoItemBuilder {
+	builder.objectValue = objectValue
+	builder.objectValueSet = true
+	return builder
+}
+
+// 操作对象所属的租户
+//
+// 示例值：2
+func (builder *AuditInfoItemBuilder) ObjectTenant(objectTenant string) *AuditInfoItemBuilder {
+	builder.objectTenant = objectTenant
+	builder.objectTenantSet = true
+	return builder
+}
+
+// 操作发起者的IP地址
+//
+// 示例值：192.168.1.100
+func (builder *AuditInfoItemBuilder) Ip(ip string) *AuditInfoItemBuilder {
+	builder.ip = ip
+	builder.ipSet = true
+	return builder
+}
+
+// 操作的详细审计信息，主要是城市
+//
+// 示例值：
+func (builder *AuditInfoItemBuilder) AuditDetail(auditDetail *AuditDetail) *AuditInfoItemBuilder {
+	builder.auditDetail = auditDetail
+	builder.auditDetailSet = true
+	return builder
+}
+
+// 操作人所属租户
+//
+// 示例值：2
+func (builder *AuditInfoItemBuilder) OperatorTenant(operatorTenant string) *AuditInfoItemBuilder {
+	builder.operatorTenant = operatorTenant
+	builder.operatorTenantSet = true
+	return builder
+}
+
+func (builder *AuditInfoItemBuilder) Build() *AuditInfoItem {
+	req := &AuditInfoItem{}
+	if builder.countSet {
+		req.Count = &builder.count
+
+	}
+	if builder.eventNameSet {
+		req.EventName = &builder.eventName
+
+	}
+	if builder.eventNameIdSet {
+		req.EventNameId = &builder.eventNameId
+
+	}
+	if builder.eventModuleSet {
+		req.EventModule = &builder.eventModule
+
+	}
+	if builder.operatorTypeSet {
+		req.OperatorType = &builder.operatorType
+
+	}
+	if builder.operatorValueSet {
+		req.OperatorValue = &builder.operatorValue
+
+	}
+	if builder.objectTypeSet {
+		req.ObjectType = &builder.objectType
+
+	}
+	if builder.objectValueSet {
+		req.ObjectValue = &builder.objectValue
+
+	}
+	if builder.objectTenantSet {
+		req.ObjectTenant = &builder.objectTenant
+
+	}
+	if builder.ipSet {
+		req.Ip = &builder.ip
+
+	}
+	if builder.auditDetailSet {
+		req.AuditDetail = builder.auditDetail
+	}
+	if builder.operatorTenantSet {
+		req.OperatorTenant = &builder.operatorTenant
+
+	}
+	return req
+}
+
+type AuditInfoOrder struct {
+	Field *string `json:"field,omitempty"` // 指定审计信息排序的字段。
+
+	Direction *string `json:"direction,omitempty"` // 指定排序方向。
+}
+
+type AuditInfoOrderBuilder struct {
+	field    string // 指定审计信息排序的字段。
+	fieldSet bool
+
+	direction    string // 指定排序方向。
+	directionSet bool
+}
+
+func NewAuditInfoOrderBuilder() *AuditInfoOrderBuilder {
+	builder := &AuditInfoOrderBuilder{}
+	return builder
+}
+
+// 指定审计信息排序的字段。
+//
+// 示例值：operation_time
+func (builder *AuditInfoOrderBuilder) Field(field string) *AuditInfoOrderBuilder {
+	builder.field = field
+	builder.fieldSet = true
+	return builder
+}
+
+// 指定排序方向。
+//
+// 示例值：desc
+func (builder *AuditInfoOrderBuilder) Direction(direction string) *AuditInfoOrderBuilder {
+	builder.direction = direction
+	builder.directionSet = true
+	return builder
+}
+
+func (builder *AuditInfoOrderBuilder) Build() *AuditInfoOrder {
+	req := &AuditInfoOrder{}
+	if builder.fieldSet {
+		req.Field = &builder.field
+
+	}
+	if builder.directionSet {
+		req.Direction = &builder.direction
 
 	}
 	return req
@@ -1566,50 +2029,50 @@ type AuditIosContext struct {
 }
 
 type AuditIosContextBuilder struct {
-	udid     string // UDID
-	udidFlag bool
+	udid    string // UDID
+	udidSet bool
 
-	did     string // 设备ID
-	didFlag bool
+	did    string // 设备ID
+	didSet bool
 
-	appVer     string // app的版本
-	appVerFlag bool
+	appVer    string // app的版本
+	appVerSet bool
 
-	ver     string // SecSDK版本
-	verFlag bool
+	ver    string // SecSDK版本
+	verSet bool
 
-	os     string // 系统类型及版本
-	osFlag bool
+	os    string // 系统类型及版本
+	osSet bool
 
-	sTZone     string // 系统时区
-	sTZoneFlag bool
+	sTZone    string // 系统时区
+	sTZoneSet bool
 
-	mL     string // 当前语言
-	mLFlag bool
+	mL    string // 当前语言
+	mLSet bool
 
-	sjd     string // 是否越狱
-	sjdFlag bool
+	sjd    string // 是否越狱
+	sjdSet bool
 
-	proxyip     string // 代理ip
-	proxyipFlag bool
+	proxyip    string // 代理ip
+	proxyipSet bool
 
-	wifip     string // wifi ip
-	wifipFlag bool
+	wifip    string // wifi ip
+	wifipSet bool
 
-	location     string // GPS经纬度
-	locationFlag bool
+	location    string // GPS经纬度
+	locationSet bool
 
-	activeIp     string // 当前设备活跃ip
-	activeIpFlag bool
+	activeIp    string // 当前设备活跃ip
+	activeIpSet bool
 
-	activeIpDetail     string // 当前设备活跃ip对应网卡类型
-	activeIpDetailFlag bool
+	activeIpDetail    string // 当前设备活跃ip对应网卡类型
+	activeIpDetailSet bool
 
-	cellBaseStation     string // 基站信息
-	cellBaseStationFlag bool
+	cellBaseStation    string // 基站信息
+	cellBaseStationSet bool
 
-	iP     string // 公网ip
-	iPFlag bool
+	iP    string // 公网ip
+	iPSet bool
 }
 
 func NewAuditIosContextBuilder() *AuditIosContextBuilder {
@@ -1622,7 +2085,7 @@ func NewAuditIosContextBuilder() *AuditIosContextBuilder {
 // 示例值：
 func (builder *AuditIosContextBuilder) Udid(udid string) *AuditIosContextBuilder {
 	builder.udid = udid
-	builder.udidFlag = true
+	builder.udidSet = true
 	return builder
 }
 
@@ -1631,7 +2094,7 @@ func (builder *AuditIosContextBuilder) Udid(udid string) *AuditIosContextBuilder
 // 示例值：7396893949735993363
 func (builder *AuditIosContextBuilder) Did(did string) *AuditIosContextBuilder {
 	builder.did = did
-	builder.didFlag = true
+	builder.didSet = true
 	return builder
 }
 
@@ -1640,7 +2103,7 @@ func (builder *AuditIosContextBuilder) Did(did string) *AuditIosContextBuilder {
 // 示例值：7.23.7-ci
 func (builder *AuditIosContextBuilder) AppVer(appVer string) *AuditIosContextBuilder {
 	builder.appVer = appVer
-	builder.appVerFlag = true
+	builder.appVerSet = true
 	return builder
 }
 
@@ -1649,7 +2112,7 @@ func (builder *AuditIosContextBuilder) AppVer(appVer string) *AuditIosContextBui
 // 示例值：3.0.0.0
 func (builder *AuditIosContextBuilder) Ver(ver string) *AuditIosContextBuilder {
 	builder.ver = ver
-	builder.verFlag = true
+	builder.verSet = true
 	return builder
 }
 
@@ -1658,7 +2121,7 @@ func (builder *AuditIosContextBuilder) Ver(ver string) *AuditIosContextBuilder {
 // 示例值：iOS 16.5
 func (builder *AuditIosContextBuilder) Os(os string) *AuditIosContextBuilder {
 	builder.os = os
-	builder.osFlag = true
+	builder.osSet = true
 	return builder
 }
 
@@ -1667,7 +2130,7 @@ func (builder *AuditIosContextBuilder) Os(os string) *AuditIosContextBuilder {
 // 示例值：Asia/Shanghai
 func (builder *AuditIosContextBuilder) STZone(sTZone string) *AuditIosContextBuilder {
 	builder.sTZone = sTZone
-	builder.sTZoneFlag = true
+	builder.sTZoneSet = true
 	return builder
 }
 
@@ -1676,7 +2139,7 @@ func (builder *AuditIosContextBuilder) STZone(sTZone string) *AuditIosContextBui
 // 示例值：zh-Hans
 func (builder *AuditIosContextBuilder) ML(mL string) *AuditIosContextBuilder {
 	builder.mL = mL
-	builder.mLFlag = true
+	builder.mLSet = true
 	return builder
 }
 
@@ -1685,7 +2148,7 @@ func (builder *AuditIosContextBuilder) ML(mL string) *AuditIosContextBuilder {
 // 示例值：
 func (builder *AuditIosContextBuilder) Sjd(sjd string) *AuditIosContextBuilder {
 	builder.sjd = sjd
-	builder.sjdFlag = true
+	builder.sjdSet = true
 	return builder
 }
 
@@ -1694,7 +2157,7 @@ func (builder *AuditIosContextBuilder) Sjd(sjd string) *AuditIosContextBuilder {
 // 示例值：1.1.1.1
 func (builder *AuditIosContextBuilder) Proxyip(proxyip string) *AuditIosContextBuilder {
 	builder.proxyip = proxyip
-	builder.proxyipFlag = true
+	builder.proxyipSet = true
 	return builder
 }
 
@@ -1703,7 +2166,7 @@ func (builder *AuditIosContextBuilder) Proxyip(proxyip string) *AuditIosContextB
 // 示例值：1.1.1.1
 func (builder *AuditIosContextBuilder) Wifip(wifip string) *AuditIosContextBuilder {
 	builder.wifip = wifip
-	builder.wifipFlag = true
+	builder.wifipSet = true
 	return builder
 }
 
@@ -1712,7 +2175,7 @@ func (builder *AuditIosContextBuilder) Wifip(wifip string) *AuditIosContextBuild
 // 示例值：
 func (builder *AuditIosContextBuilder) Location(location string) *AuditIosContextBuilder {
 	builder.location = location
-	builder.locationFlag = true
+	builder.locationSet = true
 	return builder
 }
 
@@ -1721,7 +2184,7 @@ func (builder *AuditIosContextBuilder) Location(location string) *AuditIosContex
 // 示例值：1.1.1.1
 func (builder *AuditIosContextBuilder) ActiveIp(activeIp string) *AuditIosContextBuilder {
 	builder.activeIp = activeIp
-	builder.activeIpFlag = true
+	builder.activeIpSet = true
 	return builder
 }
 
@@ -1730,7 +2193,7 @@ func (builder *AuditIosContextBuilder) ActiveIp(activeIp string) *AuditIosContex
 // 示例值：
 func (builder *AuditIosContextBuilder) ActiveIpDetail(activeIpDetail string) *AuditIosContextBuilder {
 	builder.activeIpDetail = activeIpDetail
-	builder.activeIpDetailFlag = true
+	builder.activeIpDetailSet = true
 	return builder
 }
 
@@ -1739,7 +2202,7 @@ func (builder *AuditIosContextBuilder) ActiveIpDetail(activeIpDetail string) *Au
 // 示例值：
 func (builder *AuditIosContextBuilder) CellBaseStation(cellBaseStation string) *AuditIosContextBuilder {
 	builder.cellBaseStation = cellBaseStation
-	builder.cellBaseStationFlag = true
+	builder.cellBaseStationSet = true
 	return builder
 }
 
@@ -1748,69 +2211,69 @@ func (builder *AuditIosContextBuilder) CellBaseStation(cellBaseStation string) *
 // 示例值：1.1.1.1
 func (builder *AuditIosContextBuilder) IP(iP string) *AuditIosContextBuilder {
 	builder.iP = iP
-	builder.iPFlag = true
+	builder.iPSet = true
 	return builder
 }
 
 func (builder *AuditIosContextBuilder) Build() *AuditIosContext {
 	req := &AuditIosContext{}
-	if builder.udidFlag {
+	if builder.udidSet {
 		req.Udid = &builder.udid
 
 	}
-	if builder.didFlag {
+	if builder.didSet {
 		req.Did = &builder.did
 
 	}
-	if builder.appVerFlag {
+	if builder.appVerSet {
 		req.AppVer = &builder.appVer
 
 	}
-	if builder.verFlag {
+	if builder.verSet {
 		req.Ver = &builder.ver
 
 	}
-	if builder.osFlag {
+	if builder.osSet {
 		req.Os = &builder.os
 
 	}
-	if builder.sTZoneFlag {
+	if builder.sTZoneSet {
 		req.STZone = &builder.sTZone
 
 	}
-	if builder.mLFlag {
+	if builder.mLSet {
 		req.ML = &builder.mL
 
 	}
-	if builder.sjdFlag {
+	if builder.sjdSet {
 		req.Sjd = &builder.sjd
 
 	}
-	if builder.proxyipFlag {
+	if builder.proxyipSet {
 		req.Proxyip = &builder.proxyip
 
 	}
-	if builder.wifipFlag {
+	if builder.wifipSet {
 		req.Wifip = &builder.wifip
 
 	}
-	if builder.locationFlag {
+	if builder.locationSet {
 		req.Location = &builder.location
 
 	}
-	if builder.activeIpFlag {
+	if builder.activeIpSet {
 		req.ActiveIp = &builder.activeIp
 
 	}
-	if builder.activeIpDetailFlag {
+	if builder.activeIpDetailSet {
 		req.ActiveIpDetail = &builder.activeIpDetail
 
 	}
-	if builder.cellBaseStationFlag {
+	if builder.cellBaseStationSet {
 		req.CellBaseStation = &builder.cellBaseStation
 
 	}
-	if builder.iPFlag {
+	if builder.iPSet {
 		req.IP = &builder.iP
 
 	}
@@ -1846,44 +2309,44 @@ type AuditObjectDetail struct {
 }
 
 type AuditObjectDetailBuilder struct {
-	cloneSource     string // 克隆来源
-	cloneSourceFlag bool
+	cloneSource    string // 克隆来源
+	cloneSourceSet bool
 
-	textDetail     string // 其他文本
-	textDetailFlag bool
+	textDetail    string // 其他文本
+	textDetailSet bool
 
-	fileName     string // 文件名称
-	fileNameFlag bool
+	fileName    string // 文件名称
+	fileNameSet bool
 
-	thirdPartyAppID     string // 第三方APPID
-	thirdPartyAppIDFlag bool
+	thirdPartyAppID    string // 第三方APPID
+	thirdPartyAppIDSet bool
 
-	containFileNum     int // 文件或文件夹数量
-	containFileNumFlag bool
+	containFileNum    int // 文件或文件夹数量
+	containFileNumSet bool
 
-	permissionSettingType     string // 链接分享设置
-	permissionSettingTypeFlag bool
+	permissionSettingType    string // 链接分享设置
+	permissionSettingTypeSet bool
 
-	permissionExternalAccessType     bool // 是否开启外部访问设置
-	permissionExternalAccessTypeFlag bool
+	permissionExternalAccessType    bool // 是否开启外部访问设置
+	permissionExternalAccessTypeSet bool
 
-	permissionShareType     string // 分享设置
-	permissionShareTypeFlag bool
+	permissionShareType    string // 分享设置
+	permissionShareTypeSet bool
 
-	fileServiceSource     string // file上传业务来源
-	fileServiceSourceFlag bool
+	fileServiceSource    string // file上传业务来源
+	fileServiceSourceSet bool
 
-	okrDownloadContent     string // 下载OKR时的内容范围
-	okrDownloadContentFlag bool
+	okrDownloadContent    string // 下载OKR时的内容范围
+	okrDownloadContentSet bool
 
-	containerType     string // 容器类型,标识是否wiki
-	containerTypeFlag bool
+	containerType    string // 容器类型,标识是否wiki
+	containerTypeSet bool
 
-	containerId     string // 容器id,wiki标识字段
-	containerIdFlag bool
+	containerId    string // 容器id,wiki标识字段
+	containerIdSet bool
 
-	currentPage     string // 截屏、录制的开始页面
-	currentPageFlag bool
+	currentPage    string // 截屏、录制的开始页面
+	currentPageSet bool
 }
 
 func NewAuditObjectDetailBuilder() *AuditObjectDetailBuilder {
@@ -1896,7 +2359,7 @@ func NewAuditObjectDetailBuilder() *AuditObjectDetailBuilder {
 // 示例值：
 func (builder *AuditObjectDetailBuilder) CloneSource(cloneSource string) *AuditObjectDetailBuilder {
 	builder.cloneSource = cloneSource
-	builder.cloneSourceFlag = true
+	builder.cloneSourceSet = true
 	return builder
 }
 
@@ -1905,7 +2368,7 @@ func (builder *AuditObjectDetailBuilder) CloneSource(cloneSource string) *AuditO
 // 示例值：
 func (builder *AuditObjectDetailBuilder) TextDetail(textDetail string) *AuditObjectDetailBuilder {
 	builder.textDetail = textDetail
-	builder.textDetailFlag = true
+	builder.textDetailSet = true
 	return builder
 }
 
@@ -1914,7 +2377,7 @@ func (builder *AuditObjectDetailBuilder) TextDetail(textDetail string) *AuditObj
 // 示例值：
 func (builder *AuditObjectDetailBuilder) FileName(fileName string) *AuditObjectDetailBuilder {
 	builder.fileName = fileName
-	builder.fileNameFlag = true
+	builder.fileNameSet = true
 	return builder
 }
 
@@ -1923,7 +2386,7 @@ func (builder *AuditObjectDetailBuilder) FileName(fileName string) *AuditObjectD
 // 示例值：
 func (builder *AuditObjectDetailBuilder) ThirdPartyAppID(thirdPartyAppID string) *AuditObjectDetailBuilder {
 	builder.thirdPartyAppID = thirdPartyAppID
-	builder.thirdPartyAppIDFlag = true
+	builder.thirdPartyAppIDSet = true
 	return builder
 }
 
@@ -1932,7 +2395,7 @@ func (builder *AuditObjectDetailBuilder) ThirdPartyAppID(thirdPartyAppID string)
 // 示例值：1
 func (builder *AuditObjectDetailBuilder) ContainFileNum(containFileNum int) *AuditObjectDetailBuilder {
 	builder.containFileNum = containFileNum
-	builder.containFileNumFlag = true
+	builder.containFileNumSet = true
 	return builder
 }
 
@@ -1941,7 +2404,7 @@ func (builder *AuditObjectDetailBuilder) ContainFileNum(containFileNum int) *Aud
 // 示例值：
 func (builder *AuditObjectDetailBuilder) PermissionSettingType(permissionSettingType string) *AuditObjectDetailBuilder {
 	builder.permissionSettingType = permissionSettingType
-	builder.permissionSettingTypeFlag = true
+	builder.permissionSettingTypeSet = true
 	return builder
 }
 
@@ -1950,7 +2413,7 @@ func (builder *AuditObjectDetailBuilder) PermissionSettingType(permissionSetting
 // 示例值：false
 func (builder *AuditObjectDetailBuilder) PermissionExternalAccessType(permissionExternalAccessType bool) *AuditObjectDetailBuilder {
 	builder.permissionExternalAccessType = permissionExternalAccessType
-	builder.permissionExternalAccessTypeFlag = true
+	builder.permissionExternalAccessTypeSet = true
 	return builder
 }
 
@@ -1959,7 +2422,7 @@ func (builder *AuditObjectDetailBuilder) PermissionExternalAccessType(permission
 // 示例值：
 func (builder *AuditObjectDetailBuilder) PermissionShareType(permissionShareType string) *AuditObjectDetailBuilder {
 	builder.permissionShareType = permissionShareType
-	builder.permissionShareTypeFlag = true
+	builder.permissionShareTypeSet = true
 	return builder
 }
 
@@ -1968,7 +2431,7 @@ func (builder *AuditObjectDetailBuilder) PermissionShareType(permissionShareType
 // 示例值：
 func (builder *AuditObjectDetailBuilder) FileServiceSource(fileServiceSource string) *AuditObjectDetailBuilder {
 	builder.fileServiceSource = fileServiceSource
-	builder.fileServiceSourceFlag = true
+	builder.fileServiceSourceSet = true
 	return builder
 }
 
@@ -1977,7 +2440,7 @@ func (builder *AuditObjectDetailBuilder) FileServiceSource(fileServiceSource str
 // 示例值：
 func (builder *AuditObjectDetailBuilder) OkrDownloadContent(okrDownloadContent string) *AuditObjectDetailBuilder {
 	builder.okrDownloadContent = okrDownloadContent
-	builder.okrDownloadContentFlag = true
+	builder.okrDownloadContentSet = true
 	return builder
 }
 
@@ -1986,7 +2449,7 @@ func (builder *AuditObjectDetailBuilder) OkrDownloadContent(okrDownloadContent s
 // 示例值：
 func (builder *AuditObjectDetailBuilder) ContainerType(containerType string) *AuditObjectDetailBuilder {
 	builder.containerType = containerType
-	builder.containerTypeFlag = true
+	builder.containerTypeSet = true
 	return builder
 }
 
@@ -1995,7 +2458,7 @@ func (builder *AuditObjectDetailBuilder) ContainerType(containerType string) *Au
 // 示例值：
 func (builder *AuditObjectDetailBuilder) ContainerId(containerId string) *AuditObjectDetailBuilder {
 	builder.containerId = containerId
-	builder.containerIdFlag = true
+	builder.containerIdSet = true
 	return builder
 }
 
@@ -2004,61 +2467,61 @@ func (builder *AuditObjectDetailBuilder) ContainerId(containerId string) *AuditO
 // 示例值：
 func (builder *AuditObjectDetailBuilder) CurrentPage(currentPage string) *AuditObjectDetailBuilder {
 	builder.currentPage = currentPage
-	builder.currentPageFlag = true
+	builder.currentPageSet = true
 	return builder
 }
 
 func (builder *AuditObjectDetailBuilder) Build() *AuditObjectDetail {
 	req := &AuditObjectDetail{}
-	if builder.cloneSourceFlag {
+	if builder.cloneSourceSet {
 		req.CloneSource = &builder.cloneSource
 
 	}
-	if builder.textDetailFlag {
+	if builder.textDetailSet {
 		req.TextDetail = &builder.textDetail
 
 	}
-	if builder.fileNameFlag {
+	if builder.fileNameSet {
 		req.FileName = &builder.fileName
 
 	}
-	if builder.thirdPartyAppIDFlag {
+	if builder.thirdPartyAppIDSet {
 		req.ThirdPartyAppID = &builder.thirdPartyAppID
 
 	}
-	if builder.containFileNumFlag {
+	if builder.containFileNumSet {
 		req.ContainFileNum = &builder.containFileNum
 
 	}
-	if builder.permissionSettingTypeFlag {
+	if builder.permissionSettingTypeSet {
 		req.PermissionSettingType = &builder.permissionSettingType
 
 	}
-	if builder.permissionExternalAccessTypeFlag {
+	if builder.permissionExternalAccessTypeSet {
 		req.PermissionExternalAccessType = &builder.permissionExternalAccessType
 
 	}
-	if builder.permissionShareTypeFlag {
+	if builder.permissionShareTypeSet {
 		req.PermissionShareType = &builder.permissionShareType
 
 	}
-	if builder.fileServiceSourceFlag {
+	if builder.fileServiceSourceSet {
 		req.FileServiceSource = &builder.fileServiceSource
 
 	}
-	if builder.okrDownloadContentFlag {
+	if builder.okrDownloadContentSet {
 		req.OkrDownloadContent = &builder.okrDownloadContent
 
 	}
-	if builder.containerTypeFlag {
+	if builder.containerTypeSet {
 		req.ContainerType = &builder.containerType
 
 	}
-	if builder.containerIdFlag {
+	if builder.containerIdSet {
 		req.ContainerId = &builder.containerId
 
 	}
-	if builder.currentPageFlag {
+	if builder.currentPageSet {
 		req.CurrentPage = &builder.currentPage
 
 	}
@@ -2078,20 +2541,20 @@ type AuditObjectEntity struct {
 }
 
 type AuditObjectEntityBuilder struct {
-	objectType     string // 操作对象类型
-	objectTypeFlag bool
+	objectType    string // 操作对象类型
+	objectTypeSet bool
 
-	objectValue     string // 操作对象值，可能存在 department_id、user_id 等，需要进行 lark_id 的转换
-	objectValueFlag bool
+	objectValue    string // 操作对象值，可能存在 department_id、user_id 等，需要进行 lark_id 的转换
+	objectValueSet bool
 
-	objectDetail     *AuditObjectDetail // object 详情
-	objectDetailFlag bool
+	objectDetail    *AuditObjectDetail // object 详情
+	objectDetailSet bool
 
-	objectName     string // 操作对象名称，如会话名、文档名等
-	objectNameFlag bool
+	objectName    string // 操作对象名称，如会话名、文档名等
+	objectNameSet bool
 
-	objectOwner     string // 操作对象的所有者
-	objectOwnerFlag bool
+	objectOwner    string // 操作对象的所有者
+	objectOwnerSet bool
 }
 
 func NewAuditObjectEntityBuilder() *AuditObjectEntityBuilder {
@@ -2104,7 +2567,7 @@ func NewAuditObjectEntityBuilder() *AuditObjectEntityBuilder {
 // 示例值：1
 func (builder *AuditObjectEntityBuilder) ObjectType(objectType string) *AuditObjectEntityBuilder {
 	builder.objectType = objectType
-	builder.objectTypeFlag = true
+	builder.objectTypeSet = true
 	return builder
 }
 
@@ -2113,7 +2576,7 @@ func (builder *AuditObjectEntityBuilder) ObjectType(objectType string) *AuditObj
 // 示例值：47d74411
 func (builder *AuditObjectEntityBuilder) ObjectValue(objectValue string) *AuditObjectEntityBuilder {
 	builder.objectValue = objectValue
-	builder.objectValueFlag = true
+	builder.objectValueSet = true
 	return builder
 }
 
@@ -2122,7 +2585,7 @@ func (builder *AuditObjectEntityBuilder) ObjectValue(objectValue string) *AuditO
 // 示例值：
 func (builder *AuditObjectEntityBuilder) ObjectDetail(objectDetail *AuditObjectDetail) *AuditObjectEntityBuilder {
 	builder.objectDetail = objectDetail
-	builder.objectDetailFlag = true
+	builder.objectDetailSet = true
 	return builder
 }
 
@@ -2131,7 +2594,7 @@ func (builder *AuditObjectEntityBuilder) ObjectDetail(objectDetail *AuditObjectD
 // 示例值：xxx
 func (builder *AuditObjectEntityBuilder) ObjectName(objectName string) *AuditObjectEntityBuilder {
 	builder.objectName = objectName
-	builder.objectNameFlag = true
+	builder.objectNameSet = true
 	return builder
 }
 
@@ -2140,28 +2603,28 @@ func (builder *AuditObjectEntityBuilder) ObjectName(objectName string) *AuditObj
 // 示例值：47d74411
 func (builder *AuditObjectEntityBuilder) ObjectOwner(objectOwner string) *AuditObjectEntityBuilder {
 	builder.objectOwner = objectOwner
-	builder.objectOwnerFlag = true
+	builder.objectOwnerSet = true
 	return builder
 }
 
 func (builder *AuditObjectEntityBuilder) Build() *AuditObjectEntity {
 	req := &AuditObjectEntity{}
-	if builder.objectTypeFlag {
+	if builder.objectTypeSet {
 		req.ObjectType = &builder.objectType
 
 	}
-	if builder.objectValueFlag {
+	if builder.objectValueSet {
 		req.ObjectValue = &builder.objectValue
 
 	}
-	if builder.objectDetailFlag {
+	if builder.objectDetailSet {
 		req.ObjectDetail = builder.objectDetail
 	}
-	if builder.objectNameFlag {
+	if builder.objectNameSet {
 		req.ObjectName = &builder.objectName
 
 	}
-	if builder.objectOwnerFlag {
+	if builder.objectOwnerSet {
 		req.ObjectOwner = &builder.objectOwner
 
 	}
@@ -2187,29 +2650,29 @@ type AuditPcContext struct {
 }
 
 type AuditPcContextBuilder struct {
-	udid     string // UDID
-	udidFlag bool
+	udid    string // UDID
+	udidSet bool
 
-	did     string // 设备ID
-	didFlag bool
+	did    string // 设备ID
+	didSet bool
 
-	appVer     string // app的版本
-	appVerFlag bool
+	appVer    string // app的版本
+	appVerSet bool
 
-	ver     string // SecSDK版本
-	verFlag bool
+	ver    string // SecSDK版本
+	verSet bool
 
-	os     string // 客户端类型
-	osFlag bool
+	os    string // 客户端类型
+	osSet bool
 
-	wifip     string // wifi ip
-	wifipFlag bool
+	wifip    string // wifi ip
+	wifipSet bool
 
-	region     string // 设备区域
-	regionFlag bool
+	region    string // 设备区域
+	regionSet bool
 
-	iP     string // 公网ip
-	iPFlag bool
+	iP    string // 公网ip
+	iPSet bool
 }
 
 func NewAuditPcContextBuilder() *AuditPcContextBuilder {
@@ -2222,7 +2685,7 @@ func NewAuditPcContextBuilder() *AuditPcContextBuilder {
 // 示例值：
 func (builder *AuditPcContextBuilder) Udid(udid string) *AuditPcContextBuilder {
 	builder.udid = udid
-	builder.udidFlag = true
+	builder.udidSet = true
 	return builder
 }
 
@@ -2231,7 +2694,7 @@ func (builder *AuditPcContextBuilder) Udid(udid string) *AuditPcContextBuilder {
 // 示例值：7204623689634104876
 func (builder *AuditPcContextBuilder) Did(did string) *AuditPcContextBuilder {
 	builder.did = did
-	builder.didFlag = true
+	builder.didSet = true
 	return builder
 }
 
@@ -2240,7 +2703,7 @@ func (builder *AuditPcContextBuilder) Did(did string) *AuditPcContextBuilder {
 // 示例值：7.26.0
 func (builder *AuditPcContextBuilder) AppVer(appVer string) *AuditPcContextBuilder {
 	builder.appVer = appVer
-	builder.appVerFlag = true
+	builder.appVerSet = true
 	return builder
 }
 
@@ -2249,7 +2712,7 @@ func (builder *AuditPcContextBuilder) AppVer(appVer string) *AuditPcContextBuild
 // 示例值：3.0.0.0
 func (builder *AuditPcContextBuilder) Ver(ver string) *AuditPcContextBuilder {
 	builder.ver = ver
-	builder.verFlag = true
+	builder.verSet = true
 	return builder
 }
 
@@ -2258,7 +2721,7 @@ func (builder *AuditPcContextBuilder) Ver(ver string) *AuditPcContextBuilder {
 // 示例值：
 func (builder *AuditPcContextBuilder) Os(os string) *AuditPcContextBuilder {
 	builder.os = os
-	builder.osFlag = true
+	builder.osSet = true
 	return builder
 }
 
@@ -2267,7 +2730,7 @@ func (builder *AuditPcContextBuilder) Os(os string) *AuditPcContextBuilder {
 // 示例值：1.1.1.1
 func (builder *AuditPcContextBuilder) Wifip(wifip string) *AuditPcContextBuilder {
 	builder.wifip = wifip
-	builder.wifipFlag = true
+	builder.wifipSet = true
 	return builder
 }
 
@@ -2276,7 +2739,7 @@ func (builder *AuditPcContextBuilder) Wifip(wifip string) *AuditPcContextBuilder
 // 示例值：zh_CN
 func (builder *AuditPcContextBuilder) Region(region string) *AuditPcContextBuilder {
 	builder.region = region
-	builder.regionFlag = true
+	builder.regionSet = true
 	return builder
 }
 
@@ -2285,41 +2748,41 @@ func (builder *AuditPcContextBuilder) Region(region string) *AuditPcContextBuild
 // 示例值：1.1.1.1
 func (builder *AuditPcContextBuilder) IP(iP string) *AuditPcContextBuilder {
 	builder.iP = iP
-	builder.iPFlag = true
+	builder.iPSet = true
 	return builder
 }
 
 func (builder *AuditPcContextBuilder) Build() *AuditPcContext {
 	req := &AuditPcContext{}
-	if builder.udidFlag {
+	if builder.udidSet {
 		req.Udid = &builder.udid
 
 	}
-	if builder.didFlag {
+	if builder.didSet {
 		req.Did = &builder.did
 
 	}
-	if builder.appVerFlag {
+	if builder.appVerSet {
 		req.AppVer = &builder.appVer
 
 	}
-	if builder.verFlag {
+	if builder.verSet {
 		req.Ver = &builder.ver
 
 	}
-	if builder.osFlag {
+	if builder.osSet {
 		req.Os = &builder.os
 
 	}
-	if builder.wifipFlag {
+	if builder.wifipSet {
 		req.Wifip = &builder.wifip
 
 	}
-	if builder.regionFlag {
+	if builder.regionSet {
 		req.Region = &builder.region
 
 	}
-	if builder.iPFlag {
+	if builder.iPSet {
 		req.IP = &builder.iP
 
 	}
@@ -2331,8 +2794,8 @@ type AuditRecipientDetail struct {
 }
 
 type AuditRecipientDetailBuilder struct {
-	permissionActionType     string // 修改权限协作者
-	permissionActionTypeFlag bool
+	permissionActionType    string // 修改权限协作者
+	permissionActionTypeSet bool
 }
 
 func NewAuditRecipientDetailBuilder() *AuditRecipientDetailBuilder {
@@ -2345,13 +2808,13 @@ func NewAuditRecipientDetailBuilder() *AuditRecipientDetailBuilder {
 // 示例值：
 func (builder *AuditRecipientDetailBuilder) PermissionActionType(permissionActionType string) *AuditRecipientDetailBuilder {
 	builder.permissionActionType = permissionActionType
-	builder.permissionActionTypeFlag = true
+	builder.permissionActionTypeSet = true
 	return builder
 }
 
 func (builder *AuditRecipientDetailBuilder) Build() *AuditRecipientDetail {
 	req := &AuditRecipientDetail{}
-	if builder.permissionActionTypeFlag {
+	if builder.permissionActionTypeSet {
 		req.PermissionActionType = &builder.permissionActionType
 
 	}
@@ -2367,14 +2830,14 @@ type AuditRecipientEntity struct {
 }
 
 type AuditRecipientEntityBuilder struct {
-	recipientType     string // 接收者对象类型
-	recipientTypeFlag bool
+	recipientType    string // 接收者对象类型
+	recipientTypeSet bool
 
-	recipientValue     string // 接收者对象值，可能存在department_id、user_id等，需要进行lark_id的转换
-	recipientValueFlag bool
+	recipientValue    string // 接收者对象值，可能存在department_id、user_id等，需要进行lark_id的转换
+	recipientValueSet bool
 
-	recipientDetail     *AuditRecipientDetail // recipient 详情
-	recipientDetailFlag bool
+	recipientDetail    *AuditRecipientDetail // recipient 详情
+	recipientDetailSet bool
 }
 
 func NewAuditRecipientEntityBuilder() *AuditRecipientEntityBuilder {
@@ -2387,7 +2850,7 @@ func NewAuditRecipientEntityBuilder() *AuditRecipientEntityBuilder {
 // 示例值：
 func (builder *AuditRecipientEntityBuilder) RecipientType(recipientType string) *AuditRecipientEntityBuilder {
 	builder.recipientType = recipientType
-	builder.recipientTypeFlag = true
+	builder.recipientTypeSet = true
 	return builder
 }
 
@@ -2396,7 +2859,7 @@ func (builder *AuditRecipientEntityBuilder) RecipientType(recipientType string) 
 // 示例值：3d7d922
 func (builder *AuditRecipientEntityBuilder) RecipientValue(recipientValue string) *AuditRecipientEntityBuilder {
 	builder.recipientValue = recipientValue
-	builder.recipientValueFlag = true
+	builder.recipientValueSet = true
 	return builder
 }
 
@@ -2405,21 +2868,21 @@ func (builder *AuditRecipientEntityBuilder) RecipientValue(recipientValue string
 // 示例值：
 func (builder *AuditRecipientEntityBuilder) RecipientDetail(recipientDetail *AuditRecipientDetail) *AuditRecipientEntityBuilder {
 	builder.recipientDetail = recipientDetail
-	builder.recipientDetailFlag = true
+	builder.recipientDetailSet = true
 	return builder
 }
 
 func (builder *AuditRecipientEntityBuilder) Build() *AuditRecipientEntity {
 	req := &AuditRecipientEntity{}
-	if builder.recipientTypeFlag {
+	if builder.recipientTypeSet {
 		req.RecipientType = &builder.recipientType
 
 	}
-	if builder.recipientValueFlag {
+	if builder.recipientValueSet {
 		req.RecipientValue = &builder.recipientValue
 
 	}
-	if builder.recipientDetailFlag {
+	if builder.recipientDetailSet {
 		req.RecipientDetail = builder.recipientDetail
 	}
 	return req
@@ -2432,11 +2895,11 @@ type AuditWebContext struct {
 }
 
 type AuditWebContextBuilder struct {
-	userAgent     string // UA信息
-	userAgentFlag bool
+	userAgent    string // UA信息
+	userAgentSet bool
 
-	iP     string // 本机IP
-	iPFlag bool
+	iP    string // 本机IP
+	iPSet bool
 }
 
 func NewAuditWebContextBuilder() *AuditWebContextBuilder {
@@ -2449,7 +2912,7 @@ func NewAuditWebContextBuilder() *AuditWebContextBuilder {
 // 示例值：Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
 func (builder *AuditWebContextBuilder) UserAgent(userAgent string) *AuditWebContextBuilder {
 	builder.userAgent = userAgent
-	builder.userAgentFlag = true
+	builder.userAgentSet = true
 	return builder
 }
 
@@ -2458,17 +2921,17 @@ func (builder *AuditWebContextBuilder) UserAgent(userAgent string) *AuditWebCont
 // 示例值：1.1.1.1
 func (builder *AuditWebContextBuilder) IP(iP string) *AuditWebContextBuilder {
 	builder.iP = iP
-	builder.iPFlag = true
+	builder.iPSet = true
 	return builder
 }
 
 func (builder *AuditWebContextBuilder) Build() *AuditWebContext {
 	req := &AuditWebContext{}
-	if builder.userAgentFlag {
+	if builder.userAgentSet {
 		req.UserAgent = &builder.userAgent
 
 	}
-	if builder.iPFlag {
+	if builder.iPSet {
 		req.IP = &builder.iP
 
 	}
@@ -2486,17 +2949,17 @@ type CreateMigrationEntity struct {
 }
 
 type CreateMigrationEntityBuilder struct {
-	id     string // 实体的 id
-	idFlag bool
+	id    string // 实体的 id
+	idSet bool
 
 	type_    string // 实体的类型
-	typeFlag bool
+	type_Set bool
 
-	location     string // 实体的数据驻留地
-	locationFlag bool
+	location    string // 实体的数据驻留地
+	locationSet bool
 
-	mailAddress     string // 实体类型为 mailbox 时，返回 mail address，如果没有，则返回空
-	mailAddressFlag bool
+	mailAddress    string // 实体类型为 mailbox 时，返回 mail address，如果没有，则返回空
+	mailAddressSet bool
 }
 
 func NewCreateMigrationEntityBuilder() *CreateMigrationEntityBuilder {
@@ -2509,7 +2972,7 @@ func NewCreateMigrationEntityBuilder() *CreateMigrationEntityBuilder {
 // 示例值：43c58071254443c580712544
 func (builder *CreateMigrationEntityBuilder) Id(id string) *CreateMigrationEntityBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2518,7 +2981,7 @@ func (builder *CreateMigrationEntityBuilder) Id(id string) *CreateMigrationEntit
 // 示例值：sheets
 func (builder *CreateMigrationEntityBuilder) Type(type_ string) *CreateMigrationEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -2527,7 +2990,7 @@ func (builder *CreateMigrationEntityBuilder) Type(type_ string) *CreateMigration
 // 示例值：SG
 func (builder *CreateMigrationEntityBuilder) Location(location string) *CreateMigrationEntityBuilder {
 	builder.location = location
-	builder.locationFlag = true
+	builder.locationSet = true
 	return builder
 }
 
@@ -2536,25 +2999,25 @@ func (builder *CreateMigrationEntityBuilder) Location(location string) *CreateMi
 // 示例值：xxx@xxx.xx
 func (builder *CreateMigrationEntityBuilder) MailAddress(mailAddress string) *CreateMigrationEntityBuilder {
 	builder.mailAddress = mailAddress
-	builder.mailAddressFlag = true
+	builder.mailAddressSet = true
 	return builder
 }
 
 func (builder *CreateMigrationEntityBuilder) Build() *CreateMigrationEntity {
 	req := &CreateMigrationEntity{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.locationFlag {
+	if builder.locationSet {
 		req.Location = &builder.location
 
 	}
-	if builder.mailAddressFlag {
+	if builder.mailAddressSet {
 		req.MailAddress = &builder.mailAddress
 
 	}
@@ -2570,14 +3033,14 @@ type CreateMigrationItems struct {
 }
 
 type CreateMigrationItemsBuilder struct {
-	taskId     string // 迁移任务的 id
-	taskIdFlag bool
+	taskId    string // 迁移任务的 id
+	taskIdSet bool
 
-	taskStatus     string // 任务状态。任务创建成功固定返回 create ，若已存在其他待执行任务，则返回已存在任务的状态
-	taskStatusFlag bool
+	taskStatus    string // 任务状态。任务创建成功固定返回 create ，若已存在其他待执行任务，则返回已存在任务的状态
+	taskStatusSet bool
 
-	entity     *CreateMigrationEntity // 实体
-	entityFlag bool
+	entity    *CreateMigrationEntity // 实体
+	entitySet bool
 }
 
 func NewCreateMigrationItemsBuilder() *CreateMigrationItemsBuilder {
@@ -2590,7 +3053,7 @@ func NewCreateMigrationItemsBuilder() *CreateMigrationItemsBuilder {
 // 示例值：134jsi43d3ssi993d435452
 func (builder *CreateMigrationItemsBuilder) TaskId(taskId string) *CreateMigrationItemsBuilder {
 	builder.taskId = taskId
-	builder.taskIdFlag = true
+	builder.taskIdSet = true
 	return builder
 }
 
@@ -2599,7 +3062,7 @@ func (builder *CreateMigrationItemsBuilder) TaskId(taskId string) *CreateMigrati
 // 示例值：create
 func (builder *CreateMigrationItemsBuilder) TaskStatus(taskStatus string) *CreateMigrationItemsBuilder {
 	builder.taskStatus = taskStatus
-	builder.taskStatusFlag = true
+	builder.taskStatusSet = true
 	return builder
 }
 
@@ -2608,21 +3071,21 @@ func (builder *CreateMigrationItemsBuilder) TaskStatus(taskStatus string) *Creat
 // 示例值：
 func (builder *CreateMigrationItemsBuilder) Entity(entity *CreateMigrationEntity) *CreateMigrationItemsBuilder {
 	builder.entity = entity
-	builder.entityFlag = true
+	builder.entitySet = true
 	return builder
 }
 
 func (builder *CreateMigrationItemsBuilder) Build() *CreateMigrationItems {
 	req := &CreateMigrationItems{}
-	if builder.taskIdFlag {
+	if builder.taskIdSet {
 		req.TaskId = &builder.taskId
 
 	}
-	if builder.taskStatusFlag {
+	if builder.taskStatusSet {
 		req.TaskStatus = &builder.taskStatus
 
 	}
-	if builder.entityFlag {
+	if builder.entitySet {
 		req.Entity = builder.entity
 	}
 	return req
@@ -2635,11 +3098,11 @@ type DataArchivingMessage struct {
 }
 
 type DataArchivingMessageBuilder struct {
-	seqId     string // 序号ID
-	seqIdFlag bool
+	seqId    string // 序号ID
+	seqIdSet bool
 
-	limit     int // | 分页数量，单次拉取消息数，最大值1000 示例值：100 | | --- |
-	limitFlag bool
+	limit    int // | 分页数量，单次拉取消息数，最大值1000 示例值：100 | | --- |
+	limitSet bool
 }
 
 func NewDataArchivingMessageBuilder() *DataArchivingMessageBuilder {
@@ -2652,7 +3115,7 @@ func NewDataArchivingMessageBuilder() *DataArchivingMessageBuilder {
 // 示例值：1
 func (builder *DataArchivingMessageBuilder) SeqId(seqId string) *DataArchivingMessageBuilder {
 	builder.seqId = seqId
-	builder.seqIdFlag = true
+	builder.seqIdSet = true
 	return builder
 }
 
@@ -2661,17 +3124,17 @@ func (builder *DataArchivingMessageBuilder) SeqId(seqId string) *DataArchivingMe
 // 示例值：100
 func (builder *DataArchivingMessageBuilder) Limit(limit int) *DataArchivingMessageBuilder {
 	builder.limit = limit
-	builder.limitFlag = true
+	builder.limitSet = true
 	return builder
 }
 
 func (builder *DataArchivingMessageBuilder) Build() *DataArchivingMessage {
 	req := &DataArchivingMessage{}
-	if builder.seqIdFlag {
+	if builder.seqIdSet {
 		req.SeqId = &builder.seqId
 
 	}
-	if builder.limitFlag {
+	if builder.limitSet {
 		req.Limit = &builder.limit
 
 	}
@@ -2709,47 +3172,47 @@ type DataArchivingMessageStruct struct {
 }
 
 type DataArchivingMessageStructBuilder struct {
-	messageId     string // 消息id
-	messageIdFlag bool
+	messageId    string // 消息id
+	messageIdSet bool
 
-	messageType     int // 消息类型
-	messageTypeFlag bool
+	messageType    int // 消息类型
+	messageTypeSet bool
 
-	senderInfo     *DataArchivingUserStruct // 发送者信息
-	senderInfoFlag bool
+	senderInfo    *DataArchivingUserStruct // 发送者信息
+	senderInfoSet bool
 
-	receiverIds     []string // 接受者信息
-	receiverIdsFlag bool
+	receiverIds    []string // 接受者信息
+	receiverIdsSet bool
 
-	actionType     string // 操作类型
-	actionTypeFlag bool
+	actionType    string // 操作类型
+	actionTypeSet bool
 
-	chatId     string // 会话ID
-	chatIdFlag bool
+	chatId    string // 会话ID
+	chatIdSet bool
 
-	actionTime     string // 消息动作时间戳ms
-	actionTimeFlag bool
+	actionTime    string // 消息动作时间戳ms
+	actionTimeSet bool
 
-	isSuperChat     bool // 是否超大群
-	isSuperChatFlag bool
+	isSuperChat    bool // 是否超大群
+	isSuperChatSet bool
 
-	isCrossTenantChat     bool // 是否跨租户群
-	isCrossTenantChatFlag bool
+	isCrossTenantChat    bool // 是否跨租户群
+	isCrossTenantChatSet bool
 
-	chatName     string // 会话名称
-	chatNameFlag bool
+	chatName    string // 会话名称
+	chatNameSet bool
 
-	content     string // 文本内容
-	contentFlag bool
+	content    string // 文本内容
+	contentSet bool
 
-	chatMode     string // 会话类型
-	chatModeFlag bool
+	chatMode    string // 会话类型
+	chatModeSet bool
 
-	reactionType     string // reaction类型
-	reactionTypeFlag bool
+	reactionType    string // reaction类型
+	reactionTypeSet bool
 
-	parentMsgId     string // 父id
-	parentMsgIdFlag bool
+	parentMsgId    string // 父id
+	parentMsgIdSet bool
 }
 
 func NewDataArchivingMessageStructBuilder() *DataArchivingMessageStructBuilder {
@@ -2762,7 +3225,7 @@ func NewDataArchivingMessageStructBuilder() *DataArchivingMessageStructBuilder {
 // 示例值：om_829acd7aaae80c031837ad1946d7cf9f
 func (builder *DataArchivingMessageStructBuilder) MessageId(messageId string) *DataArchivingMessageStructBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -2771,7 +3234,7 @@ func (builder *DataArchivingMessageStructBuilder) MessageId(messageId string) *D
 // 示例值：1
 func (builder *DataArchivingMessageStructBuilder) MessageType(messageType int) *DataArchivingMessageStructBuilder {
 	builder.messageType = messageType
-	builder.messageTypeFlag = true
+	builder.messageTypeSet = true
 	return builder
 }
 
@@ -2780,7 +3243,7 @@ func (builder *DataArchivingMessageStructBuilder) MessageType(messageType int) *
 // 示例值：
 func (builder *DataArchivingMessageStructBuilder) SenderInfo(senderInfo *DataArchivingUserStruct) *DataArchivingMessageStructBuilder {
 	builder.senderInfo = senderInfo
-	builder.senderInfoFlag = true
+	builder.senderInfoSet = true
 	return builder
 }
 
@@ -2789,7 +3252,7 @@ func (builder *DataArchivingMessageStructBuilder) SenderInfo(senderInfo *DataArc
 // 示例值：
 func (builder *DataArchivingMessageStructBuilder) ReceiverIds(receiverIds []string) *DataArchivingMessageStructBuilder {
 	builder.receiverIds = receiverIds
-	builder.receiverIdsFlag = true
+	builder.receiverIdsSet = true
 	return builder
 }
 
@@ -2798,7 +3261,7 @@ func (builder *DataArchivingMessageStructBuilder) ReceiverIds(receiverIds []stri
 // 示例值：send
 func (builder *DataArchivingMessageStructBuilder) ActionType(actionType string) *DataArchivingMessageStructBuilder {
 	builder.actionType = actionType
-	builder.actionTypeFlag = true
+	builder.actionTypeSet = true
 	return builder
 }
 
@@ -2807,7 +3270,7 @@ func (builder *DataArchivingMessageStructBuilder) ActionType(actionType string) 
 // 示例值：oc_1263d7c4d513defb9f5df13214602aa6
 func (builder *DataArchivingMessageStructBuilder) ChatId(chatId string) *DataArchivingMessageStructBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -2816,7 +3279,7 @@ func (builder *DataArchivingMessageStructBuilder) ChatId(chatId string) *DataArc
 // 示例值：1700191599000
 func (builder *DataArchivingMessageStructBuilder) ActionTime(actionTime string) *DataArchivingMessageStructBuilder {
 	builder.actionTime = actionTime
-	builder.actionTimeFlag = true
+	builder.actionTimeSet = true
 	return builder
 }
 
@@ -2825,7 +3288,7 @@ func (builder *DataArchivingMessageStructBuilder) ActionTime(actionTime string) 
 // 示例值：true
 func (builder *DataArchivingMessageStructBuilder) IsSuperChat(isSuperChat bool) *DataArchivingMessageStructBuilder {
 	builder.isSuperChat = isSuperChat
-	builder.isSuperChatFlag = true
+	builder.isSuperChatSet = true
 	return builder
 }
 
@@ -2834,7 +3297,7 @@ func (builder *DataArchivingMessageStructBuilder) IsSuperChat(isSuperChat bool) 
 // 示例值：true
 func (builder *DataArchivingMessageStructBuilder) IsCrossTenantChat(isCrossTenantChat bool) *DataArchivingMessageStructBuilder {
 	builder.isCrossTenantChat = isCrossTenantChat
-	builder.isCrossTenantChatFlag = true
+	builder.isCrossTenantChatSet = true
 	return builder
 }
 
@@ -2843,7 +3306,7 @@ func (builder *DataArchivingMessageStructBuilder) IsCrossTenantChat(isCrossTenan
 // 示例值：会话名称
 func (builder *DataArchivingMessageStructBuilder) ChatName(chatName string) *DataArchivingMessageStructBuilder {
 	builder.chatName = chatName
-	builder.chatNameFlag = true
+	builder.chatNameSet = true
 	return builder
 }
 
@@ -2852,7 +3315,7 @@ func (builder *DataArchivingMessageStructBuilder) ChatName(chatName string) *Dat
 // 示例值：hello
 func (builder *DataArchivingMessageStructBuilder) Content(content string) *DataArchivingMessageStructBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -2861,7 +3324,7 @@ func (builder *DataArchivingMessageStructBuilder) Content(content string) *DataA
 // 示例值：group
 func (builder *DataArchivingMessageStructBuilder) ChatMode(chatMode string) *DataArchivingMessageStructBuilder {
 	builder.chatMode = chatMode
-	builder.chatModeFlag = true
+	builder.chatModeSet = true
 	return builder
 }
 
@@ -2870,7 +3333,7 @@ func (builder *DataArchivingMessageStructBuilder) ChatMode(chatMode string) *Dat
 // 示例值：FISTBUMP
 func (builder *DataArchivingMessageStructBuilder) ReactionType(reactionType string) *DataArchivingMessageStructBuilder {
 	builder.reactionType = reactionType
-	builder.reactionTypeFlag = true
+	builder.reactionTypeSet = true
 	return builder
 }
 
@@ -2879,63 +3342,63 @@ func (builder *DataArchivingMessageStructBuilder) ReactionType(reactionType stri
 // 示例值：om_829acd7aaae80c031837ad1946d7cf9f
 func (builder *DataArchivingMessageStructBuilder) ParentMsgId(parentMsgId string) *DataArchivingMessageStructBuilder {
 	builder.parentMsgId = parentMsgId
-	builder.parentMsgIdFlag = true
+	builder.parentMsgIdSet = true
 	return builder
 }
 
 func (builder *DataArchivingMessageStructBuilder) Build() *DataArchivingMessageStruct {
 	req := &DataArchivingMessageStruct{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.messageTypeFlag {
+	if builder.messageTypeSet {
 		req.MessageType = &builder.messageType
 
 	}
-	if builder.senderInfoFlag {
+	if builder.senderInfoSet {
 		req.SenderInfo = builder.senderInfo
 	}
-	if builder.receiverIdsFlag {
+	if builder.receiverIdsSet {
 		req.ReceiverIds = builder.receiverIds
 	}
-	if builder.actionTypeFlag {
+	if builder.actionTypeSet {
 		req.ActionType = &builder.actionType
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.actionTimeFlag {
+	if builder.actionTimeSet {
 		req.ActionTime = &builder.actionTime
 
 	}
-	if builder.isSuperChatFlag {
+	if builder.isSuperChatSet {
 		req.IsSuperChat = &builder.isSuperChat
 
 	}
-	if builder.isCrossTenantChatFlag {
+	if builder.isCrossTenantChatSet {
 		req.IsCrossTenantChat = &builder.isCrossTenantChat
 
 	}
-	if builder.chatNameFlag {
+	if builder.chatNameSet {
 		req.ChatName = &builder.chatName
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.chatModeFlag {
+	if builder.chatModeSet {
 		req.ChatMode = &builder.chatMode
 
 	}
-	if builder.reactionTypeFlag {
+	if builder.reactionTypeSet {
 		req.ReactionType = &builder.reactionType
 
 	}
-	if builder.parentMsgIdFlag {
+	if builder.parentMsgIdSet {
 		req.ParentMsgId = &builder.parentMsgId
 
 	}
@@ -2947,8 +3410,8 @@ type DataArchivingUser struct {
 }
 
 type DataArchivingUserBuilder struct {
-	userIds     []string // 归档人员列表
-	userIdsFlag bool
+	userIds    []string // 归档人员列表
+	userIdsSet bool
 }
 
 func NewDataArchivingUserBuilder() *DataArchivingUserBuilder {
@@ -2961,13 +3424,13 @@ func NewDataArchivingUserBuilder() *DataArchivingUserBuilder {
 // 示例值：
 func (builder *DataArchivingUserBuilder) UserIds(userIds []string) *DataArchivingUserBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 func (builder *DataArchivingUserBuilder) Build() *DataArchivingUser {
 	req := &DataArchivingUser{}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
 	return req
@@ -2983,13 +3446,13 @@ type DataArchivingUserStruct struct {
 
 type DataArchivingUserStructBuilder struct {
 	type_    string // 类型
-	typeFlag bool
+	type_Set bool
 
-	id     string // 值
-	idFlag bool
+	id    string // 值
+	idSet bool
 
-	name     string // 姓名
-	nameFlag bool
+	name    string // 姓名
+	nameSet bool
 }
 
 func NewDataArchivingUserStructBuilder() *DataArchivingUserStructBuilder {
@@ -3002,7 +3465,7 @@ func NewDataArchivingUserStructBuilder() *DataArchivingUserStructBuilder {
 // 示例值：1
 func (builder *DataArchivingUserStructBuilder) Type(type_ string) *DataArchivingUserStructBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -3011,7 +3474,7 @@ func (builder *DataArchivingUserStructBuilder) Type(type_ string) *DataArchiving
 // 示例值：352d9dgb
 func (builder *DataArchivingUserStructBuilder) Id(id string) *DataArchivingUserStructBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3020,21 +3483,21 @@ func (builder *DataArchivingUserStructBuilder) Id(id string) *DataArchivingUserS
 // 示例值：莉莉
 func (builder *DataArchivingUserStructBuilder) Name(name string) *DataArchivingUserStructBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *DataArchivingUserStructBuilder) Build() *DataArchivingUserStruct {
 	req := &DataArchivingUserStruct{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -3048,11 +3511,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -3060,27 +3523,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -3094,11 +3561,11 @@ type DetectProofContext struct {
 }
 
 type DetectProofContextBuilder struct {
-	detectName     string // 检测器名称
-	detectNameFlag bool
+	detectName    string // 检测器名称
+	detectNameSet bool
 
-	proofContexts     []*ProofContext // 证据上下文
-	proofContextsFlag bool
+	proofContexts    []*ProofContext // 证据上下文
+	proofContextsSet bool
 }
 
 func NewDetectProofContextBuilder() *DetectProofContextBuilder {
@@ -3111,7 +3578,7 @@ func NewDetectProofContextBuilder() *DetectProofContextBuilder {
 // 示例值：手机号
 func (builder *DetectProofContextBuilder) DetectName(detectName string) *DetectProofContextBuilder {
 	builder.detectName = detectName
-	builder.detectNameFlag = true
+	builder.detectNameSet = true
 	return builder
 }
 
@@ -3120,17 +3587,17 @@ func (builder *DetectProofContextBuilder) DetectName(detectName string) *DetectP
 // 示例值：
 func (builder *DetectProofContextBuilder) ProofContexts(proofContexts []*ProofContext) *DetectProofContextBuilder {
 	builder.proofContexts = proofContexts
-	builder.proofContextsFlag = true
+	builder.proofContextsSet = true
 	return builder
 }
 
 func (builder *DetectProofContextBuilder) Build() *DetectProofContext {
 	req := &DetectProofContext{}
-	if builder.detectNameFlag {
+	if builder.detectNameSet {
 		req.DetectName = &builder.detectName
 
 	}
-	if builder.proofContextsFlag {
+	if builder.proofContextsSet {
 		req.ProofContexts = builder.proofContexts
 	}
 	return req
@@ -3145,14 +3612,14 @@ type DetectRule struct {
 }
 
 type DetectRuleBuilder struct {
-	ruleId     string // 规则ID
-	ruleIdFlag bool
+	ruleId    string // 规则ID
+	ruleIdSet bool
 
-	ruleVersion     int // 规则版本号
-	ruleVersionFlag bool
+	ruleVersion    int // 规则版本号
+	ruleVersionSet bool
 
-	ruleName     string // 规则名称
-	ruleNameFlag bool
+	ruleName    string // 规则名称
+	ruleNameSet bool
 }
 
 func NewDetectRuleBuilder() *DetectRuleBuilder {
@@ -3165,7 +3632,7 @@ func NewDetectRuleBuilder() *DetectRuleBuilder {
 // 示例值：'7584161205007289872'
 func (builder *DetectRuleBuilder) RuleId(ruleId string) *DetectRuleBuilder {
 	builder.ruleId = ruleId
-	builder.ruleIdFlag = true
+	builder.ruleIdSet = true
 	return builder
 }
 
@@ -3174,7 +3641,7 @@ func (builder *DetectRuleBuilder) RuleId(ruleId string) *DetectRuleBuilder {
 // 示例值：1
 func (builder *DetectRuleBuilder) RuleVersion(ruleVersion int) *DetectRuleBuilder {
 	builder.ruleVersion = ruleVersion
-	builder.ruleVersionFlag = true
+	builder.ruleVersionSet = true
 	return builder
 }
 
@@ -3183,21 +3650,21 @@ func (builder *DetectRuleBuilder) RuleVersion(ruleVersion int) *DetectRuleBuilde
 // 示例值：规则名称
 func (builder *DetectRuleBuilder) RuleName(ruleName string) *DetectRuleBuilder {
 	builder.ruleName = ruleName
-	builder.ruleNameFlag = true
+	builder.ruleNameSet = true
 	return builder
 }
 
 func (builder *DetectRuleBuilder) Build() *DetectRule {
 	req := &DetectRule{}
-	if builder.ruleIdFlag {
+	if builder.ruleIdSet {
 		req.RuleId = &builder.ruleId
 
 	}
-	if builder.ruleVersionFlag {
+	if builder.ruleVersionSet {
 		req.RuleVersion = &builder.ruleVersion
 
 	}
-	if builder.ruleNameFlag {
+	if builder.ruleNameSet {
 		req.RuleName = &builder.ruleName
 
 	}
@@ -3247,65 +3714,65 @@ type DeviceApplyRecord struct {
 }
 
 type DeviceApplyRecordBuilder struct {
-	applyId     string // 设备申请单id
-	applyIdFlag bool
+	applyId    string // 设备申请单id
+	applyIdSet bool
 
-	deviceTerminalType     string // 设备类型
-	deviceTerminalTypeFlag bool
+	deviceTerminalType    string // 设备类型
+	deviceTerminalTypeSet bool
 
-	model     string // 设备型号
-	modelFlag bool
+	model    string // 设备型号
+	modelSet bool
 
-	serialNumber     string // 生产序列号
-	serialNumberFlag bool
+	serialNumber    string // 生产序列号
+	serialNumberSet bool
 
-	uuid     string // 主板UUID
-	uuidFlag bool
+	uuid    string // 主板UUID
+	uuidSet bool
 
-	macAddress     string // Mac地址
-	macAddressFlag bool
+	macAddress    string // Mac地址
+	macAddressSet bool
 
-	imei     string // 国际移动设备识别码
-	imeiFlag bool
+	imei    string // 国际移动设备识别码
+	imeiSet bool
 
-	androidId     string // Android 标识符
-	androidIdFlag bool
+	androidId    string // Android 标识符
+	androidIdSet bool
 
-	googleAid     string // google广告id
-	googleAidFlag bool
+	googleAid    string // google广告id
+	googleAidSet bool
 
-	idfa     string // Ios广告主标识符
-	idfaFlag bool
+	idfa    string // Ios广告主标识符
+	idfaSet bool
 
-	idfv     string // Ios 供应商标识符
-	idfvFlag bool
+	idfv    string // Ios 供应商标识符
+	idfvSet bool
 
-	applyStatus     string // 申报状态
-	applyStatusFlag bool
+	applyStatus    string // 申报状态
+	applyStatusSet bool
 
-	operator     *UserId // 申请人
-	operatorFlag bool
+	operator    *UserId // 申请人
+	operatorSet bool
 
-	applyTime     string // 申请时间
-	applyTimeFlag bool
+	applyTime    string // 申请时间
+	applyTimeSet bool
 
-	diskSerialNumber     string // 硬盘序列号
-	diskSerialNumberFlag bool
+	diskSerialNumber    string // 硬盘序列号
+	diskSerialNumberSet bool
 
-	deviceOwnership     string // 设备归属
-	deviceOwnershipFlag bool
+	deviceOwnership    string // 设备归属
+	deviceOwnershipSet bool
 
-	deviceSystem     string // 操作系统
-	deviceSystemFlag bool
+	deviceSystem    string // 操作系统
+	deviceSystemSet bool
 
-	deviceName     string // 设备名称
-	deviceNameFlag bool
+	deviceName    string // 设备名称
+	deviceNameSet bool
 
-	deviceRecordId     string // 设备单ID
-	deviceRecordIdFlag bool
+	deviceRecordId    string // 设备单ID
+	deviceRecordIdSet bool
 
-	aaid     string // 鸿蒙系统应用匿名标识符
-	aaidFlag bool
+	aaid    string // 鸿蒙系统应用匿名标识符
+	aaidSet bool
 }
 
 func NewDeviceApplyRecordBuilder() *DeviceApplyRecordBuilder {
@@ -3318,7 +3785,7 @@ func NewDeviceApplyRecordBuilder() *DeviceApplyRecordBuilder {
 // 示例值：321321311
 func (builder *DeviceApplyRecordBuilder) ApplyId(applyId string) *DeviceApplyRecordBuilder {
 	builder.applyId = applyId
-	builder.applyIdFlag = true
+	builder.applyIdSet = true
 	return builder
 }
 
@@ -3327,7 +3794,7 @@ func (builder *DeviceApplyRecordBuilder) ApplyId(applyId string) *DeviceApplyRec
 // 示例值：Mobile
 func (builder *DeviceApplyRecordBuilder) DeviceTerminalType(deviceTerminalType string) *DeviceApplyRecordBuilder {
 	builder.deviceTerminalType = deviceTerminalType
-	builder.deviceTerminalTypeFlag = true
+	builder.deviceTerminalTypeSet = true
 	return builder
 }
 
@@ -3336,7 +3803,7 @@ func (builder *DeviceApplyRecordBuilder) DeviceTerminalType(deviceTerminalType s
 // 示例值：MacBookPro16,2
 func (builder *DeviceApplyRecordBuilder) Model(model string) *DeviceApplyRecordBuilder {
 	builder.model = model
-	builder.modelFlag = true
+	builder.modelSet = true
 	return builder
 }
 
@@ -3345,7 +3812,7 @@ func (builder *DeviceApplyRecordBuilder) Model(model string) *DeviceApplyRecordB
 // 示例值：C02DTHRMML7H
 func (builder *DeviceApplyRecordBuilder) SerialNumber(serialNumber string) *DeviceApplyRecordBuilder {
 	builder.serialNumber = serialNumber
-	builder.serialNumberFlag = true
+	builder.serialNumberSet = true
 	return builder
 }
 
@@ -3354,7 +3821,7 @@ func (builder *DeviceApplyRecordBuilder) SerialNumber(serialNumber string) *Devi
 // 示例值：CC344362-5990-5A68-8DDD-64A23C99FA0C
 func (builder *DeviceApplyRecordBuilder) Uuid(uuid string) *DeviceApplyRecordBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
@@ -3363,7 +3830,7 @@ func (builder *DeviceApplyRecordBuilder) Uuid(uuid string) *DeviceApplyRecordBui
 // 示例值：ac:de:48:00:11:22
 func (builder *DeviceApplyRecordBuilder) MacAddress(macAddress string) *DeviceApplyRecordBuilder {
 	builder.macAddress = macAddress
-	builder.macAddressFlag = true
+	builder.macAddressSet = true
 	return builder
 }
 
@@ -3372,7 +3839,7 @@ func (builder *DeviceApplyRecordBuilder) MacAddress(macAddress string) *DeviceAp
 // 示例值：123456-78-901234-5
 func (builder *DeviceApplyRecordBuilder) Imei(imei string) *DeviceApplyRecordBuilder {
 	builder.imei = imei
-	builder.imeiFlag = true
+	builder.imeiSet = true
 	return builder
 }
 
@@ -3381,7 +3848,7 @@ func (builder *DeviceApplyRecordBuilder) Imei(imei string) *DeviceApplyRecordBui
 // 示例值：02a11ac4a83b918e
 func (builder *DeviceApplyRecordBuilder) AndroidId(androidId string) *DeviceApplyRecordBuilder {
 	builder.androidId = androidId
-	builder.androidIdFlag = true
+	builder.androidIdSet = true
 	return builder
 }
 
@@ -3390,7 +3857,7 @@ func (builder *DeviceApplyRecordBuilder) AndroidId(androidId string) *DeviceAppl
 // 示例值：02a11ac4a83b918e
 func (builder *DeviceApplyRecordBuilder) GoogleAid(googleAid string) *DeviceApplyRecordBuilder {
 	builder.googleAid = googleAid
-	builder.googleAidFlag = true
+	builder.googleAidSet = true
 	return builder
 }
 
@@ -3399,7 +3866,7 @@ func (builder *DeviceApplyRecordBuilder) GoogleAid(googleAid string) *DeviceAppl
 // 示例值：EA7583CD-A667-48BC-B806-42ECB2B48606
 func (builder *DeviceApplyRecordBuilder) Idfa(idfa string) *DeviceApplyRecordBuilder {
 	builder.idfa = idfa
-	builder.idfaFlag = true
+	builder.idfaSet = true
 	return builder
 }
 
@@ -3408,7 +3875,7 @@ func (builder *DeviceApplyRecordBuilder) Idfa(idfa string) *DeviceApplyRecordBui
 // 示例值：968F0E5C-C297-4122-ACB6-102494DEFD9A
 func (builder *DeviceApplyRecordBuilder) Idfv(idfv string) *DeviceApplyRecordBuilder {
 	builder.idfv = idfv
-	builder.idfvFlag = true
+	builder.idfvSet = true
 	return builder
 }
 
@@ -3417,7 +3884,7 @@ func (builder *DeviceApplyRecordBuilder) Idfv(idfv string) *DeviceApplyRecordBui
 // 示例值：Processing
 func (builder *DeviceApplyRecordBuilder) ApplyStatus(applyStatus string) *DeviceApplyRecordBuilder {
 	builder.applyStatus = applyStatus
-	builder.applyStatusFlag = true
+	builder.applyStatusSet = true
 	return builder
 }
 
@@ -3426,7 +3893,7 @@ func (builder *DeviceApplyRecordBuilder) ApplyStatus(applyStatus string) *Device
 // 示例值：
 func (builder *DeviceApplyRecordBuilder) Operator(operator *UserId) *DeviceApplyRecordBuilder {
 	builder.operator = operator
-	builder.operatorFlag = true
+	builder.operatorSet = true
 	return builder
 }
 
@@ -3435,7 +3902,7 @@ func (builder *DeviceApplyRecordBuilder) Operator(operator *UserId) *DeviceApply
 // 示例值：2022-11-28 17:21:26
 func (builder *DeviceApplyRecordBuilder) ApplyTime(applyTime string) *DeviceApplyRecordBuilder {
 	builder.applyTime = applyTime
-	builder.applyTimeFlag = true
+	builder.applyTimeSet = true
 	return builder
 }
 
@@ -3444,7 +3911,7 @@ func (builder *DeviceApplyRecordBuilder) ApplyTime(applyTime string) *DeviceAppl
 // 示例值：CC344362-5990-5A68-8DDD-64A23C99FA0C
 func (builder *DeviceApplyRecordBuilder) DiskSerialNumber(diskSerialNumber string) *DeviceApplyRecordBuilder {
 	builder.diskSerialNumber = diskSerialNumber
-	builder.diskSerialNumberFlag = true
+	builder.diskSerialNumberSet = true
 	return builder
 }
 
@@ -3453,7 +3920,7 @@ func (builder *DeviceApplyRecordBuilder) DiskSerialNumber(diskSerialNumber strin
 // 示例值：Company
 func (builder *DeviceApplyRecordBuilder) DeviceOwnership(deviceOwnership string) *DeviceApplyRecordBuilder {
 	builder.deviceOwnership = deviceOwnership
-	builder.deviceOwnershipFlag = true
+	builder.deviceOwnershipSet = true
 	return builder
 }
 
@@ -3462,7 +3929,7 @@ func (builder *DeviceApplyRecordBuilder) DeviceOwnership(deviceOwnership string)
 // 示例值：Windows
 func (builder *DeviceApplyRecordBuilder) DeviceSystem(deviceSystem string) *DeviceApplyRecordBuilder {
 	builder.deviceSystem = deviceSystem
-	builder.deviceSystemFlag = true
+	builder.deviceSystemSet = true
 	return builder
 }
 
@@ -3471,7 +3938,7 @@ func (builder *DeviceApplyRecordBuilder) DeviceSystem(deviceSystem string) *Devi
 // 示例值：xx的设备
 func (builder *DeviceApplyRecordBuilder) DeviceName(deviceName string) *DeviceApplyRecordBuilder {
 	builder.deviceName = deviceName
-	builder.deviceNameFlag = true
+	builder.deviceNameSet = true
 	return builder
 }
 
@@ -3480,7 +3947,7 @@ func (builder *DeviceApplyRecordBuilder) DeviceName(deviceName string) *DeviceAp
 // 示例值：321321311112
 func (builder *DeviceApplyRecordBuilder) DeviceRecordId(deviceRecordId string) *DeviceApplyRecordBuilder {
 	builder.deviceRecordId = deviceRecordId
-	builder.deviceRecordIdFlag = true
+	builder.deviceRecordIdSet = true
 	return builder
 }
 
@@ -3489,88 +3956,88 @@ func (builder *DeviceApplyRecordBuilder) DeviceRecordId(deviceRecordId string) *
 // 示例值：84a5a123-04c5-6789-9d71-3706e50f9250
 func (builder *DeviceApplyRecordBuilder) Aaid(aaid string) *DeviceApplyRecordBuilder {
 	builder.aaid = aaid
-	builder.aaidFlag = true
+	builder.aaidSet = true
 	return builder
 }
 
 func (builder *DeviceApplyRecordBuilder) Build() *DeviceApplyRecord {
 	req := &DeviceApplyRecord{}
-	if builder.applyIdFlag {
+	if builder.applyIdSet {
 		req.ApplyId = &builder.applyId
 
 	}
-	if builder.deviceTerminalTypeFlag {
+	if builder.deviceTerminalTypeSet {
 		req.DeviceTerminalType = &builder.deviceTerminalType
 
 	}
-	if builder.modelFlag {
+	if builder.modelSet {
 		req.Model = &builder.model
 
 	}
-	if builder.serialNumberFlag {
+	if builder.serialNumberSet {
 		req.SerialNumber = &builder.serialNumber
 
 	}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 
 	}
-	if builder.macAddressFlag {
+	if builder.macAddressSet {
 		req.MacAddress = &builder.macAddress
 
 	}
-	if builder.imeiFlag {
+	if builder.imeiSet {
 		req.Imei = &builder.imei
 
 	}
-	if builder.androidIdFlag {
+	if builder.androidIdSet {
 		req.AndroidId = &builder.androidId
 
 	}
-	if builder.googleAidFlag {
+	if builder.googleAidSet {
 		req.GoogleAid = &builder.googleAid
 
 	}
-	if builder.idfaFlag {
+	if builder.idfaSet {
 		req.Idfa = &builder.idfa
 
 	}
-	if builder.idfvFlag {
+	if builder.idfvSet {
 		req.Idfv = &builder.idfv
 
 	}
-	if builder.applyStatusFlag {
+	if builder.applyStatusSet {
 		req.ApplyStatus = &builder.applyStatus
 
 	}
-	if builder.operatorFlag {
+	if builder.operatorSet {
 		req.Operator = builder.operator
 	}
-	if builder.applyTimeFlag {
+	if builder.applyTimeSet {
 		req.ApplyTime = &builder.applyTime
 
 	}
-	if builder.diskSerialNumberFlag {
+	if builder.diskSerialNumberSet {
 		req.DiskSerialNumber = &builder.diskSerialNumber
 
 	}
-	if builder.deviceOwnershipFlag {
+	if builder.deviceOwnershipSet {
 		req.DeviceOwnership = &builder.deviceOwnership
 
 	}
-	if builder.deviceSystemFlag {
+	if builder.deviceSystemSet {
 		req.DeviceSystem = &builder.deviceSystem
 
 	}
-	if builder.deviceNameFlag {
+	if builder.deviceNameSet {
 		req.DeviceName = &builder.deviceName
 
 	}
-	if builder.deviceRecordIdFlag {
+	if builder.deviceRecordIdSet {
 		req.DeviceRecordId = &builder.deviceRecordId
 
 	}
-	if builder.aaidFlag {
+	if builder.aaidSet {
 		req.Aaid = &builder.aaid
 
 	}
@@ -3620,65 +4087,65 @@ type DeviceRecord struct {
 }
 
 type DeviceRecordBuilder struct {
-	deviceRecordId     string // 设备主键id
-	deviceRecordIdFlag bool
+	deviceRecordId    string // 设备主键id
+	deviceRecordIdSet bool
 
-	deviceTerminalType     string // 设备类型
-	deviceTerminalTypeFlag bool
+	deviceTerminalType    string // 设备类型
+	deviceTerminalTypeSet bool
 
-	deviceSystem     string // 操作系统
-	deviceSystemFlag bool
+	deviceSystem    string // 操作系统
+	deviceSystemSet bool
 
-	model     string // 设备型号
-	modelFlag bool
+	model    string // 设备型号
+	modelSet bool
 
-	deviceName     string // 设备名称
-	deviceNameFlag bool
+	deviceName    string // 设备名称
+	deviceNameSet bool
 
-	serialNumber     string // 生产序列号
-	serialNumberFlag bool
+	serialNumber    string // 生产序列号
+	serialNumberSet bool
 
-	uuid     string // 主板UUID
-	uuidFlag bool
+	uuid    string // 主板UUID
+	uuidSet bool
 
-	macAddress     string // Mac地址
-	macAddressFlag bool
+	macAddress    string // Mac地址
+	macAddressSet bool
 
-	imei     string // 国际移动设备识别码
-	imeiFlag bool
+	imei    string // 国际移动设备识别码
+	imeiSet bool
 
-	androidId     string // Android 标识符
-	androidIdFlag bool
+	androidId    string // Android 标识符
+	androidIdSet bool
 
-	googleAid     string // google广告id
-	googleAidFlag bool
+	googleAid    string // google广告id
+	googleAidSet bool
 
-	idfa     string // Ios广告主标识符
-	idfaFlag bool
+	idfa    string // Ios广告主标识符
+	idfaSet bool
 
-	idfv     string // Ios 供应商标识符
-	idfvFlag bool
+	idfv    string // Ios 供应商标识符
+	idfvSet bool
 
-	deviceOwnership     string // 设备归属
-	deviceOwnershipFlag bool
+	deviceOwnership    string // 设备归属
+	deviceOwnershipSet bool
 
-	deviceSource     string // 设备来源
-	deviceSourceFlag bool
+	deviceSource    string // 设备来源
+	deviceSourceSet bool
 
-	registerTime     string // 注册时间
-	registerTimeFlag bool
+	registerTime    string // 注册时间
+	registerTimeSet bool
 
-	deviceCredibility     string // 设备状态
-	deviceCredibilityFlag bool
+	deviceCredibility    string // 设备状态
+	deviceCredibilitySet bool
 
-	version     string // 设备记录版本
-	versionFlag bool
+	version    string // 设备记录版本
+	versionSet bool
 
-	diskSerialNumber     string // 硬盘序列号
-	diskSerialNumberFlag bool
+	diskSerialNumber    string // 硬盘序列号
+	diskSerialNumberSet bool
 
-	aaid     string // 鸿蒙系统应用匿名标识符
-	aaidFlag bool
+	aaid    string // 鸿蒙系统应用匿名标识符
+	aaidSet bool
 }
 
 func NewDeviceRecordBuilder() *DeviceRecordBuilder {
@@ -3691,7 +4158,7 @@ func NewDeviceRecordBuilder() *DeviceRecordBuilder {
 // 示例值：3a4771nbnd1os
 func (builder *DeviceRecordBuilder) DeviceRecordId(deviceRecordId string) *DeviceRecordBuilder {
 	builder.deviceRecordId = deviceRecordId
-	builder.deviceRecordIdFlag = true
+	builder.deviceRecordIdSet = true
 	return builder
 }
 
@@ -3700,7 +4167,7 @@ func (builder *DeviceRecordBuilder) DeviceRecordId(deviceRecordId string) *Devic
 // 示例值：mobile
 func (builder *DeviceRecordBuilder) DeviceTerminalType(deviceTerminalType string) *DeviceRecordBuilder {
 	builder.deviceTerminalType = deviceTerminalType
-	builder.deviceTerminalTypeFlag = true
+	builder.deviceTerminalTypeSet = true
 	return builder
 }
 
@@ -3709,7 +4176,7 @@ func (builder *DeviceRecordBuilder) DeviceTerminalType(deviceTerminalType string
 // 示例值：MacOS
 func (builder *DeviceRecordBuilder) DeviceSystem(deviceSystem string) *DeviceRecordBuilder {
 	builder.deviceSystem = deviceSystem
-	builder.deviceSystemFlag = true
+	builder.deviceSystemSet = true
 	return builder
 }
 
@@ -3718,7 +4185,7 @@ func (builder *DeviceRecordBuilder) DeviceSystem(deviceSystem string) *DeviceRec
 // 示例值：MacBookPro16,2
 func (builder *DeviceRecordBuilder) Model(model string) *DeviceRecordBuilder {
 	builder.model = model
-	builder.modelFlag = true
+	builder.modelSet = true
 	return builder
 }
 
@@ -3727,7 +4194,7 @@ func (builder *DeviceRecordBuilder) Model(model string) *DeviceRecordBuilder {
 // 示例值：HUMAN-PC
 func (builder *DeviceRecordBuilder) DeviceName(deviceName string) *DeviceRecordBuilder {
 	builder.deviceName = deviceName
-	builder.deviceNameFlag = true
+	builder.deviceNameSet = true
 	return builder
 }
 
@@ -3736,7 +4203,7 @@ func (builder *DeviceRecordBuilder) DeviceName(deviceName string) *DeviceRecordB
 // 示例值：C02DTHRMML7H
 func (builder *DeviceRecordBuilder) SerialNumber(serialNumber string) *DeviceRecordBuilder {
 	builder.serialNumber = serialNumber
-	builder.serialNumberFlag = true
+	builder.serialNumberSet = true
 	return builder
 }
 
@@ -3745,7 +4212,7 @@ func (builder *DeviceRecordBuilder) SerialNumber(serialNumber string) *DeviceRec
 // 示例值：CC344362-5990-5A68-8DDD-64A23C99FA0C
 func (builder *DeviceRecordBuilder) Uuid(uuid string) *DeviceRecordBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
@@ -3754,7 +4221,7 @@ func (builder *DeviceRecordBuilder) Uuid(uuid string) *DeviceRecordBuilder {
 // 示例值：ac:de:48:00:11:22
 func (builder *DeviceRecordBuilder) MacAddress(macAddress string) *DeviceRecordBuilder {
 	builder.macAddress = macAddress
-	builder.macAddressFlag = true
+	builder.macAddressSet = true
 	return builder
 }
 
@@ -3763,7 +4230,7 @@ func (builder *DeviceRecordBuilder) MacAddress(macAddress string) *DeviceRecordB
 // 示例值：123456-78-901234-5
 func (builder *DeviceRecordBuilder) Imei(imei string) *DeviceRecordBuilder {
 	builder.imei = imei
-	builder.imeiFlag = true
+	builder.imeiSet = true
 	return builder
 }
 
@@ -3772,7 +4239,7 @@ func (builder *DeviceRecordBuilder) Imei(imei string) *DeviceRecordBuilder {
 // 示例值：02a11ac4a83b918e
 func (builder *DeviceRecordBuilder) AndroidId(androidId string) *DeviceRecordBuilder {
 	builder.androidId = androidId
-	builder.androidIdFlag = true
+	builder.androidIdSet = true
 	return builder
 }
 
@@ -3781,7 +4248,7 @@ func (builder *DeviceRecordBuilder) AndroidId(androidId string) *DeviceRecordBui
 // 示例值：02a11ac4a83b918e
 func (builder *DeviceRecordBuilder) GoogleAid(googleAid string) *DeviceRecordBuilder {
 	builder.googleAid = googleAid
-	builder.googleAidFlag = true
+	builder.googleAidSet = true
 	return builder
 }
 
@@ -3790,7 +4257,7 @@ func (builder *DeviceRecordBuilder) GoogleAid(googleAid string) *DeviceRecordBui
 // 示例值：EA7583CD-A667-48BC-B806-42ECB2B48606
 func (builder *DeviceRecordBuilder) Idfa(idfa string) *DeviceRecordBuilder {
 	builder.idfa = idfa
-	builder.idfaFlag = true
+	builder.idfaSet = true
 	return builder
 }
 
@@ -3799,7 +4266,7 @@ func (builder *DeviceRecordBuilder) Idfa(idfa string) *DeviceRecordBuilder {
 // 示例值：968F0E5C-C297-4122-ACB6-102494DEFD9A
 func (builder *DeviceRecordBuilder) Idfv(idfv string) *DeviceRecordBuilder {
 	builder.idfv = idfv
-	builder.idfvFlag = true
+	builder.idfvSet = true
 	return builder
 }
 
@@ -3808,7 +4275,7 @@ func (builder *DeviceRecordBuilder) Idfv(idfv string) *DeviceRecordBuilder {
 // 示例值：Company
 func (builder *DeviceRecordBuilder) DeviceOwnership(deviceOwnership string) *DeviceRecordBuilder {
 	builder.deviceOwnership = deviceOwnership
-	builder.deviceOwnershipFlag = true
+	builder.deviceOwnershipSet = true
 	return builder
 }
 
@@ -3817,7 +4284,7 @@ func (builder *DeviceRecordBuilder) DeviceOwnership(deviceOwnership string) *Dev
 // 示例值：ADMIN_IMPORT
 func (builder *DeviceRecordBuilder) DeviceSource(deviceSource string) *DeviceRecordBuilder {
 	builder.deviceSource = deviceSource
-	builder.deviceSourceFlag = true
+	builder.deviceSourceSet = true
 	return builder
 }
 
@@ -3826,7 +4293,7 @@ func (builder *DeviceRecordBuilder) DeviceSource(deviceSource string) *DeviceRec
 // 示例值：2022-11-28 17:21:26
 func (builder *DeviceRecordBuilder) RegisterTime(registerTime string) *DeviceRecordBuilder {
 	builder.registerTime = registerTime
-	builder.registerTimeFlag = true
+	builder.registerTimeSet = true
 	return builder
 }
 
@@ -3835,7 +4302,7 @@ func (builder *DeviceRecordBuilder) RegisterTime(registerTime string) *DeviceRec
 // 示例值：Credible
 func (builder *DeviceRecordBuilder) DeviceCredibility(deviceCredibility string) *DeviceRecordBuilder {
 	builder.deviceCredibility = deviceCredibility
-	builder.deviceCredibilityFlag = true
+	builder.deviceCredibilitySet = true
 	return builder
 }
 
@@ -3844,7 +4311,7 @@ func (builder *DeviceRecordBuilder) DeviceCredibility(deviceCredibility string) 
 // 示例值：1692341374888
 func (builder *DeviceRecordBuilder) Version(version string) *DeviceRecordBuilder {
 	builder.version = version
-	builder.versionFlag = true
+	builder.versionSet = true
 	return builder
 }
 
@@ -3853,7 +4320,7 @@ func (builder *DeviceRecordBuilder) Version(version string) *DeviceRecordBuilder
 // 示例值：CC344362-5990-5A68-8DDD-64A23C99FA0C
 func (builder *DeviceRecordBuilder) DiskSerialNumber(diskSerialNumber string) *DeviceRecordBuilder {
 	builder.diskSerialNumber = diskSerialNumber
-	builder.diskSerialNumberFlag = true
+	builder.diskSerialNumberSet = true
 	return builder
 }
 
@@ -3862,89 +4329,89 @@ func (builder *DeviceRecordBuilder) DiskSerialNumber(diskSerialNumber string) *D
 // 示例值：84a5a123-04c5-6789-9d71-3706e50f9250
 func (builder *DeviceRecordBuilder) Aaid(aaid string) *DeviceRecordBuilder {
 	builder.aaid = aaid
-	builder.aaidFlag = true
+	builder.aaidSet = true
 	return builder
 }
 
 func (builder *DeviceRecordBuilder) Build() *DeviceRecord {
 	req := &DeviceRecord{}
-	if builder.deviceRecordIdFlag {
+	if builder.deviceRecordIdSet {
 		req.DeviceRecordId = &builder.deviceRecordId
 
 	}
-	if builder.deviceTerminalTypeFlag {
+	if builder.deviceTerminalTypeSet {
 		req.DeviceTerminalType = &builder.deviceTerminalType
 
 	}
-	if builder.deviceSystemFlag {
+	if builder.deviceSystemSet {
 		req.DeviceSystem = &builder.deviceSystem
 
 	}
-	if builder.modelFlag {
+	if builder.modelSet {
 		req.Model = &builder.model
 
 	}
-	if builder.deviceNameFlag {
+	if builder.deviceNameSet {
 		req.DeviceName = &builder.deviceName
 
 	}
-	if builder.serialNumberFlag {
+	if builder.serialNumberSet {
 		req.SerialNumber = &builder.serialNumber
 
 	}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 
 	}
-	if builder.macAddressFlag {
+	if builder.macAddressSet {
 		req.MacAddress = &builder.macAddress
 
 	}
-	if builder.imeiFlag {
+	if builder.imeiSet {
 		req.Imei = &builder.imei
 
 	}
-	if builder.androidIdFlag {
+	if builder.androidIdSet {
 		req.AndroidId = &builder.androidId
 
 	}
-	if builder.googleAidFlag {
+	if builder.googleAidSet {
 		req.GoogleAid = &builder.googleAid
 
 	}
-	if builder.idfaFlag {
+	if builder.idfaSet {
 		req.Idfa = &builder.idfa
 
 	}
-	if builder.idfvFlag {
+	if builder.idfvSet {
 		req.Idfv = &builder.idfv
 
 	}
-	if builder.deviceOwnershipFlag {
+	if builder.deviceOwnershipSet {
 		req.DeviceOwnership = &builder.deviceOwnership
 
 	}
-	if builder.deviceSourceFlag {
+	if builder.deviceSourceSet {
 		req.DeviceSource = &builder.deviceSource
 
 	}
-	if builder.registerTimeFlag {
+	if builder.registerTimeSet {
 		req.RegisterTime = &builder.registerTime
 
 	}
-	if builder.deviceCredibilityFlag {
+	if builder.deviceCredibilitySet {
 		req.DeviceCredibility = &builder.deviceCredibility
 
 	}
-	if builder.versionFlag {
+	if builder.versionSet {
 		req.Version = &builder.version
 
 	}
-	if builder.diskSerialNumberFlag {
+	if builder.diskSerialNumberSet {
 		req.DiskSerialNumber = &builder.diskSerialNumber
 
 	}
-	if builder.aaidFlag {
+	if builder.aaidSet {
 		req.Aaid = &builder.aaid
 
 	}
@@ -3964,20 +4431,20 @@ type DirectoryItems struct {
 }
 
 type DirectoryItemsBuilder struct {
-	entityId     string // 实体的 id
-	entityIdFlag bool
+	entityId    string // 实体的 id
+	entityIdSet bool
 
-	mailAddress     string // 邮箱地址。当通过 mailbox 查询实体时，返回 mail address，如果没有，则返回空。
-	mailAddressFlag bool
+	mailAddress    string // 邮箱地址。当通过 mailbox 查询实体时，返回 mail address，如果没有，则返回空。
+	mailAddressSet bool
 
-	entityLocation     string // 实体的数据驻留地
-	entityLocationFlag bool
+	entityLocation    string // 实体的数据驻留地
+	entityLocationSet bool
 
-	entityCreateTime     string // 实体创建时间（毫秒级时间戳）
-	entityCreateTimeFlag bool
+	entityCreateTime    string // 实体创建时间（毫秒级时间戳）
+	entityCreateTimeSet bool
 
-	entityType     string // 实体的类型
-	entityTypeFlag bool
+	entityType    string // 实体的类型
+	entityTypeSet bool
 }
 
 func NewDirectoryItemsBuilder() *DirectoryItemsBuilder {
@@ -3990,7 +4457,7 @@ func NewDirectoryItemsBuilder() *DirectoryItemsBuilder {
 // 示例值：134jsi43d3ssi993d435452
 func (builder *DirectoryItemsBuilder) EntityId(entityId string) *DirectoryItemsBuilder {
 	builder.entityId = entityId
-	builder.entityIdFlag = true
+	builder.entityIdSet = true
 	return builder
 }
 
@@ -3999,7 +4466,7 @@ func (builder *DirectoryItemsBuilder) EntityId(entityId string) *DirectoryItemsB
 // 示例值：xxx@xxx.xx
 func (builder *DirectoryItemsBuilder) MailAddress(mailAddress string) *DirectoryItemsBuilder {
 	builder.mailAddress = mailAddress
-	builder.mailAddressFlag = true
+	builder.mailAddressSet = true
 	return builder
 }
 
@@ -4008,7 +4475,7 @@ func (builder *DirectoryItemsBuilder) MailAddress(mailAddress string) *Directory
 // 示例值：SG
 func (builder *DirectoryItemsBuilder) EntityLocation(entityLocation string) *DirectoryItemsBuilder {
 	builder.entityLocation = entityLocation
-	builder.entityLocationFlag = true
+	builder.entityLocationSet = true
 	return builder
 }
 
@@ -4017,7 +4484,7 @@ func (builder *DirectoryItemsBuilder) EntityLocation(entityLocation string) *Dir
 // 示例值：1615380573411
 func (builder *DirectoryItemsBuilder) EntityCreateTime(entityCreateTime string) *DirectoryItemsBuilder {
 	builder.entityCreateTime = entityCreateTime
-	builder.entityCreateTimeFlag = true
+	builder.entityCreateTimeSet = true
 	return builder
 }
 
@@ -4026,29 +4493,29 @@ func (builder *DirectoryItemsBuilder) EntityCreateTime(entityCreateTime string) 
 // 示例值：sheets
 func (builder *DirectoryItemsBuilder) EntityType(entityType string) *DirectoryItemsBuilder {
 	builder.entityType = entityType
-	builder.entityTypeFlag = true
+	builder.entityTypeSet = true
 	return builder
 }
 
 func (builder *DirectoryItemsBuilder) Build() *DirectoryItems {
 	req := &DirectoryItems{}
-	if builder.entityIdFlag {
+	if builder.entityIdSet {
 		req.EntityId = &builder.entityId
 
 	}
-	if builder.mailAddressFlag {
+	if builder.mailAddressSet {
 		req.MailAddress = &builder.mailAddress
 
 	}
-	if builder.entityLocationFlag {
+	if builder.entityLocationSet {
 		req.EntityLocation = &builder.entityLocation
 
 	}
-	if builder.entityCreateTimeFlag {
+	if builder.entityCreateTimeSet {
 		req.EntityCreateTime = &builder.entityCreateTime
 
 	}
-	if builder.entityTypeFlag {
+	if builder.entityTypeSet {
 		req.EntityType = &builder.entityType
 
 	}
@@ -4066,17 +4533,17 @@ type DlpDetectModeProofContext struct {
 }
 
 type DlpDetectModeProofContextBuilder struct {
-	detectMode     int // 检测类型
-	detectModeFlag bool
+	detectMode    int // 检测类型
+	detectModeSet bool
 
-	detectName     string // 检测类型名称
-	detectNameFlag bool
+	detectName    string // 检测类型名称
+	detectNameSet bool
 
-	proofContexts     []*DlpProofContext // 命中片段
-	proofContextsFlag bool
+	proofContexts    []*DlpProofContext // 命中片段
+	proofContextsSet bool
 
-	hitCount     int // 命中次数
-	hitCountFlag bool
+	hitCount    int // 命中次数
+	hitCountSet bool
 }
 
 func NewDlpDetectModeProofContextBuilder() *DlpDetectModeProofContextBuilder {
@@ -4089,7 +4556,7 @@ func NewDlpDetectModeProofContextBuilder() *DlpDetectModeProofContextBuilder {
 // 示例值：1
 func (builder *DlpDetectModeProofContextBuilder) DetectMode(detectMode int) *DlpDetectModeProofContextBuilder {
 	builder.detectMode = detectMode
-	builder.detectModeFlag = true
+	builder.detectModeSet = true
 	return builder
 }
 
@@ -4098,7 +4565,7 @@ func (builder *DlpDetectModeProofContextBuilder) DetectMode(detectMode int) *Dlp
 // 示例值：关键词1
 func (builder *DlpDetectModeProofContextBuilder) DetectName(detectName string) *DlpDetectModeProofContextBuilder {
 	builder.detectName = detectName
-	builder.detectNameFlag = true
+	builder.detectNameSet = true
 	return builder
 }
 
@@ -4107,7 +4574,7 @@ func (builder *DlpDetectModeProofContextBuilder) DetectName(detectName string) *
 // 示例值：
 func (builder *DlpDetectModeProofContextBuilder) ProofContexts(proofContexts []*DlpProofContext) *DlpDetectModeProofContextBuilder {
 	builder.proofContexts = proofContexts
-	builder.proofContextsFlag = true
+	builder.proofContextsSet = true
 	return builder
 }
 
@@ -4116,24 +4583,24 @@ func (builder *DlpDetectModeProofContextBuilder) ProofContexts(proofContexts []*
 // 示例值：12
 func (builder *DlpDetectModeProofContextBuilder) HitCount(hitCount int) *DlpDetectModeProofContextBuilder {
 	builder.hitCount = hitCount
-	builder.hitCountFlag = true
+	builder.hitCountSet = true
 	return builder
 }
 
 func (builder *DlpDetectModeProofContextBuilder) Build() *DlpDetectModeProofContext {
 	req := &DlpDetectModeProofContext{}
-	if builder.detectModeFlag {
+	if builder.detectModeSet {
 		req.DetectMode = &builder.detectMode
 
 	}
-	if builder.detectNameFlag {
+	if builder.detectNameSet {
 		req.DetectName = &builder.detectName
 
 	}
-	if builder.proofContextsFlag {
+	if builder.proofContextsSet {
 		req.ProofContexts = builder.proofContexts
 	}
-	if builder.hitCountFlag {
+	if builder.hitCountSet {
 		req.HitCount = &builder.hitCount
 
 	}
@@ -4159,29 +4626,29 @@ type DlpEvidenceDetail struct {
 }
 
 type DlpEvidenceDetailBuilder struct {
-	keywordHits     []string // 命中关键词
-	keywordHitsFlag bool
+	keywordHits    []string // 命中关键词
+	keywordHitsSet bool
 
-	regularHits     []string // 命中正则表达式
-	regularHitsFlag bool
+	regularHits    []string // 命中正则表达式
+	regularHitsSet bool
 
-	sensitiveHits     []string // 命中敏感信息类型
-	sensitiveHitsFlag bool
+	sensitiveHits    []string // 命中敏感信息类型
+	sensitiveHitsSet bool
 
-	fileSizeHits     []string // 命中文件大小
-	fileSizeHitsFlag bool
+	fileSizeHits    []string // 命中文件大小
+	fileSizeHitsSet bool
 
-	fileTypeHits     []string // 命中文件类型
-	fileTypeHitsFlag bool
+	fileTypeHits    []string // 命中文件类型
+	fileTypeHitsSet bool
 
-	fileNameExtHits     []string // 命中文件拓展名
-	fileNameExtHitsFlag bool
+	fileNameExtHits    []string // 命中文件拓展名
+	fileNameExtHitsSet bool
 
-	triggerSnippets     []*DlpPolicyHitProof // 命中片段
-	triggerSnippetsFlag bool
+	triggerSnippets    []*DlpPolicyHitProof // 命中片段
+	triggerSnippetsSet bool
 
-	secureLabelHits     []string // 命中密级标签
-	secureLabelHitsFlag bool
+	secureLabelHits    []string // 命中密级标签
+	secureLabelHitsSet bool
 }
 
 func NewDlpEvidenceDetailBuilder() *DlpEvidenceDetailBuilder {
@@ -4194,7 +4661,7 @@ func NewDlpEvidenceDetailBuilder() *DlpEvidenceDetailBuilder {
 // 示例值：
 func (builder *DlpEvidenceDetailBuilder) KeywordHits(keywordHits []string) *DlpEvidenceDetailBuilder {
 	builder.keywordHits = keywordHits
-	builder.keywordHitsFlag = true
+	builder.keywordHitsSet = true
 	return builder
 }
 
@@ -4203,7 +4670,7 @@ func (builder *DlpEvidenceDetailBuilder) KeywordHits(keywordHits []string) *DlpE
 // 示例值：
 func (builder *DlpEvidenceDetailBuilder) RegularHits(regularHits []string) *DlpEvidenceDetailBuilder {
 	builder.regularHits = regularHits
-	builder.regularHitsFlag = true
+	builder.regularHitsSet = true
 	return builder
 }
 
@@ -4212,7 +4679,7 @@ func (builder *DlpEvidenceDetailBuilder) RegularHits(regularHits []string) *DlpE
 // 示例值：
 func (builder *DlpEvidenceDetailBuilder) SensitiveHits(sensitiveHits []string) *DlpEvidenceDetailBuilder {
 	builder.sensitiveHits = sensitiveHits
-	builder.sensitiveHitsFlag = true
+	builder.sensitiveHitsSet = true
 	return builder
 }
 
@@ -4221,7 +4688,7 @@ func (builder *DlpEvidenceDetailBuilder) SensitiveHits(sensitiveHits []string) *
 // 示例值：
 func (builder *DlpEvidenceDetailBuilder) FileSizeHits(fileSizeHits []string) *DlpEvidenceDetailBuilder {
 	builder.fileSizeHits = fileSizeHits
-	builder.fileSizeHitsFlag = true
+	builder.fileSizeHitsSet = true
 	return builder
 }
 
@@ -4230,7 +4697,7 @@ func (builder *DlpEvidenceDetailBuilder) FileSizeHits(fileSizeHits []string) *Dl
 // 示例值：
 func (builder *DlpEvidenceDetailBuilder) FileTypeHits(fileTypeHits []string) *DlpEvidenceDetailBuilder {
 	builder.fileTypeHits = fileTypeHits
-	builder.fileTypeHitsFlag = true
+	builder.fileTypeHitsSet = true
 	return builder
 }
 
@@ -4239,7 +4706,7 @@ func (builder *DlpEvidenceDetailBuilder) FileTypeHits(fileTypeHits []string) *Dl
 // 示例值：
 func (builder *DlpEvidenceDetailBuilder) FileNameExtHits(fileNameExtHits []string) *DlpEvidenceDetailBuilder {
 	builder.fileNameExtHits = fileNameExtHits
-	builder.fileNameExtHitsFlag = true
+	builder.fileNameExtHitsSet = true
 	return builder
 }
 
@@ -4248,7 +4715,7 @@ func (builder *DlpEvidenceDetailBuilder) FileNameExtHits(fileNameExtHits []strin
 // 示例值：
 func (builder *DlpEvidenceDetailBuilder) TriggerSnippets(triggerSnippets []*DlpPolicyHitProof) *DlpEvidenceDetailBuilder {
 	builder.triggerSnippets = triggerSnippets
-	builder.triggerSnippetsFlag = true
+	builder.triggerSnippetsSet = true
 	return builder
 }
 
@@ -4257,34 +4724,34 @@ func (builder *DlpEvidenceDetailBuilder) TriggerSnippets(triggerSnippets []*DlpP
 // 示例值：
 func (builder *DlpEvidenceDetailBuilder) SecureLabelHits(secureLabelHits []string) *DlpEvidenceDetailBuilder {
 	builder.secureLabelHits = secureLabelHits
-	builder.secureLabelHitsFlag = true
+	builder.secureLabelHitsSet = true
 	return builder
 }
 
 func (builder *DlpEvidenceDetailBuilder) Build() *DlpEvidenceDetail {
 	req := &DlpEvidenceDetail{}
-	if builder.keywordHitsFlag {
+	if builder.keywordHitsSet {
 		req.KeywordHits = builder.keywordHits
 	}
-	if builder.regularHitsFlag {
+	if builder.regularHitsSet {
 		req.RegularHits = builder.regularHits
 	}
-	if builder.sensitiveHitsFlag {
+	if builder.sensitiveHitsSet {
 		req.SensitiveHits = builder.sensitiveHits
 	}
-	if builder.fileSizeHitsFlag {
+	if builder.fileSizeHitsSet {
 		req.FileSizeHits = builder.fileSizeHits
 	}
-	if builder.fileTypeHitsFlag {
+	if builder.fileTypeHitsSet {
 		req.FileTypeHits = builder.fileTypeHits
 	}
-	if builder.fileNameExtHitsFlag {
+	if builder.fileNameExtHitsSet {
 		req.FileNameExtHits = builder.fileNameExtHits
 	}
-	if builder.triggerSnippetsFlag {
+	if builder.triggerSnippetsSet {
 		req.TriggerSnippets = builder.triggerSnippets
 	}
-	if builder.secureLabelHitsFlag {
+	if builder.secureLabelHitsSet {
 		req.SecureLabelHits = builder.secureLabelHits
 	}
 	return req
@@ -4299,14 +4766,14 @@ type DlpExecuteEvidence struct {
 }
 
 type DlpExecuteEvidenceBuilder struct {
-	keywordHits     []string // 关键字
-	keywordHitsFlag bool
+	keywordHits    []string // 关键字
+	keywordHitsSet bool
 
-	regularHits     []string // 正则表达式列表
-	regularHitsFlag bool
+	regularHits    []string // 正则表达式列表
+	regularHitsSet bool
 
-	sensitiveHits     []string // 敏感信息类型列表
-	sensitiveHitsFlag bool
+	sensitiveHits    []string // 敏感信息类型列表
+	sensitiveHitsSet bool
 }
 
 func NewDlpExecuteEvidenceBuilder() *DlpExecuteEvidenceBuilder {
@@ -4319,7 +4786,7 @@ func NewDlpExecuteEvidenceBuilder() *DlpExecuteEvidenceBuilder {
 // 示例值：
 func (builder *DlpExecuteEvidenceBuilder) KeywordHits(keywordHits []string) *DlpExecuteEvidenceBuilder {
 	builder.keywordHits = keywordHits
-	builder.keywordHitsFlag = true
+	builder.keywordHitsSet = true
 	return builder
 }
 
@@ -4328,7 +4795,7 @@ func (builder *DlpExecuteEvidenceBuilder) KeywordHits(keywordHits []string) *Dlp
 // 示例值：
 func (builder *DlpExecuteEvidenceBuilder) RegularHits(regularHits []string) *DlpExecuteEvidenceBuilder {
 	builder.regularHits = regularHits
-	builder.regularHitsFlag = true
+	builder.regularHitsSet = true
 	return builder
 }
 
@@ -4337,19 +4804,19 @@ func (builder *DlpExecuteEvidenceBuilder) RegularHits(regularHits []string) *Dlp
 // 示例值：
 func (builder *DlpExecuteEvidenceBuilder) SensitiveHits(sensitiveHits []string) *DlpExecuteEvidenceBuilder {
 	builder.sensitiveHits = sensitiveHits
-	builder.sensitiveHitsFlag = true
+	builder.sensitiveHitsSet = true
 	return builder
 }
 
 func (builder *DlpExecuteEvidenceBuilder) Build() *DlpExecuteEvidence {
 	req := &DlpExecuteEvidence{}
-	if builder.keywordHitsFlag {
+	if builder.keywordHitsSet {
 		req.KeywordHits = builder.keywordHits
 	}
-	if builder.regularHitsFlag {
+	if builder.regularHitsSet {
 		req.RegularHits = builder.regularHits
 	}
-	if builder.sensitiveHitsFlag {
+	if builder.sensitiveHitsSet {
 		req.SensitiveHits = builder.sensitiveHits
 	}
 	return req
@@ -4420,98 +4887,98 @@ type DlpExecuteLog struct {
 }
 
 type DlpExecuteLogBuilder struct {
-	applicableService     string // 应用业务线
-	applicableServiceFlag bool
+	applicableService    string // 应用业务线
+	applicableServiceSet bool
 
-	userName     string // 用户名
-	userNameFlag bool
+	userName    string // 用户名
+	userNameSet bool
 
-	userId     string // 用户id
-	userIdFlag bool
+	userId    string // 用户id
+	userIdSet bool
 
-	trigger     string // 触发条件
-	triggerFlag bool
+	trigger    string // 触发条件
+	triggerSet bool
 
-	time     string // 时间
-	timeFlag bool
+	time    string // 时间
+	timeSet bool
 
-	systemAction     string // 系统执行动作
-	systemActionFlag bool
+	systemAction    string // 系统执行动作
+	systemActionSet bool
 
-	senderName     string // 消息发送者名称
-	senderNameFlag bool
+	senderName    string // 消息发送者名称
+	senderNameSet bool
 
-	senderId     string // 消息发送者ID
-	senderIdFlag bool
+	senderId    string // 消息发送者ID
+	senderIdSet bool
 
-	recipientName     string // 消息接收者名称
-	recipientNameFlag bool
+	recipientName    string // 消息接收者名称
+	recipientNameSet bool
 
-	recipientId     string // 消息接收者ID
-	recipientIdFlag bool
+	recipientId    string // 消息接收者ID
+	recipientIdSet bool
 
-	chatName     string // 会话名称
-	chatNameFlag bool
+	chatName    string // 会话名称
+	chatNameSet bool
 
-	chatId     string // 会话ID
-	chatIdFlag bool
+	chatId    string // 会话ID
+	chatIdSet bool
 
-	messageId     string // 消息ID
-	messageIdFlag bool
+	messageId    string // 消息ID
+	messageIdSet bool
 
-	messageContent     string // 消息内容
-	messageContentFlag bool
+	messageContent    string // 消息内容
+	messageContentSet bool
 
-	aliasIngroup     string // 群昵称
-	aliasIngroupFlag bool
+	aliasIngroup    string // 群昵称
+	aliasIngroupSet bool
 
-	groupDescription     string // 群描述
-	groupDescriptionFlag bool
+	groupDescription    string // 群描述
+	groupDescriptionSet bool
 
-	groupTabContent     string // 群标签页内容
-	groupTabContentFlag bool
+	groupTabContent    string // 群标签页内容
+	groupTabContentSet bool
 
-	fileName     string // 文件名称
-	fileNameFlag bool
+	fileName    string // 文件名称
+	fileNameSet bool
 
-	fileKey     string // 文件key
-	fileKeyFlag bool
+	fileKey    string // 文件key
+	fileKeySet bool
 
-	documentOwnerName     string // 文档所有者名称
-	documentOwnerNameFlag bool
+	documentOwnerName    string // 文档所有者名称
+	documentOwnerNameSet bool
 
-	documentOwnerId     string // 文档所有者ID
-	documentOwnerIdFlag bool
+	documentOwnerId    string // 文档所有者ID
+	documentOwnerIdSet bool
 
-	documentName     string // 文档名称
-	documentNameFlag bool
+	documentName    string // 文档名称
+	documentNameSet bool
 
-	documentType     string // 云文档类型，如文档、电子表格等
-	documentTypeFlag bool
+	documentType    string // 云文档类型，如文档、电子表格等
+	documentTypeSet bool
 
-	documentLink     string // 文档链接
-	documentLinkFlag bool
+	documentLink    string // 文档链接
+	documentLinkSet bool
 
-	evidenceDetail     *DlpEvidenceDetail // 证据详情
-	evidenceDetailFlag bool
+	evidenceDetail    *DlpEvidenceDetail // 证据详情
+	evidenceDetailSet bool
 
-	hitPolicies     []*DlpHitPolicy // 命中策略
-	hitPoliciesFlag bool
+	hitPolicies    []*DlpHitPolicy // 命中策略
+	hitPoliciesSet bool
 
-	fileToken     string // 文件token
-	fileTokenFlag bool
+	fileToken    string // 文件token
+	fileTokenSet bool
 
-	triggerEventType     string // 触发事件类型
-	triggerEventTypeFlag bool
+	triggerEventType    string // 触发事件类型
+	triggerEventTypeSet bool
 
-	chatType     string // 会话类型
-	chatTypeFlag bool
+	chatType    string // 会话类型
+	chatTypeSet bool
 
-	groupOwnerName     string // 群主名称
-	groupOwnerNameFlag bool
+	groupOwnerName    string // 群主名称
+	groupOwnerNameSet bool
 
-	groupOwnerId     string // 群主ID
-	groupOwnerIdFlag bool
+	groupOwnerId    string // 群主ID
+	groupOwnerIdSet bool
 }
 
 func NewDlpExecuteLogBuilder() *DlpExecuteLogBuilder {
@@ -4524,7 +4991,7 @@ func NewDlpExecuteLogBuilder() *DlpExecuteLogBuilder {
 // 示例值：即时消息
 func (builder *DlpExecuteLogBuilder) ApplicableService(applicableService string) *DlpExecuteLogBuilder {
 	builder.applicableService = applicableService
-	builder.applicableServiceFlag = true
+	builder.applicableServiceSet = true
 	return builder
 }
 
@@ -4533,7 +5000,7 @@ func (builder *DlpExecuteLogBuilder) ApplicableService(applicableService string)
 // 示例值：张三
 func (builder *DlpExecuteLogBuilder) UserName(userName string) *DlpExecuteLogBuilder {
 	builder.userName = userName
-	builder.userNameFlag = true
+	builder.userNameSet = true
 	return builder
 }
 
@@ -4542,7 +5009,7 @@ func (builder *DlpExecuteLogBuilder) UserName(userName string) *DlpExecuteLogBui
 // 示例值：934791734918
 func (builder *DlpExecuteLogBuilder) UserId(userId string) *DlpExecuteLogBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -4551,7 +5018,7 @@ func (builder *DlpExecuteLogBuilder) UserId(userId string) *DlpExecuteLogBuilder
 // 示例值：下载/打印
 func (builder *DlpExecuteLogBuilder) Trigger(trigger string) *DlpExecuteLogBuilder {
 	builder.trigger = trigger
-	builder.triggerFlag = true
+	builder.triggerSet = true
 	return builder
 }
 
@@ -4560,7 +5027,7 @@ func (builder *DlpExecuteLogBuilder) Trigger(trigger string) *DlpExecuteLogBuild
 // 示例值：16894002
 func (builder *DlpExecuteLogBuilder) Time(time string) *DlpExecuteLogBuilder {
 	builder.time = time
-	builder.timeFlag = true
+	builder.timeSet = true
 	return builder
 }
 
@@ -4569,7 +5036,7 @@ func (builder *DlpExecuteLogBuilder) Time(time string) *DlpExecuteLogBuilder {
 // 示例值：拦截
 func (builder *DlpExecuteLogBuilder) SystemAction(systemAction string) *DlpExecuteLogBuilder {
 	builder.systemAction = systemAction
-	builder.systemActionFlag = true
+	builder.systemActionSet = true
 	return builder
 }
 
@@ -4578,7 +5045,7 @@ func (builder *DlpExecuteLogBuilder) SystemAction(systemAction string) *DlpExecu
 // 示例值：张三
 func (builder *DlpExecuteLogBuilder) SenderName(senderName string) *DlpExecuteLogBuilder {
 	builder.senderName = senderName
-	builder.senderNameFlag = true
+	builder.senderNameSet = true
 	return builder
 }
 
@@ -4587,7 +5054,7 @@ func (builder *DlpExecuteLogBuilder) SenderName(senderName string) *DlpExecuteLo
 // 示例值：983749203223
 func (builder *DlpExecuteLogBuilder) SenderId(senderId string) *DlpExecuteLogBuilder {
 	builder.senderId = senderId
-	builder.senderIdFlag = true
+	builder.senderIdSet = true
 	return builder
 }
 
@@ -4596,7 +5063,7 @@ func (builder *DlpExecuteLogBuilder) SenderId(senderId string) *DlpExecuteLogBui
 // 示例值：李四
 func (builder *DlpExecuteLogBuilder) RecipientName(recipientName string) *DlpExecuteLogBuilder {
 	builder.recipientName = recipientName
-	builder.recipientNameFlag = true
+	builder.recipientNameSet = true
 	return builder
 }
 
@@ -4605,7 +5072,7 @@ func (builder *DlpExecuteLogBuilder) RecipientName(recipientName string) *DlpExe
 // 示例值：96382734927001
 func (builder *DlpExecuteLogBuilder) RecipientId(recipientId string) *DlpExecuteLogBuilder {
 	builder.recipientId = recipientId
-	builder.recipientIdFlag = true
+	builder.recipientIdSet = true
 	return builder
 }
 
@@ -4614,7 +5081,7 @@ func (builder *DlpExecuteLogBuilder) RecipientId(recipientId string) *DlpExecute
 // 示例值：张三的群聊
 func (builder *DlpExecuteLogBuilder) ChatName(chatName string) *DlpExecuteLogBuilder {
 	builder.chatName = chatName
-	builder.chatNameFlag = true
+	builder.chatNameSet = true
 	return builder
 }
 
@@ -4623,7 +5090,7 @@ func (builder *DlpExecuteLogBuilder) ChatName(chatName string) *DlpExecuteLogBui
 // 示例值：9374819371047
 func (builder *DlpExecuteLogBuilder) ChatId(chatId string) *DlpExecuteLogBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -4632,7 +5099,7 @@ func (builder *DlpExecuteLogBuilder) ChatId(chatId string) *DlpExecuteLogBuilder
 // 示例值：9237481847832
 func (builder *DlpExecuteLogBuilder) MessageId(messageId string) *DlpExecuteLogBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -4641,7 +5108,7 @@ func (builder *DlpExecuteLogBuilder) MessageId(messageId string) *DlpExecuteLogB
 // 示例值：这是一则消息
 func (builder *DlpExecuteLogBuilder) MessageContent(messageContent string) *DlpExecuteLogBuilder {
 	builder.messageContent = messageContent
-	builder.messageContentFlag = true
+	builder.messageContentSet = true
 	return builder
 }
 
@@ -4650,7 +5117,7 @@ func (builder *DlpExecuteLogBuilder) MessageContent(messageContent string) *DlpE
 // 示例值：李四的昵称
 func (builder *DlpExecuteLogBuilder) AliasIngroup(aliasIngroup string) *DlpExecuteLogBuilder {
 	builder.aliasIngroup = aliasIngroup
-	builder.aliasIngroupFlag = true
+	builder.aliasIngroupSet = true
 	return builder
 }
 
@@ -4659,7 +5126,7 @@ func (builder *DlpExecuteLogBuilder) AliasIngroup(aliasIngroup string) *DlpExecu
 // 示例值：这是一个群描述
 func (builder *DlpExecuteLogBuilder) GroupDescription(groupDescription string) *DlpExecuteLogBuilder {
 	builder.groupDescription = groupDescription
-	builder.groupDescriptionFlag = true
+	builder.groupDescriptionSet = true
 	return builder
 }
 
@@ -4668,7 +5135,7 @@ func (builder *DlpExecuteLogBuilder) GroupDescription(groupDescription string) *
 // 示例值：文档标签页
 func (builder *DlpExecuteLogBuilder) GroupTabContent(groupTabContent string) *DlpExecuteLogBuilder {
 	builder.groupTabContent = groupTabContent
-	builder.groupTabContentFlag = true
+	builder.groupTabContentSet = true
 	return builder
 }
 
@@ -4677,7 +5144,7 @@ func (builder *DlpExecuteLogBuilder) GroupTabContent(groupTabContent string) *Dl
 // 示例值：文件1
 func (builder *DlpExecuteLogBuilder) FileName(fileName string) *DlpExecuteLogBuilder {
 	builder.fileName = fileName
-	builder.fileNameFlag = true
+	builder.fileNameSet = true
 	return builder
 }
 
@@ -4686,7 +5153,7 @@ func (builder *DlpExecuteLogBuilder) FileName(fileName string) *DlpExecuteLogBui
 // 示例值：key-skjfldljbf
 func (builder *DlpExecuteLogBuilder) FileKey(fileKey string) *DlpExecuteLogBuilder {
 	builder.fileKey = fileKey
-	builder.fileKeyFlag = true
+	builder.fileKeySet = true
 	return builder
 }
 
@@ -4695,7 +5162,7 @@ func (builder *DlpExecuteLogBuilder) FileKey(fileKey string) *DlpExecuteLogBuild
 // 示例值：王五
 func (builder *DlpExecuteLogBuilder) DocumentOwnerName(documentOwnerName string) *DlpExecuteLogBuilder {
 	builder.documentOwnerName = documentOwnerName
-	builder.documentOwnerNameFlag = true
+	builder.documentOwnerNameSet = true
 	return builder
 }
 
@@ -4704,7 +5171,7 @@ func (builder *DlpExecuteLogBuilder) DocumentOwnerName(documentOwnerName string)
 // 示例值：93743293493
 func (builder *DlpExecuteLogBuilder) DocumentOwnerId(documentOwnerId string) *DlpExecuteLogBuilder {
 	builder.documentOwnerId = documentOwnerId
-	builder.documentOwnerIdFlag = true
+	builder.documentOwnerIdSet = true
 	return builder
 }
 
@@ -4713,7 +5180,7 @@ func (builder *DlpExecuteLogBuilder) DocumentOwnerId(documentOwnerId string) *Dl
 // 示例值：文档名称一
 func (builder *DlpExecuteLogBuilder) DocumentName(documentName string) *DlpExecuteLogBuilder {
 	builder.documentName = documentName
-	builder.documentNameFlag = true
+	builder.documentNameSet = true
 	return builder
 }
 
@@ -4722,7 +5189,7 @@ func (builder *DlpExecuteLogBuilder) DocumentName(documentName string) *DlpExecu
 // 示例值：doc
 func (builder *DlpExecuteLogBuilder) DocumentType(documentType string) *DlpExecuteLogBuilder {
 	builder.documentType = documentType
-	builder.documentTypeFlag = true
+	builder.documentTypeSet = true
 	return builder
 }
 
@@ -4731,7 +5198,7 @@ func (builder *DlpExecuteLogBuilder) DocumentType(documentType string) *DlpExecu
 // 示例值：http://example.test/testdoc
 func (builder *DlpExecuteLogBuilder) DocumentLink(documentLink string) *DlpExecuteLogBuilder {
 	builder.documentLink = documentLink
-	builder.documentLinkFlag = true
+	builder.documentLinkSet = true
 	return builder
 }
 
@@ -4740,7 +5207,7 @@ func (builder *DlpExecuteLogBuilder) DocumentLink(documentLink string) *DlpExecu
 // 示例值：
 func (builder *DlpExecuteLogBuilder) EvidenceDetail(evidenceDetail *DlpEvidenceDetail) *DlpExecuteLogBuilder {
 	builder.evidenceDetail = evidenceDetail
-	builder.evidenceDetailFlag = true
+	builder.evidenceDetailSet = true
 	return builder
 }
 
@@ -4749,7 +5216,7 @@ func (builder *DlpExecuteLogBuilder) EvidenceDetail(evidenceDetail *DlpEvidenceD
 // 示例值：
 func (builder *DlpExecuteLogBuilder) HitPolicies(hitPolicies []*DlpHitPolicy) *DlpExecuteLogBuilder {
 	builder.hitPolicies = hitPolicies
-	builder.hitPoliciesFlag = true
+	builder.hitPoliciesSet = true
 	return builder
 }
 
@@ -4758,7 +5225,7 @@ func (builder *DlpExecuteLogBuilder) HitPolicies(hitPolicies []*DlpHitPolicy) *D
 // 示例值：token-aaddtken
 func (builder *DlpExecuteLogBuilder) FileToken(fileToken string) *DlpExecuteLogBuilder {
 	builder.fileToken = fileToken
-	builder.fileTokenFlag = true
+	builder.fileTokenSet = true
 	return builder
 }
 
@@ -4767,7 +5234,7 @@ func (builder *DlpExecuteLogBuilder) FileToken(fileToken string) *DlpExecuteLogB
 // 示例值：系统送检
 func (builder *DlpExecuteLogBuilder) TriggerEventType(triggerEventType string) *DlpExecuteLogBuilder {
 	builder.triggerEventType = triggerEventType
-	builder.triggerEventTypeFlag = true
+	builder.triggerEventTypeSet = true
 	return builder
 }
 
@@ -4776,7 +5243,7 @@ func (builder *DlpExecuteLogBuilder) TriggerEventType(triggerEventType string) *
 // 示例值：1
 func (builder *DlpExecuteLogBuilder) ChatType(chatType string) *DlpExecuteLogBuilder {
 	builder.chatType = chatType
-	builder.chatTypeFlag = true
+	builder.chatTypeSet = true
 	return builder
 }
 
@@ -4785,7 +5252,7 @@ func (builder *DlpExecuteLogBuilder) ChatType(chatType string) *DlpExecuteLogBui
 // 示例值：李四
 func (builder *DlpExecuteLogBuilder) GroupOwnerName(groupOwnerName string) *DlpExecuteLogBuilder {
 	builder.groupOwnerName = groupOwnerName
-	builder.groupOwnerNameFlag = true
+	builder.groupOwnerNameSet = true
 	return builder
 }
 
@@ -4794,131 +5261,131 @@ func (builder *DlpExecuteLogBuilder) GroupOwnerName(groupOwnerName string) *DlpE
 // 示例值：983749203223
 func (builder *DlpExecuteLogBuilder) GroupOwnerId(groupOwnerId string) *DlpExecuteLogBuilder {
 	builder.groupOwnerId = groupOwnerId
-	builder.groupOwnerIdFlag = true
+	builder.groupOwnerIdSet = true
 	return builder
 }
 
 func (builder *DlpExecuteLogBuilder) Build() *DlpExecuteLog {
 	req := &DlpExecuteLog{}
-	if builder.applicableServiceFlag {
+	if builder.applicableServiceSet {
 		req.ApplicableService = &builder.applicableService
 
 	}
-	if builder.userNameFlag {
+	if builder.userNameSet {
 		req.UserName = &builder.userName
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.triggerFlag {
+	if builder.triggerSet {
 		req.Trigger = &builder.trigger
 
 	}
-	if builder.timeFlag {
+	if builder.timeSet {
 		req.Time = &builder.time
 
 	}
-	if builder.systemActionFlag {
+	if builder.systemActionSet {
 		req.SystemAction = &builder.systemAction
 
 	}
-	if builder.senderNameFlag {
+	if builder.senderNameSet {
 		req.SenderName = &builder.senderName
 
 	}
-	if builder.senderIdFlag {
+	if builder.senderIdSet {
 		req.SenderId = &builder.senderId
 
 	}
-	if builder.recipientNameFlag {
+	if builder.recipientNameSet {
 		req.RecipientName = &builder.recipientName
 
 	}
-	if builder.recipientIdFlag {
+	if builder.recipientIdSet {
 		req.RecipientId = &builder.recipientId
 
 	}
-	if builder.chatNameFlag {
+	if builder.chatNameSet {
 		req.ChatName = &builder.chatName
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.messageContentFlag {
+	if builder.messageContentSet {
 		req.MessageContent = &builder.messageContent
 
 	}
-	if builder.aliasIngroupFlag {
+	if builder.aliasIngroupSet {
 		req.AliasIngroup = &builder.aliasIngroup
 
 	}
-	if builder.groupDescriptionFlag {
+	if builder.groupDescriptionSet {
 		req.GroupDescription = &builder.groupDescription
 
 	}
-	if builder.groupTabContentFlag {
+	if builder.groupTabContentSet {
 		req.GroupTabContent = &builder.groupTabContent
 
 	}
-	if builder.fileNameFlag {
+	if builder.fileNameSet {
 		req.FileName = &builder.fileName
 
 	}
-	if builder.fileKeyFlag {
+	if builder.fileKeySet {
 		req.FileKey = &builder.fileKey
 
 	}
-	if builder.documentOwnerNameFlag {
+	if builder.documentOwnerNameSet {
 		req.DocumentOwnerName = &builder.documentOwnerName
 
 	}
-	if builder.documentOwnerIdFlag {
+	if builder.documentOwnerIdSet {
 		req.DocumentOwnerId = &builder.documentOwnerId
 
 	}
-	if builder.documentNameFlag {
+	if builder.documentNameSet {
 		req.DocumentName = &builder.documentName
 
 	}
-	if builder.documentTypeFlag {
+	if builder.documentTypeSet {
 		req.DocumentType = &builder.documentType
 
 	}
-	if builder.documentLinkFlag {
+	if builder.documentLinkSet {
 		req.DocumentLink = &builder.documentLink
 
 	}
-	if builder.evidenceDetailFlag {
+	if builder.evidenceDetailSet {
 		req.EvidenceDetail = builder.evidenceDetail
 	}
-	if builder.hitPoliciesFlag {
+	if builder.hitPoliciesSet {
 		req.HitPolicies = builder.hitPolicies
 	}
-	if builder.fileTokenFlag {
+	if builder.fileTokenSet {
 		req.FileToken = &builder.fileToken
 
 	}
-	if builder.triggerEventTypeFlag {
+	if builder.triggerEventTypeSet {
 		req.TriggerEventType = &builder.triggerEventType
 
 	}
-	if builder.chatTypeFlag {
+	if builder.chatTypeSet {
 		req.ChatType = &builder.chatType
 
 	}
-	if builder.groupOwnerNameFlag {
+	if builder.groupOwnerNameSet {
 		req.GroupOwnerName = &builder.groupOwnerName
 
 	}
-	if builder.groupOwnerIdFlag {
+	if builder.groupOwnerIdSet {
 		req.GroupOwnerId = &builder.groupOwnerId
 
 	}
@@ -4932,11 +5399,11 @@ type DlpHitPolicy struct {
 }
 
 type DlpHitPolicyBuilder struct {
-	policyId     string // 策略ID
-	policyIdFlag bool
+	policyId    string // 策略ID
+	policyIdSet bool
 
-	policyName     string // 策略名称
-	policyNameFlag bool
+	policyName    string // 策略名称
+	policyNameSet bool
 }
 
 func NewDlpHitPolicyBuilder() *DlpHitPolicyBuilder {
@@ -4949,7 +5416,7 @@ func NewDlpHitPolicyBuilder() *DlpHitPolicyBuilder {
 // 示例值：713628373819212
 func (builder *DlpHitPolicyBuilder) PolicyId(policyId string) *DlpHitPolicyBuilder {
 	builder.policyId = policyId
-	builder.policyIdFlag = true
+	builder.policyIdSet = true
 	return builder
 }
 
@@ -4958,17 +5425,17 @@ func (builder *DlpHitPolicyBuilder) PolicyId(policyId string) *DlpHitPolicyBuild
 // 示例值：dlp测试策略一
 func (builder *DlpHitPolicyBuilder) PolicyName(policyName string) *DlpHitPolicyBuilder {
 	builder.policyName = policyName
-	builder.policyNameFlag = true
+	builder.policyNameSet = true
 	return builder
 }
 
 func (builder *DlpHitPolicyBuilder) Build() *DlpHitPolicy {
 	req := &DlpHitPolicy{}
-	if builder.policyIdFlag {
+	if builder.policyIdSet {
 		req.PolicyId = &builder.policyId
 
 	}
-	if builder.policyNameFlag {
+	if builder.policyNameSet {
 		req.PolicyName = &builder.policyName
 
 	}
@@ -4982,11 +5449,11 @@ type DlpPolicyHitProof struct {
 }
 
 type DlpPolicyHitProofBuilder struct {
-	policyId     string // dlp策略ID
-	policyIdFlag bool
+	policyId    string // dlp策略ID
+	policyIdSet bool
 
-	detectModeProofContexts     []*DlpDetectModeProofContext // 命中片段证据详情
-	detectModeProofContextsFlag bool
+	detectModeProofContexts    []*DlpDetectModeProofContext // 命中片段证据详情
+	detectModeProofContextsSet bool
 }
 
 func NewDlpPolicyHitProofBuilder() *DlpPolicyHitProofBuilder {
@@ -4999,7 +5466,7 @@ func NewDlpPolicyHitProofBuilder() *DlpPolicyHitProofBuilder {
 // 示例值：123123123123
 func (builder *DlpPolicyHitProofBuilder) PolicyId(policyId string) *DlpPolicyHitProofBuilder {
 	builder.policyId = policyId
-	builder.policyIdFlag = true
+	builder.policyIdSet = true
 	return builder
 }
 
@@ -5008,17 +5475,17 @@ func (builder *DlpPolicyHitProofBuilder) PolicyId(policyId string) *DlpPolicyHit
 // 示例值：
 func (builder *DlpPolicyHitProofBuilder) DetectModeProofContexts(detectModeProofContexts []*DlpDetectModeProofContext) *DlpPolicyHitProofBuilder {
 	builder.detectModeProofContexts = detectModeProofContexts
-	builder.detectModeProofContextsFlag = true
+	builder.detectModeProofContextsSet = true
 	return builder
 }
 
 func (builder *DlpPolicyHitProofBuilder) Build() *DlpPolicyHitProof {
 	req := &DlpPolicyHitProof{}
-	if builder.policyIdFlag {
+	if builder.policyIdSet {
 		req.PolicyId = &builder.policyId
 
 	}
-	if builder.detectModeProofContextsFlag {
+	if builder.detectModeProofContextsSet {
 		req.DetectModeProofContexts = builder.detectModeProofContexts
 	}
 	return req
@@ -5031,11 +5498,11 @@ type DlpProofContext struct {
 }
 
 type DlpProofContextBuilder struct {
-	hitContent     string // 命中内容
-	hitContentFlag bool
+	hitContent    string // 命中内容
+	hitContentSet bool
 
-	contextSnippet     string // 上下文片段
-	contextSnippetFlag bool
+	contextSnippet    string // 上下文片段
+	contextSnippetSet bool
 }
 
 func NewDlpProofContextBuilder() *DlpProofContextBuilder {
@@ -5048,7 +5515,7 @@ func NewDlpProofContextBuilder() *DlpProofContextBuilder {
 // 示例值：关键词
 func (builder *DlpProofContextBuilder) HitContent(hitContent string) *DlpProofContextBuilder {
 	builder.hitContent = hitContent
-	builder.hitContentFlag = true
+	builder.hitContentSet = true
 	return builder
 }
 
@@ -5057,17 +5524,17 @@ func (builder *DlpProofContextBuilder) HitContent(hitContent string) *DlpProofCo
 // 示例值：这是一条关键词内容
 func (builder *DlpProofContextBuilder) ContextSnippet(contextSnippet string) *DlpProofContextBuilder {
 	builder.contextSnippet = contextSnippet
-	builder.contextSnippetFlag = true
+	builder.contextSnippetSet = true
 	return builder
 }
 
 func (builder *DlpProofContextBuilder) Build() *DlpProofContext {
 	req := &DlpProofContext{}
-	if builder.hitContentFlag {
+	if builder.hitContentSet {
 		req.HitContent = &builder.hitContent
 
 	}
-	if builder.contextSnippetFlag {
+	if builder.contextSnippetSet {
 		req.ContextSnippet = &builder.contextSnippet
 
 	}
@@ -5089,23 +5556,23 @@ type Document struct {
 }
 
 type DocumentBuilder struct {
-	token     string // 文档唯一标识token
-	tokenFlag bool
+	token    string // 文档唯一标识token
+	tokenSet bool
 
-	title     string // 文档标题
-	titleFlag bool
+	title    string // 文档标题
+	titleSet bool
 
-	updateTime     int // 文档更新时间戳
-	updateTimeFlag bool
+	updateTime    int // 文档更新时间戳
+	updateTimeSet bool
 
-	objectStatus     int // 文档状态
-	objectStatusFlag bool
+	objectStatus    int // 文档状态
+	objectStatusSet bool
 
-	objectType     int // 文档类型
-	objectTypeFlag bool
+	objectType    int // 文档类型
+	objectTypeSet bool
 
-	owner     *SimpleUser // 文档所有者
-	ownerFlag bool
+	owner    *SimpleUser // 文档所有者
+	ownerSet bool
 }
 
 func NewDocumentBuilder() *DocumentBuilder {
@@ -5118,7 +5585,7 @@ func NewDocumentBuilder() *DocumentBuilder {
 // 示例值：
 func (builder *DocumentBuilder) Token(token string) *DocumentBuilder {
 	builder.token = token
-	builder.tokenFlag = true
+	builder.tokenSet = true
 	return builder
 }
 
@@ -5127,7 +5594,7 @@ func (builder *DocumentBuilder) Token(token string) *DocumentBuilder {
 // 示例值：
 func (builder *DocumentBuilder) Title(title string) *DocumentBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -5136,7 +5603,7 @@ func (builder *DocumentBuilder) Title(title string) *DocumentBuilder {
 // 示例值：
 func (builder *DocumentBuilder) UpdateTime(updateTime int) *DocumentBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -5145,7 +5612,7 @@ func (builder *DocumentBuilder) UpdateTime(updateTime int) *DocumentBuilder {
 // 示例值：
 func (builder *DocumentBuilder) ObjectStatus(objectStatus int) *DocumentBuilder {
 	builder.objectStatus = objectStatus
-	builder.objectStatusFlag = true
+	builder.objectStatusSet = true
 	return builder
 }
 
@@ -5154,7 +5621,7 @@ func (builder *DocumentBuilder) ObjectStatus(objectStatus int) *DocumentBuilder 
 // 示例值：
 func (builder *DocumentBuilder) ObjectType(objectType int) *DocumentBuilder {
 	builder.objectType = objectType
-	builder.objectTypeFlag = true
+	builder.objectTypeSet = true
 	return builder
 }
 
@@ -5163,33 +5630,33 @@ func (builder *DocumentBuilder) ObjectType(objectType int) *DocumentBuilder {
 // 示例值：
 func (builder *DocumentBuilder) Owner(owner *SimpleUser) *DocumentBuilder {
 	builder.owner = owner
-	builder.ownerFlag = true
+	builder.ownerSet = true
 	return builder
 }
 
 func (builder *DocumentBuilder) Build() *Document {
 	req := &Document{}
-	if builder.tokenFlag {
+	if builder.tokenSet {
 		req.Token = &builder.token
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.objectStatusFlag {
+	if builder.objectStatusSet {
 		req.ObjectStatus = &builder.objectStatus
 
 	}
-	if builder.objectTypeFlag {
+	if builder.objectTypeSet {
 		req.ObjectType = &builder.objectType
 
 	}
-	if builder.ownerFlag {
+	if builder.ownerSet {
 		req.Owner = builder.owner
 	}
 	return req
@@ -5200,8 +5667,8 @@ type DownloadToken struct {
 }
 
 type DownloadTokenBuilder struct {
-	token     string // 下载token
-	tokenFlag bool
+	token    string // 下载token
+	tokenSet bool
 }
 
 func NewDownloadTokenBuilder() *DownloadTokenBuilder {
@@ -5214,13 +5681,13 @@ func NewDownloadTokenBuilder() *DownloadTokenBuilder {
 // 示例值：
 func (builder *DownloadTokenBuilder) Token(token string) *DownloadTokenBuilder {
 	builder.token = token
-	builder.tokenFlag = true
+	builder.tokenSet = true
 	return builder
 }
 
 func (builder *DownloadTokenBuilder) Build() *DownloadToken {
 	req := &DownloadToken{}
-	if builder.tokenFlag {
+	if builder.tokenSet {
 		req.Token = &builder.token
 
 	}
@@ -5242,23 +5709,23 @@ type Email struct {
 }
 
 type EmailBuilder struct {
-	id     string // email ID
-	idFlag bool
+	id    string // email ID
+	idSet bool
 
-	title     string // email 标题
-	titleFlag bool
+	title    string // email 标题
+	titleSet bool
 
-	ownerType     int // email owner类型
-	ownerTypeFlag bool
+	ownerType    int // email owner类型
+	ownerTypeSet bool
 
-	createTime     string // email 创建时间, 单位秒
-	createTimeFlag bool
+	createTime    string // email 创建时间, 单位秒
+	createTimeSet bool
 
-	ownerUserId     string // 企业用户ID
-	ownerUserIdFlag bool
+	ownerUserId    string // 企业用户ID
+	ownerUserIdSet bool
 
-	ownerAddress     string // 公共邮箱地址
-	ownerAddressFlag bool
+	ownerAddress    string // 公共邮箱地址
+	ownerAddressSet bool
 }
 
 func NewEmailBuilder() *EmailBuilder {
@@ -5271,7 +5738,7 @@ func NewEmailBuilder() *EmailBuilder {
 // 示例值：5e1d0913ea6770d309fd18778fb45a15a1e69857.8fb8a4da.a4fd.4d48.baa0.2396bf70c04d@staging.feishu.cn
 func (builder *EmailBuilder) Id(id string) *EmailBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5280,7 +5747,7 @@ func (builder *EmailBuilder) Id(id string) *EmailBuilder {
 // 示例值：scs vault test email
 func (builder *EmailBuilder) Title(title string) *EmailBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -5289,7 +5756,7 @@ func (builder *EmailBuilder) Title(title string) *EmailBuilder {
 // 示例值：1
 func (builder *EmailBuilder) OwnerType(ownerType int) *EmailBuilder {
 	builder.ownerType = ownerType
-	builder.ownerTypeFlag = true
+	builder.ownerTypeSet = true
 	return builder
 }
 
@@ -5298,7 +5765,7 @@ func (builder *EmailBuilder) OwnerType(ownerType int) *EmailBuilder {
 // 示例值：1645180346
 func (builder *EmailBuilder) CreateTime(createTime string) *EmailBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -5307,7 +5774,7 @@ func (builder *EmailBuilder) CreateTime(createTime string) *EmailBuilder {
 // 示例值：ou_7636758725e268a4c67dc7457d27719d
 func (builder *EmailBuilder) OwnerUserId(ownerUserId string) *EmailBuilder {
 	builder.ownerUserId = ownerUserId
-	builder.ownerUserIdFlag = true
+	builder.ownerUserIdSet = true
 	return builder
 }
 
@@ -5316,33 +5783,33 @@ func (builder *EmailBuilder) OwnerUserId(ownerUserId string) *EmailBuilder {
 // 示例值：jiajinqud@zijietiaobudong.top
 func (builder *EmailBuilder) OwnerAddress(ownerAddress string) *EmailBuilder {
 	builder.ownerAddress = ownerAddress
-	builder.ownerAddressFlag = true
+	builder.ownerAddressSet = true
 	return builder
 }
 
 func (builder *EmailBuilder) Build() *Email {
 	req := &Email{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.ownerTypeFlag {
+	if builder.ownerTypeSet {
 		req.OwnerType = &builder.ownerType
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.ownerUserIdFlag {
+	if builder.ownerUserIdSet {
 		req.OwnerUserId = &builder.ownerUserId
 
 	}
-	if builder.ownerAddressFlag {
+	if builder.ownerAddressSet {
 		req.OwnerAddress = &builder.ownerAddress
 
 	}
@@ -5366,26 +5833,26 @@ type EmailFilter struct {
 }
 
 type EmailFilterBuilder struct {
-	ownerUseridList     []string // 企业用户列表
-	ownerUseridListFlag bool
+	ownerUseridList    []string // 企业用户列表
+	ownerUseridListSet bool
 
-	ownerAddressList     []string // 公共邮箱列表
-	ownerAddressListFlag bool
+	ownerAddressList    []string // 公共邮箱列表
+	ownerAddressListSet bool
 
-	timeRange     *TimeRange // 查询时间范围
-	timeRangeFlag bool
+	timeRange    *TimeRange // 查询时间范围
+	timeRangeSet bool
 
-	senders     []string // 发件人邮箱列表
-	sendersFlag bool
+	senders    []string // 发件人邮箱列表
+	sendersSet bool
 
-	recipients     []string // 收件人邮箱列表
-	recipientsFlag bool
+	recipients    []string // 收件人邮箱列表
+	recipientsSet bool
 
-	emailTitle     string // 邮件标题
-	emailTitleFlag bool
+	emailTitle    string // 邮件标题
+	emailTitleSet bool
 
-	emailId     string // 邮件ID
-	emailIdFlag bool
+	emailId    string // 邮件ID
+	emailIdSet bool
 }
 
 func NewEmailFilterBuilder() *EmailFilterBuilder {
@@ -5398,7 +5865,7 @@ func NewEmailFilterBuilder() *EmailFilterBuilder {
 // 示例值：ou_7636758725e268a4c67dc7457d27719d
 func (builder *EmailFilterBuilder) OwnerUseridList(ownerUseridList []string) *EmailFilterBuilder {
 	builder.ownerUseridList = ownerUseridList
-	builder.ownerUseridListFlag = true
+	builder.ownerUseridListSet = true
 	return builder
 }
 
@@ -5407,7 +5874,7 @@ func (builder *EmailFilterBuilder) OwnerUseridList(ownerUseridList []string) *Em
 // 示例值：jiajinqud@zijietiaobudong.top
 func (builder *EmailFilterBuilder) OwnerAddressList(ownerAddressList []string) *EmailFilterBuilder {
 	builder.ownerAddressList = ownerAddressList
-	builder.ownerAddressListFlag = true
+	builder.ownerAddressListSet = true
 	return builder
 }
 
@@ -5416,7 +5883,7 @@ func (builder *EmailFilterBuilder) OwnerAddressList(ownerAddressList []string) *
 // 示例值：
 func (builder *EmailFilterBuilder) TimeRange(timeRange *TimeRange) *EmailFilterBuilder {
 	builder.timeRange = timeRange
-	builder.timeRangeFlag = true
+	builder.timeRangeSet = true
 	return builder
 }
 
@@ -5425,7 +5892,7 @@ func (builder *EmailFilterBuilder) TimeRange(timeRange *TimeRange) *EmailFilterB
 // 示例值：mail-noreply@feishu.cn
 func (builder *EmailFilterBuilder) Senders(senders []string) *EmailFilterBuilder {
 	builder.senders = senders
-	builder.sendersFlag = true
+	builder.sendersSet = true
 	return builder
 }
 
@@ -5434,7 +5901,7 @@ func (builder *EmailFilterBuilder) Senders(senders []string) *EmailFilterBuilder
 // 示例值：jiajinqud@zijietiaobudong.top
 func (builder *EmailFilterBuilder) Recipients(recipients []string) *EmailFilterBuilder {
 	builder.recipients = recipients
-	builder.recipientsFlag = true
+	builder.recipientsSet = true
 	return builder
 }
 
@@ -5443,7 +5910,7 @@ func (builder *EmailFilterBuilder) Recipients(recipients []string) *EmailFilterB
 // 示例值：test email
 func (builder *EmailFilterBuilder) EmailTitle(emailTitle string) *EmailFilterBuilder {
 	builder.emailTitle = emailTitle
-	builder.emailTitleFlag = true
+	builder.emailTitleSet = true
 	return builder
 }
 
@@ -5452,33 +5919,101 @@ func (builder *EmailFilterBuilder) EmailTitle(emailTitle string) *EmailFilterBui
 // 示例值：5e1d0913ea6770d309fd18778fb45a15a1e69857.8fb8a4da.a4fd.4d48.baa0.2396bf70c04d@staging.feishu.cn
 func (builder *EmailFilterBuilder) EmailId(emailId string) *EmailFilterBuilder {
 	builder.emailId = emailId
-	builder.emailIdFlag = true
+	builder.emailIdSet = true
 	return builder
 }
 
 func (builder *EmailFilterBuilder) Build() *EmailFilter {
 	req := &EmailFilter{}
-	if builder.ownerUseridListFlag {
+	if builder.ownerUseridListSet {
 		req.OwnerUseridList = builder.ownerUseridList
 	}
-	if builder.ownerAddressListFlag {
+	if builder.ownerAddressListSet {
 		req.OwnerAddressList = builder.ownerAddressList
 	}
-	if builder.timeRangeFlag {
+	if builder.timeRangeSet {
 		req.TimeRange = builder.timeRange
 	}
-	if builder.sendersFlag {
+	if builder.sendersSet {
 		req.Senders = builder.senders
 	}
-	if builder.recipientsFlag {
+	if builder.recipientsSet {
 		req.Recipients = builder.recipients
 	}
-	if builder.emailTitleFlag {
+	if builder.emailTitleSet {
 		req.EmailTitle = &builder.emailTitle
 
 	}
-	if builder.emailIdFlag {
+	if builder.emailIdSet {
 		req.EmailId = &builder.emailId
+
+	}
+	return req
+}
+
+type FailedInfo struct {
+	Id *string `json:"id,omitempty"` // 失败记录的唯一标识，用于定位和追踪具体的失败事件，可通过失败日志查询接口获取
+
+	Code *int `json:"code,omitempty"` // 失败状态码，对应具体的失败类型（如参数错误、权限不足、资源不存在等），不同状态码映射不同的业务处理逻辑
+
+	Msg *string `json:"msg,omitempty"` // 失败详情描述，包含失败原因的人性化说明，用于辅助开发者快速定位问题根源
+}
+
+type FailedInfoBuilder struct {
+	id    string // 失败记录的唯一标识，用于定位和追踪具体的失败事件，可通过失败日志查询接口获取
+	idSet bool
+
+	code    int // 失败状态码，对应具体的失败类型（如参数错误、权限不足、资源不存在等），不同状态码映射不同的业务处理逻辑
+	codeSet bool
+
+	msg    string // 失败详情描述，包含失败原因的人性化说明，用于辅助开发者快速定位问题根源
+	msgSet bool
+}
+
+func NewFailedInfoBuilder() *FailedInfoBuilder {
+	builder := &FailedInfoBuilder{}
+	return builder
+}
+
+// 失败记录的唯一标识，用于定位和追踪具体的失败事件，可通过失败日志查询接口获取
+//
+// 示例值：ou_0b26f6b7bc5091dabbaa1dfbed38dee3
+func (builder *FailedInfoBuilder) Id(id string) *FailedInfoBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 失败状态码，对应具体的失败类型（如参数错误、权限不足、资源不存在等），不同状态码映射不同的业务处理逻辑
+//
+// 示例值：5001
+func (builder *FailedInfoBuilder) Code(code int) *FailedInfoBuilder {
+	builder.code = code
+	builder.codeSet = true
+	return builder
+}
+
+// 失败详情描述，包含失败原因的人性化说明，用于辅助开发者快速定位问题根源
+//
+// 示例值：openID convert to lark userID failed
+func (builder *FailedInfoBuilder) Msg(msg string) *FailedInfoBuilder {
+	builder.msg = msg
+	builder.msgSet = true
+	return builder
+}
+
+func (builder *FailedInfoBuilder) Build() *FailedInfo {
+	req := &FailedInfo{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.codeSet {
+		req.Code = &builder.code
+
+	}
+	if builder.msgSet {
+		req.Msg = &builder.msg
 
 	}
 	return req
@@ -5513,20 +6048,20 @@ type FileRiskDetectionRecord struct {
 }
 
 type FileRiskDetectionRecordBuilder struct {
-	recordId     string // 文件送检记录主键
-	recordIdFlag bool
+	recordId    string // 文件送检记录主键
+	recordIdSet bool
 
-	fileUrl     string // 文件下载链接
-	fileUrlFlag bool
+	fileUrl    string // 文件下载链接
+	fileUrlSet bool
 
-	fileUrlExpireTime     string // 文件下载链接失效时间戳（秒）
-	fileUrlExpireTimeFlag bool
+	fileUrlExpireTime    string // 文件下载链接失效时间戳（秒）
+	fileUrlExpireTimeSet bool
 
-	fileSize     string // 文件大小（字节）
-	fileSizeFlag bool
+	fileSize    string // 文件大小（字节）
+	fileSizeSet bool
 
-	triggerReason     int // 触发送检原因
-	triggerReasonFlag bool
+	triggerReason    int // 触发送检原因
+	triggerReasonSet bool
 }
 
 func NewFileRiskDetectionRecordBuilder() *FileRiskDetectionRecordBuilder {
@@ -5539,7 +6074,7 @@ func NewFileRiskDetectionRecordBuilder() *FileRiskDetectionRecordBuilder {
 // 示例值：308975127
 func (builder *FileRiskDetectionRecordBuilder) RecordId(recordId string) *FileRiskDetectionRecordBuilder {
 	builder.recordId = recordId
-	builder.recordIdFlag = true
+	builder.recordIdSet = true
 	return builder
 }
 
@@ -5548,7 +6083,7 @@ func (builder *FileRiskDetectionRecordBuilder) RecordId(recordId string) *FileRi
 // 示例值：https://example.com
 func (builder *FileRiskDetectionRecordBuilder) FileUrl(fileUrl string) *FileRiskDetectionRecordBuilder {
 	builder.fileUrl = fileUrl
-	builder.fileUrlFlag = true
+	builder.fileUrlSet = true
 	return builder
 }
 
@@ -5557,7 +6092,7 @@ func (builder *FileRiskDetectionRecordBuilder) FileUrl(fileUrl string) *FileRisk
 // 示例值：1735660799
 func (builder *FileRiskDetectionRecordBuilder) FileUrlExpireTime(fileUrlExpireTime string) *FileRiskDetectionRecordBuilder {
 	builder.fileUrlExpireTime = fileUrlExpireTime
-	builder.fileUrlExpireTimeFlag = true
+	builder.fileUrlExpireTimeSet = true
 	return builder
 }
 
@@ -5566,7 +6101,7 @@ func (builder *FileRiskDetectionRecordBuilder) FileUrlExpireTime(fileUrlExpireTi
 // 示例值：1024
 func (builder *FileRiskDetectionRecordBuilder) FileSize(fileSize string) *FileRiskDetectionRecordBuilder {
 	builder.fileSize = fileSize
-	builder.fileSizeFlag = true
+	builder.fileSizeSet = true
 	return builder
 }
 
@@ -5575,29 +6110,29 @@ func (builder *FileRiskDetectionRecordBuilder) FileSize(fileSize string) *FileRi
 // 示例值：1
 func (builder *FileRiskDetectionRecordBuilder) TriggerReason(triggerReason int) *FileRiskDetectionRecordBuilder {
 	builder.triggerReason = triggerReason
-	builder.triggerReasonFlag = true
+	builder.triggerReasonSet = true
 	return builder
 }
 
 func (builder *FileRiskDetectionRecordBuilder) Build() *FileRiskDetectionRecord {
 	req := &FileRiskDetectionRecord{}
-	if builder.recordIdFlag {
+	if builder.recordIdSet {
 		req.RecordId = &builder.recordId
 
 	}
-	if builder.fileUrlFlag {
+	if builder.fileUrlSet {
 		req.FileUrl = &builder.fileUrl
 
 	}
-	if builder.fileUrlExpireTimeFlag {
+	if builder.fileUrlExpireTimeSet {
 		req.FileUrlExpireTime = &builder.fileUrlExpireTime
 
 	}
-	if builder.fileSizeFlag {
+	if builder.fileSizeSet {
 		req.FileSize = &builder.fileSize
 
 	}
-	if builder.triggerReasonFlag {
+	if builder.triggerReasonSet {
 		req.TriggerReason = &builder.triggerReason
 
 	}
@@ -5613,14 +6148,14 @@ type FileRiskDetectionRecordResult struct {
 }
 
 type FileRiskDetectionRecordResultBuilder struct {
-	status     string // 检测状态
-	statusFlag bool
+	status    string // 检测状态
+	statusSet bool
 
-	riskTag     string // 风险类型
-	riskTagFlag bool
+	riskTag    string // 风险类型
+	riskTagSet bool
 
-	needBotNotify     bool // 是否需要机器人通知
-	needBotNotifyFlag bool
+	needBotNotify    bool // 是否需要机器人通知
+	needBotNotifySet bool
 }
 
 func NewFileRiskDetectionRecordResultBuilder() *FileRiskDetectionRecordResultBuilder {
@@ -5633,7 +6168,7 @@ func NewFileRiskDetectionRecordResultBuilder() *FileRiskDetectionRecordResultBui
 // 示例值：FINISHED
 func (builder *FileRiskDetectionRecordResultBuilder) Status(status string) *FileRiskDetectionRecordResultBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -5642,7 +6177,7 @@ func (builder *FileRiskDetectionRecordResultBuilder) Status(status string) *File
 // 示例值：RISK
 func (builder *FileRiskDetectionRecordResultBuilder) RiskTag(riskTag string) *FileRiskDetectionRecordResultBuilder {
 	builder.riskTag = riskTag
-	builder.riskTagFlag = true
+	builder.riskTagSet = true
 	return builder
 }
 
@@ -5651,22 +6186,72 @@ func (builder *FileRiskDetectionRecordResultBuilder) RiskTag(riskTag string) *Fi
 // 示例值：true
 func (builder *FileRiskDetectionRecordResultBuilder) NeedBotNotify(needBotNotify bool) *FileRiskDetectionRecordResultBuilder {
 	builder.needBotNotify = needBotNotify
-	builder.needBotNotifyFlag = true
+	builder.needBotNotifySet = true
 	return builder
 }
 
 func (builder *FileRiskDetectionRecordResultBuilder) Build() *FileRiskDetectionRecordResult {
 	req := &FileRiskDetectionRecordResult{}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.riskTagFlag {
+	if builder.riskTagSet {
 		req.RiskTag = &builder.riskTag
 
 	}
-	if builder.needBotNotifyFlag {
+	if builder.needBotNotifySet {
 		req.NeedBotNotify = &builder.needBotNotify
+
+	}
+	return req
+}
+
+type GeoInfo struct {
+	Id *string `json:"id,omitempty"` // 实体ID，使用open_id等对外标识id
+
+	Geo *string `json:"geo,omitempty"` // 地理信息位置枚举，枚举信息请查看：https://code.byted.org/gerrit/lark/gopkg/dimension/-/blob/eco_unit/geo.go
+}
+
+type GeoInfoBuilder struct {
+	id    string // 实体ID，使用open_id等对外标识id
+	idSet bool
+
+	geo    string // 地理信息位置枚举，枚举信息请查看：https://code.byted.org/gerrit/lark/gopkg/dimension/-/blob/eco_unit/geo.go
+	geoSet bool
+}
+
+func NewGeoInfoBuilder() *GeoInfoBuilder {
+	builder := &GeoInfoBuilder{}
+	return builder
+}
+
+// 实体ID，使用open_id等对外标识id
+//
+// 示例值：oc_75a1e78d8ba768dded4df6b7550bb981
+func (builder *GeoInfoBuilder) Id(id string) *GeoInfoBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 地理信息位置枚举，枚举信息请查看：https://code.byted.org/gerrit/lark/gopkg/dimension/-/blob/eco_unit/geo.go
+//
+// 示例值：boe-cn
+func (builder *GeoInfoBuilder) Geo(geo string) *GeoInfoBuilder {
+	builder.geo = geo
+	builder.geoSet = true
+	return builder
+}
+
+func (builder *GeoInfoBuilder) Build() *GeoInfo {
+	req := &GeoInfo{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.geoSet {
+		req.Geo = &builder.geo
 
 	}
 	return req
@@ -5691,29 +6276,29 @@ type GwCommon struct {
 }
 
 type GwCommonBuilder struct {
-	locale     string // 地区
-	localeFlag bool
+	locale    string // 地区
+	localeSet bool
 
-	reportTime     string // 上报时间戳（单位：纳秒）
-	reportTimeFlag bool
+	reportTime    string // 上报时间戳（单位：纳秒）
+	reportTimeSet bool
 
-	sessionUuid     string // session唯一id
-	sessionUuidFlag bool
+	sessionUuid    string // session唯一id
+	sessionUuidSet bool
 
-	terminalType     string // 终端类型
-	terminalTypeFlag bool
+	terminalType    string // 终端类型
+	terminalTypeSet bool
 
-	userId     *UserId // 用户ID
-	userIdFlag bool
+	userId    *UserId // 用户ID
+	userIdSet bool
 
-	openplatformAppId     string // 开放平台应用ID
-	openplatformAppIdFlag bool
+	openplatformAppId    string // 开放平台应用ID
+	openplatformAppIdSet bool
 
-	requestId     string // 请求标识
-	requestIdFlag bool
+	requestId    string // 请求标识
+	requestIdSet bool
 
-	logId     string // 链路标识
-	logIdFlag bool
+	logId    string // 链路标识
+	logIdSet bool
 }
 
 func NewGwCommonBuilder() *GwCommonBuilder {
@@ -5726,7 +6311,7 @@ func NewGwCommonBuilder() *GwCommonBuilder {
 // 示例值：zh-CN
 func (builder *GwCommonBuilder) Locale(locale string) *GwCommonBuilder {
 	builder.locale = locale
-	builder.localeFlag = true
+	builder.localeSet = true
 	return builder
 }
 
@@ -5735,7 +6320,7 @@ func (builder *GwCommonBuilder) Locale(locale string) *GwCommonBuilder {
 // 示例值：1694164396263769182
 func (builder *GwCommonBuilder) ReportTime(reportTime string) *GwCommonBuilder {
 	builder.reportTime = reportTime
-	builder.reportTimeFlag = true
+	builder.reportTimeSet = true
 	return builder
 }
 
@@ -5744,7 +6329,7 @@ func (builder *GwCommonBuilder) ReportTime(reportTime string) *GwCommonBuilder {
 // 示例值：AAAAAAAAAANkfVio7oAAFA==
 func (builder *GwCommonBuilder) SessionUuid(sessionUuid string) *GwCommonBuilder {
 	builder.sessionUuid = sessionUuid
-	builder.sessionUuidFlag = true
+	builder.sessionUuidSet = true
 	return builder
 }
 
@@ -5753,7 +6338,7 @@ func (builder *GwCommonBuilder) SessionUuid(sessionUuid string) *GwCommonBuilder
 // 示例值：1
 func (builder *GwCommonBuilder) TerminalType(terminalType string) *GwCommonBuilder {
 	builder.terminalType = terminalType
-	builder.terminalTypeFlag = true
+	builder.terminalTypeSet = true
 	return builder
 }
 
@@ -5762,7 +6347,7 @@ func (builder *GwCommonBuilder) TerminalType(terminalType string) *GwCommonBuild
 // 示例值：
 func (builder *GwCommonBuilder) UserId(userId *UserId) *GwCommonBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -5771,7 +6356,7 @@ func (builder *GwCommonBuilder) UserId(userId *UserId) *GwCommonBuilder {
 // 示例值：12345
 func (builder *GwCommonBuilder) OpenplatformAppId(openplatformAppId string) *GwCommonBuilder {
 	builder.openplatformAppId = openplatformAppId
-	builder.openplatformAppIdFlag = true
+	builder.openplatformAppIdSet = true
 	return builder
 }
 
@@ -5780,7 +6365,7 @@ func (builder *GwCommonBuilder) OpenplatformAppId(openplatformAppId string) *GwC
 // 示例值：dd8300ae-0f93-4a5f-8638-0051e76502d6
 func (builder *GwCommonBuilder) RequestId(requestId string) *GwCommonBuilder {
 	builder.requestId = requestId
-	builder.requestIdFlag = true
+	builder.requestIdSet = true
 	return builder
 }
 
@@ -5789,40 +6374,40 @@ func (builder *GwCommonBuilder) RequestId(requestId string) *GwCommonBuilder {
 // 示例值：2022050711522601021218102322038985
 func (builder *GwCommonBuilder) LogId(logId string) *GwCommonBuilder {
 	builder.logId = logId
-	builder.logIdFlag = true
+	builder.logIdSet = true
 	return builder
 }
 
 func (builder *GwCommonBuilder) Build() *GwCommon {
 	req := &GwCommon{}
-	if builder.localeFlag {
+	if builder.localeSet {
 		req.Locale = &builder.locale
 
 	}
-	if builder.reportTimeFlag {
+	if builder.reportTimeSet {
 		req.ReportTime = &builder.reportTime
 
 	}
-	if builder.sessionUuidFlag {
+	if builder.sessionUuidSet {
 		req.SessionUuid = &builder.sessionUuid
 
 	}
-	if builder.terminalTypeFlag {
+	if builder.terminalTypeSet {
 		req.TerminalType = &builder.terminalType
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = builder.userId
 	}
-	if builder.openplatformAppIdFlag {
+	if builder.openplatformAppIdSet {
 		req.OpenplatformAppId = &builder.openplatformAppId
 
 	}
-	if builder.requestIdFlag {
+	if builder.requestIdSet {
 		req.RequestId = &builder.requestId
 
 	}
-	if builder.logIdFlag {
+	if builder.logIdSet {
 		req.LogId = &builder.logId
 
 	}
@@ -5852,35 +6437,35 @@ type GwRequest struct {
 }
 
 type GwRequestBuilder struct {
-	host     string // 域名
-	hostFlag bool
+	host    string // 域名
+	hostSet bool
 
-	path     string // 请求路径
-	pathFlag bool
+	path    string // 请求路径
+	pathSet bool
 
-	pathParams     []*Param // 路径中的参数
-	pathParamsFlag bool
+	pathParams    []*Param // 路径中的参数
+	pathParamsSet bool
 
-	query     string // 请求经网关解析后的query参数
-	queryFlag bool
+	query    string // 请求经网关解析后的query参数
+	querySet bool
 
-	method     string // 请求方法
-	methodFlag bool
+	method    string // 请求方法
+	methodSet bool
 
-	userAgent     string // 访问用户代理字段
-	userAgentFlag bool
+	userAgent    string // 访问用户代理字段
+	userAgentSet bool
 
-	clientIp     string // 来源页面地址
-	clientIpFlag bool
+	clientIp    string // 来源页面地址
+	clientIpSet bool
 
-	referer     string // referer防盗链
-	refererFlag bool
+	referer    string // referer防盗链
+	refererSet bool
 
-	origin     string // 来源页面域名
-	originFlag bool
+	origin    string // 来源页面域名
+	originSet bool
 
-	header     string // 请求头
-	headerFlag bool
+	header    string // 请求头
+	headerSet bool
 }
 
 func NewGwRequestBuilder() *GwRequestBuilder {
@@ -5893,7 +6478,7 @@ func NewGwRequestBuilder() *GwRequestBuilder {
 // 示例值：bytedance.feishu.net
 func (builder *GwRequestBuilder) Host(host string) *GwRequestBuilder {
 	builder.host = host
-	builder.hostFlag = true
+	builder.hostSet = true
 	return builder
 }
 
@@ -5902,7 +6487,7 @@ func (builder *GwRequestBuilder) Host(host string) *GwRequestBuilder {
 // 示例值：/space/api/msg_box/get_version
 func (builder *GwRequestBuilder) Path(path string) *GwRequestBuilder {
 	builder.path = path
-	builder.pathFlag = true
+	builder.pathSet = true
 	return builder
 }
 
@@ -5911,7 +6496,7 @@ func (builder *GwRequestBuilder) Path(path string) *GwRequestBuilder {
 // 示例值：
 func (builder *GwRequestBuilder) PathParams(pathParams []*Param) *GwRequestBuilder {
 	builder.pathParams = pathParams
-	builder.pathParamsFlag = true
+	builder.pathParamsSet = true
 	return builder
 }
 
@@ -5920,7 +6505,7 @@ func (builder *GwRequestBuilder) PathParams(pathParams []*Param) *GwRequestBuild
 // 示例值：{\"docx_synced_block_host_token\":[\"T7lCdrCcsrAH8oxmLfRbn4GecWf\"],\"docx_synced_block_host_type\":[\"22\"]}
 func (builder *GwRequestBuilder) Query(query string) *GwRequestBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
@@ -5929,7 +6514,7 @@ func (builder *GwRequestBuilder) Query(query string) *GwRequestBuilder {
 // 示例值：GET
 func (builder *GwRequestBuilder) Method(method string) *GwRequestBuilder {
 	builder.method = method
-	builder.methodFlag = true
+	builder.methodSet = true
 	return builder
 }
 
@@ -5938,7 +6523,7 @@ func (builder *GwRequestBuilder) Method(method string) *GwRequestBuilder {
 // 示例值：Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
 func (builder *GwRequestBuilder) UserAgent(userAgent string) *GwRequestBuilder {
 	builder.userAgent = userAgent
-	builder.userAgentFlag = true
+	builder.userAgentSet = true
 	return builder
 }
 
@@ -5947,7 +6532,7 @@ func (builder *GwRequestBuilder) UserAgent(userAgent string) *GwRequestBuilder {
 // 示例值：fdbd:ff1:ce00:8028::1969
 func (builder *GwRequestBuilder) ClientIp(clientIp string) *GwRequestBuilder {
 	builder.clientIp = clientIp
-	builder.clientIpFlag = true
+	builder.clientIpSet = true
 	return builder
 }
 
@@ -5956,7 +6541,7 @@ func (builder *GwRequestBuilder) ClientIp(clientIp string) *GwRequestBuilder {
 // 示例值：https://bytedance.feishu.net/docx/<encryptToken>45c200080eea138771be507263e4c9930939c279?v=1.0.11.8737&vdx=1.0.9.4444
 func (builder *GwRequestBuilder) Referer(referer string) *GwRequestBuilder {
 	builder.referer = referer
-	builder.refererFlag = true
+	builder.refererSet = true
 	return builder
 }
 
@@ -5965,7 +6550,7 @@ func (builder *GwRequestBuilder) Referer(referer string) *GwRequestBuilder {
 // 示例值：https://bytedance.feishu.net
 func (builder *GwRequestBuilder) Origin(origin string) *GwRequestBuilder {
 	builder.origin = origin
-	builder.originFlag = true
+	builder.originSet = true
 	return builder
 }
 
@@ -5974,48 +6559,48 @@ func (builder *GwRequestBuilder) Origin(origin string) *GwRequestBuilder {
 // 示例值：{\"x-lgw-locale\": [\"en-US\"], \"x-lgw-app-version\": null}
 func (builder *GwRequestBuilder) Header(header string) *GwRequestBuilder {
 	builder.header = header
-	builder.headerFlag = true
+	builder.headerSet = true
 	return builder
 }
 
 func (builder *GwRequestBuilder) Build() *GwRequest {
 	req := &GwRequest{}
-	if builder.hostFlag {
+	if builder.hostSet {
 		req.Host = &builder.host
 
 	}
-	if builder.pathFlag {
+	if builder.pathSet {
 		req.Path = &builder.path
 
 	}
-	if builder.pathParamsFlag {
+	if builder.pathParamsSet {
 		req.PathParams = builder.pathParams
 	}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 
 	}
-	if builder.methodFlag {
+	if builder.methodSet {
 		req.Method = &builder.method
 
 	}
-	if builder.userAgentFlag {
+	if builder.userAgentSet {
 		req.UserAgent = &builder.userAgent
 
 	}
-	if builder.clientIpFlag {
+	if builder.clientIpSet {
 		req.ClientIp = &builder.clientIp
 
 	}
-	if builder.refererFlag {
+	if builder.refererSet {
 		req.Referer = &builder.referer
 
 	}
-	if builder.originFlag {
+	if builder.originSet {
 		req.Origin = &builder.origin
 
 	}
-	if builder.headerFlag {
+	if builder.headerSet {
 		req.Header = &builder.header
 
 	}
@@ -6029,11 +6614,11 @@ type GwResponse struct {
 }
 
 type GwResponseBuilder struct {
-	statusCode     int // HTTP响应状态码
-	statusCodeFlag bool
+	statusCode    int // HTTP响应状态码
+	statusCodeSet bool
 
-	header     string // 返回头
-	headerFlag bool
+	header    string // 返回头
+	headerSet bool
 }
 
 func NewGwResponseBuilder() *GwResponseBuilder {
@@ -6046,7 +6631,7 @@ func NewGwResponseBuilder() *GwResponseBuilder {
 // 示例值：404
 func (builder *GwResponseBuilder) StatusCode(statusCode int) *GwResponseBuilder {
 	builder.statusCode = statusCode
-	builder.statusCodeFlag = true
+	builder.statusCodeSet = true
 	return builder
 }
 
@@ -6055,17 +6640,17 @@ func (builder *GwResponseBuilder) StatusCode(statusCode int) *GwResponseBuilder 
 // 示例值：{\"Vary\": [\"gzip\"]}
 func (builder *GwResponseBuilder) Header(header string) *GwResponseBuilder {
 	builder.header = header
-	builder.headerFlag = true
+	builder.headerSet = true
 	return builder
 }
 
 func (builder *GwResponseBuilder) Build() *GwResponse {
 	req := &GwResponse{}
-	if builder.statusCodeFlag {
+	if builder.statusCodeSet {
 		req.StatusCode = &builder.statusCode
 
 	}
-	if builder.headerFlag {
+	if builder.headerSet {
 		req.Header = &builder.header
 
 	}
@@ -6079,11 +6664,11 @@ type HitContent struct {
 }
 
 type HitContentBuilder struct {
-	fieldKey     string // 命中内容的key
-	fieldKeyFlag bool
+	fieldKey    string // 命中内容的key
+	fieldKeySet bool
 
-	fieldValue     string // 命中内容的值
-	fieldValueFlag bool
+	fieldValue    string // 命中内容的值
+	fieldValueSet bool
 }
 
 func NewHitContentBuilder() *HitContentBuilder {
@@ -6096,7 +6681,7 @@ func NewHitContentBuilder() *HitContentBuilder {
 // 示例值：FileID
 func (builder *HitContentBuilder) FieldKey(fieldKey string) *HitContentBuilder {
 	builder.fieldKey = fieldKey
-	builder.fieldKeyFlag = true
+	builder.fieldKeySet = true
 	return builder
 }
 
@@ -6105,17 +6690,17 @@ func (builder *HitContentBuilder) FieldKey(fieldKey string) *HitContentBuilder {
 // 示例值：'Vt2nScFweBnwsshsnIFfpL9C'
 func (builder *HitContentBuilder) FieldValue(fieldValue string) *HitContentBuilder {
 	builder.fieldValue = fieldValue
-	builder.fieldValueFlag = true
+	builder.fieldValueSet = true
 	return builder
 }
 
 func (builder *HitContentBuilder) Build() *HitContent {
 	req := &HitContent{}
-	if builder.fieldKeyFlag {
+	if builder.fieldKeySet {
 		req.FieldKey = &builder.fieldKey
 
 	}
-	if builder.fieldValueFlag {
+	if builder.fieldValueSet {
 		req.FieldValue = &builder.fieldValue
 
 	}
@@ -6133,17 +6718,17 @@ type KeyPerson struct {
 }
 
 type KeyPersonBuilder struct {
-	keyPersonId     string // 高管的用户ID
-	keyPersonIdFlag bool
+	keyPersonId    string // 高管的用户ID
+	keyPersonIdSet bool
 
-	name     string // 用户姓名
-	nameFlag bool
+	name    string // 用户姓名
+	nameSet bool
 
-	email     string // 邮箱地址
-	emailFlag bool
+	email    string // 邮箱地址
+	emailSet bool
 
-	avatarUrl     string // 头像图片链接
-	avatarUrlFlag bool
+	avatarUrl    string // 头像图片链接
+	avatarUrlSet bool
 }
 
 func NewKeyPersonBuilder() *KeyPersonBuilder {
@@ -6156,7 +6741,7 @@ func NewKeyPersonBuilder() *KeyPersonBuilder {
 // 示例值：u28c128c
 func (builder *KeyPersonBuilder) KeyPersonId(keyPersonId string) *KeyPersonBuilder {
 	builder.keyPersonId = keyPersonId
-	builder.keyPersonIdFlag = true
+	builder.keyPersonIdSet = true
 	return builder
 }
 
@@ -6165,7 +6750,7 @@ func (builder *KeyPersonBuilder) KeyPersonId(keyPersonId string) *KeyPersonBuild
 // 示例值：某人
 func (builder *KeyPersonBuilder) Name(name string) *KeyPersonBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -6174,7 +6759,7 @@ func (builder *KeyPersonBuilder) Name(name string) *KeyPersonBuilder {
 // 示例值：xxx@xxx.com
 func (builder *KeyPersonBuilder) Email(email string) *KeyPersonBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -6183,25 +6768,25 @@ func (builder *KeyPersonBuilder) Email(email string) *KeyPersonBuilder {
 // 示例值：https://xxx.com/xxx.jpg
 func (builder *KeyPersonBuilder) AvatarUrl(avatarUrl string) *KeyPersonBuilder {
 	builder.avatarUrl = avatarUrl
-	builder.avatarUrlFlag = true
+	builder.avatarUrlSet = true
 	return builder
 }
 
 func (builder *KeyPersonBuilder) Build() *KeyPerson {
 	req := &KeyPerson{}
-	if builder.keyPersonIdFlag {
+	if builder.keyPersonIdSet {
 		req.KeyPersonId = &builder.keyPersonId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.avatarUrlFlag {
+	if builder.avatarUrlSet {
 		req.AvatarUrl = &builder.avatarUrl
 
 	}
@@ -6223,23 +6808,23 @@ type ListOpenapiLogRequest struct {
 }
 
 type ListOpenapiLogRequestBuilder struct {
-	apiKeys     []string // 飞书开放平台定义的API
-	apiKeysFlag bool
+	apiKeys    []string // 飞书开放平台定义的API
+	apiKeysSet bool
 
-	startTime     int // 以秒为单位的起始时间戳
-	startTimeFlag bool
+	startTime    int // 以秒为单位的起始时间戳
+	startTimeSet bool
 
-	endTime     int // 以秒为单位的终止时间戳
-	endTimeFlag bool
+	endTime    int // 以秒为单位的终止时间戳
+	endTimeSet bool
 
-	appId     string // 在开发者后台——凭证与基础信息页面查看的app_id（cli_xxx），指调用openapi的应用
-	appIdFlag bool
+	appId    string // 在开发者后台——凭证与基础信息页面查看的app_id（cli_xxx），指调用openapi的应用
+	appIdSet bool
 
-	pageSize     int // 分页大小
-	pageSizeFlag bool
+	pageSize    int // 分页大小
+	pageSizeSet bool
 
-	pageToken     string // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据
-	pageTokenFlag bool
+	pageToken    string // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据
+	pageTokenSet bool
 }
 
 func NewListOpenapiLogRequestBuilder() *ListOpenapiLogRequestBuilder {
@@ -6252,7 +6837,7 @@ func NewListOpenapiLogRequestBuilder() *ListOpenapiLogRequestBuilder {
 // 示例值：
 func (builder *ListOpenapiLogRequestBuilder) ApiKeys(apiKeys []string) *ListOpenapiLogRequestBuilder {
 	builder.apiKeys = apiKeys
-	builder.apiKeysFlag = true
+	builder.apiKeysSet = true
 	return builder
 }
 
@@ -6261,7 +6846,7 @@ func (builder *ListOpenapiLogRequestBuilder) ApiKeys(apiKeys []string) *ListOpen
 // 示例值：1610613336
 func (builder *ListOpenapiLogRequestBuilder) StartTime(startTime int) *ListOpenapiLogRequestBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -6270,7 +6855,7 @@ func (builder *ListOpenapiLogRequestBuilder) StartTime(startTime int) *ListOpena
 // 示例值：1610613336
 func (builder *ListOpenapiLogRequestBuilder) EndTime(endTime int) *ListOpenapiLogRequestBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -6279,7 +6864,7 @@ func (builder *ListOpenapiLogRequestBuilder) EndTime(endTime int) *ListOpenapiLo
 // 示例值：cli_xxx
 func (builder *ListOpenapiLogRequestBuilder) AppId(appId string) *ListOpenapiLogRequestBuilder {
 	builder.appId = appId
-	builder.appIdFlag = true
+	builder.appIdSet = true
 	return builder
 }
 
@@ -6288,7 +6873,7 @@ func (builder *ListOpenapiLogRequestBuilder) AppId(appId string) *ListOpenapiLog
 // 示例值：20
 func (builder *ListOpenapiLogRequestBuilder) PageSize(pageSize int) *ListOpenapiLogRequestBuilder {
 	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.pageSizeSet = true
 	return builder
 }
 
@@ -6297,32 +6882,32 @@ func (builder *ListOpenapiLogRequestBuilder) PageSize(pageSize int) *ListOpenapi
 // 示例值：xxx
 func (builder *ListOpenapiLogRequestBuilder) PageToken(pageToken string) *ListOpenapiLogRequestBuilder {
 	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.pageTokenSet = true
 	return builder
 }
 
 func (builder *ListOpenapiLogRequestBuilder) Build() *ListOpenapiLogRequest {
 	req := &ListOpenapiLogRequest{}
-	if builder.apiKeysFlag {
+	if builder.apiKeysSet {
 		req.ApiKeys = builder.apiKeys
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.appIdFlag {
+	if builder.appIdSet {
 		req.AppId = &builder.appId
 
 	}
-	if builder.pageSizeFlag {
+	if builder.pageSizeSet {
 		req.PageSize = &builder.pageSize
 
 	}
-	if builder.pageTokenFlag {
+	if builder.pageTokenSet {
 		req.PageToken = &builder.pageToken
 
 	}
@@ -6346,26 +6931,26 @@ type Message struct {
 }
 
 type MessageBuilder struct {
-	openMessageId     string // 消息ID(open_message_id)
-	openMessageIdFlag bool
+	openMessageId    string // 消息ID(open_message_id)
+	openMessageIdSet bool
 
-	text     string // 文本内容
-	textFlag bool
+	text    string // 文本内容
+	textSet bool
 
-	openChatId     string // 会话ID(open_chat_id)
-	openChatIdFlag bool
+	openChatId    string // 会话ID(open_chat_id)
+	openChatIdSet bool
 
-	chatName     string // 会话名称
-	chatNameFlag bool
+	chatName    string // 会话名称
+	chatNameSet bool
 
-	chatType     int // 会话类型
-	chatTypeFlag bool
+	chatType    int // 会话类型
+	chatTypeSet bool
 
-	owner     *User // 消息发送人
-	ownerFlag bool
+	owner    *User // 消息发送人
+	ownerSet bool
 
-	createTime     string // 创建时间(秒级时间戳)
-	createTimeFlag bool
+	createTime    string // 创建时间(秒级时间戳)
+	createTimeSet bool
 }
 
 func NewMessageBuilder() *MessageBuilder {
@@ -6378,7 +6963,7 @@ func NewMessageBuilder() *MessageBuilder {
 // 示例值：om_xxx
 func (builder *MessageBuilder) OpenMessageId(openMessageId string) *MessageBuilder {
 	builder.openMessageId = openMessageId
-	builder.openMessageIdFlag = true
+	builder.openMessageIdSet = true
 	return builder
 }
 
@@ -6387,7 +6972,7 @@ func (builder *MessageBuilder) OpenMessageId(openMessageId string) *MessageBuild
 // 示例值：聊天记录
 func (builder *MessageBuilder) Text(text string) *MessageBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
@@ -6396,7 +6981,7 @@ func (builder *MessageBuilder) Text(text string) *MessageBuilder {
 // 示例值：oc_xxx
 func (builder *MessageBuilder) OpenChatId(openChatId string) *MessageBuilder {
 	builder.openChatId = openChatId
-	builder.openChatIdFlag = true
+	builder.openChatIdSet = true
 	return builder
 }
 
@@ -6405,7 +6990,7 @@ func (builder *MessageBuilder) OpenChatId(openChatId string) *MessageBuilder {
 // 示例值：xx与xx的聊天
 func (builder *MessageBuilder) ChatName(chatName string) *MessageBuilder {
 	builder.chatName = chatName
-	builder.chatNameFlag = true
+	builder.chatNameSet = true
 	return builder
 }
 
@@ -6414,7 +6999,7 @@ func (builder *MessageBuilder) ChatName(chatName string) *MessageBuilder {
 // 示例值：1
 func (builder *MessageBuilder) ChatType(chatType int) *MessageBuilder {
 	builder.chatType = chatType
-	builder.chatTypeFlag = true
+	builder.chatTypeSet = true
 	return builder
 }
 
@@ -6423,7 +7008,7 @@ func (builder *MessageBuilder) ChatType(chatType int) *MessageBuilder {
 // 示例值：
 func (builder *MessageBuilder) Owner(owner *User) *MessageBuilder {
 	builder.owner = owner
-	builder.ownerFlag = true
+	builder.ownerSet = true
 	return builder
 }
 
@@ -6432,36 +7017,36 @@ func (builder *MessageBuilder) Owner(owner *User) *MessageBuilder {
 // 示例值：
 func (builder *MessageBuilder) CreateTime(createTime string) *MessageBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
 func (builder *MessageBuilder) Build() *Message {
 	req := &Message{}
-	if builder.openMessageIdFlag {
+	if builder.openMessageIdSet {
 		req.OpenMessageId = &builder.openMessageId
 
 	}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 
 	}
-	if builder.openChatIdFlag {
+	if builder.openChatIdSet {
 		req.OpenChatId = &builder.openChatId
 
 	}
-	if builder.chatNameFlag {
+	if builder.chatNameSet {
 		req.ChatName = &builder.chatName
 
 	}
-	if builder.chatTypeFlag {
+	if builder.chatTypeSet {
 		req.ChatType = &builder.chatType
 
 	}
-	if builder.ownerFlag {
+	if builder.ownerSet {
 		req.Owner = builder.owner
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
@@ -6485,26 +7070,26 @@ type MigrationEntity struct {
 }
 
 type MigrationEntityBuilder struct {
-	id     string // 迁移的实体 id
-	idFlag bool
+	id    string // 迁移的实体 id
+	idSet bool
 
-	location     string // 实体的数据驻留地
-	locationFlag bool
+	location    string // 实体的数据驻留地
+	locationSet bool
 
 	type_    string // 实体的类型
-	typeFlag bool
+	type_Set bool
 
-	creatorId     string // 创建者的 id
-	creatorIdFlag bool
+	creatorId    string // 创建者的 id
+	creatorIdSet bool
 
-	creatorType     string // 创建者的类型
-	creatorTypeFlag bool
+	creatorType    string // 创建者的类型
+	creatorTypeSet bool
 
-	createTime     string // 实体创建时间（毫秒级时间戳）
-	createTimeFlag bool
+	createTime    string // 实体创建时间（毫秒级时间戳）
+	createTimeSet bool
 
-	mailAddress     string // 实体类型为 mailbox 时，返回 mail address，如果没有，则返回空
-	mailAddressFlag bool
+	mailAddress    string // 实体类型为 mailbox 时，返回 mail address，如果没有，则返回空
+	mailAddressSet bool
 }
 
 func NewMigrationEntityBuilder() *MigrationEntityBuilder {
@@ -6517,7 +7102,7 @@ func NewMigrationEntityBuilder() *MigrationEntityBuilder {
 // 示例值：43c58071254443c580712544
 func (builder *MigrationEntityBuilder) Id(id string) *MigrationEntityBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -6526,7 +7111,7 @@ func (builder *MigrationEntityBuilder) Id(id string) *MigrationEntityBuilder {
 // 示例值：SG
 func (builder *MigrationEntityBuilder) Location(location string) *MigrationEntityBuilder {
 	builder.location = location
-	builder.locationFlag = true
+	builder.locationSet = true
 	return builder
 }
 
@@ -6535,7 +7120,7 @@ func (builder *MigrationEntityBuilder) Location(location string) *MigrationEntit
 // 示例值：sheets
 func (builder *MigrationEntityBuilder) Type(type_ string) *MigrationEntityBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -6544,7 +7129,7 @@ func (builder *MigrationEntityBuilder) Type(type_ string) *MigrationEntityBuilde
 // 示例值：4443c580712544
 func (builder *MigrationEntityBuilder) CreatorId(creatorId string) *MigrationEntityBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -6553,7 +7138,7 @@ func (builder *MigrationEntityBuilder) CreatorId(creatorId string) *MigrationEnt
 // 示例值：user
 func (builder *MigrationEntityBuilder) CreatorType(creatorType string) *MigrationEntityBuilder {
 	builder.creatorType = creatorType
-	builder.creatorTypeFlag = true
+	builder.creatorTypeSet = true
 	return builder
 }
 
@@ -6562,7 +7147,7 @@ func (builder *MigrationEntityBuilder) CreatorType(creatorType string) *Migratio
 // 示例值：1615380573411
 func (builder *MigrationEntityBuilder) CreateTime(createTime string) *MigrationEntityBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -6571,37 +7156,37 @@ func (builder *MigrationEntityBuilder) CreateTime(createTime string) *MigrationE
 // 示例值：xxx@xxx.xx
 func (builder *MigrationEntityBuilder) MailAddress(mailAddress string) *MigrationEntityBuilder {
 	builder.mailAddress = mailAddress
-	builder.mailAddressFlag = true
+	builder.mailAddressSet = true
 	return builder
 }
 
 func (builder *MigrationEntityBuilder) Build() *MigrationEntity {
 	req := &MigrationEntity{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.locationFlag {
+	if builder.locationSet {
 		req.Location = &builder.location
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.creatorTypeFlag {
+	if builder.creatorTypeSet {
 		req.CreatorType = &builder.creatorType
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.mailAddressFlag {
+	if builder.mailAddressSet {
 		req.MailAddress = &builder.mailAddress
 
 	}
@@ -6619,17 +7204,17 @@ type MigrationItems struct {
 }
 
 type MigrationItemsBuilder struct {
-	taskId     string // 迁移任务的 id
-	taskIdFlag bool
+	taskId    string // 迁移任务的 id
+	taskIdSet bool
 
-	taskStatus     string // 任务状态
-	taskStatusFlag bool
+	taskStatus    string // 任务状态
+	taskStatusSet bool
 
-	entity     *MigrationEntity // 实体。当 entity 因为物理删除等原因找不到了，则不返回 entity 这个 obejct。
-	entityFlag bool
+	entity    *MigrationEntity // 实体。当 entity 因为物理删除等原因找不到了，则不返回 entity 这个 obejct。
+	entitySet bool
 
-	message     string // 只有当 task status 为 stop 时，返回 entity 找不到的信息。
-	messageFlag bool
+	message    string // 只有当 task status 为 stop 时，返回 entity 找不到的信息。
+	messageSet bool
 }
 
 func NewMigrationItemsBuilder() *MigrationItemsBuilder {
@@ -6642,7 +7227,7 @@ func NewMigrationItemsBuilder() *MigrationItemsBuilder {
 // 示例值：DUoTvpjqEMgzaDU5CmfpPhx2ncp8nh+EGtQtXXQDiBdxp7QBYwI55YnfCM7Pmoxirb9V8k9CMaqLESoXLX7ny7qj7mNlbhHBMcvzsuemDpSN5aF9TmzNEJHtcmtEfdCr
 func (builder *MigrationItemsBuilder) TaskId(taskId string) *MigrationItemsBuilder {
 	builder.taskId = taskId
-	builder.taskIdFlag = true
+	builder.taskIdSet = true
 	return builder
 }
 
@@ -6651,7 +7236,7 @@ func (builder *MigrationItemsBuilder) TaskId(taskId string) *MigrationItemsBuild
 // 示例值：create
 func (builder *MigrationItemsBuilder) TaskStatus(taskStatus string) *MigrationItemsBuilder {
 	builder.taskStatus = taskStatus
-	builder.taskStatusFlag = true
+	builder.taskStatusSet = true
 	return builder
 }
 
@@ -6660,7 +7245,7 @@ func (builder *MigrationItemsBuilder) TaskStatus(taskStatus string) *MigrationIt
 // 示例值：
 func (builder *MigrationItemsBuilder) Entity(entity *MigrationEntity) *MigrationItemsBuilder {
 	builder.entity = entity
-	builder.entityFlag = true
+	builder.entitySet = true
 	return builder
 }
 
@@ -6669,24 +7254,24 @@ func (builder *MigrationItemsBuilder) Entity(entity *MigrationEntity) *Migration
 // 示例值：Entity not exist.
 func (builder *MigrationItemsBuilder) Message(message string) *MigrationItemsBuilder {
 	builder.message = message
-	builder.messageFlag = true
+	builder.messageSet = true
 	return builder
 }
 
 func (builder *MigrationItemsBuilder) Build() *MigrationItems {
 	req := &MigrationItems{}
-	if builder.taskIdFlag {
+	if builder.taskIdSet {
 		req.TaskId = &builder.taskId
 
 	}
-	if builder.taskStatusFlag {
+	if builder.taskStatusSet {
 		req.TaskStatus = &builder.taskStatus
 
 	}
-	if builder.entityFlag {
+	if builder.entitySet {
 		req.Entity = builder.entity
 	}
-	if builder.messageFlag {
+	if builder.messageSet {
 		req.Message = &builder.message
 
 	}
@@ -6700,11 +7285,11 @@ type Notification struct {
 }
 
 type NotificationBuilder struct {
-	idempotentKey     string // 幂等建
-	idempotentKeyFlag bool
+	idempotentKey    string // 幂等建
+	idempotentKeySet bool
 
-	content     string // 通知内容
-	contentFlag bool
+	content    string // 通知内容
+	contentSet bool
 }
 
 func NewNotificationBuilder() *NotificationBuilder {
@@ -6717,7 +7302,7 @@ func NewNotificationBuilder() *NotificationBuilder {
 // 示例值：0cbd65e0-c7ab-4e9f-a80c-be29dd21df8f
 func (builder *NotificationBuilder) IdempotentKey(idempotentKey string) *NotificationBuilder {
 	builder.idempotentKey = idempotentKey
-	builder.idempotentKeyFlag = true
+	builder.idempotentKeySet = true
 	return builder
 }
 
@@ -6726,17 +7311,17 @@ func (builder *NotificationBuilder) IdempotentKey(idempotentKey string) *Notific
 // 示例值：
 func (builder *NotificationBuilder) Content(content string) *NotificationBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *NotificationBuilder) Build() *Notification {
 	req := &Notification{}
-	if builder.idempotentKeyFlag {
+	if builder.idempotentKeySet {
 		req.IdempotentKey = &builder.idempotentKey
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
@@ -6758,23 +7343,23 @@ type OpenapiLog struct {
 }
 
 type OpenapiLogBuilder struct {
-	id     string // openapi日志唯一标识
-	idFlag bool
+	id    string // openapi日志唯一标识
+	idSet bool
 
-	apiKey     string // 飞书开放平台定义的API
-	apiKeyFlag bool
+	apiKey    string // 飞书开放平台定义的API
+	apiKeySet bool
 
-	eventTime     int // 日志产生的时间，以秒为单位的时间戳
-	eventTimeFlag bool
+	eventTime    int // 日志产生的时间，以秒为单位的时间戳
+	eventTimeSet bool
 
-	appId     string // 在开发者后台——凭证与基础信息页面查看的app_id（cli_xxxxx）
-	appIdFlag bool
+	appId    string // 在开发者后台——凭证与基础信息页面查看的app_id（cli_xxxxx）
+	appIdSet bool
 
-	ip     string // 发起调用api的ip地址
-	ipFlag bool
+	ip    string // 发起调用api的ip地址
+	ipSet bool
 
-	logDetail     *OpenapiLogDetail // openapi调用日志详情
-	logDetailFlag bool
+	logDetail    *OpenapiLogDetail // openapi调用日志详情
+	logDetailSet bool
 }
 
 func NewOpenapiLogBuilder() *OpenapiLogBuilder {
@@ -6787,7 +7372,7 @@ func NewOpenapiLogBuilder() *OpenapiLogBuilder {
 // 示例值：10000
 func (builder *OpenapiLogBuilder) Id(id string) *OpenapiLogBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -6796,7 +7381,7 @@ func (builder *OpenapiLogBuilder) Id(id string) *OpenapiLogBuilder {
 // 示例值：POST/open-apis/demo/v1/example
 func (builder *OpenapiLogBuilder) ApiKey(apiKey string) *OpenapiLogBuilder {
 	builder.apiKey = apiKey
-	builder.apiKeyFlag = true
+	builder.apiKeySet = true
 	return builder
 }
 
@@ -6805,7 +7390,7 @@ func (builder *OpenapiLogBuilder) ApiKey(apiKey string) *OpenapiLogBuilder {
 // 示例值：1610613336
 func (builder *OpenapiLogBuilder) EventTime(eventTime int) *OpenapiLogBuilder {
 	builder.eventTime = eventTime
-	builder.eventTimeFlag = true
+	builder.eventTimeSet = true
 	return builder
 }
 
@@ -6814,7 +7399,7 @@ func (builder *OpenapiLogBuilder) EventTime(eventTime int) *OpenapiLogBuilder {
 // 示例值：cli_xxx
 func (builder *OpenapiLogBuilder) AppId(appId string) *OpenapiLogBuilder {
 	builder.appId = appId
-	builder.appIdFlag = true
+	builder.appIdSet = true
 	return builder
 }
 
@@ -6823,7 +7408,7 @@ func (builder *OpenapiLogBuilder) AppId(appId string) *OpenapiLogBuilder {
 // 示例值：192.123.12.1或fdbd:ff1:ce00:135:c7e:d128:5028:6546
 func (builder *OpenapiLogBuilder) Ip(ip string) *OpenapiLogBuilder {
 	builder.ip = ip
-	builder.ipFlag = true
+	builder.ipSet = true
 	return builder
 }
 
@@ -6832,33 +7417,33 @@ func (builder *OpenapiLogBuilder) Ip(ip string) *OpenapiLogBuilder {
 // 示例值：
 func (builder *OpenapiLogBuilder) LogDetail(logDetail *OpenapiLogDetail) *OpenapiLogBuilder {
 	builder.logDetail = logDetail
-	builder.logDetailFlag = true
+	builder.logDetailSet = true
 	return builder
 }
 
 func (builder *OpenapiLogBuilder) Build() *OpenapiLog {
 	req := &OpenapiLog{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.apiKeyFlag {
+	if builder.apiKeySet {
 		req.ApiKey = &builder.apiKey
 
 	}
-	if builder.eventTimeFlag {
+	if builder.eventTimeSet {
 		req.EventTime = &builder.eventTime
 
 	}
-	if builder.appIdFlag {
+	if builder.appIdSet {
 		req.AppId = &builder.appId
 
 	}
-	if builder.ipFlag {
+	if builder.ipSet {
 		req.Ip = &builder.ip
 
 	}
-	if builder.logDetailFlag {
+	if builder.logDetailSet {
 		req.LogDetail = builder.logDetail
 	}
 	return req
@@ -6879,23 +7464,23 @@ type OpenapiLogDetail struct {
 }
 
 type OpenapiLogDetailBuilder struct {
-	path     string // http请求路径
-	pathFlag bool
+	path    string // http请求路径
+	pathSet bool
 
-	method     string // http请求方法
-	methodFlag bool
+	method    string // http请求方法
+	methodSet bool
 
-	queryParam     string // http查询参数
-	queryParamFlag bool
+	queryParam    string // http查询参数
+	queryParamSet bool
 
-	payload     string // http请求体
-	payloadFlag bool
+	payload    string // http请求体
+	payloadSet bool
 
-	statusCode     int // http状态码
-	statusCodeFlag bool
+	statusCode    int // http状态码
+	statusCodeSet bool
 
-	response     string // http响应体，仅返回code，msg，error信息等
-	responseFlag bool
+	response    string // http响应体，仅返回code，msg，error信息等
+	responseSet bool
 }
 
 func NewOpenapiLogDetailBuilder() *OpenapiLogDetailBuilder {
@@ -6908,7 +7493,7 @@ func NewOpenapiLogDetailBuilder() *OpenapiLogDetailBuilder {
 // 示例值：/open-apis/demo/v1/example
 func (builder *OpenapiLogDetailBuilder) Path(path string) *OpenapiLogDetailBuilder {
 	builder.path = path
-	builder.pathFlag = true
+	builder.pathSet = true
 	return builder
 }
 
@@ -6917,7 +7502,7 @@ func (builder *OpenapiLogDetailBuilder) Path(path string) *OpenapiLogDetailBuild
 // 示例值：POST
 func (builder *OpenapiLogDetailBuilder) Method(method string) *OpenapiLogDetailBuilder {
 	builder.method = method
-	builder.methodFlag = true
+	builder.methodSet = true
 	return builder
 }
 
@@ -6926,7 +7511,7 @@ func (builder *OpenapiLogDetailBuilder) Method(method string) *OpenapiLogDetailB
 // 示例值：{}
 func (builder *OpenapiLogDetailBuilder) QueryParam(queryParam string) *OpenapiLogDetailBuilder {
 	builder.queryParam = queryParam
-	builder.queryParamFlag = true
+	builder.queryParamSet = true
 	return builder
 }
 
@@ -6935,7 +7520,7 @@ func (builder *OpenapiLogDetailBuilder) QueryParam(queryParam string) *OpenapiLo
 // 示例值：{\"param1\": \"val1\", \"param2\": \"val2\"}
 func (builder *OpenapiLogDetailBuilder) Payload(payload string) *OpenapiLogDetailBuilder {
 	builder.payload = payload
-	builder.payloadFlag = true
+	builder.payloadSet = true
 	return builder
 }
 
@@ -6944,7 +7529,7 @@ func (builder *OpenapiLogDetailBuilder) Payload(payload string) *OpenapiLogDetai
 // 示例值：0
 func (builder *OpenapiLogDetailBuilder) StatusCode(statusCode int) *OpenapiLogDetailBuilder {
 	builder.statusCode = statusCode
-	builder.statusCodeFlag = true
+	builder.statusCodeSet = true
 	return builder
 }
 
@@ -6953,33 +7538,33 @@ func (builder *OpenapiLogDetailBuilder) StatusCode(statusCode int) *OpenapiLogDe
 // 示例值：{\"code\": 0, \"msg\": \"ok\"}
 func (builder *OpenapiLogDetailBuilder) Response(response string) *OpenapiLogDetailBuilder {
 	builder.response = response
-	builder.responseFlag = true
+	builder.responseSet = true
 	return builder
 }
 
 func (builder *OpenapiLogDetailBuilder) Build() *OpenapiLogDetail {
 	req := &OpenapiLogDetail{}
-	if builder.pathFlag {
+	if builder.pathSet {
 		req.Path = &builder.path
 
 	}
-	if builder.methodFlag {
+	if builder.methodSet {
 		req.Method = &builder.method
 
 	}
-	if builder.queryParamFlag {
+	if builder.queryParamSet {
 		req.QueryParam = &builder.queryParam
 
 	}
-	if builder.payloadFlag {
+	if builder.payloadSet {
 		req.Payload = &builder.payload
 
 	}
-	if builder.statusCodeFlag {
+	if builder.statusCodeSet {
 		req.StatusCode = &builder.statusCode
 
 	}
-	if builder.responseFlag {
+	if builder.responseSet {
 		req.Response = &builder.response
 
 	}
@@ -6993,11 +7578,11 @@ type Param struct {
 }
 
 type ParamBuilder struct {
-	key     string // key
-	keyFlag bool
+	key    string // key
+	keySet bool
 
-	value     string // value
-	valueFlag bool
+	value    string // value
+	valueSet bool
 }
 
 func NewParamBuilder() *ParamBuilder {
@@ -7010,7 +7595,7 @@ func NewParamBuilder() *ParamBuilder {
 // 示例值：token
 func (builder *ParamBuilder) Key(key string) *ParamBuilder {
 	builder.key = key
-	builder.keyFlag = true
+	builder.keySet = true
 	return builder
 }
 
@@ -7019,19 +7604,117 @@ func (builder *ParamBuilder) Key(key string) *ParamBuilder {
 // 示例值：12345
 func (builder *ParamBuilder) Value(value string) *ParamBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *ParamBuilder) Build() *Param {
 	req := &Param{}
-	if builder.keyFlag {
+	if builder.keySet {
 		req.Key = &builder.key
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
+	}
+	return req
+}
+
+type Pdl struct {
+	Pdl *int `json:"pdl,omitempty"` // 人员的 PDL的枚举值，[pdl枚举值信息](https://code.byted.org/lark/idl/blob/master/idl/lark/dts/strategy/lark.dts.strategy.thrift#L12-21)
+
+	TimestampRange *TimestampRange `json:"timestamp_range,omitempty"` // 生效时间区间
+}
+
+type PdlBuilder struct {
+	pdl    int // 人员的 PDL的枚举值，[pdl枚举值信息](https://code.byted.org/lark/idl/blob/master/idl/lark/dts/strategy/lark.dts.strategy.thrift#L12-21)
+	pdlSet bool
+
+	timestampRange    *TimestampRange // 生效时间区间
+	timestampRangeSet bool
+}
+
+func NewPdlBuilder() *PdlBuilder {
+	builder := &PdlBuilder{}
+	return builder
+}
+
+// 人员的 PDL的枚举值，[pdl枚举值信息](https://code.byted.org/lark/idl/blob/master/idl/lark/dts/strategy/lark.dts.strategy.thrift#L12-21)
+//
+// 示例值：2
+func (builder *PdlBuilder) Pdl(pdl int) *PdlBuilder {
+	builder.pdl = pdl
+	builder.pdlSet = true
+	return builder
+}
+
+// 生效时间区间
+//
+// 示例值：
+func (builder *PdlBuilder) TimestampRange(timestampRange *TimestampRange) *PdlBuilder {
+	builder.timestampRange = timestampRange
+	builder.timestampRangeSet = true
+	return builder
+}
+
+func (builder *PdlBuilder) Build() *Pdl {
+	req := &Pdl{}
+	if builder.pdlSet {
+		req.Pdl = &builder.pdl
+
+	}
+	if builder.timestampRangeSet {
+		req.TimestampRange = builder.timestampRange
+	}
+	return req
+}
+
+type PdlInfo struct {
+	Id *string `json:"id,omitempty"` // 人员的id
+
+	Infos []*Pdl `json:"infos,omitempty"` // PDL时间轴数据
+}
+
+type PdlInfoBuilder struct {
+	id    string // 人员的id
+	idSet bool
+
+	infos    []*Pdl // PDL时间轴数据
+	infosSet bool
+}
+
+func NewPdlInfoBuilder() *PdlInfoBuilder {
+	builder := &PdlInfoBuilder{}
+	return builder
+}
+
+// 人员的id
+//
+// 示例值：ou_c99c5f35d542efc7ee492afe11af19ef
+func (builder *PdlInfoBuilder) Id(id string) *PdlInfoBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// PDL时间轴数据
+//
+// 示例值：
+func (builder *PdlInfoBuilder) Infos(infos []*Pdl) *PdlInfoBuilder {
+	builder.infos = infos
+	builder.infosSet = true
+	return builder
+}
+
+func (builder *PdlInfoBuilder) Build() *PdlInfo {
+	req := &PdlInfo{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.infosSet {
+		req.Infos = builder.infos
 	}
 	return req
 }
@@ -7043,11 +7726,11 @@ type PolicyEntity struct {
 }
 
 type PolicyEntityBuilder struct {
-	policyId     string // 策略快照ID
-	policyIdFlag bool
+	policyId    string // 策略快照ID
+	policyIdSet bool
 
-	policyName     string // 策略名称
-	policyNameFlag bool
+	policyName    string // 策略名称
+	policyNameSet bool
 }
 
 func NewPolicyEntityBuilder() *PolicyEntityBuilder {
@@ -7060,7 +7743,7 @@ func NewPolicyEntityBuilder() *PolicyEntityBuilder {
 // 示例值：123456
 func (builder *PolicyEntityBuilder) PolicyId(policyId string) *PolicyEntityBuilder {
 	builder.policyId = policyId
-	builder.policyIdFlag = true
+	builder.policyIdSet = true
 	return builder
 }
 
@@ -7069,17 +7752,17 @@ func (builder *PolicyEntityBuilder) PolicyId(policyId string) *PolicyEntityBuild
 // 示例值：策略名称Demo
 func (builder *PolicyEntityBuilder) PolicyName(policyName string) *PolicyEntityBuilder {
 	builder.policyName = policyName
-	builder.policyNameFlag = true
+	builder.policyNameSet = true
 	return builder
 }
 
 func (builder *PolicyEntityBuilder) Build() *PolicyEntity {
 	req := &PolicyEntity{}
-	if builder.policyIdFlag {
+	if builder.policyIdSet {
 		req.PolicyId = &builder.policyId
 
 	}
-	if builder.policyNameFlag {
+	if builder.policyNameSet {
 		req.PolicyName = &builder.policyName
 
 	}
@@ -7095,14 +7778,14 @@ type PolicyLog struct {
 }
 
 type PolicyLogBuilder struct {
-	hasMore     bool //
-	hasMoreFlag bool
+	hasMore    bool //
+	hasMoreSet bool
 
-	pageToken     string //
-	pageTokenFlag bool
+	pageToken    string //
+	pageTokenSet bool
 
-	items     []*PolicyLogItem // 策略日志列表
-	itemsFlag bool
+	items    []*PolicyLogItem // 策略日志列表
+	itemsSet bool
 }
 
 func NewPolicyLogBuilder() *PolicyLogBuilder {
@@ -7110,17 +7793,21 @@ func NewPolicyLogBuilder() *PolicyLogBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *PolicyLogBuilder) HasMore(hasMore bool) *PolicyLogBuilder {
 	builder.hasMore = hasMore
-	builder.hasMoreFlag = true
+	builder.hasMoreSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *PolicyLogBuilder) PageToken(pageToken string) *PolicyLogBuilder {
 	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.pageTokenSet = true
 	return builder
 }
 
@@ -7129,21 +7816,21 @@ func (builder *PolicyLogBuilder) PageToken(pageToken string) *PolicyLogBuilder {
 // 示例值：
 func (builder *PolicyLogBuilder) Items(items []*PolicyLogItem) *PolicyLogBuilder {
 	builder.items = items
-	builder.itemsFlag = true
+	builder.itemsSet = true
 	return builder
 }
 
 func (builder *PolicyLogBuilder) Build() *PolicyLog {
 	req := &PolicyLog{}
-	if builder.hasMoreFlag {
+	if builder.hasMoreSet {
 		req.HasMore = &builder.hasMore
 
 	}
-	if builder.pageTokenFlag {
+	if builder.pageTokenSet {
 		req.PageToken = &builder.pageToken
 
 	}
-	if builder.itemsFlag {
+	if builder.itemsSet {
 		req.Items = builder.items
 	}
 	return req
@@ -7176,41 +7863,41 @@ type PolicyLogItem struct {
 }
 
 type PolicyLogItemBuilder struct {
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 
-	userName     string // 用户名
-	userNameFlag bool
+	userName    string // 用户名
+	userNameSet bool
 
-	action     string // 操作
-	actionFlag bool
+	action    string // 操作
+	actionSet bool
 
-	resource     string // 场景
-	resourceFlag bool
+	resource    string // 场景
+	resourceSet bool
 
-	eventTime     string // 命中时间
-	eventTimeFlag bool
+	eventTime    string // 命中时间
+	eventTimeSet bool
 
-	condition     string // 条件
-	conditionFlag bool
+	condition    string // 条件
+	conditionSet bool
 
-	policyInfos     []*PolicyEntity // 策略信息
-	policyInfosFlag bool
+	policyInfos    []*PolicyEntity // 策略信息
+	policyInfosSet bool
 
-	systemAction     string // 系统执行动作
-	systemActionFlag bool
+	systemAction    string // 系统执行动作
+	systemActionSet bool
 
-	hitContents     []*HitContent // 命中的内容信息
-	hitContentsFlag bool
+	hitContents    []*HitContent // 命中的内容信息
+	hitContentsSet bool
 
-	proofDetails     []*ProofContentDetail // 证据详情
-	proofDetailsFlag bool
+	proofDetails    []*ProofContentDetail // 证据详情
+	proofDetailsSet bool
 
-	detectRules     []*DetectRule // 命中的检测规则
-	detectRulesFlag bool
+	detectRules    []*DetectRule // 命中的检测规则
+	detectRulesSet bool
 
-	resourceAttributes     []*ResourceAttribute // 管控场景的资源属性
-	resourceAttributesFlag bool
+	resourceAttributes    []*ResourceAttribute // 管控场景的资源属性
+	resourceAttributesSet bool
 }
 
 func NewPolicyLogItemBuilder() *PolicyLogItemBuilder {
@@ -7223,7 +7910,7 @@ func NewPolicyLogItemBuilder() *PolicyLogItemBuilder {
 // 示例值：
 func (builder *PolicyLogItemBuilder) UserId(userId string) *PolicyLogItemBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -7232,7 +7919,7 @@ func (builder *PolicyLogItemBuilder) UserId(userId string) *PolicyLogItemBuilder
 // 示例值：张三
 func (builder *PolicyLogItemBuilder) UserName(userName string) *PolicyLogItemBuilder {
 	builder.userName = userName
-	builder.userNameFlag = true
+	builder.userNameSet = true
 	return builder
 }
 
@@ -7241,7 +7928,7 @@ func (builder *PolicyLogItemBuilder) UserName(userName string) *PolicyLogItemBui
 // 示例值：Access
 func (builder *PolicyLogItemBuilder) Action(action string) *PolicyLogItemBuilder {
 	builder.action = action
-	builder.actionFlag = true
+	builder.actionSet = true
 	return builder
 }
 
@@ -7250,7 +7937,7 @@ func (builder *PolicyLogItemBuilder) Action(action string) *PolicyLogItemBuilder
 // 示例值：飞书
 func (builder *PolicyLogItemBuilder) Resource(resource string) *PolicyLogItemBuilder {
 	builder.resource = resource
-	builder.resourceFlag = true
+	builder.resourceSet = true
 	return builder
 }
 
@@ -7259,7 +7946,7 @@ func (builder *PolicyLogItemBuilder) Resource(resource string) *PolicyLogItemBui
 // 示例值：1668700799000
 func (builder *PolicyLogItemBuilder) EventTime(eventTime string) *PolicyLogItemBuilder {
 	builder.eventTime = eventTime
-	builder.eventTimeFlag = true
+	builder.eventTimeSet = true
 	return builder
 }
 
@@ -7268,7 +7955,7 @@ func (builder *PolicyLogItemBuilder) EventTime(eventTime string) *PolicyLogItemB
 // 示例值：{\"DEVICE_OWNERSHIP\":\"Unknown\",\"DEVICE_TERMINAL\":\"Web\",\"LSA_CLIENT_BIND_STATUS\":\"Unknown\",\"USER_ID\":7564320266201861655,\"DEVICE_CREDIBILITY\":\"Unknown\",\"DEVICE_OS\":\"macOS\"}
 func (builder *PolicyLogItemBuilder) Condition(condition string) *PolicyLogItemBuilder {
 	builder.condition = condition
-	builder.conditionFlag = true
+	builder.conditionSet = true
 	return builder
 }
 
@@ -7277,7 +7964,7 @@ func (builder *PolicyLogItemBuilder) Condition(condition string) *PolicyLogItemB
 // 示例值：
 func (builder *PolicyLogItemBuilder) PolicyInfos(policyInfos []*PolicyEntity) *PolicyLogItemBuilder {
 	builder.policyInfos = policyInfos
-	builder.policyInfosFlag = true
+	builder.policyInfosSet = true
 	return builder
 }
 
@@ -7286,7 +7973,7 @@ func (builder *PolicyLogItemBuilder) PolicyInfos(policyInfos []*PolicyEntity) *P
 // 示例值：DENY_WITHOUT_APPROVAL
 func (builder *PolicyLogItemBuilder) SystemAction(systemAction string) *PolicyLogItemBuilder {
 	builder.systemAction = systemAction
-	builder.systemActionFlag = true
+	builder.systemActionSet = true
 	return builder
 }
 
@@ -7295,7 +7982,7 @@ func (builder *PolicyLogItemBuilder) SystemAction(systemAction string) *PolicyLo
 // 示例值：
 func (builder *PolicyLogItemBuilder) HitContents(hitContents []*HitContent) *PolicyLogItemBuilder {
 	builder.hitContents = hitContents
-	builder.hitContentsFlag = true
+	builder.hitContentsSet = true
 	return builder
 }
 
@@ -7304,7 +7991,7 @@ func (builder *PolicyLogItemBuilder) HitContents(hitContents []*HitContent) *Pol
 // 示例值：
 func (builder *PolicyLogItemBuilder) ProofDetails(proofDetails []*ProofContentDetail) *PolicyLogItemBuilder {
 	builder.proofDetails = proofDetails
-	builder.proofDetailsFlag = true
+	builder.proofDetailsSet = true
 	return builder
 }
 
@@ -7313,7 +8000,7 @@ func (builder *PolicyLogItemBuilder) ProofDetails(proofDetails []*ProofContentDe
 // 示例值：
 func (builder *PolicyLogItemBuilder) DetectRules(detectRules []*DetectRule) *PolicyLogItemBuilder {
 	builder.detectRules = detectRules
-	builder.detectRulesFlag = true
+	builder.detectRulesSet = true
 	return builder
 }
 
@@ -7322,53 +8009,53 @@ func (builder *PolicyLogItemBuilder) DetectRules(detectRules []*DetectRule) *Pol
 // 示例值：
 func (builder *PolicyLogItemBuilder) ResourceAttributes(resourceAttributes []*ResourceAttribute) *PolicyLogItemBuilder {
 	builder.resourceAttributes = resourceAttributes
-	builder.resourceAttributesFlag = true
+	builder.resourceAttributesSet = true
 	return builder
 }
 
 func (builder *PolicyLogItemBuilder) Build() *PolicyLogItem {
 	req := &PolicyLogItem{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.userNameFlag {
+	if builder.userNameSet {
 		req.UserName = &builder.userName
 
 	}
-	if builder.actionFlag {
+	if builder.actionSet {
 		req.Action = &builder.action
 
 	}
-	if builder.resourceFlag {
+	if builder.resourceSet {
 		req.Resource = &builder.resource
 
 	}
-	if builder.eventTimeFlag {
+	if builder.eventTimeSet {
 		req.EventTime = &builder.eventTime
 
 	}
-	if builder.conditionFlag {
+	if builder.conditionSet {
 		req.Condition = &builder.condition
 
 	}
-	if builder.policyInfosFlag {
+	if builder.policyInfosSet {
 		req.PolicyInfos = builder.policyInfos
 	}
-	if builder.systemActionFlag {
+	if builder.systemActionSet {
 		req.SystemAction = &builder.systemAction
 
 	}
-	if builder.hitContentsFlag {
+	if builder.hitContentsSet {
 		req.HitContents = builder.hitContents
 	}
-	if builder.proofDetailsFlag {
+	if builder.proofDetailsSet {
 		req.ProofDetails = builder.proofDetails
 	}
-	if builder.detectRulesFlag {
+	if builder.detectRulesSet {
 		req.DetectRules = builder.detectRules
 	}
-	if builder.resourceAttributesFlag {
+	if builder.resourceAttributesSet {
 		req.ResourceAttributes = builder.resourceAttributes
 	}
 	return req
@@ -7381,11 +8068,11 @@ type ProofContentDetail struct {
 }
 
 type ProofContentDetailBuilder struct {
-	detectMode     int // 检测器
-	detectModeFlag bool
+	detectMode    int // 检测器
+	detectModeSet bool
 
-	detectProofContexts     []*DetectProofContext // 检测的证据信息
-	detectProofContextsFlag bool
+	detectProofContexts    []*DetectProofContext // 检测的证据信息
+	detectProofContextsSet bool
 }
 
 func NewProofContentDetailBuilder() *ProofContentDetailBuilder {
@@ -7398,7 +8085,7 @@ func NewProofContentDetailBuilder() *ProofContentDetailBuilder {
 // 示例值：1
 func (builder *ProofContentDetailBuilder) DetectMode(detectMode int) *ProofContentDetailBuilder {
 	builder.detectMode = detectMode
-	builder.detectModeFlag = true
+	builder.detectModeSet = true
 	return builder
 }
 
@@ -7407,17 +8094,17 @@ func (builder *ProofContentDetailBuilder) DetectMode(detectMode int) *ProofConte
 // 示例值：
 func (builder *ProofContentDetailBuilder) DetectProofContexts(detectProofContexts []*DetectProofContext) *ProofContentDetailBuilder {
 	builder.detectProofContexts = detectProofContexts
-	builder.detectProofContextsFlag = true
+	builder.detectProofContextsSet = true
 	return builder
 }
 
 func (builder *ProofContentDetailBuilder) Build() *ProofContentDetail {
 	req := &ProofContentDetail{}
-	if builder.detectModeFlag {
+	if builder.detectModeSet {
 		req.DetectMode = &builder.detectMode
 
 	}
-	if builder.detectProofContextsFlag {
+	if builder.detectProofContextsSet {
 		req.DetectProofContexts = builder.detectProofContexts
 	}
 	return req
@@ -7432,14 +8119,14 @@ type ProofContext struct {
 }
 
 type ProofContextBuilder struct {
-	prefix     string // 证据上文
-	prefixFlag bool
+	prefix    string // 证据上文
+	prefixSet bool
 
-	content     string // 证据关键词
-	contentFlag bool
+	content    string // 证据关键词
+	contentSet bool
 
-	suffix     string // 证据下文
-	suffixFlag bool
+	suffix    string // 证据下文
+	suffixSet bool
 }
 
 func NewProofContextBuilder() *ProofContextBuilder {
@@ -7452,7 +8139,7 @@ func NewProofContextBuilder() *ProofContextBuilder {
 // 示例值：'上文内容'
 func (builder *ProofContextBuilder) Prefix(prefix string) *ProofContextBuilder {
 	builder.prefix = prefix
-	builder.prefixFlag = true
+	builder.prefixSet = true
 	return builder
 }
 
@@ -7461,7 +8148,7 @@ func (builder *ProofContextBuilder) Prefix(prefix string) *ProofContextBuilder {
 // 示例值：'关键词'
 func (builder *ProofContextBuilder) Content(content string) *ProofContextBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -7470,21 +8157,21 @@ func (builder *ProofContextBuilder) Content(content string) *ProofContextBuilder
 // 示例值：'下文内容'
 func (builder *ProofContextBuilder) Suffix(suffix string) *ProofContextBuilder {
 	builder.suffix = suffix
-	builder.suffixFlag = true
+	builder.suffixSet = true
 	return builder
 }
 
 func (builder *ProofContextBuilder) Build() *ProofContext {
 	req := &ProofContext{}
-	if builder.prefixFlag {
+	if builder.prefixSet {
 		req.Prefix = &builder.prefix
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.suffixFlag {
+	if builder.suffixSet {
 		req.Suffix = &builder.suffix
 
 	}
@@ -7500,14 +8187,14 @@ type ResourceAttribute struct {
 }
 
 type ResourceAttributeBuilder struct {
-	resourceKey     string // 资源属性Key
-	resourceKeyFlag bool
+	resourceKey    string // 资源属性Key
+	resourceKeySet bool
 
-	resourceId     string // 资源属性ID
-	resourceIdFlag bool
+	resourceId    string // 资源属性ID
+	resourceIdSet bool
 
-	resourceValue     string // 资源属性值
-	resourceValueFlag bool
+	resourceValue    string // 资源属性值
+	resourceValueSet bool
 }
 
 func NewResourceAttributeBuilder() *ResourceAttributeBuilder {
@@ -7520,7 +8207,7 @@ func NewResourceAttributeBuilder() *ResourceAttributeBuilder {
 // 示例值：FileToken
 func (builder *ResourceAttributeBuilder) ResourceKey(resourceKey string) *ResourceAttributeBuilder {
 	builder.resourceKey = resourceKey
-	builder.resourceKeyFlag = true
+	builder.resourceKeySet = true
 	return builder
 }
 
@@ -7529,7 +8216,7 @@ func (builder *ResourceAttributeBuilder) ResourceKey(resourceKey string) *Resour
 // 示例值：78697689739864232
 func (builder *ResourceAttributeBuilder) ResourceId(resourceId string) *ResourceAttributeBuilder {
 	builder.resourceId = resourceId
-	builder.resourceIdFlag = true
+	builder.resourceIdSet = true
 	return builder
 }
 
@@ -7538,21 +8225,21 @@ func (builder *ResourceAttributeBuilder) ResourceId(resourceId string) *Resource
 // 示例值：'text'
 func (builder *ResourceAttributeBuilder) ResourceValue(resourceValue string) *ResourceAttributeBuilder {
 	builder.resourceValue = resourceValue
-	builder.resourceValueFlag = true
+	builder.resourceValueSet = true
 	return builder
 }
 
 func (builder *ResourceAttributeBuilder) Build() *ResourceAttribute {
 	req := &ResourceAttribute{}
-	if builder.resourceKeyFlag {
+	if builder.resourceKeySet {
 		req.ResourceKey = &builder.resourceKey
 
 	}
-	if builder.resourceIdFlag {
+	if builder.resourceIdSet {
 		req.ResourceId = &builder.resourceId
 
 	}
-	if builder.resourceValueFlag {
+	if builder.resourceValueSet {
 		req.ResourceValue = &builder.resourceValue
 
 	}
@@ -7568,14 +8255,14 @@ type SecurityLogError struct {
 }
 
 type SecurityLogErrorBuilder struct {
-	request     *GwRequest // 请求体
-	requestFlag bool
+	request    *GwRequest // 请求体
+	requestSet bool
 
-	response     *GwResponse // 响应体
-	responseFlag bool
+	response    *GwResponse // 响应体
+	responseSet bool
 
-	common     *GwCommon // 通用参数
-	commonFlag bool
+	common    *GwCommon // 通用参数
+	commonSet bool
 }
 
 func NewSecurityLogErrorBuilder() *SecurityLogErrorBuilder {
@@ -7588,7 +8275,7 @@ func NewSecurityLogErrorBuilder() *SecurityLogErrorBuilder {
 // 示例值：
 func (builder *SecurityLogErrorBuilder) Request(request *GwRequest) *SecurityLogErrorBuilder {
 	builder.request = request
-	builder.requestFlag = true
+	builder.requestSet = true
 	return builder
 }
 
@@ -7597,7 +8284,7 @@ func (builder *SecurityLogErrorBuilder) Request(request *GwRequest) *SecurityLog
 // 示例值：
 func (builder *SecurityLogErrorBuilder) Response(response *GwResponse) *SecurityLogErrorBuilder {
 	builder.response = response
-	builder.responseFlag = true
+	builder.responseSet = true
 	return builder
 }
 
@@ -7606,19 +8293,19 @@ func (builder *SecurityLogErrorBuilder) Response(response *GwResponse) *Security
 // 示例值：
 func (builder *SecurityLogErrorBuilder) Common(common *GwCommon) *SecurityLogErrorBuilder {
 	builder.common = common
-	builder.commonFlag = true
+	builder.commonSet = true
 	return builder
 }
 
 func (builder *SecurityLogErrorBuilder) Build() *SecurityLogError {
 	req := &SecurityLogError{}
-	if builder.requestFlag {
+	if builder.requestSet {
 		req.Request = builder.request
 	}
-	if builder.responseFlag {
+	if builder.responseSet {
 		req.Response = builder.response
 	}
-	if builder.commonFlag {
+	if builder.commonSet {
 		req.Common = builder.common
 	}
 	return req
@@ -7631,11 +8318,11 @@ type SimpleUser struct {
 }
 
 type SimpleUserBuilder struct {
-	id     string // 用户id
-	idFlag bool
+	id    string // 用户id
+	idSet bool
 
-	name     string // 用户名
-	nameFlag bool
+	name    string // 用户名
+	nameSet bool
 }
 
 func NewSimpleUserBuilder() *SimpleUserBuilder {
@@ -7648,7 +8335,7 @@ func NewSimpleUserBuilder() *SimpleUserBuilder {
 // 示例值：
 func (builder *SimpleUserBuilder) Id(id string) *SimpleUserBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -7657,17 +8344,17 @@ func (builder *SimpleUserBuilder) Id(id string) *SimpleUserBuilder {
 // 示例值：
 func (builder *SimpleUserBuilder) Name(name string) *SimpleUserBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *SimpleUserBuilder) Build() *SimpleUser {
 	req := &SimpleUser{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -7689,23 +8376,23 @@ type SubscribeAuditLogFile struct {
 }
 
 type SubscribeAuditLogFileBuilder struct {
-	fileId     string // 文件 id
-	fileIdFlag bool
+	fileId    string // 文件 id
+	fileIdSet bool
 
-	fileUrl     string // 文件地址
-	fileUrlFlag bool
+	fileUrl    string // 文件地址
+	fileUrlSet bool
 
-	fileUrlExpireTime     int // 文件过期时间，秒级时间戳
-	fileUrlExpireTimeFlag bool
+	fileUrlExpireTime    int // 文件过期时间，秒级时间戳
+	fileUrlExpireTimeSet bool
 
-	fileSize     int // 文件大小
-	fileSizeFlag bool
+	fileSize    int // 文件大小
+	fileSizeSet bool
 
-	startTime     int // 文件打包的日志的开始时间
-	startTimeFlag bool
+	startTime    int // 文件打包的日志的开始时间
+	startTimeSet bool
 
-	endTime     int // 文件打包的日志的结束时间
-	endTimeFlag bool
+	endTime    int // 文件打包的日志的结束时间
+	endTimeSet bool
 }
 
 func NewSubscribeAuditLogFileBuilder() *SubscribeAuditLogFileBuilder {
@@ -7718,7 +8405,7 @@ func NewSubscribeAuditLogFileBuilder() *SubscribeAuditLogFileBuilder {
 // 示例值：example
 func (builder *SubscribeAuditLogFileBuilder) FileId(fileId string) *SubscribeAuditLogFileBuilder {
 	builder.fileId = fileId
-	builder.fileIdFlag = true
+	builder.fileIdSet = true
 	return builder
 }
 
@@ -7727,7 +8414,7 @@ func (builder *SubscribeAuditLogFileBuilder) FileId(fileId string) *SubscribeAud
 // 示例值：example.gz
 func (builder *SubscribeAuditLogFileBuilder) FileUrl(fileUrl string) *SubscribeAuditLogFileBuilder {
 	builder.fileUrl = fileUrl
-	builder.fileUrlFlag = true
+	builder.fileUrlSet = true
 	return builder
 }
 
@@ -7736,7 +8423,7 @@ func (builder *SubscribeAuditLogFileBuilder) FileUrl(fileUrl string) *SubscribeA
 // 示例值：1741759604
 func (builder *SubscribeAuditLogFileBuilder) FileUrlExpireTime(fileUrlExpireTime int) *SubscribeAuditLogFileBuilder {
 	builder.fileUrlExpireTime = fileUrlExpireTime
-	builder.fileUrlExpireTimeFlag = true
+	builder.fileUrlExpireTimeSet = true
 	return builder
 }
 
@@ -7745,7 +8432,7 @@ func (builder *SubscribeAuditLogFileBuilder) FileUrlExpireTime(fileUrlExpireTime
 // 示例值：10
 func (builder *SubscribeAuditLogFileBuilder) FileSize(fileSize int) *SubscribeAuditLogFileBuilder {
 	builder.fileSize = fileSize
-	builder.fileSizeFlag = true
+	builder.fileSizeSet = true
 	return builder
 }
 
@@ -7754,7 +8441,7 @@ func (builder *SubscribeAuditLogFileBuilder) FileSize(fileSize int) *SubscribeAu
 // 示例值：1741759604
 func (builder *SubscribeAuditLogFileBuilder) StartTime(startTime int) *SubscribeAuditLogFileBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -7763,33 +8450,33 @@ func (builder *SubscribeAuditLogFileBuilder) StartTime(startTime int) *Subscribe
 // 示例值：1741759704
 func (builder *SubscribeAuditLogFileBuilder) EndTime(endTime int) *SubscribeAuditLogFileBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
 func (builder *SubscribeAuditLogFileBuilder) Build() *SubscribeAuditLogFile {
 	req := &SubscribeAuditLogFile{}
-	if builder.fileIdFlag {
+	if builder.fileIdSet {
 		req.FileId = &builder.fileId
 
 	}
-	if builder.fileUrlFlag {
+	if builder.fileUrlSet {
 		req.FileUrl = &builder.fileUrl
 
 	}
-	if builder.fileUrlExpireTimeFlag {
+	if builder.fileUrlExpireTimeSet {
 		req.FileUrlExpireTime = &builder.fileUrlExpireTime
 
 	}
-	if builder.fileSizeFlag {
+	if builder.fileSizeSet {
 		req.FileSize = &builder.fileSize
 
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
@@ -7803,11 +8490,11 @@ type TaskStatus struct {
 }
 
 type TaskStatusBuilder struct {
-	failureReason     string // 任务失败原因
-	failureReasonFlag bool
+	failureReason    string // 任务失败原因
+	failureReasonSet bool
 
-	statusCode     int // 任务状态码
-	statusCodeFlag bool
+	statusCode    int // 任务状态码
+	statusCodeSet bool
 }
 
 func NewTaskStatusBuilder() *TaskStatusBuilder {
@@ -7820,7 +8507,7 @@ func NewTaskStatusBuilder() *TaskStatusBuilder {
 // 示例值：
 func (builder *TaskStatusBuilder) FailureReason(failureReason string) *TaskStatusBuilder {
 	builder.failureReason = failureReason
-	builder.failureReasonFlag = true
+	builder.failureReasonSet = true
 	return builder
 }
 
@@ -7829,17 +8516,17 @@ func (builder *TaskStatusBuilder) FailureReason(failureReason string) *TaskStatu
 // 示例值：
 func (builder *TaskStatusBuilder) StatusCode(statusCode int) *TaskStatusBuilder {
 	builder.statusCode = statusCode
-	builder.statusCodeFlag = true
+	builder.statusCodeSet = true
 	return builder
 }
 
 func (builder *TaskStatusBuilder) Build() *TaskStatus {
 	req := &TaskStatus{}
-	if builder.failureReasonFlag {
+	if builder.failureReasonSet {
 		req.FailureReason = &builder.failureReason
 
 	}
-	if builder.statusCodeFlag {
+	if builder.statusCodeSet {
 		req.StatusCode = &builder.statusCode
 
 	}
@@ -7851,8 +8538,8 @@ type Tenant struct {
 }
 
 type TenantBuilder struct {
-	availableGeoLocations     []string // 可选多地理位置列表
-	availableGeoLocationsFlag bool
+	availableGeoLocations    []string // 可选多地理位置列表
+	availableGeoLocationsSet bool
 }
 
 func NewTenantBuilder() *TenantBuilder {
@@ -7865,13 +8552,13 @@ func NewTenantBuilder() *TenantBuilder {
 // 示例值：["cn", "sg", "us", "jp"]
 func (builder *TenantBuilder) AvailableGeoLocations(availableGeoLocations []string) *TenantBuilder {
 	builder.availableGeoLocations = availableGeoLocations
-	builder.availableGeoLocationsFlag = true
+	builder.availableGeoLocationsSet = true
 	return builder
 }
 
 func (builder *TenantBuilder) Build() *Tenant {
 	req := &Tenant{}
-	if builder.availableGeoLocationsFlag {
+	if builder.availableGeoLocationsSet {
 		req.AvailableGeoLocations = builder.availableGeoLocations
 	}
 	return req
@@ -7890,20 +8577,20 @@ type TenantThirdPartyEncryptionApp struct {
 }
 
 type TenantThirdPartyEncryptionAppBuilder struct {
-	vendorName     string // 加密服务提供商的名字
-	vendorNameFlag bool
+	vendorName    string // 加密服务提供商的名字
+	vendorNameSet bool
 
-	status     int // 服务状态
-	statusFlag bool
+	status    int // 服务状态
+	statusSet bool
 
-	serviceStartTime     string // 服务开始时间（Unix秒级时间戳）
-	serviceStartTimeFlag bool
+	serviceStartTime    string // 服务开始时间（Unix秒级时间戳）
+	serviceStartTimeSet bool
 
-	serviceEndTime     string // 服务结束时间（Unix秒级时间戳）
-	serviceEndTimeFlag bool
+	serviceEndTime    string // 服务结束时间（Unix秒级时间戳）
+	serviceEndTimeSet bool
 
-	config     string // 服务商SDK需要的特化的SDK配置，status=1时必填
-	configFlag bool
+	config    string // 服务商SDK需要的特化的SDK配置，status=1时必填
+	configSet bool
 }
 
 func NewTenantThirdPartyEncryptionAppBuilder() *TenantThirdPartyEncryptionAppBuilder {
@@ -7916,7 +8603,7 @@ func NewTenantThirdPartyEncryptionAppBuilder() *TenantThirdPartyEncryptionAppBui
 // 示例值：卫士通
 func (builder *TenantThirdPartyEncryptionAppBuilder) VendorName(vendorName string) *TenantThirdPartyEncryptionAppBuilder {
 	builder.vendorName = vendorName
-	builder.vendorNameFlag = true
+	builder.vendorNameSet = true
 	return builder
 }
 
@@ -7925,7 +8612,7 @@ func (builder *TenantThirdPartyEncryptionAppBuilder) VendorName(vendorName strin
 // 示例值：1
 func (builder *TenantThirdPartyEncryptionAppBuilder) Status(status int) *TenantThirdPartyEncryptionAppBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -7934,7 +8621,7 @@ func (builder *TenantThirdPartyEncryptionAppBuilder) Status(status int) *TenantT
 // 示例值：1653473995
 func (builder *TenantThirdPartyEncryptionAppBuilder) ServiceStartTime(serviceStartTime string) *TenantThirdPartyEncryptionAppBuilder {
 	builder.serviceStartTime = serviceStartTime
-	builder.serviceStartTimeFlag = true
+	builder.serviceStartTimeSet = true
 	return builder
 }
 
@@ -7943,7 +8630,7 @@ func (builder *TenantThirdPartyEncryptionAppBuilder) ServiceStartTime(serviceSta
 // 示例值：1684944000
 func (builder *TenantThirdPartyEncryptionAppBuilder) ServiceEndTime(serviceEndTime string) *TenantThirdPartyEncryptionAppBuilder {
 	builder.serviceEndTime = serviceEndTime
-	builder.serviceEndTimeFlag = true
+	builder.serviceEndTimeSet = true
 	return builder
 }
 
@@ -7952,29 +8639,29 @@ func (builder *TenantThirdPartyEncryptionAppBuilder) ServiceEndTime(serviceEndTi
 // 示例值：
 func (builder *TenantThirdPartyEncryptionAppBuilder) Config(config string) *TenantThirdPartyEncryptionAppBuilder {
 	builder.config = config
-	builder.configFlag = true
+	builder.configSet = true
 	return builder
 }
 
 func (builder *TenantThirdPartyEncryptionAppBuilder) Build() *TenantThirdPartyEncryptionApp {
 	req := &TenantThirdPartyEncryptionApp{}
-	if builder.vendorNameFlag {
+	if builder.vendorNameSet {
 		req.VendorName = &builder.vendorName
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.serviceStartTimeFlag {
+	if builder.serviceStartTimeSet {
 		req.ServiceStartTime = &builder.serviceStartTime
 
 	}
-	if builder.serviceEndTimeFlag {
+	if builder.serviceEndTimeSet {
 		req.ServiceEndTime = &builder.serviceEndTime
 
 	}
-	if builder.configFlag {
+	if builder.configSet {
 		req.Config = &builder.config
 
 	}
@@ -7988,11 +8675,11 @@ type TimeRange struct {
 }
 
 type TimeRangeBuilder struct {
-	start     string // 开始时间(秒)
-	startFlag bool
+	start    string // 开始时间(秒)
+	startSet bool
 
-	end     string // 结束时间(秒)
-	endFlag bool
+	end    string // 结束时间(秒)
+	endSet bool
 }
 
 func NewTimeRangeBuilder() *TimeRangeBuilder {
@@ -8005,7 +8692,7 @@ func NewTimeRangeBuilder() *TimeRangeBuilder {
 // 示例值：1644854400
 func (builder *TimeRangeBuilder) Start(start string) *TimeRangeBuilder {
 	builder.start = start
-	builder.startFlag = true
+	builder.startSet = true
 	return builder
 }
 
@@ -8014,17 +8701,67 @@ func (builder *TimeRangeBuilder) Start(start string) *TimeRangeBuilder {
 // 示例值：1645459199
 func (builder *TimeRangeBuilder) End(end string) *TimeRangeBuilder {
 	builder.end = end
-	builder.endFlag = true
+	builder.endSet = true
 	return builder
 }
 
 func (builder *TimeRangeBuilder) Build() *TimeRange {
 	req := &TimeRange{}
-	if builder.startFlag {
+	if builder.startSet {
 		req.Start = &builder.start
 
 	}
-	if builder.endFlag {
+	if builder.endSet {
+		req.End = &builder.end
+
+	}
+	return req
+}
+
+type TimestampRange struct {
+	Start *string `json:"start,omitempty"` // 时间段的起始毫秒时间戳
+
+	End *string `json:"end,omitempty"` // 时间段的终止毫秒时间戳
+}
+
+type TimestampRangeBuilder struct {
+	start    string // 时间段的起始毫秒时间戳
+	startSet bool
+
+	end    string // 时间段的终止毫秒时间戳
+	endSet bool
+}
+
+func NewTimestampRangeBuilder() *TimestampRangeBuilder {
+	builder := &TimestampRangeBuilder{}
+	return builder
+}
+
+// 时间段的起始毫秒时间戳
+//
+// 示例值：1672502400000
+func (builder *TimestampRangeBuilder) Start(start string) *TimestampRangeBuilder {
+	builder.start = start
+	builder.startSet = true
+	return builder
+}
+
+// 时间段的终止毫秒时间戳
+//
+// 示例值：1693670400000
+func (builder *TimestampRangeBuilder) End(end string) *TimestampRangeBuilder {
+	builder.end = end
+	builder.endSet = true
+	return builder
+}
+
+func (builder *TimestampRangeBuilder) Build() *TimestampRange {
+	req := &TimestampRange{}
+	if builder.startSet {
+		req.Start = &builder.start
+
+	}
+	if builder.endSet {
 		req.End = &builder.end
 
 	}
@@ -8042,17 +8779,17 @@ type User struct {
 }
 
 type UserBuilder struct {
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 
-	name     string // 用户姓名
-	nameFlag bool
+	name    string // 用户姓名
+	nameSet bool
 
-	email     string // 邮箱地址
-	emailFlag bool
+	email    string // 邮箱地址
+	emailSet bool
 
-	avatarUrl     string // 头像图片链接
-	avatarUrlFlag bool
+	avatarUrl    string // 头像图片链接
+	avatarUrlSet bool
 }
 
 func NewUserBuilder() *UserBuilder {
@@ -8065,7 +8802,7 @@ func NewUserBuilder() *UserBuilder {
 // 示例值：u28c128c
 func (builder *UserBuilder) UserId(userId string) *UserBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -8074,7 +8811,7 @@ func (builder *UserBuilder) UserId(userId string) *UserBuilder {
 // 示例值：某人
 func (builder *UserBuilder) Name(name string) *UserBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -8083,7 +8820,7 @@ func (builder *UserBuilder) Name(name string) *UserBuilder {
 // 示例值：xxx@xxx.com
 func (builder *UserBuilder) Email(email string) *UserBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -8092,25 +8829,25 @@ func (builder *UserBuilder) Email(email string) *UserBuilder {
 // 示例值：https://xxx.com/xxx.jpg
 func (builder *UserBuilder) AvatarUrl(avatarUrl string) *UserBuilder {
 	builder.avatarUrl = avatarUrl
-	builder.avatarUrlFlag = true
+	builder.avatarUrlSet = true
 	return builder
 }
 
 func (builder *UserBuilder) Build() *User {
 	req := &User{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.avatarUrlFlag {
+	if builder.avatarUrlSet {
 		req.AvatarUrl = &builder.avatarUrl
 
 	}
@@ -8126,14 +8863,14 @@ type UserId struct {
 }
 
 type UserIdBuilder struct {
-	userId     string //
-	userIdFlag bool
+	userId    string //
+	userIdSet bool
 
-	openId     string //
-	openIdFlag bool
+	openId    string //
+	openIdSet bool
 
-	unionId     string //
-	unionIdFlag bool
+	unionId    string //
+	unionIdSet bool
 }
 
 func NewUserIdBuilder() *UserIdBuilder {
@@ -8141,38 +8878,44 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
-	builder.unionIdFlag = true
+	builder.unionIdSet = true
 	return builder
 }
 
 func (builder *UserIdBuilder) Build() *UserId {
 	req := &UserId{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.unionIdFlag {
+	if builder.unionIdSet {
 		req.UnionId = &builder.unionId
 
 	}
@@ -8192,20 +8935,20 @@ type UserMigration struct {
 }
 
 type UserMigrationBuilder struct {
-	userId     string // 用户 id
-	userIdFlag bool
+	userId    string // 用户 id
+	userIdSet bool
 
-	destGeo     string // 目标地理位置区域
-	destGeoFlag bool
+	destGeo    string // 目标地理位置区域
+	destGeoSet bool
 
-	taskId     string // 最新迁移任务 id
-	taskIdFlag bool
+	taskId    string // 最新迁移任务 id
+	taskIdSet bool
 
-	status     string // 用户迁移状态
-	statusFlag bool
+	status    string // 用户迁移状态
+	statusSet bool
 
-	progress     int // 用户迁移进度
-	progressFlag bool
+	progress    int // 用户迁移进度
+	progressSet bool
 }
 
 func NewUserMigrationBuilder() *UserMigrationBuilder {
@@ -8218,7 +8961,7 @@ func NewUserMigrationBuilder() *UserMigrationBuilder {
 // 示例值：
 func (builder *UserMigrationBuilder) UserId(userId string) *UserMigrationBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -8227,7 +8970,7 @@ func (builder *UserMigrationBuilder) UserId(userId string) *UserMigrationBuilder
 // 示例值：
 func (builder *UserMigrationBuilder) DestGeo(destGeo string) *UserMigrationBuilder {
 	builder.destGeo = destGeo
-	builder.destGeoFlag = true
+	builder.destGeoSet = true
 	return builder
 }
 
@@ -8236,7 +8979,7 @@ func (builder *UserMigrationBuilder) DestGeo(destGeo string) *UserMigrationBuild
 // 示例值：
 func (builder *UserMigrationBuilder) TaskId(taskId string) *UserMigrationBuilder {
 	builder.taskId = taskId
-	builder.taskIdFlag = true
+	builder.taskIdSet = true
 	return builder
 }
 
@@ -8245,7 +8988,7 @@ func (builder *UserMigrationBuilder) TaskId(taskId string) *UserMigrationBuilder
 // 示例值：
 func (builder *UserMigrationBuilder) Status(status string) *UserMigrationBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -8254,29 +8997,29 @@ func (builder *UserMigrationBuilder) Status(status string) *UserMigrationBuilder
 // 示例值：
 func (builder *UserMigrationBuilder) Progress(progress int) *UserMigrationBuilder {
 	builder.progress = progress
-	builder.progressFlag = true
+	builder.progressSet = true
 	return builder
 }
 
 func (builder *UserMigrationBuilder) Build() *UserMigration {
 	req := &UserMigration{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.destGeoFlag {
+	if builder.destGeoSet {
 		req.DestGeo = &builder.destGeo
 
 	}
-	if builder.taskIdFlag {
+	if builder.taskIdSet {
 		req.TaskId = &builder.taskId
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.progressFlag {
+	if builder.progressSet {
 		req.Progress = &builder.progress
 
 	}
@@ -8294,17 +9037,17 @@ type VaultExportFile struct {
 }
 
 type VaultExportFileBuilder struct {
-	name     string // 文件名
-	nameFlag bool
+	name    string // 文件名
+	nameSet bool
 
-	size     string // 文件大小
-	sizeFlag bool
+	size    string // 文件大小
+	sizeSet bool
 
-	url     string // 文件tos uri
-	urlFlag bool
+	url    string // 文件tos uri
+	urlSet bool
 
-	downloadUrl     string // 文件下载的链接(临时链接，数分钟后失效)
-	downloadUrlFlag bool
+	downloadUrl    string // 文件下载的链接(临时链接，数分钟后失效)
+	downloadUrlSet bool
 }
 
 func NewVaultExportFileBuilder() *VaultExportFileBuilder {
@@ -8317,7 +9060,7 @@ func NewVaultExportFileBuilder() *VaultExportFileBuilder {
 // 示例值：
 func (builder *VaultExportFileBuilder) Name(name string) *VaultExportFileBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -8326,7 +9069,7 @@ func (builder *VaultExportFileBuilder) Name(name string) *VaultExportFileBuilder
 // 示例值：
 func (builder *VaultExportFileBuilder) Size(size string) *VaultExportFileBuilder {
 	builder.size = size
-	builder.sizeFlag = true
+	builder.sizeSet = true
 	return builder
 }
 
@@ -8335,7 +9078,7 @@ func (builder *VaultExportFileBuilder) Size(size string) *VaultExportFileBuilder
 // 示例值：
 func (builder *VaultExportFileBuilder) Url(url string) *VaultExportFileBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -8344,25 +9087,25 @@ func (builder *VaultExportFileBuilder) Url(url string) *VaultExportFileBuilder {
 // 示例值：
 func (builder *VaultExportFileBuilder) DownloadUrl(downloadUrl string) *VaultExportFileBuilder {
 	builder.downloadUrl = downloadUrl
-	builder.downloadUrlFlag = true
+	builder.downloadUrlSet = true
 	return builder
 }
 
 func (builder *VaultExportFileBuilder) Build() *VaultExportFile {
 	req := &VaultExportFile{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.sizeFlag {
+	if builder.sizeSet {
 		req.Size = &builder.size
 
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.downloadUrlFlag {
+	if builder.downloadUrlSet {
 		req.DownloadUrl = &builder.downloadUrl
 
 	}
@@ -8390,32 +9133,32 @@ type VaultTask struct {
 }
 
 type VaultTaskBuilder struct {
-	taskId     string // 任务id
-	taskIdFlag bool
+	taskId    string // 任务id
+	taskIdSet bool
 
-	name     string // 任务名
-	nameFlag bool
+	name    string // 任务名
+	nameSet bool
 
-	size     string // 任务文件总大小
-	sizeFlag bool
+	size    string // 任务文件总大小
+	sizeSet bool
 
-	validDays     int // 任务有效天数
-	validDaysFlag bool
+	validDays    int // 任务有效天数
+	validDaysSet bool
 
-	createTime     string // 任务创建时间戳
-	createTimeFlag bool
+	createTime    string // 任务创建时间戳
+	createTimeSet bool
 
-	extractKey     string // 文件包解压密码
-	extractKeyFlag bool
+	extractKey    string // 文件包解压密码
+	extractKeySet bool
 
-	creator     *SimpleUser // 任务创建者
-	creatorFlag bool
+	creator    *SimpleUser // 任务创建者
+	creatorSet bool
 
-	files     []*VaultExportFile // 导出任务文件列表
-	filesFlag bool
+	files    []*VaultExportFile // 导出任务文件列表
+	filesSet bool
 
-	status     string // 导出任务状态信息
-	statusFlag bool
+	status    string // 导出任务状态信息
+	statusSet bool
 }
 
 func NewVaultTaskBuilder() *VaultTaskBuilder {
@@ -8428,7 +9171,7 @@ func NewVaultTaskBuilder() *VaultTaskBuilder {
 // 示例值：123
 func (builder *VaultTaskBuilder) TaskId(taskId string) *VaultTaskBuilder {
 	builder.taskId = taskId
-	builder.taskIdFlag = true
+	builder.taskIdSet = true
 	return builder
 }
 
@@ -8437,7 +9180,7 @@ func (builder *VaultTaskBuilder) TaskId(taskId string) *VaultTaskBuilder {
 // 示例值：任务名称
 func (builder *VaultTaskBuilder) Name(name string) *VaultTaskBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -8446,7 +9189,7 @@ func (builder *VaultTaskBuilder) Name(name string) *VaultTaskBuilder {
 // 示例值：10
 func (builder *VaultTaskBuilder) Size(size string) *VaultTaskBuilder {
 	builder.size = size
-	builder.sizeFlag = true
+	builder.sizeSet = true
 	return builder
 }
 
@@ -8455,7 +9198,7 @@ func (builder *VaultTaskBuilder) Size(size string) *VaultTaskBuilder {
 // 示例值：1
 func (builder *VaultTaskBuilder) ValidDays(validDays int) *VaultTaskBuilder {
 	builder.validDays = validDays
-	builder.validDaysFlag = true
+	builder.validDaysSet = true
 	return builder
 }
 
@@ -8464,7 +9207,7 @@ func (builder *VaultTaskBuilder) ValidDays(validDays int) *VaultTaskBuilder {
 // 示例值：2025
 func (builder *VaultTaskBuilder) CreateTime(createTime string) *VaultTaskBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -8473,7 +9216,7 @@ func (builder *VaultTaskBuilder) CreateTime(createTime string) *VaultTaskBuilder
 // 示例值：123
 func (builder *VaultTaskBuilder) ExtractKey(extractKey string) *VaultTaskBuilder {
 	builder.extractKey = extractKey
-	builder.extractKeyFlag = true
+	builder.extractKeySet = true
 	return builder
 }
 
@@ -8482,7 +9225,7 @@ func (builder *VaultTaskBuilder) ExtractKey(extractKey string) *VaultTaskBuilder
 // 示例值：
 func (builder *VaultTaskBuilder) Creator(creator *SimpleUser) *VaultTaskBuilder {
 	builder.creator = creator
-	builder.creatorFlag = true
+	builder.creatorSet = true
 	return builder
 }
 
@@ -8491,7 +9234,7 @@ func (builder *VaultTaskBuilder) Creator(creator *SimpleUser) *VaultTaskBuilder 
 // 示例值：
 func (builder *VaultTaskBuilder) Files(files []*VaultExportFile) *VaultTaskBuilder {
 	builder.files = files
-	builder.filesFlag = true
+	builder.filesSet = true
 	return builder
 }
 
@@ -8500,47 +9243,61 @@ func (builder *VaultTaskBuilder) Files(files []*VaultExportFile) *VaultTaskBuild
 // 示例值：stop
 func (builder *VaultTaskBuilder) Status(status string) *VaultTaskBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *VaultTaskBuilder) Build() *VaultTask {
 	req := &VaultTask{}
-	if builder.taskIdFlag {
+	if builder.taskIdSet {
 		req.TaskId = &builder.taskId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.sizeFlag {
+	if builder.sizeSet {
 		req.Size = &builder.size
 
 	}
-	if builder.validDaysFlag {
+	if builder.validDaysSet {
 		req.ValidDays = &builder.validDays
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.extractKeyFlag {
+	if builder.extractKeySet {
 		req.ExtractKey = &builder.extractKey
 
 	}
-	if builder.creatorFlag {
+	if builder.creatorSet {
 		req.Creator = builder.creator
 	}
-	if builder.filesFlag {
+	if builder.filesSet {
 		req.Files = builder.files
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
 	return req
+}
+
+type GetMultiGeoEntityTenantRespData struct {
+	Tenant *Tenant `json:"tenant,omitempty"` // 多地理位置租户信息
+}
+
+type GetMultiGeoEntityTenantResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetMultiGeoEntityTenantRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetMultiGeoEntityTenantResp) Success() bool {
+	return resp.Code == 0
 }
 
 type ListDataOpenapiLogReqBuilder struct {
@@ -8557,6 +9314,7 @@ func NewListDataOpenapiLogReqBuilder() *ListDataOpenapiLogReqBuilder {
 	return builder
 }
 
+//
 func (builder *ListDataOpenapiLogReqBuilder) ListOpenapiLogRequest(listOpenapiLogRequest *ListOpenapiLogRequest) *ListDataOpenapiLogReqBuilder {
 	builder.listOpenapiLogRequest = listOpenapiLogRequest
 	return builder
@@ -8589,5 +9347,425 @@ type ListDataOpenapiLogResp struct {
 }
 
 func (resp *ListDataOpenapiLogResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CancelUserMigrationReqBodyBuilder struct {
+	userIds    []string // 取消迁移用户 id 列表
+	userIdsSet bool
+}
+
+func NewCancelUserMigrationReqBodyBuilder() *CancelUserMigrationReqBodyBuilder {
+	builder := &CancelUserMigrationReqBodyBuilder{}
+	return builder
+}
+
+// 取消迁移用户 id 列表
+//
+//示例值：
+func (builder *CancelUserMigrationReqBodyBuilder) UserIds(userIds []string) *CancelUserMigrationReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsSet = true
+	return builder
+}
+
+func (builder *CancelUserMigrationReqBodyBuilder) Build() *CancelUserMigrationReqBody {
+	req := &CancelUserMigrationReqBody{}
+	if builder.userIdsSet {
+		req.UserIds = builder.userIds
+	}
+	return req
+}
+
+type CancelUserMigrationPathReqBodyBuilder struct {
+	userIds    []string
+	userIdsSet bool
+}
+
+func NewCancelUserMigrationPathReqBodyBuilder() *CancelUserMigrationPathReqBodyBuilder {
+	builder := &CancelUserMigrationPathReqBodyBuilder{}
+	return builder
+}
+
+// 取消迁移用户 id 列表
+//
+// 示例值：
+func (builder *CancelUserMigrationPathReqBodyBuilder) UserIds(userIds []string) *CancelUserMigrationPathReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsSet = true
+	return builder
+}
+
+func (builder *CancelUserMigrationPathReqBodyBuilder) Build() (*CancelUserMigrationReqBody, error) {
+	req := &CancelUserMigrationReqBody{}
+	if builder.userIdsSet {
+		req.UserIds = builder.userIds
+	}
+	return req, nil
+}
+
+type CancelUserMigrationReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CancelUserMigrationReqBody
+}
+
+func NewCancelUserMigrationReqBuilder() *CancelUserMigrationReqBuilder {
+	builder := &CancelUserMigrationReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户 ID 的类型
+//
+// 示例值：user_id
+func (builder *CancelUserMigrationReqBuilder) UserIdType(userIdType string) *CancelUserMigrationReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *CancelUserMigrationReqBuilder) Body(body *CancelUserMigrationReqBody) *CancelUserMigrationReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CancelUserMigrationReqBuilder) Build() *CancelUserMigrationReq {
+	req := &CancelUserMigrationReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CancelUserMigrationReqBody struct {
+	UserIds []string `json:"user_ids,omitempty"` // 取消迁移用户 id 列表
+}
+
+type CancelUserMigrationReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CancelUserMigrationReqBody `body:""`
+}
+
+type CancelUserMigrationResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *CancelUserMigrationResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateUserMigrationReqBodyBuilder struct {
+	userIds    []string // 迁移用户 id 列表
+	userIdsSet bool
+
+	destGeo    string // 迁移目标地理位置区域
+	destGeoSet bool
+}
+
+func NewCreateUserMigrationReqBodyBuilder() *CreateUserMigrationReqBodyBuilder {
+	builder := &CreateUserMigrationReqBodyBuilder{}
+	return builder
+}
+
+// 迁移用户 id 列表
+//
+//示例值：
+func (builder *CreateUserMigrationReqBodyBuilder) UserIds(userIds []string) *CreateUserMigrationReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsSet = true
+	return builder
+}
+
+// 迁移目标地理位置区域
+//
+//示例值：
+func (builder *CreateUserMigrationReqBodyBuilder) DestGeo(destGeo string) *CreateUserMigrationReqBodyBuilder {
+	builder.destGeo = destGeo
+	builder.destGeoSet = true
+	return builder
+}
+
+func (builder *CreateUserMigrationReqBodyBuilder) Build() *CreateUserMigrationReqBody {
+	req := &CreateUserMigrationReqBody{}
+	if builder.userIdsSet {
+		req.UserIds = builder.userIds
+	}
+	if builder.destGeoSet {
+		req.DestGeo = &builder.destGeo
+	}
+	return req
+}
+
+type CreateUserMigrationPathReqBodyBuilder struct {
+	userIds    []string
+	userIdsSet bool
+	destGeo    string
+	destGeoSet bool
+}
+
+func NewCreateUserMigrationPathReqBodyBuilder() *CreateUserMigrationPathReqBodyBuilder {
+	builder := &CreateUserMigrationPathReqBodyBuilder{}
+	return builder
+}
+
+// 迁移用户 id 列表
+//
+// 示例值：
+func (builder *CreateUserMigrationPathReqBodyBuilder) UserIds(userIds []string) *CreateUserMigrationPathReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsSet = true
+	return builder
+}
+
+// 迁移目标地理位置区域
+//
+// 示例值：
+func (builder *CreateUserMigrationPathReqBodyBuilder) DestGeo(destGeo string) *CreateUserMigrationPathReqBodyBuilder {
+	builder.destGeo = destGeo
+	builder.destGeoSet = true
+	return builder
+}
+
+func (builder *CreateUserMigrationPathReqBodyBuilder) Build() (*CreateUserMigrationReqBody, error) {
+	req := &CreateUserMigrationReqBody{}
+	if builder.userIdsSet {
+		req.UserIds = builder.userIds
+	}
+	if builder.destGeoSet {
+		req.DestGeo = &builder.destGeo
+	}
+	return req, nil
+}
+
+type CreateUserMigrationReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CreateUserMigrationReqBody
+}
+
+func NewCreateUserMigrationReqBuilder() *CreateUserMigrationReqBuilder {
+	builder := &CreateUserMigrationReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户 ID 的类型
+//
+// 示例值：user_id
+func (builder *CreateUserMigrationReqBuilder) UserIdType(userIdType string) *CreateUserMigrationReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *CreateUserMigrationReqBuilder) Body(body *CreateUserMigrationReqBody) *CreateUserMigrationReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CreateUserMigrationReqBuilder) Build() *CreateUserMigrationReq {
+	req := &CreateUserMigrationReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CreateUserMigrationReqBody struct {
+	UserIds []string `json:"user_ids,omitempty"` // 迁移用户 id 列表
+
+	DestGeo *string `json:"dest_geo,omitempty"` // 迁移目标地理位置区域
+}
+
+type CreateUserMigrationReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CreateUserMigrationReqBody `body:""`
+}
+
+type CreateUserMigrationRespData struct {
+	UserMigrations []*UserMigration `json:"user_migrations,omitempty"` // 用户迁移列表
+}
+
+type CreateUserMigrationResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateUserMigrationRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateUserMigrationResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetUserMigrationReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetUserMigrationReqBuilder() *GetUserMigrationReqBuilder {
+	builder := &GetUserMigrationReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户 id
+//
+// 示例值：
+func (builder *GetUserMigrationReqBuilder) UserId(userId string) *GetUserMigrationReqBuilder {
+	builder.apiReq.PathParams.Set("user_id", fmt.Sprint(userId))
+	return builder
+}
+
+// 用户 id 类型
+//
+// 示例值：user_id
+func (builder *GetUserMigrationReqBuilder) UserIdType(userIdType string) *GetUserMigrationReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *GetUserMigrationReqBuilder) Build() *GetUserMigrationReq {
+	req := &GetUserMigrationReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetUserMigrationReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetUserMigrationRespData struct {
+	UserMigration *UserMigration `json:"user_migration,omitempty"` // 用户迁移
+}
+
+type GetUserMigrationResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetUserMigrationRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetUserMigrationResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SearchUserMigrationReqBodyBuilder struct {
+	userIds    []string // 用户 id 列表
+	userIdsSet bool
+}
+
+func NewSearchUserMigrationReqBodyBuilder() *SearchUserMigrationReqBodyBuilder {
+	builder := &SearchUserMigrationReqBodyBuilder{}
+	return builder
+}
+
+// 用户 id 列表
+//
+//示例值：
+func (builder *SearchUserMigrationReqBodyBuilder) UserIds(userIds []string) *SearchUserMigrationReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsSet = true
+	return builder
+}
+
+func (builder *SearchUserMigrationReqBodyBuilder) Build() *SearchUserMigrationReqBody {
+	req := &SearchUserMigrationReqBody{}
+	if builder.userIdsSet {
+		req.UserIds = builder.userIds
+	}
+	return req
+}
+
+type SearchUserMigrationPathReqBodyBuilder struct {
+	userIds    []string
+	userIdsSet bool
+}
+
+func NewSearchUserMigrationPathReqBodyBuilder() *SearchUserMigrationPathReqBodyBuilder {
+	builder := &SearchUserMigrationPathReqBodyBuilder{}
+	return builder
+}
+
+// 用户 id 列表
+//
+// 示例值：
+func (builder *SearchUserMigrationPathReqBodyBuilder) UserIds(userIds []string) *SearchUserMigrationPathReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsSet = true
+	return builder
+}
+
+func (builder *SearchUserMigrationPathReqBodyBuilder) Build() (*SearchUserMigrationReqBody, error) {
+	req := &SearchUserMigrationReqBody{}
+	if builder.userIdsSet {
+		req.UserIds = builder.userIds
+	}
+	return req, nil
+}
+
+type SearchUserMigrationReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchUserMigrationReqBody
+}
+
+func NewSearchUserMigrationReqBuilder() *SearchUserMigrationReqBuilder {
+	builder := &SearchUserMigrationReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户 ID 的类型
+//
+// 示例值：
+func (builder *SearchUserMigrationReqBuilder) UserIdType(userIdType string) *SearchUserMigrationReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *SearchUserMigrationReqBuilder) Body(body *SearchUserMigrationReqBody) *SearchUserMigrationReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchUserMigrationReqBuilder) Build() *SearchUserMigrationReq {
+	req := &SearchUserMigrationReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchUserMigrationReqBody struct {
+	UserIds []string `json:"user_ids,omitempty"` // 用户 id 列表
+}
+
+type SearchUserMigrationReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchUserMigrationReqBody `body:""`
+}
+
+type SearchUserMigrationRespData struct {
+	Items []*UserMigration `json:"items,omitempty"` // 用户迁移列表
+}
+
+type SearchUserMigrationResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchUserMigrationRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchUserMigrationResp) Success() bool {
 	return resp.Code == 0
 }

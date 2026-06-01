@@ -143,23 +143,23 @@ type AdminDeptExtContactStat struct {
 }
 
 type AdminDeptExtContactStatBuilder struct {
-	date     string // 日期
-	dateFlag bool
+	date    string // 日期
+	dateSet bool
 
-	departmentId     string // 部门ID
-	departmentIdFlag bool
+	departmentId    string // 部门ID
+	departmentIdSet bool
 
-	departmentName     string // 部门名
-	departmentNameFlag bool
+	departmentName    string // 部门名
+	departmentNameSet bool
 
-	hasRefContactUcnt     string // 拥有外部联系人的成员数
-	hasRefContactUcntFlag bool
+	hasRefContactUcnt    string // 拥有外部联系人的成员数
+	hasRefContactUcntSet bool
 
-	refContactUcnt     string // 外部联系人总数
-	refContactUcntFlag bool
+	refContactUcnt    string // 外部联系人总数
+	refContactUcntSet bool
 
-	refContactTcnt     string // 外部联系人所属租户数
-	refContactTcntFlag bool
+	refContactTcnt    string // 外部联系人所属租户数
+	refContactTcntSet bool
 }
 
 func NewAdminDeptExtContactStatBuilder() *AdminDeptExtContactStatBuilder {
@@ -172,7 +172,7 @@ func NewAdminDeptExtContactStatBuilder() *AdminDeptExtContactStatBuilder {
 // 示例值：2024-08-15
 func (builder *AdminDeptExtContactStatBuilder) Date(date string) *AdminDeptExtContactStatBuilder {
 	builder.date = date
-	builder.dateFlag = true
+	builder.dateSet = true
 	return builder
 }
 
@@ -181,7 +181,7 @@ func (builder *AdminDeptExtContactStatBuilder) Date(date string) *AdminDeptExtCo
 // 示例值：od-382e2793cfc9471f892e8a672987654c
 func (builder *AdminDeptExtContactStatBuilder) DepartmentId(departmentId string) *AdminDeptExtContactStatBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -190,7 +190,7 @@ func (builder *AdminDeptExtContactStatBuilder) DepartmentId(departmentId string)
 // 示例值：部门A
 func (builder *AdminDeptExtContactStatBuilder) DepartmentName(departmentName string) *AdminDeptExtContactStatBuilder {
 	builder.departmentName = departmentName
-	builder.departmentNameFlag = true
+	builder.departmentNameSet = true
 	return builder
 }
 
@@ -199,7 +199,7 @@ func (builder *AdminDeptExtContactStatBuilder) DepartmentName(departmentName str
 // 示例值：100
 func (builder *AdminDeptExtContactStatBuilder) HasRefContactUcnt(hasRefContactUcnt string) *AdminDeptExtContactStatBuilder {
 	builder.hasRefContactUcnt = hasRefContactUcnt
-	builder.hasRefContactUcntFlag = true
+	builder.hasRefContactUcntSet = true
 	return builder
 }
 
@@ -208,7 +208,7 @@ func (builder *AdminDeptExtContactStatBuilder) HasRefContactUcnt(hasRefContactUc
 // 示例值：200
 func (builder *AdminDeptExtContactStatBuilder) RefContactUcnt(refContactUcnt string) *AdminDeptExtContactStatBuilder {
 	builder.refContactUcnt = refContactUcnt
-	builder.refContactUcntFlag = true
+	builder.refContactUcntSet = true
 	return builder
 }
 
@@ -217,33 +217,33 @@ func (builder *AdminDeptExtContactStatBuilder) RefContactUcnt(refContactUcnt str
 // 示例值：10
 func (builder *AdminDeptExtContactStatBuilder) RefContactTcnt(refContactTcnt string) *AdminDeptExtContactStatBuilder {
 	builder.refContactTcnt = refContactTcnt
-	builder.refContactTcntFlag = true
+	builder.refContactTcntSet = true
 	return builder
 }
 
 func (builder *AdminDeptExtContactStatBuilder) Build() *AdminDeptExtContactStat {
 	req := &AdminDeptExtContactStat{}
-	if builder.dateFlag {
+	if builder.dateSet {
 		req.Date = &builder.date
 
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.departmentNameFlag {
+	if builder.departmentNameSet {
 		req.DepartmentName = &builder.departmentName
 
 	}
-	if builder.hasRefContactUcntFlag {
+	if builder.hasRefContactUcntSet {
 		req.HasRefContactUcnt = &builder.hasRefContactUcnt
 
 	}
-	if builder.refContactUcntFlag {
+	if builder.refContactUcntSet {
 		req.RefContactUcnt = &builder.refContactUcnt
 
 	}
-	if builder.refContactTcntFlag {
+	if builder.refContactTcntSet {
 		req.RefContactTcnt = &builder.refContactTcnt
 
 	}
@@ -339,134 +339,134 @@ type AdminDeptStat struct {
 }
 
 type AdminDeptStatBuilder struct {
-	date     string // 日期
-	dateFlag bool
+	date    string // 日期
+	dateSet bool
 
-	departmentId     string // 部门的department_id 或者open_department_id
-	departmentIdFlag bool
+	departmentId    string // 部门的department_id 或者open_department_id
+	departmentIdSet bool
 
-	departmentName     string // 部门名字
-	departmentNameFlag bool
+	departmentName    string // 部门名字
+	departmentNameSet bool
 
-	departmentPath     string // 部门路径
-	departmentPathFlag bool
+	departmentPath    string // 部门路径
+	departmentPathSet bool
 
-	totalUserNum     int // 部门总人数
-	totalUserNumFlag bool
+	totalUserNum    int // 部门总人数
+	totalUserNumSet bool
 
-	activeUserNum     int // 激活人数
-	activeUserNumFlag bool
+	activeUserNum    int // 激活人数
+	activeUserNumSet bool
 
-	activeUserRate     string // 激活率
-	activeUserRateFlag bool
+	activeUserRate    string // 激活率
+	activeUserRateSet bool
 
-	suiteDau     int // 活跃人数
-	suiteDauFlag bool
+	suiteDau    int // 活跃人数
+	suiteDauSet bool
 
-	suiteActiveRate     string // 活跃率
-	suiteActiveRateFlag bool
+	suiteActiveRate    string // 活跃率
+	suiteActiveRateSet bool
 
-	newUserNum     int // 新用户数
-	newUserNumFlag bool
+	newUserNum    int // 新用户数
+	newUserNumSet bool
 
-	newActiveNum     int // 新激活数
-	newActiveNumFlag bool
+	newActiveNum    int // 新激活数
+	newActiveNumSet bool
 
-	resignUserNum     int // 离职人数
-	resignUserNumFlag bool
+	resignUserNum    int // 离职人数
+	resignUserNumSet bool
 
-	imDau     int // 消息活跃人数
-	imDauFlag bool
+	imDau    int // 消息活跃人数
+	imDauSet bool
 
-	sendMessengerUserNum     int // 发送消息人数
-	sendMessengerUserNumFlag bool
+	sendMessengerUserNum    int // 发送消息人数
+	sendMessengerUserNumSet bool
 
-	sendMessengerNum     int // 发送消息数
-	sendMessengerNumFlag bool
+	sendMessengerNum    int // 发送消息数
+	sendMessengerNumSet bool
 
-	avgSendMessengerNum     string // 人均发送消息数
-	avgSendMessengerNumFlag bool
+	avgSendMessengerNum    string // 人均发送消息数
+	avgSendMessengerNumSet bool
 
-	docsDau     int // 云文档活跃人数
-	docsDauFlag bool
+	docsDau    int // 云文档活跃人数
+	docsDauSet bool
 
-	createDocsUserNum     int // 创建文件人数
-	createDocsUserNumFlag bool
+	createDocsUserNum    int // 创建文件人数
+	createDocsUserNumSet bool
 
-	createDocsNum     int // 创建文件数
-	createDocsNumFlag bool
+	createDocsNum    int // 创建文件数
+	createDocsNumSet bool
 
-	avgCreateDocsNum     string // 人均创建文件数
-	avgCreateDocsNumFlag bool
+	avgCreateDocsNum    string // 人均创建文件数
+	avgCreateDocsNumSet bool
 
-	calDau     int // 日历活跃人数
-	calDauFlag bool
+	calDau    int // 日历活跃人数
+	calDauSet bool
 
-	createCalUserNum     int // 创建日程人数
-	createCalUserNumFlag bool
+	createCalUserNum    int // 创建日程人数
+	createCalUserNumSet bool
 
-	createCalNum     int // 创建日程数
-	createCalNumFlag bool
+	createCalNum    int // 创建日程数
+	createCalNumSet bool
 
-	avgCreateCalNum     string // 人均创建日程数
-	avgCreateCalNumFlag bool
+	avgCreateCalNum    string // 人均创建日程数
+	avgCreateCalNumSet bool
 
-	vcDau     int // 音视频会议活跃人数
-	vcDauFlag bool
+	vcDau    int // 音视频会议活跃人数
+	vcDauSet bool
 
-	vcDuration     int // 会议时长：企业内员工参与通话与会议的总时长（分钟）
-	vcDurationFlag bool
+	vcDuration    int // 会议时长：企业内员工参与通话与会议的总时长（分钟）
+	vcDurationSet bool
 
-	avgVcDuration     string // 人均会议时长（分钟）
-	avgVcDurationFlag bool
+	avgVcDuration    string // 人均会议时长（分钟）
+	avgVcDurationSet bool
 
-	avgDuration     string // 人均飞书使用时长（分钟）
-	avgDurationFlag bool
+	avgDuration    string // 人均飞书使用时长（分钟）
+	avgDurationSet bool
 
-	taskDau     int // 任务活跃人数
-	taskDauFlag bool
+	taskDau    int // 任务活跃人数
+	taskDauSet bool
 
-	createTaskUserNum     int // 创建任务人数
-	createTaskUserNumFlag bool
+	createTaskUserNum    int // 创建任务人数
+	createTaskUserNumSet bool
 
-	createTaskNum     int // 创建任务数
-	createTaskNumFlag bool
+	createTaskNum    int // 创建任务数
+	createTaskNumSet bool
 
-	avgCreateTaskNum     string // 人均创建任务数
-	avgCreateTaskNumFlag bool
+	avgCreateTaskNum    string // 人均创建任务数
+	avgCreateTaskNumSet bool
 
-	emailSendCount     string // 邮件总发件量
-	emailSendCountFlag bool
+	emailSendCount    string // 邮件总发件量
+	emailSendCountSet bool
 
-	emailReceiveCount     string // 邮件总收件量
-	emailReceiveCountFlag bool
+	emailReceiveCount    string // 邮件总收件量
+	emailReceiveCountSet bool
 
-	emailSendExtCount     string // 对外发件数
-	emailSendExtCountFlag bool
+	emailSendExtCount    string // 对外发件数
+	emailSendExtCountSet bool
 
-	emailReceiveExtCount     string // 来自外部收件数
-	emailReceiveExtCountFlag bool
+	emailReceiveExtCount    string // 来自外部收件数
+	emailReceiveExtCountSet bool
 
-	emailSendInCount     string // 对内发件数
-	emailSendInCountFlag bool
+	emailSendInCount    string // 对内发件数
+	emailSendInCountSet bool
 
-	emailReceiveInCount     string // 来自内部收件数
-	emailReceiveInCountFlag bool
+	emailReceiveInCount    string // 来自内部收件数
+	emailReceiveInCountSet bool
 
-	searchActiveDau     string // 大搜搜索活跃人数
-	searchActiveDauFlag bool
+	searchActiveDau    string // 大搜搜索活跃人数
+	searchActiveDauSet bool
 
-	totalSearchCount     string // 总搜索次数
-	totalSearchCountFlag bool
+	totalSearchCount    string // 总搜索次数
+	totalSearchCountSet bool
 
-	quickSearchCount     string // 综搜次数
-	quickSearchCountFlag bool
+	quickSearchCount    string // 综搜次数
+	quickSearchCountSet bool
 
-	tabSearchCount     string // 垂搜次数
-	tabSearchCountFlag bool
+	tabSearchCount    string // 垂搜次数
+	tabSearchCountSet bool
 
-	productVersion     string // 产品版本名称
-	productVersionFlag bool
+	productVersion    string // 产品版本名称
+	productVersionSet bool
 }
 
 func NewAdminDeptStatBuilder() *AdminDeptStatBuilder {
@@ -479,7 +479,7 @@ func NewAdminDeptStatBuilder() *AdminDeptStatBuilder {
 // 示例值：2020-02-15
 func (builder *AdminDeptStatBuilder) Date(date string) *AdminDeptStatBuilder {
 	builder.date = date
-	builder.dateFlag = true
+	builder.dateSet = true
 	return builder
 }
 
@@ -488,7 +488,7 @@ func (builder *AdminDeptStatBuilder) Date(date string) *AdminDeptStatBuilder {
 // 示例值：od-382e2793cfc9471f892e8a672987654c
 func (builder *AdminDeptStatBuilder) DepartmentId(departmentId string) *AdminDeptStatBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -497,7 +497,7 @@ func (builder *AdminDeptStatBuilder) DepartmentId(departmentId string) *AdminDep
 // 示例值：subtestkkk
 func (builder *AdminDeptStatBuilder) DepartmentName(departmentName string) *AdminDeptStatBuilder {
 	builder.departmentName = departmentName
-	builder.departmentNameFlag = true
+	builder.departmentNameSet = true
 	return builder
 }
 
@@ -506,7 +506,7 @@ func (builder *AdminDeptStatBuilder) DepartmentName(departmentName string) *Admi
 // 示例值：testkkk/subtestkkk
 func (builder *AdminDeptStatBuilder) DepartmentPath(departmentPath string) *AdminDeptStatBuilder {
 	builder.departmentPath = departmentPath
-	builder.departmentPathFlag = true
+	builder.departmentPathSet = true
 	return builder
 }
 
@@ -515,7 +515,7 @@ func (builder *AdminDeptStatBuilder) DepartmentPath(departmentPath string) *Admi
 // 示例值：2
 func (builder *AdminDeptStatBuilder) TotalUserNum(totalUserNum int) *AdminDeptStatBuilder {
 	builder.totalUserNum = totalUserNum
-	builder.totalUserNumFlag = true
+	builder.totalUserNumSet = true
 	return builder
 }
 
@@ -524,7 +524,7 @@ func (builder *AdminDeptStatBuilder) TotalUserNum(totalUserNum int) *AdminDeptSt
 // 示例值：0
 func (builder *AdminDeptStatBuilder) ActiveUserNum(activeUserNum int) *AdminDeptStatBuilder {
 	builder.activeUserNum = activeUserNum
-	builder.activeUserNumFlag = true
+	builder.activeUserNumSet = true
 	return builder
 }
 
@@ -533,7 +533,7 @@ func (builder *AdminDeptStatBuilder) ActiveUserNum(activeUserNum int) *AdminDept
 // 示例值：1.00
 func (builder *AdminDeptStatBuilder) ActiveUserRate(activeUserRate string) *AdminDeptStatBuilder {
 	builder.activeUserRate = activeUserRate
-	builder.activeUserRateFlag = true
+	builder.activeUserRateSet = true
 	return builder
 }
 
@@ -542,7 +542,7 @@ func (builder *AdminDeptStatBuilder) ActiveUserRate(activeUserRate string) *Admi
 // 示例值：0
 func (builder *AdminDeptStatBuilder) SuiteDau(suiteDau int) *AdminDeptStatBuilder {
 	builder.suiteDau = suiteDau
-	builder.suiteDauFlag = true
+	builder.suiteDauSet = true
 	return builder
 }
 
@@ -551,7 +551,7 @@ func (builder *AdminDeptStatBuilder) SuiteDau(suiteDau int) *AdminDeptStatBuilde
 // 示例值：0.00
 func (builder *AdminDeptStatBuilder) SuiteActiveRate(suiteActiveRate string) *AdminDeptStatBuilder {
 	builder.suiteActiveRate = suiteActiveRate
-	builder.suiteActiveRateFlag = true
+	builder.suiteActiveRateSet = true
 	return builder
 }
 
@@ -560,7 +560,7 @@ func (builder *AdminDeptStatBuilder) SuiteActiveRate(suiteActiveRate string) *Ad
 // 示例值：0
 func (builder *AdminDeptStatBuilder) NewUserNum(newUserNum int) *AdminDeptStatBuilder {
 	builder.newUserNum = newUserNum
-	builder.newUserNumFlag = true
+	builder.newUserNumSet = true
 	return builder
 }
 
@@ -569,7 +569,7 @@ func (builder *AdminDeptStatBuilder) NewUserNum(newUserNum int) *AdminDeptStatBu
 // 示例值：0
 func (builder *AdminDeptStatBuilder) NewActiveNum(newActiveNum int) *AdminDeptStatBuilder {
 	builder.newActiveNum = newActiveNum
-	builder.newActiveNumFlag = true
+	builder.newActiveNumSet = true
 	return builder
 }
 
@@ -578,7 +578,7 @@ func (builder *AdminDeptStatBuilder) NewActiveNum(newActiveNum int) *AdminDeptSt
 // 示例值：0
 func (builder *AdminDeptStatBuilder) ResignUserNum(resignUserNum int) *AdminDeptStatBuilder {
 	builder.resignUserNum = resignUserNum
-	builder.resignUserNumFlag = true
+	builder.resignUserNumSet = true
 	return builder
 }
 
@@ -587,7 +587,7 @@ func (builder *AdminDeptStatBuilder) ResignUserNum(resignUserNum int) *AdminDept
 // 示例值：0
 func (builder *AdminDeptStatBuilder) ImDau(imDau int) *AdminDeptStatBuilder {
 	builder.imDau = imDau
-	builder.imDauFlag = true
+	builder.imDauSet = true
 	return builder
 }
 
@@ -596,7 +596,7 @@ func (builder *AdminDeptStatBuilder) ImDau(imDau int) *AdminDeptStatBuilder {
 // 示例值：0
 func (builder *AdminDeptStatBuilder) SendMessengerUserNum(sendMessengerUserNum int) *AdminDeptStatBuilder {
 	builder.sendMessengerUserNum = sendMessengerUserNum
-	builder.sendMessengerUserNumFlag = true
+	builder.sendMessengerUserNumSet = true
 	return builder
 }
 
@@ -605,7 +605,7 @@ func (builder *AdminDeptStatBuilder) SendMessengerUserNum(sendMessengerUserNum i
 // 示例值：0
 func (builder *AdminDeptStatBuilder) SendMessengerNum(sendMessengerNum int) *AdminDeptStatBuilder {
 	builder.sendMessengerNum = sendMessengerNum
-	builder.sendMessengerNumFlag = true
+	builder.sendMessengerNumSet = true
 	return builder
 }
 
@@ -614,7 +614,7 @@ func (builder *AdminDeptStatBuilder) SendMessengerNum(sendMessengerNum int) *Adm
 // 示例值：0.00
 func (builder *AdminDeptStatBuilder) AvgSendMessengerNum(avgSendMessengerNum string) *AdminDeptStatBuilder {
 	builder.avgSendMessengerNum = avgSendMessengerNum
-	builder.avgSendMessengerNumFlag = true
+	builder.avgSendMessengerNumSet = true
 	return builder
 }
 
@@ -623,7 +623,7 @@ func (builder *AdminDeptStatBuilder) AvgSendMessengerNum(avgSendMessengerNum str
 // 示例值：0
 func (builder *AdminDeptStatBuilder) DocsDau(docsDau int) *AdminDeptStatBuilder {
 	builder.docsDau = docsDau
-	builder.docsDauFlag = true
+	builder.docsDauSet = true
 	return builder
 }
 
@@ -632,7 +632,7 @@ func (builder *AdminDeptStatBuilder) DocsDau(docsDau int) *AdminDeptStatBuilder 
 // 示例值：0
 func (builder *AdminDeptStatBuilder) CreateDocsUserNum(createDocsUserNum int) *AdminDeptStatBuilder {
 	builder.createDocsUserNum = createDocsUserNum
-	builder.createDocsUserNumFlag = true
+	builder.createDocsUserNumSet = true
 	return builder
 }
 
@@ -641,7 +641,7 @@ func (builder *AdminDeptStatBuilder) CreateDocsUserNum(createDocsUserNum int) *A
 // 示例值：0
 func (builder *AdminDeptStatBuilder) CreateDocsNum(createDocsNum int) *AdminDeptStatBuilder {
 	builder.createDocsNum = createDocsNum
-	builder.createDocsNumFlag = true
+	builder.createDocsNumSet = true
 	return builder
 }
 
@@ -650,7 +650,7 @@ func (builder *AdminDeptStatBuilder) CreateDocsNum(createDocsNum int) *AdminDept
 // 示例值：0.00
 func (builder *AdminDeptStatBuilder) AvgCreateDocsNum(avgCreateDocsNum string) *AdminDeptStatBuilder {
 	builder.avgCreateDocsNum = avgCreateDocsNum
-	builder.avgCreateDocsNumFlag = true
+	builder.avgCreateDocsNumSet = true
 	return builder
 }
 
@@ -659,7 +659,7 @@ func (builder *AdminDeptStatBuilder) AvgCreateDocsNum(avgCreateDocsNum string) *
 // 示例值：0
 func (builder *AdminDeptStatBuilder) CalDau(calDau int) *AdminDeptStatBuilder {
 	builder.calDau = calDau
-	builder.calDauFlag = true
+	builder.calDauSet = true
 	return builder
 }
 
@@ -668,7 +668,7 @@ func (builder *AdminDeptStatBuilder) CalDau(calDau int) *AdminDeptStatBuilder {
 // 示例值：0
 func (builder *AdminDeptStatBuilder) CreateCalUserNum(createCalUserNum int) *AdminDeptStatBuilder {
 	builder.createCalUserNum = createCalUserNum
-	builder.createCalUserNumFlag = true
+	builder.createCalUserNumSet = true
 	return builder
 }
 
@@ -677,7 +677,7 @@ func (builder *AdminDeptStatBuilder) CreateCalUserNum(createCalUserNum int) *Adm
 // 示例值：0
 func (builder *AdminDeptStatBuilder) CreateCalNum(createCalNum int) *AdminDeptStatBuilder {
 	builder.createCalNum = createCalNum
-	builder.createCalNumFlag = true
+	builder.createCalNumSet = true
 	return builder
 }
 
@@ -686,7 +686,7 @@ func (builder *AdminDeptStatBuilder) CreateCalNum(createCalNum int) *AdminDeptSt
 // 示例值：0.00
 func (builder *AdminDeptStatBuilder) AvgCreateCalNum(avgCreateCalNum string) *AdminDeptStatBuilder {
 	builder.avgCreateCalNum = avgCreateCalNum
-	builder.avgCreateCalNumFlag = true
+	builder.avgCreateCalNumSet = true
 	return builder
 }
 
@@ -695,7 +695,7 @@ func (builder *AdminDeptStatBuilder) AvgCreateCalNum(avgCreateCalNum string) *Ad
 // 示例值：0
 func (builder *AdminDeptStatBuilder) VcDau(vcDau int) *AdminDeptStatBuilder {
 	builder.vcDau = vcDau
-	builder.vcDauFlag = true
+	builder.vcDauSet = true
 	return builder
 }
 
@@ -704,7 +704,7 @@ func (builder *AdminDeptStatBuilder) VcDau(vcDau int) *AdminDeptStatBuilder {
 // 示例值：0
 func (builder *AdminDeptStatBuilder) VcDuration(vcDuration int) *AdminDeptStatBuilder {
 	builder.vcDuration = vcDuration
-	builder.vcDurationFlag = true
+	builder.vcDurationSet = true
 	return builder
 }
 
@@ -713,7 +713,7 @@ func (builder *AdminDeptStatBuilder) VcDuration(vcDuration int) *AdminDeptStatBu
 // 示例值：0.00
 func (builder *AdminDeptStatBuilder) AvgVcDuration(avgVcDuration string) *AdminDeptStatBuilder {
 	builder.avgVcDuration = avgVcDuration
-	builder.avgVcDurationFlag = true
+	builder.avgVcDurationSet = true
 	return builder
 }
 
@@ -722,7 +722,7 @@ func (builder *AdminDeptStatBuilder) AvgVcDuration(avgVcDuration string) *AdminD
 // 示例值：0.00
 func (builder *AdminDeptStatBuilder) AvgDuration(avgDuration string) *AdminDeptStatBuilder {
 	builder.avgDuration = avgDuration
-	builder.avgDurationFlag = true
+	builder.avgDurationSet = true
 	return builder
 }
 
@@ -731,7 +731,7 @@ func (builder *AdminDeptStatBuilder) AvgDuration(avgDuration string) *AdminDeptS
 // 示例值：0
 func (builder *AdminDeptStatBuilder) TaskDau(taskDau int) *AdminDeptStatBuilder {
 	builder.taskDau = taskDau
-	builder.taskDauFlag = true
+	builder.taskDauSet = true
 	return builder
 }
 
@@ -740,7 +740,7 @@ func (builder *AdminDeptStatBuilder) TaskDau(taskDau int) *AdminDeptStatBuilder 
 // 示例值：0
 func (builder *AdminDeptStatBuilder) CreateTaskUserNum(createTaskUserNum int) *AdminDeptStatBuilder {
 	builder.createTaskUserNum = createTaskUserNum
-	builder.createTaskUserNumFlag = true
+	builder.createTaskUserNumSet = true
 	return builder
 }
 
@@ -749,7 +749,7 @@ func (builder *AdminDeptStatBuilder) CreateTaskUserNum(createTaskUserNum int) *A
 // 示例值：0
 func (builder *AdminDeptStatBuilder) CreateTaskNum(createTaskNum int) *AdminDeptStatBuilder {
 	builder.createTaskNum = createTaskNum
-	builder.createTaskNumFlag = true
+	builder.createTaskNumSet = true
 	return builder
 }
 
@@ -758,7 +758,7 @@ func (builder *AdminDeptStatBuilder) CreateTaskNum(createTaskNum int) *AdminDept
 // 示例值：0.00
 func (builder *AdminDeptStatBuilder) AvgCreateTaskNum(avgCreateTaskNum string) *AdminDeptStatBuilder {
 	builder.avgCreateTaskNum = avgCreateTaskNum
-	builder.avgCreateTaskNumFlag = true
+	builder.avgCreateTaskNumSet = true
 	return builder
 }
 
@@ -767,7 +767,7 @@ func (builder *AdminDeptStatBuilder) AvgCreateTaskNum(avgCreateTaskNum string) *
 // 示例值：2
 func (builder *AdminDeptStatBuilder) EmailSendCount(emailSendCount string) *AdminDeptStatBuilder {
 	builder.emailSendCount = emailSendCount
-	builder.emailSendCountFlag = true
+	builder.emailSendCountSet = true
 	return builder
 }
 
@@ -776,7 +776,7 @@ func (builder *AdminDeptStatBuilder) EmailSendCount(emailSendCount string) *Admi
 // 示例值：3
 func (builder *AdminDeptStatBuilder) EmailReceiveCount(emailReceiveCount string) *AdminDeptStatBuilder {
 	builder.emailReceiveCount = emailReceiveCount
-	builder.emailReceiveCountFlag = true
+	builder.emailReceiveCountSet = true
 	return builder
 }
 
@@ -785,7 +785,7 @@ func (builder *AdminDeptStatBuilder) EmailReceiveCount(emailReceiveCount string)
 // 示例值：4
 func (builder *AdminDeptStatBuilder) EmailSendExtCount(emailSendExtCount string) *AdminDeptStatBuilder {
 	builder.emailSendExtCount = emailSendExtCount
-	builder.emailSendExtCountFlag = true
+	builder.emailSendExtCountSet = true
 	return builder
 }
 
@@ -794,7 +794,7 @@ func (builder *AdminDeptStatBuilder) EmailSendExtCount(emailSendExtCount string)
 // 示例值：5
 func (builder *AdminDeptStatBuilder) EmailReceiveExtCount(emailReceiveExtCount string) *AdminDeptStatBuilder {
 	builder.emailReceiveExtCount = emailReceiveExtCount
-	builder.emailReceiveExtCountFlag = true
+	builder.emailReceiveExtCountSet = true
 	return builder
 }
 
@@ -803,7 +803,7 @@ func (builder *AdminDeptStatBuilder) EmailReceiveExtCount(emailReceiveExtCount s
 // 示例值：6
 func (builder *AdminDeptStatBuilder) EmailSendInCount(emailSendInCount string) *AdminDeptStatBuilder {
 	builder.emailSendInCount = emailSendInCount
-	builder.emailSendInCountFlag = true
+	builder.emailSendInCountSet = true
 	return builder
 }
 
@@ -812,7 +812,7 @@ func (builder *AdminDeptStatBuilder) EmailSendInCount(emailSendInCount string) *
 // 示例值：7
 func (builder *AdminDeptStatBuilder) EmailReceiveInCount(emailReceiveInCount string) *AdminDeptStatBuilder {
 	builder.emailReceiveInCount = emailReceiveInCount
-	builder.emailReceiveInCountFlag = true
+	builder.emailReceiveInCountSet = true
 	return builder
 }
 
@@ -821,7 +821,7 @@ func (builder *AdminDeptStatBuilder) EmailReceiveInCount(emailReceiveInCount str
 // 示例值：7
 func (builder *AdminDeptStatBuilder) SearchActiveDau(searchActiveDau string) *AdminDeptStatBuilder {
 	builder.searchActiveDau = searchActiveDau
-	builder.searchActiveDauFlag = true
+	builder.searchActiveDauSet = true
 	return builder
 }
 
@@ -830,7 +830,7 @@ func (builder *AdminDeptStatBuilder) SearchActiveDau(searchActiveDau string) *Ad
 // 示例值：7
 func (builder *AdminDeptStatBuilder) TotalSearchCount(totalSearchCount string) *AdminDeptStatBuilder {
 	builder.totalSearchCount = totalSearchCount
-	builder.totalSearchCountFlag = true
+	builder.totalSearchCountSet = true
 	return builder
 }
 
@@ -839,7 +839,7 @@ func (builder *AdminDeptStatBuilder) TotalSearchCount(totalSearchCount string) *
 // 示例值：7
 func (builder *AdminDeptStatBuilder) QuickSearchCount(quickSearchCount string) *AdminDeptStatBuilder {
 	builder.quickSearchCount = quickSearchCount
-	builder.quickSearchCountFlag = true
+	builder.quickSearchCountSet = true
 	return builder
 }
 
@@ -848,7 +848,7 @@ func (builder *AdminDeptStatBuilder) QuickSearchCount(quickSearchCount string) *
 // 示例值：7
 func (builder *AdminDeptStatBuilder) TabSearchCount(tabSearchCount string) *AdminDeptStatBuilder {
 	builder.tabSearchCount = tabSearchCount
-	builder.tabSearchCountFlag = true
+	builder.tabSearchCountSet = true
 	return builder
 }
 
@@ -857,181 +857,181 @@ func (builder *AdminDeptStatBuilder) TabSearchCount(tabSearchCount string) *Admi
 // 示例值：全部产品版本
 func (builder *AdminDeptStatBuilder) ProductVersion(productVersion string) *AdminDeptStatBuilder {
 	builder.productVersion = productVersion
-	builder.productVersionFlag = true
+	builder.productVersionSet = true
 	return builder
 }
 
 func (builder *AdminDeptStatBuilder) Build() *AdminDeptStat {
 	req := &AdminDeptStat{}
-	if builder.dateFlag {
+	if builder.dateSet {
 		req.Date = &builder.date
 
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.departmentNameFlag {
+	if builder.departmentNameSet {
 		req.DepartmentName = &builder.departmentName
 
 	}
-	if builder.departmentPathFlag {
+	if builder.departmentPathSet {
 		req.DepartmentPath = &builder.departmentPath
 
 	}
-	if builder.totalUserNumFlag {
+	if builder.totalUserNumSet {
 		req.TotalUserNum = &builder.totalUserNum
 
 	}
-	if builder.activeUserNumFlag {
+	if builder.activeUserNumSet {
 		req.ActiveUserNum = &builder.activeUserNum
 
 	}
-	if builder.activeUserRateFlag {
+	if builder.activeUserRateSet {
 		req.ActiveUserRate = &builder.activeUserRate
 
 	}
-	if builder.suiteDauFlag {
+	if builder.suiteDauSet {
 		req.SuiteDau = &builder.suiteDau
 
 	}
-	if builder.suiteActiveRateFlag {
+	if builder.suiteActiveRateSet {
 		req.SuiteActiveRate = &builder.suiteActiveRate
 
 	}
-	if builder.newUserNumFlag {
+	if builder.newUserNumSet {
 		req.NewUserNum = &builder.newUserNum
 
 	}
-	if builder.newActiveNumFlag {
+	if builder.newActiveNumSet {
 		req.NewActiveNum = &builder.newActiveNum
 
 	}
-	if builder.resignUserNumFlag {
+	if builder.resignUserNumSet {
 		req.ResignUserNum = &builder.resignUserNum
 
 	}
-	if builder.imDauFlag {
+	if builder.imDauSet {
 		req.ImDau = &builder.imDau
 
 	}
-	if builder.sendMessengerUserNumFlag {
+	if builder.sendMessengerUserNumSet {
 		req.SendMessengerUserNum = &builder.sendMessengerUserNum
 
 	}
-	if builder.sendMessengerNumFlag {
+	if builder.sendMessengerNumSet {
 		req.SendMessengerNum = &builder.sendMessengerNum
 
 	}
-	if builder.avgSendMessengerNumFlag {
+	if builder.avgSendMessengerNumSet {
 		req.AvgSendMessengerNum = &builder.avgSendMessengerNum
 
 	}
-	if builder.docsDauFlag {
+	if builder.docsDauSet {
 		req.DocsDau = &builder.docsDau
 
 	}
-	if builder.createDocsUserNumFlag {
+	if builder.createDocsUserNumSet {
 		req.CreateDocsUserNum = &builder.createDocsUserNum
 
 	}
-	if builder.createDocsNumFlag {
+	if builder.createDocsNumSet {
 		req.CreateDocsNum = &builder.createDocsNum
 
 	}
-	if builder.avgCreateDocsNumFlag {
+	if builder.avgCreateDocsNumSet {
 		req.AvgCreateDocsNum = &builder.avgCreateDocsNum
 
 	}
-	if builder.calDauFlag {
+	if builder.calDauSet {
 		req.CalDau = &builder.calDau
 
 	}
-	if builder.createCalUserNumFlag {
+	if builder.createCalUserNumSet {
 		req.CreateCalUserNum = &builder.createCalUserNum
 
 	}
-	if builder.createCalNumFlag {
+	if builder.createCalNumSet {
 		req.CreateCalNum = &builder.createCalNum
 
 	}
-	if builder.avgCreateCalNumFlag {
+	if builder.avgCreateCalNumSet {
 		req.AvgCreateCalNum = &builder.avgCreateCalNum
 
 	}
-	if builder.vcDauFlag {
+	if builder.vcDauSet {
 		req.VcDau = &builder.vcDau
 
 	}
-	if builder.vcDurationFlag {
+	if builder.vcDurationSet {
 		req.VcDuration = &builder.vcDuration
 
 	}
-	if builder.avgVcDurationFlag {
+	if builder.avgVcDurationSet {
 		req.AvgVcDuration = &builder.avgVcDuration
 
 	}
-	if builder.avgDurationFlag {
+	if builder.avgDurationSet {
 		req.AvgDuration = &builder.avgDuration
 
 	}
-	if builder.taskDauFlag {
+	if builder.taskDauSet {
 		req.TaskDau = &builder.taskDau
 
 	}
-	if builder.createTaskUserNumFlag {
+	if builder.createTaskUserNumSet {
 		req.CreateTaskUserNum = &builder.createTaskUserNum
 
 	}
-	if builder.createTaskNumFlag {
+	if builder.createTaskNumSet {
 		req.CreateTaskNum = &builder.createTaskNum
 
 	}
-	if builder.avgCreateTaskNumFlag {
+	if builder.avgCreateTaskNumSet {
 		req.AvgCreateTaskNum = &builder.avgCreateTaskNum
 
 	}
-	if builder.emailSendCountFlag {
+	if builder.emailSendCountSet {
 		req.EmailSendCount = &builder.emailSendCount
 
 	}
-	if builder.emailReceiveCountFlag {
+	if builder.emailReceiveCountSet {
 		req.EmailReceiveCount = &builder.emailReceiveCount
 
 	}
-	if builder.emailSendExtCountFlag {
+	if builder.emailSendExtCountSet {
 		req.EmailSendExtCount = &builder.emailSendExtCount
 
 	}
-	if builder.emailReceiveExtCountFlag {
+	if builder.emailReceiveExtCountSet {
 		req.EmailReceiveExtCount = &builder.emailReceiveExtCount
 
 	}
-	if builder.emailSendInCountFlag {
+	if builder.emailSendInCountSet {
 		req.EmailSendInCount = &builder.emailSendInCount
 
 	}
-	if builder.emailReceiveInCountFlag {
+	if builder.emailReceiveInCountSet {
 		req.EmailReceiveInCount = &builder.emailReceiveInCount
 
 	}
-	if builder.searchActiveDauFlag {
+	if builder.searchActiveDauSet {
 		req.SearchActiveDau = &builder.searchActiveDau
 
 	}
-	if builder.totalSearchCountFlag {
+	if builder.totalSearchCountSet {
 		req.TotalSearchCount = &builder.totalSearchCount
 
 	}
-	if builder.quickSearchCountFlag {
+	if builder.quickSearchCountSet {
 		req.QuickSearchCount = &builder.quickSearchCount
 
 	}
-	if builder.tabSearchCountFlag {
+	if builder.tabSearchCountSet {
 		req.TabSearchCount = &builder.tabSearchCount
 
 	}
-	if builder.productVersionFlag {
+	if builder.productVersionSet {
 		req.ProductVersion = &builder.productVersion
 
 	}
@@ -1053,23 +1053,23 @@ type AdminUserExtContactStat struct {
 }
 
 type AdminUserExtContactStatBuilder struct {
-	date     string // 日期
-	dateFlag bool
+	date    string // 日期
+	dateSet bool
 
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 
-	userName     string // 成员姓名
-	userNameFlag bool
+	userName    string // 成员姓名
+	userNameSet bool
 
-	departmentName     string // 部门名
-	departmentNameFlag bool
+	departmentName    string // 部门名
+	departmentNameSet bool
 
-	refContactUcnt     string // 外部联系人数量
-	refContactUcntFlag bool
+	refContactUcnt    string // 外部联系人数量
+	refContactUcntSet bool
 
-	refContactTcnt     string // 外部联系人所属企业数量
-	refContactTcntFlag bool
+	refContactTcnt    string // 外部联系人所属企业数量
+	refContactTcntSet bool
 }
 
 func NewAdminUserExtContactStatBuilder() *AdminUserExtContactStatBuilder {
@@ -1082,7 +1082,7 @@ func NewAdminUserExtContactStatBuilder() *AdminUserExtContactStatBuilder {
 // 示例值：2024-08-15
 func (builder *AdminUserExtContactStatBuilder) Date(date string) *AdminUserExtContactStatBuilder {
 	builder.date = date
-	builder.dateFlag = true
+	builder.dateSet = true
 	return builder
 }
 
@@ -1091,7 +1091,7 @@ func (builder *AdminUserExtContactStatBuilder) Date(date string) *AdminUserExtCo
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *AdminUserExtContactStatBuilder) UserId(userId string) *AdminUserExtContactStatBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -1100,7 +1100,7 @@ func (builder *AdminUserExtContactStatBuilder) UserId(userId string) *AdminUserE
 // 示例值：路人甲A
 func (builder *AdminUserExtContactStatBuilder) UserName(userName string) *AdminUserExtContactStatBuilder {
 	builder.userName = userName
-	builder.userNameFlag = true
+	builder.userNameSet = true
 	return builder
 }
 
@@ -1109,7 +1109,7 @@ func (builder *AdminUserExtContactStatBuilder) UserName(userName string) *AdminU
 // 示例值：部门A
 func (builder *AdminUserExtContactStatBuilder) DepartmentName(departmentName string) *AdminUserExtContactStatBuilder {
 	builder.departmentName = departmentName
-	builder.departmentNameFlag = true
+	builder.departmentNameSet = true
 	return builder
 }
 
@@ -1118,7 +1118,7 @@ func (builder *AdminUserExtContactStatBuilder) DepartmentName(departmentName str
 // 示例值：200
 func (builder *AdminUserExtContactStatBuilder) RefContactUcnt(refContactUcnt string) *AdminUserExtContactStatBuilder {
 	builder.refContactUcnt = refContactUcnt
-	builder.refContactUcntFlag = true
+	builder.refContactUcntSet = true
 	return builder
 }
 
@@ -1127,33 +1127,33 @@ func (builder *AdminUserExtContactStatBuilder) RefContactUcnt(refContactUcnt str
 // 示例值：10
 func (builder *AdminUserExtContactStatBuilder) RefContactTcnt(refContactTcnt string) *AdminUserExtContactStatBuilder {
 	builder.refContactTcnt = refContactTcnt
-	builder.refContactTcntFlag = true
+	builder.refContactTcntSet = true
 	return builder
 }
 
 func (builder *AdminUserExtContactStatBuilder) Build() *AdminUserExtContactStat {
 	req := &AdminUserExtContactStat{}
-	if builder.dateFlag {
+	if builder.dateSet {
 		req.Date = &builder.date
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.userNameFlag {
+	if builder.userNameSet {
 		req.UserName = &builder.userName
 
 	}
-	if builder.departmentNameFlag {
+	if builder.departmentNameSet {
 		req.DepartmentName = &builder.departmentName
 
 	}
-	if builder.refContactUcntFlag {
+	if builder.refContactUcntSet {
 		req.RefContactUcnt = &builder.refContactUcnt
 
 	}
-	if builder.refContactTcntFlag {
+	if builder.refContactTcntSet {
 		req.RefContactTcnt = &builder.refContactTcnt
 
 	}
@@ -1229,104 +1229,104 @@ type AdminUserStat struct {
 }
 
 type AdminUserStatBuilder struct {
-	date     string // 日期
-	dateFlag bool
+	date    string // 日期
+	dateSet bool
 
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 
-	userName     string // 用户名
-	userNameFlag bool
+	userName    string // 用户名
+	userNameSet bool
 
-	departmentName     string // 部门名
-	departmentNameFlag bool
+	departmentName    string // 部门名
+	departmentNameSet bool
 
-	departmentPath     string // 部门路径
-	departmentPathFlag bool
+	departmentPath    string // 部门路径
+	departmentPathSet bool
 
-	createTime     string // 账号创建时间
-	createTimeFlag bool
+	createTime    string // 账号创建时间
+	createTimeSet bool
 
-	userActiveFlag     int // 用户激活状态
-	userActiveFlagFlag bool
+	userActiveFlag    int // 用户激活状态
+	userActiveFlagSet bool
 
-	registerTime     string // 激活时间
-	registerTimeFlag bool
+	registerTime    string // 激活时间
+	registerTimeSet bool
 
-	suiteActiveFlag     int // 用户活跃状态，用户在飞书套件任意应用登陆，即为活跃。包括飞书即时消息，文档，日历，会议，开放平台等
-	suiteActiveFlagFlag bool
+	suiteActiveFlag    int // 用户活跃状态，用户在飞书套件任意应用登陆，即为活跃。包括飞书即时消息，文档，日历，会议，开放平台等
+	suiteActiveFlagSet bool
 
-	lastActiveTime     string // 最近活跃时间
-	lastActiveTimeFlag bool
+	lastActiveTime    string // 最近活跃时间
+	lastActiveTimeSet bool
 
-	imActiveFlag     int // 用户消息活跃状态，发生过如下事件，则认为该用户消息活跃：;发送消息、回复消息、reaction、转发消息、阅读消息、查看会话、发送表情消息等
-	imActiveFlagFlag bool
+	imActiveFlag    int // 用户消息活跃状态，发生过如下事件，则认为该用户消息活跃：;发送消息、回复消息、reaction、转发消息、阅读消息、查看会话、发送表情消息等
+	imActiveFlagSet bool
 
-	sendMessengerNum     int // 发送消息数
-	sendMessengerNumFlag bool
+	sendMessengerNum    int // 发送消息数
+	sendMessengerNumSet bool
 
-	docsActiveFlag     int // 用户云文档活跃状态，"发生过如下事件，则认为该用户云文档活跃： ;事件1：文档/文件打开;事件2：进入docs相关页面：如文档详情页，space的各个页面"
-	docsActiveFlagFlag bool
+	docsActiveFlag    int // 用户云文档活跃状态，"发生过如下事件，则认为该用户云文档活跃： ;事件1：文档/文件打开;事件2：进入docs相关页面：如文档详情页，space的各个页面"
+	docsActiveFlagSet bool
 
-	createDocsNum     int // 创建文件数
-	createDocsNumFlag bool
+	createDocsNum    int // 创建文件数
+	createDocsNumSet bool
 
-	calActiveFlag     int // 用户日历活跃状态，发生过如下事件，则认为用户日历活跃，包含进入日历、创建日程、收到日程邀请等
-	calActiveFlagFlag bool
+	calActiveFlag    int // 用户日历活跃状态，发生过如下事件，则认为用户日历活跃，包含进入日历、创建日程、收到日程邀请等
+	calActiveFlagSet bool
 
-	createCalNum     int // 创建日程数
-	createCalNumFlag bool
+	createCalNum    int // 创建日程数
+	createCalNumSet bool
 
-	vcActiveFlag     int // 用户音视频会议活跃状态，用户进入会中状态（不包含妙计和直播）即为活跃
-	vcActiveFlagFlag bool
+	vcActiveFlag    int // 用户音视频会议活跃状态，用户进入会中状态（不包含妙计和直播）即为活跃
+	vcActiveFlagSet bool
 
-	vcDuration     int // 会议时长（分钟）
-	vcDurationFlag bool
+	vcDuration    int // 会议时长（分钟）
+	vcDurationSet bool
 
-	activeOs     string // 活跃设备
-	activeOsFlag bool
+	activeOs    string // 活跃设备
+	activeOsSet bool
 
-	createTaskNum     int // 创建任务数
-	createTaskNumFlag bool
+	createTaskNum    int // 创建任务数
+	createTaskNumSet bool
 
-	vcNum     int // 会议数
-	vcNumFlag bool
+	vcNum    int // 会议数
+	vcNumSet bool
 
-	appPackageType     string // 飞书的应用类型名称
-	appPackageTypeFlag bool
+	appPackageType    string // 飞书的应用类型名称
+	appPackageTypeSet bool
 
-	osName     string // 操作系统名称
-	osNameFlag bool
+	osName    string // 操作系统名称
+	osNameSet bool
 
-	emailSendCount     string // 邮件总发件量
-	emailSendCountFlag bool
+	emailSendCount    string // 邮件总发件量
+	emailSendCountSet bool
 
-	emailReceiveCount     string // 邮件总收件量
-	emailReceiveCountFlag bool
+	emailReceiveCount    string // 邮件总收件量
+	emailReceiveCountSet bool
 
-	emailSendExtCount     string // 对外发件数
-	emailSendExtCountFlag bool
+	emailSendExtCount    string // 对外发件数
+	emailSendExtCountSet bool
 
-	emailReceiveExtCount     string // 来自外部收件数
-	emailReceiveExtCountFlag bool
+	emailReceiveExtCount    string // 来自外部收件数
+	emailReceiveExtCountSet bool
 
-	emailSendInCount     string // 对内发件数
-	emailSendInCountFlag bool
+	emailSendInCount    string // 对内发件数
+	emailSendInCountSet bool
 
-	emailReceiveInCount     string // 来自内部收件数
-	emailReceiveInCountFlag bool
+	emailReceiveInCount    string // 来自内部收件数
+	emailReceiveInCountSet bool
 
-	searchActiveFlag     int // 是否使用了大搜
-	searchActiveFlagFlag bool
+	searchActiveFlag    int // 是否使用了大搜
+	searchActiveFlagSet bool
 
-	totalSearchCount     string // 总搜索次数
-	totalSearchCountFlag bool
+	totalSearchCount    string // 总搜索次数
+	totalSearchCountSet bool
 
-	quickSearchCount     string // 综搜次数
-	quickSearchCountFlag bool
+	quickSearchCount    string // 综搜次数
+	quickSearchCountSet bool
 
-	tabSearchCount     string // 垂搜次数
-	tabSearchCountFlag bool
+	tabSearchCount    string // 垂搜次数
+	tabSearchCountSet bool
 }
 
 func NewAdminUserStatBuilder() *AdminUserStatBuilder {
@@ -1339,7 +1339,7 @@ func NewAdminUserStatBuilder() *AdminUserStatBuilder {
 // 示例值：2020-02-15
 func (builder *AdminUserStatBuilder) Date(date string) *AdminUserStatBuilder {
 	builder.date = date
-	builder.dateFlag = true
+	builder.dateSet = true
 	return builder
 }
 
@@ -1348,7 +1348,7 @@ func (builder *AdminUserStatBuilder) Date(date string) *AdminUserStatBuilder {
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *AdminUserStatBuilder) UserId(userId string) *AdminUserStatBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -1357,7 +1357,7 @@ func (builder *AdminUserStatBuilder) UserId(userId string) *AdminUserStatBuilder
 // 示例值：Zhang San
 func (builder *AdminUserStatBuilder) UserName(userName string) *AdminUserStatBuilder {
 	builder.userName = userName
-	builder.userNameFlag = true
+	builder.userNameSet = true
 	return builder
 }
 
@@ -1366,7 +1366,7 @@ func (builder *AdminUserStatBuilder) UserName(userName string) *AdminUserStatBui
 // 示例值：testcqlbfaaasdasdasd
 func (builder *AdminUserStatBuilder) DepartmentName(departmentName string) *AdminUserStatBuilder {
 	builder.departmentName = departmentName
-	builder.departmentNameFlag = true
+	builder.departmentNameSet = true
 	return builder
 }
 
@@ -1375,7 +1375,7 @@ func (builder *AdminUserStatBuilder) DepartmentName(departmentName string) *Admi
 // 示例值：testkkk/testcqlbfaaasdasdasd
 func (builder *AdminUserStatBuilder) DepartmentPath(departmentPath string) *AdminUserStatBuilder {
 	builder.departmentPath = departmentPath
-	builder.departmentPathFlag = true
+	builder.departmentPathSet = true
 	return builder
 }
 
@@ -1384,7 +1384,7 @@ func (builder *AdminUserStatBuilder) DepartmentPath(departmentPath string) *Admi
 // 示例值：2020-09-04 11:17:55
 func (builder *AdminUserStatBuilder) CreateTime(createTime string) *AdminUserStatBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -1393,7 +1393,7 @@ func (builder *AdminUserStatBuilder) CreateTime(createTime string) *AdminUserSta
 // 示例值：1
 func (builder *AdminUserStatBuilder) UserActiveFlag(userActiveFlag int) *AdminUserStatBuilder {
 	builder.userActiveFlag = userActiveFlag
-	builder.userActiveFlagFlag = true
+	builder.userActiveFlagSet = true
 	return builder
 }
 
@@ -1402,7 +1402,7 @@ func (builder *AdminUserStatBuilder) UserActiveFlag(userActiveFlag int) *AdminUs
 // 示例值：2020-09-04 11:18:32
 func (builder *AdminUserStatBuilder) RegisterTime(registerTime string) *AdminUserStatBuilder {
 	builder.registerTime = registerTime
-	builder.registerTimeFlag = true
+	builder.registerTimeSet = true
 	return builder
 }
 
@@ -1411,7 +1411,7 @@ func (builder *AdminUserStatBuilder) RegisterTime(registerTime string) *AdminUse
 // 示例值：1
 func (builder *AdminUserStatBuilder) SuiteActiveFlag(suiteActiveFlag int) *AdminUserStatBuilder {
 	builder.suiteActiveFlag = suiteActiveFlag
-	builder.suiteActiveFlagFlag = true
+	builder.suiteActiveFlagSet = true
 	return builder
 }
 
@@ -1420,7 +1420,7 @@ func (builder *AdminUserStatBuilder) SuiteActiveFlag(suiteActiveFlag int) *Admin
 // 示例值：2020-12-21 22:21:28
 func (builder *AdminUserStatBuilder) LastActiveTime(lastActiveTime string) *AdminUserStatBuilder {
 	builder.lastActiveTime = lastActiveTime
-	builder.lastActiveTimeFlag = true
+	builder.lastActiveTimeSet = true
 	return builder
 }
 
@@ -1429,7 +1429,7 @@ func (builder *AdminUserStatBuilder) LastActiveTime(lastActiveTime string) *Admi
 // 示例值：1
 func (builder *AdminUserStatBuilder) ImActiveFlag(imActiveFlag int) *AdminUserStatBuilder {
 	builder.imActiveFlag = imActiveFlag
-	builder.imActiveFlagFlag = true
+	builder.imActiveFlagSet = true
 	return builder
 }
 
@@ -1438,7 +1438,7 @@ func (builder *AdminUserStatBuilder) ImActiveFlag(imActiveFlag int) *AdminUserSt
 // 示例值：0
 func (builder *AdminUserStatBuilder) SendMessengerNum(sendMessengerNum int) *AdminUserStatBuilder {
 	builder.sendMessengerNum = sendMessengerNum
-	builder.sendMessengerNumFlag = true
+	builder.sendMessengerNumSet = true
 	return builder
 }
 
@@ -1447,7 +1447,7 @@ func (builder *AdminUserStatBuilder) SendMessengerNum(sendMessengerNum int) *Adm
 // 示例值：1
 func (builder *AdminUserStatBuilder) DocsActiveFlag(docsActiveFlag int) *AdminUserStatBuilder {
 	builder.docsActiveFlag = docsActiveFlag
-	builder.docsActiveFlagFlag = true
+	builder.docsActiveFlagSet = true
 	return builder
 }
 
@@ -1456,7 +1456,7 @@ func (builder *AdminUserStatBuilder) DocsActiveFlag(docsActiveFlag int) *AdminUs
 // 示例值：1
 func (builder *AdminUserStatBuilder) CreateDocsNum(createDocsNum int) *AdminUserStatBuilder {
 	builder.createDocsNum = createDocsNum
-	builder.createDocsNumFlag = true
+	builder.createDocsNumSet = true
 	return builder
 }
 
@@ -1465,7 +1465,7 @@ func (builder *AdminUserStatBuilder) CreateDocsNum(createDocsNum int) *AdminUser
 // 示例值：1
 func (builder *AdminUserStatBuilder) CalActiveFlag(calActiveFlag int) *AdminUserStatBuilder {
 	builder.calActiveFlag = calActiveFlag
-	builder.calActiveFlagFlag = true
+	builder.calActiveFlagSet = true
 	return builder
 }
 
@@ -1474,7 +1474,7 @@ func (builder *AdminUserStatBuilder) CalActiveFlag(calActiveFlag int) *AdminUser
 // 示例值：0
 func (builder *AdminUserStatBuilder) CreateCalNum(createCalNum int) *AdminUserStatBuilder {
 	builder.createCalNum = createCalNum
-	builder.createCalNumFlag = true
+	builder.createCalNumSet = true
 	return builder
 }
 
@@ -1483,7 +1483,7 @@ func (builder *AdminUserStatBuilder) CreateCalNum(createCalNum int) *AdminUserSt
 // 示例值：1
 func (builder *AdminUserStatBuilder) VcActiveFlag(vcActiveFlag int) *AdminUserStatBuilder {
 	builder.vcActiveFlag = vcActiveFlag
-	builder.vcActiveFlagFlag = true
+	builder.vcActiveFlagSet = true
 	return builder
 }
 
@@ -1492,7 +1492,7 @@ func (builder *AdminUserStatBuilder) VcActiveFlag(vcActiveFlag int) *AdminUserSt
 // 示例值：0
 func (builder *AdminUserStatBuilder) VcDuration(vcDuration int) *AdminUserStatBuilder {
 	builder.vcDuration = vcDuration
-	builder.vcDurationFlag = true
+	builder.vcDurationSet = true
 	return builder
 }
 
@@ -1501,7 +1501,7 @@ func (builder *AdminUserStatBuilder) VcDuration(vcDuration int) *AdminUserStatBu
 // 示例值：'ios 14.2,-','ios 14.2,feishu 3.40.0-alpha'
 func (builder *AdminUserStatBuilder) ActiveOs(activeOs string) *AdminUserStatBuilder {
 	builder.activeOs = activeOs
-	builder.activeOsFlag = true
+	builder.activeOsSet = true
 	return builder
 }
 
@@ -1510,7 +1510,7 @@ func (builder *AdminUserStatBuilder) ActiveOs(activeOs string) *AdminUserStatBui
 // 示例值：0
 func (builder *AdminUserStatBuilder) CreateTaskNum(createTaskNum int) *AdminUserStatBuilder {
 	builder.createTaskNum = createTaskNum
-	builder.createTaskNumFlag = true
+	builder.createTaskNumSet = true
 	return builder
 }
 
@@ -1519,7 +1519,7 @@ func (builder *AdminUserStatBuilder) CreateTaskNum(createTaskNum int) *AdminUser
 // 示例值：0
 func (builder *AdminUserStatBuilder) VcNum(vcNum int) *AdminUserStatBuilder {
 	builder.vcNum = vcNum
-	builder.vcNumFlag = true
+	builder.vcNumSet = true
 	return builder
 }
 
@@ -1528,7 +1528,7 @@ func (builder *AdminUserStatBuilder) VcNum(vcNum int) *AdminUserStatBuilder {
 // 示例值：Feishu，Lark
 func (builder *AdminUserStatBuilder) AppPackageType(appPackageType string) *AdminUserStatBuilder {
 	builder.appPackageType = appPackageType
-	builder.appPackageTypeFlag = true
+	builder.appPackageTypeSet = true
 	return builder
 }
 
@@ -1537,7 +1537,7 @@ func (builder *AdminUserStatBuilder) AppPackageType(appPackageType string) *Admi
 // 示例值：iOS,Andorid,Windows
 func (builder *AdminUserStatBuilder) OsName(osName string) *AdminUserStatBuilder {
 	builder.osName = osName
-	builder.osNameFlag = true
+	builder.osNameSet = true
 	return builder
 }
 
@@ -1546,7 +1546,7 @@ func (builder *AdminUserStatBuilder) OsName(osName string) *AdminUserStatBuilder
 // 示例值：2
 func (builder *AdminUserStatBuilder) EmailSendCount(emailSendCount string) *AdminUserStatBuilder {
 	builder.emailSendCount = emailSendCount
-	builder.emailSendCountFlag = true
+	builder.emailSendCountSet = true
 	return builder
 }
 
@@ -1555,7 +1555,7 @@ func (builder *AdminUserStatBuilder) EmailSendCount(emailSendCount string) *Admi
 // 示例值：3
 func (builder *AdminUserStatBuilder) EmailReceiveCount(emailReceiveCount string) *AdminUserStatBuilder {
 	builder.emailReceiveCount = emailReceiveCount
-	builder.emailReceiveCountFlag = true
+	builder.emailReceiveCountSet = true
 	return builder
 }
 
@@ -1564,7 +1564,7 @@ func (builder *AdminUserStatBuilder) EmailReceiveCount(emailReceiveCount string)
 // 示例值：4
 func (builder *AdminUserStatBuilder) EmailSendExtCount(emailSendExtCount string) *AdminUserStatBuilder {
 	builder.emailSendExtCount = emailSendExtCount
-	builder.emailSendExtCountFlag = true
+	builder.emailSendExtCountSet = true
 	return builder
 }
 
@@ -1573,7 +1573,7 @@ func (builder *AdminUserStatBuilder) EmailSendExtCount(emailSendExtCount string)
 // 示例值：5
 func (builder *AdminUserStatBuilder) EmailReceiveExtCount(emailReceiveExtCount string) *AdminUserStatBuilder {
 	builder.emailReceiveExtCount = emailReceiveExtCount
-	builder.emailReceiveExtCountFlag = true
+	builder.emailReceiveExtCountSet = true
 	return builder
 }
 
@@ -1582,7 +1582,7 @@ func (builder *AdminUserStatBuilder) EmailReceiveExtCount(emailReceiveExtCount s
 // 示例值：6
 func (builder *AdminUserStatBuilder) EmailSendInCount(emailSendInCount string) *AdminUserStatBuilder {
 	builder.emailSendInCount = emailSendInCount
-	builder.emailSendInCountFlag = true
+	builder.emailSendInCountSet = true
 	return builder
 }
 
@@ -1591,7 +1591,7 @@ func (builder *AdminUserStatBuilder) EmailSendInCount(emailSendInCount string) *
 // 示例值：7
 func (builder *AdminUserStatBuilder) EmailReceiveInCount(emailReceiveInCount string) *AdminUserStatBuilder {
 	builder.emailReceiveInCount = emailReceiveInCount
-	builder.emailReceiveInCountFlag = true
+	builder.emailReceiveInCountSet = true
 	return builder
 }
 
@@ -1600,7 +1600,7 @@ func (builder *AdminUserStatBuilder) EmailReceiveInCount(emailReceiveInCount str
 // 示例值：1
 func (builder *AdminUserStatBuilder) SearchActiveFlag(searchActiveFlag int) *AdminUserStatBuilder {
 	builder.searchActiveFlag = searchActiveFlag
-	builder.searchActiveFlagFlag = true
+	builder.searchActiveFlagSet = true
 	return builder
 }
 
@@ -1609,7 +1609,7 @@ func (builder *AdminUserStatBuilder) SearchActiveFlag(searchActiveFlag int) *Adm
 // 示例值：7
 func (builder *AdminUserStatBuilder) TotalSearchCount(totalSearchCount string) *AdminUserStatBuilder {
 	builder.totalSearchCount = totalSearchCount
-	builder.totalSearchCountFlag = true
+	builder.totalSearchCountSet = true
 	return builder
 }
 
@@ -1618,7 +1618,7 @@ func (builder *AdminUserStatBuilder) TotalSearchCount(totalSearchCount string) *
 // 示例值：7
 func (builder *AdminUserStatBuilder) QuickSearchCount(quickSearchCount string) *AdminUserStatBuilder {
 	builder.quickSearchCount = quickSearchCount
-	builder.quickSearchCountFlag = true
+	builder.quickSearchCountSet = true
 	return builder
 }
 
@@ -1627,141 +1627,141 @@ func (builder *AdminUserStatBuilder) QuickSearchCount(quickSearchCount string) *
 // 示例值：7
 func (builder *AdminUserStatBuilder) TabSearchCount(tabSearchCount string) *AdminUserStatBuilder {
 	builder.tabSearchCount = tabSearchCount
-	builder.tabSearchCountFlag = true
+	builder.tabSearchCountSet = true
 	return builder
 }
 
 func (builder *AdminUserStatBuilder) Build() *AdminUserStat {
 	req := &AdminUserStat{}
-	if builder.dateFlag {
+	if builder.dateSet {
 		req.Date = &builder.date
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.userNameFlag {
+	if builder.userNameSet {
 		req.UserName = &builder.userName
 
 	}
-	if builder.departmentNameFlag {
+	if builder.departmentNameSet {
 		req.DepartmentName = &builder.departmentName
 
 	}
-	if builder.departmentPathFlag {
+	if builder.departmentPathSet {
 		req.DepartmentPath = &builder.departmentPath
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.userActiveFlagFlag {
+	if builder.userActiveFlagSet {
 		req.UserActiveFlag = &builder.userActiveFlag
 
 	}
-	if builder.registerTimeFlag {
+	if builder.registerTimeSet {
 		req.RegisterTime = &builder.registerTime
 
 	}
-	if builder.suiteActiveFlagFlag {
+	if builder.suiteActiveFlagSet {
 		req.SuiteActiveFlag = &builder.suiteActiveFlag
 
 	}
-	if builder.lastActiveTimeFlag {
+	if builder.lastActiveTimeSet {
 		req.LastActiveTime = &builder.lastActiveTime
 
 	}
-	if builder.imActiveFlagFlag {
+	if builder.imActiveFlagSet {
 		req.ImActiveFlag = &builder.imActiveFlag
 
 	}
-	if builder.sendMessengerNumFlag {
+	if builder.sendMessengerNumSet {
 		req.SendMessengerNum = &builder.sendMessengerNum
 
 	}
-	if builder.docsActiveFlagFlag {
+	if builder.docsActiveFlagSet {
 		req.DocsActiveFlag = &builder.docsActiveFlag
 
 	}
-	if builder.createDocsNumFlag {
+	if builder.createDocsNumSet {
 		req.CreateDocsNum = &builder.createDocsNum
 
 	}
-	if builder.calActiveFlagFlag {
+	if builder.calActiveFlagSet {
 		req.CalActiveFlag = &builder.calActiveFlag
 
 	}
-	if builder.createCalNumFlag {
+	if builder.createCalNumSet {
 		req.CreateCalNum = &builder.createCalNum
 
 	}
-	if builder.vcActiveFlagFlag {
+	if builder.vcActiveFlagSet {
 		req.VcActiveFlag = &builder.vcActiveFlag
 
 	}
-	if builder.vcDurationFlag {
+	if builder.vcDurationSet {
 		req.VcDuration = &builder.vcDuration
 
 	}
-	if builder.activeOsFlag {
+	if builder.activeOsSet {
 		req.ActiveOs = &builder.activeOs
 
 	}
-	if builder.createTaskNumFlag {
+	if builder.createTaskNumSet {
 		req.CreateTaskNum = &builder.createTaskNum
 
 	}
-	if builder.vcNumFlag {
+	if builder.vcNumSet {
 		req.VcNum = &builder.vcNum
 
 	}
-	if builder.appPackageTypeFlag {
+	if builder.appPackageTypeSet {
 		req.AppPackageType = &builder.appPackageType
 
 	}
-	if builder.osNameFlag {
+	if builder.osNameSet {
 		req.OsName = &builder.osName
 
 	}
-	if builder.emailSendCountFlag {
+	if builder.emailSendCountSet {
 		req.EmailSendCount = &builder.emailSendCount
 
 	}
-	if builder.emailReceiveCountFlag {
+	if builder.emailReceiveCountSet {
 		req.EmailReceiveCount = &builder.emailReceiveCount
 
 	}
-	if builder.emailSendExtCountFlag {
+	if builder.emailSendExtCountSet {
 		req.EmailSendExtCount = &builder.emailSendExtCount
 
 	}
-	if builder.emailReceiveExtCountFlag {
+	if builder.emailReceiveExtCountSet {
 		req.EmailReceiveExtCount = &builder.emailReceiveExtCount
 
 	}
-	if builder.emailSendInCountFlag {
+	if builder.emailSendInCountSet {
 		req.EmailSendInCount = &builder.emailSendInCount
 
 	}
-	if builder.emailReceiveInCountFlag {
+	if builder.emailReceiveInCountSet {
 		req.EmailReceiveInCount = &builder.emailReceiveInCount
 
 	}
-	if builder.searchActiveFlagFlag {
+	if builder.searchActiveFlagSet {
 		req.SearchActiveFlag = &builder.searchActiveFlag
 
 	}
-	if builder.totalSearchCountFlag {
+	if builder.totalSearchCountSet {
 		req.TotalSearchCount = &builder.totalSearchCount
 
 	}
-	if builder.quickSearchCountFlag {
+	if builder.quickSearchCountSet {
 		req.QuickSearchCount = &builder.quickSearchCount
 
 	}
-	if builder.tabSearchCountFlag {
+	if builder.tabSearchCountSet {
 		req.TabSearchCount = &builder.tabSearchCount
 
 	}
@@ -1777,14 +1777,14 @@ type Administrator struct {
 }
 
 type AdministratorBuilder struct {
-	userId     string //
-	userIdFlag bool
+	userId    string //
+	userIdSet bool
 
-	isSuperAdministrator     bool // 用户是否是超级管理员
-	isSuperAdministratorFlag bool
+	isSuperAdministrator    bool // 用户是否是超级管理员
+	isSuperAdministratorSet bool
 
-	isAdministrator     bool // 用户是否是管理员
-	isAdministratorFlag bool
+	isAdministrator    bool // 用户是否是管理员
+	isAdministratorSet bool
 }
 
 func NewAdministratorBuilder() *AdministratorBuilder {
@@ -1792,10 +1792,12 @@ func NewAdministratorBuilder() *AdministratorBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *AdministratorBuilder) UserId(userId string) *AdministratorBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -1804,7 +1806,7 @@ func (builder *AdministratorBuilder) UserId(userId string) *AdministratorBuilder
 // 示例值：
 func (builder *AdministratorBuilder) IsSuperAdministrator(isSuperAdministrator bool) *AdministratorBuilder {
 	builder.isSuperAdministrator = isSuperAdministrator
-	builder.isSuperAdministratorFlag = true
+	builder.isSuperAdministratorSet = true
 	return builder
 }
 
@@ -1813,21 +1815,21 @@ func (builder *AdministratorBuilder) IsSuperAdministrator(isSuperAdministrator b
 // 示例值：
 func (builder *AdministratorBuilder) IsAdministrator(isAdministrator bool) *AdministratorBuilder {
 	builder.isAdministrator = isAdministrator
-	builder.isAdministratorFlag = true
+	builder.isAdministratorSet = true
 	return builder
 }
 
 func (builder *AdministratorBuilder) Build() *Administrator {
 	req := &Administrator{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.isSuperAdministratorFlag {
+	if builder.isSuperAdministratorSet {
 		req.IsSuperAdministrator = &builder.isSuperAdministrator
 
 	}
-	if builder.isAdministratorFlag {
+	if builder.isAdministratorSet {
 		req.IsAdministrator = &builder.isAdministrator
 
 	}
@@ -1845,17 +1847,17 @@ type AnnualBaseTopAi struct {
 }
 
 type AnnualBaseTopAiBuilder struct {
-	nameCn     string // 2025年用户多维表格文档使用最多的AI功能名称(中文)
-	nameCnFlag bool
+	nameCn    string // 2025年用户多维表格文档使用最多的AI功能名称(中文)
+	nameCnSet bool
 
-	nameEn     string // 2025年用户多维表格文档使用最多的AI功能名称(英文)
-	nameEnFlag bool
+	nameEn    string // 2025年用户多维表格文档使用最多的AI功能名称(英文)
+	nameEnSet bool
 
-	nameCnList     string // 2025年用户多维表格文档使用的Top5 AI功能名称(中文)
-	nameCnListFlag bool
+	nameCnList    string // 2025年用户多维表格文档使用的Top5 AI功能名称(中文)
+	nameCnListSet bool
 
-	nameEnList     string // 2025年用户多维表格文档使用的Top5 AI功能名称(英文)
-	nameEnListFlag bool
+	nameEnList    string // 2025年用户多维表格文档使用的Top5 AI功能名称(英文)
+	nameEnListSet bool
 }
 
 func NewAnnualBaseTopAiBuilder() *AnnualBaseTopAiBuilder {
@@ -1868,7 +1870,7 @@ func NewAnnualBaseTopAiBuilder() *AnnualBaseTopAiBuilder {
 // 示例值：AI 字段捷径
 func (builder *AnnualBaseTopAiBuilder) NameCn(nameCn string) *AnnualBaseTopAiBuilder {
 	builder.nameCn = nameCn
-	builder.nameCnFlag = true
+	builder.nameCnSet = true
 	return builder
 }
 
@@ -1877,7 +1879,7 @@ func (builder *AnnualBaseTopAiBuilder) NameCn(nameCn string) *AnnualBaseTopAiBui
 // 示例值：AI field shortcuts
 func (builder *AnnualBaseTopAiBuilder) NameEn(nameEn string) *AnnualBaseTopAiBuilder {
 	builder.nameEn = nameEn
-	builder.nameEnFlag = true
+	builder.nameEnSet = true
 	return builder
 }
 
@@ -1886,7 +1888,7 @@ func (builder *AnnualBaseTopAiBuilder) NameEn(nameEn string) *AnnualBaseTopAiBui
 // 示例值：AI 侧边栏,工作流 AI Agent 节点,AI 字段捷径,AI 生成公式,AI  浮窗工具栏
 func (builder *AnnualBaseTopAiBuilder) NameCnList(nameCnList string) *AnnualBaseTopAiBuilder {
 	builder.nameCnList = nameCnList
-	builder.nameCnListFlag = true
+	builder.nameCnListSet = true
 	return builder
 }
 
@@ -1895,25 +1897,25 @@ func (builder *AnnualBaseTopAiBuilder) NameCnList(nameCnList string) *AnnualBase
 // 示例值：AI sidebar,Workflow AI Agent node,AI field shortcuts,AI-generated formulas,AI smart toolbar
 func (builder *AnnualBaseTopAiBuilder) NameEnList(nameEnList string) *AnnualBaseTopAiBuilder {
 	builder.nameEnList = nameEnList
-	builder.nameEnListFlag = true
+	builder.nameEnListSet = true
 	return builder
 }
 
 func (builder *AnnualBaseTopAiBuilder) Build() *AnnualBaseTopAi {
 	req := &AnnualBaseTopAi{}
-	if builder.nameCnFlag {
+	if builder.nameCnSet {
 		req.NameCn = &builder.nameCn
 
 	}
-	if builder.nameEnFlag {
+	if builder.nameEnSet {
 		req.NameEn = &builder.nameEn
 
 	}
-	if builder.nameCnListFlag {
+	if builder.nameCnListSet {
 		req.NameCnList = &builder.nameCnList
 
 	}
-	if builder.nameEnListFlag {
+	if builder.nameEnListSet {
 		req.NameEnList = &builder.nameEnList
 
 	}
@@ -1927,11 +1929,11 @@ type AnnualReportMapFloat struct {
 }
 
 type AnnualReportMapFloatBuilder struct {
-	year     string // 年份
-	yearFlag bool
+	year    string // 年份
+	yearSet bool
 
-	num     float64 // float64类型数据
-	numFlag bool
+	num    float64 // float64类型数据
+	numSet bool
 }
 
 func NewAnnualReportMapFloatBuilder() *AnnualReportMapFloatBuilder {
@@ -1944,7 +1946,7 @@ func NewAnnualReportMapFloatBuilder() *AnnualReportMapFloatBuilder {
 // 示例值：2024
 func (builder *AnnualReportMapFloatBuilder) Year(year string) *AnnualReportMapFloatBuilder {
 	builder.year = year
-	builder.yearFlag = true
+	builder.yearSet = true
 	return builder
 }
 
@@ -1953,17 +1955,17 @@ func (builder *AnnualReportMapFloatBuilder) Year(year string) *AnnualReportMapFl
 // 示例值：88.88
 func (builder *AnnualReportMapFloatBuilder) Num(num float64) *AnnualReportMapFloatBuilder {
 	builder.num = num
-	builder.numFlag = true
+	builder.numSet = true
 	return builder
 }
 
 func (builder *AnnualReportMapFloatBuilder) Build() *AnnualReportMapFloat {
 	req := &AnnualReportMapFloat{}
-	if builder.yearFlag {
+	if builder.yearSet {
 		req.Year = &builder.year
 
 	}
-	if builder.numFlag {
+	if builder.numSet {
 		req.Num = &builder.num
 
 	}
@@ -1977,11 +1979,11 @@ type AnnualReportMapInt struct {
 }
 
 type AnnualReportMapIntBuilder struct {
-	year     string // 年份
-	yearFlag bool
+	year    string // 年份
+	yearSet bool
 
-	count     string // int64类型数据
-	countFlag bool
+	count    string // int64类型数据
+	countSet bool
 }
 
 func NewAnnualReportMapIntBuilder() *AnnualReportMapIntBuilder {
@@ -1994,7 +1996,7 @@ func NewAnnualReportMapIntBuilder() *AnnualReportMapIntBuilder {
 // 示例值：2024
 func (builder *AnnualReportMapIntBuilder) Year(year string) *AnnualReportMapIntBuilder {
 	builder.year = year
-	builder.yearFlag = true
+	builder.yearSet = true
 	return builder
 }
 
@@ -2003,17 +2005,17 @@ func (builder *AnnualReportMapIntBuilder) Year(year string) *AnnualReportMapIntB
 // 示例值：88
 func (builder *AnnualReportMapIntBuilder) Count(count string) *AnnualReportMapIntBuilder {
 	builder.count = count
-	builder.countFlag = true
+	builder.countSet = true
 	return builder
 }
 
 func (builder *AnnualReportMapIntBuilder) Build() *AnnualReportMapInt {
 	req := &AnnualReportMapInt{}
-	if builder.yearFlag {
+	if builder.yearSet {
 		req.Year = &builder.year
 
 	}
-	if builder.countFlag {
+	if builder.countSet {
 		req.Count = &builder.count
 
 	}
@@ -2029,14 +2031,14 @@ type AnnualVcOrgCnt struct {
 }
 
 type AnnualVcOrgCntBuilder struct {
-	organizedMeetingCnt     string // 2025年用户组织的会议数
-	organizedMeetingCntFlag bool
+	organizedMeetingCnt    string // 2025年用户组织的会议数
+	organizedMeetingCntSet bool
 
-	organizedCalMeetingCnt     string // 2025年用户组织日程会议数
-	organizedCalMeetingCntFlag bool
+	organizedCalMeetingCnt    string // 2025年用户组织日程会议数
+	organizedCalMeetingCntSet bool
 
-	organizedInstantMeetingCnt     string // 2025年用户组织即时会议数
-	organizedInstantMeetingCntFlag bool
+	organizedInstantMeetingCnt    string // 2025年用户组织即时会议数
+	organizedInstantMeetingCntSet bool
 }
 
 func NewAnnualVcOrgCntBuilder() *AnnualVcOrgCntBuilder {
@@ -2049,7 +2051,7 @@ func NewAnnualVcOrgCntBuilder() *AnnualVcOrgCntBuilder {
 // 示例值：66
 func (builder *AnnualVcOrgCntBuilder) OrganizedMeetingCnt(organizedMeetingCnt string) *AnnualVcOrgCntBuilder {
 	builder.organizedMeetingCnt = organizedMeetingCnt
-	builder.organizedMeetingCntFlag = true
+	builder.organizedMeetingCntSet = true
 	return builder
 }
 
@@ -2058,7 +2060,7 @@ func (builder *AnnualVcOrgCntBuilder) OrganizedMeetingCnt(organizedMeetingCnt st
 // 示例值：88
 func (builder *AnnualVcOrgCntBuilder) OrganizedCalMeetingCnt(organizedCalMeetingCnt string) *AnnualVcOrgCntBuilder {
 	builder.organizedCalMeetingCnt = organizedCalMeetingCnt
-	builder.organizedCalMeetingCntFlag = true
+	builder.organizedCalMeetingCntSet = true
 	return builder
 }
 
@@ -2067,21 +2069,21 @@ func (builder *AnnualVcOrgCntBuilder) OrganizedCalMeetingCnt(organizedCalMeeting
 // 示例值：99
 func (builder *AnnualVcOrgCntBuilder) OrganizedInstantMeetingCnt(organizedInstantMeetingCnt string) *AnnualVcOrgCntBuilder {
 	builder.organizedInstantMeetingCnt = organizedInstantMeetingCnt
-	builder.organizedInstantMeetingCntFlag = true
+	builder.organizedInstantMeetingCntSet = true
 	return builder
 }
 
 func (builder *AnnualVcOrgCntBuilder) Build() *AnnualVcOrgCnt {
 	req := &AnnualVcOrgCnt{}
-	if builder.organizedMeetingCntFlag {
+	if builder.organizedMeetingCntSet {
 		req.OrganizedMeetingCnt = &builder.organizedMeetingCnt
 
 	}
-	if builder.organizedCalMeetingCntFlag {
+	if builder.organizedCalMeetingCntSet {
 		req.OrganizedCalMeetingCnt = &builder.organizedCalMeetingCnt
 
 	}
-	if builder.organizedInstantMeetingCntFlag {
+	if builder.organizedInstantMeetingCntSet {
 		req.OrganizedInstantMeetingCnt = &builder.organizedInstantMeetingCnt
 
 	}
@@ -2093,8 +2095,8 @@ type ApiAuditCommonDrawers struct {
 }
 
 type ApiAuditCommonDrawersBuilder struct {
-	commonDrawInfoList     []*ApiAuditDrawerInfo // 扩展字段信息
-	commonDrawInfoListFlag bool
+	commonDrawInfoList    []*ApiAuditDrawerInfo // 扩展字段信息
+	commonDrawInfoListSet bool
 }
 
 func NewApiAuditCommonDrawersBuilder() *ApiAuditCommonDrawersBuilder {
@@ -2107,13 +2109,13 @@ func NewApiAuditCommonDrawersBuilder() *ApiAuditCommonDrawersBuilder {
 // 示例值：
 func (builder *ApiAuditCommonDrawersBuilder) CommonDrawInfoList(commonDrawInfoList []*ApiAuditDrawerInfo) *ApiAuditCommonDrawersBuilder {
 	builder.commonDrawInfoList = commonDrawInfoList
-	builder.commonDrawInfoListFlag = true
+	builder.commonDrawInfoListSet = true
 	return builder
 }
 
 func (builder *ApiAuditCommonDrawersBuilder) Build() *ApiAuditCommonDrawers {
 	req := &ApiAuditCommonDrawers{}
-	if builder.commonDrawInfoListFlag {
+	if builder.commonDrawInfoListSet {
 		req.CommonDrawInfoList = builder.commonDrawInfoList
 	}
 	return req
@@ -2132,20 +2134,20 @@ type ApiAuditDrawerInfo struct {
 }
 
 type ApiAuditDrawerInfoBuilder struct {
-	infoKey     string // key信息
-	infoKeyFlag bool
+	infoKey    string // key信息
+	infoKeySet bool
 
-	infoVal     string // val值
-	infoValFlag bool
+	infoVal    string // val值
+	infoValSet bool
 
-	keyI18nKey     string // key对应的i18nkey
-	keyI18nKeyFlag bool
+	keyI18nKey    string // key对应的i18nkey
+	keyI18nKeySet bool
 
-	valType     string // val类型
-	valTypeFlag bool
+	valType    string // val类型
+	valTypeSet bool
 
-	valI18nKey     string // val对应的i18nkey
-	valI18nKeyFlag bool
+	valI18nKey    string // val对应的i18nkey
+	valI18nKeySet bool
 }
 
 func NewApiAuditDrawerInfoBuilder() *ApiAuditDrawerInfoBuilder {
@@ -2158,7 +2160,7 @@ func NewApiAuditDrawerInfoBuilder() *ApiAuditDrawerInfoBuilder {
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) InfoKey(infoKey string) *ApiAuditDrawerInfoBuilder {
 	builder.infoKey = infoKey
-	builder.infoKeyFlag = true
+	builder.infoKeySet = true
 	return builder
 }
 
@@ -2167,7 +2169,7 @@ func (builder *ApiAuditDrawerInfoBuilder) InfoKey(infoKey string) *ApiAuditDrawe
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) InfoVal(infoVal string) *ApiAuditDrawerInfoBuilder {
 	builder.infoVal = infoVal
-	builder.infoValFlag = true
+	builder.infoValSet = true
 	return builder
 }
 
@@ -2176,7 +2178,7 @@ func (builder *ApiAuditDrawerInfoBuilder) InfoVal(infoVal string) *ApiAuditDrawe
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) KeyI18nKey(keyI18nKey string) *ApiAuditDrawerInfoBuilder {
 	builder.keyI18nKey = keyI18nKey
-	builder.keyI18nKeyFlag = true
+	builder.keyI18nKeySet = true
 	return builder
 }
 
@@ -2185,7 +2187,7 @@ func (builder *ApiAuditDrawerInfoBuilder) KeyI18nKey(keyI18nKey string) *ApiAudi
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) ValType(valType string) *ApiAuditDrawerInfoBuilder {
 	builder.valType = valType
-	builder.valTypeFlag = true
+	builder.valTypeSet = true
 	return builder
 }
 
@@ -2194,29 +2196,29 @@ func (builder *ApiAuditDrawerInfoBuilder) ValType(valType string) *ApiAuditDrawe
 // 示例值：
 func (builder *ApiAuditDrawerInfoBuilder) ValI18nKey(valI18nKey string) *ApiAuditDrawerInfoBuilder {
 	builder.valI18nKey = valI18nKey
-	builder.valI18nKeyFlag = true
+	builder.valI18nKeySet = true
 	return builder
 }
 
 func (builder *ApiAuditDrawerInfoBuilder) Build() *ApiAuditDrawerInfo {
 	req := &ApiAuditDrawerInfo{}
-	if builder.infoKeyFlag {
+	if builder.infoKeySet {
 		req.InfoKey = &builder.infoKey
 
 	}
-	if builder.infoValFlag {
+	if builder.infoValSet {
 		req.InfoVal = &builder.infoVal
 
 	}
-	if builder.keyI18nKeyFlag {
+	if builder.keyI18nKeySet {
 		req.KeyI18nKey = &builder.keyI18nKey
 
 	}
-	if builder.valTypeFlag {
+	if builder.valTypeSet {
 		req.ValType = &builder.valType
 
 	}
-	if builder.valI18nKeyFlag {
+	if builder.valI18nKeySet {
 		req.ValI18nKey = &builder.valI18nKey
 
 	}
@@ -2266,65 +2268,65 @@ type AuditAndroidContext struct {
 }
 
 type AuditAndroidContextBuilder struct {
-	udid     string // UDID
-	udidFlag bool
+	udid    string // UDID
+	udidSet bool
 
-	did     string // 设备ID
-	didFlag bool
+	did    string // 设备ID
+	didSet bool
 
-	appVer     string // app的版本
-	appVerFlag bool
+	appVer    string // app的版本
+	appVerSet bool
 
-	ver     string // SecSDK版本
-	verFlag bool
+	ver    string // SecSDK版本
+	verSet bool
 
-	region     string // 设备语言
-	regionFlag bool
+	region    string // 设备语言
+	regionSet bool
 
-	idI     string // 安卓版本号
-	idIFlag bool
+	idI    string // 安卓版本号
+	idISet bool
 
-	idR     string // 安卓版本
-	idRFlag bool
+	idR    string // 安卓版本
+	idRSet bool
 
-	hwBrand     string // Brand
-	hwBrandFlag bool
+	hwBrand    string // Brand
+	hwBrandSet bool
 
-	hwManuf     string // 制造商
-	hwManufFlag bool
+	hwManuf    string // 制造商
+	hwManufSet bool
 
-	wifip     string // wifi ip
-	wifipFlag bool
+	wifip    string // wifi ip
+	wifipSet bool
 
-	routeIip     string // 路由IP
-	routeIipFlag bool
+	routeIip    string // 路由IP
+	routeIipSet bool
 
-	routeGip     string // 路由网关IP
-	routeGipFlag bool
+	routeGip    string // 路由网关IP
+	routeGipSet bool
 
-	envSu     string // 表示当前是否root
-	envSuFlag bool
+	envSu    string // 表示当前是否root
+	envSuSet bool
 
-	envTz     string // 手机系统时区
-	envTzFlag bool
+	envTz    string // 手机系统时区
+	envTzSet bool
 
-	envMl     string // 手机系统语言
-	envMlFlag bool
+	envMl    string // 手机系统语言
+	envMlSet bool
 
-	location     string // GPS经纬度
-	locationFlag bool
+	location    string // GPS经纬度
+	locationSet bool
 
-	activeIp     string // 当前设备活跃ip
-	activeIpFlag bool
+	activeIp    string // 当前设备活跃ip
+	activeIpSet bool
 
-	activeIpDetail     string // 当前设备活跃ip对应网卡类型
-	activeIpDetailFlag bool
+	activeIpDetail    string // 当前设备活跃ip对应网卡类型
+	activeIpDetailSet bool
 
-	cellBaseStation     string // 基站信息
-	cellBaseStationFlag bool
+	cellBaseStation    string // 基站信息
+	cellBaseStationSet bool
 
-	iP     string // 公网ip
-	iPFlag bool
+	iP    string // 公网ip
+	iPSet bool
 }
 
 func NewAuditAndroidContextBuilder() *AuditAndroidContextBuilder {
@@ -2337,7 +2339,7 @@ func NewAuditAndroidContextBuilder() *AuditAndroidContextBuilder {
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Udid(udid string) *AuditAndroidContextBuilder {
 	builder.udid = udid
-	builder.udidFlag = true
+	builder.udidSet = true
 	return builder
 }
 
@@ -2346,7 +2348,7 @@ func (builder *AuditAndroidContextBuilder) Udid(udid string) *AuditAndroidContex
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Did(did string) *AuditAndroidContextBuilder {
 	builder.did = did
-	builder.didFlag = true
+	builder.didSet = true
 	return builder
 }
 
@@ -2355,7 +2357,7 @@ func (builder *AuditAndroidContextBuilder) Did(did string) *AuditAndroidContextB
 // 示例值：
 func (builder *AuditAndroidContextBuilder) AppVer(appVer string) *AuditAndroidContextBuilder {
 	builder.appVer = appVer
-	builder.appVerFlag = true
+	builder.appVerSet = true
 	return builder
 }
 
@@ -2364,7 +2366,7 @@ func (builder *AuditAndroidContextBuilder) AppVer(appVer string) *AuditAndroidCo
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Ver(ver string) *AuditAndroidContextBuilder {
 	builder.ver = ver
-	builder.verFlag = true
+	builder.verSet = true
 	return builder
 }
 
@@ -2373,7 +2375,7 @@ func (builder *AuditAndroidContextBuilder) Ver(ver string) *AuditAndroidContextB
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Region(region string) *AuditAndroidContextBuilder {
 	builder.region = region
-	builder.regionFlag = true
+	builder.regionSet = true
 	return builder
 }
 
@@ -2382,7 +2384,7 @@ func (builder *AuditAndroidContextBuilder) Region(region string) *AuditAndroidCo
 // 示例值：
 func (builder *AuditAndroidContextBuilder) IdI(idI string) *AuditAndroidContextBuilder {
 	builder.idI = idI
-	builder.idIFlag = true
+	builder.idISet = true
 	return builder
 }
 
@@ -2391,7 +2393,7 @@ func (builder *AuditAndroidContextBuilder) IdI(idI string) *AuditAndroidContextB
 // 示例值：
 func (builder *AuditAndroidContextBuilder) IdR(idR string) *AuditAndroidContextBuilder {
 	builder.idR = idR
-	builder.idRFlag = true
+	builder.idRSet = true
 	return builder
 }
 
@@ -2400,7 +2402,7 @@ func (builder *AuditAndroidContextBuilder) IdR(idR string) *AuditAndroidContextB
 // 示例值：
 func (builder *AuditAndroidContextBuilder) HwBrand(hwBrand string) *AuditAndroidContextBuilder {
 	builder.hwBrand = hwBrand
-	builder.hwBrandFlag = true
+	builder.hwBrandSet = true
 	return builder
 }
 
@@ -2409,7 +2411,7 @@ func (builder *AuditAndroidContextBuilder) HwBrand(hwBrand string) *AuditAndroid
 // 示例值：
 func (builder *AuditAndroidContextBuilder) HwManuf(hwManuf string) *AuditAndroidContextBuilder {
 	builder.hwManuf = hwManuf
-	builder.hwManufFlag = true
+	builder.hwManufSet = true
 	return builder
 }
 
@@ -2418,7 +2420,7 @@ func (builder *AuditAndroidContextBuilder) HwManuf(hwManuf string) *AuditAndroid
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Wifip(wifip string) *AuditAndroidContextBuilder {
 	builder.wifip = wifip
-	builder.wifipFlag = true
+	builder.wifipSet = true
 	return builder
 }
 
@@ -2427,7 +2429,7 @@ func (builder *AuditAndroidContextBuilder) Wifip(wifip string) *AuditAndroidCont
 // 示例值：
 func (builder *AuditAndroidContextBuilder) RouteIip(routeIip string) *AuditAndroidContextBuilder {
 	builder.routeIip = routeIip
-	builder.routeIipFlag = true
+	builder.routeIipSet = true
 	return builder
 }
 
@@ -2436,7 +2438,7 @@ func (builder *AuditAndroidContextBuilder) RouteIip(routeIip string) *AuditAndro
 // 示例值：
 func (builder *AuditAndroidContextBuilder) RouteGip(routeGip string) *AuditAndroidContextBuilder {
 	builder.routeGip = routeGip
-	builder.routeGipFlag = true
+	builder.routeGipSet = true
 	return builder
 }
 
@@ -2445,7 +2447,7 @@ func (builder *AuditAndroidContextBuilder) RouteGip(routeGip string) *AuditAndro
 // 示例值：
 func (builder *AuditAndroidContextBuilder) EnvSu(envSu string) *AuditAndroidContextBuilder {
 	builder.envSu = envSu
-	builder.envSuFlag = true
+	builder.envSuSet = true
 	return builder
 }
 
@@ -2454,7 +2456,7 @@ func (builder *AuditAndroidContextBuilder) EnvSu(envSu string) *AuditAndroidCont
 // 示例值：
 func (builder *AuditAndroidContextBuilder) EnvTz(envTz string) *AuditAndroidContextBuilder {
 	builder.envTz = envTz
-	builder.envTzFlag = true
+	builder.envTzSet = true
 	return builder
 }
 
@@ -2463,7 +2465,7 @@ func (builder *AuditAndroidContextBuilder) EnvTz(envTz string) *AuditAndroidCont
 // 示例值：
 func (builder *AuditAndroidContextBuilder) EnvMl(envMl string) *AuditAndroidContextBuilder {
 	builder.envMl = envMl
-	builder.envMlFlag = true
+	builder.envMlSet = true
 	return builder
 }
 
@@ -2472,7 +2474,7 @@ func (builder *AuditAndroidContextBuilder) EnvMl(envMl string) *AuditAndroidCont
 // 示例值：
 func (builder *AuditAndroidContextBuilder) Location(location string) *AuditAndroidContextBuilder {
 	builder.location = location
-	builder.locationFlag = true
+	builder.locationSet = true
 	return builder
 }
 
@@ -2481,7 +2483,7 @@ func (builder *AuditAndroidContextBuilder) Location(location string) *AuditAndro
 // 示例值：
 func (builder *AuditAndroidContextBuilder) ActiveIp(activeIp string) *AuditAndroidContextBuilder {
 	builder.activeIp = activeIp
-	builder.activeIpFlag = true
+	builder.activeIpSet = true
 	return builder
 }
 
@@ -2490,7 +2492,7 @@ func (builder *AuditAndroidContextBuilder) ActiveIp(activeIp string) *AuditAndro
 // 示例值：
 func (builder *AuditAndroidContextBuilder) ActiveIpDetail(activeIpDetail string) *AuditAndroidContextBuilder {
 	builder.activeIpDetail = activeIpDetail
-	builder.activeIpDetailFlag = true
+	builder.activeIpDetailSet = true
 	return builder
 }
 
@@ -2499,7 +2501,7 @@ func (builder *AuditAndroidContextBuilder) ActiveIpDetail(activeIpDetail string)
 // 示例值：
 func (builder *AuditAndroidContextBuilder) CellBaseStation(cellBaseStation string) *AuditAndroidContextBuilder {
 	builder.cellBaseStation = cellBaseStation
-	builder.cellBaseStationFlag = true
+	builder.cellBaseStationSet = true
 	return builder
 }
 
@@ -2508,89 +2510,89 @@ func (builder *AuditAndroidContextBuilder) CellBaseStation(cellBaseStation strin
 // 示例值：
 func (builder *AuditAndroidContextBuilder) IP(iP string) *AuditAndroidContextBuilder {
 	builder.iP = iP
-	builder.iPFlag = true
+	builder.iPSet = true
 	return builder
 }
 
 func (builder *AuditAndroidContextBuilder) Build() *AuditAndroidContext {
 	req := &AuditAndroidContext{}
-	if builder.udidFlag {
+	if builder.udidSet {
 		req.Udid = &builder.udid
 
 	}
-	if builder.didFlag {
+	if builder.didSet {
 		req.Did = &builder.did
 
 	}
-	if builder.appVerFlag {
+	if builder.appVerSet {
 		req.AppVer = &builder.appVer
 
 	}
-	if builder.verFlag {
+	if builder.verSet {
 		req.Ver = &builder.ver
 
 	}
-	if builder.regionFlag {
+	if builder.regionSet {
 		req.Region = &builder.region
 
 	}
-	if builder.idIFlag {
+	if builder.idISet {
 		req.IdI = &builder.idI
 
 	}
-	if builder.idRFlag {
+	if builder.idRSet {
 		req.IdR = &builder.idR
 
 	}
-	if builder.hwBrandFlag {
+	if builder.hwBrandSet {
 		req.HwBrand = &builder.hwBrand
 
 	}
-	if builder.hwManufFlag {
+	if builder.hwManufSet {
 		req.HwManuf = &builder.hwManuf
 
 	}
-	if builder.wifipFlag {
+	if builder.wifipSet {
 		req.Wifip = &builder.wifip
 
 	}
-	if builder.routeIipFlag {
+	if builder.routeIipSet {
 		req.RouteIip = &builder.routeIip
 
 	}
-	if builder.routeGipFlag {
+	if builder.routeGipSet {
 		req.RouteGip = &builder.routeGip
 
 	}
-	if builder.envSuFlag {
+	if builder.envSuSet {
 		req.EnvSu = &builder.envSu
 
 	}
-	if builder.envTzFlag {
+	if builder.envTzSet {
 		req.EnvTz = &builder.envTz
 
 	}
-	if builder.envMlFlag {
+	if builder.envMlSet {
 		req.EnvMl = &builder.envMl
 
 	}
-	if builder.locationFlag {
+	if builder.locationSet {
 		req.Location = &builder.location
 
 	}
-	if builder.activeIpFlag {
+	if builder.activeIpSet {
 		req.ActiveIp = &builder.activeIp
 
 	}
-	if builder.activeIpDetailFlag {
+	if builder.activeIpDetailSet {
 		req.ActiveIpDetail = &builder.activeIpDetail
 
 	}
-	if builder.cellBaseStationFlag {
+	if builder.cellBaseStationSet {
 		req.CellBaseStation = &builder.cellBaseStation
 
 	}
-	if builder.iPFlag {
+	if builder.iPSet {
 		req.IP = &builder.iP
 
 	}
@@ -2610,20 +2612,20 @@ type AuditContext struct {
 }
 
 type AuditContextBuilder struct {
-	terminalType     int // 终端类型
-	terminalTypeFlag bool
+	terminalType    int // 终端类型
+	terminalTypeSet bool
 
-	iosContext     *AuditIosContext // ios的环境信息
-	iosContextFlag bool
+	iosContext    *AuditIosContext // ios的环境信息
+	iosContextSet bool
 
-	pcContext     *AuditPcContext // pc的环境信息
-	pcContextFlag bool
+	pcContext    *AuditPcContext // pc的环境信息
+	pcContextSet bool
 
-	webContext     *AuditWebContext // web的环境信息
-	webContextFlag bool
+	webContext    *AuditWebContext // web的环境信息
+	webContextSet bool
 
-	androidContext     *AuditAndroidContext // android的环境信息
-	androidContextFlag bool
+	androidContext    *AuditAndroidContext // android的环境信息
+	androidContextSet bool
 }
 
 func NewAuditContextBuilder() *AuditContextBuilder {
@@ -2636,7 +2638,7 @@ func NewAuditContextBuilder() *AuditContextBuilder {
 // 示例值：
 func (builder *AuditContextBuilder) TerminalType(terminalType int) *AuditContextBuilder {
 	builder.terminalType = terminalType
-	builder.terminalTypeFlag = true
+	builder.terminalTypeSet = true
 	return builder
 }
 
@@ -2645,7 +2647,7 @@ func (builder *AuditContextBuilder) TerminalType(terminalType int) *AuditContext
 // 示例值：
 func (builder *AuditContextBuilder) IosContext(iosContext *AuditIosContext) *AuditContextBuilder {
 	builder.iosContext = iosContext
-	builder.iosContextFlag = true
+	builder.iosContextSet = true
 	return builder
 }
 
@@ -2654,7 +2656,7 @@ func (builder *AuditContextBuilder) IosContext(iosContext *AuditIosContext) *Aud
 // 示例值：
 func (builder *AuditContextBuilder) PcContext(pcContext *AuditPcContext) *AuditContextBuilder {
 	builder.pcContext = pcContext
-	builder.pcContextFlag = true
+	builder.pcContextSet = true
 	return builder
 }
 
@@ -2663,7 +2665,7 @@ func (builder *AuditContextBuilder) PcContext(pcContext *AuditPcContext) *AuditC
 // 示例值：
 func (builder *AuditContextBuilder) WebContext(webContext *AuditWebContext) *AuditContextBuilder {
 	builder.webContext = webContext
-	builder.webContextFlag = true
+	builder.webContextSet = true
 	return builder
 }
 
@@ -2672,26 +2674,26 @@ func (builder *AuditContextBuilder) WebContext(webContext *AuditWebContext) *Aud
 // 示例值：
 func (builder *AuditContextBuilder) AndroidContext(androidContext *AuditAndroidContext) *AuditContextBuilder {
 	builder.androidContext = androidContext
-	builder.androidContextFlag = true
+	builder.androidContextSet = true
 	return builder
 }
 
 func (builder *AuditContextBuilder) Build() *AuditContext {
 	req := &AuditContext{}
-	if builder.terminalTypeFlag {
+	if builder.terminalTypeSet {
 		req.TerminalType = &builder.terminalType
 
 	}
-	if builder.iosContextFlag {
+	if builder.iosContextSet {
 		req.IosContext = builder.iosContext
 	}
-	if builder.pcContextFlag {
+	if builder.pcContextSet {
 		req.PcContext = builder.pcContext
 	}
-	if builder.webContextFlag {
+	if builder.webContextSet {
 		req.WebContext = builder.webContext
 	}
-	if builder.androidContextFlag {
+	if builder.androidContextSet {
 		req.AndroidContext = builder.androidContext
 	}
 	return req
@@ -2708,17 +2710,17 @@ type AuditDetail struct {
 }
 
 type AuditDetailBuilder struct {
-	mc     string // mac地址
-	mcFlag bool
+	mc    string // mac地址
+	mcSet bool
 
-	deviceModel     string // 设备模型
-	deviceModelFlag bool
+	deviceModel    string // 设备模型
+	deviceModelSet bool
 
-	os     string // 操作系统
-	osFlag bool
+	os    string // 操作系统
+	osSet bool
 
-	city     string // ip属地
-	cityFlag bool
+	city    string // ip属地
+	citySet bool
 }
 
 func NewAuditDetailBuilder() *AuditDetailBuilder {
@@ -2731,7 +2733,7 @@ func NewAuditDetailBuilder() *AuditDetailBuilder {
 // 示例值：08:00:20:0A:8C:6D
 func (builder *AuditDetailBuilder) Mc(mc string) *AuditDetailBuilder {
 	builder.mc = mc
-	builder.mcFlag = true
+	builder.mcSet = true
 	return builder
 }
 
@@ -2740,7 +2742,7 @@ func (builder *AuditDetailBuilder) Mc(mc string) *AuditDetailBuilder {
 // 示例值：iphone14
 func (builder *AuditDetailBuilder) DeviceModel(deviceModel string) *AuditDetailBuilder {
 	builder.deviceModel = deviceModel
-	builder.deviceModelFlag = true
+	builder.deviceModelSet = true
 	return builder
 }
 
@@ -2749,7 +2751,7 @@ func (builder *AuditDetailBuilder) DeviceModel(deviceModel string) *AuditDetailB
 // 示例值：mac os
 func (builder *AuditDetailBuilder) Os(os string) *AuditDetailBuilder {
 	builder.os = os
-	builder.osFlag = true
+	builder.osSet = true
 	return builder
 }
 
@@ -2758,25 +2760,25 @@ func (builder *AuditDetailBuilder) Os(os string) *AuditDetailBuilder {
 // 示例值：北京
 func (builder *AuditDetailBuilder) City(city string) *AuditDetailBuilder {
 	builder.city = city
-	builder.cityFlag = true
+	builder.citySet = true
 	return builder
 }
 
 func (builder *AuditDetailBuilder) Build() *AuditDetail {
 	req := &AuditDetail{}
-	if builder.mcFlag {
+	if builder.mcSet {
 		req.Mc = &builder.mc
 
 	}
-	if builder.deviceModelFlag {
+	if builder.deviceModelSet {
 		req.DeviceModel = &builder.deviceModel
 
 	}
-	if builder.osFlag {
+	if builder.osSet {
 		req.Os = &builder.os
 
 	}
-	if builder.cityFlag {
+	if builder.citySet {
 		req.City = &builder.city
 
 	}
@@ -2806,35 +2808,35 @@ type AuditEventExtend struct {
 }
 
 type AuditEventExtendBuilder struct {
-	commentType     string // 评论类型
-	commentTypeFlag bool
+	commentType    string // 评论类型
+	commentTypeSet bool
 
-	appDetail     string // app信息
-	appDetailFlag bool
+	appDetail    string // app信息
+	appDetailSet bool
 
-	twoStepValidation     bool // 是否两步验证
-	twoStepValidationFlag bool
+	twoStepValidation    bool // 是否两步验证
+	twoStepValidationSet bool
 
-	loginMethod     string // 登录方式
-	loginMethodFlag bool
+	loginMethod    string // 登录方式
+	loginMethodSet bool
 
-	newPeopleNumInVideo     int // 创建新的{x}人会议/通话
-	newPeopleNumInVideoFlag bool
+	newPeopleNumInVideo    int // 创建新的{x}人会议/通话
+	newPeopleNumInVideoSet bool
 
-	externalPeopleNumInVideo     int // 将{x}名外部用户加入/退出通话
-	externalPeopleNumInVideoFlag bool
+	externalPeopleNumInVideo    int // 将{x}名外部用户加入/退出通话
+	externalPeopleNumInVideoSet bool
 
-	externalPeopleNumInChat     int // 将{x}名外部用户加入/退出群组
-	externalPeopleNumInChatFlag bool
+	externalPeopleNumInChat    int // 将{x}名外部用户加入/退出群组
+	externalPeopleNumInChatSet bool
 
-	joinGroup     int // 创建{x}人数的群组
-	joinGroupFlag bool
+	joinGroup    int // 创建{x}人数的群组
+	joinGroupSet bool
 
-	quitGroup     int // 解散{x}人数的群组
-	quitGroupFlag bool
+	quitGroup    int // 解散{x}人数的群组
+	quitGroupSet bool
 
-	externalPeopleNumInDocShare     int // 分享文档给{x}名外部用户
-	externalPeopleNumInDocShareFlag bool
+	externalPeopleNumInDocShare    int // 分享文档给{x}名外部用户
+	externalPeopleNumInDocShareSet bool
 }
 
 func NewAuditEventExtendBuilder() *AuditEventExtendBuilder {
@@ -2847,7 +2849,7 @@ func NewAuditEventExtendBuilder() *AuditEventExtendBuilder {
 // 示例值：
 func (builder *AuditEventExtendBuilder) CommentType(commentType string) *AuditEventExtendBuilder {
 	builder.commentType = commentType
-	builder.commentTypeFlag = true
+	builder.commentTypeSet = true
 	return builder
 }
 
@@ -2856,7 +2858,7 @@ func (builder *AuditEventExtendBuilder) CommentType(commentType string) *AuditEv
 // 示例值：
 func (builder *AuditEventExtendBuilder) AppDetail(appDetail string) *AuditEventExtendBuilder {
 	builder.appDetail = appDetail
-	builder.appDetailFlag = true
+	builder.appDetailSet = true
 	return builder
 }
 
@@ -2865,7 +2867,7 @@ func (builder *AuditEventExtendBuilder) AppDetail(appDetail string) *AuditEventE
 // 示例值：
 func (builder *AuditEventExtendBuilder) TwoStepValidation(twoStepValidation bool) *AuditEventExtendBuilder {
 	builder.twoStepValidation = twoStepValidation
-	builder.twoStepValidationFlag = true
+	builder.twoStepValidationSet = true
 	return builder
 }
 
@@ -2874,7 +2876,7 @@ func (builder *AuditEventExtendBuilder) TwoStepValidation(twoStepValidation bool
 // 示例值：
 func (builder *AuditEventExtendBuilder) LoginMethod(loginMethod string) *AuditEventExtendBuilder {
 	builder.loginMethod = loginMethod
-	builder.loginMethodFlag = true
+	builder.loginMethodSet = true
 	return builder
 }
 
@@ -2883,7 +2885,7 @@ func (builder *AuditEventExtendBuilder) LoginMethod(loginMethod string) *AuditEv
 // 示例值：
 func (builder *AuditEventExtendBuilder) NewPeopleNumInVideo(newPeopleNumInVideo int) *AuditEventExtendBuilder {
 	builder.newPeopleNumInVideo = newPeopleNumInVideo
-	builder.newPeopleNumInVideoFlag = true
+	builder.newPeopleNumInVideoSet = true
 	return builder
 }
 
@@ -2892,7 +2894,7 @@ func (builder *AuditEventExtendBuilder) NewPeopleNumInVideo(newPeopleNumInVideo 
 // 示例值：
 func (builder *AuditEventExtendBuilder) ExternalPeopleNumInVideo(externalPeopleNumInVideo int) *AuditEventExtendBuilder {
 	builder.externalPeopleNumInVideo = externalPeopleNumInVideo
-	builder.externalPeopleNumInVideoFlag = true
+	builder.externalPeopleNumInVideoSet = true
 	return builder
 }
 
@@ -2901,7 +2903,7 @@ func (builder *AuditEventExtendBuilder) ExternalPeopleNumInVideo(externalPeopleN
 // 示例值：
 func (builder *AuditEventExtendBuilder) ExternalPeopleNumInChat(externalPeopleNumInChat int) *AuditEventExtendBuilder {
 	builder.externalPeopleNumInChat = externalPeopleNumInChat
-	builder.externalPeopleNumInChatFlag = true
+	builder.externalPeopleNumInChatSet = true
 	return builder
 }
 
@@ -2910,7 +2912,7 @@ func (builder *AuditEventExtendBuilder) ExternalPeopleNumInChat(externalPeopleNu
 // 示例值：
 func (builder *AuditEventExtendBuilder) JoinGroup(joinGroup int) *AuditEventExtendBuilder {
 	builder.joinGroup = joinGroup
-	builder.joinGroupFlag = true
+	builder.joinGroupSet = true
 	return builder
 }
 
@@ -2919,7 +2921,7 @@ func (builder *AuditEventExtendBuilder) JoinGroup(joinGroup int) *AuditEventExte
 // 示例值：
 func (builder *AuditEventExtendBuilder) QuitGroup(quitGroup int) *AuditEventExtendBuilder {
 	builder.quitGroup = quitGroup
-	builder.quitGroupFlag = true
+	builder.quitGroupSet = true
 	return builder
 }
 
@@ -2928,49 +2930,49 @@ func (builder *AuditEventExtendBuilder) QuitGroup(quitGroup int) *AuditEventExte
 // 示例值：
 func (builder *AuditEventExtendBuilder) ExternalPeopleNumInDocShare(externalPeopleNumInDocShare int) *AuditEventExtendBuilder {
 	builder.externalPeopleNumInDocShare = externalPeopleNumInDocShare
-	builder.externalPeopleNumInDocShareFlag = true
+	builder.externalPeopleNumInDocShareSet = true
 	return builder
 }
 
 func (builder *AuditEventExtendBuilder) Build() *AuditEventExtend {
 	req := &AuditEventExtend{}
-	if builder.commentTypeFlag {
+	if builder.commentTypeSet {
 		req.CommentType = &builder.commentType
 
 	}
-	if builder.appDetailFlag {
+	if builder.appDetailSet {
 		req.AppDetail = &builder.appDetail
 
 	}
-	if builder.twoStepValidationFlag {
+	if builder.twoStepValidationSet {
 		req.TwoStepValidation = &builder.twoStepValidation
 
 	}
-	if builder.loginMethodFlag {
+	if builder.loginMethodSet {
 		req.LoginMethod = &builder.loginMethod
 
 	}
-	if builder.newPeopleNumInVideoFlag {
+	if builder.newPeopleNumInVideoSet {
 		req.NewPeopleNumInVideo = &builder.newPeopleNumInVideo
 
 	}
-	if builder.externalPeopleNumInVideoFlag {
+	if builder.externalPeopleNumInVideoSet {
 		req.ExternalPeopleNumInVideo = &builder.externalPeopleNumInVideo
 
 	}
-	if builder.externalPeopleNumInChatFlag {
+	if builder.externalPeopleNumInChatSet {
 		req.ExternalPeopleNumInChat = &builder.externalPeopleNumInChat
 
 	}
-	if builder.joinGroupFlag {
+	if builder.joinGroupSet {
 		req.JoinGroup = &builder.joinGroup
 
 	}
-	if builder.quitGroupFlag {
+	if builder.quitGroupSet {
 		req.QuitGroup = &builder.quitGroup
 
 	}
-	if builder.externalPeopleNumInDocShareFlag {
+	if builder.externalPeopleNumInDocShareSet {
 		req.ExternalPeopleNumInDocShare = &builder.externalPeopleNumInDocShare
 
 	}
@@ -3018,62 +3020,62 @@ type AuditInfo struct {
 }
 
 type AuditInfoBuilder struct {
-	eventId     string // 事件id
-	eventIdFlag bool
+	eventId    string // 事件id
+	eventIdSet bool
 
-	uniqueId     string // 唯一id
-	uniqueIdFlag bool
+	uniqueId    string // 唯一id
+	uniqueIdSet bool
 
-	eventName     string // 事件名称
-	eventNameFlag bool
+	eventName    string // 事件名称
+	eventNameSet bool
 
-	departmentIds     []string // 用户所属部门的ID列表
-	departmentIdsFlag bool
+	departmentIds    []string // 用户所属部门的ID列表
+	departmentIdsSet bool
 
-	eventModule     int // 模块
-	eventModuleFlag bool
+	eventModule    int // 模块
+	eventModuleSet bool
 
-	operatorType     int // 操作人类型
-	operatorTypeFlag bool
+	operatorType    int // 操作人类型
+	operatorTypeSet bool
 
-	operatorValue     string // 操作人id
-	operatorValueFlag bool
+	operatorValue    string // 操作人id
+	operatorValueSet bool
 
-	objects     []*AuditObjectEntity // 操作对象列表
-	objectsFlag bool
+	objects    []*AuditObjectEntity // 操作对象列表
+	objectsSet bool
 
-	recipients     []*AuditRecipientEntity // 接收者对象列表
-	recipientsFlag bool
+	recipients    []*AuditRecipientEntity // 接收者对象列表
+	recipientsSet bool
 
-	eventTime     int // 事件时间
-	eventTimeFlag bool
+	eventTime    int // 事件时间
+	eventTimeSet bool
 
-	ip     string // ip信息
-	ipFlag bool
+	ip    string // ip信息
+	ipSet bool
 
-	operatorApp     string // 第三方isvID
-	operatorAppFlag bool
+	operatorApp    string // 第三方isvID
+	operatorAppSet bool
 
-	auditContext     *AuditContext // 环境信息
-	auditContextFlag bool
+	auditContext    *AuditContext // 环境信息
+	auditContextSet bool
 
-	extend     *AuditEventExtend // 事件级别的扩展
-	extendFlag bool
+	extend    *AuditEventExtend // 事件级别的扩展
+	extendSet bool
 
-	operatorAppName     string // 第三方isv名称
-	operatorAppNameFlag bool
+	operatorAppName    string // 第三方isv名称
+	operatorAppNameSet bool
 
-	commonDrawers     *ApiAuditCommonDrawers // 扩展字段信息
-	commonDrawersFlag bool
+	commonDrawers    *ApiAuditCommonDrawers // 扩展字段信息
+	commonDrawersSet bool
 
-	auditDetail     *AuditDetail // 日志扩展信息
-	auditDetailFlag bool
+	auditDetail    *AuditDetail // 日志扩展信息
+	auditDetailSet bool
 
-	operatorTenant     string // 操作人企业编号
-	operatorTenantFlag bool
+	operatorTenant    string // 操作人企业编号
+	operatorTenantSet bool
 
-	operatorDetail     *OperatorDetail // 操作人详情
-	operatorDetailFlag bool
+	operatorDetail    *OperatorDetail // 操作人详情
+	operatorDetailSet bool
 }
 
 func NewAuditInfoBuilder() *AuditInfoBuilder {
@@ -3086,7 +3088,7 @@ func NewAuditInfoBuilder() *AuditInfoBuilder {
 // 示例值：7126195947859656705
 func (builder *AuditInfoBuilder) EventId(eventId string) *AuditInfoBuilder {
 	builder.eventId = eventId
-	builder.eventIdFlag = true
+	builder.eventIdSet = true
 	return builder
 }
 
@@ -3095,7 +3097,7 @@ func (builder *AuditInfoBuilder) EventId(eventId string) *AuditInfoBuilder {
 // 示例值：7126195947859656705
 func (builder *AuditInfoBuilder) UniqueId(uniqueId string) *AuditInfoBuilder {
 	builder.uniqueId = uniqueId
-	builder.uniqueIdFlag = true
+	builder.uniqueIdSet = true
 	return builder
 }
 
@@ -3104,7 +3106,7 @@ func (builder *AuditInfoBuilder) UniqueId(uniqueId string) *AuditInfoBuilder {
 // 示例值：space_read_doc
 func (builder *AuditInfoBuilder) EventName(eventName string) *AuditInfoBuilder {
 	builder.eventName = eventName
-	builder.eventNameFlag = true
+	builder.eventNameSet = true
 	return builder
 }
 
@@ -3113,7 +3115,7 @@ func (builder *AuditInfoBuilder) EventName(eventName string) *AuditInfoBuilder {
 // 示例值：
 func (builder *AuditInfoBuilder) DepartmentIds(departmentIds []string) *AuditInfoBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
@@ -3122,7 +3124,7 @@ func (builder *AuditInfoBuilder) DepartmentIds(departmentIds []string) *AuditInf
 // 示例值：1
 func (builder *AuditInfoBuilder) EventModule(eventModule int) *AuditInfoBuilder {
 	builder.eventModule = eventModule
-	builder.eventModuleFlag = true
+	builder.eventModuleSet = true
 	return builder
 }
 
@@ -3131,7 +3133,7 @@ func (builder *AuditInfoBuilder) EventModule(eventModule int) *AuditInfoBuilder 
 // 示例值：
 func (builder *AuditInfoBuilder) OperatorType(operatorType int) *AuditInfoBuilder {
 	builder.operatorType = operatorType
-	builder.operatorTypeFlag = true
+	builder.operatorTypeSet = true
 	return builder
 }
 
@@ -3140,7 +3142,7 @@ func (builder *AuditInfoBuilder) OperatorType(operatorType int) *AuditInfoBuilde
 // 示例值：4a3b8541
 func (builder *AuditInfoBuilder) OperatorValue(operatorValue string) *AuditInfoBuilder {
 	builder.operatorValue = operatorValue
-	builder.operatorValueFlag = true
+	builder.operatorValueSet = true
 	return builder
 }
 
@@ -3149,7 +3151,7 @@ func (builder *AuditInfoBuilder) OperatorValue(operatorValue string) *AuditInfoB
 // 示例值：
 func (builder *AuditInfoBuilder) Objects(objects []*AuditObjectEntity) *AuditInfoBuilder {
 	builder.objects = objects
-	builder.objectsFlag = true
+	builder.objectsSet = true
 	return builder
 }
 
@@ -3158,7 +3160,7 @@ func (builder *AuditInfoBuilder) Objects(objects []*AuditObjectEntity) *AuditInf
 // 示例值：
 func (builder *AuditInfoBuilder) Recipients(recipients []*AuditRecipientEntity) *AuditInfoBuilder {
 	builder.recipients = recipients
-	builder.recipientsFlag = true
+	builder.recipientsSet = true
 	return builder
 }
 
@@ -3167,7 +3169,7 @@ func (builder *AuditInfoBuilder) Recipients(recipients []*AuditRecipientEntity) 
 // 示例值：1669046400
 func (builder *AuditInfoBuilder) EventTime(eventTime int) *AuditInfoBuilder {
 	builder.eventTime = eventTime
-	builder.eventTimeFlag = true
+	builder.eventTimeSet = true
 	return builder
 }
 
@@ -3176,7 +3178,7 @@ func (builder *AuditInfoBuilder) EventTime(eventTime int) *AuditInfoBuilder {
 // 示例值：192.168.168.1
 func (builder *AuditInfoBuilder) Ip(ip string) *AuditInfoBuilder {
 	builder.ip = ip
-	builder.ipFlag = true
+	builder.ipSet = true
 	return builder
 }
 
@@ -3185,7 +3187,7 @@ func (builder *AuditInfoBuilder) Ip(ip string) *AuditInfoBuilder {
 // 示例值：example_value
 func (builder *AuditInfoBuilder) OperatorApp(operatorApp string) *AuditInfoBuilder {
 	builder.operatorApp = operatorApp
-	builder.operatorAppFlag = true
+	builder.operatorAppSet = true
 	return builder
 }
 
@@ -3194,7 +3196,7 @@ func (builder *AuditInfoBuilder) OperatorApp(operatorApp string) *AuditInfoBuild
 // 示例值：
 func (builder *AuditInfoBuilder) AuditContext(auditContext *AuditContext) *AuditInfoBuilder {
 	builder.auditContext = auditContext
-	builder.auditContextFlag = true
+	builder.auditContextSet = true
 	return builder
 }
 
@@ -3203,7 +3205,7 @@ func (builder *AuditInfoBuilder) AuditContext(auditContext *AuditContext) *Audit
 // 示例值：
 func (builder *AuditInfoBuilder) Extend(extend *AuditEventExtend) *AuditInfoBuilder {
 	builder.extend = extend
-	builder.extendFlag = true
+	builder.extendSet = true
 	return builder
 }
 
@@ -3212,7 +3214,7 @@ func (builder *AuditInfoBuilder) Extend(extend *AuditEventExtend) *AuditInfoBuil
 // 示例值：example_value
 func (builder *AuditInfoBuilder) OperatorAppName(operatorAppName string) *AuditInfoBuilder {
 	builder.operatorAppName = operatorAppName
-	builder.operatorAppNameFlag = true
+	builder.operatorAppNameSet = true
 	return builder
 }
 
@@ -3221,7 +3223,7 @@ func (builder *AuditInfoBuilder) OperatorAppName(operatorAppName string) *AuditI
 // 示例值：
 func (builder *AuditInfoBuilder) CommonDrawers(commonDrawers *ApiAuditCommonDrawers) *AuditInfoBuilder {
 	builder.commonDrawers = commonDrawers
-	builder.commonDrawersFlag = true
+	builder.commonDrawersSet = true
 	return builder
 }
 
@@ -3230,7 +3232,7 @@ func (builder *AuditInfoBuilder) CommonDrawers(commonDrawers *ApiAuditCommonDraw
 // 示例值：
 func (builder *AuditInfoBuilder) AuditDetail(auditDetail *AuditDetail) *AuditInfoBuilder {
 	builder.auditDetail = auditDetail
-	builder.auditDetailFlag = true
+	builder.auditDetailSet = true
 	return builder
 }
 
@@ -3239,7 +3241,7 @@ func (builder *AuditInfoBuilder) AuditDetail(auditDetail *AuditDetail) *AuditInf
 // 示例值：F2823442
 func (builder *AuditInfoBuilder) OperatorTenant(operatorTenant string) *AuditInfoBuilder {
 	builder.operatorTenant = operatorTenant
-	builder.operatorTenantFlag = true
+	builder.operatorTenantSet = true
 	return builder
 }
 
@@ -3248,78 +3250,78 @@ func (builder *AuditInfoBuilder) OperatorTenant(operatorTenant string) *AuditInf
 // 示例值：
 func (builder *AuditInfoBuilder) OperatorDetail(operatorDetail *OperatorDetail) *AuditInfoBuilder {
 	builder.operatorDetail = operatorDetail
-	builder.operatorDetailFlag = true
+	builder.operatorDetailSet = true
 	return builder
 }
 
 func (builder *AuditInfoBuilder) Build() *AuditInfo {
 	req := &AuditInfo{}
-	if builder.eventIdFlag {
+	if builder.eventIdSet {
 		req.EventId = &builder.eventId
 
 	}
-	if builder.uniqueIdFlag {
+	if builder.uniqueIdSet {
 		req.UniqueId = &builder.uniqueId
 
 	}
-	if builder.eventNameFlag {
+	if builder.eventNameSet {
 		req.EventName = &builder.eventName
 
 	}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.eventModuleFlag {
+	if builder.eventModuleSet {
 		req.EventModule = &builder.eventModule
 
 	}
-	if builder.operatorTypeFlag {
+	if builder.operatorTypeSet {
 		req.OperatorType = &builder.operatorType
 
 	}
-	if builder.operatorValueFlag {
+	if builder.operatorValueSet {
 		req.OperatorValue = &builder.operatorValue
 
 	}
-	if builder.objectsFlag {
+	if builder.objectsSet {
 		req.Objects = builder.objects
 	}
-	if builder.recipientsFlag {
+	if builder.recipientsSet {
 		req.Recipients = builder.recipients
 	}
-	if builder.eventTimeFlag {
+	if builder.eventTimeSet {
 		req.EventTime = &builder.eventTime
 
 	}
-	if builder.ipFlag {
+	if builder.ipSet {
 		req.Ip = &builder.ip
 
 	}
-	if builder.operatorAppFlag {
+	if builder.operatorAppSet {
 		req.OperatorApp = &builder.operatorApp
 
 	}
-	if builder.auditContextFlag {
+	if builder.auditContextSet {
 		req.AuditContext = builder.auditContext
 	}
-	if builder.extendFlag {
+	if builder.extendSet {
 		req.Extend = builder.extend
 	}
-	if builder.operatorAppNameFlag {
+	if builder.operatorAppNameSet {
 		req.OperatorAppName = &builder.operatorAppName
 
 	}
-	if builder.commonDrawersFlag {
+	if builder.commonDrawersSet {
 		req.CommonDrawers = builder.commonDrawers
 	}
-	if builder.auditDetailFlag {
+	if builder.auditDetailSet {
 		req.AuditDetail = builder.auditDetail
 	}
-	if builder.operatorTenantFlag {
+	if builder.operatorTenantSet {
 		req.OperatorTenant = &builder.operatorTenant
 
 	}
-	if builder.operatorDetailFlag {
+	if builder.operatorDetailSet {
 		req.OperatorDetail = builder.operatorDetail
 	}
 	return req
@@ -3358,50 +3360,50 @@ type AuditIosContext struct {
 }
 
 type AuditIosContextBuilder struct {
-	udid     string // UDID
-	udidFlag bool
+	udid    string // UDID
+	udidSet bool
 
-	did     string // 设备ID
-	didFlag bool
+	did    string // 设备ID
+	didSet bool
 
-	appVer     string // app的版本
-	appVerFlag bool
+	appVer    string // app的版本
+	appVerSet bool
 
-	ver     string // SecSDK版本
-	verFlag bool
+	ver    string // SecSDK版本
+	verSet bool
 
-	os     string // 系统类型及版本
-	osFlag bool
+	os    string // 系统类型及版本
+	osSet bool
 
-	sTZone     string // 系统时区
-	sTZoneFlag bool
+	sTZone    string // 系统时区
+	sTZoneSet bool
 
-	mL     string // 当前语言
-	mLFlag bool
+	mL    string // 当前语言
+	mLSet bool
 
-	sjd     string // 是否越狱
-	sjdFlag bool
+	sjd    string // 是否越狱
+	sjdSet bool
 
-	proxyip     string // 代理ip
-	proxyipFlag bool
+	proxyip    string // 代理ip
+	proxyipSet bool
 
-	wifip     string // wifi ip
-	wifipFlag bool
+	wifip    string // wifi ip
+	wifipSet bool
 
-	location     string // GPS经纬度
-	locationFlag bool
+	location    string // GPS经纬度
+	locationSet bool
 
-	activeIp     string // 当前设备活跃ip
-	activeIpFlag bool
+	activeIp    string // 当前设备活跃ip
+	activeIpSet bool
 
-	activeIpDetail     string // 当前设备活跃ip对应网卡类型
-	activeIpDetailFlag bool
+	activeIpDetail    string // 当前设备活跃ip对应网卡类型
+	activeIpDetailSet bool
 
-	cellBaseStation     string // 基站信息
-	cellBaseStationFlag bool
+	cellBaseStation    string // 基站信息
+	cellBaseStationSet bool
 
-	iP     string // 公网ip
-	iPFlag bool
+	iP    string // 公网ip
+	iPSet bool
 }
 
 func NewAuditIosContextBuilder() *AuditIosContextBuilder {
@@ -3414,7 +3416,7 @@ func NewAuditIosContextBuilder() *AuditIosContextBuilder {
 // 示例值：
 func (builder *AuditIosContextBuilder) Udid(udid string) *AuditIosContextBuilder {
 	builder.udid = udid
-	builder.udidFlag = true
+	builder.udidSet = true
 	return builder
 }
 
@@ -3423,7 +3425,7 @@ func (builder *AuditIosContextBuilder) Udid(udid string) *AuditIosContextBuilder
 // 示例值：
 func (builder *AuditIosContextBuilder) Did(did string) *AuditIosContextBuilder {
 	builder.did = did
-	builder.didFlag = true
+	builder.didSet = true
 	return builder
 }
 
@@ -3432,7 +3434,7 @@ func (builder *AuditIosContextBuilder) Did(did string) *AuditIosContextBuilder {
 // 示例值：
 func (builder *AuditIosContextBuilder) AppVer(appVer string) *AuditIosContextBuilder {
 	builder.appVer = appVer
-	builder.appVerFlag = true
+	builder.appVerSet = true
 	return builder
 }
 
@@ -3441,7 +3443,7 @@ func (builder *AuditIosContextBuilder) AppVer(appVer string) *AuditIosContextBui
 // 示例值：
 func (builder *AuditIosContextBuilder) Ver(ver string) *AuditIosContextBuilder {
 	builder.ver = ver
-	builder.verFlag = true
+	builder.verSet = true
 	return builder
 }
 
@@ -3450,7 +3452,7 @@ func (builder *AuditIosContextBuilder) Ver(ver string) *AuditIosContextBuilder {
 // 示例值：
 func (builder *AuditIosContextBuilder) Os(os string) *AuditIosContextBuilder {
 	builder.os = os
-	builder.osFlag = true
+	builder.osSet = true
 	return builder
 }
 
@@ -3459,7 +3461,7 @@ func (builder *AuditIosContextBuilder) Os(os string) *AuditIosContextBuilder {
 // 示例值：
 func (builder *AuditIosContextBuilder) STZone(sTZone string) *AuditIosContextBuilder {
 	builder.sTZone = sTZone
-	builder.sTZoneFlag = true
+	builder.sTZoneSet = true
 	return builder
 }
 
@@ -3468,7 +3470,7 @@ func (builder *AuditIosContextBuilder) STZone(sTZone string) *AuditIosContextBui
 // 示例值：
 func (builder *AuditIosContextBuilder) ML(mL string) *AuditIosContextBuilder {
 	builder.mL = mL
-	builder.mLFlag = true
+	builder.mLSet = true
 	return builder
 }
 
@@ -3477,7 +3479,7 @@ func (builder *AuditIosContextBuilder) ML(mL string) *AuditIosContextBuilder {
 // 示例值：
 func (builder *AuditIosContextBuilder) Sjd(sjd string) *AuditIosContextBuilder {
 	builder.sjd = sjd
-	builder.sjdFlag = true
+	builder.sjdSet = true
 	return builder
 }
 
@@ -3486,7 +3488,7 @@ func (builder *AuditIosContextBuilder) Sjd(sjd string) *AuditIosContextBuilder {
 // 示例值：
 func (builder *AuditIosContextBuilder) Proxyip(proxyip string) *AuditIosContextBuilder {
 	builder.proxyip = proxyip
-	builder.proxyipFlag = true
+	builder.proxyipSet = true
 	return builder
 }
 
@@ -3495,7 +3497,7 @@ func (builder *AuditIosContextBuilder) Proxyip(proxyip string) *AuditIosContextB
 // 示例值：
 func (builder *AuditIosContextBuilder) Wifip(wifip string) *AuditIosContextBuilder {
 	builder.wifip = wifip
-	builder.wifipFlag = true
+	builder.wifipSet = true
 	return builder
 }
 
@@ -3504,7 +3506,7 @@ func (builder *AuditIosContextBuilder) Wifip(wifip string) *AuditIosContextBuild
 // 示例值：
 func (builder *AuditIosContextBuilder) Location(location string) *AuditIosContextBuilder {
 	builder.location = location
-	builder.locationFlag = true
+	builder.locationSet = true
 	return builder
 }
 
@@ -3513,7 +3515,7 @@ func (builder *AuditIosContextBuilder) Location(location string) *AuditIosContex
 // 示例值：
 func (builder *AuditIosContextBuilder) ActiveIp(activeIp string) *AuditIosContextBuilder {
 	builder.activeIp = activeIp
-	builder.activeIpFlag = true
+	builder.activeIpSet = true
 	return builder
 }
 
@@ -3522,7 +3524,7 @@ func (builder *AuditIosContextBuilder) ActiveIp(activeIp string) *AuditIosContex
 // 示例值：
 func (builder *AuditIosContextBuilder) ActiveIpDetail(activeIpDetail string) *AuditIosContextBuilder {
 	builder.activeIpDetail = activeIpDetail
-	builder.activeIpDetailFlag = true
+	builder.activeIpDetailSet = true
 	return builder
 }
 
@@ -3531,7 +3533,7 @@ func (builder *AuditIosContextBuilder) ActiveIpDetail(activeIpDetail string) *Au
 // 示例值：
 func (builder *AuditIosContextBuilder) CellBaseStation(cellBaseStation string) *AuditIosContextBuilder {
 	builder.cellBaseStation = cellBaseStation
-	builder.cellBaseStationFlag = true
+	builder.cellBaseStationSet = true
 	return builder
 }
 
@@ -3540,69 +3542,69 @@ func (builder *AuditIosContextBuilder) CellBaseStation(cellBaseStation string) *
 // 示例值：
 func (builder *AuditIosContextBuilder) IP(iP string) *AuditIosContextBuilder {
 	builder.iP = iP
-	builder.iPFlag = true
+	builder.iPSet = true
 	return builder
 }
 
 func (builder *AuditIosContextBuilder) Build() *AuditIosContext {
 	req := &AuditIosContext{}
-	if builder.udidFlag {
+	if builder.udidSet {
 		req.Udid = &builder.udid
 
 	}
-	if builder.didFlag {
+	if builder.didSet {
 		req.Did = &builder.did
 
 	}
-	if builder.appVerFlag {
+	if builder.appVerSet {
 		req.AppVer = &builder.appVer
 
 	}
-	if builder.verFlag {
+	if builder.verSet {
 		req.Ver = &builder.ver
 
 	}
-	if builder.osFlag {
+	if builder.osSet {
 		req.Os = &builder.os
 
 	}
-	if builder.sTZoneFlag {
+	if builder.sTZoneSet {
 		req.STZone = &builder.sTZone
 
 	}
-	if builder.mLFlag {
+	if builder.mLSet {
 		req.ML = &builder.mL
 
 	}
-	if builder.sjdFlag {
+	if builder.sjdSet {
 		req.Sjd = &builder.sjd
 
 	}
-	if builder.proxyipFlag {
+	if builder.proxyipSet {
 		req.Proxyip = &builder.proxyip
 
 	}
-	if builder.wifipFlag {
+	if builder.wifipSet {
 		req.Wifip = &builder.wifip
 
 	}
-	if builder.locationFlag {
+	if builder.locationSet {
 		req.Location = &builder.location
 
 	}
-	if builder.activeIpFlag {
+	if builder.activeIpSet {
 		req.ActiveIp = &builder.activeIp
 
 	}
-	if builder.activeIpDetailFlag {
+	if builder.activeIpDetailSet {
 		req.ActiveIpDetail = &builder.activeIpDetail
 
 	}
-	if builder.cellBaseStationFlag {
+	if builder.cellBaseStationSet {
 		req.CellBaseStation = &builder.cellBaseStation
 
 	}
-	if builder.iPFlag {
+	if builder.iPSet {
 		req.IP = &builder.iP
 
 	}
@@ -3638,44 +3640,44 @@ type AuditObjectDetail struct {
 }
 
 type AuditObjectDetailBuilder struct {
-	cloneSource     string // 克隆来源
-	cloneSourceFlag bool
+	cloneSource    string // 克隆来源
+	cloneSourceSet bool
 
-	textDetail     string // 其他文本
-	textDetailFlag bool
+	textDetail    string // 其他文本
+	textDetailSet bool
 
-	fileName     string // 文件名称
-	fileNameFlag bool
+	fileName    string // 文件名称
+	fileNameSet bool
 
-	thirdPartyAppID     string // 第三方APPID
-	thirdPartyAppIDFlag bool
+	thirdPartyAppID    string // 第三方APPID
+	thirdPartyAppIDSet bool
 
-	containFileNum     int // 文件或文件夹数量
-	containFileNumFlag bool
+	containFileNum    int // 文件或文件夹数量
+	containFileNumSet bool
 
-	permissionSettingType     string // 链接分享设置
-	permissionSettingTypeFlag bool
+	permissionSettingType    string // 链接分享设置
+	permissionSettingTypeSet bool
 
-	permissionExternalAccessType     bool // 是否开启外部访问设置
-	permissionExternalAccessTypeFlag bool
+	permissionExternalAccessType    bool // 是否开启外部访问设置
+	permissionExternalAccessTypeSet bool
 
-	permissionShareType     string // 分享设置
-	permissionShareTypeFlag bool
+	permissionShareType    string // 分享设置
+	permissionShareTypeSet bool
 
-	fileServiceSource     string // file上传业务来源
-	fileServiceSourceFlag bool
+	fileServiceSource    string // file上传业务来源
+	fileServiceSourceSet bool
 
-	okrDownloadContent     string // 下载OKR时的内容范围
-	okrDownloadContentFlag bool
+	okrDownloadContent    string // 下载OKR时的内容范围
+	okrDownloadContentSet bool
 
-	containerType     string // 容器类型，标识是否wiki
-	containerTypeFlag bool
+	containerType    string // 容器类型，标识是否wiki
+	containerTypeSet bool
 
-	containerId     string // 容器id，wiki标识字段
-	containerIdFlag bool
+	containerId    string // 容器id，wiki标识字段
+	containerIdSet bool
 
-	currentPage     string // 截屏、录制的开始页面
-	currentPageFlag bool
+	currentPage    string // 截屏、录制的开始页面
+	currentPageSet bool
 }
 
 func NewAuditObjectDetailBuilder() *AuditObjectDetailBuilder {
@@ -3688,7 +3690,7 @@ func NewAuditObjectDetailBuilder() *AuditObjectDetailBuilder {
 // 示例值：
 func (builder *AuditObjectDetailBuilder) CloneSource(cloneSource string) *AuditObjectDetailBuilder {
 	builder.cloneSource = cloneSource
-	builder.cloneSourceFlag = true
+	builder.cloneSourceSet = true
 	return builder
 }
 
@@ -3697,7 +3699,7 @@ func (builder *AuditObjectDetailBuilder) CloneSource(cloneSource string) *AuditO
 // 示例值：
 func (builder *AuditObjectDetailBuilder) TextDetail(textDetail string) *AuditObjectDetailBuilder {
 	builder.textDetail = textDetail
-	builder.textDetailFlag = true
+	builder.textDetailSet = true
 	return builder
 }
 
@@ -3706,7 +3708,7 @@ func (builder *AuditObjectDetailBuilder) TextDetail(textDetail string) *AuditObj
 // 示例值：
 func (builder *AuditObjectDetailBuilder) FileName(fileName string) *AuditObjectDetailBuilder {
 	builder.fileName = fileName
-	builder.fileNameFlag = true
+	builder.fileNameSet = true
 	return builder
 }
 
@@ -3715,7 +3717,7 @@ func (builder *AuditObjectDetailBuilder) FileName(fileName string) *AuditObjectD
 // 示例值：
 func (builder *AuditObjectDetailBuilder) ThirdPartyAppID(thirdPartyAppID string) *AuditObjectDetailBuilder {
 	builder.thirdPartyAppID = thirdPartyAppID
-	builder.thirdPartyAppIDFlag = true
+	builder.thirdPartyAppIDSet = true
 	return builder
 }
 
@@ -3724,7 +3726,7 @@ func (builder *AuditObjectDetailBuilder) ThirdPartyAppID(thirdPartyAppID string)
 // 示例值：
 func (builder *AuditObjectDetailBuilder) ContainFileNum(containFileNum int) *AuditObjectDetailBuilder {
 	builder.containFileNum = containFileNum
-	builder.containFileNumFlag = true
+	builder.containFileNumSet = true
 	return builder
 }
 
@@ -3733,7 +3735,7 @@ func (builder *AuditObjectDetailBuilder) ContainFileNum(containFileNum int) *Aud
 // 示例值：
 func (builder *AuditObjectDetailBuilder) PermissionSettingType(permissionSettingType string) *AuditObjectDetailBuilder {
 	builder.permissionSettingType = permissionSettingType
-	builder.permissionSettingTypeFlag = true
+	builder.permissionSettingTypeSet = true
 	return builder
 }
 
@@ -3742,7 +3744,7 @@ func (builder *AuditObjectDetailBuilder) PermissionSettingType(permissionSetting
 // 示例值：
 func (builder *AuditObjectDetailBuilder) PermissionExternalAccessType(permissionExternalAccessType bool) *AuditObjectDetailBuilder {
 	builder.permissionExternalAccessType = permissionExternalAccessType
-	builder.permissionExternalAccessTypeFlag = true
+	builder.permissionExternalAccessTypeSet = true
 	return builder
 }
 
@@ -3751,7 +3753,7 @@ func (builder *AuditObjectDetailBuilder) PermissionExternalAccessType(permission
 // 示例值：
 func (builder *AuditObjectDetailBuilder) PermissionShareType(permissionShareType string) *AuditObjectDetailBuilder {
 	builder.permissionShareType = permissionShareType
-	builder.permissionShareTypeFlag = true
+	builder.permissionShareTypeSet = true
 	return builder
 }
 
@@ -3760,7 +3762,7 @@ func (builder *AuditObjectDetailBuilder) PermissionShareType(permissionShareType
 // 示例值：
 func (builder *AuditObjectDetailBuilder) FileServiceSource(fileServiceSource string) *AuditObjectDetailBuilder {
 	builder.fileServiceSource = fileServiceSource
-	builder.fileServiceSourceFlag = true
+	builder.fileServiceSourceSet = true
 	return builder
 }
 
@@ -3769,7 +3771,7 @@ func (builder *AuditObjectDetailBuilder) FileServiceSource(fileServiceSource str
 // 示例值：
 func (builder *AuditObjectDetailBuilder) OkrDownloadContent(okrDownloadContent string) *AuditObjectDetailBuilder {
 	builder.okrDownloadContent = okrDownloadContent
-	builder.okrDownloadContentFlag = true
+	builder.okrDownloadContentSet = true
 	return builder
 }
 
@@ -3778,7 +3780,7 @@ func (builder *AuditObjectDetailBuilder) OkrDownloadContent(okrDownloadContent s
 // 示例值：
 func (builder *AuditObjectDetailBuilder) ContainerType(containerType string) *AuditObjectDetailBuilder {
 	builder.containerType = containerType
-	builder.containerTypeFlag = true
+	builder.containerTypeSet = true
 	return builder
 }
 
@@ -3787,7 +3789,7 @@ func (builder *AuditObjectDetailBuilder) ContainerType(containerType string) *Au
 // 示例值：
 func (builder *AuditObjectDetailBuilder) ContainerId(containerId string) *AuditObjectDetailBuilder {
 	builder.containerId = containerId
-	builder.containerIdFlag = true
+	builder.containerIdSet = true
 	return builder
 }
 
@@ -3796,61 +3798,61 @@ func (builder *AuditObjectDetailBuilder) ContainerId(containerId string) *AuditO
 // 示例值：
 func (builder *AuditObjectDetailBuilder) CurrentPage(currentPage string) *AuditObjectDetailBuilder {
 	builder.currentPage = currentPage
-	builder.currentPageFlag = true
+	builder.currentPageSet = true
 	return builder
 }
 
 func (builder *AuditObjectDetailBuilder) Build() *AuditObjectDetail {
 	req := &AuditObjectDetail{}
-	if builder.cloneSourceFlag {
+	if builder.cloneSourceSet {
 		req.CloneSource = &builder.cloneSource
 
 	}
-	if builder.textDetailFlag {
+	if builder.textDetailSet {
 		req.TextDetail = &builder.textDetail
 
 	}
-	if builder.fileNameFlag {
+	if builder.fileNameSet {
 		req.FileName = &builder.fileName
 
 	}
-	if builder.thirdPartyAppIDFlag {
+	if builder.thirdPartyAppIDSet {
 		req.ThirdPartyAppID = &builder.thirdPartyAppID
 
 	}
-	if builder.containFileNumFlag {
+	if builder.containFileNumSet {
 		req.ContainFileNum = &builder.containFileNum
 
 	}
-	if builder.permissionSettingTypeFlag {
+	if builder.permissionSettingTypeSet {
 		req.PermissionSettingType = &builder.permissionSettingType
 
 	}
-	if builder.permissionExternalAccessTypeFlag {
+	if builder.permissionExternalAccessTypeSet {
 		req.PermissionExternalAccessType = &builder.permissionExternalAccessType
 
 	}
-	if builder.permissionShareTypeFlag {
+	if builder.permissionShareTypeSet {
 		req.PermissionShareType = &builder.permissionShareType
 
 	}
-	if builder.fileServiceSourceFlag {
+	if builder.fileServiceSourceSet {
 		req.FileServiceSource = &builder.fileServiceSource
 
 	}
-	if builder.okrDownloadContentFlag {
+	if builder.okrDownloadContentSet {
 		req.OkrDownloadContent = &builder.okrDownloadContent
 
 	}
-	if builder.containerTypeFlag {
+	if builder.containerTypeSet {
 		req.ContainerType = &builder.containerType
 
 	}
-	if builder.containerIdFlag {
+	if builder.containerIdSet {
 		req.ContainerId = &builder.containerId
 
 	}
-	if builder.currentPageFlag {
+	if builder.currentPageSet {
 		req.CurrentPage = &builder.currentPage
 
 	}
@@ -3870,20 +3872,20 @@ type AuditObjectEntity struct {
 }
 
 type AuditObjectEntityBuilder struct {
-	objectType     string // 操作对象类型
-	objectTypeFlag bool
+	objectType    string // 操作对象类型
+	objectTypeSet bool
 
-	objectValue     string // 操作对象值，可能存在department_id、user_id等，需要进行lark_id的转换
-	objectValueFlag bool
+	objectValue    string // 操作对象值，可能存在department_id、user_id等，需要进行lark_id的转换
+	objectValueSet bool
 
-	objectName     string // 操作对象名称，如会话名、文档名等
-	objectNameFlag bool
+	objectName    string // 操作对象名称，如会话名、文档名等
+	objectNameSet bool
 
-	objectOwner     string // 操作对象的所有者
-	objectOwnerFlag bool
+	objectOwner    string // 操作对象的所有者
+	objectOwnerSet bool
 
-	objectDetail     *AuditObjectDetail // object 详情
-	objectDetailFlag bool
+	objectDetail    *AuditObjectDetail // object 详情
+	objectDetailSet bool
 }
 
 func NewAuditObjectEntityBuilder() *AuditObjectEntityBuilder {
@@ -3896,7 +3898,7 @@ func NewAuditObjectEntityBuilder() *AuditObjectEntityBuilder {
 // 示例值：
 func (builder *AuditObjectEntityBuilder) ObjectType(objectType string) *AuditObjectEntityBuilder {
 	builder.objectType = objectType
-	builder.objectTypeFlag = true
+	builder.objectTypeSet = true
 	return builder
 }
 
@@ -3905,7 +3907,7 @@ func (builder *AuditObjectEntityBuilder) ObjectType(objectType string) *AuditObj
 // 示例值：
 func (builder *AuditObjectEntityBuilder) ObjectValue(objectValue string) *AuditObjectEntityBuilder {
 	builder.objectValue = objectValue
-	builder.objectValueFlag = true
+	builder.objectValueSet = true
 	return builder
 }
 
@@ -3914,7 +3916,7 @@ func (builder *AuditObjectEntityBuilder) ObjectValue(objectValue string) *AuditO
 // 示例值：
 func (builder *AuditObjectEntityBuilder) ObjectName(objectName string) *AuditObjectEntityBuilder {
 	builder.objectName = objectName
-	builder.objectNameFlag = true
+	builder.objectNameSet = true
 	return builder
 }
 
@@ -3923,7 +3925,7 @@ func (builder *AuditObjectEntityBuilder) ObjectName(objectName string) *AuditObj
 // 示例值：
 func (builder *AuditObjectEntityBuilder) ObjectOwner(objectOwner string) *AuditObjectEntityBuilder {
 	builder.objectOwner = objectOwner
-	builder.objectOwnerFlag = true
+	builder.objectOwnerSet = true
 	return builder
 }
 
@@ -3932,29 +3934,29 @@ func (builder *AuditObjectEntityBuilder) ObjectOwner(objectOwner string) *AuditO
 // 示例值：
 func (builder *AuditObjectEntityBuilder) ObjectDetail(objectDetail *AuditObjectDetail) *AuditObjectEntityBuilder {
 	builder.objectDetail = objectDetail
-	builder.objectDetailFlag = true
+	builder.objectDetailSet = true
 	return builder
 }
 
 func (builder *AuditObjectEntityBuilder) Build() *AuditObjectEntity {
 	req := &AuditObjectEntity{}
-	if builder.objectTypeFlag {
+	if builder.objectTypeSet {
 		req.ObjectType = &builder.objectType
 
 	}
-	if builder.objectValueFlag {
+	if builder.objectValueSet {
 		req.ObjectValue = &builder.objectValue
 
 	}
-	if builder.objectNameFlag {
+	if builder.objectNameSet {
 		req.ObjectName = &builder.objectName
 
 	}
-	if builder.objectOwnerFlag {
+	if builder.objectOwnerSet {
 		req.ObjectOwner = &builder.objectOwner
 
 	}
-	if builder.objectDetailFlag {
+	if builder.objectDetailSet {
 		req.ObjectDetail = builder.objectDetail
 	}
 	return req
@@ -3979,29 +3981,29 @@ type AuditPcContext struct {
 }
 
 type AuditPcContextBuilder struct {
-	udid     string // UDID
-	udidFlag bool
+	udid    string // UDID
+	udidSet bool
 
-	did     string // 设备ID
-	didFlag bool
+	did    string // 设备ID
+	didSet bool
 
-	appVer     string // app的版本
-	appVerFlag bool
+	appVer    string // app的版本
+	appVerSet bool
 
-	ver     string // SecSDK版本
-	verFlag bool
+	ver    string // SecSDK版本
+	verSet bool
 
-	os     string // 客户端类型
-	osFlag bool
+	os    string // 客户端类型
+	osSet bool
 
-	wifip     string // wifi ip
-	wifipFlag bool
+	wifip    string // wifi ip
+	wifipSet bool
 
-	region     string // 设备区域
-	regionFlag bool
+	region    string // 设备区域
+	regionSet bool
 
-	iP     string // 公网ip
-	iPFlag bool
+	iP    string // 公网ip
+	iPSet bool
 }
 
 func NewAuditPcContextBuilder() *AuditPcContextBuilder {
@@ -4014,7 +4016,7 @@ func NewAuditPcContextBuilder() *AuditPcContextBuilder {
 // 示例值：
 func (builder *AuditPcContextBuilder) Udid(udid string) *AuditPcContextBuilder {
 	builder.udid = udid
-	builder.udidFlag = true
+	builder.udidSet = true
 	return builder
 }
 
@@ -4023,7 +4025,7 @@ func (builder *AuditPcContextBuilder) Udid(udid string) *AuditPcContextBuilder {
 // 示例值：
 func (builder *AuditPcContextBuilder) Did(did string) *AuditPcContextBuilder {
 	builder.did = did
-	builder.didFlag = true
+	builder.didSet = true
 	return builder
 }
 
@@ -4032,7 +4034,7 @@ func (builder *AuditPcContextBuilder) Did(did string) *AuditPcContextBuilder {
 // 示例值：
 func (builder *AuditPcContextBuilder) AppVer(appVer string) *AuditPcContextBuilder {
 	builder.appVer = appVer
-	builder.appVerFlag = true
+	builder.appVerSet = true
 	return builder
 }
 
@@ -4041,7 +4043,7 @@ func (builder *AuditPcContextBuilder) AppVer(appVer string) *AuditPcContextBuild
 // 示例值：
 func (builder *AuditPcContextBuilder) Ver(ver string) *AuditPcContextBuilder {
 	builder.ver = ver
-	builder.verFlag = true
+	builder.verSet = true
 	return builder
 }
 
@@ -4050,7 +4052,7 @@ func (builder *AuditPcContextBuilder) Ver(ver string) *AuditPcContextBuilder {
 // 示例值：
 func (builder *AuditPcContextBuilder) Os(os string) *AuditPcContextBuilder {
 	builder.os = os
-	builder.osFlag = true
+	builder.osSet = true
 	return builder
 }
 
@@ -4059,7 +4061,7 @@ func (builder *AuditPcContextBuilder) Os(os string) *AuditPcContextBuilder {
 // 示例值：
 func (builder *AuditPcContextBuilder) Wifip(wifip string) *AuditPcContextBuilder {
 	builder.wifip = wifip
-	builder.wifipFlag = true
+	builder.wifipSet = true
 	return builder
 }
 
@@ -4068,7 +4070,7 @@ func (builder *AuditPcContextBuilder) Wifip(wifip string) *AuditPcContextBuilder
 // 示例值：
 func (builder *AuditPcContextBuilder) Region(region string) *AuditPcContextBuilder {
 	builder.region = region
-	builder.regionFlag = true
+	builder.regionSet = true
 	return builder
 }
 
@@ -4077,41 +4079,41 @@ func (builder *AuditPcContextBuilder) Region(region string) *AuditPcContextBuild
 // 示例值：
 func (builder *AuditPcContextBuilder) IP(iP string) *AuditPcContextBuilder {
 	builder.iP = iP
-	builder.iPFlag = true
+	builder.iPSet = true
 	return builder
 }
 
 func (builder *AuditPcContextBuilder) Build() *AuditPcContext {
 	req := &AuditPcContext{}
-	if builder.udidFlag {
+	if builder.udidSet {
 		req.Udid = &builder.udid
 
 	}
-	if builder.didFlag {
+	if builder.didSet {
 		req.Did = &builder.did
 
 	}
-	if builder.appVerFlag {
+	if builder.appVerSet {
 		req.AppVer = &builder.appVer
 
 	}
-	if builder.verFlag {
+	if builder.verSet {
 		req.Ver = &builder.ver
 
 	}
-	if builder.osFlag {
+	if builder.osSet {
 		req.Os = &builder.os
 
 	}
-	if builder.wifipFlag {
+	if builder.wifipSet {
 		req.Wifip = &builder.wifip
 
 	}
-	if builder.regionFlag {
+	if builder.regionSet {
 		req.Region = &builder.region
 
 	}
-	if builder.iPFlag {
+	if builder.iPSet {
 		req.IP = &builder.iP
 
 	}
@@ -4131,20 +4133,20 @@ type AuditRecipientDetail struct {
 }
 
 type AuditRecipientDetailBuilder struct {
-	permissionActionType     string // 修改权限协作者
-	permissionActionTypeFlag bool
+	permissionActionType    string // 修改权限协作者
+	permissionActionTypeSet bool
 
-	chatId     string // 会话 id
-	chatIdFlag bool
+	chatId    string // 会话 id
+	chatIdSet bool
 
-	chatName     string // 会话名称
-	chatNameFlag bool
+	chatName    string // 会话名称
+	chatNameSet bool
 
-	chatType     int // 聊天类型，1 单聊，2 群聊，3 话题群
-	chatTypeFlag bool
+	chatType    int // 聊天类型，1 单聊，2 群聊，3 话题群
+	chatTypeSet bool
 
-	externalFlag     bool // 外部用户标识，false 内部、true 外部
-	externalFlagFlag bool
+	externalFlag    bool // 外部用户标识，false 内部、true 外部
+	externalFlagSet bool
 }
 
 func NewAuditRecipientDetailBuilder() *AuditRecipientDetailBuilder {
@@ -4157,7 +4159,7 @@ func NewAuditRecipientDetailBuilder() *AuditRecipientDetailBuilder {
 // 示例值：1
 func (builder *AuditRecipientDetailBuilder) PermissionActionType(permissionActionType string) *AuditRecipientDetailBuilder {
 	builder.permissionActionType = permissionActionType
-	builder.permissionActionTypeFlag = true
+	builder.permissionActionTypeSet = true
 	return builder
 }
 
@@ -4166,7 +4168,7 @@ func (builder *AuditRecipientDetailBuilder) PermissionActionType(permissionActio
 // 示例值：oc_xxxx
 func (builder *AuditRecipientDetailBuilder) ChatId(chatId string) *AuditRecipientDetailBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -4175,7 +4177,7 @@ func (builder *AuditRecipientDetailBuilder) ChatId(chatId string) *AuditRecipien
 // 示例值：test
 func (builder *AuditRecipientDetailBuilder) ChatName(chatName string) *AuditRecipientDetailBuilder {
 	builder.chatName = chatName
-	builder.chatNameFlag = true
+	builder.chatNameSet = true
 	return builder
 }
 
@@ -4184,7 +4186,7 @@ func (builder *AuditRecipientDetailBuilder) ChatName(chatName string) *AuditReci
 // 示例值：1
 func (builder *AuditRecipientDetailBuilder) ChatType(chatType int) *AuditRecipientDetailBuilder {
 	builder.chatType = chatType
-	builder.chatTypeFlag = true
+	builder.chatTypeSet = true
 	return builder
 }
 
@@ -4193,29 +4195,29 @@ func (builder *AuditRecipientDetailBuilder) ChatType(chatType int) *AuditRecipie
 // 示例值：false
 func (builder *AuditRecipientDetailBuilder) ExternalFlag(externalFlag bool) *AuditRecipientDetailBuilder {
 	builder.externalFlag = externalFlag
-	builder.externalFlagFlag = true
+	builder.externalFlagSet = true
 	return builder
 }
 
 func (builder *AuditRecipientDetailBuilder) Build() *AuditRecipientDetail {
 	req := &AuditRecipientDetail{}
-	if builder.permissionActionTypeFlag {
+	if builder.permissionActionTypeSet {
 		req.PermissionActionType = &builder.permissionActionType
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.chatNameFlag {
+	if builder.chatNameSet {
 		req.ChatName = &builder.chatName
 
 	}
-	if builder.chatTypeFlag {
+	if builder.chatTypeSet {
 		req.ChatType = &builder.chatType
 
 	}
-	if builder.externalFlagFlag {
+	if builder.externalFlagSet {
 		req.ExternalFlag = &builder.externalFlag
 
 	}
@@ -4231,14 +4233,14 @@ type AuditRecipientEntity struct {
 }
 
 type AuditRecipientEntityBuilder struct {
-	recipientType     string // 接收者对象类型
-	recipientTypeFlag bool
+	recipientType    string // 接收者对象类型
+	recipientTypeSet bool
 
-	recipientValue     string // 接收者对象值，可能存在department_id、user_id等，需要进行lark_id的转换
-	recipientValueFlag bool
+	recipientValue    string // 接收者对象值，可能存在department_id、user_id等，需要进行lark_id的转换
+	recipientValueSet bool
 
-	recipientDetail     *AuditRecipientDetail // recipient 详情
-	recipientDetailFlag bool
+	recipientDetail    *AuditRecipientDetail // recipient 详情
+	recipientDetailSet bool
 }
 
 func NewAuditRecipientEntityBuilder() *AuditRecipientEntityBuilder {
@@ -4251,7 +4253,7 @@ func NewAuditRecipientEntityBuilder() *AuditRecipientEntityBuilder {
 // 示例值：
 func (builder *AuditRecipientEntityBuilder) RecipientType(recipientType string) *AuditRecipientEntityBuilder {
 	builder.recipientType = recipientType
-	builder.recipientTypeFlag = true
+	builder.recipientTypeSet = true
 	return builder
 }
 
@@ -4260,7 +4262,7 @@ func (builder *AuditRecipientEntityBuilder) RecipientType(recipientType string) 
 // 示例值：
 func (builder *AuditRecipientEntityBuilder) RecipientValue(recipientValue string) *AuditRecipientEntityBuilder {
 	builder.recipientValue = recipientValue
-	builder.recipientValueFlag = true
+	builder.recipientValueSet = true
 	return builder
 }
 
@@ -4269,21 +4271,21 @@ func (builder *AuditRecipientEntityBuilder) RecipientValue(recipientValue string
 // 示例值：
 func (builder *AuditRecipientEntityBuilder) RecipientDetail(recipientDetail *AuditRecipientDetail) *AuditRecipientEntityBuilder {
 	builder.recipientDetail = recipientDetail
-	builder.recipientDetailFlag = true
+	builder.recipientDetailSet = true
 	return builder
 }
 
 func (builder *AuditRecipientEntityBuilder) Build() *AuditRecipientEntity {
 	req := &AuditRecipientEntity{}
-	if builder.recipientTypeFlag {
+	if builder.recipientTypeSet {
 		req.RecipientType = &builder.recipientType
 
 	}
-	if builder.recipientValueFlag {
+	if builder.recipientValueSet {
 		req.RecipientValue = &builder.recipientValue
 
 	}
-	if builder.recipientDetailFlag {
+	if builder.recipientDetailSet {
 		req.RecipientDetail = builder.recipientDetail
 	}
 	return req
@@ -4296,11 +4298,11 @@ type AuditWebContext struct {
 }
 
 type AuditWebContextBuilder struct {
-	userAgent     string // UA信息
-	userAgentFlag bool
+	userAgent    string // UA信息
+	userAgentSet bool
 
-	iP     string // 本机IP
-	iPFlag bool
+	iP    string // 本机IP
+	iPSet bool
 }
 
 func NewAuditWebContextBuilder() *AuditWebContextBuilder {
@@ -4313,7 +4315,7 @@ func NewAuditWebContextBuilder() *AuditWebContextBuilder {
 // 示例值：
 func (builder *AuditWebContextBuilder) UserAgent(userAgent string) *AuditWebContextBuilder {
 	builder.userAgent = userAgent
-	builder.userAgentFlag = true
+	builder.userAgentSet = true
 	return builder
 }
 
@@ -4322,17 +4324,17 @@ func (builder *AuditWebContextBuilder) UserAgent(userAgent string) *AuditWebCont
 // 示例值：
 func (builder *AuditWebContextBuilder) IP(iP string) *AuditWebContextBuilder {
 	builder.iP = iP
-	builder.iPFlag = true
+	builder.iPSet = true
 	return builder
 }
 
 func (builder *AuditWebContextBuilder) Build() *AuditWebContext {
 	req := &AuditWebContext{}
-	if builder.userAgentFlag {
+	if builder.userAgentSet {
 		req.UserAgent = &builder.userAgent
 
 	}
-	if builder.iPFlag {
+	if builder.iPSet {
 		req.IP = &builder.iP
 
 	}
@@ -4356,26 +4358,26 @@ type Badge struct {
 }
 
 type BadgeBuilder struct {
-	id     string // 租户内勋章的唯一标识，该值由系统随机生成。
-	idFlag bool
+	id    string // 租户内勋章的唯一标识，该值由系统随机生成。
+	idSet bool
 
-	name     string // 租户内唯一的勋章名称，最多30个字符。
-	nameFlag bool
+	name    string // 租户内唯一的勋章名称，最多30个字符。
+	nameSet bool
 
-	explanation     string // 勋章的描述文案，最多100个字符。
-	explanationFlag bool
+	explanation    string // 勋章的描述文案，最多100个字符。
+	explanationSet bool
 
-	detailImage     string // 企业勋章的详情图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
-	detailImageFlag bool
+	detailImage    string // 企业勋章的详情图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
+	detailImageSet bool
 
-	showImage     string // 企业勋章的头像挂饰图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
-	showImageFlag bool
+	showImage    string // 企业勋章的头像挂饰图Key。1.权限校验：非本租户上传的图片key，不能直接使用；2.时效校验：创建勋章，或者修改勋章图片key时，需使用1h内上传的图片key。
+	showImageSet bool
 
-	i18nName     *I18n // 勋章的多语言名称，同name字段限制，最多30个字符。
-	i18nNameFlag bool
+	i18nName    *I18n // 勋章的多语言名称，同name字段限制，最多30个字符。
+	i18nNameSet bool
 
-	i18nExplanation     *I18n // 勋章的多语言描述文案，同explanation字段限制，最多100个字符。
-	i18nExplanationFlag bool
+	i18nExplanation    *I18n // 勋章的多语言描述文案，同explanation字段限制，最多100个字符。
+	i18nExplanationSet bool
 }
 
 func NewBadgeBuilder() *BadgeBuilder {
@@ -4388,7 +4390,7 @@ func NewBadgeBuilder() *BadgeBuilder {
 // 示例值：m_MzfKDM
 func (builder *BadgeBuilder) Id(id string) *BadgeBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4397,7 +4399,7 @@ func (builder *BadgeBuilder) Id(id string) *BadgeBuilder {
 // 示例值：激励勋章
 func (builder *BadgeBuilder) Name(name string) *BadgeBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4406,7 +4408,7 @@ func (builder *BadgeBuilder) Name(name string) *BadgeBuilder {
 // 示例值：这枚勋章为了激励员工颁发。
 func (builder *BadgeBuilder) Explanation(explanation string) *BadgeBuilder {
 	builder.explanation = explanation
-	builder.explanationFlag = true
+	builder.explanationSet = true
 	return builder
 }
 
@@ -4415,7 +4417,7 @@ func (builder *BadgeBuilder) Explanation(explanation string) *BadgeBuilder {
 // 示例值：75a1949f-d9df-4b46-bc88-dacc51e88f3j
 func (builder *BadgeBuilder) DetailImage(detailImage string) *BadgeBuilder {
 	builder.detailImage = detailImage
-	builder.detailImageFlag = true
+	builder.detailImageSet = true
 	return builder
 }
 
@@ -4424,7 +4426,7 @@ func (builder *BadgeBuilder) DetailImage(detailImage string) *BadgeBuilder {
 // 示例值：03daa74a-159f-49e9-963e-b6c4d76103fj
 func (builder *BadgeBuilder) ShowImage(showImage string) *BadgeBuilder {
 	builder.showImage = showImage
-	builder.showImageFlag = true
+	builder.showImageSet = true
 	return builder
 }
 
@@ -4433,7 +4435,7 @@ func (builder *BadgeBuilder) ShowImage(showImage string) *BadgeBuilder {
 // 示例值：{		 "zh_cn": "激励勋章",		 "en_us": "Incentive Medal",		 "ja_jp": "奨励メダル"	 }
 func (builder *BadgeBuilder) I18nName(i18nName *I18n) *BadgeBuilder {
 	builder.i18nName = i18nName
-	builder.i18nNameFlag = true
+	builder.i18nNameSet = true
 	return builder
 }
 
@@ -4442,36 +4444,36 @@ func (builder *BadgeBuilder) I18nName(i18nName *I18n) *BadgeBuilder {
 // 示例值：{		 "zh_cn": "这枚勋章为了激励员工颁发。",		 "en_us": "This medal is awarded to motivate employees.",		 "ja_jp": "このメダルは、従業員のモチベーションを高めるために授与されます。"	 }
 func (builder *BadgeBuilder) I18nExplanation(i18nExplanation *I18n) *BadgeBuilder {
 	builder.i18nExplanation = i18nExplanation
-	builder.i18nExplanationFlag = true
+	builder.i18nExplanationSet = true
 	return builder
 }
 
 func (builder *BadgeBuilder) Build() *Badge {
 	req := &Badge{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.explanationFlag {
+	if builder.explanationSet {
 		req.Explanation = &builder.explanation
 
 	}
-	if builder.detailImageFlag {
+	if builder.detailImageSet {
 		req.DetailImage = &builder.detailImage
 
 	}
-	if builder.showImageFlag {
+	if builder.showImageSet {
 		req.ShowImage = &builder.showImage
 
 	}
-	if builder.i18nNameFlag {
+	if builder.i18nNameSet {
 		req.I18nName = builder.i18nName
 	}
-	if builder.i18nExplanationFlag {
+	if builder.i18nExplanationSet {
 		req.I18nExplanation = builder.i18nExplanation
 	}
 	return req
@@ -4484,11 +4486,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -4496,27 +4498,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -4540,26 +4546,26 @@ type File struct {
 }
 
 type FileBuilder struct {
-	title     string // 文档标题
-	titleFlag bool
+	title    string // 文档标题
+	titleSet bool
 
 	type_    string // 文档类型
-	typeFlag bool
+	type_Set bool
 
-	owner     *User // 文档所有者
-	ownerFlag bool
+	owner    *User // 文档所有者
+	ownerSet bool
 
-	size     string // 文档大小
-	sizeFlag bool
+	size    string // 文档大小
+	sizeSet bool
 
-	lastOpTime     string // 更新时间
-	lastOpTimeFlag bool
+	lastOpTime    string // 更新时间
+	lastOpTimeSet bool
 
-	status     string // 文档状态
-	statusFlag bool
+	status    string // 文档状态
+	statusSet bool
 
-	token     string // 文档token
-	tokenFlag bool
+	token    string // 文档token
+	tokenSet bool
 }
 
 func NewFileBuilder() *FileBuilder {
@@ -4572,7 +4578,7 @@ func NewFileBuilder() *FileBuilder {
 // 示例值：文件管理综述
 func (builder *FileBuilder) Title(title string) *FileBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -4581,7 +4587,7 @@ func (builder *FileBuilder) Title(title string) *FileBuilder {
 // 示例值：doc
 func (builder *FileBuilder) Type(type_ string) *FileBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -4590,7 +4596,7 @@ func (builder *FileBuilder) Type(type_ string) *FileBuilder {
 // 示例值：
 func (builder *FileBuilder) Owner(owner *User) *FileBuilder {
 	builder.owner = owner
-	builder.ownerFlag = true
+	builder.ownerSet = true
 	return builder
 }
 
@@ -4599,7 +4605,7 @@ func (builder *FileBuilder) Owner(owner *User) *FileBuilder {
 // 示例值：1024
 func (builder *FileBuilder) Size(size string) *FileBuilder {
 	builder.size = size
-	builder.sizeFlag = true
+	builder.sizeSet = true
 	return builder
 }
 
@@ -4608,7 +4614,7 @@ func (builder *FileBuilder) Size(size string) *FileBuilder {
 // 示例值：1649419092
 func (builder *FileBuilder) LastOpTime(lastOpTime string) *FileBuilder {
 	builder.lastOpTime = lastOpTime
-	builder.lastOpTimeFlag = true
+	builder.lastOpTimeSet = true
 	return builder
 }
 
@@ -4617,7 +4623,7 @@ func (builder *FileBuilder) LastOpTime(lastOpTime string) *FileBuilder {
 // 示例值：1
 func (builder *FileBuilder) Status(status string) *FileBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -4626,36 +4632,36 @@ func (builder *FileBuilder) Status(status string) *FileBuilder {
 // 示例值：doxbcOIyUhrRBWSKpBGfzefQgHe
 func (builder *FileBuilder) Token(token string) *FileBuilder {
 	builder.token = token
-	builder.tokenFlag = true
+	builder.tokenSet = true
 	return builder
 }
 
 func (builder *FileBuilder) Build() *File {
 	req := &File{}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.ownerFlag {
+	if builder.ownerSet {
 		req.Owner = builder.owner
 	}
-	if builder.sizeFlag {
+	if builder.sizeSet {
 		req.Size = &builder.size
 
 	}
-	if builder.lastOpTimeFlag {
+	if builder.lastOpTimeSet {
 		req.LastOpTime = &builder.lastOpTime
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.tokenFlag {
+	if builder.tokenSet {
 		req.Token = &builder.token
 
 	}
@@ -4667,8 +4673,8 @@ type FileList struct {
 }
 
 type FileListBuilder struct {
-	files     []*File // 文档token
-	filesFlag bool
+	files    []*File // 文档token
+	filesSet bool
 }
 
 func NewFileListBuilder() *FileListBuilder {
@@ -4681,13 +4687,13 @@ func NewFileListBuilder() *FileListBuilder {
 // 示例值：
 func (builder *FileListBuilder) Files(files []*File) *FileListBuilder {
 	builder.files = files
-	builder.filesFlag = true
+	builder.filesSet = true
 	return builder
 }
 
 func (builder *FileListBuilder) Build() *FileList {
 	req := &FileList{}
-	if builder.filesFlag {
+	if builder.filesSet {
 		req.Files = builder.files
 	}
 	return req
@@ -4716,35 +4722,35 @@ type Grant struct {
 }
 
 type GrantBuilder struct {
-	id     string // 租户内授予名单的唯一标识，该值由系统随机生成。
-	idFlag bool
+	id    string // 租户内授予名单的唯一标识，该值由系统随机生成。
+	idSet bool
 
-	badgeId     string // 企业勋章的唯一ID
-	badgeIdFlag bool
+	badgeId    string // 企业勋章的唯一ID
+	badgeIdSet bool
 
-	name     string // 勋章下唯一的授予事项，最多100个字符。
-	nameFlag bool
+	name    string // 勋章下唯一的授予事项，最多100个字符。
+	nameSet bool
 
-	grantType     int // 授予名单类型
-	grantTypeFlag bool
+	grantType    int // 授予名单类型
+	grantTypeSet bool
 
-	timeZone     string // 授予名单的生效时间对应的时区，用于检查RuleDetail的时间戳的取值是否规范，取值范围为TZ database name
-	timeZoneFlag bool
+	timeZone    string // 授予名单的生效时间对应的时区，用于检查RuleDetail的时间戳的取值是否规范，取值范围为TZ database name
+	timeZoneSet bool
 
-	ruleDetail     *RuleDetail // 规则详情
-	ruleDetailFlag bool
+	ruleDetail    *RuleDetail // 规则详情
+	ruleDetailSet bool
 
-	isGrantAll     bool // 是否授予给全员。1.为false时，需要关联1~500个用户群体。2.为true时，不可关联用户、用户组、部门。
-	isGrantAllFlag bool
+	isGrantAll    bool // 是否授予给全员。1.为false时，需要关联1~500个用户群体。2.为true时，不可关联用户、用户组、部门。
+	isGrantAllSet bool
 
-	userIds     []string // 授予的用户ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
-	userIdsFlag bool
+	userIds    []string // 授予的用户ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+	userIdsSet bool
 
-	departmentIds     []string // 授予的部门ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
-	departmentIdsFlag bool
+	departmentIds    []string // 授予的部门ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+	departmentIdsSet bool
 
-	groupIds     []string // 授予的用户组ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
-	groupIdsFlag bool
+	groupIds    []string // 授予的用户组ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
+	groupIdsSet bool
 }
 
 func NewGrantBuilder() *GrantBuilder {
@@ -4757,7 +4763,7 @@ func NewGrantBuilder() *GrantBuilder {
 // 示例值：g_49Z7CQ
 func (builder *GrantBuilder) Id(id string) *GrantBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4766,7 +4772,7 @@ func (builder *GrantBuilder) Id(id string) *GrantBuilder {
 // 示例值：m_qTR2HM
 func (builder *GrantBuilder) BadgeId(badgeId string) *GrantBuilder {
 	builder.badgeId = badgeId
-	builder.badgeIdFlag = true
+	builder.badgeIdSet = true
 	return builder
 }
 
@@ -4775,7 +4781,7 @@ func (builder *GrantBuilder) BadgeId(badgeId string) *GrantBuilder {
 // 示例值：激励勋章的授予名单
 func (builder *GrantBuilder) Name(name string) *GrantBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4784,7 +4790,7 @@ func (builder *GrantBuilder) Name(name string) *GrantBuilder {
 // 示例值：0
 func (builder *GrantBuilder) GrantType(grantType int) *GrantBuilder {
 	builder.grantType = grantType
-	builder.grantTypeFlag = true
+	builder.grantTypeSet = true
 	return builder
 }
 
@@ -4793,7 +4799,7 @@ func (builder *GrantBuilder) GrantType(grantType int) *GrantBuilder {
 // 示例值：Asia/Shanghai
 func (builder *GrantBuilder) TimeZone(timeZone string) *GrantBuilder {
 	builder.timeZone = timeZone
-	builder.timeZoneFlag = true
+	builder.timeZoneSet = true
 	return builder
 }
 
@@ -4802,7 +4808,7 @@ func (builder *GrantBuilder) TimeZone(timeZone string) *GrantBuilder {
 // 示例值：
 func (builder *GrantBuilder) RuleDetail(ruleDetail *RuleDetail) *GrantBuilder {
 	builder.ruleDetail = ruleDetail
-	builder.ruleDetailFlag = true
+	builder.ruleDetailSet = true
 	return builder
 }
 
@@ -4811,7 +4817,7 @@ func (builder *GrantBuilder) RuleDetail(ruleDetail *RuleDetail) *GrantBuilder {
 // 示例值：false
 func (builder *GrantBuilder) IsGrantAll(isGrantAll bool) *GrantBuilder {
 	builder.isGrantAll = isGrantAll
-	builder.isGrantAllFlag = true
+	builder.isGrantAllSet = true
 	return builder
 }
 
@@ -4820,7 +4826,7 @@ func (builder *GrantBuilder) IsGrantAll(isGrantAll bool) *GrantBuilder {
 // 示例值：[u273y71]
 func (builder *GrantBuilder) UserIds(userIds []string) *GrantBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
@@ -4829,7 +4835,7 @@ func (builder *GrantBuilder) UserIds(userIds []string) *GrantBuilder {
 // 示例值：[h121921]
 func (builder *GrantBuilder) DepartmentIds(departmentIds []string) *GrantBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
@@ -4838,46 +4844,46 @@ func (builder *GrantBuilder) DepartmentIds(departmentIds []string) *GrantBuilder
 // 示例值：[g122817]
 func (builder *GrantBuilder) GroupIds(groupIds []string) *GrantBuilder {
 	builder.groupIds = groupIds
-	builder.groupIdsFlag = true
+	builder.groupIdsSet = true
 	return builder
 }
 
 func (builder *GrantBuilder) Build() *Grant {
 	req := &Grant{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.badgeIdFlag {
+	if builder.badgeIdSet {
 		req.BadgeId = &builder.badgeId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.grantTypeFlag {
+	if builder.grantTypeSet {
 		req.GrantType = &builder.grantType
 
 	}
-	if builder.timeZoneFlag {
+	if builder.timeZoneSet {
 		req.TimeZone = &builder.timeZone
 
 	}
-	if builder.ruleDetailFlag {
+	if builder.ruleDetailSet {
 		req.RuleDetail = builder.ruleDetail
 	}
-	if builder.isGrantAllFlag {
+	if builder.isGrantAllSet {
 		req.IsGrantAll = &builder.isGrantAll
 
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.groupIdsFlag {
+	if builder.groupIdsSet {
 		req.GroupIds = builder.groupIds
 	}
 	return req
@@ -4892,14 +4898,14 @@ type I18n struct {
 }
 
 type I18nBuilder struct {
-	zhCn     string // 中文文案
-	zhCnFlag bool
+	zhCn    string // 中文文案
+	zhCnSet bool
 
-	enUs     string // 英文文案
-	enUsFlag bool
+	enUs    string // 英文文案
+	enUsSet bool
 
-	jaJp     string // 日文文案
-	jaJpFlag bool
+	jaJp    string // 日文文案
+	jaJpSet bool
 }
 
 func NewI18nBuilder() *I18nBuilder {
@@ -4912,7 +4918,7 @@ func NewI18nBuilder() *I18nBuilder {
 // 示例值：激励勋章
 func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -4921,7 +4927,7 @@ func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 // 示例值：Incentive Medal
 func (builder *I18nBuilder) EnUs(enUs string) *I18nBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
@@ -4930,21 +4936,21 @@ func (builder *I18nBuilder) EnUs(enUs string) *I18nBuilder {
 // 示例值：奨励メダル
 func (builder *I18nBuilder) JaJp(jaJp string) *I18nBuilder {
 	builder.jaJp = jaJp
-	builder.jaJpFlag = true
+	builder.jaJpSet = true
 	return builder
 }
 
 func (builder *I18nBuilder) Build() *I18n {
 	req := &I18n{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
-	if builder.jaJpFlag {
+	if builder.jaJpSet {
 		req.JaJp = &builder.jaJp
 
 	}
@@ -4958,11 +4964,11 @@ type OperatorDetail struct {
 }
 
 type OperatorDetailBuilder struct {
-	operatorName     *OperatorName // 操作人名字信息
-	operatorNameFlag bool
+	operatorName    *OperatorName // 操作人名字信息
+	operatorNameSet bool
 
-	tenantName     string // 操作人租户名
-	tenantNameFlag bool
+	tenantName    string // 操作人租户名
+	tenantNameSet bool
 }
 
 func NewOperatorDetailBuilder() *OperatorDetailBuilder {
@@ -4975,7 +4981,7 @@ func NewOperatorDetailBuilder() *OperatorDetailBuilder {
 // 示例值：
 func (builder *OperatorDetailBuilder) OperatorName(operatorName *OperatorName) *OperatorDetailBuilder {
 	builder.operatorName = operatorName
-	builder.operatorNameFlag = true
+	builder.operatorNameSet = true
 	return builder
 }
 
@@ -4984,16 +4990,16 @@ func (builder *OperatorDetailBuilder) OperatorName(operatorName *OperatorName) *
 // 示例值：明日头条
 func (builder *OperatorDetailBuilder) TenantName(tenantName string) *OperatorDetailBuilder {
 	builder.tenantName = tenantName
-	builder.tenantNameFlag = true
+	builder.tenantNameSet = true
 	return builder
 }
 
 func (builder *OperatorDetailBuilder) Build() *OperatorDetail {
 	req := &OperatorDetail{}
-	if builder.operatorNameFlag {
+	if builder.operatorNameSet {
 		req.OperatorName = builder.operatorName
 	}
-	if builder.tenantNameFlag {
+	if builder.tenantNameSet {
 		req.TenantName = &builder.tenantName
 
 	}
@@ -5007,11 +5013,11 @@ type OperatorName struct {
 }
 
 type OperatorNameBuilder struct {
-	defaultName     string // 操作人默认名
-	defaultNameFlag bool
+	defaultName    string // 操作人默认名
+	defaultNameSet bool
 
-	i18nValue     *I18n // 操作人 i18n 名字 map
-	i18nValueFlag bool
+	i18nValue    *I18n // 操作人 i18n 名字 map
+	i18nValueSet bool
 }
 
 func NewOperatorNameBuilder() *OperatorNameBuilder {
@@ -5024,7 +5030,7 @@ func NewOperatorNameBuilder() *OperatorNameBuilder {
 // 示例值：11
 func (builder *OperatorNameBuilder) DefaultName(defaultName string) *OperatorNameBuilder {
 	builder.defaultName = defaultName
-	builder.defaultNameFlag = true
+	builder.defaultNameSet = true
 	return builder
 }
 
@@ -5033,17 +5039,17 @@ func (builder *OperatorNameBuilder) DefaultName(defaultName string) *OperatorNam
 // 示例值：
 func (builder *OperatorNameBuilder) I18nValue(i18nValue *I18n) *OperatorNameBuilder {
 	builder.i18nValue = i18nValue
-	builder.i18nValueFlag = true
+	builder.i18nValueSet = true
 	return builder
 }
 
 func (builder *OperatorNameBuilder) Build() *OperatorName {
 	req := &OperatorName{}
-	if builder.defaultNameFlag {
+	if builder.defaultNameSet {
 		req.DefaultName = &builder.defaultName
 
 	}
-	if builder.i18nValueFlag {
+	if builder.i18nValueSet {
 		req.I18nValue = builder.i18nValue
 	}
 	return req
@@ -5054,8 +5060,8 @@ type Password struct {
 }
 
 type PasswordBuilder struct {
-	entEmailPassword     string // 企业邮箱密码
-	entEmailPasswordFlag bool
+	entEmailPassword    string // 企业邮箱密码
+	entEmailPasswordSet bool
 }
 
 func NewPasswordBuilder() *PasswordBuilder {
@@ -5068,13 +5074,13 @@ func NewPasswordBuilder() *PasswordBuilder {
 // 示例值：abcd*efg
 func (builder *PasswordBuilder) EntEmailPassword(entEmailPassword string) *PasswordBuilder {
 	builder.entEmailPassword = entEmailPassword
-	builder.entEmailPasswordFlag = true
+	builder.entEmailPasswordSet = true
 	return builder
 }
 
 func (builder *PasswordBuilder) Build() *Password {
 	req := &Password{}
-	if builder.entEmailPasswordFlag {
+	if builder.entEmailPasswordSet {
 		req.EntEmailPassword = &builder.entEmailPassword
 
 	}
@@ -5092,17 +5098,17 @@ type RuleDetail struct {
 }
 
 type RuleDetailBuilder struct {
-	effectiveTime     string // 开始生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.时间戳必须是所在时区当天的零点时间戳，如时区为Asia/Shanghai时区时的1649606400
-	effectiveTimeFlag bool
+	effectiveTime    string // 开始生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.时间戳必须是所在时区当天的零点时间戳，如时区为Asia/Shanghai时区时的1649606400
+	effectiveTimeSet bool
 
-	expirationTime     string // 结束生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.最大值：不得超过effective_time+100 年；3.非永久有效：时间戳必须是所在时区当天的23:59:59时间戳，如时区为Asia/Shanghai时区时的1649692799；4.永久有效：传值为0即可
-	expirationTimeFlag bool
+	expirationTime    string // 结束生效的时间戳。1.手动设置有效期类型勋章，配置有效期限需要配置该字段；2.最大值：不得超过effective_time+100 年；3.非永久有效：时间戳必须是所在时区当天的23:59:59时间戳，如时区为Asia/Shanghai时区时的1649692799；4.永久有效：传值为0即可
+	expirationTimeSet bool
 
-	anniversary     int // 入职周年日。根据入职时间发放类型勋章，需要配置该字段。
-	anniversaryFlag bool
+	anniversary    int // 入职周年日。根据入职时间发放类型勋章，需要配置该字段。
+	anniversarySet bool
 
-	effectivePeriod     int // 有效期限。根据入职时间发放类型勋章，需要配置该字段。
-	effectivePeriodFlag bool
+	effectivePeriod    int // 有效期限。根据入职时间发放类型勋章，需要配置该字段。
+	effectivePeriodSet bool
 }
 
 func NewRuleDetailBuilder() *RuleDetailBuilder {
@@ -5115,7 +5121,7 @@ func NewRuleDetailBuilder() *RuleDetailBuilder {
 // 示例值：1649606400
 func (builder *RuleDetailBuilder) EffectiveTime(effectiveTime string) *RuleDetailBuilder {
 	builder.effectiveTime = effectiveTime
-	builder.effectiveTimeFlag = true
+	builder.effectiveTimeSet = true
 	return builder
 }
 
@@ -5124,7 +5130,7 @@ func (builder *RuleDetailBuilder) EffectiveTime(effectiveTime string) *RuleDetai
 // 示例值：1649692799
 func (builder *RuleDetailBuilder) ExpirationTime(expirationTime string) *RuleDetailBuilder {
 	builder.expirationTime = expirationTime
-	builder.expirationTimeFlag = true
+	builder.expirationTimeSet = true
 	return builder
 }
 
@@ -5133,7 +5139,7 @@ func (builder *RuleDetailBuilder) ExpirationTime(expirationTime string) *RuleDet
 // 示例值：1
 func (builder *RuleDetailBuilder) Anniversary(anniversary int) *RuleDetailBuilder {
 	builder.anniversary = anniversary
-	builder.anniversaryFlag = true
+	builder.anniversarySet = true
 	return builder
 }
 
@@ -5142,25 +5148,25 @@ func (builder *RuleDetailBuilder) Anniversary(anniversary int) *RuleDetailBuilde
 // 示例值：1
 func (builder *RuleDetailBuilder) EffectivePeriod(effectivePeriod int) *RuleDetailBuilder {
 	builder.effectivePeriod = effectivePeriod
-	builder.effectivePeriodFlag = true
+	builder.effectivePeriodSet = true
 	return builder
 }
 
 func (builder *RuleDetailBuilder) Build() *RuleDetail {
 	req := &RuleDetail{}
-	if builder.effectiveTimeFlag {
+	if builder.effectiveTimeSet {
 		req.EffectiveTime = &builder.effectiveTime
 
 	}
-	if builder.expirationTimeFlag {
+	if builder.expirationTimeSet {
 		req.ExpirationTime = &builder.expirationTime
 
 	}
-	if builder.anniversaryFlag {
+	if builder.anniversarySet {
 		req.Anniversary = &builder.anniversary
 
 	}
-	if builder.effectivePeriodFlag {
+	if builder.effectivePeriodSet {
 		req.EffectivePeriod = &builder.effectivePeriod
 
 	}
@@ -5186,29 +5192,29 @@ type SplashPageStat struct {
 }
 
 type SplashPageStatBuilder struct {
-	date     string // 日期
-	dateFlag bool
+	date    string // 日期
+	dateSet bool
 
-	splashId     string // 开屏素材id
-	splashIdFlag bool
+	splashId    string // 开屏素材id
+	splashIdSet bool
 
-	impressionCount     int // 曝光数
-	impressionCountFlag bool
+	impressionCount    int // 曝光数
+	impressionCountSet bool
 
-	clickCount     int // 点击数
-	clickCountFlag bool
+	clickCount    int // 点击数
+	clickCountSet bool
 
-	skipCount     int // 点击跳过数
-	skipCountFlag bool
+	skipCount    int // 点击跳过数
+	skipCountSet bool
 
-	impressionCountAccumulate     int // 累计曝光
-	impressionCountAccumulateFlag bool
+	impressionCountAccumulate    int // 累计曝光
+	impressionCountAccumulateSet bool
 
-	clickCountAccumulate     int // 累计点击
-	clickCountAccumulateFlag bool
+	clickCountAccumulate    int // 累计点击
+	clickCountAccumulateSet bool
 
-	skipCountAccumulate     int // 累积点击跳过数
-	skipCountAccumulateFlag bool
+	skipCountAccumulate    int // 累积点击跳过数
+	skipCountAccumulateSet bool
 }
 
 func NewSplashPageStatBuilder() *SplashPageStatBuilder {
@@ -5221,7 +5227,7 @@ func NewSplashPageStatBuilder() *SplashPageStatBuilder {
 // 示例值：
 func (builder *SplashPageStatBuilder) Date(date string) *SplashPageStatBuilder {
 	builder.date = date
-	builder.dateFlag = true
+	builder.dateSet = true
 	return builder
 }
 
@@ -5230,7 +5236,7 @@ func (builder *SplashPageStatBuilder) Date(date string) *SplashPageStatBuilder {
 // 示例值：
 func (builder *SplashPageStatBuilder) SplashId(splashId string) *SplashPageStatBuilder {
 	builder.splashId = splashId
-	builder.splashIdFlag = true
+	builder.splashIdSet = true
 	return builder
 }
 
@@ -5239,7 +5245,7 @@ func (builder *SplashPageStatBuilder) SplashId(splashId string) *SplashPageStatB
 // 示例值：
 func (builder *SplashPageStatBuilder) ImpressionCount(impressionCount int) *SplashPageStatBuilder {
 	builder.impressionCount = impressionCount
-	builder.impressionCountFlag = true
+	builder.impressionCountSet = true
 	return builder
 }
 
@@ -5248,7 +5254,7 @@ func (builder *SplashPageStatBuilder) ImpressionCount(impressionCount int) *Spla
 // 示例值：
 func (builder *SplashPageStatBuilder) ClickCount(clickCount int) *SplashPageStatBuilder {
 	builder.clickCount = clickCount
-	builder.clickCountFlag = true
+	builder.clickCountSet = true
 	return builder
 }
 
@@ -5257,7 +5263,7 @@ func (builder *SplashPageStatBuilder) ClickCount(clickCount int) *SplashPageStat
 // 示例值：
 func (builder *SplashPageStatBuilder) SkipCount(skipCount int) *SplashPageStatBuilder {
 	builder.skipCount = skipCount
-	builder.skipCountFlag = true
+	builder.skipCountSet = true
 	return builder
 }
 
@@ -5266,7 +5272,7 @@ func (builder *SplashPageStatBuilder) SkipCount(skipCount int) *SplashPageStatBu
 // 示例值：
 func (builder *SplashPageStatBuilder) ImpressionCountAccumulate(impressionCountAccumulate int) *SplashPageStatBuilder {
 	builder.impressionCountAccumulate = impressionCountAccumulate
-	builder.impressionCountAccumulateFlag = true
+	builder.impressionCountAccumulateSet = true
 	return builder
 }
 
@@ -5275,7 +5281,7 @@ func (builder *SplashPageStatBuilder) ImpressionCountAccumulate(impressionCountA
 // 示例值：
 func (builder *SplashPageStatBuilder) ClickCountAccumulate(clickCountAccumulate int) *SplashPageStatBuilder {
 	builder.clickCountAccumulate = clickCountAccumulate
-	builder.clickCountAccumulateFlag = true
+	builder.clickCountAccumulateSet = true
 	return builder
 }
 
@@ -5284,41 +5290,41 @@ func (builder *SplashPageStatBuilder) ClickCountAccumulate(clickCountAccumulate 
 // 示例值：
 func (builder *SplashPageStatBuilder) SkipCountAccumulate(skipCountAccumulate int) *SplashPageStatBuilder {
 	builder.skipCountAccumulate = skipCountAccumulate
-	builder.skipCountAccumulateFlag = true
+	builder.skipCountAccumulateSet = true
 	return builder
 }
 
 func (builder *SplashPageStatBuilder) Build() *SplashPageStat {
 	req := &SplashPageStat{}
-	if builder.dateFlag {
+	if builder.dateSet {
 		req.Date = &builder.date
 
 	}
-	if builder.splashIdFlag {
+	if builder.splashIdSet {
 		req.SplashId = &builder.splashId
 
 	}
-	if builder.impressionCountFlag {
+	if builder.impressionCountSet {
 		req.ImpressionCount = &builder.impressionCount
 
 	}
-	if builder.clickCountFlag {
+	if builder.clickCountSet {
 		req.ClickCount = &builder.clickCount
 
 	}
-	if builder.skipCountFlag {
+	if builder.skipCountSet {
 		req.SkipCount = &builder.skipCount
 
 	}
-	if builder.impressionCountAccumulateFlag {
+	if builder.impressionCountAccumulateSet {
 		req.ImpressionCountAccumulate = &builder.impressionCountAccumulate
 
 	}
-	if builder.clickCountAccumulateFlag {
+	if builder.clickCountAccumulateSet {
 		req.ClickCountAccumulate = &builder.clickCountAccumulate
 
 	}
-	if builder.skipCountAccumulateFlag {
+	if builder.skipCountAccumulateSet {
 		req.SkipCountAccumulate = &builder.skipCountAccumulate
 
 	}
@@ -5344,29 +5350,29 @@ type Task struct {
 }
 
 type TaskBuilder struct {
-	originalUserId     string // 文档原所有者ID
-	originalUserIdFlag bool
+	originalUserId    string // 文档原所有者ID
+	originalUserIdSet bool
 
-	targetOwnerId     string // 目标用户ID
-	targetOwnerIdFlag bool
+	targetOwnerId    string // 目标用户ID
+	targetOwnerIdSet bool
 
-	fileList     []*File // 恢复文件列表
-	fileListFlag bool
+	fileList    []*File // 恢复文件列表
+	fileListSet bool
 
-	taskId     string // 任务id
-	taskIdFlag bool
+	taskId    string // 任务id
+	taskIdSet bool
 
-	status     int // 任务状态
-	statusFlag bool
+	status    int // 任务状态
+	statusSet bool
 
-	originalUserEmail     string // 文档原所有者邮箱
-	originalUserEmailFlag bool
+	originalUserEmail    string // 文档原所有者邮箱
+	originalUserEmailSet bool
 
-	targetOwnerEmail     string // 文档新所有者邮箱
-	targetOwnerEmailFlag bool
+	targetOwnerEmail    string // 文档新所有者邮箱
+	targetOwnerEmailSet bool
 
 	type_    int // 任务类型
-	typeFlag bool
+	type_Set bool
 }
 
 func NewTaskBuilder() *TaskBuilder {
@@ -5379,7 +5385,7 @@ func NewTaskBuilder() *TaskBuilder {
 // 示例值：1
 func (builder *TaskBuilder) OriginalUserId(originalUserId string) *TaskBuilder {
 	builder.originalUserId = originalUserId
-	builder.originalUserIdFlag = true
+	builder.originalUserIdSet = true
 	return builder
 }
 
@@ -5388,7 +5394,7 @@ func (builder *TaskBuilder) OriginalUserId(originalUserId string) *TaskBuilder {
 // 示例值：2
 func (builder *TaskBuilder) TargetOwnerId(targetOwnerId string) *TaskBuilder {
 	builder.targetOwnerId = targetOwnerId
-	builder.targetOwnerIdFlag = true
+	builder.targetOwnerIdSet = true
 	return builder
 }
 
@@ -5397,7 +5403,7 @@ func (builder *TaskBuilder) TargetOwnerId(targetOwnerId string) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) FileList(fileList []*File) *TaskBuilder {
 	builder.fileList = fileList
-	builder.fileListFlag = true
+	builder.fileListSet = true
 	return builder
 }
 
@@ -5406,7 +5412,7 @@ func (builder *TaskBuilder) FileList(fileList []*File) *TaskBuilder {
 // 示例值：123
 func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
 	builder.taskId = taskId
-	builder.taskIdFlag = true
+	builder.taskIdSet = true
 	return builder
 }
 
@@ -5415,7 +5421,7 @@ func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
 // 示例值：1,2
 func (builder *TaskBuilder) Status(status int) *TaskBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -5424,7 +5430,7 @@ func (builder *TaskBuilder) Status(status int) *TaskBuilder {
 // 示例值：xxx
 func (builder *TaskBuilder) OriginalUserEmail(originalUserEmail string) *TaskBuilder {
 	builder.originalUserEmail = originalUserEmail
-	builder.originalUserEmailFlag = true
+	builder.originalUserEmailSet = true
 	return builder
 }
 
@@ -5433,7 +5439,7 @@ func (builder *TaskBuilder) OriginalUserEmail(originalUserEmail string) *TaskBui
 // 示例值：xxx
 func (builder *TaskBuilder) TargetOwnerEmail(targetOwnerEmail string) *TaskBuilder {
 	builder.targetOwnerEmail = targetOwnerEmail
-	builder.targetOwnerEmailFlag = true
+	builder.targetOwnerEmailSet = true
 	return builder
 }
 
@@ -5442,40 +5448,40 @@ func (builder *TaskBuilder) TargetOwnerEmail(targetOwnerEmail string) *TaskBuild
 // 示例值：1,2
 func (builder *TaskBuilder) Type(type_ int) *TaskBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
 func (builder *TaskBuilder) Build() *Task {
 	req := &Task{}
-	if builder.originalUserIdFlag {
+	if builder.originalUserIdSet {
 		req.OriginalUserId = &builder.originalUserId
 
 	}
-	if builder.targetOwnerIdFlag {
+	if builder.targetOwnerIdSet {
 		req.TargetOwnerId = &builder.targetOwnerId
 
 	}
-	if builder.fileListFlag {
+	if builder.fileListSet {
 		req.FileList = builder.fileList
 	}
-	if builder.taskIdFlag {
+	if builder.taskIdSet {
 		req.TaskId = &builder.taskId
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.originalUserEmailFlag {
+	if builder.originalUserEmailSet {
 		req.OriginalUserEmail = &builder.originalUserEmail
 
 	}
-	if builder.targetOwnerEmailFlag {
+	if builder.targetOwnerEmailSet {
 		req.TargetOwnerEmail = &builder.targetOwnerEmail
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
@@ -5491,14 +5497,14 @@ type User struct {
 }
 
 type UserBuilder struct {
-	name     string // 用户名称
-	nameFlag bool
+	name    string // 用户名称
+	nameSet bool
 
-	avatar     string // 用户头像
-	avatarFlag bool
+	avatar    string // 用户头像
+	avatarSet bool
 
-	id     string // 用户ID
-	idFlag bool
+	id    string // 用户ID
+	idSet bool
 }
 
 func NewUserBuilder() *UserBuilder {
@@ -5511,7 +5517,7 @@ func NewUserBuilder() *UserBuilder {
 // 示例值：张三
 func (builder *UserBuilder) Name(name string) *UserBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -5520,7 +5526,7 @@ func (builder *UserBuilder) Name(name string) *UserBuilder {
 // 示例值：https://internal-api-lark-file.feishu-boe.cn/static-resource/v1/d50ddc01-5ddb-4431-950e-452637e4a09j~?image_size=72x72&cut_type=default-face&quality=&format=png&sticker_format=.webp
 func (builder *UserBuilder) Avatar(avatar string) *UserBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
@@ -5529,21 +5535,21 @@ func (builder *UserBuilder) Avatar(avatar string) *UserBuilder {
 // 示例值：6994699009591869459
 func (builder *UserBuilder) Id(id string) *UserBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
 func (builder *UserBuilder) Build() *User {
 	req := &User{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = &builder.avatar
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
@@ -5563,20 +5569,20 @@ type UserAnnualReport struct {
 }
 
 type UserAnnualReportBuilder struct {
-	year2021     *UserReport2021 // 2021用户年度报告
-	year2021Flag bool
+	year2021    *UserReport2021 // 2021用户年度报告
+	year2021Set bool
 
-	year2022     *UserReport2022 // 2022用户年度报告
-	year2022Flag bool
+	year2022    *UserReport2022 // 2022用户年度报告
+	year2022Set bool
 
-	year2023     *UserReport2023 // 2023用户年度报告
-	year2023Flag bool
+	year2023    *UserReport2023 // 2023用户年度报告
+	year2023Set bool
 
-	year2024     *UserReport2024 // 2024用户年度报告
-	year2024Flag bool
+	year2024    *UserReport2024 // 2024用户年度报告
+	year2024Set bool
 
-	year2025     *UserReport2025 // 2025用户年度报告
-	year2025Flag bool
+	year2025    *UserReport2025 // 2025用户年度报告
+	year2025Set bool
 }
 
 func NewUserAnnualReportBuilder() *UserAnnualReportBuilder {
@@ -5589,7 +5595,7 @@ func NewUserAnnualReportBuilder() *UserAnnualReportBuilder {
 // 示例值：
 func (builder *UserAnnualReportBuilder) Year2021(year2021 *UserReport2021) *UserAnnualReportBuilder {
 	builder.year2021 = year2021
-	builder.year2021Flag = true
+	builder.year2021Set = true
 	return builder
 }
 
@@ -5598,7 +5604,7 @@ func (builder *UserAnnualReportBuilder) Year2021(year2021 *UserReport2021) *User
 // 示例值：
 func (builder *UserAnnualReportBuilder) Year2022(year2022 *UserReport2022) *UserAnnualReportBuilder {
 	builder.year2022 = year2022
-	builder.year2022Flag = true
+	builder.year2022Set = true
 	return builder
 }
 
@@ -5607,7 +5613,7 @@ func (builder *UserAnnualReportBuilder) Year2022(year2022 *UserReport2022) *User
 // 示例值：
 func (builder *UserAnnualReportBuilder) Year2023(year2023 *UserReport2023) *UserAnnualReportBuilder {
 	builder.year2023 = year2023
-	builder.year2023Flag = true
+	builder.year2023Set = true
 	return builder
 }
 
@@ -5616,7 +5622,7 @@ func (builder *UserAnnualReportBuilder) Year2023(year2023 *UserReport2023) *User
 // 示例值：
 func (builder *UserAnnualReportBuilder) Year2024(year2024 *UserReport2024) *UserAnnualReportBuilder {
 	builder.year2024 = year2024
-	builder.year2024Flag = true
+	builder.year2024Set = true
 	return builder
 }
 
@@ -5625,25 +5631,25 @@ func (builder *UserAnnualReportBuilder) Year2024(year2024 *UserReport2024) *User
 // 示例值：
 func (builder *UserAnnualReportBuilder) Year2025(year2025 *UserReport2025) *UserAnnualReportBuilder {
 	builder.year2025 = year2025
-	builder.year2025Flag = true
+	builder.year2025Set = true
 	return builder
 }
 
 func (builder *UserAnnualReportBuilder) Build() *UserAnnualReport {
 	req := &UserAnnualReport{}
-	if builder.year2021Flag {
+	if builder.year2021Set {
 		req.Year2021 = builder.year2021
 	}
-	if builder.year2022Flag {
+	if builder.year2022Set {
 		req.Year2022 = builder.year2022
 	}
-	if builder.year2023Flag {
+	if builder.year2023Set {
 		req.Year2023 = builder.year2023
 	}
-	if builder.year2024Flag {
+	if builder.year2024Set {
 		req.Year2024 = builder.year2024
 	}
-	if builder.year2025Flag {
+	if builder.year2025Set {
 		req.Year2025 = builder.year2025
 	}
 	return req
@@ -5702,80 +5708,80 @@ type UserReport2021 struct {
 }
 
 type UserReport2021Builder struct {
-	activeDayCount     int // 活跃时长> 0的天数
-	activeDayCountFlag bool
+	activeDayCount    int // 活跃时长> 0的天数
+	activeDayCountSet bool
 
-	busyWeek     string // 工作日平均活跃最长的一周，「2021W10」格式
-	busyWeekFlag bool
+	busyWeek    string // 工作日平均活跃最长的一周，「2021W10」格式
+	busyWeekSet bool
 
-	p2pChatCount     string // 单聊过的人数（仅限普通单聊，不包括bot等，不限本人是否有过发送消息）
-	p2pChatCountFlag bool
+	p2pChatCount    string // 单聊过的人数（仅限普通单聊，不包括bot等，不限本人是否有过发送消息）
+	p2pChatCountSet bool
 
-	talkedChatCount     string // 发过言的群数
-	talkedChatCountFlag bool
+	talkedChatCount    string // 发过言的群数
+	talkedChatCountSet bool
 
-	favoriteEmoji     string // 任何场景下发的表情次数最多的一个表情
-	favoriteEmojiFlag bool
+	favoriteEmoji    string // 任何场景下发的表情次数最多的一个表情
+	favoriteEmojiSet bool
 
-	reactionCount     string // 本人使用快捷表情的次数
-	reactionCountFlag bool
+	reactionCount    string // 本人使用快捷表情的次数
+	reactionCountSet bool
 
-	conferenceCreateCount     string // 创建了日程并发起了视频会议的次数
-	conferenceCreateCountFlag bool
+	conferenceCreateCount    string // 创建了日程并发起了视频会议的次数
+	conferenceCreateCountSet bool
 
-	totalPartiCount     string // 创建日程中涉及到的总人次
-	totalPartiCountFlag bool
+	totalPartiCount    string // 创建日程中涉及到的总人次
+	totalPartiCountSet bool
 
-	minutesObjectCount     string // 录制了多少篇妙记
-	minutesObjectCountFlag bool
+	minutesObjectCount    string // 录制了多少篇妙记
+	minutesObjectCountSet bool
 
-	minutesDuration     float64 // 录制妙记累积时长（分钟）
-	minutesDurationFlag bool
+	minutesDuration    float64 // 录制妙记累积时长（分钟）
+	minutesDurationSet bool
 
-	createEditFileCount     string // 创建及参与协作的文档篇数
-	createEditFileCountFlag bool
+	createEditFileCount    string // 创建及参与协作的文档篇数
+	createEditFileCountSet bool
 
-	createFileCount     string // 创建文档数
-	createFileCountFlag bool
+	createFileCount    string // 创建文档数
+	createFileCountSet bool
 
-	cooperateEditFileCount     string // 参与协作文档数
-	cooperateEditFileCountFlag bool
+	cooperateEditFileCount    string // 参与协作文档数
+	cooperateEditFileCountSet bool
 
-	likeRecordCount     string // 所属的文档共获得多少个点赞
-	likeRecordCountFlag bool
+	likeRecordCount    string // 所属的文档共获得多少个点赞
+	likeRecordCountSet bool
 
-	okrCumOCount     string // 填写过的O的数量
-	okrCumOCountFlag bool
+	okrCumOCount    string // 填写过的O的数量
+	okrCumOCountSet bool
 
-	okrCumKrCount     string // 填写过的KR的数量
-	okrCumKrCountFlag bool
+	okrCumKrCount    string // 填写过的KR的数量
+	okrCumKrCountSet bool
 
-	okrAlignedUserRankfirst     string // 被对齐次数最多的用户
-	okrAlignedUserRankfirstFlag bool
+	okrAlignedUserRankfirst    string // 被对齐次数最多的用户
+	okrAlignedUserRankfirstSet bool
 
-	approvalStartCount     string // 发起的审批流程数
-	approvalStartCountFlag bool
+	approvalStartCount    string // 发起的审批流程数
+	approvalStartCountSet bool
 
-	approvalExecuteCount     string // 处理的审批流程数
-	approvalExecuteCountFlag bool
+	approvalExecuteCount    string // 处理的审批流程数
+	approvalExecuteCountSet bool
 
-	approvalRelationUserRankfirst     string // 审批协作次数最多的用户（在同一个审批实例中出现过即算为审批协作）
-	approvalRelationUserRankfirstFlag bool
+	approvalRelationUserRankfirst    string // 审批协作次数最多的用户（在同一个审批实例中出现过即算为审批协作）
+	approvalRelationUserRankfirstSet bool
 
-	userId     string // 用户id
-	userIdFlag bool
+	userId    string // 用户id
+	userIdSet bool
 
-	busyWeekSumDuration     string // 工作日平均活跃最长的一周 的总活跃时长（分钟）
-	busyWeekSumDurationFlag bool
+	busyWeekSumDuration    string // 工作日平均活跃最长的一周 的总活跃时长（分钟）
+	busyWeekSumDurationSet bool
 
-	busyWeekMdate     string // 工作日平均活跃最长的一周 的最早工作日
-	busyWeekMdateFlag bool
+	busyWeekMdate    string // 工作日平均活跃最长的一周 的最早工作日
+	busyWeekMdateSet bool
 
-	busyWeekActDays     int // 工作日平均活跃最长的一周 有活跃的工作日天数
-	busyWeekActDaysFlag bool
+	busyWeekActDays    int // 工作日平均活跃最长的一周 有活跃的工作日天数
+	busyWeekActDaysSet bool
 
-	createReadUserCount     string // 创建的文档被XXX人阅读过
-	createReadUserCountFlag bool
+	createReadUserCount    string // 创建的文档被XXX人阅读过
+	createReadUserCountSet bool
 }
 
 func NewUserReport2021Builder() *UserReport2021Builder {
@@ -5788,7 +5794,7 @@ func NewUserReport2021Builder() *UserReport2021Builder {
 // 示例值：111
 func (builder *UserReport2021Builder) ActiveDayCount(activeDayCount int) *UserReport2021Builder {
 	builder.activeDayCount = activeDayCount
-	builder.activeDayCountFlag = true
+	builder.activeDayCountSet = true
 	return builder
 }
 
@@ -5797,7 +5803,7 @@ func (builder *UserReport2021Builder) ActiveDayCount(activeDayCount int) *UserRe
 // 示例值：2021W33
 func (builder *UserReport2021Builder) BusyWeek(busyWeek string) *UserReport2021Builder {
 	builder.busyWeek = busyWeek
-	builder.busyWeekFlag = true
+	builder.busyWeekSet = true
 	return builder
 }
 
@@ -5806,7 +5812,7 @@ func (builder *UserReport2021Builder) BusyWeek(busyWeek string) *UserReport2021B
 // 示例值：3
 func (builder *UserReport2021Builder) P2pChatCount(p2pChatCount string) *UserReport2021Builder {
 	builder.p2pChatCount = p2pChatCount
-	builder.p2pChatCountFlag = true
+	builder.p2pChatCountSet = true
 	return builder
 }
 
@@ -5815,7 +5821,7 @@ func (builder *UserReport2021Builder) P2pChatCount(p2pChatCount string) *UserRep
 // 示例值：4
 func (builder *UserReport2021Builder) TalkedChatCount(talkedChatCount string) *UserReport2021Builder {
 	builder.talkedChatCount = talkedChatCount
-	builder.talkedChatCountFlag = true
+	builder.talkedChatCountSet = true
 	return builder
 }
 
@@ -5824,7 +5830,7 @@ func (builder *UserReport2021Builder) TalkedChatCount(talkedChatCount string) *U
 // 示例值：MUSCLE
 func (builder *UserReport2021Builder) FavoriteEmoji(favoriteEmoji string) *UserReport2021Builder {
 	builder.favoriteEmoji = favoriteEmoji
-	builder.favoriteEmojiFlag = true
+	builder.favoriteEmojiSet = true
 	return builder
 }
 
@@ -5833,7 +5839,7 @@ func (builder *UserReport2021Builder) FavoriteEmoji(favoriteEmoji string) *UserR
 // 示例值：341
 func (builder *UserReport2021Builder) ReactionCount(reactionCount string) *UserReport2021Builder {
 	builder.reactionCount = reactionCount
-	builder.reactionCountFlag = true
+	builder.reactionCountSet = true
 	return builder
 }
 
@@ -5842,7 +5848,7 @@ func (builder *UserReport2021Builder) ReactionCount(reactionCount string) *UserR
 // 示例值：78
 func (builder *UserReport2021Builder) ConferenceCreateCount(conferenceCreateCount string) *UserReport2021Builder {
 	builder.conferenceCreateCount = conferenceCreateCount
-	builder.conferenceCreateCountFlag = true
+	builder.conferenceCreateCountSet = true
 	return builder
 }
 
@@ -5851,7 +5857,7 @@ func (builder *UserReport2021Builder) ConferenceCreateCount(conferenceCreateCoun
 // 示例值：1
 func (builder *UserReport2021Builder) TotalPartiCount(totalPartiCount string) *UserReport2021Builder {
 	builder.totalPartiCount = totalPartiCount
-	builder.totalPartiCountFlag = true
+	builder.totalPartiCountSet = true
 	return builder
 }
 
@@ -5860,7 +5866,7 @@ func (builder *UserReport2021Builder) TotalPartiCount(totalPartiCount string) *U
 // 示例值：0
 func (builder *UserReport2021Builder) MinutesObjectCount(minutesObjectCount string) *UserReport2021Builder {
 	builder.minutesObjectCount = minutesObjectCount
-	builder.minutesObjectCountFlag = true
+	builder.minutesObjectCountSet = true
 	return builder
 }
 
@@ -5869,7 +5875,7 @@ func (builder *UserReport2021Builder) MinutesObjectCount(minutesObjectCount stri
 // 示例值：0
 func (builder *UserReport2021Builder) MinutesDuration(minutesDuration float64) *UserReport2021Builder {
 	builder.minutesDuration = minutesDuration
-	builder.minutesDurationFlag = true
+	builder.minutesDurationSet = true
 	return builder
 }
 
@@ -5878,7 +5884,7 @@ func (builder *UserReport2021Builder) MinutesDuration(minutesDuration float64) *
 // 示例值：0
 func (builder *UserReport2021Builder) CreateEditFileCount(createEditFileCount string) *UserReport2021Builder {
 	builder.createEditFileCount = createEditFileCount
-	builder.createEditFileCountFlag = true
+	builder.createEditFileCountSet = true
 	return builder
 }
 
@@ -5887,7 +5893,7 @@ func (builder *UserReport2021Builder) CreateEditFileCount(createEditFileCount st
 // 示例值：0
 func (builder *UserReport2021Builder) CreateFileCount(createFileCount string) *UserReport2021Builder {
 	builder.createFileCount = createFileCount
-	builder.createFileCountFlag = true
+	builder.createFileCountSet = true
 	return builder
 }
 
@@ -5896,7 +5902,7 @@ func (builder *UserReport2021Builder) CreateFileCount(createFileCount string) *U
 // 示例值：0
 func (builder *UserReport2021Builder) CooperateEditFileCount(cooperateEditFileCount string) *UserReport2021Builder {
 	builder.cooperateEditFileCount = cooperateEditFileCount
-	builder.cooperateEditFileCountFlag = true
+	builder.cooperateEditFileCountSet = true
 	return builder
 }
 
@@ -5905,7 +5911,7 @@ func (builder *UserReport2021Builder) CooperateEditFileCount(cooperateEditFileCo
 // 示例值：0
 func (builder *UserReport2021Builder) LikeRecordCount(likeRecordCount string) *UserReport2021Builder {
 	builder.likeRecordCount = likeRecordCount
-	builder.likeRecordCountFlag = true
+	builder.likeRecordCountSet = true
 	return builder
 }
 
@@ -5914,7 +5920,7 @@ func (builder *UserReport2021Builder) LikeRecordCount(likeRecordCount string) *U
 // 示例值：0
 func (builder *UserReport2021Builder) OkrCumOCount(okrCumOCount string) *UserReport2021Builder {
 	builder.okrCumOCount = okrCumOCount
-	builder.okrCumOCountFlag = true
+	builder.okrCumOCountSet = true
 	return builder
 }
 
@@ -5923,7 +5929,7 @@ func (builder *UserReport2021Builder) OkrCumOCount(okrCumOCount string) *UserRep
 // 示例值：0
 func (builder *UserReport2021Builder) OkrCumKrCount(okrCumKrCount string) *UserReport2021Builder {
 	builder.okrCumKrCount = okrCumKrCount
-	builder.okrCumKrCountFlag = true
+	builder.okrCumKrCountSet = true
 	return builder
 }
 
@@ -5932,7 +5938,7 @@ func (builder *UserReport2021Builder) OkrCumKrCount(okrCumKrCount string) *UserR
 // 示例值：ou_XXXXXXX
 func (builder *UserReport2021Builder) OkrAlignedUserRankfirst(okrAlignedUserRankfirst string) *UserReport2021Builder {
 	builder.okrAlignedUserRankfirst = okrAlignedUserRankfirst
-	builder.okrAlignedUserRankfirstFlag = true
+	builder.okrAlignedUserRankfirstSet = true
 	return builder
 }
 
@@ -5941,7 +5947,7 @@ func (builder *UserReport2021Builder) OkrAlignedUserRankfirst(okrAlignedUserRank
 // 示例值：0
 func (builder *UserReport2021Builder) ApprovalStartCount(approvalStartCount string) *UserReport2021Builder {
 	builder.approvalStartCount = approvalStartCount
-	builder.approvalStartCountFlag = true
+	builder.approvalStartCountSet = true
 	return builder
 }
 
@@ -5950,7 +5956,7 @@ func (builder *UserReport2021Builder) ApprovalStartCount(approvalStartCount stri
 // 示例值：0
 func (builder *UserReport2021Builder) ApprovalExecuteCount(approvalExecuteCount string) *UserReport2021Builder {
 	builder.approvalExecuteCount = approvalExecuteCount
-	builder.approvalExecuteCountFlag = true
+	builder.approvalExecuteCountSet = true
 	return builder
 }
 
@@ -5959,7 +5965,7 @@ func (builder *UserReport2021Builder) ApprovalExecuteCount(approvalExecuteCount 
 // 示例值：ou_XXXXXXX
 func (builder *UserReport2021Builder) ApprovalRelationUserRankfirst(approvalRelationUserRankfirst string) *UserReport2021Builder {
 	builder.approvalRelationUserRankfirst = approvalRelationUserRankfirst
-	builder.approvalRelationUserRankfirstFlag = true
+	builder.approvalRelationUserRankfirstSet = true
 	return builder
 }
 
@@ -5968,7 +5974,7 @@ func (builder *UserReport2021Builder) ApprovalRelationUserRankfirst(approvalRela
 // 示例值：ou_XXXXXXX
 func (builder *UserReport2021Builder) UserId(userId string) *UserReport2021Builder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -5977,7 +5983,7 @@ func (builder *UserReport2021Builder) UserId(userId string) *UserReport2021Build
 // 示例值：1816
 func (builder *UserReport2021Builder) BusyWeekSumDuration(busyWeekSumDuration string) *UserReport2021Builder {
 	builder.busyWeekSumDuration = busyWeekSumDuration
-	builder.busyWeekSumDurationFlag = true
+	builder.busyWeekSumDurationSet = true
 	return builder
 }
 
@@ -5986,7 +5992,7 @@ func (builder *UserReport2021Builder) BusyWeekSumDuration(busyWeekSumDuration st
 // 示例值：20210816
 func (builder *UserReport2021Builder) BusyWeekMdate(busyWeekMdate string) *UserReport2021Builder {
 	builder.busyWeekMdate = busyWeekMdate
-	builder.busyWeekMdateFlag = true
+	builder.busyWeekMdateSet = true
 	return builder
 }
 
@@ -5995,7 +6001,7 @@ func (builder *UserReport2021Builder) BusyWeekMdate(busyWeekMdate string) *UserR
 // 示例值：4
 func (builder *UserReport2021Builder) BusyWeekActDays(busyWeekActDays int) *UserReport2021Builder {
 	builder.busyWeekActDays = busyWeekActDays
-	builder.busyWeekActDaysFlag = true
+	builder.busyWeekActDaysSet = true
 	return builder
 }
 
@@ -6004,109 +6010,109 @@ func (builder *UserReport2021Builder) BusyWeekActDays(busyWeekActDays int) *User
 // 示例值：10
 func (builder *UserReport2021Builder) CreateReadUserCount(createReadUserCount string) *UserReport2021Builder {
 	builder.createReadUserCount = createReadUserCount
-	builder.createReadUserCountFlag = true
+	builder.createReadUserCountSet = true
 	return builder
 }
 
 func (builder *UserReport2021Builder) Build() *UserReport2021 {
 	req := &UserReport2021{}
-	if builder.activeDayCountFlag {
+	if builder.activeDayCountSet {
 		req.ActiveDayCount = &builder.activeDayCount
 
 	}
-	if builder.busyWeekFlag {
+	if builder.busyWeekSet {
 		req.BusyWeek = &builder.busyWeek
 
 	}
-	if builder.p2pChatCountFlag {
+	if builder.p2pChatCountSet {
 		req.P2pChatCount = &builder.p2pChatCount
 
 	}
-	if builder.talkedChatCountFlag {
+	if builder.talkedChatCountSet {
 		req.TalkedChatCount = &builder.talkedChatCount
 
 	}
-	if builder.favoriteEmojiFlag {
+	if builder.favoriteEmojiSet {
 		req.FavoriteEmoji = &builder.favoriteEmoji
 
 	}
-	if builder.reactionCountFlag {
+	if builder.reactionCountSet {
 		req.ReactionCount = &builder.reactionCount
 
 	}
-	if builder.conferenceCreateCountFlag {
+	if builder.conferenceCreateCountSet {
 		req.ConferenceCreateCount = &builder.conferenceCreateCount
 
 	}
-	if builder.totalPartiCountFlag {
+	if builder.totalPartiCountSet {
 		req.TotalPartiCount = &builder.totalPartiCount
 
 	}
-	if builder.minutesObjectCountFlag {
+	if builder.minutesObjectCountSet {
 		req.MinutesObjectCount = &builder.minutesObjectCount
 
 	}
-	if builder.minutesDurationFlag {
+	if builder.minutesDurationSet {
 		req.MinutesDuration = &builder.minutesDuration
 
 	}
-	if builder.createEditFileCountFlag {
+	if builder.createEditFileCountSet {
 		req.CreateEditFileCount = &builder.createEditFileCount
 
 	}
-	if builder.createFileCountFlag {
+	if builder.createFileCountSet {
 		req.CreateFileCount = &builder.createFileCount
 
 	}
-	if builder.cooperateEditFileCountFlag {
+	if builder.cooperateEditFileCountSet {
 		req.CooperateEditFileCount = &builder.cooperateEditFileCount
 
 	}
-	if builder.likeRecordCountFlag {
+	if builder.likeRecordCountSet {
 		req.LikeRecordCount = &builder.likeRecordCount
 
 	}
-	if builder.okrCumOCountFlag {
+	if builder.okrCumOCountSet {
 		req.OkrCumOCount = &builder.okrCumOCount
 
 	}
-	if builder.okrCumKrCountFlag {
+	if builder.okrCumKrCountSet {
 		req.OkrCumKrCount = &builder.okrCumKrCount
 
 	}
-	if builder.okrAlignedUserRankfirstFlag {
+	if builder.okrAlignedUserRankfirstSet {
 		req.OkrAlignedUserRankfirst = &builder.okrAlignedUserRankfirst
 
 	}
-	if builder.approvalStartCountFlag {
+	if builder.approvalStartCountSet {
 		req.ApprovalStartCount = &builder.approvalStartCount
 
 	}
-	if builder.approvalExecuteCountFlag {
+	if builder.approvalExecuteCountSet {
 		req.ApprovalExecuteCount = &builder.approvalExecuteCount
 
 	}
-	if builder.approvalRelationUserRankfirstFlag {
+	if builder.approvalRelationUserRankfirstSet {
 		req.ApprovalRelationUserRankfirst = &builder.approvalRelationUserRankfirst
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.busyWeekSumDurationFlag {
+	if builder.busyWeekSumDurationSet {
 		req.BusyWeekSumDuration = &builder.busyWeekSumDuration
 
 	}
-	if builder.busyWeekMdateFlag {
+	if builder.busyWeekMdateSet {
 		req.BusyWeekMdate = &builder.busyWeekMdate
 
 	}
-	if builder.busyWeekActDaysFlag {
+	if builder.busyWeekActDaysSet {
 		req.BusyWeekActDays = &builder.busyWeekActDays
 
 	}
-	if builder.createReadUserCountFlag {
+	if builder.createReadUserCountSet {
 		req.CreateReadUserCount = &builder.createReadUserCount
 
 	}
@@ -6172,89 +6178,89 @@ type UserReport2022 struct {
 }
 
 type UserReport2022Builder struct {
-	userId     string // 用户id
-	userIdFlag bool
+	userId    string // 用户id
+	userIdSet bool
 
-	userRegisterDate     string // 用户的飞书激活日期，yyyyMMdd格式（201909之前的用户可能是空
-	userRegisterDateFlag bool
+	userRegisterDate    string // 用户的飞书激活日期，yyyyMMdd格式（201909之前的用户可能是空
+	userRegisterDateSet bool
 
-	activeDayCount     int // 用户2022年内在飞书有活跃的天数
-	activeDayCountFlag bool
+	activeDayCount    int // 用户2022年内在飞书有活跃的天数
+	activeDayCountSet bool
 
-	msgBusyDate     string // 2022全年用户发出消息条数最多的一天，yyyyMMdd格式
-	msgBusyDateFlag bool
+	msgBusyDate    string // 2022全年用户发出消息条数最多的一天，yyyyMMdd格式
+	msgBusyDateSet bool
 
-	msgBusyDateSendMsgCount     string // 全年发消息最多一天，发出的消息数
-	msgBusyDateSendMsgCountFlag bool
+	msgBusyDateSendMsgCount    string // 全年发消息最多一天，发出的消息数
+	msgBusyDateSendMsgCountSet bool
 
-	p2pChatCount     string // 2022全年与此用户有过单聊的人数（双方任意一人发出过消息即计入）
-	p2pChatCountFlag bool
+	p2pChatCount    string // 2022全年与此用户有过单聊的人数（双方任意一人发出过消息即计入）
+	p2pChatCountSet bool
 
-	talkedChatCount     string // 2022全年用户有过发言的飞书群的数量
-	talkedChatCountFlag bool
+	talkedChatCount    string // 2022全年用户有过发言的飞书群的数量
+	talkedChatCountSet bool
 
-	positiveReactionCount     string // 2022全年用户所发消息，收到点赞、送心、碰拳等正面表情回复的总次数
-	positiveReactionCountFlag bool
+	positiveReactionCount    string // 2022全年用户所发消息，收到点赞、送心、碰拳等正面表情回复的总次数
+	positiveReactionCountSet bool
 
-	firstPositiveReaction     string // 用户所收到的正向表情回复，排第1的表情
-	firstPositiveReactionFlag bool
+	firstPositiveReaction    string // 用户所收到的正向表情回复，排第1的表情
+	firstPositiveReactionSet bool
 
-	secondPositiveReaction     string // 用户所收到的正向表情回复，排第2的表情
-	secondPositiveReactionFlag bool
+	secondPositiveReaction    string // 用户所收到的正向表情回复，排第2的表情
+	secondPositiveReactionSet bool
 
-	thirdPositiveReaction     string // 用户所收到的正向表情回复，排第3的表情
-	thirdPositiveReactionFlag bool
+	thirdPositiveReaction    string // 用户所收到的正向表情回复，排第3的表情
+	thirdPositiveReactionSet bool
 
-	fourthPositiveReaction     string // 用户所收到的正向表情回复，排第4的表情
-	fourthPositiveReactionFlag bool
+	fourthPositiveReaction    string // 用户所收到的正向表情回复，排第4的表情
+	fourthPositiveReactionSet bool
 
-	fifthPositiveReaction     string // 用户所收到的正向表情回复，排第5的表情
-	fifthPositiveReactionFlag bool
+	fifthPositiveReaction    string // 用户所收到的正向表情回复，排第5的表情
+	fifthPositiveReactionSet bool
 
-	createFileCount     string // 2022全年用户本人创建过的飞书文档数量
-	createFileCountFlag bool
+	createFileCount    string // 2022全年用户本人创建过的飞书文档数量
+	createFileCountSet bool
 
-	createdFileViewCount     string // 此用户2022年创建的飞书文档的总阅读人数（含自己）
-	createdFileViewCountFlag bool
+	createdFileViewCount    string // 此用户2022年创建的飞书文档的总阅读人数（含自己）
+	createdFileViewCountSet bool
 
-	commentFileCount     string // 2022全年用户发表过评论的飞书文档数量
-	commentFileCountFlag bool
+	commentFileCount    string // 2022全年用户发表过评论的飞书文档数量
+	commentFileCountSet bool
 
-	attendEventCount     string // 2022全年用户的日程总数（主日历日程，排除被删除的日程及用户拒绝、移除的日程，包括全天日程和重复日程，重复日程在周期内计算为多次）
-	attendEventCountFlag bool
+	attendEventCount    string // 2022全年用户的日程总数（主日历日程，排除被删除的日程及用户拒绝、移除的日程，包括全天日程和重复日程，重复日程在周期内计算为多次）
+	attendEventCountSet bool
 
-	eventBusyDate     string // 2022全年用户日程数量最多的一天，yyyyMMdd格式
-	eventBusyDateFlag bool
+	eventBusyDate    string // 2022全年用户日程数量最多的一天，yyyyMMdd格式
+	eventBusyDateSet bool
 
-	eventBusyDateEventCount     string // 日程最多一天的日程数量
-	eventBusyDateEventCountFlag bool
+	eventBusyDateEventCount    string // 日程最多一天的日程数量
+	eventBusyDateEventCountSet bool
 
-	eventStartTimeRange1     string // 2022全年，此用户最经常的日程开始时间，精确到分钟，HH:mm格式
-	eventStartTimeRange1Flag bool
+	eventStartTimeRange1    string // 2022全年，此用户最经常的日程开始时间，精确到分钟，HH:mm格式
+	eventStartTimeRange1Set bool
 
-	conferenceCreateCount     string // 2022全年，基于此用户所创建的日程，发起了视频会议的次数
-	conferenceCreateCountFlag bool
+	conferenceCreateCount    string // 2022全年，基于此用户所创建的日程，发起了视频会议的次数
+	conferenceCreateCountSet bool
 
-	totalPartiCount     string // 2022全年，基于此用户所创建的日程发起的视频会议，涉及的参会总人次
-	totalPartiCountFlag bool
+	totalPartiCount    string // 2022全年，基于此用户所创建的日程发起的视频会议，涉及的参会总人次
+	totalPartiCountSet bool
 
-	okrCumOCount     string // 2022全年此用户写过的O的数量（未删除）
-	okrCumOCountFlag bool
+	okrCumOCount    string // 2022全年此用户写过的O的数量（未删除）
+	okrCumOCountSet bool
 
-	okrCumKrCount     string // 2022全年此用户写过的KR的数量（未删除）
-	okrCumKrCountFlag bool
+	okrCumKrCount    string // 2022全年此用户写过的KR的数量（未删除）
+	okrCumKrCountSet bool
 
-	okrAlignedUserCount     string // 2022全年用户所写的OKR对齐过的去重人数（未删除）
-	okrAlignedUserCountFlag bool
+	okrAlignedUserCount    string // 2022全年用户所写的OKR对齐过的去重人数（未删除）
+	okrAlignedUserCountSet bool
 
-	peopleInterviewNum     string // 2022全年用户在飞书招聘上进行的面试总场次（候选人是海外账号的未参与计算）
-	peopleInterviewNumFlag bool
+	peopleInterviewNum    string // 2022全年用户在飞书招聘上进行的面试总场次（候选人是海外账号的未参与计算）
+	peopleInterviewNumSet bool
 
-	sendEmailCount     string // 2022全年此用户发出邮件数量
-	sendEmailCountFlag bool
+	sendEmailCount    string // 2022全年此用户发出邮件数量
+	sendEmailCountSet bool
 
-	receiveEmailCount     string // 2022全年此用户收到邮件数量
-	receiveEmailCountFlag bool
+	receiveEmailCount    string // 2022全年此用户收到邮件数量
+	receiveEmailCountSet bool
 }
 
 func NewUserReport2022Builder() *UserReport2022Builder {
@@ -6267,7 +6273,7 @@ func NewUserReport2022Builder() *UserReport2022Builder {
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserReport2022Builder) UserId(userId string) *UserReport2022Builder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -6276,7 +6282,7 @@ func (builder *UserReport2022Builder) UserId(userId string) *UserReport2022Build
 // 示例值：20220726
 func (builder *UserReport2022Builder) UserRegisterDate(userRegisterDate string) *UserReport2022Builder {
 	builder.userRegisterDate = userRegisterDate
-	builder.userRegisterDateFlag = true
+	builder.userRegisterDateSet = true
 	return builder
 }
 
@@ -6285,7 +6291,7 @@ func (builder *UserReport2022Builder) UserRegisterDate(userRegisterDate string) 
 // 示例值：120
 func (builder *UserReport2022Builder) ActiveDayCount(activeDayCount int) *UserReport2022Builder {
 	builder.activeDayCount = activeDayCount
-	builder.activeDayCountFlag = true
+	builder.activeDayCountSet = true
 	return builder
 }
 
@@ -6294,7 +6300,7 @@ func (builder *UserReport2022Builder) ActiveDayCount(activeDayCount int) *UserRe
 // 示例值：20220817
 func (builder *UserReport2022Builder) MsgBusyDate(msgBusyDate string) *UserReport2022Builder {
 	builder.msgBusyDate = msgBusyDate
-	builder.msgBusyDateFlag = true
+	builder.msgBusyDateSet = true
 	return builder
 }
 
@@ -6303,7 +6309,7 @@ func (builder *UserReport2022Builder) MsgBusyDate(msgBusyDate string) *UserRepor
 // 示例值：588
 func (builder *UserReport2022Builder) MsgBusyDateSendMsgCount(msgBusyDateSendMsgCount string) *UserReport2022Builder {
 	builder.msgBusyDateSendMsgCount = msgBusyDateSendMsgCount
-	builder.msgBusyDateSendMsgCountFlag = true
+	builder.msgBusyDateSendMsgCountSet = true
 	return builder
 }
 
@@ -6312,7 +6318,7 @@ func (builder *UserReport2022Builder) MsgBusyDateSendMsgCount(msgBusyDateSendMsg
 // 示例值：22
 func (builder *UserReport2022Builder) P2pChatCount(p2pChatCount string) *UserReport2022Builder {
 	builder.p2pChatCount = p2pChatCount
-	builder.p2pChatCountFlag = true
+	builder.p2pChatCountSet = true
 	return builder
 }
 
@@ -6321,7 +6327,7 @@ func (builder *UserReport2022Builder) P2pChatCount(p2pChatCount string) *UserRep
 // 示例值：18
 func (builder *UserReport2022Builder) TalkedChatCount(talkedChatCount string) *UserReport2022Builder {
 	builder.talkedChatCount = talkedChatCount
-	builder.talkedChatCountFlag = true
+	builder.talkedChatCountSet = true
 	return builder
 }
 
@@ -6330,7 +6336,7 @@ func (builder *UserReport2022Builder) TalkedChatCount(talkedChatCount string) *U
 // 示例值：100
 func (builder *UserReport2022Builder) PositiveReactionCount(positiveReactionCount string) *UserReport2022Builder {
 	builder.positiveReactionCount = positiveReactionCount
-	builder.positiveReactionCountFlag = true
+	builder.positiveReactionCountSet = true
 	return builder
 }
 
@@ -6339,7 +6345,7 @@ func (builder *UserReport2022Builder) PositiveReactionCount(positiveReactionCoun
 // 示例值：thumbsup
 func (builder *UserReport2022Builder) FirstPositiveReaction(firstPositiveReaction string) *UserReport2022Builder {
 	builder.firstPositiveReaction = firstPositiveReaction
-	builder.firstPositiveReactionFlag = true
+	builder.firstPositiveReactionSet = true
 	return builder
 }
 
@@ -6348,7 +6354,7 @@ func (builder *UserReport2022Builder) FirstPositiveReaction(firstPositiveReactio
 // 示例值：muscle
 func (builder *UserReport2022Builder) SecondPositiveReaction(secondPositiveReaction string) *UserReport2022Builder {
 	builder.secondPositiveReaction = secondPositiveReaction
-	builder.secondPositiveReactionFlag = true
+	builder.secondPositiveReactionSet = true
 	return builder
 }
 
@@ -6357,7 +6363,7 @@ func (builder *UserReport2022Builder) SecondPositiveReaction(secondPositiveReact
 // 示例值：fingerheart
 func (builder *UserReport2022Builder) ThirdPositiveReaction(thirdPositiveReaction string) *UserReport2022Builder {
 	builder.thirdPositiveReaction = thirdPositiveReaction
-	builder.thirdPositiveReactionFlag = true
+	builder.thirdPositiveReactionSet = true
 	return builder
 }
 
@@ -6366,7 +6372,7 @@ func (builder *UserReport2022Builder) ThirdPositiveReaction(thirdPositiveReactio
 // 示例值：applaud
 func (builder *UserReport2022Builder) FourthPositiveReaction(fourthPositiveReaction string) *UserReport2022Builder {
 	builder.fourthPositiveReaction = fourthPositiveReaction
-	builder.fourthPositiveReactionFlag = true
+	builder.fourthPositiveReactionSet = true
 	return builder
 }
 
@@ -6375,7 +6381,7 @@ func (builder *UserReport2022Builder) FourthPositiveReaction(fourthPositiveReact
 // 示例值：fistbump
 func (builder *UserReport2022Builder) FifthPositiveReaction(fifthPositiveReaction string) *UserReport2022Builder {
 	builder.fifthPositiveReaction = fifthPositiveReaction
-	builder.fifthPositiveReactionFlag = true
+	builder.fifthPositiveReactionSet = true
 	return builder
 }
 
@@ -6384,7 +6390,7 @@ func (builder *UserReport2022Builder) FifthPositiveReaction(fifthPositiveReactio
 // 示例值：12
 func (builder *UserReport2022Builder) CreateFileCount(createFileCount string) *UserReport2022Builder {
 	builder.createFileCount = createFileCount
-	builder.createFileCountFlag = true
+	builder.createFileCountSet = true
 	return builder
 }
 
@@ -6393,7 +6399,7 @@ func (builder *UserReport2022Builder) CreateFileCount(createFileCount string) *U
 // 示例值：11
 func (builder *UserReport2022Builder) CreatedFileViewCount(createdFileViewCount string) *UserReport2022Builder {
 	builder.createdFileViewCount = createdFileViewCount
-	builder.createdFileViewCountFlag = true
+	builder.createdFileViewCountSet = true
 	return builder
 }
 
@@ -6402,7 +6408,7 @@ func (builder *UserReport2022Builder) CreatedFileViewCount(createdFileViewCount 
 // 示例值：11
 func (builder *UserReport2022Builder) CommentFileCount(commentFileCount string) *UserReport2022Builder {
 	builder.commentFileCount = commentFileCount
-	builder.commentFileCountFlag = true
+	builder.commentFileCountSet = true
 	return builder
 }
 
@@ -6411,7 +6417,7 @@ func (builder *UserReport2022Builder) CommentFileCount(commentFileCount string) 
 // 示例值：123
 func (builder *UserReport2022Builder) AttendEventCount(attendEventCount string) *UserReport2022Builder {
 	builder.attendEventCount = attendEventCount
-	builder.attendEventCountFlag = true
+	builder.attendEventCountSet = true
 	return builder
 }
 
@@ -6420,7 +6426,7 @@ func (builder *UserReport2022Builder) AttendEventCount(attendEventCount string) 
 // 示例值：20220801
 func (builder *UserReport2022Builder) EventBusyDate(eventBusyDate string) *UserReport2022Builder {
 	builder.eventBusyDate = eventBusyDate
-	builder.eventBusyDateFlag = true
+	builder.eventBusyDateSet = true
 	return builder
 }
 
@@ -6429,7 +6435,7 @@ func (builder *UserReport2022Builder) EventBusyDate(eventBusyDate string) *UserR
 // 示例值：123
 func (builder *UserReport2022Builder) EventBusyDateEventCount(eventBusyDateEventCount string) *UserReport2022Builder {
 	builder.eventBusyDateEventCount = eventBusyDateEventCount
-	builder.eventBusyDateEventCountFlag = true
+	builder.eventBusyDateEventCountSet = true
 	return builder
 }
 
@@ -6438,7 +6444,7 @@ func (builder *UserReport2022Builder) EventBusyDateEventCount(eventBusyDateEvent
 // 示例值：10:00
 func (builder *UserReport2022Builder) EventStartTimeRange1(eventStartTimeRange1 string) *UserReport2022Builder {
 	builder.eventStartTimeRange1 = eventStartTimeRange1
-	builder.eventStartTimeRange1Flag = true
+	builder.eventStartTimeRange1Set = true
 	return builder
 }
 
@@ -6447,7 +6453,7 @@ func (builder *UserReport2022Builder) EventStartTimeRange1(eventStartTimeRange1 
 // 示例值：123
 func (builder *UserReport2022Builder) ConferenceCreateCount(conferenceCreateCount string) *UserReport2022Builder {
 	builder.conferenceCreateCount = conferenceCreateCount
-	builder.conferenceCreateCountFlag = true
+	builder.conferenceCreateCountSet = true
 	return builder
 }
 
@@ -6456,7 +6462,7 @@ func (builder *UserReport2022Builder) ConferenceCreateCount(conferenceCreateCoun
 // 示例值：123
 func (builder *UserReport2022Builder) TotalPartiCount(totalPartiCount string) *UserReport2022Builder {
 	builder.totalPartiCount = totalPartiCount
-	builder.totalPartiCountFlag = true
+	builder.totalPartiCountSet = true
 	return builder
 }
 
@@ -6465,7 +6471,7 @@ func (builder *UserReport2022Builder) TotalPartiCount(totalPartiCount string) *U
 // 示例值：123
 func (builder *UserReport2022Builder) OkrCumOCount(okrCumOCount string) *UserReport2022Builder {
 	builder.okrCumOCount = okrCumOCount
-	builder.okrCumOCountFlag = true
+	builder.okrCumOCountSet = true
 	return builder
 }
 
@@ -6474,7 +6480,7 @@ func (builder *UserReport2022Builder) OkrCumOCount(okrCumOCount string) *UserRep
 // 示例值：123
 func (builder *UserReport2022Builder) OkrCumKrCount(okrCumKrCount string) *UserReport2022Builder {
 	builder.okrCumKrCount = okrCumKrCount
-	builder.okrCumKrCountFlag = true
+	builder.okrCumKrCountSet = true
 	return builder
 }
 
@@ -6483,7 +6489,7 @@ func (builder *UserReport2022Builder) OkrCumKrCount(okrCumKrCount string) *UserR
 // 示例值：123
 func (builder *UserReport2022Builder) OkrAlignedUserCount(okrAlignedUserCount string) *UserReport2022Builder {
 	builder.okrAlignedUserCount = okrAlignedUserCount
-	builder.okrAlignedUserCountFlag = true
+	builder.okrAlignedUserCountSet = true
 	return builder
 }
 
@@ -6492,7 +6498,7 @@ func (builder *UserReport2022Builder) OkrAlignedUserCount(okrAlignedUserCount st
 // 示例值：123
 func (builder *UserReport2022Builder) PeopleInterviewNum(peopleInterviewNum string) *UserReport2022Builder {
 	builder.peopleInterviewNum = peopleInterviewNum
-	builder.peopleInterviewNumFlag = true
+	builder.peopleInterviewNumSet = true
 	return builder
 }
 
@@ -6501,7 +6507,7 @@ func (builder *UserReport2022Builder) PeopleInterviewNum(peopleInterviewNum stri
 // 示例值：123
 func (builder *UserReport2022Builder) SendEmailCount(sendEmailCount string) *UserReport2022Builder {
 	builder.sendEmailCount = sendEmailCount
-	builder.sendEmailCountFlag = true
+	builder.sendEmailCountSet = true
 	return builder
 }
 
@@ -6510,121 +6516,121 @@ func (builder *UserReport2022Builder) SendEmailCount(sendEmailCount string) *Use
 // 示例值：123
 func (builder *UserReport2022Builder) ReceiveEmailCount(receiveEmailCount string) *UserReport2022Builder {
 	builder.receiveEmailCount = receiveEmailCount
-	builder.receiveEmailCountFlag = true
+	builder.receiveEmailCountSet = true
 	return builder
 }
 
 func (builder *UserReport2022Builder) Build() *UserReport2022 {
 	req := &UserReport2022{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.userRegisterDateFlag {
+	if builder.userRegisterDateSet {
 		req.UserRegisterDate = &builder.userRegisterDate
 
 	}
-	if builder.activeDayCountFlag {
+	if builder.activeDayCountSet {
 		req.ActiveDayCount = &builder.activeDayCount
 
 	}
-	if builder.msgBusyDateFlag {
+	if builder.msgBusyDateSet {
 		req.MsgBusyDate = &builder.msgBusyDate
 
 	}
-	if builder.msgBusyDateSendMsgCountFlag {
+	if builder.msgBusyDateSendMsgCountSet {
 		req.MsgBusyDateSendMsgCount = &builder.msgBusyDateSendMsgCount
 
 	}
-	if builder.p2pChatCountFlag {
+	if builder.p2pChatCountSet {
 		req.P2pChatCount = &builder.p2pChatCount
 
 	}
-	if builder.talkedChatCountFlag {
+	if builder.talkedChatCountSet {
 		req.TalkedChatCount = &builder.talkedChatCount
 
 	}
-	if builder.positiveReactionCountFlag {
+	if builder.positiveReactionCountSet {
 		req.PositiveReactionCount = &builder.positiveReactionCount
 
 	}
-	if builder.firstPositiveReactionFlag {
+	if builder.firstPositiveReactionSet {
 		req.FirstPositiveReaction = &builder.firstPositiveReaction
 
 	}
-	if builder.secondPositiveReactionFlag {
+	if builder.secondPositiveReactionSet {
 		req.SecondPositiveReaction = &builder.secondPositiveReaction
 
 	}
-	if builder.thirdPositiveReactionFlag {
+	if builder.thirdPositiveReactionSet {
 		req.ThirdPositiveReaction = &builder.thirdPositiveReaction
 
 	}
-	if builder.fourthPositiveReactionFlag {
+	if builder.fourthPositiveReactionSet {
 		req.FourthPositiveReaction = &builder.fourthPositiveReaction
 
 	}
-	if builder.fifthPositiveReactionFlag {
+	if builder.fifthPositiveReactionSet {
 		req.FifthPositiveReaction = &builder.fifthPositiveReaction
 
 	}
-	if builder.createFileCountFlag {
+	if builder.createFileCountSet {
 		req.CreateFileCount = &builder.createFileCount
 
 	}
-	if builder.createdFileViewCountFlag {
+	if builder.createdFileViewCountSet {
 		req.CreatedFileViewCount = &builder.createdFileViewCount
 
 	}
-	if builder.commentFileCountFlag {
+	if builder.commentFileCountSet {
 		req.CommentFileCount = &builder.commentFileCount
 
 	}
-	if builder.attendEventCountFlag {
+	if builder.attendEventCountSet {
 		req.AttendEventCount = &builder.attendEventCount
 
 	}
-	if builder.eventBusyDateFlag {
+	if builder.eventBusyDateSet {
 		req.EventBusyDate = &builder.eventBusyDate
 
 	}
-	if builder.eventBusyDateEventCountFlag {
+	if builder.eventBusyDateEventCountSet {
 		req.EventBusyDateEventCount = &builder.eventBusyDateEventCount
 
 	}
-	if builder.eventStartTimeRange1Flag {
+	if builder.eventStartTimeRange1Set {
 		req.EventStartTimeRange1 = &builder.eventStartTimeRange1
 
 	}
-	if builder.conferenceCreateCountFlag {
+	if builder.conferenceCreateCountSet {
 		req.ConferenceCreateCount = &builder.conferenceCreateCount
 
 	}
-	if builder.totalPartiCountFlag {
+	if builder.totalPartiCountSet {
 		req.TotalPartiCount = &builder.totalPartiCount
 
 	}
-	if builder.okrCumOCountFlag {
+	if builder.okrCumOCountSet {
 		req.OkrCumOCount = &builder.okrCumOCount
 
 	}
-	if builder.okrCumKrCountFlag {
+	if builder.okrCumKrCountSet {
 		req.OkrCumKrCount = &builder.okrCumKrCount
 
 	}
-	if builder.okrAlignedUserCountFlag {
+	if builder.okrAlignedUserCountSet {
 		req.OkrAlignedUserCount = &builder.okrAlignedUserCount
 
 	}
-	if builder.peopleInterviewNumFlag {
+	if builder.peopleInterviewNumSet {
 		req.PeopleInterviewNum = &builder.peopleInterviewNum
 
 	}
-	if builder.sendEmailCountFlag {
+	if builder.sendEmailCountSet {
 		req.SendEmailCount = &builder.sendEmailCount
 
 	}
-	if builder.receiveEmailCountFlag {
+	if builder.receiveEmailCountSet {
 		req.ReceiveEmailCount = &builder.receiveEmailCount
 
 	}
@@ -6744,170 +6750,170 @@ type UserReport2023 struct {
 }
 
 type UserReport2023Builder struct {
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 
-	tenantAllCnt     int // 所在租户目前的总人数,已激活、未离职
-	tenantAllCntFlag bool
+	tenantAllCnt    int // 所在租户目前的总人数,已激活、未离职
+	tenantAllCntSet bool
 
-	userRegisterDate     string // 用户的飞书激活日期,yyyyMMdd格式(201909之前的用户可能是空)
-	userRegisterDateFlag bool
+	userRegisterDate    string // 用户的飞书激活日期,yyyyMMdd格式(201909之前的用户可能是空)
+	userRegisterDateSet bool
 
-	allDayCnt     int // 用户激活至今的天数
-	allDayCntFlag bool
+	allDayCnt    int // 用户激活至今的天数
+	allDayCntSet bool
 
-	activeDayCnt     int // 用户2023年内活跃时长> 0的天数
-	activeDayCntFlag bool
+	activeDayCnt    int // 用户2023年内活跃时长> 0的天数
+	activeDayCntSet bool
 
-	durationCnt2     []*AnnualReportMapFloat // 用户2022-2023使用总时长(格式0.01h),共2组键值对,表示2年各自的数据。举例:{"2022":"33.33","2023":"55.55"}
-	durationCnt2Flag bool
+	durationCnt2    []*AnnualReportMapFloat // 用户2022-2023使用总时长(格式0.01h),共2组键值对,表示2年各自的数据。举例:{"2022":"33.33","2023":"55.55"}
+	durationCnt2Set bool
 
-	durationCntRank     string // 2023年全年活跃时长的排名。
-	durationCntRankFlag bool
+	durationCntRank    string // 2023年全年活跃时长的排名。
+	durationCntRankSet bool
 
-	busyMonth     string // 用户2023年最忙碌一个月。最忙碌一个月的定义:所有自然月中,飞书在线时长最长的一个月。
-	busyMonthFlag bool
+	busyMonth    string // 用户2023年最忙碌一个月。最忙碌一个月的定义:所有自然月中,飞书在线时长最长的一个月。
+	busyMonthSet bool
 
-	busyMonthSumDuration     float64 // 用户2023年最忙碌一个月的活跃时长(格式0.01h)
-	busyMonthSumDurationFlag bool
+	busyMonthSumDuration    float64 // 用户2023年最忙碌一个月的活跃时长(格式0.01h)
+	busyMonthSumDurationSet bool
 
-	busyMonthSendMsgCnt     int // 用户2023年最忙碌一个月的发消息数
-	busyMonthSendMsgCntFlag bool
+	busyMonthSendMsgCnt    int // 用户2023年最忙碌一个月的发消息数
+	busyMonthSendMsgCntSet bool
 
-	busyMonthMeetingCnt     int // 用户2023年最忙碌一个月的参会数(指本人发起的会议+受邀参与的会议)
-	busyMonthMeetingCntFlag bool
+	busyMonthMeetingCnt    int // 用户2023年最忙碌一个月的参会数(指本人发起的会议+受邀参与的会议)
+	busyMonthMeetingCntSet bool
 
-	busyMonthLastMeetingTime     string // 用户2023年最忙碌一个月的会议结束最晚的时间(格式 : 【20230507 23:59】)。最晚时间的定义:将每天凌晨5点之前计入前一天来计算最晚时间点。
-	busyMonthLastMeetingTimeFlag bool
+	busyMonthLastMeetingTime    string // 用户2023年最忙碌一个月的会议结束最晚的时间(格式 : 【20230507 23:59】)。最晚时间的定义:将每天凌晨5点之前计入前一天来计算最晚时间点。
+	busyMonthLastMeetingTimeSet bool
 
-	busyMonthCreateEditFileCnt     int // 用户2023年最忙碌一个月的创建+编辑评论文档
-	busyMonthCreateEditFileCntFlag bool
+	busyMonthCreateEditFileCnt    int // 用户2023年最忙碌一个月的创建+编辑评论文档
+	busyMonthCreateEditFileCntSet bool
 
-	imSendMsgCnt2     []*AnnualReportMapInt // 用户2022-2023发消息数，共2组键值对，表示2年各自的数据。举例:[{"year":"2022","count":"33”},{"year":"2023","count":"55"}]
-	imSendMsgCnt2Flag bool
+	imSendMsgCnt2    []*AnnualReportMapInt // 用户2022-2023发消息数，共2组键值对，表示2年各自的数据。举例:[{"year":"2022","count":"33”},{"year":"2023","count":"55"}]
+	imSendMsgCnt2Set bool
 
-	imSendMsgCntRank     string // 用户2023年发出消息数,在租户内的排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
-	imSendMsgCntRankFlag bool
+	imSendMsgCntRank    string // 用户2023年发出消息数,在租户内的排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
+	imSendMsgCntRankSet bool
 
-	imBusyDate     string // 用户2023年发消息最多的一天
-	imBusyDateFlag bool
+	imBusyDate    string // 用户2023年发消息最多的一天
+	imBusyDateSet bool
 
-	imBusyDateSendMsgCnt     int // 用户2023年发消息最多的一天发消息条数
-	imBusyDateSendMsgCntFlag bool
+	imBusyDateSendMsgCnt    int // 用户2023年发消息最多的一天发消息条数
+	imBusyDateSendMsgCntSet bool
 
-	imLastSendMsgTime     string // 用户2023年发出时间最晚的一条消息的时间,时间格式, 【20230507 23:59】。最晚时间的定义:将每天凌晨5点之前计入前一天来计算最晚时间点。
-	imLastSendMsgTimeFlag bool
+	imLastSendMsgTime    string // 用户2023年发出时间最晚的一条消息的时间,时间格式, 【20230507 23:59】。最晚时间的定义:将每天凌晨5点之前计入前一天来计算最晚时间点。
+	imLastSendMsgTimeSet bool
 
-	imTalkedChatCnt     int // 用户2023年发过言的群数
-	imTalkedChatCntFlag bool
+	imTalkedChatCnt    int // 用户2023年发过言的群数
+	imTalkedChatCntSet bool
 
-	imPrivateChatCnt     int // 用户2023年私聊过的人数
-	imPrivateChatCntFlag bool
+	imPrivateChatCnt    int // 用户2023年私聊过的人数
+	imPrivateChatCntSet bool
 
-	imEmojiTop1     string // 用户2023年使用最多的表情1
-	imEmojiTop1Flag bool
+	imEmojiTop1    string // 用户2023年使用最多的表情1
+	imEmojiTop1Set bool
 
-	imEmojiTop1Cnt     string // 用户2023年使用最多的表情1次数
-	imEmojiTop1CntFlag bool
+	imEmojiTop1Cnt    string // 用户2023年使用最多的表情1次数
+	imEmojiTop1CntSet bool
 
-	imEmojiTop2     string // 用户2023年使用最多的表情2
-	imEmojiTop2Flag bool
+	imEmojiTop2    string // 用户2023年使用最多的表情2
+	imEmojiTop2Set bool
 
-	imEmojiTop2Cnt     string // 用户2023年使用最多的表情2次数
-	imEmojiTop2CntFlag bool
+	imEmojiTop2Cnt    string // 用户2023年使用最多的表情2次数
+	imEmojiTop2CntSet bool
 
-	imEmojiTop3     string // 用户2023年使用最多的表情3
-	imEmojiTop3Flag bool
+	imEmojiTop3    string // 用户2023年使用最多的表情3
+	imEmojiTop3Set bool
 
-	imEmojiTop3Cnt     string // 用户2023年使用最多的表情3次数
-	imEmojiTop3CntFlag bool
+	imEmojiTop3Cnt    string // 用户2023年使用最多的表情3次数
+	imEmojiTop3CntSet bool
 
-	imPositiveReactionCnt2     []*AnnualReportMapInt // 用户2022-2023收到正向reaction次数,共2组键值对,表示2年各自的数据。举例:{"2022":"33","2023":"55"}
-	imPositiveReactionCnt2Flag bool
+	imPositiveReactionCnt2    []*AnnualReportMapInt // 用户2022-2023收到正向reaction次数,共2组键值对,表示2年各自的数据。举例:{"2022":"33","2023":"55"}
+	imPositiveReactionCnt2Set bool
 
-	imPositiveReactionCntRank     string // 2023年收到表情数量排名
-	imPositiveReactionCntRankFlag bool
+	imPositiveReactionCntRank    string // 2023年收到表情数量排名
+	imPositiveReactionCntRankSet bool
 
-	ccmCreateCnt2     []*AnnualReportMapInt // 用户2022-2023创建文档数,共2组键值对,表示2年各自的数据。举例:{"2022":"33","2023":"55"}
-	ccmCreateCnt2Flag bool
+	ccmCreateCnt2    []*AnnualReportMapInt // 用户2022-2023创建文档数,共2组键值对,表示2年各自的数据。举例:{"2022":"33","2023":"55"}
+	ccmCreateCnt2Set bool
 
-	ccmCreateCntRank     string // 用户2023年创建文档数排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
-	ccmCreateCntRankFlag bool
+	ccmCreateCntRank    string // 用户2023年创建文档数排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
+	ccmCreateCntRankSet bool
 
-	ccmCreateBusyMonth     string // 用户2023年创建文档数最多的月份
-	ccmCreateBusyMonthFlag bool
+	ccmCreateBusyMonth    string // 用户2023年创建文档数最多的月份
+	ccmCreateBusyMonthSet bool
 
-	ccmCreateBusyMonthCnt     int // 用户2023年创建文档数最多的月份的文档数
-	ccmCreateBusyMonthCntFlag bool
+	ccmCreateBusyMonthCnt    int // 用户2023年创建文档数最多的月份的文档数
+	ccmCreateBusyMonthCntSet bool
 
-	ccmCreateViewedUcnt     int // 用户本人创建的文档在2023年全年的浏览人数。注意:仅限制浏览时间是2023年,不限制文档的创建时间。
-	ccmCreateViewedUcntFlag bool
+	ccmCreateViewedUcnt    int // 用户本人创建的文档在2023年全年的浏览人数。注意:仅限制浏览时间是2023年,不限制文档的创建时间。
+	ccmCreateViewedUcntSet bool
 
-	ccmCreateLikedCnt     int // 用户本人创建的文档在2023年收到的点赞数,仅指文档底部的大拇指点赞。注意:仅限制点赞时间是2023年,不限制文档的创建时间。
-	ccmCreateLikedCntFlag bool
+	ccmCreateLikedCnt    int // 用户本人创建的文档在2023年收到的点赞数,仅指文档底部的大拇指点赞。注意:仅限制点赞时间是2023年,不限制文档的创建时间。
+	ccmCreateLikedCntSet bool
 
-	ccmCreateLikedCntRank     string // 用户2023年由本人创建的文档的点赞数排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
-	ccmCreateLikedCntRankFlag bool
+	ccmCreateLikedCntRank    string // 用户2023年由本人创建的文档的点赞数排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
+	ccmCreateLikedCntRankSet bool
 
-	ccmEditCommentFcnt2     []*AnnualReportMapInt // 用户2022-2023参与编辑、评论他人的文档数,共2组键值对,表示2年各自的数据。举例:{"2022":"33","2023":"55"}
-	ccmEditCommentFcnt2Flag bool
+	ccmEditCommentFcnt2    []*AnnualReportMapInt // 用户2022-2023参与编辑、评论他人的文档数,共2组键值对,表示2年各自的数据。举例:{"2022":"33","2023":"55"}
+	ccmEditCommentFcnt2Set bool
 
-	ccmEditCommentFcntRank     string // 用户2023年参与编辑、评论他人的文档数排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
-	ccmEditCommentFcntRankFlag bool
+	ccmEditCommentFcntRank    string // 用户2023年参与编辑、评论他人的文档数排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
+	ccmEditCommentFcntRankSet bool
 
-	ccmViewOtherFcnt     int // 用户2023年点击浏览过的他人文档数
-	ccmViewOtherFcntFlag bool
+	ccmViewOtherFcnt    int // 用户2023年点击浏览过的他人文档数
+	ccmViewOtherFcntSet bool
 
-	ccmViewOtherFcntRank     string // 用户2023年点击浏览过的他人文档数排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
-	ccmViewOtherFcntRankFlag bool
+	ccmViewOtherFcntRank    string // 用户2023年点击浏览过的他人文档数排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
+	ccmViewOtherFcntRankSet bool
 
-	vcSentMeetingCnt2     []*AnnualReportMapInt // 用户2022-2023本人发起的线上视频会议的数量(循环会议算多次,共2组键值对,表示2年各自的数据。举例:{"2022":"33","2023":"55"}
-	vcSentMeetingCnt2Flag bool
+	vcSentMeetingCnt2    []*AnnualReportMapInt // 用户2022-2023本人发起的线上视频会议的数量(循环会议算多次,共2组键值对,表示2年各自的数据。举例:{"2022":"33","2023":"55"}
+	vcSentMeetingCnt2Set bool
 
-	vcSentMeetingCntRank     string // 用户2023年本人发起的线上视频会议的数量排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
-	vcSentMeetingCntRankFlag bool
+	vcSentMeetingCntRank    string // 用户2023年本人发起的线上视频会议的数量排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
+	vcSentMeetingCntRankSet bool
 
-	vcSentMeetingUcnt     int // 用户2023年本人发起会议邀请参会的人次
-	vcSentMeetingUcntFlag bool
+	vcSentMeetingUcnt    int // 用户2023年本人发起会议邀请参会的人次
+	vcSentMeetingUcntSet bool
 
-	vcJoinMeetingCnt2     []*AnnualReportMapInt // 用户2022-2023本人受邀参与的会议数(循环会议算多次),共2组键值对,表示2年各自的数据。举例:{"2022":"33","2023":"55"}
-	vcJoinMeetingCnt2Flag bool
+	vcJoinMeetingCnt2    []*AnnualReportMapInt // 用户2022-2023本人受邀参与的会议数(循环会议算多次),共2组键值对,表示2年各自的数据。举例:{"2022":"33","2023":"55"}
+	vcJoinMeetingCnt2Set bool
 
-	vcJoinMeetingCntRank     string // 用户2023年本人受邀参与的会议数排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
-	vcJoinMeetingCntRankFlag bool
+	vcJoinMeetingCntRank    string // 用户2023年本人受邀参与的会议数排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
+	vcJoinMeetingCntRankSet bool
 
-	vcAllMeetingCnt     int // 用户2023年本人的总参会次数(包含自己发起和被邀请)
-	vcAllMeetingCntFlag bool
+	vcAllMeetingCnt    int // 用户2023年本人的总参会次数(包含自己发起和被邀请)
+	vcAllMeetingCntSet bool
 
-	vcAllMeetingCntRank     string // 用户2023年本人的总参会次数(包含自己发起和被邀请)的排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量
-	vcAllMeetingCntRankFlag bool
+	vcAllMeetingCntRank    string // 用户2023年本人的总参会次数(包含自己发起和被邀请)的排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量
+	vcAllMeetingCntRankSet bool
 
-	vcAllMeetingDuration2     []*AnnualReportMapFloat // 用户2022-2023本人总参会的时长(包含自己发起和被邀请),格式0.01h,共2组键值对,表示2年各自的数据。举例:{"2022":"33.33","2023":"55.55"}
-	vcAllMeetingDuration2Flag bool
+	vcAllMeetingDuration2    []*AnnualReportMapFloat // 用户2022-2023本人总参会的时长(包含自己发起和被邀请),格式0.01h,共2组键值对,表示2年各自的数据。举例:{"2022":"33.33","2023":"55.55"}
+	vcAllMeetingDuration2Set bool
 
-	calCommentCalTime     string // 用户2023年中最常开始日程的时间,精确到分钟,格式:【23:59】
-	calCommentCalTimeFlag bool
+	calCommentCalTime    string // 用户2023年中最常开始日程的时间,精确到分钟,格式:【23:59】
+	calCommentCalTimeSet bool
 
-	peopleProfileViewCnt     string // 2023年查看同事profile的人次
-	peopleProfileViewCntFlag bool
+	peopleProfileViewCnt    string // 2023年查看同事profile的人次
+	peopleProfileViewCntSet bool
 
-	peopleInterviewNum2     []*AnnualReportMapInt // 用户2022-2023面试了多少场,共2组键值对,表示2年各自的数据。举例:{"2022":"33","2023":"55"}
-	peopleInterviewNum2Flag bool
+	peopleInterviewNum2    []*AnnualReportMapInt // 用户2022-2023面试了多少场,共2组键值对,表示2年各自的数据。举例:{"2022":"33","2023":"55"}
+	peopleInterviewNum2Set bool
 
-	peopleInterviewNumRank     string // people用户2023年面试总场次的排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
-	peopleInterviewNumRankFlag bool
+	peopleInterviewNumRank    string // people用户2023年面试总场次的排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
+	peopleInterviewNumRankSet bool
 
-	peopleInterviewOfferNum2     []*AnnualReportMapInt // 用户2022-2023本人面试之后,发出offer数量,共2组键值对,表示2年各自的数据。举例:{"2022":"33","2023":"55"}
-	peopleInterviewOfferNum2Flag bool
+	peopleInterviewOfferNum2    []*AnnualReportMapInt // 用户2022-2023本人面试之后,发出offer数量,共2组键值对,表示2年各自的数据。举例:{"2022":"33","2023":"55"}
+	peopleInterviewOfferNum2Set bool
 
-	peopleInterviewOfferNumRank     string // 2023年由本人面试之后,发出offer数量排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
-	peopleInterviewOfferNumRankFlag bool
+	peopleInterviewOfferNumRank    string // 2023年由本人面试之后,发出offer数量排名。排名的统一定义:在同一租户内,此指标大于本人的用户数量。
+	peopleInterviewOfferNumRankSet bool
 
-	emailSendEmailCount     int // 用户2023年发邮件数
-	emailSendEmailCountFlag bool
+	emailSendEmailCount    int // 用户2023年发邮件数
+	emailSendEmailCountSet bool
 
-	emailReceiveEmailCount     int // 用户2023年收邮件数
-	emailReceiveEmailCountFlag bool
+	emailReceiveEmailCount    int // 用户2023年收邮件数
+	emailReceiveEmailCountSet bool
 }
 
 func NewUserReport2023Builder() *UserReport2023Builder {
@@ -6920,7 +6926,7 @@ func NewUserReport2023Builder() *UserReport2023Builder {
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserReport2023Builder) UserId(userId string) *UserReport2023Builder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -6929,7 +6935,7 @@ func (builder *UserReport2023Builder) UserId(userId string) *UserReport2023Build
 // 示例值：171434
 func (builder *UserReport2023Builder) TenantAllCnt(tenantAllCnt int) *UserReport2023Builder {
 	builder.tenantAllCnt = tenantAllCnt
-	builder.tenantAllCntFlag = true
+	builder.tenantAllCntSet = true
 	return builder
 }
 
@@ -6938,7 +6944,7 @@ func (builder *UserReport2023Builder) TenantAllCnt(tenantAllCnt int) *UserReport
 // 示例值：20200720
 func (builder *UserReport2023Builder) UserRegisterDate(userRegisterDate string) *UserReport2023Builder {
 	builder.userRegisterDate = userRegisterDate
-	builder.userRegisterDateFlag = true
+	builder.userRegisterDateSet = true
 	return builder
 }
 
@@ -6947,7 +6953,7 @@ func (builder *UserReport2023Builder) UserRegisterDate(userRegisterDate string) 
 // 示例值：1245
 func (builder *UserReport2023Builder) AllDayCnt(allDayCnt int) *UserReport2023Builder {
 	builder.allDayCnt = allDayCnt
-	builder.allDayCntFlag = true
+	builder.allDayCntSet = true
 	return builder
 }
 
@@ -6956,7 +6962,7 @@ func (builder *UserReport2023Builder) AllDayCnt(allDayCnt int) *UserReport2023Bu
 // 示例值：365
 func (builder *UserReport2023Builder) ActiveDayCnt(activeDayCnt int) *UserReport2023Builder {
 	builder.activeDayCnt = activeDayCnt
-	builder.activeDayCntFlag = true
+	builder.activeDayCntSet = true
 	return builder
 }
 
@@ -6965,7 +6971,7 @@ func (builder *UserReport2023Builder) ActiveDayCnt(activeDayCnt int) *UserReport
 // 示例值：
 func (builder *UserReport2023Builder) DurationCnt2(durationCnt2 []*AnnualReportMapFloat) *UserReport2023Builder {
 	builder.durationCnt2 = durationCnt2
-	builder.durationCnt2Flag = true
+	builder.durationCnt2Set = true
 	return builder
 }
 
@@ -6974,7 +6980,7 @@ func (builder *UserReport2023Builder) DurationCnt2(durationCnt2 []*AnnualReportM
 // 示例值：21338
 func (builder *UserReport2023Builder) DurationCntRank(durationCntRank string) *UserReport2023Builder {
 	builder.durationCntRank = durationCntRank
-	builder.durationCntRankFlag = true
+	builder.durationCntRankSet = true
 	return builder
 }
 
@@ -6983,7 +6989,7 @@ func (builder *UserReport2023Builder) DurationCntRank(durationCntRank string) *U
 // 示例值：7
 func (builder *UserReport2023Builder) BusyMonth(busyMonth string) *UserReport2023Builder {
 	builder.busyMonth = busyMonth
-	builder.busyMonthFlag = true
+	builder.busyMonthSet = true
 	return builder
 }
 
@@ -6992,7 +6998,7 @@ func (builder *UserReport2023Builder) BusyMonth(busyMonth string) *UserReport202
 // 示例值：5702
 func (builder *UserReport2023Builder) BusyMonthSumDuration(busyMonthSumDuration float64) *UserReport2023Builder {
 	builder.busyMonthSumDuration = busyMonthSumDuration
-	builder.busyMonthSumDurationFlag = true
+	builder.busyMonthSumDurationSet = true
 	return builder
 }
 
@@ -7001,7 +7007,7 @@ func (builder *UserReport2023Builder) BusyMonthSumDuration(busyMonthSumDuration 
 // 示例值：78169
 func (builder *UserReport2023Builder) BusyMonthSendMsgCnt(busyMonthSendMsgCnt int) *UserReport2023Builder {
 	builder.busyMonthSendMsgCnt = busyMonthSendMsgCnt
-	builder.busyMonthSendMsgCntFlag = true
+	builder.busyMonthSendMsgCntSet = true
 	return builder
 }
 
@@ -7010,7 +7016,7 @@ func (builder *UserReport2023Builder) BusyMonthSendMsgCnt(busyMonthSendMsgCnt in
 // 示例值：5702
 func (builder *UserReport2023Builder) BusyMonthMeetingCnt(busyMonthMeetingCnt int) *UserReport2023Builder {
 	builder.busyMonthMeetingCnt = busyMonthMeetingCnt
-	builder.busyMonthMeetingCntFlag = true
+	builder.busyMonthMeetingCntSet = true
 	return builder
 }
 
@@ -7019,7 +7025,7 @@ func (builder *UserReport2023Builder) BusyMonthMeetingCnt(busyMonthMeetingCnt in
 // 示例值：2:25
 func (builder *UserReport2023Builder) BusyMonthLastMeetingTime(busyMonthLastMeetingTime string) *UserReport2023Builder {
 	builder.busyMonthLastMeetingTime = busyMonthLastMeetingTime
-	builder.busyMonthLastMeetingTimeFlag = true
+	builder.busyMonthLastMeetingTimeSet = true
 	return builder
 }
 
@@ -7028,7 +7034,7 @@ func (builder *UserReport2023Builder) BusyMonthLastMeetingTime(busyMonthLastMeet
 // 示例值：5702
 func (builder *UserReport2023Builder) BusyMonthCreateEditFileCnt(busyMonthCreateEditFileCnt int) *UserReport2023Builder {
 	builder.busyMonthCreateEditFileCnt = busyMonthCreateEditFileCnt
-	builder.busyMonthCreateEditFileCntFlag = true
+	builder.busyMonthCreateEditFileCntSet = true
 	return builder
 }
 
@@ -7037,7 +7043,7 @@ func (builder *UserReport2023Builder) BusyMonthCreateEditFileCnt(busyMonthCreate
 // 示例值：
 func (builder *UserReport2023Builder) ImSendMsgCnt2(imSendMsgCnt2 []*AnnualReportMapInt) *UserReport2023Builder {
 	builder.imSendMsgCnt2 = imSendMsgCnt2
-	builder.imSendMsgCnt2Flag = true
+	builder.imSendMsgCnt2Set = true
 	return builder
 }
 
@@ -7046,7 +7052,7 @@ func (builder *UserReport2023Builder) ImSendMsgCnt2(imSendMsgCnt2 []*AnnualRepor
 // 示例值：4852
 func (builder *UserReport2023Builder) ImSendMsgCntRank(imSendMsgCntRank string) *UserReport2023Builder {
 	builder.imSendMsgCntRank = imSendMsgCntRank
-	builder.imSendMsgCntRankFlag = true
+	builder.imSendMsgCntRankSet = true
 	return builder
 }
 
@@ -7055,7 +7061,7 @@ func (builder *UserReport2023Builder) ImSendMsgCntRank(imSendMsgCntRank string) 
 // 示例值：20230916
 func (builder *UserReport2023Builder) ImBusyDate(imBusyDate string) *UserReport2023Builder {
 	builder.imBusyDate = imBusyDate
-	builder.imBusyDateFlag = true
+	builder.imBusyDateSet = true
 	return builder
 }
 
@@ -7064,7 +7070,7 @@ func (builder *UserReport2023Builder) ImBusyDate(imBusyDate string) *UserReport2
 // 示例值：89
 func (builder *UserReport2023Builder) ImBusyDateSendMsgCnt(imBusyDateSendMsgCnt int) *UserReport2023Builder {
 	builder.imBusyDateSendMsgCnt = imBusyDateSendMsgCnt
-	builder.imBusyDateSendMsgCntFlag = true
+	builder.imBusyDateSendMsgCntSet = true
 	return builder
 }
 
@@ -7073,7 +7079,7 @@ func (builder *UserReport2023Builder) ImBusyDateSendMsgCnt(imBusyDateSendMsgCnt 
 // 示例值：3:11
 func (builder *UserReport2023Builder) ImLastSendMsgTime(imLastSendMsgTime string) *UserReport2023Builder {
 	builder.imLastSendMsgTime = imLastSendMsgTime
-	builder.imLastSendMsgTimeFlag = true
+	builder.imLastSendMsgTimeSet = true
 	return builder
 }
 
@@ -7082,7 +7088,7 @@ func (builder *UserReport2023Builder) ImLastSendMsgTime(imLastSendMsgTime string
 // 示例值：21338
 func (builder *UserReport2023Builder) ImTalkedChatCnt(imTalkedChatCnt int) *UserReport2023Builder {
 	builder.imTalkedChatCnt = imTalkedChatCnt
-	builder.imTalkedChatCntFlag = true
+	builder.imTalkedChatCntSet = true
 	return builder
 }
 
@@ -7091,7 +7097,7 @@ func (builder *UserReport2023Builder) ImTalkedChatCnt(imTalkedChatCnt int) *User
 // 示例值：21338
 func (builder *UserReport2023Builder) ImPrivateChatCnt(imPrivateChatCnt int) *UserReport2023Builder {
 	builder.imPrivateChatCnt = imPrivateChatCnt
-	builder.imPrivateChatCntFlag = true
+	builder.imPrivateChatCntSet = true
 	return builder
 }
 
@@ -7100,7 +7106,7 @@ func (builder *UserReport2023Builder) ImPrivateChatCnt(imPrivateChatCnt int) *Us
 // 示例值：thumbsup
 func (builder *UserReport2023Builder) ImEmojiTop1(imEmojiTop1 string) *UserReport2023Builder {
 	builder.imEmojiTop1 = imEmojiTop1
-	builder.imEmojiTop1Flag = true
+	builder.imEmojiTop1Set = true
 	return builder
 }
 
@@ -7109,7 +7115,7 @@ func (builder *UserReport2023Builder) ImEmojiTop1(imEmojiTop1 string) *UserRepor
 // 示例值：21338
 func (builder *UserReport2023Builder) ImEmojiTop1Cnt(imEmojiTop1Cnt string) *UserReport2023Builder {
 	builder.imEmojiTop1Cnt = imEmojiTop1Cnt
-	builder.imEmojiTop1CntFlag = true
+	builder.imEmojiTop1CntSet = true
 	return builder
 }
 
@@ -7118,7 +7124,7 @@ func (builder *UserReport2023Builder) ImEmojiTop1Cnt(imEmojiTop1Cnt string) *Use
 // 示例值：jiayi
 func (builder *UserReport2023Builder) ImEmojiTop2(imEmojiTop2 string) *UserReport2023Builder {
 	builder.imEmojiTop2 = imEmojiTop2
-	builder.imEmojiTop2Flag = true
+	builder.imEmojiTop2Set = true
 	return builder
 }
 
@@ -7127,7 +7133,7 @@ func (builder *UserReport2023Builder) ImEmojiTop2(imEmojiTop2 string) *UserRepor
 // 示例值：21338
 func (builder *UserReport2023Builder) ImEmojiTop2Cnt(imEmojiTop2Cnt string) *UserReport2023Builder {
 	builder.imEmojiTop2Cnt = imEmojiTop2Cnt
-	builder.imEmojiTop2CntFlag = true
+	builder.imEmojiTop2CntSet = true
 	return builder
 }
 
@@ -7136,7 +7142,7 @@ func (builder *UserReport2023Builder) ImEmojiTop2Cnt(imEmojiTop2Cnt string) *Use
 // 示例值：love
 func (builder *UserReport2023Builder) ImEmojiTop3(imEmojiTop3 string) *UserReport2023Builder {
 	builder.imEmojiTop3 = imEmojiTop3
-	builder.imEmojiTop3Flag = true
+	builder.imEmojiTop3Set = true
 	return builder
 }
 
@@ -7145,7 +7151,7 @@ func (builder *UserReport2023Builder) ImEmojiTop3(imEmojiTop3 string) *UserRepor
 // 示例值：21338
 func (builder *UserReport2023Builder) ImEmojiTop3Cnt(imEmojiTop3Cnt string) *UserReport2023Builder {
 	builder.imEmojiTop3Cnt = imEmojiTop3Cnt
-	builder.imEmojiTop3CntFlag = true
+	builder.imEmojiTop3CntSet = true
 	return builder
 }
 
@@ -7154,7 +7160,7 @@ func (builder *UserReport2023Builder) ImEmojiTop3Cnt(imEmojiTop3Cnt string) *Use
 // 示例值：
 func (builder *UserReport2023Builder) ImPositiveReactionCnt2(imPositiveReactionCnt2 []*AnnualReportMapInt) *UserReport2023Builder {
 	builder.imPositiveReactionCnt2 = imPositiveReactionCnt2
-	builder.imPositiveReactionCnt2Flag = true
+	builder.imPositiveReactionCnt2Set = true
 	return builder
 }
 
@@ -7163,7 +7169,7 @@ func (builder *UserReport2023Builder) ImPositiveReactionCnt2(imPositiveReactionC
 // 示例值：21338
 func (builder *UserReport2023Builder) ImPositiveReactionCntRank(imPositiveReactionCntRank string) *UserReport2023Builder {
 	builder.imPositiveReactionCntRank = imPositiveReactionCntRank
-	builder.imPositiveReactionCntRankFlag = true
+	builder.imPositiveReactionCntRankSet = true
 	return builder
 }
 
@@ -7172,7 +7178,7 @@ func (builder *UserReport2023Builder) ImPositiveReactionCntRank(imPositiveReacti
 // 示例值：
 func (builder *UserReport2023Builder) CcmCreateCnt2(ccmCreateCnt2 []*AnnualReportMapInt) *UserReport2023Builder {
 	builder.ccmCreateCnt2 = ccmCreateCnt2
-	builder.ccmCreateCnt2Flag = true
+	builder.ccmCreateCnt2Set = true
 	return builder
 }
 
@@ -7181,7 +7187,7 @@ func (builder *UserReport2023Builder) CcmCreateCnt2(ccmCreateCnt2 []*AnnualRepor
 // 示例值：4852
 func (builder *UserReport2023Builder) CcmCreateCntRank(ccmCreateCntRank string) *UserReport2023Builder {
 	builder.ccmCreateCntRank = ccmCreateCntRank
-	builder.ccmCreateCntRankFlag = true
+	builder.ccmCreateCntRankSet = true
 	return builder
 }
 
@@ -7190,7 +7196,7 @@ func (builder *UserReport2023Builder) CcmCreateCntRank(ccmCreateCntRank string) 
 // 示例值：9
 func (builder *UserReport2023Builder) CcmCreateBusyMonth(ccmCreateBusyMonth string) *UserReport2023Builder {
 	builder.ccmCreateBusyMonth = ccmCreateBusyMonth
-	builder.ccmCreateBusyMonthFlag = true
+	builder.ccmCreateBusyMonthSet = true
 	return builder
 }
 
@@ -7199,7 +7205,7 @@ func (builder *UserReport2023Builder) CcmCreateBusyMonth(ccmCreateBusyMonth stri
 // 示例值：5702
 func (builder *UserReport2023Builder) CcmCreateBusyMonthCnt(ccmCreateBusyMonthCnt int) *UserReport2023Builder {
 	builder.ccmCreateBusyMonthCnt = ccmCreateBusyMonthCnt
-	builder.ccmCreateBusyMonthCntFlag = true
+	builder.ccmCreateBusyMonthCntSet = true
 	return builder
 }
 
@@ -7208,7 +7214,7 @@ func (builder *UserReport2023Builder) CcmCreateBusyMonthCnt(ccmCreateBusyMonthCn
 // 示例值：21338
 func (builder *UserReport2023Builder) CcmCreateViewedUcnt(ccmCreateViewedUcnt int) *UserReport2023Builder {
 	builder.ccmCreateViewedUcnt = ccmCreateViewedUcnt
-	builder.ccmCreateViewedUcntFlag = true
+	builder.ccmCreateViewedUcntSet = true
 	return builder
 }
 
@@ -7217,7 +7223,7 @@ func (builder *UserReport2023Builder) CcmCreateViewedUcnt(ccmCreateViewedUcnt in
 // 示例值：21338
 func (builder *UserReport2023Builder) CcmCreateLikedCnt(ccmCreateLikedCnt int) *UserReport2023Builder {
 	builder.ccmCreateLikedCnt = ccmCreateLikedCnt
-	builder.ccmCreateLikedCntFlag = true
+	builder.ccmCreateLikedCntSet = true
 	return builder
 }
 
@@ -7226,7 +7232,7 @@ func (builder *UserReport2023Builder) CcmCreateLikedCnt(ccmCreateLikedCnt int) *
 // 示例值：4852
 func (builder *UserReport2023Builder) CcmCreateLikedCntRank(ccmCreateLikedCntRank string) *UserReport2023Builder {
 	builder.ccmCreateLikedCntRank = ccmCreateLikedCntRank
-	builder.ccmCreateLikedCntRankFlag = true
+	builder.ccmCreateLikedCntRankSet = true
 	return builder
 }
 
@@ -7235,7 +7241,7 @@ func (builder *UserReport2023Builder) CcmCreateLikedCntRank(ccmCreateLikedCntRan
 // 示例值：
 func (builder *UserReport2023Builder) CcmEditCommentFcnt2(ccmEditCommentFcnt2 []*AnnualReportMapInt) *UserReport2023Builder {
 	builder.ccmEditCommentFcnt2 = ccmEditCommentFcnt2
-	builder.ccmEditCommentFcnt2Flag = true
+	builder.ccmEditCommentFcnt2Set = true
 	return builder
 }
 
@@ -7244,7 +7250,7 @@ func (builder *UserReport2023Builder) CcmEditCommentFcnt2(ccmEditCommentFcnt2 []
 // 示例值：4852
 func (builder *UserReport2023Builder) CcmEditCommentFcntRank(ccmEditCommentFcntRank string) *UserReport2023Builder {
 	builder.ccmEditCommentFcntRank = ccmEditCommentFcntRank
-	builder.ccmEditCommentFcntRankFlag = true
+	builder.ccmEditCommentFcntRankSet = true
 	return builder
 }
 
@@ -7253,7 +7259,7 @@ func (builder *UserReport2023Builder) CcmEditCommentFcntRank(ccmEditCommentFcntR
 // 示例值：21338
 func (builder *UserReport2023Builder) CcmViewOtherFcnt(ccmViewOtherFcnt int) *UserReport2023Builder {
 	builder.ccmViewOtherFcnt = ccmViewOtherFcnt
-	builder.ccmViewOtherFcntFlag = true
+	builder.ccmViewOtherFcntSet = true
 	return builder
 }
 
@@ -7262,7 +7268,7 @@ func (builder *UserReport2023Builder) CcmViewOtherFcnt(ccmViewOtherFcnt int) *Us
 // 示例值：4852
 func (builder *UserReport2023Builder) CcmViewOtherFcntRank(ccmViewOtherFcntRank string) *UserReport2023Builder {
 	builder.ccmViewOtherFcntRank = ccmViewOtherFcntRank
-	builder.ccmViewOtherFcntRankFlag = true
+	builder.ccmViewOtherFcntRankSet = true
 	return builder
 }
 
@@ -7271,7 +7277,7 @@ func (builder *UserReport2023Builder) CcmViewOtherFcntRank(ccmViewOtherFcntRank 
 // 示例值：
 func (builder *UserReport2023Builder) VcSentMeetingCnt2(vcSentMeetingCnt2 []*AnnualReportMapInt) *UserReport2023Builder {
 	builder.vcSentMeetingCnt2 = vcSentMeetingCnt2
-	builder.vcSentMeetingCnt2Flag = true
+	builder.vcSentMeetingCnt2Set = true
 	return builder
 }
 
@@ -7280,7 +7286,7 @@ func (builder *UserReport2023Builder) VcSentMeetingCnt2(vcSentMeetingCnt2 []*Ann
 // 示例值：4852
 func (builder *UserReport2023Builder) VcSentMeetingCntRank(vcSentMeetingCntRank string) *UserReport2023Builder {
 	builder.vcSentMeetingCntRank = vcSentMeetingCntRank
-	builder.vcSentMeetingCntRankFlag = true
+	builder.vcSentMeetingCntRankSet = true
 	return builder
 }
 
@@ -7289,7 +7295,7 @@ func (builder *UserReport2023Builder) VcSentMeetingCntRank(vcSentMeetingCntRank 
 // 示例值：21338
 func (builder *UserReport2023Builder) VcSentMeetingUcnt(vcSentMeetingUcnt int) *UserReport2023Builder {
 	builder.vcSentMeetingUcnt = vcSentMeetingUcnt
-	builder.vcSentMeetingUcntFlag = true
+	builder.vcSentMeetingUcntSet = true
 	return builder
 }
 
@@ -7298,7 +7304,7 @@ func (builder *UserReport2023Builder) VcSentMeetingUcnt(vcSentMeetingUcnt int) *
 // 示例值：
 func (builder *UserReport2023Builder) VcJoinMeetingCnt2(vcJoinMeetingCnt2 []*AnnualReportMapInt) *UserReport2023Builder {
 	builder.vcJoinMeetingCnt2 = vcJoinMeetingCnt2
-	builder.vcJoinMeetingCnt2Flag = true
+	builder.vcJoinMeetingCnt2Set = true
 	return builder
 }
 
@@ -7307,7 +7313,7 @@ func (builder *UserReport2023Builder) VcJoinMeetingCnt2(vcJoinMeetingCnt2 []*Ann
 // 示例值：4852
 func (builder *UserReport2023Builder) VcJoinMeetingCntRank(vcJoinMeetingCntRank string) *UserReport2023Builder {
 	builder.vcJoinMeetingCntRank = vcJoinMeetingCntRank
-	builder.vcJoinMeetingCntRankFlag = true
+	builder.vcJoinMeetingCntRankSet = true
 	return builder
 }
 
@@ -7316,7 +7322,7 @@ func (builder *UserReport2023Builder) VcJoinMeetingCntRank(vcJoinMeetingCntRank 
 // 示例值：21338
 func (builder *UserReport2023Builder) VcAllMeetingCnt(vcAllMeetingCnt int) *UserReport2023Builder {
 	builder.vcAllMeetingCnt = vcAllMeetingCnt
-	builder.vcAllMeetingCntFlag = true
+	builder.vcAllMeetingCntSet = true
 	return builder
 }
 
@@ -7325,7 +7331,7 @@ func (builder *UserReport2023Builder) VcAllMeetingCnt(vcAllMeetingCnt int) *User
 // 示例值：10
 func (builder *UserReport2023Builder) VcAllMeetingCntRank(vcAllMeetingCntRank string) *UserReport2023Builder {
 	builder.vcAllMeetingCntRank = vcAllMeetingCntRank
-	builder.vcAllMeetingCntRankFlag = true
+	builder.vcAllMeetingCntRankSet = true
 	return builder
 }
 
@@ -7334,7 +7340,7 @@ func (builder *UserReport2023Builder) VcAllMeetingCntRank(vcAllMeetingCntRank st
 // 示例值：
 func (builder *UserReport2023Builder) VcAllMeetingDuration2(vcAllMeetingDuration2 []*AnnualReportMapFloat) *UserReport2023Builder {
 	builder.vcAllMeetingDuration2 = vcAllMeetingDuration2
-	builder.vcAllMeetingDuration2Flag = true
+	builder.vcAllMeetingDuration2Set = true
 	return builder
 }
 
@@ -7343,7 +7349,7 @@ func (builder *UserReport2023Builder) VcAllMeetingDuration2(vcAllMeetingDuration
 // 示例值：12:35
 func (builder *UserReport2023Builder) CalCommentCalTime(calCommentCalTime string) *UserReport2023Builder {
 	builder.calCommentCalTime = calCommentCalTime
-	builder.calCommentCalTimeFlag = true
+	builder.calCommentCalTimeSet = true
 	return builder
 }
 
@@ -7352,7 +7358,7 @@ func (builder *UserReport2023Builder) CalCommentCalTime(calCommentCalTime string
 // 示例值：21338
 func (builder *UserReport2023Builder) PeopleProfileViewCnt(peopleProfileViewCnt string) *UserReport2023Builder {
 	builder.peopleProfileViewCnt = peopleProfileViewCnt
-	builder.peopleProfileViewCntFlag = true
+	builder.peopleProfileViewCntSet = true
 	return builder
 }
 
@@ -7361,7 +7367,7 @@ func (builder *UserReport2023Builder) PeopleProfileViewCnt(peopleProfileViewCnt 
 // 示例值：
 func (builder *UserReport2023Builder) PeopleInterviewNum2(peopleInterviewNum2 []*AnnualReportMapInt) *UserReport2023Builder {
 	builder.peopleInterviewNum2 = peopleInterviewNum2
-	builder.peopleInterviewNum2Flag = true
+	builder.peopleInterviewNum2Set = true
 	return builder
 }
 
@@ -7370,7 +7376,7 @@ func (builder *UserReport2023Builder) PeopleInterviewNum2(peopleInterviewNum2 []
 // 示例值：4852
 func (builder *UserReport2023Builder) PeopleInterviewNumRank(peopleInterviewNumRank string) *UserReport2023Builder {
 	builder.peopleInterviewNumRank = peopleInterviewNumRank
-	builder.peopleInterviewNumRankFlag = true
+	builder.peopleInterviewNumRankSet = true
 	return builder
 }
 
@@ -7379,7 +7385,7 @@ func (builder *UserReport2023Builder) PeopleInterviewNumRank(peopleInterviewNumR
 // 示例值：
 func (builder *UserReport2023Builder) PeopleInterviewOfferNum2(peopleInterviewOfferNum2 []*AnnualReportMapInt) *UserReport2023Builder {
 	builder.peopleInterviewOfferNum2 = peopleInterviewOfferNum2
-	builder.peopleInterviewOfferNum2Flag = true
+	builder.peopleInterviewOfferNum2Set = true
 	return builder
 }
 
@@ -7388,7 +7394,7 @@ func (builder *UserReport2023Builder) PeopleInterviewOfferNum2(peopleInterviewOf
 // 示例值：4852
 func (builder *UserReport2023Builder) PeopleInterviewOfferNumRank(peopleInterviewOfferNumRank string) *UserReport2023Builder {
 	builder.peopleInterviewOfferNumRank = peopleInterviewOfferNumRank
-	builder.peopleInterviewOfferNumRankFlag = true
+	builder.peopleInterviewOfferNumRankSet = true
 	return builder
 }
 
@@ -7397,7 +7403,7 @@ func (builder *UserReport2023Builder) PeopleInterviewOfferNumRank(peopleIntervie
 // 示例值：4852
 func (builder *UserReport2023Builder) EmailSendEmailCount(emailSendEmailCount int) *UserReport2023Builder {
 	builder.emailSendEmailCount = emailSendEmailCount
-	builder.emailSendEmailCountFlag = true
+	builder.emailSendEmailCountSet = true
 	return builder
 }
 
@@ -7406,219 +7412,219 @@ func (builder *UserReport2023Builder) EmailSendEmailCount(emailSendEmailCount in
 // 示例值：7045
 func (builder *UserReport2023Builder) EmailReceiveEmailCount(emailReceiveEmailCount int) *UserReport2023Builder {
 	builder.emailReceiveEmailCount = emailReceiveEmailCount
-	builder.emailReceiveEmailCountFlag = true
+	builder.emailReceiveEmailCountSet = true
 	return builder
 }
 
 func (builder *UserReport2023Builder) Build() *UserReport2023 {
 	req := &UserReport2023{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.tenantAllCntFlag {
+	if builder.tenantAllCntSet {
 		req.TenantAllCnt = &builder.tenantAllCnt
 
 	}
-	if builder.userRegisterDateFlag {
+	if builder.userRegisterDateSet {
 		req.UserRegisterDate = &builder.userRegisterDate
 
 	}
-	if builder.allDayCntFlag {
+	if builder.allDayCntSet {
 		req.AllDayCnt = &builder.allDayCnt
 
 	}
-	if builder.activeDayCntFlag {
+	if builder.activeDayCntSet {
 		req.ActiveDayCnt = &builder.activeDayCnt
 
 	}
-	if builder.durationCnt2Flag {
+	if builder.durationCnt2Set {
 		req.DurationCnt2 = builder.durationCnt2
 	}
-	if builder.durationCntRankFlag {
+	if builder.durationCntRankSet {
 		req.DurationCntRank = &builder.durationCntRank
 
 	}
-	if builder.busyMonthFlag {
+	if builder.busyMonthSet {
 		req.BusyMonth = &builder.busyMonth
 
 	}
-	if builder.busyMonthSumDurationFlag {
+	if builder.busyMonthSumDurationSet {
 		req.BusyMonthSumDuration = &builder.busyMonthSumDuration
 
 	}
-	if builder.busyMonthSendMsgCntFlag {
+	if builder.busyMonthSendMsgCntSet {
 		req.BusyMonthSendMsgCnt = &builder.busyMonthSendMsgCnt
 
 	}
-	if builder.busyMonthMeetingCntFlag {
+	if builder.busyMonthMeetingCntSet {
 		req.BusyMonthMeetingCnt = &builder.busyMonthMeetingCnt
 
 	}
-	if builder.busyMonthLastMeetingTimeFlag {
+	if builder.busyMonthLastMeetingTimeSet {
 		req.BusyMonthLastMeetingTime = &builder.busyMonthLastMeetingTime
 
 	}
-	if builder.busyMonthCreateEditFileCntFlag {
+	if builder.busyMonthCreateEditFileCntSet {
 		req.BusyMonthCreateEditFileCnt = &builder.busyMonthCreateEditFileCnt
 
 	}
-	if builder.imSendMsgCnt2Flag {
+	if builder.imSendMsgCnt2Set {
 		req.ImSendMsgCnt2 = builder.imSendMsgCnt2
 	}
-	if builder.imSendMsgCntRankFlag {
+	if builder.imSendMsgCntRankSet {
 		req.ImSendMsgCntRank = &builder.imSendMsgCntRank
 
 	}
-	if builder.imBusyDateFlag {
+	if builder.imBusyDateSet {
 		req.ImBusyDate = &builder.imBusyDate
 
 	}
-	if builder.imBusyDateSendMsgCntFlag {
+	if builder.imBusyDateSendMsgCntSet {
 		req.ImBusyDateSendMsgCnt = &builder.imBusyDateSendMsgCnt
 
 	}
-	if builder.imLastSendMsgTimeFlag {
+	if builder.imLastSendMsgTimeSet {
 		req.ImLastSendMsgTime = &builder.imLastSendMsgTime
 
 	}
-	if builder.imTalkedChatCntFlag {
+	if builder.imTalkedChatCntSet {
 		req.ImTalkedChatCnt = &builder.imTalkedChatCnt
 
 	}
-	if builder.imPrivateChatCntFlag {
+	if builder.imPrivateChatCntSet {
 		req.ImPrivateChatCnt = &builder.imPrivateChatCnt
 
 	}
-	if builder.imEmojiTop1Flag {
+	if builder.imEmojiTop1Set {
 		req.ImEmojiTop1 = &builder.imEmojiTop1
 
 	}
-	if builder.imEmojiTop1CntFlag {
+	if builder.imEmojiTop1CntSet {
 		req.ImEmojiTop1Cnt = &builder.imEmojiTop1Cnt
 
 	}
-	if builder.imEmojiTop2Flag {
+	if builder.imEmojiTop2Set {
 		req.ImEmojiTop2 = &builder.imEmojiTop2
 
 	}
-	if builder.imEmojiTop2CntFlag {
+	if builder.imEmojiTop2CntSet {
 		req.ImEmojiTop2Cnt = &builder.imEmojiTop2Cnt
 
 	}
-	if builder.imEmojiTop3Flag {
+	if builder.imEmojiTop3Set {
 		req.ImEmojiTop3 = &builder.imEmojiTop3
 
 	}
-	if builder.imEmojiTop3CntFlag {
+	if builder.imEmojiTop3CntSet {
 		req.ImEmojiTop3Cnt = &builder.imEmojiTop3Cnt
 
 	}
-	if builder.imPositiveReactionCnt2Flag {
+	if builder.imPositiveReactionCnt2Set {
 		req.ImPositiveReactionCnt2 = builder.imPositiveReactionCnt2
 	}
-	if builder.imPositiveReactionCntRankFlag {
+	if builder.imPositiveReactionCntRankSet {
 		req.ImPositiveReactionCntRank = &builder.imPositiveReactionCntRank
 
 	}
-	if builder.ccmCreateCnt2Flag {
+	if builder.ccmCreateCnt2Set {
 		req.CcmCreateCnt2 = builder.ccmCreateCnt2
 	}
-	if builder.ccmCreateCntRankFlag {
+	if builder.ccmCreateCntRankSet {
 		req.CcmCreateCntRank = &builder.ccmCreateCntRank
 
 	}
-	if builder.ccmCreateBusyMonthFlag {
+	if builder.ccmCreateBusyMonthSet {
 		req.CcmCreateBusyMonth = &builder.ccmCreateBusyMonth
 
 	}
-	if builder.ccmCreateBusyMonthCntFlag {
+	if builder.ccmCreateBusyMonthCntSet {
 		req.CcmCreateBusyMonthCnt = &builder.ccmCreateBusyMonthCnt
 
 	}
-	if builder.ccmCreateViewedUcntFlag {
+	if builder.ccmCreateViewedUcntSet {
 		req.CcmCreateViewedUcnt = &builder.ccmCreateViewedUcnt
 
 	}
-	if builder.ccmCreateLikedCntFlag {
+	if builder.ccmCreateLikedCntSet {
 		req.CcmCreateLikedCnt = &builder.ccmCreateLikedCnt
 
 	}
-	if builder.ccmCreateLikedCntRankFlag {
+	if builder.ccmCreateLikedCntRankSet {
 		req.CcmCreateLikedCntRank = &builder.ccmCreateLikedCntRank
 
 	}
-	if builder.ccmEditCommentFcnt2Flag {
+	if builder.ccmEditCommentFcnt2Set {
 		req.CcmEditCommentFcnt2 = builder.ccmEditCommentFcnt2
 	}
-	if builder.ccmEditCommentFcntRankFlag {
+	if builder.ccmEditCommentFcntRankSet {
 		req.CcmEditCommentFcntRank = &builder.ccmEditCommentFcntRank
 
 	}
-	if builder.ccmViewOtherFcntFlag {
+	if builder.ccmViewOtherFcntSet {
 		req.CcmViewOtherFcnt = &builder.ccmViewOtherFcnt
 
 	}
-	if builder.ccmViewOtherFcntRankFlag {
+	if builder.ccmViewOtherFcntRankSet {
 		req.CcmViewOtherFcntRank = &builder.ccmViewOtherFcntRank
 
 	}
-	if builder.vcSentMeetingCnt2Flag {
+	if builder.vcSentMeetingCnt2Set {
 		req.VcSentMeetingCnt2 = builder.vcSentMeetingCnt2
 	}
-	if builder.vcSentMeetingCntRankFlag {
+	if builder.vcSentMeetingCntRankSet {
 		req.VcSentMeetingCntRank = &builder.vcSentMeetingCntRank
 
 	}
-	if builder.vcSentMeetingUcntFlag {
+	if builder.vcSentMeetingUcntSet {
 		req.VcSentMeetingUcnt = &builder.vcSentMeetingUcnt
 
 	}
-	if builder.vcJoinMeetingCnt2Flag {
+	if builder.vcJoinMeetingCnt2Set {
 		req.VcJoinMeetingCnt2 = builder.vcJoinMeetingCnt2
 	}
-	if builder.vcJoinMeetingCntRankFlag {
+	if builder.vcJoinMeetingCntRankSet {
 		req.VcJoinMeetingCntRank = &builder.vcJoinMeetingCntRank
 
 	}
-	if builder.vcAllMeetingCntFlag {
+	if builder.vcAllMeetingCntSet {
 		req.VcAllMeetingCnt = &builder.vcAllMeetingCnt
 
 	}
-	if builder.vcAllMeetingCntRankFlag {
+	if builder.vcAllMeetingCntRankSet {
 		req.VcAllMeetingCntRank = &builder.vcAllMeetingCntRank
 
 	}
-	if builder.vcAllMeetingDuration2Flag {
+	if builder.vcAllMeetingDuration2Set {
 		req.VcAllMeetingDuration2 = builder.vcAllMeetingDuration2
 	}
-	if builder.calCommentCalTimeFlag {
+	if builder.calCommentCalTimeSet {
 		req.CalCommentCalTime = &builder.calCommentCalTime
 
 	}
-	if builder.peopleProfileViewCntFlag {
+	if builder.peopleProfileViewCntSet {
 		req.PeopleProfileViewCnt = &builder.peopleProfileViewCnt
 
 	}
-	if builder.peopleInterviewNum2Flag {
+	if builder.peopleInterviewNum2Set {
 		req.PeopleInterviewNum2 = builder.peopleInterviewNum2
 	}
-	if builder.peopleInterviewNumRankFlag {
+	if builder.peopleInterviewNumRankSet {
 		req.PeopleInterviewNumRank = &builder.peopleInterviewNumRank
 
 	}
-	if builder.peopleInterviewOfferNum2Flag {
+	if builder.peopleInterviewOfferNum2Set {
 		req.PeopleInterviewOfferNum2 = builder.peopleInterviewOfferNum2
 	}
-	if builder.peopleInterviewOfferNumRankFlag {
+	if builder.peopleInterviewOfferNumRankSet {
 		req.PeopleInterviewOfferNumRank = &builder.peopleInterviewOfferNumRank
 
 	}
-	if builder.emailSendEmailCountFlag {
+	if builder.emailSendEmailCountSet {
 		req.EmailSendEmailCount = &builder.emailSendEmailCount
 
 	}
-	if builder.emailReceiveEmailCountFlag {
+	if builder.emailReceiveEmailCountSet {
 		req.EmailReceiveEmailCount = &builder.emailReceiveEmailCount
 
 	}
@@ -7718,140 +7724,140 @@ type UserReport2024 struct {
 }
 
 type UserReport2024Builder struct {
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 
-	tenantAllCnt     string // 所在租户目前的总人数(已激活、未离职)
-	tenantAllCntFlag bool
+	tenantAllCnt    string // 所在租户目前的总人数(已激活、未离职)
+	tenantAllCntSet bool
 
-	userRegisterDate     string // 用户的飞书激活日期(yyyyMMdd,201909之前的用户可能是空)
-	userRegisterDateFlag bool
+	userRegisterDate    string // 用户的飞书激活日期(yyyyMMdd,201909之前的用户可能是空)
+	userRegisterDateSet bool
 
-	feishuDayCnt     string // 飞书使用天数(激活日期到现在的天数)。
-	feishuDayCntFlag bool
+	feishuDayCnt    string // 飞书使用天数(激活日期到现在的天数)。
+	feishuDayCntSet bool
 
-	durationCnt2     []*AnnualReportMapFloat // 全年总活跃时长(格式0.01h,包含2023、2024各年统计数据)。
-	durationCnt2Flag bool
+	durationCnt2    []*AnnualReportMapFloat // 全年总活跃时长(格式0.01h,包含2023、2024各年统计数据)。
+	durationCnt2Set bool
 
-	imSendMsgCnt2     []*AnnualReportMapInt // 全年发出消息数(包含2023、2024各年统计数据)。
-	imSendMsgCnt2Flag bool
+	imSendMsgCnt2    []*AnnualReportMapInt // 全年发出消息数(包含2023、2024各年统计数据)。
+	imSendMsgCnt2Set bool
 
-	avgImSendMsgCnt2     []*AnnualReportMapFloat // 全年工作日日均发消息数(包含2023、2024各年统计数据)。
-	avgImSendMsgCnt2Flag bool
+	avgImSendMsgCnt2    []*AnnualReportMapFloat // 全年工作日日均发消息数(包含2023、2024各年统计数据)。
+	avgImSendMsgCnt2Set bool
 
-	imTalkedChatCnt     string // 2024年内,发过言的群组数
-	imTalkedChatCntFlag bool
+	imTalkedChatCnt    string // 2024年内,发过言的群组数
+	imTalkedChatCntSet bool
 
-	imPrivateChatCnt     string // 2024年内,私聊过的个人数(本人发过消息)。
-	imPrivateChatCntFlag bool
+	imPrivateChatCnt    string // 2024年内,私聊过的个人数(本人发过消息)。
+	imPrivateChatCntSet bool
 
-	imEmojiTop1     string // 2024年内,消息对话中使用次数最多的表情。
-	imEmojiTop1Flag bool
+	imEmojiTop1    string // 2024年内,消息对话中使用次数最多的表情。
+	imEmojiTop1Set bool
 
-	imEmojiTop1Cnt2     []*AnnualReportMapInt // 使用次数第一多表情计数(包含2023、2024各年统计数据)。
-	imEmojiTop1Cnt2Flag bool
+	imEmojiTop1Cnt2    []*AnnualReportMapInt // 使用次数第一多表情计数(包含2023、2024各年统计数据)。
+	imEmojiTop1Cnt2Set bool
 
-	imEmojiTop2     string // 2024年内,消息对话中使用次数第二多的表情。
-	imEmojiTop2Flag bool
+	imEmojiTop2    string // 2024年内,消息对话中使用次数第二多的表情。
+	imEmojiTop2Set bool
 
-	imEmojiTop2Cnt2     []*AnnualReportMapInt // 使用次数第二多表情计数(包含2023、2024各年统计数据)。
-	imEmojiTop2Cnt2Flag bool
+	imEmojiTop2Cnt2    []*AnnualReportMapInt // 使用次数第二多表情计数(包含2023、2024各年统计数据)。
+	imEmojiTop2Cnt2Set bool
 
-	imEmojiTop3     string // 2024年内,消息对话中使用次数第三多的表情。
-	imEmojiTop3Flag bool
+	imEmojiTop3    string // 2024年内,消息对话中使用次数第三多的表情。
+	imEmojiTop3Set bool
 
-	imEmojiTop3Cnt2     []*AnnualReportMapInt // 使用次数第三多表情计数(包含2023、2024各年统计数据)。
-	imEmojiTop3Cnt2Flag bool
+	imEmojiTop3Cnt2    []*AnnualReportMapInt // 使用次数第三多表情计数(包含2023、2024各年统计数据)。
+	imEmojiTop3Cnt2Set bool
 
-	imPositiveReactionCnt2     []*AnnualReportMapInt // 全年在消息中收到他人点赞的数量(包含2023、2024各年统计数据)。
-	imPositiveReactionCnt2Flag bool
+	imPositiveReactionCnt2    []*AnnualReportMapInt // 全年在消息中收到他人点赞的数量(包含2023、2024各年统计数据)。
+	imPositiveReactionCnt2Set bool
 
-	imPositiveReactionCntRank     string // 2024年内,收到点赞的数量,在租户内的排名。
-	imPositiveReactionCntRankFlag bool
+	imPositiveReactionCntRank    string // 2024年内,收到点赞的数量,在租户内的排名。
+	imPositiveReactionCntRankSet bool
 
-	imPositiveReactionCntDenominator     string // 2024年内,收到点赞排名的分母(已激活未离职人员中,此指标大于0的人数)。
-	imPositiveReactionCntDenominatorFlag bool
+	imPositiveReactionCntDenominator    string // 2024年内,收到点赞排名的分母(已激活未离职人员中,此指标大于0的人数)。
+	imPositiveReactionCntDenominatorSet bool
 
-	busyDay     string // 2024年内,处理消息最多的一天(yyyyMMdd)。
-	busyDayFlag bool
+	busyDay    string // 2024年内,处理消息最多的一天(yyyyMMdd)。
+	busyDaySet bool
 
-	busyDaySendMsgCnt     string // 2024年内,一天最多处理了多少条消息。
-	busyDaySendMsgCntFlag bool
+	busyDaySendMsgCnt    string // 2024年内,一天最多处理了多少条消息。
+	busyDaySendMsgCntSet bool
 
-	ccmCreateCnt2     []*AnnualReportMapInt // 全年创建文档数(包含2023、2024各年统计数据)。
-	ccmCreateCnt2Flag bool
+	ccmCreateCnt2    []*AnnualReportMapInt // 全年创建文档数(包含2023、2024各年统计数据)。
+	ccmCreateCnt2Set bool
 
-	ccmCreateViewedUcnt     string // 2024年内,本人创建的文档被多少人浏览。
-	ccmCreateViewedUcntFlag bool
+	ccmCreateViewedUcnt    string // 2024年内,本人创建的文档被多少人浏览。
+	ccmCreateViewedUcntSet bool
 
-	ccmCreateLikedCnt     string // 2024年内,本人创建的文档被点赞的合计次数。
-	ccmCreateLikedCntFlag bool
+	ccmCreateLikedCnt    string // 2024年内,本人创建的文档被点赞的合计次数。
+	ccmCreateLikedCntSet bool
 
-	ccmCreateLikedMaxCnt     string // 2024年内,本人创建的文档被点赞的次数最大值。
-	ccmCreateLikedMaxCntFlag bool
+	ccmCreateLikedMaxCnt    string // 2024年内,本人创建的文档被点赞的次数最大值。
+	ccmCreateLikedMaxCntSet bool
 
-	vcJoinMeetingCnt     string // 2024年内,本人参与过的视频会议数(包含本人、非本人发起)。
-	vcJoinMeetingCntFlag bool
+	vcJoinMeetingCnt    string // 2024年内,本人参与过的视频会议数(包含本人、非本人发起)。
+	vcJoinMeetingCntSet bool
 
-	vcAllMeetingDuration2     []*AnnualReportMapFloat // 本人参与会议的总时长(包含2023、2024各年统计数据)。
-	vcAllMeetingDuration2Flag bool
+	vcAllMeetingDuration2    []*AnnualReportMapFloat // 本人参与会议的总时长(包含2023、2024各年统计数据)。
+	vcAllMeetingDuration2Set bool
 
-	vcJoinMeetingAllUserCnt     string // 2024年内,本人参与会议的去重参会人数(不含本人)。
-	vcJoinMeetingAllUserCntFlag bool
+	vcJoinMeetingAllUserCnt    string // 2024年内,本人参与会议的去重参会人数(不含本人)。
+	vcJoinMeetingAllUserCntSet bool
 
-	vcLastMeetingTime     string // 2024年内,最晚一次会议结束的时间(yyyyMMdd HH:mm,5点之前数据计入前一天)。
-	vcLastMeetingTimeFlag bool
+	vcLastMeetingTime    string // 2024年内,最晚一次会议结束的时间(yyyyMMdd HH:mm,5点之前数据计入前一天)。
+	vcLastMeetingTimeSet bool
 
-	baseCreateFcnt2     []*AnnualReportMapInt // 本人全年创建的多维表格数量(包含2023、2024各年统计数据)。
-	baseCreateFcnt2Flag bool
+	baseCreateFcnt2    []*AnnualReportMapInt // 本人全年创建的多维表格数量(包含2023、2024各年统计数据)。
+	baseCreateFcnt2Set bool
 
-	baseViewFcnt     string // 2024年内,本人创建的多维表格被多少人访问过。
-	baseViewFcntFlag bool
+	baseViewFcnt    string // 2024年内,本人创建的多维表格被多少人访问过。
+	baseViewFcntSet bool
 
-	baseCreateDashboardCnt     string // 2024年内,本人创建的仪表盘数量。
-	baseCreateDashboardCntFlag bool
+	baseCreateDashboardCnt    string // 2024年内,本人创建的仪表盘数量。
+	baseCreateDashboardCntSet bool
 
-	baseCreateDashboardRank     string // 2024年内,本人创建仪表盘数量,在租户内的排名。
-	baseCreateDashboardRankFlag bool
+	baseCreateDashboardRank    string // 2024年内,本人创建仪表盘数量,在租户内的排名。
+	baseCreateDashboardRankSet bool
 
-	baseCreateDashboardRankUcnt     string // 2024年内,本人创建仪表盘数量,在租户内排名的分母(已激活未离职人员中,此指标大于0的人数)。
-	baseCreateDashboardRankUcntFlag bool
+	baseCreateDashboardRankUcnt    string // 2024年内,本人创建仪表盘数量,在租户内排名的分母(已激活未离职人员中,此指标大于0的人数)。
+	baseCreateDashboardRankUcntSet bool
 
-	baseCreateChatCnt     string // 2024年内,本人创建的仪表盘内的图表总数量。
-	baseCreateChatCntFlag bool
+	baseCreateChatCnt    string // 2024年内,本人创建的仪表盘内的图表总数量。
+	baseCreateChatCntSet bool
 
-	baseWorkflowInsCnt     string // 2024年内,本人创建的多维表格自动化流程总运行次数。
-	baseWorkflowInsCntFlag bool
+	baseWorkflowInsCnt    string // 2024年内,本人创建的多维表格自动化流程总运行次数。
+	baseWorkflowInsCntSet bool
 
-	baseWorkflowInsRank     string // 2024年内,本人创建的多维表格自动化流程,总运行次数在租户内的排名。
-	baseWorkflowInsRankFlag bool
+	baseWorkflowInsRank    string // 2024年内,本人创建的多维表格自动化流程,总运行次数在租户内的排名。
+	baseWorkflowInsRankSet bool
 
-	baseWorkflowInsRankUcnt     string // 2024年内,自动化流程运行次数排名的分母(已激活未离职人员中,此指标大于0的人数)。
-	baseWorkflowInsRankUcntFlag bool
+	baseWorkflowInsRankUcnt    string // 2024年内,自动化流程运行次数排名的分母(已激活未离职人员中,此指标大于0的人数)。
+	baseWorkflowInsRankUcntSet bool
 
-	vcAllReadNotesCnt     string // 2024年内,本人阅读智能会议纪要的篇数。
-	vcAllReadNotesCntFlag bool
+	vcAllReadNotesCnt    string // 2024年内,本人阅读智能会议纪要的篇数。
+	vcAllReadNotesCntSet bool
 
-	meegoRoleWiCntV2     []*AnnualReportMapInt // 本人全年参与过的项目数量(包含2023、2024各年统计数据)。
-	meegoRoleWiCntV2Flag bool
+	meegoRoleWiCntV2    []*AnnualReportMapInt // 本人全年参与过的项目数量(包含2023、2024各年统计数据)。
+	meegoRoleWiCntV2Set bool
 
-	meegoCommonWiUcnt     string // 2024年内,本人参与过的项目的合作人数
-	meegoCommonWiUcntFlag bool
+	meegoCommonWiUcnt    string // 2024年内,本人参与过的项目的合作人数
+	meegoCommonWiUcntSet bool
 
-	meegoWorkflowWiCnt     string // 2024年内,本人流转过的节点/状态对应的实例数。
-	meegoWorkflowWiCntFlag bool
+	meegoWorkflowWiCnt    string // 2024年内,本人流转过的节点/状态对应的实例数。
+	meegoWorkflowWiCntSet bool
 
-	peopleInterviewNum2     []*AnnualReportMapInt // 本人全年面试场次(包含2023、2024各年统计数据)。
-	peopleInterviewNum2Flag bool
+	peopleInterviewNum2    []*AnnualReportMapInt // 本人全年面试场次(包含2023、2024各年统计数据)。
+	peopleInterviewNum2Set bool
 
-	peopleInterviewNumRank     string // 2024年内,本人面试场次在租户内的排名。
-	peopleInterviewNumRankFlag bool
+	peopleInterviewNumRank    string // 2024年内,本人面试场次在租户内的排名。
+	peopleInterviewNumRankSet bool
 
-	peopleInterviewNumRankUcnt     string // 2024年内,本人面试场次在租户内排名的分母(已激活未离职人员中,此指标大于0的人数)。
-	peopleInterviewNumRankUcntFlag bool
+	peopleInterviewNumRankUcnt    string // 2024年内,本人面试场次在租户内排名的分母(已激活未离职人员中,此指标大于0的人数)。
+	peopleInterviewNumRankUcntSet bool
 
-	peopleInterviewOfferNum2     []*AnnualReportMapInt // 本人面试之后成功发出offer的数量(包含2023、2024各年统计数据)。
-	peopleInterviewOfferNum2Flag bool
+	peopleInterviewOfferNum2    []*AnnualReportMapInt // 本人面试之后成功发出offer的数量(包含2023、2024各年统计数据)。
+	peopleInterviewOfferNum2Set bool
 }
 
 func NewUserReport2024Builder() *UserReport2024Builder {
@@ -7864,7 +7870,7 @@ func NewUserReport2024Builder() *UserReport2024Builder {
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserReport2024Builder) UserId(userId string) *UserReport2024Builder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -7873,7 +7879,7 @@ func (builder *UserReport2024Builder) UserId(userId string) *UserReport2024Build
 // 示例值：6888
 func (builder *UserReport2024Builder) TenantAllCnt(tenantAllCnt string) *UserReport2024Builder {
 	builder.tenantAllCnt = tenantAllCnt
-	builder.tenantAllCntFlag = true
+	builder.tenantAllCntSet = true
 	return builder
 }
 
@@ -7882,7 +7888,7 @@ func (builder *UserReport2024Builder) TenantAllCnt(tenantAllCnt string) *UserRep
 // 示例值：20180808
 func (builder *UserReport2024Builder) UserRegisterDate(userRegisterDate string) *UserReport2024Builder {
 	builder.userRegisterDate = userRegisterDate
-	builder.userRegisterDateFlag = true
+	builder.userRegisterDateSet = true
 	return builder
 }
 
@@ -7891,7 +7897,7 @@ func (builder *UserReport2024Builder) UserRegisterDate(userRegisterDate string) 
 // 示例值：8889
 func (builder *UserReport2024Builder) FeishuDayCnt(feishuDayCnt string) *UserReport2024Builder {
 	builder.feishuDayCnt = feishuDayCnt
-	builder.feishuDayCntFlag = true
+	builder.feishuDayCntSet = true
 	return builder
 }
 
@@ -7900,7 +7906,7 @@ func (builder *UserReport2024Builder) FeishuDayCnt(feishuDayCnt string) *UserRep
 // 示例值：[{"year":"2023","num",66.66},{"year":"2024","num":88.88}]
 func (builder *UserReport2024Builder) DurationCnt2(durationCnt2 []*AnnualReportMapFloat) *UserReport2024Builder {
 	builder.durationCnt2 = durationCnt2
-	builder.durationCnt2Flag = true
+	builder.durationCnt2Set = true
 	return builder
 }
 
@@ -7909,7 +7915,7 @@ func (builder *UserReport2024Builder) DurationCnt2(durationCnt2 []*AnnualReportM
 // 示例值：[{"year":"2023","num",66},{"year":"2024","num":88}]
 func (builder *UserReport2024Builder) ImSendMsgCnt2(imSendMsgCnt2 []*AnnualReportMapInt) *UserReport2024Builder {
 	builder.imSendMsgCnt2 = imSendMsgCnt2
-	builder.imSendMsgCnt2Flag = true
+	builder.imSendMsgCnt2Set = true
 	return builder
 }
 
@@ -7918,7 +7924,7 @@ func (builder *UserReport2024Builder) ImSendMsgCnt2(imSendMsgCnt2 []*AnnualRepor
 // 示例值：[{"year":"2023","num",66.66},{"year":"2024","num":88.88}]
 func (builder *UserReport2024Builder) AvgImSendMsgCnt2(avgImSendMsgCnt2 []*AnnualReportMapFloat) *UserReport2024Builder {
 	builder.avgImSendMsgCnt2 = avgImSendMsgCnt2
-	builder.avgImSendMsgCnt2Flag = true
+	builder.avgImSendMsgCnt2Set = true
 	return builder
 }
 
@@ -7927,7 +7933,7 @@ func (builder *UserReport2024Builder) AvgImSendMsgCnt2(avgImSendMsgCnt2 []*Annua
 // 示例值：168
 func (builder *UserReport2024Builder) ImTalkedChatCnt(imTalkedChatCnt string) *UserReport2024Builder {
 	builder.imTalkedChatCnt = imTalkedChatCnt
-	builder.imTalkedChatCntFlag = true
+	builder.imTalkedChatCntSet = true
 	return builder
 }
 
@@ -7936,7 +7942,7 @@ func (builder *UserReport2024Builder) ImTalkedChatCnt(imTalkedChatCnt string) *U
 // 示例值：168
 func (builder *UserReport2024Builder) ImPrivateChatCnt(imPrivateChatCnt string) *UserReport2024Builder {
 	builder.imPrivateChatCnt = imPrivateChatCnt
-	builder.imPrivateChatCntFlag = true
+	builder.imPrivateChatCntSet = true
 	return builder
 }
 
@@ -7945,7 +7951,7 @@ func (builder *UserReport2024Builder) ImPrivateChatCnt(imPrivateChatCnt string) 
 // 示例值：thumbsup
 func (builder *UserReport2024Builder) ImEmojiTop1(imEmojiTop1 string) *UserReport2024Builder {
 	builder.imEmojiTop1 = imEmojiTop1
-	builder.imEmojiTop1Flag = true
+	builder.imEmojiTop1Set = true
 	return builder
 }
 
@@ -7954,7 +7960,7 @@ func (builder *UserReport2024Builder) ImEmojiTop1(imEmojiTop1 string) *UserRepor
 // 示例值：[{"year":"2023","num",66},{"year":"2024","num":88}]
 func (builder *UserReport2024Builder) ImEmojiTop1Cnt2(imEmojiTop1Cnt2 []*AnnualReportMapInt) *UserReport2024Builder {
 	builder.imEmojiTop1Cnt2 = imEmojiTop1Cnt2
-	builder.imEmojiTop1Cnt2Flag = true
+	builder.imEmojiTop1Cnt2Set = true
 	return builder
 }
 
@@ -7963,7 +7969,7 @@ func (builder *UserReport2024Builder) ImEmojiTop1Cnt2(imEmojiTop1Cnt2 []*AnnualR
 // 示例值：jiayi
 func (builder *UserReport2024Builder) ImEmojiTop2(imEmojiTop2 string) *UserReport2024Builder {
 	builder.imEmojiTop2 = imEmojiTop2
-	builder.imEmojiTop2Flag = true
+	builder.imEmojiTop2Set = true
 	return builder
 }
 
@@ -7972,7 +7978,7 @@ func (builder *UserReport2024Builder) ImEmojiTop2(imEmojiTop2 string) *UserRepor
 // 示例值：[{"year":"2023","num",66},{"year":"2024","num":88}]
 func (builder *UserReport2024Builder) ImEmojiTop2Cnt2(imEmojiTop2Cnt2 []*AnnualReportMapInt) *UserReport2024Builder {
 	builder.imEmojiTop2Cnt2 = imEmojiTop2Cnt2
-	builder.imEmojiTop2Cnt2Flag = true
+	builder.imEmojiTop2Cnt2Set = true
 	return builder
 }
 
@@ -7981,7 +7987,7 @@ func (builder *UserReport2024Builder) ImEmojiTop2Cnt2(imEmojiTop2Cnt2 []*AnnualR
 // 示例值：love
 func (builder *UserReport2024Builder) ImEmojiTop3(imEmojiTop3 string) *UserReport2024Builder {
 	builder.imEmojiTop3 = imEmojiTop3
-	builder.imEmojiTop3Flag = true
+	builder.imEmojiTop3Set = true
 	return builder
 }
 
@@ -7990,7 +7996,7 @@ func (builder *UserReport2024Builder) ImEmojiTop3(imEmojiTop3 string) *UserRepor
 // 示例值：[{"year":"2023","num",66},{"year":"2024","num":88}]
 func (builder *UserReport2024Builder) ImEmojiTop3Cnt2(imEmojiTop3Cnt2 []*AnnualReportMapInt) *UserReport2024Builder {
 	builder.imEmojiTop3Cnt2 = imEmojiTop3Cnt2
-	builder.imEmojiTop3Cnt2Flag = true
+	builder.imEmojiTop3Cnt2Set = true
 	return builder
 }
 
@@ -7999,7 +8005,7 @@ func (builder *UserReport2024Builder) ImEmojiTop3Cnt2(imEmojiTop3Cnt2 []*AnnualR
 // 示例值：[{"year":"2023","num",66},{"year":"2024","num":88}]
 func (builder *UserReport2024Builder) ImPositiveReactionCnt2(imPositiveReactionCnt2 []*AnnualReportMapInt) *UserReport2024Builder {
 	builder.imPositiveReactionCnt2 = imPositiveReactionCnt2
-	builder.imPositiveReactionCnt2Flag = true
+	builder.imPositiveReactionCnt2Set = true
 	return builder
 }
 
@@ -8008,7 +8014,7 @@ func (builder *UserReport2024Builder) ImPositiveReactionCnt2(imPositiveReactionC
 // 示例值：168
 func (builder *UserReport2024Builder) ImPositiveReactionCntRank(imPositiveReactionCntRank string) *UserReport2024Builder {
 	builder.imPositiveReactionCntRank = imPositiveReactionCntRank
-	builder.imPositiveReactionCntRankFlag = true
+	builder.imPositiveReactionCntRankSet = true
 	return builder
 }
 
@@ -8017,7 +8023,7 @@ func (builder *UserReport2024Builder) ImPositiveReactionCntRank(imPositiveReacti
 // 示例值：168
 func (builder *UserReport2024Builder) ImPositiveReactionCntDenominator(imPositiveReactionCntDenominator string) *UserReport2024Builder {
 	builder.imPositiveReactionCntDenominator = imPositiveReactionCntDenominator
-	builder.imPositiveReactionCntDenominatorFlag = true
+	builder.imPositiveReactionCntDenominatorSet = true
 	return builder
 }
 
@@ -8026,7 +8032,7 @@ func (builder *UserReport2024Builder) ImPositiveReactionCntDenominator(imPositiv
 // 示例值：20240808
 func (builder *UserReport2024Builder) BusyDay(busyDay string) *UserReport2024Builder {
 	builder.busyDay = busyDay
-	builder.busyDayFlag = true
+	builder.busyDaySet = true
 	return builder
 }
 
@@ -8035,7 +8041,7 @@ func (builder *UserReport2024Builder) BusyDay(busyDay string) *UserReport2024Bui
 // 示例值：888
 func (builder *UserReport2024Builder) BusyDaySendMsgCnt(busyDaySendMsgCnt string) *UserReport2024Builder {
 	builder.busyDaySendMsgCnt = busyDaySendMsgCnt
-	builder.busyDaySendMsgCntFlag = true
+	builder.busyDaySendMsgCntSet = true
 	return builder
 }
 
@@ -8044,7 +8050,7 @@ func (builder *UserReport2024Builder) BusyDaySendMsgCnt(busyDaySendMsgCnt string
 // 示例值：[{"year":"2023","num",66},{"year":"2024","num":88}]
 func (builder *UserReport2024Builder) CcmCreateCnt2(ccmCreateCnt2 []*AnnualReportMapInt) *UserReport2024Builder {
 	builder.ccmCreateCnt2 = ccmCreateCnt2
-	builder.ccmCreateCnt2Flag = true
+	builder.ccmCreateCnt2Set = true
 	return builder
 }
 
@@ -8053,7 +8059,7 @@ func (builder *UserReport2024Builder) CcmCreateCnt2(ccmCreateCnt2 []*AnnualRepor
 // 示例值：88
 func (builder *UserReport2024Builder) CcmCreateViewedUcnt(ccmCreateViewedUcnt string) *UserReport2024Builder {
 	builder.ccmCreateViewedUcnt = ccmCreateViewedUcnt
-	builder.ccmCreateViewedUcntFlag = true
+	builder.ccmCreateViewedUcntSet = true
 	return builder
 }
 
@@ -8062,7 +8068,7 @@ func (builder *UserReport2024Builder) CcmCreateViewedUcnt(ccmCreateViewedUcnt st
 // 示例值：88
 func (builder *UserReport2024Builder) CcmCreateLikedCnt(ccmCreateLikedCnt string) *UserReport2024Builder {
 	builder.ccmCreateLikedCnt = ccmCreateLikedCnt
-	builder.ccmCreateLikedCntFlag = true
+	builder.ccmCreateLikedCntSet = true
 	return builder
 }
 
@@ -8071,7 +8077,7 @@ func (builder *UserReport2024Builder) CcmCreateLikedCnt(ccmCreateLikedCnt string
 // 示例值：88
 func (builder *UserReport2024Builder) CcmCreateLikedMaxCnt(ccmCreateLikedMaxCnt string) *UserReport2024Builder {
 	builder.ccmCreateLikedMaxCnt = ccmCreateLikedMaxCnt
-	builder.ccmCreateLikedMaxCntFlag = true
+	builder.ccmCreateLikedMaxCntSet = true
 	return builder
 }
 
@@ -8080,7 +8086,7 @@ func (builder *UserReport2024Builder) CcmCreateLikedMaxCnt(ccmCreateLikedMaxCnt 
 // 示例值：88
 func (builder *UserReport2024Builder) VcJoinMeetingCnt(vcJoinMeetingCnt string) *UserReport2024Builder {
 	builder.vcJoinMeetingCnt = vcJoinMeetingCnt
-	builder.vcJoinMeetingCntFlag = true
+	builder.vcJoinMeetingCntSet = true
 	return builder
 }
 
@@ -8089,7 +8095,7 @@ func (builder *UserReport2024Builder) VcJoinMeetingCnt(vcJoinMeetingCnt string) 
 // 示例值：[{"year":"2023","num",66.66},{"year":"2024","num":88.88}]
 func (builder *UserReport2024Builder) VcAllMeetingDuration2(vcAllMeetingDuration2 []*AnnualReportMapFloat) *UserReport2024Builder {
 	builder.vcAllMeetingDuration2 = vcAllMeetingDuration2
-	builder.vcAllMeetingDuration2Flag = true
+	builder.vcAllMeetingDuration2Set = true
 	return builder
 }
 
@@ -8098,7 +8104,7 @@ func (builder *UserReport2024Builder) VcAllMeetingDuration2(vcAllMeetingDuration
 // 示例值：88
 func (builder *UserReport2024Builder) VcJoinMeetingAllUserCnt(vcJoinMeetingAllUserCnt string) *UserReport2024Builder {
 	builder.vcJoinMeetingAllUserCnt = vcJoinMeetingAllUserCnt
-	builder.vcJoinMeetingAllUserCntFlag = true
+	builder.vcJoinMeetingAllUserCntSet = true
 	return builder
 }
 
@@ -8107,7 +8113,7 @@ func (builder *UserReport2024Builder) VcJoinMeetingAllUserCnt(vcJoinMeetingAllUs
 // 示例值：20240808 23:00
 func (builder *UserReport2024Builder) VcLastMeetingTime(vcLastMeetingTime string) *UserReport2024Builder {
 	builder.vcLastMeetingTime = vcLastMeetingTime
-	builder.vcLastMeetingTimeFlag = true
+	builder.vcLastMeetingTimeSet = true
 	return builder
 }
 
@@ -8116,7 +8122,7 @@ func (builder *UserReport2024Builder) VcLastMeetingTime(vcLastMeetingTime string
 // 示例值：[{"year":"2023","num",66},{"year":"2024","num":88}]
 func (builder *UserReport2024Builder) BaseCreateFcnt2(baseCreateFcnt2 []*AnnualReportMapInt) *UserReport2024Builder {
 	builder.baseCreateFcnt2 = baseCreateFcnt2
-	builder.baseCreateFcnt2Flag = true
+	builder.baseCreateFcnt2Set = true
 	return builder
 }
 
@@ -8125,7 +8131,7 @@ func (builder *UserReport2024Builder) BaseCreateFcnt2(baseCreateFcnt2 []*AnnualR
 // 示例值：88
 func (builder *UserReport2024Builder) BaseViewFcnt(baseViewFcnt string) *UserReport2024Builder {
 	builder.baseViewFcnt = baseViewFcnt
-	builder.baseViewFcntFlag = true
+	builder.baseViewFcntSet = true
 	return builder
 }
 
@@ -8134,7 +8140,7 @@ func (builder *UserReport2024Builder) BaseViewFcnt(baseViewFcnt string) *UserRep
 // 示例值：88
 func (builder *UserReport2024Builder) BaseCreateDashboardCnt(baseCreateDashboardCnt string) *UserReport2024Builder {
 	builder.baseCreateDashboardCnt = baseCreateDashboardCnt
-	builder.baseCreateDashboardCntFlag = true
+	builder.baseCreateDashboardCntSet = true
 	return builder
 }
 
@@ -8143,7 +8149,7 @@ func (builder *UserReport2024Builder) BaseCreateDashboardCnt(baseCreateDashboard
 // 示例值：88
 func (builder *UserReport2024Builder) BaseCreateDashboardRank(baseCreateDashboardRank string) *UserReport2024Builder {
 	builder.baseCreateDashboardRank = baseCreateDashboardRank
-	builder.baseCreateDashboardRankFlag = true
+	builder.baseCreateDashboardRankSet = true
 	return builder
 }
 
@@ -8152,7 +8158,7 @@ func (builder *UserReport2024Builder) BaseCreateDashboardRank(baseCreateDashboar
 // 示例值：88
 func (builder *UserReport2024Builder) BaseCreateDashboardRankUcnt(baseCreateDashboardRankUcnt string) *UserReport2024Builder {
 	builder.baseCreateDashboardRankUcnt = baseCreateDashboardRankUcnt
-	builder.baseCreateDashboardRankUcntFlag = true
+	builder.baseCreateDashboardRankUcntSet = true
 	return builder
 }
 
@@ -8161,7 +8167,7 @@ func (builder *UserReport2024Builder) BaseCreateDashboardRankUcnt(baseCreateDash
 // 示例值：88
 func (builder *UserReport2024Builder) BaseCreateChatCnt(baseCreateChatCnt string) *UserReport2024Builder {
 	builder.baseCreateChatCnt = baseCreateChatCnt
-	builder.baseCreateChatCntFlag = true
+	builder.baseCreateChatCntSet = true
 	return builder
 }
 
@@ -8170,7 +8176,7 @@ func (builder *UserReport2024Builder) BaseCreateChatCnt(baseCreateChatCnt string
 // 示例值：88
 func (builder *UserReport2024Builder) BaseWorkflowInsCnt(baseWorkflowInsCnt string) *UserReport2024Builder {
 	builder.baseWorkflowInsCnt = baseWorkflowInsCnt
-	builder.baseWorkflowInsCntFlag = true
+	builder.baseWorkflowInsCntSet = true
 	return builder
 }
 
@@ -8179,7 +8185,7 @@ func (builder *UserReport2024Builder) BaseWorkflowInsCnt(baseWorkflowInsCnt stri
 // 示例值：88
 func (builder *UserReport2024Builder) BaseWorkflowInsRank(baseWorkflowInsRank string) *UserReport2024Builder {
 	builder.baseWorkflowInsRank = baseWorkflowInsRank
-	builder.baseWorkflowInsRankFlag = true
+	builder.baseWorkflowInsRankSet = true
 	return builder
 }
 
@@ -8188,7 +8194,7 @@ func (builder *UserReport2024Builder) BaseWorkflowInsRank(baseWorkflowInsRank st
 // 示例值：88
 func (builder *UserReport2024Builder) BaseWorkflowInsRankUcnt(baseWorkflowInsRankUcnt string) *UserReport2024Builder {
 	builder.baseWorkflowInsRankUcnt = baseWorkflowInsRankUcnt
-	builder.baseWorkflowInsRankUcntFlag = true
+	builder.baseWorkflowInsRankUcntSet = true
 	return builder
 }
 
@@ -8197,7 +8203,7 @@ func (builder *UserReport2024Builder) BaseWorkflowInsRankUcnt(baseWorkflowInsRan
 // 示例值：188
 func (builder *UserReport2024Builder) VcAllReadNotesCnt(vcAllReadNotesCnt string) *UserReport2024Builder {
 	builder.vcAllReadNotesCnt = vcAllReadNotesCnt
-	builder.vcAllReadNotesCntFlag = true
+	builder.vcAllReadNotesCntSet = true
 	return builder
 }
 
@@ -8206,7 +8212,7 @@ func (builder *UserReport2024Builder) VcAllReadNotesCnt(vcAllReadNotesCnt string
 // 示例值：[{"year":"2023","num",66},{"year":"2024","num":88}]
 func (builder *UserReport2024Builder) MeegoRoleWiCntV2(meegoRoleWiCntV2 []*AnnualReportMapInt) *UserReport2024Builder {
 	builder.meegoRoleWiCntV2 = meegoRoleWiCntV2
-	builder.meegoRoleWiCntV2Flag = true
+	builder.meegoRoleWiCntV2Set = true
 	return builder
 }
 
@@ -8215,7 +8221,7 @@ func (builder *UserReport2024Builder) MeegoRoleWiCntV2(meegoRoleWiCntV2 []*Annua
 // 示例值：88
 func (builder *UserReport2024Builder) MeegoCommonWiUcnt(meegoCommonWiUcnt string) *UserReport2024Builder {
 	builder.meegoCommonWiUcnt = meegoCommonWiUcnt
-	builder.meegoCommonWiUcntFlag = true
+	builder.meegoCommonWiUcntSet = true
 	return builder
 }
 
@@ -8224,7 +8230,7 @@ func (builder *UserReport2024Builder) MeegoCommonWiUcnt(meegoCommonWiUcnt string
 // 示例值：288
 func (builder *UserReport2024Builder) MeegoWorkflowWiCnt(meegoWorkflowWiCnt string) *UserReport2024Builder {
 	builder.meegoWorkflowWiCnt = meegoWorkflowWiCnt
-	builder.meegoWorkflowWiCntFlag = true
+	builder.meegoWorkflowWiCntSet = true
 	return builder
 }
 
@@ -8233,7 +8239,7 @@ func (builder *UserReport2024Builder) MeegoWorkflowWiCnt(meegoWorkflowWiCnt stri
 // 示例值：[{"year":"2023","num",66},{"year":"2024","num":88}]
 func (builder *UserReport2024Builder) PeopleInterviewNum2(peopleInterviewNum2 []*AnnualReportMapInt) *UserReport2024Builder {
 	builder.peopleInterviewNum2 = peopleInterviewNum2
-	builder.peopleInterviewNum2Flag = true
+	builder.peopleInterviewNum2Set = true
 	return builder
 }
 
@@ -8242,7 +8248,7 @@ func (builder *UserReport2024Builder) PeopleInterviewNum2(peopleInterviewNum2 []
 // 示例值：88
 func (builder *UserReport2024Builder) PeopleInterviewNumRank(peopleInterviewNumRank string) *UserReport2024Builder {
 	builder.peopleInterviewNumRank = peopleInterviewNumRank
-	builder.peopleInterviewNumRankFlag = true
+	builder.peopleInterviewNumRankSet = true
 	return builder
 }
 
@@ -8251,7 +8257,7 @@ func (builder *UserReport2024Builder) PeopleInterviewNumRank(peopleInterviewNumR
 // 示例值：88
 func (builder *UserReport2024Builder) PeopleInterviewNumRankUcnt(peopleInterviewNumRankUcnt string) *UserReport2024Builder {
 	builder.peopleInterviewNumRankUcnt = peopleInterviewNumRankUcnt
-	builder.peopleInterviewNumRankUcntFlag = true
+	builder.peopleInterviewNumRankUcntSet = true
 	return builder
 }
 
@@ -8260,177 +8266,177 @@ func (builder *UserReport2024Builder) PeopleInterviewNumRankUcnt(peopleInterview
 // 示例值：[{"year":"2023","num",66},{"year":"2024","num":88}]
 func (builder *UserReport2024Builder) PeopleInterviewOfferNum2(peopleInterviewOfferNum2 []*AnnualReportMapInt) *UserReport2024Builder {
 	builder.peopleInterviewOfferNum2 = peopleInterviewOfferNum2
-	builder.peopleInterviewOfferNum2Flag = true
+	builder.peopleInterviewOfferNum2Set = true
 	return builder
 }
 
 func (builder *UserReport2024Builder) Build() *UserReport2024 {
 	req := &UserReport2024{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.tenantAllCntFlag {
+	if builder.tenantAllCntSet {
 		req.TenantAllCnt = &builder.tenantAllCnt
 
 	}
-	if builder.userRegisterDateFlag {
+	if builder.userRegisterDateSet {
 		req.UserRegisterDate = &builder.userRegisterDate
 
 	}
-	if builder.feishuDayCntFlag {
+	if builder.feishuDayCntSet {
 		req.FeishuDayCnt = &builder.feishuDayCnt
 
 	}
-	if builder.durationCnt2Flag {
+	if builder.durationCnt2Set {
 		req.DurationCnt2 = builder.durationCnt2
 	}
-	if builder.imSendMsgCnt2Flag {
+	if builder.imSendMsgCnt2Set {
 		req.ImSendMsgCnt2 = builder.imSendMsgCnt2
 	}
-	if builder.avgImSendMsgCnt2Flag {
+	if builder.avgImSendMsgCnt2Set {
 		req.AvgImSendMsgCnt2 = builder.avgImSendMsgCnt2
 	}
-	if builder.imTalkedChatCntFlag {
+	if builder.imTalkedChatCntSet {
 		req.ImTalkedChatCnt = &builder.imTalkedChatCnt
 
 	}
-	if builder.imPrivateChatCntFlag {
+	if builder.imPrivateChatCntSet {
 		req.ImPrivateChatCnt = &builder.imPrivateChatCnt
 
 	}
-	if builder.imEmojiTop1Flag {
+	if builder.imEmojiTop1Set {
 		req.ImEmojiTop1 = &builder.imEmojiTop1
 
 	}
-	if builder.imEmojiTop1Cnt2Flag {
+	if builder.imEmojiTop1Cnt2Set {
 		req.ImEmojiTop1Cnt2 = builder.imEmojiTop1Cnt2
 	}
-	if builder.imEmojiTop2Flag {
+	if builder.imEmojiTop2Set {
 		req.ImEmojiTop2 = &builder.imEmojiTop2
 
 	}
-	if builder.imEmojiTop2Cnt2Flag {
+	if builder.imEmojiTop2Cnt2Set {
 		req.ImEmojiTop2Cnt2 = builder.imEmojiTop2Cnt2
 	}
-	if builder.imEmojiTop3Flag {
+	if builder.imEmojiTop3Set {
 		req.ImEmojiTop3 = &builder.imEmojiTop3
 
 	}
-	if builder.imEmojiTop3Cnt2Flag {
+	if builder.imEmojiTop3Cnt2Set {
 		req.ImEmojiTop3Cnt2 = builder.imEmojiTop3Cnt2
 	}
-	if builder.imPositiveReactionCnt2Flag {
+	if builder.imPositiveReactionCnt2Set {
 		req.ImPositiveReactionCnt2 = builder.imPositiveReactionCnt2
 	}
-	if builder.imPositiveReactionCntRankFlag {
+	if builder.imPositiveReactionCntRankSet {
 		req.ImPositiveReactionCntRank = &builder.imPositiveReactionCntRank
 
 	}
-	if builder.imPositiveReactionCntDenominatorFlag {
+	if builder.imPositiveReactionCntDenominatorSet {
 		req.ImPositiveReactionCntDenominator = &builder.imPositiveReactionCntDenominator
 
 	}
-	if builder.busyDayFlag {
+	if builder.busyDaySet {
 		req.BusyDay = &builder.busyDay
 
 	}
-	if builder.busyDaySendMsgCntFlag {
+	if builder.busyDaySendMsgCntSet {
 		req.BusyDaySendMsgCnt = &builder.busyDaySendMsgCnt
 
 	}
-	if builder.ccmCreateCnt2Flag {
+	if builder.ccmCreateCnt2Set {
 		req.CcmCreateCnt2 = builder.ccmCreateCnt2
 	}
-	if builder.ccmCreateViewedUcntFlag {
+	if builder.ccmCreateViewedUcntSet {
 		req.CcmCreateViewedUcnt = &builder.ccmCreateViewedUcnt
 
 	}
-	if builder.ccmCreateLikedCntFlag {
+	if builder.ccmCreateLikedCntSet {
 		req.CcmCreateLikedCnt = &builder.ccmCreateLikedCnt
 
 	}
-	if builder.ccmCreateLikedMaxCntFlag {
+	if builder.ccmCreateLikedMaxCntSet {
 		req.CcmCreateLikedMaxCnt = &builder.ccmCreateLikedMaxCnt
 
 	}
-	if builder.vcJoinMeetingCntFlag {
+	if builder.vcJoinMeetingCntSet {
 		req.VcJoinMeetingCnt = &builder.vcJoinMeetingCnt
 
 	}
-	if builder.vcAllMeetingDuration2Flag {
+	if builder.vcAllMeetingDuration2Set {
 		req.VcAllMeetingDuration2 = builder.vcAllMeetingDuration2
 	}
-	if builder.vcJoinMeetingAllUserCntFlag {
+	if builder.vcJoinMeetingAllUserCntSet {
 		req.VcJoinMeetingAllUserCnt = &builder.vcJoinMeetingAllUserCnt
 
 	}
-	if builder.vcLastMeetingTimeFlag {
+	if builder.vcLastMeetingTimeSet {
 		req.VcLastMeetingTime = &builder.vcLastMeetingTime
 
 	}
-	if builder.baseCreateFcnt2Flag {
+	if builder.baseCreateFcnt2Set {
 		req.BaseCreateFcnt2 = builder.baseCreateFcnt2
 	}
-	if builder.baseViewFcntFlag {
+	if builder.baseViewFcntSet {
 		req.BaseViewFcnt = &builder.baseViewFcnt
 
 	}
-	if builder.baseCreateDashboardCntFlag {
+	if builder.baseCreateDashboardCntSet {
 		req.BaseCreateDashboardCnt = &builder.baseCreateDashboardCnt
 
 	}
-	if builder.baseCreateDashboardRankFlag {
+	if builder.baseCreateDashboardRankSet {
 		req.BaseCreateDashboardRank = &builder.baseCreateDashboardRank
 
 	}
-	if builder.baseCreateDashboardRankUcntFlag {
+	if builder.baseCreateDashboardRankUcntSet {
 		req.BaseCreateDashboardRankUcnt = &builder.baseCreateDashboardRankUcnt
 
 	}
-	if builder.baseCreateChatCntFlag {
+	if builder.baseCreateChatCntSet {
 		req.BaseCreateChatCnt = &builder.baseCreateChatCnt
 
 	}
-	if builder.baseWorkflowInsCntFlag {
+	if builder.baseWorkflowInsCntSet {
 		req.BaseWorkflowInsCnt = &builder.baseWorkflowInsCnt
 
 	}
-	if builder.baseWorkflowInsRankFlag {
+	if builder.baseWorkflowInsRankSet {
 		req.BaseWorkflowInsRank = &builder.baseWorkflowInsRank
 
 	}
-	if builder.baseWorkflowInsRankUcntFlag {
+	if builder.baseWorkflowInsRankUcntSet {
 		req.BaseWorkflowInsRankUcnt = &builder.baseWorkflowInsRankUcnt
 
 	}
-	if builder.vcAllReadNotesCntFlag {
+	if builder.vcAllReadNotesCntSet {
 		req.VcAllReadNotesCnt = &builder.vcAllReadNotesCnt
 
 	}
-	if builder.meegoRoleWiCntV2Flag {
+	if builder.meegoRoleWiCntV2Set {
 		req.MeegoRoleWiCntV2 = builder.meegoRoleWiCntV2
 	}
-	if builder.meegoCommonWiUcntFlag {
+	if builder.meegoCommonWiUcntSet {
 		req.MeegoCommonWiUcnt = &builder.meegoCommonWiUcnt
 
 	}
-	if builder.meegoWorkflowWiCntFlag {
+	if builder.meegoWorkflowWiCntSet {
 		req.MeegoWorkflowWiCnt = &builder.meegoWorkflowWiCnt
 
 	}
-	if builder.peopleInterviewNum2Flag {
+	if builder.peopleInterviewNum2Set {
 		req.PeopleInterviewNum2 = builder.peopleInterviewNum2
 	}
-	if builder.peopleInterviewNumRankFlag {
+	if builder.peopleInterviewNumRankSet {
 		req.PeopleInterviewNumRank = &builder.peopleInterviewNumRank
 
 	}
-	if builder.peopleInterviewNumRankUcntFlag {
+	if builder.peopleInterviewNumRankUcntSet {
 		req.PeopleInterviewNumRankUcnt = &builder.peopleInterviewNumRankUcnt
 
 	}
-	if builder.peopleInterviewOfferNum2Flag {
+	if builder.peopleInterviewOfferNum2Set {
 		req.PeopleInterviewOfferNum2 = builder.peopleInterviewOfferNum2
 	}
 	return req
@@ -8559,185 +8565,185 @@ type UserReport2025 struct {
 }
 
 type UserReport2025Builder struct {
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 
-	tenantAllCnt     string // 租户当前飞书激活未离职账号总数
-	tenantAllCntFlag bool
+	tenantAllCnt    string // 租户当前飞书激活未离职账号总数
+	tenantAllCntSet bool
 
-	userRegisterDate     string // 用户飞书账号激活日期(yyyyMMdd)
-	userRegisterDateFlag bool
+	userRegisterDate    string // 用户飞书账号激活日期(yyyyMMdd)
+	userRegisterDateSet bool
 
-	feishuActiveDays     string // 用户2025年有飞书活跃的天数
-	feishuActiveDaysFlag bool
+	feishuActiveDays    string // 用户2025年有飞书活跃的天数
+	feishuActiveDaysSet bool
 
-	feishuDurationBusyMonth     string // 用户2025年飞书在线时长最长的那个月（字符串，取值'01'~'12'）
-	feishuDurationBusyMonthFlag bool
+	feishuDurationBusyMonth    string // 用户2025年飞书在线时长最长的那个月（字符串，取值'01'~'12'）
+	feishuDurationBusyMonthSet bool
 
-	feishuDurationBusyMonthHours     float64 // 用户2025年上述在线时长最长的那个月的在线时长（小时，保留2位小数）
-	feishuDurationBusyMonthHoursFlag bool
+	feishuDurationBusyMonthHours    float64 // 用户2025年上述在线时长最长的那个月的在线时长（小时，保留2位小数）
+	feishuDurationBusyMonthHoursSet bool
 
-	busyMonthSendMsgCnt     string // 用户2025年上述在线时长最长的那个月，用户发消息数
-	busyMonthSendMsgCntFlag bool
+	busyMonthSendMsgCnt    string // 用户2025年上述在线时长最长的那个月，用户发消息数
+	busyMonthSendMsgCntSet bool
 
-	busyMonthEditDocCnt     string // 用户2025年上述在线时长最长的那个月，用户编辑文档数量
-	busyMonthEditDocCntFlag bool
+	busyMonthEditDocCnt    string // 用户2025年上述在线时长最长的那个月，用户编辑文档数量
+	busyMonthEditDocCntSet bool
 
-	busyMonthReadDocCnt     string // 用户2025年上述在线时长最长的那个月，用户阅读文档数
-	busyMonthReadDocCntFlag bool
+	busyMonthReadDocCnt    string // 用户2025年上述在线时长最长的那个月，用户阅读文档数
+	busyMonthReadDocCntSet bool
 
-	busyMonthJoinMeetingCnt     string // 用户2025年上述在线时长最长的那个月，用户参会数量
-	busyMonthJoinMeetingCntFlag bool
+	busyMonthJoinMeetingCnt    string // 用户2025年上述在线时长最长的那个月，用户参会数量
+	busyMonthJoinMeetingCntSet bool
 
-	busyMonthMeetingDuration     float64 // 用户2025年上述在线时长最长的那个月，用户参会时长（小时,保留2位小数）
-	busyMonthMeetingDurationFlag bool
+	busyMonthMeetingDuration    float64 // 用户2025年上述在线时长最长的那个月，用户参会时长（小时,保留2位小数）
+	busyMonthMeetingDurationSet bool
 
-	imTalkedChatCnt     string // 用户2025年发过消息的飞书群聊数量（包含已解散群；不包含仅发过表情的群）
-	imTalkedChatCntFlag bool
+	imTalkedChatCnt    string // 用户2025年发过消息的飞书群聊数量（包含已解散群；不包含仅发过表情的群）
+	imTalkedChatCntSet bool
 
-	imPrivateChatCnt     string // 用户2025年发消息私聊过的单聊对象数量（去重，不考虑对方是否本租户人员；不考虑对方是否已离职；不含跟自己聊、不含跟bot聊）
-	imPrivateChatCntFlag bool
+	imPrivateChatCnt    string // 用户2025年发消息私聊过的单聊对象数量（去重，不考虑对方是否本租户人员；不考虑对方是否已离职；不含跟自己聊、不含跟bot聊）
+	imPrivateChatCntSet bool
 
-	imSendMsgCnt     string // 用户2025年在上述群聊、单聊两种场景下，发出的消息总数
-	imSendMsgCntFlag bool
+	imSendMsgCnt    string // 用户2025年在上述群聊、单聊两种场景下，发出的消息总数
+	imSendMsgCntSet bool
 
-	imEmojiTop1     string // 用户2025年使用最多的表情（排除自定义）
-	imEmojiTop1Flag bool
+	imEmojiTop1    string // 用户2025年使用最多的表情（排除自定义）
+	imEmojiTop1Set bool
 
-	imEmojiTop1Cnt     string // 用户2025年使用最多表情使用总次数（排除自定义）
-	imEmojiTop1CntFlag bool
+	imEmojiTop1Cnt    string // 用户2025年使用最多表情使用总次数（排除自定义）
+	imEmojiTop1CntSet bool
 
-	imEmojiTop2     string // 用户2025年使用第二多的表情（排除自定义）
-	imEmojiTop2Flag bool
+	imEmojiTop2    string // 用户2025年使用第二多的表情（排除自定义）
+	imEmojiTop2Set bool
 
-	imEmojiTop2Cnt     string // 用户2025年使用第二多表情使用总次数（排除自定义）
-	imEmojiTop2CntFlag bool
+	imEmojiTop2Cnt    string // 用户2025年使用第二多表情使用总次数（排除自定义）
+	imEmojiTop2CntSet bool
 
-	imEmojiTop3     string // 用户2025年使用最第三多的表情（排除自定义）
-	imEmojiTop3Flag bool
+	imEmojiTop3    string // 用户2025年使用最第三多的表情（排除自定义）
+	imEmojiTop3Set bool
 
-	imEmojiTop3Cnt     string // 用户2025年使用第三多表情使用总次数（排除自定义）
-	imEmojiTop3CntFlag bool
+	imEmojiTop3Cnt    string // 用户2025年使用第三多表情使用总次数（排除自定义）
+	imEmojiTop3CntSet bool
 
-	ccmCreateFcnt     string // 用户2025年创建的云文档数量（仅算docx/doc；未删除的文档；排除群公告；独立文档）
-	ccmCreateFcntFlag bool
+	ccmCreateFcnt    string // 用户2025年创建的云文档数量（仅算docx/doc；未删除的文档；排除群公告；独立文档）
+	ccmCreateFcntSet bool
 
-	ccmCreateRank     string // 用户2025年创建云文档数在租户内的排名
-	ccmCreateRankFlag bool
+	ccmCreateRank    string // 用户2025年创建云文档数在租户内的排名
+	ccmCreateRankSet bool
 
-	ccmCreateRankUcnt     string // 租户2025年创建云文档数量 > 0 的总人数（去重，仅算docx\doc；未删除的文档；排除群公告；独立文档）
-	ccmCreateRankUcntFlag bool
+	ccmCreateRankUcnt    string // 租户2025年创建云文档数量 > 0 的总人数（去重，仅算docx\doc；未删除的文档；排除群公告；独立文档）
+	ccmCreateRankUcntSet bool
 
-	ccmCreateViewedUcnt     string // 用户2025年创建的文档被浏览的人数（去重，仅算docx/doc；排除群公告；独立文档；不限文档创建时间；不限访客是否已离职）
-	ccmCreateViewedUcntFlag bool
+	ccmCreateViewedUcnt    string // 用户2025年创建的文档被浏览的人数（去重，仅算docx/doc；排除群公告；独立文档；不限文档创建时间；不限访客是否已离职）
+	ccmCreateViewedUcntSet bool
 
-	ccmCreateLikedCnt     string // 用户2025年创建的文档被点赞次数（仅算docx/doc；排除群公告；独立文档；不限文档创建时间；不限访客是否已离职）
-	ccmCreateLikedCntFlag bool
+	ccmCreateLikedCnt    string // 用户2025年创建的文档被点赞次数（仅算docx/doc；排除群公告；独立文档；不限文档创建时间；不限访客是否已离职）
+	ccmCreateLikedCntSet bool
 
-	ccmCreateViewedMostUcnt     string // 用户2025年创建的文档，在本年度内浏览人数最多的那篇的浏览人数（去重，仅算docx/doc；排除群公告；独立文档；不限文档创建时间，未删除的文档）
-	ccmCreateViewedMostUcntFlag bool
+	ccmCreateViewedMostUcnt    string // 用户2025年创建的文档，在本年度内浏览人数最多的那篇的浏览人数（去重，仅算docx/doc；排除群公告；独立文档；不限文档创建时间，未删除的文档）
+	ccmCreateViewedMostUcntSet bool
 
-	ccmAllReadDocCnt     string // 用户2025年阅读的文档总数(仅算doc/docx)
-	ccmAllReadDocCntFlag bool
+	ccmAllReadDocCnt    string // 用户2025年阅读的文档总数(仅算doc/docx)
+	ccmAllReadDocCntSet bool
 
-	docsAiQuickviewUseCnt     string // 用户2025年使用文档AI速览的文档篇数(仅算doc/docx)
-	docsAiQuickviewUseCntFlag bool
+	docsAiQuickviewUseCnt    string // 用户2025年使用文档AI速览的文档篇数(仅算doc/docx)
+	docsAiQuickviewUseCntSet bool
 
-	vcJoinMeetingCnt     string // 用户2025年参与会议总数（包含用户发起、非用户发起）
-	vcJoinMeetingCntFlag bool
+	vcJoinMeetingCnt    string // 用户2025年参与会议总数（包含用户发起、非用户发起）
+	vcJoinMeetingCntSet bool
 
-	vcJoinMeetingDuration     float64 // 用户2025年的参会总时长（小时，保留2位小数）
-	vcJoinMeetingDurationFlag bool
+	vcJoinMeetingDuration    float64 // 用户2025年的参会总时长（小时，保留2位小数）
+	vcJoinMeetingDurationSet bool
 
-	vcOrgMeetingCnt     []*AnnualVcOrgCnt // 用户2025年全年组织的会议数量
-	vcOrgMeetingCntFlag bool
+	vcOrgMeetingCnt    []*AnnualVcOrgCnt // 用户2025年全年组织的会议数量
+	vcOrgMeetingCntSet bool
 
-	aiNotesCreateCnt     string // 用户2025作为纪要owner生成的智能纪要数量
-	aiNotesCreateCntFlag bool
+	aiNotesCreateCnt    string // 用户2025作为纪要owner生成的智能纪要数量
+	aiNotesCreateCntSet bool
 
-	aiNotesReadCnt     string // 用户2025阅读智能纪要的篇数（去重）
-	aiNotesReadCntFlag bool
+	aiNotesReadCnt    string // 用户2025阅读智能纪要的篇数（去重）
+	aiNotesReadCntSet bool
 
-	knowledgeAiUseCnt     string // 用户2025使用知识问答的次数
-	knowledgeAiUseCntFlag bool
+	knowledgeAiUseCnt    string // 用户2025使用知识问答的次数
+	knowledgeAiUseCntSet bool
 
-	knowledgeAiUseBusyDay     string // 用户2025使用知识问答次数最多的那一天（有并列多天时，取后一个日期，yyyyMMdd）
-	knowledgeAiUseBusyDayFlag bool
+	knowledgeAiUseBusyDay    string // 用户2025使用知识问答次数最多的那一天（有并列多天时，取后一个日期，yyyyMMdd）
+	knowledgeAiUseBusyDaySet bool
 
-	knowledgeAiUseBusyDayCnt     string // 用户2025使用知识问答次数最多的那一天的使用次数
-	knowledgeAiUseBusyDayCntFlag bool
+	knowledgeAiUseBusyDayCnt    string // 用户2025使用知识问答次数最多的那一天的使用次数
+	knowledgeAiUseBusyDayCntSet bool
 
-	baseCreateFcnt     string // 用户2025创建的多维表格数量
-	baseCreateFcntFlag bool
+	baseCreateFcnt    string // 用户2025创建的多维表格数量
+	baseCreateFcntSet bool
 
-	baseAiTop1NameMap     []*AnnualBaseTopAi // 用户2025年多维表文档使用最多的AI功能名称（中英文，列表里为top5）
-	baseAiTop1NameMapFlag bool
+	baseAiTop1NameMap    []*AnnualBaseTopAi // 用户2025年多维表文档使用最多的AI功能名称（中英文，列表里为top5）
+	baseAiTop1NameMapSet bool
 
-	baseCreateViewUcnt     string // 用户所创建的多维表格2025年内一共有多少人消费过（去重，仅文档阅读，不计算表单等外部形态）
-	baseCreateViewUcntFlag bool
+	baseCreateViewUcnt    string // 用户所创建的多维表格2025年内一共有多少人消费过（去重，仅文档阅读，不计算表单等外部形态）
+	baseCreateViewUcntSet bool
 
-	baseMostRowsCnt     string // 用户2025年创建的多维表格中单表行数最大的那篇的行数
-	baseMostRowsCntFlag bool
+	baseMostRowsCnt    string // 用户2025年创建的多维表格中单表行数最大的那篇的行数
+	baseMostRowsCntSet bool
 
-	baseCreateDashboardCnt     string // 用户2025年在多维表格中创建的仪表盘数量
-	baseCreateDashboardCntFlag bool
+	baseCreateDashboardCnt    string // 用户2025年在多维表格中创建的仪表盘数量
+	baseCreateDashboardCntSet bool
 
-	baseWorkflowCreateCnt     string // 用户2025年创建的多维表格自动化流程数量
-	baseWorkflowCreateCntFlag bool
+	baseWorkflowCreateCnt    string // 用户2025年创建的多维表格自动化流程数量
+	baseWorkflowCreateCntSet bool
 
-	baseWorkflowInsCnt     string // 用户创建的多维表格自动化流程在2025年内总运行次数（不限制流程创建时间）
-	baseWorkflowInsCntFlag bool
+	baseWorkflowInsCnt    string // 用户创建的多维表格自动化流程在2025年内总运行次数（不限制流程创建时间）
+	baseWorkflowInsCntSet bool
 
-	ailyDevelopAppCnt     string // 用户2025年有进入开发后台界面的Aily工作流应用数量（当前有管理员/开发者身份，且未删除、已发布（不限应用的实际创建时间））
-	ailyDevelopAppCntFlag bool
+	ailyDevelopAppCnt    string // 用户2025年有进入开发后台界面的Aily工作流应用数量（当前有管理员/开发者身份，且未删除、已发布（不限应用的实际创建时间））
+	ailyDevelopAppCntSet bool
 
-	ailyDevelopAppActiveUcnt     string // 用户已发布的Aily工作流应用，在2025年的活跃人数（去重，当前有管理员/开发者身份，且未删除）
-	ailyDevelopAppActiveUcntFlag bool
+	ailyDevelopAppActiveUcnt    string // 用户已发布的Aily工作流应用，在2025年的活跃人数（去重，当前有管理员/开发者身份，且未删除）
+	ailyDevelopAppActiveUcntSet bool
 
-	ailyDevelopActiveMostAppIntents     string // 用户参与搭建的Aily应用（未删除，已发布），在2025年对话次数最多的那个应用的对话次数
-	ailyDevelopActiveMostAppIntentsFlag bool
+	ailyDevelopActiveMostAppIntents    string // 用户参与搭建的Aily应用（未删除，已发布），在2025年对话次数最多的那个应用的对话次数
+	ailyDevelopActiveMostAppIntentsSet bool
 
-	ailyChatCnt     string // 用户2025年以用户身份与Aily应用、Aily智能体、工作助手的对话总次数
-	ailyChatCntFlag bool
+	ailyChatCnt    string // 用户2025年以用户身份与Aily应用、Aily智能体、工作助手的对话总次数
+	ailyChatCntSet bool
 
-	ailyArtifactCreateCnt     string // 用户2025年与Aily智能体对话中生产的交付产物数量（报告、网页、文档等）
-	ailyArtifactCreateCntFlag bool
+	ailyArtifactCreateCnt    string // 用户2025年与Aily智能体对话中生产的交付产物数量（报告、网页、文档等）
+	ailyArtifactCreateCntSet bool
 
-	apaasDevelopAppCnt     string // 用户当前有管理员/开发者身份，且未删除，且已发布（不限应用的实际创建时间）的aPaaS应用，在2025年有进入开发后台界面的应用数量
-	apaasDevelopAppCntFlag bool
+	apaasDevelopAppCnt    string // 用户当前有管理员/开发者身份，且未删除，且已发布（不限应用的实际创建时间）的aPaaS应用，在2025年有进入开发后台界面的应用数量
+	apaasDevelopAppCntSet bool
 
-	apaasDevelopAppActiveUcnt     string // 用户当前已发布，有管理员/开发者身份，且未删除的aPaaS应用，在2025年的的活跃人数（去重）
-	apaasDevelopAppActiveUcntFlag bool
+	apaasDevelopAppActiveUcnt    string // 用户当前已发布，有管理员/开发者身份，且未删除的aPaaS应用，在2025年的的活跃人数（去重）
+	apaasDevelopAppActiveUcntSet bool
 
-	apaasDevelopActiveMostAppUcnt     string // 用户当前有管理员/开发者身份，且未删除，且已发布的aPaaS应用，在2025年的活跃人数最大的那个应用的访问人数（去重）
-	apaasDevelopActiveMostAppUcntFlag bool
+	apaasDevelopActiveMostAppUcnt    string // 用户当前有管理员/开发者身份，且未删除，且已发布的aPaaS应用，在2025年的活跃人数最大的那个应用的访问人数（去重）
+	apaasDevelopActiveMostAppUcntSet bool
 
-	apaasDevelopAiRunCnt     string // 用户当前有管理员/开发者身份，且未删除，且已发布的aPaaS应用，在2025年的AI能力运行次数
-	apaasDevelopAiRunCntFlag bool
+	apaasDevelopAiRunCnt    string // 用户当前有管理员/开发者身份，且未删除，且已发布的aPaaS应用，在2025年的AI能力运行次数
+	apaasDevelopAiRunCntSet bool
 
-	meegoIsProjectAdmin     string // 用户2025年是否任意meego空间的管理员
-	meegoIsProjectAdminFlag bool
+	meegoIsProjectAdmin    string // 用户2025年是否任意meego空间的管理员
+	meegoIsProjectAdminSet bool
 
-	meegoCreateWiCnt     string // 用户2025年在meego中新建实例数
-	meegoCreateWiCntFlag bool
+	meegoCreateWiCnt    string // 用户2025年在meego中新建实例数
+	meegoCreateWiCntSet bool
 
-	meegoCreateWiRoleUcnt     string // 用户2025年在meego中，新建实例的参与人员总数(去重)
-	meegoCreateWiRoleUcntFlag bool
+	meegoCreateWiRoleUcnt    string // 用户2025年在meego中，新建实例的参与人员总数(去重)
+	meegoCreateWiRoleUcntSet bool
 
-	meegoMostViewWiUcnt     string // 用户2025年在meego中，新建实例且被浏览次数最多的实例的浏览用户数(去重)
-	meegoMostViewWiUcntFlag bool
+	meegoMostViewWiUcnt    string // 用户2025年在meego中，新建实例且被浏览次数最多的实例的浏览用户数(去重)
+	meegoMostViewWiUcntSet bool
 
-	meegoSetAiFieldCnt     string // 用户2025年为meego空间管理员的meego中配置AI字段的数量
-	meegoSetAiFieldCntFlag bool
+	meegoSetAiFieldCnt    string // 用户2025年为meego空间管理员的meego中配置AI字段的数量
+	meegoSetAiFieldCntSet bool
 
-	meegoAiFieldRunCnt     string // 用户2025年为meego空间管理员的meego中配置AI字段的执行次数
-	meegoAiFieldRunCntFlag bool
+	meegoAiFieldRunCnt    string // 用户2025年为meego空间管理员的meego中配置AI字段的执行次数
+	meegoAiFieldRunCntSet bool
 
-	meegoAiGanttUseCnt     string // 用户2025年在meego中对 AI人力分析的使用次数
-	meegoAiGanttUseCntFlag bool
+	meegoAiGanttUseCnt    string // 用户2025年在meego中对 AI人力分析的使用次数
+	meegoAiGanttUseCntSet bool
 
-	meegoAiWeeklyReportUseCnt     string // 用户2025年在meego中对 AI个人周报的使用次数
-	meegoAiWeeklyReportUseCntFlag bool
+	meegoAiWeeklyReportUseCnt    string // 用户2025年在meego中对 AI个人周报的使用次数
+	meegoAiWeeklyReportUseCntSet bool
 }
 
 func NewUserReport2025Builder() *UserReport2025Builder {
@@ -8750,7 +8756,7 @@ func NewUserReport2025Builder() *UserReport2025Builder {
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *UserReport2025Builder) UserId(userId string) *UserReport2025Builder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -8759,7 +8765,7 @@ func (builder *UserReport2025Builder) UserId(userId string) *UserReport2025Build
 // 示例值：8888
 func (builder *UserReport2025Builder) TenantAllCnt(tenantAllCnt string) *UserReport2025Builder {
 	builder.tenantAllCnt = tenantAllCnt
-	builder.tenantAllCntFlag = true
+	builder.tenantAllCntSet = true
 	return builder
 }
 
@@ -8768,7 +8774,7 @@ func (builder *UserReport2025Builder) TenantAllCnt(tenantAllCnt string) *UserRep
 // 示例值：20210110
 func (builder *UserReport2025Builder) UserRegisterDate(userRegisterDate string) *UserReport2025Builder {
 	builder.userRegisterDate = userRegisterDate
-	builder.userRegisterDateFlag = true
+	builder.userRegisterDateSet = true
 	return builder
 }
 
@@ -8777,7 +8783,7 @@ func (builder *UserReport2025Builder) UserRegisterDate(userRegisterDate string) 
 // 示例值：188
 func (builder *UserReport2025Builder) FeishuActiveDays(feishuActiveDays string) *UserReport2025Builder {
 	builder.feishuActiveDays = feishuActiveDays
-	builder.feishuActiveDaysFlag = true
+	builder.feishuActiveDaysSet = true
 	return builder
 }
 
@@ -8786,7 +8792,7 @@ func (builder *UserReport2025Builder) FeishuActiveDays(feishuActiveDays string) 
 // 示例值：12
 func (builder *UserReport2025Builder) FeishuDurationBusyMonth(feishuDurationBusyMonth string) *UserReport2025Builder {
 	builder.feishuDurationBusyMonth = feishuDurationBusyMonth
-	builder.feishuDurationBusyMonthFlag = true
+	builder.feishuDurationBusyMonthSet = true
 	return builder
 }
 
@@ -8795,7 +8801,7 @@ func (builder *UserReport2025Builder) FeishuDurationBusyMonth(feishuDurationBusy
 // 示例值：6.88
 func (builder *UserReport2025Builder) FeishuDurationBusyMonthHours(feishuDurationBusyMonthHours float64) *UserReport2025Builder {
 	builder.feishuDurationBusyMonthHours = feishuDurationBusyMonthHours
-	builder.feishuDurationBusyMonthHoursFlag = true
+	builder.feishuDurationBusyMonthHoursSet = true
 	return builder
 }
 
@@ -8804,7 +8810,7 @@ func (builder *UserReport2025Builder) FeishuDurationBusyMonthHours(feishuDuratio
 // 示例值：88888
 func (builder *UserReport2025Builder) BusyMonthSendMsgCnt(busyMonthSendMsgCnt string) *UserReport2025Builder {
 	builder.busyMonthSendMsgCnt = busyMonthSendMsgCnt
-	builder.busyMonthSendMsgCntFlag = true
+	builder.busyMonthSendMsgCntSet = true
 	return builder
 }
 
@@ -8813,7 +8819,7 @@ func (builder *UserReport2025Builder) BusyMonthSendMsgCnt(busyMonthSendMsgCnt st
 // 示例值：88
 func (builder *UserReport2025Builder) BusyMonthEditDocCnt(busyMonthEditDocCnt string) *UserReport2025Builder {
 	builder.busyMonthEditDocCnt = busyMonthEditDocCnt
-	builder.busyMonthEditDocCntFlag = true
+	builder.busyMonthEditDocCntSet = true
 	return builder
 }
 
@@ -8822,7 +8828,7 @@ func (builder *UserReport2025Builder) BusyMonthEditDocCnt(busyMonthEditDocCnt st
 // 示例值：88
 func (builder *UserReport2025Builder) BusyMonthReadDocCnt(busyMonthReadDocCnt string) *UserReport2025Builder {
 	builder.busyMonthReadDocCnt = busyMonthReadDocCnt
-	builder.busyMonthReadDocCntFlag = true
+	builder.busyMonthReadDocCntSet = true
 	return builder
 }
 
@@ -8831,7 +8837,7 @@ func (builder *UserReport2025Builder) BusyMonthReadDocCnt(busyMonthReadDocCnt st
 // 示例值：88
 func (builder *UserReport2025Builder) BusyMonthJoinMeetingCnt(busyMonthJoinMeetingCnt string) *UserReport2025Builder {
 	builder.busyMonthJoinMeetingCnt = busyMonthJoinMeetingCnt
-	builder.busyMonthJoinMeetingCntFlag = true
+	builder.busyMonthJoinMeetingCntSet = true
 	return builder
 }
 
@@ -8840,7 +8846,7 @@ func (builder *UserReport2025Builder) BusyMonthJoinMeetingCnt(busyMonthJoinMeeti
 // 示例值：88.88
 func (builder *UserReport2025Builder) BusyMonthMeetingDuration(busyMonthMeetingDuration float64) *UserReport2025Builder {
 	builder.busyMonthMeetingDuration = busyMonthMeetingDuration
-	builder.busyMonthMeetingDurationFlag = true
+	builder.busyMonthMeetingDurationSet = true
 	return builder
 }
 
@@ -8849,7 +8855,7 @@ func (builder *UserReport2025Builder) BusyMonthMeetingDuration(busyMonthMeetingD
 // 示例值：88
 func (builder *UserReport2025Builder) ImTalkedChatCnt(imTalkedChatCnt string) *UserReport2025Builder {
 	builder.imTalkedChatCnt = imTalkedChatCnt
-	builder.imTalkedChatCntFlag = true
+	builder.imTalkedChatCntSet = true
 	return builder
 }
 
@@ -8858,7 +8864,7 @@ func (builder *UserReport2025Builder) ImTalkedChatCnt(imTalkedChatCnt string) *U
 // 示例值：88
 func (builder *UserReport2025Builder) ImPrivateChatCnt(imPrivateChatCnt string) *UserReport2025Builder {
 	builder.imPrivateChatCnt = imPrivateChatCnt
-	builder.imPrivateChatCntFlag = true
+	builder.imPrivateChatCntSet = true
 	return builder
 }
 
@@ -8867,7 +8873,7 @@ func (builder *UserReport2025Builder) ImPrivateChatCnt(imPrivateChatCnt string) 
 // 示例值：88
 func (builder *UserReport2025Builder) ImSendMsgCnt(imSendMsgCnt string) *UserReport2025Builder {
 	builder.imSendMsgCnt = imSendMsgCnt
-	builder.imSendMsgCntFlag = true
+	builder.imSendMsgCntSet = true
 	return builder
 }
 
@@ -8876,7 +8882,7 @@ func (builder *UserReport2025Builder) ImSendMsgCnt(imSendMsgCnt string) *UserRep
 // 示例值：love
 func (builder *UserReport2025Builder) ImEmojiTop1(imEmojiTop1 string) *UserReport2025Builder {
 	builder.imEmojiTop1 = imEmojiTop1
-	builder.imEmojiTop1Flag = true
+	builder.imEmojiTop1Set = true
 	return builder
 }
 
@@ -8885,7 +8891,7 @@ func (builder *UserReport2025Builder) ImEmojiTop1(imEmojiTop1 string) *UserRepor
 // 示例值：888
 func (builder *UserReport2025Builder) ImEmojiTop1Cnt(imEmojiTop1Cnt string) *UserReport2025Builder {
 	builder.imEmojiTop1Cnt = imEmojiTop1Cnt
-	builder.imEmojiTop1CntFlag = true
+	builder.imEmojiTop1CntSet = true
 	return builder
 }
 
@@ -8894,7 +8900,7 @@ func (builder *UserReport2025Builder) ImEmojiTop1Cnt(imEmojiTop1Cnt string) *Use
 // 示例值：jiayi
 func (builder *UserReport2025Builder) ImEmojiTop2(imEmojiTop2 string) *UserReport2025Builder {
 	builder.imEmojiTop2 = imEmojiTop2
-	builder.imEmojiTop2Flag = true
+	builder.imEmojiTop2Set = true
 	return builder
 }
 
@@ -8903,7 +8909,7 @@ func (builder *UserReport2025Builder) ImEmojiTop2(imEmojiTop2 string) *UserRepor
 // 示例值：666
 func (builder *UserReport2025Builder) ImEmojiTop2Cnt(imEmojiTop2Cnt string) *UserReport2025Builder {
 	builder.imEmojiTop2Cnt = imEmojiTop2Cnt
-	builder.imEmojiTop2CntFlag = true
+	builder.imEmojiTop2CntSet = true
 	return builder
 }
 
@@ -8912,7 +8918,7 @@ func (builder *UserReport2025Builder) ImEmojiTop2Cnt(imEmojiTop2Cnt string) *Use
 // 示例值：lightthumbsup
 func (builder *UserReport2025Builder) ImEmojiTop3(imEmojiTop3 string) *UserReport2025Builder {
 	builder.imEmojiTop3 = imEmojiTop3
-	builder.imEmojiTop3Flag = true
+	builder.imEmojiTop3Set = true
 	return builder
 }
 
@@ -8921,7 +8927,7 @@ func (builder *UserReport2025Builder) ImEmojiTop3(imEmojiTop3 string) *UserRepor
 // 示例值：555
 func (builder *UserReport2025Builder) ImEmojiTop3Cnt(imEmojiTop3Cnt string) *UserReport2025Builder {
 	builder.imEmojiTop3Cnt = imEmojiTop3Cnt
-	builder.imEmojiTop3CntFlag = true
+	builder.imEmojiTop3CntSet = true
 	return builder
 }
 
@@ -8930,7 +8936,7 @@ func (builder *UserReport2025Builder) ImEmojiTop3Cnt(imEmojiTop3Cnt string) *Use
 // 示例值：888
 func (builder *UserReport2025Builder) CcmCreateFcnt(ccmCreateFcnt string) *UserReport2025Builder {
 	builder.ccmCreateFcnt = ccmCreateFcnt
-	builder.ccmCreateFcntFlag = true
+	builder.ccmCreateFcntSet = true
 	return builder
 }
 
@@ -8939,7 +8945,7 @@ func (builder *UserReport2025Builder) CcmCreateFcnt(ccmCreateFcnt string) *UserR
 // 示例值：8
 func (builder *UserReport2025Builder) CcmCreateRank(ccmCreateRank string) *UserReport2025Builder {
 	builder.ccmCreateRank = ccmCreateRank
-	builder.ccmCreateRankFlag = true
+	builder.ccmCreateRankSet = true
 	return builder
 }
 
@@ -8948,7 +8954,7 @@ func (builder *UserReport2025Builder) CcmCreateRank(ccmCreateRank string) *UserR
 // 示例值：888
 func (builder *UserReport2025Builder) CcmCreateRankUcnt(ccmCreateRankUcnt string) *UserReport2025Builder {
 	builder.ccmCreateRankUcnt = ccmCreateRankUcnt
-	builder.ccmCreateRankUcntFlag = true
+	builder.ccmCreateRankUcntSet = true
 	return builder
 }
 
@@ -8957,7 +8963,7 @@ func (builder *UserReport2025Builder) CcmCreateRankUcnt(ccmCreateRankUcnt string
 // 示例值：888
 func (builder *UserReport2025Builder) CcmCreateViewedUcnt(ccmCreateViewedUcnt string) *UserReport2025Builder {
 	builder.ccmCreateViewedUcnt = ccmCreateViewedUcnt
-	builder.ccmCreateViewedUcntFlag = true
+	builder.ccmCreateViewedUcntSet = true
 	return builder
 }
 
@@ -8966,7 +8972,7 @@ func (builder *UserReport2025Builder) CcmCreateViewedUcnt(ccmCreateViewedUcnt st
 // 示例值：88
 func (builder *UserReport2025Builder) CcmCreateLikedCnt(ccmCreateLikedCnt string) *UserReport2025Builder {
 	builder.ccmCreateLikedCnt = ccmCreateLikedCnt
-	builder.ccmCreateLikedCntFlag = true
+	builder.ccmCreateLikedCntSet = true
 	return builder
 }
 
@@ -8975,7 +8981,7 @@ func (builder *UserReport2025Builder) CcmCreateLikedCnt(ccmCreateLikedCnt string
 // 示例值：88
 func (builder *UserReport2025Builder) CcmCreateViewedMostUcnt(ccmCreateViewedMostUcnt string) *UserReport2025Builder {
 	builder.ccmCreateViewedMostUcnt = ccmCreateViewedMostUcnt
-	builder.ccmCreateViewedMostUcntFlag = true
+	builder.ccmCreateViewedMostUcntSet = true
 	return builder
 }
 
@@ -8984,7 +8990,7 @@ func (builder *UserReport2025Builder) CcmCreateViewedMostUcnt(ccmCreateViewedMos
 // 示例值：666
 func (builder *UserReport2025Builder) CcmAllReadDocCnt(ccmAllReadDocCnt string) *UserReport2025Builder {
 	builder.ccmAllReadDocCnt = ccmAllReadDocCnt
-	builder.ccmAllReadDocCntFlag = true
+	builder.ccmAllReadDocCntSet = true
 	return builder
 }
 
@@ -8993,7 +8999,7 @@ func (builder *UserReport2025Builder) CcmAllReadDocCnt(ccmAllReadDocCnt string) 
 // 示例值：88
 func (builder *UserReport2025Builder) DocsAiQuickviewUseCnt(docsAiQuickviewUseCnt string) *UserReport2025Builder {
 	builder.docsAiQuickviewUseCnt = docsAiQuickviewUseCnt
-	builder.docsAiQuickviewUseCntFlag = true
+	builder.docsAiQuickviewUseCntSet = true
 	return builder
 }
 
@@ -9002,7 +9008,7 @@ func (builder *UserReport2025Builder) DocsAiQuickviewUseCnt(docsAiQuickviewUseCn
 // 示例值：666
 func (builder *UserReport2025Builder) VcJoinMeetingCnt(vcJoinMeetingCnt string) *UserReport2025Builder {
 	builder.vcJoinMeetingCnt = vcJoinMeetingCnt
-	builder.vcJoinMeetingCntFlag = true
+	builder.vcJoinMeetingCntSet = true
 	return builder
 }
 
@@ -9011,7 +9017,7 @@ func (builder *UserReport2025Builder) VcJoinMeetingCnt(vcJoinMeetingCnt string) 
 // 示例值：88.88
 func (builder *UserReport2025Builder) VcJoinMeetingDuration(vcJoinMeetingDuration float64) *UserReport2025Builder {
 	builder.vcJoinMeetingDuration = vcJoinMeetingDuration
-	builder.vcJoinMeetingDurationFlag = true
+	builder.vcJoinMeetingDurationSet = true
 	return builder
 }
 
@@ -9020,7 +9026,7 @@ func (builder *UserReport2025Builder) VcJoinMeetingDuration(vcJoinMeetingDuratio
 // 示例值：[{"organized_meeting_cnt":39, "organized_cal_meeting_cnt":20, "organized_instant_meeting_cnt":19}]
 func (builder *UserReport2025Builder) VcOrgMeetingCnt(vcOrgMeetingCnt []*AnnualVcOrgCnt) *UserReport2025Builder {
 	builder.vcOrgMeetingCnt = vcOrgMeetingCnt
-	builder.vcOrgMeetingCntFlag = true
+	builder.vcOrgMeetingCntSet = true
 	return builder
 }
 
@@ -9029,7 +9035,7 @@ func (builder *UserReport2025Builder) VcOrgMeetingCnt(vcOrgMeetingCnt []*AnnualV
 // 示例值：88
 func (builder *UserReport2025Builder) AiNotesCreateCnt(aiNotesCreateCnt string) *UserReport2025Builder {
 	builder.aiNotesCreateCnt = aiNotesCreateCnt
-	builder.aiNotesCreateCntFlag = true
+	builder.aiNotesCreateCntSet = true
 	return builder
 }
 
@@ -9038,7 +9044,7 @@ func (builder *UserReport2025Builder) AiNotesCreateCnt(aiNotesCreateCnt string) 
 // 示例值：88
 func (builder *UserReport2025Builder) AiNotesReadCnt(aiNotesReadCnt string) *UserReport2025Builder {
 	builder.aiNotesReadCnt = aiNotesReadCnt
-	builder.aiNotesReadCntFlag = true
+	builder.aiNotesReadCntSet = true
 	return builder
 }
 
@@ -9047,7 +9053,7 @@ func (builder *UserReport2025Builder) AiNotesReadCnt(aiNotesReadCnt string) *Use
 // 示例值：88
 func (builder *UserReport2025Builder) KnowledgeAiUseCnt(knowledgeAiUseCnt string) *UserReport2025Builder {
 	builder.knowledgeAiUseCnt = knowledgeAiUseCnt
-	builder.knowledgeAiUseCntFlag = true
+	builder.knowledgeAiUseCntSet = true
 	return builder
 }
 
@@ -9056,7 +9062,7 @@ func (builder *UserReport2025Builder) KnowledgeAiUseCnt(knowledgeAiUseCnt string
 // 示例值：20250510
 func (builder *UserReport2025Builder) KnowledgeAiUseBusyDay(knowledgeAiUseBusyDay string) *UserReport2025Builder {
 	builder.knowledgeAiUseBusyDay = knowledgeAiUseBusyDay
-	builder.knowledgeAiUseBusyDayFlag = true
+	builder.knowledgeAiUseBusyDaySet = true
 	return builder
 }
 
@@ -9065,7 +9071,7 @@ func (builder *UserReport2025Builder) KnowledgeAiUseBusyDay(knowledgeAiUseBusyDa
 // 示例值：88
 func (builder *UserReport2025Builder) KnowledgeAiUseBusyDayCnt(knowledgeAiUseBusyDayCnt string) *UserReport2025Builder {
 	builder.knowledgeAiUseBusyDayCnt = knowledgeAiUseBusyDayCnt
-	builder.knowledgeAiUseBusyDayCntFlag = true
+	builder.knowledgeAiUseBusyDayCntSet = true
 	return builder
 }
 
@@ -9074,7 +9080,7 @@ func (builder *UserReport2025Builder) KnowledgeAiUseBusyDayCnt(knowledgeAiUseBus
 // 示例值：88
 func (builder *UserReport2025Builder) BaseCreateFcnt(baseCreateFcnt string) *UserReport2025Builder {
 	builder.baseCreateFcnt = baseCreateFcnt
-	builder.baseCreateFcntFlag = true
+	builder.baseCreateFcntSet = true
 	return builder
 }
 
@@ -9083,7 +9089,7 @@ func (builder *UserReport2025Builder) BaseCreateFcnt(baseCreateFcnt string) *Use
 // 示例值：[{"name_cn":"AI 字段捷径","name_en":"AI field shortcuts","name_cn_list":"AI 侧边栏,工作流 AI Agent 节点,AI 字段捷径,AI 生成公式,AI  浮窗工具栏","name_en_list":"AI sidebar,Workflow AI Agent node,AI field shortcuts,AI-generated formulas,AI smart toolbar"}]
 func (builder *UserReport2025Builder) BaseAiTop1NameMap(baseAiTop1NameMap []*AnnualBaseTopAi) *UserReport2025Builder {
 	builder.baseAiTop1NameMap = baseAiTop1NameMap
-	builder.baseAiTop1NameMapFlag = true
+	builder.baseAiTop1NameMapSet = true
 	return builder
 }
 
@@ -9092,7 +9098,7 @@ func (builder *UserReport2025Builder) BaseAiTop1NameMap(baseAiTop1NameMap []*Ann
 // 示例值：88
 func (builder *UserReport2025Builder) BaseCreateViewUcnt(baseCreateViewUcnt string) *UserReport2025Builder {
 	builder.baseCreateViewUcnt = baseCreateViewUcnt
-	builder.baseCreateViewUcntFlag = true
+	builder.baseCreateViewUcntSet = true
 	return builder
 }
 
@@ -9101,7 +9107,7 @@ func (builder *UserReport2025Builder) BaseCreateViewUcnt(baseCreateViewUcnt stri
 // 示例值：8888
 func (builder *UserReport2025Builder) BaseMostRowsCnt(baseMostRowsCnt string) *UserReport2025Builder {
 	builder.baseMostRowsCnt = baseMostRowsCnt
-	builder.baseMostRowsCntFlag = true
+	builder.baseMostRowsCntSet = true
 	return builder
 }
 
@@ -9110,7 +9116,7 @@ func (builder *UserReport2025Builder) BaseMostRowsCnt(baseMostRowsCnt string) *U
 // 示例值：88
 func (builder *UserReport2025Builder) BaseCreateDashboardCnt(baseCreateDashboardCnt string) *UserReport2025Builder {
 	builder.baseCreateDashboardCnt = baseCreateDashboardCnt
-	builder.baseCreateDashboardCntFlag = true
+	builder.baseCreateDashboardCntSet = true
 	return builder
 }
 
@@ -9119,7 +9125,7 @@ func (builder *UserReport2025Builder) BaseCreateDashboardCnt(baseCreateDashboard
 // 示例值：88
 func (builder *UserReport2025Builder) BaseWorkflowCreateCnt(baseWorkflowCreateCnt string) *UserReport2025Builder {
 	builder.baseWorkflowCreateCnt = baseWorkflowCreateCnt
-	builder.baseWorkflowCreateCntFlag = true
+	builder.baseWorkflowCreateCntSet = true
 	return builder
 }
 
@@ -9128,7 +9134,7 @@ func (builder *UserReport2025Builder) BaseWorkflowCreateCnt(baseWorkflowCreateCn
 // 示例值：88
 func (builder *UserReport2025Builder) BaseWorkflowInsCnt(baseWorkflowInsCnt string) *UserReport2025Builder {
 	builder.baseWorkflowInsCnt = baseWorkflowInsCnt
-	builder.baseWorkflowInsCntFlag = true
+	builder.baseWorkflowInsCntSet = true
 	return builder
 }
 
@@ -9137,7 +9143,7 @@ func (builder *UserReport2025Builder) BaseWorkflowInsCnt(baseWorkflowInsCnt stri
 // 示例值：88
 func (builder *UserReport2025Builder) AilyDevelopAppCnt(ailyDevelopAppCnt string) *UserReport2025Builder {
 	builder.ailyDevelopAppCnt = ailyDevelopAppCnt
-	builder.ailyDevelopAppCntFlag = true
+	builder.ailyDevelopAppCntSet = true
 	return builder
 }
 
@@ -9146,7 +9152,7 @@ func (builder *UserReport2025Builder) AilyDevelopAppCnt(ailyDevelopAppCnt string
 // 示例值：8888
 func (builder *UserReport2025Builder) AilyDevelopAppActiveUcnt(ailyDevelopAppActiveUcnt string) *UserReport2025Builder {
 	builder.ailyDevelopAppActiveUcnt = ailyDevelopAppActiveUcnt
-	builder.ailyDevelopAppActiveUcntFlag = true
+	builder.ailyDevelopAppActiveUcntSet = true
 	return builder
 }
 
@@ -9155,7 +9161,7 @@ func (builder *UserReport2025Builder) AilyDevelopAppActiveUcnt(ailyDevelopAppAct
 // 示例值：8888
 func (builder *UserReport2025Builder) AilyDevelopActiveMostAppIntents(ailyDevelopActiveMostAppIntents string) *UserReport2025Builder {
 	builder.ailyDevelopActiveMostAppIntents = ailyDevelopActiveMostAppIntents
-	builder.ailyDevelopActiveMostAppIntentsFlag = true
+	builder.ailyDevelopActiveMostAppIntentsSet = true
 	return builder
 }
 
@@ -9164,7 +9170,7 @@ func (builder *UserReport2025Builder) AilyDevelopActiveMostAppIntents(ailyDevelo
 // 示例值：8888
 func (builder *UserReport2025Builder) AilyChatCnt(ailyChatCnt string) *UserReport2025Builder {
 	builder.ailyChatCnt = ailyChatCnt
-	builder.ailyChatCntFlag = true
+	builder.ailyChatCntSet = true
 	return builder
 }
 
@@ -9173,7 +9179,7 @@ func (builder *UserReport2025Builder) AilyChatCnt(ailyChatCnt string) *UserRepor
 // 示例值：88
 func (builder *UserReport2025Builder) AilyArtifactCreateCnt(ailyArtifactCreateCnt string) *UserReport2025Builder {
 	builder.ailyArtifactCreateCnt = ailyArtifactCreateCnt
-	builder.ailyArtifactCreateCntFlag = true
+	builder.ailyArtifactCreateCntSet = true
 	return builder
 }
 
@@ -9182,7 +9188,7 @@ func (builder *UserReport2025Builder) AilyArtifactCreateCnt(ailyArtifactCreateCn
 // 示例值：88
 func (builder *UserReport2025Builder) ApaasDevelopAppCnt(apaasDevelopAppCnt string) *UserReport2025Builder {
 	builder.apaasDevelopAppCnt = apaasDevelopAppCnt
-	builder.apaasDevelopAppCntFlag = true
+	builder.apaasDevelopAppCntSet = true
 	return builder
 }
 
@@ -9191,7 +9197,7 @@ func (builder *UserReport2025Builder) ApaasDevelopAppCnt(apaasDevelopAppCnt stri
 // 示例值：8888
 func (builder *UserReport2025Builder) ApaasDevelopAppActiveUcnt(apaasDevelopAppActiveUcnt string) *UserReport2025Builder {
 	builder.apaasDevelopAppActiveUcnt = apaasDevelopAppActiveUcnt
-	builder.apaasDevelopAppActiveUcntFlag = true
+	builder.apaasDevelopAppActiveUcntSet = true
 	return builder
 }
 
@@ -9200,7 +9206,7 @@ func (builder *UserReport2025Builder) ApaasDevelopAppActiveUcnt(apaasDevelopAppA
 // 示例值：8888
 func (builder *UserReport2025Builder) ApaasDevelopActiveMostAppUcnt(apaasDevelopActiveMostAppUcnt string) *UserReport2025Builder {
 	builder.apaasDevelopActiveMostAppUcnt = apaasDevelopActiveMostAppUcnt
-	builder.apaasDevelopActiveMostAppUcntFlag = true
+	builder.apaasDevelopActiveMostAppUcntSet = true
 	return builder
 }
 
@@ -9209,7 +9215,7 @@ func (builder *UserReport2025Builder) ApaasDevelopActiveMostAppUcnt(apaasDevelop
 // 示例值：8888
 func (builder *UserReport2025Builder) ApaasDevelopAiRunCnt(apaasDevelopAiRunCnt string) *UserReport2025Builder {
 	builder.apaasDevelopAiRunCnt = apaasDevelopAiRunCnt
-	builder.apaasDevelopAiRunCntFlag = true
+	builder.apaasDevelopAiRunCntSet = true
 	return builder
 }
 
@@ -9218,7 +9224,7 @@ func (builder *UserReport2025Builder) ApaasDevelopAiRunCnt(apaasDevelopAiRunCnt 
 // 示例值：0
 func (builder *UserReport2025Builder) MeegoIsProjectAdmin(meegoIsProjectAdmin string) *UserReport2025Builder {
 	builder.meegoIsProjectAdmin = meegoIsProjectAdmin
-	builder.meegoIsProjectAdminFlag = true
+	builder.meegoIsProjectAdminSet = true
 	return builder
 }
 
@@ -9227,7 +9233,7 @@ func (builder *UserReport2025Builder) MeegoIsProjectAdmin(meegoIsProjectAdmin st
 // 示例值：88
 func (builder *UserReport2025Builder) MeegoCreateWiCnt(meegoCreateWiCnt string) *UserReport2025Builder {
 	builder.meegoCreateWiCnt = meegoCreateWiCnt
-	builder.meegoCreateWiCntFlag = true
+	builder.meegoCreateWiCntSet = true
 	return builder
 }
 
@@ -9236,7 +9242,7 @@ func (builder *UserReport2025Builder) MeegoCreateWiCnt(meegoCreateWiCnt string) 
 // 示例值：8888
 func (builder *UserReport2025Builder) MeegoCreateWiRoleUcnt(meegoCreateWiRoleUcnt string) *UserReport2025Builder {
 	builder.meegoCreateWiRoleUcnt = meegoCreateWiRoleUcnt
-	builder.meegoCreateWiRoleUcntFlag = true
+	builder.meegoCreateWiRoleUcntSet = true
 	return builder
 }
 
@@ -9245,7 +9251,7 @@ func (builder *UserReport2025Builder) MeegoCreateWiRoleUcnt(meegoCreateWiRoleUcn
 // 示例值：8888
 func (builder *UserReport2025Builder) MeegoMostViewWiUcnt(meegoMostViewWiUcnt string) *UserReport2025Builder {
 	builder.meegoMostViewWiUcnt = meegoMostViewWiUcnt
-	builder.meegoMostViewWiUcntFlag = true
+	builder.meegoMostViewWiUcntSet = true
 	return builder
 }
 
@@ -9254,7 +9260,7 @@ func (builder *UserReport2025Builder) MeegoMostViewWiUcnt(meegoMostViewWiUcnt st
 // 示例值：8888
 func (builder *UserReport2025Builder) MeegoSetAiFieldCnt(meegoSetAiFieldCnt string) *UserReport2025Builder {
 	builder.meegoSetAiFieldCnt = meegoSetAiFieldCnt
-	builder.meegoSetAiFieldCntFlag = true
+	builder.meegoSetAiFieldCntSet = true
 	return builder
 }
 
@@ -9263,7 +9269,7 @@ func (builder *UserReport2025Builder) MeegoSetAiFieldCnt(meegoSetAiFieldCnt stri
 // 示例值：8888
 func (builder *UserReport2025Builder) MeegoAiFieldRunCnt(meegoAiFieldRunCnt string) *UserReport2025Builder {
 	builder.meegoAiFieldRunCnt = meegoAiFieldRunCnt
-	builder.meegoAiFieldRunCntFlag = true
+	builder.meegoAiFieldRunCntSet = true
 	return builder
 }
 
@@ -9272,7 +9278,7 @@ func (builder *UserReport2025Builder) MeegoAiFieldRunCnt(meegoAiFieldRunCnt stri
 // 示例值：8888
 func (builder *UserReport2025Builder) MeegoAiGanttUseCnt(meegoAiGanttUseCnt string) *UserReport2025Builder {
 	builder.meegoAiGanttUseCnt = meegoAiGanttUseCnt
-	builder.meegoAiGanttUseCntFlag = true
+	builder.meegoAiGanttUseCntSet = true
 	return builder
 }
 
@@ -9281,247 +9287,247 @@ func (builder *UserReport2025Builder) MeegoAiGanttUseCnt(meegoAiGanttUseCnt stri
 // 示例值：8888
 func (builder *UserReport2025Builder) MeegoAiWeeklyReportUseCnt(meegoAiWeeklyReportUseCnt string) *UserReport2025Builder {
 	builder.meegoAiWeeklyReportUseCnt = meegoAiWeeklyReportUseCnt
-	builder.meegoAiWeeklyReportUseCntFlag = true
+	builder.meegoAiWeeklyReportUseCntSet = true
 	return builder
 }
 
 func (builder *UserReport2025Builder) Build() *UserReport2025 {
 	req := &UserReport2025{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.tenantAllCntFlag {
+	if builder.tenantAllCntSet {
 		req.TenantAllCnt = &builder.tenantAllCnt
 
 	}
-	if builder.userRegisterDateFlag {
+	if builder.userRegisterDateSet {
 		req.UserRegisterDate = &builder.userRegisterDate
 
 	}
-	if builder.feishuActiveDaysFlag {
+	if builder.feishuActiveDaysSet {
 		req.FeishuActiveDays = &builder.feishuActiveDays
 
 	}
-	if builder.feishuDurationBusyMonthFlag {
+	if builder.feishuDurationBusyMonthSet {
 		req.FeishuDurationBusyMonth = &builder.feishuDurationBusyMonth
 
 	}
-	if builder.feishuDurationBusyMonthHoursFlag {
+	if builder.feishuDurationBusyMonthHoursSet {
 		req.FeishuDurationBusyMonthHours = &builder.feishuDurationBusyMonthHours
 
 	}
-	if builder.busyMonthSendMsgCntFlag {
+	if builder.busyMonthSendMsgCntSet {
 		req.BusyMonthSendMsgCnt = &builder.busyMonthSendMsgCnt
 
 	}
-	if builder.busyMonthEditDocCntFlag {
+	if builder.busyMonthEditDocCntSet {
 		req.BusyMonthEditDocCnt = &builder.busyMonthEditDocCnt
 
 	}
-	if builder.busyMonthReadDocCntFlag {
+	if builder.busyMonthReadDocCntSet {
 		req.BusyMonthReadDocCnt = &builder.busyMonthReadDocCnt
 
 	}
-	if builder.busyMonthJoinMeetingCntFlag {
+	if builder.busyMonthJoinMeetingCntSet {
 		req.BusyMonthJoinMeetingCnt = &builder.busyMonthJoinMeetingCnt
 
 	}
-	if builder.busyMonthMeetingDurationFlag {
+	if builder.busyMonthMeetingDurationSet {
 		req.BusyMonthMeetingDuration = &builder.busyMonthMeetingDuration
 
 	}
-	if builder.imTalkedChatCntFlag {
+	if builder.imTalkedChatCntSet {
 		req.ImTalkedChatCnt = &builder.imTalkedChatCnt
 
 	}
-	if builder.imPrivateChatCntFlag {
+	if builder.imPrivateChatCntSet {
 		req.ImPrivateChatCnt = &builder.imPrivateChatCnt
 
 	}
-	if builder.imSendMsgCntFlag {
+	if builder.imSendMsgCntSet {
 		req.ImSendMsgCnt = &builder.imSendMsgCnt
 
 	}
-	if builder.imEmojiTop1Flag {
+	if builder.imEmojiTop1Set {
 		req.ImEmojiTop1 = &builder.imEmojiTop1
 
 	}
-	if builder.imEmojiTop1CntFlag {
+	if builder.imEmojiTop1CntSet {
 		req.ImEmojiTop1Cnt = &builder.imEmojiTop1Cnt
 
 	}
-	if builder.imEmojiTop2Flag {
+	if builder.imEmojiTop2Set {
 		req.ImEmojiTop2 = &builder.imEmojiTop2
 
 	}
-	if builder.imEmojiTop2CntFlag {
+	if builder.imEmojiTop2CntSet {
 		req.ImEmojiTop2Cnt = &builder.imEmojiTop2Cnt
 
 	}
-	if builder.imEmojiTop3Flag {
+	if builder.imEmojiTop3Set {
 		req.ImEmojiTop3 = &builder.imEmojiTop3
 
 	}
-	if builder.imEmojiTop3CntFlag {
+	if builder.imEmojiTop3CntSet {
 		req.ImEmojiTop3Cnt = &builder.imEmojiTop3Cnt
 
 	}
-	if builder.ccmCreateFcntFlag {
+	if builder.ccmCreateFcntSet {
 		req.CcmCreateFcnt = &builder.ccmCreateFcnt
 
 	}
-	if builder.ccmCreateRankFlag {
+	if builder.ccmCreateRankSet {
 		req.CcmCreateRank = &builder.ccmCreateRank
 
 	}
-	if builder.ccmCreateRankUcntFlag {
+	if builder.ccmCreateRankUcntSet {
 		req.CcmCreateRankUcnt = &builder.ccmCreateRankUcnt
 
 	}
-	if builder.ccmCreateViewedUcntFlag {
+	if builder.ccmCreateViewedUcntSet {
 		req.CcmCreateViewedUcnt = &builder.ccmCreateViewedUcnt
 
 	}
-	if builder.ccmCreateLikedCntFlag {
+	if builder.ccmCreateLikedCntSet {
 		req.CcmCreateLikedCnt = &builder.ccmCreateLikedCnt
 
 	}
-	if builder.ccmCreateViewedMostUcntFlag {
+	if builder.ccmCreateViewedMostUcntSet {
 		req.CcmCreateViewedMostUcnt = &builder.ccmCreateViewedMostUcnt
 
 	}
-	if builder.ccmAllReadDocCntFlag {
+	if builder.ccmAllReadDocCntSet {
 		req.CcmAllReadDocCnt = &builder.ccmAllReadDocCnt
 
 	}
-	if builder.docsAiQuickviewUseCntFlag {
+	if builder.docsAiQuickviewUseCntSet {
 		req.DocsAiQuickviewUseCnt = &builder.docsAiQuickviewUseCnt
 
 	}
-	if builder.vcJoinMeetingCntFlag {
+	if builder.vcJoinMeetingCntSet {
 		req.VcJoinMeetingCnt = &builder.vcJoinMeetingCnt
 
 	}
-	if builder.vcJoinMeetingDurationFlag {
+	if builder.vcJoinMeetingDurationSet {
 		req.VcJoinMeetingDuration = &builder.vcJoinMeetingDuration
 
 	}
-	if builder.vcOrgMeetingCntFlag {
+	if builder.vcOrgMeetingCntSet {
 		req.VcOrgMeetingCnt = builder.vcOrgMeetingCnt
 	}
-	if builder.aiNotesCreateCntFlag {
+	if builder.aiNotesCreateCntSet {
 		req.AiNotesCreateCnt = &builder.aiNotesCreateCnt
 
 	}
-	if builder.aiNotesReadCntFlag {
+	if builder.aiNotesReadCntSet {
 		req.AiNotesReadCnt = &builder.aiNotesReadCnt
 
 	}
-	if builder.knowledgeAiUseCntFlag {
+	if builder.knowledgeAiUseCntSet {
 		req.KnowledgeAiUseCnt = &builder.knowledgeAiUseCnt
 
 	}
-	if builder.knowledgeAiUseBusyDayFlag {
+	if builder.knowledgeAiUseBusyDaySet {
 		req.KnowledgeAiUseBusyDay = &builder.knowledgeAiUseBusyDay
 
 	}
-	if builder.knowledgeAiUseBusyDayCntFlag {
+	if builder.knowledgeAiUseBusyDayCntSet {
 		req.KnowledgeAiUseBusyDayCnt = &builder.knowledgeAiUseBusyDayCnt
 
 	}
-	if builder.baseCreateFcntFlag {
+	if builder.baseCreateFcntSet {
 		req.BaseCreateFcnt = &builder.baseCreateFcnt
 
 	}
-	if builder.baseAiTop1NameMapFlag {
+	if builder.baseAiTop1NameMapSet {
 		req.BaseAiTop1NameMap = builder.baseAiTop1NameMap
 	}
-	if builder.baseCreateViewUcntFlag {
+	if builder.baseCreateViewUcntSet {
 		req.BaseCreateViewUcnt = &builder.baseCreateViewUcnt
 
 	}
-	if builder.baseMostRowsCntFlag {
+	if builder.baseMostRowsCntSet {
 		req.BaseMostRowsCnt = &builder.baseMostRowsCnt
 
 	}
-	if builder.baseCreateDashboardCntFlag {
+	if builder.baseCreateDashboardCntSet {
 		req.BaseCreateDashboardCnt = &builder.baseCreateDashboardCnt
 
 	}
-	if builder.baseWorkflowCreateCntFlag {
+	if builder.baseWorkflowCreateCntSet {
 		req.BaseWorkflowCreateCnt = &builder.baseWorkflowCreateCnt
 
 	}
-	if builder.baseWorkflowInsCntFlag {
+	if builder.baseWorkflowInsCntSet {
 		req.BaseWorkflowInsCnt = &builder.baseWorkflowInsCnt
 
 	}
-	if builder.ailyDevelopAppCntFlag {
+	if builder.ailyDevelopAppCntSet {
 		req.AilyDevelopAppCnt = &builder.ailyDevelopAppCnt
 
 	}
-	if builder.ailyDevelopAppActiveUcntFlag {
+	if builder.ailyDevelopAppActiveUcntSet {
 		req.AilyDevelopAppActiveUcnt = &builder.ailyDevelopAppActiveUcnt
 
 	}
-	if builder.ailyDevelopActiveMostAppIntentsFlag {
+	if builder.ailyDevelopActiveMostAppIntentsSet {
 		req.AilyDevelopActiveMostAppIntents = &builder.ailyDevelopActiveMostAppIntents
 
 	}
-	if builder.ailyChatCntFlag {
+	if builder.ailyChatCntSet {
 		req.AilyChatCnt = &builder.ailyChatCnt
 
 	}
-	if builder.ailyArtifactCreateCntFlag {
+	if builder.ailyArtifactCreateCntSet {
 		req.AilyArtifactCreateCnt = &builder.ailyArtifactCreateCnt
 
 	}
-	if builder.apaasDevelopAppCntFlag {
+	if builder.apaasDevelopAppCntSet {
 		req.ApaasDevelopAppCnt = &builder.apaasDevelopAppCnt
 
 	}
-	if builder.apaasDevelopAppActiveUcntFlag {
+	if builder.apaasDevelopAppActiveUcntSet {
 		req.ApaasDevelopAppActiveUcnt = &builder.apaasDevelopAppActiveUcnt
 
 	}
-	if builder.apaasDevelopActiveMostAppUcntFlag {
+	if builder.apaasDevelopActiveMostAppUcntSet {
 		req.ApaasDevelopActiveMostAppUcnt = &builder.apaasDevelopActiveMostAppUcnt
 
 	}
-	if builder.apaasDevelopAiRunCntFlag {
+	if builder.apaasDevelopAiRunCntSet {
 		req.ApaasDevelopAiRunCnt = &builder.apaasDevelopAiRunCnt
 
 	}
-	if builder.meegoIsProjectAdminFlag {
+	if builder.meegoIsProjectAdminSet {
 		req.MeegoIsProjectAdmin = &builder.meegoIsProjectAdmin
 
 	}
-	if builder.meegoCreateWiCntFlag {
+	if builder.meegoCreateWiCntSet {
 		req.MeegoCreateWiCnt = &builder.meegoCreateWiCnt
 
 	}
-	if builder.meegoCreateWiRoleUcntFlag {
+	if builder.meegoCreateWiRoleUcntSet {
 		req.MeegoCreateWiRoleUcnt = &builder.meegoCreateWiRoleUcnt
 
 	}
-	if builder.meegoMostViewWiUcntFlag {
+	if builder.meegoMostViewWiUcntSet {
 		req.MeegoMostViewWiUcnt = &builder.meegoMostViewWiUcnt
 
 	}
-	if builder.meegoSetAiFieldCntFlag {
+	if builder.meegoSetAiFieldCntSet {
 		req.MeegoSetAiFieldCnt = &builder.meegoSetAiFieldCnt
 
 	}
-	if builder.meegoAiFieldRunCntFlag {
+	if builder.meegoAiFieldRunCntSet {
 		req.MeegoAiFieldRunCnt = &builder.meegoAiFieldRunCnt
 
 	}
-	if builder.meegoAiGanttUseCntFlag {
+	if builder.meegoAiGanttUseCntSet {
 		req.MeegoAiGanttUseCnt = &builder.meegoAiGanttUseCnt
 
 	}
-	if builder.meegoAiWeeklyReportUseCntFlag {
+	if builder.meegoAiWeeklyReportUseCntSet {
 		req.MeegoAiWeeklyReportUseCnt = &builder.meegoAiWeeklyReportUseCnt
 
 	}
@@ -10509,11 +10515,11 @@ func (resp *UpdateBadgeGrantResp) Success() bool {
 }
 
 type CreateBadgeImageReqBodyBuilder struct {
-	imageFile     io.Reader // 勋章图片的文件，仅支持 PNG 格式，320 x 320 像素，大小不超过 1024 KB。
-	imageFileFlag bool
+	imageFile    io.Reader // 勋章图片的文件，仅支持 PNG 格式，320 x 320 像素，大小不超过 1024 KB。
+	imageFileSet bool
 
-	imageType     int // 图片的类型
-	imageTypeFlag bool
+	imageType    int // 图片的类型
+	imageTypeSet bool
 }
 
 func NewCreateBadgeImageReqBodyBuilder() *CreateBadgeImageReqBodyBuilder {
@@ -10523,28 +10529,28 @@ func NewCreateBadgeImageReqBodyBuilder() *CreateBadgeImageReqBodyBuilder {
 
 // 勋章图片的文件，仅支持 PNG 格式，320 x 320 像素，大小不超过 1024 KB。
 //
-// 示例值：file binary
+//示例值：file binary
 func (builder *CreateBadgeImageReqBodyBuilder) ImageFile(imageFile io.Reader) *CreateBadgeImageReqBodyBuilder {
 	builder.imageFile = imageFile
-	builder.imageFileFlag = true
+	builder.imageFileSet = true
 	return builder
 }
 
 // 图片的类型
 //
-// 示例值：1
+//示例值：1
 func (builder *CreateBadgeImageReqBodyBuilder) ImageType(imageType int) *CreateBadgeImageReqBodyBuilder {
 	builder.imageType = imageType
-	builder.imageTypeFlag = true
+	builder.imageTypeSet = true
 	return builder
 }
 
 func (builder *CreateBadgeImageReqBodyBuilder) Build() *CreateBadgeImageReqBody {
 	req := &CreateBadgeImageReqBody{}
-	if builder.imageFileFlag {
+	if builder.imageFileSet {
 		req.ImageFile = builder.imageFile
 	}
-	if builder.imageTypeFlag {
+	if builder.imageTypeSet {
 		req.ImageType = &builder.imageType
 	}
 	return req
@@ -10554,7 +10560,7 @@ type CreateBadgeImagePathReqBodyBuilder struct {
 	imageFilePath     string // 勋章图片的文件，仅支持 PNG 格式，320 x 320 像素，大小不超过 1024 KB。
 	imageFilePathFlag bool
 	imageType         int
-	imageTypeFlag     bool
+	imageTypeSet      bool
 }
 
 func NewCreateBadgeImagePathReqBodyBuilder() *CreateBadgeImagePathReqBodyBuilder {
@@ -10576,7 +10582,7 @@ func (builder *CreateBadgeImagePathReqBodyBuilder) ImageFilePath(imageFilePath s
 // 示例值：1
 func (builder *CreateBadgeImagePathReqBodyBuilder) ImageType(imageType int) *CreateBadgeImagePathReqBodyBuilder {
 	builder.imageType = imageType
-	builder.imageTypeFlag = true
+	builder.imageTypeSet = true
 	return builder
 }
 
@@ -10589,7 +10595,7 @@ func (builder *CreateBadgeImagePathReqBodyBuilder) Build() (*CreateBadgeImageReq
 		}
 		req.ImageFile = bytes.NewBuffer(data)
 	}
-	if builder.imageTypeFlag {
+	if builder.imageTypeSet {
 		req.ImageType = &builder.imageType
 	}
 	return req, nil
@@ -10648,11 +10654,11 @@ func (resp *CreateBadgeImageResp) Success() bool {
 }
 
 type ResetPasswordReqBodyBuilder struct {
-	password     *Password // 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
-	passwordFlag bool
+	password    *Password // 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
+	passwordSet bool
 
-	userId     string // 待修改密码的用户ID，只针对邮箱登录凭证与企业邮箱(包括别名)相等的用户生效
-	userIdFlag bool
+	userId    string // 待修改密码的用户ID，只针对邮箱登录凭证与企业邮箱(包括别名)相等的用户生效
+	userIdSet bool
 }
 
 func NewResetPasswordReqBodyBuilder() *ResetPasswordReqBodyBuilder {
@@ -10662,38 +10668,38 @@ func NewResetPasswordReqBodyBuilder() *ResetPasswordReqBodyBuilder {
 
 // 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
 //
-// 示例值：1234abcd
+//示例值：1234abcd
 func (builder *ResetPasswordReqBodyBuilder) Password(password *Password) *ResetPasswordReqBodyBuilder {
 	builder.password = password
-	builder.passwordFlag = true
+	builder.passwordSet = true
 	return builder
 }
 
 // 待修改密码的用户ID，只针对邮箱登录凭证与企业邮箱(包括别名)相等的用户生效
 //
-// 示例值：abc123
+//示例值：abc123
 func (builder *ResetPasswordReqBodyBuilder) UserId(userId string) *ResetPasswordReqBodyBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *ResetPasswordReqBodyBuilder) Build() *ResetPasswordReqBody {
 	req := &ResetPasswordReqBody{}
-	if builder.passwordFlag {
+	if builder.passwordSet {
 		req.Password = builder.password
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 	}
 	return req
 }
 
 type ResetPasswordPathReqBodyBuilder struct {
-	password     *Password
-	passwordFlag bool
-	userId       string
-	userIdFlag   bool
+	password    *Password
+	passwordSet bool
+	userId      string
+	userIdSet   bool
 }
 
 func NewResetPasswordPathReqBodyBuilder() *ResetPasswordPathReqBodyBuilder {
@@ -10706,7 +10712,7 @@ func NewResetPasswordPathReqBodyBuilder() *ResetPasswordPathReqBodyBuilder {
 // 示例值：1234abcd
 func (builder *ResetPasswordPathReqBodyBuilder) Password(password *Password) *ResetPasswordPathReqBodyBuilder {
 	builder.password = password
-	builder.passwordFlag = true
+	builder.passwordSet = true
 	return builder
 }
 
@@ -10715,16 +10721,16 @@ func (builder *ResetPasswordPathReqBodyBuilder) Password(password *Password) *Re
 // 示例值：abc123
 func (builder *ResetPasswordPathReqBodyBuilder) UserId(userId string) *ResetPasswordPathReqBodyBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *ResetPasswordPathReqBodyBuilder) Build() (*ResetPasswordReqBody, error) {
 	req := &ResetPasswordReqBody{}
-	if builder.passwordFlag {
+	if builder.passwordSet {
 		req.Password = builder.password
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 	}
 	return req, nil

@@ -28,14 +28,14 @@ type Common struct {
 }
 
 type CommonBuilder struct {
-	tenantId     string // 租户id
-	tenantIdFlag bool
+	tenantId    string // 租户id
+	tenantIdSet bool
 
-	languages     []string // 语言集
-	languagesFlag bool
+	languages    []string // 语言集
+	languagesSet bool
 
-	customExecutors     map[string]string // 自定义执行器
-	customExecutorsFlag bool
+	customExecutors    map[string]string // 自定义执行器
+	customExecutorsSet bool
 }
 
 func NewCommonBuilder() *CommonBuilder {
@@ -48,7 +48,7 @@ func NewCommonBuilder() *CommonBuilder {
 // 示例值：1
 func (builder *CommonBuilder) TenantId(tenantId string) *CommonBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -57,7 +57,7 @@ func (builder *CommonBuilder) TenantId(tenantId string) *CommonBuilder {
 // 示例值：
 func (builder *CommonBuilder) Languages(languages []string) *CommonBuilder {
 	builder.languages = languages
-	builder.languagesFlag = true
+	builder.languagesSet = true
 	return builder
 }
 
@@ -66,20 +66,20 @@ func (builder *CommonBuilder) Languages(languages []string) *CommonBuilder {
 // 示例值：
 func (builder *CommonBuilder) CustomExecutors(customExecutors map[string]string) *CommonBuilder {
 	builder.customExecutors = customExecutors
-	builder.customExecutorsFlag = true
+	builder.customExecutorsSet = true
 	return builder
 }
 
 func (builder *CommonBuilder) Build() *Common {
 	req := &Common{}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.languagesFlag {
+	if builder.languagesSet {
 		req.Languages = builder.languages
 	}
-	if builder.customExecutorsFlag {
+	if builder.customExecutorsSet {
 		req.CustomExecutors = builder.customExecutors
 	}
 	return req
@@ -136,77 +136,77 @@ type CountryRegion struct {
 }
 
 type CountryRegionBuilder struct {
-	id     string // 自增id（业务无需关心）
-	idFlag bool
+	id    string // 自增id（业务无需关心）
+	idSet bool
 
-	updateBy     string // 更新人
-	updateByFlag bool
+	updateBy    string // 更新人
+	updateBySet bool
 
-	createBy     string // 创建人
-	createByFlag bool
+	createBy    string // 创建人
+	createBySet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	alpha3Code     string // 三位字母代码
-	alpha3CodeFlag bool
+	alpha3Code    string // 三位字母代码
+	alpha3CodeSet bool
 
-	alpha2Code     string // 两位字母代码
-	alpha2CodeFlag bool
+	alpha2Code    string // 两位字母代码
+	alpha2CodeSet bool
 
-	numericCode     string // 数字代码
-	numericCodeFlag bool
+	numericCode    string // 数字代码
+	numericCodeSet bool
 
-	name     *I18nString // 名称
-	nameFlag bool
+	name    *I18nString // 名称
+	nameSet bool
 
-	localScript     string // 本地文字通常为mdmCode
-	localScriptFlag bool
+	localScript    string // 本地文字通常为mdmCode
+	localScriptSet bool
 
-	westernScript     string // 西方文字通常为mdmCode
-	westernScriptFlag bool
+	westernScript    string // 西方文字通常为mdmCode
+	westernScriptSet bool
 
-	mdmCode     string // 主数据编码（系统生成的唯一永久代码，格式为“MDCT+8位数字”）
-	mdmCodeFlag bool
+	mdmCode    string // 主数据编码（系统生成的唯一永久代码，格式为“MDCT+8位数字”）
+	mdmCodeSet bool
 
-	fullName     *I18nString // 国家/地区全称（国家/地区行政全称，对应EA的full_name，多语行级数据映射到多语map，wukong模型新增字段）
-	fullNameFlag bool
+	fullName    *I18nString // 国家/地区全称（国家/地区行政全称，对应EA的full_name，多语行级数据映射到多语map，wukong模型新增字段）
+	fullNameSet bool
 
-	globalCode     string // 国际电话区号（国际电话区号，对应EA模型中的globalCode，wukong模型新增字段）
-	globalCodeFlag bool
+	globalCode    string // 国际电话区号（国际电话区号，对应EA模型中的globalCode，wukong模型新增字段）
+	globalCodeSet bool
 
-	timeZone     []string // 时区（lookup对象time_zone，行级数据映射关系须人工整理）通常为mdmCode
-	timeZoneFlag bool
+	timeZone    []string // 时区（lookup对象time_zone，行级数据映射关系须人工整理）通常为mdmCode
+	timeZoneSet bool
 
-	overseas     string // 是否海外（EA中特有字段，字节定制使用，为了区分中国大陆和其他所有国家/地区）
-	overseasFlag bool
+	overseas    string // 是否海外（EA中特有字段，字节定制使用，为了区分中国大陆和其他所有国家/地区）
+	overseasSet bool
 
-	level     string // 层级
-	levelFlag bool
+	level    string // 层级
+	levelSet bool
 
-	remark     string // 备注
-	remarkFlag bool
+	remark    string // 备注
+	remarkSet bool
 
-	updateReason     string // 更新原因
-	updateReasonFlag bool
+	updateReason    string // 更新原因
+	updateReasonSet bool
 
-	status     string // 是否生效
-	statusFlag bool
+	status    string // 是否生效
+	statusSet bool
 
-	continents     *Enum // 所属大洲（EA系统中用数字枚举，升级为常量集，常量的API Name对应以下数字：1-亚洲，2-欧洲，3-非洲，4-北美洲，5-南美洲，6-大洋洲，7-南极洲）
-	continentsFlag bool
+	continents    *Enum // 所属大洲（EA系统中用数字枚举，升级为常量集，常量的API Name对应以下数字：1-亚洲，2-欧洲，3-非洲，4-北美洲，5-南美洲，6-大洋洲，7-南极洲）
+	continentsSet bool
 
-	mdLocalScript     *Language // 语言
-	mdLocalScriptFlag bool
+	mdLocalScript    *Language // 语言
+	mdLocalScriptSet bool
 
-	mdWesternScript     *Language // 语言
-	mdWesternScriptFlag bool
+	mdWesternScript    *Language // 语言
+	mdWesternScriptSet bool
 
-	mdTimeZone     []*TimeZone // 时区（lookup对象time_zone，行级数据映射关系须人工整理）
-	mdTimeZoneFlag bool
+	mdTimeZone    []*TimeZone // 时区（lookup对象time_zone，行级数据映射关系须人工整理）
+	mdTimeZoneSet bool
 }
 
 func NewCountryRegionBuilder() *CountryRegionBuilder {
@@ -219,7 +219,7 @@ func NewCountryRegionBuilder() *CountryRegionBuilder {
 // 示例值：-
 func (builder *CountryRegionBuilder) Id(id string) *CountryRegionBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -228,7 +228,7 @@ func (builder *CountryRegionBuilder) Id(id string) *CountryRegionBuilder {
 // 示例值：-
 func (builder *CountryRegionBuilder) UpdateBy(updateBy string) *CountryRegionBuilder {
 	builder.updateBy = updateBy
-	builder.updateByFlag = true
+	builder.updateBySet = true
 	return builder
 }
 
@@ -237,7 +237,7 @@ func (builder *CountryRegionBuilder) UpdateBy(updateBy string) *CountryRegionBui
 // 示例值：-
 func (builder *CountryRegionBuilder) CreateBy(createBy string) *CountryRegionBuilder {
 	builder.createBy = createBy
-	builder.createByFlag = true
+	builder.createBySet = true
 	return builder
 }
 
@@ -246,7 +246,7 @@ func (builder *CountryRegionBuilder) CreateBy(createBy string) *CountryRegionBui
 // 示例值：-
 func (builder *CountryRegionBuilder) UpdateTime(updateTime string) *CountryRegionBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -255,7 +255,7 @@ func (builder *CountryRegionBuilder) UpdateTime(updateTime string) *CountryRegio
 // 示例值：-
 func (builder *CountryRegionBuilder) CreateTime(createTime string) *CountryRegionBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -264,7 +264,7 @@ func (builder *CountryRegionBuilder) CreateTime(createTime string) *CountryRegio
 // 示例值：-
 func (builder *CountryRegionBuilder) Alpha3Code(alpha3Code string) *CountryRegionBuilder {
 	builder.alpha3Code = alpha3Code
-	builder.alpha3CodeFlag = true
+	builder.alpha3CodeSet = true
 	return builder
 }
 
@@ -273,7 +273,7 @@ func (builder *CountryRegionBuilder) Alpha3Code(alpha3Code string) *CountryRegio
 // 示例值：-
 func (builder *CountryRegionBuilder) Alpha2Code(alpha2Code string) *CountryRegionBuilder {
 	builder.alpha2Code = alpha2Code
-	builder.alpha2CodeFlag = true
+	builder.alpha2CodeSet = true
 	return builder
 }
 
@@ -282,7 +282,7 @@ func (builder *CountryRegionBuilder) Alpha2Code(alpha2Code string) *CountryRegio
 // 示例值：-
 func (builder *CountryRegionBuilder) NumericCode(numericCode string) *CountryRegionBuilder {
 	builder.numericCode = numericCode
-	builder.numericCodeFlag = true
+	builder.numericCodeSet = true
 	return builder
 }
 
@@ -291,7 +291,7 @@ func (builder *CountryRegionBuilder) NumericCode(numericCode string) *CountryReg
 // 示例值：
 func (builder *CountryRegionBuilder) Name(name *I18nString) *CountryRegionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -300,7 +300,7 @@ func (builder *CountryRegionBuilder) Name(name *I18nString) *CountryRegionBuilde
 // 示例值：-
 func (builder *CountryRegionBuilder) LocalScript(localScript string) *CountryRegionBuilder {
 	builder.localScript = localScript
-	builder.localScriptFlag = true
+	builder.localScriptSet = true
 	return builder
 }
 
@@ -309,7 +309,7 @@ func (builder *CountryRegionBuilder) LocalScript(localScript string) *CountryReg
 // 示例值：-
 func (builder *CountryRegionBuilder) WesternScript(westernScript string) *CountryRegionBuilder {
 	builder.westernScript = westernScript
-	builder.westernScriptFlag = true
+	builder.westernScriptSet = true
 	return builder
 }
 
@@ -318,7 +318,7 @@ func (builder *CountryRegionBuilder) WesternScript(westernScript string) *Countr
 // 示例值：-
 func (builder *CountryRegionBuilder) MdmCode(mdmCode string) *CountryRegionBuilder {
 	builder.mdmCode = mdmCode
-	builder.mdmCodeFlag = true
+	builder.mdmCodeSet = true
 	return builder
 }
 
@@ -327,7 +327,7 @@ func (builder *CountryRegionBuilder) MdmCode(mdmCode string) *CountryRegionBuild
 // 示例值：
 func (builder *CountryRegionBuilder) FullName(fullName *I18nString) *CountryRegionBuilder {
 	builder.fullName = fullName
-	builder.fullNameFlag = true
+	builder.fullNameSet = true
 	return builder
 }
 
@@ -336,7 +336,7 @@ func (builder *CountryRegionBuilder) FullName(fullName *I18nString) *CountryRegi
 // 示例值：-
 func (builder *CountryRegionBuilder) GlobalCode(globalCode string) *CountryRegionBuilder {
 	builder.globalCode = globalCode
-	builder.globalCodeFlag = true
+	builder.globalCodeSet = true
 	return builder
 }
 
@@ -345,7 +345,7 @@ func (builder *CountryRegionBuilder) GlobalCode(globalCode string) *CountryRegio
 // 示例值：
 func (builder *CountryRegionBuilder) TimeZone(timeZone []string) *CountryRegionBuilder {
 	builder.timeZone = timeZone
-	builder.timeZoneFlag = true
+	builder.timeZoneSet = true
 	return builder
 }
 
@@ -354,7 +354,7 @@ func (builder *CountryRegionBuilder) TimeZone(timeZone []string) *CountryRegionB
 // 示例值：-
 func (builder *CountryRegionBuilder) Overseas(overseas string) *CountryRegionBuilder {
 	builder.overseas = overseas
-	builder.overseasFlag = true
+	builder.overseasSet = true
 	return builder
 }
 
@@ -363,7 +363,7 @@ func (builder *CountryRegionBuilder) Overseas(overseas string) *CountryRegionBui
 // 示例值：-
 func (builder *CountryRegionBuilder) Level(level string) *CountryRegionBuilder {
 	builder.level = level
-	builder.levelFlag = true
+	builder.levelSet = true
 	return builder
 }
 
@@ -372,7 +372,7 @@ func (builder *CountryRegionBuilder) Level(level string) *CountryRegionBuilder {
 // 示例值：-
 func (builder *CountryRegionBuilder) Remark(remark string) *CountryRegionBuilder {
 	builder.remark = remark
-	builder.remarkFlag = true
+	builder.remarkSet = true
 	return builder
 }
 
@@ -381,7 +381,7 @@ func (builder *CountryRegionBuilder) Remark(remark string) *CountryRegionBuilder
 // 示例值：-
 func (builder *CountryRegionBuilder) UpdateReason(updateReason string) *CountryRegionBuilder {
 	builder.updateReason = updateReason
-	builder.updateReasonFlag = true
+	builder.updateReasonSet = true
 	return builder
 }
 
@@ -390,7 +390,7 @@ func (builder *CountryRegionBuilder) UpdateReason(updateReason string) *CountryR
 // 示例值：-
 func (builder *CountryRegionBuilder) Status(status string) *CountryRegionBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -399,7 +399,7 @@ func (builder *CountryRegionBuilder) Status(status string) *CountryRegionBuilder
 // 示例值：
 func (builder *CountryRegionBuilder) Continents(continents *Enum) *CountryRegionBuilder {
 	builder.continents = continents
-	builder.continentsFlag = true
+	builder.continentsSet = true
 	return builder
 }
 
@@ -408,7 +408,7 @@ func (builder *CountryRegionBuilder) Continents(continents *Enum) *CountryRegion
 // 示例值：
 func (builder *CountryRegionBuilder) MdLocalScript(mdLocalScript *Language) *CountryRegionBuilder {
 	builder.mdLocalScript = mdLocalScript
-	builder.mdLocalScriptFlag = true
+	builder.mdLocalScriptSet = true
 	return builder
 }
 
@@ -417,7 +417,7 @@ func (builder *CountryRegionBuilder) MdLocalScript(mdLocalScript *Language) *Cou
 // 示例值：
 func (builder *CountryRegionBuilder) MdWesternScript(mdWesternScript *Language) *CountryRegionBuilder {
 	builder.mdWesternScript = mdWesternScript
-	builder.mdWesternScriptFlag = true
+	builder.mdWesternScriptSet = true
 	return builder
 }
 
@@ -426,99 +426,99 @@ func (builder *CountryRegionBuilder) MdWesternScript(mdWesternScript *Language) 
 // 示例值：
 func (builder *CountryRegionBuilder) MdTimeZone(mdTimeZone []*TimeZone) *CountryRegionBuilder {
 	builder.mdTimeZone = mdTimeZone
-	builder.mdTimeZoneFlag = true
+	builder.mdTimeZoneSet = true
 	return builder
 }
 
 func (builder *CountryRegionBuilder) Build() *CountryRegion {
 	req := &CountryRegion{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.updateByFlag {
+	if builder.updateBySet {
 		req.UpdateBy = &builder.updateBy
 
 	}
-	if builder.createByFlag {
+	if builder.createBySet {
 		req.CreateBy = &builder.createBy
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.alpha3CodeFlag {
+	if builder.alpha3CodeSet {
 		req.Alpha3Code = &builder.alpha3Code
 
 	}
-	if builder.alpha2CodeFlag {
+	if builder.alpha2CodeSet {
 		req.Alpha2Code = &builder.alpha2Code
 
 	}
-	if builder.numericCodeFlag {
+	if builder.numericCodeSet {
 		req.NumericCode = &builder.numericCode
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.localScriptFlag {
+	if builder.localScriptSet {
 		req.LocalScript = &builder.localScript
 
 	}
-	if builder.westernScriptFlag {
+	if builder.westernScriptSet {
 		req.WesternScript = &builder.westernScript
 
 	}
-	if builder.mdmCodeFlag {
+	if builder.mdmCodeSet {
 		req.MdmCode = &builder.mdmCode
 
 	}
-	if builder.fullNameFlag {
+	if builder.fullNameSet {
 		req.FullName = builder.fullName
 	}
-	if builder.globalCodeFlag {
+	if builder.globalCodeSet {
 		req.GlobalCode = &builder.globalCode
 
 	}
-	if builder.timeZoneFlag {
+	if builder.timeZoneSet {
 		req.TimeZone = builder.timeZone
 	}
-	if builder.overseasFlag {
+	if builder.overseasSet {
 		req.Overseas = &builder.overseas
 
 	}
-	if builder.levelFlag {
+	if builder.levelSet {
 		req.Level = &builder.level
 
 	}
-	if builder.remarkFlag {
+	if builder.remarkSet {
 		req.Remark = &builder.remark
 
 	}
-	if builder.updateReasonFlag {
+	if builder.updateReasonSet {
 		req.UpdateReason = &builder.updateReason
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.continentsFlag {
+	if builder.continentsSet {
 		req.Continents = builder.continents
 	}
-	if builder.mdLocalScriptFlag {
+	if builder.mdLocalScriptSet {
 		req.MdLocalScript = builder.mdLocalScript
 	}
-	if builder.mdWesternScriptFlag {
+	if builder.mdWesternScriptSet {
 		req.MdWesternScript = builder.mdWesternScript
 	}
-	if builder.mdTimeZoneFlag {
+	if builder.mdTimeZoneSet {
 		req.MdTimeZone = builder.mdTimeZone
 	}
 	return req
@@ -531,11 +531,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -543,27 +543,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -577,11 +581,11 @@ type Enum struct {
 }
 
 type EnumBuilder struct {
-	value     string // 枚举值
-	valueFlag bool
+	value    string // 枚举值
+	valueSet bool
 
-	multilingualName     map[string]string // 多语言枚举名，结构：{"zh-CN":"中文", "en-US": "english"}
-	multilingualNameFlag bool
+	multilingualName    map[string]string // 多语言枚举名，结构：{"zh-CN":"中文", "en-US": "english"}
+	multilingualNameSet bool
 }
 
 func NewEnumBuilder() *EnumBuilder {
@@ -594,7 +598,7 @@ func NewEnumBuilder() *EnumBuilder {
 // 示例值：-
 func (builder *EnumBuilder) Value(value string) *EnumBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
@@ -603,17 +607,17 @@ func (builder *EnumBuilder) Value(value string) *EnumBuilder {
 // 示例值：
 func (builder *EnumBuilder) MultilingualName(multilingualName map[string]string) *EnumBuilder {
 	builder.multilingualName = multilingualName
-	builder.multilingualNameFlag = true
+	builder.multilingualNameSet = true
 	return builder
 }
 
 func (builder *EnumBuilder) Build() *Enum {
 	req := &Enum{}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
-	if builder.multilingualNameFlag {
+	if builder.multilingualNameSet {
 		req.MultilingualName = builder.multilingualName
 	}
 	return req
@@ -628,14 +632,14 @@ type Expression struct {
 }
 
 type ExpressionBuilder struct {
-	field     string // 字段名
-	fieldFlag bool
+	field    string // 字段名
+	fieldSet bool
 
-	operator     string // 运算符
-	operatorFlag bool
+	operator    string // 运算符
+	operatorSet bool
 
-	value     *Value // 字段值
-	valueFlag bool
+	value    *Value // 字段值
+	valueSet bool
 }
 
 func NewExpressionBuilder() *ExpressionBuilder {
@@ -648,7 +652,7 @@ func NewExpressionBuilder() *ExpressionBuilder {
 // 示例值：
 func (builder *ExpressionBuilder) Field(field string) *ExpressionBuilder {
 	builder.field = field
-	builder.fieldFlag = true
+	builder.fieldSet = true
 	return builder
 }
 
@@ -657,7 +661,7 @@ func (builder *ExpressionBuilder) Field(field string) *ExpressionBuilder {
 // 示例值：
 func (builder *ExpressionBuilder) Operator(operator string) *ExpressionBuilder {
 	builder.operator = operator
-	builder.operatorFlag = true
+	builder.operatorSet = true
 	return builder
 }
 
@@ -666,21 +670,21 @@ func (builder *ExpressionBuilder) Operator(operator string) *ExpressionBuilder {
 // 示例值：
 func (builder *ExpressionBuilder) Value(value *Value) *ExpressionBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *ExpressionBuilder) Build() *Expression {
 	req := &Expression{}
-	if builder.fieldFlag {
+	if builder.fieldSet {
 		req.Field = &builder.field
 
 	}
-	if builder.operatorFlag {
+	if builder.operatorSet {
 		req.Operator = &builder.operator
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = builder.value
 	}
 	return req
@@ -693,11 +697,11 @@ type Filter struct {
 }
 
 type FilterBuilder struct {
-	logic     string // 与、或条件
-	logicFlag bool
+	logic    string // 与、或条件
+	logicSet bool
 
-	expressions     []*Expression // 过滤条件
-	expressionsFlag bool
+	expressions    []*Expression // 过滤条件
+	expressionsSet bool
 }
 
 func NewFilterBuilder() *FilterBuilder {
@@ -710,7 +714,7 @@ func NewFilterBuilder() *FilterBuilder {
 // 示例值：
 func (builder *FilterBuilder) Logic(logic string) *FilterBuilder {
 	builder.logic = logic
-	builder.logicFlag = true
+	builder.logicSet = true
 	return builder
 }
 
@@ -719,17 +723,17 @@ func (builder *FilterBuilder) Logic(logic string) *FilterBuilder {
 // 示例值：
 func (builder *FilterBuilder) Expressions(expressions []*Expression) *FilterBuilder {
 	builder.expressions = expressions
-	builder.expressionsFlag = true
+	builder.expressionsSet = true
 	return builder
 }
 
 func (builder *FilterBuilder) Build() *Filter {
 	req := &Filter{}
-	if builder.logicFlag {
+	if builder.logicSet {
 		req.Logic = &builder.logic
 
 	}
-	if builder.expressionsFlag {
+	if builder.expressionsSet {
 		req.Expressions = builder.expressions
 	}
 	return req
@@ -744,14 +748,14 @@ type I18nString struct {
 }
 
 type I18nStringBuilder struct {
-	value     string // 字符串值
-	valueFlag bool
+	value    string // 字符串值
+	valueSet bool
 
-	multilingualValue     map[string]string // 多语言字符串
-	multilingualValueFlag bool
+	multilingualValue    map[string]string // 多语言字符串
+	multilingualValueSet bool
 
-	returnLanguage     string // 语言
-	returnLanguageFlag bool
+	returnLanguage    string // 语言
+	returnLanguageSet bool
 }
 
 func NewI18nStringBuilder() *I18nStringBuilder {
@@ -764,7 +768,7 @@ func NewI18nStringBuilder() *I18nStringBuilder {
 // 示例值：zh-name
 func (builder *I18nStringBuilder) Value(value string) *I18nStringBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
@@ -773,7 +777,7 @@ func (builder *I18nStringBuilder) Value(value string) *I18nStringBuilder {
 // 示例值：
 func (builder *I18nStringBuilder) MultilingualValue(multilingualValue map[string]string) *I18nStringBuilder {
 	builder.multilingualValue = multilingualValue
-	builder.multilingualValueFlag = true
+	builder.multilingualValueSet = true
 	return builder
 }
 
@@ -782,20 +786,20 @@ func (builder *I18nStringBuilder) MultilingualValue(multilingualValue map[string
 // 示例值：zh-CN
 func (builder *I18nStringBuilder) ReturnLanguage(returnLanguage string) *I18nStringBuilder {
 	builder.returnLanguage = returnLanguage
-	builder.returnLanguageFlag = true
+	builder.returnLanguageSet = true
 	return builder
 }
 
 func (builder *I18nStringBuilder) Build() *I18nString {
 	req := &I18nString{}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
-	if builder.multilingualValueFlag {
+	if builder.multilingualValueSet {
 		req.MultilingualValue = builder.multilingualValue
 	}
-	if builder.returnLanguageFlag {
+	if builder.returnLanguageSet {
 		req.ReturnLanguage = &builder.returnLanguage
 
 	}
@@ -831,44 +835,44 @@ type Language struct {
 }
 
 type LanguageBuilder struct {
-	id     string // 自增id（业务无需关心）
-	idFlag bool
+	id    string // 自增id（业务无需关心）
+	idSet bool
 
-	updateBy     string // 更新人
-	updateByFlag bool
+	updateBy    string // 更新人
+	updateBySet bool
 
-	createBy     string // 创建人
-	createByFlag bool
+	createBy    string // 创建人
+	createBySet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	ietfLanguageTag     string // IETF 编码
-	ietfLanguageTagFlag bool
+	ietfLanguageTag    string // IETF 编码
+	ietfLanguageTagSet bool
 
-	name     *I18nString // 名称
-	nameFlag bool
+	name    *I18nString // 名称
+	nameSet bool
 
-	enable     bool // 启用
-	enableFlag bool
+	enable    bool // 启用
+	enableSet bool
 
-	mdmCode     string // 主数据编码
-	mdmCodeFlag bool
+	mdmCode    string // 主数据编码
+	mdmCodeSet bool
 
-	status     string // 是否生效
-	statusFlag bool
+	status    string // 是否生效
+	statusSet bool
 
-	systemStatus     string // 展示状态
-	systemStatusFlag bool
+	systemStatus    string // 展示状态
+	systemStatusSet bool
 
-	remark     string // 备注
-	remarkFlag bool
+	remark    string // 备注
+	remarkSet bool
 
-	updateReason     string // 更新原因
-	updateReasonFlag bool
+	updateReason    string // 更新原因
+	updateReasonSet bool
 }
 
 func NewLanguageBuilder() *LanguageBuilder {
@@ -881,7 +885,7 @@ func NewLanguageBuilder() *LanguageBuilder {
 // 示例值：0
 func (builder *LanguageBuilder) Id(id string) *LanguageBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -890,7 +894,7 @@ func (builder *LanguageBuilder) Id(id string) *LanguageBuilder {
 // 示例值：-
 func (builder *LanguageBuilder) UpdateBy(updateBy string) *LanguageBuilder {
 	builder.updateBy = updateBy
-	builder.updateByFlag = true
+	builder.updateBySet = true
 	return builder
 }
 
@@ -899,7 +903,7 @@ func (builder *LanguageBuilder) UpdateBy(updateBy string) *LanguageBuilder {
 // 示例值：-
 func (builder *LanguageBuilder) CreateBy(createBy string) *LanguageBuilder {
 	builder.createBy = createBy
-	builder.createByFlag = true
+	builder.createBySet = true
 	return builder
 }
 
@@ -908,7 +912,7 @@ func (builder *LanguageBuilder) CreateBy(createBy string) *LanguageBuilder {
 // 示例值：-
 func (builder *LanguageBuilder) UpdateTime(updateTime string) *LanguageBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -917,7 +921,7 @@ func (builder *LanguageBuilder) UpdateTime(updateTime string) *LanguageBuilder {
 // 示例值：-
 func (builder *LanguageBuilder) CreateTime(createTime string) *LanguageBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -926,7 +930,7 @@ func (builder *LanguageBuilder) CreateTime(createTime string) *LanguageBuilder {
 // 示例值：-
 func (builder *LanguageBuilder) IetfLanguageTag(ietfLanguageTag string) *LanguageBuilder {
 	builder.ietfLanguageTag = ietfLanguageTag
-	builder.ietfLanguageTagFlag = true
+	builder.ietfLanguageTagSet = true
 	return builder
 }
 
@@ -935,7 +939,7 @@ func (builder *LanguageBuilder) IetfLanguageTag(ietfLanguageTag string) *Languag
 // 示例值：
 func (builder *LanguageBuilder) Name(name *I18nString) *LanguageBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -944,7 +948,7 @@ func (builder *LanguageBuilder) Name(name *I18nString) *LanguageBuilder {
 // 示例值：
 func (builder *LanguageBuilder) Enable(enable bool) *LanguageBuilder {
 	builder.enable = enable
-	builder.enableFlag = true
+	builder.enableSet = true
 	return builder
 }
 
@@ -953,7 +957,7 @@ func (builder *LanguageBuilder) Enable(enable bool) *LanguageBuilder {
 // 示例值：-
 func (builder *LanguageBuilder) MdmCode(mdmCode string) *LanguageBuilder {
 	builder.mdmCode = mdmCode
-	builder.mdmCodeFlag = true
+	builder.mdmCodeSet = true
 	return builder
 }
 
@@ -962,7 +966,7 @@ func (builder *LanguageBuilder) MdmCode(mdmCode string) *LanguageBuilder {
 // 示例值：-
 func (builder *LanguageBuilder) Status(status string) *LanguageBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -971,7 +975,7 @@ func (builder *LanguageBuilder) Status(status string) *LanguageBuilder {
 // 示例值：-
 func (builder *LanguageBuilder) SystemStatus(systemStatus string) *LanguageBuilder {
 	builder.systemStatus = systemStatus
-	builder.systemStatusFlag = true
+	builder.systemStatusSet = true
 	return builder
 }
 
@@ -980,7 +984,7 @@ func (builder *LanguageBuilder) SystemStatus(systemStatus string) *LanguageBuild
 // 示例值：-
 func (builder *LanguageBuilder) Remark(remark string) *LanguageBuilder {
 	builder.remark = remark
-	builder.remarkFlag = true
+	builder.remarkSet = true
 	return builder
 }
 
@@ -989,60 +993,60 @@ func (builder *LanguageBuilder) Remark(remark string) *LanguageBuilder {
 // 示例值：-
 func (builder *LanguageBuilder) UpdateReason(updateReason string) *LanguageBuilder {
 	builder.updateReason = updateReason
-	builder.updateReasonFlag = true
+	builder.updateReasonSet = true
 	return builder
 }
 
 func (builder *LanguageBuilder) Build() *Language {
 	req := &Language{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.updateByFlag {
+	if builder.updateBySet {
 		req.UpdateBy = &builder.updateBy
 
 	}
-	if builder.createByFlag {
+	if builder.createBySet {
 		req.CreateBy = &builder.createBy
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.ietfLanguageTagFlag {
+	if builder.ietfLanguageTagSet {
 		req.IetfLanguageTag = &builder.ietfLanguageTag
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.enableFlag {
+	if builder.enableSet {
 		req.Enable = &builder.enable
 
 	}
-	if builder.mdmCodeFlag {
+	if builder.mdmCodeSet {
 		req.MdmCode = &builder.mdmCode
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.systemStatusFlag {
+	if builder.systemStatusSet {
 		req.SystemStatus = &builder.systemStatus
 
 	}
-	if builder.remarkFlag {
+	if builder.remarkSet {
 		req.Remark = &builder.remark
 
 	}
-	if builder.updateReasonFlag {
+	if builder.updateReasonSet {
 		req.UpdateReason = &builder.updateReason
 
 	}
@@ -1068,29 +1072,29 @@ type Major struct {
 }
 
 type MajorBuilder struct {
-	mdmCode     string // 主数据编码
-	mdmCodeFlag bool
+	mdmCode    string // 主数据编码
+	mdmCodeSet bool
 
-	name     *I18nString // 名称
-	nameFlag bool
+	name    *I18nString // 名称
+	nameSet bool
 
-	superiorMajor     string // 父级专业
-	superiorMajorFlag bool
+	superiorMajor    string // 父级专业
+	superiorMajorSet bool
 
-	degree     string // 学历
-	degreeFlag bool
+	degree    string // 学历
+	degreeSet bool
 
-	level     string // 层级
-	levelFlag bool
+	level    string // 层级
+	levelSet bool
 
-	status     string // 状态
-	statusFlag bool
+	status    string // 状态
+	statusSet bool
 
-	remark     string // 备注
-	remarkFlag bool
+	remark    string // 备注
+	remarkSet bool
 
-	orderCode     string // 排序码
-	orderCodeFlag bool
+	orderCode    string // 排序码
+	orderCodeSet bool
 }
 
 func NewMajorBuilder() *MajorBuilder {
@@ -1103,7 +1107,7 @@ func NewMajorBuilder() *MajorBuilder {
 // 示例值：MDMJ00000001
 func (builder *MajorBuilder) MdmCode(mdmCode string) *MajorBuilder {
 	builder.mdmCode = mdmCode
-	builder.mdmCodeFlag = true
+	builder.mdmCodeSet = true
 	return builder
 }
 
@@ -1112,7 +1116,7 @@ func (builder *MajorBuilder) MdmCode(mdmCode string) *MajorBuilder {
 // 示例值：name
 func (builder *MajorBuilder) Name(name *I18nString) *MajorBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1121,7 +1125,7 @@ func (builder *MajorBuilder) Name(name *I18nString) *MajorBuilder {
 // 示例值：superior_major
 func (builder *MajorBuilder) SuperiorMajor(superiorMajor string) *MajorBuilder {
 	builder.superiorMajor = superiorMajor
-	builder.superiorMajorFlag = true
+	builder.superiorMajorSet = true
 	return builder
 }
 
@@ -1130,7 +1134,7 @@ func (builder *MajorBuilder) SuperiorMajor(superiorMajor string) *MajorBuilder {
 // 示例值：1
 func (builder *MajorBuilder) Degree(degree string) *MajorBuilder {
 	builder.degree = degree
-	builder.degreeFlag = true
+	builder.degreeSet = true
 	return builder
 }
 
@@ -1139,7 +1143,7 @@ func (builder *MajorBuilder) Degree(degree string) *MajorBuilder {
 // 示例值：1
 func (builder *MajorBuilder) Level(level string) *MajorBuilder {
 	builder.level = level
-	builder.levelFlag = true
+	builder.levelSet = true
 	return builder
 }
 
@@ -1148,7 +1152,7 @@ func (builder *MajorBuilder) Level(level string) *MajorBuilder {
 // 示例值：1
 func (builder *MajorBuilder) Status(status string) *MajorBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -1157,7 +1161,7 @@ func (builder *MajorBuilder) Status(status string) *MajorBuilder {
 // 示例值：remark
 func (builder *MajorBuilder) Remark(remark string) *MajorBuilder {
 	builder.remark = remark
-	builder.remarkFlag = true
+	builder.remarkSet = true
 	return builder
 }
 
@@ -1166,40 +1170,40 @@ func (builder *MajorBuilder) Remark(remark string) *MajorBuilder {
 // 示例值：1
 func (builder *MajorBuilder) OrderCode(orderCode string) *MajorBuilder {
 	builder.orderCode = orderCode
-	builder.orderCodeFlag = true
+	builder.orderCodeSet = true
 	return builder
 }
 
 func (builder *MajorBuilder) Build() *Major {
 	req := &Major{}
-	if builder.mdmCodeFlag {
+	if builder.mdmCodeSet {
 		req.MdmCode = &builder.mdmCode
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.superiorMajorFlag {
+	if builder.superiorMajorSet {
 		req.SuperiorMajor = &builder.superiorMajor
 
 	}
-	if builder.degreeFlag {
+	if builder.degreeSet {
 		req.Degree = &builder.degree
 
 	}
-	if builder.levelFlag {
+	if builder.levelSet {
 		req.Level = &builder.level
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.remarkFlag {
+	if builder.remarkSet {
 		req.Remark = &builder.remark
 
 	}
-	if builder.orderCodeFlag {
+	if builder.orderCodeSet {
 		req.OrderCode = &builder.orderCode
 
 	}
@@ -1213,11 +1217,11 @@ type Sort struct {
 }
 
 type SortBuilder struct {
-	field     string // 字段名
-	fieldFlag bool
+	field    string // 字段名
+	fieldSet bool
 
-	desc     bool // 是否倒序
-	descFlag bool
+	desc    bool // 是否倒序
+	descSet bool
 }
 
 func NewSortBuilder() *SortBuilder {
@@ -1230,7 +1234,7 @@ func NewSortBuilder() *SortBuilder {
 // 示例值：
 func (builder *SortBuilder) Field(field string) *SortBuilder {
 	builder.field = field
-	builder.fieldFlag = true
+	builder.fieldSet = true
 	return builder
 }
 
@@ -1239,17 +1243,17 @@ func (builder *SortBuilder) Field(field string) *SortBuilder {
 // 示例值：
 func (builder *SortBuilder) Desc(desc bool) *SortBuilder {
 	builder.desc = desc
-	builder.descFlag = true
+	builder.descSet = true
 	return builder
 }
 
 func (builder *SortBuilder) Build() *Sort {
 	req := &Sort{}
-	if builder.fieldFlag {
+	if builder.fieldSet {
 		req.Field = &builder.field
 
 	}
-	if builder.descFlag {
+	if builder.descSet {
 		req.Desc = &builder.desc
 
 	}
@@ -1281,38 +1285,38 @@ type TimeZone struct {
 }
 
 type TimeZoneBuilder struct {
-	updateBy     string // 更新人
-	updateByFlag bool
+	updateBy    string // 更新人
+	updateBySet bool
 
-	createBy     string // 创建人
-	createByFlag bool
+	createBy    string // 创建人
+	createBySet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	timeZoneId     string // 编码
-	timeZoneIdFlag bool
+	timeZoneId    string // 编码
+	timeZoneIdSet bool
 
-	name     *Common // 名称
-	nameFlag bool
+	name    *Common // 名称
+	nameSet bool
 
-	utcOffset     string // UTC 时区偏移量
-	utcOffsetFlag bool
+	utcOffset    string // UTC 时区偏移量
+	utcOffsetSet bool
 
-	mdmCode     string // 主数据编码（系统生成的唯一永久代码，格式为“MDTZ+8位数字”）
-	mdmCodeFlag bool
+	mdmCode    string // 主数据编码（系统生成的唯一永久代码，格式为“MDTZ+8位数字”）
+	mdmCodeSet bool
 
-	remark     string // 备注
-	remarkFlag bool
+	remark    string // 备注
+	remarkSet bool
 
-	updateReason     string // 更新原因
-	updateReasonFlag bool
+	updateReason    string // 更新原因
+	updateReasonSet bool
 
-	status     string // 是否生效
-	statusFlag bool
+	status    string // 是否生效
+	statusSet bool
 }
 
 func NewTimeZoneBuilder() *TimeZoneBuilder {
@@ -1325,7 +1329,7 @@ func NewTimeZoneBuilder() *TimeZoneBuilder {
 // 示例值：-
 func (builder *TimeZoneBuilder) UpdateBy(updateBy string) *TimeZoneBuilder {
 	builder.updateBy = updateBy
-	builder.updateByFlag = true
+	builder.updateBySet = true
 	return builder
 }
 
@@ -1334,7 +1338,7 @@ func (builder *TimeZoneBuilder) UpdateBy(updateBy string) *TimeZoneBuilder {
 // 示例值：-
 func (builder *TimeZoneBuilder) CreateBy(createBy string) *TimeZoneBuilder {
 	builder.createBy = createBy
-	builder.createByFlag = true
+	builder.createBySet = true
 	return builder
 }
 
@@ -1343,7 +1347,7 @@ func (builder *TimeZoneBuilder) CreateBy(createBy string) *TimeZoneBuilder {
 // 示例值：-
 func (builder *TimeZoneBuilder) UpdateTime(updateTime string) *TimeZoneBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -1352,7 +1356,7 @@ func (builder *TimeZoneBuilder) UpdateTime(updateTime string) *TimeZoneBuilder {
 // 示例值：-
 func (builder *TimeZoneBuilder) CreateTime(createTime string) *TimeZoneBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -1361,7 +1365,7 @@ func (builder *TimeZoneBuilder) CreateTime(createTime string) *TimeZoneBuilder {
 // 示例值：-
 func (builder *TimeZoneBuilder) TimeZoneId(timeZoneId string) *TimeZoneBuilder {
 	builder.timeZoneId = timeZoneId
-	builder.timeZoneIdFlag = true
+	builder.timeZoneIdSet = true
 	return builder
 }
 
@@ -1370,7 +1374,7 @@ func (builder *TimeZoneBuilder) TimeZoneId(timeZoneId string) *TimeZoneBuilder {
 // 示例值：
 func (builder *TimeZoneBuilder) Name(name *Common) *TimeZoneBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1379,7 +1383,7 @@ func (builder *TimeZoneBuilder) Name(name *Common) *TimeZoneBuilder {
 // 示例值：-
 func (builder *TimeZoneBuilder) UtcOffset(utcOffset string) *TimeZoneBuilder {
 	builder.utcOffset = utcOffset
-	builder.utcOffsetFlag = true
+	builder.utcOffsetSet = true
 	return builder
 }
 
@@ -1388,7 +1392,7 @@ func (builder *TimeZoneBuilder) UtcOffset(utcOffset string) *TimeZoneBuilder {
 // 示例值：-
 func (builder *TimeZoneBuilder) MdmCode(mdmCode string) *TimeZoneBuilder {
 	builder.mdmCode = mdmCode
-	builder.mdmCodeFlag = true
+	builder.mdmCodeSet = true
 	return builder
 }
 
@@ -1397,7 +1401,7 @@ func (builder *TimeZoneBuilder) MdmCode(mdmCode string) *TimeZoneBuilder {
 // 示例值：-
 func (builder *TimeZoneBuilder) Remark(remark string) *TimeZoneBuilder {
 	builder.remark = remark
-	builder.remarkFlag = true
+	builder.remarkSet = true
 	return builder
 }
 
@@ -1406,7 +1410,7 @@ func (builder *TimeZoneBuilder) Remark(remark string) *TimeZoneBuilder {
 // 示例值：-
 func (builder *TimeZoneBuilder) UpdateReason(updateReason string) *TimeZoneBuilder {
 	builder.updateReason = updateReason
-	builder.updateReasonFlag = true
+	builder.updateReasonSet = true
 	return builder
 }
 
@@ -1415,52 +1419,52 @@ func (builder *TimeZoneBuilder) UpdateReason(updateReason string) *TimeZoneBuild
 // 示例值：-
 func (builder *TimeZoneBuilder) Status(status string) *TimeZoneBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *TimeZoneBuilder) Build() *TimeZone {
 	req := &TimeZone{}
-	if builder.updateByFlag {
+	if builder.updateBySet {
 		req.UpdateBy = &builder.updateBy
 
 	}
-	if builder.createByFlag {
+	if builder.createBySet {
 		req.CreateBy = &builder.createBy
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.timeZoneIdFlag {
+	if builder.timeZoneIdSet {
 		req.TimeZoneId = &builder.timeZoneId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.utcOffsetFlag {
+	if builder.utcOffsetSet {
 		req.UtcOffset = &builder.utcOffset
 
 	}
-	if builder.mdmCodeFlag {
+	if builder.mdmCodeSet {
 		req.MdmCode = &builder.mdmCode
 
 	}
-	if builder.remarkFlag {
+	if builder.remarkSet {
 		req.Remark = &builder.remark
 
 	}
-	if builder.updateReasonFlag {
+	if builder.updateReasonSet {
 		req.UpdateReason = &builder.updateReason
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
@@ -1480,20 +1484,20 @@ type Value struct {
 }
 
 type ValueBuilder struct {
-	stringValue     string // 字符串值
-	stringValueFlag bool
+	stringValue    string // 字符串值
+	stringValueSet bool
 
-	boolValue     bool // 布尔值
-	boolValueFlag bool
+	boolValue    bool // 布尔值
+	boolValueSet bool
 
-	intValue     string // 整形值
-	intValueFlag bool
+	intValue    string // 整形值
+	intValueSet bool
 
-	stringListValue     []string // 字符串列表值
-	stringListValueFlag bool
+	stringListValue    []string // 字符串列表值
+	stringListValueSet bool
 
-	intListValue     []string // 整形列表值
-	intListValueFlag bool
+	intListValue    []string // 整形列表值
+	intListValueSet bool
 }
 
 func NewValueBuilder() *ValueBuilder {
@@ -1506,7 +1510,7 @@ func NewValueBuilder() *ValueBuilder {
 // 示例值：
 func (builder *ValueBuilder) StringValue(stringValue string) *ValueBuilder {
 	builder.stringValue = stringValue
-	builder.stringValueFlag = true
+	builder.stringValueSet = true
 	return builder
 }
 
@@ -1515,7 +1519,7 @@ func (builder *ValueBuilder) StringValue(stringValue string) *ValueBuilder {
 // 示例值：
 func (builder *ValueBuilder) BoolValue(boolValue bool) *ValueBuilder {
 	builder.boolValue = boolValue
-	builder.boolValueFlag = true
+	builder.boolValueSet = true
 	return builder
 }
 
@@ -1524,7 +1528,7 @@ func (builder *ValueBuilder) BoolValue(boolValue bool) *ValueBuilder {
 // 示例值：
 func (builder *ValueBuilder) IntValue(intValue string) *ValueBuilder {
 	builder.intValue = intValue
-	builder.intValueFlag = true
+	builder.intValueSet = true
 	return builder
 }
 
@@ -1533,7 +1537,7 @@ func (builder *ValueBuilder) IntValue(intValue string) *ValueBuilder {
 // 示例值：
 func (builder *ValueBuilder) StringListValue(stringListValue []string) *ValueBuilder {
 	builder.stringListValue = stringListValue
-	builder.stringListValueFlag = true
+	builder.stringListValueSet = true
 	return builder
 }
 
@@ -1542,36 +1546,36 @@ func (builder *ValueBuilder) StringListValue(stringListValue []string) *ValueBui
 // 示例值：
 func (builder *ValueBuilder) IntListValue(intListValue []string) *ValueBuilder {
 	builder.intListValue = intListValue
-	builder.intListValueFlag = true
+	builder.intListValueSet = true
 	return builder
 }
 
 func (builder *ValueBuilder) Build() *Value {
 	req := &Value{}
-	if builder.stringValueFlag {
+	if builder.stringValueSet {
 		req.StringValue = &builder.stringValue
 
 	}
-	if builder.boolValueFlag {
+	if builder.boolValueSet {
 		req.BoolValue = &builder.boolValue
 
 	}
-	if builder.intValueFlag {
+	if builder.intValueSet {
 		req.IntValue = &builder.intValue
 
 	}
-	if builder.stringListValueFlag {
+	if builder.stringListValueSet {
 		req.StringListValue = builder.stringListValue
 	}
-	if builder.intListValueFlag {
+	if builder.intListValueSet {
 		req.IntListValue = builder.intListValue
 	}
 	return req
 }
 
 type GetBatchCountryRegionReqBodyBuilder struct {
-	common     *Common // common
-	commonFlag bool
+	common    *Common // common
+	commonSet bool
 }
 
 func NewGetBatchCountryRegionReqBodyBuilder() *GetBatchCountryRegionReqBodyBuilder {
@@ -1585,8 +1589,8 @@ func (builder *GetBatchCountryRegionReqBodyBuilder) Build() *GetBatchCountryRegi
 }
 
 type GetBatchCountryRegionPathReqBodyBuilder struct {
-	common     *Common
-	commonFlag bool
+	common    *Common
+	commonSet bool
 }
 
 func NewGetBatchCountryRegionPathReqBodyBuilder() *GetBatchCountryRegionPathReqBodyBuilder {
@@ -1681,11 +1685,11 @@ func (resp *GetBatchCountryRegionResp) Success() bool {
 }
 
 type ListCountryRegionReqBodyBuilder struct {
-	filter     *Filter // filter
-	filterFlag bool
+	filter    *Filter // filter
+	filterSet bool
 
-	common     *Common // common
-	commonFlag bool
+	common    *Common // common
+	commonSet bool
 }
 
 func NewListCountryRegionReqBodyBuilder() *ListCountryRegionReqBodyBuilder {
@@ -1695,26 +1699,26 @@ func NewListCountryRegionReqBodyBuilder() *ListCountryRegionReqBodyBuilder {
 
 // filter
 //
-// 示例值：
+//示例值：
 func (builder *ListCountryRegionReqBodyBuilder) Filter(filter *Filter) *ListCountryRegionReqBodyBuilder {
 	builder.filter = filter
-	builder.filterFlag = true
+	builder.filterSet = true
 	return builder
 }
 
 func (builder *ListCountryRegionReqBodyBuilder) Build() *ListCountryRegionReqBody {
 	req := &ListCountryRegionReqBody{}
-	if builder.filterFlag {
+	if builder.filterSet {
 		req.Filter = builder.filter
 	}
 	return req
 }
 
 type ListCountryRegionPathReqBodyBuilder struct {
-	filter     *Filter
-	filterFlag bool
-	common     *Common
-	commonFlag bool
+	filter    *Filter
+	filterSet bool
+	common    *Common
+	commonSet bool
 }
 
 func NewListCountryRegionPathReqBodyBuilder() *ListCountryRegionPathReqBodyBuilder {
@@ -1727,13 +1731,13 @@ func NewListCountryRegionPathReqBodyBuilder() *ListCountryRegionPathReqBodyBuild
 // 示例值：
 func (builder *ListCountryRegionPathReqBodyBuilder) Filter(filter *Filter) *ListCountryRegionPathReqBodyBuilder {
 	builder.filter = filter
-	builder.filterFlag = true
+	builder.filterSet = true
 	return builder
 }
 
 func (builder *ListCountryRegionPathReqBodyBuilder) Build() (*ListCountryRegionReqBody, error) {
 	req := &ListCountryRegionReqBody{}
-	if builder.filterFlag {
+	if builder.filterSet {
 		req.Filter = builder.filter
 	}
 	return req, nil
@@ -1797,6 +1801,8 @@ func (builder *ListCountryRegionReqBuilder) ReturnCount(returnCount bool) *ListC
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *ListCountryRegionReqBuilder) PageToken(pageToken string) *ListCountryRegionReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))

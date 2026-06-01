@@ -31,8 +31,8 @@ func main() {
 		TableId("tblsRc9GRRXKqhvW").
 		ViewId("vewOVMEXPF").
 		TextFieldAsArray(true).
-		PageToken("fldwJ4YrtB").
 		PageSize(20).
+		PageToken("fldwJ4YrtB").
 		Build()
 	// 发起请求
 	resp, err := client.Bitable.V1.AppTableField.List(context.Background(), req)

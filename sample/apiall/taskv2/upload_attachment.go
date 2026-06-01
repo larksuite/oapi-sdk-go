@@ -38,6 +38,7 @@ func main() {
 			ResourceType("task").
 			ResourceId("fe96108d-b004-4a47-b2f8-6886e758b3a5").
 			File(file).
+			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

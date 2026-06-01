@@ -35,6 +35,7 @@ func main() {
 		StartTime("1631777271").
 		EndTime("1631777271").
 		UserIdType("user_id").
+		OpUserId("ou_7d8a6e6df7621556ce0d21922b676706ccs").
 		Build()
 	// 发起请求
 	resp, err := client.Calendar.V4.CalendarEvent.List(context.Background(), req)

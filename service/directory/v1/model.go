@@ -196,14 +196,14 @@ type AbnormalRecord struct {
 }
 
 type AbnormalRecordBuilder struct {
-	id     string // 异常ID
-	idFlag bool
+	id    string // 异常ID
+	idSet bool
 
-	rowError     int // 行级异常
-	rowErrorFlag bool
+	rowError    int // 行级异常
+	rowErrorSet bool
 
-	fieldErrors     map[string]int // 列级异常
-	fieldErrorsFlag bool
+	fieldErrors    map[string]int // 列级异常
+	fieldErrorsSet bool
 }
 
 func NewAbnormalRecordBuilder() *AbnormalRecordBuilder {
@@ -216,7 +216,7 @@ func NewAbnormalRecordBuilder() *AbnormalRecordBuilder {
 // 示例值：eedasfwe
 func (builder *AbnormalRecordBuilder) Id(id string) *AbnormalRecordBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -225,7 +225,7 @@ func (builder *AbnormalRecordBuilder) Id(id string) *AbnormalRecordBuilder {
 // 示例值：
 func (builder *AbnormalRecordBuilder) RowError(rowError int) *AbnormalRecordBuilder {
 	builder.rowError = rowError
-	builder.rowErrorFlag = true
+	builder.rowErrorSet = true
 	return builder
 }
 
@@ -234,21 +234,21 @@ func (builder *AbnormalRecordBuilder) RowError(rowError int) *AbnormalRecordBuil
 // 示例值：
 func (builder *AbnormalRecordBuilder) FieldErrors(fieldErrors map[string]int) *AbnormalRecordBuilder {
 	builder.fieldErrors = fieldErrors
-	builder.fieldErrorsFlag = true
+	builder.fieldErrorsSet = true
 	return builder
 }
 
 func (builder *AbnormalRecordBuilder) Build() *AbnormalRecord {
 	req := &AbnormalRecord{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.rowErrorFlag {
+	if builder.rowErrorSet {
 		req.RowError = &builder.rowError
 
 	}
-	if builder.fieldErrorsFlag {
+	if builder.fieldErrorsSet {
 		req.FieldErrors = builder.fieldErrors
 	}
 	return req
@@ -261,11 +261,11 @@ type AddCollaborationRule struct {
 }
 
 type AddCollaborationRuleBuilder struct {
-	subjects     *CollaborationRuleEntities // 实体数量之和需要小于100
-	subjectsFlag bool
+	subjects    *CollaborationRuleEntities // 实体数量之和需要小于100
+	subjectsSet bool
 
-	objects     *CollaborationRuleEntities // 实体数量之和需要小于100
-	objectsFlag bool
+	objects    *CollaborationRuleEntities // 实体数量之和需要小于100
+	objectsSet bool
 }
 
 func NewAddCollaborationRuleBuilder() *AddCollaborationRuleBuilder {
@@ -278,7 +278,7 @@ func NewAddCollaborationRuleBuilder() *AddCollaborationRuleBuilder {
 // 示例值：
 func (builder *AddCollaborationRuleBuilder) Subjects(subjects *CollaborationRuleEntities) *AddCollaborationRuleBuilder {
 	builder.subjects = subjects
-	builder.subjectsFlag = true
+	builder.subjectsSet = true
 	return builder
 }
 
@@ -287,16 +287,16 @@ func (builder *AddCollaborationRuleBuilder) Subjects(subjects *CollaborationRule
 // 示例值：
 func (builder *AddCollaborationRuleBuilder) Objects(objects *CollaborationRuleEntities) *AddCollaborationRuleBuilder {
 	builder.objects = objects
-	builder.objectsFlag = true
+	builder.objectsSet = true
 	return builder
 }
 
 func (builder *AddCollaborationRuleBuilder) Build() *AddCollaborationRule {
 	req := &AddCollaborationRule{}
-	if builder.subjectsFlag {
+	if builder.subjectsSet {
 		req.Subjects = builder.subjects
 	}
-	if builder.objectsFlag {
+	if builder.objectsSet {
 		req.Objects = builder.objects
 	}
 	return req
@@ -315,20 +315,20 @@ type AddVisibleAssistRule struct {
 }
 
 type AddVisibleAssistRuleBuilder struct {
-	assistRuleType     int // 规则集类型
-	assistRuleTypeFlag bool
+	assistRuleType    int // 规则集类型
+	assistRuleTypeSet bool
 
-	subjects     []*EntityInfo // 规则主体
-	subjectsFlag bool
+	subjects    []*EntityInfo // 规则主体
+	subjectsSet bool
 
-	objects     []*EntityInfo // 规则客体，类型只能为部门、用户、单位。不能为用户组
-	objectsFlag bool
+	objects    []*EntityInfo // 规则客体，类型只能为部门、用户、单位。不能为用户组
+	objectsSet bool
 
-	effect     int // 权限操作
-	effectFlag bool
+	effect    int // 权限操作
+	effectSet bool
 
-	matchCondition     int // 匹配条件
-	matchConditionFlag bool
+	matchCondition    int // 匹配条件
+	matchConditionSet bool
 }
 
 func NewAddVisibleAssistRuleBuilder() *AddVisibleAssistRuleBuilder {
@@ -341,7 +341,7 @@ func NewAddVisibleAssistRuleBuilder() *AddVisibleAssistRuleBuilder {
 // 示例值：1
 func (builder *AddVisibleAssistRuleBuilder) AssistRuleType(assistRuleType int) *AddVisibleAssistRuleBuilder {
 	builder.assistRuleType = assistRuleType
-	builder.assistRuleTypeFlag = true
+	builder.assistRuleTypeSet = true
 	return builder
 }
 
@@ -350,7 +350,7 @@ func (builder *AddVisibleAssistRuleBuilder) AssistRuleType(assistRuleType int) *
 // 示例值：
 func (builder *AddVisibleAssistRuleBuilder) Subjects(subjects []*EntityInfo) *AddVisibleAssistRuleBuilder {
 	builder.subjects = subjects
-	builder.subjectsFlag = true
+	builder.subjectsSet = true
 	return builder
 }
 
@@ -359,7 +359,7 @@ func (builder *AddVisibleAssistRuleBuilder) Subjects(subjects []*EntityInfo) *Ad
 // 示例值：
 func (builder *AddVisibleAssistRuleBuilder) Objects(objects []*EntityInfo) *AddVisibleAssistRuleBuilder {
 	builder.objects = objects
-	builder.objectsFlag = true
+	builder.objectsSet = true
 	return builder
 }
 
@@ -368,7 +368,7 @@ func (builder *AddVisibleAssistRuleBuilder) Objects(objects []*EntityInfo) *AddV
 // 示例值：1
 func (builder *AddVisibleAssistRuleBuilder) Effect(effect int) *AddVisibleAssistRuleBuilder {
 	builder.effect = effect
-	builder.effectFlag = true
+	builder.effectSet = true
 	return builder
 }
 
@@ -377,27 +377,27 @@ func (builder *AddVisibleAssistRuleBuilder) Effect(effect int) *AddVisibleAssist
 // 示例值：
 func (builder *AddVisibleAssistRuleBuilder) MatchCondition(matchCondition int) *AddVisibleAssistRuleBuilder {
 	builder.matchCondition = matchCondition
-	builder.matchConditionFlag = true
+	builder.matchConditionSet = true
 	return builder
 }
 
 func (builder *AddVisibleAssistRuleBuilder) Build() *AddVisibleAssistRule {
 	req := &AddVisibleAssistRule{}
-	if builder.assistRuleTypeFlag {
+	if builder.assistRuleTypeSet {
 		req.AssistRuleType = &builder.assistRuleType
 
 	}
-	if builder.subjectsFlag {
+	if builder.subjectsSet {
 		req.Subjects = builder.subjects
 	}
-	if builder.objectsFlag {
+	if builder.objectsSet {
 		req.Objects = builder.objects
 	}
-	if builder.effectFlag {
+	if builder.effectSet {
 		req.Effect = &builder.effect
 
 	}
-	if builder.matchConditionFlag {
+	if builder.matchConditionSet {
 		req.MatchCondition = &builder.matchCondition
 
 	}
@@ -445,62 +445,62 @@ type Address struct {
 }
 
 type AddressBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	tenantId     string // 租户ID
-	tenantIdFlag bool
+	tenantId    string // 租户ID
+	tenantIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	isDeleted     bool // 是否删除
-	isDeletedFlag bool
+	isDeleted    bool // 是否删除
+	isDeletedSet bool
 
-	postCode     string // 邮编
-	postCodeFlag bool
+	postCode    string // 邮编
+	postCodeSet bool
 
-	country     string // 国家
-	countryFlag bool
+	country    string // 国家
+	countrySet bool
 
-	province     string // 省份
-	provinceFlag bool
+	province    string // 省份
+	provinceSet bool
 
-	city     string // 省份
-	cityFlag bool
+	city    string // 省份
+	citySet bool
 
-	county     string // 区县
-	countyFlag bool
+	county    string // 区县
+	countySet bool
 
-	types     []string // 地址类型
-	typesFlag bool
+	types    []string // 地址类型
+	typesSet bool
 
-	placeId     string // 地点
-	placeIdFlag bool
+	placeId    string // 地点
+	placeIdSet bool
 
-	isMain     bool // 是否主要地址
-	isMainFlag bool
+	isMain    bool // 是否主要地址
+	isMainSet bool
 
-	isPublic     bool // 是否公开地址
-	isPublicFlag bool
+	isPublic    bool // 是否公开地址
+	isPublicSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	creatorId     string // 创建人
-	creatorIdFlag bool
+	creatorId    string // 创建人
+	creatorIdSet bool
 
-	updatorId     string // 更新人
-	updatorIdFlag bool
+	updatorId    string // 更新人
+	updatorIdSet bool
 
-	externalId     string // 外部ID
-	externalIdFlag bool
+	externalId    string // 外部ID
+	externalIdSet bool
 }
 
 func NewAddressBuilder() *AddressBuilder {
@@ -513,7 +513,7 @@ func NewAddressBuilder() *AddressBuilder {
 // 示例值：123456
 func (builder *AddressBuilder) Id(id string) *AddressBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -522,7 +522,7 @@ func (builder *AddressBuilder) Id(id string) *AddressBuilder {
 // 示例值：1
 func (builder *AddressBuilder) TenantId(tenantId string) *AddressBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -531,7 +531,7 @@ func (builder *AddressBuilder) TenantId(tenantId string) *AddressBuilder {
 // 示例值：
 func (builder *AddressBuilder) Name(name *I18nText) *AddressBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -540,7 +540,7 @@ func (builder *AddressBuilder) Name(name *I18nText) *AddressBuilder {
 // 示例值：
 func (builder *AddressBuilder) IsEnabled(isEnabled bool) *AddressBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -549,7 +549,7 @@ func (builder *AddressBuilder) IsEnabled(isEnabled bool) *AddressBuilder {
 // 示例值：
 func (builder *AddressBuilder) IsDeleted(isDeleted bool) *AddressBuilder {
 	builder.isDeleted = isDeleted
-	builder.isDeletedFlag = true
+	builder.isDeletedSet = true
 	return builder
 }
 
@@ -558,7 +558,7 @@ func (builder *AddressBuilder) IsDeleted(isDeleted bool) *AddressBuilder {
 // 示例值：123456
 func (builder *AddressBuilder) PostCode(postCode string) *AddressBuilder {
 	builder.postCode = postCode
-	builder.postCodeFlag = true
+	builder.postCodeSet = true
 	return builder
 }
 
@@ -567,7 +567,7 @@ func (builder *AddressBuilder) PostCode(postCode string) *AddressBuilder {
 // 示例值：MDM_1233456
 func (builder *AddressBuilder) Country(country string) *AddressBuilder {
 	builder.country = country
-	builder.countryFlag = true
+	builder.countrySet = true
 	return builder
 }
 
@@ -576,7 +576,7 @@ func (builder *AddressBuilder) Country(country string) *AddressBuilder {
 // 示例值：MDM_1233456
 func (builder *AddressBuilder) Province(province string) *AddressBuilder {
 	builder.province = province
-	builder.provinceFlag = true
+	builder.provinceSet = true
 	return builder
 }
 
@@ -585,7 +585,7 @@ func (builder *AddressBuilder) Province(province string) *AddressBuilder {
 // 示例值：MDM_1233456
 func (builder *AddressBuilder) City(city string) *AddressBuilder {
 	builder.city = city
-	builder.cityFlag = true
+	builder.citySet = true
 	return builder
 }
 
@@ -594,7 +594,7 @@ func (builder *AddressBuilder) City(city string) *AddressBuilder {
 // 示例值：MDM_1233456
 func (builder *AddressBuilder) County(county string) *AddressBuilder {
 	builder.county = county
-	builder.countyFlag = true
+	builder.countySet = true
 	return builder
 }
 
@@ -603,7 +603,7 @@ func (builder *AddressBuilder) County(county string) *AddressBuilder {
 // 示例值：
 func (builder *AddressBuilder) Types(types []string) *AddressBuilder {
 	builder.types = types
-	builder.typesFlag = true
+	builder.typesSet = true
 	return builder
 }
 
@@ -612,7 +612,7 @@ func (builder *AddressBuilder) Types(types []string) *AddressBuilder {
 // 示例值：123456
 func (builder *AddressBuilder) PlaceId(placeId string) *AddressBuilder {
 	builder.placeId = placeId
-	builder.placeIdFlag = true
+	builder.placeIdSet = true
 	return builder
 }
 
@@ -621,7 +621,7 @@ func (builder *AddressBuilder) PlaceId(placeId string) *AddressBuilder {
 // 示例值：
 func (builder *AddressBuilder) IsMain(isMain bool) *AddressBuilder {
 	builder.isMain = isMain
-	builder.isMainFlag = true
+	builder.isMainSet = true
 	return builder
 }
 
@@ -630,7 +630,7 @@ func (builder *AddressBuilder) IsMain(isMain bool) *AddressBuilder {
 // 示例值：
 func (builder *AddressBuilder) IsPublic(isPublic bool) *AddressBuilder {
 	builder.isPublic = isPublic
-	builder.isPublicFlag = true
+	builder.isPublicSet = true
 	return builder
 }
 
@@ -639,7 +639,7 @@ func (builder *AddressBuilder) IsPublic(isPublic bool) *AddressBuilder {
 // 示例值：1234
 func (builder *AddressBuilder) CreateTime(createTime string) *AddressBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -648,7 +648,7 @@ func (builder *AddressBuilder) CreateTime(createTime string) *AddressBuilder {
 // 示例值：12345
 func (builder *AddressBuilder) UpdateTime(updateTime string) *AddressBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -657,7 +657,7 @@ func (builder *AddressBuilder) UpdateTime(updateTime string) *AddressBuilder {
 // 示例值：12334455
 func (builder *AddressBuilder) CreatorId(creatorId string) *AddressBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -666,7 +666,7 @@ func (builder *AddressBuilder) CreatorId(creatorId string) *AddressBuilder {
 // 示例值：123123123
 func (builder *AddressBuilder) UpdatorId(updatorId string) *AddressBuilder {
 	builder.updatorId = updatorId
-	builder.updatorIdFlag = true
+	builder.updatorIdSet = true
 	return builder
 }
 
@@ -675,83 +675,83 @@ func (builder *AddressBuilder) UpdatorId(updatorId string) *AddressBuilder {
 // 示例值：123123123
 func (builder *AddressBuilder) ExternalId(externalId string) *AddressBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *AddressBuilder) Build() *Address {
 	req := &Address{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.isDeletedFlag {
+	if builder.isDeletedSet {
 		req.IsDeleted = &builder.isDeleted
 
 	}
-	if builder.postCodeFlag {
+	if builder.postCodeSet {
 		req.PostCode = &builder.postCode
 
 	}
-	if builder.countryFlag {
+	if builder.countrySet {
 		req.Country = &builder.country
 
 	}
-	if builder.provinceFlag {
+	if builder.provinceSet {
 		req.Province = &builder.province
 
 	}
-	if builder.cityFlag {
+	if builder.citySet {
 		req.City = &builder.city
 
 	}
-	if builder.countyFlag {
+	if builder.countySet {
 		req.County = &builder.county
 
 	}
-	if builder.typesFlag {
+	if builder.typesSet {
 		req.Types = builder.types
 	}
-	if builder.placeIdFlag {
+	if builder.placeIdSet {
 		req.PlaceId = &builder.placeId
 
 	}
-	if builder.isMainFlag {
+	if builder.isMainSet {
 		req.IsMain = &builder.isMain
 
 	}
-	if builder.isPublicFlag {
+	if builder.isPublicSet {
 		req.IsPublic = &builder.isPublic
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.updatorIdFlag {
+	if builder.updatorIdSet {
 		req.UpdatorId = &builder.updatorId
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -771,20 +771,20 @@ type App struct {
 }
 
 type AppBuilder struct {
-	id     string // 在MyAI场景下为开平应用ID,其他场景是IdentityID
-	idFlag bool
+	id    string // 在MyAI场景下为开平应用ID,其他场景是IdentityID
+	idSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	avatar     string // 头像
-	avatarFlag bool
+	avatar    string // 头像
+	avatarSet bool
 
-	usable     bool // 租户下是否可用
-	usableFlag bool
+	usable    bool // 租户下是否可用
+	usableSet bool
 }
 
 func NewAppBuilder() *AppBuilder {
@@ -797,7 +797,7 @@ func NewAppBuilder() *AppBuilder {
 // 示例值：123
 func (builder *AppBuilder) Id(id string) *AppBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -806,7 +806,7 @@ func (builder *AppBuilder) Id(id string) *AppBuilder {
 // 示例值：
 func (builder *AppBuilder) Description(description *I18nText) *AppBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -815,7 +815,7 @@ func (builder *AppBuilder) Description(description *I18nText) *AppBuilder {
 // 示例值：
 func (builder *AppBuilder) Name(name *I18nText) *AppBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -824,7 +824,7 @@ func (builder *AppBuilder) Name(name *I18nText) *AppBuilder {
 // 示例值：sdfsdfsdf
 func (builder *AppBuilder) Avatar(avatar string) *AppBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
@@ -833,27 +833,27 @@ func (builder *AppBuilder) Avatar(avatar string) *AppBuilder {
 // 示例值：
 func (builder *AppBuilder) Usable(usable bool) *AppBuilder {
 	builder.usable = usable
-	builder.usableFlag = true
+	builder.usableSet = true
 	return builder
 }
 
 func (builder *AppBuilder) Build() *App {
 	req := &App{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = &builder.avatar
 
 	}
-	if builder.usableFlag {
+	if builder.usableSet {
 		req.Usable = &builder.usable
 
 	}
@@ -871,17 +871,17 @@ type Attachment struct {
 }
 
 type AttachmentBuilder struct {
-	id     string // 下载文件所需token
-	idFlag bool
+	id    string // 下载文件所需token
+	idSet bool
 
-	mimeType     string // 文件类型
-	mimeTypeFlag bool
+	mimeType    string // 文件类型
+	mimeTypeSet bool
 
-	name     string // 文件名称
-	nameFlag bool
+	name    string // 文件名称
+	nameSet bool
 
-	size     string // 文件大小
-	sizeFlag bool
+	size    string // 文件大小
+	sizeSet bool
 }
 
 func NewAttachmentBuilder() *AttachmentBuilder {
@@ -894,7 +894,7 @@ func NewAttachmentBuilder() *AttachmentBuilder {
 // 示例值：无
 func (builder *AttachmentBuilder) Id(id string) *AttachmentBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -903,7 +903,7 @@ func (builder *AttachmentBuilder) Id(id string) *AttachmentBuilder {
 // 示例值：无
 func (builder *AttachmentBuilder) MimeType(mimeType string) *AttachmentBuilder {
 	builder.mimeType = mimeType
-	builder.mimeTypeFlag = true
+	builder.mimeTypeSet = true
 	return builder
 }
 
@@ -912,7 +912,7 @@ func (builder *AttachmentBuilder) MimeType(mimeType string) *AttachmentBuilder {
 // 示例值：无
 func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -921,25 +921,25 @@ func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
 // 示例值：无
 func (builder *AttachmentBuilder) Size(size string) *AttachmentBuilder {
 	builder.size = size
-	builder.sizeFlag = true
+	builder.sizeSet = true
 	return builder
 }
 
 func (builder *AttachmentBuilder) Build() *Attachment {
 	req := &Attachment{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.mimeTypeFlag {
+	if builder.mimeTypeSet {
 		req.MimeType = &builder.mimeType
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.sizeFlag {
+	if builder.sizeSet {
 		req.Size = &builder.size
 
 	}
@@ -983,56 +983,56 @@ type BankAccount struct {
 }
 
 type BankAccountBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	tenantId     string // 租户ID
-	tenantIdFlag bool
+	tenantId    string // 租户ID
+	tenantIdSet bool
 
-	accountUserName     string // 开户人姓名
-	accountUserNameFlag bool
+	accountUserName    string // 开户人姓名
+	accountUserNameSet bool
 
-	accountNumber     string // 银行卡号
-	accountNumberFlag bool
+	accountNumber    string // 银行卡号
+	accountNumberSet bool
 
-	subBankId     string // 支行ID
-	subBankIdFlag bool
+	subBankId    string // 支行ID
+	subBankIdSet bool
 
-	bankCardType     string // 银行卡类型
-	bankCardTypeFlag bool
+	bankCardType    string // 银行卡类型
+	bankCardTypeSet bool
 
-	country     string // 国家/地区
-	countryFlag bool
+	country    string // 国家/地区
+	countrySet bool
 
-	currency     string // 货币 https://md.bytedance.net/v1/main-data/currency 币种编码
-	currencyFlag bool
+	currency    string // 货币 https://md.bytedance.net/v1/main-data/currency 币种编码
+	currencySet bool
 
-	checkCode     string // 校验码
-	checkCodeFlag bool
+	checkCode    string // 校验码
+	checkCodeSet bool
 
-	isMain     bool // 是否主卡
-	isMainFlag bool
+	isMain    bool // 是否主卡
+	isMainSet bool
 
-	isDeleted     bool // 是否删除
-	isDeletedFlag bool
+	isDeleted    bool // 是否删除
+	isDeletedSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	creatorId     string // 创建人
-	creatorIdFlag bool
+	creatorId    string // 创建人
+	creatorIdSet bool
 
-	updatorId     string // 更新人
-	updatorIdFlag bool
+	updatorId    string // 更新人
+	updatorIdSet bool
 
-	bankName     string // 标准版兼容字段，后续会废弃，优先使用SubBankID
-	bankNameFlag bool
+	bankName    string // 标准版兼容字段，后续会废弃，优先使用SubBankID
+	bankNameSet bool
 
-	customFieldValue     map[string]*CustomFieldValue // 自定义字段\n17: optional string CustomFieldValues,
-	customFieldValueFlag bool
+	customFieldValue    map[string]*CustomFieldValue // 自定义字段\n17: optional string CustomFieldValues,
+	customFieldValueSet bool
 }
 
 func NewBankAccountBuilder() *BankAccountBuilder {
@@ -1045,7 +1045,7 @@ func NewBankAccountBuilder() *BankAccountBuilder {
 // 示例值：1
 func (builder *BankAccountBuilder) Id(id string) *BankAccountBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1054,7 +1054,7 @@ func (builder *BankAccountBuilder) Id(id string) *BankAccountBuilder {
 // 示例值：31123
 func (builder *BankAccountBuilder) TenantId(tenantId string) *BankAccountBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -1063,7 +1063,7 @@ func (builder *BankAccountBuilder) TenantId(tenantId string) *BankAccountBuilder
 // 示例值：张三
 func (builder *BankAccountBuilder) AccountUserName(accountUserName string) *BankAccountBuilder {
 	builder.accountUserName = accountUserName
-	builder.accountUserNameFlag = true
+	builder.accountUserNameSet = true
 	return builder
 }
 
@@ -1072,7 +1072,7 @@ func (builder *BankAccountBuilder) AccountUserName(accountUserName string) *Bank
 // 示例值：6221049592039124232
 func (builder *BankAccountBuilder) AccountNumber(accountNumber string) *BankAccountBuilder {
 	builder.accountNumber = accountNumber
-	builder.accountNumberFlag = true
+	builder.accountNumberSet = true
 	return builder
 }
 
@@ -1081,7 +1081,7 @@ func (builder *BankAccountBuilder) AccountNumber(accountNumber string) *BankAcco
 // 示例值：无
 func (builder *BankAccountBuilder) SubBankId(subBankId string) *BankAccountBuilder {
 	builder.subBankId = subBankId
-	builder.subBankIdFlag = true
+	builder.subBankIdSet = true
 	return builder
 }
 
@@ -1090,7 +1090,7 @@ func (builder *BankAccountBuilder) SubBankId(subBankId string) *BankAccountBuild
 // 示例值：无
 func (builder *BankAccountBuilder) BankCardType(bankCardType string) *BankAccountBuilder {
 	builder.bankCardType = bankCardType
-	builder.bankCardTypeFlag = true
+	builder.bankCardTypeSet = true
 	return builder
 }
 
@@ -1099,7 +1099,7 @@ func (builder *BankAccountBuilder) BankCardType(bankCardType string) *BankAccoun
 // 示例值：无
 func (builder *BankAccountBuilder) Country(country string) *BankAccountBuilder {
 	builder.country = country
-	builder.countryFlag = true
+	builder.countrySet = true
 	return builder
 }
 
@@ -1108,7 +1108,7 @@ func (builder *BankAccountBuilder) Country(country string) *BankAccountBuilder {
 // 示例值：无
 func (builder *BankAccountBuilder) Currency(currency string) *BankAccountBuilder {
 	builder.currency = currency
-	builder.currencyFlag = true
+	builder.currencySet = true
 	return builder
 }
 
@@ -1117,7 +1117,7 @@ func (builder *BankAccountBuilder) Currency(currency string) *BankAccountBuilder
 // 示例值：无
 func (builder *BankAccountBuilder) CheckCode(checkCode string) *BankAccountBuilder {
 	builder.checkCode = checkCode
-	builder.checkCodeFlag = true
+	builder.checkCodeSet = true
 	return builder
 }
 
@@ -1126,7 +1126,7 @@ func (builder *BankAccountBuilder) CheckCode(checkCode string) *BankAccountBuild
 // 示例值：true
 func (builder *BankAccountBuilder) IsMain(isMain bool) *BankAccountBuilder {
 	builder.isMain = isMain
-	builder.isMainFlag = true
+	builder.isMainSet = true
 	return builder
 }
 
@@ -1135,7 +1135,7 @@ func (builder *BankAccountBuilder) IsMain(isMain bool) *BankAccountBuilder {
 // 示例值：true
 func (builder *BankAccountBuilder) IsDeleted(isDeleted bool) *BankAccountBuilder {
 	builder.isDeleted = isDeleted
-	builder.isDeletedFlag = true
+	builder.isDeletedSet = true
 	return builder
 }
 
@@ -1144,7 +1144,7 @@ func (builder *BankAccountBuilder) IsDeleted(isDeleted bool) *BankAccountBuilder
 // 示例值：无
 func (builder *BankAccountBuilder) CreateTime(createTime string) *BankAccountBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -1153,7 +1153,7 @@ func (builder *BankAccountBuilder) CreateTime(createTime string) *BankAccountBui
 // 示例值：无
 func (builder *BankAccountBuilder) UpdateTime(updateTime string) *BankAccountBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -1162,7 +1162,7 @@ func (builder *BankAccountBuilder) UpdateTime(updateTime string) *BankAccountBui
 // 示例值：无
 func (builder *BankAccountBuilder) CreatorId(creatorId string) *BankAccountBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -1171,7 +1171,7 @@ func (builder *BankAccountBuilder) CreatorId(creatorId string) *BankAccountBuild
 // 示例值：无
 func (builder *BankAccountBuilder) UpdatorId(updatorId string) *BankAccountBuilder {
 	builder.updatorId = updatorId
-	builder.updatorIdFlag = true
+	builder.updatorIdSet = true
 	return builder
 }
 
@@ -1180,7 +1180,7 @@ func (builder *BankAccountBuilder) UpdatorId(updatorId string) *BankAccountBuild
 // 示例值：无
 func (builder *BankAccountBuilder) BankName(bankName string) *BankAccountBuilder {
 	builder.bankName = bankName
-	builder.bankNameFlag = true
+	builder.bankNameSet = true
 	return builder
 }
 
@@ -1189,77 +1189,77 @@ func (builder *BankAccountBuilder) BankName(bankName string) *BankAccountBuilder
 // 示例值：
 func (builder *BankAccountBuilder) CustomFieldValue(customFieldValue map[string]*CustomFieldValue) *BankAccountBuilder {
 	builder.customFieldValue = customFieldValue
-	builder.customFieldValueFlag = true
+	builder.customFieldValueSet = true
 	return builder
 }
 
 func (builder *BankAccountBuilder) Build() *BankAccount {
 	req := &BankAccount{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.accountUserNameFlag {
+	if builder.accountUserNameSet {
 		req.AccountUserName = &builder.accountUserName
 
 	}
-	if builder.accountNumberFlag {
+	if builder.accountNumberSet {
 		req.AccountNumber = &builder.accountNumber
 
 	}
-	if builder.subBankIdFlag {
+	if builder.subBankIdSet {
 		req.SubBankId = &builder.subBankId
 
 	}
-	if builder.bankCardTypeFlag {
+	if builder.bankCardTypeSet {
 		req.BankCardType = &builder.bankCardType
 
 	}
-	if builder.countryFlag {
+	if builder.countrySet {
 		req.Country = &builder.country
 
 	}
-	if builder.currencyFlag {
+	if builder.currencySet {
 		req.Currency = &builder.currency
 
 	}
-	if builder.checkCodeFlag {
+	if builder.checkCodeSet {
 		req.CheckCode = &builder.checkCode
 
 	}
-	if builder.isMainFlag {
+	if builder.isMainSet {
 		req.IsMain = &builder.isMain
 
 	}
-	if builder.isDeletedFlag {
+	if builder.isDeletedSet {
 		req.IsDeleted = &builder.isDeleted
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.updatorIdFlag {
+	if builder.updatorIdSet {
 		req.UpdatorId = &builder.updatorId
 
 	}
-	if builder.bankNameFlag {
+	if builder.bankNameSet {
 		req.BankName = &builder.bankName
 
 	}
-	if builder.customFieldValueFlag {
+	if builder.customFieldValueSet {
 		req.CustomFieldValue = builder.customFieldValue
 	}
 	return req
@@ -1288,35 +1288,35 @@ type Certificate struct {
 }
 
 type CertificateBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	tenantId     string // 租户ID
-	tenantIdFlag bool
+	tenantId    string // 租户ID
+	tenantIdSet bool
 
-	credentialNumber     string // 证件号
-	credentialNumberFlag bool
+	credentialNumber    string // 证件号
+	credentialNumberSet bool
 
-	credentialType     string // 证件类型
-	credentialTypeFlag bool
+	credentialType    string // 证件类型
+	credentialTypeSet bool
 
-	expiryDate     string // 到期日期 格式：2007-07-20， 无固定期限或者长期有效，使用PermanentDate常量
-	expiryDateFlag bool
+	expiryDate    string // 到期日期 格式：2007-07-20， 无固定期限或者长期有效，使用PermanentDate常量
+	expiryDateSet bool
 
-	isDeleted     bool // 是否删除
-	isDeletedFlag bool
+	isDeleted    bool // 是否删除
+	isDeletedSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	creatorId     string // 创建人
-	creatorIdFlag bool
+	creatorId    string // 创建人
+	creatorIdSet bool
 
-	updatorId     string // 更新人
-	updatorIdFlag bool
+	updatorId    string // 更新人
+	updatorIdSet bool
 }
 
 func NewCertificateBuilder() *CertificateBuilder {
@@ -1329,7 +1329,7 @@ func NewCertificateBuilder() *CertificateBuilder {
 // 示例值：7202465324939067395
 func (builder *CertificateBuilder) Id(id string) *CertificateBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1338,7 +1338,7 @@ func (builder *CertificateBuilder) Id(id string) *CertificateBuilder {
 // 示例值：租户ID
 func (builder *CertificateBuilder) TenantId(tenantId string) *CertificateBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -1347,7 +1347,7 @@ func (builder *CertificateBuilder) TenantId(tenantId string) *CertificateBuilder
 // 示例值：FSA81241
 func (builder *CertificateBuilder) CredentialNumber(credentialNumber string) *CertificateBuilder {
 	builder.credentialNumber = credentialNumber
-	builder.credentialNumberFlag = true
+	builder.credentialNumberSet = true
 	return builder
 }
 
@@ -1356,7 +1356,7 @@ func (builder *CertificateBuilder) CredentialNumber(credentialNumber string) *Ce
 // 示例值：
 func (builder *CertificateBuilder) CredentialType(credentialType string) *CertificateBuilder {
 	builder.credentialType = credentialType
-	builder.credentialTypeFlag = true
+	builder.credentialTypeSet = true
 	return builder
 }
 
@@ -1365,7 +1365,7 @@ func (builder *CertificateBuilder) CredentialType(credentialType string) *Certif
 // 示例值：2007-07-20
 func (builder *CertificateBuilder) ExpiryDate(expiryDate string) *CertificateBuilder {
 	builder.expiryDate = expiryDate
-	builder.expiryDateFlag = true
+	builder.expiryDateSet = true
 	return builder
 }
 
@@ -1374,7 +1374,7 @@ func (builder *CertificateBuilder) ExpiryDate(expiryDate string) *CertificateBui
 // 示例值：false
 func (builder *CertificateBuilder) IsDeleted(isDeleted bool) *CertificateBuilder {
 	builder.isDeleted = isDeleted
-	builder.isDeletedFlag = true
+	builder.isDeletedSet = true
 	return builder
 }
 
@@ -1383,7 +1383,7 @@ func (builder *CertificateBuilder) IsDeleted(isDeleted bool) *CertificateBuilder
 // 示例值：1697083055
 func (builder *CertificateBuilder) CreateTime(createTime string) *CertificateBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -1392,7 +1392,7 @@ func (builder *CertificateBuilder) CreateTime(createTime string) *CertificateBui
 // 示例值：1697083055
 func (builder *CertificateBuilder) UpdateTime(updateTime string) *CertificateBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -1401,7 +1401,7 @@ func (builder *CertificateBuilder) UpdateTime(updateTime string) *CertificateBui
 // 示例值：7202465324939067391
 func (builder *CertificateBuilder) CreatorId(creatorId string) *CertificateBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -1410,49 +1410,49 @@ func (builder *CertificateBuilder) CreatorId(creatorId string) *CertificateBuild
 // 示例值：7202465324939067391
 func (builder *CertificateBuilder) UpdatorId(updatorId string) *CertificateBuilder {
 	builder.updatorId = updatorId
-	builder.updatorIdFlag = true
+	builder.updatorIdSet = true
 	return builder
 }
 
 func (builder *CertificateBuilder) Build() *Certificate {
 	req := &Certificate{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.credentialNumberFlag {
+	if builder.credentialNumberSet {
 		req.CredentialNumber = &builder.credentialNumber
 
 	}
-	if builder.credentialTypeFlag {
+	if builder.credentialTypeSet {
 		req.CredentialType = &builder.credentialType
 
 	}
-	if builder.expiryDateFlag {
+	if builder.expiryDateSet {
 		req.ExpiryDate = &builder.expiryDate
 
 	}
-	if builder.isDeletedFlag {
+	if builder.isDeletedSet {
 		req.IsDeleted = &builder.isDeleted
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.updatorIdFlag {
+	if builder.updatorIdSet {
 		req.UpdatorId = &builder.updatorId
 
 	}
@@ -1472,20 +1472,20 @@ type CollaborationRule struct {
 }
 
 type CollaborationRuleBuilder struct {
-	ruleId     string // 规则ID
-	ruleIdFlag bool
+	ruleId    string // 规则ID
+	ruleIdSet bool
 
-	subjects     *CollaborationRuleEntities // 实体数量之和需要小于100
-	subjectsFlag bool
+	subjects    *CollaborationRuleEntities // 实体数量之和需要小于100
+	subjectsSet bool
 
-	subjectIsValid     bool // 是否生效，如果规则主体超出了分享的范围，则is_valid为false，规则主体将不返回
-	subjectIsValidFlag bool
+	subjectIsValid    bool // 是否生效，如果规则主体超出了分享的范围，则is_valid为false，规则主体将不返回
+	subjectIsValidSet bool
 
-	objects     *CollaborationRuleEntities // 实体数量之和需要小于100
-	objectsFlag bool
+	objects    *CollaborationRuleEntities // 实体数量之和需要小于100
+	objectsSet bool
 
-	objectIsValid     bool // 是否生效，如果规则客体超出了分享的范围，则is_valid为false，规则客体将不返回
-	objectIsValidFlag bool
+	objectIsValid    bool // 是否生效，如果规则客体超出了分享的范围，则is_valid为false，规则客体将不返回
+	objectIsValidSet bool
 }
 
 func NewCollaborationRuleBuilder() *CollaborationRuleBuilder {
@@ -1498,7 +1498,7 @@ func NewCollaborationRuleBuilder() *CollaborationRuleBuilder {
 // 示例值：12121
 func (builder *CollaborationRuleBuilder) RuleId(ruleId string) *CollaborationRuleBuilder {
 	builder.ruleId = ruleId
-	builder.ruleIdFlag = true
+	builder.ruleIdSet = true
 	return builder
 }
 
@@ -1507,7 +1507,7 @@ func (builder *CollaborationRuleBuilder) RuleId(ruleId string) *CollaborationRul
 // 示例值：
 func (builder *CollaborationRuleBuilder) Subjects(subjects *CollaborationRuleEntities) *CollaborationRuleBuilder {
 	builder.subjects = subjects
-	builder.subjectsFlag = true
+	builder.subjectsSet = true
 	return builder
 }
 
@@ -1516,7 +1516,7 @@ func (builder *CollaborationRuleBuilder) Subjects(subjects *CollaborationRuleEnt
 // 示例值：true
 func (builder *CollaborationRuleBuilder) SubjectIsValid(subjectIsValid bool) *CollaborationRuleBuilder {
 	builder.subjectIsValid = subjectIsValid
-	builder.subjectIsValidFlag = true
+	builder.subjectIsValidSet = true
 	return builder
 }
 
@@ -1525,7 +1525,7 @@ func (builder *CollaborationRuleBuilder) SubjectIsValid(subjectIsValid bool) *Co
 // 示例值：
 func (builder *CollaborationRuleBuilder) Objects(objects *CollaborationRuleEntities) *CollaborationRuleBuilder {
 	builder.objects = objects
-	builder.objectsFlag = true
+	builder.objectsSet = true
 	return builder
 }
 
@@ -1534,27 +1534,27 @@ func (builder *CollaborationRuleBuilder) Objects(objects *CollaborationRuleEntit
 // 示例值：
 func (builder *CollaborationRuleBuilder) ObjectIsValid(objectIsValid bool) *CollaborationRuleBuilder {
 	builder.objectIsValid = objectIsValid
-	builder.objectIsValidFlag = true
+	builder.objectIsValidSet = true
 	return builder
 }
 
 func (builder *CollaborationRuleBuilder) Build() *CollaborationRule {
 	req := &CollaborationRule{}
-	if builder.ruleIdFlag {
+	if builder.ruleIdSet {
 		req.RuleId = &builder.ruleId
 
 	}
-	if builder.subjectsFlag {
+	if builder.subjectsSet {
 		req.Subjects = builder.subjects
 	}
-	if builder.subjectIsValidFlag {
+	if builder.subjectIsValidSet {
 		req.SubjectIsValid = &builder.subjectIsValid
 
 	}
-	if builder.objectsFlag {
+	if builder.objectsSet {
 		req.Objects = builder.objects
 	}
-	if builder.objectIsValidFlag {
+	if builder.objectIsValidSet {
 		req.ObjectIsValid = &builder.objectIsValid
 
 	}
@@ -1570,14 +1570,14 @@ type CollaborationRuleEntities struct {
 }
 
 type CollaborationRuleEntitiesBuilder struct {
-	openUserIds     []string // user open id
-	openUserIdsFlag bool
+	openUserIds    []string // user open id
+	openUserIdsSet bool
 
-	openDepartmentIds     []string // department open id，0代表全部成员
-	openDepartmentIdsFlag bool
+	openDepartmentIds    []string // department open id，0代表全部成员
+	openDepartmentIdsSet bool
 
-	openGroupIds     []string // group open id
-	openGroupIdsFlag bool
+	openGroupIds    []string // group open id
+	openGroupIdsSet bool
 }
 
 func NewCollaborationRuleEntitiesBuilder() *CollaborationRuleEntitiesBuilder {
@@ -1590,7 +1590,7 @@ func NewCollaborationRuleEntitiesBuilder() *CollaborationRuleEntitiesBuilder {
 // 示例值：
 func (builder *CollaborationRuleEntitiesBuilder) OpenUserIds(openUserIds []string) *CollaborationRuleEntitiesBuilder {
 	builder.openUserIds = openUserIds
-	builder.openUserIdsFlag = true
+	builder.openUserIdsSet = true
 	return builder
 }
 
@@ -1599,7 +1599,7 @@ func (builder *CollaborationRuleEntitiesBuilder) OpenUserIds(openUserIds []strin
 // 示例值：
 func (builder *CollaborationRuleEntitiesBuilder) OpenDepartmentIds(openDepartmentIds []string) *CollaborationRuleEntitiesBuilder {
 	builder.openDepartmentIds = openDepartmentIds
-	builder.openDepartmentIdsFlag = true
+	builder.openDepartmentIdsSet = true
 	return builder
 }
 
@@ -1608,19 +1608,19 @@ func (builder *CollaborationRuleEntitiesBuilder) OpenDepartmentIds(openDepartmen
 // 示例值：
 func (builder *CollaborationRuleEntitiesBuilder) OpenGroupIds(openGroupIds []string) *CollaborationRuleEntitiesBuilder {
 	builder.openGroupIds = openGroupIds
-	builder.openGroupIdsFlag = true
+	builder.openGroupIdsSet = true
 	return builder
 }
 
 func (builder *CollaborationRuleEntitiesBuilder) Build() *CollaborationRuleEntities {
 	req := &CollaborationRuleEntities{}
-	if builder.openUserIdsFlag {
+	if builder.openUserIdsSet {
 		req.OpenUserIds = builder.openUserIds
 	}
-	if builder.openDepartmentIdsFlag {
+	if builder.openDepartmentIdsSet {
 		req.OpenDepartmentIds = builder.openDepartmentIds
 	}
-	if builder.openGroupIdsFlag {
+	if builder.openGroupIdsSet {
 		req.OpenGroupIds = builder.openGroupIds
 	}
 	return req
@@ -1641,23 +1641,23 @@ type CollaborationTenant struct {
 }
 
 type CollaborationTenantBuilder struct {
-	tenantKey     string // 关联组织列表
-	tenantKeyFlag bool
+	tenantKey    string // 关联组织列表
+	tenantKeySet bool
 
-	connectTime     int // 建联时间
-	connectTimeFlag bool
+	connectTime    int // 建联时间
+	connectTimeSet bool
 
-	avatar     *ImageLink // 租户头像
-	avatarFlag bool
+	avatar    *ImageLink // 租户头像
+	avatarSet bool
 
-	brand     string // 租户品牌
-	brandFlag bool
+	brand    string // 租户品牌
+	brandSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	shortName     *I18nText // i18n文本
-	shortNameFlag bool
+	shortName    *I18nText // i18n文本
+	shortNameSet bool
 }
 
 func NewCollaborationTenantBuilder() *CollaborationTenantBuilder {
@@ -1670,7 +1670,7 @@ func NewCollaborationTenantBuilder() *CollaborationTenantBuilder {
 // 示例值：121s121234df
 func (builder *CollaborationTenantBuilder) TenantKey(tenantKey string) *CollaborationTenantBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
@@ -1679,7 +1679,7 @@ func (builder *CollaborationTenantBuilder) TenantKey(tenantKey string) *Collabor
 // 示例值：1724296400
 func (builder *CollaborationTenantBuilder) ConnectTime(connectTime int) *CollaborationTenantBuilder {
 	builder.connectTime = connectTime
-	builder.connectTimeFlag = true
+	builder.connectTimeSet = true
 	return builder
 }
 
@@ -1688,7 +1688,7 @@ func (builder *CollaborationTenantBuilder) ConnectTime(connectTime int) *Collabo
 // 示例值：
 func (builder *CollaborationTenantBuilder) Avatar(avatar *ImageLink) *CollaborationTenantBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
@@ -1697,7 +1697,7 @@ func (builder *CollaborationTenantBuilder) Avatar(avatar *ImageLink) *Collaborat
 // 示例值：feishu
 func (builder *CollaborationTenantBuilder) Brand(brand string) *CollaborationTenantBuilder {
 	builder.brand = brand
-	builder.brandFlag = true
+	builder.brandSet = true
 	return builder
 }
 
@@ -1706,7 +1706,7 @@ func (builder *CollaborationTenantBuilder) Brand(brand string) *CollaborationTen
 // 示例值：
 func (builder *CollaborationTenantBuilder) Name(name *I18nText) *CollaborationTenantBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1715,31 +1715,31 @@ func (builder *CollaborationTenantBuilder) Name(name *I18nText) *CollaborationTe
 // 示例值：
 func (builder *CollaborationTenantBuilder) ShortName(shortName *I18nText) *CollaborationTenantBuilder {
 	builder.shortName = shortName
-	builder.shortNameFlag = true
+	builder.shortNameSet = true
 	return builder
 }
 
 func (builder *CollaborationTenantBuilder) Build() *CollaborationTenant {
 	req := &CollaborationTenant{}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
-	if builder.connectTimeFlag {
+	if builder.connectTimeSet {
 		req.ConnectTime = &builder.connectTime
 
 	}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = builder.avatar
 	}
-	if builder.brandFlag {
+	if builder.brandSet {
 		req.Brand = &builder.brand
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.shortNameFlag {
+	if builder.shortNameSet {
 		req.ShortName = builder.shortName
 	}
 	return req
@@ -1762,26 +1762,26 @@ type Common struct {
 }
 
 type CommonBuilder struct {
-	appId     string // 应用ID，默认会从identity_ticket获取，获取不到的会从参数获取，取不到或认证失败会报错
-	appIdFlag bool
+	appId    string // 应用ID，默认会从identity_ticket获取，获取不到的会从参数获取，取不到或认证失败会报错
+	appIdSet bool
 
-	scenarioId     string // 场景ID， 可选
-	scenarioIdFlag bool
+	scenarioId    string // 场景ID， 可选
+	scenarioIdSet bool
 
-	userId     string // UserID，默认会从identity_ticket获取，获取不到的会从参数获取，取不到或认证失败会报错
-	userIdFlag bool
+	userId    string // UserID，默认会从identity_ticket获取，获取不到的会从参数获取，取不到或认证失败会报错
+	userIdSet bool
 
-	tenantId     string // 租户ID，默认会从identity_ticket获取，获取不到的会从参数获取，取不到或认证失败会报错
-	tenantIdFlag bool
+	tenantId    string // 租户ID，默认会从identity_ticket获取，获取不到的会从参数获取，取不到或认证失败会报错
+	tenantIdSet bool
 
-	userType     string // 主体类型，默认会从identity_ticket获取，获取不到的会从参数获取，取不到或认证失败会报错
-	userTypeFlag bool
+	userType    string // 主体类型，默认会从identity_ticket获取，获取不到的会从参数获取，取不到或认证失败会报错
+	userTypeSet bool
 
-	isAdminRole     bool // adminRole鉴权
-	isAdminRoleFlag bool
+	isAdminRole    bool // adminRole鉴权
+	isAdminRoleSet bool
 
-	authType     string // 鉴权类型 网关注入，无需填写 TenantAccessToken、UserAccessToken
-	authTypeFlag bool
+	authType    string // 鉴权类型 网关注入，无需填写 TenantAccessToken、UserAccessToken
+	authTypeSet bool
 }
 
 func NewCommonBuilder() *CommonBuilder {
@@ -1794,7 +1794,7 @@ func NewCommonBuilder() *CommonBuilder {
 // 示例值：1
 func (builder *CommonBuilder) AppId(appId string) *CommonBuilder {
 	builder.appId = appId
-	builder.appIdFlag = true
+	builder.appIdSet = true
 	return builder
 }
 
@@ -1803,7 +1803,7 @@ func (builder *CommonBuilder) AppId(appId string) *CommonBuilder {
 // 示例值：123
 func (builder *CommonBuilder) ScenarioId(scenarioId string) *CommonBuilder {
 	builder.scenarioId = scenarioId
-	builder.scenarioIdFlag = true
+	builder.scenarioIdSet = true
 	return builder
 }
 
@@ -1812,7 +1812,7 @@ func (builder *CommonBuilder) ScenarioId(scenarioId string) *CommonBuilder {
 // 示例值：
 func (builder *CommonBuilder) UserId(userId string) *CommonBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -1821,7 +1821,7 @@ func (builder *CommonBuilder) UserId(userId string) *CommonBuilder {
 // 示例值：1
 func (builder *CommonBuilder) TenantId(tenantId string) *CommonBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -1830,7 +1830,7 @@ func (builder *CommonBuilder) TenantId(tenantId string) *CommonBuilder {
 // 示例值：123
 func (builder *CommonBuilder) UserType(userType string) *CommonBuilder {
 	builder.userType = userType
-	builder.userTypeFlag = true
+	builder.userTypeSet = true
 	return builder
 }
 
@@ -1839,7 +1839,7 @@ func (builder *CommonBuilder) UserType(userType string) *CommonBuilder {
 // 示例值：
 func (builder *CommonBuilder) IsAdminRole(isAdminRole bool) *CommonBuilder {
 	builder.isAdminRole = isAdminRole
-	builder.isAdminRoleFlag = true
+	builder.isAdminRoleSet = true
 	return builder
 }
 
@@ -1848,37 +1848,37 @@ func (builder *CommonBuilder) IsAdminRole(isAdminRole bool) *CommonBuilder {
 // 示例值：AccessToken
 func (builder *CommonBuilder) AuthType(authType string) *CommonBuilder {
 	builder.authType = authType
-	builder.authTypeFlag = true
+	builder.authTypeSet = true
 	return builder
 }
 
 func (builder *CommonBuilder) Build() *Common {
 	req := &Common{}
-	if builder.appIdFlag {
+	if builder.appIdSet {
 		req.AppId = &builder.appId
 
 	}
-	if builder.scenarioIdFlag {
+	if builder.scenarioIdSet {
 		req.ScenarioId = &builder.scenarioId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.userTypeFlag {
+	if builder.userTypeSet {
 		req.UserType = &builder.userType
 
 	}
-	if builder.isAdminRoleFlag {
+	if builder.isAdminRoleSet {
 		req.IsAdminRole = &builder.isAdminRole
 
 	}
-	if builder.authTypeFlag {
+	if builder.authTypeSet {
 		req.AuthType = &builder.authType
 
 	}
@@ -1908,35 +1908,35 @@ type Company struct {
 }
 
 type CompanyBuilder struct {
-	id     string // 公司ID
-	idFlag bool
+	id    string // 公司ID
+	idSet bool
 
-	tenantId     string // 租户ID
-	tenantIdFlag bool
+	tenantId    string // 租户ID
+	tenantIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	isDeleted     bool // 是否删除
-	isDeletedFlag bool
+	isDeleted    bool // 是否删除
+	isDeletedSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	creatorId     string // 创建人
-	creatorIdFlag bool
+	creatorId    string // 创建人
+	creatorIdSet bool
 
-	updatorId     string // 更新人
-	updatorIdFlag bool
+	updatorId    string // 更新人
+	updatorIdSet bool
 
-	externalId     string // 外部ID
-	externalIdFlag bool
+	externalId    string // 外部ID
+	externalIdSet bool
 }
 
 func NewCompanyBuilder() *CompanyBuilder {
@@ -1949,7 +1949,7 @@ func NewCompanyBuilder() *CompanyBuilder {
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *CompanyBuilder) Id(id string) *CompanyBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1958,7 +1958,7 @@ func (builder *CompanyBuilder) Id(id string) *CompanyBuilder {
 // 示例值：7023251216312528562
 func (builder *CompanyBuilder) TenantId(tenantId string) *CompanyBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -1967,7 +1967,7 @@ func (builder *CompanyBuilder) TenantId(tenantId string) *CompanyBuilder {
 // 示例值：北京科技有限责任公司
 func (builder *CompanyBuilder) Name(name *I18nText) *CompanyBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1976,7 +1976,7 @@ func (builder *CompanyBuilder) Name(name *I18nText) *CompanyBuilder {
 // 示例值：false
 func (builder *CompanyBuilder) IsEnabled(isEnabled bool) *CompanyBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -1985,7 +1985,7 @@ func (builder *CompanyBuilder) IsEnabled(isEnabled bool) *CompanyBuilder {
 // 示例值：true
 func (builder *CompanyBuilder) IsDeleted(isDeleted bool) *CompanyBuilder {
 	builder.isDeleted = isDeleted
-	builder.isDeletedFlag = true
+	builder.isDeletedSet = true
 	return builder
 }
 
@@ -1994,7 +1994,7 @@ func (builder *CompanyBuilder) IsDeleted(isDeleted bool) *CompanyBuilder {
 // 示例值：无
 func (builder *CompanyBuilder) CreateTime(createTime string) *CompanyBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -2003,7 +2003,7 @@ func (builder *CompanyBuilder) CreateTime(createTime string) *CompanyBuilder {
 // 示例值：无
 func (builder *CompanyBuilder) UpdateTime(updateTime string) *CompanyBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -2012,7 +2012,7 @@ func (builder *CompanyBuilder) UpdateTime(updateTime string) *CompanyBuilder {
 // 示例值：无
 func (builder *CompanyBuilder) CreatorId(creatorId string) *CompanyBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -2021,7 +2021,7 @@ func (builder *CompanyBuilder) CreatorId(creatorId string) *CompanyBuilder {
 // 示例值：无
 func (builder *CompanyBuilder) UpdatorId(updatorId string) *CompanyBuilder {
 	builder.updatorId = updatorId
-	builder.updatorIdFlag = true
+	builder.updatorIdSet = true
 	return builder
 }
 
@@ -2030,48 +2030,48 @@ func (builder *CompanyBuilder) UpdatorId(updatorId string) *CompanyBuilder {
 // 示例值：1
 func (builder *CompanyBuilder) ExternalId(externalId string) *CompanyBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *CompanyBuilder) Build() *Company {
 	req := &Company{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.isDeletedFlag {
+	if builder.isDeletedSet {
 		req.IsDeleted = &builder.isDeleted
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.updatorIdFlag {
+	if builder.updatorIdSet {
 		req.UpdatorId = &builder.updatorId
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -2091,20 +2091,20 @@ type ContactAddress struct {
 }
 
 type ContactAddressBuilder struct {
-	country     string // 国家 国家/地区主数据统一编码
-	countryFlag bool
+	country    string // 国家 国家/地区主数据统一编码
+	countrySet bool
 
-	province     string // 省份 国家/地区主数据统一编码
-	provinceFlag bool
+	province    string // 省份 国家/地区主数据统一编码
+	provinceSet bool
 
-	city     string // 城市 国家/地区主数据统一编码
-	cityFlag bool
+	city    string // 城市 国家/地区主数据统一编码
+	citySet bool
 
-	address     string // 详细地址
-	addressFlag bool
+	address    string // 详细地址
+	addressSet bool
 
-	contactAddressType     string // 地址类型
-	contactAddressTypeFlag bool
+	contactAddressType    string // 地址类型
+	contactAddressTypeSet bool
 }
 
 func NewContactAddressBuilder() *ContactAddressBuilder {
@@ -2117,7 +2117,7 @@ func NewContactAddressBuilder() *ContactAddressBuilder {
 // 示例值：MDCT00000012
 func (builder *ContactAddressBuilder) Country(country string) *ContactAddressBuilder {
 	builder.country = country
-	builder.countryFlag = true
+	builder.countrySet = true
 	return builder
 }
 
@@ -2126,7 +2126,7 @@ func (builder *ContactAddressBuilder) Country(country string) *ContactAddressBui
 // 示例值：MDCT00000012
 func (builder *ContactAddressBuilder) Province(province string) *ContactAddressBuilder {
 	builder.province = province
-	builder.provinceFlag = true
+	builder.provinceSet = true
 	return builder
 }
 
@@ -2135,7 +2135,7 @@ func (builder *ContactAddressBuilder) Province(province string) *ContactAddressB
 // 示例值：MDCT00000012
 func (builder *ContactAddressBuilder) City(city string) *ContactAddressBuilder {
 	builder.city = city
-	builder.cityFlag = true
+	builder.citySet = true
 	return builder
 }
 
@@ -2144,7 +2144,7 @@ func (builder *ContactAddressBuilder) City(city string) *ContactAddressBuilder {
 // 示例值：北京市朝阳大街101号
 func (builder *ContactAddressBuilder) Address(address string) *ContactAddressBuilder {
 	builder.address = address
-	builder.addressFlag = true
+	builder.addressSet = true
 	return builder
 }
 
@@ -2153,29 +2153,29 @@ func (builder *ContactAddressBuilder) Address(address string) *ContactAddressBui
 // 示例值：1
 func (builder *ContactAddressBuilder) ContactAddressType(contactAddressType string) *ContactAddressBuilder {
 	builder.contactAddressType = contactAddressType
-	builder.contactAddressTypeFlag = true
+	builder.contactAddressTypeSet = true
 	return builder
 }
 
 func (builder *ContactAddressBuilder) Build() *ContactAddress {
 	req := &ContactAddress{}
-	if builder.countryFlag {
+	if builder.countrySet {
 		req.Country = &builder.country
 
 	}
-	if builder.provinceFlag {
+	if builder.provinceSet {
 		req.Province = &builder.province
 
 	}
-	if builder.cityFlag {
+	if builder.citySet {
 		req.City = &builder.city
 
 	}
-	if builder.addressFlag {
+	if builder.addressSet {
 		req.Address = &builder.address
 
 	}
-	if builder.contactAddressTypeFlag {
+	if builder.contactAddressTypeSet {
 		req.ContactAddressType = &builder.contactAddressType
 
 	}
@@ -2209,41 +2209,41 @@ type CreateAddress struct {
 }
 
 type CreateAddressBuilder struct {
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	postCode     string // 邮编
-	postCodeFlag bool
+	postCode    string // 邮编
+	postCodeSet bool
 
-	country     string // 国家
-	countryFlag bool
+	country    string // 国家
+	countrySet bool
 
-	province     string // 省份
-	provinceFlag bool
+	province    string // 省份
+	provinceSet bool
 
-	city     string // 省份
-	cityFlag bool
+	city    string // 省份
+	citySet bool
 
-	county     string // 区县
-	countyFlag bool
+	county    string // 区县
+	countySet bool
 
-	types     []string // 地址类型
-	typesFlag bool
+	types    []string // 地址类型
+	typesSet bool
 
-	placeId     string // 地点
-	placeIdFlag bool
+	placeId    string // 地点
+	placeIdSet bool
 
-	isMain     bool // 是否主要地址
-	isMainFlag bool
+	isMain    bool // 是否主要地址
+	isMainSet bool
 
-	isPublic     bool // 是否公开地址
-	isPublicFlag bool
+	isPublic    bool // 是否公开地址
+	isPublicSet bool
 
-	externalId     string // 外部ID 未指定则自动生成
-	externalIdFlag bool
+	externalId    string // 外部ID 未指定则自动生成
+	externalIdSet bool
 }
 
 func NewCreateAddressBuilder() *CreateAddressBuilder {
@@ -2256,7 +2256,7 @@ func NewCreateAddressBuilder() *CreateAddressBuilder {
 // 示例值：
 func (builder *CreateAddressBuilder) Name(name *I18nText) *CreateAddressBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2265,7 +2265,7 @@ func (builder *CreateAddressBuilder) Name(name *I18nText) *CreateAddressBuilder 
 // 示例值：
 func (builder *CreateAddressBuilder) IsEnabled(isEnabled bool) *CreateAddressBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -2274,7 +2274,7 @@ func (builder *CreateAddressBuilder) IsEnabled(isEnabled bool) *CreateAddressBui
 // 示例值：123456
 func (builder *CreateAddressBuilder) PostCode(postCode string) *CreateAddressBuilder {
 	builder.postCode = postCode
-	builder.postCodeFlag = true
+	builder.postCodeSet = true
 	return builder
 }
 
@@ -2283,7 +2283,7 @@ func (builder *CreateAddressBuilder) PostCode(postCode string) *CreateAddressBui
 // 示例值：MDCT00000256
 func (builder *CreateAddressBuilder) Country(country string) *CreateAddressBuilder {
 	builder.country = country
-	builder.countryFlag = true
+	builder.countrySet = true
 	return builder
 }
 
@@ -2292,7 +2292,7 @@ func (builder *CreateAddressBuilder) Country(country string) *CreateAddressBuild
 // 示例值：MDCT00000256
 func (builder *CreateAddressBuilder) Province(province string) *CreateAddressBuilder {
 	builder.province = province
-	builder.provinceFlag = true
+	builder.provinceSet = true
 	return builder
 }
 
@@ -2301,7 +2301,7 @@ func (builder *CreateAddressBuilder) Province(province string) *CreateAddressBui
 // 示例值：MDCT00000256
 func (builder *CreateAddressBuilder) City(city string) *CreateAddressBuilder {
 	builder.city = city
-	builder.cityFlag = true
+	builder.citySet = true
 	return builder
 }
 
@@ -2310,7 +2310,7 @@ func (builder *CreateAddressBuilder) City(city string) *CreateAddressBuilder {
 // 示例值：MDCT00000256
 func (builder *CreateAddressBuilder) County(county string) *CreateAddressBuilder {
 	builder.county = county
-	builder.countyFlag = true
+	builder.countySet = true
 	return builder
 }
 
@@ -2319,7 +2319,7 @@ func (builder *CreateAddressBuilder) County(county string) *CreateAddressBuilder
 // 示例值：
 func (builder *CreateAddressBuilder) Types(types []string) *CreateAddressBuilder {
 	builder.types = types
-	builder.typesFlag = true
+	builder.typesSet = true
 	return builder
 }
 
@@ -2328,7 +2328,7 @@ func (builder *CreateAddressBuilder) Types(types []string) *CreateAddressBuilder
 // 示例值：6872549699048439828
 func (builder *CreateAddressBuilder) PlaceId(placeId string) *CreateAddressBuilder {
 	builder.placeId = placeId
-	builder.placeIdFlag = true
+	builder.placeIdSet = true
 	return builder
 }
 
@@ -2337,7 +2337,7 @@ func (builder *CreateAddressBuilder) PlaceId(placeId string) *CreateAddressBuild
 // 示例值：
 func (builder *CreateAddressBuilder) IsMain(isMain bool) *CreateAddressBuilder {
 	builder.isMain = isMain
-	builder.isMainFlag = true
+	builder.isMainSet = true
 	return builder
 }
 
@@ -2346,7 +2346,7 @@ func (builder *CreateAddressBuilder) IsMain(isMain bool) *CreateAddressBuilder {
 // 示例值：
 func (builder *CreateAddressBuilder) IsPublic(isPublic bool) *CreateAddressBuilder {
 	builder.isPublic = isPublic
-	builder.isPublicFlag = true
+	builder.isPublicSet = true
 	return builder
 }
 
@@ -2355,55 +2355,55 @@ func (builder *CreateAddressBuilder) IsPublic(isPublic bool) *CreateAddressBuild
 // 示例值：custom_id
 func (builder *CreateAddressBuilder) ExternalId(externalId string) *CreateAddressBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *CreateAddressBuilder) Build() *CreateAddress {
 	req := &CreateAddress{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.postCodeFlag {
+	if builder.postCodeSet {
 		req.PostCode = &builder.postCode
 
 	}
-	if builder.countryFlag {
+	if builder.countrySet {
 		req.Country = &builder.country
 
 	}
-	if builder.provinceFlag {
+	if builder.provinceSet {
 		req.Province = &builder.province
 
 	}
-	if builder.cityFlag {
+	if builder.citySet {
 		req.City = &builder.city
 
 	}
-	if builder.countyFlag {
+	if builder.countySet {
 		req.County = &builder.county
 
 	}
-	if builder.typesFlag {
+	if builder.typesSet {
 		req.Types = builder.types
 	}
-	if builder.placeIdFlag {
+	if builder.placeIdSet {
 		req.PlaceId = &builder.placeId
 
 	}
-	if builder.isMainFlag {
+	if builder.isMainSet {
 		req.IsMain = &builder.isMain
 
 	}
-	if builder.isPublicFlag {
+	if builder.isPublicSet {
 		req.IsPublic = &builder.isPublic
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -2415,8 +2415,8 @@ type CreateAddressOptions struct {
 }
 
 type CreateAddressOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewCreateAddressOptionsBuilder() *CreateAddressOptionsBuilder {
@@ -2429,13 +2429,13 @@ func NewCreateAddressOptionsBuilder() *CreateAddressOptionsBuilder {
 // 示例值：
 func (builder *CreateAddressOptionsBuilder) DataSource(dataSource int) *CreateAddressOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *CreateAddressOptionsBuilder) Build() *CreateAddressOptions {
 	req := &CreateAddressOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -2449,11 +2449,11 @@ type CreateApp struct {
 }
 
 type CreateAppBuilder struct {
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	avatarKey     string // 头像的文件key
-	avatarKeyFlag bool
+	avatarKey    string // 头像的文件key
+	avatarKeySet bool
 }
 
 func NewCreateAppBuilder() *CreateAppBuilder {
@@ -2466,7 +2466,7 @@ func NewCreateAppBuilder() *CreateAppBuilder {
 // 示例值：
 func (builder *CreateAppBuilder) Name(name *I18nText) *CreateAppBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2475,16 +2475,16 @@ func (builder *CreateAppBuilder) Name(name *I18nText) *CreateAppBuilder {
 // 示例值：da7a0018a447d8b665a
 func (builder *CreateAppBuilder) AvatarKey(avatarKey string) *CreateAppBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
 func (builder *CreateAppBuilder) Build() *CreateApp {
 	req := &CreateApp{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = &builder.avatarKey
 
 	}
@@ -2496,8 +2496,8 @@ type CreateAppOptions struct {
 }
 
 type CreateAppOptionsBuilder struct {
-	geoName     string // appUser 指定geo/unit 不传则使用tenantGeo
-	geoNameFlag bool
+	geoName    string // appUser 指定geo/unit 不传则使用tenantGeo
+	geoNameSet bool
 }
 
 func NewCreateAppOptionsBuilder() *CreateAppOptionsBuilder {
@@ -2510,13 +2510,13 @@ func NewCreateAppOptionsBuilder() *CreateAppOptionsBuilder {
 // 示例值：cn
 func (builder *CreateAppOptionsBuilder) GeoName(geoName string) *CreateAppOptionsBuilder {
 	builder.geoName = geoName
-	builder.geoNameFlag = true
+	builder.geoNameSet = true
 	return builder
 }
 
 func (builder *CreateAppOptionsBuilder) Build() *CreateAppOptions {
 	req := &CreateAppOptions{}
-	if builder.geoNameFlag {
+	if builder.geoNameSet {
 		req.GeoName = &builder.geoName
 
 	}
@@ -2544,32 +2544,32 @@ type CreateBankAccount struct {
 }
 
 type CreateBankAccountBuilder struct {
-	accountUserName     string // 开户人姓名
-	accountUserNameFlag bool
+	accountUserName    string // 开户人姓名
+	accountUserNameSet bool
 
-	accountNumber     string // 银行卡号
-	accountNumberFlag bool
+	accountNumber    string // 银行卡号
+	accountNumberSet bool
 
-	subBankId     string // 支行ID
-	subBankIdFlag bool
+	subBankId    string // 支行ID
+	subBankIdSet bool
 
-	bankCardType     string // 银行卡类型
-	bankCardTypeFlag bool
+	bankCardType    string // 银行卡类型
+	bankCardTypeSet bool
 
-	country     string // 国家/地区
-	countryFlag bool
+	country    string // 国家/地区
+	countrySet bool
 
-	currency     string // 货币 https://md.bytedance.net/v1/main-data/currency 币种编码
-	currencyFlag bool
+	currency    string // 货币 https://md.bytedance.net/v1/main-data/currency 币种编码
+	currencySet bool
 
-	checkCode     string // 校验码
-	checkCodeFlag bool
+	checkCode    string // 校验码
+	checkCodeSet bool
 
-	isMain     bool // 是否主卡
-	isMainFlag bool
+	isMain    bool // 是否主卡
+	isMainSet bool
 
-	bankName     string // 标准版兼容字段，后续会废弃，优先使用SubBankID
-	bankNameFlag bool
+	bankName    string // 标准版兼容字段，后续会废弃，优先使用SubBankID
+	bankNameSet bool
 }
 
 func NewCreateBankAccountBuilder() *CreateBankAccountBuilder {
@@ -2582,7 +2582,7 @@ func NewCreateBankAccountBuilder() *CreateBankAccountBuilder {
 // 示例值：test
 func (builder *CreateBankAccountBuilder) AccountUserName(accountUserName string) *CreateBankAccountBuilder {
 	builder.accountUserName = accountUserName
-	builder.accountUserNameFlag = true
+	builder.accountUserNameSet = true
 	return builder
 }
 
@@ -2591,7 +2591,7 @@ func (builder *CreateBankAccountBuilder) AccountUserName(accountUserName string)
 // 示例值：123123123
 func (builder *CreateBankAccountBuilder) AccountNumber(accountNumber string) *CreateBankAccountBuilder {
 	builder.accountNumber = accountNumber
-	builder.accountNumberFlag = true
+	builder.accountNumberSet = true
 	return builder
 }
 
@@ -2600,7 +2600,7 @@ func (builder *CreateBankAccountBuilder) AccountNumber(accountNumber string) *Cr
 // 示例值：123123123
 func (builder *CreateBankAccountBuilder) SubBankId(subBankId string) *CreateBankAccountBuilder {
 	builder.subBankId = subBankId
-	builder.subBankIdFlag = true
+	builder.subBankIdSet = true
 	return builder
 }
 
@@ -2609,7 +2609,7 @@ func (builder *CreateBankAccountBuilder) SubBankId(subBankId string) *CreateBank
 // 示例值：
 func (builder *CreateBankAccountBuilder) BankCardType(bankCardType string) *CreateBankAccountBuilder {
 	builder.bankCardType = bankCardType
-	builder.bankCardTypeFlag = true
+	builder.bankCardTypeSet = true
 	return builder
 }
 
@@ -2618,7 +2618,7 @@ func (builder *CreateBankAccountBuilder) BankCardType(bankCardType string) *Crea
 // 示例值：MDM_123
 func (builder *CreateBankAccountBuilder) Country(country string) *CreateBankAccountBuilder {
 	builder.country = country
-	builder.countryFlag = true
+	builder.countrySet = true
 	return builder
 }
 
@@ -2627,7 +2627,7 @@ func (builder *CreateBankAccountBuilder) Country(country string) *CreateBankAcco
 // 示例值：MDM_123
 func (builder *CreateBankAccountBuilder) Currency(currency string) *CreateBankAccountBuilder {
 	builder.currency = currency
-	builder.currencyFlag = true
+	builder.currencySet = true
 	return builder
 }
 
@@ -2636,7 +2636,7 @@ func (builder *CreateBankAccountBuilder) Currency(currency string) *CreateBankAc
 // 示例值：123412
 func (builder *CreateBankAccountBuilder) CheckCode(checkCode string) *CreateBankAccountBuilder {
 	builder.checkCode = checkCode
-	builder.checkCodeFlag = true
+	builder.checkCodeSet = true
 	return builder
 }
 
@@ -2645,7 +2645,7 @@ func (builder *CreateBankAccountBuilder) CheckCode(checkCode string) *CreateBank
 // 示例值：
 func (builder *CreateBankAccountBuilder) IsMain(isMain bool) *CreateBankAccountBuilder {
 	builder.isMain = isMain
-	builder.isMainFlag = true
+	builder.isMainSet = true
 	return builder
 }
 
@@ -2654,45 +2654,45 @@ func (builder *CreateBankAccountBuilder) IsMain(isMain bool) *CreateBankAccountB
 // 示例值：test
 func (builder *CreateBankAccountBuilder) BankName(bankName string) *CreateBankAccountBuilder {
 	builder.bankName = bankName
-	builder.bankNameFlag = true
+	builder.bankNameSet = true
 	return builder
 }
 
 func (builder *CreateBankAccountBuilder) Build() *CreateBankAccount {
 	req := &CreateBankAccount{}
-	if builder.accountUserNameFlag {
+	if builder.accountUserNameSet {
 		req.AccountUserName = &builder.accountUserName
 
 	}
-	if builder.accountNumberFlag {
+	if builder.accountNumberSet {
 		req.AccountNumber = &builder.accountNumber
 
 	}
-	if builder.subBankIdFlag {
+	if builder.subBankIdSet {
 		req.SubBankId = &builder.subBankId
 
 	}
-	if builder.bankCardTypeFlag {
+	if builder.bankCardTypeSet {
 		req.BankCardType = &builder.bankCardType
 
 	}
-	if builder.countryFlag {
+	if builder.countrySet {
 		req.Country = &builder.country
 
 	}
-	if builder.currencyFlag {
+	if builder.currencySet {
 		req.Currency = &builder.currency
 
 	}
-	if builder.checkCodeFlag {
+	if builder.checkCodeSet {
 		req.CheckCode = &builder.checkCode
 
 	}
-	if builder.isMainFlag {
+	if builder.isMainSet {
 		req.IsMain = &builder.isMain
 
 	}
-	if builder.bankNameFlag {
+	if builder.bankNameSet {
 		req.BankName = &builder.bankName
 
 	}
@@ -2708,14 +2708,14 @@ type CreateCertificate struct {
 }
 
 type CreateCertificateBuilder struct {
-	credentialNumber     string // 证件号
-	credentialNumberFlag bool
+	credentialNumber    string // 证件号
+	credentialNumberSet bool
 
-	credentialType     string // 证件类型
-	credentialTypeFlag bool
+	credentialType    string // 证件类型
+	credentialTypeSet bool
 
-	expiryDate     string // 到期日期 格式：2007-07-20， 无固定期限或者长期有效，使用PermanentDate常量
-	expiryDateFlag bool
+	expiryDate    string // 到期日期 格式：2007-07-20， 无固定期限或者长期有效，使用PermanentDate常量
+	expiryDateSet bool
 }
 
 func NewCreateCertificateBuilder() *CreateCertificateBuilder {
@@ -2728,7 +2728,7 @@ func NewCreateCertificateBuilder() *CreateCertificateBuilder {
 // 示例值：18823123123123123123
 func (builder *CreateCertificateBuilder) CredentialNumber(credentialNumber string) *CreateCertificateBuilder {
 	builder.credentialNumber = credentialNumber
-	builder.credentialNumberFlag = true
+	builder.credentialNumberSet = true
 	return builder
 }
 
@@ -2737,7 +2737,7 @@ func (builder *CreateCertificateBuilder) CredentialNumber(credentialNumber strin
 // 示例值：
 func (builder *CreateCertificateBuilder) CredentialType(credentialType string) *CreateCertificateBuilder {
 	builder.credentialType = credentialType
-	builder.credentialTypeFlag = true
+	builder.credentialTypeSet = true
 	return builder
 }
 
@@ -2746,21 +2746,21 @@ func (builder *CreateCertificateBuilder) CredentialType(credentialType string) *
 // 示例值：2022-01-01
 func (builder *CreateCertificateBuilder) ExpiryDate(expiryDate string) *CreateCertificateBuilder {
 	builder.expiryDate = expiryDate
-	builder.expiryDateFlag = true
+	builder.expiryDateSet = true
 	return builder
 }
 
 func (builder *CreateCertificateBuilder) Build() *CreateCertificate {
 	req := &CreateCertificate{}
-	if builder.credentialNumberFlag {
+	if builder.credentialNumberSet {
 		req.CredentialNumber = &builder.credentialNumber
 
 	}
-	if builder.credentialTypeFlag {
+	if builder.credentialTypeSet {
 		req.CredentialType = &builder.credentialType
 
 	}
-	if builder.expiryDateFlag {
+	if builder.expiryDateSet {
 		req.ExpiryDate = &builder.expiryDate
 
 	}
@@ -2776,14 +2776,14 @@ type CreateCompany struct {
 }
 
 type CreateCompanyBuilder struct {
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	externalId     string // 外部ID 未指定则自动生成
-	externalIdFlag bool
+	externalId    string // 外部ID 未指定则自动生成
+	externalIdSet bool
 }
 
 func NewCreateCompanyBuilder() *CreateCompanyBuilder {
@@ -2796,7 +2796,7 @@ func NewCreateCompanyBuilder() *CreateCompanyBuilder {
 // 示例值：
 func (builder *CreateCompanyBuilder) Name(name *I18nText) *CreateCompanyBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2805,7 +2805,7 @@ func (builder *CreateCompanyBuilder) Name(name *I18nText) *CreateCompanyBuilder 
 // 示例值：
 func (builder *CreateCompanyBuilder) IsEnabled(isEnabled bool) *CreateCompanyBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -2814,20 +2814,20 @@ func (builder *CreateCompanyBuilder) IsEnabled(isEnabled bool) *CreateCompanyBui
 // 示例值：SFWGDEFGDFD
 func (builder *CreateCompanyBuilder) ExternalId(externalId string) *CreateCompanyBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *CreateCompanyBuilder) Build() *CreateCompany {
 	req := &CreateCompany{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -2839,8 +2839,8 @@ type CreateCompanyOptions struct {
 }
 
 type CreateCompanyOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewCreateCompanyOptionsBuilder() *CreateCompanyOptionsBuilder {
@@ -2853,13 +2853,13 @@ func NewCreateCompanyOptionsBuilder() *CreateCompanyOptionsBuilder {
 // 示例值：
 func (builder *CreateCompanyOptionsBuilder) DataSource(dataSource int) *CreateCompanyOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *CreateCompanyOptionsBuilder) Build() *CreateCompanyOptions {
 	req := &CreateCompanyOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -2887,32 +2887,32 @@ type CreateCustomField struct {
 }
 
 type CreateCustomFieldBuilder struct {
-	externalId     string // 外部自定义id
-	externalIdFlag bool
+	externalId    string // 外部自定义id
+	externalIdSet bool
 
-	fieldName     *I18nText // i18n文本
-	fieldNameFlag bool
+	fieldName    *I18nText // i18n文本
+	fieldNameSet bool
 
-	fieldType     string // 字段类型
-	fieldTypeFlag bool
+	fieldType    string // 字段类型
+	fieldTypeSet bool
 
-	entityType     string // 所属实体类型
-	entityTypeFlag bool
+	entityType    string // 所属实体类型
+	entityTypeSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	enumMeta     *CreateEnumMeta // 枚举值元数据
-	enumMetaFlag bool
+	enumMeta    *CreateEnumMeta // 枚举值元数据
+	enumMetaSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	createSource     string // 创建来源
-	createSourceFlag bool
+	createSource    string // 创建来源
+	createSourceSet bool
 
-	orgDimensionofDeptField     string // 组织维度，仅当EntityType=Departments时生效
-	orgDimensionofDeptFieldFlag bool
+	orgDimensionofDeptField    string // 组织维度，仅当EntityType=Departments时生效
+	orgDimensionofDeptFieldSet bool
 }
 
 func NewCreateCustomFieldBuilder() *CreateCustomFieldBuilder {
@@ -2925,7 +2925,7 @@ func NewCreateCustomFieldBuilder() *CreateCustomFieldBuilder {
 // 示例值：custom_id
 func (builder *CreateCustomFieldBuilder) ExternalId(externalId string) *CreateCustomFieldBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
@@ -2934,7 +2934,7 @@ func (builder *CreateCustomFieldBuilder) ExternalId(externalId string) *CreateCu
 // 示例值：
 func (builder *CreateCustomFieldBuilder) FieldName(fieldName *I18nText) *CreateCustomFieldBuilder {
 	builder.fieldName = fieldName
-	builder.fieldNameFlag = true
+	builder.fieldNameSet = true
 	return builder
 }
 
@@ -2943,7 +2943,7 @@ func (builder *CreateCustomFieldBuilder) FieldName(fieldName *I18nText) *CreateC
 // 示例值：
 func (builder *CreateCustomFieldBuilder) FieldType(fieldType string) *CreateCustomFieldBuilder {
 	builder.fieldType = fieldType
-	builder.fieldTypeFlag = true
+	builder.fieldTypeSet = true
 	return builder
 }
 
@@ -2952,7 +2952,7 @@ func (builder *CreateCustomFieldBuilder) FieldType(fieldType string) *CreateCust
 // 示例值：
 func (builder *CreateCustomFieldBuilder) EntityType(entityType string) *CreateCustomFieldBuilder {
 	builder.entityType = entityType
-	builder.entityTypeFlag = true
+	builder.entityTypeSet = true
 	return builder
 }
 
@@ -2961,7 +2961,7 @@ func (builder *CreateCustomFieldBuilder) EntityType(entityType string) *CreateCu
 // 示例值：
 func (builder *CreateCustomFieldBuilder) Description(description *I18nText) *CreateCustomFieldBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -2970,7 +2970,7 @@ func (builder *CreateCustomFieldBuilder) Description(description *I18nText) *Cre
 // 示例值：
 func (builder *CreateCustomFieldBuilder) EnumMeta(enumMeta *CreateEnumMeta) *CreateCustomFieldBuilder {
 	builder.enumMeta = enumMeta
-	builder.enumMetaFlag = true
+	builder.enumMetaSet = true
 	return builder
 }
 
@@ -2979,7 +2979,7 @@ func (builder *CreateCustomFieldBuilder) EnumMeta(enumMeta *CreateEnumMeta) *Cre
 // 示例值：
 func (builder *CreateCustomFieldBuilder) IsEnabled(isEnabled bool) *CreateCustomFieldBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -2988,7 +2988,7 @@ func (builder *CreateCustomFieldBuilder) IsEnabled(isEnabled bool) *CreateCustom
 // 示例值：
 func (builder *CreateCustomFieldBuilder) CreateSource(createSource string) *CreateCustomFieldBuilder {
 	builder.createSource = createSource
-	builder.createSourceFlag = true
+	builder.createSourceSet = true
 	return builder
 }
 
@@ -2997,42 +2997,42 @@ func (builder *CreateCustomFieldBuilder) CreateSource(createSource string) *Crea
 // 示例值：f
 func (builder *CreateCustomFieldBuilder) OrgDimensionofDeptField(orgDimensionofDeptField string) *CreateCustomFieldBuilder {
 	builder.orgDimensionofDeptField = orgDimensionofDeptField
-	builder.orgDimensionofDeptFieldFlag = true
+	builder.orgDimensionofDeptFieldSet = true
 	return builder
 }
 
 func (builder *CreateCustomFieldBuilder) Build() *CreateCustomField {
 	req := &CreateCustomField{}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
-	if builder.fieldNameFlag {
+	if builder.fieldNameSet {
 		req.FieldName = builder.fieldName
 	}
-	if builder.fieldTypeFlag {
+	if builder.fieldTypeSet {
 		req.FieldType = &builder.fieldType
 
 	}
-	if builder.entityTypeFlag {
+	if builder.entityTypeSet {
 		req.EntityType = &builder.entityType
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.enumMetaFlag {
+	if builder.enumMetaSet {
 		req.EnumMeta = builder.enumMeta
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.createSourceFlag {
+	if builder.createSourceSet {
 		req.CreateSource = &builder.createSource
 
 	}
-	if builder.orgDimensionofDeptFieldFlag {
+	if builder.orgDimensionofDeptFieldSet {
 		req.OrgDimensionofDeptField = &builder.orgDimensionofDeptField
 
 	}
@@ -3066,41 +3066,41 @@ type CreateDepartment struct {
 }
 
 type CreateDepartmentBuilder struct {
-	customDepartmentId     string // 标识租户内一个唯一的部门，支持自定义，未自定义时系统自动生成。ID支持修改。详细说明参见 部门ID说明，获取department_id的方式：企业管理员在 管理后台 > 组织架构 > 成员与部门 页面，点击 部门详情，查询部门ID
-	customDepartmentIdFlag bool
+	customDepartmentId    string // 标识租户内一个唯一的部门，支持自定义，未自定义时系统自动生成。ID支持修改。详细说明参见 部门ID说明，获取department_id的方式：企业管理员在 管理后台 > 组织架构 > 成员与部门 页面，点击 部门详情，查询部门ID
+	customDepartmentIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	parentDepartmentId     string // 父部门ID
-	parentDepartmentIdFlag bool
+	parentDepartmentId    string // 父部门ID
+	parentDepartmentIdSet bool
 
-	leaders     []*DepartmentLeader // 部门负责人
-	leadersFlag bool
+	leaders    []*DepartmentLeader // 部门负责人
+	leadersSet bool
 
-	hrbps     []string // HRBP
-	hrbpsFlag bool
+	hrbps    []string // HRBP
+	hrbpsSet bool
 
-	orderWeight     string // 在上级部门下的排序权重
-	orderWeightFlag bool
+	orderWeight    string // 在上级部门下的排序权重
+	orderWeightSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	departmentType     int // 部门类型
-	departmentTypeFlag bool
+	departmentType    int // 部门类型
+	departmentTypeSet bool
 
-	enabledStatus     bool // 是否启用
-	enabledStatusFlag bool
+	enabledStatus    bool // 是否启用
+	enabledStatusSet bool
 
-	customFieldValueMap     map[string]*CustomFieldValue // 自定义字段
-	customFieldValueMapFlag bool
+	customFieldValueMap    map[string]*CustomFieldValue // 自定义字段
+	customFieldValueMapSet bool
 
-	customFieldValues     []*CustomFieldValue // 自定义字段
-	customFieldValuesFlag bool
+	customFieldValues    []*CustomFieldValue // 自定义字段
+	customFieldValuesSet bool
 
-	orgDimension     string // 组织维度
-	orgDimensionFlag bool
+	orgDimension    string // 组织维度
+	orgDimensionSet bool
 }
 
 func NewCreateDepartmentBuilder() *CreateDepartmentBuilder {
@@ -3113,7 +3113,7 @@ func NewCreateDepartmentBuilder() *CreateDepartmentBuilder {
 // 示例值：eersdf
 func (builder *CreateDepartmentBuilder) CustomDepartmentId(customDepartmentId string) *CreateDepartmentBuilder {
 	builder.customDepartmentId = customDepartmentId
-	builder.customDepartmentIdFlag = true
+	builder.customDepartmentIdSet = true
 	return builder
 }
 
@@ -3122,7 +3122,7 @@ func (builder *CreateDepartmentBuilder) CustomDepartmentId(customDepartmentId st
 // 示例值：
 func (builder *CreateDepartmentBuilder) Name(name *I18nText) *CreateDepartmentBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3131,7 +3131,7 @@ func (builder *CreateDepartmentBuilder) Name(name *I18nText) *CreateDepartmentBu
 // 示例值：h121900
 func (builder *CreateDepartmentBuilder) ParentDepartmentId(parentDepartmentId string) *CreateDepartmentBuilder {
 	builder.parentDepartmentId = parentDepartmentId
-	builder.parentDepartmentIdFlag = true
+	builder.parentDepartmentIdSet = true
 	return builder
 }
 
@@ -3140,7 +3140,7 @@ func (builder *CreateDepartmentBuilder) ParentDepartmentId(parentDepartmentId st
 // 示例值：
 func (builder *CreateDepartmentBuilder) Leaders(leaders []*DepartmentLeader) *CreateDepartmentBuilder {
 	builder.leaders = leaders
-	builder.leadersFlag = true
+	builder.leadersSet = true
 	return builder
 }
 
@@ -3149,7 +3149,7 @@ func (builder *CreateDepartmentBuilder) Leaders(leaders []*DepartmentLeader) *Cr
 // 示例值：
 func (builder *CreateDepartmentBuilder) Hrbps(hrbps []string) *CreateDepartmentBuilder {
 	builder.hrbps = hrbps
-	builder.hrbpsFlag = true
+	builder.hrbpsSet = true
 	return builder
 }
 
@@ -3158,7 +3158,7 @@ func (builder *CreateDepartmentBuilder) Hrbps(hrbps []string) *CreateDepartmentB
 // 示例值：100
 func (builder *CreateDepartmentBuilder) OrderWeight(orderWeight string) *CreateDepartmentBuilder {
 	builder.orderWeight = orderWeight
-	builder.orderWeightFlag = true
+	builder.orderWeightSet = true
 	return builder
 }
 
@@ -3167,7 +3167,7 @@ func (builder *CreateDepartmentBuilder) OrderWeight(orderWeight string) *CreateD
 // 示例值：
 func (builder *CreateDepartmentBuilder) Description(description *I18nText) *CreateDepartmentBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -3176,7 +3176,7 @@ func (builder *CreateDepartmentBuilder) Description(description *I18nText) *Crea
 // 示例值：
 func (builder *CreateDepartmentBuilder) DepartmentType(departmentType int) *CreateDepartmentBuilder {
 	builder.departmentType = departmentType
-	builder.departmentTypeFlag = true
+	builder.departmentTypeSet = true
 	return builder
 }
 
@@ -3185,7 +3185,7 @@ func (builder *CreateDepartmentBuilder) DepartmentType(departmentType int) *Crea
 // 示例值：
 func (builder *CreateDepartmentBuilder) EnabledStatus(enabledStatus bool) *CreateDepartmentBuilder {
 	builder.enabledStatus = enabledStatus
-	builder.enabledStatusFlag = true
+	builder.enabledStatusSet = true
 	return builder
 }
 
@@ -3194,7 +3194,7 @@ func (builder *CreateDepartmentBuilder) EnabledStatus(enabledStatus bool) *Creat
 // 示例值：
 func (builder *CreateDepartmentBuilder) CustomFieldValueMap(customFieldValueMap map[string]*CustomFieldValue) *CreateDepartmentBuilder {
 	builder.customFieldValueMap = customFieldValueMap
-	builder.customFieldValueMapFlag = true
+	builder.customFieldValueMapSet = true
 	return builder
 }
 
@@ -3203,7 +3203,7 @@ func (builder *CreateDepartmentBuilder) CustomFieldValueMap(customFieldValueMap 
 // 示例值：
 func (builder *CreateDepartmentBuilder) CustomFieldValues(customFieldValues []*CustomFieldValue) *CreateDepartmentBuilder {
 	builder.customFieldValues = customFieldValues
-	builder.customFieldValuesFlag = true
+	builder.customFieldValuesSet = true
 	return builder
 }
 
@@ -3212,51 +3212,51 @@ func (builder *CreateDepartmentBuilder) CustomFieldValues(customFieldValues []*C
 // 示例值：3e3cf96b
 func (builder *CreateDepartmentBuilder) OrgDimension(orgDimension string) *CreateDepartmentBuilder {
 	builder.orgDimension = orgDimension
-	builder.orgDimensionFlag = true
+	builder.orgDimensionSet = true
 	return builder
 }
 
 func (builder *CreateDepartmentBuilder) Build() *CreateDepartment {
 	req := &CreateDepartment{}
-	if builder.customDepartmentIdFlag {
+	if builder.customDepartmentIdSet {
 		req.CustomDepartmentId = &builder.customDepartmentId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.parentDepartmentIdFlag {
+	if builder.parentDepartmentIdSet {
 		req.ParentDepartmentId = &builder.parentDepartmentId
 
 	}
-	if builder.leadersFlag {
+	if builder.leadersSet {
 		req.Leaders = builder.leaders
 	}
-	if builder.hrbpsFlag {
+	if builder.hrbpsSet {
 		req.Hrbps = builder.hrbps
 	}
-	if builder.orderWeightFlag {
+	if builder.orderWeightSet {
 		req.OrderWeight = &builder.orderWeight
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.departmentTypeFlag {
+	if builder.departmentTypeSet {
 		req.DepartmentType = &builder.departmentType
 
 	}
-	if builder.enabledStatusFlag {
+	if builder.enabledStatusSet {
 		req.EnabledStatus = &builder.enabledStatus
 
 	}
-	if builder.customFieldValueMapFlag {
+	if builder.customFieldValueMapSet {
 		req.CustomFieldValueMap = builder.customFieldValueMap
 	}
-	if builder.customFieldValuesFlag {
+	if builder.customFieldValuesSet {
 		req.CustomFieldValues = builder.customFieldValues
 	}
-	if builder.orgDimensionFlag {
+	if builder.orgDimensionSet {
 		req.OrgDimension = &builder.orgDimension
 
 	}
@@ -3268,8 +3268,8 @@ type CreateDepartmentOptions struct {
 }
 
 type CreateDepartmentOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewCreateDepartmentOptionsBuilder() *CreateDepartmentOptionsBuilder {
@@ -3282,13 +3282,13 @@ func NewCreateDepartmentOptionsBuilder() *CreateDepartmentOptionsBuilder {
 // 示例值：
 func (builder *CreateDepartmentOptionsBuilder) DataSource(dataSource int) *CreateDepartmentOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *CreateDepartmentOptionsBuilder) Build() *CreateDepartmentOptions {
 	req := &CreateDepartmentOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -3398,155 +3398,155 @@ type CreateEmployee struct {
 }
 
 type CreateEmployeeBuilder struct {
-	name     *UpsertName // 姓名
-	nameFlag bool
+	name    *UpsertName // 姓名
+	nameSet bool
 
-	mobile     string // 员工的联系手机号
-	mobileFlag bool
+	mobile    string // 员工的联系手机号
+	mobileSet bool
 
-	customEmployeeId     string // 用户的user_id
-	customEmployeeIdFlag bool
+	customEmployeeId    string // 用户的user_id
+	customEmployeeIdSet bool
 
-	avatarKey     string // 头像的文件key
-	avatarKeyFlag bool
+	avatarKey    string // 头像的文件key
+	avatarKeySet bool
 
-	email     string // 员工的联系邮箱
-	emailFlag bool
+	email    string // 员工的联系邮箱
+	emailSet bool
 
-	personalEmail     string // 员工在人事系统中的联系邮箱
-	personalEmailFlag bool
+	personalEmail    string // 员工在人事系统中的联系邮箱
+	personalEmailSet bool
 
-	enterpriseEmail     string // 员工的企业邮箱
-	enterpriseEmailFlag bool
+	enterpriseEmail    string // 员工的企业邮箱
+	enterpriseEmailSet bool
 
-	gender     int // 性别
-	genderFlag bool
+	gender    int // 性别
+	genderSet bool
 
-	residentialAddress     string // 现居住地址
-	residentialAddressFlag bool
+	residentialAddress    string // 现居住地址
+	residentialAddressSet bool
 
-	contactAddresses     []*ContactAddress // 联系地址
-	contactAddressesFlag bool
+	contactAddresses    []*ContactAddress // 联系地址
+	contactAddressesSet bool
 
-	employeeOrderInDepartments     []*UpsertUserDepartmentSortInfo // 部门排序
-	employeeOrderInDepartmentsFlag bool
+	employeeOrderInDepartments    []*UpsertUserDepartmentSortInfo // 部门排序
+	employeeOrderInDepartmentsSet bool
 
-	leaderId     string // 员工直属上级的user_id
-	leaderIdFlag bool
+	leaderId    string // 员工直属上级的user_id
+	leaderIdSet bool
 
-	dottedLineLeaderIds     []string // 员工虚线上级的user_id
-	dottedLineLeaderIdsFlag bool
+	dottedLineLeaderIds    []string // 员工虚线上级的user_id
+	dottedLineLeaderIdsSet bool
 
-	workCountryOrRegion     string // 工作地国家/地区
-	workCountryOrRegionFlag bool
+	workCountryOrRegion    string // 工作地国家/地区
+	workCountryOrRegionSet bool
 
-	workPlaceId     string // 工作地点
-	workPlaceIdFlag bool
+	workPlaceId    string // 工作地点
+	workPlaceIdSet bool
 
-	workStation     *I18nText // i18n文本
-	workStationFlag bool
+	workStation    *I18nText // i18n文本
+	workStationSet bool
 
-	jobNumber     string // 工号
-	jobNumberFlag bool
+	jobNumber    string // 工号
+	jobNumberSet bool
 
-	extensionNumber     string // 分机号
-	extensionNumberFlag bool
+	extensionNumber    string // 分机号
+	extensionNumberSet bool
 
-	joinDate     string // 入职日期
-	joinDateFlag bool
+	joinDate    string // 入职日期
+	joinDateSet bool
 
-	employmentType     int // 员工类型
-	employmentTypeFlag bool
+	employmentType    int // 员工类型
+	employmentTypeSet bool
 
-	staffStatus     int // 员工人事状态
-	staffStatusFlag bool
+	staffStatus    int // 员工人事状态
+	staffStatusSet bool
 
-	positions     []*Position // 岗位信息
-	positionsFlag bool
+	positions    []*Position // 岗位信息
+	positionsSet bool
 
-	jobTitleId     string // 职务ID
-	jobTitleIdFlag bool
+	jobTitleId    string // 职务ID
+	jobTitleIdSet bool
 
-	jobLevelId     string // 职级ID
-	jobLevelIdFlag bool
+	jobLevelId    string // 职级ID
+	jobLevelIdSet bool
 
-	jobFamilyId     string // 序列ID
-	jobFamilyIdFlag bool
+	jobFamilyId    string // 序列ID
+	jobFamilyIdSet bool
 
-	firstWorkDate     string // 首次参加工作日期
-	firstWorkDateFlag bool
+	firstWorkDate    string // 首次参加工作日期
+	firstWorkDateSet bool
 
-	firstJoinDate     string // 首次进入公司日期
-	firstJoinDateFlag bool
+	firstJoinDate    string // 首次进入公司日期
+	firstJoinDateSet bool
 
-	probationPeriod     string // 试用期（月）
-	probationPeriodFlag bool
+	probationPeriod    string // 试用期（月）
+	probationPeriodSet bool
 
-	regularizationDate     string // 转正日期
-	regularizationDateFlag bool
+	regularizationDate    string // 转正日期
+	regularizationDateSet bool
 
-	convertStatus     string // 转正状态
-	convertStatusFlag bool
+	convertStatus    string // 转正状态
+	convertStatusSet bool
 
-	contractSubject     string // 合同主体ID
-	contractSubjectFlag bool
+	contractSubject    string // 合同主体ID
+	contractSubjectSet bool
 
-	resignDate     string // 离职日期
-	resignDateFlag bool
+	resignDate    string // 离职日期
+	resignDateSet bool
 
-	resignReason     string // 离职原因
-	resignReasonFlag bool
+	resignReason    string // 离职原因
+	resignReasonSet bool
 
-	resignRemark     string // 离职备注信息
-	resignRemarkFlag bool
+	resignRemark    string // 离职备注信息
+	resignRemarkSet bool
 
-	resignType     string // 离职类型
-	resignTypeFlag bool
+	resignType    string // 离职类型
+	resignTypeSet bool
 
-	cancelledEntryType     string // 取消入职原因
-	cancelledEntryTypeFlag bool
+	cancelledEntryType    string // 取消入职原因
+	cancelledEntryTypeSet bool
 
-	cancelledEntryRemark     string // 取消入职备注信息
-	cancelledEntryRemarkFlag bool
+	cancelledEntryRemark    string // 取消入职备注信息
+	cancelledEntryRemarkSet bool
 
-	birthday     string // 出生日期
-	birthdayFlag bool
+	birthday    string // 出生日期
+	birthdaySet bool
 
-	nationality     string // 国籍
-	nationalityFlag bool
+	nationality    string // 国籍
+	nationalitySet bool
 
-	nativePlace     string // 籍贯
-	nativePlaceFlag bool
+	nativePlace    string // 籍贯
+	nativePlaceSet bool
 
-	ethnicity     string // 民族/种族
-	ethnicityFlag bool
+	ethnicity    string // 民族/种族
+	ethnicitySet bool
 
-	maritalStatus     string // 婚姻状态
-	maritalStatusFlag bool
+	maritalStatus    string // 婚姻状态
+	maritalStatusSet bool
 
-	politicsStatus     string // 政治面貌
-	politicsStatusFlag bool
+	politicsStatus    string // 政治面貌
+	politicsStatusSet bool
 
-	registeredResidenceType     string // 户口类型
-	registeredResidenceTypeFlag bool
+	registeredResidenceType    string // 户口类型
+	registeredResidenceTypeSet bool
 
-	location     string // 户口所在地地址
-	locationFlag bool
+	location    string // 户口所在地地址
+	locationSet bool
 
-	socialSecurityNumber     string // 社保账号
-	socialSecurityNumberFlag bool
+	socialSecurityNumber    string // 社保账号
+	socialSecurityNumberSet bool
 
-	providentFundNumber     string // 公积金账号
-	providentFundNumberFlag bool
+	providentFundNumber    string // 公积金账号
+	providentFundNumberSet bool
 
-	customFieldValueMap     map[string]*CustomFieldValue // 自定义字段
-	customFieldValueMapFlag bool
+	customFieldValueMap    map[string]*CustomFieldValue // 自定义字段
+	customFieldValueMapSet bool
 
-	customFieldValues     []*CustomFieldValue // 自定义字段
-	customFieldValuesFlag bool
+	customFieldValues    []*CustomFieldValue // 自定义字段
+	customFieldValuesSet bool
 
-	virtualOrgInfos     []*UpsertUserVirtualOrgInfo // 虚拟组织信息
-	virtualOrgInfosFlag bool
+	virtualOrgInfos    []*UpsertUserVirtualOrgInfo // 虚拟组织信息
+	virtualOrgInfosSet bool
 }
 
 func NewCreateEmployeeBuilder() *CreateEmployeeBuilder {
@@ -3559,7 +3559,7 @@ func NewCreateEmployeeBuilder() *CreateEmployeeBuilder {
 // 示例值：
 func (builder *CreateEmployeeBuilder) Name(name *UpsertName) *CreateEmployeeBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3568,7 +3568,7 @@ func (builder *CreateEmployeeBuilder) Name(name *UpsertName) *CreateEmployeeBuil
 // 示例值：13011111111" 或 "+8613011111111
 func (builder *CreateEmployeeBuilder) Mobile(mobile string) *CreateEmployeeBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -3577,7 +3577,7 @@ func (builder *CreateEmployeeBuilder) Mobile(mobile string) *CreateEmployeeBuild
 // 示例值：u273y71
 func (builder *CreateEmployeeBuilder) CustomEmployeeId(customEmployeeId string) *CreateEmployeeBuilder {
 	builder.customEmployeeId = customEmployeeId
-	builder.customEmployeeIdFlag = true
+	builder.customEmployeeIdSet = true
 	return builder
 }
 
@@ -3586,7 +3586,7 @@ func (builder *CreateEmployeeBuilder) CustomEmployeeId(customEmployeeId string) 
 // 示例值：iimg_v2_8abc397a-9950-44ea-9302-e1d8fe00858g
 func (builder *CreateEmployeeBuilder) AvatarKey(avatarKey string) *CreateEmployeeBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
@@ -3595,7 +3595,7 @@ func (builder *CreateEmployeeBuilder) AvatarKey(avatarKey string) *CreateEmploye
 // 示例值：zhangsan@gmail.com
 func (builder *CreateEmployeeBuilder) Email(email string) *CreateEmployeeBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -3604,7 +3604,7 @@ func (builder *CreateEmployeeBuilder) Email(email string) *CreateEmployeeBuilder
 // 示例值：zhangsan@gmail.com
 func (builder *CreateEmployeeBuilder) PersonalEmail(personalEmail string) *CreateEmployeeBuilder {
 	builder.personalEmail = personalEmail
-	builder.personalEmailFlag = true
+	builder.personalEmailSet = true
 	return builder
 }
 
@@ -3613,7 +3613,7 @@ func (builder *CreateEmployeeBuilder) PersonalEmail(personalEmail string) *Creat
 // 示例值：zhangsan@gmail.com
 func (builder *CreateEmployeeBuilder) EnterpriseEmail(enterpriseEmail string) *CreateEmployeeBuilder {
 	builder.enterpriseEmail = enterpriseEmail
-	builder.enterpriseEmailFlag = true
+	builder.enterpriseEmailSet = true
 	return builder
 }
 
@@ -3622,7 +3622,7 @@ func (builder *CreateEmployeeBuilder) EnterpriseEmail(enterpriseEmail string) *C
 // 示例值：
 func (builder *CreateEmployeeBuilder) Gender(gender int) *CreateEmployeeBuilder {
 	builder.gender = gender
-	builder.genderFlag = true
+	builder.genderSet = true
 	return builder
 }
 
@@ -3631,7 +3631,7 @@ func (builder *CreateEmployeeBuilder) Gender(gender int) *CreateEmployeeBuilder 
 // 示例值：北京市海淀区
 func (builder *CreateEmployeeBuilder) ResidentialAddress(residentialAddress string) *CreateEmployeeBuilder {
 	builder.residentialAddress = residentialAddress
-	builder.residentialAddressFlag = true
+	builder.residentialAddressSet = true
 	return builder
 }
 
@@ -3640,7 +3640,7 @@ func (builder *CreateEmployeeBuilder) ResidentialAddress(residentialAddress stri
 // 示例值：
 func (builder *CreateEmployeeBuilder) ContactAddresses(contactAddresses []*ContactAddress) *CreateEmployeeBuilder {
 	builder.contactAddresses = contactAddresses
-	builder.contactAddressesFlag = true
+	builder.contactAddressesSet = true
 	return builder
 }
 
@@ -3649,7 +3649,7 @@ func (builder *CreateEmployeeBuilder) ContactAddresses(contactAddresses []*Conta
 // 示例值：
 func (builder *CreateEmployeeBuilder) EmployeeOrderInDepartments(employeeOrderInDepartments []*UpsertUserDepartmentSortInfo) *CreateEmployeeBuilder {
 	builder.employeeOrderInDepartments = employeeOrderInDepartments
-	builder.employeeOrderInDepartmentsFlag = true
+	builder.employeeOrderInDepartmentsSet = true
 	return builder
 }
 
@@ -3658,7 +3658,7 @@ func (builder *CreateEmployeeBuilder) EmployeeOrderInDepartments(employeeOrderIn
 // 示例值：eeasdqwwe
 func (builder *CreateEmployeeBuilder) LeaderId(leaderId string) *CreateEmployeeBuilder {
 	builder.leaderId = leaderId
-	builder.leaderIdFlag = true
+	builder.leaderIdSet = true
 	return builder
 }
 
@@ -3667,7 +3667,7 @@ func (builder *CreateEmployeeBuilder) LeaderId(leaderId string) *CreateEmployeeB
 // 示例值：
 func (builder *CreateEmployeeBuilder) DottedLineLeaderIds(dottedLineLeaderIds []string) *CreateEmployeeBuilder {
 	builder.dottedLineLeaderIds = dottedLineLeaderIds
-	builder.dottedLineLeaderIdsFlag = true
+	builder.dottedLineLeaderIdsSet = true
 	return builder
 }
 
@@ -3676,7 +3676,7 @@ func (builder *CreateEmployeeBuilder) DottedLineLeaderIds(dottedLineLeaderIds []
 // 示例值：MDM34234234
 func (builder *CreateEmployeeBuilder) WorkCountryOrRegion(workCountryOrRegion string) *CreateEmployeeBuilder {
 	builder.workCountryOrRegion = workCountryOrRegion
-	builder.workCountryOrRegionFlag = true
+	builder.workCountryOrRegionSet = true
 	return builder
 }
 
@@ -3685,7 +3685,7 @@ func (builder *CreateEmployeeBuilder) WorkCountryOrRegion(workCountryOrRegion st
 // 示例值：eqwedas
 func (builder *CreateEmployeeBuilder) WorkPlaceId(workPlaceId string) *CreateEmployeeBuilder {
 	builder.workPlaceId = workPlaceId
-	builder.workPlaceIdFlag = true
+	builder.workPlaceIdSet = true
 	return builder
 }
 
@@ -3694,7 +3694,7 @@ func (builder *CreateEmployeeBuilder) WorkPlaceId(workPlaceId string) *CreateEmp
 // 示例值：
 func (builder *CreateEmployeeBuilder) WorkStation(workStation *I18nText) *CreateEmployeeBuilder {
 	builder.workStation = workStation
-	builder.workStationFlag = true
+	builder.workStationSet = true
 	return builder
 }
 
@@ -3703,7 +3703,7 @@ func (builder *CreateEmployeeBuilder) WorkStation(workStation *I18nText) *Create
 // 示例值：2845435
 func (builder *CreateEmployeeBuilder) JobNumber(jobNumber string) *CreateEmployeeBuilder {
 	builder.jobNumber = jobNumber
-	builder.jobNumberFlag = true
+	builder.jobNumberSet = true
 	return builder
 }
 
@@ -3712,7 +3712,7 @@ func (builder *CreateEmployeeBuilder) JobNumber(jobNumber string) *CreateEmploye
 // 示例值：2845435
 func (builder *CreateEmployeeBuilder) ExtensionNumber(extensionNumber string) *CreateEmployeeBuilder {
 	builder.extensionNumber = extensionNumber
-	builder.extensionNumberFlag = true
+	builder.extensionNumberSet = true
 	return builder
 }
 
@@ -3721,7 +3721,7 @@ func (builder *CreateEmployeeBuilder) ExtensionNumber(extensionNumber string) *C
 // 示例值：2022-10-10
 func (builder *CreateEmployeeBuilder) JoinDate(joinDate string) *CreateEmployeeBuilder {
 	builder.joinDate = joinDate
-	builder.joinDateFlag = true
+	builder.joinDateSet = true
 	return builder
 }
 
@@ -3730,7 +3730,7 @@ func (builder *CreateEmployeeBuilder) JoinDate(joinDate string) *CreateEmployeeB
 // 示例值：
 func (builder *CreateEmployeeBuilder) EmploymentType(employmentType int) *CreateEmployeeBuilder {
 	builder.employmentType = employmentType
-	builder.employmentTypeFlag = true
+	builder.employmentTypeSet = true
 	return builder
 }
 
@@ -3739,7 +3739,7 @@ func (builder *CreateEmployeeBuilder) EmploymentType(employmentType int) *Create
 // 示例值：
 func (builder *CreateEmployeeBuilder) StaffStatus(staffStatus int) *CreateEmployeeBuilder {
 	builder.staffStatus = staffStatus
-	builder.staffStatusFlag = true
+	builder.staffStatusSet = true
 	return builder
 }
 
@@ -3748,7 +3748,7 @@ func (builder *CreateEmployeeBuilder) StaffStatus(staffStatus int) *CreateEmploy
 // 示例值：
 func (builder *CreateEmployeeBuilder) Positions(positions []*Position) *CreateEmployeeBuilder {
 	builder.positions = positions
-	builder.positionsFlag = true
+	builder.positionsSet = true
 	return builder
 }
 
@@ -3757,7 +3757,7 @@ func (builder *CreateEmployeeBuilder) Positions(positions []*Position) *CreateEm
 // 示例值：wqedsaqw
 func (builder *CreateEmployeeBuilder) JobTitleId(jobTitleId string) *CreateEmployeeBuilder {
 	builder.jobTitleId = jobTitleId
-	builder.jobTitleIdFlag = true
+	builder.jobTitleIdSet = true
 	return builder
 }
 
@@ -3766,7 +3766,7 @@ func (builder *CreateEmployeeBuilder) JobTitleId(jobTitleId string) *CreateEmplo
 // 示例值：qwedsad
 func (builder *CreateEmployeeBuilder) JobLevelId(jobLevelId string) *CreateEmployeeBuilder {
 	builder.jobLevelId = jobLevelId
-	builder.jobLevelIdFlag = true
+	builder.jobLevelIdSet = true
 	return builder
 }
 
@@ -3775,7 +3775,7 @@ func (builder *CreateEmployeeBuilder) JobLevelId(jobLevelId string) *CreateEmplo
 // 示例值：qweads
 func (builder *CreateEmployeeBuilder) JobFamilyId(jobFamilyId string) *CreateEmployeeBuilder {
 	builder.jobFamilyId = jobFamilyId
-	builder.jobFamilyIdFlag = true
+	builder.jobFamilyIdSet = true
 	return builder
 }
 
@@ -3784,7 +3784,7 @@ func (builder *CreateEmployeeBuilder) JobFamilyId(jobFamilyId string) *CreateEmp
 // 示例值：2022-01-01
 func (builder *CreateEmployeeBuilder) FirstWorkDate(firstWorkDate string) *CreateEmployeeBuilder {
 	builder.firstWorkDate = firstWorkDate
-	builder.firstWorkDateFlag = true
+	builder.firstWorkDateSet = true
 	return builder
 }
 
@@ -3793,7 +3793,7 @@ func (builder *CreateEmployeeBuilder) FirstWorkDate(firstWorkDate string) *Creat
 // 示例值：2022-01-01
 func (builder *CreateEmployeeBuilder) FirstJoinDate(firstJoinDate string) *CreateEmployeeBuilder {
 	builder.firstJoinDate = firstJoinDate
-	builder.firstJoinDateFlag = true
+	builder.firstJoinDateSet = true
 	return builder
 }
 
@@ -3802,7 +3802,7 @@ func (builder *CreateEmployeeBuilder) FirstJoinDate(firstJoinDate string) *Creat
 // 示例值：10
 func (builder *CreateEmployeeBuilder) ProbationPeriod(probationPeriod string) *CreateEmployeeBuilder {
 	builder.probationPeriod = probationPeriod
-	builder.probationPeriodFlag = true
+	builder.probationPeriodSet = true
 	return builder
 }
 
@@ -3811,7 +3811,7 @@ func (builder *CreateEmployeeBuilder) ProbationPeriod(probationPeriod string) *C
 // 示例值：2022-01-01
 func (builder *CreateEmployeeBuilder) RegularizationDate(regularizationDate string) *CreateEmployeeBuilder {
 	builder.regularizationDate = regularizationDate
-	builder.regularizationDateFlag = true
+	builder.regularizationDateSet = true
 	return builder
 }
 
@@ -3820,7 +3820,7 @@ func (builder *CreateEmployeeBuilder) RegularizationDate(regularizationDate stri
 // 示例值：
 func (builder *CreateEmployeeBuilder) ConvertStatus(convertStatus string) *CreateEmployeeBuilder {
 	builder.convertStatus = convertStatus
-	builder.convertStatusFlag = true
+	builder.convertStatusSet = true
 	return builder
 }
 
@@ -3829,7 +3829,7 @@ func (builder *CreateEmployeeBuilder) ConvertStatus(convertStatus string) *Creat
 // 示例值：2dsweq
 func (builder *CreateEmployeeBuilder) ContractSubject(contractSubject string) *CreateEmployeeBuilder {
 	builder.contractSubject = contractSubject
-	builder.contractSubjectFlag = true
+	builder.contractSubjectSet = true
 	return builder
 }
 
@@ -3838,7 +3838,7 @@ func (builder *CreateEmployeeBuilder) ContractSubject(contractSubject string) *C
 // 示例值：2022-01-01
 func (builder *CreateEmployeeBuilder) ResignDate(resignDate string) *CreateEmployeeBuilder {
 	builder.resignDate = resignDate
-	builder.resignDateFlag = true
+	builder.resignDateSet = true
 	return builder
 }
 
@@ -3847,7 +3847,7 @@ func (builder *CreateEmployeeBuilder) ResignDate(resignDate string) *CreateEmplo
 // 示例值：
 func (builder *CreateEmployeeBuilder) ResignReason(resignReason string) *CreateEmployeeBuilder {
 	builder.resignReason = resignReason
-	builder.resignReasonFlag = true
+	builder.resignReasonSet = true
 	return builder
 }
 
@@ -3856,7 +3856,7 @@ func (builder *CreateEmployeeBuilder) ResignReason(resignReason string) *CreateE
 // 示例值：个人原因
 func (builder *CreateEmployeeBuilder) ResignRemark(resignRemark string) *CreateEmployeeBuilder {
 	builder.resignRemark = resignRemark
-	builder.resignRemarkFlag = true
+	builder.resignRemarkSet = true
 	return builder
 }
 
@@ -3865,7 +3865,7 @@ func (builder *CreateEmployeeBuilder) ResignRemark(resignRemark string) *CreateE
 // 示例值：
 func (builder *CreateEmployeeBuilder) ResignType(resignType string) *CreateEmployeeBuilder {
 	builder.resignType = resignType
-	builder.resignTypeFlag = true
+	builder.resignTypeSet = true
 	return builder
 }
 
@@ -3874,7 +3874,7 @@ func (builder *CreateEmployeeBuilder) ResignType(resignType string) *CreateEmplo
 // 示例值：
 func (builder *CreateEmployeeBuilder) CancelledEntryType(cancelledEntryType string) *CreateEmployeeBuilder {
 	builder.cancelledEntryType = cancelledEntryType
-	builder.cancelledEntryTypeFlag = true
+	builder.cancelledEntryTypeSet = true
 	return builder
 }
 
@@ -3883,7 +3883,7 @@ func (builder *CreateEmployeeBuilder) CancelledEntryType(cancelledEntryType stri
 // 示例值：个人原因
 func (builder *CreateEmployeeBuilder) CancelledEntryRemark(cancelledEntryRemark string) *CreateEmployeeBuilder {
 	builder.cancelledEntryRemark = cancelledEntryRemark
-	builder.cancelledEntryRemarkFlag = true
+	builder.cancelledEntryRemarkSet = true
 	return builder
 }
 
@@ -3892,7 +3892,7 @@ func (builder *CreateEmployeeBuilder) CancelledEntryRemark(cancelledEntryRemark 
 // 示例值：2022-01-01
 func (builder *CreateEmployeeBuilder) Birthday(birthday string) *CreateEmployeeBuilder {
 	builder.birthday = birthday
-	builder.birthdayFlag = true
+	builder.birthdaySet = true
 	return builder
 }
 
@@ -3901,7 +3901,7 @@ func (builder *CreateEmployeeBuilder) Birthday(birthday string) *CreateEmployeeB
 // 示例值：cn
 func (builder *CreateEmployeeBuilder) Nationality(nationality string) *CreateEmployeeBuilder {
 	builder.nationality = nationality
-	builder.nationalityFlag = true
+	builder.nationalitySet = true
 	return builder
 }
 
@@ -3910,7 +3910,7 @@ func (builder *CreateEmployeeBuilder) Nationality(nationality string) *CreateEmp
 // 示例值：1
 func (builder *CreateEmployeeBuilder) NativePlace(nativePlace string) *CreateEmployeeBuilder {
 	builder.nativePlace = nativePlace
-	builder.nativePlaceFlag = true
+	builder.nativePlaceSet = true
 	return builder
 }
 
@@ -3919,7 +3919,7 @@ func (builder *CreateEmployeeBuilder) NativePlace(nativePlace string) *CreateEmp
 // 示例值：
 func (builder *CreateEmployeeBuilder) Ethnicity(ethnicity string) *CreateEmployeeBuilder {
 	builder.ethnicity = ethnicity
-	builder.ethnicityFlag = true
+	builder.ethnicitySet = true
 	return builder
 }
 
@@ -3928,7 +3928,7 @@ func (builder *CreateEmployeeBuilder) Ethnicity(ethnicity string) *CreateEmploye
 // 示例值：
 func (builder *CreateEmployeeBuilder) MaritalStatus(maritalStatus string) *CreateEmployeeBuilder {
 	builder.maritalStatus = maritalStatus
-	builder.maritalStatusFlag = true
+	builder.maritalStatusSet = true
 	return builder
 }
 
@@ -3937,7 +3937,7 @@ func (builder *CreateEmployeeBuilder) MaritalStatus(maritalStatus string) *Creat
 // 示例值：
 func (builder *CreateEmployeeBuilder) PoliticsStatus(politicsStatus string) *CreateEmployeeBuilder {
 	builder.politicsStatus = politicsStatus
-	builder.politicsStatusFlag = true
+	builder.politicsStatusSet = true
 	return builder
 }
 
@@ -3946,7 +3946,7 @@ func (builder *CreateEmployeeBuilder) PoliticsStatus(politicsStatus string) *Cre
 // 示例值：
 func (builder *CreateEmployeeBuilder) RegisteredResidenceType(registeredResidenceType string) *CreateEmployeeBuilder {
 	builder.registeredResidenceType = registeredResidenceType
-	builder.registeredResidenceTypeFlag = true
+	builder.registeredResidenceTypeSet = true
 	return builder
 }
 
@@ -3955,7 +3955,7 @@ func (builder *CreateEmployeeBuilder) RegisteredResidenceType(registeredResidenc
 // 示例值：cn
 func (builder *CreateEmployeeBuilder) Location(location string) *CreateEmployeeBuilder {
 	builder.location = location
-	builder.locationFlag = true
+	builder.locationSet = true
 	return builder
 }
 
@@ -3964,7 +3964,7 @@ func (builder *CreateEmployeeBuilder) Location(location string) *CreateEmployeeB
 // 示例值：1
 func (builder *CreateEmployeeBuilder) SocialSecurityNumber(socialSecurityNumber string) *CreateEmployeeBuilder {
 	builder.socialSecurityNumber = socialSecurityNumber
-	builder.socialSecurityNumberFlag = true
+	builder.socialSecurityNumberSet = true
 	return builder
 }
 
@@ -3973,7 +3973,7 @@ func (builder *CreateEmployeeBuilder) SocialSecurityNumber(socialSecurityNumber 
 // 示例值：1
 func (builder *CreateEmployeeBuilder) ProvidentFundNumber(providentFundNumber string) *CreateEmployeeBuilder {
 	builder.providentFundNumber = providentFundNumber
-	builder.providentFundNumberFlag = true
+	builder.providentFundNumberSet = true
 	return builder
 }
 
@@ -3982,7 +3982,7 @@ func (builder *CreateEmployeeBuilder) ProvidentFundNumber(providentFundNumber st
 // 示例值：
 func (builder *CreateEmployeeBuilder) CustomFieldValueMap(customFieldValueMap map[string]*CustomFieldValue) *CreateEmployeeBuilder {
 	builder.customFieldValueMap = customFieldValueMap
-	builder.customFieldValueMapFlag = true
+	builder.customFieldValueMapSet = true
 	return builder
 }
 
@@ -3991,7 +3991,7 @@ func (builder *CreateEmployeeBuilder) CustomFieldValueMap(customFieldValueMap ma
 // 示例值：
 func (builder *CreateEmployeeBuilder) CustomFieldValues(customFieldValues []*CustomFieldValue) *CreateEmployeeBuilder {
 	builder.customFieldValues = customFieldValues
-	builder.customFieldValuesFlag = true
+	builder.customFieldValuesSet = true
 	return builder
 }
 
@@ -4000,201 +4000,201 @@ func (builder *CreateEmployeeBuilder) CustomFieldValues(customFieldValues []*Cus
 // 示例值：
 func (builder *CreateEmployeeBuilder) VirtualOrgInfos(virtualOrgInfos []*UpsertUserVirtualOrgInfo) *CreateEmployeeBuilder {
 	builder.virtualOrgInfos = virtualOrgInfos
-	builder.virtualOrgInfosFlag = true
+	builder.virtualOrgInfosSet = true
 	return builder
 }
 
 func (builder *CreateEmployeeBuilder) Build() *CreateEmployee {
 	req := &CreateEmployee{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.customEmployeeIdFlag {
+	if builder.customEmployeeIdSet {
 		req.CustomEmployeeId = &builder.customEmployeeId
 
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = &builder.avatarKey
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.personalEmailFlag {
+	if builder.personalEmailSet {
 		req.PersonalEmail = &builder.personalEmail
 
 	}
-	if builder.enterpriseEmailFlag {
+	if builder.enterpriseEmailSet {
 		req.EnterpriseEmail = &builder.enterpriseEmail
 
 	}
-	if builder.genderFlag {
+	if builder.genderSet {
 		req.Gender = &builder.gender
 
 	}
-	if builder.residentialAddressFlag {
+	if builder.residentialAddressSet {
 		req.ResidentialAddress = &builder.residentialAddress
 
 	}
-	if builder.contactAddressesFlag {
+	if builder.contactAddressesSet {
 		req.ContactAddresses = builder.contactAddresses
 	}
-	if builder.employeeOrderInDepartmentsFlag {
+	if builder.employeeOrderInDepartmentsSet {
 		req.EmployeeOrderInDepartments = builder.employeeOrderInDepartments
 	}
-	if builder.leaderIdFlag {
+	if builder.leaderIdSet {
 		req.LeaderId = &builder.leaderId
 
 	}
-	if builder.dottedLineLeaderIdsFlag {
+	if builder.dottedLineLeaderIdsSet {
 		req.DottedLineLeaderIds = builder.dottedLineLeaderIds
 	}
-	if builder.workCountryOrRegionFlag {
+	if builder.workCountryOrRegionSet {
 		req.WorkCountryOrRegion = &builder.workCountryOrRegion
 
 	}
-	if builder.workPlaceIdFlag {
+	if builder.workPlaceIdSet {
 		req.WorkPlaceId = &builder.workPlaceId
 
 	}
-	if builder.workStationFlag {
+	if builder.workStationSet {
 		req.WorkStation = builder.workStation
 	}
-	if builder.jobNumberFlag {
+	if builder.jobNumberSet {
 		req.JobNumber = &builder.jobNumber
 
 	}
-	if builder.extensionNumberFlag {
+	if builder.extensionNumberSet {
 		req.ExtensionNumber = &builder.extensionNumber
 
 	}
-	if builder.joinDateFlag {
+	if builder.joinDateSet {
 		req.JoinDate = &builder.joinDate
 
 	}
-	if builder.employmentTypeFlag {
+	if builder.employmentTypeSet {
 		req.EmploymentType = &builder.employmentType
 
 	}
-	if builder.staffStatusFlag {
+	if builder.staffStatusSet {
 		req.StaffStatus = &builder.staffStatus
 
 	}
-	if builder.positionsFlag {
+	if builder.positionsSet {
 		req.Positions = builder.positions
 	}
-	if builder.jobTitleIdFlag {
+	if builder.jobTitleIdSet {
 		req.JobTitleId = &builder.jobTitleId
 
 	}
-	if builder.jobLevelIdFlag {
+	if builder.jobLevelIdSet {
 		req.JobLevelId = &builder.jobLevelId
 
 	}
-	if builder.jobFamilyIdFlag {
+	if builder.jobFamilyIdSet {
 		req.JobFamilyId = &builder.jobFamilyId
 
 	}
-	if builder.firstWorkDateFlag {
+	if builder.firstWorkDateSet {
 		req.FirstWorkDate = &builder.firstWorkDate
 
 	}
-	if builder.firstJoinDateFlag {
+	if builder.firstJoinDateSet {
 		req.FirstJoinDate = &builder.firstJoinDate
 
 	}
-	if builder.probationPeriodFlag {
+	if builder.probationPeriodSet {
 		req.ProbationPeriod = &builder.probationPeriod
 
 	}
-	if builder.regularizationDateFlag {
+	if builder.regularizationDateSet {
 		req.RegularizationDate = &builder.regularizationDate
 
 	}
-	if builder.convertStatusFlag {
+	if builder.convertStatusSet {
 		req.ConvertStatus = &builder.convertStatus
 
 	}
-	if builder.contractSubjectFlag {
+	if builder.contractSubjectSet {
 		req.ContractSubject = &builder.contractSubject
 
 	}
-	if builder.resignDateFlag {
+	if builder.resignDateSet {
 		req.ResignDate = &builder.resignDate
 
 	}
-	if builder.resignReasonFlag {
+	if builder.resignReasonSet {
 		req.ResignReason = &builder.resignReason
 
 	}
-	if builder.resignRemarkFlag {
+	if builder.resignRemarkSet {
 		req.ResignRemark = &builder.resignRemark
 
 	}
-	if builder.resignTypeFlag {
+	if builder.resignTypeSet {
 		req.ResignType = &builder.resignType
 
 	}
-	if builder.cancelledEntryTypeFlag {
+	if builder.cancelledEntryTypeSet {
 		req.CancelledEntryType = &builder.cancelledEntryType
 
 	}
-	if builder.cancelledEntryRemarkFlag {
+	if builder.cancelledEntryRemarkSet {
 		req.CancelledEntryRemark = &builder.cancelledEntryRemark
 
 	}
-	if builder.birthdayFlag {
+	if builder.birthdaySet {
 		req.Birthday = &builder.birthday
 
 	}
-	if builder.nationalityFlag {
+	if builder.nationalitySet {
 		req.Nationality = &builder.nationality
 
 	}
-	if builder.nativePlaceFlag {
+	if builder.nativePlaceSet {
 		req.NativePlace = &builder.nativePlace
 
 	}
-	if builder.ethnicityFlag {
+	if builder.ethnicitySet {
 		req.Ethnicity = &builder.ethnicity
 
 	}
-	if builder.maritalStatusFlag {
+	if builder.maritalStatusSet {
 		req.MaritalStatus = &builder.maritalStatus
 
 	}
-	if builder.politicsStatusFlag {
+	if builder.politicsStatusSet {
 		req.PoliticsStatus = &builder.politicsStatus
 
 	}
-	if builder.registeredResidenceTypeFlag {
+	if builder.registeredResidenceTypeSet {
 		req.RegisteredResidenceType = &builder.registeredResidenceType
 
 	}
-	if builder.locationFlag {
+	if builder.locationSet {
 		req.Location = &builder.location
 
 	}
-	if builder.socialSecurityNumberFlag {
+	if builder.socialSecurityNumberSet {
 		req.SocialSecurityNumber = &builder.socialSecurityNumber
 
 	}
-	if builder.providentFundNumberFlag {
+	if builder.providentFundNumberSet {
 		req.ProvidentFundNumber = &builder.providentFundNumber
 
 	}
-	if builder.customFieldValueMapFlag {
+	if builder.customFieldValueMapSet {
 		req.CustomFieldValueMap = builder.customFieldValueMap
 	}
-	if builder.customFieldValuesFlag {
+	if builder.customFieldValuesSet {
 		req.CustomFieldValues = builder.customFieldValues
 	}
-	if builder.virtualOrgInfosFlag {
+	if builder.virtualOrgInfosSet {
 		req.VirtualOrgInfos = builder.virtualOrgInfos
 	}
 	return req
@@ -4205,8 +4205,8 @@ type CreateEmployeeBankAccountOption struct {
 }
 
 type CreateEmployeeBankAccountOptionBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewCreateEmployeeBankAccountOptionBuilder() *CreateEmployeeBankAccountOptionBuilder {
@@ -4219,13 +4219,13 @@ func NewCreateEmployeeBankAccountOptionBuilder() *CreateEmployeeBankAccountOptio
 // 示例值：
 func (builder *CreateEmployeeBankAccountOptionBuilder) DataSource(dataSource int) *CreateEmployeeBankAccountOptionBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *CreateEmployeeBankAccountOptionBuilder) Build() *CreateEmployeeBankAccountOption {
 	req := &CreateEmployeeBankAccountOption{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -4249,26 +4249,26 @@ type CreateEmployeeOptions struct {
 }
 
 type CreateEmployeeOptionsBuilder struct {
-	geoName     string // 用户指定geo/unit
-	geoNameFlag bool
+	geoName    string // 用户指定geo/unit
+	geoNameSet bool
 
-	homeUserId     string // shadow关联的UserID
-	homeUserIdFlag bool
+	homeUserId    string // shadow关联的UserID
+	homeUserIdSet bool
 
-	employeeTraceInfo     *EmployeeTraceInfo // 用户追踪信息
-	employeeTraceInfoFlag bool
+	employeeTraceInfo    *EmployeeTraceInfo // 用户追踪信息
+	employeeTraceInfoSet bool
 
-	enterpriseEmailPassword     string // 用户企业邮箱登录时的密码
-	enterpriseEmailPasswordFlag bool
+	enterpriseEmailPassword    string // 用户企业邮箱登录时的密码
+	enterpriseEmailPasswordSet bool
 
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 
-	subscriptionIds     []string // 席位信息
-	subscriptionIdsFlag bool
+	subscriptionIds    []string // 席位信息
+	subscriptionIdsSet bool
 
-	needSendNotification     *SendNotification // 发送通知
-	needSendNotificationFlag bool
+	needSendNotification    *SendNotification // 发送通知
+	needSendNotificationSet bool
 }
 
 func NewCreateEmployeeOptionsBuilder() *CreateEmployeeOptionsBuilder {
@@ -4281,7 +4281,7 @@ func NewCreateEmployeeOptionsBuilder() *CreateEmployeeOptionsBuilder {
 // 示例值：cn
 func (builder *CreateEmployeeOptionsBuilder) GeoName(geoName string) *CreateEmployeeOptionsBuilder {
 	builder.geoName = geoName
-	builder.geoNameFlag = true
+	builder.geoNameSet = true
 	return builder
 }
 
@@ -4290,7 +4290,7 @@ func (builder *CreateEmployeeOptionsBuilder) GeoName(geoName string) *CreateEmpl
 // 示例值：asdqwed
 func (builder *CreateEmployeeOptionsBuilder) HomeUserId(homeUserId string) *CreateEmployeeOptionsBuilder {
 	builder.homeUserId = homeUserId
-	builder.homeUserIdFlag = true
+	builder.homeUserIdSet = true
 	return builder
 }
 
@@ -4299,7 +4299,7 @@ func (builder *CreateEmployeeOptionsBuilder) HomeUserId(homeUserId string) *Crea
 // 示例值：
 func (builder *CreateEmployeeOptionsBuilder) EmployeeTraceInfo(employeeTraceInfo *EmployeeTraceInfo) *CreateEmployeeOptionsBuilder {
 	builder.employeeTraceInfo = employeeTraceInfo
-	builder.employeeTraceInfoFlag = true
+	builder.employeeTraceInfoSet = true
 	return builder
 }
 
@@ -4308,7 +4308,7 @@ func (builder *CreateEmployeeOptionsBuilder) EmployeeTraceInfo(employeeTraceInfo
 // 示例值：1
 func (builder *CreateEmployeeOptionsBuilder) EnterpriseEmailPassword(enterpriseEmailPassword string) *CreateEmployeeOptionsBuilder {
 	builder.enterpriseEmailPassword = enterpriseEmailPassword
-	builder.enterpriseEmailPasswordFlag = true
+	builder.enterpriseEmailPasswordSet = true
 	return builder
 }
 
@@ -4317,7 +4317,7 @@ func (builder *CreateEmployeeOptionsBuilder) EnterpriseEmailPassword(enterpriseE
 // 示例值：
 func (builder *CreateEmployeeOptionsBuilder) DataSource(dataSource int) *CreateEmployeeOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
@@ -4326,7 +4326,7 @@ func (builder *CreateEmployeeOptionsBuilder) DataSource(dataSource int) *CreateE
 // 示例值：
 func (builder *CreateEmployeeOptionsBuilder) SubscriptionIds(subscriptionIds []string) *CreateEmployeeOptionsBuilder {
 	builder.subscriptionIds = subscriptionIds
-	builder.subscriptionIdsFlag = true
+	builder.subscriptionIdsSet = true
 	return builder
 }
 
@@ -4335,35 +4335,35 @@ func (builder *CreateEmployeeOptionsBuilder) SubscriptionIds(subscriptionIds []s
 // 示例值：
 func (builder *CreateEmployeeOptionsBuilder) NeedSendNotification(needSendNotification *SendNotification) *CreateEmployeeOptionsBuilder {
 	builder.needSendNotification = needSendNotification
-	builder.needSendNotificationFlag = true
+	builder.needSendNotificationSet = true
 	return builder
 }
 
 func (builder *CreateEmployeeOptionsBuilder) Build() *CreateEmployeeOptions {
 	req := &CreateEmployeeOptions{}
-	if builder.geoNameFlag {
+	if builder.geoNameSet {
 		req.GeoName = &builder.geoName
 
 	}
-	if builder.homeUserIdFlag {
+	if builder.homeUserIdSet {
 		req.HomeUserId = &builder.homeUserId
 
 	}
-	if builder.employeeTraceInfoFlag {
+	if builder.employeeTraceInfoSet {
 		req.EmployeeTraceInfo = builder.employeeTraceInfo
 	}
-	if builder.enterpriseEmailPasswordFlag {
+	if builder.enterpriseEmailPasswordSet {
 		req.EnterpriseEmailPassword = &builder.enterpriseEmailPassword
 
 	}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
-	if builder.subscriptionIdsFlag {
+	if builder.subscriptionIdsSet {
 		req.SubscriptionIds = builder.subscriptionIds
 	}
-	if builder.needSendNotificationFlag {
+	if builder.needSendNotificationSet {
 		req.NeedSendNotification = builder.needSendNotification
 	}
 	return req
@@ -4376,11 +4376,11 @@ type CreateEmployeeTypeEnum struct {
 }
 
 type CreateEmployeeTypeEnumBuilder struct {
-	content     *I18nText // i18n文本
-	contentFlag bool
+	content    *I18nText // i18n文本
+	contentSet bool
 
-	enumStatus     string // 枚举状态
-	enumStatusFlag bool
+	enumStatus    string // 枚举状态
+	enumStatusSet bool
 }
 
 func NewCreateEmployeeTypeEnumBuilder() *CreateEmployeeTypeEnumBuilder {
@@ -4393,7 +4393,7 @@ func NewCreateEmployeeTypeEnumBuilder() *CreateEmployeeTypeEnumBuilder {
 // 示例值：
 func (builder *CreateEmployeeTypeEnumBuilder) Content(content *I18nText) *CreateEmployeeTypeEnumBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -4402,16 +4402,16 @@ func (builder *CreateEmployeeTypeEnumBuilder) Content(content *I18nText) *Create
 // 示例值：
 func (builder *CreateEmployeeTypeEnumBuilder) EnumStatus(enumStatus string) *CreateEmployeeTypeEnumBuilder {
 	builder.enumStatus = enumStatus
-	builder.enumStatusFlag = true
+	builder.enumStatusSet = true
 	return builder
 }
 
 func (builder *CreateEmployeeTypeEnumBuilder) Build() *CreateEmployeeTypeEnum {
 	req := &CreateEmployeeTypeEnum{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = builder.content
 	}
-	if builder.enumStatusFlag {
+	if builder.enumStatusSet {
 		req.EnumStatus = &builder.enumStatus
 
 	}
@@ -4423,8 +4423,8 @@ type CreateEmployeeTypeEnumOptions struct {
 }
 
 type CreateEmployeeTypeEnumOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewCreateEmployeeTypeEnumOptionsBuilder() *CreateEmployeeTypeEnumOptionsBuilder {
@@ -4437,13 +4437,13 @@ func NewCreateEmployeeTypeEnumOptionsBuilder() *CreateEmployeeTypeEnumOptionsBui
 // 示例值：
 func (builder *CreateEmployeeTypeEnumOptionsBuilder) DataSource(dataSource int) *CreateEmployeeTypeEnumOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *CreateEmployeeTypeEnumOptionsBuilder) Build() *CreateEmployeeTypeEnumOptions {
 	req := &CreateEmployeeTypeEnumOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -4458,10 +4458,10 @@ type CreateEnumMeta struct {
 
 type CreateEnumMetaBuilder struct {
 	type_    string // 枚举值类型
-	typeFlag bool
+	type_Set bool
 
-	optionValues     []*EnumOption // 枚举值选项
-	optionValuesFlag bool
+	optionValues    []*EnumOption // 枚举值选项
+	optionValuesSet bool
 }
 
 func NewCreateEnumMetaBuilder() *CreateEnumMetaBuilder {
@@ -4474,7 +4474,7 @@ func NewCreateEnumMetaBuilder() *CreateEnumMetaBuilder {
 // 示例值：
 func (builder *CreateEnumMetaBuilder) Type(type_ string) *CreateEnumMetaBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -4483,17 +4483,17 @@ func (builder *CreateEnumMetaBuilder) Type(type_ string) *CreateEnumMetaBuilder 
 // 示例值：
 func (builder *CreateEnumMetaBuilder) OptionValues(optionValues []*EnumOption) *CreateEnumMetaBuilder {
 	builder.optionValues = optionValues
-	builder.optionValuesFlag = true
+	builder.optionValuesSet = true
 	return builder
 }
 
 func (builder *CreateEnumMetaBuilder) Build() *CreateEnumMeta {
 	req := &CreateEnumMeta{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.optionValuesFlag {
+	if builder.optionValuesSet {
 		req.OptionValues = builder.optionValues
 	}
 	return req
@@ -4510,17 +4510,17 @@ type CreateGroupSet struct {
 }
 
 type CreateGroupSetBuilder struct {
-	externalId     string // 外部ID
-	externalIdFlag bool
+	externalId    string // 外部ID
+	externalIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
 	type_    int // 用户组分组的类型
-	typeFlag bool
+	type_Set bool
 
-	source     int // 用户组分组的来源
-	sourceFlag bool
+	source    int // 用户组分组的来源
+	sourceSet bool
 }
 
 func NewCreateGroupSetBuilder() *CreateGroupSetBuilder {
@@ -4533,7 +4533,7 @@ func NewCreateGroupSetBuilder() *CreateGroupSetBuilder {
 // 示例值：123456
 func (builder *CreateGroupSetBuilder) ExternalId(externalId string) *CreateGroupSetBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
@@ -4542,7 +4542,7 @@ func (builder *CreateGroupSetBuilder) ExternalId(externalId string) *CreateGroup
 // 示例值：
 func (builder *CreateGroupSetBuilder) Name(name *I18nText) *CreateGroupSetBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4551,7 +4551,7 @@ func (builder *CreateGroupSetBuilder) Name(name *I18nText) *CreateGroupSetBuilde
 // 示例值：1
 func (builder *CreateGroupSetBuilder) Type(type_ int) *CreateGroupSetBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -4560,24 +4560,24 @@ func (builder *CreateGroupSetBuilder) Type(type_ int) *CreateGroupSetBuilder {
 // 示例值：1
 func (builder *CreateGroupSetBuilder) Source(source int) *CreateGroupSetBuilder {
 	builder.source = source
-	builder.sourceFlag = true
+	builder.sourceSet = true
 	return builder
 }
 
 func (builder *CreateGroupSetBuilder) Build() *CreateGroupSet {
 	req := &CreateGroupSet{}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.sourceFlag {
+	if builder.sourceSet {
 		req.Source = &builder.source
 
 	}
@@ -4597,20 +4597,20 @@ type CreateGuest struct {
 }
 
 type CreateGuestBuilder struct {
-	name     *UpsertGuestName // 姓名
-	nameFlag bool
+	name    *UpsertGuestName // 姓名
+	nameSet bool
 
-	mobile     string // 手机
-	mobileFlag bool
+	mobile    string // 手机
+	mobileSet bool
 
-	email     string // 邮箱
-	emailFlag bool
+	email    string // 邮箱
+	emailSet bool
 
-	avatarKey     string // 头像
-	avatarKeyFlag bool
+	avatarKey    string // 头像
+	avatarKeySet bool
 
-	workCountryOrRegion     string // 国家地区
-	workCountryOrRegionFlag bool
+	workCountryOrRegion    string // 国家地区
+	workCountryOrRegionSet bool
 }
 
 func NewCreateGuestBuilder() *CreateGuestBuilder {
@@ -4623,7 +4623,7 @@ func NewCreateGuestBuilder() *CreateGuestBuilder {
 // 示例值：
 func (builder *CreateGuestBuilder) Name(name *UpsertGuestName) *CreateGuestBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4632,7 +4632,7 @@ func (builder *CreateGuestBuilder) Name(name *UpsertGuestName) *CreateGuestBuild
 // 示例值：+8612345678901
 func (builder *CreateGuestBuilder) Mobile(mobile string) *CreateGuestBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -4641,7 +4641,7 @@ func (builder *CreateGuestBuilder) Mobile(mobile string) *CreateGuestBuilder {
 // 示例值：abc@abc.com
 func (builder *CreateGuestBuilder) Email(email string) *CreateGuestBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -4650,7 +4650,7 @@ func (builder *CreateGuestBuilder) Email(email string) *CreateGuestBuilder {
 // 示例值：asdfaserwerweradsfasdf
 func (builder *CreateGuestBuilder) AvatarKey(avatarKey string) *CreateGuestBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
@@ -4659,28 +4659,28 @@ func (builder *CreateGuestBuilder) AvatarKey(avatarKey string) *CreateGuestBuild
 // 示例值：MDCT00000256
 func (builder *CreateGuestBuilder) WorkCountryOrRegion(workCountryOrRegion string) *CreateGuestBuilder {
 	builder.workCountryOrRegion = workCountryOrRegion
-	builder.workCountryOrRegionFlag = true
+	builder.workCountryOrRegionSet = true
 	return builder
 }
 
 func (builder *CreateGuestBuilder) Build() *CreateGuest {
 	req := &CreateGuest{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = &builder.avatarKey
 
 	}
-	if builder.workCountryOrRegionFlag {
+	if builder.workCountryOrRegionSet {
 		req.WorkCountryOrRegion = &builder.workCountryOrRegion
 
 	}
@@ -4696,14 +4696,14 @@ type CreateGuestOptions struct {
 }
 
 type CreateGuestOptionsBuilder struct {
-	geoName     string // 指定geo/unit
-	geoNameFlag bool
+	geoName    string // 指定geo/unit
+	geoNameSet bool
 
-	homeUserId     string // shadow关联的UserID
-	homeUserIdFlag bool
+	homeUserId    string // shadow关联的UserID
+	homeUserIdSet bool
 
-	guestTraceInfo     *GuestTraceInfo // 访客追踪信息
-	guestTraceInfoFlag bool
+	guestTraceInfo    *GuestTraceInfo // 访客追踪信息
+	guestTraceInfoSet bool
 }
 
 func NewCreateGuestOptionsBuilder() *CreateGuestOptionsBuilder {
@@ -4716,7 +4716,7 @@ func NewCreateGuestOptionsBuilder() *CreateGuestOptionsBuilder {
 // 示例值：cn
 func (builder *CreateGuestOptionsBuilder) GeoName(geoName string) *CreateGuestOptionsBuilder {
 	builder.geoName = geoName
-	builder.geoNameFlag = true
+	builder.geoNameSet = true
 	return builder
 }
 
@@ -4725,7 +4725,7 @@ func (builder *CreateGuestOptionsBuilder) GeoName(geoName string) *CreateGuestOp
 // 示例值：123123
 func (builder *CreateGuestOptionsBuilder) HomeUserId(homeUserId string) *CreateGuestOptionsBuilder {
 	builder.homeUserId = homeUserId
-	builder.homeUserIdFlag = true
+	builder.homeUserIdSet = true
 	return builder
 }
 
@@ -4734,21 +4734,21 @@ func (builder *CreateGuestOptionsBuilder) HomeUserId(homeUserId string) *CreateG
 // 示例值：
 func (builder *CreateGuestOptionsBuilder) GuestTraceInfo(guestTraceInfo *GuestTraceInfo) *CreateGuestOptionsBuilder {
 	builder.guestTraceInfo = guestTraceInfo
-	builder.guestTraceInfoFlag = true
+	builder.guestTraceInfoSet = true
 	return builder
 }
 
 func (builder *CreateGuestOptionsBuilder) Build() *CreateGuestOptions {
 	req := &CreateGuestOptions{}
-	if builder.geoNameFlag {
+	if builder.geoNameSet {
 		req.GeoName = &builder.geoName
 
 	}
-	if builder.homeUserIdFlag {
+	if builder.homeUserIdSet {
 		req.HomeUserId = &builder.homeUserId
 
 	}
-	if builder.guestTraceInfoFlag {
+	if builder.guestTraceInfoSet {
 		req.GuestTraceInfo = builder.guestTraceInfo
 	}
 	return req
@@ -4767,20 +4767,20 @@ type CreateJobFamily struct {
 }
 
 type CreateJobFamilyBuilder struct {
-	jobFamilyName     *I18nText // i18n文本
-	jobFamilyNameFlag bool
+	jobFamilyName    *I18nText // i18n文本
+	jobFamilyNameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	parentId     string // 上级序列
-	parentIdFlag bool
+	parentId    string // 上级序列
+	parentIdSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	externalId     string // 外部ID
-	externalIdFlag bool
+	externalId    string // 外部ID
+	externalIdSet bool
 }
 
 func NewCreateJobFamilyBuilder() *CreateJobFamilyBuilder {
@@ -4793,7 +4793,7 @@ func NewCreateJobFamilyBuilder() *CreateJobFamilyBuilder {
 // 示例值：
 func (builder *CreateJobFamilyBuilder) JobFamilyName(jobFamilyName *I18nText) *CreateJobFamilyBuilder {
 	builder.jobFamilyName = jobFamilyName
-	builder.jobFamilyNameFlag = true
+	builder.jobFamilyNameSet = true
 	return builder
 }
 
@@ -4802,7 +4802,7 @@ func (builder *CreateJobFamilyBuilder) JobFamilyName(jobFamilyName *I18nText) *C
 // 示例值：
 func (builder *CreateJobFamilyBuilder) IsEnabled(isEnabled bool) *CreateJobFamilyBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -4811,7 +4811,7 @@ func (builder *CreateJobFamilyBuilder) IsEnabled(isEnabled bool) *CreateJobFamil
 // 示例值：6872549699048439828
 func (builder *CreateJobFamilyBuilder) ParentId(parentId string) *CreateJobFamilyBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
@@ -4820,7 +4820,7 @@ func (builder *CreateJobFamilyBuilder) ParentId(parentId string) *CreateJobFamil
 // 示例值：
 func (builder *CreateJobFamilyBuilder) Description(description *I18nText) *CreateJobFamilyBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -4829,27 +4829,27 @@ func (builder *CreateJobFamilyBuilder) Description(description *I18nText) *Creat
 // 示例值：custom_id
 func (builder *CreateJobFamilyBuilder) ExternalId(externalId string) *CreateJobFamilyBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *CreateJobFamilyBuilder) Build() *CreateJobFamily {
 	req := &CreateJobFamily{}
-	if builder.jobFamilyNameFlag {
+	if builder.jobFamilyNameSet {
 		req.JobFamilyName = builder.jobFamilyName
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -4861,8 +4861,8 @@ type CreateJobFamilyOptions struct {
 }
 
 type CreateJobFamilyOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewCreateJobFamilyOptionsBuilder() *CreateJobFamilyOptionsBuilder {
@@ -4875,13 +4875,13 @@ func NewCreateJobFamilyOptionsBuilder() *CreateJobFamilyOptionsBuilder {
 // 示例值：
 func (builder *CreateJobFamilyOptionsBuilder) DataSource(dataSource int) *CreateJobFamilyOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *CreateJobFamilyOptionsBuilder) Build() *CreateJobFamilyOptions {
 	req := &CreateJobFamilyOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -4901,20 +4901,20 @@ type CreateJobLevel struct {
 }
 
 type CreateJobLevelBuilder struct {
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	order     string // 排序, 小的在前面
-	orderFlag bool
+	order    string // 排序, 小的在前面
+	orderSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	externalId     string // 外部ID
-	externalIdFlag bool
+	externalId    string // 外部ID
+	externalIdSet bool
 }
 
 func NewCreateJobLevelBuilder() *CreateJobLevelBuilder {
@@ -4927,7 +4927,7 @@ func NewCreateJobLevelBuilder() *CreateJobLevelBuilder {
 // 示例值：
 func (builder *CreateJobLevelBuilder) Name(name *I18nText) *CreateJobLevelBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4936,7 +4936,7 @@ func (builder *CreateJobLevelBuilder) Name(name *I18nText) *CreateJobLevelBuilde
 // 示例值：
 func (builder *CreateJobLevelBuilder) IsEnabled(isEnabled bool) *CreateJobLevelBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -4945,7 +4945,7 @@ func (builder *CreateJobLevelBuilder) IsEnabled(isEnabled bool) *CreateJobLevelB
 // 示例值：100
 func (builder *CreateJobLevelBuilder) Order(order string) *CreateJobLevelBuilder {
 	builder.order = order
-	builder.orderFlag = true
+	builder.orderSet = true
 	return builder
 }
 
@@ -4954,7 +4954,7 @@ func (builder *CreateJobLevelBuilder) Order(order string) *CreateJobLevelBuilder
 // 示例值：
 func (builder *CreateJobLevelBuilder) Description(description *I18nText) *CreateJobLevelBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -4963,27 +4963,27 @@ func (builder *CreateJobLevelBuilder) Description(description *I18nText) *Create
 // 示例值：custom_id
 func (builder *CreateJobLevelBuilder) ExternalId(externalId string) *CreateJobLevelBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *CreateJobLevelBuilder) Build() *CreateJobLevel {
 	req := &CreateJobLevel{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.orderFlag {
+	if builder.orderSet {
 		req.Order = &builder.order
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -4995,8 +4995,8 @@ type CreateJobLevelOptions struct {
 }
 
 type CreateJobLevelOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewCreateJobLevelOptionsBuilder() *CreateJobLevelOptionsBuilder {
@@ -5009,13 +5009,13 @@ func NewCreateJobLevelOptionsBuilder() *CreateJobLevelOptionsBuilder {
 // 示例值：
 func (builder *CreateJobLevelOptionsBuilder) DataSource(dataSource int) *CreateJobLevelOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *CreateJobLevelOptionsBuilder) Build() *CreateJobLevelOptions {
 	req := &CreateJobLevelOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -5043,32 +5043,32 @@ type CreateJobTitle struct {
 }
 
 type CreateJobTitleBuilder struct {
-	jobTitleName     *I18nText // i18n文本
-	jobTitleNameFlag bool
+	jobTitleName    *I18nText // i18n文本
+	jobTitleNameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	title     *I18nText // i18n文本
-	titleFlag bool
+	title    *I18nText // i18n文本
+	titleSet bool
 
-	jobFamilyId     string // Deprecated 不再使用，换用JobFamilyIDs
-	jobFamilyIdFlag bool
+	jobFamilyId    string // Deprecated 不再使用，换用JobFamilyIDs
+	jobFamilyIdSet bool
 
-	jobLevelId     string // Deprecated 不再使用，换用JobLevelIDs
-	jobLevelIdFlag bool
+	jobLevelId    string // Deprecated 不再使用，换用JobLevelIDs
+	jobLevelIdSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	jobFamilyIds     []string // 序列
-	jobFamilyIdsFlag bool
+	jobFamilyIds    []string // 序列
+	jobFamilyIdsSet bool
 
-	jobLevelIds     []string // 职级
-	jobLevelIdsFlag bool
+	jobLevelIds    []string // 职级
+	jobLevelIdsSet bool
 
-	externalId     string // 外部ID 未指定则自动生成
-	externalIdFlag bool
+	externalId    string // 外部ID 未指定则自动生成
+	externalIdSet bool
 }
 
 func NewCreateJobTitleBuilder() *CreateJobTitleBuilder {
@@ -5081,7 +5081,7 @@ func NewCreateJobTitleBuilder() *CreateJobTitleBuilder {
 // 示例值：
 func (builder *CreateJobTitleBuilder) JobTitleName(jobTitleName *I18nText) *CreateJobTitleBuilder {
 	builder.jobTitleName = jobTitleName
-	builder.jobTitleNameFlag = true
+	builder.jobTitleNameSet = true
 	return builder
 }
 
@@ -5090,7 +5090,7 @@ func (builder *CreateJobTitleBuilder) JobTitleName(jobTitleName *I18nText) *Crea
 // 示例值：
 func (builder *CreateJobTitleBuilder) IsEnabled(isEnabled bool) *CreateJobTitleBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -5099,7 +5099,7 @@ func (builder *CreateJobTitleBuilder) IsEnabled(isEnabled bool) *CreateJobTitleB
 // 示例值：
 func (builder *CreateJobTitleBuilder) Title(title *I18nText) *CreateJobTitleBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -5108,7 +5108,7 @@ func (builder *CreateJobTitleBuilder) Title(title *I18nText) *CreateJobTitleBuil
 // 示例值：6872549699048439828
 func (builder *CreateJobTitleBuilder) JobFamilyId(jobFamilyId string) *CreateJobTitleBuilder {
 	builder.jobFamilyId = jobFamilyId
-	builder.jobFamilyIdFlag = true
+	builder.jobFamilyIdSet = true
 	return builder
 }
 
@@ -5117,7 +5117,7 @@ func (builder *CreateJobTitleBuilder) JobFamilyId(jobFamilyId string) *CreateJob
 // 示例值：6872549699048439828
 func (builder *CreateJobTitleBuilder) JobLevelId(jobLevelId string) *CreateJobTitleBuilder {
 	builder.jobLevelId = jobLevelId
-	builder.jobLevelIdFlag = true
+	builder.jobLevelIdSet = true
 	return builder
 }
 
@@ -5126,7 +5126,7 @@ func (builder *CreateJobTitleBuilder) JobLevelId(jobLevelId string) *CreateJobTi
 // 示例值：
 func (builder *CreateJobTitleBuilder) Description(description *I18nText) *CreateJobTitleBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -5135,7 +5135,7 @@ func (builder *CreateJobTitleBuilder) Description(description *I18nText) *Create
 // 示例值：
 func (builder *CreateJobTitleBuilder) JobFamilyIds(jobFamilyIds []string) *CreateJobTitleBuilder {
 	builder.jobFamilyIds = jobFamilyIds
-	builder.jobFamilyIdsFlag = true
+	builder.jobFamilyIdsSet = true
 	return builder
 }
 
@@ -5144,7 +5144,7 @@ func (builder *CreateJobTitleBuilder) JobFamilyIds(jobFamilyIds []string) *Creat
 // 示例值：
 func (builder *CreateJobTitleBuilder) JobLevelIds(jobLevelIds []string) *CreateJobTitleBuilder {
 	builder.jobLevelIds = jobLevelIds
-	builder.jobLevelIdsFlag = true
+	builder.jobLevelIdsSet = true
 	return builder
 }
 
@@ -5153,40 +5153,40 @@ func (builder *CreateJobTitleBuilder) JobLevelIds(jobLevelIds []string) *CreateJ
 // 示例值：custom_id
 func (builder *CreateJobTitleBuilder) ExternalId(externalId string) *CreateJobTitleBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *CreateJobTitleBuilder) Build() *CreateJobTitle {
 	req := &CreateJobTitle{}
-	if builder.jobTitleNameFlag {
+	if builder.jobTitleNameSet {
 		req.JobTitleName = builder.jobTitleName
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = builder.title
 	}
-	if builder.jobFamilyIdFlag {
+	if builder.jobFamilyIdSet {
 		req.JobFamilyId = &builder.jobFamilyId
 
 	}
-	if builder.jobLevelIdFlag {
+	if builder.jobLevelIdSet {
 		req.JobLevelId = &builder.jobLevelId
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.jobFamilyIdsFlag {
+	if builder.jobFamilyIdsSet {
 		req.JobFamilyIds = builder.jobFamilyIds
 	}
-	if builder.jobLevelIdsFlag {
+	if builder.jobLevelIdsSet {
 		req.JobLevelIds = builder.jobLevelIds
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -5198,8 +5198,8 @@ type CreateJobTitleOptions struct {
 }
 
 type CreateJobTitleOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewCreateJobTitleOptionsBuilder() *CreateJobTitleOptionsBuilder {
@@ -5212,13 +5212,13 @@ func NewCreateJobTitleOptionsBuilder() *CreateJobTitleOptionsBuilder {
 // 示例值：
 func (builder *CreateJobTitleOptionsBuilder) DataSource(dataSource int) *CreateJobTitleOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *CreateJobTitleOptionsBuilder) Build() *CreateJobTitleOptions {
 	req := &CreateJobTitleOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -5236,17 +5236,17 @@ type CreateOrgdimension struct {
 }
 
 type CreateOrgdimensionBuilder struct {
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	isEnable     bool // 是否启用
-	isEnableFlag bool
+	isEnable    bool // 是否启用
+	isEnableSet bool
 
-	order     string // 组织维度排序权重
-	orderFlag bool
+	order    string // 组织维度排序权重
+	orderSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 }
 
 func NewCreateOrgdimensionBuilder() *CreateOrgdimensionBuilder {
@@ -5259,7 +5259,7 @@ func NewCreateOrgdimensionBuilder() *CreateOrgdimensionBuilder {
 // 示例值：
 func (builder *CreateOrgdimensionBuilder) Name(name *I18nText) *CreateOrgdimensionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -5268,7 +5268,7 @@ func (builder *CreateOrgdimensionBuilder) Name(name *I18nText) *CreateOrgdimensi
 // 示例值：
 func (builder *CreateOrgdimensionBuilder) IsEnable(isEnable bool) *CreateOrgdimensionBuilder {
 	builder.isEnable = isEnable
-	builder.isEnableFlag = true
+	builder.isEnableSet = true
 	return builder
 }
 
@@ -5277,7 +5277,7 @@ func (builder *CreateOrgdimensionBuilder) IsEnable(isEnable bool) *CreateOrgdime
 // 示例值：100
 func (builder *CreateOrgdimensionBuilder) Order(order string) *CreateOrgdimensionBuilder {
 	builder.order = order
-	builder.orderFlag = true
+	builder.orderSet = true
 	return builder
 }
 
@@ -5286,24 +5286,24 @@ func (builder *CreateOrgdimensionBuilder) Order(order string) *CreateOrgdimensio
 // 示例值：
 func (builder *CreateOrgdimensionBuilder) Description(description *I18nText) *CreateOrgdimensionBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
 func (builder *CreateOrgdimensionBuilder) Build() *CreateOrgdimension {
 	req := &CreateOrgdimension{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.isEnableFlag {
+	if builder.isEnableSet {
 		req.IsEnable = &builder.isEnable
 
 	}
-	if builder.orderFlag {
+	if builder.orderSet {
 		req.Order = &builder.order
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
 	return req
@@ -5324,23 +5324,23 @@ type CreatePlace struct {
 }
 
 type CreatePlaceBuilder struct {
-	placeName     *I18nText // i18n文本
-	placeNameFlag bool
+	placeName    *I18nText // i18n文本
+	placeNameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	usages     []string // 地点多用途
-	usagesFlag bool
+	usages    []string // 地点多用途
+	usagesSet bool
 
-	parentId     string // 上级ID
-	parentIdFlag bool
+	parentId    string // 上级ID
+	parentIdSet bool
 
-	externalId     string // 外部ID
-	externalIdFlag bool
+	externalId    string // 外部ID
+	externalIdSet bool
 }
 
 func NewCreatePlaceBuilder() *CreatePlaceBuilder {
@@ -5353,7 +5353,7 @@ func NewCreatePlaceBuilder() *CreatePlaceBuilder {
 // 示例值：
 func (builder *CreatePlaceBuilder) PlaceName(placeName *I18nText) *CreatePlaceBuilder {
 	builder.placeName = placeName
-	builder.placeNameFlag = true
+	builder.placeNameSet = true
 	return builder
 }
 
@@ -5362,7 +5362,7 @@ func (builder *CreatePlaceBuilder) PlaceName(placeName *I18nText) *CreatePlaceBu
 // 示例值：
 func (builder *CreatePlaceBuilder) IsEnabled(isEnabled bool) *CreatePlaceBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -5371,7 +5371,7 @@ func (builder *CreatePlaceBuilder) IsEnabled(isEnabled bool) *CreatePlaceBuilder
 // 示例值：
 func (builder *CreatePlaceBuilder) Description(description *I18nText) *CreatePlaceBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -5380,7 +5380,7 @@ func (builder *CreatePlaceBuilder) Description(description *I18nText) *CreatePla
 // 示例值：
 func (builder *CreatePlaceBuilder) Usages(usages []string) *CreatePlaceBuilder {
 	builder.usages = usages
-	builder.usagesFlag = true
+	builder.usagesSet = true
 	return builder
 }
 
@@ -5389,7 +5389,7 @@ func (builder *CreatePlaceBuilder) Usages(usages []string) *CreatePlaceBuilder {
 // 示例值：6872549699048439828
 func (builder *CreatePlaceBuilder) ParentId(parentId string) *CreatePlaceBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
@@ -5398,30 +5398,30 @@ func (builder *CreatePlaceBuilder) ParentId(parentId string) *CreatePlaceBuilder
 // 示例值：custom_id
 func (builder *CreatePlaceBuilder) ExternalId(externalId string) *CreatePlaceBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *CreatePlaceBuilder) Build() *CreatePlace {
 	req := &CreatePlace{}
-	if builder.placeNameFlag {
+	if builder.placeNameSet {
 		req.PlaceName = builder.placeName
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.usagesFlag {
+	if builder.usagesSet {
 		req.Usages = builder.usages
 	}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -5433,8 +5433,8 @@ type CreatePlaceOptions struct {
 }
 
 type CreatePlaceOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewCreatePlaceOptionsBuilder() *CreatePlaceOptionsBuilder {
@@ -5447,13 +5447,13 @@ func NewCreatePlaceOptionsBuilder() *CreatePlaceOptionsBuilder {
 // 示例值：
 func (builder *CreatePlaceOptionsBuilder) DataSource(dataSource int) *CreatePlaceOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *CreatePlaceOptionsBuilder) Build() *CreatePlaceOptions {
 	req := &CreatePlaceOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -5551,137 +5551,137 @@ type CreateResignedEmployee struct {
 }
 
 type CreateResignedEmployeeBuilder struct {
-	name     *UpsertName // 姓名
-	nameFlag bool
+	name    *UpsertName // 姓名
+	nameSet bool
 
-	mobile     string // 员工的联系手机号
-	mobileFlag bool
+	mobile    string // 员工的联系手机号
+	mobileSet bool
 
-	customEmployeeId     string // 用户的user_id
-	customEmployeeIdFlag bool
+	customEmployeeId    string // 用户的user_id
+	customEmployeeIdSet bool
 
-	avatarKey     string // 头像的文件key
-	avatarKeyFlag bool
+	avatarKey    string // 头像的文件key
+	avatarKeySet bool
 
-	email     string // 员工的联系邮箱
-	emailFlag bool
+	email    string // 员工的联系邮箱
+	emailSet bool
 
-	personalEmail     string // 员工在人事系统中的联系邮箱
-	personalEmailFlag bool
+	personalEmail    string // 员工在人事系统中的联系邮箱
+	personalEmailSet bool
 
-	gender     int // 性别
-	genderFlag bool
+	gender    int // 性别
+	genderSet bool
 
-	residentialAddress     string // 现居住地址
-	residentialAddressFlag bool
+	residentialAddress    string // 现居住地址
+	residentialAddressSet bool
 
-	contactAddresses     []*ContactAddress // 联系地址
-	contactAddressesFlag bool
+	contactAddresses    []*ContactAddress // 联系地址
+	contactAddressesSet bool
 
-	departmentIds     []string // 雇员离职前所属的部门ID列表
-	departmentIdsFlag bool
+	departmentIds    []string // 雇员离职前所属的部门ID列表
+	departmentIdsSet bool
 
-	leaderId     string // 员工直属上级的user_id
-	leaderIdFlag bool
+	leaderId    string // 员工直属上级的user_id
+	leaderIdSet bool
 
-	dottedLineLeaderIds     []string // 员工虚线上级的user_id
-	dottedLineLeaderIdsFlag bool
+	dottedLineLeaderIds    []string // 员工虚线上级的user_id
+	dottedLineLeaderIdsSet bool
 
-	workCountryOrRegion     string // 工作地国家/地区
-	workCountryOrRegionFlag bool
+	workCountryOrRegion    string // 工作地国家/地区
+	workCountryOrRegionSet bool
 
-	workPlaceId     string // 工作地点
-	workPlaceIdFlag bool
+	workPlaceId    string // 工作地点
+	workPlaceIdSet bool
 
-	workStation     *I18nText // i18n文本
-	workStationFlag bool
+	workStation    *I18nText // i18n文本
+	workStationSet bool
 
-	jobNumber     string // 工号
-	jobNumberFlag bool
+	jobNumber    string // 工号
+	jobNumberSet bool
 
-	joinDate     string // 入职日期
-	joinDateFlag bool
+	joinDate    string // 入职日期
+	joinDateSet bool
 
-	employmentType     int // 员工类型
-	employmentTypeFlag bool
+	employmentType    int // 员工类型
+	employmentTypeSet bool
 
-	positions     []*Position // 岗位信息
-	positionsFlag bool
+	positions    []*Position // 岗位信息
+	positionsSet bool
 
-	jobTitleId     string // 职务ID
-	jobTitleIdFlag bool
+	jobTitleId    string // 职务ID
+	jobTitleIdSet bool
 
-	jobLevelId     string // 职级ID
-	jobLevelIdFlag bool
+	jobLevelId    string // 职级ID
+	jobLevelIdSet bool
 
-	jobFamilyId     string // 序列ID
-	jobFamilyIdFlag bool
+	jobFamilyId    string // 序列ID
+	jobFamilyIdSet bool
 
-	firstWorkDate     string // 首次参加工作日期
-	firstWorkDateFlag bool
+	firstWorkDate    string // 首次参加工作日期
+	firstWorkDateSet bool
 
-	firstJoinDate     string // 首次进入公司日期
-	firstJoinDateFlag bool
+	firstJoinDate    string // 首次进入公司日期
+	firstJoinDateSet bool
 
-	probationPeriod     string // 试用期（月）
-	probationPeriodFlag bool
+	probationPeriod    string // 试用期（月）
+	probationPeriodSet bool
 
-	regularizationDate     string // 转正日期
-	regularizationDateFlag bool
+	regularizationDate    string // 转正日期
+	regularizationDateSet bool
 
-	convertStatus     string // 转正状态
-	convertStatusFlag bool
+	convertStatus    string // 转正状态
+	convertStatusSet bool
 
-	contractSubject     string // 合同主体ID
-	contractSubjectFlag bool
+	contractSubject    string // 合同主体ID
+	contractSubjectSet bool
 
-	resignDate     string // 离职日期
-	resignDateFlag bool
+	resignDate    string // 离职日期
+	resignDateSet bool
 
-	resignReason     string // 离职原因
-	resignReasonFlag bool
+	resignReason    string // 离职原因
+	resignReasonSet bool
 
-	resignRemark     string // 离职备注信息
-	resignRemarkFlag bool
+	resignRemark    string // 离职备注信息
+	resignRemarkSet bool
 
-	resignType     string // 离职类型
-	resignTypeFlag bool
+	resignType    string // 离职类型
+	resignTypeSet bool
 
-	cancelledEntryType     string // 取消入职原因
-	cancelledEntryTypeFlag bool
+	cancelledEntryType    string // 取消入职原因
+	cancelledEntryTypeSet bool
 
-	cancelledEntryRemark     string // 取消入职备注信息
-	cancelledEntryRemarkFlag bool
+	cancelledEntryRemark    string // 取消入职备注信息
+	cancelledEntryRemarkSet bool
 
-	birthday     string // 出生日期
-	birthdayFlag bool
+	birthday    string // 出生日期
+	birthdaySet bool
 
-	nationality     string // 国籍
-	nationalityFlag bool
+	nationality    string // 国籍
+	nationalitySet bool
 
-	nativePlace     string // 籍贯
-	nativePlaceFlag bool
+	nativePlace    string // 籍贯
+	nativePlaceSet bool
 
-	ethnicity     string // 民族/种族
-	ethnicityFlag bool
+	ethnicity    string // 民族/种族
+	ethnicitySet bool
 
-	maritalStatus     string // 婚姻状态
-	maritalStatusFlag bool
+	maritalStatus    string // 婚姻状态
+	maritalStatusSet bool
 
-	politicsStatus     string // 政治面貌
-	politicsStatusFlag bool
+	politicsStatus    string // 政治面貌
+	politicsStatusSet bool
 
-	registeredResidenceType     string // 户口类型
-	registeredResidenceTypeFlag bool
+	registeredResidenceType    string // 户口类型
+	registeredResidenceTypeSet bool
 
-	location     string // 户口所在地地址
-	locationFlag bool
+	location    string // 户口所在地地址
+	locationSet bool
 
-	socialSecurityNumber     string // 社保账号
-	socialSecurityNumberFlag bool
+	socialSecurityNumber    string // 社保账号
+	socialSecurityNumberSet bool
 
-	providentFundNumber     string // 公积金账号
-	providentFundNumberFlag bool
+	providentFundNumber    string // 公积金账号
+	providentFundNumberSet bool
 }
 
 func NewCreateResignedEmployeeBuilder() *CreateResignedEmployeeBuilder {
@@ -5694,7 +5694,7 @@ func NewCreateResignedEmployeeBuilder() *CreateResignedEmployeeBuilder {
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) Name(name *UpsertName) *CreateResignedEmployeeBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -5703,7 +5703,7 @@ func (builder *CreateResignedEmployeeBuilder) Name(name *UpsertName) *CreateResi
 // 示例值：13011111111" 或 "+8613011111111
 func (builder *CreateResignedEmployeeBuilder) Mobile(mobile string) *CreateResignedEmployeeBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -5712,7 +5712,7 @@ func (builder *CreateResignedEmployeeBuilder) Mobile(mobile string) *CreateResig
 // 示例值：u273y71
 func (builder *CreateResignedEmployeeBuilder) CustomEmployeeId(customEmployeeId string) *CreateResignedEmployeeBuilder {
 	builder.customEmployeeId = customEmployeeId
-	builder.customEmployeeIdFlag = true
+	builder.customEmployeeIdSet = true
 	return builder
 }
 
@@ -5721,7 +5721,7 @@ func (builder *CreateResignedEmployeeBuilder) CustomEmployeeId(customEmployeeId 
 // 示例值：iimg_v2_8abc397a-9950-44ea-9302-e1d8fe00858g
 func (builder *CreateResignedEmployeeBuilder) AvatarKey(avatarKey string) *CreateResignedEmployeeBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
@@ -5730,7 +5730,7 @@ func (builder *CreateResignedEmployeeBuilder) AvatarKey(avatarKey string) *Creat
 // 示例值：zhangsan@gmail.com
 func (builder *CreateResignedEmployeeBuilder) Email(email string) *CreateResignedEmployeeBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -5739,7 +5739,7 @@ func (builder *CreateResignedEmployeeBuilder) Email(email string) *CreateResigne
 // 示例值：zhangsan@gmail.com
 func (builder *CreateResignedEmployeeBuilder) PersonalEmail(personalEmail string) *CreateResignedEmployeeBuilder {
 	builder.personalEmail = personalEmail
-	builder.personalEmailFlag = true
+	builder.personalEmailSet = true
 	return builder
 }
 
@@ -5748,7 +5748,7 @@ func (builder *CreateResignedEmployeeBuilder) PersonalEmail(personalEmail string
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) Gender(gender int) *CreateResignedEmployeeBuilder {
 	builder.gender = gender
-	builder.genderFlag = true
+	builder.genderSet = true
 	return builder
 }
 
@@ -5757,7 +5757,7 @@ func (builder *CreateResignedEmployeeBuilder) Gender(gender int) *CreateResigned
 // 示例值：北京市海淀区
 func (builder *CreateResignedEmployeeBuilder) ResidentialAddress(residentialAddress string) *CreateResignedEmployeeBuilder {
 	builder.residentialAddress = residentialAddress
-	builder.residentialAddressFlag = true
+	builder.residentialAddressSet = true
 	return builder
 }
 
@@ -5766,7 +5766,7 @@ func (builder *CreateResignedEmployeeBuilder) ResidentialAddress(residentialAddr
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) ContactAddresses(contactAddresses []*ContactAddress) *CreateResignedEmployeeBuilder {
 	builder.contactAddresses = contactAddresses
-	builder.contactAddressesFlag = true
+	builder.contactAddressesSet = true
 	return builder
 }
 
@@ -5775,7 +5775,7 @@ func (builder *CreateResignedEmployeeBuilder) ContactAddresses(contactAddresses 
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) DepartmentIds(departmentIds []string) *CreateResignedEmployeeBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
@@ -5784,7 +5784,7 @@ func (builder *CreateResignedEmployeeBuilder) DepartmentIds(departmentIds []stri
 // 示例值：eeasdqwwe
 func (builder *CreateResignedEmployeeBuilder) LeaderId(leaderId string) *CreateResignedEmployeeBuilder {
 	builder.leaderId = leaderId
-	builder.leaderIdFlag = true
+	builder.leaderIdSet = true
 	return builder
 }
 
@@ -5793,7 +5793,7 @@ func (builder *CreateResignedEmployeeBuilder) LeaderId(leaderId string) *CreateR
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) DottedLineLeaderIds(dottedLineLeaderIds []string) *CreateResignedEmployeeBuilder {
 	builder.dottedLineLeaderIds = dottedLineLeaderIds
-	builder.dottedLineLeaderIdsFlag = true
+	builder.dottedLineLeaderIdsSet = true
 	return builder
 }
 
@@ -5802,7 +5802,7 @@ func (builder *CreateResignedEmployeeBuilder) DottedLineLeaderIds(dottedLineLead
 // 示例值：MDM34234234
 func (builder *CreateResignedEmployeeBuilder) WorkCountryOrRegion(workCountryOrRegion string) *CreateResignedEmployeeBuilder {
 	builder.workCountryOrRegion = workCountryOrRegion
-	builder.workCountryOrRegionFlag = true
+	builder.workCountryOrRegionSet = true
 	return builder
 }
 
@@ -5811,7 +5811,7 @@ func (builder *CreateResignedEmployeeBuilder) WorkCountryOrRegion(workCountryOrR
 // 示例值：eqwedas
 func (builder *CreateResignedEmployeeBuilder) WorkPlaceId(workPlaceId string) *CreateResignedEmployeeBuilder {
 	builder.workPlaceId = workPlaceId
-	builder.workPlaceIdFlag = true
+	builder.workPlaceIdSet = true
 	return builder
 }
 
@@ -5820,7 +5820,7 @@ func (builder *CreateResignedEmployeeBuilder) WorkPlaceId(workPlaceId string) *C
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) WorkStation(workStation *I18nText) *CreateResignedEmployeeBuilder {
 	builder.workStation = workStation
-	builder.workStationFlag = true
+	builder.workStationSet = true
 	return builder
 }
 
@@ -5829,7 +5829,7 @@ func (builder *CreateResignedEmployeeBuilder) WorkStation(workStation *I18nText)
 // 示例值：123123
 func (builder *CreateResignedEmployeeBuilder) JobNumber(jobNumber string) *CreateResignedEmployeeBuilder {
 	builder.jobNumber = jobNumber
-	builder.jobNumberFlag = true
+	builder.jobNumberSet = true
 	return builder
 }
 
@@ -5838,7 +5838,7 @@ func (builder *CreateResignedEmployeeBuilder) JobNumber(jobNumber string) *Creat
 // 示例值：2022-10-10
 func (builder *CreateResignedEmployeeBuilder) JoinDate(joinDate string) *CreateResignedEmployeeBuilder {
 	builder.joinDate = joinDate
-	builder.joinDateFlag = true
+	builder.joinDateSet = true
 	return builder
 }
 
@@ -5847,7 +5847,7 @@ func (builder *CreateResignedEmployeeBuilder) JoinDate(joinDate string) *CreateR
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) EmploymentType(employmentType int) *CreateResignedEmployeeBuilder {
 	builder.employmentType = employmentType
-	builder.employmentTypeFlag = true
+	builder.employmentTypeSet = true
 	return builder
 }
 
@@ -5856,7 +5856,7 @@ func (builder *CreateResignedEmployeeBuilder) EmploymentType(employmentType int)
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) Positions(positions []*Position) *CreateResignedEmployeeBuilder {
 	builder.positions = positions
-	builder.positionsFlag = true
+	builder.positionsSet = true
 	return builder
 }
 
@@ -5865,7 +5865,7 @@ func (builder *CreateResignedEmployeeBuilder) Positions(positions []*Position) *
 // 示例值：wqedsaqw
 func (builder *CreateResignedEmployeeBuilder) JobTitleId(jobTitleId string) *CreateResignedEmployeeBuilder {
 	builder.jobTitleId = jobTitleId
-	builder.jobTitleIdFlag = true
+	builder.jobTitleIdSet = true
 	return builder
 }
 
@@ -5874,7 +5874,7 @@ func (builder *CreateResignedEmployeeBuilder) JobTitleId(jobTitleId string) *Cre
 // 示例值：qwedsad
 func (builder *CreateResignedEmployeeBuilder) JobLevelId(jobLevelId string) *CreateResignedEmployeeBuilder {
 	builder.jobLevelId = jobLevelId
-	builder.jobLevelIdFlag = true
+	builder.jobLevelIdSet = true
 	return builder
 }
 
@@ -5883,7 +5883,7 @@ func (builder *CreateResignedEmployeeBuilder) JobLevelId(jobLevelId string) *Cre
 // 示例值：qweads
 func (builder *CreateResignedEmployeeBuilder) JobFamilyId(jobFamilyId string) *CreateResignedEmployeeBuilder {
 	builder.jobFamilyId = jobFamilyId
-	builder.jobFamilyIdFlag = true
+	builder.jobFamilyIdSet = true
 	return builder
 }
 
@@ -5892,7 +5892,7 @@ func (builder *CreateResignedEmployeeBuilder) JobFamilyId(jobFamilyId string) *C
 // 示例值：2022-01-01
 func (builder *CreateResignedEmployeeBuilder) FirstWorkDate(firstWorkDate string) *CreateResignedEmployeeBuilder {
 	builder.firstWorkDate = firstWorkDate
-	builder.firstWorkDateFlag = true
+	builder.firstWorkDateSet = true
 	return builder
 }
 
@@ -5901,7 +5901,7 @@ func (builder *CreateResignedEmployeeBuilder) FirstWorkDate(firstWorkDate string
 // 示例值：2022-01-01
 func (builder *CreateResignedEmployeeBuilder) FirstJoinDate(firstJoinDate string) *CreateResignedEmployeeBuilder {
 	builder.firstJoinDate = firstJoinDate
-	builder.firstJoinDateFlag = true
+	builder.firstJoinDateSet = true
 	return builder
 }
 
@@ -5910,7 +5910,7 @@ func (builder *CreateResignedEmployeeBuilder) FirstJoinDate(firstJoinDate string
 // 示例值：10
 func (builder *CreateResignedEmployeeBuilder) ProbationPeriod(probationPeriod string) *CreateResignedEmployeeBuilder {
 	builder.probationPeriod = probationPeriod
-	builder.probationPeriodFlag = true
+	builder.probationPeriodSet = true
 	return builder
 }
 
@@ -5919,7 +5919,7 @@ func (builder *CreateResignedEmployeeBuilder) ProbationPeriod(probationPeriod st
 // 示例值：2022-01-01
 func (builder *CreateResignedEmployeeBuilder) RegularizationDate(regularizationDate string) *CreateResignedEmployeeBuilder {
 	builder.regularizationDate = regularizationDate
-	builder.regularizationDateFlag = true
+	builder.regularizationDateSet = true
 	return builder
 }
 
@@ -5928,7 +5928,7 @@ func (builder *CreateResignedEmployeeBuilder) RegularizationDate(regularizationD
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) ConvertStatus(convertStatus string) *CreateResignedEmployeeBuilder {
 	builder.convertStatus = convertStatus
-	builder.convertStatusFlag = true
+	builder.convertStatusSet = true
 	return builder
 }
 
@@ -5937,7 +5937,7 @@ func (builder *CreateResignedEmployeeBuilder) ConvertStatus(convertStatus string
 // 示例值：2dsweq
 func (builder *CreateResignedEmployeeBuilder) ContractSubject(contractSubject string) *CreateResignedEmployeeBuilder {
 	builder.contractSubject = contractSubject
-	builder.contractSubjectFlag = true
+	builder.contractSubjectSet = true
 	return builder
 }
 
@@ -5946,7 +5946,7 @@ func (builder *CreateResignedEmployeeBuilder) ContractSubject(contractSubject st
 // 示例值：2022-01-01
 func (builder *CreateResignedEmployeeBuilder) ResignDate(resignDate string) *CreateResignedEmployeeBuilder {
 	builder.resignDate = resignDate
-	builder.resignDateFlag = true
+	builder.resignDateSet = true
 	return builder
 }
 
@@ -5955,7 +5955,7 @@ func (builder *CreateResignedEmployeeBuilder) ResignDate(resignDate string) *Cre
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) ResignReason(resignReason string) *CreateResignedEmployeeBuilder {
 	builder.resignReason = resignReason
-	builder.resignReasonFlag = true
+	builder.resignReasonSet = true
 	return builder
 }
 
@@ -5964,7 +5964,7 @@ func (builder *CreateResignedEmployeeBuilder) ResignReason(resignReason string) 
 // 示例值：个人原因
 func (builder *CreateResignedEmployeeBuilder) ResignRemark(resignRemark string) *CreateResignedEmployeeBuilder {
 	builder.resignRemark = resignRemark
-	builder.resignRemarkFlag = true
+	builder.resignRemarkSet = true
 	return builder
 }
 
@@ -5973,7 +5973,7 @@ func (builder *CreateResignedEmployeeBuilder) ResignRemark(resignRemark string) 
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) ResignType(resignType string) *CreateResignedEmployeeBuilder {
 	builder.resignType = resignType
-	builder.resignTypeFlag = true
+	builder.resignTypeSet = true
 	return builder
 }
 
@@ -5982,7 +5982,7 @@ func (builder *CreateResignedEmployeeBuilder) ResignType(resignType string) *Cre
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) CancelledEntryType(cancelledEntryType string) *CreateResignedEmployeeBuilder {
 	builder.cancelledEntryType = cancelledEntryType
-	builder.cancelledEntryTypeFlag = true
+	builder.cancelledEntryTypeSet = true
 	return builder
 }
 
@@ -5991,7 +5991,7 @@ func (builder *CreateResignedEmployeeBuilder) CancelledEntryType(cancelledEntryT
 // 示例值：个人原因
 func (builder *CreateResignedEmployeeBuilder) CancelledEntryRemark(cancelledEntryRemark string) *CreateResignedEmployeeBuilder {
 	builder.cancelledEntryRemark = cancelledEntryRemark
-	builder.cancelledEntryRemarkFlag = true
+	builder.cancelledEntryRemarkSet = true
 	return builder
 }
 
@@ -6000,7 +6000,7 @@ func (builder *CreateResignedEmployeeBuilder) CancelledEntryRemark(cancelledEntr
 // 示例值：2022-01-01
 func (builder *CreateResignedEmployeeBuilder) Birthday(birthday string) *CreateResignedEmployeeBuilder {
 	builder.birthday = birthday
-	builder.birthdayFlag = true
+	builder.birthdaySet = true
 	return builder
 }
 
@@ -6009,7 +6009,7 @@ func (builder *CreateResignedEmployeeBuilder) Birthday(birthday string) *CreateR
 // 示例值：cn
 func (builder *CreateResignedEmployeeBuilder) Nationality(nationality string) *CreateResignedEmployeeBuilder {
 	builder.nationality = nationality
-	builder.nationalityFlag = true
+	builder.nationalitySet = true
 	return builder
 }
 
@@ -6018,7 +6018,7 @@ func (builder *CreateResignedEmployeeBuilder) Nationality(nationality string) *C
 // 示例值：1
 func (builder *CreateResignedEmployeeBuilder) NativePlace(nativePlace string) *CreateResignedEmployeeBuilder {
 	builder.nativePlace = nativePlace
-	builder.nativePlaceFlag = true
+	builder.nativePlaceSet = true
 	return builder
 }
 
@@ -6027,7 +6027,7 @@ func (builder *CreateResignedEmployeeBuilder) NativePlace(nativePlace string) *C
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) Ethnicity(ethnicity string) *CreateResignedEmployeeBuilder {
 	builder.ethnicity = ethnicity
-	builder.ethnicityFlag = true
+	builder.ethnicitySet = true
 	return builder
 }
 
@@ -6036,7 +6036,7 @@ func (builder *CreateResignedEmployeeBuilder) Ethnicity(ethnicity string) *Creat
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) MaritalStatus(maritalStatus string) *CreateResignedEmployeeBuilder {
 	builder.maritalStatus = maritalStatus
-	builder.maritalStatusFlag = true
+	builder.maritalStatusSet = true
 	return builder
 }
 
@@ -6045,7 +6045,7 @@ func (builder *CreateResignedEmployeeBuilder) MaritalStatus(maritalStatus string
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) PoliticsStatus(politicsStatus string) *CreateResignedEmployeeBuilder {
 	builder.politicsStatus = politicsStatus
-	builder.politicsStatusFlag = true
+	builder.politicsStatusSet = true
 	return builder
 }
 
@@ -6054,7 +6054,7 @@ func (builder *CreateResignedEmployeeBuilder) PoliticsStatus(politicsStatus stri
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) RegisteredResidenceType(registeredResidenceType string) *CreateResignedEmployeeBuilder {
 	builder.registeredResidenceType = registeredResidenceType
-	builder.registeredResidenceTypeFlag = true
+	builder.registeredResidenceTypeSet = true
 	return builder
 }
 
@@ -6063,7 +6063,7 @@ func (builder *CreateResignedEmployeeBuilder) RegisteredResidenceType(registered
 // 示例值：cn
 func (builder *CreateResignedEmployeeBuilder) Location(location string) *CreateResignedEmployeeBuilder {
 	builder.location = location
-	builder.locationFlag = true
+	builder.locationSet = true
 	return builder
 }
 
@@ -6072,7 +6072,7 @@ func (builder *CreateResignedEmployeeBuilder) Location(location string) *CreateR
 // 示例值：1
 func (builder *CreateResignedEmployeeBuilder) SocialSecurityNumber(socialSecurityNumber string) *CreateResignedEmployeeBuilder {
 	builder.socialSecurityNumber = socialSecurityNumber
-	builder.socialSecurityNumberFlag = true
+	builder.socialSecurityNumberSet = true
 	return builder
 }
 
@@ -6081,179 +6081,179 @@ func (builder *CreateResignedEmployeeBuilder) SocialSecurityNumber(socialSecurit
 // 示例值：1
 func (builder *CreateResignedEmployeeBuilder) ProvidentFundNumber(providentFundNumber string) *CreateResignedEmployeeBuilder {
 	builder.providentFundNumber = providentFundNumber
-	builder.providentFundNumberFlag = true
+	builder.providentFundNumberSet = true
 	return builder
 }
 
 func (builder *CreateResignedEmployeeBuilder) Build() *CreateResignedEmployee {
 	req := &CreateResignedEmployee{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.customEmployeeIdFlag {
+	if builder.customEmployeeIdSet {
 		req.CustomEmployeeId = &builder.customEmployeeId
 
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = &builder.avatarKey
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.personalEmailFlag {
+	if builder.personalEmailSet {
 		req.PersonalEmail = &builder.personalEmail
 
 	}
-	if builder.genderFlag {
+	if builder.genderSet {
 		req.Gender = &builder.gender
 
 	}
-	if builder.residentialAddressFlag {
+	if builder.residentialAddressSet {
 		req.ResidentialAddress = &builder.residentialAddress
 
 	}
-	if builder.contactAddressesFlag {
+	if builder.contactAddressesSet {
 		req.ContactAddresses = builder.contactAddresses
 	}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.leaderIdFlag {
+	if builder.leaderIdSet {
 		req.LeaderId = &builder.leaderId
 
 	}
-	if builder.dottedLineLeaderIdsFlag {
+	if builder.dottedLineLeaderIdsSet {
 		req.DottedLineLeaderIds = builder.dottedLineLeaderIds
 	}
-	if builder.workCountryOrRegionFlag {
+	if builder.workCountryOrRegionSet {
 		req.WorkCountryOrRegion = &builder.workCountryOrRegion
 
 	}
-	if builder.workPlaceIdFlag {
+	if builder.workPlaceIdSet {
 		req.WorkPlaceId = &builder.workPlaceId
 
 	}
-	if builder.workStationFlag {
+	if builder.workStationSet {
 		req.WorkStation = builder.workStation
 	}
-	if builder.jobNumberFlag {
+	if builder.jobNumberSet {
 		req.JobNumber = &builder.jobNumber
 
 	}
-	if builder.joinDateFlag {
+	if builder.joinDateSet {
 		req.JoinDate = &builder.joinDate
 
 	}
-	if builder.employmentTypeFlag {
+	if builder.employmentTypeSet {
 		req.EmploymentType = &builder.employmentType
 
 	}
-	if builder.positionsFlag {
+	if builder.positionsSet {
 		req.Positions = builder.positions
 	}
-	if builder.jobTitleIdFlag {
+	if builder.jobTitleIdSet {
 		req.JobTitleId = &builder.jobTitleId
 
 	}
-	if builder.jobLevelIdFlag {
+	if builder.jobLevelIdSet {
 		req.JobLevelId = &builder.jobLevelId
 
 	}
-	if builder.jobFamilyIdFlag {
+	if builder.jobFamilyIdSet {
 		req.JobFamilyId = &builder.jobFamilyId
 
 	}
-	if builder.firstWorkDateFlag {
+	if builder.firstWorkDateSet {
 		req.FirstWorkDate = &builder.firstWorkDate
 
 	}
-	if builder.firstJoinDateFlag {
+	if builder.firstJoinDateSet {
 		req.FirstJoinDate = &builder.firstJoinDate
 
 	}
-	if builder.probationPeriodFlag {
+	if builder.probationPeriodSet {
 		req.ProbationPeriod = &builder.probationPeriod
 
 	}
-	if builder.regularizationDateFlag {
+	if builder.regularizationDateSet {
 		req.RegularizationDate = &builder.regularizationDate
 
 	}
-	if builder.convertStatusFlag {
+	if builder.convertStatusSet {
 		req.ConvertStatus = &builder.convertStatus
 
 	}
-	if builder.contractSubjectFlag {
+	if builder.contractSubjectSet {
 		req.ContractSubject = &builder.contractSubject
 
 	}
-	if builder.resignDateFlag {
+	if builder.resignDateSet {
 		req.ResignDate = &builder.resignDate
 
 	}
-	if builder.resignReasonFlag {
+	if builder.resignReasonSet {
 		req.ResignReason = &builder.resignReason
 
 	}
-	if builder.resignRemarkFlag {
+	if builder.resignRemarkSet {
 		req.ResignRemark = &builder.resignRemark
 
 	}
-	if builder.resignTypeFlag {
+	if builder.resignTypeSet {
 		req.ResignType = &builder.resignType
 
 	}
-	if builder.cancelledEntryTypeFlag {
+	if builder.cancelledEntryTypeSet {
 		req.CancelledEntryType = &builder.cancelledEntryType
 
 	}
-	if builder.cancelledEntryRemarkFlag {
+	if builder.cancelledEntryRemarkSet {
 		req.CancelledEntryRemark = &builder.cancelledEntryRemark
 
 	}
-	if builder.birthdayFlag {
+	if builder.birthdaySet {
 		req.Birthday = &builder.birthday
 
 	}
-	if builder.nationalityFlag {
+	if builder.nationalitySet {
 		req.Nationality = &builder.nationality
 
 	}
-	if builder.nativePlaceFlag {
+	if builder.nativePlaceSet {
 		req.NativePlace = &builder.nativePlace
 
 	}
-	if builder.ethnicityFlag {
+	if builder.ethnicitySet {
 		req.Ethnicity = &builder.ethnicity
 
 	}
-	if builder.maritalStatusFlag {
+	if builder.maritalStatusSet {
 		req.MaritalStatus = &builder.maritalStatus
 
 	}
-	if builder.politicsStatusFlag {
+	if builder.politicsStatusSet {
 		req.PoliticsStatus = &builder.politicsStatus
 
 	}
-	if builder.registeredResidenceTypeFlag {
+	if builder.registeredResidenceTypeSet {
 		req.RegisteredResidenceType = &builder.registeredResidenceType
 
 	}
-	if builder.locationFlag {
+	if builder.locationSet {
 		req.Location = &builder.location
 
 	}
-	if builder.socialSecurityNumberFlag {
+	if builder.socialSecurityNumberSet {
 		req.SocialSecurityNumber = &builder.socialSecurityNumber
 
 	}
-	if builder.providentFundNumberFlag {
+	if builder.providentFundNumberSet {
 		req.ProvidentFundNumber = &builder.providentFundNumber
 
 	}
@@ -6269,14 +6269,14 @@ type CreateResignedEmployeeOptions struct {
 }
 
 type CreateResignedEmployeeOptionsBuilder struct {
-	geoName     string // 离职用户指定geo/unit
-	geoNameFlag bool
+	geoName    string // 离职用户指定geo/unit
+	geoNameSet bool
 
-	employeeTraceInfo     *EmployeeTraceInfo // 用户追踪信息
-	employeeTraceInfoFlag bool
+	employeeTraceInfo    *EmployeeTraceInfo // 用户追踪信息
+	employeeTraceInfoSet bool
 
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewCreateResignedEmployeeOptionsBuilder() *CreateResignedEmployeeOptionsBuilder {
@@ -6289,7 +6289,7 @@ func NewCreateResignedEmployeeOptionsBuilder() *CreateResignedEmployeeOptionsBui
 // 示例值：cn
 func (builder *CreateResignedEmployeeOptionsBuilder) GeoName(geoName string) *CreateResignedEmployeeOptionsBuilder {
 	builder.geoName = geoName
-	builder.geoNameFlag = true
+	builder.geoNameSet = true
 	return builder
 }
 
@@ -6298,7 +6298,7 @@ func (builder *CreateResignedEmployeeOptionsBuilder) GeoName(geoName string) *Cr
 // 示例值：
 func (builder *CreateResignedEmployeeOptionsBuilder) EmployeeTraceInfo(employeeTraceInfo *EmployeeTraceInfo) *CreateResignedEmployeeOptionsBuilder {
 	builder.employeeTraceInfo = employeeTraceInfo
-	builder.employeeTraceInfoFlag = true
+	builder.employeeTraceInfoSet = true
 	return builder
 }
 
@@ -6307,20 +6307,20 @@ func (builder *CreateResignedEmployeeOptionsBuilder) EmployeeTraceInfo(employeeT
 // 示例值：
 func (builder *CreateResignedEmployeeOptionsBuilder) DataSource(dataSource int) *CreateResignedEmployeeOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *CreateResignedEmployeeOptionsBuilder) Build() *CreateResignedEmployeeOptions {
 	req := &CreateResignedEmployeeOptions{}
-	if builder.geoNameFlag {
+	if builder.geoNameSet {
 		req.GeoName = &builder.geoName
 
 	}
-	if builder.employeeTraceInfoFlag {
+	if builder.employeeTraceInfoSet {
 		req.EmployeeTraceInfo = builder.employeeTraceInfo
 	}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -6332,8 +6332,8 @@ type CreateSandboxTenant struct {
 }
 
 type CreateSandboxTenantBuilder struct {
-	creatorHomeUserId     string // 创建者在父租户中的UserID
-	creatorHomeUserIdFlag bool
+	creatorHomeUserId    string // 创建者在父租户中的UserID
+	creatorHomeUserIdSet bool
 }
 
 func NewCreateSandboxTenantBuilder() *CreateSandboxTenantBuilder {
@@ -6346,13 +6346,13 @@ func NewCreateSandboxTenantBuilder() *CreateSandboxTenantBuilder {
 // 示例值：7036181931599499700
 func (builder *CreateSandboxTenantBuilder) CreatorHomeUserId(creatorHomeUserId string) *CreateSandboxTenantBuilder {
 	builder.creatorHomeUserId = creatorHomeUserId
-	builder.creatorHomeUserIdFlag = true
+	builder.creatorHomeUserIdSet = true
 	return builder
 }
 
 func (builder *CreateSandboxTenantBuilder) Build() *CreateSandboxTenant {
 	req := &CreateSandboxTenant{}
-	if builder.creatorHomeUserIdFlag {
+	if builder.creatorHomeUserIdSet {
 		req.CreatorHomeUserId = &builder.creatorHomeUserId
 
 	}
@@ -6396,56 +6396,56 @@ type CreateTenant struct {
 }
 
 type CreateTenantBuilder struct {
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	creatorInfo     *UserInfo // 联系人信息
-	creatorInfoFlag bool
+	creatorInfo    *UserInfo // 联系人信息
+	creatorInfoSet bool
 
-	contactUserInfo     *UserInfo // 联系人信息
-	contactUserInfoFlag bool
+	contactUserInfo    *UserInfo // 联系人信息
+	contactUserInfoSet bool
 
-	subDomain     string // 租户子域名
-	subDomainFlag bool
+	subDomain    string // 租户子域名
+	subDomainSet bool
 
-	address     string // 联系地址
-	addressFlag bool
+	address    string // 联系地址
+	addressSet bool
 
-	postCode     string // 邮编
-	postCodeFlag bool
+	postCode    string // 邮编
+	postCodeSet bool
 
-	telephone     string // 座机
-	telephoneFlag bool
+	telephone    string // 座机
+	telephoneSet bool
 
-	avatarKey     string // 企业头像Key
-	avatarKeyFlag bool
+	avatarKey    string // 企业头像Key
+	avatarKeySet bool
 
-	countryCode     string // 国家代码
-	countryCodeFlag bool
+	countryCode    string // 国家代码
+	countryCodeSet bool
 
 	type_    string // 租户类型
-	typeFlag bool
+	type_Set bool
 
-	purpose     string // 租户用途
-	purposeFlag bool
+	purpose    string // 租户用途
+	purposeSet bool
 
-	tag     string // 个人租户/企业租户
-	tagFlag bool
+	tag    string // 个人租户/企业租户
+	tagSet bool
 
-	parentId     string // 父租户ID
-	parentIdFlag bool
+	parentId    string // 父租户ID
+	parentIdSet bool
 
-	industry     string // 行业类型
-	industryFlag bool
+	industry    string // 行业类型
+	industrySet bool
 
-	scale     string // 企业规模
-	scaleFlag bool
+	scale    string // 企业规模
+	scaleSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	traceInfo     *TenantTraceInfo // 租户创建追溯信息
-	traceInfoFlag bool
+	traceInfo    *TenantTraceInfo // 租户创建追溯信息
+	traceInfoSet bool
 }
 
 func NewCreateTenantBuilder() *CreateTenantBuilder {
@@ -6458,7 +6458,7 @@ func NewCreateTenantBuilder() *CreateTenantBuilder {
 // 示例值：
 func (builder *CreateTenantBuilder) Name(name *I18nText) *CreateTenantBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -6467,7 +6467,7 @@ func (builder *CreateTenantBuilder) Name(name *I18nText) *CreateTenantBuilder {
 // 示例值：
 func (builder *CreateTenantBuilder) CreatorInfo(creatorInfo *UserInfo) *CreateTenantBuilder {
 	builder.creatorInfo = creatorInfo
-	builder.creatorInfoFlag = true
+	builder.creatorInfoSet = true
 	return builder
 }
 
@@ -6476,7 +6476,7 @@ func (builder *CreateTenantBuilder) CreatorInfo(creatorInfo *UserInfo) *CreateTe
 // 示例值：
 func (builder *CreateTenantBuilder) ContactUserInfo(contactUserInfo *UserInfo) *CreateTenantBuilder {
 	builder.contactUserInfo = contactUserInfo
-	builder.contactUserInfoFlag = true
+	builder.contactUserInfoSet = true
 	return builder
 }
 
@@ -6485,7 +6485,7 @@ func (builder *CreateTenantBuilder) ContactUserInfo(contactUserInfo *UserInfo) *
 // 示例值：abcdefgh
 func (builder *CreateTenantBuilder) SubDomain(subDomain string) *CreateTenantBuilder {
 	builder.subDomain = subDomain
-	builder.subDomainFlag = true
+	builder.subDomainSet = true
 	return builder
 }
 
@@ -6494,7 +6494,7 @@ func (builder *CreateTenantBuilder) SubDomain(subDomain string) *CreateTenantBui
 // 示例值：address
 func (builder *CreateTenantBuilder) Address(address string) *CreateTenantBuilder {
 	builder.address = address
-	builder.addressFlag = true
+	builder.addressSet = true
 	return builder
 }
 
@@ -6503,7 +6503,7 @@ func (builder *CreateTenantBuilder) Address(address string) *CreateTenantBuilder
 // 示例值：123345
 func (builder *CreateTenantBuilder) PostCode(postCode string) *CreateTenantBuilder {
 	builder.postCode = postCode
-	builder.postCodeFlag = true
+	builder.postCodeSet = true
 	return builder
 }
 
@@ -6512,7 +6512,7 @@ func (builder *CreateTenantBuilder) PostCode(postCode string) *CreateTenantBuild
 // 示例值：12345678
 func (builder *CreateTenantBuilder) Telephone(telephone string) *CreateTenantBuilder {
 	builder.telephone = telephone
-	builder.telephoneFlag = true
+	builder.telephoneSet = true
 	return builder
 }
 
@@ -6521,7 +6521,7 @@ func (builder *CreateTenantBuilder) Telephone(telephone string) *CreateTenantBui
 // 示例值：asdfadsfadsfadsf
 func (builder *CreateTenantBuilder) AvatarKey(avatarKey string) *CreateTenantBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
@@ -6530,7 +6530,7 @@ func (builder *CreateTenantBuilder) AvatarKey(avatarKey string) *CreateTenantBui
 // 示例值：CN
 func (builder *CreateTenantBuilder) CountryCode(countryCode string) *CreateTenantBuilder {
 	builder.countryCode = countryCode
-	builder.countryCodeFlag = true
+	builder.countryCodeSet = true
 	return builder
 }
 
@@ -6539,7 +6539,7 @@ func (builder *CreateTenantBuilder) CountryCode(countryCode string) *CreateTenan
 // 示例值：
 func (builder *CreateTenantBuilder) Type(type_ string) *CreateTenantBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -6548,7 +6548,7 @@ func (builder *CreateTenantBuilder) Type(type_ string) *CreateTenantBuilder {
 // 示例值：
 func (builder *CreateTenantBuilder) Purpose(purpose string) *CreateTenantBuilder {
 	builder.purpose = purpose
-	builder.purposeFlag = true
+	builder.purposeSet = true
 	return builder
 }
 
@@ -6557,7 +6557,7 @@ func (builder *CreateTenantBuilder) Purpose(purpose string) *CreateTenantBuilder
 // 示例值：
 func (builder *CreateTenantBuilder) Tag(tag string) *CreateTenantBuilder {
 	builder.tag = tag
-	builder.tagFlag = true
+	builder.tagSet = true
 	return builder
 }
 
@@ -6566,7 +6566,7 @@ func (builder *CreateTenantBuilder) Tag(tag string) *CreateTenantBuilder {
 // 示例值：7036181931599499700
 func (builder *CreateTenantBuilder) ParentId(parentId string) *CreateTenantBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
@@ -6575,7 +6575,7 @@ func (builder *CreateTenantBuilder) ParentId(parentId string) *CreateTenantBuild
 // 示例值：MDM1234
 func (builder *CreateTenantBuilder) Industry(industry string) *CreateTenantBuilder {
 	builder.industry = industry
-	builder.industryFlag = true
+	builder.industrySet = true
 	return builder
 }
 
@@ -6584,7 +6584,7 @@ func (builder *CreateTenantBuilder) Industry(industry string) *CreateTenantBuild
 // 示例值：MDM1234
 func (builder *CreateTenantBuilder) Scale(scale string) *CreateTenantBuilder {
 	builder.scale = scale
-	builder.scaleFlag = true
+	builder.scaleSet = true
 	return builder
 }
 
@@ -6593,7 +6593,7 @@ func (builder *CreateTenantBuilder) Scale(scale string) *CreateTenantBuilder {
 // 示例值：
 func (builder *CreateTenantBuilder) Description(description *I18nText) *CreateTenantBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -6602,73 +6602,73 @@ func (builder *CreateTenantBuilder) Description(description *I18nText) *CreateTe
 // 示例值：
 func (builder *CreateTenantBuilder) TraceInfo(traceInfo *TenantTraceInfo) *CreateTenantBuilder {
 	builder.traceInfo = traceInfo
-	builder.traceInfoFlag = true
+	builder.traceInfoSet = true
 	return builder
 }
 
 func (builder *CreateTenantBuilder) Build() *CreateTenant {
 	req := &CreateTenant{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.creatorInfoFlag {
+	if builder.creatorInfoSet {
 		req.CreatorInfo = builder.creatorInfo
 	}
-	if builder.contactUserInfoFlag {
+	if builder.contactUserInfoSet {
 		req.ContactUserInfo = builder.contactUserInfo
 	}
-	if builder.subDomainFlag {
+	if builder.subDomainSet {
 		req.SubDomain = &builder.subDomain
 
 	}
-	if builder.addressFlag {
+	if builder.addressSet {
 		req.Address = &builder.address
 
 	}
-	if builder.postCodeFlag {
+	if builder.postCodeSet {
 		req.PostCode = &builder.postCode
 
 	}
-	if builder.telephoneFlag {
+	if builder.telephoneSet {
 		req.Telephone = &builder.telephone
 
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = &builder.avatarKey
 
 	}
-	if builder.countryCodeFlag {
+	if builder.countryCodeSet {
 		req.CountryCode = &builder.countryCode
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.purposeFlag {
+	if builder.purposeSet {
 		req.Purpose = &builder.purpose
 
 	}
-	if builder.tagFlag {
+	if builder.tagSet {
 		req.Tag = &builder.tag
 
 	}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
-	if builder.industryFlag {
+	if builder.industrySet {
 		req.Industry = &builder.industry
 
 	}
-	if builder.scaleFlag {
+	if builder.scaleSet {
 		req.Scale = &builder.scale
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.traceInfoFlag {
+	if builder.traceInfoSet {
 		req.TraceInfo = builder.traceInfo
 	}
 	return req
@@ -6683,14 +6683,14 @@ type CreateTenantOption struct {
 }
 
 type CreateTenantOptionBuilder struct {
-	createSandboxTenant     *CreateSandboxTenant // CreateSandboxTenant
-	createSandboxTenantFlag bool
+	createSandboxTenant    *CreateSandboxTenant // CreateSandboxTenant
+	createSandboxTenantSet bool
 
-	geoName     string // 租户所在Geo
-	geoNameFlag bool
+	geoName    string // 租户所在Geo
+	geoNameSet bool
 
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewCreateTenantOptionBuilder() *CreateTenantOptionBuilder {
@@ -6703,7 +6703,7 @@ func NewCreateTenantOptionBuilder() *CreateTenantOptionBuilder {
 // 示例值：
 func (builder *CreateTenantOptionBuilder) CreateSandboxTenant(createSandboxTenant *CreateSandboxTenant) *CreateTenantOptionBuilder {
 	builder.createSandboxTenant = createSandboxTenant
-	builder.createSandboxTenantFlag = true
+	builder.createSandboxTenantSet = true
 	return builder
 }
 
@@ -6712,7 +6712,7 @@ func (builder *CreateTenantOptionBuilder) CreateSandboxTenant(createSandboxTenan
 // 示例值：cn
 func (builder *CreateTenantOptionBuilder) GeoName(geoName string) *CreateTenantOptionBuilder {
 	builder.geoName = geoName
-	builder.geoNameFlag = true
+	builder.geoNameSet = true
 	return builder
 }
 
@@ -6721,20 +6721,20 @@ func (builder *CreateTenantOptionBuilder) GeoName(geoName string) *CreateTenantO
 // 示例值：
 func (builder *CreateTenantOptionBuilder) DataSource(dataSource int) *CreateTenantOptionBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *CreateTenantOptionBuilder) Build() *CreateTenantOption {
 	req := &CreateTenantOption{}
-	if builder.createSandboxTenantFlag {
+	if builder.createSandboxTenantSet {
 		req.CreateSandboxTenant = builder.createSandboxTenant
 	}
-	if builder.geoNameFlag {
+	if builder.geoNameSet {
 		req.GeoName = &builder.geoName
 
 	}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -6750,14 +6750,14 @@ type CreateTenantResult struct {
 }
 
 type CreateTenantResultBuilder struct {
-	id     string // 租户ID
-	idFlag bool
+	id    string // 租户ID
+	idSet bool
 
-	externalId     string // 企业编码
-	externalIdFlag bool
+	externalId    string // 企业编码
+	externalIdSet bool
 
-	creatorId     string // 创建人ID
-	creatorIdFlag bool
+	creatorId    string // 创建人ID
+	creatorIdSet bool
 }
 
 func NewCreateTenantResultBuilder() *CreateTenantResultBuilder {
@@ -6770,7 +6770,7 @@ func NewCreateTenantResultBuilder() *CreateTenantResultBuilder {
 // 示例值：7036181931599499700
 func (builder *CreateTenantResultBuilder) Id(id string) *CreateTenantResultBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -6779,7 +6779,7 @@ func (builder *CreateTenantResultBuilder) Id(id string) *CreateTenantResultBuild
 // 示例值：F12312312312
 func (builder *CreateTenantResultBuilder) ExternalId(externalId string) *CreateTenantResultBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
@@ -6788,21 +6788,21 @@ func (builder *CreateTenantResultBuilder) ExternalId(externalId string) *CreateT
 // 示例值：7036181931599499700
 func (builder *CreateTenantResultBuilder) CreatorId(creatorId string) *CreateTenantResultBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
 func (builder *CreateTenantResultBuilder) Build() *CreateTenantResult {
 	req := &CreateTenantResult{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
@@ -6818,14 +6818,14 @@ type Credential struct {
 }
 
 type CredentialBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	credentialType     string // 类型
-	credentialTypeFlag bool
+	credentialType    string // 类型
+	credentialTypeSet bool
 
-	content     string // 内容
-	contentFlag bool
+	content    string // 内容
+	contentSet bool
 }
 
 func NewCredentialBuilder() *CredentialBuilder {
@@ -6838,7 +6838,7 @@ func NewCredentialBuilder() *CredentialBuilder {
 // 示例值：123123
 func (builder *CredentialBuilder) Id(id string) *CredentialBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -6847,7 +6847,7 @@ func (builder *CredentialBuilder) Id(id string) *CredentialBuilder {
 // 示例值：
 func (builder *CredentialBuilder) CredentialType(credentialType string) *CredentialBuilder {
 	builder.credentialType = credentialType
-	builder.credentialTypeFlag = true
+	builder.credentialTypeSet = true
 	return builder
 }
 
@@ -6856,21 +6856,21 @@ func (builder *CredentialBuilder) CredentialType(credentialType string) *Credent
 // 示例值：123123123123
 func (builder *CredentialBuilder) Content(content string) *CredentialBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *CredentialBuilder) Build() *Credential {
 	req := &Credential{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.credentialTypeFlag {
+	if builder.credentialTypeSet {
 		req.CredentialType = &builder.credentialType
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
@@ -6912,53 +6912,53 @@ type CustomField struct {
 }
 
 type CustomFieldBuilder struct {
-	id     string // 字段ID，内建字段此项无意义，仅自定义字段有效
-	idFlag bool
+	id    string // 字段ID，内建字段此项无意义，仅自定义字段有效
+	idSet bool
 
-	externalId     string // 外部自定义id
-	externalIdFlag bool
+	externalId    string // 外部自定义id
+	externalIdSet bool
 
-	tenantId     string // 租户ID
-	tenantIdFlag bool
+	tenantId    string // 租户ID
+	tenantIdSet bool
 
-	fieldName     *I18nText // i18n文本
-	fieldNameFlag bool
+	fieldName    *I18nText // i18n文本
+	fieldNameSet bool
 
-	fieldKey     string // 字段key
-	fieldKeyFlag bool
+	fieldKey    string // 字段key
+	fieldKeySet bool
 
-	fieldType     string // 字段类型
-	fieldTypeFlag bool
+	fieldType    string // 字段类型
+	fieldTypeSet bool
 
-	enumMeta     *EnumMeta // 枚举元信息
-	enumMetaFlag bool
+	enumMeta    *EnumMeta // 枚举元信息
+	enumMetaSet bool
 
-	entityType     string // 所属实体对象类型 orm的FieldBelong
-	entityTypeFlag bool
+	entityType    string // 所属实体对象类型 orm的FieldBelong
+	entityTypeSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	creatorId     string // 创建人
-	creatorIdFlag bool
+	creatorId    string // 创建人
+	creatorIdSet bool
 
-	updatorId     string // 更新人
-	updatorIdFlag bool
+	updatorId    string // 更新人
+	updatorIdSet bool
 
-	createSource     string // 创建来源
-	createSourceFlag bool
+	createSource    string // 创建来源
+	createSourceSet bool
 
-	orgDimensionofDeptField     string // 组织维度
-	orgDimensionofDeptFieldFlag bool
+	orgDimensionofDeptField    string // 组织维度
+	orgDimensionofDeptFieldSet bool
 }
 
 func NewCustomFieldBuilder() *CustomFieldBuilder {
@@ -6971,7 +6971,7 @@ func NewCustomFieldBuilder() *CustomFieldBuilder {
 // 示例值：123456
 func (builder *CustomFieldBuilder) Id(id string) *CustomFieldBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -6980,7 +6980,7 @@ func (builder *CustomFieldBuilder) Id(id string) *CustomFieldBuilder {
 // 示例值：1234456
 func (builder *CustomFieldBuilder) ExternalId(externalId string) *CustomFieldBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
@@ -6989,7 +6989,7 @@ func (builder *CustomFieldBuilder) ExternalId(externalId string) *CustomFieldBui
 // 示例值：1
 func (builder *CustomFieldBuilder) TenantId(tenantId string) *CustomFieldBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -6998,7 +6998,7 @@ func (builder *CustomFieldBuilder) TenantId(tenantId string) *CustomFieldBuilder
 // 示例值：
 func (builder *CustomFieldBuilder) FieldName(fieldName *I18nText) *CustomFieldBuilder {
 	builder.fieldName = fieldName
-	builder.fieldNameFlag = true
+	builder.fieldNameSet = true
 	return builder
 }
 
@@ -7007,7 +7007,7 @@ func (builder *CustomFieldBuilder) FieldName(fieldName *I18nText) *CustomFieldBu
 // 示例值：
 func (builder *CustomFieldBuilder) FieldKey(fieldKey string) *CustomFieldBuilder {
 	builder.fieldKey = fieldKey
-	builder.fieldKeyFlag = true
+	builder.fieldKeySet = true
 	return builder
 }
 
@@ -7016,7 +7016,7 @@ func (builder *CustomFieldBuilder) FieldKey(fieldKey string) *CustomFieldBuilder
 // 示例值：
 func (builder *CustomFieldBuilder) FieldType(fieldType string) *CustomFieldBuilder {
 	builder.fieldType = fieldType
-	builder.fieldTypeFlag = true
+	builder.fieldTypeSet = true
 	return builder
 }
 
@@ -7025,7 +7025,7 @@ func (builder *CustomFieldBuilder) FieldType(fieldType string) *CustomFieldBuild
 // 示例值：
 func (builder *CustomFieldBuilder) EnumMeta(enumMeta *EnumMeta) *CustomFieldBuilder {
 	builder.enumMeta = enumMeta
-	builder.enumMetaFlag = true
+	builder.enumMetaSet = true
 	return builder
 }
 
@@ -7034,7 +7034,7 @@ func (builder *CustomFieldBuilder) EnumMeta(enumMeta *EnumMeta) *CustomFieldBuil
 // 示例值：
 func (builder *CustomFieldBuilder) EntityType(entityType string) *CustomFieldBuilder {
 	builder.entityType = entityType
-	builder.entityTypeFlag = true
+	builder.entityTypeSet = true
 	return builder
 }
 
@@ -7043,7 +7043,7 @@ func (builder *CustomFieldBuilder) EntityType(entityType string) *CustomFieldBui
 // 示例值：
 func (builder *CustomFieldBuilder) Description(description *I18nText) *CustomFieldBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -7052,7 +7052,7 @@ func (builder *CustomFieldBuilder) Description(description *I18nText) *CustomFie
 // 示例值：
 func (builder *CustomFieldBuilder) IsEnabled(isEnabled bool) *CustomFieldBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -7061,7 +7061,7 @@ func (builder *CustomFieldBuilder) IsEnabled(isEnabled bool) *CustomFieldBuilder
 // 示例值：123
 func (builder *CustomFieldBuilder) CreateTime(createTime string) *CustomFieldBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -7070,7 +7070,7 @@ func (builder *CustomFieldBuilder) CreateTime(createTime string) *CustomFieldBui
 // 示例值：123
 func (builder *CustomFieldBuilder) UpdateTime(updateTime string) *CustomFieldBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -7079,7 +7079,7 @@ func (builder *CustomFieldBuilder) UpdateTime(updateTime string) *CustomFieldBui
 // 示例值：123
 func (builder *CustomFieldBuilder) CreatorId(creatorId string) *CustomFieldBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -7088,7 +7088,7 @@ func (builder *CustomFieldBuilder) CreatorId(creatorId string) *CustomFieldBuild
 // 示例值：123
 func (builder *CustomFieldBuilder) UpdatorId(updatorId string) *CustomFieldBuilder {
 	builder.updatorId = updatorId
-	builder.updatorIdFlag = true
+	builder.updatorIdSet = true
 	return builder
 }
 
@@ -7097,7 +7097,7 @@ func (builder *CustomFieldBuilder) UpdatorId(updatorId string) *CustomFieldBuild
 // 示例值：
 func (builder *CustomFieldBuilder) CreateSource(createSource string) *CustomFieldBuilder {
 	builder.createSource = createSource
-	builder.createSourceFlag = true
+	builder.createSourceSet = true
 	return builder
 }
 
@@ -7106,70 +7106,70 @@ func (builder *CustomFieldBuilder) CreateSource(createSource string) *CustomFiel
 // 示例值：{}
 func (builder *CustomFieldBuilder) OrgDimensionofDeptField(orgDimensionofDeptField string) *CustomFieldBuilder {
 	builder.orgDimensionofDeptField = orgDimensionofDeptField
-	builder.orgDimensionofDeptFieldFlag = true
+	builder.orgDimensionofDeptFieldSet = true
 	return builder
 }
 
 func (builder *CustomFieldBuilder) Build() *CustomField {
 	req := &CustomField{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.fieldNameFlag {
+	if builder.fieldNameSet {
 		req.FieldName = builder.fieldName
 	}
-	if builder.fieldKeyFlag {
+	if builder.fieldKeySet {
 		req.FieldKey = &builder.fieldKey
 
 	}
-	if builder.fieldTypeFlag {
+	if builder.fieldTypeSet {
 		req.FieldType = &builder.fieldType
 
 	}
-	if builder.enumMetaFlag {
+	if builder.enumMetaSet {
 		req.EnumMeta = builder.enumMeta
 	}
-	if builder.entityTypeFlag {
+	if builder.entityTypeSet {
 		req.EntityType = &builder.entityType
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.updatorIdFlag {
+	if builder.updatorIdSet {
 		req.UpdatorId = &builder.updatorId
 
 	}
-	if builder.createSourceFlag {
+	if builder.createSourceSet {
 		req.CreateSource = &builder.createSource
 
 	}
-	if builder.orgDimensionofDeptFieldFlag {
+	if builder.orgDimensionofDeptFieldSet {
 		req.OrgDimensionofDeptField = &builder.orgDimensionofDeptField
 
 	}
@@ -7199,35 +7199,35 @@ type CustomFieldValue struct {
 }
 
 type CustomFieldValueBuilder struct {
-	fieldType     string // 自定义字段类型
-	fieldTypeFlag bool
+	fieldType    string // 自定义字段类型
+	fieldTypeSet bool
 
-	textValue     *I18nText // i18n文本
-	textValueFlag bool
+	textValue    *I18nText // i18n文本
+	textValueSet bool
 
-	urlValue     *UrlValue // 网页链接字段值
-	urlValueFlag bool
+	urlValue    *UrlValue // 网页链接字段值
+	urlValueSet bool
 
-	enumValue     *EnumValue // 枚举
-	enumValueFlag bool
+	enumValue    *EnumValue // 枚举
+	enumValueSet bool
 
-	userValues     []*UserValue // 人员字段值
-	userValuesFlag bool
+	userValues    []*UserValue // 人员字段值
+	userValuesSet bool
 
-	dateTimeValue     string // 时间戳字段值
-	dateTimeValueFlag bool
+	dateTimeValue    string // 时间戳字段值
+	dateTimeValueSet bool
 
-	numberValue     string // 数字字段值
-	numberValueFlag bool
+	numberValue    string // 数字字段值
+	numberValueSet bool
 
-	booleanValue     bool // 布尔值字段值
-	booleanValueFlag bool
+	booleanValue    bool // 布尔值字段值
+	booleanValueSet bool
 
-	phoneValue     *PhoneValue // 电话字段值
-	phoneValueFlag bool
+	phoneValue    *PhoneValue // 电话字段值
+	phoneValueSet bool
 
-	fieldKey     string // 自定义字段key
-	fieldKeyFlag bool
+	fieldKey    string // 自定义字段key
+	fieldKeySet bool
 }
 
 func NewCustomFieldValueBuilder() *CustomFieldValueBuilder {
@@ -7240,7 +7240,7 @@ func NewCustomFieldValueBuilder() *CustomFieldValueBuilder {
 // 示例值：
 func (builder *CustomFieldValueBuilder) FieldType(fieldType string) *CustomFieldValueBuilder {
 	builder.fieldType = fieldType
-	builder.fieldTypeFlag = true
+	builder.fieldTypeSet = true
 	return builder
 }
 
@@ -7249,7 +7249,7 @@ func (builder *CustomFieldValueBuilder) FieldType(fieldType string) *CustomField
 // 示例值：
 func (builder *CustomFieldValueBuilder) TextValue(textValue *I18nText) *CustomFieldValueBuilder {
 	builder.textValue = textValue
-	builder.textValueFlag = true
+	builder.textValueSet = true
 	return builder
 }
 
@@ -7258,7 +7258,7 @@ func (builder *CustomFieldValueBuilder) TextValue(textValue *I18nText) *CustomFi
 // 示例值：
 func (builder *CustomFieldValueBuilder) UrlValue(urlValue *UrlValue) *CustomFieldValueBuilder {
 	builder.urlValue = urlValue
-	builder.urlValueFlag = true
+	builder.urlValueSet = true
 	return builder
 }
 
@@ -7267,7 +7267,7 @@ func (builder *CustomFieldValueBuilder) UrlValue(urlValue *UrlValue) *CustomFiel
 // 示例值：
 func (builder *CustomFieldValueBuilder) EnumValue(enumValue *EnumValue) *CustomFieldValueBuilder {
 	builder.enumValue = enumValue
-	builder.enumValueFlag = true
+	builder.enumValueSet = true
 	return builder
 }
 
@@ -7276,7 +7276,7 @@ func (builder *CustomFieldValueBuilder) EnumValue(enumValue *EnumValue) *CustomF
 // 示例值：
 func (builder *CustomFieldValueBuilder) UserValues(userValues []*UserValue) *CustomFieldValueBuilder {
 	builder.userValues = userValues
-	builder.userValuesFlag = true
+	builder.userValuesSet = true
 	return builder
 }
 
@@ -7285,7 +7285,7 @@ func (builder *CustomFieldValueBuilder) UserValues(userValues []*UserValue) *Cus
 // 示例值：1
 func (builder *CustomFieldValueBuilder) DateTimeValue(dateTimeValue string) *CustomFieldValueBuilder {
 	builder.dateTimeValue = dateTimeValue
-	builder.dateTimeValueFlag = true
+	builder.dateTimeValueSet = true
 	return builder
 }
 
@@ -7294,7 +7294,7 @@ func (builder *CustomFieldValueBuilder) DateTimeValue(dateTimeValue string) *Cus
 // 示例值：169
 func (builder *CustomFieldValueBuilder) NumberValue(numberValue string) *CustomFieldValueBuilder {
 	builder.numberValue = numberValue
-	builder.numberValueFlag = true
+	builder.numberValueSet = true
 	return builder
 }
 
@@ -7303,7 +7303,7 @@ func (builder *CustomFieldValueBuilder) NumberValue(numberValue string) *CustomF
 // 示例值：true
 func (builder *CustomFieldValueBuilder) BooleanValue(booleanValue bool) *CustomFieldValueBuilder {
 	builder.booleanValue = booleanValue
-	builder.booleanValueFlag = true
+	builder.booleanValueSet = true
 	return builder
 }
 
@@ -7312,7 +7312,7 @@ func (builder *CustomFieldValueBuilder) BooleanValue(booleanValue bool) *CustomF
 // 示例值：
 func (builder *CustomFieldValueBuilder) PhoneValue(phoneValue *PhoneValue) *CustomFieldValueBuilder {
 	builder.phoneValue = phoneValue
-	builder.phoneValueFlag = true
+	builder.phoneValueSet = true
 	return builder
 }
 
@@ -7321,44 +7321,44 @@ func (builder *CustomFieldValueBuilder) PhoneValue(phoneValue *PhoneValue) *Cust
 // 示例值：C-1000001
 func (builder *CustomFieldValueBuilder) FieldKey(fieldKey string) *CustomFieldValueBuilder {
 	builder.fieldKey = fieldKey
-	builder.fieldKeyFlag = true
+	builder.fieldKeySet = true
 	return builder
 }
 
 func (builder *CustomFieldValueBuilder) Build() *CustomFieldValue {
 	req := &CustomFieldValue{}
-	if builder.fieldTypeFlag {
+	if builder.fieldTypeSet {
 		req.FieldType = &builder.fieldType
 
 	}
-	if builder.textValueFlag {
+	if builder.textValueSet {
 		req.TextValue = builder.textValue
 	}
-	if builder.urlValueFlag {
+	if builder.urlValueSet {
 		req.UrlValue = builder.urlValue
 	}
-	if builder.enumValueFlag {
+	if builder.enumValueSet {
 		req.EnumValue = builder.enumValue
 	}
-	if builder.userValuesFlag {
+	if builder.userValuesSet {
 		req.UserValues = builder.userValues
 	}
-	if builder.dateTimeValueFlag {
+	if builder.dateTimeValueSet {
 		req.DateTimeValue = &builder.dateTimeValue
 
 	}
-	if builder.numberValueFlag {
+	if builder.numberValueSet {
 		req.NumberValue = &builder.numberValue
 
 	}
-	if builder.booleanValueFlag {
+	if builder.booleanValueSet {
 		req.BooleanValue = &builder.booleanValue
 
 	}
-	if builder.phoneValueFlag {
+	if builder.phoneValueSet {
 		req.PhoneValue = builder.phoneValue
 	}
-	if builder.fieldKeyFlag {
+	if builder.fieldKeySet {
 		req.FieldKey = &builder.fieldKey
 
 	}
@@ -7372,11 +7372,11 @@ type DeleteEmployeeOptions struct {
 }
 
 type DeleteEmployeeOptionsBuilder struct {
-	resignedEmployeeResourceReceiver     *ResignedUserResouceReceiver // 资源转移方式
-	resignedEmployeeResourceReceiverFlag bool
+	resignedEmployeeResourceReceiver    *ResignedUserResouceReceiver // 资源转移方式
+	resignedEmployeeResourceReceiverSet bool
 
-	operator     *Operator // 操作人
-	operatorFlag bool
+	operator    *Operator // 操作人
+	operatorSet bool
 }
 
 func NewDeleteEmployeeOptionsBuilder() *DeleteEmployeeOptionsBuilder {
@@ -7389,7 +7389,7 @@ func NewDeleteEmployeeOptionsBuilder() *DeleteEmployeeOptionsBuilder {
 // 示例值：
 func (builder *DeleteEmployeeOptionsBuilder) ResignedEmployeeResourceReceiver(resignedEmployeeResourceReceiver *ResignedUserResouceReceiver) *DeleteEmployeeOptionsBuilder {
 	builder.resignedEmployeeResourceReceiver = resignedEmployeeResourceReceiver
-	builder.resignedEmployeeResourceReceiverFlag = true
+	builder.resignedEmployeeResourceReceiverSet = true
 	return builder
 }
 
@@ -7398,16 +7398,16 @@ func (builder *DeleteEmployeeOptionsBuilder) ResignedEmployeeResourceReceiver(re
 // 示例值：
 func (builder *DeleteEmployeeOptionsBuilder) Operator(operator *Operator) *DeleteEmployeeOptionsBuilder {
 	builder.operator = operator
-	builder.operatorFlag = true
+	builder.operatorSet = true
 	return builder
 }
 
 func (builder *DeleteEmployeeOptionsBuilder) Build() *DeleteEmployeeOptions {
 	req := &DeleteEmployeeOptions{}
-	if builder.resignedEmployeeResourceReceiverFlag {
+	if builder.resignedEmployeeResourceReceiverSet {
 		req.ResignedEmployeeResourceReceiver = builder.resignedEmployeeResourceReceiver
 	}
-	if builder.operatorFlag {
+	if builder.operatorSet {
 		req.Operator = builder.operator
 	}
 	return req
@@ -7418,8 +7418,8 @@ type DeleteEmployeeTypeEnumOptions struct {
 }
 
 type DeleteEmployeeTypeEnumOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewDeleteEmployeeTypeEnumOptionsBuilder() *DeleteEmployeeTypeEnumOptionsBuilder {
@@ -7432,13 +7432,13 @@ func NewDeleteEmployeeTypeEnumOptionsBuilder() *DeleteEmployeeTypeEnumOptionsBui
 // 示例值：
 func (builder *DeleteEmployeeTypeEnumOptionsBuilder) DataSource(dataSource int) *DeleteEmployeeTypeEnumOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *DeleteEmployeeTypeEnumOptionsBuilder) Build() *DeleteEmployeeTypeEnumOptions {
 	req := &DeleteEmployeeTypeEnumOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -7498,80 +7498,80 @@ type Department struct {
 }
 
 type DepartmentBuilder struct {
-	departmentId     string // 部门ID
-	departmentIdFlag bool
+	departmentId    string // 部门ID
+	departmentIdSet bool
 
-	tenantId     string // 租户ID
-	tenantIdFlag bool
+	tenantId    string // 租户ID
+	tenantIdSet bool
 
-	externalId     string // 自定义部门ID
-	externalIdFlag bool
+	externalId    string // 自定义部门ID
+	externalIdSet bool
 
-	encryptedId     string // 加密id
-	encryptedIdFlag bool
+	encryptedId    string // 加密id
+	encryptedIdSet bool
 
-	departmentCount     *DepartmentCount // 部门计数
-	departmentCountFlag bool
+	departmentCount    *DepartmentCount // 部门计数
+	departmentCountSet bool
 
-	hasChild     bool // 是否有子部门
-	hasChildFlag bool
+	hasChild    bool // 是否有子部门
+	hasChildSet bool
 
-	leaders     []*DepartmentLeader // 部门负责人
-	leadersFlag bool
+	leaders    []*DepartmentLeader // 部门负责人
+	leadersSet bool
 
-	hrbps     []string // HRBP
-	hrbpsFlag bool
+	hrbps    []string // HRBP
+	hrbpsSet bool
 
-	parentDepartmentId     string // 父部门ID
-	parentDepartmentIdFlag bool
+	parentDepartmentId    string // 父部门ID
+	parentDepartmentIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	deleteStatus     int // 部门状态
-	deleteStatusFlag bool
+	deleteStatus    int // 部门状态
+	deleteStatusSet bool
 
-	enabledStatus     bool // 是否启用
-	enabledStatusFlag bool
+	enabledStatus    bool // 是否启用
+	enabledStatusSet bool
 
-	orderWeight     string // 部门排序权重
-	orderWeightFlag bool
+	orderWeight    string // 部门排序权重
+	orderWeightSet bool
 
 	type_    int // 部门类型
-	typeFlag bool
+	type_Set bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	creatorId     string // 创建人ID
-	creatorIdFlag bool
+	creatorId    string // 创建人ID
+	creatorIdSet bool
 
-	updatorId     string // 更新人ID
-	updatorIdFlag bool
+	updatorId    string // 更新人ID
+	updatorIdSet bool
 
-	isRoot     bool // 是否根部门
-	isRootFlag bool
+	isRoot    bool // 是否根部门
+	isRootSet bool
 
-	customFieldValues     []*CustomFieldValue // 自定义字段
-	customFieldValuesFlag bool
+	customFieldValues    []*CustomFieldValue // 自定义字段
+	customFieldValuesSet bool
 
-	departmentPaths     []string // 部门路径ID
-	departmentPathsFlag bool
+	departmentPaths    []string // 部门路径ID
+	departmentPathsSet bool
 
-	departmentPathInfos     []*DepartmentBaseInfo // 部门路径的基本信息, 与部门路径ID department_path 相比，本字段不含根部门信息
-	departmentPathInfosFlag bool
+	departmentPathInfos    []*DepartmentBaseInfo // 部门路径的基本信息, 与部门路径ID department_path 相比，本字段不含根部门信息
+	departmentPathInfosSet bool
 
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 
-	orgDimension     string // 组织维度
-	orgDimensionFlag bool
+	orgDimension    string // 组织维度
+	orgDimensionSet bool
 }
 
 func NewDepartmentBuilder() *DepartmentBuilder {
@@ -7584,7 +7584,7 @@ func NewDepartmentBuilder() *DepartmentBuilder {
 // 示例值：h12921
 func (builder *DepartmentBuilder) DepartmentId(departmentId string) *DepartmentBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -7593,7 +7593,7 @@ func (builder *DepartmentBuilder) DepartmentId(departmentId string) *DepartmentB
 // 示例值：无
 func (builder *DepartmentBuilder) TenantId(tenantId string) *DepartmentBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -7602,7 +7602,7 @@ func (builder *DepartmentBuilder) TenantId(tenantId string) *DepartmentBuilder {
 // 示例值：deqfdsasd
 func (builder *DepartmentBuilder) ExternalId(externalId string) *DepartmentBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
@@ -7611,7 +7611,7 @@ func (builder *DepartmentBuilder) ExternalId(externalId string) *DepartmentBuild
 // 示例值：无
 func (builder *DepartmentBuilder) EncryptedId(encryptedId string) *DepartmentBuilder {
 	builder.encryptedId = encryptedId
-	builder.encryptedIdFlag = true
+	builder.encryptedIdSet = true
 	return builder
 }
 
@@ -7620,7 +7620,7 @@ func (builder *DepartmentBuilder) EncryptedId(encryptedId string) *DepartmentBui
 // 示例值：
 func (builder *DepartmentBuilder) DepartmentCount(departmentCount *DepartmentCount) *DepartmentBuilder {
 	builder.departmentCount = departmentCount
-	builder.departmentCountFlag = true
+	builder.departmentCountSet = true
 	return builder
 }
 
@@ -7629,7 +7629,7 @@ func (builder *DepartmentBuilder) DepartmentCount(departmentCount *DepartmentCou
 // 示例值：true
 func (builder *DepartmentBuilder) HasChild(hasChild bool) *DepartmentBuilder {
 	builder.hasChild = hasChild
-	builder.hasChildFlag = true
+	builder.hasChildSet = true
 	return builder
 }
 
@@ -7638,7 +7638,7 @@ func (builder *DepartmentBuilder) HasChild(hasChild bool) *DepartmentBuilder {
 // 示例值：
 func (builder *DepartmentBuilder) Leaders(leaders []*DepartmentLeader) *DepartmentBuilder {
 	builder.leaders = leaders
-	builder.leadersFlag = true
+	builder.leadersSet = true
 	return builder
 }
 
@@ -7647,7 +7647,7 @@ func (builder *DepartmentBuilder) Leaders(leaders []*DepartmentLeader) *Departme
 // 示例值：
 func (builder *DepartmentBuilder) Hrbps(hrbps []string) *DepartmentBuilder {
 	builder.hrbps = hrbps
-	builder.hrbpsFlag = true
+	builder.hrbpsSet = true
 	return builder
 }
 
@@ -7656,7 +7656,7 @@ func (builder *DepartmentBuilder) Hrbps(hrbps []string) *DepartmentBuilder {
 // 示例值：h12921
 func (builder *DepartmentBuilder) ParentDepartmentId(parentDepartmentId string) *DepartmentBuilder {
 	builder.parentDepartmentId = parentDepartmentId
-	builder.parentDepartmentIdFlag = true
+	builder.parentDepartmentIdSet = true
 	return builder
 }
 
@@ -7665,7 +7665,7 @@ func (builder *DepartmentBuilder) ParentDepartmentId(parentDepartmentId string) 
 // 示例值：
 func (builder *DepartmentBuilder) Name(name *I18nText) *DepartmentBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -7674,7 +7674,7 @@ func (builder *DepartmentBuilder) Name(name *I18nText) *DepartmentBuilder {
 // 示例值：无
 func (builder *DepartmentBuilder) DeleteStatus(deleteStatus int) *DepartmentBuilder {
 	builder.deleteStatus = deleteStatus
-	builder.deleteStatusFlag = true
+	builder.deleteStatusSet = true
 	return builder
 }
 
@@ -7683,7 +7683,7 @@ func (builder *DepartmentBuilder) DeleteStatus(deleteStatus int) *DepartmentBuil
 // 示例值：true
 func (builder *DepartmentBuilder) EnabledStatus(enabledStatus bool) *DepartmentBuilder {
 	builder.enabledStatus = enabledStatus
-	builder.enabledStatusFlag = true
+	builder.enabledStatusSet = true
 	return builder
 }
 
@@ -7692,7 +7692,7 @@ func (builder *DepartmentBuilder) EnabledStatus(enabledStatus bool) *DepartmentB
 // 示例值：无
 func (builder *DepartmentBuilder) OrderWeight(orderWeight string) *DepartmentBuilder {
 	builder.orderWeight = orderWeight
-	builder.orderWeightFlag = true
+	builder.orderWeightSet = true
 	return builder
 }
 
@@ -7701,7 +7701,7 @@ func (builder *DepartmentBuilder) OrderWeight(orderWeight string) *DepartmentBui
 // 示例值：无
 func (builder *DepartmentBuilder) Type(type_ int) *DepartmentBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -7710,7 +7710,7 @@ func (builder *DepartmentBuilder) Type(type_ int) *DepartmentBuilder {
 // 示例值：无
 func (builder *DepartmentBuilder) Description(description *I18nText) *DepartmentBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -7719,7 +7719,7 @@ func (builder *DepartmentBuilder) Description(description *I18nText) *Department
 // 示例值：无
 func (builder *DepartmentBuilder) CreateTime(createTime string) *DepartmentBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -7728,7 +7728,7 @@ func (builder *DepartmentBuilder) CreateTime(createTime string) *DepartmentBuild
 // 示例值：无
 func (builder *DepartmentBuilder) UpdateTime(updateTime string) *DepartmentBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -7737,7 +7737,7 @@ func (builder *DepartmentBuilder) UpdateTime(updateTime string) *DepartmentBuild
 // 示例值：无
 func (builder *DepartmentBuilder) CreatorId(creatorId string) *DepartmentBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -7746,7 +7746,7 @@ func (builder *DepartmentBuilder) CreatorId(creatorId string) *DepartmentBuilder
 // 示例值：无
 func (builder *DepartmentBuilder) UpdatorId(updatorId string) *DepartmentBuilder {
 	builder.updatorId = updatorId
-	builder.updatorIdFlag = true
+	builder.updatorIdSet = true
 	return builder
 }
 
@@ -7755,7 +7755,7 @@ func (builder *DepartmentBuilder) UpdatorId(updatorId string) *DepartmentBuilder
 // 示例值：true
 func (builder *DepartmentBuilder) IsRoot(isRoot bool) *DepartmentBuilder {
 	builder.isRoot = isRoot
-	builder.isRootFlag = true
+	builder.isRootSet = true
 	return builder
 }
 
@@ -7764,7 +7764,7 @@ func (builder *DepartmentBuilder) IsRoot(isRoot bool) *DepartmentBuilder {
 // 示例值：
 func (builder *DepartmentBuilder) CustomFieldValues(customFieldValues []*CustomFieldValue) *DepartmentBuilder {
 	builder.customFieldValues = customFieldValues
-	builder.customFieldValuesFlag = true
+	builder.customFieldValuesSet = true
 	return builder
 }
 
@@ -7773,7 +7773,7 @@ func (builder *DepartmentBuilder) CustomFieldValues(customFieldValues []*CustomF
 // 示例值：
 func (builder *DepartmentBuilder) DepartmentPaths(departmentPaths []string) *DepartmentBuilder {
 	builder.departmentPaths = departmentPaths
-	builder.departmentPathsFlag = true
+	builder.departmentPathsSet = true
 	return builder
 }
 
@@ -7782,7 +7782,7 @@ func (builder *DepartmentBuilder) DepartmentPaths(departmentPaths []string) *Dep
 // 示例值：1
 func (builder *DepartmentBuilder) DepartmentPathInfos(departmentPathInfos []*DepartmentBaseInfo) *DepartmentBuilder {
 	builder.departmentPathInfos = departmentPathInfos
-	builder.departmentPathInfosFlag = true
+	builder.departmentPathInfosSet = true
 	return builder
 }
 
@@ -7791,7 +7791,7 @@ func (builder *DepartmentBuilder) DepartmentPathInfos(departmentPathInfos []*Dep
 // 示例值：
 func (builder *DepartmentBuilder) DataSource(dataSource int) *DepartmentBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
@@ -7800,101 +7800,101 @@ func (builder *DepartmentBuilder) DataSource(dataSource int) *DepartmentBuilder 
 // 示例值：3e3cf96b
 func (builder *DepartmentBuilder) OrgDimension(orgDimension string) *DepartmentBuilder {
 	builder.orgDimension = orgDimension
-	builder.orgDimensionFlag = true
+	builder.orgDimensionSet = true
 	return builder
 }
 
 func (builder *DepartmentBuilder) Build() *Department {
 	req := &Department{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
-	if builder.encryptedIdFlag {
+	if builder.encryptedIdSet {
 		req.EncryptedId = &builder.encryptedId
 
 	}
-	if builder.departmentCountFlag {
+	if builder.departmentCountSet {
 		req.DepartmentCount = builder.departmentCount
 	}
-	if builder.hasChildFlag {
+	if builder.hasChildSet {
 		req.HasChild = &builder.hasChild
 
 	}
-	if builder.leadersFlag {
+	if builder.leadersSet {
 		req.Leaders = builder.leaders
 	}
-	if builder.hrbpsFlag {
+	if builder.hrbpsSet {
 		req.Hrbps = builder.hrbps
 	}
-	if builder.parentDepartmentIdFlag {
+	if builder.parentDepartmentIdSet {
 		req.ParentDepartmentId = &builder.parentDepartmentId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.deleteStatusFlag {
+	if builder.deleteStatusSet {
 		req.DeleteStatus = &builder.deleteStatus
 
 	}
-	if builder.enabledStatusFlag {
+	if builder.enabledStatusSet {
 		req.EnabledStatus = &builder.enabledStatus
 
 	}
-	if builder.orderWeightFlag {
+	if builder.orderWeightSet {
 		req.OrderWeight = &builder.orderWeight
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.updatorIdFlag {
+	if builder.updatorIdSet {
 		req.UpdatorId = &builder.updatorId
 
 	}
-	if builder.isRootFlag {
+	if builder.isRootSet {
 		req.IsRoot = &builder.isRoot
 
 	}
-	if builder.customFieldValuesFlag {
+	if builder.customFieldValuesSet {
 		req.CustomFieldValues = builder.customFieldValues
 	}
-	if builder.departmentPathsFlag {
+	if builder.departmentPathsSet {
 		req.DepartmentPaths = builder.departmentPaths
 	}
-	if builder.departmentPathInfosFlag {
+	if builder.departmentPathInfosSet {
 		req.DepartmentPathInfos = builder.departmentPathInfos
 	}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
-	if builder.orgDimensionFlag {
+	if builder.orgDimensionSet {
 		req.OrgDimension = &builder.orgDimension
 
 	}
@@ -7908,11 +7908,11 @@ type DepartmentBaseInfo struct {
 }
 
 type DepartmentBaseInfoBuilder struct {
-	departmentId     string // 部门ID
-	departmentIdFlag bool
+	departmentId    string // 部门ID
+	departmentIdSet bool
 
-	departmentName     *I18nText // i18n文本
-	departmentNameFlag bool
+	departmentName    *I18nText // i18n文本
+	departmentNameSet bool
 }
 
 func NewDepartmentBaseInfoBuilder() *DepartmentBaseInfoBuilder {
@@ -7925,7 +7925,7 @@ func NewDepartmentBaseInfoBuilder() *DepartmentBaseInfoBuilder {
 // 示例值：1
 func (builder *DepartmentBaseInfoBuilder) DepartmentId(departmentId string) *DepartmentBaseInfoBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -7934,17 +7934,17 @@ func (builder *DepartmentBaseInfoBuilder) DepartmentId(departmentId string) *Dep
 // 示例值：
 func (builder *DepartmentBaseInfoBuilder) DepartmentName(departmentName *I18nText) *DepartmentBaseInfoBuilder {
 	builder.departmentName = departmentName
-	builder.departmentNameFlag = true
+	builder.departmentNameSet = true
 	return builder
 }
 
 func (builder *DepartmentBaseInfoBuilder) Build() *DepartmentBaseInfo {
 	req := &DepartmentBaseInfo{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.departmentNameFlag {
+	if builder.departmentNameSet {
 		req.DepartmentName = builder.departmentName
 	}
 	return req
@@ -7963,20 +7963,20 @@ type DepartmentCount struct {
 }
 
 type DepartmentCountBuilder struct {
-	recursiveMembersCount     string // 递归成员数量
-	recursiveMembersCountFlag bool
+	recursiveMembersCount    string // 递归成员数量
+	recursiveMembersCountSet bool
 
-	directMembersCount     string // 直属成员数量
-	directMembersCountFlag bool
+	directMembersCount    string // 直属成员数量
+	directMembersCountSet bool
 
-	recursiveMembersCountExcludeLeaders     string // 递归成员数量(不含leader)
-	recursiveMembersCountExcludeLeadersFlag bool
+	recursiveMembersCountExcludeLeaders    string // 递归成员数量(不含leader)
+	recursiveMembersCountExcludeLeadersSet bool
 
-	recursiveDepartmentsCount     string // 递归子部门数量
-	recursiveDepartmentsCountFlag bool
+	recursiveDepartmentsCount    string // 递归子部门数量
+	recursiveDepartmentsCountSet bool
 
-	directDepartmentsCount     string // 直属子部门数量
-	directDepartmentsCountFlag bool
+	directDepartmentsCount    string // 直属子部门数量
+	directDepartmentsCountSet bool
 }
 
 func NewDepartmentCountBuilder() *DepartmentCountBuilder {
@@ -7989,7 +7989,7 @@ func NewDepartmentCountBuilder() *DepartmentCountBuilder {
 // 示例值：100
 func (builder *DepartmentCountBuilder) RecursiveMembersCount(recursiveMembersCount string) *DepartmentCountBuilder {
 	builder.recursiveMembersCount = recursiveMembersCount
-	builder.recursiveMembersCountFlag = true
+	builder.recursiveMembersCountSet = true
 	return builder
 }
 
@@ -7998,7 +7998,7 @@ func (builder *DepartmentCountBuilder) RecursiveMembersCount(recursiveMembersCou
 // 示例值：100
 func (builder *DepartmentCountBuilder) DirectMembersCount(directMembersCount string) *DepartmentCountBuilder {
 	builder.directMembersCount = directMembersCount
-	builder.directMembersCountFlag = true
+	builder.directMembersCountSet = true
 	return builder
 }
 
@@ -8007,7 +8007,7 @@ func (builder *DepartmentCountBuilder) DirectMembersCount(directMembersCount str
 // 示例值：100
 func (builder *DepartmentCountBuilder) RecursiveMembersCountExcludeLeaders(recursiveMembersCountExcludeLeaders string) *DepartmentCountBuilder {
 	builder.recursiveMembersCountExcludeLeaders = recursiveMembersCountExcludeLeaders
-	builder.recursiveMembersCountExcludeLeadersFlag = true
+	builder.recursiveMembersCountExcludeLeadersSet = true
 	return builder
 }
 
@@ -8016,7 +8016,7 @@ func (builder *DepartmentCountBuilder) RecursiveMembersCountExcludeLeaders(recur
 // 示例值：100
 func (builder *DepartmentCountBuilder) RecursiveDepartmentsCount(recursiveDepartmentsCount string) *DepartmentCountBuilder {
 	builder.recursiveDepartmentsCount = recursiveDepartmentsCount
-	builder.recursiveDepartmentsCountFlag = true
+	builder.recursiveDepartmentsCountSet = true
 	return builder
 }
 
@@ -8025,29 +8025,29 @@ func (builder *DepartmentCountBuilder) RecursiveDepartmentsCount(recursiveDepart
 // 示例值：100
 func (builder *DepartmentCountBuilder) DirectDepartmentsCount(directDepartmentsCount string) *DepartmentCountBuilder {
 	builder.directDepartmentsCount = directDepartmentsCount
-	builder.directDepartmentsCountFlag = true
+	builder.directDepartmentsCountSet = true
 	return builder
 }
 
 func (builder *DepartmentCountBuilder) Build() *DepartmentCount {
 	req := &DepartmentCount{}
-	if builder.recursiveMembersCountFlag {
+	if builder.recursiveMembersCountSet {
 		req.RecursiveMembersCount = &builder.recursiveMembersCount
 
 	}
-	if builder.directMembersCountFlag {
+	if builder.directMembersCountSet {
 		req.DirectMembersCount = &builder.directMembersCount
 
 	}
-	if builder.recursiveMembersCountExcludeLeadersFlag {
+	if builder.recursiveMembersCountExcludeLeadersSet {
 		req.RecursiveMembersCountExcludeLeaders = &builder.recursiveMembersCountExcludeLeaders
 
 	}
-	if builder.recursiveDepartmentsCountFlag {
+	if builder.recursiveDepartmentsCountSet {
 		req.RecursiveDepartmentsCount = &builder.recursiveDepartmentsCount
 
 	}
-	if builder.directDepartmentsCountFlag {
+	if builder.directDepartmentsCountSet {
 		req.DirectDepartmentsCount = &builder.directDepartmentsCount
 
 	}
@@ -8061,11 +8061,11 @@ type DepartmentDisplayInfo struct {
 }
 
 type DepartmentDisplayInfoBuilder struct {
-	profileNodePathType     int // profile类型
-	profileNodePathTypeFlag bool
+	profileNodePathType    int // profile类型
+	profileNodePathTypeSet bool
 
-	chatterNodePathType     int // 会话页类型
-	chatterNodePathTypeFlag bool
+	chatterNodePathType    int // 会话页类型
+	chatterNodePathTypeSet bool
 }
 
 func NewDepartmentDisplayInfoBuilder() *DepartmentDisplayInfoBuilder {
@@ -8078,7 +8078,7 @@ func NewDepartmentDisplayInfoBuilder() *DepartmentDisplayInfoBuilder {
 // 示例值：
 func (builder *DepartmentDisplayInfoBuilder) ProfileNodePathType(profileNodePathType int) *DepartmentDisplayInfoBuilder {
 	builder.profileNodePathType = profileNodePathType
-	builder.profileNodePathTypeFlag = true
+	builder.profileNodePathTypeSet = true
 	return builder
 }
 
@@ -8087,17 +8087,17 @@ func (builder *DepartmentDisplayInfoBuilder) ProfileNodePathType(profileNodePath
 // 示例值：
 func (builder *DepartmentDisplayInfoBuilder) ChatterNodePathType(chatterNodePathType int) *DepartmentDisplayInfoBuilder {
 	builder.chatterNodePathType = chatterNodePathType
-	builder.chatterNodePathTypeFlag = true
+	builder.chatterNodePathTypeSet = true
 	return builder
 }
 
 func (builder *DepartmentDisplayInfoBuilder) Build() *DepartmentDisplayInfo {
 	req := &DepartmentDisplayInfo{}
-	if builder.profileNodePathTypeFlag {
+	if builder.profileNodePathTypeSet {
 		req.ProfileNodePathType = &builder.profileNodePathType
 
 	}
-	if builder.chatterNodePathTypeFlag {
+	if builder.chatterNodePathTypeSet {
 		req.ChatterNodePathType = &builder.chatterNodePathType
 
 	}
@@ -8113,14 +8113,14 @@ type DepartmentField struct {
 }
 
 type DepartmentFieldBuilder struct {
-	ids     []string // 所在部门的ID
-	idsFlag bool
+	ids    []string // 所在部门的ID
+	idsSet bool
 
-	path     map[string][]string // 部门路径ID
-	pathFlag bool
+	path    map[string][]string // 部门路径ID
+	pathSet bool
 
-	pathName     map[string]*I18nText // 用户部门路径名称
-	pathNameFlag bool
+	pathName    map[string]*I18nText // 用户部门路径名称
+	pathNameSet bool
 }
 
 func NewDepartmentFieldBuilder() *DepartmentFieldBuilder {
@@ -8133,7 +8133,7 @@ func NewDepartmentFieldBuilder() *DepartmentFieldBuilder {
 // 示例值：
 func (builder *DepartmentFieldBuilder) Ids(ids []string) *DepartmentFieldBuilder {
 	builder.ids = ids
-	builder.idsFlag = true
+	builder.idsSet = true
 	return builder
 }
 
@@ -8142,7 +8142,7 @@ func (builder *DepartmentFieldBuilder) Ids(ids []string) *DepartmentFieldBuilder
 // 示例值：
 func (builder *DepartmentFieldBuilder) Path(path map[string][]string) *DepartmentFieldBuilder {
 	builder.path = path
-	builder.pathFlag = true
+	builder.pathSet = true
 	return builder
 }
 
@@ -8151,19 +8151,19 @@ func (builder *DepartmentFieldBuilder) Path(path map[string][]string) *Departmen
 // 示例值：
 func (builder *DepartmentFieldBuilder) PathName(pathName map[string]*I18nText) *DepartmentFieldBuilder {
 	builder.pathName = pathName
-	builder.pathNameFlag = true
+	builder.pathNameSet = true
 	return builder
 }
 
 func (builder *DepartmentFieldBuilder) Build() *DepartmentField {
 	req := &DepartmentField{}
-	if builder.idsFlag {
+	if builder.idsSet {
 		req.Ids = builder.ids
 	}
-	if builder.pathFlag {
+	if builder.pathSet {
 		req.Path = builder.path
 	}
-	if builder.pathNameFlag {
+	if builder.pathNameSet {
 		req.PathName = builder.pathName
 	}
 	return req
@@ -8176,11 +8176,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -8188,27 +8188,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -8224,14 +8228,14 @@ type DepartmentIdConvertResult struct {
 }
 
 type DepartmentIdConvertResultBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	departmentId     string // 部门ID
-	departmentIdFlag bool
+	departmentId    string // 部门ID
+	departmentIdSet bool
 
-	openDepartmentId     string // 部门OpenID
-	openDepartmentIdFlag bool
+	openDepartmentId    string // 部门OpenID
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdConvertResultBuilder() *DepartmentIdConvertResultBuilder {
@@ -8244,7 +8248,7 @@ func NewDepartmentIdConvertResultBuilder() *DepartmentIdConvertResultBuilder {
 // 示例值：ahjdsioad
 func (builder *DepartmentIdConvertResultBuilder) Id(id string) *DepartmentIdConvertResultBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -8253,7 +8257,7 @@ func (builder *DepartmentIdConvertResultBuilder) Id(id string) *DepartmentIdConv
 // 示例值：ahjdsioad
 func (builder *DepartmentIdConvertResultBuilder) DepartmentId(departmentId string) *DepartmentIdConvertResultBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -8262,21 +8266,21 @@ func (builder *DepartmentIdConvertResultBuilder) DepartmentId(departmentId strin
 // 示例值：od-9d2eae75a1789adawdaw112wae177bd60c1
 func (builder *DepartmentIdConvertResultBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdConvertResultBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdConvertResultBuilder) Build() *DepartmentIdConvertResult {
 	req := &DepartmentIdConvertResult{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -8290,11 +8294,11 @@ type DepartmentLeader struct {
 }
 
 type DepartmentLeaderBuilder struct {
-	leaderType     int // 部门负责人类型
-	leaderTypeFlag bool
+	leaderType    int // 部门负责人类型
+	leaderTypeSet bool
 
-	leaderId     string // 部门负责人ID
-	leaderIdFlag bool
+	leaderId    string // 部门负责人ID
+	leaderIdSet bool
 }
 
 func NewDepartmentLeaderBuilder() *DepartmentLeaderBuilder {
@@ -8307,7 +8311,7 @@ func NewDepartmentLeaderBuilder() *DepartmentLeaderBuilder {
 // 示例值：1
 func (builder *DepartmentLeaderBuilder) LeaderType(leaderType int) *DepartmentLeaderBuilder {
 	builder.leaderType = leaderType
-	builder.leaderTypeFlag = true
+	builder.leaderTypeSet = true
 	return builder
 }
 
@@ -8316,17 +8320,17 @@ func (builder *DepartmentLeaderBuilder) LeaderType(leaderType int) *DepartmentLe
 // 示例值：u273y71
 func (builder *DepartmentLeaderBuilder) LeaderId(leaderId string) *DepartmentLeaderBuilder {
 	builder.leaderId = leaderId
-	builder.leaderIdFlag = true
+	builder.leaderIdSet = true
 	return builder
 }
 
 func (builder *DepartmentLeaderBuilder) Build() *DepartmentLeader {
 	req := &DepartmentLeader{}
-	if builder.leaderTypeFlag {
+	if builder.leaderTypeSet {
 		req.LeaderType = &builder.leaderType
 
 	}
-	if builder.leaderIdFlag {
+	if builder.leaderIdSet {
 		req.LeaderId = &builder.leaderId
 
 	}
@@ -8356,35 +8360,35 @@ type Dependent struct {
 }
 
 type DependentBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	name     string // 姓名
-	nameFlag bool
+	name    string // 姓名
+	nameSet bool
 
-	relationship     string // 关系
-	relationshipFlag bool
+	relationship    string // 关系
+	relationshipSet bool
 
-	gender     int // 性别
-	genderFlag bool
+	gender    int // 性别
+	genderSet bool
 
-	dateOfBirth     string // 生日
-	dateOfBirthFlag bool
+	dateOfBirth    string // 生日
+	dateOfBirthSet bool
 
-	nationalityId     string // 国籍
-	nationalityIdFlag bool
+	nationalityId    string // 国籍
+	nationalityIdSet bool
 
-	nationalIdList     string // 证件号码
-	nationalIdListFlag bool
+	nationalIdList    string // 证件号码
+	nationalIdListSet bool
 
-	spousesWorkingStatus     string // 配偶工作状态
-	spousesWorkingStatusFlag bool
+	spousesWorkingStatus    string // 配偶工作状态
+	spousesWorkingStatusSet bool
 
-	isThisPersonCoveredByHealthInsurance     bool // 包含家属医疗保险
-	isThisPersonCoveredByHealthInsuranceFlag bool
+	isThisPersonCoveredByHealthInsurance    bool // 包含家属医疗保险
+	isThisPersonCoveredByHealthInsuranceSet bool
 
-	isThisPersonAllowedForTaxDeduction     bool // 允许家属抵扣税款
-	isThisPersonAllowedForTaxDeductionFlag bool
+	isThisPersonAllowedForTaxDeduction    bool // 允许家属抵扣税款
+	isThisPersonAllowedForTaxDeductionSet bool
 }
 
 func NewDependentBuilder() *DependentBuilder {
@@ -8397,7 +8401,7 @@ func NewDependentBuilder() *DependentBuilder {
 // 示例值：无
 func (builder *DependentBuilder) Id(id string) *DependentBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -8406,7 +8410,7 @@ func (builder *DependentBuilder) Id(id string) *DependentBuilder {
 // 示例值：无
 func (builder *DependentBuilder) Name(name string) *DependentBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -8415,7 +8419,7 @@ func (builder *DependentBuilder) Name(name string) *DependentBuilder {
 // 示例值：无
 func (builder *DependentBuilder) Relationship(relationship string) *DependentBuilder {
 	builder.relationship = relationship
-	builder.relationshipFlag = true
+	builder.relationshipSet = true
 	return builder
 }
 
@@ -8424,7 +8428,7 @@ func (builder *DependentBuilder) Relationship(relationship string) *DependentBui
 // 示例值：无
 func (builder *DependentBuilder) Gender(gender int) *DependentBuilder {
 	builder.gender = gender
-	builder.genderFlag = true
+	builder.genderSet = true
 	return builder
 }
 
@@ -8433,7 +8437,7 @@ func (builder *DependentBuilder) Gender(gender int) *DependentBuilder {
 // 示例值：无
 func (builder *DependentBuilder) DateOfBirth(dateOfBirth string) *DependentBuilder {
 	builder.dateOfBirth = dateOfBirth
-	builder.dateOfBirthFlag = true
+	builder.dateOfBirthSet = true
 	return builder
 }
 
@@ -8442,7 +8446,7 @@ func (builder *DependentBuilder) DateOfBirth(dateOfBirth string) *DependentBuild
 // 示例值：无
 func (builder *DependentBuilder) NationalityId(nationalityId string) *DependentBuilder {
 	builder.nationalityId = nationalityId
-	builder.nationalityIdFlag = true
+	builder.nationalityIdSet = true
 	return builder
 }
 
@@ -8451,7 +8455,7 @@ func (builder *DependentBuilder) NationalityId(nationalityId string) *DependentB
 // 示例值：无
 func (builder *DependentBuilder) NationalIdList(nationalIdList string) *DependentBuilder {
 	builder.nationalIdList = nationalIdList
-	builder.nationalIdListFlag = true
+	builder.nationalIdListSet = true
 	return builder
 }
 
@@ -8460,7 +8464,7 @@ func (builder *DependentBuilder) NationalIdList(nationalIdList string) *Dependen
 // 示例值：无
 func (builder *DependentBuilder) SpousesWorkingStatus(spousesWorkingStatus string) *DependentBuilder {
 	builder.spousesWorkingStatus = spousesWorkingStatus
-	builder.spousesWorkingStatusFlag = true
+	builder.spousesWorkingStatusSet = true
 	return builder
 }
 
@@ -8469,7 +8473,7 @@ func (builder *DependentBuilder) SpousesWorkingStatus(spousesWorkingStatus strin
 // 示例值：true
 func (builder *DependentBuilder) IsThisPersonCoveredByHealthInsurance(isThisPersonCoveredByHealthInsurance bool) *DependentBuilder {
 	builder.isThisPersonCoveredByHealthInsurance = isThisPersonCoveredByHealthInsurance
-	builder.isThisPersonCoveredByHealthInsuranceFlag = true
+	builder.isThisPersonCoveredByHealthInsuranceSet = true
 	return builder
 }
 
@@ -8478,49 +8482,49 @@ func (builder *DependentBuilder) IsThisPersonCoveredByHealthInsurance(isThisPers
 // 示例值：true
 func (builder *DependentBuilder) IsThisPersonAllowedForTaxDeduction(isThisPersonAllowedForTaxDeduction bool) *DependentBuilder {
 	builder.isThisPersonAllowedForTaxDeduction = isThisPersonAllowedForTaxDeduction
-	builder.isThisPersonAllowedForTaxDeductionFlag = true
+	builder.isThisPersonAllowedForTaxDeductionSet = true
 	return builder
 }
 
 func (builder *DependentBuilder) Build() *Dependent {
 	req := &Dependent{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.relationshipFlag {
+	if builder.relationshipSet {
 		req.Relationship = &builder.relationship
 
 	}
-	if builder.genderFlag {
+	if builder.genderSet {
 		req.Gender = &builder.gender
 
 	}
-	if builder.dateOfBirthFlag {
+	if builder.dateOfBirthSet {
 		req.DateOfBirth = &builder.dateOfBirth
 
 	}
-	if builder.nationalityIdFlag {
+	if builder.nationalityIdSet {
 		req.NationalityId = &builder.nationalityId
 
 	}
-	if builder.nationalIdListFlag {
+	if builder.nationalIdListSet {
 		req.NationalIdList = &builder.nationalIdList
 
 	}
-	if builder.spousesWorkingStatusFlag {
+	if builder.spousesWorkingStatusSet {
 		req.SpousesWorkingStatus = &builder.spousesWorkingStatus
 
 	}
-	if builder.isThisPersonCoveredByHealthInsuranceFlag {
+	if builder.isThisPersonCoveredByHealthInsuranceSet {
 		req.IsThisPersonCoveredByHealthInsurance = &builder.isThisPersonCoveredByHealthInsurance
 
 	}
-	if builder.isThisPersonAllowedForTaxDeductionFlag {
+	if builder.isThisPersonAllowedForTaxDeductionSet {
 		req.IsThisPersonAllowedForTaxDeduction = &builder.isThisPersonAllowedForTaxDeduction
 
 	}
@@ -8554,41 +8558,41 @@ type Education struct {
 }
 
 type EducationBuilder struct {
-	id     string // ID -- 废弃
-	idFlag bool
+	id    string // ID -- 废弃
+	idSet bool
 
-	school     *I18nText // i18n文本
-	schoolFlag bool
+	school    *I18nText // i18n文本
+	schoolSet bool
 
-	levelOfEducation     string // 学历
-	levelOfEducationFlag bool
+	levelOfEducation    string // 学历
+	levelOfEducationSet bool
 
-	startDate     string // 开始日期
-	startDateFlag bool
+	startDate    string // 开始日期
+	startDateSet bool
 
-	endDate     string // 结束日期
-	endDateFlag bool
+	endDate    string // 结束日期
+	endDateSet bool
 
-	expectedEndDate     string // 预计结束日期
-	expectedEndDateFlag bool
+	expectedEndDate    string // 预计结束日期
+	expectedEndDateSet bool
 
-	fieldOfStudy     *I18nText // i18n文本
-	fieldOfStudyFlag bool
+	fieldOfStudy    *I18nText // i18n文本
+	fieldOfStudySet bool
 
-	degree     string // 学位
-	degreeFlag bool
+	degree    string // 学位
+	degreeSet bool
 
-	countryRegionId     string // 国家地区ID
-	countryRegionIdFlag bool
+	countryRegionId    string // 国家地区ID
+	countryRegionIdSet bool
 
-	educationId     string // 教育背景ID = wk_id
-	educationIdFlag bool
+	educationId    string // 教育背景ID = wk_id
+	educationIdSet bool
 
-	schoolEnum     *WuKongEnum // wukong枚举
-	schoolEnumFlag bool
+	schoolEnum    *WuKongEnum // wukong枚举
+	schoolEnumSet bool
 
-	fieldOfStudyEnum     *WuKongEnum // wukong枚举
-	fieldOfStudyEnumFlag bool
+	fieldOfStudyEnum    *WuKongEnum // wukong枚举
+	fieldOfStudyEnumSet bool
 }
 
 func NewEducationBuilder() *EducationBuilder {
@@ -8601,7 +8605,7 @@ func NewEducationBuilder() *EducationBuilder {
 // 示例值：1
 func (builder *EducationBuilder) Id(id string) *EducationBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -8610,7 +8614,7 @@ func (builder *EducationBuilder) Id(id string) *EducationBuilder {
 // 示例值：无
 func (builder *EducationBuilder) School(school *I18nText) *EducationBuilder {
 	builder.school = school
-	builder.schoolFlag = true
+	builder.schoolSet = true
 	return builder
 }
 
@@ -8619,7 +8623,7 @@ func (builder *EducationBuilder) School(school *I18nText) *EducationBuilder {
 // 示例值：无
 func (builder *EducationBuilder) LevelOfEducation(levelOfEducation string) *EducationBuilder {
 	builder.levelOfEducation = levelOfEducation
-	builder.levelOfEducationFlag = true
+	builder.levelOfEducationSet = true
 	return builder
 }
 
@@ -8628,7 +8632,7 @@ func (builder *EducationBuilder) LevelOfEducation(levelOfEducation string) *Educ
 // 示例值：无
 func (builder *EducationBuilder) StartDate(startDate string) *EducationBuilder {
 	builder.startDate = startDate
-	builder.startDateFlag = true
+	builder.startDateSet = true
 	return builder
 }
 
@@ -8637,7 +8641,7 @@ func (builder *EducationBuilder) StartDate(startDate string) *EducationBuilder {
 // 示例值：无
 func (builder *EducationBuilder) EndDate(endDate string) *EducationBuilder {
 	builder.endDate = endDate
-	builder.endDateFlag = true
+	builder.endDateSet = true
 	return builder
 }
 
@@ -8646,7 +8650,7 @@ func (builder *EducationBuilder) EndDate(endDate string) *EducationBuilder {
 // 示例值：无
 func (builder *EducationBuilder) ExpectedEndDate(expectedEndDate string) *EducationBuilder {
 	builder.expectedEndDate = expectedEndDate
-	builder.expectedEndDateFlag = true
+	builder.expectedEndDateSet = true
 	return builder
 }
 
@@ -8655,7 +8659,7 @@ func (builder *EducationBuilder) ExpectedEndDate(expectedEndDate string) *Educat
 // 示例值：无
 func (builder *EducationBuilder) FieldOfStudy(fieldOfStudy *I18nText) *EducationBuilder {
 	builder.fieldOfStudy = fieldOfStudy
-	builder.fieldOfStudyFlag = true
+	builder.fieldOfStudySet = true
 	return builder
 }
 
@@ -8664,7 +8668,7 @@ func (builder *EducationBuilder) FieldOfStudy(fieldOfStudy *I18nText) *Education
 // 示例值：无
 func (builder *EducationBuilder) Degree(degree string) *EducationBuilder {
 	builder.degree = degree
-	builder.degreeFlag = true
+	builder.degreeSet = true
 	return builder
 }
 
@@ -8673,7 +8677,7 @@ func (builder *EducationBuilder) Degree(degree string) *EducationBuilder {
 // 示例值：无
 func (builder *EducationBuilder) CountryRegionId(countryRegionId string) *EducationBuilder {
 	builder.countryRegionId = countryRegionId
-	builder.countryRegionIdFlag = true
+	builder.countryRegionIdSet = true
 	return builder
 }
 
@@ -8682,7 +8686,7 @@ func (builder *EducationBuilder) CountryRegionId(countryRegionId string) *Educat
 // 示例值：无
 func (builder *EducationBuilder) EducationId(educationId string) *EducationBuilder {
 	builder.educationId = educationId
-	builder.educationIdFlag = true
+	builder.educationIdSet = true
 	return builder
 }
 
@@ -8691,7 +8695,7 @@ func (builder *EducationBuilder) EducationId(educationId string) *EducationBuild
 // 示例值：1
 func (builder *EducationBuilder) SchoolEnum(schoolEnum *WuKongEnum) *EducationBuilder {
 	builder.schoolEnum = schoolEnum
-	builder.schoolEnumFlag = true
+	builder.schoolEnumSet = true
 	return builder
 }
 
@@ -8700,54 +8704,54 @@ func (builder *EducationBuilder) SchoolEnum(schoolEnum *WuKongEnum) *EducationBu
 // 示例值：1
 func (builder *EducationBuilder) FieldOfStudyEnum(fieldOfStudyEnum *WuKongEnum) *EducationBuilder {
 	builder.fieldOfStudyEnum = fieldOfStudyEnum
-	builder.fieldOfStudyEnumFlag = true
+	builder.fieldOfStudyEnumSet = true
 	return builder
 }
 
 func (builder *EducationBuilder) Build() *Education {
 	req := &Education{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.schoolFlag {
+	if builder.schoolSet {
 		req.School = builder.school
 	}
-	if builder.levelOfEducationFlag {
+	if builder.levelOfEducationSet {
 		req.LevelOfEducation = &builder.levelOfEducation
 
 	}
-	if builder.startDateFlag {
+	if builder.startDateSet {
 		req.StartDate = &builder.startDate
 
 	}
-	if builder.endDateFlag {
+	if builder.endDateSet {
 		req.EndDate = &builder.endDate
 
 	}
-	if builder.expectedEndDateFlag {
+	if builder.expectedEndDateSet {
 		req.ExpectedEndDate = &builder.expectedEndDate
 
 	}
-	if builder.fieldOfStudyFlag {
+	if builder.fieldOfStudySet {
 		req.FieldOfStudy = builder.fieldOfStudy
 	}
-	if builder.degreeFlag {
+	if builder.degreeSet {
 		req.Degree = &builder.degree
 
 	}
-	if builder.countryRegionIdFlag {
+	if builder.countryRegionIdSet {
 		req.CountryRegionId = &builder.countryRegionId
 
 	}
-	if builder.educationIdFlag {
+	if builder.educationIdSet {
 		req.EducationId = &builder.educationId
 
 	}
-	if builder.schoolEnumFlag {
+	if builder.schoolEnumSet {
 		req.SchoolEnum = builder.schoolEnum
 	}
-	if builder.fieldOfStudyEnumFlag {
+	if builder.fieldOfStudyEnumSet {
 		req.FieldOfStudyEnum = builder.fieldOfStudyEnum
 	}
 	return req
@@ -8766,20 +8770,20 @@ type EmergencyContact struct {
 }
 
 type EmergencyContactBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	name     string // 姓名
-	nameFlag bool
+	name    string // 姓名
+	nameSet bool
 
-	relationship     string // 关系
-	relationshipFlag bool
+	relationship    string // 关系
+	relationshipSet bool
 
-	phone     string // 电话
-	phoneFlag bool
+	phone    string // 电话
+	phoneSet bool
 
-	isPrimary     bool // 是否主要联系人
-	isPrimaryFlag bool
+	isPrimary    bool // 是否主要联系人
+	isPrimarySet bool
 }
 
 func NewEmergencyContactBuilder() *EmergencyContactBuilder {
@@ -8792,7 +8796,7 @@ func NewEmergencyContactBuilder() *EmergencyContactBuilder {
 // 示例值：无
 func (builder *EmergencyContactBuilder) Id(id string) *EmergencyContactBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -8801,7 +8805,7 @@ func (builder *EmergencyContactBuilder) Id(id string) *EmergencyContactBuilder {
 // 示例值：无
 func (builder *EmergencyContactBuilder) Name(name string) *EmergencyContactBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -8810,7 +8814,7 @@ func (builder *EmergencyContactBuilder) Name(name string) *EmergencyContactBuild
 // 示例值：无
 func (builder *EmergencyContactBuilder) Relationship(relationship string) *EmergencyContactBuilder {
 	builder.relationship = relationship
-	builder.relationshipFlag = true
+	builder.relationshipSet = true
 	return builder
 }
 
@@ -8819,7 +8823,7 @@ func (builder *EmergencyContactBuilder) Relationship(relationship string) *Emerg
 // 示例值：无
 func (builder *EmergencyContactBuilder) Phone(phone string) *EmergencyContactBuilder {
 	builder.phone = phone
-	builder.phoneFlag = true
+	builder.phoneSet = true
 	return builder
 }
 
@@ -8828,29 +8832,29 @@ func (builder *EmergencyContactBuilder) Phone(phone string) *EmergencyContactBui
 // 示例值：无
 func (builder *EmergencyContactBuilder) IsPrimary(isPrimary bool) *EmergencyContactBuilder {
 	builder.isPrimary = isPrimary
-	builder.isPrimaryFlag = true
+	builder.isPrimarySet = true
 	return builder
 }
 
 func (builder *EmergencyContactBuilder) Build() *EmergencyContact {
 	req := &EmergencyContact{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.relationshipFlag {
+	if builder.relationshipSet {
 		req.Relationship = &builder.relationship
 
 	}
-	if builder.phoneFlag {
+	if builder.phoneSet {
 		req.Phone = &builder.phone
 
 	}
-	if builder.isPrimaryFlag {
+	if builder.isPrimarySet {
 		req.IsPrimary = &builder.isPrimary
 
 	}
@@ -8948,7 +8952,7 @@ type EmployeeBaseEntity struct {
 
 	GeoName *string `json:"geo_name,omitempty"` // 员工Geo
 
-	SubscriptionIds []string `json:"subscription_ids,omitempty"` // 员工license
+	SubscriptionIds []int64 `json:"subscription_ids,omitempty"` // 员工license
 
 	VirtualOrgInfos []*UserVirtualOrgInfo `json:"virtual_org_infos,omitempty"` // 虚拟组织信息
 
@@ -8956,149 +8960,149 @@ type EmployeeBaseEntity struct {
 }
 
 type EmployeeBaseEntityBuilder struct {
-	employeeId     string // EmployeeID 和UserID一致
-	employeeIdFlag bool
+	employeeId    string // EmployeeID 和UserID一致
+	employeeIdSet bool
 
-	userId     string // UserID
-	userIdFlag bool
+	userId    string // UserID
+	userIdSet bool
 
-	externalId     string // 外部ID ORM的EmployeeID
-	externalIdFlag bool
+	externalId    string // 外部ID ORM的EmployeeID
+	externalIdSet bool
 
-	name     *Name // 姓名
-	nameFlag bool
+	name    *Name // 姓名
+	nameSet bool
 
-	mobile     string // 手机号
-	mobileFlag bool
+	mobile    string // 手机号
+	mobileSet bool
 
-	email     string // 登录邮箱
-	emailFlag bool
+	email    string // 登录邮箱
+	emailSet bool
 
-	personalEmail     string // 个人邮箱
-	personalEmailFlag bool
+	personalEmail    string // 个人邮箱
+	personalEmailSet bool
 
-	enterpriseEmail     string // 企业邮箱
-	enterpriseEmailFlag bool
+	enterpriseEmail    string // 企业邮箱
+	enterpriseEmailSet bool
 
-	gender     int // 性别
-	genderFlag bool
+	gender    int // 性别
+	genderSet bool
 
-	residentialAddress     string // 现居住地址
-	residentialAddressFlag bool
+	residentialAddress    string // 现居住地址
+	residentialAddressSet bool
 
-	contactAddresses     []*ContactAddress // 联系地址
-	contactAddressesFlag bool
+	contactAddresses    []*ContactAddress // 联系地址
+	contactAddressesSet bool
 
-	tenant     *Tenant // 租户
-	tenantFlag bool
+	tenant    *Tenant // 租户
+	tenantSet bool
 
-	departments     []*Department // 部门信息
-	departmentsFlag bool
+	departments    []*Department // 部门信息
+	departmentsSet bool
 
-	employeeOrderInDepartments     []*UserDepartmentSortInfo // 用户在部门内的排序信息， 第一个部门为主部门
-	employeeOrderInDepartmentsFlag bool
+	employeeOrderInDepartments    []*UserDepartmentSortInfo // 用户在部门内的排序信息， 第一个部门为主部门
+	employeeOrderInDepartmentsSet bool
 
-	userDepartmentPath     map[string][]string // 用户部门路径ID map<直属部门ID, 部门全路径ID集合且部门从大到小> 例如：{1, []int64{4,3,2,1}}
-	userDepartmentPathFlag bool
+	userDepartmentPath    map[string][]string // 用户部门路径ID map<直属部门ID, 部门全路径ID集合且部门从大到小> 例如：{1, []int64{4,3,2,1}}
+	userDepartmentPathSet bool
 
-	userDepartmentPathName     map[string]*I18nText // 用户部门路径名称 map<直属部门ID, 部门全路径名称且部门从大到小并按照-分割> 例如：{1, 部门4-部门3-部门2-部门1}
-	userDepartmentPathNameFlag bool
+	userDepartmentPathName    map[string]*I18nText // 用户部门路径名称 map<直属部门ID, 部门全路径名称且部门从大到小并按照-分割> 例如：{1, 部门4-部门3-部门2-部门1}
+	userDepartmentPathNameSet bool
 
-	avatarKey     *Image // 图片信息
-	avatarKeyFlag bool
+	avatarKey    *Image // 图片信息
+	avatarKeySet bool
 
-	backgroundImageKey     string // 自定义背景图
-	backgroundImageKeyFlag bool
+	backgroundImageKey    string // 自定义背景图
+	backgroundImageKeySet bool
 
-	description     string // 个人签名
-	descriptionFlag bool
+	description    string // 个人签名
+	descriptionSet bool
 
-	isSetCustomBackgroundImage     bool // 是否设置自定义背景图
-	isSetCustomBackgroundImageFlag bool
+	isSetCustomBackgroundImage    bool // 是否设置自定义背景图
+	isSetCustomBackgroundImageSet bool
 
-	activeStatus     int // 用户活跃状态
-	activeStatusFlag bool
+	activeStatus    int // 用户活跃状态
+	activeStatusSet bool
 
-	isResigned     bool // 是否离职
-	isResignedFlag bool
+	isResigned    bool // 是否离职
+	isResignedSet bool
 
-	leaderId     string // 直属上级ID
-	leaderIdFlag bool
+	leaderId    string // 直属上级ID
+	leaderIdSet bool
 
-	dottedLineLeaderIds     []string // 虚线上级ID
-	dottedLineLeaderIdsFlag bool
+	dottedLineLeaderIds    []string // 虚线上级ID
+	dottedLineLeaderIdsSet bool
 
-	isPrimaryAdmin     bool // 是否租户超级管理员
-	isPrimaryAdminFlag bool
+	isPrimaryAdmin    bool // 是否租户超级管理员
+	isPrimaryAdminSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	enterpriseEmailAliases     []string // 企业邮箱别名
-	enterpriseEmailAliasesFlag bool
+	enterpriseEmailAliases    []string // 企业邮箱别名
+	enterpriseEmailAliasesSet bool
 
-	customFieldValues     []*CustomFieldValue // 自定义字段值
-	customFieldValuesFlag bool
+	customFieldValues    []*CustomFieldValue // 自定义字段值
+	customFieldValuesSet bool
 
-	descriptionFlagValue     string // 个性签名Flag
-	descriptionFlagValueFlag bool
+	descriptionFlag    string // 个性签名Flag
+	descriptionFlagSet bool
 
-	workStatus     *WorkStatus // 工作状态
-	workStatusFlag bool
+	workStatus    *WorkStatus // 工作状态
+	workStatusSet bool
 
-	hasBeenResurrected     bool // 是否已恢复过 该Employee存在从离职改为在职的记录，记录条数>=1
-	hasBeenResurrectedFlag bool
+	hasBeenResurrected    bool // 是否已恢复过 该Employee存在从离职改为在职的记录，记录条数>=1
+	hasBeenResurrectedSet bool
 
-	duringResignCoolingOffPeriod     bool // 员工状态为离职 && 离职日期在30天内(含30天)，离职天数=（今天日期-离职日期）+1
-	duringResignCoolingOffPeriodFlag bool
+	duringResignCoolingOffPeriod    bool // 员工状态为离职 && 离职日期在30天内(含30天)，离职天数=（今天日期-离职日期）+1
+	duringResignCoolingOffPeriodSet bool
 
-	isSetCustomAvatar     bool // 是否设置自定义头像
-	isSetCustomAvatarFlag bool
+	isSetCustomAvatar    bool // 是否设置自定义头像
+	isSetCustomAvatarSet bool
 
-	isRegistered     bool // 是否激活过
-	isRegisteredFlag bool
+	isRegistered    bool // 是否激活过
+	isRegisteredSet bool
 
-	departmentPathInfos     [][]*DepartmentBaseInfo // 员工部门全路径节点 本字段不含根部门信息，部门顺序为父部门->当前部门 例如：三级部门为员工当前部门[[DepartmentBaseInfo{1,一级部门},DepartmentBaseInfo{2,二级部门}, DepartmentBaseInfo{3,三级部门}]]
-	departmentPathInfosFlag bool
+	departmentPathInfos    [][]*DepartmentBaseInfo // 员工部门全路径节点 本字段不含根部门信息，部门顺序为父部门->当前部门 例如：三级部门为员工当前部门[[DepartmentBaseInfo{1,一级部门},DepartmentBaseInfo{2,二级部门}, DepartmentBaseInfo{3,三级部门}]]
+	departmentPathInfosSet bool
 
-	resignTime     string // 离职时间 管理后台进行离职操作的时间，系统自动生成，无法写入
-	resignTimeFlag bool
+	resignTime    string // 离职时间 管理后台进行离职操作的时间，系统自动生成，无法写入
+	resignTimeSet bool
 
-	resignedUserDepartmentPath     map[string][]string // 离职用户离职前部门路径ID map<直属部门ID, 部门全路径ID集合且部门从大到小> 例如：{1, []int64{4,3,2,1}}，部门已删除则不返回
-	resignedUserDepartmentPathFlag bool
+	resignedUserDepartmentPath    map[string][]string // 离职用户离职前部门路径ID map<直属部门ID, 部门全路径ID集合且部门从大到小> 例如：{1, []int64{4,3,2,1}}，部门已删除则不返回
+	resignedUserDepartmentPathSet bool
 
-	resignedUserDepartmentPathName     map[string]*I18nText // 离职用户离职前部门路径名称 map<直属部门ID, 部门全路径名称且部门从大到小并按照-分割> 例如：{1, 部门4-部门3-部门2-部门1}，部门已删除则不返回
-	resignedUserDepartmentPathNameFlag bool
+	resignedUserDepartmentPathName    map[string]*I18nText // 离职用户离职前部门路径名称 map<直属部门ID, 部门全路径名称且部门从大到小并按照-分割> 例如：{1, 部门4-部门3-部门2-部门1}，部门已删除则不返回
+	resignedUserDepartmentPathNameSet bool
 
-	resignedDepartments     []*Department // 离职用户离职前部门信息，部门可能已删除，如需过滤请通过查询DeleteStatus进行过滤
-	resignedDepartmentsFlag bool
+	resignedDepartments    []*Department // 离职用户离职前部门信息，部门可能已删除，如需过滤请通过查询DeleteStatus进行过滤
+	resignedDepartmentsSet bool
 
-	avatar     *ImageLink // 头像url
-	avatarFlag bool
+	avatar    *ImageLink // 头像url
+	avatarSet bool
 
-	backgroundImage     string // 自定义背景图 url
-	backgroundImageFlag bool
+	backgroundImage    string // 自定义背景图 url
+	backgroundImageSet bool
 
-	isAdmin     bool // 是否租户普通管理员
-	isAdminFlag bool
+	isAdmin    bool // 是否租户普通管理员
+	isAdminSet bool
 
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 
-	geoName     string // 员工Geo
-	geoNameFlag bool
+	geoName    string // 员工Geo
+	geoNameSet bool
 
-	subscriptionIds     []string // 员工license
-	subscriptionIdsFlag bool
+	subscriptionIds    []int64 // 员工license
+	subscriptionIdsSet bool
 
-	virtualOrgInfos     []*UserVirtualOrgInfo // 虚拟组织信息
-	virtualOrgInfosFlag bool
+	virtualOrgInfos    []*UserVirtualOrgInfo // 虚拟组织信息
+	virtualOrgInfosSet bool
 
-	isForbiddenDeleteEmployee     bool // 拦截离职
-	isForbiddenDeleteEmployeeFlag bool
+	isForbiddenDeleteEmployee    bool // 拦截离职
+	isForbiddenDeleteEmployeeSet bool
 }
 
 func NewEmployeeBaseEntityBuilder() *EmployeeBaseEntityBuilder {
@@ -9111,7 +9115,7 @@ func NewEmployeeBaseEntityBuilder() *EmployeeBaseEntityBuilder {
 // 示例值：sddasdeqwe
 func (builder *EmployeeBaseEntityBuilder) EmployeeId(employeeId string) *EmployeeBaseEntityBuilder {
 	builder.employeeId = employeeId
-	builder.employeeIdFlag = true
+	builder.employeeIdSet = true
 	return builder
 }
 
@@ -9120,7 +9124,7 @@ func (builder *EmployeeBaseEntityBuilder) EmployeeId(employeeId string) *Employe
 // 示例值：u273y71
 func (builder *EmployeeBaseEntityBuilder) UserId(userId string) *EmployeeBaseEntityBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -9129,7 +9133,7 @@ func (builder *EmployeeBaseEntityBuilder) UserId(userId string) *EmployeeBaseEnt
 // 示例值：u273y71
 func (builder *EmployeeBaseEntityBuilder) ExternalId(externalId string) *EmployeeBaseEntityBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
@@ -9138,7 +9142,7 @@ func (builder *EmployeeBaseEntityBuilder) ExternalId(externalId string) *Employe
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) Name(name *Name) *EmployeeBaseEntityBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -9147,7 +9151,7 @@ func (builder *EmployeeBaseEntityBuilder) Name(name *Name) *EmployeeBaseEntityBu
 // 示例值：13011111111 或 +8613011111111
 func (builder *EmployeeBaseEntityBuilder) Mobile(mobile string) *EmployeeBaseEntityBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -9156,7 +9160,7 @@ func (builder *EmployeeBaseEntityBuilder) Mobile(mobile string) *EmployeeBaseEnt
 // 示例值：zhangsan@gmail.com
 func (builder *EmployeeBaseEntityBuilder) Email(email string) *EmployeeBaseEntityBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -9165,7 +9169,7 @@ func (builder *EmployeeBaseEntityBuilder) Email(email string) *EmployeeBaseEntit
 // 示例值：zhangsan@gmail.com
 func (builder *EmployeeBaseEntityBuilder) PersonalEmail(personalEmail string) *EmployeeBaseEntityBuilder {
 	builder.personalEmail = personalEmail
-	builder.personalEmailFlag = true
+	builder.personalEmailSet = true
 	return builder
 }
 
@@ -9174,7 +9178,7 @@ func (builder *EmployeeBaseEntityBuilder) PersonalEmail(personalEmail string) *E
 // 示例值：zhangsan@gmail.com
 func (builder *EmployeeBaseEntityBuilder) EnterpriseEmail(enterpriseEmail string) *EmployeeBaseEntityBuilder {
 	builder.enterpriseEmail = enterpriseEmail
-	builder.enterpriseEmailFlag = true
+	builder.enterpriseEmailSet = true
 	return builder
 }
 
@@ -9183,7 +9187,7 @@ func (builder *EmployeeBaseEntityBuilder) EnterpriseEmail(enterpriseEmail string
 // 示例值：1
 func (builder *EmployeeBaseEntityBuilder) Gender(gender int) *EmployeeBaseEntityBuilder {
 	builder.gender = gender
-	builder.genderFlag = true
+	builder.genderSet = true
 	return builder
 }
 
@@ -9192,7 +9196,7 @@ func (builder *EmployeeBaseEntityBuilder) Gender(gender int) *EmployeeBaseEntity
 // 示例值：北京市朝阳大街101号
 func (builder *EmployeeBaseEntityBuilder) ResidentialAddress(residentialAddress string) *EmployeeBaseEntityBuilder {
 	builder.residentialAddress = residentialAddress
-	builder.residentialAddressFlag = true
+	builder.residentialAddressSet = true
 	return builder
 }
 
@@ -9201,7 +9205,7 @@ func (builder *EmployeeBaseEntityBuilder) ResidentialAddress(residentialAddress 
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) ContactAddresses(contactAddresses []*ContactAddress) *EmployeeBaseEntityBuilder {
 	builder.contactAddresses = contactAddresses
-	builder.contactAddressesFlag = true
+	builder.contactAddressesSet = true
 	return builder
 }
 
@@ -9210,7 +9214,7 @@ func (builder *EmployeeBaseEntityBuilder) ContactAddresses(contactAddresses []*C
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) Tenant(tenant *Tenant) *EmployeeBaseEntityBuilder {
 	builder.tenant = tenant
-	builder.tenantFlag = true
+	builder.tenantSet = true
 	return builder
 }
 
@@ -9219,7 +9223,7 @@ func (builder *EmployeeBaseEntityBuilder) Tenant(tenant *Tenant) *EmployeeBaseEn
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) Departments(departments []*Department) *EmployeeBaseEntityBuilder {
 	builder.departments = departments
-	builder.departmentsFlag = true
+	builder.departmentsSet = true
 	return builder
 }
 
@@ -9228,7 +9232,7 @@ func (builder *EmployeeBaseEntityBuilder) Departments(departments []*Department)
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) EmployeeOrderInDepartments(employeeOrderInDepartments []*UserDepartmentSortInfo) *EmployeeBaseEntityBuilder {
 	builder.employeeOrderInDepartments = employeeOrderInDepartments
-	builder.employeeOrderInDepartmentsFlag = true
+	builder.employeeOrderInDepartmentsSet = true
 	return builder
 }
 
@@ -9237,7 +9241,7 @@ func (builder *EmployeeBaseEntityBuilder) EmployeeOrderInDepartments(employeeOrd
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) UserDepartmentPath(userDepartmentPath map[string][]string) *EmployeeBaseEntityBuilder {
 	builder.userDepartmentPath = userDepartmentPath
-	builder.userDepartmentPathFlag = true
+	builder.userDepartmentPathSet = true
 	return builder
 }
 
@@ -9246,7 +9250,7 @@ func (builder *EmployeeBaseEntityBuilder) UserDepartmentPath(userDepartmentPath 
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) UserDepartmentPathName(userDepartmentPathName map[string]*I18nText) *EmployeeBaseEntityBuilder {
 	builder.userDepartmentPathName = userDepartmentPathName
-	builder.userDepartmentPathNameFlag = true
+	builder.userDepartmentPathNameSet = true
 	return builder
 }
 
@@ -9255,7 +9259,7 @@ func (builder *EmployeeBaseEntityBuilder) UserDepartmentPathName(userDepartmentP
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) AvatarKey(avatarKey *Image) *EmployeeBaseEntityBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
@@ -9264,7 +9268,7 @@ func (builder *EmployeeBaseEntityBuilder) AvatarKey(avatarKey *Image) *EmployeeB
 // 示例值：img_v2_8abc397a-9950-44ea-9302-e1d8fe00858g
 func (builder *EmployeeBaseEntityBuilder) BackgroundImageKey(backgroundImageKey string) *EmployeeBaseEntityBuilder {
 	builder.backgroundImageKey = backgroundImageKey
-	builder.backgroundImageKeyFlag = true
+	builder.backgroundImageKeySet = true
 	return builder
 }
 
@@ -9273,7 +9277,7 @@ func (builder *EmployeeBaseEntityBuilder) BackgroundImageKey(backgroundImageKey 
 // 示例值：新成员请多关照
 func (builder *EmployeeBaseEntityBuilder) Description(description string) *EmployeeBaseEntityBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -9282,7 +9286,7 @@ func (builder *EmployeeBaseEntityBuilder) Description(description string) *Emplo
 // 示例值：true
 func (builder *EmployeeBaseEntityBuilder) IsSetCustomBackgroundImage(isSetCustomBackgroundImage bool) *EmployeeBaseEntityBuilder {
 	builder.isSetCustomBackgroundImage = isSetCustomBackgroundImage
-	builder.isSetCustomBackgroundImageFlag = true
+	builder.isSetCustomBackgroundImageSet = true
 	return builder
 }
 
@@ -9291,7 +9295,7 @@ func (builder *EmployeeBaseEntityBuilder) IsSetCustomBackgroundImage(isSetCustom
 // 示例值：1
 func (builder *EmployeeBaseEntityBuilder) ActiveStatus(activeStatus int) *EmployeeBaseEntityBuilder {
 	builder.activeStatus = activeStatus
-	builder.activeStatusFlag = true
+	builder.activeStatusSet = true
 	return builder
 }
 
@@ -9300,7 +9304,7 @@ func (builder *EmployeeBaseEntityBuilder) ActiveStatus(activeStatus int) *Employ
 // 示例值：true
 func (builder *EmployeeBaseEntityBuilder) IsResigned(isResigned bool) *EmployeeBaseEntityBuilder {
 	builder.isResigned = isResigned
-	builder.isResignedFlag = true
+	builder.isResignedSet = true
 	return builder
 }
 
@@ -9309,7 +9313,7 @@ func (builder *EmployeeBaseEntityBuilder) IsResigned(isResigned bool) *EmployeeB
 // 示例值：uyg77nx
 func (builder *EmployeeBaseEntityBuilder) LeaderId(leaderId string) *EmployeeBaseEntityBuilder {
 	builder.leaderId = leaderId
-	builder.leaderIdFlag = true
+	builder.leaderIdSet = true
 	return builder
 }
 
@@ -9318,7 +9322,7 @@ func (builder *EmployeeBaseEntityBuilder) LeaderId(leaderId string) *EmployeeBas
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) DottedLineLeaderIds(dottedLineLeaderIds []string) *EmployeeBaseEntityBuilder {
 	builder.dottedLineLeaderIds = dottedLineLeaderIds
-	builder.dottedLineLeaderIdsFlag = true
+	builder.dottedLineLeaderIdsSet = true
 	return builder
 }
 
@@ -9327,7 +9331,7 @@ func (builder *EmployeeBaseEntityBuilder) DottedLineLeaderIds(dottedLineLeaderId
 // 示例值：true
 func (builder *EmployeeBaseEntityBuilder) IsPrimaryAdmin(isPrimaryAdmin bool) *EmployeeBaseEntityBuilder {
 	builder.isPrimaryAdmin = isPrimaryAdmin
-	builder.isPrimaryAdminFlag = true
+	builder.isPrimaryAdminSet = true
 	return builder
 }
 
@@ -9336,7 +9340,7 @@ func (builder *EmployeeBaseEntityBuilder) IsPrimaryAdmin(isPrimaryAdmin bool) *E
 // 示例值：100
 func (builder *EmployeeBaseEntityBuilder) CreateTime(createTime string) *EmployeeBaseEntityBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -9345,7 +9349,7 @@ func (builder *EmployeeBaseEntityBuilder) CreateTime(createTime string) *Employe
 // 示例值：1
 func (builder *EmployeeBaseEntityBuilder) UpdateTime(updateTime string) *EmployeeBaseEntityBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -9354,7 +9358,7 @@ func (builder *EmployeeBaseEntityBuilder) UpdateTime(updateTime string) *Employe
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) EnterpriseEmailAliases(enterpriseEmailAliases []string) *EmployeeBaseEntityBuilder {
 	builder.enterpriseEmailAliases = enterpriseEmailAliases
-	builder.enterpriseEmailAliasesFlag = true
+	builder.enterpriseEmailAliasesSet = true
 	return builder
 }
 
@@ -9363,7 +9367,7 @@ func (builder *EmployeeBaseEntityBuilder) EnterpriseEmailAliases(enterpriseEmail
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) CustomFieldValues(customFieldValues []*CustomFieldValue) *EmployeeBaseEntityBuilder {
 	builder.customFieldValues = customFieldValues
-	builder.customFieldValuesFlag = true
+	builder.customFieldValuesSet = true
 	return builder
 }
 
@@ -9371,8 +9375,8 @@ func (builder *EmployeeBaseEntityBuilder) CustomFieldValues(customFieldValues []
 //
 // 示例值：1
 func (builder *EmployeeBaseEntityBuilder) DescriptionFlag(descriptionFlag string) *EmployeeBaseEntityBuilder {
-	builder.descriptionFlagValue = descriptionFlag
-	builder.descriptionFlagValueFlag = true
+	builder.descriptionFlag = descriptionFlag
+	builder.descriptionFlagSet = true
 	return builder
 }
 
@@ -9381,7 +9385,7 @@ func (builder *EmployeeBaseEntityBuilder) DescriptionFlag(descriptionFlag string
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) WorkStatus(workStatus *WorkStatus) *EmployeeBaseEntityBuilder {
 	builder.workStatus = workStatus
-	builder.workStatusFlag = true
+	builder.workStatusSet = true
 	return builder
 }
 
@@ -9390,7 +9394,7 @@ func (builder *EmployeeBaseEntityBuilder) WorkStatus(workStatus *WorkStatus) *Em
 // 示例值：true
 func (builder *EmployeeBaseEntityBuilder) HasBeenResurrected(hasBeenResurrected bool) *EmployeeBaseEntityBuilder {
 	builder.hasBeenResurrected = hasBeenResurrected
-	builder.hasBeenResurrectedFlag = true
+	builder.hasBeenResurrectedSet = true
 	return builder
 }
 
@@ -9399,7 +9403,7 @@ func (builder *EmployeeBaseEntityBuilder) HasBeenResurrected(hasBeenResurrected 
 // 示例值：true
 func (builder *EmployeeBaseEntityBuilder) DuringResignCoolingOffPeriod(duringResignCoolingOffPeriod bool) *EmployeeBaseEntityBuilder {
 	builder.duringResignCoolingOffPeriod = duringResignCoolingOffPeriod
-	builder.duringResignCoolingOffPeriodFlag = true
+	builder.duringResignCoolingOffPeriodSet = true
 	return builder
 }
 
@@ -9408,7 +9412,7 @@ func (builder *EmployeeBaseEntityBuilder) DuringResignCoolingOffPeriod(duringRes
 // 示例值：true
 func (builder *EmployeeBaseEntityBuilder) IsSetCustomAvatar(isSetCustomAvatar bool) *EmployeeBaseEntityBuilder {
 	builder.isSetCustomAvatar = isSetCustomAvatar
-	builder.isSetCustomAvatarFlag = true
+	builder.isSetCustomAvatarSet = true
 	return builder
 }
 
@@ -9417,7 +9421,7 @@ func (builder *EmployeeBaseEntityBuilder) IsSetCustomAvatar(isSetCustomAvatar bo
 // 示例值：true
 func (builder *EmployeeBaseEntityBuilder) IsRegistered(isRegistered bool) *EmployeeBaseEntityBuilder {
 	builder.isRegistered = isRegistered
-	builder.isRegisteredFlag = true
+	builder.isRegisteredSet = true
 	return builder
 }
 
@@ -9426,7 +9430,7 @@ func (builder *EmployeeBaseEntityBuilder) IsRegistered(isRegistered bool) *Emplo
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) DepartmentPathInfos(departmentPathInfos [][]*DepartmentBaseInfo) *EmployeeBaseEntityBuilder {
 	builder.departmentPathInfos = departmentPathInfos
-	builder.departmentPathInfosFlag = true
+	builder.departmentPathInfosSet = true
 	return builder
 }
 
@@ -9435,7 +9439,7 @@ func (builder *EmployeeBaseEntityBuilder) DepartmentPathInfos(departmentPathInfo
 // 示例值：1
 func (builder *EmployeeBaseEntityBuilder) ResignTime(resignTime string) *EmployeeBaseEntityBuilder {
 	builder.resignTime = resignTime
-	builder.resignTimeFlag = true
+	builder.resignTimeSet = true
 	return builder
 }
 
@@ -9444,7 +9448,7 @@ func (builder *EmployeeBaseEntityBuilder) ResignTime(resignTime string) *Employe
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) ResignedUserDepartmentPath(resignedUserDepartmentPath map[string][]string) *EmployeeBaseEntityBuilder {
 	builder.resignedUserDepartmentPath = resignedUserDepartmentPath
-	builder.resignedUserDepartmentPathFlag = true
+	builder.resignedUserDepartmentPathSet = true
 	return builder
 }
 
@@ -9453,7 +9457,7 @@ func (builder *EmployeeBaseEntityBuilder) ResignedUserDepartmentPath(resignedUse
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) ResignedUserDepartmentPathName(resignedUserDepartmentPathName map[string]*I18nText) *EmployeeBaseEntityBuilder {
 	builder.resignedUserDepartmentPathName = resignedUserDepartmentPathName
-	builder.resignedUserDepartmentPathNameFlag = true
+	builder.resignedUserDepartmentPathNameSet = true
 	return builder
 }
 
@@ -9462,7 +9466,7 @@ func (builder *EmployeeBaseEntityBuilder) ResignedUserDepartmentPathName(resigne
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) ResignedDepartments(resignedDepartments []*Department) *EmployeeBaseEntityBuilder {
 	builder.resignedDepartments = resignedDepartments
-	builder.resignedDepartmentsFlag = true
+	builder.resignedDepartmentsSet = true
 	return builder
 }
 
@@ -9471,7 +9475,7 @@ func (builder *EmployeeBaseEntityBuilder) ResignedDepartments(resignedDepartment
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) Avatar(avatar *ImageLink) *EmployeeBaseEntityBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
@@ -9480,7 +9484,7 @@ func (builder *EmployeeBaseEntityBuilder) Avatar(avatar *ImageLink) *EmployeeBas
 // 示例值：http://sadui.com
 func (builder *EmployeeBaseEntityBuilder) BackgroundImage(backgroundImage string) *EmployeeBaseEntityBuilder {
 	builder.backgroundImage = backgroundImage
-	builder.backgroundImageFlag = true
+	builder.backgroundImageSet = true
 	return builder
 }
 
@@ -9489,7 +9493,7 @@ func (builder *EmployeeBaseEntityBuilder) BackgroundImage(backgroundImage string
 // 示例值：true
 func (builder *EmployeeBaseEntityBuilder) IsAdmin(isAdmin bool) *EmployeeBaseEntityBuilder {
 	builder.isAdmin = isAdmin
-	builder.isAdminFlag = true
+	builder.isAdminSet = true
 	return builder
 }
 
@@ -9498,7 +9502,7 @@ func (builder *EmployeeBaseEntityBuilder) IsAdmin(isAdmin bool) *EmployeeBaseEnt
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) DataSource(dataSource int) *EmployeeBaseEntityBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
@@ -9507,16 +9511,16 @@ func (builder *EmployeeBaseEntityBuilder) DataSource(dataSource int) *EmployeeBa
 // 示例值：boe
 func (builder *EmployeeBaseEntityBuilder) GeoName(geoName string) *EmployeeBaseEntityBuilder {
 	builder.geoName = geoName
-	builder.geoNameFlag = true
+	builder.geoNameSet = true
 	return builder
 }
 
 // 员工license
 //
 // 示例值：
-func (builder *EmployeeBaseEntityBuilder) SubscriptionIds(subscriptionIds []string) *EmployeeBaseEntityBuilder {
+func (builder *EmployeeBaseEntityBuilder) SubscriptionIds(subscriptionIds []int64) *EmployeeBaseEntityBuilder {
 	builder.subscriptionIds = subscriptionIds
-	builder.subscriptionIdsFlag = true
+	builder.subscriptionIdsSet = true
 	return builder
 }
 
@@ -9525,7 +9529,7 @@ func (builder *EmployeeBaseEntityBuilder) SubscriptionIds(subscriptionIds []stri
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) VirtualOrgInfos(virtualOrgInfos []*UserVirtualOrgInfo) *EmployeeBaseEntityBuilder {
 	builder.virtualOrgInfos = virtualOrgInfos
-	builder.virtualOrgInfosFlag = true
+	builder.virtualOrgInfosSet = true
 	return builder
 }
 
@@ -9534,182 +9538,182 @@ func (builder *EmployeeBaseEntityBuilder) VirtualOrgInfos(virtualOrgInfos []*Use
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) IsForbiddenDeleteEmployee(isForbiddenDeleteEmployee bool) *EmployeeBaseEntityBuilder {
 	builder.isForbiddenDeleteEmployee = isForbiddenDeleteEmployee
-	builder.isForbiddenDeleteEmployeeFlag = true
+	builder.isForbiddenDeleteEmployeeSet = true
 	return builder
 }
 
 func (builder *EmployeeBaseEntityBuilder) Build() *EmployeeBaseEntity {
 	req := &EmployeeBaseEntity{}
-	if builder.employeeIdFlag {
+	if builder.employeeIdSet {
 		req.EmployeeId = &builder.employeeId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.personalEmailFlag {
+	if builder.personalEmailSet {
 		req.PersonalEmail = &builder.personalEmail
 
 	}
-	if builder.enterpriseEmailFlag {
+	if builder.enterpriseEmailSet {
 		req.EnterpriseEmail = &builder.enterpriseEmail
 
 	}
-	if builder.genderFlag {
+	if builder.genderSet {
 		req.Gender = &builder.gender
 
 	}
-	if builder.residentialAddressFlag {
+	if builder.residentialAddressSet {
 		req.ResidentialAddress = &builder.residentialAddress
 
 	}
-	if builder.contactAddressesFlag {
+	if builder.contactAddressesSet {
 		req.ContactAddresses = builder.contactAddresses
 	}
-	if builder.tenantFlag {
+	if builder.tenantSet {
 		req.Tenant = builder.tenant
 	}
-	if builder.departmentsFlag {
+	if builder.departmentsSet {
 		req.Departments = builder.departments
 	}
-	if builder.employeeOrderInDepartmentsFlag {
+	if builder.employeeOrderInDepartmentsSet {
 		req.EmployeeOrderInDepartments = builder.employeeOrderInDepartments
 	}
-	if builder.userDepartmentPathFlag {
+	if builder.userDepartmentPathSet {
 		req.UserDepartmentPath = builder.userDepartmentPath
 	}
-	if builder.userDepartmentPathNameFlag {
+	if builder.userDepartmentPathNameSet {
 		req.UserDepartmentPathName = builder.userDepartmentPathName
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = builder.avatarKey
 	}
-	if builder.backgroundImageKeyFlag {
+	if builder.backgroundImageKeySet {
 		req.BackgroundImageKey = &builder.backgroundImageKey
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.isSetCustomBackgroundImageFlag {
+	if builder.isSetCustomBackgroundImageSet {
 		req.IsSetCustomBackgroundImage = &builder.isSetCustomBackgroundImage
 
 	}
-	if builder.activeStatusFlag {
+	if builder.activeStatusSet {
 		req.ActiveStatus = &builder.activeStatus
 
 	}
-	if builder.isResignedFlag {
+	if builder.isResignedSet {
 		req.IsResigned = &builder.isResigned
 
 	}
-	if builder.leaderIdFlag {
+	if builder.leaderIdSet {
 		req.LeaderId = &builder.leaderId
 
 	}
-	if builder.dottedLineLeaderIdsFlag {
+	if builder.dottedLineLeaderIdsSet {
 		req.DottedLineLeaderIds = builder.dottedLineLeaderIds
 	}
-	if builder.isPrimaryAdminFlag {
+	if builder.isPrimaryAdminSet {
 		req.IsPrimaryAdmin = &builder.isPrimaryAdmin
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.enterpriseEmailAliasesFlag {
+	if builder.enterpriseEmailAliasesSet {
 		req.EnterpriseEmailAliases = builder.enterpriseEmailAliases
 	}
-	if builder.customFieldValuesFlag {
+	if builder.customFieldValuesSet {
 		req.CustomFieldValues = builder.customFieldValues
 	}
-	if builder.descriptionFlagValueFlag {
-		req.DescriptionFlag = &builder.descriptionFlagValue
+	if builder.descriptionFlagSet {
+		req.DescriptionFlag = &builder.descriptionFlag
 
 	}
-	if builder.workStatusFlag {
+	if builder.workStatusSet {
 		req.WorkStatus = builder.workStatus
 	}
-	if builder.hasBeenResurrectedFlag {
+	if builder.hasBeenResurrectedSet {
 		req.HasBeenResurrected = &builder.hasBeenResurrected
 
 	}
-	if builder.duringResignCoolingOffPeriodFlag {
+	if builder.duringResignCoolingOffPeriodSet {
 		req.DuringResignCoolingOffPeriod = &builder.duringResignCoolingOffPeriod
 
 	}
-	if builder.isSetCustomAvatarFlag {
+	if builder.isSetCustomAvatarSet {
 		req.IsSetCustomAvatar = &builder.isSetCustomAvatar
 
 	}
-	if builder.isRegisteredFlag {
+	if builder.isRegisteredSet {
 		req.IsRegistered = &builder.isRegistered
 
 	}
-	if builder.departmentPathInfosFlag {
+	if builder.departmentPathInfosSet {
 		req.DepartmentPathInfos = builder.departmentPathInfos
 	}
-	if builder.resignTimeFlag {
+	if builder.resignTimeSet {
 		req.ResignTime = &builder.resignTime
 
 	}
-	if builder.resignedUserDepartmentPathFlag {
+	if builder.resignedUserDepartmentPathSet {
 		req.ResignedUserDepartmentPath = builder.resignedUserDepartmentPath
 	}
-	if builder.resignedUserDepartmentPathNameFlag {
+	if builder.resignedUserDepartmentPathNameSet {
 		req.ResignedUserDepartmentPathName = builder.resignedUserDepartmentPathName
 	}
-	if builder.resignedDepartmentsFlag {
+	if builder.resignedDepartmentsSet {
 		req.ResignedDepartments = builder.resignedDepartments
 	}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = builder.avatar
 	}
-	if builder.backgroundImageFlag {
+	if builder.backgroundImageSet {
 		req.BackgroundImage = &builder.backgroundImage
 
 	}
-	if builder.isAdminFlag {
+	if builder.isAdminSet {
 		req.IsAdmin = &builder.isAdmin
 
 	}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
-	if builder.geoNameFlag {
+	if builder.geoNameSet {
 		req.GeoName = &builder.geoName
 
 	}
-	if builder.subscriptionIdsFlag {
+	if builder.subscriptionIdsSet {
 		req.SubscriptionIds = builder.subscriptionIds
 	}
-	if builder.virtualOrgInfosFlag {
+	if builder.virtualOrgInfosSet {
 		req.VirtualOrgInfos = builder.virtualOrgInfos
 	}
-	if builder.isForbiddenDeleteEmployeeFlag {
+	if builder.isForbiddenDeleteEmployeeSet {
 		req.IsForbiddenDeleteEmployee = &builder.isForbiddenDeleteEmployee
 
 	}
@@ -9745,44 +9749,44 @@ type EmployeeEducationAndWorkExperienceEntity struct {
 }
 
 type EmployeeEducationAndWorkExperienceEntityBuilder struct {
-	educations     []*Education // 最高学历 -- 废弃\n1: optional string HighestlevelofEducation (apimeta.scope="directory:employee.experience.education:read"),\n最高学位教育 -- 废弃\n2: optional string HighestDegreeofEducation (apimeta.scope="directory:employee.experience.education:read"),\n教育经历
-	educationsFlag bool
+	educations    []*Education // 最高学历 -- 废弃\n1: optional string HighestlevelofEducation (apimeta.scope="directory:employee.experience.education:read"),\n最高学位教育 -- 废弃\n2: optional string HighestDegreeofEducation (apimeta.scope="directory:employee.experience.education:read"),\n教育经历
+	educationsSet bool
 
-	workExperiences     []*WorkExperience // 工作经历
-	workExperiencesFlag bool
+	workExperiences    []*WorkExperience // 工作经历
+	workExperiencesSet bool
 
-	formerEmployer     string // 前工作单位
-	formerEmployerFlag bool
+	formerEmployer    string // 前工作单位
+	formerEmployerSet bool
 
-	personalProfiles     []*PersonalProfile // 个人资料附件
-	personalProfilesFlag bool
+	personalProfiles    []*PersonalProfile // 个人资料附件
+	personalProfilesSet bool
 
-	photoOfIdPortraitSide     *Attachment // 附件
-	photoOfIdPortraitSideFlag bool
+	photoOfIdPortraitSide    *Attachment // 附件
+	photoOfIdPortraitSideSet bool
 
-	photoOfIdEmblemSide     *Attachment // 附件
-	photoOfIdEmblemSideFlag bool
+	photoOfIdEmblemSide    *Attachment // 附件
+	photoOfIdEmblemSideSet bool
 
-	idPhoto     *Attachment // 附件
-	idPhotoFlag bool
+	idPhoto    *Attachment // 附件
+	idPhotoSet bool
 
-	diploma     *Attachment // 附件
-	diplomaFlag bool
+	diploma    *Attachment // 附件
+	diplomaSet bool
 
-	graduationCertificate     *Attachment // 附件
-	graduationCertificateFlag bool
+	graduationCertificate    *Attachment // 附件
+	graduationCertificateSet bool
 
-	certificateOfMerit     *Attachment // 附件
-	certificateOfMeritFlag bool
+	certificateOfMerit    *Attachment // 附件
+	certificateOfMeritSet bool
 
-	offboardingPaperwork     *Attachment // 附件
-	offboardingPaperworkFlag bool
+	offboardingPaperwork    *Attachment // 附件
+	offboardingPaperworkSet bool
 
-	highestLevelOfEducationEntity     *Education // 教育背景
-	highestLevelOfEducationEntityFlag bool
+	highestLevelOfEducationEntity    *Education // 教育背景
+	highestLevelOfEducationEntitySet bool
 
-	highestDegreeOfEducationEntity     *Education // 教育背景
-	highestDegreeOfEducationEntityFlag bool
+	highestDegreeOfEducationEntity    *Education // 教育背景
+	highestDegreeOfEducationEntitySet bool
 }
 
 func NewEmployeeEducationAndWorkExperienceEntityBuilder() *EmployeeEducationAndWorkExperienceEntityBuilder {
@@ -9795,7 +9799,7 @@ func NewEmployeeEducationAndWorkExperienceEntityBuilder() *EmployeeEducationAndW
 // 示例值：
 func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) Educations(educations []*Education) *EmployeeEducationAndWorkExperienceEntityBuilder {
 	builder.educations = educations
-	builder.educationsFlag = true
+	builder.educationsSet = true
 	return builder
 }
 
@@ -9804,7 +9808,7 @@ func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) Educations(educa
 // 示例值：
 func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) WorkExperiences(workExperiences []*WorkExperience) *EmployeeEducationAndWorkExperienceEntityBuilder {
 	builder.workExperiences = workExperiences
-	builder.workExperiencesFlag = true
+	builder.workExperiencesSet = true
 	return builder
 }
 
@@ -9813,7 +9817,7 @@ func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) WorkExperiences(
 // 示例值：暂无
 func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) FormerEmployer(formerEmployer string) *EmployeeEducationAndWorkExperienceEntityBuilder {
 	builder.formerEmployer = formerEmployer
-	builder.formerEmployerFlag = true
+	builder.formerEmployerSet = true
 	return builder
 }
 
@@ -9822,7 +9826,7 @@ func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) FormerEmployer(f
 // 示例值：
 func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) PersonalProfiles(personalProfiles []*PersonalProfile) *EmployeeEducationAndWorkExperienceEntityBuilder {
 	builder.personalProfiles = personalProfiles
-	builder.personalProfilesFlag = true
+	builder.personalProfilesSet = true
 	return builder
 }
 
@@ -9831,7 +9835,7 @@ func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) PersonalProfiles
 // 示例值：
 func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) PhotoOfIdPortraitSide(photoOfIdPortraitSide *Attachment) *EmployeeEducationAndWorkExperienceEntityBuilder {
 	builder.photoOfIdPortraitSide = photoOfIdPortraitSide
-	builder.photoOfIdPortraitSideFlag = true
+	builder.photoOfIdPortraitSideSet = true
 	return builder
 }
 
@@ -9840,7 +9844,7 @@ func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) PhotoOfIdPortrai
 // 示例值：
 func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) PhotoOfIdEmblemSide(photoOfIdEmblemSide *Attachment) *EmployeeEducationAndWorkExperienceEntityBuilder {
 	builder.photoOfIdEmblemSide = photoOfIdEmblemSide
-	builder.photoOfIdEmblemSideFlag = true
+	builder.photoOfIdEmblemSideSet = true
 	return builder
 }
 
@@ -9849,7 +9853,7 @@ func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) PhotoOfIdEmblemS
 // 示例值：
 func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) IdPhoto(idPhoto *Attachment) *EmployeeEducationAndWorkExperienceEntityBuilder {
 	builder.idPhoto = idPhoto
-	builder.idPhotoFlag = true
+	builder.idPhotoSet = true
 	return builder
 }
 
@@ -9858,7 +9862,7 @@ func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) IdPhoto(idPhoto 
 // 示例值：
 func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) Diploma(diploma *Attachment) *EmployeeEducationAndWorkExperienceEntityBuilder {
 	builder.diploma = diploma
-	builder.diplomaFlag = true
+	builder.diplomaSet = true
 	return builder
 }
 
@@ -9867,7 +9871,7 @@ func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) Diploma(diploma 
 // 示例值：
 func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) GraduationCertificate(graduationCertificate *Attachment) *EmployeeEducationAndWorkExperienceEntityBuilder {
 	builder.graduationCertificate = graduationCertificate
-	builder.graduationCertificateFlag = true
+	builder.graduationCertificateSet = true
 	return builder
 }
 
@@ -9876,7 +9880,7 @@ func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) GraduationCertif
 // 示例值：
 func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) CertificateOfMerit(certificateOfMerit *Attachment) *EmployeeEducationAndWorkExperienceEntityBuilder {
 	builder.certificateOfMerit = certificateOfMerit
-	builder.certificateOfMeritFlag = true
+	builder.certificateOfMeritSet = true
 	return builder
 }
 
@@ -9885,7 +9889,7 @@ func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) CertificateOfMer
 // 示例值：
 func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) OffboardingPaperwork(offboardingPaperwork *Attachment) *EmployeeEducationAndWorkExperienceEntityBuilder {
 	builder.offboardingPaperwork = offboardingPaperwork
-	builder.offboardingPaperworkFlag = true
+	builder.offboardingPaperworkSet = true
 	return builder
 }
 
@@ -9894,7 +9898,7 @@ func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) OffboardingPaper
 // 示例值：1
 func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) HighestLevelOfEducationEntity(highestLevelOfEducationEntity *Education) *EmployeeEducationAndWorkExperienceEntityBuilder {
 	builder.highestLevelOfEducationEntity = highestLevelOfEducationEntity
-	builder.highestLevelOfEducationEntityFlag = true
+	builder.highestLevelOfEducationEntitySet = true
 	return builder
 }
 
@@ -9903,50 +9907,50 @@ func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) HighestLevelOfEd
 // 示例值：1
 func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) HighestDegreeOfEducationEntity(highestDegreeOfEducationEntity *Education) *EmployeeEducationAndWorkExperienceEntityBuilder {
 	builder.highestDegreeOfEducationEntity = highestDegreeOfEducationEntity
-	builder.highestDegreeOfEducationEntityFlag = true
+	builder.highestDegreeOfEducationEntitySet = true
 	return builder
 }
 
 func (builder *EmployeeEducationAndWorkExperienceEntityBuilder) Build() *EmployeeEducationAndWorkExperienceEntity {
 	req := &EmployeeEducationAndWorkExperienceEntity{}
-	if builder.educationsFlag {
+	if builder.educationsSet {
 		req.Educations = builder.educations
 	}
-	if builder.workExperiencesFlag {
+	if builder.workExperiencesSet {
 		req.WorkExperiences = builder.workExperiences
 	}
-	if builder.formerEmployerFlag {
+	if builder.formerEmployerSet {
 		req.FormerEmployer = &builder.formerEmployer
 
 	}
-	if builder.personalProfilesFlag {
+	if builder.personalProfilesSet {
 		req.PersonalProfiles = builder.personalProfiles
 	}
-	if builder.photoOfIdPortraitSideFlag {
+	if builder.photoOfIdPortraitSideSet {
 		req.PhotoOfIdPortraitSide = builder.photoOfIdPortraitSide
 	}
-	if builder.photoOfIdEmblemSideFlag {
+	if builder.photoOfIdEmblemSideSet {
 		req.PhotoOfIdEmblemSide = builder.photoOfIdEmblemSide
 	}
-	if builder.idPhotoFlag {
+	if builder.idPhotoSet {
 		req.IdPhoto = builder.idPhoto
 	}
-	if builder.diplomaFlag {
+	if builder.diplomaSet {
 		req.Diploma = builder.diploma
 	}
-	if builder.graduationCertificateFlag {
+	if builder.graduationCertificateSet {
 		req.GraduationCertificate = builder.graduationCertificate
 	}
-	if builder.certificateOfMeritFlag {
+	if builder.certificateOfMeritSet {
 		req.CertificateOfMerit = builder.certificateOfMerit
 	}
-	if builder.offboardingPaperworkFlag {
+	if builder.offboardingPaperworkSet {
 		req.OffboardingPaperwork = builder.offboardingPaperwork
 	}
-	if builder.highestLevelOfEducationEntityFlag {
+	if builder.highestLevelOfEducationEntitySet {
 		req.HighestLevelOfEducationEntity = builder.highestLevelOfEducationEntity
 	}
-	if builder.highestDegreeOfEducationEntityFlag {
+	if builder.highestDegreeOfEducationEntitySet {
 		req.HighestDegreeOfEducationEntity = builder.highestDegreeOfEducationEntity
 	}
 	return req
@@ -9963,17 +9967,17 @@ type EmployeeEntity struct {
 }
 
 type EmployeeEntityBuilder struct {
-	baseInfo     *EmployeeBaseEntity // 员工基础信息
-	baseInfoFlag bool
+	baseInfo    *EmployeeBaseEntity // 员工基础信息
+	baseInfoSet bool
 
-	workInfo     *EmployeeWorkEntity // 员工工作信息
-	workInfoFlag bool
+	workInfo    *EmployeeWorkEntity // 员工工作信息
+	workInfoSet bool
 
-	personalAndSocialRelationship     *EmployeePersonalAndSocialRelationshipEntity // 员工个人和社会关系
-	personalAndSocialRelationshipFlag bool
+	personalAndSocialRelationship    *EmployeePersonalAndSocialRelationshipEntity // 员工个人和社会关系
+	personalAndSocialRelationshipSet bool
 
-	educationAndWorkExperience     *EmployeeEducationAndWorkExperienceEntity // 员工教育和工作经历
-	educationAndWorkExperienceFlag bool
+	educationAndWorkExperience    *EmployeeEducationAndWorkExperienceEntity // 员工教育和工作经历
+	educationAndWorkExperienceSet bool
 }
 
 func NewEmployeeEntityBuilder() *EmployeeEntityBuilder {
@@ -9986,7 +9990,7 @@ func NewEmployeeEntityBuilder() *EmployeeEntityBuilder {
 // 示例值：
 func (builder *EmployeeEntityBuilder) BaseInfo(baseInfo *EmployeeBaseEntity) *EmployeeEntityBuilder {
 	builder.baseInfo = baseInfo
-	builder.baseInfoFlag = true
+	builder.baseInfoSet = true
 	return builder
 }
 
@@ -9995,7 +9999,7 @@ func (builder *EmployeeEntityBuilder) BaseInfo(baseInfo *EmployeeBaseEntity) *Em
 // 示例值：
 func (builder *EmployeeEntityBuilder) WorkInfo(workInfo *EmployeeWorkEntity) *EmployeeEntityBuilder {
 	builder.workInfo = workInfo
-	builder.workInfoFlag = true
+	builder.workInfoSet = true
 	return builder
 }
 
@@ -10004,7 +10008,7 @@ func (builder *EmployeeEntityBuilder) WorkInfo(workInfo *EmployeeWorkEntity) *Em
 // 示例值：
 func (builder *EmployeeEntityBuilder) PersonalAndSocialRelationship(personalAndSocialRelationship *EmployeePersonalAndSocialRelationshipEntity) *EmployeeEntityBuilder {
 	builder.personalAndSocialRelationship = personalAndSocialRelationship
-	builder.personalAndSocialRelationshipFlag = true
+	builder.personalAndSocialRelationshipSet = true
 	return builder
 }
 
@@ -10013,22 +10017,22 @@ func (builder *EmployeeEntityBuilder) PersonalAndSocialRelationship(personalAndS
 // 示例值：
 func (builder *EmployeeEntityBuilder) EducationAndWorkExperience(educationAndWorkExperience *EmployeeEducationAndWorkExperienceEntity) *EmployeeEntityBuilder {
 	builder.educationAndWorkExperience = educationAndWorkExperience
-	builder.educationAndWorkExperienceFlag = true
+	builder.educationAndWorkExperienceSet = true
 	return builder
 }
 
 func (builder *EmployeeEntityBuilder) Build() *EmployeeEntity {
 	req := &EmployeeEntity{}
-	if builder.baseInfoFlag {
+	if builder.baseInfoSet {
 		req.BaseInfo = builder.baseInfo
 	}
-	if builder.workInfoFlag {
+	if builder.workInfoSet {
 		req.WorkInfo = builder.workInfo
 	}
-	if builder.personalAndSocialRelationshipFlag {
+	if builder.personalAndSocialRelationshipSet {
 		req.PersonalAndSocialRelationship = builder.personalAndSocialRelationship
 	}
-	if builder.educationAndWorkExperienceFlag {
+	if builder.educationAndWorkExperienceSet {
 		req.EducationAndWorkExperience = builder.educationAndWorkExperience
 	}
 	return req
@@ -10045,17 +10049,17 @@ type EmployeeIdConvertResult struct {
 }
 
 type EmployeeIdConvertResultBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	employeeId     string // 员工ID
-	employeeIdFlag bool
+	employeeId    string // 员工ID
+	employeeIdSet bool
 
-	openEmployeeId     string // 员工OpenID
-	openEmployeeIdFlag bool
+	openEmployeeId    string // 员工OpenID
+	openEmployeeIdSet bool
 
-	unionEmployeeId     string // 员工UnionID
-	unionEmployeeIdFlag bool
+	unionEmployeeId    string // 员工UnionID
+	unionEmployeeIdSet bool
 }
 
 func NewEmployeeIdConvertResultBuilder() *EmployeeIdConvertResultBuilder {
@@ -10068,7 +10072,7 @@ func NewEmployeeIdConvertResultBuilder() *EmployeeIdConvertResultBuilder {
 // 示例值：ahjdsioad
 func (builder *EmployeeIdConvertResultBuilder) Id(id string) *EmployeeIdConvertResultBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -10077,7 +10081,7 @@ func (builder *EmployeeIdConvertResultBuilder) Id(id string) *EmployeeIdConvertR
 // 示例值：ahjdsioad
 func (builder *EmployeeIdConvertResultBuilder) EmployeeId(employeeId string) *EmployeeIdConvertResultBuilder {
 	builder.employeeId = employeeId
-	builder.employeeIdFlag = true
+	builder.employeeIdSet = true
 	return builder
 }
 
@@ -10086,7 +10090,7 @@ func (builder *EmployeeIdConvertResultBuilder) EmployeeId(employeeId string) *Em
 // 示例值：ou_55432732133012310fb4390611231de61
 func (builder *EmployeeIdConvertResultBuilder) OpenEmployeeId(openEmployeeId string) *EmployeeIdConvertResultBuilder {
 	builder.openEmployeeId = openEmployeeId
-	builder.openEmployeeIdFlag = true
+	builder.openEmployeeIdSet = true
 	return builder
 }
 
@@ -10095,25 +10099,25 @@ func (builder *EmployeeIdConvertResultBuilder) OpenEmployeeId(openEmployeeId str
 // 示例值：on_b25e9058531123dawac4b379c2e257906
 func (builder *EmployeeIdConvertResultBuilder) UnionEmployeeId(unionEmployeeId string) *EmployeeIdConvertResultBuilder {
 	builder.unionEmployeeId = unionEmployeeId
-	builder.unionEmployeeIdFlag = true
+	builder.unionEmployeeIdSet = true
 	return builder
 }
 
 func (builder *EmployeeIdConvertResultBuilder) Build() *EmployeeIdConvertResult {
 	req := &EmployeeIdConvertResult{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.employeeIdFlag {
+	if builder.employeeIdSet {
 		req.EmployeeId = &builder.employeeId
 
 	}
-	if builder.openEmployeeIdFlag {
+	if builder.openEmployeeIdSet {
 		req.OpenEmployeeId = &builder.openEmployeeId
 
 	}
-	if builder.unionEmployeeIdFlag {
+	if builder.unionEmployeeIdSet {
 		req.UnionEmployeeId = &builder.unionEmployeeId
 
 	}
@@ -10157,56 +10161,56 @@ type EmployeePersonalAndSocialRelationshipEntity struct {
 }
 
 type EmployeePersonalAndSocialRelationshipEntityBuilder struct {
-	birthday     string // 出生日期。2007-05-20
-	birthdayFlag bool
+	birthday    string // 出生日期。2007-05-20
+	birthdaySet bool
 
-	age     string // 年龄
-	ageFlag bool
+	age    string // 年龄
+	ageSet bool
 
-	nationality     string // 国籍
-	nationalityFlag bool
+	nationality    string // 国籍
+	nationalitySet bool
 
-	nativePlace     string // 籍贯
-	nativePlaceFlag bool
+	nativePlace    string // 籍贯
+	nativePlaceSet bool
 
-	ethnicity     string // 民族
-	ethnicityFlag bool
+	ethnicity    string // 民族
+	ethnicitySet bool
 
-	maritalStatus     string // 婚姻状态
-	maritalStatusFlag bool
+	maritalStatus    string // 婚姻状态
+	maritalStatusSet bool
 
-	politicsStatus     string // 政治面貌
-	politicsStatusFlag bool
+	politicsStatus    string // 政治面貌
+	politicsStatusSet bool
 
-	bankAccounts     []*BankAccount // 银行账户
-	bankAccountsFlag bool
+	bankAccounts    []*BankAccount // 银行账户
+	bankAccountsSet bool
 
-	certificates     []*Certificate // 证件列表
-	certificatesFlag bool
+	certificates    []*Certificate // 证件列表
+	certificatesSet bool
 
-	registeredResidenceType     string // 户口类型
-	registeredResidenceTypeFlag bool
+	registeredResidenceType    string // 户口类型
+	registeredResidenceTypeSet bool
 
-	location     string // 户口所在地
-	locationFlag bool
+	location    string // 户口所在地
+	locationSet bool
 
-	socialSecurityNumber     string // 社保账号
-	socialSecurityNumberFlag bool
+	socialSecurityNumber    string // 社保账号
+	socialSecurityNumberSet bool
 
-	providentFundNumber     string // 公积金账号
-	providentFundNumberFlag bool
+	providentFundNumber    string // 公积金账号
+	providentFundNumberSet bool
 
-	emergencyContacts     []*EmergencyContact // 紧急联系人
-	emergencyContactsFlag bool
+	emergencyContacts    []*EmergencyContact // 紧急联系人
+	emergencyContactsSet bool
 
-	dependents     []*Dependent // 亲属列表
-	dependentsFlag bool
+	dependents    []*Dependent // 亲属列表
+	dependentsSet bool
 
-	residentTaxs     []string // 纳税身份信息
-	residentTaxsFlag bool
+	residentTaxs    []string // 纳税身份信息
+	residentTaxsSet bool
 
-	religion     string // 宗教
-	religionFlag bool
+	religion    string // 宗教
+	religionSet bool
 }
 
 func NewEmployeePersonalAndSocialRelationshipEntityBuilder() *EmployeePersonalAndSocialRelationshipEntityBuilder {
@@ -10219,7 +10223,7 @@ func NewEmployeePersonalAndSocialRelationshipEntityBuilder() *EmployeePersonalAn
 // 示例值：2007-03-20
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Birthday(birthday string) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.birthday = birthday
-	builder.birthdayFlag = true
+	builder.birthdaySet = true
 	return builder
 }
 
@@ -10228,7 +10232,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Birthday(birt
 // 示例值：22
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Age(age string) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.age = age
-	builder.ageFlag = true
+	builder.ageSet = true
 	return builder
 }
 
@@ -10237,7 +10241,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Age(age strin
 // 示例值：MDCT00000012
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Nationality(nationality string) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.nationality = nationality
-	builder.nationalityFlag = true
+	builder.nationalitySet = true
 	return builder
 }
 
@@ -10246,7 +10250,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Nationality(n
 // 示例值：MDCT00000012
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) NativePlace(nativePlace string) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.nativePlace = nativePlace
-	builder.nativePlaceFlag = true
+	builder.nativePlaceSet = true
 	return builder
 }
 
@@ -10255,7 +10259,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) NativePlace(n
 // 示例值：1
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Ethnicity(ethnicity string) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.ethnicity = ethnicity
-	builder.ethnicityFlag = true
+	builder.ethnicitySet = true
 	return builder
 }
 
@@ -10264,7 +10268,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Ethnicity(eth
 // 示例值：1
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) MaritalStatus(maritalStatus string) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.maritalStatus = maritalStatus
-	builder.maritalStatusFlag = true
+	builder.maritalStatusSet = true
 	return builder
 }
 
@@ -10273,7 +10277,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) MaritalStatus
 // 示例值：1
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) PoliticsStatus(politicsStatus string) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.politicsStatus = politicsStatus
-	builder.politicsStatusFlag = true
+	builder.politicsStatusSet = true
 	return builder
 }
 
@@ -10282,7 +10286,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) PoliticsStatu
 // 示例值：
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) BankAccounts(bankAccounts []*BankAccount) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.bankAccounts = bankAccounts
-	builder.bankAccountsFlag = true
+	builder.bankAccountsSet = true
 	return builder
 }
 
@@ -10291,7 +10295,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) BankAccounts(
 // 示例值：
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Certificates(certificates []*Certificate) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.certificates = certificates
-	builder.certificatesFlag = true
+	builder.certificatesSet = true
 	return builder
 }
 
@@ -10300,7 +10304,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Certificates(
 // 示例值：
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) RegisteredResidenceType(registeredResidenceType string) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.registeredResidenceType = registeredResidenceType
-	builder.registeredResidenceTypeFlag = true
+	builder.registeredResidenceTypeSet = true
 	return builder
 }
 
@@ -10309,7 +10313,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) RegisteredRes
 // 示例值：cn
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Location(location string) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.location = location
-	builder.locationFlag = true
+	builder.locationSet = true
 	return builder
 }
 
@@ -10318,7 +10322,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Location(loca
 // 示例值：32494854035302
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) SocialSecurityNumber(socialSecurityNumber string) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.socialSecurityNumber = socialSecurityNumber
-	builder.socialSecurityNumberFlag = true
+	builder.socialSecurityNumberSet = true
 	return builder
 }
 
@@ -10327,7 +10331,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) SocialSecurit
 // 示例值：24835946402142
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) ProvidentFundNumber(providentFundNumber string) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.providentFundNumber = providentFundNumber
-	builder.providentFundNumberFlag = true
+	builder.providentFundNumberSet = true
 	return builder
 }
 
@@ -10336,7 +10340,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) ProvidentFund
 // 示例值：
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) EmergencyContacts(emergencyContacts []*EmergencyContact) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.emergencyContacts = emergencyContacts
-	builder.emergencyContactsFlag = true
+	builder.emergencyContactsSet = true
 	return builder
 }
 
@@ -10345,7 +10349,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) EmergencyCont
 // 示例值：
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Dependents(dependents []*Dependent) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.dependents = dependents
-	builder.dependentsFlag = true
+	builder.dependentsSet = true
 	return builder
 }
 
@@ -10354,7 +10358,7 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Dependents(de
 // 示例值：
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) ResidentTaxs(residentTaxs []string) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.residentTaxs = residentTaxs
-	builder.residentTaxsFlag = true
+	builder.residentTaxsSet = true
 	return builder
 }
 
@@ -10363,72 +10367,72 @@ func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) ResidentTaxs(
 // 示例值：buddism
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Religion(religion string) *EmployeePersonalAndSocialRelationshipEntityBuilder {
 	builder.religion = religion
-	builder.religionFlag = true
+	builder.religionSet = true
 	return builder
 }
 
 func (builder *EmployeePersonalAndSocialRelationshipEntityBuilder) Build() *EmployeePersonalAndSocialRelationshipEntity {
 	req := &EmployeePersonalAndSocialRelationshipEntity{}
-	if builder.birthdayFlag {
+	if builder.birthdaySet {
 		req.Birthday = &builder.birthday
 
 	}
-	if builder.ageFlag {
+	if builder.ageSet {
 		req.Age = &builder.age
 
 	}
-	if builder.nationalityFlag {
+	if builder.nationalitySet {
 		req.Nationality = &builder.nationality
 
 	}
-	if builder.nativePlaceFlag {
+	if builder.nativePlaceSet {
 		req.NativePlace = &builder.nativePlace
 
 	}
-	if builder.ethnicityFlag {
+	if builder.ethnicitySet {
 		req.Ethnicity = &builder.ethnicity
 
 	}
-	if builder.maritalStatusFlag {
+	if builder.maritalStatusSet {
 		req.MaritalStatus = &builder.maritalStatus
 
 	}
-	if builder.politicsStatusFlag {
+	if builder.politicsStatusSet {
 		req.PoliticsStatus = &builder.politicsStatus
 
 	}
-	if builder.bankAccountsFlag {
+	if builder.bankAccountsSet {
 		req.BankAccounts = builder.bankAccounts
 	}
-	if builder.certificatesFlag {
+	if builder.certificatesSet {
 		req.Certificates = builder.certificates
 	}
-	if builder.registeredResidenceTypeFlag {
+	if builder.registeredResidenceTypeSet {
 		req.RegisteredResidenceType = &builder.registeredResidenceType
 
 	}
-	if builder.locationFlag {
+	if builder.locationSet {
 		req.Location = &builder.location
 
 	}
-	if builder.socialSecurityNumberFlag {
+	if builder.socialSecurityNumberSet {
 		req.SocialSecurityNumber = &builder.socialSecurityNumber
 
 	}
-	if builder.providentFundNumberFlag {
+	if builder.providentFundNumberSet {
 		req.ProvidentFundNumber = &builder.providentFundNumber
 
 	}
-	if builder.emergencyContactsFlag {
+	if builder.emergencyContactsSet {
 		req.EmergencyContacts = builder.emergencyContacts
 	}
-	if builder.dependentsFlag {
+	if builder.dependentsSet {
 		req.Dependents = builder.dependents
 	}
-	if builder.residentTaxsFlag {
+	if builder.residentTaxsSet {
 		req.ResidentTaxs = builder.residentTaxs
 	}
-	if builder.religionFlag {
+	if builder.religionSet {
 		req.Religion = &builder.religion
 
 	}
@@ -10442,11 +10446,11 @@ type EmployeeStatusFilter struct {
 }
 
 type EmployeeStatusFilterBuilder struct {
-	staffStatus     int // 用户雇员状态
-	staffStatusFlag bool
+	staffStatus    int // 用户雇员状态
+	staffStatusSet bool
 
-	activeStatus     int // 用户活跃状态
-	activeStatusFlag bool
+	activeStatus    int // 用户活跃状态
+	activeStatusSet bool
 }
 
 func NewEmployeeStatusFilterBuilder() *EmployeeStatusFilterBuilder {
@@ -10459,7 +10463,7 @@ func NewEmployeeStatusFilterBuilder() *EmployeeStatusFilterBuilder {
 // 示例值：
 func (builder *EmployeeStatusFilterBuilder) StaffStatus(staffStatus int) *EmployeeStatusFilterBuilder {
 	builder.staffStatus = staffStatus
-	builder.staffStatusFlag = true
+	builder.staffStatusSet = true
 	return builder
 }
 
@@ -10468,17 +10472,17 @@ func (builder *EmployeeStatusFilterBuilder) StaffStatus(staffStatus int) *Employ
 // 示例值：
 func (builder *EmployeeStatusFilterBuilder) ActiveStatus(activeStatus int) *EmployeeStatusFilterBuilder {
 	builder.activeStatus = activeStatus
-	builder.activeStatusFlag = true
+	builder.activeStatusSet = true
 	return builder
 }
 
 func (builder *EmployeeStatusFilterBuilder) Build() *EmployeeStatusFilter {
 	req := &EmployeeStatusFilter{}
-	if builder.staffStatusFlag {
+	if builder.staffStatusSet {
 		req.StaffStatus = &builder.staffStatus
 
 	}
-	if builder.activeStatusFlag {
+	if builder.activeStatusSet {
 		req.ActiveStatus = &builder.activeStatus
 
 	}
@@ -10498,20 +10502,20 @@ type EmployeeTraceInfo struct {
 }
 
 type EmployeeTraceInfoBuilder struct {
-	source     int // 创建来源
-	sourceFlag bool
+	source    int // 创建来源
+	sourceSet bool
 
-	isInvite     bool // 是否邀请
-	isInviteFlag bool
+	isInvite    bool // 是否邀请
+	isInviteSet bool
 
-	inviterId     string // 邀请人id
-	inviterIdFlag bool
+	inviterId    string // 邀请人id
+	inviterIdSet bool
 
-	inviteOption     *InviteOption // 邀请
-	inviteOptionFlag bool
+	inviteOption    *InviteOption // 邀请
+	inviteOptionSet bool
 
-	clientIp     string // 用户客户端的IP */
-	clientIpFlag bool
+	clientIp    string // 用户客户端的IP */
+	clientIpSet bool
 }
 
 func NewEmployeeTraceInfoBuilder() *EmployeeTraceInfoBuilder {
@@ -10524,7 +10528,7 @@ func NewEmployeeTraceInfoBuilder() *EmployeeTraceInfoBuilder {
 // 示例值：
 func (builder *EmployeeTraceInfoBuilder) Source(source int) *EmployeeTraceInfoBuilder {
 	builder.source = source
-	builder.sourceFlag = true
+	builder.sourceSet = true
 	return builder
 }
 
@@ -10533,7 +10537,7 @@ func (builder *EmployeeTraceInfoBuilder) Source(source int) *EmployeeTraceInfoBu
 // 示例值：
 func (builder *EmployeeTraceInfoBuilder) IsInvite(isInvite bool) *EmployeeTraceInfoBuilder {
 	builder.isInvite = isInvite
-	builder.isInviteFlag = true
+	builder.isInviteSet = true
 	return builder
 }
 
@@ -10542,7 +10546,7 @@ func (builder *EmployeeTraceInfoBuilder) IsInvite(isInvite bool) *EmployeeTraceI
 // 示例值：1
 func (builder *EmployeeTraceInfoBuilder) InviterId(inviterId string) *EmployeeTraceInfoBuilder {
 	builder.inviterId = inviterId
-	builder.inviterIdFlag = true
+	builder.inviterIdSet = true
 	return builder
 }
 
@@ -10551,7 +10555,7 @@ func (builder *EmployeeTraceInfoBuilder) InviterId(inviterId string) *EmployeeTr
 // 示例值：
 func (builder *EmployeeTraceInfoBuilder) InviteOption(inviteOption *InviteOption) *EmployeeTraceInfoBuilder {
 	builder.inviteOption = inviteOption
-	builder.inviteOptionFlag = true
+	builder.inviteOptionSet = true
 	return builder
 }
 
@@ -10560,28 +10564,28 @@ func (builder *EmployeeTraceInfoBuilder) InviteOption(inviteOption *InviteOption
 // 示例值：1.1.1.1
 func (builder *EmployeeTraceInfoBuilder) ClientIp(clientIp string) *EmployeeTraceInfoBuilder {
 	builder.clientIp = clientIp
-	builder.clientIpFlag = true
+	builder.clientIpSet = true
 	return builder
 }
 
 func (builder *EmployeeTraceInfoBuilder) Build() *EmployeeTraceInfo {
 	req := &EmployeeTraceInfo{}
-	if builder.sourceFlag {
+	if builder.sourceSet {
 		req.Source = &builder.source
 
 	}
-	if builder.isInviteFlag {
+	if builder.isInviteSet {
 		req.IsInvite = &builder.isInvite
 
 	}
-	if builder.inviterIdFlag {
+	if builder.inviterIdSet {
 		req.InviterId = &builder.inviterId
 
 	}
-	if builder.inviteOptionFlag {
+	if builder.inviteOptionSet {
 		req.InviteOption = builder.inviteOption
 	}
-	if builder.clientIpFlag {
+	if builder.clientIpSet {
 		req.ClientIp = &builder.clientIp
 
 	}
@@ -10603,23 +10607,23 @@ type EmployeeTypeEnum struct {
 }
 
 type EmployeeTypeEnumBuilder struct {
-	enumId     string // 枚举id
-	enumIdFlag bool
+	enumId    string // 枚举id
+	enumIdSet bool
 
-	content     *I18nText // i18n文本
-	contentFlag bool
+	content    *I18nText // i18n文本
+	contentSet bool
 
-	enumValue     string // 枚举值
-	enumValueFlag bool
+	enumValue    string // 枚举值
+	enumValueSet bool
 
-	enumType     string // 类型
-	enumTypeFlag bool
+	enumType    string // 类型
+	enumTypeSet bool
 
-	enumStatus     string // 状态
-	enumStatusFlag bool
+	enumStatus    string // 状态
+	enumStatusSet bool
 
-	isDefault     bool // 是否默认值
-	isDefaultFlag bool
+	isDefault    bool // 是否默认值
+	isDefaultSet bool
 }
 
 func NewEmployeeTypeEnumBuilder() *EmployeeTypeEnumBuilder {
@@ -10632,7 +10636,7 @@ func NewEmployeeTypeEnumBuilder() *EmployeeTypeEnumBuilder {
 // 示例值：asdasd1234123
 func (builder *EmployeeTypeEnumBuilder) EnumId(enumId string) *EmployeeTypeEnumBuilder {
 	builder.enumId = enumId
-	builder.enumIdFlag = true
+	builder.enumIdSet = true
 	return builder
 }
 
@@ -10641,7 +10645,7 @@ func (builder *EmployeeTypeEnumBuilder) EnumId(enumId string) *EmployeeTypeEnumB
 // 示例值：
 func (builder *EmployeeTypeEnumBuilder) Content(content *I18nText) *EmployeeTypeEnumBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -10650,7 +10654,7 @@ func (builder *EmployeeTypeEnumBuilder) Content(content *I18nText) *EmployeeType
 // 示例值：1
 func (builder *EmployeeTypeEnumBuilder) EnumValue(enumValue string) *EmployeeTypeEnumBuilder {
 	builder.enumValue = enumValue
-	builder.enumValueFlag = true
+	builder.enumValueSet = true
 	return builder
 }
 
@@ -10659,7 +10663,7 @@ func (builder *EmployeeTypeEnumBuilder) EnumValue(enumValue string) *EmployeeTyp
 // 示例值：
 func (builder *EmployeeTypeEnumBuilder) EnumType(enumType string) *EmployeeTypeEnumBuilder {
 	builder.enumType = enumType
-	builder.enumTypeFlag = true
+	builder.enumTypeSet = true
 	return builder
 }
 
@@ -10668,7 +10672,7 @@ func (builder *EmployeeTypeEnumBuilder) EnumType(enumType string) *EmployeeTypeE
 // 示例值：
 func (builder *EmployeeTypeEnumBuilder) EnumStatus(enumStatus string) *EmployeeTypeEnumBuilder {
 	builder.enumStatus = enumStatus
-	builder.enumStatusFlag = true
+	builder.enumStatusSet = true
 	return builder
 }
 
@@ -10677,32 +10681,32 @@ func (builder *EmployeeTypeEnumBuilder) EnumStatus(enumStatus string) *EmployeeT
 // 示例值：
 func (builder *EmployeeTypeEnumBuilder) IsDefault(isDefault bool) *EmployeeTypeEnumBuilder {
 	builder.isDefault = isDefault
-	builder.isDefaultFlag = true
+	builder.isDefaultSet = true
 	return builder
 }
 
 func (builder *EmployeeTypeEnumBuilder) Build() *EmployeeTypeEnum {
 	req := &EmployeeTypeEnum{}
-	if builder.enumIdFlag {
+	if builder.enumIdSet {
 		req.EnumId = &builder.enumId
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = builder.content
 	}
-	if builder.enumValueFlag {
+	if builder.enumValueSet {
 		req.EnumValue = &builder.enumValue
 
 	}
-	if builder.enumTypeFlag {
+	if builder.enumTypeSet {
 		req.EnumType = &builder.enumType
 
 	}
-	if builder.enumStatusFlag {
+	if builder.enumStatusSet {
 		req.EnumStatus = &builder.enumStatus
 
 	}
-	if builder.isDefaultFlag {
+	if builder.isDefaultSet {
 		req.IsDefault = &builder.isDefault
 
 	}
@@ -10774,98 +10778,98 @@ type EmployeeWorkEntity struct {
 }
 
 type EmployeeWorkEntityBuilder struct {
-	workCountryOrRegion     string // 工作地国家/地区
-	workCountryOrRegionFlag bool
+	workCountryOrRegion    string // 工作地国家/地区
+	workCountryOrRegionSet bool
 
-	workPlace     *Place // 地点
-	workPlaceFlag bool
+	workPlace    *Place // 地点
+	workPlaceSet bool
 
-	workStation     *I18nText // i18n文本
-	workStationFlag bool
+	workStation    *I18nText // i18n文本
+	workStationSet bool
 
-	jobNumber     string // 工号
-	jobNumberFlag bool
+	jobNumber    string // 工号
+	jobNumberSet bool
 
-	extensionNumber     string // 分机号
-	extensionNumberFlag bool
+	extensionNumber    string // 分机号
+	extensionNumberSet bool
 
-	joinDate     string // 入职日期 2007-03-20
-	joinDateFlag bool
+	joinDate    string // 入职日期 2007-03-20
+	joinDateSet bool
 
-	employmentType     int // 员工类型
-	employmentTypeFlag bool
+	employmentType    int // 员工类型
+	employmentTypeSet bool
 
-	staffStatus     int // 员工人事状态
-	staffStatusFlag bool
+	staffStatus    int // 员工人事状态
+	staffStatusSet bool
 
-	positions     []*Position // 岗位信息
-	positionsFlag bool
+	positions    []*Position // 岗位信息
+	positionsSet bool
 
-	jobTitle     *JobTitle // 职务
-	jobTitleFlag bool
+	jobTitle    *JobTitle // 职务
+	jobTitleSet bool
 
-	jobLevel     *JobLevel // 职级
-	jobLevelFlag bool
+	jobLevel    *JobLevel // 职级
+	jobLevelSet bool
 
-	jobFamily     *JobFamily // 序列
-	jobFamilyFlag bool
+	jobFamily    *JobFamily // 序列
+	jobFamilySet bool
 
-	firstWorkDate     string // 首次参加工作日期 2007-03-20
-	firstWorkDateFlag bool
+	firstWorkDate    string // 首次参加工作日期 2007-03-20
+	firstWorkDateSet bool
 
-	firstJoinDate     string // 首次进入公司日期 2007-03-20
-	firstJoinDateFlag bool
+	firstJoinDate    string // 首次进入公司日期 2007-03-20
+	firstJoinDateSet bool
 
-	probationPeriod     string // 试用期 （月）
-	probationPeriodFlag bool
+	probationPeriod    string // 试用期 （月）
+	probationPeriodSet bool
 
-	regularizationDate     string // 转正日期 2007-03-20
-	regularizationDateFlag bool
+	regularizationDate    string // 转正日期 2007-03-20
+	regularizationDateSet bool
 
-	applicationLable     string // 转正申请
-	applicationLableFlag bool
+	applicationLable    string // 转正申请
+	applicationLableSet bool
 
-	convertStatus     string // 转正状态
-	convertStatusFlag bool
+	convertStatus    string // 转正状态
+	convertStatusSet bool
 
-	contractSubject     *Company // 公司
-	contractSubjectFlag bool
+	contractSubject    *Company // 公司
+	contractSubjectSet bool
 
-	contractType     string // 合同类型
-	contractTypeFlag bool
+	contractType    string // 合同类型
+	contractTypeSet bool
 
-	contractStartDate     string // 合同开始日期 2007-03-20
-	contractStartDateFlag bool
+	contractStartDate    string // 合同开始日期 2007-03-20
+	contractStartDateSet bool
 
-	contractExpirationDate     string // 合同到期日期 2007-03-20
-	contractExpirationDateFlag bool
+	contractExpirationDate    string // 合同到期日期 2007-03-20
+	contractExpirationDateSet bool
 
-	laborContractSigningTimes     string // 劳动合同签订次数
-	laborContractSigningTimesFlag bool
+	laborContractSigningTimes    string // 劳动合同签订次数
+	laborContractSigningTimesSet bool
 
-	resignDate     string // 离职日期 2007-03-20
-	resignDateFlag bool
+	resignDate    string // 离职日期 2007-03-20
+	resignDateSet bool
 
-	resignReason     string // 离职原因
-	resignReasonFlag bool
+	resignReason    string // 离职原因
+	resignReasonSet bool
 
-	resignRemark     string // 离职备注
-	resignRemarkFlag bool
+	resignRemark    string // 离职备注
+	resignRemarkSet bool
 
-	resignType     string // 离职类型
-	resignTypeFlag bool
+	resignType    string // 离职类型
+	resignTypeSet bool
 
-	cancelledEntryType     string // 取消入职原因
-	cancelledEntryTypeFlag bool
+	cancelledEntryType    string // 取消入职原因
+	cancelledEntryTypeSet bool
 
-	cancelledEntryRemark     string // 取消入职备注
-	cancelledEntryRemarkFlag bool
+	cancelledEntryRemark    string // 取消入职备注
+	cancelledEntryRemarkSet bool
 
-	recruitmentType     string // 招聘类型
-	recruitmentTypeFlag bool
+	recruitmentType    string // 招聘类型
+	recruitmentTypeSet bool
 
-	seniorityDate     string // 司龄起算日期 格式为2007-05-20
-	seniorityDateFlag bool
+	seniorityDate    string // 司龄起算日期 格式为2007-05-20
+	seniorityDateSet bool
 }
 
 func NewEmployeeWorkEntityBuilder() *EmployeeWorkEntityBuilder {
@@ -10878,7 +10882,7 @@ func NewEmployeeWorkEntityBuilder() *EmployeeWorkEntityBuilder {
 // 示例值：MDCT00000012
 func (builder *EmployeeWorkEntityBuilder) WorkCountryOrRegion(workCountryOrRegion string) *EmployeeWorkEntityBuilder {
 	builder.workCountryOrRegion = workCountryOrRegion
-	builder.workCountryOrRegionFlag = true
+	builder.workCountryOrRegionSet = true
 	return builder
 }
 
@@ -10887,7 +10891,7 @@ func (builder *EmployeeWorkEntityBuilder) WorkCountryOrRegion(workCountryOrRegio
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) WorkPlace(workPlace *Place) *EmployeeWorkEntityBuilder {
 	builder.workPlace = workPlace
-	builder.workPlaceFlag = true
+	builder.workPlaceSet = true
 	return builder
 }
 
@@ -10896,7 +10900,7 @@ func (builder *EmployeeWorkEntityBuilder) WorkPlace(workPlace *Place) *EmployeeW
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) WorkStation(workStation *I18nText) *EmployeeWorkEntityBuilder {
 	builder.workStation = workStation
-	builder.workStationFlag = true
+	builder.workStationSet = true
 	return builder
 }
 
@@ -10905,7 +10909,7 @@ func (builder *EmployeeWorkEntityBuilder) WorkStation(workStation *I18nText) *Em
 // 示例值：2845435
 func (builder *EmployeeWorkEntityBuilder) JobNumber(jobNumber string) *EmployeeWorkEntityBuilder {
 	builder.jobNumber = jobNumber
-	builder.jobNumberFlag = true
+	builder.jobNumberSet = true
 	return builder
 }
 
@@ -10914,7 +10918,7 @@ func (builder *EmployeeWorkEntityBuilder) JobNumber(jobNumber string) *EmployeeW
 // 示例值：2845435
 func (builder *EmployeeWorkEntityBuilder) ExtensionNumber(extensionNumber string) *EmployeeWorkEntityBuilder {
 	builder.extensionNumber = extensionNumber
-	builder.extensionNumberFlag = true
+	builder.extensionNumberSet = true
 	return builder
 }
 
@@ -10923,7 +10927,7 @@ func (builder *EmployeeWorkEntityBuilder) ExtensionNumber(extensionNumber string
 // 示例值：2007-03-20
 func (builder *EmployeeWorkEntityBuilder) JoinDate(joinDate string) *EmployeeWorkEntityBuilder {
 	builder.joinDate = joinDate
-	builder.joinDateFlag = true
+	builder.joinDateSet = true
 	return builder
 }
 
@@ -10932,7 +10936,7 @@ func (builder *EmployeeWorkEntityBuilder) JoinDate(joinDate string) *EmployeeWor
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) EmploymentType(employmentType int) *EmployeeWorkEntityBuilder {
 	builder.employmentType = employmentType
-	builder.employmentTypeFlag = true
+	builder.employmentTypeSet = true
 	return builder
 }
 
@@ -10941,7 +10945,7 @@ func (builder *EmployeeWorkEntityBuilder) EmploymentType(employmentType int) *Em
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) StaffStatus(staffStatus int) *EmployeeWorkEntityBuilder {
 	builder.staffStatus = staffStatus
-	builder.staffStatusFlag = true
+	builder.staffStatusSet = true
 	return builder
 }
 
@@ -10950,7 +10954,7 @@ func (builder *EmployeeWorkEntityBuilder) StaffStatus(staffStatus int) *Employee
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) Positions(positions []*Position) *EmployeeWorkEntityBuilder {
 	builder.positions = positions
-	builder.positionsFlag = true
+	builder.positionsSet = true
 	return builder
 }
 
@@ -10959,7 +10963,7 @@ func (builder *EmployeeWorkEntityBuilder) Positions(positions []*Position) *Empl
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) JobTitle(jobTitle *JobTitle) *EmployeeWorkEntityBuilder {
 	builder.jobTitle = jobTitle
-	builder.jobTitleFlag = true
+	builder.jobTitleSet = true
 	return builder
 }
 
@@ -10968,7 +10972,7 @@ func (builder *EmployeeWorkEntityBuilder) JobTitle(jobTitle *JobTitle) *Employee
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) JobLevel(jobLevel *JobLevel) *EmployeeWorkEntityBuilder {
 	builder.jobLevel = jobLevel
-	builder.jobLevelFlag = true
+	builder.jobLevelSet = true
 	return builder
 }
 
@@ -10977,7 +10981,7 @@ func (builder *EmployeeWorkEntityBuilder) JobLevel(jobLevel *JobLevel) *Employee
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) JobFamily(jobFamily *JobFamily) *EmployeeWorkEntityBuilder {
 	builder.jobFamily = jobFamily
-	builder.jobFamilyFlag = true
+	builder.jobFamilySet = true
 	return builder
 }
 
@@ -10986,7 +10990,7 @@ func (builder *EmployeeWorkEntityBuilder) JobFamily(jobFamily *JobFamily) *Emplo
 // 示例值：2022-01-01
 func (builder *EmployeeWorkEntityBuilder) FirstWorkDate(firstWorkDate string) *EmployeeWorkEntityBuilder {
 	builder.firstWorkDate = firstWorkDate
-	builder.firstWorkDateFlag = true
+	builder.firstWorkDateSet = true
 	return builder
 }
 
@@ -10995,7 +10999,7 @@ func (builder *EmployeeWorkEntityBuilder) FirstWorkDate(firstWorkDate string) *E
 // 示例值：2022-01-01
 func (builder *EmployeeWorkEntityBuilder) FirstJoinDate(firstJoinDate string) *EmployeeWorkEntityBuilder {
 	builder.firstJoinDate = firstJoinDate
-	builder.firstJoinDateFlag = true
+	builder.firstJoinDateSet = true
 	return builder
 }
 
@@ -11004,7 +11008,7 @@ func (builder *EmployeeWorkEntityBuilder) FirstJoinDate(firstJoinDate string) *E
 // 示例值：1
 func (builder *EmployeeWorkEntityBuilder) ProbationPeriod(probationPeriod string) *EmployeeWorkEntityBuilder {
 	builder.probationPeriod = probationPeriod
-	builder.probationPeriodFlag = true
+	builder.probationPeriodSet = true
 	return builder
 }
 
@@ -11013,7 +11017,7 @@ func (builder *EmployeeWorkEntityBuilder) ProbationPeriod(probationPeriod string
 // 示例值：2022-01-01
 func (builder *EmployeeWorkEntityBuilder) RegularizationDate(regularizationDate string) *EmployeeWorkEntityBuilder {
 	builder.regularizationDate = regularizationDate
-	builder.regularizationDateFlag = true
+	builder.regularizationDateSet = true
 	return builder
 }
 
@@ -11022,7 +11026,7 @@ func (builder *EmployeeWorkEntityBuilder) RegularizationDate(regularizationDate 
 // 示例值：申请转正
 func (builder *EmployeeWorkEntityBuilder) ApplicationLable(applicationLable string) *EmployeeWorkEntityBuilder {
 	builder.applicationLable = applicationLable
-	builder.applicationLableFlag = true
+	builder.applicationLableSet = true
 	return builder
 }
 
@@ -11031,7 +11035,7 @@ func (builder *EmployeeWorkEntityBuilder) ApplicationLable(applicationLable stri
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) ConvertStatus(convertStatus string) *EmployeeWorkEntityBuilder {
 	builder.convertStatus = convertStatus
-	builder.convertStatusFlag = true
+	builder.convertStatusSet = true
 	return builder
 }
 
@@ -11040,7 +11044,7 @@ func (builder *EmployeeWorkEntityBuilder) ConvertStatus(convertStatus string) *E
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) ContractSubject(contractSubject *Company) *EmployeeWorkEntityBuilder {
 	builder.contractSubject = contractSubject
-	builder.contractSubjectFlag = true
+	builder.contractSubjectSet = true
 	return builder
 }
 
@@ -11049,7 +11053,7 @@ func (builder *EmployeeWorkEntityBuilder) ContractSubject(contractSubject *Compa
 // 示例值：1
 func (builder *EmployeeWorkEntityBuilder) ContractType(contractType string) *EmployeeWorkEntityBuilder {
 	builder.contractType = contractType
-	builder.contractTypeFlag = true
+	builder.contractTypeSet = true
 	return builder
 }
 
@@ -11058,7 +11062,7 @@ func (builder *EmployeeWorkEntityBuilder) ContractType(contractType string) *Emp
 // 示例值：2007-03-20
 func (builder *EmployeeWorkEntityBuilder) ContractStartDate(contractStartDate string) *EmployeeWorkEntityBuilder {
 	builder.contractStartDate = contractStartDate
-	builder.contractStartDateFlag = true
+	builder.contractStartDateSet = true
 	return builder
 }
 
@@ -11067,7 +11071,7 @@ func (builder *EmployeeWorkEntityBuilder) ContractStartDate(contractStartDate st
 // 示例值：2007-03-20
 func (builder *EmployeeWorkEntityBuilder) ContractExpirationDate(contractExpirationDate string) *EmployeeWorkEntityBuilder {
 	builder.contractExpirationDate = contractExpirationDate
-	builder.contractExpirationDateFlag = true
+	builder.contractExpirationDateSet = true
 	return builder
 }
 
@@ -11076,7 +11080,7 @@ func (builder *EmployeeWorkEntityBuilder) ContractExpirationDate(contractExpirat
 // 示例值：1
 func (builder *EmployeeWorkEntityBuilder) LaborContractSigningTimes(laborContractSigningTimes string) *EmployeeWorkEntityBuilder {
 	builder.laborContractSigningTimes = laborContractSigningTimes
-	builder.laborContractSigningTimesFlag = true
+	builder.laborContractSigningTimesSet = true
 	return builder
 }
 
@@ -11085,7 +11089,7 @@ func (builder *EmployeeWorkEntityBuilder) LaborContractSigningTimes(laborContrac
 // 示例值：2007-03-20
 func (builder *EmployeeWorkEntityBuilder) ResignDate(resignDate string) *EmployeeWorkEntityBuilder {
 	builder.resignDate = resignDate
-	builder.resignDateFlag = true
+	builder.resignDateSet = true
 	return builder
 }
 
@@ -11094,7 +11098,7 @@ func (builder *EmployeeWorkEntityBuilder) ResignDate(resignDate string) *Employe
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) ResignReason(resignReason string) *EmployeeWorkEntityBuilder {
 	builder.resignReason = resignReason
-	builder.resignReasonFlag = true
+	builder.resignReasonSet = true
 	return builder
 }
 
@@ -11103,7 +11107,7 @@ func (builder *EmployeeWorkEntityBuilder) ResignReason(resignReason string) *Emp
 // 示例值：个人原因
 func (builder *EmployeeWorkEntityBuilder) ResignRemark(resignRemark string) *EmployeeWorkEntityBuilder {
 	builder.resignRemark = resignRemark
-	builder.resignRemarkFlag = true
+	builder.resignRemarkSet = true
 	return builder
 }
 
@@ -11112,7 +11116,7 @@ func (builder *EmployeeWorkEntityBuilder) ResignRemark(resignRemark string) *Emp
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) ResignType(resignType string) *EmployeeWorkEntityBuilder {
 	builder.resignType = resignType
-	builder.resignTypeFlag = true
+	builder.resignTypeSet = true
 	return builder
 }
 
@@ -11121,7 +11125,7 @@ func (builder *EmployeeWorkEntityBuilder) ResignType(resignType string) *Employe
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) CancelledEntryType(cancelledEntryType string) *EmployeeWorkEntityBuilder {
 	builder.cancelledEntryType = cancelledEntryType
-	builder.cancelledEntryTypeFlag = true
+	builder.cancelledEntryTypeSet = true
 	return builder
 }
 
@@ -11130,7 +11134,7 @@ func (builder *EmployeeWorkEntityBuilder) CancelledEntryType(cancelledEntryType 
 // 示例值：个人原因
 func (builder *EmployeeWorkEntityBuilder) CancelledEntryRemark(cancelledEntryRemark string) *EmployeeWorkEntityBuilder {
 	builder.cancelledEntryRemark = cancelledEntryRemark
-	builder.cancelledEntryRemarkFlag = true
+	builder.cancelledEntryRemarkSet = true
 	return builder
 }
 
@@ -11139,7 +11143,7 @@ func (builder *EmployeeWorkEntityBuilder) CancelledEntryRemark(cancelledEntryRem
 // 示例值：1
 func (builder *EmployeeWorkEntityBuilder) RecruitmentType(recruitmentType string) *EmployeeWorkEntityBuilder {
 	builder.recruitmentType = recruitmentType
-	builder.recruitmentTypeFlag = true
+	builder.recruitmentTypeSet = true
 	return builder
 }
 
@@ -11148,126 +11152,126 @@ func (builder *EmployeeWorkEntityBuilder) RecruitmentType(recruitmentType string
 // 示例值：1
 func (builder *EmployeeWorkEntityBuilder) SeniorityDate(seniorityDate string) *EmployeeWorkEntityBuilder {
 	builder.seniorityDate = seniorityDate
-	builder.seniorityDateFlag = true
+	builder.seniorityDateSet = true
 	return builder
 }
 
 func (builder *EmployeeWorkEntityBuilder) Build() *EmployeeWorkEntity {
 	req := &EmployeeWorkEntity{}
-	if builder.workCountryOrRegionFlag {
+	if builder.workCountryOrRegionSet {
 		req.WorkCountryOrRegion = &builder.workCountryOrRegion
 
 	}
-	if builder.workPlaceFlag {
+	if builder.workPlaceSet {
 		req.WorkPlace = builder.workPlace
 	}
-	if builder.workStationFlag {
+	if builder.workStationSet {
 		req.WorkStation = builder.workStation
 	}
-	if builder.jobNumberFlag {
+	if builder.jobNumberSet {
 		req.JobNumber = &builder.jobNumber
 
 	}
-	if builder.extensionNumberFlag {
+	if builder.extensionNumberSet {
 		req.ExtensionNumber = &builder.extensionNumber
 
 	}
-	if builder.joinDateFlag {
+	if builder.joinDateSet {
 		req.JoinDate = &builder.joinDate
 
 	}
-	if builder.employmentTypeFlag {
+	if builder.employmentTypeSet {
 		req.EmploymentType = &builder.employmentType
 
 	}
-	if builder.staffStatusFlag {
+	if builder.staffStatusSet {
 		req.StaffStatus = &builder.staffStatus
 
 	}
-	if builder.positionsFlag {
+	if builder.positionsSet {
 		req.Positions = builder.positions
 	}
-	if builder.jobTitleFlag {
+	if builder.jobTitleSet {
 		req.JobTitle = builder.jobTitle
 	}
-	if builder.jobLevelFlag {
+	if builder.jobLevelSet {
 		req.JobLevel = builder.jobLevel
 	}
-	if builder.jobFamilyFlag {
+	if builder.jobFamilySet {
 		req.JobFamily = builder.jobFamily
 	}
-	if builder.firstWorkDateFlag {
+	if builder.firstWorkDateSet {
 		req.FirstWorkDate = &builder.firstWorkDate
 
 	}
-	if builder.firstJoinDateFlag {
+	if builder.firstJoinDateSet {
 		req.FirstJoinDate = &builder.firstJoinDate
 
 	}
-	if builder.probationPeriodFlag {
+	if builder.probationPeriodSet {
 		req.ProbationPeriod = &builder.probationPeriod
 
 	}
-	if builder.regularizationDateFlag {
+	if builder.regularizationDateSet {
 		req.RegularizationDate = &builder.regularizationDate
 
 	}
-	if builder.applicationLableFlag {
+	if builder.applicationLableSet {
 		req.ApplicationLable = &builder.applicationLable
 
 	}
-	if builder.convertStatusFlag {
+	if builder.convertStatusSet {
 		req.ConvertStatus = &builder.convertStatus
 
 	}
-	if builder.contractSubjectFlag {
+	if builder.contractSubjectSet {
 		req.ContractSubject = builder.contractSubject
 	}
-	if builder.contractTypeFlag {
+	if builder.contractTypeSet {
 		req.ContractType = &builder.contractType
 
 	}
-	if builder.contractStartDateFlag {
+	if builder.contractStartDateSet {
 		req.ContractStartDate = &builder.contractStartDate
 
 	}
-	if builder.contractExpirationDateFlag {
+	if builder.contractExpirationDateSet {
 		req.ContractExpirationDate = &builder.contractExpirationDate
 
 	}
-	if builder.laborContractSigningTimesFlag {
+	if builder.laborContractSigningTimesSet {
 		req.LaborContractSigningTimes = &builder.laborContractSigningTimes
 
 	}
-	if builder.resignDateFlag {
+	if builder.resignDateSet {
 		req.ResignDate = &builder.resignDate
 
 	}
-	if builder.resignReasonFlag {
+	if builder.resignReasonSet {
 		req.ResignReason = &builder.resignReason
 
 	}
-	if builder.resignRemarkFlag {
+	if builder.resignRemarkSet {
 		req.ResignRemark = &builder.resignRemark
 
 	}
-	if builder.resignTypeFlag {
+	if builder.resignTypeSet {
 		req.ResignType = &builder.resignType
 
 	}
-	if builder.cancelledEntryTypeFlag {
+	if builder.cancelledEntryTypeSet {
 		req.CancelledEntryType = &builder.cancelledEntryType
 
 	}
-	if builder.cancelledEntryRemarkFlag {
+	if builder.cancelledEntryRemarkSet {
 		req.CancelledEntryRemark = &builder.cancelledEntryRemark
 
 	}
-	if builder.recruitmentTypeFlag {
+	if builder.recruitmentTypeSet {
 		req.RecruitmentType = &builder.recruitmentType
 
 	}
-	if builder.seniorityDateFlag {
+	if builder.seniorityDateSet {
 		req.SeniorityDate = &builder.seniorityDate
 
 	}
@@ -11281,11 +11285,11 @@ type EntityInfo struct {
 }
 
 type EntityInfoBuilder struct {
-	id     string // 实体ID
-	idFlag bool
+	id    string // 实体ID
+	idSet bool
 
-	entityType     int // 实体类型
-	entityTypeFlag bool
+	entityType    int // 实体类型
+	entityTypeSet bool
 }
 
 func NewEntityInfoBuilder() *EntityInfoBuilder {
@@ -11298,7 +11302,7 @@ func NewEntityInfoBuilder() *EntityInfoBuilder {
 // 示例值：7259644494420836371
 func (builder *EntityInfoBuilder) Id(id string) *EntityInfoBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -11307,17 +11311,17 @@ func (builder *EntityInfoBuilder) Id(id string) *EntityInfoBuilder {
 // 示例值：1
 func (builder *EntityInfoBuilder) EntityType(entityType int) *EntityInfoBuilder {
 	builder.entityType = entityType
-	builder.entityTypeFlag = true
+	builder.entityTypeSet = true
 	return builder
 }
 
 func (builder *EntityInfoBuilder) Build() *EntityInfo {
 	req := &EntityInfo{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.entityTypeFlag {
+	if builder.entityTypeSet {
 		req.EntityType = &builder.entityType
 
 	}
@@ -11336,16 +11340,16 @@ type EnumMeta struct {
 
 type EnumMetaBuilder struct {
 	type_    string // 枚举类型
-	typeFlag bool
+	type_Set bool
 
-	optionIds     []string // 选项id有序列表
-	optionIdsFlag bool
+	optionIds    []string // 选项id有序列表
+	optionIdsSet bool
 
-	optionValues     map[string]*EnumOption // 选项值
-	optionValuesFlag bool
+	optionValues    map[string]*EnumOption // 选项值
+	optionValuesSet bool
 
-	defaultOptionId     string // 默认选项
-	defaultOptionIdFlag bool
+	defaultOptionId    string // 默认选项
+	defaultOptionIdSet bool
 }
 
 func NewEnumMetaBuilder() *EnumMetaBuilder {
@@ -11358,7 +11362,7 @@ func NewEnumMetaBuilder() *EnumMetaBuilder {
 // 示例值：
 func (builder *EnumMetaBuilder) Type(type_ string) *EnumMetaBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -11367,7 +11371,7 @@ func (builder *EnumMetaBuilder) Type(type_ string) *EnumMetaBuilder {
 // 示例值：
 func (builder *EnumMetaBuilder) OptionIds(optionIds []string) *EnumMetaBuilder {
 	builder.optionIds = optionIds
-	builder.optionIdsFlag = true
+	builder.optionIdsSet = true
 	return builder
 }
 
@@ -11376,7 +11380,7 @@ func (builder *EnumMetaBuilder) OptionIds(optionIds []string) *EnumMetaBuilder {
 // 示例值：
 func (builder *EnumMetaBuilder) OptionValues(optionValues map[string]*EnumOption) *EnumMetaBuilder {
 	builder.optionValues = optionValues
-	builder.optionValuesFlag = true
+	builder.optionValuesSet = true
 	return builder
 }
 
@@ -11385,23 +11389,23 @@ func (builder *EnumMetaBuilder) OptionValues(optionValues map[string]*EnumOption
 // 示例值：C-123123123
 func (builder *EnumMetaBuilder) DefaultOptionId(defaultOptionId string) *EnumMetaBuilder {
 	builder.defaultOptionId = defaultOptionId
-	builder.defaultOptionIdFlag = true
+	builder.defaultOptionIdSet = true
 	return builder
 }
 
 func (builder *EnumMetaBuilder) Build() *EnumMeta {
 	req := &EnumMeta{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.optionIdsFlag {
+	if builder.optionIdsSet {
 		req.OptionIds = builder.optionIds
 	}
-	if builder.optionValuesFlag {
+	if builder.optionValuesSet {
 		req.OptionValues = builder.optionValues
 	}
-	if builder.defaultOptionIdFlag {
+	if builder.defaultOptionIdSet {
 		req.DefaultOptionId = &builder.defaultOptionId
 
 	}
@@ -11423,23 +11427,23 @@ type EnumOption struct {
 }
 
 type EnumOptionBuilder struct {
-	id     string // 选项ID
-	idFlag bool
+	id    string // 选项ID
+	idSet bool
 
-	externalId     string // 选项自定义ID
-	externalIdFlag bool
+	externalId    string // 选项自定义ID
+	externalIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	value     *I18nText // i18n文本
-	valueFlag bool
+	value    *I18nText // i18n文本
+	valueSet bool
 
-	description     map[string]string // 枚举项国际化描述 仅限people admin兼容使用
-	descriptionFlag bool
+	description    map[string]string // 枚举项国际化描述 仅限people admin兼容使用
+	descriptionSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 }
 
 func NewEnumOptionBuilder() *EnumOptionBuilder {
@@ -11452,7 +11456,7 @@ func NewEnumOptionBuilder() *EnumOptionBuilder {
 // 示例值：123123
 func (builder *EnumOptionBuilder) Id(id string) *EnumOptionBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -11461,7 +11465,7 @@ func (builder *EnumOptionBuilder) Id(id string) *EnumOptionBuilder {
 // 示例值：123123
 func (builder *EnumOptionBuilder) ExternalId(externalId string) *EnumOptionBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
@@ -11470,7 +11474,7 @@ func (builder *EnumOptionBuilder) ExternalId(externalId string) *EnumOptionBuild
 // 示例值：
 func (builder *EnumOptionBuilder) Name(name *I18nText) *EnumOptionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -11479,7 +11483,7 @@ func (builder *EnumOptionBuilder) Name(name *I18nText) *EnumOptionBuilder {
 // 示例值：
 func (builder *EnumOptionBuilder) Value(value *I18nText) *EnumOptionBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
@@ -11488,7 +11492,7 @@ func (builder *EnumOptionBuilder) Value(value *I18nText) *EnumOptionBuilder {
 // 示例值：
 func (builder *EnumOptionBuilder) Description(description map[string]string) *EnumOptionBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -11497,30 +11501,30 @@ func (builder *EnumOptionBuilder) Description(description map[string]string) *En
 // 示例值：
 func (builder *EnumOptionBuilder) IsEnabled(isEnabled bool) *EnumOptionBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
 func (builder *EnumOptionBuilder) Build() *EnumOption {
 	req := &EnumOption{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = builder.value
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
@@ -11536,14 +11540,14 @@ type EnumValue struct {
 }
 
 type EnumValueBuilder struct {
-	enumIds     []string // 选项结果ID
-	enumIdsFlag bool
+	enumIds    []string // 选项结果ID
+	enumIdsSet bool
 
-	enumName     map[string]*OptionValue // 选项结果名称\n没有用到且影响传参数 忽略
-	enumNameFlag bool
+	enumName    map[string]*OptionValue // 选项结果名称\n没有用到且影响传参数 忽略
+	enumNameSet bool
 
-	enumType     string // 选项类型
-	enumTypeFlag bool
+	enumType    string // 选项类型
+	enumTypeSet bool
 }
 
 func NewEnumValueBuilder() *EnumValueBuilder {
@@ -11556,7 +11560,7 @@ func NewEnumValueBuilder() *EnumValueBuilder {
 // 示例值：
 func (builder *EnumValueBuilder) EnumIds(enumIds []string) *EnumValueBuilder {
 	builder.enumIds = enumIds
-	builder.enumIdsFlag = true
+	builder.enumIdsSet = true
 	return builder
 }
 
@@ -11565,7 +11569,7 @@ func (builder *EnumValueBuilder) EnumIds(enumIds []string) *EnumValueBuilder {
 // 示例值：
 func (builder *EnumValueBuilder) EnumName(enumName map[string]*OptionValue) *EnumValueBuilder {
 	builder.enumName = enumName
-	builder.enumNameFlag = true
+	builder.enumNameSet = true
 	return builder
 }
 
@@ -11574,19 +11578,19 @@ func (builder *EnumValueBuilder) EnumName(enumName map[string]*OptionValue) *Enu
 // 示例值：
 func (builder *EnumValueBuilder) EnumType(enumType string) *EnumValueBuilder {
 	builder.enumType = enumType
-	builder.enumTypeFlag = true
+	builder.enumTypeSet = true
 	return builder
 }
 
 func (builder *EnumValueBuilder) Build() *EnumValue {
 	req := &EnumValue{}
-	if builder.enumIdsFlag {
+	if builder.enumIdsSet {
 		req.EnumIds = builder.enumIds
 	}
-	if builder.enumNameFlag {
+	if builder.enumNameSet {
 		req.EnumName = builder.enumName
 	}
-	if builder.enumTypeFlag {
+	if builder.enumTypeSet {
 		req.EnumType = &builder.enumType
 
 	}
@@ -11616,35 +11620,35 @@ type FieldContentEntity struct {
 }
 
 type FieldContentEntityBuilder struct {
-	textValue     *I18nText // i18n文本
-	textValueFlag bool
+	textValue    *I18nText // i18n文本
+	textValueSet bool
 
-	urlValue     *UrlValue // 链接
-	urlValueFlag bool
+	urlValue    *UrlValue // 链接
+	urlValueSet bool
 
-	enumValue     *EnumValue // 枚举
-	enumValueFlag bool
+	enumValue    *EnumValue // 枚举
+	enumValueSet bool
 
-	userValue     *UserValue // 泛化用户类型的内容，接口设计允许实际允许Bot、Mail等非自然人用户，产品限制仅User
-	userValueFlag bool
+	userValue    *UserValue // 泛化用户类型的内容，接口设计允许实际允许Bot、Mail等非自然人用户，产品限制仅User
+	userValueSet bool
 
-	dateTimeValue     string // 毫秒时间戳
-	dateTimeValueFlag bool
+	dateTimeValue    string // 毫秒时间戳
+	dateTimeValueSet bool
 
-	numberValue     string // 数字
-	numberValueFlag bool
+	numberValue    string // 数字
+	numberValueSet bool
 
-	booleanValue     bool // 布尔值
-	booleanValueFlag bool
+	booleanValue    bool // 布尔值
+	booleanValueSet bool
 
-	department     *DepartmentField // 部门字段
-	departmentFlag bool
+	department    *DepartmentField // 部门字段
+	departmentSet bool
 
-	avator     *Image // 图片信息
-	avatorFlag bool
+	avator    *Image // 图片信息
+	avatorSet bool
 
-	fieldType     int // 字段内容类型
-	fieldTypeFlag bool
+	fieldType    int // 字段内容类型
+	fieldTypeSet bool
 }
 
 func NewFieldContentEntityBuilder() *FieldContentEntityBuilder {
@@ -11657,7 +11661,7 @@ func NewFieldContentEntityBuilder() *FieldContentEntityBuilder {
 // 示例值：
 func (builder *FieldContentEntityBuilder) TextValue(textValue *I18nText) *FieldContentEntityBuilder {
 	builder.textValue = textValue
-	builder.textValueFlag = true
+	builder.textValueSet = true
 	return builder
 }
 
@@ -11666,7 +11670,7 @@ func (builder *FieldContentEntityBuilder) TextValue(textValue *I18nText) *FieldC
 // 示例值：
 func (builder *FieldContentEntityBuilder) UrlValue(urlValue *UrlValue) *FieldContentEntityBuilder {
 	builder.urlValue = urlValue
-	builder.urlValueFlag = true
+	builder.urlValueSet = true
 	return builder
 }
 
@@ -11675,7 +11679,7 @@ func (builder *FieldContentEntityBuilder) UrlValue(urlValue *UrlValue) *FieldCon
 // 示例值：
 func (builder *FieldContentEntityBuilder) EnumValue(enumValue *EnumValue) *FieldContentEntityBuilder {
 	builder.enumValue = enumValue
-	builder.enumValueFlag = true
+	builder.enumValueSet = true
 	return builder
 }
 
@@ -11684,7 +11688,7 @@ func (builder *FieldContentEntityBuilder) EnumValue(enumValue *EnumValue) *Field
 // 示例值：
 func (builder *FieldContentEntityBuilder) UserValue(userValue *UserValue) *FieldContentEntityBuilder {
 	builder.userValue = userValue
-	builder.userValueFlag = true
+	builder.userValueSet = true
 	return builder
 }
 
@@ -11693,7 +11697,7 @@ func (builder *FieldContentEntityBuilder) UserValue(userValue *UserValue) *Field
 // 示例值：1
 func (builder *FieldContentEntityBuilder) DateTimeValue(dateTimeValue string) *FieldContentEntityBuilder {
 	builder.dateTimeValue = dateTimeValue
-	builder.dateTimeValueFlag = true
+	builder.dateTimeValueSet = true
 	return builder
 }
 
@@ -11702,7 +11706,7 @@ func (builder *FieldContentEntityBuilder) DateTimeValue(dateTimeValue string) *F
 // 示例值：1
 func (builder *FieldContentEntityBuilder) NumberValue(numberValue string) *FieldContentEntityBuilder {
 	builder.numberValue = numberValue
-	builder.numberValueFlag = true
+	builder.numberValueSet = true
 	return builder
 }
 
@@ -11711,7 +11715,7 @@ func (builder *FieldContentEntityBuilder) NumberValue(numberValue string) *Field
 // 示例值：
 func (builder *FieldContentEntityBuilder) BooleanValue(booleanValue bool) *FieldContentEntityBuilder {
 	builder.booleanValue = booleanValue
-	builder.booleanValueFlag = true
+	builder.booleanValueSet = true
 	return builder
 }
 
@@ -11720,7 +11724,7 @@ func (builder *FieldContentEntityBuilder) BooleanValue(booleanValue bool) *Field
 // 示例值：
 func (builder *FieldContentEntityBuilder) Department(department *DepartmentField) *FieldContentEntityBuilder {
 	builder.department = department
-	builder.departmentFlag = true
+	builder.departmentSet = true
 	return builder
 }
 
@@ -11729,7 +11733,7 @@ func (builder *FieldContentEntityBuilder) Department(department *DepartmentField
 // 示例值：
 func (builder *FieldContentEntityBuilder) Avator(avator *Image) *FieldContentEntityBuilder {
 	builder.avator = avator
-	builder.avatorFlag = true
+	builder.avatorSet = true
 	return builder
 }
 
@@ -11738,43 +11742,43 @@ func (builder *FieldContentEntityBuilder) Avator(avator *Image) *FieldContentEnt
 // 示例值：
 func (builder *FieldContentEntityBuilder) FieldType(fieldType int) *FieldContentEntityBuilder {
 	builder.fieldType = fieldType
-	builder.fieldTypeFlag = true
+	builder.fieldTypeSet = true
 	return builder
 }
 
 func (builder *FieldContentEntityBuilder) Build() *FieldContentEntity {
 	req := &FieldContentEntity{}
-	if builder.textValueFlag {
+	if builder.textValueSet {
 		req.TextValue = builder.textValue
 	}
-	if builder.urlValueFlag {
+	if builder.urlValueSet {
 		req.UrlValue = builder.urlValue
 	}
-	if builder.enumValueFlag {
+	if builder.enumValueSet {
 		req.EnumValue = builder.enumValue
 	}
-	if builder.userValueFlag {
+	if builder.userValueSet {
 		req.UserValue = builder.userValue
 	}
-	if builder.dateTimeValueFlag {
+	if builder.dateTimeValueSet {
 		req.DateTimeValue = &builder.dateTimeValue
 
 	}
-	if builder.numberValueFlag {
+	if builder.numberValueSet {
 		req.NumberValue = &builder.numberValue
 
 	}
-	if builder.booleanValueFlag {
+	if builder.booleanValueSet {
 		req.BooleanValue = &builder.booleanValue
 
 	}
-	if builder.departmentFlag {
+	if builder.departmentSet {
 		req.Department = builder.department
 	}
-	if builder.avatorFlag {
+	if builder.avatorSet {
 		req.Avator = builder.avator
 	}
-	if builder.fieldTypeFlag {
+	if builder.fieldTypeSet {
 		req.FieldType = &builder.fieldType
 
 	}
@@ -11790,14 +11794,14 @@ type FilterCondition struct {
 }
 
 type FilterConditionBuilder struct {
-	field     string // 筛选条件的左值，值为字段的参数名称。具体可填哪些字段请看 https://bytedance.larkoffice.com/wiki/Yyrgw6kLLiGxMIkrEZece1ZvnWg
-	fieldFlag bool
+	field    string // 筛选条件的左值，值为字段的参数名称。具体可填哪些字段请看 https://bytedance.larkoffice.com/wiki/Yyrgw6kLLiGxMIkrEZece1ZvnWg
+	fieldSet bool
 
-	operator     string // 比较操作符。可选值有： - equal：等于，支持任何类型的左值 - in：属于任一
-	operatorFlag bool
+	operator    string // 比较操作符。可选值有： - equal：等于，支持任何类型的左值 - in：属于任一
+	operatorSet bool
 
-	value     string // 筛选条件的右值。内容为左值字段类型及操作符组合下，对应的值类型。注意： 1. field为int类型，operator为in时，value应当为list<int>的json字符串   1. 示例值："[11,22]" 2. field为string类型，operator为in时，value应当为json序列化后的json字符串   1. 示例值："[\"正式\",\"实习\"]" 3. field为string类型，operator为eq时，value应当为json序列化后的string   1. 示例值："\正式\""
-	valueFlag bool
+	value    string // 筛选条件的右值。内容为左值字段类型及操作符组合下，对应的值类型。注意： 1. field为int类型，operator为in时，value应当为list<int>的json字符串   1. 示例值："[11,22]" 2. field为string类型，operator为in时，value应当为json序列化后的json字符串   1. 示例值："[\"正式\",\"实习\"]" 3. field为string类型，operator为eq时，value应当为json序列化后的string   1. 示例值："\正式\""
+	valueSet bool
 }
 
 func NewFilterConditionBuilder() *FilterConditionBuilder {
@@ -11810,7 +11814,7 @@ func NewFilterConditionBuilder() *FilterConditionBuilder {
 // 示例值：
 func (builder *FilterConditionBuilder) Field(field string) *FilterConditionBuilder {
 	builder.field = field
-	builder.fieldFlag = true
+	builder.fieldSet = true
 	return builder
 }
 
@@ -11819,7 +11823,7 @@ func (builder *FilterConditionBuilder) Field(field string) *FilterConditionBuild
 // 示例值：
 func (builder *FilterConditionBuilder) Operator(operator string) *FilterConditionBuilder {
 	builder.operator = operator
-	builder.operatorFlag = true
+	builder.operatorSet = true
 	return builder
 }
 
@@ -11828,21 +11832,21 @@ func (builder *FilterConditionBuilder) Operator(operator string) *FilterConditio
 // 示例值：1
 func (builder *FilterConditionBuilder) Value(value string) *FilterConditionBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *FilterConditionBuilder) Build() *FilterCondition {
 	req := &FilterCondition{}
-	if builder.fieldFlag {
+	if builder.fieldSet {
 		req.Field = &builder.field
 
 	}
-	if builder.operatorFlag {
+	if builder.operatorSet {
 		req.Operator = &builder.operator
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -11862,20 +11866,20 @@ type Group struct {
 }
 
 type GroupBuilder struct {
-	id     string // 用户组 ID
-	idFlag bool
+	id    string // 用户组 ID
+	idSet bool
 
-	tenantId     string // 租户ID
-	tenantIdFlag bool
+	tenantId    string // 租户ID
+	tenantIdSet bool
 
-	base     *GroupBase // 用户组基础信息
-	baseFlag bool
+	base    *GroupBase // 用户组基础信息
+	baseSet bool
 
-	bizExtra     map[string]string // 业务自定义扩展属性
-	bizExtraFlag bool
+	bizExtra    map[string]string // 业务自定义扩展属性
+	bizExtraSet bool
 
-	precedingGroupSets     []string // 用户组所属的分组 ID 列表
-	precedingGroupSetsFlag bool
+	precedingGroupSets    []string // 用户组所属的分组 ID 列表
+	precedingGroupSetsSet bool
 }
 
 func NewGroupBuilder() *GroupBuilder {
@@ -11888,7 +11892,7 @@ func NewGroupBuilder() *GroupBuilder {
 // 示例值：42dg1f52bg1g17da
 func (builder *GroupBuilder) Id(id string) *GroupBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -11897,7 +11901,7 @@ func (builder *GroupBuilder) Id(id string) *GroupBuilder {
 // 示例值：1
 func (builder *GroupBuilder) TenantId(tenantId string) *GroupBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -11906,7 +11910,7 @@ func (builder *GroupBuilder) TenantId(tenantId string) *GroupBuilder {
 // 示例值：
 func (builder *GroupBuilder) Base(base *GroupBase) *GroupBuilder {
 	builder.base = base
-	builder.baseFlag = true
+	builder.baseSet = true
 	return builder
 }
 
@@ -11915,7 +11919,7 @@ func (builder *GroupBuilder) Base(base *GroupBase) *GroupBuilder {
 // 示例值：
 func (builder *GroupBuilder) BizExtra(bizExtra map[string]string) *GroupBuilder {
 	builder.bizExtra = bizExtra
-	builder.bizExtraFlag = true
+	builder.bizExtraSet = true
 	return builder
 }
 
@@ -11924,27 +11928,27 @@ func (builder *GroupBuilder) BizExtra(bizExtra map[string]string) *GroupBuilder 
 // 示例值：
 func (builder *GroupBuilder) PrecedingGroupSets(precedingGroupSets []string) *GroupBuilder {
 	builder.precedingGroupSets = precedingGroupSets
-	builder.precedingGroupSetsFlag = true
+	builder.precedingGroupSetsSet = true
 	return builder
 }
 
 func (builder *GroupBuilder) Build() *Group {
 	req := &Group{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.baseFlag {
+	if builder.baseSet {
 		req.Base = builder.base
 	}
-	if builder.bizExtraFlag {
+	if builder.bizExtraSet {
 		req.BizExtra = builder.bizExtra
 	}
-	if builder.precedingGroupSetsFlag {
+	if builder.precedingGroupSetsSet {
 		req.PrecedingGroupSets = builder.precedingGroupSets
 	}
 	return req
@@ -11981,47 +11985,47 @@ type GroupBase struct {
 }
 
 type GroupBaseBuilder struct {
-	id     string // 用户组 ID
-	idFlag bool
+	id    string // 用户组 ID
+	idSet bool
 
-	tenantId     string // 租户ID
-	tenantIdFlag bool
+	tenantId    string // 租户ID
+	tenantIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	externalId     string // 用户组外部ID
-	externalIdFlag bool
+	externalId    string // 用户组外部ID
+	externalIdSet bool
 
-	groupType     int // 用户组类型，1 为普通用户组，2 为动态用户组
-	groupTypeFlag bool
+	groupType    int // 用户组类型，1 为普通用户组，2 为动态用户组
+	groupTypeSet bool
 
-	memberCount     int // 用户组内人员数量，包含用户组中部门下人员数量，不包含部门数量
-	memberCountFlag bool
+	memberCount    int // 用户组内人员数量，包含用户组中部门下人员数量，不包含部门数量
+	memberCountSet bool
 
-	status     int // 用户组状态
-	statusFlag bool
+	status    int // 用户组状态
+	statusSet bool
 
-	lastCalcTime     int // 最近成员变更计算时间戳
-	lastCalcTimeFlag bool
+	lastCalcTime    int // 最近成员变更计算时间戳
+	lastCalcTimeSet bool
 
-	updateTime     int // 更新时间
-	updateTimeFlag bool
+	updateTime    int // 更新时间
+	updateTimeSet bool
 
-	createTime     int // 创建时间
-	createTimeFlag bool
+	createTime    int // 创建时间
+	createTimeSet bool
 
-	description     string // 用户组描述
-	descriptionFlag bool
+	description    string // 用户组描述
+	descriptionSet bool
 
-	creatorId     string // 创建人
-	creatorIdFlag bool
+	creatorId    string // 创建人
+	creatorIdSet bool
 
-	source     int // 数据来源
-	sourceFlag bool
+	source    int // 数据来源
+	sourceSet bool
 
-	namespace     string // 数据命名空间，默认返回
-	namespaceFlag bool
+	namespace    string // 数据命名空间，默认返回
+	namespaceSet bool
 }
 
 func NewGroupBaseBuilder() *GroupBaseBuilder {
@@ -12034,7 +12038,7 @@ func NewGroupBaseBuilder() *GroupBaseBuilder {
 // 示例值：1727405594
 func (builder *GroupBaseBuilder) Id(id string) *GroupBaseBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -12043,7 +12047,7 @@ func (builder *GroupBaseBuilder) Id(id string) *GroupBaseBuilder {
 // 示例值：1727405594
 func (builder *GroupBaseBuilder) TenantId(tenantId string) *GroupBaseBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -12052,7 +12056,7 @@ func (builder *GroupBaseBuilder) TenantId(tenantId string) *GroupBaseBuilder {
 // 示例值：
 func (builder *GroupBaseBuilder) Name(name *I18nText) *GroupBaseBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -12061,7 +12065,7 @@ func (builder *GroupBaseBuilder) Name(name *I18nText) *GroupBaseBuilder {
 // 示例值：1727405594
 func (builder *GroupBaseBuilder) ExternalId(externalId string) *GroupBaseBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
@@ -12070,7 +12074,7 @@ func (builder *GroupBaseBuilder) ExternalId(externalId string) *GroupBaseBuilder
 // 示例值：
 func (builder *GroupBaseBuilder) GroupType(groupType int) *GroupBaseBuilder {
 	builder.groupType = groupType
-	builder.groupTypeFlag = true
+	builder.groupTypeSet = true
 	return builder
 }
 
@@ -12079,7 +12083,7 @@ func (builder *GroupBaseBuilder) GroupType(groupType int) *GroupBaseBuilder {
 // 示例值：123
 func (builder *GroupBaseBuilder) MemberCount(memberCount int) *GroupBaseBuilder {
 	builder.memberCount = memberCount
-	builder.memberCountFlag = true
+	builder.memberCountSet = true
 	return builder
 }
 
@@ -12088,7 +12092,7 @@ func (builder *GroupBaseBuilder) MemberCount(memberCount int) *GroupBaseBuilder 
 // 示例值：
 func (builder *GroupBaseBuilder) Status(status int) *GroupBaseBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -12097,7 +12101,7 @@ func (builder *GroupBaseBuilder) Status(status int) *GroupBaseBuilder {
 // 示例值：1727405812
 func (builder *GroupBaseBuilder) LastCalcTime(lastCalcTime int) *GroupBaseBuilder {
 	builder.lastCalcTime = lastCalcTime
-	builder.lastCalcTimeFlag = true
+	builder.lastCalcTimeSet = true
 	return builder
 }
 
@@ -12106,7 +12110,7 @@ func (builder *GroupBaseBuilder) LastCalcTime(lastCalcTime int) *GroupBaseBuilde
 // 示例值：1727405930817544000
 func (builder *GroupBaseBuilder) UpdateTime(updateTime int) *GroupBaseBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -12115,7 +12119,7 @@ func (builder *GroupBaseBuilder) UpdateTime(updateTime int) *GroupBaseBuilder {
 // 示例值：1727405930817544000
 func (builder *GroupBaseBuilder) CreateTime(createTime int) *GroupBaseBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -12124,7 +12128,7 @@ func (builder *GroupBaseBuilder) CreateTime(createTime int) *GroupBaseBuilder {
 // 示例值：用户组的描述
 func (builder *GroupBaseBuilder) Description(description string) *GroupBaseBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -12133,7 +12137,7 @@ func (builder *GroupBaseBuilder) Description(description string) *GroupBaseBuild
 // 示例值：1
 func (builder *GroupBaseBuilder) CreatorId(creatorId string) *GroupBaseBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -12142,7 +12146,7 @@ func (builder *GroupBaseBuilder) CreatorId(creatorId string) *GroupBaseBuilder {
 // 示例值：
 func (builder *GroupBaseBuilder) Source(source int) *GroupBaseBuilder {
 	builder.source = source
-	builder.sourceFlag = true
+	builder.sourceSet = true
 	return builder
 }
 
@@ -12151,64 +12155,64 @@ func (builder *GroupBaseBuilder) Source(source int) *GroupBaseBuilder {
 // 示例值：admin
 func (builder *GroupBaseBuilder) Namespace(namespace string) *GroupBaseBuilder {
 	builder.namespace = namespace
-	builder.namespaceFlag = true
+	builder.namespaceSet = true
 	return builder
 }
 
 func (builder *GroupBaseBuilder) Build() *GroupBase {
 	req := &GroupBase{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
-	if builder.groupTypeFlag {
+	if builder.groupTypeSet {
 		req.GroupType = &builder.groupType
 
 	}
-	if builder.memberCountFlag {
+	if builder.memberCountSet {
 		req.MemberCount = &builder.memberCount
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.lastCalcTimeFlag {
+	if builder.lastCalcTimeSet {
 		req.LastCalcTime = &builder.lastCalcTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.sourceFlag {
+	if builder.sourceSet {
 		req.Source = &builder.source
 
 	}
-	if builder.namespaceFlag {
+	if builder.namespaceSet {
 		req.Namespace = &builder.namespace
 
 	}
@@ -12236,32 +12240,32 @@ type GroupSet struct {
 }
 
 type GroupSetBuilder struct {
-	id     string // 用户组分组 ID
-	idFlag bool
+	id    string // 用户组分组 ID
+	idSet bool
 
-	tenantId     string // 租户ID
-	tenantIdFlag bool
+	tenantId    string // 租户ID
+	tenantIdSet bool
 
-	namespace     string // 命名空间
-	namespaceFlag bool
+	namespace    string // 命名空间
+	namespaceSet bool
 
-	externalId     string // 外部 ID，原 facade 那边的 CustomID 改名
-	externalIdFlag bool
+	externalId    string // 外部 ID，原 facade 那边的 CustomID 改名
+	externalIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
 	type_    int // 用户组分组类型，1对应普通用户组的分组，2对应动态用户组的分组
-	typeFlag bool
+	type_Set bool
 
-	groupCount     int // 用户组分组下的用户组数量
-	groupCountFlag bool
+	groupCount    int // 用户组分组下的用户组数量
+	groupCountSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 }
 
 func NewGroupSetBuilder() *GroupSetBuilder {
@@ -12274,7 +12278,7 @@ func NewGroupSetBuilder() *GroupSetBuilder {
 // 示例值：42dg1f52bg1g17da
 func (builder *GroupSetBuilder) Id(id string) *GroupSetBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -12283,7 +12287,7 @@ func (builder *GroupSetBuilder) Id(id string) *GroupSetBuilder {
 // 示例值：9223372036854775807
 func (builder *GroupSetBuilder) TenantId(tenantId string) *GroupSetBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -12292,7 +12296,7 @@ func (builder *GroupSetBuilder) TenantId(tenantId string) *GroupSetBuilder {
 // 示例值：admin
 func (builder *GroupSetBuilder) Namespace(namespace string) *GroupSetBuilder {
 	builder.namespace = namespace
-	builder.namespaceFlag = true
+	builder.namespaceSet = true
 	return builder
 }
 
@@ -12301,7 +12305,7 @@ func (builder *GroupSetBuilder) Namespace(namespace string) *GroupSetBuilder {
 // 示例值：abcdefg
 func (builder *GroupSetBuilder) ExternalId(externalId string) *GroupSetBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
@@ -12310,7 +12314,7 @@ func (builder *GroupSetBuilder) ExternalId(externalId string) *GroupSetBuilder {
 // 示例值：
 func (builder *GroupSetBuilder) Name(name *I18nText) *GroupSetBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -12319,7 +12323,7 @@ func (builder *GroupSetBuilder) Name(name *I18nText) *GroupSetBuilder {
 // 示例值：1
 func (builder *GroupSetBuilder) Type(type_ int) *GroupSetBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -12328,7 +12332,7 @@ func (builder *GroupSetBuilder) Type(type_ int) *GroupSetBuilder {
 // 示例值：1
 func (builder *GroupSetBuilder) GroupCount(groupCount int) *GroupSetBuilder {
 	builder.groupCount = groupCount
-	builder.groupCountFlag = true
+	builder.groupCountSet = true
 	return builder
 }
 
@@ -12337,7 +12341,7 @@ func (builder *GroupSetBuilder) GroupCount(groupCount int) *GroupSetBuilder {
 // 示例值：1727577286660828000
 func (builder *GroupSetBuilder) CreateTime(createTime string) *GroupSetBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -12346,44 +12350,44 @@ func (builder *GroupSetBuilder) CreateTime(createTime string) *GroupSetBuilder {
 // 示例值：1727577286660828000
 func (builder *GroupSetBuilder) UpdateTime(updateTime string) *GroupSetBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
 func (builder *GroupSetBuilder) Build() *GroupSet {
 	req := &GroupSet{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.namespaceFlag {
+	if builder.namespaceSet {
 		req.Namespace = &builder.namespace
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.groupCountFlag {
+	if builder.groupCountSet {
 		req.GroupCount = &builder.groupCount
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
@@ -12397,11 +12401,11 @@ type GroupSetMember struct {
 }
 
 type GroupSetMemberBuilder struct {
-	groupSetId     string // 用户组分组 ID
-	groupSetIdFlag bool
+	groupSetId    string // 用户组分组 ID
+	groupSetIdSet bool
 
-	groupId     string // 用户组 ID
-	groupIdFlag bool
+	groupId    string // 用户组 ID
+	groupIdSet bool
 }
 
 func NewGroupSetMemberBuilder() *GroupSetMemberBuilder {
@@ -12414,7 +12418,7 @@ func NewGroupSetMemberBuilder() *GroupSetMemberBuilder {
 // 示例值：42dg1f52bg1g17da
 func (builder *GroupSetMemberBuilder) GroupSetId(groupSetId string) *GroupSetMemberBuilder {
 	builder.groupSetId = groupSetId
-	builder.groupSetIdFlag = true
+	builder.groupSetIdSet = true
 	return builder
 }
 
@@ -12423,17 +12427,17 @@ func (builder *GroupSetMemberBuilder) GroupSetId(groupSetId string) *GroupSetMem
 // 示例值：31c22b8cfgbb41d6
 func (builder *GroupSetMemberBuilder) GroupId(groupId string) *GroupSetMemberBuilder {
 	builder.groupId = groupId
-	builder.groupIdFlag = true
+	builder.groupIdSet = true
 	return builder
 }
 
 func (builder *GroupSetMemberBuilder) Build() *GroupSetMember {
 	req := &GroupSetMember{}
-	if builder.groupSetIdFlag {
+	if builder.groupSetIdSet {
 		req.GroupSetId = &builder.groupSetId
 
 	}
-	if builder.groupIdFlag {
+	if builder.groupIdSet {
 		req.GroupId = &builder.groupId
 
 	}
@@ -12467,41 +12471,41 @@ type Guest struct {
 }
 
 type GuestBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	tenantId     string // TenantID
-	tenantIdFlag bool
+	tenantId    string // TenantID
+	tenantIdSet bool
 
-	name     *GuestName // 姓名
-	nameFlag bool
+	name    *GuestName // 姓名
+	nameSet bool
 
-	mobile     string // 手机
-	mobileFlag bool
+	mobile    string // 手机
+	mobileSet bool
 
-	email     string // 邮箱
-	emailFlag bool
+	email    string // 邮箱
+	emailSet bool
 
-	avatarKey     string // 头像
-	avatarKeyFlag bool
+	avatarKey    string // 头像
+	avatarKeySet bool
 
-	workCountryOrRegion     string // 国家地区
-	workCountryOrRegionFlag bool
+	workCountryOrRegion    string // 国家地区
+	workCountryOrRegionSet bool
 
-	guestActiveStatus     string // 状态
-	guestActiveStatusFlag bool
+	guestActiveStatus    string // 状态
+	guestActiveStatusSet bool
 
-	creatorId     string // 创建人
-	creatorIdFlag bool
+	creatorId    string // 创建人
+	creatorIdSet bool
 
-	updatorId     string // 更新人
-	updatorIdFlag bool
+	updatorId    string // 更新人
+	updatorIdSet bool
 
-	createTime     string // 创建日期
-	createTimeFlag bool
+	createTime    string // 创建日期
+	createTimeSet bool
 
-	updateTime     string // 更新日期
-	updateTimeFlag bool
+	updateTime    string // 更新日期
+	updateTimeSet bool
 }
 
 func NewGuestBuilder() *GuestBuilder {
@@ -12514,7 +12518,7 @@ func NewGuestBuilder() *GuestBuilder {
 // 示例值：123123
 func (builder *GuestBuilder) Id(id string) *GuestBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -12523,7 +12527,7 @@ func (builder *GuestBuilder) Id(id string) *GuestBuilder {
 // 示例值：1
 func (builder *GuestBuilder) TenantId(tenantId string) *GuestBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -12532,7 +12536,7 @@ func (builder *GuestBuilder) TenantId(tenantId string) *GuestBuilder {
 // 示例值：
 func (builder *GuestBuilder) Name(name *GuestName) *GuestBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -12541,7 +12545,7 @@ func (builder *GuestBuilder) Name(name *GuestName) *GuestBuilder {
 // 示例值：123456789
 func (builder *GuestBuilder) Mobile(mobile string) *GuestBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -12550,7 +12554,7 @@ func (builder *GuestBuilder) Mobile(mobile string) *GuestBuilder {
 // 示例值：a@q.com
 func (builder *GuestBuilder) Email(email string) *GuestBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -12559,7 +12563,7 @@ func (builder *GuestBuilder) Email(email string) *GuestBuilder {
 // 示例值：asdfadsfadsf
 func (builder *GuestBuilder) AvatarKey(avatarKey string) *GuestBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
@@ -12568,7 +12572,7 @@ func (builder *GuestBuilder) AvatarKey(avatarKey string) *GuestBuilder {
 // 示例值：MDM_123asd
 func (builder *GuestBuilder) WorkCountryOrRegion(workCountryOrRegion string) *GuestBuilder {
 	builder.workCountryOrRegion = workCountryOrRegion
-	builder.workCountryOrRegionFlag = true
+	builder.workCountryOrRegionSet = true
 	return builder
 }
 
@@ -12577,7 +12581,7 @@ func (builder *GuestBuilder) WorkCountryOrRegion(workCountryOrRegion string) *Gu
 // 示例值：
 func (builder *GuestBuilder) GuestActiveStatus(guestActiveStatus string) *GuestBuilder {
 	builder.guestActiveStatus = guestActiveStatus
-	builder.guestActiveStatusFlag = true
+	builder.guestActiveStatusSet = true
 	return builder
 }
 
@@ -12586,7 +12590,7 @@ func (builder *GuestBuilder) GuestActiveStatus(guestActiveStatus string) *GuestB
 // 示例值：123
 func (builder *GuestBuilder) CreatorId(creatorId string) *GuestBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -12595,7 +12599,7 @@ func (builder *GuestBuilder) CreatorId(creatorId string) *GuestBuilder {
 // 示例值：123
 func (builder *GuestBuilder) UpdatorId(updatorId string) *GuestBuilder {
 	builder.updatorId = updatorId
-	builder.updatorIdFlag = true
+	builder.updatorIdSet = true
 	return builder
 }
 
@@ -12604,7 +12608,7 @@ func (builder *GuestBuilder) UpdatorId(updatorId string) *GuestBuilder {
 // 示例值：123
 func (builder *GuestBuilder) CreateTime(createTime string) *GuestBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -12613,56 +12617,56 @@ func (builder *GuestBuilder) CreateTime(createTime string) *GuestBuilder {
 // 示例值：123
 func (builder *GuestBuilder) UpdateTime(updateTime string) *GuestBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
 func (builder *GuestBuilder) Build() *Guest {
 	req := &Guest{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = &builder.avatarKey
 
 	}
-	if builder.workCountryOrRegionFlag {
+	if builder.workCountryOrRegionSet {
 		req.WorkCountryOrRegion = &builder.workCountryOrRegion
 
 	}
-	if builder.guestActiveStatusFlag {
+	if builder.guestActiveStatusSet {
 		req.GuestActiveStatus = &builder.guestActiveStatus
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.updatorIdFlag {
+	if builder.updatorIdSet {
 		req.UpdatorId = &builder.updatorId
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
@@ -12676,11 +12680,11 @@ type GuestName struct {
 }
 
 type GuestNameBuilder struct {
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	namePy     string // 姓名拼音
-	namePyFlag bool
+	namePy    string // 姓名拼音
+	namePySet bool
 }
 
 func NewGuestNameBuilder() *GuestNameBuilder {
@@ -12693,7 +12697,7 @@ func NewGuestNameBuilder() *GuestNameBuilder {
 // 示例值：
 func (builder *GuestNameBuilder) Name(name *I18nText) *GuestNameBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -12702,16 +12706,16 @@ func (builder *GuestNameBuilder) Name(name *I18nText) *GuestNameBuilder {
 // 示例值：pinyin
 func (builder *GuestNameBuilder) NamePy(namePy string) *GuestNameBuilder {
 	builder.namePy = namePy
-	builder.namePyFlag = true
+	builder.namePySet = true
 	return builder
 }
 
 func (builder *GuestNameBuilder) Build() *GuestName {
 	req := &GuestName{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.namePyFlag {
+	if builder.namePySet {
 		req.NamePy = &builder.namePy
 
 	}
@@ -12731,20 +12735,20 @@ type GuestTraceInfo struct {
 }
 
 type GuestTraceInfoBuilder struct {
-	source     int // 创建来源
-	sourceFlag bool
+	source    int // 创建来源
+	sourceSet bool
 
-	isInvite     bool // 是否邀请
-	isInviteFlag bool
+	isInvite    bool // 是否邀请
+	isInviteSet bool
 
-	inviterId     string // 邀请人id
-	inviterIdFlag bool
+	inviterId    string // 邀请人id
+	inviterIdSet bool
 
-	inviteOption     *InviteOption // 邀请
-	inviteOptionFlag bool
+	inviteOption    *InviteOption // 邀请
+	inviteOptionSet bool
 
-	clientIp     string // 客户端的IP */
-	clientIpFlag bool
+	clientIp    string // 客户端的IP */
+	clientIpSet bool
 }
 
 func NewGuestTraceInfoBuilder() *GuestTraceInfoBuilder {
@@ -12757,7 +12761,7 @@ func NewGuestTraceInfoBuilder() *GuestTraceInfoBuilder {
 // 示例值：
 func (builder *GuestTraceInfoBuilder) Source(source int) *GuestTraceInfoBuilder {
 	builder.source = source
-	builder.sourceFlag = true
+	builder.sourceSet = true
 	return builder
 }
 
@@ -12766,7 +12770,7 @@ func (builder *GuestTraceInfoBuilder) Source(source int) *GuestTraceInfoBuilder 
 // 示例值：
 func (builder *GuestTraceInfoBuilder) IsInvite(isInvite bool) *GuestTraceInfoBuilder {
 	builder.isInvite = isInvite
-	builder.isInviteFlag = true
+	builder.isInviteSet = true
 	return builder
 }
 
@@ -12775,7 +12779,7 @@ func (builder *GuestTraceInfoBuilder) IsInvite(isInvite bool) *GuestTraceInfoBui
 // 示例值：123123123
 func (builder *GuestTraceInfoBuilder) InviterId(inviterId string) *GuestTraceInfoBuilder {
 	builder.inviterId = inviterId
-	builder.inviterIdFlag = true
+	builder.inviterIdSet = true
 	return builder
 }
 
@@ -12784,7 +12788,7 @@ func (builder *GuestTraceInfoBuilder) InviterId(inviterId string) *GuestTraceInf
 // 示例值：
 func (builder *GuestTraceInfoBuilder) InviteOption(inviteOption *InviteOption) *GuestTraceInfoBuilder {
 	builder.inviteOption = inviteOption
-	builder.inviteOptionFlag = true
+	builder.inviteOptionSet = true
 	return builder
 }
 
@@ -12793,28 +12797,28 @@ func (builder *GuestTraceInfoBuilder) InviteOption(inviteOption *InviteOption) *
 // 示例值：1.1.1.1
 func (builder *GuestTraceInfoBuilder) ClientIp(clientIp string) *GuestTraceInfoBuilder {
 	builder.clientIp = clientIp
-	builder.clientIpFlag = true
+	builder.clientIpSet = true
 	return builder
 }
 
 func (builder *GuestTraceInfoBuilder) Build() *GuestTraceInfo {
 	req := &GuestTraceInfo{}
-	if builder.sourceFlag {
+	if builder.sourceSet {
 		req.Source = &builder.source
 
 	}
-	if builder.isInviteFlag {
+	if builder.isInviteSet {
 		req.IsInvite = &builder.isInvite
 
 	}
-	if builder.inviterIdFlag {
+	if builder.inviterIdSet {
 		req.InviterId = &builder.inviterId
 
 	}
-	if builder.inviteOptionFlag {
+	if builder.inviteOptionSet {
 		req.InviteOption = builder.inviteOption
 	}
-	if builder.clientIpFlag {
+	if builder.clientIpSet {
 		req.ClientIp = &builder.clientIp
 
 	}
@@ -12830,14 +12834,14 @@ type I18nText struct {
 }
 
 type I18nTextBuilder struct {
-	defaultValue     string // 默认值
-	defaultValueFlag bool
+	defaultValue    string // 默认值
+	defaultValueSet bool
 
-	i18nValue     map[string]string // 国际化值，key为zh_cn, ja_jp, en_us, value为对应的值
-	i18nValueFlag bool
+	i18nValue    map[string]string // 国际化值，key为zh_cn, ja_jp, en_us, value为对应的值
+	i18nValueSet bool
 
-	defaultLocale     string // 默认语种, 取值包括zh_cn,ja_jp,en_us等
-	defaultLocaleFlag bool
+	defaultLocale    string // 默认语种, 取值包括zh_cn,ja_jp,en_us等
+	defaultLocaleSet bool
 }
 
 func NewI18nTextBuilder() *I18nTextBuilder {
@@ -12850,7 +12854,7 @@ func NewI18nTextBuilder() *I18nTextBuilder {
 // 示例值：张三
 func (builder *I18nTextBuilder) DefaultValue(defaultValue string) *I18nTextBuilder {
 	builder.defaultValue = defaultValue
-	builder.defaultValueFlag = true
+	builder.defaultValueSet = true
 	return builder
 }
 
@@ -12859,7 +12863,7 @@ func (builder *I18nTextBuilder) DefaultValue(defaultValue string) *I18nTextBuild
 // 示例值：
 func (builder *I18nTextBuilder) I18nValue(i18nValue map[string]string) *I18nTextBuilder {
 	builder.i18nValue = i18nValue
-	builder.i18nValueFlag = true
+	builder.i18nValueSet = true
 	return builder
 }
 
@@ -12868,20 +12872,20 @@ func (builder *I18nTextBuilder) I18nValue(i18nValue map[string]string) *I18nText
 // 示例值：zh_cn
 func (builder *I18nTextBuilder) DefaultLocale(defaultLocale string) *I18nTextBuilder {
 	builder.defaultLocale = defaultLocale
-	builder.defaultLocaleFlag = true
+	builder.defaultLocaleSet = true
 	return builder
 }
 
 func (builder *I18nTextBuilder) Build() *I18nText {
 	req := &I18nText{}
-	if builder.defaultValueFlag {
+	if builder.defaultValueSet {
 		req.DefaultValue = &builder.defaultValue
 
 	}
-	if builder.i18nValueFlag {
+	if builder.i18nValueSet {
 		req.I18nValue = builder.i18nValue
 	}
-	if builder.defaultLocaleFlag {
+	if builder.defaultLocaleSet {
 		req.DefaultLocale = &builder.defaultLocale
 
 	}
@@ -12895,11 +12899,11 @@ type Image struct {
 }
 
 type ImageBuilder struct {
-	key     string // key
-	keyFlag bool
+	key    string // key
+	keySet bool
 
-	fsUnit     string // fs unit
-	fsUnitFlag bool
+	fsUnit    string // fs unit
+	fsUnitSet bool
 }
 
 func NewImageBuilder() *ImageBuilder {
@@ -12912,7 +12916,7 @@ func NewImageBuilder() *ImageBuilder {
 // 示例值：img_v2_8abc397a-9950-44ea-9302-e1d8fe00858g
 func (builder *ImageBuilder) Key(key string) *ImageBuilder {
 	builder.key = key
-	builder.keyFlag = true
+	builder.keySet = true
 	return builder
 }
 
@@ -12921,17 +12925,17 @@ func (builder *ImageBuilder) Key(key string) *ImageBuilder {
 // 示例值：cn
 func (builder *ImageBuilder) FsUnit(fsUnit string) *ImageBuilder {
 	builder.fsUnit = fsUnit
-	builder.fsUnitFlag = true
+	builder.fsUnitSet = true
 	return builder
 }
 
 func (builder *ImageBuilder) Build() *Image {
 	req := &Image{}
-	if builder.keyFlag {
+	if builder.keySet {
 		req.Key = &builder.key
 
 	}
-	if builder.fsUnitFlag {
+	if builder.fsUnitSet {
 		req.FsUnit = &builder.fsUnit
 
 	}
@@ -12949,17 +12953,17 @@ type ImageLink struct {
 }
 
 type ImageLinkBuilder struct {
-	avatar72     string // 72*72像素头像链接
-	avatar72Flag bool
+	avatar72    string // 72*72像素头像链接
+	avatar72Set bool
 
-	avatar240     string // 240*240像素头像链接
-	avatar240Flag bool
+	avatar240    string // 240*240像素头像链接
+	avatar240Set bool
 
-	avatar640     string // 640*640像素头像链接
-	avatar640Flag bool
+	avatar640    string // 640*640像素头像链接
+	avatar640Set bool
 
-	avatarOrigin     string // 原始头像链接
-	avatarOriginFlag bool
+	avatarOrigin    string // 原始头像链接
+	avatarOriginSet bool
 }
 
 func NewImageLinkBuilder() *ImageLinkBuilder {
@@ -12972,7 +12976,7 @@ func NewImageLinkBuilder() *ImageLinkBuilder {
 // 示例值：http://qwed.com
 func (builder *ImageLinkBuilder) Avatar72(avatar72 string) *ImageLinkBuilder {
 	builder.avatar72 = avatar72
-	builder.avatar72Flag = true
+	builder.avatar72Set = true
 	return builder
 }
 
@@ -12981,7 +12985,7 @@ func (builder *ImageLinkBuilder) Avatar72(avatar72 string) *ImageLinkBuilder {
 // 示例值：http://wssd.com
 func (builder *ImageLinkBuilder) Avatar240(avatar240 string) *ImageLinkBuilder {
 	builder.avatar240 = avatar240
-	builder.avatar240Flag = true
+	builder.avatar240Set = true
 	return builder
 }
 
@@ -12990,7 +12994,7 @@ func (builder *ImageLinkBuilder) Avatar240(avatar240 string) *ImageLinkBuilder {
 // 示例值：http://wssd.com
 func (builder *ImageLinkBuilder) Avatar640(avatar640 string) *ImageLinkBuilder {
 	builder.avatar640 = avatar640
-	builder.avatar640Flag = true
+	builder.avatar640Set = true
 	return builder
 }
 
@@ -12999,25 +13003,25 @@ func (builder *ImageLinkBuilder) Avatar640(avatar640 string) *ImageLinkBuilder {
 // 示例值：https:inernal-api/image
 func (builder *ImageLinkBuilder) AvatarOrigin(avatarOrigin string) *ImageLinkBuilder {
 	builder.avatarOrigin = avatarOrigin
-	builder.avatarOriginFlag = true
+	builder.avatarOriginSet = true
 	return builder
 }
 
 func (builder *ImageLinkBuilder) Build() *ImageLink {
 	req := &ImageLink{}
-	if builder.avatar72Flag {
+	if builder.avatar72Set {
 		req.Avatar72 = &builder.avatar72
 
 	}
-	if builder.avatar240Flag {
+	if builder.avatar240Set {
 		req.Avatar240 = &builder.avatar240
 
 	}
-	if builder.avatar640Flag {
+	if builder.avatar640Set {
 		req.Avatar640 = &builder.avatar640
 
 	}
-	if builder.avatarOriginFlag {
+	if builder.avatarOriginSet {
 		req.AvatarOrigin = &builder.avatarOrigin
 
 	}
@@ -13031,11 +13035,11 @@ type InviteOption struct {
 }
 
 type InviteOptionBuilder struct {
-	inviteChannels     []int // 邀请渠道
-	inviteChannelsFlag bool
+	inviteChannels    []int // 邀请渠道
+	inviteChannelsSet bool
 
-	inviteLanguage     int // 邀请语言
-	inviteLanguageFlag bool
+	inviteLanguage    int // 邀请语言
+	inviteLanguageSet bool
 }
 
 func NewInviteOptionBuilder() *InviteOptionBuilder {
@@ -13048,7 +13052,7 @@ func NewInviteOptionBuilder() *InviteOptionBuilder {
 // 示例值：
 func (builder *InviteOptionBuilder) InviteChannels(inviteChannels []int) *InviteOptionBuilder {
 	builder.inviteChannels = inviteChannels
-	builder.inviteChannelsFlag = true
+	builder.inviteChannelsSet = true
 	return builder
 }
 
@@ -13057,16 +13061,16 @@ func (builder *InviteOptionBuilder) InviteChannels(inviteChannels []int) *Invite
 // 示例值：
 func (builder *InviteOptionBuilder) InviteLanguage(inviteLanguage int) *InviteOptionBuilder {
 	builder.inviteLanguage = inviteLanguage
-	builder.inviteLanguageFlag = true
+	builder.inviteLanguageSet = true
 	return builder
 }
 
 func (builder *InviteOptionBuilder) Build() *InviteOption {
 	req := &InviteOption{}
-	if builder.inviteChannelsFlag {
+	if builder.inviteChannelsSet {
 		req.InviteChannels = builder.inviteChannels
 	}
-	if builder.inviteLanguageFlag {
+	if builder.inviteLanguageSet {
 		req.InviteLanguage = &builder.inviteLanguage
 
 	}
@@ -13100,41 +13104,41 @@ type JobFamily struct {
 }
 
 type JobFamilyBuilder struct {
-	jobFamilyId     string // 序列ID
-	jobFamilyIdFlag bool
+	jobFamilyId    string // 序列ID
+	jobFamilyIdSet bool
 
-	tenantId     string // 租户ID
-	tenantIdFlag bool
+	tenantId    string // 租户ID
+	tenantIdSet bool
 
-	jobFamilyName     *I18nText // i18n文本
-	jobFamilyNameFlag bool
+	jobFamilyName    *I18nText // i18n文本
+	jobFamilyNameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	isDeleted     bool // 是否删除
-	isDeletedFlag bool
+	isDeleted    bool // 是否删除
+	isDeletedSet bool
 
-	parentJobFamilyId     string // 上级序列
-	parentJobFamilyIdFlag bool
+	parentJobFamilyId    string // 上级序列
+	parentJobFamilyIdSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	creatorId     string // 创建人
-	creatorIdFlag bool
+	creatorId    string // 创建人
+	creatorIdSet bool
 
-	updatorId     string // 更新人
-	updatorIdFlag bool
+	updatorId    string // 更新人
+	updatorIdSet bool
 
-	externalId     string // 外部ID
-	externalIdFlag bool
+	externalId    string // 外部ID
+	externalIdSet bool
 }
 
 func NewJobFamilyBuilder() *JobFamilyBuilder {
@@ -13147,7 +13151,7 @@ func NewJobFamilyBuilder() *JobFamilyBuilder {
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *JobFamilyBuilder) JobFamilyId(jobFamilyId string) *JobFamilyBuilder {
 	builder.jobFamilyId = jobFamilyId
-	builder.jobFamilyIdFlag = true
+	builder.jobFamilyIdSet = true
 	return builder
 }
 
@@ -13156,7 +13160,7 @@ func (builder *JobFamilyBuilder) JobFamilyId(jobFamilyId string) *JobFamilyBuild
 // 示例值：1
 func (builder *JobFamilyBuilder) TenantId(tenantId string) *JobFamilyBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -13165,7 +13169,7 @@ func (builder *JobFamilyBuilder) TenantId(tenantId string) *JobFamilyBuilder {
 // 示例值：
 func (builder *JobFamilyBuilder) JobFamilyName(jobFamilyName *I18nText) *JobFamilyBuilder {
 	builder.jobFamilyName = jobFamilyName
-	builder.jobFamilyNameFlag = true
+	builder.jobFamilyNameSet = true
 	return builder
 }
 
@@ -13174,7 +13178,7 @@ func (builder *JobFamilyBuilder) JobFamilyName(jobFamilyName *I18nText) *JobFami
 // 示例值：true
 func (builder *JobFamilyBuilder) IsEnabled(isEnabled bool) *JobFamilyBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -13183,7 +13187,7 @@ func (builder *JobFamilyBuilder) IsEnabled(isEnabled bool) *JobFamilyBuilder {
 // 示例值：true
 func (builder *JobFamilyBuilder) IsDeleted(isDeleted bool) *JobFamilyBuilder {
 	builder.isDeleted = isDeleted
-	builder.isDeletedFlag = true
+	builder.isDeletedSet = true
 	return builder
 }
 
@@ -13192,7 +13196,7 @@ func (builder *JobFamilyBuilder) IsDeleted(isDeleted bool) *JobFamilyBuilder {
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *JobFamilyBuilder) ParentJobFamilyId(parentJobFamilyId string) *JobFamilyBuilder {
 	builder.parentJobFamilyId = parentJobFamilyId
-	builder.parentJobFamilyIdFlag = true
+	builder.parentJobFamilyIdSet = true
 	return builder
 }
 
@@ -13201,7 +13205,7 @@ func (builder *JobFamilyBuilder) ParentJobFamilyId(parentJobFamilyId string) *Jo
 // 示例值：
 func (builder *JobFamilyBuilder) Description(description *I18nText) *JobFamilyBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -13210,7 +13214,7 @@ func (builder *JobFamilyBuilder) Description(description *I18nText) *JobFamilyBu
 // 示例值：1
 func (builder *JobFamilyBuilder) CreateTime(createTime string) *JobFamilyBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -13219,7 +13223,7 @@ func (builder *JobFamilyBuilder) CreateTime(createTime string) *JobFamilyBuilder
 // 示例值：1
 func (builder *JobFamilyBuilder) UpdateTime(updateTime string) *JobFamilyBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -13228,7 +13232,7 @@ func (builder *JobFamilyBuilder) UpdateTime(updateTime string) *JobFamilyBuilder
 // 示例值：1
 func (builder *JobFamilyBuilder) CreatorId(creatorId string) *JobFamilyBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -13237,7 +13241,7 @@ func (builder *JobFamilyBuilder) CreatorId(creatorId string) *JobFamilyBuilder {
 // 示例值：1
 func (builder *JobFamilyBuilder) UpdatorId(updatorId string) *JobFamilyBuilder {
 	builder.updatorId = updatorId
-	builder.updatorIdFlag = true
+	builder.updatorIdSet = true
 	return builder
 }
 
@@ -13246,55 +13250,55 @@ func (builder *JobFamilyBuilder) UpdatorId(updatorId string) *JobFamilyBuilder {
 // 示例值：erfsdfqw
 func (builder *JobFamilyBuilder) ExternalId(externalId string) *JobFamilyBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *JobFamilyBuilder) Build() *JobFamily {
 	req := &JobFamily{}
-	if builder.jobFamilyIdFlag {
+	if builder.jobFamilyIdSet {
 		req.JobFamilyId = &builder.jobFamilyId
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.jobFamilyNameFlag {
+	if builder.jobFamilyNameSet {
 		req.JobFamilyName = builder.jobFamilyName
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.isDeletedFlag {
+	if builder.isDeletedSet {
 		req.IsDeleted = &builder.isDeleted
 
 	}
-	if builder.parentJobFamilyIdFlag {
+	if builder.parentJobFamilyIdSet {
 		req.ParentJobFamilyId = &builder.parentJobFamilyId
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.updatorIdFlag {
+	if builder.updatorIdSet {
 		req.UpdatorId = &builder.updatorId
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -13328,41 +13332,41 @@ type JobLevel struct {
 }
 
 type JobLevelBuilder struct {
-	jobLevelId     string // ID
-	jobLevelIdFlag bool
+	jobLevelId    string // ID
+	jobLevelIdSet bool
 
-	tenantId     string // 租户ID
-	tenantIdFlag bool
+	tenantId    string // 租户ID
+	tenantIdSet bool
 
-	jobLevelName     *I18nText // i18n文本
-	jobLevelNameFlag bool
+	jobLevelName    *I18nText // i18n文本
+	jobLevelNameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	isDeleted     bool // 是否删除
-	isDeletedFlag bool
+	isDeleted    bool // 是否删除
+	isDeletedSet bool
 
-	order     string // 排序, 小的在前面
-	orderFlag bool
+	order    string // 排序, 小的在前面
+	orderSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	creatorId     string // 创建人
-	creatorIdFlag bool
+	creatorId    string // 创建人
+	creatorIdSet bool
 
-	updatorId     string // 更新人
-	updatorIdFlag bool
+	updatorId    string // 更新人
+	updatorIdSet bool
 
-	externalId     string // 外部ID
-	externalIdFlag bool
+	externalId    string // 外部ID
+	externalIdSet bool
 }
 
 func NewJobLevelBuilder() *JobLevelBuilder {
@@ -13375,7 +13379,7 @@ func NewJobLevelBuilder() *JobLevelBuilder {
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *JobLevelBuilder) JobLevelId(jobLevelId string) *JobLevelBuilder {
 	builder.jobLevelId = jobLevelId
-	builder.jobLevelIdFlag = true
+	builder.jobLevelIdSet = true
 	return builder
 }
 
@@ -13384,7 +13388,7 @@ func (builder *JobLevelBuilder) JobLevelId(jobLevelId string) *JobLevelBuilder {
 // 示例值：1
 func (builder *JobLevelBuilder) TenantId(tenantId string) *JobLevelBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -13393,7 +13397,7 @@ func (builder *JobLevelBuilder) TenantId(tenantId string) *JobLevelBuilder {
 // 示例值：
 func (builder *JobLevelBuilder) JobLevelName(jobLevelName *I18nText) *JobLevelBuilder {
 	builder.jobLevelName = jobLevelName
-	builder.jobLevelNameFlag = true
+	builder.jobLevelNameSet = true
 	return builder
 }
 
@@ -13402,7 +13406,7 @@ func (builder *JobLevelBuilder) JobLevelName(jobLevelName *I18nText) *JobLevelBu
 // 示例值：true
 func (builder *JobLevelBuilder) IsEnabled(isEnabled bool) *JobLevelBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -13411,7 +13415,7 @@ func (builder *JobLevelBuilder) IsEnabled(isEnabled bool) *JobLevelBuilder {
 // 示例值：true
 func (builder *JobLevelBuilder) IsDeleted(isDeleted bool) *JobLevelBuilder {
 	builder.isDeleted = isDeleted
-	builder.isDeletedFlag = true
+	builder.isDeletedSet = true
 	return builder
 }
 
@@ -13420,7 +13424,7 @@ func (builder *JobLevelBuilder) IsDeleted(isDeleted bool) *JobLevelBuilder {
 // 示例值：1
 func (builder *JobLevelBuilder) Order(order string) *JobLevelBuilder {
 	builder.order = order
-	builder.orderFlag = true
+	builder.orderSet = true
 	return builder
 }
 
@@ -13429,7 +13433,7 @@ func (builder *JobLevelBuilder) Order(order string) *JobLevelBuilder {
 // 示例值：
 func (builder *JobLevelBuilder) Description(description *I18nText) *JobLevelBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -13438,7 +13442,7 @@ func (builder *JobLevelBuilder) Description(description *I18nText) *JobLevelBuil
 // 示例值：1
 func (builder *JobLevelBuilder) CreateTime(createTime string) *JobLevelBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -13447,7 +13451,7 @@ func (builder *JobLevelBuilder) CreateTime(createTime string) *JobLevelBuilder {
 // 示例值：1
 func (builder *JobLevelBuilder) UpdateTime(updateTime string) *JobLevelBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -13456,7 +13460,7 @@ func (builder *JobLevelBuilder) UpdateTime(updateTime string) *JobLevelBuilder {
 // 示例值：1
 func (builder *JobLevelBuilder) CreatorId(creatorId string) *JobLevelBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -13465,7 +13469,7 @@ func (builder *JobLevelBuilder) CreatorId(creatorId string) *JobLevelBuilder {
 // 示例值：1
 func (builder *JobLevelBuilder) UpdatorId(updatorId string) *JobLevelBuilder {
 	builder.updatorId = updatorId
-	builder.updatorIdFlag = true
+	builder.updatorIdSet = true
 	return builder
 }
 
@@ -13474,55 +13478,55 @@ func (builder *JobLevelBuilder) UpdatorId(updatorId string) *JobLevelBuilder {
 // 示例值：dqweasd
 func (builder *JobLevelBuilder) ExternalId(externalId string) *JobLevelBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *JobLevelBuilder) Build() *JobLevel {
 	req := &JobLevel{}
-	if builder.jobLevelIdFlag {
+	if builder.jobLevelIdSet {
 		req.JobLevelId = &builder.jobLevelId
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.jobLevelNameFlag {
+	if builder.jobLevelNameSet {
 		req.JobLevelName = builder.jobLevelName
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.isDeletedFlag {
+	if builder.isDeletedSet {
 		req.IsDeleted = &builder.isDeleted
 
 	}
-	if builder.orderFlag {
+	if builder.orderSet {
 		req.Order = &builder.order
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.updatorIdFlag {
+	if builder.updatorIdSet {
 		req.UpdatorId = &builder.updatorId
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -13564,53 +13568,53 @@ type JobTitle struct {
 }
 
 type JobTitleBuilder struct {
-	jobTitleId     string // ID
-	jobTitleIdFlag bool
+	jobTitleId    string // ID
+	jobTitleIdSet bool
 
-	tenantId     string // 租户ID
-	tenantIdFlag bool
+	tenantId    string // 租户ID
+	tenantIdSet bool
 
-	jobTitleName     *I18nText // i18n文本
-	jobTitleNameFlag bool
+	jobTitleName    *I18nText // i18n文本
+	jobTitleNameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	isDeleted     bool // 是否删除
-	isDeletedFlag bool
+	isDeleted    bool // 是否删除
+	isDeletedSet bool
 
-	title     *I18nText // i18n文本
-	titleFlag bool
+	title    *I18nText // i18n文本
+	titleSet bool
 
-	jobFamilyId     string // Deprecated 不再使用，换用JobFamilyIDs
-	jobFamilyIdFlag bool
+	jobFamilyId    string // Deprecated 不再使用，换用JobFamilyIDs
+	jobFamilyIdSet bool
 
-	jobLevelId     string // Deprecated 不再使用，换用JobLevelIDs
-	jobLevelIdFlag bool
+	jobLevelId    string // Deprecated 不再使用，换用JobLevelIDs
+	jobLevelIdSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	creatorId     string // 创建人
-	creatorIdFlag bool
+	creatorId    string // 创建人
+	creatorIdSet bool
 
-	updatorId     string // 更新人
-	updatorIdFlag bool
+	updatorId    string // 更新人
+	updatorIdSet bool
 
-	externalId     string // 外部ID
-	externalIdFlag bool
+	externalId    string // 外部ID
+	externalIdSet bool
 
-	jobFamilyIds     []string // 序列
-	jobFamilyIdsFlag bool
+	jobFamilyIds    []string // 序列
+	jobFamilyIdsSet bool
 
-	jobLevelIds     []string // 职级
-	jobLevelIdsFlag bool
+	jobLevelIds    []string // 职级
+	jobLevelIdsSet bool
 }
 
 func NewJobTitleBuilder() *JobTitleBuilder {
@@ -13623,7 +13627,7 @@ func NewJobTitleBuilder() *JobTitleBuilder {
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *JobTitleBuilder) JobTitleId(jobTitleId string) *JobTitleBuilder {
 	builder.jobTitleId = jobTitleId
-	builder.jobTitleIdFlag = true
+	builder.jobTitleIdSet = true
 	return builder
 }
 
@@ -13632,7 +13636,7 @@ func (builder *JobTitleBuilder) JobTitleId(jobTitleId string) *JobTitleBuilder {
 // 示例值：1
 func (builder *JobTitleBuilder) TenantId(tenantId string) *JobTitleBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -13641,7 +13645,7 @@ func (builder *JobTitleBuilder) TenantId(tenantId string) *JobTitleBuilder {
 // 示例值：
 func (builder *JobTitleBuilder) JobTitleName(jobTitleName *I18nText) *JobTitleBuilder {
 	builder.jobTitleName = jobTitleName
-	builder.jobTitleNameFlag = true
+	builder.jobTitleNameSet = true
 	return builder
 }
 
@@ -13650,7 +13654,7 @@ func (builder *JobTitleBuilder) JobTitleName(jobTitleName *I18nText) *JobTitleBu
 // 示例值：true
 func (builder *JobTitleBuilder) IsEnabled(isEnabled bool) *JobTitleBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -13659,7 +13663,7 @@ func (builder *JobTitleBuilder) IsEnabled(isEnabled bool) *JobTitleBuilder {
 // 示例值：true
 func (builder *JobTitleBuilder) IsDeleted(isDeleted bool) *JobTitleBuilder {
 	builder.isDeleted = isDeleted
-	builder.isDeletedFlag = true
+	builder.isDeletedSet = true
 	return builder
 }
 
@@ -13668,7 +13672,7 @@ func (builder *JobTitleBuilder) IsDeleted(isDeleted bool) *JobTitleBuilder {
 // 示例值：
 func (builder *JobTitleBuilder) Title(title *I18nText) *JobTitleBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -13677,7 +13681,7 @@ func (builder *JobTitleBuilder) Title(title *I18nText) *JobTitleBuilder {
 // 示例值：uhgy123jd
 func (builder *JobTitleBuilder) JobFamilyId(jobFamilyId string) *JobTitleBuilder {
 	builder.jobFamilyId = jobFamilyId
-	builder.jobFamilyIdFlag = true
+	builder.jobFamilyIdSet = true
 	return builder
 }
 
@@ -13686,7 +13690,7 @@ func (builder *JobTitleBuilder) JobFamilyId(jobFamilyId string) *JobTitleBuilder
 // 示例值：erhu88d
 func (builder *JobTitleBuilder) JobLevelId(jobLevelId string) *JobTitleBuilder {
 	builder.jobLevelId = jobLevelId
-	builder.jobLevelIdFlag = true
+	builder.jobLevelIdSet = true
 	return builder
 }
 
@@ -13695,7 +13699,7 @@ func (builder *JobTitleBuilder) JobLevelId(jobLevelId string) *JobTitleBuilder {
 // 示例值：
 func (builder *JobTitleBuilder) Description(description *I18nText) *JobTitleBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -13704,7 +13708,7 @@ func (builder *JobTitleBuilder) Description(description *I18nText) *JobTitleBuil
 // 示例值：1
 func (builder *JobTitleBuilder) CreateTime(createTime string) *JobTitleBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -13713,7 +13717,7 @@ func (builder *JobTitleBuilder) CreateTime(createTime string) *JobTitleBuilder {
 // 示例值：1
 func (builder *JobTitleBuilder) UpdateTime(updateTime string) *JobTitleBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -13722,7 +13726,7 @@ func (builder *JobTitleBuilder) UpdateTime(updateTime string) *JobTitleBuilder {
 // 示例值：1
 func (builder *JobTitleBuilder) CreatorId(creatorId string) *JobTitleBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -13731,7 +13735,7 @@ func (builder *JobTitleBuilder) CreatorId(creatorId string) *JobTitleBuilder {
 // 示例值：1
 func (builder *JobTitleBuilder) UpdatorId(updatorId string) *JobTitleBuilder {
 	builder.updatorId = updatorId
-	builder.updatorIdFlag = true
+	builder.updatorIdSet = true
 	return builder
 }
 
@@ -13740,7 +13744,7 @@ func (builder *JobTitleBuilder) UpdatorId(updatorId string) *JobTitleBuilder {
 // 示例值：qwesaeq
 func (builder *JobTitleBuilder) ExternalId(externalId string) *JobTitleBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
@@ -13749,7 +13753,7 @@ func (builder *JobTitleBuilder) ExternalId(externalId string) *JobTitleBuilder {
 // 示例值：
 func (builder *JobTitleBuilder) JobFamilyIds(jobFamilyIds []string) *JobTitleBuilder {
 	builder.jobFamilyIds = jobFamilyIds
-	builder.jobFamilyIdsFlag = true
+	builder.jobFamilyIdsSet = true
 	return builder
 }
 
@@ -13758,69 +13762,69 @@ func (builder *JobTitleBuilder) JobFamilyIds(jobFamilyIds []string) *JobTitleBui
 // 示例值：
 func (builder *JobTitleBuilder) JobLevelIds(jobLevelIds []string) *JobTitleBuilder {
 	builder.jobLevelIds = jobLevelIds
-	builder.jobLevelIdsFlag = true
+	builder.jobLevelIdsSet = true
 	return builder
 }
 
 func (builder *JobTitleBuilder) Build() *JobTitle {
 	req := &JobTitle{}
-	if builder.jobTitleIdFlag {
+	if builder.jobTitleIdSet {
 		req.JobTitleId = &builder.jobTitleId
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.jobTitleNameFlag {
+	if builder.jobTitleNameSet {
 		req.JobTitleName = builder.jobTitleName
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.isDeletedFlag {
+	if builder.isDeletedSet {
 		req.IsDeleted = &builder.isDeleted
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = builder.title
 	}
-	if builder.jobFamilyIdFlag {
+	if builder.jobFamilyIdSet {
 		req.JobFamilyId = &builder.jobFamilyId
 
 	}
-	if builder.jobLevelIdFlag {
+	if builder.jobLevelIdSet {
 		req.JobLevelId = &builder.jobLevelId
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.updatorIdFlag {
+	if builder.updatorIdSet {
 		req.UpdatorId = &builder.updatorId
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
-	if builder.jobFamilyIdsFlag {
+	if builder.jobFamilyIdsSet {
 		req.JobFamilyIds = builder.jobFamilyIds
 	}
-	if builder.jobLevelIdsFlag {
+	if builder.jobLevelIdsSet {
 		req.JobLevelIds = builder.jobLevelIds
 	}
 	return req
@@ -13835,14 +13839,14 @@ type LarkIdaasDirectoryPageResponse struct {
 }
 
 type LarkIdaasDirectoryPageResponseBuilder struct {
-	hasMore     bool // 是否还有后续结果
-	hasMoreFlag bool
+	hasMore    bool // 是否还有后续结果
+	hasMoreSet bool
 
-	cursor     string // 下一次的游标，只在PageType=CURSOR 时有效
-	cursorFlag bool
+	cursor    string // 下一次的游标，只在PageType=CURSOR 时有效
+	cursorSet bool
 
-	total     string // 总条数，只在PageType=Offset 时有效
-	totalFlag bool
+	total    string // 总条数，只在PageType=Offset 时有效
+	totalSet bool
 }
 
 func NewLarkIdaasDirectoryPageResponseBuilder() *LarkIdaasDirectoryPageResponseBuilder {
@@ -13855,7 +13859,7 @@ func NewLarkIdaasDirectoryPageResponseBuilder() *LarkIdaasDirectoryPageResponseB
 // 示例值：
 func (builder *LarkIdaasDirectoryPageResponseBuilder) HasMore(hasMore bool) *LarkIdaasDirectoryPageResponseBuilder {
 	builder.hasMore = hasMore
-	builder.hasMoreFlag = true
+	builder.hasMoreSet = true
 	return builder
 }
 
@@ -13864,7 +13868,7 @@ func (builder *LarkIdaasDirectoryPageResponseBuilder) HasMore(hasMore bool) *Lar
 // 示例值：asdfasdfasdf
 func (builder *LarkIdaasDirectoryPageResponseBuilder) Cursor(cursor string) *LarkIdaasDirectoryPageResponseBuilder {
 	builder.cursor = cursor
-	builder.cursorFlag = true
+	builder.cursorSet = true
 	return builder
 }
 
@@ -13873,21 +13877,21 @@ func (builder *LarkIdaasDirectoryPageResponseBuilder) Cursor(cursor string) *Lar
 // 示例值：100
 func (builder *LarkIdaasDirectoryPageResponseBuilder) Total(total string) *LarkIdaasDirectoryPageResponseBuilder {
 	builder.total = total
-	builder.totalFlag = true
+	builder.totalSet = true
 	return builder
 }
 
 func (builder *LarkIdaasDirectoryPageResponseBuilder) Build() *LarkIdaasDirectoryPageResponse {
 	req := &LarkIdaasDirectoryPageResponse{}
-	if builder.hasMoreFlag {
+	if builder.hasMoreSet {
 		req.HasMore = &builder.hasMore
 
 	}
-	if builder.cursorFlag {
+	if builder.cursorSet {
 		req.Cursor = &builder.cursor
 
 	}
-	if builder.totalFlag {
+	if builder.totalSet {
 		req.Total = &builder.total
 
 	}
@@ -13899,8 +13903,8 @@ type ListEmployeeIdsOptions struct {
 }
 
 type ListEmployeeIdsOptionsBuilder struct {
-	needTotal     bool // 是否返回总数
-	needTotalFlag bool
+	needTotal    bool // 是否返回总数
+	needTotalSet bool
 }
 
 func NewListEmployeeIdsOptionsBuilder() *ListEmployeeIdsOptionsBuilder {
@@ -13913,13 +13917,13 @@ func NewListEmployeeIdsOptionsBuilder() *ListEmployeeIdsOptionsBuilder {
 // 示例值：
 func (builder *ListEmployeeIdsOptionsBuilder) NeedTotal(needTotal bool) *ListEmployeeIdsOptionsBuilder {
 	builder.needTotal = needTotal
-	builder.needTotalFlag = true
+	builder.needTotalSet = true
 	return builder
 }
 
 func (builder *ListEmployeeIdsOptionsBuilder) Build() *ListEmployeeIdsOptions {
 	req := &ListEmployeeIdsOptions{}
-	if builder.needTotalFlag {
+	if builder.needTotalSet {
 		req.NeedTotal = &builder.needTotal
 
 	}
@@ -13931,8 +13935,8 @@ type MCreateCustomFieldOptions struct {
 }
 
 type MCreateCustomFieldOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewMCreateCustomFieldOptionsBuilder() *MCreateCustomFieldOptionsBuilder {
@@ -13945,13 +13949,13 @@ func NewMCreateCustomFieldOptionsBuilder() *MCreateCustomFieldOptionsBuilder {
 // 示例值：
 func (builder *MCreateCustomFieldOptionsBuilder) DataSource(dataSource int) *MCreateCustomFieldOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *MCreateCustomFieldOptionsBuilder) Build() *MCreateCustomFieldOptions {
 	req := &MCreateCustomFieldOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -13963,8 +13967,8 @@ type MGetUserEntityOptions struct {
 }
 
 type MGetUserEntityOptionsBuilder struct {
-	authExtra     map[string]string // 透传给权限的额外字段
-	authExtraFlag bool
+	authExtra    map[string]string // 透传给权限的额外字段
+	authExtraSet bool
 }
 
 func NewMGetUserEntityOptionsBuilder() *MGetUserEntityOptionsBuilder {
@@ -13977,13 +13981,13 @@ func NewMGetUserEntityOptionsBuilder() *MGetUserEntityOptionsBuilder {
 // 示例值：
 func (builder *MGetUserEntityOptionsBuilder) AuthExtra(authExtra map[string]string) *MGetUserEntityOptionsBuilder {
 	builder.authExtra = authExtra
-	builder.authExtraFlag = true
+	builder.authExtraSet = true
 	return builder
 }
 
 func (builder *MGetUserEntityOptionsBuilder) Build() *MGetUserEntityOptions {
 	req := &MGetUserEntityOptions{}
-	if builder.authExtraFlag {
+	if builder.authExtraSet {
 		req.AuthExtra = builder.authExtra
 	}
 	return req
@@ -13994,8 +13998,8 @@ type MGetUserVisibleFieldsOptions struct {
 }
 
 type MGetUserVisibleFieldsOptionsBuilder struct {
-	needFieldData     bool // 为 True 时额外返回数据信息, 默认为False只返回鉴权信息\n需要返回数据信息时接口耗时会有一定增加
-	needFieldDataFlag bool
+	needFieldData    bool // 为 True 时额外返回数据信息, 默认为False只返回鉴权信息\n需要返回数据信息时接口耗时会有一定增加
+	needFieldDataSet bool
 }
 
 func NewMGetUserVisibleFieldsOptionsBuilder() *MGetUserVisibleFieldsOptionsBuilder {
@@ -14008,13 +14012,13 @@ func NewMGetUserVisibleFieldsOptionsBuilder() *MGetUserVisibleFieldsOptionsBuild
 // 示例值：
 func (builder *MGetUserVisibleFieldsOptionsBuilder) NeedFieldData(needFieldData bool) *MGetUserVisibleFieldsOptionsBuilder {
 	builder.needFieldData = needFieldData
-	builder.needFieldDataFlag = true
+	builder.needFieldDataSet = true
 	return builder
 }
 
 func (builder *MGetUserVisibleFieldsOptionsBuilder) Build() *MGetUserVisibleFieldsOptions {
 	req := &MGetUserVisibleFieldsOptions{}
-	if builder.needFieldDataFlag {
+	if builder.needFieldDataSet {
 		req.NeedFieldData = &builder.needFieldData
 
 	}
@@ -14026,8 +14030,8 @@ type MGetVisibleEmployeeIdsOptions struct {
 }
 
 type MGetVisibleEmployeeIdsOptionsBuilder struct {
-	authExtra     map[string]string // 透传给权限的额外字段
-	authExtraFlag bool
+	authExtra    map[string]string // 透传给权限的额外字段
+	authExtraSet bool
 }
 
 func NewMGetVisibleEmployeeIdsOptionsBuilder() *MGetVisibleEmployeeIdsOptionsBuilder {
@@ -14040,13 +14044,13 @@ func NewMGetVisibleEmployeeIdsOptionsBuilder() *MGetVisibleEmployeeIdsOptionsBui
 // 示例值：
 func (builder *MGetVisibleEmployeeIdsOptionsBuilder) AuthExtra(authExtra map[string]string) *MGetVisibleEmployeeIdsOptionsBuilder {
 	builder.authExtra = authExtra
-	builder.authExtraFlag = true
+	builder.authExtraSet = true
 	return builder
 }
 
 func (builder *MGetVisibleEmployeeIdsOptionsBuilder) Build() *MGetVisibleEmployeeIdsOptions {
 	req := &MGetVisibleEmployeeIdsOptions{}
-	if builder.authExtraFlag {
+	if builder.authExtraSet {
 		req.AuthExtra = builder.authExtra
 	}
 	return req
@@ -14057,8 +14061,8 @@ type MUpdateCustomFieldOptions struct {
 }
 
 type MUpdateCustomFieldOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewMUpdateCustomFieldOptionsBuilder() *MUpdateCustomFieldOptionsBuilder {
@@ -14071,13 +14075,13 @@ func NewMUpdateCustomFieldOptionsBuilder() *MUpdateCustomFieldOptionsBuilder {
 // 示例值：
 func (builder *MUpdateCustomFieldOptionsBuilder) DataSource(dataSource int) *MUpdateCustomFieldOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *MUpdateCustomFieldOptionsBuilder) Build() *MUpdateCustomFieldOptions {
 	req := &MUpdateCustomFieldOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -14091,11 +14095,11 @@ type MigrateGeoOptions struct {
 }
 
 type MigrateGeoOptionsBuilder struct {
-	targetGeo     string // 迁移的目标Geo
-	targetGeoFlag bool
+	targetGeo    string // 迁移的目标Geo
+	targetGeoSet bool
 
-	taskId     string // 迁移任务的id，不指定时自动生成
-	taskIdFlag bool
+	taskId    string // 迁移任务的id，不指定时自动生成
+	taskIdSet bool
 }
 
 func NewMigrateGeoOptionsBuilder() *MigrateGeoOptionsBuilder {
@@ -14108,7 +14112,7 @@ func NewMigrateGeoOptionsBuilder() *MigrateGeoOptionsBuilder {
 // 示例值：cn
 func (builder *MigrateGeoOptionsBuilder) TargetGeo(targetGeo string) *MigrateGeoOptionsBuilder {
 	builder.targetGeo = targetGeo
-	builder.targetGeoFlag = true
+	builder.targetGeoSet = true
 	return builder
 }
 
@@ -14117,17 +14121,17 @@ func (builder *MigrateGeoOptionsBuilder) TargetGeo(targetGeo string) *MigrateGeo
 // 示例值：342123423
 func (builder *MigrateGeoOptionsBuilder) TaskId(taskId string) *MigrateGeoOptionsBuilder {
 	builder.taskId = taskId
-	builder.taskIdFlag = true
+	builder.taskIdSet = true
 	return builder
 }
 
 func (builder *MigrateGeoOptionsBuilder) Build() *MigrateGeoOptions {
 	req := &MigrateGeoOptions{}
-	if builder.targetGeoFlag {
+	if builder.targetGeoSet {
 		req.TargetGeo = &builder.targetGeo
 
 	}
-	if builder.taskIdFlag {
+	if builder.taskIdSet {
 		req.TaskId = &builder.taskId
 
 	}
@@ -14141,11 +14145,11 @@ type MultiFilterCondition struct {
 }
 
 type MultiFilterConditionBuilder struct {
-	expr     string // 逻辑表达式，内容为比较表达式的关系\n 操作数：使用序号标识一个比较表达式 运算符：逻辑运算符当前仅支持and，可以使用括号来改变优先级，括号具有最高优先级。 相同优先级从左到右的顺序进行计算。取值举例：1 and 2 and (3 and 4)
-	exprFlag bool
+	expr    string // 逻辑表达式，内容为比较表达式的关系\n 操作数：使用序号标识一个比较表达式 运算符：逻辑运算符当前仅支持and，可以使用括号来改变优先级，括号具有最高优先级。 相同优先级从左到右的顺序进行计算。取值举例：1 and 2 and (3 and 4)
+	exprSet bool
 
-	conditions     []*FilterCondition // 比较表达式列表，内容如 base_info.mobile eq "\"+8613000000001\""的比较条件，多个表达式之间的关系为且
-	conditionsFlag bool
+	conditions    []*FilterCondition // 比较表达式列表，内容如 base_info.mobile eq "\"+8613000000001\""的比较条件，多个表达式之间的关系为且
+	conditionsSet bool
 }
 
 func NewMultiFilterConditionBuilder() *MultiFilterConditionBuilder {
@@ -14158,7 +14162,7 @@ func NewMultiFilterConditionBuilder() *MultiFilterConditionBuilder {
 // 示例值：
 func (builder *MultiFilterConditionBuilder) Expr(expr string) *MultiFilterConditionBuilder {
 	builder.expr = expr
-	builder.exprFlag = true
+	builder.exprSet = true
 	return builder
 }
 
@@ -14167,17 +14171,17 @@ func (builder *MultiFilterConditionBuilder) Expr(expr string) *MultiFilterCondit
 // 示例值：
 func (builder *MultiFilterConditionBuilder) Conditions(conditions []*FilterCondition) *MultiFilterConditionBuilder {
 	builder.conditions = conditions
-	builder.conditionsFlag = true
+	builder.conditionsSet = true
 	return builder
 }
 
 func (builder *MultiFilterConditionBuilder) Build() *MultiFilterCondition {
 	req := &MultiFilterCondition{}
-	if builder.exprFlag {
+	if builder.exprSet {
 		req.Expr = &builder.expr
 
 	}
-	if builder.conditionsFlag {
+	if builder.conditionsSet {
 		req.Conditions = builder.conditions
 	}
 	return req
@@ -14202,29 +14206,29 @@ type Name struct {
 }
 
 type NameBuilder struct {
-	lastName     *I18nText // i18n文本
-	lastNameFlag bool
+	lastName    *I18nText // i18n文本
+	lastNameSet bool
 
-	firstName     *I18nText // i18n文本
-	firstNameFlag bool
+	firstName    *I18nText // i18n文本
+	firstNameSet bool
 
-	middleName     *I18nText // i18n文本
-	middleNameFlag bool
+	middleName    *I18nText // i18n文本
+	middleNameSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	namePy     string // 姓名的拼音
-	namePyFlag bool
+	namePy    string // 姓名的拼音
+	namePySet bool
 
-	anotherName     string // 别名
-	anotherNameFlag bool
+	anotherName    string // 别名
+	anotherNameSet bool
 
-	legalName     string // 法定姓名
-	legalNameFlag bool
+	legalName    string // 法定姓名
+	legalNameSet bool
 
-	displayName     *I18nText // i18n文本
-	displayNameFlag bool
+	displayName    *I18nText // i18n文本
+	displayNameSet bool
 }
 
 func NewNameBuilder() *NameBuilder {
@@ -14237,7 +14241,7 @@ func NewNameBuilder() *NameBuilder {
 // 示例值：
 func (builder *NameBuilder) LastName(lastName *I18nText) *NameBuilder {
 	builder.lastName = lastName
-	builder.lastNameFlag = true
+	builder.lastNameSet = true
 	return builder
 }
 
@@ -14246,7 +14250,7 @@ func (builder *NameBuilder) LastName(lastName *I18nText) *NameBuilder {
 // 示例值：
 func (builder *NameBuilder) FirstName(firstName *I18nText) *NameBuilder {
 	builder.firstName = firstName
-	builder.firstNameFlag = true
+	builder.firstNameSet = true
 	return builder
 }
 
@@ -14255,7 +14259,7 @@ func (builder *NameBuilder) FirstName(firstName *I18nText) *NameBuilder {
 // 示例值：
 func (builder *NameBuilder) MiddleName(middleName *I18nText) *NameBuilder {
 	builder.middleName = middleName
-	builder.middleNameFlag = true
+	builder.middleNameSet = true
 	return builder
 }
 
@@ -14264,7 +14268,7 @@ func (builder *NameBuilder) MiddleName(middleName *I18nText) *NameBuilder {
 // 示例值：
 func (builder *NameBuilder) Name(name *I18nText) *NameBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -14273,7 +14277,7 @@ func (builder *NameBuilder) Name(name *I18nText) *NameBuilder {
 // 示例值：zhangsan
 func (builder *NameBuilder) NamePy(namePy string) *NameBuilder {
 	builder.namePy = namePy
-	builder.namePyFlag = true
+	builder.namePySet = true
 	return builder
 }
 
@@ -14282,7 +14286,7 @@ func (builder *NameBuilder) NamePy(namePy string) *NameBuilder {
 // 示例值：张小明
 func (builder *NameBuilder) AnotherName(anotherName string) *NameBuilder {
 	builder.anotherName = anotherName
-	builder.anotherNameFlag = true
+	builder.anotherNameSet = true
 	return builder
 }
 
@@ -14291,7 +14295,7 @@ func (builder *NameBuilder) AnotherName(anotherName string) *NameBuilder {
 // 示例值：张三
 func (builder *NameBuilder) LegalName(legalName string) *NameBuilder {
 	builder.legalName = legalName
-	builder.legalNameFlag = true
+	builder.legalNameSet = true
 	return builder
 }
 
@@ -14300,37 +14304,37 @@ func (builder *NameBuilder) LegalName(legalName string) *NameBuilder {
 // 示例值：
 func (builder *NameBuilder) DisplayName(displayName *I18nText) *NameBuilder {
 	builder.displayName = displayName
-	builder.displayNameFlag = true
+	builder.displayNameSet = true
 	return builder
 }
 
 func (builder *NameBuilder) Build() *Name {
 	req := &Name{}
-	if builder.lastNameFlag {
+	if builder.lastNameSet {
 		req.LastName = builder.lastName
 	}
-	if builder.firstNameFlag {
+	if builder.firstNameSet {
 		req.FirstName = builder.firstName
 	}
-	if builder.middleNameFlag {
+	if builder.middleNameSet {
 		req.MiddleName = builder.middleName
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.namePyFlag {
+	if builder.namePySet {
 		req.NamePy = &builder.namePy
 
 	}
-	if builder.anotherNameFlag {
+	if builder.anotherNameSet {
 		req.AnotherName = &builder.anotherName
 
 	}
-	if builder.legalNameFlag {
+	if builder.legalNameSet {
 		req.LegalName = &builder.legalName
 
 	}
-	if builder.displayNameFlag {
+	if builder.displayNameSet {
 		req.DisplayName = builder.displayName
 	}
 	return req
@@ -14353,26 +14357,26 @@ type OpenapiOptions struct {
 }
 
 type OpenapiOptionsBuilder struct {
-	employeeIdType     string // 员工ID类型
-	employeeIdTypeFlag bool
+	employeeIdType    string // 员工ID类型
+	employeeIdTypeSet bool
 
-	departmentIdType     string // 部门ID类型
-	departmentIdTypeFlag bool
+	departmentIdType    string // 部门ID类型
+	departmentIdTypeSet bool
 
-	jobTitleIdType     string // 职务id类型
-	jobTitleIdTypeFlag bool
+	jobTitleIdType    string // 职务id类型
+	jobTitleIdTypeSet bool
 
-	workPlaceIdType     string // 工作城市id类型
-	workPlaceIdTypeFlag bool
+	workPlaceIdType    string // 工作城市id类型
+	workPlaceIdTypeSet bool
 
-	orgDimensionIdType     string // 组织维度ID类型
-	orgDimensionIdTypeFlag bool
+	orgDimensionIdType    string // 组织维度ID类型
+	orgDimensionIdTypeSet bool
 
-	groupIdType     string // 用户组ID类型
-	groupIdTypeFlag bool
+	groupIdType    string // 用户组ID类型
+	groupIdTypeSet bool
 
-	groupSetIdType     string // 用户组分组ID类型
-	groupSetIdTypeFlag bool
+	groupSetIdType    string // 用户组分组ID类型
+	groupSetIdTypeSet bool
 }
 
 func NewOpenapiOptionsBuilder() *OpenapiOptionsBuilder {
@@ -14385,7 +14389,7 @@ func NewOpenapiOptionsBuilder() *OpenapiOptionsBuilder {
 // 示例值：open_id
 func (builder *OpenapiOptionsBuilder) EmployeeIdType(employeeIdType string) *OpenapiOptionsBuilder {
 	builder.employeeIdType = employeeIdType
-	builder.employeeIdTypeFlag = true
+	builder.employeeIdTypeSet = true
 	return builder
 }
 
@@ -14394,7 +14398,7 @@ func (builder *OpenapiOptionsBuilder) EmployeeIdType(employeeIdType string) *Ope
 // 示例值：open_department_id
 func (builder *OpenapiOptionsBuilder) DepartmentIdType(departmentIdType string) *OpenapiOptionsBuilder {
 	builder.departmentIdType = departmentIdType
-	builder.departmentIdTypeFlag = true
+	builder.departmentIdTypeSet = true
 	return builder
 }
 
@@ -14403,7 +14407,7 @@ func (builder *OpenapiOptionsBuilder) DepartmentIdType(departmentIdType string) 
 // 示例值：job_title_id
 func (builder *OpenapiOptionsBuilder) JobTitleIdType(jobTitleIdType string) *OpenapiOptionsBuilder {
 	builder.jobTitleIdType = jobTitleIdType
-	builder.jobTitleIdTypeFlag = true
+	builder.jobTitleIdTypeSet = true
 	return builder
 }
 
@@ -14412,7 +14416,7 @@ func (builder *OpenapiOptionsBuilder) JobTitleIdType(jobTitleIdType string) *Ope
 // 示例值：work_place_id
 func (builder *OpenapiOptionsBuilder) WorkPlaceIdType(workPlaceIdType string) *OpenapiOptionsBuilder {
 	builder.workPlaceIdType = workPlaceIdType
-	builder.workPlaceIdTypeFlag = true
+	builder.workPlaceIdTypeSet = true
 	return builder
 }
 
@@ -14421,7 +14425,7 @@ func (builder *OpenapiOptionsBuilder) WorkPlaceIdType(workPlaceIdType string) *O
 // 示例值：open_org_dimension_id
 func (builder *OpenapiOptionsBuilder) OrgDimensionIdType(orgDimensionIdType string) *OpenapiOptionsBuilder {
 	builder.orgDimensionIdType = orgDimensionIdType
-	builder.orgDimensionIdTypeFlag = true
+	builder.orgDimensionIdTypeSet = true
 	return builder
 }
 
@@ -14430,7 +14434,7 @@ func (builder *OpenapiOptionsBuilder) OrgDimensionIdType(orgDimensionIdType stri
 // 示例值：open_group_id
 func (builder *OpenapiOptionsBuilder) GroupIdType(groupIdType string) *OpenapiOptionsBuilder {
 	builder.groupIdType = groupIdType
-	builder.groupIdTypeFlag = true
+	builder.groupIdTypeSet = true
 	return builder
 }
 
@@ -14439,37 +14443,37 @@ func (builder *OpenapiOptionsBuilder) GroupIdType(groupIdType string) *OpenapiOp
 // 示例值：open_group_set_id
 func (builder *OpenapiOptionsBuilder) GroupSetIdType(groupSetIdType string) *OpenapiOptionsBuilder {
 	builder.groupSetIdType = groupSetIdType
-	builder.groupSetIdTypeFlag = true
+	builder.groupSetIdTypeSet = true
 	return builder
 }
 
 func (builder *OpenapiOptionsBuilder) Build() *OpenapiOptions {
 	req := &OpenapiOptions{}
-	if builder.employeeIdTypeFlag {
+	if builder.employeeIdTypeSet {
 		req.EmployeeIdType = &builder.employeeIdType
 
 	}
-	if builder.departmentIdTypeFlag {
+	if builder.departmentIdTypeSet {
 		req.DepartmentIdType = &builder.departmentIdType
 
 	}
-	if builder.jobTitleIdTypeFlag {
+	if builder.jobTitleIdTypeSet {
 		req.JobTitleIdType = &builder.jobTitleIdType
 
 	}
-	if builder.workPlaceIdTypeFlag {
+	if builder.workPlaceIdTypeSet {
 		req.WorkPlaceIdType = &builder.workPlaceIdType
 
 	}
-	if builder.orgDimensionIdTypeFlag {
+	if builder.orgDimensionIdTypeSet {
 		req.OrgDimensionIdType = &builder.orgDimensionIdType
 
 	}
-	if builder.groupIdTypeFlag {
+	if builder.groupIdTypeSet {
 		req.GroupIdType = &builder.groupIdType
 
 	}
-	if builder.groupSetIdTypeFlag {
+	if builder.groupSetIdTypeSet {
 		req.GroupSetIdType = &builder.groupSetIdType
 
 	}
@@ -14483,11 +14487,11 @@ type Operator struct {
 }
 
 type OperatorBuilder struct {
-	id     string // 操作人id
-	idFlag bool
+	id    string // 操作人id
+	idSet bool
 
 	type_    int // 操作来源
-	typeFlag bool
+	type_Set bool
 }
 
 func NewOperatorBuilder() *OperatorBuilder {
@@ -14500,7 +14504,7 @@ func NewOperatorBuilder() *OperatorBuilder {
 // 示例值：eeasfds
 func (builder *OperatorBuilder) Id(id string) *OperatorBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -14509,17 +14513,17 @@ func (builder *OperatorBuilder) Id(id string) *OperatorBuilder {
 // 示例值：
 func (builder *OperatorBuilder) Type(type_ int) *OperatorBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
 func (builder *OperatorBuilder) Build() *Operator {
 	req := &Operator{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
@@ -14539,20 +14543,20 @@ type OptionValue struct {
 }
 
 type OptionValueBuilder struct {
-	id     string // 选项ID
-	idFlag bool
+	id    string // 选项ID
+	idSet bool
 
-	optionValue     *I18nText // i18n文本
-	optionValueFlag bool
+	optionValue    *I18nText // i18n文本
+	optionValueSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	isDeleted     bool // 是否删除
-	isDeletedFlag bool
+	isDeleted    bool // 是否删除
+	isDeletedSet bool
 }
 
 func NewOptionValueBuilder() *OptionValueBuilder {
@@ -14565,7 +14569,7 @@ func NewOptionValueBuilder() *OptionValueBuilder {
 // 示例值：124112
 func (builder *OptionValueBuilder) Id(id string) *OptionValueBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -14574,7 +14578,7 @@ func (builder *OptionValueBuilder) Id(id string) *OptionValueBuilder {
 // 示例值：
 func (builder *OptionValueBuilder) OptionValue(optionValue *I18nText) *OptionValueBuilder {
 	builder.optionValue = optionValue
-	builder.optionValueFlag = true
+	builder.optionValueSet = true
 	return builder
 }
 
@@ -14583,7 +14587,7 @@ func (builder *OptionValueBuilder) OptionValue(optionValue *I18nText) *OptionVal
 // 示例值：
 func (builder *OptionValueBuilder) Description(description *I18nText) *OptionValueBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -14592,7 +14596,7 @@ func (builder *OptionValueBuilder) Description(description *I18nText) *OptionVal
 // 示例值：true
 func (builder *OptionValueBuilder) IsEnabled(isEnabled bool) *OptionValueBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -14601,27 +14605,27 @@ func (builder *OptionValueBuilder) IsEnabled(isEnabled bool) *OptionValueBuilder
 // 示例值：true
 func (builder *OptionValueBuilder) IsDeleted(isDeleted bool) *OptionValueBuilder {
 	builder.isDeleted = isDeleted
-	builder.isDeletedFlag = true
+	builder.isDeletedSet = true
 	return builder
 }
 
 func (builder *OptionValueBuilder) Build() *OptionValue {
 	req := &OptionValue{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.optionValueFlag {
+	if builder.optionValueSet {
 		req.OptionValue = builder.optionValue
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.isDeletedFlag {
+	if builder.isDeletedSet {
 		req.IsDeleted = &builder.isDeleted
 
 	}
@@ -14635,11 +14639,11 @@ type OrderField struct {
 }
 
 type OrderFieldBuilder struct {
-	field     string // 字段名
-	fieldFlag bool
+	field    string // 字段名
+	fieldSet bool
 
-	orderType     int // 排序方式
-	orderTypeFlag bool
+	orderType    int // 排序方式
+	orderTypeSet bool
 }
 
 func NewOrderFieldBuilder() *OrderFieldBuilder {
@@ -14652,7 +14656,7 @@ func NewOrderFieldBuilder() *OrderFieldBuilder {
 // 示例值：test
 func (builder *OrderFieldBuilder) Field(field string) *OrderFieldBuilder {
 	builder.field = field
-	builder.fieldFlag = true
+	builder.fieldSet = true
 	return builder
 }
 
@@ -14661,17 +14665,17 @@ func (builder *OrderFieldBuilder) Field(field string) *OrderFieldBuilder {
 // 示例值：
 func (builder *OrderFieldBuilder) OrderType(orderType int) *OrderFieldBuilder {
 	builder.orderType = orderType
-	builder.orderTypeFlag = true
+	builder.orderTypeSet = true
 	return builder
 }
 
 func (builder *OrderFieldBuilder) Build() *OrderField {
 	req := &OrderField{}
-	if builder.fieldFlag {
+	if builder.fieldSet {
 		req.Field = &builder.field
 
 	}
-	if builder.orderTypeFlag {
+	if builder.orderTypeSet {
 		req.OrderType = &builder.orderType
 
 	}
@@ -14699,32 +14703,32 @@ type OrgDimension struct {
 }
 
 type OrgDimensionBuilder struct {
-	id     string // 组织维度id
-	idFlag bool
+	id    string // 组织维度id
+	idSet bool
 
-	tenantId     string // 租户id
-	tenantIdFlag bool
+	tenantId    string // 租户id
+	tenantIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	enumType     int // 组织维度类型(1.预置 2.自定义)
-	enumTypeFlag bool
+	enumType    int // 组织维度类型(1.预置 2.自定义)
+	enumTypeSet bool
 
-	isEnable     bool // 是否启用
-	isEnableFlag bool
+	isEnable    bool // 是否启用
+	isEnableSet bool
 
-	isDeleted     bool // 是否删除
-	isDeletedFlag bool
+	isDeleted    bool // 是否删除
+	isDeletedSet bool
 
-	order     string // 组织维度排序权重
-	orderFlag bool
+	order    string // 组织维度排序权重
+	orderSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	rootDepartmentId     string // 根部门id
-	rootDepartmentIdFlag bool
+	rootDepartmentId    string // 根部门id
+	rootDepartmentIdSet bool
 }
 
 func NewOrgDimensionBuilder() *OrgDimensionBuilder {
@@ -14737,7 +14741,7 @@ func NewOrgDimensionBuilder() *OrgDimensionBuilder {
 // 示例值：02c7141
 func (builder *OrgDimensionBuilder) Id(id string) *OrgDimensionBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -14746,7 +14750,7 @@ func (builder *OrgDimensionBuilder) Id(id string) *OrgDimensionBuilder {
 // 示例值：u273y71
 func (builder *OrgDimensionBuilder) TenantId(tenantId string) *OrgDimensionBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -14755,7 +14759,7 @@ func (builder *OrgDimensionBuilder) TenantId(tenantId string) *OrgDimensionBuild
 // 示例值：
 func (builder *OrgDimensionBuilder) Name(name *I18nText) *OrgDimensionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -14764,7 +14768,7 @@ func (builder *OrgDimensionBuilder) Name(name *I18nText) *OrgDimensionBuilder {
 // 示例值：
 func (builder *OrgDimensionBuilder) EnumType(enumType int) *OrgDimensionBuilder {
 	builder.enumType = enumType
-	builder.enumTypeFlag = true
+	builder.enumTypeSet = true
 	return builder
 }
 
@@ -14773,7 +14777,7 @@ func (builder *OrgDimensionBuilder) EnumType(enumType int) *OrgDimensionBuilder 
 // 示例值：
 func (builder *OrgDimensionBuilder) IsEnable(isEnable bool) *OrgDimensionBuilder {
 	builder.isEnable = isEnable
-	builder.isEnableFlag = true
+	builder.isEnableSet = true
 	return builder
 }
 
@@ -14782,7 +14786,7 @@ func (builder *OrgDimensionBuilder) IsEnable(isEnable bool) *OrgDimensionBuilder
 // 示例值：
 func (builder *OrgDimensionBuilder) IsDeleted(isDeleted bool) *OrgDimensionBuilder {
 	builder.isDeleted = isDeleted
-	builder.isDeletedFlag = true
+	builder.isDeletedSet = true
 	return builder
 }
 
@@ -14791,7 +14795,7 @@ func (builder *OrgDimensionBuilder) IsDeleted(isDeleted bool) *OrgDimensionBuild
 // 示例值：100
 func (builder *OrgDimensionBuilder) Order(order string) *OrgDimensionBuilder {
 	builder.order = order
-	builder.orderFlag = true
+	builder.orderSet = true
 	return builder
 }
 
@@ -14800,7 +14804,7 @@ func (builder *OrgDimensionBuilder) Order(order string) *OrgDimensionBuilder {
 // 示例值：
 func (builder *OrgDimensionBuilder) Description(description *I18nText) *OrgDimensionBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -14809,43 +14813,43 @@ func (builder *OrgDimensionBuilder) Description(description *I18nText) *OrgDimen
 // 示例值：D12100
 func (builder *OrgDimensionBuilder) RootDepartmentId(rootDepartmentId string) *OrgDimensionBuilder {
 	builder.rootDepartmentId = rootDepartmentId
-	builder.rootDepartmentIdFlag = true
+	builder.rootDepartmentIdSet = true
 	return builder
 }
 
 func (builder *OrgDimensionBuilder) Build() *OrgDimension {
 	req := &OrgDimension{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.enumTypeFlag {
+	if builder.enumTypeSet {
 		req.EnumType = &builder.enumType
 
 	}
-	if builder.isEnableFlag {
+	if builder.isEnableSet {
 		req.IsEnable = &builder.isEnable
 
 	}
-	if builder.isDeletedFlag {
+	if builder.isDeletedSet {
 		req.IsDeleted = &builder.isDeleted
 
 	}
-	if builder.orderFlag {
+	if builder.orderSet {
 		req.Order = &builder.order
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.rootDepartmentIdFlag {
+	if builder.rootDepartmentIdSet {
 		req.RootDepartmentId = &builder.rootDepartmentId
 
 	}
@@ -14859,11 +14863,11 @@ type OrgVisibility struct {
 }
 
 type OrgVisibilityBuilder struct {
-	mainRule     *VisibleMainRule // 主规则
-	mainRuleFlag bool
+	mainRule    *VisibleMainRule // 主规则
+	mainRuleSet bool
 
-	assistRules     []*VisibleAssistRule // 补充规则
-	assistRulesFlag bool
+	assistRules    []*VisibleAssistRule // 补充规则
+	assistRulesSet bool
 }
 
 func NewOrgVisibilityBuilder() *OrgVisibilityBuilder {
@@ -14876,7 +14880,7 @@ func NewOrgVisibilityBuilder() *OrgVisibilityBuilder {
 // 示例值：
 func (builder *OrgVisibilityBuilder) MainRule(mainRule *VisibleMainRule) *OrgVisibilityBuilder {
 	builder.mainRule = mainRule
-	builder.mainRuleFlag = true
+	builder.mainRuleSet = true
 	return builder
 }
 
@@ -14885,16 +14889,16 @@ func (builder *OrgVisibilityBuilder) MainRule(mainRule *VisibleMainRule) *OrgVis
 // 示例值：
 func (builder *OrgVisibilityBuilder) AssistRules(assistRules []*VisibleAssistRule) *OrgVisibilityBuilder {
 	builder.assistRules = assistRules
-	builder.assistRulesFlag = true
+	builder.assistRulesSet = true
 	return builder
 }
 
 func (builder *OrgVisibilityBuilder) Build() *OrgVisibility {
 	req := &OrgVisibility{}
-	if builder.mainRuleFlag {
+	if builder.mainRuleSet {
 		req.MainRule = builder.mainRule
 	}
-	if builder.assistRulesFlag {
+	if builder.assistRulesSet {
 		req.AssistRules = builder.assistRules
 	}
 	return req
@@ -14911,17 +14915,17 @@ type PageCondition struct {
 }
 
 type PageConditionBuilder struct {
-	pageType     string // 本次请求条数，默认为cursor分页
-	pageTypeFlag bool
+	pageType    string // 本次请求条数，默认为cursor分页
+	pageTypeSet bool
 
-	pageSize     int // 本次请求条数
-	pageSizeFlag bool
+	pageSize    int // 本次请求条数
+	pageSizeSet bool
 
-	pageToken     string // 顺序分页查询，不能跳页查询，支持深分页，在需要遍历全部数据的场景只能使用该方式。第一次传空字符串或者不传，后面传上一次的返回值中的page_token
-	pageTokenFlag bool
+	pageToken    string // 顺序分页查询，不能跳页查询，支持深分页，在需要遍历全部数据的场景只能使用该方式。第一次传空字符串或者不传，后面传上一次的返回值中的page_token
+	pageTokenSet bool
 
-	offset     int // 偏移量，支持跳页查询
-	offsetFlag bool
+	offset    int // 偏移量，支持跳页查询
+	offsetSet bool
 }
 
 func NewPageConditionBuilder() *PageConditionBuilder {
@@ -14934,7 +14938,7 @@ func NewPageConditionBuilder() *PageConditionBuilder {
 // 示例值：
 func (builder *PageConditionBuilder) PageType(pageType string) *PageConditionBuilder {
 	builder.pageType = pageType
-	builder.pageTypeFlag = true
+	builder.pageTypeSet = true
 	return builder
 }
 
@@ -14943,7 +14947,7 @@ func (builder *PageConditionBuilder) PageType(pageType string) *PageConditionBui
 // 示例值：
 func (builder *PageConditionBuilder) PageSize(pageSize int) *PageConditionBuilder {
 	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.pageSizeSet = true
 	return builder
 }
 
@@ -14952,7 +14956,7 @@ func (builder *PageConditionBuilder) PageSize(pageSize int) *PageConditionBuilde
 // 示例值：
 func (builder *PageConditionBuilder) PageToken(pageToken string) *PageConditionBuilder {
 	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.pageTokenSet = true
 	return builder
 }
 
@@ -14961,25 +14965,25 @@ func (builder *PageConditionBuilder) PageToken(pageToken string) *PageConditionB
 // 示例值：1
 func (builder *PageConditionBuilder) Offset(offset int) *PageConditionBuilder {
 	builder.offset = offset
-	builder.offsetFlag = true
+	builder.offsetSet = true
 	return builder
 }
 
 func (builder *PageConditionBuilder) Build() *PageCondition {
 	req := &PageCondition{}
-	if builder.pageTypeFlag {
+	if builder.pageTypeSet {
 		req.PageType = &builder.pageType
 
 	}
-	if builder.pageSizeFlag {
+	if builder.pageSizeSet {
 		req.PageSize = &builder.pageSize
 
 	}
-	if builder.pageTokenFlag {
+	if builder.pageTokenSet {
 		req.PageToken = &builder.pageToken
 
 	}
-	if builder.offsetFlag {
+	if builder.offsetSet {
 		req.Offset = &builder.offset
 
 	}
@@ -15003,26 +15007,26 @@ type PageRequest struct {
 }
 
 type PageRequestBuilder struct {
-	pageType     int // 分页方式，每次请求只能使用一种
-	pageTypeFlag bool
+	pageType    int // 分页方式，每次请求只能使用一种
+	pageTypeSet bool
 
-	limit     int // 本次请求条数，不超过100，因为接口会经过权限过滤，所以该值是本次返回的最大值
-	limitFlag bool
+	limit    int // 本次请求条数，不超过100，因为接口会经过权限过滤，所以该值是本次返回的最大值
+	limitSet bool
 
-	orderType     int // 排序方式，每次请求只能使用一种
-	orderTypeFlag bool
+	orderType    int // 排序方式，每次请求只能使用一种
+	orderTypeSet bool
 
-	offset     int // 当PageType=OFFSET 时有效\n从0开始，默认通过ID字段排序，升降序方式可以通过OrderType指定，也可以通过OrderFields指定排序字段和对应的排序方式\n请求方需要根据自己的场景算好offset，例如根据PageSize *  PageNum得出结果\n支持跳页查询，不支持深分页\n如果Offset + Limit > 10000 时默认返回空，这种场景要么细化筛选条件，要么使用CURSOR方式
-	offsetFlag bool
+	offset    int // 当PageType=OFFSET 时有效\n从0开始，默认通过ID字段排序，升降序方式可以通过OrderType指定，也可以通过OrderFields指定排序字段和对应的排序方式\n请求方需要根据自己的场景算好offset，例如根据PageSize *  PageNum得出结果\n支持跳页查询，不支持深分页\n如果Offset + Limit > 10000 时默认返回空，这种场景要么细化筛选条件，要么使用CURSOR方式
+	offsetSet bool
 
-	cursor     string // 当PageType=CURSOR 时有效\n该方式默认通过ID字段排序，升降序方式可以通过OrderType指定，也可以通过CursorField指定排序字段\n只能顺序分页，不能跳页查询，支持深分页，在需要遍历全部数据的场景只能使用该方式\n第一次传空字符串或者不传，后面传上一次的返回值中的cursor
-	cursorFlag bool
+	cursor    string // 当PageType=CURSOR 时有效\n该方式默认通过ID字段排序，升降序方式可以通过OrderType指定，也可以通过CursorField指定排序字段\n只能顺序分页，不能跳页查询，支持深分页，在需要遍历全部数据的场景只能使用该方式\n第一次传空字符串或者不传，后面传上一次的返回值中的cursor
+	cursorSet bool
 
-	orderFields     []*OrderField // 暂不支持\n当PageType=OFFSET 时有效\n默认是按照实体ID排序，在ID排序无法满足需求的场景，可以自定义排序方式
-	orderFieldsFlag bool
+	orderFields    []*OrderField // 暂不支持\n当PageType=OFFSET 时有效\n默认是按照实体ID排序，在ID排序无法满足需求的场景，可以自定义排序方式
+	orderFieldsSet bool
 
-	cursorField     string // 暂不支持\n当PageType=CURSOR 时有效\n默认是按照实体ID排序，在ID排序无法满足需求的场景，可以自定义排序字段，只能支持单一字段
-	cursorFieldFlag bool
+	cursorField    string // 暂不支持\n当PageType=CURSOR 时有效\n默认是按照实体ID排序，在ID排序无法满足需求的场景，可以自定义排序字段，只能支持单一字段
+	cursorFieldSet bool
 }
 
 func NewPageRequestBuilder() *PageRequestBuilder {
@@ -15035,7 +15039,7 @@ func NewPageRequestBuilder() *PageRequestBuilder {
 // 示例值：
 func (builder *PageRequestBuilder) PageType(pageType int) *PageRequestBuilder {
 	builder.pageType = pageType
-	builder.pageTypeFlag = true
+	builder.pageTypeSet = true
 	return builder
 }
 
@@ -15044,7 +15048,7 @@ func (builder *PageRequestBuilder) PageType(pageType int) *PageRequestBuilder {
 // 示例值：100
 func (builder *PageRequestBuilder) Limit(limit int) *PageRequestBuilder {
 	builder.limit = limit
-	builder.limitFlag = true
+	builder.limitSet = true
 	return builder
 }
 
@@ -15053,7 +15057,7 @@ func (builder *PageRequestBuilder) Limit(limit int) *PageRequestBuilder {
 // 示例值：
 func (builder *PageRequestBuilder) OrderType(orderType int) *PageRequestBuilder {
 	builder.orderType = orderType
-	builder.orderTypeFlag = true
+	builder.orderTypeSet = true
 	return builder
 }
 
@@ -15062,7 +15066,7 @@ func (builder *PageRequestBuilder) OrderType(orderType int) *PageRequestBuilder 
 // 示例值：0
 func (builder *PageRequestBuilder) Offset(offset int) *PageRequestBuilder {
 	builder.offset = offset
-	builder.offsetFlag = true
+	builder.offsetSet = true
 	return builder
 }
 
@@ -15071,7 +15075,7 @@ func (builder *PageRequestBuilder) Offset(offset int) *PageRequestBuilder {
 // 示例值：sdfsdfsdf
 func (builder *PageRequestBuilder) Cursor(cursor string) *PageRequestBuilder {
 	builder.cursor = cursor
-	builder.cursorFlag = true
+	builder.cursorSet = true
 	return builder
 }
 
@@ -15080,7 +15084,7 @@ func (builder *PageRequestBuilder) Cursor(cursor string) *PageRequestBuilder {
 // 示例值：
 func (builder *PageRequestBuilder) OrderFields(orderFields []*OrderField) *PageRequestBuilder {
 	builder.orderFields = orderFields
-	builder.orderFieldsFlag = true
+	builder.orderFieldsSet = true
 	return builder
 }
 
@@ -15089,36 +15093,36 @@ func (builder *PageRequestBuilder) OrderFields(orderFields []*OrderField) *PageR
 // 示例值：sdfsdfsdf
 func (builder *PageRequestBuilder) CursorField(cursorField string) *PageRequestBuilder {
 	builder.cursorField = cursorField
-	builder.cursorFieldFlag = true
+	builder.cursorFieldSet = true
 	return builder
 }
 
 func (builder *PageRequestBuilder) Build() *PageRequest {
 	req := &PageRequest{}
-	if builder.pageTypeFlag {
+	if builder.pageTypeSet {
 		req.PageType = &builder.pageType
 
 	}
-	if builder.limitFlag {
+	if builder.limitSet {
 		req.Limit = &builder.limit
 
 	}
-	if builder.orderTypeFlag {
+	if builder.orderTypeSet {
 		req.OrderType = &builder.orderType
 
 	}
-	if builder.offsetFlag {
+	if builder.offsetSet {
 		req.Offset = &builder.offset
 
 	}
-	if builder.cursorFlag {
+	if builder.cursorSet {
 		req.Cursor = &builder.cursor
 
 	}
-	if builder.orderFieldsFlag {
+	if builder.orderFieldsSet {
 		req.OrderFields = builder.orderFields
 	}
-	if builder.cursorFieldFlag {
+	if builder.cursorFieldSet {
 		req.CursorField = &builder.cursorField
 
 	}
@@ -15134,14 +15138,14 @@ type PageResponse struct {
 }
 
 type PageResponseBuilder struct {
-	hasMore     bool // 是否还有后续结果
-	hasMoreFlag bool
+	hasMore    bool // 是否还有后续结果
+	hasMoreSet bool
 
-	pageToken     string // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
-	pageTokenFlag bool
+	pageToken    string // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	pageTokenSet bool
 
-	count     int // 总记录数，只在page_type=offset 时返回
-	countFlag bool
+	count    int // 总记录数，只在page_type=offset 时返回
+	countSet bool
 }
 
 func NewPageResponseBuilder() *PageResponseBuilder {
@@ -15154,7 +15158,7 @@ func NewPageResponseBuilder() *PageResponseBuilder {
 // 示例值：
 func (builder *PageResponseBuilder) HasMore(hasMore bool) *PageResponseBuilder {
 	builder.hasMore = hasMore
-	builder.hasMoreFlag = true
+	builder.hasMoreSet = true
 	return builder
 }
 
@@ -15163,7 +15167,7 @@ func (builder *PageResponseBuilder) HasMore(hasMore bool) *PageResponseBuilder {
 // 示例值：
 func (builder *PageResponseBuilder) PageToken(pageToken string) *PageResponseBuilder {
 	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.pageTokenSet = true
 	return builder
 }
 
@@ -15172,21 +15176,21 @@ func (builder *PageResponseBuilder) PageToken(pageToken string) *PageResponseBui
 // 示例值：10
 func (builder *PageResponseBuilder) Count(count int) *PageResponseBuilder {
 	builder.count = count
-	builder.countFlag = true
+	builder.countSet = true
 	return builder
 }
 
 func (builder *PageResponseBuilder) Build() *PageResponse {
 	req := &PageResponse{}
-	if builder.hasMoreFlag {
+	if builder.hasMoreSet {
 		req.HasMore = &builder.hasMore
 
 	}
-	if builder.pageTokenFlag {
+	if builder.pageTokenSet {
 		req.PageToken = &builder.pageToken
 
 	}
-	if builder.countFlag {
+	if builder.countSet {
 		req.Count = &builder.count
 
 	}
@@ -15202,14 +15206,14 @@ type PersonalProfile struct {
 }
 
 type PersonalProfileBuilder struct {
-	id     string // 个人资料
-	idFlag bool
+	id    string // 个人资料
+	idSet bool
 
 	type_    string // 个人资料类型
-	typeFlag bool
+	type_Set bool
 
-	files     []string // 个人资料列表
-	filesFlag bool
+	files    []string // 个人资料列表
+	filesSet bool
 }
 
 func NewPersonalProfileBuilder() *PersonalProfileBuilder {
@@ -15222,7 +15226,7 @@ func NewPersonalProfileBuilder() *PersonalProfileBuilder {
 // 示例值：无
 func (builder *PersonalProfileBuilder) Id(id string) *PersonalProfileBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -15231,7 +15235,7 @@ func (builder *PersonalProfileBuilder) Id(id string) *PersonalProfileBuilder {
 // 示例值：无
 func (builder *PersonalProfileBuilder) Type(type_ string) *PersonalProfileBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -15240,21 +15244,21 @@ func (builder *PersonalProfileBuilder) Type(type_ string) *PersonalProfileBuilde
 // 示例值：无
 func (builder *PersonalProfileBuilder) Files(files []string) *PersonalProfileBuilder {
 	builder.files = files
-	builder.filesFlag = true
+	builder.filesSet = true
 	return builder
 }
 
 func (builder *PersonalProfileBuilder) Build() *PersonalProfile {
 	req := &PersonalProfile{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.filesFlag {
+	if builder.filesSet {
 		req.Files = builder.files
 	}
 	return req
@@ -15267,11 +15271,11 @@ type PhoneValue struct {
 }
 
 type PhoneValueBuilder struct {
-	phoneNumber     string // 电话号
-	phoneNumberFlag bool
+	phoneNumber    string // 电话号
+	phoneNumberSet bool
 
-	extensionNumber     string // 分机号
-	extensionNumberFlag bool
+	extensionNumber    string // 分机号
+	extensionNumberSet bool
 }
 
 func NewPhoneValueBuilder() *PhoneValueBuilder {
@@ -15284,7 +15288,7 @@ func NewPhoneValueBuilder() *PhoneValueBuilder {
 // 示例值：18812345678
 func (builder *PhoneValueBuilder) PhoneNumber(phoneNumber string) *PhoneValueBuilder {
 	builder.phoneNumber = phoneNumber
-	builder.phoneNumberFlag = true
+	builder.phoneNumberSet = true
 	return builder
 }
 
@@ -15293,17 +15297,17 @@ func (builder *PhoneValueBuilder) PhoneNumber(phoneNumber string) *PhoneValueBui
 // 示例值：234234234
 func (builder *PhoneValueBuilder) ExtensionNumber(extensionNumber string) *PhoneValueBuilder {
 	builder.extensionNumber = extensionNumber
-	builder.extensionNumberFlag = true
+	builder.extensionNumberSet = true
 	return builder
 }
 
 func (builder *PhoneValueBuilder) Build() *PhoneValue {
 	req := &PhoneValue{}
-	if builder.phoneNumberFlag {
+	if builder.phoneNumberSet {
 		req.PhoneNumber = &builder.phoneNumber
 
 	}
-	if builder.extensionNumberFlag {
+	if builder.extensionNumberSet {
 		req.ExtensionNumber = &builder.extensionNumber
 
 	}
@@ -15343,50 +15347,50 @@ type Place struct {
 }
 
 type PlaceBuilder struct {
-	placeId     string // ID
-	placeIdFlag bool
+	placeId    string // ID
+	placeIdSet bool
 
-	tenantId     string // 租户ID
-	tenantIdFlag bool
+	tenantId    string // 租户ID
+	tenantIdSet bool
 
-	placeName     *I18nText // i18n文本
-	placeNameFlag bool
+	placeName    *I18nText // i18n文本
+	placeNameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	usages     []string // 地点多用途
-	usagesFlag bool
+	usages    []string // 地点多用途
+	usagesSet bool
 
-	addressIds     []string // 地址
-	addressIdsFlag bool
+	addressIds    []string // 地址
+	addressIdsSet bool
 
-	mainAddressId     string // 主要地址
-	mainAddressIdFlag bool
+	mainAddressId    string // 主要地址
+	mainAddressIdSet bool
 
-	isDeleted     bool // 是否删除
-	isDeletedFlag bool
+	isDeleted    bool // 是否删除
+	isDeletedSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	creatorId     string // 创建人
-	creatorIdFlag bool
+	creatorId    string // 创建人
+	creatorIdSet bool
 
-	updatorId     string // 更新人
-	updatorIdFlag bool
+	updatorId    string // 更新人
+	updatorIdSet bool
 
-	externalId     string // 外部ID
-	externalIdFlag bool
+	externalId    string // 外部ID
+	externalIdSet bool
 
-	parentId     string // 上级ID
-	parentIdFlag bool
+	parentId    string // 上级ID
+	parentIdSet bool
 }
 
 func NewPlaceBuilder() *PlaceBuilder {
@@ -15399,7 +15403,7 @@ func NewPlaceBuilder() *PlaceBuilder {
 // 示例值：place100
 func (builder *PlaceBuilder) PlaceId(placeId string) *PlaceBuilder {
 	builder.placeId = placeId
-	builder.placeIdFlag = true
+	builder.placeIdSet = true
 	return builder
 }
 
@@ -15408,7 +15412,7 @@ func (builder *PlaceBuilder) PlaceId(placeId string) *PlaceBuilder {
 // 示例值：dsadqwe
 func (builder *PlaceBuilder) TenantId(tenantId string) *PlaceBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -15417,7 +15421,7 @@ func (builder *PlaceBuilder) TenantId(tenantId string) *PlaceBuilder {
 // 示例值：
 func (builder *PlaceBuilder) PlaceName(placeName *I18nText) *PlaceBuilder {
 	builder.placeName = placeName
-	builder.placeNameFlag = true
+	builder.placeNameSet = true
 	return builder
 }
 
@@ -15426,7 +15430,7 @@ func (builder *PlaceBuilder) PlaceName(placeName *I18nText) *PlaceBuilder {
 // 示例值：true
 func (builder *PlaceBuilder) IsEnabled(isEnabled bool) *PlaceBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -15435,7 +15439,7 @@ func (builder *PlaceBuilder) IsEnabled(isEnabled bool) *PlaceBuilder {
 // 示例值：
 func (builder *PlaceBuilder) Description(description *I18nText) *PlaceBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -15444,7 +15448,7 @@ func (builder *PlaceBuilder) Description(description *I18nText) *PlaceBuilder {
 // 示例值：
 func (builder *PlaceBuilder) Usages(usages []string) *PlaceBuilder {
 	builder.usages = usages
-	builder.usagesFlag = true
+	builder.usagesSet = true
 	return builder
 }
 
@@ -15453,7 +15457,7 @@ func (builder *PlaceBuilder) Usages(usages []string) *PlaceBuilder {
 // 示例值：
 func (builder *PlaceBuilder) AddressIds(addressIds []string) *PlaceBuilder {
 	builder.addressIds = addressIds
-	builder.addressIdsFlag = true
+	builder.addressIdsSet = true
 	return builder
 }
 
@@ -15462,7 +15466,7 @@ func (builder *PlaceBuilder) AddressIds(addressIds []string) *PlaceBuilder {
 // 示例值：dsadqwe
 func (builder *PlaceBuilder) MainAddressId(mainAddressId string) *PlaceBuilder {
 	builder.mainAddressId = mainAddressId
-	builder.mainAddressIdFlag = true
+	builder.mainAddressIdSet = true
 	return builder
 }
 
@@ -15471,7 +15475,7 @@ func (builder *PlaceBuilder) MainAddressId(mainAddressId string) *PlaceBuilder {
 // 示例值：true
 func (builder *PlaceBuilder) IsDeleted(isDeleted bool) *PlaceBuilder {
 	builder.isDeleted = isDeleted
-	builder.isDeletedFlag = true
+	builder.isDeletedSet = true
 	return builder
 }
 
@@ -15480,7 +15484,7 @@ func (builder *PlaceBuilder) IsDeleted(isDeleted bool) *PlaceBuilder {
 // 示例值：1
 func (builder *PlaceBuilder) CreateTime(createTime string) *PlaceBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -15489,7 +15493,7 @@ func (builder *PlaceBuilder) CreateTime(createTime string) *PlaceBuilder {
 // 示例值：1
 func (builder *PlaceBuilder) UpdateTime(updateTime string) *PlaceBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -15498,7 +15502,7 @@ func (builder *PlaceBuilder) UpdateTime(updateTime string) *PlaceBuilder {
 // 示例值：1
 func (builder *PlaceBuilder) CreatorId(creatorId string) *PlaceBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -15507,7 +15511,7 @@ func (builder *PlaceBuilder) CreatorId(creatorId string) *PlaceBuilder {
 // 示例值：1
 func (builder *PlaceBuilder) UpdatorId(updatorId string) *PlaceBuilder {
 	builder.updatorId = updatorId
-	builder.updatorIdFlag = true
+	builder.updatorIdSet = true
 	return builder
 }
 
@@ -15516,7 +15520,7 @@ func (builder *PlaceBuilder) UpdatorId(updatorId string) *PlaceBuilder {
 // 示例值：qwasdewrq
 func (builder *PlaceBuilder) ExternalId(externalId string) *PlaceBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
@@ -15525,65 +15529,65 @@ func (builder *PlaceBuilder) ExternalId(externalId string) *PlaceBuilder {
 // 示例值：1
 func (builder *PlaceBuilder) ParentId(parentId string) *PlaceBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
 func (builder *PlaceBuilder) Build() *Place {
 	req := &Place{}
-	if builder.placeIdFlag {
+	if builder.placeIdSet {
 		req.PlaceId = &builder.placeId
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.placeNameFlag {
+	if builder.placeNameSet {
 		req.PlaceName = builder.placeName
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.usagesFlag {
+	if builder.usagesSet {
 		req.Usages = builder.usages
 	}
-	if builder.addressIdsFlag {
+	if builder.addressIdsSet {
 		req.AddressIds = builder.addressIds
 	}
-	if builder.mainAddressIdFlag {
+	if builder.mainAddressIdSet {
 		req.MainAddressId = &builder.mainAddressId
 
 	}
-	if builder.isDeletedFlag {
+	if builder.isDeletedSet {
 		req.IsDeleted = &builder.isDeleted
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.updatorIdFlag {
+	if builder.updatorIdSet {
 		req.UpdatorId = &builder.updatorId
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
@@ -15611,32 +15615,32 @@ type Position struct {
 }
 
 type PositionBuilder struct {
-	positionCode     string // 岗位code
-	positionCodeFlag bool
+	positionCode    string // 岗位code
+	positionCodeSet bool
 
-	positionName     string // 岗位名称
-	positionNameFlag bool
+	positionName    string // 岗位名称
+	positionNameSet bool
 
-	leaderId     string // 上级领导id，可以没有上级领导
-	leaderIdFlag bool
+	leaderId    string // 上级领导id，可以没有上级领导
+	leaderIdSet bool
 
-	leaderPositionCode     string // 上级领导岗位code，可以没有上级领导
-	leaderPositionCodeFlag bool
+	leaderPositionCode    string // 上级领导岗位code，可以没有上级领导
+	leaderPositionCodeSet bool
 
-	isMainPosition     bool // 是否主岗，只允许一个主岗
-	isMainPositionFlag bool
+	isMainPosition    bool // 是否主岗，只允许一个主岗
+	isMainPositionSet bool
 
-	departmentId     string // 岗位所属的部门id，需要在用户所属的部门集之内（user.departmentIds）
-	departmentIdFlag bool
+	departmentId    string // 岗位所属的部门id，需要在用户所属的部门集之内（user.departmentIds）
+	departmentIdSet bool
 
-	tenantId     string // 租户id
-	tenantIdFlag bool
+	tenantId    string // 租户id
+	tenantIdSet bool
 
-	employeeId     string // 雇员id
-	employeeIdFlag bool
+	employeeId    string // 雇员id
+	employeeIdSet bool
 
-	updateTime     string // 更新时间，单位微秒
-	updateTimeFlag bool
+	updateTime    string // 更新时间，单位微秒
+	updateTimeSet bool
 }
 
 func NewPositionBuilder() *PositionBuilder {
@@ -15649,7 +15653,7 @@ func NewPositionBuilder() *PositionBuilder {
 // 示例值：PO18890
 func (builder *PositionBuilder) PositionCode(positionCode string) *PositionBuilder {
 	builder.positionCode = positionCode
-	builder.positionCodeFlag = true
+	builder.positionCodeSet = true
 	return builder
 }
 
@@ -15658,7 +15662,7 @@ func (builder *PositionBuilder) PositionCode(positionCode string) *PositionBuild
 // 示例值：总经理
 func (builder *PositionBuilder) PositionName(positionName string) *PositionBuilder {
 	builder.positionName = positionName
-	builder.positionNameFlag = true
+	builder.positionNameSet = true
 	return builder
 }
 
@@ -15667,7 +15671,7 @@ func (builder *PositionBuilder) PositionName(positionName string) *PositionBuild
 // 示例值：2e1cf73b
 func (builder *PositionBuilder) LeaderId(leaderId string) *PositionBuilder {
 	builder.leaderId = leaderId
-	builder.leaderIdFlag = true
+	builder.leaderIdSet = true
 	return builder
 }
 
@@ -15676,7 +15680,7 @@ func (builder *PositionBuilder) LeaderId(leaderId string) *PositionBuilder {
 // 示例值：e71b94gb
 func (builder *PositionBuilder) LeaderPositionCode(leaderPositionCode string) *PositionBuilder {
 	builder.leaderPositionCode = leaderPositionCode
-	builder.leaderPositionCodeFlag = true
+	builder.leaderPositionCodeSet = true
 	return builder
 }
 
@@ -15685,7 +15689,7 @@ func (builder *PositionBuilder) LeaderPositionCode(leaderPositionCode string) *P
 // 示例值：true
 func (builder *PositionBuilder) IsMainPosition(isMainPosition bool) *PositionBuilder {
 	builder.isMainPosition = isMainPosition
-	builder.isMainPositionFlag = true
+	builder.isMainPositionSet = true
 	return builder
 }
 
@@ -15694,7 +15698,7 @@ func (builder *PositionBuilder) IsMainPosition(isMainPosition bool) *PositionBui
 // 示例值：D100
 func (builder *PositionBuilder) DepartmentId(departmentId string) *PositionBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -15703,7 +15707,7 @@ func (builder *PositionBuilder) DepartmentId(departmentId string) *PositionBuild
 // 示例值：无
 func (builder *PositionBuilder) TenantId(tenantId string) *PositionBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -15712,7 +15716,7 @@ func (builder *PositionBuilder) TenantId(tenantId string) *PositionBuilder {
 // 示例值：无
 func (builder *PositionBuilder) EmployeeId(employeeId string) *PositionBuilder {
 	builder.employeeId = employeeId
-	builder.employeeIdFlag = true
+	builder.employeeIdSet = true
 	return builder
 }
 
@@ -15721,45 +15725,45 @@ func (builder *PositionBuilder) EmployeeId(employeeId string) *PositionBuilder {
 // 示例值：无
 func (builder *PositionBuilder) UpdateTime(updateTime string) *PositionBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
 func (builder *PositionBuilder) Build() *Position {
 	req := &Position{}
-	if builder.positionCodeFlag {
+	if builder.positionCodeSet {
 		req.PositionCode = &builder.positionCode
 
 	}
-	if builder.positionNameFlag {
+	if builder.positionNameSet {
 		req.PositionName = &builder.positionName
 
 	}
-	if builder.leaderIdFlag {
+	if builder.leaderIdSet {
 		req.LeaderId = &builder.leaderId
 
 	}
-	if builder.leaderPositionCodeFlag {
+	if builder.leaderPositionCodeSet {
 		req.LeaderPositionCode = &builder.leaderPositionCode
 
 	}
-	if builder.isMainPositionFlag {
+	if builder.isMainPositionSet {
 		req.IsMainPosition = &builder.isMainPosition
 
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.employeeIdFlag {
+	if builder.employeeIdSet {
 		req.EmployeeId = &builder.employeeId
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
@@ -15781,23 +15785,23 @@ type ProfileCard struct {
 }
 
 type ProfileCardBuilder struct {
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	contacts     []*Credential // 联系方式
-	contactsFlag bool
+	contacts    []*Credential // 联系方式
+	contactsSet bool
 
-	avatarKey     string // 头像
-	avatarKeyFlag bool
+	avatarKey    string // 头像
+	avatarKeySet bool
 
-	isCustomAvatar     bool // 是否自定义头像
-	isCustomAvatarFlag bool
+	isCustomAvatar    bool // 是否自定义头像
+	isCustomAvatarSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	backgroundImageKey     string // 背景图
-	backgroundImageKeyFlag bool
+	backgroundImageKey    string // 背景图
+	backgroundImageKeySet bool
 }
 
 func NewProfileCardBuilder() *ProfileCardBuilder {
@@ -15810,7 +15814,7 @@ func NewProfileCardBuilder() *ProfileCardBuilder {
 // 示例值：
 func (builder *ProfileCardBuilder) Name(name *I18nText) *ProfileCardBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -15819,7 +15823,7 @@ func (builder *ProfileCardBuilder) Name(name *I18nText) *ProfileCardBuilder {
 // 示例值：
 func (builder *ProfileCardBuilder) Contacts(contacts []*Credential) *ProfileCardBuilder {
 	builder.contacts = contacts
-	builder.contactsFlag = true
+	builder.contactsSet = true
 	return builder
 }
 
@@ -15828,7 +15832,7 @@ func (builder *ProfileCardBuilder) Contacts(contacts []*Credential) *ProfileCard
 // 示例值：123123123
 func (builder *ProfileCardBuilder) AvatarKey(avatarKey string) *ProfileCardBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
@@ -15837,7 +15841,7 @@ func (builder *ProfileCardBuilder) AvatarKey(avatarKey string) *ProfileCardBuild
 // 示例值：
 func (builder *ProfileCardBuilder) IsCustomAvatar(isCustomAvatar bool) *ProfileCardBuilder {
 	builder.isCustomAvatar = isCustomAvatar
-	builder.isCustomAvatarFlag = true
+	builder.isCustomAvatarSet = true
 	return builder
 }
 
@@ -15846,7 +15850,7 @@ func (builder *ProfileCardBuilder) IsCustomAvatar(isCustomAvatar bool) *ProfileC
 // 示例值：
 func (builder *ProfileCardBuilder) Description(description *I18nText) *ProfileCardBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -15855,30 +15859,30 @@ func (builder *ProfileCardBuilder) Description(description *I18nText) *ProfileCa
 // 示例值：12312123123
 func (builder *ProfileCardBuilder) BackgroundImageKey(backgroundImageKey string) *ProfileCardBuilder {
 	builder.backgroundImageKey = backgroundImageKey
-	builder.backgroundImageKeyFlag = true
+	builder.backgroundImageKeySet = true
 	return builder
 }
 
 func (builder *ProfileCardBuilder) Build() *ProfileCard {
 	req := &ProfileCard{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.contactsFlag {
+	if builder.contactsSet {
 		req.Contacts = builder.contacts
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = &builder.avatarKey
 
 	}
-	if builder.isCustomAvatarFlag {
+	if builder.isCustomAvatarSet {
 		req.IsCustomAvatar = &builder.isCustomAvatar
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.backgroundImageKeyFlag {
+	if builder.backgroundImageKeySet {
 		req.BackgroundImageKey = &builder.backgroundImageKey
 
 	}
@@ -15892,11 +15896,11 @@ type QueryOptions struct {
 }
 
 type QueryOptionsBuilder struct {
-	ignoreStatus     bool // 查询结果包含软删数据
-	ignoreStatusFlag bool
+	ignoreStatus    bool // 查询结果包含软删数据
+	ignoreStatusSet bool
 
-	authExtra     map[string]string // 透传给权限的额外字段
-	authExtraFlag bool
+	authExtra    map[string]string // 透传给权限的额外字段
+	authExtraSet bool
 }
 
 func NewQueryOptionsBuilder() *QueryOptionsBuilder {
@@ -15909,7 +15913,7 @@ func NewQueryOptionsBuilder() *QueryOptionsBuilder {
 // 示例值：true
 func (builder *QueryOptionsBuilder) IgnoreStatus(ignoreStatus bool) *QueryOptionsBuilder {
 	builder.ignoreStatus = ignoreStatus
-	builder.ignoreStatusFlag = true
+	builder.ignoreStatusSet = true
 	return builder
 }
 
@@ -15918,17 +15922,17 @@ func (builder *QueryOptionsBuilder) IgnoreStatus(ignoreStatus bool) *QueryOption
 // 示例值：
 func (builder *QueryOptionsBuilder) AuthExtra(authExtra map[string]string) *QueryOptionsBuilder {
 	builder.authExtra = authExtra
-	builder.authExtraFlag = true
+	builder.authExtraSet = true
 	return builder
 }
 
 func (builder *QueryOptionsBuilder) Build() *QueryOptions {
 	req := &QueryOptions{}
-	if builder.ignoreStatusFlag {
+	if builder.ignoreStatusSet {
 		req.IgnoreStatus = &builder.ignoreStatus
 
 	}
-	if builder.authExtraFlag {
+	if builder.authExtraSet {
 		req.AuthExtra = builder.authExtra
 	}
 	return req
@@ -15947,20 +15951,20 @@ type ReplaceEmployeeTypeEnum struct {
 }
 
 type ReplaceEmployeeTypeEnumBuilder struct {
-	enumId     string // 枚举ID
-	enumIdFlag bool
+	enumId    string // 枚举ID
+	enumIdSet bool
 
-	content     *I18nText // i18n文本
-	contentFlag bool
+	content    *I18nText // i18n文本
+	contentSet bool
 
-	enumStatus     string // 枚举状态
-	enumStatusFlag bool
+	enumStatus    string // 枚举状态
+	enumStatusSet bool
 
-	enumValue     string // 枚举值
-	enumValueFlag bool
+	enumValue    string // 枚举值
+	enumValueSet bool
 
-	enumType     string // 枚举类型
-	enumTypeFlag bool
+	enumType    string // 枚举类型
+	enumTypeSet bool
 }
 
 func NewReplaceEmployeeTypeEnumBuilder() *ReplaceEmployeeTypeEnumBuilder {
@@ -15973,7 +15977,7 @@ func NewReplaceEmployeeTypeEnumBuilder() *ReplaceEmployeeTypeEnumBuilder {
 // 示例值：SHFIENW
 func (builder *ReplaceEmployeeTypeEnumBuilder) EnumId(enumId string) *ReplaceEmployeeTypeEnumBuilder {
 	builder.enumId = enumId
-	builder.enumIdFlag = true
+	builder.enumIdSet = true
 	return builder
 }
 
@@ -15982,7 +15986,7 @@ func (builder *ReplaceEmployeeTypeEnumBuilder) EnumId(enumId string) *ReplaceEmp
 // 示例值：
 func (builder *ReplaceEmployeeTypeEnumBuilder) Content(content *I18nText) *ReplaceEmployeeTypeEnumBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -15991,7 +15995,7 @@ func (builder *ReplaceEmployeeTypeEnumBuilder) Content(content *I18nText) *Repla
 // 示例值：
 func (builder *ReplaceEmployeeTypeEnumBuilder) EnumStatus(enumStatus string) *ReplaceEmployeeTypeEnumBuilder {
 	builder.enumStatus = enumStatus
-	builder.enumStatusFlag = true
+	builder.enumStatusSet = true
 	return builder
 }
 
@@ -16000,7 +16004,7 @@ func (builder *ReplaceEmployeeTypeEnumBuilder) EnumStatus(enumStatus string) *Re
 // 示例值：1
 func (builder *ReplaceEmployeeTypeEnumBuilder) EnumValue(enumValue string) *ReplaceEmployeeTypeEnumBuilder {
 	builder.enumValue = enumValue
-	builder.enumValueFlag = true
+	builder.enumValueSet = true
 	return builder
 }
 
@@ -16009,28 +16013,28 @@ func (builder *ReplaceEmployeeTypeEnumBuilder) EnumValue(enumValue string) *Repl
 // 示例值：
 func (builder *ReplaceEmployeeTypeEnumBuilder) EnumType(enumType string) *ReplaceEmployeeTypeEnumBuilder {
 	builder.enumType = enumType
-	builder.enumTypeFlag = true
+	builder.enumTypeSet = true
 	return builder
 }
 
 func (builder *ReplaceEmployeeTypeEnumBuilder) Build() *ReplaceEmployeeTypeEnum {
 	req := &ReplaceEmployeeTypeEnum{}
-	if builder.enumIdFlag {
+	if builder.enumIdSet {
 		req.EnumId = &builder.enumId
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = builder.content
 	}
-	if builder.enumStatusFlag {
+	if builder.enumStatusSet {
 		req.EnumStatus = &builder.enumStatus
 
 	}
-	if builder.enumValueFlag {
+	if builder.enumValueSet {
 		req.EnumValue = &builder.enumValue
 
 	}
-	if builder.enumTypeFlag {
+	if builder.enumTypeSet {
 		req.EnumType = &builder.enumType
 
 	}
@@ -16042,8 +16046,8 @@ type ReplaceTenantEmployeeTypeEnumOptions struct {
 }
 
 type ReplaceTenantEmployeeTypeEnumOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewReplaceTenantEmployeeTypeEnumOptionsBuilder() *ReplaceTenantEmployeeTypeEnumOptionsBuilder {
@@ -16056,13 +16060,13 @@ func NewReplaceTenantEmployeeTypeEnumOptionsBuilder() *ReplaceTenantEmployeeType
 // 示例值：
 func (builder *ReplaceTenantEmployeeTypeEnumOptionsBuilder) DataSource(dataSource int) *ReplaceTenantEmployeeTypeEnumOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *ReplaceTenantEmployeeTypeEnumOptionsBuilder) Build() *ReplaceTenantEmployeeTypeEnumOptions {
 	req := &ReplaceTenantEmployeeTypeEnumOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -16096,41 +16100,41 @@ type ResignedUserResouceReceiver struct {
 }
 
 type ResignedUserResouceReceiverBuilder struct {
-	departmentChatAcceptorEmployeeId     string // 部门群owner
-	departmentChatAcceptorEmployeeIdFlag bool
+	departmentChatAcceptorEmployeeId    string // 部门群owner
+	departmentChatAcceptorEmployeeIdSet bool
 
-	externalChatAcceptorEmployeeId     string // 外部群owner
-	externalChatAcceptorEmployeeIdFlag bool
+	externalChatAcceptorEmployeeId    string // 外部群owner
+	externalChatAcceptorEmployeeIdSet bool
 
-	docsAcceptorEmployeeId     string // 文档owner
-	docsAcceptorEmployeeIdFlag bool
+	docsAcceptorEmployeeId    string // 文档owner
+	docsAcceptorEmployeeIdSet bool
 
-	calendarAcceptorEmployeeId     string // 日历owner
-	calendarAcceptorEmployeeIdFlag bool
+	calendarAcceptorEmployeeId    string // 日历owner
+	calendarAcceptorEmployeeIdSet bool
 
-	applicationAcceptorEmployeeId     string // 开放平台应用owner
-	applicationAcceptorEmployeeIdFlag bool
+	applicationAcceptorEmployeeId    string // 开放平台应用owner
+	applicationAcceptorEmployeeIdSet bool
 
-	helpdeskAcceptorEmployeeId     string // 服务台owner
-	helpdeskAcceptorEmployeeIdFlag bool
+	helpdeskAcceptorEmployeeId    string // 服务台owner
+	helpdeskAcceptorEmployeeIdSet bool
 
-	approvalAcceptorEmployeeId     string // 审批owner
-	approvalAcceptorEmployeeIdFlag bool
+	approvalAcceptorEmployeeId    string // 审批owner
+	approvalAcceptorEmployeeIdSet bool
 
-	emailAcceptorEmployeeId     string // 邮件owner
-	emailAcceptorEmployeeIdFlag bool
+	emailAcceptorEmployeeId    string // 邮件owner
+	emailAcceptorEmployeeIdSet bool
 
-	awemeOwner     string // 抖音owner
-	awemeOwnerFlag bool
+	awemeOwner    string // 抖音owner
+	awemeOwnerSet bool
 
-	minutesAcceptorEmployeeId     string // 妙记Owner
-	minutesAcceptorEmployeeIdFlag bool
+	minutesAcceptorEmployeeId    string // 妙记Owner
+	minutesAcceptorEmployeeIdSet bool
 
-	surveyAcceptorEmployeeId     string // 飞书问卷Owner
-	surveyAcceptorEmployeeIdFlag bool
+	surveyAcceptorEmployeeId    string // 飞书问卷Owner
+	surveyAcceptorEmployeeIdSet bool
 
-	anycrossAcceptorEmployeeId     string // 集成平台资源Owner
-	anycrossAcceptorEmployeeIdFlag bool
+	anycrossAcceptorEmployeeId    string // 集成平台资源Owner
+	anycrossAcceptorEmployeeIdSet bool
 }
 
 func NewResignedUserResouceReceiverBuilder() *ResignedUserResouceReceiverBuilder {
@@ -16143,7 +16147,7 @@ func NewResignedUserResouceReceiverBuilder() *ResignedUserResouceReceiverBuilder
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) DepartmentChatAcceptorEmployeeId(departmentChatAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
 	builder.departmentChatAcceptorEmployeeId = departmentChatAcceptorEmployeeId
-	builder.departmentChatAcceptorEmployeeIdFlag = true
+	builder.departmentChatAcceptorEmployeeIdSet = true
 	return builder
 }
 
@@ -16152,7 +16156,7 @@ func (builder *ResignedUserResouceReceiverBuilder) DepartmentChatAcceptorEmploye
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) ExternalChatAcceptorEmployeeId(externalChatAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
 	builder.externalChatAcceptorEmployeeId = externalChatAcceptorEmployeeId
-	builder.externalChatAcceptorEmployeeIdFlag = true
+	builder.externalChatAcceptorEmployeeIdSet = true
 	return builder
 }
 
@@ -16161,7 +16165,7 @@ func (builder *ResignedUserResouceReceiverBuilder) ExternalChatAcceptorEmployeeI
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) DocsAcceptorEmployeeId(docsAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
 	builder.docsAcceptorEmployeeId = docsAcceptorEmployeeId
-	builder.docsAcceptorEmployeeIdFlag = true
+	builder.docsAcceptorEmployeeIdSet = true
 	return builder
 }
 
@@ -16170,7 +16174,7 @@ func (builder *ResignedUserResouceReceiverBuilder) DocsAcceptorEmployeeId(docsAc
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) CalendarAcceptorEmployeeId(calendarAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
 	builder.calendarAcceptorEmployeeId = calendarAcceptorEmployeeId
-	builder.calendarAcceptorEmployeeIdFlag = true
+	builder.calendarAcceptorEmployeeIdSet = true
 	return builder
 }
 
@@ -16179,7 +16183,7 @@ func (builder *ResignedUserResouceReceiverBuilder) CalendarAcceptorEmployeeId(ca
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) ApplicationAcceptorEmployeeId(applicationAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
 	builder.applicationAcceptorEmployeeId = applicationAcceptorEmployeeId
-	builder.applicationAcceptorEmployeeIdFlag = true
+	builder.applicationAcceptorEmployeeIdSet = true
 	return builder
 }
 
@@ -16188,7 +16192,7 @@ func (builder *ResignedUserResouceReceiverBuilder) ApplicationAcceptorEmployeeId
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) HelpdeskAcceptorEmployeeId(helpdeskAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
 	builder.helpdeskAcceptorEmployeeId = helpdeskAcceptorEmployeeId
-	builder.helpdeskAcceptorEmployeeIdFlag = true
+	builder.helpdeskAcceptorEmployeeIdSet = true
 	return builder
 }
 
@@ -16197,7 +16201,7 @@ func (builder *ResignedUserResouceReceiverBuilder) HelpdeskAcceptorEmployeeId(he
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) ApprovalAcceptorEmployeeId(approvalAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
 	builder.approvalAcceptorEmployeeId = approvalAcceptorEmployeeId
-	builder.approvalAcceptorEmployeeIdFlag = true
+	builder.approvalAcceptorEmployeeIdSet = true
 	return builder
 }
 
@@ -16206,7 +16210,7 @@ func (builder *ResignedUserResouceReceiverBuilder) ApprovalAcceptorEmployeeId(ap
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) EmailAcceptorEmployeeId(emailAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
 	builder.emailAcceptorEmployeeId = emailAcceptorEmployeeId
-	builder.emailAcceptorEmployeeIdFlag = true
+	builder.emailAcceptorEmployeeIdSet = true
 	return builder
 }
 
@@ -16215,7 +16219,7 @@ func (builder *ResignedUserResouceReceiverBuilder) EmailAcceptorEmployeeId(email
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) AwemeOwner(awemeOwner string) *ResignedUserResouceReceiverBuilder {
 	builder.awemeOwner = awemeOwner
-	builder.awemeOwnerFlag = true
+	builder.awemeOwnerSet = true
 	return builder
 }
 
@@ -16224,7 +16228,7 @@ func (builder *ResignedUserResouceReceiverBuilder) AwemeOwner(awemeOwner string)
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) MinutesAcceptorEmployeeId(minutesAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
 	builder.minutesAcceptorEmployeeId = minutesAcceptorEmployeeId
-	builder.minutesAcceptorEmployeeIdFlag = true
+	builder.minutesAcceptorEmployeeIdSet = true
 	return builder
 }
 
@@ -16233,7 +16237,7 @@ func (builder *ResignedUserResouceReceiverBuilder) MinutesAcceptorEmployeeId(min
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) SurveyAcceptorEmployeeId(surveyAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
 	builder.surveyAcceptorEmployeeId = surveyAcceptorEmployeeId
-	builder.surveyAcceptorEmployeeIdFlag = true
+	builder.surveyAcceptorEmployeeIdSet = true
 	return builder
 }
 
@@ -16242,57 +16246,57 @@ func (builder *ResignedUserResouceReceiverBuilder) SurveyAcceptorEmployeeId(surv
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) AnycrossAcceptorEmployeeId(anycrossAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
 	builder.anycrossAcceptorEmployeeId = anycrossAcceptorEmployeeId
-	builder.anycrossAcceptorEmployeeIdFlag = true
+	builder.anycrossAcceptorEmployeeIdSet = true
 	return builder
 }
 
 func (builder *ResignedUserResouceReceiverBuilder) Build() *ResignedUserResouceReceiver {
 	req := &ResignedUserResouceReceiver{}
-	if builder.departmentChatAcceptorEmployeeIdFlag {
+	if builder.departmentChatAcceptorEmployeeIdSet {
 		req.DepartmentChatAcceptorEmployeeId = &builder.departmentChatAcceptorEmployeeId
 
 	}
-	if builder.externalChatAcceptorEmployeeIdFlag {
+	if builder.externalChatAcceptorEmployeeIdSet {
 		req.ExternalChatAcceptorEmployeeId = &builder.externalChatAcceptorEmployeeId
 
 	}
-	if builder.docsAcceptorEmployeeIdFlag {
+	if builder.docsAcceptorEmployeeIdSet {
 		req.DocsAcceptorEmployeeId = &builder.docsAcceptorEmployeeId
 
 	}
-	if builder.calendarAcceptorEmployeeIdFlag {
+	if builder.calendarAcceptorEmployeeIdSet {
 		req.CalendarAcceptorEmployeeId = &builder.calendarAcceptorEmployeeId
 
 	}
-	if builder.applicationAcceptorEmployeeIdFlag {
+	if builder.applicationAcceptorEmployeeIdSet {
 		req.ApplicationAcceptorEmployeeId = &builder.applicationAcceptorEmployeeId
 
 	}
-	if builder.helpdeskAcceptorEmployeeIdFlag {
+	if builder.helpdeskAcceptorEmployeeIdSet {
 		req.HelpdeskAcceptorEmployeeId = &builder.helpdeskAcceptorEmployeeId
 
 	}
-	if builder.approvalAcceptorEmployeeIdFlag {
+	if builder.approvalAcceptorEmployeeIdSet {
 		req.ApprovalAcceptorEmployeeId = &builder.approvalAcceptorEmployeeId
 
 	}
-	if builder.emailAcceptorEmployeeIdFlag {
+	if builder.emailAcceptorEmployeeIdSet {
 		req.EmailAcceptorEmployeeId = &builder.emailAcceptorEmployeeId
 
 	}
-	if builder.awemeOwnerFlag {
+	if builder.awemeOwnerSet {
 		req.AwemeOwner = &builder.awemeOwner
 
 	}
-	if builder.minutesAcceptorEmployeeIdFlag {
+	if builder.minutesAcceptorEmployeeIdSet {
 		req.MinutesAcceptorEmployeeId = &builder.minutesAcceptorEmployeeId
 
 	}
-	if builder.surveyAcceptorEmployeeIdFlag {
+	if builder.surveyAcceptorEmployeeIdSet {
 		req.SurveyAcceptorEmployeeId = &builder.surveyAcceptorEmployeeId
 
 	}
-	if builder.anycrossAcceptorEmployeeIdFlag {
+	if builder.anycrossAcceptorEmployeeIdSet {
 		req.AnycrossAcceptorEmployeeId = &builder.anycrossAcceptorEmployeeId
 
 	}
@@ -16304,8 +16308,8 @@ type ResurrectEmployeeOptions struct {
 }
 
 type ResurrectEmployeeOptionsBuilder struct {
-	subscriptionIds     []string // License订阅ID
-	subscriptionIdsFlag bool
+	subscriptionIds    []string // License订阅ID
+	subscriptionIdsSet bool
 }
 
 func NewResurrectEmployeeOptionsBuilder() *ResurrectEmployeeOptionsBuilder {
@@ -16318,13 +16322,13 @@ func NewResurrectEmployeeOptionsBuilder() *ResurrectEmployeeOptionsBuilder {
 // 示例值：
 func (builder *ResurrectEmployeeOptionsBuilder) SubscriptionIds(subscriptionIds []string) *ResurrectEmployeeOptionsBuilder {
 	builder.subscriptionIds = subscriptionIds
-	builder.subscriptionIdsFlag = true
+	builder.subscriptionIdsSet = true
 	return builder
 }
 
 func (builder *ResurrectEmployeeOptionsBuilder) Build() *ResurrectEmployeeOptions {
 	req := &ResurrectEmployeeOptions{}
-	if builder.subscriptionIdsFlag {
+	if builder.subscriptionIdsSet {
 		req.SubscriptionIds = builder.subscriptionIds
 	}
 	return req
@@ -16341,17 +16345,17 @@ type Scenario struct {
 }
 
 type ScenarioBuilder struct {
-	scenarioId     string // 场景名
-	scenarioIdFlag bool
+	scenarioId    string // 场景名
+	scenarioIdSet bool
 
-	userId     string // 操作人UserID
-	userIdFlag bool
+	userId    string // 操作人UserID
+	userIdSet bool
 
-	tenantId     string // 操作人TenantID
-	tenantIdFlag bool
+	tenantId    string // 操作人TenantID
+	tenantIdSet bool
 
-	appid     string // 开平操作应用ID
-	appidFlag bool
+	appid    string // 开平操作应用ID
+	appidSet bool
 }
 
 func NewScenarioBuilder() *ScenarioBuilder {
@@ -16364,7 +16368,7 @@ func NewScenarioBuilder() *ScenarioBuilder {
 // 示例值：
 func (builder *ScenarioBuilder) ScenarioId(scenarioId string) *ScenarioBuilder {
 	builder.scenarioId = scenarioId
-	builder.scenarioIdFlag = true
+	builder.scenarioIdSet = true
 	return builder
 }
 
@@ -16373,7 +16377,7 @@ func (builder *ScenarioBuilder) ScenarioId(scenarioId string) *ScenarioBuilder {
 // 示例值：
 func (builder *ScenarioBuilder) UserId(userId string) *ScenarioBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -16382,7 +16386,7 @@ func (builder *ScenarioBuilder) UserId(userId string) *ScenarioBuilder {
 // 示例值：101
 func (builder *ScenarioBuilder) TenantId(tenantId string) *ScenarioBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -16391,25 +16395,25 @@ func (builder *ScenarioBuilder) TenantId(tenantId string) *ScenarioBuilder {
 // 示例值：1
 func (builder *ScenarioBuilder) Appid(appid string) *ScenarioBuilder {
 	builder.appid = appid
-	builder.appidFlag = true
+	builder.appidSet = true
 	return builder
 }
 
 func (builder *ScenarioBuilder) Build() *Scenario {
 	req := &Scenario{}
-	if builder.scenarioIdFlag {
+	if builder.scenarioIdSet {
 		req.ScenarioId = &builder.scenarioId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.appidFlag {
+	if builder.appidSet {
 		req.Appid = &builder.appid
 
 	}
@@ -16423,11 +16427,11 @@ type SearchDepartmentFilter struct {
 }
 
 type SearchDepartmentFilterBuilder struct {
-	exactlyMatchByName     bool // 根据部门名称精确匹配，默认不精确匹配
-	exactlyMatchByNameFlag bool
+	exactlyMatchByName    bool // 根据部门名称精确匹配，默认不精确匹配
+	exactlyMatchByNameSet bool
 
-	options     *SearchOptions // 搜索接口拓展选项
-	optionsFlag bool
+	options    *SearchOptions // 搜索接口拓展选项
+	optionsSet bool
 }
 
 func NewSearchDepartmentFilterBuilder() *SearchDepartmentFilterBuilder {
@@ -16440,7 +16444,7 @@ func NewSearchDepartmentFilterBuilder() *SearchDepartmentFilterBuilder {
 // 示例值：
 func (builder *SearchDepartmentFilterBuilder) ExactlyMatchByName(exactlyMatchByName bool) *SearchDepartmentFilterBuilder {
 	builder.exactlyMatchByName = exactlyMatchByName
-	builder.exactlyMatchByNameFlag = true
+	builder.exactlyMatchByNameSet = true
 	return builder
 }
 
@@ -16449,17 +16453,17 @@ func (builder *SearchDepartmentFilterBuilder) ExactlyMatchByName(exactlyMatchByN
 // 示例值：
 func (builder *SearchDepartmentFilterBuilder) Options(options *SearchOptions) *SearchDepartmentFilterBuilder {
 	builder.options = options
-	builder.optionsFlag = true
+	builder.optionsSet = true
 	return builder
 }
 
 func (builder *SearchDepartmentFilterBuilder) Build() *SearchDepartmentFilter {
 	req := &SearchDepartmentFilter{}
-	if builder.exactlyMatchByNameFlag {
+	if builder.exactlyMatchByNameSet {
 		req.ExactlyMatchByName = &builder.exactlyMatchByName
 
 	}
-	if builder.optionsFlag {
+	if builder.optionsSet {
 		req.Options = builder.options
 	}
 	return req
@@ -16472,11 +16476,11 @@ type SearchEmployeeFilter struct {
 }
 
 type SearchEmployeeFilterBuilder struct {
-	containResignedEmployee     bool // 搜索结果包含离职成员，默认不包含
-	containResignedEmployeeFlag bool
+	containResignedEmployee    bool // 搜索结果包含离职成员，默认不包含
+	containResignedEmployeeSet bool
 
-	options     *SearchOptions // 搜索接口拓展选项
-	optionsFlag bool
+	options    *SearchOptions // 搜索接口拓展选项
+	optionsSet bool
 }
 
 func NewSearchEmployeeFilterBuilder() *SearchEmployeeFilterBuilder {
@@ -16489,7 +16493,7 @@ func NewSearchEmployeeFilterBuilder() *SearchEmployeeFilterBuilder {
 // 示例值：
 func (builder *SearchEmployeeFilterBuilder) ContainResignedEmployee(containResignedEmployee bool) *SearchEmployeeFilterBuilder {
 	builder.containResignedEmployee = containResignedEmployee
-	builder.containResignedEmployeeFlag = true
+	builder.containResignedEmployeeSet = true
 	return builder
 }
 
@@ -16498,17 +16502,17 @@ func (builder *SearchEmployeeFilterBuilder) ContainResignedEmployee(containResig
 // 示例值：
 func (builder *SearchEmployeeFilterBuilder) Options(options *SearchOptions) *SearchEmployeeFilterBuilder {
 	builder.options = options
-	builder.optionsFlag = true
+	builder.optionsSet = true
 	return builder
 }
 
 func (builder *SearchEmployeeFilterBuilder) Build() *SearchEmployeeFilter {
 	req := &SearchEmployeeFilter{}
-	if builder.containResignedEmployeeFlag {
+	if builder.containResignedEmployeeSet {
 		req.ContainResignedEmployee = &builder.containResignedEmployee
 
 	}
-	if builder.optionsFlag {
+	if builder.optionsSet {
 		req.Options = builder.options
 	}
 	return req
@@ -16523,14 +16527,14 @@ type SearchOptions struct {
 }
 
 type SearchOptionsBuilder struct {
-	filterPermissionResource     string // 不传默认走end User身份，直接走大搜的默认权限过滤，走authz的默认101兜底列鉴权。\nadminRole身份，配合权限场景Scope做数据过滤，无列鉴权\nnone 不做数据过滤，不做列鉴权
-	filterPermissionResourceFlag bool
+	filterPermissionResource    string // 不传默认走end User身份，直接走大搜的默认权限过滤，走authz的默认101兜底列鉴权。\nadminRole身份，配合权限场景Scope做数据过滤，无列鉴权\nnone 不做数据过滤，不做列鉴权
+	filterPermissionResourceSet bool
 
-	adminRolePermissionScope     string // 废弃参数
-	adminRolePermissionScopeFlag bool
+	adminRolePermissionScope    string // 废弃参数
+	adminRolePermissionScopeSet bool
 
-	adminRolePermissionType     string // 以管理员身份查询，必须额外传的权限场景Type
-	adminRolePermissionTypeFlag bool
+	adminRolePermissionType    string // 以管理员身份查询，必须额外传的权限场景Type
+	adminRolePermissionTypeSet bool
 }
 
 func NewSearchOptionsBuilder() *SearchOptionsBuilder {
@@ -16543,7 +16547,7 @@ func NewSearchOptionsBuilder() *SearchOptionsBuilder {
 // 示例值：adminRole
 func (builder *SearchOptionsBuilder) FilterPermissionResource(filterPermissionResource string) *SearchOptionsBuilder {
 	builder.filterPermissionResource = filterPermissionResource
-	builder.filterPermissionResourceFlag = true
+	builder.filterPermissionResourceSet = true
 	return builder
 }
 
@@ -16552,7 +16556,7 @@ func (builder *SearchOptionsBuilder) FilterPermissionResource(filterPermissionRe
 // 示例值：adminRole
 func (builder *SearchOptionsBuilder) AdminRolePermissionScope(adminRolePermissionScope string) *SearchOptionsBuilder {
 	builder.adminRolePermissionScope = adminRolePermissionScope
-	builder.adminRolePermissionScopeFlag = true
+	builder.adminRolePermissionScopeSet = true
 	return builder
 }
 
@@ -16561,21 +16565,21 @@ func (builder *SearchOptionsBuilder) AdminRolePermissionScope(adminRolePermissio
 // 示例值：1
 func (builder *SearchOptionsBuilder) AdminRolePermissionType(adminRolePermissionType string) *SearchOptionsBuilder {
 	builder.adminRolePermissionType = adminRolePermissionType
-	builder.adminRolePermissionTypeFlag = true
+	builder.adminRolePermissionTypeSet = true
 	return builder
 }
 
 func (builder *SearchOptionsBuilder) Build() *SearchOptions {
 	req := &SearchOptions{}
-	if builder.filterPermissionResourceFlag {
+	if builder.filterPermissionResourceSet {
 		req.FilterPermissionResource = &builder.filterPermissionResource
 
 	}
-	if builder.adminRolePermissionScopeFlag {
+	if builder.adminRolePermissionScopeSet {
 		req.AdminRolePermissionScope = &builder.adminRolePermissionScope
 
 	}
-	if builder.adminRolePermissionTypeFlag {
+	if builder.adminRolePermissionTypeSet {
 		req.AdminRolePermissionType = &builder.adminRolePermissionType
 
 	}
@@ -16589,11 +16593,11 @@ type SendNotification struct {
 }
 
 type SendNotificationBuilder struct {
-	needSendNotification     bool // 是否发送通知
-	needSendNotificationFlag bool
+	needSendNotification    bool // 是否发送通知
+	needSendNotificationSet bool
 
-	language     int // 语言类型 可选值：zh-CN：中文 en-US：英文 ja-JP：日文
-	languageFlag bool
+	language    int // 语言类型 可选值：zh-CN：中文 en-US：英文 ja-JP：日文
+	languageSet bool
 }
 
 func NewSendNotificationBuilder() *SendNotificationBuilder {
@@ -16606,7 +16610,7 @@ func NewSendNotificationBuilder() *SendNotificationBuilder {
 // 示例值：
 func (builder *SendNotificationBuilder) NeedSendNotification(needSendNotification bool) *SendNotificationBuilder {
 	builder.needSendNotification = needSendNotification
-	builder.needSendNotificationFlag = true
+	builder.needSendNotificationSet = true
 	return builder
 }
 
@@ -16615,17 +16619,17 @@ func (builder *SendNotificationBuilder) NeedSendNotification(needSendNotificatio
 // 示例值：1
 func (builder *SendNotificationBuilder) Language(language int) *SendNotificationBuilder {
 	builder.language = language
-	builder.languageFlag = true
+	builder.languageSet = true
 	return builder
 }
 
 func (builder *SendNotificationBuilder) Build() *SendNotification {
 	req := &SendNotification{}
-	if builder.needSendNotificationFlag {
+	if builder.needSendNotificationSet {
 		req.NeedSendNotification = &builder.needSendNotification
 
 	}
-	if builder.languageFlag {
+	if builder.languageSet {
 		req.Language = &builder.language
 
 	}
@@ -16645,20 +16649,20 @@ type SetEmployeePreResigned struct {
 }
 
 type SetEmployeePreResignedBuilder struct {
-	employeeId     string // 员工ID
-	employeeIdFlag bool
+	employeeId    string // 员工ID
+	employeeIdSet bool
 
-	resignDate     string // 离职日期
-	resignDateFlag bool
+	resignDate    string // 离职日期
+	resignDateSet bool
 
-	resignReason     string // 离职原因
-	resignReasonFlag bool
+	resignReason    string // 离职原因
+	resignReasonSet bool
 
-	resignType     string // 离职类型
-	resignTypeFlag bool
+	resignType    string // 离职类型
+	resignTypeSet bool
 
-	resignRemark     string // 离职备注
-	resignRemarkFlag bool
+	resignRemark    string // 离职备注
+	resignRemarkSet bool
 }
 
 func NewSetEmployeePreResignedBuilder() *SetEmployeePreResignedBuilder {
@@ -16671,7 +16675,7 @@ func NewSetEmployeePreResignedBuilder() *SetEmployeePreResignedBuilder {
 // 示例值：eehsdna
 func (builder *SetEmployeePreResignedBuilder) EmployeeId(employeeId string) *SetEmployeePreResignedBuilder {
 	builder.employeeId = employeeId
-	builder.employeeIdFlag = true
+	builder.employeeIdSet = true
 	return builder
 }
 
@@ -16680,7 +16684,7 @@ func (builder *SetEmployeePreResignedBuilder) EmployeeId(employeeId string) *Set
 // 示例值：2024-06-21
 func (builder *SetEmployeePreResignedBuilder) ResignDate(resignDate string) *SetEmployeePreResignedBuilder {
 	builder.resignDate = resignDate
-	builder.resignDateFlag = true
+	builder.resignDateSet = true
 	return builder
 }
 
@@ -16689,7 +16693,7 @@ func (builder *SetEmployeePreResignedBuilder) ResignDate(resignDate string) *Set
 // 示例值：
 func (builder *SetEmployeePreResignedBuilder) ResignReason(resignReason string) *SetEmployeePreResignedBuilder {
 	builder.resignReason = resignReason
-	builder.resignReasonFlag = true
+	builder.resignReasonSet = true
 	return builder
 }
 
@@ -16698,7 +16702,7 @@ func (builder *SetEmployeePreResignedBuilder) ResignReason(resignReason string) 
 // 示例值：
 func (builder *SetEmployeePreResignedBuilder) ResignType(resignType string) *SetEmployeePreResignedBuilder {
 	builder.resignType = resignType
-	builder.resignTypeFlag = true
+	builder.resignTypeSet = true
 	return builder
 }
 
@@ -16707,29 +16711,29 @@ func (builder *SetEmployeePreResignedBuilder) ResignType(resignType string) *Set
 // 示例值：留学深造
 func (builder *SetEmployeePreResignedBuilder) ResignRemark(resignRemark string) *SetEmployeePreResignedBuilder {
 	builder.resignRemark = resignRemark
-	builder.resignRemarkFlag = true
+	builder.resignRemarkSet = true
 	return builder
 }
 
 func (builder *SetEmployeePreResignedBuilder) Build() *SetEmployeePreResigned {
 	req := &SetEmployeePreResigned{}
-	if builder.employeeIdFlag {
+	if builder.employeeIdSet {
 		req.EmployeeId = &builder.employeeId
 
 	}
-	if builder.resignDateFlag {
+	if builder.resignDateSet {
 		req.ResignDate = &builder.resignDate
 
 	}
-	if builder.resignReasonFlag {
+	if builder.resignReasonSet {
 		req.ResignReason = &builder.resignReason
 
 	}
-	if builder.resignTypeFlag {
+	if builder.resignTypeSet {
 		req.ResignType = &builder.resignType
 
 	}
-	if builder.resignRemarkFlag {
+	if builder.resignRemarkSet {
 		req.ResignRemark = &builder.resignRemark
 
 	}
@@ -16743,11 +16747,11 @@ type ShareDepartment struct {
 }
 
 type ShareDepartmentBuilder struct {
-	openDepartmentId     string // 部门open ID
-	openDepartmentIdFlag bool
+	openDepartmentId    string // 部门open ID
+	openDepartmentIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 }
 
 func NewShareDepartmentBuilder() *ShareDepartmentBuilder {
@@ -16760,7 +16764,7 @@ func NewShareDepartmentBuilder() *ShareDepartmentBuilder {
 // 示例值：
 func (builder *ShareDepartmentBuilder) OpenDepartmentId(openDepartmentId string) *ShareDepartmentBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
@@ -16769,17 +16773,17 @@ func (builder *ShareDepartmentBuilder) OpenDepartmentId(openDepartmentId string)
 // 示例值：
 func (builder *ShareDepartmentBuilder) Name(name *I18nText) *ShareDepartmentBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *ShareDepartmentBuilder) Build() *ShareDepartment {
 	req := &ShareDepartment{}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
 	return req
@@ -16792,11 +16796,11 @@ type ShareGroup struct {
 }
 
 type ShareGroupBuilder struct {
-	openGroupId     string // 用户组的open_id
-	openGroupIdFlag bool
+	openGroupId    string // 用户组的open_id
+	openGroupIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 }
 
 func NewShareGroupBuilder() *ShareGroupBuilder {
@@ -16809,7 +16813,7 @@ func NewShareGroupBuilder() *ShareGroupBuilder {
 // 示例值：ou-12121212
 func (builder *ShareGroupBuilder) OpenGroupId(openGroupId string) *ShareGroupBuilder {
 	builder.openGroupId = openGroupId
-	builder.openGroupIdFlag = true
+	builder.openGroupIdSet = true
 	return builder
 }
 
@@ -16818,17 +16822,17 @@ func (builder *ShareGroupBuilder) OpenGroupId(openGroupId string) *ShareGroupBui
 // 示例值：
 func (builder *ShareGroupBuilder) Name(name *I18nText) *ShareGroupBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *ShareGroupBuilder) Build() *ShareGroup {
 	req := &ShareGroup{}
-	if builder.openGroupIdFlag {
+	if builder.openGroupIdSet {
 		req.OpenGroupId = &builder.openGroupId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
 	return req
@@ -16843,14 +16847,14 @@ type ShareUser struct {
 }
 
 type ShareUserBuilder struct {
-	openUserId     string // user open ID
-	openUserIdFlag bool
+	openUserId    string // user open ID
+	openUserIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	avatar     *ImageLink // 用户的头像
-	avatarFlag bool
+	avatar    *ImageLink // 用户的头像
+	avatarSet bool
 }
 
 func NewShareUserBuilder() *ShareUserBuilder {
@@ -16863,7 +16867,7 @@ func NewShareUserBuilder() *ShareUserBuilder {
 // 示例值：ou-12121212
 func (builder *ShareUserBuilder) OpenUserId(openUserId string) *ShareUserBuilder {
 	builder.openUserId = openUserId
-	builder.openUserIdFlag = true
+	builder.openUserIdSet = true
 	return builder
 }
 
@@ -16872,7 +16876,7 @@ func (builder *ShareUserBuilder) OpenUserId(openUserId string) *ShareUserBuilder
 // 示例值：
 func (builder *ShareUserBuilder) Name(name *I18nText) *ShareUserBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -16881,20 +16885,20 @@ func (builder *ShareUserBuilder) Name(name *I18nText) *ShareUserBuilder {
 // 示例值：
 func (builder *ShareUserBuilder) Avatar(avatar *ImageLink) *ShareUserBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
 func (builder *ShareUserBuilder) Build() *ShareUser {
 	req := &ShareUser{}
-	if builder.openUserIdFlag {
+	if builder.openUserIdSet {
 		req.OpenUserId = &builder.openUserId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = builder.avatar
 	}
 	return req
@@ -16965,98 +16969,98 @@ type Tenant struct {
 }
 
 type TenantBuilder struct {
-	id     string // 租户ID
-	idFlag bool
+	id    string // 租户ID
+	idSet bool
 
-	externalId     string // 企业编号
-	externalIdFlag bool
+	externalId    string // 企业编号
+	externalIdSet bool
 
-	encryptedId     string // 加密租户id -- 废弃
-	encryptedIdFlag bool
+	encryptedId    string // 加密租户id -- 废弃
+	encryptedIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	contactUserInfo     *UserInfo // 联系人信息
-	contactUserInfoFlag bool
+	contactUserInfo    *UserInfo // 联系人信息
+	contactUserInfoSet bool
 
-	address     string // 联系地址
-	addressFlag bool
+	address    string // 联系地址
+	addressSet bool
 
-	postCode     string // 邮编
-	postCodeFlag bool
+	postCode    string // 邮编
+	postCodeSet bool
 
-	telephone     string // 备注 废弃\n10: optional string Remark (apimeta.scope="directory:tenant.base:read"),\n座机
-	telephoneFlag bool
+	telephone    string // 备注 废弃\n10: optional string Remark (apimeta.scope="directory:tenant.base:read"),\n座机
+	telephoneSet bool
 
-	avatarKey     string // 企业头像Key
-	avatarKeyFlag bool
+	avatarKey    string // 企业头像Key
+	avatarKeySet bool
 
-	subDomain     string // 企业域名子域名
-	subDomainFlag bool
+	subDomain    string // 企业域名子域名
+	subDomainSet bool
 
-	fullDomain     string // 企业域名完整域名
-	fullDomainFlag bool
+	fullDomain    string // 企业域名完整域名
+	fullDomainSet bool
 
-	domainModifyCount     string // 域名修改次数 废弃
-	domainModifyCountFlag bool
+	domainModifyCount    string // 域名修改次数 废弃
+	domainModifyCountSet bool
 
-	multiGeoFullDomains     map[string]string // 全球化域名
-	multiGeoFullDomainsFlag bool
+	multiGeoFullDomains    map[string]string // 全球化域名
+	multiGeoFullDomainsSet bool
 
-	countryCode     string // 国家代码
-	countryCodeFlag bool
+	countryCode    string // 国家代码
+	countryCodeSet bool
 
 	type_    string // 租户类型
-	typeFlag bool
+	type_Set bool
 
-	purpose     string // 租户用途
-	purposeFlag bool
+	purpose    string // 租户用途
+	purposeSet bool
 
-	parentId     string // 租户的父租户
-	parentIdFlag bool
+	parentId    string // 租户的父租户
+	parentIdSet bool
 
-	dissolveStatus     string // 租户解散状态
-	dissolveStatusFlag bool
+	dissolveStatus    string // 租户解散状态
+	dissolveStatusSet bool
 
-	tag     string // 个人租户/企业租户
-	tagFlag bool
+	tag    string // 个人租户/企业租户
+	tagSet bool
 
-	industry     string // 行业类型 -- 废弃
-	industryFlag bool
+	industry    string // 行业类型 -- 废弃
+	industrySet bool
 
-	scale     string // 企业规模 -- 废弃
-	scaleFlag bool
+	scale    string // 企业规模 -- 废弃
+	scaleSet bool
 
-	brand     string // 品牌
-	brandFlag bool
+	brand    string // 品牌
+	brandSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	updatorId     string // 更新人ID
-	updatorIdFlag bool
+	updatorId    string // 更新人ID
+	updatorIdSet bool
 
-	creatorId     string // 创建人ID
-	creatorIdFlag bool
+	creatorId    string // 创建人ID
+	creatorIdSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	traceInfo     *TenantTraceInfo // 租户创建追溯信息
-	traceInfoFlag bool
+	traceInfo    *TenantTraceInfo // 租户创建追溯信息
+	traceInfoSet bool
 
-	canDomainBeModified     bool // 域名是否可修改
-	canDomainBeModifiedFlag bool
+	canDomainBeModified    bool // 域名是否可修改
+	canDomainBeModifiedSet bool
 
-	industryType     string // 行业类型 主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-HX7addBffo1s4cxrXWmc2Mlwnuc
-	industryTypeFlag bool
+	industryType    string // 行业类型 主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-HX7addBffo1s4cxrXWmc2Mlwnuc
+	industryTypeSet bool
 
-	staffSize     string // 企业规模 主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-HX7addBffo1s4cxrXWmc2Mlwnuc
-	staffSizeFlag bool
+	staffSize    string // 企业规模 主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-HX7addBffo1s4cxrXWmc2Mlwnuc
+	staffSizeSet bool
 }
 
 func NewTenantBuilder() *TenantBuilder {
@@ -17069,7 +17073,7 @@ func NewTenantBuilder() *TenantBuilder {
 // 示例值：7023251211654529043
 func (builder *TenantBuilder) Id(id string) *TenantBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -17078,7 +17082,7 @@ func (builder *TenantBuilder) Id(id string) *TenantBuilder {
 // 示例值：gdjspasibfgpetb
 func (builder *TenantBuilder) ExternalId(externalId string) *TenantBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
@@ -17087,7 +17091,7 @@ func (builder *TenantBuilder) ExternalId(externalId string) *TenantBuilder {
 // 示例值：KFCVME50
 func (builder *TenantBuilder) EncryptedId(encryptedId string) *TenantBuilder {
 	builder.encryptedId = encryptedId
-	builder.encryptedIdFlag = true
+	builder.encryptedIdSet = true
 	return builder
 }
 
@@ -17096,7 +17100,7 @@ func (builder *TenantBuilder) EncryptedId(encryptedId string) *TenantBuilder {
 // 示例值：
 func (builder *TenantBuilder) Name(name *I18nText) *TenantBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -17105,7 +17109,7 @@ func (builder *TenantBuilder) Name(name *I18nText) *TenantBuilder {
 // 示例值：
 func (builder *TenantBuilder) ContactUserInfo(contactUserInfo *UserInfo) *TenantBuilder {
 	builder.contactUserInfo = contactUserInfo
-	builder.contactUserInfoFlag = true
+	builder.contactUserInfoSet = true
 	return builder
 }
 
@@ -17114,7 +17118,7 @@ func (builder *TenantBuilder) ContactUserInfo(contactUserInfo *UserInfo) *Tenant
 // 示例值：北京市北三环西路43号院中航广场
 func (builder *TenantBuilder) Address(address string) *TenantBuilder {
 	builder.address = address
-	builder.addressFlag = true
+	builder.addressSet = true
 	return builder
 }
 
@@ -17123,7 +17127,7 @@ func (builder *TenantBuilder) Address(address string) *TenantBuilder {
 // 示例值：100089
 func (builder *TenantBuilder) PostCode(postCode string) *TenantBuilder {
 	builder.postCode = postCode
-	builder.postCodeFlag = true
+	builder.postCodeSet = true
 	return builder
 }
 
@@ -17132,7 +17136,7 @@ func (builder *TenantBuilder) PostCode(postCode string) *TenantBuilder {
 // 示例值：(010)58341888
 func (builder *TenantBuilder) Telephone(telephone string) *TenantBuilder {
 	builder.telephone = telephone
-	builder.telephoneFlag = true
+	builder.telephoneSet = true
 	return builder
 }
 
@@ -17141,7 +17145,7 @@ func (builder *TenantBuilder) Telephone(telephone string) *TenantBuilder {
 // 示例值：2500c7a9-5fff-4d9a-a2de-3d59614ae28g
 func (builder *TenantBuilder) AvatarKey(avatarKey string) *TenantBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
@@ -17150,7 +17154,7 @@ func (builder *TenantBuilder) AvatarKey(avatarKey string) *TenantBuilder {
 // 示例值：tenant_a
 func (builder *TenantBuilder) SubDomain(subDomain string) *TenantBuilder {
 	builder.subDomain = subDomain
-	builder.subDomainFlag = true
+	builder.subDomainSet = true
 	return builder
 }
 
@@ -17159,7 +17163,7 @@ func (builder *TenantBuilder) SubDomain(subDomain string) *TenantBuilder {
 // 示例值：tenant_a.io
 func (builder *TenantBuilder) FullDomain(fullDomain string) *TenantBuilder {
 	builder.fullDomain = fullDomain
-	builder.fullDomainFlag = true
+	builder.fullDomainSet = true
 	return builder
 }
 
@@ -17168,7 +17172,7 @@ func (builder *TenantBuilder) FullDomain(fullDomain string) *TenantBuilder {
 // 示例值：1
 func (builder *TenantBuilder) DomainModifyCount(domainModifyCount string) *TenantBuilder {
 	builder.domainModifyCount = domainModifyCount
-	builder.domainModifyCountFlag = true
+	builder.domainModifyCountSet = true
 	return builder
 }
 
@@ -17177,7 +17181,7 @@ func (builder *TenantBuilder) DomainModifyCount(domainModifyCount string) *Tenan
 // 示例值：
 func (builder *TenantBuilder) MultiGeoFullDomains(multiGeoFullDomains map[string]string) *TenantBuilder {
 	builder.multiGeoFullDomains = multiGeoFullDomains
-	builder.multiGeoFullDomainsFlag = true
+	builder.multiGeoFullDomainsSet = true
 	return builder
 }
 
@@ -17186,7 +17190,7 @@ func (builder *TenantBuilder) MultiGeoFullDomains(multiGeoFullDomains map[string
 // 示例值：无
 func (builder *TenantBuilder) CountryCode(countryCode string) *TenantBuilder {
 	builder.countryCode = countryCode
-	builder.countryCodeFlag = true
+	builder.countryCodeSet = true
 	return builder
 }
 
@@ -17195,7 +17199,7 @@ func (builder *TenantBuilder) CountryCode(countryCode string) *TenantBuilder {
 // 示例值：0
 func (builder *TenantBuilder) Type(type_ string) *TenantBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -17204,7 +17208,7 @@ func (builder *TenantBuilder) Type(type_ string) *TenantBuilder {
 // 示例值：0
 func (builder *TenantBuilder) Purpose(purpose string) *TenantBuilder {
 	builder.purpose = purpose
-	builder.purposeFlag = true
+	builder.purposeSet = true
 	return builder
 }
 
@@ -17213,7 +17217,7 @@ func (builder *TenantBuilder) Purpose(purpose string) *TenantBuilder {
 // 示例值：7246224245317929700
 func (builder *TenantBuilder) ParentId(parentId string) *TenantBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
@@ -17222,7 +17226,7 @@ func (builder *TenantBuilder) ParentId(parentId string) *TenantBuilder {
 // 示例值：0
 func (builder *TenantBuilder) DissolveStatus(dissolveStatus string) *TenantBuilder {
 	builder.dissolveStatus = dissolveStatus
-	builder.dissolveStatusFlag = true
+	builder.dissolveStatusSet = true
 	return builder
 }
 
@@ -17231,7 +17235,7 @@ func (builder *TenantBuilder) DissolveStatus(dissolveStatus string) *TenantBuild
 // 示例值：0
 func (builder *TenantBuilder) Tag(tag string) *TenantBuilder {
 	builder.tag = tag
-	builder.tagFlag = true
+	builder.tagSet = true
 	return builder
 }
 
@@ -17240,7 +17244,7 @@ func (builder *TenantBuilder) Tag(tag string) *TenantBuilder {
 // 示例值：暂无
 func (builder *TenantBuilder) Industry(industry string) *TenantBuilder {
 	builder.industry = industry
-	builder.industryFlag = true
+	builder.industrySet = true
 	return builder
 }
 
@@ -17249,7 +17253,7 @@ func (builder *TenantBuilder) Industry(industry string) *TenantBuilder {
 // 示例值：暂无
 func (builder *TenantBuilder) Scale(scale string) *TenantBuilder {
 	builder.scale = scale
-	builder.scaleFlag = true
+	builder.scaleSet = true
 	return builder
 }
 
@@ -17258,7 +17262,7 @@ func (builder *TenantBuilder) Scale(scale string) *TenantBuilder {
 // 示例值：
 func (builder *TenantBuilder) Brand(brand string) *TenantBuilder {
 	builder.brand = brand
-	builder.brandFlag = true
+	builder.brandSet = true
 	return builder
 }
 
@@ -17267,7 +17271,7 @@ func (builder *TenantBuilder) Brand(brand string) *TenantBuilder {
 // 示例值：
 func (builder *TenantBuilder) Description(description *I18nText) *TenantBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -17276,7 +17280,7 @@ func (builder *TenantBuilder) Description(description *I18nText) *TenantBuilder 
 // 示例值：暂无
 func (builder *TenantBuilder) UpdatorId(updatorId string) *TenantBuilder {
 	builder.updatorId = updatorId
-	builder.updatorIdFlag = true
+	builder.updatorIdSet = true
 	return builder
 }
 
@@ -17285,7 +17289,7 @@ func (builder *TenantBuilder) UpdatorId(updatorId string) *TenantBuilder {
 // 示例值：7246224245317959701
 func (builder *TenantBuilder) CreatorId(creatorId string) *TenantBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -17294,7 +17298,7 @@ func (builder *TenantBuilder) CreatorId(creatorId string) *TenantBuilder {
 // 示例值：暂无
 func (builder *TenantBuilder) CreateTime(createTime string) *TenantBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -17303,7 +17307,7 @@ func (builder *TenantBuilder) CreateTime(createTime string) *TenantBuilder {
 // 示例值：暂无
 func (builder *TenantBuilder) UpdateTime(updateTime string) *TenantBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -17312,7 +17316,7 @@ func (builder *TenantBuilder) UpdateTime(updateTime string) *TenantBuilder {
 // 示例值：
 func (builder *TenantBuilder) TraceInfo(traceInfo *TenantTraceInfo) *TenantBuilder {
 	builder.traceInfo = traceInfo
-	builder.traceInfoFlag = true
+	builder.traceInfoSet = true
 	return builder
 }
 
@@ -17321,7 +17325,7 @@ func (builder *TenantBuilder) TraceInfo(traceInfo *TenantTraceInfo) *TenantBuild
 // 示例值：true
 func (builder *TenantBuilder) CanDomainBeModified(canDomainBeModified bool) *TenantBuilder {
 	builder.canDomainBeModified = canDomainBeModified
-	builder.canDomainBeModifiedFlag = true
+	builder.canDomainBeModifiedSet = true
 	return builder
 }
 
@@ -17330,7 +17334,7 @@ func (builder *TenantBuilder) CanDomainBeModified(canDomainBeModified bool) *Ten
 // 示例值：1
 func (builder *TenantBuilder) IndustryType(industryType string) *TenantBuilder {
 	builder.industryType = industryType
-	builder.industryTypeFlag = true
+	builder.industryTypeSet = true
 	return builder
 }
 
@@ -17339,128 +17343,128 @@ func (builder *TenantBuilder) IndustryType(industryType string) *TenantBuilder {
 // 示例值：1
 func (builder *TenantBuilder) StaffSize(staffSize string) *TenantBuilder {
 	builder.staffSize = staffSize
-	builder.staffSizeFlag = true
+	builder.staffSizeSet = true
 	return builder
 }
 
 func (builder *TenantBuilder) Build() *Tenant {
 	req := &Tenant{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
-	if builder.encryptedIdFlag {
+	if builder.encryptedIdSet {
 		req.EncryptedId = &builder.encryptedId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.contactUserInfoFlag {
+	if builder.contactUserInfoSet {
 		req.ContactUserInfo = builder.contactUserInfo
 	}
-	if builder.addressFlag {
+	if builder.addressSet {
 		req.Address = &builder.address
 
 	}
-	if builder.postCodeFlag {
+	if builder.postCodeSet {
 		req.PostCode = &builder.postCode
 
 	}
-	if builder.telephoneFlag {
+	if builder.telephoneSet {
 		req.Telephone = &builder.telephone
 
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = &builder.avatarKey
 
 	}
-	if builder.subDomainFlag {
+	if builder.subDomainSet {
 		req.SubDomain = &builder.subDomain
 
 	}
-	if builder.fullDomainFlag {
+	if builder.fullDomainSet {
 		req.FullDomain = &builder.fullDomain
 
 	}
-	if builder.domainModifyCountFlag {
+	if builder.domainModifyCountSet {
 		req.DomainModifyCount = &builder.domainModifyCount
 
 	}
-	if builder.multiGeoFullDomainsFlag {
+	if builder.multiGeoFullDomainsSet {
 		req.MultiGeoFullDomains = builder.multiGeoFullDomains
 	}
-	if builder.countryCodeFlag {
+	if builder.countryCodeSet {
 		req.CountryCode = &builder.countryCode
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.purposeFlag {
+	if builder.purposeSet {
 		req.Purpose = &builder.purpose
 
 	}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
-	if builder.dissolveStatusFlag {
+	if builder.dissolveStatusSet {
 		req.DissolveStatus = &builder.dissolveStatus
 
 	}
-	if builder.tagFlag {
+	if builder.tagSet {
 		req.Tag = &builder.tag
 
 	}
-	if builder.industryFlag {
+	if builder.industrySet {
 		req.Industry = &builder.industry
 
 	}
-	if builder.scaleFlag {
+	if builder.scaleSet {
 		req.Scale = &builder.scale
 
 	}
-	if builder.brandFlag {
+	if builder.brandSet {
 		req.Brand = &builder.brand
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.updatorIdFlag {
+	if builder.updatorIdSet {
 		req.UpdatorId = &builder.updatorId
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.traceInfoFlag {
+	if builder.traceInfoSet {
 		req.TraceInfo = builder.traceInfo
 	}
-	if builder.canDomainBeModifiedFlag {
+	if builder.canDomainBeModifiedSet {
 		req.CanDomainBeModified = &builder.canDomainBeModified
 
 	}
-	if builder.industryTypeFlag {
+	if builder.industryTypeSet {
 		req.IndustryType = &builder.industryType
 
 	}
-	if builder.staffSizeFlag {
+	if builder.staffSizeSet {
 		req.StaffSize = &builder.staffSize
 
 	}
@@ -17500,50 +17504,50 @@ type TenantTraceInfo struct {
 }
 
 type TenantTraceInfoBuilder struct {
-	createSource     string // 租户创建来源
-	createSourceFlag bool
+	createSource    string // 租户创建来源
+	createSourceSet bool
 
-	salesforceId     string // SalesforceID
-	salesforceIdFlag bool
+	salesforceId    string // SalesforceID
+	salesforceIdSet bool
 
-	webId     string // WebID
-	webIdFlag bool
+	webId    string // WebID
+	webIdSet bool
 
-	sourceSystem     string // 创建来源系统
-	sourceSystemFlag bool
+	sourceSystem    string // 创建来源系统
+	sourceSystemSet bool
 
-	sourcePage     string // 创建来源页
-	sourcePageFlag bool
+	sourcePage    string // 创建来源页
+	sourcePageSet bool
 
-	clientIp     string // 客户端IP
-	clientIpFlag bool
+	clientIp    string // 客户端IP
+	clientIpSet bool
 
-	channel     string // channel
-	channelFlag bool
+	channel    string // channel
+	channelSet bool
 
-	planId     string // plan
-	planIdFlag bool
+	planId    string // plan
+	planIdSet bool
 
-	subscribeEmail     bool // 是否订阅邮箱
-	subscribeEmailFlag bool
+	subscribeEmail    bool // 是否订阅邮箱
+	subscribeEmailSet bool
 
-	trackingCode     string // 追踪码
-	trackingCodeFlag bool
+	trackingCode    string // 追踪码
+	trackingCodeSet bool
 
-	inviterId     string // 邀请人ID
-	inviterIdFlag bool
+	inviterId    string // 邀请人ID
+	inviterIdSet bool
 
-	invitationToken     string // 邀请token
-	invitationTokenFlag bool
+	invitationToken    string // 邀请token
+	invitationTokenSet bool
 
-	captchaInfo     string // 验证码信息
-	captchaInfoFlag bool
+	captchaInfo    string // 验证码信息
+	captchaInfoSet bool
 
-	regParams     string // 透传参数
-	regParamsFlag bool
+	regParams    string // 透传参数
+	regParamsSet bool
 
-	terminalType     string // 终端类型
-	terminalTypeFlag bool
+	terminalType    string // 终端类型
+	terminalTypeSet bool
 }
 
 func NewTenantTraceInfoBuilder() *TenantTraceInfoBuilder {
@@ -17556,7 +17560,7 @@ func NewTenantTraceInfoBuilder() *TenantTraceInfoBuilder {
 // 示例值：无
 func (builder *TenantTraceInfoBuilder) CreateSource(createSource string) *TenantTraceInfoBuilder {
 	builder.createSource = createSource
-	builder.createSourceFlag = true
+	builder.createSourceSet = true
 	return builder
 }
 
@@ -17565,7 +17569,7 @@ func (builder *TenantTraceInfoBuilder) CreateSource(createSource string) *Tenant
 // 示例值：无
 func (builder *TenantTraceInfoBuilder) SalesforceId(salesforceId string) *TenantTraceInfoBuilder {
 	builder.salesforceId = salesforceId
-	builder.salesforceIdFlag = true
+	builder.salesforceIdSet = true
 	return builder
 }
 
@@ -17574,7 +17578,7 @@ func (builder *TenantTraceInfoBuilder) SalesforceId(salesforceId string) *Tenant
 // 示例值：无
 func (builder *TenantTraceInfoBuilder) WebId(webId string) *TenantTraceInfoBuilder {
 	builder.webId = webId
-	builder.webIdFlag = true
+	builder.webIdSet = true
 	return builder
 }
 
@@ -17583,7 +17587,7 @@ func (builder *TenantTraceInfoBuilder) WebId(webId string) *TenantTraceInfoBuild
 // 示例值：无
 func (builder *TenantTraceInfoBuilder) SourceSystem(sourceSystem string) *TenantTraceInfoBuilder {
 	builder.sourceSystem = sourceSystem
-	builder.sourceSystemFlag = true
+	builder.sourceSystemSet = true
 	return builder
 }
 
@@ -17592,7 +17596,7 @@ func (builder *TenantTraceInfoBuilder) SourceSystem(sourceSystem string) *Tenant
 // 示例值：无
 func (builder *TenantTraceInfoBuilder) SourcePage(sourcePage string) *TenantTraceInfoBuilder {
 	builder.sourcePage = sourcePage
-	builder.sourcePageFlag = true
+	builder.sourcePageSet = true
 	return builder
 }
 
@@ -17601,7 +17605,7 @@ func (builder *TenantTraceInfoBuilder) SourcePage(sourcePage string) *TenantTrac
 // 示例值：1.2.3.4
 func (builder *TenantTraceInfoBuilder) ClientIp(clientIp string) *TenantTraceInfoBuilder {
 	builder.clientIp = clientIp
-	builder.clientIpFlag = true
+	builder.clientIpSet = true
 	return builder
 }
 
@@ -17610,7 +17614,7 @@ func (builder *TenantTraceInfoBuilder) ClientIp(clientIp string) *TenantTraceInf
 // 示例值：无
 func (builder *TenantTraceInfoBuilder) Channel(channel string) *TenantTraceInfoBuilder {
 	builder.channel = channel
-	builder.channelFlag = true
+	builder.channelSet = true
 	return builder
 }
 
@@ -17619,7 +17623,7 @@ func (builder *TenantTraceInfoBuilder) Channel(channel string) *TenantTraceInfoB
 // 示例值：无
 func (builder *TenantTraceInfoBuilder) PlanId(planId string) *TenantTraceInfoBuilder {
 	builder.planId = planId
-	builder.planIdFlag = true
+	builder.planIdSet = true
 	return builder
 }
 
@@ -17628,7 +17632,7 @@ func (builder *TenantTraceInfoBuilder) PlanId(planId string) *TenantTraceInfoBui
 // 示例值：true
 func (builder *TenantTraceInfoBuilder) SubscribeEmail(subscribeEmail bool) *TenantTraceInfoBuilder {
 	builder.subscribeEmail = subscribeEmail
-	builder.subscribeEmailFlag = true
+	builder.subscribeEmailSet = true
 	return builder
 }
 
@@ -17637,7 +17641,7 @@ func (builder *TenantTraceInfoBuilder) SubscribeEmail(subscribeEmail bool) *Tena
 // 示例值：无
 func (builder *TenantTraceInfoBuilder) TrackingCode(trackingCode string) *TenantTraceInfoBuilder {
 	builder.trackingCode = trackingCode
-	builder.trackingCodeFlag = true
+	builder.trackingCodeSet = true
 	return builder
 }
 
@@ -17646,7 +17650,7 @@ func (builder *TenantTraceInfoBuilder) TrackingCode(trackingCode string) *Tenant
 // 示例值：无
 func (builder *TenantTraceInfoBuilder) InviterId(inviterId string) *TenantTraceInfoBuilder {
 	builder.inviterId = inviterId
-	builder.inviterIdFlag = true
+	builder.inviterIdSet = true
 	return builder
 }
 
@@ -17655,7 +17659,7 @@ func (builder *TenantTraceInfoBuilder) InviterId(inviterId string) *TenantTraceI
 // 示例值：无
 func (builder *TenantTraceInfoBuilder) InvitationToken(invitationToken string) *TenantTraceInfoBuilder {
 	builder.invitationToken = invitationToken
-	builder.invitationTokenFlag = true
+	builder.invitationTokenSet = true
 	return builder
 }
 
@@ -17664,7 +17668,7 @@ func (builder *TenantTraceInfoBuilder) InvitationToken(invitationToken string) *
 // 示例值：无
 func (builder *TenantTraceInfoBuilder) CaptchaInfo(captchaInfo string) *TenantTraceInfoBuilder {
 	builder.captchaInfo = captchaInfo
-	builder.captchaInfoFlag = true
+	builder.captchaInfoSet = true
 	return builder
 }
 
@@ -17673,7 +17677,7 @@ func (builder *TenantTraceInfoBuilder) CaptchaInfo(captchaInfo string) *TenantTr
 // 示例值：无
 func (builder *TenantTraceInfoBuilder) RegParams(regParams string) *TenantTraceInfoBuilder {
 	builder.regParams = regParams
-	builder.regParamsFlag = true
+	builder.regParamsSet = true
 	return builder
 }
 
@@ -17682,69 +17686,69 @@ func (builder *TenantTraceInfoBuilder) RegParams(regParams string) *TenantTraceI
 // 示例值：无
 func (builder *TenantTraceInfoBuilder) TerminalType(terminalType string) *TenantTraceInfoBuilder {
 	builder.terminalType = terminalType
-	builder.terminalTypeFlag = true
+	builder.terminalTypeSet = true
 	return builder
 }
 
 func (builder *TenantTraceInfoBuilder) Build() *TenantTraceInfo {
 	req := &TenantTraceInfo{}
-	if builder.createSourceFlag {
+	if builder.createSourceSet {
 		req.CreateSource = &builder.createSource
 
 	}
-	if builder.salesforceIdFlag {
+	if builder.salesforceIdSet {
 		req.SalesforceId = &builder.salesforceId
 
 	}
-	if builder.webIdFlag {
+	if builder.webIdSet {
 		req.WebId = &builder.webId
 
 	}
-	if builder.sourceSystemFlag {
+	if builder.sourceSystemSet {
 		req.SourceSystem = &builder.sourceSystem
 
 	}
-	if builder.sourcePageFlag {
+	if builder.sourcePageSet {
 		req.SourcePage = &builder.sourcePage
 
 	}
-	if builder.clientIpFlag {
+	if builder.clientIpSet {
 		req.ClientIp = &builder.clientIp
 
 	}
-	if builder.channelFlag {
+	if builder.channelSet {
 		req.Channel = &builder.channel
 
 	}
-	if builder.planIdFlag {
+	if builder.planIdSet {
 		req.PlanId = &builder.planId
 
 	}
-	if builder.subscribeEmailFlag {
+	if builder.subscribeEmailSet {
 		req.SubscribeEmail = &builder.subscribeEmail
 
 	}
-	if builder.trackingCodeFlag {
+	if builder.trackingCodeSet {
 		req.TrackingCode = &builder.trackingCode
 
 	}
-	if builder.inviterIdFlag {
+	if builder.inviterIdSet {
 		req.InviterId = &builder.inviterId
 
 	}
-	if builder.invitationTokenFlag {
+	if builder.invitationTokenSet {
 		req.InvitationToken = &builder.invitationToken
 
 	}
-	if builder.captchaInfoFlag {
+	if builder.captchaInfoSet {
 		req.CaptchaInfo = &builder.captchaInfo
 
 	}
-	if builder.regParamsFlag {
+	if builder.regParamsSet {
 		req.RegParams = &builder.regParams
 
 	}
-	if builder.terminalTypeFlag {
+	if builder.terminalTypeSet {
 		req.TerminalType = &builder.terminalType
 
 	}
@@ -17780,44 +17784,44 @@ type UpdateAddress struct {
 }
 
 type UpdateAddressBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	postCode     string // 邮编
-	postCodeFlag bool
+	postCode    string // 邮编
+	postCodeSet bool
 
-	country     string // 国家 国家/地区主数据统一编码
-	countryFlag bool
+	country    string // 国家 国家/地区主数据统一编码
+	countrySet bool
 
-	province     string // 省份 省份主数据统一编码
-	provinceFlag bool
+	province    string // 省份 省份主数据统一编码
+	provinceSet bool
 
-	city     string // 城市 城市主数据统一编码
-	cityFlag bool
+	city    string // 城市 城市主数据统一编码
+	citySet bool
 
-	county     string // 区县 区县主数据统一编码
-	countyFlag bool
+	county    string // 区县 区县主数据统一编码
+	countySet bool
 
-	types     []string // 地址类型
-	typesFlag bool
+	types    []string // 地址类型
+	typesSet bool
 
-	placeId     string // 地点，为0代表置空
-	placeIdFlag bool
+	placeId    string // 地点，为0代表置空
+	placeIdSet bool
 
-	isMain     bool // 是否主要地址
-	isMainFlag bool
+	isMain    bool // 是否主要地址
+	isMainSet bool
 
-	isPublic     bool // 是否公开地址
-	isPublicFlag bool
+	isPublic    bool // 是否公开地址
+	isPublicSet bool
 
-	externalId     string // 外部ID
-	externalIdFlag bool
+	externalId    string // 外部ID
+	externalIdSet bool
 }
 
 func NewUpdateAddressBuilder() *UpdateAddressBuilder {
@@ -17830,7 +17834,7 @@ func NewUpdateAddressBuilder() *UpdateAddressBuilder {
 // 示例值：6872549699048439828
 func (builder *UpdateAddressBuilder) Id(id string) *UpdateAddressBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -17839,7 +17843,7 @@ func (builder *UpdateAddressBuilder) Id(id string) *UpdateAddressBuilder {
 // 示例值：
 func (builder *UpdateAddressBuilder) Name(name *I18nText) *UpdateAddressBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -17848,7 +17852,7 @@ func (builder *UpdateAddressBuilder) Name(name *I18nText) *UpdateAddressBuilder 
 // 示例值：
 func (builder *UpdateAddressBuilder) IsEnabled(isEnabled bool) *UpdateAddressBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -17857,7 +17861,7 @@ func (builder *UpdateAddressBuilder) IsEnabled(isEnabled bool) *UpdateAddressBui
 // 示例值：123456
 func (builder *UpdateAddressBuilder) PostCode(postCode string) *UpdateAddressBuilder {
 	builder.postCode = postCode
-	builder.postCodeFlag = true
+	builder.postCodeSet = true
 	return builder
 }
 
@@ -17866,7 +17870,7 @@ func (builder *UpdateAddressBuilder) PostCode(postCode string) *UpdateAddressBui
 // 示例值：MDCT00000256
 func (builder *UpdateAddressBuilder) Country(country string) *UpdateAddressBuilder {
 	builder.country = country
-	builder.countryFlag = true
+	builder.countrySet = true
 	return builder
 }
 
@@ -17875,7 +17879,7 @@ func (builder *UpdateAddressBuilder) Country(country string) *UpdateAddressBuild
 // 示例值：MDCT00000256
 func (builder *UpdateAddressBuilder) Province(province string) *UpdateAddressBuilder {
 	builder.province = province
-	builder.provinceFlag = true
+	builder.provinceSet = true
 	return builder
 }
 
@@ -17884,7 +17888,7 @@ func (builder *UpdateAddressBuilder) Province(province string) *UpdateAddressBui
 // 示例值：MDCT00000256
 func (builder *UpdateAddressBuilder) City(city string) *UpdateAddressBuilder {
 	builder.city = city
-	builder.cityFlag = true
+	builder.citySet = true
 	return builder
 }
 
@@ -17893,7 +17897,7 @@ func (builder *UpdateAddressBuilder) City(city string) *UpdateAddressBuilder {
 // 示例值：MDCT00000256
 func (builder *UpdateAddressBuilder) County(county string) *UpdateAddressBuilder {
 	builder.county = county
-	builder.countyFlag = true
+	builder.countySet = true
 	return builder
 }
 
@@ -17902,7 +17906,7 @@ func (builder *UpdateAddressBuilder) County(county string) *UpdateAddressBuilder
 // 示例值：
 func (builder *UpdateAddressBuilder) Types(types []string) *UpdateAddressBuilder {
 	builder.types = types
-	builder.typesFlag = true
+	builder.typesSet = true
 	return builder
 }
 
@@ -17911,7 +17915,7 @@ func (builder *UpdateAddressBuilder) Types(types []string) *UpdateAddressBuilder
 // 示例值：6872549699048439828
 func (builder *UpdateAddressBuilder) PlaceId(placeId string) *UpdateAddressBuilder {
 	builder.placeId = placeId
-	builder.placeIdFlag = true
+	builder.placeIdSet = true
 	return builder
 }
 
@@ -17920,7 +17924,7 @@ func (builder *UpdateAddressBuilder) PlaceId(placeId string) *UpdateAddressBuild
 // 示例值：
 func (builder *UpdateAddressBuilder) IsMain(isMain bool) *UpdateAddressBuilder {
 	builder.isMain = isMain
-	builder.isMainFlag = true
+	builder.isMainSet = true
 	return builder
 }
 
@@ -17929,7 +17933,7 @@ func (builder *UpdateAddressBuilder) IsMain(isMain bool) *UpdateAddressBuilder {
 // 示例值：
 func (builder *UpdateAddressBuilder) IsPublic(isPublic bool) *UpdateAddressBuilder {
 	builder.isPublic = isPublic
-	builder.isPublicFlag = true
+	builder.isPublicSet = true
 	return builder
 }
 
@@ -17938,59 +17942,59 @@ func (builder *UpdateAddressBuilder) IsPublic(isPublic bool) *UpdateAddressBuild
 // 示例值：custom_id
 func (builder *UpdateAddressBuilder) ExternalId(externalId string) *UpdateAddressBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *UpdateAddressBuilder) Build() *UpdateAddress {
 	req := &UpdateAddress{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.postCodeFlag {
+	if builder.postCodeSet {
 		req.PostCode = &builder.postCode
 
 	}
-	if builder.countryFlag {
+	if builder.countrySet {
 		req.Country = &builder.country
 
 	}
-	if builder.provinceFlag {
+	if builder.provinceSet {
 		req.Province = &builder.province
 
 	}
-	if builder.cityFlag {
+	if builder.citySet {
 		req.City = &builder.city
 
 	}
-	if builder.countyFlag {
+	if builder.countySet {
 		req.County = &builder.county
 
 	}
-	if builder.typesFlag {
+	if builder.typesSet {
 		req.Types = builder.types
 	}
-	if builder.placeIdFlag {
+	if builder.placeIdSet {
 		req.PlaceId = &builder.placeId
 
 	}
-	if builder.isMainFlag {
+	if builder.isMainSet {
 		req.IsMain = &builder.isMain
 
 	}
-	if builder.isPublicFlag {
+	if builder.isPublicSet {
 		req.IsPublic = &builder.isPublic
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -18002,8 +18006,8 @@ type UpdateAddressOptions struct {
 }
 
 type UpdateAddressOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewUpdateAddressOptionsBuilder() *UpdateAddressOptionsBuilder {
@@ -18016,13 +18020,13 @@ func NewUpdateAddressOptionsBuilder() *UpdateAddressOptionsBuilder {
 // 示例值：
 func (builder *UpdateAddressOptionsBuilder) DataSource(dataSource int) *UpdateAddressOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *UpdateAddressOptionsBuilder) Build() *UpdateAddressOptions {
 	req := &UpdateAddressOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -18040,17 +18044,17 @@ type UpdateApp struct {
 }
 
 type UpdateAppBuilder struct {
-	id     string // AppUser ID
-	idFlag bool
+	id    string // AppUser ID
+	idSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	avatarKey     string // 头像的文件key
-	avatarKeyFlag bool
+	avatarKey    string // 头像的文件key
+	avatarKeySet bool
 
-	usable     bool // 租户下是否可用
-	usableFlag bool
+	usable    bool // 租户下是否可用
+	usableSet bool
 }
 
 func NewUpdateAppBuilder() *UpdateAppBuilder {
@@ -18063,7 +18067,7 @@ func NewUpdateAppBuilder() *UpdateAppBuilder {
 // 示例值：7036181931599499700
 func (builder *UpdateAppBuilder) Id(id string) *UpdateAppBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -18072,7 +18076,7 @@ func (builder *UpdateAppBuilder) Id(id string) *UpdateAppBuilder {
 // 示例值：
 func (builder *UpdateAppBuilder) Name(name *I18nText) *UpdateAppBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -18081,7 +18085,7 @@ func (builder *UpdateAppBuilder) Name(name *I18nText) *UpdateAppBuilder {
 // 示例值：asdfadsfasdfasdfadsf
 func (builder *UpdateAppBuilder) AvatarKey(avatarKey string) *UpdateAppBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
@@ -18090,24 +18094,24 @@ func (builder *UpdateAppBuilder) AvatarKey(avatarKey string) *UpdateAppBuilder {
 // 示例值：
 func (builder *UpdateAppBuilder) Usable(usable bool) *UpdateAppBuilder {
 	builder.usable = usable
-	builder.usableFlag = true
+	builder.usableSet = true
 	return builder
 }
 
 func (builder *UpdateAppBuilder) Build() *UpdateApp {
 	req := &UpdateApp{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = &builder.avatarKey
 
 	}
-	if builder.usableFlag {
+	if builder.usableSet {
 		req.Usable = &builder.usable
 
 	}
@@ -18137,35 +18141,35 @@ type UpdateBankAccount struct {
 }
 
 type UpdateBankAccountBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	accountUserName     string // 开户人姓名
-	accountUserNameFlag bool
+	accountUserName    string // 开户人姓名
+	accountUserNameSet bool
 
-	accountNumber     string // 银行卡号
-	accountNumberFlag bool
+	accountNumber    string // 银行卡号
+	accountNumberSet bool
 
-	subBankId     string // 支行ID
-	subBankIdFlag bool
+	subBankId    string // 支行ID
+	subBankIdSet bool
 
-	bankCardType     string // 银行卡类型
-	bankCardTypeFlag bool
+	bankCardType    string // 银行卡类型
+	bankCardTypeSet bool
 
-	country     string // 国家/地区
-	countryFlag bool
+	country    string // 国家/地区
+	countrySet bool
 
-	currency     string // 货币 https://md.bytedance.net/v1/main-data/currency 币种编码
-	currencyFlag bool
+	currency    string // 货币 https://md.bytedance.net/v1/main-data/currency 币种编码
+	currencySet bool
 
-	checkCode     string // 校验码
-	checkCodeFlag bool
+	checkCode    string // 校验码
+	checkCodeSet bool
 
-	isMain     bool // 是否主卡
-	isMainFlag bool
+	isMain    bool // 是否主卡
+	isMainSet bool
 
-	bankName     string // 标准版兼容字段，后续会废弃，优先使用SubBankID
-	bankNameFlag bool
+	bankName    string // 标准版兼容字段，后续会废弃，优先使用SubBankID
+	bankNameSet bool
 }
 
 func NewUpdateBankAccountBuilder() *UpdateBankAccountBuilder {
@@ -18178,7 +18182,7 @@ func NewUpdateBankAccountBuilder() *UpdateBankAccountBuilder {
 // 示例值：123123123
 func (builder *UpdateBankAccountBuilder) Id(id string) *UpdateBankAccountBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -18187,7 +18191,7 @@ func (builder *UpdateBankAccountBuilder) Id(id string) *UpdateBankAccountBuilder
 // 示例值：rewasr
 func (builder *UpdateBankAccountBuilder) AccountUserName(accountUserName string) *UpdateBankAccountBuilder {
 	builder.accountUserName = accountUserName
-	builder.accountUserNameFlag = true
+	builder.accountUserNameSet = true
 	return builder
 }
 
@@ -18196,7 +18200,7 @@ func (builder *UpdateBankAccountBuilder) AccountUserName(accountUserName string)
 // 示例值：123123123
 func (builder *UpdateBankAccountBuilder) AccountNumber(accountNumber string) *UpdateBankAccountBuilder {
 	builder.accountNumber = accountNumber
-	builder.accountNumberFlag = true
+	builder.accountNumberSet = true
 	return builder
 }
 
@@ -18205,7 +18209,7 @@ func (builder *UpdateBankAccountBuilder) AccountNumber(accountNumber string) *Up
 // 示例值：12312123312
 func (builder *UpdateBankAccountBuilder) SubBankId(subBankId string) *UpdateBankAccountBuilder {
 	builder.subBankId = subBankId
-	builder.subBankIdFlag = true
+	builder.subBankIdSet = true
 	return builder
 }
 
@@ -18214,7 +18218,7 @@ func (builder *UpdateBankAccountBuilder) SubBankId(subBankId string) *UpdateBank
 // 示例值：
 func (builder *UpdateBankAccountBuilder) BankCardType(bankCardType string) *UpdateBankAccountBuilder {
 	builder.bankCardType = bankCardType
-	builder.bankCardTypeFlag = true
+	builder.bankCardTypeSet = true
 	return builder
 }
 
@@ -18223,7 +18227,7 @@ func (builder *UpdateBankAccountBuilder) BankCardType(bankCardType string) *Upda
 // 示例值：MDM_123123
 func (builder *UpdateBankAccountBuilder) Country(country string) *UpdateBankAccountBuilder {
 	builder.country = country
-	builder.countryFlag = true
+	builder.countrySet = true
 	return builder
 }
 
@@ -18232,7 +18236,7 @@ func (builder *UpdateBankAccountBuilder) Country(country string) *UpdateBankAcco
 // 示例值：MDM_123123
 func (builder *UpdateBankAccountBuilder) Currency(currency string) *UpdateBankAccountBuilder {
 	builder.currency = currency
-	builder.currencyFlag = true
+	builder.currencySet = true
 	return builder
 }
 
@@ -18241,7 +18245,7 @@ func (builder *UpdateBankAccountBuilder) Currency(currency string) *UpdateBankAc
 // 示例值：123123
 func (builder *UpdateBankAccountBuilder) CheckCode(checkCode string) *UpdateBankAccountBuilder {
 	builder.checkCode = checkCode
-	builder.checkCodeFlag = true
+	builder.checkCodeSet = true
 	return builder
 }
 
@@ -18250,7 +18254,7 @@ func (builder *UpdateBankAccountBuilder) CheckCode(checkCode string) *UpdateBank
 // 示例值：
 func (builder *UpdateBankAccountBuilder) IsMain(isMain bool) *UpdateBankAccountBuilder {
 	builder.isMain = isMain
-	builder.isMainFlag = true
+	builder.isMainSet = true
 	return builder
 }
 
@@ -18259,49 +18263,49 @@ func (builder *UpdateBankAccountBuilder) IsMain(isMain bool) *UpdateBankAccountB
 // 示例值：test
 func (builder *UpdateBankAccountBuilder) BankName(bankName string) *UpdateBankAccountBuilder {
 	builder.bankName = bankName
-	builder.bankNameFlag = true
+	builder.bankNameSet = true
 	return builder
 }
 
 func (builder *UpdateBankAccountBuilder) Build() *UpdateBankAccount {
 	req := &UpdateBankAccount{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.accountUserNameFlag {
+	if builder.accountUserNameSet {
 		req.AccountUserName = &builder.accountUserName
 
 	}
-	if builder.accountNumberFlag {
+	if builder.accountNumberSet {
 		req.AccountNumber = &builder.accountNumber
 
 	}
-	if builder.subBankIdFlag {
+	if builder.subBankIdSet {
 		req.SubBankId = &builder.subBankId
 
 	}
-	if builder.bankCardTypeFlag {
+	if builder.bankCardTypeSet {
 		req.BankCardType = &builder.bankCardType
 
 	}
-	if builder.countryFlag {
+	if builder.countrySet {
 		req.Country = &builder.country
 
 	}
-	if builder.currencyFlag {
+	if builder.currencySet {
 		req.Currency = &builder.currency
 
 	}
-	if builder.checkCodeFlag {
+	if builder.checkCodeSet {
 		req.CheckCode = &builder.checkCode
 
 	}
-	if builder.isMainFlag {
+	if builder.isMainSet {
 		req.IsMain = &builder.isMain
 
 	}
-	if builder.bankNameFlag {
+	if builder.bankNameSet {
 		req.BankName = &builder.bankName
 
 	}
@@ -18319,17 +18323,17 @@ type UpdateCertificate struct {
 }
 
 type UpdateCertificateBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	credentialNumber     string // 证件号
-	credentialNumberFlag bool
+	credentialNumber    string // 证件号
+	credentialNumberSet bool
 
-	credentialType     string // 证件类型
-	credentialTypeFlag bool
+	credentialType    string // 证件类型
+	credentialTypeSet bool
 
-	expiryDate     string // 到期日期 格式：2007-07-20， 无固定期限或者长期有效，使用PermanentDate常量
-	expiryDateFlag bool
+	expiryDate    string // 到期日期 格式：2007-07-20， 无固定期限或者长期有效，使用PermanentDate常量
+	expiryDateSet bool
 }
 
 func NewUpdateCertificateBuilder() *UpdateCertificateBuilder {
@@ -18342,7 +18346,7 @@ func NewUpdateCertificateBuilder() *UpdateCertificateBuilder {
 // 示例值：12312312
 func (builder *UpdateCertificateBuilder) Id(id string) *UpdateCertificateBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -18351,7 +18355,7 @@ func (builder *UpdateCertificateBuilder) Id(id string) *UpdateCertificateBuilder
 // 示例值：1231231
 func (builder *UpdateCertificateBuilder) CredentialNumber(credentialNumber string) *UpdateCertificateBuilder {
 	builder.credentialNumber = credentialNumber
-	builder.credentialNumberFlag = true
+	builder.credentialNumberSet = true
 	return builder
 }
 
@@ -18360,7 +18364,7 @@ func (builder *UpdateCertificateBuilder) CredentialNumber(credentialNumber strin
 // 示例值：
 func (builder *UpdateCertificateBuilder) CredentialType(credentialType string) *UpdateCertificateBuilder {
 	builder.credentialType = credentialType
-	builder.credentialTypeFlag = true
+	builder.credentialTypeSet = true
 	return builder
 }
 
@@ -18369,25 +18373,25 @@ func (builder *UpdateCertificateBuilder) CredentialType(credentialType string) *
 // 示例值：2022-02-02
 func (builder *UpdateCertificateBuilder) ExpiryDate(expiryDate string) *UpdateCertificateBuilder {
 	builder.expiryDate = expiryDate
-	builder.expiryDateFlag = true
+	builder.expiryDateSet = true
 	return builder
 }
 
 func (builder *UpdateCertificateBuilder) Build() *UpdateCertificate {
 	req := &UpdateCertificate{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.credentialNumberFlag {
+	if builder.credentialNumberSet {
 		req.CredentialNumber = &builder.credentialNumber
 
 	}
-	if builder.credentialTypeFlag {
+	if builder.credentialTypeSet {
 		req.CredentialType = &builder.credentialType
 
 	}
-	if builder.expiryDateFlag {
+	if builder.expiryDateSet {
 		req.ExpiryDate = &builder.expiryDate
 
 	}
@@ -18405,17 +18409,17 @@ type UpdateCompany struct {
 }
 
 type UpdateCompanyBuilder struct {
-	id     string // 公司ID
-	idFlag bool
+	id    string // 公司ID
+	idSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	externalId     string // 外部ID 不可更新成空
-	externalIdFlag bool
+	externalId    string // 外部ID 不可更新成空
+	externalIdSet bool
 }
 
 func NewUpdateCompanyBuilder() *UpdateCompanyBuilder {
@@ -18428,7 +18432,7 @@ func NewUpdateCompanyBuilder() *UpdateCompanyBuilder {
 // 示例值：7036181931599499700
 func (builder *UpdateCompanyBuilder) Id(id string) *UpdateCompanyBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -18437,7 +18441,7 @@ func (builder *UpdateCompanyBuilder) Id(id string) *UpdateCompanyBuilder {
 // 示例值：
 func (builder *UpdateCompanyBuilder) Name(name *I18nText) *UpdateCompanyBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -18446,7 +18450,7 @@ func (builder *UpdateCompanyBuilder) Name(name *I18nText) *UpdateCompanyBuilder 
 // 示例值：
 func (builder *UpdateCompanyBuilder) IsEnabled(isEnabled bool) *UpdateCompanyBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -18455,24 +18459,24 @@ func (builder *UpdateCompanyBuilder) IsEnabled(isEnabled bool) *UpdateCompanyBui
 // 示例值：WQSADFFF
 func (builder *UpdateCompanyBuilder) ExternalId(externalId string) *UpdateCompanyBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *UpdateCompanyBuilder) Build() *UpdateCompany {
 	req := &UpdateCompany{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -18484,8 +18488,8 @@ type UpdateCompanyoptions struct {
 }
 
 type UpdateCompanyoptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewUpdateCompanyoptionsBuilder() *UpdateCompanyoptionsBuilder {
@@ -18498,13 +18502,13 @@ func NewUpdateCompanyoptionsBuilder() *UpdateCompanyoptionsBuilder {
 // 示例值：
 func (builder *UpdateCompanyoptionsBuilder) DataSource(dataSource int) *UpdateCompanyoptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *UpdateCompanyoptionsBuilder) Build() *UpdateCompanyoptions {
 	req := &UpdateCompanyoptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -18524,20 +18528,20 @@ type UpdateCustomField struct {
 }
 
 type UpdateCustomFieldBuilder struct {
-	id     string // 字段id
-	idFlag bool
+	id    string // 字段id
+	idSet bool
 
-	fieldName     *I18nText // i18n文本
-	fieldNameFlag bool
+	fieldName    *I18nText // i18n文本
+	fieldNameSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	options     []*EnumOption // 枚举值有序列表，全量覆盖更新，更新的枚举项需要传选项ID，选项ID为空认为是创建新的枚举项，原枚举项中不在此列表中的直接删除
-	optionsFlag bool
+	options    []*EnumOption // 枚举值有序列表，全量覆盖更新，更新的枚举项需要传选项ID，选项ID为空认为是创建新的枚举项，原枚举项中不在此列表中的直接删除
+	optionsSet bool
 
-	isEnabled     bool // 是否启用\n多语言名称
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用\n多语言名称
+	isEnabledSet bool
 }
 
 func NewUpdateCustomFieldBuilder() *UpdateCustomFieldBuilder {
@@ -18550,7 +18554,7 @@ func NewUpdateCustomFieldBuilder() *UpdateCustomFieldBuilder {
 // 示例值：7036181931599499700
 func (builder *UpdateCustomFieldBuilder) Id(id string) *UpdateCustomFieldBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -18559,7 +18563,7 @@ func (builder *UpdateCustomFieldBuilder) Id(id string) *UpdateCustomFieldBuilder
 // 示例值：
 func (builder *UpdateCustomFieldBuilder) FieldName(fieldName *I18nText) *UpdateCustomFieldBuilder {
 	builder.fieldName = fieldName
-	builder.fieldNameFlag = true
+	builder.fieldNameSet = true
 	return builder
 }
 
@@ -18568,7 +18572,7 @@ func (builder *UpdateCustomFieldBuilder) FieldName(fieldName *I18nText) *UpdateC
 // 示例值：
 func (builder *UpdateCustomFieldBuilder) Description(description *I18nText) *UpdateCustomFieldBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -18577,7 +18581,7 @@ func (builder *UpdateCustomFieldBuilder) Description(description *I18nText) *Upd
 // 示例值：
 func (builder *UpdateCustomFieldBuilder) Options(options []*EnumOption) *UpdateCustomFieldBuilder {
 	builder.options = options
-	builder.optionsFlag = true
+	builder.optionsSet = true
 	return builder
 }
 
@@ -18586,26 +18590,26 @@ func (builder *UpdateCustomFieldBuilder) Options(options []*EnumOption) *UpdateC
 // 示例值：
 func (builder *UpdateCustomFieldBuilder) IsEnabled(isEnabled bool) *UpdateCustomFieldBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
 func (builder *UpdateCustomFieldBuilder) Build() *UpdateCustomField {
 	req := &UpdateCustomField{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.fieldNameFlag {
+	if builder.fieldNameSet {
 		req.FieldName = builder.fieldName
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.optionsFlag {
+	if builder.optionsSet {
 		req.Options = builder.options
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
@@ -18639,41 +18643,41 @@ type UpdateDepartment struct {
 }
 
 type UpdateDepartmentBuilder struct {
-	departmentId     string // 部门ID
-	departmentIdFlag bool
+	departmentId    string // 部门ID
+	departmentIdSet bool
 
-	customDepartmentId     string // 自定义部门ID
-	customDepartmentIdFlag bool
+	customDepartmentId    string // 自定义部门ID
+	customDepartmentIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	parentDepartmentId     string // 父部门ID
-	parentDepartmentIdFlag bool
+	parentDepartmentId    string // 父部门ID
+	parentDepartmentIdSet bool
 
-	leaders     []*DepartmentLeader // 部门负责人
-	leadersFlag bool
+	leaders    []*DepartmentLeader // 部门负责人
+	leadersSet bool
 
-	hrbps     []string // HRBP
-	hrbpsFlag bool
+	hrbps    []string // HRBP
+	hrbpsSet bool
 
-	orderWeight     string // 在上级部门下的排序权重
-	orderWeightFlag bool
+	orderWeight    string // 在上级部门下的排序权重
+	orderWeightSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	departmentType     int // 部门类型
-	departmentTypeFlag bool
+	departmentType    int // 部门类型
+	departmentTypeSet bool
 
-	enabledStatus     bool // 是否启用
-	enabledStatusFlag bool
+	enabledStatus    bool // 是否启用
+	enabledStatusSet bool
 
-	customFieldValueMap     map[string]*CustomFieldValue // 自定义字段
-	customFieldValueMapFlag bool
+	customFieldValueMap    map[string]*CustomFieldValue // 自定义字段
+	customFieldValueMapSet bool
 
-	customFieldValues     []*CustomFieldValue // 自定义字段
-	customFieldValuesFlag bool
+	customFieldValues    []*CustomFieldValue // 自定义字段
+	customFieldValuesSet bool
 }
 
 func NewUpdateDepartmentBuilder() *UpdateDepartmentBuilder {
@@ -18686,7 +18690,7 @@ func NewUpdateDepartmentBuilder() *UpdateDepartmentBuilder {
 // 示例值：
 func (builder *UpdateDepartmentBuilder) DepartmentId(departmentId string) *UpdateDepartmentBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -18695,7 +18699,7 @@ func (builder *UpdateDepartmentBuilder) DepartmentId(departmentId string) *Updat
 // 示例值：eedasqwA
 func (builder *UpdateDepartmentBuilder) CustomDepartmentId(customDepartmentId string) *UpdateDepartmentBuilder {
 	builder.customDepartmentId = customDepartmentId
-	builder.customDepartmentIdFlag = true
+	builder.customDepartmentIdSet = true
 	return builder
 }
 
@@ -18704,7 +18708,7 @@ func (builder *UpdateDepartmentBuilder) CustomDepartmentId(customDepartmentId st
 // 示例值：
 func (builder *UpdateDepartmentBuilder) Name(name *I18nText) *UpdateDepartmentBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -18713,7 +18717,7 @@ func (builder *UpdateDepartmentBuilder) Name(name *I18nText) *UpdateDepartmentBu
 // 示例值：100
 func (builder *UpdateDepartmentBuilder) ParentDepartmentId(parentDepartmentId string) *UpdateDepartmentBuilder {
 	builder.parentDepartmentId = parentDepartmentId
-	builder.parentDepartmentIdFlag = true
+	builder.parentDepartmentIdSet = true
 	return builder
 }
 
@@ -18722,7 +18726,7 @@ func (builder *UpdateDepartmentBuilder) ParentDepartmentId(parentDepartmentId st
 // 示例值：
 func (builder *UpdateDepartmentBuilder) Leaders(leaders []*DepartmentLeader) *UpdateDepartmentBuilder {
 	builder.leaders = leaders
-	builder.leadersFlag = true
+	builder.leadersSet = true
 	return builder
 }
 
@@ -18731,7 +18735,7 @@ func (builder *UpdateDepartmentBuilder) Leaders(leaders []*DepartmentLeader) *Up
 // 示例值：
 func (builder *UpdateDepartmentBuilder) Hrbps(hrbps []string) *UpdateDepartmentBuilder {
 	builder.hrbps = hrbps
-	builder.hrbpsFlag = true
+	builder.hrbpsSet = true
 	return builder
 }
 
@@ -18740,7 +18744,7 @@ func (builder *UpdateDepartmentBuilder) Hrbps(hrbps []string) *UpdateDepartmentB
 // 示例值：100
 func (builder *UpdateDepartmentBuilder) OrderWeight(orderWeight string) *UpdateDepartmentBuilder {
 	builder.orderWeight = orderWeight
-	builder.orderWeightFlag = true
+	builder.orderWeightSet = true
 	return builder
 }
 
@@ -18749,7 +18753,7 @@ func (builder *UpdateDepartmentBuilder) OrderWeight(orderWeight string) *UpdateD
 // 示例值：
 func (builder *UpdateDepartmentBuilder) Description(description *I18nText) *UpdateDepartmentBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -18758,7 +18762,7 @@ func (builder *UpdateDepartmentBuilder) Description(description *I18nText) *Upda
 // 示例值：
 func (builder *UpdateDepartmentBuilder) DepartmentType(departmentType int) *UpdateDepartmentBuilder {
 	builder.departmentType = departmentType
-	builder.departmentTypeFlag = true
+	builder.departmentTypeSet = true
 	return builder
 }
 
@@ -18767,7 +18771,7 @@ func (builder *UpdateDepartmentBuilder) DepartmentType(departmentType int) *Upda
 // 示例值：
 func (builder *UpdateDepartmentBuilder) EnabledStatus(enabledStatus bool) *UpdateDepartmentBuilder {
 	builder.enabledStatus = enabledStatus
-	builder.enabledStatusFlag = true
+	builder.enabledStatusSet = true
 	return builder
 }
 
@@ -18776,7 +18780,7 @@ func (builder *UpdateDepartmentBuilder) EnabledStatus(enabledStatus bool) *Updat
 // 示例值：
 func (builder *UpdateDepartmentBuilder) CustomFieldValueMap(customFieldValueMap map[string]*CustomFieldValue) *UpdateDepartmentBuilder {
 	builder.customFieldValueMap = customFieldValueMap
-	builder.customFieldValueMapFlag = true
+	builder.customFieldValueMapSet = true
 	return builder
 }
 
@@ -18785,52 +18789,52 @@ func (builder *UpdateDepartmentBuilder) CustomFieldValueMap(customFieldValueMap 
 // 示例值：
 func (builder *UpdateDepartmentBuilder) CustomFieldValues(customFieldValues []*CustomFieldValue) *UpdateDepartmentBuilder {
 	builder.customFieldValues = customFieldValues
-	builder.customFieldValuesFlag = true
+	builder.customFieldValuesSet = true
 	return builder
 }
 
 func (builder *UpdateDepartmentBuilder) Build() *UpdateDepartment {
 	req := &UpdateDepartment{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.customDepartmentIdFlag {
+	if builder.customDepartmentIdSet {
 		req.CustomDepartmentId = &builder.customDepartmentId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.parentDepartmentIdFlag {
+	if builder.parentDepartmentIdSet {
 		req.ParentDepartmentId = &builder.parentDepartmentId
 
 	}
-	if builder.leadersFlag {
+	if builder.leadersSet {
 		req.Leaders = builder.leaders
 	}
-	if builder.hrbpsFlag {
+	if builder.hrbpsSet {
 		req.Hrbps = builder.hrbps
 	}
-	if builder.orderWeightFlag {
+	if builder.orderWeightSet {
 		req.OrderWeight = &builder.orderWeight
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.departmentTypeFlag {
+	if builder.departmentTypeSet {
 		req.DepartmentType = &builder.departmentType
 
 	}
-	if builder.enabledStatusFlag {
+	if builder.enabledStatusSet {
 		req.EnabledStatus = &builder.enabledStatus
 
 	}
-	if builder.customFieldValueMapFlag {
+	if builder.customFieldValueMapSet {
 		req.CustomFieldValueMap = builder.customFieldValueMap
 	}
-	if builder.customFieldValuesFlag {
+	if builder.customFieldValuesSet {
 		req.CustomFieldValues = builder.customFieldValues
 	}
 	return req
@@ -18841,8 +18845,8 @@ type UpdateDepartmentOptions struct {
 }
 
 type UpdateDepartmentOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewUpdateDepartmentOptionsBuilder() *UpdateDepartmentOptionsBuilder {
@@ -18855,13 +18859,13 @@ func NewUpdateDepartmentOptionsBuilder() *UpdateDepartmentOptionsBuilder {
 // 示例值：
 func (builder *UpdateDepartmentOptionsBuilder) DataSource(dataSource int) *UpdateDepartmentOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *UpdateDepartmentOptionsBuilder) Build() *UpdateDepartmentOptions {
 	req := &UpdateDepartmentOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -18981,170 +18985,170 @@ type UpdateEmployee struct {
 }
 
 type UpdateEmployeeBuilder struct {
-	employeeId     string // ID
-	employeeIdFlag bool
+	employeeId    string // ID
+	employeeIdSet bool
 
-	name     *UpsertName // 姓名
-	nameFlag bool
+	name    *UpsertName // 姓名
+	nameSet bool
 
-	mobile     string // 员工的联系手机号
-	mobileFlag bool
+	mobile    string // 员工的联系手机号
+	mobileSet bool
 
-	customEmployeeId     string // 用户的user_id
-	customEmployeeIdFlag bool
+	customEmployeeId    string // 用户的user_id
+	customEmployeeIdSet bool
 
-	avatarKey     string // 头像的文件key
-	avatarKeyFlag bool
+	avatarKey    string // 头像的文件key
+	avatarKeySet bool
 
-	email     string // 员工的联系邮箱
-	emailFlag bool
+	email    string // 员工的联系邮箱
+	emailSet bool
 
-	personalEmail     string // 员工在人事系统中的联系邮箱
-	personalEmailFlag bool
+	personalEmail    string // 员工在人事系统中的联系邮箱
+	personalEmailSet bool
 
-	enterpriseEmail     string // 员工的企业邮箱
-	enterpriseEmailFlag bool
+	enterpriseEmail    string // 员工的企业邮箱
+	enterpriseEmailSet bool
 
-	gender     int // 性别
-	genderFlag bool
+	gender    int // 性别
+	genderSet bool
 
-	residentialAddress     string // 现居住地址
-	residentialAddressFlag bool
+	residentialAddress    string // 现居住地址
+	residentialAddressSet bool
 
-	contactAddresses     []*ContactAddress // 联系地址
-	contactAddressesFlag bool
+	contactAddresses    []*ContactAddress // 联系地址
+	contactAddressesSet bool
 
-	employeeOrderInDepartments     []*UpsertUserDepartmentSortInfo // 部门排序
-	employeeOrderInDepartmentsFlag bool
+	employeeOrderInDepartments    []*UpsertUserDepartmentSortInfo // 部门排序
+	employeeOrderInDepartmentsSet bool
 
-	backgroundImageKey     string // 背景图的key
-	backgroundImageKeyFlag bool
+	backgroundImageKey    string // 背景图的key
+	backgroundImageKeySet bool
 
-	description     string // 员工的个性签名
-	descriptionFlag bool
+	description    string // 员工的个性签名
+	descriptionSet bool
 
-	leaderId     string // 员工直属上级的user_id
-	leaderIdFlag bool
+	leaderId    string // 员工直属上级的user_id
+	leaderIdSet bool
 
-	dottedLineLeaderIds     []string // 员工虚线上级的user_id
-	dottedLineLeaderIdsFlag bool
+	dottedLineLeaderIds    []string // 员工虚线上级的user_id
+	dottedLineLeaderIdsSet bool
 
-	workCountryOrRegion     string // 工作地国家/地区
-	workCountryOrRegionFlag bool
+	workCountryOrRegion    string // 工作地国家/地区
+	workCountryOrRegionSet bool
 
-	workPlaceId     string // 工作地点
-	workPlaceIdFlag bool
+	workPlaceId    string // 工作地点
+	workPlaceIdSet bool
 
-	workStation     *I18nText // i18n文本
-	workStationFlag bool
+	workStation    *I18nText // i18n文本
+	workStationSet bool
 
-	jobNumber     string // 工号
-	jobNumberFlag bool
+	jobNumber    string // 工号
+	jobNumberSet bool
 
-	extensionNumber     string // 分机号
-	extensionNumberFlag bool
+	extensionNumber    string // 分机号
+	extensionNumberSet bool
 
-	joinDate     string // 入职日期
-	joinDateFlag bool
+	joinDate    string // 入职日期
+	joinDateSet bool
 
-	employmentType     int // 员工类型
-	employmentTypeFlag bool
+	employmentType    int // 员工类型
+	employmentTypeSet bool
 
-	staffStatus     int // 员工人事状态
-	staffStatusFlag bool
+	staffStatus    int // 员工人事状态
+	staffStatusSet bool
 
-	positions     []*Position // 岗位信息
-	positionsFlag bool
+	positions    []*Position // 岗位信息
+	positionsSet bool
 
-	jobTitleId     string // 职务ID
-	jobTitleIdFlag bool
+	jobTitleId    string // 职务ID
+	jobTitleIdSet bool
 
-	jobLevelId     string // 职级ID
-	jobLevelIdFlag bool
+	jobLevelId    string // 职级ID
+	jobLevelIdSet bool
 
-	jobFamilyId     string // 序列ID
-	jobFamilyIdFlag bool
+	jobFamilyId    string // 序列ID
+	jobFamilyIdSet bool
 
-	firstWorkDate     string // 首次参加工作日期
-	firstWorkDateFlag bool
+	firstWorkDate    string // 首次参加工作日期
+	firstWorkDateSet bool
 
-	firstJoinDate     string // 首次进入公司日期
-	firstJoinDateFlag bool
+	firstJoinDate    string // 首次进入公司日期
+	firstJoinDateSet bool
 
-	probationPeriod     string // 试用期（月）
-	probationPeriodFlag bool
+	probationPeriod    string // 试用期（月）
+	probationPeriodSet bool
 
-	regularizationDate     string // 转正日期
-	regularizationDateFlag bool
+	regularizationDate    string // 转正日期
+	regularizationDateSet bool
 
-	convertStatus     string // 转正状态
-	convertStatusFlag bool
+	convertStatus    string // 转正状态
+	convertStatusSet bool
 
-	contractSubject     string // 合同主体ID
-	contractSubjectFlag bool
+	contractSubject    string // 合同主体ID
+	contractSubjectSet bool
 
-	resignDate     string // 离职日期
-	resignDateFlag bool
+	resignDate    string // 离职日期
+	resignDateSet bool
 
-	resignReason     string // 离职原因
-	resignReasonFlag bool
+	resignReason    string // 离职原因
+	resignReasonSet bool
 
-	resignRemark     string // 离职备注信息
-	resignRemarkFlag bool
+	resignRemark    string // 离职备注信息
+	resignRemarkSet bool
 
-	resignType     string // 离职类型
-	resignTypeFlag bool
+	resignType    string // 离职类型
+	resignTypeSet bool
 
-	cancelledEntryType     string // 取消入职原因
-	cancelledEntryTypeFlag bool
+	cancelledEntryType    string // 取消入职原因
+	cancelledEntryTypeSet bool
 
-	cancelledEntryRemark     string // 取消入职备注信息
-	cancelledEntryRemarkFlag bool
+	cancelledEntryRemark    string // 取消入职备注信息
+	cancelledEntryRemarkSet bool
 
-	birthday     string // 出生日期
-	birthdayFlag bool
+	birthday    string // 出生日期
+	birthdaySet bool
 
-	nationality     string // 国籍
-	nationalityFlag bool
+	nationality    string // 国籍
+	nationalitySet bool
 
-	nativePlace     string // 籍贯
-	nativePlaceFlag bool
+	nativePlace    string // 籍贯
+	nativePlaceSet bool
 
-	ethnicity     string // 民族/种族
-	ethnicityFlag bool
+	ethnicity    string // 民族/种族
+	ethnicitySet bool
 
-	maritalStatus     string // 婚姻状态
-	maritalStatusFlag bool
+	maritalStatus    string // 婚姻状态
+	maritalStatusSet bool
 
-	politicsStatus     string // 政治面貌
-	politicsStatusFlag bool
+	politicsStatus    string // 政治面貌
+	politicsStatusSet bool
 
-	registeredResidenceType     string // 户口类型
-	registeredResidenceTypeFlag bool
+	registeredResidenceType    string // 户口类型
+	registeredResidenceTypeSet bool
 
-	location     string // 户口所在地地址
-	locationFlag bool
+	location    string // 户口所在地地址
+	locationSet bool
 
-	socialSecurityNumber     string // 社保账号
-	socialSecurityNumberFlag bool
+	socialSecurityNumber    string // 社保账号
+	socialSecurityNumberSet bool
 
-	providentFundNumber     string // 公积金账号
-	providentFundNumberFlag bool
+	providentFundNumber    string // 公积金账号
+	providentFundNumberSet bool
 
-	isFrozen     bool // 暂停 true， false 恢复暂停
-	isFrozenFlag bool
+	isFrozen    bool // 暂停 true， false 恢复暂停
+	isFrozenSet bool
 
-	frozenReason     string // 冻结原因
-	frozenReasonFlag bool
+	frozenReason    string // 冻结原因
+	frozenReasonSet bool
 
-	customFieldValueMap     map[string]*CustomFieldValue // 自定义字段
-	customFieldValueMapFlag bool
+	customFieldValueMap    map[string]*CustomFieldValue // 自定义字段
+	customFieldValueMapSet bool
 
-	customFieldValues     []*CustomFieldValue // 自定义字段
-	customFieldValuesFlag bool
+	customFieldValues    []*CustomFieldValue // 自定义字段
+	customFieldValuesSet bool
 
-	virtualOrgInfos     []*UpsertUserVirtualOrgInfo // 虚拟组织信息
-	virtualOrgInfosFlag bool
+	virtualOrgInfos    []*UpsertUserVirtualOrgInfo // 虚拟组织信息
+	virtualOrgInfosSet bool
 }
 
 func NewUpdateEmployeeBuilder() *UpdateEmployeeBuilder {
@@ -19157,7 +19161,7 @@ func NewUpdateEmployeeBuilder() *UpdateEmployeeBuilder {
 // 示例值：eehsdna
 func (builder *UpdateEmployeeBuilder) EmployeeId(employeeId string) *UpdateEmployeeBuilder {
 	builder.employeeId = employeeId
-	builder.employeeIdFlag = true
+	builder.employeeIdSet = true
 	return builder
 }
 
@@ -19166,7 +19170,7 @@ func (builder *UpdateEmployeeBuilder) EmployeeId(employeeId string) *UpdateEmplo
 // 示例值：
 func (builder *UpdateEmployeeBuilder) Name(name *UpsertName) *UpdateEmployeeBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -19175,7 +19179,7 @@ func (builder *UpdateEmployeeBuilder) Name(name *UpsertName) *UpdateEmployeeBuil
 // 示例值：13011111111" 或 "+8613011111111
 func (builder *UpdateEmployeeBuilder) Mobile(mobile string) *UpdateEmployeeBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -19184,7 +19188,7 @@ func (builder *UpdateEmployeeBuilder) Mobile(mobile string) *UpdateEmployeeBuild
 // 示例值：eesadeq
 func (builder *UpdateEmployeeBuilder) CustomEmployeeId(customEmployeeId string) *UpdateEmployeeBuilder {
 	builder.customEmployeeId = customEmployeeId
-	builder.customEmployeeIdFlag = true
+	builder.customEmployeeIdSet = true
 	return builder
 }
 
@@ -19193,7 +19197,7 @@ func (builder *UpdateEmployeeBuilder) CustomEmployeeId(customEmployeeId string) 
 // 示例值：img_v2dadwqeqwdsa
 func (builder *UpdateEmployeeBuilder) AvatarKey(avatarKey string) *UpdateEmployeeBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
@@ -19202,7 +19206,7 @@ func (builder *UpdateEmployeeBuilder) AvatarKey(avatarKey string) *UpdateEmploye
 // 示例值：zhangsan@163.com
 func (builder *UpdateEmployeeBuilder) Email(email string) *UpdateEmployeeBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -19211,7 +19215,7 @@ func (builder *UpdateEmployeeBuilder) Email(email string) *UpdateEmployeeBuilder
 // 示例值：zhangsan@163.com
 func (builder *UpdateEmployeeBuilder) PersonalEmail(personalEmail string) *UpdateEmployeeBuilder {
 	builder.personalEmail = personalEmail
-	builder.personalEmailFlag = true
+	builder.personalEmailSet = true
 	return builder
 }
 
@@ -19220,7 +19224,7 @@ func (builder *UpdateEmployeeBuilder) PersonalEmail(personalEmail string) *Updat
 // 示例值：zhangsan@163.com
 func (builder *UpdateEmployeeBuilder) EnterpriseEmail(enterpriseEmail string) *UpdateEmployeeBuilder {
 	builder.enterpriseEmail = enterpriseEmail
-	builder.enterpriseEmailFlag = true
+	builder.enterpriseEmailSet = true
 	return builder
 }
 
@@ -19229,7 +19233,7 @@ func (builder *UpdateEmployeeBuilder) EnterpriseEmail(enterpriseEmail string) *U
 // 示例值：
 func (builder *UpdateEmployeeBuilder) Gender(gender int) *UpdateEmployeeBuilder {
 	builder.gender = gender
-	builder.genderFlag = true
+	builder.genderSet = true
 	return builder
 }
 
@@ -19238,7 +19242,7 @@ func (builder *UpdateEmployeeBuilder) Gender(gender int) *UpdateEmployeeBuilder 
 // 示例值：张家界
 func (builder *UpdateEmployeeBuilder) ResidentialAddress(residentialAddress string) *UpdateEmployeeBuilder {
 	builder.residentialAddress = residentialAddress
-	builder.residentialAddressFlag = true
+	builder.residentialAddressSet = true
 	return builder
 }
 
@@ -19247,7 +19251,7 @@ func (builder *UpdateEmployeeBuilder) ResidentialAddress(residentialAddress stri
 // 示例值：
 func (builder *UpdateEmployeeBuilder) ContactAddresses(contactAddresses []*ContactAddress) *UpdateEmployeeBuilder {
 	builder.contactAddresses = contactAddresses
-	builder.contactAddressesFlag = true
+	builder.contactAddressesSet = true
 	return builder
 }
 
@@ -19256,7 +19260,7 @@ func (builder *UpdateEmployeeBuilder) ContactAddresses(contactAddresses []*Conta
 // 示例值：
 func (builder *UpdateEmployeeBuilder) EmployeeOrderInDepartments(employeeOrderInDepartments []*UpsertUserDepartmentSortInfo) *UpdateEmployeeBuilder {
 	builder.employeeOrderInDepartments = employeeOrderInDepartments
-	builder.employeeOrderInDepartmentsFlag = true
+	builder.employeeOrderInDepartmentsSet = true
 	return builder
 }
 
@@ -19265,7 +19269,7 @@ func (builder *UpdateEmployeeBuilder) EmployeeOrderInDepartments(employeeOrderIn
 // 示例值：img_v2_qweasdqawqeq
 func (builder *UpdateEmployeeBuilder) BackgroundImageKey(backgroundImageKey string) *UpdateEmployeeBuilder {
 	builder.backgroundImageKey = backgroundImageKey
-	builder.backgroundImageKeyFlag = true
+	builder.backgroundImageKeySet = true
 	return builder
 }
 
@@ -19274,7 +19278,7 @@ func (builder *UpdateEmployeeBuilder) BackgroundImageKey(backgroundImageKey stri
 // 示例值：新员工入职
 func (builder *UpdateEmployeeBuilder) Description(description string) *UpdateEmployeeBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -19283,7 +19287,7 @@ func (builder *UpdateEmployeeBuilder) Description(description string) *UpdateEmp
 // 示例值：eeshfosd
 func (builder *UpdateEmployeeBuilder) LeaderId(leaderId string) *UpdateEmployeeBuilder {
 	builder.leaderId = leaderId
-	builder.leaderIdFlag = true
+	builder.leaderIdSet = true
 	return builder
 }
 
@@ -19292,7 +19296,7 @@ func (builder *UpdateEmployeeBuilder) LeaderId(leaderId string) *UpdateEmployeeB
 // 示例值：
 func (builder *UpdateEmployeeBuilder) DottedLineLeaderIds(dottedLineLeaderIds []string) *UpdateEmployeeBuilder {
 	builder.dottedLineLeaderIds = dottedLineLeaderIds
-	builder.dottedLineLeaderIdsFlag = true
+	builder.dottedLineLeaderIdsSet = true
 	return builder
 }
 
@@ -19301,7 +19305,7 @@ func (builder *UpdateEmployeeBuilder) DottedLineLeaderIds(dottedLineLeaderIds []
 // 示例值：MDM2312312
 func (builder *UpdateEmployeeBuilder) WorkCountryOrRegion(workCountryOrRegion string) *UpdateEmployeeBuilder {
 	builder.workCountryOrRegion = workCountryOrRegion
-	builder.workCountryOrRegionFlag = true
+	builder.workCountryOrRegionSet = true
 	return builder
 }
 
@@ -19310,7 +19314,7 @@ func (builder *UpdateEmployeeBuilder) WorkCountryOrRegion(workCountryOrRegion st
 // 示例值：1111sdda
 func (builder *UpdateEmployeeBuilder) WorkPlaceId(workPlaceId string) *UpdateEmployeeBuilder {
 	builder.workPlaceId = workPlaceId
-	builder.workPlaceIdFlag = true
+	builder.workPlaceIdSet = true
 	return builder
 }
 
@@ -19319,7 +19323,7 @@ func (builder *UpdateEmployeeBuilder) WorkPlaceId(workPlaceId string) *UpdateEmp
 // 示例值：
 func (builder *UpdateEmployeeBuilder) WorkStation(workStation *I18nText) *UpdateEmployeeBuilder {
 	builder.workStation = workStation
-	builder.workStationFlag = true
+	builder.workStationSet = true
 	return builder
 }
 
@@ -19328,7 +19332,7 @@ func (builder *UpdateEmployeeBuilder) WorkStation(workStation *I18nText) *Update
 // 示例值：28549233
 func (builder *UpdateEmployeeBuilder) JobNumber(jobNumber string) *UpdateEmployeeBuilder {
 	builder.jobNumber = jobNumber
-	builder.jobNumberFlag = true
+	builder.jobNumberSet = true
 	return builder
 }
 
@@ -19337,7 +19341,7 @@ func (builder *UpdateEmployeeBuilder) JobNumber(jobNumber string) *UpdateEmploye
 // 示例值：2854923
 func (builder *UpdateEmployeeBuilder) ExtensionNumber(extensionNumber string) *UpdateEmployeeBuilder {
 	builder.extensionNumber = extensionNumber
-	builder.extensionNumberFlag = true
+	builder.extensionNumberSet = true
 	return builder
 }
 
@@ -19346,7 +19350,7 @@ func (builder *UpdateEmployeeBuilder) ExtensionNumber(extensionNumber string) *U
 // 示例值：2022-10-10
 func (builder *UpdateEmployeeBuilder) JoinDate(joinDate string) *UpdateEmployeeBuilder {
 	builder.joinDate = joinDate
-	builder.joinDateFlag = true
+	builder.joinDateSet = true
 	return builder
 }
 
@@ -19355,7 +19359,7 @@ func (builder *UpdateEmployeeBuilder) JoinDate(joinDate string) *UpdateEmployeeB
 // 示例值：
 func (builder *UpdateEmployeeBuilder) EmploymentType(employmentType int) *UpdateEmployeeBuilder {
 	builder.employmentType = employmentType
-	builder.employmentTypeFlag = true
+	builder.employmentTypeSet = true
 	return builder
 }
 
@@ -19364,7 +19368,7 @@ func (builder *UpdateEmployeeBuilder) EmploymentType(employmentType int) *Update
 // 示例值：
 func (builder *UpdateEmployeeBuilder) StaffStatus(staffStatus int) *UpdateEmployeeBuilder {
 	builder.staffStatus = staffStatus
-	builder.staffStatusFlag = true
+	builder.staffStatusSet = true
 	return builder
 }
 
@@ -19373,7 +19377,7 @@ func (builder *UpdateEmployeeBuilder) StaffStatus(staffStatus int) *UpdateEmploy
 // 示例值：
 func (builder *UpdateEmployeeBuilder) Positions(positions []*Position) *UpdateEmployeeBuilder {
 	builder.positions = positions
-	builder.positionsFlag = true
+	builder.positionsSet = true
 	return builder
 }
 
@@ -19382,7 +19386,7 @@ func (builder *UpdateEmployeeBuilder) Positions(positions []*Position) *UpdateEm
 // 示例值：ewdjdssd
 func (builder *UpdateEmployeeBuilder) JobTitleId(jobTitleId string) *UpdateEmployeeBuilder {
 	builder.jobTitleId = jobTitleId
-	builder.jobTitleIdFlag = true
+	builder.jobTitleIdSet = true
 	return builder
 }
 
@@ -19391,7 +19395,7 @@ func (builder *UpdateEmployeeBuilder) JobTitleId(jobTitleId string) *UpdateEmplo
 // 示例值：eersdfa
 func (builder *UpdateEmployeeBuilder) JobLevelId(jobLevelId string) *UpdateEmployeeBuilder {
 	builder.jobLevelId = jobLevelId
-	builder.jobLevelIdFlag = true
+	builder.jobLevelIdSet = true
 	return builder
 }
 
@@ -19400,7 +19404,7 @@ func (builder *UpdateEmployeeBuilder) JobLevelId(jobLevelId string) *UpdateEmplo
 // 示例值：eersdfa
 func (builder *UpdateEmployeeBuilder) JobFamilyId(jobFamilyId string) *UpdateEmployeeBuilder {
 	builder.jobFamilyId = jobFamilyId
-	builder.jobFamilyIdFlag = true
+	builder.jobFamilyIdSet = true
 	return builder
 }
 
@@ -19409,7 +19413,7 @@ func (builder *UpdateEmployeeBuilder) JobFamilyId(jobFamilyId string) *UpdateEmp
 // 示例值：2022-10-10
 func (builder *UpdateEmployeeBuilder) FirstWorkDate(firstWorkDate string) *UpdateEmployeeBuilder {
 	builder.firstWorkDate = firstWorkDate
-	builder.firstWorkDateFlag = true
+	builder.firstWorkDateSet = true
 	return builder
 }
 
@@ -19418,7 +19422,7 @@ func (builder *UpdateEmployeeBuilder) FirstWorkDate(firstWorkDate string) *Updat
 // 示例值：2022-10-10
 func (builder *UpdateEmployeeBuilder) FirstJoinDate(firstJoinDate string) *UpdateEmployeeBuilder {
 	builder.firstJoinDate = firstJoinDate
-	builder.firstJoinDateFlag = true
+	builder.firstJoinDateSet = true
 	return builder
 }
 
@@ -19427,7 +19431,7 @@ func (builder *UpdateEmployeeBuilder) FirstJoinDate(firstJoinDate string) *Updat
 // 示例值：10
 func (builder *UpdateEmployeeBuilder) ProbationPeriod(probationPeriod string) *UpdateEmployeeBuilder {
 	builder.probationPeriod = probationPeriod
-	builder.probationPeriodFlag = true
+	builder.probationPeriodSet = true
 	return builder
 }
 
@@ -19436,7 +19440,7 @@ func (builder *UpdateEmployeeBuilder) ProbationPeriod(probationPeriod string) *U
 // 示例值：2022-10-10
 func (builder *UpdateEmployeeBuilder) RegularizationDate(regularizationDate string) *UpdateEmployeeBuilder {
 	builder.regularizationDate = regularizationDate
-	builder.regularizationDateFlag = true
+	builder.regularizationDateSet = true
 	return builder
 }
 
@@ -19445,7 +19449,7 @@ func (builder *UpdateEmployeeBuilder) RegularizationDate(regularizationDate stri
 // 示例值：
 func (builder *UpdateEmployeeBuilder) ConvertStatus(convertStatus string) *UpdateEmployeeBuilder {
 	builder.convertStatus = convertStatus
-	builder.convertStatusFlag = true
+	builder.convertStatusSet = true
 	return builder
 }
 
@@ -19454,7 +19458,7 @@ func (builder *UpdateEmployeeBuilder) ConvertStatus(convertStatus string) *Updat
 // 示例值：123dsqwe
 func (builder *UpdateEmployeeBuilder) ContractSubject(contractSubject string) *UpdateEmployeeBuilder {
 	builder.contractSubject = contractSubject
-	builder.contractSubjectFlag = true
+	builder.contractSubjectSet = true
 	return builder
 }
 
@@ -19463,7 +19467,7 @@ func (builder *UpdateEmployeeBuilder) ContractSubject(contractSubject string) *U
 // 示例值：2022-10-10
 func (builder *UpdateEmployeeBuilder) ResignDate(resignDate string) *UpdateEmployeeBuilder {
 	builder.resignDate = resignDate
-	builder.resignDateFlag = true
+	builder.resignDateSet = true
 	return builder
 }
 
@@ -19472,7 +19476,7 @@ func (builder *UpdateEmployeeBuilder) ResignDate(resignDate string) *UpdateEmplo
 // 示例值：
 func (builder *UpdateEmployeeBuilder) ResignReason(resignReason string) *UpdateEmployeeBuilder {
 	builder.resignReason = resignReason
-	builder.resignReasonFlag = true
+	builder.resignReasonSet = true
 	return builder
 }
 
@@ -19481,7 +19485,7 @@ func (builder *UpdateEmployeeBuilder) ResignReason(resignReason string) *UpdateE
 // 示例值：个人原因
 func (builder *UpdateEmployeeBuilder) ResignRemark(resignRemark string) *UpdateEmployeeBuilder {
 	builder.resignRemark = resignRemark
-	builder.resignRemarkFlag = true
+	builder.resignRemarkSet = true
 	return builder
 }
 
@@ -19490,7 +19494,7 @@ func (builder *UpdateEmployeeBuilder) ResignRemark(resignRemark string) *UpdateE
 // 示例值：
 func (builder *UpdateEmployeeBuilder) ResignType(resignType string) *UpdateEmployeeBuilder {
 	builder.resignType = resignType
-	builder.resignTypeFlag = true
+	builder.resignTypeSet = true
 	return builder
 }
 
@@ -19499,7 +19503,7 @@ func (builder *UpdateEmployeeBuilder) ResignType(resignType string) *UpdateEmplo
 // 示例值：
 func (builder *UpdateEmployeeBuilder) CancelledEntryType(cancelledEntryType string) *UpdateEmployeeBuilder {
 	builder.cancelledEntryType = cancelledEntryType
-	builder.cancelledEntryTypeFlag = true
+	builder.cancelledEntryTypeSet = true
 	return builder
 }
 
@@ -19508,7 +19512,7 @@ func (builder *UpdateEmployeeBuilder) CancelledEntryType(cancelledEntryType stri
 // 示例值：个人原因
 func (builder *UpdateEmployeeBuilder) CancelledEntryRemark(cancelledEntryRemark string) *UpdateEmployeeBuilder {
 	builder.cancelledEntryRemark = cancelledEntryRemark
-	builder.cancelledEntryRemarkFlag = true
+	builder.cancelledEntryRemarkSet = true
 	return builder
 }
 
@@ -19517,7 +19521,7 @@ func (builder *UpdateEmployeeBuilder) CancelledEntryRemark(cancelledEntryRemark 
 // 示例值：2022-10-10
 func (builder *UpdateEmployeeBuilder) Birthday(birthday string) *UpdateEmployeeBuilder {
 	builder.birthday = birthday
-	builder.birthdayFlag = true
+	builder.birthdaySet = true
 	return builder
 }
 
@@ -19526,7 +19530,7 @@ func (builder *UpdateEmployeeBuilder) Birthday(birthday string) *UpdateEmployeeB
 // 示例值：MDM123123
 func (builder *UpdateEmployeeBuilder) Nationality(nationality string) *UpdateEmployeeBuilder {
 	builder.nationality = nationality
-	builder.nationalityFlag = true
+	builder.nationalitySet = true
 	return builder
 }
 
@@ -19535,7 +19539,7 @@ func (builder *UpdateEmployeeBuilder) Nationality(nationality string) *UpdateEmp
 // 示例值：北京
 func (builder *UpdateEmployeeBuilder) NativePlace(nativePlace string) *UpdateEmployeeBuilder {
 	builder.nativePlace = nativePlace
-	builder.nativePlaceFlag = true
+	builder.nativePlaceSet = true
 	return builder
 }
 
@@ -19544,7 +19548,7 @@ func (builder *UpdateEmployeeBuilder) NativePlace(nativePlace string) *UpdateEmp
 // 示例值：
 func (builder *UpdateEmployeeBuilder) Ethnicity(ethnicity string) *UpdateEmployeeBuilder {
 	builder.ethnicity = ethnicity
-	builder.ethnicityFlag = true
+	builder.ethnicitySet = true
 	return builder
 }
 
@@ -19553,7 +19557,7 @@ func (builder *UpdateEmployeeBuilder) Ethnicity(ethnicity string) *UpdateEmploye
 // 示例值：
 func (builder *UpdateEmployeeBuilder) MaritalStatus(maritalStatus string) *UpdateEmployeeBuilder {
 	builder.maritalStatus = maritalStatus
-	builder.maritalStatusFlag = true
+	builder.maritalStatusSet = true
 	return builder
 }
 
@@ -19562,7 +19566,7 @@ func (builder *UpdateEmployeeBuilder) MaritalStatus(maritalStatus string) *Updat
 // 示例值：
 func (builder *UpdateEmployeeBuilder) PoliticsStatus(politicsStatus string) *UpdateEmployeeBuilder {
 	builder.politicsStatus = politicsStatus
-	builder.politicsStatusFlag = true
+	builder.politicsStatusSet = true
 	return builder
 }
 
@@ -19571,7 +19575,7 @@ func (builder *UpdateEmployeeBuilder) PoliticsStatus(politicsStatus string) *Upd
 // 示例值：
 func (builder *UpdateEmployeeBuilder) RegisteredResidenceType(registeredResidenceType string) *UpdateEmployeeBuilder {
 	builder.registeredResidenceType = registeredResidenceType
-	builder.registeredResidenceTypeFlag = true
+	builder.registeredResidenceTypeSet = true
 	return builder
 }
 
@@ -19580,7 +19584,7 @@ func (builder *UpdateEmployeeBuilder) RegisteredResidenceType(registeredResidenc
 // 示例值：北京
 func (builder *UpdateEmployeeBuilder) Location(location string) *UpdateEmployeeBuilder {
 	builder.location = location
-	builder.locationFlag = true
+	builder.locationSet = true
 	return builder
 }
 
@@ -19589,7 +19593,7 @@ func (builder *UpdateEmployeeBuilder) Location(location string) *UpdateEmployeeB
 // 示例值：111111
 func (builder *UpdateEmployeeBuilder) SocialSecurityNumber(socialSecurityNumber string) *UpdateEmployeeBuilder {
 	builder.socialSecurityNumber = socialSecurityNumber
-	builder.socialSecurityNumberFlag = true
+	builder.socialSecurityNumberSet = true
 	return builder
 }
 
@@ -19598,7 +19602,7 @@ func (builder *UpdateEmployeeBuilder) SocialSecurityNumber(socialSecurityNumber 
 // 示例值：111111
 func (builder *UpdateEmployeeBuilder) ProvidentFundNumber(providentFundNumber string) *UpdateEmployeeBuilder {
 	builder.providentFundNumber = providentFundNumber
-	builder.providentFundNumberFlag = true
+	builder.providentFundNumberSet = true
 	return builder
 }
 
@@ -19607,7 +19611,7 @@ func (builder *UpdateEmployeeBuilder) ProvidentFundNumber(providentFundNumber st
 // 示例值：
 func (builder *UpdateEmployeeBuilder) IsFrozen(isFrozen bool) *UpdateEmployeeBuilder {
 	builder.isFrozen = isFrozen
-	builder.isFrozenFlag = true
+	builder.isFrozenSet = true
 	return builder
 }
 
@@ -19616,7 +19620,7 @@ func (builder *UpdateEmployeeBuilder) IsFrozen(isFrozen bool) *UpdateEmployeeBui
 // 示例值：
 func (builder *UpdateEmployeeBuilder) FrozenReason(frozenReason string) *UpdateEmployeeBuilder {
 	builder.frozenReason = frozenReason
-	builder.frozenReasonFlag = true
+	builder.frozenReasonSet = true
 	return builder
 }
 
@@ -19625,7 +19629,7 @@ func (builder *UpdateEmployeeBuilder) FrozenReason(frozenReason string) *UpdateE
 // 示例值：
 func (builder *UpdateEmployeeBuilder) CustomFieldValueMap(customFieldValueMap map[string]*CustomFieldValue) *UpdateEmployeeBuilder {
 	builder.customFieldValueMap = customFieldValueMap
-	builder.customFieldValueMapFlag = true
+	builder.customFieldValueMapSet = true
 	return builder
 }
 
@@ -19634,7 +19638,7 @@ func (builder *UpdateEmployeeBuilder) CustomFieldValueMap(customFieldValueMap ma
 // 示例值：
 func (builder *UpdateEmployeeBuilder) CustomFieldValues(customFieldValues []*CustomFieldValue) *UpdateEmployeeBuilder {
 	builder.customFieldValues = customFieldValues
-	builder.customFieldValuesFlag = true
+	builder.customFieldValuesSet = true
 	return builder
 }
 
@@ -19643,221 +19647,221 @@ func (builder *UpdateEmployeeBuilder) CustomFieldValues(customFieldValues []*Cus
 // 示例值：
 func (builder *UpdateEmployeeBuilder) VirtualOrgInfos(virtualOrgInfos []*UpsertUserVirtualOrgInfo) *UpdateEmployeeBuilder {
 	builder.virtualOrgInfos = virtualOrgInfos
-	builder.virtualOrgInfosFlag = true
+	builder.virtualOrgInfosSet = true
 	return builder
 }
 
 func (builder *UpdateEmployeeBuilder) Build() *UpdateEmployee {
 	req := &UpdateEmployee{}
-	if builder.employeeIdFlag {
+	if builder.employeeIdSet {
 		req.EmployeeId = &builder.employeeId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.customEmployeeIdFlag {
+	if builder.customEmployeeIdSet {
 		req.CustomEmployeeId = &builder.customEmployeeId
 
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = &builder.avatarKey
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.personalEmailFlag {
+	if builder.personalEmailSet {
 		req.PersonalEmail = &builder.personalEmail
 
 	}
-	if builder.enterpriseEmailFlag {
+	if builder.enterpriseEmailSet {
 		req.EnterpriseEmail = &builder.enterpriseEmail
 
 	}
-	if builder.genderFlag {
+	if builder.genderSet {
 		req.Gender = &builder.gender
 
 	}
-	if builder.residentialAddressFlag {
+	if builder.residentialAddressSet {
 		req.ResidentialAddress = &builder.residentialAddress
 
 	}
-	if builder.contactAddressesFlag {
+	if builder.contactAddressesSet {
 		req.ContactAddresses = builder.contactAddresses
 	}
-	if builder.employeeOrderInDepartmentsFlag {
+	if builder.employeeOrderInDepartmentsSet {
 		req.EmployeeOrderInDepartments = builder.employeeOrderInDepartments
 	}
-	if builder.backgroundImageKeyFlag {
+	if builder.backgroundImageKeySet {
 		req.BackgroundImageKey = &builder.backgroundImageKey
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.leaderIdFlag {
+	if builder.leaderIdSet {
 		req.LeaderId = &builder.leaderId
 
 	}
-	if builder.dottedLineLeaderIdsFlag {
+	if builder.dottedLineLeaderIdsSet {
 		req.DottedLineLeaderIds = builder.dottedLineLeaderIds
 	}
-	if builder.workCountryOrRegionFlag {
+	if builder.workCountryOrRegionSet {
 		req.WorkCountryOrRegion = &builder.workCountryOrRegion
 
 	}
-	if builder.workPlaceIdFlag {
+	if builder.workPlaceIdSet {
 		req.WorkPlaceId = &builder.workPlaceId
 
 	}
-	if builder.workStationFlag {
+	if builder.workStationSet {
 		req.WorkStation = builder.workStation
 	}
-	if builder.jobNumberFlag {
+	if builder.jobNumberSet {
 		req.JobNumber = &builder.jobNumber
 
 	}
-	if builder.extensionNumberFlag {
+	if builder.extensionNumberSet {
 		req.ExtensionNumber = &builder.extensionNumber
 
 	}
-	if builder.joinDateFlag {
+	if builder.joinDateSet {
 		req.JoinDate = &builder.joinDate
 
 	}
-	if builder.employmentTypeFlag {
+	if builder.employmentTypeSet {
 		req.EmploymentType = &builder.employmentType
 
 	}
-	if builder.staffStatusFlag {
+	if builder.staffStatusSet {
 		req.StaffStatus = &builder.staffStatus
 
 	}
-	if builder.positionsFlag {
+	if builder.positionsSet {
 		req.Positions = builder.positions
 	}
-	if builder.jobTitleIdFlag {
+	if builder.jobTitleIdSet {
 		req.JobTitleId = &builder.jobTitleId
 
 	}
-	if builder.jobLevelIdFlag {
+	if builder.jobLevelIdSet {
 		req.JobLevelId = &builder.jobLevelId
 
 	}
-	if builder.jobFamilyIdFlag {
+	if builder.jobFamilyIdSet {
 		req.JobFamilyId = &builder.jobFamilyId
 
 	}
-	if builder.firstWorkDateFlag {
+	if builder.firstWorkDateSet {
 		req.FirstWorkDate = &builder.firstWorkDate
 
 	}
-	if builder.firstJoinDateFlag {
+	if builder.firstJoinDateSet {
 		req.FirstJoinDate = &builder.firstJoinDate
 
 	}
-	if builder.probationPeriodFlag {
+	if builder.probationPeriodSet {
 		req.ProbationPeriod = &builder.probationPeriod
 
 	}
-	if builder.regularizationDateFlag {
+	if builder.regularizationDateSet {
 		req.RegularizationDate = &builder.regularizationDate
 
 	}
-	if builder.convertStatusFlag {
+	if builder.convertStatusSet {
 		req.ConvertStatus = &builder.convertStatus
 
 	}
-	if builder.contractSubjectFlag {
+	if builder.contractSubjectSet {
 		req.ContractSubject = &builder.contractSubject
 
 	}
-	if builder.resignDateFlag {
+	if builder.resignDateSet {
 		req.ResignDate = &builder.resignDate
 
 	}
-	if builder.resignReasonFlag {
+	if builder.resignReasonSet {
 		req.ResignReason = &builder.resignReason
 
 	}
-	if builder.resignRemarkFlag {
+	if builder.resignRemarkSet {
 		req.ResignRemark = &builder.resignRemark
 
 	}
-	if builder.resignTypeFlag {
+	if builder.resignTypeSet {
 		req.ResignType = &builder.resignType
 
 	}
-	if builder.cancelledEntryTypeFlag {
+	if builder.cancelledEntryTypeSet {
 		req.CancelledEntryType = &builder.cancelledEntryType
 
 	}
-	if builder.cancelledEntryRemarkFlag {
+	if builder.cancelledEntryRemarkSet {
 		req.CancelledEntryRemark = &builder.cancelledEntryRemark
 
 	}
-	if builder.birthdayFlag {
+	if builder.birthdaySet {
 		req.Birthday = &builder.birthday
 
 	}
-	if builder.nationalityFlag {
+	if builder.nationalitySet {
 		req.Nationality = &builder.nationality
 
 	}
-	if builder.nativePlaceFlag {
+	if builder.nativePlaceSet {
 		req.NativePlace = &builder.nativePlace
 
 	}
-	if builder.ethnicityFlag {
+	if builder.ethnicitySet {
 		req.Ethnicity = &builder.ethnicity
 
 	}
-	if builder.maritalStatusFlag {
+	if builder.maritalStatusSet {
 		req.MaritalStatus = &builder.maritalStatus
 
 	}
-	if builder.politicsStatusFlag {
+	if builder.politicsStatusSet {
 		req.PoliticsStatus = &builder.politicsStatus
 
 	}
-	if builder.registeredResidenceTypeFlag {
+	if builder.registeredResidenceTypeSet {
 		req.RegisteredResidenceType = &builder.registeredResidenceType
 
 	}
-	if builder.locationFlag {
+	if builder.locationSet {
 		req.Location = &builder.location
 
 	}
-	if builder.socialSecurityNumberFlag {
+	if builder.socialSecurityNumberSet {
 		req.SocialSecurityNumber = &builder.socialSecurityNumber
 
 	}
-	if builder.providentFundNumberFlag {
+	if builder.providentFundNumberSet {
 		req.ProvidentFundNumber = &builder.providentFundNumber
 
 	}
-	if builder.isFrozenFlag {
+	if builder.isFrozenSet {
 		req.IsFrozen = &builder.isFrozen
 
 	}
-	if builder.frozenReasonFlag {
+	if builder.frozenReasonSet {
 		req.FrozenReason = &builder.frozenReason
 
 	}
-	if builder.customFieldValueMapFlag {
+	if builder.customFieldValueMapSet {
 		req.CustomFieldValueMap = builder.customFieldValueMap
 	}
-	if builder.customFieldValuesFlag {
+	if builder.customFieldValuesSet {
 		req.CustomFieldValues = builder.customFieldValues
 	}
-	if builder.virtualOrgInfosFlag {
+	if builder.virtualOrgInfosSet {
 		req.VirtualOrgInfos = builder.virtualOrgInfos
 	}
 	return req
@@ -19868,8 +19872,8 @@ type UpdateEmployeeBankAccountOption struct {
 }
 
 type UpdateEmployeeBankAccountOptionBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewUpdateEmployeeBankAccountOptionBuilder() *UpdateEmployeeBankAccountOptionBuilder {
@@ -19882,13 +19886,13 @@ func NewUpdateEmployeeBankAccountOptionBuilder() *UpdateEmployeeBankAccountOptio
 // 示例值：
 func (builder *UpdateEmployeeBankAccountOptionBuilder) DataSource(dataSource int) *UpdateEmployeeBankAccountOptionBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *UpdateEmployeeBankAccountOptionBuilder) Build() *UpdateEmployeeBankAccountOption {
 	req := &UpdateEmployeeBankAccountOption{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -19912,26 +19916,26 @@ type UpdateEmployeeOptions struct {
 }
 
 type UpdateEmployeeOptionsBuilder struct {
-	enterpriseEmailPassword     string // 用户企业邮箱登录时的密码
-	enterpriseEmailPasswordFlag bool
+	enterpriseEmailPassword    string // 用户企业邮箱登录时的密码
+	enterpriseEmailPasswordSet bool
 
-	resignedUserResouceReceiver     *ResignedUserResouceReceiver // 资源转移方式
-	resignedUserResouceReceiverFlag bool
+	resignedUserResouceReceiver    *ResignedUserResouceReceiver // 资源转移方式
+	resignedUserResouceReceiverSet bool
 
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 
-	resurrectEmployeeOptions     *ResurrectEmployeeOptions // 恢复用户选项
-	resurrectEmployeeOptionsFlag bool
+	resurrectEmployeeOptions    *ResurrectEmployeeOptions // 恢复用户选项
+	resurrectEmployeeOptionsSet bool
 
-	scenario     *Scenario // scenario 用于离职恢复记录来源、判断限流策略等
-	scenarioFlag bool
+	scenario    *Scenario // scenario 用于离职恢复记录来源、判断限流策略等
+	scenarioSet bool
 
-	migrateGeoOptions     *MigrateGeoOptions // 迁移geo相关参数
-	migrateGeoOptionsFlag bool
+	migrateGeoOptions    *MigrateGeoOptions // 迁移geo相关参数
+	migrateGeoOptionsSet bool
 
-	operator     *Operator // 操作人
-	operatorFlag bool
+	operator    *Operator // 操作人
+	operatorSet bool
 }
 
 func NewUpdateEmployeeOptionsBuilder() *UpdateEmployeeOptionsBuilder {
@@ -19944,7 +19948,7 @@ func NewUpdateEmployeeOptionsBuilder() *UpdateEmployeeOptionsBuilder {
 // 示例值：1
 func (builder *UpdateEmployeeOptionsBuilder) EnterpriseEmailPassword(enterpriseEmailPassword string) *UpdateEmployeeOptionsBuilder {
 	builder.enterpriseEmailPassword = enterpriseEmailPassword
-	builder.enterpriseEmailPasswordFlag = true
+	builder.enterpriseEmailPasswordSet = true
 	return builder
 }
 
@@ -19953,7 +19957,7 @@ func (builder *UpdateEmployeeOptionsBuilder) EnterpriseEmailPassword(enterpriseE
 // 示例值：
 func (builder *UpdateEmployeeOptionsBuilder) ResignedUserResouceReceiver(resignedUserResouceReceiver *ResignedUserResouceReceiver) *UpdateEmployeeOptionsBuilder {
 	builder.resignedUserResouceReceiver = resignedUserResouceReceiver
-	builder.resignedUserResouceReceiverFlag = true
+	builder.resignedUserResouceReceiverSet = true
 	return builder
 }
 
@@ -19962,7 +19966,7 @@ func (builder *UpdateEmployeeOptionsBuilder) ResignedUserResouceReceiver(resigne
 // 示例值：
 func (builder *UpdateEmployeeOptionsBuilder) DataSource(dataSource int) *UpdateEmployeeOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
@@ -19971,7 +19975,7 @@ func (builder *UpdateEmployeeOptionsBuilder) DataSource(dataSource int) *UpdateE
 // 示例值：
 func (builder *UpdateEmployeeOptionsBuilder) ResurrectEmployeeOptions(resurrectEmployeeOptions *ResurrectEmployeeOptions) *UpdateEmployeeOptionsBuilder {
 	builder.resurrectEmployeeOptions = resurrectEmployeeOptions
-	builder.resurrectEmployeeOptionsFlag = true
+	builder.resurrectEmployeeOptionsSet = true
 	return builder
 }
 
@@ -19980,7 +19984,7 @@ func (builder *UpdateEmployeeOptionsBuilder) ResurrectEmployeeOptions(resurrectE
 // 示例值：
 func (builder *UpdateEmployeeOptionsBuilder) Scenario(scenario *Scenario) *UpdateEmployeeOptionsBuilder {
 	builder.scenario = scenario
-	builder.scenarioFlag = true
+	builder.scenarioSet = true
 	return builder
 }
 
@@ -19989,7 +19993,7 @@ func (builder *UpdateEmployeeOptionsBuilder) Scenario(scenario *Scenario) *Updat
 // 示例值：
 func (builder *UpdateEmployeeOptionsBuilder) MigrateGeoOptions(migrateGeoOptions *MigrateGeoOptions) *UpdateEmployeeOptionsBuilder {
 	builder.migrateGeoOptions = migrateGeoOptions
-	builder.migrateGeoOptionsFlag = true
+	builder.migrateGeoOptionsSet = true
 	return builder
 }
 
@@ -19998,33 +20002,33 @@ func (builder *UpdateEmployeeOptionsBuilder) MigrateGeoOptions(migrateGeoOptions
 // 示例值：
 func (builder *UpdateEmployeeOptionsBuilder) Operator(operator *Operator) *UpdateEmployeeOptionsBuilder {
 	builder.operator = operator
-	builder.operatorFlag = true
+	builder.operatorSet = true
 	return builder
 }
 
 func (builder *UpdateEmployeeOptionsBuilder) Build() *UpdateEmployeeOptions {
 	req := &UpdateEmployeeOptions{}
-	if builder.enterpriseEmailPasswordFlag {
+	if builder.enterpriseEmailPasswordSet {
 		req.EnterpriseEmailPassword = &builder.enterpriseEmailPassword
 
 	}
-	if builder.resignedUserResouceReceiverFlag {
+	if builder.resignedUserResouceReceiverSet {
 		req.ResignedUserResouceReceiver = builder.resignedUserResouceReceiver
 	}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
-	if builder.resurrectEmployeeOptionsFlag {
+	if builder.resurrectEmployeeOptionsSet {
 		req.ResurrectEmployeeOptions = builder.resurrectEmployeeOptions
 	}
-	if builder.scenarioFlag {
+	if builder.scenarioSet {
 		req.Scenario = builder.scenario
 	}
-	if builder.migrateGeoOptionsFlag {
+	if builder.migrateGeoOptionsSet {
 		req.MigrateGeoOptions = builder.migrateGeoOptions
 	}
-	if builder.operatorFlag {
+	if builder.operatorSet {
 		req.Operator = builder.operator
 	}
 	return req
@@ -20039,14 +20043,14 @@ type UpdateEmployeeTypeEnum struct {
 }
 
 type UpdateEmployeeTypeEnumBuilder struct {
-	enumId     string // 枚举ID
-	enumIdFlag bool
+	enumId    string // 枚举ID
+	enumIdSet bool
 
-	content     *I18nText // i18n文本
-	contentFlag bool
+	content    *I18nText // i18n文本
+	contentSet bool
 
-	enumStatus     string // 枚举状态
-	enumStatusFlag bool
+	enumStatus    string // 枚举状态
+	enumStatusSet bool
 }
 
 func NewUpdateEmployeeTypeEnumBuilder() *UpdateEmployeeTypeEnumBuilder {
@@ -20059,7 +20063,7 @@ func NewUpdateEmployeeTypeEnumBuilder() *UpdateEmployeeTypeEnumBuilder {
 // 示例值：enum
 func (builder *UpdateEmployeeTypeEnumBuilder) EnumId(enumId string) *UpdateEmployeeTypeEnumBuilder {
 	builder.enumId = enumId
-	builder.enumIdFlag = true
+	builder.enumIdSet = true
 	return builder
 }
 
@@ -20068,7 +20072,7 @@ func (builder *UpdateEmployeeTypeEnumBuilder) EnumId(enumId string) *UpdateEmplo
 // 示例值：
 func (builder *UpdateEmployeeTypeEnumBuilder) Content(content *I18nText) *UpdateEmployeeTypeEnumBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -20077,20 +20081,20 @@ func (builder *UpdateEmployeeTypeEnumBuilder) Content(content *I18nText) *Update
 // 示例值：
 func (builder *UpdateEmployeeTypeEnumBuilder) EnumStatus(enumStatus string) *UpdateEmployeeTypeEnumBuilder {
 	builder.enumStatus = enumStatus
-	builder.enumStatusFlag = true
+	builder.enumStatusSet = true
 	return builder
 }
 
 func (builder *UpdateEmployeeTypeEnumBuilder) Build() *UpdateEmployeeTypeEnum {
 	req := &UpdateEmployeeTypeEnum{}
-	if builder.enumIdFlag {
+	if builder.enumIdSet {
 		req.EnumId = &builder.enumId
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = builder.content
 	}
-	if builder.enumStatusFlag {
+	if builder.enumStatusSet {
 		req.EnumStatus = &builder.enumStatus
 
 	}
@@ -20102,8 +20106,8 @@ type UpdateEmployeeTypeEnumOptions struct {
 }
 
 type UpdateEmployeeTypeEnumOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewUpdateEmployeeTypeEnumOptionsBuilder() *UpdateEmployeeTypeEnumOptionsBuilder {
@@ -20116,13 +20120,13 @@ func NewUpdateEmployeeTypeEnumOptionsBuilder() *UpdateEmployeeTypeEnumOptionsBui
 // 示例值：
 func (builder *UpdateEmployeeTypeEnumOptionsBuilder) DataSource(dataSource int) *UpdateEmployeeTypeEnumOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *UpdateEmployeeTypeEnumOptionsBuilder) Build() *UpdateEmployeeTypeEnumOptions {
 	req := &UpdateEmployeeTypeEnumOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -20136,11 +20140,11 @@ type UpdateGroupSet struct {
 }
 
 type UpdateGroupSetBuilder struct {
-	groupSetId     string // 用户组分组 ID
-	groupSetIdFlag bool
+	groupSetId    string // 用户组分组 ID
+	groupSetIdSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 }
 
 func NewUpdateGroupSetBuilder() *UpdateGroupSetBuilder {
@@ -20153,7 +20157,7 @@ func NewUpdateGroupSetBuilder() *UpdateGroupSetBuilder {
 // 示例值：123456
 func (builder *UpdateGroupSetBuilder) GroupSetId(groupSetId string) *UpdateGroupSetBuilder {
 	builder.groupSetId = groupSetId
-	builder.groupSetIdFlag = true
+	builder.groupSetIdSet = true
 	return builder
 }
 
@@ -20162,17 +20166,17 @@ func (builder *UpdateGroupSetBuilder) GroupSetId(groupSetId string) *UpdateGroup
 // 示例值：
 func (builder *UpdateGroupSetBuilder) Name(name *I18nText) *UpdateGroupSetBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *UpdateGroupSetBuilder) Build() *UpdateGroupSet {
 	req := &UpdateGroupSet{}
-	if builder.groupSetIdFlag {
+	if builder.groupSetIdSet {
 		req.GroupSetId = &builder.groupSetId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
 	return req
@@ -20195,26 +20199,26 @@ type UpdateGuest struct {
 }
 
 type UpdateGuestBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	name     *UpsertGuestName // 姓名
-	nameFlag bool
+	name    *UpsertGuestName // 姓名
+	nameSet bool
 
-	mobile     string // 手机
-	mobileFlag bool
+	mobile    string // 手机
+	mobileSet bool
 
-	email     string // 邮箱
-	emailFlag bool
+	email    string // 邮箱
+	emailSet bool
 
-	avatarKey     string // 头像
-	avatarKeyFlag bool
+	avatarKey    string // 头像
+	avatarKeySet bool
 
-	workCountryOrRegion     string // 国家地区
-	workCountryOrRegionFlag bool
+	workCountryOrRegion    string // 国家地区
+	workCountryOrRegionSet bool
 
-	activeGuestStatus     string // 状态
-	activeGuestStatusFlag bool
+	activeGuestStatus    string // 状态
+	activeGuestStatusSet bool
 }
 
 func NewUpdateGuestBuilder() *UpdateGuestBuilder {
@@ -20227,7 +20231,7 @@ func NewUpdateGuestBuilder() *UpdateGuestBuilder {
 // 示例值：6872549699048439828
 func (builder *UpdateGuestBuilder) Id(id string) *UpdateGuestBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -20236,7 +20240,7 @@ func (builder *UpdateGuestBuilder) Id(id string) *UpdateGuestBuilder {
 // 示例值：
 func (builder *UpdateGuestBuilder) Name(name *UpsertGuestName) *UpdateGuestBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -20245,7 +20249,7 @@ func (builder *UpdateGuestBuilder) Name(name *UpsertGuestName) *UpdateGuestBuild
 // 示例值：+8612345678901
 func (builder *UpdateGuestBuilder) Mobile(mobile string) *UpdateGuestBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -20254,7 +20258,7 @@ func (builder *UpdateGuestBuilder) Mobile(mobile string) *UpdateGuestBuilder {
 // 示例值：abc@abc.com
 func (builder *UpdateGuestBuilder) Email(email string) *UpdateGuestBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -20263,7 +20267,7 @@ func (builder *UpdateGuestBuilder) Email(email string) *UpdateGuestBuilder {
 // 示例值：asdfasdfasdf2easdfasdf
 func (builder *UpdateGuestBuilder) AvatarKey(avatarKey string) *UpdateGuestBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
@@ -20272,7 +20276,7 @@ func (builder *UpdateGuestBuilder) AvatarKey(avatarKey string) *UpdateGuestBuild
 // 示例值：MDCT00000256
 func (builder *UpdateGuestBuilder) WorkCountryOrRegion(workCountryOrRegion string) *UpdateGuestBuilder {
 	builder.workCountryOrRegion = workCountryOrRegion
-	builder.workCountryOrRegionFlag = true
+	builder.workCountryOrRegionSet = true
 	return builder
 }
 
@@ -20281,36 +20285,36 @@ func (builder *UpdateGuestBuilder) WorkCountryOrRegion(workCountryOrRegion strin
 // 示例值：
 func (builder *UpdateGuestBuilder) ActiveGuestStatus(activeGuestStatus string) *UpdateGuestBuilder {
 	builder.activeGuestStatus = activeGuestStatus
-	builder.activeGuestStatusFlag = true
+	builder.activeGuestStatusSet = true
 	return builder
 }
 
 func (builder *UpdateGuestBuilder) Build() *UpdateGuest {
 	req := &UpdateGuest{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = &builder.avatarKey
 
 	}
-	if builder.workCountryOrRegionFlag {
+	if builder.workCountryOrRegionSet {
 		req.WorkCountryOrRegion = &builder.workCountryOrRegion
 
 	}
-	if builder.activeGuestStatusFlag {
+	if builder.activeGuestStatusSet {
 		req.ActiveGuestStatus = &builder.activeGuestStatus
 
 	}
@@ -20332,23 +20336,23 @@ type UpdateJobFamily struct {
 }
 
 type UpdateJobFamilyBuilder struct {
-	jobFamilyId     string // 序列ID
-	jobFamilyIdFlag bool
+	jobFamilyId    string // 序列ID
+	jobFamilyIdSet bool
 
-	jobFamilyName     *I18nText // i18n文本
-	jobFamilyNameFlag bool
+	jobFamilyName    *I18nText // i18n文本
+	jobFamilyNameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	parentId     string // 上级序列
-	parentIdFlag bool
+	parentId    string // 上级序列
+	parentIdSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	externalId     string // 外部ID 不可更新成空
-	externalIdFlag bool
+	externalId    string // 外部ID 不可更新成空
+	externalIdSet bool
 }
 
 func NewUpdateJobFamilyBuilder() *UpdateJobFamilyBuilder {
@@ -20361,7 +20365,7 @@ func NewUpdateJobFamilyBuilder() *UpdateJobFamilyBuilder {
 // 示例值：6872549699048439828
 func (builder *UpdateJobFamilyBuilder) JobFamilyId(jobFamilyId string) *UpdateJobFamilyBuilder {
 	builder.jobFamilyId = jobFamilyId
-	builder.jobFamilyIdFlag = true
+	builder.jobFamilyIdSet = true
 	return builder
 }
 
@@ -20370,7 +20374,7 @@ func (builder *UpdateJobFamilyBuilder) JobFamilyId(jobFamilyId string) *UpdateJo
 // 示例值：
 func (builder *UpdateJobFamilyBuilder) JobFamilyName(jobFamilyName *I18nText) *UpdateJobFamilyBuilder {
 	builder.jobFamilyName = jobFamilyName
-	builder.jobFamilyNameFlag = true
+	builder.jobFamilyNameSet = true
 	return builder
 }
 
@@ -20379,7 +20383,7 @@ func (builder *UpdateJobFamilyBuilder) JobFamilyName(jobFamilyName *I18nText) *U
 // 示例值：
 func (builder *UpdateJobFamilyBuilder) IsEnabled(isEnabled bool) *UpdateJobFamilyBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -20388,7 +20392,7 @@ func (builder *UpdateJobFamilyBuilder) IsEnabled(isEnabled bool) *UpdateJobFamil
 // 示例值：6872549699048439828
 func (builder *UpdateJobFamilyBuilder) ParentId(parentId string) *UpdateJobFamilyBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
@@ -20397,7 +20401,7 @@ func (builder *UpdateJobFamilyBuilder) ParentId(parentId string) *UpdateJobFamil
 // 示例值：
 func (builder *UpdateJobFamilyBuilder) Description(description *I18nText) *UpdateJobFamilyBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -20406,31 +20410,31 @@ func (builder *UpdateJobFamilyBuilder) Description(description *I18nText) *Updat
 // 示例值：custom_id
 func (builder *UpdateJobFamilyBuilder) ExternalId(externalId string) *UpdateJobFamilyBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *UpdateJobFamilyBuilder) Build() *UpdateJobFamily {
 	req := &UpdateJobFamily{}
-	if builder.jobFamilyIdFlag {
+	if builder.jobFamilyIdSet {
 		req.JobFamilyId = &builder.jobFamilyId
 
 	}
-	if builder.jobFamilyNameFlag {
+	if builder.jobFamilyNameSet {
 		req.JobFamilyName = builder.jobFamilyName
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -20442,8 +20446,8 @@ type UpdateJobFamilyOptions struct {
 }
 
 type UpdateJobFamilyOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewUpdateJobFamilyOptionsBuilder() *UpdateJobFamilyOptionsBuilder {
@@ -20456,13 +20460,13 @@ func NewUpdateJobFamilyOptionsBuilder() *UpdateJobFamilyOptionsBuilder {
 // 示例值：
 func (builder *UpdateJobFamilyOptionsBuilder) DataSource(dataSource int) *UpdateJobFamilyOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *UpdateJobFamilyOptionsBuilder) Build() *UpdateJobFamilyOptions {
 	req := &UpdateJobFamilyOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -20484,23 +20488,23 @@ type UpdateJobLevel struct {
 }
 
 type UpdateJobLevelBuilder struct {
-	id     string // 名称
-	idFlag bool
+	id    string // 名称
+	idSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	order     string // 排序, 小的在前面
-	orderFlag bool
+	order    string // 排序, 小的在前面
+	orderSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	externalId     string // 外部ID 不可更新成空
-	externalIdFlag bool
+	externalId    string // 外部ID 不可更新成空
+	externalIdSet bool
 }
 
 func NewUpdateJobLevelBuilder() *UpdateJobLevelBuilder {
@@ -20513,7 +20517,7 @@ func NewUpdateJobLevelBuilder() *UpdateJobLevelBuilder {
 // 示例值：6872549699048439828
 func (builder *UpdateJobLevelBuilder) Id(id string) *UpdateJobLevelBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -20522,7 +20526,7 @@ func (builder *UpdateJobLevelBuilder) Id(id string) *UpdateJobLevelBuilder {
 // 示例值：
 func (builder *UpdateJobLevelBuilder) Name(name *I18nText) *UpdateJobLevelBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -20531,7 +20535,7 @@ func (builder *UpdateJobLevelBuilder) Name(name *I18nText) *UpdateJobLevelBuilde
 // 示例值：
 func (builder *UpdateJobLevelBuilder) IsEnabled(isEnabled bool) *UpdateJobLevelBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -20540,7 +20544,7 @@ func (builder *UpdateJobLevelBuilder) IsEnabled(isEnabled bool) *UpdateJobLevelB
 // 示例值：100
 func (builder *UpdateJobLevelBuilder) Order(order string) *UpdateJobLevelBuilder {
 	builder.order = order
-	builder.orderFlag = true
+	builder.orderSet = true
 	return builder
 }
 
@@ -20549,7 +20553,7 @@ func (builder *UpdateJobLevelBuilder) Order(order string) *UpdateJobLevelBuilder
 // 示例值：
 func (builder *UpdateJobLevelBuilder) Description(description *I18nText) *UpdateJobLevelBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -20558,31 +20562,31 @@ func (builder *UpdateJobLevelBuilder) Description(description *I18nText) *Update
 // 示例值：custom_id
 func (builder *UpdateJobLevelBuilder) ExternalId(externalId string) *UpdateJobLevelBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *UpdateJobLevelBuilder) Build() *UpdateJobLevel {
 	req := &UpdateJobLevel{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.orderFlag {
+	if builder.orderSet {
 		req.Order = &builder.order
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -20594,8 +20598,8 @@ type UpdateJobLevelOptions struct {
 }
 
 type UpdateJobLevelOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewUpdateJobLevelOptionsBuilder() *UpdateJobLevelOptionsBuilder {
@@ -20608,13 +20612,13 @@ func NewUpdateJobLevelOptionsBuilder() *UpdateJobLevelOptionsBuilder {
 // 示例值：
 func (builder *UpdateJobLevelOptionsBuilder) DataSource(dataSource int) *UpdateJobLevelOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *UpdateJobLevelOptionsBuilder) Build() *UpdateJobLevelOptions {
 	req := &UpdateJobLevelOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -20640,29 +20644,29 @@ type UpdateJobTitle struct {
 }
 
 type UpdateJobTitleBuilder struct {
-	jobTitleId     string // ID
-	jobTitleIdFlag bool
+	jobTitleId    string // ID
+	jobTitleIdSet bool
 
-	jobTitleName     *I18nText // i18n文本
-	jobTitleNameFlag bool
+	jobTitleName    *I18nText // i18n文本
+	jobTitleNameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	title     *I18nText // i18n文本
-	titleFlag bool
+	title    *I18nText // i18n文本
+	titleSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	jobFamilyIds     []string // 序列
-	jobFamilyIdsFlag bool
+	jobFamilyIds    []string // 序列
+	jobFamilyIdsSet bool
 
-	jobLevelIds     []string // 职级
-	jobLevelIdsFlag bool
+	jobLevelIds    []string // 职级
+	jobLevelIdsSet bool
 
-	externalId     string // 外部ID 不可更新成空
-	externalIdFlag bool
+	externalId    string // 外部ID 不可更新成空
+	externalIdSet bool
 }
 
 func NewUpdateJobTitleBuilder() *UpdateJobTitleBuilder {
@@ -20675,7 +20679,7 @@ func NewUpdateJobTitleBuilder() *UpdateJobTitleBuilder {
 // 示例值：6872549699048439828
 func (builder *UpdateJobTitleBuilder) JobTitleId(jobTitleId string) *UpdateJobTitleBuilder {
 	builder.jobTitleId = jobTitleId
-	builder.jobTitleIdFlag = true
+	builder.jobTitleIdSet = true
 	return builder
 }
 
@@ -20684,7 +20688,7 @@ func (builder *UpdateJobTitleBuilder) JobTitleId(jobTitleId string) *UpdateJobTi
 // 示例值：
 func (builder *UpdateJobTitleBuilder) JobTitleName(jobTitleName *I18nText) *UpdateJobTitleBuilder {
 	builder.jobTitleName = jobTitleName
-	builder.jobTitleNameFlag = true
+	builder.jobTitleNameSet = true
 	return builder
 }
 
@@ -20693,7 +20697,7 @@ func (builder *UpdateJobTitleBuilder) JobTitleName(jobTitleName *I18nText) *Upda
 // 示例值：
 func (builder *UpdateJobTitleBuilder) IsEnabled(isEnabled bool) *UpdateJobTitleBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -20702,7 +20706,7 @@ func (builder *UpdateJobTitleBuilder) IsEnabled(isEnabled bool) *UpdateJobTitleB
 // 示例值：
 func (builder *UpdateJobTitleBuilder) Title(title *I18nText) *UpdateJobTitleBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -20711,7 +20715,7 @@ func (builder *UpdateJobTitleBuilder) Title(title *I18nText) *UpdateJobTitleBuil
 // 示例值：
 func (builder *UpdateJobTitleBuilder) Description(description *I18nText) *UpdateJobTitleBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -20720,7 +20724,7 @@ func (builder *UpdateJobTitleBuilder) Description(description *I18nText) *Update
 // 示例值：
 func (builder *UpdateJobTitleBuilder) JobFamilyIds(jobFamilyIds []string) *UpdateJobTitleBuilder {
 	builder.jobFamilyIds = jobFamilyIds
-	builder.jobFamilyIdsFlag = true
+	builder.jobFamilyIdsSet = true
 	return builder
 }
 
@@ -20729,7 +20733,7 @@ func (builder *UpdateJobTitleBuilder) JobFamilyIds(jobFamilyIds []string) *Updat
 // 示例值：
 func (builder *UpdateJobTitleBuilder) JobLevelIds(jobLevelIds []string) *UpdateJobTitleBuilder {
 	builder.jobLevelIds = jobLevelIds
-	builder.jobLevelIdsFlag = true
+	builder.jobLevelIdsSet = true
 	return builder
 }
 
@@ -20738,36 +20742,36 @@ func (builder *UpdateJobTitleBuilder) JobLevelIds(jobLevelIds []string) *UpdateJ
 // 示例值：custom_id
 func (builder *UpdateJobTitleBuilder) ExternalId(externalId string) *UpdateJobTitleBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *UpdateJobTitleBuilder) Build() *UpdateJobTitle {
 	req := &UpdateJobTitle{}
-	if builder.jobTitleIdFlag {
+	if builder.jobTitleIdSet {
 		req.JobTitleId = &builder.jobTitleId
 
 	}
-	if builder.jobTitleNameFlag {
+	if builder.jobTitleNameSet {
 		req.JobTitleName = builder.jobTitleName
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = builder.title
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.jobFamilyIdsFlag {
+	if builder.jobFamilyIdsSet {
 		req.JobFamilyIds = builder.jobFamilyIds
 	}
-	if builder.jobLevelIdsFlag {
+	if builder.jobLevelIdsSet {
 		req.JobLevelIds = builder.jobLevelIds
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -20779,8 +20783,8 @@ type UpdateJobTitleOptions struct {
 }
 
 type UpdateJobTitleOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewUpdateJobTitleOptionsBuilder() *UpdateJobTitleOptionsBuilder {
@@ -20793,13 +20797,13 @@ func NewUpdateJobTitleOptionsBuilder() *UpdateJobTitleOptionsBuilder {
 // 示例值：
 func (builder *UpdateJobTitleOptionsBuilder) DataSource(dataSource int) *UpdateJobTitleOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *UpdateJobTitleOptionsBuilder) Build() *UpdateJobTitleOptions {
 	req := &UpdateJobTitleOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -20819,20 +20823,20 @@ type UpdateOrgdimension struct {
 }
 
 type UpdateOrgdimensionBuilder struct {
-	id     string // 虚拟组织id
-	idFlag bool
+	id    string // 虚拟组织id
+	idSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	isEnable     bool // 是否启用
-	isEnableFlag bool
+	isEnable    bool // 是否启用
+	isEnableSet bool
 
-	order     string // 组织维度排序权重
-	orderFlag bool
+	order    string // 组织维度排序权重
+	orderSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 }
 
 func NewUpdateOrgdimensionBuilder() *UpdateOrgdimensionBuilder {
@@ -20845,7 +20849,7 @@ func NewUpdateOrgdimensionBuilder() *UpdateOrgdimensionBuilder {
 // 示例值：3e3cf96b
 func (builder *UpdateOrgdimensionBuilder) Id(id string) *UpdateOrgdimensionBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -20854,7 +20858,7 @@ func (builder *UpdateOrgdimensionBuilder) Id(id string) *UpdateOrgdimensionBuild
 // 示例值：
 func (builder *UpdateOrgdimensionBuilder) Name(name *I18nText) *UpdateOrgdimensionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -20863,7 +20867,7 @@ func (builder *UpdateOrgdimensionBuilder) Name(name *I18nText) *UpdateOrgdimensi
 // 示例值：
 func (builder *UpdateOrgdimensionBuilder) IsEnable(isEnable bool) *UpdateOrgdimensionBuilder {
 	builder.isEnable = isEnable
-	builder.isEnableFlag = true
+	builder.isEnableSet = true
 	return builder
 }
 
@@ -20872,7 +20876,7 @@ func (builder *UpdateOrgdimensionBuilder) IsEnable(isEnable bool) *UpdateOrgdime
 // 示例值：100
 func (builder *UpdateOrgdimensionBuilder) Order(order string) *UpdateOrgdimensionBuilder {
 	builder.order = order
-	builder.orderFlag = true
+	builder.orderSet = true
 	return builder
 }
 
@@ -20881,28 +20885,28 @@ func (builder *UpdateOrgdimensionBuilder) Order(order string) *UpdateOrgdimensio
 // 示例值：
 func (builder *UpdateOrgdimensionBuilder) Description(description *I18nText) *UpdateOrgdimensionBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
 func (builder *UpdateOrgdimensionBuilder) Build() *UpdateOrgdimension {
 	req := &UpdateOrgdimension{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.isEnableFlag {
+	if builder.isEnableSet {
 		req.IsEnable = &builder.isEnable
 
 	}
-	if builder.orderFlag {
+	if builder.orderSet {
 		req.Order = &builder.order
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
 	return req
@@ -20925,26 +20929,26 @@ type UpdatePlace struct {
 }
 
 type UpdatePlaceBuilder struct {
-	placeId     string // ID
-	placeIdFlag bool
+	placeId    string // ID
+	placeIdSet bool
 
-	placeName     *I18nText // i18n文本
-	placeNameFlag bool
+	placeName    *I18nText // i18n文本
+	placeNameSet bool
 
-	isEnabled     bool // 是否启用
-	isEnabledFlag bool
+	isEnabled    bool // 是否启用
+	isEnabledSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	usages     []string // 地点用途
-	usagesFlag bool
+	usages    []string // 地点用途
+	usagesSet bool
 
-	parentId     string // 上级ID
-	parentIdFlag bool
+	parentId    string // 上级ID
+	parentIdSet bool
 
-	externalId     string // 外部ID
-	externalIdFlag bool
+	externalId    string // 外部ID
+	externalIdSet bool
 }
 
 func NewUpdatePlaceBuilder() *UpdatePlaceBuilder {
@@ -20957,7 +20961,7 @@ func NewUpdatePlaceBuilder() *UpdatePlaceBuilder {
 // 示例值：6872549699048439828
 func (builder *UpdatePlaceBuilder) PlaceId(placeId string) *UpdatePlaceBuilder {
 	builder.placeId = placeId
-	builder.placeIdFlag = true
+	builder.placeIdSet = true
 	return builder
 }
 
@@ -20966,7 +20970,7 @@ func (builder *UpdatePlaceBuilder) PlaceId(placeId string) *UpdatePlaceBuilder {
 // 示例值：
 func (builder *UpdatePlaceBuilder) PlaceName(placeName *I18nText) *UpdatePlaceBuilder {
 	builder.placeName = placeName
-	builder.placeNameFlag = true
+	builder.placeNameSet = true
 	return builder
 }
 
@@ -20975,7 +20979,7 @@ func (builder *UpdatePlaceBuilder) PlaceName(placeName *I18nText) *UpdatePlaceBu
 // 示例值：
 func (builder *UpdatePlaceBuilder) IsEnabled(isEnabled bool) *UpdatePlaceBuilder {
 	builder.isEnabled = isEnabled
-	builder.isEnabledFlag = true
+	builder.isEnabledSet = true
 	return builder
 }
 
@@ -20984,7 +20988,7 @@ func (builder *UpdatePlaceBuilder) IsEnabled(isEnabled bool) *UpdatePlaceBuilder
 // 示例值：
 func (builder *UpdatePlaceBuilder) Description(description *I18nText) *UpdatePlaceBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -20993,7 +20997,7 @@ func (builder *UpdatePlaceBuilder) Description(description *I18nText) *UpdatePla
 // 示例值：
 func (builder *UpdatePlaceBuilder) Usages(usages []string) *UpdatePlaceBuilder {
 	builder.usages = usages
-	builder.usagesFlag = true
+	builder.usagesSet = true
 	return builder
 }
 
@@ -21002,7 +21006,7 @@ func (builder *UpdatePlaceBuilder) Usages(usages []string) *UpdatePlaceBuilder {
 // 示例值：6872549699048439828
 func (builder *UpdatePlaceBuilder) ParentId(parentId string) *UpdatePlaceBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
@@ -21011,34 +21015,34 @@ func (builder *UpdatePlaceBuilder) ParentId(parentId string) *UpdatePlaceBuilder
 // 示例值：custom_id
 func (builder *UpdatePlaceBuilder) ExternalId(externalId string) *UpdatePlaceBuilder {
 	builder.externalId = externalId
-	builder.externalIdFlag = true
+	builder.externalIdSet = true
 	return builder
 }
 
 func (builder *UpdatePlaceBuilder) Build() *UpdatePlace {
 	req := &UpdatePlace{}
-	if builder.placeIdFlag {
+	if builder.placeIdSet {
 		req.PlaceId = &builder.placeId
 
 	}
-	if builder.placeNameFlag {
+	if builder.placeNameSet {
 		req.PlaceName = builder.placeName
 	}
-	if builder.isEnabledFlag {
+	if builder.isEnabledSet {
 		req.IsEnabled = &builder.isEnabled
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.usagesFlag {
+	if builder.usagesSet {
 		req.Usages = builder.usages
 	}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
-	if builder.externalIdFlag {
+	if builder.externalIdSet {
 		req.ExternalId = &builder.externalId
 
 	}
@@ -21050,8 +21054,8 @@ type UpdatePlaceOptions struct {
 }
 
 type UpdatePlaceOptionsBuilder struct {
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewUpdatePlaceOptionsBuilder() *UpdatePlaceOptionsBuilder {
@@ -21064,13 +21068,13 @@ func NewUpdatePlaceOptionsBuilder() *UpdatePlaceOptionsBuilder {
 // 示例值：
 func (builder *UpdatePlaceOptionsBuilder) DataSource(dataSource int) *UpdatePlaceOptionsBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *UpdatePlaceOptionsBuilder) Build() *UpdatePlaceOptions {
 	req := &UpdatePlaceOptions{}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -21114,56 +21118,56 @@ type UpdateTenant struct {
 }
 
 type UpdateTenantBuilder struct {
-	id     string // 租户ID
-	idFlag bool
+	id    string // 租户ID
+	idSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	contactUserInfo     *UserInfo // 联系人信息
-	contactUserInfoFlag bool
+	contactUserInfo    *UserInfo // 联系人信息
+	contactUserInfoSet bool
 
-	subDomain     string // 租户子域名
-	subDomainFlag bool
+	subDomain    string // 租户子域名
+	subDomainSet bool
 
-	canDomainBeModified     bool // 域名是否可以被修改
-	canDomainBeModifiedFlag bool
+	canDomainBeModified    bool // 域名是否可以被修改
+	canDomainBeModifiedSet bool
 
-	address     string // 联系地址
-	addressFlag bool
+	address    string // 联系地址
+	addressSet bool
 
-	postCode     string // 邮编
-	postCodeFlag bool
+	postCode    string // 邮编
+	postCodeSet bool
 
-	telephone     string // 座机
-	telephoneFlag bool
+	telephone    string // 座机
+	telephoneSet bool
 
-	avatarKey     string // 企业头像Key
-	avatarKeyFlag bool
+	avatarKey    string // 企业头像Key
+	avatarKeySet bool
 
-	countryCode     string // 国家代码
-	countryCodeFlag bool
+	countryCode    string // 国家代码
+	countryCodeSet bool
 
 	type_    string // 租户类型
-	typeFlag bool
+	type_Set bool
 
-	purpose     string // 租户用途
-	purposeFlag bool
+	purpose    string // 租户用途
+	purposeSet bool
 
-	tag     string // 个人租户/企业租户
-	tagFlag bool
+	tag    string // 个人租户/企业租户
+	tagSet bool
 
-	industry     string // 行业类型 兼容历史枚举和主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-WOWldq8Uvow6g3xmIjlck9eYnof
-	industryFlag bool
+	industry    string // 行业类型 兼容历史枚举和主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-WOWldq8Uvow6g3xmIjlck9eYnof
+	industrySet bool
 
-	scale     string // 企业规模 兼容历史枚举和主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-WOWldq8Uvow6g3xmIjlck9eYnof
-	scaleFlag bool
+	scale    string // 企业规模 兼容历史枚举和主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-WOWldq8Uvow6g3xmIjlck9eYnof
+	scaleSet bool
 
-	description     *I18nText // i18n文本
-	descriptionFlag bool
+	description    *I18nText // i18n文本
+	descriptionSet bool
 
-	creatorId     string // 创建人ID
-	creatorIdFlag bool
+	creatorId    string // 创建人ID
+	creatorIdSet bool
 }
 
 func NewUpdateTenantBuilder() *UpdateTenantBuilder {
@@ -21176,7 +21180,7 @@ func NewUpdateTenantBuilder() *UpdateTenantBuilder {
 // 示例值：6872549699048439828
 func (builder *UpdateTenantBuilder) Id(id string) *UpdateTenantBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -21185,7 +21189,7 @@ func (builder *UpdateTenantBuilder) Id(id string) *UpdateTenantBuilder {
 // 示例值：
 func (builder *UpdateTenantBuilder) Name(name *I18nText) *UpdateTenantBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -21194,7 +21198,7 @@ func (builder *UpdateTenantBuilder) Name(name *I18nText) *UpdateTenantBuilder {
 // 示例值：
 func (builder *UpdateTenantBuilder) ContactUserInfo(contactUserInfo *UserInfo) *UpdateTenantBuilder {
 	builder.contactUserInfo = contactUserInfo
-	builder.contactUserInfoFlag = true
+	builder.contactUserInfoSet = true
 	return builder
 }
 
@@ -21203,7 +21207,7 @@ func (builder *UpdateTenantBuilder) ContactUserInfo(contactUserInfo *UserInfo) *
 // 示例值：www
 func (builder *UpdateTenantBuilder) SubDomain(subDomain string) *UpdateTenantBuilder {
 	builder.subDomain = subDomain
-	builder.subDomainFlag = true
+	builder.subDomainSet = true
 	return builder
 }
 
@@ -21212,7 +21216,7 @@ func (builder *UpdateTenantBuilder) SubDomain(subDomain string) *UpdateTenantBui
 // 示例值：
 func (builder *UpdateTenantBuilder) CanDomainBeModified(canDomainBeModified bool) *UpdateTenantBuilder {
 	builder.canDomainBeModified = canDomainBeModified
-	builder.canDomainBeModifiedFlag = true
+	builder.canDomainBeModifiedSet = true
 	return builder
 }
 
@@ -21221,7 +21225,7 @@ func (builder *UpdateTenantBuilder) CanDomainBeModified(canDomainBeModified bool
 // 示例值：address
 func (builder *UpdateTenantBuilder) Address(address string) *UpdateTenantBuilder {
 	builder.address = address
-	builder.addressFlag = true
+	builder.addressSet = true
 	return builder
 }
 
@@ -21230,7 +21234,7 @@ func (builder *UpdateTenantBuilder) Address(address string) *UpdateTenantBuilder
 // 示例值：123456
 func (builder *UpdateTenantBuilder) PostCode(postCode string) *UpdateTenantBuilder {
 	builder.postCode = postCode
-	builder.postCodeFlag = true
+	builder.postCodeSet = true
 	return builder
 }
 
@@ -21239,7 +21243,7 @@ func (builder *UpdateTenantBuilder) PostCode(postCode string) *UpdateTenantBuild
 // 示例值：123456
 func (builder *UpdateTenantBuilder) Telephone(telephone string) *UpdateTenantBuilder {
 	builder.telephone = telephone
-	builder.telephoneFlag = true
+	builder.telephoneSet = true
 	return builder
 }
 
@@ -21248,7 +21252,7 @@ func (builder *UpdateTenantBuilder) Telephone(telephone string) *UpdateTenantBui
 // 示例值：asdfadfadsf
 func (builder *UpdateTenantBuilder) AvatarKey(avatarKey string) *UpdateTenantBuilder {
 	builder.avatarKey = avatarKey
-	builder.avatarKeyFlag = true
+	builder.avatarKeySet = true
 	return builder
 }
 
@@ -21257,7 +21261,7 @@ func (builder *UpdateTenantBuilder) AvatarKey(avatarKey string) *UpdateTenantBui
 // 示例值：cn
 func (builder *UpdateTenantBuilder) CountryCode(countryCode string) *UpdateTenantBuilder {
 	builder.countryCode = countryCode
-	builder.countryCodeFlag = true
+	builder.countryCodeSet = true
 	return builder
 }
 
@@ -21266,7 +21270,7 @@ func (builder *UpdateTenantBuilder) CountryCode(countryCode string) *UpdateTenan
 // 示例值：
 func (builder *UpdateTenantBuilder) Type(type_ string) *UpdateTenantBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -21275,7 +21279,7 @@ func (builder *UpdateTenantBuilder) Type(type_ string) *UpdateTenantBuilder {
 // 示例值：
 func (builder *UpdateTenantBuilder) Purpose(purpose string) *UpdateTenantBuilder {
 	builder.purpose = purpose
-	builder.purposeFlag = true
+	builder.purposeSet = true
 	return builder
 }
 
@@ -21284,7 +21288,7 @@ func (builder *UpdateTenantBuilder) Purpose(purpose string) *UpdateTenantBuilder
 // 示例值：
 func (builder *UpdateTenantBuilder) Tag(tag string) *UpdateTenantBuilder {
 	builder.tag = tag
-	builder.tagFlag = true
+	builder.tagSet = true
 	return builder
 }
 
@@ -21293,7 +21297,7 @@ func (builder *UpdateTenantBuilder) Tag(tag string) *UpdateTenantBuilder {
 // 示例值：MDCT00000256
 func (builder *UpdateTenantBuilder) Industry(industry string) *UpdateTenantBuilder {
 	builder.industry = industry
-	builder.industryFlag = true
+	builder.industrySet = true
 	return builder
 }
 
@@ -21302,7 +21306,7 @@ func (builder *UpdateTenantBuilder) Industry(industry string) *UpdateTenantBuild
 // 示例值：MDCT00000256
 func (builder *UpdateTenantBuilder) Scale(scale string) *UpdateTenantBuilder {
 	builder.scale = scale
-	builder.scaleFlag = true
+	builder.scaleSet = true
 	return builder
 }
 
@@ -21311,7 +21315,7 @@ func (builder *UpdateTenantBuilder) Scale(scale string) *UpdateTenantBuilder {
 // 示例值：
 func (builder *UpdateTenantBuilder) Description(description *I18nText) *UpdateTenantBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -21320,74 +21324,74 @@ func (builder *UpdateTenantBuilder) Description(description *I18nText) *UpdateTe
 // 示例值：6872549699048439828
 func (builder *UpdateTenantBuilder) CreatorId(creatorId string) *UpdateTenantBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
 func (builder *UpdateTenantBuilder) Build() *UpdateTenant {
 	req := &UpdateTenant{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.contactUserInfoFlag {
+	if builder.contactUserInfoSet {
 		req.ContactUserInfo = builder.contactUserInfo
 	}
-	if builder.subDomainFlag {
+	if builder.subDomainSet {
 		req.SubDomain = &builder.subDomain
 
 	}
-	if builder.canDomainBeModifiedFlag {
+	if builder.canDomainBeModifiedSet {
 		req.CanDomainBeModified = &builder.canDomainBeModified
 
 	}
-	if builder.addressFlag {
+	if builder.addressSet {
 		req.Address = &builder.address
 
 	}
-	if builder.postCodeFlag {
+	if builder.postCodeSet {
 		req.PostCode = &builder.postCode
 
 	}
-	if builder.telephoneFlag {
+	if builder.telephoneSet {
 		req.Telephone = &builder.telephone
 
 	}
-	if builder.avatarKeyFlag {
+	if builder.avatarKeySet {
 		req.AvatarKey = &builder.avatarKey
 
 	}
-	if builder.countryCodeFlag {
+	if builder.countryCodeSet {
 		req.CountryCode = &builder.countryCode
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.purposeFlag {
+	if builder.purposeSet {
 		req.Purpose = &builder.purpose
 
 	}
-	if builder.tagFlag {
+	if builder.tagSet {
 		req.Tag = &builder.tag
 
 	}
-	if builder.industryFlag {
+	if builder.industrySet {
 		req.Industry = &builder.industry
 
 	}
-	if builder.scaleFlag {
+	if builder.scaleSet {
 		req.Scale = &builder.scale
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
@@ -21401,11 +21405,11 @@ type UpdateTenantOption struct {
 }
 
 type UpdateTenantOptionBuilder struct {
-	isSkipDomainCheck     bool // 跳过域名长度校验
-	isSkipDomainCheckFlag bool
+	isSkipDomainCheck    bool // 跳过域名长度校验
+	isSkipDomainCheckSet bool
 
-	dataSource     int // 数据来源
-	dataSourceFlag bool
+	dataSource    int // 数据来源
+	dataSourceSet bool
 }
 
 func NewUpdateTenantOptionBuilder() *UpdateTenantOptionBuilder {
@@ -21418,7 +21422,7 @@ func NewUpdateTenantOptionBuilder() *UpdateTenantOptionBuilder {
 // 示例值：
 func (builder *UpdateTenantOptionBuilder) IsSkipDomainCheck(isSkipDomainCheck bool) *UpdateTenantOptionBuilder {
 	builder.isSkipDomainCheck = isSkipDomainCheck
-	builder.isSkipDomainCheckFlag = true
+	builder.isSkipDomainCheckSet = true
 	return builder
 }
 
@@ -21427,17 +21431,17 @@ func (builder *UpdateTenantOptionBuilder) IsSkipDomainCheck(isSkipDomainCheck bo
 // 示例值：
 func (builder *UpdateTenantOptionBuilder) DataSource(dataSource int) *UpdateTenantOptionBuilder {
 	builder.dataSource = dataSource
-	builder.dataSourceFlag = true
+	builder.dataSourceSet = true
 	return builder
 }
 
 func (builder *UpdateTenantOptionBuilder) Build() *UpdateTenantOption {
 	req := &UpdateTenantOption{}
-	if builder.isSkipDomainCheckFlag {
+	if builder.isSkipDomainCheckSet {
 		req.IsSkipDomainCheck = &builder.isSkipDomainCheck
 
 	}
-	if builder.dataSourceFlag {
+	if builder.dataSourceSet {
 		req.DataSource = &builder.dataSource
 
 	}
@@ -21457,20 +21461,20 @@ type UpdateVisibleAssistRule struct {
 }
 
 type UpdateVisibleAssistRuleBuilder struct {
-	ruleId     string // 要更新的补充规则ID
-	ruleIdFlag bool
+	ruleId    string // 要更新的补充规则ID
+	ruleIdSet bool
 
-	subjects     []*EntityInfo // 规则主体
-	subjectsFlag bool
+	subjects    []*EntityInfo // 规则主体
+	subjectsSet bool
 
-	objects     []*EntityInfo // 规则客体，类型只能为部门、用户、单位。不能为用户组
-	objectsFlag bool
+	objects    []*EntityInfo // 规则客体，类型只能为部门、用户、单位。不能为用户组
+	objectsSet bool
 
-	effect     int // 权限操作
-	effectFlag bool
+	effect    int // 权限操作
+	effectSet bool
 
-	matchCondition     int // 匹配条件
-	matchConditionFlag bool
+	matchCondition    int // 匹配条件
+	matchConditionSet bool
 }
 
 func NewUpdateVisibleAssistRuleBuilder() *UpdateVisibleAssistRuleBuilder {
@@ -21483,7 +21487,7 @@ func NewUpdateVisibleAssistRuleBuilder() *UpdateVisibleAssistRuleBuilder {
 // 示例值：123212312
 func (builder *UpdateVisibleAssistRuleBuilder) RuleId(ruleId string) *UpdateVisibleAssistRuleBuilder {
 	builder.ruleId = ruleId
-	builder.ruleIdFlag = true
+	builder.ruleIdSet = true
 	return builder
 }
 
@@ -21492,7 +21496,7 @@ func (builder *UpdateVisibleAssistRuleBuilder) RuleId(ruleId string) *UpdateVisi
 // 示例值：
 func (builder *UpdateVisibleAssistRuleBuilder) Subjects(subjects []*EntityInfo) *UpdateVisibleAssistRuleBuilder {
 	builder.subjects = subjects
-	builder.subjectsFlag = true
+	builder.subjectsSet = true
 	return builder
 }
 
@@ -21501,7 +21505,7 @@ func (builder *UpdateVisibleAssistRuleBuilder) Subjects(subjects []*EntityInfo) 
 // 示例值：
 func (builder *UpdateVisibleAssistRuleBuilder) Objects(objects []*EntityInfo) *UpdateVisibleAssistRuleBuilder {
 	builder.objects = objects
-	builder.objectsFlag = true
+	builder.objectsSet = true
 	return builder
 }
 
@@ -21510,7 +21514,7 @@ func (builder *UpdateVisibleAssistRuleBuilder) Objects(objects []*EntityInfo) *U
 // 示例值：1
 func (builder *UpdateVisibleAssistRuleBuilder) Effect(effect int) *UpdateVisibleAssistRuleBuilder {
 	builder.effect = effect
-	builder.effectFlag = true
+	builder.effectSet = true
 	return builder
 }
 
@@ -21519,27 +21523,27 @@ func (builder *UpdateVisibleAssistRuleBuilder) Effect(effect int) *UpdateVisible
 // 示例值：
 func (builder *UpdateVisibleAssistRuleBuilder) MatchCondition(matchCondition int) *UpdateVisibleAssistRuleBuilder {
 	builder.matchCondition = matchCondition
-	builder.matchConditionFlag = true
+	builder.matchConditionSet = true
 	return builder
 }
 
 func (builder *UpdateVisibleAssistRuleBuilder) Build() *UpdateVisibleAssistRule {
 	req := &UpdateVisibleAssistRule{}
-	if builder.ruleIdFlag {
+	if builder.ruleIdSet {
 		req.RuleId = &builder.ruleId
 
 	}
-	if builder.subjectsFlag {
+	if builder.subjectsSet {
 		req.Subjects = builder.subjects
 	}
-	if builder.objectsFlag {
+	if builder.objectsSet {
 		req.Objects = builder.objects
 	}
-	if builder.effectFlag {
+	if builder.effectSet {
 		req.Effect = &builder.effect
 
 	}
-	if builder.matchConditionFlag {
+	if builder.matchConditionSet {
 		req.MatchCondition = &builder.matchCondition
 
 	}
@@ -21551,8 +21555,8 @@ type UpsertGuestName struct {
 }
 
 type UpsertGuestNameBuilder struct {
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 }
 
 func NewUpsertGuestNameBuilder() *UpsertGuestNameBuilder {
@@ -21565,13 +21569,13 @@ func NewUpsertGuestNameBuilder() *UpsertGuestNameBuilder {
 // 示例值：
 func (builder *UpsertGuestNameBuilder) Name(name *I18nText) *UpsertGuestNameBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *UpsertGuestNameBuilder) Build() *UpsertGuestName {
 	req := &UpsertGuestName{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
 	return req
@@ -21590,20 +21594,20 @@ type UpsertName struct {
 }
 
 type UpsertNameBuilder struct {
-	lastName     *I18nText // i18n文本
-	lastNameFlag bool
+	lastName    *I18nText // i18n文本
+	lastNameSet bool
 
-	firstName     *I18nText // i18n文本
-	firstNameFlag bool
+	firstName    *I18nText // i18n文本
+	firstNameSet bool
 
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	anotherName     string // 别名
-	anotherNameFlag bool
+	anotherName    string // 别名
+	anotherNameSet bool
 
-	legalName     string // 法定姓名
-	legalNameFlag bool
+	legalName    string // 法定姓名
+	legalNameSet bool
 }
 
 func NewUpsertNameBuilder() *UpsertNameBuilder {
@@ -21616,7 +21620,7 @@ func NewUpsertNameBuilder() *UpsertNameBuilder {
 // 示例值：
 func (builder *UpsertNameBuilder) LastName(lastName *I18nText) *UpsertNameBuilder {
 	builder.lastName = lastName
-	builder.lastNameFlag = true
+	builder.lastNameSet = true
 	return builder
 }
 
@@ -21625,7 +21629,7 @@ func (builder *UpsertNameBuilder) LastName(lastName *I18nText) *UpsertNameBuilde
 // 示例值：
 func (builder *UpsertNameBuilder) FirstName(firstName *I18nText) *UpsertNameBuilder {
 	builder.firstName = firstName
-	builder.firstNameFlag = true
+	builder.firstNameSet = true
 	return builder
 }
 
@@ -21634,7 +21638,7 @@ func (builder *UpsertNameBuilder) FirstName(firstName *I18nText) *UpsertNameBuil
 // 示例值：
 func (builder *UpsertNameBuilder) Name(name *I18nText) *UpsertNameBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -21643,7 +21647,7 @@ func (builder *UpsertNameBuilder) Name(name *I18nText) *UpsertNameBuilder {
 // 示例值：jack
 func (builder *UpsertNameBuilder) AnotherName(anotherName string) *UpsertNameBuilder {
 	builder.anotherName = anotherName
-	builder.anotherNameFlag = true
+	builder.anotherNameSet = true
 	return builder
 }
 
@@ -21652,26 +21656,26 @@ func (builder *UpsertNameBuilder) AnotherName(anotherName string) *UpsertNameBui
 // 示例值：tony
 func (builder *UpsertNameBuilder) LegalName(legalName string) *UpsertNameBuilder {
 	builder.legalName = legalName
-	builder.legalNameFlag = true
+	builder.legalNameSet = true
 	return builder
 }
 
 func (builder *UpsertNameBuilder) Build() *UpsertName {
 	req := &UpsertName{}
-	if builder.lastNameFlag {
+	if builder.lastNameSet {
 		req.LastName = builder.lastName
 	}
-	if builder.firstNameFlag {
+	if builder.firstNameSet {
 		req.FirstName = builder.firstName
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.anotherNameFlag {
+	if builder.anotherNameSet {
 		req.AnotherName = &builder.anotherName
 
 	}
-	if builder.legalNameFlag {
+	if builder.legalNameSet {
 		req.LegalName = &builder.legalName
 
 	}
@@ -21689,17 +21693,17 @@ type UpsertUserDepartmentSortInfo struct {
 }
 
 type UpsertUserDepartmentSortInfoBuilder struct {
-	departmentId     string // 部门id
-	departmentIdFlag bool
+	departmentId    string // 部门id
+	departmentIdSet bool
 
-	orderWeightInDeparment     string // 用户在部门内的排序权重
-	orderWeightInDeparmentFlag bool
+	orderWeightInDeparment    string // 用户在部门内的排序权重
+	orderWeightInDeparmentSet bool
 
-	orderWeightAmongDeparments     string // 用户多个部门间的排序权重
-	orderWeightAmongDeparmentsFlag bool
+	orderWeightAmongDeparments    string // 用户多个部门间的排序权重
+	orderWeightAmongDeparmentsSet bool
 
-	isMainDepartment     bool // 是否为用户的主部门（用户只能有一个主部门，且排序权重应最大，不填则默认使用排序第一的部门作为主部门)
-	isMainDepartmentFlag bool
+	isMainDepartment    bool // 是否为用户的主部门（用户只能有一个主部门，且排序权重应最大，不填则默认使用排序第一的部门作为主部门)
+	isMainDepartmentSet bool
 }
 
 func NewUpsertUserDepartmentSortInfoBuilder() *UpsertUserDepartmentSortInfoBuilder {
@@ -21712,7 +21716,7 @@ func NewUpsertUserDepartmentSortInfoBuilder() *UpsertUserDepartmentSortInfoBuild
 // 示例值：
 func (builder *UpsertUserDepartmentSortInfoBuilder) DepartmentId(departmentId string) *UpsertUserDepartmentSortInfoBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -21721,7 +21725,7 @@ func (builder *UpsertUserDepartmentSortInfoBuilder) DepartmentId(departmentId st
 // 示例值：100
 func (builder *UpsertUserDepartmentSortInfoBuilder) OrderWeightInDeparment(orderWeightInDeparment string) *UpsertUserDepartmentSortInfoBuilder {
 	builder.orderWeightInDeparment = orderWeightInDeparment
-	builder.orderWeightInDeparmentFlag = true
+	builder.orderWeightInDeparmentSet = true
 	return builder
 }
 
@@ -21730,7 +21734,7 @@ func (builder *UpsertUserDepartmentSortInfoBuilder) OrderWeightInDeparment(order
 // 示例值：20
 func (builder *UpsertUserDepartmentSortInfoBuilder) OrderWeightAmongDeparments(orderWeightAmongDeparments string) *UpsertUserDepartmentSortInfoBuilder {
 	builder.orderWeightAmongDeparments = orderWeightAmongDeparments
-	builder.orderWeightAmongDeparmentsFlag = true
+	builder.orderWeightAmongDeparmentsSet = true
 	return builder
 }
 
@@ -21739,25 +21743,25 @@ func (builder *UpsertUserDepartmentSortInfoBuilder) OrderWeightAmongDeparments(o
 // 示例值：
 func (builder *UpsertUserDepartmentSortInfoBuilder) IsMainDepartment(isMainDepartment bool) *UpsertUserDepartmentSortInfoBuilder {
 	builder.isMainDepartment = isMainDepartment
-	builder.isMainDepartmentFlag = true
+	builder.isMainDepartmentSet = true
 	return builder
 }
 
 func (builder *UpsertUserDepartmentSortInfoBuilder) Build() *UpsertUserDepartmentSortInfo {
 	req := &UpsertUserDepartmentSortInfo{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.orderWeightInDeparmentFlag {
+	if builder.orderWeightInDeparmentSet {
 		req.OrderWeightInDeparment = &builder.orderWeightInDeparment
 
 	}
-	if builder.orderWeightAmongDeparmentsFlag {
+	if builder.orderWeightAmongDeparmentsSet {
 		req.OrderWeightAmongDeparments = &builder.orderWeightAmongDeparments
 
 	}
-	if builder.isMainDepartmentFlag {
+	if builder.isMainDepartmentSet {
 		req.IsMainDepartment = &builder.isMainDepartment
 
 	}
@@ -21773,14 +21777,14 @@ type UpsertUserVirtualOrgInfo struct {
 }
 
 type UpsertUserVirtualOrgInfoBuilder struct {
-	id     string // 虚拟组织维度id
-	idFlag bool
+	id    string // 虚拟组织维度id
+	idSet bool
 
-	employeeOrderInDepartments     []*UpsertUserDepartmentSortInfo // 用户在部门内的排序信息， 第一个部门为主部门
-	employeeOrderInDepartmentsFlag bool
+	employeeOrderInDepartments    []*UpsertUserDepartmentSortInfo // 用户在部门内的排序信息， 第一个部门为主部门
+	employeeOrderInDepartmentsSet bool
 
-	leaders     []string // 虚拟上级
-	leadersFlag bool
+	leaders    []string // 虚拟上级
+	leadersSet bool
 }
 
 func NewUpsertUserVirtualOrgInfoBuilder() *UpsertUserVirtualOrgInfoBuilder {
@@ -21793,7 +21797,7 @@ func NewUpsertUserVirtualOrgInfoBuilder() *UpsertUserVirtualOrgInfoBuilder {
 // 示例值：3e3cf96b
 func (builder *UpsertUserVirtualOrgInfoBuilder) Id(id string) *UpsertUserVirtualOrgInfoBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -21802,7 +21806,7 @@ func (builder *UpsertUserVirtualOrgInfoBuilder) Id(id string) *UpsertUserVirtual
 // 示例值：
 func (builder *UpsertUserVirtualOrgInfoBuilder) EmployeeOrderInDepartments(employeeOrderInDepartments []*UpsertUserDepartmentSortInfo) *UpsertUserVirtualOrgInfoBuilder {
 	builder.employeeOrderInDepartments = employeeOrderInDepartments
-	builder.employeeOrderInDepartmentsFlag = true
+	builder.employeeOrderInDepartmentsSet = true
 	return builder
 }
 
@@ -21811,20 +21815,20 @@ func (builder *UpsertUserVirtualOrgInfoBuilder) EmployeeOrderInDepartments(emplo
 // 示例值：
 func (builder *UpsertUserVirtualOrgInfoBuilder) Leaders(leaders []string) *UpsertUserVirtualOrgInfoBuilder {
 	builder.leaders = leaders
-	builder.leadersFlag = true
+	builder.leadersSet = true
 	return builder
 }
 
 func (builder *UpsertUserVirtualOrgInfoBuilder) Build() *UpsertUserVirtualOrgInfo {
 	req := &UpsertUserVirtualOrgInfo{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.employeeOrderInDepartmentsFlag {
+	if builder.employeeOrderInDepartmentsSet {
 		req.EmployeeOrderInDepartments = builder.employeeOrderInDepartments
 	}
-	if builder.leadersFlag {
+	if builder.leadersSet {
 		req.Leaders = builder.leaders
 	}
 	return req
@@ -21839,14 +21843,14 @@ type UrlValue struct {
 }
 
 type UrlValueBuilder struct {
-	linkText     *I18nText // i18n文本
-	linkTextFlag bool
+	linkText    *I18nText // i18n文本
+	linkTextSet bool
 
-	url     string // 移动端网页链接
-	urlFlag bool
+	url    string // 移动端网页链接
+	urlSet bool
 
-	pcurl     string // 桌面端网页链接
-	pcurlFlag bool
+	pcurl    string // 桌面端网页链接
+	pcurlSet bool
 }
 
 func NewUrlValueBuilder() *UrlValueBuilder {
@@ -21859,7 +21863,7 @@ func NewUrlValueBuilder() *UrlValueBuilder {
 // 示例值：
 func (builder *UrlValueBuilder) LinkText(linkText *I18nText) *UrlValueBuilder {
 	builder.linkText = linkText
-	builder.linkTextFlag = true
+	builder.linkTextSet = true
 	return builder
 }
 
@@ -21868,7 +21872,7 @@ func (builder *UrlValueBuilder) LinkText(linkText *I18nText) *UrlValueBuilder {
 // 示例值：https://m.bytedance.com/afnasjfna
 func (builder *UrlValueBuilder) Url(url string) *UrlValueBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -21877,20 +21881,20 @@ func (builder *UrlValueBuilder) Url(url string) *UrlValueBuilder {
 // 示例值：http://www.fs.cn
 func (builder *UrlValueBuilder) Pcurl(pcurl string) *UrlValueBuilder {
 	builder.pcurl = pcurl
-	builder.pcurlFlag = true
+	builder.pcurlSet = true
 	return builder
 }
 
 func (builder *UrlValueBuilder) Build() *UrlValue {
 	req := &UrlValue{}
-	if builder.linkTextFlag {
+	if builder.linkTextSet {
 		req.LinkText = builder.linkText
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.pcurlFlag {
+	if builder.pcurlSet {
 		req.Pcurl = &builder.pcurl
 
 	}
@@ -21906,14 +21910,14 @@ type UserDepartmentSortInfo struct {
 }
 
 type UserDepartmentSortInfoBuilder struct {
-	departmentId     string // 部门id
-	departmentIdFlag bool
+	departmentId    string // 部门id
+	departmentIdSet bool
 
-	orderWeightInDeparment     string // 用户在部门内的排序权重
-	orderWeightInDeparmentFlag bool
+	orderWeightInDeparment    string // 用户在部门内的排序权重
+	orderWeightInDeparmentSet bool
 
-	orderWeightAmongDeparments     string // 用户多个部门间的排序权重
-	orderWeightAmongDeparmentsFlag bool
+	orderWeightAmongDeparments    string // 用户多个部门间的排序权重
+	orderWeightAmongDeparmentsSet bool
 }
 
 func NewUserDepartmentSortInfoBuilder() *UserDepartmentSortInfoBuilder {
@@ -21926,7 +21930,7 @@ func NewUserDepartmentSortInfoBuilder() *UserDepartmentSortInfoBuilder {
 // 示例值：h12921
 func (builder *UserDepartmentSortInfoBuilder) DepartmentId(departmentId string) *UserDepartmentSortInfoBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -21935,7 +21939,7 @@ func (builder *UserDepartmentSortInfoBuilder) DepartmentId(departmentId string) 
 // 示例值：100
 func (builder *UserDepartmentSortInfoBuilder) OrderWeightInDeparment(orderWeightInDeparment string) *UserDepartmentSortInfoBuilder {
 	builder.orderWeightInDeparment = orderWeightInDeparment
-	builder.orderWeightInDeparmentFlag = true
+	builder.orderWeightInDeparmentSet = true
 	return builder
 }
 
@@ -21944,21 +21948,21 @@ func (builder *UserDepartmentSortInfoBuilder) OrderWeightInDeparment(orderWeight
 // 示例值：100
 func (builder *UserDepartmentSortInfoBuilder) OrderWeightAmongDeparments(orderWeightAmongDeparments string) *UserDepartmentSortInfoBuilder {
 	builder.orderWeightAmongDeparments = orderWeightAmongDeparments
-	builder.orderWeightAmongDeparmentsFlag = true
+	builder.orderWeightAmongDeparmentsSet = true
 	return builder
 }
 
 func (builder *UserDepartmentSortInfoBuilder) Build() *UserDepartmentSortInfo {
 	req := &UserDepartmentSortInfo{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.orderWeightInDeparmentFlag {
+	if builder.orderWeightInDeparmentSet {
 		req.OrderWeightInDeparment = &builder.orderWeightInDeparment
 
 	}
-	if builder.orderWeightAmongDeparmentsFlag {
+	if builder.orderWeightAmongDeparmentsSet {
 		req.OrderWeightAmongDeparments = &builder.orderWeightAmongDeparments
 
 	}
@@ -22002,56 +22006,56 @@ type UserEntity struct {
 }
 
 type UserEntityBuilder struct {
-	id     string // 用户ID
-	idFlag bool
+	id    string // 用户ID
+	idSet bool
 
-	tenantId     string // 租户ID
-	tenantIdFlag bool
+	tenantId    string // 租户ID
+	tenantIdSet bool
 
-	userType     string // 匿名身份，雇员身份，设备身份，应用身份等
-	userTypeFlag bool
+	userType    string // 匿名身份，雇员身份，设备身份，应用身份等
+	userTypeSet bool
 
-	isActive     bool // 是否激活
-	isActiveFlag bool
+	isActive    bool // 是否激活
+	isActiveSet bool
 
-	isFrozen     bool // 是否冻结
-	isFrozenFlag bool
+	isFrozen    bool // 是否冻结
+	isFrozenSet bool
 
-	isProvisioned     bool // 是否可用
-	isProvisionedFlag bool
+	isProvisioned    bool // 是否可用
+	isProvisionedSet bool
 
-	isPending     bool // 是否暂停
-	isPendingFlag bool
+	isPending    bool // 是否暂停
+	isPendingSet bool
 
-	bizId     string // 关联的 id, 例如应用身份的 AppID, 硬件身份的EquipmentID
-	bizIdFlag bool
+	bizId    string // 关联的 id, 例如应用身份的 AppID, 硬件身份的EquipmentID
+	bizIdSet bool
 
-	lastLoginTime     string // 上次登录时间
-	lastLoginTimeFlag bool
+	lastLoginTime    string // 上次登录时间
+	lastLoginTimeSet bool
 
-	homeUserId     string // 作为shadow存在时，对应的home user id
-	homeUserIdFlag bool
+	homeUserId    string // 作为shadow存在时，对应的home user id
+	homeUserIdSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	credentials     []*Credential // 登陆凭证
-	credentialsFlag bool
+	credentials    []*Credential // 登陆凭证
+	credentialsSet bool
 
-	profileCard     *ProfileCard // 个人名片
-	profileCardFlag bool
+	profileCard    *ProfileCard // 个人名片
+	profileCardSet bool
 
-	employee     *EmployeeEntity // 员工实体
-	employeeFlag bool
+	employee    *EmployeeEntity // 员工实体
+	employeeSet bool
 
-	app     *App // 应用
-	appFlag bool
+	app    *App // 应用
+	appSet bool
 
-	guest     *Guest // 访客
-	guestFlag bool
+	guest    *Guest // 访客
+	guestSet bool
 }
 
 func NewUserEntityBuilder() *UserEntityBuilder {
@@ -22064,7 +22068,7 @@ func NewUserEntityBuilder() *UserEntityBuilder {
 // 示例值：123123
 func (builder *UserEntityBuilder) Id(id string) *UserEntityBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -22073,7 +22077,7 @@ func (builder *UserEntityBuilder) Id(id string) *UserEntityBuilder {
 // 示例值：123123
 func (builder *UserEntityBuilder) TenantId(tenantId string) *UserEntityBuilder {
 	builder.tenantId = tenantId
-	builder.tenantIdFlag = true
+	builder.tenantIdSet = true
 	return builder
 }
 
@@ -22082,7 +22086,7 @@ func (builder *UserEntityBuilder) TenantId(tenantId string) *UserEntityBuilder {
 // 示例值：
 func (builder *UserEntityBuilder) UserType(userType string) *UserEntityBuilder {
 	builder.userType = userType
-	builder.userTypeFlag = true
+	builder.userTypeSet = true
 	return builder
 }
 
@@ -22091,7 +22095,7 @@ func (builder *UserEntityBuilder) UserType(userType string) *UserEntityBuilder {
 // 示例值：
 func (builder *UserEntityBuilder) IsActive(isActive bool) *UserEntityBuilder {
 	builder.isActive = isActive
-	builder.isActiveFlag = true
+	builder.isActiveSet = true
 	return builder
 }
 
@@ -22100,7 +22104,7 @@ func (builder *UserEntityBuilder) IsActive(isActive bool) *UserEntityBuilder {
 // 示例值：
 func (builder *UserEntityBuilder) IsFrozen(isFrozen bool) *UserEntityBuilder {
 	builder.isFrozen = isFrozen
-	builder.isFrozenFlag = true
+	builder.isFrozenSet = true
 	return builder
 }
 
@@ -22109,7 +22113,7 @@ func (builder *UserEntityBuilder) IsFrozen(isFrozen bool) *UserEntityBuilder {
 // 示例值：
 func (builder *UserEntityBuilder) IsProvisioned(isProvisioned bool) *UserEntityBuilder {
 	builder.isProvisioned = isProvisioned
-	builder.isProvisionedFlag = true
+	builder.isProvisionedSet = true
 	return builder
 }
 
@@ -22118,7 +22122,7 @@ func (builder *UserEntityBuilder) IsProvisioned(isProvisioned bool) *UserEntityB
 // 示例值：
 func (builder *UserEntityBuilder) IsPending(isPending bool) *UserEntityBuilder {
 	builder.isPending = isPending
-	builder.isPendingFlag = true
+	builder.isPendingSet = true
 	return builder
 }
 
@@ -22127,7 +22131,7 @@ func (builder *UserEntityBuilder) IsPending(isPending bool) *UserEntityBuilder {
 // 示例值：1231231
 func (builder *UserEntityBuilder) BizId(bizId string) *UserEntityBuilder {
 	builder.bizId = bizId
-	builder.bizIdFlag = true
+	builder.bizIdSet = true
 	return builder
 }
 
@@ -22136,7 +22140,7 @@ func (builder *UserEntityBuilder) BizId(bizId string) *UserEntityBuilder {
 // 示例值：123123
 func (builder *UserEntityBuilder) LastLoginTime(lastLoginTime string) *UserEntityBuilder {
 	builder.lastLoginTime = lastLoginTime
-	builder.lastLoginTimeFlag = true
+	builder.lastLoginTimeSet = true
 	return builder
 }
 
@@ -22145,7 +22149,7 @@ func (builder *UserEntityBuilder) LastLoginTime(lastLoginTime string) *UserEntit
 // 示例值：123123
 func (builder *UserEntityBuilder) HomeUserId(homeUserId string) *UserEntityBuilder {
 	builder.homeUserId = homeUserId
-	builder.homeUserIdFlag = true
+	builder.homeUserIdSet = true
 	return builder
 }
 
@@ -22154,7 +22158,7 @@ func (builder *UserEntityBuilder) HomeUserId(homeUserId string) *UserEntityBuild
 // 示例值：123123
 func (builder *UserEntityBuilder) CreateTime(createTime string) *UserEntityBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -22163,7 +22167,7 @@ func (builder *UserEntityBuilder) CreateTime(createTime string) *UserEntityBuild
 // 示例值：123123
 func (builder *UserEntityBuilder) UpdateTime(updateTime string) *UserEntityBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -22172,7 +22176,7 @@ func (builder *UserEntityBuilder) UpdateTime(updateTime string) *UserEntityBuild
 // 示例值：
 func (builder *UserEntityBuilder) Credentials(credentials []*Credential) *UserEntityBuilder {
 	builder.credentials = credentials
-	builder.credentialsFlag = true
+	builder.credentialsSet = true
 	return builder
 }
 
@@ -22181,7 +22185,7 @@ func (builder *UserEntityBuilder) Credentials(credentials []*Credential) *UserEn
 // 示例值：
 func (builder *UserEntityBuilder) ProfileCard(profileCard *ProfileCard) *UserEntityBuilder {
 	builder.profileCard = profileCard
-	builder.profileCardFlag = true
+	builder.profileCardSet = true
 	return builder
 }
 
@@ -22190,7 +22194,7 @@ func (builder *UserEntityBuilder) ProfileCard(profileCard *ProfileCard) *UserEnt
 // 示例值：
 func (builder *UserEntityBuilder) Employee(employee *EmployeeEntity) *UserEntityBuilder {
 	builder.employee = employee
-	builder.employeeFlag = true
+	builder.employeeSet = true
 	return builder
 }
 
@@ -22199,7 +22203,7 @@ func (builder *UserEntityBuilder) Employee(employee *EmployeeEntity) *UserEntity
 // 示例值：
 func (builder *UserEntityBuilder) App(app *App) *UserEntityBuilder {
 	builder.app = app
-	builder.appFlag = true
+	builder.appSet = true
 	return builder
 }
 
@@ -22208,73 +22212,73 @@ func (builder *UserEntityBuilder) App(app *App) *UserEntityBuilder {
 // 示例值：
 func (builder *UserEntityBuilder) Guest(guest *Guest) *UserEntityBuilder {
 	builder.guest = guest
-	builder.guestFlag = true
+	builder.guestSet = true
 	return builder
 }
 
 func (builder *UserEntityBuilder) Build() *UserEntity {
 	req := &UserEntity{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tenantIdFlag {
+	if builder.tenantIdSet {
 		req.TenantId = &builder.tenantId
 
 	}
-	if builder.userTypeFlag {
+	if builder.userTypeSet {
 		req.UserType = &builder.userType
 
 	}
-	if builder.isActiveFlag {
+	if builder.isActiveSet {
 		req.IsActive = &builder.isActive
 
 	}
-	if builder.isFrozenFlag {
+	if builder.isFrozenSet {
 		req.IsFrozen = &builder.isFrozen
 
 	}
-	if builder.isProvisionedFlag {
+	if builder.isProvisionedSet {
 		req.IsProvisioned = &builder.isProvisioned
 
 	}
-	if builder.isPendingFlag {
+	if builder.isPendingSet {
 		req.IsPending = &builder.isPending
 
 	}
-	if builder.bizIdFlag {
+	if builder.bizIdSet {
 		req.BizId = &builder.bizId
 
 	}
-	if builder.lastLoginTimeFlag {
+	if builder.lastLoginTimeSet {
 		req.LastLoginTime = &builder.lastLoginTime
 
 	}
-	if builder.homeUserIdFlag {
+	if builder.homeUserIdSet {
 		req.HomeUserId = &builder.homeUserId
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.credentialsFlag {
+	if builder.credentialsSet {
 		req.Credentials = builder.credentials
 	}
-	if builder.profileCardFlag {
+	if builder.profileCardSet {
 		req.ProfileCard = builder.profileCard
 	}
-	if builder.employeeFlag {
+	if builder.employeeSet {
 		req.Employee = builder.employee
 	}
-	if builder.appFlag {
+	if builder.appSet {
 		req.App = builder.app
 	}
-	if builder.guestFlag {
+	if builder.guestSet {
 		req.Guest = builder.guest
 	}
 	return req
@@ -22289,14 +22293,14 @@ type UserFieldContent struct {
 }
 
 type UserFieldContentBuilder struct {
-	fieldContent     map[string]*FieldContentEntity // 字段内容
-	fieldContentFlag bool
+	fieldContent    map[string]*FieldContentEntity // 字段内容
+	fieldContentSet bool
 
-	visibleField     map[string]bool // 字段可见性，仅包含可见字段
-	visibleFieldFlag bool
+	visibleField    map[string]bool // 字段可见性，仅包含可见字段
+	visibleFieldSet bool
 
-	userFieldPosition     int // 应该从TenantView中选取的字段选取的字段 Position
-	userFieldPositionFlag bool
+	userFieldPosition    int // 应该从TenantView中选取的字段选取的字段 Position
+	userFieldPositionSet bool
 }
 
 func NewUserFieldContentBuilder() *UserFieldContentBuilder {
@@ -22309,7 +22313,7 @@ func NewUserFieldContentBuilder() *UserFieldContentBuilder {
 // 示例值：
 func (builder *UserFieldContentBuilder) FieldContent(fieldContent map[string]*FieldContentEntity) *UserFieldContentBuilder {
 	builder.fieldContent = fieldContent
-	builder.fieldContentFlag = true
+	builder.fieldContentSet = true
 	return builder
 }
 
@@ -22318,7 +22322,7 @@ func (builder *UserFieldContentBuilder) FieldContent(fieldContent map[string]*Fi
 // 示例值：
 func (builder *UserFieldContentBuilder) VisibleField(visibleField map[string]bool) *UserFieldContentBuilder {
 	builder.visibleField = visibleField
-	builder.visibleFieldFlag = true
+	builder.visibleFieldSet = true
 	return builder
 }
 
@@ -22327,19 +22331,19 @@ func (builder *UserFieldContentBuilder) VisibleField(visibleField map[string]boo
 // 示例值：
 func (builder *UserFieldContentBuilder) UserFieldPosition(userFieldPosition int) *UserFieldContentBuilder {
 	builder.userFieldPosition = userFieldPosition
-	builder.userFieldPositionFlag = true
+	builder.userFieldPositionSet = true
 	return builder
 }
 
 func (builder *UserFieldContentBuilder) Build() *UserFieldContent {
 	req := &UserFieldContent{}
-	if builder.fieldContentFlag {
+	if builder.fieldContentSet {
 		req.FieldContent = builder.fieldContent
 	}
-	if builder.visibleFieldFlag {
+	if builder.visibleFieldSet {
 		req.VisibleField = builder.visibleField
 	}
-	if builder.userFieldPositionFlag {
+	if builder.userFieldPositionSet {
 		req.UserFieldPosition = &builder.userFieldPosition
 
 	}
@@ -22355,14 +22359,14 @@ type UserFieldKeyContainer struct {
 }
 
 type UserFieldKeyContainerBuilder struct {
-	userFieldKey     string // 用户字段key
-	userFieldKeyFlag bool
+	userFieldKey    string // 用户字段key
+	userFieldKeySet bool
 
-	enabled     bool // 是否启用、允许
-	enabledFlag bool
+	enabled    bool // 是否启用、允许
+	enabledSet bool
 
-	fixed     bool // 是否不允许修改，true代表固定值不允许修改
-	fixedFlag bool
+	fixed    bool // 是否不允许修改，true代表固定值不允许修改
+	fixedSet bool
 }
 
 func NewUserFieldKeyContainerBuilder() *UserFieldKeyContainerBuilder {
@@ -22375,7 +22379,7 @@ func NewUserFieldKeyContainerBuilder() *UserFieldKeyContainerBuilder {
 // 示例值：
 func (builder *UserFieldKeyContainerBuilder) UserFieldKey(userFieldKey string) *UserFieldKeyContainerBuilder {
 	builder.userFieldKey = userFieldKey
-	builder.userFieldKeyFlag = true
+	builder.userFieldKeySet = true
 	return builder
 }
 
@@ -22384,7 +22388,7 @@ func (builder *UserFieldKeyContainerBuilder) UserFieldKey(userFieldKey string) *
 // 示例值：
 func (builder *UserFieldKeyContainerBuilder) Enabled(enabled bool) *UserFieldKeyContainerBuilder {
 	builder.enabled = enabled
-	builder.enabledFlag = true
+	builder.enabledSet = true
 	return builder
 }
 
@@ -22393,21 +22397,21 @@ func (builder *UserFieldKeyContainerBuilder) Enabled(enabled bool) *UserFieldKey
 // 示例值：
 func (builder *UserFieldKeyContainerBuilder) Fixed(fixed bool) *UserFieldKeyContainerBuilder {
 	builder.fixed = fixed
-	builder.fixedFlag = true
+	builder.fixedSet = true
 	return builder
 }
 
 func (builder *UserFieldKeyContainerBuilder) Build() *UserFieldKeyContainer {
 	req := &UserFieldKeyContainer{}
-	if builder.userFieldKeyFlag {
+	if builder.userFieldKeySet {
 		req.UserFieldKey = &builder.userFieldKey
 
 	}
-	if builder.enabledFlag {
+	if builder.enabledSet {
 		req.Enabled = &builder.enabled
 
 	}
-	if builder.fixedFlag {
+	if builder.fixedSet {
 		req.Fixed = &builder.fixed
 
 	}
@@ -22427,20 +22431,20 @@ type UserInfo struct {
 }
 
 type UserInfoBuilder struct {
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	mobile     string // 联系人手机
-	mobileFlag bool
+	mobile    string // 联系人手机
+	mobileSet bool
 
-	email     string // 联系人邮箱
-	emailFlag bool
+	email    string // 联系人邮箱
+	emailSet bool
 
-	firstName     *I18nText // i18n文本
-	firstNameFlag bool
+	firstName    *I18nText // i18n文本
+	firstNameSet bool
 
-	lastName     *I18nText // i18n文本
-	lastNameFlag bool
+	lastName    *I18nText // i18n文本
+	lastNameSet bool
 }
 
 func NewUserInfoBuilder() *UserInfoBuilder {
@@ -22453,7 +22457,7 @@ func NewUserInfoBuilder() *UserInfoBuilder {
 // 示例值：
 func (builder *UserInfoBuilder) Name(name *I18nText) *UserInfoBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -22462,7 +22466,7 @@ func (builder *UserInfoBuilder) Name(name *I18nText) *UserInfoBuilder {
 // 示例值：+86 12344445555
 func (builder *UserInfoBuilder) Mobile(mobile string) *UserInfoBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -22471,7 +22475,7 @@ func (builder *UserInfoBuilder) Mobile(mobile string) *UserInfoBuilder {
 // 示例值：admin@bytedance.com
 func (builder *UserInfoBuilder) Email(email string) *UserInfoBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -22480,7 +22484,7 @@ func (builder *UserInfoBuilder) Email(email string) *UserInfoBuilder {
 // 示例值：Albert
 func (builder *UserInfoBuilder) FirstName(firstName *I18nText) *UserInfoBuilder {
 	builder.firstName = firstName
-	builder.firstNameFlag = true
+	builder.firstNameSet = true
 	return builder
 }
 
@@ -22489,27 +22493,27 @@ func (builder *UserInfoBuilder) FirstName(firstName *I18nText) *UserInfoBuilder 
 // 示例值：Einstein
 func (builder *UserInfoBuilder) LastName(lastName *I18nText) *UserInfoBuilder {
 	builder.lastName = lastName
-	builder.lastNameFlag = true
+	builder.lastNameSet = true
 	return builder
 }
 
 func (builder *UserInfoBuilder) Build() *UserInfo {
 	req := &UserInfo{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.firstNameFlag {
+	if builder.firstNameSet {
 		req.FirstName = builder.firstName
 	}
-	if builder.lastNameFlag {
+	if builder.lastNameSet {
 		req.LastName = builder.lastName
 	}
 	return req
@@ -22522,11 +22526,11 @@ type UserValue struct {
 }
 
 type UserValueBuilder struct {
-	ids     []string // 人员ID
-	idsFlag bool
+	ids    []string // 人员ID
+	idsSet bool
 
-	userType     string // 人员类型
-	userTypeFlag bool
+	userType    string // 人员类型
+	userTypeSet bool
 }
 
 func NewUserValueBuilder() *UserValueBuilder {
@@ -22539,7 +22543,7 @@ func NewUserValueBuilder() *UserValueBuilder {
 // 示例值：
 func (builder *UserValueBuilder) Ids(ids []string) *UserValueBuilder {
 	builder.ids = ids
-	builder.idsFlag = true
+	builder.idsSet = true
 	return builder
 }
 
@@ -22548,16 +22552,16 @@ func (builder *UserValueBuilder) Ids(ids []string) *UserValueBuilder {
 // 示例值：1
 func (builder *UserValueBuilder) UserType(userType string) *UserValueBuilder {
 	builder.userType = userType
-	builder.userTypeFlag = true
+	builder.userTypeSet = true
 	return builder
 }
 
 func (builder *UserValueBuilder) Build() *UserValue {
 	req := &UserValue{}
-	if builder.idsFlag {
+	if builder.idsSet {
 		req.Ids = builder.ids
 	}
-	if builder.userTypeFlag {
+	if builder.userTypeSet {
 		req.UserType = &builder.userType
 
 	}
@@ -22577,20 +22581,20 @@ type UserVirtualOrgInfo struct {
 }
 
 type UserVirtualOrgInfoBuilder struct {
-	id     string // 虚拟组织维度id
-	idFlag bool
+	id    string // 虚拟组织维度id
+	idSet bool
 
-	departments     []*Department // 虚拟组织下的部门信息
-	departmentsFlag bool
+	departments    []*Department // 虚拟组织下的部门信息
+	departmentsSet bool
 
-	departmentPathBaseInfos     []*DepartmentBaseInfo // 员工部门全路径节点 map<直属部门ID, list<部门基本信息>>;本字段不含根部门信息，部门顺序为父部门->当前部门\n例如：三级部门为员工当前部门，三级部门的父部门是二级部门，二级部门父部门是一级部门，一级部门的父部门是根部门\n返回 {3,[DepartmentBaseInfo{1,一级部门},DepartmentBaseInfo{2,二级部门}, DepartmentBaseInfo{3,三级部门}]}
-	departmentPathBaseInfosFlag bool
+	departmentPathBaseInfos    []*DepartmentBaseInfo // 员工部门全路径节点 map<直属部门ID, list<部门基本信息>>;本字段不含根部门信息，部门顺序为父部门->当前部门\n例如：三级部门为员工当前部门，三级部门的父部门是二级部门，二级部门父部门是一级部门，一级部门的父部门是根部门\n返回 {3,[DepartmentBaseInfo{1,一级部门},DepartmentBaseInfo{2,二级部门}, DepartmentBaseInfo{3,三级部门}]}
+	departmentPathBaseInfosSet bool
 
-	employeeOrderInDepartments     []*UserDepartmentSortInfo // 用户在部门内的排序信息， 第一个部门为主部门
-	employeeOrderInDepartmentsFlag bool
+	employeeOrderInDepartments    []*UserDepartmentSortInfo // 用户在部门内的排序信息， 第一个部门为主部门
+	employeeOrderInDepartmentsSet bool
 
-	leaders     []string // 虚拟上级
-	leadersFlag bool
+	leaders    []string // 虚拟上级
+	leadersSet bool
 }
 
 func NewUserVirtualOrgInfoBuilder() *UserVirtualOrgInfoBuilder {
@@ -22603,7 +22607,7 @@ func NewUserVirtualOrgInfoBuilder() *UserVirtualOrgInfoBuilder {
 // 示例值：02c7141
 func (builder *UserVirtualOrgInfoBuilder) Id(id string) *UserVirtualOrgInfoBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -22612,7 +22616,7 @@ func (builder *UserVirtualOrgInfoBuilder) Id(id string) *UserVirtualOrgInfoBuild
 // 示例值：
 func (builder *UserVirtualOrgInfoBuilder) Departments(departments []*Department) *UserVirtualOrgInfoBuilder {
 	builder.departments = departments
-	builder.departmentsFlag = true
+	builder.departmentsSet = true
 	return builder
 }
 
@@ -22621,7 +22625,7 @@ func (builder *UserVirtualOrgInfoBuilder) Departments(departments []*Department)
 // 示例值：
 func (builder *UserVirtualOrgInfoBuilder) DepartmentPathBaseInfos(departmentPathBaseInfos []*DepartmentBaseInfo) *UserVirtualOrgInfoBuilder {
 	builder.departmentPathBaseInfos = departmentPathBaseInfos
-	builder.departmentPathBaseInfosFlag = true
+	builder.departmentPathBaseInfosSet = true
 	return builder
 }
 
@@ -22630,7 +22634,7 @@ func (builder *UserVirtualOrgInfoBuilder) DepartmentPathBaseInfos(departmentPath
 // 示例值：
 func (builder *UserVirtualOrgInfoBuilder) EmployeeOrderInDepartments(employeeOrderInDepartments []*UserDepartmentSortInfo) *UserVirtualOrgInfoBuilder {
 	builder.employeeOrderInDepartments = employeeOrderInDepartments
-	builder.employeeOrderInDepartmentsFlag = true
+	builder.employeeOrderInDepartmentsSet = true
 	return builder
 }
 
@@ -22639,26 +22643,26 @@ func (builder *UserVirtualOrgInfoBuilder) EmployeeOrderInDepartments(employeeOrd
 // 示例值：
 func (builder *UserVirtualOrgInfoBuilder) Leaders(leaders []string) *UserVirtualOrgInfoBuilder {
 	builder.leaders = leaders
-	builder.leadersFlag = true
+	builder.leadersSet = true
 	return builder
 }
 
 func (builder *UserVirtualOrgInfoBuilder) Build() *UserVirtualOrgInfo {
 	req := &UserVirtualOrgInfo{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.departmentsFlag {
+	if builder.departmentsSet {
 		req.Departments = builder.departments
 	}
-	if builder.departmentPathBaseInfosFlag {
+	if builder.departmentPathBaseInfosSet {
 		req.DepartmentPathBaseInfos = builder.departmentPathBaseInfos
 	}
-	if builder.employeeOrderInDepartmentsFlag {
+	if builder.employeeOrderInDepartmentsSet {
 		req.EmployeeOrderInDepartments = builder.employeeOrderInDepartments
 	}
-	if builder.leadersFlag {
+	if builder.leadersSet {
 		req.Leaders = builder.leaders
 	}
 	return req
@@ -22679,23 +22683,23 @@ type VisibleAssistRule struct {
 }
 
 type VisibleAssistRuleBuilder struct {
-	id     string // 规则ID
-	idFlag bool
+	id    string // 规则ID
+	idSet bool
 
-	assistRuleType     int // 规则集类型
-	assistRuleTypeFlag bool
+	assistRuleType    int // 规则集类型
+	assistRuleTypeSet bool
 
-	subjects     []*EntityInfo // 规则主体
-	subjectsFlag bool
+	subjects    []*EntityInfo // 规则主体
+	subjectsSet bool
 
-	objects     []*EntityInfo // 规则客体，类型只能为部门、用户、单位。不能为用户组
-	objectsFlag bool
+	objects    []*EntityInfo // 规则客体，类型只能为部门、用户、单位。不能为用户组
+	objectsSet bool
 
-	effect     int // 权限操作
-	effectFlag bool
+	effect    int // 权限操作
+	effectSet bool
 
-	matchCondition     int // 匹配条件
-	matchConditionFlag bool
+	matchCondition    int // 匹配条件
+	matchConditionSet bool
 }
 
 func NewVisibleAssistRuleBuilder() *VisibleAssistRuleBuilder {
@@ -22708,7 +22712,7 @@ func NewVisibleAssistRuleBuilder() *VisibleAssistRuleBuilder {
 // 示例值："7259644494420885523"
 func (builder *VisibleAssistRuleBuilder) Id(id string) *VisibleAssistRuleBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -22717,7 +22721,7 @@ func (builder *VisibleAssistRuleBuilder) Id(id string) *VisibleAssistRuleBuilder
 // 示例值：1
 func (builder *VisibleAssistRuleBuilder) AssistRuleType(assistRuleType int) *VisibleAssistRuleBuilder {
 	builder.assistRuleType = assistRuleType
-	builder.assistRuleTypeFlag = true
+	builder.assistRuleTypeSet = true
 	return builder
 }
 
@@ -22726,7 +22730,7 @@ func (builder *VisibleAssistRuleBuilder) AssistRuleType(assistRuleType int) *Vis
 // 示例值：
 func (builder *VisibleAssistRuleBuilder) Subjects(subjects []*EntityInfo) *VisibleAssistRuleBuilder {
 	builder.subjects = subjects
-	builder.subjectsFlag = true
+	builder.subjectsSet = true
 	return builder
 }
 
@@ -22735,7 +22739,7 @@ func (builder *VisibleAssistRuleBuilder) Subjects(subjects []*EntityInfo) *Visib
 // 示例值：
 func (builder *VisibleAssistRuleBuilder) Objects(objects []*EntityInfo) *VisibleAssistRuleBuilder {
 	builder.objects = objects
-	builder.objectsFlag = true
+	builder.objectsSet = true
 	return builder
 }
 
@@ -22744,7 +22748,7 @@ func (builder *VisibleAssistRuleBuilder) Objects(objects []*EntityInfo) *Visible
 // 示例值：1
 func (builder *VisibleAssistRuleBuilder) Effect(effect int) *VisibleAssistRuleBuilder {
 	builder.effect = effect
-	builder.effectFlag = true
+	builder.effectSet = true
 	return builder
 }
 
@@ -22753,31 +22757,31 @@ func (builder *VisibleAssistRuleBuilder) Effect(effect int) *VisibleAssistRuleBu
 // 示例值：
 func (builder *VisibleAssistRuleBuilder) MatchCondition(matchCondition int) *VisibleAssistRuleBuilder {
 	builder.matchCondition = matchCondition
-	builder.matchConditionFlag = true
+	builder.matchConditionSet = true
 	return builder
 }
 
 func (builder *VisibleAssistRuleBuilder) Build() *VisibleAssistRule {
 	req := &VisibleAssistRule{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.assistRuleTypeFlag {
+	if builder.assistRuleTypeSet {
 		req.AssistRuleType = &builder.assistRuleType
 
 	}
-	if builder.subjectsFlag {
+	if builder.subjectsSet {
 		req.Subjects = builder.subjects
 	}
-	if builder.objectsFlag {
+	if builder.objectsSet {
 		req.Objects = builder.objects
 	}
-	if builder.effectFlag {
+	if builder.effectSet {
 		req.Effect = &builder.effect
 
 	}
-	if builder.matchConditionFlag {
+	if builder.matchConditionSet {
 		req.MatchCondition = &builder.matchCondition
 
 	}
@@ -22795,17 +22799,17 @@ type VisibleMainRule struct {
 }
 
 type VisibleMainRuleBuilder struct {
-	mainRuleType     int // 主规则类型
-	mainRuleTypeFlag bool
+	mainRuleType    int // 主规则类型
+	mainRuleTypeSet bool
 
-	unitType     string // 单位类型
-	unitTypeFlag bool
+	unitType    string // 单位类型
+	unitTypeSet bool
 
-	deptLeaderVisibleTheDept     bool // 部门负责人可见自己负责的部门。仅在主规则类型为【成员不可见任何人】时可更改
-	deptLeaderVisibleTheDeptFlag bool
+	deptLeaderVisibleTheDept    bool // 部门负责人可见自己负责的部门。仅在主规则类型为【成员不可见任何人】时可更改
+	deptLeaderVisibleTheDeptSet bool
 
-	subDeptsVisible     bool // 是否可见子部门。只有在主规则类型为「成员可见本部门」时有效
-	subDeptsVisibleFlag bool
+	subDeptsVisible    bool // 是否可见子部门。只有在主规则类型为「成员可见本部门」时有效
+	subDeptsVisibleSet bool
 }
 
 func NewVisibleMainRuleBuilder() *VisibleMainRuleBuilder {
@@ -22818,7 +22822,7 @@ func NewVisibleMainRuleBuilder() *VisibleMainRuleBuilder {
 // 示例值：1
 func (builder *VisibleMainRuleBuilder) MainRuleType(mainRuleType int) *VisibleMainRuleBuilder {
 	builder.mainRuleType = mainRuleType
-	builder.mainRuleTypeFlag = true
+	builder.mainRuleTypeSet = true
 	return builder
 }
 
@@ -22827,7 +22831,7 @@ func (builder *VisibleMainRuleBuilder) MainRuleType(mainRuleType int) *VisibleMa
 // 示例值：test
 func (builder *VisibleMainRuleBuilder) UnitType(unitType string) *VisibleMainRuleBuilder {
 	builder.unitType = unitType
-	builder.unitTypeFlag = true
+	builder.unitTypeSet = true
 	return builder
 }
 
@@ -22836,7 +22840,7 @@ func (builder *VisibleMainRuleBuilder) UnitType(unitType string) *VisibleMainRul
 // 示例值：true
 func (builder *VisibleMainRuleBuilder) DeptLeaderVisibleTheDept(deptLeaderVisibleTheDept bool) *VisibleMainRuleBuilder {
 	builder.deptLeaderVisibleTheDept = deptLeaderVisibleTheDept
-	builder.deptLeaderVisibleTheDeptFlag = true
+	builder.deptLeaderVisibleTheDeptSet = true
 	return builder
 }
 
@@ -22845,25 +22849,25 @@ func (builder *VisibleMainRuleBuilder) DeptLeaderVisibleTheDept(deptLeaderVisibl
 // 示例值：true
 func (builder *VisibleMainRuleBuilder) SubDeptsVisible(subDeptsVisible bool) *VisibleMainRuleBuilder {
 	builder.subDeptsVisible = subDeptsVisible
-	builder.subDeptsVisibleFlag = true
+	builder.subDeptsVisibleSet = true
 	return builder
 }
 
 func (builder *VisibleMainRuleBuilder) Build() *VisibleMainRule {
 	req := &VisibleMainRule{}
-	if builder.mainRuleTypeFlag {
+	if builder.mainRuleTypeSet {
 		req.MainRuleType = &builder.mainRuleType
 
 	}
-	if builder.unitTypeFlag {
+	if builder.unitTypeSet {
 		req.UnitType = &builder.unitType
 
 	}
-	if builder.deptLeaderVisibleTheDeptFlag {
+	if builder.deptLeaderVisibleTheDeptSet {
 		req.DeptLeaderVisibleTheDept = &builder.deptLeaderVisibleTheDept
 
 	}
-	if builder.subDeptsVisibleFlag {
+	if builder.subDeptsVisibleSet {
 		req.SubDeptsVisible = &builder.subDeptsVisible
 
 	}
@@ -22887,26 +22891,26 @@ type WorkExperience struct {
 }
 
 type WorkExperienceBuilder struct {
-	id     string // ID
-	idFlag bool
+	id    string // ID
+	idSet bool
 
-	companyOrganization     string // 公司/组织
-	companyOrganizationFlag bool
+	companyOrganization    string // 公司/组织
+	companyOrganizationSet bool
 
-	department     string // 部门
-	departmentFlag bool
+	department    string // 部门
+	departmentSet bool
 
-	job     string // 岗位
-	jobFlag bool
+	job    string // 岗位
+	jobSet bool
 
-	startDate     string // 开始日期
-	startDateFlag bool
+	startDate    string // 开始日期
+	startDateSet bool
 
-	endDate     string // 结束日期
-	endDateFlag bool
+	endDate    string // 结束日期
+	endDateSet bool
 
-	description     string // 工作描述
-	descriptionFlag bool
+	description    string // 工作描述
+	descriptionSet bool
 }
 
 func NewWorkExperienceBuilder() *WorkExperienceBuilder {
@@ -22919,7 +22923,7 @@ func NewWorkExperienceBuilder() *WorkExperienceBuilder {
 // 示例值：7202465324939067391
 func (builder *WorkExperienceBuilder) Id(id string) *WorkExperienceBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -22928,7 +22932,7 @@ func (builder *WorkExperienceBuilder) Id(id string) *WorkExperienceBuilder {
 // 示例值：暂无
 func (builder *WorkExperienceBuilder) CompanyOrganization(companyOrganization string) *WorkExperienceBuilder {
 	builder.companyOrganization = companyOrganization
-	builder.companyOrganizationFlag = true
+	builder.companyOrganizationSet = true
 	return builder
 }
 
@@ -22937,7 +22941,7 @@ func (builder *WorkExperienceBuilder) CompanyOrganization(companyOrganization st
 // 示例值：开发部
 func (builder *WorkExperienceBuilder) Department(department string) *WorkExperienceBuilder {
 	builder.department = department
-	builder.departmentFlag = true
+	builder.departmentSet = true
 	return builder
 }
 
@@ -22946,7 +22950,7 @@ func (builder *WorkExperienceBuilder) Department(department string) *WorkExperie
 // 示例值：测试工程师
 func (builder *WorkExperienceBuilder) Job(job string) *WorkExperienceBuilder {
 	builder.job = job
-	builder.jobFlag = true
+	builder.jobSet = true
 	return builder
 }
 
@@ -22955,7 +22959,7 @@ func (builder *WorkExperienceBuilder) Job(job string) *WorkExperienceBuilder {
 // 示例值：2007-07-20
 func (builder *WorkExperienceBuilder) StartDate(startDate string) *WorkExperienceBuilder {
 	builder.startDate = startDate
-	builder.startDateFlag = true
+	builder.startDateSet = true
 	return builder
 }
 
@@ -22964,7 +22968,7 @@ func (builder *WorkExperienceBuilder) StartDate(startDate string) *WorkExperienc
 // 示例值：2007-07-20
 func (builder *WorkExperienceBuilder) EndDate(endDate string) *WorkExperienceBuilder {
 	builder.endDate = endDate
-	builder.endDateFlag = true
+	builder.endDateSet = true
 	return builder
 }
 
@@ -22973,37 +22977,37 @@ func (builder *WorkExperienceBuilder) EndDate(endDate string) *WorkExperienceBui
 // 示例值：暂无
 func (builder *WorkExperienceBuilder) Description(description string) *WorkExperienceBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
 func (builder *WorkExperienceBuilder) Build() *WorkExperience {
 	req := &WorkExperience{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.companyOrganizationFlag {
+	if builder.companyOrganizationSet {
 		req.CompanyOrganization = &builder.companyOrganization
 
 	}
-	if builder.departmentFlag {
+	if builder.departmentSet {
 		req.Department = &builder.department
 
 	}
-	if builder.jobFlag {
+	if builder.jobSet {
 		req.Job = &builder.job
 
 	}
-	if builder.startDateFlag {
+	if builder.startDateSet {
 		req.StartDate = &builder.startDate
 
 	}
-	if builder.endDateFlag {
+	if builder.endDateSet {
 		req.EndDate = &builder.endDate
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
@@ -23021,17 +23025,17 @@ type WorkStatus struct {
 }
 
 type WorkStatusBuilder struct {
-	status     string // 工作状态
-	statusFlag bool
+	status    string // 工作状态
+	statusSet bool
 
-	descriptionTemplates     map[string]string // 工作状态描述 "zh_cn"->"休假中"
-	descriptionTemplatesFlag bool
+	descriptionTemplates    map[string]string // 工作状态描述 "zh_cn"->"休假中"
+	descriptionTemplatesSet bool
 
-	startTime     string // 开始时间, 单位 秒
-	startTimeFlag bool
+	startTime    string // 开始时间, 单位 秒
+	startTimeSet bool
 
-	endTime     string // 结束时间, 单位 秒
-	endTimeFlag bool
+	endTime    string // 结束时间, 单位 秒
+	endTimeSet bool
 }
 
 func NewWorkStatusBuilder() *WorkStatusBuilder {
@@ -23044,7 +23048,7 @@ func NewWorkStatusBuilder() *WorkStatusBuilder {
 // 示例值：无
 func (builder *WorkStatusBuilder) Status(status string) *WorkStatusBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -23053,7 +23057,7 @@ func (builder *WorkStatusBuilder) Status(status string) *WorkStatusBuilder {
 // 示例值：无
 func (builder *WorkStatusBuilder) DescriptionTemplates(descriptionTemplates map[string]string) *WorkStatusBuilder {
 	builder.descriptionTemplates = descriptionTemplates
-	builder.descriptionTemplatesFlag = true
+	builder.descriptionTemplatesSet = true
 	return builder
 }
 
@@ -23062,7 +23066,7 @@ func (builder *WorkStatusBuilder) DescriptionTemplates(descriptionTemplates map[
 // 示例值：无
 func (builder *WorkStatusBuilder) StartTime(startTime string) *WorkStatusBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -23071,24 +23075,24 @@ func (builder *WorkStatusBuilder) StartTime(startTime string) *WorkStatusBuilder
 // 示例值：无
 func (builder *WorkStatusBuilder) EndTime(endTime string) *WorkStatusBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
 func (builder *WorkStatusBuilder) Build() *WorkStatus {
 	req := &WorkStatus{}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.descriptionTemplatesFlag {
+	if builder.descriptionTemplatesSet {
 		req.DescriptionTemplates = builder.descriptionTemplates
 	}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
@@ -23102,11 +23106,11 @@ type WuKongEnum struct {
 }
 
 type WuKongEnumBuilder struct {
-	name     *I18nText // i18n文本
-	nameFlag bool
+	name    *I18nText // i18n文本
+	nameSet bool
 
-	apiName     string // 枚举名
-	apiNameFlag bool
+	apiName    string // 枚举名
+	apiNameSet bool
 }
 
 func NewWuKongEnumBuilder() *WuKongEnumBuilder {
@@ -23119,7 +23123,7 @@ func NewWuKongEnumBuilder() *WuKongEnumBuilder {
 // 示例值：
 func (builder *WuKongEnumBuilder) Name(name *I18nText) *WuKongEnumBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -23128,16 +23132,16 @@ func (builder *WuKongEnumBuilder) Name(name *I18nText) *WuKongEnumBuilder {
 // 示例值：Job
 func (builder *WuKongEnumBuilder) ApiName(apiName string) *WuKongEnumBuilder {
 	builder.apiName = apiName
-	builder.apiNameFlag = true
+	builder.apiNameSet = true
 	return builder
 }
 
 func (builder *WuKongEnumBuilder) Build() *WuKongEnum {
 	req := &WuKongEnum{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.apiNameFlag {
+	if builder.apiNameSet {
 		req.ApiName = &builder.apiName
 
 	}
@@ -23145,11 +23149,11 @@ func (builder *WuKongEnumBuilder) Build() *WuKongEnum {
 }
 
 type CreateCollaborationRuleReqBodyBuilder struct {
-	subjects     *CollaborationRuleEntities // 实体数量之和需要小于100
-	subjectsFlag bool
+	subjects    *CollaborationRuleEntities // 实体数量之和需要小于100
+	subjectsSet bool
 
-	objects     *CollaborationRuleEntities // 实体数量之和需要小于100
-	objectsFlag bool
+	objects    *CollaborationRuleEntities // 实体数量之和需要小于100
+	objectsSet bool
 }
 
 func NewCreateCollaborationRuleReqBodyBuilder() *CreateCollaborationRuleReqBodyBuilder {
@@ -23159,38 +23163,38 @@ func NewCreateCollaborationRuleReqBodyBuilder() *CreateCollaborationRuleReqBodyB
 
 // 实体数量之和需要小于100
 //
-// 示例值：
+//示例值：
 func (builder *CreateCollaborationRuleReqBodyBuilder) Subjects(subjects *CollaborationRuleEntities) *CreateCollaborationRuleReqBodyBuilder {
 	builder.subjects = subjects
-	builder.subjectsFlag = true
+	builder.subjectsSet = true
 	return builder
 }
 
 // 实体数量之和需要小于100
 //
-// 示例值：
+//示例值：
 func (builder *CreateCollaborationRuleReqBodyBuilder) Objects(objects *CollaborationRuleEntities) *CreateCollaborationRuleReqBodyBuilder {
 	builder.objects = objects
-	builder.objectsFlag = true
+	builder.objectsSet = true
 	return builder
 }
 
 func (builder *CreateCollaborationRuleReqBodyBuilder) Build() *CreateCollaborationRuleReqBody {
 	req := &CreateCollaborationRuleReqBody{}
-	if builder.subjectsFlag {
+	if builder.subjectsSet {
 		req.Subjects = builder.subjects
 	}
-	if builder.objectsFlag {
+	if builder.objectsSet {
 		req.Objects = builder.objects
 	}
 	return req
 }
 
 type CreateCollaborationRulePathReqBodyBuilder struct {
-	subjects     *CollaborationRuleEntities
-	subjectsFlag bool
-	objects      *CollaborationRuleEntities
-	objectsFlag  bool
+	subjects    *CollaborationRuleEntities
+	subjectsSet bool
+	objects     *CollaborationRuleEntities
+	objectsSet  bool
 }
 
 func NewCreateCollaborationRulePathReqBodyBuilder() *CreateCollaborationRulePathReqBodyBuilder {
@@ -23203,7 +23207,7 @@ func NewCreateCollaborationRulePathReqBodyBuilder() *CreateCollaborationRulePath
 // 示例值：
 func (builder *CreateCollaborationRulePathReqBodyBuilder) Subjects(subjects *CollaborationRuleEntities) *CreateCollaborationRulePathReqBodyBuilder {
 	builder.subjects = subjects
-	builder.subjectsFlag = true
+	builder.subjectsSet = true
 	return builder
 }
 
@@ -23212,16 +23216,16 @@ func (builder *CreateCollaborationRulePathReqBodyBuilder) Subjects(subjects *Col
 // 示例值：
 func (builder *CreateCollaborationRulePathReqBodyBuilder) Objects(objects *CollaborationRuleEntities) *CreateCollaborationRulePathReqBodyBuilder {
 	builder.objects = objects
-	builder.objectsFlag = true
+	builder.objectsSet = true
 	return builder
 }
 
 func (builder *CreateCollaborationRulePathReqBodyBuilder) Build() (*CreateCollaborationRuleReqBody, error) {
 	req := &CreateCollaborationRuleReqBody{}
-	if builder.subjectsFlag {
+	if builder.subjectsSet {
 		req.Subjects = builder.subjects
 	}
-	if builder.objectsFlag {
+	if builder.objectsSet {
 		req.Objects = builder.objects
 	}
 	return req, nil
@@ -23439,11 +23443,11 @@ func (resp *ListCollaborationRuleResp) Success() bool {
 }
 
 type UpdateCollaborationRuleReqBodyBuilder struct {
-	subjects     *CollaborationRuleEntities // 实体数量之和需要小于100
-	subjectsFlag bool
+	subjects    *CollaborationRuleEntities // 实体数量之和需要小于100
+	subjectsSet bool
 
-	objects     *CollaborationRuleEntities // 实体数量之和需要小于100
-	objectsFlag bool
+	objects    *CollaborationRuleEntities // 实体数量之和需要小于100
+	objectsSet bool
 }
 
 func NewUpdateCollaborationRuleReqBodyBuilder() *UpdateCollaborationRuleReqBodyBuilder {
@@ -23453,38 +23457,38 @@ func NewUpdateCollaborationRuleReqBodyBuilder() *UpdateCollaborationRuleReqBodyB
 
 // 实体数量之和需要小于100
 //
-// 示例值：
+//示例值：
 func (builder *UpdateCollaborationRuleReqBodyBuilder) Subjects(subjects *CollaborationRuleEntities) *UpdateCollaborationRuleReqBodyBuilder {
 	builder.subjects = subjects
-	builder.subjectsFlag = true
+	builder.subjectsSet = true
 	return builder
 }
 
 // 实体数量之和需要小于100
 //
-// 示例值：
+//示例值：
 func (builder *UpdateCollaborationRuleReqBodyBuilder) Objects(objects *CollaborationRuleEntities) *UpdateCollaborationRuleReqBodyBuilder {
 	builder.objects = objects
-	builder.objectsFlag = true
+	builder.objectsSet = true
 	return builder
 }
 
 func (builder *UpdateCollaborationRuleReqBodyBuilder) Build() *UpdateCollaborationRuleReqBody {
 	req := &UpdateCollaborationRuleReqBody{}
-	if builder.subjectsFlag {
+	if builder.subjectsSet {
 		req.Subjects = builder.subjects
 	}
-	if builder.objectsFlag {
+	if builder.objectsSet {
 		req.Objects = builder.objects
 	}
 	return req
 }
 
 type UpdateCollaborationRulePathReqBodyBuilder struct {
-	subjects     *CollaborationRuleEntities
-	subjectsFlag bool
-	objects      *CollaborationRuleEntities
-	objectsFlag  bool
+	subjects    *CollaborationRuleEntities
+	subjectsSet bool
+	objects     *CollaborationRuleEntities
+	objectsSet  bool
 }
 
 func NewUpdateCollaborationRulePathReqBodyBuilder() *UpdateCollaborationRulePathReqBodyBuilder {
@@ -23497,7 +23501,7 @@ func NewUpdateCollaborationRulePathReqBodyBuilder() *UpdateCollaborationRulePath
 // 示例值：
 func (builder *UpdateCollaborationRulePathReqBodyBuilder) Subjects(subjects *CollaborationRuleEntities) *UpdateCollaborationRulePathReqBodyBuilder {
 	builder.subjects = subjects
-	builder.subjectsFlag = true
+	builder.subjectsSet = true
 	return builder
 }
 
@@ -23506,16 +23510,16 @@ func (builder *UpdateCollaborationRulePathReqBodyBuilder) Subjects(subjects *Col
 // 示例值：
 func (builder *UpdateCollaborationRulePathReqBodyBuilder) Objects(objects *CollaborationRuleEntities) *UpdateCollaborationRulePathReqBodyBuilder {
 	builder.objects = objects
-	builder.objectsFlag = true
+	builder.objectsSet = true
 	return builder
 }
 
 func (builder *UpdateCollaborationRulePathReqBodyBuilder) Build() (*UpdateCollaborationRuleReqBody, error) {
 	req := &UpdateCollaborationRuleReqBody{}
-	if builder.subjectsFlag {
+	if builder.subjectsSet {
 		req.Subjects = builder.subjects
 	}
-	if builder.objectsFlag {
+	if builder.objectsSet {
 		req.Objects = builder.objects
 	}
 	return req, nil
@@ -23773,8 +23777,8 @@ func (resp *ListCollborationShareEntityResp) Success() bool {
 }
 
 type CreateDepartmentReqBodyBuilder struct {
-	department     *CreateDepartment // 创建部门
-	departmentFlag bool
+	department    *CreateDepartment // 创建部门
+	departmentSet bool
 }
 
 func NewCreateDepartmentReqBodyBuilder() *CreateDepartmentReqBodyBuilder {
@@ -23784,24 +23788,24 @@ func NewCreateDepartmentReqBodyBuilder() *CreateDepartmentReqBodyBuilder {
 
 // 创建部门
 //
-// 示例值：
+//示例值：
 func (builder *CreateDepartmentReqBodyBuilder) Department(department *CreateDepartment) *CreateDepartmentReqBodyBuilder {
 	builder.department = department
-	builder.departmentFlag = true
+	builder.departmentSet = true
 	return builder
 }
 
 func (builder *CreateDepartmentReqBodyBuilder) Build() *CreateDepartmentReqBody {
 	req := &CreateDepartmentReqBody{}
-	if builder.departmentFlag {
+	if builder.departmentSet {
 		req.Department = builder.department
 	}
 	return req
 }
 
 type CreateDepartmentPathReqBodyBuilder struct {
-	department     *CreateDepartment
-	departmentFlag bool
+	department    *CreateDepartment
+	departmentSet bool
 }
 
 func NewCreateDepartmentPathReqBodyBuilder() *CreateDepartmentPathReqBodyBuilder {
@@ -23814,13 +23818,13 @@ func NewCreateDepartmentPathReqBodyBuilder() *CreateDepartmentPathReqBodyBuilder
 // 示例值：
 func (builder *CreateDepartmentPathReqBodyBuilder) Department(department *CreateDepartment) *CreateDepartmentPathReqBodyBuilder {
 	builder.department = department
-	builder.departmentFlag = true
+	builder.departmentSet = true
 	return builder
 }
 
 func (builder *CreateDepartmentPathReqBodyBuilder) Build() (*CreateDepartmentReqBody, error) {
 	req := &CreateDepartmentReqBody{}
-	if builder.departmentFlag {
+	if builder.departmentSet {
 		req.Department = builder.department
 	}
 	return req, nil
@@ -23976,14 +23980,14 @@ func (resp *DeleteDepartmentResp) Success() bool {
 }
 
 type FilterDepartmentReqBodyBuilder struct {
-	filter     *MultiFilterCondition // 查询条件
-	filterFlag bool
+	filter    *MultiFilterCondition // 查询条件
+	filterSet bool
 
-	requiredFields     []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
-	requiredFieldsFlag bool
+	requiredFields    []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+	requiredFieldsSet bool
 
-	pageRequest     *PageCondition // 分页信息
-	pageRequestFlag bool
+	pageRequest    *PageCondition // 分页信息
+	pageRequestSet bool
 }
 
 func NewFilterDepartmentReqBodyBuilder() *FilterDepartmentReqBodyBuilder {
@@ -23993,52 +23997,52 @@ func NewFilterDepartmentReqBodyBuilder() *FilterDepartmentReqBodyBuilder {
 
 // 查询条件
 //
-// 示例值：
+//示例值：
 func (builder *FilterDepartmentReqBodyBuilder) Filter(filter *MultiFilterCondition) *FilterDepartmentReqBodyBuilder {
 	builder.filter = filter
-	builder.filterFlag = true
+	builder.filterSet = true
 	return builder
 }
 
 // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
 //
-// 示例值：
+//示例值：
 func (builder *FilterDepartmentReqBodyBuilder) RequiredFields(requiredFields []string) *FilterDepartmentReqBodyBuilder {
 	builder.requiredFields = requiredFields
-	builder.requiredFieldsFlag = true
+	builder.requiredFieldsSet = true
 	return builder
 }
 
 // 分页信息
 //
-// 示例值：
+//示例值：
 func (builder *FilterDepartmentReqBodyBuilder) PageRequest(pageRequest *PageCondition) *FilterDepartmentReqBodyBuilder {
 	builder.pageRequest = pageRequest
-	builder.pageRequestFlag = true
+	builder.pageRequestSet = true
 	return builder
 }
 
 func (builder *FilterDepartmentReqBodyBuilder) Build() *FilterDepartmentReqBody {
 	req := &FilterDepartmentReqBody{}
-	if builder.filterFlag {
+	if builder.filterSet {
 		req.Filter = builder.filter
 	}
-	if builder.requiredFieldsFlag {
+	if builder.requiredFieldsSet {
 		req.RequiredFields = builder.requiredFields
 	}
-	if builder.pageRequestFlag {
+	if builder.pageRequestSet {
 		req.PageRequest = builder.pageRequest
 	}
 	return req
 }
 
 type FilterDepartmentPathReqBodyBuilder struct {
-	filter             *MultiFilterCondition
-	filterFlag         bool
-	requiredFields     []string
-	requiredFieldsFlag bool
-	pageRequest        *PageCondition
-	pageRequestFlag    bool
+	filter            *MultiFilterCondition
+	filterSet         bool
+	requiredFields    []string
+	requiredFieldsSet bool
+	pageRequest       *PageCondition
+	pageRequestSet    bool
 }
 
 func NewFilterDepartmentPathReqBodyBuilder() *FilterDepartmentPathReqBodyBuilder {
@@ -24051,7 +24055,7 @@ func NewFilterDepartmentPathReqBodyBuilder() *FilterDepartmentPathReqBodyBuilder
 // 示例值：
 func (builder *FilterDepartmentPathReqBodyBuilder) Filter(filter *MultiFilterCondition) *FilterDepartmentPathReqBodyBuilder {
 	builder.filter = filter
-	builder.filterFlag = true
+	builder.filterSet = true
 	return builder
 }
 
@@ -24060,7 +24064,7 @@ func (builder *FilterDepartmentPathReqBodyBuilder) Filter(filter *MultiFilterCon
 // 示例值：
 func (builder *FilterDepartmentPathReqBodyBuilder) RequiredFields(requiredFields []string) *FilterDepartmentPathReqBodyBuilder {
 	builder.requiredFields = requiredFields
-	builder.requiredFieldsFlag = true
+	builder.requiredFieldsSet = true
 	return builder
 }
 
@@ -24069,19 +24073,19 @@ func (builder *FilterDepartmentPathReqBodyBuilder) RequiredFields(requiredFields
 // 示例值：
 func (builder *FilterDepartmentPathReqBodyBuilder) PageRequest(pageRequest *PageCondition) *FilterDepartmentPathReqBodyBuilder {
 	builder.pageRequest = pageRequest
-	builder.pageRequestFlag = true
+	builder.pageRequestSet = true
 	return builder
 }
 
 func (builder *FilterDepartmentPathReqBodyBuilder) Build() (*FilterDepartmentReqBody, error) {
 	req := &FilterDepartmentReqBody{}
-	if builder.filterFlag {
+	if builder.filterSet {
 		req.Filter = builder.filter
 	}
-	if builder.requiredFieldsFlag {
+	if builder.requiredFieldsSet {
 		req.RequiredFields = builder.requiredFields
 	}
-	if builder.pageRequestFlag {
+	if builder.pageRequestSet {
 		req.PageRequest = builder.pageRequest
 	}
 	return req, nil
@@ -24179,11 +24183,11 @@ func (resp *FilterDepartmentResp) Success() bool {
 }
 
 type MgetDepartmentReqBodyBuilder struct {
-	departmentIds     []string // 部门id
-	departmentIdsFlag bool
+	departmentIds    []string // 部门id
+	departmentIdsSet bool
 
-	requiredFields     []string // 字段枚举
-	requiredFieldsFlag bool
+	requiredFields    []string // 字段枚举
+	requiredFieldsSet bool
 }
 
 func NewMgetDepartmentReqBodyBuilder() *MgetDepartmentReqBodyBuilder {
@@ -24193,38 +24197,38 @@ func NewMgetDepartmentReqBodyBuilder() *MgetDepartmentReqBodyBuilder {
 
 // 部门id
 //
-// 示例值：
+//示例值：
 func (builder *MgetDepartmentReqBodyBuilder) DepartmentIds(departmentIds []string) *MgetDepartmentReqBodyBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
 // 字段枚举
 //
-// 示例值：
+//示例值：
 func (builder *MgetDepartmentReqBodyBuilder) RequiredFields(requiredFields []string) *MgetDepartmentReqBodyBuilder {
 	builder.requiredFields = requiredFields
-	builder.requiredFieldsFlag = true
+	builder.requiredFieldsSet = true
 	return builder
 }
 
 func (builder *MgetDepartmentReqBodyBuilder) Build() *MgetDepartmentReqBody {
 	req := &MgetDepartmentReqBody{}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.requiredFieldsFlag {
+	if builder.requiredFieldsSet {
 		req.RequiredFields = builder.requiredFields
 	}
 	return req
 }
 
 type MgetDepartmentPathReqBodyBuilder struct {
-	departmentIds      []string
-	departmentIdsFlag  bool
-	requiredFields     []string
-	requiredFieldsFlag bool
+	departmentIds     []string
+	departmentIdsSet  bool
+	requiredFields    []string
+	requiredFieldsSet bool
 }
 
 func NewMgetDepartmentPathReqBodyBuilder() *MgetDepartmentPathReqBodyBuilder {
@@ -24237,7 +24241,7 @@ func NewMgetDepartmentPathReqBodyBuilder() *MgetDepartmentPathReqBodyBuilder {
 // 示例值：
 func (builder *MgetDepartmentPathReqBodyBuilder) DepartmentIds(departmentIds []string) *MgetDepartmentPathReqBodyBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
@@ -24246,16 +24250,16 @@ func (builder *MgetDepartmentPathReqBodyBuilder) DepartmentIds(departmentIds []s
 // 示例值：
 func (builder *MgetDepartmentPathReqBodyBuilder) RequiredFields(requiredFields []string) *MgetDepartmentPathReqBodyBuilder {
 	builder.requiredFields = requiredFields
-	builder.requiredFieldsFlag = true
+	builder.requiredFieldsSet = true
 	return builder
 }
 
 func (builder *MgetDepartmentPathReqBodyBuilder) Build() (*MgetDepartmentReqBody, error) {
 	req := &MgetDepartmentReqBody{}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.requiredFieldsFlag {
+	if builder.requiredFieldsSet {
 		req.RequiredFields = builder.requiredFields
 	}
 	return req, nil
@@ -24341,8 +24345,8 @@ func (resp *MgetDepartmentResp) Success() bool {
 }
 
 type PatchDepartmentReqBodyBuilder struct {
-	department     *UpdateDepartment // 更新部门
-	departmentFlag bool
+	department    *UpdateDepartment // 更新部门
+	departmentSet bool
 }
 
 func NewPatchDepartmentReqBodyBuilder() *PatchDepartmentReqBodyBuilder {
@@ -24352,24 +24356,24 @@ func NewPatchDepartmentReqBodyBuilder() *PatchDepartmentReqBodyBuilder {
 
 // 更新部门
 //
-// 示例值：
+//示例值：
 func (builder *PatchDepartmentReqBodyBuilder) Department(department *UpdateDepartment) *PatchDepartmentReqBodyBuilder {
 	builder.department = department
-	builder.departmentFlag = true
+	builder.departmentSet = true
 	return builder
 }
 
 func (builder *PatchDepartmentReqBodyBuilder) Build() *PatchDepartmentReqBody {
 	req := &PatchDepartmentReqBody{}
-	if builder.departmentFlag {
+	if builder.departmentSet {
 		req.Department = builder.department
 	}
 	return req
 }
 
 type PatchDepartmentPathReqBodyBuilder struct {
-	department     *UpdateDepartment
-	departmentFlag bool
+	department    *UpdateDepartment
+	departmentSet bool
 }
 
 func NewPatchDepartmentPathReqBodyBuilder() *PatchDepartmentPathReqBodyBuilder {
@@ -24382,13 +24386,13 @@ func NewPatchDepartmentPathReqBodyBuilder() *PatchDepartmentPathReqBodyBuilder {
 // 示例值：
 func (builder *PatchDepartmentPathReqBodyBuilder) Department(department *UpdateDepartment) *PatchDepartmentPathReqBodyBuilder {
 	builder.department = department
-	builder.departmentFlag = true
+	builder.departmentSet = true
 	return builder
 }
 
 func (builder *PatchDepartmentPathReqBodyBuilder) Build() (*PatchDepartmentReqBody, error) {
 	req := &PatchDepartmentReqBody{}
-	if builder.departmentFlag {
+	if builder.departmentSet {
 		req.Department = builder.department
 	}
 	return req, nil
@@ -24474,17 +24478,17 @@ func (resp *PatchDepartmentResp) Success() bool {
 }
 
 type SearchDepartmentReqBodyBuilder struct {
-	query     string // 搜索关键词。支持部门名称的搜索
-	queryFlag bool
+	query    string // 搜索关键词。支持部门名称的搜索
+	querySet bool
 
-	pageRequest     *PageCondition // 分页信息
-	pageRequestFlag bool
+	pageRequest    *PageCondition // 分页信息
+	pageRequestSet bool
 
-	requiredFields     []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
-	requiredFieldsFlag bool
+	requiredFields    []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+	requiredFieldsSet bool
 
-	filter     *SearchDepartmentFilter // 查询条件
-	filterFlag bool
+	filter    *SearchDepartmentFilter // 查询条件
+	filterSet bool
 }
 
 func NewSearchDepartmentReqBodyBuilder() *SearchDepartmentReqBodyBuilder {
@@ -24494,54 +24498,54 @@ func NewSearchDepartmentReqBodyBuilder() *SearchDepartmentReqBodyBuilder {
 
 // 搜索关键词。支持部门名称的搜索
 //
-// 示例值：zhang
+//示例值：zhang
 func (builder *SearchDepartmentReqBodyBuilder) Query(query string) *SearchDepartmentReqBodyBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
 // 分页信息
 //
-// 示例值：
+//示例值：
 func (builder *SearchDepartmentReqBodyBuilder) PageRequest(pageRequest *PageCondition) *SearchDepartmentReqBodyBuilder {
 	builder.pageRequest = pageRequest
-	builder.pageRequestFlag = true
+	builder.pageRequestSet = true
 	return builder
 }
 
 // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
 //
-// 示例值：
+//示例值：
 func (builder *SearchDepartmentReqBodyBuilder) RequiredFields(requiredFields []string) *SearchDepartmentReqBodyBuilder {
 	builder.requiredFields = requiredFields
-	builder.requiredFieldsFlag = true
+	builder.requiredFieldsSet = true
 	return builder
 }
 
 func (builder *SearchDepartmentReqBodyBuilder) Build() *SearchDepartmentReqBody {
 	req := &SearchDepartmentReqBody{}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 	}
-	if builder.pageRequestFlag {
+	if builder.pageRequestSet {
 		req.PageRequest = builder.pageRequest
 	}
-	if builder.requiredFieldsFlag {
+	if builder.requiredFieldsSet {
 		req.RequiredFields = builder.requiredFields
 	}
 	return req
 }
 
 type SearchDepartmentPathReqBodyBuilder struct {
-	query              string
-	queryFlag          bool
-	pageRequest        *PageCondition
-	pageRequestFlag    bool
-	requiredFields     []string
-	requiredFieldsFlag bool
-	filter             *SearchDepartmentFilter
-	filterFlag         bool
+	query             string
+	querySet          bool
+	pageRequest       *PageCondition
+	pageRequestSet    bool
+	requiredFields    []string
+	requiredFieldsSet bool
+	filter            *SearchDepartmentFilter
+	filterSet         bool
 }
 
 func NewSearchDepartmentPathReqBodyBuilder() *SearchDepartmentPathReqBodyBuilder {
@@ -24554,7 +24558,7 @@ func NewSearchDepartmentPathReqBodyBuilder() *SearchDepartmentPathReqBodyBuilder
 // 示例值：zhang
 func (builder *SearchDepartmentPathReqBodyBuilder) Query(query string) *SearchDepartmentPathReqBodyBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
@@ -24563,7 +24567,7 @@ func (builder *SearchDepartmentPathReqBodyBuilder) Query(query string) *SearchDe
 // 示例值：
 func (builder *SearchDepartmentPathReqBodyBuilder) PageRequest(pageRequest *PageCondition) *SearchDepartmentPathReqBodyBuilder {
 	builder.pageRequest = pageRequest
-	builder.pageRequestFlag = true
+	builder.pageRequestSet = true
 	return builder
 }
 
@@ -24572,19 +24576,19 @@ func (builder *SearchDepartmentPathReqBodyBuilder) PageRequest(pageRequest *Page
 // 示例值：
 func (builder *SearchDepartmentPathReqBodyBuilder) RequiredFields(requiredFields []string) *SearchDepartmentPathReqBodyBuilder {
 	builder.requiredFields = requiredFields
-	builder.requiredFieldsFlag = true
+	builder.requiredFieldsSet = true
 	return builder
 }
 
 func (builder *SearchDepartmentPathReqBodyBuilder) Build() (*SearchDepartmentReqBody, error) {
 	req := &SearchDepartmentReqBody{}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 	}
-	if builder.pageRequestFlag {
+	if builder.pageRequestSet {
 		req.PageRequest = builder.pageRequest
 	}
-	if builder.requiredFieldsFlag {
+	if builder.requiredFieldsSet {
 		req.RequiredFields = builder.requiredFields
 	}
 	return req, nil
@@ -24684,11 +24688,11 @@ func (resp *SearchDepartmentResp) Success() bool {
 }
 
 type CreateEmployeeReqBodyBuilder struct {
-	employee     *CreateEmployee // 创建员工对象
-	employeeFlag bool
+	employee    *CreateEmployee // 创建员工对象
+	employeeSet bool
 
-	options     *CreateEmployeeOptions // 接口拓展选项
-	optionsFlag bool
+	options    *CreateEmployeeOptions // 接口拓展选项
+	optionsSet bool
 }
 
 func NewCreateEmployeeReqBodyBuilder() *CreateEmployeeReqBodyBuilder {
@@ -24698,38 +24702,38 @@ func NewCreateEmployeeReqBodyBuilder() *CreateEmployeeReqBodyBuilder {
 
 // 创建员工对象
 //
-// 示例值：
+//示例值：
 func (builder *CreateEmployeeReqBodyBuilder) Employee(employee *CreateEmployee) *CreateEmployeeReqBodyBuilder {
 	builder.employee = employee
-	builder.employeeFlag = true
+	builder.employeeSet = true
 	return builder
 }
 
 // 接口拓展选项
 //
-// 示例值：
+//示例值：
 func (builder *CreateEmployeeReqBodyBuilder) Options(options *CreateEmployeeOptions) *CreateEmployeeReqBodyBuilder {
 	builder.options = options
-	builder.optionsFlag = true
+	builder.optionsSet = true
 	return builder
 }
 
 func (builder *CreateEmployeeReqBodyBuilder) Build() *CreateEmployeeReqBody {
 	req := &CreateEmployeeReqBody{}
-	if builder.employeeFlag {
+	if builder.employeeSet {
 		req.Employee = builder.employee
 	}
-	if builder.optionsFlag {
+	if builder.optionsSet {
 		req.Options = builder.options
 	}
 	return req
 }
 
 type CreateEmployeePathReqBodyBuilder struct {
-	employee     *CreateEmployee
-	employeeFlag bool
-	options      *CreateEmployeeOptions
-	optionsFlag  bool
+	employee    *CreateEmployee
+	employeeSet bool
+	options     *CreateEmployeeOptions
+	optionsSet  bool
 }
 
 func NewCreateEmployeePathReqBodyBuilder() *CreateEmployeePathReqBodyBuilder {
@@ -24742,7 +24746,7 @@ func NewCreateEmployeePathReqBodyBuilder() *CreateEmployeePathReqBodyBuilder {
 // 示例值：
 func (builder *CreateEmployeePathReqBodyBuilder) Employee(employee *CreateEmployee) *CreateEmployeePathReqBodyBuilder {
 	builder.employee = employee
-	builder.employeeFlag = true
+	builder.employeeSet = true
 	return builder
 }
 
@@ -24751,16 +24755,16 @@ func (builder *CreateEmployeePathReqBodyBuilder) Employee(employee *CreateEmploy
 // 示例值：
 func (builder *CreateEmployeePathReqBodyBuilder) Options(options *CreateEmployeeOptions) *CreateEmployeePathReqBodyBuilder {
 	builder.options = options
-	builder.optionsFlag = true
+	builder.optionsSet = true
 	return builder
 }
 
 func (builder *CreateEmployeePathReqBodyBuilder) Build() (*CreateEmployeeReqBody, error) {
 	req := &CreateEmployeeReqBody{}
-	if builder.employeeFlag {
+	if builder.employeeSet {
 		req.Employee = builder.employee
 	}
-	if builder.optionsFlag {
+	if builder.optionsSet {
 		req.Options = builder.options
 	}
 	return req, nil
@@ -24852,8 +24856,8 @@ func (resp *CreateEmployeeResp) Success() bool {
 }
 
 type DeleteEmployeeReqBodyBuilder struct {
-	options     *DeleteEmployeeOptions // 接口拓展选项
-	optionsFlag bool
+	options    *DeleteEmployeeOptions // 接口拓展选项
+	optionsSet bool
 }
 
 func NewDeleteEmployeeReqBodyBuilder() *DeleteEmployeeReqBodyBuilder {
@@ -24863,24 +24867,24 @@ func NewDeleteEmployeeReqBodyBuilder() *DeleteEmployeeReqBodyBuilder {
 
 // 接口拓展选项
 //
-// 示例值：
+//示例值：
 func (builder *DeleteEmployeeReqBodyBuilder) Options(options *DeleteEmployeeOptions) *DeleteEmployeeReqBodyBuilder {
 	builder.options = options
-	builder.optionsFlag = true
+	builder.optionsSet = true
 	return builder
 }
 
 func (builder *DeleteEmployeeReqBodyBuilder) Build() *DeleteEmployeeReqBody {
 	req := &DeleteEmployeeReqBody{}
-	if builder.optionsFlag {
+	if builder.optionsSet {
 		req.Options = builder.options
 	}
 	return req
 }
 
 type DeleteEmployeePathReqBodyBuilder struct {
-	options     *DeleteEmployeeOptions
-	optionsFlag bool
+	options    *DeleteEmployeeOptions
+	optionsSet bool
 }
 
 func NewDeleteEmployeePathReqBodyBuilder() *DeleteEmployeePathReqBodyBuilder {
@@ -24893,13 +24897,13 @@ func NewDeleteEmployeePathReqBodyBuilder() *DeleteEmployeePathReqBodyBuilder {
 // 示例值：
 func (builder *DeleteEmployeePathReqBodyBuilder) Options(options *DeleteEmployeeOptions) *DeleteEmployeePathReqBodyBuilder {
 	builder.options = options
-	builder.optionsFlag = true
+	builder.optionsSet = true
 	return builder
 }
 
 func (builder *DeleteEmployeePathReqBodyBuilder) Build() (*DeleteEmployeeReqBody, error) {
 	req := &DeleteEmployeeReqBody{}
-	if builder.optionsFlag {
+	if builder.optionsSet {
 		req.Options = builder.options
 	}
 	return req, nil
@@ -24985,14 +24989,14 @@ func (resp *DeleteEmployeeResp) Success() bool {
 }
 
 type FilterEmployeeReqBodyBuilder struct {
-	filter     *MultiFilterCondition // 查询条件
-	filterFlag bool
+	filter    *MultiFilterCondition // 查询条件
+	filterSet bool
 
-	requiredFields     []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
-	requiredFieldsFlag bool
+	requiredFields    []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+	requiredFieldsSet bool
 
-	pageRequest     *PageCondition // 分页参数
-	pageRequestFlag bool
+	pageRequest    *PageCondition // 分页参数
+	pageRequestSet bool
 }
 
 func NewFilterEmployeeReqBodyBuilder() *FilterEmployeeReqBodyBuilder {
@@ -25002,52 +25006,52 @@ func NewFilterEmployeeReqBodyBuilder() *FilterEmployeeReqBodyBuilder {
 
 // 查询条件
 //
-// 示例值：
+//示例值：
 func (builder *FilterEmployeeReqBodyBuilder) Filter(filter *MultiFilterCondition) *FilterEmployeeReqBodyBuilder {
 	builder.filter = filter
-	builder.filterFlag = true
+	builder.filterSet = true
 	return builder
 }
 
 // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
 //
-// 示例值：
+//示例值：
 func (builder *FilterEmployeeReqBodyBuilder) RequiredFields(requiredFields []string) *FilterEmployeeReqBodyBuilder {
 	builder.requiredFields = requiredFields
-	builder.requiredFieldsFlag = true
+	builder.requiredFieldsSet = true
 	return builder
 }
 
 // 分页参数
 //
-// 示例值：
+//示例值：
 func (builder *FilterEmployeeReqBodyBuilder) PageRequest(pageRequest *PageCondition) *FilterEmployeeReqBodyBuilder {
 	builder.pageRequest = pageRequest
-	builder.pageRequestFlag = true
+	builder.pageRequestSet = true
 	return builder
 }
 
 func (builder *FilterEmployeeReqBodyBuilder) Build() *FilterEmployeeReqBody {
 	req := &FilterEmployeeReqBody{}
-	if builder.filterFlag {
+	if builder.filterSet {
 		req.Filter = builder.filter
 	}
-	if builder.requiredFieldsFlag {
+	if builder.requiredFieldsSet {
 		req.RequiredFields = builder.requiredFields
 	}
-	if builder.pageRequestFlag {
+	if builder.pageRequestSet {
 		req.PageRequest = builder.pageRequest
 	}
 	return req
 }
 
 type FilterEmployeePathReqBodyBuilder struct {
-	filter             *MultiFilterCondition
-	filterFlag         bool
-	requiredFields     []string
-	requiredFieldsFlag bool
-	pageRequest        *PageCondition
-	pageRequestFlag    bool
+	filter            *MultiFilterCondition
+	filterSet         bool
+	requiredFields    []string
+	requiredFieldsSet bool
+	pageRequest       *PageCondition
+	pageRequestSet    bool
 }
 
 func NewFilterEmployeePathReqBodyBuilder() *FilterEmployeePathReqBodyBuilder {
@@ -25060,7 +25064,7 @@ func NewFilterEmployeePathReqBodyBuilder() *FilterEmployeePathReqBodyBuilder {
 // 示例值：
 func (builder *FilterEmployeePathReqBodyBuilder) Filter(filter *MultiFilterCondition) *FilterEmployeePathReqBodyBuilder {
 	builder.filter = filter
-	builder.filterFlag = true
+	builder.filterSet = true
 	return builder
 }
 
@@ -25069,7 +25073,7 @@ func (builder *FilterEmployeePathReqBodyBuilder) Filter(filter *MultiFilterCondi
 // 示例值：
 func (builder *FilterEmployeePathReqBodyBuilder) RequiredFields(requiredFields []string) *FilterEmployeePathReqBodyBuilder {
 	builder.requiredFields = requiredFields
-	builder.requiredFieldsFlag = true
+	builder.requiredFieldsSet = true
 	return builder
 }
 
@@ -25078,19 +25082,19 @@ func (builder *FilterEmployeePathReqBodyBuilder) RequiredFields(requiredFields [
 // 示例值：
 func (builder *FilterEmployeePathReqBodyBuilder) PageRequest(pageRequest *PageCondition) *FilterEmployeePathReqBodyBuilder {
 	builder.pageRequest = pageRequest
-	builder.pageRequestFlag = true
+	builder.pageRequestSet = true
 	return builder
 }
 
 func (builder *FilterEmployeePathReqBodyBuilder) Build() (*FilterEmployeeReqBody, error) {
 	req := &FilterEmployeeReqBody{}
-	if builder.filterFlag {
+	if builder.filterSet {
 		req.Filter = builder.filter
 	}
-	if builder.requiredFieldsFlag {
+	if builder.requiredFieldsSet {
 		req.RequiredFields = builder.requiredFields
 	}
-	if builder.pageRequestFlag {
+	if builder.pageRequestSet {
 		req.PageRequest = builder.pageRequest
 	}
 	return req, nil
@@ -25188,11 +25192,11 @@ func (resp *FilterEmployeeResp) Success() bool {
 }
 
 type MgetEmployeeReqBodyBuilder struct {
-	employeeIds     []string // 员工id
-	employeeIdsFlag bool
+	employeeIds    []string // 员工id
+	employeeIdsSet bool
 
-	requiredFields     []string // 字段枚举
-	requiredFieldsFlag bool
+	requiredFields    []string // 字段枚举
+	requiredFieldsSet bool
 }
 
 func NewMgetEmployeeReqBodyBuilder() *MgetEmployeeReqBodyBuilder {
@@ -25202,38 +25206,38 @@ func NewMgetEmployeeReqBodyBuilder() *MgetEmployeeReqBodyBuilder {
 
 // 员工id
 //
-// 示例值：
+//示例值：
 func (builder *MgetEmployeeReqBodyBuilder) EmployeeIds(employeeIds []string) *MgetEmployeeReqBodyBuilder {
 	builder.employeeIds = employeeIds
-	builder.employeeIdsFlag = true
+	builder.employeeIdsSet = true
 	return builder
 }
 
 // 字段枚举
 //
-// 示例值：
+//示例值：
 func (builder *MgetEmployeeReqBodyBuilder) RequiredFields(requiredFields []string) *MgetEmployeeReqBodyBuilder {
 	builder.requiredFields = requiredFields
-	builder.requiredFieldsFlag = true
+	builder.requiredFieldsSet = true
 	return builder
 }
 
 func (builder *MgetEmployeeReqBodyBuilder) Build() *MgetEmployeeReqBody {
 	req := &MgetEmployeeReqBody{}
-	if builder.employeeIdsFlag {
+	if builder.employeeIdsSet {
 		req.EmployeeIds = builder.employeeIds
 	}
-	if builder.requiredFieldsFlag {
+	if builder.requiredFieldsSet {
 		req.RequiredFields = builder.requiredFields
 	}
 	return req
 }
 
 type MgetEmployeePathReqBodyBuilder struct {
-	employeeIds        []string
-	employeeIdsFlag    bool
-	requiredFields     []string
-	requiredFieldsFlag bool
+	employeeIds       []string
+	employeeIdsSet    bool
+	requiredFields    []string
+	requiredFieldsSet bool
 }
 
 func NewMgetEmployeePathReqBodyBuilder() *MgetEmployeePathReqBodyBuilder {
@@ -25246,7 +25250,7 @@ func NewMgetEmployeePathReqBodyBuilder() *MgetEmployeePathReqBodyBuilder {
 // 示例值：
 func (builder *MgetEmployeePathReqBodyBuilder) EmployeeIds(employeeIds []string) *MgetEmployeePathReqBodyBuilder {
 	builder.employeeIds = employeeIds
-	builder.employeeIdsFlag = true
+	builder.employeeIdsSet = true
 	return builder
 }
 
@@ -25255,16 +25259,16 @@ func (builder *MgetEmployeePathReqBodyBuilder) EmployeeIds(employeeIds []string)
 // 示例值：
 func (builder *MgetEmployeePathReqBodyBuilder) RequiredFields(requiredFields []string) *MgetEmployeePathReqBodyBuilder {
 	builder.requiredFields = requiredFields
-	builder.requiredFieldsFlag = true
+	builder.requiredFieldsSet = true
 	return builder
 }
 
 func (builder *MgetEmployeePathReqBodyBuilder) Build() (*MgetEmployeeReqBody, error) {
 	req := &MgetEmployeeReqBody{}
-	if builder.employeeIdsFlag {
+	if builder.employeeIdsSet {
 		req.EmployeeIds = builder.employeeIds
 	}
-	if builder.requiredFieldsFlag {
+	if builder.requiredFieldsSet {
 		req.RequiredFields = builder.requiredFields
 	}
 	return req, nil
@@ -25350,8 +25354,8 @@ func (resp *MgetEmployeeResp) Success() bool {
 }
 
 type PatchEmployeeReqBodyBuilder struct {
-	employee     *UpdateEmployee // 更新员工对象
-	employeeFlag bool
+	employee    *UpdateEmployee // 更新员工对象
+	employeeSet bool
 }
 
 func NewPatchEmployeeReqBodyBuilder() *PatchEmployeeReqBodyBuilder {
@@ -25361,24 +25365,24 @@ func NewPatchEmployeeReqBodyBuilder() *PatchEmployeeReqBodyBuilder {
 
 // 更新员工对象
 //
-// 示例值：
+//示例值：
 func (builder *PatchEmployeeReqBodyBuilder) Employee(employee *UpdateEmployee) *PatchEmployeeReqBodyBuilder {
 	builder.employee = employee
-	builder.employeeFlag = true
+	builder.employeeSet = true
 	return builder
 }
 
 func (builder *PatchEmployeeReqBodyBuilder) Build() *PatchEmployeeReqBody {
 	req := &PatchEmployeeReqBody{}
-	if builder.employeeFlag {
+	if builder.employeeSet {
 		req.Employee = builder.employee
 	}
 	return req
 }
 
 type PatchEmployeePathReqBodyBuilder struct {
-	employee     *UpdateEmployee
-	employeeFlag bool
+	employee    *UpdateEmployee
+	employeeSet bool
 }
 
 func NewPatchEmployeePathReqBodyBuilder() *PatchEmployeePathReqBodyBuilder {
@@ -25391,13 +25395,13 @@ func NewPatchEmployeePathReqBodyBuilder() *PatchEmployeePathReqBodyBuilder {
 // 示例值：
 func (builder *PatchEmployeePathReqBodyBuilder) Employee(employee *UpdateEmployee) *PatchEmployeePathReqBodyBuilder {
 	builder.employee = employee
-	builder.employeeFlag = true
+	builder.employeeSet = true
 	return builder
 }
 
 func (builder *PatchEmployeePathReqBodyBuilder) Build() (*PatchEmployeeReqBody, error) {
 	req := &PatchEmployeeReqBody{}
-	if builder.employeeFlag {
+	if builder.employeeSet {
 		req.Employee = builder.employee
 	}
 	return req, nil
@@ -25483,8 +25487,8 @@ func (resp *PatchEmployeeResp) Success() bool {
 }
 
 type RegularEmployeeReqBodyBuilder struct {
-	openapiOptions     *OpenapiOptions // 开平独有Options 无需填写
-	openapiOptionsFlag bool
+	openapiOptions    *OpenapiOptions // 开平独有Options 无需填写
+	openapiOptionsSet bool
 }
 
 func NewRegularEmployeeReqBodyBuilder() *RegularEmployeeReqBodyBuilder {
@@ -25498,8 +25502,8 @@ func (builder *RegularEmployeeReqBodyBuilder) Build() *RegularEmployeeReqBody {
 }
 
 type RegularEmployeePathReqBodyBuilder struct {
-	openapiOptions     *OpenapiOptions
-	openapiOptionsFlag bool
+	openapiOptions    *OpenapiOptions
+	openapiOptionsSet bool
 }
 
 func NewRegularEmployeePathReqBodyBuilder() *RegularEmployeePathReqBodyBuilder {
@@ -25592,11 +25596,11 @@ func (resp *RegularEmployeeResp) Success() bool {
 }
 
 type ResurrectEmployeeReqBodyBuilder struct {
-	employeeOrderInDepartments     []*UpsertUserDepartmentSortInfo // 部门信息
-	employeeOrderInDepartmentsFlag bool
+	employeeOrderInDepartments    []*UpsertUserDepartmentSortInfo // 部门信息
+	employeeOrderInDepartmentsSet bool
 
-	options     *ResurrectEmployeeOptions // 选项
-	optionsFlag bool
+	options    *ResurrectEmployeeOptions // 选项
+	optionsSet bool
 }
 
 func NewResurrectEmployeeReqBodyBuilder() *ResurrectEmployeeReqBodyBuilder {
@@ -25606,38 +25610,38 @@ func NewResurrectEmployeeReqBodyBuilder() *ResurrectEmployeeReqBodyBuilder {
 
 // 部门信息
 //
-// 示例值：
+//示例值：
 func (builder *ResurrectEmployeeReqBodyBuilder) EmployeeOrderInDepartments(employeeOrderInDepartments []*UpsertUserDepartmentSortInfo) *ResurrectEmployeeReqBodyBuilder {
 	builder.employeeOrderInDepartments = employeeOrderInDepartments
-	builder.employeeOrderInDepartmentsFlag = true
+	builder.employeeOrderInDepartmentsSet = true
 	return builder
 }
 
 // 选项
 //
-// 示例值：
+//示例值：
 func (builder *ResurrectEmployeeReqBodyBuilder) Options(options *ResurrectEmployeeOptions) *ResurrectEmployeeReqBodyBuilder {
 	builder.options = options
-	builder.optionsFlag = true
+	builder.optionsSet = true
 	return builder
 }
 
 func (builder *ResurrectEmployeeReqBodyBuilder) Build() *ResurrectEmployeeReqBody {
 	req := &ResurrectEmployeeReqBody{}
-	if builder.employeeOrderInDepartmentsFlag {
+	if builder.employeeOrderInDepartmentsSet {
 		req.EmployeeOrderInDepartments = builder.employeeOrderInDepartments
 	}
-	if builder.optionsFlag {
+	if builder.optionsSet {
 		req.Options = builder.options
 	}
 	return req
 }
 
 type ResurrectEmployeePathReqBodyBuilder struct {
-	employeeOrderInDepartments     []*UpsertUserDepartmentSortInfo
-	employeeOrderInDepartmentsFlag bool
-	options                        *ResurrectEmployeeOptions
-	optionsFlag                    bool
+	employeeOrderInDepartments    []*UpsertUserDepartmentSortInfo
+	employeeOrderInDepartmentsSet bool
+	options                       *ResurrectEmployeeOptions
+	optionsSet                    bool
 }
 
 func NewResurrectEmployeePathReqBodyBuilder() *ResurrectEmployeePathReqBodyBuilder {
@@ -25650,7 +25654,7 @@ func NewResurrectEmployeePathReqBodyBuilder() *ResurrectEmployeePathReqBodyBuild
 // 示例值：
 func (builder *ResurrectEmployeePathReqBodyBuilder) EmployeeOrderInDepartments(employeeOrderInDepartments []*UpsertUserDepartmentSortInfo) *ResurrectEmployeePathReqBodyBuilder {
 	builder.employeeOrderInDepartments = employeeOrderInDepartments
-	builder.employeeOrderInDepartmentsFlag = true
+	builder.employeeOrderInDepartmentsSet = true
 	return builder
 }
 
@@ -25659,16 +25663,16 @@ func (builder *ResurrectEmployeePathReqBodyBuilder) EmployeeOrderInDepartments(e
 // 示例值：
 func (builder *ResurrectEmployeePathReqBodyBuilder) Options(options *ResurrectEmployeeOptions) *ResurrectEmployeePathReqBodyBuilder {
 	builder.options = options
-	builder.optionsFlag = true
+	builder.optionsSet = true
 	return builder
 }
 
 func (builder *ResurrectEmployeePathReqBodyBuilder) Build() (*ResurrectEmployeeReqBody, error) {
 	req := &ResurrectEmployeeReqBody{}
-	if builder.employeeOrderInDepartmentsFlag {
+	if builder.employeeOrderInDepartmentsSet {
 		req.EmployeeOrderInDepartments = builder.employeeOrderInDepartments
 	}
-	if builder.optionsFlag {
+	if builder.optionsSet {
 		req.Options = builder.options
 	}
 	return req, nil
@@ -25756,17 +25760,17 @@ func (resp *ResurrectEmployeeResp) Success() bool {
 }
 
 type SearchEmployeeReqBodyBuilder struct {
-	query     string // 搜索关键词。支持员工ID、员工名称、员工手机号、员工邮箱的搜索。其中员工ID、员工手机号支持精确搜索，员工名称、员工邮箱支持模糊搜索，员工名称支持国际化名称的搜索。
-	queryFlag bool
+	query    string // 搜索关键词。支持员工ID、员工名称、员工手机号、员工邮箱的搜索。其中员工ID、员工手机号支持精确搜索，员工名称、员工邮箱支持模糊搜索，员工名称支持国际化名称的搜索。
+	querySet bool
 
-	pageRequest     *PageCondition // 分页信息
-	pageRequestFlag bool
+	pageRequest    *PageCondition // 分页信息
+	pageRequestSet bool
 
-	requiredFields     []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
-	requiredFieldsFlag bool
+	requiredFields    []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+	requiredFieldsSet bool
 
-	filter     *SearchEmployeeFilter // 查询条件
-	filterFlag bool
+	filter    *SearchEmployeeFilter // 查询条件
+	filterSet bool
 }
 
 func NewSearchEmployeeReqBodyBuilder() *SearchEmployeeReqBodyBuilder {
@@ -25776,54 +25780,54 @@ func NewSearchEmployeeReqBodyBuilder() *SearchEmployeeReqBodyBuilder {
 
 // 搜索关键词。支持员工ID、员工名称、员工手机号、员工邮箱的搜索。其中员工ID、员工手机号支持精确搜索，员工名称、员工邮箱支持模糊搜索，员工名称支持国际化名称的搜索。
 //
-// 示例值：zhang
+//示例值：zhang
 func (builder *SearchEmployeeReqBodyBuilder) Query(query string) *SearchEmployeeReqBodyBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
 // 分页信息
 //
-// 示例值：
+//示例值：
 func (builder *SearchEmployeeReqBodyBuilder) PageRequest(pageRequest *PageCondition) *SearchEmployeeReqBodyBuilder {
 	builder.pageRequest = pageRequest
-	builder.pageRequestFlag = true
+	builder.pageRequestSet = true
 	return builder
 }
 
 // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
 //
-// 示例值：
+//示例值：
 func (builder *SearchEmployeeReqBodyBuilder) RequiredFields(requiredFields []string) *SearchEmployeeReqBodyBuilder {
 	builder.requiredFields = requiredFields
-	builder.requiredFieldsFlag = true
+	builder.requiredFieldsSet = true
 	return builder
 }
 
 func (builder *SearchEmployeeReqBodyBuilder) Build() *SearchEmployeeReqBody {
 	req := &SearchEmployeeReqBody{}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 	}
-	if builder.pageRequestFlag {
+	if builder.pageRequestSet {
 		req.PageRequest = builder.pageRequest
 	}
-	if builder.requiredFieldsFlag {
+	if builder.requiredFieldsSet {
 		req.RequiredFields = builder.requiredFields
 	}
 	return req
 }
 
 type SearchEmployeePathReqBodyBuilder struct {
-	query              string
-	queryFlag          bool
-	pageRequest        *PageCondition
-	pageRequestFlag    bool
-	requiredFields     []string
-	requiredFieldsFlag bool
-	filter             *SearchEmployeeFilter
-	filterFlag         bool
+	query             string
+	querySet          bool
+	pageRequest       *PageCondition
+	pageRequestSet    bool
+	requiredFields    []string
+	requiredFieldsSet bool
+	filter            *SearchEmployeeFilter
+	filterSet         bool
 }
 
 func NewSearchEmployeePathReqBodyBuilder() *SearchEmployeePathReqBodyBuilder {
@@ -25836,7 +25840,7 @@ func NewSearchEmployeePathReqBodyBuilder() *SearchEmployeePathReqBodyBuilder {
 // 示例值：zhang
 func (builder *SearchEmployeePathReqBodyBuilder) Query(query string) *SearchEmployeePathReqBodyBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
@@ -25845,7 +25849,7 @@ func (builder *SearchEmployeePathReqBodyBuilder) Query(query string) *SearchEmpl
 // 示例值：
 func (builder *SearchEmployeePathReqBodyBuilder) PageRequest(pageRequest *PageCondition) *SearchEmployeePathReqBodyBuilder {
 	builder.pageRequest = pageRequest
-	builder.pageRequestFlag = true
+	builder.pageRequestSet = true
 	return builder
 }
 
@@ -25854,19 +25858,19 @@ func (builder *SearchEmployeePathReqBodyBuilder) PageRequest(pageRequest *PageCo
 // 示例值：
 func (builder *SearchEmployeePathReqBodyBuilder) RequiredFields(requiredFields []string) *SearchEmployeePathReqBodyBuilder {
 	builder.requiredFields = requiredFields
-	builder.requiredFieldsFlag = true
+	builder.requiredFieldsSet = true
 	return builder
 }
 
 func (builder *SearchEmployeePathReqBodyBuilder) Build() (*SearchEmployeeReqBody, error) {
 	req := &SearchEmployeeReqBody{}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 	}
-	if builder.pageRequestFlag {
+	if builder.pageRequestSet {
 		req.PageRequest = builder.pageRequest
 	}
-	if builder.requiredFieldsFlag {
+	if builder.requiredFieldsSet {
 		req.RequiredFields = builder.requiredFields
 	}
 	return req, nil
@@ -25966,8 +25970,8 @@ func (resp *SearchEmployeeResp) Success() bool {
 }
 
 type ToBeResignedEmployeeReqBodyBuilder struct {
-	employee     *SetEmployeePreResigned // 在职员工流转到待离职
-	employeeFlag bool
+	employee    *SetEmployeePreResigned // 在职员工流转到待离职
+	employeeSet bool
 }
 
 func NewToBeResignedEmployeeReqBodyBuilder() *ToBeResignedEmployeeReqBodyBuilder {
@@ -25977,24 +25981,24 @@ func NewToBeResignedEmployeeReqBodyBuilder() *ToBeResignedEmployeeReqBodyBuilder
 
 // 在职员工流转到待离职
 //
-// 示例值：
+//示例值：
 func (builder *ToBeResignedEmployeeReqBodyBuilder) Employee(employee *SetEmployeePreResigned) *ToBeResignedEmployeeReqBodyBuilder {
 	builder.employee = employee
-	builder.employeeFlag = true
+	builder.employeeSet = true
 	return builder
 }
 
 func (builder *ToBeResignedEmployeeReqBodyBuilder) Build() *ToBeResignedEmployeeReqBody {
 	req := &ToBeResignedEmployeeReqBody{}
-	if builder.employeeFlag {
+	if builder.employeeSet {
 		req.Employee = builder.employee
 	}
 	return req
 }
 
 type ToBeResignedEmployeePathReqBodyBuilder struct {
-	employee     *SetEmployeePreResigned
-	employeeFlag bool
+	employee    *SetEmployeePreResigned
+	employeeSet bool
 }
 
 func NewToBeResignedEmployeePathReqBodyBuilder() *ToBeResignedEmployeePathReqBodyBuilder {
@@ -26007,13 +26011,13 @@ func NewToBeResignedEmployeePathReqBodyBuilder() *ToBeResignedEmployeePathReqBod
 // 示例值：
 func (builder *ToBeResignedEmployeePathReqBodyBuilder) Employee(employee *SetEmployeePreResigned) *ToBeResignedEmployeePathReqBodyBuilder {
 	builder.employee = employee
-	builder.employeeFlag = true
+	builder.employeeSet = true
 	return builder
 }
 
 func (builder *ToBeResignedEmployeePathReqBodyBuilder) Build() (*ToBeResignedEmployeeReqBody, error) {
 	req := &ToBeResignedEmployeeReqBody{}
-	if builder.employeeFlag {
+	if builder.employeeSet {
 		req.Employee = builder.employee
 	}
 	return req, nil

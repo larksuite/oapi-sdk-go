@@ -35,6 +35,7 @@ func main() {
 			Managers([]string{}).
 			Description([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).
 			EffectiveTime("2020-01-01").
+			IsPreferManualEncoding(false).
 			Build()).
 		Build()
 	// 发起请求

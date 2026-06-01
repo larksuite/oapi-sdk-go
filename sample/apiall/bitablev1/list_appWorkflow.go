@@ -28,8 +28,6 @@ func main() {
 	// 创建请求对象
 	req := larkbitable.NewListAppWorkflowReqBuilder().
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
-		PageToken("").
-		PageSize(20).
 		Build()
 	// 发起请求
 	resp, err := client.Bitable.V1.AppWorkflow.List(context.Background(), req)

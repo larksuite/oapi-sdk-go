@@ -47,6 +47,9 @@ func main() {
 			CustomFields([]*larktask.InputCustomFieldValue{larktask.NewInputCustomFieldValueBuilder().Build()}).
 			DocxSource(larktask.NewDocxSourceBuilder().Build()).
 			PositiveReminders([]*larktask.Reminder{larktask.NewReminderBuilder().Build()}).
+			AgentTaskStatus(1).
+			AgentTaskProgress("1/4").
+			TextDeliveries([]string{}).
 			Build()).
 		Build()
 	// 发起请求

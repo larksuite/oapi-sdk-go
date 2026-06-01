@@ -311,44 +311,44 @@ type BaseChat struct {
 }
 
 type BaseChatBuilder struct {
-	chatId     string // 群组ID
-	chatIdFlag bool
+	chatId    string // 群组ID
+	chatIdSet bool
 
-	avatar     string // 群头像URL
-	avatarFlag bool
+	avatar    string // 群头像URL
+	avatarSet bool
 
-	name     string // 群名称
-	nameFlag bool
+	name    string // 群名称
+	nameSet bool
 
-	description     string // 群描述
-	descriptionFlag bool
+	description    string // 群描述
+	descriptionSet bool
 
-	ownerId     string // 群主ID
-	ownerIdFlag bool
+	ownerId    string // 群主ID
+	ownerIdSet bool
 
-	ownerIdType     string // 群主ID类型
-	ownerIdTypeFlag bool
+	ownerIdType    string // 群主ID类型
+	ownerIdTypeSet bool
 
-	external     bool // 是否是外部群
-	externalFlag bool
+	external    bool // 是否是外部群
+	externalSet bool
 
-	tenantKey     string // tenant key
-	tenantKeyFlag bool
+	tenantKey    string // tenant key
+	tenantKeySet bool
 
-	labels     []string // 群标签
-	labelsFlag bool
+	labels    []string // 群标签
+	labelsSet bool
 
-	chatStatus     string // 群状态
-	chatStatusFlag bool
+	chatStatus    string // 群状态
+	chatStatusSet bool
 
-	chatMode     string // 群类型
-	chatModeFlag bool
+	chatMode    string // 群类型
+	chatModeSet bool
 
-	p2pTargetId     string // p2p群对方ID
-	p2pTargetIdFlag bool
+	p2pTargetId    string // p2p群对方ID
+	p2pTargetIdSet bool
 
-	p2pTargetType     string // p2p群对方类型（bot/user）
-	p2pTargetTypeFlag bool
+	p2pTargetType    string // p2p群对方类型（bot/user）
+	p2pTargetTypeSet bool
 }
 
 func NewBaseChatBuilder() *BaseChatBuilder {
@@ -361,7 +361,7 @@ func NewBaseChatBuilder() *BaseChatBuilder {
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *BaseChatBuilder) ChatId(chatId string) *BaseChatBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -370,7 +370,7 @@ func (builder *BaseChatBuilder) ChatId(chatId string) *BaseChatBuilder {
 // 示例值：https://p3-lark-file.byteimg.com/img/lark-avatar-staging/default-avatar_44ae0ca3-e140-494b-956f-78091e348435~100x100.jpg
 func (builder *BaseChatBuilder) Avatar(avatar string) *BaseChatBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
@@ -379,7 +379,7 @@ func (builder *BaseChatBuilder) Avatar(avatar string) *BaseChatBuilder {
 // 示例值：测试群名称
 func (builder *BaseChatBuilder) Name(name string) *BaseChatBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -388,7 +388,7 @@ func (builder *BaseChatBuilder) Name(name string) *BaseChatBuilder {
 // 示例值：测试群描述
 func (builder *BaseChatBuilder) Description(description string) *BaseChatBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -397,7 +397,7 @@ func (builder *BaseChatBuilder) Description(description string) *BaseChatBuilder
 // 示例值：4d7a3c6g
 func (builder *BaseChatBuilder) OwnerId(ownerId string) *BaseChatBuilder {
 	builder.ownerId = ownerId
-	builder.ownerIdFlag = true
+	builder.ownerIdSet = true
 	return builder
 }
 
@@ -406,7 +406,7 @@ func (builder *BaseChatBuilder) OwnerId(ownerId string) *BaseChatBuilder {
 // 示例值：user_id
 func (builder *BaseChatBuilder) OwnerIdType(ownerIdType string) *BaseChatBuilder {
 	builder.ownerIdType = ownerIdType
-	builder.ownerIdTypeFlag = true
+	builder.ownerIdTypeSet = true
 	return builder
 }
 
@@ -415,7 +415,7 @@ func (builder *BaseChatBuilder) OwnerIdType(ownerIdType string) *BaseChatBuilder
 // 示例值：false
 func (builder *BaseChatBuilder) External(external bool) *BaseChatBuilder {
 	builder.external = external
-	builder.externalFlag = true
+	builder.externalSet = true
 	return builder
 }
 
@@ -424,7 +424,7 @@ func (builder *BaseChatBuilder) External(external bool) *BaseChatBuilder {
 // 示例值：fawefawea
 func (builder *BaseChatBuilder) TenantKey(tenantKey string) *BaseChatBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
@@ -433,7 +433,7 @@ func (builder *BaseChatBuilder) TenantKey(tenantKey string) *BaseChatBuilder {
 // 示例值：
 func (builder *BaseChatBuilder) Labels(labels []string) *BaseChatBuilder {
 	builder.labels = labels
-	builder.labelsFlag = true
+	builder.labelsSet = true
 	return builder
 }
 
@@ -442,7 +442,7 @@ func (builder *BaseChatBuilder) Labels(labels []string) *BaseChatBuilder {
 // 示例值：normal
 func (builder *BaseChatBuilder) ChatStatus(chatStatus string) *BaseChatBuilder {
 	builder.chatStatus = chatStatus
-	builder.chatStatusFlag = true
+	builder.chatStatusSet = true
 	return builder
 }
 
@@ -451,7 +451,7 @@ func (builder *BaseChatBuilder) ChatStatus(chatStatus string) *BaseChatBuilder {
 // 示例值：p2p
 func (builder *BaseChatBuilder) ChatMode(chatMode string) *BaseChatBuilder {
 	builder.chatMode = chatMode
-	builder.chatModeFlag = true
+	builder.chatModeSet = true
 	return builder
 }
 
@@ -460,7 +460,7 @@ func (builder *BaseChatBuilder) ChatMode(chatMode string) *BaseChatBuilder {
 // 示例值：4d7a3c6g
 func (builder *BaseChatBuilder) P2pTargetId(p2pTargetId string) *BaseChatBuilder {
 	builder.p2pTargetId = p2pTargetId
-	builder.p2pTargetIdFlag = true
+	builder.p2pTargetIdSet = true
 	return builder
 }
 
@@ -469,60 +469,60 @@ func (builder *BaseChatBuilder) P2pTargetId(p2pTargetId string) *BaseChatBuilder
 // 示例值：bot
 func (builder *BaseChatBuilder) P2pTargetType(p2pTargetType string) *BaseChatBuilder {
 	builder.p2pTargetType = p2pTargetType
-	builder.p2pTargetTypeFlag = true
+	builder.p2pTargetTypeSet = true
 	return builder
 }
 
 func (builder *BaseChatBuilder) Build() *BaseChat {
 	req := &BaseChat{}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = &builder.avatar
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.ownerIdFlag {
+	if builder.ownerIdSet {
 		req.OwnerId = &builder.ownerId
 
 	}
-	if builder.ownerIdTypeFlag {
+	if builder.ownerIdTypeSet {
 		req.OwnerIdType = &builder.ownerIdType
 
 	}
-	if builder.externalFlag {
+	if builder.externalSet {
 		req.External = &builder.external
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
-	if builder.labelsFlag {
+	if builder.labelsSet {
 		req.Labels = builder.labels
 	}
-	if builder.chatStatusFlag {
+	if builder.chatStatusSet {
 		req.ChatStatus = &builder.chatStatus
 
 	}
-	if builder.chatModeFlag {
+	if builder.chatModeSet {
 		req.ChatMode = &builder.chatMode
 
 	}
-	if builder.p2pTargetIdFlag {
+	if builder.p2pTargetIdSet {
 		req.P2pTargetId = &builder.p2pTargetId
 
 	}
-	if builder.p2pTargetTypeFlag {
+	if builder.p2pTargetTypeSet {
 		req.P2pTargetType = &builder.p2pTargetType
 
 	}
@@ -538,14 +538,14 @@ type BaseFlagItem struct {
 }
 
 type BaseFlagItemBuilder struct {
-	itemId     string // 标记id，比如当标记类型为message时为message_id
-	itemIdFlag bool
+	itemId    string // 标记id，比如当标记类型为message时为message_id
+	itemIdSet bool
 
-	itemType     string // 标记子类型
-	itemTypeFlag bool
+	itemType    string // 标记子类型
+	itemTypeSet bool
 
-	flagType     string // 标记类型
-	flagTypeFlag bool
+	flagType    string // 标记类型
+	flagTypeSet bool
 }
 
 func NewBaseFlagItemBuilder() *BaseFlagItemBuilder {
@@ -558,7 +558,7 @@ func NewBaseFlagItemBuilder() *BaseFlagItemBuilder {
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *BaseFlagItemBuilder) ItemId(itemId string) *BaseFlagItemBuilder {
 	builder.itemId = itemId
-	builder.itemIdFlag = true
+	builder.itemIdSet = true
 	return builder
 }
 
@@ -567,7 +567,7 @@ func (builder *BaseFlagItemBuilder) ItemId(itemId string) *BaseFlagItemBuilder {
 // 示例值："1"
 func (builder *BaseFlagItemBuilder) ItemType(itemType string) *BaseFlagItemBuilder {
 	builder.itemType = itemType
-	builder.itemTypeFlag = true
+	builder.itemTypeSet = true
 	return builder
 }
 
@@ -576,21 +576,21 @@ func (builder *BaseFlagItemBuilder) ItemType(itemType string) *BaseFlagItemBuild
 // 示例值："1"
 func (builder *BaseFlagItemBuilder) FlagType(flagType string) *BaseFlagItemBuilder {
 	builder.flagType = flagType
-	builder.flagTypeFlag = true
+	builder.flagTypeSet = true
 	return builder
 }
 
 func (builder *BaseFlagItemBuilder) Build() *BaseFlagItem {
 	req := &BaseFlagItem{}
-	if builder.itemIdFlag {
+	if builder.itemIdSet {
 		req.ItemId = &builder.itemId
 
 	}
-	if builder.itemTypeFlag {
+	if builder.itemTypeSet {
 		req.ItemType = &builder.itemType
 
 	}
-	if builder.flagTypeFlag {
+	if builder.flagTypeSet {
 		req.FlagType = &builder.flagType
 
 	}
@@ -606,14 +606,14 @@ type BatchMessage struct {
 }
 
 type BatchMessageBuilder struct {
-	batchMessageId     string // 批量发消息的批次号，代表某次批量发送消息的唯一标识
-	batchMessageIdFlag bool
+	batchMessageId    string // 批量发消息的批次号，代表某次批量发送消息的唯一标识
+	batchMessageIdSet bool
 
-	batchSendProgress     *BatchSendProgress // 发送进度
-	batchSendProgressFlag bool
+	batchSendProgress    *BatchSendProgress // 发送进度
+	batchSendProgressSet bool
 
-	batchRecallProgress     *BatchRecallProgress // 撤回进度
-	batchRecallProgressFlag bool
+	batchRecallProgress    *BatchRecallProgress // 撤回进度
+	batchRecallProgressSet bool
 }
 
 func NewBatchMessageBuilder() *BatchMessageBuilder {
@@ -626,7 +626,7 @@ func NewBatchMessageBuilder() *BatchMessageBuilder {
 // 示例值：bm_dc13264520392913993dd051dba21dcf
 func (builder *BatchMessageBuilder) BatchMessageId(batchMessageId string) *BatchMessageBuilder {
 	builder.batchMessageId = batchMessageId
-	builder.batchMessageIdFlag = true
+	builder.batchMessageIdSet = true
 	return builder
 }
 
@@ -635,7 +635,7 @@ func (builder *BatchMessageBuilder) BatchMessageId(batchMessageId string) *Batch
 // 示例值：json结构
 func (builder *BatchMessageBuilder) BatchSendProgress(batchSendProgress *BatchSendProgress) *BatchMessageBuilder {
 	builder.batchSendProgress = batchSendProgress
-	builder.batchSendProgressFlag = true
+	builder.batchSendProgressSet = true
 	return builder
 }
 
@@ -644,20 +644,20 @@ func (builder *BatchMessageBuilder) BatchSendProgress(batchSendProgress *BatchSe
 // 示例值：json结构
 func (builder *BatchMessageBuilder) BatchRecallProgress(batchRecallProgress *BatchRecallProgress) *BatchMessageBuilder {
 	builder.batchRecallProgress = batchRecallProgress
-	builder.batchRecallProgressFlag = true
+	builder.batchRecallProgressSet = true
 	return builder
 }
 
 func (builder *BatchMessageBuilder) Build() *BatchMessage {
 	req := &BatchMessage{}
-	if builder.batchMessageIdFlag {
+	if builder.batchMessageIdSet {
 		req.BatchMessageId = &builder.batchMessageId
 
 	}
-	if builder.batchSendProgressFlag {
+	if builder.batchSendProgressSet {
 		req.BatchSendProgress = builder.batchSendProgress
 	}
-	if builder.batchRecallProgressFlag {
+	if builder.batchRecallProgressSet {
 		req.BatchRecallProgress = builder.batchRecallProgress
 	}
 	return req
@@ -670,11 +670,11 @@ type BatchMessageReadUser struct {
 }
 
 type BatchMessageReadUserBuilder struct {
-	readCount     string // 已读的人数
-	readCountFlag bool
+	readCount    string // 已读的人数
+	readCountSet bool
 
-	totalCount     string // 推送的总人数
-	totalCountFlag bool
+	totalCount    string // 推送的总人数
+	totalCountSet bool
 }
 
 func NewBatchMessageReadUserBuilder() *BatchMessageReadUserBuilder {
@@ -687,7 +687,7 @@ func NewBatchMessageReadUserBuilder() *BatchMessageReadUserBuilder {
 // 示例值：
 func (builder *BatchMessageReadUserBuilder) ReadCount(readCount string) *BatchMessageReadUserBuilder {
 	builder.readCount = readCount
-	builder.readCountFlag = true
+	builder.readCountSet = true
 	return builder
 }
 
@@ -696,17 +696,17 @@ func (builder *BatchMessageReadUserBuilder) ReadCount(readCount string) *BatchMe
 // 示例值：
 func (builder *BatchMessageReadUserBuilder) TotalCount(totalCount string) *BatchMessageReadUserBuilder {
 	builder.totalCount = totalCount
-	builder.totalCountFlag = true
+	builder.totalCountSet = true
 	return builder
 }
 
 func (builder *BatchMessageReadUserBuilder) Build() *BatchMessageReadUser {
 	req := &BatchMessageReadUser{}
-	if builder.readCountFlag {
+	if builder.readCountSet {
 		req.ReadCount = &builder.readCount
 
 	}
-	if builder.totalCountFlag {
+	if builder.totalCountSet {
 		req.TotalCount = &builder.totalCount
 
 	}
@@ -720,11 +720,11 @@ type BatchMessageRecallProgress struct {
 }
 
 type BatchMessageRecallProgressBuilder struct {
-	recall     bool // 该条批量消息是否被执行过撤回操作
-	recallFlag bool
+	recall    bool // 该条批量消息是否被执行过撤回操作
+	recallSet bool
 
-	recallCount     int // 已经成功撤回的消息数量
-	recallCountFlag bool
+	recallCount    int // 已经成功撤回的消息数量
+	recallCountSet bool
 }
 
 func NewBatchMessageRecallProgressBuilder() *BatchMessageRecallProgressBuilder {
@@ -737,7 +737,7 @@ func NewBatchMessageRecallProgressBuilder() *BatchMessageRecallProgressBuilder {
 // 示例值：true
 func (builder *BatchMessageRecallProgressBuilder) Recall(recall bool) *BatchMessageRecallProgressBuilder {
 	builder.recall = recall
-	builder.recallFlag = true
+	builder.recallSet = true
 	return builder
 }
 
@@ -746,17 +746,17 @@ func (builder *BatchMessageRecallProgressBuilder) Recall(recall bool) *BatchMess
 // 示例值：100
 func (builder *BatchMessageRecallProgressBuilder) RecallCount(recallCount int) *BatchMessageRecallProgressBuilder {
 	builder.recallCount = recallCount
-	builder.recallCountFlag = true
+	builder.recallCountSet = true
 	return builder
 }
 
 func (builder *BatchMessageRecallProgressBuilder) Build() *BatchMessageRecallProgress {
 	req := &BatchMessageRecallProgress{}
-	if builder.recallFlag {
+	if builder.recallSet {
 		req.Recall = &builder.recall
 
 	}
-	if builder.recallCountFlag {
+	if builder.recallCountSet {
 		req.RecallCount = &builder.recallCount
 
 	}
@@ -772,14 +772,14 @@ type BatchMessageSendProgress struct {
 }
 
 type BatchMessageSendProgressBuilder struct {
-	validUserIdsCount     int // 批量请求中有效的userid数量(包含机器人不可见用户);;;;**注意**： ;当valid_user_ids_count为0有两种情况：;* 批量任务还没有开始被调度（请等待一会再调用该接口）;* 批量发送消息时传入的所有openIDs、employeID、departmentiIDs都不包含有效的用户
-	validUserIdsCountFlag bool
+	validUserIdsCount    int // 批量请求中有效的userid数量(包含机器人不可见用户);;;;**注意**： ;当valid_user_ids_count为0有两种情况：;* 批量任务还没有开始被调度（请等待一会再调用该接口）;* 批量发送消息时传入的所有openIDs、employeID、departmentiIDs都不包含有效的用户
+	validUserIdsCountSet bool
 
-	successUserIdsCount     int // 已经成功给用户发送成功的消息数量;;;;**注意**：最终success_user_ids_count不一定等于valid_user_ids_count, 因为valid_user_ids_count包含了对机器人不可见的用户
-	successUserIdsCountFlag bool
+	successUserIdsCount    int // 已经成功给用户发送成功的消息数量;;;;**注意**：最终success_user_ids_count不一定等于valid_user_ids_count, 因为valid_user_ids_count包含了对机器人不可见的用户
+	successUserIdsCountSet bool
 
-	readUserIdsCount     int // 已读信息用户数量
-	readUserIdsCountFlag bool
+	readUserIdsCount    int // 已读信息用户数量
+	readUserIdsCountSet bool
 }
 
 func NewBatchMessageSendProgressBuilder() *BatchMessageSendProgressBuilder {
@@ -792,7 +792,7 @@ func NewBatchMessageSendProgressBuilder() *BatchMessageSendProgressBuilder {
 // 示例值：204
 func (builder *BatchMessageSendProgressBuilder) ValidUserIdsCount(validUserIdsCount int) *BatchMessageSendProgressBuilder {
 	builder.validUserIdsCount = validUserIdsCount
-	builder.validUserIdsCountFlag = true
+	builder.validUserIdsCountSet = true
 	return builder
 }
 
@@ -801,7 +801,7 @@ func (builder *BatchMessageSendProgressBuilder) ValidUserIdsCount(validUserIdsCo
 // 示例值：200
 func (builder *BatchMessageSendProgressBuilder) SuccessUserIdsCount(successUserIdsCount int) *BatchMessageSendProgressBuilder {
 	builder.successUserIdsCount = successUserIdsCount
-	builder.successUserIdsCountFlag = true
+	builder.successUserIdsCountSet = true
 	return builder
 }
 
@@ -810,21 +810,21 @@ func (builder *BatchMessageSendProgressBuilder) SuccessUserIdsCount(successUserI
 // 示例值：150
 func (builder *BatchMessageSendProgressBuilder) ReadUserIdsCount(readUserIdsCount int) *BatchMessageSendProgressBuilder {
 	builder.readUserIdsCount = readUserIdsCount
-	builder.readUserIdsCountFlag = true
+	builder.readUserIdsCountSet = true
 	return builder
 }
 
 func (builder *BatchMessageSendProgressBuilder) Build() *BatchMessageSendProgress {
 	req := &BatchMessageSendProgress{}
-	if builder.validUserIdsCountFlag {
+	if builder.validUserIdsCountSet {
 		req.ValidUserIdsCount = &builder.validUserIdsCount
 
 	}
-	if builder.successUserIdsCountFlag {
+	if builder.successUserIdsCountSet {
 		req.SuccessUserIdsCount = &builder.successUserIdsCount
 
 	}
-	if builder.readUserIdsCountFlag {
+	if builder.readUserIdsCountSet {
 		req.ReadUserIdsCount = &builder.readUserIdsCount
 
 	}
@@ -838,11 +838,11 @@ type BatchRecallProgress struct {
 }
 
 type BatchRecallProgressBuilder struct {
-	recallCount     string // 撤回成功的消息条数
-	recallCountFlag bool
+	recallCount    string // 撤回成功的消息条数
+	recallCountSet bool
 
-	totalRecallCount     string // 计划撤回的消息条数
-	totalRecallCountFlag bool
+	totalRecallCount    string // 计划撤回的消息条数
+	totalRecallCountSet bool
 }
 
 func NewBatchRecallProgressBuilder() *BatchRecallProgressBuilder {
@@ -855,7 +855,7 @@ func NewBatchRecallProgressBuilder() *BatchRecallProgressBuilder {
 // 示例值：
 func (builder *BatchRecallProgressBuilder) RecallCount(recallCount string) *BatchRecallProgressBuilder {
 	builder.recallCount = recallCount
-	builder.recallCountFlag = true
+	builder.recallCountSet = true
 	return builder
 }
 
@@ -864,17 +864,17 @@ func (builder *BatchRecallProgressBuilder) RecallCount(recallCount string) *Batc
 // 示例值：
 func (builder *BatchRecallProgressBuilder) TotalRecallCount(totalRecallCount string) *BatchRecallProgressBuilder {
 	builder.totalRecallCount = totalRecallCount
-	builder.totalRecallCountFlag = true
+	builder.totalRecallCountSet = true
 	return builder
 }
 
 func (builder *BatchRecallProgressBuilder) Build() *BatchRecallProgress {
 	req := &BatchRecallProgress{}
-	if builder.recallCountFlag {
+	if builder.recallCountSet {
 		req.RecallCount = &builder.recallCount
 
 	}
-	if builder.totalRecallCountFlag {
+	if builder.totalRecallCountSet {
 		req.TotalRecallCount = &builder.totalRecallCount
 
 	}
@@ -888,11 +888,11 @@ type BatchSendProgress struct {
 }
 
 type BatchSendProgressBuilder struct {
-	sendCount     string // 发送成功的消息条数
-	sendCountFlag bool
+	sendCount    string // 发送成功的消息条数
+	sendCountSet bool
 
-	totalSendCount     string // 总的计划发送的消息条数
-	totalSendCountFlag bool
+	totalSendCount    string // 总的计划发送的消息条数
+	totalSendCountSet bool
 }
 
 func NewBatchSendProgressBuilder() *BatchSendProgressBuilder {
@@ -905,7 +905,7 @@ func NewBatchSendProgressBuilder() *BatchSendProgressBuilder {
 // 示例值：
 func (builder *BatchSendProgressBuilder) SendCount(sendCount string) *BatchSendProgressBuilder {
 	builder.sendCount = sendCount
-	builder.sendCountFlag = true
+	builder.sendCountSet = true
 	return builder
 }
 
@@ -914,17 +914,17 @@ func (builder *BatchSendProgressBuilder) SendCount(sendCount string) *BatchSendP
 // 示例值：
 func (builder *BatchSendProgressBuilder) TotalSendCount(totalSendCount string) *BatchSendProgressBuilder {
 	builder.totalSendCount = totalSendCount
-	builder.totalSendCountFlag = true
+	builder.totalSendCountSet = true
 	return builder
 }
 
 func (builder *BatchSendProgressBuilder) Build() *BatchSendProgress {
 	req := &BatchSendProgress{}
-	if builder.sendCountFlag {
+	if builder.sendCountSet {
 		req.SendCount = &builder.sendCount
 
 	}
-	if builder.totalSendCountFlag {
+	if builder.totalSendCountSet {
 		req.TotalSendCount = &builder.totalSendCount
 
 	}
@@ -936,8 +936,8 @@ type BotInfo struct {
 }
 
 type BotInfoBuilder struct {
-	appId     string // 应用id
-	appIdFlag bool
+	appId    string // 应用id
+	appIdSet bool
 }
 
 func NewBotInfoBuilder() *BotInfoBuilder {
@@ -950,13 +950,13 @@ func NewBotInfoBuilder() *BotInfoBuilder {
 // 示例值：cli_a3f6710b3738d01c
 func (builder *BotInfoBuilder) AppId(appId string) *BotInfoBuilder {
 	builder.appId = appId
-	builder.appIdFlag = true
+	builder.appIdSet = true
 	return builder
 }
 
 func (builder *BotInfoBuilder) Build() *BotInfo {
 	req := &BotInfo{}
-	if builder.appIdFlag {
+	if builder.appIdSet {
 		req.AppId = &builder.appId
 
 	}
@@ -990,41 +990,41 @@ type Chat struct {
 }
 
 type ChatBuilder struct {
-	chatId     string // chat_id of the conversation
-	chatIdFlag bool
+	chatId    string // chat_id of the conversation
+	chatIdSet bool
 
-	avatar     string // avatar of the conversation
-	avatarFlag bool
+	avatar    string // avatar of the conversation
+	avatarSet bool
 
-	name     string // name of the conversation
-	nameFlag bool
+	name    string // name of the conversation
+	nameSet bool
 
-	description     string // description of the conversation
-	descriptionFlag bool
+	description    string // description of the conversation
+	descriptionSet bool
 
-	i18nNames     *I18nNames // i18_names of the conversation
-	i18nNamesFlag bool
+	i18nNames    *I18nNames // i18_names of the conversation
+	i18nNamesSet bool
 
-	onlyOwnerAdd     bool // whether only the owner of the converation can add others
-	onlyOwnerAddFlag bool
+	onlyOwnerAdd    bool // whether only the owner of the converation can add others
+	onlyOwnerAddSet bool
 
-	shareAllowed     bool // whether the converation can be shared
-	shareAllowedFlag bool
+	shareAllowed    bool // whether the converation can be shared
+	shareAllowedSet bool
 
-	onlyOwnerAtAll     bool // whether only the owner of the converation can @all
-	onlyOwnerAtAllFlag bool
+	onlyOwnerAtAll    bool // whether only the owner of the converation can @all
+	onlyOwnerAtAllSet bool
 
-	onlyOwnerEdit     bool // whether only the owner of the converation can edit the converation info
-	onlyOwnerEditFlag bool
+	onlyOwnerEdit    bool // whether only the owner of the converation can edit the converation info
+	onlyOwnerEditSet bool
 
-	ownerUserId     string // owner_id
-	ownerUserIdFlag bool
+	ownerUserId    string // owner_id
+	ownerUserIdSet bool
 
 	type_    string // type
-	typeFlag bool
+	type_Set bool
 
-	labels     []string // 群标签
-	labelsFlag bool
+	labels    []string // 群标签
+	labelsSet bool
 }
 
 func NewChatBuilder() *ChatBuilder {
@@ -1037,7 +1037,7 @@ func NewChatBuilder() *ChatBuilder {
 // 示例值：
 func (builder *ChatBuilder) ChatId(chatId string) *ChatBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -1046,7 +1046,7 @@ func (builder *ChatBuilder) ChatId(chatId string) *ChatBuilder {
 // 示例值：
 func (builder *ChatBuilder) Avatar(avatar string) *ChatBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
@@ -1055,7 +1055,7 @@ func (builder *ChatBuilder) Avatar(avatar string) *ChatBuilder {
 // 示例值：
 func (builder *ChatBuilder) Name(name string) *ChatBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1064,7 +1064,7 @@ func (builder *ChatBuilder) Name(name string) *ChatBuilder {
 // 示例值：
 func (builder *ChatBuilder) Description(description string) *ChatBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -1073,7 +1073,7 @@ func (builder *ChatBuilder) Description(description string) *ChatBuilder {
 // 示例值：
 func (builder *ChatBuilder) I18nNames(i18nNames *I18nNames) *ChatBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
@@ -1082,7 +1082,7 @@ func (builder *ChatBuilder) I18nNames(i18nNames *I18nNames) *ChatBuilder {
 // 示例值：
 func (builder *ChatBuilder) OnlyOwnerAdd(onlyOwnerAdd bool) *ChatBuilder {
 	builder.onlyOwnerAdd = onlyOwnerAdd
-	builder.onlyOwnerAddFlag = true
+	builder.onlyOwnerAddSet = true
 	return builder
 }
 
@@ -1091,7 +1091,7 @@ func (builder *ChatBuilder) OnlyOwnerAdd(onlyOwnerAdd bool) *ChatBuilder {
 // 示例值：
 func (builder *ChatBuilder) ShareAllowed(shareAllowed bool) *ChatBuilder {
 	builder.shareAllowed = shareAllowed
-	builder.shareAllowedFlag = true
+	builder.shareAllowedSet = true
 	return builder
 }
 
@@ -1100,7 +1100,7 @@ func (builder *ChatBuilder) ShareAllowed(shareAllowed bool) *ChatBuilder {
 // 示例值：
 func (builder *ChatBuilder) OnlyOwnerAtAll(onlyOwnerAtAll bool) *ChatBuilder {
 	builder.onlyOwnerAtAll = onlyOwnerAtAll
-	builder.onlyOwnerAtAllFlag = true
+	builder.onlyOwnerAtAllSet = true
 	return builder
 }
 
@@ -1109,7 +1109,7 @@ func (builder *ChatBuilder) OnlyOwnerAtAll(onlyOwnerAtAll bool) *ChatBuilder {
 // 示例值：
 func (builder *ChatBuilder) OnlyOwnerEdit(onlyOwnerEdit bool) *ChatBuilder {
 	builder.onlyOwnerEdit = onlyOwnerEdit
-	builder.onlyOwnerEditFlag = true
+	builder.onlyOwnerEditSet = true
 	return builder
 }
 
@@ -1118,7 +1118,7 @@ func (builder *ChatBuilder) OnlyOwnerEdit(onlyOwnerEdit bool) *ChatBuilder {
 // 示例值：
 func (builder *ChatBuilder) OwnerUserId(ownerUserId string) *ChatBuilder {
 	builder.ownerUserId = ownerUserId
-	builder.ownerUserIdFlag = true
+	builder.ownerUserIdSet = true
 	return builder
 }
 
@@ -1127,7 +1127,7 @@ func (builder *ChatBuilder) OwnerUserId(ownerUserId string) *ChatBuilder {
 // 示例值：
 func (builder *ChatBuilder) Type(type_ string) *ChatBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -1136,56 +1136,56 @@ func (builder *ChatBuilder) Type(type_ string) *ChatBuilder {
 // 示例值：
 func (builder *ChatBuilder) Labels(labels []string) *ChatBuilder {
 	builder.labels = labels
-	builder.labelsFlag = true
+	builder.labelsSet = true
 	return builder
 }
 
 func (builder *ChatBuilder) Build() *Chat {
 	req := &Chat{}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = &builder.avatar
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
-	if builder.onlyOwnerAddFlag {
+	if builder.onlyOwnerAddSet {
 		req.OnlyOwnerAdd = &builder.onlyOwnerAdd
 
 	}
-	if builder.shareAllowedFlag {
+	if builder.shareAllowedSet {
 		req.ShareAllowed = &builder.shareAllowed
 
 	}
-	if builder.onlyOwnerAtAllFlag {
+	if builder.onlyOwnerAtAllSet {
 		req.OnlyOwnerAtAll = &builder.onlyOwnerAtAll
 
 	}
-	if builder.onlyOwnerEditFlag {
+	if builder.onlyOwnerEditSet {
 		req.OnlyOwnerEdit = &builder.onlyOwnerEdit
 
 	}
-	if builder.ownerUserIdFlag {
+	if builder.ownerUserIdSet {
 		req.OwnerUserId = &builder.ownerUserId
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.labelsFlag {
+	if builder.labelsSet {
 		req.Labels = builder.labels
 	}
 	return req
@@ -1212,8 +1212,8 @@ type ChatManagers struct {
 }
 
 type ChatManagersBuilder struct {
-	managerId     string // 群管理员ID
-	managerIdFlag bool
+	managerId    string // 群管理员ID
+	managerIdSet bool
 }
 
 func NewChatManagersBuilder() *ChatManagersBuilder {
@@ -1226,13 +1226,13 @@ func NewChatManagersBuilder() *ChatManagersBuilder {
 // 示例值：
 func (builder *ChatManagersBuilder) ManagerId(managerId string) *ChatManagersBuilder {
 	builder.managerId = managerId
-	builder.managerIdFlag = true
+	builder.managerIdSet = true
 	return builder
 }
 
 func (builder *ChatManagersBuilder) Build() *ChatManagers {
 	req := &ChatManagers{}
-	if builder.managerIdFlag {
+	if builder.managerIdSet {
 		req.ManagerId = &builder.managerId
 
 	}
@@ -1244,8 +1244,8 @@ type ChatMember struct {
 }
 
 type ChatMemberBuilder struct {
-	userId     string // user_id
-	userIdFlag bool
+	userId    string // user_id
+	userIdSet bool
 }
 
 func NewChatMemberBuilder() *ChatMemberBuilder {
@@ -1258,13 +1258,13 @@ func NewChatMemberBuilder() *ChatMemberBuilder {
 // 示例值：
 func (builder *ChatMemberBuilder) UserId(userId string) *ChatMemberBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *ChatMemberBuilder) Build() *ChatMember {
 	req := &ChatMember{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -1276,8 +1276,8 @@ type ChatMemberBot struct {
 }
 
 type ChatMemberBotBuilder struct {
-	botId     string // bot_id
-	botIdFlag bool
+	botId    string // bot_id
+	botIdSet bool
 }
 
 func NewChatMemberBotBuilder() *ChatMemberBotBuilder {
@@ -1290,13 +1290,13 @@ func NewChatMemberBotBuilder() *ChatMemberBotBuilder {
 // 示例值：
 func (builder *ChatMemberBotBuilder) BotId(botId string) *ChatMemberBotBuilder {
 	builder.botId = botId
-	builder.botIdFlag = true
+	builder.botIdSet = true
 	return builder
 }
 
 func (builder *ChatMemberBotBuilder) Build() *ChatMemberBot {
 	req := &ChatMemberBot{}
-	if builder.botIdFlag {
+	if builder.botIdSet {
 		req.BotId = &builder.botId
 
 	}
@@ -1312,14 +1312,14 @@ type ChatMemberUser struct {
 }
 
 type ChatMemberUserBuilder struct {
-	name     string // 用户名字
-	nameFlag bool
+	name    string // 用户名字
+	nameSet bool
 
-	tenantKey     string // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
-	tenantKeyFlag bool
+	tenantKey    string // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	tenantKeySet bool
 
-	userId     *UserId // 用户 ID
-	userIdFlag bool
+	userId    *UserId // 用户 ID
+	userIdSet bool
 }
 
 func NewChatMemberUserBuilder() *ChatMemberUserBuilder {
@@ -1332,7 +1332,7 @@ func NewChatMemberUserBuilder() *ChatMemberUserBuilder {
 // 示例值：user name
 func (builder *ChatMemberUserBuilder) Name(name string) *ChatMemberUserBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1341,7 +1341,7 @@ func (builder *ChatMemberUserBuilder) Name(name string) *ChatMemberUserBuilder {
 // 示例值：3774yuu3743
 func (builder *ChatMemberUserBuilder) TenantKey(tenantKey string) *ChatMemberUserBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
@@ -1350,21 +1350,21 @@ func (builder *ChatMemberUserBuilder) TenantKey(tenantKey string) *ChatMemberUse
 // 示例值：
 func (builder *ChatMemberUserBuilder) UserId(userId *UserId) *ChatMemberUserBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *ChatMemberUserBuilder) Build() *ChatMemberUser {
 	req := &ChatMemberUser{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = builder.userId
 	}
 	return req
@@ -1375,8 +1375,8 @@ type ChatMembers struct {
 }
 
 type ChatMembersBuilder struct {
-	userId     string // user_id
-	userIdFlag bool
+	userId    string // user_id
+	userIdSet bool
 }
 
 func NewChatMembersBuilder() *ChatMembersBuilder {
@@ -1389,13 +1389,13 @@ func NewChatMembersBuilder() *ChatMembersBuilder {
 // 示例值：
 func (builder *ChatMembersBuilder) UserId(userId string) *ChatMembersBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *ChatMembersBuilder) Build() *ChatMembers {
 	req := &ChatMembers{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -1407,8 +1407,8 @@ type ChatMenuTree struct {
 }
 
 type ChatMenuTreeBuilder struct {
-	chatMenuTopLevels     []*ChatMenuTopLevel // 一级菜单列表
-	chatMenuTopLevelsFlag bool
+	chatMenuTopLevels    []*ChatMenuTopLevel // 一级菜单列表
+	chatMenuTopLevelsSet bool
 }
 
 func NewChatMenuTreeBuilder() *ChatMenuTreeBuilder {
@@ -1421,13 +1421,13 @@ func NewChatMenuTreeBuilder() *ChatMenuTreeBuilder {
 // 示例值：
 func (builder *ChatMenuTreeBuilder) ChatMenuTopLevels(chatMenuTopLevels []*ChatMenuTopLevel) *ChatMenuTreeBuilder {
 	builder.chatMenuTopLevels = chatMenuTopLevels
-	builder.chatMenuTopLevelsFlag = true
+	builder.chatMenuTopLevelsSet = true
 	return builder
 }
 
 func (builder *ChatMenuTreeBuilder) Build() *ChatMenuTree {
 	req := &ChatMenuTree{}
-	if builder.chatMenuTopLevelsFlag {
+	if builder.chatMenuTopLevelsSet {
 		req.ChatMenuTopLevels = builder.chatMenuTopLevels
 	}
 	return req
@@ -1446,20 +1446,20 @@ type ChatTab struct {
 }
 
 type ChatTabBuilder struct {
-	tabId     string // Tab ID
-	tabIdFlag bool
+	tabId    string // Tab ID
+	tabIdSet bool
 
-	tabName     string // Tab名称;;**注意**：会话标签页的名称不能超过30个字符
-	tabNameFlag bool
+	tabName    string // Tab名称;;**注意**：会话标签页的名称不能超过30个字符
+	tabNameSet bool
 
-	tabType     string // Tab类型
-	tabTypeFlag bool
+	tabType    string // Tab类型
+	tabTypeSet bool
 
-	tabContent     *ChatTabContent // Tab内容
-	tabContentFlag bool
+	tabContent    *ChatTabContent // Tab内容
+	tabContentSet bool
 
-	tabConfig     *ChatTabConfig // Tab的配置
-	tabConfigFlag bool
+	tabConfig    *ChatTabConfig // Tab的配置
+	tabConfigSet bool
 }
 
 func NewChatTabBuilder() *ChatTabBuilder {
@@ -1472,7 +1472,7 @@ func NewChatTabBuilder() *ChatTabBuilder {
 // 示例值：7101214603622940671
 func (builder *ChatTabBuilder) TabId(tabId string) *ChatTabBuilder {
 	builder.tabId = tabId
-	builder.tabIdFlag = true
+	builder.tabIdSet = true
 	return builder
 }
 
@@ -1481,7 +1481,7 @@ func (builder *ChatTabBuilder) TabId(tabId string) *ChatTabBuilder {
 // 示例值：文档
 func (builder *ChatTabBuilder) TabName(tabName string) *ChatTabBuilder {
 	builder.tabName = tabName
-	builder.tabNameFlag = true
+	builder.tabNameSet = true
 	return builder
 }
 
@@ -1490,7 +1490,7 @@ func (builder *ChatTabBuilder) TabName(tabName string) *ChatTabBuilder {
 // 示例值：doc
 func (builder *ChatTabBuilder) TabType(tabType string) *ChatTabBuilder {
 	builder.tabType = tabType
-	builder.tabTypeFlag = true
+	builder.tabTypeSet = true
 	return builder
 }
 
@@ -1499,7 +1499,7 @@ func (builder *ChatTabBuilder) TabType(tabType string) *ChatTabBuilder {
 // 示例值：
 func (builder *ChatTabBuilder) TabContent(tabContent *ChatTabContent) *ChatTabBuilder {
 	builder.tabContent = tabContent
-	builder.tabContentFlag = true
+	builder.tabContentSet = true
 	return builder
 }
 
@@ -1508,28 +1508,28 @@ func (builder *ChatTabBuilder) TabContent(tabContent *ChatTabContent) *ChatTabBu
 // 示例值：
 func (builder *ChatTabBuilder) TabConfig(tabConfig *ChatTabConfig) *ChatTabBuilder {
 	builder.tabConfig = tabConfig
-	builder.tabConfigFlag = true
+	builder.tabConfigSet = true
 	return builder
 }
 
 func (builder *ChatTabBuilder) Build() *ChatTab {
 	req := &ChatTab{}
-	if builder.tabIdFlag {
+	if builder.tabIdSet {
 		req.TabId = &builder.tabId
 
 	}
-	if builder.tabNameFlag {
+	if builder.tabNameSet {
 		req.TabName = &builder.tabName
 
 	}
-	if builder.tabTypeFlag {
+	if builder.tabTypeSet {
 		req.TabType = &builder.tabType
 
 	}
-	if builder.tabContentFlag {
+	if builder.tabContentSet {
 		req.TabContent = builder.tabContent
 	}
-	if builder.tabConfigFlag {
+	if builder.tabConfigSet {
 		req.TabConfig = builder.tabConfig
 	}
 	return req
@@ -1542,11 +1542,11 @@ type ChatTopNotice struct {
 }
 
 type ChatTopNoticeBuilder struct {
-	actionType     string // 置顶的类型;;**注意**：;- 选择 ==消息类型== 时必须填写`message_id`字段;- 选择 ==群公告类型== 时填写的`message_id`将被忽略
-	actionTypeFlag bool
+	actionType    string // 置顶的类型;;**注意**：;- 选择 ==消息类型== 时必须填写`message_id`字段;- 选择 ==群公告类型== 时填写的`message_id`将被忽略
+	actionTypeSet bool
 
-	messageId     string // 消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	messageIdFlag bool
+	messageId    string // 消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	messageIdSet bool
 }
 
 func NewChatTopNoticeBuilder() *ChatTopNoticeBuilder {
@@ -1559,7 +1559,7 @@ func NewChatTopNoticeBuilder() *ChatTopNoticeBuilder {
 // 示例值：2
 func (builder *ChatTopNoticeBuilder) ActionType(actionType string) *ChatTopNoticeBuilder {
 	builder.actionType = actionType
-	builder.actionTypeFlag = true
+	builder.actionTypeSet = true
 	return builder
 }
 
@@ -1568,17 +1568,17 @@ func (builder *ChatTopNoticeBuilder) ActionType(actionType string) *ChatTopNotic
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *ChatTopNoticeBuilder) MessageId(messageId string) *ChatTopNoticeBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
 func (builder *ChatTopNoticeBuilder) Build() *ChatTopNotice {
 	req := &ChatTopNotice{}
-	if builder.actionTypeFlag {
+	if builder.actionTypeSet {
 		req.ActionType = &builder.actionType
 
 	}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
@@ -1620,53 +1620,53 @@ type ChatChange struct {
 }
 
 type ChatChangeBuilder struct {
-	avatar     string // 群头像
-	avatarFlag bool
+	avatar    string // 群头像
+	avatarSet bool
 
-	name     string // 群名称
-	nameFlag bool
+	name    string // 群名称
+	nameSet bool
 
-	description     string // 群描述
-	descriptionFlag bool
+	description    string // 群描述
+	descriptionSet bool
 
-	i18nNames     *I18nNames // 群国际化名称
-	i18nNamesFlag bool
+	i18nNames    *I18nNames // 群国际化名称
+	i18nNamesSet bool
 
-	addMemberPermission     string // 加人入群权限(all_members/only_owner/unknown)
-	addMemberPermissionFlag bool
+	addMemberPermission    string // 加人入群权限(all_members/only_owner/unknown)
+	addMemberPermissionSet bool
 
-	shareCardPermission     string // 群分享权限(allowed/not_allowed/unknown)
-	shareCardPermissionFlag bool
+	shareCardPermission    string // 群分享权限(allowed/not_allowed/unknown)
+	shareCardPermissionSet bool
 
-	atAllPermission     string // at 所有人权限(all_members/only_owner/unknown)
-	atAllPermissionFlag bool
+	atAllPermission    string // at 所有人权限(all_members/only_owner/unknown)
+	atAllPermissionSet bool
 
-	editPermission     string // 群编辑权限(all_members/only_owner/unknown)
-	editPermissionFlag bool
+	editPermission    string // 群编辑权限(all_members/only_owner/unknown)
+	editPermissionSet bool
 
-	membershipApproval     string // 加群审批(no_approval_required/approval_required)
-	membershipApprovalFlag bool
+	membershipApproval    string // 加群审批(no_approval_required/approval_required)
+	membershipApprovalSet bool
 
-	joinMessageVisibility     string // 入群消息可见性(only_owner/all_members/not_anyone)
-	joinMessageVisibilityFlag bool
+	joinMessageVisibility    string // 入群消息可见性(only_owner/all_members/not_anyone)
+	joinMessageVisibilitySet bool
 
-	leaveMessageVisibility     string // 出群消息可见性(only_owner/all_members/not_anyone)
-	leaveMessageVisibilityFlag bool
+	leaveMessageVisibility    string // 出群消息可见性(only_owner/all_members/not_anyone)
+	leaveMessageVisibilitySet bool
 
-	moderationPermission     string // 发言权限(all_members/only_owner)
-	moderationPermissionFlag bool
+	moderationPermission    string // 发言权限(all_members/only_owner)
+	moderationPermissionSet bool
 
-	ownerId     *UserId // 用户 ID
-	ownerIdFlag bool
+	ownerId    *UserId // 用户 ID
+	ownerIdSet bool
 
-	labels     []string // 群标签
-	labelsFlag bool
+	labels    []string // 群标签
+	labelsSet bool
 
-	restrictedModeSetting     *RestrictedModeSetting // 防泄密模式设置
-	restrictedModeSettingFlag bool
+	restrictedModeSetting    *RestrictedModeSetting // 防泄密模式设置
+	restrictedModeSettingSet bool
 
-	groupMessageType     string // 群消息模式
-	groupMessageTypeFlag bool
+	groupMessageType    string // 群消息模式
+	groupMessageTypeSet bool
 }
 
 func NewChatChangeBuilder() *ChatChangeBuilder {
@@ -1679,7 +1679,7 @@ func NewChatChangeBuilder() *ChatChangeBuilder {
 // 示例值：default-avatar_0cda3662-875a-4354-94d2-83e7393c7123
 func (builder *ChatChangeBuilder) Avatar(avatar string) *ChatChangeBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
@@ -1688,7 +1688,7 @@ func (builder *ChatChangeBuilder) Avatar(avatar string) *ChatChangeBuilder {
 // 示例值：群名称测试
 func (builder *ChatChangeBuilder) Name(name string) *ChatChangeBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1697,7 +1697,7 @@ func (builder *ChatChangeBuilder) Name(name string) *ChatChangeBuilder {
 // 示例值：群描述测试
 func (builder *ChatChangeBuilder) Description(description string) *ChatChangeBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -1706,7 +1706,7 @@ func (builder *ChatChangeBuilder) Description(description string) *ChatChangeBui
 // 示例值：
 func (builder *ChatChangeBuilder) I18nNames(i18nNames *I18nNames) *ChatChangeBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
@@ -1715,7 +1715,7 @@ func (builder *ChatChangeBuilder) I18nNames(i18nNames *I18nNames) *ChatChangeBui
 // 示例值：all_members
 func (builder *ChatChangeBuilder) AddMemberPermission(addMemberPermission string) *ChatChangeBuilder {
 	builder.addMemberPermission = addMemberPermission
-	builder.addMemberPermissionFlag = true
+	builder.addMemberPermissionSet = true
 	return builder
 }
 
@@ -1724,7 +1724,7 @@ func (builder *ChatChangeBuilder) AddMemberPermission(addMemberPermission string
 // 示例值：allowed
 func (builder *ChatChangeBuilder) ShareCardPermission(shareCardPermission string) *ChatChangeBuilder {
 	builder.shareCardPermission = shareCardPermission
-	builder.shareCardPermissionFlag = true
+	builder.shareCardPermissionSet = true
 	return builder
 }
 
@@ -1733,7 +1733,7 @@ func (builder *ChatChangeBuilder) ShareCardPermission(shareCardPermission string
 // 示例值：only_owner
 func (builder *ChatChangeBuilder) AtAllPermission(atAllPermission string) *ChatChangeBuilder {
 	builder.atAllPermission = atAllPermission
-	builder.atAllPermissionFlag = true
+	builder.atAllPermissionSet = true
 	return builder
 }
 
@@ -1742,7 +1742,7 @@ func (builder *ChatChangeBuilder) AtAllPermission(atAllPermission string) *ChatC
 // 示例值：all_members
 func (builder *ChatChangeBuilder) EditPermission(editPermission string) *ChatChangeBuilder {
 	builder.editPermission = editPermission
-	builder.editPermissionFlag = true
+	builder.editPermissionSet = true
 	return builder
 }
 
@@ -1751,7 +1751,7 @@ func (builder *ChatChangeBuilder) EditPermission(editPermission string) *ChatCha
 // 示例值：approval_required
 func (builder *ChatChangeBuilder) MembershipApproval(membershipApproval string) *ChatChangeBuilder {
 	builder.membershipApproval = membershipApproval
-	builder.membershipApprovalFlag = true
+	builder.membershipApprovalSet = true
 	return builder
 }
 
@@ -1760,7 +1760,7 @@ func (builder *ChatChangeBuilder) MembershipApproval(membershipApproval string) 
 // 示例值：all_members
 func (builder *ChatChangeBuilder) JoinMessageVisibility(joinMessageVisibility string) *ChatChangeBuilder {
 	builder.joinMessageVisibility = joinMessageVisibility
-	builder.joinMessageVisibilityFlag = true
+	builder.joinMessageVisibilitySet = true
 	return builder
 }
 
@@ -1769,7 +1769,7 @@ func (builder *ChatChangeBuilder) JoinMessageVisibility(joinMessageVisibility st
 // 示例值：all_members
 func (builder *ChatChangeBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *ChatChangeBuilder {
 	builder.leaveMessageVisibility = leaveMessageVisibility
-	builder.leaveMessageVisibilityFlag = true
+	builder.leaveMessageVisibilitySet = true
 	return builder
 }
 
@@ -1778,7 +1778,7 @@ func (builder *ChatChangeBuilder) LeaveMessageVisibility(leaveMessageVisibility 
 // 示例值：all_members
 func (builder *ChatChangeBuilder) ModerationPermission(moderationPermission string) *ChatChangeBuilder {
 	builder.moderationPermission = moderationPermission
-	builder.moderationPermissionFlag = true
+	builder.moderationPermissionSet = true
 	return builder
 }
 
@@ -1787,7 +1787,7 @@ func (builder *ChatChangeBuilder) ModerationPermission(moderationPermission stri
 // 示例值：
 func (builder *ChatChangeBuilder) OwnerId(ownerId *UserId) *ChatChangeBuilder {
 	builder.ownerId = ownerId
-	builder.ownerIdFlag = true
+	builder.ownerIdSet = true
 	return builder
 }
 
@@ -1796,7 +1796,7 @@ func (builder *ChatChangeBuilder) OwnerId(ownerId *UserId) *ChatChangeBuilder {
 // 示例值：
 func (builder *ChatChangeBuilder) Labels(labels []string) *ChatChangeBuilder {
 	builder.labels = labels
-	builder.labelsFlag = true
+	builder.labelsSet = true
 	return builder
 }
 
@@ -1805,7 +1805,7 @@ func (builder *ChatChangeBuilder) Labels(labels []string) *ChatChangeBuilder {
 // 示例值：
 func (builder *ChatChangeBuilder) RestrictedModeSetting(restrictedModeSetting *RestrictedModeSetting) *ChatChangeBuilder {
 	builder.restrictedModeSetting = restrictedModeSetting
-	builder.restrictedModeSettingFlag = true
+	builder.restrictedModeSettingSet = true
 	return builder
 }
 
@@ -1814,69 +1814,69 @@ func (builder *ChatChangeBuilder) RestrictedModeSetting(restrictedModeSetting *R
 // 示例值：chat
 func (builder *ChatChangeBuilder) GroupMessageType(groupMessageType string) *ChatChangeBuilder {
 	builder.groupMessageType = groupMessageType
-	builder.groupMessageTypeFlag = true
+	builder.groupMessageTypeSet = true
 	return builder
 }
 
 func (builder *ChatChangeBuilder) Build() *ChatChange {
 	req := &ChatChange{}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = &builder.avatar
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
-	if builder.addMemberPermissionFlag {
+	if builder.addMemberPermissionSet {
 		req.AddMemberPermission = &builder.addMemberPermission
 
 	}
-	if builder.shareCardPermissionFlag {
+	if builder.shareCardPermissionSet {
 		req.ShareCardPermission = &builder.shareCardPermission
 
 	}
-	if builder.atAllPermissionFlag {
+	if builder.atAllPermissionSet {
 		req.AtAllPermission = &builder.atAllPermission
 
 	}
-	if builder.editPermissionFlag {
+	if builder.editPermissionSet {
 		req.EditPermission = &builder.editPermission
 
 	}
-	if builder.membershipApprovalFlag {
+	if builder.membershipApprovalSet {
 		req.MembershipApproval = &builder.membershipApproval
 
 	}
-	if builder.joinMessageVisibilityFlag {
+	if builder.joinMessageVisibilitySet {
 		req.JoinMessageVisibility = &builder.joinMessageVisibility
 
 	}
-	if builder.leaveMessageVisibilityFlag {
+	if builder.leaveMessageVisibilitySet {
 		req.LeaveMessageVisibility = &builder.leaveMessageVisibility
 
 	}
-	if builder.moderationPermissionFlag {
+	if builder.moderationPermissionSet {
 		req.ModerationPermission = &builder.moderationPermission
 
 	}
-	if builder.ownerIdFlag {
+	if builder.ownerIdSet {
 		req.OwnerId = builder.ownerId
 	}
-	if builder.labelsFlag {
+	if builder.labelsSet {
 		req.Labels = builder.labels
 	}
-	if builder.restrictedModeSettingFlag {
+	if builder.restrictedModeSettingSet {
 		req.RestrictedModeSetting = builder.restrictedModeSetting
 	}
-	if builder.groupMessageTypeFlag {
+	if builder.groupMessageTypeSet {
 		req.GroupMessageType = &builder.groupMessageType
 
 	}
@@ -1896,20 +1896,20 @@ type ChatMenuItem struct {
 }
 
 type ChatMenuItemBuilder struct {
-	actionType     string // 菜单类型
-	actionTypeFlag bool
+	actionType    string // 菜单类型
+	actionTypeSet bool
 
-	redirectLink     *ChatMenuItemRedirectLink // 跳转链接
-	redirectLinkFlag bool
+	redirectLink    *ChatMenuItemRedirectLink // 跳转链接
+	redirectLinkSet bool
 
-	imageKey     string // image_key，通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key
-	imageKeyFlag bool
+	imageKey    string // image_key，通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key
+	imageKeySet bool
 
-	name     string // 名称，一级菜单名称字符数要在1到8范围内，二级菜单名称字符数要在1到24范围内;;;**注意：** ;- 1中文=2英文=2其他语言字符=2字符
-	nameFlag bool
+	name    string // 名称，一级菜单名称字符数要在1到8范围内，二级菜单名称字符数要在1到24范围内;;;**注意：** ;- 1中文=2英文=2其他语言字符=2字符
+	nameSet bool
 
-	i18nNames     *I18nNames // 国际化名称，一级菜单名称字符数要在1到8范围内，二级菜单名称字符数要在1到24范围内;;**注意：**;- 1中文=2英文=2其他语言字符=2字符
-	i18nNamesFlag bool
+	i18nNames    *I18nNames // 国际化名称，一级菜单名称字符数要在1到8范围内，二级菜单名称字符数要在1到24范围内;;**注意：**;- 1中文=2英文=2其他语言字符=2字符
+	i18nNamesSet bool
 }
 
 func NewChatMenuItemBuilder() *ChatMenuItemBuilder {
@@ -1922,7 +1922,7 @@ func NewChatMenuItemBuilder() *ChatMenuItemBuilder {
 // 示例值：NONE
 func (builder *ChatMenuItemBuilder) ActionType(actionType string) *ChatMenuItemBuilder {
 	builder.actionType = actionType
-	builder.actionTypeFlag = true
+	builder.actionTypeSet = true
 	return builder
 }
 
@@ -1931,7 +1931,7 @@ func (builder *ChatMenuItemBuilder) ActionType(actionType string) *ChatMenuItemB
 // 示例值：
 func (builder *ChatMenuItemBuilder) RedirectLink(redirectLink *ChatMenuItemRedirectLink) *ChatMenuItemBuilder {
 	builder.redirectLink = redirectLink
-	builder.redirectLinkFlag = true
+	builder.redirectLinkSet = true
 	return builder
 }
 
@@ -1940,7 +1940,7 @@ func (builder *ChatMenuItemBuilder) RedirectLink(redirectLink *ChatMenuItemRedir
 // 示例值：img_v2_b0fbe905-7988-4282-b882-82edd010336j
 func (builder *ChatMenuItemBuilder) ImageKey(imageKey string) *ChatMenuItemBuilder {
 	builder.imageKey = imageKey
-	builder.imageKeyFlag = true
+	builder.imageKeySet = true
 	return builder
 }
 
@@ -1949,7 +1949,7 @@ func (builder *ChatMenuItemBuilder) ImageKey(imageKey string) *ChatMenuItemBuild
 // 示例值：群聊
 func (builder *ChatMenuItemBuilder) Name(name string) *ChatMenuItemBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1958,28 +1958,28 @@ func (builder *ChatMenuItemBuilder) Name(name string) *ChatMenuItemBuilder {
 // 示例值：
 func (builder *ChatMenuItemBuilder) I18nNames(i18nNames *I18nNames) *ChatMenuItemBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
 func (builder *ChatMenuItemBuilder) Build() *ChatMenuItem {
 	req := &ChatMenuItem{}
-	if builder.actionTypeFlag {
+	if builder.actionTypeSet {
 		req.ActionType = &builder.actionType
 
 	}
-	if builder.redirectLinkFlag {
+	if builder.redirectLinkSet {
 		req.RedirectLink = builder.redirectLink
 	}
-	if builder.imageKeyFlag {
+	if builder.imageKeySet {
 		req.ImageKey = &builder.imageKey
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
 	return req
@@ -1998,20 +1998,20 @@ type ChatMenuItemRedirectLink struct {
 }
 
 type ChatMenuItemRedirectLinkBuilder struct {
-	commonUrl     string // 公用跳转链接，必须以http开头。
-	commonUrlFlag bool
+	commonUrl    string // 公用跳转链接，必须以http开头。
+	commonUrlSet bool
 
-	iosUrl     string // IOS端跳转链接，当该字段不设置时，IOS端会使用common_url。必须以http开头。
-	iosUrlFlag bool
+	iosUrl    string // IOS端跳转链接，当该字段不设置时，IOS端会使用common_url。必须以http开头。
+	iosUrlSet bool
 
-	androidUrl     string // Android端跳转链接，当该字段不设置时，Android端会使用common_url。必须以http开头。
-	androidUrlFlag bool
+	androidUrl    string // Android端跳转链接，当该字段不设置时，Android端会使用common_url。必须以http开头。
+	androidUrlSet bool
 
-	pcUrl     string // PC端跳转链接，当该字段不设置时，PC端会使用common_url。必须以http开头。
-	pcUrlFlag bool
+	pcUrl    string // PC端跳转链接，当该字段不设置时，PC端会使用common_url。必须以http开头。
+	pcUrlSet bool
 
-	webUrl     string // Web端跳转链接，当该字段不设置时，Web端会使用common_url。必须以http开头。
-	webUrlFlag bool
+	webUrl    string // Web端跳转链接，当该字段不设置时，Web端会使用common_url。必须以http开头。
+	webUrlSet bool
 }
 
 func NewChatMenuItemRedirectLinkBuilder() *ChatMenuItemRedirectLinkBuilder {
@@ -2024,7 +2024,7 @@ func NewChatMenuItemRedirectLinkBuilder() *ChatMenuItemRedirectLinkBuilder {
 // 示例值：https://open.feishu.cn/
 func (builder *ChatMenuItemRedirectLinkBuilder) CommonUrl(commonUrl string) *ChatMenuItemRedirectLinkBuilder {
 	builder.commonUrl = commonUrl
-	builder.commonUrlFlag = true
+	builder.commonUrlSet = true
 	return builder
 }
 
@@ -2033,7 +2033,7 @@ func (builder *ChatMenuItemRedirectLinkBuilder) CommonUrl(commonUrl string) *Cha
 // 示例值：https://open.feishu.cn/
 func (builder *ChatMenuItemRedirectLinkBuilder) IosUrl(iosUrl string) *ChatMenuItemRedirectLinkBuilder {
 	builder.iosUrl = iosUrl
-	builder.iosUrlFlag = true
+	builder.iosUrlSet = true
 	return builder
 }
 
@@ -2042,7 +2042,7 @@ func (builder *ChatMenuItemRedirectLinkBuilder) IosUrl(iosUrl string) *ChatMenuI
 // 示例值：https://open.feishu.cn/
 func (builder *ChatMenuItemRedirectLinkBuilder) AndroidUrl(androidUrl string) *ChatMenuItemRedirectLinkBuilder {
 	builder.androidUrl = androidUrl
-	builder.androidUrlFlag = true
+	builder.androidUrlSet = true
 	return builder
 }
 
@@ -2051,7 +2051,7 @@ func (builder *ChatMenuItemRedirectLinkBuilder) AndroidUrl(androidUrl string) *C
 // 示例值：https://open.feishu.cn/
 func (builder *ChatMenuItemRedirectLinkBuilder) PcUrl(pcUrl string) *ChatMenuItemRedirectLinkBuilder {
 	builder.pcUrl = pcUrl
-	builder.pcUrlFlag = true
+	builder.pcUrlSet = true
 	return builder
 }
 
@@ -2060,29 +2060,29 @@ func (builder *ChatMenuItemRedirectLinkBuilder) PcUrl(pcUrl string) *ChatMenuIte
 // 示例值：https://open.feishu.cn/
 func (builder *ChatMenuItemRedirectLinkBuilder) WebUrl(webUrl string) *ChatMenuItemRedirectLinkBuilder {
 	builder.webUrl = webUrl
-	builder.webUrlFlag = true
+	builder.webUrlSet = true
 	return builder
 }
 
 func (builder *ChatMenuItemRedirectLinkBuilder) Build() *ChatMenuItemRedirectLink {
 	req := &ChatMenuItemRedirectLink{}
-	if builder.commonUrlFlag {
+	if builder.commonUrlSet {
 		req.CommonUrl = &builder.commonUrl
 
 	}
-	if builder.iosUrlFlag {
+	if builder.iosUrlSet {
 		req.IosUrl = &builder.iosUrl
 
 	}
-	if builder.androidUrlFlag {
+	if builder.androidUrlSet {
 		req.AndroidUrl = &builder.androidUrl
 
 	}
-	if builder.pcUrlFlag {
+	if builder.pcUrlSet {
 		req.PcUrl = &builder.pcUrl
 
 	}
-	if builder.webUrlFlag {
+	if builder.webUrlSet {
 		req.WebUrl = &builder.webUrl
 
 	}
@@ -2096,11 +2096,11 @@ type ChatMenuSecondLevel struct {
 }
 
 type ChatMenuSecondLevelBuilder struct {
-	chatMenuSecondLevelId     string // 二级菜单ID
-	chatMenuSecondLevelIdFlag bool
+	chatMenuSecondLevelId    string // 二级菜单ID
+	chatMenuSecondLevelIdSet bool
 
-	chatMenuItem     *ChatMenuItem // 二级菜单信息
-	chatMenuItemFlag bool
+	chatMenuItem    *ChatMenuItem // 二级菜单信息
+	chatMenuItemSet bool
 }
 
 func NewChatMenuSecondLevelBuilder() *ChatMenuSecondLevelBuilder {
@@ -2113,7 +2113,7 @@ func NewChatMenuSecondLevelBuilder() *ChatMenuSecondLevelBuilder {
 // 示例值：7039638308221468675
 func (builder *ChatMenuSecondLevelBuilder) ChatMenuSecondLevelId(chatMenuSecondLevelId string) *ChatMenuSecondLevelBuilder {
 	builder.chatMenuSecondLevelId = chatMenuSecondLevelId
-	builder.chatMenuSecondLevelIdFlag = true
+	builder.chatMenuSecondLevelIdSet = true
 	return builder
 }
 
@@ -2122,17 +2122,17 @@ func (builder *ChatMenuSecondLevelBuilder) ChatMenuSecondLevelId(chatMenuSecondL
 // 示例值：
 func (builder *ChatMenuSecondLevelBuilder) ChatMenuItem(chatMenuItem *ChatMenuItem) *ChatMenuSecondLevelBuilder {
 	builder.chatMenuItem = chatMenuItem
-	builder.chatMenuItemFlag = true
+	builder.chatMenuItemSet = true
 	return builder
 }
 
 func (builder *ChatMenuSecondLevelBuilder) Build() *ChatMenuSecondLevel {
 	req := &ChatMenuSecondLevel{}
-	if builder.chatMenuSecondLevelIdFlag {
+	if builder.chatMenuSecondLevelIdSet {
 		req.ChatMenuSecondLevelId = &builder.chatMenuSecondLevelId
 
 	}
-	if builder.chatMenuItemFlag {
+	if builder.chatMenuItemSet {
 		req.ChatMenuItem = builder.chatMenuItem
 	}
 	return req
@@ -2147,14 +2147,14 @@ type ChatMenuTopLevel struct {
 }
 
 type ChatMenuTopLevelBuilder struct {
-	chatMenuTopLevelId     string // 一级菜单ID
-	chatMenuTopLevelIdFlag bool
+	chatMenuTopLevelId    string // 一级菜单ID
+	chatMenuTopLevelIdSet bool
 
-	chatMenuItem     *ChatMenuItem // 一级菜单信息
-	chatMenuItemFlag bool
+	chatMenuItem    *ChatMenuItem // 一级菜单信息
+	chatMenuItemSet bool
 
-	children     []*ChatMenuSecondLevel // 二级菜单列表
-	childrenFlag bool
+	children    []*ChatMenuSecondLevel // 二级菜单列表
+	childrenSet bool
 }
 
 func NewChatMenuTopLevelBuilder() *ChatMenuTopLevelBuilder {
@@ -2167,7 +2167,7 @@ func NewChatMenuTopLevelBuilder() *ChatMenuTopLevelBuilder {
 // 示例值：7117116451961487361
 func (builder *ChatMenuTopLevelBuilder) ChatMenuTopLevelId(chatMenuTopLevelId string) *ChatMenuTopLevelBuilder {
 	builder.chatMenuTopLevelId = chatMenuTopLevelId
-	builder.chatMenuTopLevelIdFlag = true
+	builder.chatMenuTopLevelIdSet = true
 	return builder
 }
 
@@ -2176,7 +2176,7 @@ func (builder *ChatMenuTopLevelBuilder) ChatMenuTopLevelId(chatMenuTopLevelId st
 // 示例值：
 func (builder *ChatMenuTopLevelBuilder) ChatMenuItem(chatMenuItem *ChatMenuItem) *ChatMenuTopLevelBuilder {
 	builder.chatMenuItem = chatMenuItem
-	builder.chatMenuItemFlag = true
+	builder.chatMenuItemSet = true
 	return builder
 }
 
@@ -2185,20 +2185,20 @@ func (builder *ChatMenuTopLevelBuilder) ChatMenuItem(chatMenuItem *ChatMenuItem)
 // 示例值：
 func (builder *ChatMenuTopLevelBuilder) Children(children []*ChatMenuSecondLevel) *ChatMenuTopLevelBuilder {
 	builder.children = children
-	builder.childrenFlag = true
+	builder.childrenSet = true
 	return builder
 }
 
 func (builder *ChatMenuTopLevelBuilder) Build() *ChatMenuTopLevel {
 	req := &ChatMenuTopLevel{}
-	if builder.chatMenuTopLevelIdFlag {
+	if builder.chatMenuTopLevelIdSet {
 		req.ChatMenuTopLevelId = &builder.chatMenuTopLevelId
 
 	}
-	if builder.chatMenuItemFlag {
+	if builder.chatMenuItemSet {
 		req.ChatMenuItem = builder.chatMenuItem
 	}
-	if builder.childrenFlag {
+	if builder.childrenSet {
 		req.Children = builder.children
 	}
 	return req
@@ -2213,14 +2213,14 @@ type ChatP2p struct {
 }
 
 type ChatP2pBuilder struct {
-	chatterId1     string // 单聊第一个用户ID
-	chatterId1Flag bool
+	chatterId1    string // 单聊第一个用户ID
+	chatterId1Set bool
 
-	chatterId2     string // 单聊第二个用户ID
-	chatterId2Flag bool
+	chatterId2    string // 单聊第二个用户ID
+	chatterId2Set bool
 
-	chatId     string // 群组ID
-	chatIdFlag bool
+	chatId    string // 群组ID
+	chatIdSet bool
 }
 
 func NewChatP2pBuilder() *ChatP2pBuilder {
@@ -2233,7 +2233,7 @@ func NewChatP2pBuilder() *ChatP2pBuilder {
 // 示例值：ou_9204a37300b3700d61effaa439f34295
 func (builder *ChatP2pBuilder) ChatterId1(chatterId1 string) *ChatP2pBuilder {
 	builder.chatterId1 = chatterId1
-	builder.chatterId1Flag = true
+	builder.chatterId1Set = true
 	return builder
 }
 
@@ -2242,7 +2242,7 @@ func (builder *ChatP2pBuilder) ChatterId1(chatterId1 string) *ChatP2pBuilder {
 // 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
 func (builder *ChatP2pBuilder) ChatterId2(chatterId2 string) *ChatP2pBuilder {
 	builder.chatterId2 = chatterId2
-	builder.chatterId2Flag = true
+	builder.chatterId2Set = true
 	return builder
 }
 
@@ -2251,21 +2251,21 @@ func (builder *ChatP2pBuilder) ChatterId2(chatterId2 string) *ChatP2pBuilder {
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *ChatP2pBuilder) ChatId(chatId string) *ChatP2pBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
 func (builder *ChatP2pBuilder) Build() *ChatP2p {
 	req := &ChatP2p{}
-	if builder.chatterId1Flag {
+	if builder.chatterId1Set {
 		req.ChatterId1 = &builder.chatterId1
 
 	}
-	if builder.chatterId2Flag {
+	if builder.chatterId2Set {
 		req.ChatterId2 = &builder.chatterId2
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
@@ -2279,11 +2279,11 @@ type ChatTabConfig struct {
 }
 
 type ChatTabConfigBuilder struct {
-	iconKey     string // 群Tab图标
-	iconKeyFlag bool
+	iconKey    string // 群Tab图标
+	iconKeySet bool
 
-	isBuiltIn     bool // 群tab是否App内嵌打开
-	isBuiltInFlag bool
+	isBuiltIn    bool // 群tab是否App内嵌打开
+	isBuiltInSet bool
 }
 
 func NewChatTabConfigBuilder() *ChatTabConfigBuilder {
@@ -2296,7 +2296,7 @@ func NewChatTabConfigBuilder() *ChatTabConfigBuilder {
 // 示例值：img_v2_b99741-7628-4abd-aad0-b881e4db83ig
 func (builder *ChatTabConfigBuilder) IconKey(iconKey string) *ChatTabConfigBuilder {
 	builder.iconKey = iconKey
-	builder.iconKeyFlag = true
+	builder.iconKeySet = true
 	return builder
 }
 
@@ -2305,17 +2305,17 @@ func (builder *ChatTabConfigBuilder) IconKey(iconKey string) *ChatTabConfigBuild
 // 示例值：false
 func (builder *ChatTabConfigBuilder) IsBuiltIn(isBuiltIn bool) *ChatTabConfigBuilder {
 	builder.isBuiltIn = isBuiltIn
-	builder.isBuiltInFlag = true
+	builder.isBuiltInSet = true
 	return builder
 }
 
 func (builder *ChatTabConfigBuilder) Build() *ChatTabConfig {
 	req := &ChatTabConfig{}
-	if builder.iconKeyFlag {
+	if builder.iconKeySet {
 		req.IconKey = &builder.iconKey
 
 	}
-	if builder.isBuiltInFlag {
+	if builder.isBuiltInSet {
 		req.IsBuiltIn = &builder.isBuiltIn
 
 	}
@@ -2333,17 +2333,17 @@ type ChatTabContent struct {
 }
 
 type ChatTabContentBuilder struct {
-	url     string // URL类型
-	urlFlag bool
+	url    string // URL类型
+	urlSet bool
 
-	doc     string // Doc链接
-	docFlag bool
+	doc    string // Doc链接
+	docSet bool
 
-	meetingMinute     string // 会议纪要
-	meetingMinuteFlag bool
+	meetingMinute    string // 会议纪要
+	meetingMinuteSet bool
 
-	task     string // 任务
-	taskFlag bool
+	task    string // 任务
+	taskSet bool
 }
 
 func NewChatTabContentBuilder() *ChatTabContentBuilder {
@@ -2356,7 +2356,7 @@ func NewChatTabContentBuilder() *ChatTabContentBuilder {
 // 示例值：https://www.feishu.cn
 func (builder *ChatTabContentBuilder) Url(url string) *ChatTabContentBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -2365,7 +2365,7 @@ func (builder *ChatTabContentBuilder) Url(url string) *ChatTabContentBuilder {
 // 示例值：https://bytedance.feishu.cn/wiki/wikcnPIcqWjJQwkwDzrB9t40123xz
 func (builder *ChatTabContentBuilder) Doc(doc string) *ChatTabContentBuilder {
 	builder.doc = doc
-	builder.docFlag = true
+	builder.docSet = true
 	return builder
 }
 
@@ -2374,7 +2374,7 @@ func (builder *ChatTabContentBuilder) Doc(doc string) *ChatTabContentBuilder {
 // 示例值：https://bytedance.feishu.cn/docs/doccnvIXbV22i6hSD3utar4123dx
 func (builder *ChatTabContentBuilder) MeetingMinute(meetingMinute string) *ChatTabContentBuilder {
 	builder.meetingMinute = meetingMinute
-	builder.meetingMinuteFlag = true
+	builder.meetingMinuteSet = true
 	return builder
 }
 
@@ -2383,25 +2383,25 @@ func (builder *ChatTabContentBuilder) MeetingMinute(meetingMinute string) *ChatT
 // 示例值：https://bytedance.feishu.cn/client/todo/task_list?guid=fa03fb6d-344b-47d9-83e3-049e3b3da931
 func (builder *ChatTabContentBuilder) Task(task string) *ChatTabContentBuilder {
 	builder.task = task
-	builder.taskFlag = true
+	builder.taskSet = true
 	return builder
 }
 
 func (builder *ChatTabContentBuilder) Build() *ChatTabContent {
 	req := &ChatTabContent{}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.docFlag {
+	if builder.docSet {
 		req.Doc = &builder.doc
 
 	}
-	if builder.meetingMinuteFlag {
+	if builder.meetingMinuteSet {
 		req.MeetingMinute = &builder.meetingMinute
 
 	}
-	if builder.taskFlag {
+	if builder.taskSet {
 		req.Task = &builder.task
 
 	}
@@ -2415,11 +2415,11 @@ type ChatUserMuteStatus struct {
 }
 
 type ChatUserMuteStatusBuilder struct {
-	chatId     string // 群组ID
-	chatIdFlag bool
+	chatId    string // 群组ID
+	chatIdSet bool
 
-	isMuted     bool // 是否处于免打扰（静音）状态。true=用户在该群已被免打扰；false=正常接收通知。
-	isMutedFlag bool
+	isMuted    bool // 是否处于免打扰（静音）状态。true=用户在该群已被免打扰；false=正常接收通知。
+	isMutedSet bool
 }
 
 func NewChatUserMuteStatusBuilder() *ChatUserMuteStatusBuilder {
@@ -2432,7 +2432,7 @@ func NewChatUserMuteStatusBuilder() *ChatUserMuteStatusBuilder {
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *ChatUserMuteStatusBuilder) ChatId(chatId string) *ChatUserMuteStatusBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -2441,17 +2441,17 @@ func (builder *ChatUserMuteStatusBuilder) ChatId(chatId string) *ChatUserMuteSta
 // 示例值：false
 func (builder *ChatUserMuteStatusBuilder) IsMuted(isMuted bool) *ChatUserMuteStatusBuilder {
 	builder.isMuted = isMuted
-	builder.isMutedFlag = true
+	builder.isMutedSet = true
 	return builder
 }
 
 func (builder *ChatUserMuteStatusBuilder) Build() *ChatUserMuteStatus {
 	req := &ChatUserMuteStatus{}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.isMutedFlag {
+	if builder.isMutedSet {
 		req.IsMuted = &builder.isMuted
 
 	}
@@ -2465,11 +2465,11 @@ type Crc32Item struct {
 }
 
 type Crc32ItemBuilder struct {
-	partId     string // 分片编号（1开始）
-	partIdFlag bool
+	partId    string // 分片编号（1开始）
+	partIdSet bool
 
-	crc32     string // crc32校验
-	crc32Flag bool
+	crc32    string // crc32校验
+	crc32Set bool
 }
 
 func NewCrc32ItemBuilder() *Crc32ItemBuilder {
@@ -2482,7 +2482,7 @@ func NewCrc32ItemBuilder() *Crc32ItemBuilder {
 // 示例值：1
 func (builder *Crc32ItemBuilder) PartId(partId string) *Crc32ItemBuilder {
 	builder.partId = partId
-	builder.partIdFlag = true
+	builder.partIdSet = true
 	return builder
 }
 
@@ -2491,17 +2491,17 @@ func (builder *Crc32ItemBuilder) PartId(partId string) *Crc32ItemBuilder {
 // 示例值：12342388237783212356
 func (builder *Crc32ItemBuilder) Crc32(crc32 string) *Crc32ItemBuilder {
 	builder.crc32 = crc32
-	builder.crc32Flag = true
+	builder.crc32Set = true
 	return builder
 }
 
 func (builder *Crc32ItemBuilder) Build() *Crc32Item {
 	req := &Crc32Item{}
-	if builder.partIdFlag {
+	if builder.partIdSet {
 		req.PartId = &builder.partId
 
 	}
-	if builder.crc32Flag {
+	if builder.crc32Set {
 		req.Crc32 = &builder.crc32
 
 	}
@@ -2515,11 +2515,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -2527,27 +2527,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -2559,8 +2563,8 @@ type Emoji struct {
 }
 
 type EmojiBuilder struct {
-	emojiType     string // emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
-	emojiTypeFlag bool
+	emojiType    string // emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
+	emojiTypeSet bool
 }
 
 func NewEmojiBuilder() *EmojiBuilder {
@@ -2573,13 +2577,13 @@ func NewEmojiBuilder() *EmojiBuilder {
 // 示例值：SMILE
 func (builder *EmojiBuilder) EmojiType(emojiType string) *EmojiBuilder {
 	builder.emojiType = emojiType
-	builder.emojiTypeFlag = true
+	builder.emojiTypeSet = true
 	return builder
 }
 
 func (builder *EmojiBuilder) Build() *Emoji {
 	req := &Emoji{}
-	if builder.emojiTypeFlag {
+	if builder.emojiTypeSet {
 		req.EmojiType = &builder.emojiType
 
 	}
@@ -2615,44 +2619,44 @@ type EventMessage struct {
 }
 
 type EventMessageBuilder struct {
-	messageId     string // 消息的open_message_id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	messageIdFlag bool
+	messageId    string // 消息的open_message_id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	messageIdSet bool
 
-	rootId     string // 根消息id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	rootIdFlag bool
+	rootId    string // 根消息id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	rootIdSet bool
 
-	parentId     string // 父消息的id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	parentIdFlag bool
+	parentId    string // 父消息的id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	parentIdSet bool
 
-	createTime     string // 消息发送时间（毫秒）
-	createTimeFlag bool
+	createTime    string // 消息发送时间（毫秒）
+	createTimeSet bool
 
-	updateTime     string // 消息更新时间（毫秒）
-	updateTimeFlag bool
+	updateTime    string // 消息更新时间（毫秒）
+	updateTimeSet bool
 
-	chatId     string // 消息所在的群组 ID
-	chatIdFlag bool
+	chatId    string // 消息所在的群组 ID
+	chatIdSet bool
 
-	threadId     string // 消息所属的话题 ID
-	threadIdFlag bool
+	threadId    string // 消息所属的话题 ID
+	threadIdSet bool
 
-	chatType     string // 消息所在的群组类型;;**可选值有**：;- `p2p`：单聊;- `group`： 群组;- `topic_group`：话题群
-	chatTypeFlag bool
+	chatType    string // 消息所在的群组类型;;**可选值有**：;- `p2p`：单聊;- `group`： 群组;- `topic_group`：话题群
+	chatTypeSet bool
 
-	messageType     string // 消息类型
-	messageTypeFlag bool
+	messageType    string // 消息类型
+	messageTypeSet bool
 
-	content     string // 消息内容, json 格式 ;[各类型消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
-	contentFlag bool
+	content    string // 消息内容, json 格式 ;[各类型消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
+	contentSet bool
 
-	mentions     []*MentionEvent // 被提及用户的信息
-	mentionsFlag bool
+	mentions    []*MentionEvent // 被提及用户的信息
+	mentionsSet bool
 
-	userAgent     string // 用户代理
-	userAgentFlag bool
+	userAgent    string // 用户代理
+	userAgentSet bool
 
-	larkAgentContext     *LarkAgentContext // 智能体上下文信息
-	larkAgentContextFlag bool
+	larkAgentContext    *LarkAgentContext // 智能体上下文信息
+	larkAgentContextSet bool
 }
 
 func NewEventMessageBuilder() *EventMessageBuilder {
@@ -2665,7 +2669,7 @@ func NewEventMessageBuilder() *EventMessageBuilder {
 // 示例值：om_5ce6d572455d361153b7cb51da133945
 func (builder *EventMessageBuilder) MessageId(messageId string) *EventMessageBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -2674,7 +2678,7 @@ func (builder *EventMessageBuilder) MessageId(messageId string) *EventMessageBui
 // 示例值：om_5ce6d572455d361153b7cb5xxfsdfsdfdsf
 func (builder *EventMessageBuilder) RootId(rootId string) *EventMessageBuilder {
 	builder.rootId = rootId
-	builder.rootIdFlag = true
+	builder.rootIdSet = true
 	return builder
 }
 
@@ -2683,7 +2687,7 @@ func (builder *EventMessageBuilder) RootId(rootId string) *EventMessageBuilder {
 // 示例值：om_5ce6d572455d361153b7cb5xxfsdfsdfdsf
 func (builder *EventMessageBuilder) ParentId(parentId string) *EventMessageBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
@@ -2692,7 +2696,7 @@ func (builder *EventMessageBuilder) ParentId(parentId string) *EventMessageBuild
 // 示例值：1609073151345
 func (builder *EventMessageBuilder) CreateTime(createTime string) *EventMessageBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -2701,7 +2705,7 @@ func (builder *EventMessageBuilder) CreateTime(createTime string) *EventMessageB
 // 示例值：1687343654666
 func (builder *EventMessageBuilder) UpdateTime(updateTime string) *EventMessageBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -2710,7 +2714,7 @@ func (builder *EventMessageBuilder) UpdateTime(updateTime string) *EventMessageB
 // 示例值：oc_5ce6d572455d361153b7xx51da133945
 func (builder *EventMessageBuilder) ChatId(chatId string) *EventMessageBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -2719,7 +2723,7 @@ func (builder *EventMessageBuilder) ChatId(chatId string) *EventMessageBuilder {
 // 示例值：omt_d4be107c616
 func (builder *EventMessageBuilder) ThreadId(threadId string) *EventMessageBuilder {
 	builder.threadId = threadId
-	builder.threadIdFlag = true
+	builder.threadIdSet = true
 	return builder
 }
 
@@ -2728,7 +2732,7 @@ func (builder *EventMessageBuilder) ThreadId(threadId string) *EventMessageBuild
 // 示例值：group
 func (builder *EventMessageBuilder) ChatType(chatType string) *EventMessageBuilder {
 	builder.chatType = chatType
-	builder.chatTypeFlag = true
+	builder.chatTypeSet = true
 	return builder
 }
 
@@ -2737,7 +2741,7 @@ func (builder *EventMessageBuilder) ChatType(chatType string) *EventMessageBuild
 // 示例值：text
 func (builder *EventMessageBuilder) MessageType(messageType string) *EventMessageBuilder {
 	builder.messageType = messageType
-	builder.messageTypeFlag = true
+	builder.messageTypeSet = true
 	return builder
 }
 
@@ -2746,7 +2750,7 @@ func (builder *EventMessageBuilder) MessageType(messageType string) *EventMessag
 // 示例值：{\"text\":\"@_user_1 hello\"}
 func (builder *EventMessageBuilder) Content(content string) *EventMessageBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -2755,7 +2759,7 @@ func (builder *EventMessageBuilder) Content(content string) *EventMessageBuilder
 // 示例值：
 func (builder *EventMessageBuilder) Mentions(mentions []*MentionEvent) *EventMessageBuilder {
 	builder.mentions = mentions
-	builder.mentionsFlag = true
+	builder.mentionsSet = true
 	return builder
 }
 
@@ -2764,7 +2768,7 @@ func (builder *EventMessageBuilder) Mentions(mentions []*MentionEvent) *EventMes
 // 示例值：Mozilla/5.0 (Macintosh; Intel Mac OS X 13_2_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.53 Safari/537.36 Lark/6.7.5 LarkLocale/en_US ttnet SDK-Version/6.7.8
 func (builder *EventMessageBuilder) UserAgent(userAgent string) *EventMessageBuilder {
 	builder.userAgent = userAgent
-	builder.userAgentFlag = true
+	builder.userAgentSet = true
 	return builder
 }
 
@@ -2773,60 +2777,60 @@ func (builder *EventMessageBuilder) UserAgent(userAgent string) *EventMessageBui
 // 示例值：
 func (builder *EventMessageBuilder) LarkAgentContext(larkAgentContext *LarkAgentContext) *EventMessageBuilder {
 	builder.larkAgentContext = larkAgentContext
-	builder.larkAgentContextFlag = true
+	builder.larkAgentContextSet = true
 	return builder
 }
 
 func (builder *EventMessageBuilder) Build() *EventMessage {
 	req := &EventMessage{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.rootIdFlag {
+	if builder.rootIdSet {
 		req.RootId = &builder.rootId
 
 	}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.threadIdFlag {
+	if builder.threadIdSet {
 		req.ThreadId = &builder.threadId
 
 	}
-	if builder.chatTypeFlag {
+	if builder.chatTypeSet {
 		req.ChatType = &builder.chatType
 
 	}
-	if builder.messageTypeFlag {
+	if builder.messageTypeSet {
 		req.MessageType = &builder.messageType
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.mentionsFlag {
+	if builder.mentionsSet {
 		req.Mentions = builder.mentions
 	}
-	if builder.userAgentFlag {
+	if builder.userAgentSet {
 		req.UserAgent = &builder.userAgent
 
 	}
-	if builder.larkAgentContextFlag {
+	if builder.larkAgentContextSet {
 		req.LarkAgentContext = builder.larkAgentContext
 	}
 	return req
@@ -2841,14 +2845,14 @@ type EventMessageReader struct {
 }
 
 type EventMessageReaderBuilder struct {
-	readerId     *UserId // 用户 ID
-	readerIdFlag bool
+	readerId    *UserId // 用户 ID
+	readerIdSet bool
 
-	readTime     string // 阅读时间
-	readTimeFlag bool
+	readTime    string // 阅读时间
+	readTimeSet bool
 
-	tenantKey     string // 租户key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
-	tenantKeyFlag bool
+	tenantKey    string // 租户key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	tenantKeySet bool
 }
 
 func NewEventMessageReaderBuilder() *EventMessageReaderBuilder {
@@ -2861,7 +2865,7 @@ func NewEventMessageReaderBuilder() *EventMessageReaderBuilder {
 // 示例值：ou_5ad573a6411d72b8305fda3a9c15c70e
 func (builder *EventMessageReaderBuilder) ReaderId(readerId *UserId) *EventMessageReaderBuilder {
 	builder.readerId = readerId
-	builder.readerIdFlag = true
+	builder.readerIdSet = true
 	return builder
 }
 
@@ -2870,7 +2874,7 @@ func (builder *EventMessageReaderBuilder) ReaderId(readerId *UserId) *EventMessa
 // 示例值：1609484183000
 func (builder *EventMessageReaderBuilder) ReadTime(readTime string) *EventMessageReaderBuilder {
 	builder.readTime = readTime
-	builder.readTimeFlag = true
+	builder.readTimeSet = true
 	return builder
 }
 
@@ -2879,20 +2883,20 @@ func (builder *EventMessageReaderBuilder) ReadTime(readTime string) *EventMessag
 // 示例值：736588c9260f175e
 func (builder *EventMessageReaderBuilder) TenantKey(tenantKey string) *EventMessageReaderBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
 func (builder *EventMessageReaderBuilder) Build() *EventMessageReader {
 	req := &EventMessageReader{}
-	if builder.readerIdFlag {
+	if builder.readerIdSet {
 		req.ReaderId = builder.readerId
 	}
-	if builder.readTimeFlag {
+	if builder.readTimeSet {
 		req.ReadTime = &builder.readTime
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
@@ -2908,14 +2912,14 @@ type EventSender struct {
 }
 
 type EventSenderBuilder struct {
-	senderId     *UserId // 用户 ID
-	senderIdFlag bool
+	senderId    *UserId // 用户 ID
+	senderIdSet bool
 
-	senderType     string // 消息发送者类型。目前只支持用户(user)发送的消息。
-	senderTypeFlag bool
+	senderType    string // 消息发送者类型。目前只支持用户(user)发送的消息。
+	senderTypeSet bool
 
-	tenantKey     string // tenant key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
-	tenantKeyFlag bool
+	tenantKey    string // tenant key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	tenantKeySet bool
 }
 
 func NewEventSenderBuilder() *EventSenderBuilder {
@@ -2928,7 +2932,7 @@ func NewEventSenderBuilder() *EventSenderBuilder {
 // 示例值：ou_5ad573a6411d72b8305fda3a9c15c70e
 func (builder *EventSenderBuilder) SenderId(senderId *UserId) *EventSenderBuilder {
 	builder.senderId = senderId
-	builder.senderIdFlag = true
+	builder.senderIdSet = true
 	return builder
 }
 
@@ -2937,7 +2941,7 @@ func (builder *EventSenderBuilder) SenderId(senderId *UserId) *EventSenderBuilde
 // 示例值：user
 func (builder *EventSenderBuilder) SenderType(senderType string) *EventSenderBuilder {
 	builder.senderType = senderType
-	builder.senderTypeFlag = true
+	builder.senderTypeSet = true
 	return builder
 }
 
@@ -2946,20 +2950,20 @@ func (builder *EventSenderBuilder) SenderType(senderType string) *EventSenderBui
 // 示例值：736588c9260f175e
 func (builder *EventSenderBuilder) TenantKey(tenantKey string) *EventSenderBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
 func (builder *EventSenderBuilder) Build() *EventSender {
 	req := &EventSender{}
-	if builder.senderIdFlag {
+	if builder.senderIdSet {
 		req.SenderId = builder.senderId
 	}
-	if builder.senderTypeFlag {
+	if builder.senderTypeSet {
 		req.SenderType = &builder.senderType
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
@@ -2973,11 +2977,11 @@ type FailMsgReactionDetails struct {
 }
 
 type FailMsgReactionDetailsBuilder struct {
-	messageId     string // 消息id
-	messageIdFlag bool
+	messageId    string // 消息id
+	messageIdSet bool
 
-	failReason     string // 获取表情失败的原因
-	failReasonFlag bool
+	failReason    string // 获取表情失败的原因
+	failReasonSet bool
 }
 
 func NewFailMsgReactionDetailsBuilder() *FailMsgReactionDetailsBuilder {
@@ -2990,7 +2994,7 @@ func NewFailMsgReactionDetailsBuilder() *FailMsgReactionDetailsBuilder {
 // 示例值：om_8964d1b4*********2b31383276113
 func (builder *FailMsgReactionDetailsBuilder) MessageId(messageId string) *FailMsgReactionDetailsBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -2999,17 +3003,17 @@ func (builder *FailMsgReactionDetailsBuilder) MessageId(messageId string) *FailM
 // 示例值：
 func (builder *FailMsgReactionDetailsBuilder) FailReason(failReason string) *FailMsgReactionDetailsBuilder {
 	builder.failReason = failReason
-	builder.failReasonFlag = true
+	builder.failReasonSet = true
 	return builder
 }
 
 func (builder *FailMsgReactionDetailsBuilder) Build() *FailMsgReactionDetails {
 	req := &FailMsgReactionDetails{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.failReasonFlag {
+	if builder.failReasonSet {
 		req.FailReason = &builder.failReason
 
 	}
@@ -3045,20 +3049,20 @@ type FlagItem struct {
 }
 
 type FlagItemBuilder struct {
-	itemId     string // 标记id，比如当标记类型为message时为message_id
-	itemIdFlag bool
+	itemId    string // 标记id，比如当标记类型为message时为message_id
+	itemIdSet bool
 
-	itemType     string // 标记子类型
-	itemTypeFlag bool
+	itemType    string // 标记子类型
+	itemTypeSet bool
 
-	flagType     string // 标记类型
-	flagTypeFlag bool
+	flagType    string // 标记类型
+	flagTypeSet bool
 
-	createTime     string // 创建时间（毫秒时间戳）
-	createTimeFlag bool
+	createTime    string // 创建时间（毫秒时间戳）
+	createTimeSet bool
 
-	updateTime     string // 更新时间（毫秒时间戳）
-	updateTimeFlag bool
+	updateTime    string // 更新时间（毫秒时间戳）
+	updateTimeSet bool
 }
 
 func NewFlagItemBuilder() *FlagItemBuilder {
@@ -3071,7 +3075,7 @@ func NewFlagItemBuilder() *FlagItemBuilder {
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *FlagItemBuilder) ItemId(itemId string) *FlagItemBuilder {
 	builder.itemId = itemId
-	builder.itemIdFlag = true
+	builder.itemIdSet = true
 	return builder
 }
 
@@ -3080,7 +3084,7 @@ func (builder *FlagItemBuilder) ItemId(itemId string) *FlagItemBuilder {
 // 示例值："1"
 func (builder *FlagItemBuilder) ItemType(itemType string) *FlagItemBuilder {
 	builder.itemType = itemType
-	builder.itemTypeFlag = true
+	builder.itemTypeSet = true
 	return builder
 }
 
@@ -3089,7 +3093,7 @@ func (builder *FlagItemBuilder) ItemType(itemType string) *FlagItemBuilder {
 // 示例值："1"
 func (builder *FlagItemBuilder) FlagType(flagType string) *FlagItemBuilder {
 	builder.flagType = flagType
-	builder.flagTypeFlag = true
+	builder.flagTypeSet = true
 	return builder
 }
 
@@ -3098,7 +3102,7 @@ func (builder *FlagItemBuilder) FlagType(flagType string) *FlagItemBuilder {
 // 示例值：1767196800000
 func (builder *FlagItemBuilder) CreateTime(createTime string) *FlagItemBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -3107,29 +3111,29 @@ func (builder *FlagItemBuilder) CreateTime(createTime string) *FlagItemBuilder {
 // 示例值：1767196800000
 func (builder *FlagItemBuilder) UpdateTime(updateTime string) *FlagItemBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
 func (builder *FlagItemBuilder) Build() *FlagItem {
 	req := &FlagItem{}
-	if builder.itemIdFlag {
+	if builder.itemIdSet {
 		req.ItemId = &builder.itemId
 
 	}
-	if builder.itemTypeFlag {
+	if builder.itemTypeSet {
 		req.ItemType = &builder.itemType
 
 	}
-	if builder.flagTypeFlag {
+	if builder.flagTypeSet {
 		req.FlagType = &builder.flagType
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
@@ -3143,11 +3147,11 @@ type FollowUp struct {
 }
 
 type FollowUpBuilder struct {
-	content     string // 内容
-	contentFlag bool
+	content    string // 内容
+	contentSet bool
 
-	i18nContents     []*I18nContent // 多语言内容
-	i18nContentsFlag bool
+	i18nContents    []*I18nContent // 多语言内容
+	i18nContentsSet bool
 }
 
 func NewFollowUpBuilder() *FollowUpBuilder {
@@ -3160,7 +3164,7 @@ func NewFollowUpBuilder() *FollowUpBuilder {
 // 示例值：你好
 func (builder *FollowUpBuilder) Content(content string) *FollowUpBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -3169,17 +3173,17 @@ func (builder *FollowUpBuilder) Content(content string) *FollowUpBuilder {
 // 示例值：
 func (builder *FollowUpBuilder) I18nContents(i18nContents []*I18nContent) *FollowUpBuilder {
 	builder.i18nContents = i18nContents
-	builder.i18nContentsFlag = true
+	builder.i18nContentsSet = true
 	return builder
 }
 
 func (builder *FollowUpBuilder) Build() *FollowUp {
 	req := &FollowUp{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.i18nContentsFlag {
+	if builder.i18nContentsSet {
 		req.I18nContents = builder.i18nContents
 	}
 	return req
@@ -3192,11 +3196,11 @@ type I18nContent struct {
 }
 
 type I18nContentBuilder struct {
-	content     string // 内容
-	contentFlag bool
+	content    string // 内容
+	contentSet bool
 
-	language     string // 语言
-	languageFlag bool
+	language    string // 语言
+	languageSet bool
 }
 
 func NewI18nContentBuilder() *I18nContentBuilder {
@@ -3209,7 +3213,7 @@ func NewI18nContentBuilder() *I18nContentBuilder {
 // 示例值：hello
 func (builder *I18nContentBuilder) Content(content string) *I18nContentBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -3218,17 +3222,17 @@ func (builder *I18nContentBuilder) Content(content string) *I18nContentBuilder {
 // 示例值：zh_cn
 func (builder *I18nContentBuilder) Language(language string) *I18nContentBuilder {
 	builder.language = language
-	builder.languageFlag = true
+	builder.languageSet = true
 	return builder
 }
 
 func (builder *I18nContentBuilder) Build() *I18nContent {
 	req := &I18nContent{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.languageFlag {
+	if builder.languageSet {
 		req.Language = &builder.language
 
 	}
@@ -3244,14 +3248,14 @@ type I18nNames struct {
 }
 
 type I18nNamesBuilder struct {
-	zhCn     string // 中文名
-	zhCnFlag bool
+	zhCn    string // 中文名
+	zhCnSet bool
 
-	enUs     string // 英文名
-	enUsFlag bool
+	enUs    string // 英文名
+	enUsSet bool
 
-	jaJp     string // 日文名
-	jaJpFlag bool
+	jaJp    string // 日文名
+	jaJpSet bool
 }
 
 func NewI18nNamesBuilder() *I18nNamesBuilder {
@@ -3264,7 +3268,7 @@ func NewI18nNamesBuilder() *I18nNamesBuilder {
 // 示例值：评审报名
 func (builder *I18nNamesBuilder) ZhCn(zhCn string) *I18nNamesBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -3273,7 +3277,7 @@ func (builder *I18nNamesBuilder) ZhCn(zhCn string) *I18nNamesBuilder {
 // 示例值：Sign up
 func (builder *I18nNamesBuilder) EnUs(enUs string) *I18nNamesBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
@@ -3282,21 +3286,21 @@ func (builder *I18nNamesBuilder) EnUs(enUs string) *I18nNamesBuilder {
 // 示例值：サインアップ
 func (builder *I18nNamesBuilder) JaJp(jaJp string) *I18nNamesBuilder {
 	builder.jaJp = jaJp
-	builder.jaJpFlag = true
+	builder.jaJpSet = true
 	return builder
 }
 
 func (builder *I18nNamesBuilder) Build() *I18nNames {
 	req := &I18nNames{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
-	if builder.jaJpFlag {
+	if builder.jaJpSet {
 		req.JaJp = &builder.jaJp
 
 	}
@@ -3348,68 +3352,68 @@ type ImDepthData struct {
 }
 
 type ImDepthDataBuilder struct {
-	pDate     string // 分区日期
-	pDateFlag bool
+	pDate    string // 分区日期
+	pDateSet bool
 
-	departmentId     string // 部门id
-	departmentIdFlag bool
+	departmentId    string // 部门id
+	departmentIdSet bool
 
-	departmentPath     string // 部门路径
-	departmentPathFlag bool
+	departmentPath    string // 部门路径
+	departmentPathSet bool
 
-	sendMsgRate     float64 // 发消息用户渗透率
-	sendMsgRateFlag bool
+	sendMsgRate    float64 // 发消息用户渗透率
+	sendMsgRateSet bool
 
-	avgSendMsgCnt     float64 // 人均发消息数量
-	avgSendMsgCntFlag bool
+	avgSendMsgCnt    float64 // 人均发消息数量
+	avgSendMsgCntSet bool
 
-	pcSendMsgRate     float64 // 仅 PC 端的发消息用户渗透率
-	pcSendMsgRateFlag bool
+	pcSendMsgRate    float64 // 仅 PC 端的发消息用户渗透率
+	pcSendMsgRateSet bool
 
-	pcAvgSendMsgCnt     float64 // 仅 PC 端的人均发消息数量
-	pcAvgSendMsgCntFlag bool
+	pcAvgSendMsgCnt    float64 // 仅 PC 端的人均发消息数量
+	pcAvgSendMsgCntSet bool
 
-	mobileSendMsgRate     float64 // 仅移动端的发消息用户渗透率
-	mobileSendMsgRateFlag bool
+	mobileSendMsgRate    float64 // 仅移动端的发消息用户渗透率
+	mobileSendMsgRateSet bool
 
-	mobileAvgSendMsgCnt     float64 // 仅移动端的人均发消息数量
-	mobileAvgSendMsgCntFlag bool
+	mobileAvgSendMsgCnt    float64 // 仅移动端的人均发消息数量
+	mobileAvgSendMsgCntSet bool
 
-	meetingGroupSendMsgRate     float64 // 会议群发消息用户渗透率
-	meetingGroupSendMsgRateFlag bool
+	meetingGroupSendMsgRate    float64 // 会议群发消息用户渗透率
+	meetingGroupSendMsgRateSet bool
 
-	tenantGroupSendMsgRate     float64 // 全员群发消息用户渗透率
-	tenantGroupSendMsgRateFlag bool
+	tenantGroupSendMsgRate    float64 // 全员群发消息用户渗透率
+	tenantGroupSendMsgRateSet bool
 
-	deptGroupSendMsgRate     float64 // 部门群发消息用户渗透率
-	deptGroupSendMsgRateFlag bool
+	deptGroupSendMsgRate    float64 // 部门群发消息用户渗透率
+	deptGroupSendMsgRateSet bool
 
-	topicGroupSendMsgRate     float64 // 话题群发消息用户渗透率
-	topicGroupSendMsgRateFlag bool
+	topicGroupSendMsgRate    float64 // 话题群发消息用户渗透率
+	topicGroupSendMsgRateSet bool
 
-	groupAtMsgRate     float64 // 群聊中 @ 消息占比
-	groupAtMsgRateFlag bool
+	groupAtMsgRate    float64 // 群聊中 @ 消息占比
+	groupAtMsgRateSet bool
 
-	groupReplyMsgRate     float64 // 群聊中回复消息占比
-	groupReplyMsgRateFlag bool
+	groupReplyMsgRate    float64 // 群聊中回复消息占比
+	groupReplyMsgRateSet bool
 
-	reactionRate     float64 // 发送 reaction 用户渗透率
-	reactionRateFlag bool
+	reactionRate    float64 // 发送 reaction 用户渗透率
+	reactionRateSet bool
 
-	p2pSendMsgRate     float64 // 发送单聊消息占比
-	p2pSendMsgRateFlag bool
+	p2pSendMsgRate    float64 // 发送单聊消息占比
+	p2pSendMsgRateSet bool
 
-	imgSendMsgRate     float64 // 图片消息用户渗透率
-	imgSendMsgRateFlag bool
+	imgSendMsgRate    float64 // 图片消息用户渗透率
+	imgSendMsgRateSet bool
 
-	fileSendMsgRate     float64 // 文件消息用户渗透率
-	fileSendMsgRateFlag bool
+	fileSendMsgRate    float64 // 文件消息用户渗透率
+	fileSendMsgRateSet bool
 
-	stickerSendMsgRate     float64 // 表情包消息用户渗透率
-	stickerSendMsgRateFlag bool
+	stickerSendMsgRate    float64 // 表情包消息用户渗透率
+	stickerSendMsgRateSet bool
 
-	postSendMsgRate     float64 // 富文本消息用户渗透率
-	postSendMsgRateFlag bool
+	postSendMsgRate    float64 // 富文本消息用户渗透率
+	postSendMsgRateSet bool
 }
 
 func NewImDepthDataBuilder() *ImDepthDataBuilder {
@@ -3422,7 +3426,7 @@ func NewImDepthDataBuilder() *ImDepthDataBuilder {
 // 示例值：2022-02-02
 func (builder *ImDepthDataBuilder) PDate(pDate string) *ImDepthDataBuilder {
 	builder.pDate = pDate
-	builder.pDateFlag = true
+	builder.pDateSet = true
 	return builder
 }
 
@@ -3431,7 +3435,7 @@ func (builder *ImDepthDataBuilder) PDate(pDate string) *ImDepthDataBuilder {
 // 示例值：123456
 func (builder *ImDepthDataBuilder) DepartmentId(departmentId string) *ImDepthDataBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -3440,7 +3444,7 @@ func (builder *ImDepthDataBuilder) DepartmentId(departmentId string) *ImDepthDat
 // 示例值：test/subtest
 func (builder *ImDepthDataBuilder) DepartmentPath(departmentPath string) *ImDepthDataBuilder {
 	builder.departmentPath = departmentPath
-	builder.departmentPathFlag = true
+	builder.departmentPathSet = true
 	return builder
 }
 
@@ -3449,7 +3453,7 @@ func (builder *ImDepthDataBuilder) DepartmentPath(departmentPath string) *ImDept
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) SendMsgRate(sendMsgRate float64) *ImDepthDataBuilder {
 	builder.sendMsgRate = sendMsgRate
-	builder.sendMsgRateFlag = true
+	builder.sendMsgRateSet = true
 	return builder
 }
 
@@ -3458,7 +3462,7 @@ func (builder *ImDepthDataBuilder) SendMsgRate(sendMsgRate float64) *ImDepthData
 // 示例值：50
 func (builder *ImDepthDataBuilder) AvgSendMsgCnt(avgSendMsgCnt float64) *ImDepthDataBuilder {
 	builder.avgSendMsgCnt = avgSendMsgCnt
-	builder.avgSendMsgCntFlag = true
+	builder.avgSendMsgCntSet = true
 	return builder
 }
 
@@ -3467,7 +3471,7 @@ func (builder *ImDepthDataBuilder) AvgSendMsgCnt(avgSendMsgCnt float64) *ImDepth
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) PcSendMsgRate(pcSendMsgRate float64) *ImDepthDataBuilder {
 	builder.pcSendMsgRate = pcSendMsgRate
-	builder.pcSendMsgRateFlag = true
+	builder.pcSendMsgRateSet = true
 	return builder
 }
 
@@ -3476,7 +3480,7 @@ func (builder *ImDepthDataBuilder) PcSendMsgRate(pcSendMsgRate float64) *ImDepth
 // 示例值：50
 func (builder *ImDepthDataBuilder) PcAvgSendMsgCnt(pcAvgSendMsgCnt float64) *ImDepthDataBuilder {
 	builder.pcAvgSendMsgCnt = pcAvgSendMsgCnt
-	builder.pcAvgSendMsgCntFlag = true
+	builder.pcAvgSendMsgCntSet = true
 	return builder
 }
 
@@ -3485,7 +3489,7 @@ func (builder *ImDepthDataBuilder) PcAvgSendMsgCnt(pcAvgSendMsgCnt float64) *ImD
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) MobileSendMsgRate(mobileSendMsgRate float64) *ImDepthDataBuilder {
 	builder.mobileSendMsgRate = mobileSendMsgRate
-	builder.mobileSendMsgRateFlag = true
+	builder.mobileSendMsgRateSet = true
 	return builder
 }
 
@@ -3494,7 +3498,7 @@ func (builder *ImDepthDataBuilder) MobileSendMsgRate(mobileSendMsgRate float64) 
 // 示例值：50
 func (builder *ImDepthDataBuilder) MobileAvgSendMsgCnt(mobileAvgSendMsgCnt float64) *ImDepthDataBuilder {
 	builder.mobileAvgSendMsgCnt = mobileAvgSendMsgCnt
-	builder.mobileAvgSendMsgCntFlag = true
+	builder.mobileAvgSendMsgCntSet = true
 	return builder
 }
 
@@ -3503,7 +3507,7 @@ func (builder *ImDepthDataBuilder) MobileAvgSendMsgCnt(mobileAvgSendMsgCnt float
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) MeetingGroupSendMsgRate(meetingGroupSendMsgRate float64) *ImDepthDataBuilder {
 	builder.meetingGroupSendMsgRate = meetingGroupSendMsgRate
-	builder.meetingGroupSendMsgRateFlag = true
+	builder.meetingGroupSendMsgRateSet = true
 	return builder
 }
 
@@ -3512,7 +3516,7 @@ func (builder *ImDepthDataBuilder) MeetingGroupSendMsgRate(meetingGroupSendMsgRa
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) TenantGroupSendMsgRate(tenantGroupSendMsgRate float64) *ImDepthDataBuilder {
 	builder.tenantGroupSendMsgRate = tenantGroupSendMsgRate
-	builder.tenantGroupSendMsgRateFlag = true
+	builder.tenantGroupSendMsgRateSet = true
 	return builder
 }
 
@@ -3521,7 +3525,7 @@ func (builder *ImDepthDataBuilder) TenantGroupSendMsgRate(tenantGroupSendMsgRate
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) DeptGroupSendMsgRate(deptGroupSendMsgRate float64) *ImDepthDataBuilder {
 	builder.deptGroupSendMsgRate = deptGroupSendMsgRate
-	builder.deptGroupSendMsgRateFlag = true
+	builder.deptGroupSendMsgRateSet = true
 	return builder
 }
 
@@ -3530,7 +3534,7 @@ func (builder *ImDepthDataBuilder) DeptGroupSendMsgRate(deptGroupSendMsgRate flo
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) TopicGroupSendMsgRate(topicGroupSendMsgRate float64) *ImDepthDataBuilder {
 	builder.topicGroupSendMsgRate = topicGroupSendMsgRate
-	builder.topicGroupSendMsgRateFlag = true
+	builder.topicGroupSendMsgRateSet = true
 	return builder
 }
 
@@ -3539,7 +3543,7 @@ func (builder *ImDepthDataBuilder) TopicGroupSendMsgRate(topicGroupSendMsgRate f
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) GroupAtMsgRate(groupAtMsgRate float64) *ImDepthDataBuilder {
 	builder.groupAtMsgRate = groupAtMsgRate
-	builder.groupAtMsgRateFlag = true
+	builder.groupAtMsgRateSet = true
 	return builder
 }
 
@@ -3548,7 +3552,7 @@ func (builder *ImDepthDataBuilder) GroupAtMsgRate(groupAtMsgRate float64) *ImDep
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) GroupReplyMsgRate(groupReplyMsgRate float64) *ImDepthDataBuilder {
 	builder.groupReplyMsgRate = groupReplyMsgRate
-	builder.groupReplyMsgRateFlag = true
+	builder.groupReplyMsgRateSet = true
 	return builder
 }
 
@@ -3557,7 +3561,7 @@ func (builder *ImDepthDataBuilder) GroupReplyMsgRate(groupReplyMsgRate float64) 
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) ReactionRate(reactionRate float64) *ImDepthDataBuilder {
 	builder.reactionRate = reactionRate
-	builder.reactionRateFlag = true
+	builder.reactionRateSet = true
 	return builder
 }
 
@@ -3566,7 +3570,7 @@ func (builder *ImDepthDataBuilder) ReactionRate(reactionRate float64) *ImDepthDa
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) P2pSendMsgRate(p2pSendMsgRate float64) *ImDepthDataBuilder {
 	builder.p2pSendMsgRate = p2pSendMsgRate
-	builder.p2pSendMsgRateFlag = true
+	builder.p2pSendMsgRateSet = true
 	return builder
 }
 
@@ -3575,7 +3579,7 @@ func (builder *ImDepthDataBuilder) P2pSendMsgRate(p2pSendMsgRate float64) *ImDep
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) ImgSendMsgRate(imgSendMsgRate float64) *ImDepthDataBuilder {
 	builder.imgSendMsgRate = imgSendMsgRate
-	builder.imgSendMsgRateFlag = true
+	builder.imgSendMsgRateSet = true
 	return builder
 }
 
@@ -3584,7 +3588,7 @@ func (builder *ImDepthDataBuilder) ImgSendMsgRate(imgSendMsgRate float64) *ImDep
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) FileSendMsgRate(fileSendMsgRate float64) *ImDepthDataBuilder {
 	builder.fileSendMsgRate = fileSendMsgRate
-	builder.fileSendMsgRateFlag = true
+	builder.fileSendMsgRateSet = true
 	return builder
 }
 
@@ -3593,7 +3597,7 @@ func (builder *ImDepthDataBuilder) FileSendMsgRate(fileSendMsgRate float64) *ImD
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) StickerSendMsgRate(stickerSendMsgRate float64) *ImDepthDataBuilder {
 	builder.stickerSendMsgRate = stickerSendMsgRate
-	builder.stickerSendMsgRateFlag = true
+	builder.stickerSendMsgRateSet = true
 	return builder
 }
 
@@ -3602,93 +3606,93 @@ func (builder *ImDepthDataBuilder) StickerSendMsgRate(stickerSendMsgRate float64
 // 示例值：0.50
 func (builder *ImDepthDataBuilder) PostSendMsgRate(postSendMsgRate float64) *ImDepthDataBuilder {
 	builder.postSendMsgRate = postSendMsgRate
-	builder.postSendMsgRateFlag = true
+	builder.postSendMsgRateSet = true
 	return builder
 }
 
 func (builder *ImDepthDataBuilder) Build() *ImDepthData {
 	req := &ImDepthData{}
-	if builder.pDateFlag {
+	if builder.pDateSet {
 		req.PDate = &builder.pDate
 
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.departmentPathFlag {
+	if builder.departmentPathSet {
 		req.DepartmentPath = &builder.departmentPath
 
 	}
-	if builder.sendMsgRateFlag {
+	if builder.sendMsgRateSet {
 		req.SendMsgRate = &builder.sendMsgRate
 
 	}
-	if builder.avgSendMsgCntFlag {
+	if builder.avgSendMsgCntSet {
 		req.AvgSendMsgCnt = &builder.avgSendMsgCnt
 
 	}
-	if builder.pcSendMsgRateFlag {
+	if builder.pcSendMsgRateSet {
 		req.PcSendMsgRate = &builder.pcSendMsgRate
 
 	}
-	if builder.pcAvgSendMsgCntFlag {
+	if builder.pcAvgSendMsgCntSet {
 		req.PcAvgSendMsgCnt = &builder.pcAvgSendMsgCnt
 
 	}
-	if builder.mobileSendMsgRateFlag {
+	if builder.mobileSendMsgRateSet {
 		req.MobileSendMsgRate = &builder.mobileSendMsgRate
 
 	}
-	if builder.mobileAvgSendMsgCntFlag {
+	if builder.mobileAvgSendMsgCntSet {
 		req.MobileAvgSendMsgCnt = &builder.mobileAvgSendMsgCnt
 
 	}
-	if builder.meetingGroupSendMsgRateFlag {
+	if builder.meetingGroupSendMsgRateSet {
 		req.MeetingGroupSendMsgRate = &builder.meetingGroupSendMsgRate
 
 	}
-	if builder.tenantGroupSendMsgRateFlag {
+	if builder.tenantGroupSendMsgRateSet {
 		req.TenantGroupSendMsgRate = &builder.tenantGroupSendMsgRate
 
 	}
-	if builder.deptGroupSendMsgRateFlag {
+	if builder.deptGroupSendMsgRateSet {
 		req.DeptGroupSendMsgRate = &builder.deptGroupSendMsgRate
 
 	}
-	if builder.topicGroupSendMsgRateFlag {
+	if builder.topicGroupSendMsgRateSet {
 		req.TopicGroupSendMsgRate = &builder.topicGroupSendMsgRate
 
 	}
-	if builder.groupAtMsgRateFlag {
+	if builder.groupAtMsgRateSet {
 		req.GroupAtMsgRate = &builder.groupAtMsgRate
 
 	}
-	if builder.groupReplyMsgRateFlag {
+	if builder.groupReplyMsgRateSet {
 		req.GroupReplyMsgRate = &builder.groupReplyMsgRate
 
 	}
-	if builder.reactionRateFlag {
+	if builder.reactionRateSet {
 		req.ReactionRate = &builder.reactionRate
 
 	}
-	if builder.p2pSendMsgRateFlag {
+	if builder.p2pSendMsgRateSet {
 		req.P2pSendMsgRate = &builder.p2pSendMsgRate
 
 	}
-	if builder.imgSendMsgRateFlag {
+	if builder.imgSendMsgRateSet {
 		req.ImgSendMsgRate = &builder.imgSendMsgRate
 
 	}
-	if builder.fileSendMsgRateFlag {
+	if builder.fileSendMsgRateSet {
 		req.FileSendMsgRate = &builder.fileSendMsgRate
 
 	}
-	if builder.stickerSendMsgRateFlag {
+	if builder.stickerSendMsgRateSet {
 		req.StickerSendMsgRate = &builder.stickerSendMsgRate
 
 	}
-	if builder.postSendMsgRateFlag {
+	if builder.postSendMsgRateSet {
 		req.PostSendMsgRate = &builder.postSendMsgRate
 
 	}
@@ -3718,11 +3722,11 @@ type InvalidId struct {
 }
 
 type InvalidIdBuilder struct {
-	id     string // 无效的群组ID
-	idFlag bool
+	id    string // 无效的群组ID
+	idSet bool
 
-	msg     string // 无效的原因
-	msgFlag bool
+	msg    string // 无效的原因
+	msgSet bool
 }
 
 func NewInvalidIdBuilder() *InvalidIdBuilder {
@@ -3735,7 +3739,7 @@ func NewInvalidIdBuilder() *InvalidIdBuilder {
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *InvalidIdBuilder) Id(id string) *InvalidIdBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3744,17 +3748,17 @@ func (builder *InvalidIdBuilder) Id(id string) *InvalidIdBuilder {
 // 示例值：user is not in the chat
 func (builder *InvalidIdBuilder) Msg(msg string) *InvalidIdBuilder {
 	builder.msg = msg
-	builder.msgFlag = true
+	builder.msgSet = true
 	return builder
 }
 
 func (builder *InvalidIdBuilder) Build() *InvalidId {
 	req := &InvalidId{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.msgFlag {
+	if builder.msgSet {
 		req.Msg = &builder.msg
 
 	}
@@ -3766,8 +3770,8 @@ type LarkAgentContext struct {
 }
 
 type LarkAgentContextBuilder struct {
-	activeChatId     string // 智能体上下文会话 id
-	activeChatIdFlag bool
+	activeChatId    string // 智能体上下文会话 id
+	activeChatIdSet bool
 }
 
 func NewLarkAgentContextBuilder() *LarkAgentContextBuilder {
@@ -3780,13 +3784,13 @@ func NewLarkAgentContextBuilder() *LarkAgentContextBuilder {
 // 示例值：oc_55b12d872v6f9e55038b2ec6226c8362
 func (builder *LarkAgentContextBuilder) ActiveChatId(activeChatId string) *LarkAgentContextBuilder {
 	builder.activeChatId = activeChatId
-	builder.activeChatIdFlag = true
+	builder.activeChatIdSet = true
 	return builder
 }
 
 func (builder *LarkAgentContextBuilder) Build() *LarkAgentContext {
 	req := &LarkAgentContext{}
-	if builder.activeChatIdFlag {
+	if builder.activeChatIdSet {
 		req.ActiveChatId = &builder.activeChatId
 
 	}
@@ -3800,11 +3804,11 @@ type ListBot struct {
 }
 
 type ListBotBuilder struct {
-	botId     string // 机器人的 open_id
-	botIdFlag bool
+	botId    string // 机器人的 open_id
+	botIdSet bool
 
-	botName     string // 机器人名称
-	botNameFlag bool
+	botName    string // 机器人名称
+	botNameSet bool
 }
 
 func NewListBotBuilder() *ListBotBuilder {
@@ -3817,7 +3821,7 @@ func NewListBotBuilder() *ListBotBuilder {
 // 示例值：ou_a0553eda9014c201e6969b478895c230
 func (builder *ListBotBuilder) BotId(botId string) *ListBotBuilder {
 	builder.botId = botId
-	builder.botIdFlag = true
+	builder.botIdSet = true
 	return builder
 }
 
@@ -3826,17 +3830,17 @@ func (builder *ListBotBuilder) BotId(botId string) *ListBotBuilder {
 // 示例值：值班机器人
 func (builder *ListBotBuilder) BotName(botName string) *ListBotBuilder {
 	builder.botName = botName
-	builder.botNameFlag = true
+	builder.botNameSet = true
 	return builder
 }
 
 func (builder *ListBotBuilder) Build() *ListBot {
 	req := &ListBot{}
-	if builder.botIdFlag {
+	if builder.botIdSet {
 		req.BotId = &builder.botId
 
 	}
-	if builder.botNameFlag {
+	if builder.botNameSet {
 		req.BotName = &builder.botName
 
 	}
@@ -3863,38 +3867,53 @@ type ListChat struct {
 	Labels []string `json:"labels,omitempty"` // 群标签
 
 	ChatStatus *string `json:"chat_status,omitempty"` // 群状态
+
+	ChatMode *string `json:"chat_mode,omitempty"` // 群模式;group=普通群/topic=话题群/p2p=单聊
+
+	P2pTargetType *string `json:"p2p_target_type,omitempty"` // 单聊对端类型;仅 chat_mode=p2p 时返回
+
+	P2pTargetId *string `json:"p2p_target_id,omitempty"` // 单聊对端ID;仅 chat_mode=p2p 时返回
 }
 
 type ListChatBuilder struct {
-	chatId     string // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
-	chatIdFlag bool
+	chatId    string // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	chatIdSet bool
 
-	avatar     string // 群头像 URL
-	avatarFlag bool
+	avatar    string // 群头像 URL
+	avatarSet bool
 
-	name     string // 群名称
-	nameFlag bool
+	name    string // 群名称
+	nameSet bool
 
-	description     string // 群描述
-	descriptionFlag bool
+	description    string // 群描述
+	descriptionSet bool
 
-	ownerId     string // 群主 ID
-	ownerIdFlag bool
+	ownerId    string // 群主 ID
+	ownerIdSet bool
 
-	ownerIdType     string // 群主 ID 类型
-	ownerIdTypeFlag bool
+	ownerIdType    string // 群主 ID 类型
+	ownerIdTypeSet bool
 
-	external     bool // 是否是外部群
-	externalFlag bool
+	external    bool // 是否是外部群
+	externalSet bool
 
-	tenantKey     string // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
-	tenantKeyFlag bool
+	tenantKey    string // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	tenantKeySet bool
 
-	labels     []string // 群标签
-	labelsFlag bool
+	labels    []string // 群标签
+	labelsSet bool
 
-	chatStatus     string // 群状态
-	chatStatusFlag bool
+	chatStatus    string // 群状态
+	chatStatusSet bool
+
+	chatMode    string // 群模式;group=普通群/topic=话题群/p2p=单聊
+	chatModeSet bool
+
+	p2pTargetType    string // 单聊对端类型;仅 chat_mode=p2p 时返回
+	p2pTargetTypeSet bool
+
+	p2pTargetId    string // 单聊对端ID;仅 chat_mode=p2p 时返回
+	p2pTargetIdSet bool
 }
 
 func NewListChatBuilder() *ListChatBuilder {
@@ -3907,7 +3926,7 @@ func NewListChatBuilder() *ListChatBuilder {
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *ListChatBuilder) ChatId(chatId string) *ListChatBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -3916,7 +3935,7 @@ func (builder *ListChatBuilder) ChatId(chatId string) *ListChatBuilder {
 // 示例值：https://p3-lark-file.byteimg.com/img/lark-avatar-staging/default-avatar_44ae0ca3-e140-494b-956f-78091e348435~100x100.jpg
 func (builder *ListChatBuilder) Avatar(avatar string) *ListChatBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
@@ -3925,7 +3944,7 @@ func (builder *ListChatBuilder) Avatar(avatar string) *ListChatBuilder {
 // 示例值：测试群名称
 func (builder *ListChatBuilder) Name(name string) *ListChatBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3934,7 +3953,7 @@ func (builder *ListChatBuilder) Name(name string) *ListChatBuilder {
 // 示例值：测试群描述
 func (builder *ListChatBuilder) Description(description string) *ListChatBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -3943,7 +3962,7 @@ func (builder *ListChatBuilder) Description(description string) *ListChatBuilder
 // 示例值：4d7a3c6g
 func (builder *ListChatBuilder) OwnerId(ownerId string) *ListChatBuilder {
 	builder.ownerId = ownerId
-	builder.ownerIdFlag = true
+	builder.ownerIdSet = true
 	return builder
 }
 
@@ -3952,7 +3971,7 @@ func (builder *ListChatBuilder) OwnerId(ownerId string) *ListChatBuilder {
 // 示例值：user_id
 func (builder *ListChatBuilder) OwnerIdType(ownerIdType string) *ListChatBuilder {
 	builder.ownerIdType = ownerIdType
-	builder.ownerIdTypeFlag = true
+	builder.ownerIdTypeSet = true
 	return builder
 }
 
@@ -3961,7 +3980,7 @@ func (builder *ListChatBuilder) OwnerIdType(ownerIdType string) *ListChatBuilder
 // 示例值：false
 func (builder *ListChatBuilder) External(external bool) *ListChatBuilder {
 	builder.external = external
-	builder.externalFlag = true
+	builder.externalSet = true
 	return builder
 }
 
@@ -3970,7 +3989,7 @@ func (builder *ListChatBuilder) External(external bool) *ListChatBuilder {
 // 示例值：736588c9260f175e
 func (builder *ListChatBuilder) TenantKey(tenantKey string) *ListChatBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
@@ -3979,7 +3998,7 @@ func (builder *ListChatBuilder) TenantKey(tenantKey string) *ListChatBuilder {
 // 示例值：
 func (builder *ListChatBuilder) Labels(labels []string) *ListChatBuilder {
 	builder.labels = labels
-	builder.labelsFlag = true
+	builder.labelsSet = true
 	return builder
 }
 
@@ -3988,49 +4007,88 @@ func (builder *ListChatBuilder) Labels(labels []string) *ListChatBuilder {
 // 示例值：normal
 func (builder *ListChatBuilder) ChatStatus(chatStatus string) *ListChatBuilder {
 	builder.chatStatus = chatStatus
-	builder.chatStatusFlag = true
+	builder.chatStatusSet = true
+	return builder
+}
+
+// 群模式;group=普通群/topic=话题群/p2p=单聊
+//
+// 示例值：p2p
+func (builder *ListChatBuilder) ChatMode(chatMode string) *ListChatBuilder {
+	builder.chatMode = chatMode
+	builder.chatModeSet = true
+	return builder
+}
+
+// 单聊对端类型;仅 chat_mode=p2p 时返回
+//
+// 示例值：user
+func (builder *ListChatBuilder) P2pTargetType(p2pTargetType string) *ListChatBuilder {
+	builder.p2pTargetType = p2pTargetType
+	builder.p2pTargetTypeSet = true
+	return builder
+}
+
+// 单聊对端ID;仅 chat_mode=p2p 时返回
+//
+// 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
+func (builder *ListChatBuilder) P2pTargetId(p2pTargetId string) *ListChatBuilder {
+	builder.p2pTargetId = p2pTargetId
+	builder.p2pTargetIdSet = true
 	return builder
 }
 
 func (builder *ListChatBuilder) Build() *ListChat {
 	req := &ListChat{}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = &builder.avatar
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.ownerIdFlag {
+	if builder.ownerIdSet {
 		req.OwnerId = &builder.ownerId
 
 	}
-	if builder.ownerIdTypeFlag {
+	if builder.ownerIdTypeSet {
 		req.OwnerIdType = &builder.ownerIdType
 
 	}
-	if builder.externalFlag {
+	if builder.externalSet {
 		req.External = &builder.external
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
-	if builder.labelsFlag {
+	if builder.labelsSet {
 		req.Labels = builder.labels
 	}
-	if builder.chatStatusFlag {
+	if builder.chatStatusSet {
 		req.ChatStatus = &builder.chatStatus
+
+	}
+	if builder.chatModeSet {
+		req.ChatMode = &builder.chatMode
+
+	}
+	if builder.p2pTargetTypeSet {
+		req.P2pTargetType = &builder.p2pTargetType
+
+	}
+	if builder.p2pTargetIdSet {
+		req.P2pTargetId = &builder.p2pTargetId
 
 	}
 	return req
@@ -4043,11 +4101,11 @@ type ListEventModerator struct {
 }
 
 type ListEventModeratorBuilder struct {
-	tenantKey     string // 租户 Key
-	tenantKeyFlag bool
+	tenantKey    string // 租户 Key
+	tenantKeySet bool
 
-	userId     *UserId // 用户 ID
-	userIdFlag bool
+	userId    *UserId // 用户 ID
+	userIdSet bool
 }
 
 func NewListEventModeratorBuilder() *ListEventModeratorBuilder {
@@ -4060,7 +4118,7 @@ func NewListEventModeratorBuilder() *ListEventModeratorBuilder {
 // 示例值：86gwe65
 func (builder *ListEventModeratorBuilder) TenantKey(tenantKey string) *ListEventModeratorBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
@@ -4069,17 +4127,17 @@ func (builder *ListEventModeratorBuilder) TenantKey(tenantKey string) *ListEvent
 // 示例值：
 func (builder *ListEventModeratorBuilder) UserId(userId *UserId) *ListEventModeratorBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *ListEventModeratorBuilder) Build() *ListEventModerator {
 	req := &ListEventModerator{}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = builder.userId
 	}
 	return req
@@ -4096,17 +4154,17 @@ type ListMember struct {
 }
 
 type ListMemberBuilder struct {
-	memberIdType     string // 成员的用户 ID 类型，与查询参数中的 member_id_type 相同。取值为：`open_id`、`user_id`、`union_id`其中之一。
-	memberIdTypeFlag bool
+	memberIdType    string // 成员的用户 ID 类型，与查询参数中的 member_id_type 相同。取值为：`open_id`、`user_id`、`union_id`其中之一。
+	memberIdTypeSet bool
 
-	memberId     string // 成员的用户ID，ID值与查询参数中的 member_id_type 对应。;;不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	memberIdFlag bool
+	memberId    string // 成员的用户ID，ID值与查询参数中的 member_id_type 对应。;;不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	memberIdSet bool
 
-	name     string // 名字
-	nameFlag bool
+	name    string // 名字
+	nameSet bool
 
-	tenantKey     string // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
-	tenantKeyFlag bool
+	tenantKey    string // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	tenantKeySet bool
 }
 
 func NewListMemberBuilder() *ListMemberBuilder {
@@ -4119,7 +4177,7 @@ func NewListMemberBuilder() *ListMemberBuilder {
 // 示例值：user_id
 func (builder *ListMemberBuilder) MemberIdType(memberIdType string) *ListMemberBuilder {
 	builder.memberIdType = memberIdType
-	builder.memberIdTypeFlag = true
+	builder.memberIdTypeSet = true
 	return builder
 }
 
@@ -4128,7 +4186,7 @@ func (builder *ListMemberBuilder) MemberIdType(memberIdType string) *ListMemberB
 // 示例值：4d7a3c6g
 func (builder *ListMemberBuilder) MemberId(memberId string) *ListMemberBuilder {
 	builder.memberId = memberId
-	builder.memberIdFlag = true
+	builder.memberIdSet = true
 	return builder
 }
 
@@ -4137,7 +4195,7 @@ func (builder *ListMemberBuilder) MemberId(memberId string) *ListMemberBuilder {
 // 示例值：张三
 func (builder *ListMemberBuilder) Name(name string) *ListMemberBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4146,25 +4204,25 @@ func (builder *ListMemberBuilder) Name(name string) *ListMemberBuilder {
 // 示例值：
 func (builder *ListMemberBuilder) TenantKey(tenantKey string) *ListMemberBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
 func (builder *ListMemberBuilder) Build() *ListMember {
 	req := &ListMember{}
-	if builder.memberIdTypeFlag {
+	if builder.memberIdTypeSet {
 		req.MemberIdType = &builder.memberIdType
 
 	}
-	if builder.memberIdFlag {
+	if builder.memberIdSet {
 		req.MemberId = &builder.memberId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
@@ -4180,14 +4238,14 @@ type ListModerator struct {
 }
 
 type ListModeratorBuilder struct {
-	userIdType     string // 可发言用户 ID 类型
-	userIdTypeFlag bool
+	userIdType    string // 可发言用户 ID 类型
+	userIdTypeSet bool
 
-	userId     string // 可发言用户 ID
-	userIdFlag bool
+	userId    string // 可发言用户 ID
+	userIdSet bool
 
-	tenantKey     string // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
-	tenantKeyFlag bool
+	tenantKey    string // 租户Key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用中的唯一标识
+	tenantKeySet bool
 }
 
 func NewListModeratorBuilder() *ListModeratorBuilder {
@@ -4200,7 +4258,7 @@ func NewListModeratorBuilder() *ListModeratorBuilder {
 // 示例值：user_id
 func (builder *ListModeratorBuilder) UserIdType(userIdType string) *ListModeratorBuilder {
 	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.userIdTypeSet = true
 	return builder
 }
 
@@ -4209,7 +4267,7 @@ func (builder *ListModeratorBuilder) UserIdType(userIdType string) *ListModerato
 // 示例值：4d7a3c6g
 func (builder *ListModeratorBuilder) UserId(userId string) *ListModeratorBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -4218,21 +4276,21 @@ func (builder *ListModeratorBuilder) UserId(userId string) *ListModeratorBuilder
 // 示例值：
 func (builder *ListModeratorBuilder) TenantKey(tenantKey string) *ListModeratorBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
 func (builder *ListModeratorBuilder) Build() *ListModerator {
 	req := &ListModerator{}
-	if builder.userIdTypeFlag {
+	if builder.userIdTypeSet {
 		req.UserIdType = &builder.userIdType
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
@@ -4246,11 +4304,11 @@ type ListNotifyStatus struct {
 }
 
 type ListNotifyStatusBuilder struct {
-	userId     *UserId // 用户id
-	userIdFlag bool
+	userId    *UserId // 用户id
+	userIdSet bool
 
-	notifyStatusType     string // 加急状态类型
-	notifyStatusTypeFlag bool
+	notifyStatusType    string // 加急状态类型
+	notifyStatusTypeSet bool
 }
 
 func NewListNotifyStatusBuilder() *ListNotifyStatusBuilder {
@@ -4263,7 +4321,7 @@ func NewListNotifyStatusBuilder() *ListNotifyStatusBuilder {
 // 示例值：
 func (builder *ListNotifyStatusBuilder) UserId(userId *UserId) *ListNotifyStatusBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -4272,16 +4330,16 @@ func (builder *ListNotifyStatusBuilder) UserId(userId *UserId) *ListNotifyStatus
 // 示例值：
 func (builder *ListNotifyStatusBuilder) NotifyStatusType(notifyStatusType string) *ListNotifyStatusBuilder {
 	builder.notifyStatusType = notifyStatusType
-	builder.notifyStatusTypeFlag = true
+	builder.notifyStatusTypeSet = true
 	return builder
 }
 
 func (builder *ListNotifyStatusBuilder) Build() *ListNotifyStatus {
 	req := &ListNotifyStatus{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = builder.userId
 	}
-	if builder.notifyStatusTypeFlag {
+	if builder.notifyStatusTypeSet {
 		req.NotifyStatusType = &builder.notifyStatusType
 
 	}
@@ -4301,20 +4359,20 @@ type Mention struct {
 }
 
 type MentionBuilder struct {
-	key     string // 被@的用户或机器人的序号。例如，第3个被@到的成员，值为“@_user_3”
-	keyFlag bool
+	key    string // 被@的用户或机器人的序号。例如，第3个被@到的成员，值为“@_user_3”
+	keySet bool
 
-	id     string // 被@的用户或者机器人的open_id
-	idFlag bool
+	id    string // 被@的用户或者机器人的open_id
+	idSet bool
 
-	idType     string // 被@的用户或机器人 id 类型，目前仅支持 `open_id` ([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id))
-	idTypeFlag bool
+	idType    string // 被@的用户或机器人 id 类型，目前仅支持 `open_id` ([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id))
+	idTypeSet bool
 
-	name     string // 被@的用户或机器人的姓名
-	nameFlag bool
+	name    string // 被@的用户或机器人的姓名
+	nameSet bool
 
-	tenantKey     string // 为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
-	tenantKeyFlag bool
+	tenantKey    string // 为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	tenantKeySet bool
 }
 
 func NewMentionBuilder() *MentionBuilder {
@@ -4327,7 +4385,7 @@ func NewMentionBuilder() *MentionBuilder {
 // 示例值：@_user_1
 func (builder *MentionBuilder) Key(key string) *MentionBuilder {
 	builder.key = key
-	builder.keyFlag = true
+	builder.keySet = true
 	return builder
 }
 
@@ -4336,7 +4394,7 @@ func (builder *MentionBuilder) Key(key string) *MentionBuilder {
 // 示例值：ou_155184d1e73cbfb8973e5a9e698e74f2
 func (builder *MentionBuilder) Id(id string) *MentionBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4345,7 +4403,7 @@ func (builder *MentionBuilder) Id(id string) *MentionBuilder {
 // 示例值：open_id
 func (builder *MentionBuilder) IdType(idType string) *MentionBuilder {
 	builder.idType = idType
-	builder.idTypeFlag = true
+	builder.idTypeSet = true
 	return builder
 }
 
@@ -4354,7 +4412,7 @@ func (builder *MentionBuilder) IdType(idType string) *MentionBuilder {
 // 示例值：Tom
 func (builder *MentionBuilder) Name(name string) *MentionBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4363,29 +4421,29 @@ func (builder *MentionBuilder) Name(name string) *MentionBuilder {
 // 示例值：736588c9260f175e
 func (builder *MentionBuilder) TenantKey(tenantKey string) *MentionBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
 func (builder *MentionBuilder) Build() *Mention {
 	req := &Mention{}
-	if builder.keyFlag {
+	if builder.keySet {
 		req.Key = &builder.key
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.idTypeFlag {
+	if builder.idTypeSet {
 		req.IdType = &builder.idType
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
@@ -4405,20 +4463,20 @@ type MentionEvent struct {
 }
 
 type MentionEventBuilder struct {
-	key     string // mention key
-	keyFlag bool
+	key    string // mention key
+	keySet bool
 
-	id     *UserId // 用户 ID
-	idFlag bool
+	id    *UserId // 用户 ID
+	idSet bool
 
-	mentionedType     string // 被at者身份
-	mentionedTypeFlag bool
+	mentionedType    string // 被at者身份
+	mentionedTypeSet bool
 
-	name     string // 用户姓名
-	nameFlag bool
+	name    string // 用户姓名
+	nameSet bool
 
-	tenantKey     string // tenant key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
-	tenantKeyFlag bool
+	tenantKey    string // tenant key，为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	tenantKeySet bool
 }
 
 func NewMentionEventBuilder() *MentionEventBuilder {
@@ -4431,7 +4489,7 @@ func NewMentionEventBuilder() *MentionEventBuilder {
 // 示例值：@_user_1
 func (builder *MentionEventBuilder) Key(key string) *MentionEventBuilder {
 	builder.key = key
-	builder.keyFlag = true
+	builder.keySet = true
 	return builder
 }
 
@@ -4440,7 +4498,7 @@ func (builder *MentionEventBuilder) Key(key string) *MentionEventBuilder {
 // 示例值：
 func (builder *MentionEventBuilder) Id(id *UserId) *MentionEventBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4449,7 +4507,7 @@ func (builder *MentionEventBuilder) Id(id *UserId) *MentionEventBuilder {
 // 示例值：
 func (builder *MentionEventBuilder) MentionedType(mentionedType string) *MentionEventBuilder {
 	builder.mentionedType = mentionedType
-	builder.mentionedTypeFlag = true
+	builder.mentionedTypeSet = true
 	return builder
 }
 
@@ -4458,7 +4516,7 @@ func (builder *MentionEventBuilder) MentionedType(mentionedType string) *Mention
 // 示例值：Tom
 func (builder *MentionEventBuilder) Name(name string) *MentionEventBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4467,28 +4525,28 @@ func (builder *MentionEventBuilder) Name(name string) *MentionEventBuilder {
 // 示例值：736588c9260f175e
 func (builder *MentionEventBuilder) TenantKey(tenantKey string) *MentionEventBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
 func (builder *MentionEventBuilder) Build() *MentionEvent {
 	req := &MentionEvent{}
-	if builder.keyFlag {
+	if builder.keySet {
 		req.Key = &builder.key
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = builder.id
 	}
-	if builder.mentionedTypeFlag {
+	if builder.mentionedTypeSet {
 		req.MentionedType = &builder.mentionedType
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
@@ -4532,56 +4590,56 @@ type Message struct {
 }
 
 type MessageBuilder struct {
-	messageId     string // 消息id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	messageIdFlag bool
+	messageId    string // 消息id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	messageIdSet bool
 
-	rootId     string // 根消息id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	rootIdFlag bool
+	rootId    string // 根消息id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	rootIdSet bool
 
-	parentId     string // 父消息的id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	parentIdFlag bool
+	parentId    string // 父消息的id，用于回复消息场景，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	parentIdSet bool
 
-	threadId     string // 消息所属的话题 ID
-	threadIdFlag bool
+	threadId    string // 消息所属的话题 ID
+	threadIdSet bool
 
-	msgType     string // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[接收消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
-	msgTypeFlag bool
+	msgType    string // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[接收消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
+	msgTypeSet bool
 
-	createTime     string // 消息生成的时间戳（毫秒）
-	createTimeFlag bool
+	createTime    string // 消息生成的时间戳（毫秒）
+	createTimeSet bool
 
-	updateTime     string // 消息更新的时间戳（毫秒）
-	updateTimeFlag bool
+	updateTime    string // 消息更新的时间戳（毫秒）
+	updateTimeSet bool
 
-	deleted     bool // 消息是否被撤回
-	deletedFlag bool
+	deleted    bool // 消息是否被撤回
+	deletedSet bool
 
-	updated     bool // 消息是否被更新
-	updatedFlag bool
+	updated    bool // 消息是否被更新
+	updatedSet bool
 
-	chatId     string // 所属的群
-	chatIdFlag bool
+	chatId    string // 所属的群
+	chatIdSet bool
 
-	sender     *Sender // 发送者，可以是用户或应用
-	senderFlag bool
+	sender    *Sender // 发送者，可以是用户或应用
+	senderSet bool
 
-	body     *MessageBody // 消息内容
-	bodyFlag bool
+	body    *MessageBody // 消息内容
+	bodySet bool
 
-	mentions     []*Mention // 被@的用户或机器人的id列表
-	mentionsFlag bool
+	mentions    []*Mention // 被@的用户或机器人的id列表
+	mentionsSet bool
 
-	upperMessageId     string // 合并转发消息中，上一层级的消息id message_id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	upperMessageIdFlag bool
+	upperMessageId    string // 合并转发消息中，上一层级的消息id message_id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	upperMessageIdSet bool
 
-	messageAppLink     string // 消息跳转链接
-	messageAppLinkFlag bool
+	messageAppLink    string // 消息跳转链接
+	messageAppLinkSet bool
 
-	messagePosition     string // 消息在普通群里面的位置信息，仅普通群可用
-	messagePositionFlag bool
+	messagePosition    string // 消息在普通群里面的位置信息，仅普通群可用
+	messagePositionSet bool
 
-	threadMessagePosition     string // 话题回复消息在话题回复里面的位置信息，仅话题回复生效
-	threadMessagePositionFlag bool
+	threadMessagePosition    string // 话题回复消息在话题回复里面的位置信息，仅话题回复生效
+	threadMessagePositionSet bool
 }
 
 func NewMessageBuilder() *MessageBuilder {
@@ -4594,7 +4652,7 @@ func NewMessageBuilder() *MessageBuilder {
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *MessageBuilder) MessageId(messageId string) *MessageBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -4603,7 +4661,7 @@ func (builder *MessageBuilder) MessageId(messageId string) *MessageBuilder {
 // 示例值：om_40eb06e7b84dc71c03e009ad3c754195
 func (builder *MessageBuilder) RootId(rootId string) *MessageBuilder {
 	builder.rootId = rootId
-	builder.rootIdFlag = true
+	builder.rootIdSet = true
 	return builder
 }
 
@@ -4612,7 +4670,7 @@ func (builder *MessageBuilder) RootId(rootId string) *MessageBuilder {
 // 示例值：om_d4be107c616aed9c1da8ed8068570a9f
 func (builder *MessageBuilder) ParentId(parentId string) *MessageBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
@@ -4621,7 +4679,7 @@ func (builder *MessageBuilder) ParentId(parentId string) *MessageBuilder {
 // 示例值：omt_d4be107c616a
 func (builder *MessageBuilder) ThreadId(threadId string) *MessageBuilder {
 	builder.threadId = threadId
-	builder.threadIdFlag = true
+	builder.threadIdSet = true
 	return builder
 }
 
@@ -4630,7 +4688,7 @@ func (builder *MessageBuilder) ThreadId(threadId string) *MessageBuilder {
 // 示例值：card
 func (builder *MessageBuilder) MsgType(msgType string) *MessageBuilder {
 	builder.msgType = msgType
-	builder.msgTypeFlag = true
+	builder.msgTypeSet = true
 	return builder
 }
 
@@ -4639,7 +4697,7 @@ func (builder *MessageBuilder) MsgType(msgType string) *MessageBuilder {
 // 示例值：1615380573411
 func (builder *MessageBuilder) CreateTime(createTime string) *MessageBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -4648,7 +4706,7 @@ func (builder *MessageBuilder) CreateTime(createTime string) *MessageBuilder {
 // 示例值：1615380573411
 func (builder *MessageBuilder) UpdateTime(updateTime string) *MessageBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -4657,7 +4715,7 @@ func (builder *MessageBuilder) UpdateTime(updateTime string) *MessageBuilder {
 // 示例值：false
 func (builder *MessageBuilder) Deleted(deleted bool) *MessageBuilder {
 	builder.deleted = deleted
-	builder.deletedFlag = true
+	builder.deletedSet = true
 	return builder
 }
 
@@ -4666,7 +4724,7 @@ func (builder *MessageBuilder) Deleted(deleted bool) *MessageBuilder {
 // 示例值：false
 func (builder *MessageBuilder) Updated(updated bool) *MessageBuilder {
 	builder.updated = updated
-	builder.updatedFlag = true
+	builder.updatedSet = true
 	return builder
 }
 
@@ -4675,7 +4733,7 @@ func (builder *MessageBuilder) Updated(updated bool) *MessageBuilder {
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *MessageBuilder) ChatId(chatId string) *MessageBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -4684,7 +4742,7 @@ func (builder *MessageBuilder) ChatId(chatId string) *MessageBuilder {
 // 示例值：object
 func (builder *MessageBuilder) Sender(sender *Sender) *MessageBuilder {
 	builder.sender = sender
-	builder.senderFlag = true
+	builder.senderSet = true
 	return builder
 }
 
@@ -4693,7 +4751,7 @@ func (builder *MessageBuilder) Sender(sender *Sender) *MessageBuilder {
 // 示例值：json结构
 func (builder *MessageBuilder) Body(body *MessageBody) *MessageBuilder {
 	builder.body = body
-	builder.bodyFlag = true
+	builder.bodySet = true
 	return builder
 }
 
@@ -4702,7 +4760,7 @@ func (builder *MessageBuilder) Body(body *MessageBody) *MessageBuilder {
 // 示例值：
 func (builder *MessageBuilder) Mentions(mentions []*Mention) *MessageBuilder {
 	builder.mentions = mentions
-	builder.mentionsFlag = true
+	builder.mentionsSet = true
 	return builder
 }
 
@@ -4711,7 +4769,7 @@ func (builder *MessageBuilder) Mentions(mentions []*Mention) *MessageBuilder {
 // 示例值：om_40eb06e7b84dc71c03e009ad3c754195
 func (builder *MessageBuilder) UpperMessageId(upperMessageId string) *MessageBuilder {
 	builder.upperMessageId = upperMessageId
-	builder.upperMessageIdFlag = true
+	builder.upperMessageIdSet = true
 	return builder
 }
 
@@ -4720,7 +4778,7 @@ func (builder *MessageBuilder) UpperMessageId(upperMessageId string) *MessageBui
 // 示例值：https://xxxx/client/thread/open?chatid=xxx&threadid=xxx&thread_position=xxx
 func (builder *MessageBuilder) MessageAppLink(messageAppLink string) *MessageBuilder {
 	builder.messageAppLink = messageAppLink
-	builder.messageAppLinkFlag = true
+	builder.messageAppLinkSet = true
 	return builder
 }
 
@@ -4729,7 +4787,7 @@ func (builder *MessageBuilder) MessageAppLink(messageAppLink string) *MessageBui
 // 示例值：1
 func (builder *MessageBuilder) MessagePosition(messagePosition string) *MessageBuilder {
 	builder.messagePosition = messagePosition
-	builder.messagePositionFlag = true
+	builder.messagePositionSet = true
 	return builder
 }
 
@@ -4738,74 +4796,74 @@ func (builder *MessageBuilder) MessagePosition(messagePosition string) *MessageB
 // 示例值：1
 func (builder *MessageBuilder) ThreadMessagePosition(threadMessagePosition string) *MessageBuilder {
 	builder.threadMessagePosition = threadMessagePosition
-	builder.threadMessagePositionFlag = true
+	builder.threadMessagePositionSet = true
 	return builder
 }
 
 func (builder *MessageBuilder) Build() *Message {
 	req := &Message{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.rootIdFlag {
+	if builder.rootIdSet {
 		req.RootId = &builder.rootId
 
 	}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
-	if builder.threadIdFlag {
+	if builder.threadIdSet {
 		req.ThreadId = &builder.threadId
 
 	}
-	if builder.msgTypeFlag {
+	if builder.msgTypeSet {
 		req.MsgType = &builder.msgType
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.deletedFlag {
+	if builder.deletedSet {
 		req.Deleted = &builder.deleted
 
 	}
-	if builder.updatedFlag {
+	if builder.updatedSet {
 		req.Updated = &builder.updated
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.senderFlag {
+	if builder.senderSet {
 		req.Sender = builder.sender
 	}
-	if builder.bodyFlag {
+	if builder.bodySet {
 		req.Body = builder.body
 	}
-	if builder.mentionsFlag {
+	if builder.mentionsSet {
 		req.Mentions = builder.mentions
 	}
-	if builder.upperMessageIdFlag {
+	if builder.upperMessageIdSet {
 		req.UpperMessageId = &builder.upperMessageId
 
 	}
-	if builder.messageAppLinkFlag {
+	if builder.messageAppLinkSet {
 		req.MessageAppLink = &builder.messageAppLink
 
 	}
-	if builder.messagePositionFlag {
+	if builder.messagePositionSet {
 		req.MessagePosition = &builder.messagePosition
 
 	}
-	if builder.threadMessagePositionFlag {
+	if builder.threadMessagePositionSet {
 		req.ThreadMessagePosition = &builder.threadMessagePosition
 
 	}
@@ -4823,17 +4881,17 @@ type MessageReaction struct {
 }
 
 type MessageReactionBuilder struct {
-	reactionId     string // reaction资源ID
-	reactionIdFlag bool
+	reactionId    string // reaction资源ID
+	reactionIdSet bool
 
-	operator     *Operator // 添加reaction的操作人
-	operatorFlag bool
+	operator    *Operator // 添加reaction的操作人
+	operatorSet bool
 
-	actionTime     string // reaction动作的的unix timestamp(单位:ms)
-	actionTimeFlag bool
+	actionTime    string // reaction动作的的unix timestamp(单位:ms)
+	actionTimeSet bool
 
-	reactionType     *Emoji // reaction资源类型
-	reactionTypeFlag bool
+	reactionType    *Emoji // reaction资源类型
+	reactionTypeSet bool
 }
 
 func NewMessageReactionBuilder() *MessageReactionBuilder {
@@ -4846,7 +4904,7 @@ func NewMessageReactionBuilder() *MessageReactionBuilder {
 // 示例值：
 func (builder *MessageReactionBuilder) ReactionId(reactionId string) *MessageReactionBuilder {
 	builder.reactionId = reactionId
-	builder.reactionIdFlag = true
+	builder.reactionIdSet = true
 	return builder
 }
 
@@ -4855,7 +4913,7 @@ func (builder *MessageReactionBuilder) ReactionId(reactionId string) *MessageRea
 // 示例值：
 func (builder *MessageReactionBuilder) Operator(operator *Operator) *MessageReactionBuilder {
 	builder.operator = operator
-	builder.operatorFlag = true
+	builder.operatorSet = true
 	return builder
 }
 
@@ -4864,7 +4922,7 @@ func (builder *MessageReactionBuilder) Operator(operator *Operator) *MessageReac
 // 示例值：
 func (builder *MessageReactionBuilder) ActionTime(actionTime string) *MessageReactionBuilder {
 	builder.actionTime = actionTime
-	builder.actionTimeFlag = true
+	builder.actionTimeSet = true
 	return builder
 }
 
@@ -4873,24 +4931,24 @@ func (builder *MessageReactionBuilder) ActionTime(actionTime string) *MessageRea
 // 示例值：
 func (builder *MessageReactionBuilder) ReactionType(reactionType *Emoji) *MessageReactionBuilder {
 	builder.reactionType = reactionType
-	builder.reactionTypeFlag = true
+	builder.reactionTypeSet = true
 	return builder
 }
 
 func (builder *MessageReactionBuilder) Build() *MessageReaction {
 	req := &MessageReaction{}
-	if builder.reactionIdFlag {
+	if builder.reactionIdSet {
 		req.ReactionId = &builder.reactionId
 
 	}
-	if builder.operatorFlag {
+	if builder.operatorSet {
 		req.Operator = builder.operator
 	}
-	if builder.actionTimeFlag {
+	if builder.actionTimeSet {
 		req.ActionTime = &builder.actionTime
 
 	}
-	if builder.reactionTypeFlag {
+	if builder.reactionTypeSet {
 		req.ReactionType = builder.reactionType
 	}
 	return req
@@ -4917,8 +4975,8 @@ type MessageBody struct {
 }
 
 type MessageBodyBuilder struct {
-	content     string // 消息内容，json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考：[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
-	contentFlag bool
+	content    string // 消息内容，json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考：[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	contentSet bool
 }
 
 func NewMessageBodyBuilder() *MessageBodyBuilder {
@@ -4931,14 +4989,82 @@ func NewMessageBodyBuilder() *MessageBodyBuilder {
 // 示例值：text:测试消息
 func (builder *MessageBodyBuilder) Content(content string) *MessageBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *MessageBodyBuilder) Build() *MessageBody {
 	req := &MessageBody{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
+
+	}
+	return req
+}
+
+type MessageCot struct {
+	EventType *string `json:"event_type,omitempty"` // agent AG2UI事件类型，eg. toolcall
+
+	Content *string `json:"content,omitempty"` // agent AG2UI事件详情，json串
+
+	Timestamp *string `json:"timestamp,omitempty"` // agent传入的用于排序的事件时间戳
+}
+
+type MessageCotBuilder struct {
+	eventType    string // agent AG2UI事件类型，eg. toolcall
+	eventTypeSet bool
+
+	content    string // agent AG2UI事件详情，json串
+	contentSet bool
+
+	timestamp    string // agent传入的用于排序的事件时间戳
+	timestampSet bool
+}
+
+func NewMessageCotBuilder() *MessageCotBuilder {
+	builder := &MessageCotBuilder{}
+	return builder
+}
+
+// agent AG2UI事件类型，eg. toolcall
+//
+// 示例值：toolcall
+func (builder *MessageCotBuilder) EventType(eventType string) *MessageCotBuilder {
+	builder.eventType = eventType
+	builder.eventTypeSet = true
+	return builder
+}
+
+// agent AG2UI事件详情，json串
+//
+// 示例值："ddd"
+func (builder *MessageCotBuilder) Content(content string) *MessageCotBuilder {
+	builder.content = content
+	builder.contentSet = true
+	return builder
+}
+
+// agent传入的用于排序的事件时间戳
+//
+// 示例值：1777279818
+func (builder *MessageCotBuilder) Timestamp(timestamp string) *MessageCotBuilder {
+	builder.timestamp = timestamp
+	builder.timestampSet = true
+	return builder
+}
+
+func (builder *MessageCotBuilder) Build() *MessageCot {
+	req := &MessageCot{}
+	if builder.eventTypeSet {
+		req.EventType = &builder.eventType
+
+	}
+	if builder.contentSet {
+		req.Content = &builder.content
+
+	}
+	if builder.timestampSet {
+		req.Timestamp = &builder.timestamp
 
 	}
 	return req
@@ -4951,11 +5077,11 @@ type MessageQuery struct {
 }
 
 type MessageQueryBuilder struct {
-	messageId     string // 消息ID
-	messageIdFlag bool
+	messageId    string // 消息ID
+	messageIdSet bool
 
-	pageToken     string // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果。
-	pageTokenFlag bool
+	pageToken    string // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果。
+	pageTokenSet bool
 }
 
 func NewMessageQueryBuilder() *MessageQueryBuilder {
@@ -4968,7 +5094,7 @@ func NewMessageQueryBuilder() *MessageQueryBuilder {
 // 示例值：om_8964d1b4*********2b31383276113
 func (builder *MessageQueryBuilder) MessageId(messageId string) *MessageQueryBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -4977,17 +5103,17 @@ func (builder *MessageQueryBuilder) MessageId(messageId string) *MessageQueryBui
 // 示例值：YhljsPiGfUgnVAg9urvRFd-BvSqRL20
 func (builder *MessageQueryBuilder) PageToken(pageToken string) *MessageQueryBuilder {
 	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.pageTokenSet = true
 	return builder
 }
 
 func (builder *MessageQueryBuilder) Build() *MessageQuery {
 	req := &MessageQuery{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.pageTokenFlag {
+	if builder.pageTokenSet {
 		req.PageToken = &builder.pageToken
 
 	}
@@ -5015,32 +5141,32 @@ type MessageSearchFilter struct {
 }
 
 type MessageSearchFilterBuilder struct {
-	fromIds     []string // 消息创建者
-	fromIdsFlag bool
+	fromIds    []string // 消息创建者
+	fromIdsSet bool
 
-	chatIds     []string // 消息所在的会话
-	chatIdsFlag bool
+	chatIds    []string // 消息所在的会话
+	chatIdsSet bool
 
-	timeRange     *TimeRange // 开始与结束时间
-	timeRangeFlag bool
+	timeRange    *TimeRange // 开始与结束时间
+	timeRangeSet bool
 
-	includeAttachmentTypes     []string // 包含某些附件类型
-	includeAttachmentTypesFlag bool
+	includeAttachmentTypes    []string // 包含某些附件类型
+	includeAttachmentTypesSet bool
 
-	fromTypes     []string // 来源类型(用户消息、机器人消息)
-	fromTypesFlag bool
+	fromTypes    []string // 来源类型(用户消息、机器人消息)
+	fromTypesSet bool
 
-	atChatterIds     []string // 消息中包含at的user_id (包含at all)
-	atChatterIdsFlag bool
+	atChatterIds    []string // 消息中包含at的user_id (包含at all)
+	atChatterIdsSet bool
 
-	chatType     string // 会话类型（单聊、群聊） 单选
-	chatTypeFlag bool
+	chatType    string // 会话类型（单聊、群聊） 单选
+	chatTypeSet bool
 
-	isAtMe     bool // 是否at过我，默认否
-	isAtMeFlag bool
+	isAtMe    bool // 是否at过我，默认否
+	isAtMeSet bool
 
-	excludeFromTypes     []string // 过滤来源
-	excludeFromTypesFlag bool
+	excludeFromTypes    []string // 过滤来源
+	excludeFromTypesSet bool
 }
 
 func NewMessageSearchFilterBuilder() *MessageSearchFilterBuilder {
@@ -5053,7 +5179,7 @@ func NewMessageSearchFilterBuilder() *MessageSearchFilterBuilder {
 // 示例值：
 func (builder *MessageSearchFilterBuilder) FromIds(fromIds []string) *MessageSearchFilterBuilder {
 	builder.fromIds = fromIds
-	builder.fromIdsFlag = true
+	builder.fromIdsSet = true
 	return builder
 }
 
@@ -5062,7 +5188,7 @@ func (builder *MessageSearchFilterBuilder) FromIds(fromIds []string) *MessageSea
 // 示例值：
 func (builder *MessageSearchFilterBuilder) ChatIds(chatIds []string) *MessageSearchFilterBuilder {
 	builder.chatIds = chatIds
-	builder.chatIdsFlag = true
+	builder.chatIdsSet = true
 	return builder
 }
 
@@ -5071,7 +5197,7 @@ func (builder *MessageSearchFilterBuilder) ChatIds(chatIds []string) *MessageSea
 // 示例值：
 func (builder *MessageSearchFilterBuilder) TimeRange(timeRange *TimeRange) *MessageSearchFilterBuilder {
 	builder.timeRange = timeRange
-	builder.timeRangeFlag = true
+	builder.timeRangeSet = true
 	return builder
 }
 
@@ -5080,7 +5206,7 @@ func (builder *MessageSearchFilterBuilder) TimeRange(timeRange *TimeRange) *Mess
 // 示例值：
 func (builder *MessageSearchFilterBuilder) IncludeAttachmentTypes(includeAttachmentTypes []string) *MessageSearchFilterBuilder {
 	builder.includeAttachmentTypes = includeAttachmentTypes
-	builder.includeAttachmentTypesFlag = true
+	builder.includeAttachmentTypesSet = true
 	return builder
 }
 
@@ -5089,7 +5215,7 @@ func (builder *MessageSearchFilterBuilder) IncludeAttachmentTypes(includeAttachm
 // 示例值：
 func (builder *MessageSearchFilterBuilder) FromTypes(fromTypes []string) *MessageSearchFilterBuilder {
 	builder.fromTypes = fromTypes
-	builder.fromTypesFlag = true
+	builder.fromTypesSet = true
 	return builder
 }
 
@@ -5098,7 +5224,7 @@ func (builder *MessageSearchFilterBuilder) FromTypes(fromTypes []string) *Messag
 // 示例值：
 func (builder *MessageSearchFilterBuilder) AtChatterIds(atChatterIds []string) *MessageSearchFilterBuilder {
 	builder.atChatterIds = atChatterIds
-	builder.atChatterIdsFlag = true
+	builder.atChatterIdsSet = true
 	return builder
 }
 
@@ -5107,7 +5233,7 @@ func (builder *MessageSearchFilterBuilder) AtChatterIds(atChatterIds []string) *
 // 示例值：
 func (builder *MessageSearchFilterBuilder) ChatType(chatType string) *MessageSearchFilterBuilder {
 	builder.chatType = chatType
-	builder.chatTypeFlag = true
+	builder.chatTypeSet = true
 	return builder
 }
 
@@ -5116,7 +5242,7 @@ func (builder *MessageSearchFilterBuilder) ChatType(chatType string) *MessageSea
 // 示例值：
 func (builder *MessageSearchFilterBuilder) IsAtMe(isAtMe bool) *MessageSearchFilterBuilder {
 	builder.isAtMe = isAtMe
-	builder.isAtMeFlag = true
+	builder.isAtMeSet = true
 	return builder
 }
 
@@ -5125,39 +5251,39 @@ func (builder *MessageSearchFilterBuilder) IsAtMe(isAtMe bool) *MessageSearchFil
 // 示例值：
 func (builder *MessageSearchFilterBuilder) ExcludeFromTypes(excludeFromTypes []string) *MessageSearchFilterBuilder {
 	builder.excludeFromTypes = excludeFromTypes
-	builder.excludeFromTypesFlag = true
+	builder.excludeFromTypesSet = true
 	return builder
 }
 
 func (builder *MessageSearchFilterBuilder) Build() *MessageSearchFilter {
 	req := &MessageSearchFilter{}
-	if builder.fromIdsFlag {
+	if builder.fromIdsSet {
 		req.FromIds = builder.fromIds
 	}
-	if builder.chatIdsFlag {
+	if builder.chatIdsSet {
 		req.ChatIds = builder.chatIds
 	}
-	if builder.timeRangeFlag {
+	if builder.timeRangeSet {
 		req.TimeRange = builder.timeRange
 	}
-	if builder.includeAttachmentTypesFlag {
+	if builder.includeAttachmentTypesSet {
 		req.IncludeAttachmentTypes = builder.includeAttachmentTypes
 	}
-	if builder.fromTypesFlag {
+	if builder.fromTypesSet {
 		req.FromTypes = builder.fromTypes
 	}
-	if builder.atChatterIdsFlag {
+	if builder.atChatterIdsSet {
 		req.AtChatterIds = builder.atChatterIds
 	}
-	if builder.chatTypeFlag {
+	if builder.chatTypeSet {
 		req.ChatType = &builder.chatType
 
 	}
-	if builder.isAtMeFlag {
+	if builder.isAtMeSet {
 		req.IsAtMe = &builder.isAtMe
 
 	}
-	if builder.excludeFromTypesFlag {
+	if builder.excludeFromTypesSet {
 		req.ExcludeFromTypes = builder.excludeFromTypes
 	}
 	return req
@@ -5172,14 +5298,14 @@ type MessageSearchItem struct {
 }
 
 type MessageSearchItemBuilder struct {
-	id     string // 消息ID
-	idFlag bool
+	id    string // 消息ID
+	idSet bool
 
-	displayInfo     string // 包含群组基本信息的卡片,用户搜索关键词命中的文本 片段,使用<h></h>标签包裹标注
-	displayInfoFlag bool
+	displayInfo    string // 包含群组基本信息的卡片,用户搜索关键词命中的文本 片段,使用<h></h>标签包裹标注
+	displayInfoSet bool
 
-	metaData     *MessageSearchMeta // 消息元数据
-	metaDataFlag bool
+	metaData    *MessageSearchMeta // 消息元数据
+	metaDataSet bool
 }
 
 func NewMessageSearchItemBuilder() *MessageSearchItemBuilder {
@@ -5192,7 +5318,7 @@ func NewMessageSearchItemBuilder() *MessageSearchItemBuilder {
 // 示例值：om_40eb06e7b84dc71c03e00ida3c754892
 func (builder *MessageSearchItemBuilder) Id(id string) *MessageSearchItemBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5201,7 +5327,7 @@ func (builder *MessageSearchItemBuilder) Id(id string) *MessageSearchItemBuilder
 // 示例值：飞书<h>搜索</h>
 func (builder *MessageSearchItemBuilder) DisplayInfo(displayInfo string) *MessageSearchItemBuilder {
 	builder.displayInfo = displayInfo
-	builder.displayInfoFlag = true
+	builder.displayInfoSet = true
 	return builder
 }
 
@@ -5210,21 +5336,21 @@ func (builder *MessageSearchItemBuilder) DisplayInfo(displayInfo string) *Messag
 // 示例值：
 func (builder *MessageSearchItemBuilder) MetaData(metaData *MessageSearchMeta) *MessageSearchItemBuilder {
 	builder.metaData = metaData
-	builder.metaDataFlag = true
+	builder.metaDataSet = true
 	return builder
 }
 
 func (builder *MessageSearchItemBuilder) Build() *MessageSearchItem {
 	req := &MessageSearchItem{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.displayInfoFlag {
+	if builder.displayInfoSet {
 		req.DisplayInfo = &builder.displayInfo
 
 	}
-	if builder.metaDataFlag {
+	if builder.metaDataSet {
 		req.MetaData = builder.metaData
 	}
 	return req
@@ -5253,35 +5379,35 @@ type MessageSearchMeta struct {
 }
 
 type MessageSearchMetaBuilder struct {
-	messageId     string // 消息ID
-	messageIdFlag bool
+	messageId    string // 消息ID
+	messageIdSet bool
 
 	type_    string // 消息类型
-	typeFlag bool
+	type_Set bool
 
-	createTime     string // 创建时间(iso8601)
-	createTimeFlag bool
+	createTime    string // 创建时间(iso8601)
+	createTimeSet bool
 
-	updateTime     string // 更新时间(iso8601)
-	updateTimeFlag bool
+	updateTime    string // 更新时间(iso8601)
+	updateTimeSet bool
 
-	position     int // 消息位置
-	positionFlag bool
+	position    int // 消息位置
+	positionSet bool
 
-	chatId     string // 所在会话ID
-	chatIdFlag bool
+	chatId    string // 所在会话ID
+	chatIdSet bool
 
-	fromId     string // 消息发送者ID
-	fromIdFlag bool
+	fromId    string // 消息发送者ID
+	fromIdSet bool
 
-	threadId     string // 消息话题ID
-	threadIdFlag bool
+	threadId    string // 消息话题ID
+	threadIdSet bool
 
-	threadPosition     int // 消息话题位置
-	threadPositionFlag bool
+	threadPosition    int // 消息话题位置
+	threadPositionSet bool
 
-	isP2pChat     bool // 是否为单聊
-	isP2pChatFlag bool
+	isP2pChat    bool // 是否为单聊
+	isP2pChatSet bool
 }
 
 func NewMessageSearchMetaBuilder() *MessageSearchMetaBuilder {
@@ -5294,7 +5420,7 @@ func NewMessageSearchMetaBuilder() *MessageSearchMetaBuilder {
 // 示例值：om_40eb06e7b84dc71c03e00ida3c754892
 func (builder *MessageSearchMetaBuilder) MessageId(messageId string) *MessageSearchMetaBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -5303,7 +5429,7 @@ func (builder *MessageSearchMetaBuilder) MessageId(messageId string) *MessageSea
 // 示例值：post
 func (builder *MessageSearchMetaBuilder) Type(type_ string) *MessageSearchMetaBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -5312,7 +5438,7 @@ func (builder *MessageSearchMetaBuilder) Type(type_ string) *MessageSearchMetaBu
 // 示例值：2026-03-21T16:15:30+08:00
 func (builder *MessageSearchMetaBuilder) CreateTime(createTime string) *MessageSearchMetaBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -5321,7 +5447,7 @@ func (builder *MessageSearchMetaBuilder) CreateTime(createTime string) *MessageS
 // 示例值：2026-03-21T16:15:30+08:00
 func (builder *MessageSearchMetaBuilder) UpdateTime(updateTime string) *MessageSearchMetaBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -5330,7 +5456,7 @@ func (builder *MessageSearchMetaBuilder) UpdateTime(updateTime string) *MessageS
 // 示例值：0
 func (builder *MessageSearchMetaBuilder) Position(position int) *MessageSearchMetaBuilder {
 	builder.position = position
-	builder.positionFlag = true
+	builder.positionSet = true
 	return builder
 }
 
@@ -5339,7 +5465,7 @@ func (builder *MessageSearchMetaBuilder) Position(position int) *MessageSearchMe
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *MessageSearchMetaBuilder) ChatId(chatId string) *MessageSearchMetaBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -5348,7 +5474,7 @@ func (builder *MessageSearchMetaBuilder) ChatId(chatId string) *MessageSearchMet
 // 示例值：ou-7890123456abcdef
 func (builder *MessageSearchMetaBuilder) FromId(fromId string) *MessageSearchMetaBuilder {
 	builder.fromId = fromId
-	builder.fromIdFlag = true
+	builder.fromIdSet = true
 	return builder
 }
 
@@ -5357,7 +5483,7 @@ func (builder *MessageSearchMetaBuilder) FromId(fromId string) *MessageSearchMet
 // 示例值：omt_d4be107c616a
 func (builder *MessageSearchMetaBuilder) ThreadId(threadId string) *MessageSearchMetaBuilder {
 	builder.threadId = threadId
-	builder.threadIdFlag = true
+	builder.threadIdSet = true
 	return builder
 }
 
@@ -5366,7 +5492,7 @@ func (builder *MessageSearchMetaBuilder) ThreadId(threadId string) *MessageSearc
 // 示例值：10
 func (builder *MessageSearchMetaBuilder) ThreadPosition(threadPosition int) *MessageSearchMetaBuilder {
 	builder.threadPosition = threadPosition
-	builder.threadPositionFlag = true
+	builder.threadPositionSet = true
 	return builder
 }
 
@@ -5375,49 +5501,49 @@ func (builder *MessageSearchMetaBuilder) ThreadPosition(threadPosition int) *Mes
 // 示例值：false
 func (builder *MessageSearchMetaBuilder) IsP2pChat(isP2pChat bool) *MessageSearchMetaBuilder {
 	builder.isP2pChat = isP2pChat
-	builder.isP2pChatFlag = true
+	builder.isP2pChatSet = true
 	return builder
 }
 
 func (builder *MessageSearchMetaBuilder) Build() *MessageSearchMeta {
 	req := &MessageSearchMeta{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.positionFlag {
+	if builder.positionSet {
 		req.Position = &builder.position
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.fromIdFlag {
+	if builder.fromIdSet {
 		req.FromId = &builder.fromId
 
 	}
-	if builder.threadIdFlag {
+	if builder.threadIdSet {
 		req.ThreadId = &builder.threadId
 
 	}
-	if builder.threadPositionFlag {
+	if builder.threadPositionSet {
 		req.ThreadPosition = &builder.threadPosition
 
 	}
-	if builder.isP2pChatFlag {
+	if builder.isP2pChatSet {
 		req.IsP2pChat = &builder.isP2pChat
 
 	}
@@ -5431,11 +5557,11 @@ type ModeratorList struct {
 }
 
 type ModeratorListBuilder struct {
-	addedMemberList     []*ListEventModerator // 被添加进可发言名单的用户列表（列表中一定会有owner）
-	addedMemberListFlag bool
+	addedMemberList    []*ListEventModerator // 被添加进可发言名单的用户列表（列表中一定会有owner）
+	addedMemberListSet bool
 
-	removedMemberList     []*ListEventModerator // 被移除出可发言名单的用户列表
-	removedMemberListFlag bool
+	removedMemberList    []*ListEventModerator // 被移除出可发言名单的用户列表
+	removedMemberListSet bool
 }
 
 func NewModeratorListBuilder() *ModeratorListBuilder {
@@ -5448,7 +5574,7 @@ func NewModeratorListBuilder() *ModeratorListBuilder {
 // 示例值：
 func (builder *ModeratorListBuilder) AddedMemberList(addedMemberList []*ListEventModerator) *ModeratorListBuilder {
 	builder.addedMemberList = addedMemberList
-	builder.addedMemberListFlag = true
+	builder.addedMemberListSet = true
 	return builder
 }
 
@@ -5457,16 +5583,16 @@ func (builder *ModeratorListBuilder) AddedMemberList(addedMemberList []*ListEven
 // 示例值：
 func (builder *ModeratorListBuilder) RemovedMemberList(removedMemberList []*ListEventModerator) *ModeratorListBuilder {
 	builder.removedMemberList = removedMemberList
-	builder.removedMemberListFlag = true
+	builder.removedMemberListSet = true
 	return builder
 }
 
 func (builder *ModeratorListBuilder) Build() *ModeratorList {
 	req := &ModeratorList{}
-	if builder.addedMemberListFlag {
+	if builder.addedMemberListSet {
 		req.AddedMemberList = builder.addedMemberList
 	}
-	if builder.removedMemberListFlag {
+	if builder.removedMemberListSet {
 		req.RemovedMemberList = builder.removedMemberList
 	}
 	return req
@@ -5513,62 +5639,62 @@ type MsgProcessData struct {
 }
 
 type MsgProcessDataBuilder struct {
-	pDate     string // 分区日期
-	pDateFlag bool
+	pDate    string // 分区日期
+	pDateSet bool
 
-	departmentId     string // 部门id
-	departmentIdFlag bool
+	departmentId    string // 部门id
+	departmentIdSet bool
 
-	departmentPath     string // 部门路径
-	departmentPathFlag bool
+	departmentPath    string // 部门路径
+	departmentPathSet bool
 
-	avgImpMsgReadRate12h     float64 // 人均重要消息 12 小时阅读率
-	avgImpMsgReadRate12hFlag bool
+	avgImpMsgReadRate12h    float64 // 人均重要消息 12 小时阅读率
+	avgImpMsgReadRate12hSet bool
 
-	msgReadRate12h     float64 // 人均 12 小时阅读率
-	msgReadRate12hFlag bool
+	msgReadRate12h    float64 // 人均 12 小时阅读率
+	msgReadRate12hSet bool
 
-	avgReceiveMsgCnt     float64 // 人均接收消息数
-	avgReceiveMsgCntFlag bool
+	avgReceiveMsgCnt    float64 // 人均接收消息数
+	avgReceiveMsgCntSet bool
 
-	avgReadMsgCnt     float64 // 人均阅读消息数
-	avgReadMsgCntFlag bool
+	avgReadMsgCnt    float64 // 人均阅读消息数
+	avgReadMsgCntSet bool
 
-	avgImpReadMsgCnt     float64 // 人均重要消息阅读数
-	avgImpReadMsgCntFlag bool
+	avgImpReadMsgCnt    float64 // 人均重要消息阅读数
+	avgImpReadMsgCntSet bool
 
-	avgImpReceiveMsgCnt     float64 // 人均重要消息接收数
-	avgImpReceiveMsgCntFlag bool
+	avgImpReceiveMsgCnt    float64 // 人均重要消息接收数
+	avgImpReceiveMsgCntSet bool
 
-	highLoadRate     float64 // 信息高负载员工占比
-	highLoadRateFlag bool
+	highLoadRate    float64 // 信息高负载员工占比
+	highLoadRateSet bool
 
-	bigGroupMsgRate     float64 // 大群（100人以上）消息占比
-	bigGroupMsgRateFlag bool
+	bigGroupMsgRate    float64 // 大群（100人以上）消息占比
+	bigGroupMsgRateSet bool
 
-	bigGroupTopicMsgRate     float64 // 大群消息中话题消息占比
-	bigGroupTopicMsgRateFlag bool
+	bigGroupTopicMsgRate    float64 // 大群消息中话题消息占比
+	bigGroupTopicMsgRateSet bool
 
-	avgReceiveBotMsgCnt     float64 // 人均接收 bot 消息数
-	avgReceiveBotMsgCntFlag bool
+	avgReceiveBotMsgCnt    float64 // 人均接收 bot 消息数
+	avgReceiveBotMsgCntSet bool
 
-	avgBotImpMsgReadRate12h     float64 // 重要 bot 消息 12 小时阅读率
-	avgBotImpMsgReadRate12hFlag bool
+	avgBotImpMsgReadRate12h    float64 // 重要 bot 消息 12 小时阅读率
+	avgBotImpMsgReadRate12hSet bool
 
-	receiveBotMsgRate     float64 // 接收 bot 消息占比
-	receiveBotMsgRateFlag bool
+	receiveBotMsgRate    float64 // 接收 bot 消息占比
+	receiveBotMsgRateSet bool
 
-	useChatBoxRate     float64 // 会话盒子使用率
-	useChatBoxRateFlag bool
+	useChatBoxRate    float64 // 会话盒子使用率
+	useChatBoxRateSet bool
 
-	receiveMuteMsgRate     float64 // 接收消息中 mute 消息占比
-	receiveMuteMsgRateFlag bool
+	receiveMuteMsgRate    float64 // 接收消息中 mute 消息占比
+	receiveMuteMsgRateSet bool
 
-	readMuteMsgRate     float64 // 阅读消息中 mute 消息占比
-	readMuteMsgRateFlag bool
+	readMuteMsgRate    float64 // 阅读消息中 mute 消息占比
+	readMuteMsgRateSet bool
 
-	avgReceiveImpMsgChatCnt     float64 // 人均有重要消息的会话数
-	avgReceiveImpMsgChatCntFlag bool
+	avgReceiveImpMsgChatCnt    float64 // 人均有重要消息的会话数
+	avgReceiveImpMsgChatCntSet bool
 }
 
 func NewMsgProcessDataBuilder() *MsgProcessDataBuilder {
@@ -5581,7 +5707,7 @@ func NewMsgProcessDataBuilder() *MsgProcessDataBuilder {
 // 示例值：2022-02-02
 func (builder *MsgProcessDataBuilder) PDate(pDate string) *MsgProcessDataBuilder {
 	builder.pDate = pDate
-	builder.pDateFlag = true
+	builder.pDateSet = true
 	return builder
 }
 
@@ -5590,7 +5716,7 @@ func (builder *MsgProcessDataBuilder) PDate(pDate string) *MsgProcessDataBuilder
 // 示例值：123456
 func (builder *MsgProcessDataBuilder) DepartmentId(departmentId string) *MsgProcessDataBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
@@ -5599,7 +5725,7 @@ func (builder *MsgProcessDataBuilder) DepartmentId(departmentId string) *MsgProc
 // 示例值：test/subtest
 func (builder *MsgProcessDataBuilder) DepartmentPath(departmentPath string) *MsgProcessDataBuilder {
 	builder.departmentPath = departmentPath
-	builder.departmentPathFlag = true
+	builder.departmentPathSet = true
 	return builder
 }
 
@@ -5608,7 +5734,7 @@ func (builder *MsgProcessDataBuilder) DepartmentPath(departmentPath string) *Msg
 // 示例值：0.50
 func (builder *MsgProcessDataBuilder) AvgImpMsgReadRate12h(avgImpMsgReadRate12h float64) *MsgProcessDataBuilder {
 	builder.avgImpMsgReadRate12h = avgImpMsgReadRate12h
-	builder.avgImpMsgReadRate12hFlag = true
+	builder.avgImpMsgReadRate12hSet = true
 	return builder
 }
 
@@ -5617,7 +5743,7 @@ func (builder *MsgProcessDataBuilder) AvgImpMsgReadRate12h(avgImpMsgReadRate12h 
 // 示例值：0.50
 func (builder *MsgProcessDataBuilder) MsgReadRate12h(msgReadRate12h float64) *MsgProcessDataBuilder {
 	builder.msgReadRate12h = msgReadRate12h
-	builder.msgReadRate12hFlag = true
+	builder.msgReadRate12hSet = true
 	return builder
 }
 
@@ -5626,7 +5752,7 @@ func (builder *MsgProcessDataBuilder) MsgReadRate12h(msgReadRate12h float64) *Ms
 // 示例值：50
 func (builder *MsgProcessDataBuilder) AvgReceiveMsgCnt(avgReceiveMsgCnt float64) *MsgProcessDataBuilder {
 	builder.avgReceiveMsgCnt = avgReceiveMsgCnt
-	builder.avgReceiveMsgCntFlag = true
+	builder.avgReceiveMsgCntSet = true
 	return builder
 }
 
@@ -5635,7 +5761,7 @@ func (builder *MsgProcessDataBuilder) AvgReceiveMsgCnt(avgReceiveMsgCnt float64)
 // 示例值：50
 func (builder *MsgProcessDataBuilder) AvgReadMsgCnt(avgReadMsgCnt float64) *MsgProcessDataBuilder {
 	builder.avgReadMsgCnt = avgReadMsgCnt
-	builder.avgReadMsgCntFlag = true
+	builder.avgReadMsgCntSet = true
 	return builder
 }
 
@@ -5644,7 +5770,7 @@ func (builder *MsgProcessDataBuilder) AvgReadMsgCnt(avgReadMsgCnt float64) *MsgP
 // 示例值：50
 func (builder *MsgProcessDataBuilder) AvgImpReadMsgCnt(avgImpReadMsgCnt float64) *MsgProcessDataBuilder {
 	builder.avgImpReadMsgCnt = avgImpReadMsgCnt
-	builder.avgImpReadMsgCntFlag = true
+	builder.avgImpReadMsgCntSet = true
 	return builder
 }
 
@@ -5653,7 +5779,7 @@ func (builder *MsgProcessDataBuilder) AvgImpReadMsgCnt(avgImpReadMsgCnt float64)
 // 示例值：50
 func (builder *MsgProcessDataBuilder) AvgImpReceiveMsgCnt(avgImpReceiveMsgCnt float64) *MsgProcessDataBuilder {
 	builder.avgImpReceiveMsgCnt = avgImpReceiveMsgCnt
-	builder.avgImpReceiveMsgCntFlag = true
+	builder.avgImpReceiveMsgCntSet = true
 	return builder
 }
 
@@ -5662,7 +5788,7 @@ func (builder *MsgProcessDataBuilder) AvgImpReceiveMsgCnt(avgImpReceiveMsgCnt fl
 // 示例值：0.50
 func (builder *MsgProcessDataBuilder) HighLoadRate(highLoadRate float64) *MsgProcessDataBuilder {
 	builder.highLoadRate = highLoadRate
-	builder.highLoadRateFlag = true
+	builder.highLoadRateSet = true
 	return builder
 }
 
@@ -5671,7 +5797,7 @@ func (builder *MsgProcessDataBuilder) HighLoadRate(highLoadRate float64) *MsgPro
 // 示例值：0.50
 func (builder *MsgProcessDataBuilder) BigGroupMsgRate(bigGroupMsgRate float64) *MsgProcessDataBuilder {
 	builder.bigGroupMsgRate = bigGroupMsgRate
-	builder.bigGroupMsgRateFlag = true
+	builder.bigGroupMsgRateSet = true
 	return builder
 }
 
@@ -5680,7 +5806,7 @@ func (builder *MsgProcessDataBuilder) BigGroupMsgRate(bigGroupMsgRate float64) *
 // 示例值：0.50
 func (builder *MsgProcessDataBuilder) BigGroupTopicMsgRate(bigGroupTopicMsgRate float64) *MsgProcessDataBuilder {
 	builder.bigGroupTopicMsgRate = bigGroupTopicMsgRate
-	builder.bigGroupTopicMsgRateFlag = true
+	builder.bigGroupTopicMsgRateSet = true
 	return builder
 }
 
@@ -5689,7 +5815,7 @@ func (builder *MsgProcessDataBuilder) BigGroupTopicMsgRate(bigGroupTopicMsgRate 
 // 示例值：0.50
 func (builder *MsgProcessDataBuilder) AvgReceiveBotMsgCnt(avgReceiveBotMsgCnt float64) *MsgProcessDataBuilder {
 	builder.avgReceiveBotMsgCnt = avgReceiveBotMsgCnt
-	builder.avgReceiveBotMsgCntFlag = true
+	builder.avgReceiveBotMsgCntSet = true
 	return builder
 }
 
@@ -5698,7 +5824,7 @@ func (builder *MsgProcessDataBuilder) AvgReceiveBotMsgCnt(avgReceiveBotMsgCnt fl
 // 示例值：0.50
 func (builder *MsgProcessDataBuilder) AvgBotImpMsgReadRate12h(avgBotImpMsgReadRate12h float64) *MsgProcessDataBuilder {
 	builder.avgBotImpMsgReadRate12h = avgBotImpMsgReadRate12h
-	builder.avgBotImpMsgReadRate12hFlag = true
+	builder.avgBotImpMsgReadRate12hSet = true
 	return builder
 }
 
@@ -5707,7 +5833,7 @@ func (builder *MsgProcessDataBuilder) AvgBotImpMsgReadRate12h(avgBotImpMsgReadRa
 // 示例值：0.50
 func (builder *MsgProcessDataBuilder) ReceiveBotMsgRate(receiveBotMsgRate float64) *MsgProcessDataBuilder {
 	builder.receiveBotMsgRate = receiveBotMsgRate
-	builder.receiveBotMsgRateFlag = true
+	builder.receiveBotMsgRateSet = true
 	return builder
 }
 
@@ -5716,7 +5842,7 @@ func (builder *MsgProcessDataBuilder) ReceiveBotMsgRate(receiveBotMsgRate float6
 // 示例值：0.50
 func (builder *MsgProcessDataBuilder) UseChatBoxRate(useChatBoxRate float64) *MsgProcessDataBuilder {
 	builder.useChatBoxRate = useChatBoxRate
-	builder.useChatBoxRateFlag = true
+	builder.useChatBoxRateSet = true
 	return builder
 }
 
@@ -5725,7 +5851,7 @@ func (builder *MsgProcessDataBuilder) UseChatBoxRate(useChatBoxRate float64) *Ms
 // 示例值：0.50
 func (builder *MsgProcessDataBuilder) ReceiveMuteMsgRate(receiveMuteMsgRate float64) *MsgProcessDataBuilder {
 	builder.receiveMuteMsgRate = receiveMuteMsgRate
-	builder.receiveMuteMsgRateFlag = true
+	builder.receiveMuteMsgRateSet = true
 	return builder
 }
 
@@ -5734,7 +5860,7 @@ func (builder *MsgProcessDataBuilder) ReceiveMuteMsgRate(receiveMuteMsgRate floa
 // 示例值：0.50
 func (builder *MsgProcessDataBuilder) ReadMuteMsgRate(readMuteMsgRate float64) *MsgProcessDataBuilder {
 	builder.readMuteMsgRate = readMuteMsgRate
-	builder.readMuteMsgRateFlag = true
+	builder.readMuteMsgRateSet = true
 	return builder
 }
 
@@ -5743,85 +5869,85 @@ func (builder *MsgProcessDataBuilder) ReadMuteMsgRate(readMuteMsgRate float64) *
 // 示例值：50
 func (builder *MsgProcessDataBuilder) AvgReceiveImpMsgChatCnt(avgReceiveImpMsgChatCnt float64) *MsgProcessDataBuilder {
 	builder.avgReceiveImpMsgChatCnt = avgReceiveImpMsgChatCnt
-	builder.avgReceiveImpMsgChatCntFlag = true
+	builder.avgReceiveImpMsgChatCntSet = true
 	return builder
 }
 
 func (builder *MsgProcessDataBuilder) Build() *MsgProcessData {
 	req := &MsgProcessData{}
-	if builder.pDateFlag {
+	if builder.pDateSet {
 		req.PDate = &builder.pDate
 
 	}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.departmentPathFlag {
+	if builder.departmentPathSet {
 		req.DepartmentPath = &builder.departmentPath
 
 	}
-	if builder.avgImpMsgReadRate12hFlag {
+	if builder.avgImpMsgReadRate12hSet {
 		req.AvgImpMsgReadRate12h = &builder.avgImpMsgReadRate12h
 
 	}
-	if builder.msgReadRate12hFlag {
+	if builder.msgReadRate12hSet {
 		req.MsgReadRate12h = &builder.msgReadRate12h
 
 	}
-	if builder.avgReceiveMsgCntFlag {
+	if builder.avgReceiveMsgCntSet {
 		req.AvgReceiveMsgCnt = &builder.avgReceiveMsgCnt
 
 	}
-	if builder.avgReadMsgCntFlag {
+	if builder.avgReadMsgCntSet {
 		req.AvgReadMsgCnt = &builder.avgReadMsgCnt
 
 	}
-	if builder.avgImpReadMsgCntFlag {
+	if builder.avgImpReadMsgCntSet {
 		req.AvgImpReadMsgCnt = &builder.avgImpReadMsgCnt
 
 	}
-	if builder.avgImpReceiveMsgCntFlag {
+	if builder.avgImpReceiveMsgCntSet {
 		req.AvgImpReceiveMsgCnt = &builder.avgImpReceiveMsgCnt
 
 	}
-	if builder.highLoadRateFlag {
+	if builder.highLoadRateSet {
 		req.HighLoadRate = &builder.highLoadRate
 
 	}
-	if builder.bigGroupMsgRateFlag {
+	if builder.bigGroupMsgRateSet {
 		req.BigGroupMsgRate = &builder.bigGroupMsgRate
 
 	}
-	if builder.bigGroupTopicMsgRateFlag {
+	if builder.bigGroupTopicMsgRateSet {
 		req.BigGroupTopicMsgRate = &builder.bigGroupTopicMsgRate
 
 	}
-	if builder.avgReceiveBotMsgCntFlag {
+	if builder.avgReceiveBotMsgCntSet {
 		req.AvgReceiveBotMsgCnt = &builder.avgReceiveBotMsgCnt
 
 	}
-	if builder.avgBotImpMsgReadRate12hFlag {
+	if builder.avgBotImpMsgReadRate12hSet {
 		req.AvgBotImpMsgReadRate12h = &builder.avgBotImpMsgReadRate12h
 
 	}
-	if builder.receiveBotMsgRateFlag {
+	if builder.receiveBotMsgRateSet {
 		req.ReceiveBotMsgRate = &builder.receiveBotMsgRate
 
 	}
-	if builder.useChatBoxRateFlag {
+	if builder.useChatBoxRateSet {
 		req.UseChatBoxRate = &builder.useChatBoxRate
 
 	}
-	if builder.receiveMuteMsgRateFlag {
+	if builder.receiveMuteMsgRateSet {
 		req.ReceiveMuteMsgRate = &builder.receiveMuteMsgRate
 
 	}
-	if builder.readMuteMsgRateFlag {
+	if builder.readMuteMsgRateSet {
 		req.ReadMuteMsgRate = &builder.readMuteMsgRate
 
 	}
-	if builder.avgReceiveImpMsgChatCntFlag {
+	if builder.avgReceiveImpMsgChatCntSet {
 		req.AvgReceiveImpMsgChatCnt = &builder.avgReceiveImpMsgChatCnt
 
 	}
@@ -5835,11 +5961,11 @@ type Operator struct {
 }
 
 type OperatorBuilder struct {
-	operatorId     string // 操作人ID
-	operatorIdFlag bool
+	operatorId    string // 操作人ID
+	operatorIdSet bool
 
-	operatorType     string // 操作人身份，用户或应用
-	operatorTypeFlag bool
+	operatorType    string // 操作人身份，用户或应用
+	operatorTypeSet bool
 }
 
 func NewOperatorBuilder() *OperatorBuilder {
@@ -5852,7 +5978,7 @@ func NewOperatorBuilder() *OperatorBuilder {
 // 示例值：ou_ff0b7ba35fb********67dfc8b885136
 func (builder *OperatorBuilder) OperatorId(operatorId string) *OperatorBuilder {
 	builder.operatorId = operatorId
-	builder.operatorIdFlag = true
+	builder.operatorIdSet = true
 	return builder
 }
 
@@ -5861,17 +5987,17 @@ func (builder *OperatorBuilder) OperatorId(operatorId string) *OperatorBuilder {
 // 示例值：app/user
 func (builder *OperatorBuilder) OperatorType(operatorType string) *OperatorBuilder {
 	builder.operatorType = operatorType
-	builder.operatorTypeFlag = true
+	builder.operatorTypeSet = true
 	return builder
 }
 
 func (builder *OperatorBuilder) Build() *Operator {
 	req := &Operator{}
-	if builder.operatorIdFlag {
+	if builder.operatorIdSet {
 		req.OperatorId = &builder.operatorId
 
 	}
-	if builder.operatorTypeFlag {
+	if builder.operatorTypeSet {
 		req.OperatorType = &builder.operatorType
 
 	}
@@ -5891,20 +6017,20 @@ type Pin struct {
 }
 
 type PinBuilder struct {
-	messageId     string // Pin的消息ID
-	messageIdFlag bool
+	messageId    string // Pin的消息ID
+	messageIdSet bool
 
-	chatId     string // Pin消息所在的群聊ID
-	chatIdFlag bool
+	chatId    string // Pin消息所在的群聊ID
+	chatIdSet bool
 
-	operatorId     string // Pin的操作人ID
-	operatorIdFlag bool
+	operatorId    string // Pin的操作人ID
+	operatorIdSet bool
 
-	operatorIdType     string // Pin的操作人ID类型。当Pin的操作人为用户时，为==open_id==；当Pin的操作人为机器人时，为==app_id==
-	operatorIdTypeFlag bool
+	operatorIdType    string // Pin的操作人ID类型。当Pin的操作人为用户时，为==open_id==；当Pin的操作人为机器人时，为==app_id==
+	operatorIdTypeSet bool
 
-	createTime     string // Pin的创建时间（毫秒级时间戳）
-	createTimeFlag bool
+	createTime    string // Pin的创建时间（毫秒级时间戳）
+	createTimeSet bool
 }
 
 func NewPinBuilder() *PinBuilder {
@@ -5917,7 +6043,7 @@ func NewPinBuilder() *PinBuilder {
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *PinBuilder) MessageId(messageId string) *PinBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -5926,7 +6052,7 @@ func (builder *PinBuilder) MessageId(messageId string) *PinBuilder {
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *PinBuilder) ChatId(chatId string) *PinBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -5935,7 +6061,7 @@ func (builder *PinBuilder) ChatId(chatId string) *PinBuilder {
 // 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
 func (builder *PinBuilder) OperatorId(operatorId string) *PinBuilder {
 	builder.operatorId = operatorId
-	builder.operatorIdFlag = true
+	builder.operatorIdSet = true
 	return builder
 }
 
@@ -5944,7 +6070,7 @@ func (builder *PinBuilder) OperatorId(operatorId string) *PinBuilder {
 // 示例值：open_id
 func (builder *PinBuilder) OperatorIdType(operatorIdType string) *PinBuilder {
 	builder.operatorIdType = operatorIdType
-	builder.operatorIdTypeFlag = true
+	builder.operatorIdTypeSet = true
 	return builder
 }
 
@@ -5953,29 +6079,29 @@ func (builder *PinBuilder) OperatorIdType(operatorIdType string) *PinBuilder {
 // 示例值：1615380573211
 func (builder *PinBuilder) CreateTime(createTime string) *PinBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
 func (builder *PinBuilder) Build() *Pin {
 	req := &Pin{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.operatorIdFlag {
+	if builder.operatorIdSet {
 		req.OperatorId = &builder.operatorId
 
 	}
-	if builder.operatorIdTypeFlag {
+	if builder.operatorIdTypeSet {
 		req.OperatorIdType = &builder.operatorIdType
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
@@ -5989,11 +6115,11 @@ type PinedMessage struct {
 }
 
 type PinedMessageBuilder struct {
-	pin     *Pin // Pin的操作信息
-	pinFlag bool
+	pin    *Pin // Pin的操作信息
+	pinSet bool
 
-	message     *Message // 被Pin的消息实体
-	messageFlag bool
+	message    *Message // 被Pin的消息实体
+	messageSet bool
 }
 
 func NewPinedMessageBuilder() *PinedMessageBuilder {
@@ -6006,7 +6132,7 @@ func NewPinedMessageBuilder() *PinedMessageBuilder {
 // 示例值：
 func (builder *PinedMessageBuilder) Pin(pin *Pin) *PinedMessageBuilder {
 	builder.pin = pin
-	builder.pinFlag = true
+	builder.pinSet = true
 	return builder
 }
 
@@ -6015,16 +6141,16 @@ func (builder *PinedMessageBuilder) Pin(pin *Pin) *PinedMessageBuilder {
 // 示例值：
 func (builder *PinedMessageBuilder) Message(message *Message) *PinedMessageBuilder {
 	builder.message = message
-	builder.messageFlag = true
+	builder.messageSet = true
 	return builder
 }
 
 func (builder *PinedMessageBuilder) Build() *PinedMessage {
 	req := &PinedMessage{}
-	if builder.pinFlag {
+	if builder.pinSet {
 		req.Pin = builder.pin
 	}
-	if builder.messageFlag {
+	if builder.messageSet {
 		req.Message = builder.message
 	}
 	return req
@@ -6041,17 +6167,17 @@ type Reaction struct {
 }
 
 type ReactionBuilder struct {
-	reactionId     string // 表情ID
-	reactionIdFlag bool
+	reactionId    string // 表情ID
+	reactionIdSet bool
 
-	operator     *Operator // 操作者信息
-	operatorFlag bool
+	operator    *Operator // 操作者信息
+	operatorSet bool
 
-	actionTime     string // 表情添加时间
-	actionTimeFlag bool
+	actionTime    string // 表情添加时间
+	actionTimeSet bool
 
-	emojiType     string // 表情类型
-	emojiTypeFlag bool
+	emojiType    string // 表情类型
+	emojiTypeSet bool
 }
 
 func NewReactionBuilder() *ReactionBuilder {
@@ -6064,7 +6190,7 @@ func NewReactionBuilder() *ReactionBuilder {
 // 示例值：ZCaCIjUBVVWSrm5L-3ZTw****
 func (builder *ReactionBuilder) ReactionId(reactionId string) *ReactionBuilder {
 	builder.reactionId = reactionId
-	builder.reactionIdFlag = true
+	builder.reactionIdSet = true
 	return builder
 }
 
@@ -6073,7 +6199,7 @@ func (builder *ReactionBuilder) ReactionId(reactionId string) *ReactionBuilder {
 // 示例值：
 func (builder *ReactionBuilder) Operator(operator *Operator) *ReactionBuilder {
 	builder.operator = operator
-	builder.operatorFlag = true
+	builder.operatorSet = true
 	return builder
 }
 
@@ -6082,7 +6208,7 @@ func (builder *ReactionBuilder) Operator(operator *Operator) *ReactionBuilder {
 // 示例值：1626086391570
 func (builder *ReactionBuilder) ActionTime(actionTime string) *ReactionBuilder {
 	builder.actionTime = actionTime
-	builder.actionTimeFlag = true
+	builder.actionTimeSet = true
 	return builder
 }
 
@@ -6091,24 +6217,24 @@ func (builder *ReactionBuilder) ActionTime(actionTime string) *ReactionBuilder {
 // 示例值：SMILE
 func (builder *ReactionBuilder) EmojiType(emojiType string) *ReactionBuilder {
 	builder.emojiType = emojiType
-	builder.emojiTypeFlag = true
+	builder.emojiTypeSet = true
 	return builder
 }
 
 func (builder *ReactionBuilder) Build() *Reaction {
 	req := &Reaction{}
-	if builder.reactionIdFlag {
+	if builder.reactionIdSet {
 		req.ReactionId = &builder.reactionId
 
 	}
-	if builder.operatorFlag {
+	if builder.operatorSet {
 		req.Operator = builder.operator
 	}
-	if builder.actionTimeFlag {
+	if builder.actionTimeSet {
 		req.ActionTime = &builder.actionTime
 
 	}
-	if builder.emojiTypeFlag {
+	if builder.emojiTypeSet {
 		req.EmojiType = &builder.emojiType
 
 	}
@@ -6122,11 +6248,11 @@ type ReactionCount struct {
 }
 
 type ReactionCountBuilder struct {
-	reactionType     string // 表情类型
-	reactionTypeFlag bool
+	reactionType    string // 表情类型
+	reactionTypeSet bool
 
-	count     string // 表情数量
-	countFlag bool
+	count    string // 表情数量
+	countSet bool
 }
 
 func NewReactionCountBuilder() *ReactionCountBuilder {
@@ -6139,7 +6265,7 @@ func NewReactionCountBuilder() *ReactionCountBuilder {
 // 示例值：LAUGH
 func (builder *ReactionCountBuilder) ReactionType(reactionType string) *ReactionCountBuilder {
 	builder.reactionType = reactionType
-	builder.reactionTypeFlag = true
+	builder.reactionTypeSet = true
 	return builder
 }
 
@@ -6148,17 +6274,17 @@ func (builder *ReactionCountBuilder) ReactionType(reactionType string) *Reaction
 // 示例值：20
 func (builder *ReactionCountBuilder) Count(count string) *ReactionCountBuilder {
 	builder.count = count
-	builder.countFlag = true
+	builder.countSet = true
 	return builder
 }
 
 func (builder *ReactionCountBuilder) Build() *ReactionCount {
 	req := &ReactionCount{}
-	if builder.reactionTypeFlag {
+	if builder.reactionTypeSet {
 		req.ReactionType = &builder.reactionType
 
 	}
-	if builder.countFlag {
+	if builder.countSet {
 		req.Count = &builder.count
 
 	}
@@ -6174,14 +6300,14 @@ type ReadStatus struct {
 }
 
 type ReadStatusBuilder struct {
-	messageId     string // 消息id open_message_id
-	messageIdFlag bool
+	messageId    string // 消息id open_message_id
+	messageIdSet bool
 
-	readStatus     string // 阅读状态，包含read、unread、unexpected
-	readStatusFlag bool
+	readStatus    string // 阅读状态，包含read、unread、unexpected
+	readStatusSet bool
 
-	unexpectedReason     string // unexpected原因，包含invalid、no_permission、not_support
-	unexpectedReasonFlag bool
+	unexpectedReason    string // unexpected原因，包含invalid、no_permission、not_support
+	unexpectedReasonSet bool
 }
 
 func NewReadStatusBuilder() *ReadStatusBuilder {
@@ -6194,7 +6320,7 @@ func NewReadStatusBuilder() *ReadStatusBuilder {
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *ReadStatusBuilder) MessageId(messageId string) *ReadStatusBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -6203,7 +6329,7 @@ func (builder *ReadStatusBuilder) MessageId(messageId string) *ReadStatusBuilder
 // 示例值：read
 func (builder *ReadStatusBuilder) ReadStatus(readStatus string) *ReadStatusBuilder {
 	builder.readStatus = readStatus
-	builder.readStatusFlag = true
+	builder.readStatusSet = true
 	return builder
 }
 
@@ -6212,21 +6338,21 @@ func (builder *ReadStatusBuilder) ReadStatus(readStatus string) *ReadStatusBuild
 // 示例值：no_permission
 func (builder *ReadStatusBuilder) UnexpectedReason(unexpectedReason string) *ReadStatusBuilder {
 	builder.unexpectedReason = unexpectedReason
-	builder.unexpectedReasonFlag = true
+	builder.unexpectedReasonSet = true
 	return builder
 }
 
 func (builder *ReadStatusBuilder) Build() *ReadStatus {
 	req := &ReadStatus{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.readStatusFlag {
+	if builder.readStatusSet {
 		req.ReadStatus = &builder.readStatus
 
 	}
-	if builder.unexpectedReasonFlag {
+	if builder.unexpectedReasonSet {
 		req.UnexpectedReason = &builder.unexpectedReason
 
 	}
@@ -6244,17 +6370,17 @@ type ReadUser struct {
 }
 
 type ReadUserBuilder struct {
-	userIdType     string // 用户id类型
-	userIdTypeFlag bool
+	userIdType    string // 用户id类型
+	userIdTypeSet bool
 
-	userId     string // 用户id
-	userIdFlag bool
+	userId    string // 用户id
+	userIdSet bool
 
-	timestamp     string // 阅读时间
-	timestampFlag bool
+	timestamp    string // 阅读时间
+	timestampSet bool
 
-	tenantKey     string // tenant key
-	tenantKeyFlag bool
+	tenantKey    string // tenant key
+	tenantKeySet bool
 }
 
 func NewReadUserBuilder() *ReadUserBuilder {
@@ -6267,7 +6393,7 @@ func NewReadUserBuilder() *ReadUserBuilder {
 // 示例值：open_id
 func (builder *ReadUserBuilder) UserIdType(userIdType string) *ReadUserBuilder {
 	builder.userIdType = userIdType
-	builder.userIdTypeFlag = true
+	builder.userIdTypeSet = true
 	return builder
 }
 
@@ -6276,7 +6402,7 @@ func (builder *ReadUserBuilder) UserIdType(userIdType string) *ReadUserBuilder {
 // 示例值：ou_9b851f7b51a9d58d109982337c46f3de
 func (builder *ReadUserBuilder) UserId(userId string) *ReadUserBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -6285,7 +6411,7 @@ func (builder *ReadUserBuilder) UserId(userId string) *ReadUserBuilder {
 // 示例值：1609484183000
 func (builder *ReadUserBuilder) Timestamp(timestamp string) *ReadUserBuilder {
 	builder.timestamp = timestamp
-	builder.timestampFlag = true
+	builder.timestampSet = true
 	return builder
 }
 
@@ -6294,25 +6420,25 @@ func (builder *ReadUserBuilder) Timestamp(timestamp string) *ReadUserBuilder {
 // 示例值：736588c9260f175e
 func (builder *ReadUserBuilder) TenantKey(tenantKey string) *ReadUserBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
 func (builder *ReadUserBuilder) Build() *ReadUser {
 	req := &ReadUser{}
-	if builder.userIdTypeFlag {
+	if builder.userIdTypeSet {
 		req.UserIdType = &builder.userIdType
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.timestampFlag {
+	if builder.timestampSet {
 		req.Timestamp = &builder.timestamp
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
@@ -6330,17 +6456,17 @@ type RestrictedModeSetting struct {
 }
 
 type RestrictedModeSettingBuilder struct {
-	status     bool // 防泄密模式是否开启
-	statusFlag bool
+	status    bool // 防泄密模式是否开启
+	statusSet bool
 
-	screenshotHasPermissionSetting     string // 允许截屏录屏
-	screenshotHasPermissionSettingFlag bool
+	screenshotHasPermissionSetting    string // 允许截屏录屏
+	screenshotHasPermissionSettingSet bool
 
-	downloadHasPermissionSetting     string // 允许下载消息中图片、视频和文件
-	downloadHasPermissionSettingFlag bool
+	downloadHasPermissionSetting    string // 允许下载消息中图片、视频和文件
+	downloadHasPermissionSettingSet bool
 
-	messageHasPermissionSetting     string // 允许复制和转发消息
-	messageHasPermissionSettingFlag bool
+	messageHasPermissionSetting    string // 允许复制和转发消息
+	messageHasPermissionSettingSet bool
 }
 
 func NewRestrictedModeSettingBuilder() *RestrictedModeSettingBuilder {
@@ -6353,7 +6479,7 @@ func NewRestrictedModeSettingBuilder() *RestrictedModeSettingBuilder {
 // 示例值：true
 func (builder *RestrictedModeSettingBuilder) Status(status bool) *RestrictedModeSettingBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -6362,7 +6488,7 @@ func (builder *RestrictedModeSettingBuilder) Status(status bool) *RestrictedMode
 // 示例值：all_members
 func (builder *RestrictedModeSettingBuilder) ScreenshotHasPermissionSetting(screenshotHasPermissionSetting string) *RestrictedModeSettingBuilder {
 	builder.screenshotHasPermissionSetting = screenshotHasPermissionSetting
-	builder.screenshotHasPermissionSettingFlag = true
+	builder.screenshotHasPermissionSettingSet = true
 	return builder
 }
 
@@ -6371,7 +6497,7 @@ func (builder *RestrictedModeSettingBuilder) ScreenshotHasPermissionSetting(scre
 // 示例值：all_members
 func (builder *RestrictedModeSettingBuilder) DownloadHasPermissionSetting(downloadHasPermissionSetting string) *RestrictedModeSettingBuilder {
 	builder.downloadHasPermissionSetting = downloadHasPermissionSetting
-	builder.downloadHasPermissionSettingFlag = true
+	builder.downloadHasPermissionSettingSet = true
 	return builder
 }
 
@@ -6380,25 +6506,25 @@ func (builder *RestrictedModeSettingBuilder) DownloadHasPermissionSetting(downlo
 // 示例值：all_members
 func (builder *RestrictedModeSettingBuilder) MessageHasPermissionSetting(messageHasPermissionSetting string) *RestrictedModeSettingBuilder {
 	builder.messageHasPermissionSetting = messageHasPermissionSetting
-	builder.messageHasPermissionSettingFlag = true
+	builder.messageHasPermissionSettingSet = true
 	return builder
 }
 
 func (builder *RestrictedModeSettingBuilder) Build() *RestrictedModeSetting {
 	req := &RestrictedModeSetting{}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.screenshotHasPermissionSettingFlag {
+	if builder.screenshotHasPermissionSettingSet {
 		req.ScreenshotHasPermissionSetting = &builder.screenshotHasPermissionSetting
 
 	}
-	if builder.downloadHasPermissionSettingFlag {
+	if builder.downloadHasPermissionSettingSet {
 		req.DownloadHasPermissionSetting = &builder.downloadHasPermissionSetting
 
 	}
-	if builder.messageHasPermissionSettingFlag {
+	if builder.messageHasPermissionSettingSet {
 		req.MessageHasPermissionSetting = &builder.messageHasPermissionSetting
 
 	}
@@ -6418,20 +6544,20 @@ type Sender struct {
 }
 
 type SenderBuilder struct {
-	id     string // 该字段标识发送者的id
-	idFlag bool
+	id    string // 该字段标识发送者的id
+	idSet bool
 
-	idType     string // 该字段标识发送者的id类型;;**可选值有：**;- `open_id`;- `app_id`
-	idTypeFlag bool
+	idType    string // 该字段标识发送者的id类型;;**可选值有：**;- `open_id`;- `app_id`
+	idTypeSet bool
 
-	senderType     string // 该字段标识发送者的类型;;**可选值有：**;- `user`: 用户;- `app`: 应用;- `anonymous`: 匿名;- `unknown`: 未知
-	senderTypeFlag bool
+	senderType    string // 该字段标识发送者的类型;;**可选值有：**;- `user`: 用户;- `app`: 应用;- `anonymous`: 匿名;- `unknown`: 未知
+	senderTypeSet bool
 
-	tenantKey     string // 为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
-	tenantKeyFlag bool
+	tenantKey    string // 为租户在飞书上的唯一标识，用来换取对应的tenant_access_token，也可以用作租户在应用里面的唯一标识
+	tenantKeySet bool
 
-	senderName     string // 该字段标识发送者的名称
-	senderNameFlag bool
+	senderName    string // 该字段标识发送者的名称
+	senderNameSet bool
 }
 
 func NewSenderBuilder() *SenderBuilder {
@@ -6444,7 +6570,7 @@ func NewSenderBuilder() *SenderBuilder {
 // 示例值：cli_9f427eec54ae901b
 func (builder *SenderBuilder) Id(id string) *SenderBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -6453,7 +6579,7 @@ func (builder *SenderBuilder) Id(id string) *SenderBuilder {
 // 示例值：app_id
 func (builder *SenderBuilder) IdType(idType string) *SenderBuilder {
 	builder.idType = idType
-	builder.idTypeFlag = true
+	builder.idTypeSet = true
 	return builder
 }
 
@@ -6462,7 +6588,7 @@ func (builder *SenderBuilder) IdType(idType string) *SenderBuilder {
 // 示例值：app
 func (builder *SenderBuilder) SenderType(senderType string) *SenderBuilder {
 	builder.senderType = senderType
-	builder.senderTypeFlag = true
+	builder.senderTypeSet = true
 	return builder
 }
 
@@ -6471,7 +6597,7 @@ func (builder *SenderBuilder) SenderType(senderType string) *SenderBuilder {
 // 示例值：736588c9260f175e
 func (builder *SenderBuilder) TenantKey(tenantKey string) *SenderBuilder {
 	builder.tenantKey = tenantKey
-	builder.tenantKeyFlag = true
+	builder.tenantKeySet = true
 	return builder
 }
 
@@ -6480,29 +6606,29 @@ func (builder *SenderBuilder) TenantKey(tenantKey string) *SenderBuilder {
 // 示例值：
 func (builder *SenderBuilder) SenderName(senderName string) *SenderBuilder {
 	builder.senderName = senderName
-	builder.senderNameFlag = true
+	builder.senderNameSet = true
 	return builder
 }
 
 func (builder *SenderBuilder) Build() *Sender {
 	req := &Sender{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.idTypeFlag {
+	if builder.idTypeSet {
 		req.IdType = &builder.idType
 
 	}
-	if builder.senderTypeFlag {
+	if builder.senderTypeSet {
 		req.SenderType = &builder.senderType
 
 	}
-	if builder.tenantKeyFlag {
+	if builder.tenantKeySet {
 		req.TenantKey = &builder.tenantKey
 
 	}
-	if builder.senderNameFlag {
+	if builder.senderNameSet {
 		req.SenderName = &builder.senderName
 
 	}
@@ -6516,11 +6642,11 @@ type SpecialFocus struct {
 }
 
 type SpecialFocusBuilder struct {
-	id     string // 成员ID
-	idFlag bool
+	id    string // 成员ID
+	idSet bool
 
-	idType     string // 成员ID类型。根据member_id_type参数返回`open_id`、`user_id`或`union_id`类型的用户ID；机器人返回`app_id`
-	idTypeFlag bool
+	idType    string // 成员ID类型。根据member_id_type参数返回`open_id`、`user_id`或`union_id`类型的用户ID；机器人返回`app_id`
+	idTypeSet bool
 }
 
 func NewSpecialFocusBuilder() *SpecialFocusBuilder {
@@ -6533,7 +6659,7 @@ func NewSpecialFocusBuilder() *SpecialFocusBuilder {
 // 示例值：ou_155184d1e73cbfb8973e5a9e698e74f2
 func (builder *SpecialFocusBuilder) Id(id string) *SpecialFocusBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -6542,17 +6668,17 @@ func (builder *SpecialFocusBuilder) Id(id string) *SpecialFocusBuilder {
 // 示例值：
 func (builder *SpecialFocusBuilder) IdType(idType string) *SpecialFocusBuilder {
 	builder.idType = idType
-	builder.idTypeFlag = true
+	builder.idTypeSet = true
 	return builder
 }
 
 func (builder *SpecialFocusBuilder) Build() *SpecialFocus {
 	req := &SpecialFocus{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.idTypeFlag {
+	if builder.idTypeSet {
 		req.IdType = &builder.idType
 
 	}
@@ -6568,14 +6694,14 @@ type SpecialFocusUnread struct {
 }
 
 type SpecialFocusUnreadBuilder struct {
-	id     string // 成员ID
-	idFlag bool
+	id    string // 成员ID
+	idSet bool
 
-	idType     string // 成员ID类型。根据 ==member_id_type== 参数返回`open_id`、`user_id`或`union_id`类型的用户ID；机器人返回`app_id`
-	idTypeFlag bool
+	idType    string // 成员ID类型。根据 ==member_id_type== 参数返回`open_id`、`user_id`或`union_id`类型的用户ID；机器人返回`app_id`
+	idTypeSet bool
 
-	unreadCount     string // 未读数
-	unreadCountFlag bool
+	unreadCount    string // 未读数
+	unreadCountSet bool
 }
 
 func NewSpecialFocusUnreadBuilder() *SpecialFocusUnreadBuilder {
@@ -6588,7 +6714,7 @@ func NewSpecialFocusUnreadBuilder() *SpecialFocusUnreadBuilder {
 // 示例值：
 func (builder *SpecialFocusUnreadBuilder) Id(id string) *SpecialFocusUnreadBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -6597,7 +6723,7 @@ func (builder *SpecialFocusUnreadBuilder) Id(id string) *SpecialFocusUnreadBuild
 // 示例值：
 func (builder *SpecialFocusUnreadBuilder) IdType(idType string) *SpecialFocusUnreadBuilder {
 	builder.idType = idType
-	builder.idTypeFlag = true
+	builder.idTypeSet = true
 	return builder
 }
 
@@ -6606,21 +6732,21 @@ func (builder *SpecialFocusUnreadBuilder) IdType(idType string) *SpecialFocusUnr
 // 示例值：
 func (builder *SpecialFocusUnreadBuilder) UnreadCount(unreadCount string) *SpecialFocusUnreadBuilder {
 	builder.unreadCount = unreadCount
-	builder.unreadCountFlag = true
+	builder.unreadCountSet = true
 	return builder
 }
 
 func (builder *SpecialFocusUnreadBuilder) Build() *SpecialFocusUnread {
 	req := &SpecialFocusUnread{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.idTypeFlag {
+	if builder.idTypeSet {
 		req.IdType = &builder.idType
 
 	}
-	if builder.unreadCountFlag {
+	if builder.unreadCountSet {
 		req.UnreadCount = &builder.unreadCount
 
 	}
@@ -6634,11 +6760,11 @@ type SuccessMsgReactionCount struct {
 }
 
 type SuccessMsgReactionCountBuilder struct {
-	messageId     string // 消息ID
-	messageIdFlag bool
+	messageId    string // 消息ID
+	messageIdSet bool
 
-	reactionCount     []*ReactionCount // 消息上不同表情的数量
-	reactionCountFlag bool
+	reactionCount    []*ReactionCount // 消息上不同表情的数量
+	reactionCountSet bool
 }
 
 func NewSuccessMsgReactionCountBuilder() *SuccessMsgReactionCountBuilder {
@@ -6651,7 +6777,7 @@ func NewSuccessMsgReactionCountBuilder() *SuccessMsgReactionCountBuilder {
 // 示例值：om_8964d1b4*********2b31383276113
 func (builder *SuccessMsgReactionCountBuilder) MessageId(messageId string) *SuccessMsgReactionCountBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -6660,17 +6786,17 @@ func (builder *SuccessMsgReactionCountBuilder) MessageId(messageId string) *Succ
 // 示例值：
 func (builder *SuccessMsgReactionCountBuilder) ReactionCount(reactionCount []*ReactionCount) *SuccessMsgReactionCountBuilder {
 	builder.reactionCount = reactionCount
-	builder.reactionCountFlag = true
+	builder.reactionCountSet = true
 	return builder
 }
 
 func (builder *SuccessMsgReactionCountBuilder) Build() *SuccessMsgReactionCount {
 	req := &SuccessMsgReactionCount{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.reactionCountFlag {
+	if builder.reactionCountSet {
 		req.ReactionCount = builder.reactionCount
 	}
 	return req
@@ -6687,17 +6813,17 @@ type SuccessMsgReactionDetails struct {
 }
 
 type SuccessMsgReactionDetailsBuilder struct {
-	messageId     string // 消息id
-	messageIdFlag bool
+	messageId    string // 消息id
+	messageIdSet bool
 
-	hasMore     bool // 是否还有更多项
-	hasMoreFlag bool
+	hasMore    bool // 是否还有更多项
+	hasMoreSet bool
 
-	pageToken     string // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
-	pageTokenFlag bool
+	pageToken    string // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	pageTokenSet bool
 
-	messageReactionItems     []*Reaction // 表情实体
-	messageReactionItemsFlag bool
+	messageReactionItems    []*Reaction // 表情实体
+	messageReactionItemsSet bool
 }
 
 func NewSuccessMsgReactionDetailsBuilder() *SuccessMsgReactionDetailsBuilder {
@@ -6710,7 +6836,7 @@ func NewSuccessMsgReactionDetailsBuilder() *SuccessMsgReactionDetailsBuilder {
 // 示例值：om_a8f2294b************a1a38afaac9d
 func (builder *SuccessMsgReactionDetailsBuilder) MessageId(messageId string) *SuccessMsgReactionDetailsBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
@@ -6719,7 +6845,7 @@ func (builder *SuccessMsgReactionDetailsBuilder) MessageId(messageId string) *Su
 // 示例值：
 func (builder *SuccessMsgReactionDetailsBuilder) HasMore(hasMore bool) *SuccessMsgReactionDetailsBuilder {
 	builder.hasMore = hasMore
-	builder.hasMoreFlag = true
+	builder.hasMoreSet = true
 	return builder
 }
 
@@ -6728,7 +6854,7 @@ func (builder *SuccessMsgReactionDetailsBuilder) HasMore(hasMore bool) *SuccessM
 // 示例值：
 func (builder *SuccessMsgReactionDetailsBuilder) PageToken(pageToken string) *SuccessMsgReactionDetailsBuilder {
 	builder.pageToken = pageToken
-	builder.pageTokenFlag = true
+	builder.pageTokenSet = true
 	return builder
 }
 
@@ -6737,25 +6863,25 @@ func (builder *SuccessMsgReactionDetailsBuilder) PageToken(pageToken string) *Su
 // 示例值：
 func (builder *SuccessMsgReactionDetailsBuilder) MessageReactionItems(messageReactionItems []*Reaction) *SuccessMsgReactionDetailsBuilder {
 	builder.messageReactionItems = messageReactionItems
-	builder.messageReactionItemsFlag = true
+	builder.messageReactionItemsSet = true
 	return builder
 }
 
 func (builder *SuccessMsgReactionDetailsBuilder) Build() *SuccessMsgReactionDetails {
 	req := &SuccessMsgReactionDetails{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 
 	}
-	if builder.hasMoreFlag {
+	if builder.hasMoreSet {
 		req.HasMore = &builder.hasMore
 
 	}
-	if builder.pageTokenFlag {
+	if builder.pageTokenSet {
 		req.PageToken = &builder.pageToken
 
 	}
-	if builder.messageReactionItemsFlag {
+	if builder.messageReactionItemsSet {
 		req.MessageReactionItems = builder.messageReactionItems
 	}
 	return req
@@ -6770,14 +6896,14 @@ type Thread struct {
 }
 
 type ThreadBuilder struct {
-	threadId     string // 话题ID
-	threadIdFlag bool
+	threadId    string // 话题ID
+	threadIdSet bool
 
-	chatId     string // 话题所属的群聊ID
-	chatIdFlag bool
+	chatId    string // 话题所属的群聊ID
+	chatIdSet bool
 
-	updateTime     string // 话题更新时间
-	updateTimeFlag bool
+	updateTime    string // 话题更新时间
+	updateTimeSet bool
 }
 
 func NewThreadBuilder() *ThreadBuilder {
@@ -6790,7 +6916,7 @@ func NewThreadBuilder() *ThreadBuilder {
 // 示例值：ot_70eb06e7b84dc71c03e009ad3c754680
 func (builder *ThreadBuilder) ThreadId(threadId string) *ThreadBuilder {
 	builder.threadId = threadId
-	builder.threadIdFlag = true
+	builder.threadIdSet = true
 	return builder
 }
 
@@ -6799,7 +6925,7 @@ func (builder *ThreadBuilder) ThreadId(threadId string) *ThreadBuilder {
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *ThreadBuilder) ChatId(chatId string) *ThreadBuilder {
 	builder.chatId = chatId
-	builder.chatIdFlag = true
+	builder.chatIdSet = true
 	return builder
 }
 
@@ -6808,21 +6934,21 @@ func (builder *ThreadBuilder) ChatId(chatId string) *ThreadBuilder {
 // 示例值：1609336806
 func (builder *ThreadBuilder) UpdateTime(updateTime string) *ThreadBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
 func (builder *ThreadBuilder) Build() *Thread {
 	req := &Thread{}
-	if builder.threadIdFlag {
+	if builder.threadIdSet {
 		req.ThreadId = &builder.threadId
 
 	}
-	if builder.chatIdFlag {
+	if builder.chatIdSet {
 		req.ChatId = &builder.chatId
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
@@ -6836,11 +6962,11 @@ type TimeRange struct {
 }
 
 type TimeRangeBuilder struct {
-	startTime     string // 开始时间(iso8601)
-	startTimeFlag bool
+	startTime    string // 开始时间(iso8601)
+	startTimeSet bool
 
-	endTime     string // 结束时间(iso8601)
-	endTimeFlag bool
+	endTime    string // 结束时间(iso8601)
+	endTimeSet bool
 }
 
 func NewTimeRangeBuilder() *TimeRangeBuilder {
@@ -6853,7 +6979,7 @@ func NewTimeRangeBuilder() *TimeRangeBuilder {
 // 示例值：2026-03-21T16:15:30+08:00
 func (builder *TimeRangeBuilder) StartTime(startTime string) *TimeRangeBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -6862,17 +6988,17 @@ func (builder *TimeRangeBuilder) StartTime(startTime string) *TimeRangeBuilder {
 // 示例值：2026-03-21T16:15:30+08:00
 func (builder *TimeRangeBuilder) EndTime(endTime string) *TimeRangeBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
 func (builder *TimeRangeBuilder) Build() *TimeRange {
 	req := &TimeRange{}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
@@ -6896,26 +7022,26 @@ type Toolkit struct {
 }
 
 type ToolkitBuilder struct {
-	toolkitId     string // 快捷组件ID
-	toolkitIdFlag bool
+	toolkitId    string // 快捷组件ID
+	toolkitIdSet bool
 
-	imageKey     string // 快捷组件小图标 ;;上传message类型的图片[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
-	imageKeyFlag bool
+	imageKey    string // 快捷组件小图标 ;;上传message类型的图片[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
+	imageKeySet bool
 
-	toolkitName     string // 快捷组件名称
-	toolkitNameFlag bool
+	toolkitName    string // 快捷组件名称
+	toolkitNameSet bool
 
-	i18nName     *I18nNames // 国际化名称
-	i18nNameFlag bool
+	i18nName    *I18nNames // 国际化名称
+	i18nNameSet bool
 
-	toolkitType     string // 快捷组件类型
-	toolkitTypeFlag bool
+	toolkitType    string // 快捷组件类型
+	toolkitTypeSet bool
 
-	redirectLink     *ToolkitRedirectLink // 跳转类型快捷组件
-	redirectLinkFlag bool
+	redirectLink    *ToolkitRedirectLink // 跳转类型快捷组件
+	redirectLinkSet bool
 
-	callback     *ToolkitCallback // 回调类型快捷组件
-	callbackFlag bool
+	callback    *ToolkitCallback // 回调类型快捷组件
+	callbackSet bool
 }
 
 func NewToolkitBuilder() *ToolkitBuilder {
@@ -6928,7 +7054,7 @@ func NewToolkitBuilder() *ToolkitBuilder {
 // 示例值：7101214603622940671
 func (builder *ToolkitBuilder) ToolkitId(toolkitId string) *ToolkitBuilder {
 	builder.toolkitId = toolkitId
-	builder.toolkitIdFlag = true
+	builder.toolkitIdSet = true
 	return builder
 }
 
@@ -6937,7 +7063,7 @@ func (builder *ToolkitBuilder) ToolkitId(toolkitId string) *ToolkitBuilder {
 // 示例值：img_v2_2995edd9-a22c-44ca-9559-71bbc1e661bg
 func (builder *ToolkitBuilder) ImageKey(imageKey string) *ToolkitBuilder {
 	builder.imageKey = imageKey
-	builder.imageKeyFlag = true
+	builder.imageKeySet = true
 	return builder
 }
 
@@ -6946,7 +7072,7 @@ func (builder *ToolkitBuilder) ImageKey(imageKey string) *ToolkitBuilder {
 // 示例值：群组
 func (builder *ToolkitBuilder) ToolkitName(toolkitName string) *ToolkitBuilder {
 	builder.toolkitName = toolkitName
-	builder.toolkitNameFlag = true
+	builder.toolkitNameSet = true
 	return builder
 }
 
@@ -6955,7 +7081,7 @@ func (builder *ToolkitBuilder) ToolkitName(toolkitName string) *ToolkitBuilder {
 // 示例值：
 func (builder *ToolkitBuilder) I18nName(i18nName *I18nNames) *ToolkitBuilder {
 	builder.i18nName = i18nName
-	builder.i18nNameFlag = true
+	builder.i18nNameSet = true
 	return builder
 }
 
@@ -6964,7 +7090,7 @@ func (builder *ToolkitBuilder) I18nName(i18nName *I18nNames) *ToolkitBuilder {
 // 示例值：redirect_link
 func (builder *ToolkitBuilder) ToolkitType(toolkitType string) *ToolkitBuilder {
 	builder.toolkitType = toolkitType
-	builder.toolkitTypeFlag = true
+	builder.toolkitTypeSet = true
 	return builder
 }
 
@@ -6973,7 +7099,7 @@ func (builder *ToolkitBuilder) ToolkitType(toolkitType string) *ToolkitBuilder {
 // 示例值：
 func (builder *ToolkitBuilder) RedirectLink(redirectLink *ToolkitRedirectLink) *ToolkitBuilder {
 	builder.redirectLink = redirectLink
-	builder.redirectLinkFlag = true
+	builder.redirectLinkSet = true
 	return builder
 }
 
@@ -6982,35 +7108,35 @@ func (builder *ToolkitBuilder) RedirectLink(redirectLink *ToolkitRedirectLink) *
 // 示例值：
 func (builder *ToolkitBuilder) Callback(callback *ToolkitCallback) *ToolkitBuilder {
 	builder.callback = callback
-	builder.callbackFlag = true
+	builder.callbackSet = true
 	return builder
 }
 
 func (builder *ToolkitBuilder) Build() *Toolkit {
 	req := &Toolkit{}
-	if builder.toolkitIdFlag {
+	if builder.toolkitIdSet {
 		req.ToolkitId = &builder.toolkitId
 
 	}
-	if builder.imageKeyFlag {
+	if builder.imageKeySet {
 		req.ImageKey = &builder.imageKey
 
 	}
-	if builder.toolkitNameFlag {
+	if builder.toolkitNameSet {
 		req.ToolkitName = &builder.toolkitName
 
 	}
-	if builder.i18nNameFlag {
+	if builder.i18nNameSet {
 		req.I18nName = builder.i18nName
 	}
-	if builder.toolkitTypeFlag {
+	if builder.toolkitTypeSet {
 		req.ToolkitType = &builder.toolkitType
 
 	}
-	if builder.redirectLinkFlag {
+	if builder.redirectLinkSet {
 		req.RedirectLink = builder.redirectLink
 	}
-	if builder.callbackFlag {
+	if builder.callbackSet {
 		req.Callback = builder.callback
 	}
 	return req
@@ -7023,11 +7149,11 @@ type ToolkitCallback struct {
 }
 
 type ToolkitCallbackBuilder struct {
-	webhook     string // 回调地址
-	webhookFlag bool
+	webhook    string // 回调地址
+	webhookSet bool
 
-	actionKey     string // 开发者自己识别的action_key，标识快捷组件的作用，回调时会把该字段带到回调地址
-	actionKeyFlag bool
+	actionKey    string // 开发者自己识别的action_key，标识快捷组件的作用，回调时会把该字段带到回调地址
+	actionKeySet bool
 }
 
 func NewToolkitCallbackBuilder() *ToolkitCallbackBuilder {
@@ -7040,7 +7166,7 @@ func NewToolkitCallbackBuilder() *ToolkitCallbackBuilder {
 // 示例值：https://***.com/
 func (builder *ToolkitCallbackBuilder) Webhook(webhook string) *ToolkitCallbackBuilder {
 	builder.webhook = webhook
-	builder.webhookFlag = true
+	builder.webhookSet = true
 	return builder
 }
 
@@ -7049,17 +7175,17 @@ func (builder *ToolkitCallbackBuilder) Webhook(webhook string) *ToolkitCallbackB
 // 示例值：SendMessage
 func (builder *ToolkitCallbackBuilder) ActionKey(actionKey string) *ToolkitCallbackBuilder {
 	builder.actionKey = actionKey
-	builder.actionKeyFlag = true
+	builder.actionKeySet = true
 	return builder
 }
 
 func (builder *ToolkitCallbackBuilder) Build() *ToolkitCallback {
 	req := &ToolkitCallback{}
-	if builder.webhookFlag {
+	if builder.webhookSet {
 		req.Webhook = &builder.webhook
 
 	}
-	if builder.actionKeyFlag {
+	if builder.actionKeySet {
 		req.ActionKey = &builder.actionKey
 
 	}
@@ -7071,8 +7197,8 @@ type ToolkitRedirectLink struct {
 }
 
 type ToolkitRedirectLinkBuilder struct {
-	url     string // 跳转url
-	urlFlag bool
+	url    string // 跳转url
+	urlSet bool
 }
 
 func NewToolkitRedirectLinkBuilder() *ToolkitRedirectLinkBuilder {
@@ -7085,13 +7211,13 @@ func NewToolkitRedirectLinkBuilder() *ToolkitRedirectLinkBuilder {
 // 示例值：https://applink.feishu.cn/client/calendar/open
 func (builder *ToolkitRedirectLinkBuilder) Url(url string) *ToolkitRedirectLinkBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
 func (builder *ToolkitRedirectLinkBuilder) Build() *ToolkitRedirectLink {
 	req := &ToolkitRedirectLink{}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
@@ -7103,8 +7229,8 @@ type UrgentReceivers struct {
 }
 
 type UrgentReceiversBuilder struct {
-	userIdList     []string // 目标用户的ID，列表不可为空;;**注意**：;请确保所填的用户ID正确，并且用户在加急消息所在的群组中
-	userIdListFlag bool
+	userIdList    []string // 目标用户的ID，列表不可为空;;**注意**：;请确保所填的用户ID正确，并且用户在加急消息所在的群组中
+	userIdListSet bool
 }
 
 func NewUrgentReceiversBuilder() *UrgentReceiversBuilder {
@@ -7117,13 +7243,13 @@ func NewUrgentReceiversBuilder() *UrgentReceiversBuilder {
 // 示例值：["ou_6yf8af6bgb9100449565764t3382b168"]
 func (builder *UrgentReceiversBuilder) UserIdList(userIdList []string) *UrgentReceiversBuilder {
 	builder.userIdList = userIdList
-	builder.userIdListFlag = true
+	builder.userIdListSet = true
 	return builder
 }
 
 func (builder *UrgentReceiversBuilder) Build() *UrgentReceivers {
 	req := &UrgentReceivers{}
-	if builder.userIdListFlag {
+	if builder.userIdListSet {
 		req.UserIdList = builder.userIdList
 	}
 	return req
@@ -7138,14 +7264,14 @@ type UserId struct {
 }
 
 type UserIdBuilder struct {
-	userId     string //
-	userIdFlag bool
+	userId    string //
+	userIdSet bool
 
-	openId     string //
-	openIdFlag bool
+	openId    string //
+	openIdSet bool
 
-	unionId     string //
-	unionIdFlag bool
+	unionId    string //
+	unionIdSet bool
 }
 
 func NewUserIdBuilder() *UserIdBuilder {
@@ -7153,38 +7279,44 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
-	builder.unionIdFlag = true
+	builder.unionIdSet = true
 	return builder
 }
 
 func (builder *UserIdBuilder) Build() *UserId {
 	req := &UserId{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.unionIdFlag {
+	if builder.unionIdSet {
 		req.UnionId = &builder.unionId
 
 	}
@@ -7210,29 +7342,29 @@ type UserMessageSubscription struct {
 }
 
 type UserMessageSubscriptionBuilder struct {
-	subscriptionId     string // 订阅ID
-	subscriptionIdFlag bool
+	subscriptionId    string // 订阅ID
+	subscriptionIdSet bool
 
-	subscriberId     string // 订阅者ID
-	subscriberIdFlag bool
+	subscriberId    string // 订阅者ID
+	subscriberIdSet bool
 
-	resourceType     int // 订阅资源类型
-	resourceTypeFlag bool
+	resourceType    int // 订阅资源类型
+	resourceTypeSet bool
 
-	resourceId     string // 资源ID
-	resourceIdFlag bool
+	resourceId    string // 资源ID
+	resourceIdSet bool
 
-	status     int // 订阅状态
-	statusFlag bool
+	status    int // 订阅状态
+	statusSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	updateTime     string // 更新时间
-	updateTimeFlag bool
+	updateTime    string // 更新时间
+	updateTimeSet bool
 
-	version     string // 版本号
-	versionFlag bool
+	version    string // 版本号
+	versionSet bool
 }
 
 func NewUserMessageSubscriptionBuilder() *UserMessageSubscriptionBuilder {
@@ -7245,7 +7377,7 @@ func NewUserMessageSubscriptionBuilder() *UserMessageSubscriptionBuilder {
 // 示例值：7624381840576482832
 func (builder *UserMessageSubscriptionBuilder) SubscriptionId(subscriptionId string) *UserMessageSubscriptionBuilder {
 	builder.subscriptionId = subscriptionId
-	builder.subscriptionIdFlag = true
+	builder.subscriptionIdSet = true
 	return builder
 }
 
@@ -7254,7 +7386,7 @@ func (builder *UserMessageSubscriptionBuilder) SubscriptionId(subscriptionId str
 // 示例值：ou_04d3620d98a287f97a1429cfeab93e2b
 func (builder *UserMessageSubscriptionBuilder) SubscriberId(subscriberId string) *UserMessageSubscriptionBuilder {
 	builder.subscriberId = subscriberId
-	builder.subscriberIdFlag = true
+	builder.subscriberIdSet = true
 	return builder
 }
 
@@ -7263,7 +7395,7 @@ func (builder *UserMessageSubscriptionBuilder) SubscriberId(subscriberId string)
 // 示例值：
 func (builder *UserMessageSubscriptionBuilder) ResourceType(resourceType int) *UserMessageSubscriptionBuilder {
 	builder.resourceType = resourceType
-	builder.resourceTypeFlag = true
+	builder.resourceTypeSet = true
 	return builder
 }
 
@@ -7272,7 +7404,7 @@ func (builder *UserMessageSubscriptionBuilder) ResourceType(resourceType int) *U
 // 示例值：ou_04d3620d98a287f97a1429cfeab93e2b
 func (builder *UserMessageSubscriptionBuilder) ResourceId(resourceId string) *UserMessageSubscriptionBuilder {
 	builder.resourceId = resourceId
-	builder.resourceIdFlag = true
+	builder.resourceIdSet = true
 	return builder
 }
 
@@ -7281,7 +7413,7 @@ func (builder *UserMessageSubscriptionBuilder) ResourceId(resourceId string) *Us
 // 示例值：
 func (builder *UserMessageSubscriptionBuilder) Status(status int) *UserMessageSubscriptionBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -7290,7 +7422,7 @@ func (builder *UserMessageSubscriptionBuilder) Status(status int) *UserMessageSu
 // 示例值：1775189731407
 func (builder *UserMessageSubscriptionBuilder) CreateTime(createTime string) *UserMessageSubscriptionBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -7299,7 +7431,7 @@ func (builder *UserMessageSubscriptionBuilder) CreateTime(createTime string) *Us
 // 示例值：1775189731407
 func (builder *UserMessageSubscriptionBuilder) UpdateTime(updateTime string) *UserMessageSubscriptionBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -7308,41 +7440,41 @@ func (builder *UserMessageSubscriptionBuilder) UpdateTime(updateTime string) *Us
 // 示例值：1
 func (builder *UserMessageSubscriptionBuilder) Version(version string) *UserMessageSubscriptionBuilder {
 	builder.version = version
-	builder.versionFlag = true
+	builder.versionSet = true
 	return builder
 }
 
 func (builder *UserMessageSubscriptionBuilder) Build() *UserMessageSubscription {
 	req := &UserMessageSubscription{}
-	if builder.subscriptionIdFlag {
+	if builder.subscriptionIdSet {
 		req.SubscriptionId = &builder.subscriptionId
 
 	}
-	if builder.subscriberIdFlag {
+	if builder.subscriberIdSet {
 		req.SubscriberId = &builder.subscriberId
 
 	}
-	if builder.resourceTypeFlag {
+	if builder.resourceTypeSet {
 		req.ResourceType = &builder.resourceType
 
 	}
-	if builder.resourceIdFlag {
+	if builder.resourceIdSet {
 		req.ResourceId = &builder.resourceId
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.versionFlag {
+	if builder.versionSet {
 		req.Version = &builder.version
 
 	}
@@ -7358,14 +7490,14 @@ type Widget struct {
 }
 
 type WidgetBuilder struct {
-	widgetId     string // 小组件ID
-	widgetIdFlag bool
+	widgetId    string // 小组件ID
+	widgetIdSet bool
 
-	widgetType     string // 小组件类型
-	widgetTypeFlag bool
+	widgetType    string // 小组件类型
+	widgetTypeSet bool
 
-	widgetUrl     *WidgetUrl // 小组件链接，必须以http开头
-	widgetUrlFlag bool
+	widgetUrl    *WidgetUrl // 小组件链接，必须以http开头
+	widgetUrlSet bool
 }
 
 func NewWidgetBuilder() *WidgetBuilder {
@@ -7378,7 +7510,7 @@ func NewWidgetBuilder() *WidgetBuilder {
 // 示例值：7117116451961487361
 func (builder *WidgetBuilder) WidgetId(widgetId string) *WidgetBuilder {
 	builder.widgetId = widgetId
-	builder.widgetIdFlag = true
+	builder.widgetIdSet = true
 	return builder
 }
 
@@ -7387,7 +7519,7 @@ func (builder *WidgetBuilder) WidgetId(widgetId string) *WidgetBuilder {
 // 示例值：URL
 func (builder *WidgetBuilder) WidgetType(widgetType string) *WidgetBuilder {
 	builder.widgetType = widgetType
-	builder.widgetTypeFlag = true
+	builder.widgetTypeSet = true
 	return builder
 }
 
@@ -7396,21 +7528,21 @@ func (builder *WidgetBuilder) WidgetType(widgetType string) *WidgetBuilder {
 // 示例值：
 func (builder *WidgetBuilder) WidgetUrl(widgetUrl *WidgetUrl) *WidgetBuilder {
 	builder.widgetUrl = widgetUrl
-	builder.widgetUrlFlag = true
+	builder.widgetUrlSet = true
 	return builder
 }
 
 func (builder *WidgetBuilder) Build() *Widget {
 	req := &Widget{}
-	if builder.widgetIdFlag {
+	if builder.widgetIdSet {
 		req.WidgetId = &builder.widgetId
 
 	}
-	if builder.widgetTypeFlag {
+	if builder.widgetTypeSet {
 		req.WidgetType = &builder.widgetType
 
 	}
-	if builder.widgetUrlFlag {
+	if builder.widgetUrlSet {
 		req.WidgetUrl = builder.widgetUrl
 	}
 	return req
@@ -7421,8 +7553,8 @@ type WidgetUrl struct {
 }
 
 type WidgetUrlBuilder struct {
-	url     string // 小组件的url
-	urlFlag bool
+	url    string // 小组件的url
+	urlSet bool
 }
 
 func NewWidgetUrlBuilder() *WidgetUrlBuilder {
@@ -7435,13 +7567,13 @@ func NewWidgetUrlBuilder() *WidgetUrlBuilder {
 // 示例值：https://open.feishu.cn/document/home/index
 func (builder *WidgetUrlBuilder) Url(url string) *WidgetUrlBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
 func (builder *WidgetUrlBuilder) Build() *WidgetUrl {
 	req := &WidgetUrl{}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
@@ -7584,74 +7716,74 @@ func (resp *ReadUserBatchMessageResp) Success() bool {
 }
 
 type CreateChatReqBodyBuilder struct {
-	avatar     string // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
-	avatarFlag bool
+	avatar    string // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
+	avatarSet bool
 
-	name     string // 群名称;; **注意：** ;- 公开群名称的长度不得少于2个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
-	nameFlag bool
+	name    string // 群名称;; **注意：** ;- 公开群名称的长度不得少于2个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
+	nameSet bool
 
-	description     string // 群描述
-	descriptionFlag bool
+	description    string // 群描述
+	descriptionSet bool
 
-	i18nNames     *I18nNames // 群国际化名称
-	i18nNamesFlag bool
+	i18nNames    *I18nNames // 群国际化名称
+	i18nNamesSet bool
 
-	ownerId     string // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID
-	ownerIdFlag bool
+	ownerId    string // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID
+	ownerIdSet bool
 
-	userIdList     []string // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID;;**注意**：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身ID
-	userIdListFlag bool
+	userIdList    []string // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID;;**注意**：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身ID
+	userIdListSet bool
 
-	botIdList     []string // 创建群时邀请的群机器人；可参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)来获取应用的App ID; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
-	botIdListFlag bool
+	botIdList    []string // 创建群时邀请的群机器人；可参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)来获取应用的App ID; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
+	botIdListSet bool
 
-	groupMessageType     string // 群消息模式
-	groupMessageTypeFlag bool
+	groupMessageType    string // 群消息模式
+	groupMessageTypeSet bool
 
-	chatMode     string // 群模式;;**可选值有**：;- `group`：群组
-	chatModeFlag bool
+	chatMode    string // 群模式;;**可选值有**：;- `group`：群组
+	chatModeSet bool
 
-	chatType     string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
-	chatTypeFlag bool
+	chatType    string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	chatTypeSet bool
 
-	external     bool // 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
-	externalFlag bool
+	external    bool // 是否是外部群；若群组需要邀请不同租户的用户或机器人，请指定为外部群；
+	externalSet bool
 
-	joinMessageVisibility     string // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
-	joinMessageVisibilityFlag bool
+	joinMessageVisibility    string // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	joinMessageVisibilitySet bool
 
-	leaveMessageVisibility     string // 退群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
-	leaveMessageVisibilityFlag bool
+	leaveMessageVisibility    string // 退群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	leaveMessageVisibilitySet bool
 
-	membershipApproval     string // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
-	membershipApprovalFlag bool
+	membershipApproval    string // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
+	membershipApprovalSet bool
 
-	labels     []string // 群标签
-	labelsFlag bool
+	labels    []string // 群标签
+	labelsSet bool
 
-	toolkitIds     []string // 群快捷组件列表
-	toolkitIdsFlag bool
+	toolkitIds    []string // 群快捷组件列表
+	toolkitIdsSet bool
 
-	restrictedModeSetting     *RestrictedModeSetting // 防泄密模式设置
-	restrictedModeSettingFlag bool
+	restrictedModeSetting    *RestrictedModeSetting // 防泄密模式设置
+	restrictedModeSettingSet bool
 
-	urgentSetting     string // 谁可以加急
-	urgentSettingFlag bool
+	urgentSetting    string // 谁可以加急
+	urgentSettingSet bool
 
-	videoConferenceSetting     string // 谁可以发起视频会议
-	videoConferenceSettingFlag bool
+	videoConferenceSetting    string // 谁可以发起视频会议
+	videoConferenceSettingSet bool
 
-	editPermission     string // 谁可以编辑群信息
-	editPermissionFlag bool
+	editPermission    string // 谁可以编辑群信息
+	editPermissionSet bool
 
-	chatTags     []string // 群标签
-	chatTagsFlag bool
+	chatTags    []string // 群标签
+	chatTagsSet bool
 
-	pinManageSetting     string // 谁可以管理置顶
-	pinManageSettingFlag bool
+	pinManageSetting    string // 谁可以管理置顶
+	pinManageSettingSet bool
 
-	hideMemberCountSetting     string // 隐藏群成员人数设置
-	hideMemberCountSettingFlag bool
+	hideMemberCountSetting    string // 隐藏群成员人数设置
+	hideMemberCountSettingSet bool
 }
 
 func NewCreateChatReqBodyBuilder() *CreateChatReqBodyBuilder {
@@ -7661,272 +7793,272 @@ func NewCreateChatReqBodyBuilder() *CreateChatReqBodyBuilder {
 
 // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
 //
-// 示例值：default-avatar_44ae0ca3-e140-494b-956f-78091e348435
+//示例值：default-avatar_44ae0ca3-e140-494b-956f-78091e348435
 func (builder *CreateChatReqBodyBuilder) Avatar(avatar string) *CreateChatReqBodyBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
 // 群名称;; **注意：** ;- 公开群名称的长度不得少于2个字符;- 私有群若未填写群名称，群名称默认设置为 ”`(无主题)`“
 //
-// 示例值：测试群名称
+//示例值：测试群名称
 func (builder *CreateChatReqBodyBuilder) Name(name string) *CreateChatReqBodyBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 // 群描述
 //
-// 示例值：测试群描述
+//示例值：测试群描述
 func (builder *CreateChatReqBodyBuilder) Description(description string) *CreateChatReqBodyBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
 // 群国际化名称
 //
-// 示例值：
+//示例值：
 func (builder *CreateChatReqBodyBuilder) I18nNames(i18nNames *I18nNames) *CreateChatReqBodyBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
 // 创建群时指定的群主，不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 ==user_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID
 //
-// 示例值：4d7a3c6g
+//示例值：4d7a3c6g
 func (builder *CreateChatReqBodyBuilder) OwnerId(ownerId string) *CreateChatReqBodyBuilder {
 	builder.ownerId = ownerId
-	builder.ownerIdFlag = true
+	builder.ownerIdSet = true
 	return builder
 }
 
 // 创建群时邀请的群成员，ID 类型在查询参数 ==user_id_type== 中指定；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取用户的Open ID;;**注意**：;- 最多同时邀请 50 个用户;- 为便于在客户端查看效果，建议调试接口时加入开发者自身ID
 //
-// 示例值：["4d7a3c6g"]
+//示例值：["4d7a3c6g"]
 func (builder *CreateChatReqBodyBuilder) UserIdList(userIdList []string) *CreateChatReqBodyBuilder {
 	builder.userIdList = userIdList
-	builder.userIdListFlag = true
+	builder.userIdListSet = true
 	return builder
 }
 
 // 创建群时邀请的群机器人；可参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)来获取应用的App ID; ;**注意：** ;- 拉机器人入群请使用`app_id`;- 最多同时邀请5个机器人，并且群组最多容纳 15 个机器人
 //
-// 示例值：["cli_a10fbf7e94b8d01d"]
+//示例值：["cli_a10fbf7e94b8d01d"]
 func (builder *CreateChatReqBodyBuilder) BotIdList(botIdList []string) *CreateChatReqBodyBuilder {
 	builder.botIdList = botIdList
-	builder.botIdListFlag = true
+	builder.botIdListSet = true
 	return builder
 }
 
 // 群消息模式
 //
-// 示例值：chat
+//示例值：chat
 func (builder *CreateChatReqBodyBuilder) GroupMessageType(groupMessageType string) *CreateChatReqBodyBuilder {
 	builder.groupMessageType = groupMessageType
-	builder.groupMessageTypeFlag = true
+	builder.groupMessageTypeSet = true
 	return builder
 }
 
 // 群模式;;**可选值有**：;- `group`：群组
 //
-// 示例值：group
+//示例值：group
 func (builder *CreateChatReqBodyBuilder) ChatMode(chatMode string) *CreateChatReqBodyBuilder {
 	builder.chatMode = chatMode
-	builder.chatModeFlag = true
+	builder.chatModeSet = true
 	return builder
 }
 
 // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
 //
-// 示例值：private
+//示例值：private
 func (builder *CreateChatReqBodyBuilder) ChatType(chatType string) *CreateChatReqBodyBuilder {
 	builder.chatType = chatType
-	builder.chatTypeFlag = true
+	builder.chatTypeSet = true
 	return builder
 }
 
 // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 //
-// 示例值：all_members
+//示例值：all_members
 func (builder *CreateChatReqBodyBuilder) JoinMessageVisibility(joinMessageVisibility string) *CreateChatReqBodyBuilder {
 	builder.joinMessageVisibility = joinMessageVisibility
-	builder.joinMessageVisibilityFlag = true
+	builder.joinMessageVisibilitySet = true
 	return builder
 }
 
 // 退群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 //
-// 示例值：all_members
+//示例值：all_members
 func (builder *CreateChatReqBodyBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *CreateChatReqBodyBuilder {
 	builder.leaveMessageVisibility = leaveMessageVisibility
-	builder.leaveMessageVisibilityFlag = true
+	builder.leaveMessageVisibilitySet = true
 	return builder
 }
 
 // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 //
-// 示例值：no_approval_required
+//示例值：no_approval_required
 func (builder *CreateChatReqBodyBuilder) MembershipApproval(membershipApproval string) *CreateChatReqBodyBuilder {
 	builder.membershipApproval = membershipApproval
-	builder.membershipApprovalFlag = true
+	builder.membershipApprovalSet = true
 	return builder
 }
 
 // 防泄密模式设置
 //
-// 示例值：
+//示例值：
 func (builder *CreateChatReqBodyBuilder) RestrictedModeSetting(restrictedModeSetting *RestrictedModeSetting) *CreateChatReqBodyBuilder {
 	builder.restrictedModeSetting = restrictedModeSetting
-	builder.restrictedModeSettingFlag = true
+	builder.restrictedModeSettingSet = true
 	return builder
 }
 
 // 谁可以加急
 //
-// 示例值：all_members
+//示例值：all_members
 func (builder *CreateChatReqBodyBuilder) UrgentSetting(urgentSetting string) *CreateChatReqBodyBuilder {
 	builder.urgentSetting = urgentSetting
-	builder.urgentSettingFlag = true
+	builder.urgentSettingSet = true
 	return builder
 }
 
 // 谁可以发起视频会议
 //
-// 示例值：all_members
+//示例值：all_members
 func (builder *CreateChatReqBodyBuilder) VideoConferenceSetting(videoConferenceSetting string) *CreateChatReqBodyBuilder {
 	builder.videoConferenceSetting = videoConferenceSetting
-	builder.videoConferenceSettingFlag = true
+	builder.videoConferenceSettingSet = true
 	return builder
 }
 
 // 谁可以编辑群信息
 //
-// 示例值：all_members
+//示例值：all_members
 func (builder *CreateChatReqBodyBuilder) EditPermission(editPermission string) *CreateChatReqBodyBuilder {
 	builder.editPermission = editPermission
-	builder.editPermissionFlag = true
+	builder.editPermissionSet = true
 	return builder
 }
 
 // 隐藏群成员人数设置
 //
-// 示例值：all_members
+//示例值：all_members
 func (builder *CreateChatReqBodyBuilder) HideMemberCountSetting(hideMemberCountSetting string) *CreateChatReqBodyBuilder {
 	builder.hideMemberCountSetting = hideMemberCountSetting
-	builder.hideMemberCountSettingFlag = true
+	builder.hideMemberCountSettingSet = true
 	return builder
 }
 
 func (builder *CreateChatReqBodyBuilder) Build() *CreateChatReqBody {
 	req := &CreateChatReqBody{}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = &builder.avatar
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
-	if builder.ownerIdFlag {
+	if builder.ownerIdSet {
 		req.OwnerId = &builder.ownerId
 	}
-	if builder.userIdListFlag {
+	if builder.userIdListSet {
 		req.UserIdList = builder.userIdList
 	}
-	if builder.botIdListFlag {
+	if builder.botIdListSet {
 		req.BotIdList = builder.botIdList
 	}
-	if builder.groupMessageTypeFlag {
+	if builder.groupMessageTypeSet {
 		req.GroupMessageType = &builder.groupMessageType
 	}
-	if builder.chatModeFlag {
+	if builder.chatModeSet {
 		req.ChatMode = &builder.chatMode
 	}
-	if builder.chatTypeFlag {
+	if builder.chatTypeSet {
 		req.ChatType = &builder.chatType
 	}
-	if builder.joinMessageVisibilityFlag {
+	if builder.joinMessageVisibilitySet {
 		req.JoinMessageVisibility = &builder.joinMessageVisibility
 	}
-	if builder.leaveMessageVisibilityFlag {
+	if builder.leaveMessageVisibilitySet {
 		req.LeaveMessageVisibility = &builder.leaveMessageVisibility
 	}
-	if builder.membershipApprovalFlag {
+	if builder.membershipApprovalSet {
 		req.MembershipApproval = &builder.membershipApproval
 	}
-	if builder.restrictedModeSettingFlag {
+	if builder.restrictedModeSettingSet {
 		req.RestrictedModeSetting = builder.restrictedModeSetting
 	}
-	if builder.urgentSettingFlag {
+	if builder.urgentSettingSet {
 		req.UrgentSetting = &builder.urgentSetting
 	}
-	if builder.videoConferenceSettingFlag {
+	if builder.videoConferenceSettingSet {
 		req.VideoConferenceSetting = &builder.videoConferenceSetting
 	}
-	if builder.editPermissionFlag {
+	if builder.editPermissionSet {
 		req.EditPermission = &builder.editPermission
 	}
-	if builder.hideMemberCountSettingFlag {
+	if builder.hideMemberCountSettingSet {
 		req.HideMemberCountSetting = &builder.hideMemberCountSetting
 	}
 	return req
 }
 
 type CreateChatPathReqBodyBuilder struct {
-	avatar                     string
-	avatarFlag                 bool
-	name                       string
-	nameFlag                   bool
-	description                string
-	descriptionFlag            bool
-	i18nNames                  *I18nNames
-	i18nNamesFlag              bool
-	ownerId                    string
-	ownerIdFlag                bool
-	userIdList                 []string
-	userIdListFlag             bool
-	botIdList                  []string
-	botIdListFlag              bool
-	groupMessageType           string
-	groupMessageTypeFlag       bool
-	chatMode                   string
-	chatModeFlag               bool
-	chatType                   string
-	chatTypeFlag               bool
-	external                   bool
-	externalFlag               bool
-	joinMessageVisibility      string
-	joinMessageVisibilityFlag  bool
-	leaveMessageVisibility     string
-	leaveMessageVisibilityFlag bool
-	membershipApproval         string
-	membershipApprovalFlag     bool
-	labels                     []string
-	labelsFlag                 bool
-	toolkitIds                 []string
-	toolkitIdsFlag             bool
-	restrictedModeSetting      *RestrictedModeSetting
-	restrictedModeSettingFlag  bool
-	urgentSetting              string
-	urgentSettingFlag          bool
-	videoConferenceSetting     string
-	videoConferenceSettingFlag bool
-	editPermission             string
-	editPermissionFlag         bool
-	chatTags                   []string
-	chatTagsFlag               bool
-	pinManageSetting           string
-	pinManageSettingFlag       bool
-	hideMemberCountSetting     string
-	hideMemberCountSettingFlag bool
+	avatar                    string
+	avatarSet                 bool
+	name                      string
+	nameSet                   bool
+	description               string
+	descriptionSet            bool
+	i18nNames                 *I18nNames
+	i18nNamesSet              bool
+	ownerId                   string
+	ownerIdSet                bool
+	userIdList                []string
+	userIdListSet             bool
+	botIdList                 []string
+	botIdListSet              bool
+	groupMessageType          string
+	groupMessageTypeSet       bool
+	chatMode                  string
+	chatModeSet               bool
+	chatType                  string
+	chatTypeSet               bool
+	external                  bool
+	externalSet               bool
+	joinMessageVisibility     string
+	joinMessageVisibilitySet  bool
+	leaveMessageVisibility    string
+	leaveMessageVisibilitySet bool
+	membershipApproval        string
+	membershipApprovalSet     bool
+	labels                    []string
+	labelsSet                 bool
+	toolkitIds                []string
+	toolkitIdsSet             bool
+	restrictedModeSetting     *RestrictedModeSetting
+	restrictedModeSettingSet  bool
+	urgentSetting             string
+	urgentSettingSet          bool
+	videoConferenceSetting    string
+	videoConferenceSettingSet bool
+	editPermission            string
+	editPermissionSet         bool
+	chatTags                  []string
+	chatTagsSet               bool
+	pinManageSetting          string
+	pinManageSettingSet       bool
+	hideMemberCountSetting    string
+	hideMemberCountSettingSet bool
 }
 
 func NewCreateChatPathReqBodyBuilder() *CreateChatPathReqBodyBuilder {
@@ -7939,7 +8071,7 @@ func NewCreateChatPathReqBodyBuilder() *CreateChatPathReqBodyBuilder {
 // 示例值：default-avatar_44ae0ca3-e140-494b-956f-78091e348435
 func (builder *CreateChatPathReqBodyBuilder) Avatar(avatar string) *CreateChatPathReqBodyBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
@@ -7948,7 +8080,7 @@ func (builder *CreateChatPathReqBodyBuilder) Avatar(avatar string) *CreateChatPa
 // 示例值：测试群名称
 func (builder *CreateChatPathReqBodyBuilder) Name(name string) *CreateChatPathReqBodyBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -7957,7 +8089,7 @@ func (builder *CreateChatPathReqBodyBuilder) Name(name string) *CreateChatPathRe
 // 示例值：测试群描述
 func (builder *CreateChatPathReqBodyBuilder) Description(description string) *CreateChatPathReqBodyBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -7966,7 +8098,7 @@ func (builder *CreateChatPathReqBodyBuilder) Description(description string) *Cr
 // 示例值：
 func (builder *CreateChatPathReqBodyBuilder) I18nNames(i18nNames *I18nNames) *CreateChatPathReqBodyBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
@@ -7975,7 +8107,7 @@ func (builder *CreateChatPathReqBodyBuilder) I18nNames(i18nNames *I18nNames) *Cr
 // 示例值：4d7a3c6g
 func (builder *CreateChatPathReqBodyBuilder) OwnerId(ownerId string) *CreateChatPathReqBodyBuilder {
 	builder.ownerId = ownerId
-	builder.ownerIdFlag = true
+	builder.ownerIdSet = true
 	return builder
 }
 
@@ -7984,7 +8116,7 @@ func (builder *CreateChatPathReqBodyBuilder) OwnerId(ownerId string) *CreateChat
 // 示例值：["4d7a3c6g"]
 func (builder *CreateChatPathReqBodyBuilder) UserIdList(userIdList []string) *CreateChatPathReqBodyBuilder {
 	builder.userIdList = userIdList
-	builder.userIdListFlag = true
+	builder.userIdListSet = true
 	return builder
 }
 
@@ -7993,7 +8125,7 @@ func (builder *CreateChatPathReqBodyBuilder) UserIdList(userIdList []string) *Cr
 // 示例值：["cli_a10fbf7e94b8d01d"]
 func (builder *CreateChatPathReqBodyBuilder) BotIdList(botIdList []string) *CreateChatPathReqBodyBuilder {
 	builder.botIdList = botIdList
-	builder.botIdListFlag = true
+	builder.botIdListSet = true
 	return builder
 }
 
@@ -8002,7 +8134,7 @@ func (builder *CreateChatPathReqBodyBuilder) BotIdList(botIdList []string) *Crea
 // 示例值：chat
 func (builder *CreateChatPathReqBodyBuilder) GroupMessageType(groupMessageType string) *CreateChatPathReqBodyBuilder {
 	builder.groupMessageType = groupMessageType
-	builder.groupMessageTypeFlag = true
+	builder.groupMessageTypeSet = true
 	return builder
 }
 
@@ -8011,7 +8143,7 @@ func (builder *CreateChatPathReqBodyBuilder) GroupMessageType(groupMessageType s
 // 示例值：group
 func (builder *CreateChatPathReqBodyBuilder) ChatMode(chatMode string) *CreateChatPathReqBodyBuilder {
 	builder.chatMode = chatMode
-	builder.chatModeFlag = true
+	builder.chatModeSet = true
 	return builder
 }
 
@@ -8020,7 +8152,7 @@ func (builder *CreateChatPathReqBodyBuilder) ChatMode(chatMode string) *CreateCh
 // 示例值：private
 func (builder *CreateChatPathReqBodyBuilder) ChatType(chatType string) *CreateChatPathReqBodyBuilder {
 	builder.chatType = chatType
-	builder.chatTypeFlag = true
+	builder.chatTypeSet = true
 	return builder
 }
 
@@ -8029,7 +8161,7 @@ func (builder *CreateChatPathReqBodyBuilder) ChatType(chatType string) *CreateCh
 // 示例值：all_members
 func (builder *CreateChatPathReqBodyBuilder) JoinMessageVisibility(joinMessageVisibility string) *CreateChatPathReqBodyBuilder {
 	builder.joinMessageVisibility = joinMessageVisibility
-	builder.joinMessageVisibilityFlag = true
+	builder.joinMessageVisibilitySet = true
 	return builder
 }
 
@@ -8038,7 +8170,7 @@ func (builder *CreateChatPathReqBodyBuilder) JoinMessageVisibility(joinMessageVi
 // 示例值：all_members
 func (builder *CreateChatPathReqBodyBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *CreateChatPathReqBodyBuilder {
 	builder.leaveMessageVisibility = leaveMessageVisibility
-	builder.leaveMessageVisibilityFlag = true
+	builder.leaveMessageVisibilitySet = true
 	return builder
 }
 
@@ -8047,7 +8179,7 @@ func (builder *CreateChatPathReqBodyBuilder) LeaveMessageVisibility(leaveMessage
 // 示例值：no_approval_required
 func (builder *CreateChatPathReqBodyBuilder) MembershipApproval(membershipApproval string) *CreateChatPathReqBodyBuilder {
 	builder.membershipApproval = membershipApproval
-	builder.membershipApprovalFlag = true
+	builder.membershipApprovalSet = true
 	return builder
 }
 
@@ -8056,7 +8188,7 @@ func (builder *CreateChatPathReqBodyBuilder) MembershipApproval(membershipApprov
 // 示例值：
 func (builder *CreateChatPathReqBodyBuilder) RestrictedModeSetting(restrictedModeSetting *RestrictedModeSetting) *CreateChatPathReqBodyBuilder {
 	builder.restrictedModeSetting = restrictedModeSetting
-	builder.restrictedModeSettingFlag = true
+	builder.restrictedModeSettingSet = true
 	return builder
 }
 
@@ -8065,7 +8197,7 @@ func (builder *CreateChatPathReqBodyBuilder) RestrictedModeSetting(restrictedMod
 // 示例值：all_members
 func (builder *CreateChatPathReqBodyBuilder) UrgentSetting(urgentSetting string) *CreateChatPathReqBodyBuilder {
 	builder.urgentSetting = urgentSetting
-	builder.urgentSettingFlag = true
+	builder.urgentSettingSet = true
 	return builder
 }
 
@@ -8074,7 +8206,7 @@ func (builder *CreateChatPathReqBodyBuilder) UrgentSetting(urgentSetting string)
 // 示例值：all_members
 func (builder *CreateChatPathReqBodyBuilder) VideoConferenceSetting(videoConferenceSetting string) *CreateChatPathReqBodyBuilder {
 	builder.videoConferenceSetting = videoConferenceSetting
-	builder.videoConferenceSettingFlag = true
+	builder.videoConferenceSettingSet = true
 	return builder
 }
 
@@ -8083,7 +8215,7 @@ func (builder *CreateChatPathReqBodyBuilder) VideoConferenceSetting(videoConfere
 // 示例值：all_members
 func (builder *CreateChatPathReqBodyBuilder) EditPermission(editPermission string) *CreateChatPathReqBodyBuilder {
 	builder.editPermission = editPermission
-	builder.editPermissionFlag = true
+	builder.editPermissionSet = true
 	return builder
 }
 
@@ -8092,64 +8224,64 @@ func (builder *CreateChatPathReqBodyBuilder) EditPermission(editPermission strin
 // 示例值：all_members
 func (builder *CreateChatPathReqBodyBuilder) HideMemberCountSetting(hideMemberCountSetting string) *CreateChatPathReqBodyBuilder {
 	builder.hideMemberCountSetting = hideMemberCountSetting
-	builder.hideMemberCountSettingFlag = true
+	builder.hideMemberCountSettingSet = true
 	return builder
 }
 
 func (builder *CreateChatPathReqBodyBuilder) Build() (*CreateChatReqBody, error) {
 	req := &CreateChatReqBody{}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = &builder.avatar
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
-	if builder.ownerIdFlag {
+	if builder.ownerIdSet {
 		req.OwnerId = &builder.ownerId
 	}
-	if builder.userIdListFlag {
+	if builder.userIdListSet {
 		req.UserIdList = builder.userIdList
 	}
-	if builder.botIdListFlag {
+	if builder.botIdListSet {
 		req.BotIdList = builder.botIdList
 	}
-	if builder.groupMessageTypeFlag {
+	if builder.groupMessageTypeSet {
 		req.GroupMessageType = &builder.groupMessageType
 	}
-	if builder.chatModeFlag {
+	if builder.chatModeSet {
 		req.ChatMode = &builder.chatMode
 	}
-	if builder.chatTypeFlag {
+	if builder.chatTypeSet {
 		req.ChatType = &builder.chatType
 	}
-	if builder.joinMessageVisibilityFlag {
+	if builder.joinMessageVisibilitySet {
 		req.JoinMessageVisibility = &builder.joinMessageVisibility
 	}
-	if builder.leaveMessageVisibilityFlag {
+	if builder.leaveMessageVisibilitySet {
 		req.LeaveMessageVisibility = &builder.leaveMessageVisibility
 	}
-	if builder.membershipApprovalFlag {
+	if builder.membershipApprovalSet {
 		req.MembershipApproval = &builder.membershipApproval
 	}
-	if builder.restrictedModeSettingFlag {
+	if builder.restrictedModeSettingSet {
 		req.RestrictedModeSetting = builder.restrictedModeSetting
 	}
-	if builder.urgentSettingFlag {
+	if builder.urgentSettingSet {
 		req.UrgentSetting = &builder.urgentSetting
 	}
-	if builder.videoConferenceSettingFlag {
+	if builder.videoConferenceSettingSet {
 		req.VideoConferenceSetting = &builder.videoConferenceSetting
 	}
-	if builder.editPermissionFlag {
+	if builder.editPermissionSet {
 		req.EditPermission = &builder.editPermission
 	}
-	if builder.hideMemberCountSettingFlag {
+	if builder.hideMemberCountSettingSet {
 		req.HideMemberCountSetting = &builder.hideMemberCountSetting
 	}
 	return req, nil
@@ -8487,8 +8619,8 @@ func (resp *GetChatResp) Success() bool {
 }
 
 type LinkChatReqBodyBuilder struct {
-	validityPeriod     string // 群分享链接有效时长，可选值week、year、permanently，分别表示7天、1年以及永久有效
-	validityPeriodFlag bool
+	validityPeriod    string // 群分享链接有效时长，可选值week、year、permanently，分别表示7天、1年以及永久有效
+	validityPeriodSet bool
 }
 
 func NewLinkChatReqBodyBuilder() *LinkChatReqBodyBuilder {
@@ -8498,24 +8630,24 @@ func NewLinkChatReqBodyBuilder() *LinkChatReqBodyBuilder {
 
 // 群分享链接有效时长，可选值week、year、permanently，分别表示7天、1年以及永久有效
 //
-// 示例值：week
+//示例值：week
 func (builder *LinkChatReqBodyBuilder) ValidityPeriod(validityPeriod string) *LinkChatReqBodyBuilder {
 	builder.validityPeriod = validityPeriod
-	builder.validityPeriodFlag = true
+	builder.validityPeriodSet = true
 	return builder
 }
 
 func (builder *LinkChatReqBodyBuilder) Build() *LinkChatReqBody {
 	req := &LinkChatReqBody{}
-	if builder.validityPeriodFlag {
+	if builder.validityPeriodSet {
 		req.ValidityPeriod = &builder.validityPeriod
 	}
 	return req
 }
 
 type LinkChatPathReqBodyBuilder struct {
-	validityPeriod     string
-	validityPeriodFlag bool
+	validityPeriod    string
+	validityPeriodSet bool
 }
 
 func NewLinkChatPathReqBodyBuilder() *LinkChatPathReqBodyBuilder {
@@ -8528,13 +8660,13 @@ func NewLinkChatPathReqBodyBuilder() *LinkChatPathReqBodyBuilder {
 // 示例值：week
 func (builder *LinkChatPathReqBodyBuilder) ValidityPeriod(validityPeriod string) *LinkChatPathReqBodyBuilder {
 	builder.validityPeriod = validityPeriod
-	builder.validityPeriodFlag = true
+	builder.validityPeriodSet = true
 	return builder
 }
 
 func (builder *LinkChatPathReqBodyBuilder) Build() (*LinkChatReqBody, error) {
 	req := &LinkChatReqBody{}
-	if builder.validityPeriodFlag {
+	if builder.validityPeriodSet {
 		req.ValidityPeriod = &builder.validityPeriod
 	}
 	return req, nil
@@ -8655,6 +8787,14 @@ func (builder *ListChatReqBuilder) PageSize(pageSize int) *ListChatReqBuilder {
 	return builder
 }
 
+// 群类型过滤;逗号分隔 group/p2p(多值),默认 group; 仅 UAT 支持拉 p2p 单聊;
+//
+// 示例值：group,p2p
+func (builder *ListChatReqBuilder) Types(types string) *ListChatReqBuilder {
+	builder.apiReq.QueryParams.Set("types", fmt.Sprint(types))
+	return builder
+}
+
 func (builder *ListChatReqBuilder) Build() *ListChatReq {
 	req := &ListChatReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -8772,68 +8912,68 @@ func (resp *SearchChatResp) Success() bool {
 }
 
 type UpdateChatReqBodyBuilder struct {
-	avatar     string // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
-	avatarFlag bool
+	avatar    string // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
+	avatarSet bool
 
-	name     string // 群名称
-	nameFlag bool
+	name    string // 群名称
+	nameSet bool
 
-	description     string // 群描述
-	descriptionFlag bool
+	description    string // 群描述
+	descriptionSet bool
 
-	i18nNames     *I18nNames // 群国际化名称
-	i18nNamesFlag bool
+	i18nNames    *I18nNames // 群国际化名称
+	i18nNamesSet bool
 
-	addMemberPermission     string // 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则share_card_permission只能设置为`not_allowed`;- 若值设置为`all_members`，则share_card_permission只能设置为`allowed`;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
-	addMemberPermissionFlag bool
+	addMemberPermission    string // 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则share_card_permission只能设置为`not_allowed`;- 若值设置为`all_members`，则share_card_permission只能设置为`allowed`;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	addMemberPermissionSet bool
 
-	shareCardPermission     string // 群分享权限;;**可选值有**：;- `allowed`：允许;- `not_allowed`：不允许
-	shareCardPermissionFlag bool
+	shareCardPermission    string // 群分享权限;;**可选值有**：;- `allowed`：允许;- `not_allowed`：不允许
+	shareCardPermissionSet bool
 
-	atAllPermission     string // at 所有人权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
-	atAllPermissionFlag bool
+	atAllPermission    string // at 所有人权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	atAllPermissionSet bool
 
-	editPermission     string // 群编辑权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
-	editPermissionFlag bool
+	editPermission    string // 群编辑权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
+	editPermissionSet bool
 
-	ownerId     string // 新群主 ID
-	ownerIdFlag bool
+	ownerId    string // 新群主 ID
+	ownerIdSet bool
 
-	joinMessageVisibility     string // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
-	joinMessageVisibilityFlag bool
+	joinMessageVisibility    string // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	joinMessageVisibilitySet bool
 
-	leaveMessageVisibility     string // 出群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
-	leaveMessageVisibilityFlag bool
+	leaveMessageVisibility    string // 出群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
+	leaveMessageVisibilitySet bool
 
-	membershipApproval     string // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
-	membershipApprovalFlag bool
+	membershipApproval    string // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
+	membershipApprovalSet bool
 
-	labels     []string // 群标签
-	labelsFlag bool
+	labels    []string // 群标签
+	labelsSet bool
 
-	toolkitIds     []string // 群快捷组件列表
-	toolkitIdsFlag bool
+	toolkitIds    []string // 群快捷组件列表
+	toolkitIdsSet bool
 
-	restrictedModeSetting     *RestrictedModeSetting // 防泄密模式设置
-	restrictedModeSettingFlag bool
+	restrictedModeSetting    *RestrictedModeSetting // 防泄密模式设置
+	restrictedModeSettingSet bool
 
-	chatType     string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
-	chatTypeFlag bool
+	chatType    string // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
+	chatTypeSet bool
 
-	groupMessageType     string // 群消息模式
-	groupMessageTypeFlag bool
+	groupMessageType    string // 群消息模式
+	groupMessageTypeSet bool
 
-	urgentSetting     string // 谁可以加急
-	urgentSettingFlag bool
+	urgentSetting    string // 谁可以加急
+	urgentSettingSet bool
 
-	videoConferenceSetting     string // 谁可以发起视频会议
-	videoConferenceSettingFlag bool
+	videoConferenceSetting    string // 谁可以发起视频会议
+	videoConferenceSettingSet bool
 
-	pinManageSetting     string // 谁可以管理置顶
-	pinManageSettingFlag bool
+	pinManageSetting    string // 谁可以管理置顶
+	pinManageSettingSet bool
 
-	hideMemberCountSetting     string // 隐藏群成员人数设置
-	hideMemberCountSettingFlag bool
+	hideMemberCountSetting    string // 隐藏群成员人数设置
+	hideMemberCountSettingSet bool
 }
 
 func NewUpdateChatReqBodyBuilder() *UpdateChatReqBodyBuilder {
@@ -8843,268 +8983,268 @@ func NewUpdateChatReqBodyBuilder() *UpdateChatReqBodyBuilder {
 
 // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）
 //
-// 示例值：default-avatar_44ae0ca3-e140-494b-956f-78091e348435
+//示例值：default-avatar_44ae0ca3-e140-494b-956f-78091e348435
 func (builder *UpdateChatReqBodyBuilder) Avatar(avatar string) *UpdateChatReqBodyBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
 // 群名称
 //
-// 示例值：群聊
+//示例值：群聊
 func (builder *UpdateChatReqBodyBuilder) Name(name string) *UpdateChatReqBodyBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 // 群描述
 //
-// 示例值：测试群描述
+//示例值：测试群描述
 func (builder *UpdateChatReqBodyBuilder) Description(description string) *UpdateChatReqBodyBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
 // 群国际化名称
 //
-// 示例值：
+//示例值：
 func (builder *UpdateChatReqBodyBuilder) I18nNames(i18nNames *I18nNames) *UpdateChatReqBodyBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
 // 邀请用户或机器人入群权限;;注意：;- 若值设置为`only_owner`，则share_card_permission只能设置为`not_allowed`;- 若值设置为`all_members`，则share_card_permission只能设置为`allowed`;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 //
-// 示例值：all_members
+//示例值：all_members
 func (builder *UpdateChatReqBodyBuilder) AddMemberPermission(addMemberPermission string) *UpdateChatReqBodyBuilder {
 	builder.addMemberPermission = addMemberPermission
-	builder.addMemberPermissionFlag = true
+	builder.addMemberPermissionSet = true
 	return builder
 }
 
 // 群分享权限;;**可选值有**：;- `allowed`：允许;- `not_allowed`：不允许
 //
-// 示例值：allowed
+//示例值：allowed
 func (builder *UpdateChatReqBodyBuilder) ShareCardPermission(shareCardPermission string) *UpdateChatReqBodyBuilder {
 	builder.shareCardPermission = shareCardPermission
-	builder.shareCardPermissionFlag = true
+	builder.shareCardPermissionSet = true
 	return builder
 }
 
 // at 所有人权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 //
-// 示例值：all_members
+//示例值：all_members
 func (builder *UpdateChatReqBodyBuilder) AtAllPermission(atAllPermission string) *UpdateChatReqBodyBuilder {
 	builder.atAllPermission = atAllPermission
-	builder.atAllPermissionFlag = true
+	builder.atAllPermissionSet = true
 	return builder
 }
 
 // 群编辑权限;;**可选值有**：;- `only_owner`：仅群主和管理员;- `all_members`：所有成员
 //
-// 示例值：all_members
+//示例值：all_members
 func (builder *UpdateChatReqBodyBuilder) EditPermission(editPermission string) *UpdateChatReqBodyBuilder {
 	builder.editPermission = editPermission
-	builder.editPermissionFlag = true
+	builder.editPermissionSet = true
 	return builder
 }
 
 // 新群主 ID
 //
-// 示例值：4d7a3c6g
+//示例值：4d7a3c6g
 func (builder *UpdateChatReqBodyBuilder) OwnerId(ownerId string) *UpdateChatReqBodyBuilder {
 	builder.ownerId = ownerId
-	builder.ownerIdFlag = true
+	builder.ownerIdSet = true
 	return builder
 }
 
 // 入群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 //
-// 示例值：only_owner
+//示例值：only_owner
 func (builder *UpdateChatReqBodyBuilder) JoinMessageVisibility(joinMessageVisibility string) *UpdateChatReqBodyBuilder {
 	builder.joinMessageVisibility = joinMessageVisibility
-	builder.joinMessageVisibilityFlag = true
+	builder.joinMessageVisibilitySet = true
 	return builder
 }
 
 // 出群消息可见性;;**可选值有**：;- `only_owner`：仅群主和管理员可见;- `all_members`：所有成员可见;- `not_anyone`：任何人均不可见
 //
-// 示例值：only_owner
+//示例值：only_owner
 func (builder *UpdateChatReqBodyBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *UpdateChatReqBodyBuilder {
 	builder.leaveMessageVisibility = leaveMessageVisibility
-	builder.leaveMessageVisibilityFlag = true
+	builder.leaveMessageVisibilitySet = true
 	return builder
 }
 
 // 加群审批;;**可选值有**：;- `no_approval_required`：无需审批;- `approval_required`：需要审批
 //
-// 示例值：no_approval_required
+//示例值：no_approval_required
 func (builder *UpdateChatReqBodyBuilder) MembershipApproval(membershipApproval string) *UpdateChatReqBodyBuilder {
 	builder.membershipApproval = membershipApproval
-	builder.membershipApprovalFlag = true
+	builder.membershipApprovalSet = true
 	return builder
 }
 
 // 防泄密模式设置
 //
-// 示例值：
+//示例值：
 func (builder *UpdateChatReqBodyBuilder) RestrictedModeSetting(restrictedModeSetting *RestrictedModeSetting) *UpdateChatReqBodyBuilder {
 	builder.restrictedModeSetting = restrictedModeSetting
-	builder.restrictedModeSettingFlag = true
+	builder.restrictedModeSettingSet = true
 	return builder
 }
 
 // 群类型;;**可选值有**：;- `private`：私有群;- `public`：公开群
 //
-// 示例值：private
+//示例值：private
 func (builder *UpdateChatReqBodyBuilder) ChatType(chatType string) *UpdateChatReqBodyBuilder {
 	builder.chatType = chatType
-	builder.chatTypeFlag = true
+	builder.chatTypeSet = true
 	return builder
 }
 
 // 群消息模式
 //
-// 示例值：chat
+//示例值：chat
 func (builder *UpdateChatReqBodyBuilder) GroupMessageType(groupMessageType string) *UpdateChatReqBodyBuilder {
 	builder.groupMessageType = groupMessageType
-	builder.groupMessageTypeFlag = true
+	builder.groupMessageTypeSet = true
 	return builder
 }
 
 // 谁可以加急
 //
-// 示例值：all_members
+//示例值：all_members
 func (builder *UpdateChatReqBodyBuilder) UrgentSetting(urgentSetting string) *UpdateChatReqBodyBuilder {
 	builder.urgentSetting = urgentSetting
-	builder.urgentSettingFlag = true
+	builder.urgentSettingSet = true
 	return builder
 }
 
 // 谁可以发起视频会议
 //
-// 示例值：all_members
+//示例值：all_members
 func (builder *UpdateChatReqBodyBuilder) VideoConferenceSetting(videoConferenceSetting string) *UpdateChatReqBodyBuilder {
 	builder.videoConferenceSetting = videoConferenceSetting
-	builder.videoConferenceSettingFlag = true
+	builder.videoConferenceSettingSet = true
 	return builder
 }
 
 // 隐藏群成员人数设置
 //
-// 示例值：all_members
+//示例值：all_members
 func (builder *UpdateChatReqBodyBuilder) HideMemberCountSetting(hideMemberCountSetting string) *UpdateChatReqBodyBuilder {
 	builder.hideMemberCountSetting = hideMemberCountSetting
-	builder.hideMemberCountSettingFlag = true
+	builder.hideMemberCountSettingSet = true
 	return builder
 }
 
 func (builder *UpdateChatReqBodyBuilder) Build() *UpdateChatReqBody {
 	req := &UpdateChatReqBody{}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = &builder.avatar
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
-	if builder.addMemberPermissionFlag {
+	if builder.addMemberPermissionSet {
 		req.AddMemberPermission = &builder.addMemberPermission
 	}
-	if builder.shareCardPermissionFlag {
+	if builder.shareCardPermissionSet {
 		req.ShareCardPermission = &builder.shareCardPermission
 	}
-	if builder.atAllPermissionFlag {
+	if builder.atAllPermissionSet {
 		req.AtAllPermission = &builder.atAllPermission
 	}
-	if builder.editPermissionFlag {
+	if builder.editPermissionSet {
 		req.EditPermission = &builder.editPermission
 	}
-	if builder.ownerIdFlag {
+	if builder.ownerIdSet {
 		req.OwnerId = &builder.ownerId
 	}
-	if builder.joinMessageVisibilityFlag {
+	if builder.joinMessageVisibilitySet {
 		req.JoinMessageVisibility = &builder.joinMessageVisibility
 	}
-	if builder.leaveMessageVisibilityFlag {
+	if builder.leaveMessageVisibilitySet {
 		req.LeaveMessageVisibility = &builder.leaveMessageVisibility
 	}
-	if builder.membershipApprovalFlag {
+	if builder.membershipApprovalSet {
 		req.MembershipApproval = &builder.membershipApproval
 	}
-	if builder.restrictedModeSettingFlag {
+	if builder.restrictedModeSettingSet {
 		req.RestrictedModeSetting = builder.restrictedModeSetting
 	}
-	if builder.chatTypeFlag {
+	if builder.chatTypeSet {
 		req.ChatType = &builder.chatType
 	}
-	if builder.groupMessageTypeFlag {
+	if builder.groupMessageTypeSet {
 		req.GroupMessageType = &builder.groupMessageType
 	}
-	if builder.urgentSettingFlag {
+	if builder.urgentSettingSet {
 		req.UrgentSetting = &builder.urgentSetting
 	}
-	if builder.videoConferenceSettingFlag {
+	if builder.videoConferenceSettingSet {
 		req.VideoConferenceSetting = &builder.videoConferenceSetting
 	}
-	if builder.hideMemberCountSettingFlag {
+	if builder.hideMemberCountSettingSet {
 		req.HideMemberCountSetting = &builder.hideMemberCountSetting
 	}
 	return req
 }
 
 type UpdateChatPathReqBodyBuilder struct {
-	avatar                     string
-	avatarFlag                 bool
-	name                       string
-	nameFlag                   bool
-	description                string
-	descriptionFlag            bool
-	i18nNames                  *I18nNames
-	i18nNamesFlag              bool
-	addMemberPermission        string
-	addMemberPermissionFlag    bool
-	shareCardPermission        string
-	shareCardPermissionFlag    bool
-	atAllPermission            string
-	atAllPermissionFlag        bool
-	editPermission             string
-	editPermissionFlag         bool
-	ownerId                    string
-	ownerIdFlag                bool
-	joinMessageVisibility      string
-	joinMessageVisibilityFlag  bool
-	leaveMessageVisibility     string
-	leaveMessageVisibilityFlag bool
-	membershipApproval         string
-	membershipApprovalFlag     bool
-	labels                     []string
-	labelsFlag                 bool
-	toolkitIds                 []string
-	toolkitIdsFlag             bool
-	restrictedModeSetting      *RestrictedModeSetting
-	restrictedModeSettingFlag  bool
-	chatType                   string
-	chatTypeFlag               bool
-	groupMessageType           string
-	groupMessageTypeFlag       bool
-	urgentSetting              string
-	urgentSettingFlag          bool
-	videoConferenceSetting     string
-	videoConferenceSettingFlag bool
-	pinManageSetting           string
-	pinManageSettingFlag       bool
-	hideMemberCountSetting     string
-	hideMemberCountSettingFlag bool
+	avatar                    string
+	avatarSet                 bool
+	name                      string
+	nameSet                   bool
+	description               string
+	descriptionSet            bool
+	i18nNames                 *I18nNames
+	i18nNamesSet              bool
+	addMemberPermission       string
+	addMemberPermissionSet    bool
+	shareCardPermission       string
+	shareCardPermissionSet    bool
+	atAllPermission           string
+	atAllPermissionSet        bool
+	editPermission            string
+	editPermissionSet         bool
+	ownerId                   string
+	ownerIdSet                bool
+	joinMessageVisibility     string
+	joinMessageVisibilitySet  bool
+	leaveMessageVisibility    string
+	leaveMessageVisibilitySet bool
+	membershipApproval        string
+	membershipApprovalSet     bool
+	labels                    []string
+	labelsSet                 bool
+	toolkitIds                []string
+	toolkitIdsSet             bool
+	restrictedModeSetting     *RestrictedModeSetting
+	restrictedModeSettingSet  bool
+	chatType                  string
+	chatTypeSet               bool
+	groupMessageType          string
+	groupMessageTypeSet       bool
+	urgentSetting             string
+	urgentSettingSet          bool
+	videoConferenceSetting    string
+	videoConferenceSettingSet bool
+	pinManageSetting          string
+	pinManageSettingSet       bool
+	hideMemberCountSetting    string
+	hideMemberCountSettingSet bool
 }
 
 func NewUpdateChatPathReqBodyBuilder() *UpdateChatPathReqBodyBuilder {
@@ -9117,7 +9257,7 @@ func NewUpdateChatPathReqBodyBuilder() *UpdateChatPathReqBodyBuilder {
 // 示例值：default-avatar_44ae0ca3-e140-494b-956f-78091e348435
 func (builder *UpdateChatPathReqBodyBuilder) Avatar(avatar string) *UpdateChatPathReqBodyBuilder {
 	builder.avatar = avatar
-	builder.avatarFlag = true
+	builder.avatarSet = true
 	return builder
 }
 
@@ -9126,7 +9266,7 @@ func (builder *UpdateChatPathReqBodyBuilder) Avatar(avatar string) *UpdateChatPa
 // 示例值：群聊
 func (builder *UpdateChatPathReqBodyBuilder) Name(name string) *UpdateChatPathReqBodyBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -9135,7 +9275,7 @@ func (builder *UpdateChatPathReqBodyBuilder) Name(name string) *UpdateChatPathRe
 // 示例值：测试群描述
 func (builder *UpdateChatPathReqBodyBuilder) Description(description string) *UpdateChatPathReqBodyBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -9144,7 +9284,7 @@ func (builder *UpdateChatPathReqBodyBuilder) Description(description string) *Up
 // 示例值：
 func (builder *UpdateChatPathReqBodyBuilder) I18nNames(i18nNames *I18nNames) *UpdateChatPathReqBodyBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
@@ -9153,7 +9293,7 @@ func (builder *UpdateChatPathReqBodyBuilder) I18nNames(i18nNames *I18nNames) *Up
 // 示例值：all_members
 func (builder *UpdateChatPathReqBodyBuilder) AddMemberPermission(addMemberPermission string) *UpdateChatPathReqBodyBuilder {
 	builder.addMemberPermission = addMemberPermission
-	builder.addMemberPermissionFlag = true
+	builder.addMemberPermissionSet = true
 	return builder
 }
 
@@ -9162,7 +9302,7 @@ func (builder *UpdateChatPathReqBodyBuilder) AddMemberPermission(addMemberPermis
 // 示例值：allowed
 func (builder *UpdateChatPathReqBodyBuilder) ShareCardPermission(shareCardPermission string) *UpdateChatPathReqBodyBuilder {
 	builder.shareCardPermission = shareCardPermission
-	builder.shareCardPermissionFlag = true
+	builder.shareCardPermissionSet = true
 	return builder
 }
 
@@ -9171,7 +9311,7 @@ func (builder *UpdateChatPathReqBodyBuilder) ShareCardPermission(shareCardPermis
 // 示例值：all_members
 func (builder *UpdateChatPathReqBodyBuilder) AtAllPermission(atAllPermission string) *UpdateChatPathReqBodyBuilder {
 	builder.atAllPermission = atAllPermission
-	builder.atAllPermissionFlag = true
+	builder.atAllPermissionSet = true
 	return builder
 }
 
@@ -9180,7 +9320,7 @@ func (builder *UpdateChatPathReqBodyBuilder) AtAllPermission(atAllPermission str
 // 示例值：all_members
 func (builder *UpdateChatPathReqBodyBuilder) EditPermission(editPermission string) *UpdateChatPathReqBodyBuilder {
 	builder.editPermission = editPermission
-	builder.editPermissionFlag = true
+	builder.editPermissionSet = true
 	return builder
 }
 
@@ -9189,7 +9329,7 @@ func (builder *UpdateChatPathReqBodyBuilder) EditPermission(editPermission strin
 // 示例值：4d7a3c6g
 func (builder *UpdateChatPathReqBodyBuilder) OwnerId(ownerId string) *UpdateChatPathReqBodyBuilder {
 	builder.ownerId = ownerId
-	builder.ownerIdFlag = true
+	builder.ownerIdSet = true
 	return builder
 }
 
@@ -9198,7 +9338,7 @@ func (builder *UpdateChatPathReqBodyBuilder) OwnerId(ownerId string) *UpdateChat
 // 示例值：only_owner
 func (builder *UpdateChatPathReqBodyBuilder) JoinMessageVisibility(joinMessageVisibility string) *UpdateChatPathReqBodyBuilder {
 	builder.joinMessageVisibility = joinMessageVisibility
-	builder.joinMessageVisibilityFlag = true
+	builder.joinMessageVisibilitySet = true
 	return builder
 }
 
@@ -9207,7 +9347,7 @@ func (builder *UpdateChatPathReqBodyBuilder) JoinMessageVisibility(joinMessageVi
 // 示例值：only_owner
 func (builder *UpdateChatPathReqBodyBuilder) LeaveMessageVisibility(leaveMessageVisibility string) *UpdateChatPathReqBodyBuilder {
 	builder.leaveMessageVisibility = leaveMessageVisibility
-	builder.leaveMessageVisibilityFlag = true
+	builder.leaveMessageVisibilitySet = true
 	return builder
 }
 
@@ -9216,7 +9356,7 @@ func (builder *UpdateChatPathReqBodyBuilder) LeaveMessageVisibility(leaveMessage
 // 示例值：no_approval_required
 func (builder *UpdateChatPathReqBodyBuilder) MembershipApproval(membershipApproval string) *UpdateChatPathReqBodyBuilder {
 	builder.membershipApproval = membershipApproval
-	builder.membershipApprovalFlag = true
+	builder.membershipApprovalSet = true
 	return builder
 }
 
@@ -9225,7 +9365,7 @@ func (builder *UpdateChatPathReqBodyBuilder) MembershipApproval(membershipApprov
 // 示例值：
 func (builder *UpdateChatPathReqBodyBuilder) RestrictedModeSetting(restrictedModeSetting *RestrictedModeSetting) *UpdateChatPathReqBodyBuilder {
 	builder.restrictedModeSetting = restrictedModeSetting
-	builder.restrictedModeSettingFlag = true
+	builder.restrictedModeSettingSet = true
 	return builder
 }
 
@@ -9234,7 +9374,7 @@ func (builder *UpdateChatPathReqBodyBuilder) RestrictedModeSetting(restrictedMod
 // 示例值：private
 func (builder *UpdateChatPathReqBodyBuilder) ChatType(chatType string) *UpdateChatPathReqBodyBuilder {
 	builder.chatType = chatType
-	builder.chatTypeFlag = true
+	builder.chatTypeSet = true
 	return builder
 }
 
@@ -9243,7 +9383,7 @@ func (builder *UpdateChatPathReqBodyBuilder) ChatType(chatType string) *UpdateCh
 // 示例值：chat
 func (builder *UpdateChatPathReqBodyBuilder) GroupMessageType(groupMessageType string) *UpdateChatPathReqBodyBuilder {
 	builder.groupMessageType = groupMessageType
-	builder.groupMessageTypeFlag = true
+	builder.groupMessageTypeSet = true
 	return builder
 }
 
@@ -9252,7 +9392,7 @@ func (builder *UpdateChatPathReqBodyBuilder) GroupMessageType(groupMessageType s
 // 示例值：all_members
 func (builder *UpdateChatPathReqBodyBuilder) UrgentSetting(urgentSetting string) *UpdateChatPathReqBodyBuilder {
 	builder.urgentSetting = urgentSetting
-	builder.urgentSettingFlag = true
+	builder.urgentSettingSet = true
 	return builder
 }
 
@@ -9261,7 +9401,7 @@ func (builder *UpdateChatPathReqBodyBuilder) UrgentSetting(urgentSetting string)
 // 示例值：all_members
 func (builder *UpdateChatPathReqBodyBuilder) VideoConferenceSetting(videoConferenceSetting string) *UpdateChatPathReqBodyBuilder {
 	builder.videoConferenceSetting = videoConferenceSetting
-	builder.videoConferenceSettingFlag = true
+	builder.videoConferenceSettingSet = true
 	return builder
 }
 
@@ -9270,64 +9410,64 @@ func (builder *UpdateChatPathReqBodyBuilder) VideoConferenceSetting(videoConfere
 // 示例值：all_members
 func (builder *UpdateChatPathReqBodyBuilder) HideMemberCountSetting(hideMemberCountSetting string) *UpdateChatPathReqBodyBuilder {
 	builder.hideMemberCountSetting = hideMemberCountSetting
-	builder.hideMemberCountSettingFlag = true
+	builder.hideMemberCountSettingSet = true
 	return builder
 }
 
 func (builder *UpdateChatPathReqBodyBuilder) Build() (*UpdateChatReqBody, error) {
 	req := &UpdateChatReqBody{}
-	if builder.avatarFlag {
+	if builder.avatarSet {
 		req.Avatar = &builder.avatar
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
-	if builder.addMemberPermissionFlag {
+	if builder.addMemberPermissionSet {
 		req.AddMemberPermission = &builder.addMemberPermission
 	}
-	if builder.shareCardPermissionFlag {
+	if builder.shareCardPermissionSet {
 		req.ShareCardPermission = &builder.shareCardPermission
 	}
-	if builder.atAllPermissionFlag {
+	if builder.atAllPermissionSet {
 		req.AtAllPermission = &builder.atAllPermission
 	}
-	if builder.editPermissionFlag {
+	if builder.editPermissionSet {
 		req.EditPermission = &builder.editPermission
 	}
-	if builder.ownerIdFlag {
+	if builder.ownerIdSet {
 		req.OwnerId = &builder.ownerId
 	}
-	if builder.joinMessageVisibilityFlag {
+	if builder.joinMessageVisibilitySet {
 		req.JoinMessageVisibility = &builder.joinMessageVisibility
 	}
-	if builder.leaveMessageVisibilityFlag {
+	if builder.leaveMessageVisibilitySet {
 		req.LeaveMessageVisibility = &builder.leaveMessageVisibility
 	}
-	if builder.membershipApprovalFlag {
+	if builder.membershipApprovalSet {
 		req.MembershipApproval = &builder.membershipApproval
 	}
-	if builder.restrictedModeSettingFlag {
+	if builder.restrictedModeSettingSet {
 		req.RestrictedModeSetting = builder.restrictedModeSetting
 	}
-	if builder.chatTypeFlag {
+	if builder.chatTypeSet {
 		req.ChatType = &builder.chatType
 	}
-	if builder.groupMessageTypeFlag {
+	if builder.groupMessageTypeSet {
 		req.GroupMessageType = &builder.groupMessageType
 	}
-	if builder.urgentSettingFlag {
+	if builder.urgentSettingSet {
 		req.UrgentSetting = &builder.urgentSetting
 	}
-	if builder.videoConferenceSettingFlag {
+	if builder.videoConferenceSettingSet {
 		req.VideoConferenceSetting = &builder.videoConferenceSetting
 	}
-	if builder.hideMemberCountSettingFlag {
+	if builder.hideMemberCountSettingSet {
 		req.HideMemberCountSetting = &builder.hideMemberCountSetting
 	}
 	return req, nil
@@ -9506,11 +9646,11 @@ func (resp *GetChatAnnouncementResp) Success() bool {
 }
 
 type PatchChatAnnouncementReqBodyBuilder struct {
-	revision     string // 文档当前版本号 int64 类型，[获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get)接口会返回
-	revisionFlag bool
+	revision    string // 文档当前版本号 int64 类型，[获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get)接口会返回
+	revisionSet bool
 
-	requests     []string // 修改文档请求的序列化字段;;更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN)格式相同
-	requestsFlag bool
+	requests    []string // 修改文档请求的序列化字段;;更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN)格式相同
+	requestsSet bool
 }
 
 func NewPatchChatAnnouncementReqBodyBuilder() *PatchChatAnnouncementReqBodyBuilder {
@@ -9520,38 +9660,38 @@ func NewPatchChatAnnouncementReqBodyBuilder() *PatchChatAnnouncementReqBodyBuild
 
 // 文档当前版本号 int64 类型，[获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get)接口会返回
 //
-// 示例值：12
+//示例值：12
 func (builder *PatchChatAnnouncementReqBodyBuilder) Revision(revision string) *PatchChatAnnouncementReqBodyBuilder {
 	builder.revision = revision
-	builder.revisionFlag = true
+	builder.revisionSet = true
 	return builder
 }
 
 // 修改文档请求的序列化字段;;更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN)格式相同
 //
-// 示例值：{\"requestType\":\"InsertBlocksRequestType\",\"insertBlocksRequest\":{\"payload\":\"{\\\"blocks\\\":[{\\\"type\\\":\\\"paragraph\\\",\\\"paragraph\\\":{\\\"elements\\\":[{\\\"type\\\":\\\"textRun\\\",\\\"textRun\\\":{\\\"text\\\":\\\"ylyyyyyDocs API Sample Content\\\",\\\"style\\\":{}}}],\\\"style\\\":{}}}]}\",\"location\":{\"zoneId\":\"0\",\"index\":0, \"endOfZone\": true}}}
+//示例值：{\"requestType\":\"InsertBlocksRequestType\",\"insertBlocksRequest\":{\"payload\":\"{\\\"blocks\\\":[{\\\"type\\\":\\\"paragraph\\\",\\\"paragraph\\\":{\\\"elements\\\":[{\\\"type\\\":\\\"textRun\\\",\\\"textRun\\\":{\\\"text\\\":\\\"ylyyyyyDocs API Sample Content\\\",\\\"style\\\":{}}}],\\\"style\\\":{}}}]}\",\"location\":{\"zoneId\":\"0\",\"index\":0, \"endOfZone\": true}}}
 func (builder *PatchChatAnnouncementReqBodyBuilder) Requests(requests []string) *PatchChatAnnouncementReqBodyBuilder {
 	builder.requests = requests
-	builder.requestsFlag = true
+	builder.requestsSet = true
 	return builder
 }
 
 func (builder *PatchChatAnnouncementReqBodyBuilder) Build() *PatchChatAnnouncementReqBody {
 	req := &PatchChatAnnouncementReqBody{}
-	if builder.revisionFlag {
+	if builder.revisionSet {
 		req.Revision = &builder.revision
 	}
-	if builder.requestsFlag {
+	if builder.requestsSet {
 		req.Requests = builder.requests
 	}
 	return req
 }
 
 type PatchChatAnnouncementPathReqBodyBuilder struct {
-	revision     string
-	revisionFlag bool
-	requests     []string
-	requestsFlag bool
+	revision    string
+	revisionSet bool
+	requests    []string
+	requestsSet bool
 }
 
 func NewPatchChatAnnouncementPathReqBodyBuilder() *PatchChatAnnouncementPathReqBodyBuilder {
@@ -9564,7 +9704,7 @@ func NewPatchChatAnnouncementPathReqBodyBuilder() *PatchChatAnnouncementPathReqB
 // 示例值：12
 func (builder *PatchChatAnnouncementPathReqBodyBuilder) Revision(revision string) *PatchChatAnnouncementPathReqBodyBuilder {
 	builder.revision = revision
-	builder.revisionFlag = true
+	builder.revisionSet = true
 	return builder
 }
 
@@ -9573,16 +9713,16 @@ func (builder *PatchChatAnnouncementPathReqBodyBuilder) Revision(revision string
 // 示例值：{\"requestType\":\"InsertBlocksRequestType\",\"insertBlocksRequest\":{\"payload\":\"{\\\"blocks\\\":[{\\\"type\\\":\\\"paragraph\\\",\\\"paragraph\\\":{\\\"elements\\\":[{\\\"type\\\":\\\"textRun\\\",\\\"textRun\\\":{\\\"text\\\":\\\"ylyyyyyDocs API Sample Content\\\",\\\"style\\\":{}}}],\\\"style\\\":{}}}]}\",\"location\":{\"zoneId\":\"0\",\"index\":0, \"endOfZone\": true}}}
 func (builder *PatchChatAnnouncementPathReqBodyBuilder) Requests(requests []string) *PatchChatAnnouncementPathReqBodyBuilder {
 	builder.requests = requests
-	builder.requestsFlag = true
+	builder.requestsSet = true
 	return builder
 }
 
 func (builder *PatchChatAnnouncementPathReqBodyBuilder) Build() (*PatchChatAnnouncementReqBody, error) {
 	req := &PatchChatAnnouncementReqBody{}
-	if builder.revisionFlag {
+	if builder.revisionSet {
 		req.Revision = &builder.revision
 	}
-	if builder.requestsFlag {
+	if builder.requestsSet {
 		req.Requests = builder.requests
 	}
 	return req, nil
@@ -9645,8 +9785,8 @@ func (resp *PatchChatAnnouncementResp) Success() bool {
 }
 
 type AddManagersChatManagersReqBodyBuilder struct {
-	managerIds     []string // 要增加的 manager_id;;**注意**：;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人
-	managerIdsFlag bool
+	managerIds    []string // 要增加的 manager_id;;**注意**：;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人
+	managerIdsSet bool
 }
 
 func NewAddManagersChatManagersReqBodyBuilder() *AddManagersChatManagersReqBodyBuilder {
@@ -9656,24 +9796,24 @@ func NewAddManagersChatManagersReqBodyBuilder() *AddManagersChatManagersReqBodyB
 
 // 要增加的 manager_id;;**注意**：;- 对于普通群，最多指定 10 个管理员;- 对于超大群，最多指定 20 个管理员;- 每次请求最多指定 50 个用户或者 5 个机器人
 //
-// 示例值：["ou_9204a37300b3700d61effaa439f34295"]
+//示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *AddManagersChatManagersReqBodyBuilder) ManagerIds(managerIds []string) *AddManagersChatManagersReqBodyBuilder {
 	builder.managerIds = managerIds
-	builder.managerIdsFlag = true
+	builder.managerIdsSet = true
 	return builder
 }
 
 func (builder *AddManagersChatManagersReqBodyBuilder) Build() *AddManagersChatManagersReqBody {
 	req := &AddManagersChatManagersReqBody{}
-	if builder.managerIdsFlag {
+	if builder.managerIdsSet {
 		req.ManagerIds = builder.managerIds
 	}
 	return req
 }
 
 type AddManagersChatManagersPathReqBodyBuilder struct {
-	managerIds     []string
-	managerIdsFlag bool
+	managerIds    []string
+	managerIdsSet bool
 }
 
 func NewAddManagersChatManagersPathReqBodyBuilder() *AddManagersChatManagersPathReqBodyBuilder {
@@ -9686,13 +9826,13 @@ func NewAddManagersChatManagersPathReqBodyBuilder() *AddManagersChatManagersPath
 // 示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *AddManagersChatManagersPathReqBodyBuilder) ManagerIds(managerIds []string) *AddManagersChatManagersPathReqBodyBuilder {
 	builder.managerIds = managerIds
-	builder.managerIdsFlag = true
+	builder.managerIdsSet = true
 	return builder
 }
 
 func (builder *AddManagersChatManagersPathReqBodyBuilder) Build() (*AddManagersChatManagersReqBody, error) {
 	req := &AddManagersChatManagersReqBody{}
-	if builder.managerIdsFlag {
+	if builder.managerIdsSet {
 		req.ManagerIds = builder.managerIds
 	}
 	return req, nil
@@ -9769,8 +9909,8 @@ func (resp *AddManagersChatManagersResp) Success() bool {
 }
 
 type DeleteManagersChatManagersReqBodyBuilder struct {
-	managerIds     []string // 要删除的 manager_id;;**注意**：每次请求最多指定 50 个用户或者 5 个机器人
-	managerIdsFlag bool
+	managerIds    []string // 要删除的 manager_id;;**注意**：每次请求最多指定 50 个用户或者 5 个机器人
+	managerIdsSet bool
 }
 
 func NewDeleteManagersChatManagersReqBodyBuilder() *DeleteManagersChatManagersReqBodyBuilder {
@@ -9780,24 +9920,24 @@ func NewDeleteManagersChatManagersReqBodyBuilder() *DeleteManagersChatManagersRe
 
 // 要删除的 manager_id;;**注意**：每次请求最多指定 50 个用户或者 5 个机器人
 //
-// 示例值：["ou_9204a37300b3700d61effaa439f34295"]
+//示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *DeleteManagersChatManagersReqBodyBuilder) ManagerIds(managerIds []string) *DeleteManagersChatManagersReqBodyBuilder {
 	builder.managerIds = managerIds
-	builder.managerIdsFlag = true
+	builder.managerIdsSet = true
 	return builder
 }
 
 func (builder *DeleteManagersChatManagersReqBodyBuilder) Build() *DeleteManagersChatManagersReqBody {
 	req := &DeleteManagersChatManagersReqBody{}
-	if builder.managerIdsFlag {
+	if builder.managerIdsSet {
 		req.ManagerIds = builder.managerIds
 	}
 	return req
 }
 
 type DeleteManagersChatManagersPathReqBodyBuilder struct {
-	managerIds     []string
-	managerIdsFlag bool
+	managerIds    []string
+	managerIdsSet bool
 }
 
 func NewDeleteManagersChatManagersPathReqBodyBuilder() *DeleteManagersChatManagersPathReqBodyBuilder {
@@ -9810,13 +9950,13 @@ func NewDeleteManagersChatManagersPathReqBodyBuilder() *DeleteManagersChatManage
 // 示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *DeleteManagersChatManagersPathReqBodyBuilder) ManagerIds(managerIds []string) *DeleteManagersChatManagersPathReqBodyBuilder {
 	builder.managerIds = managerIds
-	builder.managerIdsFlag = true
+	builder.managerIdsSet = true
 	return builder
 }
 
 func (builder *DeleteManagersChatManagersPathReqBodyBuilder) Build() (*DeleteManagersChatManagersReqBody, error) {
 	req := &DeleteManagersChatManagersReqBody{}
-	if builder.managerIdsFlag {
+	if builder.managerIdsSet {
 		req.ManagerIds = builder.managerIds
 	}
 	return req, nil
@@ -9893,8 +10033,8 @@ func (resp *DeleteManagersChatManagersResp) Success() bool {
 }
 
 type CreateChatMembersReqBodyBuilder struct {
-	idList     []string // 成员ID列表，获取ID请参见[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。若租户管理员配置了群人数上限，则群人数上限为该人数上限。
-	idListFlag bool
+	idList    []string // 成员ID列表，获取ID请参见[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。若租户管理员配置了群人数上限，则群人数上限为该人数上限。
+	idListSet bool
 }
 
 func NewCreateChatMembersReqBodyBuilder() *CreateChatMembersReqBodyBuilder {
@@ -9904,24 +10044,24 @@ func NewCreateChatMembersReqBodyBuilder() *CreateChatMembersReqBodyBuilder {
 
 // 成员ID列表，获取ID请参见[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get);;**注意**：;- 成员列表不可为空;- 每次请求最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应;- 对于已认证企业的飞书的群人数默认上限：普通群5000人，会议群3000人，话题群5000人。若租户管理员配置了群人数上限，则群人数上限为该人数上限。
 //
-// 示例值：["ou_9204a37300b3700d61effaa439f34295"]
+//示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *CreateChatMembersReqBodyBuilder) IdList(idList []string) *CreateChatMembersReqBodyBuilder {
 	builder.idList = idList
-	builder.idListFlag = true
+	builder.idListSet = true
 	return builder
 }
 
 func (builder *CreateChatMembersReqBodyBuilder) Build() *CreateChatMembersReqBody {
 	req := &CreateChatMembersReqBody{}
-	if builder.idListFlag {
+	if builder.idListSet {
 		req.IdList = builder.idList
 	}
 	return req
 }
 
 type CreateChatMembersPathReqBodyBuilder struct {
-	idList     []string
-	idListFlag bool
+	idList    []string
+	idListSet bool
 }
 
 func NewCreateChatMembersPathReqBodyBuilder() *CreateChatMembersPathReqBodyBuilder {
@@ -9934,13 +10074,13 @@ func NewCreateChatMembersPathReqBodyBuilder() *CreateChatMembersPathReqBodyBuild
 // 示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *CreateChatMembersPathReqBodyBuilder) IdList(idList []string) *CreateChatMembersPathReqBodyBuilder {
 	builder.idList = idList
-	builder.idListFlag = true
+	builder.idListSet = true
 	return builder
 }
 
 func (builder *CreateChatMembersPathReqBodyBuilder) Build() (*CreateChatMembersReqBody, error) {
 	req := &CreateChatMembersReqBody{}
-	if builder.idListFlag {
+	if builder.idListSet {
 		req.IdList = builder.idList
 	}
 	return req, nil
@@ -10027,8 +10167,8 @@ func (resp *CreateChatMembersResp) Success() bool {
 }
 
 type DeleteChatMembersReqBodyBuilder struct {
-	idList     []string // 成员列表;;**注意**：;- 成员列表不可为空;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应
-	idListFlag bool
+	idList    []string // 成员列表;;**注意**：;- 成员列表不可为空;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应
+	idListSet bool
 }
 
 func NewDeleteChatMembersReqBodyBuilder() *DeleteChatMembersReqBodyBuilder {
@@ -10038,24 +10178,24 @@ func NewDeleteChatMembersReqBodyBuilder() *DeleteChatMembersReqBodyBuilder {
 
 // 成员列表;;**注意**：;- 成员列表不可为空;- 列表中填写的成员ID类型应与 ==member_id_type== 参数中选择的类型相对应
 //
-// 示例值：["ou_9204a37300b3700d61effaa439f34295"]
+//示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *DeleteChatMembersReqBodyBuilder) IdList(idList []string) *DeleteChatMembersReqBodyBuilder {
 	builder.idList = idList
-	builder.idListFlag = true
+	builder.idListSet = true
 	return builder
 }
 
 func (builder *DeleteChatMembersReqBodyBuilder) Build() *DeleteChatMembersReqBody {
 	req := &DeleteChatMembersReqBody{}
-	if builder.idListFlag {
+	if builder.idListSet {
 		req.IdList = builder.idList
 	}
 	return req
 }
 
 type DeleteChatMembersPathReqBodyBuilder struct {
-	idList     []string
-	idListFlag bool
+	idList    []string
+	idListSet bool
 }
 
 func NewDeleteChatMembersPathReqBodyBuilder() *DeleteChatMembersPathReqBodyBuilder {
@@ -10068,13 +10208,13 @@ func NewDeleteChatMembersPathReqBodyBuilder() *DeleteChatMembersPathReqBodyBuild
 // 示例值：["ou_9204a37300b3700d61effaa439f34295"]
 func (builder *DeleteChatMembersPathReqBodyBuilder) IdList(idList []string) *DeleteChatMembersPathReqBodyBuilder {
 	builder.idList = idList
-	builder.idListFlag = true
+	builder.idListSet = true
 	return builder
 }
 
 func (builder *DeleteChatMembersPathReqBodyBuilder) Build() (*DeleteChatMembersReqBody, error) {
 	req := &DeleteChatMembersReqBody{}
-	if builder.idListFlag {
+	if builder.idListSet {
 		req.IdList = builder.idList
 	}
 	return req, nil
@@ -10335,11 +10475,11 @@ func (resp *MeJoinChatMembersResp) Success() bool {
 }
 
 type PatchChatMenuItemReqBodyBuilder struct {
-	updateFields     []string // 要修改的字段
-	updateFieldsFlag bool
+	updateFields    []string // 要修改的字段
+	updateFieldsSet bool
 
-	chatMenuItem     *ChatMenuItem // 元信息
-	chatMenuItemFlag bool
+	chatMenuItem    *ChatMenuItem // 元信息
+	chatMenuItemSet bool
 }
 
 func NewPatchChatMenuItemReqBodyBuilder() *PatchChatMenuItemReqBodyBuilder {
@@ -10349,38 +10489,38 @@ func NewPatchChatMenuItemReqBodyBuilder() *PatchChatMenuItemReqBodyBuilder {
 
 // 要修改的字段
 //
-// 示例值：["ICON"]
+//示例值：["ICON"]
 func (builder *PatchChatMenuItemReqBodyBuilder) UpdateFields(updateFields []string) *PatchChatMenuItemReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 // 元信息
 //
-// 示例值：
+//示例值：
 func (builder *PatchChatMenuItemReqBodyBuilder) ChatMenuItem(chatMenuItem *ChatMenuItem) *PatchChatMenuItemReqBodyBuilder {
 	builder.chatMenuItem = chatMenuItem
-	builder.chatMenuItemFlag = true
+	builder.chatMenuItemSet = true
 	return builder
 }
 
 func (builder *PatchChatMenuItemReqBodyBuilder) Build() *PatchChatMenuItemReqBody {
 	req := &PatchChatMenuItemReqBody{}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
-	if builder.chatMenuItemFlag {
+	if builder.chatMenuItemSet {
 		req.ChatMenuItem = builder.chatMenuItem
 	}
 	return req
 }
 
 type PatchChatMenuItemPathReqBodyBuilder struct {
-	updateFields     []string
-	updateFieldsFlag bool
-	chatMenuItem     *ChatMenuItem
-	chatMenuItemFlag bool
+	updateFields    []string
+	updateFieldsSet bool
+	chatMenuItem    *ChatMenuItem
+	chatMenuItemSet bool
 }
 
 func NewPatchChatMenuItemPathReqBodyBuilder() *PatchChatMenuItemPathReqBodyBuilder {
@@ -10393,7 +10533,7 @@ func NewPatchChatMenuItemPathReqBodyBuilder() *PatchChatMenuItemPathReqBodyBuild
 // 示例值：["ICON"]
 func (builder *PatchChatMenuItemPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchChatMenuItemPathReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
@@ -10402,16 +10542,16 @@ func (builder *PatchChatMenuItemPathReqBodyBuilder) UpdateFields(updateFields []
 // 示例值：
 func (builder *PatchChatMenuItemPathReqBodyBuilder) ChatMenuItem(chatMenuItem *ChatMenuItem) *PatchChatMenuItemPathReqBodyBuilder {
 	builder.chatMenuItem = chatMenuItem
-	builder.chatMenuItemFlag = true
+	builder.chatMenuItemSet = true
 	return builder
 }
 
 func (builder *PatchChatMenuItemPathReqBodyBuilder) Build() (*PatchChatMenuItemReqBody, error) {
 	req := &PatchChatMenuItemReqBody{}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
-	if builder.chatMenuItemFlag {
+	if builder.chatMenuItemSet {
 		req.ChatMenuItem = builder.chatMenuItem
 	}
 	return req, nil
@@ -10487,8 +10627,8 @@ func (resp *PatchChatMenuItemResp) Success() bool {
 }
 
 type CreateChatMenuTreeReqBodyBuilder struct {
-	menuTree     *ChatMenuTree // 要向群内追加的菜单
-	menuTreeFlag bool
+	menuTree    *ChatMenuTree // 要向群内追加的菜单
+	menuTreeSet bool
 }
 
 func NewCreateChatMenuTreeReqBodyBuilder() *CreateChatMenuTreeReqBodyBuilder {
@@ -10498,24 +10638,24 @@ func NewCreateChatMenuTreeReqBodyBuilder() *CreateChatMenuTreeReqBodyBuilder {
 
 // 要向群内追加的菜单
 //
-// 示例值：
+//示例值：
 func (builder *CreateChatMenuTreeReqBodyBuilder) MenuTree(menuTree *ChatMenuTree) *CreateChatMenuTreeReqBodyBuilder {
 	builder.menuTree = menuTree
-	builder.menuTreeFlag = true
+	builder.menuTreeSet = true
 	return builder
 }
 
 func (builder *CreateChatMenuTreeReqBodyBuilder) Build() *CreateChatMenuTreeReqBody {
 	req := &CreateChatMenuTreeReqBody{}
-	if builder.menuTreeFlag {
+	if builder.menuTreeSet {
 		req.MenuTree = builder.menuTree
 	}
 	return req
 }
 
 type CreateChatMenuTreePathReqBodyBuilder struct {
-	menuTree     *ChatMenuTree
-	menuTreeFlag bool
+	menuTree    *ChatMenuTree
+	menuTreeSet bool
 }
 
 func NewCreateChatMenuTreePathReqBodyBuilder() *CreateChatMenuTreePathReqBodyBuilder {
@@ -10528,13 +10668,13 @@ func NewCreateChatMenuTreePathReqBodyBuilder() *CreateChatMenuTreePathReqBodyBui
 // 示例值：
 func (builder *CreateChatMenuTreePathReqBodyBuilder) MenuTree(menuTree *ChatMenuTree) *CreateChatMenuTreePathReqBodyBuilder {
 	builder.menuTree = menuTree
-	builder.menuTreeFlag = true
+	builder.menuTreeSet = true
 	return builder
 }
 
 func (builder *CreateChatMenuTreePathReqBodyBuilder) Build() (*CreateChatMenuTreeReqBody, error) {
 	req := &CreateChatMenuTreeReqBody{}
-	if builder.menuTreeFlag {
+	if builder.menuTreeSet {
 		req.MenuTree = builder.menuTree
 	}
 	return req, nil
@@ -10600,8 +10740,8 @@ func (resp *CreateChatMenuTreeResp) Success() bool {
 }
 
 type DeleteChatMenuTreeReqBodyBuilder struct {
-	chatMenuTopLevelIds     []string // 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
-	chatMenuTopLevelIdsFlag bool
+	chatMenuTopLevelIds    []string // 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+	chatMenuTopLevelIdsSet bool
 }
 
 func NewDeleteChatMenuTreeReqBodyBuilder() *DeleteChatMenuTreeReqBodyBuilder {
@@ -10611,24 +10751,24 @@ func NewDeleteChatMenuTreeReqBodyBuilder() *DeleteChatMenuTreeReqBodyBuilder {
 
 // 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
 //
-// 示例值：7156553273518882844
+//示例值：7156553273518882844
 func (builder *DeleteChatMenuTreeReqBodyBuilder) ChatMenuTopLevelIds(chatMenuTopLevelIds []string) *DeleteChatMenuTreeReqBodyBuilder {
 	builder.chatMenuTopLevelIds = chatMenuTopLevelIds
-	builder.chatMenuTopLevelIdsFlag = true
+	builder.chatMenuTopLevelIdsSet = true
 	return builder
 }
 
 func (builder *DeleteChatMenuTreeReqBodyBuilder) Build() *DeleteChatMenuTreeReqBody {
 	req := &DeleteChatMenuTreeReqBody{}
-	if builder.chatMenuTopLevelIdsFlag {
+	if builder.chatMenuTopLevelIdsSet {
 		req.ChatMenuTopLevelIds = builder.chatMenuTopLevelIds
 	}
 	return req
 }
 
 type DeleteChatMenuTreePathReqBodyBuilder struct {
-	chatMenuTopLevelIds     []string
-	chatMenuTopLevelIdsFlag bool
+	chatMenuTopLevelIds    []string
+	chatMenuTopLevelIdsSet bool
 }
 
 func NewDeleteChatMenuTreePathReqBodyBuilder() *DeleteChatMenuTreePathReqBodyBuilder {
@@ -10641,13 +10781,13 @@ func NewDeleteChatMenuTreePathReqBodyBuilder() *DeleteChatMenuTreePathReqBodyBui
 // 示例值：7156553273518882844
 func (builder *DeleteChatMenuTreePathReqBodyBuilder) ChatMenuTopLevelIds(chatMenuTopLevelIds []string) *DeleteChatMenuTreePathReqBodyBuilder {
 	builder.chatMenuTopLevelIds = chatMenuTopLevelIds
-	builder.chatMenuTopLevelIdsFlag = true
+	builder.chatMenuTopLevelIdsSet = true
 	return builder
 }
 
 func (builder *DeleteChatMenuTreePathReqBodyBuilder) Build() (*DeleteChatMenuTreeReqBody, error) {
 	req := &DeleteChatMenuTreeReqBody{}
-	if builder.chatMenuTopLevelIdsFlag {
+	if builder.chatMenuTopLevelIdsSet {
 		req.ChatMenuTopLevelIds = builder.chatMenuTopLevelIds
 	}
 	return req, nil
@@ -10759,8 +10899,8 @@ func (resp *GetChatMenuTreeResp) Success() bool {
 }
 
 type SortChatMenuTreeReqBodyBuilder struct {
-	chatMenuTopLevelIds     []string // 新的一级菜单的顺序，进行排序ID列表需要跟群内目前存在的一级菜单ID列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
-	chatMenuTopLevelIdsFlag bool
+	chatMenuTopLevelIds    []string // 新的一级菜单的顺序，进行排序ID列表需要跟群内目前存在的一级菜单ID列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
+	chatMenuTopLevelIdsSet bool
 }
 
 func NewSortChatMenuTreeReqBodyBuilder() *SortChatMenuTreeReqBodyBuilder {
@@ -10770,24 +10910,24 @@ func NewSortChatMenuTreeReqBodyBuilder() *SortChatMenuTreeReqBodyBuilder {
 
 // 新的一级菜单的顺序，进行排序ID列表需要跟群内目前存在的一级菜单ID列表对齐。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情。
 //
-// 示例值：7156553273518882844
+//示例值：7156553273518882844
 func (builder *SortChatMenuTreeReqBodyBuilder) ChatMenuTopLevelIds(chatMenuTopLevelIds []string) *SortChatMenuTreeReqBodyBuilder {
 	builder.chatMenuTopLevelIds = chatMenuTopLevelIds
-	builder.chatMenuTopLevelIdsFlag = true
+	builder.chatMenuTopLevelIdsSet = true
 	return builder
 }
 
 func (builder *SortChatMenuTreeReqBodyBuilder) Build() *SortChatMenuTreeReqBody {
 	req := &SortChatMenuTreeReqBody{}
-	if builder.chatMenuTopLevelIdsFlag {
+	if builder.chatMenuTopLevelIdsSet {
 		req.ChatMenuTopLevelIds = builder.chatMenuTopLevelIds
 	}
 	return req
 }
 
 type SortChatMenuTreePathReqBodyBuilder struct {
-	chatMenuTopLevelIds     []string
-	chatMenuTopLevelIdsFlag bool
+	chatMenuTopLevelIds    []string
+	chatMenuTopLevelIdsSet bool
 }
 
 func NewSortChatMenuTreePathReqBodyBuilder() *SortChatMenuTreePathReqBodyBuilder {
@@ -10800,13 +10940,13 @@ func NewSortChatMenuTreePathReqBodyBuilder() *SortChatMenuTreePathReqBodyBuilder
 // 示例值：7156553273518882844
 func (builder *SortChatMenuTreePathReqBodyBuilder) ChatMenuTopLevelIds(chatMenuTopLevelIds []string) *SortChatMenuTreePathReqBodyBuilder {
 	builder.chatMenuTopLevelIds = chatMenuTopLevelIds
-	builder.chatMenuTopLevelIdsFlag = true
+	builder.chatMenuTopLevelIdsSet = true
 	return builder
 }
 
 func (builder *SortChatMenuTreePathReqBodyBuilder) Build() (*SortChatMenuTreeReqBody, error) {
 	req := &SortChatMenuTreeReqBody{}
-	if builder.chatMenuTopLevelIdsFlag {
+	if builder.chatMenuTopLevelIdsSet {
 		req.ChatMenuTopLevelIds = builder.chatMenuTopLevelIds
 	}
 	return req, nil
@@ -10959,14 +11099,14 @@ func (resp *GetChatModerationResp) Success() bool {
 }
 
 type UpdateChatModerationReqBodyBuilder struct {
-	moderationSetting     string // 群发言模式（all_members/only_owner/moderator_list，其中 moderator_list 表示部分用户可发言的模式）
-	moderationSettingFlag bool
+	moderationSetting    string // 群发言模式（all_members/only_owner/moderator_list，其中 moderator_list 表示部分用户可发言的模式）
+	moderationSettingSet bool
 
-	moderatorAddedList     []string // 选择部分用户可发言模式时，添加的可发言用户列表（自动过滤不在群内的用户）
-	moderatorAddedListFlag bool
+	moderatorAddedList    []string // 选择部分用户可发言模式时，添加的可发言用户列表（自动过滤不在群内的用户）
+	moderatorAddedListSet bool
 
-	moderatorRemovedList     []string // 选择部分用户可发言模式时，移除的可发言用户列表（自动过滤不在群内的用户）
-	moderatorRemovedListFlag bool
+	moderatorRemovedList    []string // 选择部分用户可发言模式时，移除的可发言用户列表（自动过滤不在群内的用户）
+	moderatorRemovedListSet bool
 }
 
 func NewUpdateChatModerationReqBodyBuilder() *UpdateChatModerationReqBodyBuilder {
@@ -10976,52 +11116,52 @@ func NewUpdateChatModerationReqBodyBuilder() *UpdateChatModerationReqBodyBuilder
 
 // 群发言模式（all_members/only_owner/moderator_list，其中 moderator_list 表示部分用户可发言的模式）
 //
-// 示例值：moderator_list
+//示例值：moderator_list
 func (builder *UpdateChatModerationReqBodyBuilder) ModerationSetting(moderationSetting string) *UpdateChatModerationReqBodyBuilder {
 	builder.moderationSetting = moderationSetting
-	builder.moderationSettingFlag = true
+	builder.moderationSettingSet = true
 	return builder
 }
 
 // 选择部分用户可发言模式时，添加的可发言用户列表（自动过滤不在群内的用户）
 //
-// 示例值：["4d7a3c6g"]
+//示例值：["4d7a3c6g"]
 func (builder *UpdateChatModerationReqBodyBuilder) ModeratorAddedList(moderatorAddedList []string) *UpdateChatModerationReqBodyBuilder {
 	builder.moderatorAddedList = moderatorAddedList
-	builder.moderatorAddedListFlag = true
+	builder.moderatorAddedListSet = true
 	return builder
 }
 
 // 选择部分用户可发言模式时，移除的可发言用户列表（自动过滤不在群内的用户）
 //
-// 示例值：["4d7a3ih6"]
+//示例值：["4d7a3ih6"]
 func (builder *UpdateChatModerationReqBodyBuilder) ModeratorRemovedList(moderatorRemovedList []string) *UpdateChatModerationReqBodyBuilder {
 	builder.moderatorRemovedList = moderatorRemovedList
-	builder.moderatorRemovedListFlag = true
+	builder.moderatorRemovedListSet = true
 	return builder
 }
 
 func (builder *UpdateChatModerationReqBodyBuilder) Build() *UpdateChatModerationReqBody {
 	req := &UpdateChatModerationReqBody{}
-	if builder.moderationSettingFlag {
+	if builder.moderationSettingSet {
 		req.ModerationSetting = &builder.moderationSetting
 	}
-	if builder.moderatorAddedListFlag {
+	if builder.moderatorAddedListSet {
 		req.ModeratorAddedList = builder.moderatorAddedList
 	}
-	if builder.moderatorRemovedListFlag {
+	if builder.moderatorRemovedListSet {
 		req.ModeratorRemovedList = builder.moderatorRemovedList
 	}
 	return req
 }
 
 type UpdateChatModerationPathReqBodyBuilder struct {
-	moderationSetting        string
-	moderationSettingFlag    bool
-	moderatorAddedList       []string
-	moderatorAddedListFlag   bool
-	moderatorRemovedList     []string
-	moderatorRemovedListFlag bool
+	moderationSetting       string
+	moderationSettingSet    bool
+	moderatorAddedList      []string
+	moderatorAddedListSet   bool
+	moderatorRemovedList    []string
+	moderatorRemovedListSet bool
 }
 
 func NewUpdateChatModerationPathReqBodyBuilder() *UpdateChatModerationPathReqBodyBuilder {
@@ -11034,7 +11174,7 @@ func NewUpdateChatModerationPathReqBodyBuilder() *UpdateChatModerationPathReqBod
 // 示例值：moderator_list
 func (builder *UpdateChatModerationPathReqBodyBuilder) ModerationSetting(moderationSetting string) *UpdateChatModerationPathReqBodyBuilder {
 	builder.moderationSetting = moderationSetting
-	builder.moderationSettingFlag = true
+	builder.moderationSettingSet = true
 	return builder
 }
 
@@ -11043,7 +11183,7 @@ func (builder *UpdateChatModerationPathReqBodyBuilder) ModerationSetting(moderat
 // 示例值：["4d7a3c6g"]
 func (builder *UpdateChatModerationPathReqBodyBuilder) ModeratorAddedList(moderatorAddedList []string) *UpdateChatModerationPathReqBodyBuilder {
 	builder.moderatorAddedList = moderatorAddedList
-	builder.moderatorAddedListFlag = true
+	builder.moderatorAddedListSet = true
 	return builder
 }
 
@@ -11052,19 +11192,19 @@ func (builder *UpdateChatModerationPathReqBodyBuilder) ModeratorAddedList(modera
 // 示例值：["4d7a3ih6"]
 func (builder *UpdateChatModerationPathReqBodyBuilder) ModeratorRemovedList(moderatorRemovedList []string) *UpdateChatModerationPathReqBodyBuilder {
 	builder.moderatorRemovedList = moderatorRemovedList
-	builder.moderatorRemovedListFlag = true
+	builder.moderatorRemovedListSet = true
 	return builder
 }
 
 func (builder *UpdateChatModerationPathReqBodyBuilder) Build() (*UpdateChatModerationReqBody, error) {
 	req := &UpdateChatModerationReqBody{}
-	if builder.moderationSettingFlag {
+	if builder.moderationSettingSet {
 		req.ModerationSetting = &builder.moderationSetting
 	}
-	if builder.moderatorAddedListFlag {
+	if builder.moderatorAddedListSet {
 		req.ModeratorAddedList = builder.moderatorAddedList
 	}
-	if builder.moderatorRemovedListFlag {
+	if builder.moderatorRemovedListSet {
 		req.ModeratorRemovedList = builder.moderatorRemovedList
 	}
 	return req, nil
@@ -11138,8 +11278,8 @@ func (resp *UpdateChatModerationResp) Success() bool {
 }
 
 type CreateChatTabReqBodyBuilder struct {
-	chatTabs     []*ChatTab // 会话标签页;;**注意**：一个群内最多只允许添加20个自定义会话标签页
-	chatTabsFlag bool
+	chatTabs    []*ChatTab // 会话标签页;;**注意**：一个群内最多只允许添加20个自定义会话标签页
+	chatTabsSet bool
 }
 
 func NewCreateChatTabReqBodyBuilder() *CreateChatTabReqBodyBuilder {
@@ -11149,24 +11289,24 @@ func NewCreateChatTabReqBodyBuilder() *CreateChatTabReqBodyBuilder {
 
 // 会话标签页;;**注意**：一个群内最多只允许添加20个自定义会话标签页
 //
-// 示例值：
+//示例值：
 func (builder *CreateChatTabReqBodyBuilder) ChatTabs(chatTabs []*ChatTab) *CreateChatTabReqBodyBuilder {
 	builder.chatTabs = chatTabs
-	builder.chatTabsFlag = true
+	builder.chatTabsSet = true
 	return builder
 }
 
 func (builder *CreateChatTabReqBodyBuilder) Build() *CreateChatTabReqBody {
 	req := &CreateChatTabReqBody{}
-	if builder.chatTabsFlag {
+	if builder.chatTabsSet {
 		req.ChatTabs = builder.chatTabs
 	}
 	return req
 }
 
 type CreateChatTabPathReqBodyBuilder struct {
-	chatTabs     []*ChatTab
-	chatTabsFlag bool
+	chatTabs    []*ChatTab
+	chatTabsSet bool
 }
 
 func NewCreateChatTabPathReqBodyBuilder() *CreateChatTabPathReqBodyBuilder {
@@ -11179,13 +11319,13 @@ func NewCreateChatTabPathReqBodyBuilder() *CreateChatTabPathReqBodyBuilder {
 // 示例值：
 func (builder *CreateChatTabPathReqBodyBuilder) ChatTabs(chatTabs []*ChatTab) *CreateChatTabPathReqBodyBuilder {
 	builder.chatTabs = chatTabs
-	builder.chatTabsFlag = true
+	builder.chatTabsSet = true
 	return builder
 }
 
 func (builder *CreateChatTabPathReqBodyBuilder) Build() (*CreateChatTabReqBody, error) {
 	req := &CreateChatTabReqBody{}
-	if builder.chatTabsFlag {
+	if builder.chatTabsSet {
 		req.ChatTabs = builder.chatTabs
 	}
 	return req, nil
@@ -11251,8 +11391,8 @@ func (resp *CreateChatTabResp) Success() bool {
 }
 
 type DeleteTabsChatTabReqBodyBuilder struct {
-	tabIds     []string // 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取
-	tabIdsFlag bool
+	tabIds    []string // 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取
+	tabIdsSet bool
 }
 
 func NewDeleteTabsChatTabReqBodyBuilder() *DeleteTabsChatTabReqBodyBuilder {
@@ -11262,24 +11402,24 @@ func NewDeleteTabsChatTabReqBodyBuilder() *DeleteTabsChatTabReqBodyBuilder {
 
 // 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取
 //
-// 示例值：["7101214603622940671", "7101214603622940672"]
+//示例值：["7101214603622940671", "7101214603622940672"]
 func (builder *DeleteTabsChatTabReqBodyBuilder) TabIds(tabIds []string) *DeleteTabsChatTabReqBodyBuilder {
 	builder.tabIds = tabIds
-	builder.tabIdsFlag = true
+	builder.tabIdsSet = true
 	return builder
 }
 
 func (builder *DeleteTabsChatTabReqBodyBuilder) Build() *DeleteTabsChatTabReqBody {
 	req := &DeleteTabsChatTabReqBody{}
-	if builder.tabIdsFlag {
+	if builder.tabIdsSet {
 		req.TabIds = builder.tabIds
 	}
 	return req
 }
 
 type DeleteTabsChatTabPathReqBodyBuilder struct {
-	tabIds     []string
-	tabIdsFlag bool
+	tabIds    []string
+	tabIdsSet bool
 }
 
 func NewDeleteTabsChatTabPathReqBodyBuilder() *DeleteTabsChatTabPathReqBodyBuilder {
@@ -11292,13 +11432,13 @@ func NewDeleteTabsChatTabPathReqBodyBuilder() *DeleteTabsChatTabPathReqBodyBuild
 // 示例值：["7101214603622940671", "7101214603622940672"]
 func (builder *DeleteTabsChatTabPathReqBodyBuilder) TabIds(tabIds []string) *DeleteTabsChatTabPathReqBodyBuilder {
 	builder.tabIds = tabIds
-	builder.tabIdsFlag = true
+	builder.tabIdsSet = true
 	return builder
 }
 
 func (builder *DeleteTabsChatTabPathReqBodyBuilder) Build() (*DeleteTabsChatTabReqBody, error) {
 	req := &DeleteTabsChatTabReqBody{}
-	if builder.tabIdsFlag {
+	if builder.tabIdsSet {
 		req.TabIds = builder.tabIds
 	}
 	return req, nil
@@ -11410,8 +11550,8 @@ func (resp *ListTabsChatTabResp) Success() bool {
 }
 
 type SortTabsChatTabReqBodyBuilder struct {
-	tabIds     []string // 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取;;**注意**：必须包含该会话中全部的Tab ID
-	tabIdsFlag bool
+	tabIds    []string // 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取;;**注意**：必须包含该会话中全部的Tab ID
+	tabIdsSet bool
 }
 
 func NewSortTabsChatTabReqBodyBuilder() *SortTabsChatTabReqBodyBuilder {
@@ -11421,24 +11561,24 @@ func NewSortTabsChatTabReqBodyBuilder() *SortTabsChatTabReqBodyBuilder {
 
 // 会话标签页ID列表，Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取;;**注意**：必须包含该会话中全部的Tab ID
 //
-// 示例值：["7101214603622940671", "7101214603622940672"]
+//示例值：["7101214603622940671", "7101214603622940672"]
 func (builder *SortTabsChatTabReqBodyBuilder) TabIds(tabIds []string) *SortTabsChatTabReqBodyBuilder {
 	builder.tabIds = tabIds
-	builder.tabIdsFlag = true
+	builder.tabIdsSet = true
 	return builder
 }
 
 func (builder *SortTabsChatTabReqBodyBuilder) Build() *SortTabsChatTabReqBody {
 	req := &SortTabsChatTabReqBody{}
-	if builder.tabIdsFlag {
+	if builder.tabIdsSet {
 		req.TabIds = builder.tabIds
 	}
 	return req
 }
 
 type SortTabsChatTabPathReqBodyBuilder struct {
-	tabIds     []string
-	tabIdsFlag bool
+	tabIds    []string
+	tabIdsSet bool
 }
 
 func NewSortTabsChatTabPathReqBodyBuilder() *SortTabsChatTabPathReqBodyBuilder {
@@ -11451,13 +11591,13 @@ func NewSortTabsChatTabPathReqBodyBuilder() *SortTabsChatTabPathReqBodyBuilder {
 // 示例值：["7101214603622940671", "7101214603622940672"]
 func (builder *SortTabsChatTabPathReqBodyBuilder) TabIds(tabIds []string) *SortTabsChatTabPathReqBodyBuilder {
 	builder.tabIds = tabIds
-	builder.tabIdsFlag = true
+	builder.tabIdsSet = true
 	return builder
 }
 
 func (builder *SortTabsChatTabPathReqBodyBuilder) Build() (*SortTabsChatTabReqBody, error) {
 	req := &SortTabsChatTabReqBody{}
-	if builder.tabIdsFlag {
+	if builder.tabIdsSet {
 		req.TabIds = builder.tabIds
 	}
 	return req, nil
@@ -11523,8 +11663,8 @@ func (resp *SortTabsChatTabResp) Success() bool {
 }
 
 type UpdateTabsChatTabReqBodyBuilder struct {
-	chatTabs     []*ChatTab // 会话标签页
-	chatTabsFlag bool
+	chatTabs    []*ChatTab // 会话标签页
+	chatTabsSet bool
 }
 
 func NewUpdateTabsChatTabReqBodyBuilder() *UpdateTabsChatTabReqBodyBuilder {
@@ -11534,24 +11674,24 @@ func NewUpdateTabsChatTabReqBodyBuilder() *UpdateTabsChatTabReqBodyBuilder {
 
 // 会话标签页
 //
-// 示例值：
+//示例值：
 func (builder *UpdateTabsChatTabReqBodyBuilder) ChatTabs(chatTabs []*ChatTab) *UpdateTabsChatTabReqBodyBuilder {
 	builder.chatTabs = chatTabs
-	builder.chatTabsFlag = true
+	builder.chatTabsSet = true
 	return builder
 }
 
 func (builder *UpdateTabsChatTabReqBodyBuilder) Build() *UpdateTabsChatTabReqBody {
 	req := &UpdateTabsChatTabReqBody{}
-	if builder.chatTabsFlag {
+	if builder.chatTabsSet {
 		req.ChatTabs = builder.chatTabs
 	}
 	return req
 }
 
 type UpdateTabsChatTabPathReqBodyBuilder struct {
-	chatTabs     []*ChatTab
-	chatTabsFlag bool
+	chatTabs    []*ChatTab
+	chatTabsSet bool
 }
 
 func NewUpdateTabsChatTabPathReqBodyBuilder() *UpdateTabsChatTabPathReqBodyBuilder {
@@ -11564,13 +11704,13 @@ func NewUpdateTabsChatTabPathReqBodyBuilder() *UpdateTabsChatTabPathReqBodyBuild
 // 示例值：
 func (builder *UpdateTabsChatTabPathReqBodyBuilder) ChatTabs(chatTabs []*ChatTab) *UpdateTabsChatTabPathReqBodyBuilder {
 	builder.chatTabs = chatTabs
-	builder.chatTabsFlag = true
+	builder.chatTabsSet = true
 	return builder
 }
 
 func (builder *UpdateTabsChatTabPathReqBodyBuilder) Build() (*UpdateTabsChatTabReqBody, error) {
 	req := &UpdateTabsChatTabReqBody{}
-	if builder.chatTabsFlag {
+	if builder.chatTabsSet {
 		req.ChatTabs = builder.chatTabs
 	}
 	return req, nil
@@ -11677,8 +11817,8 @@ func (resp *DeleteTopNoticeChatTopNoticeResp) Success() bool {
 }
 
 type PutTopNoticeChatTopNoticeReqBodyBuilder struct {
-	chatTopNotice     []*ChatTopNotice // 要进行发布的群置顶
-	chatTopNoticeFlag bool
+	chatTopNotice    []*ChatTopNotice // 要进行发布的群置顶
+	chatTopNoticeSet bool
 }
 
 func NewPutTopNoticeChatTopNoticeReqBodyBuilder() *PutTopNoticeChatTopNoticeReqBodyBuilder {
@@ -11688,24 +11828,24 @@ func NewPutTopNoticeChatTopNoticeReqBodyBuilder() *PutTopNoticeChatTopNoticeReqB
 
 // 要进行发布的群置顶
 //
-// 示例值：
+//示例值：
 func (builder *PutTopNoticeChatTopNoticeReqBodyBuilder) ChatTopNotice(chatTopNotice []*ChatTopNotice) *PutTopNoticeChatTopNoticeReqBodyBuilder {
 	builder.chatTopNotice = chatTopNotice
-	builder.chatTopNoticeFlag = true
+	builder.chatTopNoticeSet = true
 	return builder
 }
 
 func (builder *PutTopNoticeChatTopNoticeReqBodyBuilder) Build() *PutTopNoticeChatTopNoticeReqBody {
 	req := &PutTopNoticeChatTopNoticeReqBody{}
-	if builder.chatTopNoticeFlag {
+	if builder.chatTopNoticeSet {
 		req.ChatTopNotice = builder.chatTopNotice
 	}
 	return req
 }
 
 type PutTopNoticeChatTopNoticePathReqBodyBuilder struct {
-	chatTopNotice     []*ChatTopNotice
-	chatTopNoticeFlag bool
+	chatTopNotice    []*ChatTopNotice
+	chatTopNoticeSet bool
 }
 
 func NewPutTopNoticeChatTopNoticePathReqBodyBuilder() *PutTopNoticeChatTopNoticePathReqBodyBuilder {
@@ -11718,13 +11858,13 @@ func NewPutTopNoticeChatTopNoticePathReqBodyBuilder() *PutTopNoticeChatTopNotice
 // 示例值：
 func (builder *PutTopNoticeChatTopNoticePathReqBodyBuilder) ChatTopNotice(chatTopNotice []*ChatTopNotice) *PutTopNoticeChatTopNoticePathReqBodyBuilder {
 	builder.chatTopNotice = chatTopNotice
-	builder.chatTopNoticeFlag = true
+	builder.chatTopNoticeSet = true
 	return builder
 }
 
 func (builder *PutTopNoticeChatTopNoticePathReqBodyBuilder) Build() (*PutTopNoticeChatTopNoticeReqBody, error) {
 	req := &PutTopNoticeChatTopNoticeReqBody{}
-	if builder.chatTopNoticeFlag {
+	if builder.chatTopNoticeSet {
 		req.ChatTopNotice = builder.chatTopNotice
 	}
 	return req, nil
@@ -11785,17 +11925,17 @@ func (resp *PutTopNoticeChatTopNoticeResp) Success() bool {
 }
 
 type CreateFileReqBodyBuilder struct {
-	fileType     string // 文件类型
-	fileTypeFlag bool
+	fileType    string // 文件类型
+	fileTypeSet bool
 
-	fileName     string // 带后缀的文件名
-	fileNameFlag bool
+	fileName    string // 带后缀的文件名
+	fileNameSet bool
 
-	duration     int // 文件的时长（视频、音频），单位:毫秒。不填充时无法显示具体时长。
-	durationFlag bool
+	duration    int // 文件的时长（视频、音频），单位:毫秒。不填充时无法显示具体时长。
+	durationSet bool
 
-	file     io.Reader // 文件内容
-	fileFlag bool
+	file    io.Reader // 文件内容
+	fileSet bool
 }
 
 func NewCreateFileReqBodyBuilder() *CreateFileReqBodyBuilder {
@@ -11805,52 +11945,52 @@ func NewCreateFileReqBodyBuilder() *CreateFileReqBodyBuilder {
 
 // 文件类型
 //
-// 示例值：mp4
+//示例值：mp4
 func (builder *CreateFileReqBodyBuilder) FileType(fileType string) *CreateFileReqBodyBuilder {
 	builder.fileType = fileType
-	builder.fileTypeFlag = true
+	builder.fileTypeSet = true
 	return builder
 }
 
 // 带后缀的文件名
 //
-// 示例值：测试视频.mp4
+//示例值：测试视频.mp4
 func (builder *CreateFileReqBodyBuilder) FileName(fileName string) *CreateFileReqBodyBuilder {
 	builder.fileName = fileName
-	builder.fileNameFlag = true
+	builder.fileNameSet = true
 	return builder
 }
 
 // 文件的时长（视频、音频），单位:毫秒。不填充时无法显示具体时长。
 //
-// 示例值：3000
+//示例值：3000
 func (builder *CreateFileReqBodyBuilder) Duration(duration int) *CreateFileReqBodyBuilder {
 	builder.duration = duration
-	builder.durationFlag = true
+	builder.durationSet = true
 	return builder
 }
 
 // 文件内容
 //
-// 示例值：二进制文件
+//示例值：二进制文件
 func (builder *CreateFileReqBodyBuilder) File(file io.Reader) *CreateFileReqBodyBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *CreateFileReqBodyBuilder) Build() *CreateFileReqBody {
 	req := &CreateFileReqBody{}
-	if builder.fileTypeFlag {
+	if builder.fileTypeSet {
 		req.FileType = &builder.fileType
 	}
-	if builder.fileNameFlag {
+	if builder.fileNameSet {
 		req.FileName = &builder.fileName
 	}
-	if builder.durationFlag {
+	if builder.durationSet {
 		req.Duration = &builder.duration
 	}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -11858,11 +11998,11 @@ func (builder *CreateFileReqBodyBuilder) Build() *CreateFileReqBody {
 
 type CreateFilePathReqBodyBuilder struct {
 	fileType     string
-	fileTypeFlag bool
+	fileTypeSet  bool
 	fileName     string
-	fileNameFlag bool
+	fileNameSet  bool
 	duration     int
-	durationFlag bool
+	durationSet  bool
 	filePath     string // 文件内容
 	filePathFlag bool
 }
@@ -11877,7 +12017,7 @@ func NewCreateFilePathReqBodyBuilder() *CreateFilePathReqBodyBuilder {
 // 示例值：mp4
 func (builder *CreateFilePathReqBodyBuilder) FileType(fileType string) *CreateFilePathReqBodyBuilder {
 	builder.fileType = fileType
-	builder.fileTypeFlag = true
+	builder.fileTypeSet = true
 	return builder
 }
 
@@ -11886,7 +12026,7 @@ func (builder *CreateFilePathReqBodyBuilder) FileType(fileType string) *CreateFi
 // 示例值：测试视频.mp4
 func (builder *CreateFilePathReqBodyBuilder) FileName(fileName string) *CreateFilePathReqBodyBuilder {
 	builder.fileName = fileName
-	builder.fileNameFlag = true
+	builder.fileNameSet = true
 	return builder
 }
 
@@ -11895,7 +12035,7 @@ func (builder *CreateFilePathReqBodyBuilder) FileName(fileName string) *CreateFi
 // 示例值：3000
 func (builder *CreateFilePathReqBodyBuilder) Duration(duration int) *CreateFilePathReqBodyBuilder {
 	builder.duration = duration
-	builder.durationFlag = true
+	builder.durationSet = true
 	return builder
 }
 
@@ -11910,13 +12050,13 @@ func (builder *CreateFilePathReqBodyBuilder) FilePath(filePath string) *CreateFi
 
 func (builder *CreateFilePathReqBodyBuilder) Build() (*CreateFileReqBody, error) {
 	req := &CreateFileReqBody{}
-	if builder.fileTypeFlag {
+	if builder.fileTypeSet {
 		req.FileType = &builder.fileType
 	}
-	if builder.fileNameFlag {
+	if builder.fileNameSet {
 		req.FileName = &builder.fileName
 	}
-	if builder.durationFlag {
+	if builder.durationSet {
 		req.Duration = &builder.duration
 	}
 	if builder.filePathFlag {
@@ -12042,11 +12182,11 @@ func (resp *GetFileResp) WriteFile(fileName string) error {
 }
 
 type CreateImageReqBodyBuilder struct {
-	imageType     string // 图片类型
-	imageTypeFlag bool
+	imageType    string // 图片类型
+	imageTypeSet bool
 
-	image     io.Reader // 图片内容;; **注意：** 上传的图片大小不能超过10MB
-	imageFlag bool
+	image    io.Reader // 图片内容;; **注意：** 上传的图片大小不能超过10MB
+	imageSet bool
 }
 
 func NewCreateImageReqBodyBuilder() *CreateImageReqBodyBuilder {
@@ -12056,28 +12196,28 @@ func NewCreateImageReqBodyBuilder() *CreateImageReqBodyBuilder {
 
 // 图片类型
 //
-// 示例值：message
+//示例值：message
 func (builder *CreateImageReqBodyBuilder) ImageType(imageType string) *CreateImageReqBodyBuilder {
 	builder.imageType = imageType
-	builder.imageTypeFlag = true
+	builder.imageTypeSet = true
 	return builder
 }
 
 // 图片内容;; **注意：** 上传的图片大小不能超过10MB
 //
-// 示例值：二进制文件
+//示例值：二进制文件
 func (builder *CreateImageReqBodyBuilder) Image(image io.Reader) *CreateImageReqBodyBuilder {
 	builder.image = image
-	builder.imageFlag = true
+	builder.imageSet = true
 	return builder
 }
 
 func (builder *CreateImageReqBodyBuilder) Build() *CreateImageReqBody {
 	req := &CreateImageReqBody{}
-	if builder.imageTypeFlag {
+	if builder.imageTypeSet {
 		req.ImageType = &builder.imageType
 	}
-	if builder.imageFlag {
+	if builder.imageSet {
 		req.Image = builder.image
 	}
 	return req
@@ -12085,7 +12225,7 @@ func (builder *CreateImageReqBodyBuilder) Build() *CreateImageReqBody {
 
 type CreateImagePathReqBodyBuilder struct {
 	imageType     string
-	imageTypeFlag bool
+	imageTypeSet  bool
 	imagePath     string // 图片内容;; **注意：** 上传的图片大小不能超过10MB
 	imagePathFlag bool
 }
@@ -12100,7 +12240,7 @@ func NewCreateImagePathReqBodyBuilder() *CreateImagePathReqBodyBuilder {
 // 示例值：message
 func (builder *CreateImagePathReqBodyBuilder) ImageType(imageType string) *CreateImagePathReqBodyBuilder {
 	builder.imageType = imageType
-	builder.imageTypeFlag = true
+	builder.imageTypeSet = true
 	return builder
 }
 
@@ -12115,7 +12255,7 @@ func (builder *CreateImagePathReqBodyBuilder) ImagePath(imagePath string) *Creat
 
 func (builder *CreateImagePathReqBodyBuilder) Build() (*CreateImageReqBody, error) {
 	req := &CreateImageReqBody{}
-	if builder.imageTypeFlag {
+	if builder.imageTypeSet {
 		req.ImageType = &builder.imageType
 	}
 	if builder.imagePathFlag {
@@ -12237,17 +12377,17 @@ func (resp *GetImageResp) WriteFile(fileName string) error {
 }
 
 type CreateMessageReqBodyBuilder struct {
-	receiveId     string // 消息接收者的ID，ID类型应与查询参数==receive_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取消息接收者的Open ID
-	receiveIdFlag bool
+	receiveId    string // 消息接收者的ID，ID类型应与查询参数==receive_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取消息接收者的Open ID
+	receiveIdSet bool
 
-	msgType     string // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
-	msgTypeFlag bool
+	msgType    string // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	msgTypeSet bool
 
-	content     string // 消息内容，json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，具体格式说明参考：[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json);;<b>请求体大小限制</b>：;- 文本消息请求体最大不能超过150KB;- 卡片及富文本消息请求体最大不能超过30KB
-	contentFlag bool
+	content    string // 消息内容，json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，具体格式说明参考：[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json);;<b>请求体大小限制</b>：;- 文本消息请求体最大不能超过150KB;- 卡片及富文本消息请求体最大不能超过30KB
+	contentSet bool
 
-	uuid     string // 由开发者生成的唯一字符串序列，用于发送消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
-	uuidFlag bool
+	uuid    string // 由开发者生成的唯一字符串序列，用于发送消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
+	uuidSet bool
 }
 
 func NewCreateMessageReqBodyBuilder() *CreateMessageReqBodyBuilder {
@@ -12257,66 +12397,66 @@ func NewCreateMessageReqBodyBuilder() *CreateMessageReqBodyBuilder {
 
 // 消息接收者的ID，ID类型应与查询参数==receive_id_type== 对应；当ID类型为`open_id`时，可参考[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)来获取消息接收者的Open ID
 //
-// 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
+//示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
 func (builder *CreateMessageReqBodyBuilder) ReceiveId(receiveId string) *CreateMessageReqBodyBuilder {
 	builder.receiveId = receiveId
-	builder.receiveIdFlag = true
+	builder.receiveIdSet = true
 	return builder
 }
 
 // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 //
-// 示例值：text
+//示例值：text
 func (builder *CreateMessageReqBodyBuilder) MsgType(msgType string) *CreateMessageReqBodyBuilder {
 	builder.msgType = msgType
-	builder.msgTypeFlag = true
+	builder.msgTypeSet = true
 	return builder
 }
 
 // 消息内容，json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，具体格式说明参考：[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json);;<b>请求体大小限制</b>：;- 文本消息请求体最大不能超过150KB;- 卡片及富文本消息请求体最大不能超过30KB
 //
-// 示例值：{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at> test content\"}
+//示例值：{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at> test content\"}
 func (builder *CreateMessageReqBodyBuilder) Content(content string) *CreateMessageReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 // 由开发者生成的唯一字符串序列，用于发送消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
 //
-// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
+//示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *CreateMessageReqBodyBuilder) Uuid(uuid string) *CreateMessageReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
 func (builder *CreateMessageReqBodyBuilder) Build() *CreateMessageReqBody {
 	req := &CreateMessageReqBody{}
-	if builder.receiveIdFlag {
+	if builder.receiveIdSet {
 		req.ReceiveId = &builder.receiveId
 	}
-	if builder.msgTypeFlag {
+	if builder.msgTypeSet {
 		req.MsgType = &builder.msgType
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 	}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
 	return req
 }
 
 type CreateMessagePathReqBodyBuilder struct {
-	receiveId     string
-	receiveIdFlag bool
-	msgType       string
-	msgTypeFlag   bool
-	content       string
-	contentFlag   bool
-	uuid          string
-	uuidFlag      bool
+	receiveId    string
+	receiveIdSet bool
+	msgType      string
+	msgTypeSet   bool
+	content      string
+	contentSet   bool
+	uuid         string
+	uuidSet      bool
 }
 
 func NewCreateMessagePathReqBodyBuilder() *CreateMessagePathReqBodyBuilder {
@@ -12329,7 +12469,7 @@ func NewCreateMessagePathReqBodyBuilder() *CreateMessagePathReqBodyBuilder {
 // 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
 func (builder *CreateMessagePathReqBodyBuilder) ReceiveId(receiveId string) *CreateMessagePathReqBodyBuilder {
 	builder.receiveId = receiveId
-	builder.receiveIdFlag = true
+	builder.receiveIdSet = true
 	return builder
 }
 
@@ -12338,7 +12478,7 @@ func (builder *CreateMessagePathReqBodyBuilder) ReceiveId(receiveId string) *Cre
 // 示例值：text
 func (builder *CreateMessagePathReqBodyBuilder) MsgType(msgType string) *CreateMessagePathReqBodyBuilder {
 	builder.msgType = msgType
-	builder.msgTypeFlag = true
+	builder.msgTypeSet = true
 	return builder
 }
 
@@ -12347,7 +12487,7 @@ func (builder *CreateMessagePathReqBodyBuilder) MsgType(msgType string) *CreateM
 // 示例值：{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at> test content\"}
 func (builder *CreateMessagePathReqBodyBuilder) Content(content string) *CreateMessagePathReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -12356,22 +12496,22 @@ func (builder *CreateMessagePathReqBodyBuilder) Content(content string) *CreateM
 // 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *CreateMessagePathReqBodyBuilder) Uuid(uuid string) *CreateMessagePathReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
 func (builder *CreateMessagePathReqBodyBuilder) Build() (*CreateMessageReqBody, error) {
 	req := &CreateMessageReqBody{}
-	if builder.receiveIdFlag {
+	if builder.receiveIdSet {
 		req.ReceiveId = &builder.receiveId
 	}
-	if builder.msgTypeFlag {
+	if builder.msgTypeSet {
 		req.MsgType = &builder.msgType
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 	}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
 	return req, nil
@@ -12516,8 +12656,8 @@ func (resp *DeleteMessageResp) Success() bool {
 }
 
 type ForwardMessageReqBodyBuilder struct {
-	receiveId     string // 依据receive_id_type的值，填写对应的转发目标的ID
-	receiveIdFlag bool
+	receiveId    string // 依据receive_id_type的值，填写对应的转发目标的ID
+	receiveIdSet bool
 }
 
 func NewForwardMessageReqBodyBuilder() *ForwardMessageReqBodyBuilder {
@@ -12527,24 +12667,24 @@ func NewForwardMessageReqBodyBuilder() *ForwardMessageReqBodyBuilder {
 
 // 依据receive_id_type的值，填写对应的转发目标的ID
 //
-// 示例值：oc_a0553eda9014c201e6969b478895c230
+//示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *ForwardMessageReqBodyBuilder) ReceiveId(receiveId string) *ForwardMessageReqBodyBuilder {
 	builder.receiveId = receiveId
-	builder.receiveIdFlag = true
+	builder.receiveIdSet = true
 	return builder
 }
 
 func (builder *ForwardMessageReqBodyBuilder) Build() *ForwardMessageReqBody {
 	req := &ForwardMessageReqBody{}
-	if builder.receiveIdFlag {
+	if builder.receiveIdSet {
 		req.ReceiveId = &builder.receiveId
 	}
 	return req
 }
 
 type ForwardMessagePathReqBodyBuilder struct {
-	receiveId     string
-	receiveIdFlag bool
+	receiveId    string
+	receiveIdSet bool
 }
 
 func NewForwardMessagePathReqBodyBuilder() *ForwardMessagePathReqBodyBuilder {
@@ -12557,13 +12697,13 @@ func NewForwardMessagePathReqBodyBuilder() *ForwardMessagePathReqBodyBuilder {
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *ForwardMessagePathReqBodyBuilder) ReceiveId(receiveId string) *ForwardMessagePathReqBodyBuilder {
 	builder.receiveId = receiveId
-	builder.receiveIdFlag = true
+	builder.receiveIdSet = true
 	return builder
 }
 
 func (builder *ForwardMessagePathReqBodyBuilder) Build() (*ForwardMessageReqBody, error) {
 	req := &ForwardMessageReqBody{}
-	if builder.receiveIdFlag {
+	if builder.receiveIdSet {
 		req.ReceiveId = &builder.receiveId
 	}
 	return req, nil
@@ -12865,11 +13005,11 @@ func (resp *ListMessageResp) Success() bool {
 }
 
 type MergeForwardMessageReqBodyBuilder struct {
-	receiveId     string // 依据receive_id_type的值，填写对应的转发目标的ID
-	receiveIdFlag bool
+	receiveId    string // 依据receive_id_type的值，填写对应的转发目标的ID
+	receiveIdSet bool
 
-	messageIdList     []string // 要转发的消息ID列表
-	messageIdListFlag bool
+	messageIdList    []string // 要转发的消息ID列表
+	messageIdListSet bool
 }
 
 func NewMergeForwardMessageReqBodyBuilder() *MergeForwardMessageReqBodyBuilder {
@@ -12879,38 +13019,38 @@ func NewMergeForwardMessageReqBodyBuilder() *MergeForwardMessageReqBodyBuilder {
 
 // 依据receive_id_type的值，填写对应的转发目标的ID
 //
-// 示例值：oc_a0553eda9014c201e6969b478895c230
+//示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *MergeForwardMessageReqBodyBuilder) ReceiveId(receiveId string) *MergeForwardMessageReqBodyBuilder {
 	builder.receiveId = receiveId
-	builder.receiveIdFlag = true
+	builder.receiveIdSet = true
 	return builder
 }
 
 // 要转发的消息ID列表
 //
-// 示例值：
+//示例值：
 func (builder *MergeForwardMessageReqBodyBuilder) MessageIdList(messageIdList []string) *MergeForwardMessageReqBodyBuilder {
 	builder.messageIdList = messageIdList
-	builder.messageIdListFlag = true
+	builder.messageIdListSet = true
 	return builder
 }
 
 func (builder *MergeForwardMessageReqBodyBuilder) Build() *MergeForwardMessageReqBody {
 	req := &MergeForwardMessageReqBody{}
-	if builder.receiveIdFlag {
+	if builder.receiveIdSet {
 		req.ReceiveId = &builder.receiveId
 	}
-	if builder.messageIdListFlag {
+	if builder.messageIdListSet {
 		req.MessageIdList = builder.messageIdList
 	}
 	return req
 }
 
 type MergeForwardMessagePathReqBodyBuilder struct {
-	receiveId         string
-	receiveIdFlag     bool
-	messageIdList     []string
-	messageIdListFlag bool
+	receiveId        string
+	receiveIdSet     bool
+	messageIdList    []string
+	messageIdListSet bool
 }
 
 func NewMergeForwardMessagePathReqBodyBuilder() *MergeForwardMessagePathReqBodyBuilder {
@@ -12923,7 +13063,7 @@ func NewMergeForwardMessagePathReqBodyBuilder() *MergeForwardMessagePathReqBodyB
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *MergeForwardMessagePathReqBodyBuilder) ReceiveId(receiveId string) *MergeForwardMessagePathReqBodyBuilder {
 	builder.receiveId = receiveId
-	builder.receiveIdFlag = true
+	builder.receiveIdSet = true
 	return builder
 }
 
@@ -12932,16 +13072,16 @@ func (builder *MergeForwardMessagePathReqBodyBuilder) ReceiveId(receiveId string
 // 示例值：
 func (builder *MergeForwardMessagePathReqBodyBuilder) MessageIdList(messageIdList []string) *MergeForwardMessagePathReqBodyBuilder {
 	builder.messageIdList = messageIdList
-	builder.messageIdListFlag = true
+	builder.messageIdListSet = true
 	return builder
 }
 
 func (builder *MergeForwardMessagePathReqBodyBuilder) Build() (*MergeForwardMessageReqBody, error) {
 	req := &MergeForwardMessageReqBody{}
-	if builder.receiveIdFlag {
+	if builder.receiveIdSet {
 		req.ReceiveId = &builder.receiveId
 	}
-	if builder.messageIdListFlag {
+	if builder.messageIdListSet {
 		req.MessageIdList = builder.messageIdList
 	}
 	return req, nil
@@ -13019,8 +13159,8 @@ func (resp *MergeForwardMessageResp) Success() bool {
 }
 
 type PatchMessageReqBodyBuilder struct {
-	content     string // 消息内容 json 格式，[发送消息 content 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)，参考文档中的卡片格式
-	contentFlag bool
+	content    string // 消息内容 json 格式，[发送消息 content 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)，参考文档中的卡片格式
+	contentSet bool
 }
 
 func NewPatchMessageReqBodyBuilder() *PatchMessageReqBodyBuilder {
@@ -13030,24 +13170,24 @@ func NewPatchMessageReqBodyBuilder() *PatchMessageReqBodyBuilder {
 
 // 消息内容 json 格式，[发送消息 content 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)，参考文档中的卡片格式
 //
-// 示例值：参考链接
+//示例值：参考链接
 func (builder *PatchMessageReqBodyBuilder) Content(content string) *PatchMessageReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *PatchMessageReqBodyBuilder) Build() *PatchMessageReqBody {
 	req := &PatchMessageReqBody{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 	}
 	return req
 }
 
 type PatchMessagePathReqBodyBuilder struct {
-	content     string
-	contentFlag bool
+	content    string
+	contentSet bool
 }
 
 func NewPatchMessagePathReqBodyBuilder() *PatchMessagePathReqBodyBuilder {
@@ -13060,13 +13200,13 @@ func NewPatchMessagePathReqBodyBuilder() *PatchMessagePathReqBodyBuilder {
 // 示例值：参考链接
 func (builder *PatchMessagePathReqBodyBuilder) Content(content string) *PatchMessagePathReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *PatchMessagePathReqBodyBuilder) Build() (*PatchMessageReqBody, error) {
 	req := &PatchMessageReqBody{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 	}
 	return req, nil
@@ -13127,8 +13267,8 @@ func (resp *PatchMessageResp) Success() bool {
 }
 
 type PushFollowUpMessageReqBodyBuilder struct {
-	followUps     []*FollowUp // follow up列表
-	followUpsFlag bool
+	followUps    []*FollowUp // follow up列表
+	followUpsSet bool
 }
 
 func NewPushFollowUpMessageReqBodyBuilder() *PushFollowUpMessageReqBodyBuilder {
@@ -13138,24 +13278,24 @@ func NewPushFollowUpMessageReqBodyBuilder() *PushFollowUpMessageReqBodyBuilder {
 
 // follow up列表
 //
-// 示例值：
+//示例值：
 func (builder *PushFollowUpMessageReqBodyBuilder) FollowUps(followUps []*FollowUp) *PushFollowUpMessageReqBodyBuilder {
 	builder.followUps = followUps
-	builder.followUpsFlag = true
+	builder.followUpsSet = true
 	return builder
 }
 
 func (builder *PushFollowUpMessageReqBodyBuilder) Build() *PushFollowUpMessageReqBody {
 	req := &PushFollowUpMessageReqBody{}
-	if builder.followUpsFlag {
+	if builder.followUpsSet {
 		req.FollowUps = builder.followUps
 	}
 	return req
 }
 
 type PushFollowUpMessagePathReqBodyBuilder struct {
-	followUps     []*FollowUp
-	followUpsFlag bool
+	followUps    []*FollowUp
+	followUpsSet bool
 }
 
 func NewPushFollowUpMessagePathReqBodyBuilder() *PushFollowUpMessagePathReqBodyBuilder {
@@ -13168,13 +13308,13 @@ func NewPushFollowUpMessagePathReqBodyBuilder() *PushFollowUpMessagePathReqBodyB
 // 示例值：
 func (builder *PushFollowUpMessagePathReqBodyBuilder) FollowUps(followUps []*FollowUp) *PushFollowUpMessagePathReqBodyBuilder {
 	builder.followUps = followUps
-	builder.followUpsFlag = true
+	builder.followUpsSet = true
 	return builder
 }
 
 func (builder *PushFollowUpMessagePathReqBodyBuilder) Build() (*PushFollowUpMessageReqBody, error) {
 	req := &PushFollowUpMessageReqBody{}
-	if builder.followUpsFlag {
+	if builder.followUpsSet {
 		req.FollowUps = builder.followUps
 	}
 	return req, nil
@@ -13202,6 +13342,7 @@ func (builder *PushFollowUpMessageReqBuilder) MessageId(messageId string) *PushF
 	return builder
 }
 
+//
 func (builder *PushFollowUpMessageReqBuilder) Body(body *PushFollowUpMessageReqBody) *PushFollowUpMessageReqBuilder {
 	builder.body = body
 	return builder
@@ -13309,17 +13450,17 @@ func (resp *ReadUsersMessageResp) Success() bool {
 }
 
 type ReplyMessageReqBodyBuilder struct {
-	content     string // 消息内容 json 格式，格式说明参考: [发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
-	contentFlag bool
+	content    string // 消息内容 json 格式，格式说明参考: [发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	contentSet bool
 
-	msgType     string // 消息类型，包括：text、post、image、file、audio、media、sticker、interactive、share_card、share_user
-	msgTypeFlag bool
+	msgType    string // 消息类型，包括：text、post、image、file、audio、media、sticker、interactive、share_card、share_user
+	msgTypeSet bool
 
-	replyInThread     bool // 是否以话题形式回复；若群聊已经是话题模式，则自动回复该条消息所在的话题
-	replyInThreadFlag bool
+	replyInThread    bool // 是否以话题形式回复；若群聊已经是话题模式，则自动回复该条消息所在的话题
+	replyInThreadSet bool
 
-	uuid     string // 由开发者生成的唯一字符串序列，用于回复消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
-	uuidFlag bool
+	uuid    string // 由开发者生成的唯一字符串序列，用于回复消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
+	uuidSet bool
 }
 
 func NewReplyMessageReqBodyBuilder() *ReplyMessageReqBodyBuilder {
@@ -13329,66 +13470,66 @@ func NewReplyMessageReqBodyBuilder() *ReplyMessageReqBodyBuilder {
 
 // 消息内容 json 格式，格式说明参考: [发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 //
-// 示例值：{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom </at> test content\"}
+//示例值：{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom </at> test content\"}
 func (builder *ReplyMessageReqBodyBuilder) Content(content string) *ReplyMessageReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 // 消息类型，包括：text、post、image、file、audio、media、sticker、interactive、share_card、share_user
 //
-// 示例值：text
+//示例值：text
 func (builder *ReplyMessageReqBodyBuilder) MsgType(msgType string) *ReplyMessageReqBodyBuilder {
 	builder.msgType = msgType
-	builder.msgTypeFlag = true
+	builder.msgTypeSet = true
 	return builder
 }
 
 // 是否以话题形式回复；若群聊已经是话题模式，则自动回复该条消息所在的话题
 //
-// 示例值：false
+//示例值：false
 func (builder *ReplyMessageReqBodyBuilder) ReplyInThread(replyInThread bool) *ReplyMessageReqBodyBuilder {
 	builder.replyInThread = replyInThread
-	builder.replyInThreadFlag = true
+	builder.replyInThreadSet = true
 	return builder
 }
 
 // 由开发者生成的唯一字符串序列，用于回复消息请求去重；持有相同uuid的请求1小时内至多成功执行一次
 //
-// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
+//示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *ReplyMessageReqBodyBuilder) Uuid(uuid string) *ReplyMessageReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
 func (builder *ReplyMessageReqBodyBuilder) Build() *ReplyMessageReqBody {
 	req := &ReplyMessageReqBody{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 	}
-	if builder.msgTypeFlag {
+	if builder.msgTypeSet {
 		req.MsgType = &builder.msgType
 	}
-	if builder.replyInThreadFlag {
+	if builder.replyInThreadSet {
 		req.ReplyInThread = &builder.replyInThread
 	}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
 	return req
 }
 
 type ReplyMessagePathReqBodyBuilder struct {
-	content           string
-	contentFlag       bool
-	msgType           string
-	msgTypeFlag       bool
-	replyInThread     bool
-	replyInThreadFlag bool
-	uuid              string
-	uuidFlag          bool
+	content          string
+	contentSet       bool
+	msgType          string
+	msgTypeSet       bool
+	replyInThread    bool
+	replyInThreadSet bool
+	uuid             string
+	uuidSet          bool
 }
 
 func NewReplyMessagePathReqBodyBuilder() *ReplyMessagePathReqBodyBuilder {
@@ -13401,7 +13542,7 @@ func NewReplyMessagePathReqBodyBuilder() *ReplyMessagePathReqBodyBuilder {
 // 示例值：{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom </at> test content\"}
 func (builder *ReplyMessagePathReqBodyBuilder) Content(content string) *ReplyMessagePathReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -13410,7 +13551,7 @@ func (builder *ReplyMessagePathReqBodyBuilder) Content(content string) *ReplyMes
 // 示例值：text
 func (builder *ReplyMessagePathReqBodyBuilder) MsgType(msgType string) *ReplyMessagePathReqBodyBuilder {
 	builder.msgType = msgType
-	builder.msgTypeFlag = true
+	builder.msgTypeSet = true
 	return builder
 }
 
@@ -13419,7 +13560,7 @@ func (builder *ReplyMessagePathReqBodyBuilder) MsgType(msgType string) *ReplyMes
 // 示例值：false
 func (builder *ReplyMessagePathReqBodyBuilder) ReplyInThread(replyInThread bool) *ReplyMessagePathReqBodyBuilder {
 	builder.replyInThread = replyInThread
-	builder.replyInThreadFlag = true
+	builder.replyInThreadSet = true
 	return builder
 }
 
@@ -13428,22 +13569,22 @@ func (builder *ReplyMessagePathReqBodyBuilder) ReplyInThread(replyInThread bool)
 // 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *ReplyMessagePathReqBodyBuilder) Uuid(uuid string) *ReplyMessagePathReqBodyBuilder {
 	builder.uuid = uuid
-	builder.uuidFlag = true
+	builder.uuidSet = true
 	return builder
 }
 
 func (builder *ReplyMessagePathReqBodyBuilder) Build() (*ReplyMessageReqBody, error) {
 	req := &ReplyMessageReqBody{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 	}
-	if builder.msgTypeFlag {
+	if builder.msgTypeSet {
 		req.MsgType = &builder.msgType
 	}
-	if builder.replyInThreadFlag {
+	if builder.replyInThreadSet {
 		req.ReplyInThread = &builder.replyInThread
 	}
-	if builder.uuidFlag {
+	if builder.uuidSet {
 		req.Uuid = &builder.uuid
 	}
 	return req, nil
@@ -13547,11 +13688,11 @@ func (resp *ReplyMessageResp) Success() bool {
 }
 
 type UpdateMessageReqBodyBuilder struct {
-	msgType     string // 消息的类型，仅支持文本(text)和富文本(post)类型
-	msgTypeFlag bool
+	msgType    string // 消息的类型，仅支持文本(text)和富文本(post)类型
+	msgTypeSet bool
 
-	content     string // 消息内容，JSON 格式
-	contentFlag bool
+	content    string // 消息内容，JSON 格式
+	contentSet bool
 }
 
 func NewUpdateMessageReqBodyBuilder() *UpdateMessageReqBodyBuilder {
@@ -13561,38 +13702,38 @@ func NewUpdateMessageReqBodyBuilder() *UpdateMessageReqBodyBuilder {
 
 // 消息的类型，仅支持文本(text)和富文本(post)类型
 //
-// 示例值：text
+//示例值：text
 func (builder *UpdateMessageReqBodyBuilder) MsgType(msgType string) *UpdateMessageReqBodyBuilder {
 	builder.msgType = msgType
-	builder.msgTypeFlag = true
+	builder.msgTypeSet = true
 	return builder
 }
 
 // 消息内容，JSON 格式
 //
-// 示例值：{"text":"test content"}
+//示例值：{"text":"test content"}
 func (builder *UpdateMessageReqBodyBuilder) Content(content string) *UpdateMessageReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *UpdateMessageReqBodyBuilder) Build() *UpdateMessageReqBody {
 	req := &UpdateMessageReqBody{}
-	if builder.msgTypeFlag {
+	if builder.msgTypeSet {
 		req.MsgType = &builder.msgType
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 	}
 	return req
 }
 
 type UpdateMessagePathReqBodyBuilder struct {
-	msgType     string
-	msgTypeFlag bool
-	content     string
-	contentFlag bool
+	msgType    string
+	msgTypeSet bool
+	content    string
+	contentSet bool
 }
 
 func NewUpdateMessagePathReqBodyBuilder() *UpdateMessagePathReqBodyBuilder {
@@ -13605,7 +13746,7 @@ func NewUpdateMessagePathReqBodyBuilder() *UpdateMessagePathReqBodyBuilder {
 // 示例值：text
 func (builder *UpdateMessagePathReqBodyBuilder) MsgType(msgType string) *UpdateMessagePathReqBodyBuilder {
 	builder.msgType = msgType
-	builder.msgTypeFlag = true
+	builder.msgTypeSet = true
 	return builder
 }
 
@@ -13614,16 +13755,16 @@ func (builder *UpdateMessagePathReqBodyBuilder) MsgType(msgType string) *UpdateM
 // 示例值：{"text":"test content"}
 func (builder *UpdateMessagePathReqBodyBuilder) Content(content string) *UpdateMessagePathReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 func (builder *UpdateMessagePathReqBodyBuilder) Build() (*UpdateMessageReqBody, error) {
 	req := &UpdateMessageReqBody{}
-	if builder.msgTypeFlag {
+	if builder.msgTypeSet {
 		req.MsgType = &builder.msgType
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 	}
 	return req, nil
@@ -13915,14 +14056,14 @@ func (resp *UrgentSmsMessageResp) Success() bool {
 }
 
 type BatchQueryMessageReactionReqBodyBuilder struct {
-	queries     []*MessageQuery // 要查询的消息
-	queriesFlag bool
+	queries    []*MessageQuery // 要查询的消息
+	queriesSet bool
 
-	pageSizePerMessage     int // 每个消息最多返回多少个表情
-	pageSizePerMessageFlag bool
+	pageSizePerMessage    int // 每个消息最多返回多少个表情
+	pageSizePerMessageSet bool
 
-	reactionType     string // 表情类型
-	reactionTypeFlag bool
+	reactionType    string // 表情类型
+	reactionTypeSet bool
 }
 
 func NewBatchQueryMessageReactionReqBodyBuilder() *BatchQueryMessageReactionReqBodyBuilder {
@@ -13932,52 +14073,52 @@ func NewBatchQueryMessageReactionReqBodyBuilder() *BatchQueryMessageReactionReqB
 
 // 要查询的消息
 //
-// 示例值：
+//示例值：
 func (builder *BatchQueryMessageReactionReqBodyBuilder) Queries(queries []*MessageQuery) *BatchQueryMessageReactionReqBodyBuilder {
 	builder.queries = queries
-	builder.queriesFlag = true
+	builder.queriesSet = true
 	return builder
 }
 
 // 每个消息最多返回多少个表情
 //
-// 示例值：10
+//示例值：10
 func (builder *BatchQueryMessageReactionReqBodyBuilder) PageSizePerMessage(pageSizePerMessage int) *BatchQueryMessageReactionReqBodyBuilder {
 	builder.pageSizePerMessage = pageSizePerMessage
-	builder.pageSizePerMessageFlag = true
+	builder.pageSizePerMessageSet = true
 	return builder
 }
 
 // 表情类型
 //
-// 示例值：LAUGH
+//示例值：LAUGH
 func (builder *BatchQueryMessageReactionReqBodyBuilder) ReactionType(reactionType string) *BatchQueryMessageReactionReqBodyBuilder {
 	builder.reactionType = reactionType
-	builder.reactionTypeFlag = true
+	builder.reactionTypeSet = true
 	return builder
 }
 
 func (builder *BatchQueryMessageReactionReqBodyBuilder) Build() *BatchQueryMessageReactionReqBody {
 	req := &BatchQueryMessageReactionReqBody{}
-	if builder.queriesFlag {
+	if builder.queriesSet {
 		req.Queries = builder.queries
 	}
-	if builder.pageSizePerMessageFlag {
+	if builder.pageSizePerMessageSet {
 		req.PageSizePerMessage = &builder.pageSizePerMessage
 	}
-	if builder.reactionTypeFlag {
+	if builder.reactionTypeSet {
 		req.ReactionType = &builder.reactionType
 	}
 	return req
 }
 
 type BatchQueryMessageReactionPathReqBodyBuilder struct {
-	queries                []*MessageQuery
-	queriesFlag            bool
-	pageSizePerMessage     int
-	pageSizePerMessageFlag bool
-	reactionType           string
-	reactionTypeFlag       bool
+	queries               []*MessageQuery
+	queriesSet            bool
+	pageSizePerMessage    int
+	pageSizePerMessageSet bool
+	reactionType          string
+	reactionTypeSet       bool
 }
 
 func NewBatchQueryMessageReactionPathReqBodyBuilder() *BatchQueryMessageReactionPathReqBodyBuilder {
@@ -13990,7 +14131,7 @@ func NewBatchQueryMessageReactionPathReqBodyBuilder() *BatchQueryMessageReaction
 // 示例值：
 func (builder *BatchQueryMessageReactionPathReqBodyBuilder) Queries(queries []*MessageQuery) *BatchQueryMessageReactionPathReqBodyBuilder {
 	builder.queries = queries
-	builder.queriesFlag = true
+	builder.queriesSet = true
 	return builder
 }
 
@@ -13999,7 +14140,7 @@ func (builder *BatchQueryMessageReactionPathReqBodyBuilder) Queries(queries []*M
 // 示例值：10
 func (builder *BatchQueryMessageReactionPathReqBodyBuilder) PageSizePerMessage(pageSizePerMessage int) *BatchQueryMessageReactionPathReqBodyBuilder {
 	builder.pageSizePerMessage = pageSizePerMessage
-	builder.pageSizePerMessageFlag = true
+	builder.pageSizePerMessageSet = true
 	return builder
 }
 
@@ -14008,19 +14149,19 @@ func (builder *BatchQueryMessageReactionPathReqBodyBuilder) PageSizePerMessage(p
 // 示例值：LAUGH
 func (builder *BatchQueryMessageReactionPathReqBodyBuilder) ReactionType(reactionType string) *BatchQueryMessageReactionPathReqBodyBuilder {
 	builder.reactionType = reactionType
-	builder.reactionTypeFlag = true
+	builder.reactionTypeSet = true
 	return builder
 }
 
 func (builder *BatchQueryMessageReactionPathReqBodyBuilder) Build() (*BatchQueryMessageReactionReqBody, error) {
 	req := &BatchQueryMessageReactionReqBody{}
-	if builder.queriesFlag {
+	if builder.queriesSet {
 		req.Queries = builder.queries
 	}
-	if builder.pageSizePerMessageFlag {
+	if builder.pageSizePerMessageSet {
 		req.PageSizePerMessage = &builder.pageSizePerMessage
 	}
-	if builder.reactionTypeFlag {
+	if builder.reactionTypeSet {
 		req.ReactionType = &builder.reactionType
 	}
 	return req, nil
@@ -14094,8 +14235,8 @@ func (resp *BatchQueryMessageReactionResp) Success() bool {
 }
 
 type CreateMessageReactionReqBodyBuilder struct {
-	reactionType     *Emoji // reaction资源类型
-	reactionTypeFlag bool
+	reactionType    *Emoji // reaction资源类型
+	reactionTypeSet bool
 }
 
 func NewCreateMessageReactionReqBodyBuilder() *CreateMessageReactionReqBodyBuilder {
@@ -14105,24 +14246,24 @@ func NewCreateMessageReactionReqBodyBuilder() *CreateMessageReactionReqBodyBuild
 
 // reaction资源类型
 //
-// 示例值：
+//示例值：
 func (builder *CreateMessageReactionReqBodyBuilder) ReactionType(reactionType *Emoji) *CreateMessageReactionReqBodyBuilder {
 	builder.reactionType = reactionType
-	builder.reactionTypeFlag = true
+	builder.reactionTypeSet = true
 	return builder
 }
 
 func (builder *CreateMessageReactionReqBodyBuilder) Build() *CreateMessageReactionReqBody {
 	req := &CreateMessageReactionReqBody{}
-	if builder.reactionTypeFlag {
+	if builder.reactionTypeSet {
 		req.ReactionType = builder.reactionType
 	}
 	return req
 }
 
 type CreateMessageReactionPathReqBodyBuilder struct {
-	reactionType     *Emoji
-	reactionTypeFlag bool
+	reactionType    *Emoji
+	reactionTypeSet bool
 }
 
 func NewCreateMessageReactionPathReqBodyBuilder() *CreateMessageReactionPathReqBodyBuilder {
@@ -14135,13 +14276,13 @@ func NewCreateMessageReactionPathReqBodyBuilder() *CreateMessageReactionPathReqB
 // 示例值：
 func (builder *CreateMessageReactionPathReqBodyBuilder) ReactionType(reactionType *Emoji) *CreateMessageReactionPathReqBodyBuilder {
 	builder.reactionType = reactionType
-	builder.reactionTypeFlag = true
+	builder.reactionTypeSet = true
 	return builder
 }
 
 func (builder *CreateMessageReactionPathReqBodyBuilder) Build() (*CreateMessageReactionReqBody, error) {
 	req := &CreateMessageReactionReqBody{}
-	if builder.reactionTypeFlag {
+	if builder.reactionTypeSet {
 		req.ReactionType = builder.reactionType
 	}
 	return req, nil
@@ -14439,8 +14580,8 @@ func (resp *GetMessageResourceResp) WriteFile(fileName string) error {
 }
 
 type CreatePinReqBodyBuilder struct {
-	messageId     string // 待Pin的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	messageIdFlag bool
+	messageId    string // 待Pin的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	messageIdSet bool
 }
 
 func NewCreatePinReqBodyBuilder() *CreatePinReqBodyBuilder {
@@ -14450,24 +14591,24 @@ func NewCreatePinReqBodyBuilder() *CreatePinReqBodyBuilder {
 
 // 待Pin的消息ID，详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 //
-// 示例值：om_dc13264520392913993dd051dba21dcf
+//示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *CreatePinReqBodyBuilder) MessageId(messageId string) *CreatePinReqBodyBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
 func (builder *CreatePinReqBodyBuilder) Build() *CreatePinReqBody {
 	req := &CreatePinReqBody{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 	}
 	return req
 }
 
 type CreatePinPathReqBodyBuilder struct {
-	messageId     string
-	messageIdFlag bool
+	messageId    string
+	messageIdSet bool
 }
 
 func NewCreatePinPathReqBodyBuilder() *CreatePinPathReqBodyBuilder {
@@ -14480,13 +14621,13 @@ func NewCreatePinPathReqBodyBuilder() *CreatePinPathReqBodyBuilder {
 // 示例值：om_dc13264520392913993dd051dba21dcf
 func (builder *CreatePinPathReqBodyBuilder) MessageId(messageId string) *CreatePinPathReqBodyBuilder {
 	builder.messageId = messageId
-	builder.messageIdFlag = true
+	builder.messageIdSet = true
 	return builder
 }
 
 func (builder *CreatePinPathReqBodyBuilder) Build() (*CreatePinReqBody, error) {
 	req := &CreatePinReqBody{}
-	if builder.messageIdFlag {
+	if builder.messageIdSet {
 		req.MessageId = &builder.messageId
 	}
 	return req, nil
@@ -14676,8 +14817,8 @@ func (resp *ListPinResp) Success() bool {
 }
 
 type ForwardThreadReqBodyBuilder struct {
-	receiveId     string // 依据receive_id_type的值，填写对应的转发目标的ID
-	receiveIdFlag bool
+	receiveId    string // 依据receive_id_type的值，填写对应的转发目标的ID
+	receiveIdSet bool
 }
 
 func NewForwardThreadReqBodyBuilder() *ForwardThreadReqBodyBuilder {
@@ -14687,24 +14828,24 @@ func NewForwardThreadReqBodyBuilder() *ForwardThreadReqBodyBuilder {
 
 // 依据receive_id_type的值，填写对应的转发目标的ID
 //
-// 示例值：oc_a0553eda9014c201e6969b478895c230
+//示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *ForwardThreadReqBodyBuilder) ReceiveId(receiveId string) *ForwardThreadReqBodyBuilder {
 	builder.receiveId = receiveId
-	builder.receiveIdFlag = true
+	builder.receiveIdSet = true
 	return builder
 }
 
 func (builder *ForwardThreadReqBodyBuilder) Build() *ForwardThreadReqBody {
 	req := &ForwardThreadReqBody{}
-	if builder.receiveIdFlag {
+	if builder.receiveIdSet {
 		req.ReceiveId = &builder.receiveId
 	}
 	return req
 }
 
 type ForwardThreadPathReqBodyBuilder struct {
-	receiveId     string
-	receiveIdFlag bool
+	receiveId    string
+	receiveIdSet bool
 }
 
 func NewForwardThreadPathReqBodyBuilder() *ForwardThreadPathReqBodyBuilder {
@@ -14717,13 +14858,13 @@ func NewForwardThreadPathReqBodyBuilder() *ForwardThreadPathReqBodyBuilder {
 // 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *ForwardThreadPathReqBodyBuilder) ReceiveId(receiveId string) *ForwardThreadPathReqBodyBuilder {
 	builder.receiveId = receiveId
-	builder.receiveIdFlag = true
+	builder.receiveIdSet = true
 	return builder
 }
 
 func (builder *ForwardThreadPathReqBodyBuilder) Build() (*ForwardThreadReqBody, error) {
 	req := &ForwardThreadReqBody{}
-	if builder.receiveIdFlag {
+	if builder.receiveIdSet {
 		req.ReceiveId = &builder.receiveId
 	}
 	return req, nil

@@ -40,6 +40,7 @@ func main() {
 			ParentDepartmentId("7094136522860922222").
 			CodeList([]string{}).
 			Fields([]string{}).
+			Keyword("搜索关键词").
 			Build()).
 		Build()
 	// 发起请求

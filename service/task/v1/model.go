@@ -149,11 +149,11 @@ type Collaborator struct {
 }
 
 type CollaboratorBuilder struct {
-	id     string // 任务执行者的 ID。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用id_list字段;</md-alert>
-	idFlag bool
+	id    string // 任务执行者的 ID。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用id_list字段;</md-alert>
+	idSet bool
 
-	idList     []string // 执行者的用户ID列表。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
-	idListFlag bool
+	idList    []string // 执行者的用户ID列表。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	idListSet bool
 }
 
 func NewCollaboratorBuilder() *CollaboratorBuilder {
@@ -166,7 +166,7 @@ func NewCollaboratorBuilder() *CollaboratorBuilder {
 // 示例值：ou_99e1a581b36ecc4862cbfbce473f1234
 func (builder *CollaboratorBuilder) Id(id string) *CollaboratorBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -175,17 +175,17 @@ func (builder *CollaboratorBuilder) Id(id string) *CollaboratorBuilder {
 // 示例值：["ou_550cc75233d8b7b9fcbdad65f34433f4", "ou_d1e9d27cf3235b40ca9a67c67ef088b0"]
 func (builder *CollaboratorBuilder) IdList(idList []string) *CollaboratorBuilder {
 	builder.idList = idList
-	builder.idListFlag = true
+	builder.idListSet = true
 	return builder
 }
 
 func (builder *CollaboratorBuilder) Build() *Collaborator {
 	req := &Collaborator{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.idListFlag {
+	if builder.idListSet {
 		req.IdList = builder.idList
 	}
 	return req
@@ -206,23 +206,23 @@ type Comment struct {
 }
 
 type CommentBuilder struct {
-	content     string // 评论内容。;<md-alert>;评论内容和富文本评论内容同时存在时只使用富文本评论内容。;</md-alert>
-	contentFlag bool
+	content    string // 评论内容。;<md-alert>;评论内容和富文本评论内容同时存在时只使用富文本评论内容。;</md-alert>
+	contentSet bool
 
-	parentId     string // 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
-	parentIdFlag bool
+	parentId    string // 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
+	parentIdSet bool
 
-	id     string // 评论ID，由飞书服务器发号
-	idFlag bool
+	id    string // 评论ID，由飞书服务器发号
+	idSet bool
 
-	createMilliTime     string // 评论创建的时间戳，单位为毫秒，用于展示，创建时不用填写
-	createMilliTimeFlag bool
+	createMilliTime    string // 评论创建的时间戳，单位为毫秒，用于展示，创建时不用填写
+	createMilliTimeSet bool
 
-	richContent     string // 富文本评论内容。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
-	richContentFlag bool
+	richContent    string // 富文本评论内容。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	richContentSet bool
 
-	creatorId     string // 评论的创建者 ID。在创建评论时无需填充该字段
-	creatorIdFlag bool
+	creatorId    string // 评论的创建者 ID。在创建评论时无需填充该字段
+	creatorIdSet bool
 }
 
 func NewCommentBuilder() *CommentBuilder {
@@ -235,7 +235,7 @@ func NewCommentBuilder() *CommentBuilder {
 // 示例值：举杯邀明月，对影成三人
 func (builder *CommentBuilder) Content(content string) *CommentBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -244,7 +244,7 @@ func (builder *CommentBuilder) Content(content string) *CommentBuilder {
 // 示例值：6937231762296684564
 func (builder *CommentBuilder) ParentId(parentId string) *CommentBuilder {
 	builder.parentId = parentId
-	builder.parentIdFlag = true
+	builder.parentIdSet = true
 	return builder
 }
 
@@ -253,7 +253,7 @@ func (builder *CommentBuilder) ParentId(parentId string) *CommentBuilder {
 // 示例值：6937231762296684564
 func (builder *CommentBuilder) Id(id string) *CommentBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -262,7 +262,7 @@ func (builder *CommentBuilder) Id(id string) *CommentBuilder {
 // 示例值：1657075055135
 func (builder *CommentBuilder) CreateMilliTime(createMilliTime string) *CommentBuilder {
 	builder.createMilliTime = createMilliTime
-	builder.createMilliTimeFlag = true
+	builder.createMilliTimeSet = true
 	return builder
 }
 
@@ -271,7 +271,7 @@ func (builder *CommentBuilder) CreateMilliTime(createMilliTime string) *CommentB
 // 示例值：举杯邀明月，对影成三人<at id=7058204817822318612></at>
 func (builder *CommentBuilder) RichContent(richContent string) *CommentBuilder {
 	builder.richContent = richContent
-	builder.richContentFlag = true
+	builder.richContentSet = true
 	return builder
 }
 
@@ -280,33 +280,33 @@ func (builder *CommentBuilder) RichContent(richContent string) *CommentBuilder {
 // 示例值：ou_99e1a581b36ecc4862cbfbce473f346a
 func (builder *CommentBuilder) CreatorId(creatorId string) *CommentBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
 func (builder *CommentBuilder) Build() *Comment {
 	req := &Comment{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.parentIdFlag {
+	if builder.parentIdSet {
 		req.ParentId = &builder.parentId
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.createMilliTimeFlag {
+	if builder.createMilliTimeSet {
 		req.CreateMilliTime = &builder.createMilliTime
 
 	}
-	if builder.richContentFlag {
+	if builder.richContentSet {
 		req.RichContent = &builder.richContent
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
@@ -320,11 +320,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -332,27 +332,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -368,14 +372,14 @@ type Due struct {
 }
 
 type DueBuilder struct {
-	time     string // 表示截止时间的Unix时间戳（单位为秒）。
-	timeFlag bool
+	time    string // 表示截止时间的Unix时间戳（单位为秒）。
+	timeSet bool
 
-	timezone     string // 截止时间对应的时区。;传入值需要符合IANA Time Zone Database标准，规范见[Time Zone Database](https://www.iana.org/time-zones)。
-	timezoneFlag bool
+	timezone    string // 截止时间对应的时区。;传入值需要符合IANA Time Zone Database标准，规范见[Time Zone Database](https://www.iana.org/time-zones)。
+	timezoneSet bool
 
-	isAllDay     bool // 标记任务是否为全天任务。;包括如下取值：;- true：表示是全天任务，全天任务的截止时间为当天 UTC 时间的 0 点。;- false：表示不是全天任务。
-	isAllDayFlag bool
+	isAllDay    bool // 标记任务是否为全天任务。;包括如下取值：;- true：表示是全天任务，全天任务的截止时间为当天 UTC 时间的 0 点。;- false：表示不是全天任务。
+	isAllDaySet bool
 }
 
 func NewDueBuilder() *DueBuilder {
@@ -388,7 +392,7 @@ func NewDueBuilder() *DueBuilder {
 // 示例值：1623124318
 func (builder *DueBuilder) Time(time string) *DueBuilder {
 	builder.time = time
-	builder.timeFlag = true
+	builder.timeSet = true
 	return builder
 }
 
@@ -397,7 +401,7 @@ func (builder *DueBuilder) Time(time string) *DueBuilder {
 // 示例值：Asia/Shanghai
 func (builder *DueBuilder) Timezone(timezone string) *DueBuilder {
 	builder.timezone = timezone
-	builder.timezoneFlag = true
+	builder.timezoneSet = true
 	return builder
 }
 
@@ -406,21 +410,21 @@ func (builder *DueBuilder) Timezone(timezone string) *DueBuilder {
 // 示例值：false
 func (builder *DueBuilder) IsAllDay(isAllDay bool) *DueBuilder {
 	builder.isAllDay = isAllDay
-	builder.isAllDayFlag = true
+	builder.isAllDaySet = true
 	return builder
 }
 
 func (builder *DueBuilder) Build() *Due {
 	req := &Due{}
-	if builder.timeFlag {
+	if builder.timeSet {
 		req.Time = &builder.time
 
 	}
-	if builder.timezoneFlag {
+	if builder.timezoneSet {
 		req.Timezone = &builder.timezone
 
 	}
-	if builder.isAllDayFlag {
+	if builder.isAllDaySet {
 		req.IsAllDay = &builder.isAllDay
 
 	}
@@ -434,11 +438,11 @@ type Follower struct {
 }
 
 type FollowerBuilder struct {
-	id     string // 任务关注人 ID
-	idFlag bool
+	id    string // 任务关注人 ID
+	idSet bool
 
-	idList     []string // 要删除的关注人ID列表
-	idListFlag bool
+	idList    []string // 要删除的关注人ID列表
+	idListSet bool
 }
 
 func NewFollowerBuilder() *FollowerBuilder {
@@ -451,7 +455,7 @@ func NewFollowerBuilder() *FollowerBuilder {
 // 示例值：ou_99e1a581b36ecc4862cbfbce473f3123
 func (builder *FollowerBuilder) Id(id string) *FollowerBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -460,17 +464,17 @@ func (builder *FollowerBuilder) Id(id string) *FollowerBuilder {
 // 示例值：[;  "ou_550cc75233d8b7b9fcbdad65f34433f4", "ou_d1e9d27cf3235b40ca9a67c67ef088b0";]
 func (builder *FollowerBuilder) IdList(idList []string) *FollowerBuilder {
 	builder.idList = idList
-	builder.idListFlag = true
+	builder.idListSet = true
 	return builder
 }
 
 func (builder *FollowerBuilder) Build() *Follower {
 	req := &Follower{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.idListFlag {
+	if builder.idListSet {
 		req.IdList = builder.idList
 	}
 	return req
@@ -483,11 +487,11 @@ type Href struct {
 }
 
 type HrefBuilder struct {
-	url     string // 具体链接地址。;URL仅支持解析http、https。详细参见：[任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
-	urlFlag bool
+	url    string // 具体链接地址。;URL仅支持解析http、https。详细参见：[任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
+	urlSet bool
 
-	title     string // 链接对应的标题
-	titleFlag bool
+	title    string // 链接对应的标题
+	titleSet bool
 }
 
 func NewHrefBuilder() *HrefBuilder {
@@ -500,7 +504,7 @@ func NewHrefBuilder() *HrefBuilder {
 // 示例值：https://support.feishu.com/internal/foo-bar
 func (builder *HrefBuilder) Url(url string) *HrefBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
@@ -509,17 +513,17 @@ func (builder *HrefBuilder) Url(url string) *HrefBuilder {
 // 示例值：反馈一个问题，需要协助排查
 func (builder *HrefBuilder) Title(title string) *HrefBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
 func (builder *HrefBuilder) Build() *Href {
 	req := &Href{}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
@@ -533,11 +537,11 @@ type Origin struct {
 }
 
 type OriginBuilder struct {
-	platformI18nName     string // 任务来源的名称。;用于在任务中心详情页展示。需要提供一个字典，支持多种语言名称映射。应用在使用不同语言时，导入来源也将展示对应的内容。详细参见：[任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
-	platformI18nNameFlag bool
+	platformI18nName    string // 任务来源的名称。;用于在任务中心详情页展示。需要提供一个字典，支持多种语言名称映射。应用在使用不同语言时，导入来源也将展示对应的内容。详细参见：[任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
+	platformI18nNameSet bool
 
-	href     *Href // 任务关联的来源平台详情页链接
-	hrefFlag bool
+	href    *Href // 任务关联的来源平台详情页链接
+	hrefSet bool
 }
 
 func NewOriginBuilder() *OriginBuilder {
@@ -550,7 +554,7 @@ func NewOriginBuilder() *OriginBuilder {
 // 示例值：{\"zh_cn\": \"IT 工作台\", \"en_us\": \"IT Workspace\"}
 func (builder *OriginBuilder) PlatformI18nName(platformI18nName string) *OriginBuilder {
 	builder.platformI18nName = platformI18nName
-	builder.platformI18nNameFlag = true
+	builder.platformI18nNameSet = true
 	return builder
 }
 
@@ -559,17 +563,17 @@ func (builder *OriginBuilder) PlatformI18nName(platformI18nName string) *OriginB
 // 示例值：
 func (builder *OriginBuilder) Href(href *Href) *OriginBuilder {
 	builder.href = href
-	builder.hrefFlag = true
+	builder.hrefSet = true
 	return builder
 }
 
 func (builder *OriginBuilder) Build() *Origin {
 	req := &Origin{}
-	if builder.platformI18nNameFlag {
+	if builder.platformI18nNameSet {
 		req.PlatformI18nName = &builder.platformI18nName
 
 	}
-	if builder.hrefFlag {
+	if builder.hrefSet {
 		req.Href = builder.href
 	}
 	return req
@@ -582,11 +586,11 @@ type Reminder struct {
 }
 
 type ReminderBuilder struct {
-	id     string // 提醒时间设置的 ID（在删除时候需要使用这个）
-	idFlag bool
+	id    string // 提醒时间设置的 ID（在删除时候需要使用这个）
+	idSet bool
 
-	relativeFireMinute     int // 相对于截止时间的提醒时间（如提前 30 分钟，截止时间后 30 分钟，则为 -30） 任务没有截止时间则为全天任务(截止时间为0)
-	relativeFireMinuteFlag bool
+	relativeFireMinute    int // 相对于截止时间的提醒时间（如提前 30 分钟，截止时间后 30 分钟，则为 -30） 任务没有截止时间则为全天任务(截止时间为0)
+	relativeFireMinuteSet bool
 }
 
 func NewReminderBuilder() *ReminderBuilder {
@@ -599,7 +603,7 @@ func NewReminderBuilder() *ReminderBuilder {
 // 示例值：1
 func (builder *ReminderBuilder) Id(id string) *ReminderBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -608,17 +612,17 @@ func (builder *ReminderBuilder) Id(id string) *ReminderBuilder {
 // 示例值：30
 func (builder *ReminderBuilder) RelativeFireMinute(relativeFireMinute int) *ReminderBuilder {
 	builder.relativeFireMinute = relativeFireMinute
-	builder.relativeFireMinuteFlag = true
+	builder.relativeFireMinuteSet = true
 	return builder
 }
 
 func (builder *ReminderBuilder) Build() *Reminder {
 	req := &Reminder{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.relativeFireMinuteFlag {
+	if builder.relativeFireMinuteSet {
 		req.RelativeFireMinute = &builder.relativeFireMinute
 
 	}
@@ -684,65 +688,65 @@ type Task struct {
 }
 
 type TaskBuilder struct {
-	id     string // 任务的唯一ID，例如"83912691-2e43-47fc-94a4-d512e03984fa"
-	idFlag bool
+	id    string // 任务的唯一ID，例如"83912691-2e43-47fc-94a4-d512e03984fa"
+	idSet bool
 
-	summary     string // 任务的标题，类型为文本字符串。;如果要在任务标题中插入 URL 或者 @某个用户，请使用rich_summary字段。;创建任务时，任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空，需要至少填充其中一个字段。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
-	summaryFlag bool
+	summary    string // 任务的标题，类型为文本字符串。;如果要在任务标题中插入 URL 或者 @某个用户，请使用rich_summary字段。;创建任务时，任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空，需要至少填充其中一个字段。;<md-alert>;任务标题和任务富文本标题同时存在时只使用富文本标题。;</md-alert>
+	summarySet bool
 
-	description     string // 任务的描述，类型为文本字符串。;如果要在任务描述中插入 URL 或者 @某个用户，请使用rich_description字段。;<md-alert>;任务备注和任务富文本备注同时存在时只使用富文本备注。;</md-alert>
-	descriptionFlag bool
+	description    string // 任务的描述，类型为文本字符串。;如果要在任务描述中插入 URL 或者 @某个用户，请使用rich_description字段。;<md-alert>;任务备注和任务富文本备注同时存在时只使用富文本备注。;</md-alert>
+	descriptionSet bool
 
-	completeTime     string // 任务的完成时间戳（单位为秒），完成时间为0则表示任务尚未完成。;不支持部分完成，只有整个任务完成，该字段才会有非0值。
-	completeTimeFlag bool
+	completeTime    string // 任务的完成时间戳（单位为秒），完成时间为0则表示任务尚未完成。;不支持部分完成，只有整个任务完成，该字段才会有非0值。
+	completeTimeSet bool
 
-	creatorId     string // 任务的创建者 ID。;其中查询字段 user_id_type 是用于控制返回体中 creator_id 的类型，不传时默认返回 open_id。;特别的，使用tenant_access_token 调用接口时，如果是user_id_type是openid，则返回代表该应用身份的openid；当user_id_type为user_id时，不返回creator_id。原因是user_id代表一个真实飞书用户的id，应用身份没有user_id。使用user_access_token调用接口正常返回创建者。
-	creatorIdFlag bool
+	creatorId    string // 任务的创建者 ID。;其中查询字段 user_id_type 是用于控制返回体中 creator_id 的类型，不传时默认返回 open_id。;特别的，使用tenant_access_token 调用接口时，如果是user_id_type是openid，则返回代表该应用身份的openid；当user_id_type为user_id时，不返回creator_id。原因是user_id代表一个真实飞书用户的id，应用身份没有user_id。使用user_access_token调用接口正常返回创建者。
+	creatorIdSet bool
 
-	extra     string // 附属信息。;接入方可以传入base64 编码后的自定义的数据。用户如果需要对当前任务备注信息，但对外不显示，可使用该字段进行存储。;该数据会在获取任务详情时，原样返回给用户。
-	extraFlag bool
+	extra    string // 附属信息。;接入方可以传入base64 编码后的自定义的数据。用户如果需要对当前任务备注信息，但对外不显示，可使用该字段进行存储。;该数据会在获取任务详情时，原样返回给用户。
+	extraSet bool
 
-	createTime     string // 任务的创建时间的Unix时间戳（单位为秒）
-	createTimeFlag bool
+	createTime    string // 任务的创建时间的Unix时间戳（单位为秒）
+	createTimeSet bool
 
-	updateTime     string // 任务的更新时间的Unix时间戳（单位为秒）;创建任务时update_time与create_time相同
-	updateTimeFlag bool
+	updateTime    string // 任务的更新时间的Unix时间戳（单位为秒）;创建任务时update_time与create_time相同
+	updateTimeSet bool
 
-	due     *Due // 任务的截止时间设置
-	dueFlag bool
+	due    *Due // 任务的截止时间设置
+	dueSet bool
 
-	origin     *Origin // 任务关联的第三方平台来源信息
-	originFlag bool
+	origin    *Origin // 任务关联的第三方平台来源信息
+	originSet bool
 
-	canEdit     bool // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false;<md-alert>;已经废弃，向前兼容故仍然保留，但不推荐使用;</md-alert>
-	canEditFlag bool
+	canEdit    bool // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false;<md-alert>;已经废弃，向前兼容故仍然保留，但不推荐使用;</md-alert>
+	canEditSet bool
 
-	custom     string // 自定义完成配置。;此字段用于设置完成任务时的页面跳转，或展示提示语。详细参见：[任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
-	customFlag bool
+	custom    string // 自定义完成配置。;此字段用于设置完成任务时的页面跳转，或展示提示语。详细参见：[任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
+	customSet bool
 
-	source     int // 任务创建的来源
-	sourceFlag bool
+	source    int // 任务创建的来源
+	sourceSet bool
 
-	followers     []*Follower // 任务的关注者
-	followersFlag bool
+	followers    []*Follower // 任务的关注者
+	followersSet bool
 
-	collaborators     []*Collaborator // 任务的执行者
-	collaboratorsFlag bool
+	collaborators    []*Collaborator // 任务的执行者
+	collaboratorsSet bool
 
-	collaboratorIds     []string // 创建任务时添加的执行者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
-	collaboratorIdsFlag bool
+	collaboratorIds    []string // 创建任务时添加的执行者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	collaboratorIdsSet bool
 
-	followerIds     []string // 创建任务时添加的关注者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
-	followerIdsFlag bool
+	followerIds    []string // 创建任务时添加的关注者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	followerIdsSet bool
 
-	repeatRule     string // 重复任务的规则表达式。;语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
-	repeatRuleFlag bool
+	repeatRule    string // 重复任务的规则表达式。;语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
+	repeatRuleSet bool
 
-	richSummary     string // 富文本任务标题。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module);。创建任务时，任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空，需要至少填充其中一个字段。
-	richSummaryFlag bool
+	richSummary    string // 富文本任务标题。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module);。创建任务时，任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空，需要至少填充其中一个字段。
+	richSummarySet bool
 
-	richDescription     string // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
-	richDescriptionFlag bool
+	richDescription    string // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	richDescriptionSet bool
 }
 
 func NewTaskBuilder() *TaskBuilder {
@@ -755,7 +759,7 @@ func NewTaskBuilder() *TaskBuilder {
 // 示例值：83912691-2e43-47fc-94a4-d512e03984fa
 func (builder *TaskBuilder) Id(id string) *TaskBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -764,7 +768,7 @@ func (builder *TaskBuilder) Id(id string) *TaskBuilder {
 // 示例值：完成本季度OKR编写
 func (builder *TaskBuilder) Summary(summary string) *TaskBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -773,7 +777,7 @@ func (builder *TaskBuilder) Summary(summary string) *TaskBuilder {
 // 示例值：对本次会议内容复盘总结，编写更新本季度OKR
 func (builder *TaskBuilder) Description(description string) *TaskBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -782,7 +786,7 @@ func (builder *TaskBuilder) Description(description string) *TaskBuilder {
 // 示例值：1623499200
 func (builder *TaskBuilder) CompleteTime(completeTime string) *TaskBuilder {
 	builder.completeTime = completeTime
-	builder.completeTimeFlag = true
+	builder.completeTimeSet = true
 	return builder
 }
 
@@ -791,7 +795,7 @@ func (builder *TaskBuilder) CompleteTime(completeTime string) *TaskBuilder {
 // 示例值：ou_99e1a581b36ecc4862cbfbce473f346a
 func (builder *TaskBuilder) CreatorId(creatorId string) *TaskBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -800,7 +804,7 @@ func (builder *TaskBuilder) CreatorId(creatorId string) *TaskBuilder {
 // 示例值：dGVzdA==
 func (builder *TaskBuilder) Extra(extra string) *TaskBuilder {
 	builder.extra = extra
-	builder.extraFlag = true
+	builder.extraSet = true
 	return builder
 }
 
@@ -809,7 +813,7 @@ func (builder *TaskBuilder) Extra(extra string) *TaskBuilder {
 // 示例值：1623392486
 func (builder *TaskBuilder) CreateTime(createTime string) *TaskBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -818,7 +822,7 @@ func (builder *TaskBuilder) CreateTime(createTime string) *TaskBuilder {
 // 示例值：1623392486
 func (builder *TaskBuilder) UpdateTime(updateTime string) *TaskBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -827,7 +831,7 @@ func (builder *TaskBuilder) UpdateTime(updateTime string) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) Due(due *Due) *TaskBuilder {
 	builder.due = due
-	builder.dueFlag = true
+	builder.dueSet = true
 	return builder
 }
 
@@ -836,7 +840,7 @@ func (builder *TaskBuilder) Due(due *Due) *TaskBuilder {
 // 示例值：
 func (builder *TaskBuilder) Origin(origin *Origin) *TaskBuilder {
 	builder.origin = origin
-	builder.originFlag = true
+	builder.originSet = true
 	return builder
 }
 
@@ -845,7 +849,7 @@ func (builder *TaskBuilder) Origin(origin *Origin) *TaskBuilder {
 // 示例值：true
 func (builder *TaskBuilder) CanEdit(canEdit bool) *TaskBuilder {
 	builder.canEdit = canEdit
-	builder.canEditFlag = true
+	builder.canEditSet = true
 	return builder
 }
 
@@ -854,7 +858,7 @@ func (builder *TaskBuilder) CanEdit(canEdit bool) *TaskBuilder {
 // 示例值：{\"custom_complete\":{\"android\":{\"href\":\"https://www.feishu.cn/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}},\"ios\":{\"href\":\"https://www.feishu.cn/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}},\"pc\":{\"href\":\"https://www.feishu.cn/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}}}}
 func (builder *TaskBuilder) Custom(custom string) *TaskBuilder {
 	builder.custom = custom
-	builder.customFlag = true
+	builder.customSet = true
 	return builder
 }
 
@@ -863,7 +867,7 @@ func (builder *TaskBuilder) Custom(custom string) *TaskBuilder {
 // 示例值：6
 func (builder *TaskBuilder) Source(source int) *TaskBuilder {
 	builder.source = source
-	builder.sourceFlag = true
+	builder.sourceSet = true
 	return builder
 }
 
@@ -872,7 +876,7 @@ func (builder *TaskBuilder) Source(source int) *TaskBuilder {
 // 示例值：ou_03c21c80caea2c816665f8056dc59027
 func (builder *TaskBuilder) Followers(followers []*Follower) *TaskBuilder {
 	builder.followers = followers
-	builder.followersFlag = true
+	builder.followersSet = true
 	return builder
 }
 
@@ -881,7 +885,7 @@ func (builder *TaskBuilder) Followers(followers []*Follower) *TaskBuilder {
 // 示例值：ou_558d4999baae26e32aa2fd9bb228660b
 func (builder *TaskBuilder) Collaborators(collaborators []*Collaborator) *TaskBuilder {
 	builder.collaborators = collaborators
-	builder.collaboratorsFlag = true
+	builder.collaboratorsSet = true
 	return builder
 }
 
@@ -890,7 +894,7 @@ func (builder *TaskBuilder) Collaborators(collaborators []*Collaborator) *TaskBu
 // 示例值：["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"]
 func (builder *TaskBuilder) CollaboratorIds(collaboratorIds []string) *TaskBuilder {
 	builder.collaboratorIds = collaboratorIds
-	builder.collaboratorIdsFlag = true
+	builder.collaboratorIdsSet = true
 	return builder
 }
 
@@ -899,7 +903,7 @@ func (builder *TaskBuilder) CollaboratorIds(collaboratorIds []string) *TaskBuild
 // 示例值：["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"]
 func (builder *TaskBuilder) FollowerIds(followerIds []string) *TaskBuilder {
 	builder.followerIds = followerIds
-	builder.followerIdsFlag = true
+	builder.followerIdsSet = true
 	return builder
 }
 
@@ -908,7 +912,7 @@ func (builder *TaskBuilder) FollowerIds(followerIds []string) *TaskBuilder {
 // 示例值：FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR
 func (builder *TaskBuilder) RepeatRule(repeatRule string) *TaskBuilder {
 	builder.repeatRule = repeatRule
-	builder.repeatRuleFlag = true
+	builder.repeatRuleSet = true
 	return builder
 }
 
@@ -917,7 +921,7 @@ func (builder *TaskBuilder) RepeatRule(repeatRule string) *TaskBuilder {
 // 示例值：完成本季度OKR编写\[飞书开放平台](https://open.feishu.cn/)
 func (builder *TaskBuilder) RichSummary(richSummary string) *TaskBuilder {
 	builder.richSummary = richSummary
-	builder.richSummaryFlag = true
+	builder.richSummarySet = true
 	return builder
 }
 
@@ -926,83 +930,83 @@ func (builder *TaskBuilder) RichSummary(richSummary string) *TaskBuilder {
 // 示例值：对本次会议内容复盘总结，编写更新本季度OKR\[飞书开放平台](https://open.feishu.cn/)
 func (builder *TaskBuilder) RichDescription(richDescription string) *TaskBuilder {
 	builder.richDescription = richDescription
-	builder.richDescriptionFlag = true
+	builder.richDescriptionSet = true
 	return builder
 }
 
 func (builder *TaskBuilder) Build() *Task {
 	req := &Task{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.completeTimeFlag {
+	if builder.completeTimeSet {
 		req.CompleteTime = &builder.completeTime
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.extraFlag {
+	if builder.extraSet {
 		req.Extra = &builder.extra
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.dueFlag {
+	if builder.dueSet {
 		req.Due = builder.due
 	}
-	if builder.originFlag {
+	if builder.originSet {
 		req.Origin = builder.origin
 	}
-	if builder.canEditFlag {
+	if builder.canEditSet {
 		req.CanEdit = &builder.canEdit
 
 	}
-	if builder.customFlag {
+	if builder.customSet {
 		req.Custom = &builder.custom
 
 	}
-	if builder.sourceFlag {
+	if builder.sourceSet {
 		req.Source = &builder.source
 
 	}
-	if builder.followersFlag {
+	if builder.followersSet {
 		req.Followers = builder.followers
 	}
-	if builder.collaboratorsFlag {
+	if builder.collaboratorsSet {
 		req.Collaborators = builder.collaborators
 	}
-	if builder.collaboratorIdsFlag {
+	if builder.collaboratorIdsSet {
 		req.CollaboratorIds = builder.collaboratorIds
 	}
-	if builder.followerIdsFlag {
+	if builder.followerIdsSet {
 		req.FollowerIds = builder.followerIds
 	}
-	if builder.repeatRuleFlag {
+	if builder.repeatRuleSet {
 		req.RepeatRule = &builder.repeatRule
 
 	}
-	if builder.richSummaryFlag {
+	if builder.richSummarySet {
 		req.RichSummary = &builder.richSummary
 
 	}
-	if builder.richDescriptionFlag {
+	if builder.richDescriptionSet {
 		req.RichDescription = &builder.richDescription
 
 	}
@@ -1034,14 +1038,14 @@ type UserId struct {
 }
 
 type UserIdBuilder struct {
-	userId     string //
-	userIdFlag bool
+	userId    string //
+	userIdSet bool
 
-	openId     string //
-	openIdFlag bool
+	openId    string //
+	openIdSet bool
 
-	unionId     string //
-	unionIdFlag bool
+	unionId    string //
+	unionIdSet bool
 }
 
 func NewUserIdBuilder() *UserIdBuilder {
@@ -1049,38 +1053,44 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
-	builder.openIdFlag = true
+	builder.openIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
-	builder.unionIdFlag = true
+	builder.unionIdSet = true
 	return builder
 }
 
 func (builder *UserIdBuilder) Build() *UserId {
 	req := &UserId{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.openIdFlag {
+	if builder.openIdSet {
 		req.OpenId = &builder.openId
 
 	}
-	if builder.unionIdFlag {
+	if builder.unionIdSet {
 		req.UnionId = &builder.unionId
 
 	}
@@ -1092,8 +1102,8 @@ type UserIdList struct {
 }
 
 type UserIdListBuilder struct {
-	userIdList     []*UserId // 用户 ID 列表
-	userIdListFlag bool
+	userIdList    []*UserId // 用户 ID 列表
+	userIdListSet bool
 }
 
 func NewUserIdListBuilder() *UserIdListBuilder {
@@ -1106,13 +1116,13 @@ func NewUserIdListBuilder() *UserIdListBuilder {
 // 示例值：
 func (builder *UserIdListBuilder) UserIdList(userIdList []*UserId) *UserIdListBuilder {
 	builder.userIdList = userIdList
-	builder.userIdListFlag = true
+	builder.userIdListSet = true
 	return builder
 }
 
 func (builder *UserIdListBuilder) Build() *UserIdList {
 	req := &UserIdList{}
-	if builder.userIdListFlag {
+	if builder.userIdListSet {
 		req.UserIdList = builder.userIdList
 	}
 	return req
@@ -1539,11 +1549,11 @@ func (resp *ListTaskResp) Success() bool {
 }
 
 type PatchTaskReqBodyBuilder struct {
-	task     *Task // 被更新的任务实体基础信息
-	taskFlag bool
+	task    *Task // 被更新的任务实体基础信息
+	taskSet bool
 
-	updateFields     []string // 指定需要更新的任务字段，否则服务端将不知道更新哪些字段
-	updateFieldsFlag bool
+	updateFields    []string // 指定需要更新的任务字段，否则服务端将不知道更新哪些字段
+	updateFieldsSet bool
 }
 
 func NewPatchTaskReqBodyBuilder() *PatchTaskReqBodyBuilder {
@@ -1553,38 +1563,38 @@ func NewPatchTaskReqBodyBuilder() *PatchTaskReqBodyBuilder {
 
 // 被更新的任务实体基础信息
 //
-// 示例值：
+//示例值：
 func (builder *PatchTaskReqBodyBuilder) Task(task *Task) *PatchTaskReqBodyBuilder {
 	builder.task = task
-	builder.taskFlag = true
+	builder.taskSet = true
 	return builder
 }
 
 // 指定需要更新的任务字段，否则服务端将不知道更新哪些字段
 //
-// 示例值：["summary"]
+//示例值：["summary"]
 func (builder *PatchTaskReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchTaskReqBodyBuilder) Build() *PatchTaskReqBody {
 	req := &PatchTaskReqBody{}
-	if builder.taskFlag {
+	if builder.taskSet {
 		req.Task = builder.task
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req
 }
 
 type PatchTaskPathReqBodyBuilder struct {
-	task             *Task
-	taskFlag         bool
-	updateFields     []string
-	updateFieldsFlag bool
+	task            *Task
+	taskSet         bool
+	updateFields    []string
+	updateFieldsSet bool
 }
 
 func NewPatchTaskPathReqBodyBuilder() *PatchTaskPathReqBodyBuilder {
@@ -1597,7 +1607,7 @@ func NewPatchTaskPathReqBodyBuilder() *PatchTaskPathReqBodyBuilder {
 // 示例值：
 func (builder *PatchTaskPathReqBodyBuilder) Task(task *Task) *PatchTaskPathReqBodyBuilder {
 	builder.task = task
-	builder.taskFlag = true
+	builder.taskSet = true
 	return builder
 }
 
@@ -1606,16 +1616,16 @@ func (builder *PatchTaskPathReqBodyBuilder) Task(task *Task) *PatchTaskPathReqBo
 // 示例值：["summary"]
 func (builder *PatchTaskPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskPathReqBodyBuilder {
 	builder.updateFields = updateFields
-	builder.updateFieldsFlag = true
+	builder.updateFieldsSet = true
 	return builder
 }
 
 func (builder *PatchTaskPathReqBodyBuilder) Build() (*PatchTaskReqBody, error) {
 	req := &PatchTaskReqBody{}
-	if builder.taskFlag {
+	if builder.taskSet {
 		req.Task = builder.task
 	}
-	if builder.updateFieldsFlag {
+	if builder.updateFieldsSet {
 		req.UpdateFields = builder.updateFields
 	}
 	return req, nil
@@ -2209,11 +2219,11 @@ func (resp *ListTaskCommentResp) Success() bool {
 }
 
 type UpdateTaskCommentReqBodyBuilder struct {
-	content     string // 新的评论内容
-	contentFlag bool
+	content    string // 新的评论内容
+	contentSet bool
 
-	richContent     string // 新的富文本评论内容（优先使用）
-	richContentFlag bool
+	richContent    string // 新的富文本评论内容（优先使用）
+	richContentSet bool
 }
 
 func NewUpdateTaskCommentReqBodyBuilder() *UpdateTaskCommentReqBodyBuilder {
@@ -2223,38 +2233,38 @@ func NewUpdateTaskCommentReqBodyBuilder() *UpdateTaskCommentReqBodyBuilder {
 
 // 新的评论内容
 //
-// 示例值：飞流直下三千尺，疑是银河落九天
+//示例值：飞流直下三千尺，疑是银河落九天
 func (builder *UpdateTaskCommentReqBodyBuilder) Content(content string) *UpdateTaskCommentReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
 // 新的富文本评论内容（优先使用）
 //
-// 示例值：飞流直下三千尺，疑是银河落九天<at id=7058204817822318612></at>
+//示例值：飞流直下三千尺，疑是银河落九天<at id=7058204817822318612></at>
 func (builder *UpdateTaskCommentReqBodyBuilder) RichContent(richContent string) *UpdateTaskCommentReqBodyBuilder {
 	builder.richContent = richContent
-	builder.richContentFlag = true
+	builder.richContentSet = true
 	return builder
 }
 
 func (builder *UpdateTaskCommentReqBodyBuilder) Build() *UpdateTaskCommentReqBody {
 	req := &UpdateTaskCommentReqBody{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 	}
-	if builder.richContentFlag {
+	if builder.richContentSet {
 		req.RichContent = &builder.richContent
 	}
 	return req
 }
 
 type UpdateTaskCommentPathReqBodyBuilder struct {
-	content         string
-	contentFlag     bool
-	richContent     string
-	richContentFlag bool
+	content        string
+	contentSet     bool
+	richContent    string
+	richContentSet bool
 }
 
 func NewUpdateTaskCommentPathReqBodyBuilder() *UpdateTaskCommentPathReqBodyBuilder {
@@ -2267,7 +2277,7 @@ func NewUpdateTaskCommentPathReqBodyBuilder() *UpdateTaskCommentPathReqBodyBuild
 // 示例值：飞流直下三千尺，疑是银河落九天
 func (builder *UpdateTaskCommentPathReqBodyBuilder) Content(content string) *UpdateTaskCommentPathReqBodyBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -2276,16 +2286,16 @@ func (builder *UpdateTaskCommentPathReqBodyBuilder) Content(content string) *Upd
 // 示例值：飞流直下三千尺，疑是银河落九天<at id=7058204817822318612></at>
 func (builder *UpdateTaskCommentPathReqBodyBuilder) RichContent(richContent string) *UpdateTaskCommentPathReqBodyBuilder {
 	builder.richContent = richContent
-	builder.richContentFlag = true
+	builder.richContentSet = true
 	return builder
 }
 
 func (builder *UpdateTaskCommentPathReqBodyBuilder) Build() (*UpdateTaskCommentReqBody, error) {
 	req := &UpdateTaskCommentReqBody{}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 	}
-	if builder.richContentFlag {
+	if builder.richContentSet {
 		req.RichContent = &builder.richContent
 	}
 	return req, nil

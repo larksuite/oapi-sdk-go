@@ -31,6 +31,8 @@ func main() {
 		VersionId("file_version").
 		ObjType("doc/sheet/bitable/docx").
 		UserIdType("open_id").
+		PageToken("1665739388").
+		PageSize(10).
 		Build()
 	// 发起请求
 	resp, err := client.Drive.V1.FileVersion.Get(context.Background(), req)

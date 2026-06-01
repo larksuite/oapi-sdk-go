@@ -47,14 +47,14 @@ type Credentials struct {
 }
 
 type CredentialsBuilder struct {
-	email     string // 邮箱
-	emailFlag bool
+	email    string // 邮箱
+	emailSet bool
 
-	mobile     string // 手机号
-	mobileFlag bool
+	mobile    string // 手机号
+	mobileSet bool
 
-	userId     string // 用户id
-	userIdFlag bool
+	userId    string // 用户id
+	userIdSet bool
 }
 
 func NewCredentialsBuilder() *CredentialsBuilder {
@@ -67,7 +67,7 @@ func NewCredentialsBuilder() *CredentialsBuilder {
 // 示例值：q*****@qq.com
 func (builder *CredentialsBuilder) Email(email string) *CredentialsBuilder {
 	builder.email = email
-	builder.emailFlag = true
+	builder.emailSet = true
 	return builder
 }
 
@@ -76,7 +76,7 @@ func (builder *CredentialsBuilder) Email(email string) *CredentialsBuilder {
 // 示例值：186*****01
 func (builder *CredentialsBuilder) Mobile(mobile string) *CredentialsBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
@@ -85,21 +85,21 @@ func (builder *CredentialsBuilder) Mobile(mobile string) *CredentialsBuilder {
 // 示例值：
 func (builder *CredentialsBuilder) UserId(userId string) *CredentialsBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 func (builder *CredentialsBuilder) Build() *Credentials {
 	req := &Credentials{}
-	if builder.emailFlag {
+	if builder.emailSet {
 		req.Email = &builder.email
 
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
@@ -113,11 +113,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -125,27 +125,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -159,11 +163,11 @@ type Device struct {
 }
 
 type DeviceBuilder struct {
-	deviceId     string // 当前设备ID
-	deviceIdFlag bool
+	deviceId    string // 当前设备ID
+	deviceIdSet bool
 
-	legacyDeviceId     string // 历史使用的设备ID
-	legacyDeviceIdFlag bool
+	legacyDeviceId    string // 历史使用的设备ID
+	legacyDeviceIdSet bool
 }
 
 func NewDeviceBuilder() *DeviceBuilder {
@@ -176,7 +180,7 @@ func NewDeviceBuilder() *DeviceBuilder {
 // 示例值：1234
 func (builder *DeviceBuilder) DeviceId(deviceId string) *DeviceBuilder {
 	builder.deviceId = deviceId
-	builder.deviceIdFlag = true
+	builder.deviceIdSet = true
 	return builder
 }
 
@@ -185,17 +189,17 @@ func (builder *DeviceBuilder) DeviceId(deviceId string) *DeviceBuilder {
 // 示例值：4567
 func (builder *DeviceBuilder) LegacyDeviceId(legacyDeviceId string) *DeviceBuilder {
 	builder.legacyDeviceId = legacyDeviceId
-	builder.legacyDeviceIdFlag = true
+	builder.legacyDeviceIdSet = true
 	return builder
 }
 
 func (builder *DeviceBuilder) Build() *Device {
 	req := &Device{}
-	if builder.deviceIdFlag {
+	if builder.deviceIdSet {
 		req.DeviceId = &builder.deviceId
 
 	}
-	if builder.legacyDeviceIdFlag {
+	if builder.legacyDeviceIdSet {
 		req.LegacyDeviceId = &builder.legacyDeviceId
 
 	}
@@ -223,8 +227,8 @@ type IdpCredentialId struct {
 }
 
 type IdpCredentialIdBuilder struct {
-	idpCredentialId     string // idp侧租户唯一标识
-	idpCredentialIdFlag bool
+	idpCredentialId    string // idp侧租户唯一标识
+	idpCredentialIdSet bool
 }
 
 func NewIdpCredentialIdBuilder() *IdpCredentialIdBuilder {
@@ -237,13 +241,13 @@ func NewIdpCredentialIdBuilder() *IdpCredentialIdBuilder {
 // 示例值：
 func (builder *IdpCredentialIdBuilder) IdpCredentialId(idpCredentialId string) *IdpCredentialIdBuilder {
 	builder.idpCredentialId = idpCredentialId
-	builder.idpCredentialIdFlag = true
+	builder.idpCredentialIdSet = true
 	return builder
 }
 
 func (builder *IdpCredentialIdBuilder) Build() *IdpCredentialId {
 	req := &IdpCredentialId{}
-	if builder.idpCredentialIdFlag {
+	if builder.idpCredentialIdSet {
 		req.IdpCredentialId = &builder.idpCredentialId
 
 	}
@@ -261,17 +265,17 @@ type MaskSession struct {
 }
 
 type MaskSessionBuilder struct {
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	terminalType     int // 客户端类型
-	terminalTypeFlag bool
+	terminalType    int // 客户端类型
+	terminalTypeSet bool
 
-	userId     string // 用户ID
-	userIdFlag bool
+	userId    string // 用户ID
+	userIdSet bool
 
-	sid     string // 需要登出的 session 标识符
-	sidFlag bool
+	sid    string // 需要登出的 session 标识符
+	sidSet bool
 }
 
 func NewMaskSessionBuilder() *MaskSessionBuilder {
@@ -284,7 +288,7 @@ func NewMaskSessionBuilder() *MaskSessionBuilder {
 // 示例值：1724233829
 func (builder *MaskSessionBuilder) CreateTime(createTime string) *MaskSessionBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -293,7 +297,7 @@ func (builder *MaskSessionBuilder) CreateTime(createTime string) *MaskSessionBui
 // 示例值：2
 func (builder *MaskSessionBuilder) TerminalType(terminalType int) *MaskSessionBuilder {
 	builder.terminalType = terminalType
-	builder.terminalTypeFlag = true
+	builder.terminalTypeSet = true
 	return builder
 }
 
@@ -302,7 +306,7 @@ func (builder *MaskSessionBuilder) TerminalType(terminalType int) *MaskSessionBu
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *MaskSessionBuilder) UserId(userId string) *MaskSessionBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -311,25 +315,25 @@ func (builder *MaskSessionBuilder) UserId(userId string) *MaskSessionBuilder {
 // 示例值：AAAAAAAAAANll6nQoIAAFA==
 func (builder *MaskSessionBuilder) Sid(sid string) *MaskSessionBuilder {
 	builder.sid = sid
-	builder.sidFlag = true
+	builder.sidSet = true
 	return builder
 }
 
 func (builder *MaskSessionBuilder) Build() *MaskSession {
 	req := &MaskSession{}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.terminalTypeFlag {
+	if builder.terminalTypeSet {
 		req.TerminalType = &builder.terminalType
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.sidFlag {
+	if builder.sidSet {
 		req.Sid = &builder.sid
 
 	}
@@ -337,23 +341,23 @@ func (builder *MaskSessionBuilder) Build() *MaskSession {
 }
 
 type LogoutSessionReqBodyBuilder struct {
-	idpCredentialId     string // idp 侧的唯一标识
-	idpCredentialIdFlag bool
+	idpCredentialId    string // idp 侧的唯一标识
+	idpCredentialIdSet bool
 
-	logoutType     int // 登出的方式
-	logoutTypeFlag bool
+	logoutType    int // 登出的方式
+	logoutTypeSet bool
 
-	terminalType     []int // 登出的客户端类型，默认全部登出，1-桌面端，2-网页端，3-安卓移动端，4-Apple移动端 5-服务端 6-旧版小程序端 8-其他移动端
-	terminalTypeFlag bool
+	terminalType    []int // 登出的客户端类型，默认全部登出，1-桌面端，2-网页端，3-安卓移动端，4-Apple移动端 5-服务端 6-旧版小程序端 8-其他移动端
+	terminalTypeSet bool
 
-	userId     string // user_id
-	userIdFlag bool
+	userId    string // user_id
+	userIdSet bool
 
-	logoutReason     int // 登出原因
-	logoutReasonFlag bool
+	logoutReason    int // 登出原因
+	logoutReasonSet bool
 
-	sid     string // 需要精确登出的 session 标识符
-	sidFlag bool
+	sid    string // 需要精确登出的 session 标识符
+	sidSet bool
 }
 
 func NewLogoutSessionReqBodyBuilder() *LogoutSessionReqBodyBuilder {
@@ -363,94 +367,94 @@ func NewLogoutSessionReqBodyBuilder() *LogoutSessionReqBodyBuilder {
 
 // idp 侧的唯一标识
 //
-// 示例值：1
+//示例值：1
 func (builder *LogoutSessionReqBodyBuilder) IdpCredentialId(idpCredentialId string) *LogoutSessionReqBodyBuilder {
 	builder.idpCredentialId = idpCredentialId
-	builder.idpCredentialIdFlag = true
+	builder.idpCredentialIdSet = true
 	return builder
 }
 
 // 登出的方式
 //
-// 示例值：1
+//示例值：1
 func (builder *LogoutSessionReqBodyBuilder) LogoutType(logoutType int) *LogoutSessionReqBodyBuilder {
 	builder.logoutType = logoutType
-	builder.logoutTypeFlag = true
+	builder.logoutTypeSet = true
 	return builder
 }
 
 // 登出的客户端类型，默认全部登出，1-桌面端，2-网页端，3-安卓移动端，4-Apple移动端 5-服务端 6-旧版小程序端 8-其他移动端
 //
-// 示例值：
+//示例值：
 func (builder *LogoutSessionReqBodyBuilder) TerminalType(terminalType []int) *LogoutSessionReqBodyBuilder {
 	builder.terminalType = terminalType
-	builder.terminalTypeFlag = true
+	builder.terminalTypeSet = true
 	return builder
 }
 
 // user_id
 //
-// 示例值：1
+//示例值：1
 func (builder *LogoutSessionReqBodyBuilder) UserId(userId string) *LogoutSessionReqBodyBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 // 登出原因
 //
-// 示例值：34: 修改密码；35: 登陆态失效；36: 密码过期
+//示例值：34: 修改密码；35: 登陆态失效；36: 密码过期
 func (builder *LogoutSessionReqBodyBuilder) LogoutReason(logoutReason int) *LogoutSessionReqBodyBuilder {
 	builder.logoutReason = logoutReason
-	builder.logoutReasonFlag = true
+	builder.logoutReasonSet = true
 	return builder
 }
 
 // 需要精确登出的 session 标识符
 //
-// 示例值：AAAAAAAAAANll6nQoIAAFA==
+//示例值：AAAAAAAAAANll6nQoIAAFA==
 func (builder *LogoutSessionReqBodyBuilder) Sid(sid string) *LogoutSessionReqBodyBuilder {
 	builder.sid = sid
-	builder.sidFlag = true
+	builder.sidSet = true
 	return builder
 }
 
 func (builder *LogoutSessionReqBodyBuilder) Build() *LogoutSessionReqBody {
 	req := &LogoutSessionReqBody{}
-	if builder.idpCredentialIdFlag {
+	if builder.idpCredentialIdSet {
 		req.IdpCredentialId = &builder.idpCredentialId
 	}
-	if builder.logoutTypeFlag {
+	if builder.logoutTypeSet {
 		req.LogoutType = &builder.logoutType
 	}
-	if builder.terminalTypeFlag {
+	if builder.terminalTypeSet {
 		req.TerminalType = builder.terminalType
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 	}
-	if builder.logoutReasonFlag {
+	if builder.logoutReasonSet {
 		req.LogoutReason = &builder.logoutReason
 	}
-	if builder.sidFlag {
+	if builder.sidSet {
 		req.Sid = &builder.sid
 	}
 	return req
 }
 
 type LogoutSessionPathReqBodyBuilder struct {
-	idpCredentialId     string
-	idpCredentialIdFlag bool
-	logoutType          int
-	logoutTypeFlag      bool
-	terminalType        []int
-	terminalTypeFlag    bool
-	userId              string
-	userIdFlag          bool
-	logoutReason        int
-	logoutReasonFlag    bool
-	sid                 string
-	sidFlag             bool
+	idpCredentialId    string
+	idpCredentialIdSet bool
+	logoutType         int
+	logoutTypeSet      bool
+	terminalType       []int
+	terminalTypeSet    bool
+	userId             string
+	userIdSet          bool
+	logoutReason       int
+	logoutReasonSet    bool
+	sid                string
+	sidSet             bool
 }
 
 func NewLogoutSessionPathReqBodyBuilder() *LogoutSessionPathReqBodyBuilder {
@@ -463,7 +467,7 @@ func NewLogoutSessionPathReqBodyBuilder() *LogoutSessionPathReqBodyBuilder {
 // 示例值：1
 func (builder *LogoutSessionPathReqBodyBuilder) IdpCredentialId(idpCredentialId string) *LogoutSessionPathReqBodyBuilder {
 	builder.idpCredentialId = idpCredentialId
-	builder.idpCredentialIdFlag = true
+	builder.idpCredentialIdSet = true
 	return builder
 }
 
@@ -472,7 +476,7 @@ func (builder *LogoutSessionPathReqBodyBuilder) IdpCredentialId(idpCredentialId 
 // 示例值：1
 func (builder *LogoutSessionPathReqBodyBuilder) LogoutType(logoutType int) *LogoutSessionPathReqBodyBuilder {
 	builder.logoutType = logoutType
-	builder.logoutTypeFlag = true
+	builder.logoutTypeSet = true
 	return builder
 }
 
@@ -481,7 +485,7 @@ func (builder *LogoutSessionPathReqBodyBuilder) LogoutType(logoutType int) *Logo
 // 示例值：
 func (builder *LogoutSessionPathReqBodyBuilder) TerminalType(terminalType []int) *LogoutSessionPathReqBodyBuilder {
 	builder.terminalType = terminalType
-	builder.terminalTypeFlag = true
+	builder.terminalTypeSet = true
 	return builder
 }
 
@@ -490,7 +494,7 @@ func (builder *LogoutSessionPathReqBodyBuilder) TerminalType(terminalType []int)
 // 示例值：1
 func (builder *LogoutSessionPathReqBodyBuilder) UserId(userId string) *LogoutSessionPathReqBodyBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -499,7 +503,7 @@ func (builder *LogoutSessionPathReqBodyBuilder) UserId(userId string) *LogoutSes
 // 示例值：34: 修改密码；35: 登陆态失效；36: 密码过期
 func (builder *LogoutSessionPathReqBodyBuilder) LogoutReason(logoutReason int) *LogoutSessionPathReqBodyBuilder {
 	builder.logoutReason = logoutReason
-	builder.logoutReasonFlag = true
+	builder.logoutReasonSet = true
 	return builder
 }
 
@@ -508,28 +512,28 @@ func (builder *LogoutSessionPathReqBodyBuilder) LogoutReason(logoutReason int) *
 // 示例值：AAAAAAAAAANll6nQoIAAFA==
 func (builder *LogoutSessionPathReqBodyBuilder) Sid(sid string) *LogoutSessionPathReqBodyBuilder {
 	builder.sid = sid
-	builder.sidFlag = true
+	builder.sidSet = true
 	return builder
 }
 
 func (builder *LogoutSessionPathReqBodyBuilder) Build() (*LogoutSessionReqBody, error) {
 	req := &LogoutSessionReqBody{}
-	if builder.idpCredentialIdFlag {
+	if builder.idpCredentialIdSet {
 		req.IdpCredentialId = &builder.idpCredentialId
 	}
-	if builder.logoutTypeFlag {
+	if builder.logoutTypeSet {
 		req.LogoutType = &builder.logoutType
 	}
-	if builder.terminalTypeFlag {
+	if builder.terminalTypeSet {
 		req.TerminalType = builder.terminalType
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 	}
-	if builder.logoutReasonFlag {
+	if builder.logoutReasonSet {
 		req.LogoutReason = &builder.logoutReason
 	}
-	if builder.sidFlag {
+	if builder.sidSet {
 		req.Sid = &builder.sid
 	}
 	return req, nil
@@ -557,6 +561,7 @@ func (builder *LogoutSessionReqBuilder) UserIdType(userIdType string) *LogoutSes
 	return builder
 }
 
+//
 func (builder *LogoutSessionReqBuilder) Body(body *LogoutSessionReqBody) *LogoutSessionReqBuilder {
 	builder.body = body
 	return builder
@@ -599,8 +604,8 @@ func (resp *LogoutSessionResp) Success() bool {
 }
 
 type QuerySessionReqBodyBuilder struct {
-	userIds     []string // 用户 ID
-	userIdsFlag bool
+	userIds    []string // 用户 ID
+	userIdsSet bool
 }
 
 func NewQuerySessionReqBodyBuilder() *QuerySessionReqBodyBuilder {
@@ -610,24 +615,24 @@ func NewQuerySessionReqBodyBuilder() *QuerySessionReqBodyBuilder {
 
 // 用户 ID
 //
-// 示例值：["47f621ff"]
+//示例值：["47f621ff"]
 func (builder *QuerySessionReqBodyBuilder) UserIds(userIds []string) *QuerySessionReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 func (builder *QuerySessionReqBodyBuilder) Build() *QuerySessionReqBody {
 	req := &QuerySessionReqBody{}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
 	return req
 }
 
 type QuerySessionPathReqBodyBuilder struct {
-	userIds     []string
-	userIdsFlag bool
+	userIds    []string
+	userIdsSet bool
 }
 
 func NewQuerySessionPathReqBodyBuilder() *QuerySessionPathReqBodyBuilder {
@@ -640,13 +645,13 @@ func NewQuerySessionPathReqBodyBuilder() *QuerySessionPathReqBodyBuilder {
 // 示例值：["47f621ff"]
 func (builder *QuerySessionPathReqBodyBuilder) UserIds(userIds []string) *QuerySessionPathReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 func (builder *QuerySessionPathReqBodyBuilder) Build() (*QuerySessionReqBody, error) {
 	req := &QuerySessionReqBody{}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
 	return req, nil

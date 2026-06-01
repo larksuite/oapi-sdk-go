@@ -117,11 +117,11 @@ type AdjustmentLogic struct {
 }
 
 type AdjustmentLogicBuilder struct {
-	fixed     string // 固定值
-	fixedFlag bool
+	fixed    string // 固定值
+	fixedSet bool
 
-	formula     *Formula // 公式配置
-	formulaFlag bool
+	formula    *Formula // 公式配置
+	formulaSet bool
 }
 
 func NewAdjustmentLogicBuilder() *AdjustmentLogicBuilder {
@@ -134,7 +134,7 @@ func NewAdjustmentLogicBuilder() *AdjustmentLogicBuilder {
 // 示例值：60
 func (builder *AdjustmentLogicBuilder) Fixed(fixed string) *AdjustmentLogicBuilder {
 	builder.fixed = fixed
-	builder.fixedFlag = true
+	builder.fixedSet = true
 	return builder
 }
 
@@ -143,17 +143,17 @@ func (builder *AdjustmentLogicBuilder) Fixed(fixed string) *AdjustmentLogicBuild
 // 示例值：
 func (builder *AdjustmentLogicBuilder) Formula(formula *Formula) *AdjustmentLogicBuilder {
 	builder.formula = formula
-	builder.formulaFlag = true
+	builder.formulaSet = true
 	return builder
 }
 
 func (builder *AdjustmentLogicBuilder) Build() *AdjustmentLogic {
 	req := &AdjustmentLogic{}
-	if builder.fixedFlag {
+	if builder.fixedSet {
 		req.Fixed = &builder.fixed
 
 	}
-	if builder.formulaFlag {
+	if builder.formulaSet {
 		req.Formula = builder.formula
 	}
 	return req
@@ -172,20 +172,20 @@ type Archive struct {
 }
 
 type ArchiveBuilder struct {
-	archiveId     string // 档案ID
-	archiveIdFlag bool
+	archiveId    string // 档案ID
+	archiveIdSet bool
 
-	archiveTid     string // 档案时间轴版本ID
-	archiveTidFlag bool
+	archiveTid    string // 档案时间轴版本ID
+	archiveTidSet bool
 
-	userId     string // 员工ID
-	userIdFlag bool
+	userId    string // 员工ID
+	userIdSet bool
 
-	plan     *Plan // 关联方案
-	planFlag bool
+	plan    *Plan // 关联方案
+	planSet bool
 
-	effectiveDate     string // 档案生效时间
-	effectiveDateFlag bool
+	effectiveDate    string // 档案生效时间
+	effectiveDateSet bool
 }
 
 func NewArchiveBuilder() *ArchiveBuilder {
@@ -198,7 +198,7 @@ func NewArchiveBuilder() *ArchiveBuilder {
 // 示例值：7196951947268589113
 func (builder *ArchiveBuilder) ArchiveId(archiveId string) *ArchiveBuilder {
 	builder.archiveId = archiveId
-	builder.archiveIdFlag = true
+	builder.archiveIdSet = true
 	return builder
 }
 
@@ -207,7 +207,7 @@ func (builder *ArchiveBuilder) ArchiveId(archiveId string) *ArchiveBuilder {
 // 示例值：7209959917078201911
 func (builder *ArchiveBuilder) ArchiveTid(archiveTid string) *ArchiveBuilder {
 	builder.archiveTid = archiveTid
-	builder.archiveTidFlag = true
+	builder.archiveTidSet = true
 	return builder
 }
 
@@ -216,7 +216,7 @@ func (builder *ArchiveBuilder) ArchiveTid(archiveTid string) *ArchiveBuilder {
 // 示例值：7117649868058789407
 func (builder *ArchiveBuilder) UserId(userId string) *ArchiveBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -225,7 +225,7 @@ func (builder *ArchiveBuilder) UserId(userId string) *ArchiveBuilder {
 // 示例值：
 func (builder *ArchiveBuilder) Plan(plan *Plan) *ArchiveBuilder {
 	builder.plan = plan
-	builder.planFlag = true
+	builder.planSet = true
 	return builder
 }
 
@@ -234,28 +234,28 @@ func (builder *ArchiveBuilder) Plan(plan *Plan) *ArchiveBuilder {
 // 示例值：2022-03-18
 func (builder *ArchiveBuilder) EffectiveDate(effectiveDate string) *ArchiveBuilder {
 	builder.effectiveDate = effectiveDate
-	builder.effectiveDateFlag = true
+	builder.effectiveDateSet = true
 	return builder
 }
 
 func (builder *ArchiveBuilder) Build() *Archive {
 	req := &Archive{}
-	if builder.archiveIdFlag {
+	if builder.archiveIdSet {
 		req.ArchiveId = &builder.archiveId
 
 	}
-	if builder.archiveTidFlag {
+	if builder.archiveTidSet {
 		req.ArchiveTid = &builder.archiveTid
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.planFlag {
+	if builder.planSet {
 		req.Plan = builder.plan
 	}
-	if builder.effectiveDateFlag {
+	if builder.effectiveDateSet {
 		req.EffectiveDate = &builder.effectiveDate
 
 	}
@@ -295,50 +295,50 @@ type ArchiveDetail struct {
 }
 
 type ArchiveDetailBuilder struct {
-	userId     string // 员工ID
-	userIdFlag bool
+	userId    string // 员工ID
+	userIdSet bool
 
-	id     string // 档案ID
-	idFlag bool
+	id    string // 档案ID
+	idSet bool
 
-	tid     string // 档案TID
-	tidFlag bool
+	tid    string // 档案TID
+	tidSet bool
 
-	planId     string // 关联方案ID，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
-	planIdFlag bool
+	planId    string // 关联方案ID，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
+	planIdSet bool
 
-	planTid     string // 关联方案TID，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
-	planTidFlag bool
+	planTid    string // 关联方案TID，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
+	planTidSet bool
 
-	currencyId     string // 档案币种ID，详细信息可以通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)接口查询获得
-	currencyIdFlag bool
+	currencyId    string // 档案币种ID，详细信息可以通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)接口查询获得
+	currencyIdSet bool
 
-	changeReasonId     string // 调薪原因ID，详细信息可以通过[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)接口查询获得
-	changeReasonIdFlag bool
+	changeReasonId    string // 调薪原因ID，详细信息可以通过[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)接口查询获得
+	changeReasonIdSet bool
 
-	changeDescription     string // 调薪说明
-	changeDescriptionFlag bool
+	changeDescription    string // 调薪说明
+	changeDescriptionSet bool
 
-	effectiveDate     string // 生效时间
-	effectiveDateFlag bool
+	effectiveDate    string // 生效时间
+	effectiveDateSet bool
 
-	expirationDate     string // 失效时间
-	expirationDateFlag bool
+	expirationDate    string // 失效时间
+	expirationDateSet bool
 
-	salaryLevelId     string // 薪级薪等ID
-	salaryLevelIdFlag bool
+	salaryLevelId    string // 薪级薪等ID
+	salaryLevelIdSet bool
 
-	createdTime     string // 创建时间
-	createdTimeFlag bool
+	createdTime    string // 创建时间
+	createdTimeSet bool
 
-	updatedTime     string // 更新时间
-	updatedTimeFlag bool
+	updatedTime    string // 更新时间
+	updatedTimeSet bool
 
-	archiveItems     []*ArchiveItem // 档案关联的薪资项
-	archiveItemsFlag bool
+	archiveItems    []*ArchiveItem // 档案关联的薪资项
+	archiveItemsSet bool
 
-	archiveIndicators     []*ArchiveIndicator // 档案关联的薪资指标
-	archiveIndicatorsFlag bool
+	archiveIndicators    []*ArchiveIndicator // 档案关联的薪资指标
+	archiveIndicatorsSet bool
 }
 
 func NewArchiveDetailBuilder() *ArchiveDetailBuilder {
@@ -351,7 +351,7 @@ func NewArchiveDetailBuilder() *ArchiveDetailBuilder {
 // 示例值：344325234123
 func (builder *ArchiveDetailBuilder) UserId(userId string) *ArchiveDetailBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -360,7 +360,7 @@ func (builder *ArchiveDetailBuilder) UserId(userId string) *ArchiveDetailBuilder
 // 示例值：32141234412
 func (builder *ArchiveDetailBuilder) Id(id string) *ArchiveDetailBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -369,7 +369,7 @@ func (builder *ArchiveDetailBuilder) Id(id string) *ArchiveDetailBuilder {
 // 示例值：141541351
 func (builder *ArchiveDetailBuilder) Tid(tid string) *ArchiveDetailBuilder {
 	builder.tid = tid
-	builder.tidFlag = true
+	builder.tidSet = true
 	return builder
 }
 
@@ -378,7 +378,7 @@ func (builder *ArchiveDetailBuilder) Tid(tid string) *ArchiveDetailBuilder {
 // 示例值：123412433
 func (builder *ArchiveDetailBuilder) PlanId(planId string) *ArchiveDetailBuilder {
 	builder.planId = planId
-	builder.planIdFlag = true
+	builder.planIdSet = true
 	return builder
 }
 
@@ -387,7 +387,7 @@ func (builder *ArchiveDetailBuilder) PlanId(planId string) *ArchiveDetailBuilder
 // 示例值：213412343
 func (builder *ArchiveDetailBuilder) PlanTid(planTid string) *ArchiveDetailBuilder {
 	builder.planTid = planTid
-	builder.planTidFlag = true
+	builder.planTidSet = true
 	return builder
 }
 
@@ -396,7 +396,7 @@ func (builder *ArchiveDetailBuilder) PlanTid(planTid string) *ArchiveDetailBuild
 // 示例值：324167823
 func (builder *ArchiveDetailBuilder) CurrencyId(currencyId string) *ArchiveDetailBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
@@ -405,7 +405,7 @@ func (builder *ArchiveDetailBuilder) CurrencyId(currencyId string) *ArchiveDetai
 // 示例值：321414123
 func (builder *ArchiveDetailBuilder) ChangeReasonId(changeReasonId string) *ArchiveDetailBuilder {
 	builder.changeReasonId = changeReasonId
-	builder.changeReasonIdFlag = true
+	builder.changeReasonIdSet = true
 	return builder
 }
 
@@ -414,7 +414,7 @@ func (builder *ArchiveDetailBuilder) ChangeReasonId(changeReasonId string) *Arch
 // 示例值：长期表现优异，产出高，本次给出涨幅
 func (builder *ArchiveDetailBuilder) ChangeDescription(changeDescription string) *ArchiveDetailBuilder {
 	builder.changeDescription = changeDescription
-	builder.changeDescriptionFlag = true
+	builder.changeDescriptionSet = true
 	return builder
 }
 
@@ -423,7 +423,7 @@ func (builder *ArchiveDetailBuilder) ChangeDescription(changeDescription string)
 // 示例值：2022-10-23
 func (builder *ArchiveDetailBuilder) EffectiveDate(effectiveDate string) *ArchiveDetailBuilder {
 	builder.effectiveDate = effectiveDate
-	builder.effectiveDateFlag = true
+	builder.effectiveDateSet = true
 	return builder
 }
 
@@ -432,7 +432,7 @@ func (builder *ArchiveDetailBuilder) EffectiveDate(effectiveDate string) *Archiv
 // 示例值：2022-10-24
 func (builder *ArchiveDetailBuilder) ExpirationDate(expirationDate string) *ArchiveDetailBuilder {
 	builder.expirationDate = expirationDate
-	builder.expirationDateFlag = true
+	builder.expirationDateSet = true
 	return builder
 }
 
@@ -441,7 +441,7 @@ func (builder *ArchiveDetailBuilder) ExpirationDate(expirationDate string) *Arch
 // 示例值：12342313
 func (builder *ArchiveDetailBuilder) SalaryLevelId(salaryLevelId string) *ArchiveDetailBuilder {
 	builder.salaryLevelId = salaryLevelId
-	builder.salaryLevelIdFlag = true
+	builder.salaryLevelIdSet = true
 	return builder
 }
 
@@ -450,7 +450,7 @@ func (builder *ArchiveDetailBuilder) SalaryLevelId(salaryLevelId string) *Archiv
 // 示例值：2024-01-01 00:00:00
 func (builder *ArchiveDetailBuilder) CreatedTime(createdTime string) *ArchiveDetailBuilder {
 	builder.createdTime = createdTime
-	builder.createdTimeFlag = true
+	builder.createdTimeSet = true
 	return builder
 }
 
@@ -459,7 +459,7 @@ func (builder *ArchiveDetailBuilder) CreatedTime(createdTime string) *ArchiveDet
 // 示例值：2024-01-01 00:00:00
 func (builder *ArchiveDetailBuilder) UpdatedTime(updatedTime string) *ArchiveDetailBuilder {
 	builder.updatedTime = updatedTime
-	builder.updatedTimeFlag = true
+	builder.updatedTimeSet = true
 	return builder
 }
 
@@ -468,7 +468,7 @@ func (builder *ArchiveDetailBuilder) UpdatedTime(updatedTime string) *ArchiveDet
 // 示例值：
 func (builder *ArchiveDetailBuilder) ArchiveItems(archiveItems []*ArchiveItem) *ArchiveDetailBuilder {
 	builder.archiveItems = archiveItems
-	builder.archiveItemsFlag = true
+	builder.archiveItemsSet = true
 	return builder
 }
 
@@ -477,68 +477,68 @@ func (builder *ArchiveDetailBuilder) ArchiveItems(archiveItems []*ArchiveItem) *
 // 示例值：
 func (builder *ArchiveDetailBuilder) ArchiveIndicators(archiveIndicators []*ArchiveIndicator) *ArchiveDetailBuilder {
 	builder.archiveIndicators = archiveIndicators
-	builder.archiveIndicatorsFlag = true
+	builder.archiveIndicatorsSet = true
 	return builder
 }
 
 func (builder *ArchiveDetailBuilder) Build() *ArchiveDetail {
 	req := &ArchiveDetail{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tidFlag {
+	if builder.tidSet {
 		req.Tid = &builder.tid
 
 	}
-	if builder.planIdFlag {
+	if builder.planIdSet {
 		req.PlanId = &builder.planId
 
 	}
-	if builder.planTidFlag {
+	if builder.planTidSet {
 		req.PlanTid = &builder.planTid
 
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = &builder.currencyId
 
 	}
-	if builder.changeReasonIdFlag {
+	if builder.changeReasonIdSet {
 		req.ChangeReasonId = &builder.changeReasonId
 
 	}
-	if builder.changeDescriptionFlag {
+	if builder.changeDescriptionSet {
 		req.ChangeDescription = &builder.changeDescription
 
 	}
-	if builder.effectiveDateFlag {
+	if builder.effectiveDateSet {
 		req.EffectiveDate = &builder.effectiveDate
 
 	}
-	if builder.expirationDateFlag {
+	if builder.expirationDateSet {
 		req.ExpirationDate = &builder.expirationDate
 
 	}
-	if builder.salaryLevelIdFlag {
+	if builder.salaryLevelIdSet {
 		req.SalaryLevelId = &builder.salaryLevelId
 
 	}
-	if builder.createdTimeFlag {
+	if builder.createdTimeSet {
 		req.CreatedTime = &builder.createdTime
 
 	}
-	if builder.updatedTimeFlag {
+	if builder.updatedTimeSet {
 		req.UpdatedTime = &builder.updatedTime
 
 	}
-	if builder.archiveItemsFlag {
+	if builder.archiveItemsSet {
 		req.ArchiveItems = builder.archiveItems
 	}
-	if builder.archiveIndicatorsFlag {
+	if builder.archiveIndicatorsSet {
 		req.ArchiveIndicators = builder.archiveIndicators
 	}
 	return req
@@ -553,14 +553,14 @@ type ArchiveIndicator struct {
 }
 
 type ArchiveIndicatorBuilder struct {
-	indicatorId     string // 薪资统计指标ID，详细信息可以通过[批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)接口查询获得
-	indicatorIdFlag bool
+	indicatorId    string // 薪资统计指标ID，详细信息可以通过[批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)接口查询获得
+	indicatorIdSet bool
 
-	indicatorResult     string // 档案关联薪资统计指标数值
-	indicatorResultFlag bool
+	indicatorResult    string // 档案关联薪资统计指标数值
+	indicatorResultSet bool
 
-	indicatorResultRegular     string // 档案关联薪资统计指标转正后数值
-	indicatorResultRegularFlag bool
+	indicatorResultRegular    string // 档案关联薪资统计指标转正后数值
+	indicatorResultRegularSet bool
 }
 
 func NewArchiveIndicatorBuilder() *ArchiveIndicatorBuilder {
@@ -573,7 +573,7 @@ func NewArchiveIndicatorBuilder() *ArchiveIndicatorBuilder {
 // 示例值：23141423
 func (builder *ArchiveIndicatorBuilder) IndicatorId(indicatorId string) *ArchiveIndicatorBuilder {
 	builder.indicatorId = indicatorId
-	builder.indicatorIdFlag = true
+	builder.indicatorIdSet = true
 	return builder
 }
 
@@ -582,7 +582,7 @@ func (builder *ArchiveIndicatorBuilder) IndicatorId(indicatorId string) *Archive
 // 示例值：15000
 func (builder *ArchiveIndicatorBuilder) IndicatorResult(indicatorResult string) *ArchiveIndicatorBuilder {
 	builder.indicatorResult = indicatorResult
-	builder.indicatorResultFlag = true
+	builder.indicatorResultSet = true
 	return builder
 }
 
@@ -591,21 +591,21 @@ func (builder *ArchiveIndicatorBuilder) IndicatorResult(indicatorResult string) 
 // 示例值：18000
 func (builder *ArchiveIndicatorBuilder) IndicatorResultRegular(indicatorResultRegular string) *ArchiveIndicatorBuilder {
 	builder.indicatorResultRegular = indicatorResultRegular
-	builder.indicatorResultRegularFlag = true
+	builder.indicatorResultRegularSet = true
 	return builder
 }
 
 func (builder *ArchiveIndicatorBuilder) Build() *ArchiveIndicator {
 	req := &ArchiveIndicator{}
-	if builder.indicatorIdFlag {
+	if builder.indicatorIdSet {
 		req.IndicatorId = &builder.indicatorId
 
 	}
-	if builder.indicatorResultFlag {
+	if builder.indicatorResultSet {
 		req.IndicatorResult = &builder.indicatorResult
 
 	}
-	if builder.indicatorResultRegularFlag {
+	if builder.indicatorResultRegularSet {
 		req.IndicatorResultRegular = &builder.indicatorResultRegular
 
 	}
@@ -621,14 +621,14 @@ type ArchiveItem struct {
 }
 
 type ArchiveItemBuilder struct {
-	itemId     string // 薪酬项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
-	itemIdFlag bool
+	itemId    string // 薪酬项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
+	itemIdSet bool
 
-	itemResult     string // 档案关联薪酬项数值
-	itemResultFlag bool
+	itemResult    string // 档案关联薪酬项数值
+	itemResultSet bool
 
-	itemResultRegular     string // 档案关联薪酬项转正后数值
-	itemResultRegularFlag bool
+	itemResultRegular    string // 档案关联薪酬项转正后数值
+	itemResultRegularSet bool
 }
 
 func NewArchiveItemBuilder() *ArchiveItemBuilder {
@@ -641,7 +641,7 @@ func NewArchiveItemBuilder() *ArchiveItemBuilder {
 // 示例值：213423144
 func (builder *ArchiveItemBuilder) ItemId(itemId string) *ArchiveItemBuilder {
 	builder.itemId = itemId
-	builder.itemIdFlag = true
+	builder.itemIdSet = true
 	return builder
 }
 
@@ -650,7 +650,7 @@ func (builder *ArchiveItemBuilder) ItemId(itemId string) *ArchiveItemBuilder {
 // 示例值：15000
 func (builder *ArchiveItemBuilder) ItemResult(itemResult string) *ArchiveItemBuilder {
 	builder.itemResult = itemResult
-	builder.itemResultFlag = true
+	builder.itemResultSet = true
 	return builder
 }
 
@@ -659,21 +659,21 @@ func (builder *ArchiveItemBuilder) ItemResult(itemResult string) *ArchiveItemBui
 // 示例值：18000
 func (builder *ArchiveItemBuilder) ItemResultRegular(itemResultRegular string) *ArchiveItemBuilder {
 	builder.itemResultRegular = itemResultRegular
-	builder.itemResultRegularFlag = true
+	builder.itemResultRegularSet = true
 	return builder
 }
 
 func (builder *ArchiveItemBuilder) Build() *ArchiveItem {
 	req := &ArchiveItem{}
-	if builder.itemIdFlag {
+	if builder.itemIdSet {
 		req.ItemId = &builder.itemId
 
 	}
-	if builder.itemResultFlag {
+	if builder.itemResultSet {
 		req.ItemResult = &builder.itemResult
 
 	}
-	if builder.itemResultRegularFlag {
+	if builder.itemResultRegularSet {
 		req.ItemResultRegular = &builder.itemResultRegular
 
 	}
@@ -689,14 +689,14 @@ type ArchiveItemValue struct {
 }
 
 type ArchiveItemValueBuilder struct {
-	itemId     string // 薪资项ID
-	itemIdFlag bool
+	itemId    string // 薪资项ID
+	itemIdSet bool
 
-	itemValue     string // 薪资项的值
-	itemValueFlag bool
+	itemValue    string // 薪资项的值
+	itemValueSet bool
 
-	itemValueRegular     string // 员工转正后薪资项的值，仅用于开启试用期的薪资方案，以及员工处于实习期
-	itemValueRegularFlag bool
+	itemValueRegular    string // 员工转正后薪资项的值，仅用于开启试用期的薪资方案，以及员工处于实习期
+	itemValueRegularSet bool
 }
 
 func NewArchiveItemValueBuilder() *ArchiveItemValueBuilder {
@@ -709,7 +709,7 @@ func NewArchiveItemValueBuilder() *ArchiveItemValueBuilder {
 // 示例值：7244131355509917228
 func (builder *ArchiveItemValueBuilder) ItemId(itemId string) *ArchiveItemValueBuilder {
 	builder.itemId = itemId
-	builder.itemIdFlag = true
+	builder.itemIdSet = true
 	return builder
 }
 
@@ -718,7 +718,7 @@ func (builder *ArchiveItemValueBuilder) ItemId(itemId string) *ArchiveItemValueB
 // 示例值：200.00
 func (builder *ArchiveItemValueBuilder) ItemValue(itemValue string) *ArchiveItemValueBuilder {
 	builder.itemValue = itemValue
-	builder.itemValueFlag = true
+	builder.itemValueSet = true
 	return builder
 }
 
@@ -727,21 +727,21 @@ func (builder *ArchiveItemValueBuilder) ItemValue(itemValue string) *ArchiveItem
 // 示例值：600.00
 func (builder *ArchiveItemValueBuilder) ItemValueRegular(itemValueRegular string) *ArchiveItemValueBuilder {
 	builder.itemValueRegular = itemValueRegular
-	builder.itemValueRegularFlag = true
+	builder.itemValueRegularSet = true
 	return builder
 }
 
 func (builder *ArchiveItemValueBuilder) Build() *ArchiveItemValue {
 	req := &ArchiveItemValue{}
-	if builder.itemIdFlag {
+	if builder.itemIdSet {
 		req.ItemId = &builder.itemId
 
 	}
-	if builder.itemValueFlag {
+	if builder.itemValueSet {
 		req.ItemValue = &builder.itemValue
 
 	}
-	if builder.itemValueRegularFlag {
+	if builder.itemValueRegularSet {
 		req.ItemValueRegular = &builder.itemValueRegular
 
 	}
@@ -763,23 +763,23 @@ type ChangeReason struct {
 }
 
 type ChangeReasonBuilder struct {
-	id     string // 调薪原因ID
-	idFlag bool
+	id    string // 调薪原因ID
+	idSet bool
 
-	name     string // 调薪原因名称
-	nameFlag bool
+	name    string // 调薪原因名称
+	nameSet bool
 
-	note     string // 调薪原因备注
-	noteFlag bool
+	note    string // 调薪原因备注
+	noteSet bool
 
-	activeStatus     int // 启用状态
-	activeStatusFlag bool
+	activeStatus    int // 启用状态
+	activeStatusSet bool
 
-	i18nNames     []*I18nContent // 多语言名称
-	i18nNamesFlag bool
+	i18nNames    []*I18nContent // 多语言名称
+	i18nNamesSet bool
 
-	i18nNotes     []*I18nContent // 多语言描述
-	i18nNotesFlag bool
+	i18nNotes    []*I18nContent // 多语言描述
+	i18nNotesSet bool
 }
 
 func NewChangeReasonBuilder() *ChangeReasonBuilder {
@@ -792,7 +792,7 @@ func NewChangeReasonBuilder() *ChangeReasonBuilder {
 // 示例值：7196951947268589113
 func (builder *ChangeReasonBuilder) Id(id string) *ChangeReasonBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -801,7 +801,7 @@ func (builder *ChangeReasonBuilder) Id(id string) *ChangeReasonBuilder {
 // 示例值：入职调薪
 func (builder *ChangeReasonBuilder) Name(name string) *ChangeReasonBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -810,7 +810,7 @@ func (builder *ChangeReasonBuilder) Name(name string) *ChangeReasonBuilder {
 // 示例值：入职时使用的调薪原因
 func (builder *ChangeReasonBuilder) Note(note string) *ChangeReasonBuilder {
 	builder.note = note
-	builder.noteFlag = true
+	builder.noteSet = true
 	return builder
 }
 
@@ -819,7 +819,7 @@ func (builder *ChangeReasonBuilder) Note(note string) *ChangeReasonBuilder {
 // 示例值：1
 func (builder *ChangeReasonBuilder) ActiveStatus(activeStatus int) *ChangeReasonBuilder {
 	builder.activeStatus = activeStatus
-	builder.activeStatusFlag = true
+	builder.activeStatusSet = true
 	return builder
 }
 
@@ -828,7 +828,7 @@ func (builder *ChangeReasonBuilder) ActiveStatus(activeStatus int) *ChangeReason
 // 示例值：
 func (builder *ChangeReasonBuilder) I18nNames(i18nNames []*I18nContent) *ChangeReasonBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
@@ -837,32 +837,32 @@ func (builder *ChangeReasonBuilder) I18nNames(i18nNames []*I18nContent) *ChangeR
 // 示例值：
 func (builder *ChangeReasonBuilder) I18nNotes(i18nNotes []*I18nContent) *ChangeReasonBuilder {
 	builder.i18nNotes = i18nNotes
-	builder.i18nNotesFlag = true
+	builder.i18nNotesSet = true
 	return builder
 }
 
 func (builder *ChangeReasonBuilder) Build() *ChangeReason {
 	req := &ChangeReason{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.noteFlag {
+	if builder.noteSet {
 		req.Note = &builder.note
 
 	}
-	if builder.activeStatusFlag {
+	if builder.activeStatusSet {
 		req.ActiveStatus = &builder.activeStatus
 
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
-	if builder.i18nNotesFlag {
+	if builder.i18nNotesSet {
 		req.I18nNotes = builder.i18nNotes
 	}
 	return req
@@ -875,11 +875,11 @@ type Currency struct {
 }
 
 type CurrencyBuilder struct {
-	code     string // 编码
-	codeFlag bool
+	code    string // 编码
+	codeSet bool
 
-	currencyId     string // 币种ID
-	currencyIdFlag bool
+	currencyId    string // 币种ID
+	currencyIdSet bool
 }
 
 func NewCurrencyBuilder() *CurrencyBuilder {
@@ -892,7 +892,7 @@ func NewCurrencyBuilder() *CurrencyBuilder {
 // 示例值：CNY
 func (builder *CurrencyBuilder) Code(code string) *CurrencyBuilder {
 	builder.code = code
-	builder.codeFlag = true
+	builder.codeSet = true
 	return builder
 }
 
@@ -901,17 +901,17 @@ func (builder *CurrencyBuilder) Code(code string) *CurrencyBuilder {
 // 示例值：6863329932261459464
 func (builder *CurrencyBuilder) CurrencyId(currencyId string) *CurrencyBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
 func (builder *CurrencyBuilder) Build() *Currency {
 	req := &Currency{}
-	if builder.codeFlag {
+	if builder.codeSet {
 		req.Code = &builder.code
 
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = &builder.currencyId
 
 	}
@@ -925,11 +925,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -937,27 +937,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -971,11 +975,11 @@ type Formula struct {
 }
 
 type FormulaBuilder struct {
-	expr     string // 公式表达式
-	exprFlag bool
+	expr    string // 公式表达式
+	exprSet bool
 
-	formulaParams     []*FormulaParam // 公式参数列表
-	formulaParamsFlag bool
+	formulaParams    []*FormulaParam // 公式参数列表
+	formulaParamsSet bool
 }
 
 func NewFormulaBuilder() *FormulaBuilder {
@@ -988,7 +992,7 @@ func NewFormulaBuilder() *FormulaBuilder {
 // 示例值：${0} +${1}
 func (builder *FormulaBuilder) Expr(expr string) *FormulaBuilder {
 	builder.expr = expr
-	builder.exprFlag = true
+	builder.exprSet = true
 	return builder
 }
 
@@ -997,17 +1001,17 @@ func (builder *FormulaBuilder) Expr(expr string) *FormulaBuilder {
 // 示例值：
 func (builder *FormulaBuilder) FormulaParams(formulaParams []*FormulaParam) *FormulaBuilder {
 	builder.formulaParams = formulaParams
-	builder.formulaParamsFlag = true
+	builder.formulaParamsSet = true
 	return builder
 }
 
 func (builder *FormulaBuilder) Build() *Formula {
 	req := &Formula{}
-	if builder.exprFlag {
+	if builder.exprSet {
 		req.Expr = &builder.expr
 
 	}
-	if builder.formulaParamsFlag {
+	if builder.formulaParamsSet {
 		req.FormulaParams = builder.formulaParams
 	}
 	return req
@@ -1020,11 +1024,11 @@ type FormulaParam struct {
 }
 
 type FormulaParamBuilder struct {
-	refType     int // 引用类型
-	refTypeFlag bool
+	refType    int // 引用类型
+	refTypeSet bool
 
-	id     string // 引用类型ID
-	idFlag bool
+	id    string // 引用类型ID
+	idSet bool
 }
 
 func NewFormulaParamBuilder() *FormulaParamBuilder {
@@ -1037,7 +1041,7 @@ func NewFormulaParamBuilder() *FormulaParamBuilder {
 // 示例值：1
 func (builder *FormulaParamBuilder) RefType(refType int) *FormulaParamBuilder {
 	builder.refType = refType
-	builder.refTypeFlag = true
+	builder.refTypeSet = true
 	return builder
 }
 
@@ -1046,17 +1050,17 @@ func (builder *FormulaParamBuilder) RefType(refType int) *FormulaParamBuilder {
 // 示例值：23143242
 func (builder *FormulaParamBuilder) Id(id string) *FormulaParamBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
 func (builder *FormulaParamBuilder) Build() *FormulaParam {
 	req := &FormulaParam{}
-	if builder.refTypeFlag {
+	if builder.refTypeSet {
 		req.RefType = &builder.refType
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
@@ -1092,44 +1096,44 @@ type Grade struct {
 }
 
 type GradeBuilder struct {
-	id     string // 薪资标准明细ID
-	idFlag bool
+	id    string // 薪资标准明细ID
+	idSet bool
 
-	tid     string // 薪资标准明细版本TID
-	tidFlag bool
+	tid    string // 薪资标准明细版本TID
+	tidSet bool
 
-	serialNumber     string // 编号
-	serialNumberFlag bool
+	serialNumber    string // 编号
+	serialNumberSet bool
 
-	gradeStandardValues     []*GradeStandardValue // 薪资标准值列表
-	gradeStandardValuesFlag bool
+	gradeStandardValues    []*GradeStandardValue // 薪资标准值列表
+	gradeStandardValuesSet bool
 
-	dimensions     []*GradeStandardDimension // 划分维度
-	dimensionsFlag bool
+	dimensions    []*GradeStandardDimension // 划分维度
+	dimensionsSet bool
 
-	currency     *Currency // 币种
-	currencyFlag bool
+	currency    *Currency // 币种
+	currencySet bool
 
-	description     *I18n // 备注
-	descriptionFlag bool
+	description    *I18n // 备注
+	descriptionSet bool
 
-	effectiveTime     string // 生效日期，格式"2025-05-01"
-	effectiveTimeFlag bool
+	effectiveTime    string // 生效日期，格式"2025-05-01"
+	effectiveTimeSet bool
 
-	standardGradeVersion     string // 版本
-	standardGradeVersionFlag bool
+	standardGradeVersion    string // 版本
+	standardGradeVersionSet bool
 
-	createdAt     string // 创建时间，毫秒时间戳
-	createdAtFlag bool
+	createdAt    string // 创建时间，毫秒时间戳
+	createdAtSet bool
 
-	updatedAt     string // 更新时间，毫秒时间戳
-	updatedAtFlag bool
+	updatedAt    string // 更新时间，毫秒时间戳
+	updatedAtSet bool
 
-	standardId     string // 薪资标准表ID
-	standardIdFlag bool
+	standardId    string // 薪资标准表ID
+	standardIdSet bool
 
-	standardKind     int // 标准明细类型
-	standardKindFlag bool
+	standardKind    int // 标准明细类型
+	standardKindSet bool
 }
 
 func NewGradeBuilder() *GradeBuilder {
@@ -1142,7 +1146,7 @@ func NewGradeBuilder() *GradeBuilder {
 // 示例值：7481615459021637164
 func (builder *GradeBuilder) Id(id string) *GradeBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1151,7 +1155,7 @@ func (builder *GradeBuilder) Id(id string) *GradeBuilder {
 // 示例值：7481615459021669932
 func (builder *GradeBuilder) Tid(tid string) *GradeBuilder {
 	builder.tid = tid
-	builder.tidFlag = true
+	builder.tidSet = true
 	return builder
 }
 
@@ -1160,7 +1164,7 @@ func (builder *GradeBuilder) Tid(tid string) *GradeBuilder {
 // 示例值：1
 func (builder *GradeBuilder) SerialNumber(serialNumber string) *GradeBuilder {
 	builder.serialNumber = serialNumber
-	builder.serialNumberFlag = true
+	builder.serialNumberSet = true
 	return builder
 }
 
@@ -1169,7 +1173,7 @@ func (builder *GradeBuilder) SerialNumber(serialNumber string) *GradeBuilder {
 // 示例值：
 func (builder *GradeBuilder) GradeStandardValues(gradeStandardValues []*GradeStandardValue) *GradeBuilder {
 	builder.gradeStandardValues = gradeStandardValues
-	builder.gradeStandardValuesFlag = true
+	builder.gradeStandardValuesSet = true
 	return builder
 }
 
@@ -1178,7 +1182,7 @@ func (builder *GradeBuilder) GradeStandardValues(gradeStandardValues []*GradeSta
 // 示例值：
 func (builder *GradeBuilder) Dimensions(dimensions []*GradeStandardDimension) *GradeBuilder {
 	builder.dimensions = dimensions
-	builder.dimensionsFlag = true
+	builder.dimensionsSet = true
 	return builder
 }
 
@@ -1187,7 +1191,7 @@ func (builder *GradeBuilder) Dimensions(dimensions []*GradeStandardDimension) *G
 // 示例值：
 func (builder *GradeBuilder) Currency(currency *Currency) *GradeBuilder {
 	builder.currency = currency
-	builder.currencyFlag = true
+	builder.currencySet = true
 	return builder
 }
 
@@ -1196,7 +1200,7 @@ func (builder *GradeBuilder) Currency(currency *Currency) *GradeBuilder {
 // 示例值：
 func (builder *GradeBuilder) Description(description *I18n) *GradeBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -1205,7 +1209,7 @@ func (builder *GradeBuilder) Description(description *I18n) *GradeBuilder {
 // 示例值：2025-05-01
 func (builder *GradeBuilder) EffectiveTime(effectiveTime string) *GradeBuilder {
 	builder.effectiveTime = effectiveTime
-	builder.effectiveTimeFlag = true
+	builder.effectiveTimeSet = true
 	return builder
 }
 
@@ -1214,7 +1218,7 @@ func (builder *GradeBuilder) EffectiveTime(effectiveTime string) *GradeBuilder {
 // 示例值：0
 func (builder *GradeBuilder) StandardGradeVersion(standardGradeVersion string) *GradeBuilder {
 	builder.standardGradeVersion = standardGradeVersion
-	builder.standardGradeVersionFlag = true
+	builder.standardGradeVersionSet = true
 	return builder
 }
 
@@ -1223,7 +1227,7 @@ func (builder *GradeBuilder) StandardGradeVersion(standardGradeVersion string) *
 // 示例值：1704038400000
 func (builder *GradeBuilder) CreatedAt(createdAt string) *GradeBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -1232,7 +1236,7 @@ func (builder *GradeBuilder) CreatedAt(createdAt string) *GradeBuilder {
 // 示例值：1704038400000
 func (builder *GradeBuilder) UpdatedAt(updatedAt string) *GradeBuilder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
@@ -1241,7 +1245,7 @@ func (builder *GradeBuilder) UpdatedAt(updatedAt string) *GradeBuilder {
 // 示例值：7361627249681188396
 func (builder *GradeBuilder) StandardId(standardId string) *GradeBuilder {
 	builder.standardId = standardId
-	builder.standardIdFlag = true
+	builder.standardIdSet = true
 	return builder
 }
 
@@ -1250,57 +1254,57 @@ func (builder *GradeBuilder) StandardId(standardId string) *GradeBuilder {
 // 示例值：1
 func (builder *GradeBuilder) StandardKind(standardKind int) *GradeBuilder {
 	builder.standardKind = standardKind
-	builder.standardKindFlag = true
+	builder.standardKindSet = true
 	return builder
 }
 
 func (builder *GradeBuilder) Build() *Grade {
 	req := &Grade{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tidFlag {
+	if builder.tidSet {
 		req.Tid = &builder.tid
 
 	}
-	if builder.serialNumberFlag {
+	if builder.serialNumberSet {
 		req.SerialNumber = &builder.serialNumber
 
 	}
-	if builder.gradeStandardValuesFlag {
+	if builder.gradeStandardValuesSet {
 		req.GradeStandardValues = builder.gradeStandardValues
 	}
-	if builder.dimensionsFlag {
+	if builder.dimensionsSet {
 		req.Dimensions = builder.dimensions
 	}
-	if builder.currencyFlag {
+	if builder.currencySet {
 		req.Currency = builder.currency
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.effectiveTimeFlag {
+	if builder.effectiveTimeSet {
 		req.EffectiveTime = &builder.effectiveTime
 
 	}
-	if builder.standardGradeVersionFlag {
+	if builder.standardGradeVersionSet {
 		req.StandardGradeVersion = &builder.standardGradeVersion
 
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
-	if builder.standardIdFlag {
+	if builder.standardIdSet {
 		req.StandardId = &builder.standardId
 
 	}
-	if builder.standardKindFlag {
+	if builder.standardKindSet {
 		req.StandardKind = &builder.standardKind
 
 	}
@@ -1316,14 +1320,14 @@ type GradeStandardDimension struct {
 }
 
 type GradeStandardDimensionBuilder struct {
-	apiName     string // 资源名
-	apiNameFlag bool
+	apiName    string // 资源名
+	apiNameSet bool
 
-	containSub     bool // 是否包含下级
-	containSubFlag bool
+	containSub    bool // 是否包含下级
+	containSubSet bool
 
-	values     []string // 维度明细值，招聘类型维度枚举值为【日常实习："routine_intern"】【社招："experienced_professionals"】【校招: "recent_graduates"】，其他维度类型具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)，[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)，[获取薪级薪等列表数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/salary_level_type/query)
-	valuesFlag bool
+	values    []string // 维度明细值，招聘类型维度枚举值为【日常实习："routine_intern"】【社招："experienced_professionals"】【校招: "recent_graduates"】，其他维度类型具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)，[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)，[获取薪级薪等列表数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/salary_level_type/query)
+	valuesSet bool
 }
 
 func NewGradeStandardDimensionBuilder() *GradeStandardDimensionBuilder {
@@ -1336,7 +1340,7 @@ func NewGradeStandardDimensionBuilder() *GradeStandardDimensionBuilder {
 // 示例值：cpst_plan
 func (builder *GradeStandardDimensionBuilder) ApiName(apiName string) *GradeStandardDimensionBuilder {
 	builder.apiName = apiName
-	builder.apiNameFlag = true
+	builder.apiNameSet = true
 	return builder
 }
 
@@ -1345,7 +1349,7 @@ func (builder *GradeStandardDimensionBuilder) ApiName(apiName string) *GradeStan
 // 示例值：false
 func (builder *GradeStandardDimensionBuilder) ContainSub(containSub bool) *GradeStandardDimensionBuilder {
 	builder.containSub = containSub
-	builder.containSubFlag = true
+	builder.containSubSet = true
 	return builder
 }
 
@@ -1354,21 +1358,21 @@ func (builder *GradeStandardDimensionBuilder) ContainSub(containSub bool) *Grade
 // 示例值：
 func (builder *GradeStandardDimensionBuilder) Values(values []string) *GradeStandardDimensionBuilder {
 	builder.values = values
-	builder.valuesFlag = true
+	builder.valuesSet = true
 	return builder
 }
 
 func (builder *GradeStandardDimensionBuilder) Build() *GradeStandardDimension {
 	req := &GradeStandardDimension{}
-	if builder.apiNameFlag {
+	if builder.apiNameSet {
 		req.ApiName = &builder.apiName
 
 	}
-	if builder.containSubFlag {
+	if builder.containSubSet {
 		req.ContainSub = &builder.containSub
 
 	}
-	if builder.valuesFlag {
+	if builder.valuesSet {
 		req.Values = builder.values
 	}
 	return req
@@ -1385,17 +1389,17 @@ type GradeStandardValue struct {
 }
 
 type GradeStandardValueBuilder struct {
-	standardValue     string // 标准值
-	standardValueFlag bool
+	standardValue    string // 标准值
+	standardValueSet bool
 
-	referenceObject     *StandardReferenceObject // 适用项目
-	referenceObjectFlag bool
+	referenceObject    *StandardReferenceObject // 适用项目
+	referenceObjectSet bool
 
-	upperLimit     string // 上限
-	upperLimitFlag bool
+	upperLimit    string // 上限
+	upperLimitSet bool
 
-	lowerLimit     string // 下限
-	lowerLimitFlag bool
+	lowerLimit    string // 下限
+	lowerLimitSet bool
 }
 
 func NewGradeStandardValueBuilder() *GradeStandardValueBuilder {
@@ -1408,7 +1412,7 @@ func NewGradeStandardValueBuilder() *GradeStandardValueBuilder {
 // 示例值：10
 func (builder *GradeStandardValueBuilder) StandardValue(standardValue string) *GradeStandardValueBuilder {
 	builder.standardValue = standardValue
-	builder.standardValueFlag = true
+	builder.standardValueSet = true
 	return builder
 }
 
@@ -1417,7 +1421,7 @@ func (builder *GradeStandardValueBuilder) StandardValue(standardValue string) *G
 // 示例值：
 func (builder *GradeStandardValueBuilder) ReferenceObject(referenceObject *StandardReferenceObject) *GradeStandardValueBuilder {
 	builder.referenceObject = referenceObject
-	builder.referenceObjectFlag = true
+	builder.referenceObjectSet = true
 	return builder
 }
 
@@ -1426,7 +1430,7 @@ func (builder *GradeStandardValueBuilder) ReferenceObject(referenceObject *Stand
 // 示例值：10
 func (builder *GradeStandardValueBuilder) UpperLimit(upperLimit string) *GradeStandardValueBuilder {
 	builder.upperLimit = upperLimit
-	builder.upperLimitFlag = true
+	builder.upperLimitSet = true
 	return builder
 }
 
@@ -1435,24 +1439,24 @@ func (builder *GradeStandardValueBuilder) UpperLimit(upperLimit string) *GradeSt
 // 示例值：1
 func (builder *GradeStandardValueBuilder) LowerLimit(lowerLimit string) *GradeStandardValueBuilder {
 	builder.lowerLimit = lowerLimit
-	builder.lowerLimitFlag = true
+	builder.lowerLimitSet = true
 	return builder
 }
 
 func (builder *GradeStandardValueBuilder) Build() *GradeStandardValue {
 	req := &GradeStandardValue{}
-	if builder.standardValueFlag {
+	if builder.standardValueSet {
 		req.StandardValue = &builder.standardValue
 
 	}
-	if builder.referenceObjectFlag {
+	if builder.referenceObjectSet {
 		req.ReferenceObject = builder.referenceObject
 	}
-	if builder.upperLimitFlag {
+	if builder.upperLimitSet {
 		req.UpperLimit = &builder.upperLimit
 
 	}
-	if builder.lowerLimitFlag {
+	if builder.lowerLimitSet {
 		req.LowerLimit = &builder.lowerLimit
 
 	}
@@ -1466,11 +1470,11 @@ type I18n struct {
 }
 
 type I18nBuilder struct {
-	zhCn     string // 中文名称
-	zhCnFlag bool
+	zhCn    string // 中文名称
+	zhCnSet bool
 
-	enUs     string // 英文名称
-	enUsFlag bool
+	enUs    string // 英文名称
+	enUsSet bool
 }
 
 func NewI18nBuilder() *I18nBuilder {
@@ -1483,7 +1487,7 @@ func NewI18nBuilder() *I18nBuilder {
 // 示例值：中文名称
 func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -1492,17 +1496,17 @@ func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 // 示例值：english_name
 func (builder *I18nBuilder) EnUs(enUs string) *I18nBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
 func (builder *I18nBuilder) Build() *I18n {
 	req := &I18n{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
@@ -1516,11 +1520,11 @@ type I18nContent struct {
 }
 
 type I18nContentBuilder struct {
-	locale     string // 语言版本
-	localeFlag bool
+	locale    string // 语言版本
+	localeSet bool
 
-	value     string // 语言名称
-	valueFlag bool
+	value    string // 语言名称
+	valueSet bool
 }
 
 func NewI18nContentBuilder() *I18nContentBuilder {
@@ -1533,7 +1537,7 @@ func NewI18nContentBuilder() *I18nContentBuilder {
 // 示例值：zh_cn
 func (builder *I18nContentBuilder) Locale(locale string) *I18nContentBuilder {
 	builder.locale = locale
-	builder.localeFlag = true
+	builder.localeSet = true
 	return builder
 }
 
@@ -1542,17 +1546,17 @@ func (builder *I18nContentBuilder) Locale(locale string) *I18nContentBuilder {
 // 示例值：中文名称
 func (builder *I18nContentBuilder) Value(value string) *I18nContentBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *I18nContentBuilder) Build() *I18nContent {
 	req := &I18nContent{}
-	if builder.localeFlag {
+	if builder.localeSet {
 		req.Locale = &builder.locale
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -1572,20 +1576,20 @@ type Indicator struct {
 }
 
 type IndicatorBuilder struct {
-	id     string // 薪资统计指标ID
-	idFlag bool
+	id    string // 薪资统计指标ID
+	idSet bool
 
-	name     string // 薪资统计指标名称
-	nameFlag bool
+	name    string // 薪资统计指标名称
+	nameSet bool
 
-	valueType     string // 薪资统计指标数值类型
-	valueTypeFlag bool
+	valueType    string // 薪资统计指标数值类型
+	valueTypeSet bool
 
-	activeStatus     int // 启用状态
-	activeStatusFlag bool
+	activeStatus    int // 启用状态
+	activeStatusSet bool
 
-	i18nNames     []*I18nContent // 多语言名称
-	i18nNamesFlag bool
+	i18nNames    []*I18nContent // 多语言名称
+	i18nNamesSet bool
 }
 
 func NewIndicatorBuilder() *IndicatorBuilder {
@@ -1598,7 +1602,7 @@ func NewIndicatorBuilder() *IndicatorBuilder {
 // 示例值：7196951947228589113
 func (builder *IndicatorBuilder) Id(id string) *IndicatorBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1607,7 +1611,7 @@ func (builder *IndicatorBuilder) Id(id string) *IndicatorBuilder {
 // 示例值：年度现金总和
 func (builder *IndicatorBuilder) Name(name string) *IndicatorBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1616,7 +1620,7 @@ func (builder *IndicatorBuilder) Name(name string) *IndicatorBuilder {
 // 示例值：money
 func (builder *IndicatorBuilder) ValueType(valueType string) *IndicatorBuilder {
 	builder.valueType = valueType
-	builder.valueTypeFlag = true
+	builder.valueTypeSet = true
 	return builder
 }
 
@@ -1625,7 +1629,7 @@ func (builder *IndicatorBuilder) ValueType(valueType string) *IndicatorBuilder {
 // 示例值：1
 func (builder *IndicatorBuilder) ActiveStatus(activeStatus int) *IndicatorBuilder {
 	builder.activeStatus = activeStatus
-	builder.activeStatusFlag = true
+	builder.activeStatusSet = true
 	return builder
 }
 
@@ -1634,29 +1638,29 @@ func (builder *IndicatorBuilder) ActiveStatus(activeStatus int) *IndicatorBuilde
 // 示例值：
 func (builder *IndicatorBuilder) I18nNames(i18nNames []*I18nContent) *IndicatorBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
 func (builder *IndicatorBuilder) Build() *Indicator {
 	req := &Indicator{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.valueTypeFlag {
+	if builder.valueTypeSet {
 		req.ValueType = &builder.valueType
 
 	}
-	if builder.activeStatusFlag {
+	if builder.activeStatusSet {
 		req.ActiveStatus = &builder.activeStatus
 
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
 	return req
@@ -1687,38 +1691,38 @@ type Item struct {
 }
 
 type ItemBuilder struct {
-	id     string // 薪酬项ID
-	idFlag bool
+	id    string // 薪酬项ID
+	idSet bool
 
-	name     string // 薪酬项名称
-	nameFlag bool
+	name    string // 薪酬项名称
+	nameSet bool
 
-	description     string // 薪酬项描述
-	descriptionFlag bool
+	description    string // 薪酬项描述
+	descriptionSet bool
 
-	categoryId     string // 薪酬项分类ID，详细信息可以通过[批量获取薪资项分类信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item_category/list)接口查询获得
-	categoryIdFlag bool
+	categoryId    string // 薪酬项分类ID，详细信息可以通过[批量获取薪资项分类信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item_category/list)接口查询获得
+	categoryIdSet bool
 
-	valueType     string // 薪酬项数值类型
-	valueTypeFlag bool
+	valueType    string // 薪酬项数值类型
+	valueTypeSet bool
 
-	payOffFrequencyType     string // 发放频率
-	payOffFrequencyTypeFlag bool
+	payOffFrequencyType    string // 发放频率
+	payOffFrequencyTypeSet bool
 
-	decimalPlaces     int // 小数位数
-	decimalPlacesFlag bool
+	decimalPlaces    int // 小数位数
+	decimalPlacesSet bool
 
-	activeStatus     int // 启用状态
-	activeStatusFlag bool
+	activeStatus    int // 启用状态
+	activeStatusSet bool
 
-	i18nNames     []*I18nContent // 多语言名称
-	i18nNamesFlag bool
+	i18nNames    []*I18nContent // 多语言名称
+	i18nNamesSet bool
 
-	i18nDescriptions     []*I18nContent // 多语言描述
-	i18nDescriptionsFlag bool
+	i18nDescriptions    []*I18nContent // 多语言描述
+	i18nDescriptionsSet bool
 
-	itemType     string // 薪酬项类型
-	itemTypeFlag bool
+	itemType    string // 薪酬项类型
+	itemTypeSet bool
 }
 
 func NewItemBuilder() *ItemBuilder {
@@ -1731,7 +1735,7 @@ func NewItemBuilder() *ItemBuilder {
 // 示例值：7196951947268589113
 func (builder *ItemBuilder) Id(id string) *ItemBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1740,7 +1744,7 @@ func (builder *ItemBuilder) Id(id string) *ItemBuilder {
 // 示例值：基本月薪
 func (builder *ItemBuilder) Name(name string) *ItemBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1749,7 +1753,7 @@ func (builder *ItemBuilder) Name(name string) *ItemBuilder {
 // 示例值：每月份的薪酬
 func (builder *ItemBuilder) Description(description string) *ItemBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -1758,7 +1762,7 @@ func (builder *ItemBuilder) Description(description string) *ItemBuilder {
 // 示例值：7196951947268589223
 func (builder *ItemBuilder) CategoryId(categoryId string) *ItemBuilder {
 	builder.categoryId = categoryId
-	builder.categoryIdFlag = true
+	builder.categoryIdSet = true
 	return builder
 }
 
@@ -1767,7 +1771,7 @@ func (builder *ItemBuilder) CategoryId(categoryId string) *ItemBuilder {
 // 示例值：money
 func (builder *ItemBuilder) ValueType(valueType string) *ItemBuilder {
 	builder.valueType = valueType
-	builder.valueTypeFlag = true
+	builder.valueTypeSet = true
 	return builder
 }
 
@@ -1776,7 +1780,7 @@ func (builder *ItemBuilder) ValueType(valueType string) *ItemBuilder {
 // 示例值：month
 func (builder *ItemBuilder) PayOffFrequencyType(payOffFrequencyType string) *ItemBuilder {
 	builder.payOffFrequencyType = payOffFrequencyType
-	builder.payOffFrequencyTypeFlag = true
+	builder.payOffFrequencyTypeSet = true
 	return builder
 }
 
@@ -1785,7 +1789,7 @@ func (builder *ItemBuilder) PayOffFrequencyType(payOffFrequencyType string) *Ite
 // 示例值：2
 func (builder *ItemBuilder) DecimalPlaces(decimalPlaces int) *ItemBuilder {
 	builder.decimalPlaces = decimalPlaces
-	builder.decimalPlacesFlag = true
+	builder.decimalPlacesSet = true
 	return builder
 }
 
@@ -1794,7 +1798,7 @@ func (builder *ItemBuilder) DecimalPlaces(decimalPlaces int) *ItemBuilder {
 // 示例值：1
 func (builder *ItemBuilder) ActiveStatus(activeStatus int) *ItemBuilder {
 	builder.activeStatus = activeStatus
-	builder.activeStatusFlag = true
+	builder.activeStatusSet = true
 	return builder
 }
 
@@ -1803,7 +1807,7 @@ func (builder *ItemBuilder) ActiveStatus(activeStatus int) *ItemBuilder {
 // 示例值：
 func (builder *ItemBuilder) I18nNames(i18nNames []*I18nContent) *ItemBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
@@ -1812,7 +1816,7 @@ func (builder *ItemBuilder) I18nNames(i18nNames []*I18nContent) *ItemBuilder {
 // 示例值：
 func (builder *ItemBuilder) I18nDescriptions(i18nDescriptions []*I18nContent) *ItemBuilder {
 	builder.i18nDescriptions = i18nDescriptions
-	builder.i18nDescriptionsFlag = true
+	builder.i18nDescriptionsSet = true
 	return builder
 }
 
@@ -1821,51 +1825,51 @@ func (builder *ItemBuilder) I18nDescriptions(i18nDescriptions []*I18nContent) *I
 // 示例值：bonus
 func (builder *ItemBuilder) ItemType(itemType string) *ItemBuilder {
 	builder.itemType = itemType
-	builder.itemTypeFlag = true
+	builder.itemTypeSet = true
 	return builder
 }
 
 func (builder *ItemBuilder) Build() *Item {
 	req := &Item{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.categoryIdFlag {
+	if builder.categoryIdSet {
 		req.CategoryId = &builder.categoryId
 
 	}
-	if builder.valueTypeFlag {
+	if builder.valueTypeSet {
 		req.ValueType = &builder.valueType
 
 	}
-	if builder.payOffFrequencyTypeFlag {
+	if builder.payOffFrequencyTypeSet {
 		req.PayOffFrequencyType = &builder.payOffFrequencyType
 
 	}
-	if builder.decimalPlacesFlag {
+	if builder.decimalPlacesSet {
 		req.DecimalPlaces = &builder.decimalPlaces
 
 	}
-	if builder.activeStatusFlag {
+	if builder.activeStatusSet {
 		req.ActiveStatus = &builder.activeStatus
 
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
-	if builder.i18nDescriptionsFlag {
+	if builder.i18nDescriptionsSet {
 		req.I18nDescriptions = builder.i18nDescriptions
 	}
-	if builder.itemTypeFlag {
+	if builder.itemTypeSet {
 		req.ItemType = &builder.itemType
 
 	}
@@ -1881,14 +1885,14 @@ type ItemCategory struct {
 }
 
 type ItemCategoryBuilder struct {
-	id     string // 薪酬项分类ID
-	idFlag bool
+	id    string // 薪酬项分类ID
+	idSet bool
 
-	name     string // 薪酬项分类名称
-	nameFlag bool
+	name    string // 薪酬项分类名称
+	nameSet bool
 
-	i18nNames     []*I18nContent // 薪酬项多语言分类
-	i18nNamesFlag bool
+	i18nNames    []*I18nContent // 薪酬项多语言分类
+	i18nNamesSet bool
 }
 
 func NewItemCategoryBuilder() *ItemCategoryBuilder {
@@ -1901,7 +1905,7 @@ func NewItemCategoryBuilder() *ItemCategoryBuilder {
 // 示例值：4532312334
 func (builder *ItemCategoryBuilder) Id(id string) *ItemCategoryBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1910,7 +1914,7 @@ func (builder *ItemCategoryBuilder) Id(id string) *ItemCategoryBuilder {
 // 示例值：基本薪资类
 func (builder *ItemCategoryBuilder) Name(name string) *ItemCategoryBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1919,21 +1923,21 @@ func (builder *ItemCategoryBuilder) Name(name string) *ItemCategoryBuilder {
 // 示例值：
 func (builder *ItemCategoryBuilder) I18nNames(i18nNames []*I18nContent) *ItemCategoryBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
 func (builder *ItemCategoryBuilder) Build() *ItemCategory {
 	req := &ItemCategory{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
 	return req
@@ -1972,9 +1976,9 @@ type LumpSumPayment struct {
 
 	ModifyTime *string `json:"modify_time,omitempty"` // 更新时间
 
-	ReferencePeriodStartDate *string `json:"reference_period_start_date,omitempty"` // 所属期开始日期
+	ReferencePeriodStartDate *string `json:"reference_period_start_date,omitempty"` // 一次性支付记录记录所属期开始日期
 
-	ReferencePeriodEndDate *string `json:"reference_period_end_date,omitempty"` // 所属期结束日期
+	ReferencePeriodEndDate *string `json:"reference_period_end_date,omitempty"` // 一次性支付记录记录所属期结束日期
 
 	Details []*LumpSumPaymentDetail `json:"details,omitempty"` // 发放明细列表
 
@@ -1982,65 +1986,65 @@ type LumpSumPayment struct {
 }
 
 type LumpSumPaymentBuilder struct {
-	id     string // 一次性支付记录id
-	idFlag bool
+	id    string // 一次性支付记录id
+	idSet bool
 
-	uniqueId     string // 外部幂等id，由上游业务决定
-	uniqueIdFlag bool
+	uniqueId    string // 外部幂等id，由上游业务决定
+	uniqueIdSet bool
 
-	userId     string // 员工id，具体类型由入参中的 user_id_type 指定
-	userIdFlag bool
+	userId    string // 员工id，具体类型由入参中的 user_id_type 指定
+	userIdSet bool
 
-	totalAmount     string // 总金额，字符串表达的数字
-	totalAmountFlag bool
+	totalAmount    string // 总金额，字符串表达的数字
+	totalAmountSet bool
 
-	bindingPeriod     int // 绑定期，单位为月
-	bindingPeriodFlag bool
+	bindingPeriod    int // 绑定期，单位为月
+	bindingPeriodSet bool
 
-	currencyId     string // 币种id
-	currencyIdFlag bool
+	currencyId    string // 币种id
+	currencyIdSet bool
 
-	issuanceFrequency     int // 发放次数
-	issuanceFrequencyFlag bool
+	issuanceFrequency    int // 发放次数
+	issuanceFrequencySet bool
 
-	itemId     string // 薪酬项id
-	itemIdFlag bool
+	itemId    string // 薪酬项id
+	itemIdSet bool
 
-	remark     string // 备注
-	remarkFlag bool
+	remark    string // 备注
+	remarkSet bool
 
-	issuanceDetailText     *I18n // 发放规则描述文本
-	issuanceDetailTextFlag bool
+	issuanceDetailText    *I18n // 发放规则描述文本
+	issuanceDetailTextSet bool
 
-	applySource     int // 申请来源
-	applySourceFlag bool
+	applySource    int // 申请来源
+	applySourceSet bool
 
-	returnAmountBeforeTax     string // 应退回金额（税前）
-	returnAmountBeforeTaxFlag bool
+	returnAmountBeforeTax    string // 应退回金额（税前）
+	returnAmountBeforeTaxSet bool
 
-	returnAmountAfterTax     string // 应退回金额（税后）
-	returnAmountAfterTaxFlag bool
+	returnAmountAfterTax    string // 应退回金额（税后）
+	returnAmountAfterTaxSet bool
 
-	bindingPeriodOffboardingType     string // 绑定期内离职类型
-	bindingPeriodOffboardingTypeFlag bool
+	bindingPeriodOffboardingType    string // 绑定期内离职类型
+	bindingPeriodOffboardingTypeSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	modifyTime     string // 更新时间
-	modifyTimeFlag bool
+	modifyTime    string // 更新时间
+	modifyTimeSet bool
 
-	referencePeriodStartDate     string // 所属期开始日期
-	referencePeriodStartDateFlag bool
+	referencePeriodStartDate    string // 一次性支付记录记录所属期开始日期
+	referencePeriodStartDateSet bool
 
-	referencePeriodEndDate     string // 所属期结束日期
-	referencePeriodEndDateFlag bool
+	referencePeriodEndDate    string // 一次性支付记录记录所属期结束日期
+	referencePeriodEndDateSet bool
 
-	details     []*LumpSumPaymentDetail // 发放明细列表
-	detailsFlag bool
+	details    []*LumpSumPaymentDetail // 发放明细列表
+	detailsSet bool
 
-	bindingPeriodDecimal     string // 绑定期带小数
-	bindingPeriodDecimalFlag bool
+	bindingPeriodDecimal    string // 绑定期带小数
+	bindingPeriodDecimalSet bool
 }
 
 func NewLumpSumPaymentBuilder() *LumpSumPaymentBuilder {
@@ -2053,7 +2057,7 @@ func NewLumpSumPaymentBuilder() *LumpSumPaymentBuilder {
 // 示例值：7397033607132351532
 func (builder *LumpSumPaymentBuilder) Id(id string) *LumpSumPaymentBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2062,7 +2066,7 @@ func (builder *LumpSumPaymentBuilder) Id(id string) *LumpSumPaymentBuilder {
 // 示例值：7402510801304718380_7309316347007764012_7402523725868058156_1726070400000_10000
 func (builder *LumpSumPaymentBuilder) UniqueId(uniqueId string) *LumpSumPaymentBuilder {
 	builder.uniqueId = uniqueId
-	builder.uniqueIdFlag = true
+	builder.uniqueIdSet = true
 	return builder
 }
 
@@ -2071,7 +2075,7 @@ func (builder *LumpSumPaymentBuilder) UniqueId(uniqueId string) *LumpSumPaymentB
 // 示例值：7337149697626801708
 func (builder *LumpSumPaymentBuilder) UserId(userId string) *LumpSumPaymentBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -2080,7 +2084,7 @@ func (builder *LumpSumPaymentBuilder) UserId(userId string) *LumpSumPaymentBuild
 // 示例值：2000.00
 func (builder *LumpSumPaymentBuilder) TotalAmount(totalAmount string) *LumpSumPaymentBuilder {
 	builder.totalAmount = totalAmount
-	builder.totalAmountFlag = true
+	builder.totalAmountSet = true
 	return builder
 }
 
@@ -2089,7 +2093,7 @@ func (builder *LumpSumPaymentBuilder) TotalAmount(totalAmount string) *LumpSumPa
 // 示例值：2
 func (builder *LumpSumPaymentBuilder) BindingPeriod(bindingPeriod int) *LumpSumPaymentBuilder {
 	builder.bindingPeriod = bindingPeriod
-	builder.bindingPeriodFlag = true
+	builder.bindingPeriodSet = true
 	return builder
 }
 
@@ -2098,7 +2102,7 @@ func (builder *LumpSumPaymentBuilder) BindingPeriod(bindingPeriod int) *LumpSumP
 // 示例值：6863329932261459464
 func (builder *LumpSumPaymentBuilder) CurrencyId(currencyId string) *LumpSumPaymentBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
@@ -2107,7 +2111,7 @@ func (builder *LumpSumPaymentBuilder) CurrencyId(currencyId string) *LumpSumPaym
 // 示例值：3
 func (builder *LumpSumPaymentBuilder) IssuanceFrequency(issuanceFrequency int) *LumpSumPaymentBuilder {
 	builder.issuanceFrequency = issuanceFrequency
-	builder.issuanceFrequencyFlag = true
+	builder.issuanceFrequencySet = true
 	return builder
 }
 
@@ -2116,7 +2120,7 @@ func (builder *LumpSumPaymentBuilder) IssuanceFrequency(issuanceFrequency int) *
 // 示例值：7411039006180312620
 func (builder *LumpSumPaymentBuilder) ItemId(itemId string) *LumpSumPaymentBuilder {
 	builder.itemId = itemId
-	builder.itemIdFlag = true
+	builder.itemIdSet = true
 	return builder
 }
 
@@ -2125,7 +2129,7 @@ func (builder *LumpSumPaymentBuilder) ItemId(itemId string) *LumpSumPaymentBuild
 // 示例值：备注
 func (builder *LumpSumPaymentBuilder) Remark(remark string) *LumpSumPaymentBuilder {
 	builder.remark = remark
-	builder.remarkFlag = true
+	builder.remarkSet = true
 	return builder
 }
 
@@ -2134,7 +2138,7 @@ func (builder *LumpSumPaymentBuilder) Remark(remark string) *LumpSumPaymentBuild
 // 示例值：
 func (builder *LumpSumPaymentBuilder) IssuanceDetailText(issuanceDetailText *I18n) *LumpSumPaymentBuilder {
 	builder.issuanceDetailText = issuanceDetailText
-	builder.issuanceDetailTextFlag = true
+	builder.issuanceDetailTextSet = true
 	return builder
 }
 
@@ -2143,7 +2147,7 @@ func (builder *LumpSumPaymentBuilder) IssuanceDetailText(issuanceDetailText *I18
 // 示例值：1
 func (builder *LumpSumPaymentBuilder) ApplySource(applySource int) *LumpSumPaymentBuilder {
 	builder.applySource = applySource
-	builder.applySourceFlag = true
+	builder.applySourceSet = true
 	return builder
 }
 
@@ -2152,7 +2156,7 @@ func (builder *LumpSumPaymentBuilder) ApplySource(applySource int) *LumpSumPayme
 // 示例值：2000.00
 func (builder *LumpSumPaymentBuilder) ReturnAmountBeforeTax(returnAmountBeforeTax string) *LumpSumPaymentBuilder {
 	builder.returnAmountBeforeTax = returnAmountBeforeTax
-	builder.returnAmountBeforeTaxFlag = true
+	builder.returnAmountBeforeTaxSet = true
 	return builder
 }
 
@@ -2161,7 +2165,7 @@ func (builder *LumpSumPaymentBuilder) ReturnAmountBeforeTax(returnAmountBeforeTa
 // 示例值：2000.00
 func (builder *LumpSumPaymentBuilder) ReturnAmountAfterTax(returnAmountAfterTax string) *LumpSumPaymentBuilder {
 	builder.returnAmountAfterTax = returnAmountAfterTax
-	builder.returnAmountAfterTaxFlag = true
+	builder.returnAmountAfterTaxSet = true
 	return builder
 }
 
@@ -2170,7 +2174,7 @@ func (builder *LumpSumPaymentBuilder) ReturnAmountAfterTax(returnAmountAfterTax 
 // 示例值：
 func (builder *LumpSumPaymentBuilder) BindingPeriodOffboardingType(bindingPeriodOffboardingType string) *LumpSumPaymentBuilder {
 	builder.bindingPeriodOffboardingType = bindingPeriodOffboardingType
-	builder.bindingPeriodOffboardingTypeFlag = true
+	builder.bindingPeriodOffboardingTypeSet = true
 	return builder
 }
 
@@ -2179,7 +2183,7 @@ func (builder *LumpSumPaymentBuilder) BindingPeriodOffboardingType(bindingPeriod
 // 示例值：2024-08-01 12:34:56
 func (builder *LumpSumPaymentBuilder) CreateTime(createTime string) *LumpSumPaymentBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -2188,25 +2192,25 @@ func (builder *LumpSumPaymentBuilder) CreateTime(createTime string) *LumpSumPaym
 // 示例值：2024-08-01 12:34:56
 func (builder *LumpSumPaymentBuilder) ModifyTime(modifyTime string) *LumpSumPaymentBuilder {
 	builder.modifyTime = modifyTime
-	builder.modifyTimeFlag = true
+	builder.modifyTimeSet = true
 	return builder
 }
 
-// 所属期开始日期
+// 一次性支付记录记录所属期开始日期
 //
 // 示例值：2024-08-01
 func (builder *LumpSumPaymentBuilder) ReferencePeriodStartDate(referencePeriodStartDate string) *LumpSumPaymentBuilder {
 	builder.referencePeriodStartDate = referencePeriodStartDate
-	builder.referencePeriodStartDateFlag = true
+	builder.referencePeriodStartDateSet = true
 	return builder
 }
 
-// 所属期结束日期
+// 一次性支付记录记录所属期结束日期
 //
 // 示例值：2024-08-01
 func (builder *LumpSumPaymentBuilder) ReferencePeriodEndDate(referencePeriodEndDate string) *LumpSumPaymentBuilder {
 	builder.referencePeriodEndDate = referencePeriodEndDate
-	builder.referencePeriodEndDateFlag = true
+	builder.referencePeriodEndDateSet = true
 	return builder
 }
 
@@ -2215,7 +2219,7 @@ func (builder *LumpSumPaymentBuilder) ReferencePeriodEndDate(referencePeriodEndD
 // 示例值：
 func (builder *LumpSumPaymentBuilder) Details(details []*LumpSumPaymentDetail) *LumpSumPaymentBuilder {
 	builder.details = details
-	builder.detailsFlag = true
+	builder.detailsSet = true
 	return builder
 }
 
@@ -2224,87 +2228,87 @@ func (builder *LumpSumPaymentBuilder) Details(details []*LumpSumPaymentDetail) *
 // 示例值：12
 func (builder *LumpSumPaymentBuilder) BindingPeriodDecimal(bindingPeriodDecimal string) *LumpSumPaymentBuilder {
 	builder.bindingPeriodDecimal = bindingPeriodDecimal
-	builder.bindingPeriodDecimalFlag = true
+	builder.bindingPeriodDecimalSet = true
 	return builder
 }
 
 func (builder *LumpSumPaymentBuilder) Build() *LumpSumPayment {
 	req := &LumpSumPayment{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.uniqueIdFlag {
+	if builder.uniqueIdSet {
 		req.UniqueId = &builder.uniqueId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.totalAmountFlag {
+	if builder.totalAmountSet {
 		req.TotalAmount = &builder.totalAmount
 
 	}
-	if builder.bindingPeriodFlag {
+	if builder.bindingPeriodSet {
 		req.BindingPeriod = &builder.bindingPeriod
 
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = &builder.currencyId
 
 	}
-	if builder.issuanceFrequencyFlag {
+	if builder.issuanceFrequencySet {
 		req.IssuanceFrequency = &builder.issuanceFrequency
 
 	}
-	if builder.itemIdFlag {
+	if builder.itemIdSet {
 		req.ItemId = &builder.itemId
 
 	}
-	if builder.remarkFlag {
+	if builder.remarkSet {
 		req.Remark = &builder.remark
 
 	}
-	if builder.issuanceDetailTextFlag {
+	if builder.issuanceDetailTextSet {
 		req.IssuanceDetailText = builder.issuanceDetailText
 	}
-	if builder.applySourceFlag {
+	if builder.applySourceSet {
 		req.ApplySource = &builder.applySource
 
 	}
-	if builder.returnAmountBeforeTaxFlag {
+	if builder.returnAmountBeforeTaxSet {
 		req.ReturnAmountBeforeTax = &builder.returnAmountBeforeTax
 
 	}
-	if builder.returnAmountAfterTaxFlag {
+	if builder.returnAmountAfterTaxSet {
 		req.ReturnAmountAfterTax = &builder.returnAmountAfterTax
 
 	}
-	if builder.bindingPeriodOffboardingTypeFlag {
+	if builder.bindingPeriodOffboardingTypeSet {
 		req.BindingPeriodOffboardingType = &builder.bindingPeriodOffboardingType
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.modifyTimeFlag {
+	if builder.modifyTimeSet {
 		req.ModifyTime = &builder.modifyTime
 
 	}
-	if builder.referencePeriodStartDateFlag {
+	if builder.referencePeriodStartDateSet {
 		req.ReferencePeriodStartDate = &builder.referencePeriodStartDate
 
 	}
-	if builder.referencePeriodEndDateFlag {
+	if builder.referencePeriodEndDateSet {
 		req.ReferencePeriodEndDate = &builder.referencePeriodEndDate
 
 	}
-	if builder.detailsFlag {
+	if builder.detailsSet {
 		req.Details = builder.details
 	}
-	if builder.bindingPeriodDecimalFlag {
+	if builder.bindingPeriodDecimalSet {
 		req.BindingPeriodDecimal = &builder.bindingPeriodDecimal
 
 	}
@@ -2337,47 +2341,57 @@ type LumpSumPaymentDetail struct {
 	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
 
 	IssuancePayGroupId *string `json:"issuance_pay_group_id,omitempty"` // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+
+	DetailReferencePeriodStartDate *string `json:"detail_reference_period_start_date,omitempty"` // 一次性支付明细所属期开始日期
+
+	DetailReferencePeriodEndDate *string `json:"detail_reference_period_end_date,omitempty"` // 一次性支付明细所属期结束日期
 }
 
 type LumpSumPaymentDetailBuilder struct {
-	id     string // 一次性支付记录明细id
-	idFlag bool
+	id    string // 一次性支付记录明细id
+	idSet bool
 
-	recordId     string // 一次性支付记录id
-	recordIdFlag bool
+	recordId    string // 一次性支付记录id
+	recordIdSet bool
 
-	userId     string // 员工id，具体类型由入参中的 user_id_type 指定
-	userIdFlag bool
+	userId    string // 员工id，具体类型由入参中的 user_id_type 指定
+	userIdSet bool
 
-	issuanceAmount     string // 一次性支付明细发放金额，可转数字的字符串
-	issuanceAmountFlag bool
+	issuanceAmount    string // 一次性支付明细发放金额，可转数字的字符串
+	issuanceAmountSet bool
 
-	issuanceStatus     string // 发放状态
-	issuanceStatusFlag bool
+	issuanceStatus    string // 发放状态
+	issuanceStatusSet bool
 
-	issuanceWay     string // 发放方式
-	issuanceWayFlag bool
+	issuanceWay    string // 发放方式
+	issuanceWaySet bool
 
-	issuanceTime     string // 发放日期
-	issuanceTimeFlag bool
+	issuanceTime    string // 发放日期
+	issuanceTimeSet bool
 
-	currencyId     string // 币种id
-	currencyIdFlag bool
+	currencyId    string // 币种id
+	currencyIdSet bool
 
-	belongTime     string // 申请发放日期
-	belongTimeFlag bool
+	belongTime    string // 申请发放日期
+	belongTimeSet bool
 
-	createTime     string // 创建时间
-	createTimeFlag bool
+	createTime    string // 创建时间
+	createTimeSet bool
 
-	modifyTime     string // 更新时间
-	modifyTimeFlag bool
+	modifyTime    string // 更新时间
+	modifyTimeSet bool
 
-	issuanceCountryRegionId     string // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
-	issuanceCountryRegionIdFlag bool
+	issuanceCountryRegionId    string // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionIdSet bool
 
-	issuancePayGroupId     string // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
-	issuancePayGroupIdFlag bool
+	issuancePayGroupId    string // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+	issuancePayGroupIdSet bool
+
+	detailReferencePeriodStartDate    string // 一次性支付明细所属期开始日期
+	detailReferencePeriodStartDateSet bool
+
+	detailReferencePeriodEndDate    string // 一次性支付明细所属期结束日期
+	detailReferencePeriodEndDateSet bool
 }
 
 func NewLumpSumPaymentDetailBuilder() *LumpSumPaymentDetailBuilder {
@@ -2390,7 +2404,7 @@ func NewLumpSumPaymentDetailBuilder() *LumpSumPaymentDetailBuilder {
 // 示例值：7395133551102200876
 func (builder *LumpSumPaymentDetailBuilder) Id(id string) *LumpSumPaymentDetailBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2399,7 +2413,7 @@ func (builder *LumpSumPaymentDetailBuilder) Id(id string) *LumpSumPaymentDetailB
 // 示例值：7395133551102168108
 func (builder *LumpSumPaymentDetailBuilder) RecordId(recordId string) *LumpSumPaymentDetailBuilder {
 	builder.recordId = recordId
-	builder.recordIdFlag = true
+	builder.recordIdSet = true
 	return builder
 }
 
@@ -2408,7 +2422,7 @@ func (builder *LumpSumPaymentDetailBuilder) RecordId(recordId string) *LumpSumPa
 // 示例值：7337149697626801708
 func (builder *LumpSumPaymentDetailBuilder) UserId(userId string) *LumpSumPaymentDetailBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -2417,7 +2431,7 @@ func (builder *LumpSumPaymentDetailBuilder) UserId(userId string) *LumpSumPaymen
 // 示例值：2000.00
 func (builder *LumpSumPaymentDetailBuilder) IssuanceAmount(issuanceAmount string) *LumpSumPaymentDetailBuilder {
 	builder.issuanceAmount = issuanceAmount
-	builder.issuanceAmountFlag = true
+	builder.issuanceAmountSet = true
 	return builder
 }
 
@@ -2426,7 +2440,7 @@ func (builder *LumpSumPaymentDetailBuilder) IssuanceAmount(issuanceAmount string
 // 示例值：to_be_issued
 func (builder *LumpSumPaymentDetailBuilder) IssuanceStatus(issuanceStatus string) *LumpSumPaymentDetailBuilder {
 	builder.issuanceStatus = issuanceStatus
-	builder.issuanceStatusFlag = true
+	builder.issuanceStatusSet = true
 	return builder
 }
 
@@ -2435,7 +2449,7 @@ func (builder *LumpSumPaymentDetailBuilder) IssuanceStatus(issuanceStatus string
 // 示例值：with_salary
 func (builder *LumpSumPaymentDetailBuilder) IssuanceWay(issuanceWay string) *LumpSumPaymentDetailBuilder {
 	builder.issuanceWay = issuanceWay
-	builder.issuanceWayFlag = true
+	builder.issuanceWaySet = true
 	return builder
 }
 
@@ -2444,7 +2458,7 @@ func (builder *LumpSumPaymentDetailBuilder) IssuanceWay(issuanceWay string) *Lum
 // 示例值：2024-08-01
 func (builder *LumpSumPaymentDetailBuilder) IssuanceTime(issuanceTime string) *LumpSumPaymentDetailBuilder {
 	builder.issuanceTime = issuanceTime
-	builder.issuanceTimeFlag = true
+	builder.issuanceTimeSet = true
 	return builder
 }
 
@@ -2453,7 +2467,7 @@ func (builder *LumpSumPaymentDetailBuilder) IssuanceTime(issuanceTime string) *L
 // 示例值：6863329932261459464
 func (builder *LumpSumPaymentDetailBuilder) CurrencyId(currencyId string) *LumpSumPaymentDetailBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
@@ -2462,7 +2476,7 @@ func (builder *LumpSumPaymentDetailBuilder) CurrencyId(currencyId string) *LumpS
 // 示例值：2025-01-20
 func (builder *LumpSumPaymentDetailBuilder) BelongTime(belongTime string) *LumpSumPaymentDetailBuilder {
 	builder.belongTime = belongTime
-	builder.belongTimeFlag = true
+	builder.belongTimeSet = true
 	return builder
 }
 
@@ -2471,7 +2485,7 @@ func (builder *LumpSumPaymentDetailBuilder) BelongTime(belongTime string) *LumpS
 // 示例值：2024-08-01 12:34:56
 func (builder *LumpSumPaymentDetailBuilder) CreateTime(createTime string) *LumpSumPaymentDetailBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -2480,7 +2494,7 @@ func (builder *LumpSumPaymentDetailBuilder) CreateTime(createTime string) *LumpS
 // 示例值：2024-08-01 12:34:56
 func (builder *LumpSumPaymentDetailBuilder) ModifyTime(modifyTime string) *LumpSumPaymentDetailBuilder {
 	builder.modifyTime = modifyTime
-	builder.modifyTimeFlag = true
+	builder.modifyTimeSet = true
 	return builder
 }
 
@@ -2489,7 +2503,7 @@ func (builder *LumpSumPaymentDetailBuilder) ModifyTime(modifyTime string) *LumpS
 // 示例值：6862995757234914824
 func (builder *LumpSumPaymentDetailBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *LumpSumPaymentDetailBuilder {
 	builder.issuanceCountryRegionId = issuanceCountryRegionId
-	builder.issuanceCountryRegionIdFlag = true
+	builder.issuanceCountryRegionIdSet = true
 	return builder
 }
 
@@ -2498,62 +2512,88 @@ func (builder *LumpSumPaymentDetailBuilder) IssuanceCountryRegionId(issuanceCoun
 // 示例值：6862995757234914824
 func (builder *LumpSumPaymentDetailBuilder) IssuancePayGroupId(issuancePayGroupId string) *LumpSumPaymentDetailBuilder {
 	builder.issuancePayGroupId = issuancePayGroupId
-	builder.issuancePayGroupIdFlag = true
+	builder.issuancePayGroupIdSet = true
+	return builder
+}
+
+// 一次性支付明细所属期开始日期
+//
+// 示例值：2024-08-01
+func (builder *LumpSumPaymentDetailBuilder) DetailReferencePeriodStartDate(detailReferencePeriodStartDate string) *LumpSumPaymentDetailBuilder {
+	builder.detailReferencePeriodStartDate = detailReferencePeriodStartDate
+	builder.detailReferencePeriodStartDateSet = true
+	return builder
+}
+
+// 一次性支付明细所属期结束日期
+//
+// 示例值：2024-08-01
+func (builder *LumpSumPaymentDetailBuilder) DetailReferencePeriodEndDate(detailReferencePeriodEndDate string) *LumpSumPaymentDetailBuilder {
+	builder.detailReferencePeriodEndDate = detailReferencePeriodEndDate
+	builder.detailReferencePeriodEndDateSet = true
 	return builder
 }
 
 func (builder *LumpSumPaymentDetailBuilder) Build() *LumpSumPaymentDetail {
 	req := &LumpSumPaymentDetail{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.recordIdFlag {
+	if builder.recordIdSet {
 		req.RecordId = &builder.recordId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.issuanceAmountFlag {
+	if builder.issuanceAmountSet {
 		req.IssuanceAmount = &builder.issuanceAmount
 
 	}
-	if builder.issuanceStatusFlag {
+	if builder.issuanceStatusSet {
 		req.IssuanceStatus = &builder.issuanceStatus
 
 	}
-	if builder.issuanceWayFlag {
+	if builder.issuanceWaySet {
 		req.IssuanceWay = &builder.issuanceWay
 
 	}
-	if builder.issuanceTimeFlag {
+	if builder.issuanceTimeSet {
 		req.IssuanceTime = &builder.issuanceTime
 
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = &builder.currencyId
 
 	}
-	if builder.belongTimeFlag {
+	if builder.belongTimeSet {
 		req.BelongTime = &builder.belongTime
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.modifyTimeFlag {
+	if builder.modifyTimeSet {
 		req.ModifyTime = &builder.modifyTime
 
 	}
-	if builder.issuanceCountryRegionIdFlag {
+	if builder.issuanceCountryRegionIdSet {
 		req.IssuanceCountryRegionId = &builder.issuanceCountryRegionId
 
 	}
-	if builder.issuancePayGroupIdFlag {
+	if builder.issuancePayGroupIdSet {
 		req.IssuancePayGroupId = &builder.issuancePayGroupId
+
+	}
+	if builder.detailReferencePeriodStartDateSet {
+		req.DetailReferencePeriodStartDate = &builder.detailReferencePeriodStartDate
+
+	}
+	if builder.detailReferencePeriodEndDateSet {
+		req.DetailReferencePeriodEndDate = &builder.detailReferencePeriodEndDate
 
 	}
 	return req
@@ -2573,29 +2613,39 @@ type LumpSumPaymentDetailForCreate struct {
 	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
 
 	IssuancePayGroupId *string `json:"issuance_pay_group_id,omitempty"` // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+
+	DetailReferencePeriodStartDate *string `json:"detail_reference_period_start_date,omitempty"` // 一次性支付明细所属期开始日期
+
+	DetailReferencePeriodEndDate *string `json:"detail_reference_period_end_date,omitempty"` // 一次性支付明细所属期结束日期
 }
 
 type LumpSumPaymentDetailForCreateBuilder struct {
-	issuanceAmount     string // 一次性支付明细发放金额，可转数字的字符串
-	issuanceAmountFlag bool
+	issuanceAmount    string // 一次性支付明细发放金额，可转数字的字符串
+	issuanceAmountSet bool
 
-	issuanceStatus     string // 发放状态
-	issuanceStatusFlag bool
+	issuanceStatus    string // 发放状态
+	issuanceStatusSet bool
 
-	issuanceWay     string // 发放方式
-	issuanceWayFlag bool
+	issuanceWay    string // 发放方式
+	issuanceWaySet bool
 
-	issuanceTime     string // 发放日期
-	issuanceTimeFlag bool
+	issuanceTime    string // 发放日期
+	issuanceTimeSet bool
 
-	belongTime     string // 申请发放日期
-	belongTimeFlag bool
+	belongTime    string // 申请发放日期
+	belongTimeSet bool
 
-	issuanceCountryRegionId     string // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
-	issuanceCountryRegionIdFlag bool
+	issuanceCountryRegionId    string // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionIdSet bool
 
-	issuancePayGroupId     string // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
-	issuancePayGroupIdFlag bool
+	issuancePayGroupId    string // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+	issuancePayGroupIdSet bool
+
+	detailReferencePeriodStartDate    string // 一次性支付明细所属期开始日期
+	detailReferencePeriodStartDateSet bool
+
+	detailReferencePeriodEndDate    string // 一次性支付明细所属期结束日期
+	detailReferencePeriodEndDateSet bool
 }
 
 func NewLumpSumPaymentDetailForCreateBuilder() *LumpSumPaymentDetailForCreateBuilder {
@@ -2608,7 +2658,7 @@ func NewLumpSumPaymentDetailForCreateBuilder() *LumpSumPaymentDetailForCreateBui
 // 示例值：2000.00
 func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceAmount(issuanceAmount string) *LumpSumPaymentDetailForCreateBuilder {
 	builder.issuanceAmount = issuanceAmount
-	builder.issuanceAmountFlag = true
+	builder.issuanceAmountSet = true
 	return builder
 }
 
@@ -2617,7 +2667,7 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceAmount(issuanceAmou
 // 示例值：to_be_issued
 func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceStatus(issuanceStatus string) *LumpSumPaymentDetailForCreateBuilder {
 	builder.issuanceStatus = issuanceStatus
-	builder.issuanceStatusFlag = true
+	builder.issuanceStatusSet = true
 	return builder
 }
 
@@ -2626,7 +2676,7 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceStatus(issuanceStat
 // 示例值：with_salary
 func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceWay(issuanceWay string) *LumpSumPaymentDetailForCreateBuilder {
 	builder.issuanceWay = issuanceWay
-	builder.issuanceWayFlag = true
+	builder.issuanceWaySet = true
 	return builder
 }
 
@@ -2635,7 +2685,7 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceWay(issuanceWay str
 // 示例值：2024-08-01
 func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceTime(issuanceTime string) *LumpSumPaymentDetailForCreateBuilder {
 	builder.issuanceTime = issuanceTime
-	builder.issuanceTimeFlag = true
+	builder.issuanceTimeSet = true
 	return builder
 }
 
@@ -2644,7 +2694,7 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceTime(issuanceTime s
 // 示例值：2025-01-20
 func (builder *LumpSumPaymentDetailForCreateBuilder) BelongTime(belongTime string) *LumpSumPaymentDetailForCreateBuilder {
 	builder.belongTime = belongTime
-	builder.belongTimeFlag = true
+	builder.belongTimeSet = true
 	return builder
 }
 
@@ -2653,7 +2703,7 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) BelongTime(belongTime strin
 // 示例值：6862995757234914824
 func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *LumpSumPaymentDetailForCreateBuilder {
 	builder.issuanceCountryRegionId = issuanceCountryRegionId
-	builder.issuanceCountryRegionIdFlag = true
+	builder.issuanceCountryRegionIdSet = true
 	return builder
 }
 
@@ -2662,38 +2712,64 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceCountryRegionId(iss
 // 示例值：6862995757234914824
 func (builder *LumpSumPaymentDetailForCreateBuilder) IssuancePayGroupId(issuancePayGroupId string) *LumpSumPaymentDetailForCreateBuilder {
 	builder.issuancePayGroupId = issuancePayGroupId
-	builder.issuancePayGroupIdFlag = true
+	builder.issuancePayGroupIdSet = true
+	return builder
+}
+
+// 一次性支付明细所属期开始日期
+//
+// 示例值：2024-08-01
+func (builder *LumpSumPaymentDetailForCreateBuilder) DetailReferencePeriodStartDate(detailReferencePeriodStartDate string) *LumpSumPaymentDetailForCreateBuilder {
+	builder.detailReferencePeriodStartDate = detailReferencePeriodStartDate
+	builder.detailReferencePeriodStartDateSet = true
+	return builder
+}
+
+// 一次性支付明细所属期结束日期
+//
+// 示例值：2024-08-01
+func (builder *LumpSumPaymentDetailForCreateBuilder) DetailReferencePeriodEndDate(detailReferencePeriodEndDate string) *LumpSumPaymentDetailForCreateBuilder {
+	builder.detailReferencePeriodEndDate = detailReferencePeriodEndDate
+	builder.detailReferencePeriodEndDateSet = true
 	return builder
 }
 
 func (builder *LumpSumPaymentDetailForCreateBuilder) Build() *LumpSumPaymentDetailForCreate {
 	req := &LumpSumPaymentDetailForCreate{}
-	if builder.issuanceAmountFlag {
+	if builder.issuanceAmountSet {
 		req.IssuanceAmount = &builder.issuanceAmount
 
 	}
-	if builder.issuanceStatusFlag {
+	if builder.issuanceStatusSet {
 		req.IssuanceStatus = &builder.issuanceStatus
 
 	}
-	if builder.issuanceWayFlag {
+	if builder.issuanceWaySet {
 		req.IssuanceWay = &builder.issuanceWay
 
 	}
-	if builder.issuanceTimeFlag {
+	if builder.issuanceTimeSet {
 		req.IssuanceTime = &builder.issuanceTime
 
 	}
-	if builder.belongTimeFlag {
+	if builder.belongTimeSet {
 		req.BelongTime = &builder.belongTime
 
 	}
-	if builder.issuanceCountryRegionIdFlag {
+	if builder.issuanceCountryRegionIdSet {
 		req.IssuanceCountryRegionId = &builder.issuanceCountryRegionId
 
 	}
-	if builder.issuancePayGroupIdFlag {
+	if builder.issuancePayGroupIdSet {
 		req.IssuancePayGroupId = &builder.issuancePayGroupId
+
+	}
+	if builder.detailReferencePeriodStartDateSet {
+		req.DetailReferencePeriodStartDate = &builder.detailReferencePeriodStartDate
+
+	}
+	if builder.detailReferencePeriodEndDateSet {
+		req.DetailReferencePeriodEndDate = &builder.detailReferencePeriodEndDate
 
 	}
 	return req
@@ -2715,32 +2791,42 @@ type LumpSumPaymentDetailForUpdate struct {
 	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
 
 	IssuancePayGroupId *string `json:"issuance_pay_group_id,omitempty"` // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+
+	DetailReferencePeriodStartDate *string `json:"detail_reference_period_start_date,omitempty"` // 一次性支付明细所属期开始日期
+
+	DetailReferencePeriodEndDate *string `json:"detail_reference_period_end_date,omitempty"` // 一次性支付明细所属期结束日期
 }
 
 type LumpSumPaymentDetailForUpdateBuilder struct {
-	id     string // 一次性支付记录明细id。传入已有的id代表直接在原明细上进行更新，不传则代表创建新的明细
-	idFlag bool
+	id    string // 一次性支付记录明细id。传入已有的id代表直接在原明细上进行更新，不传则代表创建新的明细
+	idSet bool
 
-	issuanceAmount     string // 一次性支付明细发放金额，可转数字的字符串
-	issuanceAmountFlag bool
+	issuanceAmount    string // 一次性支付明细发放金额，可转数字的字符串
+	issuanceAmountSet bool
 
-	issuanceStatus     string // 发放状态
-	issuanceStatusFlag bool
+	issuanceStatus    string // 发放状态
+	issuanceStatusSet bool
 
-	issuanceWay     string // 发放方式
-	issuanceWayFlag bool
+	issuanceWay    string // 发放方式
+	issuanceWaySet bool
 
-	issuanceTime     string // 发放日期
-	issuanceTimeFlag bool
+	issuanceTime    string // 发放日期
+	issuanceTimeSet bool
 
-	belongTime     string // 申请发放日期
-	belongTimeFlag bool
+	belongTime    string // 申请发放日期
+	belongTimeSet bool
 
-	issuanceCountryRegionId     string // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
-	issuanceCountryRegionIdFlag bool
+	issuanceCountryRegionId    string // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionIdSet bool
 
-	issuancePayGroupId     string // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
-	issuancePayGroupIdFlag bool
+	issuancePayGroupId    string // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+	issuancePayGroupIdSet bool
+
+	detailReferencePeriodStartDate    string // 一次性支付明细所属期开始日期
+	detailReferencePeriodStartDateSet bool
+
+	detailReferencePeriodEndDate    string // 一次性支付明细所属期结束日期
+	detailReferencePeriodEndDateSet bool
 }
 
 func NewLumpSumPaymentDetailForUpdateBuilder() *LumpSumPaymentDetailForUpdateBuilder {
@@ -2753,7 +2839,7 @@ func NewLumpSumPaymentDetailForUpdateBuilder() *LumpSumPaymentDetailForUpdateBui
 // 示例值：7395133551102200876
 func (builder *LumpSumPaymentDetailForUpdateBuilder) Id(id string) *LumpSumPaymentDetailForUpdateBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2762,7 +2848,7 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) Id(id string) *LumpSumPayme
 // 示例值：2000.00
 func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceAmount(issuanceAmount string) *LumpSumPaymentDetailForUpdateBuilder {
 	builder.issuanceAmount = issuanceAmount
-	builder.issuanceAmountFlag = true
+	builder.issuanceAmountSet = true
 	return builder
 }
 
@@ -2771,7 +2857,7 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceAmount(issuanceAmou
 // 示例值：to_be_issued
 func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceStatus(issuanceStatus string) *LumpSumPaymentDetailForUpdateBuilder {
 	builder.issuanceStatus = issuanceStatus
-	builder.issuanceStatusFlag = true
+	builder.issuanceStatusSet = true
 	return builder
 }
 
@@ -2780,7 +2866,7 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceStatus(issuanceStat
 // 示例值：with_salary
 func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceWay(issuanceWay string) *LumpSumPaymentDetailForUpdateBuilder {
 	builder.issuanceWay = issuanceWay
-	builder.issuanceWayFlag = true
+	builder.issuanceWaySet = true
 	return builder
 }
 
@@ -2789,7 +2875,7 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceWay(issuanceWay str
 // 示例值：2024-08-20
 func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceTime(issuanceTime string) *LumpSumPaymentDetailForUpdateBuilder {
 	builder.issuanceTime = issuanceTime
-	builder.issuanceTimeFlag = true
+	builder.issuanceTimeSet = true
 	return builder
 }
 
@@ -2798,7 +2884,7 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceTime(issuanceTime s
 // 示例值：2025-01-20
 func (builder *LumpSumPaymentDetailForUpdateBuilder) BelongTime(belongTime string) *LumpSumPaymentDetailForUpdateBuilder {
 	builder.belongTime = belongTime
-	builder.belongTimeFlag = true
+	builder.belongTimeSet = true
 	return builder
 }
 
@@ -2807,7 +2893,7 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) BelongTime(belongTime strin
 // 示例值：6862995757234914824
 func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *LumpSumPaymentDetailForUpdateBuilder {
 	builder.issuanceCountryRegionId = issuanceCountryRegionId
-	builder.issuanceCountryRegionIdFlag = true
+	builder.issuanceCountryRegionIdSet = true
 	return builder
 }
 
@@ -2816,42 +2902,68 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceCountryRegionId(iss
 // 示例值：6862995757234914824
 func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuancePayGroupId(issuancePayGroupId string) *LumpSumPaymentDetailForUpdateBuilder {
 	builder.issuancePayGroupId = issuancePayGroupId
-	builder.issuancePayGroupIdFlag = true
+	builder.issuancePayGroupIdSet = true
+	return builder
+}
+
+// 一次性支付明细所属期开始日期
+//
+// 示例值：2024-08-01
+func (builder *LumpSumPaymentDetailForUpdateBuilder) DetailReferencePeriodStartDate(detailReferencePeriodStartDate string) *LumpSumPaymentDetailForUpdateBuilder {
+	builder.detailReferencePeriodStartDate = detailReferencePeriodStartDate
+	builder.detailReferencePeriodStartDateSet = true
+	return builder
+}
+
+// 一次性支付明细所属期结束日期
+//
+// 示例值：2024-08-01
+func (builder *LumpSumPaymentDetailForUpdateBuilder) DetailReferencePeriodEndDate(detailReferencePeriodEndDate string) *LumpSumPaymentDetailForUpdateBuilder {
+	builder.detailReferencePeriodEndDate = detailReferencePeriodEndDate
+	builder.detailReferencePeriodEndDateSet = true
 	return builder
 }
 
 func (builder *LumpSumPaymentDetailForUpdateBuilder) Build() *LumpSumPaymentDetailForUpdate {
 	req := &LumpSumPaymentDetailForUpdate{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.issuanceAmountFlag {
+	if builder.issuanceAmountSet {
 		req.IssuanceAmount = &builder.issuanceAmount
 
 	}
-	if builder.issuanceStatusFlag {
+	if builder.issuanceStatusSet {
 		req.IssuanceStatus = &builder.issuanceStatus
 
 	}
-	if builder.issuanceWayFlag {
+	if builder.issuanceWaySet {
 		req.IssuanceWay = &builder.issuanceWay
 
 	}
-	if builder.issuanceTimeFlag {
+	if builder.issuanceTimeSet {
 		req.IssuanceTime = &builder.issuanceTime
 
 	}
-	if builder.belongTimeFlag {
+	if builder.belongTimeSet {
 		req.BelongTime = &builder.belongTime
 
 	}
-	if builder.issuanceCountryRegionIdFlag {
+	if builder.issuanceCountryRegionIdSet {
 		req.IssuanceCountryRegionId = &builder.issuanceCountryRegionId
 
 	}
-	if builder.issuancePayGroupIdFlag {
+	if builder.issuancePayGroupIdSet {
 		req.IssuancePayGroupId = &builder.issuancePayGroupId
+
+	}
+	if builder.detailReferencePeriodStartDateSet {
+		req.DetailReferencePeriodStartDate = &builder.detailReferencePeriodStartDate
+
+	}
+	if builder.detailReferencePeriodEndDateSet {
+		req.DetailReferencePeriodEndDate = &builder.detailReferencePeriodEndDate
 
 	}
 	return req
@@ -2872,9 +2984,9 @@ type LumpSumPaymentForCreate struct {
 
 	ItemId *string `json:"item_id,omitempty"` // 薪酬项id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list?appId=cli_a3077e2bb03c100d 进行查询）
 
-	ReferencePeriodStartDate *string `json:"reference_period_start_date,omitempty"` // 所属期开始日期
+	ReferencePeriodStartDate *string `json:"reference_period_start_date,omitempty"` // 一次性支付记录所属期开始日期
 
-	ReferencePeriodEndDate *string `json:"reference_period_end_date,omitempty"` // 所属期结束日期
+	ReferencePeriodEndDate *string `json:"reference_period_end_date,omitempty"` // 一次性支付记录所属期结束日期
 
 	Details []*LumpSumPaymentDetailForCreate `json:"details,omitempty"` // 发放明细列表
 
@@ -2884,41 +2996,41 @@ type LumpSumPaymentForCreate struct {
 }
 
 type LumpSumPaymentForCreateBuilder struct {
-	uniqueId     string // 外部幂等id，由上游业务决定
-	uniqueIdFlag bool
+	uniqueId    string // 外部幂等id，由上游业务决定
+	uniqueIdSet bool
 
-	userId     string // 员工id，具体类型由入参中的 user_id_type 指定
-	userIdFlag bool
+	userId    string // 员工id，具体类型由入参中的 user_id_type 指定
+	userIdSet bool
 
-	totalAmount     string // 总金额，字符串表达的数字
-	totalAmountFlag bool
+	totalAmount    string // 总金额，字符串表达的数字
+	totalAmountSet bool
 
-	bindingPeriod     int // 绑定期，单位为月
-	bindingPeriodFlag bool
+	bindingPeriod    int // 绑定期，单位为月
+	bindingPeriodSet bool
 
-	currencyId     string // 币种id
-	currencyIdFlag bool
+	currencyId    string // 币种id
+	currencyIdSet bool
 
-	issuanceFrequency     int // 发放次数，必须与 details 的长度一致
-	issuanceFrequencyFlag bool
+	issuanceFrequency    int // 发放次数，必须与 details 的长度一致
+	issuanceFrequencySet bool
 
-	itemId     string // 薪酬项id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list?appId=cli_a3077e2bb03c100d 进行查询）
-	itemIdFlag bool
+	itemId    string // 薪酬项id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list?appId=cli_a3077e2bb03c100d 进行查询）
+	itemIdSet bool
 
-	referencePeriodStartDate     string // 所属期开始日期
-	referencePeriodStartDateFlag bool
+	referencePeriodStartDate    string // 一次性支付记录所属期开始日期
+	referencePeriodStartDateSet bool
 
-	referencePeriodEndDate     string // 所属期结束日期
-	referencePeriodEndDateFlag bool
+	referencePeriodEndDate    string // 一次性支付记录所属期结束日期
+	referencePeriodEndDateSet bool
 
-	details     []*LumpSumPaymentDetailForCreate // 发放明细列表
-	detailsFlag bool
+	details    []*LumpSumPaymentDetailForCreate // 发放明细列表
+	detailsSet bool
 
-	remark     string // 备注
-	remarkFlag bool
+	remark    string // 备注
+	remarkSet bool
 
-	bindingPeriodDecimal     string // 绑定期带小数
-	bindingPeriodDecimalFlag bool
+	bindingPeriodDecimal    string // 绑定期带小数
+	bindingPeriodDecimalSet bool
 }
 
 func NewLumpSumPaymentForCreateBuilder() *LumpSumPaymentForCreateBuilder {
@@ -2931,7 +3043,7 @@ func NewLumpSumPaymentForCreateBuilder() *LumpSumPaymentForCreateBuilder {
 // 示例值：7402510801304718380_7309316347007764012_7402523725868058156_1726070400000_10000
 func (builder *LumpSumPaymentForCreateBuilder) UniqueId(uniqueId string) *LumpSumPaymentForCreateBuilder {
 	builder.uniqueId = uniqueId
-	builder.uniqueIdFlag = true
+	builder.uniqueIdSet = true
 	return builder
 }
 
@@ -2940,7 +3052,7 @@ func (builder *LumpSumPaymentForCreateBuilder) UniqueId(uniqueId string) *LumpSu
 // 示例值：7337149697626801708
 func (builder *LumpSumPaymentForCreateBuilder) UserId(userId string) *LumpSumPaymentForCreateBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -2949,7 +3061,7 @@ func (builder *LumpSumPaymentForCreateBuilder) UserId(userId string) *LumpSumPay
 // 示例值：2000.00
 func (builder *LumpSumPaymentForCreateBuilder) TotalAmount(totalAmount string) *LumpSumPaymentForCreateBuilder {
 	builder.totalAmount = totalAmount
-	builder.totalAmountFlag = true
+	builder.totalAmountSet = true
 	return builder
 }
 
@@ -2958,7 +3070,7 @@ func (builder *LumpSumPaymentForCreateBuilder) TotalAmount(totalAmount string) *
 // 示例值：2
 func (builder *LumpSumPaymentForCreateBuilder) BindingPeriod(bindingPeriod int) *LumpSumPaymentForCreateBuilder {
 	builder.bindingPeriod = bindingPeriod
-	builder.bindingPeriodFlag = true
+	builder.bindingPeriodSet = true
 	return builder
 }
 
@@ -2967,7 +3079,7 @@ func (builder *LumpSumPaymentForCreateBuilder) BindingPeriod(bindingPeriod int) 
 // 示例值：6863329932261459464
 func (builder *LumpSumPaymentForCreateBuilder) CurrencyId(currencyId string) *LumpSumPaymentForCreateBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
@@ -2976,7 +3088,7 @@ func (builder *LumpSumPaymentForCreateBuilder) CurrencyId(currencyId string) *Lu
 // 示例值：3
 func (builder *LumpSumPaymentForCreateBuilder) IssuanceFrequency(issuanceFrequency int) *LumpSumPaymentForCreateBuilder {
 	builder.issuanceFrequency = issuanceFrequency
-	builder.issuanceFrequencyFlag = true
+	builder.issuanceFrequencySet = true
 	return builder
 }
 
@@ -2985,25 +3097,25 @@ func (builder *LumpSumPaymentForCreateBuilder) IssuanceFrequency(issuanceFrequen
 // 示例值：7411039006180312620
 func (builder *LumpSumPaymentForCreateBuilder) ItemId(itemId string) *LumpSumPaymentForCreateBuilder {
 	builder.itemId = itemId
-	builder.itemIdFlag = true
+	builder.itemIdSet = true
 	return builder
 }
 
-// 所属期开始日期
+// 一次性支付记录所属期开始日期
 //
 // 示例值：2024-08-01
 func (builder *LumpSumPaymentForCreateBuilder) ReferencePeriodStartDate(referencePeriodStartDate string) *LumpSumPaymentForCreateBuilder {
 	builder.referencePeriodStartDate = referencePeriodStartDate
-	builder.referencePeriodStartDateFlag = true
+	builder.referencePeriodStartDateSet = true
 	return builder
 }
 
-// 所属期结束日期
+// 一次性支付记录所属期结束日期
 //
 // 示例值：2024-08-01
 func (builder *LumpSumPaymentForCreateBuilder) ReferencePeriodEndDate(referencePeriodEndDate string) *LumpSumPaymentForCreateBuilder {
 	builder.referencePeriodEndDate = referencePeriodEndDate
-	builder.referencePeriodEndDateFlag = true
+	builder.referencePeriodEndDateSet = true
 	return builder
 }
 
@@ -3012,7 +3124,7 @@ func (builder *LumpSumPaymentForCreateBuilder) ReferencePeriodEndDate(referenceP
 // 示例值：
 func (builder *LumpSumPaymentForCreateBuilder) Details(details []*LumpSumPaymentDetailForCreate) *LumpSumPaymentForCreateBuilder {
 	builder.details = details
-	builder.detailsFlag = true
+	builder.detailsSet = true
 	return builder
 }
 
@@ -3021,7 +3133,7 @@ func (builder *LumpSumPaymentForCreateBuilder) Details(details []*LumpSumPayment
 // 示例值：备注
 func (builder *LumpSumPaymentForCreateBuilder) Remark(remark string) *LumpSumPaymentForCreateBuilder {
 	builder.remark = remark
-	builder.remarkFlag = true
+	builder.remarkSet = true
 	return builder
 }
 
@@ -3030,56 +3142,56 @@ func (builder *LumpSumPaymentForCreateBuilder) Remark(remark string) *LumpSumPay
 // 示例值：12.56
 func (builder *LumpSumPaymentForCreateBuilder) BindingPeriodDecimal(bindingPeriodDecimal string) *LumpSumPaymentForCreateBuilder {
 	builder.bindingPeriodDecimal = bindingPeriodDecimal
-	builder.bindingPeriodDecimalFlag = true
+	builder.bindingPeriodDecimalSet = true
 	return builder
 }
 
 func (builder *LumpSumPaymentForCreateBuilder) Build() *LumpSumPaymentForCreate {
 	req := &LumpSumPaymentForCreate{}
-	if builder.uniqueIdFlag {
+	if builder.uniqueIdSet {
 		req.UniqueId = &builder.uniqueId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.totalAmountFlag {
+	if builder.totalAmountSet {
 		req.TotalAmount = &builder.totalAmount
 
 	}
-	if builder.bindingPeriodFlag {
+	if builder.bindingPeriodSet {
 		req.BindingPeriod = &builder.bindingPeriod
 
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = &builder.currencyId
 
 	}
-	if builder.issuanceFrequencyFlag {
+	if builder.issuanceFrequencySet {
 		req.IssuanceFrequency = &builder.issuanceFrequency
 
 	}
-	if builder.itemIdFlag {
+	if builder.itemIdSet {
 		req.ItemId = &builder.itemId
 
 	}
-	if builder.referencePeriodStartDateFlag {
+	if builder.referencePeriodStartDateSet {
 		req.ReferencePeriodStartDate = &builder.referencePeriodStartDate
 
 	}
-	if builder.referencePeriodEndDateFlag {
+	if builder.referencePeriodEndDateSet {
 		req.ReferencePeriodEndDate = &builder.referencePeriodEndDate
 
 	}
-	if builder.detailsFlag {
+	if builder.detailsSet {
 		req.Details = builder.details
 	}
-	if builder.remarkFlag {
+	if builder.remarkSet {
 		req.Remark = &builder.remark
 
 	}
-	if builder.bindingPeriodDecimalFlag {
+	if builder.bindingPeriodDecimalSet {
 		req.BindingPeriodDecimal = &builder.bindingPeriodDecimal
 
 	}
@@ -3099,9 +3211,9 @@ type LumpSumPaymentForUpdate struct {
 
 	Remark *string `json:"remark,omitempty"` // 备注
 
-	ReferencePeriodStartDate *string `json:"reference_period_start_date,omitempty"` // 所属期开始日期
+	ReferencePeriodStartDate *string `json:"reference_period_start_date,omitempty"` // 一次性支付记录所属期开始日期
 
-	ReferencePeriodEndDate *string `json:"reference_period_end_date,omitempty"` // 所属期结束日期
+	ReferencePeriodEndDate *string `json:"reference_period_end_date,omitempty"` // 一次性支付记录所属期结束日期
 
 	Details []*LumpSumPaymentDetailForUpdate `json:"details,omitempty"` // 发放明细列表
 
@@ -3111,38 +3223,38 @@ type LumpSumPaymentForUpdate struct {
 }
 
 type LumpSumPaymentForUpdateBuilder struct {
-	id     string // 一次性支付记录id
-	idFlag bool
+	id    string // 一次性支付记录id
+	idSet bool
 
-	totalAmount     string // 总金额，字符串表达的数字
-	totalAmountFlag bool
+	totalAmount    string // 总金额，字符串表达的数字
+	totalAmountSet bool
 
-	bindingPeriod     int // 绑定期，单位为月
-	bindingPeriodFlag bool
+	bindingPeriod    int // 绑定期，单位为月
+	bindingPeriodSet bool
 
-	currencyId     string // 币种id
-	currencyIdFlag bool
+	currencyId    string // 币种id
+	currencyIdSet bool
 
-	issuanceFrequency     int // 发放次数，必须与details的长度一致
-	issuanceFrequencyFlag bool
+	issuanceFrequency    int // 发放次数，必须与details的长度一致
+	issuanceFrequencySet bool
 
-	remark     string // 备注
-	remarkFlag bool
+	remark    string // 备注
+	remarkSet bool
 
-	referencePeriodStartDate     string // 所属期开始日期
-	referencePeriodStartDateFlag bool
+	referencePeriodStartDate    string // 一次性支付记录所属期开始日期
+	referencePeriodStartDateSet bool
 
-	referencePeriodEndDate     string // 所属期结束日期
-	referencePeriodEndDateFlag bool
+	referencePeriodEndDate    string // 一次性支付记录所属期结束日期
+	referencePeriodEndDateSet bool
 
-	details     []*LumpSumPaymentDetailForUpdate // 发放明细列表
-	detailsFlag bool
+	details    []*LumpSumPaymentDetailForUpdate // 发放明细列表
+	detailsSet bool
 
-	bindingPeriodDecimal     string // 绑定期带小数
-	bindingPeriodDecimalFlag bool
+	bindingPeriodDecimal    string // 绑定期带小数
+	bindingPeriodDecimalSet bool
 
-	operationSource     string // 操作来源
-	operationSourceFlag bool
+	operationSource    string // 操作来源
+	operationSourceSet bool
 }
 
 func NewLumpSumPaymentForUpdateBuilder() *LumpSumPaymentForUpdateBuilder {
@@ -3155,7 +3267,7 @@ func NewLumpSumPaymentForUpdateBuilder() *LumpSumPaymentForUpdateBuilder {
 // 示例值：7397033607132351532
 func (builder *LumpSumPaymentForUpdateBuilder) Id(id string) *LumpSumPaymentForUpdateBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3164,7 +3276,7 @@ func (builder *LumpSumPaymentForUpdateBuilder) Id(id string) *LumpSumPaymentForU
 // 示例值：2000.00
 func (builder *LumpSumPaymentForUpdateBuilder) TotalAmount(totalAmount string) *LumpSumPaymentForUpdateBuilder {
 	builder.totalAmount = totalAmount
-	builder.totalAmountFlag = true
+	builder.totalAmountSet = true
 	return builder
 }
 
@@ -3173,7 +3285,7 @@ func (builder *LumpSumPaymentForUpdateBuilder) TotalAmount(totalAmount string) *
 // 示例值：2
 func (builder *LumpSumPaymentForUpdateBuilder) BindingPeriod(bindingPeriod int) *LumpSumPaymentForUpdateBuilder {
 	builder.bindingPeriod = bindingPeriod
-	builder.bindingPeriodFlag = true
+	builder.bindingPeriodSet = true
 	return builder
 }
 
@@ -3182,7 +3294,7 @@ func (builder *LumpSumPaymentForUpdateBuilder) BindingPeriod(bindingPeriod int) 
 // 示例值：6863329932261459464
 func (builder *LumpSumPaymentForUpdateBuilder) CurrencyId(currencyId string) *LumpSumPaymentForUpdateBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
@@ -3191,7 +3303,7 @@ func (builder *LumpSumPaymentForUpdateBuilder) CurrencyId(currencyId string) *Lu
 // 示例值：3
 func (builder *LumpSumPaymentForUpdateBuilder) IssuanceFrequency(issuanceFrequency int) *LumpSumPaymentForUpdateBuilder {
 	builder.issuanceFrequency = issuanceFrequency
-	builder.issuanceFrequencyFlag = true
+	builder.issuanceFrequencySet = true
 	return builder
 }
 
@@ -3200,25 +3312,25 @@ func (builder *LumpSumPaymentForUpdateBuilder) IssuanceFrequency(issuanceFrequen
 // 示例值：备注
 func (builder *LumpSumPaymentForUpdateBuilder) Remark(remark string) *LumpSumPaymentForUpdateBuilder {
 	builder.remark = remark
-	builder.remarkFlag = true
+	builder.remarkSet = true
 	return builder
 }
 
-// 所属期开始日期
+// 一次性支付记录所属期开始日期
 //
 // 示例值：2024-08-01
 func (builder *LumpSumPaymentForUpdateBuilder) ReferencePeriodStartDate(referencePeriodStartDate string) *LumpSumPaymentForUpdateBuilder {
 	builder.referencePeriodStartDate = referencePeriodStartDate
-	builder.referencePeriodStartDateFlag = true
+	builder.referencePeriodStartDateSet = true
 	return builder
 }
 
-// 所属期结束日期
+// 一次性支付记录所属期结束日期
 //
 // 示例值：2024-08-01
 func (builder *LumpSumPaymentForUpdateBuilder) ReferencePeriodEndDate(referencePeriodEndDate string) *LumpSumPaymentForUpdateBuilder {
 	builder.referencePeriodEndDate = referencePeriodEndDate
-	builder.referencePeriodEndDateFlag = true
+	builder.referencePeriodEndDateSet = true
 	return builder
 }
 
@@ -3227,7 +3339,7 @@ func (builder *LumpSumPaymentForUpdateBuilder) ReferencePeriodEndDate(referenceP
 // 示例值：
 func (builder *LumpSumPaymentForUpdateBuilder) Details(details []*LumpSumPaymentDetailForUpdate) *LumpSumPaymentForUpdateBuilder {
 	builder.details = details
-	builder.detailsFlag = true
+	builder.detailsSet = true
 	return builder
 }
 
@@ -3236,7 +3348,7 @@ func (builder *LumpSumPaymentForUpdateBuilder) Details(details []*LumpSumPayment
 // 示例值：12
 func (builder *LumpSumPaymentForUpdateBuilder) BindingPeriodDecimal(bindingPeriodDecimal string) *LumpSumPaymentForUpdateBuilder {
 	builder.bindingPeriodDecimal = bindingPeriodDecimal
-	builder.bindingPeriodDecimalFlag = true
+	builder.bindingPeriodDecimalSet = true
 	return builder
 }
 
@@ -3245,52 +3357,52 @@ func (builder *LumpSumPaymentForUpdateBuilder) BindingPeriodDecimal(bindingPerio
 // 示例值：apaas_spot
 func (builder *LumpSumPaymentForUpdateBuilder) OperationSource(operationSource string) *LumpSumPaymentForUpdateBuilder {
 	builder.operationSource = operationSource
-	builder.operationSourceFlag = true
+	builder.operationSourceSet = true
 	return builder
 }
 
 func (builder *LumpSumPaymentForUpdateBuilder) Build() *LumpSumPaymentForUpdate {
 	req := &LumpSumPaymentForUpdate{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.totalAmountFlag {
+	if builder.totalAmountSet {
 		req.TotalAmount = &builder.totalAmount
 
 	}
-	if builder.bindingPeriodFlag {
+	if builder.bindingPeriodSet {
 		req.BindingPeriod = &builder.bindingPeriod
 
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = &builder.currencyId
 
 	}
-	if builder.issuanceFrequencyFlag {
+	if builder.issuanceFrequencySet {
 		req.IssuanceFrequency = &builder.issuanceFrequency
 
 	}
-	if builder.remarkFlag {
+	if builder.remarkSet {
 		req.Remark = &builder.remark
 
 	}
-	if builder.referencePeriodStartDateFlag {
+	if builder.referencePeriodStartDateSet {
 		req.ReferencePeriodStartDate = &builder.referencePeriodStartDate
 
 	}
-	if builder.referencePeriodEndDateFlag {
+	if builder.referencePeriodEndDateSet {
 		req.ReferencePeriodEndDate = &builder.referencePeriodEndDate
 
 	}
-	if builder.detailsFlag {
+	if builder.detailsSet {
 		req.Details = builder.details
 	}
-	if builder.bindingPeriodDecimalFlag {
+	if builder.bindingPeriodDecimalSet {
 		req.BindingPeriodDecimal = &builder.bindingPeriodDecimal
 
 	}
-	if builder.operationSourceFlag {
+	if builder.operationSourceSet {
 		req.OperationSource = &builder.operationSource
 
 	}
@@ -3308,17 +3420,17 @@ type LumpSumPaymentOperateResult struct {
 }
 
 type LumpSumPaymentOperateResultBuilder struct {
-	id     string // 操作的记录的 id
-	idFlag bool
+	id    string // 操作的记录的 id
+	idSet bool
 
-	uniqueId     string // 操作的记录的 unique_id
-	uniqueIdFlag bool
+	uniqueId    string // 操作的记录的 unique_id
+	uniqueIdSet bool
 
-	code     int // 操作结果状态码
-	codeFlag bool
+	code    int // 操作结果状态码
+	codeSet bool
 
-	message     string // 操作结果描述
-	messageFlag bool
+	message    string // 操作结果描述
+	messageSet bool
 }
 
 func NewLumpSumPaymentOperateResultBuilder() *LumpSumPaymentOperateResultBuilder {
@@ -3331,7 +3443,7 @@ func NewLumpSumPaymentOperateResultBuilder() *LumpSumPaymentOperateResultBuilder
 // 示例值：7390583861280556588
 func (builder *LumpSumPaymentOperateResultBuilder) Id(id string) *LumpSumPaymentOperateResultBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3340,7 +3452,7 @@ func (builder *LumpSumPaymentOperateResultBuilder) Id(id string) *LumpSumPayment
 // 示例值：7390583861280556588
 func (builder *LumpSumPaymentOperateResultBuilder) UniqueId(uniqueId string) *LumpSumPaymentOperateResultBuilder {
 	builder.uniqueId = uniqueId
-	builder.uniqueIdFlag = true
+	builder.uniqueIdSet = true
 	return builder
 }
 
@@ -3349,7 +3461,7 @@ func (builder *LumpSumPaymentOperateResultBuilder) UniqueId(uniqueId string) *Lu
 // 示例值：21270202
 func (builder *LumpSumPaymentOperateResultBuilder) Code(code int) *LumpSumPaymentOperateResultBuilder {
 	builder.code = code
-	builder.codeFlag = true
+	builder.codeSet = true
 	return builder
 }
 
@@ -3358,25 +3470,25 @@ func (builder *LumpSumPaymentOperateResultBuilder) Code(code int) *LumpSumPaymen
 // 示例值：uqniue id conflict
 func (builder *LumpSumPaymentOperateResultBuilder) Message(message string) *LumpSumPaymentOperateResultBuilder {
 	builder.message = message
-	builder.messageFlag = true
+	builder.messageSet = true
 	return builder
 }
 
 func (builder *LumpSumPaymentOperateResultBuilder) Build() *LumpSumPaymentOperateResult {
 	req := &LumpSumPaymentOperateResult{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.uniqueIdFlag {
+	if builder.uniqueIdSet {
 		req.UniqueId = &builder.uniqueId
 
 	}
-	if builder.codeFlag {
+	if builder.codeSet {
 		req.Code = &builder.code
 
 	}
-	if builder.messageFlag {
+	if builder.messageSet {
 		req.Message = &builder.message
 
 	}
@@ -3394,17 +3506,17 @@ type Plan struct {
 }
 
 type PlanBuilder struct {
-	planId     string // 方案ID
-	planIdFlag bool
+	planId    string // 方案ID
+	planIdSet bool
 
-	planTid     string // 方案时间轴版本ID
-	planTidFlag bool
+	planTid    string // 方案时间轴版本ID
+	planTidSet bool
 
-	name     *I18n // 方案名称
-	nameFlag bool
+	name    *I18n // 方案名称
+	nameSet bool
 
-	peopleId     int // People系统方案ID
-	peopleIdFlag bool
+	peopleId    int // People系统方案ID
+	peopleIdSet bool
 }
 
 func NewPlanBuilder() *PlanBuilder {
@@ -3417,7 +3529,7 @@ func NewPlanBuilder() *PlanBuilder {
 // 示例值：7234781378700985913
 func (builder *PlanBuilder) PlanId(planId string) *PlanBuilder {
 	builder.planId = planId
-	builder.planIdFlag = true
+	builder.planIdSet = true
 	return builder
 }
 
@@ -3426,7 +3538,7 @@ func (builder *PlanBuilder) PlanId(planId string) *PlanBuilder {
 // 示例值：7137286102364227108
 func (builder *PlanBuilder) PlanTid(planTid string) *PlanBuilder {
 	builder.planTid = planTid
-	builder.planTidFlag = true
+	builder.planTidSet = true
 	return builder
 }
 
@@ -3435,7 +3547,7 @@ func (builder *PlanBuilder) PlanTid(planTid string) *PlanBuilder {
 // 示例值：
 func (builder *PlanBuilder) Name(name *I18n) *PlanBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3444,24 +3556,24 @@ func (builder *PlanBuilder) Name(name *I18n) *PlanBuilder {
 // 示例值：20
 func (builder *PlanBuilder) PeopleId(peopleId int) *PlanBuilder {
 	builder.peopleId = peopleId
-	builder.peopleIdFlag = true
+	builder.peopleIdSet = true
 	return builder
 }
 
 func (builder *PlanBuilder) Build() *Plan {
 	req := &Plan{}
-	if builder.planIdFlag {
+	if builder.planIdSet {
 		req.PlanId = &builder.planId
 
 	}
-	if builder.planTidFlag {
+	if builder.planTidSet {
 		req.PlanTid = &builder.planTid
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.peopleIdFlag {
+	if builder.peopleIdSet {
 		req.PeopleId = &builder.peopleId
 
 	}
@@ -3477,14 +3589,14 @@ type PlanCondition struct {
 }
 
 type PlanConditionBuilder struct {
-	leftType     int // 适用范围左值
-	leftTypeFlag bool
+	leftType    int // 适用范围左值
+	leftTypeSet bool
 
-	operator     int // 适用范围操作
-	operatorFlag bool
+	operator    int // 适用范围操作
+	operatorSet bool
 
-	rightValue     []string // 适用范围右值
-	rightValueFlag bool
+	rightValue    []string // 适用范围右值
+	rightValueSet bool
 }
 
 func NewPlanConditionBuilder() *PlanConditionBuilder {
@@ -3497,7 +3609,7 @@ func NewPlanConditionBuilder() *PlanConditionBuilder {
 // 示例值：7
 func (builder *PlanConditionBuilder) LeftType(leftType int) *PlanConditionBuilder {
 	builder.leftType = leftType
-	builder.leftTypeFlag = true
+	builder.leftTypeSet = true
 	return builder
 }
 
@@ -3506,7 +3618,7 @@ func (builder *PlanConditionBuilder) LeftType(leftType int) *PlanConditionBuilde
 // 示例值：1
 func (builder *PlanConditionBuilder) Operator(operator int) *PlanConditionBuilder {
 	builder.operator = operator
-	builder.operatorFlag = true
+	builder.operatorSet = true
 	return builder
 }
 
@@ -3515,21 +3627,21 @@ func (builder *PlanConditionBuilder) Operator(operator int) *PlanConditionBuilde
 // 示例值：21341234
 func (builder *PlanConditionBuilder) RightValue(rightValue []string) *PlanConditionBuilder {
 	builder.rightValue = rightValue
-	builder.rightValueFlag = true
+	builder.rightValueSet = true
 	return builder
 }
 
 func (builder *PlanConditionBuilder) Build() *PlanCondition {
 	req := &PlanCondition{}
-	if builder.leftTypeFlag {
+	if builder.leftTypeSet {
 		req.LeftType = &builder.leftType
 
 	}
-	if builder.operatorFlag {
+	if builder.operatorSet {
 		req.Operator = &builder.operator
 
 	}
-	if builder.rightValueFlag {
+	if builder.rightValueSet {
 		req.RightValue = builder.rightValue
 	}
 	return req
@@ -3562,41 +3674,41 @@ type PlanDetail struct {
 }
 
 type PlanDetailBuilder struct {
-	id     string // 薪资方案ID
-	idFlag bool
+	id    string // 薪资方案ID
+	idSet bool
 
-	tid     string // 薪资方案TID
-	tidFlag bool
+	tid    string // 薪资方案TID
+	tidSet bool
 
-	name     string // 薪资方案名称
-	nameFlag bool
+	name    string // 薪资方案名称
+	nameSet bool
 
-	description     string // 薪资方案描述
-	descriptionFlag bool
+	description    string // 薪资方案描述
+	descriptionSet bool
 
-	effectiveDate     string // 薪资方案生效时间
-	effectiveDateFlag bool
+	effectiveDate    string // 薪资方案生效时间
+	effectiveDateSet bool
 
-	planScope     *PlanScope // 薪资方案适用范围
-	planScopeFlag bool
+	planScope    *PlanScope // 薪资方案适用范围
+	planScopeSet bool
 
-	currencyId     string // 币种ID
-	currencyIdFlag bool
+	currencyId    string // 币种ID
+	currencyIdSet bool
 
-	probationSalaryStatus     bool // 开启试用期薪酬状态
-	probationSalaryStatusFlag bool
+	probationSalaryStatus    bool // 开启试用期薪酬状态
+	probationSalaryStatusSet bool
 
-	planItems     []*PlanItem // 方案关联的薪资项
-	planItemsFlag bool
+	planItems    []*PlanItem // 方案关联的薪资项
+	planItemsSet bool
 
-	planIndicators     []*PlanIndicator // 方案关联的薪资统计指标
-	planIndicatorsFlag bool
+	planIndicators    []*PlanIndicator // 方案关联的薪资统计指标
+	planIndicatorsSet bool
 
-	i18nNames     []*I18nContent // 多语言名称
-	i18nNamesFlag bool
+	i18nNames    []*I18nContent // 多语言名称
+	i18nNamesSet bool
 
-	i18nDescriptions     []*I18nContent // 多语言描述
-	i18nDescriptionsFlag bool
+	i18nDescriptions    []*I18nContent // 多语言描述
+	i18nDescriptionsSet bool
 }
 
 func NewPlanDetailBuilder() *PlanDetailBuilder {
@@ -3609,7 +3721,7 @@ func NewPlanDetailBuilder() *PlanDetailBuilder {
 // 示例值：2134193289
 func (builder *PlanDetailBuilder) Id(id string) *PlanDetailBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3618,7 +3730,7 @@ func (builder *PlanDetailBuilder) Id(id string) *PlanDetailBuilder {
 // 示例值：129738122
 func (builder *PlanDetailBuilder) Tid(tid string) *PlanDetailBuilder {
 	builder.tid = tid
-	builder.tidFlag = true
+	builder.tidSet = true
 	return builder
 }
 
@@ -3627,7 +3739,7 @@ func (builder *PlanDetailBuilder) Tid(tid string) *PlanDetailBuilder {
 // 示例值：基本月薪方案
 func (builder *PlanDetailBuilder) Name(name string) *PlanDetailBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3636,7 +3748,7 @@ func (builder *PlanDetailBuilder) Name(name string) *PlanDetailBuilder {
 // 示例值：基本月薪方案描述
 func (builder *PlanDetailBuilder) Description(description string) *PlanDetailBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -3645,7 +3757,7 @@ func (builder *PlanDetailBuilder) Description(description string) *PlanDetailBui
 // 示例值：2022-10-20
 func (builder *PlanDetailBuilder) EffectiveDate(effectiveDate string) *PlanDetailBuilder {
 	builder.effectiveDate = effectiveDate
-	builder.effectiveDateFlag = true
+	builder.effectiveDateSet = true
 	return builder
 }
 
@@ -3654,7 +3766,7 @@ func (builder *PlanDetailBuilder) EffectiveDate(effectiveDate string) *PlanDetai
 // 示例值：
 func (builder *PlanDetailBuilder) PlanScope(planScope *PlanScope) *PlanDetailBuilder {
 	builder.planScope = planScope
-	builder.planScopeFlag = true
+	builder.planScopeSet = true
 	return builder
 }
 
@@ -3663,7 +3775,7 @@ func (builder *PlanDetailBuilder) PlanScope(planScope *PlanScope) *PlanDetailBui
 // 示例值：341324121
 func (builder *PlanDetailBuilder) CurrencyId(currencyId string) *PlanDetailBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
@@ -3672,7 +3784,7 @@ func (builder *PlanDetailBuilder) CurrencyId(currencyId string) *PlanDetailBuild
 // 示例值：true
 func (builder *PlanDetailBuilder) ProbationSalaryStatus(probationSalaryStatus bool) *PlanDetailBuilder {
 	builder.probationSalaryStatus = probationSalaryStatus
-	builder.probationSalaryStatusFlag = true
+	builder.probationSalaryStatusSet = true
 	return builder
 }
 
@@ -3681,7 +3793,7 @@ func (builder *PlanDetailBuilder) ProbationSalaryStatus(probationSalaryStatus bo
 // 示例值：
 func (builder *PlanDetailBuilder) PlanItems(planItems []*PlanItem) *PlanDetailBuilder {
 	builder.planItems = planItems
-	builder.planItemsFlag = true
+	builder.planItemsSet = true
 	return builder
 }
 
@@ -3690,7 +3802,7 @@ func (builder *PlanDetailBuilder) PlanItems(planItems []*PlanItem) *PlanDetailBu
 // 示例值：
 func (builder *PlanDetailBuilder) PlanIndicators(planIndicators []*PlanIndicator) *PlanDetailBuilder {
 	builder.planIndicators = planIndicators
-	builder.planIndicatorsFlag = true
+	builder.planIndicatorsSet = true
 	return builder
 }
 
@@ -3699,7 +3811,7 @@ func (builder *PlanDetailBuilder) PlanIndicators(planIndicators []*PlanIndicator
 // 示例值：
 func (builder *PlanDetailBuilder) I18nNames(i18nNames []*I18nContent) *PlanDetailBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
@@ -3708,53 +3820,53 @@ func (builder *PlanDetailBuilder) I18nNames(i18nNames []*I18nContent) *PlanDetai
 // 示例值：
 func (builder *PlanDetailBuilder) I18nDescriptions(i18nDescriptions []*I18nContent) *PlanDetailBuilder {
 	builder.i18nDescriptions = i18nDescriptions
-	builder.i18nDescriptionsFlag = true
+	builder.i18nDescriptionsSet = true
 	return builder
 }
 
 func (builder *PlanDetailBuilder) Build() *PlanDetail {
 	req := &PlanDetail{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tidFlag {
+	if builder.tidSet {
 		req.Tid = &builder.tid
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.effectiveDateFlag {
+	if builder.effectiveDateSet {
 		req.EffectiveDate = &builder.effectiveDate
 
 	}
-	if builder.planScopeFlag {
+	if builder.planScopeSet {
 		req.PlanScope = builder.planScope
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = &builder.currencyId
 
 	}
-	if builder.probationSalaryStatusFlag {
+	if builder.probationSalaryStatusSet {
 		req.ProbationSalaryStatus = &builder.probationSalaryStatus
 
 	}
-	if builder.planItemsFlag {
+	if builder.planItemsSet {
 		req.PlanItems = builder.planItems
 	}
-	if builder.planIndicatorsFlag {
+	if builder.planIndicatorsSet {
 		req.PlanIndicators = builder.planIndicators
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
-	if builder.i18nDescriptionsFlag {
+	if builder.i18nDescriptionsSet {
 		req.I18nDescriptions = builder.i18nDescriptions
 	}
 	return req
@@ -3767,11 +3879,11 @@ type PlanIndicator struct {
 }
 
 type PlanIndicatorBuilder struct {
-	indicatorId     string // 薪资统计指标ID，详细信息可以通过[批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)接口查询获得
-	indicatorIdFlag bool
+	indicatorId    string // 薪资统计指标ID，详细信息可以通过[批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)接口查询获得
+	indicatorIdSet bool
 
-	planIndicatorLogic     *AdjustmentLogic // 方案关联薪资统计指标逻辑配置
-	planIndicatorLogicFlag bool
+	planIndicatorLogic    *AdjustmentLogic // 方案关联薪资统计指标逻辑配置
+	planIndicatorLogicSet bool
 }
 
 func NewPlanIndicatorBuilder() *PlanIndicatorBuilder {
@@ -3784,7 +3896,7 @@ func NewPlanIndicatorBuilder() *PlanIndicatorBuilder {
 // 示例值：13243432
 func (builder *PlanIndicatorBuilder) IndicatorId(indicatorId string) *PlanIndicatorBuilder {
 	builder.indicatorId = indicatorId
-	builder.indicatorIdFlag = true
+	builder.indicatorIdSet = true
 	return builder
 }
 
@@ -3793,17 +3905,17 @@ func (builder *PlanIndicatorBuilder) IndicatorId(indicatorId string) *PlanIndica
 // 示例值：
 func (builder *PlanIndicatorBuilder) PlanIndicatorLogic(planIndicatorLogic *AdjustmentLogic) *PlanIndicatorBuilder {
 	builder.planIndicatorLogic = planIndicatorLogic
-	builder.planIndicatorLogicFlag = true
+	builder.planIndicatorLogicSet = true
 	return builder
 }
 
 func (builder *PlanIndicatorBuilder) Build() *PlanIndicator {
 	req := &PlanIndicator{}
-	if builder.indicatorIdFlag {
+	if builder.indicatorIdSet {
 		req.IndicatorId = &builder.indicatorId
 
 	}
-	if builder.planIndicatorLogicFlag {
+	if builder.planIndicatorLogicSet {
 		req.PlanIndicatorLogic = builder.planIndicatorLogic
 	}
 	return req
@@ -3822,20 +3934,20 @@ type PlanItem struct {
 }
 
 type PlanItemBuilder struct {
-	adjustmentType     string // 定薪方式
-	adjustmentTypeFlag bool
+	adjustmentType    string // 定薪方式
+	adjustmentTypeSet bool
 
-	itemId     string // 薪酬项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
-	itemIdFlag bool
+	itemId    string // 薪酬项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
+	itemIdSet bool
 
-	planItemLogic     *AdjustmentLogic // 方案关联薪资项逻辑配置
-	planItemLogicFlag bool
+	planItemLogic    *AdjustmentLogic // 方案关联薪资项逻辑配置
+	planItemLogicSet bool
 
-	probationDiscountType     string // 试用期薪酬类型
-	probationDiscountTypeFlag bool
+	probationDiscountType    string // 试用期薪酬类型
+	probationDiscountTypeSet bool
 
-	probationDiscountPercentum     string // 试用期薪酬百分比
-	probationDiscountPercentumFlag bool
+	probationDiscountPercentum    string // 试用期薪酬百分比
+	probationDiscountPercentumSet bool
 }
 
 func NewPlanItemBuilder() *PlanItemBuilder {
@@ -3848,7 +3960,7 @@ func NewPlanItemBuilder() *PlanItemBuilder {
 // 示例值：manual
 func (builder *PlanItemBuilder) AdjustmentType(adjustmentType string) *PlanItemBuilder {
 	builder.adjustmentType = adjustmentType
-	builder.adjustmentTypeFlag = true
+	builder.adjustmentTypeSet = true
 	return builder
 }
 
@@ -3857,7 +3969,7 @@ func (builder *PlanItemBuilder) AdjustmentType(adjustmentType string) *PlanItemB
 // 示例值：21341234
 func (builder *PlanItemBuilder) ItemId(itemId string) *PlanItemBuilder {
 	builder.itemId = itemId
-	builder.itemIdFlag = true
+	builder.itemIdSet = true
 	return builder
 }
 
@@ -3866,7 +3978,7 @@ func (builder *PlanItemBuilder) ItemId(itemId string) *PlanItemBuilder {
 // 示例值：
 func (builder *PlanItemBuilder) PlanItemLogic(planItemLogic *AdjustmentLogic) *PlanItemBuilder {
 	builder.planItemLogic = planItemLogic
-	builder.planItemLogicFlag = true
+	builder.planItemLogicSet = true
 	return builder
 }
 
@@ -3875,7 +3987,7 @@ func (builder *PlanItemBuilder) PlanItemLogic(planItemLogic *AdjustmentLogic) *P
 // 示例值：percentum
 func (builder *PlanItemBuilder) ProbationDiscountType(probationDiscountType string) *PlanItemBuilder {
 	builder.probationDiscountType = probationDiscountType
-	builder.probationDiscountTypeFlag = true
+	builder.probationDiscountTypeSet = true
 	return builder
 }
 
@@ -3884,28 +3996,28 @@ func (builder *PlanItemBuilder) ProbationDiscountType(probationDiscountType stri
 // 示例值：80.00
 func (builder *PlanItemBuilder) ProbationDiscountPercentum(probationDiscountPercentum string) *PlanItemBuilder {
 	builder.probationDiscountPercentum = probationDiscountPercentum
-	builder.probationDiscountPercentumFlag = true
+	builder.probationDiscountPercentumSet = true
 	return builder
 }
 
 func (builder *PlanItemBuilder) Build() *PlanItem {
 	req := &PlanItem{}
-	if builder.adjustmentTypeFlag {
+	if builder.adjustmentTypeSet {
 		req.AdjustmentType = &builder.adjustmentType
 
 	}
-	if builder.itemIdFlag {
+	if builder.itemIdSet {
 		req.ItemId = &builder.itemId
 
 	}
-	if builder.planItemLogicFlag {
+	if builder.planItemLogicSet {
 		req.PlanItemLogic = builder.planItemLogic
 	}
-	if builder.probationDiscountTypeFlag {
+	if builder.probationDiscountTypeSet {
 		req.ProbationDiscountType = &builder.probationDiscountType
 
 	}
-	if builder.probationDiscountPercentumFlag {
+	if builder.probationDiscountPercentumSet {
 		req.ProbationDiscountPercentum = &builder.probationDiscountPercentum
 
 	}
@@ -3919,11 +4031,11 @@ type PlanScope struct {
 }
 
 type PlanScopeBuilder struct {
-	isAll     bool // 是否全部范围
-	isAllFlag bool
+	isAll    bool // 是否全部范围
+	isAllSet bool
 
-	planConditions     []*PlanCondition // 方案适用范围条件组
-	planConditionsFlag bool
+	planConditions    []*PlanCondition // 方案适用范围条件组
+	planConditionsSet bool
 }
 
 func NewPlanScopeBuilder() *PlanScopeBuilder {
@@ -3936,7 +4048,7 @@ func NewPlanScopeBuilder() *PlanScopeBuilder {
 // 示例值：false
 func (builder *PlanScopeBuilder) IsAll(isAll bool) *PlanScopeBuilder {
 	builder.isAll = isAll
-	builder.isAllFlag = true
+	builder.isAllSet = true
 	return builder
 }
 
@@ -3945,17 +4057,17 @@ func (builder *PlanScopeBuilder) IsAll(isAll bool) *PlanScopeBuilder {
 // 示例值：
 func (builder *PlanScopeBuilder) PlanConditions(planConditions []*PlanCondition) *PlanScopeBuilder {
 	builder.planConditions = planConditions
-	builder.planConditionsFlag = true
+	builder.planConditionsSet = true
 	return builder
 }
 
 func (builder *PlanScopeBuilder) Build() *PlanScope {
 	req := &PlanScope{}
-	if builder.isAllFlag {
+	if builder.isAllSet {
 		req.IsAll = &builder.isAll
 
 	}
-	if builder.planConditionsFlag {
+	if builder.planConditionsSet {
 		req.PlanConditions = builder.planConditions
 	}
 	return req
@@ -3988,41 +4100,41 @@ type RecurringPayment struct {
 }
 
 type RecurringPaymentBuilder struct {
-	id     string // 经常性支付记录id
-	idFlag bool
+	id    string // 经常性支付记录id
+	idSet bool
 
-	uniqueId     string // 外部幂等id，由上游业务决定
-	uniqueIdFlag bool
+	uniqueId    string // 外部幂等id，由上游业务决定
+	uniqueIdSet bool
 
-	userId     string // 员工id，具体类型由入参中的 user_id_type 指定
-	userIdFlag bool
+	userId    string // 员工id，具体类型由入参中的 user_id_type 指定
+	userIdSet bool
 
-	itemId     string // 薪酬项id
-	itemIdFlag bool
+	itemId    string // 薪酬项id
+	itemIdSet bool
 
-	issuanceType     string // 发放方式
-	issuanceTypeFlag bool
+	issuanceType    string // 发放方式
+	issuanceTypeSet bool
 
-	eachAmount     string // 单次发放金额
-	eachAmountFlag bool
+	eachAmount    string // 单次发放金额
+	eachAmountSet bool
 
-	startDate     string // 发放开始日期
-	startDateFlag bool
+	startDate    string // 发放开始日期
+	startDateSet bool
 
-	endDate     string // 发放结束日期
-	endDateFlag bool
+	endDate    string // 发放结束日期
+	endDateSet bool
 
-	issuancePeriod     string // 发放频率
-	issuancePeriodFlag bool
+	issuancePeriod    string // 发放频率
+	issuancePeriodSet bool
 
-	currencyId     string // 币种id
-	currencyIdFlag bool
+	currencyId    string // 币种id
+	currencyIdSet bool
 
-	remark     string // 备注
-	remarkFlag bool
+	remark    string // 备注
+	remarkSet bool
 
-	issuanceCountryRegionId     string // 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
-	issuanceCountryRegionIdFlag bool
+	issuanceCountryRegionId    string // 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionIdSet bool
 }
 
 func NewRecurringPaymentBuilder() *RecurringPaymentBuilder {
@@ -4035,7 +4147,7 @@ func NewRecurringPaymentBuilder() *RecurringPaymentBuilder {
 // 示例值：7397033607132351532
 func (builder *RecurringPaymentBuilder) Id(id string) *RecurringPaymentBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4044,7 +4156,7 @@ func (builder *RecurringPaymentBuilder) Id(id string) *RecurringPaymentBuilder {
 // 示例值：7402510801304718380_7309316347007764012_7402523725868058156_1726070400000_10000
 func (builder *RecurringPaymentBuilder) UniqueId(uniqueId string) *RecurringPaymentBuilder {
 	builder.uniqueId = uniqueId
-	builder.uniqueIdFlag = true
+	builder.uniqueIdSet = true
 	return builder
 }
 
@@ -4053,7 +4165,7 @@ func (builder *RecurringPaymentBuilder) UniqueId(uniqueId string) *RecurringPaym
 // 示例值：7337149697626801708
 func (builder *RecurringPaymentBuilder) UserId(userId string) *RecurringPaymentBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -4062,7 +4174,7 @@ func (builder *RecurringPaymentBuilder) UserId(userId string) *RecurringPaymentB
 // 示例值：7411039006180312620
 func (builder *RecurringPaymentBuilder) ItemId(itemId string) *RecurringPaymentBuilder {
 	builder.itemId = itemId
-	builder.itemIdFlag = true
+	builder.itemIdSet = true
 	return builder
 }
 
@@ -4071,7 +4183,7 @@ func (builder *RecurringPaymentBuilder) ItemId(itemId string) *RecurringPaymentB
 // 示例值：with_salary
 func (builder *RecurringPaymentBuilder) IssuanceType(issuanceType string) *RecurringPaymentBuilder {
 	builder.issuanceType = issuanceType
-	builder.issuanceTypeFlag = true
+	builder.issuanceTypeSet = true
 	return builder
 }
 
@@ -4080,7 +4192,7 @@ func (builder *RecurringPaymentBuilder) IssuanceType(issuanceType string) *Recur
 // 示例值：24.00
 func (builder *RecurringPaymentBuilder) EachAmount(eachAmount string) *RecurringPaymentBuilder {
 	builder.eachAmount = eachAmount
-	builder.eachAmountFlag = true
+	builder.eachAmountSet = true
 	return builder
 }
 
@@ -4089,7 +4201,7 @@ func (builder *RecurringPaymentBuilder) EachAmount(eachAmount string) *Recurring
 // 示例值：2024-01-10
 func (builder *RecurringPaymentBuilder) StartDate(startDate string) *RecurringPaymentBuilder {
 	builder.startDate = startDate
-	builder.startDateFlag = true
+	builder.startDateSet = true
 	return builder
 }
 
@@ -4098,7 +4210,7 @@ func (builder *RecurringPaymentBuilder) StartDate(startDate string) *RecurringPa
 // 示例值：2025-01-20
 func (builder *RecurringPaymentBuilder) EndDate(endDate string) *RecurringPaymentBuilder {
 	builder.endDate = endDate
-	builder.endDateFlag = true
+	builder.endDateSet = true
 	return builder
 }
 
@@ -4107,7 +4219,7 @@ func (builder *RecurringPaymentBuilder) EndDate(endDate string) *RecurringPaymen
 // 示例值：year
 func (builder *RecurringPaymentBuilder) IssuancePeriod(issuancePeriod string) *RecurringPaymentBuilder {
 	builder.issuancePeriod = issuancePeriod
-	builder.issuancePeriodFlag = true
+	builder.issuancePeriodSet = true
 	return builder
 }
 
@@ -4116,7 +4228,7 @@ func (builder *RecurringPaymentBuilder) IssuancePeriod(issuancePeriod string) *R
 // 示例值：6863329932261459464
 func (builder *RecurringPaymentBuilder) CurrencyId(currencyId string) *RecurringPaymentBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
@@ -4125,7 +4237,7 @@ func (builder *RecurringPaymentBuilder) CurrencyId(currencyId string) *Recurring
 // 示例值：这是个备注
 func (builder *RecurringPaymentBuilder) Remark(remark string) *RecurringPaymentBuilder {
 	builder.remark = remark
-	builder.remarkFlag = true
+	builder.remarkSet = true
 	return builder
 }
 
@@ -4134,57 +4246,57 @@ func (builder *RecurringPaymentBuilder) Remark(remark string) *RecurringPaymentB
 // 示例值：6862995745046267400
 func (builder *RecurringPaymentBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *RecurringPaymentBuilder {
 	builder.issuanceCountryRegionId = issuanceCountryRegionId
-	builder.issuanceCountryRegionIdFlag = true
+	builder.issuanceCountryRegionIdSet = true
 	return builder
 }
 
 func (builder *RecurringPaymentBuilder) Build() *RecurringPayment {
 	req := &RecurringPayment{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.uniqueIdFlag {
+	if builder.uniqueIdSet {
 		req.UniqueId = &builder.uniqueId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.itemIdFlag {
+	if builder.itemIdSet {
 		req.ItemId = &builder.itemId
 
 	}
-	if builder.issuanceTypeFlag {
+	if builder.issuanceTypeSet {
 		req.IssuanceType = &builder.issuanceType
 
 	}
-	if builder.eachAmountFlag {
+	if builder.eachAmountSet {
 		req.EachAmount = &builder.eachAmount
 
 	}
-	if builder.startDateFlag {
+	if builder.startDateSet {
 		req.StartDate = &builder.startDate
 
 	}
-	if builder.endDateFlag {
+	if builder.endDateSet {
 		req.EndDate = &builder.endDate
 
 	}
-	if builder.issuancePeriodFlag {
+	if builder.issuancePeriodSet {
 		req.IssuancePeriod = &builder.issuancePeriod
 
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = &builder.currencyId
 
 	}
-	if builder.remarkFlag {
+	if builder.remarkSet {
 		req.Remark = &builder.remark
 
 	}
-	if builder.issuanceCountryRegionIdFlag {
+	if builder.issuanceCountryRegionIdSet {
 		req.IssuanceCountryRegionId = &builder.issuanceCountryRegionId
 
 	}
@@ -4216,38 +4328,38 @@ type RecurringPaymentForCreate struct {
 }
 
 type RecurringPaymentForCreateBuilder struct {
-	uniqueId     string // 外部幂等id，由上游业务决定
-	uniqueIdFlag bool
+	uniqueId    string // 外部幂等id，由上游业务决定
+	uniqueIdSet bool
 
-	userId     string // 员工id，具体类型由入参中的 user_id_type 指定
-	userIdFlag bool
+	userId    string // 员工id，具体类型由入参中的 user_id_type 指定
+	userIdSet bool
 
-	itemId     string // 薪酬项id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list?appId=cli_a3077e2bb03c100d 进行查询）
-	itemIdFlag bool
+	itemId    string // 薪酬项id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list?appId=cli_a3077e2bb03c100d 进行查询）
+	itemIdSet bool
 
-	eachAmount     string // 每次发放金额
-	eachAmountFlag bool
+	eachAmount    string // 每次发放金额
+	eachAmountSet bool
 
-	startDate     string // 发放开始时间
-	startDateFlag bool
+	startDate    string // 发放开始时间
+	startDateSet bool
 
-	endDate     string // 发放结束时间
-	endDateFlag bool
+	endDate    string // 发放结束时间
+	endDateSet bool
 
-	currencyId     string // 币种id
-	currencyIdFlag bool
+	currencyId    string // 币种id
+	currencyIdSet bool
 
-	issuanceType     string // 发放方式
-	issuanceTypeFlag bool
+	issuanceType    string // 发放方式
+	issuanceTypeSet bool
 
-	issuancePeriod     string // 发放频率
-	issuancePeriodFlag bool
+	issuancePeriod    string // 发放频率
+	issuancePeriodSet bool
 
-	remark     string // 备注
-	remarkFlag bool
+	remark    string // 备注
+	remarkSet bool
 
-	issuanceCountryRegionId     string // 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
-	issuanceCountryRegionIdFlag bool
+	issuanceCountryRegionId    string // 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionIdSet bool
 }
 
 func NewRecurringPaymentForCreateBuilder() *RecurringPaymentForCreateBuilder {
@@ -4260,7 +4372,7 @@ func NewRecurringPaymentForCreateBuilder() *RecurringPaymentForCreateBuilder {
 // 示例值：7402510801304718380_7309316347007764012_7402523725868058156_1726070400000_10000
 func (builder *RecurringPaymentForCreateBuilder) UniqueId(uniqueId string) *RecurringPaymentForCreateBuilder {
 	builder.uniqueId = uniqueId
-	builder.uniqueIdFlag = true
+	builder.uniqueIdSet = true
 	return builder
 }
 
@@ -4269,7 +4381,7 @@ func (builder *RecurringPaymentForCreateBuilder) UniqueId(uniqueId string) *Recu
 // 示例值：7337149697626801708
 func (builder *RecurringPaymentForCreateBuilder) UserId(userId string) *RecurringPaymentForCreateBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -4278,7 +4390,7 @@ func (builder *RecurringPaymentForCreateBuilder) UserId(userId string) *Recurrin
 // 示例值：7411039006180312620
 func (builder *RecurringPaymentForCreateBuilder) ItemId(itemId string) *RecurringPaymentForCreateBuilder {
 	builder.itemId = itemId
-	builder.itemIdFlag = true
+	builder.itemIdSet = true
 	return builder
 }
 
@@ -4287,7 +4399,7 @@ func (builder *RecurringPaymentForCreateBuilder) ItemId(itemId string) *Recurrin
 // 示例值：20.00
 func (builder *RecurringPaymentForCreateBuilder) EachAmount(eachAmount string) *RecurringPaymentForCreateBuilder {
 	builder.eachAmount = eachAmount
-	builder.eachAmountFlag = true
+	builder.eachAmountSet = true
 	return builder
 }
 
@@ -4296,7 +4408,7 @@ func (builder *RecurringPaymentForCreateBuilder) EachAmount(eachAmount string) *
 // 示例值：2024-08-01
 func (builder *RecurringPaymentForCreateBuilder) StartDate(startDate string) *RecurringPaymentForCreateBuilder {
 	builder.startDate = startDate
-	builder.startDateFlag = true
+	builder.startDateSet = true
 	return builder
 }
 
@@ -4305,7 +4417,7 @@ func (builder *RecurringPaymentForCreateBuilder) StartDate(startDate string) *Re
 // 示例值：2025-08-01
 func (builder *RecurringPaymentForCreateBuilder) EndDate(endDate string) *RecurringPaymentForCreateBuilder {
 	builder.endDate = endDate
-	builder.endDateFlag = true
+	builder.endDateSet = true
 	return builder
 }
 
@@ -4314,7 +4426,7 @@ func (builder *RecurringPaymentForCreateBuilder) EndDate(endDate string) *Recurr
 // 示例值：6863329932261459464
 func (builder *RecurringPaymentForCreateBuilder) CurrencyId(currencyId string) *RecurringPaymentForCreateBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
@@ -4323,7 +4435,7 @@ func (builder *RecurringPaymentForCreateBuilder) CurrencyId(currencyId string) *
 // 示例值：with_salary
 func (builder *RecurringPaymentForCreateBuilder) IssuanceType(issuanceType string) *RecurringPaymentForCreateBuilder {
 	builder.issuanceType = issuanceType
-	builder.issuanceTypeFlag = true
+	builder.issuanceTypeSet = true
 	return builder
 }
 
@@ -4332,7 +4444,7 @@ func (builder *RecurringPaymentForCreateBuilder) IssuanceType(issuanceType strin
 // 示例值：year
 func (builder *RecurringPaymentForCreateBuilder) IssuancePeriod(issuancePeriod string) *RecurringPaymentForCreateBuilder {
 	builder.issuancePeriod = issuancePeriod
-	builder.issuancePeriodFlag = true
+	builder.issuancePeriodSet = true
 	return builder
 }
 
@@ -4341,7 +4453,7 @@ func (builder *RecurringPaymentForCreateBuilder) IssuancePeriod(issuancePeriod s
 // 示例值：这是个备注
 func (builder *RecurringPaymentForCreateBuilder) Remark(remark string) *RecurringPaymentForCreateBuilder {
 	builder.remark = remark
-	builder.remarkFlag = true
+	builder.remarkSet = true
 	return builder
 }
 
@@ -4350,53 +4462,53 @@ func (builder *RecurringPaymentForCreateBuilder) Remark(remark string) *Recurrin
 // 示例值：6862995745046267400
 func (builder *RecurringPaymentForCreateBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *RecurringPaymentForCreateBuilder {
 	builder.issuanceCountryRegionId = issuanceCountryRegionId
-	builder.issuanceCountryRegionIdFlag = true
+	builder.issuanceCountryRegionIdSet = true
 	return builder
 }
 
 func (builder *RecurringPaymentForCreateBuilder) Build() *RecurringPaymentForCreate {
 	req := &RecurringPaymentForCreate{}
-	if builder.uniqueIdFlag {
+	if builder.uniqueIdSet {
 		req.UniqueId = &builder.uniqueId
 
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.itemIdFlag {
+	if builder.itemIdSet {
 		req.ItemId = &builder.itemId
 
 	}
-	if builder.eachAmountFlag {
+	if builder.eachAmountSet {
 		req.EachAmount = &builder.eachAmount
 
 	}
-	if builder.startDateFlag {
+	if builder.startDateSet {
 		req.StartDate = &builder.startDate
 
 	}
-	if builder.endDateFlag {
+	if builder.endDateSet {
 		req.EndDate = &builder.endDate
 
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = &builder.currencyId
 
 	}
-	if builder.issuanceTypeFlag {
+	if builder.issuanceTypeSet {
 		req.IssuanceType = &builder.issuanceType
 
 	}
-	if builder.issuancePeriodFlag {
+	if builder.issuancePeriodSet {
 		req.IssuancePeriod = &builder.issuancePeriod
 
 	}
-	if builder.remarkFlag {
+	if builder.remarkSet {
 		req.Remark = &builder.remark
 
 	}
-	if builder.issuanceCountryRegionIdFlag {
+	if builder.issuanceCountryRegionIdSet {
 		req.IssuanceCountryRegionId = &builder.issuanceCountryRegionId
 
 	}
@@ -4422,29 +4534,29 @@ type RecurringPaymentForUpdate struct {
 }
 
 type RecurringPaymentForUpdateBuilder struct {
-	id     string // 经常性支付记录id
-	idFlag bool
+	id    string // 经常性支付记录id
+	idSet bool
 
-	eachAmount     string // 每次发放金额
-	eachAmountFlag bool
+	eachAmount    string // 每次发放金额
+	eachAmountSet bool
 
-	startDate     string // 发放开始时间
-	startDateFlag bool
+	startDate    string // 发放开始时间
+	startDateSet bool
 
-	endDate     string // 发放结束时间
-	endDateFlag bool
+	endDate    string // 发放结束时间
+	endDateSet bool
 
-	currencyId     string // 币种id
-	currencyIdFlag bool
+	currencyId    string // 币种id
+	currencyIdSet bool
 
-	issuanceType     string // 发放方式
-	issuanceTypeFlag bool
+	issuanceType    string // 发放方式
+	issuanceTypeSet bool
 
-	remark     string // 原因
-	remarkFlag bool
+	remark    string // 原因
+	remarkSet bool
 
-	issuanceCountryRegionId     string // 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
-	issuanceCountryRegionIdFlag bool
+	issuanceCountryRegionId    string // 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionIdSet bool
 }
 
 func NewRecurringPaymentForUpdateBuilder() *RecurringPaymentForUpdateBuilder {
@@ -4457,7 +4569,7 @@ func NewRecurringPaymentForUpdateBuilder() *RecurringPaymentForUpdateBuilder {
 // 示例值：7397033607132351532
 func (builder *RecurringPaymentForUpdateBuilder) Id(id string) *RecurringPaymentForUpdateBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4466,7 +4578,7 @@ func (builder *RecurringPaymentForUpdateBuilder) Id(id string) *RecurringPayment
 // 示例值：10.00
 func (builder *RecurringPaymentForUpdateBuilder) EachAmount(eachAmount string) *RecurringPaymentForUpdateBuilder {
 	builder.eachAmount = eachAmount
-	builder.eachAmountFlag = true
+	builder.eachAmountSet = true
 	return builder
 }
 
@@ -4475,7 +4587,7 @@ func (builder *RecurringPaymentForUpdateBuilder) EachAmount(eachAmount string) *
 // 示例值：2024-10-20
 func (builder *RecurringPaymentForUpdateBuilder) StartDate(startDate string) *RecurringPaymentForUpdateBuilder {
 	builder.startDate = startDate
-	builder.startDateFlag = true
+	builder.startDateSet = true
 	return builder
 }
 
@@ -4484,7 +4596,7 @@ func (builder *RecurringPaymentForUpdateBuilder) StartDate(startDate string) *Re
 // 示例值：2025-03-20
 func (builder *RecurringPaymentForUpdateBuilder) EndDate(endDate string) *RecurringPaymentForUpdateBuilder {
 	builder.endDate = endDate
-	builder.endDateFlag = true
+	builder.endDateSet = true
 	return builder
 }
 
@@ -4493,7 +4605,7 @@ func (builder *RecurringPaymentForUpdateBuilder) EndDate(endDate string) *Recurr
 // 示例值：6863329932261459464
 func (builder *RecurringPaymentForUpdateBuilder) CurrencyId(currencyId string) *RecurringPaymentForUpdateBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
@@ -4502,7 +4614,7 @@ func (builder *RecurringPaymentForUpdateBuilder) CurrencyId(currencyId string) *
 // 示例值：with_salary
 func (builder *RecurringPaymentForUpdateBuilder) IssuanceType(issuanceType string) *RecurringPaymentForUpdateBuilder {
 	builder.issuanceType = issuanceType
-	builder.issuanceTypeFlag = true
+	builder.issuanceTypeSet = true
 	return builder
 }
 
@@ -4511,7 +4623,7 @@ func (builder *RecurringPaymentForUpdateBuilder) IssuanceType(issuanceType strin
 // 示例值：这是个备注
 func (builder *RecurringPaymentForUpdateBuilder) Remark(remark string) *RecurringPaymentForUpdateBuilder {
 	builder.remark = remark
-	builder.remarkFlag = true
+	builder.remarkSet = true
 	return builder
 }
 
@@ -4520,41 +4632,41 @@ func (builder *RecurringPaymentForUpdateBuilder) Remark(remark string) *Recurrin
 // 示例值：6862995745046267400
 func (builder *RecurringPaymentForUpdateBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *RecurringPaymentForUpdateBuilder {
 	builder.issuanceCountryRegionId = issuanceCountryRegionId
-	builder.issuanceCountryRegionIdFlag = true
+	builder.issuanceCountryRegionIdSet = true
 	return builder
 }
 
 func (builder *RecurringPaymentForUpdateBuilder) Build() *RecurringPaymentForUpdate {
 	req := &RecurringPaymentForUpdate{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.eachAmountFlag {
+	if builder.eachAmountSet {
 		req.EachAmount = &builder.eachAmount
 
 	}
-	if builder.startDateFlag {
+	if builder.startDateSet {
 		req.StartDate = &builder.startDate
 
 	}
-	if builder.endDateFlag {
+	if builder.endDateSet {
 		req.EndDate = &builder.endDate
 
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = &builder.currencyId
 
 	}
-	if builder.issuanceTypeFlag {
+	if builder.issuanceTypeSet {
 		req.IssuanceType = &builder.issuanceType
 
 	}
-	if builder.remarkFlag {
+	if builder.remarkSet {
 		req.Remark = &builder.remark
 
 	}
-	if builder.issuanceCountryRegionIdFlag {
+	if builder.issuanceCountryRegionIdSet {
 		req.IssuanceCountryRegionId = &builder.issuanceCountryRegionId
 
 	}
@@ -4572,17 +4684,17 @@ type RecurringPaymentOperateResult struct {
 }
 
 type RecurringPaymentOperateResultBuilder struct {
-	id     string // 操作记录的id
-	idFlag bool
+	id    string // 操作记录的id
+	idSet bool
 
-	uniqueId     string // 操作的记录的 unique_id
-	uniqueIdFlag bool
+	uniqueId    string // 操作的记录的 unique_id
+	uniqueIdSet bool
 
-	code     int // 操作结果状态码
-	codeFlag bool
+	code    int // 操作结果状态码
+	codeSet bool
 
-	message     string // 操作结果描述
-	messageFlag bool
+	message    string // 操作结果描述
+	messageSet bool
 }
 
 func NewRecurringPaymentOperateResultBuilder() *RecurringPaymentOperateResultBuilder {
@@ -4595,7 +4707,7 @@ func NewRecurringPaymentOperateResultBuilder() *RecurringPaymentOperateResultBui
 // 示例值：7390583861280556588
 func (builder *RecurringPaymentOperateResultBuilder) Id(id string) *RecurringPaymentOperateResultBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4604,7 +4716,7 @@ func (builder *RecurringPaymentOperateResultBuilder) Id(id string) *RecurringPay
 // 示例值：7390583861280556588
 func (builder *RecurringPaymentOperateResultBuilder) UniqueId(uniqueId string) *RecurringPaymentOperateResultBuilder {
 	builder.uniqueId = uniqueId
-	builder.uniqueIdFlag = true
+	builder.uniqueIdSet = true
 	return builder
 }
 
@@ -4613,7 +4725,7 @@ func (builder *RecurringPaymentOperateResultBuilder) UniqueId(uniqueId string) *
 // 示例值：21270202
 func (builder *RecurringPaymentOperateResultBuilder) Code(code int) *RecurringPaymentOperateResultBuilder {
 	builder.code = code
-	builder.codeFlag = true
+	builder.codeSet = true
 	return builder
 }
 
@@ -4622,25 +4734,25 @@ func (builder *RecurringPaymentOperateResultBuilder) Code(code int) *RecurringPa
 // 示例值：uqniue id conflict
 func (builder *RecurringPaymentOperateResultBuilder) Message(message string) *RecurringPaymentOperateResultBuilder {
 	builder.message = message
-	builder.messageFlag = true
+	builder.messageSet = true
 	return builder
 }
 
 func (builder *RecurringPaymentOperateResultBuilder) Build() *RecurringPaymentOperateResult {
 	req := &RecurringPaymentOperateResult{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.uniqueIdFlag {
+	if builder.uniqueIdSet {
 		req.UniqueId = &builder.uniqueId
 
 	}
-	if builder.codeFlag {
+	if builder.codeSet {
 		req.Code = &builder.code
 
 	}
-	if builder.messageFlag {
+	if builder.messageSet {
 		req.Message = &builder.message
 
 	}
@@ -4656,14 +4768,14 @@ type SalaryGrade struct {
 }
 
 type SalaryGradeBuilder struct {
-	id     string // 薪等ID
-	idFlag bool
+	id    string // 薪等ID
+	idSet bool
 
-	name     *I18n // 薪等名称
-	nameFlag bool
+	name    *I18n // 薪等名称
+	nameSet bool
 
-	status     bool // 是否启用
-	statusFlag bool
+	status    bool // 是否启用
+	statusSet bool
 }
 
 func NewSalaryGradeBuilder() *SalaryGradeBuilder {
@@ -4676,7 +4788,7 @@ func NewSalaryGradeBuilder() *SalaryGradeBuilder {
 // 示例值：7491135696314353196
 func (builder *SalaryGradeBuilder) Id(id string) *SalaryGradeBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4685,7 +4797,7 @@ func (builder *SalaryGradeBuilder) Id(id string) *SalaryGradeBuilder {
 // 示例值：
 func (builder *SalaryGradeBuilder) Name(name *I18n) *SalaryGradeBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4694,20 +4806,20 @@ func (builder *SalaryGradeBuilder) Name(name *I18n) *SalaryGradeBuilder {
 // 示例值：true
 func (builder *SalaryGradeBuilder) Status(status bool) *SalaryGradeBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *SalaryGradeBuilder) Build() *SalaryGrade {
 	req := &SalaryGrade{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
@@ -4725,17 +4837,17 @@ type SalaryLevel struct {
 }
 
 type SalaryLevelBuilder struct {
-	id     string // 薪级ID
-	idFlag bool
+	id    string // 薪级ID
+	idSet bool
 
-	name     *I18n // 薪级名称
-	nameFlag bool
+	name    *I18n // 薪级名称
+	nameSet bool
 
-	status     bool // 是否启用
-	statusFlag bool
+	status    bool // 是否启用
+	statusSet bool
 
-	salaryGrades     []*SalaryGrade // 薪等子节点
-	salaryGradesFlag bool
+	salaryGrades    []*SalaryGrade // 薪等子节点
+	salaryGradesSet bool
 }
 
 func NewSalaryLevelBuilder() *SalaryLevelBuilder {
@@ -4748,7 +4860,7 @@ func NewSalaryLevelBuilder() *SalaryLevelBuilder {
 // 示例值：7491135696314353196
 func (builder *SalaryLevelBuilder) Id(id string) *SalaryLevelBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4757,7 +4869,7 @@ func (builder *SalaryLevelBuilder) Id(id string) *SalaryLevelBuilder {
 // 示例值：
 func (builder *SalaryLevelBuilder) Name(name *I18n) *SalaryLevelBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4766,7 +4878,7 @@ func (builder *SalaryLevelBuilder) Name(name *I18n) *SalaryLevelBuilder {
 // 示例值：
 func (builder *SalaryLevelBuilder) Status(status bool) *SalaryLevelBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -4775,24 +4887,24 @@ func (builder *SalaryLevelBuilder) Status(status bool) *SalaryLevelBuilder {
 // 示例值：
 func (builder *SalaryLevelBuilder) SalaryGrades(salaryGrades []*SalaryGrade) *SalaryLevelBuilder {
 	builder.salaryGrades = salaryGrades
-	builder.salaryGradesFlag = true
+	builder.salaryGradesSet = true
 	return builder
 }
 
 func (builder *SalaryLevelBuilder) Build() *SalaryLevel {
 	req := &SalaryLevel{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.salaryGradesFlag {
+	if builder.salaryGradesSet {
 		req.SalaryGrades = builder.salaryGrades
 	}
 	return req
@@ -4809,17 +4921,17 @@ type SalaryLevelType struct {
 }
 
 type SalaryLevelTypeBuilder struct {
-	id     string // 薪级类型ID
-	idFlag bool
+	id    string // 薪级类型ID
+	idSet bool
 
-	name     *I18n // 薪级类型名称
-	nameFlag bool
+	name    *I18n // 薪级类型名称
+	nameSet bool
 
-	status     bool // 是否启用
-	statusFlag bool
+	status    bool // 是否启用
+	statusSet bool
 
-	salaryLevels     []*SalaryLevel // 薪级子节点
-	salaryLevelsFlag bool
+	salaryLevels    []*SalaryLevel // 薪级子节点
+	salaryLevelsSet bool
 }
 
 func NewSalaryLevelTypeBuilder() *SalaryLevelTypeBuilder {
@@ -4832,7 +4944,7 @@ func NewSalaryLevelTypeBuilder() *SalaryLevelTypeBuilder {
 // 示例值：7491135696314353196
 func (builder *SalaryLevelTypeBuilder) Id(id string) *SalaryLevelTypeBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4841,7 +4953,7 @@ func (builder *SalaryLevelTypeBuilder) Id(id string) *SalaryLevelTypeBuilder {
 // 示例值：
 func (builder *SalaryLevelTypeBuilder) Name(name *I18n) *SalaryLevelTypeBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4850,7 +4962,7 @@ func (builder *SalaryLevelTypeBuilder) Name(name *I18n) *SalaryLevelTypeBuilder 
 // 示例值：true
 func (builder *SalaryLevelTypeBuilder) Status(status bool) *SalaryLevelTypeBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -4859,24 +4971,24 @@ func (builder *SalaryLevelTypeBuilder) Status(status bool) *SalaryLevelTypeBuild
 // 示例值：
 func (builder *SalaryLevelTypeBuilder) SalaryLevels(salaryLevels []*SalaryLevel) *SalaryLevelTypeBuilder {
 	builder.salaryLevels = salaryLevels
-	builder.salaryLevelsFlag = true
+	builder.salaryLevelsSet = true
 	return builder
 }
 
 func (builder *SalaryLevelTypeBuilder) Build() *SalaryLevelType {
 	req := &SalaryLevelType{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.salaryLevelsFlag {
+	if builder.salaryLevelsSet {
 		req.SalaryLevels = builder.salaryLevels
 	}
 	return req
@@ -4889,11 +5001,11 @@ type SocialArchive struct {
 }
 
 type SocialArchiveBuilder struct {
-	userId     string // 员工ID
-	userIdFlag bool
+	userId    string // 员工ID
+	userIdSet bool
 
-	details     []*SocialArchiveDetail // 员工参保档案，包含社保、公积金档案
-	detailsFlag bool
+	details    []*SocialArchiveDetail // 员工参保档案，包含社保、公积金档案
+	detailsSet bool
 }
 
 func NewSocialArchiveBuilder() *SocialArchiveBuilder {
@@ -4906,7 +5018,7 @@ func NewSocialArchiveBuilder() *SocialArchiveBuilder {
 // 示例值：
 func (builder *SocialArchiveBuilder) UserId(userId string) *SocialArchiveBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -4915,17 +5027,17 @@ func (builder *SocialArchiveBuilder) UserId(userId string) *SocialArchiveBuilder
 // 示例值：
 func (builder *SocialArchiveBuilder) Details(details []*SocialArchiveDetail) *SocialArchiveBuilder {
 	builder.details = details
-	builder.detailsFlag = true
+	builder.detailsSet = true
 	return builder
 }
 
 func (builder *SocialArchiveBuilder) Build() *SocialArchive {
 	req := &SocialArchive{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.detailsFlag {
+	if builder.detailsSet {
 		req.Details = builder.details
 	}
 	return req
@@ -4942,17 +5054,17 @@ type SocialArchiveAdjustRecord struct {
 }
 
 type SocialArchiveAdjustRecordBuilder struct {
-	userId     string // 员工ID
-	userIdFlag bool
+	userId    string // 员工ID
+	userIdSet bool
 
-	recordType     string // 类型，increase: 增员; attrition: 减员
-	recordTypeFlag bool
+	recordType    string // 类型，increase: 增员; attrition: 减员
+	recordTypeSet bool
 
-	details     []*SocialArchiveDetail // 员工增减员记录，包括社保、公积金记录
-	detailsFlag bool
+	details    []*SocialArchiveDetail // 员工增减员记录，包括社保、公积金记录
+	detailsSet bool
 
-	recordId     string // 增减员记录ID
-	recordIdFlag bool
+	recordId    string // 增减员记录ID
+	recordIdSet bool
 }
 
 func NewSocialArchiveAdjustRecordBuilder() *SocialArchiveAdjustRecordBuilder {
@@ -4965,7 +5077,7 @@ func NewSocialArchiveAdjustRecordBuilder() *SocialArchiveAdjustRecordBuilder {
 // 示例值：
 func (builder *SocialArchiveAdjustRecordBuilder) UserId(userId string) *SocialArchiveAdjustRecordBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -4974,7 +5086,7 @@ func (builder *SocialArchiveAdjustRecordBuilder) UserId(userId string) *SocialAr
 // 示例值：increase
 func (builder *SocialArchiveAdjustRecordBuilder) RecordType(recordType string) *SocialArchiveAdjustRecordBuilder {
 	builder.recordType = recordType
-	builder.recordTypeFlag = true
+	builder.recordTypeSet = true
 	return builder
 }
 
@@ -4983,7 +5095,7 @@ func (builder *SocialArchiveAdjustRecordBuilder) RecordType(recordType string) *
 // 示例值：
 func (builder *SocialArchiveAdjustRecordBuilder) Details(details []*SocialArchiveDetail) *SocialArchiveAdjustRecordBuilder {
 	builder.details = details
-	builder.detailsFlag = true
+	builder.detailsSet = true
 	return builder
 }
 
@@ -4992,24 +5104,24 @@ func (builder *SocialArchiveAdjustRecordBuilder) Details(details []*SocialArchiv
 // 示例值：7480742425276139052
 func (builder *SocialArchiveAdjustRecordBuilder) RecordId(recordId string) *SocialArchiveAdjustRecordBuilder {
 	builder.recordId = recordId
-	builder.recordIdFlag = true
+	builder.recordIdSet = true
 	return builder
 }
 
 func (builder *SocialArchiveAdjustRecordBuilder) Build() *SocialArchiveAdjustRecord {
 	req := &SocialArchiveAdjustRecord{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.recordTypeFlag {
+	if builder.recordTypeSet {
 		req.RecordType = &builder.recordType
 
 	}
-	if builder.detailsFlag {
+	if builder.detailsSet {
 		req.Details = builder.details
 	}
-	if builder.recordIdFlag {
+	if builder.recordIdSet {
 		req.RecordId = &builder.recordId
 
 	}
@@ -5025,7 +5137,7 @@ type SocialArchiveAdjustRecordEvent struct {
 
 	SourceType *string `json:"source_type,omitempty"` // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、to_attrition_import待减员导入新增
 
-	RecordType *string `json:"record_type,omitempty"` // 增减员类型, increase: 增员; attrtion: 减员
+	RecordType *string `json:"record_type,omitempty"` // 增减员类型, increase: 增员; attrition: 减员
 
 	AfterAdjustRecordDetail *SocialArchiveDetail `json:"after_adjust_record_detail,omitempty"` // 参保档案
 
@@ -5033,26 +5145,26 @@ type SocialArchiveAdjustRecordEvent struct {
 }
 
 type SocialArchiveAdjustRecordEventBuilder struct {
-	id     string // 记录id
-	idFlag bool
+	id    string // 记录id
+	idSet bool
 
-	insuranceType     string // 参保类型。social_insurance社保、provident_fund公积金
-	insuranceTypeFlag bool
+	insuranceType    string // 参保类型。social_insurance社保、provident_fund公积金
+	insuranceTypeSet bool
 
-	operateType     string // 待增/减员变更类型，increase新增、adjust编辑、confirm确认、submit_confirm提交并确认、delete取消
-	operateTypeFlag bool
+	operateType    string // 待增/减员变更类型，increase新增、adjust编辑、confirm确认、submit_confirm提交并确认、delete取消
+	operateTypeSet bool
 
-	sourceType     string // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、to_attrition_import待减员导入新增
-	sourceTypeFlag bool
+	sourceType    string // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、to_attrition_import待减员导入新增
+	sourceTypeSet bool
 
-	recordType     string // 增减员类型, increase: 增员; attrtion: 减员
-	recordTypeFlag bool
+	recordType    string // 增减员类型, increase: 增员; attrition: 减员
+	recordTypeSet bool
 
-	afterAdjustRecordDetail     *SocialArchiveDetail // 参保档案
-	afterAdjustRecordDetailFlag bool
+	afterAdjustRecordDetail    *SocialArchiveDetail // 参保档案
+	afterAdjustRecordDetailSet bool
 
-	beforeAdjustRecordDetail     *SocialArchiveDetail // 参保档案
-	beforeAdjustRecordDetailFlag bool
+	beforeAdjustRecordDetail    *SocialArchiveDetail // 参保档案
+	beforeAdjustRecordDetailSet bool
 }
 
 func NewSocialArchiveAdjustRecordEventBuilder() *SocialArchiveAdjustRecordEventBuilder {
@@ -5065,7 +5177,7 @@ func NewSocialArchiveAdjustRecordEventBuilder() *SocialArchiveAdjustRecordEventB
 // 示例值：7563604424982054444
 func (builder *SocialArchiveAdjustRecordEventBuilder) Id(id string) *SocialArchiveAdjustRecordEventBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5074,7 +5186,7 @@ func (builder *SocialArchiveAdjustRecordEventBuilder) Id(id string) *SocialArchi
 // 示例值：
 func (builder *SocialArchiveAdjustRecordEventBuilder) InsuranceType(insuranceType string) *SocialArchiveAdjustRecordEventBuilder {
 	builder.insuranceType = insuranceType
-	builder.insuranceTypeFlag = true
+	builder.insuranceTypeSet = true
 	return builder
 }
 
@@ -5083,7 +5195,7 @@ func (builder *SocialArchiveAdjustRecordEventBuilder) InsuranceType(insuranceTyp
 // 示例值：add
 func (builder *SocialArchiveAdjustRecordEventBuilder) OperateType(operateType string) *SocialArchiveAdjustRecordEventBuilder {
 	builder.operateType = operateType
-	builder.operateTypeFlag = true
+	builder.operateTypeSet = true
 	return builder
 }
 
@@ -5092,16 +5204,16 @@ func (builder *SocialArchiveAdjustRecordEventBuilder) OperateType(operateType st
 // 示例值：new_join
 func (builder *SocialArchiveAdjustRecordEventBuilder) SourceType(sourceType string) *SocialArchiveAdjustRecordEventBuilder {
 	builder.sourceType = sourceType
-	builder.sourceTypeFlag = true
+	builder.sourceTypeSet = true
 	return builder
 }
 
-// 增减员类型, increase: 增员; attrtion: 减员
+// 增减员类型, increase: 增员; attrition: 减员
 //
 // 示例值：increase
 func (builder *SocialArchiveAdjustRecordEventBuilder) RecordType(recordType string) *SocialArchiveAdjustRecordEventBuilder {
 	builder.recordType = recordType
-	builder.recordTypeFlag = true
+	builder.recordTypeSet = true
 	return builder
 }
 
@@ -5110,7 +5222,7 @@ func (builder *SocialArchiveAdjustRecordEventBuilder) RecordType(recordType stri
 // 示例值：
 func (builder *SocialArchiveAdjustRecordEventBuilder) AfterAdjustRecordDetail(afterAdjustRecordDetail *SocialArchiveDetail) *SocialArchiveAdjustRecordEventBuilder {
 	builder.afterAdjustRecordDetail = afterAdjustRecordDetail
-	builder.afterAdjustRecordDetailFlag = true
+	builder.afterAdjustRecordDetailSet = true
 	return builder
 }
 
@@ -5119,36 +5231,36 @@ func (builder *SocialArchiveAdjustRecordEventBuilder) AfterAdjustRecordDetail(af
 // 示例值：
 func (builder *SocialArchiveAdjustRecordEventBuilder) BeforeAdjustRecordDetail(beforeAdjustRecordDetail *SocialArchiveDetail) *SocialArchiveAdjustRecordEventBuilder {
 	builder.beforeAdjustRecordDetail = beforeAdjustRecordDetail
-	builder.beforeAdjustRecordDetailFlag = true
+	builder.beforeAdjustRecordDetailSet = true
 	return builder
 }
 
 func (builder *SocialArchiveAdjustRecordEventBuilder) Build() *SocialArchiveAdjustRecordEvent {
 	req := &SocialArchiveAdjustRecordEvent{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.insuranceTypeFlag {
+	if builder.insuranceTypeSet {
 		req.InsuranceType = &builder.insuranceType
 
 	}
-	if builder.operateTypeFlag {
+	if builder.operateTypeSet {
 		req.OperateType = &builder.operateType
 
 	}
-	if builder.sourceTypeFlag {
+	if builder.sourceTypeSet {
 		req.SourceType = &builder.sourceType
 
 	}
-	if builder.recordTypeFlag {
+	if builder.recordTypeSet {
 		req.RecordType = &builder.recordType
 
 	}
-	if builder.afterAdjustRecordDetailFlag {
+	if builder.afterAdjustRecordDetailSet {
 		req.AfterAdjustRecordDetail = builder.afterAdjustRecordDetail
 	}
-	if builder.beforeAdjustRecordDetailFlag {
+	if builder.beforeAdjustRecordDetailSet {
 		req.BeforeAdjustRecordDetail = builder.beforeAdjustRecordDetail
 	}
 	return req
@@ -5185,47 +5297,47 @@ type SocialArchiveDetail struct {
 }
 
 type SocialArchiveDetailBuilder struct {
-	description     *I18n // 调整说明
-	descriptionFlag bool
+	description    *I18n // 调整说明
+	descriptionSet bool
 
-	insuranceType     string // 类型。social_insurance: 社保; provident_fund: 公积金
-	insuranceTypeFlag bool
+	insuranceType    string // 类型。social_insurance: 社保; provident_fund: 公积金
+	insuranceTypeSet bool
 
-	insuranceStatus     string // 参保状态，非「参保」状态下，基数、险种数据等为空
-	insuranceStatusFlag bool
+	insuranceStatus    string // 参保状态，非「参保」状态下，基数、险种数据等为空
+	insuranceStatusSet bool
 
-	id     string // 档案时间轴对象ID，仅参保档案对象会包含
-	idFlag bool
+	id    string // 档案时间轴对象ID，仅参保档案对象会包含
+	idSet bool
 
-	tid     string // 档案时间轴对象版本ID，仅参保档案对象会包含
-	tidFlag bool
+	tid    string // 档案时间轴对象版本ID，仅参保档案对象会包含
+	tidSet bool
 
-	planId     string // 参保方案ID，详细信息可通过「查询参保方案」接口获取
-	planIdFlag bool
+	planId    string // 参保方案ID，详细信息可通过「查询参保方案」接口获取
+	planIdSet bool
 
-	planTid     string // 参保方案版本ID
-	planTidFlag bool
+	planTid    string // 参保方案版本ID
+	planTidSet bool
 
-	locationId     string // 参保城市ID，可通过获取地点信息接口查询详细信息
-	locationIdFlag bool
+	locationId    string // 参保城市ID，可通过获取地点信息接口查询详细信息
+	locationIdSet bool
 
-	companyId     string // 社保缴纳主体ID，可通过获取公司主体接口查询详细信息
-	companyIdFlag bool
+	companyId    string // 社保缴纳主体ID，可通过获取公司主体接口查询详细信息
+	companyIdSet bool
 
-	accountType     string // 社保账户类型
-	accountTypeFlag bool
+	accountType    string // 社保账户类型
+	accountTypeSet bool
 
-	insuranceAccount     string // 社保账号
-	insuranceAccountFlag bool
+	insuranceAccount    string // 社保账号
+	insuranceAccountSet bool
 
-	baseSalary     string // 申报缴纳基数
-	baseSalaryFlag bool
+	baseSalary    string // 申报缴纳基数
+	baseSalarySet bool
 
-	insuranceDetails     []*SocialArchiveItem // 险种数据详情
-	insuranceDetailsFlag bool
+	insuranceDetails    []*SocialArchiveItem // 险种数据详情
+	insuranceDetailsSet bool
 
-	effectiveDate     string // 档案生效时间，HHHH-MM-DD
-	effectiveDateFlag bool
+	effectiveDate    string // 档案生效时间，HHHH-MM-DD
+	effectiveDateSet bool
 }
 
 func NewSocialArchiveDetailBuilder() *SocialArchiveDetailBuilder {
@@ -5238,7 +5350,7 @@ func NewSocialArchiveDetailBuilder() *SocialArchiveDetailBuilder {
 // 示例值：
 func (builder *SocialArchiveDetailBuilder) Description(description *I18n) *SocialArchiveDetailBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -5247,7 +5359,7 @@ func (builder *SocialArchiveDetailBuilder) Description(description *I18n) *Socia
 // 示例值：
 func (builder *SocialArchiveDetailBuilder) InsuranceType(insuranceType string) *SocialArchiveDetailBuilder {
 	builder.insuranceType = insuranceType
-	builder.insuranceTypeFlag = true
+	builder.insuranceTypeSet = true
 	return builder
 }
 
@@ -5256,7 +5368,7 @@ func (builder *SocialArchiveDetailBuilder) InsuranceType(insuranceType string) *
 // 示例值：contribution
 func (builder *SocialArchiveDetailBuilder) InsuranceStatus(insuranceStatus string) *SocialArchiveDetailBuilder {
 	builder.insuranceStatus = insuranceStatus
-	builder.insuranceStatusFlag = true
+	builder.insuranceStatusSet = true
 	return builder
 }
 
@@ -5265,7 +5377,7 @@ func (builder *SocialArchiveDetailBuilder) InsuranceStatus(insuranceStatus strin
 // 示例值：123456
 func (builder *SocialArchiveDetailBuilder) Id(id string) *SocialArchiveDetailBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5274,7 +5386,7 @@ func (builder *SocialArchiveDetailBuilder) Id(id string) *SocialArchiveDetailBui
 // 示例值：123456
 func (builder *SocialArchiveDetailBuilder) Tid(tid string) *SocialArchiveDetailBuilder {
 	builder.tid = tid
-	builder.tidFlag = true
+	builder.tidSet = true
 	return builder
 }
 
@@ -5283,7 +5395,7 @@ func (builder *SocialArchiveDetailBuilder) Tid(tid string) *SocialArchiveDetailB
 // 示例值：123456
 func (builder *SocialArchiveDetailBuilder) PlanId(planId string) *SocialArchiveDetailBuilder {
 	builder.planId = planId
-	builder.planIdFlag = true
+	builder.planIdSet = true
 	return builder
 }
 
@@ -5292,7 +5404,7 @@ func (builder *SocialArchiveDetailBuilder) PlanId(planId string) *SocialArchiveD
 // 示例值：123456
 func (builder *SocialArchiveDetailBuilder) PlanTid(planTid string) *SocialArchiveDetailBuilder {
 	builder.planTid = planTid
-	builder.planTidFlag = true
+	builder.planTidSet = true
 	return builder
 }
 
@@ -5301,7 +5413,7 @@ func (builder *SocialArchiveDetailBuilder) PlanTid(planTid string) *SocialArchiv
 // 示例值：123456
 func (builder *SocialArchiveDetailBuilder) LocationId(locationId string) *SocialArchiveDetailBuilder {
 	builder.locationId = locationId
-	builder.locationIdFlag = true
+	builder.locationIdSet = true
 	return builder
 }
 
@@ -5310,7 +5422,7 @@ func (builder *SocialArchiveDetailBuilder) LocationId(locationId string) *Social
 // 示例值：223456
 func (builder *SocialArchiveDetailBuilder) CompanyId(companyId string) *SocialArchiveDetailBuilder {
 	builder.companyId = companyId
-	builder.companyIdFlag = true
+	builder.companyIdSet = true
 	return builder
 }
 
@@ -5319,7 +5431,7 @@ func (builder *SocialArchiveDetailBuilder) CompanyId(companyId string) *SocialAr
 // 示例值：supplier
 func (builder *SocialArchiveDetailBuilder) AccountType(accountType string) *SocialArchiveDetailBuilder {
 	builder.accountType = accountType
-	builder.accountTypeFlag = true
+	builder.accountTypeSet = true
 	return builder
 }
 
@@ -5328,7 +5440,7 @@ func (builder *SocialArchiveDetailBuilder) AccountType(accountType string) *Soci
 // 示例值：ac123456
 func (builder *SocialArchiveDetailBuilder) InsuranceAccount(insuranceAccount string) *SocialArchiveDetailBuilder {
 	builder.insuranceAccount = insuranceAccount
-	builder.insuranceAccountFlag = true
+	builder.insuranceAccountSet = true
 	return builder
 }
 
@@ -5337,7 +5449,7 @@ func (builder *SocialArchiveDetailBuilder) InsuranceAccount(insuranceAccount str
 // 示例值：1000.10
 func (builder *SocialArchiveDetailBuilder) BaseSalary(baseSalary string) *SocialArchiveDetailBuilder {
 	builder.baseSalary = baseSalary
-	builder.baseSalaryFlag = true
+	builder.baseSalarySet = true
 	return builder
 }
 
@@ -5346,7 +5458,7 @@ func (builder *SocialArchiveDetailBuilder) BaseSalary(baseSalary string) *Social
 // 示例值：
 func (builder *SocialArchiveDetailBuilder) InsuranceDetails(insuranceDetails []*SocialArchiveItem) *SocialArchiveDetailBuilder {
 	builder.insuranceDetails = insuranceDetails
-	builder.insuranceDetailsFlag = true
+	builder.insuranceDetailsSet = true
 	return builder
 }
 
@@ -5355,63 +5467,63 @@ func (builder *SocialArchiveDetailBuilder) InsuranceDetails(insuranceDetails []*
 // 示例值：2024-01-01
 func (builder *SocialArchiveDetailBuilder) EffectiveDate(effectiveDate string) *SocialArchiveDetailBuilder {
 	builder.effectiveDate = effectiveDate
-	builder.effectiveDateFlag = true
+	builder.effectiveDateSet = true
 	return builder
 }
 
 func (builder *SocialArchiveDetailBuilder) Build() *SocialArchiveDetail {
 	req := &SocialArchiveDetail{}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = builder.description
 	}
-	if builder.insuranceTypeFlag {
+	if builder.insuranceTypeSet {
 		req.InsuranceType = &builder.insuranceType
 
 	}
-	if builder.insuranceStatusFlag {
+	if builder.insuranceStatusSet {
 		req.InsuranceStatus = &builder.insuranceStatus
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.tidFlag {
+	if builder.tidSet {
 		req.Tid = &builder.tid
 
 	}
-	if builder.planIdFlag {
+	if builder.planIdSet {
 		req.PlanId = &builder.planId
 
 	}
-	if builder.planTidFlag {
+	if builder.planTidSet {
 		req.PlanTid = &builder.planTid
 
 	}
-	if builder.locationIdFlag {
+	if builder.locationIdSet {
 		req.LocationId = &builder.locationId
 
 	}
-	if builder.companyIdFlag {
+	if builder.companyIdSet {
 		req.CompanyId = &builder.companyId
 
 	}
-	if builder.accountTypeFlag {
+	if builder.accountTypeSet {
 		req.AccountType = &builder.accountType
 
 	}
-	if builder.insuranceAccountFlag {
+	if builder.insuranceAccountSet {
 		req.InsuranceAccount = &builder.insuranceAccount
 
 	}
-	if builder.baseSalaryFlag {
+	if builder.baseSalarySet {
 		req.BaseSalary = &builder.baseSalary
 
 	}
-	if builder.insuranceDetailsFlag {
+	if builder.insuranceDetailsSet {
 		req.InsuranceDetails = builder.insuranceDetails
 	}
-	if builder.effectiveDateFlag {
+	if builder.effectiveDateSet {
 		req.EffectiveDate = &builder.effectiveDate
 
 	}
@@ -5431,20 +5543,20 @@ type SocialArchiveEventDetail struct {
 }
 
 type SocialArchiveEventDetailBuilder struct {
-	insuranceType     string // 社保档案类型。social_insurance社保、provident_fund公积金
-	insuranceTypeFlag bool
+	insuranceType    string // 社保档案类型。social_insurance社保、provident_fund公积金
+	insuranceTypeSet bool
 
-	operateType     string // 档案变更类型。increase新增、adjust调整、delete删除
-	operateTypeFlag bool
+	operateType    string // 档案变更类型。increase新增、adjust调整、delete删除
+	operateTypeSet bool
 
-	sourceType     string // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、import_increase增员导入、import_adjust调整导入、manual_edit手动编辑、manual_adjust手动调整、manual_delete手动删除、to_attrition_import待减员导入新增、plan_sync_arc方案同步档案
-	sourceTypeFlag bool
+	sourceType    string // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、import_increase增员导入、import_adjust调整导入、manual_edit手动编辑、manual_adjust手动调整、manual_delete手动删除、to_attrition_import待减员导入新增、plan_sync_arc方案同步档案
+	sourceTypeSet bool
 
-	afterSocialArchiveDetail     *SocialArchiveDetail // 参保档案
-	afterSocialArchiveDetailFlag bool
+	afterSocialArchiveDetail    *SocialArchiveDetail // 参保档案
+	afterSocialArchiveDetailSet bool
 
-	beforeSocialArchiveDetail     *SocialArchiveDetail // 参保档案
-	beforeSocialArchiveDetailFlag bool
+	beforeSocialArchiveDetail    *SocialArchiveDetail // 参保档案
+	beforeSocialArchiveDetailSet bool
 }
 
 func NewSocialArchiveEventDetailBuilder() *SocialArchiveEventDetailBuilder {
@@ -5457,7 +5569,7 @@ func NewSocialArchiveEventDetailBuilder() *SocialArchiveEventDetailBuilder {
 // 示例值：social_insurance
 func (builder *SocialArchiveEventDetailBuilder) InsuranceType(insuranceType string) *SocialArchiveEventDetailBuilder {
 	builder.insuranceType = insuranceType
-	builder.insuranceTypeFlag = true
+	builder.insuranceTypeSet = true
 	return builder
 }
 
@@ -5466,7 +5578,7 @@ func (builder *SocialArchiveEventDetailBuilder) InsuranceType(insuranceType stri
 // 示例值：add
 func (builder *SocialArchiveEventDetailBuilder) OperateType(operateType string) *SocialArchiveEventDetailBuilder {
 	builder.operateType = operateType
-	builder.operateTypeFlag = true
+	builder.operateTypeSet = true
 	return builder
 }
 
@@ -5475,7 +5587,7 @@ func (builder *SocialArchiveEventDetailBuilder) OperateType(operateType string) 
 // 示例值：new_join
 func (builder *SocialArchiveEventDetailBuilder) SourceType(sourceType string) *SocialArchiveEventDetailBuilder {
 	builder.sourceType = sourceType
-	builder.sourceTypeFlag = true
+	builder.sourceTypeSet = true
 	return builder
 }
 
@@ -5484,7 +5596,7 @@ func (builder *SocialArchiveEventDetailBuilder) SourceType(sourceType string) *S
 // 示例值：
 func (builder *SocialArchiveEventDetailBuilder) AfterSocialArchiveDetail(afterSocialArchiveDetail *SocialArchiveDetail) *SocialArchiveEventDetailBuilder {
 	builder.afterSocialArchiveDetail = afterSocialArchiveDetail
-	builder.afterSocialArchiveDetailFlag = true
+	builder.afterSocialArchiveDetailSet = true
 	return builder
 }
 
@@ -5493,28 +5605,28 @@ func (builder *SocialArchiveEventDetailBuilder) AfterSocialArchiveDetail(afterSo
 // 示例值：
 func (builder *SocialArchiveEventDetailBuilder) BeforeSocialArchiveDetail(beforeSocialArchiveDetail *SocialArchiveDetail) *SocialArchiveEventDetailBuilder {
 	builder.beforeSocialArchiveDetail = beforeSocialArchiveDetail
-	builder.beforeSocialArchiveDetailFlag = true
+	builder.beforeSocialArchiveDetailSet = true
 	return builder
 }
 
 func (builder *SocialArchiveEventDetailBuilder) Build() *SocialArchiveEventDetail {
 	req := &SocialArchiveEventDetail{}
-	if builder.insuranceTypeFlag {
+	if builder.insuranceTypeSet {
 		req.InsuranceType = &builder.insuranceType
 
 	}
-	if builder.operateTypeFlag {
+	if builder.operateTypeSet {
 		req.OperateType = &builder.operateType
 
 	}
-	if builder.sourceTypeFlag {
+	if builder.sourceTypeSet {
 		req.SourceType = &builder.sourceType
 
 	}
-	if builder.afterSocialArchiveDetailFlag {
+	if builder.afterSocialArchiveDetailSet {
 		req.AfterSocialArchiveDetail = builder.afterSocialArchiveDetail
 	}
-	if builder.beforeSocialArchiveDetailFlag {
+	if builder.beforeSocialArchiveDetailSet {
 		req.BeforeSocialArchiveDetail = builder.beforeSocialArchiveDetail
 	}
 	return req
@@ -5539,29 +5651,29 @@ type SocialArchiveItem struct {
 }
 
 type SocialArchiveItemBuilder struct {
-	insuranceId     string // 险种ID，详细信息可通过社保险种接口查询
-	insuranceIdFlag bool
+	insuranceId    string // 险种ID，详细信息可通过社保险种接口查询
+	insuranceIdSet bool
 
-	insuranceName     *I18n // 险种名称
-	insuranceNameFlag bool
+	insuranceName    *I18n // 险种名称
+	insuranceNameSet bool
 
-	companyDeduction     string // 企业缴纳金额
-	companyDeductionFlag bool
+	companyDeduction    string // 企业缴纳金额
+	companyDeductionSet bool
 
-	companySetting     *SocialPlanItemSetting // 险种缴纳配置
-	companySettingFlag bool
+	companySetting    *SocialPlanItemSetting // 险种缴纳配置
+	companySettingSet bool
 
-	personalDeduction     string // 企业缴纳金额
-	personalDeductionFlag bool
+	personalDeduction    string // 企业缴纳金额
+	personalDeductionSet bool
 
-	personalSetting     *SocialPlanItemSetting // 险种缴纳配置
-	personalSettingFlag bool
+	personalSetting    *SocialPlanItemSetting // 险种缴纳配置
+	personalSettingSet bool
 
-	paymentFrequency     string // 缴纳频率
-	paymentFrequencyFlag bool
+	paymentFrequency    string // 缴纳频率
+	paymentFrequencySet bool
 
-	paymentMonths     []int // 缴纳月份
-	paymentMonthsFlag bool
+	paymentMonths    []int // 缴纳月份
+	paymentMonthsSet bool
 }
 
 func NewSocialArchiveItemBuilder() *SocialArchiveItemBuilder {
@@ -5574,7 +5686,7 @@ func NewSocialArchiveItemBuilder() *SocialArchiveItemBuilder {
 // 示例值：111223
 func (builder *SocialArchiveItemBuilder) InsuranceId(insuranceId string) *SocialArchiveItemBuilder {
 	builder.insuranceId = insuranceId
-	builder.insuranceIdFlag = true
+	builder.insuranceIdSet = true
 	return builder
 }
 
@@ -5583,7 +5695,7 @@ func (builder *SocialArchiveItemBuilder) InsuranceId(insuranceId string) *Social
 // 示例值：
 func (builder *SocialArchiveItemBuilder) InsuranceName(insuranceName *I18n) *SocialArchiveItemBuilder {
 	builder.insuranceName = insuranceName
-	builder.insuranceNameFlag = true
+	builder.insuranceNameSet = true
 	return builder
 }
 
@@ -5592,7 +5704,7 @@ func (builder *SocialArchiveItemBuilder) InsuranceName(insuranceName *I18n) *Soc
 // 示例值：2000.20
 func (builder *SocialArchiveItemBuilder) CompanyDeduction(companyDeduction string) *SocialArchiveItemBuilder {
 	builder.companyDeduction = companyDeduction
-	builder.companyDeductionFlag = true
+	builder.companyDeductionSet = true
 	return builder
 }
 
@@ -5601,7 +5713,7 @@ func (builder *SocialArchiveItemBuilder) CompanyDeduction(companyDeduction strin
 // 示例值：
 func (builder *SocialArchiveItemBuilder) CompanySetting(companySetting *SocialPlanItemSetting) *SocialArchiveItemBuilder {
 	builder.companySetting = companySetting
-	builder.companySettingFlag = true
+	builder.companySettingSet = true
 	return builder
 }
 
@@ -5610,7 +5722,7 @@ func (builder *SocialArchiveItemBuilder) CompanySetting(companySetting *SocialPl
 // 示例值：1000.20
 func (builder *SocialArchiveItemBuilder) PersonalDeduction(personalDeduction string) *SocialArchiveItemBuilder {
 	builder.personalDeduction = personalDeduction
-	builder.personalDeductionFlag = true
+	builder.personalDeductionSet = true
 	return builder
 }
 
@@ -5619,7 +5731,7 @@ func (builder *SocialArchiveItemBuilder) PersonalDeduction(personalDeduction str
 // 示例值：
 func (builder *SocialArchiveItemBuilder) PersonalSetting(personalSetting *SocialPlanItemSetting) *SocialArchiveItemBuilder {
 	builder.personalSetting = personalSetting
-	builder.personalSettingFlag = true
+	builder.personalSettingSet = true
 	return builder
 }
 
@@ -5628,7 +5740,7 @@ func (builder *SocialArchiveItemBuilder) PersonalSetting(personalSetting *Social
 // 示例值：8.00
 func (builder *SocialArchiveItemBuilder) PaymentFrequency(paymentFrequency string) *SocialArchiveItemBuilder {
 	builder.paymentFrequency = paymentFrequency
-	builder.paymentFrequencyFlag = true
+	builder.paymentFrequencySet = true
 	return builder
 }
 
@@ -5637,38 +5749,38 @@ func (builder *SocialArchiveItemBuilder) PaymentFrequency(paymentFrequency strin
 // 示例值：
 func (builder *SocialArchiveItemBuilder) PaymentMonths(paymentMonths []int) *SocialArchiveItemBuilder {
 	builder.paymentMonths = paymentMonths
-	builder.paymentMonthsFlag = true
+	builder.paymentMonthsSet = true
 	return builder
 }
 
 func (builder *SocialArchiveItemBuilder) Build() *SocialArchiveItem {
 	req := &SocialArchiveItem{}
-	if builder.insuranceIdFlag {
+	if builder.insuranceIdSet {
 		req.InsuranceId = &builder.insuranceId
 
 	}
-	if builder.insuranceNameFlag {
+	if builder.insuranceNameSet {
 		req.InsuranceName = builder.insuranceName
 	}
-	if builder.companyDeductionFlag {
+	if builder.companyDeductionSet {
 		req.CompanyDeduction = &builder.companyDeduction
 
 	}
-	if builder.companySettingFlag {
+	if builder.companySettingSet {
 		req.CompanySetting = builder.companySetting
 	}
-	if builder.personalDeductionFlag {
+	if builder.personalDeductionSet {
 		req.PersonalDeduction = &builder.personalDeduction
 
 	}
-	if builder.personalSettingFlag {
+	if builder.personalSettingSet {
 		req.PersonalSetting = builder.personalSetting
 	}
-	if builder.paymentFrequencyFlag {
+	if builder.paymentFrequencySet {
 		req.PaymentFrequency = &builder.paymentFrequency
 
 	}
-	if builder.paymentMonthsFlag {
+	if builder.paymentMonthsSet {
 		req.PaymentMonths = builder.paymentMonths
 	}
 	return req
@@ -5687,20 +5799,20 @@ type SocialInsurance struct {
 }
 
 type SocialInsuranceBuilder struct {
-	id     string // 险种唯一ID
-	idFlag bool
+	id    string // 险种唯一ID
+	idSet bool
 
-	name     *I18n // 险种名称
-	nameFlag bool
+	name    *I18n // 险种名称
+	nameSet bool
 
-	insuranceType     string // 险种类型. social_insurance: 社保; provident_fund: 公积金
-	insuranceTypeFlag bool
+	insuranceType    string // 险种类型. social_insurance: 社保; provident_fund: 公积金
+	insuranceTypeSet bool
 
-	active     bool // 启用状态
-	activeFlag bool
+	active    bool // 启用状态
+	activeSet bool
 
-	isSystem     bool // 是否为系统预置险种。养老保险、医疗保险、失业保险、工伤保险、生育保险、住房公积金为系统预置险种。
-	isSystemFlag bool
+	isSystem    bool // 是否为系统预置险种。养老保险、医疗保险、失业保险、工伤保险、生育保险、住房公积金为系统预置险种。
+	isSystemSet bool
 }
 
 func NewSocialInsuranceBuilder() *SocialInsuranceBuilder {
@@ -5713,7 +5825,7 @@ func NewSocialInsuranceBuilder() *SocialInsuranceBuilder {
 // 示例值：i12345
 func (builder *SocialInsuranceBuilder) Id(id string) *SocialInsuranceBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -5722,7 +5834,7 @@ func (builder *SocialInsuranceBuilder) Id(id string) *SocialInsuranceBuilder {
 // 示例值：
 func (builder *SocialInsuranceBuilder) Name(name *I18n) *SocialInsuranceBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -5731,7 +5843,7 @@ func (builder *SocialInsuranceBuilder) Name(name *I18n) *SocialInsuranceBuilder 
 // 示例值：true
 func (builder *SocialInsuranceBuilder) InsuranceType(insuranceType string) *SocialInsuranceBuilder {
 	builder.insuranceType = insuranceType
-	builder.insuranceTypeFlag = true
+	builder.insuranceTypeSet = true
 	return builder
 }
 
@@ -5740,7 +5852,7 @@ func (builder *SocialInsuranceBuilder) InsuranceType(insuranceType string) *Soci
 // 示例值：
 func (builder *SocialInsuranceBuilder) Active(active bool) *SocialInsuranceBuilder {
 	builder.active = active
-	builder.activeFlag = true
+	builder.activeSet = true
 	return builder
 }
 
@@ -5749,28 +5861,28 @@ func (builder *SocialInsuranceBuilder) Active(active bool) *SocialInsuranceBuild
 // 示例值：
 func (builder *SocialInsuranceBuilder) IsSystem(isSystem bool) *SocialInsuranceBuilder {
 	builder.isSystem = isSystem
-	builder.isSystemFlag = true
+	builder.isSystemSet = true
 	return builder
 }
 
 func (builder *SocialInsuranceBuilder) Build() *SocialInsurance {
 	req := &SocialInsurance{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.insuranceTypeFlag {
+	if builder.insuranceTypeSet {
 		req.InsuranceType = &builder.insuranceType
 
 	}
-	if builder.activeFlag {
+	if builder.activeSet {
 		req.Active = &builder.active
 
 	}
-	if builder.isSystemFlag {
+	if builder.isSystemSet {
 		req.IsSystem = &builder.isSystem
 
 	}
@@ -5798,32 +5910,32 @@ type SocialPlan struct {
 }
 
 type SocialPlanBuilder struct {
-	planId     string // 参保方案ID
-	planIdFlag bool
+	planId    string // 参保方案ID
+	planIdSet bool
 
-	planTid     string // 参保方案版本ID
-	planTidFlag bool
+	planTid    string // 参保方案版本ID
+	planTidSet bool
 
-	name     *I18n // 参保方案名称
-	nameFlag bool
+	name    *I18n // 参保方案名称
+	nameSet bool
 
-	effectiveDate     string // 生效时间，HHHH-MM-DD
-	effectiveDateFlag bool
+	effectiveDate    string // 生效时间，HHHH-MM-DD
+	effectiveDateSet bool
 
-	active     bool // 是否启用
-	activeFlag bool
+	active    bool // 是否启用
+	activeSet bool
 
-	insuranceType     string // 险种类型. social_insurance: 社保; provident_fund: 公积金
-	insuranceTypeFlag bool
+	insuranceType    string // 险种类型. social_insurance: 社保; provident_fund: 公积金
+	insuranceTypeSet bool
 
-	scope     *SocialPlanScope // 参保方案适用范围
-	scopeFlag bool
+	scope    *SocialPlanScope // 参保方案适用范围
+	scopeSet bool
 
-	itemDetail     []*SocialPlanItemDetail // 参保信息
-	itemDetailFlag bool
+	itemDetail    []*SocialPlanItemDetail // 参保信息
+	itemDetailSet bool
 
-	remark     *I18n // 备注
-	remarkFlag bool
+	remark    *I18n // 备注
+	remarkSet bool
 }
 
 func NewSocialPlanBuilder() *SocialPlanBuilder {
@@ -5836,7 +5948,7 @@ func NewSocialPlanBuilder() *SocialPlanBuilder {
 // 示例值：11111
 func (builder *SocialPlanBuilder) PlanId(planId string) *SocialPlanBuilder {
 	builder.planId = planId
-	builder.planIdFlag = true
+	builder.planIdSet = true
 	return builder
 }
 
@@ -5845,7 +5957,7 @@ func (builder *SocialPlanBuilder) PlanId(planId string) *SocialPlanBuilder {
 // 示例值：22222
 func (builder *SocialPlanBuilder) PlanTid(planTid string) *SocialPlanBuilder {
 	builder.planTid = planTid
-	builder.planTidFlag = true
+	builder.planTidSet = true
 	return builder
 }
 
@@ -5854,7 +5966,7 @@ func (builder *SocialPlanBuilder) PlanTid(planTid string) *SocialPlanBuilder {
 // 示例值：
 func (builder *SocialPlanBuilder) Name(name *I18n) *SocialPlanBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -5863,7 +5975,7 @@ func (builder *SocialPlanBuilder) Name(name *I18n) *SocialPlanBuilder {
 // 示例值：2024-01-01
 func (builder *SocialPlanBuilder) EffectiveDate(effectiveDate string) *SocialPlanBuilder {
 	builder.effectiveDate = effectiveDate
-	builder.effectiveDateFlag = true
+	builder.effectiveDateSet = true
 	return builder
 }
 
@@ -5872,7 +5984,7 @@ func (builder *SocialPlanBuilder) EffectiveDate(effectiveDate string) *SocialPla
 // 示例值：
 func (builder *SocialPlanBuilder) Active(active bool) *SocialPlanBuilder {
 	builder.active = active
-	builder.activeFlag = true
+	builder.activeSet = true
 	return builder
 }
 
@@ -5881,7 +5993,7 @@ func (builder *SocialPlanBuilder) Active(active bool) *SocialPlanBuilder {
 // 示例值：
 func (builder *SocialPlanBuilder) InsuranceType(insuranceType string) *SocialPlanBuilder {
 	builder.insuranceType = insuranceType
-	builder.insuranceTypeFlag = true
+	builder.insuranceTypeSet = true
 	return builder
 }
 
@@ -5890,7 +6002,7 @@ func (builder *SocialPlanBuilder) InsuranceType(insuranceType string) *SocialPla
 // 示例值：
 func (builder *SocialPlanBuilder) Scope(scope *SocialPlanScope) *SocialPlanBuilder {
 	builder.scope = scope
-	builder.scopeFlag = true
+	builder.scopeSet = true
 	return builder
 }
 
@@ -5899,7 +6011,7 @@ func (builder *SocialPlanBuilder) Scope(scope *SocialPlanScope) *SocialPlanBuild
 // 示例值：
 func (builder *SocialPlanBuilder) ItemDetail(itemDetail []*SocialPlanItemDetail) *SocialPlanBuilder {
 	builder.itemDetail = itemDetail
-	builder.itemDetailFlag = true
+	builder.itemDetailSet = true
 	return builder
 }
 
@@ -5908,42 +6020,42 @@ func (builder *SocialPlanBuilder) ItemDetail(itemDetail []*SocialPlanItemDetail)
 // 示例值：
 func (builder *SocialPlanBuilder) Remark(remark *I18n) *SocialPlanBuilder {
 	builder.remark = remark
-	builder.remarkFlag = true
+	builder.remarkSet = true
 	return builder
 }
 
 func (builder *SocialPlanBuilder) Build() *SocialPlan {
 	req := &SocialPlan{}
-	if builder.planIdFlag {
+	if builder.planIdSet {
 		req.PlanId = &builder.planId
 
 	}
-	if builder.planTidFlag {
+	if builder.planTidSet {
 		req.PlanTid = &builder.planTid
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.effectiveDateFlag {
+	if builder.effectiveDateSet {
 		req.EffectiveDate = &builder.effectiveDate
 
 	}
-	if builder.activeFlag {
+	if builder.activeSet {
 		req.Active = &builder.active
 
 	}
-	if builder.insuranceTypeFlag {
+	if builder.insuranceTypeSet {
 		req.InsuranceType = &builder.insuranceType
 
 	}
-	if builder.scopeFlag {
+	if builder.scopeSet {
 		req.Scope = builder.scope
 	}
-	if builder.itemDetailFlag {
+	if builder.itemDetailSet {
 		req.ItemDetail = builder.itemDetail
 	}
-	if builder.remarkFlag {
+	if builder.remarkSet {
 		req.Remark = builder.remark
 	}
 	return req
@@ -5958,14 +6070,14 @@ type SocialPlanCondition struct {
 }
 
 type SocialPlanConditionBuilder struct {
-	leftType     int // 适用范围左值
-	leftTypeFlag bool
+	leftType    int // 适用范围左值
+	leftTypeSet bool
 
-	operator     int // 适用范围操作
-	operatorFlag bool
+	operator    int // 适用范围操作
+	operatorSet bool
 
-	rightValues     []string // 适用范围右值
-	rightValuesFlag bool
+	rightValues    []string // 适用范围右值
+	rightValuesSet bool
 }
 
 func NewSocialPlanConditionBuilder() *SocialPlanConditionBuilder {
@@ -5978,7 +6090,7 @@ func NewSocialPlanConditionBuilder() *SocialPlanConditionBuilder {
 // 示例值：1
 func (builder *SocialPlanConditionBuilder) LeftType(leftType int) *SocialPlanConditionBuilder {
 	builder.leftType = leftType
-	builder.leftTypeFlag = true
+	builder.leftTypeSet = true
 	return builder
 }
 
@@ -5987,7 +6099,7 @@ func (builder *SocialPlanConditionBuilder) LeftType(leftType int) *SocialPlanCon
 // 示例值：1
 func (builder *SocialPlanConditionBuilder) Operator(operator int) *SocialPlanConditionBuilder {
 	builder.operator = operator
-	builder.operatorFlag = true
+	builder.operatorSet = true
 	return builder
 }
 
@@ -5996,21 +6108,21 @@ func (builder *SocialPlanConditionBuilder) Operator(operator int) *SocialPlanCon
 // 示例值：
 func (builder *SocialPlanConditionBuilder) RightValues(rightValues []string) *SocialPlanConditionBuilder {
 	builder.rightValues = rightValues
-	builder.rightValuesFlag = true
+	builder.rightValuesSet = true
 	return builder
 }
 
 func (builder *SocialPlanConditionBuilder) Build() *SocialPlanCondition {
 	req := &SocialPlanCondition{}
-	if builder.leftTypeFlag {
+	if builder.leftTypeSet {
 		req.LeftType = &builder.leftType
 
 	}
-	if builder.operatorFlag {
+	if builder.operatorSet {
 		req.Operator = &builder.operator
 
 	}
-	if builder.rightValuesFlag {
+	if builder.rightValuesSet {
 		req.RightValues = builder.rightValues
 	}
 	return req
@@ -6031,23 +6143,23 @@ type SocialPlanItemDetail struct {
 }
 
 type SocialPlanItemDetailBuilder struct {
-	itemId     string // 险种ID，详细信息可通过社保险种接口查询
-	itemIdFlag bool
+	itemId    string // 险种ID，详细信息可通过社保险种接口查询
+	itemIdSet bool
 
-	itemName     *I18n // 险种名
-	itemNameFlag bool
+	itemName    *I18n // 险种名
+	itemNameSet bool
 
-	itemSettingOfPerson     *SocialPlanItemSetting // 险种缴纳配置
-	itemSettingOfPersonFlag bool
+	itemSettingOfPerson    *SocialPlanItemSetting // 险种缴纳配置
+	itemSettingOfPersonSet bool
 
-	itemSettingOfCompany     *SocialPlanItemSetting // 险种缴纳配置
-	itemSettingOfCompanyFlag bool
+	itemSettingOfCompany    *SocialPlanItemSetting // 险种缴纳配置
+	itemSettingOfCompanySet bool
 
-	paymentFrequency     string // 缴纳频率
-	paymentFrequencyFlag bool
+	paymentFrequency    string // 缴纳频率
+	paymentFrequencySet bool
 
-	paymentMonths     []int // 缴纳月份
-	paymentMonthsFlag bool
+	paymentMonths    []int // 缴纳月份
+	paymentMonthsSet bool
 }
 
 func NewSocialPlanItemDetailBuilder() *SocialPlanItemDetailBuilder {
@@ -6060,7 +6172,7 @@ func NewSocialPlanItemDetailBuilder() *SocialPlanItemDetailBuilder {
 // 示例值：123456
 func (builder *SocialPlanItemDetailBuilder) ItemId(itemId string) *SocialPlanItemDetailBuilder {
 	builder.itemId = itemId
-	builder.itemIdFlag = true
+	builder.itemIdSet = true
 	return builder
 }
 
@@ -6069,7 +6181,7 @@ func (builder *SocialPlanItemDetailBuilder) ItemId(itemId string) *SocialPlanIte
 // 示例值：
 func (builder *SocialPlanItemDetailBuilder) ItemName(itemName *I18n) *SocialPlanItemDetailBuilder {
 	builder.itemName = itemName
-	builder.itemNameFlag = true
+	builder.itemNameSet = true
 	return builder
 }
 
@@ -6078,7 +6190,7 @@ func (builder *SocialPlanItemDetailBuilder) ItemName(itemName *I18n) *SocialPlan
 // 示例值：
 func (builder *SocialPlanItemDetailBuilder) ItemSettingOfPerson(itemSettingOfPerson *SocialPlanItemSetting) *SocialPlanItemDetailBuilder {
 	builder.itemSettingOfPerson = itemSettingOfPerson
-	builder.itemSettingOfPersonFlag = true
+	builder.itemSettingOfPersonSet = true
 	return builder
 }
 
@@ -6087,7 +6199,7 @@ func (builder *SocialPlanItemDetailBuilder) ItemSettingOfPerson(itemSettingOfPer
 // 示例值：
 func (builder *SocialPlanItemDetailBuilder) ItemSettingOfCompany(itemSettingOfCompany *SocialPlanItemSetting) *SocialPlanItemDetailBuilder {
 	builder.itemSettingOfCompany = itemSettingOfCompany
-	builder.itemSettingOfCompanyFlag = true
+	builder.itemSettingOfCompanySet = true
 	return builder
 }
 
@@ -6096,7 +6208,7 @@ func (builder *SocialPlanItemDetailBuilder) ItemSettingOfCompany(itemSettingOfCo
 // 示例值：8.00
 func (builder *SocialPlanItemDetailBuilder) PaymentFrequency(paymentFrequency string) *SocialPlanItemDetailBuilder {
 	builder.paymentFrequency = paymentFrequency
-	builder.paymentFrequencyFlag = true
+	builder.paymentFrequencySet = true
 	return builder
 }
 
@@ -6105,30 +6217,30 @@ func (builder *SocialPlanItemDetailBuilder) PaymentFrequency(paymentFrequency st
 // 示例值：
 func (builder *SocialPlanItemDetailBuilder) PaymentMonths(paymentMonths []int) *SocialPlanItemDetailBuilder {
 	builder.paymentMonths = paymentMonths
-	builder.paymentMonthsFlag = true
+	builder.paymentMonthsSet = true
 	return builder
 }
 
 func (builder *SocialPlanItemDetailBuilder) Build() *SocialPlanItemDetail {
 	req := &SocialPlanItemDetail{}
-	if builder.itemIdFlag {
+	if builder.itemIdSet {
 		req.ItemId = &builder.itemId
 
 	}
-	if builder.itemNameFlag {
+	if builder.itemNameSet {
 		req.ItemName = builder.itemName
 	}
-	if builder.itemSettingOfPersonFlag {
+	if builder.itemSettingOfPersonSet {
 		req.ItemSettingOfPerson = builder.itemSettingOfPerson
 	}
-	if builder.itemSettingOfCompanyFlag {
+	if builder.itemSettingOfCompanySet {
 		req.ItemSettingOfCompany = builder.itemSettingOfCompany
 	}
-	if builder.paymentFrequencyFlag {
+	if builder.paymentFrequencySet {
 		req.PaymentFrequency = &builder.paymentFrequency
 
 	}
-	if builder.paymentMonthsFlag {
+	if builder.paymentMonthsSet {
 		req.PaymentMonths = builder.paymentMonths
 	}
 	return req
@@ -6149,23 +6261,23 @@ type SocialPlanItemSetting struct {
 }
 
 type SocialPlanItemSettingBuilder struct {
-	lowerLimit     string // 基数下限，浮点数，保留二位小数
-	lowerLimitFlag bool
+	lowerLimit    string // 基数下限，浮点数，保留二位小数
+	lowerLimitSet bool
 
-	upperLimit     string // 基数上限，浮点数，保留二位小数
-	upperLimitFlag bool
+	upperLimit    string // 基数上限，浮点数，保留二位小数
+	upperLimitSet bool
 
-	paymentRatio     string // 缴纳比例，浮点数，默认填充到二位小数，支持输入到四位，单位为 %
-	paymentRatioFlag bool
+	paymentRatio    string // 缴纳比例，浮点数，默认填充到二位小数，支持输入到四位，单位为 %
+	paymentRatioSet bool
 
-	paymentRoundingRule     string // 缴纳金舍入规则。rounding: 四舍五入; round_up: 向上舍入; round_down: 向下舍入
-	paymentRoundingRuleFlag bool
+	paymentRoundingRule    string // 缴纳金舍入规则。rounding: 四舍五入; round_up: 向上舍入; round_down: 向下舍入
+	paymentRoundingRuleSet bool
 
-	paymentDecimals     int // 缴纳金小数位数，0-6之间选择
-	paymentDecimalsFlag bool
+	paymentDecimals    int // 缴纳金小数位数，0-6之间选择
+	paymentDecimalsSet bool
 
-	fixedPayment     string // 附加固定金额，浮点数，保留二位小数
-	fixedPaymentFlag bool
+	fixedPayment    string // 附加固定金额，浮点数，保留二位小数
+	fixedPaymentSet bool
 }
 
 func NewSocialPlanItemSettingBuilder() *SocialPlanItemSettingBuilder {
@@ -6178,7 +6290,7 @@ func NewSocialPlanItemSettingBuilder() *SocialPlanItemSettingBuilder {
 // 示例值：1000.00
 func (builder *SocialPlanItemSettingBuilder) LowerLimit(lowerLimit string) *SocialPlanItemSettingBuilder {
 	builder.lowerLimit = lowerLimit
-	builder.lowerLimitFlag = true
+	builder.lowerLimitSet = true
 	return builder
 }
 
@@ -6187,7 +6299,7 @@ func (builder *SocialPlanItemSettingBuilder) LowerLimit(lowerLimit string) *Soci
 // 示例值：2000.00
 func (builder *SocialPlanItemSettingBuilder) UpperLimit(upperLimit string) *SocialPlanItemSettingBuilder {
 	builder.upperLimit = upperLimit
-	builder.upperLimitFlag = true
+	builder.upperLimitSet = true
 	return builder
 }
 
@@ -6196,7 +6308,7 @@ func (builder *SocialPlanItemSettingBuilder) UpperLimit(upperLimit string) *Soci
 // 示例值：8.00
 func (builder *SocialPlanItemSettingBuilder) PaymentRatio(paymentRatio string) *SocialPlanItemSettingBuilder {
 	builder.paymentRatio = paymentRatio
-	builder.paymentRatioFlag = true
+	builder.paymentRatioSet = true
 	return builder
 }
 
@@ -6205,7 +6317,7 @@ func (builder *SocialPlanItemSettingBuilder) PaymentRatio(paymentRatio string) *
 // 示例值：8.00
 func (builder *SocialPlanItemSettingBuilder) PaymentRoundingRule(paymentRoundingRule string) *SocialPlanItemSettingBuilder {
 	builder.paymentRoundingRule = paymentRoundingRule
-	builder.paymentRoundingRuleFlag = true
+	builder.paymentRoundingRuleSet = true
 	return builder
 }
 
@@ -6214,7 +6326,7 @@ func (builder *SocialPlanItemSettingBuilder) PaymentRoundingRule(paymentRounding
 // 示例值：2
 func (builder *SocialPlanItemSettingBuilder) PaymentDecimals(paymentDecimals int) *SocialPlanItemSettingBuilder {
 	builder.paymentDecimals = paymentDecimals
-	builder.paymentDecimalsFlag = true
+	builder.paymentDecimalsSet = true
 	return builder
 }
 
@@ -6223,33 +6335,33 @@ func (builder *SocialPlanItemSettingBuilder) PaymentDecimals(paymentDecimals int
 // 示例值：200.00
 func (builder *SocialPlanItemSettingBuilder) FixedPayment(fixedPayment string) *SocialPlanItemSettingBuilder {
 	builder.fixedPayment = fixedPayment
-	builder.fixedPaymentFlag = true
+	builder.fixedPaymentSet = true
 	return builder
 }
 
 func (builder *SocialPlanItemSettingBuilder) Build() *SocialPlanItemSetting {
 	req := &SocialPlanItemSetting{}
-	if builder.lowerLimitFlag {
+	if builder.lowerLimitSet {
 		req.LowerLimit = &builder.lowerLimit
 
 	}
-	if builder.upperLimitFlag {
+	if builder.upperLimitSet {
 		req.UpperLimit = &builder.upperLimit
 
 	}
-	if builder.paymentRatioFlag {
+	if builder.paymentRatioSet {
 		req.PaymentRatio = &builder.paymentRatio
 
 	}
-	if builder.paymentRoundingRuleFlag {
+	if builder.paymentRoundingRuleSet {
 		req.PaymentRoundingRule = &builder.paymentRoundingRule
 
 	}
-	if builder.paymentDecimalsFlag {
+	if builder.paymentDecimalsSet {
 		req.PaymentDecimals = &builder.paymentDecimals
 
 	}
-	if builder.fixedPaymentFlag {
+	if builder.fixedPaymentSet {
 		req.FixedPayment = &builder.fixedPayment
 
 	}
@@ -6263,11 +6375,11 @@ type SocialPlanScope struct {
 }
 
 type SocialPlanScopeBuilder struct {
-	isAll     bool // 是否适用于全部
-	isAllFlag bool
+	isAll    bool // 是否适用于全部
+	isAllSet bool
 
-	rules     [][]*SocialPlanCondition // 适用范围，二维。外层or连接，内层and连接
-	rulesFlag bool
+	rules    [][]*SocialPlanCondition // 适用范围，二维。外层or连接，内层and连接
+	rulesSet bool
 }
 
 func NewSocialPlanScopeBuilder() *SocialPlanScopeBuilder {
@@ -6280,7 +6392,7 @@ func NewSocialPlanScopeBuilder() *SocialPlanScopeBuilder {
 // 示例值：true
 func (builder *SocialPlanScopeBuilder) IsAll(isAll bool) *SocialPlanScopeBuilder {
 	builder.isAll = isAll
-	builder.isAllFlag = true
+	builder.isAllSet = true
 	return builder
 }
 
@@ -6289,17 +6401,17 @@ func (builder *SocialPlanScopeBuilder) IsAll(isAll bool) *SocialPlanScopeBuilder
 // 示例值：
 func (builder *SocialPlanScopeBuilder) Rules(rules [][]*SocialPlanCondition) *SocialPlanScopeBuilder {
 	builder.rules = rules
-	builder.rulesFlag = true
+	builder.rulesSet = true
 	return builder
 }
 
 func (builder *SocialPlanScopeBuilder) Build() *SocialPlanScope {
 	req := &SocialPlanScope{}
-	if builder.isAllFlag {
+	if builder.isAllSet {
 		req.IsAll = &builder.isAll
 
 	}
-	if builder.rulesFlag {
+	if builder.rulesSet {
 		req.Rules = builder.rules
 	}
 	return req
@@ -6328,35 +6440,35 @@ type Standard struct {
 }
 
 type StandardBuilder struct {
-	id     string // 薪资标准表ID
-	idFlag bool
+	id    string // 薪资标准表ID
+	idSet bool
 
-	name     *I18n // 薪资标准表名称
-	nameFlag bool
+	name    *I18n // 薪资标准表名称
+	nameSet bool
 
-	updatedBy     string // 更新人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
-	updatedByFlag bool
+	updatedBy    string // 更新人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+	updatedBySet bool
 
-	updatedAt     string // 更新时间，毫秒时间戳格式
-	updatedAtFlag bool
+	updatedAt    string // 更新时间，毫秒时间戳格式
+	updatedAtSet bool
 
-	createdBy     string // 创建人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
-	createdByFlag bool
+	createdBy    string // 创建人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+	createdBySet bool
 
-	createdAt     string // 创建时间，毫秒时间戳格式
-	createdAtFlag bool
+	createdAt    string // 创建时间，毫秒时间戳格式
+	createdAtSet bool
 
-	automaticBackfillStandardValue     bool // 是否自动回填标准值
-	automaticBackfillStandardValueFlag bool
+	automaticBackfillStandardValue    bool // 是否自动回填标准值
+	automaticBackfillStandardValueSet bool
 
-	scope     *StandardScope // 适用范围
-	scopeFlag bool
+	scope    *StandardScope // 适用范围
+	scopeSet bool
 
-	dimensions     []*StandardDimension // 划分维度
-	dimensionsFlag bool
+	dimensions    []*StandardDimension // 划分维度
+	dimensionsSet bool
 
-	referenceObjects     []*StandardReferenceObject // 适用项目
-	referenceObjectsFlag bool
+	referenceObjects    []*StandardReferenceObject // 适用项目
+	referenceObjectsSet bool
 }
 
 func NewStandardBuilder() *StandardBuilder {
@@ -6369,7 +6481,7 @@ func NewStandardBuilder() *StandardBuilder {
 // 示例值：7491187653210293804
 func (builder *StandardBuilder) Id(id string) *StandardBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -6378,7 +6490,7 @@ func (builder *StandardBuilder) Id(id string) *StandardBuilder {
 // 示例值：
 func (builder *StandardBuilder) Name(name *I18n) *StandardBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -6387,7 +6499,7 @@ func (builder *StandardBuilder) Name(name *I18n) *StandardBuilder {
 // 示例值：7433328946189796908
 func (builder *StandardBuilder) UpdatedBy(updatedBy string) *StandardBuilder {
 	builder.updatedBy = updatedBy
-	builder.updatedByFlag = true
+	builder.updatedBySet = true
 	return builder
 }
 
@@ -6396,7 +6508,7 @@ func (builder *StandardBuilder) UpdatedBy(updatedBy string) *StandardBuilder {
 // 示例值：1744178149000
 func (builder *StandardBuilder) UpdatedAt(updatedAt string) *StandardBuilder {
 	builder.updatedAt = updatedAt
-	builder.updatedAtFlag = true
+	builder.updatedAtSet = true
 	return builder
 }
 
@@ -6405,7 +6517,7 @@ func (builder *StandardBuilder) UpdatedAt(updatedAt string) *StandardBuilder {
 // 示例值：7433328946189796908
 func (builder *StandardBuilder) CreatedBy(createdBy string) *StandardBuilder {
 	builder.createdBy = createdBy
-	builder.createdByFlag = true
+	builder.createdBySet = true
 	return builder
 }
 
@@ -6414,7 +6526,7 @@ func (builder *StandardBuilder) CreatedBy(createdBy string) *StandardBuilder {
 // 示例值：1744178149000
 func (builder *StandardBuilder) CreatedAt(createdAt string) *StandardBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -6423,7 +6535,7 @@ func (builder *StandardBuilder) CreatedAt(createdAt string) *StandardBuilder {
 // 示例值：true
 func (builder *StandardBuilder) AutomaticBackfillStandardValue(automaticBackfillStandardValue bool) *StandardBuilder {
 	builder.automaticBackfillStandardValue = automaticBackfillStandardValue
-	builder.automaticBackfillStandardValueFlag = true
+	builder.automaticBackfillStandardValueSet = true
 	return builder
 }
 
@@ -6432,7 +6544,7 @@ func (builder *StandardBuilder) AutomaticBackfillStandardValue(automaticBackfill
 // 示例值：
 func (builder *StandardBuilder) Scope(scope *StandardScope) *StandardBuilder {
 	builder.scope = scope
-	builder.scopeFlag = true
+	builder.scopeSet = true
 	return builder
 }
 
@@ -6441,7 +6553,7 @@ func (builder *StandardBuilder) Scope(scope *StandardScope) *StandardBuilder {
 // 示例值：
 func (builder *StandardBuilder) Dimensions(dimensions []*StandardDimension) *StandardBuilder {
 	builder.dimensions = dimensions
-	builder.dimensionsFlag = true
+	builder.dimensionsSet = true
 	return builder
 }
 
@@ -6450,46 +6562,46 @@ func (builder *StandardBuilder) Dimensions(dimensions []*StandardDimension) *Sta
 // 示例值：
 func (builder *StandardBuilder) ReferenceObjects(referenceObjects []*StandardReferenceObject) *StandardBuilder {
 	builder.referenceObjects = referenceObjects
-	builder.referenceObjectsFlag = true
+	builder.referenceObjectsSet = true
 	return builder
 }
 
 func (builder *StandardBuilder) Build() *Standard {
 	req := &Standard{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.updatedByFlag {
+	if builder.updatedBySet {
 		req.UpdatedBy = &builder.updatedBy
 
 	}
-	if builder.updatedAtFlag {
+	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
 
 	}
-	if builder.createdByFlag {
+	if builder.createdBySet {
 		req.CreatedBy = &builder.createdBy
 
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.automaticBackfillStandardValueFlag {
+	if builder.automaticBackfillStandardValueSet {
 		req.AutomaticBackfillStandardValue = &builder.automaticBackfillStandardValue
 
 	}
-	if builder.scopeFlag {
+	if builder.scopeSet {
 		req.Scope = builder.scope
 	}
-	if builder.dimensionsFlag {
+	if builder.dimensionsSet {
 		req.Dimensions = builder.dimensions
 	}
-	if builder.referenceObjectsFlag {
+	if builder.referenceObjectsSet {
 		req.ReferenceObjects = builder.referenceObjects
 	}
 	return req
@@ -6502,11 +6614,11 @@ type StandardDimension struct {
 }
 
 type StandardDimensionBuilder struct {
-	apiName     string // 资源名
-	apiNameFlag bool
+	apiName    string // 资源名
+	apiNameSet bool
 
-	label     *I18n // 名称
-	labelFlag bool
+	label    *I18n // 名称
+	labelSet bool
 }
 
 func NewStandardDimensionBuilder() *StandardDimensionBuilder {
@@ -6519,7 +6631,7 @@ func NewStandardDimensionBuilder() *StandardDimensionBuilder {
 // 示例值：cpst_plan
 func (builder *StandardDimensionBuilder) ApiName(apiName string) *StandardDimensionBuilder {
 	builder.apiName = apiName
-	builder.apiNameFlag = true
+	builder.apiNameSet = true
 	return builder
 }
 
@@ -6528,17 +6640,17 @@ func (builder *StandardDimensionBuilder) ApiName(apiName string) *StandardDimens
 // 示例值：
 func (builder *StandardDimensionBuilder) Label(label *I18n) *StandardDimensionBuilder {
 	builder.label = label
-	builder.labelFlag = true
+	builder.labelSet = true
 	return builder
 }
 
 func (builder *StandardDimensionBuilder) Build() *StandardDimension {
 	req := &StandardDimension{}
-	if builder.apiNameFlag {
+	if builder.apiNameSet {
 		req.ApiName = &builder.apiName
 
 	}
-	if builder.labelFlag {
+	if builder.labelSet {
 		req.Label = builder.label
 	}
 	return req
@@ -6551,11 +6663,11 @@ type StandardReferenceObject struct {
 }
 
 type StandardReferenceObjectBuilder struct {
-	id     string // 薪资项目ID/薪资统计指标ID，详细信息可以通过接口查询[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)， [批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)
-	idFlag bool
+	id    string // 薪资项目ID/薪资统计指标ID，详细信息可以通过接口查询[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)， [批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)
+	idSet bool
 
-	apiName     string // 资源名，薪资项目："cpst_item"，薪资指标: "cpst_indicator"
-	apiNameFlag bool
+	apiName    string // 资源名，薪资项目："cpst_item"，薪资指标: "cpst_indicator"
+	apiNameSet bool
 }
 
 func NewStandardReferenceObjectBuilder() *StandardReferenceObjectBuilder {
@@ -6568,7 +6680,7 @@ func NewStandardReferenceObjectBuilder() *StandardReferenceObjectBuilder {
 // 示例值：7475986561660372524
 func (builder *StandardReferenceObjectBuilder) Id(id string) *StandardReferenceObjectBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -6577,17 +6689,17 @@ func (builder *StandardReferenceObjectBuilder) Id(id string) *StandardReferenceO
 // 示例值：cpst_indicator
 func (builder *StandardReferenceObjectBuilder) ApiName(apiName string) *StandardReferenceObjectBuilder {
 	builder.apiName = apiName
-	builder.apiNameFlag = true
+	builder.apiNameSet = true
 	return builder
 }
 
 func (builder *StandardReferenceObjectBuilder) Build() *StandardReferenceObject {
 	req := &StandardReferenceObject{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.apiNameFlag {
+	if builder.apiNameSet {
 		req.ApiName = &builder.apiName
 
 	}
@@ -6603,14 +6715,14 @@ type StandardScope struct {
 }
 
 type StandardScopeBuilder struct {
-	all     bool // 是否全部
-	allFlag bool
+	all    bool // 是否全部
+	allSet bool
 
-	defineExpression     string // 条件表达式
-	defineExpressionFlag bool
+	defineExpression    string // 条件表达式
+	defineExpressionSet bool
 
-	expressions     []*StandardScopeExpression // 适用范围明细列表
-	expressionsFlag bool
+	expressions    []*StandardScopeExpression // 适用范围明细列表
+	expressionsSet bool
 }
 
 func NewStandardScopeBuilder() *StandardScopeBuilder {
@@ -6623,7 +6735,7 @@ func NewStandardScopeBuilder() *StandardScopeBuilder {
 // 示例值：false
 func (builder *StandardScopeBuilder) All(all bool) *StandardScopeBuilder {
 	builder.all = all
-	builder.allFlag = true
+	builder.allSet = true
 	return builder
 }
 
@@ -6632,7 +6744,7 @@ func (builder *StandardScopeBuilder) All(all bool) *StandardScopeBuilder {
 // 示例值：1 and 2 and 3
 func (builder *StandardScopeBuilder) DefineExpression(defineExpression string) *StandardScopeBuilder {
 	builder.defineExpression = defineExpression
-	builder.defineExpressionFlag = true
+	builder.defineExpressionSet = true
 	return builder
 }
 
@@ -6641,21 +6753,21 @@ func (builder *StandardScopeBuilder) DefineExpression(defineExpression string) *
 // 示例值：
 func (builder *StandardScopeBuilder) Expressions(expressions []*StandardScopeExpression) *StandardScopeBuilder {
 	builder.expressions = expressions
-	builder.expressionsFlag = true
+	builder.expressionsSet = true
 	return builder
 }
 
 func (builder *StandardScopeBuilder) Build() *StandardScope {
 	req := &StandardScope{}
-	if builder.allFlag {
+	if builder.allSet {
 		req.All = &builder.all
 
 	}
-	if builder.defineExpressionFlag {
+	if builder.defineExpressionSet {
 		req.DefineExpression = &builder.defineExpression
 
 	}
-	if builder.expressionsFlag {
+	if builder.expressionsSet {
 		req.Expressions = builder.expressions
 	}
 	return req
@@ -6674,20 +6786,20 @@ type StandardScopeExpression struct {
 }
 
 type StandardScopeExpressionBuilder struct {
-	apiName     string // 范围API
-	apiNameFlag bool
+	apiName    string // 范围API
+	apiNameSet bool
 
-	operatorType     int // 操作类型
-	operatorTypeFlag bool
+	operatorType    int // 操作类型
+	operatorTypeSet bool
 
-	containSub     bool // 是否包含下级
-	containSubFlag bool
+	containSub    bool // 是否包含下级
+	containSubSet bool
 
-	values     []string // 适用范围明细值列表
-	valuesFlag bool
+	values    []string // 适用范围明细值列表
+	valuesSet bool
 
-	scopeName     *I18n // 范围名称
-	scopeNameFlag bool
+	scopeName    *I18n // 范围名称
+	scopeNameSet bool
 }
 
 func NewStandardScopeExpressionBuilder() *StandardScopeExpressionBuilder {
@@ -6700,7 +6812,7 @@ func NewStandardScopeExpressionBuilder() *StandardScopeExpressionBuilder {
 // 示例值："cpst_plan"
 func (builder *StandardScopeExpressionBuilder) ApiName(apiName string) *StandardScopeExpressionBuilder {
 	builder.apiName = apiName
-	builder.apiNameFlag = true
+	builder.apiNameSet = true
 	return builder
 }
 
@@ -6709,7 +6821,7 @@ func (builder *StandardScopeExpressionBuilder) ApiName(apiName string) *Standard
 // 示例值：1
 func (builder *StandardScopeExpressionBuilder) OperatorType(operatorType int) *StandardScopeExpressionBuilder {
 	builder.operatorType = operatorType
-	builder.operatorTypeFlag = true
+	builder.operatorTypeSet = true
 	return builder
 }
 
@@ -6718,7 +6830,7 @@ func (builder *StandardScopeExpressionBuilder) OperatorType(operatorType int) *S
 // 示例值：true
 func (builder *StandardScopeExpressionBuilder) ContainSub(containSub bool) *StandardScopeExpressionBuilder {
 	builder.containSub = containSub
-	builder.containSubFlag = true
+	builder.containSubSet = true
 	return builder
 }
 
@@ -6727,7 +6839,7 @@ func (builder *StandardScopeExpressionBuilder) ContainSub(containSub bool) *Stan
 // 示例值：
 func (builder *StandardScopeExpressionBuilder) Values(values []string) *StandardScopeExpressionBuilder {
 	builder.values = values
-	builder.valuesFlag = true
+	builder.valuesSet = true
 	return builder
 }
 
@@ -6736,66 +6848,66 @@ func (builder *StandardScopeExpressionBuilder) Values(values []string) *Standard
 // 示例值：
 func (builder *StandardScopeExpressionBuilder) ScopeName(scopeName *I18n) *StandardScopeExpressionBuilder {
 	builder.scopeName = scopeName
-	builder.scopeNameFlag = true
+	builder.scopeNameSet = true
 	return builder
 }
 
 func (builder *StandardScopeExpressionBuilder) Build() *StandardScopeExpression {
 	req := &StandardScopeExpression{}
-	if builder.apiNameFlag {
+	if builder.apiNameSet {
 		req.ApiName = &builder.apiName
 
 	}
-	if builder.operatorTypeFlag {
+	if builder.operatorTypeSet {
 		req.OperatorType = &builder.operatorType
 
 	}
-	if builder.containSubFlag {
+	if builder.containSubSet {
 		req.ContainSub = &builder.containSub
 
 	}
-	if builder.valuesFlag {
+	if builder.valuesSet {
 		req.Values = builder.values
 	}
-	if builder.scopeNameFlag {
+	if builder.scopeNameSet {
 		req.ScopeName = builder.scopeName
 	}
 	return req
 }
 
 type CreateArchiveReqBodyBuilder struct {
-	uniqueId     string // 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4,
-	uniqueIdFlag bool
+	uniqueId    string // 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4,
+	uniqueIdSet bool
 
-	operatorId     string // 操作人ID，具体类型由入参中的 user_id_type 指定，选择应用身份鉴权时，该参数不能为空
-	operatorIdFlag bool
+	operatorId    string // 操作人ID，具体类型由入参中的 user_id_type 指定，选择应用身份鉴权时，该参数不能为空
+	operatorIdSet bool
 
-	userId     string // 员工id，具体类型由入参中的 user_id_type 指定
-	userIdFlag bool
+	userId    string // 员工id，具体类型由入参中的 user_id_type 指定
+	userIdSet bool
 
-	effectiveTime     string // 生效时间，日期格式
-	effectiveTimeFlag bool
+	effectiveTime    string // 生效时间，日期格式
+	effectiveTimeSet bool
 
-	currencyId     string // 币种ID，获取来源https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search?appId=cli_a63f5fc01866100c
-	currencyIdFlag bool
+	currencyId    string // 币种ID，获取来源https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search?appId=cli_a63f5fc01866100c
+	currencyIdSet bool
 
-	planId     string // 薪资方案ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
-	planIdFlag bool
+	planId    string // 薪资方案ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+	planIdSet bool
 
-	planTid     string // 薪资方案TID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
-	planTidFlag bool
+	planTid    string // 薪资方案TID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+	planTidSet bool
 
-	changeReasonId     string // 调薪原因ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list
-	changeReasonIdFlag bool
+	changeReasonId    string // 调薪原因ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list
+	changeReasonIdSet bool
 
-	itemValueLists     []*ArchiveItemValue // 薪资项值集合
-	itemValueListsFlag bool
+	itemValueLists    []*ArchiveItemValue // 薪资项值集合
+	itemValueListsSet bool
 
-	description     string // 调薪说明
-	descriptionFlag bool
+	description    string // 调薪说明
+	descriptionSet bool
 
-	editRemark     string // 更正说明，当员工在当天存在调薪记录时，该字段即为更正调薪的说明
-	editRemarkFlag bool
+	editRemark    string // 更正说明，当员工在当天存在调薪记录时，该字段即为更正调薪的说明
+	editRemarkSet bool
 }
 
 func NewCreateArchiveReqBodyBuilder() *CreateArchiveReqBodyBuilder {
@@ -6805,164 +6917,164 @@ func NewCreateArchiveReqBodyBuilder() *CreateArchiveReqBodyBuilder {
 
 // 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4,
 //
-// 示例值：123e4567-e89b-42d3-a456-426614174000
+//示例值：123e4567-e89b-42d3-a456-426614174000
 func (builder *CreateArchiveReqBodyBuilder) UniqueId(uniqueId string) *CreateArchiveReqBodyBuilder {
 	builder.uniqueId = uniqueId
-	builder.uniqueIdFlag = true
+	builder.uniqueIdSet = true
 	return builder
 }
 
 // 操作人ID，具体类型由入参中的 user_id_type 指定，选择应用身份鉴权时，该参数不能为空
 //
-// 示例值：7337149697626801708
+//示例值：7337149697626801708
 func (builder *CreateArchiveReqBodyBuilder) OperatorId(operatorId string) *CreateArchiveReqBodyBuilder {
 	builder.operatorId = operatorId
-	builder.operatorIdFlag = true
+	builder.operatorIdSet = true
 	return builder
 }
 
 // 员工id，具体类型由入参中的 user_id_type 指定
 //
-// 示例值：7337149697626801708
+//示例值：7337149697626801708
 func (builder *CreateArchiveReqBodyBuilder) UserId(userId string) *CreateArchiveReqBodyBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
 // 生效时间，日期格式
 //
-// 示例值：2024-11-12
+//示例值：2024-11-12
 func (builder *CreateArchiveReqBodyBuilder) EffectiveTime(effectiveTime string) *CreateArchiveReqBodyBuilder {
 	builder.effectiveTime = effectiveTime
-	builder.effectiveTimeFlag = true
+	builder.effectiveTimeSet = true
 	return builder
 }
 
 // 币种ID，获取来源https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search?appId=cli_a63f5fc01866100c
 //
-// 示例值：6863329932261459464
+//示例值：6863329932261459464
 func (builder *CreateArchiveReqBodyBuilder) CurrencyId(currencyId string) *CreateArchiveReqBodyBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
 // 薪资方案ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
 //
-// 示例值：7431430313074247212
+//示例值：7431430313074247212
 func (builder *CreateArchiveReqBodyBuilder) PlanId(planId string) *CreateArchiveReqBodyBuilder {
 	builder.planId = planId
-	builder.planIdFlag = true
+	builder.planIdSet = true
 	return builder
 }
 
 // 薪资方案TID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
 //
-// 示例值：7431430313074279980
+//示例值：7431430313074279980
 func (builder *CreateArchiveReqBodyBuilder) PlanTid(planTid string) *CreateArchiveReqBodyBuilder {
 	builder.planTid = planTid
-	builder.planTidFlag = true
+	builder.planTidSet = true
 	return builder
 }
 
 // 调薪原因ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list
 //
-// 示例值：7125907336899888684
+//示例值：7125907336899888684
 func (builder *CreateArchiveReqBodyBuilder) ChangeReasonId(changeReasonId string) *CreateArchiveReqBodyBuilder {
 	builder.changeReasonId = changeReasonId
-	builder.changeReasonIdFlag = true
+	builder.changeReasonIdSet = true
 	return builder
 }
 
 // 薪资项值集合
 //
-// 示例值：
+//示例值：
 func (builder *CreateArchiveReqBodyBuilder) ItemValueLists(itemValueLists []*ArchiveItemValue) *CreateArchiveReqBodyBuilder {
 	builder.itemValueLists = itemValueLists
-	builder.itemValueListsFlag = true
+	builder.itemValueListsSet = true
 	return builder
 }
 
 // 调薪说明
 //
-// 示例值：调薪说明
+//示例值：调薪说明
 func (builder *CreateArchiveReqBodyBuilder) Description(description string) *CreateArchiveReqBodyBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
 // 更正说明，当员工在当天存在调薪记录时，该字段即为更正调薪的说明
 //
-// 示例值：更正调薪说明
+//示例值：更正调薪说明
 func (builder *CreateArchiveReqBodyBuilder) EditRemark(editRemark string) *CreateArchiveReqBodyBuilder {
 	builder.editRemark = editRemark
-	builder.editRemarkFlag = true
+	builder.editRemarkSet = true
 	return builder
 }
 
 func (builder *CreateArchiveReqBodyBuilder) Build() *CreateArchiveReqBody {
 	req := &CreateArchiveReqBody{}
-	if builder.uniqueIdFlag {
+	if builder.uniqueIdSet {
 		req.UniqueId = &builder.uniqueId
 	}
-	if builder.operatorIdFlag {
+	if builder.operatorIdSet {
 		req.OperatorId = &builder.operatorId
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 	}
-	if builder.effectiveTimeFlag {
+	if builder.effectiveTimeSet {
 		req.EffectiveTime = &builder.effectiveTime
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = &builder.currencyId
 	}
-	if builder.planIdFlag {
+	if builder.planIdSet {
 		req.PlanId = &builder.planId
 	}
-	if builder.planTidFlag {
+	if builder.planTidSet {
 		req.PlanTid = &builder.planTid
 	}
-	if builder.changeReasonIdFlag {
+	if builder.changeReasonIdSet {
 		req.ChangeReasonId = &builder.changeReasonId
 	}
-	if builder.itemValueListsFlag {
+	if builder.itemValueListsSet {
 		req.ItemValueLists = builder.itemValueLists
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 	}
-	if builder.editRemarkFlag {
+	if builder.editRemarkSet {
 		req.EditRemark = &builder.editRemark
 	}
 	return req
 }
 
 type CreateArchivePathReqBodyBuilder struct {
-	uniqueId           string
-	uniqueIdFlag       bool
-	operatorId         string
-	operatorIdFlag     bool
-	userId             string
-	userIdFlag         bool
-	effectiveTime      string
-	effectiveTimeFlag  bool
-	currencyId         string
-	currencyIdFlag     bool
-	planId             string
-	planIdFlag         bool
-	planTid            string
-	planTidFlag        bool
-	changeReasonId     string
-	changeReasonIdFlag bool
-	itemValueLists     []*ArchiveItemValue
-	itemValueListsFlag bool
-	description        string
-	descriptionFlag    bool
-	editRemark         string
-	editRemarkFlag     bool
+	uniqueId          string
+	uniqueIdSet       bool
+	operatorId        string
+	operatorIdSet     bool
+	userId            string
+	userIdSet         bool
+	effectiveTime     string
+	effectiveTimeSet  bool
+	currencyId        string
+	currencyIdSet     bool
+	planId            string
+	planIdSet         bool
+	planTid           string
+	planTidSet        bool
+	changeReasonId    string
+	changeReasonIdSet bool
+	itemValueLists    []*ArchiveItemValue
+	itemValueListsSet bool
+	description       string
+	descriptionSet    bool
+	editRemark        string
+	editRemarkSet     bool
 }
 
 func NewCreateArchivePathReqBodyBuilder() *CreateArchivePathReqBodyBuilder {
@@ -6975,7 +7087,7 @@ func NewCreateArchivePathReqBodyBuilder() *CreateArchivePathReqBodyBuilder {
 // 示例值：123e4567-e89b-42d3-a456-426614174000
 func (builder *CreateArchivePathReqBodyBuilder) UniqueId(uniqueId string) *CreateArchivePathReqBodyBuilder {
 	builder.uniqueId = uniqueId
-	builder.uniqueIdFlag = true
+	builder.uniqueIdSet = true
 	return builder
 }
 
@@ -6984,7 +7096,7 @@ func (builder *CreateArchivePathReqBodyBuilder) UniqueId(uniqueId string) *Creat
 // 示例值：7337149697626801708
 func (builder *CreateArchivePathReqBodyBuilder) OperatorId(operatorId string) *CreateArchivePathReqBodyBuilder {
 	builder.operatorId = operatorId
-	builder.operatorIdFlag = true
+	builder.operatorIdSet = true
 	return builder
 }
 
@@ -6993,7 +7105,7 @@ func (builder *CreateArchivePathReqBodyBuilder) OperatorId(operatorId string) *C
 // 示例值：7337149697626801708
 func (builder *CreateArchivePathReqBodyBuilder) UserId(userId string) *CreateArchivePathReqBodyBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -7002,7 +7114,7 @@ func (builder *CreateArchivePathReqBodyBuilder) UserId(userId string) *CreateArc
 // 示例值：2024-11-12
 func (builder *CreateArchivePathReqBodyBuilder) EffectiveTime(effectiveTime string) *CreateArchivePathReqBodyBuilder {
 	builder.effectiveTime = effectiveTime
-	builder.effectiveTimeFlag = true
+	builder.effectiveTimeSet = true
 	return builder
 }
 
@@ -7011,7 +7123,7 @@ func (builder *CreateArchivePathReqBodyBuilder) EffectiveTime(effectiveTime stri
 // 示例值：6863329932261459464
 func (builder *CreateArchivePathReqBodyBuilder) CurrencyId(currencyId string) *CreateArchivePathReqBodyBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
@@ -7020,7 +7132,7 @@ func (builder *CreateArchivePathReqBodyBuilder) CurrencyId(currencyId string) *C
 // 示例值：7431430313074247212
 func (builder *CreateArchivePathReqBodyBuilder) PlanId(planId string) *CreateArchivePathReqBodyBuilder {
 	builder.planId = planId
-	builder.planIdFlag = true
+	builder.planIdSet = true
 	return builder
 }
 
@@ -7029,7 +7141,7 @@ func (builder *CreateArchivePathReqBodyBuilder) PlanId(planId string) *CreateArc
 // 示例值：7431430313074279980
 func (builder *CreateArchivePathReqBodyBuilder) PlanTid(planTid string) *CreateArchivePathReqBodyBuilder {
 	builder.planTid = planTid
-	builder.planTidFlag = true
+	builder.planTidSet = true
 	return builder
 }
 
@@ -7038,7 +7150,7 @@ func (builder *CreateArchivePathReqBodyBuilder) PlanTid(planTid string) *CreateA
 // 示例值：7125907336899888684
 func (builder *CreateArchivePathReqBodyBuilder) ChangeReasonId(changeReasonId string) *CreateArchivePathReqBodyBuilder {
 	builder.changeReasonId = changeReasonId
-	builder.changeReasonIdFlag = true
+	builder.changeReasonIdSet = true
 	return builder
 }
 
@@ -7047,7 +7159,7 @@ func (builder *CreateArchivePathReqBodyBuilder) ChangeReasonId(changeReasonId st
 // 示例值：
 func (builder *CreateArchivePathReqBodyBuilder) ItemValueLists(itemValueLists []*ArchiveItemValue) *CreateArchivePathReqBodyBuilder {
 	builder.itemValueLists = itemValueLists
-	builder.itemValueListsFlag = true
+	builder.itemValueListsSet = true
 	return builder
 }
 
@@ -7056,7 +7168,7 @@ func (builder *CreateArchivePathReqBodyBuilder) ItemValueLists(itemValueLists []
 // 示例值：调薪说明
 func (builder *CreateArchivePathReqBodyBuilder) Description(description string) *CreateArchivePathReqBodyBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -7065,43 +7177,43 @@ func (builder *CreateArchivePathReqBodyBuilder) Description(description string) 
 // 示例值：更正调薪说明
 func (builder *CreateArchivePathReqBodyBuilder) EditRemark(editRemark string) *CreateArchivePathReqBodyBuilder {
 	builder.editRemark = editRemark
-	builder.editRemarkFlag = true
+	builder.editRemarkSet = true
 	return builder
 }
 
 func (builder *CreateArchivePathReqBodyBuilder) Build() (*CreateArchiveReqBody, error) {
 	req := &CreateArchiveReqBody{}
-	if builder.uniqueIdFlag {
+	if builder.uniqueIdSet {
 		req.UniqueId = &builder.uniqueId
 	}
-	if builder.operatorIdFlag {
+	if builder.operatorIdSet {
 		req.OperatorId = &builder.operatorId
 	}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 	}
-	if builder.effectiveTimeFlag {
+	if builder.effectiveTimeSet {
 		req.EffectiveTime = &builder.effectiveTime
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = &builder.currencyId
 	}
-	if builder.planIdFlag {
+	if builder.planIdSet {
 		req.PlanId = &builder.planId
 	}
-	if builder.planTidFlag {
+	if builder.planTidSet {
 		req.PlanTid = &builder.planTid
 	}
-	if builder.changeReasonIdFlag {
+	if builder.changeReasonIdSet {
 		req.ChangeReasonId = &builder.changeReasonId
 	}
-	if builder.itemValueListsFlag {
+	if builder.itemValueListsSet {
 		req.ItemValueLists = builder.itemValueLists
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 	}
-	if builder.editRemarkFlag {
+	if builder.editRemarkSet {
 		req.EditRemark = &builder.editRemark
 	}
 	return req, nil
@@ -7121,12 +7233,15 @@ func NewCreateArchiveReqBuilder() *CreateArchiveReqBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：open_id
 func (builder *CreateArchiveReqBuilder) UserIdType(userIdType string) *CreateArchiveReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
+//
 func (builder *CreateArchiveReqBuilder) Body(body *CreateArchiveReqBody) *CreateArchiveReqBuilder {
 	builder.body = body
 	return builder
@@ -7186,17 +7301,17 @@ func (resp *CreateArchiveResp) Success() bool {
 }
 
 type QueryArchiveReqBodyBuilder struct {
-	userIdList     []string // 用户ID列表
-	userIdListFlag bool
+	userIdList    []string // 用户ID列表
+	userIdListSet bool
 
-	tidList     []string // 档案Tid列表
-	tidListFlag bool
+	tidList    []string // 档案Tid列表
+	tidListSet bool
 
-	effectiveStartDate     string // 生效开始时间
-	effectiveStartDateFlag bool
+	effectiveStartDate    string // 生效开始时间
+	effectiveStartDateSet bool
 
-	effectiveEndDate     string // 生效结束时间
-	effectiveEndDateFlag bool
+	effectiveEndDate    string // 生效结束时间
+	effectiveEndDateSet bool
 }
 
 func NewQueryArchiveReqBodyBuilder() *QueryArchiveReqBodyBuilder {
@@ -7206,66 +7321,66 @@ func NewQueryArchiveReqBodyBuilder() *QueryArchiveReqBodyBuilder {
 
 // 用户ID列表
 //
-// 示例值：
+//示例值：
 func (builder *QueryArchiveReqBodyBuilder) UserIdList(userIdList []string) *QueryArchiveReqBodyBuilder {
 	builder.userIdList = userIdList
-	builder.userIdListFlag = true
+	builder.userIdListSet = true
 	return builder
 }
 
 // 档案Tid列表
 //
-// 示例值：
+//示例值：
 func (builder *QueryArchiveReqBodyBuilder) TidList(tidList []string) *QueryArchiveReqBodyBuilder {
 	builder.tidList = tidList
-	builder.tidListFlag = true
+	builder.tidListSet = true
 	return builder
 }
 
 // 生效开始时间
 //
-// 示例值：2022-05-10
+//示例值：2022-05-10
 func (builder *QueryArchiveReqBodyBuilder) EffectiveStartDate(effectiveStartDate string) *QueryArchiveReqBodyBuilder {
 	builder.effectiveStartDate = effectiveStartDate
-	builder.effectiveStartDateFlag = true
+	builder.effectiveStartDateSet = true
 	return builder
 }
 
 // 生效结束时间
 //
-// 示例值：2023-05-15
+//示例值：2023-05-15
 func (builder *QueryArchiveReqBodyBuilder) EffectiveEndDate(effectiveEndDate string) *QueryArchiveReqBodyBuilder {
 	builder.effectiveEndDate = effectiveEndDate
-	builder.effectiveEndDateFlag = true
+	builder.effectiveEndDateSet = true
 	return builder
 }
 
 func (builder *QueryArchiveReqBodyBuilder) Build() *QueryArchiveReqBody {
 	req := &QueryArchiveReqBody{}
-	if builder.userIdListFlag {
+	if builder.userIdListSet {
 		req.UserIdList = builder.userIdList
 	}
-	if builder.tidListFlag {
+	if builder.tidListSet {
 		req.TidList = builder.tidList
 	}
-	if builder.effectiveStartDateFlag {
+	if builder.effectiveStartDateSet {
 		req.EffectiveStartDate = &builder.effectiveStartDate
 	}
-	if builder.effectiveEndDateFlag {
+	if builder.effectiveEndDateSet {
 		req.EffectiveEndDate = &builder.effectiveEndDate
 	}
 	return req
 }
 
 type QueryArchivePathReqBodyBuilder struct {
-	userIdList             []string
-	userIdListFlag         bool
-	tidList                []string
-	tidListFlag            bool
-	effectiveStartDate     string
-	effectiveStartDateFlag bool
-	effectiveEndDate       string
-	effectiveEndDateFlag   bool
+	userIdList            []string
+	userIdListSet         bool
+	tidList               []string
+	tidListSet            bool
+	effectiveStartDate    string
+	effectiveStartDateSet bool
+	effectiveEndDate      string
+	effectiveEndDateSet   bool
 }
 
 func NewQueryArchivePathReqBodyBuilder() *QueryArchivePathReqBodyBuilder {
@@ -7278,7 +7393,7 @@ func NewQueryArchivePathReqBodyBuilder() *QueryArchivePathReqBodyBuilder {
 // 示例值：
 func (builder *QueryArchivePathReqBodyBuilder) UserIdList(userIdList []string) *QueryArchivePathReqBodyBuilder {
 	builder.userIdList = userIdList
-	builder.userIdListFlag = true
+	builder.userIdListSet = true
 	return builder
 }
 
@@ -7287,7 +7402,7 @@ func (builder *QueryArchivePathReqBodyBuilder) UserIdList(userIdList []string) *
 // 示例值：
 func (builder *QueryArchivePathReqBodyBuilder) TidList(tidList []string) *QueryArchivePathReqBodyBuilder {
 	builder.tidList = tidList
-	builder.tidListFlag = true
+	builder.tidListSet = true
 	return builder
 }
 
@@ -7296,7 +7411,7 @@ func (builder *QueryArchivePathReqBodyBuilder) TidList(tidList []string) *QueryA
 // 示例值：2022-05-10
 func (builder *QueryArchivePathReqBodyBuilder) EffectiveStartDate(effectiveStartDate string) *QueryArchivePathReqBodyBuilder {
 	builder.effectiveStartDate = effectiveStartDate
-	builder.effectiveStartDateFlag = true
+	builder.effectiveStartDateSet = true
 	return builder
 }
 
@@ -7305,22 +7420,22 @@ func (builder *QueryArchivePathReqBodyBuilder) EffectiveStartDate(effectiveStart
 // 示例值：2023-05-15
 func (builder *QueryArchivePathReqBodyBuilder) EffectiveEndDate(effectiveEndDate string) *QueryArchivePathReqBodyBuilder {
 	builder.effectiveEndDate = effectiveEndDate
-	builder.effectiveEndDateFlag = true
+	builder.effectiveEndDateSet = true
 	return builder
 }
 
 func (builder *QueryArchivePathReqBodyBuilder) Build() (*QueryArchiveReqBody, error) {
 	req := &QueryArchiveReqBody{}
-	if builder.userIdListFlag {
+	if builder.userIdListSet {
 		req.UserIdList = builder.userIdList
 	}
-	if builder.tidListFlag {
+	if builder.tidListSet {
 		req.TidList = builder.tidList
 	}
-	if builder.effectiveStartDateFlag {
+	if builder.effectiveStartDateSet {
 		req.EffectiveStartDate = &builder.effectiveStartDate
 	}
-	if builder.effectiveEndDateFlag {
+	if builder.effectiveEndDateSet {
 		req.EffectiveEndDate = &builder.effectiveEndDate
 	}
 	return req, nil
@@ -7364,6 +7479,7 @@ func (builder *QueryArchiveReqBuilder) UserIdType(userIdType string) *QueryArchi
 	return builder
 }
 
+//
 func (builder *QueryArchiveReqBuilder) Body(body *QueryArchiveReqBody) *QueryArchiveReqBuilder {
 	builder.body = body
 	return builder
@@ -7691,8 +7807,8 @@ func (resp *ListItemCategoryResp) Success() bool {
 }
 
 type BatchCreateLumpSumPaymentReqBodyBuilder struct {
-	records     []*LumpSumPaymentForCreate // 要创建的一次性支付信息
-	recordsFlag bool
+	records    []*LumpSumPaymentForCreate // 要创建的一次性支付信息
+	recordsSet bool
 }
 
 func NewBatchCreateLumpSumPaymentReqBodyBuilder() *BatchCreateLumpSumPaymentReqBodyBuilder {
@@ -7702,24 +7818,24 @@ func NewBatchCreateLumpSumPaymentReqBodyBuilder() *BatchCreateLumpSumPaymentReqB
 
 // 要创建的一次性支付信息
 //
-// 示例值：
+//示例值：
 func (builder *BatchCreateLumpSumPaymentReqBodyBuilder) Records(records []*LumpSumPaymentForCreate) *BatchCreateLumpSumPaymentReqBodyBuilder {
 	builder.records = records
-	builder.recordsFlag = true
+	builder.recordsSet = true
 	return builder
 }
 
 func (builder *BatchCreateLumpSumPaymentReqBodyBuilder) Build() *BatchCreateLumpSumPaymentReqBody {
 	req := &BatchCreateLumpSumPaymentReqBody{}
-	if builder.recordsFlag {
+	if builder.recordsSet {
 		req.Records = builder.records
 	}
 	return req
 }
 
 type BatchCreateLumpSumPaymentPathReqBodyBuilder struct {
-	records     []*LumpSumPaymentForCreate
-	recordsFlag bool
+	records    []*LumpSumPaymentForCreate
+	recordsSet bool
 }
 
 func NewBatchCreateLumpSumPaymentPathReqBodyBuilder() *BatchCreateLumpSumPaymentPathReqBodyBuilder {
@@ -7732,13 +7848,13 @@ func NewBatchCreateLumpSumPaymentPathReqBodyBuilder() *BatchCreateLumpSumPayment
 // 示例值：
 func (builder *BatchCreateLumpSumPaymentPathReqBodyBuilder) Records(records []*LumpSumPaymentForCreate) *BatchCreateLumpSumPaymentPathReqBodyBuilder {
 	builder.records = records
-	builder.recordsFlag = true
+	builder.recordsSet = true
 	return builder
 }
 
 func (builder *BatchCreateLumpSumPaymentPathReqBodyBuilder) Build() (*BatchCreateLumpSumPaymentReqBody, error) {
 	req := &BatchCreateLumpSumPaymentReqBody{}
-	if builder.recordsFlag {
+	if builder.recordsSet {
 		req.Records = builder.records
 	}
 	return req, nil
@@ -7766,6 +7882,7 @@ func (builder *BatchCreateLumpSumPaymentReqBuilder) UserIdType(userIdType string
 	return builder
 }
 
+//
 func (builder *BatchCreateLumpSumPaymentReqBuilder) Body(body *BatchCreateLumpSumPaymentReqBody) *BatchCreateLumpSumPaymentReqBuilder {
 	builder.body = body
 	return builder
@@ -7803,11 +7920,11 @@ func (resp *BatchCreateLumpSumPaymentResp) Success() bool {
 }
 
 type BatchRemoveLumpSumPaymentReqBodyBuilder struct {
-	recordIds     []string // 要删除的一次性支付记录id
-	recordIdsFlag bool
+	recordIds    []string // 要删除的一次性支付记录id
+	recordIdsSet bool
 
-	reason     string // 删除原因
-	reasonFlag bool
+	reason    string // 删除原因
+	reasonSet bool
 }
 
 func NewBatchRemoveLumpSumPaymentReqBodyBuilder() *BatchRemoveLumpSumPaymentReqBodyBuilder {
@@ -7817,38 +7934,38 @@ func NewBatchRemoveLumpSumPaymentReqBodyBuilder() *BatchRemoveLumpSumPaymentReqB
 
 // 要删除的一次性支付记录id
 //
-// 示例值：
+//示例值：
 func (builder *BatchRemoveLumpSumPaymentReqBodyBuilder) RecordIds(recordIds []string) *BatchRemoveLumpSumPaymentReqBodyBuilder {
 	builder.recordIds = recordIds
-	builder.recordIdsFlag = true
+	builder.recordIdsSet = true
 	return builder
 }
 
 // 删除原因
 //
-// 示例值：这是个原因
+//示例值：这是个原因
 func (builder *BatchRemoveLumpSumPaymentReqBodyBuilder) Reason(reason string) *BatchRemoveLumpSumPaymentReqBodyBuilder {
 	builder.reason = reason
-	builder.reasonFlag = true
+	builder.reasonSet = true
 	return builder
 }
 
 func (builder *BatchRemoveLumpSumPaymentReqBodyBuilder) Build() *BatchRemoveLumpSumPaymentReqBody {
 	req := &BatchRemoveLumpSumPaymentReqBody{}
-	if builder.recordIdsFlag {
+	if builder.recordIdsSet {
 		req.RecordIds = builder.recordIds
 	}
-	if builder.reasonFlag {
+	if builder.reasonSet {
 		req.Reason = &builder.reason
 	}
 	return req
 }
 
 type BatchRemoveLumpSumPaymentPathReqBodyBuilder struct {
-	recordIds     []string
-	recordIdsFlag bool
-	reason        string
-	reasonFlag    bool
+	recordIds    []string
+	recordIdsSet bool
+	reason       string
+	reasonSet    bool
 }
 
 func NewBatchRemoveLumpSumPaymentPathReqBodyBuilder() *BatchRemoveLumpSumPaymentPathReqBodyBuilder {
@@ -7861,7 +7978,7 @@ func NewBatchRemoveLumpSumPaymentPathReqBodyBuilder() *BatchRemoveLumpSumPayment
 // 示例值：
 func (builder *BatchRemoveLumpSumPaymentPathReqBodyBuilder) RecordIds(recordIds []string) *BatchRemoveLumpSumPaymentPathReqBodyBuilder {
 	builder.recordIds = recordIds
-	builder.recordIdsFlag = true
+	builder.recordIdsSet = true
 	return builder
 }
 
@@ -7870,16 +7987,16 @@ func (builder *BatchRemoveLumpSumPaymentPathReqBodyBuilder) RecordIds(recordIds 
 // 示例值：这是个原因
 func (builder *BatchRemoveLumpSumPaymentPathReqBodyBuilder) Reason(reason string) *BatchRemoveLumpSumPaymentPathReqBodyBuilder {
 	builder.reason = reason
-	builder.reasonFlag = true
+	builder.reasonSet = true
 	return builder
 }
 
 func (builder *BatchRemoveLumpSumPaymentPathReqBodyBuilder) Build() (*BatchRemoveLumpSumPaymentReqBody, error) {
 	req := &BatchRemoveLumpSumPaymentReqBody{}
-	if builder.recordIdsFlag {
+	if builder.recordIdsSet {
 		req.RecordIds = builder.recordIds
 	}
-	if builder.reasonFlag {
+	if builder.reasonSet {
 		req.Reason = &builder.reason
 	}
 	return req, nil
@@ -7899,6 +8016,7 @@ func NewBatchRemoveLumpSumPaymentReqBuilder() *BatchRemoveLumpSumPaymentReqBuild
 	return builder
 }
 
+//
 func (builder *BatchRemoveLumpSumPaymentReqBuilder) Body(body *BatchRemoveLumpSumPaymentReqBody) *BatchRemoveLumpSumPaymentReqBuilder {
 	builder.body = body
 	return builder
@@ -7937,8 +8055,8 @@ func (resp *BatchRemoveLumpSumPaymentResp) Success() bool {
 }
 
 type BatchUpdateLumpSumPaymentReqBodyBuilder struct {
-	records     []*LumpSumPaymentForUpdate // 要更正的一次性支付记录列表
-	recordsFlag bool
+	records    []*LumpSumPaymentForUpdate // 要更正的一次性支付记录列表
+	recordsSet bool
 }
 
 func NewBatchUpdateLumpSumPaymentReqBodyBuilder() *BatchUpdateLumpSumPaymentReqBodyBuilder {
@@ -7948,24 +8066,24 @@ func NewBatchUpdateLumpSumPaymentReqBodyBuilder() *BatchUpdateLumpSumPaymentReqB
 
 // 要更正的一次性支付记录列表
 //
-// 示例值：
+//示例值：
 func (builder *BatchUpdateLumpSumPaymentReqBodyBuilder) Records(records []*LumpSumPaymentForUpdate) *BatchUpdateLumpSumPaymentReqBodyBuilder {
 	builder.records = records
-	builder.recordsFlag = true
+	builder.recordsSet = true
 	return builder
 }
 
 func (builder *BatchUpdateLumpSumPaymentReqBodyBuilder) Build() *BatchUpdateLumpSumPaymentReqBody {
 	req := &BatchUpdateLumpSumPaymentReqBody{}
-	if builder.recordsFlag {
+	if builder.recordsSet {
 		req.Records = builder.records
 	}
 	return req
 }
 
 type BatchUpdateLumpSumPaymentPathReqBodyBuilder struct {
-	records     []*LumpSumPaymentForUpdate
-	recordsFlag bool
+	records    []*LumpSumPaymentForUpdate
+	recordsSet bool
 }
 
 func NewBatchUpdateLumpSumPaymentPathReqBodyBuilder() *BatchUpdateLumpSumPaymentPathReqBodyBuilder {
@@ -7978,13 +8096,13 @@ func NewBatchUpdateLumpSumPaymentPathReqBodyBuilder() *BatchUpdateLumpSumPayment
 // 示例值：
 func (builder *BatchUpdateLumpSumPaymentPathReqBodyBuilder) Records(records []*LumpSumPaymentForUpdate) *BatchUpdateLumpSumPaymentPathReqBodyBuilder {
 	builder.records = records
-	builder.recordsFlag = true
+	builder.recordsSet = true
 	return builder
 }
 
 func (builder *BatchUpdateLumpSumPaymentPathReqBodyBuilder) Build() (*BatchUpdateLumpSumPaymentReqBody, error) {
 	req := &BatchUpdateLumpSumPaymentReqBody{}
-	if builder.recordsFlag {
+	if builder.recordsSet {
 		req.Records = builder.records
 	}
 	return req, nil
@@ -8004,6 +8122,7 @@ func NewBatchUpdateLumpSumPaymentReqBuilder() *BatchUpdateLumpSumPaymentReqBuild
 	return builder
 }
 
+//
 func (builder *BatchUpdateLumpSumPaymentReqBuilder) Body(body *BatchUpdateLumpSumPaymentReqBody) *BatchUpdateLumpSumPaymentReqBuilder {
 	builder.body = body
 	return builder
@@ -8040,62 +8159,62 @@ func (resp *BatchUpdateLumpSumPaymentResp) Success() bool {
 }
 
 type QueryLumpSumPaymentReqBodyBuilder struct {
-	ids     []string // id属于
-	idsFlag bool
+	ids    []string // id属于
+	idsSet bool
 
-	uniqueIds     []string // unique_id属于
-	uniqueIdsFlag bool
+	uniqueIds    []string // unique_id属于
+	uniqueIdsSet bool
 
-	userIds     []string // 员工id属于
-	userIdsFlag bool
+	userIds    []string // 员工id属于
+	userIdsSet bool
 
-	itemIds     []string // 薪酬项id属于
-	itemIdsFlag bool
+	itemIds    []string // 薪酬项id属于
+	itemIdsSet bool
 
-	createTimeGte     string // 创建时间大于等于（东八区）
-	createTimeGteFlag bool
+	createTimeGte    string // 创建时间大于等于（东八区）
+	createTimeGteSet bool
 
-	createTimeLte     string // 创建时间小于等于（东八区）
-	createTimeLteFlag bool
+	createTimeLte    string // 创建时间小于等于（东八区）
+	createTimeLteSet bool
 
-	modifyTimeGte     string // 更新时间大于等于（东八区）
-	modifyTimeGteFlag bool
+	modifyTimeGte    string // 更新时间大于等于（东八区）
+	modifyTimeGteSet bool
 
-	modifyTimeLte     string // 更新时间小于等于（东八区）
-	modifyTimeLteFlag bool
+	modifyTimeLte    string // 更新时间小于等于（东八区）
+	modifyTimeLteSet bool
 
-	companyIds     []string // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
-	companyIdsFlag bool
+	companyIds    []string // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	companyIdsSet bool
 
-	serviceCompanyIds     []string // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
-	serviceCompanyIdsFlag bool
+	serviceCompanyIds    []string // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	serviceCompanyIdsSet bool
 
-	departmentIds     []string // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
-	departmentIdsFlag bool
+	departmentIds    []string // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+	departmentIdsSet bool
 
-	jobFamilyIds     []string // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
-	jobFamilyIdsFlag bool
+	jobFamilyIds    []string // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+	jobFamilyIdsSet bool
 
-	jobLevelIds     []string // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
-	jobLevelIdsFlag bool
+	jobLevelIds    []string // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+	jobLevelIdsSet bool
 
-	workLocationIds     []string // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
-	workLocationIdsFlag bool
+	workLocationIds    []string // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+	workLocationIdsSet bool
 
-	employeeTypeIds     []string // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
-	employeeTypeIdsFlag bool
+	employeeTypeIds    []string // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+	employeeTypeIdsSet bool
 
-	onboardDateGte     string // 入职日期大于等于
-	onboardDateGteFlag bool
+	onboardDateGte    string // 入职日期大于等于
+	onboardDateGteSet bool
 
-	onboardDateLte     string // 入职日期小于等于
-	onboardDateLteFlag bool
+	onboardDateLte    string // 入职日期小于等于
+	onboardDateLteSet bool
 
-	offboardDateGte     string // 离职日期大于等于
-	offboardDateGteFlag bool
+	offboardDateGte    string // 离职日期大于等于
+	offboardDateGteSet bool
 
-	offboardDateLte     string // 离职日期小于等于
-	offboardDateLteFlag bool
+	offboardDateLte    string // 离职日期小于等于
+	offboardDateLteSet bool
 }
 
 func NewQueryLumpSumPaymentReqBodyBuilder() *QueryLumpSumPaymentReqBodyBuilder {
@@ -8105,276 +8224,276 @@ func NewQueryLumpSumPaymentReqBodyBuilder() *QueryLumpSumPaymentReqBodyBuilder {
 
 // id属于
 //
-// 示例值：
+//示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) Ids(ids []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.ids = ids
-	builder.idsFlag = true
+	builder.idsSet = true
 	return builder
 }
 
 // unique_id属于
 //
-// 示例值：
+//示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) UniqueIds(uniqueIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.uniqueIds = uniqueIds
-	builder.uniqueIdsFlag = true
+	builder.uniqueIdsSet = true
 	return builder
 }
 
 // 员工id属于
 //
-// 示例值：
+//示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) UserIds(userIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 // 薪酬项id属于
 //
-// 示例值：
+//示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) ItemIds(itemIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.itemIds = itemIds
-	builder.itemIdsFlag = true
+	builder.itemIdsSet = true
 	return builder
 }
 
 // 创建时间大于等于（东八区）
 //
-// 示例值：2023-04-01 12:34:56
+//示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentReqBodyBuilder) CreateTimeGte(createTimeGte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.createTimeGte = createTimeGte
-	builder.createTimeGteFlag = true
+	builder.createTimeGteSet = true
 	return builder
 }
 
 // 创建时间小于等于（东八区）
 //
-// 示例值：2023-04-01 12:34:56
+//示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentReqBodyBuilder) CreateTimeLte(createTimeLte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.createTimeLte = createTimeLte
-	builder.createTimeLteFlag = true
+	builder.createTimeLteSet = true
 	return builder
 }
 
 // 更新时间大于等于（东八区）
 //
-// 示例值：2023-04-01 12:34:56
+//示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentReqBodyBuilder) ModifyTimeGte(modifyTimeGte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.modifyTimeGte = modifyTimeGte
-	builder.modifyTimeGteFlag = true
+	builder.modifyTimeGteSet = true
 	return builder
 }
 
 // 更新时间小于等于（东八区）
 //
-// 示例值：2023-04-01 12:34:56
+//示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentReqBodyBuilder) ModifyTimeLte(modifyTimeLte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.modifyTimeLte = modifyTimeLte
-	builder.modifyTimeLteFlag = true
+	builder.modifyTimeLteSet = true
 	return builder
 }
 
 // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) CompanyIds(companyIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.companyIds = companyIds
-	builder.companyIdsFlag = true
+	builder.companyIdsSet = true
 	return builder
 }
 
 // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) ServiceCompanyIds(serviceCompanyIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.serviceCompanyIds = serviceCompanyIds
-	builder.serviceCompanyIdsFlag = true
+	builder.serviceCompanyIdsSet = true
 	return builder
 }
 
 // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
 // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.jobFamilyIds = jobFamilyIds
-	builder.jobFamilyIdsFlag = true
+	builder.jobFamilyIdsSet = true
 	return builder
 }
 
 // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) JobLevelIds(jobLevelIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.jobLevelIds = jobLevelIds
-	builder.jobLevelIdsFlag = true
+	builder.jobLevelIdsSet = true
 	return builder
 }
 
 // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) WorkLocationIds(workLocationIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.workLocationIds = workLocationIds
-	builder.workLocationIdsFlag = true
+	builder.workLocationIdsSet = true
 	return builder
 }
 
 // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) EmployeeTypeIds(employeeTypeIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.employeeTypeIds = employeeTypeIds
-	builder.employeeTypeIdsFlag = true
+	builder.employeeTypeIdsSet = true
 	return builder
 }
 
 // 入职日期大于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryLumpSumPaymentReqBodyBuilder) OnboardDateGte(onboardDateGte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.onboardDateGte = onboardDateGte
-	builder.onboardDateGteFlag = true
+	builder.onboardDateGteSet = true
 	return builder
 }
 
 // 入职日期小于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryLumpSumPaymentReqBodyBuilder) OnboardDateLte(onboardDateLte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.onboardDateLte = onboardDateLte
-	builder.onboardDateLteFlag = true
+	builder.onboardDateLteSet = true
 	return builder
 }
 
 // 离职日期大于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryLumpSumPaymentReqBodyBuilder) OffboardDateGte(offboardDateGte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.offboardDateGte = offboardDateGte
-	builder.offboardDateGteFlag = true
+	builder.offboardDateGteSet = true
 	return builder
 }
 
 // 离职日期小于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryLumpSumPaymentReqBodyBuilder) OffboardDateLte(offboardDateLte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.offboardDateLte = offboardDateLte
-	builder.offboardDateLteFlag = true
+	builder.offboardDateLteSet = true
 	return builder
 }
 
 func (builder *QueryLumpSumPaymentReqBodyBuilder) Build() *QueryLumpSumPaymentReqBody {
 	req := &QueryLumpSumPaymentReqBody{}
-	if builder.idsFlag {
+	if builder.idsSet {
 		req.Ids = builder.ids
 	}
-	if builder.uniqueIdsFlag {
+	if builder.uniqueIdsSet {
 		req.UniqueIds = builder.uniqueIds
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
-	if builder.itemIdsFlag {
+	if builder.itemIdsSet {
 		req.ItemIds = builder.itemIds
 	}
-	if builder.createTimeGteFlag {
+	if builder.createTimeGteSet {
 		req.CreateTimeGte = &builder.createTimeGte
 	}
-	if builder.createTimeLteFlag {
+	if builder.createTimeLteSet {
 		req.CreateTimeLte = &builder.createTimeLte
 	}
-	if builder.modifyTimeGteFlag {
+	if builder.modifyTimeGteSet {
 		req.ModifyTimeGte = &builder.modifyTimeGte
 	}
-	if builder.modifyTimeLteFlag {
+	if builder.modifyTimeLteSet {
 		req.ModifyTimeLte = &builder.modifyTimeLte
 	}
-	if builder.companyIdsFlag {
+	if builder.companyIdsSet {
 		req.CompanyIds = builder.companyIds
 	}
-	if builder.serviceCompanyIdsFlag {
+	if builder.serviceCompanyIdsSet {
 		req.ServiceCompanyIds = builder.serviceCompanyIds
 	}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.jobFamilyIdsFlag {
+	if builder.jobFamilyIdsSet {
 		req.JobFamilyIds = builder.jobFamilyIds
 	}
-	if builder.jobLevelIdsFlag {
+	if builder.jobLevelIdsSet {
 		req.JobLevelIds = builder.jobLevelIds
 	}
-	if builder.workLocationIdsFlag {
+	if builder.workLocationIdsSet {
 		req.WorkLocationIds = builder.workLocationIds
 	}
-	if builder.employeeTypeIdsFlag {
+	if builder.employeeTypeIdsSet {
 		req.EmployeeTypeIds = builder.employeeTypeIds
 	}
-	if builder.onboardDateGteFlag {
+	if builder.onboardDateGteSet {
 		req.OnboardDateGte = &builder.onboardDateGte
 	}
-	if builder.onboardDateLteFlag {
+	if builder.onboardDateLteSet {
 		req.OnboardDateLte = &builder.onboardDateLte
 	}
-	if builder.offboardDateGteFlag {
+	if builder.offboardDateGteSet {
 		req.OffboardDateGte = &builder.offboardDateGte
 	}
-	if builder.offboardDateLteFlag {
+	if builder.offboardDateLteSet {
 		req.OffboardDateLte = &builder.offboardDateLte
 	}
 	return req
 }
 
 type QueryLumpSumPaymentPathReqBodyBuilder struct {
-	ids                   []string
-	idsFlag               bool
-	uniqueIds             []string
-	uniqueIdsFlag         bool
-	userIds               []string
-	userIdsFlag           bool
-	itemIds               []string
-	itemIdsFlag           bool
-	createTimeGte         string
-	createTimeGteFlag     bool
-	createTimeLte         string
-	createTimeLteFlag     bool
-	modifyTimeGte         string
-	modifyTimeGteFlag     bool
-	modifyTimeLte         string
-	modifyTimeLteFlag     bool
-	companyIds            []string
-	companyIdsFlag        bool
-	serviceCompanyIds     []string
-	serviceCompanyIdsFlag bool
-	departmentIds         []string
-	departmentIdsFlag     bool
-	jobFamilyIds          []string
-	jobFamilyIdsFlag      bool
-	jobLevelIds           []string
-	jobLevelIdsFlag       bool
-	workLocationIds       []string
-	workLocationIdsFlag   bool
-	employeeTypeIds       []string
-	employeeTypeIdsFlag   bool
-	onboardDateGte        string
-	onboardDateGteFlag    bool
-	onboardDateLte        string
-	onboardDateLteFlag    bool
-	offboardDateGte       string
-	offboardDateGteFlag   bool
-	offboardDateLte       string
-	offboardDateLteFlag   bool
+	ids                  []string
+	idsSet               bool
+	uniqueIds            []string
+	uniqueIdsSet         bool
+	userIds              []string
+	userIdsSet           bool
+	itemIds              []string
+	itemIdsSet           bool
+	createTimeGte        string
+	createTimeGteSet     bool
+	createTimeLte        string
+	createTimeLteSet     bool
+	modifyTimeGte        string
+	modifyTimeGteSet     bool
+	modifyTimeLte        string
+	modifyTimeLteSet     bool
+	companyIds           []string
+	companyIdsSet        bool
+	serviceCompanyIds    []string
+	serviceCompanyIdsSet bool
+	departmentIds        []string
+	departmentIdsSet     bool
+	jobFamilyIds         []string
+	jobFamilyIdsSet      bool
+	jobLevelIds          []string
+	jobLevelIdsSet       bool
+	workLocationIds      []string
+	workLocationIdsSet   bool
+	employeeTypeIds      []string
+	employeeTypeIdsSet   bool
+	onboardDateGte       string
+	onboardDateGteSet    bool
+	onboardDateLte       string
+	onboardDateLteSet    bool
+	offboardDateGte      string
+	offboardDateGteSet   bool
+	offboardDateLte      string
+	offboardDateLteSet   bool
 }
 
 func NewQueryLumpSumPaymentPathReqBodyBuilder() *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8387,7 +8506,7 @@ func NewQueryLumpSumPaymentPathReqBodyBuilder() *QueryLumpSumPaymentPathReqBodyB
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) Ids(ids []string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.ids = ids
-	builder.idsFlag = true
+	builder.idsSet = true
 	return builder
 }
 
@@ -8396,7 +8515,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) Ids(ids []string) *QueryLu
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) UniqueIds(uniqueIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.uniqueIds = uniqueIds
-	builder.uniqueIdsFlag = true
+	builder.uniqueIdsSet = true
 	return builder
 }
 
@@ -8405,7 +8524,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) UniqueIds(uniqueIds []stri
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) UserIds(userIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
@@ -8414,7 +8533,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) UserIds(userIds []string) 
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ItemIds(itemIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.itemIds = itemIds
-	builder.itemIdsFlag = true
+	builder.itemIdsSet = true
 	return builder
 }
 
@@ -8423,7 +8542,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ItemIds(itemIds []string) 
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) CreateTimeGte(createTimeGte string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.createTimeGte = createTimeGte
-	builder.createTimeGteFlag = true
+	builder.createTimeGteSet = true
 	return builder
 }
 
@@ -8432,7 +8551,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) CreateTimeGte(createTimeGt
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) CreateTimeLte(createTimeLte string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.createTimeLte = createTimeLte
-	builder.createTimeLteFlag = true
+	builder.createTimeLteSet = true
 	return builder
 }
 
@@ -8441,7 +8560,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) CreateTimeLte(createTimeLt
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ModifyTimeGte(modifyTimeGte string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.modifyTimeGte = modifyTimeGte
-	builder.modifyTimeGteFlag = true
+	builder.modifyTimeGteSet = true
 	return builder
 }
 
@@ -8450,7 +8569,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ModifyTimeGte(modifyTimeGt
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ModifyTimeLte(modifyTimeLte string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.modifyTimeLte = modifyTimeLte
-	builder.modifyTimeLteFlag = true
+	builder.modifyTimeLteSet = true
 	return builder
 }
 
@@ -8459,7 +8578,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ModifyTimeLte(modifyTimeLt
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) CompanyIds(companyIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.companyIds = companyIds
-	builder.companyIdsFlag = true
+	builder.companyIdsSet = true
 	return builder
 }
 
@@ -8468,7 +8587,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) CompanyIds(companyIds []st
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ServiceCompanyIds(serviceCompanyIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.serviceCompanyIds = serviceCompanyIds
-	builder.serviceCompanyIdsFlag = true
+	builder.serviceCompanyIdsSet = true
 	return builder
 }
 
@@ -8477,7 +8596,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ServiceCompanyIds(serviceC
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
@@ -8486,7 +8605,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) DepartmentIds(departmentId
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.jobFamilyIds = jobFamilyIds
-	builder.jobFamilyIdsFlag = true
+	builder.jobFamilyIdsSet = true
 	return builder
 }
 
@@ -8495,7 +8614,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) JobFamilyIds(jobFamilyIds 
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) JobLevelIds(jobLevelIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.jobLevelIds = jobLevelIds
-	builder.jobLevelIdsFlag = true
+	builder.jobLevelIdsSet = true
 	return builder
 }
 
@@ -8504,7 +8623,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) JobLevelIds(jobLevelIds []
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) WorkLocationIds(workLocationIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.workLocationIds = workLocationIds
-	builder.workLocationIdsFlag = true
+	builder.workLocationIdsSet = true
 	return builder
 }
 
@@ -8513,7 +8632,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) WorkLocationIds(workLocati
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) EmployeeTypeIds(employeeTypeIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.employeeTypeIds = employeeTypeIds
-	builder.employeeTypeIdsFlag = true
+	builder.employeeTypeIdsSet = true
 	return builder
 }
 
@@ -8522,7 +8641,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) EmployeeTypeIds(employeeTy
 // 示例值：2023-04-01
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) OnboardDateGte(onboardDateGte string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.onboardDateGte = onboardDateGte
-	builder.onboardDateGteFlag = true
+	builder.onboardDateGteSet = true
 	return builder
 }
 
@@ -8531,7 +8650,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) OnboardDateGte(onboardDate
 // 示例值：2023-04-01
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) OnboardDateLte(onboardDateLte string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.onboardDateLte = onboardDateLte
-	builder.onboardDateLteFlag = true
+	builder.onboardDateLteSet = true
 	return builder
 }
 
@@ -8540,7 +8659,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) OnboardDateLte(onboardDate
 // 示例值：2023-04-01
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) OffboardDateGte(offboardDateGte string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.offboardDateGte = offboardDateGte
-	builder.offboardDateGteFlag = true
+	builder.offboardDateGteSet = true
 	return builder
 }
 
@@ -8549,67 +8668,67 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) OffboardDateGte(offboardDa
 // 示例值：2023-04-01
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) OffboardDateLte(offboardDateLte string) *QueryLumpSumPaymentPathReqBodyBuilder {
 	builder.offboardDateLte = offboardDateLte
-	builder.offboardDateLteFlag = true
+	builder.offboardDateLteSet = true
 	return builder
 }
 
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) Build() (*QueryLumpSumPaymentReqBody, error) {
 	req := &QueryLumpSumPaymentReqBody{}
-	if builder.idsFlag {
+	if builder.idsSet {
 		req.Ids = builder.ids
 	}
-	if builder.uniqueIdsFlag {
+	if builder.uniqueIdsSet {
 		req.UniqueIds = builder.uniqueIds
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
-	if builder.itemIdsFlag {
+	if builder.itemIdsSet {
 		req.ItemIds = builder.itemIds
 	}
-	if builder.createTimeGteFlag {
+	if builder.createTimeGteSet {
 		req.CreateTimeGte = &builder.createTimeGte
 	}
-	if builder.createTimeLteFlag {
+	if builder.createTimeLteSet {
 		req.CreateTimeLte = &builder.createTimeLte
 	}
-	if builder.modifyTimeGteFlag {
+	if builder.modifyTimeGteSet {
 		req.ModifyTimeGte = &builder.modifyTimeGte
 	}
-	if builder.modifyTimeLteFlag {
+	if builder.modifyTimeLteSet {
 		req.ModifyTimeLte = &builder.modifyTimeLte
 	}
-	if builder.companyIdsFlag {
+	if builder.companyIdsSet {
 		req.CompanyIds = builder.companyIds
 	}
-	if builder.serviceCompanyIdsFlag {
+	if builder.serviceCompanyIdsSet {
 		req.ServiceCompanyIds = builder.serviceCompanyIds
 	}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.jobFamilyIdsFlag {
+	if builder.jobFamilyIdsSet {
 		req.JobFamilyIds = builder.jobFamilyIds
 	}
-	if builder.jobLevelIdsFlag {
+	if builder.jobLevelIdsSet {
 		req.JobLevelIds = builder.jobLevelIds
 	}
-	if builder.workLocationIdsFlag {
+	if builder.workLocationIdsSet {
 		req.WorkLocationIds = builder.workLocationIds
 	}
-	if builder.employeeTypeIdsFlag {
+	if builder.employeeTypeIdsSet {
 		req.EmployeeTypeIds = builder.employeeTypeIds
 	}
-	if builder.onboardDateGteFlag {
+	if builder.onboardDateGteSet {
 		req.OnboardDateGte = &builder.onboardDateGte
 	}
-	if builder.onboardDateLteFlag {
+	if builder.onboardDateLteSet {
 		req.OnboardDateLte = &builder.onboardDateLte
 	}
-	if builder.offboardDateGteFlag {
+	if builder.offboardDateGteSet {
 		req.OffboardDateGte = &builder.offboardDateGte
 	}
-	if builder.offboardDateLteFlag {
+	if builder.offboardDateLteSet {
 		req.OffboardDateLte = &builder.offboardDateLte
 	}
 	return req, nil
@@ -8636,12 +8755,16 @@ func (builder *QueryLumpSumPaymentReqBuilder) Limit(limit int) *QueryLumpSumPaym
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *QueryLumpSumPaymentReqBuilder) PageSize(pageSize int) *QueryLumpSumPaymentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *QueryLumpSumPaymentReqBuilder) PageToken(pageToken string) *QueryLumpSumPaymentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
@@ -8656,6 +8779,7 @@ func (builder *QueryLumpSumPaymentReqBuilder) UserIdType(userIdType string) *Que
 	return builder
 }
 
+//
 func (builder *QueryLumpSumPaymentReqBuilder) Body(body *QueryLumpSumPaymentReqBody) *QueryLumpSumPaymentReqBuilder {
 	builder.body = body
 	return builder
@@ -8736,77 +8860,77 @@ func (resp *QueryLumpSumPaymentResp) Success() bool {
 }
 
 type QueryDetailLumpSumPaymentReqBodyBuilder struct {
-	ids     []string // id属于
-	idsFlag bool
+	ids    []string // id属于
+	idsSet bool
 
-	recordIds     []string // 一次性支付记录id
-	recordIdsFlag bool
+	recordIds    []string // 一次性支付记录id
+	recordIdsSet bool
 
-	recordUniqueIds     []string // 一次性支付记录unique id
-	recordUniqueIdsFlag bool
+	recordUniqueIds    []string // 一次性支付记录unique id
+	recordUniqueIdsSet bool
 
-	issuanceWays     []string // 发放方式
-	issuanceWaysFlag bool
+	issuanceWays    []string // 发放方式
+	issuanceWaysSet bool
 
-	issuanceStatuses     []string // 发放状态
-	issuanceStatusesFlag bool
+	issuanceStatuses    []string // 发放状态
+	issuanceStatusesSet bool
 
-	userIds     []string // 员工id属于
-	userIdsFlag bool
+	userIds    []string // 员工id属于
+	userIdsSet bool
 
-	itemIds     []string // 薪酬项id属于
-	itemIdsFlag bool
+	itemIds    []string // 薪酬项id属于
+	itemIdsSet bool
 
-	issuanceDateGte     string // 发放时间大于等于
-	issuanceDateGteFlag bool
+	issuanceDateGte    string // 发放时间大于等于
+	issuanceDateGteSet bool
 
-	issuanceDateLte     string // 发放时间小于等于
-	issuanceDateLteFlag bool
+	issuanceDateLte    string // 发放时间小于等于
+	issuanceDateLteSet bool
 
-	createTimeGte     string // 创建时间大于等于（东八区）
-	createTimeGteFlag bool
+	createTimeGte    string // 创建时间大于等于（东八区）
+	createTimeGteSet bool
 
-	createTimeLte     string // 创建时间小于等于（东八区）
-	createTimeLteFlag bool
+	createTimeLte    string // 创建时间小于等于（东八区）
+	createTimeLteSet bool
 
-	modifyTimeGte     string // 更新时间大于等于（东八区）
-	modifyTimeGteFlag bool
+	modifyTimeGte    string // 更新时间大于等于（东八区）
+	modifyTimeGteSet bool
 
-	modifyTimeLte     string // 更新时间小于等于（东八区）
-	modifyTimeLteFlag bool
+	modifyTimeLte    string // 更新时间小于等于（东八区）
+	modifyTimeLteSet bool
 
-	companyIds     []string // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
-	companyIdsFlag bool
+	companyIds    []string // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	companyIdsSet bool
 
-	serviceCompanyIds     []string // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
-	serviceCompanyIdsFlag bool
+	serviceCompanyIds    []string // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	serviceCompanyIdsSet bool
 
-	departmentIds     []string // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
-	departmentIdsFlag bool
+	departmentIds    []string // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+	departmentIdsSet bool
 
-	jobFamilyIds     []string // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
-	jobFamilyIdsFlag bool
+	jobFamilyIds    []string // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+	jobFamilyIdsSet bool
 
-	jobLevelIds     []string // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
-	jobLevelIdsFlag bool
+	jobLevelIds    []string // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+	jobLevelIdsSet bool
 
-	workLocationIds     []string // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
-	workLocationIdsFlag bool
+	workLocationIds    []string // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+	workLocationIdsSet bool
 
-	employeeTypeIds     []string // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
-	employeeTypeIdsFlag bool
+	employeeTypeIds    []string // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+	employeeTypeIdsSet bool
 
-	onboardDateGte     string // 入职日期大于等于
-	onboardDateGteFlag bool
+	onboardDateGte    string // 入职日期大于等于
+	onboardDateGteSet bool
 
-	onboardDateLte     string // 入职日期小于等于
-	onboardDateLteFlag bool
+	onboardDateLte    string // 入职日期小于等于
+	onboardDateLteSet bool
 
-	offboardDateGte     string // 离职日期大于等于
-	offboardDateGteFlag bool
+	offboardDateGte    string // 离职日期大于等于
+	offboardDateGteSet bool
 
-	offboardDateLte     string // 离职日期小于等于
-	offboardDateLteFlag bool
+	offboardDateLte    string // 离职日期小于等于
+	offboardDateLteSet bool
 }
 
 func NewQueryDetailLumpSumPaymentReqBodyBuilder() *QueryDetailLumpSumPaymentReqBodyBuilder {
@@ -8816,346 +8940,346 @@ func NewQueryDetailLumpSumPaymentReqBodyBuilder() *QueryDetailLumpSumPaymentReqB
 
 // id属于
 //
-// 示例值：
+//示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) Ids(ids []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.ids = ids
-	builder.idsFlag = true
+	builder.idsSet = true
 	return builder
 }
 
 // 一次性支付记录id
 //
-// 示例值：
+//示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) RecordIds(recordIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.recordIds = recordIds
-	builder.recordIdsFlag = true
+	builder.recordIdsSet = true
 	return builder
 }
 
 // 一次性支付记录unique id
 //
-// 示例值：
+//示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) RecordUniqueIds(recordUniqueIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.recordUniqueIds = recordUniqueIds
-	builder.recordUniqueIdsFlag = true
+	builder.recordUniqueIdsSet = true
 	return builder
 }
 
 // 发放方式
 //
-// 示例值：
+//示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) IssuanceWays(issuanceWays []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.issuanceWays = issuanceWays
-	builder.issuanceWaysFlag = true
+	builder.issuanceWaysSet = true
 	return builder
 }
 
 // 发放状态
 //
-// 示例值：
+//示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) IssuanceStatuses(issuanceStatuses []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.issuanceStatuses = issuanceStatuses
-	builder.issuanceStatusesFlag = true
+	builder.issuanceStatusesSet = true
 	return builder
 }
 
 // 员工id属于
 //
-// 示例值：
+//示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) UserIds(userIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 // 薪酬项id属于
 //
-// 示例值：
+//示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) ItemIds(itemIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.itemIds = itemIds
-	builder.itemIdsFlag = true
+	builder.itemIdsSet = true
 	return builder
 }
 
 // 发放时间大于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) IssuanceDateGte(issuanceDateGte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.issuanceDateGte = issuanceDateGte
-	builder.issuanceDateGteFlag = true
+	builder.issuanceDateGteSet = true
 	return builder
 }
 
 // 发放时间小于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) IssuanceDateLte(issuanceDateLte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.issuanceDateLte = issuanceDateLte
-	builder.issuanceDateLteFlag = true
+	builder.issuanceDateLteSet = true
 	return builder
 }
 
 // 创建时间大于等于（东八区）
 //
-// 示例值：2023-04-01 12:34:56
+//示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) CreateTimeGte(createTimeGte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.createTimeGte = createTimeGte
-	builder.createTimeGteFlag = true
+	builder.createTimeGteSet = true
 	return builder
 }
 
 // 创建时间小于等于（东八区）
 //
-// 示例值：2023-04-01 12:34:56
+//示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) CreateTimeLte(createTimeLte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.createTimeLte = createTimeLte
-	builder.createTimeLteFlag = true
+	builder.createTimeLteSet = true
 	return builder
 }
 
 // 更新时间大于等于（东八区）
 //
-// 示例值：2023-04-01 12:34:56
+//示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) ModifyTimeGte(modifyTimeGte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.modifyTimeGte = modifyTimeGte
-	builder.modifyTimeGteFlag = true
+	builder.modifyTimeGteSet = true
 	return builder
 }
 
 // 更新时间小于等于（东八区）
 //
-// 示例值：2023-04-01 12:34:56
+//示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) ModifyTimeLte(modifyTimeLte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.modifyTimeLte = modifyTimeLte
-	builder.modifyTimeLteFlag = true
+	builder.modifyTimeLteSet = true
 	return builder
 }
 
 // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) CompanyIds(companyIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.companyIds = companyIds
-	builder.companyIdsFlag = true
+	builder.companyIdsSet = true
 	return builder
 }
 
 // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) ServiceCompanyIds(serviceCompanyIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.serviceCompanyIds = serviceCompanyIds
-	builder.serviceCompanyIdsFlag = true
+	builder.serviceCompanyIdsSet = true
 	return builder
 }
 
 // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
 // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.jobFamilyIds = jobFamilyIds
-	builder.jobFamilyIdsFlag = true
+	builder.jobFamilyIdsSet = true
 	return builder
 }
 
 // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) JobLevelIds(jobLevelIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.jobLevelIds = jobLevelIds
-	builder.jobLevelIdsFlag = true
+	builder.jobLevelIdsSet = true
 	return builder
 }
 
 // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) WorkLocationIds(workLocationIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.workLocationIds = workLocationIds
-	builder.workLocationIdsFlag = true
+	builder.workLocationIdsSet = true
 	return builder
 }
 
 // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) EmployeeTypeIds(employeeTypeIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.employeeTypeIds = employeeTypeIds
-	builder.employeeTypeIdsFlag = true
+	builder.employeeTypeIdsSet = true
 	return builder
 }
 
 // 入职日期大于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) OnboardDateGte(onboardDateGte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.onboardDateGte = onboardDateGte
-	builder.onboardDateGteFlag = true
+	builder.onboardDateGteSet = true
 	return builder
 }
 
 // 入职日期小于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) OnboardDateLte(onboardDateLte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.onboardDateLte = onboardDateLte
-	builder.onboardDateLteFlag = true
+	builder.onboardDateLteSet = true
 	return builder
 }
 
 // 离职日期大于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) OffboardDateGte(offboardDateGte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.offboardDateGte = offboardDateGte
-	builder.offboardDateGteFlag = true
+	builder.offboardDateGteSet = true
 	return builder
 }
 
 // 离职日期小于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) OffboardDateLte(offboardDateLte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.offboardDateLte = offboardDateLte
-	builder.offboardDateLteFlag = true
+	builder.offboardDateLteSet = true
 	return builder
 }
 
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) Build() *QueryDetailLumpSumPaymentReqBody {
 	req := &QueryDetailLumpSumPaymentReqBody{}
-	if builder.idsFlag {
+	if builder.idsSet {
 		req.Ids = builder.ids
 	}
-	if builder.recordIdsFlag {
+	if builder.recordIdsSet {
 		req.RecordIds = builder.recordIds
 	}
-	if builder.recordUniqueIdsFlag {
+	if builder.recordUniqueIdsSet {
 		req.RecordUniqueIds = builder.recordUniqueIds
 	}
-	if builder.issuanceWaysFlag {
+	if builder.issuanceWaysSet {
 		req.IssuanceWays = builder.issuanceWays
 	}
-	if builder.issuanceStatusesFlag {
+	if builder.issuanceStatusesSet {
 		req.IssuanceStatuses = builder.issuanceStatuses
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
-	if builder.itemIdsFlag {
+	if builder.itemIdsSet {
 		req.ItemIds = builder.itemIds
 	}
-	if builder.issuanceDateGteFlag {
+	if builder.issuanceDateGteSet {
 		req.IssuanceDateGte = &builder.issuanceDateGte
 	}
-	if builder.issuanceDateLteFlag {
+	if builder.issuanceDateLteSet {
 		req.IssuanceDateLte = &builder.issuanceDateLte
 	}
-	if builder.createTimeGteFlag {
+	if builder.createTimeGteSet {
 		req.CreateTimeGte = &builder.createTimeGte
 	}
-	if builder.createTimeLteFlag {
+	if builder.createTimeLteSet {
 		req.CreateTimeLte = &builder.createTimeLte
 	}
-	if builder.modifyTimeGteFlag {
+	if builder.modifyTimeGteSet {
 		req.ModifyTimeGte = &builder.modifyTimeGte
 	}
-	if builder.modifyTimeLteFlag {
+	if builder.modifyTimeLteSet {
 		req.ModifyTimeLte = &builder.modifyTimeLte
 	}
-	if builder.companyIdsFlag {
+	if builder.companyIdsSet {
 		req.CompanyIds = builder.companyIds
 	}
-	if builder.serviceCompanyIdsFlag {
+	if builder.serviceCompanyIdsSet {
 		req.ServiceCompanyIds = builder.serviceCompanyIds
 	}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.jobFamilyIdsFlag {
+	if builder.jobFamilyIdsSet {
 		req.JobFamilyIds = builder.jobFamilyIds
 	}
-	if builder.jobLevelIdsFlag {
+	if builder.jobLevelIdsSet {
 		req.JobLevelIds = builder.jobLevelIds
 	}
-	if builder.workLocationIdsFlag {
+	if builder.workLocationIdsSet {
 		req.WorkLocationIds = builder.workLocationIds
 	}
-	if builder.employeeTypeIdsFlag {
+	if builder.employeeTypeIdsSet {
 		req.EmployeeTypeIds = builder.employeeTypeIds
 	}
-	if builder.onboardDateGteFlag {
+	if builder.onboardDateGteSet {
 		req.OnboardDateGte = &builder.onboardDateGte
 	}
-	if builder.onboardDateLteFlag {
+	if builder.onboardDateLteSet {
 		req.OnboardDateLte = &builder.onboardDateLte
 	}
-	if builder.offboardDateGteFlag {
+	if builder.offboardDateGteSet {
 		req.OffboardDateGte = &builder.offboardDateGte
 	}
-	if builder.offboardDateLteFlag {
+	if builder.offboardDateLteSet {
 		req.OffboardDateLte = &builder.offboardDateLte
 	}
 	return req
 }
 
 type QueryDetailLumpSumPaymentPathReqBodyBuilder struct {
-	ids                   []string
-	idsFlag               bool
-	recordIds             []string
-	recordIdsFlag         bool
-	recordUniqueIds       []string
-	recordUniqueIdsFlag   bool
-	issuanceWays          []string
-	issuanceWaysFlag      bool
-	issuanceStatuses      []string
-	issuanceStatusesFlag  bool
-	userIds               []string
-	userIdsFlag           bool
-	itemIds               []string
-	itemIdsFlag           bool
-	issuanceDateGte       string
-	issuanceDateGteFlag   bool
-	issuanceDateLte       string
-	issuanceDateLteFlag   bool
-	createTimeGte         string
-	createTimeGteFlag     bool
-	createTimeLte         string
-	createTimeLteFlag     bool
-	modifyTimeGte         string
-	modifyTimeGteFlag     bool
-	modifyTimeLte         string
-	modifyTimeLteFlag     bool
-	companyIds            []string
-	companyIdsFlag        bool
-	serviceCompanyIds     []string
-	serviceCompanyIdsFlag bool
-	departmentIds         []string
-	departmentIdsFlag     bool
-	jobFamilyIds          []string
-	jobFamilyIdsFlag      bool
-	jobLevelIds           []string
-	jobLevelIdsFlag       bool
-	workLocationIds       []string
-	workLocationIdsFlag   bool
-	employeeTypeIds       []string
-	employeeTypeIdsFlag   bool
-	onboardDateGte        string
-	onboardDateGteFlag    bool
-	onboardDateLte        string
-	onboardDateLteFlag    bool
-	offboardDateGte       string
-	offboardDateGteFlag   bool
-	offboardDateLte       string
-	offboardDateLteFlag   bool
+	ids                  []string
+	idsSet               bool
+	recordIds            []string
+	recordIdsSet         bool
+	recordUniqueIds      []string
+	recordUniqueIdsSet   bool
+	issuanceWays         []string
+	issuanceWaysSet      bool
+	issuanceStatuses     []string
+	issuanceStatusesSet  bool
+	userIds              []string
+	userIdsSet           bool
+	itemIds              []string
+	itemIdsSet           bool
+	issuanceDateGte      string
+	issuanceDateGteSet   bool
+	issuanceDateLte      string
+	issuanceDateLteSet   bool
+	createTimeGte        string
+	createTimeGteSet     bool
+	createTimeLte        string
+	createTimeLteSet     bool
+	modifyTimeGte        string
+	modifyTimeGteSet     bool
+	modifyTimeLte        string
+	modifyTimeLteSet     bool
+	companyIds           []string
+	companyIdsSet        bool
+	serviceCompanyIds    []string
+	serviceCompanyIdsSet bool
+	departmentIds        []string
+	departmentIdsSet     bool
+	jobFamilyIds         []string
+	jobFamilyIdsSet      bool
+	jobLevelIds          []string
+	jobLevelIdsSet       bool
+	workLocationIds      []string
+	workLocationIdsSet   bool
+	employeeTypeIds      []string
+	employeeTypeIdsSet   bool
+	onboardDateGte       string
+	onboardDateGteSet    bool
+	onboardDateLte       string
+	onboardDateLteSet    bool
+	offboardDateGte      string
+	offboardDateGteSet   bool
+	offboardDateLte      string
+	offboardDateLteSet   bool
 }
 
 func NewQueryDetailLumpSumPaymentPathReqBodyBuilder() *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9168,7 +9292,7 @@ func NewQueryDetailLumpSumPaymentPathReqBodyBuilder() *QueryDetailLumpSumPayment
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) Ids(ids []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.ids = ids
-	builder.idsFlag = true
+	builder.idsSet = true
 	return builder
 }
 
@@ -9177,7 +9301,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) Ids(ids []string) *Q
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) RecordIds(recordIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.recordIds = recordIds
-	builder.recordIdsFlag = true
+	builder.recordIdsSet = true
 	return builder
 }
 
@@ -9186,7 +9310,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) RecordIds(recordIds 
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) RecordUniqueIds(recordUniqueIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.recordUniqueIds = recordUniqueIds
-	builder.recordUniqueIdsFlag = true
+	builder.recordUniqueIdsSet = true
 	return builder
 }
 
@@ -9195,7 +9319,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) RecordUniqueIds(reco
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) IssuanceWays(issuanceWays []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.issuanceWays = issuanceWays
-	builder.issuanceWaysFlag = true
+	builder.issuanceWaysSet = true
 	return builder
 }
 
@@ -9204,7 +9328,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) IssuanceWays(issuanc
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) IssuanceStatuses(issuanceStatuses []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.issuanceStatuses = issuanceStatuses
-	builder.issuanceStatusesFlag = true
+	builder.issuanceStatusesSet = true
 	return builder
 }
 
@@ -9213,7 +9337,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) IssuanceStatuses(iss
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) UserIds(userIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
@@ -9222,7 +9346,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) UserIds(userIds []st
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ItemIds(itemIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.itemIds = itemIds
-	builder.itemIdsFlag = true
+	builder.itemIdsSet = true
 	return builder
 }
 
@@ -9231,7 +9355,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ItemIds(itemIds []st
 // 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) IssuanceDateGte(issuanceDateGte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.issuanceDateGte = issuanceDateGte
-	builder.issuanceDateGteFlag = true
+	builder.issuanceDateGteSet = true
 	return builder
 }
 
@@ -9240,7 +9364,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) IssuanceDateGte(issu
 // 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) IssuanceDateLte(issuanceDateLte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.issuanceDateLte = issuanceDateLte
-	builder.issuanceDateLteFlag = true
+	builder.issuanceDateLteSet = true
 	return builder
 }
 
@@ -9249,7 +9373,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) IssuanceDateLte(issu
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) CreateTimeGte(createTimeGte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.createTimeGte = createTimeGte
-	builder.createTimeGteFlag = true
+	builder.createTimeGteSet = true
 	return builder
 }
 
@@ -9258,7 +9382,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) CreateTimeGte(create
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) CreateTimeLte(createTimeLte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.createTimeLte = createTimeLte
-	builder.createTimeLteFlag = true
+	builder.createTimeLteSet = true
 	return builder
 }
 
@@ -9267,7 +9391,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) CreateTimeLte(create
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ModifyTimeGte(modifyTimeGte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.modifyTimeGte = modifyTimeGte
-	builder.modifyTimeGteFlag = true
+	builder.modifyTimeGteSet = true
 	return builder
 }
 
@@ -9276,7 +9400,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ModifyTimeGte(modify
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ModifyTimeLte(modifyTimeLte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.modifyTimeLte = modifyTimeLte
-	builder.modifyTimeLteFlag = true
+	builder.modifyTimeLteSet = true
 	return builder
 }
 
@@ -9285,7 +9409,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ModifyTimeLte(modify
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) CompanyIds(companyIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.companyIds = companyIds
-	builder.companyIdsFlag = true
+	builder.companyIdsSet = true
 	return builder
 }
 
@@ -9294,7 +9418,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) CompanyIds(companyId
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ServiceCompanyIds(serviceCompanyIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.serviceCompanyIds = serviceCompanyIds
-	builder.serviceCompanyIdsFlag = true
+	builder.serviceCompanyIdsSet = true
 	return builder
 }
 
@@ -9303,7 +9427,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ServiceCompanyIds(se
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
@@ -9312,7 +9436,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) DepartmentIds(depart
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.jobFamilyIds = jobFamilyIds
-	builder.jobFamilyIdsFlag = true
+	builder.jobFamilyIdsSet = true
 	return builder
 }
 
@@ -9321,7 +9445,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) JobFamilyIds(jobFami
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) JobLevelIds(jobLevelIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.jobLevelIds = jobLevelIds
-	builder.jobLevelIdsFlag = true
+	builder.jobLevelIdsSet = true
 	return builder
 }
 
@@ -9330,7 +9454,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) JobLevelIds(jobLevel
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) WorkLocationIds(workLocationIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.workLocationIds = workLocationIds
-	builder.workLocationIdsFlag = true
+	builder.workLocationIdsSet = true
 	return builder
 }
 
@@ -9339,7 +9463,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) WorkLocationIds(work
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) EmployeeTypeIds(employeeTypeIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.employeeTypeIds = employeeTypeIds
-	builder.employeeTypeIdsFlag = true
+	builder.employeeTypeIdsSet = true
 	return builder
 }
 
@@ -9348,7 +9472,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) EmployeeTypeIds(empl
 // 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) OnboardDateGte(onboardDateGte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.onboardDateGte = onboardDateGte
-	builder.onboardDateGteFlag = true
+	builder.onboardDateGteSet = true
 	return builder
 }
 
@@ -9357,7 +9481,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) OnboardDateGte(onboa
 // 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) OnboardDateLte(onboardDateLte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.onboardDateLte = onboardDateLte
-	builder.onboardDateLteFlag = true
+	builder.onboardDateLteSet = true
 	return builder
 }
 
@@ -9366,7 +9490,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) OnboardDateLte(onboa
 // 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) OffboardDateGte(offboardDateGte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.offboardDateGte = offboardDateGte
-	builder.offboardDateGteFlag = true
+	builder.offboardDateGteSet = true
 	return builder
 }
 
@@ -9375,82 +9499,82 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) OffboardDateGte(offb
 // 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) OffboardDateLte(offboardDateLte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
 	builder.offboardDateLte = offboardDateLte
-	builder.offboardDateLteFlag = true
+	builder.offboardDateLteSet = true
 	return builder
 }
 
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) Build() (*QueryDetailLumpSumPaymentReqBody, error) {
 	req := &QueryDetailLumpSumPaymentReqBody{}
-	if builder.idsFlag {
+	if builder.idsSet {
 		req.Ids = builder.ids
 	}
-	if builder.recordIdsFlag {
+	if builder.recordIdsSet {
 		req.RecordIds = builder.recordIds
 	}
-	if builder.recordUniqueIdsFlag {
+	if builder.recordUniqueIdsSet {
 		req.RecordUniqueIds = builder.recordUniqueIds
 	}
-	if builder.issuanceWaysFlag {
+	if builder.issuanceWaysSet {
 		req.IssuanceWays = builder.issuanceWays
 	}
-	if builder.issuanceStatusesFlag {
+	if builder.issuanceStatusesSet {
 		req.IssuanceStatuses = builder.issuanceStatuses
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
-	if builder.itemIdsFlag {
+	if builder.itemIdsSet {
 		req.ItemIds = builder.itemIds
 	}
-	if builder.issuanceDateGteFlag {
+	if builder.issuanceDateGteSet {
 		req.IssuanceDateGte = &builder.issuanceDateGte
 	}
-	if builder.issuanceDateLteFlag {
+	if builder.issuanceDateLteSet {
 		req.IssuanceDateLte = &builder.issuanceDateLte
 	}
-	if builder.createTimeGteFlag {
+	if builder.createTimeGteSet {
 		req.CreateTimeGte = &builder.createTimeGte
 	}
-	if builder.createTimeLteFlag {
+	if builder.createTimeLteSet {
 		req.CreateTimeLte = &builder.createTimeLte
 	}
-	if builder.modifyTimeGteFlag {
+	if builder.modifyTimeGteSet {
 		req.ModifyTimeGte = &builder.modifyTimeGte
 	}
-	if builder.modifyTimeLteFlag {
+	if builder.modifyTimeLteSet {
 		req.ModifyTimeLte = &builder.modifyTimeLte
 	}
-	if builder.companyIdsFlag {
+	if builder.companyIdsSet {
 		req.CompanyIds = builder.companyIds
 	}
-	if builder.serviceCompanyIdsFlag {
+	if builder.serviceCompanyIdsSet {
 		req.ServiceCompanyIds = builder.serviceCompanyIds
 	}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.jobFamilyIdsFlag {
+	if builder.jobFamilyIdsSet {
 		req.JobFamilyIds = builder.jobFamilyIds
 	}
-	if builder.jobLevelIdsFlag {
+	if builder.jobLevelIdsSet {
 		req.JobLevelIds = builder.jobLevelIds
 	}
-	if builder.workLocationIdsFlag {
+	if builder.workLocationIdsSet {
 		req.WorkLocationIds = builder.workLocationIds
 	}
-	if builder.employeeTypeIdsFlag {
+	if builder.employeeTypeIdsSet {
 		req.EmployeeTypeIds = builder.employeeTypeIds
 	}
-	if builder.onboardDateGteFlag {
+	if builder.onboardDateGteSet {
 		req.OnboardDateGte = &builder.onboardDateGte
 	}
-	if builder.onboardDateLteFlag {
+	if builder.onboardDateLteSet {
 		req.OnboardDateLte = &builder.onboardDateLte
 	}
-	if builder.offboardDateGteFlag {
+	if builder.offboardDateGteSet {
 		req.OffboardDateGte = &builder.offboardDateGte
 	}
-	if builder.offboardDateLteFlag {
+	if builder.offboardDateLteSet {
 		req.OffboardDateLte = &builder.offboardDateLte
 	}
 	return req, nil
@@ -9477,12 +9601,16 @@ func (builder *QueryDetailLumpSumPaymentReqBuilder) Limit(limit int) *QueryDetai
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBuilder) PageSize(pageSize int) *QueryDetailLumpSumPaymentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBuilder) PageToken(pageToken string) *QueryDetailLumpSumPaymentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
@@ -9497,6 +9625,7 @@ func (builder *QueryDetailLumpSumPaymentReqBuilder) UserIdType(userIdType string
 	return builder
 }
 
+//
 func (builder *QueryDetailLumpSumPaymentReqBuilder) Body(body *QueryDetailLumpSumPaymentReqBody) *QueryDetailLumpSumPaymentReqBuilder {
 	builder.body = body
 	return builder
@@ -9655,8 +9784,8 @@ func (resp *ListPlanResp) Success() bool {
 }
 
 type BatchCreateRecurringPaymentReqBodyBuilder struct {
-	records     []*RecurringPaymentForCreate // 要创建的经常性支付记录
-	recordsFlag bool
+	records    []*RecurringPaymentForCreate // 要创建的经常性支付记录
+	recordsSet bool
 }
 
 func NewBatchCreateRecurringPaymentReqBodyBuilder() *BatchCreateRecurringPaymentReqBodyBuilder {
@@ -9666,24 +9795,24 @@ func NewBatchCreateRecurringPaymentReqBodyBuilder() *BatchCreateRecurringPayment
 
 // 要创建的经常性支付记录
 //
-// 示例值：
+//示例值：
 func (builder *BatchCreateRecurringPaymentReqBodyBuilder) Records(records []*RecurringPaymentForCreate) *BatchCreateRecurringPaymentReqBodyBuilder {
 	builder.records = records
-	builder.recordsFlag = true
+	builder.recordsSet = true
 	return builder
 }
 
 func (builder *BatchCreateRecurringPaymentReqBodyBuilder) Build() *BatchCreateRecurringPaymentReqBody {
 	req := &BatchCreateRecurringPaymentReqBody{}
-	if builder.recordsFlag {
+	if builder.recordsSet {
 		req.Records = builder.records
 	}
 	return req
 }
 
 type BatchCreateRecurringPaymentPathReqBodyBuilder struct {
-	records     []*RecurringPaymentForCreate
-	recordsFlag bool
+	records    []*RecurringPaymentForCreate
+	recordsSet bool
 }
 
 func NewBatchCreateRecurringPaymentPathReqBodyBuilder() *BatchCreateRecurringPaymentPathReqBodyBuilder {
@@ -9696,13 +9825,13 @@ func NewBatchCreateRecurringPaymentPathReqBodyBuilder() *BatchCreateRecurringPay
 // 示例值：
 func (builder *BatchCreateRecurringPaymentPathReqBodyBuilder) Records(records []*RecurringPaymentForCreate) *BatchCreateRecurringPaymentPathReqBodyBuilder {
 	builder.records = records
-	builder.recordsFlag = true
+	builder.recordsSet = true
 	return builder
 }
 
 func (builder *BatchCreateRecurringPaymentPathReqBodyBuilder) Build() (*BatchCreateRecurringPaymentReqBody, error) {
 	req := &BatchCreateRecurringPaymentReqBody{}
-	if builder.recordsFlag {
+	if builder.recordsSet {
 		req.Records = builder.records
 	}
 	return req, nil
@@ -9768,11 +9897,11 @@ func (resp *BatchCreateRecurringPaymentResp) Success() bool {
 }
 
 type BatchRemoveRecurringPaymentReqBodyBuilder struct {
-	recordIds     []string // 需要删除的记录ID
-	recordIdsFlag bool
+	recordIds    []string // 需要删除的记录ID
+	recordIdsSet bool
 
-	reason     string // 原因
-	reasonFlag bool
+	reason    string // 原因
+	reasonSet bool
 }
 
 func NewBatchRemoveRecurringPaymentReqBodyBuilder() *BatchRemoveRecurringPaymentReqBodyBuilder {
@@ -9782,38 +9911,38 @@ func NewBatchRemoveRecurringPaymentReqBodyBuilder() *BatchRemoveRecurringPayment
 
 // 需要删除的记录ID
 //
-// 示例值：
+//示例值：
 func (builder *BatchRemoveRecurringPaymentReqBodyBuilder) RecordIds(recordIds []string) *BatchRemoveRecurringPaymentReqBodyBuilder {
 	builder.recordIds = recordIds
-	builder.recordIdsFlag = true
+	builder.recordIdsSet = true
 	return builder
 }
 
 // 原因
 //
-// 示例值：这是个删除原因
+//示例值：这是个删除原因
 func (builder *BatchRemoveRecurringPaymentReqBodyBuilder) Reason(reason string) *BatchRemoveRecurringPaymentReqBodyBuilder {
 	builder.reason = reason
-	builder.reasonFlag = true
+	builder.reasonSet = true
 	return builder
 }
 
 func (builder *BatchRemoveRecurringPaymentReqBodyBuilder) Build() *BatchRemoveRecurringPaymentReqBody {
 	req := &BatchRemoveRecurringPaymentReqBody{}
-	if builder.recordIdsFlag {
+	if builder.recordIdsSet {
 		req.RecordIds = builder.recordIds
 	}
-	if builder.reasonFlag {
+	if builder.reasonSet {
 		req.Reason = &builder.reason
 	}
 	return req
 }
 
 type BatchRemoveRecurringPaymentPathReqBodyBuilder struct {
-	recordIds     []string
-	recordIdsFlag bool
-	reason        string
-	reasonFlag    bool
+	recordIds    []string
+	recordIdsSet bool
+	reason       string
+	reasonSet    bool
 }
 
 func NewBatchRemoveRecurringPaymentPathReqBodyBuilder() *BatchRemoveRecurringPaymentPathReqBodyBuilder {
@@ -9826,7 +9955,7 @@ func NewBatchRemoveRecurringPaymentPathReqBodyBuilder() *BatchRemoveRecurringPay
 // 示例值：
 func (builder *BatchRemoveRecurringPaymentPathReqBodyBuilder) RecordIds(recordIds []string) *BatchRemoveRecurringPaymentPathReqBodyBuilder {
 	builder.recordIds = recordIds
-	builder.recordIdsFlag = true
+	builder.recordIdsSet = true
 	return builder
 }
 
@@ -9835,16 +9964,16 @@ func (builder *BatchRemoveRecurringPaymentPathReqBodyBuilder) RecordIds(recordId
 // 示例值：这是个删除原因
 func (builder *BatchRemoveRecurringPaymentPathReqBodyBuilder) Reason(reason string) *BatchRemoveRecurringPaymentPathReqBodyBuilder {
 	builder.reason = reason
-	builder.reasonFlag = true
+	builder.reasonSet = true
 	return builder
 }
 
 func (builder *BatchRemoveRecurringPaymentPathReqBodyBuilder) Build() (*BatchRemoveRecurringPaymentReqBody, error) {
 	req := &BatchRemoveRecurringPaymentReqBody{}
-	if builder.recordIdsFlag {
+	if builder.recordIdsSet {
 		req.RecordIds = builder.recordIds
 	}
-	if builder.reasonFlag {
+	if builder.reasonSet {
 		req.Reason = &builder.reason
 	}
 	return req, nil
@@ -9903,8 +10032,8 @@ func (resp *BatchRemoveRecurringPaymentResp) Success() bool {
 }
 
 type BatchUpdateRecurringPaymentReqBodyBuilder struct {
-	records     []*RecurringPaymentForUpdate // 需更正的经常性支付记录
-	recordsFlag bool
+	records    []*RecurringPaymentForUpdate // 需更正的经常性支付记录
+	recordsSet bool
 }
 
 func NewBatchUpdateRecurringPaymentReqBodyBuilder() *BatchUpdateRecurringPaymentReqBodyBuilder {
@@ -9914,24 +10043,24 @@ func NewBatchUpdateRecurringPaymentReqBodyBuilder() *BatchUpdateRecurringPayment
 
 // 需更正的经常性支付记录
 //
-// 示例值：
+//示例值：
 func (builder *BatchUpdateRecurringPaymentReqBodyBuilder) Records(records []*RecurringPaymentForUpdate) *BatchUpdateRecurringPaymentReqBodyBuilder {
 	builder.records = records
-	builder.recordsFlag = true
+	builder.recordsSet = true
 	return builder
 }
 
 func (builder *BatchUpdateRecurringPaymentReqBodyBuilder) Build() *BatchUpdateRecurringPaymentReqBody {
 	req := &BatchUpdateRecurringPaymentReqBody{}
-	if builder.recordsFlag {
+	if builder.recordsSet {
 		req.Records = builder.records
 	}
 	return req
 }
 
 type BatchUpdateRecurringPaymentPathReqBodyBuilder struct {
-	records     []*RecurringPaymentForUpdate
-	recordsFlag bool
+	records    []*RecurringPaymentForUpdate
+	recordsSet bool
 }
 
 func NewBatchUpdateRecurringPaymentPathReqBodyBuilder() *BatchUpdateRecurringPaymentPathReqBodyBuilder {
@@ -9944,13 +10073,13 @@ func NewBatchUpdateRecurringPaymentPathReqBodyBuilder() *BatchUpdateRecurringPay
 // 示例值：
 func (builder *BatchUpdateRecurringPaymentPathReqBodyBuilder) Records(records []*RecurringPaymentForUpdate) *BatchUpdateRecurringPaymentPathReqBodyBuilder {
 	builder.records = records
-	builder.recordsFlag = true
+	builder.recordsSet = true
 	return builder
 }
 
 func (builder *BatchUpdateRecurringPaymentPathReqBodyBuilder) Build() (*BatchUpdateRecurringPaymentReqBody, error) {
 	req := &BatchUpdateRecurringPaymentReqBody{}
-	if builder.recordsFlag {
+	if builder.recordsSet {
 		req.Records = builder.records
 	}
 	return req, nil
@@ -10016,74 +10145,74 @@ func (resp *BatchUpdateRecurringPaymentResp) Success() bool {
 }
 
 type QueryRecurringPaymentReqBodyBuilder struct {
-	ids     []string // id属于
-	idsFlag bool
+	ids    []string // id属于
+	idsSet bool
 
-	uniqueIds     []string // unique_id属于
-	uniqueIdsFlag bool
+	uniqueIds    []string // unique_id属于
+	uniqueIdsSet bool
 
-	userIds     []string // 员工id属于
-	userIdsFlag bool
+	userIds    []string // 员工id属于
+	userIdsSet bool
 
-	itemIds     []string // 薪酬项id属于
-	itemIdsFlag bool
+	itemIds    []string // 薪酬项id属于
+	itemIdsSet bool
 
-	startDateGte     string // 发放开始日期大于等于
-	startDateGteFlag bool
+	startDateGte    string // 发放开始日期大于等于
+	startDateGteSet bool
 
-	startDateLte     string // 发放开始日期小于等于
-	startDateLteFlag bool
+	startDateLte    string // 发放开始日期小于等于
+	startDateLteSet bool
 
-	endDateGte     string // 发放结束日期大于等于
-	endDateGteFlag bool
+	endDateGte    string // 发放结束日期大于等于
+	endDateGteSet bool
 
-	endDateLte     string // 发放结束日期小于等于
-	endDateLteFlag bool
+	endDateLte    string // 发放结束日期小于等于
+	endDateLteSet bool
 
-	createTimeGte     string // 创建时间大于等于（东八区）
-	createTimeGteFlag bool
+	createTimeGte    string // 创建时间大于等于（东八区）
+	createTimeGteSet bool
 
-	createTimeLte     string // 创建时间小于等于（东八区）
-	createTimeLteFlag bool
+	createTimeLte    string // 创建时间小于等于（东八区）
+	createTimeLteSet bool
 
-	modifyTimeGte     string // 更新时间大于等于（东八区）
-	modifyTimeGteFlag bool
+	modifyTimeGte    string // 更新时间大于等于（东八区）
+	modifyTimeGteSet bool
 
-	modifyTimeLte     string // 更新时间小于等于（东八区）
-	modifyTimeLteFlag bool
+	modifyTimeLte    string // 更新时间小于等于（东八区）
+	modifyTimeLteSet bool
 
-	companyIds     []string // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
-	companyIdsFlag bool
+	companyIds    []string // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	companyIdsSet bool
 
-	serviceCompanyIds     []string // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
-	serviceCompanyIdsFlag bool
+	serviceCompanyIds    []string // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	serviceCompanyIdsSet bool
 
-	departmentIds     []string // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
-	departmentIdsFlag bool
+	departmentIds    []string // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+	departmentIdsSet bool
 
-	jobFamilyIds     []string // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
-	jobFamilyIdsFlag bool
+	jobFamilyIds    []string // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+	jobFamilyIdsSet bool
 
-	jobLevelIds     []string // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
-	jobLevelIdsFlag bool
+	jobLevelIds    []string // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+	jobLevelIdsSet bool
 
-	workLocationIds     []string // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
-	workLocationIdsFlag bool
+	workLocationIds    []string // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+	workLocationIdsSet bool
 
-	employeeTypeIds     []string // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
-	employeeTypeIdsFlag bool
+	employeeTypeIds    []string // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+	employeeTypeIdsSet bool
 
-	onboardDateGte     string // 入职日期大于等于
-	onboardDateGteFlag bool
+	onboardDateGte    string // 入职日期大于等于
+	onboardDateGteSet bool
 
-	onboardDateLte     string // 入职日期小于等于
-	onboardDateLteFlag bool
+	onboardDateLte    string // 入职日期小于等于
+	onboardDateLteSet bool
 
-	offboardDateGte     string // 离职日期大于等于
-	offboardDateGteFlag bool
+	offboardDateGte    string // 离职日期大于等于
+	offboardDateGteSet bool
 
-	offboardDateLte     string // 离职日期小于等于
-	offboardDateLteFlag bool
+	offboardDateLte    string // 离职日期小于等于
+	offboardDateLteSet bool
 }
 
 func NewQueryRecurringPaymentReqBodyBuilder() *QueryRecurringPaymentReqBodyBuilder {
@@ -10093,332 +10222,332 @@ func NewQueryRecurringPaymentReqBodyBuilder() *QueryRecurringPaymentReqBodyBuild
 
 // id属于
 //
-// 示例值：
+//示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) Ids(ids []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.ids = ids
-	builder.idsFlag = true
+	builder.idsSet = true
 	return builder
 }
 
 // unique_id属于
 //
-// 示例值：
+//示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) UniqueIds(uniqueIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.uniqueIds = uniqueIds
-	builder.uniqueIdsFlag = true
+	builder.uniqueIdsSet = true
 	return builder
 }
 
 // 员工id属于
 //
-// 示例值：
+//示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) UserIds(userIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
 // 薪酬项id属于
 //
-// 示例值：
+//示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) ItemIds(itemIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.itemIds = itemIds
-	builder.itemIdsFlag = true
+	builder.itemIdsSet = true
 	return builder
 }
 
 // 发放开始日期大于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) StartDateGte(startDateGte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.startDateGte = startDateGte
-	builder.startDateGteFlag = true
+	builder.startDateGteSet = true
 	return builder
 }
 
 // 发放开始日期小于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) StartDateLte(startDateLte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.startDateLte = startDateLte
-	builder.startDateLteFlag = true
+	builder.startDateLteSet = true
 	return builder
 }
 
 // 发放结束日期大于等于
 //
-// 示例值：2025-04-01
+//示例值：2025-04-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) EndDateGte(endDateGte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.endDateGte = endDateGte
-	builder.endDateGteFlag = true
+	builder.endDateGteSet = true
 	return builder
 }
 
 // 发放结束日期小于等于
 //
-// 示例值：2025-08-01
+//示例值：2025-08-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) EndDateLte(endDateLte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.endDateLte = endDateLte
-	builder.endDateLteFlag = true
+	builder.endDateLteSet = true
 	return builder
 }
 
 // 创建时间大于等于（东八区）
 //
-// 示例值：2023-04-01 12:34:56
+//示例值：2023-04-01 12:34:56
 func (builder *QueryRecurringPaymentReqBodyBuilder) CreateTimeGte(createTimeGte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.createTimeGte = createTimeGte
-	builder.createTimeGteFlag = true
+	builder.createTimeGteSet = true
 	return builder
 }
 
 // 创建时间小于等于（东八区）
 //
-// 示例值：2023-04-01 12:34:56
+//示例值：2023-04-01 12:34:56
 func (builder *QueryRecurringPaymentReqBodyBuilder) CreateTimeLte(createTimeLte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.createTimeLte = createTimeLte
-	builder.createTimeLteFlag = true
+	builder.createTimeLteSet = true
 	return builder
 }
 
 // 更新时间大于等于（东八区）
 //
-// 示例值：2023-04-01 12:34:56
+//示例值：2023-04-01 12:34:56
 func (builder *QueryRecurringPaymentReqBodyBuilder) ModifyTimeGte(modifyTimeGte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.modifyTimeGte = modifyTimeGte
-	builder.modifyTimeGteFlag = true
+	builder.modifyTimeGteSet = true
 	return builder
 }
 
 // 更新时间小于等于（东八区）
 //
-// 示例值：2023-04-01 12:34:56
+//示例值：2023-04-01 12:34:56
 func (builder *QueryRecurringPaymentReqBodyBuilder) ModifyTimeLte(modifyTimeLte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.modifyTimeLte = modifyTimeLte
-	builder.modifyTimeLteFlag = true
+	builder.modifyTimeLteSet = true
 	return builder
 }
 
 // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) CompanyIds(companyIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.companyIds = companyIds
-	builder.companyIdsFlag = true
+	builder.companyIdsSet = true
 	return builder
 }
 
 // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) ServiceCompanyIds(serviceCompanyIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.serviceCompanyIds = serviceCompanyIds
-	builder.serviceCompanyIdsFlag = true
+	builder.serviceCompanyIdsSet = true
 	return builder
 }
 
 // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
 // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.jobFamilyIds = jobFamilyIds
-	builder.jobFamilyIdsFlag = true
+	builder.jobFamilyIdsSet = true
 	return builder
 }
 
 // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) JobLevelIds(jobLevelIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.jobLevelIds = jobLevelIds
-	builder.jobLevelIdsFlag = true
+	builder.jobLevelIdsSet = true
 	return builder
 }
 
 // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) WorkLocationIds(workLocationIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.workLocationIds = workLocationIds
-	builder.workLocationIdsFlag = true
+	builder.workLocationIdsSet = true
 	return builder
 }
 
 // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
 //
-// 示例值：
+//示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) EmployeeTypeIds(employeeTypeIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.employeeTypeIds = employeeTypeIds
-	builder.employeeTypeIdsFlag = true
+	builder.employeeTypeIdsSet = true
 	return builder
 }
 
 // 入职日期大于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) OnboardDateGte(onboardDateGte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.onboardDateGte = onboardDateGte
-	builder.onboardDateGteFlag = true
+	builder.onboardDateGteSet = true
 	return builder
 }
 
 // 入职日期小于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) OnboardDateLte(onboardDateLte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.onboardDateLte = onboardDateLte
-	builder.onboardDateLteFlag = true
+	builder.onboardDateLteSet = true
 	return builder
 }
 
 // 离职日期大于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) OffboardDateGte(offboardDateGte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.offboardDateGte = offboardDateGte
-	builder.offboardDateGteFlag = true
+	builder.offboardDateGteSet = true
 	return builder
 }
 
 // 离职日期小于等于
 //
-// 示例值：2023-04-01
+//示例值：2023-04-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) OffboardDateLte(offboardDateLte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.offboardDateLte = offboardDateLte
-	builder.offboardDateLteFlag = true
+	builder.offboardDateLteSet = true
 	return builder
 }
 
 func (builder *QueryRecurringPaymentReqBodyBuilder) Build() *QueryRecurringPaymentReqBody {
 	req := &QueryRecurringPaymentReqBody{}
-	if builder.idsFlag {
+	if builder.idsSet {
 		req.Ids = builder.ids
 	}
-	if builder.uniqueIdsFlag {
+	if builder.uniqueIdsSet {
 		req.UniqueIds = builder.uniqueIds
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
-	if builder.itemIdsFlag {
+	if builder.itemIdsSet {
 		req.ItemIds = builder.itemIds
 	}
-	if builder.startDateGteFlag {
+	if builder.startDateGteSet {
 		req.StartDateGte = &builder.startDateGte
 	}
-	if builder.startDateLteFlag {
+	if builder.startDateLteSet {
 		req.StartDateLte = &builder.startDateLte
 	}
-	if builder.endDateGteFlag {
+	if builder.endDateGteSet {
 		req.EndDateGte = &builder.endDateGte
 	}
-	if builder.endDateLteFlag {
+	if builder.endDateLteSet {
 		req.EndDateLte = &builder.endDateLte
 	}
-	if builder.createTimeGteFlag {
+	if builder.createTimeGteSet {
 		req.CreateTimeGte = &builder.createTimeGte
 	}
-	if builder.createTimeLteFlag {
+	if builder.createTimeLteSet {
 		req.CreateTimeLte = &builder.createTimeLte
 	}
-	if builder.modifyTimeGteFlag {
+	if builder.modifyTimeGteSet {
 		req.ModifyTimeGte = &builder.modifyTimeGte
 	}
-	if builder.modifyTimeLteFlag {
+	if builder.modifyTimeLteSet {
 		req.ModifyTimeLte = &builder.modifyTimeLte
 	}
-	if builder.companyIdsFlag {
+	if builder.companyIdsSet {
 		req.CompanyIds = builder.companyIds
 	}
-	if builder.serviceCompanyIdsFlag {
+	if builder.serviceCompanyIdsSet {
 		req.ServiceCompanyIds = builder.serviceCompanyIds
 	}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.jobFamilyIdsFlag {
+	if builder.jobFamilyIdsSet {
 		req.JobFamilyIds = builder.jobFamilyIds
 	}
-	if builder.jobLevelIdsFlag {
+	if builder.jobLevelIdsSet {
 		req.JobLevelIds = builder.jobLevelIds
 	}
-	if builder.workLocationIdsFlag {
+	if builder.workLocationIdsSet {
 		req.WorkLocationIds = builder.workLocationIds
 	}
-	if builder.employeeTypeIdsFlag {
+	if builder.employeeTypeIdsSet {
 		req.EmployeeTypeIds = builder.employeeTypeIds
 	}
-	if builder.onboardDateGteFlag {
+	if builder.onboardDateGteSet {
 		req.OnboardDateGte = &builder.onboardDateGte
 	}
-	if builder.onboardDateLteFlag {
+	if builder.onboardDateLteSet {
 		req.OnboardDateLte = &builder.onboardDateLte
 	}
-	if builder.offboardDateGteFlag {
+	if builder.offboardDateGteSet {
 		req.OffboardDateGte = &builder.offboardDateGte
 	}
-	if builder.offboardDateLteFlag {
+	if builder.offboardDateLteSet {
 		req.OffboardDateLte = &builder.offboardDateLte
 	}
 	return req
 }
 
 type QueryRecurringPaymentPathReqBodyBuilder struct {
-	ids                   []string
-	idsFlag               bool
-	uniqueIds             []string
-	uniqueIdsFlag         bool
-	userIds               []string
-	userIdsFlag           bool
-	itemIds               []string
-	itemIdsFlag           bool
-	startDateGte          string
-	startDateGteFlag      bool
-	startDateLte          string
-	startDateLteFlag      bool
-	endDateGte            string
-	endDateGteFlag        bool
-	endDateLte            string
-	endDateLteFlag        bool
-	createTimeGte         string
-	createTimeGteFlag     bool
-	createTimeLte         string
-	createTimeLteFlag     bool
-	modifyTimeGte         string
-	modifyTimeGteFlag     bool
-	modifyTimeLte         string
-	modifyTimeLteFlag     bool
-	companyIds            []string
-	companyIdsFlag        bool
-	serviceCompanyIds     []string
-	serviceCompanyIdsFlag bool
-	departmentIds         []string
-	departmentIdsFlag     bool
-	jobFamilyIds          []string
-	jobFamilyIdsFlag      bool
-	jobLevelIds           []string
-	jobLevelIdsFlag       bool
-	workLocationIds       []string
-	workLocationIdsFlag   bool
-	employeeTypeIds       []string
-	employeeTypeIdsFlag   bool
-	onboardDateGte        string
-	onboardDateGteFlag    bool
-	onboardDateLte        string
-	onboardDateLteFlag    bool
-	offboardDateGte       string
-	offboardDateGteFlag   bool
-	offboardDateLte       string
-	offboardDateLteFlag   bool
+	ids                  []string
+	idsSet               bool
+	uniqueIds            []string
+	uniqueIdsSet         bool
+	userIds              []string
+	userIdsSet           bool
+	itemIds              []string
+	itemIdsSet           bool
+	startDateGte         string
+	startDateGteSet      bool
+	startDateLte         string
+	startDateLteSet      bool
+	endDateGte           string
+	endDateGteSet        bool
+	endDateLte           string
+	endDateLteSet        bool
+	createTimeGte        string
+	createTimeGteSet     bool
+	createTimeLte        string
+	createTimeLteSet     bool
+	modifyTimeGte        string
+	modifyTimeGteSet     bool
+	modifyTimeLte        string
+	modifyTimeLteSet     bool
+	companyIds           []string
+	companyIdsSet        bool
+	serviceCompanyIds    []string
+	serviceCompanyIdsSet bool
+	departmentIds        []string
+	departmentIdsSet     bool
+	jobFamilyIds         []string
+	jobFamilyIdsSet      bool
+	jobLevelIds          []string
+	jobLevelIdsSet       bool
+	workLocationIds      []string
+	workLocationIdsSet   bool
+	employeeTypeIds      []string
+	employeeTypeIdsSet   bool
+	onboardDateGte       string
+	onboardDateGteSet    bool
+	onboardDateLte       string
+	onboardDateLteSet    bool
+	offboardDateGte      string
+	offboardDateGteSet   bool
+	offboardDateLte      string
+	offboardDateLteSet   bool
 }
 
 func NewQueryRecurringPaymentPathReqBodyBuilder() *QueryRecurringPaymentPathReqBodyBuilder {
@@ -10431,7 +10560,7 @@ func NewQueryRecurringPaymentPathReqBodyBuilder() *QueryRecurringPaymentPathReqB
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) Ids(ids []string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.ids = ids
-	builder.idsFlag = true
+	builder.idsSet = true
 	return builder
 }
 
@@ -10440,7 +10569,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) Ids(ids []string) *Query
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) UniqueIds(uniqueIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.uniqueIds = uniqueIds
-	builder.uniqueIdsFlag = true
+	builder.uniqueIdsSet = true
 	return builder
 }
 
@@ -10449,7 +10578,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) UniqueIds(uniqueIds []st
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) UserIds(userIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.userIds = userIds
-	builder.userIdsFlag = true
+	builder.userIdsSet = true
 	return builder
 }
 
@@ -10458,7 +10587,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) UserIds(userIds []string
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) ItemIds(itemIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.itemIds = itemIds
-	builder.itemIdsFlag = true
+	builder.itemIdsSet = true
 	return builder
 }
 
@@ -10467,7 +10596,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) ItemIds(itemIds []string
 // 示例值：2023-04-01
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) StartDateGte(startDateGte string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.startDateGte = startDateGte
-	builder.startDateGteFlag = true
+	builder.startDateGteSet = true
 	return builder
 }
 
@@ -10476,7 +10605,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) StartDateGte(startDateGt
 // 示例值：2023-04-01
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) StartDateLte(startDateLte string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.startDateLte = startDateLte
-	builder.startDateLteFlag = true
+	builder.startDateLteSet = true
 	return builder
 }
 
@@ -10485,7 +10614,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) StartDateLte(startDateLt
 // 示例值：2025-04-01
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) EndDateGte(endDateGte string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.endDateGte = endDateGte
-	builder.endDateGteFlag = true
+	builder.endDateGteSet = true
 	return builder
 }
 
@@ -10494,7 +10623,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) EndDateGte(endDateGte st
 // 示例值：2025-08-01
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) EndDateLte(endDateLte string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.endDateLte = endDateLte
-	builder.endDateLteFlag = true
+	builder.endDateLteSet = true
 	return builder
 }
 
@@ -10503,7 +10632,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) EndDateLte(endDateLte st
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) CreateTimeGte(createTimeGte string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.createTimeGte = createTimeGte
-	builder.createTimeGteFlag = true
+	builder.createTimeGteSet = true
 	return builder
 }
 
@@ -10512,7 +10641,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) CreateTimeGte(createTime
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) CreateTimeLte(createTimeLte string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.createTimeLte = createTimeLte
-	builder.createTimeLteFlag = true
+	builder.createTimeLteSet = true
 	return builder
 }
 
@@ -10521,7 +10650,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) CreateTimeLte(createTime
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) ModifyTimeGte(modifyTimeGte string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.modifyTimeGte = modifyTimeGte
-	builder.modifyTimeGteFlag = true
+	builder.modifyTimeGteSet = true
 	return builder
 }
 
@@ -10530,7 +10659,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) ModifyTimeGte(modifyTime
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) ModifyTimeLte(modifyTimeLte string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.modifyTimeLte = modifyTimeLte
-	builder.modifyTimeLteFlag = true
+	builder.modifyTimeLteSet = true
 	return builder
 }
 
@@ -10539,7 +10668,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) ModifyTimeLte(modifyTime
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) CompanyIds(companyIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.companyIds = companyIds
-	builder.companyIdsFlag = true
+	builder.companyIdsSet = true
 	return builder
 }
 
@@ -10548,7 +10677,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) CompanyIds(companyIds []
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) ServiceCompanyIds(serviceCompanyIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.serviceCompanyIds = serviceCompanyIds
-	builder.serviceCompanyIdsFlag = true
+	builder.serviceCompanyIdsSet = true
 	return builder
 }
 
@@ -10557,7 +10686,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) ServiceCompanyIds(servic
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.departmentIds = departmentIds
-	builder.departmentIdsFlag = true
+	builder.departmentIdsSet = true
 	return builder
 }
 
@@ -10566,7 +10695,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) DepartmentIds(department
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.jobFamilyIds = jobFamilyIds
-	builder.jobFamilyIdsFlag = true
+	builder.jobFamilyIdsSet = true
 	return builder
 }
 
@@ -10575,7 +10704,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) JobFamilyIds(jobFamilyId
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) JobLevelIds(jobLevelIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.jobLevelIds = jobLevelIds
-	builder.jobLevelIdsFlag = true
+	builder.jobLevelIdsSet = true
 	return builder
 }
 
@@ -10584,7 +10713,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) JobLevelIds(jobLevelIds 
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) WorkLocationIds(workLocationIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.workLocationIds = workLocationIds
-	builder.workLocationIdsFlag = true
+	builder.workLocationIdsSet = true
 	return builder
 }
 
@@ -10593,7 +10722,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) WorkLocationIds(workLoca
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) EmployeeTypeIds(employeeTypeIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.employeeTypeIds = employeeTypeIds
-	builder.employeeTypeIdsFlag = true
+	builder.employeeTypeIdsSet = true
 	return builder
 }
 
@@ -10602,7 +10731,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) EmployeeTypeIds(employee
 // 示例值：2023-04-01
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) OnboardDateGte(onboardDateGte string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.onboardDateGte = onboardDateGte
-	builder.onboardDateGteFlag = true
+	builder.onboardDateGteSet = true
 	return builder
 }
 
@@ -10611,7 +10740,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) OnboardDateGte(onboardDa
 // 示例值：2023-04-01
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) OnboardDateLte(onboardDateLte string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.onboardDateLte = onboardDateLte
-	builder.onboardDateLteFlag = true
+	builder.onboardDateLteSet = true
 	return builder
 }
 
@@ -10620,7 +10749,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) OnboardDateLte(onboardDa
 // 示例值：2023-04-01
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) OffboardDateGte(offboardDateGte string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.offboardDateGte = offboardDateGte
-	builder.offboardDateGteFlag = true
+	builder.offboardDateGteSet = true
 	return builder
 }
 
@@ -10629,79 +10758,79 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) OffboardDateGte(offboard
 // 示例值：2023-04-01
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) OffboardDateLte(offboardDateLte string) *QueryRecurringPaymentPathReqBodyBuilder {
 	builder.offboardDateLte = offboardDateLte
-	builder.offboardDateLteFlag = true
+	builder.offboardDateLteSet = true
 	return builder
 }
 
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) Build() (*QueryRecurringPaymentReqBody, error) {
 	req := &QueryRecurringPaymentReqBody{}
-	if builder.idsFlag {
+	if builder.idsSet {
 		req.Ids = builder.ids
 	}
-	if builder.uniqueIdsFlag {
+	if builder.uniqueIdsSet {
 		req.UniqueIds = builder.uniqueIds
 	}
-	if builder.userIdsFlag {
+	if builder.userIdsSet {
 		req.UserIds = builder.userIds
 	}
-	if builder.itemIdsFlag {
+	if builder.itemIdsSet {
 		req.ItemIds = builder.itemIds
 	}
-	if builder.startDateGteFlag {
+	if builder.startDateGteSet {
 		req.StartDateGte = &builder.startDateGte
 	}
-	if builder.startDateLteFlag {
+	if builder.startDateLteSet {
 		req.StartDateLte = &builder.startDateLte
 	}
-	if builder.endDateGteFlag {
+	if builder.endDateGteSet {
 		req.EndDateGte = &builder.endDateGte
 	}
-	if builder.endDateLteFlag {
+	if builder.endDateLteSet {
 		req.EndDateLte = &builder.endDateLte
 	}
-	if builder.createTimeGteFlag {
+	if builder.createTimeGteSet {
 		req.CreateTimeGte = &builder.createTimeGte
 	}
-	if builder.createTimeLteFlag {
+	if builder.createTimeLteSet {
 		req.CreateTimeLte = &builder.createTimeLte
 	}
-	if builder.modifyTimeGteFlag {
+	if builder.modifyTimeGteSet {
 		req.ModifyTimeGte = &builder.modifyTimeGte
 	}
-	if builder.modifyTimeLteFlag {
+	if builder.modifyTimeLteSet {
 		req.ModifyTimeLte = &builder.modifyTimeLte
 	}
-	if builder.companyIdsFlag {
+	if builder.companyIdsSet {
 		req.CompanyIds = builder.companyIds
 	}
-	if builder.serviceCompanyIdsFlag {
+	if builder.serviceCompanyIdsSet {
 		req.ServiceCompanyIds = builder.serviceCompanyIds
 	}
-	if builder.departmentIdsFlag {
+	if builder.departmentIdsSet {
 		req.DepartmentIds = builder.departmentIds
 	}
-	if builder.jobFamilyIdsFlag {
+	if builder.jobFamilyIdsSet {
 		req.JobFamilyIds = builder.jobFamilyIds
 	}
-	if builder.jobLevelIdsFlag {
+	if builder.jobLevelIdsSet {
 		req.JobLevelIds = builder.jobLevelIds
 	}
-	if builder.workLocationIdsFlag {
+	if builder.workLocationIdsSet {
 		req.WorkLocationIds = builder.workLocationIds
 	}
-	if builder.employeeTypeIdsFlag {
+	if builder.employeeTypeIdsSet {
 		req.EmployeeTypeIds = builder.employeeTypeIds
 	}
-	if builder.onboardDateGteFlag {
+	if builder.onboardDateGteSet {
 		req.OnboardDateGte = &builder.onboardDateGte
 	}
-	if builder.onboardDateLteFlag {
+	if builder.onboardDateLteSet {
 		req.OnboardDateLte = &builder.onboardDateLte
 	}
-	if builder.offboardDateGteFlag {
+	if builder.offboardDateGteSet {
 		req.OffboardDateGte = &builder.offboardDateGte
 	}
-	if builder.offboardDateLteFlag {
+	if builder.offboardDateLteSet {
 		req.OffboardDateLte = &builder.offboardDateLte
 	}
 	return req, nil
@@ -10728,12 +10857,16 @@ func (builder *QueryRecurringPaymentReqBuilder) Limit(limit int) *QueryRecurring
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *QueryRecurringPaymentReqBuilder) PageSize(pageSize int) *QueryRecurringPaymentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *QueryRecurringPaymentReqBuilder) PageToken(pageToken string) *QueryRecurringPaymentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
@@ -10837,11 +10970,11 @@ func (resp *QueryRecurringPaymentResp) Success() bool {
 }
 
 type QuerySocialArchiveReqBodyBuilder struct {
-	userIdList     []string // lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
-	userIdListFlag bool
+	userIdList    []string // lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+	userIdListSet bool
 
-	effectiveDate     string // 生效日志，查询在该日期生效的社保档案
-	effectiveDateFlag bool
+	effectiveDate    string // 生效日志，查询在该日期生效的社保档案
+	effectiveDateSet bool
 }
 
 func NewQuerySocialArchiveReqBodyBuilder() *QuerySocialArchiveReqBodyBuilder {
@@ -10851,38 +10984,38 @@ func NewQuerySocialArchiveReqBodyBuilder() *QuerySocialArchiveReqBodyBuilder {
 
 // lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
 //
-// 示例值：
+//示例值：
 func (builder *QuerySocialArchiveReqBodyBuilder) UserIdList(userIdList []string) *QuerySocialArchiveReqBodyBuilder {
 	builder.userIdList = userIdList
-	builder.userIdListFlag = true
+	builder.userIdListSet = true
 	return builder
 }
 
 // 生效日志，查询在该日期生效的社保档案
 //
-// 示例值：2024-01-01
+//示例值：2024-01-01
 func (builder *QuerySocialArchiveReqBodyBuilder) EffectiveDate(effectiveDate string) *QuerySocialArchiveReqBodyBuilder {
 	builder.effectiveDate = effectiveDate
-	builder.effectiveDateFlag = true
+	builder.effectiveDateSet = true
 	return builder
 }
 
 func (builder *QuerySocialArchiveReqBodyBuilder) Build() *QuerySocialArchiveReqBody {
 	req := &QuerySocialArchiveReqBody{}
-	if builder.userIdListFlag {
+	if builder.userIdListSet {
 		req.UserIdList = builder.userIdList
 	}
-	if builder.effectiveDateFlag {
+	if builder.effectiveDateSet {
 		req.EffectiveDate = &builder.effectiveDate
 	}
 	return req
 }
 
 type QuerySocialArchivePathReqBodyBuilder struct {
-	userIdList        []string
-	userIdListFlag    bool
-	effectiveDate     string
-	effectiveDateFlag bool
+	userIdList       []string
+	userIdListSet    bool
+	effectiveDate    string
+	effectiveDateSet bool
 }
 
 func NewQuerySocialArchivePathReqBodyBuilder() *QuerySocialArchivePathReqBodyBuilder {
@@ -10895,7 +11028,7 @@ func NewQuerySocialArchivePathReqBodyBuilder() *QuerySocialArchivePathReqBodyBui
 // 示例值：
 func (builder *QuerySocialArchivePathReqBodyBuilder) UserIdList(userIdList []string) *QuerySocialArchivePathReqBodyBuilder {
 	builder.userIdList = userIdList
-	builder.userIdListFlag = true
+	builder.userIdListSet = true
 	return builder
 }
 
@@ -10904,16 +11037,16 @@ func (builder *QuerySocialArchivePathReqBodyBuilder) UserIdList(userIdList []str
 // 示例值：2024-01-01
 func (builder *QuerySocialArchivePathReqBodyBuilder) EffectiveDate(effectiveDate string) *QuerySocialArchivePathReqBodyBuilder {
 	builder.effectiveDate = effectiveDate
-	builder.effectiveDateFlag = true
+	builder.effectiveDateSet = true
 	return builder
 }
 
 func (builder *QuerySocialArchivePathReqBodyBuilder) Build() (*QuerySocialArchiveReqBody, error) {
 	req := &QuerySocialArchiveReqBody{}
-	if builder.userIdListFlag {
+	if builder.userIdListSet {
 		req.UserIdList = builder.userIdList
 	}
-	if builder.effectiveDateFlag {
+	if builder.effectiveDateSet {
 		req.EffectiveDate = &builder.effectiveDate
 	}
 	return req, nil
@@ -10981,11 +11114,11 @@ func (resp *QuerySocialArchiveResp) Success() bool {
 }
 
 type QuerySocialArchiveAdjustRecordReqBodyBuilder struct {
-	userIdList     []string // lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
-	userIdListFlag bool
+	userIdList    []string // lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+	userIdListSet bool
 
-	recordType     string // 增减员类型, increase: 增员; attrtion: 减员
-	recordTypeFlag bool
+	recordType    string // 增减员类型, increase: 增员; attrtion: 减员
+	recordTypeSet bool
 }
 
 func NewQuerySocialArchiveAdjustRecordReqBodyBuilder() *QuerySocialArchiveAdjustRecordReqBodyBuilder {
@@ -10995,38 +11128,38 @@ func NewQuerySocialArchiveAdjustRecordReqBodyBuilder() *QuerySocialArchiveAdjust
 
 // lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
 //
-// 示例值：
+//示例值：
 func (builder *QuerySocialArchiveAdjustRecordReqBodyBuilder) UserIdList(userIdList []string) *QuerySocialArchiveAdjustRecordReqBodyBuilder {
 	builder.userIdList = userIdList
-	builder.userIdListFlag = true
+	builder.userIdListSet = true
 	return builder
 }
 
 // 增减员类型, increase: 增员; attrtion: 减员
 //
-// 示例值：increase
+//示例值：increase
 func (builder *QuerySocialArchiveAdjustRecordReqBodyBuilder) RecordType(recordType string) *QuerySocialArchiveAdjustRecordReqBodyBuilder {
 	builder.recordType = recordType
-	builder.recordTypeFlag = true
+	builder.recordTypeSet = true
 	return builder
 }
 
 func (builder *QuerySocialArchiveAdjustRecordReqBodyBuilder) Build() *QuerySocialArchiveAdjustRecordReqBody {
 	req := &QuerySocialArchiveAdjustRecordReqBody{}
-	if builder.userIdListFlag {
+	if builder.userIdListSet {
 		req.UserIdList = builder.userIdList
 	}
-	if builder.recordTypeFlag {
+	if builder.recordTypeSet {
 		req.RecordType = &builder.recordType
 	}
 	return req
 }
 
 type QuerySocialArchiveAdjustRecordPathReqBodyBuilder struct {
-	userIdList     []string
-	userIdListFlag bool
-	recordType     string
-	recordTypeFlag bool
+	userIdList    []string
+	userIdListSet bool
+	recordType    string
+	recordTypeSet bool
 }
 
 func NewQuerySocialArchiveAdjustRecordPathReqBodyBuilder() *QuerySocialArchiveAdjustRecordPathReqBodyBuilder {
@@ -11039,7 +11172,7 @@ func NewQuerySocialArchiveAdjustRecordPathReqBodyBuilder() *QuerySocialArchiveAd
 // 示例值：
 func (builder *QuerySocialArchiveAdjustRecordPathReqBodyBuilder) UserIdList(userIdList []string) *QuerySocialArchiveAdjustRecordPathReqBodyBuilder {
 	builder.userIdList = userIdList
-	builder.userIdListFlag = true
+	builder.userIdListSet = true
 	return builder
 }
 
@@ -11048,16 +11181,16 @@ func (builder *QuerySocialArchiveAdjustRecordPathReqBodyBuilder) UserIdList(user
 // 示例值：increase
 func (builder *QuerySocialArchiveAdjustRecordPathReqBodyBuilder) RecordType(recordType string) *QuerySocialArchiveAdjustRecordPathReqBodyBuilder {
 	builder.recordType = recordType
-	builder.recordTypeFlag = true
+	builder.recordTypeSet = true
 	return builder
 }
 
 func (builder *QuerySocialArchiveAdjustRecordPathReqBodyBuilder) Build() (*QuerySocialArchiveAdjustRecordReqBody, error) {
 	req := &QuerySocialArchiveAdjustRecordReqBody{}
-	if builder.userIdListFlag {
+	if builder.userIdListSet {
 		req.UserIdList = builder.userIdList
 	}
-	if builder.recordTypeFlag {
+	if builder.recordTypeSet {
 		req.RecordType = &builder.recordType
 	}
 	return req, nil
@@ -11223,11 +11356,11 @@ func (resp *ListSocialPlanResp) Success() bool {
 }
 
 type QuerySocialPlanReqBodyBuilder struct {
-	planIds     []string // 参保方案ID列表，最大200
-	planIdsFlag bool
+	planIds    []string // 参保方案ID列表，最大200
+	planIdsSet bool
 
-	effectiveDate     string // 生效日期，查询在该日期生效的参保方案数据
-	effectiveDateFlag bool
+	effectiveDate    string // 生效日期，查询在该日期生效的参保方案数据
+	effectiveDateSet bool
 }
 
 func NewQuerySocialPlanReqBodyBuilder() *QuerySocialPlanReqBodyBuilder {
@@ -11237,38 +11370,38 @@ func NewQuerySocialPlanReqBodyBuilder() *QuerySocialPlanReqBodyBuilder {
 
 // 参保方案ID列表，最大200
 //
-// 示例值：
+//示例值：
 func (builder *QuerySocialPlanReqBodyBuilder) PlanIds(planIds []string) *QuerySocialPlanReqBodyBuilder {
 	builder.planIds = planIds
-	builder.planIdsFlag = true
+	builder.planIdsSet = true
 	return builder
 }
 
 // 生效日期，查询在该日期生效的参保方案数据
 //
-// 示例值：2024-01-01
+//示例值：2024-01-01
 func (builder *QuerySocialPlanReqBodyBuilder) EffectiveDate(effectiveDate string) *QuerySocialPlanReqBodyBuilder {
 	builder.effectiveDate = effectiveDate
-	builder.effectiveDateFlag = true
+	builder.effectiveDateSet = true
 	return builder
 }
 
 func (builder *QuerySocialPlanReqBodyBuilder) Build() *QuerySocialPlanReqBody {
 	req := &QuerySocialPlanReqBody{}
-	if builder.planIdsFlag {
+	if builder.planIdsSet {
 		req.PlanIds = builder.planIds
 	}
-	if builder.effectiveDateFlag {
+	if builder.effectiveDateSet {
 		req.EffectiveDate = &builder.effectiveDate
 	}
 	return req
 }
 
 type QuerySocialPlanPathReqBodyBuilder struct {
-	planIds           []string
-	planIdsFlag       bool
-	effectiveDate     string
-	effectiveDateFlag bool
+	planIds          []string
+	planIdsSet       bool
+	effectiveDate    string
+	effectiveDateSet bool
 }
 
 func NewQuerySocialPlanPathReqBodyBuilder() *QuerySocialPlanPathReqBodyBuilder {
@@ -11281,7 +11414,7 @@ func NewQuerySocialPlanPathReqBodyBuilder() *QuerySocialPlanPathReqBodyBuilder {
 // 示例值：
 func (builder *QuerySocialPlanPathReqBodyBuilder) PlanIds(planIds []string) *QuerySocialPlanPathReqBodyBuilder {
 	builder.planIds = planIds
-	builder.planIdsFlag = true
+	builder.planIdsSet = true
 	return builder
 }
 
@@ -11290,16 +11423,16 @@ func (builder *QuerySocialPlanPathReqBodyBuilder) PlanIds(planIds []string) *Que
 // 示例值：2024-01-01
 func (builder *QuerySocialPlanPathReqBodyBuilder) EffectiveDate(effectiveDate string) *QuerySocialPlanPathReqBodyBuilder {
 	builder.effectiveDate = effectiveDate
-	builder.effectiveDateFlag = true
+	builder.effectiveDateSet = true
 	return builder
 }
 
 func (builder *QuerySocialPlanPathReqBodyBuilder) Build() (*QuerySocialPlanReqBody, error) {
 	req := &QuerySocialPlanReqBody{}
-	if builder.planIdsFlag {
+	if builder.planIdsSet {
 		req.PlanIds = builder.planIds
 	}
-	if builder.effectiveDateFlag {
+	if builder.effectiveDateSet {
 		req.EffectiveDate = &builder.effectiveDate
 	}
 	return req, nil

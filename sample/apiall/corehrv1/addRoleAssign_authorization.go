@@ -31,7 +31,7 @@ func main() {
 		UserIdType("people_corehr_id").
 		RoleId("67489937334909845").
 		Body(larkcorehr.NewAddRoleAssignAuthorizationReqBodyBuilder().
-			AssignedOrganizationItems([][]*larkcorehr.AssignedOrganizationWithCode{}).
+			AssignedOrganizationItems([]list{}).
 			Build()).
 		Build()
 	// 发起请求

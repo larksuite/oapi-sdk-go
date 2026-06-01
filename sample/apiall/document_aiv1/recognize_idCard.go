@@ -35,6 +35,7 @@ func main() {
 	req := larkdocument_ai.NewRecognizeIdCardReqBuilder().
 		Body(larkdocument_ai.NewRecognizeIdCardReqBodyBuilder().
 			File(file).
+			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

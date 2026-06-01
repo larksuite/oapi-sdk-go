@@ -24,11 +24,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -36,27 +36,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -72,14 +76,14 @@ type FileConfig struct {
 }
 
 type FileConfigBuilder struct {
-	fileId     string // 仅包含字母数字和下划线的 16 位字符串作为文件的标识，用户生成
-	fileIdFlag bool
+	fileId    string // 仅包含字母数字和下划线的 16 位字符串作为文件的标识，用户生成
+	fileIdSet bool
 
-	format     string // 语音格式，目前仅支持：pcm
-	formatFlag bool
+	format    string // 语音格式，目前仅支持：pcm
+	formatSet bool
 
-	engineType     string // 引擎类型，目前仅支持：16k_auto 中英混合
-	engineTypeFlag bool
+	engineType    string // 引擎类型，目前仅支持：16k_auto 中英混合
+	engineTypeSet bool
 }
 
 func NewFileConfigBuilder() *FileConfigBuilder {
@@ -92,7 +96,7 @@ func NewFileConfigBuilder() *FileConfigBuilder {
 // 示例值：qwe12dd34567890w
 func (builder *FileConfigBuilder) FileId(fileId string) *FileConfigBuilder {
 	builder.fileId = fileId
-	builder.fileIdFlag = true
+	builder.fileIdSet = true
 	return builder
 }
 
@@ -101,7 +105,7 @@ func (builder *FileConfigBuilder) FileId(fileId string) *FileConfigBuilder {
 // 示例值：pcm
 func (builder *FileConfigBuilder) Format(format string) *FileConfigBuilder {
 	builder.format = format
-	builder.formatFlag = true
+	builder.formatSet = true
 	return builder
 }
 
@@ -110,21 +114,21 @@ func (builder *FileConfigBuilder) Format(format string) *FileConfigBuilder {
 // 示例值：16k_auto
 func (builder *FileConfigBuilder) EngineType(engineType string) *FileConfigBuilder {
 	builder.engineType = engineType
-	builder.engineTypeFlag = true
+	builder.engineTypeSet = true
 	return builder
 }
 
 func (builder *FileConfigBuilder) Build() *FileConfig {
 	req := &FileConfig{}
-	if builder.fileIdFlag {
+	if builder.fileIdSet {
 		req.FileId = &builder.fileId
 
 	}
-	if builder.formatFlag {
+	if builder.formatSet {
 		req.Format = &builder.format
 
 	}
-	if builder.engineTypeFlag {
+	if builder.engineTypeSet {
 		req.EngineType = &builder.engineType
 
 	}
@@ -138,11 +142,11 @@ type Speech struct {
 }
 
 type SpeechBuilder struct {
-	speech     string // pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容
-	speechFlag bool
+	speech    string // pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容
+	speechSet bool
 
-	speechKey     string // 上传到 drive 存储平台后获取到的 key （暂不支持）
-	speechKeyFlag bool
+	speechKey    string // 上传到 drive 存储平台后获取到的 key （暂不支持）
+	speechKeySet bool
 }
 
 func NewSpeechBuilder() *SpeechBuilder {
@@ -155,7 +159,7 @@ func NewSpeechBuilder() *SpeechBuilder {
 // 示例值：PdmrfE267Cd/Z9KpmNFh71A2PSJZxSp7+8upCg==
 func (builder *SpeechBuilder) Speech(speech string) *SpeechBuilder {
 	builder.speech = speech
-	builder.speechFlag = true
+	builder.speechSet = true
 	return builder
 }
 
@@ -164,17 +168,17 @@ func (builder *SpeechBuilder) Speech(speech string) *SpeechBuilder {
 // 示例值：
 func (builder *SpeechBuilder) SpeechKey(speechKey string) *SpeechBuilder {
 	builder.speechKey = speechKey
-	builder.speechKeyFlag = true
+	builder.speechKeySet = true
 	return builder
 }
 
 func (builder *SpeechBuilder) Build() *Speech {
 	req := &Speech{}
-	if builder.speechFlag {
+	if builder.speechSet {
 		req.Speech = &builder.speech
 
 	}
-	if builder.speechKeyFlag {
+	if builder.speechKeySet {
 		req.SpeechKey = &builder.speechKey
 
 	}
@@ -194,20 +198,20 @@ type StreamConfig struct {
 }
 
 type StreamConfigBuilder struct {
-	streamId     string // 仅包含字母数字和下划线的 16 位字符串作为同一数据流的标识，用户生成
-	streamIdFlag bool
+	streamId    string // 仅包含字母数字和下划线的 16 位字符串作为同一数据流的标识，用户生成
+	streamIdSet bool
 
-	sequenceId     int // 数据流分片的序号，序号从 0 开始，每次请求递增 1
-	sequenceIdFlag bool
+	sequenceId    int // 数据流分片的序号，序号从 0 开始，每次请求递增 1
+	sequenceIdSet bool
 
-	action     int // 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果
-	actionFlag bool
+	action    int // 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果
+	actionSet bool
 
-	format     string // 语音格式，目前仅支持：pcm
-	formatFlag bool
+	format    string // 语音格式，目前仅支持：pcm
+	formatSet bool
 
-	engineType     string // 引擎类型，目前仅支持：16k_auto 中英混合
-	engineTypeFlag bool
+	engineType    string // 引擎类型，目前仅支持：16k_auto 中英混合
+	engineTypeSet bool
 }
 
 func NewStreamConfigBuilder() *StreamConfigBuilder {
@@ -220,7 +224,7 @@ func NewStreamConfigBuilder() *StreamConfigBuilder {
 // 示例值：asd1234567890ddd
 func (builder *StreamConfigBuilder) StreamId(streamId string) *StreamConfigBuilder {
 	builder.streamId = streamId
-	builder.streamIdFlag = true
+	builder.streamIdSet = true
 	return builder
 }
 
@@ -229,7 +233,7 @@ func (builder *StreamConfigBuilder) StreamId(streamId string) *StreamConfigBuild
 // 示例值：1
 func (builder *StreamConfigBuilder) SequenceId(sequenceId int) *StreamConfigBuilder {
 	builder.sequenceId = sequenceId
-	builder.sequenceIdFlag = true
+	builder.sequenceIdSet = true
 	return builder
 }
 
@@ -238,7 +242,7 @@ func (builder *StreamConfigBuilder) SequenceId(sequenceId int) *StreamConfigBuil
 // 示例值：1
 func (builder *StreamConfigBuilder) Action(action int) *StreamConfigBuilder {
 	builder.action = action
-	builder.actionFlag = true
+	builder.actionSet = true
 	return builder
 }
 
@@ -247,7 +251,7 @@ func (builder *StreamConfigBuilder) Action(action int) *StreamConfigBuilder {
 // 示例值：pcm
 func (builder *StreamConfigBuilder) Format(format string) *StreamConfigBuilder {
 	builder.format = format
-	builder.formatFlag = true
+	builder.formatSet = true
 	return builder
 }
 
@@ -256,29 +260,29 @@ func (builder *StreamConfigBuilder) Format(format string) *StreamConfigBuilder {
 // 示例值：16k_auto
 func (builder *StreamConfigBuilder) EngineType(engineType string) *StreamConfigBuilder {
 	builder.engineType = engineType
-	builder.engineTypeFlag = true
+	builder.engineTypeSet = true
 	return builder
 }
 
 func (builder *StreamConfigBuilder) Build() *StreamConfig {
 	req := &StreamConfig{}
-	if builder.streamIdFlag {
+	if builder.streamIdSet {
 		req.StreamId = &builder.streamId
 
 	}
-	if builder.sequenceIdFlag {
+	if builder.sequenceIdSet {
 		req.SequenceId = &builder.sequenceId
 
 	}
-	if builder.actionFlag {
+	if builder.actionSet {
 		req.Action = &builder.action
 
 	}
-	if builder.formatFlag {
+	if builder.formatSet {
 		req.Format = &builder.format
 
 	}
-	if builder.engineTypeFlag {
+	if builder.engineTypeSet {
 		req.EngineType = &builder.engineType
 
 	}
@@ -286,11 +290,11 @@ func (builder *StreamConfigBuilder) Build() *StreamConfig {
 }
 
 type FileRecognizeSpeechReqBodyBuilder struct {
-	speech     *Speech // 语音资源
-	speechFlag bool
+	speech    *Speech // 语音资源
+	speechSet bool
 
-	config     *FileConfig // 配置属性
-	configFlag bool
+	config    *FileConfig // 配置属性
+	configSet bool
 }
 
 func NewFileRecognizeSpeechReqBodyBuilder() *FileRecognizeSpeechReqBodyBuilder {
@@ -300,38 +304,38 @@ func NewFileRecognizeSpeechReqBodyBuilder() *FileRecognizeSpeechReqBodyBuilder {
 
 // 语音资源
 //
-// 示例值：
+//示例值：
 func (builder *FileRecognizeSpeechReqBodyBuilder) Speech(speech *Speech) *FileRecognizeSpeechReqBodyBuilder {
 	builder.speech = speech
-	builder.speechFlag = true
+	builder.speechSet = true
 	return builder
 }
 
 // 配置属性
 //
-// 示例值：
+//示例值：
 func (builder *FileRecognizeSpeechReqBodyBuilder) Config(config *FileConfig) *FileRecognizeSpeechReqBodyBuilder {
 	builder.config = config
-	builder.configFlag = true
+	builder.configSet = true
 	return builder
 }
 
 func (builder *FileRecognizeSpeechReqBodyBuilder) Build() *FileRecognizeSpeechReqBody {
 	req := &FileRecognizeSpeechReqBody{}
-	if builder.speechFlag {
+	if builder.speechSet {
 		req.Speech = builder.speech
 	}
-	if builder.configFlag {
+	if builder.configSet {
 		req.Config = builder.config
 	}
 	return req
 }
 
 type FileRecognizeSpeechPathReqBodyBuilder struct {
-	speech     *Speech
-	speechFlag bool
-	config     *FileConfig
-	configFlag bool
+	speech    *Speech
+	speechSet bool
+	config    *FileConfig
+	configSet bool
 }
 
 func NewFileRecognizeSpeechPathReqBodyBuilder() *FileRecognizeSpeechPathReqBodyBuilder {
@@ -344,7 +348,7 @@ func NewFileRecognizeSpeechPathReqBodyBuilder() *FileRecognizeSpeechPathReqBodyB
 // 示例值：
 func (builder *FileRecognizeSpeechPathReqBodyBuilder) Speech(speech *Speech) *FileRecognizeSpeechPathReqBodyBuilder {
 	builder.speech = speech
-	builder.speechFlag = true
+	builder.speechSet = true
 	return builder
 }
 
@@ -353,16 +357,16 @@ func (builder *FileRecognizeSpeechPathReqBodyBuilder) Speech(speech *Speech) *Fi
 // 示例值：
 func (builder *FileRecognizeSpeechPathReqBodyBuilder) Config(config *FileConfig) *FileRecognizeSpeechPathReqBodyBuilder {
 	builder.config = config
-	builder.configFlag = true
+	builder.configSet = true
 	return builder
 }
 
 func (builder *FileRecognizeSpeechPathReqBodyBuilder) Build() (*FileRecognizeSpeechReqBody, error) {
 	req := &FileRecognizeSpeechReqBody{}
-	if builder.speechFlag {
+	if builder.speechSet {
 		req.Speech = builder.speech
 	}
-	if builder.configFlag {
+	if builder.configSet {
 		req.Config = builder.config
 	}
 	return req, nil
@@ -421,11 +425,11 @@ func (resp *FileRecognizeSpeechResp) Success() bool {
 }
 
 type StreamRecognizeSpeechReqBodyBuilder struct {
-	speech     *Speech // 语音资源
-	speechFlag bool
+	speech    *Speech // 语音资源
+	speechSet bool
 
-	config     *StreamConfig // 配置属性
-	configFlag bool
+	config    *StreamConfig // 配置属性
+	configSet bool
 }
 
 func NewStreamRecognizeSpeechReqBodyBuilder() *StreamRecognizeSpeechReqBodyBuilder {
@@ -435,38 +439,38 @@ func NewStreamRecognizeSpeechReqBodyBuilder() *StreamRecognizeSpeechReqBodyBuild
 
 // 语音资源
 //
-// 示例值：
+//示例值：
 func (builder *StreamRecognizeSpeechReqBodyBuilder) Speech(speech *Speech) *StreamRecognizeSpeechReqBodyBuilder {
 	builder.speech = speech
-	builder.speechFlag = true
+	builder.speechSet = true
 	return builder
 }
 
 // 配置属性
 //
-// 示例值：
+//示例值：
 func (builder *StreamRecognizeSpeechReqBodyBuilder) Config(config *StreamConfig) *StreamRecognizeSpeechReqBodyBuilder {
 	builder.config = config
-	builder.configFlag = true
+	builder.configSet = true
 	return builder
 }
 
 func (builder *StreamRecognizeSpeechReqBodyBuilder) Build() *StreamRecognizeSpeechReqBody {
 	req := &StreamRecognizeSpeechReqBody{}
-	if builder.speechFlag {
+	if builder.speechSet {
 		req.Speech = builder.speech
 	}
-	if builder.configFlag {
+	if builder.configSet {
 		req.Config = builder.config
 	}
 	return req
 }
 
 type StreamRecognizeSpeechPathReqBodyBuilder struct {
-	speech     *Speech
-	speechFlag bool
-	config     *StreamConfig
-	configFlag bool
+	speech    *Speech
+	speechSet bool
+	config    *StreamConfig
+	configSet bool
 }
 
 func NewStreamRecognizeSpeechPathReqBodyBuilder() *StreamRecognizeSpeechPathReqBodyBuilder {
@@ -479,7 +483,7 @@ func NewStreamRecognizeSpeechPathReqBodyBuilder() *StreamRecognizeSpeechPathReqB
 // 示例值：
 func (builder *StreamRecognizeSpeechPathReqBodyBuilder) Speech(speech *Speech) *StreamRecognizeSpeechPathReqBodyBuilder {
 	builder.speech = speech
-	builder.speechFlag = true
+	builder.speechSet = true
 	return builder
 }
 
@@ -488,16 +492,16 @@ func (builder *StreamRecognizeSpeechPathReqBodyBuilder) Speech(speech *Speech) *
 // 示例值：
 func (builder *StreamRecognizeSpeechPathReqBodyBuilder) Config(config *StreamConfig) *StreamRecognizeSpeechPathReqBodyBuilder {
 	builder.config = config
-	builder.configFlag = true
+	builder.configSet = true
 	return builder
 }
 
 func (builder *StreamRecognizeSpeechPathReqBodyBuilder) Build() (*StreamRecognizeSpeechReqBody, error) {
 	req := &StreamRecognizeSpeechReqBody{}
-	if builder.speechFlag {
+	if builder.speechSet {
 		req.Speech = builder.speech
 	}
-	if builder.configFlag {
+	if builder.configSet {
 		req.Config = builder.config
 	}
 	return req, nil

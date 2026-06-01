@@ -26,11 +26,11 @@ type AccessData struct {
 }
 
 type AccessDataBuilder struct {
-	pv     int // 访问次数
-	pvFlag bool
+	pv    int // 访问次数
+	pvSet bool
 
-	uv     int // 访问用户数(去重)
-	uvFlag bool
+	uv    int // 访问用户数(去重)
+	uvSet bool
 }
 
 func NewAccessDataBuilder() *AccessDataBuilder {
@@ -43,7 +43,7 @@ func NewAccessDataBuilder() *AccessDataBuilder {
 // 示例值：100
 func (builder *AccessDataBuilder) Pv(pv int) *AccessDataBuilder {
 	builder.pv = pv
-	builder.pvFlag = true
+	builder.pvSet = true
 	return builder
 }
 
@@ -52,17 +52,17 @@ func (builder *AccessDataBuilder) Pv(pv int) *AccessDataBuilder {
 // 示例值：30
 func (builder *AccessDataBuilder) Uv(uv int) *AccessDataBuilder {
 	builder.uv = uv
-	builder.uvFlag = true
+	builder.uvSet = true
 	return builder
 }
 
 func (builder *AccessDataBuilder) Build() *AccessData {
 	req := &AccessData{}
-	if builder.pvFlag {
+	if builder.pvSet {
 		req.Pv = &builder.pv
 
 	}
-	if builder.uvFlag {
+	if builder.uvSet {
 		req.Uv = &builder.uv
 
 	}
@@ -78,14 +78,14 @@ type BlockAccessData struct {
 }
 
 type BlockAccessDataBuilder struct {
-	date     string // 时间,精确到天,格式yyyy-MM-dd
-	dateFlag bool
+	date    string // 时间,精确到天,格式yyyy-MM-dd
+	dateSet bool
 
-	blockId     string // 小组件id
-	blockIdFlag bool
+	blockId    string // 小组件id
+	blockIdSet bool
 
-	accessData     *AccessData // block访问数据信息。
-	accessDataFlag bool
+	accessData    *AccessData // block访问数据信息。
+	accessDataSet bool
 }
 
 func NewBlockAccessDataBuilder() *BlockAccessDataBuilder {
@@ -98,7 +98,7 @@ func NewBlockAccessDataBuilder() *BlockAccessDataBuilder {
 // 示例值：2023-03-12
 func (builder *BlockAccessDataBuilder) Date(date string) *BlockAccessDataBuilder {
 	builder.date = date
-	builder.dateFlag = true
+	builder.dateSet = true
 	return builder
 }
 
@@ -107,7 +107,7 @@ func (builder *BlockAccessDataBuilder) Date(date string) *BlockAccessDataBuilder
 // 示例值：283438293839422334
 func (builder *BlockAccessDataBuilder) BlockId(blockId string) *BlockAccessDataBuilder {
 	builder.blockId = blockId
-	builder.blockIdFlag = true
+	builder.blockIdSet = true
 	return builder
 }
 
@@ -116,21 +116,21 @@ func (builder *BlockAccessDataBuilder) BlockId(blockId string) *BlockAccessDataB
 // 示例值：
 func (builder *BlockAccessDataBuilder) AccessData(accessData *AccessData) *BlockAccessDataBuilder {
 	builder.accessData = accessData
-	builder.accessDataFlag = true
+	builder.accessDataSet = true
 	return builder
 }
 
 func (builder *BlockAccessDataBuilder) Build() *BlockAccessData {
 	req := &BlockAccessData{}
-	if builder.dateFlag {
+	if builder.dateSet {
 		req.Date = &builder.date
 
 	}
-	if builder.blockIdFlag {
+	if builder.blockIdSet {
 		req.BlockId = &builder.blockId
 
 	}
-	if builder.accessDataFlag {
+	if builder.accessDataSet {
 		req.AccessData = builder.accessData
 	}
 	return req
@@ -147,17 +147,17 @@ type CustomWorkplaceAccessData struct {
 }
 
 type CustomWorkplaceAccessDataBuilder struct {
-	customWorkplaceId     string // 定制工作台ID
-	customWorkplaceIdFlag bool
+	customWorkplaceId    string // 定制工作台ID
+	customWorkplaceIdSet bool
 
-	accessData     *AccessData // 访问数据
-	accessDataFlag bool
+	accessData    *AccessData // 访问数据
+	accessDataSet bool
 
-	date     string // 时间,精确到天,格式yyyy-MM-dd
-	dateFlag bool
+	date    string // 时间,精确到天,格式yyyy-MM-dd
+	dateSet bool
 
-	customWorkplaceName     []*I18nName // 定制工作台多语言名字。
-	customWorkplaceNameFlag bool
+	customWorkplaceName    []*I18nName // 定制工作台多语言名字。
+	customWorkplaceNameSet bool
 }
 
 func NewCustomWorkplaceAccessDataBuilder() *CustomWorkplaceAccessDataBuilder {
@@ -170,7 +170,7 @@ func NewCustomWorkplaceAccessDataBuilder() *CustomWorkplaceAccessDataBuilder {
 // 示例值：tpl_645b003aaa40001435b2ddw
 func (builder *CustomWorkplaceAccessDataBuilder) CustomWorkplaceId(customWorkplaceId string) *CustomWorkplaceAccessDataBuilder {
 	builder.customWorkplaceId = customWorkplaceId
-	builder.customWorkplaceIdFlag = true
+	builder.customWorkplaceIdSet = true
 	return builder
 }
 
@@ -179,7 +179,7 @@ func (builder *CustomWorkplaceAccessDataBuilder) CustomWorkplaceId(customWorkpla
 // 示例值：
 func (builder *CustomWorkplaceAccessDataBuilder) AccessData(accessData *AccessData) *CustomWorkplaceAccessDataBuilder {
 	builder.accessData = accessData
-	builder.accessDataFlag = true
+	builder.accessDataSet = true
 	return builder
 }
 
@@ -188,7 +188,7 @@ func (builder *CustomWorkplaceAccessDataBuilder) AccessData(accessData *AccessDa
 // 示例值：2023-03-12
 func (builder *CustomWorkplaceAccessDataBuilder) Date(date string) *CustomWorkplaceAccessDataBuilder {
 	builder.date = date
-	builder.dateFlag = true
+	builder.dateSet = true
 	return builder
 }
 
@@ -197,24 +197,24 @@ func (builder *CustomWorkplaceAccessDataBuilder) Date(date string) *CustomWorkpl
 // 示例值：
 func (builder *CustomWorkplaceAccessDataBuilder) CustomWorkplaceName(customWorkplaceName []*I18nName) *CustomWorkplaceAccessDataBuilder {
 	builder.customWorkplaceName = customWorkplaceName
-	builder.customWorkplaceNameFlag = true
+	builder.customWorkplaceNameSet = true
 	return builder
 }
 
 func (builder *CustomWorkplaceAccessDataBuilder) Build() *CustomWorkplaceAccessData {
 	req := &CustomWorkplaceAccessData{}
-	if builder.customWorkplaceIdFlag {
+	if builder.customWorkplaceIdSet {
 		req.CustomWorkplaceId = &builder.customWorkplaceId
 
 	}
-	if builder.accessDataFlag {
+	if builder.accessDataSet {
 		req.AccessData = builder.accessData
 	}
-	if builder.dateFlag {
+	if builder.dateSet {
 		req.Date = &builder.date
 
 	}
-	if builder.customWorkplaceNameFlag {
+	if builder.customWorkplaceNameSet {
 		req.CustomWorkplaceName = builder.customWorkplaceName
 	}
 	return req
@@ -227,11 +227,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -239,27 +239,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -273,11 +277,11 @@ type I18nName struct {
 }
 
 type I18nNameBuilder struct {
-	language     string // ISO 639-1的语言代码。比如zh表示中文。
-	languageFlag bool
+	language    string // ISO 639-1的语言代码。比如zh表示中文。
+	languageSet bool
 
-	name     string // 名字
-	nameFlag bool
+	name    string // 名字
+	nameSet bool
 }
 
 func NewI18nNameBuilder() *I18nNameBuilder {
@@ -290,7 +294,7 @@ func NewI18nNameBuilder() *I18nNameBuilder {
 // 示例值：zh
 func (builder *I18nNameBuilder) Language(language string) *I18nNameBuilder {
 	builder.language = language
-	builder.languageFlag = true
+	builder.languageSet = true
 	return builder
 }
 
@@ -299,17 +303,17 @@ func (builder *I18nNameBuilder) Language(language string) *I18nNameBuilder {
 // 示例值：名字
 func (builder *I18nNameBuilder) Name(name string) *I18nNameBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *I18nNameBuilder) Build() *I18nName {
 	req := &I18nName{}
-	if builder.languageFlag {
+	if builder.languageSet {
 		req.Language = &builder.language
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
@@ -323,11 +327,11 @@ type Rule struct {
 }
 
 type RuleBuilder struct {
-	isAllVisible     bool // 是否全员接收通知
-	isAllVisibleFlag bool
+	isAllVisible    bool // 是否全员接收通知
+	isAllVisibleSet bool
 
-	visibleDepartmentIds     []string // 可接收通知的部门id列表，上限为500个
-	visibleDepartmentIdsFlag bool
+	visibleDepartmentIds    []string // 可接收通知的部门id列表，上限为500个
+	visibleDepartmentIdsSet bool
 }
 
 func NewRuleBuilder() *RuleBuilder {
@@ -340,7 +344,7 @@ func NewRuleBuilder() *RuleBuilder {
 // 示例值：false
 func (builder *RuleBuilder) IsAllVisible(isAllVisible bool) *RuleBuilder {
 	builder.isAllVisible = isAllVisible
-	builder.isAllVisibleFlag = true
+	builder.isAllVisibleSet = true
 	return builder
 }
 
@@ -349,17 +353,17 @@ func (builder *RuleBuilder) IsAllVisible(isAllVisible bool) *RuleBuilder {
 // 示例值：["a3ed9ece96ff2b1a","a3ed9ece96ff2b1b"]
 func (builder *RuleBuilder) VisibleDepartmentIds(visibleDepartmentIds []string) *RuleBuilder {
 	builder.visibleDepartmentIds = visibleDepartmentIds
-	builder.visibleDepartmentIdsFlag = true
+	builder.visibleDepartmentIdsSet = true
 	return builder
 }
 
 func (builder *RuleBuilder) Build() *Rule {
 	req := &Rule{}
-	if builder.isAllVisibleFlag {
+	if builder.isAllVisibleSet {
 		req.IsAllVisible = &builder.isAllVisible
 
 	}
-	if builder.visibleDepartmentIdsFlag {
+	if builder.visibleDepartmentIdsSet {
 		req.VisibleDepartmentIds = builder.visibleDepartmentIds
 	}
 	return req
@@ -372,11 +376,11 @@ type TemplateWorkplaceAccessData struct {
 }
 
 type TemplateWorkplaceAccessDataBuilder struct {
-	tplId     string // 定制工作台ID
-	tplIdFlag bool
+	tplId    string // 定制工作台ID
+	tplIdSet bool
 
-	accessData     *AccessData // 访问数据
-	accessDataFlag bool
+	accessData    *AccessData // 访问数据
+	accessDataSet bool
 }
 
 func NewTemplateWorkplaceAccessDataBuilder() *TemplateWorkplaceAccessDataBuilder {
@@ -389,7 +393,7 @@ func NewTemplateWorkplaceAccessDataBuilder() *TemplateWorkplaceAccessDataBuilder
 // 示例值：tpl_645b003aaa40001435b2ddw
 func (builder *TemplateWorkplaceAccessDataBuilder) TplId(tplId string) *TemplateWorkplaceAccessDataBuilder {
 	builder.tplId = tplId
-	builder.tplIdFlag = true
+	builder.tplIdSet = true
 	return builder
 }
 
@@ -398,17 +402,17 @@ func (builder *TemplateWorkplaceAccessDataBuilder) TplId(tplId string) *Template
 // 示例值：
 func (builder *TemplateWorkplaceAccessDataBuilder) AccessData(accessData *AccessData) *TemplateWorkplaceAccessDataBuilder {
 	builder.accessData = accessData
-	builder.accessDataFlag = true
+	builder.accessDataSet = true
 	return builder
 }
 
 func (builder *TemplateWorkplaceAccessDataBuilder) Build() *TemplateWorkplaceAccessData {
 	req := &TemplateWorkplaceAccessData{}
-	if builder.tplIdFlag {
+	if builder.tplIdSet {
 		req.TplId = &builder.tplId
 
 	}
-	if builder.accessDataFlag {
+	if builder.accessDataSet {
 		req.AccessData = builder.accessData
 	}
 	return req
@@ -423,14 +427,14 @@ type WorkplaceAccessData struct {
 }
 
 type WorkplaceAccessDataBuilder struct {
-	date     string // 时间,精确到天,格式yyyy-MM-dd
-	dateFlag bool
+	date    string // 时间,精确到天,格式yyyy-MM-dd
+	dateSet bool
 
-	allWorkplace     *AccessData // 全部工作台的访问数据
-	allWorkplaceFlag bool
+	allWorkplace    *AccessData // 全部工作台的访问数据
+	allWorkplaceSet bool
 
-	defaultWorkplace     *AccessData // 默认工作台的访问数据
-	defaultWorkplaceFlag bool
+	defaultWorkplace    *AccessData // 默认工作台的访问数据
+	defaultWorkplaceSet bool
 }
 
 func NewWorkplaceAccessDataBuilder() *WorkplaceAccessDataBuilder {
@@ -443,7 +447,7 @@ func NewWorkplaceAccessDataBuilder() *WorkplaceAccessDataBuilder {
 // 示例值：2023-03-12
 func (builder *WorkplaceAccessDataBuilder) Date(date string) *WorkplaceAccessDataBuilder {
 	builder.date = date
-	builder.dateFlag = true
+	builder.dateSet = true
 	return builder
 }
 
@@ -452,7 +456,7 @@ func (builder *WorkplaceAccessDataBuilder) Date(date string) *WorkplaceAccessDat
 // 示例值：20
 func (builder *WorkplaceAccessDataBuilder) AllWorkplace(allWorkplace *AccessData) *WorkplaceAccessDataBuilder {
 	builder.allWorkplace = allWorkplace
-	builder.allWorkplaceFlag = true
+	builder.allWorkplaceSet = true
 	return builder
 }
 
@@ -461,20 +465,20 @@ func (builder *WorkplaceAccessDataBuilder) AllWorkplace(allWorkplace *AccessData
 // 示例值：10
 func (builder *WorkplaceAccessDataBuilder) DefaultWorkplace(defaultWorkplace *AccessData) *WorkplaceAccessDataBuilder {
 	builder.defaultWorkplace = defaultWorkplace
-	builder.defaultWorkplaceFlag = true
+	builder.defaultWorkplaceSet = true
 	return builder
 }
 
 func (builder *WorkplaceAccessDataBuilder) Build() *WorkplaceAccessData {
 	req := &WorkplaceAccessData{}
-	if builder.dateFlag {
+	if builder.dateSet {
 		req.Date = &builder.date
 
 	}
-	if builder.allWorkplaceFlag {
+	if builder.allWorkplaceSet {
 		req.AllWorkplace = builder.allWorkplace
 	}
-	if builder.defaultWorkplaceFlag {
+	if builder.defaultWorkplaceSet {
 		req.DefaultWorkplace = builder.defaultWorkplace
 	}
 	return req
@@ -491,17 +495,17 @@ type WorkplaceTenantNotification struct {
 }
 
 type WorkplaceTenantNotificationBuilder struct {
-	notificationId     string // 通知id
-	notificationIdFlag bool
+	notificationId    string // 通知id
+	notificationIdSet bool
 
-	content     string // 通知内容 json 格式
-	contentFlag bool
+	content    string // 通知内容 json 格式
+	contentSet bool
 
-	expireTime     string // 自动过期删除的时间戳(秒)
-	expireTimeFlag bool
+	expireTime    string // 自动过期删除的时间戳(秒)
+	expireTimeSet bool
 
-	rule     *Rule // 配置可接收到通知的规则
-	ruleFlag bool
+	rule    *Rule // 配置可接收到通知的规则
+	ruleSet bool
 }
 
 func NewWorkplaceTenantNotificationBuilder() *WorkplaceTenantNotificationBuilder {
@@ -514,7 +518,7 @@ func NewWorkplaceTenantNotificationBuilder() *WorkplaceTenantNotificationBuilder
 // 示例值：own_xxxxxxxxxxxxxxxx
 func (builder *WorkplaceTenantNotificationBuilder) NotificationId(notificationId string) *WorkplaceTenantNotificationBuilder {
 	builder.notificationId = notificationId
-	builder.notificationIdFlag = true
+	builder.notificationIdSet = true
 	return builder
 }
 
@@ -523,7 +527,7 @@ func (builder *WorkplaceTenantNotificationBuilder) NotificationId(notificationId
 // 示例值：{\"pc_notification\":{\"config\":{\"width\":500,\"height\":500},\"i18n_elements\":{\"zh_cn\":[{\"tag\":\"img\",\"url\":\"https://www.feishu.cn\",\"img_key\":\"test\"}]}}}
 func (builder *WorkplaceTenantNotificationBuilder) Content(content string) *WorkplaceTenantNotificationBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -532,7 +536,7 @@ func (builder *WorkplaceTenantNotificationBuilder) Content(content string) *Work
 // 示例值：1739717852
 func (builder *WorkplaceTenantNotificationBuilder) ExpireTime(expireTime string) *WorkplaceTenantNotificationBuilder {
 	builder.expireTime = expireTime
-	builder.expireTimeFlag = true
+	builder.expireTimeSet = true
 	return builder
 }
 
@@ -541,25 +545,25 @@ func (builder *WorkplaceTenantNotificationBuilder) ExpireTime(expireTime string)
 // 示例值：
 func (builder *WorkplaceTenantNotificationBuilder) Rule(rule *Rule) *WorkplaceTenantNotificationBuilder {
 	builder.rule = rule
-	builder.ruleFlag = true
+	builder.ruleSet = true
 	return builder
 }
 
 func (builder *WorkplaceTenantNotificationBuilder) Build() *WorkplaceTenantNotification {
 	req := &WorkplaceTenantNotification{}
-	if builder.notificationIdFlag {
+	if builder.notificationIdSet {
 		req.NotificationId = &builder.notificationId
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.expireTimeFlag {
+	if builder.expireTimeSet {
 		req.ExpireTime = &builder.expireTime
 
 	}
-	if builder.ruleFlag {
+	if builder.ruleSet {
 		req.Rule = builder.rule
 	}
 	return req
@@ -574,14 +578,14 @@ type WorkplaceUserNotification struct {
 }
 
 type WorkplaceUserNotificationBuilder struct {
-	notificationId     string // 通知 id
-	notificationIdFlag bool
+	notificationId    string // 通知 id
+	notificationIdSet bool
 
-	content     string // 通知内容 json 格式
-	contentFlag bool
+	content    string // 通知内容 json 格式
+	contentSet bool
 
-	expireTime     string // 自动过期删除的时间戳(秒)
-	expireTimeFlag bool
+	expireTime    string // 自动过期删除的时间戳(秒)
+	expireTimeSet bool
 }
 
 func NewWorkplaceUserNotificationBuilder() *WorkplaceUserNotificationBuilder {
@@ -594,7 +598,7 @@ func NewWorkplaceUserNotificationBuilder() *WorkplaceUserNotificationBuilder {
 // 示例值：own_xxxxxxxxxxxxxxxx
 func (builder *WorkplaceUserNotificationBuilder) NotificationId(notificationId string) *WorkplaceUserNotificationBuilder {
 	builder.notificationId = notificationId
-	builder.notificationIdFlag = true
+	builder.notificationIdSet = true
 	return builder
 }
 
@@ -603,7 +607,7 @@ func (builder *WorkplaceUserNotificationBuilder) NotificationId(notificationId s
 // 示例值：{\"pc_notification\":{\"config\":{\"width\":500,\"height\":500},\"i18n_elements\":{\"zh_cn\":[{\"tag\":\"img\",\"url\":\"https://www.feishu.cn\",\"img_key\":\"test\"}]}}}
 func (builder *WorkplaceUserNotificationBuilder) Content(content string) *WorkplaceUserNotificationBuilder {
 	builder.content = content
-	builder.contentFlag = true
+	builder.contentSet = true
 	return builder
 }
 
@@ -612,21 +616,21 @@ func (builder *WorkplaceUserNotificationBuilder) Content(content string) *Workpl
 // 示例值：1739717852
 func (builder *WorkplaceUserNotificationBuilder) ExpireTime(expireTime string) *WorkplaceUserNotificationBuilder {
 	builder.expireTime = expireTime
-	builder.expireTimeFlag = true
+	builder.expireTimeSet = true
 	return builder
 }
 
 func (builder *WorkplaceUserNotificationBuilder) Build() *WorkplaceUserNotification {
 	req := &WorkplaceUserNotification{}
-	if builder.notificationIdFlag {
+	if builder.notificationIdSet {
 		req.NotificationId = &builder.notificationId
 
 	}
-	if builder.contentFlag {
+	if builder.contentSet {
 		req.Content = &builder.content
 
 	}
-	if builder.expireTimeFlag {
+	if builder.expireTimeSet {
 		req.ExpireTime = &builder.expireTime
 
 	}

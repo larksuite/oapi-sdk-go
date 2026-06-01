@@ -32,6 +32,7 @@ func main() {
 		Completed(true).
 		Type("my_tasks").
 		UserIdType("open_id").
+		AgentTaskStatus(1).
 		Build()
 	// 发起请求
 	resp, err := client.Task.V2.Task.List(context.Background(), req)

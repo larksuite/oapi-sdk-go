@@ -39,7 +39,7 @@ func (i *interviewRecord) Get(ctx context.Context, req *GetInterviewRecordReq, o
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v2/interview_records/:interview_record_id"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, i.config, options...)
 	if err != nil {
 		return nil, err
@@ -65,7 +65,7 @@ func (i *interviewRecord) List(ctx context.Context, req *ListInterviewRecordReq,
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v2/interview_records"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, i.config, options...)
 	if err != nil {
 		return nil, err
@@ -99,7 +99,7 @@ func (t *talent) Get(ctx context.Context, req *GetTalentReq, options ...larkcore
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v2/talents/:talent_id"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
 	if err != nil {
 		return nil, err

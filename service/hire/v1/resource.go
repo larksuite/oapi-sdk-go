@@ -11,7 +11,7 @@ import (
 type V1 struct {
 	Advertisement                   *advertisement                   // advertisement
 	Agency                          *agency                          // 猎头（灰度租户可见）
-	Application                     *application                     // 投递
+	Application                     *application                     // 入职
 	ApplicationInterview            *applicationInterview            // application.interview
 	Attachment                      *attachment                      // 附件
 	BackgroundCheckOrder            *backgroundCheckOrder            // 背调 （灰度租户可见）
@@ -689,7 +689,7 @@ func (a *application) Get(ctx context.Context, req *GetApplicationReq, options .
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v1/applications/:application_id"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		return nil, err
@@ -1629,7 +1629,7 @@ func (e *evaluation) List(ctx context.Context, req *ListEvaluationReq, options .
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v1/evaluations"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
 	if err != nil {
 		return nil, err
@@ -1663,7 +1663,7 @@ func (e *evaluationTask) List(ctx context.Context, req *ListEvaluationTaskReq, o
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v1/evaluation_tasks"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
 	if err != nil {
 		return nil, err
@@ -2335,7 +2335,7 @@ func (i *interview) List(ctx context.Context, req *ListInterviewReq, options ...
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v1/interviews"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, i.config, options...)
 	if err != nil {
 		return nil, err
@@ -2541,7 +2541,7 @@ func (i *interviewTask) List(ctx context.Context, req *ListInterviewTaskReq, opt
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v1/interview_tasks"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, i.config, options...)
 	if err != nil {
 		return nil, err
@@ -2765,7 +2765,7 @@ func (j *job) GetDetail(ctx context.Context, req *GetDetailJobReq, options ...la
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v1/jobs/:job_id/get_detail"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, j.config, options...)
 	if err != nil {
 		return nil, err
@@ -2791,7 +2791,7 @@ func (j *job) List(ctx context.Context, req *ListJobReq, options ...larkcore.Req
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v1/jobs"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, j.config, options...)
 	if err != nil {
 		return nil, err

@@ -16,6 +16,7 @@ type V2 struct {
 	Section                      *section                      // section
 	Task                         *task                         // task
 	TaskSubtask                  *taskSubtask                  // task.subtask
+	TaskV2                       *taskV2                       // task_v2
 	Tasklist                     *tasklist                     // tasklist
 	TasklistActivitySubscription *tasklistActivitySubscription // tasklist.activity_subscription
 }
@@ -29,6 +30,7 @@ func New(config *larkcore.Config) *V2 {
 		Section:                      &section{config: config},
 		Task:                         &task{config: config},
 		TaskSubtask:                  &taskSubtask{config: config},
+		TaskV2:                       &taskV2{config: config},
 		Tasklist:                     &tasklist{config: config},
 		TasklistActivitySubscription: &tasklistActivitySubscription{config: config},
 	}
@@ -53,6 +55,9 @@ type task struct {
 	config *larkcore.Config
 }
 type taskSubtask struct {
+	config *larkcore.Config
+}
+type taskV2 struct {
 	config *larkcore.Config
 }
 type tasklist struct {
@@ -895,7 +900,7 @@ func (t *task) List(ctx context.Context, req *ListTaskReq, options ...larkcore.R
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/task/v2/tasks"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
 	if err != nil {
 		return nil, err
@@ -1047,6 +1052,32 @@ func (t *task) RemoveTasklist(ctx context.Context, req *RemoveTasklistTaskReq, o
 	return resp, err
 }
 
+// SetAncestorTask
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=set_ancestor_task&project=task&resource=task&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv2/setAncestorTask_task.go
+func (t *task) SetAncestorTask(ctx context.Context, req *SetAncestorTaskTaskReq, options ...larkcore.RequestOptionFunc) (*SetAncestorTaskTaskResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/task/v2/tasks/:task_guid/set_ancestor_task"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SetAncestorTaskTaskResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Tasklists
 //
 // -
@@ -1131,6 +1162,66 @@ func (t *taskSubtask) ListByIterator(ctx context.Context, req *ListTaskSubtaskRe
 		listFunc: t.List,
 		options:  options,
 		limit:    req.Limit}, nil
+}
+
+// ListRelatedTask
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list_related_task&project=task&resource=task_v2&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv2/listRelatedTask_taskV2.go
+func (t *taskV2) ListRelatedTask(ctx context.Context, req *ListRelatedTaskTaskV2Req, options ...larkcore.RequestOptionFunc) (*ListRelatedTaskTaskV2Resp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/task/v2/task_v2/list_related_task"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListRelatedTaskTaskV2Resp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (t *taskV2) ListRelatedTaskByIterator(ctx context.Context, req *ListRelatedTaskTaskV2Req, options ...larkcore.RequestOptionFunc) (*ListRelatedTaskTaskV2Iterator, error) {
+	return &ListRelatedTaskTaskV2Iterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: t.ListRelatedTask,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// TaskSubscription
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=task_subscription&project=task&resource=task_v2&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv2/taskSubscription_taskV2.go
+func (t *taskV2) TaskSubscription(ctx context.Context, req *TaskSubscriptionTaskV2Req, options ...larkcore.RequestOptionFunc) (*TaskSubscriptionTaskV2Resp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/task/v2/task_v2/task_subscription"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &TaskSubscriptionTaskV2Resp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
 }
 
 // AddMembers

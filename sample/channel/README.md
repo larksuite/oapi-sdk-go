@@ -72,31 +72,31 @@ go run sample/channel/main.go \
 
 向机器人发送以下指令，可以触发对应能力：
 
-| 指令 | 目的 | 预期 |
-| --- | --- | --- |
-| 普通文本 | 验证 `OnMessage` 与默认回显 | 输出 `TC-301` / `TC-312` 等日志 |
-| `/policy` | 查看当前策略 | 机器人回复当前策略 JSON |
-| `/policy dm_mode=disabled` | 禁用单聊 | 后续单聊消息触发 `TC-502` |
-| `/policy dm_mode=open` | 恢复单聊放行 | 单聊消息恢复正常处理 |
-| `/policy dm_mode=allowlist, dm_allowlist=ou_xxx|ou_yyy` | 配置单聊白名单 | 白名单内用户放行，其他用户触发 `TC-503` |
-| `/policy respond_all=false` | 禁止响应 `@all` | 群聊 `@all` 触发 `TC-505` |
-| `/policy respond_all=true` | 允许响应 `@all` | 群聊 `@all` 恢复正常处理 |
-| `/policy require_mention=true` | 群聊要求显式 @机器人 | 未提及时触发 `TC-504` |
-| `/policy require_mention=false` | 群聊不强制 @机器人 | 普通群消息可直接处理 |
-| `/policy group_allowlist=oc_xxx|oc_yyy` | 配置群白名单 | 非白名单群消息触发 `TC-501` |
-| `/policy group_allowlist=empty` | 清空群白名单 | 群白名单限制被移除 |
-| `/policy dm_allowlist=empty` | 清空单聊白名单 | 便于恢复或切换策略测试 |
-| `/stream` | 测试 Markdown 流式输出 | 看到逐步更新的消息，终端可观察流式日志 |
-| `/markdown` | 测试 Markdown 发送 | 成功发送富文本 Markdown |
-| `/card` | 测试交互卡片发送 | 发送一张带按钮的卡片 |
-| `/cardstream` | 测试卡片流式更新 | 卡片内容逐步更新进度 |
-| `/mention` | 测试 Mentions 组合发送 | 自动 @ 当前发送者 |
-| `/file` | 测试本地临时文件上传发送 | 收到文件消息 |
-| `/image` | 测试本地临时图片上传发送 | 收到图片消息 |
-| `/post` | 测试直接发送 Post JSON | 收到富文本消息 |
-| `/sharechat` | 测试分享当前群名片 | 收到当前群的群名片或明确报错 |
-| `/sharechat oc_d03d81dbd26b9b37b1426e6491baa095` | 测试分享指定群名片 | 收到指定群的群名片或明确报错 |
-| `/shareuser someone@example.com` | 测试个人名片发送 | 查到用户后发送个人名片 |
+| 指令                                               | 目的                   | 预期                         |
+|--------------------------------------------------|----------------------|----------------------------|
+| 普通文本                                             | 验证 `OnMessage` 与默认回显 | 输出 `TC-301` / `TC-312` 等日志 |
+| `/policy`                                        | 查看当前策略               | 机器人回复当前策略 JSON             |
+| `/policy dm_mode=disabled`                       | 禁用单聊                 | 后续单聊消息触发 `TC-502`          |
+| `/policy dm_mode=open`                           | 恢复单聊放行               | 单聊消息恢复正常处理                 |
+| `/policy dm_mode=allowlist, dm_allowlist=ou_xxx  | ou_yyy`              | 配置单聊白名单                    | 白名单内用户放行，其他用户触发 `TC-503` |
+| `/policy respond_all=false`                      | 禁止响应 `@all`          | 群聊 `@all` 触发 `TC-505`      |
+| `/policy respond_all=true`                       | 允许响应 `@all`          | 群聊 `@all` 恢复正常处理           |
+| `/policy require_mention=true`                   | 群聊要求显式 @机器人          | 未提及时触发 `TC-504`            |
+| `/policy require_mention=false`                  | 群聊不强制 @机器人           | 普通群消息可直接处理                 |
+| `/policy group_allowlist=oc_xxx                  | oc_yyy`              | 配置群白名单                     | 非白名单群消息触发 `TC-501` |
+| `/policy group_allowlist=empty`                  | 清空群白名单               | 群白名单限制被移除                  |
+| `/policy dm_allowlist=empty`                     | 清空单聊白名单              | 便于恢复或切换策略测试                |
+| `/stream`                                        | 测试 Markdown 流式输出     | 看到逐步更新的消息，终端可观察流式日志        |
+| `/markdown`                                      | 测试 Markdown 发送       | 成功发送富文本 Markdown           |
+| `/card`                                          | 测试交互卡片发送             | 发送一张带按钮的卡片                 |
+| `/cardstream`                                    | 测试卡片流式更新             | 卡片内容逐步更新进度                 |
+| `/mention`                                       | 测试 Mentions 组合发送     | 自动 @ 当前发送者                 |
+| `/file`                                          | 测试本地临时文件上传发送         | 收到文件消息                     |
+| `/image`                                         | 测试本地临时图片上传发送         | 收到图片消息                     |
+| `/post`                                          | 测试直接发送 Post JSON     | 收到富文本消息                    |
+| `/sharechat`                                     | 测试分享当前群名片            | 收到当前群的群名片或明确报错             |
+| `/sharechat oc_d03d81dbd26b9b37b1426e6491baa095` | 测试分享指定群名片            | 收到指定群的群名片或明确报错             |
+| `/shareuser someone@example.com`                 | 测试个人名片发送             | 查到用户后发送个人名片                |
 
 策略指令支持逗号分隔多个参数，例如：
 
@@ -116,13 +116,13 @@ go run sample/channel/main.go \
 
 常见场景如下：
 
-| TC | 操作 | 预期 |
-| --- | --- | --- |
-| `TC-501` | `/policy group_allowlist=oc_allowed_group` 后，在其他群发送消息 | 输出 `group_not_allowed` |
-| `TC-502` | `/policy dm_mode=disabled` 后，从单聊发送消息 | 输出 `dm_disabled` |
-| `TC-503` | `/policy dm_mode=allowlist, dm_allowlist=ou_allowed_user` 后，用其他用户单聊发送消息 | 输出 `sender_not_allowed` |
-| `TC-504` | `/policy require_mention=true` 后，在群里发送未 @机器人的消息 | 输出 `no_mention` |
-| `TC-505` | `/policy respond_all=false, require_mention=false` 后，在群里发送 `@all` 消息 | 输出 `mention_all_blocked` |
+| TC       | 操作                                                                      | 预期                       |
+|----------|-------------------------------------------------------------------------|--------------------------|
+| `TC-501` | `/policy group_allowlist=oc_allowed_group` 后，在其他群发送消息                   | 输出 `group_not_allowed`   |
+| `TC-502` | `/policy dm_mode=disabled` 后，从单聊发送消息                                    | 输出 `dm_disabled`         |
+| `TC-503` | `/policy dm_mode=allowlist, dm_allowlist=ou_allowed_user` 后，用其他用户单聊发送消息 | 输出 `sender_not_allowed`  |
+| `TC-504` | `/policy require_mention=true` 后，在群里发送未 @机器人的消息                         | 输出 `no_mention`          |
+| `TC-505` | `/policy respond_all=false, require_mention=false` 后，在群里发送 `@all` 消息    | 输出 `mention_all_blocked` |
 
 建议每轮策略测试结束后恢复到较宽松的状态，例如：
 
@@ -217,7 +217,8 @@ go run sample/channel_test_cases/main.go -case=TC-70
 - `TC-601` ~ `TC-605`：上传/下载与 SSRF Guard
 - `TC-701` ~ `TC-703`：重试与发送回退
 
-策略相关能力建议通过 `sample/channel/main.go` 的 `/policy` 指令和 `OnReject` 日志做手工联调，并通过 `channel/safety/policy_gate_test.go`、`channel/policy_reject_test.go` 做单元测试覆盖。
+策略相关能力建议通过 `sample/channel/main.go` 的 `/policy` 指令和 `OnReject`
+日志做手工联调，并通过 `channel/safety/policy_gate_test.go`、`channel/policy_reject_test.go` 做单元测试覆盖。
 
 ## 8. 测试资源
 

@@ -35,6 +35,7 @@ func main() {
 	req := larkdocument_ai.NewRecognizeTwMainlandTravelPermitReqBuilder().
 		Body(larkdocument_ai.NewRecognizeTwMainlandTravelPermitReqBodyBuilder().
 			File(file).
+			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

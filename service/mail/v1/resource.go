@@ -9,44 +9,56 @@ import (
 )
 
 type V1 struct {
-	Mailgroup                    *mailgroup                    // 邮件组
-	MailgroupAlias               *mailgroupAlias               // 邮件组别名
-	MailgroupManager             *mailgroupManager             // 邮件组管理员
-	MailgroupMember              *mailgroupMember              // 邮件组成员
-	MailgroupPermissionMember    *mailgroupPermissionMember    // 邮件组权限成员
-	PublicMailbox                *publicMailbox                // 公共邮箱
-	PublicMailboxAlias           *publicMailboxAlias           // 公共邮箱别名
-	PublicMailboxMember          *publicMailboxMember          // 公共邮箱成员
-	User                         *user                         // 邮箱地址
-	UserMailbox                  *userMailbox                  // 用户邮箱
-	UserMailboxAlias             *userMailboxAlias             // 用户邮箱别名
-	UserMailboxEvent             *userMailboxEvent             // user_mailbox.event
-	UserMailboxFolder            *userMailboxFolder            // user_mailbox.folder
-	UserMailboxMailContact       *userMailboxMailContact       // user_mailbox.mail_contact
-	UserMailboxMessage           *userMailboxMessage           // user_mailbox.message
-	UserMailboxMessageAttachment *userMailboxMessageAttachment // user_mailbox.message.attachment
-	UserMailboxRule              *userMailboxRule              // user_mailbox.rule
+	Mailgroup                     *mailgroup                     // 邮件组
+	MailgroupAlias                *mailgroupAlias                // 邮件组别名
+	MailgroupManager              *mailgroupManager              // 邮件组管理员
+	MailgroupMember               *mailgroupMember               // 邮件组成员
+	MailgroupPermissionMember     *mailgroupPermissionMember     // 邮件组权限成员
+	PublicMailbox                 *publicMailbox                 // 公共邮箱
+	PublicMailboxAlias            *publicMailboxAlias            // 公共邮箱别名
+	PublicMailboxMember           *publicMailboxMember           // 公共邮箱成员
+	User                          *user                          // 邮箱地址
+	UserMailbox                   *userMailbox                   // 用户邮箱
+	UserMailboxAlias              *userMailboxAlias              // 用户邮箱别名
+	UserMailboxDraft              *userMailboxDraft              // user_mailbox.draft
+	UserMailboxEvent              *userMailboxEvent              // user_mailbox.event
+	UserMailboxFolder             *userMailboxFolder             // user_mailbox.folder
+	UserMailboxLabel              *userMailboxLabel              // user_mailbox.label
+	UserMailboxMailContact        *userMailboxMailContact        // user_mailbox.mail_contact
+	UserMailboxMessage            *userMailboxMessage            // user_mailbox.message
+	UserMailboxMessageAttachment  *userMailboxMessageAttachment  // user_mailbox.message.attachment
+	UserMailboxRule               *userMailboxRule               // user_mailbox.rule
+	UserMailboxSetting            *userMailboxSetting            // user_mailbox.setting
+	UserMailboxTemplate           *userMailboxTemplate           // user_mailbox.template
+	UserMailboxTemplateAttachment *userMailboxTemplateAttachment // user_mailbox.template.attachment
+	UserMailboxThread             *userMailboxThread             // user_mailbox.thread
 }
 
 func New(config *larkcore.Config) *V1 {
 	return &V1{
-		Mailgroup:                    &mailgroup{config: config},
-		MailgroupAlias:               &mailgroupAlias{config: config},
-		MailgroupManager:             &mailgroupManager{config: config},
-		MailgroupMember:              &mailgroupMember{config: config},
-		MailgroupPermissionMember:    &mailgroupPermissionMember{config: config},
-		PublicMailbox:                &publicMailbox{config: config},
-		PublicMailboxAlias:           &publicMailboxAlias{config: config},
-		PublicMailboxMember:          &publicMailboxMember{config: config},
-		User:                         &user{config: config},
-		UserMailbox:                  &userMailbox{config: config},
-		UserMailboxAlias:             &userMailboxAlias{config: config},
-		UserMailboxEvent:             &userMailboxEvent{config: config},
-		UserMailboxFolder:            &userMailboxFolder{config: config},
-		UserMailboxMailContact:       &userMailboxMailContact{config: config},
-		UserMailboxMessage:           &userMailboxMessage{config: config},
-		UserMailboxMessageAttachment: &userMailboxMessageAttachment{config: config},
-		UserMailboxRule:              &userMailboxRule{config: config},
+		Mailgroup:                     &mailgroup{config: config},
+		MailgroupAlias:                &mailgroupAlias{config: config},
+		MailgroupManager:              &mailgroupManager{config: config},
+		MailgroupMember:               &mailgroupMember{config: config},
+		MailgroupPermissionMember:     &mailgroupPermissionMember{config: config},
+		PublicMailbox:                 &publicMailbox{config: config},
+		PublicMailboxAlias:            &publicMailboxAlias{config: config},
+		PublicMailboxMember:           &publicMailboxMember{config: config},
+		User:                          &user{config: config},
+		UserMailbox:                   &userMailbox{config: config},
+		UserMailboxAlias:              &userMailboxAlias{config: config},
+		UserMailboxDraft:              &userMailboxDraft{config: config},
+		UserMailboxEvent:              &userMailboxEvent{config: config},
+		UserMailboxFolder:             &userMailboxFolder{config: config},
+		UserMailboxLabel:              &userMailboxLabel{config: config},
+		UserMailboxMailContact:        &userMailboxMailContact{config: config},
+		UserMailboxMessage:            &userMailboxMessage{config: config},
+		UserMailboxMessageAttachment:  &userMailboxMessageAttachment{config: config},
+		UserMailboxRule:               &userMailboxRule{config: config},
+		UserMailboxSetting:            &userMailboxSetting{config: config},
+		UserMailboxTemplate:           &userMailboxTemplate{config: config},
+		UserMailboxTemplateAttachment: &userMailboxTemplateAttachment{config: config},
+		UserMailboxThread:             &userMailboxThread{config: config},
 	}
 }
 
@@ -83,10 +95,16 @@ type userMailbox struct {
 type userMailboxAlias struct {
 	config *larkcore.Config
 }
+type userMailboxDraft struct {
+	config *larkcore.Config
+}
 type userMailboxEvent struct {
 	config *larkcore.Config
 }
 type userMailboxFolder struct {
+	config *larkcore.Config
+}
+type userMailboxLabel struct {
 	config *larkcore.Config
 }
 type userMailboxMailContact struct {
@@ -99,6 +117,18 @@ type userMailboxMessageAttachment struct {
 	config *larkcore.Config
 }
 type userMailboxRule struct {
+	config *larkcore.Config
+}
+type userMailboxSetting struct {
+	config *larkcore.Config
+}
+type userMailboxTemplate struct {
+	config *larkcore.Config
+}
+type userMailboxTemplateAttachment struct {
+	config *larkcore.Config
+}
+type userMailboxThread struct {
 	config *larkcore.Config
 }
 
@@ -1242,6 +1272,32 @@ func (u *user) Query(ctx context.Context, req *QueryUserReq, options ...larkcore
 	return resp, err
 }
 
+// AccessibleMailboxes
+//
+// - 获取主账号的所有可访问邮箱，包括主邮箱和公共邮箱
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=accessible_mailboxes&project=mail&resource=user_mailbox&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/accessibleMailboxes_userMailbox.go
+func (u *userMailbox) AccessibleMailboxes(ctx context.Context, req *AccessibleMailboxesUserMailboxReq, options ...larkcore.RequestOptionFunc) (*AccessibleMailboxesUserMailboxResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/accessible_mailboxes"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &AccessibleMailboxesUserMailboxResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Delete 释放用户邮箱地址
 //
 // - 该接口会永久删除用户邮箱地址。可用于删除位于邮箱回收站中的用户邮箱地址，一旦删除，将无法恢复。该接口支持邮件的转移，可以将被释放邮箱的邮件转移到另外一个可以使用的邮箱中。
@@ -1346,9 +1402,173 @@ func (u *userMailboxAlias) List(ctx context.Context, req *ListUserMailboxAliasRe
 	return resp, err
 }
 
+// Create
+//
+// - 创建草稿
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=mail&resource=user_mailbox.draft&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_userMailboxDraft.go
+func (u *userMailboxDraft) Create(ctx context.Context, req *CreateUserMailboxDraftReq, options ...larkcore.RequestOptionFunc) (*CreateUserMailboxDraftResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/drafts"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateUserMailboxDraftResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Delete
+//
+// - 删除指定邮箱账户下的单份邮件草稿。注意：对于草稿状态的邮件，只能使用本接口删除，禁止使用 trash_message；被删除的草稿数据无法恢复，请谨慎使用。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=mail&resource=user_mailbox.draft&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_userMailboxDraft.go
+func (u *userMailboxDraft) Delete(ctx context.Context, req *DeleteUserMailboxDraftReq, options ...larkcore.RequestOptionFunc) (*DeleteUserMailboxDraftResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/drafts/:draft_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteUserMailboxDraftResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Get
+//
+// - 获取草稿详情
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=mail&resource=user_mailbox.draft&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_userMailboxDraft.go
+func (u *userMailboxDraft) Get(ctx context.Context, req *GetUserMailboxDraftReq, options ...larkcore.RequestOptionFunc) (*GetUserMailboxDraftResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/drafts/:draft_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetUserMailboxDraftResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// List
+//
+// - 拉取草稿列表
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=mail&resource=user_mailbox.draft&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_userMailboxDraft.go
+func (u *userMailboxDraft) List(ctx context.Context, req *ListUserMailboxDraftReq, options ...larkcore.RequestOptionFunc) (*ListUserMailboxDraftResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/drafts"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListUserMailboxDraftResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (u *userMailboxDraft) ListByIterator(ctx context.Context, req *ListUserMailboxDraftReq, options ...larkcore.RequestOptionFunc) (*ListUserMailboxDraftIterator, error) {
+	return &ListUserMailboxDraftIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: u.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// Send
+//
+// - 发送草稿
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=send&project=mail&resource=user_mailbox.draft&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/send_userMailboxDraft.go
+func (u *userMailboxDraft) Send(ctx context.Context, req *SendUserMailboxDraftReq, options ...larkcore.RequestOptionFunc) (*SendUserMailboxDraftResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/drafts/:draft_id/send"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SendUserMailboxDraftResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Update
+//
+// - 更新草稿
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=mail&resource=user_mailbox.draft&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/update_userMailboxDraft.go
+func (u *userMailboxDraft) Update(ctx context.Context, req *UpdateUserMailboxDraftReq, options ...larkcore.RequestOptionFunc) (*UpdateUserMailboxDraftResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/drafts/:draft_id"
+	apiReq.HttpMethod = http.MethodPut
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateUserMailboxDraftResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Subscribe
 //
-// -
+// - 订阅收信事件
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscribe&project=mail&resource=user_mailbox.event&version=v1
 //
@@ -1374,7 +1594,7 @@ func (u *userMailboxEvent) Subscribe(ctx context.Context, req *SubscribeUserMail
 
 // Subscription
 //
-// -
+// - 查询订阅的收信事件
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscription&project=mail&resource=user_mailbox.event&version=v1
 //
@@ -1400,7 +1620,7 @@ func (u *userMailboxEvent) Subscription(ctx context.Context, req *SubscriptionUs
 
 // Unsubscribe
 //
-// -
+// - 取消订阅收信事件
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=unsubscribe&project=mail&resource=user_mailbox.event&version=v1
 //
@@ -1426,7 +1646,7 @@ func (u *userMailboxEvent) Unsubscribe(ctx context.Context, req *UnsubscribeUser
 
 // Create
 //
-// -
+// - 创建邮箱文件夹
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=mail&resource=user_mailbox.folder&version=v1
 //
@@ -1452,7 +1672,7 @@ func (u *userMailboxFolder) Create(ctx context.Context, req *CreateUserMailboxFo
 
 // Delete
 //
-// -
+// - 删除用户文件夹。删除后文件夹数据无法恢复，请谨慎使用；删除文件夹会将该文件夹下的邮件移至已删除文件夹中。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=mail&resource=user_mailbox.folder&version=v1
 //
@@ -1476,9 +1696,35 @@ func (u *userMailboxFolder) Delete(ctx context.Context, req *DeleteUserMailboxFo
 	return resp, err
 }
 
+// Get
+//
+// - 获取指定邮箱账户下的单个邮件文件夹详情
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=mail&resource=user_mailbox.folder&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_userMailboxFolder.go
+func (u *userMailboxFolder) Get(ctx context.Context, req *GetUserMailboxFolderReq, options ...larkcore.RequestOptionFunc) (*GetUserMailboxFolderResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/folders/:folder_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetUserMailboxFolderResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // List
 //
-// -
+// - 列出用户文件夹，可获取文件夹名称、文件夹ID、文件夹下的未读邮件和未读会话数量
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=mail&resource=user_mailbox.folder&version=v1
 //
@@ -1504,7 +1750,7 @@ func (u *userMailboxFolder) List(ctx context.Context, req *ListUserMailboxFolder
 
 // Patch
 //
-// -
+// - 更新用户文件夹
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=mail&resource=user_mailbox.folder&version=v1
 //
@@ -1530,7 +1776,137 @@ func (u *userMailboxFolder) Patch(ctx context.Context, req *PatchUserMailboxFold
 
 // Create
 //
-// -
+// - 根据用户指定的名称、颜色等信息，创建邮件标签
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=mail&resource=user_mailbox.label&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_userMailboxLabel.go
+func (u *userMailboxLabel) Create(ctx context.Context, req *CreateUserMailboxLabelReq, options ...larkcore.RequestOptionFunc) (*CreateUserMailboxLabelResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/labels"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateUserMailboxLabelResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Delete
+//
+// - 删除用户指定的标签，注意，删除的标签无法恢复
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=mail&resource=user_mailbox.label&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_userMailboxLabel.go
+func (u *userMailboxLabel) Delete(ctx context.Context, req *DeleteUserMailboxLabelReq, options ...larkcore.RequestOptionFunc) (*DeleteUserMailboxLabelResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/labels/:label_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteUserMailboxLabelResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Get
+//
+// - 根据指定ID，获取邮件标签信息，包括名称、未读数据、颜色等信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=mail&resource=user_mailbox.label&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_userMailboxLabel.go
+func (u *userMailboxLabel) Get(ctx context.Context, req *GetUserMailboxLabelReq, options ...larkcore.RequestOptionFunc) (*GetUserMailboxLabelResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/labels/:label_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetUserMailboxLabelResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// List
+//
+// - 列出邮件标签，包括ID、名称、颜色、未读信息等内容
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=mail&resource=user_mailbox.label&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_userMailboxLabel.go
+func (u *userMailboxLabel) List(ctx context.Context, req *ListUserMailboxLabelReq, options ...larkcore.RequestOptionFunc) (*ListUserMailboxLabelResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/labels"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListUserMailboxLabelResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Patch
+//
+// - 更新邮件标签
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=mail&resource=user_mailbox.label&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/patch_userMailboxLabel.go
+func (u *userMailboxLabel) Patch(ctx context.Context, req *PatchUserMailboxLabelReq, options ...larkcore.RequestOptionFunc) (*PatchUserMailboxLabelResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/labels/:label_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchUserMailboxLabelResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create
+//
+// - 创建邮箱联系人
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=mail&resource=user_mailbox.mail_contact&version=v1
 //
@@ -1556,7 +1932,7 @@ func (u *userMailboxMailContact) Create(ctx context.Context, req *CreateUserMail
 
 // Delete
 //
-// -
+// - 删除指定的邮箱联系人
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=mail&resource=user_mailbox.mail_contact&version=v1
 //
@@ -1582,7 +1958,7 @@ func (u *userMailboxMailContact) Delete(ctx context.Context, req *DeleteUserMail
 
 // List
 //
-// -
+// - 列出邮箱联系人
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=mail&resource=user_mailbox.mail_contact&version=v1
 //
@@ -1616,7 +1992,7 @@ func (u *userMailboxMailContact) ListByIterator(ctx context.Context, req *ListUs
 
 // Patch
 //
-// -
+// - 更新邮箱联系人
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=mail&resource=user_mailbox.mail_contact&version=v1
 //
@@ -1640,9 +2016,87 @@ func (u *userMailboxMailContact) Patch(ctx context.Context, req *PatchUserMailbo
 	return resp, err
 }
 
+// BatchGet
+//
+// - 通过指定邮件ID，获取对应邮件的标签、文件夹、摘要、正文、html、附件等信息。注意，如需获取摘要、正文、主题或收发件人地址，需要申请对应的字段权限。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=mail&resource=user_mailbox.message&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchGet_userMailboxMessage.go
+func (u *userMailboxMessage) BatchGet(ctx context.Context, req *BatchGetUserMailboxMessageReq, options ...larkcore.RequestOptionFunc) (*BatchGetUserMailboxMessageResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/messages/batch_get"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchGetUserMailboxMessageResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// BatchModify
+//
+// - 本接口提供修改邮件的能力，支持移动邮件的文件夹、给邮件添加和移除标签、标记邮件读和未读、移动邮件至垃圾邮件等能力。不支持移动邮件到已删除文件夹，如需，请使用批量删除邮件接口。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_modify&project=mail&resource=user_mailbox.message&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchModify_userMailboxMessage.go
+func (u *userMailboxMessage) BatchModify(ctx context.Context, req *BatchModifyUserMailboxMessageReq, options ...larkcore.RequestOptionFunc) (*BatchModifyUserMailboxMessageResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/messages/batch_modify"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchModifyUserMailboxMessageResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// BatchTrash
+//
+// - 通过指定邮件ID，批量移动邮件到已删除文件夹
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_trash&project=mail&resource=user_mailbox.message&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchTrash_userMailboxMessage.go
+func (u *userMailboxMessage) BatchTrash(ctx context.Context, req *BatchTrashUserMailboxMessageReq, options ...larkcore.RequestOptionFunc) (*BatchTrashUserMailboxMessageResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/messages/batch_trash"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchTrashUserMailboxMessageResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Get
 //
-// -
+// - 获取邮件详情
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=mail&resource=user_mailbox.message&version=v1
 //
@@ -1694,7 +2148,7 @@ func (u *userMailboxMessage) GetByCard(ctx context.Context, req *GetByCardUserMa
 
 // List
 //
-// -
+// - 根据用户指定的标签或文件夹，列出对应位置下的邮件列表。注意，必须填写folder_id或label_id中的一个字段。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=mail&resource=user_mailbox.message&version=v1
 //
@@ -1726,6 +2180,58 @@ func (u *userMailboxMessage) ListByIterator(ctx context.Context, req *ListUserMa
 		limit:    req.Limit}, nil
 }
 
+// ListThreadMessage
+//
+// - 通过用户邮箱地址和邮件会话ID，获取该会话下的所有邮件关键信息列表。如需查询主题、正文、摘要、收发件人信息，请申请字段权限。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list_thread_message&project=mail&resource=user_mailbox.message&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/listThreadMessage_userMailboxMessage.go
+func (u *userMailboxMessage) ListThreadMessage(ctx context.Context, req *ListThreadMessageUserMailboxMessageReq, options ...larkcore.RequestOptionFunc) (*ListThreadMessageUserMailboxMessageResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/threads/:thread_id/messages"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListThreadMessageUserMailboxMessageResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Modify
+//
+// - 本接口提供修改邮件的能力，支持移动邮件的文件夹、给邮件添加和移除标签、标记邮件已读和未读、移动邮件至垃圾邮件等能力。不支持移动邮件到已删除文件夹，如需删除邮件，请使用删除邮件接口。至少填写add_label_ids、remove_label_ids、add_folder中的一个参数。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=modify&project=mail&resource=user_mailbox.message&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/modify_userMailboxMessage.go
+func (u *userMailboxMessage) Modify(ctx context.Context, req *ModifyUserMailboxMessageReq, options ...larkcore.RequestOptionFunc) (*ModifyUserMailboxMessageResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/messages/:message_id/modify"
+	apiReq.HttpMethod = http.MethodPut
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ModifyUserMailboxMessageResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Send
 //
 // -
@@ -1752,9 +2258,35 @@ func (u *userMailboxMessage) Send(ctx context.Context, req *SendUserMailboxMessa
 	return resp, err
 }
 
+// Trash
+//
+// - 移动邮件到已删除文件夹。注意，该接口无法删除草稿，如需删除草稿，请使用删除草稿接口
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=trash&project=mail&resource=user_mailbox.message&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/trash_userMailboxMessage.go
+func (u *userMailboxMessage) Trash(ctx context.Context, req *TrashUserMailboxMessageReq, options ...larkcore.RequestOptionFunc) (*TrashUserMailboxMessageResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/messages/:message_id/trash"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &TrashUserMailboxMessageResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // DownloadUrl
 //
-// -
+// - 获取附件下载链接
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download_url&project=mail&resource=user_mailbox.message.attachment&version=v1
 //
@@ -1780,7 +2312,7 @@ func (u *userMailboxMessageAttachment) DownloadUrl(ctx context.Context, req *Dow
 
 // Create
 //
-// -
+// - 创建收信规则
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=mail&resource=user_mailbox.rule&version=v1
 //
@@ -1806,7 +2338,7 @@ func (u *userMailboxRule) Create(ctx context.Context, req *CreateUserMailboxRule
 
 // Delete
 //
-// -
+// - 删除收信规则
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=mail&resource=user_mailbox.rule&version=v1
 //
@@ -1832,7 +2364,7 @@ func (u *userMailboxRule) Delete(ctx context.Context, req *DeleteUserMailboxRule
 
 // List
 //
-// -
+// - 列出收信规则
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=mail&resource=user_mailbox.rule&version=v1
 //
@@ -1901,6 +2433,352 @@ func (u *userMailboxRule) Update(ctx context.Context, req *UpdateUserMailboxRule
 	}
 	// 反序列响应结果
 	resp := &UpdateUserMailboxRuleResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// SendAs
+//
+// - 获取账号的所有可发信地址，包括主地址、别名地址、邮件组。可以使用用户地址访问该接口，也可以使用用户有权限的公共邮箱地址访问该接口。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=send_as&project=mail&resource=user_mailbox.setting&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/sendAs_userMailboxSetting.go
+func (u *userMailboxSetting) SendAs(ctx context.Context, req *SendAsUserMailboxSettingReq, options ...larkcore.RequestOptionFunc) (*SendAsUserMailboxSettingResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/settings/send_as"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SendAsUserMailboxSettingResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create
+//
+// - 在指定用户邮箱下创建一份可复用的个人邮件模板。请求时需传入完整的模板对象（含名称、主题、正文、收件信息、附件等），创建成功后返回完整模板内容（含系统生成的 template_id），适用于将常用邮件内容沉淀为模板以便后续快速发送同类型邮件。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=mail&resource=user_mailbox.template&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/create_userMailboxTemplate.go
+func (u *userMailboxTemplate) Create(ctx context.Context, req *CreateUserMailboxTemplateReq, options ...larkcore.RequestOptionFunc) (*CreateUserMailboxTemplateResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/templates"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateUserMailboxTemplateResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Delete
+//
+// - 永久删除指定用户邮箱下的某个个人邮件模板。删除操作不可恢复，删除后该模板将无法在「列出邮件模板」「获取邮件模板」等接口中再返回，常用于清理已废弃或不再使用的模板。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=mail&resource=user_mailbox.template&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/delete_userMailboxTemplate.go
+func (u *userMailboxTemplate) Delete(ctx context.Context, req *DeleteUserMailboxTemplateReq, options ...larkcore.RequestOptionFunc) (*DeleteUserMailboxTemplateResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/templates/:template_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteUserMailboxTemplateResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Get
+//
+// - 获取指定邮件模板的完整详情，包括模板名称、主题、正文（HTML 或纯文本）、收件人/抄送/密送地址、附件信息等所有字段。常用于编辑模板前回填表单，或在发送邮件场景下读取模板内容做二次填充。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=mail&resource=user_mailbox.template&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_userMailboxTemplate.go
+func (u *userMailboxTemplate) Get(ctx context.Context, req *GetUserMailboxTemplateReq, options ...larkcore.RequestOptionFunc) (*GetUserMailboxTemplateResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/templates/:template_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetUserMailboxTemplateResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// List
+//
+// - 列出指定用户邮箱下的全部个人邮件模板基本信息（一次性返回，不分页），常用于在编辑或发送邮件场景下展示可选模板列表。如需获取模板正文与附件等完整字段，请通过获取个人邮件模板详情接口按 `template_id` 查询。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=mail&resource=user_mailbox.template&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_userMailboxTemplate.go
+func (u *userMailboxTemplate) List(ctx context.Context, req *ListUserMailboxTemplateReq, options ...larkcore.RequestOptionFunc) (*ListUserMailboxTemplateResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/templates"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListUserMailboxTemplateResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Update
+//
+// - 以全量替换的方式更新指定邮件模板的所有字段（包括名称、主题、正文、附件、收件信息等）。本接口为「全量更新」语义：请求时需传入完整的模板对象，未携带的字段将被清空。**调用依赖**：如仅修改部分字段，请先调用获取个人邮件模板详情接口拿到完整模板，在本地修改后再传回本接口，以避免漏传字段导致数据丢失。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=mail&resource=user_mailbox.template&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/update_userMailboxTemplate.go
+func (u *userMailboxTemplate) Update(ctx context.Context, req *UpdateUserMailboxTemplateReq, options ...larkcore.RequestOptionFunc) (*UpdateUserMailboxTemplateResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/templates/:template_id"
+	apiReq.HttpMethod = http.MethodPut
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateUserMailboxTemplateResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// DownloadUrl
+//
+// - 获取指定邮件模板下的附件下载链接。用于在已知模板 ID 与附件 ID 的场景下，二次获取附件的有效访问 URL，便于在用户端预览或下载邮件模板中的附件资源。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download_url&project=mail&resource=user_mailbox.template.attachment&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/downloadUrl_userMailboxTemplateAttachment.go
+func (u *userMailboxTemplateAttachment) DownloadUrl(ctx context.Context, req *DownloadUrlUserMailboxTemplateAttachmentReq, options ...larkcore.RequestOptionFunc) (*DownloadUrlUserMailboxTemplateAttachmentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/templates/:template_id/attachments/download_url"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DownloadUrlUserMailboxTemplateAttachmentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// BatchModify
+//
+// - 本接口提供修改邮件会话的能力，支持移动邮件会话的文件夹、给邮件会话添加和移除标签、标记邮件会话读和未读、移动邮件会话至垃圾邮件等能力。不支持移动邮件会话到已删除文件夹，如需，请使用批量删除邮件会话接口。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_modify&project=mail&resource=user_mailbox.thread&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchModify_userMailboxThread.go
+func (u *userMailboxThread) BatchModify(ctx context.Context, req *BatchModifyUserMailboxThreadReq, options ...larkcore.RequestOptionFunc) (*BatchModifyUserMailboxThreadResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/threads/batch_modify"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchModifyUserMailboxThreadResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// BatchTrash
+//
+// - 通过指定邮件会话ID，批量移动邮件到已删除文件夹
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_trash&project=mail&resource=user_mailbox.thread&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/batchTrash_userMailboxThread.go
+func (u *userMailboxThread) BatchTrash(ctx context.Context, req *BatchTrashUserMailboxThreadReq, options ...larkcore.RequestOptionFunc) (*BatchTrashUserMailboxThreadResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/threads/batch_trash"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchTrashUserMailboxThreadResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Get
+//
+// - 通过用户邮箱地址和邮件会话ID，获取该会话下的所有邮件关键信息列表。如需查询主题、正文、摘要、收发件人信息，请申请字段权限。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=mail&resource=user_mailbox.thread&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/get_userMailboxThread.go
+func (u *userMailboxThread) Get(ctx context.Context, req *GetUserMailboxThreadReq, options ...larkcore.RequestOptionFunc) (*GetUserMailboxThreadResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/threads/:thread_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetUserMailboxThreadResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// List
+//
+// - 通过指定文件夹或标签，列出对应位置下的邮件会话列表。接口可返回邮件会话ID和会话下最新一封邮件的摘要。folder_id 和 label_id 必须且只能提供一个。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=mail&resource=user_mailbox.thread&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/list_userMailboxThread.go
+func (u *userMailboxThread) List(ctx context.Context, req *ListUserMailboxThreadReq, options ...larkcore.RequestOptionFunc) (*ListUserMailboxThreadResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/threads"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListUserMailboxThreadResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (u *userMailboxThread) ListByIterator(ctx context.Context, req *ListUserMailboxThreadReq, options ...larkcore.RequestOptionFunc) (*ListUserMailboxThreadIterator, error) {
+	return &ListUserMailboxThreadIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: u.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// Modify
+//
+// - 本接口提供修改邮件会话的能力，支持移动邮件会话的文件夹、给邮件会话添加和移除标签、标记邮件会话读和未读、移动邮件会话至垃圾邮件等能力。不支持移动邮件会话到已删除文件夹，如需，请使用删除邮件会话接口。至少填写add_label_ids、remove_label_ids、add_folder中的一个参数。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=modify&project=mail&resource=user_mailbox.thread&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/modify_userMailboxThread.go
+func (u *userMailboxThread) Modify(ctx context.Context, req *ModifyUserMailboxThreadReq, options ...larkcore.RequestOptionFunc) (*ModifyUserMailboxThreadResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/threads/:thread_id/modify"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ModifyUserMailboxThreadResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Trash
+//
+// - 移动指定的邮件会话到已删除文件夹
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=trash&project=mail&resource=user_mailbox.thread&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/trash_userMailboxThread.go
+func (u *userMailboxThread) Trash(ctx context.Context, req *TrashUserMailboxThreadReq, options ...larkcore.RequestOptionFunc) (*TrashUserMailboxThreadResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/threads/:thread_id/trash"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &TrashUserMailboxThreadResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, u.config)
 	if err != nil {
 		return nil, err

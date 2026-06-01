@@ -30,12 +30,15 @@ func main() {
 		AppToken("appbcbWCzen6D8dezhoCH2RpMAh").
 		TableId("tblsRc9GRRXKqhvW").
 		FieldId("fldPTb0U2y").
+		ClientToken("").
 		AppTableField(larkbitable.NewAppTableFieldBuilder().
 			FieldName("字段名称").
 			Type(0).
 			Property(larkbitable.NewAppTableFieldPropertyBuilder().Build()).
 			Description(larkbitable.NewAppTableFieldDescriptionBuilder().Build()).
+			IsPrimary(true).
 			UiType("Progress").
+			IsHidden(false).
 			Build()).
 		Build()
 	// 发起请求

@@ -31,7 +31,7 @@ func main() {
 		Type("doc").
 		NeedNotification(false).
 		Body(larkdrive.NewBatchCreatePermissionMemberReqBodyBuilder().
-			Members([]*larkdrive.BaseMember{larkdrive.NewBaseMemberBuilder().Build()}).
+			Members([]*larkdrive.Member{larkdrive.NewMemberBuilder().Build()}).
 			Build()).
 		Build()
 	// 发起请求

@@ -32,6 +32,7 @@ func main() {
 		RecordId("recqwIwhc6").
 		UserIdType("user_id").
 		IgnoreConsistencyCheck(true).
+		ClientToken("").
 		AppTableRecord(larkbitable.NewAppTableRecordBuilder().
 			Fields(map[string]interface{}{}).
 			Build()).

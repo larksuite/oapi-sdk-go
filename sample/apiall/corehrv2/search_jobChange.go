@@ -43,6 +43,9 @@ func main() {
 			TransferTypeUniqueIdentifier([]string{}).
 			TransferReasonUniqueIdentifier([]string{}).
 			ExceptionStatuses([]string{}).
+			OriginalDepartmentIds([]string{}).
+			EmploymentDepartmentIds([]string{}).
+			SelectFields([]string{}).
 			Build()).
 		Build()
 	// 发起请求

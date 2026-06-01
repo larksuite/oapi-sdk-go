@@ -37,6 +37,7 @@ func main() {
 			Locale(larkcorehr.NewEnumBuilder().Build()).
 			TimeZoneId("123456789").
 			DisplayLanguageId("123456789").
+			IsPreferManualEncoding(false).
 			Build()).
 		Build()
 	// 发起请求

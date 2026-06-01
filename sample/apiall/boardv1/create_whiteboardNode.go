@@ -32,6 +32,7 @@ func main() {
 		UserIdType("user_id").
 		Body(larkboard.NewCreateWhiteboardNodeReqBodyBuilder().
 			Nodes([]*larkboard.WhiteboardNode{larkboard.NewWhiteboardNodeBuilder().Build()}).
+			Overwrite(false).
 			Build()).
 		Build()
 	// 发起请求

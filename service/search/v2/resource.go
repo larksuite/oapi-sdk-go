@@ -301,7 +301,7 @@ func (d *docWiki) Search(ctx context.Context, req *SearchDocWikiReq, options ...
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/search/v2/doc_wiki/search"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, d.config, options...)
 	if err != nil {
 		return nil, err

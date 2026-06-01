@@ -49,6 +49,12 @@ func main() {
 		IsManaged(false).
 		MdmDeviceId("123abc").
 		MdmProviderName("Workspace_ONE").
+		LsaClientStatus(1).
+		DeviceEnvDetectStatus(0).
+		IsPublic(false).
+		Source(0).
+		CertSerialNumber("140112030923876027756448774661898183576236633676").
+		CertIssuer("Root-CA").
 		Build()
 	// 发起请求
 	resp, err := client.SecurityAndCompliance.V2.DeviceRecord.List(context.Background(), req)

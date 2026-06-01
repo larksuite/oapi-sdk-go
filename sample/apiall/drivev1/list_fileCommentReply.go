@@ -32,6 +32,7 @@ func main() {
 		PageSize(10).
 		PageToken("1654857036541812356").
 		FileType("docx").
+		NeedReaction(false).
 		UserIdType("user_id").
 		Build()
 	// 发起请求

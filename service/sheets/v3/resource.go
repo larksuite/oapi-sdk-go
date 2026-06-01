@@ -10,7 +10,7 @@ import (
 
 type V3 struct {
 	Spreadsheet                         *spreadsheet                         // 表格
-	SpreadsheetSheet                    *spreadsheetSheet                    // 单元格
+	SpreadsheetSheet                    *spreadsheetSheet                    // 工作表
 	SpreadsheetSheetFilter              *spreadsheetSheetFilter              // 筛选
 	SpreadsheetSheetFilterView          *spreadsheetSheetFilterView          // 筛选视图
 	SpreadsheetSheetFilterViewCondition *spreadsheetSheetFilterViewCondition // 筛选条件

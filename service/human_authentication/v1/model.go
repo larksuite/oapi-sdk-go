@@ -32,11 +32,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -44,27 +44,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -80,14 +84,14 @@ type Identity struct {
 }
 
 type IdentityBuilder struct {
-	identityName     string // user identity name
-	identityNameFlag bool
+	identityName    string // user identity name
+	identityNameSet bool
 
-	identityCode     string // user identity code
-	identityCodeFlag bool
+	identityCode    string // user identity code
+	identityCodeSet bool
 
-	mobile     string // user mobile
-	mobileFlag bool
+	mobile    string // user mobile
+	mobileSet bool
 }
 
 func NewIdentityBuilder() *IdentityBuilder {
@@ -100,7 +104,7 @@ func NewIdentityBuilder() *IdentityBuilder {
 // 示例值：
 func (builder *IdentityBuilder) IdentityName(identityName string) *IdentityBuilder {
 	builder.identityName = identityName
-	builder.identityNameFlag = true
+	builder.identityNameSet = true
 	return builder
 }
 
@@ -109,7 +113,7 @@ func (builder *IdentityBuilder) IdentityName(identityName string) *IdentityBuild
 // 示例值：
 func (builder *IdentityBuilder) IdentityCode(identityCode string) *IdentityBuilder {
 	builder.identityCode = identityCode
-	builder.identityCodeFlag = true
+	builder.identityCodeSet = true
 	return builder
 }
 
@@ -118,21 +122,21 @@ func (builder *IdentityBuilder) IdentityCode(identityCode string) *IdentityBuild
 // 示例值：
 func (builder *IdentityBuilder) Mobile(mobile string) *IdentityBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
 func (builder *IdentityBuilder) Build() *Identity {
 	req := &Identity{}
-	if builder.identityNameFlag {
+	if builder.identityNameSet {
 		req.IdentityName = &builder.identityName
 
 	}
-	if builder.identityCodeFlag {
+	if builder.identityCodeSet {
 		req.IdentityCode = &builder.identityCode
 
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 
 	}
@@ -140,14 +144,14 @@ func (builder *IdentityBuilder) Build() *Identity {
 }
 
 type CreateIdentityReqBodyBuilder struct {
-	identityName     string // 姓名
-	identityNameFlag bool
+	identityName    string // 姓名
+	identityNameSet bool
 
-	identityCode     string // 身份证号
-	identityCodeFlag bool
+	identityCode    string // 身份证号
+	identityCodeSet bool
 
-	mobile     string // 手机号
-	mobileFlag bool
+	mobile    string // 手机号
+	mobileSet bool
 }
 
 func NewCreateIdentityReqBodyBuilder() *CreateIdentityReqBodyBuilder {
@@ -157,52 +161,52 @@ func NewCreateIdentityReqBodyBuilder() *CreateIdentityReqBodyBuilder {
 
 // 姓名
 //
-// 示例值：张三
+//示例值：张三
 func (builder *CreateIdentityReqBodyBuilder) IdentityName(identityName string) *CreateIdentityReqBodyBuilder {
 	builder.identityName = identityName
-	builder.identityNameFlag = true
+	builder.identityNameSet = true
 	return builder
 }
 
 // 身份证号
 //
-// 示例值：4xxxxxxxx
+//示例值：4xxxxxxxx
 func (builder *CreateIdentityReqBodyBuilder) IdentityCode(identityCode string) *CreateIdentityReqBodyBuilder {
 	builder.identityCode = identityCode
-	builder.identityCodeFlag = true
+	builder.identityCodeSet = true
 	return builder
 }
 
 // 手机号
 //
-// 示例值：13xxxxxxx
+//示例值：13xxxxxxx
 func (builder *CreateIdentityReqBodyBuilder) Mobile(mobile string) *CreateIdentityReqBodyBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
 func (builder *CreateIdentityReqBodyBuilder) Build() *CreateIdentityReqBody {
 	req := &CreateIdentityReqBody{}
-	if builder.identityNameFlag {
+	if builder.identityNameSet {
 		req.IdentityName = &builder.identityName
 	}
-	if builder.identityCodeFlag {
+	if builder.identityCodeSet {
 		req.IdentityCode = &builder.identityCode
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 	}
 	return req
 }
 
 type CreateIdentityPathReqBodyBuilder struct {
-	identityName     string
-	identityNameFlag bool
-	identityCode     string
-	identityCodeFlag bool
-	mobile           string
-	mobileFlag       bool
+	identityName    string
+	identityNameSet bool
+	identityCode    string
+	identityCodeSet bool
+	mobile          string
+	mobileSet       bool
 }
 
 func NewCreateIdentityPathReqBodyBuilder() *CreateIdentityPathReqBodyBuilder {
@@ -215,7 +219,7 @@ func NewCreateIdentityPathReqBodyBuilder() *CreateIdentityPathReqBodyBuilder {
 // 示例值：张三
 func (builder *CreateIdentityPathReqBodyBuilder) IdentityName(identityName string) *CreateIdentityPathReqBodyBuilder {
 	builder.identityName = identityName
-	builder.identityNameFlag = true
+	builder.identityNameSet = true
 	return builder
 }
 
@@ -224,7 +228,7 @@ func (builder *CreateIdentityPathReqBodyBuilder) IdentityName(identityName strin
 // 示例值：4xxxxxxxx
 func (builder *CreateIdentityPathReqBodyBuilder) IdentityCode(identityCode string) *CreateIdentityPathReqBodyBuilder {
 	builder.identityCode = identityCode
-	builder.identityCodeFlag = true
+	builder.identityCodeSet = true
 	return builder
 }
 
@@ -233,19 +237,19 @@ func (builder *CreateIdentityPathReqBodyBuilder) IdentityCode(identityCode strin
 // 示例值：13xxxxxxx
 func (builder *CreateIdentityPathReqBodyBuilder) Mobile(mobile string) *CreateIdentityPathReqBodyBuilder {
 	builder.mobile = mobile
-	builder.mobileFlag = true
+	builder.mobileSet = true
 	return builder
 }
 
 func (builder *CreateIdentityPathReqBodyBuilder) Build() (*CreateIdentityReqBody, error) {
 	req := &CreateIdentityReqBody{}
-	if builder.identityNameFlag {
+	if builder.identityNameSet {
 		req.IdentityName = &builder.identityName
 	}
-	if builder.identityCodeFlag {
+	if builder.identityCodeSet {
 		req.IdentityCode = &builder.identityCode
 	}
-	if builder.mobileFlag {
+	if builder.mobileSet {
 		req.Mobile = &builder.mobile
 	}
 	return req, nil

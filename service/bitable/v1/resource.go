@@ -9,36 +9,43 @@ import (
 )
 
 type V1 struct {
-	App               *app               // 多维表格
-	AppDashboard      *appDashboard      // 仪表盘
-	AppRole           *appRole           // 自定义角色
-	AppRoleMember     *appRoleMember     // 协作者
-	AppTable          *appTable          // 数据表
-	AppTableField     *appTableField     // 字段
-	AppTableForm      *appTableForm      // 表单
-	AppTableFormField *appTableFormField // 表单
-	AppTableRecord    *appTableRecord    // 记录
-	AppTableView      *appTableView      // 视图
-	AppWorkflow       *appWorkflow       // app.workflow
+	App                *app                // 多维表格
+	AppBlockWorkflow   *appBlockWorkflow   // app.block_workflow
+	AppDashboard       *appDashboard       // 仪表盘
+	AppRole            *appRole            // 自定义角色
+	AppRoleMember      *appRoleMember      // 协作者
+	AppTable           *appTable           // 数据表
+	AppTableField      *appTableField      // 字段
+	AppTableFieldGroup *appTableFieldGroup // app.table.field_group
+	AppTableForm       *appTableForm       // 表单
+	AppTableFormField  *appTableFormField  // 表单
+	AppTableRecord     *appTableRecord     // 记录
+	AppTableView       *appTableView       // 视图
+	AppWorkflow        *appWorkflow        // app.workflow
 }
 
 func New(config *larkcore.Config) *V1 {
 	return &V1{
-		App:               &app{config: config},
-		AppDashboard:      &appDashboard{config: config},
-		AppRole:           &appRole{config: config},
-		AppRoleMember:     &appRoleMember{config: config},
-		AppTable:          &appTable{config: config},
-		AppTableField:     &appTableField{config: config},
-		AppTableForm:      &appTableForm{config: config},
-		AppTableFormField: &appTableFormField{config: config},
-		AppTableRecord:    &appTableRecord{config: config},
-		AppTableView:      &appTableView{config: config},
-		AppWorkflow:       &appWorkflow{config: config},
+		App:                &app{config: config},
+		AppBlockWorkflow:   &appBlockWorkflow{config: config},
+		AppDashboard:       &appDashboard{config: config},
+		AppRole:            &appRole{config: config},
+		AppRoleMember:      &appRoleMember{config: config},
+		AppTable:           &appTable{config: config},
+		AppTableField:      &appTableField{config: config},
+		AppTableFieldGroup: &appTableFieldGroup{config: config},
+		AppTableForm:       &appTableForm{config: config},
+		AppTableFormField:  &appTableFormField{config: config},
+		AppTableRecord:     &appTableRecord{config: config},
+		AppTableView:       &appTableView{config: config},
+		AppWorkflow:        &appWorkflow{config: config},
 	}
 }
 
 type app struct {
+	config *larkcore.Config
+}
+type appBlockWorkflow struct {
 	config *larkcore.Config
 }
 type appDashboard struct {
@@ -54,6 +61,9 @@ type appTable struct {
 	config *larkcore.Config
 }
 type appTableField struct {
+	config *larkcore.Config
+}
+type appTableFieldGroup struct {
 	config *larkcore.Config
 }
 type appTableForm struct {
@@ -175,6 +185,32 @@ func (a *app) Update(ctx context.Context, req *UpdateAppReq, options ...larkcore
 	}
 	// 反序列响应结果
 	resp := &UpdateAppResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// List
+//
+// - 列出工作流
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=bitable&resource=app.block_workflow&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/list_appBlockWorkflow.go
+func (a *appBlockWorkflow) List(ctx context.Context, req *ListAppBlockWorkflowReq, options ...larkcore.RequestOptionFunc) (*ListAppBlockWorkflowResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/bitable/v1/apps/:app_token/block_workflows"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListAppBlockWorkflowResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		return nil, err
@@ -790,6 +826,32 @@ func (a *appTableField) Update(ctx context.Context, req *UpdateAppTableFieldReq,
 	return resp, err
 }
 
+// Create
+//
+// - 新增字段编组
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=bitable&resource=app.table.field_group&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/create_appTableFieldGroup.go
+func (a *appTableFieldGroup) Create(ctx context.Context, req *CreateAppTableFieldGroupReq, options ...larkcore.RequestOptionFunc) (*CreateAppTableFieldGroupResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/bitable/v1/apps/:app_token/tables/:table_id/field_groups"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateAppTableFieldGroupResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Get 获取表单元数据
 //
 // - 获取表单的所有元数据项
@@ -839,6 +901,32 @@ func (a *appTableForm) Patch(ctx context.Context, req *PatchAppTableFormReq, opt
 	}
 	// 反序列响应结果
 	resp := &PatchAppTableFormResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Upgrade
+//
+// - 升级表单
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upgrade&project=bitable&resource=app.table.form&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/upgrade_appTableForm.go
+func (a *appTableForm) Upgrade(ctx context.Context, req *UpgradeAppTableFormReq, options ...larkcore.RequestOptionFunc) (*UpgradeAppTableFormResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/bitable/v1/apps/:app_token/tables/:table_id/forms/:form_id/upgrade"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpgradeAppTableFormResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		return nil, err

@@ -34,6 +34,7 @@ func main() {
 		IgnoreConsistencyCheck(true).
 		AppTableRecord(larkbitable.NewAppTableRecordBuilder().
 			Fields(map[string]interface{}{}).
+			RecordId("recgcfdzKq").
 			Build()).
 		Build()
 	// 发起请求

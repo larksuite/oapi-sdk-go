@@ -32,6 +32,7 @@ func main() {
 			ParentType("explorer").
 			ParentNode("").
 			Size(0).
+			FileToken("KOi6RfhPbdm6").
 			Build()).
 		Build()
 	// 发起请求

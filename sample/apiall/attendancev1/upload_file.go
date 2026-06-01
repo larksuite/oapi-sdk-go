@@ -36,6 +36,7 @@ func main() {
 		FileName("人脸照片.jpg").
 		Body(larkattendance.NewUploadFileReqBodyBuilder().
 			File(file).
+			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

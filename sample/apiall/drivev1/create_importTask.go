@@ -33,6 +33,7 @@ func main() {
 			Type("docx").
 			FileName("文件名").
 			Point(larkdrive.NewImportTaskMountPointBuilder().Build()).
+			Token("doxbcHgfxdfxxxxxxxxxxxfMky").
 			Build()).
 		Build()
 	// 发起请求

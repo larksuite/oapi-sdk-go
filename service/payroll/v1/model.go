@@ -45,11 +45,11 @@ type AccountingItemValue struct {
 }
 
 type AccountingItemValueBuilder struct {
-	originalValue     string // 算薪项数据原始值，当发薪明细的数据来源为「人工导入」时，如果当前算薪项类型为引用类型，那么算薪项原始值可能为空。
-	originalValueFlag bool
+	originalValue    string // 算薪项数据原始值，当发薪明细的数据来源为「人工导入」时，如果当前算薪项类型为引用类型，那么算薪项原始值可能为空。
+	originalValueSet bool
 
-	referenceValues     []*I18nContent // 引用类型算薪项展示值
-	referenceValuesFlag bool
+	referenceValues    []*I18nContent // 引用类型算薪项展示值
+	referenceValuesSet bool
 }
 
 func NewAccountingItemValueBuilder() *AccountingItemValueBuilder {
@@ -62,7 +62,7 @@ func NewAccountingItemValueBuilder() *AccountingItemValueBuilder {
 // 示例值：100
 func (builder *AccountingItemValueBuilder) OriginalValue(originalValue string) *AccountingItemValueBuilder {
 	builder.originalValue = originalValue
-	builder.originalValueFlag = true
+	builder.originalValueSet = true
 	return builder
 }
 
@@ -71,17 +71,17 @@ func (builder *AccountingItemValueBuilder) OriginalValue(originalValue string) *
 // 示例值：
 func (builder *AccountingItemValueBuilder) ReferenceValues(referenceValues []*I18nContent) *AccountingItemValueBuilder {
 	builder.referenceValues = referenceValues
-	builder.referenceValuesFlag = true
+	builder.referenceValuesSet = true
 	return builder
 }
 
 func (builder *AccountingItemValueBuilder) Build() *AccountingItemValue {
 	req := &AccountingItemValue{}
-	if builder.originalValueFlag {
+	if builder.originalValueSet {
 		req.OriginalValue = &builder.originalValue
 
 	}
-	if builder.referenceValuesFlag {
+	if builder.referenceValuesSet {
 		req.ReferenceValues = builder.referenceValues
 	}
 	return req
@@ -102,23 +102,23 @@ type AcctItem struct {
 }
 
 type AcctItemBuilder struct {
-	id     string // 算薪项ID
-	idFlag bool
+	id    string // 算薪项ID
+	idSet bool
 
-	i18nNames     []*I18nContent // 算薪项名称
-	i18nNamesFlag bool
+	i18nNames    []*I18nContent // 算薪项名称
+	i18nNamesSet bool
 
-	categoryId     string // 算薪项分类ID
-	categoryIdFlag bool
+	categoryId    string // 算薪项分类ID
+	categoryIdSet bool
 
-	dataType     int // 算薪项数据类型
-	dataTypeFlag bool
+	dataType    int // 算薪项数据类型
+	dataTypeSet bool
 
-	decimalPlaces     int // 小数位数
-	decimalPlacesFlag bool
+	decimalPlaces    int // 小数位数
+	decimalPlacesSet bool
 
-	activeStatus     int // 启用状态
-	activeStatusFlag bool
+	activeStatus    int // 启用状态
+	activeStatusSet bool
 }
 
 func NewAcctItemBuilder() *AcctItemBuilder {
@@ -131,7 +131,7 @@ func NewAcctItemBuilder() *AcctItemBuilder {
 // 示例值：7169773973790425132
 func (builder *AcctItemBuilder) Id(id string) *AcctItemBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -140,7 +140,7 @@ func (builder *AcctItemBuilder) Id(id string) *AcctItemBuilder {
 // 示例值：
 func (builder *AcctItemBuilder) I18nNames(i18nNames []*I18nContent) *AcctItemBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
@@ -149,7 +149,7 @@ func (builder *AcctItemBuilder) I18nNames(i18nNames []*I18nContent) *AcctItemBui
 // 示例值：7169773973790425132
 func (builder *AcctItemBuilder) CategoryId(categoryId string) *AcctItemBuilder {
 	builder.categoryId = categoryId
-	builder.categoryIdFlag = true
+	builder.categoryIdSet = true
 	return builder
 }
 
@@ -158,7 +158,7 @@ func (builder *AcctItemBuilder) CategoryId(categoryId string) *AcctItemBuilder {
 // 示例值：1
 func (builder *AcctItemBuilder) DataType(dataType int) *AcctItemBuilder {
 	builder.dataType = dataType
-	builder.dataTypeFlag = true
+	builder.dataTypeSet = true
 	return builder
 }
 
@@ -167,7 +167,7 @@ func (builder *AcctItemBuilder) DataType(dataType int) *AcctItemBuilder {
 // 示例值：2
 func (builder *AcctItemBuilder) DecimalPlaces(decimalPlaces int) *AcctItemBuilder {
 	builder.decimalPlaces = decimalPlaces
-	builder.decimalPlacesFlag = true
+	builder.decimalPlacesSet = true
 	return builder
 }
 
@@ -176,32 +176,32 @@ func (builder *AcctItemBuilder) DecimalPlaces(decimalPlaces int) *AcctItemBuilde
 // 示例值：1
 func (builder *AcctItemBuilder) ActiveStatus(activeStatus int) *AcctItemBuilder {
 	builder.activeStatus = activeStatus
-	builder.activeStatusFlag = true
+	builder.activeStatusSet = true
 	return builder
 }
 
 func (builder *AcctItemBuilder) Build() *AcctItem {
 	req := &AcctItem{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
-	if builder.categoryIdFlag {
+	if builder.categoryIdSet {
 		req.CategoryId = &builder.categoryId
 
 	}
-	if builder.dataTypeFlag {
+	if builder.dataTypeSet {
 		req.DataType = &builder.dataType
 
 	}
-	if builder.decimalPlacesFlag {
+	if builder.decimalPlacesSet {
 		req.DecimalPlaces = &builder.decimalPlaces
 
 	}
-	if builder.activeStatusFlag {
+	if builder.activeStatusSet {
 		req.ActiveStatus = &builder.activeStatus
 
 	}
@@ -215,11 +215,11 @@ type CalculationActivity struct {
 }
 
 type CalculationActivityBuilder struct {
-	calculationActivityId     string // 算薪活动唯一标识
-	calculationActivityIdFlag bool
+	calculationActivityId    string // 算薪活动唯一标识
+	calculationActivityIdSet bool
 
-	calculationActivityNames     []*I18nContent // 算薪活动名称
-	calculationActivityNamesFlag bool
+	calculationActivityNames    []*I18nContent // 算薪活动名称
+	calculationActivityNamesSet bool
 }
 
 func NewCalculationActivityBuilder() *CalculationActivityBuilder {
@@ -232,7 +232,7 @@ func NewCalculationActivityBuilder() *CalculationActivityBuilder {
 // 示例值：7371828319837012009
 func (builder *CalculationActivityBuilder) CalculationActivityId(calculationActivityId string) *CalculationActivityBuilder {
 	builder.calculationActivityId = calculationActivityId
-	builder.calculationActivityIdFlag = true
+	builder.calculationActivityIdSet = true
 	return builder
 }
 
@@ -241,17 +241,17 @@ func (builder *CalculationActivityBuilder) CalculationActivityId(calculationActi
 // 示例值：
 func (builder *CalculationActivityBuilder) CalculationActivityNames(calculationActivityNames []*I18nContent) *CalculationActivityBuilder {
 	builder.calculationActivityNames = calculationActivityNames
-	builder.calculationActivityNamesFlag = true
+	builder.calculationActivityNamesSet = true
 	return builder
 }
 
 func (builder *CalculationActivityBuilder) Build() *CalculationActivity {
 	req := &CalculationActivity{}
-	if builder.calculationActivityIdFlag {
+	if builder.calculationActivityIdSet {
 		req.CalculationActivityId = &builder.calculationActivityId
 
 	}
-	if builder.calculationActivityNamesFlag {
+	if builder.calculationActivityNamesSet {
 		req.CalculationActivityNames = builder.calculationActivityNames
 	}
 	return req
@@ -282,38 +282,38 @@ type Calendar struct {
 }
 
 type CalendarBuilder struct {
-	id     string // 唯一标识
-	idFlag bool
+	id    string // 唯一标识
+	idSet bool
 
-	names     []*I18nContent // 名称
-	namesFlag bool
+	names    []*I18nContent // 名称
+	namesSet bool
 
-	region     string // 国家地区ID
-	regionFlag bool
+	region    string // 国家地区ID
+	regionSet bool
 
-	workCalendar     string // 工作日历ID
-	workCalendarFlag bool
+	workCalendar    string // 工作日历ID
+	workCalendarSet bool
 
-	timeZone     string // 时区ID
-	timeZoneFlag bool
+	timeZone    string // 时区ID
+	timeZoneSet bool
 
-	payrollCycle     int // 算薪周期： 1-周，2-双周，3-月，4-双月，5-季度，6-年
-	payrollCycleFlag bool
+	payrollCycle    int // 算薪周期： 1-周，2-双周，3-月，4-双月，5-季度，6-年
+	payrollCycleSet bool
 
-	status     int // 状态：1-启用，2-停用
-	statusFlag bool
+	status    int // 状态：1-启用，2-停用
+	statusSet bool
 
-	creatorId     string // 创建者saas_user_id
-	creatorIdFlag bool
+	creatorId    string // 创建者saas_user_id
+	creatorIdSet bool
 
-	createTime     string // 创建时间，格式：yyyy-MM-dd HH:mm:ss utc+8
-	createTimeFlag bool
+	createTime    string // 创建时间，格式：yyyy-MM-dd HH:mm:ss utc+8
+	createTimeSet bool
 
-	effectiveDate     string // 生效时间，格式：yyyy-MM-dd
-	effectiveDateFlag bool
+	effectiveDate    string // 生效时间，格式：yyyy-MM-dd
+	effectiveDateSet bool
 
-	periodYears     []string // 日历期间年份列表
-	periodYearsFlag bool
+	periodYears    []string // 日历期间年份列表
+	periodYearsSet bool
 }
 
 func NewCalendarBuilder() *CalendarBuilder {
@@ -326,7 +326,7 @@ func NewCalendarBuilder() *CalendarBuilder {
 // 示例值：6823630319749580302
 func (builder *CalendarBuilder) Id(id string) *CalendarBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -335,7 +335,7 @@ func (builder *CalendarBuilder) Id(id string) *CalendarBuilder {
 // 示例值：
 func (builder *CalendarBuilder) Names(names []*I18nContent) *CalendarBuilder {
 	builder.names = names
-	builder.namesFlag = true
+	builder.namesSet = true
 	return builder
 }
 
@@ -344,7 +344,7 @@ func (builder *CalendarBuilder) Names(names []*I18nContent) *CalendarBuilder {
 // 示例值：6823630319749580302
 func (builder *CalendarBuilder) Region(region string) *CalendarBuilder {
 	builder.region = region
-	builder.regionFlag = true
+	builder.regionSet = true
 	return builder
 }
 
@@ -353,7 +353,7 @@ func (builder *CalendarBuilder) Region(region string) *CalendarBuilder {
 // 示例值：6823630319749580303
 func (builder *CalendarBuilder) WorkCalendar(workCalendar string) *CalendarBuilder {
 	builder.workCalendar = workCalendar
-	builder.workCalendarFlag = true
+	builder.workCalendarSet = true
 	return builder
 }
 
@@ -362,7 +362,7 @@ func (builder *CalendarBuilder) WorkCalendar(workCalendar string) *CalendarBuild
 // 示例值：6823630319749580303
 func (builder *CalendarBuilder) TimeZone(timeZone string) *CalendarBuilder {
 	builder.timeZone = timeZone
-	builder.timeZoneFlag = true
+	builder.timeZoneSet = true
 	return builder
 }
 
@@ -371,7 +371,7 @@ func (builder *CalendarBuilder) TimeZone(timeZone string) *CalendarBuilder {
 // 示例值：1
 func (builder *CalendarBuilder) PayrollCycle(payrollCycle int) *CalendarBuilder {
 	builder.payrollCycle = payrollCycle
-	builder.payrollCycleFlag = true
+	builder.payrollCycleSet = true
 	return builder
 }
 
@@ -380,7 +380,7 @@ func (builder *CalendarBuilder) PayrollCycle(payrollCycle int) *CalendarBuilder 
 // 示例值：1
 func (builder *CalendarBuilder) Status(status int) *CalendarBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -389,7 +389,7 @@ func (builder *CalendarBuilder) Status(status int) *CalendarBuilder {
 // 示例值：6823630319749580303
 func (builder *CalendarBuilder) CreatorId(creatorId string) *CalendarBuilder {
 	builder.creatorId = creatorId
-	builder.creatorIdFlag = true
+	builder.creatorIdSet = true
 	return builder
 }
 
@@ -398,7 +398,7 @@ func (builder *CalendarBuilder) CreatorId(creatorId string) *CalendarBuilder {
 // 示例值：2022-11-23 12:33:09
 func (builder *CalendarBuilder) CreateTime(createTime string) *CalendarBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -407,7 +407,7 @@ func (builder *CalendarBuilder) CreateTime(createTime string) *CalendarBuilder {
 // 示例值：2022-01-01
 func (builder *CalendarBuilder) EffectiveDate(effectiveDate string) *CalendarBuilder {
 	builder.effectiveDate = effectiveDate
-	builder.effectiveDateFlag = true
+	builder.effectiveDateSet = true
 	return builder
 }
 
@@ -416,52 +416,52 @@ func (builder *CalendarBuilder) EffectiveDate(effectiveDate string) *CalendarBui
 // 示例值：
 func (builder *CalendarBuilder) PeriodYears(periodYears []string) *CalendarBuilder {
 	builder.periodYears = periodYears
-	builder.periodYearsFlag = true
+	builder.periodYearsSet = true
 	return builder
 }
 
 func (builder *CalendarBuilder) Build() *Calendar {
 	req := &Calendar{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.namesFlag {
+	if builder.namesSet {
 		req.Names = builder.names
 	}
-	if builder.regionFlag {
+	if builder.regionSet {
 		req.Region = &builder.region
 
 	}
-	if builder.workCalendarFlag {
+	if builder.workCalendarSet {
 		req.WorkCalendar = &builder.workCalendar
 
 	}
-	if builder.timeZoneFlag {
+	if builder.timeZoneSet {
 		req.TimeZone = &builder.timeZone
 
 	}
-	if builder.payrollCycleFlag {
+	if builder.payrollCycleSet {
 		req.PayrollCycle = &builder.payrollCycle
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.creatorIdFlag {
+	if builder.creatorIdSet {
 		req.CreatorId = &builder.creatorId
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.effectiveDateFlag {
+	if builder.effectiveDateSet {
 		req.EffectiveDate = &builder.effectiveDate
 
 	}
-	if builder.periodYearsFlag {
+	if builder.periodYearsSet {
 		req.PeriodYears = builder.periodYears
 	}
 	return req
@@ -474,11 +474,11 @@ type CalendarFailItem struct {
 }
 
 type CalendarFailItemBuilder struct {
-	id     string // 日历ID
-	idFlag bool
+	id    string // 日历ID
+	idSet bool
 
-	failReason     string // 失败原因
-	failReasonFlag bool
+	failReason    string // 失败原因
+	failReasonSet bool
 }
 
 func NewCalendarFailItemBuilder() *CalendarFailItemBuilder {
@@ -491,7 +491,7 @@ func NewCalendarFailItemBuilder() *CalendarFailItemBuilder {
 // 示例值：6823630319749580301
 func (builder *CalendarFailItemBuilder) Id(id string) *CalendarFailItemBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -500,17 +500,17 @@ func (builder *CalendarFailItemBuilder) Id(id string) *CalendarFailItemBuilder {
 // 示例值：calendar not found
 func (builder *CalendarFailItemBuilder) FailReason(failReason string) *CalendarFailItemBuilder {
 	builder.failReason = failReason
-	builder.failReasonFlag = true
+	builder.failReasonSet = true
 	return builder
 }
 
 func (builder *CalendarFailItemBuilder) Build() *CalendarFailItem {
 	req := &CalendarFailItem{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.failReasonFlag {
+	if builder.failReasonSet {
 		req.FailReason = &builder.failReason
 
 	}
@@ -548,47 +548,47 @@ type CalendarPeriod struct {
 }
 
 type CalendarPeriodBuilder struct {
-	periodStartDate     string // 计薪周期开始日期
-	periodStartDateFlag bool
+	periodStartDate    string // 计薪周期开始日期
+	periodStartDateSet bool
 
-	periodEndDate     string // 计薪周期结束日期
-	periodEndDateFlag bool
+	periodEndDate    string // 计薪周期结束日期
+	periodEndDateSet bool
 
-	periodKey     string // 计薪周期key
-	periodKeyFlag bool
+	periodKey    string // 计薪周期key
+	periodKeySet bool
 
-	periodName     *I18n // 计薪周期名称
-	periodNameFlag bool
+	periodName    *I18n // 计薪周期名称
+	periodNameSet bool
 
-	payrollCycle     int // 计薪周期类型
-	payrollCycleFlag bool
+	payrollCycle    int // 计薪周期类型
+	payrollCycleSet bool
 
-	timeZone     string // 时区
-	timeZoneFlag bool
+	timeZone    string // 时区
+	timeZoneSet bool
 
-	payDate     string // 发放日期
-	payDateFlag bool
+	payDate    string // 发放日期
+	payDateSet bool
 
-	payrollCalendarId     string // 关联的算薪日历ID
-	payrollCalendarIdFlag bool
+	payrollCalendarId    string // 关联的算薪日历ID
+	payrollCalendarIdSet bool
 
-	cutOffDate     string // 截止日期
-	cutOffDateFlag bool
+	cutOffDate    string // 截止日期
+	cutOffDateSet bool
 
-	taxablePeriod     string // 税款所属年月
-	taxablePeriodFlag bool
+	taxablePeriod    string // 税款所属年月
+	taxablePeriodSet bool
 
-	manualModified     bool // 是否手动修改过
-	manualModifiedFlag bool
+	manualModified    bool // 是否手动修改过
+	manualModifiedSet bool
 
-	attendanceStartDate     string // 考勤开始日期
-	attendanceStartDateFlag bool
+	attendanceStartDate    string // 考勤开始日期
+	attendanceStartDateSet bool
 
-	attendanceEndDate     string // 考勤结束日期
-	attendanceEndDateFlag bool
+	attendanceEndDate    string // 考勤结束日期
+	attendanceEndDateSet bool
 
-	cutOffDateForPaylist     string // 名单收集截止日
-	cutOffDateForPaylistFlag bool
+	cutOffDateForPaylist    string // 名单收集截止日
+	cutOffDateForPaylistSet bool
 }
 
 func NewCalendarPeriodBuilder() *CalendarPeriodBuilder {
@@ -601,7 +601,7 @@ func NewCalendarPeriodBuilder() *CalendarPeriodBuilder {
 // 示例值：2022-01-01
 func (builder *CalendarPeriodBuilder) PeriodStartDate(periodStartDate string) *CalendarPeriodBuilder {
 	builder.periodStartDate = periodStartDate
-	builder.periodStartDateFlag = true
+	builder.periodStartDateSet = true
 	return builder
 }
 
@@ -610,7 +610,7 @@ func (builder *CalendarPeriodBuilder) PeriodStartDate(periodStartDate string) *C
 // 示例值：2022-01-01
 func (builder *CalendarPeriodBuilder) PeriodEndDate(periodEndDate string) *CalendarPeriodBuilder {
 	builder.periodEndDate = periodEndDate
-	builder.periodEndDateFlag = true
+	builder.periodEndDateSet = true
 	return builder
 }
 
@@ -619,7 +619,7 @@ func (builder *CalendarPeriodBuilder) PeriodEndDate(periodEndDate string) *Calen
 // 示例值：2022-01
 func (builder *CalendarPeriodBuilder) PeriodKey(periodKey string) *CalendarPeriodBuilder {
 	builder.periodKey = periodKey
-	builder.periodKeyFlag = true
+	builder.periodKeySet = true
 	return builder
 }
 
@@ -628,7 +628,7 @@ func (builder *CalendarPeriodBuilder) PeriodKey(periodKey string) *CalendarPerio
 // 示例值：
 func (builder *CalendarPeriodBuilder) PeriodName(periodName *I18n) *CalendarPeriodBuilder {
 	builder.periodName = periodName
-	builder.periodNameFlag = true
+	builder.periodNameSet = true
 	return builder
 }
 
@@ -637,7 +637,7 @@ func (builder *CalendarPeriodBuilder) PeriodName(periodName *I18n) *CalendarPeri
 // 示例值：1
 func (builder *CalendarPeriodBuilder) PayrollCycle(payrollCycle int) *CalendarPeriodBuilder {
 	builder.payrollCycle = payrollCycle
-	builder.payrollCycleFlag = true
+	builder.payrollCycleSet = true
 	return builder
 }
 
@@ -646,7 +646,7 @@ func (builder *CalendarPeriodBuilder) PayrollCycle(payrollCycle int) *CalendarPe
 // 示例值：(GMT+08:00) 中国标准时间 - 上海
 func (builder *CalendarPeriodBuilder) TimeZone(timeZone string) *CalendarPeriodBuilder {
 	builder.timeZone = timeZone
-	builder.timeZoneFlag = true
+	builder.timeZoneSet = true
 	return builder
 }
 
@@ -655,7 +655,7 @@ func (builder *CalendarPeriodBuilder) TimeZone(timeZone string) *CalendarPeriodB
 // 示例值：2022-01-01
 func (builder *CalendarPeriodBuilder) PayDate(payDate string) *CalendarPeriodBuilder {
 	builder.payDate = payDate
-	builder.payDateFlag = true
+	builder.payDateSet = true
 	return builder
 }
 
@@ -664,7 +664,7 @@ func (builder *CalendarPeriodBuilder) PayDate(payDate string) *CalendarPeriodBui
 // 示例值：7374707723663867948
 func (builder *CalendarPeriodBuilder) PayrollCalendarId(payrollCalendarId string) *CalendarPeriodBuilder {
 	builder.payrollCalendarId = payrollCalendarId
-	builder.payrollCalendarIdFlag = true
+	builder.payrollCalendarIdSet = true
 	return builder
 }
 
@@ -673,7 +673,7 @@ func (builder *CalendarPeriodBuilder) PayrollCalendarId(payrollCalendarId string
 // 示例值：2022-01-01
 func (builder *CalendarPeriodBuilder) CutOffDate(cutOffDate string) *CalendarPeriodBuilder {
 	builder.cutOffDate = cutOffDate
-	builder.cutOffDateFlag = true
+	builder.cutOffDateSet = true
 	return builder
 }
 
@@ -682,7 +682,7 @@ func (builder *CalendarPeriodBuilder) CutOffDate(cutOffDate string) *CalendarPer
 // 示例值：2023-10
 func (builder *CalendarPeriodBuilder) TaxablePeriod(taxablePeriod string) *CalendarPeriodBuilder {
 	builder.taxablePeriod = taxablePeriod
-	builder.taxablePeriodFlag = true
+	builder.taxablePeriodSet = true
 	return builder
 }
 
@@ -691,7 +691,7 @@ func (builder *CalendarPeriodBuilder) TaxablePeriod(taxablePeriod string) *Calen
 // 示例值：
 func (builder *CalendarPeriodBuilder) ManualModified(manualModified bool) *CalendarPeriodBuilder {
 	builder.manualModified = manualModified
-	builder.manualModifiedFlag = true
+	builder.manualModifiedSet = true
 	return builder
 }
 
@@ -700,7 +700,7 @@ func (builder *CalendarPeriodBuilder) ManualModified(manualModified bool) *Calen
 // 示例值：2024-01-01
 func (builder *CalendarPeriodBuilder) AttendanceStartDate(attendanceStartDate string) *CalendarPeriodBuilder {
 	builder.attendanceStartDate = attendanceStartDate
-	builder.attendanceStartDateFlag = true
+	builder.attendanceStartDateSet = true
 	return builder
 }
 
@@ -709,7 +709,7 @@ func (builder *CalendarPeriodBuilder) AttendanceStartDate(attendanceStartDate st
 // 示例值：2024-01-31
 func (builder *CalendarPeriodBuilder) AttendanceEndDate(attendanceEndDate string) *CalendarPeriodBuilder {
 	builder.attendanceEndDate = attendanceEndDate
-	builder.attendanceEndDateFlag = true
+	builder.attendanceEndDateSet = true
 	return builder
 }
 
@@ -718,64 +718,64 @@ func (builder *CalendarPeriodBuilder) AttendanceEndDate(attendanceEndDate string
 // 示例值：2024-01-26
 func (builder *CalendarPeriodBuilder) CutOffDateForPaylist(cutOffDateForPaylist string) *CalendarPeriodBuilder {
 	builder.cutOffDateForPaylist = cutOffDateForPaylist
-	builder.cutOffDateForPaylistFlag = true
+	builder.cutOffDateForPaylistSet = true
 	return builder
 }
 
 func (builder *CalendarPeriodBuilder) Build() *CalendarPeriod {
 	req := &CalendarPeriod{}
-	if builder.periodStartDateFlag {
+	if builder.periodStartDateSet {
 		req.PeriodStartDate = &builder.periodStartDate
 
 	}
-	if builder.periodEndDateFlag {
+	if builder.periodEndDateSet {
 		req.PeriodEndDate = &builder.periodEndDate
 
 	}
-	if builder.periodKeyFlag {
+	if builder.periodKeySet {
 		req.PeriodKey = &builder.periodKey
 
 	}
-	if builder.periodNameFlag {
+	if builder.periodNameSet {
 		req.PeriodName = builder.periodName
 	}
-	if builder.payrollCycleFlag {
+	if builder.payrollCycleSet {
 		req.PayrollCycle = &builder.payrollCycle
 
 	}
-	if builder.timeZoneFlag {
+	if builder.timeZoneSet {
 		req.TimeZone = &builder.timeZone
 
 	}
-	if builder.payDateFlag {
+	if builder.payDateSet {
 		req.PayDate = &builder.payDate
 
 	}
-	if builder.payrollCalendarIdFlag {
+	if builder.payrollCalendarIdSet {
 		req.PayrollCalendarId = &builder.payrollCalendarId
 
 	}
-	if builder.cutOffDateFlag {
+	if builder.cutOffDateSet {
 		req.CutOffDate = &builder.cutOffDate
 
 	}
-	if builder.taxablePeriodFlag {
+	if builder.taxablePeriodSet {
 		req.TaxablePeriod = &builder.taxablePeriod
 
 	}
-	if builder.manualModifiedFlag {
+	if builder.manualModifiedSet {
 		req.ManualModified = &builder.manualModified
 
 	}
-	if builder.attendanceStartDateFlag {
+	if builder.attendanceStartDateSet {
 		req.AttendanceStartDate = &builder.attendanceStartDate
 
 	}
-	if builder.attendanceEndDateFlag {
+	if builder.attendanceEndDateSet {
 		req.AttendanceEndDate = &builder.attendanceEndDate
 
 	}
-	if builder.cutOffDateForPaylistFlag {
+	if builder.cutOffDateForPaylistSet {
 		req.CutOffDateForPaylist = &builder.cutOffDateForPaylist
 
 	}
@@ -789,11 +789,11 @@ type CalendarSuccessItem struct {
 }
 
 type CalendarSuccessItemBuilder struct {
-	id     string // 日历ID
-	idFlag bool
+	id    string // 日历ID
+	idSet bool
 
-	periods     []*CalendarPeriod // 期间列表
-	periodsFlag bool
+	periods    []*CalendarPeriod // 期间列表
+	periodsSet bool
 }
 
 func NewCalendarSuccessItemBuilder() *CalendarSuccessItemBuilder {
@@ -806,7 +806,7 @@ func NewCalendarSuccessItemBuilder() *CalendarSuccessItemBuilder {
 // 示例值：6823630319749580302
 func (builder *CalendarSuccessItemBuilder) Id(id string) *CalendarSuccessItemBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -815,17 +815,17 @@ func (builder *CalendarSuccessItemBuilder) Id(id string) *CalendarSuccessItemBui
 // 示例值：
 func (builder *CalendarSuccessItemBuilder) Periods(periods []*CalendarPeriod) *CalendarSuccessItemBuilder {
 	builder.periods = periods
-	builder.periodsFlag = true
+	builder.periodsSet = true
 	return builder
 }
 
 func (builder *CalendarSuccessItemBuilder) Build() *CalendarSuccessItem {
 	req := &CalendarSuccessItem{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.periodsFlag {
+	if builder.periodsSet {
 		req.Periods = builder.periods
 	}
 	return req
@@ -850,29 +850,29 @@ type CollectionActivityDataWithDetails struct {
 }
 
 type CollectionActivityDataWithDetailsBuilder struct {
-	activityId     string // 活动id（对于往期填报/往期更正，指的是被更正的那条填报活动明细对应的活动id，即原始的那个活动id）
-	activityIdFlag bool
+	activityId    string // 活动id（对于往期填报/往期更正，指的是被更正的那条填报活动明细对应的活动id，即原始的那个活动id）
+	activityIdSet bool
 
-	templateId     string // 填报活动关联的填报模板id
-	templateIdFlag bool
+	templateId    string // 填报活动关联的填报模板id
+	templateIdSet bool
 
-	templateVersionId     string // 填报活动关联的填报模板版本id
-	templateVersionIdFlag bool
+	templateVersionId    string // 填报活动关联的填报模板版本id
+	templateVersionIdSet bool
 
-	calendarPeriod     *CalendarPeriod // 计薪期间（对于往期填报/往期更正，指的是被更正的那条填报活动明细对应的计薪期间，即原始的那个活动的计薪期间）
-	calendarPeriodFlag bool
+	calendarPeriod    *CalendarPeriod // 计薪期间（对于往期填报/往期更正，指的是被更正的那条填报活动明细对应的计薪期间，即原始的那个活动的计薪期间）
+	calendarPeriodSet bool
 
-	calendarEffectiveDate     string // 生效日期，对应计薪期间的结束日期（取CalendarPeriod的结束日期。对于往期更正/往期补填场景，取目标（原始）period的结束日期。是一个date字段，YYYY-MM-DD）
-	calendarEffectiveDateFlag bool
+	calendarEffectiveDate    string // 生效日期，对应计薪期间的结束日期（取CalendarPeriod的结束日期。对于往期更正/往期补填场景，取目标（原始）period的结束日期。是一个date字段，YYYY-MM-DD）
+	calendarEffectiveDateSet bool
 
-	countryRegions     []*CountryRegion // 国家/地区多值列表
-	countryRegionsFlag bool
+	countryRegions    []*CountryRegion // 国家/地区多值列表
+	countryRegionsSet bool
 
-	collectionEmployeeDatas     []*CollectionEmployeeData // 员工的填报活动明细数据列表，不同活动员工可能会有多条明细数据
-	collectionEmployeeDatasFlag bool
+	collectionEmployeeDatas    []*CollectionEmployeeData // 员工的填报活动明细数据列表，不同活动员工可能会有多条明细数据
+	collectionEmployeeDatasSet bool
 
-	activityApprovalPassTime     string // 填报活动审批通过时间，毫秒时间戳
-	activityApprovalPassTimeFlag bool
+	activityApprovalPassTime    string // 填报活动审批通过时间，毫秒时间戳
+	activityApprovalPassTimeSet bool
 }
 
 func NewCollectionActivityDataWithDetailsBuilder() *CollectionActivityDataWithDetailsBuilder {
@@ -885,7 +885,7 @@ func NewCollectionActivityDataWithDetailsBuilder() *CollectionActivityDataWithDe
 // 示例值：7202076988667019308
 func (builder *CollectionActivityDataWithDetailsBuilder) ActivityId(activityId string) *CollectionActivityDataWithDetailsBuilder {
 	builder.activityId = activityId
-	builder.activityIdFlag = true
+	builder.activityIdSet = true
 	return builder
 }
 
@@ -894,7 +894,7 @@ func (builder *CollectionActivityDataWithDetailsBuilder) ActivityId(activityId s
 // 示例值：7202076988667019308
 func (builder *CollectionActivityDataWithDetailsBuilder) TemplateId(templateId string) *CollectionActivityDataWithDetailsBuilder {
 	builder.templateId = templateId
-	builder.templateIdFlag = true
+	builder.templateIdSet = true
 	return builder
 }
 
@@ -903,7 +903,7 @@ func (builder *CollectionActivityDataWithDetailsBuilder) TemplateId(templateId s
 // 示例值：7202076988667019308
 func (builder *CollectionActivityDataWithDetailsBuilder) TemplateVersionId(templateVersionId string) *CollectionActivityDataWithDetailsBuilder {
 	builder.templateVersionId = templateVersionId
-	builder.templateVersionIdFlag = true
+	builder.templateVersionIdSet = true
 	return builder
 }
 
@@ -912,7 +912,7 @@ func (builder *CollectionActivityDataWithDetailsBuilder) TemplateVersionId(templ
 // 示例值：
 func (builder *CollectionActivityDataWithDetailsBuilder) CalendarPeriod(calendarPeriod *CalendarPeriod) *CollectionActivityDataWithDetailsBuilder {
 	builder.calendarPeriod = calendarPeriod
-	builder.calendarPeriodFlag = true
+	builder.calendarPeriodSet = true
 	return builder
 }
 
@@ -921,7 +921,7 @@ func (builder *CollectionActivityDataWithDetailsBuilder) CalendarPeriod(calendar
 // 示例值：2022-01-01
 func (builder *CollectionActivityDataWithDetailsBuilder) CalendarEffectiveDate(calendarEffectiveDate string) *CollectionActivityDataWithDetailsBuilder {
 	builder.calendarEffectiveDate = calendarEffectiveDate
-	builder.calendarEffectiveDateFlag = true
+	builder.calendarEffectiveDateSet = true
 	return builder
 }
 
@@ -930,7 +930,7 @@ func (builder *CollectionActivityDataWithDetailsBuilder) CalendarEffectiveDate(c
 // 示例值：
 func (builder *CollectionActivityDataWithDetailsBuilder) CountryRegions(countryRegions []*CountryRegion) *CollectionActivityDataWithDetailsBuilder {
 	builder.countryRegions = countryRegions
-	builder.countryRegionsFlag = true
+	builder.countryRegionsSet = true
 	return builder
 }
 
@@ -939,7 +939,7 @@ func (builder *CollectionActivityDataWithDetailsBuilder) CountryRegions(countryR
 // 示例值：
 func (builder *CollectionActivityDataWithDetailsBuilder) CollectionEmployeeDatas(collectionEmployeeDatas []*CollectionEmployeeData) *CollectionActivityDataWithDetailsBuilder {
 	builder.collectionEmployeeDatas = collectionEmployeeDatas
-	builder.collectionEmployeeDatasFlag = true
+	builder.collectionEmployeeDatasSet = true
 	return builder
 }
 
@@ -948,38 +948,38 @@ func (builder *CollectionActivityDataWithDetailsBuilder) CollectionEmployeeDatas
 // 示例值：1723797063000
 func (builder *CollectionActivityDataWithDetailsBuilder) ActivityApprovalPassTime(activityApprovalPassTime string) *CollectionActivityDataWithDetailsBuilder {
 	builder.activityApprovalPassTime = activityApprovalPassTime
-	builder.activityApprovalPassTimeFlag = true
+	builder.activityApprovalPassTimeSet = true
 	return builder
 }
 
 func (builder *CollectionActivityDataWithDetailsBuilder) Build() *CollectionActivityDataWithDetails {
 	req := &CollectionActivityDataWithDetails{}
-	if builder.activityIdFlag {
+	if builder.activityIdSet {
 		req.ActivityId = &builder.activityId
 
 	}
-	if builder.templateIdFlag {
+	if builder.templateIdSet {
 		req.TemplateId = &builder.templateId
 
 	}
-	if builder.templateVersionIdFlag {
+	if builder.templateVersionIdSet {
 		req.TemplateVersionId = &builder.templateVersionId
 
 	}
-	if builder.calendarPeriodFlag {
+	if builder.calendarPeriodSet {
 		req.CalendarPeriod = builder.calendarPeriod
 	}
-	if builder.calendarEffectiveDateFlag {
+	if builder.calendarEffectiveDateSet {
 		req.CalendarEffectiveDate = &builder.calendarEffectiveDate
 
 	}
-	if builder.countryRegionsFlag {
+	if builder.countryRegionsSet {
 		req.CountryRegions = builder.countryRegions
 	}
-	if builder.collectionEmployeeDatasFlag {
+	if builder.collectionEmployeeDatasSet {
 		req.CollectionEmployeeDatas = builder.collectionEmployeeDatas
 	}
-	if builder.activityApprovalPassTimeFlag {
+	if builder.activityApprovalPassTimeSet {
 		req.ActivityApprovalPassTime = &builder.activityApprovalPassTime
 
 	}
@@ -1021,53 +1021,53 @@ type CollectionData struct {
 }
 
 type CollectionDataBuilder struct {
-	id     string // 每一条明细数据的主键id
-	idFlag bool
+	id    string // 每一条明细数据的主键id
+	idSet bool
 
-	collectionType     int // 1-本期填报，2-往期补填，3-往期更正
-	collectionTypeFlag bool
+	collectionType    int // 1-本期填报，2-往期补填，3-往期更正
+	collectionTypeSet bool
 
-	dataPeriod     *CollectionDataPeriod // 数据归属期
-	dataPeriodFlag bool
+	dataPeriod    *CollectionDataPeriod // 数据归属期
+	dataPeriodSet bool
 
-	currencyId     string // 币种ID
-	currencyIdFlag bool
+	currencyId    string // 币种ID
+	currencyIdSet bool
 
-	currencyCode     string // 币种code
-	currencyCodeFlag bool
+	currencyCode    string // 币种code
+	currencyCodeSet bool
 
-	collectionItemValues     []*CollectionItemValue // 填报项具体值信息
-	collectionItemValuesFlag bool
+	collectionItemValues    []*CollectionItemValue // 填报项具体值信息
+	collectionItemValuesSet bool
 
-	templateSnapshot     *CollectionTemplateSnapshot // 填报模板快照
-	templateSnapshotFlag bool
+	templateSnapshot    *CollectionTemplateSnapshot // 填报模板快照
+	templateSnapshotSet bool
 
-	createdAt     string // 创建时间，毫秒时间戳
-	createdAtFlag bool
+	createdAt    string // 创建时间，毫秒时间戳
+	createdAtSet bool
 
-	modifiedAt     string // 更新时间，毫秒时间戳
-	modifiedAtFlag bool
+	modifiedAt    string // 更新时间，毫秒时间戳
+	modifiedAtSet bool
 
-	creatorInfo     *EmployeeInfo // 创建人信息
-	creatorInfoFlag bool
+	creatorInfo    *EmployeeInfo // 创建人信息
+	creatorInfoSet bool
 
-	modifierInfo     *EmployeeInfo // 更新人信息
-	modifierInfoFlag bool
+	modifierInfo    *EmployeeInfo // 更新人信息
+	modifierInfoSet bool
 
-	calendarPeriod     *CalendarPeriod // 计薪期间
-	calendarPeriodFlag bool
+	calendarPeriod    *CalendarPeriod // 计薪期间
+	calendarPeriodSet bool
 
-	effectiveTime     string // 生效时间，毫秒时间戳
-	effectiveTimeFlag bool
+	effectiveTime    string // 生效时间，毫秒时间戳
+	effectiveTimeSet bool
 
-	sourceActivityId     string // 填写明细记录所在的填报活动id
-	sourceActivityIdFlag bool
+	sourceActivityId    string // 填写明细记录所在的填报活动id
+	sourceActivityIdSet bool
 
-	status     int // 明细记录状态，1-生效，2-删除（系统内部会过滤数据，正常不会返回），3-撤销
-	statusFlag bool
+	status    int // 明细记录状态，1-生效，2-删除（系统内部会过滤数据，正常不会返回），3-撤销
+	statusSet bool
 
-	relatedDataId     string // 关联dataID 如往期更正场景，该ID关联更正前记录
-	relatedDataIdFlag bool
+	relatedDataId    string // 关联dataID 如往期更正场景，该ID关联更正前记录
+	relatedDataIdSet bool
 }
 
 func NewCollectionDataBuilder() *CollectionDataBuilder {
@@ -1080,7 +1080,7 @@ func NewCollectionDataBuilder() *CollectionDataBuilder {
 // 示例值：7202076988667019308
 func (builder *CollectionDataBuilder) Id(id string) *CollectionDataBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1089,7 +1089,7 @@ func (builder *CollectionDataBuilder) Id(id string) *CollectionDataBuilder {
 // 示例值：1
 func (builder *CollectionDataBuilder) CollectionType(collectionType int) *CollectionDataBuilder {
 	builder.collectionType = collectionType
-	builder.collectionTypeFlag = true
+	builder.collectionTypeSet = true
 	return builder
 }
 
@@ -1098,7 +1098,7 @@ func (builder *CollectionDataBuilder) CollectionType(collectionType int) *Collec
 // 示例值：
 func (builder *CollectionDataBuilder) DataPeriod(dataPeriod *CollectionDataPeriod) *CollectionDataBuilder {
 	builder.dataPeriod = dataPeriod
-	builder.dataPeriodFlag = true
+	builder.dataPeriodSet = true
 	return builder
 }
 
@@ -1107,7 +1107,7 @@ func (builder *CollectionDataBuilder) DataPeriod(dataPeriod *CollectionDataPerio
 // 示例值：7202076988667019308
 func (builder *CollectionDataBuilder) CurrencyId(currencyId string) *CollectionDataBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
@@ -1116,7 +1116,7 @@ func (builder *CollectionDataBuilder) CurrencyId(currencyId string) *CollectionD
 // 示例值：CNY
 func (builder *CollectionDataBuilder) CurrencyCode(currencyCode string) *CollectionDataBuilder {
 	builder.currencyCode = currencyCode
-	builder.currencyCodeFlag = true
+	builder.currencyCodeSet = true
 	return builder
 }
 
@@ -1125,7 +1125,7 @@ func (builder *CollectionDataBuilder) CurrencyCode(currencyCode string) *Collect
 // 示例值：
 func (builder *CollectionDataBuilder) CollectionItemValues(collectionItemValues []*CollectionItemValue) *CollectionDataBuilder {
 	builder.collectionItemValues = collectionItemValues
-	builder.collectionItemValuesFlag = true
+	builder.collectionItemValuesSet = true
 	return builder
 }
 
@@ -1134,7 +1134,7 @@ func (builder *CollectionDataBuilder) CollectionItemValues(collectionItemValues 
 // 示例值：
 func (builder *CollectionDataBuilder) TemplateSnapshot(templateSnapshot *CollectionTemplateSnapshot) *CollectionDataBuilder {
 	builder.templateSnapshot = templateSnapshot
-	builder.templateSnapshotFlag = true
+	builder.templateSnapshotSet = true
 	return builder
 }
 
@@ -1143,7 +1143,7 @@ func (builder *CollectionDataBuilder) TemplateSnapshot(templateSnapshot *Collect
 // 示例值：1723797063000
 func (builder *CollectionDataBuilder) CreatedAt(createdAt string) *CollectionDataBuilder {
 	builder.createdAt = createdAt
-	builder.createdAtFlag = true
+	builder.createdAtSet = true
 	return builder
 }
 
@@ -1152,7 +1152,7 @@ func (builder *CollectionDataBuilder) CreatedAt(createdAt string) *CollectionDat
 // 示例值：1723797063000
 func (builder *CollectionDataBuilder) ModifiedAt(modifiedAt string) *CollectionDataBuilder {
 	builder.modifiedAt = modifiedAt
-	builder.modifiedAtFlag = true
+	builder.modifiedAtSet = true
 	return builder
 }
 
@@ -1161,7 +1161,7 @@ func (builder *CollectionDataBuilder) ModifiedAt(modifiedAt string) *CollectionD
 // 示例值：
 func (builder *CollectionDataBuilder) CreatorInfo(creatorInfo *EmployeeInfo) *CollectionDataBuilder {
 	builder.creatorInfo = creatorInfo
-	builder.creatorInfoFlag = true
+	builder.creatorInfoSet = true
 	return builder
 }
 
@@ -1170,7 +1170,7 @@ func (builder *CollectionDataBuilder) CreatorInfo(creatorInfo *EmployeeInfo) *Co
 // 示例值：
 func (builder *CollectionDataBuilder) ModifierInfo(modifierInfo *EmployeeInfo) *CollectionDataBuilder {
 	builder.modifierInfo = modifierInfo
-	builder.modifierInfoFlag = true
+	builder.modifierInfoSet = true
 	return builder
 }
 
@@ -1179,7 +1179,7 @@ func (builder *CollectionDataBuilder) ModifierInfo(modifierInfo *EmployeeInfo) *
 // 示例值：
 func (builder *CollectionDataBuilder) CalendarPeriod(calendarPeriod *CalendarPeriod) *CollectionDataBuilder {
 	builder.calendarPeriod = calendarPeriod
-	builder.calendarPeriodFlag = true
+	builder.calendarPeriodSet = true
 	return builder
 }
 
@@ -1188,7 +1188,7 @@ func (builder *CollectionDataBuilder) CalendarPeriod(calendarPeriod *CalendarPer
 // 示例值：1723797063000
 func (builder *CollectionDataBuilder) EffectiveTime(effectiveTime string) *CollectionDataBuilder {
 	builder.effectiveTime = effectiveTime
-	builder.effectiveTimeFlag = true
+	builder.effectiveTimeSet = true
 	return builder
 }
 
@@ -1197,7 +1197,7 @@ func (builder *CollectionDataBuilder) EffectiveTime(effectiveTime string) *Colle
 // 示例值：7202076988667019308
 func (builder *CollectionDataBuilder) SourceActivityId(sourceActivityId string) *CollectionDataBuilder {
 	builder.sourceActivityId = sourceActivityId
-	builder.sourceActivityIdFlag = true
+	builder.sourceActivityIdSet = true
 	return builder
 }
 
@@ -1206,7 +1206,7 @@ func (builder *CollectionDataBuilder) SourceActivityId(sourceActivityId string) 
 // 示例值：1
 func (builder *CollectionDataBuilder) Status(status int) *CollectionDataBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -1215,67 +1215,67 @@ func (builder *CollectionDataBuilder) Status(status int) *CollectionDataBuilder 
 // 示例值：7202076988667019308
 func (builder *CollectionDataBuilder) RelatedDataId(relatedDataId string) *CollectionDataBuilder {
 	builder.relatedDataId = relatedDataId
-	builder.relatedDataIdFlag = true
+	builder.relatedDataIdSet = true
 	return builder
 }
 
 func (builder *CollectionDataBuilder) Build() *CollectionData {
 	req := &CollectionData{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.collectionTypeFlag {
+	if builder.collectionTypeSet {
 		req.CollectionType = &builder.collectionType
 
 	}
-	if builder.dataPeriodFlag {
+	if builder.dataPeriodSet {
 		req.DataPeriod = builder.dataPeriod
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = &builder.currencyId
 
 	}
-	if builder.currencyCodeFlag {
+	if builder.currencyCodeSet {
 		req.CurrencyCode = &builder.currencyCode
 
 	}
-	if builder.collectionItemValuesFlag {
+	if builder.collectionItemValuesSet {
 		req.CollectionItemValues = builder.collectionItemValues
 	}
-	if builder.templateSnapshotFlag {
+	if builder.templateSnapshotSet {
 		req.TemplateSnapshot = builder.templateSnapshot
 	}
-	if builder.createdAtFlag {
+	if builder.createdAtSet {
 		req.CreatedAt = &builder.createdAt
 
 	}
-	if builder.modifiedAtFlag {
+	if builder.modifiedAtSet {
 		req.ModifiedAt = &builder.modifiedAt
 
 	}
-	if builder.creatorInfoFlag {
+	if builder.creatorInfoSet {
 		req.CreatorInfo = builder.creatorInfo
 	}
-	if builder.modifierInfoFlag {
+	if builder.modifierInfoSet {
 		req.ModifierInfo = builder.modifierInfo
 	}
-	if builder.calendarPeriodFlag {
+	if builder.calendarPeriodSet {
 		req.CalendarPeriod = builder.calendarPeriod
 	}
-	if builder.effectiveTimeFlag {
+	if builder.effectiveTimeSet {
 		req.EffectiveTime = &builder.effectiveTime
 
 	}
-	if builder.sourceActivityIdFlag {
+	if builder.sourceActivityIdSet {
 		req.SourceActivityId = &builder.sourceActivityId
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.relatedDataIdFlag {
+	if builder.relatedDataIdSet {
 		req.RelatedDataId = &builder.relatedDataId
 
 	}
@@ -1289,11 +1289,11 @@ type CollectionDataPeriod struct {
 }
 
 type CollectionDataPeriodBuilder struct {
-	startDate     string // 数据归属期开始日期
-	startDateFlag bool
+	startDate    string // 数据归属期开始日期
+	startDateSet bool
 
-	endDate     string // 数据归属期结束日期
-	endDateFlag bool
+	endDate    string // 数据归属期结束日期
+	endDateSet bool
 }
 
 func NewCollectionDataPeriodBuilder() *CollectionDataPeriodBuilder {
@@ -1306,7 +1306,7 @@ func NewCollectionDataPeriodBuilder() *CollectionDataPeriodBuilder {
 // 示例值：2022-01-01
 func (builder *CollectionDataPeriodBuilder) StartDate(startDate string) *CollectionDataPeriodBuilder {
 	builder.startDate = startDate
-	builder.startDateFlag = true
+	builder.startDateSet = true
 	return builder
 }
 
@@ -1315,17 +1315,17 @@ func (builder *CollectionDataPeriodBuilder) StartDate(startDate string) *Collect
 // 示例值：2022-01-01
 func (builder *CollectionDataPeriodBuilder) EndDate(endDate string) *CollectionDataPeriodBuilder {
 	builder.endDate = endDate
-	builder.endDateFlag = true
+	builder.endDateSet = true
 	return builder
 }
 
 func (builder *CollectionDataPeriodBuilder) Build() *CollectionDataPeriod {
 	req := &CollectionDataPeriod{}
-	if builder.startDateFlag {
+	if builder.startDateSet {
 		req.StartDate = &builder.startDate
 
 	}
-	if builder.endDateFlag {
+	if builder.endDateSet {
 		req.EndDate = &builder.endDate
 
 	}
@@ -1339,11 +1339,11 @@ type CollectionDetail struct {
 }
 
 type CollectionDetailBuilder struct {
-	employmentId     string // 员工雇员ID
-	employmentIdFlag bool
+	employmentId    string // 员工雇员ID
+	employmentIdSet bool
 
-	activities     []*CollectionActivityDataWithDetails // 一个员工的填报活动数据，一个员工可能会有多条活动数据
-	activitiesFlag bool
+	activities    []*CollectionActivityDataWithDetails // 一个员工的填报活动数据，一个员工可能会有多条活动数据
+	activitiesSet bool
 }
 
 func NewCollectionDetailBuilder() *CollectionDetailBuilder {
@@ -1356,7 +1356,7 @@ func NewCollectionDetailBuilder() *CollectionDetailBuilder {
 // 示例值：7202076988667019308
 func (builder *CollectionDetailBuilder) EmploymentId(employmentId string) *CollectionDetailBuilder {
 	builder.employmentId = employmentId
-	builder.employmentIdFlag = true
+	builder.employmentIdSet = true
 	return builder
 }
 
@@ -1365,17 +1365,17 @@ func (builder *CollectionDetailBuilder) EmploymentId(employmentId string) *Colle
 // 示例值：
 func (builder *CollectionDetailBuilder) Activities(activities []*CollectionActivityDataWithDetails) *CollectionDetailBuilder {
 	builder.activities = activities
-	builder.activitiesFlag = true
+	builder.activitiesSet = true
 	return builder
 }
 
 func (builder *CollectionDetailBuilder) Build() *CollectionDetail {
 	req := &CollectionDetail{}
-	if builder.employmentIdFlag {
+	if builder.employmentIdSet {
 		req.EmploymentId = &builder.employmentId
 
 	}
-	if builder.activitiesFlag {
+	if builder.activitiesSet {
 		req.Activities = builder.activities
 	}
 	return req
@@ -1392,17 +1392,17 @@ type CollectionEmployeeData struct {
 }
 
 type CollectionEmployeeDataBuilder struct {
-	rowId     string // 填报明细行ID
-	rowIdFlag bool
+	rowId    string // 填报明细行ID
+	rowIdSet bool
 
-	activityId     string // 填报活动ID
-	activityIdFlag bool
+	activityId    string // 填报活动ID
+	activityIdSet bool
 
-	employeeInfo     *EmployeeInfo // 员工信息
-	employeeInfoFlag bool
+	employeeInfo    *EmployeeInfo // 员工信息
+	employeeInfoSet bool
 
-	collectionDatas     []*CollectionData // 同个员工同个活动下可能有多条明细数据
-	collectionDatasFlag bool
+	collectionDatas    []*CollectionData // 同个员工同个活动下可能有多条明细数据
+	collectionDatasSet bool
 }
 
 func NewCollectionEmployeeDataBuilder() *CollectionEmployeeDataBuilder {
@@ -1415,7 +1415,7 @@ func NewCollectionEmployeeDataBuilder() *CollectionEmployeeDataBuilder {
 // 示例值：1
 func (builder *CollectionEmployeeDataBuilder) RowId(rowId string) *CollectionEmployeeDataBuilder {
 	builder.rowId = rowId
-	builder.rowIdFlag = true
+	builder.rowIdSet = true
 	return builder
 }
 
@@ -1424,7 +1424,7 @@ func (builder *CollectionEmployeeDataBuilder) RowId(rowId string) *CollectionEmp
 // 示例值：7202076988667019308
 func (builder *CollectionEmployeeDataBuilder) ActivityId(activityId string) *CollectionEmployeeDataBuilder {
 	builder.activityId = activityId
-	builder.activityIdFlag = true
+	builder.activityIdSet = true
 	return builder
 }
 
@@ -1433,7 +1433,7 @@ func (builder *CollectionEmployeeDataBuilder) ActivityId(activityId string) *Col
 // 示例值：
 func (builder *CollectionEmployeeDataBuilder) EmployeeInfo(employeeInfo *EmployeeInfo) *CollectionEmployeeDataBuilder {
 	builder.employeeInfo = employeeInfo
-	builder.employeeInfoFlag = true
+	builder.employeeInfoSet = true
 	return builder
 }
 
@@ -1442,24 +1442,24 @@ func (builder *CollectionEmployeeDataBuilder) EmployeeInfo(employeeInfo *Employe
 // 示例值：
 func (builder *CollectionEmployeeDataBuilder) CollectionDatas(collectionDatas []*CollectionData) *CollectionEmployeeDataBuilder {
 	builder.collectionDatas = collectionDatas
-	builder.collectionDatasFlag = true
+	builder.collectionDatasSet = true
 	return builder
 }
 
 func (builder *CollectionEmployeeDataBuilder) Build() *CollectionEmployeeData {
 	req := &CollectionEmployeeData{}
-	if builder.rowIdFlag {
+	if builder.rowIdSet {
 		req.RowId = &builder.rowId
 
 	}
-	if builder.activityIdFlag {
+	if builder.activityIdSet {
 		req.ActivityId = &builder.activityId
 
 	}
-	if builder.employeeInfoFlag {
+	if builder.employeeInfoSet {
 		req.EmployeeInfo = builder.employeeInfo
 	}
-	if builder.collectionDatasFlag {
+	if builder.collectionDatasSet {
 		req.CollectionDatas = builder.collectionDatas
 	}
 	return req
@@ -1486,32 +1486,32 @@ type CollectionItem struct {
 }
 
 type CollectionItemBuilder struct {
-	templateId     string // 填报模板ID
-	templateIdFlag bool
+	templateId    string // 填报模板ID
+	templateIdSet bool
 
-	templateVersionId     string // 填报模板版本ID
-	templateVersionIdFlag bool
+	templateVersionId    string // 填报模板版本ID
+	templateVersionIdSet bool
 
-	itemId     string // 填报项ID
-	itemIdFlag bool
+	itemId    string // 填报项ID
+	itemIdSet bool
 
-	itemName     *I18n // 填报项名称
-	itemNameFlag bool
+	itemName    *I18n // 填报项名称
+	itemNameSet bool
 
-	fieldType     int // 填报项类型，1-文本，2-金额，3-数值，4-百分比，5-日期，6-日期范围
-	fieldTypeFlag bool
+	fieldType    int // 填报项类型，1-文本，2-金额，3-数值，4-百分比，5-日期，6-日期范围
+	fieldTypeSet bool
 
-	decimalPlaces     int // 小数位数
-	decimalPlacesFlag bool
+	decimalPlaces    int // 小数位数
+	decimalPlacesSet bool
 
-	calcMethod     int // 计算方式，1-加和，2-最新值
-	calcMethodFlag bool
+	calcMethod    int // 计算方式，1-加和，2-最新值
+	calcMethodSet bool
 
-	preset     bool // 是否预置填报项
-	presetFlag bool
+	preset    bool // 是否预置填报项
+	presetSet bool
 
-	isRequired     bool // 是否必填
-	isRequiredFlag bool
+	isRequired    bool // 是否必填
+	isRequiredSet bool
 }
 
 func NewCollectionItemBuilder() *CollectionItemBuilder {
@@ -1524,7 +1524,7 @@ func NewCollectionItemBuilder() *CollectionItemBuilder {
 // 示例值：7202076988667019308
 func (builder *CollectionItemBuilder) TemplateId(templateId string) *CollectionItemBuilder {
 	builder.templateId = templateId
-	builder.templateIdFlag = true
+	builder.templateIdSet = true
 	return builder
 }
 
@@ -1533,7 +1533,7 @@ func (builder *CollectionItemBuilder) TemplateId(templateId string) *CollectionI
 // 示例值：7202076988667019308
 func (builder *CollectionItemBuilder) TemplateVersionId(templateVersionId string) *CollectionItemBuilder {
 	builder.templateVersionId = templateVersionId
-	builder.templateVersionIdFlag = true
+	builder.templateVersionIdSet = true
 	return builder
 }
 
@@ -1542,7 +1542,7 @@ func (builder *CollectionItemBuilder) TemplateVersionId(templateVersionId string
 // 示例值：7202076988667019308
 func (builder *CollectionItemBuilder) ItemId(itemId string) *CollectionItemBuilder {
 	builder.itemId = itemId
-	builder.itemIdFlag = true
+	builder.itemIdSet = true
 	return builder
 }
 
@@ -1551,7 +1551,7 @@ func (builder *CollectionItemBuilder) ItemId(itemId string) *CollectionItemBuild
 // 示例值：
 func (builder *CollectionItemBuilder) ItemName(itemName *I18n) *CollectionItemBuilder {
 	builder.itemName = itemName
-	builder.itemNameFlag = true
+	builder.itemNameSet = true
 	return builder
 }
 
@@ -1560,7 +1560,7 @@ func (builder *CollectionItemBuilder) ItemName(itemName *I18n) *CollectionItemBu
 // 示例值：1
 func (builder *CollectionItemBuilder) FieldType(fieldType int) *CollectionItemBuilder {
 	builder.fieldType = fieldType
-	builder.fieldTypeFlag = true
+	builder.fieldTypeSet = true
 	return builder
 }
 
@@ -1569,7 +1569,7 @@ func (builder *CollectionItemBuilder) FieldType(fieldType int) *CollectionItemBu
 // 示例值：1
 func (builder *CollectionItemBuilder) DecimalPlaces(decimalPlaces int) *CollectionItemBuilder {
 	builder.decimalPlaces = decimalPlaces
-	builder.decimalPlacesFlag = true
+	builder.decimalPlacesSet = true
 	return builder
 }
 
@@ -1578,7 +1578,7 @@ func (builder *CollectionItemBuilder) DecimalPlaces(decimalPlaces int) *Collecti
 // 示例值：1
 func (builder *CollectionItemBuilder) CalcMethod(calcMethod int) *CollectionItemBuilder {
 	builder.calcMethod = calcMethod
-	builder.calcMethodFlag = true
+	builder.calcMethodSet = true
 	return builder
 }
 
@@ -1587,7 +1587,7 @@ func (builder *CollectionItemBuilder) CalcMethod(calcMethod int) *CollectionItem
 // 示例值：true
 func (builder *CollectionItemBuilder) Preset(preset bool) *CollectionItemBuilder {
 	builder.preset = preset
-	builder.presetFlag = true
+	builder.presetSet = true
 	return builder
 }
 
@@ -1596,44 +1596,44 @@ func (builder *CollectionItemBuilder) Preset(preset bool) *CollectionItemBuilder
 // 示例值：true
 func (builder *CollectionItemBuilder) IsRequired(isRequired bool) *CollectionItemBuilder {
 	builder.isRequired = isRequired
-	builder.isRequiredFlag = true
+	builder.isRequiredSet = true
 	return builder
 }
 
 func (builder *CollectionItemBuilder) Build() *CollectionItem {
 	req := &CollectionItem{}
-	if builder.templateIdFlag {
+	if builder.templateIdSet {
 		req.TemplateId = &builder.templateId
 
 	}
-	if builder.templateVersionIdFlag {
+	if builder.templateVersionIdSet {
 		req.TemplateVersionId = &builder.templateVersionId
 
 	}
-	if builder.itemIdFlag {
+	if builder.itemIdSet {
 		req.ItemId = &builder.itemId
 
 	}
-	if builder.itemNameFlag {
+	if builder.itemNameSet {
 		req.ItemName = builder.itemName
 	}
-	if builder.fieldTypeFlag {
+	if builder.fieldTypeSet {
 		req.FieldType = &builder.fieldType
 
 	}
-	if builder.decimalPlacesFlag {
+	if builder.decimalPlacesSet {
 		req.DecimalPlaces = &builder.decimalPlaces
 
 	}
-	if builder.calcMethodFlag {
+	if builder.calcMethodSet {
 		req.CalcMethod = &builder.calcMethod
 
 	}
-	if builder.presetFlag {
+	if builder.presetSet {
 		req.Preset = &builder.preset
 
 	}
-	if builder.isRequiredFlag {
+	if builder.isRequiredSet {
 		req.IsRequired = &builder.isRequired
 
 	}
@@ -1653,20 +1653,20 @@ type CollectionItemValue struct {
 }
 
 type CollectionItemValueBuilder struct {
-	itemId     string // 填报项ID
-	itemIdFlag bool
+	itemId    string // 填报项ID
+	itemIdSet bool
 
-	value     string // 填报项值
-	valueFlag bool
+	value    string // 填报项值
+	valueSet bool
 
-	fieldType     int // 填报项类型，1-文本，2-金额，3-数值，4-百分比，5-日期，6-日期范围
-	fieldTypeFlag bool
+	fieldType    int // 填报项类型，1-文本，2-金额，3-数值，4-百分比，5-日期，6-日期范围
+	fieldTypeSet bool
 
-	currencyId     string // 币种ID
-	currencyIdFlag bool
+	currencyId    string // 币种ID
+	currencyIdSet bool
 
-	currencyCode     string // 币种code
-	currencyCodeFlag bool
+	currencyCode    string // 币种code
+	currencyCodeSet bool
 }
 
 func NewCollectionItemValueBuilder() *CollectionItemValueBuilder {
@@ -1679,7 +1679,7 @@ func NewCollectionItemValueBuilder() *CollectionItemValueBuilder {
 // 示例值：7202076988667019308
 func (builder *CollectionItemValueBuilder) ItemId(itemId string) *CollectionItemValueBuilder {
 	builder.itemId = itemId
-	builder.itemIdFlag = true
+	builder.itemIdSet = true
 	return builder
 }
 
@@ -1688,7 +1688,7 @@ func (builder *CollectionItemValueBuilder) ItemId(itemId string) *CollectionItem
 // 示例值：text
 func (builder *CollectionItemValueBuilder) Value(value string) *CollectionItemValueBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
@@ -1697,7 +1697,7 @@ func (builder *CollectionItemValueBuilder) Value(value string) *CollectionItemVa
 // 示例值：1
 func (builder *CollectionItemValueBuilder) FieldType(fieldType int) *CollectionItemValueBuilder {
 	builder.fieldType = fieldType
-	builder.fieldTypeFlag = true
+	builder.fieldTypeSet = true
 	return builder
 }
 
@@ -1706,7 +1706,7 @@ func (builder *CollectionItemValueBuilder) FieldType(fieldType int) *CollectionI
 // 示例值：7202076988667019308
 func (builder *CollectionItemValueBuilder) CurrencyId(currencyId string) *CollectionItemValueBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
@@ -1715,29 +1715,29 @@ func (builder *CollectionItemValueBuilder) CurrencyId(currencyId string) *Collec
 // 示例值：CNY
 func (builder *CollectionItemValueBuilder) CurrencyCode(currencyCode string) *CollectionItemValueBuilder {
 	builder.currencyCode = currencyCode
-	builder.currencyCodeFlag = true
+	builder.currencyCodeSet = true
 	return builder
 }
 
 func (builder *CollectionItemValueBuilder) Build() *CollectionItemValue {
 	req := &CollectionItemValue{}
-	if builder.itemIdFlag {
+	if builder.itemIdSet {
 		req.ItemId = &builder.itemId
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
-	if builder.fieldTypeFlag {
+	if builder.fieldTypeSet {
 		req.FieldType = &builder.fieldType
 
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = &builder.currencyId
 
 	}
-	if builder.currencyCodeFlag {
+	if builder.currencyCodeSet {
 		req.CurrencyCode = &builder.currencyCode
 
 	}
@@ -1765,32 +1765,32 @@ type CollectionTemplate struct {
 }
 
 type CollectionTemplateBuilder struct {
-	templateId     string // 填报模板ID
-	templateIdFlag bool
+	templateId    string // 填报模板ID
+	templateIdSet bool
 
-	templateName     *I18n // 填报模板名称
-	templateNameFlag bool
+	templateName    *I18n // 填报模板名称
+	templateNameSet bool
 
-	versionId     string // 填报模板版本ID（主键ID）
-	versionIdFlag bool
+	versionId    string // 填报模板版本ID（主键ID）
+	versionIdSet bool
 
-	items     []*CollectionItem // 填报项列表
-	itemsFlag bool
+	items    []*CollectionItem // 填报项列表
+	itemsSet bool
 
-	countryRegions     []*CountryRegion // 国家地区多值列表
-	countryRegionsFlag bool
+	countryRegions    []*CountryRegion // 国家地区多值列表
+	countryRegionsSet bool
 
-	isActive     bool // 启停用状态
-	isActiveFlag bool
+	isActive    bool // 启停用状态
+	isActiveSet bool
 
-	effectiveDate     string // 生效日期
-	effectiveDateFlag bool
+	effectiveDate    string // 生效日期
+	effectiveDateSet bool
 
-	createdTime     string // 模板创建时间，毫秒时间戳
-	createdTimeFlag bool
+	createdTime    string // 模板创建时间，毫秒时间戳
+	createdTimeSet bool
 
-	modifiedTime     string // 模板更新时间，毫秒时间戳
-	modifiedTimeFlag bool
+	modifiedTime    string // 模板更新时间，毫秒时间戳
+	modifiedTimeSet bool
 }
 
 func NewCollectionTemplateBuilder() *CollectionTemplateBuilder {
@@ -1803,7 +1803,7 @@ func NewCollectionTemplateBuilder() *CollectionTemplateBuilder {
 // 示例值：7202076988667019308
 func (builder *CollectionTemplateBuilder) TemplateId(templateId string) *CollectionTemplateBuilder {
 	builder.templateId = templateId
-	builder.templateIdFlag = true
+	builder.templateIdSet = true
 	return builder
 }
 
@@ -1812,7 +1812,7 @@ func (builder *CollectionTemplateBuilder) TemplateId(templateId string) *Collect
 // 示例值：
 func (builder *CollectionTemplateBuilder) TemplateName(templateName *I18n) *CollectionTemplateBuilder {
 	builder.templateName = templateName
-	builder.templateNameFlag = true
+	builder.templateNameSet = true
 	return builder
 }
 
@@ -1821,7 +1821,7 @@ func (builder *CollectionTemplateBuilder) TemplateName(templateName *I18n) *Coll
 // 示例值：7202076988667019308
 func (builder *CollectionTemplateBuilder) VersionId(versionId string) *CollectionTemplateBuilder {
 	builder.versionId = versionId
-	builder.versionIdFlag = true
+	builder.versionIdSet = true
 	return builder
 }
 
@@ -1830,7 +1830,7 @@ func (builder *CollectionTemplateBuilder) VersionId(versionId string) *Collectio
 // 示例值：
 func (builder *CollectionTemplateBuilder) Items(items []*CollectionItem) *CollectionTemplateBuilder {
 	builder.items = items
-	builder.itemsFlag = true
+	builder.itemsSet = true
 	return builder
 }
 
@@ -1839,7 +1839,7 @@ func (builder *CollectionTemplateBuilder) Items(items []*CollectionItem) *Collec
 // 示例值：
 func (builder *CollectionTemplateBuilder) CountryRegions(countryRegions []*CountryRegion) *CollectionTemplateBuilder {
 	builder.countryRegions = countryRegions
-	builder.countryRegionsFlag = true
+	builder.countryRegionsSet = true
 	return builder
 }
 
@@ -1848,7 +1848,7 @@ func (builder *CollectionTemplateBuilder) CountryRegions(countryRegions []*Count
 // 示例值：true
 func (builder *CollectionTemplateBuilder) IsActive(isActive bool) *CollectionTemplateBuilder {
 	builder.isActive = isActive
-	builder.isActiveFlag = true
+	builder.isActiveSet = true
 	return builder
 }
 
@@ -1857,7 +1857,7 @@ func (builder *CollectionTemplateBuilder) IsActive(isActive bool) *CollectionTem
 // 示例值：2022-01-01
 func (builder *CollectionTemplateBuilder) EffectiveDate(effectiveDate string) *CollectionTemplateBuilder {
 	builder.effectiveDate = effectiveDate
-	builder.effectiveDateFlag = true
+	builder.effectiveDateSet = true
 	return builder
 }
 
@@ -1866,7 +1866,7 @@ func (builder *CollectionTemplateBuilder) EffectiveDate(effectiveDate string) *C
 // 示例值：1723797063000
 func (builder *CollectionTemplateBuilder) CreatedTime(createdTime string) *CollectionTemplateBuilder {
 	builder.createdTime = createdTime
-	builder.createdTimeFlag = true
+	builder.createdTimeSet = true
 	return builder
 }
 
@@ -1875,42 +1875,42 @@ func (builder *CollectionTemplateBuilder) CreatedTime(createdTime string) *Colle
 // 示例值：1723797063000
 func (builder *CollectionTemplateBuilder) ModifiedTime(modifiedTime string) *CollectionTemplateBuilder {
 	builder.modifiedTime = modifiedTime
-	builder.modifiedTimeFlag = true
+	builder.modifiedTimeSet = true
 	return builder
 }
 
 func (builder *CollectionTemplateBuilder) Build() *CollectionTemplate {
 	req := &CollectionTemplate{}
-	if builder.templateIdFlag {
+	if builder.templateIdSet {
 		req.TemplateId = &builder.templateId
 
 	}
-	if builder.templateNameFlag {
+	if builder.templateNameSet {
 		req.TemplateName = builder.templateName
 	}
-	if builder.versionIdFlag {
+	if builder.versionIdSet {
 		req.VersionId = &builder.versionId
 
 	}
-	if builder.itemsFlag {
+	if builder.itemsSet {
 		req.Items = builder.items
 	}
-	if builder.countryRegionsFlag {
+	if builder.countryRegionsSet {
 		req.CountryRegions = builder.countryRegions
 	}
-	if builder.isActiveFlag {
+	if builder.isActiveSet {
 		req.IsActive = &builder.isActive
 
 	}
-	if builder.effectiveDateFlag {
+	if builder.effectiveDateSet {
 		req.EffectiveDate = &builder.effectiveDate
 
 	}
-	if builder.createdTimeFlag {
+	if builder.createdTimeSet {
 		req.CreatedTime = &builder.createdTime
 
 	}
-	if builder.modifiedTimeFlag {
+	if builder.modifiedTimeSet {
 		req.ModifiedTime = &builder.modifiedTime
 
 	}
@@ -1930,20 +1930,20 @@ type CollectionTemplateSnapshot struct {
 }
 
 type CollectionTemplateSnapshotBuilder struct {
-	templateId     string // 填报模板ID
-	templateIdFlag bool
+	templateId    string // 填报模板ID
+	templateIdSet bool
 
-	templateName     *I18n // 填报模板名称
-	templateNameFlag bool
+	templateName    *I18n // 填报模板名称
+	templateNameSet bool
 
-	templateVersionId     string // 填报模板版本ID（主键ID）
-	templateVersionIdFlag bool
+	templateVersionId    string // 填报模板版本ID（主键ID）
+	templateVersionIdSet bool
 
-	items     []*CollectionItem // 填报项列表
-	itemsFlag bool
+	items    []*CollectionItem // 填报项列表
+	itemsSet bool
 
-	activityId     string // 填报活动id
-	activityIdFlag bool
+	activityId    string // 填报活动id
+	activityIdSet bool
 }
 
 func NewCollectionTemplateSnapshotBuilder() *CollectionTemplateSnapshotBuilder {
@@ -1956,7 +1956,7 @@ func NewCollectionTemplateSnapshotBuilder() *CollectionTemplateSnapshotBuilder {
 // 示例值：7202076988667019308
 func (builder *CollectionTemplateSnapshotBuilder) TemplateId(templateId string) *CollectionTemplateSnapshotBuilder {
 	builder.templateId = templateId
-	builder.templateIdFlag = true
+	builder.templateIdSet = true
 	return builder
 }
 
@@ -1965,7 +1965,7 @@ func (builder *CollectionTemplateSnapshotBuilder) TemplateId(templateId string) 
 // 示例值：
 func (builder *CollectionTemplateSnapshotBuilder) TemplateName(templateName *I18n) *CollectionTemplateSnapshotBuilder {
 	builder.templateName = templateName
-	builder.templateNameFlag = true
+	builder.templateNameSet = true
 	return builder
 }
 
@@ -1974,7 +1974,7 @@ func (builder *CollectionTemplateSnapshotBuilder) TemplateName(templateName *I18
 // 示例值：7202076988667019308
 func (builder *CollectionTemplateSnapshotBuilder) TemplateVersionId(templateVersionId string) *CollectionTemplateSnapshotBuilder {
 	builder.templateVersionId = templateVersionId
-	builder.templateVersionIdFlag = true
+	builder.templateVersionIdSet = true
 	return builder
 }
 
@@ -1983,7 +1983,7 @@ func (builder *CollectionTemplateSnapshotBuilder) TemplateVersionId(templateVers
 // 示例值：
 func (builder *CollectionTemplateSnapshotBuilder) Items(items []*CollectionItem) *CollectionTemplateSnapshotBuilder {
 	builder.items = items
-	builder.itemsFlag = true
+	builder.itemsSet = true
 	return builder
 }
 
@@ -1992,27 +1992,27 @@ func (builder *CollectionTemplateSnapshotBuilder) Items(items []*CollectionItem)
 // 示例值：7202076988667019308
 func (builder *CollectionTemplateSnapshotBuilder) ActivityId(activityId string) *CollectionTemplateSnapshotBuilder {
 	builder.activityId = activityId
-	builder.activityIdFlag = true
+	builder.activityIdSet = true
 	return builder
 }
 
 func (builder *CollectionTemplateSnapshotBuilder) Build() *CollectionTemplateSnapshot {
 	req := &CollectionTemplateSnapshot{}
-	if builder.templateIdFlag {
+	if builder.templateIdSet {
 		req.TemplateId = &builder.templateId
 
 	}
-	if builder.templateNameFlag {
+	if builder.templateNameSet {
 		req.TemplateName = builder.templateName
 	}
-	if builder.templateVersionIdFlag {
+	if builder.templateVersionIdSet {
 		req.TemplateVersionId = &builder.templateVersionId
 
 	}
-	if builder.itemsFlag {
+	if builder.itemsSet {
 		req.Items = builder.items
 	}
-	if builder.activityIdFlag {
+	if builder.activityIdSet {
 		req.ActivityId = &builder.activityId
 
 	}
@@ -2026,11 +2026,11 @@ type CompensationCost struct {
 }
 
 type CompensationCostBuilder struct {
-	compensationCostValue     string // 成本项值
-	compensationCostValueFlag bool
+	compensationCostValue    string // 成本项值
+	compensationCostValueSet bool
 
-	i18nNames     []*I18nContent // 成本项名称
-	i18nNamesFlag bool
+	i18nNames    []*I18nContent // 成本项名称
+	i18nNamesSet bool
 }
 
 func NewCompensationCostBuilder() *CompensationCostBuilder {
@@ -2043,7 +2043,7 @@ func NewCompensationCostBuilder() *CompensationCostBuilder {
 // 示例值：123456.78
 func (builder *CompensationCostBuilder) CompensationCostValue(compensationCostValue string) *CompensationCostBuilder {
 	builder.compensationCostValue = compensationCostValue
-	builder.compensationCostValueFlag = true
+	builder.compensationCostValueSet = true
 	return builder
 }
 
@@ -2052,17 +2052,17 @@ func (builder *CompensationCostBuilder) CompensationCostValue(compensationCostVa
 // 示例值：
 func (builder *CompensationCostBuilder) I18nNames(i18nNames []*I18nContent) *CompensationCostBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
 func (builder *CompensationCostBuilder) Build() *CompensationCost {
 	req := &CompensationCost{}
-	if builder.compensationCostValueFlag {
+	if builder.compensationCostValueSet {
 		req.CompensationCostValue = &builder.compensationCostValue
 
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
 	return req
@@ -2075,11 +2075,11 @@ type CompensationCostItem struct {
 }
 
 type CompensationCostItemBuilder struct {
-	numberOfIndividualsForPayment     int // 发薪人数
-	numberOfIndividualsForPaymentFlag bool
+	numberOfIndividualsForPayment    int // 发薪人数
+	numberOfIndividualsForPaymentSet bool
 
-	compensationCosts     []*CompensationCost // 成本项数据
-	compensationCostsFlag bool
+	compensationCosts    []*CompensationCost // 成本项数据
+	compensationCostsSet bool
 }
 
 func NewCompensationCostItemBuilder() *CompensationCostItemBuilder {
@@ -2092,7 +2092,7 @@ func NewCompensationCostItemBuilder() *CompensationCostItemBuilder {
 // 示例值：100
 func (builder *CompensationCostItemBuilder) NumberOfIndividualsForPayment(numberOfIndividualsForPayment int) *CompensationCostItemBuilder {
 	builder.numberOfIndividualsForPayment = numberOfIndividualsForPayment
-	builder.numberOfIndividualsForPaymentFlag = true
+	builder.numberOfIndividualsForPaymentSet = true
 	return builder
 }
 
@@ -2101,17 +2101,17 @@ func (builder *CompensationCostItemBuilder) NumberOfIndividualsForPayment(number
 // 示例值：
 func (builder *CompensationCostItemBuilder) CompensationCosts(compensationCosts []*CompensationCost) *CompensationCostItemBuilder {
 	builder.compensationCosts = compensationCosts
-	builder.compensationCostsFlag = true
+	builder.compensationCostsSet = true
 	return builder
 }
 
 func (builder *CompensationCostItemBuilder) Build() *CompensationCostItem {
 	req := &CompensationCostItem{}
-	if builder.numberOfIndividualsForPaymentFlag {
+	if builder.numberOfIndividualsForPaymentSet {
 		req.NumberOfIndividualsForPayment = &builder.numberOfIndividualsForPayment
 
 	}
-	if builder.compensationCostsFlag {
+	if builder.compensationCostsSet {
 		req.CompensationCosts = builder.compensationCosts
 	}
 	return req
@@ -2130,20 +2130,20 @@ type CostAllocationPlan struct {
 }
 
 type CostAllocationPlanBuilder struct {
-	id     string // 唯一标识
-	idFlag bool
+	id    string // 唯一标识
+	idSet bool
 
-	names     []*I18nContent // 方案名称
-	namesFlag bool
+	names    []*I18nContent // 方案名称
+	namesSet bool
 
-	applicableCountryRegion     string // 适用国家
-	applicableCountryRegionFlag bool
+	applicableCountryRegion    string // 适用国家
+	applicableCountryRegionSet bool
 
-	dimensions     []*Dimension // 成本分摊方案对应的汇总维度列表
-	dimensionsFlag bool
+	dimensions    []*Dimension // 成本分摊方案对应的汇总维度列表
+	dimensionsSet bool
 
-	costItems     []*CostItem // 成本分摊方案对应的成本项列表
-	costItemsFlag bool
+	costItems    []*CostItem // 成本分摊方案对应的成本项列表
+	costItemsSet bool
 }
 
 func NewCostAllocationPlanBuilder() *CostAllocationPlanBuilder {
@@ -2156,7 +2156,7 @@ func NewCostAllocationPlanBuilder() *CostAllocationPlanBuilder {
 // 示例值：6823630319749580301
 func (builder *CostAllocationPlanBuilder) Id(id string) *CostAllocationPlanBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2165,7 +2165,7 @@ func (builder *CostAllocationPlanBuilder) Id(id string) *CostAllocationPlanBuild
 // 示例值：
 func (builder *CostAllocationPlanBuilder) Names(names []*I18nContent) *CostAllocationPlanBuilder {
 	builder.names = names
-	builder.namesFlag = true
+	builder.namesSet = true
 	return builder
 }
 
@@ -2174,7 +2174,7 @@ func (builder *CostAllocationPlanBuilder) Names(names []*I18nContent) *CostAlloc
 // 示例值：6823630319749580302
 func (builder *CostAllocationPlanBuilder) ApplicableCountryRegion(applicableCountryRegion string) *CostAllocationPlanBuilder {
 	builder.applicableCountryRegion = applicableCountryRegion
-	builder.applicableCountryRegionFlag = true
+	builder.applicableCountryRegionSet = true
 	return builder
 }
 
@@ -2183,7 +2183,7 @@ func (builder *CostAllocationPlanBuilder) ApplicableCountryRegion(applicableCoun
 // 示例值：
 func (builder *CostAllocationPlanBuilder) Dimensions(dimensions []*Dimension) *CostAllocationPlanBuilder {
 	builder.dimensions = dimensions
-	builder.dimensionsFlag = true
+	builder.dimensionsSet = true
 	return builder
 }
 
@@ -2192,27 +2192,27 @@ func (builder *CostAllocationPlanBuilder) Dimensions(dimensions []*Dimension) *C
 // 示例值：
 func (builder *CostAllocationPlanBuilder) CostItems(costItems []*CostItem) *CostAllocationPlanBuilder {
 	builder.costItems = costItems
-	builder.costItemsFlag = true
+	builder.costItemsSet = true
 	return builder
 }
 
 func (builder *CostAllocationPlanBuilder) Build() *CostAllocationPlan {
 	req := &CostAllocationPlan{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.namesFlag {
+	if builder.namesSet {
 		req.Names = builder.names
 	}
-	if builder.applicableCountryRegionFlag {
+	if builder.applicableCountryRegionSet {
 		req.ApplicableCountryRegion = &builder.applicableCountryRegion
 
 	}
-	if builder.dimensionsFlag {
+	if builder.dimensionsSet {
 		req.Dimensions = builder.dimensions
 	}
-	if builder.costItemsFlag {
+	if builder.costItemsSet {
 		req.CostItems = builder.costItems
 	}
 	return req
@@ -2227,14 +2227,14 @@ type CostAllocationReportData struct {
 }
 
 type CostAllocationReportDataBuilder struct {
-	dataSummaryDimensions     []*DataSummaryDimension // 数据维度汇总
-	dataSummaryDimensionsFlag bool
+	dataSummaryDimensions    []*DataSummaryDimension // 数据维度汇总
+	dataSummaryDimensionsSet bool
 
-	compensationCostItem     *CompensationCostItem // 成本项数据
-	compensationCostItemFlag bool
+	compensationCostItem    *CompensationCostItem // 成本项数据
+	compensationCostItemSet bool
 
-	employmentId     string // 员工id
-	employmentIdFlag bool
+	employmentId    string // 员工id
+	employmentIdSet bool
 }
 
 func NewCostAllocationReportDataBuilder() *CostAllocationReportDataBuilder {
@@ -2247,7 +2247,7 @@ func NewCostAllocationReportDataBuilder() *CostAllocationReportDataBuilder {
 // 示例值：
 func (builder *CostAllocationReportDataBuilder) DataSummaryDimensions(dataSummaryDimensions []*DataSummaryDimension) *CostAllocationReportDataBuilder {
 	builder.dataSummaryDimensions = dataSummaryDimensions
-	builder.dataSummaryDimensionsFlag = true
+	builder.dataSummaryDimensionsSet = true
 	return builder
 }
 
@@ -2256,7 +2256,7 @@ func (builder *CostAllocationReportDataBuilder) DataSummaryDimensions(dataSummar
 // 示例值：
 func (builder *CostAllocationReportDataBuilder) CompensationCostItem(compensationCostItem *CompensationCostItem) *CostAllocationReportDataBuilder {
 	builder.compensationCostItem = compensationCostItem
-	builder.compensationCostItemFlag = true
+	builder.compensationCostItemSet = true
 	return builder
 }
 
@@ -2265,19 +2265,19 @@ func (builder *CostAllocationReportDataBuilder) CompensationCostItem(compensatio
 // 示例值：72321836123692186
 func (builder *CostAllocationReportDataBuilder) EmploymentId(employmentId string) *CostAllocationReportDataBuilder {
 	builder.employmentId = employmentId
-	builder.employmentIdFlag = true
+	builder.employmentIdSet = true
 	return builder
 }
 
 func (builder *CostAllocationReportDataBuilder) Build() *CostAllocationReportData {
 	req := &CostAllocationReportData{}
-	if builder.dataSummaryDimensionsFlag {
+	if builder.dataSummaryDimensionsSet {
 		req.DataSummaryDimensions = builder.dataSummaryDimensions
 	}
-	if builder.compensationCostItemFlag {
+	if builder.compensationCostItemSet {
 		req.CompensationCostItem = builder.compensationCostItem
 	}
-	if builder.employmentIdFlag {
+	if builder.employmentIdSet {
 		req.EmploymentId = &builder.employmentId
 
 	}
@@ -2295,17 +2295,17 @@ type CostCorrectDetail struct {
 }
 
 type CostCorrectDetailBuilder struct {
-	employeeId     string // 员工employeeID
-	employeeIdFlag bool
+	employeeId    string // 员工employeeID
+	employeeIdSet bool
 
-	activeStatus     int // 生效状态，1生效，2失效
-	activeStatusFlag bool
+	activeStatus    int // 生效状态，1生效，2失效
+	activeStatusSet bool
 
-	dimensions     []*DimensionValue // 员工汇总维度值列表
-	dimensionsFlag bool
+	dimensions    []*DimensionValue // 员工汇总维度值列表
+	dimensionsSet bool
 
-	costItems     []*CostItemValue // 员工成本项值列表
-	costItemsFlag bool
+	costItems    []*CostItemValue // 员工成本项值列表
+	costItemsSet bool
 }
 
 func NewCostCorrectDetailBuilder() *CostCorrectDetailBuilder {
@@ -2318,7 +2318,7 @@ func NewCostCorrectDetailBuilder() *CostCorrectDetailBuilder {
 // 示例值：7433424967234601004
 func (builder *CostCorrectDetailBuilder) EmployeeId(employeeId string) *CostCorrectDetailBuilder {
 	builder.employeeId = employeeId
-	builder.employeeIdFlag = true
+	builder.employeeIdSet = true
 	return builder
 }
 
@@ -2327,7 +2327,7 @@ func (builder *CostCorrectDetailBuilder) EmployeeId(employeeId string) *CostCorr
 // 示例值：1
 func (builder *CostCorrectDetailBuilder) ActiveStatus(activeStatus int) *CostCorrectDetailBuilder {
 	builder.activeStatus = activeStatus
-	builder.activeStatusFlag = true
+	builder.activeStatusSet = true
 	return builder
 }
 
@@ -2336,7 +2336,7 @@ func (builder *CostCorrectDetailBuilder) ActiveStatus(activeStatus int) *CostCor
 // 示例值：
 func (builder *CostCorrectDetailBuilder) Dimensions(dimensions []*DimensionValue) *CostCorrectDetailBuilder {
 	builder.dimensions = dimensions
-	builder.dimensionsFlag = true
+	builder.dimensionsSet = true
 	return builder
 }
 
@@ -2345,24 +2345,24 @@ func (builder *CostCorrectDetailBuilder) Dimensions(dimensions []*DimensionValue
 // 示例值：
 func (builder *CostCorrectDetailBuilder) CostItems(costItems []*CostItemValue) *CostCorrectDetailBuilder {
 	builder.costItems = costItems
-	builder.costItemsFlag = true
+	builder.costItemsSet = true
 	return builder
 }
 
 func (builder *CostCorrectDetailBuilder) Build() *CostCorrectDetail {
 	req := &CostCorrectDetail{}
-	if builder.employeeIdFlag {
+	if builder.employeeIdSet {
 		req.EmployeeId = &builder.employeeId
 
 	}
-	if builder.activeStatusFlag {
+	if builder.activeStatusSet {
 		req.ActiveStatus = &builder.activeStatus
 
 	}
-	if builder.dimensionsFlag {
+	if builder.dimensionsSet {
 		req.Dimensions = builder.dimensions
 	}
-	if builder.costItemsFlag {
+	if builder.costItemsSet {
 		req.CostItems = builder.costItems
 	}
 	return req
@@ -2377,14 +2377,14 @@ type CostItem struct {
 }
 
 type CostItemBuilder struct {
-	id     string // 成本项的唯一标识
-	idFlag bool
+	id    string // 成本项的唯一标识
+	idSet bool
 
-	name     []*I18nContent // 成本项名称
-	nameFlag bool
+	name    []*I18nContent // 成本项名称
+	nameSet bool
 
-	enableCorrect     bool // 成本项是否启用更正
-	enableCorrectFlag bool
+	enableCorrect    bool // 成本项是否启用更正
+	enableCorrectSet bool
 }
 
 func NewCostItemBuilder() *CostItemBuilder {
@@ -2397,7 +2397,7 @@ func NewCostItemBuilder() *CostItemBuilder {
 // 示例值：7433424967234601004
 func (builder *CostItemBuilder) Id(id string) *CostItemBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2406,7 +2406,7 @@ func (builder *CostItemBuilder) Id(id string) *CostItemBuilder {
 // 示例值：
 func (builder *CostItemBuilder) Name(name []*I18nContent) *CostItemBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -2415,20 +2415,20 @@ func (builder *CostItemBuilder) Name(name []*I18nContent) *CostItemBuilder {
 // 示例值：true
 func (builder *CostItemBuilder) EnableCorrect(enableCorrect bool) *CostItemBuilder {
 	builder.enableCorrect = enableCorrect
-	builder.enableCorrectFlag = true
+	builder.enableCorrectSet = true
 	return builder
 }
 
 func (builder *CostItemBuilder) Build() *CostItem {
 	req := &CostItem{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.enableCorrectFlag {
+	if builder.enableCorrectSet {
 		req.EnableCorrect = &builder.enableCorrect
 
 	}
@@ -2442,11 +2442,11 @@ type CostItemValue struct {
 }
 
 type CostItemValueBuilder struct {
-	id     string // 成本项ID
-	idFlag bool
+	id    string // 成本项ID
+	idSet bool
 
-	value     string // 成本项值
-	valueFlag bool
+	value    string // 成本项值
+	valueSet bool
 }
 
 func NewCostItemValueBuilder() *CostItemValueBuilder {
@@ -2459,7 +2459,7 @@ func NewCostItemValueBuilder() *CostItemValueBuilder {
 // 示例值：7433424967234601004
 func (builder *CostItemValueBuilder) Id(id string) *CostItemValueBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2468,17 +2468,17 @@ func (builder *CostItemValueBuilder) Id(id string) *CostItemValueBuilder {
 // 示例值：1.00
 func (builder *CostItemValueBuilder) Value(value string) *CostItemValueBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *CostItemValueBuilder) Build() *CostItemValue {
 	req := &CostItemValue{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -2492,11 +2492,11 @@ type CountryRegion struct {
 }
 
 type CountryRegionBuilder struct {
-	id     string // 国家地区ID
-	idFlag bool
+	id    string // 国家地区ID
+	idSet bool
 
-	alpha3Code     string // 国家地区三字码
-	alpha3CodeFlag bool
+	alpha3Code    string // 国家地区三字码
+	alpha3CodeSet bool
 }
 
 func NewCountryRegionBuilder() *CountryRegionBuilder {
@@ -2509,7 +2509,7 @@ func NewCountryRegionBuilder() *CountryRegionBuilder {
 // 示例值：7202076988667019308
 func (builder *CountryRegionBuilder) Id(id string) *CountryRegionBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -2518,17 +2518,17 @@ func (builder *CountryRegionBuilder) Id(id string) *CountryRegionBuilder {
 // 示例值：CHN
 func (builder *CountryRegionBuilder) Alpha3Code(alpha3Code string) *CountryRegionBuilder {
 	builder.alpha3Code = alpha3Code
-	builder.alpha3CodeFlag = true
+	builder.alpha3CodeSet = true
 	return builder
 }
 
 func (builder *CountryRegionBuilder) Build() *CountryRegion {
 	req := &CountryRegion{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.alpha3CodeFlag {
+	if builder.alpha3CodeSet {
 		req.Alpha3Code = &builder.alpha3Code
 
 	}
@@ -2552,26 +2552,26 @@ type DataSummaryDimension struct {
 }
 
 type DataSummaryDimensionBuilder struct {
-	dimensionLevel     int // 层级
-	dimensionLevelFlag bool
+	dimensionLevel    int // 层级
+	dimensionLevelSet bool
 
-	dimensionType     int // 类型
-	dimensionTypeFlag bool
+	dimensionType    int // 类型
+	dimensionTypeSet bool
 
-	dimensionValueId     string // 维度ID，需要再次转换
-	dimensionValueIdFlag bool
+	dimensionValueId    string // 维度ID，需要再次转换
+	dimensionValueIdSet bool
 
-	enumDimension     *EnumObject // 算薪项汇总维度时，当算薪项是特定枚举值，会使用该字段返回枚举值ID以及枚举值Key
-	enumDimensionFlag bool
+	enumDimension    *EnumObject // 算薪项汇总维度时，当算薪项是特定枚举值，会使用该字段返回枚举值ID以及枚举值Key
+	enumDimensionSet bool
 
-	dimensionValueLookupInfo     *DimensionValueLookupInfo // 维度引用对象的基础信息，当维度为引用类型字段才会有值，目前支持的引用对象类型见type
-	dimensionValueLookupInfoFlag bool
+	dimensionValueLookupInfo    *DimensionValueLookupInfo // 维度引用对象的基础信息，当维度为引用类型字段才会有值，目前支持的引用对象类型见type
+	dimensionValueLookupInfoSet bool
 
-	dimensionNames     []*I18nContent // 维度名称，自定义维度使用
-	dimensionNamesFlag bool
+	dimensionNames    []*I18nContent // 维度名称，自定义维度使用
+	dimensionNamesSet bool
 
-	dimensionTitles     []*I18nContent // 数据维度表头，自定义维度使用
-	dimensionTitlesFlag bool
+	dimensionTitles    []*I18nContent // 数据维度表头，自定义维度使用
+	dimensionTitlesSet bool
 }
 
 func NewDataSummaryDimensionBuilder() *DataSummaryDimensionBuilder {
@@ -2584,7 +2584,7 @@ func NewDataSummaryDimensionBuilder() *DataSummaryDimensionBuilder {
 // 示例值：1
 func (builder *DataSummaryDimensionBuilder) DimensionLevel(dimensionLevel int) *DataSummaryDimensionBuilder {
 	builder.dimensionLevel = dimensionLevel
-	builder.dimensionLevelFlag = true
+	builder.dimensionLevelSet = true
 	return builder
 }
 
@@ -2593,7 +2593,7 @@ func (builder *DataSummaryDimensionBuilder) DimensionLevel(dimensionLevel int) *
 // 示例值：1
 func (builder *DataSummaryDimensionBuilder) DimensionType(dimensionType int) *DataSummaryDimensionBuilder {
 	builder.dimensionType = dimensionType
-	builder.dimensionTypeFlag = true
+	builder.dimensionTypeSet = true
 	return builder
 }
 
@@ -2602,7 +2602,7 @@ func (builder *DataSummaryDimensionBuilder) DimensionType(dimensionType int) *Da
 // 示例值：6823630319749580306
 func (builder *DataSummaryDimensionBuilder) DimensionValueId(dimensionValueId string) *DataSummaryDimensionBuilder {
 	builder.dimensionValueId = dimensionValueId
-	builder.dimensionValueIdFlag = true
+	builder.dimensionValueIdSet = true
 	return builder
 }
 
@@ -2611,7 +2611,7 @@ func (builder *DataSummaryDimensionBuilder) DimensionValueId(dimensionValueId st
 // 示例值：
 func (builder *DataSummaryDimensionBuilder) EnumDimension(enumDimension *EnumObject) *DataSummaryDimensionBuilder {
 	builder.enumDimension = enumDimension
-	builder.enumDimensionFlag = true
+	builder.enumDimensionSet = true
 	return builder
 }
 
@@ -2620,7 +2620,7 @@ func (builder *DataSummaryDimensionBuilder) EnumDimension(enumDimension *EnumObj
 // 示例值：
 func (builder *DataSummaryDimensionBuilder) DimensionValueLookupInfo(dimensionValueLookupInfo *DimensionValueLookupInfo) *DataSummaryDimensionBuilder {
 	builder.dimensionValueLookupInfo = dimensionValueLookupInfo
-	builder.dimensionValueLookupInfoFlag = true
+	builder.dimensionValueLookupInfoSet = true
 	return builder
 }
 
@@ -2629,7 +2629,7 @@ func (builder *DataSummaryDimensionBuilder) DimensionValueLookupInfo(dimensionVa
 // 示例值：
 func (builder *DataSummaryDimensionBuilder) DimensionNames(dimensionNames []*I18nContent) *DataSummaryDimensionBuilder {
 	builder.dimensionNames = dimensionNames
-	builder.dimensionNamesFlag = true
+	builder.dimensionNamesSet = true
 	return builder
 }
 
@@ -2638,34 +2638,34 @@ func (builder *DataSummaryDimensionBuilder) DimensionNames(dimensionNames []*I18
 // 示例值：
 func (builder *DataSummaryDimensionBuilder) DimensionTitles(dimensionTitles []*I18nContent) *DataSummaryDimensionBuilder {
 	builder.dimensionTitles = dimensionTitles
-	builder.dimensionTitlesFlag = true
+	builder.dimensionTitlesSet = true
 	return builder
 }
 
 func (builder *DataSummaryDimensionBuilder) Build() *DataSummaryDimension {
 	req := &DataSummaryDimension{}
-	if builder.dimensionLevelFlag {
+	if builder.dimensionLevelSet {
 		req.DimensionLevel = &builder.dimensionLevel
 
 	}
-	if builder.dimensionTypeFlag {
+	if builder.dimensionTypeSet {
 		req.DimensionType = &builder.dimensionType
 
 	}
-	if builder.dimensionValueIdFlag {
+	if builder.dimensionValueIdSet {
 		req.DimensionValueId = &builder.dimensionValueId
 
 	}
-	if builder.enumDimensionFlag {
+	if builder.enumDimensionSet {
 		req.EnumDimension = builder.enumDimension
 	}
-	if builder.dimensionValueLookupInfoFlag {
+	if builder.dimensionValueLookupInfoSet {
 		req.DimensionValueLookupInfo = builder.dimensionValueLookupInfo
 	}
-	if builder.dimensionNamesFlag {
+	if builder.dimensionNamesSet {
 		req.DimensionNames = builder.dimensionNames
 	}
-	if builder.dimensionTitlesFlag {
+	if builder.dimensionTitlesSet {
 		req.DimensionTitles = builder.dimensionTitles
 	}
 	return req
@@ -2686,23 +2686,23 @@ type Datasource struct {
 }
 
 type DatasourceBuilder struct {
-	code     string // 数据源编码
-	codeFlag bool
+	code    string // 数据源编码
+	codeSet bool
 
-	i18nNames     []*I18nContent // 数据源名称
-	i18nNamesFlag bool
+	i18nNames    []*I18nContent // 数据源名称
+	i18nNamesSet bool
 
-	activeStatus     int // 启停用状态
-	activeStatusFlag bool
+	activeStatus    int // 启停用状态
+	activeStatusSet bool
 
-	fields     []*DatasourceField // 数据源字段列表
-	fieldsFlag bool
+	fields    []*DatasourceField // 数据源字段列表
+	fieldsSet bool
 
-	i18nDescription     []*I18nContent // 数据源描述
-	i18nDescriptionFlag bool
+	i18nDescription    []*I18nContent // 数据源描述
+	i18nDescriptionSet bool
 
-	dataPeriodType     int // 数据期间类型（数据写入维度）
-	dataPeriodTypeFlag bool
+	dataPeriodType    int // 数据期间类型（数据写入维度）
+	dataPeriodTypeSet bool
 }
 
 func NewDatasourceBuilder() *DatasourceBuilder {
@@ -2715,7 +2715,7 @@ func NewDatasourceBuilder() *DatasourceBuilder {
 // 示例值：test_datasource__c
 func (builder *DatasourceBuilder) Code(code string) *DatasourceBuilder {
 	builder.code = code
-	builder.codeFlag = true
+	builder.codeSet = true
 	return builder
 }
 
@@ -2724,7 +2724,7 @@ func (builder *DatasourceBuilder) Code(code string) *DatasourceBuilder {
 // 示例值：
 func (builder *DatasourceBuilder) I18nNames(i18nNames []*I18nContent) *DatasourceBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
@@ -2733,7 +2733,7 @@ func (builder *DatasourceBuilder) I18nNames(i18nNames []*I18nContent) *Datasourc
 // 示例值：1
 func (builder *DatasourceBuilder) ActiveStatus(activeStatus int) *DatasourceBuilder {
 	builder.activeStatus = activeStatus
-	builder.activeStatusFlag = true
+	builder.activeStatusSet = true
 	return builder
 }
 
@@ -2742,7 +2742,7 @@ func (builder *DatasourceBuilder) ActiveStatus(activeStatus int) *DatasourceBuil
 // 示例值：
 func (builder *DatasourceBuilder) Fields(fields []*DatasourceField) *DatasourceBuilder {
 	builder.fields = fields
-	builder.fieldsFlag = true
+	builder.fieldsSet = true
 	return builder
 }
 
@@ -2751,7 +2751,7 @@ func (builder *DatasourceBuilder) Fields(fields []*DatasourceField) *DatasourceB
 // 示例值：
 func (builder *DatasourceBuilder) I18nDescription(i18nDescription []*I18nContent) *DatasourceBuilder {
 	builder.i18nDescription = i18nDescription
-	builder.i18nDescriptionFlag = true
+	builder.i18nDescriptionSet = true
 	return builder
 }
 
@@ -2760,30 +2760,30 @@ func (builder *DatasourceBuilder) I18nDescription(i18nDescription []*I18nContent
 // 示例值：
 func (builder *DatasourceBuilder) DataPeriodType(dataPeriodType int) *DatasourceBuilder {
 	builder.dataPeriodType = dataPeriodType
-	builder.dataPeriodTypeFlag = true
+	builder.dataPeriodTypeSet = true
 	return builder
 }
 
 func (builder *DatasourceBuilder) Build() *Datasource {
 	req := &Datasource{}
-	if builder.codeFlag {
+	if builder.codeSet {
 		req.Code = &builder.code
 
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
-	if builder.activeStatusFlag {
+	if builder.activeStatusSet {
 		req.ActiveStatus = &builder.activeStatus
 
 	}
-	if builder.fieldsFlag {
+	if builder.fieldsSet {
 		req.Fields = builder.fields
 	}
-	if builder.i18nDescriptionFlag {
+	if builder.i18nDescriptionSet {
 		req.I18nDescription = builder.i18nDescription
 	}
-	if builder.dataPeriodTypeFlag {
+	if builder.dataPeriodTypeSet {
 		req.DataPeriodType = &builder.dataPeriodType
 
 	}
@@ -2805,23 +2805,23 @@ type DatasourceField struct {
 }
 
 type DatasourceFieldBuilder struct {
-	code     string // 数据源字段编码
-	codeFlag bool
+	code    string // 数据源字段编码
+	codeSet bool
 
-	i18nNames     []*I18nContent // 数据源字段名称
-	i18nNamesFlag bool
+	i18nNames    []*I18nContent // 数据源字段名称
+	i18nNamesSet bool
 
-	fieldType     int // 字段类型
-	fieldTypeFlag bool
+	fieldType    int // 字段类型
+	fieldTypeSet bool
 
-	activeStatus     int // 字段启停用状态
-	activeStatusFlag bool
+	activeStatus    int // 字段启停用状态
+	activeStatusSet bool
 
-	i18nDescription     []*I18nContent // 数据源字段描述
-	i18nDescriptionFlag bool
+	i18nDescription    []*I18nContent // 数据源字段描述
+	i18nDescriptionSet bool
 
-	decimalPlaces     int // 保留小数位数。目前只有number、money类型字段需要设置保留小数
-	decimalPlacesFlag bool
+	decimalPlaces    int // 保留小数位数。目前只有number、money类型字段需要设置保留小数
+	decimalPlacesSet bool
 }
 
 func NewDatasourceFieldBuilder() *DatasourceFieldBuilder {
@@ -2834,7 +2834,7 @@ func NewDatasourceFieldBuilder() *DatasourceFieldBuilder {
 // 示例值：test__c
 func (builder *DatasourceFieldBuilder) Code(code string) *DatasourceFieldBuilder {
 	builder.code = code
-	builder.codeFlag = true
+	builder.codeSet = true
 	return builder
 }
 
@@ -2843,7 +2843,7 @@ func (builder *DatasourceFieldBuilder) Code(code string) *DatasourceFieldBuilder
 // 示例值：
 func (builder *DatasourceFieldBuilder) I18nNames(i18nNames []*I18nContent) *DatasourceFieldBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
@@ -2852,7 +2852,7 @@ func (builder *DatasourceFieldBuilder) I18nNames(i18nNames []*I18nContent) *Data
 // 示例值：1
 func (builder *DatasourceFieldBuilder) FieldType(fieldType int) *DatasourceFieldBuilder {
 	builder.fieldType = fieldType
-	builder.fieldTypeFlag = true
+	builder.fieldTypeSet = true
 	return builder
 }
 
@@ -2861,7 +2861,7 @@ func (builder *DatasourceFieldBuilder) FieldType(fieldType int) *DatasourceField
 // 示例值：1
 func (builder *DatasourceFieldBuilder) ActiveStatus(activeStatus int) *DatasourceFieldBuilder {
 	builder.activeStatus = activeStatus
-	builder.activeStatusFlag = true
+	builder.activeStatusSet = true
 	return builder
 }
 
@@ -2870,7 +2870,7 @@ func (builder *DatasourceFieldBuilder) ActiveStatus(activeStatus int) *Datasourc
 // 示例值：
 func (builder *DatasourceFieldBuilder) I18nDescription(i18nDescription []*I18nContent) *DatasourceFieldBuilder {
 	builder.i18nDescription = i18nDescription
-	builder.i18nDescriptionFlag = true
+	builder.i18nDescriptionSet = true
 	return builder
 }
 
@@ -2879,31 +2879,31 @@ func (builder *DatasourceFieldBuilder) I18nDescription(i18nDescription []*I18nCo
 // 示例值：1
 func (builder *DatasourceFieldBuilder) DecimalPlaces(decimalPlaces int) *DatasourceFieldBuilder {
 	builder.decimalPlaces = decimalPlaces
-	builder.decimalPlacesFlag = true
+	builder.decimalPlacesSet = true
 	return builder
 }
 
 func (builder *DatasourceFieldBuilder) Build() *DatasourceField {
 	req := &DatasourceField{}
-	if builder.codeFlag {
+	if builder.codeSet {
 		req.Code = &builder.code
 
 	}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
-	if builder.fieldTypeFlag {
+	if builder.fieldTypeSet {
 		req.FieldType = &builder.fieldType
 
 	}
-	if builder.activeStatusFlag {
+	if builder.activeStatusSet {
 		req.ActiveStatus = &builder.activeStatus
 
 	}
-	if builder.i18nDescriptionFlag {
+	if builder.i18nDescriptionSet {
 		req.I18nDescription = builder.i18nDescription
 	}
-	if builder.decimalPlacesFlag {
+	if builder.decimalPlacesSet {
 		req.DecimalPlaces = &builder.decimalPlaces
 
 	}
@@ -2917,11 +2917,11 @@ type DatasourceRecord struct {
 }
 
 type DatasourceRecordBuilder struct {
-	activeStatus     int // 记录的启停用状态
-	activeStatusFlag bool
+	activeStatus    int // 记录的启停用状态
+	activeStatusSet bool
 
-	fieldValues     []*DatasourceRecordField // 记录的字段值列表
-	fieldValuesFlag bool
+	fieldValues    []*DatasourceRecordField // 记录的字段值列表
+	fieldValuesSet bool
 }
 
 func NewDatasourceRecordBuilder() *DatasourceRecordBuilder {
@@ -2934,7 +2934,7 @@ func NewDatasourceRecordBuilder() *DatasourceRecordBuilder {
 // 示例值：1
 func (builder *DatasourceRecordBuilder) ActiveStatus(activeStatus int) *DatasourceRecordBuilder {
 	builder.activeStatus = activeStatus
-	builder.activeStatusFlag = true
+	builder.activeStatusSet = true
 	return builder
 }
 
@@ -2943,17 +2943,17 @@ func (builder *DatasourceRecordBuilder) ActiveStatus(activeStatus int) *Datasour
 // 示例值：
 func (builder *DatasourceRecordBuilder) FieldValues(fieldValues []*DatasourceRecordField) *DatasourceRecordBuilder {
 	builder.fieldValues = fieldValues
-	builder.fieldValuesFlag = true
+	builder.fieldValuesSet = true
 	return builder
 }
 
 func (builder *DatasourceRecordBuilder) Build() *DatasourceRecord {
 	req := &DatasourceRecord{}
-	if builder.activeStatusFlag {
+	if builder.activeStatusSet {
 		req.ActiveStatus = &builder.activeStatus
 
 	}
-	if builder.fieldValuesFlag {
+	if builder.fieldValuesSet {
 		req.FieldValues = builder.fieldValues
 	}
 	return req
@@ -2968,14 +2968,14 @@ type DatasourceRecordField struct {
 }
 
 type DatasourceRecordFieldBuilder struct {
-	fieldCode     string // 数据源字段编码
-	fieldCodeFlag bool
+	fieldCode    string // 数据源字段编码
+	fieldCodeSet bool
 
-	value     string // 字段值 通过string传输，确保字段的值符合协议。  - money：金额  eg: "12.23"  超过设定精度会被四舍五入，目前只支持人民币¥元 - number：数值 eg: "12.87" 超过设定精度会被四舍五入 - text：文本 eg: "我是一段文本"。文本字符个数不允许超过500，一条记录的文本总的字符个数不允许超过3000. - date：日期 yyyy-MM-dd  eg: "2024-05-09" - percentage：百分比 "10" 代表10%，最多保留两位小数，超过后四舍五入
-	valueFlag bool
+	value    string // 字段值 通过string传输，确保字段的值符合协议。  - money：金额  eg: "12.23"  超过设定精度会被四舍五入，目前只支持人民币¥元 - number：数值 eg: "12.87" 超过设定精度会被四舍五入 - text：文本 eg: "我是一段文本"。文本字符个数不允许超过500，一条记录的文本总的字符个数不允许超过3000. - date：日期 yyyy-MM-dd  eg: "2024-05-09" - percentage：百分比 "10" 代表10%，最多保留两位小数，超过后四舍五入
+	valueSet bool
 
-	fieldType     int // 字段类型
-	fieldTypeFlag bool
+	fieldType    int // 字段类型
+	fieldTypeSet bool
 }
 
 func NewDatasourceRecordFieldBuilder() *DatasourceRecordFieldBuilder {
@@ -2988,7 +2988,7 @@ func NewDatasourceRecordFieldBuilder() *DatasourceRecordFieldBuilder {
 // 示例值：test__c
 func (builder *DatasourceRecordFieldBuilder) FieldCode(fieldCode string) *DatasourceRecordFieldBuilder {
 	builder.fieldCode = fieldCode
-	builder.fieldCodeFlag = true
+	builder.fieldCodeSet = true
 	return builder
 }
 
@@ -2997,7 +2997,7 @@ func (builder *DatasourceRecordFieldBuilder) FieldCode(fieldCode string) *Dataso
 // 示例值：123
 func (builder *DatasourceRecordFieldBuilder) Value(value string) *DatasourceRecordFieldBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
@@ -3006,21 +3006,21 @@ func (builder *DatasourceRecordFieldBuilder) Value(value string) *DatasourceReco
 // 示例值：1
 func (builder *DatasourceRecordFieldBuilder) FieldType(fieldType int) *DatasourceRecordFieldBuilder {
 	builder.fieldType = fieldType
-	builder.fieldTypeFlag = true
+	builder.fieldTypeSet = true
 	return builder
 }
 
 func (builder *DatasourceRecordFieldBuilder) Build() *DatasourceRecordField {
 	req := &DatasourceRecordField{}
-	if builder.fieldCodeFlag {
+	if builder.fieldCodeSet {
 		req.FieldCode = &builder.fieldCode
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
-	if builder.fieldTypeFlag {
+	if builder.fieldTypeSet {
 		req.FieldType = &builder.fieldType
 
 	}
@@ -3036,14 +3036,14 @@ type DatasourceRecordFieldFilter struct {
 }
 
 type DatasourceRecordFieldFilterBuilder struct {
-	fieldCode     string // 查询条件的字段编码
-	fieldCodeFlag bool
+	fieldCode    string // 查询条件的字段编码
+	fieldCodeSet bool
 
-	fieldValues     []string // 条件值列表
-	fieldValuesFlag bool
+	fieldValues    []string // 条件值列表
+	fieldValuesSet bool
 
-	operator     int // 查询操作符
-	operatorFlag bool
+	operator    int // 查询操作符
+	operatorSet bool
 }
 
 func NewDatasourceRecordFieldFilterBuilder() *DatasourceRecordFieldFilterBuilder {
@@ -3056,7 +3056,7 @@ func NewDatasourceRecordFieldFilterBuilder() *DatasourceRecordFieldFilterBuilder
 // 示例值：test__c
 func (builder *DatasourceRecordFieldFilterBuilder) FieldCode(fieldCode string) *DatasourceRecordFieldFilterBuilder {
 	builder.fieldCode = fieldCode
-	builder.fieldCodeFlag = true
+	builder.fieldCodeSet = true
 	return builder
 }
 
@@ -3065,7 +3065,7 @@ func (builder *DatasourceRecordFieldFilterBuilder) FieldCode(fieldCode string) *
 // 示例值：
 func (builder *DatasourceRecordFieldFilterBuilder) FieldValues(fieldValues []string) *DatasourceRecordFieldFilterBuilder {
 	builder.fieldValues = fieldValues
-	builder.fieldValuesFlag = true
+	builder.fieldValuesSet = true
 	return builder
 }
 
@@ -3074,20 +3074,20 @@ func (builder *DatasourceRecordFieldFilterBuilder) FieldValues(fieldValues []str
 // 示例值：1
 func (builder *DatasourceRecordFieldFilterBuilder) Operator(operator int) *DatasourceRecordFieldFilterBuilder {
 	builder.operator = operator
-	builder.operatorFlag = true
+	builder.operatorSet = true
 	return builder
 }
 
 func (builder *DatasourceRecordFieldFilterBuilder) Build() *DatasourceRecordFieldFilter {
 	req := &DatasourceRecordFieldFilter{}
-	if builder.fieldCodeFlag {
+	if builder.fieldCodeSet {
 		req.FieldCode = &builder.fieldCode
 
 	}
-	if builder.fieldValuesFlag {
+	if builder.fieldValuesSet {
 		req.FieldValues = builder.fieldValues
 	}
-	if builder.operatorFlag {
+	if builder.operatorSet {
 		req.Operator = &builder.operator
 
 	}
@@ -3101,11 +3101,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -3113,27 +3113,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -3149,14 +3153,14 @@ type Dimension struct {
 }
 
 type DimensionBuilder struct {
-	i18nNames     []*I18nContent // 汇总维度信息
-	i18nNamesFlag bool
+	i18nNames    []*I18nContent // 汇总维度信息
+	i18nNamesSet bool
 
-	apiName     string // 汇总维度字段名称
-	apiNameFlag bool
+	apiName    string // 汇总维度字段名称
+	apiNameSet bool
 
-	objApiName     string // 汇总维度对象名称
-	objApiNameFlag bool
+	objApiName    string // 汇总维度对象名称
+	objApiNameSet bool
 }
 
 func NewDimensionBuilder() *DimensionBuilder {
@@ -3169,7 +3173,7 @@ func NewDimensionBuilder() *DimensionBuilder {
 // 示例值：
 func (builder *DimensionBuilder) I18nNames(i18nNames []*I18nContent) *DimensionBuilder {
 	builder.i18nNames = i18nNames
-	builder.i18nNamesFlag = true
+	builder.i18nNamesSet = true
 	return builder
 }
 
@@ -3178,7 +3182,7 @@ func (builder *DimensionBuilder) I18nNames(i18nNames []*I18nContent) *DimensionB
 // 示例值：company
 func (builder *DimensionBuilder) ApiName(apiName string) *DimensionBuilder {
 	builder.apiName = apiName
-	builder.apiNameFlag = true
+	builder.apiNameSet = true
 	return builder
 }
 
@@ -3187,20 +3191,20 @@ func (builder *DimensionBuilder) ApiName(apiName string) *DimensionBuilder {
 // 示例值：jobData
 func (builder *DimensionBuilder) ObjApiName(objApiName string) *DimensionBuilder {
 	builder.objApiName = objApiName
-	builder.objApiNameFlag = true
+	builder.objApiNameSet = true
 	return builder
 }
 
 func (builder *DimensionBuilder) Build() *Dimension {
 	req := &Dimension{}
-	if builder.i18nNamesFlag {
+	if builder.i18nNamesSet {
 		req.I18nNames = builder.i18nNames
 	}
-	if builder.apiNameFlag {
+	if builder.apiNameSet {
 		req.ApiName = &builder.apiName
 
 	}
-	if builder.objApiNameFlag {
+	if builder.objApiNameSet {
 		req.ObjApiName = &builder.objApiName
 
 	}
@@ -3216,14 +3220,14 @@ type DimensionValue struct {
 }
 
 type DimensionValueBuilder struct {
-	objApiName     string // 汇总维度对象标识
-	objApiNameFlag bool
+	objApiName    string // 汇总维度对象标识
+	objApiNameSet bool
 
-	apiName     string // 汇总维度字段标识
-	apiNameFlag bool
+	apiName    string // 汇总维度字段标识
+	apiNameSet bool
 
-	value     string // 汇总维度值
-	valueFlag bool
+	value    string // 汇总维度值
+	valueSet bool
 }
 
 func NewDimensionValueBuilder() *DimensionValueBuilder {
@@ -3236,7 +3240,7 @@ func NewDimensionValueBuilder() *DimensionValueBuilder {
 // 示例值：jobData
 func (builder *DimensionValueBuilder) ObjApiName(objApiName string) *DimensionValueBuilder {
 	builder.objApiName = objApiName
-	builder.objApiNameFlag = true
+	builder.objApiNameSet = true
 	return builder
 }
 
@@ -3245,7 +3249,7 @@ func (builder *DimensionValueBuilder) ObjApiName(objApiName string) *DimensionVa
 // 示例值：company
 func (builder *DimensionValueBuilder) ApiName(apiName string) *DimensionValueBuilder {
 	builder.apiName = apiName
-	builder.apiNameFlag = true
+	builder.apiNameSet = true
 	return builder
 }
 
@@ -3254,21 +3258,21 @@ func (builder *DimensionValueBuilder) ApiName(apiName string) *DimensionValueBui
 // 示例值：测试公司
 func (builder *DimensionValueBuilder) Value(value string) *DimensionValueBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
 func (builder *DimensionValueBuilder) Build() *DimensionValue {
 	req := &DimensionValue{}
-	if builder.objApiNameFlag {
+	if builder.objApiNameSet {
 		req.ObjApiName = &builder.objApiName
 
 	}
-	if builder.apiNameFlag {
+	if builder.apiNameSet {
 		req.ApiName = &builder.apiName
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
@@ -3285,13 +3289,13 @@ type DimensionValueLookupInfo struct {
 
 type DimensionValueLookupInfoBuilder struct {
 	type_    string // 引用对象类型
-	typeFlag bool
+	type_Set bool
 
-	id     string // 引用对象的id，可根据相关API查询到对象的完整信息
-	idFlag bool
+	id    string // 引用对象的id，可根据相关API查询到对象的完整信息
+	idSet bool
 
-	code     string // 引用对象的code，目前下面的对象会有code
-	codeFlag bool
+	code    string // 引用对象的code，目前下面的对象会有code
+	codeSet bool
 }
 
 func NewDimensionValueLookupInfoBuilder() *DimensionValueLookupInfoBuilder {
@@ -3304,7 +3308,7 @@ func NewDimensionValueLookupInfoBuilder() *DimensionValueLookupInfoBuilder {
 // 示例值：work_calendar
 func (builder *DimensionValueLookupInfoBuilder) Type(type_ string) *DimensionValueLookupInfoBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -3313,7 +3317,7 @@ func (builder *DimensionValueLookupInfoBuilder) Type(type_ string) *DimensionVal
 // 示例值：6961286846093788621
 func (builder *DimensionValueLookupInfoBuilder) Id(id string) *DimensionValueLookupInfoBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -3322,21 +3326,21 @@ func (builder *DimensionValueLookupInfoBuilder) Id(id string) *DimensionValueLoo
 // 示例值：D1230011115
 func (builder *DimensionValueLookupInfoBuilder) Code(code string) *DimensionValueLookupInfoBuilder {
 	builder.code = code
-	builder.codeFlag = true
+	builder.codeSet = true
 	return builder
 }
 
 func (builder *DimensionValueLookupInfoBuilder) Build() *DimensionValueLookupInfo {
 	req := &DimensionValueLookupInfo{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.codeFlag {
+	if builder.codeSet {
 		req.Code = &builder.code
 
 	}
@@ -3352,14 +3356,14 @@ type DmpChangeEvent struct {
 }
 
 type DmpChangeEventBuilder struct {
-	employeeNumber     string // 员工工号
-	employeeNumberFlag bool
+	employeeNumber    string // 员工工号
+	employeeNumberSet bool
 
-	oldVersionData     []*DmpTimelineField // 变更前版本信息
-	oldVersionDataFlag bool
+	oldVersionData    []*DmpTimelineField // 变更前版本信息
+	oldVersionDataSet bool
 
-	newVersionData     []*DmpTimelineField // 变更后版本信息
-	newVersionDataFlag bool
+	newVersionData    []*DmpTimelineField // 变更后版本信息
+	newVersionDataSet bool
 }
 
 func NewDmpChangeEventBuilder() *DmpChangeEventBuilder {
@@ -3372,7 +3376,7 @@ func NewDmpChangeEventBuilder() *DmpChangeEventBuilder {
 // 示例值：12345
 func (builder *DmpChangeEventBuilder) EmployeeNumber(employeeNumber string) *DmpChangeEventBuilder {
 	builder.employeeNumber = employeeNumber
-	builder.employeeNumberFlag = true
+	builder.employeeNumberSet = true
 	return builder
 }
 
@@ -3381,7 +3385,7 @@ func (builder *DmpChangeEventBuilder) EmployeeNumber(employeeNumber string) *Dmp
 // 示例值：
 func (builder *DmpChangeEventBuilder) OldVersionData(oldVersionData []*DmpTimelineField) *DmpChangeEventBuilder {
 	builder.oldVersionData = oldVersionData
-	builder.oldVersionDataFlag = true
+	builder.oldVersionDataSet = true
 	return builder
 }
 
@@ -3390,20 +3394,20 @@ func (builder *DmpChangeEventBuilder) OldVersionData(oldVersionData []*DmpTimeli
 // 示例值：
 func (builder *DmpChangeEventBuilder) NewVersionData(newVersionData []*DmpTimelineField) *DmpChangeEventBuilder {
 	builder.newVersionData = newVersionData
-	builder.newVersionDataFlag = true
+	builder.newVersionDataSet = true
 	return builder
 }
 
 func (builder *DmpChangeEventBuilder) Build() *DmpChangeEvent {
 	req := &DmpChangeEvent{}
-	if builder.employeeNumberFlag {
+	if builder.employeeNumberSet {
 		req.EmployeeNumber = &builder.employeeNumber
 
 	}
-	if builder.oldVersionDataFlag {
+	if builder.oldVersionDataSet {
 		req.OldVersionData = builder.oldVersionData
 	}
-	if builder.newVersionDataFlag {
+	if builder.newVersionDataSet {
 		req.NewVersionData = builder.newVersionData
 	}
 	return req
@@ -3418,14 +3422,14 @@ type DmpField struct {
 }
 
 type DmpFieldBuilder struct {
-	key     string // 字段名称
-	keyFlag bool
+	key    string // 字段名称
+	keySet bool
 
-	value     string // 字段值
-	valueFlag bool
+	value    string // 字段值
+	valueSet bool
 
 	type_    int // 字段类型
-	typeFlag bool
+	type_Set bool
 }
 
 func NewDmpFieldBuilder() *DmpFieldBuilder {
@@ -3438,7 +3442,7 @@ func NewDmpFieldBuilder() *DmpFieldBuilder {
 // 示例值：Employee Number
 func (builder *DmpFieldBuilder) Key(key string) *DmpFieldBuilder {
 	builder.key = key
-	builder.keyFlag = true
+	builder.keySet = true
 	return builder
 }
 
@@ -3447,7 +3451,7 @@ func (builder *DmpFieldBuilder) Key(key string) *DmpFieldBuilder {
 // 示例值：12345
 func (builder *DmpFieldBuilder) Value(value string) *DmpFieldBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
@@ -3456,21 +3460,21 @@ func (builder *DmpFieldBuilder) Value(value string) *DmpFieldBuilder {
 // 示例值：0
 func (builder *DmpFieldBuilder) Type(type_ int) *DmpFieldBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
 func (builder *DmpFieldBuilder) Build() *DmpField {
 	req := &DmpField{}
-	if builder.keyFlag {
+	if builder.keySet {
 		req.Key = &builder.key
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
@@ -3484,11 +3488,11 @@ type DmpOriginalData struct {
 }
 
 type DmpOriginalDataBuilder struct {
-	employeeNumber     string // 员工工号
-	employeeNumberFlag bool
+	employeeNumber    string // 员工工号
+	employeeNumberSet bool
 
-	timePeriods     []*DmpTimelineField // 时间轴信息
-	timePeriodsFlag bool
+	timePeriods    []*DmpTimelineField // 时间轴信息
+	timePeriodsSet bool
 }
 
 func NewDmpOriginalDataBuilder() *DmpOriginalDataBuilder {
@@ -3501,7 +3505,7 @@ func NewDmpOriginalDataBuilder() *DmpOriginalDataBuilder {
 // 示例值：12345
 func (builder *DmpOriginalDataBuilder) EmployeeNumber(employeeNumber string) *DmpOriginalDataBuilder {
 	builder.employeeNumber = employeeNumber
-	builder.employeeNumberFlag = true
+	builder.employeeNumberSet = true
 	return builder
 }
 
@@ -3510,17 +3514,17 @@ func (builder *DmpOriginalDataBuilder) EmployeeNumber(employeeNumber string) *Dm
 // 示例值：
 func (builder *DmpOriginalDataBuilder) TimePeriods(timePeriods []*DmpTimelineField) *DmpOriginalDataBuilder {
 	builder.timePeriods = timePeriods
-	builder.timePeriodsFlag = true
+	builder.timePeriodsSet = true
 	return builder
 }
 
 func (builder *DmpOriginalDataBuilder) Build() *DmpOriginalData {
 	req := &DmpOriginalData{}
-	if builder.employeeNumberFlag {
+	if builder.employeeNumberSet {
 		req.EmployeeNumber = &builder.employeeNumber
 
 	}
-	if builder.timePeriodsFlag {
+	if builder.timePeriodsSet {
 		req.TimePeriods = builder.timePeriods
 	}
 	return req
@@ -3535,14 +3539,14 @@ type DmpTimelineField struct {
 }
 
 type DmpTimelineFieldBuilder struct {
-	fromDate     string // 生效日期
-	fromDateFlag bool
+	fromDate    string // 生效日期
+	fromDateSet bool
 
-	toDate     string // 失效日期
-	toDateFlag bool
+	toDate    string // 失效日期
+	toDateSet bool
 
-	fields     []*DmpField // 字段信息
-	fieldsFlag bool
+	fields    []*DmpField // 字段信息
+	fieldsSet bool
 }
 
 func NewDmpTimelineFieldBuilder() *DmpTimelineFieldBuilder {
@@ -3555,7 +3559,7 @@ func NewDmpTimelineFieldBuilder() *DmpTimelineFieldBuilder {
 // 示例值：2000-01-01
 func (builder *DmpTimelineFieldBuilder) FromDate(fromDate string) *DmpTimelineFieldBuilder {
 	builder.fromDate = fromDate
-	builder.fromDateFlag = true
+	builder.fromDateSet = true
 	return builder
 }
 
@@ -3564,7 +3568,7 @@ func (builder *DmpTimelineFieldBuilder) FromDate(fromDate string) *DmpTimelineFi
 // 示例值：2000-01-01
 func (builder *DmpTimelineFieldBuilder) ToDate(toDate string) *DmpTimelineFieldBuilder {
 	builder.toDate = toDate
-	builder.toDateFlag = true
+	builder.toDateSet = true
 	return builder
 }
 
@@ -3573,21 +3577,21 @@ func (builder *DmpTimelineFieldBuilder) ToDate(toDate string) *DmpTimelineFieldB
 // 示例值：
 func (builder *DmpTimelineFieldBuilder) Fields(fields []*DmpField) *DmpTimelineFieldBuilder {
 	builder.fields = fields
-	builder.fieldsFlag = true
+	builder.fieldsSet = true
 	return builder
 }
 
 func (builder *DmpTimelineFieldBuilder) Build() *DmpTimelineField {
 	req := &DmpTimelineField{}
-	if builder.fromDateFlag {
+	if builder.fromDateSet {
 		req.FromDate = &builder.fromDate
 
 	}
-	if builder.toDateFlag {
+	if builder.toDateSet {
 		req.ToDate = &builder.toDate
 
 	}
-	if builder.fieldsFlag {
+	if builder.fieldsSet {
 		req.Fields = builder.fields
 	}
 	return req
@@ -3614,32 +3618,32 @@ type DonationsTaxData struct {
 }
 
 type DonationsTaxDataBuilder struct {
-	employeeId     int // 员工工号（老工号）
-	employeeIdFlag bool
+	employeeId    int // 员工工号（老工号）
+	employeeIdSet bool
 
-	legalName     string // 法定姓名
-	legalNameFlag bool
+	legalName    string // 法定姓名
+	legalNameSet bool
 
-	identityType     string // 证件类型
-	identityTypeFlag bool
+	identityType    string // 证件类型
+	identityTypeSet bool
 
-	identityNumber     string // 证件号码
-	identityNumberFlag bool
+	identityNumber    string // 证件号码
+	identityNumberSet bool
 
-	issuingCompany     string // 发薪公司主体
-	issuingCompanyFlag bool
+	issuingCompany    string // 发薪公司主体
+	issuingCompanySet bool
 
-	nonTaxResidence     string // 非居民纳税标签
-	nonTaxResidenceFlag bool
+	nonTaxResidence    string // 非居民纳税标签
+	nonTaxResidenceSet bool
 
-	totalDonationAmount     string // 本月实际捐赠金额
-	totalDonationAmountFlag bool
+	totalDonationAmount    string // 本月实际捐赠金额
+	totalDonationAmountSet bool
 
-	taxFreeDonationAmount30     string // 本月实际免税捐赠-30%
-	taxFreeDonationAmount30Flag bool
+	taxFreeDonationAmount30    string // 本月实际免税捐赠-30%
+	taxFreeDonationAmount30Set bool
 
-	taxFreeDonationAmount100     string // 本月实际免税捐赠-100%
-	taxFreeDonationAmount100Flag bool
+	taxFreeDonationAmount100    string // 本月实际免税捐赠-100%
+	taxFreeDonationAmount100Set bool
 }
 
 func NewDonationsTaxDataBuilder() *DonationsTaxDataBuilder {
@@ -3652,7 +3656,7 @@ func NewDonationsTaxDataBuilder() *DonationsTaxDataBuilder {
 // 示例值：111
 func (builder *DonationsTaxDataBuilder) EmployeeId(employeeId int) *DonationsTaxDataBuilder {
 	builder.employeeId = employeeId
-	builder.employeeIdFlag = true
+	builder.employeeIdSet = true
 	return builder
 }
 
@@ -3661,7 +3665,7 @@ func (builder *DonationsTaxDataBuilder) EmployeeId(employeeId int) *DonationsTax
 // 示例值：张三
 func (builder *DonationsTaxDataBuilder) LegalName(legalName string) *DonationsTaxDataBuilder {
 	builder.legalName = legalName
-	builder.legalNameFlag = true
+	builder.legalNameSet = true
 	return builder
 }
 
@@ -3670,7 +3674,7 @@ func (builder *DonationsTaxDataBuilder) LegalName(legalName string) *DonationsTa
 // 示例值：居民身份证
 func (builder *DonationsTaxDataBuilder) IdentityType(identityType string) *DonationsTaxDataBuilder {
 	builder.identityType = identityType
-	builder.identityTypeFlag = true
+	builder.identityTypeSet = true
 	return builder
 }
 
@@ -3679,7 +3683,7 @@ func (builder *DonationsTaxDataBuilder) IdentityType(identityType string) *Donat
 // 示例值：123456789
 func (builder *DonationsTaxDataBuilder) IdentityNumber(identityNumber string) *DonationsTaxDataBuilder {
 	builder.identityNumber = identityNumber
-	builder.identityNumberFlag = true
+	builder.identityNumberSet = true
 	return builder
 }
 
@@ -3688,7 +3692,7 @@ func (builder *DonationsTaxDataBuilder) IdentityNumber(identityNumber string) *D
 // 示例值：字节跳动
 func (builder *DonationsTaxDataBuilder) IssuingCompany(issuingCompany string) *DonationsTaxDataBuilder {
 	builder.issuingCompany = issuingCompany
-	builder.issuingCompanyFlag = true
+	builder.issuingCompanySet = true
 	return builder
 }
 
@@ -3697,7 +3701,7 @@ func (builder *DonationsTaxDataBuilder) IssuingCompany(issuingCompany string) *D
 // 示例值：是
 func (builder *DonationsTaxDataBuilder) NonTaxResidence(nonTaxResidence string) *DonationsTaxDataBuilder {
 	builder.nonTaxResidence = nonTaxResidence
-	builder.nonTaxResidenceFlag = true
+	builder.nonTaxResidenceSet = true
 	return builder
 }
 
@@ -3706,7 +3710,7 @@ func (builder *DonationsTaxDataBuilder) NonTaxResidence(nonTaxResidence string) 
 // 示例值：123.45
 func (builder *DonationsTaxDataBuilder) TotalDonationAmount(totalDonationAmount string) *DonationsTaxDataBuilder {
 	builder.totalDonationAmount = totalDonationAmount
-	builder.totalDonationAmountFlag = true
+	builder.totalDonationAmountSet = true
 	return builder
 }
 
@@ -3715,7 +3719,7 @@ func (builder *DonationsTaxDataBuilder) TotalDonationAmount(totalDonationAmount 
 // 示例值：123.45
 func (builder *DonationsTaxDataBuilder) TaxFreeDonationAmount30(taxFreeDonationAmount30 string) *DonationsTaxDataBuilder {
 	builder.taxFreeDonationAmount30 = taxFreeDonationAmount30
-	builder.taxFreeDonationAmount30Flag = true
+	builder.taxFreeDonationAmount30Set = true
 	return builder
 }
 
@@ -3724,45 +3728,45 @@ func (builder *DonationsTaxDataBuilder) TaxFreeDonationAmount30(taxFreeDonationA
 // 示例值：123.45
 func (builder *DonationsTaxDataBuilder) TaxFreeDonationAmount100(taxFreeDonationAmount100 string) *DonationsTaxDataBuilder {
 	builder.taxFreeDonationAmount100 = taxFreeDonationAmount100
-	builder.taxFreeDonationAmount100Flag = true
+	builder.taxFreeDonationAmount100Set = true
 	return builder
 }
 
 func (builder *DonationsTaxDataBuilder) Build() *DonationsTaxData {
 	req := &DonationsTaxData{}
-	if builder.employeeIdFlag {
+	if builder.employeeIdSet {
 		req.EmployeeId = &builder.employeeId
 
 	}
-	if builder.legalNameFlag {
+	if builder.legalNameSet {
 		req.LegalName = &builder.legalName
 
 	}
-	if builder.identityTypeFlag {
+	if builder.identityTypeSet {
 		req.IdentityType = &builder.identityType
 
 	}
-	if builder.identityNumberFlag {
+	if builder.identityNumberSet {
 		req.IdentityNumber = &builder.identityNumber
 
 	}
-	if builder.issuingCompanyFlag {
+	if builder.issuingCompanySet {
 		req.IssuingCompany = &builder.issuingCompany
 
 	}
-	if builder.nonTaxResidenceFlag {
+	if builder.nonTaxResidenceSet {
 		req.NonTaxResidence = &builder.nonTaxResidence
 
 	}
-	if builder.totalDonationAmountFlag {
+	if builder.totalDonationAmountSet {
 		req.TotalDonationAmount = &builder.totalDonationAmount
 
 	}
-	if builder.taxFreeDonationAmount30Flag {
+	if builder.taxFreeDonationAmount30Set {
 		req.TaxFreeDonationAmount30 = &builder.taxFreeDonationAmount30
 
 	}
-	if builder.taxFreeDonationAmount100Flag {
+	if builder.taxFreeDonationAmount100Set {
 		req.TaxFreeDonationAmount100 = &builder.taxFreeDonationAmount100
 
 	}
@@ -3780,17 +3784,17 @@ type EmployeeInfo struct {
 }
 
 type EmployeeInfoBuilder struct {
-	userId     string // saas user id
-	userIdFlag bool
+	userId    string // saas user id
+	userIdSet bool
 
-	name     *I18n // 姓名
-	nameFlag bool
+	name    *I18n // 姓名
+	nameSet bool
 
-	employeeNumber     string // 工号
-	employeeNumberFlag bool
+	employeeNumber    string // 工号
+	employeeNumberSet bool
 
-	employeeId     string // 员工雇员ID
-	employeeIdFlag bool
+	employeeId    string // 员工雇员ID
+	employeeIdSet bool
 }
 
 func NewEmployeeInfoBuilder() *EmployeeInfoBuilder {
@@ -3803,7 +3807,7 @@ func NewEmployeeInfoBuilder() *EmployeeInfoBuilder {
 // 示例值：
 func (builder *EmployeeInfoBuilder) UserId(userId string) *EmployeeInfoBuilder {
 	builder.userId = userId
-	builder.userIdFlag = true
+	builder.userIdSet = true
 	return builder
 }
 
@@ -3812,7 +3816,7 @@ func (builder *EmployeeInfoBuilder) UserId(userId string) *EmployeeInfoBuilder {
 // 示例值：
 func (builder *EmployeeInfoBuilder) Name(name *I18n) *EmployeeInfoBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -3821,7 +3825,7 @@ func (builder *EmployeeInfoBuilder) Name(name *I18n) *EmployeeInfoBuilder {
 // 示例值：100000166
 func (builder *EmployeeInfoBuilder) EmployeeNumber(employeeNumber string) *EmployeeInfoBuilder {
 	builder.employeeNumber = employeeNumber
-	builder.employeeNumberFlag = true
+	builder.employeeNumberSet = true
 	return builder
 }
 
@@ -3830,24 +3834,24 @@ func (builder *EmployeeInfoBuilder) EmployeeNumber(employeeNumber string) *Emplo
 // 示例值：7087900867940451884
 func (builder *EmployeeInfoBuilder) EmployeeId(employeeId string) *EmployeeInfoBuilder {
 	builder.employeeId = employeeId
-	builder.employeeIdFlag = true
+	builder.employeeIdSet = true
 	return builder
 }
 
 func (builder *EmployeeInfoBuilder) Build() *EmployeeInfo {
 	req := &EmployeeInfo{}
-	if builder.userIdFlag {
+	if builder.userIdSet {
 		req.UserId = &builder.userId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.employeeNumberFlag {
+	if builder.employeeNumberSet {
 		req.EmployeeNumber = &builder.employeeNumber
 
 	}
-	if builder.employeeIdFlag {
+	if builder.employeeIdSet {
 		req.EmployeeId = &builder.employeeId
 
 	}
@@ -3861,11 +3865,11 @@ type EnumObject struct {
 }
 
 type EnumObjectBuilder struct {
-	enumValueId     string // 枚举对象ID
-	enumValueIdFlag bool
+	enumValueId    string // 枚举对象ID
+	enumValueIdSet bool
 
-	enumKey     string // 枚举对象
-	enumKeyFlag bool
+	enumKey    string // 枚举对象
+	enumKeySet bool
 }
 
 func NewEnumObjectBuilder() *EnumObjectBuilder {
@@ -3878,7 +3882,7 @@ func NewEnumObjectBuilder() *EnumObjectBuilder {
 // 示例值：7188920315914207276
 func (builder *EnumObjectBuilder) EnumValueId(enumValueId string) *EnumObjectBuilder {
 	builder.enumValueId = enumValueId
-	builder.enumValueIdFlag = true
+	builder.enumValueIdSet = true
 	return builder
 }
 
@@ -3887,17 +3891,17 @@ func (builder *EnumObjectBuilder) EnumValueId(enumValueId string) *EnumObjectBui
 // 示例值：company
 func (builder *EnumObjectBuilder) EnumKey(enumKey string) *EnumObjectBuilder {
 	builder.enumKey = enumKey
-	builder.enumKeyFlag = true
+	builder.enumKeySet = true
 	return builder
 }
 
 func (builder *EnumObjectBuilder) Build() *EnumObject {
 	req := &EnumObject{}
-	if builder.enumValueIdFlag {
+	if builder.enumValueIdSet {
 		req.EnumValueId = &builder.enumValueId
 
 	}
-	if builder.enumKeyFlag {
+	if builder.enumKeySet {
 		req.EnumKey = &builder.enumKey
 
 	}
@@ -3911,11 +3915,11 @@ type FailInfo struct {
 }
 
 type FailInfoBuilder struct {
-	idx     int // 写入失败的数据行索引
-	idxFlag bool
+	idx    int // 写入失败的数据行索引
+	idxSet bool
 
-	errorCode     int // 写入失败的原因错误码
-	errorCodeFlag bool
+	errorCode    int // 写入失败的原因错误码
+	errorCodeSet bool
 }
 
 func NewFailInfoBuilder() *FailInfoBuilder {
@@ -3928,7 +3932,7 @@ func NewFailInfoBuilder() *FailInfoBuilder {
 // 示例值：0
 func (builder *FailInfoBuilder) Idx(idx int) *FailInfoBuilder {
 	builder.idx = idx
-	builder.idxFlag = true
+	builder.idxSet = true
 	return builder
 }
 
@@ -3937,17 +3941,17 @@ func (builder *FailInfoBuilder) Idx(idx int) *FailInfoBuilder {
 // 示例值：0
 func (builder *FailInfoBuilder) ErrorCode(errorCode int) *FailInfoBuilder {
 	builder.errorCode = errorCode
-	builder.errorCodeFlag = true
+	builder.errorCodeSet = true
 	return builder
 }
 
 func (builder *FailInfoBuilder) Build() *FailInfo {
 	req := &FailInfo{}
-	if builder.idxFlag {
+	if builder.idxSet {
 		req.Idx = &builder.idx
 
 	}
-	if builder.errorCodeFlag {
+	if builder.errorCodeSet {
 		req.ErrorCode = &builder.errorCode
 
 	}
@@ -3961,11 +3965,11 @@ type I18n struct {
 }
 
 type I18nBuilder struct {
-	zhCn     string // 中文名称
-	zhCnFlag bool
+	zhCn    string // 中文名称
+	zhCnSet bool
 
-	enUs     string // 英文名称
-	enUsFlag bool
+	enUs    string // 英文名称
+	enUsSet bool
 }
 
 func NewI18nBuilder() *I18nBuilder {
@@ -3978,7 +3982,7 @@ func NewI18nBuilder() *I18nBuilder {
 // 示例值：CHN-审核
 func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 	builder.zhCn = zhCn
-	builder.zhCnFlag = true
+	builder.zhCnSet = true
 	return builder
 }
 
@@ -3987,17 +3991,17 @@ func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 // 示例值：english name
 func (builder *I18nBuilder) EnUs(enUs string) *I18nBuilder {
 	builder.enUs = enUs
-	builder.enUsFlag = true
+	builder.enUsSet = true
 	return builder
 }
 
 func (builder *I18nBuilder) Build() *I18n {
 	req := &I18n{}
-	if builder.zhCnFlag {
+	if builder.zhCnSet {
 		req.ZhCn = &builder.zhCn
 
 	}
-	if builder.enUsFlag {
+	if builder.enUsSet {
 		req.EnUs = &builder.enUs
 
 	}
@@ -4013,14 +4017,14 @@ type I18nContent struct {
 }
 
 type I18nContentBuilder struct {
-	locale     string // 语种
-	localeFlag bool
+	locale    string // 语种
+	localeSet bool
 
-	value     string // 语种对应的值
-	valueFlag bool
+	value    string // 语种对应的值
+	valueSet bool
 
-	id     string // 名称对应的实体id
-	idFlag bool
+	id    string // 名称对应的实体id
+	idSet bool
 }
 
 func NewI18nContentBuilder() *I18nContentBuilder {
@@ -4033,7 +4037,7 @@ func NewI18nContentBuilder() *I18nContentBuilder {
 // 示例值：zh_cn
 func (builder *I18nContentBuilder) Locale(locale string) *I18nContentBuilder {
 	builder.locale = locale
-	builder.localeFlag = true
+	builder.localeSet = true
 	return builder
 }
 
@@ -4042,7 +4046,7 @@ func (builder *I18nContentBuilder) Locale(locale string) *I18nContentBuilder {
 // 示例值：名称
 func (builder *I18nContentBuilder) Value(value string) *I18nContentBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
@@ -4051,21 +4055,21 @@ func (builder *I18nContentBuilder) Value(value string) *I18nContentBuilder {
 // 示例值：723123123123123213
 func (builder *I18nContentBuilder) Id(id string) *I18nContentBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
 func (builder *I18nContentBuilder) Build() *I18nContent {
 	req := &I18nContent{}
-	if builder.localeFlag {
+	if builder.localeSet {
 		req.Locale = &builder.locale
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
@@ -4081,14 +4085,14 @@ type IdWithName struct {
 }
 
 type IdWithNameBuilder struct {
-	id     string // id
-	idFlag bool
+	id    string // id
+	idSet bool
 
-	zhName     string // 中文名
-	zhNameFlag bool
+	zhName    string // 中文名
+	zhNameSet bool
 
-	enName     string // 英文名
-	enNameFlag bool
+	enName    string // 英文名
+	enNameSet bool
 }
 
 func NewIdWithNameBuilder() *IdWithNameBuilder {
@@ -4101,7 +4105,7 @@ func NewIdWithNameBuilder() *IdWithNameBuilder {
 // 示例值：1
 func (builder *IdWithNameBuilder) Id(id string) *IdWithNameBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4110,7 +4114,7 @@ func (builder *IdWithNameBuilder) Id(id string) *IdWithNameBuilder {
 // 示例值：1
 func (builder *IdWithNameBuilder) ZhName(zhName string) *IdWithNameBuilder {
 	builder.zhName = zhName
-	builder.zhNameFlag = true
+	builder.zhNameSet = true
 	return builder
 }
 
@@ -4119,21 +4123,21 @@ func (builder *IdWithNameBuilder) ZhName(zhName string) *IdWithNameBuilder {
 // 示例值：1
 func (builder *IdWithNameBuilder) EnName(enName string) *IdWithNameBuilder {
 	builder.enName = enName
-	builder.enNameFlag = true
+	builder.enNameSet = true
 	return builder
 }
 
 func (builder *IdWithNameBuilder) Build() *IdWithName {
 	req := &IdWithName{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.zhNameFlag {
+	if builder.zhNameSet {
 		req.ZhName = &builder.zhName
 
 	}
-	if builder.enNameFlag {
+	if builder.enNameSet {
 		req.EnName = &builder.enName
 
 	}
@@ -4151,17 +4155,17 @@ type IntRange struct {
 }
 
 type IntRangeBuilder struct {
-	greateThan     int // 大于
-	greateThanFlag bool
+	greateThan    int // 大于
+	greateThanSet bool
 
-	greateEqualThan     int // 大于等于
-	greateEqualThanFlag bool
+	greateEqualThan    int // 大于等于
+	greateEqualThanSet bool
 
-	lessThan     int // 小于
-	lessThanFlag bool
+	lessThan    int // 小于
+	lessThanSet bool
 
-	lessEqualThan     int // 小于等于
-	lessEqualThanFlag bool
+	lessEqualThan    int // 小于等于
+	lessEqualThanSet bool
 }
 
 func NewIntRangeBuilder() *IntRangeBuilder {
@@ -4174,7 +4178,7 @@ func NewIntRangeBuilder() *IntRangeBuilder {
 // 示例值：1
 func (builder *IntRangeBuilder) GreateThan(greateThan int) *IntRangeBuilder {
 	builder.greateThan = greateThan
-	builder.greateThanFlag = true
+	builder.greateThanSet = true
 	return builder
 }
 
@@ -4183,7 +4187,7 @@ func (builder *IntRangeBuilder) GreateThan(greateThan int) *IntRangeBuilder {
 // 示例值：1
 func (builder *IntRangeBuilder) GreateEqualThan(greateEqualThan int) *IntRangeBuilder {
 	builder.greateEqualThan = greateEqualThan
-	builder.greateEqualThanFlag = true
+	builder.greateEqualThanSet = true
 	return builder
 }
 
@@ -4192,7 +4196,7 @@ func (builder *IntRangeBuilder) GreateEqualThan(greateEqualThan int) *IntRangeBu
 // 示例值：1
 func (builder *IntRangeBuilder) LessThan(lessThan int) *IntRangeBuilder {
 	builder.lessThan = lessThan
-	builder.lessThanFlag = true
+	builder.lessThanSet = true
 	return builder
 }
 
@@ -4201,25 +4205,25 @@ func (builder *IntRangeBuilder) LessThan(lessThan int) *IntRangeBuilder {
 // 示例值：1
 func (builder *IntRangeBuilder) LessEqualThan(lessEqualThan int) *IntRangeBuilder {
 	builder.lessEqualThan = lessEqualThan
-	builder.lessEqualThanFlag = true
+	builder.lessEqualThanSet = true
 	return builder
 }
 
 func (builder *IntRangeBuilder) Build() *IntRange {
 	req := &IntRange{}
-	if builder.greateThanFlag {
+	if builder.greateThanSet {
 		req.GreateThan = &builder.greateThan
 
 	}
-	if builder.greateEqualThanFlag {
+	if builder.greateEqualThanSet {
 		req.GreateEqualThan = &builder.greateEqualThan
 
 	}
-	if builder.lessThanFlag {
+	if builder.lessThanSet {
 		req.LessThan = &builder.lessThan
 
 	}
-	if builder.lessEqualThanFlag {
+	if builder.lessEqualThanSet {
 		req.LessEqualThan = &builder.lessEqualThan
 
 	}
@@ -4241,23 +4245,23 @@ type PayGroup struct {
 }
 
 type PayGroupBuilder struct {
-	payGroupId     string // 薪资组ID
-	payGroupIdFlag bool
+	payGroupId    string // 薪资组ID
+	payGroupIdSet bool
 
-	name     *I18n // 薪资组名称
-	nameFlag bool
+	name    *I18n // 薪资组名称
+	nameSet bool
 
-	code     string // 薪资组编码
-	codeFlag bool
+	code    string // 薪资组编码
+	codeSet bool
 
-	status     string // 薪资组状态
-	statusFlag bool
+	status    string // 薪资组状态
+	statusSet bool
 
-	countryRegion     *CountryRegion // 薪资组所属国家/地区
-	countryRegionFlag bool
+	countryRegion    *CountryRegion // 薪资组所属国家/地区
+	countryRegionSet bool
 
-	isGlobalRegion     bool // 是否为全球范围
-	isGlobalRegionFlag bool
+	isGlobalRegion    bool // 是否为全球范围
+	isGlobalRegionSet bool
 }
 
 func NewPayGroupBuilder() *PayGroupBuilder {
@@ -4270,7 +4274,7 @@ func NewPayGroupBuilder() *PayGroupBuilder {
 // 示例值：6823630319749580301
 func (builder *PayGroupBuilder) PayGroupId(payGroupId string) *PayGroupBuilder {
 	builder.payGroupId = payGroupId
-	builder.payGroupIdFlag = true
+	builder.payGroupIdSet = true
 	return builder
 }
 
@@ -4279,7 +4283,7 @@ func (builder *PayGroupBuilder) PayGroupId(payGroupId string) *PayGroupBuilder {
 // 示例值：CHN - 审核
 func (builder *PayGroupBuilder) Name(name *I18n) *PayGroupBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4288,7 +4292,7 @@ func (builder *PayGroupBuilder) Name(name *I18n) *PayGroupBuilder {
 // 示例值：PAY_GROUP-3-8
 func (builder *PayGroupBuilder) Code(code string) *PayGroupBuilder {
 	builder.code = code
-	builder.codeFlag = true
+	builder.codeSet = true
 	return builder
 }
 
@@ -4297,7 +4301,7 @@ func (builder *PayGroupBuilder) Code(code string) *PayGroupBuilder {
 // 示例值：true
 func (builder *PayGroupBuilder) Status(status string) *PayGroupBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -4306,7 +4310,7 @@ func (builder *PayGroupBuilder) Status(status string) *PayGroupBuilder {
 // 示例值：
 func (builder *PayGroupBuilder) CountryRegion(countryRegion *CountryRegion) *PayGroupBuilder {
 	builder.countryRegion = countryRegion
-	builder.countryRegionFlag = true
+	builder.countryRegionSet = true
 	return builder
 }
 
@@ -4315,31 +4319,31 @@ func (builder *PayGroupBuilder) CountryRegion(countryRegion *CountryRegion) *Pay
 // 示例值：
 func (builder *PayGroupBuilder) IsGlobalRegion(isGlobalRegion bool) *PayGroupBuilder {
 	builder.isGlobalRegion = isGlobalRegion
-	builder.isGlobalRegionFlag = true
+	builder.isGlobalRegionSet = true
 	return builder
 }
 
 func (builder *PayGroupBuilder) Build() *PayGroup {
 	req := &PayGroup{}
-	if builder.payGroupIdFlag {
+	if builder.payGroupIdSet {
 		req.PayGroupId = &builder.payGroupId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.codeFlag {
+	if builder.codeSet {
 		req.Code = &builder.code
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.countryRegionFlag {
+	if builder.countryRegionSet {
 		req.CountryRegion = builder.countryRegion
 	}
-	if builder.isGlobalRegionFlag {
+	if builder.isGlobalRegionSet {
 		req.IsGlobalRegion = &builder.isGlobalRegion
 
 	}
@@ -4361,23 +4365,23 @@ type Paygroup struct {
 }
 
 type PaygroupBuilder struct {
-	payGroupId     string // 薪资组ID
-	payGroupIdFlag bool
+	payGroupId    string // 薪资组ID
+	payGroupIdSet bool
 
-	name     *I18n // 薪资组名称
-	nameFlag bool
+	name    *I18n // 薪资组名称
+	nameSet bool
 
-	code     string // 薪资组编码
-	codeFlag bool
+	code    string // 薪资组编码
+	codeSet bool
 
-	status     int // 薪资组状态
-	statusFlag bool
+	status    int // 薪资组状态
+	statusSet bool
 
-	countryRegion     *CountryRegion // 薪资组所属国家/地区
-	countryRegionFlag bool
+	countryRegion    *CountryRegion // 薪资组所属国家/地区
+	countryRegionSet bool
 
-	isGlobalRegion     bool // 是否适用全球
-	isGlobalRegionFlag bool
+	isGlobalRegion    bool // 是否适用全球
+	isGlobalRegionSet bool
 }
 
 func NewPaygroupBuilder() *PaygroupBuilder {
@@ -4390,7 +4394,7 @@ func NewPaygroupBuilder() *PaygroupBuilder {
 // 示例值：6823630319749580301
 func (builder *PaygroupBuilder) PayGroupId(payGroupId string) *PaygroupBuilder {
 	builder.payGroupId = payGroupId
-	builder.payGroupIdFlag = true
+	builder.payGroupIdSet = true
 	return builder
 }
 
@@ -4399,7 +4403,7 @@ func (builder *PaygroupBuilder) PayGroupId(payGroupId string) *PaygroupBuilder {
 // 示例值：CHN - 审核
 func (builder *PaygroupBuilder) Name(name *I18n) *PaygroupBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -4408,7 +4412,7 @@ func (builder *PaygroupBuilder) Name(name *I18n) *PaygroupBuilder {
 // 示例值：PAY_GROUP-3-8
 func (builder *PaygroupBuilder) Code(code string) *PaygroupBuilder {
 	builder.code = code
-	builder.codeFlag = true
+	builder.codeSet = true
 	return builder
 }
 
@@ -4417,7 +4421,7 @@ func (builder *PaygroupBuilder) Code(code string) *PaygroupBuilder {
 // 示例值：1
 func (builder *PaygroupBuilder) Status(status int) *PaygroupBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
@@ -4426,7 +4430,7 @@ func (builder *PaygroupBuilder) Status(status int) *PaygroupBuilder {
 // 示例值：
 func (builder *PaygroupBuilder) CountryRegion(countryRegion *CountryRegion) *PaygroupBuilder {
 	builder.countryRegion = countryRegion
-	builder.countryRegionFlag = true
+	builder.countryRegionSet = true
 	return builder
 }
 
@@ -4435,31 +4439,31 @@ func (builder *PaygroupBuilder) CountryRegion(countryRegion *CountryRegion) *Pay
 // 示例值：
 func (builder *PaygroupBuilder) IsGlobalRegion(isGlobalRegion bool) *PaygroupBuilder {
 	builder.isGlobalRegion = isGlobalRegion
-	builder.isGlobalRegionFlag = true
+	builder.isGlobalRegionSet = true
 	return builder
 }
 
 func (builder *PaygroupBuilder) Build() *Paygroup {
 	req := &Paygroup{}
-	if builder.payGroupIdFlag {
+	if builder.payGroupIdSet {
 		req.PayGroupId = &builder.payGroupId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.codeFlag {
+	if builder.codeSet {
 		req.Code = &builder.code
 
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
-	if builder.countryRegionFlag {
+	if builder.countryRegionSet {
 		req.CountryRegion = builder.countryRegion
 	}
-	if builder.isGlobalRegionFlag {
+	if builder.isGlobalRegionSet {
 		req.IsGlobalRegion = &builder.isGlobalRegion
 
 	}
@@ -4479,20 +4483,20 @@ type PaymentAccountingItem struct {
 }
 
 type PaymentAccountingItemBuilder struct {
-	id     string // 算薪项唯一标识
-	idFlag bool
+	id    string // 算薪项唯一标识
+	idSet bool
 
-	accountingItemNames     []*I18nContent // 算薪项名称
-	accountingItemNamesFlag bool
+	accountingItemNames    []*I18nContent // 算薪项名称
+	accountingItemNamesSet bool
 
-	accountingItemValue     *AccountingItemValue // 算薪项值
-	accountingItemValueFlag bool
+	accountingItemValue    *AccountingItemValue // 算薪项值
+	accountingItemValueSet bool
 
-	segmentValues     []*SegmentValue // 算薪项分段数据
-	segmentValuesFlag bool
+	segmentValues    []*SegmentValue // 算薪项分段数据
+	segmentValuesSet bool
 
-	accountingItemType     int // 算薪项类型，1-文本；2-金额；3-数值；4-百分比；5-日期；6-引用
-	accountingItemTypeFlag bool
+	accountingItemType    int // 算薪项类型，1-文本；2-金额；3-数值；4-百分比；5-日期；6-引用
+	accountingItemTypeSet bool
 }
 
 func NewPaymentAccountingItemBuilder() *PaymentAccountingItemBuilder {
@@ -4505,7 +4509,7 @@ func NewPaymentAccountingItemBuilder() *PaymentAccountingItemBuilder {
 // 示例值：7202076988667019308
 func (builder *PaymentAccountingItemBuilder) Id(id string) *PaymentAccountingItemBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -4514,7 +4518,7 @@ func (builder *PaymentAccountingItemBuilder) Id(id string) *PaymentAccountingIte
 // 示例值：
 func (builder *PaymentAccountingItemBuilder) AccountingItemNames(accountingItemNames []*I18nContent) *PaymentAccountingItemBuilder {
 	builder.accountingItemNames = accountingItemNames
-	builder.accountingItemNamesFlag = true
+	builder.accountingItemNamesSet = true
 	return builder
 }
 
@@ -4523,7 +4527,7 @@ func (builder *PaymentAccountingItemBuilder) AccountingItemNames(accountingItemN
 // 示例值：
 func (builder *PaymentAccountingItemBuilder) AccountingItemValue(accountingItemValue *AccountingItemValue) *PaymentAccountingItemBuilder {
 	builder.accountingItemValue = accountingItemValue
-	builder.accountingItemValueFlag = true
+	builder.accountingItemValueSet = true
 	return builder
 }
 
@@ -4532,7 +4536,7 @@ func (builder *PaymentAccountingItemBuilder) AccountingItemValue(accountingItemV
 // 示例值：
 func (builder *PaymentAccountingItemBuilder) SegmentValues(segmentValues []*SegmentValue) *PaymentAccountingItemBuilder {
 	builder.segmentValues = segmentValues
-	builder.segmentValuesFlag = true
+	builder.segmentValuesSet = true
 	return builder
 }
 
@@ -4541,26 +4545,26 @@ func (builder *PaymentAccountingItemBuilder) SegmentValues(segmentValues []*Segm
 // 示例值：1
 func (builder *PaymentAccountingItemBuilder) AccountingItemType(accountingItemType int) *PaymentAccountingItemBuilder {
 	builder.accountingItemType = accountingItemType
-	builder.accountingItemTypeFlag = true
+	builder.accountingItemTypeSet = true
 	return builder
 }
 
 func (builder *PaymentAccountingItemBuilder) Build() *PaymentAccountingItem {
 	req := &PaymentAccountingItem{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.accountingItemNamesFlag {
+	if builder.accountingItemNamesSet {
 		req.AccountingItemNames = builder.accountingItemNames
 	}
-	if builder.accountingItemValueFlag {
+	if builder.accountingItemValueSet {
 		req.AccountingItemValue = builder.accountingItemValue
 	}
-	if builder.segmentValuesFlag {
+	if builder.segmentValuesSet {
 		req.SegmentValues = builder.segmentValues
 	}
-	if builder.accountingItemTypeFlag {
+	if builder.accountingItemTypeSet {
 		req.AccountingItemType = &builder.accountingItemType
 
 	}
@@ -4584,26 +4588,26 @@ type PaymentActivity struct {
 }
 
 type PaymentActivityBuilder struct {
-	activityId     string // 发薪活动唯一标识
-	activityIdFlag bool
+	activityId    string // 发薪活动唯一标识
+	activityIdSet bool
 
-	activityNames     []*I18nContent // 发薪活动名称
-	activityNamesFlag bool
+	activityNames    []*I18nContent // 发薪活动名称
+	activityNamesSet bool
 
-	payDate     string // 发薪活动发薪日期
-	payDateFlag bool
+	payDate    string // 发薪活动发薪日期
+	payDateSet bool
 
-	totalNumberOfPayroll     int // 发薪总笔数
-	totalNumberOfPayrollFlag bool
+	totalNumberOfPayroll    int // 发薪总笔数
+	totalNumberOfPayrollSet bool
 
-	numberOfCalculationActivities     int // 关联的算薪活动个数
-	numberOfCalculationActivitiesFlag bool
+	numberOfCalculationActivities    int // 关联的算薪活动个数
+	numberOfCalculationActivitiesSet bool
 
-	calculationActivities     []*CalculationActivity // 发薪活动关联的算薪活动详情
-	calculationActivitiesFlag bool
+	calculationActivities    []*CalculationActivity // 发薪活动关联的算薪活动详情
+	calculationActivitiesSet bool
 
-	activityStatus     int // 发薪活动审批状态，其中：100-待确认发薪名单；150-待提交审批；200-审批中；300-审批被拒绝；350-审批被撤回；360-审批被撤销；375-审批通过；400-已封存。
-	activityStatusFlag bool
+	activityStatus    int // 发薪活动审批状态，其中：100-待确认发薪名单；150-待提交审批；200-审批中；300-审批被拒绝；350-审批被撤回；360-审批被撤销；375-审批通过；400-已封存。
+	activityStatusSet bool
 }
 
 func NewPaymentActivityBuilder() *PaymentActivityBuilder {
@@ -4616,7 +4620,7 @@ func NewPaymentActivityBuilder() *PaymentActivityBuilder {
 // 示例值：7202076988667019308
 func (builder *PaymentActivityBuilder) ActivityId(activityId string) *PaymentActivityBuilder {
 	builder.activityId = activityId
-	builder.activityIdFlag = true
+	builder.activityIdSet = true
 	return builder
 }
 
@@ -4625,7 +4629,7 @@ func (builder *PaymentActivityBuilder) ActivityId(activityId string) *PaymentAct
 // 示例值：
 func (builder *PaymentActivityBuilder) ActivityNames(activityNames []*I18nContent) *PaymentActivityBuilder {
 	builder.activityNames = activityNames
-	builder.activityNamesFlag = true
+	builder.activityNamesSet = true
 	return builder
 }
 
@@ -4634,7 +4638,7 @@ func (builder *PaymentActivityBuilder) ActivityNames(activityNames []*I18nConten
 // 示例值：2020-10-31
 func (builder *PaymentActivityBuilder) PayDate(payDate string) *PaymentActivityBuilder {
 	builder.payDate = payDate
-	builder.payDateFlag = true
+	builder.payDateSet = true
 	return builder
 }
 
@@ -4643,7 +4647,7 @@ func (builder *PaymentActivityBuilder) PayDate(payDate string) *PaymentActivityB
 // 示例值：100
 func (builder *PaymentActivityBuilder) TotalNumberOfPayroll(totalNumberOfPayroll int) *PaymentActivityBuilder {
 	builder.totalNumberOfPayroll = totalNumberOfPayroll
-	builder.totalNumberOfPayrollFlag = true
+	builder.totalNumberOfPayrollSet = true
 	return builder
 }
 
@@ -4652,7 +4656,7 @@ func (builder *PaymentActivityBuilder) TotalNumberOfPayroll(totalNumberOfPayroll
 // 示例值：1000
 func (builder *PaymentActivityBuilder) NumberOfCalculationActivities(numberOfCalculationActivities int) *PaymentActivityBuilder {
 	builder.numberOfCalculationActivities = numberOfCalculationActivities
-	builder.numberOfCalculationActivitiesFlag = true
+	builder.numberOfCalculationActivitiesSet = true
 	return builder
 }
 
@@ -4661,7 +4665,7 @@ func (builder *PaymentActivityBuilder) NumberOfCalculationActivities(numberOfCal
 // 示例值：
 func (builder *PaymentActivityBuilder) CalculationActivities(calculationActivities []*CalculationActivity) *PaymentActivityBuilder {
 	builder.calculationActivities = calculationActivities
-	builder.calculationActivitiesFlag = true
+	builder.calculationActivitiesSet = true
 	return builder
 }
 
@@ -4670,35 +4674,35 @@ func (builder *PaymentActivityBuilder) CalculationActivities(calculationActiviti
 // 示例值：400
 func (builder *PaymentActivityBuilder) ActivityStatus(activityStatus int) *PaymentActivityBuilder {
 	builder.activityStatus = activityStatus
-	builder.activityStatusFlag = true
+	builder.activityStatusSet = true
 	return builder
 }
 
 func (builder *PaymentActivityBuilder) Build() *PaymentActivity {
 	req := &PaymentActivity{}
-	if builder.activityIdFlag {
+	if builder.activityIdSet {
 		req.ActivityId = &builder.activityId
 
 	}
-	if builder.activityNamesFlag {
+	if builder.activityNamesSet {
 		req.ActivityNames = builder.activityNames
 	}
-	if builder.payDateFlag {
+	if builder.payDateSet {
 		req.PayDate = &builder.payDate
 
 	}
-	if builder.totalNumberOfPayrollFlag {
+	if builder.totalNumberOfPayrollSet {
 		req.TotalNumberOfPayroll = &builder.totalNumberOfPayroll
 
 	}
-	if builder.numberOfCalculationActivitiesFlag {
+	if builder.numberOfCalculationActivitiesSet {
 		req.NumberOfCalculationActivities = &builder.numberOfCalculationActivities
 
 	}
-	if builder.calculationActivitiesFlag {
+	if builder.calculationActivitiesSet {
 		req.CalculationActivities = builder.calculationActivities
 	}
-	if builder.activityStatusFlag {
+	if builder.activityStatusSet {
 		req.ActivityStatus = &builder.activityStatus
 
 	}
@@ -4712,11 +4716,11 @@ type PaymentActivityDetail struct {
 }
 
 type PaymentActivityDetailBuilder struct {
-	employeeId     string // 员工的唯一标识
-	employeeIdFlag bool
+	employeeId    string // 员工的唯一标识
+	employeeIdSet bool
 
-	paymentDetails     []*PaymentAccountingItem // 发薪明细详情
-	paymentDetailsFlag bool
+	paymentDetails    []*PaymentAccountingItem // 发薪明细详情
+	paymentDetailsSet bool
 }
 
 func NewPaymentActivityDetailBuilder() *PaymentActivityDetailBuilder {
@@ -4729,7 +4733,7 @@ func NewPaymentActivityDetailBuilder() *PaymentActivityDetailBuilder {
 // 示例值：7202076988667019308
 func (builder *PaymentActivityDetailBuilder) EmployeeId(employeeId string) *PaymentActivityDetailBuilder {
 	builder.employeeId = employeeId
-	builder.employeeIdFlag = true
+	builder.employeeIdSet = true
 	return builder
 }
 
@@ -4738,17 +4742,17 @@ func (builder *PaymentActivityDetailBuilder) EmployeeId(employeeId string) *Paym
 // 示例值：
 func (builder *PaymentActivityDetailBuilder) PaymentDetails(paymentDetails []*PaymentAccountingItem) *PaymentActivityDetailBuilder {
 	builder.paymentDetails = paymentDetails
-	builder.paymentDetailsFlag = true
+	builder.paymentDetailsSet = true
 	return builder
 }
 
 func (builder *PaymentActivityDetailBuilder) Build() *PaymentActivityDetail {
 	req := &PaymentActivityDetail{}
-	if builder.employeeIdFlag {
+	if builder.employeeIdSet {
 		req.EmployeeId = &builder.employeeId
 
 	}
-	if builder.paymentDetailsFlag {
+	if builder.paymentDetailsSet {
 		req.PaymentDetails = builder.paymentDetails
 	}
 	return req
@@ -4763,14 +4767,14 @@ type PaymentDetail struct {
 }
 
 type PaymentDetailBuilder struct {
-	employeeId     string // 员工的唯一标识
-	employeeIdFlag bool
+	employeeId    string // 员工的唯一标识
+	employeeIdSet bool
 
-	activityId     string // 发薪明细所在的发薪活动 ID
-	activityIdFlag bool
+	activityId    string // 发薪明细所在的发薪活动 ID
+	activityIdSet bool
 
-	paymentAccountingItems     []*PaymentAccountingItem // 发薪明细详情
-	paymentAccountingItemsFlag bool
+	paymentAccountingItems    []*PaymentAccountingItem // 发薪明细详情
+	paymentAccountingItemsSet bool
 }
 
 func NewPaymentDetailBuilder() *PaymentDetailBuilder {
@@ -4783,7 +4787,7 @@ func NewPaymentDetailBuilder() *PaymentDetailBuilder {
 // 示例值：7202076988667019308
 func (builder *PaymentDetailBuilder) EmployeeId(employeeId string) *PaymentDetailBuilder {
 	builder.employeeId = employeeId
-	builder.employeeIdFlag = true
+	builder.employeeIdSet = true
 	return builder
 }
 
@@ -4792,7 +4796,7 @@ func (builder *PaymentDetailBuilder) EmployeeId(employeeId string) *PaymentDetai
 // 示例值：7202076988667019308
 func (builder *PaymentDetailBuilder) ActivityId(activityId string) *PaymentDetailBuilder {
 	builder.activityId = activityId
-	builder.activityIdFlag = true
+	builder.activityIdSet = true
 	return builder
 }
 
@@ -4801,21 +4805,21 @@ func (builder *PaymentDetailBuilder) ActivityId(activityId string) *PaymentDetai
 // 示例值：
 func (builder *PaymentDetailBuilder) PaymentAccountingItems(paymentAccountingItems []*PaymentAccountingItem) *PaymentDetailBuilder {
 	builder.paymentAccountingItems = paymentAccountingItems
-	builder.paymentAccountingItemsFlag = true
+	builder.paymentAccountingItemsSet = true
 	return builder
 }
 
 func (builder *PaymentDetailBuilder) Build() *PaymentDetail {
 	req := &PaymentDetail{}
-	if builder.employeeIdFlag {
+	if builder.employeeIdSet {
 		req.EmployeeId = &builder.employeeId
 
 	}
-	if builder.activityIdFlag {
+	if builder.activityIdSet {
 		req.ActivityId = &builder.activityId
 
 	}
-	if builder.paymentAccountingItemsFlag {
+	if builder.paymentAccountingItemsSet {
 		req.PaymentAccountingItems = builder.paymentAccountingItems
 	}
 	return req
@@ -4832,17 +4836,17 @@ type SegmentValue struct {
 }
 
 type SegmentValueBuilder struct {
-	startTime     string // 分段开始时间-毫秒级时间戳，[start_time, end_time] 是一个左闭右闭区间。
-	startTimeFlag bool
+	startTime    string // 分段开始时间-毫秒级时间戳，[start_time, end_time] 是一个左闭右闭区间。
+	startTimeSet bool
 
-	endTime     string // 分段结束时间-毫秒级时间戳，[start_time, end_time] 是一个左闭右闭区间。
-	endTimeFlag bool
+	endTime    string // 分段结束时间-毫秒级时间戳，[start_time, end_time] 是一个左闭右闭区间。
+	endTimeSet bool
 
-	referenceValues     []*I18nContent // 引用类型算薪项分段展示值
-	referenceValuesFlag bool
+	referenceValues    []*I18nContent // 引用类型算薪项分段展示值
+	referenceValuesSet bool
 
-	originalValue     string // 算薪项分段原始值
-	originalValueFlag bool
+	originalValue    string // 算薪项分段原始值
+	originalValueSet bool
 }
 
 func NewSegmentValueBuilder() *SegmentValueBuilder {
@@ -4855,7 +4859,7 @@ func NewSegmentValueBuilder() *SegmentValueBuilder {
 // 示例值：7220356259681386540
 func (builder *SegmentValueBuilder) StartTime(startTime string) *SegmentValueBuilder {
 	builder.startTime = startTime
-	builder.startTimeFlag = true
+	builder.startTimeSet = true
 	return builder
 }
 
@@ -4864,7 +4868,7 @@ func (builder *SegmentValueBuilder) StartTime(startTime string) *SegmentValueBui
 // 示例值：7220356259681386540
 func (builder *SegmentValueBuilder) EndTime(endTime string) *SegmentValueBuilder {
 	builder.endTime = endTime
-	builder.endTimeFlag = true
+	builder.endTimeSet = true
 	return builder
 }
 
@@ -4873,7 +4877,7 @@ func (builder *SegmentValueBuilder) EndTime(endTime string) *SegmentValueBuilder
 // 示例值：
 func (builder *SegmentValueBuilder) ReferenceValues(referenceValues []*I18nContent) *SegmentValueBuilder {
 	builder.referenceValues = referenceValues
-	builder.referenceValuesFlag = true
+	builder.referenceValuesSet = true
 	return builder
 }
 
@@ -4882,24 +4886,24 @@ func (builder *SegmentValueBuilder) ReferenceValues(referenceValues []*I18nConte
 // 示例值：10000
 func (builder *SegmentValueBuilder) OriginalValue(originalValue string) *SegmentValueBuilder {
 	builder.originalValue = originalValue
-	builder.originalValueFlag = true
+	builder.originalValueSet = true
 	return builder
 }
 
 func (builder *SegmentValueBuilder) Build() *SegmentValue {
 	req := &SegmentValue{}
-	if builder.startTimeFlag {
+	if builder.startTimeSet {
 		req.StartTime = &builder.startTime
 
 	}
-	if builder.endTimeFlag {
+	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
 
 	}
-	if builder.referenceValuesFlag {
+	if builder.referenceValuesSet {
 		req.ReferenceValues = builder.referenceValues
 	}
-	if builder.originalValueFlag {
+	if builder.originalValueSet {
 		req.OriginalValue = &builder.originalValue
 
 	}
@@ -4917,17 +4921,17 @@ type VerifActItemValue struct {
 }
 
 type VerifActItemValueBuilder struct {
-	itemId     string // item_id
-	itemIdFlag bool
+	itemId    string // item_id
+	itemIdSet bool
 
-	value     string // 值
-	valueFlag bool
+	value    string // 值
+	valueSet bool
 
-	isRef     bool // 是否引用项
-	isRefFlag bool
+	isRef    bool // 是否引用项
+	isRefSet bool
 
-	name     *IdWithName // 引用项名称
-	nameFlag bool
+	name    *IdWithName // 引用项名称
+	nameSet bool
 }
 
 func NewVerifActItemValueBuilder() *VerifActItemValueBuilder {
@@ -4940,7 +4944,7 @@ func NewVerifActItemValueBuilder() *VerifActItemValueBuilder {
 // 示例值：1
 func (builder *VerifActItemValueBuilder) ItemId(itemId string) *VerifActItemValueBuilder {
 	builder.itemId = itemId
-	builder.itemIdFlag = true
+	builder.itemIdSet = true
 	return builder
 }
 
@@ -4949,7 +4953,7 @@ func (builder *VerifActItemValueBuilder) ItemId(itemId string) *VerifActItemValu
 // 示例值：1
 func (builder *VerifActItemValueBuilder) Value(value string) *VerifActItemValueBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
@@ -4958,7 +4962,7 @@ func (builder *VerifActItemValueBuilder) Value(value string) *VerifActItemValueB
 // 示例值：
 func (builder *VerifActItemValueBuilder) IsRef(isRef bool) *VerifActItemValueBuilder {
 	builder.isRef = isRef
-	builder.isRefFlag = true
+	builder.isRefSet = true
 	return builder
 }
 
@@ -4967,25 +4971,25 @@ func (builder *VerifActItemValueBuilder) IsRef(isRef bool) *VerifActItemValueBui
 // 示例值：
 func (builder *VerifActItemValueBuilder) Name(name *IdWithName) *VerifActItemValueBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
 func (builder *VerifActItemValueBuilder) Build() *VerifActItemValue {
 	req := &VerifActItemValue{}
-	if builder.itemIdFlag {
+	if builder.itemIdSet {
 		req.ItemId = &builder.itemId
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
-	if builder.isRefFlag {
+	if builder.isRefSet {
 		req.IsRef = &builder.isRef
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
 	return req
@@ -5002,17 +5006,17 @@ type VerifActProration struct {
 }
 
 type VerifActProrationBuilder struct {
-	startDate     string // 开始日期 "2025-05-01"
-	startDateFlag bool
+	startDate    string // 开始日期 "2025-05-01"
+	startDateSet bool
 
-	endDate     string // 结束日期 "2025-05-01"
-	endDateFlag bool
+	endDate    string // 结束日期 "2025-05-01"
+	endDateSet bool
 
-	cutoffDate     string // 数据锁定日期 "2025-05-01"
-	cutoffDateFlag bool
+	cutoffDate    string // 数据锁定日期 "2025-05-01"
+	cutoffDateSet bool
 
-	itemValues     []*VerifActItemValue // 分段值，数值、金额等类型数据项会保留六位小数
-	itemValuesFlag bool
+	itemValues    []*VerifActItemValue // 分段值，数值、金额等类型数据项会保留六位小数
+	itemValuesSet bool
 }
 
 func NewVerifActProrationBuilder() *VerifActProrationBuilder {
@@ -5025,7 +5029,7 @@ func NewVerifActProrationBuilder() *VerifActProrationBuilder {
 // 示例值：1
 func (builder *VerifActProrationBuilder) StartDate(startDate string) *VerifActProrationBuilder {
 	builder.startDate = startDate
-	builder.startDateFlag = true
+	builder.startDateSet = true
 	return builder
 }
 
@@ -5034,7 +5038,7 @@ func (builder *VerifActProrationBuilder) StartDate(startDate string) *VerifActPr
 // 示例值：1
 func (builder *VerifActProrationBuilder) EndDate(endDate string) *VerifActProrationBuilder {
 	builder.endDate = endDate
-	builder.endDateFlag = true
+	builder.endDateSet = true
 	return builder
 }
 
@@ -5043,7 +5047,7 @@ func (builder *VerifActProrationBuilder) EndDate(endDate string) *VerifActProrat
 // 示例值：1
 func (builder *VerifActProrationBuilder) CutoffDate(cutoffDate string) *VerifActProrationBuilder {
 	builder.cutoffDate = cutoffDate
-	builder.cutoffDateFlag = true
+	builder.cutoffDateSet = true
 	return builder
 }
 
@@ -5052,25 +5056,25 @@ func (builder *VerifActProrationBuilder) CutoffDate(cutoffDate string) *VerifAct
 // 示例值：
 func (builder *VerifActProrationBuilder) ItemValues(itemValues []*VerifActItemValue) *VerifActProrationBuilder {
 	builder.itemValues = itemValues
-	builder.itemValuesFlag = true
+	builder.itemValuesSet = true
 	return builder
 }
 
 func (builder *VerifActProrationBuilder) Build() *VerifActProration {
 	req := &VerifActProration{}
-	if builder.startDateFlag {
+	if builder.startDateSet {
 		req.StartDate = &builder.startDate
 
 	}
-	if builder.endDateFlag {
+	if builder.endDateSet {
 		req.EndDate = &builder.endDate
 
 	}
-	if builder.cutoffDateFlag {
+	if builder.cutoffDateSet {
 		req.CutoffDate = &builder.cutoffDate
 
 	}
-	if builder.itemValuesFlag {
+	if builder.itemValuesSet {
 		req.ItemValues = builder.itemValues
 	}
 	return req
@@ -5087,17 +5091,17 @@ type VerifDataSourceRule struct {
 }
 
 type VerifDataSourceRuleBuilder struct {
-	apiName     string // 数据源key
-	apiNameFlag bool
+	apiName    string // 数据源key
+	apiNameSet bool
 
-	datasourceName     *IdWithName // 数据源名称
-	datasourceNameFlag bool
+	datasourceName    *IdWithName // 数据源名称
+	datasourceNameSet bool
 
-	objectType     int // 集成对象
-	objectTypeFlag bool
+	objectType    int // 集成对象
+	objectTypeSet bool
 
-	datasourceItems     []*VerifDatasourceItem // 数据源明细字段
-	datasourceItemsFlag bool
+	datasourceItems    []*VerifDatasourceItem // 数据源明细字段
+	datasourceItemsSet bool
 }
 
 func NewVerifDataSourceRuleBuilder() *VerifDataSourceRuleBuilder {
@@ -5110,7 +5114,7 @@ func NewVerifDataSourceRuleBuilder() *VerifDataSourceRuleBuilder {
 // 示例值：1
 func (builder *VerifDataSourceRuleBuilder) ApiName(apiName string) *VerifDataSourceRuleBuilder {
 	builder.apiName = apiName
-	builder.apiNameFlag = true
+	builder.apiNameSet = true
 	return builder
 }
 
@@ -5119,7 +5123,7 @@ func (builder *VerifDataSourceRuleBuilder) ApiName(apiName string) *VerifDataSou
 // 示例值：
 func (builder *VerifDataSourceRuleBuilder) DatasourceName(datasourceName *IdWithName) *VerifDataSourceRuleBuilder {
 	builder.datasourceName = datasourceName
-	builder.datasourceNameFlag = true
+	builder.datasourceNameSet = true
 	return builder
 }
 
@@ -5128,7 +5132,7 @@ func (builder *VerifDataSourceRuleBuilder) DatasourceName(datasourceName *IdWith
 // 示例值：1
 func (builder *VerifDataSourceRuleBuilder) ObjectType(objectType int) *VerifDataSourceRuleBuilder {
 	builder.objectType = objectType
-	builder.objectTypeFlag = true
+	builder.objectTypeSet = true
 	return builder
 }
 
@@ -5137,24 +5141,24 @@ func (builder *VerifDataSourceRuleBuilder) ObjectType(objectType int) *VerifData
 // 示例值：
 func (builder *VerifDataSourceRuleBuilder) DatasourceItems(datasourceItems []*VerifDatasourceItem) *VerifDataSourceRuleBuilder {
 	builder.datasourceItems = datasourceItems
-	builder.datasourceItemsFlag = true
+	builder.datasourceItemsSet = true
 	return builder
 }
 
 func (builder *VerifDataSourceRuleBuilder) Build() *VerifDataSourceRule {
 	req := &VerifDataSourceRule{}
-	if builder.apiNameFlag {
+	if builder.apiNameSet {
 		req.ApiName = &builder.apiName
 
 	}
-	if builder.datasourceNameFlag {
+	if builder.datasourceNameSet {
 		req.DatasourceName = builder.datasourceName
 	}
-	if builder.objectTypeFlag {
+	if builder.objectTypeSet {
 		req.ObjectType = &builder.objectType
 
 	}
-	if builder.datasourceItemsFlag {
+	if builder.datasourceItemsSet {
 		req.DatasourceItems = builder.datasourceItems
 	}
 	return req
@@ -5177,26 +5181,26 @@ type VerifDatasourceConfig struct {
 }
 
 type VerifDatasourceConfigBuilder struct {
-	filterType     int // 字段类型
-	filterTypeFlag bool
+	filterType    int // 字段类型
+	filterTypeSet bool
 
-	filterRule     *VerifFilterRule // 筛选条件
-	filterRuleFlag bool
+	filterRule    *VerifFilterRule // 筛选条件
+	filterRuleSet bool
 
-	isCollect     bool // 是否汇总
-	isCollectFlag bool
+	isCollect    bool // 是否汇总
+	isCollectSet bool
 
-	isProration     bool // 是否分段
-	isProrationFlag bool
+	isProration    bool // 是否分段
+	isProrationSet bool
 
-	isRetro     bool // 是否追溯
-	isRetroFlag bool
+	isRetro    bool // 是否追溯
+	isRetroSet bool
 
-	items     []*VerifItem // 数据项配置
-	itemsFlag bool
+	items    []*VerifItem // 数据项配置
+	itemsSet bool
 
-	dataSourceRule     *VerifDataSourceRule // 数据源配置
-	dataSourceRuleFlag bool
+	dataSourceRule    *VerifDataSourceRule // 数据源配置
+	dataSourceRuleSet bool
 }
 
 func NewVerifDatasourceConfigBuilder() *VerifDatasourceConfigBuilder {
@@ -5209,7 +5213,7 @@ func NewVerifDatasourceConfigBuilder() *VerifDatasourceConfigBuilder {
 // 示例值：1
 func (builder *VerifDatasourceConfigBuilder) FilterType(filterType int) *VerifDatasourceConfigBuilder {
 	builder.filterType = filterType
-	builder.filterTypeFlag = true
+	builder.filterTypeSet = true
 	return builder
 }
 
@@ -5218,7 +5222,7 @@ func (builder *VerifDatasourceConfigBuilder) FilterType(filterType int) *VerifDa
 // 示例值：
 func (builder *VerifDatasourceConfigBuilder) FilterRule(filterRule *VerifFilterRule) *VerifDatasourceConfigBuilder {
 	builder.filterRule = filterRule
-	builder.filterRuleFlag = true
+	builder.filterRuleSet = true
 	return builder
 }
 
@@ -5227,7 +5231,7 @@ func (builder *VerifDatasourceConfigBuilder) FilterRule(filterRule *VerifFilterR
 // 示例值：
 func (builder *VerifDatasourceConfigBuilder) IsCollect(isCollect bool) *VerifDatasourceConfigBuilder {
 	builder.isCollect = isCollect
-	builder.isCollectFlag = true
+	builder.isCollectSet = true
 	return builder
 }
 
@@ -5236,7 +5240,7 @@ func (builder *VerifDatasourceConfigBuilder) IsCollect(isCollect bool) *VerifDat
 // 示例值：
 func (builder *VerifDatasourceConfigBuilder) IsProration(isProration bool) *VerifDatasourceConfigBuilder {
 	builder.isProration = isProration
-	builder.isProrationFlag = true
+	builder.isProrationSet = true
 	return builder
 }
 
@@ -5245,7 +5249,7 @@ func (builder *VerifDatasourceConfigBuilder) IsProration(isProration bool) *Veri
 // 示例值：
 func (builder *VerifDatasourceConfigBuilder) IsRetro(isRetro bool) *VerifDatasourceConfigBuilder {
 	builder.isRetro = isRetro
-	builder.isRetroFlag = true
+	builder.isRetroSet = true
 	return builder
 }
 
@@ -5254,7 +5258,7 @@ func (builder *VerifDatasourceConfigBuilder) IsRetro(isRetro bool) *VerifDatasou
 // 示例值：
 func (builder *VerifDatasourceConfigBuilder) Items(items []*VerifItem) *VerifDatasourceConfigBuilder {
 	builder.items = items
-	builder.itemsFlag = true
+	builder.itemsSet = true
 	return builder
 }
 
@@ -5263,35 +5267,35 @@ func (builder *VerifDatasourceConfigBuilder) Items(items []*VerifItem) *VerifDat
 // 示例值：
 func (builder *VerifDatasourceConfigBuilder) DataSourceRule(dataSourceRule *VerifDataSourceRule) *VerifDatasourceConfigBuilder {
 	builder.dataSourceRule = dataSourceRule
-	builder.dataSourceRuleFlag = true
+	builder.dataSourceRuleSet = true
 	return builder
 }
 
 func (builder *VerifDatasourceConfigBuilder) Build() *VerifDatasourceConfig {
 	req := &VerifDatasourceConfig{}
-	if builder.filterTypeFlag {
+	if builder.filterTypeSet {
 		req.FilterType = &builder.filterType
 
 	}
-	if builder.filterRuleFlag {
+	if builder.filterRuleSet {
 		req.FilterRule = builder.filterRule
 	}
-	if builder.isCollectFlag {
+	if builder.isCollectSet {
 		req.IsCollect = &builder.isCollect
 
 	}
-	if builder.isProrationFlag {
+	if builder.isProrationSet {
 		req.IsProration = &builder.isProration
 
 	}
-	if builder.isRetroFlag {
+	if builder.isRetroSet {
 		req.IsRetro = &builder.isRetro
 
 	}
-	if builder.itemsFlag {
+	if builder.itemsSet {
 		req.Items = builder.items
 	}
-	if builder.dataSourceRuleFlag {
+	if builder.dataSourceRuleSet {
 		req.DataSourceRule = builder.dataSourceRule
 	}
 	return req
@@ -5316,29 +5320,29 @@ type VerifDatasourceItem struct {
 }
 
 type VerifDatasourceItemBuilder struct {
-	name     *IdWithName // 名称
-	nameFlag bool
+	name    *IdWithName // 名称
+	nameSet bool
 
-	fieldId     string // id
-	fieldIdFlag bool
+	fieldId    string // id
+	fieldIdSet bool
 
-	fieldType     int // 字段类型
-	fieldTypeFlag bool
+	fieldType    int // 字段类型
+	fieldTypeSet bool
 
-	objectApiName     string // 对象 api_name
-	objectApiNameFlag bool
+	objectApiName    string // 对象 api_name
+	objectApiNameSet bool
 
-	fieldApiName     string // 字段 api_name
-	fieldApiNameFlag bool
+	fieldApiName    string // 字段 api_name
+	fieldApiNameSet bool
 
-	decimalPlaces     int // 小数位
-	decimalPlacesFlag bool
+	decimalPlaces    int // 小数位
+	decimalPlacesSet bool
 
-	objectType     int // 对象类型
-	objectTypeFlag bool
+	objectType    int // 对象类型
+	objectTypeSet bool
 
-	sourceType     int // 对象来源
-	sourceTypeFlag bool
+	sourceType    int // 对象来源
+	sourceTypeSet bool
 }
 
 func NewVerifDatasourceItemBuilder() *VerifDatasourceItemBuilder {
@@ -5351,7 +5355,7 @@ func NewVerifDatasourceItemBuilder() *VerifDatasourceItemBuilder {
 // 示例值：
 func (builder *VerifDatasourceItemBuilder) Name(name *IdWithName) *VerifDatasourceItemBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -5360,7 +5364,7 @@ func (builder *VerifDatasourceItemBuilder) Name(name *IdWithName) *VerifDatasour
 // 示例值：1
 func (builder *VerifDatasourceItemBuilder) FieldId(fieldId string) *VerifDatasourceItemBuilder {
 	builder.fieldId = fieldId
-	builder.fieldIdFlag = true
+	builder.fieldIdSet = true
 	return builder
 }
 
@@ -5369,7 +5373,7 @@ func (builder *VerifDatasourceItemBuilder) FieldId(fieldId string) *VerifDatasou
 // 示例值：1
 func (builder *VerifDatasourceItemBuilder) FieldType(fieldType int) *VerifDatasourceItemBuilder {
 	builder.fieldType = fieldType
-	builder.fieldTypeFlag = true
+	builder.fieldTypeSet = true
 	return builder
 }
 
@@ -5378,7 +5382,7 @@ func (builder *VerifDatasourceItemBuilder) FieldType(fieldType int) *VerifDataso
 // 示例值：1
 func (builder *VerifDatasourceItemBuilder) ObjectApiName(objectApiName string) *VerifDatasourceItemBuilder {
 	builder.objectApiName = objectApiName
-	builder.objectApiNameFlag = true
+	builder.objectApiNameSet = true
 	return builder
 }
 
@@ -5387,7 +5391,7 @@ func (builder *VerifDatasourceItemBuilder) ObjectApiName(objectApiName string) *
 // 示例值：1
 func (builder *VerifDatasourceItemBuilder) FieldApiName(fieldApiName string) *VerifDatasourceItemBuilder {
 	builder.fieldApiName = fieldApiName
-	builder.fieldApiNameFlag = true
+	builder.fieldApiNameSet = true
 	return builder
 }
 
@@ -5396,7 +5400,7 @@ func (builder *VerifDatasourceItemBuilder) FieldApiName(fieldApiName string) *Ve
 // 示例值：1
 func (builder *VerifDatasourceItemBuilder) DecimalPlaces(decimalPlaces int) *VerifDatasourceItemBuilder {
 	builder.decimalPlaces = decimalPlaces
-	builder.decimalPlacesFlag = true
+	builder.decimalPlacesSet = true
 	return builder
 }
 
@@ -5405,7 +5409,7 @@ func (builder *VerifDatasourceItemBuilder) DecimalPlaces(decimalPlaces int) *Ver
 // 示例值：1
 func (builder *VerifDatasourceItemBuilder) ObjectType(objectType int) *VerifDatasourceItemBuilder {
 	builder.objectType = objectType
-	builder.objectTypeFlag = true
+	builder.objectTypeSet = true
 	return builder
 }
 
@@ -5414,40 +5418,40 @@ func (builder *VerifDatasourceItemBuilder) ObjectType(objectType int) *VerifData
 // 示例值：1
 func (builder *VerifDatasourceItemBuilder) SourceType(sourceType int) *VerifDatasourceItemBuilder {
 	builder.sourceType = sourceType
-	builder.sourceTypeFlag = true
+	builder.sourceTypeSet = true
 	return builder
 }
 
 func (builder *VerifDatasourceItemBuilder) Build() *VerifDatasourceItem {
 	req := &VerifDatasourceItem{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.fieldIdFlag {
+	if builder.fieldIdSet {
 		req.FieldId = &builder.fieldId
 
 	}
-	if builder.fieldTypeFlag {
+	if builder.fieldTypeSet {
 		req.FieldType = &builder.fieldType
 
 	}
-	if builder.objectApiNameFlag {
+	if builder.objectApiNameSet {
 		req.ObjectApiName = &builder.objectApiName
 
 	}
-	if builder.fieldApiNameFlag {
+	if builder.fieldApiNameSet {
 		req.FieldApiName = &builder.fieldApiName
 
 	}
-	if builder.decimalPlacesFlag {
+	if builder.decimalPlacesSet {
 		req.DecimalPlaces = &builder.decimalPlaces
 
 	}
-	if builder.objectTypeFlag {
+	if builder.objectTypeSet {
 		req.ObjectType = &builder.objectType
 
 	}
-	if builder.sourceTypeFlag {
+	if builder.sourceTypeSet {
 		req.SourceType = &builder.sourceType
 
 	}
@@ -5469,23 +5473,23 @@ type VerifFieldSourceConfig struct {
 }
 
 type VerifFieldSourceConfigBuilder struct {
-	formulaId     string //  公式id
-	formulaIdFlag bool
+	formulaId    string //  公式id
+	formulaIdSet bool
 
-	formulaItemId     string // 公式数据项id
-	formulaItemIdFlag bool
+	formulaItemId    string // 公式数据项id
+	formulaItemIdSet bool
 
-	formulaText     string // 公式表达式
-	formulaTextFlag bool
+	formulaText    string // 公式表达式
+	formulaTextSet bool
 
-	apiName     string // api_name
-	apiNameFlag bool
+	apiName    string // api_name
+	apiNameSet bool
 
-	sourceAggregationType     int // 多条数据时计算方式
-	sourceAggregationTypeFlag bool
+	sourceAggregationType    int // 多条数据时计算方式
+	sourceAggregationTypeSet bool
 
-	refType     int //  引用类型
-	refTypeFlag bool
+	refType    int //  引用类型
+	refTypeSet bool
 }
 
 func NewVerifFieldSourceConfigBuilder() *VerifFieldSourceConfigBuilder {
@@ -5493,12 +5497,12 @@ func NewVerifFieldSourceConfigBuilder() *VerifFieldSourceConfigBuilder {
 	return builder
 }
 
-//	公式id
+//  公式id
 //
 // 示例值：1
 func (builder *VerifFieldSourceConfigBuilder) FormulaId(formulaId string) *VerifFieldSourceConfigBuilder {
 	builder.formulaId = formulaId
-	builder.formulaIdFlag = true
+	builder.formulaIdSet = true
 	return builder
 }
 
@@ -5507,7 +5511,7 @@ func (builder *VerifFieldSourceConfigBuilder) FormulaId(formulaId string) *Verif
 // 示例值：1
 func (builder *VerifFieldSourceConfigBuilder) FormulaItemId(formulaItemId string) *VerifFieldSourceConfigBuilder {
 	builder.formulaItemId = formulaItemId
-	builder.formulaItemIdFlag = true
+	builder.formulaItemIdSet = true
 	return builder
 }
 
@@ -5516,7 +5520,7 @@ func (builder *VerifFieldSourceConfigBuilder) FormulaItemId(formulaItemId string
 // 示例值：1
 func (builder *VerifFieldSourceConfigBuilder) FormulaText(formulaText string) *VerifFieldSourceConfigBuilder {
 	builder.formulaText = formulaText
-	builder.formulaTextFlag = true
+	builder.formulaTextSet = true
 	return builder
 }
 
@@ -5525,7 +5529,7 @@ func (builder *VerifFieldSourceConfigBuilder) FormulaText(formulaText string) *V
 // 示例值：1
 func (builder *VerifFieldSourceConfigBuilder) ApiName(apiName string) *VerifFieldSourceConfigBuilder {
 	builder.apiName = apiName
-	builder.apiNameFlag = true
+	builder.apiNameSet = true
 	return builder
 }
 
@@ -5534,42 +5538,42 @@ func (builder *VerifFieldSourceConfigBuilder) ApiName(apiName string) *VerifFiel
 // 示例值：1
 func (builder *VerifFieldSourceConfigBuilder) SourceAggregationType(sourceAggregationType int) *VerifFieldSourceConfigBuilder {
 	builder.sourceAggregationType = sourceAggregationType
-	builder.sourceAggregationTypeFlag = true
+	builder.sourceAggregationTypeSet = true
 	return builder
 }
 
-//	引用类型
+//  引用类型
 //
 // 示例值：1
 func (builder *VerifFieldSourceConfigBuilder) RefType(refType int) *VerifFieldSourceConfigBuilder {
 	builder.refType = refType
-	builder.refTypeFlag = true
+	builder.refTypeSet = true
 	return builder
 }
 
 func (builder *VerifFieldSourceConfigBuilder) Build() *VerifFieldSourceConfig {
 	req := &VerifFieldSourceConfig{}
-	if builder.formulaIdFlag {
+	if builder.formulaIdSet {
 		req.FormulaId = &builder.formulaId
 
 	}
-	if builder.formulaItemIdFlag {
+	if builder.formulaItemIdSet {
 		req.FormulaItemId = &builder.formulaItemId
 
 	}
-	if builder.formulaTextFlag {
+	if builder.formulaTextSet {
 		req.FormulaText = &builder.formulaText
 
 	}
-	if builder.apiNameFlag {
+	if builder.apiNameSet {
 		req.ApiName = &builder.apiName
 
 	}
-	if builder.sourceAggregationTypeFlag {
+	if builder.sourceAggregationTypeSet {
 		req.SourceAggregationType = &builder.sourceAggregationType
 
 	}
-	if builder.refTypeFlag {
+	if builder.refTypeSet {
 		req.RefType = &builder.refType
 
 	}
@@ -5585,14 +5589,14 @@ type VerifFilterCondition struct {
 }
 
 type VerifFilterConditionBuilder struct {
-	leftValue     *VerifFilterValue // 左值
-	leftValueFlag bool
+	leftValue    *VerifFilterValue // 左值
+	leftValueSet bool
 
-	operatorType     int // 操作符
-	operatorTypeFlag bool
+	operatorType    int // 操作符
+	operatorTypeSet bool
 
-	rightValues     []*VerifFilterValue // 右值
-	rightValuesFlag bool
+	rightValues    []*VerifFilterValue // 右值
+	rightValuesSet bool
 }
 
 func NewVerifFilterConditionBuilder() *VerifFilterConditionBuilder {
@@ -5605,7 +5609,7 @@ func NewVerifFilterConditionBuilder() *VerifFilterConditionBuilder {
 // 示例值：
 func (builder *VerifFilterConditionBuilder) LeftValue(leftValue *VerifFilterValue) *VerifFilterConditionBuilder {
 	builder.leftValue = leftValue
-	builder.leftValueFlag = true
+	builder.leftValueSet = true
 	return builder
 }
 
@@ -5614,7 +5618,7 @@ func (builder *VerifFilterConditionBuilder) LeftValue(leftValue *VerifFilterValu
 // 示例值：1
 func (builder *VerifFilterConditionBuilder) OperatorType(operatorType int) *VerifFilterConditionBuilder {
 	builder.operatorType = operatorType
-	builder.operatorTypeFlag = true
+	builder.operatorTypeSet = true
 	return builder
 }
 
@@ -5623,20 +5627,20 @@ func (builder *VerifFilterConditionBuilder) OperatorType(operatorType int) *Veri
 // 示例值：
 func (builder *VerifFilterConditionBuilder) RightValues(rightValues []*VerifFilterValue) *VerifFilterConditionBuilder {
 	builder.rightValues = rightValues
-	builder.rightValuesFlag = true
+	builder.rightValuesSet = true
 	return builder
 }
 
 func (builder *VerifFilterConditionBuilder) Build() *VerifFilterCondition {
 	req := &VerifFilterCondition{}
-	if builder.leftValueFlag {
+	if builder.leftValueSet {
 		req.LeftValue = builder.leftValue
 	}
-	if builder.operatorTypeFlag {
+	if builder.operatorTypeSet {
 		req.OperatorType = &builder.operatorType
 
 	}
-	if builder.rightValuesFlag {
+	if builder.rightValuesSet {
 		req.RightValues = builder.rightValues
 	}
 	return req
@@ -5649,11 +5653,11 @@ type VerifFilterRule struct {
 }
 
 type VerifFilterRuleBuilder struct {
-	filterConditions     []*VerifFilterCondition // 筛选条件
-	filterConditionsFlag bool
+	filterConditions    []*VerifFilterCondition // 筛选条件
+	filterConditionsSet bool
 
-	filterRelationship     string // 条件之间的关联关系
-	filterRelationshipFlag bool
+	filterRelationship    string // 条件之间的关联关系
+	filterRelationshipSet bool
 }
 
 func NewVerifFilterRuleBuilder() *VerifFilterRuleBuilder {
@@ -5666,7 +5670,7 @@ func NewVerifFilterRuleBuilder() *VerifFilterRuleBuilder {
 // 示例值：
 func (builder *VerifFilterRuleBuilder) FilterConditions(filterConditions []*VerifFilterCondition) *VerifFilterRuleBuilder {
 	builder.filterConditions = filterConditions
-	builder.filterConditionsFlag = true
+	builder.filterConditionsSet = true
 	return builder
 }
 
@@ -5675,16 +5679,16 @@ func (builder *VerifFilterRuleBuilder) FilterConditions(filterConditions []*Veri
 // 示例值：(1 or 2 and ( 3 or 4 ))
 func (builder *VerifFilterRuleBuilder) FilterRelationship(filterRelationship string) *VerifFilterRuleBuilder {
 	builder.filterRelationship = filterRelationship
-	builder.filterRelationshipFlag = true
+	builder.filterRelationshipSet = true
 	return builder
 }
 
 func (builder *VerifFilterRuleBuilder) Build() *VerifFilterRule {
 	req := &VerifFilterRule{}
-	if builder.filterConditionsFlag {
+	if builder.filterConditionsSet {
 		req.FilterConditions = builder.filterConditions
 	}
-	if builder.filterRelationshipFlag {
+	if builder.filterRelationshipSet {
 		req.FilterRelationship = &builder.filterRelationship
 
 	}
@@ -5704,20 +5708,20 @@ type VerifFilterValue struct {
 }
 
 type VerifFilterValueBuilder struct {
-	apiName     string // 左值api_name
-	apiNameFlag bool
+	apiName    string // 左值api_name
+	apiNameSet bool
 
-	fieldType     int // 字段类型
-	fieldTypeFlag bool
+	fieldType    int // 字段类型
+	fieldTypeSet bool
 
-	value     string // 右值
-	valueFlag bool
+	value    string // 右值
+	valueSet bool
 
-	refId     string // 外部id（左值为引用项时有值）
-	refIdFlag bool
+	refId    string // 外部id（左值为引用项时有值）
+	refIdSet bool
 
-	currency     *IdWithName // 币种
-	currencyFlag bool
+	currency    *IdWithName // 币种
+	currencySet bool
 }
 
 func NewVerifFilterValueBuilder() *VerifFilterValueBuilder {
@@ -5730,7 +5734,7 @@ func NewVerifFilterValueBuilder() *VerifFilterValueBuilder {
 // 示例值：api_name
 func (builder *VerifFilterValueBuilder) ApiName(apiName string) *VerifFilterValueBuilder {
 	builder.apiName = apiName
-	builder.apiNameFlag = true
+	builder.apiNameSet = true
 	return builder
 }
 
@@ -5739,7 +5743,7 @@ func (builder *VerifFilterValueBuilder) ApiName(apiName string) *VerifFilterValu
 // 示例值：1
 func (builder *VerifFilterValueBuilder) FieldType(fieldType int) *VerifFilterValueBuilder {
 	builder.fieldType = fieldType
-	builder.fieldTypeFlag = true
+	builder.fieldTypeSet = true
 	return builder
 }
 
@@ -5748,7 +5752,7 @@ func (builder *VerifFilterValueBuilder) FieldType(fieldType int) *VerifFilterVal
 // 示例值：1
 func (builder *VerifFilterValueBuilder) Value(value string) *VerifFilterValueBuilder {
 	builder.value = value
-	builder.valueFlag = true
+	builder.valueSet = true
 	return builder
 }
 
@@ -5757,7 +5761,7 @@ func (builder *VerifFilterValueBuilder) Value(value string) *VerifFilterValueBui
 // 示例值：1
 func (builder *VerifFilterValueBuilder) RefId(refId string) *VerifFilterValueBuilder {
 	builder.refId = refId
-	builder.refIdFlag = true
+	builder.refIdSet = true
 	return builder
 }
 
@@ -5766,29 +5770,29 @@ func (builder *VerifFilterValueBuilder) RefId(refId string) *VerifFilterValueBui
 // 示例值：
 func (builder *VerifFilterValueBuilder) Currency(currency *IdWithName) *VerifFilterValueBuilder {
 	builder.currency = currency
-	builder.currencyFlag = true
+	builder.currencySet = true
 	return builder
 }
 
 func (builder *VerifFilterValueBuilder) Build() *VerifFilterValue {
 	req := &VerifFilterValue{}
-	if builder.apiNameFlag {
+	if builder.apiNameSet {
 		req.ApiName = &builder.apiName
 
 	}
-	if builder.fieldTypeFlag {
+	if builder.fieldTypeSet {
 		req.FieldType = &builder.fieldType
 
 	}
-	if builder.valueFlag {
+	if builder.valueSet {
 		req.Value = &builder.value
 
 	}
-	if builder.refIdFlag {
+	if builder.refIdSet {
 		req.RefId = &builder.refId
 
 	}
-	if builder.currencyFlag {
+	if builder.currencySet {
 		req.Currency = builder.currency
 	}
 	return req
@@ -5815,32 +5819,32 @@ type VerifItem struct {
 }
 
 type VerifItemBuilder struct {
-	itemId     string // 数据项id
-	itemIdFlag bool
+	itemId    string // 数据项id
+	itemIdSet bool
 
-	itemName     *IdWithName // 名称
-	itemNameFlag bool
+	itemName    *IdWithName // 名称
+	itemNameSet bool
 
-	fieldType     int // 字段类型
-	fieldTypeFlag bool
+	fieldType    int // 字段类型
+	fieldTypeSet bool
 
-	decimalPlaces     int // 小数位
-	decimalPlacesFlag bool
+	decimalPlaces    int // 小数位
+	decimalPlacesSet bool
 
-	aggregationType     int // 分段汇总
-	aggregationTypeFlag bool
+	aggregationType    int // 分段汇总
+	aggregationTypeSet bool
 
-	seq     int // 顺序
-	seqFlag bool
+	seq    int // 顺序
+	seqSet bool
 
-	sourceType     int // 字段类型
-	sourceTypeFlag bool
+	sourceType    int // 字段类型
+	sourceTypeSet bool
 
-	sourceConfig     *VerifSourceConfig // 字段配置
-	sourceConfigFlag bool
+	sourceConfig    *VerifSourceConfig // 字段配置
+	sourceConfigSet bool
 
-	status     int // 状态
-	statusFlag bool
+	status    int // 状态
+	statusSet bool
 }
 
 func NewVerifItemBuilder() *VerifItemBuilder {
@@ -5853,7 +5857,7 @@ func NewVerifItemBuilder() *VerifItemBuilder {
 // 示例值：1
 func (builder *VerifItemBuilder) ItemId(itemId string) *VerifItemBuilder {
 	builder.itemId = itemId
-	builder.itemIdFlag = true
+	builder.itemIdSet = true
 	return builder
 }
 
@@ -5862,7 +5866,7 @@ func (builder *VerifItemBuilder) ItemId(itemId string) *VerifItemBuilder {
 // 示例值：
 func (builder *VerifItemBuilder) ItemName(itemName *IdWithName) *VerifItemBuilder {
 	builder.itemName = itemName
-	builder.itemNameFlag = true
+	builder.itemNameSet = true
 	return builder
 }
 
@@ -5871,7 +5875,7 @@ func (builder *VerifItemBuilder) ItemName(itemName *IdWithName) *VerifItemBuilde
 // 示例值：1
 func (builder *VerifItemBuilder) FieldType(fieldType int) *VerifItemBuilder {
 	builder.fieldType = fieldType
-	builder.fieldTypeFlag = true
+	builder.fieldTypeSet = true
 	return builder
 }
 
@@ -5880,7 +5884,7 @@ func (builder *VerifItemBuilder) FieldType(fieldType int) *VerifItemBuilder {
 // 示例值：1
 func (builder *VerifItemBuilder) DecimalPlaces(decimalPlaces int) *VerifItemBuilder {
 	builder.decimalPlaces = decimalPlaces
-	builder.decimalPlacesFlag = true
+	builder.decimalPlacesSet = true
 	return builder
 }
 
@@ -5889,7 +5893,7 @@ func (builder *VerifItemBuilder) DecimalPlaces(decimalPlaces int) *VerifItemBuil
 // 示例值：1
 func (builder *VerifItemBuilder) AggregationType(aggregationType int) *VerifItemBuilder {
 	builder.aggregationType = aggregationType
-	builder.aggregationTypeFlag = true
+	builder.aggregationTypeSet = true
 	return builder
 }
 
@@ -5898,7 +5902,7 @@ func (builder *VerifItemBuilder) AggregationType(aggregationType int) *VerifItem
 // 示例值：1
 func (builder *VerifItemBuilder) Seq(seq int) *VerifItemBuilder {
 	builder.seq = seq
-	builder.seqFlag = true
+	builder.seqSet = true
 	return builder
 }
 
@@ -5907,7 +5911,7 @@ func (builder *VerifItemBuilder) Seq(seq int) *VerifItemBuilder {
 // 示例值：1
 func (builder *VerifItemBuilder) SourceType(sourceType int) *VerifItemBuilder {
 	builder.sourceType = sourceType
-	builder.sourceTypeFlag = true
+	builder.sourceTypeSet = true
 	return builder
 }
 
@@ -5916,7 +5920,7 @@ func (builder *VerifItemBuilder) SourceType(sourceType int) *VerifItemBuilder {
 // 示例值：
 func (builder *VerifItemBuilder) SourceConfig(sourceConfig *VerifSourceConfig) *VerifItemBuilder {
 	builder.sourceConfig = sourceConfig
-	builder.sourceConfigFlag = true
+	builder.sourceConfigSet = true
 	return builder
 }
 
@@ -5925,43 +5929,43 @@ func (builder *VerifItemBuilder) SourceConfig(sourceConfig *VerifSourceConfig) *
 // 示例值：1
 func (builder *VerifItemBuilder) Status(status int) *VerifItemBuilder {
 	builder.status = status
-	builder.statusFlag = true
+	builder.statusSet = true
 	return builder
 }
 
 func (builder *VerifItemBuilder) Build() *VerifItem {
 	req := &VerifItem{}
-	if builder.itemIdFlag {
+	if builder.itemIdSet {
 		req.ItemId = &builder.itemId
 
 	}
-	if builder.itemNameFlag {
+	if builder.itemNameSet {
 		req.ItemName = builder.itemName
 	}
-	if builder.fieldTypeFlag {
+	if builder.fieldTypeSet {
 		req.FieldType = &builder.fieldType
 
 	}
-	if builder.decimalPlacesFlag {
+	if builder.decimalPlacesSet {
 		req.DecimalPlaces = &builder.decimalPlaces
 
 	}
-	if builder.aggregationTypeFlag {
+	if builder.aggregationTypeSet {
 		req.AggregationType = &builder.aggregationType
 
 	}
-	if builder.seqFlag {
+	if builder.seqSet {
 		req.Seq = &builder.seq
 
 	}
-	if builder.sourceTypeFlag {
+	if builder.sourceTypeSet {
 		req.SourceType = &builder.sourceType
 
 	}
-	if builder.sourceConfigFlag {
+	if builder.sourceConfigSet {
 		req.SourceConfig = builder.sourceConfig
 	}
-	if builder.statusFlag {
+	if builder.statusSet {
 		req.Status = &builder.status
 
 	}
@@ -5979,17 +5983,17 @@ type VerifPayCalendar struct {
 }
 
 type VerifPayCalendarBuilder struct {
-	id     string // id
-	idFlag bool
+	id    string // id
+	idSet bool
 
-	zhName     string // 中文名称
-	zhNameFlag bool
+	zhName    string // 中文名称
+	zhNameSet bool
 
-	enName     string // 英文名称
-	enNameFlag bool
+	enName    string // 英文名称
+	enNameSet bool
 
-	calendarSource     int // 算薪日历来源
-	calendarSourceFlag bool
+	calendarSource    int // 算薪日历来源
+	calendarSourceSet bool
 }
 
 func NewVerifPayCalendarBuilder() *VerifPayCalendarBuilder {
@@ -6002,7 +6006,7 @@ func NewVerifPayCalendarBuilder() *VerifPayCalendarBuilder {
 // 示例值：1
 func (builder *VerifPayCalendarBuilder) Id(id string) *VerifPayCalendarBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -6011,7 +6015,7 @@ func (builder *VerifPayCalendarBuilder) Id(id string) *VerifPayCalendarBuilder {
 // 示例值：1
 func (builder *VerifPayCalendarBuilder) ZhName(zhName string) *VerifPayCalendarBuilder {
 	builder.zhName = zhName
-	builder.zhNameFlag = true
+	builder.zhNameSet = true
 	return builder
 }
 
@@ -6020,7 +6024,7 @@ func (builder *VerifPayCalendarBuilder) ZhName(zhName string) *VerifPayCalendarB
 // 示例值：1
 func (builder *VerifPayCalendarBuilder) EnName(enName string) *VerifPayCalendarBuilder {
 	builder.enName = enName
-	builder.enNameFlag = true
+	builder.enNameSet = true
 	return builder
 }
 
@@ -6029,25 +6033,25 @@ func (builder *VerifPayCalendarBuilder) EnName(enName string) *VerifPayCalendarB
 // 示例值：1
 func (builder *VerifPayCalendarBuilder) CalendarSource(calendarSource int) *VerifPayCalendarBuilder {
 	builder.calendarSource = calendarSource
-	builder.calendarSourceFlag = true
+	builder.calendarSourceSet = true
 	return builder
 }
 
 func (builder *VerifPayCalendarBuilder) Build() *VerifPayCalendar {
 	req := &VerifPayCalendar{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.zhNameFlag {
+	if builder.zhNameSet {
 		req.ZhName = &builder.zhName
 
 	}
-	if builder.enNameFlag {
+	if builder.enNameSet {
 		req.EnName = &builder.enName
 
 	}
-	if builder.calendarSourceFlag {
+	if builder.calendarSourceSet {
 		req.CalendarSource = &builder.calendarSource
 
 	}
@@ -6085,47 +6089,47 @@ type VerifPlanSnapshot struct {
 }
 
 type VerifPlanSnapshotBuilder struct {
-	isRetro     bool // 是否追溯
-	isRetroFlag bool
+	isRetro    bool // 是否追溯
+	isRetroSet bool
 
-	isCollect     bool // 是否汇总
-	isCollectFlag bool
+	isCollect    bool // 是否汇总
+	isCollectSet bool
 
-	isProration     bool // 是否分段
-	isProrationFlag bool
+	isProration    bool // 是否分段
+	isProrationSet bool
 
-	countryRegion     *IdWithName // 国家/地区
-	countryRegionFlag bool
+	countryRegion    *IdWithName // 国家/地区
+	countryRegionSet bool
 
-	currency     *IdWithName // 币种
-	currencyFlag bool
+	currency    *IdWithName // 币种
+	currencySet bool
 
-	calendarType     int // 核对周期日历类型
-	calendarTypeFlag bool
+	calendarType    int // 核对周期日历类型
+	calendarTypeSet bool
 
-	payCalendars     []*VerifPayCalendar // 算薪日历
-	payCalendarsFlag bool
+	payCalendars    []*VerifPayCalendar // 算薪日历
+	payCalendarsSet bool
 
-	scopeType     int // 核对人员范围
-	scopeTypeFlag bool
+	scopeType    int // 核对人员范围
+	scopeTypeSet bool
 
-	payGroups     []*IdWithName // 薪资组
-	payGroupsFlag bool
+	payGroups    []*IdWithName // 薪资组
+	payGroupsSet bool
 
-	filterType     int // 数据范围
-	filterTypeFlag bool
+	filterType    int // 数据范围
+	filterTypeSet bool
 
-	filterRule     *VerifFilterRule // 筛选条件
-	filterRuleFlag bool
+	filterRule    *VerifFilterRule // 筛选条件
+	filterRuleSet bool
 
-	approvalType     int // 复核类型
-	approvalTypeFlag bool
+	approvalType    int // 复核类型
+	approvalTypeSet bool
 
-	items     []*VerifItem // 数据项配置
-	itemsFlag bool
+	items    []*VerifItem // 数据项配置
+	itemsSet bool
 
-	dataSourceRule     *VerifDataSourceRule // 数据源配置
-	dataSourceRuleFlag bool
+	dataSourceRule    *VerifDataSourceRule // 数据源配置
+	dataSourceRuleSet bool
 }
 
 func NewVerifPlanSnapshotBuilder() *VerifPlanSnapshotBuilder {
@@ -6138,7 +6142,7 @@ func NewVerifPlanSnapshotBuilder() *VerifPlanSnapshotBuilder {
 // 示例值：
 func (builder *VerifPlanSnapshotBuilder) IsRetro(isRetro bool) *VerifPlanSnapshotBuilder {
 	builder.isRetro = isRetro
-	builder.isRetroFlag = true
+	builder.isRetroSet = true
 	return builder
 }
 
@@ -6147,7 +6151,7 @@ func (builder *VerifPlanSnapshotBuilder) IsRetro(isRetro bool) *VerifPlanSnapsho
 // 示例值：
 func (builder *VerifPlanSnapshotBuilder) IsCollect(isCollect bool) *VerifPlanSnapshotBuilder {
 	builder.isCollect = isCollect
-	builder.isCollectFlag = true
+	builder.isCollectSet = true
 	return builder
 }
 
@@ -6156,7 +6160,7 @@ func (builder *VerifPlanSnapshotBuilder) IsCollect(isCollect bool) *VerifPlanSna
 // 示例值：
 func (builder *VerifPlanSnapshotBuilder) IsProration(isProration bool) *VerifPlanSnapshotBuilder {
 	builder.isProration = isProration
-	builder.isProrationFlag = true
+	builder.isProrationSet = true
 	return builder
 }
 
@@ -6165,7 +6169,7 @@ func (builder *VerifPlanSnapshotBuilder) IsProration(isProration bool) *VerifPla
 // 示例值：
 func (builder *VerifPlanSnapshotBuilder) CountryRegion(countryRegion *IdWithName) *VerifPlanSnapshotBuilder {
 	builder.countryRegion = countryRegion
-	builder.countryRegionFlag = true
+	builder.countryRegionSet = true
 	return builder
 }
 
@@ -6174,7 +6178,7 @@ func (builder *VerifPlanSnapshotBuilder) CountryRegion(countryRegion *IdWithName
 // 示例值：
 func (builder *VerifPlanSnapshotBuilder) Currency(currency *IdWithName) *VerifPlanSnapshotBuilder {
 	builder.currency = currency
-	builder.currencyFlag = true
+	builder.currencySet = true
 	return builder
 }
 
@@ -6183,7 +6187,7 @@ func (builder *VerifPlanSnapshotBuilder) Currency(currency *IdWithName) *VerifPl
 // 示例值：1
 func (builder *VerifPlanSnapshotBuilder) CalendarType(calendarType int) *VerifPlanSnapshotBuilder {
 	builder.calendarType = calendarType
-	builder.calendarTypeFlag = true
+	builder.calendarTypeSet = true
 	return builder
 }
 
@@ -6192,7 +6196,7 @@ func (builder *VerifPlanSnapshotBuilder) CalendarType(calendarType int) *VerifPl
 // 示例值：
 func (builder *VerifPlanSnapshotBuilder) PayCalendars(payCalendars []*VerifPayCalendar) *VerifPlanSnapshotBuilder {
 	builder.payCalendars = payCalendars
-	builder.payCalendarsFlag = true
+	builder.payCalendarsSet = true
 	return builder
 }
 
@@ -6201,7 +6205,7 @@ func (builder *VerifPlanSnapshotBuilder) PayCalendars(payCalendars []*VerifPayCa
 // 示例值：1
 func (builder *VerifPlanSnapshotBuilder) ScopeType(scopeType int) *VerifPlanSnapshotBuilder {
 	builder.scopeType = scopeType
-	builder.scopeTypeFlag = true
+	builder.scopeTypeSet = true
 	return builder
 }
 
@@ -6210,7 +6214,7 @@ func (builder *VerifPlanSnapshotBuilder) ScopeType(scopeType int) *VerifPlanSnap
 // 示例值：
 func (builder *VerifPlanSnapshotBuilder) PayGroups(payGroups []*IdWithName) *VerifPlanSnapshotBuilder {
 	builder.payGroups = payGroups
-	builder.payGroupsFlag = true
+	builder.payGroupsSet = true
 	return builder
 }
 
@@ -6219,7 +6223,7 @@ func (builder *VerifPlanSnapshotBuilder) PayGroups(payGroups []*IdWithName) *Ver
 // 示例值：1
 func (builder *VerifPlanSnapshotBuilder) FilterType(filterType int) *VerifPlanSnapshotBuilder {
 	builder.filterType = filterType
-	builder.filterTypeFlag = true
+	builder.filterTypeSet = true
 	return builder
 }
 
@@ -6228,7 +6232,7 @@ func (builder *VerifPlanSnapshotBuilder) FilterType(filterType int) *VerifPlanSn
 // 示例值：
 func (builder *VerifPlanSnapshotBuilder) FilterRule(filterRule *VerifFilterRule) *VerifPlanSnapshotBuilder {
 	builder.filterRule = filterRule
-	builder.filterRuleFlag = true
+	builder.filterRuleSet = true
 	return builder
 }
 
@@ -6237,7 +6241,7 @@ func (builder *VerifPlanSnapshotBuilder) FilterRule(filterRule *VerifFilterRule)
 // 示例值：1
 func (builder *VerifPlanSnapshotBuilder) ApprovalType(approvalType int) *VerifPlanSnapshotBuilder {
 	builder.approvalType = approvalType
-	builder.approvalTypeFlag = true
+	builder.approvalTypeSet = true
 	return builder
 }
 
@@ -6246,7 +6250,7 @@ func (builder *VerifPlanSnapshotBuilder) ApprovalType(approvalType int) *VerifPl
 // 示例值：
 func (builder *VerifPlanSnapshotBuilder) Items(items []*VerifItem) *VerifPlanSnapshotBuilder {
 	builder.items = items
-	builder.itemsFlag = true
+	builder.itemsSet = true
 	return builder
 }
 
@@ -6255,59 +6259,59 @@ func (builder *VerifPlanSnapshotBuilder) Items(items []*VerifItem) *VerifPlanSna
 // 示例值：
 func (builder *VerifPlanSnapshotBuilder) DataSourceRule(dataSourceRule *VerifDataSourceRule) *VerifPlanSnapshotBuilder {
 	builder.dataSourceRule = dataSourceRule
-	builder.dataSourceRuleFlag = true
+	builder.dataSourceRuleSet = true
 	return builder
 }
 
 func (builder *VerifPlanSnapshotBuilder) Build() *VerifPlanSnapshot {
 	req := &VerifPlanSnapshot{}
-	if builder.isRetroFlag {
+	if builder.isRetroSet {
 		req.IsRetro = &builder.isRetro
 
 	}
-	if builder.isCollectFlag {
+	if builder.isCollectSet {
 		req.IsCollect = &builder.isCollect
 
 	}
-	if builder.isProrationFlag {
+	if builder.isProrationSet {
 		req.IsProration = &builder.isProration
 
 	}
-	if builder.countryRegionFlag {
+	if builder.countryRegionSet {
 		req.CountryRegion = builder.countryRegion
 	}
-	if builder.currencyFlag {
+	if builder.currencySet {
 		req.Currency = builder.currency
 	}
-	if builder.calendarTypeFlag {
+	if builder.calendarTypeSet {
 		req.CalendarType = &builder.calendarType
 
 	}
-	if builder.payCalendarsFlag {
+	if builder.payCalendarsSet {
 		req.PayCalendars = builder.payCalendars
 	}
-	if builder.scopeTypeFlag {
+	if builder.scopeTypeSet {
 		req.ScopeType = &builder.scopeType
 
 	}
-	if builder.payGroupsFlag {
+	if builder.payGroupsSet {
 		req.PayGroups = builder.payGroups
 	}
-	if builder.filterTypeFlag {
+	if builder.filterTypeSet {
 		req.FilterType = &builder.filterType
 
 	}
-	if builder.filterRuleFlag {
+	if builder.filterRuleSet {
 		req.FilterRule = builder.filterRule
 	}
-	if builder.approvalTypeFlag {
+	if builder.approvalTypeSet {
 		req.ApprovalType = &builder.approvalType
 
 	}
-	if builder.itemsFlag {
+	if builder.itemsSet {
 		req.Items = builder.items
 	}
-	if builder.dataSourceRuleFlag {
+	if builder.dataSourceRuleSet {
 		req.DataSourceRule = builder.dataSourceRule
 	}
 	return req
@@ -6320,11 +6324,11 @@ type VerifSourceConfig struct {
 }
 
 type VerifSourceConfigBuilder struct {
-	formulaConfig     *VerifFieldSourceConfig // 公式数据项，source_type = 2 有值
-	formulaConfigFlag bool
+	formulaConfig    *VerifFieldSourceConfig // 公式数据项，source_type = 2 有值
+	formulaConfigSet bool
 
-	refSourceConfig     *VerifFieldSourceConfig // 引用数据项，source_type = 1 有值
-	refSourceConfigFlag bool
+	refSourceConfig    *VerifFieldSourceConfig // 引用数据项，source_type = 1 有值
+	refSourceConfigSet bool
 }
 
 func NewVerifSourceConfigBuilder() *VerifSourceConfigBuilder {
@@ -6337,7 +6341,7 @@ func NewVerifSourceConfigBuilder() *VerifSourceConfigBuilder {
 // 示例值：
 func (builder *VerifSourceConfigBuilder) FormulaConfig(formulaConfig *VerifFieldSourceConfig) *VerifSourceConfigBuilder {
 	builder.formulaConfig = formulaConfig
-	builder.formulaConfigFlag = true
+	builder.formulaConfigSet = true
 	return builder
 }
 
@@ -6346,16 +6350,16 @@ func (builder *VerifSourceConfigBuilder) FormulaConfig(formulaConfig *VerifField
 // 示例值：
 func (builder *VerifSourceConfigBuilder) RefSourceConfig(refSourceConfig *VerifFieldSourceConfig) *VerifSourceConfigBuilder {
 	builder.refSourceConfig = refSourceConfig
-	builder.refSourceConfigFlag = true
+	builder.refSourceConfigSet = true
 	return builder
 }
 
 func (builder *VerifSourceConfigBuilder) Build() *VerifSourceConfig {
 	req := &VerifSourceConfig{}
-	if builder.formulaConfigFlag {
+	if builder.formulaConfigSet {
 		req.FormulaConfig = builder.formulaConfig
 	}
-	if builder.refSourceConfigFlag {
+	if builder.refSourceConfigSet {
 		req.RefSourceConfig = builder.refSourceConfig
 	}
 	return req
@@ -6384,35 +6388,35 @@ type VerificationActivity struct {
 }
 
 type VerificationActivityBuilder struct {
-	activityId     string // 活动id
-	activityIdFlag bool
+	activityId    string // 活动id
+	activityIdSet bool
 
-	planId     string // 方案id
-	planIdFlag bool
+	planId    string // 方案id
+	planIdSet bool
 
-	versionId     string // 方案版本id
-	versionIdFlag bool
+	versionId    string // 方案版本id
+	versionIdSet bool
 
-	name     *IdWithName // 名称
-	nameFlag bool
+	name    *IdWithName // 名称
+	nameSet bool
 
-	activityStatus     int // 状态
-	activityStatusFlag bool
+	activityStatus    int // 状态
+	activityStatusSet bool
 
-	payPeriodSeq     string // 算薪期间
-	payPeriodSeqFlag bool
+	payPeriodSeq    string // 算薪期间
+	payPeriodSeqSet bool
 
-	retroPeriodSeq     string // 追溯期间
-	retroPeriodSeqFlag bool
+	retroPeriodSeq    string // 追溯期间
+	retroPeriodSeqSet bool
 
-	planSnapshot     *VerifPlanSnapshot // 快照
-	planSnapshotFlag bool
+	planSnapshot    *VerifPlanSnapshot // 快照
+	planSnapshotSet bool
 
-	updateTime     int // 更新时间，时间戳
-	updateTimeFlag bool
+	updateTime    int // 更新时间，时间戳
+	updateTimeSet bool
 
-	approveTime     int // 审批通过时间，时间戳
-	approveTimeFlag bool
+	approveTime    int // 审批通过时间，时间戳
+	approveTimeSet bool
 }
 
 func NewVerificationActivityBuilder() *VerificationActivityBuilder {
@@ -6425,7 +6429,7 @@ func NewVerificationActivityBuilder() *VerificationActivityBuilder {
 // 示例值：1
 func (builder *VerificationActivityBuilder) ActivityId(activityId string) *VerificationActivityBuilder {
 	builder.activityId = activityId
-	builder.activityIdFlag = true
+	builder.activityIdSet = true
 	return builder
 }
 
@@ -6434,7 +6438,7 @@ func (builder *VerificationActivityBuilder) ActivityId(activityId string) *Verif
 // 示例值：1
 func (builder *VerificationActivityBuilder) PlanId(planId string) *VerificationActivityBuilder {
 	builder.planId = planId
-	builder.planIdFlag = true
+	builder.planIdSet = true
 	return builder
 }
 
@@ -6443,7 +6447,7 @@ func (builder *VerificationActivityBuilder) PlanId(planId string) *VerificationA
 // 示例值：1
 func (builder *VerificationActivityBuilder) VersionId(versionId string) *VerificationActivityBuilder {
 	builder.versionId = versionId
-	builder.versionIdFlag = true
+	builder.versionIdSet = true
 	return builder
 }
 
@@ -6452,7 +6456,7 @@ func (builder *VerificationActivityBuilder) VersionId(versionId string) *Verific
 // 示例值：
 func (builder *VerificationActivityBuilder) Name(name *IdWithName) *VerificationActivityBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -6461,7 +6465,7 @@ func (builder *VerificationActivityBuilder) Name(name *IdWithName) *Verification
 // 示例值：1
 func (builder *VerificationActivityBuilder) ActivityStatus(activityStatus int) *VerificationActivityBuilder {
 	builder.activityStatus = activityStatus
-	builder.activityStatusFlag = true
+	builder.activityStatusSet = true
 	return builder
 }
 
@@ -6470,7 +6474,7 @@ func (builder *VerificationActivityBuilder) ActivityStatus(activityStatus int) *
 // 示例值：1
 func (builder *VerificationActivityBuilder) PayPeriodSeq(payPeriodSeq string) *VerificationActivityBuilder {
 	builder.payPeriodSeq = payPeriodSeq
-	builder.payPeriodSeqFlag = true
+	builder.payPeriodSeqSet = true
 	return builder
 }
 
@@ -6479,7 +6483,7 @@ func (builder *VerificationActivityBuilder) PayPeriodSeq(payPeriodSeq string) *V
 // 示例值：1
 func (builder *VerificationActivityBuilder) RetroPeriodSeq(retroPeriodSeq string) *VerificationActivityBuilder {
 	builder.retroPeriodSeq = retroPeriodSeq
-	builder.retroPeriodSeqFlag = true
+	builder.retroPeriodSeqSet = true
 	return builder
 }
 
@@ -6488,7 +6492,7 @@ func (builder *VerificationActivityBuilder) RetroPeriodSeq(retroPeriodSeq string
 // 示例值：
 func (builder *VerificationActivityBuilder) PlanSnapshot(planSnapshot *VerifPlanSnapshot) *VerificationActivityBuilder {
 	builder.planSnapshot = planSnapshot
-	builder.planSnapshotFlag = true
+	builder.planSnapshotSet = true
 	return builder
 }
 
@@ -6497,7 +6501,7 @@ func (builder *VerificationActivityBuilder) PlanSnapshot(planSnapshot *VerifPlan
 // 示例值：1
 func (builder *VerificationActivityBuilder) UpdateTime(updateTime int) *VerificationActivityBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -6506,47 +6510,47 @@ func (builder *VerificationActivityBuilder) UpdateTime(updateTime int) *Verifica
 // 示例值：1
 func (builder *VerificationActivityBuilder) ApproveTime(approveTime int) *VerificationActivityBuilder {
 	builder.approveTime = approveTime
-	builder.approveTimeFlag = true
+	builder.approveTimeSet = true
 	return builder
 }
 
 func (builder *VerificationActivityBuilder) Build() *VerificationActivity {
 	req := &VerificationActivity{}
-	if builder.activityIdFlag {
+	if builder.activityIdSet {
 		req.ActivityId = &builder.activityId
 
 	}
-	if builder.planIdFlag {
+	if builder.planIdSet {
 		req.PlanId = &builder.planId
 
 	}
-	if builder.versionIdFlag {
+	if builder.versionIdSet {
 		req.VersionId = &builder.versionId
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.activityStatusFlag {
+	if builder.activityStatusSet {
 		req.ActivityStatus = &builder.activityStatus
 
 	}
-	if builder.payPeriodSeqFlag {
+	if builder.payPeriodSeqSet {
 		req.PayPeriodSeq = &builder.payPeriodSeq
 
 	}
-	if builder.retroPeriodSeqFlag {
+	if builder.retroPeriodSeqSet {
 		req.RetroPeriodSeq = &builder.retroPeriodSeq
 
 	}
-	if builder.planSnapshotFlag {
+	if builder.planSnapshotSet {
 		req.PlanSnapshot = builder.planSnapshot
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.approveTimeFlag {
+	if builder.approveTimeSet {
 		req.ApproveTime = &builder.approveTime
 
 	}
@@ -6580,41 +6584,41 @@ type VerificationActivityRow struct {
 }
 
 type VerificationActivityRowBuilder struct {
-	rowId     string // row id
-	rowIdFlag bool
+	rowId    string // row id
+	rowIdSet bool
 
-	employmentId     string // 员工 Employment id
-	employmentIdFlag bool
+	employmentId    string // 员工 Employment id
+	employmentIdSet bool
 
-	activityId     string // 活动id
-	activityIdFlag bool
+	activityId    string // 活动id
+	activityIdSet bool
 
-	employeeNumber     string // 新工号
-	employeeNumberFlag bool
+	employeeNumber    string // 新工号
+	employeeNumberSet bool
 
-	employeeId     string // 旧工号
-	employeeIdFlag bool
+	employeeId    string // 旧工号
+	employeeIdSet bool
 
-	workingHoursType     *IdWithName // 工时类型
-	workingHoursTypeFlag bool
+	workingHoursType    *IdWithName // 工时类型
+	workingHoursTypeSet bool
 
-	payGroup     *IdWithName // 薪资组
-	payGroupFlag bool
+	payGroup    *IdWithName // 薪资组
+	payGroupSet bool
 
-	startDate     string // 开始日期 "2025-05-01"
-	startDateFlag bool
+	startDate    string // 开始日期 "2025-05-01"
+	startDateSet bool
 
-	endDate     string // 结束日期 "2025-05-01"
-	endDateFlag bool
+	endDate    string // 结束日期 "2025-05-01"
+	endDateSet bool
 
-	cutoffDate     string // 数据锁定日期 "2025-05-01"
-	cutoffDateFlag bool
+	cutoffDate    string // 数据锁定日期 "2025-05-01"
+	cutoffDateSet bool
 
-	itemValues     []*VerifActItemValue // 汇总值， 数值、金额等类型数据项会按配置截取小数位
-	itemValuesFlag bool
+	itemValues    []*VerifActItemValue // 汇总值， 数值、金额等类型数据项会按配置截取小数位
+	itemValuesSet bool
 
-	prorations     []*VerifActProration // 分段值，plan.is_proration=true时有值
-	prorationsFlag bool
+	prorations    []*VerifActProration // 分段值，plan.is_proration=true时有值
+	prorationsSet bool
 }
 
 func NewVerificationActivityRowBuilder() *VerificationActivityRowBuilder {
@@ -6627,7 +6631,7 @@ func NewVerificationActivityRowBuilder() *VerificationActivityRowBuilder {
 // 示例值：1
 func (builder *VerificationActivityRowBuilder) RowId(rowId string) *VerificationActivityRowBuilder {
 	builder.rowId = rowId
-	builder.rowIdFlag = true
+	builder.rowIdSet = true
 	return builder
 }
 
@@ -6636,7 +6640,7 @@ func (builder *VerificationActivityRowBuilder) RowId(rowId string) *Verification
 // 示例值：1
 func (builder *VerificationActivityRowBuilder) EmploymentId(employmentId string) *VerificationActivityRowBuilder {
 	builder.employmentId = employmentId
-	builder.employmentIdFlag = true
+	builder.employmentIdSet = true
 	return builder
 }
 
@@ -6645,7 +6649,7 @@ func (builder *VerificationActivityRowBuilder) EmploymentId(employmentId string)
 // 示例值：1
 func (builder *VerificationActivityRowBuilder) ActivityId(activityId string) *VerificationActivityRowBuilder {
 	builder.activityId = activityId
-	builder.activityIdFlag = true
+	builder.activityIdSet = true
 	return builder
 }
 
@@ -6654,7 +6658,7 @@ func (builder *VerificationActivityRowBuilder) ActivityId(activityId string) *Ve
 // 示例值：1
 func (builder *VerificationActivityRowBuilder) EmployeeNumber(employeeNumber string) *VerificationActivityRowBuilder {
 	builder.employeeNumber = employeeNumber
-	builder.employeeNumberFlag = true
+	builder.employeeNumberSet = true
 	return builder
 }
 
@@ -6663,7 +6667,7 @@ func (builder *VerificationActivityRowBuilder) EmployeeNumber(employeeNumber str
 // 示例值：1
 func (builder *VerificationActivityRowBuilder) EmployeeId(employeeId string) *VerificationActivityRowBuilder {
 	builder.employeeId = employeeId
-	builder.employeeIdFlag = true
+	builder.employeeIdSet = true
 	return builder
 }
 
@@ -6672,7 +6676,7 @@ func (builder *VerificationActivityRowBuilder) EmployeeId(employeeId string) *Ve
 // 示例值：
 func (builder *VerificationActivityRowBuilder) WorkingHoursType(workingHoursType *IdWithName) *VerificationActivityRowBuilder {
 	builder.workingHoursType = workingHoursType
-	builder.workingHoursTypeFlag = true
+	builder.workingHoursTypeSet = true
 	return builder
 }
 
@@ -6681,7 +6685,7 @@ func (builder *VerificationActivityRowBuilder) WorkingHoursType(workingHoursType
 // 示例值：
 func (builder *VerificationActivityRowBuilder) PayGroup(payGroup *IdWithName) *VerificationActivityRowBuilder {
 	builder.payGroup = payGroup
-	builder.payGroupFlag = true
+	builder.payGroupSet = true
 	return builder
 }
 
@@ -6690,7 +6694,7 @@ func (builder *VerificationActivityRowBuilder) PayGroup(payGroup *IdWithName) *V
 // 示例值：1
 func (builder *VerificationActivityRowBuilder) StartDate(startDate string) *VerificationActivityRowBuilder {
 	builder.startDate = startDate
-	builder.startDateFlag = true
+	builder.startDateSet = true
 	return builder
 }
 
@@ -6699,7 +6703,7 @@ func (builder *VerificationActivityRowBuilder) StartDate(startDate string) *Veri
 // 示例值：1
 func (builder *VerificationActivityRowBuilder) EndDate(endDate string) *VerificationActivityRowBuilder {
 	builder.endDate = endDate
-	builder.endDateFlag = true
+	builder.endDateSet = true
 	return builder
 }
 
@@ -6708,7 +6712,7 @@ func (builder *VerificationActivityRowBuilder) EndDate(endDate string) *Verifica
 // 示例值：1
 func (builder *VerificationActivityRowBuilder) CutoffDate(cutoffDate string) *VerificationActivityRowBuilder {
 	builder.cutoffDate = cutoffDate
-	builder.cutoffDateFlag = true
+	builder.cutoffDateSet = true
 	return builder
 }
 
@@ -6717,7 +6721,7 @@ func (builder *VerificationActivityRowBuilder) CutoffDate(cutoffDate string) *Ve
 // 示例值：
 func (builder *VerificationActivityRowBuilder) ItemValues(itemValues []*VerifActItemValue) *VerificationActivityRowBuilder {
 	builder.itemValues = itemValues
-	builder.itemValuesFlag = true
+	builder.itemValuesSet = true
 	return builder
 }
 
@@ -6726,54 +6730,54 @@ func (builder *VerificationActivityRowBuilder) ItemValues(itemValues []*VerifAct
 // 示例值：
 func (builder *VerificationActivityRowBuilder) Prorations(prorations []*VerifActProration) *VerificationActivityRowBuilder {
 	builder.prorations = prorations
-	builder.prorationsFlag = true
+	builder.prorationsSet = true
 	return builder
 }
 
 func (builder *VerificationActivityRowBuilder) Build() *VerificationActivityRow {
 	req := &VerificationActivityRow{}
-	if builder.rowIdFlag {
+	if builder.rowIdSet {
 		req.RowId = &builder.rowId
 
 	}
-	if builder.employmentIdFlag {
+	if builder.employmentIdSet {
 		req.EmploymentId = &builder.employmentId
 
 	}
-	if builder.activityIdFlag {
+	if builder.activityIdSet {
 		req.ActivityId = &builder.activityId
 
 	}
-	if builder.employeeNumberFlag {
+	if builder.employeeNumberSet {
 		req.EmployeeNumber = &builder.employeeNumber
 
 	}
-	if builder.employeeIdFlag {
+	if builder.employeeIdSet {
 		req.EmployeeId = &builder.employeeId
 
 	}
-	if builder.workingHoursTypeFlag {
+	if builder.workingHoursTypeSet {
 		req.WorkingHoursType = builder.workingHoursType
 	}
-	if builder.payGroupFlag {
+	if builder.payGroupSet {
 		req.PayGroup = builder.payGroup
 	}
-	if builder.startDateFlag {
+	if builder.startDateSet {
 		req.StartDate = &builder.startDate
 
 	}
-	if builder.endDateFlag {
+	if builder.endDateSet {
 		req.EndDate = &builder.endDate
 
 	}
-	if builder.cutoffDateFlag {
+	if builder.cutoffDateSet {
 		req.CutoffDate = &builder.cutoffDate
 
 	}
-	if builder.itemValuesFlag {
+	if builder.itemValuesSet {
 		req.ItemValues = builder.itemValues
 	}
-	if builder.prorationsFlag {
+	if builder.prorationsSet {
 		req.Prorations = builder.prorations
 	}
 	return req
@@ -6820,62 +6824,62 @@ type VerificationPlan struct {
 }
 
 type VerificationPlanBuilder struct {
-	planId     string // 方案ID
-	planIdFlag bool
+	planId    string // 方案ID
+	planIdSet bool
 
-	versionId     string // 版本ID
-	versionIdFlag bool
+	versionId    string // 版本ID
+	versionIdSet bool
 
-	timeZone     string // 时区，Asia/Shanghai
-	timeZoneFlag bool
+	timeZone    string // 时区，Asia/Shanghai
+	timeZoneSet bool
 
-	isActive     bool // 是否启用
-	isActiveFlag bool
+	isActive    bool // 是否启用
+	isActiveSet bool
 
-	effectivePeriodSeq     string // 生效期间，"2006-08"
-	effectivePeriodSeqFlag bool
+	effectivePeriodSeq    string // 生效期间，"2006-08"
+	effectivePeriodSeqSet bool
 
-	name     *IdWithName // 名称
-	nameFlag bool
+	name    *IdWithName // 名称
+	nameSet bool
 
-	countryRegionId     *IdWithName // 国家/地区
-	countryRegionIdFlag bool
+	countryRegionId    *IdWithName // 国家/地区
+	countryRegionIdSet bool
 
-	currencyId     *IdWithName // 币种
-	currencyIdFlag bool
+	currencyId    *IdWithName // 币种
+	currencyIdSet bool
 
-	calendarType     int // 核对周期日历类型
-	calendarTypeFlag bool
+	calendarType    int // 核对周期日历类型
+	calendarTypeSet bool
 
-	payCalendars     []*VerifPayCalendar // 算薪日历
-	payCalendarsFlag bool
+	payCalendars    []*VerifPayCalendar // 算薪日历
+	payCalendarsSet bool
 
-	scopeType     int // 核对人员范围
-	scopeTypeFlag bool
+	scopeType    int // 核对人员范围
+	scopeTypeSet bool
 
-	payGroups     []*IdWithName // 薪资组
-	payGroupsFlag bool
+	payGroups    []*IdWithName // 薪资组
+	payGroupsSet bool
 
-	datasourceConfig     *VerifDatasourceConfig // 数据源配置
-	datasourceConfigFlag bool
+	datasourceConfig    *VerifDatasourceConfig // 数据源配置
+	datasourceConfigSet bool
 
-	approvalType     int // 复核类型
-	approvalTypeFlag bool
+	approvalType    int // 复核类型
+	approvalTypeSet bool
 
-	ovbservers     []string // 观察员 wk employment id
-	ovbserversFlag bool
+	ovbservers    []string // 观察员 wk employment id
+	ovbserversSet bool
 
-	admins     []string // 管理员 wk employment id
-	adminsFlag bool
+	admins    []string // 管理员 wk employment id
+	adminsSet bool
 
-	reviewers     []string // 复核员 wk employment id
-	reviewersFlag bool
+	reviewers    []string // 复核员 wk employment id
+	reviewersSet bool
 
-	planType     int // 方案类型
-	planTypeFlag bool
+	planType    int // 方案类型
+	planTypeSet bool
 
-	updateTime     int // 更新时间戳
-	updateTimeFlag bool
+	updateTime    int // 更新时间戳
+	updateTimeSet bool
 }
 
 func NewVerificationPlanBuilder() *VerificationPlanBuilder {
@@ -6888,7 +6892,7 @@ func NewVerificationPlanBuilder() *VerificationPlanBuilder {
 // 示例值：1
 func (builder *VerificationPlanBuilder) PlanId(planId string) *VerificationPlanBuilder {
 	builder.planId = planId
-	builder.planIdFlag = true
+	builder.planIdSet = true
 	return builder
 }
 
@@ -6897,7 +6901,7 @@ func (builder *VerificationPlanBuilder) PlanId(planId string) *VerificationPlanB
 // 示例值：1
 func (builder *VerificationPlanBuilder) VersionId(versionId string) *VerificationPlanBuilder {
 	builder.versionId = versionId
-	builder.versionIdFlag = true
+	builder.versionIdSet = true
 	return builder
 }
 
@@ -6906,7 +6910,7 @@ func (builder *VerificationPlanBuilder) VersionId(versionId string) *Verificatio
 // 示例值：1
 func (builder *VerificationPlanBuilder) TimeZone(timeZone string) *VerificationPlanBuilder {
 	builder.timeZone = timeZone
-	builder.timeZoneFlag = true
+	builder.timeZoneSet = true
 	return builder
 }
 
@@ -6915,7 +6919,7 @@ func (builder *VerificationPlanBuilder) TimeZone(timeZone string) *VerificationP
 // 示例值：
 func (builder *VerificationPlanBuilder) IsActive(isActive bool) *VerificationPlanBuilder {
 	builder.isActive = isActive
-	builder.isActiveFlag = true
+	builder.isActiveSet = true
 	return builder
 }
 
@@ -6924,7 +6928,7 @@ func (builder *VerificationPlanBuilder) IsActive(isActive bool) *VerificationPla
 // 示例值：1
 func (builder *VerificationPlanBuilder) EffectivePeriodSeq(effectivePeriodSeq string) *VerificationPlanBuilder {
 	builder.effectivePeriodSeq = effectivePeriodSeq
-	builder.effectivePeriodSeqFlag = true
+	builder.effectivePeriodSeqSet = true
 	return builder
 }
 
@@ -6933,7 +6937,7 @@ func (builder *VerificationPlanBuilder) EffectivePeriodSeq(effectivePeriodSeq st
 // 示例值：
 func (builder *VerificationPlanBuilder) Name(name *IdWithName) *VerificationPlanBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -6942,7 +6946,7 @@ func (builder *VerificationPlanBuilder) Name(name *IdWithName) *VerificationPlan
 // 示例值：
 func (builder *VerificationPlanBuilder) CountryRegionId(countryRegionId *IdWithName) *VerificationPlanBuilder {
 	builder.countryRegionId = countryRegionId
-	builder.countryRegionIdFlag = true
+	builder.countryRegionIdSet = true
 	return builder
 }
 
@@ -6951,7 +6955,7 @@ func (builder *VerificationPlanBuilder) CountryRegionId(countryRegionId *IdWithN
 // 示例值：
 func (builder *VerificationPlanBuilder) CurrencyId(currencyId *IdWithName) *VerificationPlanBuilder {
 	builder.currencyId = currencyId
-	builder.currencyIdFlag = true
+	builder.currencyIdSet = true
 	return builder
 }
 
@@ -6960,7 +6964,7 @@ func (builder *VerificationPlanBuilder) CurrencyId(currencyId *IdWithName) *Veri
 // 示例值：1
 func (builder *VerificationPlanBuilder) CalendarType(calendarType int) *VerificationPlanBuilder {
 	builder.calendarType = calendarType
-	builder.calendarTypeFlag = true
+	builder.calendarTypeSet = true
 	return builder
 }
 
@@ -6969,7 +6973,7 @@ func (builder *VerificationPlanBuilder) CalendarType(calendarType int) *Verifica
 // 示例值：
 func (builder *VerificationPlanBuilder) PayCalendars(payCalendars []*VerifPayCalendar) *VerificationPlanBuilder {
 	builder.payCalendars = payCalendars
-	builder.payCalendarsFlag = true
+	builder.payCalendarsSet = true
 	return builder
 }
 
@@ -6978,7 +6982,7 @@ func (builder *VerificationPlanBuilder) PayCalendars(payCalendars []*VerifPayCal
 // 示例值：1
 func (builder *VerificationPlanBuilder) ScopeType(scopeType int) *VerificationPlanBuilder {
 	builder.scopeType = scopeType
-	builder.scopeTypeFlag = true
+	builder.scopeTypeSet = true
 	return builder
 }
 
@@ -6987,7 +6991,7 @@ func (builder *VerificationPlanBuilder) ScopeType(scopeType int) *VerificationPl
 // 示例值：
 func (builder *VerificationPlanBuilder) PayGroups(payGroups []*IdWithName) *VerificationPlanBuilder {
 	builder.payGroups = payGroups
-	builder.payGroupsFlag = true
+	builder.payGroupsSet = true
 	return builder
 }
 
@@ -6996,7 +7000,7 @@ func (builder *VerificationPlanBuilder) PayGroups(payGroups []*IdWithName) *Veri
 // 示例值：
 func (builder *VerificationPlanBuilder) DatasourceConfig(datasourceConfig *VerifDatasourceConfig) *VerificationPlanBuilder {
 	builder.datasourceConfig = datasourceConfig
-	builder.datasourceConfigFlag = true
+	builder.datasourceConfigSet = true
 	return builder
 }
 
@@ -7005,7 +7009,7 @@ func (builder *VerificationPlanBuilder) DatasourceConfig(datasourceConfig *Verif
 // 示例值：1
 func (builder *VerificationPlanBuilder) ApprovalType(approvalType int) *VerificationPlanBuilder {
 	builder.approvalType = approvalType
-	builder.approvalTypeFlag = true
+	builder.approvalTypeSet = true
 	return builder
 }
 
@@ -7014,7 +7018,7 @@ func (builder *VerificationPlanBuilder) ApprovalType(approvalType int) *Verifica
 // 示例值：
 func (builder *VerificationPlanBuilder) Ovbservers(ovbservers []string) *VerificationPlanBuilder {
 	builder.ovbservers = ovbservers
-	builder.ovbserversFlag = true
+	builder.ovbserversSet = true
 	return builder
 }
 
@@ -7023,7 +7027,7 @@ func (builder *VerificationPlanBuilder) Ovbservers(ovbservers []string) *Verific
 // 示例值：
 func (builder *VerificationPlanBuilder) Admins(admins []string) *VerificationPlanBuilder {
 	builder.admins = admins
-	builder.adminsFlag = true
+	builder.adminsSet = true
 	return builder
 }
 
@@ -7032,7 +7036,7 @@ func (builder *VerificationPlanBuilder) Admins(admins []string) *VerificationPla
 // 示例值：
 func (builder *VerificationPlanBuilder) Reviewers(reviewers []string) *VerificationPlanBuilder {
 	builder.reviewers = reviewers
-	builder.reviewersFlag = true
+	builder.reviewersSet = true
 	return builder
 }
 
@@ -7041,7 +7045,7 @@ func (builder *VerificationPlanBuilder) Reviewers(reviewers []string) *Verificat
 // 示例值：1
 func (builder *VerificationPlanBuilder) PlanType(planType int) *VerificationPlanBuilder {
 	builder.planType = planType
-	builder.planTypeFlag = true
+	builder.planTypeSet = true
 	return builder
 }
 
@@ -7050,76 +7054,76 @@ func (builder *VerificationPlanBuilder) PlanType(planType int) *VerificationPlan
 // 示例值：1
 func (builder *VerificationPlanBuilder) UpdateTime(updateTime int) *VerificationPlanBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
 func (builder *VerificationPlanBuilder) Build() *VerificationPlan {
 	req := &VerificationPlan{}
-	if builder.planIdFlag {
+	if builder.planIdSet {
 		req.PlanId = &builder.planId
 
 	}
-	if builder.versionIdFlag {
+	if builder.versionIdSet {
 		req.VersionId = &builder.versionId
 
 	}
-	if builder.timeZoneFlag {
+	if builder.timeZoneSet {
 		req.TimeZone = &builder.timeZone
 
 	}
-	if builder.isActiveFlag {
+	if builder.isActiveSet {
 		req.IsActive = &builder.isActive
 
 	}
-	if builder.effectivePeriodSeqFlag {
+	if builder.effectivePeriodSeqSet {
 		req.EffectivePeriodSeq = &builder.effectivePeriodSeq
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = builder.name
 	}
-	if builder.countryRegionIdFlag {
+	if builder.countryRegionIdSet {
 		req.CountryRegionId = builder.countryRegionId
 	}
-	if builder.currencyIdFlag {
+	if builder.currencyIdSet {
 		req.CurrencyId = builder.currencyId
 	}
-	if builder.calendarTypeFlag {
+	if builder.calendarTypeSet {
 		req.CalendarType = &builder.calendarType
 
 	}
-	if builder.payCalendarsFlag {
+	if builder.payCalendarsSet {
 		req.PayCalendars = builder.payCalendars
 	}
-	if builder.scopeTypeFlag {
+	if builder.scopeTypeSet {
 		req.ScopeType = &builder.scopeType
 
 	}
-	if builder.payGroupsFlag {
+	if builder.payGroupsSet {
 		req.PayGroups = builder.payGroups
 	}
-	if builder.datasourceConfigFlag {
+	if builder.datasourceConfigSet {
 		req.DatasourceConfig = builder.datasourceConfig
 	}
-	if builder.approvalTypeFlag {
+	if builder.approvalTypeSet {
 		req.ApprovalType = &builder.approvalType
 
 	}
-	if builder.ovbserversFlag {
+	if builder.ovbserversSet {
 		req.Ovbservers = builder.ovbservers
 	}
-	if builder.adminsFlag {
+	if builder.adminsSet {
 		req.Admins = builder.admins
 	}
-	if builder.reviewersFlag {
+	if builder.reviewersSet {
 		req.Reviewers = builder.reviewers
 	}
-	if builder.planTypeFlag {
+	if builder.planTypeSet {
 		req.PlanType = &builder.planType
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
@@ -7462,12 +7466,16 @@ func (builder *ListDatasourceReqBuilder) Limit(limit int) *ListDatasourceReqBuil
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *ListDatasourceReqBuilder) PageSize(pageSize int) *ListDatasourceReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *ListDatasourceReqBuilder) PageToken(pageToken string) *ListDatasourceReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
@@ -7507,14 +7515,14 @@ func (resp *ListDatasourceResp) Success() bool {
 }
 
 type QueryDatasourceRecordReqBodyBuilder struct {
-	sourceCode     string // 数据源编码
-	sourceCodeFlag bool
+	sourceCode    string // 数据源编码
+	sourceCodeSet bool
 
-	selectedFields     []string // 指定查询的数据源字段。如不传，默认返回所有数据源字段
-	selectedFieldsFlag bool
+	selectedFields    []string // 指定查询的数据源字段。如不传，默认返回所有数据源字段
+	selectedFieldsSet bool
 
-	fieldFilters     []*DatasourceRecordFieldFilter // 查询过滤器列表，多个过滤器之间为And关系。本期员工月维度汇总类型数据源，只支持employment_id、payroll_period fieldKey的查询，其中payroll_period必传
-	fieldFiltersFlag bool
+	fieldFilters    []*DatasourceRecordFieldFilter // 查询过滤器列表，多个过滤器之间为And关系。本期员工月维度汇总类型数据源，只支持employment_id、payroll_period fieldKey的查询，其中payroll_period必传
+	fieldFiltersSet bool
 }
 
 func NewQueryDatasourceRecordReqBodyBuilder() *QueryDatasourceRecordReqBodyBuilder {
@@ -7524,52 +7532,52 @@ func NewQueryDatasourceRecordReqBodyBuilder() *QueryDatasourceRecordReqBodyBuild
 
 // 数据源编码
 //
-// 示例值：test__c
+//示例值：test__c
 func (builder *QueryDatasourceRecordReqBodyBuilder) SourceCode(sourceCode string) *QueryDatasourceRecordReqBodyBuilder {
 	builder.sourceCode = sourceCode
-	builder.sourceCodeFlag = true
+	builder.sourceCodeSet = true
 	return builder
 }
 
 // 指定查询的数据源字段。如不传，默认返回所有数据源字段
 //
-// 示例值：
+//示例值：
 func (builder *QueryDatasourceRecordReqBodyBuilder) SelectedFields(selectedFields []string) *QueryDatasourceRecordReqBodyBuilder {
 	builder.selectedFields = selectedFields
-	builder.selectedFieldsFlag = true
+	builder.selectedFieldsSet = true
 	return builder
 }
 
 // 查询过滤器列表，多个过滤器之间为And关系。本期员工月维度汇总类型数据源，只支持employment_id、payroll_period fieldKey的查询，其中payroll_period必传
 //
-// 示例值：
+//示例值：
 func (builder *QueryDatasourceRecordReqBodyBuilder) FieldFilters(fieldFilters []*DatasourceRecordFieldFilter) *QueryDatasourceRecordReqBodyBuilder {
 	builder.fieldFilters = fieldFilters
-	builder.fieldFiltersFlag = true
+	builder.fieldFiltersSet = true
 	return builder
 }
 
 func (builder *QueryDatasourceRecordReqBodyBuilder) Build() *QueryDatasourceRecordReqBody {
 	req := &QueryDatasourceRecordReqBody{}
-	if builder.sourceCodeFlag {
+	if builder.sourceCodeSet {
 		req.SourceCode = &builder.sourceCode
 	}
-	if builder.selectedFieldsFlag {
+	if builder.selectedFieldsSet {
 		req.SelectedFields = builder.selectedFields
 	}
-	if builder.fieldFiltersFlag {
+	if builder.fieldFiltersSet {
 		req.FieldFilters = builder.fieldFilters
 	}
 	return req
 }
 
 type QueryDatasourceRecordPathReqBodyBuilder struct {
-	sourceCode         string
-	sourceCodeFlag     bool
-	selectedFields     []string
-	selectedFieldsFlag bool
-	fieldFilters       []*DatasourceRecordFieldFilter
-	fieldFiltersFlag   bool
+	sourceCode        string
+	sourceCodeSet     bool
+	selectedFields    []string
+	selectedFieldsSet bool
+	fieldFilters      []*DatasourceRecordFieldFilter
+	fieldFiltersSet   bool
 }
 
 func NewQueryDatasourceRecordPathReqBodyBuilder() *QueryDatasourceRecordPathReqBodyBuilder {
@@ -7582,7 +7590,7 @@ func NewQueryDatasourceRecordPathReqBodyBuilder() *QueryDatasourceRecordPathReqB
 // 示例值：test__c
 func (builder *QueryDatasourceRecordPathReqBodyBuilder) SourceCode(sourceCode string) *QueryDatasourceRecordPathReqBodyBuilder {
 	builder.sourceCode = sourceCode
-	builder.sourceCodeFlag = true
+	builder.sourceCodeSet = true
 	return builder
 }
 
@@ -7591,7 +7599,7 @@ func (builder *QueryDatasourceRecordPathReqBodyBuilder) SourceCode(sourceCode st
 // 示例值：
 func (builder *QueryDatasourceRecordPathReqBodyBuilder) SelectedFields(selectedFields []string) *QueryDatasourceRecordPathReqBodyBuilder {
 	builder.selectedFields = selectedFields
-	builder.selectedFieldsFlag = true
+	builder.selectedFieldsSet = true
 	return builder
 }
 
@@ -7600,19 +7608,19 @@ func (builder *QueryDatasourceRecordPathReqBodyBuilder) SelectedFields(selectedF
 // 示例值：
 func (builder *QueryDatasourceRecordPathReqBodyBuilder) FieldFilters(fieldFilters []*DatasourceRecordFieldFilter) *QueryDatasourceRecordPathReqBodyBuilder {
 	builder.fieldFilters = fieldFilters
-	builder.fieldFiltersFlag = true
+	builder.fieldFiltersSet = true
 	return builder
 }
 
 func (builder *QueryDatasourceRecordPathReqBodyBuilder) Build() (*QueryDatasourceRecordReqBody, error) {
 	req := &QueryDatasourceRecordReqBody{}
-	if builder.sourceCodeFlag {
+	if builder.sourceCodeSet {
 		req.SourceCode = &builder.sourceCode
 	}
-	if builder.selectedFieldsFlag {
+	if builder.selectedFieldsSet {
 		req.SelectedFields = builder.selectedFields
 	}
-	if builder.fieldFiltersFlag {
+	if builder.fieldFiltersSet {
 		req.FieldFilters = builder.fieldFilters
 	}
 	return req, nil
@@ -7639,12 +7647,16 @@ func (builder *QueryDatasourceRecordReqBuilder) Limit(limit int) *QueryDatasourc
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *QueryDatasourceRecordReqBuilder) PageSize(pageSize int) *QueryDatasourceRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *QueryDatasourceRecordReqBuilder) PageToken(pageToken string) *QueryDatasourceRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
@@ -7700,11 +7712,11 @@ func (resp *QueryDatasourceRecordResp) Success() bool {
 }
 
 type SaveDatasourceRecordReqBodyBuilder struct {
-	sourceCode     string // 数据源code
-	sourceCodeFlag bool
+	sourceCode    string // 数据源code
+	sourceCodeSet bool
 
-	records     []*DatasourceRecord // 需保存的记录列表
-	recordsFlag bool
+	records    []*DatasourceRecord // 需保存的记录列表
+	recordsSet bool
 }
 
 func NewSaveDatasourceRecordReqBodyBuilder() *SaveDatasourceRecordReqBodyBuilder {
@@ -7714,38 +7726,38 @@ func NewSaveDatasourceRecordReqBodyBuilder() *SaveDatasourceRecordReqBodyBuilder
 
 // 数据源code
 //
-// 示例值：test__c
+//示例值：test__c
 func (builder *SaveDatasourceRecordReqBodyBuilder) SourceCode(sourceCode string) *SaveDatasourceRecordReqBodyBuilder {
 	builder.sourceCode = sourceCode
-	builder.sourceCodeFlag = true
+	builder.sourceCodeSet = true
 	return builder
 }
 
 // 需保存的记录列表
 //
-// 示例值：
+//示例值：
 func (builder *SaveDatasourceRecordReqBodyBuilder) Records(records []*DatasourceRecord) *SaveDatasourceRecordReqBodyBuilder {
 	builder.records = records
-	builder.recordsFlag = true
+	builder.recordsSet = true
 	return builder
 }
 
 func (builder *SaveDatasourceRecordReqBodyBuilder) Build() *SaveDatasourceRecordReqBody {
 	req := &SaveDatasourceRecordReqBody{}
-	if builder.sourceCodeFlag {
+	if builder.sourceCodeSet {
 		req.SourceCode = &builder.sourceCode
 	}
-	if builder.recordsFlag {
+	if builder.recordsSet {
 		req.Records = builder.records
 	}
 	return req
 }
 
 type SaveDatasourceRecordPathReqBodyBuilder struct {
-	sourceCode     string
-	sourceCodeFlag bool
-	records        []*DatasourceRecord
-	recordsFlag    bool
+	sourceCode    string
+	sourceCodeSet bool
+	records       []*DatasourceRecord
+	recordsSet    bool
 }
 
 func NewSaveDatasourceRecordPathReqBodyBuilder() *SaveDatasourceRecordPathReqBodyBuilder {
@@ -7758,7 +7770,7 @@ func NewSaveDatasourceRecordPathReqBodyBuilder() *SaveDatasourceRecordPathReqBod
 // 示例值：test__c
 func (builder *SaveDatasourceRecordPathReqBodyBuilder) SourceCode(sourceCode string) *SaveDatasourceRecordPathReqBodyBuilder {
 	builder.sourceCode = sourceCode
-	builder.sourceCodeFlag = true
+	builder.sourceCodeSet = true
 	return builder
 }
 
@@ -7767,16 +7779,16 @@ func (builder *SaveDatasourceRecordPathReqBodyBuilder) SourceCode(sourceCode str
 // 示例值：
 func (builder *SaveDatasourceRecordPathReqBodyBuilder) Records(records []*DatasourceRecord) *SaveDatasourceRecordPathReqBodyBuilder {
 	builder.records = records
-	builder.recordsFlag = true
+	builder.recordsSet = true
 	return builder
 }
 
 func (builder *SaveDatasourceRecordPathReqBodyBuilder) Build() (*SaveDatasourceRecordReqBody, error) {
 	req := &SaveDatasourceRecordReqBody{}
-	if builder.sourceCodeFlag {
+	if builder.sourceCodeSet {
 		req.SourceCode = &builder.sourceCode
 	}
-	if builder.recordsFlag {
+	if builder.recordsSet {
 		req.Records = builder.records
 	}
 	return req, nil
@@ -7903,8 +7915,8 @@ func (resp *ListPaygroupResp) Success() bool {
 }
 
 type ArchivePaymentActivityReqBodyBuilder struct {
-	activityId     string // 发薪活动ID
-	activityIdFlag bool
+	activityId    string // 发薪活动ID
+	activityIdSet bool
 }
 
 func NewArchivePaymentActivityReqBodyBuilder() *ArchivePaymentActivityReqBodyBuilder {
@@ -7914,24 +7926,24 @@ func NewArchivePaymentActivityReqBodyBuilder() *ArchivePaymentActivityReqBodyBui
 
 // 发薪活动ID
 //
-// 示例值：111111
+//示例值：111111
 func (builder *ArchivePaymentActivityReqBodyBuilder) ActivityId(activityId string) *ArchivePaymentActivityReqBodyBuilder {
 	builder.activityId = activityId
-	builder.activityIdFlag = true
+	builder.activityIdSet = true
 	return builder
 }
 
 func (builder *ArchivePaymentActivityReqBodyBuilder) Build() *ArchivePaymentActivityReqBody {
 	req := &ArchivePaymentActivityReqBody{}
-	if builder.activityIdFlag {
+	if builder.activityIdSet {
 		req.ActivityId = &builder.activityId
 	}
 	return req
 }
 
 type ArchivePaymentActivityPathReqBodyBuilder struct {
-	activityId     string
-	activityIdFlag bool
+	activityId    string
+	activityIdSet bool
 }
 
 func NewArchivePaymentActivityPathReqBodyBuilder() *ArchivePaymentActivityPathReqBodyBuilder {
@@ -7944,13 +7956,13 @@ func NewArchivePaymentActivityPathReqBodyBuilder() *ArchivePaymentActivityPathRe
 // 示例值：111111
 func (builder *ArchivePaymentActivityPathReqBodyBuilder) ActivityId(activityId string) *ArchivePaymentActivityPathReqBodyBuilder {
 	builder.activityId = activityId
-	builder.activityIdFlag = true
+	builder.activityIdSet = true
 	return builder
 }
 
 func (builder *ArchivePaymentActivityPathReqBodyBuilder) Build() (*ArchivePaymentActivityReqBody, error) {
 	req := &ArchivePaymentActivityReqBody{}
-	if builder.activityIdFlag {
+	if builder.activityIdSet {
 		req.ActivityId = &builder.activityId
 	}
 	return req, nil
@@ -8178,29 +8190,29 @@ func (resp *ListPaymentActivityDetailResp) Success() bool {
 }
 
 type QueryPaymentDetailReqBodyBuilder struct {
-	pageIndex     int // 页码，第一页从 1 开始
-	pageIndexFlag bool
+	pageIndex    int // 页码，第一页从 1 开始
+	pageIndexSet bool
 
-	pageSize     int // 每页大小，范围为：[1, 100]
-	pageSizeFlag bool
+	pageSize    int // 每页大小，范围为：[1, 100]
+	pageSizeSet bool
 
-	acctItemIds     []string // 算薪项 ID 列表。当前参数传空时，接口会返回发薪明细中所有的算薪项；当前参数不为空时，接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。
-	acctItemIdsFlag bool
+	acctItemIds    []string // 算薪项 ID 列表。当前参数传空时，接口会返回发薪明细中所有的算薪项；当前参数不为空时，接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。
+	acctItemIdsSet bool
 
-	employeeIds     []string // 员工的飞书人事雇佣 ID 列表。
-	employeeIdsFlag bool
+	employeeIds    []string // 员工的飞书人事雇佣 ID 列表。
+	employeeIdsSet bool
 
-	payPeriodStartDate     string // 发薪日开始时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。
-	payPeriodStartDateFlag bool
+	payPeriodStartDate    string // 发薪日开始时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。
+	payPeriodStartDateSet bool
 
-	payPeriodEndDate     string // 发薪日结束时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间，pay_period_start_date 不得晚于 pay_period_end_date ，且 [pay_period_start_date, pay_period_end_date] 最大间隔为 12 个月。
-	payPeriodEndDateFlag bool
+	payPeriodEndDate    string // 发薪日结束时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间，pay_period_start_date 不得晚于 pay_period_end_date ，且 [pay_period_start_date, pay_period_end_date] 最大间隔为 12 个月。
+	payPeriodEndDateSet bool
 
-	activityIds     []string // 发薪活动 ID 列表
-	activityIdsFlag bool
+	activityIds    []string // 发薪活动 ID 列表
+	activityIdsSet bool
 
-	includeSegmentData     bool // 是否需要查询算薪明细的分段信息，如果不传该参数或传 false ，那么只返回发薪活动明细数据；如果该参数传了 true，那么同时返回发薪明细对应的算薪明细分段数据。
-	includeSegmentDataFlag bool
+	includeSegmentData    bool // 是否需要查询算薪明细的分段信息，如果不传该参数或传 false ，那么只返回发薪活动明细数据；如果该参数传了 true，那么同时返回发薪明细对应的算薪明细分段数据。
+	includeSegmentDataSet bool
 }
 
 func NewQueryPaymentDetailReqBodyBuilder() *QueryPaymentDetailReqBodyBuilder {
@@ -8210,122 +8222,122 @@ func NewQueryPaymentDetailReqBodyBuilder() *QueryPaymentDetailReqBodyBuilder {
 
 // 页码，第一页从 1 开始
 //
-// 示例值：100
+//示例值：100
 func (builder *QueryPaymentDetailReqBodyBuilder) PageIndex(pageIndex int) *QueryPaymentDetailReqBodyBuilder {
 	builder.pageIndex = pageIndex
-	builder.pageIndexFlag = true
+	builder.pageIndexSet = true
 	return builder
 }
 
 // 每页大小，范围为：[1, 100]
 //
-// 示例值：
+//示例值：
 func (builder *QueryPaymentDetailReqBodyBuilder) PageSize(pageSize int) *QueryPaymentDetailReqBodyBuilder {
 	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.pageSizeSet = true
 	return builder
 }
 
 // 算薪项 ID 列表。当前参数传空时，接口会返回发薪明细中所有的算薪项；当前参数不为空时，接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。
 //
-// 示例值：
+//示例值：
 func (builder *QueryPaymentDetailReqBodyBuilder) AcctItemIds(acctItemIds []string) *QueryPaymentDetailReqBodyBuilder {
 	builder.acctItemIds = acctItemIds
-	builder.acctItemIdsFlag = true
+	builder.acctItemIdsSet = true
 	return builder
 }
 
 // 员工的飞书人事雇佣 ID 列表。
 //
-// 示例值：
+//示例值：
 func (builder *QueryPaymentDetailReqBodyBuilder) EmployeeIds(employeeIds []string) *QueryPaymentDetailReqBodyBuilder {
 	builder.employeeIds = employeeIds
-	builder.employeeIdsFlag = true
+	builder.employeeIdsSet = true
 	return builder
 }
 
 // 发薪日开始时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。
 //
-// 示例值：2024-01-01
+//示例值：2024-01-01
 func (builder *QueryPaymentDetailReqBodyBuilder) PayPeriodStartDate(payPeriodStartDate string) *QueryPaymentDetailReqBodyBuilder {
 	builder.payPeriodStartDate = payPeriodStartDate
-	builder.payPeriodStartDateFlag = true
+	builder.payPeriodStartDateSet = true
 	return builder
 }
 
 // 发薪日结束时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间，pay_period_start_date 不得晚于 pay_period_end_date ，且 [pay_period_start_date, pay_period_end_date] 最大间隔为 12 个月。
 //
-// 示例值：2024-01-31
+//示例值：2024-01-31
 func (builder *QueryPaymentDetailReqBodyBuilder) PayPeriodEndDate(payPeriodEndDate string) *QueryPaymentDetailReqBodyBuilder {
 	builder.payPeriodEndDate = payPeriodEndDate
-	builder.payPeriodEndDateFlag = true
+	builder.payPeriodEndDateSet = true
 	return builder
 }
 
 // 发薪活动 ID 列表
 //
-// 示例值：
+//示例值：
 func (builder *QueryPaymentDetailReqBodyBuilder) ActivityIds(activityIds []string) *QueryPaymentDetailReqBodyBuilder {
 	builder.activityIds = activityIds
-	builder.activityIdsFlag = true
+	builder.activityIdsSet = true
 	return builder
 }
 
 // 是否需要查询算薪明细的分段信息，如果不传该参数或传 false ，那么只返回发薪活动明细数据；如果该参数传了 true，那么同时返回发薪明细对应的算薪明细分段数据。
 //
-// 示例值：
+//示例值：
 func (builder *QueryPaymentDetailReqBodyBuilder) IncludeSegmentData(includeSegmentData bool) *QueryPaymentDetailReqBodyBuilder {
 	builder.includeSegmentData = includeSegmentData
-	builder.includeSegmentDataFlag = true
+	builder.includeSegmentDataSet = true
 	return builder
 }
 
 func (builder *QueryPaymentDetailReqBodyBuilder) Build() *QueryPaymentDetailReqBody {
 	req := &QueryPaymentDetailReqBody{}
-	if builder.pageIndexFlag {
+	if builder.pageIndexSet {
 		req.PageIndex = &builder.pageIndex
 	}
-	if builder.pageSizeFlag {
+	if builder.pageSizeSet {
 		req.PageSize = &builder.pageSize
 	}
-	if builder.acctItemIdsFlag {
+	if builder.acctItemIdsSet {
 		req.AcctItemIds = builder.acctItemIds
 	}
-	if builder.employeeIdsFlag {
+	if builder.employeeIdsSet {
 		req.EmployeeIds = builder.employeeIds
 	}
-	if builder.payPeriodStartDateFlag {
+	if builder.payPeriodStartDateSet {
 		req.PayPeriodStartDate = &builder.payPeriodStartDate
 	}
-	if builder.payPeriodEndDateFlag {
+	if builder.payPeriodEndDateSet {
 		req.PayPeriodEndDate = &builder.payPeriodEndDate
 	}
-	if builder.activityIdsFlag {
+	if builder.activityIdsSet {
 		req.ActivityIds = builder.activityIds
 	}
-	if builder.includeSegmentDataFlag {
+	if builder.includeSegmentDataSet {
 		req.IncludeSegmentData = &builder.includeSegmentData
 	}
 	return req
 }
 
 type QueryPaymentDetailPathReqBodyBuilder struct {
-	pageIndex              int
-	pageIndexFlag          bool
-	pageSize               int
-	pageSizeFlag           bool
-	acctItemIds            []string
-	acctItemIdsFlag        bool
-	employeeIds            []string
-	employeeIdsFlag        bool
-	payPeriodStartDate     string
-	payPeriodStartDateFlag bool
-	payPeriodEndDate       string
-	payPeriodEndDateFlag   bool
-	activityIds            []string
-	activityIdsFlag        bool
-	includeSegmentData     bool
-	includeSegmentDataFlag bool
+	pageIndex             int
+	pageIndexSet          bool
+	pageSize              int
+	pageSizeSet           bool
+	acctItemIds           []string
+	acctItemIdsSet        bool
+	employeeIds           []string
+	employeeIdsSet        bool
+	payPeriodStartDate    string
+	payPeriodStartDateSet bool
+	payPeriodEndDate      string
+	payPeriodEndDateSet   bool
+	activityIds           []string
+	activityIdsSet        bool
+	includeSegmentData    bool
+	includeSegmentDataSet bool
 }
 
 func NewQueryPaymentDetailPathReqBodyBuilder() *QueryPaymentDetailPathReqBodyBuilder {
@@ -8338,7 +8350,7 @@ func NewQueryPaymentDetailPathReqBodyBuilder() *QueryPaymentDetailPathReqBodyBui
 // 示例值：100
 func (builder *QueryPaymentDetailPathReqBodyBuilder) PageIndex(pageIndex int) *QueryPaymentDetailPathReqBodyBuilder {
 	builder.pageIndex = pageIndex
-	builder.pageIndexFlag = true
+	builder.pageIndexSet = true
 	return builder
 }
 
@@ -8347,7 +8359,7 @@ func (builder *QueryPaymentDetailPathReqBodyBuilder) PageIndex(pageIndex int) *Q
 // 示例值：
 func (builder *QueryPaymentDetailPathReqBodyBuilder) PageSize(pageSize int) *QueryPaymentDetailPathReqBodyBuilder {
 	builder.pageSize = pageSize
-	builder.pageSizeFlag = true
+	builder.pageSizeSet = true
 	return builder
 }
 
@@ -8356,7 +8368,7 @@ func (builder *QueryPaymentDetailPathReqBodyBuilder) PageSize(pageSize int) *Que
 // 示例值：
 func (builder *QueryPaymentDetailPathReqBodyBuilder) AcctItemIds(acctItemIds []string) *QueryPaymentDetailPathReqBodyBuilder {
 	builder.acctItemIds = acctItemIds
-	builder.acctItemIdsFlag = true
+	builder.acctItemIdsSet = true
 	return builder
 }
 
@@ -8365,7 +8377,7 @@ func (builder *QueryPaymentDetailPathReqBodyBuilder) AcctItemIds(acctItemIds []s
 // 示例值：
 func (builder *QueryPaymentDetailPathReqBodyBuilder) EmployeeIds(employeeIds []string) *QueryPaymentDetailPathReqBodyBuilder {
 	builder.employeeIds = employeeIds
-	builder.employeeIdsFlag = true
+	builder.employeeIdsSet = true
 	return builder
 }
 
@@ -8374,7 +8386,7 @@ func (builder *QueryPaymentDetailPathReqBodyBuilder) EmployeeIds(employeeIds []s
 // 示例值：2024-01-01
 func (builder *QueryPaymentDetailPathReqBodyBuilder) PayPeriodStartDate(payPeriodStartDate string) *QueryPaymentDetailPathReqBodyBuilder {
 	builder.payPeriodStartDate = payPeriodStartDate
-	builder.payPeriodStartDateFlag = true
+	builder.payPeriodStartDateSet = true
 	return builder
 }
 
@@ -8383,7 +8395,7 @@ func (builder *QueryPaymentDetailPathReqBodyBuilder) PayPeriodStartDate(payPerio
 // 示例值：2024-01-31
 func (builder *QueryPaymentDetailPathReqBodyBuilder) PayPeriodEndDate(payPeriodEndDate string) *QueryPaymentDetailPathReqBodyBuilder {
 	builder.payPeriodEndDate = payPeriodEndDate
-	builder.payPeriodEndDateFlag = true
+	builder.payPeriodEndDateSet = true
 	return builder
 }
 
@@ -8392,7 +8404,7 @@ func (builder *QueryPaymentDetailPathReqBodyBuilder) PayPeriodEndDate(payPeriodE
 // 示例值：
 func (builder *QueryPaymentDetailPathReqBodyBuilder) ActivityIds(activityIds []string) *QueryPaymentDetailPathReqBodyBuilder {
 	builder.activityIds = activityIds
-	builder.activityIdsFlag = true
+	builder.activityIdsSet = true
 	return builder
 }
 
@@ -8401,34 +8413,34 @@ func (builder *QueryPaymentDetailPathReqBodyBuilder) ActivityIds(activityIds []s
 // 示例值：
 func (builder *QueryPaymentDetailPathReqBodyBuilder) IncludeSegmentData(includeSegmentData bool) *QueryPaymentDetailPathReqBodyBuilder {
 	builder.includeSegmentData = includeSegmentData
-	builder.includeSegmentDataFlag = true
+	builder.includeSegmentDataSet = true
 	return builder
 }
 
 func (builder *QueryPaymentDetailPathReqBodyBuilder) Build() (*QueryPaymentDetailReqBody, error) {
 	req := &QueryPaymentDetailReqBody{}
-	if builder.pageIndexFlag {
+	if builder.pageIndexSet {
 		req.PageIndex = &builder.pageIndex
 	}
-	if builder.pageSizeFlag {
+	if builder.pageSizeSet {
 		req.PageSize = &builder.pageSize
 	}
-	if builder.acctItemIdsFlag {
+	if builder.acctItemIdsSet {
 		req.AcctItemIds = builder.acctItemIds
 	}
-	if builder.employeeIdsFlag {
+	if builder.employeeIdsSet {
 		req.EmployeeIds = builder.employeeIds
 	}
-	if builder.payPeriodStartDateFlag {
+	if builder.payPeriodStartDateSet {
 		req.PayPeriodStartDate = &builder.payPeriodStartDate
 	}
-	if builder.payPeriodEndDateFlag {
+	if builder.payPeriodEndDateSet {
 		req.PayPeriodEndDate = &builder.payPeriodEndDate
 	}
-	if builder.activityIdsFlag {
+	if builder.activityIdsSet {
 		req.ActivityIds = builder.activityIds
 	}
-	if builder.includeSegmentDataFlag {
+	if builder.includeSegmentDataSet {
 		req.IncludeSegmentData = &builder.includeSegmentData
 	}
 	return req, nil
@@ -8448,6 +8460,7 @@ func NewQueryPaymentDetailReqBuilder() *QueryPaymentDetailReqBuilder {
 	return builder
 }
 
+//
 func (builder *QueryPaymentDetailReqBuilder) Body(body *QueryPaymentDetailReqBody) *QueryPaymentDetailReqBuilder {
 	builder.body = body
 	return builder

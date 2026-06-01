@@ -73,8 +73,8 @@ type Abbreviation struct {
 }
 
 type AbbreviationBuilder struct {
-	id     string // 相关词条 ID
-	idFlag bool
+	id    string // 相关词条 ID
+	idSet bool
 }
 
 func NewAbbreviationBuilder() *AbbreviationBuilder {
@@ -87,13 +87,13 @@ func NewAbbreviationBuilder() *AbbreviationBuilder {
 // 示例值：enterprise_51587960
 func (builder *AbbreviationBuilder) Id(id string) *AbbreviationBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
 func (builder *AbbreviationBuilder) Build() *Abbreviation {
 	req := &Abbreviation{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
@@ -105,8 +105,8 @@ type BaikeImage struct {
 }
 
 type BaikeImageBuilder struct {
-	token     string // 通过文件接口上传图片后，获得的图片 token
-	tokenFlag bool
+	token    string // 通过文件接口上传图片后，获得的图片 token
+	tokenSet bool
 }
 
 func NewBaikeImageBuilder() *BaikeImageBuilder {
@@ -119,13 +119,13 @@ func NewBaikeImageBuilder() *BaikeImageBuilder {
 // 示例值：boxbcEcmKiD3SGHvgqWTpvdc7jc
 func (builder *BaikeImageBuilder) Token(token string) *BaikeImageBuilder {
 	builder.token = token
-	builder.tokenFlag = true
+	builder.tokenSet = true
 	return builder
 }
 
 func (builder *BaikeImageBuilder) Build() *BaikeImage {
 	req := &BaikeImage{}
-	if builder.tokenFlag {
+	if builder.tokenSet {
 		req.Token = &builder.token
 
 	}
@@ -141,14 +141,14 @@ type Classification struct {
 }
 
 type ClassificationBuilder struct {
-	id     string // 二级分类 ID
-	idFlag bool
+	id    string // 二级分类 ID
+	idSet bool
 
-	name     string // 二级分类名称
-	nameFlag bool
+	name    string // 二级分类名称
+	nameSet bool
 
-	fatherId     string // 对应一级分类 ID
-	fatherIdFlag bool
+	fatherId    string // 对应一级分类 ID
+	fatherIdSet bool
 }
 
 func NewClassificationBuilder() *ClassificationBuilder {
@@ -161,7 +161,7 @@ func NewClassificationBuilder() *ClassificationBuilder {
 // 示例值：7049606926702837761
 func (builder *ClassificationBuilder) Id(id string) *ClassificationBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -170,7 +170,7 @@ func (builder *ClassificationBuilder) Id(id string) *ClassificationBuilder {
 // 示例值：行业术语
 func (builder *ClassificationBuilder) Name(name string) *ClassificationBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -179,21 +179,21 @@ func (builder *ClassificationBuilder) Name(name string) *ClassificationBuilder {
 // 示例值：7049606926702837777
 func (builder *ClassificationBuilder) FatherId(fatherId string) *ClassificationBuilder {
 	builder.fatherId = fatherId
-	builder.fatherIdFlag = true
+	builder.fatherIdSet = true
 	return builder
 }
 
 func (builder *ClassificationBuilder) Build() *Classification {
 	req := &Classification{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.fatherIdFlag {
+	if builder.fatherIdSet {
 		req.FatherId = &builder.fatherId
 
 	}
@@ -207,11 +207,11 @@ type ClassificationFilter struct {
 }
 
 type ClassificationFilterBuilder struct {
-	include     []string // 需要获取的分类
-	includeFlag bool
+	include    []string // 需要获取的分类
+	includeSet bool
 
-	exclude     []string // 需要排除的分类
-	excludeFlag bool
+	exclude    []string // 需要排除的分类
+	excludeSet bool
 }
 
 func NewClassificationFilterBuilder() *ClassificationFilterBuilder {
@@ -224,7 +224,7 @@ func NewClassificationFilterBuilder() *ClassificationFilterBuilder {
 // 示例值：
 func (builder *ClassificationFilterBuilder) Include(include []string) *ClassificationFilterBuilder {
 	builder.include = include
-	builder.includeFlag = true
+	builder.includeSet = true
 	return builder
 }
 
@@ -233,16 +233,16 @@ func (builder *ClassificationFilterBuilder) Include(include []string) *Classific
 // 示例值：
 func (builder *ClassificationFilterBuilder) Exclude(exclude []string) *ClassificationFilterBuilder {
 	builder.exclude = exclude
-	builder.excludeFlag = true
+	builder.excludeSet = true
 	return builder
 }
 
 func (builder *ClassificationFilterBuilder) Build() *ClassificationFilter {
 	req := &ClassificationFilter{}
-	if builder.includeFlag {
+	if builder.includeSet {
 		req.Include = builder.include
 	}
-	if builder.excludeFlag {
+	if builder.excludeSet {
 		req.Exclude = builder.exclude
 	}
 	return req
@@ -258,13 +258,13 @@ type CorrectError struct {
 
 type CorrectErrorBuilder struct {
 	type_    int //
-	typeFlag bool
+	type_Set bool
 
-	total     int // 该类型错误在请求时间周期内的累计数量
-	totalFlag bool
+	total    int // 该类型错误在请求时间周期内的累计数量
+	totalSet bool
 
-	correctPairs     []*CorrectPair // 该类型错误在周期内具体的纠错对
-	correctPairsFlag bool
+	correctPairs    []*CorrectPair // 该类型错误在周期内具体的纠错对
+	correctPairsSet bool
 }
 
 func NewCorrectErrorBuilder() *CorrectErrorBuilder {
@@ -272,10 +272,12 @@ func NewCorrectErrorBuilder() *CorrectErrorBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *CorrectErrorBuilder) Type(type_ int) *CorrectErrorBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
@@ -284,7 +286,7 @@ func (builder *CorrectErrorBuilder) Type(type_ int) *CorrectErrorBuilder {
 // 示例值：
 func (builder *CorrectErrorBuilder) Total(total int) *CorrectErrorBuilder {
 	builder.total = total
-	builder.totalFlag = true
+	builder.totalSet = true
 	return builder
 }
 
@@ -293,21 +295,21 @@ func (builder *CorrectErrorBuilder) Total(total int) *CorrectErrorBuilder {
 // 示例值：
 func (builder *CorrectErrorBuilder) CorrectPairs(correctPairs []*CorrectPair) *CorrectErrorBuilder {
 	builder.correctPairs = correctPairs
-	builder.correctPairsFlag = true
+	builder.correctPairsSet = true
 	return builder
 }
 
 func (builder *CorrectErrorBuilder) Build() *CorrectError {
 	req := &CorrectError{}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
-	if builder.totalFlag {
+	if builder.totalSet {
 		req.Total = &builder.total
 
 	}
-	if builder.correctPairsFlag {
+	if builder.correctPairsSet {
 		req.CorrectPairs = builder.correctPairs
 	}
 	return req
@@ -328,23 +330,23 @@ type CorrectInfo struct {
 }
 
 type CorrectInfoBuilder struct {
-	correctTotal     int // 用户英文纠错数总数
-	correctTotalFlag bool
+	correctTotal    int // 用户英文纠错数总数
+	correctTotalSet bool
 
-	eachdayCorrect     []int // 时间区间内每一天纠错数
-	eachdayCorrectFlag bool
+	eachdayCorrect    []int // 时间区间内每一天纠错数
+	eachdayCorrectSet bool
 
-	grammarError     *CorrectError // 语法错误相关统计信息
-	grammarErrorFlag bool
+	grammarError    *CorrectError // 语法错误相关统计信息
+	grammarErrorSet bool
 
-	spellError     *CorrectError // 拼写错误相关统计信息
-	spellErrorFlag bool
+	spellError    *CorrectError // 拼写错误相关统计信息
+	spellErrorSet bool
 
-	nounError     *CorrectError // 单复数错误相关统计信息
-	nounErrorFlag bool
+	nounError    *CorrectError // 单复数错误相关统计信息
+	nounErrorSet bool
 
-	verbTenseError     *CorrectError // 时态错误相关统计信息
-	verbTenseErrorFlag bool
+	verbTenseError    *CorrectError // 时态错误相关统计信息
+	verbTenseErrorSet bool
 }
 
 func NewCorrectInfoBuilder() *CorrectInfoBuilder {
@@ -357,7 +359,7 @@ func NewCorrectInfoBuilder() *CorrectInfoBuilder {
 // 示例值：
 func (builder *CorrectInfoBuilder) CorrectTotal(correctTotal int) *CorrectInfoBuilder {
 	builder.correctTotal = correctTotal
-	builder.correctTotalFlag = true
+	builder.correctTotalSet = true
 	return builder
 }
 
@@ -366,7 +368,7 @@ func (builder *CorrectInfoBuilder) CorrectTotal(correctTotal int) *CorrectInfoBu
 // 示例值：
 func (builder *CorrectInfoBuilder) EachdayCorrect(eachdayCorrect []int) *CorrectInfoBuilder {
 	builder.eachdayCorrect = eachdayCorrect
-	builder.eachdayCorrectFlag = true
+	builder.eachdayCorrectSet = true
 	return builder
 }
 
@@ -375,7 +377,7 @@ func (builder *CorrectInfoBuilder) EachdayCorrect(eachdayCorrect []int) *Correct
 // 示例值：
 func (builder *CorrectInfoBuilder) GrammarError(grammarError *CorrectError) *CorrectInfoBuilder {
 	builder.grammarError = grammarError
-	builder.grammarErrorFlag = true
+	builder.grammarErrorSet = true
 	return builder
 }
 
@@ -384,7 +386,7 @@ func (builder *CorrectInfoBuilder) GrammarError(grammarError *CorrectError) *Cor
 // 示例值：
 func (builder *CorrectInfoBuilder) SpellError(spellError *CorrectError) *CorrectInfoBuilder {
 	builder.spellError = spellError
-	builder.spellErrorFlag = true
+	builder.spellErrorSet = true
 	return builder
 }
 
@@ -393,7 +395,7 @@ func (builder *CorrectInfoBuilder) SpellError(spellError *CorrectError) *Correct
 // 示例值：
 func (builder *CorrectInfoBuilder) NounError(nounError *CorrectError) *CorrectInfoBuilder {
 	builder.nounError = nounError
-	builder.nounErrorFlag = true
+	builder.nounErrorSet = true
 	return builder
 }
 
@@ -402,29 +404,29 @@ func (builder *CorrectInfoBuilder) NounError(nounError *CorrectError) *CorrectIn
 // 示例值：
 func (builder *CorrectInfoBuilder) VerbTenseError(verbTenseError *CorrectError) *CorrectInfoBuilder {
 	builder.verbTenseError = verbTenseError
-	builder.verbTenseErrorFlag = true
+	builder.verbTenseErrorSet = true
 	return builder
 }
 
 func (builder *CorrectInfoBuilder) Build() *CorrectInfo {
 	req := &CorrectInfo{}
-	if builder.correctTotalFlag {
+	if builder.correctTotalSet {
 		req.CorrectTotal = &builder.correctTotal
 
 	}
-	if builder.eachdayCorrectFlag {
+	if builder.eachdayCorrectSet {
 		req.EachdayCorrect = builder.eachdayCorrect
 	}
-	if builder.grammarErrorFlag {
+	if builder.grammarErrorSet {
 		req.GrammarError = builder.grammarError
 	}
-	if builder.spellErrorFlag {
+	if builder.spellErrorSet {
 		req.SpellError = builder.spellError
 	}
-	if builder.nounErrorFlag {
+	if builder.nounErrorSet {
 		req.NounError = builder.nounError
 	}
-	if builder.verbTenseErrorFlag {
+	if builder.verbTenseErrorSet {
 		req.VerbTenseError = builder.verbTenseError
 	}
 	return req
@@ -439,14 +441,14 @@ type CorrectPair struct {
 }
 
 type CorrectPairBuilder struct {
-	sourceText     string // 被纠错的原词
-	sourceTextFlag bool
+	sourceText    string // 被纠错的原词
+	sourceTextSet bool
 
-	targetText     string // 纠错建议替换的新词
-	targetTextFlag bool
+	targetText    string // 纠错建议替换的新词
+	targetTextSet bool
 
-	total     int // 纠错对在周期内出现的次数
-	totalFlag bool
+	total    int // 纠错对在周期内出现的次数
+	totalSet bool
 }
 
 func NewCorrectPairBuilder() *CorrectPairBuilder {
@@ -459,7 +461,7 @@ func NewCorrectPairBuilder() *CorrectPairBuilder {
 // 示例值：
 func (builder *CorrectPairBuilder) SourceText(sourceText string) *CorrectPairBuilder {
 	builder.sourceText = sourceText
-	builder.sourceTextFlag = true
+	builder.sourceTextSet = true
 	return builder
 }
 
@@ -468,7 +470,7 @@ func (builder *CorrectPairBuilder) SourceText(sourceText string) *CorrectPairBui
 // 示例值：
 func (builder *CorrectPairBuilder) TargetText(targetText string) *CorrectPairBuilder {
 	builder.targetText = targetText
-	builder.targetTextFlag = true
+	builder.targetTextSet = true
 	return builder
 }
 
@@ -477,21 +479,21 @@ func (builder *CorrectPairBuilder) TargetText(targetText string) *CorrectPairBui
 // 示例值：
 func (builder *CorrectPairBuilder) Total(total int) *CorrectPairBuilder {
 	builder.total = total
-	builder.totalFlag = true
+	builder.totalSet = true
 	return builder
 }
 
 func (builder *CorrectPairBuilder) Build() *CorrectPair {
 	req := &CorrectPair{}
-	if builder.sourceTextFlag {
+	if builder.sourceTextSet {
 		req.SourceText = &builder.sourceText
 
 	}
-	if builder.targetTextFlag {
+	if builder.targetTextSet {
 		req.TargetText = &builder.targetText
 
 	}
-	if builder.totalFlag {
+	if builder.totalSet {
 		req.Total = &builder.total
 
 	}
@@ -505,11 +507,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -517,27 +519,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -551,11 +557,11 @@ type DisplayStatus struct {
 }
 
 type DisplayStatusBuilder struct {
-	allowHighlight     bool // 对应名称是否在消息/云文档高亮
-	allowHighlightFlag bool
+	allowHighlight    bool // 对应名称是否在消息/云文档高亮
+	allowHighlightSet bool
 
-	allowSearch     bool // 对应名称是否在搜索结果中展示
-	allowSearchFlag bool
+	allowSearch    bool // 对应名称是否在搜索结果中展示
+	allowSearchSet bool
 }
 
 func NewDisplayStatusBuilder() *DisplayStatusBuilder {
@@ -568,7 +574,7 @@ func NewDisplayStatusBuilder() *DisplayStatusBuilder {
 // 示例值：true
 func (builder *DisplayStatusBuilder) AllowHighlight(allowHighlight bool) *DisplayStatusBuilder {
 	builder.allowHighlight = allowHighlight
-	builder.allowHighlightFlag = true
+	builder.allowHighlightSet = true
 	return builder
 }
 
@@ -577,17 +583,17 @@ func (builder *DisplayStatusBuilder) AllowHighlight(allowHighlight bool) *Displa
 // 示例值：true
 func (builder *DisplayStatusBuilder) AllowSearch(allowSearch bool) *DisplayStatusBuilder {
 	builder.allowSearch = allowSearch
-	builder.allowSearchFlag = true
+	builder.allowSearchSet = true
 	return builder
 }
 
 func (builder *DisplayStatusBuilder) Build() *DisplayStatus {
 	req := &DisplayStatus{}
-	if builder.allowHighlightFlag {
+	if builder.allowHighlightSet {
 		req.AllowHighlight = &builder.allowHighlight
 
 	}
-	if builder.allowSearchFlag {
+	if builder.allowSearchSet {
 		req.AllowSearch = &builder.allowSearch
 
 	}
@@ -601,11 +607,11 @@ type Draft struct {
 }
 
 type DraftBuilder struct {
-	draftId     string // 草稿 ID
-	draftIdFlag bool
+	draftId    string // 草稿 ID
+	draftIdSet bool
 
-	entity     *Entity // 词条信息
-	entityFlag bool
+	entity    *Entity // 词条信息
+	entitySet bool
 }
 
 func NewDraftBuilder() *DraftBuilder {
@@ -618,7 +624,7 @@ func NewDraftBuilder() *DraftBuilder {
 // 示例值：42322
 func (builder *DraftBuilder) DraftId(draftId string) *DraftBuilder {
 	builder.draftId = draftId
-	builder.draftIdFlag = true
+	builder.draftIdSet = true
 	return builder
 }
 
@@ -627,17 +633,17 @@ func (builder *DraftBuilder) DraftId(draftId string) *DraftBuilder {
 // 示例值：
 func (builder *DraftBuilder) Entity(entity *Entity) *DraftBuilder {
 	builder.entity = entity
-	builder.entityFlag = true
+	builder.entitySet = true
 	return builder
 }
 
 func (builder *DraftBuilder) Build() *Draft {
 	req := &Draft{}
-	if builder.draftIdFlag {
+	if builder.draftIdSet {
 		req.DraftId = &builder.draftId
 
 	}
-	if builder.entityFlag {
+	if builder.entitySet {
 		req.Entity = builder.entity
 	}
 	return req
@@ -674,47 +680,47 @@ type Entity struct {
 }
 
 type EntityBuilder struct {
-	id     string // 词条 ID （需要更新某个词条时填写，若是创建新词条可不填写）
-	idFlag bool
+	id    string // 词条 ID （需要更新某个词条时填写，若是创建新词条可不填写）
+	idSet bool
 
-	mainKeys     []*Term // 词条名
-	mainKeysFlag bool
+	mainKeys    []*Term // 词条名
+	mainKeysSet bool
 
-	fullNames     []*Term // 全称
-	fullNamesFlag bool
+	fullNames    []*Term // 全称
+	fullNamesSet bool
 
-	aliases     []*Term // 别名
-	aliasesFlag bool
+	aliases    []*Term // 别名
+	aliasesSet bool
 
-	description     string // 词条释义（纯文本格式）
-	descriptionFlag bool
+	description    string // 词条释义（纯文本格式）
+	descriptionSet bool
 
-	creator     string // 创建者
-	creatorFlag bool
+	creator    string // 创建者
+	creatorSet bool
 
-	createTime     string // 词条创建时间
-	createTimeFlag bool
+	createTime    string // 词条创建时间
+	createTimeSet bool
 
-	updater     string // 最近一次更新者
-	updaterFlag bool
+	updater    string // 最近一次更新者
+	updaterSet bool
 
-	updateTime     string // 词条最近更新时间
-	updateTimeFlag bool
+	updateTime    string // 词条最近更新时间
+	updateTimeSet bool
 
-	relatedMeta     *RelatedMeta // 更多相关信息
-	relatedMetaFlag bool
+	relatedMeta    *RelatedMeta // 更多相关信息
+	relatedMetaSet bool
 
-	statistics     *Statistics // 当前词条收到的反馈数据
-	statisticsFlag bool
+	statistics    *Statistics // 当前词条收到的反馈数据
+	statisticsSet bool
 
-	outerInfo     *OuterInfo // 外部系统关联数据
-	outerInfoFlag bool
+	outerInfo    *OuterInfo // 外部系统关联数据
+	outerInfoSet bool
 
-	richText     string // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
-	richTextFlag bool
+	richText    string // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+	richTextSet bool
 
-	source     int // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
-	sourceFlag bool
+	source    int // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
+	sourceSet bool
 }
 
 func NewEntityBuilder() *EntityBuilder {
@@ -727,7 +733,7 @@ func NewEntityBuilder() *EntityBuilder {
 // 示例值：enterprise_40217521
 func (builder *EntityBuilder) Id(id string) *EntityBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -736,7 +742,7 @@ func (builder *EntityBuilder) Id(id string) *EntityBuilder {
 // 示例值：
 func (builder *EntityBuilder) MainKeys(mainKeys []*Term) *EntityBuilder {
 	builder.mainKeys = mainKeys
-	builder.mainKeysFlag = true
+	builder.mainKeysSet = true
 	return builder
 }
 
@@ -745,7 +751,7 @@ func (builder *EntityBuilder) MainKeys(mainKeys []*Term) *EntityBuilder {
 // 示例值：
 func (builder *EntityBuilder) FullNames(fullNames []*Term) *EntityBuilder {
 	builder.fullNames = fullNames
-	builder.fullNamesFlag = true
+	builder.fullNamesSet = true
 	return builder
 }
 
@@ -754,7 +760,7 @@ func (builder *EntityBuilder) FullNames(fullNames []*Term) *EntityBuilder {
 // 示例值：
 func (builder *EntityBuilder) Aliases(aliases []*Term) *EntityBuilder {
 	builder.aliases = aliases
-	builder.aliasesFlag = true
+	builder.aliasesSet = true
 	return builder
 }
 
@@ -763,7 +769,7 @@ func (builder *EntityBuilder) Aliases(aliases []*Term) *EntityBuilder {
 // 示例值：企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通
 func (builder *EntityBuilder) Description(description string) *EntityBuilder {
 	builder.description = description
-	builder.descriptionFlag = true
+	builder.descriptionSet = true
 	return builder
 }
 
@@ -772,7 +778,7 @@ func (builder *EntityBuilder) Description(description string) *EntityBuilder {
 // 示例值：ou_30b07b63089ea46518789914dac63d36
 func (builder *EntityBuilder) Creator(creator string) *EntityBuilder {
 	builder.creator = creator
-	builder.creatorFlag = true
+	builder.creatorSet = true
 	return builder
 }
 
@@ -781,7 +787,7 @@ func (builder *EntityBuilder) Creator(creator string) *EntityBuilder {
 // 示例值：1649318125
 func (builder *EntityBuilder) CreateTime(createTime string) *EntityBuilder {
 	builder.createTime = createTime
-	builder.createTimeFlag = true
+	builder.createTimeSet = true
 	return builder
 }
 
@@ -790,7 +796,7 @@ func (builder *EntityBuilder) CreateTime(createTime string) *EntityBuilder {
 // 示例值：ou_30b07b63089ea46518789914dac63d36
 func (builder *EntityBuilder) Updater(updater string) *EntityBuilder {
 	builder.updater = updater
-	builder.updaterFlag = true
+	builder.updaterSet = true
 	return builder
 }
 
@@ -799,7 +805,7 @@ func (builder *EntityBuilder) Updater(updater string) *EntityBuilder {
 // 示例值：1649318125
 func (builder *EntityBuilder) UpdateTime(updateTime string) *EntityBuilder {
 	builder.updateTime = updateTime
-	builder.updateTimeFlag = true
+	builder.updateTimeSet = true
 	return builder
 }
 
@@ -808,7 +814,7 @@ func (builder *EntityBuilder) UpdateTime(updateTime string) *EntityBuilder {
 // 示例值：
 func (builder *EntityBuilder) RelatedMeta(relatedMeta *RelatedMeta) *EntityBuilder {
 	builder.relatedMeta = relatedMeta
-	builder.relatedMetaFlag = true
+	builder.relatedMetaSet = true
 	return builder
 }
 
@@ -817,7 +823,7 @@ func (builder *EntityBuilder) RelatedMeta(relatedMeta *RelatedMeta) *EntityBuild
 // 示例值：
 func (builder *EntityBuilder) Statistics(statistics *Statistics) *EntityBuilder {
 	builder.statistics = statistics
-	builder.statisticsFlag = true
+	builder.statisticsSet = true
 	return builder
 }
 
@@ -826,7 +832,7 @@ func (builder *EntityBuilder) Statistics(statistics *Statistics) *EntityBuilder 
 // 示例值：
 func (builder *EntityBuilder) OuterInfo(outerInfo *OuterInfo) *EntityBuilder {
 	builder.outerInfo = outerInfo
-	builder.outerInfoFlag = true
+	builder.outerInfoSet = true
 	return builder
 }
 
@@ -835,7 +841,7 @@ func (builder *EntityBuilder) OuterInfo(outerInfo *OuterInfo) *EntityBuilder {
 // 示例值：&lt;b&gt;加粗&lt;/b&gt;&lt;i&gt;斜体&lt;/i&gt;&lt;p&gt;&lt;a href=\"https://feishu.cn\"&gt;链接&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span&gt;企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通&lt;/span&gt;&lt;/p&gt;
 func (builder *EntityBuilder) RichText(richText string) *EntityBuilder {
 	builder.richText = richText
-	builder.richTextFlag = true
+	builder.richTextSet = true
 	return builder
 }
 
@@ -844,59 +850,59 @@ func (builder *EntityBuilder) RichText(richText string) *EntityBuilder {
 // 示例值：1
 func (builder *EntityBuilder) Source(source int) *EntityBuilder {
 	builder.source = source
-	builder.sourceFlag = true
+	builder.sourceSet = true
 	return builder
 }
 
 func (builder *EntityBuilder) Build() *Entity {
 	req := &Entity{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.mainKeysFlag {
+	if builder.mainKeysSet {
 		req.MainKeys = builder.mainKeys
 	}
-	if builder.fullNamesFlag {
+	if builder.fullNamesSet {
 		req.FullNames = builder.fullNames
 	}
-	if builder.aliasesFlag {
+	if builder.aliasesSet {
 		req.Aliases = builder.aliases
 	}
-	if builder.descriptionFlag {
+	if builder.descriptionSet {
 		req.Description = &builder.description
 
 	}
-	if builder.creatorFlag {
+	if builder.creatorSet {
 		req.Creator = &builder.creator
 
 	}
-	if builder.createTimeFlag {
+	if builder.createTimeSet {
 		req.CreateTime = &builder.createTime
 
 	}
-	if builder.updaterFlag {
+	if builder.updaterSet {
 		req.Updater = &builder.updater
 
 	}
-	if builder.updateTimeFlag {
+	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
 	}
-	if builder.relatedMetaFlag {
+	if builder.relatedMetaSet {
 		req.RelatedMeta = builder.relatedMeta
 	}
-	if builder.statisticsFlag {
+	if builder.statisticsSet {
 		req.Statistics = builder.statistics
 	}
-	if builder.outerInfoFlag {
+	if builder.outerInfoSet {
 		req.OuterInfo = builder.outerInfo
 	}
-	if builder.richTextFlag {
+	if builder.richTextSet {
 		req.RichText = &builder.richText
 
 	}
-	if builder.sourceFlag {
+	if builder.sourceSet {
 		req.Source = &builder.source
 
 	}
@@ -910,11 +916,11 @@ type EntityWord struct {
 }
 
 type EntityWordBuilder struct {
-	name     string // 抽取出的词条名
-	nameFlag bool
+	name    string // 抽取出的词条名
+	nameSet bool
 
-	aliases     []string // 词条可能的别名
-	aliasesFlag bool
+	aliases    []string // 词条可能的别名
+	aliasesSet bool
 }
 
 func NewEntityWordBuilder() *EntityWordBuilder {
@@ -927,7 +933,7 @@ func NewEntityWordBuilder() *EntityWordBuilder {
 // 示例值：企业百科
 func (builder *EntityWordBuilder) Name(name string) *EntityWordBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -936,17 +942,17 @@ func (builder *EntityWordBuilder) Name(name string) *EntityWordBuilder {
 // 示例值：
 func (builder *EntityWordBuilder) Aliases(aliases []string) *EntityWordBuilder {
 	builder.aliases = aliases
-	builder.aliasesFlag = true
+	builder.aliasesSet = true
 	return builder
 }
 
 func (builder *EntityWordBuilder) Build() *EntityWord {
 	req := &EntityWord{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.aliasesFlag {
+	if builder.aliasesSet {
 		req.Aliases = builder.aliases
 	}
 	return req
@@ -959,11 +965,11 @@ type File struct {
 }
 
 type FileBuilder struct {
-	name     string // 文件名称，当前仅支持上传图片且图片格式为以下六种：icon、bmp、gif、png、jpeg、webp
-	nameFlag bool
+	name    string // 文件名称，当前仅支持上传图片且图片格式为以下六种：icon、bmp、gif、png、jpeg、webp
+	nameSet bool
 
-	file     io.Reader // 二进制文件内容，高宽像素在 320-4096 像素之间，大小在 3KB-10MB 的图片
-	fileFlag bool
+	file    io.Reader // 二进制文件内容，高宽像素在 320-4096 像素之间，大小在 3KB-10MB 的图片
+	fileSet bool
 }
 
 func NewFileBuilder() *FileBuilder {
@@ -976,7 +982,7 @@ func NewFileBuilder() *FileBuilder {
 // 示例值：示例图片.png
 func (builder *FileBuilder) Name(name string) *FileBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -985,17 +991,17 @@ func (builder *FileBuilder) Name(name string) *FileBuilder {
 // 示例值：file binary
 func (builder *FileBuilder) File(file io.Reader) *FileBuilder {
 	builder.file = file
-	builder.fileFlag = true
+	builder.fileSet = true
 	return builder
 }
 
 func (builder *FileBuilder) Build() *File {
 	req := &File{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.fileFlag {
+	if builder.fileSet {
 		req.File = builder.file
 	}
 	return req
@@ -1008,11 +1014,11 @@ type MatchInfo struct {
 }
 
 type MatchInfoBuilder struct {
-	entityId     string // 词条 ID
-	entityIdFlag bool
+	entityId    string // 词条 ID
+	entityIdSet bool
 
 	type_    int // 命中的字段
-	typeFlag bool
+	type_Set bool
 }
 
 func NewMatchInfoBuilder() *MatchInfoBuilder {
@@ -1025,7 +1031,7 @@ func NewMatchInfoBuilder() *MatchInfoBuilder {
 // 示例值：enterprise_34809584
 func (builder *MatchInfoBuilder) EntityId(entityId string) *MatchInfoBuilder {
 	builder.entityId = entityId
-	builder.entityIdFlag = true
+	builder.entityIdSet = true
 	return builder
 }
 
@@ -1034,17 +1040,17 @@ func (builder *MatchInfoBuilder) EntityId(entityId string) *MatchInfoBuilder {
 // 示例值：0
 func (builder *MatchInfoBuilder) Type(type_ int) *MatchInfoBuilder {
 	builder.type_ = type_
-	builder.typeFlag = true
+	builder.type_Set = true
 	return builder
 }
 
 func (builder *MatchInfoBuilder) Build() *MatchInfo {
 	req := &MatchInfo{}
-	if builder.entityIdFlag {
+	if builder.entityIdSet {
 		req.EntityId = &builder.entityId
 
 	}
-	if builder.typeFlag {
+	if builder.type_Set {
 		req.Type = &builder.type_
 
 	}
@@ -1058,11 +1064,11 @@ type OuterInfo struct {
 }
 
 type OuterInfoBuilder struct {
-	provider     string // 外部系统（不能包含中横线 "-"）
-	providerFlag bool
+	provider    string // 外部系统（不能包含中横线 "-"）
+	providerSet bool
 
-	outerId     string // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
-	outerIdFlag bool
+	outerId    string // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
+	outerIdSet bool
 }
 
 func NewOuterInfoBuilder() *OuterInfoBuilder {
@@ -1075,7 +1081,7 @@ func NewOuterInfoBuilder() *OuterInfoBuilder {
 // 示例值：星云
 func (builder *OuterInfoBuilder) Provider(provider string) *OuterInfoBuilder {
 	builder.provider = provider
-	builder.providerFlag = true
+	builder.providerSet = true
 	return builder
 }
 
@@ -1084,17 +1090,17 @@ func (builder *OuterInfoBuilder) Provider(provider string) *OuterInfoBuilder {
 // 示例值：client_6539i3498d
 func (builder *OuterInfoBuilder) OuterId(outerId string) *OuterInfoBuilder {
 	builder.outerId = outerId
-	builder.outerIdFlag = true
+	builder.outerIdSet = true
 	return builder
 }
 
 func (builder *OuterInfoBuilder) Build() *OuterInfo {
 	req := &OuterInfo{}
-	if builder.providerFlag {
+	if builder.providerSet {
 		req.Provider = &builder.provider
 
 	}
-	if builder.outerIdFlag {
+	if builder.outerIdSet {
 		req.OuterId = &builder.outerId
 
 	}
@@ -1110,14 +1116,14 @@ type Phrase struct {
 }
 
 type PhraseBuilder struct {
-	name     string // 识别到的关键词
-	nameFlag bool
+	name    string // 识别到的关键词
+	nameSet bool
 
-	entityIds     []string // 对应的词条 ID
-	entityIdsFlag bool
+	entityIds    []string // 对应的词条 ID
+	entityIdsSet bool
 
-	span     *Span // 词条所在位置
-	spanFlag bool
+	span    *Span // 词条所在位置
+	spanSet bool
 }
 
 func NewPhraseBuilder() *PhraseBuilder {
@@ -1130,7 +1136,7 @@ func NewPhraseBuilder() *PhraseBuilder {
 // 示例值：企业百科
 func (builder *PhraseBuilder) Name(name string) *PhraseBuilder {
 	builder.name = name
-	builder.nameFlag = true
+	builder.nameSet = true
 	return builder
 }
 
@@ -1139,7 +1145,7 @@ func (builder *PhraseBuilder) Name(name string) *PhraseBuilder {
 // 示例值：
 func (builder *PhraseBuilder) EntityIds(entityIds []string) *PhraseBuilder {
 	builder.entityIds = entityIds
-	builder.entityIdsFlag = true
+	builder.entityIdsSet = true
 	return builder
 }
 
@@ -1148,20 +1154,20 @@ func (builder *PhraseBuilder) EntityIds(entityIds []string) *PhraseBuilder {
 // 示例值：
 func (builder *PhraseBuilder) Span(span *Span) *PhraseBuilder {
 	builder.span = span
-	builder.spanFlag = true
+	builder.spanSet = true
 	return builder
 }
 
 func (builder *PhraseBuilder) Build() *Phrase {
 	req := &Phrase{}
-	if builder.nameFlag {
+	if builder.nameSet {
 		req.Name = &builder.name
 
 	}
-	if builder.entityIdsFlag {
+	if builder.entityIdsSet {
 		req.EntityIds = builder.entityIds
 	}
-	if builder.spanFlag {
+	if builder.spanSet {
 		req.Span = builder.span
 	}
 	return req
@@ -1176,14 +1182,14 @@ type Referer struct {
 }
 
 type RefererBuilder struct {
-	id     string // 对应相关信息 ID
-	idFlag bool
+	id    string // 对应相关信息 ID
+	idSet bool
 
-	title     string // 对应相关信息的描述，如相关联系人的描述、相关链接的标题
-	titleFlag bool
+	title    string // 对应相关信息的描述，如相关联系人的描述、相关链接的标题
+	titleSet bool
 
-	url     string // 链接地址
-	urlFlag bool
+	url    string // 链接地址
+	urlSet bool
 }
 
 func NewRefererBuilder() *RefererBuilder {
@@ -1196,7 +1202,7 @@ func NewRefererBuilder() *RefererBuilder {
 // 示例值：格式请看请求体示例
 func (builder *RefererBuilder) Id(id string) *RefererBuilder {
 	builder.id = id
-	builder.idFlag = true
+	builder.idSet = true
 	return builder
 }
 
@@ -1205,7 +1211,7 @@ func (builder *RefererBuilder) Id(id string) *RefererBuilder {
 // 示例值：企业百科帮助中心
 func (builder *RefererBuilder) Title(title string) *RefererBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -1214,21 +1220,21 @@ func (builder *RefererBuilder) Title(title string) *RefererBuilder {
 // 示例值：https://www.feishu.cn/hc/zh-CN
 func (builder *RefererBuilder) Url(url string) *RefererBuilder {
 	builder.url = url
-	builder.urlFlag = true
+	builder.urlSet = true
 	return builder
 }
 
 func (builder *RefererBuilder) Build() *Referer {
 	req := &Referer{}
-	if builder.idFlag {
+	if builder.idSet {
 		req.Id = &builder.id
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.urlFlag {
+	if builder.urlSet {
 		req.Url = &builder.url
 
 	}
@@ -1254,29 +1260,29 @@ type RelatedMeta struct {
 }
 
 type RelatedMetaBuilder struct {
-	users     []*Referer // 相关联系人
-	usersFlag bool
+	users    []*Referer // 相关联系人
+	usersSet bool
 
-	chats     []*Referer // 相关服务中的相关公开群
-	chatsFlag bool
+	chats    []*Referer // 相关服务中的相关公开群
+	chatsSet bool
 
-	docs     []*Referer // 相关云文档
-	docsFlag bool
+	docs    []*Referer // 相关云文档
+	docsSet bool
 
-	oncalls     []*Referer // 相关服务中的相关值班号
-	oncallsFlag bool
+	oncalls    []*Referer // 相关服务中的相关值班号
+	oncallsSet bool
 
-	links     []*Referer // 相关链接
-	linksFlag bool
+	links    []*Referer // 相关链接
+	linksSet bool
 
-	abbreviations     []*Abbreviation // 相关词条
-	abbreviationsFlag bool
+	abbreviations    []*Abbreviation // 相关词条
+	abbreviationsSet bool
 
-	classifications     []*Classification // 当前词条所属分类;词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
-	classificationsFlag bool
+	classifications    []*Classification // 当前词条所属分类;词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
+	classificationsSet bool
 
-	images     []*BaikeImage // 上传的图片
-	imagesFlag bool
+	images    []*BaikeImage // 上传的图片
+	imagesSet bool
 }
 
 func NewRelatedMetaBuilder() *RelatedMetaBuilder {
@@ -1289,7 +1295,7 @@ func NewRelatedMetaBuilder() *RelatedMetaBuilder {
 // 示例值：
 func (builder *RelatedMetaBuilder) Users(users []*Referer) *RelatedMetaBuilder {
 	builder.users = users
-	builder.usersFlag = true
+	builder.usersSet = true
 	return builder
 }
 
@@ -1298,7 +1304,7 @@ func (builder *RelatedMetaBuilder) Users(users []*Referer) *RelatedMetaBuilder {
 // 示例值：
 func (builder *RelatedMetaBuilder) Chats(chats []*Referer) *RelatedMetaBuilder {
 	builder.chats = chats
-	builder.chatsFlag = true
+	builder.chatsSet = true
 	return builder
 }
 
@@ -1307,7 +1313,7 @@ func (builder *RelatedMetaBuilder) Chats(chats []*Referer) *RelatedMetaBuilder {
 // 示例值：
 func (builder *RelatedMetaBuilder) Docs(docs []*Referer) *RelatedMetaBuilder {
 	builder.docs = docs
-	builder.docsFlag = true
+	builder.docsSet = true
 	return builder
 }
 
@@ -1316,7 +1322,7 @@ func (builder *RelatedMetaBuilder) Docs(docs []*Referer) *RelatedMetaBuilder {
 // 示例值：
 func (builder *RelatedMetaBuilder) Oncalls(oncalls []*Referer) *RelatedMetaBuilder {
 	builder.oncalls = oncalls
-	builder.oncallsFlag = true
+	builder.oncallsSet = true
 	return builder
 }
 
@@ -1325,7 +1331,7 @@ func (builder *RelatedMetaBuilder) Oncalls(oncalls []*Referer) *RelatedMetaBuild
 // 示例值：
 func (builder *RelatedMetaBuilder) Links(links []*Referer) *RelatedMetaBuilder {
 	builder.links = links
-	builder.linksFlag = true
+	builder.linksSet = true
 	return builder
 }
 
@@ -1334,7 +1340,7 @@ func (builder *RelatedMetaBuilder) Links(links []*Referer) *RelatedMetaBuilder {
 // 示例值：
 func (builder *RelatedMetaBuilder) Abbreviations(abbreviations []*Abbreviation) *RelatedMetaBuilder {
 	builder.abbreviations = abbreviations
-	builder.abbreviationsFlag = true
+	builder.abbreviationsSet = true
 	return builder
 }
 
@@ -1343,7 +1349,7 @@ func (builder *RelatedMetaBuilder) Abbreviations(abbreviations []*Abbreviation) 
 // 示例值：
 func (builder *RelatedMetaBuilder) Classifications(classifications []*Classification) *RelatedMetaBuilder {
 	builder.classifications = classifications
-	builder.classificationsFlag = true
+	builder.classificationsSet = true
 	return builder
 }
 
@@ -1352,34 +1358,34 @@ func (builder *RelatedMetaBuilder) Classifications(classifications []*Classifica
 // 示例值：
 func (builder *RelatedMetaBuilder) Images(images []*BaikeImage) *RelatedMetaBuilder {
 	builder.images = images
-	builder.imagesFlag = true
+	builder.imagesSet = true
 	return builder
 }
 
 func (builder *RelatedMetaBuilder) Build() *RelatedMeta {
 	req := &RelatedMeta{}
-	if builder.usersFlag {
+	if builder.usersSet {
 		req.Users = builder.users
 	}
-	if builder.chatsFlag {
+	if builder.chatsSet {
 		req.Chats = builder.chats
 	}
-	if builder.docsFlag {
+	if builder.docsSet {
 		req.Docs = builder.docs
 	}
-	if builder.oncallsFlag {
+	if builder.oncallsSet {
 		req.Oncalls = builder.oncalls
 	}
-	if builder.linksFlag {
+	if builder.linksSet {
 		req.Links = builder.links
 	}
-	if builder.abbreviationsFlag {
+	if builder.abbreviationsSet {
 		req.Abbreviations = builder.abbreviations
 	}
-	if builder.classificationsFlag {
+	if builder.classificationsSet {
 		req.Classifications = builder.classifications
 	}
-	if builder.imagesFlag {
+	if builder.imagesSet {
 		req.Images = builder.images
 	}
 	return req
@@ -1392,11 +1398,11 @@ type Span struct {
 }
 
 type SpanBuilder struct {
-	start     int // 关键词开始位置，从 0 开始计数（编码格式采用 utf-8）
-	startFlag bool
+	start    int // 关键词开始位置，从 0 开始计数（编码格式采用 utf-8）
+	startSet bool
 
-	end     int // 关键词结束位置，从 0 开始计数（编码格式采用 utf-8）
-	endFlag bool
+	end    int // 关键词结束位置，从 0 开始计数（编码格式采用 utf-8）
+	endSet bool
 }
 
 func NewSpanBuilder() *SpanBuilder {
@@ -1409,7 +1415,7 @@ func NewSpanBuilder() *SpanBuilder {
 // 示例值：0
 func (builder *SpanBuilder) Start(start int) *SpanBuilder {
 	builder.start = start
-	builder.startFlag = true
+	builder.startSet = true
 	return builder
 }
 
@@ -1418,17 +1424,17 @@ func (builder *SpanBuilder) Start(start int) *SpanBuilder {
 // 示例值：4
 func (builder *SpanBuilder) End(end int) *SpanBuilder {
 	builder.end = end
-	builder.endFlag = true
+	builder.endSet = true
 	return builder
 }
 
 func (builder *SpanBuilder) Build() *Span {
 	req := &Span{}
-	if builder.startFlag {
+	if builder.startSet {
 		req.Start = &builder.start
 
 	}
-	if builder.endFlag {
+	if builder.endSet {
 		req.End = &builder.end
 
 	}
@@ -1446,17 +1452,17 @@ type StatisticalReport struct {
 }
 
 type StatisticalReportBuilder struct {
-	dateInterval     int // 请求时间区间
-	dateIntervalFlag bool
+	dateInterval    int // 请求时间区间
+	dateIntervalSet bool
 
-	wordInfo     *WordInfo // 词汇量相关数据
-	wordInfoFlag bool
+	wordInfo    *WordInfo // 词汇量相关数据
+	wordInfoSet bool
 
-	correctInfo     *CorrectInfo // 纠错相关数据
-	correctInfoFlag bool
+	correctInfo    *CorrectInfo // 纠错相关数据
+	correctInfoSet bool
 
-	updateDate     string // 天维度的时间戳，用于确认数据最近一次更新时间
-	updateDateFlag bool
+	updateDate    string // 天维度的时间戳，用于确认数据最近一次更新时间
+	updateDateSet bool
 }
 
 func NewStatisticalReportBuilder() *StatisticalReportBuilder {
@@ -1469,7 +1475,7 @@ func NewStatisticalReportBuilder() *StatisticalReportBuilder {
 // 示例值：请求时间区间
 func (builder *StatisticalReportBuilder) DateInterval(dateInterval int) *StatisticalReportBuilder {
 	builder.dateInterval = dateInterval
-	builder.dateIntervalFlag = true
+	builder.dateIntervalSet = true
 	return builder
 }
 
@@ -1478,7 +1484,7 @@ func (builder *StatisticalReportBuilder) DateInterval(dateInterval int) *Statist
 // 示例值：
 func (builder *StatisticalReportBuilder) WordInfo(wordInfo *WordInfo) *StatisticalReportBuilder {
 	builder.wordInfo = wordInfo
-	builder.wordInfoFlag = true
+	builder.wordInfoSet = true
 	return builder
 }
 
@@ -1487,7 +1493,7 @@ func (builder *StatisticalReportBuilder) WordInfo(wordInfo *WordInfo) *Statistic
 // 示例值：
 func (builder *StatisticalReportBuilder) CorrectInfo(correctInfo *CorrectInfo) *StatisticalReportBuilder {
 	builder.correctInfo = correctInfo
-	builder.correctInfoFlag = true
+	builder.correctInfoSet = true
 	return builder
 }
 
@@ -1496,23 +1502,23 @@ func (builder *StatisticalReportBuilder) CorrectInfo(correctInfo *CorrectInfo) *
 // 示例值：“20221101”
 func (builder *StatisticalReportBuilder) UpdateDate(updateDate string) *StatisticalReportBuilder {
 	builder.updateDate = updateDate
-	builder.updateDateFlag = true
+	builder.updateDateSet = true
 	return builder
 }
 
 func (builder *StatisticalReportBuilder) Build() *StatisticalReport {
 	req := &StatisticalReport{}
-	if builder.dateIntervalFlag {
+	if builder.dateIntervalSet {
 		req.DateInterval = &builder.dateInterval
 
 	}
-	if builder.wordInfoFlag {
+	if builder.wordInfoSet {
 		req.WordInfo = builder.wordInfo
 	}
-	if builder.correctInfoFlag {
+	if builder.correctInfoSet {
 		req.CorrectInfo = builder.correctInfo
 	}
-	if builder.updateDateFlag {
+	if builder.updateDateSet {
 		req.UpdateDate = &builder.updateDate
 
 	}
@@ -1526,11 +1532,11 @@ type Statistics struct {
 }
 
 type StatisticsBuilder struct {
-	likeCount     int // 累计点赞
-	likeCountFlag bool
+	likeCount    int // 累计点赞
+	likeCountSet bool
 
-	dislikeCount     int // 当前词条版本收到的负反馈数量
-	dislikeCountFlag bool
+	dislikeCount    int // 当前词条版本收到的负反馈数量
+	dislikeCountSet bool
 }
 
 func NewStatisticsBuilder() *StatisticsBuilder {
@@ -1543,7 +1549,7 @@ func NewStatisticsBuilder() *StatisticsBuilder {
 // 示例值：55
 func (builder *StatisticsBuilder) LikeCount(likeCount int) *StatisticsBuilder {
 	builder.likeCount = likeCount
-	builder.likeCountFlag = true
+	builder.likeCountSet = true
 	return builder
 }
 
@@ -1552,17 +1558,17 @@ func (builder *StatisticsBuilder) LikeCount(likeCount int) *StatisticsBuilder {
 // 示例值：3
 func (builder *StatisticsBuilder) DislikeCount(dislikeCount int) *StatisticsBuilder {
 	builder.dislikeCount = dislikeCount
-	builder.dislikeCountFlag = true
+	builder.dislikeCountSet = true
 	return builder
 }
 
 func (builder *StatisticsBuilder) Build() *Statistics {
 	req := &Statistics{}
-	if builder.likeCountFlag {
+	if builder.likeCountSet {
 		req.LikeCount = &builder.likeCount
 
 	}
-	if builder.dislikeCountFlag {
+	if builder.dislikeCountSet {
 		req.DislikeCount = &builder.dislikeCount
 
 	}
@@ -1576,11 +1582,11 @@ type Term struct {
 }
 
 type TermBuilder struct {
-	key     string // 名称的值
-	keyFlag bool
+	key    string // 名称的值
+	keySet bool
 
-	displayStatus     *DisplayStatus // 名称展示范围
-	displayStatusFlag bool
+	displayStatus    *DisplayStatus // 名称展示范围
+	displayStatusSet bool
 }
 
 func NewTermBuilder() *TermBuilder {
@@ -1593,7 +1599,7 @@ func NewTermBuilder() *TermBuilder {
 // 示例值：企业百科
 func (builder *TermBuilder) Key(key string) *TermBuilder {
 	builder.key = key
-	builder.keyFlag = true
+	builder.keySet = true
 	return builder
 }
 
@@ -1602,17 +1608,17 @@ func (builder *TermBuilder) Key(key string) *TermBuilder {
 // 示例值：
 func (builder *TermBuilder) DisplayStatus(displayStatus *DisplayStatus) *TermBuilder {
 	builder.displayStatus = displayStatus
-	builder.displayStatusFlag = true
+	builder.displayStatusSet = true
 	return builder
 }
 
 func (builder *TermBuilder) Build() *Term {
 	req := &Term{}
-	if builder.keyFlag {
+	if builder.keySet {
 		req.Key = &builder.key
 
 	}
-	if builder.displayStatusFlag {
+	if builder.displayStatusSet {
 		req.DisplayStatus = builder.displayStatus
 	}
 	return req
@@ -1653,53 +1659,53 @@ type WordInfo struct {
 }
 
 type WordInfoBuilder struct {
-	inputTotal     int // 用户输入的总词汇量
-	inputTotalFlag bool
+	inputTotal    int // 用户输入的总词汇量
+	inputTotalSet bool
 
-	dedupInputTotal     int // 用户输入的去重后的总词汇量
-	dedupInputTotalFlag bool
+	dedupInputTotal    int // 用户输入的去重后的总词汇量
+	dedupInputTotalSet bool
 
-	eachdayInput     []int // 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
-	eachdayInputFlag bool
+	eachdayInput    []int // 时间区间内每一天发送的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+	eachdayInputSet bool
 
-	eachdayDedupInput     []int // 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
-	eachdayDedupInputFlag bool
+	eachdayDedupInput    []int // 时间区间内每一天发送的归一化去重后的英文词数，时间是由远到近。以七天数据为例：下标6为昨天，下标5位前天以此类推
+	eachdayDedupInputSet bool
 
-	sendMessageTotal     int // 发送的消息总数
-	sendMessageTotalFlag bool
+	sendMessageTotal    int // 发送的消息总数
+	sendMessageTotalSet bool
 
-	sendEnMessageTotal     int // 发送的英语消息总数
-	sendEnMessageTotalFlag bool
+	sendEnMessageTotal    int // 发送的英语消息总数
+	sendEnMessageTotalSet bool
 
-	receiveMessageTotal     int // 接收消息的数量
-	receiveMessageTotalFlag bool
+	receiveMessageTotal    int // 接收消息的数量
+	receiveMessageTotalSet bool
 
-	receiveEnMessageTotal     int // 接收英文消息的数量
-	receiveEnMessageTotalFlag bool
+	receiveEnMessageTotal    int // 接收英文消息的数量
+	receiveEnMessageTotalSet bool
 
-	historyWordsTotal     int // 历史总计英语词数（包含新增）
-	historyWordsTotalFlag bool
+	historyWordsTotal    int // 历史总计英语词数（包含新增）
+	historyWordsTotalSet bool
 
-	newWordsTotal     int // 新增英语词数
-	newWordsTotalFlag bool
+	newWordsTotal    int // 新增英语词数
+	newWordsTotalSet bool
 
-	eachdaySendEnMessage     []int // 时间区间内每一天发送的英语消息数
-	eachdaySendEnMessageFlag bool
+	eachdaySendEnMessage    []int // 时间区间内每一天发送的英语消息数
+	eachdaySendEnMessageSet bool
 
-	eachdaySendMessage     []int // 时间区间内每一天发送的消息数
-	eachdaySendMessageFlag bool
+	eachdaySendMessage    []int // 时间区间内每一天发送的消息数
+	eachdaySendMessageSet bool
 
-	eachdayReceiveEnMessage     []int // 时间区间内每一天接收的英文消息数
-	eachdayReceiveEnMessageFlag bool
+	eachdayReceiveEnMessage    []int // 时间区间内每一天接收的英文消息数
+	eachdayReceiveEnMessageSet bool
 
-	eachdayReceiveMessage     []int // 时间区间内每一天接收的英文消息数
-	eachdayReceiveMessageFlag bool
+	eachdayReceiveMessage    []int // 时间区间内每一天接收的英文消息数
+	eachdayReceiveMessageSet bool
 
-	sendEngMessageRateRingGrowth     float64 // 发送消息占比环比增长变化
-	sendEngMessageRateRingGrowthFlag bool
+	sendEngMessageRateRingGrowth    float64 // 发送消息占比环比增长变化
+	sendEngMessageRateRingGrowthSet bool
 
-	sendEngWordsRingGrowth     int // 发送英文单词数环比增长变化
-	sendEngWordsRingGrowthFlag bool
+	sendEngWordsRingGrowth    int // 发送英文单词数环比增长变化
+	sendEngWordsRingGrowthSet bool
 }
 
 func NewWordInfoBuilder() *WordInfoBuilder {
@@ -1712,7 +1718,7 @@ func NewWordInfoBuilder() *WordInfoBuilder {
 // 示例值：100
 func (builder *WordInfoBuilder) InputTotal(inputTotal int) *WordInfoBuilder {
 	builder.inputTotal = inputTotal
-	builder.inputTotalFlag = true
+	builder.inputTotalSet = true
 	return builder
 }
 
@@ -1721,7 +1727,7 @@ func (builder *WordInfoBuilder) InputTotal(inputTotal int) *WordInfoBuilder {
 // 示例值：50
 func (builder *WordInfoBuilder) DedupInputTotal(dedupInputTotal int) *WordInfoBuilder {
 	builder.dedupInputTotal = dedupInputTotal
-	builder.dedupInputTotalFlag = true
+	builder.dedupInputTotalSet = true
 	return builder
 }
 
@@ -1730,7 +1736,7 @@ func (builder *WordInfoBuilder) DedupInputTotal(dedupInputTotal int) *WordInfoBu
 // 示例值：
 func (builder *WordInfoBuilder) EachdayInput(eachdayInput []int) *WordInfoBuilder {
 	builder.eachdayInput = eachdayInput
-	builder.eachdayInputFlag = true
+	builder.eachdayInputSet = true
 	return builder
 }
 
@@ -1739,7 +1745,7 @@ func (builder *WordInfoBuilder) EachdayInput(eachdayInput []int) *WordInfoBuilde
 // 示例值：
 func (builder *WordInfoBuilder) EachdayDedupInput(eachdayDedupInput []int) *WordInfoBuilder {
 	builder.eachdayDedupInput = eachdayDedupInput
-	builder.eachdayDedupInputFlag = true
+	builder.eachdayDedupInputSet = true
 	return builder
 }
 
@@ -1748,7 +1754,7 @@ func (builder *WordInfoBuilder) EachdayDedupInput(eachdayDedupInput []int) *Word
 // 示例值：200
 func (builder *WordInfoBuilder) SendMessageTotal(sendMessageTotal int) *WordInfoBuilder {
 	builder.sendMessageTotal = sendMessageTotal
-	builder.sendMessageTotalFlag = true
+	builder.sendMessageTotalSet = true
 	return builder
 }
 
@@ -1757,7 +1763,7 @@ func (builder *WordInfoBuilder) SendMessageTotal(sendMessageTotal int) *WordInfo
 // 示例值：150
 func (builder *WordInfoBuilder) SendEnMessageTotal(sendEnMessageTotal int) *WordInfoBuilder {
 	builder.sendEnMessageTotal = sendEnMessageTotal
-	builder.sendEnMessageTotalFlag = true
+	builder.sendEnMessageTotalSet = true
 	return builder
 }
 
@@ -1766,7 +1772,7 @@ func (builder *WordInfoBuilder) SendEnMessageTotal(sendEnMessageTotal int) *Word
 // 示例值：500
 func (builder *WordInfoBuilder) ReceiveMessageTotal(receiveMessageTotal int) *WordInfoBuilder {
 	builder.receiveMessageTotal = receiveMessageTotal
-	builder.receiveMessageTotalFlag = true
+	builder.receiveMessageTotalSet = true
 	return builder
 }
 
@@ -1775,7 +1781,7 @@ func (builder *WordInfoBuilder) ReceiveMessageTotal(receiveMessageTotal int) *Wo
 // 示例值：100
 func (builder *WordInfoBuilder) ReceiveEnMessageTotal(receiveEnMessageTotal int) *WordInfoBuilder {
 	builder.receiveEnMessageTotal = receiveEnMessageTotal
-	builder.receiveEnMessageTotalFlag = true
+	builder.receiveEnMessageTotalSet = true
 	return builder
 }
 
@@ -1784,7 +1790,7 @@ func (builder *WordInfoBuilder) ReceiveEnMessageTotal(receiveEnMessageTotal int)
 // 示例值：300
 func (builder *WordInfoBuilder) HistoryWordsTotal(historyWordsTotal int) *WordInfoBuilder {
 	builder.historyWordsTotal = historyWordsTotal
-	builder.historyWordsTotalFlag = true
+	builder.historyWordsTotalSet = true
 	return builder
 }
 
@@ -1793,7 +1799,7 @@ func (builder *WordInfoBuilder) HistoryWordsTotal(historyWordsTotal int) *WordIn
 // 示例值：20
 func (builder *WordInfoBuilder) NewWordsTotal(newWordsTotal int) *WordInfoBuilder {
 	builder.newWordsTotal = newWordsTotal
-	builder.newWordsTotalFlag = true
+	builder.newWordsTotalSet = true
 	return builder
 }
 
@@ -1802,7 +1808,7 @@ func (builder *WordInfoBuilder) NewWordsTotal(newWordsTotal int) *WordInfoBuilde
 // 示例值：
 func (builder *WordInfoBuilder) EachdaySendEnMessage(eachdaySendEnMessage []int) *WordInfoBuilder {
 	builder.eachdaySendEnMessage = eachdaySendEnMessage
-	builder.eachdaySendEnMessageFlag = true
+	builder.eachdaySendEnMessageSet = true
 	return builder
 }
 
@@ -1811,7 +1817,7 @@ func (builder *WordInfoBuilder) EachdaySendEnMessage(eachdaySendEnMessage []int)
 // 示例值：
 func (builder *WordInfoBuilder) EachdaySendMessage(eachdaySendMessage []int) *WordInfoBuilder {
 	builder.eachdaySendMessage = eachdaySendMessage
-	builder.eachdaySendMessageFlag = true
+	builder.eachdaySendMessageSet = true
 	return builder
 }
 
@@ -1820,7 +1826,7 @@ func (builder *WordInfoBuilder) EachdaySendMessage(eachdaySendMessage []int) *Wo
 // 示例值：
 func (builder *WordInfoBuilder) EachdayReceiveEnMessage(eachdayReceiveEnMessage []int) *WordInfoBuilder {
 	builder.eachdayReceiveEnMessage = eachdayReceiveEnMessage
-	builder.eachdayReceiveEnMessageFlag = true
+	builder.eachdayReceiveEnMessageSet = true
 	return builder
 }
 
@@ -1829,7 +1835,7 @@ func (builder *WordInfoBuilder) EachdayReceiveEnMessage(eachdayReceiveEnMessage 
 // 示例值：
 func (builder *WordInfoBuilder) EachdayReceiveMessage(eachdayReceiveMessage []int) *WordInfoBuilder {
 	builder.eachdayReceiveMessage = eachdayReceiveMessage
-	builder.eachdayReceiveMessageFlag = true
+	builder.eachdayReceiveMessageSet = true
 	return builder
 }
 
@@ -1838,7 +1844,7 @@ func (builder *WordInfoBuilder) EachdayReceiveMessage(eachdayReceiveMessage []in
 // 示例值：2.1
 func (builder *WordInfoBuilder) SendEngMessageRateRingGrowth(sendEngMessageRateRingGrowth float64) *WordInfoBuilder {
 	builder.sendEngMessageRateRingGrowth = sendEngMessageRateRingGrowth
-	builder.sendEngMessageRateRingGrowthFlag = true
+	builder.sendEngMessageRateRingGrowthSet = true
 	return builder
 }
 
@@ -1847,67 +1853,67 @@ func (builder *WordInfoBuilder) SendEngMessageRateRingGrowth(sendEngMessageRateR
 // 示例值：9
 func (builder *WordInfoBuilder) SendEngWordsRingGrowth(sendEngWordsRingGrowth int) *WordInfoBuilder {
 	builder.sendEngWordsRingGrowth = sendEngWordsRingGrowth
-	builder.sendEngWordsRingGrowthFlag = true
+	builder.sendEngWordsRingGrowthSet = true
 	return builder
 }
 
 func (builder *WordInfoBuilder) Build() *WordInfo {
 	req := &WordInfo{}
-	if builder.inputTotalFlag {
+	if builder.inputTotalSet {
 		req.InputTotal = &builder.inputTotal
 
 	}
-	if builder.dedupInputTotalFlag {
+	if builder.dedupInputTotalSet {
 		req.DedupInputTotal = &builder.dedupInputTotal
 
 	}
-	if builder.eachdayInputFlag {
+	if builder.eachdayInputSet {
 		req.EachdayInput = builder.eachdayInput
 	}
-	if builder.eachdayDedupInputFlag {
+	if builder.eachdayDedupInputSet {
 		req.EachdayDedupInput = builder.eachdayDedupInput
 	}
-	if builder.sendMessageTotalFlag {
+	if builder.sendMessageTotalSet {
 		req.SendMessageTotal = &builder.sendMessageTotal
 
 	}
-	if builder.sendEnMessageTotalFlag {
+	if builder.sendEnMessageTotalSet {
 		req.SendEnMessageTotal = &builder.sendEnMessageTotal
 
 	}
-	if builder.receiveMessageTotalFlag {
+	if builder.receiveMessageTotalSet {
 		req.ReceiveMessageTotal = &builder.receiveMessageTotal
 
 	}
-	if builder.receiveEnMessageTotalFlag {
+	if builder.receiveEnMessageTotalSet {
 		req.ReceiveEnMessageTotal = &builder.receiveEnMessageTotal
 
 	}
-	if builder.historyWordsTotalFlag {
+	if builder.historyWordsTotalSet {
 		req.HistoryWordsTotal = &builder.historyWordsTotal
 
 	}
-	if builder.newWordsTotalFlag {
+	if builder.newWordsTotalSet {
 		req.NewWordsTotal = &builder.newWordsTotal
 
 	}
-	if builder.eachdaySendEnMessageFlag {
+	if builder.eachdaySendEnMessageSet {
 		req.EachdaySendEnMessage = builder.eachdaySendEnMessage
 	}
-	if builder.eachdaySendMessageFlag {
+	if builder.eachdaySendMessageSet {
 		req.EachdaySendMessage = builder.eachdaySendMessage
 	}
-	if builder.eachdayReceiveEnMessageFlag {
+	if builder.eachdayReceiveEnMessageSet {
 		req.EachdayReceiveEnMessage = builder.eachdayReceiveEnMessage
 	}
-	if builder.eachdayReceiveMessageFlag {
+	if builder.eachdayReceiveMessageSet {
 		req.EachdayReceiveMessage = builder.eachdayReceiveMessage
 	}
-	if builder.sendEngMessageRateRingGrowthFlag {
+	if builder.sendEngMessageRateRingGrowthSet {
 		req.SendEngMessageRateRingGrowth = &builder.sendEngMessageRateRingGrowth
 
 	}
-	if builder.sendEngWordsRingGrowthFlag {
+	if builder.sendEngWordsRingGrowthSet {
 		req.SendEngWordsRingGrowth = &builder.sendEngWordsRingGrowth
 
 	}
@@ -2155,8 +2161,8 @@ func (resp *CreateEntityResp) Success() bool {
 }
 
 type ExtractEntityReqBodyBuilder struct {
-	text     string // 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）
-	textFlag bool
+	text    string // 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）
+	textSet bool
 }
 
 func NewExtractEntityReqBodyBuilder() *ExtractEntityReqBodyBuilder {
@@ -2166,24 +2172,24 @@ func NewExtractEntityReqBodyBuilder() *ExtractEntityReqBodyBuilder {
 
 // 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）
 //
-// 示例值：企业百科是一部高效汇聚企业内各类信息，并可由企业成员参与编辑的在线百科全书
+//示例值：企业百科是一部高效汇聚企业内各类信息，并可由企业成员参与编辑的在线百科全书
 func (builder *ExtractEntityReqBodyBuilder) Text(text string) *ExtractEntityReqBodyBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
 func (builder *ExtractEntityReqBodyBuilder) Build() *ExtractEntityReqBody {
 	req := &ExtractEntityReqBody{}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 	}
 	return req
 }
 
 type ExtractEntityPathReqBodyBuilder struct {
-	text     string
-	textFlag bool
+	text    string
+	textSet bool
 }
 
 func NewExtractEntityPathReqBodyBuilder() *ExtractEntityPathReqBodyBuilder {
@@ -2196,13 +2202,13 @@ func NewExtractEntityPathReqBodyBuilder() *ExtractEntityPathReqBodyBuilder {
 // 示例值：企业百科是一部高效汇聚企业内各类信息，并可由企业成员参与编辑的在线百科全书
 func (builder *ExtractEntityPathReqBodyBuilder) Text(text string) *ExtractEntityPathReqBodyBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
 func (builder *ExtractEntityPathReqBodyBuilder) Build() (*ExtractEntityReqBody, error) {
 	req := &ExtractEntityReqBody{}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 	}
 	return req, nil
@@ -2330,8 +2336,8 @@ func (resp *GetEntityResp) Success() bool {
 }
 
 type HighlightEntityReqBodyBuilder struct {
-	text     string // 需要识别百科词条的内容（不超过1000字）
-	textFlag bool
+	text    string // 需要识别百科词条的内容（不超过1000字）
+	textSet bool
 }
 
 func NewHighlightEntityReqBodyBuilder() *HighlightEntityReqBodyBuilder {
@@ -2341,24 +2347,24 @@ func NewHighlightEntityReqBodyBuilder() *HighlightEntityReqBodyBuilder {
 
 // 需要识别百科词条的内容（不超过1000字）
 //
-// 示例值：企业百科是飞书提供的一款知识管理工具
+//示例值：企业百科是飞书提供的一款知识管理工具
 func (builder *HighlightEntityReqBodyBuilder) Text(text string) *HighlightEntityReqBodyBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
 func (builder *HighlightEntityReqBodyBuilder) Build() *HighlightEntityReqBody {
 	req := &HighlightEntityReqBody{}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 	}
 	return req
 }
 
 type HighlightEntityPathReqBodyBuilder struct {
-	text     string
-	textFlag bool
+	text    string
+	textSet bool
 }
 
 func NewHighlightEntityPathReqBodyBuilder() *HighlightEntityPathReqBodyBuilder {
@@ -2371,13 +2377,13 @@ func NewHighlightEntityPathReqBodyBuilder() *HighlightEntityPathReqBodyBuilder {
 // 示例值：企业百科是飞书提供的一款知识管理工具
 func (builder *HighlightEntityPathReqBodyBuilder) Text(text string) *HighlightEntityPathReqBodyBuilder {
 	builder.text = text
-	builder.textFlag = true
+	builder.textSet = true
 	return builder
 }
 
 func (builder *HighlightEntityPathReqBodyBuilder) Build() (*HighlightEntityReqBody, error) {
 	req := &HighlightEntityReqBody{}
-	if builder.textFlag {
+	if builder.textSet {
 		req.Text = &builder.text
 	}
 	return req, nil
@@ -2516,8 +2522,8 @@ func (resp *ListEntityResp) Success() bool {
 }
 
 type MatchEntityReqBodyBuilder struct {
-	word     string // 搜索关键词，将与词条名、别名进行精准匹配
-	wordFlag bool
+	word    string // 搜索关键词，将与词条名、别名进行精准匹配
+	wordSet bool
 }
 
 func NewMatchEntityReqBodyBuilder() *MatchEntityReqBodyBuilder {
@@ -2527,24 +2533,24 @@ func NewMatchEntityReqBodyBuilder() *MatchEntityReqBodyBuilder {
 
 // 搜索关键词，将与词条名、别名进行精准匹配
 //
-// 示例值：企业百科
+//示例值：企业百科
 func (builder *MatchEntityReqBodyBuilder) Word(word string) *MatchEntityReqBodyBuilder {
 	builder.word = word
-	builder.wordFlag = true
+	builder.wordSet = true
 	return builder
 }
 
 func (builder *MatchEntityReqBodyBuilder) Build() *MatchEntityReqBody {
 	req := &MatchEntityReqBody{}
-	if builder.wordFlag {
+	if builder.wordSet {
 		req.Word = &builder.word
 	}
 	return req
 }
 
 type MatchEntityPathReqBodyBuilder struct {
-	word     string
-	wordFlag bool
+	word    string
+	wordSet bool
 }
 
 func NewMatchEntityPathReqBodyBuilder() *MatchEntityPathReqBodyBuilder {
@@ -2557,13 +2563,13 @@ func NewMatchEntityPathReqBodyBuilder() *MatchEntityPathReqBodyBuilder {
 // 示例值：企业百科
 func (builder *MatchEntityPathReqBodyBuilder) Word(word string) *MatchEntityPathReqBodyBuilder {
 	builder.word = word
-	builder.wordFlag = true
+	builder.wordSet = true
 	return builder
 }
 
 func (builder *MatchEntityPathReqBodyBuilder) Build() (*MatchEntityReqBody, error) {
 	req := &MatchEntityReqBody{}
-	if builder.wordFlag {
+	if builder.wordSet {
 		req.Word = &builder.word
 	}
 	return req, nil
@@ -2620,17 +2626,17 @@ func (resp *MatchEntityResp) Success() bool {
 }
 
 type SearchEntityReqBodyBuilder struct {
-	query     string // 搜索关键词
-	queryFlag bool
+	query    string // 搜索关键词
+	querySet bool
 
-	classificationFilter     *ClassificationFilter // 分类筛选
-	classificationFilterFlag bool
+	classificationFilter    *ClassificationFilter // 分类筛选
+	classificationFilterSet bool
 
-	sources     []int // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
-	sourcesFlag bool
+	sources    []int // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
+	sourcesSet bool
 
-	creators     []string // 创建者
-	creatorsFlag bool
+	creators    []string // 创建者
+	creatorsSet bool
 }
 
 func NewSearchEntityReqBodyBuilder() *SearchEntityReqBodyBuilder {
@@ -2640,66 +2646,66 @@ func NewSearchEntityReqBodyBuilder() *SearchEntityReqBodyBuilder {
 
 // 搜索关键词
 //
-// 示例值：百科
+//示例值：百科
 func (builder *SearchEntityReqBodyBuilder) Query(query string) *SearchEntityReqBodyBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
 // 分类筛选
 //
-// 示例值：
+//示例值：
 func (builder *SearchEntityReqBodyBuilder) ClassificationFilter(classificationFilter *ClassificationFilter) *SearchEntityReqBodyBuilder {
 	builder.classificationFilter = classificationFilter
-	builder.classificationFilterFlag = true
+	builder.classificationFilterSet = true
 	return builder
 }
 
 // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
 //
-// 示例值：
+//示例值：
 func (builder *SearchEntityReqBodyBuilder) Sources(sources []int) *SearchEntityReqBodyBuilder {
 	builder.sources = sources
-	builder.sourcesFlag = true
+	builder.sourcesSet = true
 	return builder
 }
 
 // 创建者
 //
-// 示例值：ou_30b07b63089ea46518789914dac63d36
+//示例值：ou_30b07b63089ea46518789914dac63d36
 func (builder *SearchEntityReqBodyBuilder) Creators(creators []string) *SearchEntityReqBodyBuilder {
 	builder.creators = creators
-	builder.creatorsFlag = true
+	builder.creatorsSet = true
 	return builder
 }
 
 func (builder *SearchEntityReqBodyBuilder) Build() *SearchEntityReqBody {
 	req := &SearchEntityReqBody{}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 	}
-	if builder.classificationFilterFlag {
+	if builder.classificationFilterSet {
 		req.ClassificationFilter = builder.classificationFilter
 	}
-	if builder.sourcesFlag {
+	if builder.sourcesSet {
 		req.Sources = builder.sources
 	}
-	if builder.creatorsFlag {
+	if builder.creatorsSet {
 		req.Creators = builder.creators
 	}
 	return req
 }
 
 type SearchEntityPathReqBodyBuilder struct {
-	query                    string
-	queryFlag                bool
-	classificationFilter     *ClassificationFilter
-	classificationFilterFlag bool
-	sources                  []int
-	sourcesFlag              bool
-	creators                 []string
-	creatorsFlag             bool
+	query                   string
+	querySet                bool
+	classificationFilter    *ClassificationFilter
+	classificationFilterSet bool
+	sources                 []int
+	sourcesSet              bool
+	creators                []string
+	creatorsSet             bool
 }
 
 func NewSearchEntityPathReqBodyBuilder() *SearchEntityPathReqBodyBuilder {
@@ -2712,7 +2718,7 @@ func NewSearchEntityPathReqBodyBuilder() *SearchEntityPathReqBodyBuilder {
 // 示例值：百科
 func (builder *SearchEntityPathReqBodyBuilder) Query(query string) *SearchEntityPathReqBodyBuilder {
 	builder.query = query
-	builder.queryFlag = true
+	builder.querySet = true
 	return builder
 }
 
@@ -2721,7 +2727,7 @@ func (builder *SearchEntityPathReqBodyBuilder) Query(query string) *SearchEntity
 // 示例值：
 func (builder *SearchEntityPathReqBodyBuilder) ClassificationFilter(classificationFilter *ClassificationFilter) *SearchEntityPathReqBodyBuilder {
 	builder.classificationFilter = classificationFilter
-	builder.classificationFilterFlag = true
+	builder.classificationFilterSet = true
 	return builder
 }
 
@@ -2730,7 +2736,7 @@ func (builder *SearchEntityPathReqBodyBuilder) ClassificationFilter(classificati
 // 示例值：
 func (builder *SearchEntityPathReqBodyBuilder) Sources(sources []int) *SearchEntityPathReqBodyBuilder {
 	builder.sources = sources
-	builder.sourcesFlag = true
+	builder.sourcesSet = true
 	return builder
 }
 
@@ -2739,22 +2745,22 @@ func (builder *SearchEntityPathReqBodyBuilder) Sources(sources []int) *SearchEnt
 // 示例值：ou_30b07b63089ea46518789914dac63d36
 func (builder *SearchEntityPathReqBodyBuilder) Creators(creators []string) *SearchEntityPathReqBodyBuilder {
 	builder.creators = creators
-	builder.creatorsFlag = true
+	builder.creatorsSet = true
 	return builder
 }
 
 func (builder *SearchEntityPathReqBodyBuilder) Build() (*SearchEntityReqBody, error) {
 	req := &SearchEntityReqBody{}
-	if builder.queryFlag {
+	if builder.querySet {
 		req.Query = &builder.query
 	}
-	if builder.classificationFilterFlag {
+	if builder.classificationFilterSet {
 		req.ClassificationFilter = builder.classificationFilter
 	}
-	if builder.sourcesFlag {
+	if builder.sourcesSet {
 		req.Sources = builder.sources
 	}
-	if builder.creatorsFlag {
+	if builder.creatorsSet {
 		req.Creators = builder.creators
 	}
 	return req, nil

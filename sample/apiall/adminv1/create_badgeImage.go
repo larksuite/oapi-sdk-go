@@ -35,6 +35,7 @@ func main() {
 	req := larkadmin.NewCreateBadgeImageReqBuilder().
 		Body(larkadmin.NewCreateBadgeImageReqBodyBuilder().
 			ImageFile(file).
+			FileName("filename.ext").
 			ImageType(1).
 			Build()).
 		Build()

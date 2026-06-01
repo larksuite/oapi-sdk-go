@@ -32,6 +32,7 @@ func main() {
 		PageToken("xxx").
 		FolderId("INBOX 或者用户文件夹 id").
 		OnlyUnread(true).
+		LabelId("FLAGGED").
 		Build()
 	// 发起请求
 	resp, err := client.Mail.V1.UserMailboxMessage.List(context.Background(), req)

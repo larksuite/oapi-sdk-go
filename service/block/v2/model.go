@@ -26,11 +26,11 @@ type DepartmentId struct {
 }
 
 type DepartmentIdBuilder struct {
-	departmentId     string //
-	departmentIdFlag bool
+	departmentId    string //
+	departmentIdSet bool
 
-	openDepartmentId     string //
-	openDepartmentIdFlag bool
+	openDepartmentId    string //
+	openDepartmentIdSet bool
 }
 
 func NewDepartmentIdBuilder() *DepartmentIdBuilder {
@@ -38,27 +38,31 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
-	builder.departmentIdFlag = true
+	builder.departmentIdSet = true
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
-	builder.openDepartmentIdFlag = true
+	builder.openDepartmentIdSet = true
 	return builder
 }
 
 func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	req := &DepartmentId{}
-	if builder.departmentIdFlag {
+	if builder.departmentIdSet {
 		req.DepartmentId = &builder.departmentId
 
 	}
-	if builder.openDepartmentIdFlag {
+	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
 	}
@@ -94,44 +98,44 @@ type Entity struct {
 }
 
 type EntityBuilder struct {
-	blockId     string // block 唯一标识
-	blockIdFlag bool
+	blockId    string // block 唯一标识
+	blockIdSet bool
 
-	title     string // 标题
-	titleFlag bool
+	title    string // 标题
+	titleSet bool
 
-	blockTypeId     string // block 类型ID
-	blockTypeIdFlag bool
+	blockTypeId    string // block 类型ID
+	blockTypeIdSet bool
 
-	sourceData     string // 业务数据 json
-	sourceDataFlag bool
+	sourceData    string // 业务数据 json
+	sourceDataSet bool
 
-	sourceMeta     string // 元数据 json
-	sourceMetaFlag bool
+	sourceMeta    string // 元数据 json
+	sourceMetaSet bool
 
-	version     string // 版本号(自增)
-	versionFlag bool
+	version    string // 版本号(自增)
+	versionSet bool
 
-	sourceLink     string // 链接
-	sourceLinkFlag bool
+	sourceLink    string // 链接
+	sourceLinkSet bool
 
-	summary     string // 总括
-	summaryFlag bool
+	summary    string // 总括
+	summarySet bool
 
-	preview     string // 预览
-	previewFlag bool
+	preview    string // 预览
+	previewSet bool
 
-	i18nSummay     string // 综述 json
-	i18nSummayFlag bool
+	i18nSummay    string // 综述 json
+	i18nSummaySet bool
 
-	i18nPreview     string // 预览 json
-	i18nPreviewFlag bool
+	i18nPreview    string // 预览 json
+	i18nPreviewSet bool
 
-	owner     string // 所有者
-	ownerFlag bool
+	owner    string // 所有者
+	ownerSet bool
 
-	extra     string // 扩展字段 json
-	extraFlag bool
+	extra    string // 扩展字段 json
+	extraSet bool
 }
 
 func NewEntityBuilder() *EntityBuilder {
@@ -144,7 +148,7 @@ func NewEntityBuilder() *EntityBuilder {
 // 示例值：7794641623571830467
 func (builder *EntityBuilder) BlockId(blockId string) *EntityBuilder {
 	builder.blockId = blockId
-	builder.blockIdFlag = true
+	builder.blockIdSet = true
 	return builder
 }
 
@@ -153,7 +157,7 @@ func (builder *EntityBuilder) BlockId(blockId string) *EntityBuilder {
 // 示例值：已阅 block
 func (builder *EntityBuilder) Title(title string) *EntityBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -162,7 +166,7 @@ func (builder *EntityBuilder) Title(title string) *EntityBuilder {
 // 示例值：blk_6204893fee000013739f5359
 func (builder *EntityBuilder) BlockTypeId(blockTypeId string) *EntityBuilder {
 	builder.blockTypeId = blockTypeId
-	builder.blockTypeIdFlag = true
+	builder.blockTypeIdSet = true
 	return builder
 }
 
@@ -171,7 +175,7 @@ func (builder *EntityBuilder) BlockTypeId(blockTypeId string) *EntityBuilder {
 // 示例值：{"data":"业务数据"}
 func (builder *EntityBuilder) SourceData(sourceData string) *EntityBuilder {
 	builder.sourceData = sourceData
-	builder.sourceDataFlag = true
+	builder.sourceDataSet = true
 	return builder
 }
 
@@ -180,7 +184,7 @@ func (builder *EntityBuilder) SourceData(sourceData string) *EntityBuilder {
 // 示例值：{"bizId":"7094067849152430100"}
 func (builder *EntityBuilder) SourceMeta(sourceMeta string) *EntityBuilder {
 	builder.sourceMeta = sourceMeta
-	builder.sourceMetaFlag = true
+	builder.sourceMetaSet = true
 	return builder
 }
 
@@ -189,7 +193,7 @@ func (builder *EntityBuilder) SourceMeta(sourceMeta string) *EntityBuilder {
 // 示例值：1651716489253602
 func (builder *EntityBuilder) Version(version string) *EntityBuilder {
 	builder.version = version
-	builder.versionFlag = true
+	builder.versionSet = true
 	return builder
 }
 
@@ -198,7 +202,7 @@ func (builder *EntityBuilder) Version(version string) *EntityBuilder {
 // 示例值：{}
 func (builder *EntityBuilder) SourceLink(sourceLink string) *EntityBuilder {
 	builder.sourceLink = sourceLink
-	builder.sourceLinkFlag = true
+	builder.sourceLinkSet = true
 	return builder
 }
 
@@ -207,7 +211,7 @@ func (builder *EntityBuilder) SourceLink(sourceLink string) *EntityBuilder {
 // 示例值：{"cn":"这是一个block"}
 func (builder *EntityBuilder) Summary(summary string) *EntityBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -216,7 +220,7 @@ func (builder *EntityBuilder) Summary(summary string) *EntityBuilder {
 // 示例值：{"cn":"这是一个block"}
 func (builder *EntityBuilder) Preview(preview string) *EntityBuilder {
 	builder.preview = preview
-	builder.previewFlag = true
+	builder.previewSet = true
 	return builder
 }
 
@@ -225,7 +229,7 @@ func (builder *EntityBuilder) Preview(preview string) *EntityBuilder {
 // 示例值：{"cn":"这是一个block","va": "this is a block"}
 func (builder *EntityBuilder) I18nSummay(i18nSummay string) *EntityBuilder {
 	builder.i18nSummay = i18nSummay
-	builder.i18nSummayFlag = true
+	builder.i18nSummaySet = true
 	return builder
 }
 
@@ -234,7 +238,7 @@ func (builder *EntityBuilder) I18nSummay(i18nSummay string) *EntityBuilder {
 // 示例值：{"cn":"这是一个block","va": "this is a block"}
 func (builder *EntityBuilder) I18nPreview(i18nPreview string) *EntityBuilder {
 	builder.i18nPreview = i18nPreview
-	builder.i18nPreviewFlag = true
+	builder.i18nPreviewSet = true
 	return builder
 }
 
@@ -243,7 +247,7 @@ func (builder *EntityBuilder) I18nPreview(i18nPreview string) *EntityBuilder {
 // 示例值：ou_fa7aa170f92d1615de63371ac425a767
 func (builder *EntityBuilder) Owner(owner string) *EntityBuilder {
 	builder.owner = owner
-	builder.ownerFlag = true
+	builder.ownerSet = true
 	return builder
 }
 
@@ -252,61 +256,61 @@ func (builder *EntityBuilder) Owner(owner string) *EntityBuilder {
 // 示例值：{}
 func (builder *EntityBuilder) Extra(extra string) *EntityBuilder {
 	builder.extra = extra
-	builder.extraFlag = true
+	builder.extraSet = true
 	return builder
 }
 
 func (builder *EntityBuilder) Build() *Entity {
 	req := &Entity{}
-	if builder.blockIdFlag {
+	if builder.blockIdSet {
 		req.BlockId = &builder.blockId
 
 	}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 
 	}
-	if builder.blockTypeIdFlag {
+	if builder.blockTypeIdSet {
 		req.BlockTypeId = &builder.blockTypeId
 
 	}
-	if builder.sourceDataFlag {
+	if builder.sourceDataSet {
 		req.SourceData = &builder.sourceData
 
 	}
-	if builder.sourceMetaFlag {
+	if builder.sourceMetaSet {
 		req.SourceMeta = &builder.sourceMeta
 
 	}
-	if builder.versionFlag {
+	if builder.versionSet {
 		req.Version = &builder.version
 
 	}
-	if builder.sourceLinkFlag {
+	if builder.sourceLinkSet {
 		req.SourceLink = &builder.sourceLink
 
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 
 	}
-	if builder.previewFlag {
+	if builder.previewSet {
 		req.Preview = &builder.preview
 
 	}
-	if builder.i18nSummayFlag {
+	if builder.i18nSummaySet {
 		req.I18nSummay = &builder.i18nSummay
 
 	}
-	if builder.i18nPreviewFlag {
+	if builder.i18nPreviewSet {
 		req.I18nPreview = &builder.i18nPreview
 
 	}
-	if builder.ownerFlag {
+	if builder.ownerSet {
 		req.Owner = &builder.owner
 
 	}
-	if builder.extraFlag {
+	if builder.extraSet {
 		req.Extra = &builder.extra
 
 	}
@@ -326,20 +330,20 @@ type Message struct {
 }
 
 type MessageBuilder struct {
-	body     string // 协同数据内容
-	bodyFlag bool
+	body    string // 协同数据内容
+	bodySet bool
 
-	version     string // 版本号(自增)
-	versionFlag bool
+	version    string // 版本号(自增)
+	versionSet bool
 
-	blockId     string // entity实体ID
-	blockIdFlag bool
+	blockId    string // entity实体ID
+	blockIdSet bool
 
-	resource     string // 业务来源
-	resourceFlag bool
+	resource    string // 业务来源
+	resourceSet bool
 
-	openIds     []string // 推送用户列表
-	openIdsFlag bool
+	openIds    []string // 推送用户列表
+	openIdsSet bool
 }
 
 func NewMessageBuilder() *MessageBuilder {
@@ -352,7 +356,7 @@ func NewMessageBuilder() *MessageBuilder {
 // 示例值：{"id":"7094066727704592403","token":"test_123456789"}
 func (builder *MessageBuilder) Body(body string) *MessageBuilder {
 	builder.body = body
-	builder.bodyFlag = true
+	builder.bodySet = true
 	return builder
 }
 
@@ -361,7 +365,7 @@ func (builder *MessageBuilder) Body(body string) *MessageBuilder {
 // 示例值：1637565292196
 func (builder *MessageBuilder) Version(version string) *MessageBuilder {
 	builder.version = version
-	builder.versionFlag = true
+	builder.versionSet = true
 	return builder
 }
 
@@ -370,7 +374,7 @@ func (builder *MessageBuilder) Version(version string) *MessageBuilder {
 // 示例值：8116040162664047375
 func (builder *MessageBuilder) BlockId(blockId string) *MessageBuilder {
 	builder.blockId = blockId
-	builder.blockIdFlag = true
+	builder.blockIdSet = true
 	return builder
 }
 
@@ -379,7 +383,7 @@ func (builder *MessageBuilder) BlockId(blockId string) *MessageBuilder {
 // 示例值：read_block
 func (builder *MessageBuilder) Resource(resource string) *MessageBuilder {
 	builder.resource = resource
-	builder.resourceFlag = true
+	builder.resourceSet = true
 	return builder
 }
 
@@ -388,70 +392,70 @@ func (builder *MessageBuilder) Resource(resource string) *MessageBuilder {
 // 示例值：["ou_fa7aa170f92d1615de63371ac425a767"]
 func (builder *MessageBuilder) OpenIds(openIds []string) *MessageBuilder {
 	builder.openIds = openIds
-	builder.openIdsFlag = true
+	builder.openIdsSet = true
 	return builder
 }
 
 func (builder *MessageBuilder) Build() *Message {
 	req := &Message{}
-	if builder.bodyFlag {
+	if builder.bodySet {
 		req.Body = &builder.body
 
 	}
-	if builder.versionFlag {
+	if builder.versionSet {
 		req.Version = &builder.version
 
 	}
-	if builder.blockIdFlag {
+	if builder.blockIdSet {
 		req.BlockId = &builder.blockId
 
 	}
-	if builder.resourceFlag {
+	if builder.resourceSet {
 		req.Resource = &builder.resource
 
 	}
-	if builder.openIdsFlag {
+	if builder.openIdsSet {
 		req.OpenIds = builder.openIds
 	}
 	return req
 }
 
 type CreateEntityReqBodyBuilder struct {
-	title     string // 标题
-	titleFlag bool
+	title    string // 标题
+	titleSet bool
 
-	blockTypeId     string // block 类型ID
-	blockTypeIdFlag bool
+	blockTypeId    string // block 类型ID
+	blockTypeIdSet bool
 
-	sourceData     string // 内容
-	sourceDataFlag bool
+	sourceData    string // 内容
+	sourceDataSet bool
 
-	sourceMeta     string // 元数据
-	sourceMetaFlag bool
+	sourceMeta    string // 元数据
+	sourceMetaSet bool
 
-	version     string // 版本号(自增值)
-	versionFlag bool
+	version    string // 版本号(自增值)
+	versionSet bool
 
-	sourceLink     string // block原链接
-	sourceLinkFlag bool
+	sourceLink    string // block原链接
+	sourceLinkSet bool
 
-	owner     string // 所有者
-	ownerFlag bool
+	owner    string // 所有者
+	ownerSet bool
 
-	extra     string // 扩展字段
-	extraFlag bool
+	extra    string // 扩展字段
+	extraSet bool
 
-	i18nSummary     string // 国际化概括
-	i18nSummaryFlag bool
+	i18nSummary    string // 国际化概括
+	i18nSummarySet bool
 
-	i18nPreview     string // 国际化预览
-	i18nPreviewFlag bool
+	i18nPreview    string // 国际化预览
+	i18nPreviewSet bool
 
-	summary     string // 概括
-	summaryFlag bool
+	summary    string // 概括
+	summarySet bool
 
-	preview     string // 预览
-	previewFlag bool
+	preview    string // 预览
+	previewSet bool
 }
 
 func NewCreateEntityReqBodyBuilder() *CreateEntityReqBodyBuilder {
@@ -461,178 +465,178 @@ func NewCreateEntityReqBodyBuilder() *CreateEntityReqBodyBuilder {
 
 // 标题
 //
-// 示例值：已阅block
+//示例值：已阅block
 func (builder *CreateEntityReqBodyBuilder) Title(title string) *CreateEntityReqBodyBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
 // block 类型ID
 //
-// 示例值：blk_614c1c952f800014b27f87d6
+//示例值：blk_614c1c952f800014b27f87d6
 func (builder *CreateEntityReqBodyBuilder) BlockTypeId(blockTypeId string) *CreateEntityReqBodyBuilder {
 	builder.blockTypeId = blockTypeId
-	builder.blockTypeIdFlag = true
+	builder.blockTypeIdSet = true
 	return builder
 }
 
 // 内容
 //
-// 示例值：{"data":"业务数据"}
+//示例值：{"data":"业务数据"}
 func (builder *CreateEntityReqBodyBuilder) SourceData(sourceData string) *CreateEntityReqBodyBuilder {
 	builder.sourceData = sourceData
-	builder.sourceDataFlag = true
+	builder.sourceDataSet = true
 	return builder
 }
 
 // 元数据
 //
-// 示例值：{"id":7090084015725608979}
+//示例值：{"id":7090084015725608979}
 func (builder *CreateEntityReqBodyBuilder) SourceMeta(sourceMeta string) *CreateEntityReqBodyBuilder {
 	builder.sourceMeta = sourceMeta
-	builder.sourceMetaFlag = true
+	builder.sourceMetaSet = true
 	return builder
 }
 
 // 版本号(自增值)
 //
-// 示例值：1
+//示例值：1
 func (builder *CreateEntityReqBodyBuilder) Version(version string) *CreateEntityReqBodyBuilder {
 	builder.version = version
-	builder.versionFlag = true
+	builder.versionSet = true
 	return builder
 }
 
 // block原链接
 //
-// 示例值：{"_data":"https://docs.feishu.cn/block/78","_version":1}
+//示例值：{"_data":"https://docs.feishu.cn/block/78","_version":1}
 func (builder *CreateEntityReqBodyBuilder) SourceLink(sourceLink string) *CreateEntityReqBodyBuilder {
 	builder.sourceLink = sourceLink
-	builder.sourceLinkFlag = true
+	builder.sourceLinkSet = true
 	return builder
 }
 
 // 所有者
 //
-// 示例值：ou_fa7aa170f92d1615de63371ac425a767
+//示例值：ou_fa7aa170f92d1615de63371ac425a767
 func (builder *CreateEntityReqBodyBuilder) Owner(owner string) *CreateEntityReqBodyBuilder {
 	builder.owner = owner
-	builder.ownerFlag = true
+	builder.ownerSet = true
 	return builder
 }
 
 // 扩展字段
 //
-// 示例值：{}
+//示例值：{}
 func (builder *CreateEntityReqBodyBuilder) Extra(extra string) *CreateEntityReqBodyBuilder {
 	builder.extra = extra
-	builder.extraFlag = true
+	builder.extraSet = true
 	return builder
 }
 
 // 国际化概括
 //
-// 示例值：{"cn":"这是一个block","va": "this is a block"}
+//示例值：{"cn":"这是一个block","va": "this is a block"}
 func (builder *CreateEntityReqBodyBuilder) I18nSummary(i18nSummary string) *CreateEntityReqBodyBuilder {
 	builder.i18nSummary = i18nSummary
-	builder.i18nSummaryFlag = true
+	builder.i18nSummarySet = true
 	return builder
 }
 
 // 国际化预览
 //
-// 示例值：{"cn":"这是一个block","va": "this is a block"}
+//示例值：{"cn":"这是一个block","va": "this is a block"}
 func (builder *CreateEntityReqBodyBuilder) I18nPreview(i18nPreview string) *CreateEntityReqBodyBuilder {
 	builder.i18nPreview = i18nPreview
-	builder.i18nPreviewFlag = true
+	builder.i18nPreviewSet = true
 	return builder
 }
 
 // 概括
 //
-// 示例值：{"cn":"这是一个block"}
+//示例值：{"cn":"这是一个block"}
 func (builder *CreateEntityReqBodyBuilder) Summary(summary string) *CreateEntityReqBodyBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
 // 预览
 //
-// 示例值：{"cn":"这是一个block"}
+//示例值：{"cn":"这是一个block"}
 func (builder *CreateEntityReqBodyBuilder) Preview(preview string) *CreateEntityReqBodyBuilder {
 	builder.preview = preview
-	builder.previewFlag = true
+	builder.previewSet = true
 	return builder
 }
 
 func (builder *CreateEntityReqBodyBuilder) Build() *CreateEntityReqBody {
 	req := &CreateEntityReqBody{}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 	}
-	if builder.blockTypeIdFlag {
+	if builder.blockTypeIdSet {
 		req.BlockTypeId = &builder.blockTypeId
 	}
-	if builder.sourceDataFlag {
+	if builder.sourceDataSet {
 		req.SourceData = &builder.sourceData
 	}
-	if builder.sourceMetaFlag {
+	if builder.sourceMetaSet {
 		req.SourceMeta = &builder.sourceMeta
 	}
-	if builder.versionFlag {
+	if builder.versionSet {
 		req.Version = &builder.version
 	}
-	if builder.sourceLinkFlag {
+	if builder.sourceLinkSet {
 		req.SourceLink = &builder.sourceLink
 	}
-	if builder.ownerFlag {
+	if builder.ownerSet {
 		req.Owner = &builder.owner
 	}
-	if builder.extraFlag {
+	if builder.extraSet {
 		req.Extra = &builder.extra
 	}
-	if builder.i18nSummaryFlag {
+	if builder.i18nSummarySet {
 		req.I18nSummary = &builder.i18nSummary
 	}
-	if builder.i18nPreviewFlag {
+	if builder.i18nPreviewSet {
 		req.I18nPreview = &builder.i18nPreview
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 	}
-	if builder.previewFlag {
+	if builder.previewSet {
 		req.Preview = &builder.preview
 	}
 	return req
 }
 
 type CreateEntityPathReqBodyBuilder struct {
-	title           string
-	titleFlag       bool
-	blockTypeId     string
-	blockTypeIdFlag bool
-	sourceData      string
-	sourceDataFlag  bool
-	sourceMeta      string
-	sourceMetaFlag  bool
-	version         string
-	versionFlag     bool
-	sourceLink      string
-	sourceLinkFlag  bool
-	owner           string
-	ownerFlag       bool
-	extra           string
-	extraFlag       bool
-	i18nSummary     string
-	i18nSummaryFlag bool
-	i18nPreview     string
-	i18nPreviewFlag bool
-	summary         string
-	summaryFlag     bool
-	preview         string
-	previewFlag     bool
+	title          string
+	titleSet       bool
+	blockTypeId    string
+	blockTypeIdSet bool
+	sourceData     string
+	sourceDataSet  bool
+	sourceMeta     string
+	sourceMetaSet  bool
+	version        string
+	versionSet     bool
+	sourceLink     string
+	sourceLinkSet  bool
+	owner          string
+	ownerSet       bool
+	extra          string
+	extraSet       bool
+	i18nSummary    string
+	i18nSummarySet bool
+	i18nPreview    string
+	i18nPreviewSet bool
+	summary        string
+	summarySet     bool
+	preview        string
+	previewSet     bool
 }
 
 func NewCreateEntityPathReqBodyBuilder() *CreateEntityPathReqBodyBuilder {
@@ -645,7 +649,7 @@ func NewCreateEntityPathReqBodyBuilder() *CreateEntityPathReqBodyBuilder {
 // 示例值：已阅block
 func (builder *CreateEntityPathReqBodyBuilder) Title(title string) *CreateEntityPathReqBodyBuilder {
 	builder.title = title
-	builder.titleFlag = true
+	builder.titleSet = true
 	return builder
 }
 
@@ -654,7 +658,7 @@ func (builder *CreateEntityPathReqBodyBuilder) Title(title string) *CreateEntity
 // 示例值：blk_614c1c952f800014b27f87d6
 func (builder *CreateEntityPathReqBodyBuilder) BlockTypeId(blockTypeId string) *CreateEntityPathReqBodyBuilder {
 	builder.blockTypeId = blockTypeId
-	builder.blockTypeIdFlag = true
+	builder.blockTypeIdSet = true
 	return builder
 }
 
@@ -663,7 +667,7 @@ func (builder *CreateEntityPathReqBodyBuilder) BlockTypeId(blockTypeId string) *
 // 示例值：{"data":"业务数据"}
 func (builder *CreateEntityPathReqBodyBuilder) SourceData(sourceData string) *CreateEntityPathReqBodyBuilder {
 	builder.sourceData = sourceData
-	builder.sourceDataFlag = true
+	builder.sourceDataSet = true
 	return builder
 }
 
@@ -672,7 +676,7 @@ func (builder *CreateEntityPathReqBodyBuilder) SourceData(sourceData string) *Cr
 // 示例值：{"id":7090084015725608979}
 func (builder *CreateEntityPathReqBodyBuilder) SourceMeta(sourceMeta string) *CreateEntityPathReqBodyBuilder {
 	builder.sourceMeta = sourceMeta
-	builder.sourceMetaFlag = true
+	builder.sourceMetaSet = true
 	return builder
 }
 
@@ -681,7 +685,7 @@ func (builder *CreateEntityPathReqBodyBuilder) SourceMeta(sourceMeta string) *Cr
 // 示例值：1
 func (builder *CreateEntityPathReqBodyBuilder) Version(version string) *CreateEntityPathReqBodyBuilder {
 	builder.version = version
-	builder.versionFlag = true
+	builder.versionSet = true
 	return builder
 }
 
@@ -690,7 +694,7 @@ func (builder *CreateEntityPathReqBodyBuilder) Version(version string) *CreateEn
 // 示例值：{"_data":"https://docs.feishu.cn/block/78","_version":1}
 func (builder *CreateEntityPathReqBodyBuilder) SourceLink(sourceLink string) *CreateEntityPathReqBodyBuilder {
 	builder.sourceLink = sourceLink
-	builder.sourceLinkFlag = true
+	builder.sourceLinkSet = true
 	return builder
 }
 
@@ -699,7 +703,7 @@ func (builder *CreateEntityPathReqBodyBuilder) SourceLink(sourceLink string) *Cr
 // 示例值：ou_fa7aa170f92d1615de63371ac425a767
 func (builder *CreateEntityPathReqBodyBuilder) Owner(owner string) *CreateEntityPathReqBodyBuilder {
 	builder.owner = owner
-	builder.ownerFlag = true
+	builder.ownerSet = true
 	return builder
 }
 
@@ -708,7 +712,7 @@ func (builder *CreateEntityPathReqBodyBuilder) Owner(owner string) *CreateEntity
 // 示例值：{}
 func (builder *CreateEntityPathReqBodyBuilder) Extra(extra string) *CreateEntityPathReqBodyBuilder {
 	builder.extra = extra
-	builder.extraFlag = true
+	builder.extraSet = true
 	return builder
 }
 
@@ -717,7 +721,7 @@ func (builder *CreateEntityPathReqBodyBuilder) Extra(extra string) *CreateEntity
 // 示例值：{"cn":"这是一个block","va": "this is a block"}
 func (builder *CreateEntityPathReqBodyBuilder) I18nSummary(i18nSummary string) *CreateEntityPathReqBodyBuilder {
 	builder.i18nSummary = i18nSummary
-	builder.i18nSummaryFlag = true
+	builder.i18nSummarySet = true
 	return builder
 }
 
@@ -726,7 +730,7 @@ func (builder *CreateEntityPathReqBodyBuilder) I18nSummary(i18nSummary string) *
 // 示例值：{"cn":"这是一个block","va": "this is a block"}
 func (builder *CreateEntityPathReqBodyBuilder) I18nPreview(i18nPreview string) *CreateEntityPathReqBodyBuilder {
 	builder.i18nPreview = i18nPreview
-	builder.i18nPreviewFlag = true
+	builder.i18nPreviewSet = true
 	return builder
 }
 
@@ -735,7 +739,7 @@ func (builder *CreateEntityPathReqBodyBuilder) I18nPreview(i18nPreview string) *
 // 示例值：{"cn":"这是一个block"}
 func (builder *CreateEntityPathReqBodyBuilder) Summary(summary string) *CreateEntityPathReqBodyBuilder {
 	builder.summary = summary
-	builder.summaryFlag = true
+	builder.summarySet = true
 	return builder
 }
 
@@ -744,46 +748,46 @@ func (builder *CreateEntityPathReqBodyBuilder) Summary(summary string) *CreateEn
 // 示例值：{"cn":"这是一个block"}
 func (builder *CreateEntityPathReqBodyBuilder) Preview(preview string) *CreateEntityPathReqBodyBuilder {
 	builder.preview = preview
-	builder.previewFlag = true
+	builder.previewSet = true
 	return builder
 }
 
 func (builder *CreateEntityPathReqBodyBuilder) Build() (*CreateEntityReqBody, error) {
 	req := &CreateEntityReqBody{}
-	if builder.titleFlag {
+	if builder.titleSet {
 		req.Title = &builder.title
 	}
-	if builder.blockTypeIdFlag {
+	if builder.blockTypeIdSet {
 		req.BlockTypeId = &builder.blockTypeId
 	}
-	if builder.sourceDataFlag {
+	if builder.sourceDataSet {
 		req.SourceData = &builder.sourceData
 	}
-	if builder.sourceMetaFlag {
+	if builder.sourceMetaSet {
 		req.SourceMeta = &builder.sourceMeta
 	}
-	if builder.versionFlag {
+	if builder.versionSet {
 		req.Version = &builder.version
 	}
-	if builder.sourceLinkFlag {
+	if builder.sourceLinkSet {
 		req.SourceLink = &builder.sourceLink
 	}
-	if builder.ownerFlag {
+	if builder.ownerSet {
 		req.Owner = &builder.owner
 	}
-	if builder.extraFlag {
+	if builder.extraSet {
 		req.Extra = &builder.extra
 	}
-	if builder.i18nSummaryFlag {
+	if builder.i18nSummarySet {
 		req.I18nSummary = &builder.i18nSummary
 	}
-	if builder.i18nPreviewFlag {
+	if builder.i18nPreviewSet {
 		req.I18nPreview = &builder.i18nPreview
 	}
-	if builder.summaryFlag {
+	if builder.summarySet {
 		req.Summary = &builder.summary
 	}
-	if builder.previewFlag {
+	if builder.previewSet {
 		req.Preview = &builder.preview
 	}
 	return req, nil

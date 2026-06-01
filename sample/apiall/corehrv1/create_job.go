@@ -40,6 +40,7 @@ func main() {
 			WorkingHoursTypeId("6890452208593372679").
 			EffectiveTime("2020-01-01 00:00:00").
 			CustomFields([]*larkcorehr.ObjectFieldData{larkcorehr.NewObjectFieldDataBuilder().Build()}).
+			IsPreferManualEncoding(false).
 			Build()).
 		Build()
 	// 发起请求

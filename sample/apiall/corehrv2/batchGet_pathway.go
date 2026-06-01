@@ -27,8 +27,12 @@ func main() {
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
 	req := larkcorehr.NewBatchGetPathwayReqBuilder().
+		PageSize(100).
+		PageToken("6891251722631890445").
 		Body(larkcorehr.NewBatchGetPathwayReqBodyBuilder().
 			PathwayIds([]string{}).
+			PathwayCodes([]string{}).
+			Active(true).
 			Build()).
 		Build()
 	// 发起请求

@@ -15,6 +15,7 @@ type V1 struct {
 	Meeting                    *meeting                    // 会议
 	MeetingRecording           *meetingRecording           // 录制
 	MeetingList                *meetingList                // meeting_list
+	Note                       *note                       // note
 	ParticipantList            *participantList            // participant_list
 	ParticipantQualityList     *participantQualityList     // participant_quality_list
 	Report                     *report                     // 会议报告
@@ -37,6 +38,7 @@ func New(config *larkcore.Config) *V1 {
 		Meeting:                    &meeting{config: config},
 		MeetingRecording:           &meetingRecording{config: config},
 		MeetingList:                &meetingList{config: config},
+		Note:                       &note{config: config},
 		ParticipantList:            &participantList{config: config},
 		ParticipantQualityList:     &participantQualityList{config: config},
 		Report:                     &report{config: config},
@@ -66,6 +68,9 @@ type meetingRecording struct {
 	config *larkcore.Config
 }
 type meetingList struct {
+	config *larkcore.Config
+}
+type note struct {
 	config *larkcore.Config
 }
 type participantList struct {
@@ -448,6 +453,40 @@ func (m *meeting) ListByNoByIterator(ctx context.Context, req *ListByNoMeetingRe
 		limit:    req.Limit}, nil
 }
 
+// Search
+//
+// - 搜索视频会议接口
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=vc&resource=meeting&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/search_meeting.go
+func (m *meeting) Search(ctx context.Context, req *SearchMeetingReq, options ...larkcore.RequestOptionFunc) (*SearchMeetingResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/meetings/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchMeetingResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (m *meeting) SearchByIterator(ctx context.Context, req *SearchMeetingReq, options ...larkcore.RequestOptionFunc) (*SearchMeetingIterator, error) {
+	return &SearchMeetingIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: m.Search,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
 // SetHost 设置主持人
 //
 // - 设置会议的主持人
@@ -469,6 +508,58 @@ func (m *meeting) SetHost(ctx context.Context, req *SetHostMeetingReq, options .
 	}
 	// 反序列响应结果
 	resp := &SetHostMeetingResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Subscription
+//
+// - 订阅会议变更事件
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscription&project=vc&resource=meeting&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/subscription_meeting.go
+func (m *meeting) Subscription(ctx context.Context, req *SubscriptionMeetingReq, options ...larkcore.RequestOptionFunc) (*SubscriptionMeetingResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/meetings/subscription"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SubscriptionMeetingResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Unsubscription
+//
+// - 取消订阅会议变更事件
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=unsubscription&project=vc&resource=meeting&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/unsubscription_meeting.go
+func (m *meeting) Unsubscription(ctx context.Context, req *UnsubscriptionMeetingReq, options ...larkcore.RequestOptionFunc) (*UnsubscriptionMeetingResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/meetings/unsubscription"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UnsubscriptionMeetingResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, m.config)
 	if err != nil {
 		return nil, err
@@ -620,6 +711,32 @@ func (m *meetingList) GetByIterator(ctx context.Context, req *GetMeetingListReq,
 		listFunc: m.Get,
 		options:  options,
 		limit:    req.Limit}, nil
+}
+
+// Get
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=vc&resource=note&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/vcv1/get_note.go
+func (n *note) Get(ctx context.Context, req *GetNoteReq, options ...larkcore.RequestOptionFunc) (*GetNoteResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/vc/v1/notes/:note_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, n.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetNoteResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, n.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
 }
 
 // Get
