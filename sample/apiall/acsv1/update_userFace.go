@@ -37,7 +37,6 @@ func main() {
 		UserIdType("user_id").
 		File(larkacs.NewFileBuilder().
 			Files(file).
-			FileName("filename.ext").
 			FileType("jpg").
 			FileName("efeqz12f.jpg").
 			Build()).

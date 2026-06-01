@@ -41,7 +41,6 @@ func main() {
 			Checksum("12345678").
 			Extra("").
 			File(file).
-			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

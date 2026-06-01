@@ -35,7 +35,6 @@ func main() {
 	req := larkspark.NewIconAppReqBuilder().
 		Body(larkspark.NewIconAppReqBodyBuilder().
 			File(file).
-			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

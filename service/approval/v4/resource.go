@@ -9,12 +9,12 @@ import (
 )
 
 type V4 struct {
-	Approval         *approval         // 原生审批定义
+	Approval         *approval         // 事件
 	District         *district         // district
 	ExternalApproval *externalApproval // 三方审批定义
 	ExternalInstance *externalInstance // 三方审批实例
 	ExternalTask     *externalTask     // 三方审批任务
-	Instance         *instance         // 审批查询
+	Instance         *instance         // 原生审批实例
 	InstanceComment  *instanceComment  // 原生审批评论
 	Task             *task             // 原生审批任务
 }

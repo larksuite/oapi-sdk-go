@@ -38,7 +38,6 @@ func main() {
 			FileName("测试视频.mp4").
 			Duration(3000).
 			File(file).
-			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

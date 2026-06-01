@@ -36,7 +36,6 @@ func main() {
 		AppId("app_4k6af8utt2s0n").
 		Body(larkspark.NewUploadHtmlCodeAndReleaseAppReqBodyBuilder().
 			File(file).
-			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

@@ -35,7 +35,6 @@ func main() {
 	req := larkapplication.NewCreateAppAvatarUploadReqBuilder().
 		Body(larkapplication.NewCreateAppAvatarUploadReqBodyBuilder().
 			Avatar(file).
-			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

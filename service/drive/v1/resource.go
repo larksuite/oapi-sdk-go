@@ -11,7 +11,7 @@ import (
 
 type V1 struct {
 	ExportTask               *exportTask               // 导出
-	File                     *file                     // 文件夹
+	File                     *file                     // 分片上传
 	FileComment              *fileComment              // 评论
 	FileCommentReply         *fileCommentReply         // 评论
 	FileStatistics           *fileStatistics           // file.statistics
@@ -19,7 +19,7 @@ type V1 struct {
 	FileVersion              *fileVersion              // 文档版本
 	FileViewRecord           *fileViewRecord           // file.view_record
 	ImportTask               *importTask               // 导入
-	Media                    *media                    // 素材
+	Media                    *media                    // 分片上传
 	Meta                     *meta                     // meta
 	Notice                   *notice                   // notice
 	PermissionMember         *permissionMember         // 成员

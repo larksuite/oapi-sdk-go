@@ -32,7 +32,7 @@ func main() {
 			RoleName("自定义权限1").
 			TableRoles([]*larkbase.TableRole{larkbase.NewTableRoleBuilder().Build()}).
 			BlockRoles([]*larkbase.BlockRole{larkbase.NewBlockRoleBuilder().Build()}).
-			BaseRule().
+			BaseRule(map[string]int{}).
 			Build()).
 		Build()
 	// 发起请求

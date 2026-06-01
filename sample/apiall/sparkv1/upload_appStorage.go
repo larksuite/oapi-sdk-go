@@ -38,7 +38,6 @@ func main() {
 			FileName("file_name").
 			CheckSum("f8d80a7f68b820d99f5612b952140319991d6599d95f29699d076684b0977f99").
 			File(file).
-			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

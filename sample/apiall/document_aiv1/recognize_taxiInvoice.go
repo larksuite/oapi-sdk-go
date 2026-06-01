@@ -35,7 +35,6 @@ func main() {
 	req := larkdocument_ai.NewRecognizeTaxiInvoiceReqBuilder().
 		Body(larkdocument_ai.NewRecognizeTaxiInvoiceReqBodyBuilder().
 			File(file).
-			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

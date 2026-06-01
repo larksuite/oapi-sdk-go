@@ -35,7 +35,6 @@ func main() {
 	req := larkdocument_ai.NewRecognizeHealthCertificateReqBuilder().
 		Body(larkdocument_ai.NewRecognizeHealthCertificateReqBodyBuilder().
 			File(file).
-			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求

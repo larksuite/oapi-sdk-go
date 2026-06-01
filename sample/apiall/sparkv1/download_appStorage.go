@@ -19,18 +19,12 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3"
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/service/spark/v1"
-	"os"
 )
 
 // GET /open-apis/spark/v1/apps/:app_id/storage
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
-	file, err := os.Open("filepath")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
 	// 创建请求对象
 	req := larkspark.NewDownloadAppStorageReqBuilder().
 		AppId("app_4jcn5n11bpf5v").

@@ -11,7 +11,7 @@ import (
 type V1 struct {
 	Advertisement                   *advertisement                   // advertisement
 	Agency                          *agency                          // 猎头（灰度租户可见）
-	Application                     *application                     // 入职
+	Application                     *application                     // 投递
 	ApplicationInterview            *applicationInterview            // application.interview
 	Attachment                      *attachment                      // 附件
 	BackgroundCheckOrder            *backgroundCheckOrder            // 背调 （灰度租户可见）

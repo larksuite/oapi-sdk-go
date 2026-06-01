@@ -38,7 +38,6 @@ func main() {
 			UploadId("upload_abc123xyz456").
 			ChunkIndex(1).
 			File(file).
-			FileName("filename.ext").
 			ChunkCheckSum("ef176a6c424f954fa42d4cde03949897").
 			Build()).
 		Build()

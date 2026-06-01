@@ -35,7 +35,6 @@ func main() {
 	req := larkdocument_ai.NewParseResumeReqBuilder().
 		Body(larkdocument_ai.NewParseResumeReqBodyBuilder().
 			File(file).
-			FileName("filename.ext").
 			Build()).
 		Build()
 	// 发起请求
