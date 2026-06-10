@@ -18,6 +18,7 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"sync/atomic"
 	"testing"
 )
@@ -69,6 +70,30 @@ func (noopLogger) Debug(context.Context, ...interface{}) {}
 func (noopLogger) Info(context.Context, ...interface{})  {}
 func (noopLogger) Warn(context.Context, ...interface{})  {}
 func (noopLogger) Error(context.Context, ...interface{}) {}
+
+type recordingLogger struct {
+	entries []string
+}
+
+func (l *recordingLogger) Debug(ctx context.Context, args ...interface{}) {
+	l.entries = append(l.entries, fmt.Sprint(args...))
+}
+
+func (l *recordingLogger) Info(ctx context.Context, args ...interface{}) {
+	l.entries = append(l.entries, fmt.Sprint(args...))
+}
+
+func (l *recordingLogger) Warn(ctx context.Context, args ...interface{}) {
+	l.entries = append(l.entries, fmt.Sprint(args...))
+}
+
+func (l *recordingLogger) Error(ctx context.Context, args ...interface{}) {
+	l.entries = append(l.entries, fmt.Sprint(args...))
+}
+
+func (l *recordingLogger) String() string {
+	return strings.Join(l.entries, "\n")
+}
 
 func TestDoSend_CloseBodyOnGatewayTimeout(t *testing.T) {
 	req, err := http.NewRequest(http.MethodGet, "http://example.com/", nil)
@@ -137,7 +162,7 @@ func TestDetermineTokenTypePrefersTenantInClientAssertionMode(t *testing.T) {
 	}
 }
 
-func TestRequestRetriesWhenRetrieveTokenFailed(t *testing.T) {
+func TestRequestDoesNotRetryWhenRetrieveTokenFailed(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == OAuthTokenUrlPath {
 			_, _ = w.Write([]byte(`{"access_token":"tenant-token","expires_in":7200}`))
@@ -163,11 +188,59 @@ func TestRequestRetriesWhenRetrieveTokenFailed(t *testing.T) {
 		ApiPath:                   "/resource",
 		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeTenant},
 	}, config)
-	if err != nil {
-		t.Fatalf("request failed: %v", err)
+	if err == nil {
+		t.Fatal("expected retrieve token error, got nil")
 	}
-	if resp == nil || provider.calls != 2 {
+	if resp != nil || provider.calls != 1 {
 		t.Fatalf("unexpected response/provider calls: resp=%v calls=%d", resp, provider.calls)
+	}
+}
+
+func TestRequestRedactsOAuthTokenDebugLogs(t *testing.T) {
+	logger := &recordingLogger{}
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_, _ = w.Write([]byte(`{"access_token":"oauth-access-token-secret","refresh_token":"oauth-refresh-token-secret","expires_in":7200}`))
+	}))
+	defer server.Close()
+
+	config := mockConfig()
+	config.AppId = "cli_a"
+	config.BaseUrl = "https://open.feishu.cn"
+	config.LogReqAtDebug = true
+	config.Logger = logger
+	config.HttpClient = server.Client()
+
+	_, err := Request(context.Background(), &ApiReq{
+		HttpMethod: http.MethodPost,
+		ApiPath:    server.URL + OAuthTokenUrlPath,
+		Body: map[string]string{
+			"client_assertion": "client-assertion-secret",
+			"client_secret":    "app-secret-value",
+			"refresh_token":    "refresh-token-secret",
+		},
+		SupportedAccessTokenTypes: []AccessTokenType{AccessTokenTypeNone},
+	}, config)
+	if err != nil {
+		t.Fatalf("oauth token request failed: %v", err)
+	}
+
+	logs := logger.String()
+	for _, secret := range []string{
+		"client-assertion-secret",
+		"app-secret-value",
+		"refresh-token-secret",
+		"oauth-access-token-secret",
+		"oauth-refresh-token-secret",
+	} {
+		if strings.Contains(logs, secret) {
+			t.Fatalf("debug logs leaked %q: %s", secret, logs)
+		}
+	}
+	if !strings.Contains(logs, "oauth token request body omitted") {
+		t.Fatalf("expected oauth request body omission marker, got logs: %s", logs)
+	}
+	if !strings.Contains(logs, "oauth token response body omitted") {
+		t.Fatalf("expected oauth response body omission marker, got logs: %s", logs)
 	}
 }
 

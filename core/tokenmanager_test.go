@@ -55,6 +55,51 @@ func TestTokenManagerSetAndGet(t *testing.T) {
 
 }
 
+func TestTenantAccessTokenCacheKeysIncludeCredentialMode(t *testing.T) {
+	if got, want := tenantAccessTokenKey("cli_a", "tenantKey"), "tenant_access_token:app_secret:cli_a:tenantKey"; got != want {
+		t.Fatalf("unexpected app secret tenant token key: %s", got)
+	}
+	if got, want := clientAssertionTenantAccessTokenKey("cli_a", "tenantKey", "accounts.feishu.cn"), "tenant_access_token:client_assertion:cli_a:tenantKey:accounts.feishu.cn"; got != want {
+		t.Fatalf("unexpected client assertion tenant token key: %s", got)
+	}
+}
+
+func TestGetTenantAccessTokenByClientAssertionIgnoresAppSecretCache(t *testing.T) {
+	provider := &mockClientAssertionProvider{token: &Token{Value: "client-assertion"}}
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != OAuthTokenUrlPath {
+			t.Fatalf("unexpected path: %s", r.URL.Path)
+		}
+		_ = json.NewEncoder(w).Encode(&OAuthTokenResp{AccessToken: "client-assertion-token", ExpiresIn: 7200})
+	}))
+	defer server.Close()
+
+	config := mockConfig()
+	config.AppId = "cli_a"
+	config.BaseUrl = "https://open.feishu.cn"
+	config.OAuthBaseUrl = server.URL
+	config.EnableTokenCache = true
+	config.HttpClient = server.Client()
+	config.ClientAssertionProvider = provider
+
+	cache := &localCache{}
+	if err := cache.Set(context.Background(), tenantAccessTokenKey(config.AppId, "tenantKey"), "cached-appsecret-token", time.Hour); err != nil {
+		t.Fatalf("seed app secret cache failed: %v", err)
+	}
+
+	manager := TokenManager{cache: cache}
+	token, err := manager.getTenantAccessToken(context.Background(), config, "tenantKey", "")
+	if err != nil {
+		t.Fatalf("get tenant access token failed: %v", err)
+	}
+	if token != "client-assertion-token" {
+		t.Fatalf("unexpected token: %s", token)
+	}
+	if provider.calls != 1 {
+		t.Fatalf("expected provider called once, got %d", provider.calls)
+	}
+}
+
 func TestGetTenantAccessTokenByClientAssertion(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != OAuthTokenUrlPath {

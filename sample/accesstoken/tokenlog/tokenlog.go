@@ -10,48 +10,22 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package main
+package tokenlog
 
 import (
-	"context"
 	"fmt"
-	"os"
 
-	"github.com/larksuite/oapi-sdk-go/sample/accesstoken/tokenlog"
-	lark "github.com/larksuite/oapi-sdk-go/v3"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
-	"github.com/larksuite/oapi-sdk-go/v3/core/accesstoken/refreshtoken"
+	"github.com/larksuite/oapi-sdk-go/v3/core/accesstoken"
 )
 
-type envClientAssertionProvider struct{}
-
-func (p *envClientAssertionProvider) RetrieveToken(ctx context.Context, aud string) (*larkcore.Token, error) {
-	return &larkcore.Token{Value: os.Getenv("CLIENT_ASSERTION")}, nil
-}
-
-func main() {
-	client := newClient()
-
-	req := refreshtoken.NewTokenRequestBuilder().
-		RefreshToken(os.Getenv("REFRESH_TOKEN")).
-		Build()
-
-	resp, err := client.AccessToken.Refresh(context.Background(), req)
-	if err != nil {
-		fmt.Println(err)
-		return
+func Summary(data *accesstoken.AccessTokenRespData) string {
+	if data == nil {
+		return "access_token returned:false, refresh_token returned:false, expires_in:0"
 	}
-	if !resp.Success() {
-		fmt.Println(resp.StatusCode, resp.RequestId())
-		return
-	}
-	fmt.Println(tokenlog.Summary(resp.Data))
-}
-
-func newClient() *lark.Client {
-	options := []lark.ClientOptionFunc{}
-	if os.Getenv("CLIENT_ASSERTION") != "" {
-		options = append(options, lark.WithClientAssertionProvider(&envClientAssertionProvider{}))
-	}
-	return lark.NewClient(os.Getenv("APP_ID"), os.Getenv("APP_SECRET"), options...)
+	return fmt.Sprintf("access_token returned:%t, refresh_token returned:%t, expires_in:%d",
+		larkcore.StringValue(data.AccessToken) != "",
+		larkcore.StringValue(data.RefreshToken) != "",
+		larkcore.IntValue(data.ExpiresIn),
+	)
 }

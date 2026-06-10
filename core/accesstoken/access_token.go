@@ -135,7 +135,23 @@ func (o *AccessToken) doAccessTokenRequest(ctx context.Context, body *accessToke
 			ApiResp:          rawResp,
 			Code:             respBody.Code,
 			ErrorType:        respBody.Error,
-			ErrorDescription: respBody.ErrorDescription,
+			ErrorDescription: accessTokenErrorDescription(respBody, ""),
+		}
+	}
+	if respBody.Code != 0 || respBody.Error != "" {
+		return nil, &AccessTokenError{
+			ApiResp:          rawResp,
+			Code:             respBody.Code,
+			ErrorType:        respBody.Error,
+			ErrorDescription: accessTokenErrorDescription(respBody, ""),
+		}
+	}
+	if respBody.AccessToken == "" {
+		return nil, &AccessTokenError{
+			ApiResp:          rawResp,
+			Code:             respBody.Code,
+			ErrorType:        respBody.Error,
+			ErrorDescription: "access_token is empty",
 		}
 	}
 
@@ -150,6 +166,19 @@ func (o *AccessToken) doAccessTokenRequest(ctx context.Context, body *accessToke
 			Scope:                 larkcore.StringPtrIfNotEmpty(respBody.Scope),
 		},
 	}, nil
+}
+
+func accessTokenErrorDescription(respBody *accessTokenResponseBody, fallback string) string {
+	if respBody == nil {
+		return fallback
+	}
+	if respBody.ErrorDescription != "" {
+		return respBody.ErrorDescription
+	}
+	if respBody.Error != "" {
+		return respBody.Error
+	}
+	return fallback
 }
 
 func withTargetServiceHeader(targetService string) larkcore.RequestOptionFunc {

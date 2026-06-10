@@ -172,6 +172,21 @@ func shouldSkipCodeErrorPreDecode(apiPath string) bool {
 	return strings.HasSuffix(apiPath, OAuthTokenUrlPath)
 }
 
+func safeRequestForDebug(req *http.Request) *http.Request {
+	if req == nil {
+		return nil
+	}
+	safeReq := req.Clone(req.Context())
+	safeReq.Header = req.Header.Clone()
+	if safeReq.Header.Get("Authorization") != "" {
+		safeReq.Header.Set("Authorization", "<redacted>")
+	}
+	if safeReq.Header.Get("X-Lark-Helpdesk-Authorization") != "" {
+		safeReq.Header.Set("X-Lark-Helpdesk-Authorization", "<redacted>")
+	}
+	return safeReq
+}
+
 func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient, logger Logger) (*ApiResp, error) {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
@@ -248,23 +263,30 @@ func doRequest(ctx context.Context, httpReq *ApiReq, accessTokenType AccessToken
 	for i := 0; i < 2; i++ {
 		req, err := reqTranslator.translate(ctx, httpReq, accessTokenType, config, option)
 		if err != nil {
-			if ce, ok := err.(*CodeError); ok && ce.Code == ErrCodeClientAssertionRetrieveFailed {
-				config.Logger.Warn(ctx, fmt.Sprintf("retrieve client assertion token failed, retry:%d, err:%v", i+1, err))
-				errResult = err
-				continue
-			}
 			config.Logger.Warn(ctx, fmt.Sprintf("translate request failed, err:%v", err))
 			return nil, err
 		}
 
 		if config.LogReqAtDebug {
-			config.Logger.Debug(ctx, fmt.Sprintf("req:%v", req))
+			if shouldSkipCodeErrorPreDecode(httpReq.ApiPath) {
+				config.Logger.Debug(ctx, fmt.Sprintf("req:%s,%s, oauth token request body omitted", httpReq.HttpMethod, httpReq.ApiPath))
+			} else {
+				config.Logger.Debug(ctx, fmt.Sprintf("req:%v", safeRequestForDebug(req)))
+			}
 		} else {
 			config.Logger.Debug(ctx, fmt.Sprintf("req:%s,%s", httpReq.HttpMethod, httpReq.ApiPath))
 		}
 		rawResp, err = doSend(ctx, req, config.HttpClient, config.Logger)
 		if config.LogReqAtDebug {
-			config.Logger.Debug(ctx, fmt.Sprintf("resp:%v", rawResp))
+			if shouldSkipCodeErrorPreDecode(httpReq.ApiPath) {
+				statusCode := 0
+				if rawResp != nil {
+					statusCode = rawResp.StatusCode
+				}
+				config.Logger.Debug(ctx, fmt.Sprintf("resp:statusCode:%d, oauth token response body omitted", statusCode))
+			} else {
+				config.Logger.Debug(ctx, fmt.Sprintf("resp:%v", rawResp))
+			}
 		}
 		_, isDialError := err.(*DialFailedError)
 		if err != nil && !isDialError {

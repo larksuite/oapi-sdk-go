@@ -17,6 +17,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/larksuite/oapi-sdk-go/sample/accesstoken/tokenlog"
 	lark "github.com/larksuite/oapi-sdk-go/v3"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 	"github.com/larksuite/oapi-sdk-go/v3/core/accesstoken/authorizationcode"
@@ -46,7 +47,7 @@ func main() {
 		fmt.Println(resp.StatusCode, resp.RequestId())
 		return
 	}
-	fmt.Println(larkcore.Prettify(resp.Data))
+	fmt.Println(tokenlog.Summary(resp.Data))
 }
 
 func newClient() *lark.Client {

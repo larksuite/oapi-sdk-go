@@ -59,17 +59,6 @@ func (m *TokenManager) getAppAccessToken(ctx context.Context, config *Config, ap
 
 func (m *TokenManager) getTenantAccessToken(ctx context.Context, config *Config, tenantKey, appTicket string) (string, error) {
 	if config.ClientAssertionProvider != nil {
-		if config.EnableTokenCache {
-			token, err := m.get(ctx, tenantAccessTokenKey(config.AppId, tenantKey))
-			if err != nil {
-				return "", err
-			}
-			if token != "" {
-				config.Logger.Debug(ctx, fmt.Sprintf("jwt tat cache hit, tenantKey:%s", tenantKey))
-				return token, nil
-			}
-			config.Logger.Debug(ctx, fmt.Sprintf("jwt tat cache miss, tenantKey:%s", tenantKey))
-		}
 		return m.getTenantTokenByClientAssertion(ctx, config, tenantKey)
 	}
 
@@ -171,7 +160,11 @@ func appAccessTokenKey(appID string) string {
 }
 
 func tenantAccessTokenKey(appID, tenantKey string) string {
-	return fmt.Sprintf("%s-%s-%s", tenantAccessTokenKeyPrefix, appID, tenantKey)
+	return fmt.Sprintf("%s:app_secret:%s:%s", tenantAccessTokenKeyPrefix, appID, tenantKey)
+}
+
+func clientAssertionTenantAccessTokenKey(appID, tenantKey, aud string) string {
+	return fmt.Sprintf("%s:client_assertion:%s:%s:%s", tenantAccessTokenKeyPrefix, appID, tenantKey, aud)
 }
 
 func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, config *Config, tenantKey string) (string, error) {
@@ -184,6 +177,18 @@ func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, conf
 	if err != nil {
 		config.Logger.Warn(ctx, fmt.Sprintf("resolve oauth aud failed, err:%v", err))
 		return "", err
+	}
+	tokenKey := clientAssertionTenantAccessTokenKey(config.AppId, tenantKey, aud)
+	if config.EnableTokenCache {
+		token, cacheErr := m.get(ctx, tokenKey)
+		if cacheErr != nil {
+			return "", cacheErr
+		}
+		if token != "" {
+			config.Logger.Debug(ctx, fmt.Sprintf("jwt tat cache hit, tenantKey:%s, aud:%s", tenantKey, aud))
+			return token, nil
+		}
+		config.Logger.Debug(ctx, fmt.Sprintf("jwt tat cache miss, tenantKey:%s, aud:%s", tenantKey, aud))
 	}
 
 	clientAssertionToken, err := config.ClientAssertionProvider.RetrieveToken(ctx, aud)
@@ -244,7 +249,7 @@ func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, conf
 		if expire < 0 {
 			expire = 0
 		}
-		err = m.cache.Set(ctx, tenantAccessTokenKey(config.AppId, tenantKey), oauthTokenResp.AccessToken, expire)
+		err = m.cache.Set(ctx, tokenKey, oauthTokenResp.AccessToken, expire)
 		if err != nil {
 			config.Logger.Warn(ctx, fmt.Sprintf("client assertion tenantAccessToken save cache, err:%v", err))
 		}

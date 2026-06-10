@@ -243,6 +243,52 @@ func TestAccessTokenReturnsAccessTokenErrorForNonOK(t *testing.T) {
 	}
 }
 
+func TestAccessTokenReturnsAccessTokenErrorForBusinessErrorOK(t *testing.T) {
+	provider := &mockClientAssertionProvider{token: &larkcore.Token{Value: "client-assertion"}}
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(map[string]interface{}{
+			"code":              20138,
+			"error":             "invalid_client",
+			"error_description": "client assertion expired",
+		})
+	}))
+	defer server.Close()
+
+	accessToken := NewAccessToken(newTestConfig(server, provider))
+	_, err := accessToken.RetrieveByAuthorizationCode(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build())
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+	accessTokenErr, ok := err.(*AccessTokenError)
+	if !ok {
+		t.Fatalf("unexpected error type: %#v", err)
+	}
+	if accessTokenErr.Code != 20138 || accessTokenErr.ErrorDescription != "client assertion expired" {
+		t.Fatalf("unexpected access token error: %#v", accessTokenErr)
+	}
+}
+
+func TestAccessTokenReturnsAccessTokenErrorForEmptyAccessToken(t *testing.T) {
+	provider := &mockClientAssertionProvider{token: &larkcore.Token{Value: "client-assertion"}}
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(&accessTokenResponseBody{Code: 0})
+	}))
+	defer server.Close()
+
+	accessToken := NewAccessToken(newTestConfig(server, provider))
+	_, err := accessToken.RetrieveByAuthorizationCode(context.Background(), authorizationcode.NewTokenRequestBuilder().Code("code").Build())
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+	accessTokenErr, ok := err.(*AccessTokenError)
+	if !ok {
+		t.Fatalf("unexpected error type: %#v", err)
+	}
+	if accessTokenErr.ErrorDescription != "access_token is empty" {
+		t.Fatalf("unexpected access token error: %#v", accessTokenErr)
+	}
+}
+
 func TestAccessTokenProxyKeepsCustomHeaders(t *testing.T) {
 	provider := &mockClientAssertionProvider{token: &larkcore.Token{Value: "client-assertion"}}
 	proxyServer := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

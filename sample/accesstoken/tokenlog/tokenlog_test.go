@@ -10,48 +10,33 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package main
+package tokenlog
 
 import (
-	"context"
-	"fmt"
-	"os"
+	"strings"
+	"testing"
 
-	"github.com/larksuite/oapi-sdk-go/sample/accesstoken/tokenlog"
-	lark "github.com/larksuite/oapi-sdk-go/v3"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
-	"github.com/larksuite/oapi-sdk-go/v3/core/accesstoken/refreshtoken"
+	"github.com/larksuite/oapi-sdk-go/v3/core/accesstoken"
 )
 
-type envClientAssertionProvider struct{}
+func TestSummaryOmitsTokenValues(t *testing.T) {
+	summary := Summary(&accesstoken.AccessTokenRespData{
+		AccessToken:  larkcore.StringPtr("access-token-secret"),
+		RefreshToken: larkcore.StringPtr("refresh-token-secret"),
+		ExpiresIn:    larkcore.IntPtr(7200),
+	})
 
-func (p *envClientAssertionProvider) RetrieveToken(ctx context.Context, aud string) (*larkcore.Token, error) {
-	return &larkcore.Token{Value: os.Getenv("CLIENT_ASSERTION")}, nil
-}
-
-func main() {
-	client := newClient()
-
-	req := refreshtoken.NewTokenRequestBuilder().
-		RefreshToken(os.Getenv("REFRESH_TOKEN")).
-		Build()
-
-	resp, err := client.AccessToken.Refresh(context.Background(), req)
-	if err != nil {
-		fmt.Println(err)
-		return
+	if strings.Contains(summary, "access-token-secret") || strings.Contains(summary, "refresh-token-secret") {
+		t.Fatalf("summary leaked token value: %s", summary)
 	}
-	if !resp.Success() {
-		fmt.Println(resp.StatusCode, resp.RequestId())
-		return
+	for _, want := range []string{
+		"access_token returned:true",
+		"refresh_token returned:true",
+		"expires_in:7200",
+	} {
+		if !strings.Contains(summary, want) {
+			t.Fatalf("summary missing %q: %s", want, summary)
+		}
 	}
-	fmt.Println(tokenlog.Summary(resp.Data))
-}
-
-func newClient() *lark.Client {
-	options := []lark.ClientOptionFunc{}
-	if os.Getenv("CLIENT_ASSERTION") != "" {
-		options = append(options, lark.WithClientAssertionProvider(&envClientAssertionProvider{}))
-	}
-	return lark.NewClient(os.Getenv("APP_ID"), os.Getenv("APP_SECRET"), options...)
 }
