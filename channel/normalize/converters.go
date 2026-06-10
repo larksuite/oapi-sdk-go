@@ -3,10 +3,16 @@ package normalize
 import (
 	"encoding/json"
 	"fmt"
+	"regexp"
 	"strings"
 	"time"
 
 	"github.com/larksuite/oapi-sdk-go/v3/channel/types"
+)
+
+var (
+	atMentionRe = regexp.MustCompile(`<at(\s+)user_id(\s*)=(\s*)"(.*?)">(.*?)</at>`)
+	imageKeyRe  = regexp.MustCompile(`!\[(.*?)\]\(([^)]+)\)`)
 )
 
 // ParseContent parses the message content based on the message type.
@@ -286,9 +292,7 @@ func ParseContent(msgType string, content string) (string, []types.Resource) {
 		var contentStr string
 		var resources []types.Resource
 
-		// For post, the contentMap usually looks like:
-		// { "zh_cn": { "title": "...", "content": [ [ {...} ] ] } }
-		// Find the first value that is a map
+		// Find bodyMap first — the return guarantees bodyMap is non-nil below.
 		var bodyMap map[string]interface{}
 		for _, v := range contentMap {
 			if m, ok := v.(map[string]interface{}); ok {
@@ -296,8 +300,18 @@ func ParseContent(msgType string, content string) (string, []types.Resource) {
 				break
 			}
 		}
-
 		if bodyMap == nil {
+			return "[rich text message]", nil
+		}
+
+		// Choose source: prefer bodyMap["content_v2"], else bodyMap["content"].
+		var sourceParagraphs []interface{}
+		if cv2, ok := bodyMap["content_v2"].([]interface{}); ok && len(cv2) > 0 {
+			sourceParagraphs = cv2
+		} else if cl, ok := bodyMap["content"].([]interface{}); ok {
+			sourceParagraphs = cl
+		}
+		if len(sourceParagraphs) == 0 {
 			return "[rich text message]", nil
 		}
 
@@ -307,69 +321,70 @@ func ParseContent(msgType string, content string) (string, []types.Resource) {
 			lines = append(lines, "")
 		}
 
-		if contentList, ok := bodyMap["content"].([]interface{}); ok {
-			for _, paragraphInterface := range contentList {
-				paragraph, ok := paragraphInterface.([]interface{})
+		for _, paragraphInterface := range sourceParagraphs {
+			paragraph, ok := paragraphInterface.([]interface{})
+			if !ok {
+				continue
+			}
+			var lineParts []string
+			for _, elInterface := range paragraph {
+				el, ok := elInterface.(map[string]interface{})
 				if !ok {
 					continue
 				}
-				var lineParts []string
-				for _, elInterface := range paragraph {
-					el, ok := elInterface.(map[string]interface{})
-					if !ok {
-						continue
-					}
-					tag, _ := el["tag"].(string)
-					text, _ := el["text"].(string)
+				tag, _ := el["tag"].(string)
+				text, _ := el["text"].(string)
 
-					switch tag {
-					case "text":
-						// Simplified style handling
-						lineParts = append(lineParts, text)
-					case "a":
-						href, _ := el["href"].(string)
-						label := text
-						if label == "" {
-							label = href
-						}
-						if href != "" {
-							lineParts = append(lineParts, fmt.Sprintf("[%s](%s)", label, href))
-						} else {
-							lineParts = append(lineParts, label)
-						}
-					case "at":
-						userID, _ := el["user_id"].(string)
-						userName, _ := el["user_name"].(string)
-						if userID == "all" || userID == "all_members" {
-							lineParts = append(lineParts, "@all")
-						} else if userName != "" {
-							lineParts = append(lineParts, "@"+userName)
-						} else {
-							lineParts = append(lineParts, "@"+userID)
-						}
-					case "img":
-						imageKey, _ := el["image_key"].(string)
-						if imageKey != "" {
-							resources = append(resources, types.Resource{Type: "image", FileKey: imageKey})
-							lineParts = append(lineParts, fmt.Sprintf("![image](%s)", imageKey))
-						}
-					case "media":
-						fileKey, _ := el["file_key"].(string)
-						if fileKey != "" {
-							resources = append(resources, types.Resource{Type: "file", FileKey: fileKey})
-							lineParts = append(lineParts, fmt.Sprintf(`<file key="%s"/>`, fileKey))
-						}
-					case "code_block":
-						lang, _ := el["language"].(string)
-						lineParts = append(lineParts, fmt.Sprintf("\n```%s\n%s\n```\n", lang, text))
-					case "hr":
-						lineParts = append(lineParts, "\n---\n")
-					default:
-						lineParts = append(lineParts, text)
+				switch tag {
+				case "md":
+					mdText, mdRes := processMdText(text)
+					lineParts = append(lineParts, mdText)
+					resources = append(resources, mdRes...)
+				case "text":
+					lineParts = append(lineParts, text)
+				case "a":
+					href, _ := el["href"].(string)
+					label := text
+					if label == "" {
+						label = href
 					}
+					if href != "" {
+						lineParts = append(lineParts, fmt.Sprintf("[%s](%s)", label, href))
+					} else {
+						lineParts = append(lineParts, label)
+					}
+				case "at":
+					userID, _ := el["user_id"].(string)
+					userName, _ := el["user_name"].(string)
+					if userID == "all" || userID == "all_members" {
+						lineParts = append(lineParts, "@all")
+					} else if userName != "" {
+						lineParts = append(lineParts, "@"+userName)
+					} else {
+						lineParts = append(lineParts, "@"+userID)
+					}
+				case "img":
+					imageKey, _ := el["image_key"].(string)
+					if imageKey != "" {
+						resources = append(resources, types.Resource{Type: "image", FileKey: imageKey})
+						lineParts = append(lineParts, fmt.Sprintf("![image](%s)", imageKey))
+					}
+				case "media":
+					fileKey, _ := el["file_key"].(string)
+					if fileKey != "" {
+						resources = append(resources, types.Resource{Type: "file", FileKey: fileKey})
+						lineParts = append(lineParts, fmt.Sprintf(`<file key="%s"/>`, fileKey))
+					}
+				case "code_block":
+					lang, _ := el["language"].(string)
+					lineParts = append(lineParts, fmt.Sprintf("\n```%s\n%s\n```\n", lang, text))
+				case "hr":
+					lineParts = append(lineParts, "\n---\n")
+				default:
+					lineParts = append(lineParts, text)
 				}
-				lines = append(lines, strings.Join(lineParts, ""))
 			}
+			lines = append(lines, strings.Join(lineParts, ""))
 		}
 
 		contentStr = strings.Join(lines, "\n")
@@ -469,4 +484,52 @@ func extractPostPlainText(blocks []interface{}) string {
 		}
 	}
 	return strings.Join(lines, "\n")
+}
+
+// processMdText post-processes raw markdown text from an "md" element.
+// It splits the text by fenced code block delimiters (```) and only
+// applies transformations (at-mention replacement, image key extraction)
+// to text segments outside of properly paired code blocks. Unclosed fences
+// are treated as outside-code-block text.
+func processMdText(text string) (string, []types.Resource) {
+	var resources []types.Resource
+	parts := strings.Split(text, "```")
+	total := len(parts)
+	for i, part := range parts {
+		// Determine if this segment is inside a paired code block.
+		// Odd-index segments are inside code blocks, UNLESS it's the last
+		// segment of an even-length split (meaning the final ``` is unclosed).
+		isInside := (i%2 == 1)
+		if isInside && total%2 == 0 && i == total-1 {
+			isInside = false
+		}
+		if !isInside {
+			// Outside code block: apply at-mention replacement.
+			part = atMentionRe.ReplaceAllStringFunc(part, func(match string) string {
+				submatch := atMentionRe.FindStringSubmatch(match)
+				if len(submatch) >= 6 {
+					userID := submatch[4]
+					name := submatch[5]
+					if userID == "all" || userID == "all_members" {
+						return "@all"
+					}
+					if name != "" {
+						return "@" + name
+					}
+					return "@" + userID
+				}
+				return match
+			})
+
+			// Extract image keys from ![...](key) patterns.
+			for _, imgMatch := range imageKeyRe.FindAllStringSubmatch(part, -1) {
+				if len(imgMatch) >= 3 && imgMatch[2] != "" {
+					resources = append(resources, types.Resource{Type: "image", FileKey: imgMatch[2]})
+				}
+			}
+		}
+		// Inside code block: preserve as-is.
+		parts[i] = part
+	}
+	return strings.Join(parts, "```"), resources
 }

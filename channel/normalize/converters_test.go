@@ -141,6 +141,63 @@ func TestParseContent(t *testing.T) {
 			wantContent:  "[interactive card]",
 			wantResource: nil,
 		},
+		// --- content_v2 tests ---
+		{
+			name:         "post with content_v2 (md tag)",
+			msgType:      "post",
+			content:      `{"zh_cn":{"content_v2":[[{"tag":"md","text":"Hello **world**"}]]}}`,
+			wantContent:  "Hello **world**",
+			wantResource: nil,
+		},
+		{
+			name:         "post without content_v2 (richtext fallback)",
+			msgType:      "post",
+			content:      `{"zh_cn":{"title":"Title","content":[[{"tag":"text","text":"Hello"}]]}}`,
+			wantContent:  "**Title**\n\nHello",
+			wantResource: nil,
+		},
+		{
+			name:         "post with empty content_v2 array (richtext fallback)",
+			msgType:      "post",
+			content:      `{"zh_cn":{"title":"Fallback","content":[[{"tag":"text","text":"richtext"}]],"content_v2":[]}}`,
+			wantContent:  "**Fallback**\n\nrichtext",
+			wantResource: nil,
+		},
+		{
+			name:         "post with content_v2 type exception (string, not array)",
+			msgType:      "post",
+			content:      `{"zh_cn":{"title":"Fallback","content":[[{"tag":"text","text":"richtext"}]],"content_v2":"not_an_array"}}`,
+			wantContent:  "**Fallback**\n\nrichtext",
+			wantResource: nil,
+		},
+		{
+			name:         "post content_v2 with @mention replacement",
+			msgType:      "post",
+			content:      `{"zh_cn":{"content_v2":[[{"tag":"md","text":"<at user_id=\"ou_123\">小明</at> hello"}]]}}`,
+			wantContent:  "@小明 hello",
+			wantResource: nil,
+		},
+		{
+			name:         "post content_v2 with @all mention",
+			msgType:      "post",
+			content:      `{"zh_cn":{"content_v2":[[{"tag":"md","text":"<at user_id=\"all\">所有人</at> hello"}]]}}`,
+			wantContent:  "@all hello",
+			wantResource: nil,
+		},
+		{
+			name:         "post content_v2 with image extraction",
+			msgType:      "post",
+			content:      `{"zh_cn":{"content_v2":[[{"tag":"md","text":"Look: ![image](img_key_123)"}]]}}`,
+			wantContent:  "Look: ![image](img_key_123)",
+			wantResource: []types.Resource{{Type: "image", FileKey: "img_key_123"}},
+		},
+		{
+			name:         "post content_v2 code block boundary protection",
+			msgType:      "post",
+			content:      `{"zh_cn":{"content_v2":[[{"tag":"md","text":"Before\n` + "```" + `go\n<at user_id=\"ou_1\">name</at>\n![image](k)\n` + "```" + `\nAfter"}]]}}`,
+			wantContent:  "Before\n```go\n<at user_id=\"ou_1\">name</at>\n![image](k)\n```\nAfter",
+			wantResource: nil,
+		},
 	}
 
 	for _, tt := range tests {
