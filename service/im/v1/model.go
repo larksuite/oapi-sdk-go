@@ -15313,7 +15313,10 @@ func (iterator *ListChatIterator) Next() (bool, *ListChat, error) {
 			return false, nil, nil
 		}
 
-		iterator.nextPageToken = resp.Data.PageToken
+		iterator.nextPageToken = nil
+		if resp.Data.HasMore != nil && *resp.Data.HasMore {
+			iterator.nextPageToken = resp.Data.PageToken
+		}
 		iterator.items = resp.Data.Items
 		iterator.index = 0
 	}
