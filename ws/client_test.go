@@ -8,6 +8,7 @@ import (
 	"strings"
 	"sync"
 	"testing"
+	"time"
 
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 )
@@ -210,4 +211,19 @@ func TestBuildWSProxyURL(t *testing.T) {
 			t.Fatalf("unexpected proxy url for %s: %s", targetService, proxyURL)
 		}
 	}
+}
+
+func TestPingLoopConfigureRace(t *testing.T) {
+	client := NewClient("app-id", "app-secret")
+	client.pingInterval = time.Nanosecond
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	go client.pingLoop(ctx)
+
+	for i := 0; i < 1000; i++ {
+		client.configure(&ClientConfig{PingInterval: 0})
+	}
+	client.configure(&ClientConfig{PingInterval: 1})
 }
