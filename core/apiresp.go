@@ -15,6 +15,7 @@ package larkcore
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"mime"
 	"net/http"
 	"strconv"
@@ -22,9 +23,10 @@ import (
 )
 
 type ApiResp struct {
-	StatusCode int         `json:"-"`
-	Header     http.Header `json:"-"`
-	RawBody    []byte      `json:"-"`
+	StatusCode int           `json:"-"`
+	Header     http.Header   `json:"-"`
+	RawBody    []byte        `json:"-"`
+	Body       io.ReadCloser `json:"-"`
 }
 
 func (resp ApiResp) Write(writer http.ResponseWriter) {
@@ -33,6 +35,13 @@ func (resp ApiResp) Write(writer http.ResponseWriter) {
 		for _, v := range vs {
 			writer.Header().Add(k, v)
 		}
+	}
+	if resp.Body != nil {
+		defer resp.Body.Close()
+		if _, err := io.Copy(writer, resp.Body); err != nil {
+			panic(err)
+		}
+		return
 	}
 	if _, err := writer.Write(resp.RawBody); err != nil {
 		panic(err)
@@ -61,7 +70,9 @@ func (resp ApiResp) LogId() string {
 func (resp ApiResp) String() string {
 	contentType := resp.Header.Get(contentTypeHeader)
 	body := fmt.Sprintf("<binary> len %d", len(resp.RawBody))
-	if strings.Contains(contentType, "json") || strings.Contains(contentType, "text") {
+	if resp.Body != nil {
+		body = "<stream>"
+	} else if strings.Contains(contentType, "json") || strings.Contains(contentType, "text") {
 		body = string(resp.RawBody)
 	}
 	return fmt.Sprintf("StatusCode: %d, Header:%v, Content-Type: %s, Body: %v", resp.StatusCode,

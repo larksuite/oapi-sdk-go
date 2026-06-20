@@ -49,6 +49,10 @@ func New(config *larkcore.Config) *V1 {
 	}
 }
 
+func isDownloadSuccessStatus(statusCode int) bool {
+	return statusCode == http.StatusOK || statusCode == http.StatusPartialContent
+}
+
 type exportTask struct {
 	config *larkcore.Config
 }
@@ -144,8 +148,32 @@ func (e *exportTask) Download(ctx context.Context, req *DownloadExportTaskReq, o
 	// 反序列响应结果
 	resp := &DownloadExportTaskResp{ApiResp: apiResp}
 	// 如果是下载，则设置响应结果
-	if apiResp.StatusCode == http.StatusOK {
+	if isDownloadSuccessStatus(apiResp.StatusCode) {
 		resp.File = bytes.NewBuffer(apiResp.RawBody)
+		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
+		return resp, err
+	}
+	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// DownloadStream 下载导出文件，返回响应 body 流，调用方需要关闭 resp.ApiResp.Body。
+func (e *exportTask) DownloadStream(ctx context.Context, req *DownloadExportTaskReq, options ...larkcore.RequestOptionFunc) (*DownloadExportTaskResp, error) {
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/export_tasks/file/:file_token/download"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	options = append(options, larkcore.WithFileDownload())
+	apiResp, err := larkcore.RequestStream(ctx, apiReq, e.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &DownloadExportTaskResp{ApiResp: apiResp}
+	if isDownloadSuccessStatus(apiResp.StatusCode) {
+		resp.File = apiResp.Body
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
@@ -342,8 +370,32 @@ func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...la
 	// 反序列响应结果
 	resp := &DownloadFileResp{ApiResp: apiResp}
 	// 如果是下载，则设置响应结果
-	if apiResp.StatusCode == http.StatusOK {
+	if isDownloadSuccessStatus(apiResp.StatusCode) {
 		resp.File = bytes.NewBuffer(apiResp.RawBody)
+		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
+		return resp, err
+	}
+	err = apiResp.JSONUnmarshalBody(resp, f.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// DownloadStream 下载文件，返回响应 body 流，调用方需要关闭 resp.ApiResp.Body。
+func (f *file) DownloadStream(ctx context.Context, req *DownloadFileReq, options ...larkcore.RequestOptionFunc) (*DownloadFileResp, error) {
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/files/:file_token/download"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	options = append(options, larkcore.WithFileDownload())
+	apiResp, err := larkcore.RequestStream(ctx, apiReq, f.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &DownloadFileResp{ApiResp: apiResp}
+	if isDownloadSuccessStatus(apiResp.StatusCode) {
+		resp.File = apiResp.Body
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
@@ -1204,8 +1256,32 @@ func (m *media) Download(ctx context.Context, req *DownloadMediaReq, options ...
 	// 反序列响应结果
 	resp := &DownloadMediaResp{ApiResp: apiResp}
 	// 如果是下载，则设置响应结果
-	if apiResp.StatusCode == http.StatusOK {
+	if isDownloadSuccessStatus(apiResp.StatusCode) {
 		resp.File = bytes.NewBuffer(apiResp.RawBody)
+		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
+		return resp, err
+	}
+	err = apiResp.JSONUnmarshalBody(resp, m.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// DownloadStream 下载素材，返回响应 body 流，调用方需要关闭 resp.ApiResp.Body。
+func (m *media) DownloadStream(ctx context.Context, req *DownloadMediaReq, options ...larkcore.RequestOptionFunc) (*DownloadMediaResp, error) {
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/drive/v1/medias/:file_token/download"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	options = append(options, larkcore.WithFileDownload())
+	apiResp, err := larkcore.RequestStream(ctx, apiReq, m.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	resp := &DownloadMediaResp{ApiResp: apiResp}
+	if isDownloadSuccessStatus(apiResp.StatusCode) {
+		resp.File = apiResp.Body
 		resp.FileName = larkcore.FileNameByHeader(apiResp.Header)
 		return resp, err
 	}
