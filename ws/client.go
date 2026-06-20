@@ -44,6 +44,8 @@ type Client struct {
 	reconnectInterval       time.Duration // 重连间隔
 	pingInterval            time.Duration // Ping间隔
 	cache                   *larkcache.Cache
+	lifecycleMu             sync.Mutex
+	stop                    context.CancelFunc
 	mu                      sync.Mutex
 	onReady                 func()
 	onError                 func(err error)
@@ -175,7 +177,8 @@ func (c *Client) SetOnDisconnected(f func()) {
 }
 
 func (c *Client) Close() {
-	c.autoReconnect = false
+	c.stopClient()
+	c.setAutoReconnect(false)
 	c.disconnect(context.Background())
 }
 
@@ -204,18 +207,22 @@ func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
 }
 
 func (c *Client) Start(ctx context.Context) (err error) {
-	err = c.connect(ctx)
+	runCtx, stop := context.WithCancel(ctx)
+	c.setStop(stop)
+	defer c.clearStop()
+
+	err = c.connect(runCtx)
 	if err != nil {
-		c.logger.Error(ctx, c.fmtLog("connect failed, err: %v", err)...)
+		c.logger.Error(runCtx, c.fmtLog("connect failed, err: %v", err)...)
 		if c.onError != nil {
 			c.onError(err)
 		}
 		if _, ok := err.(*ClientError); ok {
 			return
 		}
-		c.disconnect(ctx)
-		if c.autoReconnect {
-			if err = c.reconnect(ctx); err != nil {
+		c.disconnect(runCtx)
+		if c.autoReconnectEnabled() {
+			if err = c.reconnect(runCtx); err != nil {
 				return err
 			}
 		} else {
@@ -226,23 +233,23 @@ func (c *Client) Start(ctx context.Context) (err error) {
 			c.onReady()
 		}
 	}
-	go c.pingLoop(ctx)
-	select {}
+	go c.pingLoop(runCtx)
+	<-runCtx.Done()
+	c.disconnect(context.Background())
+	return runCtx.Err()
 }
 
 func (c *Client) connect(ctx context.Context) (err error) {
-	if c.conn != nil {
-		return
-	}
 	c.mu.Lock()
-	defer c.mu.Unlock()
 	if c.conn != nil {
+		c.mu.Unlock()
 		return
 	}
 
 	// 获取建连URL
 	connUrl, err := c.getConnURL(ctx)
 	if err != nil {
+		c.mu.Unlock()
 		c.logger.Warn(ctx, c.fmtLog("get conn url failed, err: %v", err)...)
 		return
 	}
@@ -250,6 +257,7 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	// 验证URL
 	u, err := url.Parse(connUrl)
 	if err != nil {
+		c.mu.Unlock()
 		return
 	}
 	connID := u.Query().Get(DeviceID)
@@ -257,9 +265,11 @@ func (c *Client) connect(ctx context.Context) (err error) {
 
 	conn, resp, err := ws.DefaultDialer.Dial(connUrl, nil)
 	if err != nil && resp == nil {
+		c.mu.Unlock()
 		return
 	}
 	if resp.StatusCode != http.StatusSwitchingProtocols {
+		c.mu.Unlock()
 		// 连接失败
 		return parseErr(resp)
 	}
@@ -268,6 +278,7 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	c.connUrl = u
 	c.connID = connID
 	c.serviceID = serviceID
+	c.mu.Unlock()
 
 	c.logger.Info(ctx, c.fmtLog("connected to %s", u)...)
 
@@ -284,11 +295,16 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 	if c.reconnectNonce > 0 {
 		rand.Seed(time.Now().UnixNano())
 		num := rand.Intn(c.reconnectNonce * 1000)
-		time.Sleep(time.Duration(num) * time.Millisecond)
+		if err := sleepWithContext(ctx, time.Duration(num)*time.Millisecond); err != nil {
+			return err
+		}
 	}
 
 	if c.reconnectCount >= 0 {
 		for i := 0; i < c.reconnectCount; i++ {
+			if err := ctx.Err(); err != nil {
+				return err
+			}
 			success, err := c.tryConnect(ctx, i)
 			if success {
 				if c.onReconnected != nil {
@@ -299,12 +315,17 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 			if err != nil {
 				return err
 			}
-			time.Sleep(c.reconnectInterval)
+			if err := sleepWithContext(ctx, c.reconnectInterval); err != nil {
+				return err
+			}
 		}
 		return fmt.Errorf("unable to connect to server after %d retries", c.reconnectCount)
 	} else {
 		i := 0
 		for {
+			if err := ctx.Err(); err != nil {
+				return err
+			}
 			success, err := c.tryConnect(ctx, i)
 			if success {
 				if c.onReconnected != nil {
@@ -315,7 +336,9 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 			if err != nil {
 				return err
 			}
-			time.Sleep(c.reconnectInterval)
+			if err := sleepWithContext(ctx, c.reconnectInterval); err != nil {
+				return err
+			}
 			i += 1
 		}
 	}
@@ -341,28 +364,32 @@ func (c *Client) tryConnect(ctx context.Context, cnt int) (bool, error) {
 }
 
 func (c *Client) disconnect(ctx context.Context) {
-	if c.conn == nil {
-		return
-	}
 	c.mu.Lock()
-	defer c.mu.Unlock()
 	if c.conn == nil {
+		c.mu.Unlock()
 		return
 	}
 
-	_ = c.conn.Close()
-	c.logger.Info(ctx, c.fmtLog("disconnected to %s", c.connUrl)...)
+	conn := c.conn
+	connURL := c.connUrl
+	connID := c.connID
+	onDisconnected := c.onDisconnected
+	c.conn = nil
+	c.connUrl = nil
+	c.connID = ""
+	c.serviceID = ""
+	c.mu.Unlock()
 
-	if c.onDisconnected != nil {
-		c.onDisconnected()
+	_ = conn.Close()
+	log := []interface{}{fmt.Sprintf("disconnected to %s", connURL)}
+	if connID != "" {
+		log = append(log, fmt.Sprintf("[conn_id=%s]", connID))
 	}
+	c.logger.Info(ctx, log...)
 
-	defer func() {
-		c.conn = nil
-		c.connUrl = nil
-		c.connID = ""
-		c.serviceID = ""
-	}()
+	if onDisconnected != nil {
+		onDisconnected()
+	}
 }
 
 func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
@@ -497,13 +524,25 @@ func (c *Client) pingLoop(ctx context.Context) {
 	defer func() {
 		if err := recover(); err != nil {
 			c.logger.Warn(ctx, c.fmtLog("ping loop panic, err: %v, stack: %s", err, string(debug.Stack()))...)
+			select {
+			case <-ctx.Done():
+				return
+			default:
+			}
+			go c.pingLoop(ctx)
 		}
-		go c.pingLoop(ctx)
 	}()
 
 	for {
-		if c.conn != nil {
-			i, _ := strconv.ParseInt(c.serviceID, 10, 32)
+		select {
+		case <-ctx.Done():
+			return
+		default:
+		}
+
+		connected, serviceID := c.connectionSnapshot()
+		if connected {
+			i, _ := strconv.ParseInt(serviceID, 10, 32)
 			frame := NewPingFrame(int32(i))
 			bs, _ := frame.Marshal()
 
@@ -514,7 +553,11 @@ func (c *Client) pingLoop(ctx context.Context) {
 				c.logger.Debug(ctx, c.fmtLog("ping success")...)
 			}
 		}
-		time.Sleep(c.pingInterval)
+		select {
+		case <-ctx.Done():
+			return
+		case <-time.After(c.pingInterval):
+		}
 	}
 }
 
@@ -524,7 +567,7 @@ func (c *Client) receiveMessageLoop(ctx context.Context) {
 			c.logger.Error(ctx, c.fmtLog("receive message loop panic, err: %v, stack: %s", err, string(debug.Stack()))...)
 		}
 		c.disconnect(ctx)
-		if c.autoReconnect {
+		if ctx.Err() == nil && c.autoReconnectEnabled() {
 			if err := c.reconnect(ctx); err != nil {
 				c.logger.Error(ctx, err)
 			}
@@ -532,12 +575,13 @@ func (c *Client) receiveMessageLoop(ctx context.Context) {
 	}()
 
 	for {
-		if c.conn == nil {
+		conn := c.connSnapshot()
+		if conn == nil {
 			c.logger.Error(ctx, c.fmtLog("connection is closed, receive message loop exit")...)
 			return
 		}
 
-		mt, msg, err := c.conn.ReadMessage()
+		mt, msg, err := conn.ReadMessage()
 		if err != nil {
 			c.logger.Error(ctx, c.fmtLog("receive message failed, err: %v", err)...)
 			return
@@ -695,11 +739,74 @@ func (c *Client) writeMessage(messageType int, data []byte) error {
 
 func (c *Client) fmtLog(format string, i ...interface{}) []interface{} {
 	log := []interface{}{fmt.Sprintf(format, i...)}
-	if c.connID != "" {
-		log = append(log, fmt.Sprintf("[conn_id=%s]", c.connID))
+	if connID := c.connIDSnapshot(); connID != "" {
+		log = append(log, fmt.Sprintf("[conn_id=%s]", connID))
 	}
 
 	return log
+}
+
+func (c *Client) setStop(stop context.CancelFunc) {
+	c.lifecycleMu.Lock()
+	defer c.lifecycleMu.Unlock()
+	c.stop = stop
+}
+
+func (c *Client) clearStop() {
+	c.lifecycleMu.Lock()
+	defer c.lifecycleMu.Unlock()
+	c.stop = nil
+}
+
+func (c *Client) stopClient() {
+	c.lifecycleMu.Lock()
+	stop := c.stop
+	c.lifecycleMu.Unlock()
+	if stop != nil {
+		stop()
+	}
+}
+
+func (c *Client) setAutoReconnect(autoReconnect bool) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.autoReconnect = autoReconnect
+}
+
+func (c *Client) autoReconnectEnabled() bool {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.autoReconnect
+}
+
+func (c *Client) connSnapshot() *ws.Conn {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.conn
+}
+
+func (c *Client) connectionSnapshot() (bool, string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.conn != nil, c.serviceID
+}
+
+func (c *Client) connIDSnapshot() string {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.connID
+}
+
+func sleepWithContext(ctx context.Context, d time.Duration) error {
+	timer := time.NewTimer(d)
+	defer timer.Stop()
+
+	select {
+	case <-ctx.Done():
+		return ctx.Err()
+	case <-timer.C:
+		return nil
+	}
 }
 
 func (c *Client) configure(conf *ClientConfig) {
