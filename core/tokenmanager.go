@@ -14,6 +14,8 @@ package larkcore
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -33,7 +35,7 @@ func (m *TokenManager) getAppAccessToken(ctx context.Context, config *Config, ap
 		return "", &CodeError{Code: ErrCodeClientAssertionProviderNotConfigured, Msg: "AppAccessToken is not available in ClientAssertion mode"}
 	}
 
-	token, err := m.get(ctx, appAccessTokenKey(config.AppId))
+	token, err := m.get(ctx, appAccessTokenKey(config.AppId, config.AppSecret))
 	if err != nil {
 		return "", err
 	}
@@ -62,7 +64,7 @@ func (m *TokenManager) getTenantAccessToken(ctx context.Context, config *Config,
 		return m.getTenantTokenByClientAssertion(ctx, config, tenantKey)
 	}
 
-	token, err := m.get(ctx, tenantAccessTokenKey(config.AppId, tenantKey))
+	token, err := m.get(ctx, tenantAccessTokenKey(config.AppId, config.AppSecret, tenantKey))
 	if err != nil {
 		return "", err
 	}
@@ -155,16 +157,21 @@ type MarketplaceTenantAccessTokenReq struct {
 	TenantKey      string `json:"tenant_key"`
 }
 
-func appAccessTokenKey(appID string) string {
-	return fmt.Sprintf("%s-%s", appAccessTokenKeyPrefix, appID)
+func appAccessTokenKey(appID, appSecret string) string {
+	return fmt.Sprintf("%s:app_secret:%s:%s", appAccessTokenKeyPrefix, appID, appSecretFingerprint(appSecret))
 }
 
-func tenantAccessTokenKey(appID, tenantKey string) string {
-	return fmt.Sprintf("%s:app_secret:%s:%s", tenantAccessTokenKeyPrefix, appID, tenantKey)
+func tenantAccessTokenKey(appID, appSecret, tenantKey string) string {
+	return fmt.Sprintf("%s:app_secret:%s:%s:%s", tenantAccessTokenKeyPrefix, appID, appSecretFingerprint(appSecret), tenantKey)
 }
 
 func clientAssertionTenantAccessTokenKey(appID, tenantKey, aud string) string {
 	return fmt.Sprintf("%s:client_assertion:%s:%s:%s", tenantAccessTokenKeyPrefix, appID, tenantKey, aud)
+}
+
+func appSecretFingerprint(appSecret string) string {
+	sum := sha256.Sum256([]byte(appSecret))
+	return hex.EncodeToString(sum[:])
 }
 
 func (m *TokenManager) getTenantTokenByClientAssertion(ctx context.Context, config *Config, tenantKey string) (string, error) {
@@ -282,7 +289,7 @@ func (m *TokenManager) getCustomAppAccessTokenThenCache(ctx context.Context, con
 		return "", resp.CodeError
 	}
 	expire := time.Duration(resp.Expire)*time.Second - expiryDelta
-	err = m.set(ctx, appAccessTokenKey(config.AppId), resp.AppAccessToken, expire)
+	err = m.set(ctx, appAccessTokenKey(config.AppId, config.AppSecret), resp.AppAccessToken, expire)
 	if err != nil {
 		config.Logger.Warn(ctx, fmt.Sprintf("custom app appAccessToken save cache, err:%v", err))
 	}
@@ -313,7 +320,7 @@ func (m *TokenManager) getCustomTenantAccessTokenThenCache(ctx context.Context, 
 		return "", tenantAccessTokenResp.CodeError
 	}
 	expire := time.Duration(tenantAccessTokenResp.Expire)*time.Second - expiryDelta
-	err = m.cache.Set(ctx, tenantAccessTokenKey(config.AppId, tenantKey), tenantAccessTokenResp.TenantAccessToken, expire)
+	err = m.cache.Set(ctx, tenantAccessTokenKey(config.AppId, config.AppSecret, tenantKey), tenantAccessTokenResp.TenantAccessToken, expire)
 	if err != nil {
 		config.Logger.Warn(ctx, fmt.Sprintf("custom app tenantAccessToken save cache, err:%v", err))
 	}
@@ -357,7 +364,7 @@ func (m *TokenManager) getMarketplaceAppAccessTokenThenCache(ctx context.Context
 		return "", appAccessTokenResp.CodeError
 	}
 	expire := time.Duration(appAccessTokenResp.Expire)*time.Second - expiryDelta
-	err = m.set(ctx, appAccessTokenKey(config.AppId), appAccessTokenResp.AppAccessToken, expire)
+	err = m.set(ctx, appAccessTokenKey(config.AppId, config.AppSecret), appAccessTokenResp.AppAccessToken, expire)
 	if err != nil {
 		config.Logger.Warn(ctx, fmt.Sprintf("marketplace app appAccessToken save cache, err:%v", err))
 	}
@@ -393,7 +400,7 @@ func (m *TokenManager) getMarketplaceTenantAccessTokenThenCache(ctx context.Cont
 		return "", tenantAccessTokenResp.CodeError
 	}
 	expire := time.Duration(tenantAccessTokenResp.Expire)*time.Second - expiryDelta
-	err = m.set(ctx, tenantAccessTokenKey(config.AppId, tenantKey), tenantAccessTokenResp.TenantAccessToken, expire)
+	err = m.set(ctx, tenantAccessTokenKey(config.AppId, config.AppSecret, tenantKey), tenantAccessTokenResp.TenantAccessToken, expire)
 	if err != nil {
 		config.Logger.Warn(ctx, fmt.Sprintf("market app tenantAccessToken save cache, err:%v", err))
 	}

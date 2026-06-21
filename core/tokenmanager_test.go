@@ -17,6 +17,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 	"time"
 )
@@ -39,7 +40,7 @@ func TestTokenManagerSetAndGet(t *testing.T) {
 	cache := &localCache{}
 	tokenManager := TokenManager{cache: cache}
 
-	err := tokenManager.set(context.Background(), tenantAccessTokenKey(config.AppId, "tenantKey"), "tokenValue", time.Minute)
+	err := tokenManager.set(context.Background(), tenantAccessTokenKey(config.AppId, config.AppSecret, "tenantKey"), "tokenValue", time.Minute)
 	if err != nil {
 		t.Errorf("set key failed ,%v", err)
 	}
@@ -56,11 +57,127 @@ func TestTokenManagerSetAndGet(t *testing.T) {
 }
 
 func TestTenantAccessTokenCacheKeysIncludeCredentialMode(t *testing.T) {
-	if got, want := tenantAccessTokenKey("cli_a", "tenantKey"), "tenant_access_token:app_secret:cli_a:tenantKey"; got != want {
-		t.Fatalf("unexpected app secret tenant token key: %s", got)
+	appKey := appAccessTokenKey("cli_a", "secret-a")
+	if appKey == appAccessTokenKey("cli_a", "secret-b") {
+		t.Fatalf("app token cache key must change when app secret changes")
+	}
+	if strings.Contains(appKey, "secret-a") {
+		t.Fatalf("app token cache key must not contain raw app secret: %s", appKey)
+	}
+
+	tenantKey := tenantAccessTokenKey("cli_a", "secret-a", "tenantKey")
+	if tenantKey == tenantAccessTokenKey("cli_a", "secret-b", "tenantKey") {
+		t.Fatalf("tenant token cache key must change when app secret changes")
+	}
+	if strings.Contains(tenantKey, "secret-a") {
+		t.Fatalf("tenant token cache key must not contain raw app secret: %s", tenantKey)
 	}
 	if got, want := clientAssertionTenantAccessTokenKey("cli_a", "tenantKey", "accounts.feishu.cn"), "tenant_access_token:client_assertion:cli_a:tenantKey:accounts.feishu.cn"; got != want {
 		t.Fatalf("unexpected client assertion tenant token key: %s", got)
+	}
+}
+
+func TestGetAppAccessTokenDoesNotReuseCacheAcrossAppSecrets(t *testing.T) {
+	var calls int
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		calls++
+		if r.URL.Path != AppAccessTokenInternalUrlPath {
+			t.Fatalf("unexpected path: %s", r.URL.Path)
+		}
+		var req SelfBuiltAppAccessTokenReq
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			t.Fatalf("decode body failed: %v", err)
+		}
+		if req.AppSecret != "correct-secret" {
+			_ = json.NewEncoder(w).Encode(&AppAccessTokenResp{
+				CodeError: CodeError{Code: 19002, Msg: "invalid app secret"},
+			})
+			return
+		}
+		_ = json.NewEncoder(w).Encode(&AppAccessTokenResp{
+			CodeError:      CodeError{Code: 0},
+			Expire:         7200,
+			AppAccessToken: "app-token",
+		})
+	}))
+	defer server.Close()
+
+	config := mockConfig()
+	config.BaseUrl = server.URL
+	config.HttpClient = server.Client()
+	config.EnableTokenCache = true
+	config.AppId = "cli_a"
+	config.AppSecret = "correct-secret"
+
+	manager := TokenManager{cache: &localCache{}}
+	token, err := manager.getAppAccessToken(context.Background(), config, "")
+	if err != nil {
+		t.Fatalf("get app access token failed: %v", err)
+	}
+	if token != "app-token" {
+		t.Fatalf("unexpected token: %s", token)
+	}
+
+	wrongSecretConfig := *config
+	wrongSecretConfig.AppSecret = "wrong-secret"
+	_, err = manager.getAppAccessToken(context.Background(), &wrongSecretConfig, "")
+	if err == nil {
+		t.Fatalf("expected wrong app secret to miss cache and return an auth error")
+	}
+	if calls != 2 {
+		t.Fatalf("expected wrong app secret to trigger a second token request, got %d calls", calls)
+	}
+}
+
+func TestGetTenantAccessTokenDoesNotReuseCacheAcrossAppSecrets(t *testing.T) {
+	var calls int
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		calls++
+		if r.URL.Path != TenantAccessTokenInternalUrlPath {
+			t.Fatalf("unexpected path: %s", r.URL.Path)
+		}
+		var req SelfBuiltTenantAccessTokenReq
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			t.Fatalf("decode body failed: %v", err)
+		}
+		if req.AppSecret != "correct-secret" {
+			_ = json.NewEncoder(w).Encode(&TenantAccessTokenResp{
+				CodeError: CodeError{Code: 19002, Msg: "invalid app secret"},
+			})
+			return
+		}
+		_ = json.NewEncoder(w).Encode(&TenantAccessTokenResp{
+			CodeError:         CodeError{Code: 0},
+			Expire:            7200,
+			TenantAccessToken: "tenant-token",
+		})
+	}))
+	defer server.Close()
+
+	config := mockConfig()
+	config.BaseUrl = server.URL
+	config.HttpClient = server.Client()
+	config.EnableTokenCache = true
+	config.AppId = "cli_a"
+	config.AppSecret = "correct-secret"
+
+	manager := TokenManager{cache: &localCache{}}
+	token, err := manager.getTenantAccessToken(context.Background(), config, "tenantKey", "")
+	if err != nil {
+		t.Fatalf("get tenant access token failed: %v", err)
+	}
+	if token != "tenant-token" {
+		t.Fatalf("unexpected token: %s", token)
+	}
+
+	wrongSecretConfig := *config
+	wrongSecretConfig.AppSecret = "wrong-secret"
+	_, err = manager.getTenantAccessToken(context.Background(), &wrongSecretConfig, "tenantKey", "")
+	if err == nil {
+		t.Fatalf("expected wrong app secret to miss cache and return an auth error")
+	}
+	if calls != 2 {
+		t.Fatalf("expected wrong app secret to trigger a second token request, got %d calls", calls)
 	}
 }
 
@@ -83,7 +200,7 @@ func TestGetTenantAccessTokenByClientAssertionIgnoresAppSecretCache(t *testing.T
 	config.ClientAssertionProvider = provider
 
 	cache := &localCache{}
-	if err := cache.Set(context.Background(), tenantAccessTokenKey(config.AppId, "tenantKey"), "cached-appsecret-token", time.Hour); err != nil {
+	if err := cache.Set(context.Background(), tenantAccessTokenKey(config.AppId, config.AppSecret, "tenantKey"), "cached-appsecret-token", time.Hour); err != nil {
 		t.Fatalf("seed app secret cache failed: %v", err)
 	}
 
