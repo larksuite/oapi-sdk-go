@@ -60,7 +60,7 @@ func RegisterApp(ctx context.Context, opts *Options) (*RegisterAppResult, error)
 		return nil, err
 	}
 
-	qrURL, err := buildQRCodeURL(beginResp.VerificationURIComplete, opts.Source, opts.AppPreset)
+	qrURL, err := buildQRCodeURL(beginResp.VerificationURIComplete, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -238,7 +238,7 @@ func normalizedExpireIn(expireIn int) int {
 	return expireIn
 }
 
-func buildQRCodeURL(rawURL, source string, preset *AppPreset) (string, error) {
+func buildQRCodeURL(rawURL string, opts *Options) (string, error) {
 	parsedURL, err := url.Parse(rawURL)
 	if err != nil {
 		return "", err
@@ -247,13 +247,29 @@ func buildQRCodeURL(rawURL, source string, preset *AppPreset) (string, error) {
 	query := parsedURL.Query()
 	query.Set("from", "sdk")
 	query.Set("tp", "sdk")
-	if source == "" {
+	if opts.Source == "" {
 		query.Set("source", sdkName)
 	} else {
-		query.Set("source", sdkName+"/"+source)
+		query.Set("source", sdkName+"/"+opts.Source)
 	}
-	if err := applyAppPreset(query, preset); err != nil {
+	if err := applyAppPreset(query, opts.AppPreset); err != nil {
 		return "", err
+	}
+	if opts.Addons != nil {
+		encodedAddons, err := encodeAddons(opts.Addons)
+		if err != nil {
+			return "", err
+		}
+		query.Set("addons", encodedAddons)
+	}
+	if opts.CreateOnly {
+		query.Set("createOnly", "true")
+	}
+	if opts.AppID != "" {
+		if strings.TrimSpace(opts.AppID) == "" {
+			return "", errors.New("registration: Options.AppID must be a non-empty string")
+		}
+		query.Set("clientID", opts.AppID)
 	}
 	parsedURL.RawQuery = query.Encode()
 	return parsedURL.String(), nil
