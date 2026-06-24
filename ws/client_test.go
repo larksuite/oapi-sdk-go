@@ -8,7 +8,9 @@ import (
 	"strings"
 	"sync"
 	"testing"
+	"time"
 
+	gws "github.com/gorilla/websocket"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
@@ -210,4 +212,131 @@ func TestBuildWSProxyURL(t *testing.T) {
 			t.Fatalf("unexpected proxy url for %s: %s", targetService, proxyURL)
 		}
 	}
+}
+
+func TestPingLoopStopsWhenContextCanceled(t *testing.T) {
+	client := NewClient("app-id", "app-secret")
+	client.pingInterval = time.Nanosecond
+
+	ctx, cancel := context.WithCancel(context.Background())
+	done := make(chan struct{})
+	go func() {
+		client.pingLoop(ctx)
+		close(done)
+	}()
+
+	cancel()
+
+	select {
+	case <-done:
+	case <-time.After(100 * time.Millisecond):
+		t.Fatal("pingLoop did not stop after context cancellation")
+	}
+}
+
+func TestStartReturnsWhenContextCanceled(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	server, connected := newWSStartTestServer(t)
+	defer server.Close()
+
+	bootstrapHTTPClient = server.Client()
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	client := NewClient("app-id", "app-secret", WithDomain(server.URL))
+	done := make(chan error, 1)
+	go func() {
+		done <- client.Start(ctx)
+	}()
+
+	select {
+	case <-connected:
+	case <-time.After(time.Second):
+		t.Fatal("client did not connect to the websocket server")
+	}
+
+	cancel()
+
+	select {
+	case err := <-done:
+		if err != context.Canceled {
+			t.Fatalf("expected context.Canceled, got %v", err)
+		}
+	case <-time.After(100 * time.Millisecond):
+		t.Fatal("Start did not return after context cancellation")
+	}
+}
+
+func TestCloseStopsStartedClient(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	server, connected := newWSStartTestServer(t)
+	defer server.Close()
+
+	bootstrapHTTPClient = server.Client()
+	client := NewClient("app-id", "app-secret", WithDomain(server.URL))
+	done := make(chan error, 1)
+	go func() {
+		done <- client.Start(context.Background())
+	}()
+
+	select {
+	case <-connected:
+	case <-time.After(time.Second):
+		t.Fatal("client did not connect to the websocket server")
+	}
+
+	client.Close()
+
+	select {
+	case err := <-done:
+		if err != context.Canceled {
+			t.Fatalf("expected context.Canceled, got %v", err)
+		}
+	case <-time.After(100 * time.Millisecond):
+		t.Fatal("Start did not return after Close")
+	}
+}
+
+func newWSStartTestServer(t *testing.T) (*httptest.Server, <-chan struct{}) {
+	t.Helper()
+
+	upgrader := gws.Upgrader{}
+	connected := make(chan struct{})
+	var connectedOnce sync.Once
+	var server *httptest.Server
+	server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case GenEndpointUri:
+			endpointURL := "ws" + strings.TrimPrefix(server.URL, "http") + "/ws?" + DeviceID + "=device&" + ServiceID + "=1"
+			_ = json.NewEncoder(w).Encode(&EndpointResp{
+				Code: OK,
+				Data: &Endpoint{
+					Url:          endpointURL,
+					ClientConfig: &ClientConfig{PingInterval: 1},
+				},
+			})
+		case "/ws":
+			conn, err := upgrader.Upgrade(w, r, nil)
+			if err != nil {
+				return
+			}
+			connectedOnce.Do(func() { close(connected) })
+			go func() {
+				defer conn.Close()
+				for {
+					if _, _, err := conn.ReadMessage(); err != nil {
+						return
+					}
+				}
+			}()
+		default:
+			http.NotFound(w, r)
+		}
+	}))
+
+	return server, connected
 }
