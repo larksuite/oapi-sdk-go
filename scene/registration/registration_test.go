@@ -1,8 +1,13 @@
 package registration
 
 import (
+	"bytes"
+	"compress/gzip"
 	"context"
+	"encoding/base64"
+	"encoding/json"
 	"errors"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -239,6 +244,127 @@ func TestRegisterAppAppPresetDoesNotInterfereWithSource(t *testing.T) {
 	}
 	if query.Get("name") != "X" {
 		t.Fatalf("unexpected name: %s", query.Get("name"))
+	}
+}
+
+func TestRegisterAppOmitsAddonsCreateOnlyAndAppIDWhenUnset(t *testing.T) {
+	qrURL := captureQRURL(t, Options{})
+	query := qrURL.Query()
+
+	for _, key := range []string{"addons", "createOnly", "clientID"} {
+		if _, ok := query[key]; ok {
+			t.Fatalf("unexpected %s param: %s", key, qrURL.String())
+		}
+	}
+}
+
+func TestRegisterAppAddonsEncodesURLSafeParam(t *testing.T) {
+	addons := &AppAddons{
+		Scopes: AppAddonsScopes{
+			Tenant: []string{"im:message:send_as_bot", "drive:drive.metadata:readonly"},
+			User:   []string{"calendar:calendar:read"},
+		},
+		Events: AppAddonsEvents{
+			Items: AppAddonsEventItems{
+				Tenant: []string{"im.message.receive_v1"},
+				User:   []string{"calendar.calendar.event.changed_v4"},
+			},
+		},
+		Callbacks: AppAddonsCallbacks{
+			Items: []string{"card.action.trigger"},
+		},
+	}
+	qrURL := captureQRURL(t, Options{
+		Addons: addons,
+	})
+	encoded := qrURL.Query().Get("addons")
+
+	if encoded == "" {
+		t.Fatalf("expected addons param: %s", qrURL.String())
+	}
+	if strings.ContainsAny(encoded, "+/=") {
+		t.Fatalf("expected URL-safe base64 without padding, got %q", encoded)
+	}
+	decoded := decodeAddonsParam(t, qrURL)
+	if !reflect.DeepEqual(decoded, *addons) {
+		t.Fatalf("unexpected decoded addons:\nwant: %#v\n got: %#v", *addons, decoded)
+	}
+}
+
+func TestRegisterAppAddonsRejectsEmpty(t *testing.T) {
+	expectOptionsReject(t, Options{
+		Addons: &AppAddons{},
+	}, "Addons must contain at least one scope, event or callback")
+}
+
+func TestRegisterAppAddonsRejectsEmptyItem(t *testing.T) {
+	expectOptionsReject(t, Options{
+		Addons: &AppAddons{
+			Callbacks: AppAddonsCallbacks{
+				Items: []string{"card.action.trigger", ""},
+			},
+		},
+	}, "Addons.Callbacks.Items[1] must be a non-empty string")
+}
+
+func TestRegisterAppCreateOnlySetsParamOnlyWhenTrue(t *testing.T) {
+	enabledURL := captureQRURL(t, Options{
+		CreateOnly: true,
+	})
+	if got := enabledURL.Query().Get("createOnly"); got != "true" {
+		t.Fatalf("unexpected createOnly: %s", got)
+	}
+
+	disabledURL := captureQRURL(t, Options{
+		CreateOnly: false,
+	})
+	if _, ok := disabledURL.Query()["createOnly"]; ok {
+		t.Fatalf("unexpected createOnly param: %s", disabledURL.String())
+	}
+}
+
+func TestRegisterAppAppIDSetsClientID(t *testing.T) {
+	qrURL := captureQRURL(t, Options{
+		AppID: "cli_a1b2c3",
+	})
+
+	if got := qrURL.Query().Get("clientID"); got != "cli_a1b2c3" {
+		t.Fatalf("unexpected clientID: %s", got)
+	}
+}
+
+func TestRegisterAppNewParamsCoexistWithAppPreset(t *testing.T) {
+	qrURL := captureQRURL(t, Options{
+		AppPreset: &AppPreset{
+			Name: "MyApp",
+		},
+		Addons: &AppAddons{
+			Scopes: AppAddonsScopes{
+				Tenant: []string{"im:message:send_as_bot"},
+			},
+		},
+		CreateOnly: true,
+		AppID:      "cli_a1b2c3",
+	})
+	query := qrURL.Query()
+
+	if got := query.Get("name"); got != "MyApp" {
+		t.Fatalf("unexpected name: %s", got)
+	}
+	if got := query.Get("createOnly"); got != "true" {
+		t.Fatalf("unexpected createOnly: %s", got)
+	}
+	if got := query.Get("clientID"); got != "cli_a1b2c3" {
+		t.Fatalf("unexpected clientID: %s", got)
+	}
+	decoded := decodeAddonsParam(t, qrURL)
+	want := AppAddons{
+		Scopes: AppAddonsScopes{
+			Tenant: []string{"im:message:send_as_bot"},
+		},
+	}
+	if !reflect.DeepEqual(decoded, want) {
+		t.Fatalf("unexpected decoded addons:\nwant: %#v\n got: %#v", want, decoded)
 	}
 }
 
@@ -728,6 +854,14 @@ func captureQRURL(t *testing.T, opts Options) *url.URL {
 func expectAppPresetReject(t *testing.T, preset *AppPreset, wantErr string) {
 	t.Helper()
 
+	expectOptionsReject(t, Options{
+		AppPreset: preset,
+	}, wantErr)
+}
+
+func expectOptionsReject(t *testing.T, opts Options, wantErr string) {
+	t.Helper()
+
 	restoreWait := stubWaitForInterval()
 	defer restoreWait()
 
@@ -739,7 +873,7 @@ func expectAppPresetReject(t *testing.T, preset *AppPreset, wantErr string) {
 		case "begin":
 			writeJSON(w, `{"device_code":"dev-1","verification_uri_complete":"https://accounts.feishu.cn/page/launcher","interval":0,"expire_in":600}`)
 		case "poll":
-			t.Fatal("poll should not be called when preset validation fails")
+			t.Fatal("poll should not be called when options validation fails")
 		default:
 			t.Fatalf("unexpected action: %s", r.Form.Get("action"))
 		}
@@ -747,13 +881,11 @@ func expectAppPresetReject(t *testing.T, preset *AppPreset, wantErr string) {
 	defer server.Close()
 
 	calledQRCode := false
-	_, err := RegisterApp(context.Background(), &Options{
-		Domain:    server.URL,
-		AppPreset: preset,
-		OnQRCode: func(info *QRCodeInfo) {
-			calledQRCode = true
-		},
-	})
+	opts.Domain = server.URL
+	opts.OnQRCode = func(info *QRCodeInfo) {
+		calledQRCode = true
+	}
+	_, err := RegisterApp(context.Background(), &opts)
 	if err == nil {
 		t.Fatal("expected error, got nil")
 	}
@@ -765,7 +897,41 @@ func expectAppPresetReject(t *testing.T, preset *AppPreset, wantErr string) {
 	}
 }
 
+func decodeAddonsParam(t *testing.T, qrURL *url.URL) AppAddons {
+	t.Helper()
+
+	encoded := qrURL.Query().Get("addons")
+	if encoded == "" {
+		t.Fatalf("missing addons param: %s", qrURL.String())
+	}
+	compressed, err := base64.RawURLEncoding.DecodeString(encoded)
+	if err != nil {
+		t.Fatalf("decode addons base64 failed: %v", err)
+	}
+	reader, err := gzip.NewReader(bytes.NewReader(compressed))
+	if err != nil {
+		t.Fatalf("create gzip reader failed: %v", err)
+	}
+	defer func() {
+		if err := reader.Close(); err != nil {
+			t.Fatalf("close gzip reader failed: %v", err)
+		}
+	}()
+
+	body, err := io.ReadAll(reader)
+	if err != nil {
+		t.Fatalf("read addons gzip body failed: %v", err)
+	}
+	var addons AppAddons
+	if err := json.Unmarshal(body, &addons); err != nil {
+		t.Fatalf("unmarshal addons failed: %v", err)
+	}
+	return addons
+}
+
 func writeJSON(w http.ResponseWriter, body string) {
 	w.Header().Set("Content-Type", "application/json")
-	_, _ = w.Write([]byte(body))
+	if _, err := w.Write([]byte(body)); err != nil {
+		panic("write test JSON response failed: " + err.Error())
+	}
 }

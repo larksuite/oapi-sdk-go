@@ -36,6 +36,48 @@ type AppPreset struct {
 	Desc string
 }
 
+// AppAddons contains incremental app config pre-filled into the confirmation
+// page shown after the user opens the QR code URL. Only public scopes, events,
+// and callbacks are supported. Sensitive config must be updated through the
+// application config OpenAPI instead.
+type AppAddons struct {
+	// Scopes contains app-identity and user-identity permission scopes.
+	Scopes AppAddonsScopes `json:"scopes,omitempty"`
+
+	// Events contains app-identity and user-identity event subscriptions.
+	Events AppAddonsEvents `json:"events,omitempty"`
+
+	// Callbacks contains callback names.
+	Callbacks AppAddonsCallbacks `json:"callbacks,omitempty"`
+}
+
+type AppAddonsScopes struct {
+	// Tenant contains app-identity scopes, for example
+	// im:message:send_as_bot.
+	Tenant []string `json:"tenant,omitempty"`
+
+	// User contains user-identity scopes, for example calendar:calendar:read.
+	User []string `json:"user,omitempty"`
+}
+
+type AppAddonsEvents struct {
+	Items AppAddonsEventItems `json:"items,omitempty"`
+}
+
+type AppAddonsEventItems struct {
+	// Tenant contains app-identity events, for example im.message.receive_v1.
+	Tenant []string `json:"tenant,omitempty"`
+
+	// User contains user-identity events, for example
+	// calendar.calendar.event.changed_v4.
+	User []string `json:"user,omitempty"`
+}
+
+type AppAddonsCallbacks struct {
+	// Items contains callback names, for example card.action.trigger.
+	Items []string `json:"items,omitempty"`
+}
+
 type UserInfo struct {
 	OpenID      string
 	TenantBrand string
@@ -52,6 +94,9 @@ type Options struct {
 	Domain         string
 	LarkDomain     string
 	AppPreset      *AppPreset
+	Addons         *AppAddons
+	CreateOnly     bool
+	AppID          string
 	OnQRCode       func(info *QRCodeInfo)
 	OnStatusChange func(info *StatusChangeInfo)
 }
