@@ -44,6 +44,7 @@ type Client struct {
 	reconnectInterval       time.Duration // 重连间隔
 	pingInterval            time.Duration // Ping间隔
 	cache                   *larkcache.Cache
+	configMu                sync.RWMutex
 	mu                      sync.Mutex
 	onReady                 func()
 	onError                 func(err error)
@@ -280,15 +281,17 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 		c.onReconnecting()
 	}
 
+	reconnectNonce, reconnectCount, reconnectInterval := c.reconnectConfigSnapshot()
+
 	// 首次重连随机抖动
-	if c.reconnectNonce > 0 {
+	if reconnectNonce > 0 {
 		rand.Seed(time.Now().UnixNano())
-		num := rand.Intn(c.reconnectNonce * 1000)
+		num := rand.Intn(reconnectNonce * 1000)
 		time.Sleep(time.Duration(num) * time.Millisecond)
 	}
 
-	if c.reconnectCount >= 0 {
-		for i := 0; i < c.reconnectCount; i++ {
+	if reconnectCount >= 0 {
+		for i := 0; i < reconnectCount; i++ {
 			success, err := c.tryConnect(ctx, i)
 			if success {
 				if c.onReconnected != nil {
@@ -299,9 +302,10 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 			if err != nil {
 				return err
 			}
-			time.Sleep(c.reconnectInterval)
+			_, _, reconnectInterval = c.reconnectConfigSnapshot()
+			time.Sleep(reconnectInterval)
 		}
-		return fmt.Errorf("unable to connect to server after %d retries", c.reconnectCount)
+		return fmt.Errorf("unable to connect to server after %d retries", reconnectCount)
 	} else {
 		i := 0
 		for {
@@ -315,7 +319,8 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 			if err != nil {
 				return err
 			}
-			time.Sleep(c.reconnectInterval)
+			_, _, reconnectInterval = c.reconnectConfigSnapshot()
+			time.Sleep(reconnectInterval)
 			i += 1
 		}
 	}
@@ -502,8 +507,9 @@ func (c *Client) pingLoop(ctx context.Context) {
 	}()
 
 	for {
-		if c.conn != nil {
-			i, _ := strconv.ParseInt(c.serviceID, 10, 32)
+		connected, serviceID := c.connectionSnapshot()
+		if connected {
+			i, _ := strconv.ParseInt(serviceID, 10, 32)
 			frame := NewPingFrame(int32(i))
 			bs, _ := frame.Marshal()
 
@@ -514,7 +520,7 @@ func (c *Client) pingLoop(ctx context.Context) {
 				c.logger.Debug(ctx, c.fmtLog("ping success")...)
 			}
 		}
-		time.Sleep(c.pingInterval)
+		time.Sleep(c.pingIntervalSnapshot())
 	}
 }
 
@@ -703,10 +709,34 @@ func (c *Client) fmtLog(format string, i ...interface{}) []interface{} {
 }
 
 func (c *Client) configure(conf *ClientConfig) {
+	c.configMu.Lock()
+	defer c.configMu.Unlock()
+
 	c.reconnectCount = conf.ReconnectCount
 	c.reconnectInterval = time.Duration(conf.ReconnectInterval) * time.Second
 	c.reconnectNonce = conf.ReconnectNonce
 	c.pingInterval = time.Duration(conf.PingInterval) * time.Second
+}
+
+func (c *Client) reconnectConfigSnapshot() (nonce int, count int, interval time.Duration) {
+	c.configMu.RLock()
+	defer c.configMu.RUnlock()
+
+	return c.reconnectNonce, c.reconnectCount, c.reconnectInterval
+}
+
+func (c *Client) pingIntervalSnapshot() time.Duration {
+	c.configMu.RLock()
+	defer c.configMu.RUnlock()
+
+	return c.pingInterval
+}
+
+func (c *Client) connectionSnapshot() (bool, string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	return c.conn != nil, c.serviceID
 }
 
 func parseErr(resp *http.Response) error {
