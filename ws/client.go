@@ -231,9 +231,6 @@ func (c *Client) Start(ctx context.Context) (err error) {
 }
 
 func (c *Client) connect(ctx context.Context) (err error) {
-	if c.conn != nil {
-		return
-	}
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.conn != nil {
@@ -280,15 +277,17 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 		c.onReconnecting()
 	}
 
+	reconnectCount, _, reconnectNonce, _ := c.configSnapshot()
+
 	// 首次重连随机抖动
-	if c.reconnectNonce > 0 {
+	if reconnectNonce > 0 {
 		rand.Seed(time.Now().UnixNano())
-		num := rand.Intn(c.reconnectNonce * 1000)
+		num := rand.Intn(reconnectNonce * 1000)
 		time.Sleep(time.Duration(num) * time.Millisecond)
 	}
 
-	if c.reconnectCount >= 0 {
-		for i := 0; i < c.reconnectCount; i++ {
+	if reconnectCount >= 0 {
+		for i := 0; i < reconnectCount; i++ {
 			success, err := c.tryConnect(ctx, i)
 			if success {
 				if c.onReconnected != nil {
@@ -299,9 +298,10 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 			if err != nil {
 				return err
 			}
-			time.Sleep(c.reconnectInterval)
+			_, reconnectInterval, _, _ := c.configSnapshot()
+			time.Sleep(reconnectInterval)
 		}
-		return fmt.Errorf("unable to connect to server after %d retries", c.reconnectCount)
+		return fmt.Errorf("unable to connect to server after %d retries", reconnectCount)
 	} else {
 		i := 0
 		for {
@@ -315,7 +315,8 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 			if err != nil {
 				return err
 			}
-			time.Sleep(c.reconnectInterval)
+			_, reconnectInterval, _, _ := c.configSnapshot()
+			time.Sleep(reconnectInterval)
 			i += 1
 		}
 	}
@@ -341,9 +342,6 @@ func (c *Client) tryConnect(ctx context.Context, cnt int) (bool, error) {
 }
 
 func (c *Client) disconnect(ctx context.Context) {
-	if c.conn == nil {
-		return
-	}
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.conn == nil {
@@ -466,7 +464,9 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 
 	url = endpoint.Url
 	if endpoint.ClientConfig != nil {
-		c.configure(endpoint.ClientConfig)
+		// getConnURL is only ever called from connect, which already holds c.mu;
+		// use the locked variant to avoid self-deadlocking on the non-reentrant mutex.
+		c.configureLocked(endpoint.ClientConfig)
 	}
 
 	return
@@ -502,8 +502,9 @@ func (c *Client) pingLoop(ctx context.Context) {
 	}()
 
 	for {
-		if c.conn != nil {
-			i, _ := strconv.ParseInt(c.serviceID, 10, 32)
+		conn, serviceID := c.connState()
+		if conn != nil {
+			i, _ := strconv.ParseInt(serviceID, 10, 32)
 			frame := NewPingFrame(int32(i))
 			bs, _ := frame.Marshal()
 
@@ -514,7 +515,8 @@ func (c *Client) pingLoop(ctx context.Context) {
 				c.logger.Debug(ctx, c.fmtLog("ping success")...)
 			}
 		}
-		time.Sleep(c.pingInterval)
+		_, _, _, pingInterval := c.configSnapshot()
+		time.Sleep(pingInterval)
 	}
 }
 
@@ -532,12 +534,13 @@ func (c *Client) receiveMessageLoop(ctx context.Context) {
 	}()
 
 	for {
-		if c.conn == nil {
+		conn, _ := c.connState()
+		if conn == nil {
 			c.logger.Error(ctx, c.fmtLog("connection is closed, receive message loop exit")...)
 			return
 		}
 
-		mt, msg, err := c.conn.ReadMessage()
+		mt, msg, err := conn.ReadMessage()
 		if err != nil {
 			c.logger.Error(ctx, c.fmtLog("receive message failed, err: %v", err)...)
 			return
@@ -702,11 +705,39 @@ func (c *Client) fmtLog(format string, i ...interface{}) []interface{} {
 	return log
 }
 
+// configure applies a server-pushed config. It is the entry point for callers
+// that do NOT already hold c.mu (the pong control-frame handler runs in its own
+// goroutine). The connect path holds c.mu while building the URL, so it calls
+// configureLocked directly to avoid re-entering the non-reentrant mutex.
 func (c *Client) configure(conf *ClientConfig) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.configureLocked(conf)
+}
+
+// configureLocked writes the connection-control fields. The caller must hold c.mu.
+func (c *Client) configureLocked(conf *ClientConfig) {
 	c.reconnectCount = conf.ReconnectCount
 	c.reconnectInterval = time.Duration(conf.ReconnectInterval) * time.Second
 	c.reconnectNonce = conf.ReconnectNonce
 	c.pingInterval = time.Duration(conf.PingInterval) * time.Second
+}
+
+// configSnapshot reads the connection-control fields under c.mu and returns a
+// consistent copy, so readers (pingLoop, reconnect) never observe a torn write.
+func (c *Client) configSnapshot() (reconnectCount int, reconnectInterval time.Duration, reconnectNonce int, pingInterval time.Duration) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.reconnectCount, c.reconnectInterval, c.reconnectNonce, c.pingInterval
+}
+
+// connState reads conn/serviceID under c.mu. Callers must release the lock (i.e.
+// use the returned snapshot) before any blocking call such as writeMessage or
+// ReadMessage, since writeMessage takes c.mu again and the mutex is not reentrant.
+func (c *Client) connState() (conn *ws.Conn, serviceID string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.conn, c.serviceID
 }
 
 func parseErr(resp *http.Response) error {
