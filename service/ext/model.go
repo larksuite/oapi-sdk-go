@@ -31,8 +31,8 @@ type AuthenAccessTokenReqBody struct {
 }
 
 type AuthenAccessTokenReqBodyBuilder struct {
-	grantType string `json:"grant_type,omitempty"`
-	code      string `json:"code,omitempty"`
+	grantType string
+	code      string
 }
 
 func NewAuthenAccessTokenReqBodyBuilder() *AuthenAccessTokenReqBodyBuilder {
@@ -124,8 +124,8 @@ type RefreshAuthenAccessTokenReqBody struct {
 }
 
 type RefreshAuthenAccessTokenReqBodyBuilder struct {
-	grantType    string `json:"grant_type,omitempty"`
-	refreshToken string `json:"refresh_token,omitempty"`
+	grantType    string
+	refreshToken string
 }
 
 func NewRefreshAuthenAccessTokenReqBodyBuilder() *RefreshAuthenAccessTokenReqBodyBuilder {
@@ -263,8 +263,8 @@ type CreateFileReqBody struct {
 }
 
 type CreateFileReqBodyBuilder struct {
-	title string `json:"title,omitempty"`
-	type_ string `json:"type,omitempty"`
+	title string
+	type_ string
 }
 
 func NewCreateFileReqBodyBuilder() *CreateFileReqBodyBuilder {
