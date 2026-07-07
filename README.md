@@ -120,6 +120,33 @@ if err != nil {
 
 Notes: `Addons` is additive only and cannot remove config from the base template. The SDK validates shape and non-empty strings, but does not validate whether scope, event, or callback names exist.
 
+#### Choosing The Base Template With `Preset`
+
+`AppAddons.Preset` selects the base template for app creation (it is unrelated to `Options.AppPreset`, which pre-fills the app name, description, and avatar):
+
+| Value | Base template | Behavior |
+| ---- | ---- | ---- |
+| unset (`nil`) | Platform default template | Same as before this field existed; the encoded payload carries no `preset` key. |
+| `false` | Minimal base template | The confirmation page shows only the scopes, events, and callbacks declared in `Addons`. |
+| `true` | Platform default template | Explicitly requests the default base, same as unset. |
+
+With `Preset` set to `false`, an `Addons` without any scope, event, or callback is valid — the page still enters the confirmation flow and creates an app with only the minimal base capabilities:
+
+```go
+preset := false
+_, err := registration.RegisterApp(ctx, &registration.Options{
+	Addons: &registration.AppAddons{
+		Preset: &preset,
+	},
+	OnQRCode: func(info *registration.QRCodeInfo) {
+		fmt.Println(info.URL)
+	},
+})
+if err != nil {
+	panic(err)
+}
+```
+
 ### `registration.RegisterApp` Parameters
 
 | Parameter | Description | Type | Required | Default |
@@ -133,6 +160,7 @@ Notes: `Addons` is additive only and cannot remove config from the base template
 | `Options.AppPreset.Name` | App name with `{user}` placeholder support; pass raw value and the SDK encodes it. | `string` | No | - |
 | `Options.AppPreset.Desc` | App description with `{user}` placeholder support; pass raw value and the SDK encodes it. | `string` | No | - |
 | `Options.Addons` | Incremental scopes, events, and callbacks pre-filled into the confirmation page. | `*registration.AppAddons` | No | - |
+| `Options.Addons.Preset` | Base template selector: unset for the platform default template, `false` for the minimal base template (empty increments allowed), `true` for explicitly requesting the default base. | `*bool` | No | - |
 | `Options.Addons.Scopes.Tenant` | App-identity scopes, for example `im:message:send_as_bot`. | `[]string` | No | - |
 | `Options.Addons.Scopes.User` | User-identity scopes, for example `calendar:calendar:read`. | `[]string` | No | - |
 | `Options.Addons.Events.Items.Tenant` | App-identity events, for example `im.message.receive_v1`. | `[]string` | No | - |

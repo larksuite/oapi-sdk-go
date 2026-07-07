@@ -120,6 +120,33 @@ if err != nil {
 
 注意：`Addons` 仅支持增量叠加，不支持删除基础模板中的配置；SDK 只校验数据形状和非空字符串，不校验权限点、事件或回调名称是否存在。
 
+#### 通过 `Preset` 选择模板底座
+
+`AppAddons.Preset` 用于选择应用创建的模板底座（与 `Options.AppPreset` 无关，后者只预填应用名称、描述和头像）：
+
+| 取值 | 模板底座 | 行为 |
+| ---- | ---- | ---- |
+| 不设置（`nil`） | 平台默认模板 | 与该字段出现之前完全一致；编码后的 payload 不含 `preset` 键。 |
+| `false` | 最小基础模板 | 确认页只展示 `Addons` 中显式声明的权限、事件和回调。 |
+| `true` | 平台默认模板 | 显式声明使用默认底座，效果与不设置相同。 |
+
+`Preset` 为 `false` 时，允许 `Addons` 不携带任何权限、事件或回调——页面仍会进入确认流程，创建仅含最小底座能力的应用：
+
+```go
+preset := false
+_, err := registration.RegisterApp(ctx, &registration.Options{
+	Addons: &registration.AppAddons{
+		Preset: &preset,
+	},
+	OnQRCode: func(info *registration.QRCodeInfo) {
+		fmt.Println(info.URL)
+	},
+})
+if err != nil {
+	panic(err)
+}
+```
+
 ### `registration.RegisterApp` 参数
 
 | 参数 | 描述 | 类型 | 必填 | 默认值 |
@@ -133,6 +160,7 @@ if err != nil {
 | `Options.AppPreset.Name` | 应用名称，支持 `{user}` 占位符；传原始值，SDK 会编码。 | `string` | 否 | - |
 | `Options.AppPreset.Desc` | 应用描述，支持 `{user}` 占位符；传原始值，SDK 会编码。 | `string` | 否 | - |
 | `Options.Addons` | 增量权限、事件、回调配置，预填到扫码后的确认页，用户确认后生效。 | `*registration.AppAddons` | 否 | - |
+| `Options.Addons.Preset` | 模板底座选择：不设置为平台默认模板；`false` 为最小基础模板（此时允许增量为空）；`true` 为显式声明默认底座。 | `*bool` | 否 | - |
 | `Options.Addons.Scopes.Tenant` | 应用身份权限列表，如 `im:message:send_as_bot`。 | `[]string` | 否 | - |
 | `Options.Addons.Scopes.User` | 用户身份权限列表，如 `calendar:calendar:read`。 | `[]string` | 否 | - |
 | `Options.Addons.Events.Items.Tenant` | 应用身份事件列表，如 `im.message.receive_v1`。 | `[]string` | 否 | - |

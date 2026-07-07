@@ -40,6 +40,10 @@ func normalizeAddons(addons *AppAddons) (map[string]interface{}, error) {
 	itemCount := 0
 	payload := make(map[string]interface{})
 
+	if addons.Preset != nil {
+		payload["preset"] = *addons.Preset
+	}
+
 	scopes, hasScopes, err := normalizeAddonsScopes(addons.Scopes, &itemCount)
 	if err != nil {
 		return nil, err
@@ -64,10 +68,16 @@ func normalizeAddons(addons *AppAddons) (map[string]interface{}, error) {
 		payload["callbacks"] = callbacks
 	}
 
-	if itemCount == 0 {
-		return nil, fmt.Errorf("registration: Addons must contain at least one scope, event or callback")
+	if itemCount == 0 && !isMinimalBase(addons.Preset) {
+		return nil, fmt.Errorf("registration: Addons must contain at least one scope, event or callback, unless Preset is false")
 	}
 	return payload, nil
+}
+
+// isMinimalBase reports whether the addons explicitly select the minimal base
+// template (Preset false), the only case where an empty increment set is valid.
+func isMinimalBase(preset *bool) bool {
+	return preset != nil && !*preset
 }
 
 func normalizeAddonsScopes(scopes AppAddonsScopes, itemCount *int) (map[string][]string, bool, error) {
