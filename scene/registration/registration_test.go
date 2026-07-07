@@ -307,6 +307,188 @@ func TestRegisterAppAddonsRejectsEmptyItem(t *testing.T) {
 	}, "Addons.Callbacks.Items[1] must be a non-empty string")
 }
 
+func TestRegisterAppAddonsOmitsPresetKeyWhenUnset(t *testing.T) {
+	addons := &AppAddons{
+		Scopes: AppAddonsScopes{
+			Tenant: []string{"im:message:send_as_bot"},
+			User:   []string{"calendar:calendar:read"},
+		},
+		Events: AppAddonsEvents{
+			Items: AppAddonsEventItems{
+				Tenant: []string{"im.message.receive_v1"},
+			},
+		},
+		Callbacks: AppAddonsCallbacks{
+			Items: []string{"card.action.trigger"},
+		},
+	}
+	qrURL := captureQRURL(t, Options{
+		Addons: addons,
+	})
+
+	payload := decodeAddonsParamRaw(t, qrURL)
+	if _, ok := payload["preset"]; ok {
+		t.Fatalf("unexpected preset key in payload: %#v", payload)
+	}
+	decoded := decodeAddonsParam(t, qrURL)
+	if !reflect.DeepEqual(decoded, *addons) {
+		t.Fatalf("unexpected decoded addons:\nwant: %#v\n got: %#v", *addons, decoded)
+	}
+}
+
+func TestRegisterAppAddonsPresetFalseAllowsEmptyIncrements(t *testing.T) {
+	qrURL := captureQRURL(t, Options{
+		Addons: &AppAddons{
+			Preset: boolPtr(false),
+		},
+	})
+
+	payload := decodeAddonsParamRaw(t, qrURL)
+	// {"preset":false} alone is a valid payload: the confirmation page renders
+	// a near-empty app on the minimal template base.
+	want := map[string]interface{}{
+		"preset": false,
+	}
+	if !reflect.DeepEqual(payload, want) {
+		t.Fatalf("unexpected payload:\nwant: %#v\n got: %#v", want, payload)
+	}
+}
+
+func TestRegisterAppAddonsPresetFalseCoexistsWithIncrements(t *testing.T) {
+	qrURL := captureQRURL(t, Options{
+		Addons: &AppAddons{
+			Preset: boolPtr(false),
+			Scopes: AppAddonsScopes{
+				Tenant: []string{"im:message:send_as_bot"},
+			},
+		},
+	})
+
+	payload := decodeAddonsParamRaw(t, qrURL)
+	want := map[string]interface{}{
+		"preset": false,
+		"scopes": map[string]interface{}{
+			"tenant": []interface{}{"im:message:send_as_bot"},
+		},
+	}
+	if !reflect.DeepEqual(payload, want) {
+		t.Fatalf("unexpected payload:\nwant: %#v\n got: %#v", want, payload)
+	}
+}
+
+func TestRegisterAppAddonsPresetTrueEncodesPresetKey(t *testing.T) {
+	qrURL := captureQRURL(t, Options{
+		Addons: &AppAddons{
+			Preset: boolPtr(true),
+			Callbacks: AppAddonsCallbacks{
+				Items: []string{"card.action.trigger"},
+			},
+		},
+	})
+
+	payload := decodeAddonsParamRaw(t, qrURL)
+	want := map[string]interface{}{
+		"preset": true,
+		"callbacks": map[string]interface{}{
+			"items": []interface{}{"card.action.trigger"},
+		},
+	}
+	if !reflect.DeepEqual(payload, want) {
+		t.Fatalf("unexpected payload:\nwant: %#v\n got: %#v", want, payload)
+	}
+}
+
+func TestRegisterAppAddonsPresetTrueRejectsEmptyIncrements(t *testing.T) {
+	// Explicit true selects the same default template base as leaving Preset
+	// unset, so an otherwise empty addons payload stays invalid. The spec only
+	// fixes the error prefix; the exact wording is up to the implementation.
+	expectOptionsReject(t, Options{
+		Addons: &AppAddons{
+			Preset: boolPtr(true),
+		},
+	}, "registration:")
+}
+
+func TestRegisterAppAddonsPresetFalseKeepsNonEmptyStringValidation(t *testing.T) {
+	expectOptionsReject(t, Options{
+		Addons: &AppAddons{
+			Preset: boolPtr(false),
+			Callbacks: AppAddonsCallbacks{
+				Items: []string{"card.action.trigger", ""},
+			},
+		},
+	}, "Addons.Callbacks.Items[1] must be a non-empty string")
+}
+
+func TestRegisterAppAddonsPresetFalseFullFlowQRCodeURL(t *testing.T) {
+	restoreWait := stubWaitForInterval()
+	defer restoreWait()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if err := r.ParseForm(); err != nil {
+			t.Fatalf("parse form failed: %v", err)
+		}
+		switch r.Form.Get("action") {
+		case "begin":
+			writeJSON(w, `{"device_code":"device-preset","verification_uri_complete":"https://qr.example.com/scan?ticket=preset-1","interval":0,"expire_in":60}`)
+		case "poll":
+			writeJSON(w, `{"client_id":"cli_preset","client_secret":"sec_preset"}`)
+		default:
+			t.Fatalf("unexpected action: %s", r.Form.Get("action"))
+		}
+	}))
+	defer server.Close()
+
+	var qrInfo *QRCodeInfo
+	result, err := RegisterApp(context.Background(), &Options{
+		Domain: server.URL,
+		Source: "preset-cli",
+		Addons: &AppAddons{
+			Preset: boolPtr(false),
+			Scopes: AppAddonsScopes{
+				Tenant: []string{"im:message:send_as_bot"},
+			},
+		},
+		OnQRCode: func(info *QRCodeInfo) {
+			qrInfo = info
+		},
+	})
+	if err != nil {
+		t.Fatalf("register app failed: %v", err)
+	}
+	if result.ClientID != "cli_preset" || result.ClientSecret != "sec_preset" {
+		t.Fatalf("unexpected result: %#v", result)
+	}
+	if qrInfo == nil {
+		t.Fatal("expected qr info")
+	}
+
+	qrURL, err := url.Parse(qrInfo.URL)
+	if err != nil {
+		t.Fatalf("parse qr url failed: %v", err)
+	}
+	query := qrURL.Query()
+	if query.Get("ticket") != "preset-1" {
+		t.Fatalf("unexpected original query: %s", query.Encode())
+	}
+	if query.Get("from") != "sdk" || query.Get("tp") != "sdk" || query.Get("source") != "go-sdk/preset-cli" {
+		t.Fatalf("unexpected qr query: %s", query.Encode())
+	}
+	if encoded := query.Get("addons"); strings.ContainsAny(encoded, "+/=") {
+		t.Fatalf("expected URL-safe base64 without padding, got %q", encoded)
+	}
+	payload := decodeAddonsParamRaw(t, qrURL)
+	want := map[string]interface{}{
+		"preset": false,
+		"scopes": map[string]interface{}{
+			"tenant": []interface{}{"im:message:send_as_bot"},
+		},
+	}
+	if !reflect.DeepEqual(payload, want) {
+		t.Fatalf("unexpected payload:\nwant: %#v\n got: %#v", want, payload)
+	}
+}
+
 func TestRegisterAppCreateOnlySetsParamOnlyWhenTrue(t *testing.T) {
 	enabledURL := captureQRURL(t, Options{
 		CreateOnly: true,
@@ -900,6 +1082,29 @@ func expectOptionsReject(t *testing.T, opts Options, wantErr string) {
 func decodeAddonsParam(t *testing.T, qrURL *url.URL) AppAddons {
 	t.Helper()
 
+	var addons AppAddons
+	if err := json.Unmarshal(decodeAddonsParamBody(t, qrURL), &addons); err != nil {
+		t.Fatalf("unmarshal addons failed: %v", err)
+	}
+	return addons
+}
+
+// decodeAddonsParamRaw decodes the addons payload into a generic map because a
+// typed AppAddons cannot distinguish an absent key from a zero value, and the
+// preset contract is defined by key presence.
+func decodeAddonsParamRaw(t *testing.T, qrURL *url.URL) map[string]interface{} {
+	t.Helper()
+
+	var payload map[string]interface{}
+	if err := json.Unmarshal(decodeAddonsParamBody(t, qrURL), &payload); err != nil {
+		t.Fatalf("unmarshal addons payload failed: %v", err)
+	}
+	return payload
+}
+
+func decodeAddonsParamBody(t *testing.T, qrURL *url.URL) []byte {
+	t.Helper()
+
 	encoded := qrURL.Query().Get("addons")
 	if encoded == "" {
 		t.Fatalf("missing addons param: %s", qrURL.String())
@@ -922,11 +1127,11 @@ func decodeAddonsParam(t *testing.T, qrURL *url.URL) AppAddons {
 	if err != nil {
 		t.Fatalf("read addons gzip body failed: %v", err)
 	}
-	var addons AppAddons
-	if err := json.Unmarshal(body, &addons); err != nil {
-		t.Fatalf("unmarshal addons failed: %v", err)
-	}
-	return addons
+	return body
+}
+
+func boolPtr(value bool) *bool {
+	return &value
 }
 
 func writeJSON(w http.ResponseWriter, body string) {

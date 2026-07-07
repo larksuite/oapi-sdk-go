@@ -41,6 +41,19 @@ type AppPreset struct {
 // and callbacks are supported. Sensitive config must be updated through the
 // application config OpenAPI instead.
 type AppAddons struct {
+	// Preset selects the base template for app creation. It is unrelated to
+	// AppPreset, which pre-fills the app name, description and avatar.
+	//
+	//   - nil (default): the platform default template; the encoded payload
+	//     carries no preset key, identical to not setting this field.
+	//   - false: the minimal base template; the confirmation page shows only
+	//     the scopes, events and callbacks declared in this AppAddons. With
+	//     Preset set to false, an AppAddons without any scope, event or
+	//     callback is valid.
+	//   - true: explicitly requests the platform default template, same base
+	//     as nil.
+	Preset *bool `json:"preset,omitempty"`
+
 	// Scopes contains app-identity and user-identity permission scopes.
 	Scopes AppAddonsScopes `json:"scopes,omitempty"`
 
