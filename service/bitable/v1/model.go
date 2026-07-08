@@ -3850,7 +3850,7 @@ type Condition struct {
 
 	Operator *string `json:"operator,omitempty"` // 条件运算符
 
-	Value []string `json:"value,omitempty"` // 目标值
+	Value []string `json:"value"` // 目标值
 }
 
 type ConditionBuilder struct {
