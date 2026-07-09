@@ -272,6 +272,57 @@ func TestAttachUser(t *testing.T) {
 	}
 }
 
+func TestDetachUser(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/open-apis/event/v1/connections/12345/unbind_user" {
+			t.Fatalf("unexpected path: %s", r.URL.Path)
+		}
+		if r.Method != http.MethodPost {
+			t.Fatalf("unexpected method: %s", r.Method)
+		}
+		if r.Header.Get("Authorization") != "Bearer user-token" {
+			t.Fatalf("missing user token")
+		}
+		if r.Header.Get("X-Tt-Env") != "boe_sup_user_channel" {
+			t.Fatalf("missing route header")
+		}
+		userAgent := r.Header.Get("User-Agent")
+		if !strings.HasPrefix(userAgent, "oapi-sdk-go/") || !strings.Contains(userAgent, " source/ws-test") {
+			t.Fatalf("unexpected user agent: %s", userAgent)
+		}
+		var req AttachUserRequest
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			t.Fatalf("decode request failed: %v", err)
+		}
+		if req.ChannelTag != "web_boe_channel" {
+			t.Fatalf("unexpected channel tag: %s", req.ChannelTag)
+		}
+		_ = json.NewEncoder(w).Encode(&AttachUserResp{Code: OK})
+	}))
+	defer server.Close()
+
+	headers := make(http.Header)
+	headers.Set("X-Tt-Env", "boe_sup_user_channel")
+
+	bootstrapHTTPClient = server.Client()
+	client := NewClient("app-id", "app-secret",
+		WithDomain(server.URL),
+		WithHeaders(headers),
+		WithSource("ws-test"),
+		WithChannelTag("web_boe_channel"),
+	)
+	client.mu.Lock()
+	client.connID = "12345"
+	client.mu.Unlock()
+
+	if err := client.DetachUser(context.Background(), "user-token"); err != nil {
+		t.Fatalf("detach user failed: %v", err)
+	}
+}
+
 func TestAttachUserRequiresConnection(t *testing.T) {
 	client := NewClient("app-id", "app-secret")
 	err := client.AttachUser(context.Background(), "user-token")

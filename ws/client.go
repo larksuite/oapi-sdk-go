@@ -495,6 +495,14 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 }
 
 func (c *Client) AttachUser(ctx context.Context, userAccessToken string) error {
+	return c.postUserBinding(ctx, userAccessToken, BindUserUri)
+}
+
+func (c *Client) DetachUser(ctx context.Context, userAccessToken string) error {
+	return c.postUserBinding(ctx, userAccessToken, UnbindUserUri)
+}
+
+func (c *Client) postUserBinding(ctx context.Context, userAccessToken string, uri string) error {
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -513,7 +521,7 @@ func (c *Client) AttachUser(ctx context.Context, userAccessToken string) error {
 		return NewClientError(http.StatusBadRequest, "connection is not ready")
 	}
 
-	requestURL := strings.TrimRight(domain, "/") + fmt.Sprintf(BindUserUri, url.PathEscape(connID))
+	requestURL := strings.TrimRight(domain, "/") + fmt.Sprintf(uri, url.PathEscape(connID))
 	body := &AttachUserRequest{ChannelTag: channelTag}
 	bs, err := json.Marshal(body)
 	if err != nil {

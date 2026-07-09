@@ -7,7 +7,8 @@ const (
 )
 
 const (
-	BindUserUri = "/open-apis/event/v1/connections/%s/bind_user"
+	BindUserUri   = "/open-apis/event/v1/connections/%s/bind_user"
+	UnbindUserUri = "/open-apis/event/v1/connections/%s/unbind_user"
 )
 
 const (
