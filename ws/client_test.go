@@ -402,6 +402,24 @@ func TestAppendWebSocketQueryParams(t *testing.T) {
 	}
 }
 
+func TestSanitizeConnURLForLog(t *testing.T) {
+	connURL, err := url.Parse("wss://example.com/ws?access_key=secret&ticket=ticket-value&device_id=12345&x-tt-env=boe_sup_user_channel")
+	if err != nil {
+		t.Fatalf("parse url: %v", err)
+	}
+
+	sanitized := sanitizeConnURLForLog(connURL)
+	if strings.Contains(sanitized, "secret") || strings.Contains(sanitized, "ticket-value") {
+		t.Fatalf("sensitive query values leaked: %s", sanitized)
+	}
+	if !strings.Contains(sanitized, "access_key=%3Credacted%3E") || !strings.Contains(sanitized, "ticket=%3Credacted%3E") {
+		t.Fatalf("sensitive query keys were not redacted: %s", sanitized)
+	}
+	if !strings.Contains(sanitized, "device_id=12345") || !strings.Contains(sanitized, "x-tt-env=boe_sup_user_channel") {
+		t.Fatalf("non-sensitive query values were not preserved: %s", sanitized)
+	}
+}
+
 func TestConnectionID(t *testing.T) {
 	client := NewClient("app-id", "app-secret")
 	client.mu.Lock()

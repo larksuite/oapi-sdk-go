@@ -298,7 +298,7 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	c.connID = connID
 	c.serviceID = serviceID
 
-	c.logger.Info(ctx, c.fmtLog("connected to %s", u)...)
+	c.logger.Info(ctx, c.fmtLog("connected to %s", sanitizeConnURLForLog(u))...)
 
 	go c.receiveMessageLoop(ctx)
 	return
@@ -380,7 +380,7 @@ func (c *Client) disconnect(ctx context.Context) {
 	}
 
 	_ = c.conn.Close()
-	c.logger.Info(ctx, c.fmtLog("disconnected to %s", c.connUrl)...)
+	c.logger.Info(ctx, c.fmtLog("disconnected to %s", sanitizeConnURLForLog(c.connUrl))...)
 
 	if c.onDisconnected != nil {
 		c.onDisconnected()
@@ -614,6 +614,21 @@ func appendWebSocketQueryParams(rawURL string, params url.Values) (*url.URL, err
 	}
 	parsedURL.RawQuery = query.Encode()
 	return parsedURL, nil
+}
+
+func sanitizeConnURLForLog(connURL *url.URL) string {
+	if connURL == nil {
+		return ""
+	}
+	sanitized := *connURL
+	query := sanitized.Query()
+	for _, key := range []string{"access_key", "ticket"} {
+		if query.Has(key) {
+			query.Set(key, "<redacted>")
+		}
+	}
+	sanitized.RawQuery = query.Encode()
+	return sanitized.String()
 }
 
 func extractAudFromWSURL(rawURL string) (string, error) {
