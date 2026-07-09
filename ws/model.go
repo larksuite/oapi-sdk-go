@@ -17,6 +17,16 @@ type BootstrapRequest struct {
 	AppID           string `json:"AppID"`
 	AppSecret       string `json:"AppSecret"`
 	ClientAssertion string `json:"ClientAssertion"`
+	ChannelTag      string `json:"ChannelTag,omitempty"`
+}
+
+type AttachUserRequest struct {
+	ChannelTag string `json:"channel_tag,omitempty"`
+}
+
+type AttachUserResp struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
 }
 
 // ClientConfig 由服务端下发

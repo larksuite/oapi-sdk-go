@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"sync"
 	"testing"
@@ -94,6 +95,29 @@ func TestGetConnURLWithCustomHeadersAndUserAgent(t *testing.T) {
 		WithHeaders(headers),
 		WithSource("ws-test"),
 	)
+	if _, err := client.getConnURL(context.Background()); err != nil {
+		t.Fatalf("get conn url failed: %v", err)
+	}
+}
+
+func TestGetConnURLWithChannelTag(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var req BootstrapRequest
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			t.Fatalf("decode request failed: %v", err)
+		}
+		if req.ChannelTag != "web_boe_channel" {
+			t.Fatalf("unexpected channel tag: %s", req.ChannelTag)
+		}
+		_ = json.NewEncoder(w).Encode(&EndpointResp{Code: OK, Data: &Endpoint{Url: "wss://example.com/ws"}})
+	}))
+	defer server.Close()
+
+	bootstrapHTTPClient = server.Client()
+	client := NewClient("app-id", "app-secret", WithDomain(server.URL), WithChannelTag("web_boe_channel"))
 	if _, err := client.getConnURL(context.Background()); err != nil {
 		t.Fatalf("get conn url failed: %v", err)
 	}
@@ -194,6 +218,147 @@ func TestGetConnURLRetrieveTokenEachTime(t *testing.T) {
 	}
 	if len(bodyAssertions) != 2 || bodyAssertions[0] != "assertion-1" || bodyAssertions[1] != "assertion-2" {
 		t.Fatalf("unexpected assertions: %#v", bodyAssertions)
+	}
+}
+
+func TestAttachUser(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/open-apis/event/v1/connections/12345/bind_user" {
+			t.Fatalf("unexpected path: %s", r.URL.Path)
+		}
+		if r.Method != http.MethodPost {
+			t.Fatalf("unexpected method: %s", r.Method)
+		}
+		if r.Header.Get("Authorization") != "Bearer user-token" {
+			t.Fatalf("unexpected authorization header: %s", r.Header.Get("Authorization"))
+		}
+		if r.Header.Get("X-Tt-Env") != "boe_sup_user_channel" {
+			t.Fatalf("missing route header: %s", r.Header.Get("X-Tt-Env"))
+		}
+		userAgent := r.Header.Get("User-Agent")
+		if !strings.HasPrefix(userAgent, "oapi-sdk-go/") || !strings.Contains(userAgent, " source/ws-test") {
+			t.Fatalf("unexpected user agent: %s", userAgent)
+		}
+		var req AttachUserRequest
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			t.Fatalf("decode request failed: %v", err)
+		}
+		if req.ChannelTag != "web_boe_channel" {
+			t.Fatalf("unexpected channel tag: %s", req.ChannelTag)
+		}
+		_ = json.NewEncoder(w).Encode(&AttachUserResp{Code: OK})
+	}))
+	defer server.Close()
+
+	headers := make(http.Header)
+	headers.Set("X-Tt-Env", "boe_sup_user_channel")
+
+	bootstrapHTTPClient = server.Client()
+	client := NewClient("app-id", "app-secret",
+		WithDomain(server.URL),
+		WithHeaders(headers),
+		WithSource("ws-test"),
+		WithChannelTag("web_boe_channel"),
+	)
+	client.mu.Lock()
+	client.connID = "12345"
+	client.mu.Unlock()
+
+	if err := client.AttachUser(context.Background(), "user-token"); err != nil {
+		t.Fatalf("attach user failed: %v", err)
+	}
+}
+
+func TestAttachUserRequiresConnection(t *testing.T) {
+	client := NewClient("app-id", "app-secret")
+	err := client.AttachUser(context.Background(), "user-token")
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+	clientErr, ok := err.(*ClientError)
+	if !ok {
+		t.Fatalf("unexpected error type: %#v", err)
+	}
+	if clientErr.Code != http.StatusBadRequest || clientErr.Msg != "connection is not ready" {
+		t.Fatalf("unexpected error: %#v", clientErr)
+	}
+}
+
+func TestAttachUserRequiresToken(t *testing.T) {
+	client := NewClient("app-id", "app-secret")
+	client.mu.Lock()
+	client.connID = "12345"
+	client.mu.Unlock()
+
+	err := client.AttachUser(context.Background(), "")
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+	clientErr, ok := err.(*ClientError)
+	if !ok {
+		t.Fatalf("unexpected error type: %#v", err)
+	}
+	if clientErr.Code != http.StatusBadRequest || clientErr.Msg != "userAccessToken is required" {
+		t.Fatalf("unexpected error: %#v", clientErr)
+	}
+}
+
+func TestAttachUserOpenAPIError(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(&AttachUserResp{Code: 999, Msg: "user is already bound to another connection"})
+	}))
+	defer server.Close()
+
+	bootstrapHTTPClient = server.Client()
+	client := NewClient("app-id", "app-secret", WithDomain(server.URL))
+	client.mu.Lock()
+	client.connID = "12345"
+	client.mu.Unlock()
+
+	err := client.AttachUser(context.Background(), "user-token")
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+	clientErr, ok := err.(*ClientError)
+	if !ok {
+		t.Fatalf("unexpected error type: %#v", err)
+	}
+	if clientErr.Code != 999 || clientErr.Msg != "user is already bound to another connection" {
+		t.Fatalf("unexpected error: %#v", clientErr)
+	}
+}
+
+func TestAppendWebSocketQueryParams(t *testing.T) {
+	params := url.Values{}
+	params.Set("x-tt-env", "boe_sup_user_channel")
+
+	connURL, err := appendWebSocketQueryParams("wss://example.com/ws?device_id=12345&service_id=67890", params)
+	if err != nil {
+		t.Fatalf("append websocket query params failed: %v", err)
+	}
+	query := connURL.Query()
+	if query.Get(DeviceID) != "12345" || query.Get(ServiceID) != "67890" {
+		t.Fatalf("lost connection query: %s", connURL.String())
+	}
+	if query.Get("x-tt-env") != "boe_sup_user_channel" {
+		t.Fatalf("missing route query: %s", connURL.String())
+	}
+}
+
+func TestConnectionID(t *testing.T) {
+	client := NewClient("app-id", "app-secret")
+	client.mu.Lock()
+	client.connID = "12345"
+	client.mu.Unlock()
+
+	if client.ConnectionID() != "12345" {
+		t.Fatalf("unexpected connection id: %s", client.ConnectionID())
 	}
 }
 

@@ -34,6 +34,8 @@ type Client struct {
 	domain                  string
 	headers                 http.Header
 	source                  string
+	channelTag              string
+	webSocketQueryParams    url.Values
 	conn                    *ws.Conn
 	connUrl                 *url.URL
 	serviceID               string
@@ -109,6 +111,27 @@ func WithSource(source string) ClientOption {
 	}
 }
 
+func WithChannelTag(channelTag string) ClientOption {
+	return func(cli *Client) {
+		cli.channelTag = channelTag
+	}
+}
+
+func WithWebSocketQueryParams(params map[string]string) ClientOption {
+	return func(cli *Client) {
+		if len(params) == 0 {
+			return
+		}
+		cli.webSocketQueryParams = make(url.Values, len(params))
+		for k, v := range params {
+			if k == "" {
+				continue
+			}
+			cli.webSocketQueryParams.Set(k, v)
+		}
+	}
+}
+
 func WithClientAssertionProvider(provider larkcore.ClientAssertionProvider) ClientOption {
 	return func(cli *Client) {
 		cli.clientAssertionProvider = provider
@@ -177,6 +200,12 @@ func (c *Client) SetOnDisconnected(f func()) {
 func (c *Client) Close() {
 	c.autoReconnect = false
 	c.disconnect(context.Background())
+}
+
+func (c *Client) ConnectionID() string {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.connID
 }
 
 func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
@@ -248,14 +277,14 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	}
 
 	// 验证URL
-	u, err := url.Parse(connUrl)
+	u, err := appendWebSocketQueryParams(connUrl, c.webSocketQueryParams)
 	if err != nil {
 		return
 	}
 	connID := u.Query().Get(DeviceID)
 	serviceID := u.Query().Get(ServiceID)
 
-	conn, resp, err := ws.DefaultDialer.Dial(connUrl, nil)
+	conn, resp, err := ws.DefaultDialer.Dial(u.String(), nil)
 	if err != nil && resp == nil {
 		return
 	}
@@ -367,7 +396,7 @@ func (c *Client) disconnect(ctx context.Context) {
 
 func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 	requestURL := strings.TrimRight(c.domain, "/") + GenEndpointUri
-	body := &BootstrapRequest{AppID: c.appID}
+	body := &BootstrapRequest{AppID: c.appID, ChannelTag: c.channelTag}
 	headers := make(http.Header)
 
 	if c.clientAssertionProvider == nil && c.appSecret == "" {
@@ -406,20 +435,13 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 		return
 	}
 
-	req.Header.Add("locale", "zh")
-	req.Header.Add("Content-Type", "application/json")
-	for k, values := range c.headers {
-		for _, value := range values {
-			req.Header.Add(k, value)
-		}
-	}
+	c.applyRequestHeaders(req)
 	for k, values := range headers {
 		req.Header.Del(k)
 		for _, value := range values {
 			req.Header.Add(k, value)
 		}
 	}
-	req.Header.Set("User-Agent", larkcore.UserAgent(c.source))
 	resp, err := bootstrapHTTPClient.Do(req)
 	if err != nil {
 		return
@@ -470,6 +492,120 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 	}
 
 	return
+}
+
+func (c *Client) AttachUser(ctx context.Context, userAccessToken string) error {
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	if userAccessToken == "" {
+		return NewClientError(http.StatusBadRequest, "userAccessToken is required")
+	}
+
+	c.mu.Lock()
+	connID := c.connID
+	channelTag := c.channelTag
+	domain := c.domain
+	source := c.source
+	headers := cloneHeader(c.headers)
+	c.mu.Unlock()
+	if connID == "" {
+		return NewClientError(http.StatusBadRequest, "connection is not ready")
+	}
+
+	requestURL := strings.TrimRight(domain, "/") + fmt.Sprintf(BindUserUri, url.PathEscape(connID))
+	body := &AttachUserRequest{ChannelTag: channelTag}
+	bs, err := json.Marshal(body)
+	if err != nil {
+		return err
+	}
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, requestURL, bytes.NewBuffer(bs))
+	if err != nil {
+		return err
+	}
+	applyRequestHeaders(req, headers, source)
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", userAccessToken))
+
+	resp, err := bootstrapHTTPClient.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	respBody, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode != http.StatusOK {
+		serverMsg := "system busy"
+		attachErrResp := &AttachUserResp{}
+		if json.Unmarshal(respBody, attachErrResp) == nil && attachErrResp.Msg != "" {
+			serverMsg = attachErrResp.Msg
+		}
+		return NewServerError(resp.StatusCode, serverMsg)
+	}
+
+	attachResp := &AttachUserResp{}
+	if err := json.Unmarshal(respBody, attachResp); err != nil {
+		return err
+	}
+	switch attachResp.Code {
+	case OK:
+		return nil
+	case SystemBusy:
+		return NewServerError(attachResp.Code, "system busy")
+	case InternalError:
+		return NewServerError(attachResp.Code, attachResp.Msg)
+	default:
+		return NewClientError(attachResp.Code, attachResp.Msg)
+	}
+}
+
+func (c *Client) applyRequestHeaders(req *http.Request) {
+	applyRequestHeaders(req, c.headers, c.source)
+}
+
+func applyRequestHeaders(req *http.Request, headers http.Header, source string) {
+	req.Header.Add("locale", "zh")
+	req.Header.Add("Content-Type", "application/json")
+	for k, values := range headers {
+		for _, value := range values {
+			req.Header.Add(k, value)
+		}
+	}
+	req.Header.Set("User-Agent", larkcore.UserAgent(source))
+}
+
+func cloneHeader(headers http.Header) http.Header {
+	if len(headers) == 0 {
+		return nil
+	}
+	cloned := make(http.Header, len(headers))
+	for k, values := range headers {
+		cloned[k] = append([]string(nil), values...)
+	}
+	return cloned
+}
+
+func appendWebSocketQueryParams(rawURL string, params url.Values) (*url.URL, error) {
+	parsedURL, err := url.Parse(rawURL)
+	if err != nil {
+		return nil, err
+	}
+	if len(params) == 0 {
+		return parsedURL, nil
+	}
+	query := parsedURL.Query()
+	for key, values := range params {
+		if key == "" {
+			continue
+		}
+		for _, value := range values {
+			query.Set(key, value)
+		}
+	}
+	parsedURL.RawQuery = query.Encode()
+	return parsedURL, nil
 }
 
 func extractAudFromWSURL(rawURL string) (string, error) {

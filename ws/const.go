@@ -7,6 +7,10 @@ const (
 )
 
 const (
+	BindUserUri = "/open-apis/event/v1/connections/%s/bind_user"
+)
+
+const (
 	HeaderTimestamp            = "timestamp"   // 消息时间戳, 单位ms
 	HeaderType                 = "type"        // 消息类型, Event/Card
 	HeaderMessageID            = "message_id"  // 消息ID, 拆包后继承
