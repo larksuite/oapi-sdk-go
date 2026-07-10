@@ -84,8 +84,15 @@ func NewResponseByCode(code int) *Response {
 }
 
 func NewPingFrame(serviceID int32) *Frame {
+	return newPingFrameWithChannelTag(serviceID, "")
+}
+
+func newPingFrameWithChannelTag(serviceID int32, channelTag string) *Frame {
 	headers := Headers{}
 	headers.Add(HeaderType, string(MessageTypePing))
+	if channelTag != "" {
+		headers.Add(HeaderChannelTag, channelTag)
+	}
 	return &Frame{
 		Method:  int32(FrameTypeControl),
 		Service: serviceID,

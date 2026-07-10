@@ -20,6 +20,7 @@ const (
 	HeaderTraceID              = "trace_id"    // 链路ID
 	HeaderInstanceID           = "instance_id" // 标识下行消息来源及上行消息去向的机器实例地址, 由 ip、port、pod_name 等信息加密获得
 	HeaderBizRt                = "biz_rt"      // 业务处理时长，单位ms
+	HeaderChannelTag           = "channel_tag"
 	HeaderHandshakeStatus      = "Handshake-Status"
 	HeaderHandshakeMsg         = "Handshake-Msg"
 	HeaderHandshakeAuthErrCode = "Handshake-Autherrcode"

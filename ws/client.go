@@ -198,7 +198,9 @@ func (c *Client) SetOnDisconnected(f func()) {
 }
 
 func (c *Client) Close() {
+	c.mu.Lock()
 	c.autoReconnect = false
+	c.mu.Unlock()
 	c.disconnect(context.Background())
 }
 
@@ -243,7 +245,7 @@ func (c *Client) Start(ctx context.Context) (err error) {
 			return
 		}
 		c.disconnect(ctx)
-		if c.autoReconnect {
+		if c.isAutoReconnect() {
 			if err = c.reconnect(ctx); err != nil {
 				return err
 			}
@@ -256,23 +258,23 @@ func (c *Client) Start(ctx context.Context) (err error) {
 		}
 	}
 	go c.pingLoop(ctx)
-	select {}
+	<-ctx.Done()
+	c.Close()
+	return ctx.Err()
 }
 
 func (c *Client) connect(ctx context.Context) (err error) {
-	if c.conn != nil {
-		return
-	}
 	c.mu.Lock()
-	defer c.mu.Unlock()
 	if c.conn != nil {
+		c.mu.Unlock()
 		return
 	}
+	c.mu.Unlock()
 
 	// 获取建连URL
 	connUrl, err := c.getConnURL(ctx)
 	if err != nil {
-		c.logger.Warn(ctx, c.fmtLog("get conn url failed, err: %v", err)...)
+		c.logger.Warn(ctx, fmtLogWithConnectionID("", "get conn url failed, err: %v", err)...)
 		return
 	}
 
@@ -293,12 +295,21 @@ func (c *Client) connect(ctx context.Context) (err error) {
 		return parseErr(resp)
 	}
 
+	c.mu.Lock()
+	if c.conn != nil {
+		c.mu.Unlock()
+		if closeErr := conn.Close(); closeErr != nil {
+			c.logger.Warn(ctx, fmtLogWithConnectionID(connID, "close duplicate websocket connection failed, err: %v", closeErr)...)
+		}
+		return nil
+	}
 	c.conn = conn
 	c.connUrl = u
 	c.connID = connID
 	c.serviceID = serviceID
+	c.mu.Unlock()
 
-	c.logger.Info(ctx, c.fmtLog("connected to %s", sanitizeConnURLForLog(u))...)
+	c.logger.Info(ctx, fmtLogWithConnectionID(connID, "connected to %s", sanitizeConnURLForLog(u))...)
 
 	go c.receiveMessageLoop(ctx)
 	return
@@ -310,14 +321,15 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 	}
 
 	// 首次重连随机抖动
-	if c.reconnectNonce > 0 {
+	reconnectCount, reconnectInterval, reconnectNonce := c.reconnectConfig()
+	if reconnectNonce > 0 {
 		rand.Seed(time.Now().UnixNano())
-		num := rand.Intn(c.reconnectNonce * 1000)
+		num := rand.Intn(reconnectNonce * 1000)
 		time.Sleep(time.Duration(num) * time.Millisecond)
 	}
 
-	if c.reconnectCount >= 0 {
-		for i := 0; i < c.reconnectCount; i++ {
+	if reconnectCount >= 0 {
+		for i := 0; i < reconnectCount; i++ {
 			success, err := c.tryConnect(ctx, i)
 			if success {
 				if c.onReconnected != nil {
@@ -328,9 +340,9 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 			if err != nil {
 				return err
 			}
-			time.Sleep(c.reconnectInterval)
+			time.Sleep(reconnectInterval)
 		}
-		return fmt.Errorf("unable to connect to server after %d retries", c.reconnectCount)
+		return fmt.Errorf("unable to connect to server after %d retries", reconnectCount)
 	} else {
 		i := 0
 		for {
@@ -344,7 +356,7 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 			if err != nil {
 				return err
 			}
-			time.Sleep(c.reconnectInterval)
+			time.Sleep(reconnectInterval)
 			i += 1
 		}
 	}
@@ -370,28 +382,29 @@ func (c *Client) tryConnect(ctx context.Context, cnt int) (bool, error) {
 }
 
 func (c *Client) disconnect(ctx context.Context) {
-	if c.conn == nil {
-		return
-	}
 	c.mu.Lock()
-	defer c.mu.Unlock()
 	if c.conn == nil {
+		c.mu.Unlock()
 		return
 	}
+	conn := c.conn
+	connURL := c.connUrl
+	connID := c.connID
+	onDisconnected := c.onDisconnected
+	c.conn = nil
+	c.connUrl = nil
+	c.connID = ""
+	c.serviceID = ""
+	c.mu.Unlock()
 
-	_ = c.conn.Close()
-	c.logger.Info(ctx, c.fmtLog("disconnected to %s", sanitizeConnURLForLog(c.connUrl))...)
-
-	if c.onDisconnected != nil {
-		c.onDisconnected()
+	if err := conn.Close(); err != nil {
+		c.logger.Warn(ctx, fmtLogWithConnectionID(connID, "close websocket connection failed, err: %v", err)...)
 	}
+	c.logger.Info(ctx, fmtLogWithConnectionID(connID, "disconnected to %s", sanitizeConnURLForLog(connURL))...)
 
-	defer func() {
-		c.conn = nil
-		c.connUrl = nil
-		c.connID = ""
-		c.serviceID = ""
-	}()
+	if onDisconnected != nil {
+		onDisconnected()
+	}
 }
 
 func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
@@ -657,23 +670,45 @@ func (c *Client) pingLoop(ctx context.Context) {
 		if err := recover(); err != nil {
 			c.logger.Warn(ctx, c.fmtLog("ping loop panic, err: %v, stack: %s", err, string(debug.Stack()))...)
 		}
-		go c.pingLoop(ctx)
 	}()
 
 	for {
-		if c.conn != nil {
-			i, _ := strconv.ParseInt(c.serviceID, 10, 32)
-			frame := NewPingFrame(int32(i))
-			bs, _ := frame.Marshal()
-
-			err := c.writeMessage(ws.BinaryMessage, bs)
+		c.mu.Lock()
+		connected := c.conn != nil
+		serviceID := c.serviceID
+		channelTag := c.channelTag
+		pingInterval := c.pingInterval
+		connID := c.connID
+		c.mu.Unlock()
+		if connected {
+			i, err := strconv.ParseInt(serviceID, 10, 32)
 			if err != nil {
-				c.logger.Warn(ctx, c.fmtLog("ping failed, err: %v", err)...)
+				c.logger.Warn(ctx, fmtLogWithConnectionID(connID, "parse service id for ping failed, err: %v", err)...)
 			} else {
-				c.logger.Debug(ctx, c.fmtLog("ping success")...)
+				frame := newPingFrameWithChannelTag(int32(i), channelTag)
+				bs, marshalErr := frame.Marshal()
+				if marshalErr != nil {
+					c.logger.Warn(ctx, fmtLogWithConnectionID(connID, "marshal ping frame failed, err: %v", marshalErr)...)
+				} else if writeErr := c.writeMessage(ws.BinaryMessage, bs); writeErr != nil {
+					c.logger.Warn(ctx, fmtLogWithConnectionID(connID, "ping failed, err: %v", writeErr)...)
+				} else {
+					c.logger.Debug(ctx, fmtLogWithConnectionID(connID, "ping success")...)
+				}
 			}
 		}
-		time.Sleep(c.pingInterval)
+
+		timer := time.NewTimer(pingInterval)
+		select {
+		case <-ctx.Done():
+			if !timer.Stop() {
+				select {
+				case <-timer.C:
+				default:
+				}
+			}
+			return
+		case <-timer.C:
+		}
 	}
 }
 
@@ -683,7 +718,7 @@ func (c *Client) receiveMessageLoop(ctx context.Context) {
 			c.logger.Error(ctx, c.fmtLog("receive message loop panic, err: %v, stack: %s", err, string(debug.Stack()))...)
 		}
 		c.disconnect(ctx)
-		if c.autoReconnect {
+		if c.isAutoReconnect() {
 			if err := c.reconnect(ctx); err != nil {
 				c.logger.Error(ctx, err)
 			}
@@ -691,14 +726,18 @@ func (c *Client) receiveMessageLoop(ctx context.Context) {
 	}()
 
 	for {
-		if c.conn == nil {
+		c.mu.Lock()
+		conn := c.conn
+		connID := c.connID
+		c.mu.Unlock()
+		if conn == nil {
 			c.logger.Error(ctx, c.fmtLog("connection is closed, receive message loop exit")...)
 			return
 		}
 
-		mt, msg, err := c.conn.ReadMessage()
+		mt, msg, err := conn.ReadMessage()
 		if err != nil {
-			c.logger.Error(ctx, c.fmtLog("receive message failed, err: %v", err)...)
+			c.logger.Error(ctx, fmtLogWithConnectionID(connID, "receive message failed, err: %v", err)...)
 			return
 		}
 
@@ -853,19 +892,40 @@ func (c *Client) writeMessage(messageType int, data []byte) error {
 }
 
 func (c *Client) fmtLog(format string, i ...interface{}) []interface{} {
+	c.mu.Lock()
+	connID := c.connID
+	c.mu.Unlock()
+	return fmtLogWithConnectionID(connID, format, i...)
+}
+
+func fmtLogWithConnectionID(connID, format string, i ...interface{}) []interface{} {
 	log := []interface{}{fmt.Sprintf(format, i...)}
-	if c.connID != "" {
-		log = append(log, fmt.Sprintf("[conn_id=%s]", c.connID))
+	if connID != "" {
+		log = append(log, fmt.Sprintf("[conn_id=%s]", connID))
 	}
 
 	return log
 }
 
+func (c *Client) isAutoReconnect() bool {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.autoReconnect
+}
+
 func (c *Client) configure(conf *ClientConfig) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	c.reconnectCount = conf.ReconnectCount
 	c.reconnectInterval = time.Duration(conf.ReconnectInterval) * time.Second
 	c.reconnectNonce = conf.ReconnectNonce
 	c.pingInterval = time.Duration(conf.PingInterval) * time.Second
+}
+
+func (c *Client) reconnectConfig() (int, time.Duration, int) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.reconnectCount, c.reconnectInterval, c.reconnectNonce
 }
 
 func parseErr(resp *http.Response) error {

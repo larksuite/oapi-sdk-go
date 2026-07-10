@@ -8,8 +8,11 @@ import (
 	"net/url"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"testing"
+	"time"
 
+	gorillaws "github.com/gorilla/websocket"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
@@ -120,6 +123,176 @@ func TestGetConnURLWithChannelTag(t *testing.T) {
 	client := NewClient("app-id", "app-secret", WithDomain(server.URL), WithChannelTag("web_boe_channel"))
 	if _, err := client.getConnURL(context.Background()); err != nil {
 		t.Fatalf("get conn url failed: %v", err)
+	}
+}
+
+func TestPingFrameCarriesChannelTagOnWire(t *testing.T) {
+	frame := newPingFrameWithChannelTag(42, "web_boe_channel")
+	encoded, err := frame.Marshal()
+	if err != nil {
+		t.Fatalf("marshal ping frame: %v", err)
+	}
+
+	decoded := &Frame{}
+	if err := decoded.Unmarshal(encoded); err != nil {
+		t.Fatalf("unmarshal ping frame: %v", err)
+	}
+	headers := Headers(decoded.Headers)
+	if got := headers.GetString(HeaderType); got != string(MessageTypePing) {
+		t.Fatalf("ping type = %q, want %q", got, MessageTypePing)
+	}
+	if got := headers.GetString(HeaderChannelTag); got != "web_boe_channel" {
+		t.Fatalf("channel_tag = %q, want web_boe_channel", got)
+	}
+}
+
+func TestAppMainPingFrameOmitsChannelTagOnWire(t *testing.T) {
+	frame := NewPingFrame(42)
+	encoded, err := frame.Marshal()
+	if err != nil {
+		t.Fatalf("marshal ping frame: %v", err)
+	}
+
+	decoded := &Frame{}
+	if err := decoded.Unmarshal(encoded); err != nil {
+		t.Fatalf("unmarshal ping frame: %v", err)
+	}
+	for _, header := range decoded.Headers {
+		if header.Key == HeaderChannelTag {
+			t.Fatalf("app main ping unexpectedly contains channel_tag header: %#v", header)
+		}
+	}
+}
+
+func TestPingLoopCarriesChannelTagAcrossIntervals(t *testing.T) {
+	upgrader := gorillaws.Upgrader{}
+	frames := make(chan *Frame, 2)
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		conn, err := upgrader.Upgrade(w, r, nil)
+		if err != nil {
+			return
+		}
+		defer conn.Close()
+		for i := 0; i < 2; i++ {
+			_, data, err := conn.ReadMessage()
+			if err != nil {
+				return
+			}
+			frame := &Frame{}
+			if err := frame.Unmarshal(data); err != nil {
+				return
+			}
+			frames <- frame
+		}
+	}))
+	defer server.Close()
+
+	wsURL := "ws" + strings.TrimPrefix(server.URL, "http")
+	conn, _, err := gorillaws.DefaultDialer.Dial(wsURL, nil)
+	if err != nil {
+		t.Fatalf("dial websocket: %v", err)
+	}
+	client := NewClient("app-id", "app-secret", WithChannelTag("web_boe_channel"))
+	client.mu.Lock()
+	client.conn = conn
+	client.serviceID = "42"
+	client.pingInterval = 10 * time.Millisecond
+	client.mu.Unlock()
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	go client.pingLoop(ctx)
+	for i := 0; i < 2; i++ {
+		select {
+		case frame := <-frames:
+			headers := Headers(frame.Headers)
+			if got := headers.GetString(HeaderChannelTag); got != "web_boe_channel" {
+				t.Fatalf("ping %d channel_tag = %q", i+1, got)
+			}
+		case <-time.After(time.Second):
+			t.Fatalf("timeout waiting for ping %d", i+1)
+		}
+	}
+	cancel()
+	client.disconnect(context.Background())
+}
+
+func TestReadyAndReconnectedCallbacks(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	upgrader := gorillaws.Upgrader{}
+	closeFirst := make(chan struct{})
+	var connectionCount atomic.Int32
+	var server *httptest.Server
+	mux := http.NewServeMux()
+	mux.HandleFunc(GenEndpointUri, func(w http.ResponseWriter, r *http.Request) {
+		wsURL := "ws" + strings.TrimPrefix(server.URL, "http") + "/ws?device_id=12345&service_id=42"
+		_ = json.NewEncoder(w).Encode(&EndpointResp{Code: OK, Data: &Endpoint{Url: wsURL}})
+	})
+	mux.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		conn, err := upgrader.Upgrade(w, r, nil)
+		if err != nil {
+			return
+		}
+		defer conn.Close()
+		if connectionCount.Add(1) == 1 {
+			<-closeFirst
+			return
+		}
+		for {
+			if _, _, err := conn.ReadMessage(); err != nil {
+				return
+			}
+		}
+	})
+	server = httptest.NewServer(mux)
+	defer server.Close()
+	bootstrapHTTPClient = server.Client()
+
+	ready := make(chan struct{}, 1)
+	reconnected := make(chan struct{}, 1)
+	client := NewClient("app-id", "app-secret",
+		WithDomain(server.URL),
+		WithOnReady(func() { ready <- struct{}{} }),
+		WithOnReconnected(func() { reconnected <- struct{}{} }),
+	)
+	client.reconnectNonce = 0
+	client.reconnectInterval = time.Millisecond
+	client.reconnectCount = 2
+
+	ctx, cancel := context.WithCancel(context.Background())
+	startDone := make(chan error, 1)
+	go func() { startDone <- client.Start(ctx) }()
+
+	select {
+	case <-ready:
+	case <-time.After(time.Second):
+		t.Fatal("OnReady was not called")
+	}
+	close(closeFirst)
+	select {
+	case <-reconnected:
+	case <-time.After(time.Second):
+		t.Fatal("OnReconnected was not called")
+	}
+	if got := connectionCount.Load(); got != 2 {
+		t.Fatalf("connection count = %d, want 2", got)
+	}
+	select {
+	case <-ready:
+		t.Fatal("OnReady called more than once")
+	default:
+	}
+
+	cancel()
+	select {
+	case err := <-startDone:
+		if err != context.Canceled {
+			t.Fatalf("Start returned %v, want context.Canceled", err)
+		}
+	case <-time.After(time.Second):
+		t.Fatal("Start did not return after context cancellation")
 	}
 }
 
@@ -320,6 +493,90 @@ func TestDetachUser(t *testing.T) {
 
 	if err := client.DetachUser(context.Background(), "user-token"); err != nil {
 		t.Fatalf("detach user failed: %v", err)
+	}
+}
+
+func TestAttachDetachUseSnapshotWhileClosing(t *testing.T) {
+	originalClient := bootstrapHTTPClient
+	defer func() { bootstrapHTTPClient = originalClient }()
+
+	requestStarted := make(chan struct{}, 2)
+	releaseRequests := make(chan struct{})
+	bindingServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var req AttachUserRequest
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			t.Errorf("decode request: %v", err)
+			return
+		}
+		if req.ChannelTag != "web_boe_channel" {
+			t.Errorf("channel_tag = %q", req.ChannelTag)
+			return
+		}
+		requestStarted <- struct{}{}
+		<-releaseRequests
+		_ = json.NewEncoder(w).Encode(&AttachUserResp{Code: OK})
+	}))
+	defer bindingServer.Close()
+	bootstrapHTTPClient = bindingServer.Client()
+
+	upgrader := gorillaws.Upgrader{}
+	webSocketServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		conn, err := upgrader.Upgrade(w, r, nil)
+		if err != nil {
+			return
+		}
+		defer conn.Close()
+		for {
+			if _, _, err := conn.ReadMessage(); err != nil {
+				return
+			}
+		}
+	}))
+	defer webSocketServer.Close()
+	wsURL := "ws" + strings.TrimPrefix(webSocketServer.URL, "http")
+	conn, _, err := gorillaws.DefaultDialer.Dial(wsURL, nil)
+	if err != nil {
+		t.Fatalf("dial websocket: %v", err)
+	}
+
+	client := NewClient("app-id", "app-secret",
+		WithDomain(bindingServer.URL),
+		WithChannelTag("web_boe_channel"),
+	)
+	client.mu.Lock()
+	client.conn = conn
+	client.connID = "12345"
+	client.mu.Unlock()
+
+	errs := make(chan error, 2)
+	go func() { errs <- client.AttachUser(context.Background(), "user-token-a") }()
+	go func() { errs <- client.DetachUser(context.Background(), "user-token-b") }()
+	for i := 0; i < 2; i++ {
+		select {
+		case <-requestStarted:
+		case <-time.After(time.Second):
+			t.Fatalf("request %d did not reach server", i+1)
+		}
+	}
+
+	closeDone := make(chan struct{})
+	go func() {
+		client.Close()
+		close(closeDone)
+	}()
+	select {
+	case <-closeDone:
+	case <-time.After(time.Second):
+		t.Fatal("Close blocked behind AttachUser/DetachUser HTTP requests")
+	}
+	close(releaseRequests)
+	for i := 0; i < 2; i++ {
+		if err := <-errs; err != nil {
+			t.Fatalf("binding request %d failed: %v", i+1, err)
+		}
+	}
+	if got := client.ConnectionID(); got != "" {
+		t.Fatalf("connection id after close = %q", got)
 	}
 }
 
