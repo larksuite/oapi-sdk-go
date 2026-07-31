@@ -18,9 +18,9 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/task/v2"
 )
 
+// 任务事件
 //
-//
-// -
+// - 任务事件，事件类型包括： 任务创建、任务删除、任务标题变更、任务负责人变更、任务完整状态变更、任务描述变更、任务关注人变更、任务提醒事件变更、任务开始和截止时间变更
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2TaskUpdateUserAccessV2(handler func(ctx context.Context, event *larktask.P2TaskUpdateUserAccessV2) error) *EventDispatcher {

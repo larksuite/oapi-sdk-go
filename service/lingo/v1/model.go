@@ -27,53 +27,53 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPICreateDraftUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPICreateDraftUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPICreateDraftUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeUpdateDraftUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateDraftUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateDraftOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIUpdateDraftUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIUpdateDraftUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIUpdateDraftUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateEntityOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPICreateEntityUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPICreateEntityUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPICreateEntityUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetEntityOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIGetEntityUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIGetEntityUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIGetEntityUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeListEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListEntityOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIListEntityUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIListEntityUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIListEntityUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeSearchEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeSearchEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeSearchEntityOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPISearchEntityUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPISearchEntityUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPISearchEntityUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeUpdateEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateEntityOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIUpdateEntityUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIUpdateEntityUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIUpdateEntityUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type Abbreviation struct {
-	Id *string `json:"id,omitempty"` // 相关其他词条 id
+	Id *string `json:"id,omitempty"` // 相关词条 ID
 }
 
 type AbbreviationBuilder struct {
-	id    string // 相关其他词条 id
+	id    string // 相关词条 ID
 	idSet bool
 }
 
@@ -82,7 +82,7 @@ func NewAbbreviationBuilder() *AbbreviationBuilder {
 	return builder
 }
 
-// 相关其他词条 id
+// 相关词条 ID
 //
 // 示例值：enterprise_51587960
 func (builder *AbbreviationBuilder) Id(id string) *AbbreviationBuilder {
@@ -151,11 +151,11 @@ func (builder *AigcConfigBuilder) Build() *AigcConfig {
 }
 
 type BaikeImage struct {
-	Token *string `json:"token,omitempty"` // 通过文件接口上传后的图片 token
+	Token *string `json:"token,omitempty"` // 通过文件接口上传图片后，获得的图片 token
 }
 
 type BaikeImageBuilder struct {
-	token    string // 通过文件接口上传后的图片 token
+	token    string // 通过文件接口上传图片后，获得的图片 token
 	tokenSet bool
 }
 
@@ -164,9 +164,9 @@ func NewBaikeImageBuilder() *BaikeImageBuilder {
 	return builder
 }
 
-// 通过文件接口上传后的图片 token
+// 通过文件接口上传图片后，获得的图片 token
 //
-// 示例值：
+// 示例值：boxbcEcmKiD***vgqWTpvdc7jc
 func (builder *BaikeImageBuilder) Token(token string) *BaikeImageBuilder {
 	builder.token = token
 	builder.tokenSet = true
@@ -183,23 +183,23 @@ func (builder *BaikeImageBuilder) Build() *BaikeImage {
 }
 
 type Classification struct {
-	Id *string `json:"id,omitempty"` // 唯一分类 ID
+	Id *string `json:"id,omitempty"` // 二级分类 ID
 
-	Name *string `json:"name,omitempty"` // 分类名称
+	Name *string `json:"name,omitempty"` // 二级分类名称
 
-	FatherId *string `json:"father_id,omitempty"` // 父级分类的 ID
+	FatherId *string `json:"father_id,omitempty"` // 对应一级分类 ID
 
 	I18nNames []*I18nClsName `json:"i18n_names,omitempty"` // 国际化分类名
 }
 
 type ClassificationBuilder struct {
-	id    string // 唯一分类 ID
+	id    string // 二级分类 ID
 	idSet bool
 
-	name    string // 分类名称
+	name    string // 二级分类名称
 	nameSet bool
 
-	fatherId    string // 父级分类的 ID
+	fatherId    string // 对应一级分类 ID
 	fatherIdSet bool
 
 	i18nNames    []*I18nClsName // 国际化分类名
@@ -211,16 +211,16 @@ func NewClassificationBuilder() *ClassificationBuilder {
 	return builder
 }
 
-// 唯一分类 ID
+// 二级分类 ID
 //
-// 示例值：7049606926702837761
+// 示例值：7049606926****37761
 func (builder *ClassificationBuilder) Id(id string) *ClassificationBuilder {
 	builder.id = id
 	builder.idSet = true
 	return builder
 }
 
-// 分类名称
+// 二级分类名称
 //
 // 示例值：行业术语
 func (builder *ClassificationBuilder) Name(name string) *ClassificationBuilder {
@@ -229,9 +229,9 @@ func (builder *ClassificationBuilder) Name(name string) *ClassificationBuilder {
 	return builder
 }
 
-// 父级分类的 ID
+// 对应一级分类 ID
 //
-// 示例值：7049606926702837777
+// 示例值：704960692***837777
 func (builder *ClassificationBuilder) FatherId(fatherId string) *ClassificationBuilder {
 	builder.fatherId = fatherId
 	builder.fatherIdSet = true
@@ -339,8 +339,6 @@ func NewCorrectErrorBuilder() *CorrectErrorBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *CorrectErrorBuilder) Type(type_ int) *CorrectErrorBuilder {
 	builder.type_ = type_
@@ -586,8 +584,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -595,8 +591,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -620,14 +614,14 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 type DisplayStatus struct {
 	AllowHighlight *bool `json:"allow_highlight,omitempty"` // 是否允许在 IM 和 Doc 等场景进行高亮提示
 
-	AllowSearch *bool `json:"allow_search,omitempty"` // 是否允许在飞书中被搜索到
+	AllowSearch *bool `json:"allow_search,omitempty"` // 对应名称是否在搜索结果中展示
 }
 
 type DisplayStatusBuilder struct {
 	allowHighlight    bool // 是否允许在 IM 和 Doc 等场景进行高亮提示
 	allowHighlightSet bool
 
-	allowSearch    bool // 是否允许在飞书中被搜索到
+	allowSearch    bool // 对应名称是否在搜索结果中展示
 	allowSearchSet bool
 }
 
@@ -645,7 +639,7 @@ func (builder *DisplayStatusBuilder) AllowHighlight(allowHighlight bool) *Displa
 	return builder
 }
 
-// 是否允许在飞书中被搜索到
+// 对应名称是否在搜索结果中展示
 //
 // 示例值：true
 func (builder *DisplayStatusBuilder) AllowSearch(allowSearch bool) *DisplayStatusBuilder {
@@ -1332,13 +1326,13 @@ func (builder *DocUserBuilder) Build() *DocUser {
 }
 
 type Draft struct {
-	DraftId *string `json:"draft_id,omitempty"` // 草稿 Id
+	DraftId *string `json:"draft_id,omitempty"` // 草稿 ID
 
 	Entity *Entity `json:"entity,omitempty"` // 实体词
 }
 
 type DraftBuilder struct {
-	draftId    string // 草稿 Id
+	draftId    string // 草稿 ID
 	draftIdSet bool
 
 	entity    *Entity // 实体词
@@ -1350,7 +1344,7 @@ func NewDraftBuilder() *DraftBuilder {
 	return builder
 }
 
-// 草稿 Id
+// 草稿 ID
 //
 // 示例值：42322
 func (builder *DraftBuilder) DraftId(draftId string) *DraftBuilder {
@@ -1389,23 +1383,23 @@ type Entity struct {
 
 	Aliases []*Term `json:"aliases,omitempty"` // 别名
 
-	Description *string `json:"description,omitempty"` // 详情描述
+	Description *string `json:"description,omitempty"` // 纯文本格式词条释义。注：description 和 rich_text 至少有一个，否则会报错：1540001
 
-	Creator *string `json:"creator,omitempty"` // 创建者
+	Creator *string `json:"creator,omitempty"` // 词条创建时间
 
-	CreateTime *string `json:"create_time,omitempty"` // 词条创建时间（秒级时间戳）
+	CreateTime *string `json:"create_time,omitempty"` // 词条创建时间
 
 	Updater *string `json:"updater,omitempty"` // 最近一次更新者
 
 	UpdateTime *string `json:"update_time,omitempty"` // 最近一次更新词条时间（秒级时间戳）
 
-	RelatedMeta *RelatedMeta `json:"related_meta,omitempty"` // 相关数据
+	RelatedMeta *RelatedMeta `json:"related_meta,omitempty"` // 更多相关信息
 
-	Statistics *Statistics `json:"statistics,omitempty"` // 统计数据
+	Statistics *Statistics `json:"statistics,omitempty"` // 当前词条收到的反馈数据
 
-	OuterInfo *OuterInfo `json:"outer_info,omitempty"` // 外部 id 关联数据
+	OuterInfo *OuterInfo `json:"outer_info,omitempty"` // 外部系统关联数据
 
-	RichText *string `json:"rich_text,omitempty"` // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+	RichText *string `json:"rich_text,omitempty"` // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 
 	Source *int `json:"source,omitempty"` // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
 
@@ -1425,13 +1419,13 @@ type EntityBuilder struct {
 	aliases    []*Term // 别名
 	aliasesSet bool
 
-	description    string // 详情描述
+	description    string // 纯文本格式词条释义。注：description 和 rich_text 至少有一个，否则会报错：1540001
 	descriptionSet bool
 
-	creator    string // 创建者
+	creator    string // 词条创建时间
 	creatorSet bool
 
-	createTime    string // 词条创建时间（秒级时间戳）
+	createTime    string // 词条创建时间
 	createTimeSet bool
 
 	updater    string // 最近一次更新者
@@ -1440,16 +1434,16 @@ type EntityBuilder struct {
 	updateTime    string // 最近一次更新词条时间（秒级时间戳）
 	updateTimeSet bool
 
-	relatedMeta    *RelatedMeta // 相关数据
+	relatedMeta    *RelatedMeta // 更多相关信息
 	relatedMetaSet bool
 
-	statistics    *Statistics // 统计数据
+	statistics    *Statistics // 当前词条收到的反馈数据
 	statisticsSet bool
 
-	outerInfo    *OuterInfo // 外部 id 关联数据
+	outerInfo    *OuterInfo // 外部系统关联数据
 	outerInfoSet bool
 
-	richText    string // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+	richText    string // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 	richTextSet bool
 
 	source    int // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
@@ -1466,7 +1460,7 @@ func NewEntityBuilder() *EntityBuilder {
 
 // 实体词 Id
 //
-// 示例值：enterprise_40217521
+// 示例值：enterprise_4021***7521
 func (builder *EntityBuilder) Id(id string) *EntityBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -1500,7 +1494,7 @@ func (builder *EntityBuilder) Aliases(aliases []*Term) *EntityBuilder {
 	return builder
 }
 
-// 详情描述
+// 纯文本格式词条释义。注：description 和 rich_text 至少有一个，否则会报错：1540001
 //
 // 示例值：企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通
 func (builder *EntityBuilder) Description(description string) *EntityBuilder {
@@ -1509,7 +1503,7 @@ func (builder *EntityBuilder) Description(description string) *EntityBuilder {
 	return builder
 }
 
-// 创建者
+// 词条创建时间
 //
 // 示例值：ou_30b07b63089ea46518789914dac63d36
 func (builder *EntityBuilder) Creator(creator string) *EntityBuilder {
@@ -1518,7 +1512,7 @@ func (builder *EntityBuilder) Creator(creator string) *EntityBuilder {
 	return builder
 }
 
-// 词条创建时间（秒级时间戳）
+// 词条创建时间
 //
 // 示例值：1649318125
 func (builder *EntityBuilder) CreateTime(createTime string) *EntityBuilder {
@@ -1545,7 +1539,7 @@ func (builder *EntityBuilder) UpdateTime(updateTime string) *EntityBuilder {
 	return builder
 }
 
-// 相关数据
+// 更多相关信息
 //
 // 示例值：
 func (builder *EntityBuilder) RelatedMeta(relatedMeta *RelatedMeta) *EntityBuilder {
@@ -1554,7 +1548,7 @@ func (builder *EntityBuilder) RelatedMeta(relatedMeta *RelatedMeta) *EntityBuild
 	return builder
 }
 
-// 统计数据
+// 当前词条收到的反馈数据
 //
 // 示例值：
 func (builder *EntityBuilder) Statistics(statistics *Statistics) *EntityBuilder {
@@ -1563,7 +1557,7 @@ func (builder *EntityBuilder) Statistics(statistics *Statistics) *EntityBuilder 
 	return builder
 }
 
-// 外部 id 关联数据
+// 外部系统关联数据
 //
 // 示例值：
 func (builder *EntityBuilder) OuterInfo(outerInfo *OuterInfo) *EntityBuilder {
@@ -1572,7 +1566,7 @@ func (builder *EntityBuilder) OuterInfo(outerInfo *OuterInfo) *EntityBuilder {
 	return builder
 }
 
-// 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+// 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 //
 // 示例值：&lt;b&gt;加粗&lt;/b&gt;&lt;i&gt;斜体&lt;/i&gt;&lt;p&gt;&lt;a href="https://feishu.cn"&gt;l链接&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span&gt;企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通&lt;/span&gt;&lt;/p&gt;
 func (builder *EntityBuilder) RichText(richText string) *EntityBuilder {
@@ -1693,7 +1687,7 @@ func NewEntityCardDataBuilder() *EntityCardDataBuilder {
 
 // 根据请求的渲染类型进行渲染后的词条卡片数据
 //
-// 示例值：<view className="aslcard-baike-ultra-card larkw-aslCard-layout-flex aslcard-baike-container-outer without-copyperm-dom"   style='flex-direction: column; width: 100%; box-sizing: border-box; height: 100%; max-height: inherit; max-width: inherit;position: relative;'>   <style id="baike-card-external-ultra">	 .aslcard-baike-container-outer {	   min-width: 320px;	 }	  .abbreviation-cardItem_insearch .aslcard-baike-container-outer {	   min-width: 100%;	 }	  .larkw-aslCard-card-container .larkw-aslCard-element-abbrnav-bar {	   padding-top: 12px;	 }	  .larkw-aslCard-baikeCard .larkw-aslCard-showInLark {	   display: none;	 }	  .larkw-aslCard-baikeCard-inLark .larkw-aslCard-showInLark {	   display: block;	 }	  .larkw-aslCard-baikeCard-inLark .larkw-aslCard-footer-ignoreBtn {	   display: none;	 }	  .list-item-avatar {	   margin-right: 8px;	   flex-shrink: 0;	   overflow: hidden;	   border-radius: 8px;	 }	  .list-item-avatar-bg {	   background-color: @primary-pri-100;	 }	  .list-item-title {	   overflow: hidden;	   text-overflow: ellipsis;	   white-space: nowrap;	   color: @text-title;	 }	  .list-item-title.larkw-aslCard-text-link-button {	   margin-left: -2px;	 }	  .larkw-aslCard-text-link-button {	   padding: 0 4px;	   transition: none;	   border-radius: 6px;	 }	  .larkw-aslCard-text-link-button:hover {	   color: @text-link-normal;	 }	  .larkw-aslCard-text-link-button:active {	   color: @text-link-pressed;	 }	  .larkw-aslCard-baike-header {}	  .larkw-aslCard-baikeCard-actions-icon .universe-icon {	   font-size: 16px;	 }	  .baikeSectionHeader {	   width: 100%;	   box-sizing: border-box;	   padding-left: 16px;	 }	  .baikeSectionHeaderInner {	   padding: 8px 0;	   flex-shrink: 0;	   font-size: 12px;	   margin-right: 4px;	   line-height: 20px;	   color: @text-caption;	 }	  .larkw-aslCard-ig .larkw-aslCard-element-abbrnav-bar {	   padding: 18px 0 10px 0;	   margin-left: -4px;	 }	  .abbreviation-cardItem_insearch .larkw-aslCard-showInLarkSearch {	   display: block;	 }	  .abbreviation-cardItem_insearch .larkw-aslCard-hideInLarkSearch {	   display: none;	 }	  .abbreviation-cardItem_insearch .larkw-aslCard-icon-mask.larkw-aslCard-baikeCard-actions-icon:not(:last-child),	 .abbreviation-cardItem_insearch .larkw-aslCard-icon-mask:not(:last-child) {	   display: none;	 }	  .baike-card-link-item .larkw-aslCard-element-image-fallback,	 .baike-card-link-item .larkw-aslCard-element-plImage-placeholder {	   background-color: @primary-pri-100;	 }	  .baike-card-link-item-default {	   display: flex;	   justify-content: center;	   align-items: center;	   background-color: @primary-pri-100;		color: @text-link-normal;	 }	  .larkw-aslCard-text-link-ig:hover {	   color: @text-link-hover;	 }	  .larkw-aslCard-text-link-ig:active {	   color: @text-link-pressed;	 }	  .larkw-aslCard-abbrClassify-tag .ud__tag__content {	   max-width: 100px;	   overflow: hidden;	   text-overflow: ellipsis;	   white-space: nowrap;	 }	  .larkw-aslCard-layout-block.larkw-abbreviation-content {	   padding: 0;	   box-sizing: inherit;	 }	  .larkw-abbreviation-content {	   border-radius: 10px;	 }	  .list-item-avatar-user .ud__avatar {	   height: 24px !important;	   width: 24px !important;	 }	  .lux-ellipsis-line {	   overflow: hidden;	   text-overflow: ellipsis;	   white-space: nowrap;	   min-width: 50px;	 }	  .ud__menu-normal-item-title-content.ud__menu-normal-item-title-content-text-overflow {	   white-space: nowrap;	   overflow: hidden;	   text-overflow: ellipsis;	 }	  .asl-section-description .larkw-aslCard-element-text {	   white-space: pre-wrap;	   word-break: break-word;	 }	  .abbreviation-cardItem_insearch .larkw-aslCard-element-image-set .image-cell {	   width: 9.18vw;	   height: 9.18vw;	 }	  .larkw-aslCard-element-rich-text .larkw-aslCard-element-link,	  .larkw-aslCard-element-rich-text .larkw-aslCard-element-richlink {	   margin: 0px !important;	   padding: 3px 2px;	   display: inline;	 }	  .larkw-aslCard-element-rich-text .larkw-aslCard-element-abbreviation {	   display: inline;	   cursor: pointer;	   line-height: 20px;	   position: relative;	   border-bottom-style: solid;	   border-width: 1px;	   border-image-slice: 1;	   border-image-source: repeating-linear-gradient(90deg, @N650 0, @N650 1px, transparent 0, transparent 3px);	 }	 .larkw-aslCard-element-rich-text .larkw-aslCard-element-abbreviation:hover,	 .larkw-aslCard-element-rich-text .larkw-aslCard-element-abbreviation:active {	   border-bottom-color: @B500;	 }	  .larkw-aslCard-element-rich-text .larkw-aslCard-element-abbreviation:hover {	   color: @B500;	   border-image-source: repeating-linear-gradient(90deg, @B500 0, @B500 1px, transparent 0, transparent 3px);	 }	  .larkw-aslCard-element-at {	   color: @text-link-normal !important;	 }	  .main-key-content {	   width: fit-content;	   padding-bottom: 4px;	 }	  .main-key-tooltip {	   cursor: pointer;	 }	  .main-key-tooltip:hover {	   .larkw-aslCard-element-text {		 color: @text-link-hover !important;	   }	 }	  .larkw-aslCard-baikecard-feedback .panel {	   display: flex;	   flex-wrap: wrap;	   grid-template-columns: unset;	   grid-template-rows: unset;		.capsule {		 min-width: 183px;		  .capsule-text {		   overflow: hidden;		   text-overflow: ellipsis;		 }	   }	 }   </style>	<style id="aslcard_theme_ultra">	 .ai-popup-portal .ai-popup-wrapper {	   border: none;	   overflow: inherit;	   box-shadow: @shadow-s4-down;	 }	  .larkw-aslCard-util-bg-ultra {	   background-repeat: no-repeat;	   background-position: 0 0;	   background-size: 100% 143px;	 }	  .larkw-aslCard-card-theme-LIGHT .larkw-aslCard-util-bg-ultra {	   background-image: url(https://lf-cdn-tos.bytescm.com/obj/static/asl-card/lm-min-ultra.png?time=202209222)	 }	  .larkw-aslCard-card-theme-DARK .larkw-aslCard-util-bg-ultra {	   background-image: url(https://lf-cdn-tos.bytescm.com/obj/static/asl-card/dm-min-ultra.png?time=202209222)	 }	  .aslcard-ellipsis {	   overflow: hidden;	   text-overflow: ellipsis;	   white-space: nowrap;	 }	  .aslcard-baike-section-ultra {	   padding: 6px 0px;	 }	  .asl-baikeultra-section-title {	   font-weight: 500;	   font-size: 12px;		line-height: 22px;	   display: flex;	   align-items: center;	   padding: 4px 20px;	   color: @text-title;		.section-subTitle {		 color: @text-caption;		 font-weight: 400;		 padding-left: 2px;	   }	 }	  .asl-baikeultra-list-item {	   padding: 6px 20px;	   display: flex;	   align-items: center;		.item-tag-md {		 margin-left: 4px;	   }	 }	  .aslcard-baike-btn {	   display: flex;	   align-items: center;	   justify-content: center;	   border-radius: 6px;	   cursor: pointer;	 }	  .aslcard-baike-btn:hover {	   background-color: @fill-hover;	 }	  .aslcard-baike-btn-extra-small {	   height: 24px;	   padding: 0 2px;	 }	  .aslcard-baike-btn-logo {}	  .aslcard-baike-category-item {	   margin: 4px 8px 4px 0px;	   position: relative;	   cursor: pointer;	   line-height: 20px;	   display: flex;		.category-tag-icon {		 position: absolute;		 right: 6px;		 display: flex;		 color: @udtoken-tag-text-blue;	   }		.aslcard-baike-tag-md {		 font-size: 12px;		 font-weight: 400;		 color: @udtoken-tag-text-blue;		 background-color: @udtoken-tag-bg-blue;		 cursor: pointer;		 padding-right: 17px;	   }	 }	  .aslcard-baike-category-item: hover {	   .aslcard-baike-tag-md {		 background-color: @udtoken-tag-bg-blue-hover;	   }	 }	  .aslcard-baike-btn-bg-primary {	   cursor: pointer;	   background-color: @primary-pri-50;	 }	  .aslcard-baike-btn-bg-primary:hover {	   background-color: @primary-pri-100;	 }	  .aslcard-baike-btn-bg-primary:active {	   background-color: @primary-pri-200;	 }	  .aslcard-baike-divider {	   height: 1px;	   background-color: @line-divider-default;	   transform: scaleY(0.5);	 }	  .aslcard-baike-navbar {	   user-select: none;	   box-sizing: border-box;	   background-color: @bg-float;	   border-radius: 10px 10px 0 0;	   position: absolute;	   width: 100%;	   z-index: 3;	   overflow: hidden;	   height: 56px;	   opacity: 0;	   pointer-events: none;	 }	  .aslcard-baike-navbar-content {	   width: 100%;	   height: 22px;	   display: flex;	   align-items: center;	   border-radius: 10px 10px 0 0;	   overflow: hidden;	 }	  .aslcard-baike-navbar-noback {	   box-sizing: border-box;	   padding: 0px 20px;	   height: 22px;	 }	  .aslcard-baike-navbar-withback {	   justify-content: center;	   display: none;	 }	  .larkw-aslCard-baikeCard-scrolled .aslcard-baike-navbar {	   opacity: 1;	   pointer-events: auto;	   padding-top: 21px;	   transition: opacity 0.15s;	 }	  .aslcard-baike-navbar-goback-btn {	   display: none;	   position: absolute;	   top: 20px;	   left: 16px;	   z-index: 3;	 }	  .aslcard-baike-nav-placeloader {	   display: none;	   height: 28px;	   width: 100%;	 }	  .larkw-aslCard-baikeCard-withgoback .aslcard-baike-navbar-goback-btn {	   display: flex;	 }	  .larkw-aslCard-baikeCard-withgoback .aslcard-baike-navbar-noback {	   display: none;	 }	  .larkw-aslCard-baikeCard-withgoback.larkw-aslCard-baikeCard-scrolled .aslcard-baike-navbar-withback {	   display: flex;	 }	  .larkw-aslCard-baikeCard-withgoback .aslcard-baike-nav-placeloader {	   display: block;	 }	  .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-list {	   max-height: 150px;	   overflow: hidden auto;	   margin-left: -8px;	   margin-right: -8px;	 }	  .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item-content {	   overflow: hidden;	   text-overflow: ellipsis;	   display: -webkit-box;	   -webkit-line-clamp: 2;	   -webkit-box-orient: vertical;	 }	  .abbreviation-cardItem_insearch {	   border-radius: 8px;	 }	  .abbreviation-cardItem_insearch .larkw-aslCard-card-theme-LIGHT .larkw-aslCard-util-bg-ultra,	 .abbreviation-cardItem_insearch .larkw-aslCard-card-theme-DARK .larkw-aslCard-util-bg-ultra {	   background-image: none;	 }	  .larkw-aslCard-element-userlistV2 {	   margin-left: -4px;	 }	  .aslcard-baike-logo-btn-img {	   display: flex;	   transition: background-image 0.15s;	 }	  .aslcard-baike-logo-btn-img-placeholder {	   opacity: 0;	 }	  .aslcard-baike-logo-btn {	   color: @icon-n3;			  .repo_name {		 color: @text-placeholder;		 font-size: 12px;		 padding-left: 0px;		 overflow: hidden;		 text-overflow: ellipsis;		 white-space: nowrap;		 font-weight: 600;	   }	 }	  .aslcard-baike-logo-btn:hover {	   color: @icon-n2;		.repo_name {		 color: @text-title;	   }	 }	  .aslcard-baike-logo-btn .aslcard-baike-logo-btn-img {	   background-image: url(https://lf-cdn-tos.bytescm.com/obj/static/asl-card/baike-logo-gray-lm_zh-CN_v2.svg);	 }	  .aslcard-baike-logo-btn:hover .aslcard-baike-logo-btn-img {	   background-image: url(https://lf-cdn-tos.bytescm.com/obj/static/asl-card/baike-logo-colorful-lm_zh-CN_v2.svg);	 }	  .larkw-aslCard-card-theme-DARK .aslcard-baike-logo-btn .aslcard-baike-logo-btn-img {	   background-image: url(https://lf-cdn-tos.bytescm.com/obj/static/asl-card/baike-logo-gray-dm_zh-CN_v2.svg);	 }	  .larkw-aslCard-card-theme-DARK .aslcard-baike-logo-btn:hover .aslcard-baike-logo-btn-img {	   background-image: url(https://lf-cdn-tos.bytescm.com/obj/static/asl-card/baike-logo-colorful-dm_zh-CN_v2.svg);	 }	  .larkw-aslCard-element-userlistV2-content .aslcard-barike-ultra-useritem:not(:last-child) {	   margin-right: 4px;	 }	  .larkw-aslCard-element-userlistV2-hint .username {	   overflow: hidden;	   text-overflow: ellipsis;	   white-space: nowrap;	   max-width: 144px;	 }	  .aslcard-baike-ultra-card .larkw-aslCard-footer-dislike-button .universe-icon.larkw-aslCard-footer-like-icon {	   color: @icon-n3;	 }	  .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-list {	   padding-bottom: 4px;	   max-height: 144px;	   overflow: hidden overlay;	   margin-left: -5px;	   margin-right: -5px;	 }	  .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item {	   line-height: 18px;	   padding: 7px 5px 7px 18px;	 }	  .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item-active {	   color: @text-title;	 }	  .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item-visited {	   color: @text-title;	 }	  .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item:before {	   content: "";	   position: absolute;	   top: 13px;	   border-radius: 50%;	   left: 5px;	   width: 6px;	   height: 6px;	   background-color: @icon-disabled;	 }	  .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item-active:before {	   background-color: @B500;	 }	  .larkw-aslCard-element-abbrmultidesc div.abbrmultidesc-item {	   padding: 7px 5px 7px 18px;	 }	  .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item .abbrmultidesc-item-content {	   padding: 0;	 }	  .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item-pinItem {	   margin-right: -5px;	 }	  .abbrmultidesc-list::-webkit-scrollbar-thumb:hover {	   background-color: transparent !important;	 }	  .-container {	   display: block;	 }	  .aslCard-baikeCard-alias-wrapper {	   margin-top: 2px;	   .aslCard-baikeCard-alias {		 color: @text-caption;		 font-size: 14px;		 line-height: 22px;	   }	 }	  .ellipsis-two-line {	   overflow: hidden;	   text-overflow: ellipsis;	   display: -webkit-box;	   -webkit-line-clamp: 2;	   -webkit-box-orient: vertical;	 }	  .ellipsis-one-line {	   overflow: hidden;	   text-overflow: ellipsis;	   display: -webkit-box;	   -webkit-line-clamp: 1;	   -webkit-box-orient: vertical;	 }		  .larkw-aslCard-element-abbrmultidescv2 .abbrmultidescv2-list-wrapper {	   user-select: none;	   max-height: 128px;	 }	  .larkw-aslCard-element-abbrmultidescv2 .abbrmultidescv2-list-unexpanded {	   max-height: 0px !important;	 }		  .abbrmultidescv2-list.aslcard-baikecard-scrollarea::-webkit-scrollbar {	   display: none;	 }	  .larkw-aslCard-section-title {	   display: flex;	   justify-content: space-between;	   border-radius: 6px;	   padding-right: -4px;		.title-right-btn {		 margin-right: -4px;		 display: flex;		 flex-direction: row;		 align-items: center;		 cursor: pointer;		 color: @text-caption;		 font-size: 12px;		 font-weight: 400;		 height: 20px;		 line-height: 20px;		 padding: 0px 4px;		 border-radius: 6px;	   }		.title-right-btn.related-docs-title {		   display: none;	   }		.title-right-btn: hover{		  background-color:  @fill-hover;	   }	 }	  .larkw-aslCard-recommend-docs-entry-show {	   .larkw-aslCard-section-title {		 .title-right-btn.related-docs-title {		   display: flex;		 }	   }	 }	   .larkw-aslCard-folder-container-normal-button {	   padding: 4px 0px 4px 16px;		.folder-option {		 padding: 0px 4px;	   }	 }	  .larkw-aslCard-folder-container-link-button {	   right: 0px;	 }		  .aslcard-baike-showEntry-section {	   margin-left: 12px !important;	   margin-right: 12px !important;		.aslcard-baike-relatedWords-showEntry:hover {		 background-color: @bg-float-overlay;;		 cursor: pointer;	   }		.asl-baikeultra-section-title {		 padding:4px 8px;	   }		.larkw-aslCard-layout-block {		 padding:0px 8px;		  .larkw-aslCard-folder-container-normal-button {			padding-left: 0px;		 }	   }		.larkw-aslCard-folder-container-normal-button {		 padding-left: 8px;	   }	 }	  .larkw-aslCard-relatedWord-block {		 width: 100%;		 margin-bottom: 2px;				  .larkw-aslCard-relatedWord-block-title {		   color: @text-caption;		   font-size: 12px;		   line-height: 20px;		   display: flex;		   align-items: center;		   margin-bottom: 4px;		 }		  .larkw-aslCard-relatedWord-block-content{		   display: flex;		   flex-wrap: wrap;		 }	 }	  .larkw-aslCard-relatedWord-block:last-child {		 padding-bottom: 0px;	 }	  .like-kit {	   display: flex;	   flex-direction: row;	 }	  .larkw-aslCard-scrollbar::-webkit-scrollbar {	   display: none;	 }	  .abbrmultidescv2-item-active .abbrmultidescv2-item-pinItem {	   opacity: 1 !important;	 }	  .aslcard-baike-fotter-icon {	   width: 24px;	   height: 24px;	   border-radius: 8px;	   cursor: pointer;	   align-items:center;		justify-content: center;	   display: flex;	   color: @icon-n3;	   margin-left: 4px;	 }	  .aslcard-baike-fotter-icon:hover {	   background-color: @udtoken-btn-text-bg-neutral-hover;;	 }	</style>	<style id="aslcard_qa">	 .aslcard-baike-relatedQASection {		 .show-one-line {		   height:		  }		  .relatedQA-page-entry: hover {			background-color:  @fill-hover;		 }		  .larkw-aslCard-QA-item {		   display: flex;		   flex-direction: row;		   padding: 6px 8px;		   border-radius: 6px;		   cursor: pointer;			.QA_content {			 width: 100%;						  .larkw-aslCard-element-rich-text {			   white-space: nowrap;			   overflow: hidden;			   text-overflow: ellipsis;			   display: inline-block;			   width: calc(100% - 34px);			   height: 22px;			   pointer: cursor;				span {				 white-space: nowrap;			   }			 }			  .Q_content,			 .A_content {			   height: 22px;			   line-height:22px;			   align-items: center;			   display: flex;			   flex-direction: row;			   padding: 1px 0px;				.QA_icon {				 width: 20px;				 height: 20px;				 line-height: 20px;				 text-align: center;				 border-radius: 6px;				 margin-right:10px;				 font-size: 12px;			   }				.Q_icon {				 background-color: @primary-pri-100;				 color: @primary-pri-500;			   }				.A_icon {				 background-color: @function-warning-100;				 color: @function-warning-600;			   }			 }			  .no_answer {			   font-size: 14px;			   line-height: 20px;			   color: @text-caption;			   display: flex;			   align-items: center;				.to_answer {				 font-size: 14px;			   }			 }		 }	   }		   .larkw-aslCard-QA-item: hover {		   background-color:  @fill-hover;		 }	 }	 .to_answer {	   color: @text-link-normal;	   border-radius: 6px;	   padding: 0px 4px;	   font-size: 12px;	   line-height: 20px;	   height: 20px;	   cursor: pointer;	 }	  .to_answer:hover {	   color: @text-link-normal;	   background-color: @fill-active;	 }	  .to_answer:active {	   color: @text-link-pressed;	   background-color: @fill-active;	 }	  .to-answer-related-users,	 .to-answer-contributors {	   display: flex;	   flex-direction: row;	   font-size: 12px;	   line-height: 20px;	   color: @text-caption;	   cursor: pointer;	   width: fit-content;	   flex-wrap: wrap;	 }	</style>	<style id="aslcard-related-words">	 .larkw-aslCard-relatedWords-wrapper {	   padding: 0px 16px;	   .larkw-aslCard-relatedWords-calssfication-item {		 padding:4px 4px 0px 4px !important;		 .title {		   margin-bottom: 4px;		   height: auto;			.title-text {			 margin-bottom: 0px;			 flex: 1;		   }		 }		 .abbreviation-item {		   margin: 0px 6px 6px 0px;		 }	   }		.larkw-aslCard-folder-container-normal-button {		 padding-left: 0px !important;	   }	 }   </style>	<style id="abbrmulti-desc-v2">	 .larkw-aslCard-element-abbrmultidescv2 {	   .abbrmultidescv2-header-topline {		 margin: 2px 0px;	   }		.abbrmultidescv2-header {		 padding: 4px 0px;	   }		.abbrmultidescv2-item-content {		  padding: 4px 0px;	   }	 }	  .aslcard-baike-divider {	   margin: 4px 0px;	 }   </style>	<view className="aslcard-baike-navbar">	 <view className="aslcard-baike-navbar-content aslcard-baike-navbar-noback" style="width: calc(100% - 64px);">	   <text-highlight className="ellipsis-one-line" style="font-weight: 500;font-size: 14px;"  text="Ai"  highlightTerms='[]'/>	 </view>	 <view className="aslcard-baike-navbar-content aslcard-baike-navbar-withback">	   <text style="font-weight: 500;font-size: 14px; max-width: 120px;" className="aslcard-ellipsis">Ai</text>	 </view>	 <view className="aslcard-baike-divider" style="position: absolute;bottom: 0;width: 100%;"></view>   </view>   <view className="aslcard-baike-navbar-goback-btn">	 <tooltip title="返回">	   <view className="larkw-aslCard-icon-mask" style="color: @icon-n1;" bind='{"onClick": {		 "callbacks": [		   {			 "funcName": "back",			 "params":{}		   }		 ]}	   }'>		 <image>		   <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">			 <path			   d="M12.2197 1.71967C12.5126 2.01256 12.5126 2.48744 12.2197 2.78033L6 9L12.2197 15.2197C12.5126 15.5126 12.5126 15.9874 12.2197 16.2803C11.9268 16.5732 11.4519 16.5732 11.159 16.2803L4.93934 10.0607C4.35355 9.47487 4.35355 8.52513 4.93934 7.93934L11.159 1.71967C11.4519 1.42678 11.9268 1.42678 12.2197 1.71967Z"			   fill="currentColor" />		   </svg>		  </image>	   </view>	 </tooltip>   </view>   <view style="position: absolute;top: 20px;right: 16px;z-index: 3;">	 <abbr-action-v2 data-tootip-more-title="更多">		 <action shareModelTitle="分享到会话" showOut="true" type="share" text="分享" url="https://ai.feishu-boe.cn/lingo/detail/7233732879589572628?open_source&#x3D;im_share_card" tooltip=""		   className="abbr_share_icon" subscribed=""		   text-unsubscribe="取消订阅"		   data-tooltip-subscribed-text="订阅后，将会通过订阅号推送词条下的新增文档"		   data-tooltip-not-subscribed-text="取消订阅后，将不会再收到相关推送"		   data-toast-subscribe="订阅成功，将会通过订阅号推送词条下的新增文档"		   data-toast-unsubscribe="取消订阅后，将不会再收到相关推送"		   data-ignore-success-toast="已关闭词条下划线提示"		  />		 <action shareModelTitle="" showOut="" type="abbr_home" text="查看词条详情" url="https://ai.feishu-boe.cn/lingo/detail/7233732879589572628?open_source&#x3D;card_entity_home" tooltip=""		   className="abbr_detail_home_icon" subscribed=""		   text-unsubscribe="取消订阅"		   data-tooltip-subscribed-text="订阅后，将会通过订阅号推送词条下的新增文档"		   data-tooltip-not-subscribed-text="取消订阅后，将不会再收到相关推送"		   data-toast-subscribe="订阅成功，将会通过订阅号推送词条下的新增文档"		   data-toast-unsubscribe="取消订阅后，将不会再收到相关推送"		   data-ignore-success-toast="已关闭词条下划线提示"		  />		 <action shareModelTitle="" showOut="false" type="edit" text="编辑词条" url="https://ai.feishu-boe.cn/lingo/editor?locale&#x3D;zh-CN&amp;abbrId&#x3D;enterprise_7233732879589572628&amp;query&#x3D;Ai&amp;open_source&#x3D;card_entity_editor" tooltip=""		   className="" subscribed=""		   text-unsubscribe="取消订阅"		   data-tooltip-subscribed-text="订阅后，将会通过订阅号推送词条下的新增文档"		   data-tooltip-not-subscribed-text="取消订阅后，将不会再收到相关推送"		   data-toast-subscribe="订阅成功，将会通过订阅号推送词条下的新增文档"		   data-toast-unsubscribe="取消订阅后，将不会再收到相关推送"		   data-ignore-success-toast="已关闭词条下划线提示"		  />		 <action shareModelTitle="" showOut="" type="ignore" text="关闭词条下划线" url="" tooltip=""		   className="" subscribed=""		   text-unsubscribe="取消订阅"		   data-tooltip-subscribed-text="订阅后，将会通过订阅号推送词条下的新增文档"		   data-tooltip-not-subscribed-text="取消订阅后，将不会再收到相关推送"		   data-toast-subscribe="订阅成功，将会通过订阅号推送词条下的新增文档"		   data-toast-unsubscribe="取消订阅后，将不会再收到相关推送"		   data-ignore-success-toast="已关闭词条下划线提示"		  />		 <action shareModelTitle="" showOut="" type="divider" text="" url="" tooltip=""		   className="" subscribed=""		   text-unsubscribe="取消订阅"		   data-tooltip-subscribed-text="订阅后，将会通过订阅号推送词条下的新增文档"		   data-tooltip-not-subscribed-text="取消订阅后，将不会再收到相关推送"		   data-toast-subscribe="订阅成功，将会通过订阅号推送词条下的新增文档"		   data-toast-unsubscribe="取消订阅后，将不会再收到相关推送"		   data-ignore-success-toast="已关闭词条下划线提示"		  />		 <action shareModelTitle="" showOut="" type="create" text="创建词条" url="https://ai.feishu-boe.cn/lingo/editor?action&#x3D;create&amp;abbrId&#x3D;enterprise_7233732879589572628&amp;locale&#x3D;zh-CN&amp;open_source&#x3D;card_entity_create" tooltip=""		   className="" subscribed=""		   text-unsubscribe="取消订阅"		   data-tooltip-subscribed-text="订阅后，将会通过订阅号推送词条下的新增文档"		   data-tooltip-not-subscribed-text="取消订阅后，将不会再收到相关推送"		   data-toast-subscribe="订阅成功，将会通过订阅号推送词条下的新增文档"		   data-toast-unsubscribe="取消订阅后，将不会再收到相关推送"		   data-ignore-success-toast="已关闭词条下划线提示"		  />		 <action shareModelTitle="" showOut="" type="home" text="前往词典首页" url="https://baikeredirect.feishu.cn/drive/lingo?locale&#x3D;zh-CN&amp;open_source&#x3D;card_web_tab" tooltip=""		   className="" subscribed=""		   text-unsubscribe="取消订阅"		   data-tooltip-subscribed-text="订阅后，将会通过订阅号推送词条下的新增文档"		   data-tooltip-not-subscribed-text="取消订阅后，将不会再收到相关推送"		   data-toast-subscribe="订阅成功，将会通过订阅号推送词条下的新增文档"		   data-toast-unsubscribe="取消订阅后，将不会再收到相关推送"		   data-ignore-success-toast="已关闭词条下划线提示"		  />	 </abbr-action-v2>   </view>   <view	 className="larkw-aslCard-layout-block baike_navbar_scrollbar_trigger larkw-abbreviation-content larkw-aslCard-scrollbar larkw-aslCard-scrollbar-hover"	 style="max-height: inherit; max-width: inherit; overflow: hidden overlay;word-break: normal;"	 canUseContributors="true">	 <view className="larkw-aslCard-util-bg-ultra" id="larkw-aslCard-body-enterprise_7233732879589572628">	   <view className="larkw-aslCard-layout-block larkw-aslCard-baike-header"		 style='padding:24px 20px 0; position: relative;'>		 <view className="aslcard-baike-nav-placeloader" />			<view			  className="larkw-aslCard-layout-block main-key-content"			  style="position: relative;width: 100%;"			>			 <view className="larkw-aslCard-layout-inlineBlock" style='position: absolute; top: 0; right: 0;'>			 </view>			 <tooltip				title="进入词条详情页"				style="max-width:calc(100% - 64px);width:fit-content;"				className="main-key-tooltip"			   bind='{"onClick":{				 "callbacks":[{"funcName":"openURL","params":{"url":"https://ai.feishu-boe.cn/lingo/detail/7233732879589572628?open_source&#x3D;card_entity_home"}}],				 "events":[{"eventName":"event_track_v2","params":{"click":"function","function_type":"entity_name"}}]			   }}'			 >				 <text-highlight locale="zh-CN" style="color: @text-title;font-size: 18px;font-weight: 500;line-height: 26px;margin-right: 8px;"  text="Ai"  highlightTerms='[]'/>			 </tooltip>		   </view>			<view className="larkw-aslCard-layout-flex" style="align-items: center;">			 <user-list data-text-hint="贡献" version="v2" maxCountShow="2">				 <user userId="7215104701929357331" avatarKey="v2_98f36e28-20f7-4f32-889c-b926df7eb22j" tooltip="张晓阳"				   className="aslcard-barike-ultra-useritem" userName="张晓阳" size="24" style="">				 </user>			   <user-rest				 style="margin-right: 8px;height: 24px;width: 24px;display: flex;align-items: center;justify-content: center;border-radius: 50%;background-color: #EFF0F1;color: @text-caption;cursor: pointer;margin-right: 0;margin-bottom: 0;">			   </user-rest>			 </user-list>			 <image style="margin: 0px 2px 0px 6px">			  <svg width="2" height="10" viewBox="0 0 2 10" fill="none" xmlns="http://www.w3.org/2000/svg">				 <path d="M1 0V10" stroke="#BBBFC4"/>			   </svg>			 </image>			 <view			   className="to_answer"			   id="user-list-right-node"			   bind='{"onClick":{			   "callbacks":[{"funcName":"openURL","params":{"url":"https://ai.feishu-boe.cn/lingo/detail/7233732879589572628?anchor&#x3D;qaComment&amp;addQuestion&#x3D;true&amp;open_source&#x3D;ask_contributor"}}],			   "events":[{"eventName":"event_track_v2","params":{"click":"function","function_type":"ask_contributor"}}]			   }}'>			   <text>提问</text>			 </view>		   </view>		 </view>		<view className="larkw-aslCard-layout-block aslcard-baike-section-ultra" style="padding-top: 0px;">		 <view className="larkw-aslCard-layout-block asl-section-description" style="padding:4px 20px;">			 <text-highlight			   bind='{				 "onUnFold": {"events":[{				   "eventName":"event_track_v2",				   "params":{"click":"function","function_type":"description_unfold"}				 }]}			   }'			   locale="zh-CN"				maxHeight="setMaxHeightVal folderSwitcher.canDescriptionFolder 66"				style="white-space: pre-wrap;word-break: break-word;"				text="人工智能是计算机科学的一个分支，它企图了解智能的实质，并生产出一种新的能以人类智能相似的方式做出反应的智能机器，该领域的研究包括机器人、语言识别、图像识别、自然语言处理和专家系统等。"				 highlightTerms='[&quot;&amp;#10&quot;]'			 />		 </view>	   </view>		 <async-template		 hidden="false"		 templateName="recommend_docs"		 templateId="recommendRelatedDoc"		 serviceName="getRelatedResource"		 params='{"entryIds":["enterprise_7233732879589572628"],"resourceTypes":[1],"enterFrom":""}'	   />		  <view className="larkw-aslCard-layout-block larkw-aslCard-hideInLarkSearch larkw-aslCard-showInLark">		  <view className="larkw-aslCard-layout-flex"		   style='padding: 10px 20px;font-size: 12px;line-height: 20px;color: @text-caption;margin-bottom:14px;'>		   <view style="display: flex;align-items: center;">			 <text>找不到想要的信息？</text>			 <view className="larkw-aslCard-layout-inlineBlock larkw-aslCard-text-link-button"			   style="color: @text-link-normal;" bind='{"onClick":{		 "callbacks":[{"funcName":"openLarkSearch","params":{"query":"Ai"}}],		 "events":[{"eventName":"event_track_v2","params":{"click":"function","function_type":"search","abbr_id":"enterprise_7233732879589572628"}}]		 }}'>			   搜索更多			 </view>		   </view>		 </view>	   </view>		  <view style="display: none;" role="for-debug"		 data-canShowSuperAdminBanner=""		 data-superAdminBannerHref=""		 data-canShowNormalUserBanner="false"		 data-normalUserBannerHref=""		 data-IsUserSuperAdmin="nodata"		 data-IsTenantActivated="nodata" />	 </view>   </view>	<view className="aslcard-baike-footer">	 <view className="aslcard-baike-divider" style="margin: 0 20px;">	 </view>	 <view	   style="display: flex;align-items: center;justify-content: space-between;height: 46px;padding: 0 16px;flex-shrink: 0;">	   <view className="aslcard-baike-logo-btn-container larkw-aslCard-layout-flex" style="max-width: calc(100% - 84px);">		 <tooltip title="前往词典首页，探索更多词条" style="width: 100%">		   <view className="aslcard-baike-btn aslcard-baike-btn-extra-small aslcard-baike-logo-btn"			 url="https://baikeredirect.feishu.cn/drive/lingo?locale&#x3D;zh-CN&amp;from&#x3D;logo&amp;abbrId&#x3D;enterprise_7233732879589572628&amp;page&#x3D;category&amp;repo_id&#x3D;1&amp;open_source&#x3D;card_web_logo"			 bind='{"onClick":{"events":[{"eventName":"event_track_v2","params":{"click":"function","function_type":"encyclopedia_logo","target":"asl_abbr_paltform_view","abbr_id":"enterprise_7233732879589572628"}}]}}'>			 <view className="aslcard-baike-logo-btn-img" style="width: 21px; height: 17px;">			   <image url="https://lf-cdn-tos.bytescm.com/obj/static/asl-card/baike-logo-gray-lm_zh-CN_v2.svg"				 className="aslcard-baike-logo-btn-img-placeholder"></image>			 </view>			 <text className="repo_name">企业词库</text>			 <image>			   <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">				 <path				   d="M4.65292 2.64645C4.45765 2.84171 4.45765 3.15829 4.65292 3.35355L7.79936 6.5L4.65292 9.64645C4.45765 9.84171 4.45765 10.1583 4.65292 10.3536C4.84818 10.5488 5.16476 10.5488 5.36002 10.3536L8.86002 6.85355C8.95379 6.75979 9.00647 6.63261 9.00647 6.5C9.00647 6.36739 8.95379 6.24021 8.86002 6.14645L5.36002 2.64645C5.16476 2.45118 4.84818 2.45118 4.65292 2.64645Z"				   fill="currentColor" />			   </svg>			 </image>		   </view>		 </tooltip>	   </view>		<view className="like-kit">		 <like-kit like-count='0' data-text-ignore-btn="关闭词条提示"		   dislike-count='0' like="" dislike=""		   data-text-feedback-title="反馈给贡献者"		   data-text-feedback-success="反馈提交成功"		   show-like="true"			show-dislike="false"		 ></like-kit>		 <tooltip title="我要反馈" className="aslcard-baike-fotter-icon">		   <view  bind='{"onClick":{		   "callbacks":[{"funcName":"openFeedback","params":{"title":"词条反馈"}}],		   "events":[{"eventName":"event_track_v2","params":{"click":"function","function_type":"feedback_logo"}}]		   }}' style="height: 16px;">			 <image >			   <svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">				 <path d="M10.6667 1.99984H1.33333V13.9998H4.66667V15.3332H1.33333C0.596954 15.3332 0 14.7362 0 13.9998V1.99984C0 1.26346 0.596954 0.666504 1.33333 0.666504H10.6667C11.403 0.666504 12 1.26346 12 1.99984V7.33317H10.6667V1.99984Z" fill="currentColor"/>				 <path d="M3.33333 4.6665C2.96514 4.6665 2.66667 4.96498 2.66667 5.33317C2.66667 5.70136 2.96514 5.99984 3.33333 5.99984H8.66667C9.03486 5.99984 9.33333 5.70136 9.33333 5.33317C9.33333 4.96498 9.03486 4.6665 8.66667 4.6665H3.33333Z" fill="currentColor"/>				 <path d="M2.66667 8.33317C2.66667 7.96498 2.96514 7.6665 3.33333 7.6665H6C6.36819 7.6665 6.66667 7.96498 6.66667 8.33317C6.66667 8.70136 6.36819 8.99984 6 8.99984H3.33333C2.96514 8.99984 2.66667 8.70136 2.66667 8.33317Z" fill="currentColor"/>				 <path d="M11.5523 8.69999C11.9428 8.30946 12.576 8.30946 12.9665 8.69999C13.357 9.09051 13.357 9.72367 12.9665 10.1142L12.2594 10.8213L10.8452 9.40709L11.5523 8.69999Z" fill="currentColor"/>				 <path d="M10.1381 10.1142L11.5523 11.5284L8.23093 14.8498C8.09164 14.9891 7.91229 15.0813 7.71798 15.1136L6.45737 15.3233C6.42136 15.3292 6.38467 15.3175 6.35885 15.2917C6.33271 15.2655 6.32099 15.2282 6.32749 15.1918L6.55128 13.9372C6.58465 13.7501 6.6746 13.5777 6.80901 13.4433L10.1381 10.1142Z" fill="currentColor"/>			   </svg>			 </image>		   </view>		 </tooltip>		   <tooltip title="相关讨论" className="aslcard-baike-fotter-icon">			 <view  bind='{"onClick":{		   "callbacks":[{"funcName":"openURL","params":{"url":"https://ai.feishu-boe.cn/lingo/detail/7233732879589572628?anchor&#x3D;qaComment&amp;open_source&#x3D;answers_logo"}}],		   "events":[{"eventName":"event_track_v2","params":{"click":"function","function_type":"answers_logo"}}]		   }}' style="height: 16px;">			   <image >				 <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">				 <path d="M3.66675 8.66634H2.00008V2.66634H10.6667V8.66634H6.33059L3.66675 10.8333V8.66634ZM6.66675 9.99968H10.6667C11.4031 9.99968 12.0001 9.40272 12.0001 8.66634V2.66634C12.0001 1.92996 11.4031 1.33301 10.6667 1.33301H2.00008C1.2637 1.33301 0.666748 1.92996 0.666748 2.66634V8.66634C0.666748 9.40272 1.2637 9.99968 2.00008 9.99968H2.33341V11.9495C2.33341 12.4539 2.87199 12.7756 3.31615 12.5365L6.66675 9.99968ZM8.99726 12.6667H5.34274L7.0094 11.3333H9.33341L12.0001 13.5V11.333H14.0001V5.99967H13.3334V4.66634H14.0001C14.7365 4.66634 15.3334 5.2633 15.3334 5.99967V11.333C15.3334 12.0694 14.7365 12.6663 14.0001 12.6663H13.3334V14.6162C13.3334 15.1206 12.7948 15.4423 12.3507 15.2031L8.99726 12.6667Z" fill="currentColor"/>				 </svg>			   </image>			 </view>		   </tooltip>	   </view>	 </view>   </view>	<abbr-data-carrier id="abbr-data-carry-id" data-report-card-view='[{"result_type":"success"}]'></abbr-data-carrier>   <guide	   data-options='{"key":"Lingo_card_share","style":{"zIndex":100,"width":"max-content"},"conf":[{"content":"词典支持分享词条啦！","target":".larkw-aslCard-moreactions-wrapper .abbr_share_icon","direction":"bottom","align":"center","distance":4,"clickBlankToDisappear":true,"autoFinishMs":5000}],"extraDaInfo":{"abbr_id":"enterprise_7233732879589572628","onboarding_type":"bubble","onboarding_sub_type":"entity_share"}}' >   </guide>   <guide		data-options='{"key":"Lingo_doc_homograph","style":{"zIndex":100,"width":"max-content"},"conf":[{"content":"点击置顶，在当前文档优先展示该释义","target":".abbrmultidescv2-item-pinItem .larkw-aslCard-icon-mask","direction":"top","align":"center","distance":4,"clickBlankToDisappear":true,"autoFinishMs":5000}],"extraDaInfo":{"abbr_id":"enterprise_7233732879589572628","onboarding_type":"bubble","onboarding_sub_type":"entity_pin"}}' >   </guide> </view>
+// 示例值：<view className="aslcard-baike-ultra-card larkw-aslCard-layout-flex aslcard-baike-container-outer without-copyperm-dom" style='flex-direction: column; width: 100%; box-sizing: border-box; height: 100%; max-height: inherit; max-width: inherit;position: relative;'> <style id="baike-card-external-ultra"> .aslcard-baike-container-outer { min-width: 320px; } .abbreviation-cardItem_insearch .aslcard-baike-container-outer { min-width: 100%; } .larkw-aslCard-card-container .larkw-aslCard-element-abbrnav-bar { padding-top: 12px; } .larkw-aslCard-baikeCard .larkw-aslCard-showInLark { display: none; } .larkw-aslCard-baikeCard-inLark .larkw-aslCard-showInLark { display: block; } .larkw-aslCard-baikeCard-inLark .larkw-aslCard-footer-ignoreBtn { display: none; } .list-item-avatar { margin-right: 8px; flex-shrink: 0; overflow: hidden; border-radius: 8px; } .list-item-avatar-bg { background-color: @primary-pri-100; } .list-item-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: @text-title; } .list-item-title.larkw-aslCard-text-link-button { margin-left: -2px; } .larkw-aslCard-text-link-button { padding: 0 4px; transition: none; border-radius: 6px; } .larkw-aslCard-text-link-button:hover { color: @text-link-normal; } .larkw-aslCard-text-link-button:active { color: @text-link-pressed; } .larkw-aslCard-baike-header {} .larkw-aslCard-baikeCard-actions-icon .universe-icon { font-size: 16px; } .baikeSectionHeader { width: 100%; box-sizing: border-box; padding-left: 16px; } .baikeSectionHeaderInner { padding: 8px 0; flex-shrink: 0; font-size: 12px; margin-right: 4px; line-height: 20px; color: @text-caption; } .larkw-aslCard-ig .larkw-aslCard-element-abbrnav-bar { padding: 18px 0 10px 0; margin-left: -4px; } .abbreviation-cardItem_insearch .larkw-aslCard-showInLarkSearch { display: block; } .abbreviation-cardItem_insearch .larkw-aslCard-hideInLarkSearch { display: none; } .abbreviation-cardItem_insearch .larkw-aslCard-icon-mask.larkw-aslCard-baikeCard-actions-icon:not(:last-child), .abbreviation-cardItem_insearch .larkw-aslCard-icon-mask:not(:last-child) { display: none; } .baike-card-link-item .larkw-aslCard-element-image-fallback, .baike-card-link-item .larkw-aslCard-element-plImage-placeholder { background-color: @primary-pri-100; } .baike-card-link-item-default { display: flex; justify-content: center; align-items: center; background-color: @primary-pri-100; color: @text-link-normal; } .larkw-aslCard-text-link-ig:hover { color: @text-link-hover; } .larkw-aslCard-text-link-ig:active { color: @text-link-pressed; } .larkw-aslCard-abbrClassify-tag .ud__tag__content { max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .larkw-aslCard-layout-block.larkw-abbreviation-content { padding: 0; box-sizing: inherit; } .larkw-abbreviation-content { border-radius: 10px; } .list-item-avatar-user .ud__avatar { height: 24px !important; width: 24px !important; } .lux-ellipsis-line { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 50px; } .ud__menu-normal-item-title-content.ud__menu-normal-item-title-content-text-overflow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .asl-section-description .larkw-aslCard-element-text { white-space: pre-wrap; word-break: break-word; } .abbreviation-cardItem_insearch .larkw-aslCard-element-image-set .image-cell { width: 9.18vw; height: 9.18vw; } .larkw-aslCard-element-rich-text .larkw-aslCard-element-link, .larkw-aslCard-element-rich-text .larkw-aslCard-element-richlink { margin: 0px !important; padding: 3px 2px; display: inline; } .larkw-aslCard-element-rich-text .larkw-aslCard-element-abbreviation { display: inline; cursor: pointer; line-height: 20px; position: relative; border-bottom-style: solid; border-width: 1px; border-image-slice: 1; border-image-source: repeating-linear-gradient(90deg, @N650 0, @N650 1px, transparent 0, transparent 3px); } .larkw-aslCard-element-rich-text .larkw-aslCard-element-abbreviation:hover, .larkw-aslCard-element-rich-text .larkw-aslCard-element-abbreviation:active { border-bottom-color: @B500; } .larkw-aslCard-element-rich-text .larkw-aslCard-element-abbreviation:hover { color: @B500; border-image-source: repeating-linear-gradient(90deg, @B500 0, @B500 1px, transparent 0, transparent 3px); } .larkw-aslCard-element-at { color: @text-link-normal !important; } .main-key-content { width: fit-content; padding-bottom: 4px; } .main-key-tooltip { cursor: pointer; } .main-key-tooltip:hover { .larkw-aslCard-element-text { color: @text-link-hover !important; } } .larkw-aslCard-baikecard-feedback .panel { display: flex; flex-wrap: wrap; grid-template-columns: unset; grid-template-rows: unset; .capsule { min-width: 183px; .capsule-text { overflow: hidden; text-overflow: ellipsis; } } } </style> <style id="aslcard_theme_ultra"> .ai-popup-portal .ai-popup-wrapper { border: none; overflow: inherit; box-shadow: @shadow-s4-down; } .larkw-aslCard-util-bg-ultra { background-repeat: no-repeat; background-position: 0 0; background-size: 100% 143px; } .larkw-aslCard-card-theme-LIGHT .larkw-aslCard-util-bg-ultra { background-image: url(https://lf-cdn-tos.bytescm.com/obj/static/asl-card/lm-min-ultra.png?time=202209222) } .larkw-aslCard-card-theme-DARK .larkw-aslCard-util-bg-ultra { background-image: url(https://lf-cdn-tos.bytescm.com/obj/static/asl-card/dm-min-ultra.png?time=202209222) } .aslcard-ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .aslcard-baike-section-ultra { padding: 6px 0px; } .asl-baikeultra-section-title { font-weight: 500; font-size: 12px; line-height: 22px; display: flex; align-items: center; padding: 4px 20px; color: @text-title; .section-subTitle { color: @text-caption; font-weight: 400; padding-left: 2px; } } .asl-baikeultra-list-item { padding: 6px 20px; display: flex; align-items: center; .item-tag-md { margin-left: 4px; } } .aslcard-baike-btn { display: flex; align-items: center; justify-content: center; border-radius: 6px; cursor: pointer; } .aslcard-baike-btn:hover { background-color: @fill-hover; } .aslcard-baike-btn-extra-small { height: 24px; padding: 0 2px; } .aslcard-baike-btn-logo {} .aslcard-baike-category-item { margin: 4px 8px 4px 0px; position: relative; cursor: pointer; line-height: 20px; display: flex; .category-tag-icon { position: absolute; right: 6px; display: flex; color: @udtoken-tag-text-blue; } .aslcard-baike-tag-md { font-size: 12px; font-weight: 400; color: @udtoken-tag-text-blue; background-color: @udtoken-tag-bg-blue; cursor: pointer; padding-right: 17px; } } .aslcard-baike-category-item: hover { .aslcard-baike-tag-md { background-color: @udtoken-tag-bg-blue-hover; } } .aslcard-baike-btn-bg-primary { cursor: pointer; background-color: @primary-pri-50; } .aslcard-baike-btn-bg-primary:hover { background-color: @primary-pri-100; } .aslcard-baike-btn-bg-primary:active { background-color: @primary-pri-200; } .aslcard-baike-divider { height: 1px; background-color: @line-divider-default; transform: scaleY(0.5); } .aslcard-baike-navbar { user-select: none; box-sizing: border-box; background-color: @bg-float; border-radius: 10px 10px 0 0; position: absolute; width: 100%; z-index: 3; overflow: hidden; height: 56px; opacity: 0; pointer-events: none; } .aslcard-baike-navbar-content { width: 100%; height: 22px; display: flex; align-items: center; border-radius: 10px 10px 0 0; overflow: hidden; } .aslcard-baike-navbar-noback { box-sizing: border-box; padding: 0px 20px; height: 22px; } .aslcard-baike-navbar-withback { justify-content: center; display: none; } .larkw-aslCard-baikeCard-scrolled .aslcard-baike-navbar { opacity: 1; pointer-events: auto; padding-top: 21px; transition: opacity 0.15s; } .aslcard-baike-navbar-goback-btn { display: none; position: absolute; top: 20px; left: 16px; z-index: 3; } .aslcard-baike-nav-placeloader { display: none; height: 28px; width: 100%; } .larkw-aslCard-baikeCard-withgoback .aslcard-baike-navbar-goback-btn { display: flex; } .larkw-aslCard-baikeCard-withgoback .aslcard-baike-navbar-noback { display: none; } .larkw-aslCard-baikeCard-withgoback.larkw-aslCard-baikeCard-scrolled .aslcard-baike-navbar-withback { display: flex; } .larkw-aslCard-baikeCard-withgoback .aslcard-baike-nav-placeloader { display: block; } .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-list { max-height: 150px; overflow: hidden auto; margin-left: -8px; margin-right: -8px; } .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item-content { overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; } .abbreviation-cardItem_insearch { border-radius: 8px; } .abbreviation-cardItem_insearch .larkw-aslCard-card-theme-LIGHT .larkw-aslCard-util-bg-ultra, .abbreviation-cardItem_insearch .larkw-aslCard-card-theme-DARK .larkw-aslCard-util-bg-ultra { background-image: none; } .larkw-aslCard-element-userlistV2 { margin-left: -4px; } .aslcard-baike-logo-btn-img { display: flex; transition: background-image 0.15s; } .aslcard-baike-logo-btn-img-placeholder { opacity: 0; } .aslcard-baike-logo-btn { color: @icon-n3; .repo_name { color: @text-placeholder; font-size: 12px; padding-left: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; } } .aslcard-baike-logo-btn:hover { color: @icon-n2; .repo_name { color: @text-title; } } .aslcard-baike-logo-btn .aslcard-baike-logo-btn-img { background-image: url(https://lf-cdn-tos.bytescm.com/obj/static/asl-card/baike-logo-gray-lm_zh-CN_v2.svg); } .aslcard-baike-logo-btn:hover .aslcard-baike-logo-btn-img { background-image: url(https://lf-cdn-tos.bytescm.com/obj/static/asl-card/baike-logo-colorful-lm_zh-CN_v2.svg); } .larkw-aslCard-card-theme-DARK .aslcard-baike-logo-btn .aslcard-baike-logo-btn-img { background-image: url(https://lf-cdn-tos.bytescm.com/obj/static/asl-card/baike-logo-gray-dm_zh-CN_v2.svg); } .larkw-aslCard-card-theme-DARK .aslcard-baike-logo-btn:hover .aslcard-baike-logo-btn-img { background-image: url(https://lf-cdn-tos.bytescm.com/obj/static/asl-card/baike-logo-colorful-dm_zh-CN_v2.svg); } .larkw-aslCard-element-userlistV2-content .aslcard-barike-ultra-useritem:not(:last-child) { margin-right: 4px; } .larkw-aslCard-element-userlistV2-hint .username { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 144px; } .aslcard-baike-ultra-card .larkw-aslCard-footer-dislike-button .universe-icon.larkw-aslCard-footer-like-icon { color: @icon-n3; } .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-list { padding-bottom: 4px; max-height: 144px; overflow: hidden overlay; margin-left: -5px; margin-right: -5px; } .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item { line-height: 18px; padding: 7px 5px 7px 18px; } .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item-active { color: @text-title; } .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item-visited { color: @text-title; } .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item:before { content: ""; position: absolute; top: 13px; border-radius: 50%; left: 5px; width: 6px; height: 6px; background-color: @icon-disabled; } .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item-active:before { background-color: @B500; } .larkw-aslCard-element-abbrmultidesc div.abbrmultidesc-item { padding: 7px 5px 7px 18px; } .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item .abbrmultidesc-item-content { padding: 0; } .larkw-aslCard-element-abbrmultidesc .abbrmultidesc-item-pinItem { margin-right: -5px; } .abbrmultidesc-list::-webkit-scrollbar-thumb:hover { background-color: transparent !important; } .-container { display: block; } .aslCard-baikeCard-alias-wrapper { margin-top: 2px; .aslCard-baikeCard-alias { color: @text-caption; font-size: 14px; line-height: 22px; } } .ellipsis-two-line { overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; } .ellipsis-one-line { overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; } .larkw-aslCard-element-abbrmultidescv2 .abbrmultidescv2-list-wrapper { user-select: none; max-height: 128px; } .larkw-aslCard-element-abbrmultidescv2 .abbrmultidescv2-list-unexpanded { max-height: 0px !important; } .abbrmultidescv2-list.aslcard-baikecard-scrollarea::-webkit-scrollbar { display: none; } .larkw-aslCard-section-title { display: flex; justify-content: space-between; border-radius: 6px; padding-right: -4px; .title-right-btn { margin-right: -4px; display: flex; flex-direction: row; align-items: center; cursor: pointer; color: @text-caption; font-size: 12px; font-weight: 400; height: 20px; line-height: 20px; padding: 0px 4px; border-radius: 6px; } .title-right-btn.related-docs-title { display: none; } .title-right-btn: hover{ background-color: @fill-hover; } } .larkw-aslCard-recommend-docs-entry-show { .larkw-aslCard-section-title { .title-right-btn.related-docs-title { display: flex; } } } .larkw-aslCard-folder-container-normal-button { padding: 4px 0px 4px 16px; .folder-option { padding: 0px 4px; } } .larkw-aslCard-folder-container-link-button { right: 0px; } .aslcard-baike-showEntry-section { margin-left: 12px !important; margin-right: 12px !important; .aslcard-baike-relatedWords-showEntry:hover { background-color: @bg-float-overlay;; cursor: pointer; } .asl-baikeultra-section-title { padding:4px 8px; } .larkw-aslCard-layout-block { padding:0px 8px; .larkw-aslCard-folder-container-normal-button { padding-left: 0px; } } .larkw-aslCard-folder-container-normal-button { padding-left: 8px; } } .larkw-aslCard-relatedWord-block { width: 100%; margin-bottom: 2px; .larkw-aslCard-relatedWord-block-title { color: @text-caption; font-size: 12px; line-height: 20px; display: flex; align-items: center; margin-bottom: 4px; } .larkw-aslCard-relatedWord-block-content{ display: flex; flex-wrap: wrap; } } .larkw-aslCard-relatedWord-block:last-child { padding-bottom: 0px; } .like-kit { display: flex; flex-direction: row; } .larkw-aslCard-scrollbar::-webkit-scrollbar { display: none; } .abbrmultidescv2-item-active .abbrmultidescv2-item-pinItem { opacity: 1 !important; } .aslcard-baike-fotter-icon { width: 24px; height: 24px; border-radius: 8px; cursor: pointer; align-items:center; justify-content: center; display: flex; color: @icon-n3; margin-left: 4px; } .aslcard-baike-fotter-icon:hover { background-color: @udtoken-btn-text-bg-neutral-hover;; } </style> <style id="aslcard_qa"> .aslcard-baike-relatedQASection { .show-one-line { height: } .relatedQA-page-entry: hover { background-color: @fill-hover; } .larkw-aslCard-QA-item { display: flex; flex-direction: row; padding: 6px 8px; border-radius: 6px; cursor: pointer; .QA_content { width: 100%; .larkw-aslCard-element-rich-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; width: calc(100% - 34px); height: 22px; pointer: cursor; span { white-space: nowrap; } } .Q_content, .A_content { height: 22px; line-height:22px; align-items: center; display: flex; flex-direction: row; padding: 1px 0px; .QA_icon { width: 20px; height: 20px; line-height: 20px; text-align: center; border-radius: 6px; margin-right:10px; font-size: 12px; } .Q_icon { background-color: @primary-pri-100; color: @primary-pri-500; } .A_icon { background-color: @function-warning-100; color: @function-warning-600; } } .no_answer { font-size: 14px; line-height: 20px; color: @text-caption; display: flex; align-items: center; .to_answer { font-size: 14px; } } } } .larkw-aslCard-QA-item: hover { background-color: @fill-hover; } } .to_answer { color: @text-link-normal; border-radius: 6px; padding: 0px 4px; font-size: 12px; line-height: 20px; height: 20px; cursor: pointer; } .to_answer:hover { color: @text-link-normal; background-color: @fill-active; } .to_answer:active { color: @text-link-pressed; background-color: @fill-active; } .to-answer-related-users, .to-answer-contributors { display: flex; flex-direction: row; font-size: 12px; line-height: 20px; color: @text-caption; cursor: pointer; width: fit-content; flex-wrap: wrap; } </style> <style id="aslcard-related-words"> .larkw-aslCard-relatedWords-wrapper { padding: 0px 16px; .larkw-aslCard-relatedWords-calssfication-item { padding:4px 4px 0px 4px !important; .title { margin-bottom: 4px; height: auto; .title-text { margin-bottom: 0px; flex: 1; } } .abbreviation-item { margin: 0px 6px 6px 0px; } } .larkw-aslCard-folder-container-normal-button { padding-left: 0px !important; } } </style> <style id="abbrmulti-desc-v2"> .larkw-aslCard-element-abbrmultidescv2 { .abbrmultidescv2-header-topline { margin: 2px 0px; } .abbrmultidescv2-header { padding: 4px 0px; } .abbrmultidescv2-item-content { padding: 4px 0px; } } .aslcard-baike-divider { margin: 4px 0px; } </style> <view className="aslcard-baike-navbar"> <view className="aslcard-baike-navbar-content aslcard-baike-navbar-noback" style="width: calc(100% - 64px);"> <text-highlight className="ellipsis-one-line" style="font-weight: 500;font-size: 14px;" text="Ai" highlightTerms='[]'/> </view> <view className="aslcard-baike-navbar-content aslcard-baike-navbar-withback"> <text style="font-weight: 500;font-size: 14px; max-width: 120px;" className="aslcard-ellipsis">Ai</text> </view> <view className="aslcard-baike-divider" style="position: absolute;bottom: 0;width: 100%;"></view> </view> <view className="aslcard-baike-navbar-goback-btn"> <tooltip title="返回"> <view className="larkw-aslCard-icon-mask" style="color: @icon-n1;" bind='{"onClick": { "callbacks": [ { "funcName": "back", "params":{} } ]} }'> <image> <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path d="M12.2197 1.71967C12.5126 2.01256 12.5126 2.48744 12.2197 2.78033L6 9L12.2197 15.2197C12.5126 15.5126 12.5126 15.9874 12.2197 16.2803C11.9268 16.5732 11.4519 16.5732 11.159 16.2803L4.93934 10.0607C4.35355 9.47487 4.35355 8.52513 4.93934 7.93934L11.159 1.71967C11.4519 1.42678 11.9268 1.42678 12.2197 1.71967Z" fill="currentColor" /> </svg> </image> </view> </tooltip> </view> <view style="position: absolute;top: 20px;right: 16px;z-index: 3;"> <abbr-action-v2 data-tootip-more-title="更多"> <action shareModelTitle="分享到会话" showOut="true" type="share" text="分享" url="https://ai.feishu-boe.cn/lingo/detail/7233732879589572628?open_source&#x3D;im_share_card" tooltip="" className="abbr_share_icon" subscribed="" text-unsubscribe="取消订阅" data-tooltip-subscribed-text="订阅后，将会通过订阅号推送词条下的新增文档" data-tooltip-not-subscribed-text="取消订阅后，将不会再收到相关推送" data-toast-subscribe="订阅成功，将会通过订阅号推送词条下的新增文档" data-toast-unsubscribe="取消订阅后，将不会再收到相关推送" data-ignore-success-toast="已关闭词条下划线提示" /> <action shareModelTitle="" showOut="" type="abbr_home" text="查看词条详情" url="https://ai.feishu-boe.cn/lingo/detail/7233732879589572628?open_source&#x3D;card_entity_home" tooltip="" className="abbr_detail_home_icon" subscribed="" text-unsubscribe="取消订阅" data-tooltip-subscribed-text="订阅后，将会通过订阅号推送词条下的新增文档" data-tooltip-not-subscribed-text="取消订阅后，将不会再收到相关推送" data-toast-subscribe="订阅成功，将会通过订阅号推送词条下的新增文档" data-toast-unsubscribe="取消订阅后，将不会再收到相关推送" data-ignore-success-toast="已关闭词条下划线提示" /> <action shareModelTitle="" showOut="false" type="edit" text="编辑词条" url="https://ai.feishu-boe.cn/lingo/editor?locale&#x3D;zh-CN&amp;abbrId&#x3D;enterprise_7233732879589572628&amp;query&#x3D;Ai&amp;open_source&#x3D;card_entity_editor" tooltip="" className="" subscribed="" text-unsubscribe="取消订阅" data-tooltip-subscribed-text="订阅后，将会通过订阅号推送词条下的新增文档" data-tooltip-not-subscribed-text="取消订阅后，将不会再收到相关推送" data-toast-subscribe="订阅成功，将会通过订阅号推送词条下的新增文档" data-toast-unsubscribe="取消订阅后，将不会再收到相关推送" data-ignore-success-toast="已关闭词条下划线提示" /> <action shareModelTitle="" showOut="" type="ignore" text="关闭词条下划线" url="" tooltip="" className="" subscribed="" text-unsubscribe="取消订阅" data-tooltip-subscribed-text="订阅后，将会通过订阅号推送词条下的新增文档" data-tooltip-not-subscribed-text="取消订阅后，将不会再收到相关推送" data-toast-subscribe="订阅成功，将会通过订阅号推送词条下的新增文档" data-toast-unsubscribe="取消订阅后，将不会再收到相关推送" data-ignore-success-toast="已关闭词条下划线提示" /> <action shareModelTitle="" showOut="" type="divider" text="" url="" tooltip="" className="" subscribed="" text-unsubscribe="取消订阅" data-tooltip-subscribed-text="订阅后，将会通过订阅号推送词条下的新增文档" data-tooltip-not-subscribed-text="取消订阅后，将不会再收到相关推送" data-toast-subscribe="订阅成功，将会通过订阅号推送词条下的新增文档" data-toast-unsubscribe="取消订阅后，将不会再收到相关推送" data-ignore-success-toast="已关闭词条下划线提示" /> <action shareModelTitle="" showOut="" type="create" text="创建词条" url="https://ai.feishu-boe.cn/lingo/editor?action&#x3D;create&amp;abbrId&#x3D;enterprise_7233732879589572628&amp;locale&#x3D;zh-CN&amp;open_source&#x3D;card_entity_create" tooltip="" className="" subscribed="" text-unsubscribe="取消订阅" data-tooltip-subscribed-text="订阅后，将会通过订阅号推送词条下的新增文档" data-tooltip-not-subscribed-text="取消订阅后，将不会再收到相关推送" data-toast-subscribe="订阅成功，将会通过订阅号推送词条下的新增文档" data-toast-unsubscribe="取消订阅后，将不会再收到相关推送" data-ignore-success-toast="已关闭词条下划线提示" /> <action shareModelTitle="" showOut="" type="home" text="前往词典首页" url="https://baikeredirect.feishu.cn/drive/lingo?locale&#x3D;zh-CN&amp;open_source&#x3D;card_web_tab" tooltip="" className="" subscribed="" text-unsubscribe="取消订阅" data-tooltip-subscribed-text="订阅后，将会通过订阅号推送词条下的新增文档" data-tooltip-not-subscribed-text="取消订阅后，将不会再收到相关推送" data-toast-subscribe="订阅成功，将会通过订阅号推送词条下的新增文档" data-toast-unsubscribe="取消订阅后，将不会再收到相关推送" data-ignore-success-toast="已关闭词条下划线提示" /> </abbr-action-v2> </view> <view className="larkw-aslCard-layout-block baike_navbar_scrollbar_trigger larkw-abbreviation-content larkw-aslCard-scrollbar larkw-aslCard-scrollbar-hover" style="max-height: inherit; max-width: inherit; overflow: hidden overlay;word-break: normal;" canUseContributors="true"> <view className="larkw-aslCard-util-bg-ultra" id="larkw-aslCard-body-enterprise_7233732879589572628"> <view className="larkw-aslCard-layout-block larkw-aslCard-baike-header" style='padding:24px 20px 0; position: relative;'> <view className="aslcard-baike-nav-placeloader" /> <view className="larkw-aslCard-layout-block main-key-content" style="position: relative;width: 100%;" > <view className="larkw-aslCard-layout-inlineBlock" style='position: absolute; top: 0; right: 0;'> </view> <tooltip title="进入词条详情页" style="max-width:calc(100% - 64px);width:fit-content;" className="main-key-tooltip" bind='{"onClick":{ "callbacks":[{"funcName":"openURL","params":{"url":"https://ai.feishu-boe.cn/lingo/detail/7233732879589572628?open_source&#x3D;card_entity_home"}}], "events":[{"eventName":"event_track_v2","params":{"click":"function","function_type":"entity_name"}}] }}' > <text-highlight locale="zh-CN" style="color: @text-title;font-size: 18px;font-weight: 500;line-height: 26px;margin-right: 8px;" text="Ai" highlightTerms='[]'/> </tooltip> </view> <view className="larkw-aslCard-layout-flex" style="align-items: center;"> <user-list data-text-hint="贡献" version="v2" maxCountShow="2"> <user userId="7215104701929357331" avatarKey="v2_98f36e28-20f7-4f32-889c-b926df7eb22j" tooltip="张晓阳" className="aslcard-barike-ultra-useritem" userName="张晓阳" size="24" style=""> </user> <user-rest style="margin-right: 8px;height: 24px;width: 24px;display: flex;align-items: center;justify-content: center;border-radius: 50%;background-color: #EFF0F1;color: @text-caption;cursor: pointer;margin-right: 0;margin-bottom: 0;"> </user-rest> </user-list> <image style="margin: 0px 2px 0px 6px"> <svg width="2" height="10" viewBox="0 0 2 10" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M1 0V10" stroke="#BBBFC4"/> </svg> </image> <view className="to_answer" id="user-list-right-node" bind='{"onClick":{ "callbacks":[{"funcName":"openURL","params":{"url":"https://ai.feishu-boe.cn/lingo/detail/7233732879589572628?anchor&#x3D;qaComment&amp;addQuestion&#x3D;true&amp;open_source&#x3D;ask_contributor"}}], "events":[{"eventName":"event_track_v2","params":{"click":"function","function_type":"ask_contributor"}}] }}'> <text>提问</text> </view> </view> </view> <view className="larkw-aslCard-layout-block aslcard-baike-section-ultra" style="padding-top: 0px;"> <view className="larkw-aslCard-layout-block asl-section-description" style="padding:4px 20px;"> <text-highlight bind='{ "onUnFold": {"events":[{ "eventName":"event_track_v2", "params":{"click":"function","function_type":"description_unfold"} }]} }' locale="zh-CN" maxHeight="setMaxHeightVal folderSwitcher.canDescriptionFolder 66" style="white-space: pre-wrap;word-break: break-word;" text="人工智能是计算机科学的一个分支，它企图了解智能的实质，并生产出一种新的能以人类智能相似的方式做出反应的智能机器，该领域的研究包括机器人、语言识别、图像识别、自然语言处理和专家系统等。" highlightTerms='[&quot;&amp;#10&quot;]' /> </view> </view> <async-template hidden="false" templateName="recommend_docs" templateId="recommendRelatedDoc" serviceName="getRelatedResource" params='{"entryIds":["enterprise_7233732879589572628"],"resourceTypes":[1],"enterFrom":""}' /> <view className="larkw-aslCard-layout-block larkw-aslCard-hideInLarkSearch larkw-aslCard-showInLark"> <view className="larkw-aslCard-layout-flex" style='padding: 10px 20px;font-size: 12px;line-height: 20px;color: @text-caption;margin-bottom:14px;'> <view style="display: flex;align-items: center;"> <text>找不到想要的信息？</text> <view className="larkw-aslCard-layout-inlineBlock larkw-aslCard-text-link-button" style="color: @text-link-normal;" bind='{"onClick":{ "callbacks":[{"funcName":"openLarkSearch","params":{"query":"Ai"}}], "events":[{"eventName":"event_track_v2","params":{"click":"function","function_type":"search","abbr_id":"enterprise_7233732879589572628"}}] }}'> 搜索更多 </view> </view> </view> </view> <view style="display: none;" role="for-debug" data-canShowSuperAdminBanner="" data-superAdminBannerHref="" data-canShowNormalUserBanner="false" data-normalUserBannerHref="" data-IsUserSuperAdmin="nodata" data-IsTenantActivated="nodata" /> </view> </view> <view className="aslcard-baike-footer"> <view className="aslcard-baike-divider" style="margin: 0 20px;"> </view> <view style="display: flex;align-items: center;justify-content: space-between;height: 46px;padding: 0 16px;flex-shrink: 0;"> <view className="aslcard-baike-logo-btn-container larkw-aslCard-layout-flex" style="max-width: calc(100% - 84px);"> <tooltip title="前往词典首页，探索更多词条" style="width: 100%"> <view className="aslcard-baike-btn aslcard-baike-btn-extra-small aslcard-baike-logo-btn" url="https://baikeredirect.feishu.cn/drive/lingo?locale&#x3D;zh-CN&amp;from&#x3D;logo&amp;abbrId&#x3D;enterprise_7233732879589572628&amp;page&#x3D;category&amp;repo_id&#x3D;1&amp;open_source&#x3D;card_web_logo" bind='{"onClick":{"events":[{"eventName":"event_track_v2","params":{"click":"function","function_type":"encyclopedia_logo","target":"asl_abbr_paltform_view","abbr_id":"enterprise_7233732879589572628"}}]}}'> <view className="aslcard-baike-logo-btn-img" style="width: 21px; height: 17px;"> <image url="https://lf-cdn-tos.bytescm.com/obj/static/asl-card/baike-logo-gray-lm_zh-CN_v2.svg" className="aslcard-baike-logo-btn-img-placeholder"></image> </view> <text className="repo_name">企业词库</text> <image> <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M4.65292 2.64645C4.45765 2.84171 4.45765 3.15829 4.65292 3.35355L7.79936 6.5L4.65292 9.64645C4.45765 9.84171 4.45765 10.1583 4.65292 10.3536C4.84818 10.5488 5.16476 10.5488 5.36002 10.3536L8.86002 6.85355C8.95379 6.75979 9.00647 6.63261 9.00647 6.5C9.00647 6.36739 8.95379 6.24021 8.86002 6.14645L5.36002 2.64645C5.16476 2.45118 4.84818 2.45118 4.65292 2.64645Z" fill="currentColor" /> </svg> </image> </view> </tooltip> </view> <view className="like-kit"> <like-kit like-count='0' data-text-ignore-btn="关闭词条提示" dislike-count='0' like="" dislike="" data-text-feedback-title="反馈给贡献者" data-text-feedback-success="反馈提交成功" show-like="true" show-dislike="false" ></like-kit> <tooltip title="我要反馈" className="aslcard-baike-fotter-icon"> <view bind='{"onClick":{ "callbacks":[{"funcName":"openFeedback","params":{"title":"词条反馈"}}], "events":[{"eventName":"event_track_v2","params":{"click":"function","function_type":"feedback_logo"}}] }}' style="height: 16px;"> <image > <svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path d="M10.6667 1.99984H1.33333V13.9998H4.66667V15.3332H1.33333C0.596954 15.3332 0 14.7362 0 13.9998V1.99984C0 1.26346 0.596954 0.666504 1.33333 0.666504H10.6667C11.403 0.666504 12 1.26346 12 1.99984V7.33317H10.6667V1.99984Z" fill="currentColor"/> <path d="M3.33333 4.6665C2.96514 4.6665 2.66667 4.96498 2.66667 5.33317C2.66667 5.70136 2.96514 5.99984 3.33333 5.99984H8.66667C9.03486 5.99984 9.33333 5.70136 9.33333 5.33317C9.33333 4.96498 9.03486 4.6665 8.66667 4.6665H3.33333Z" fill="currentColor"/> <path d="M2.66667 8.33317C2.66667 7.96498 2.96514 7.6665 3.33333 7.6665H6C6.36819 7.6665 6.66667 7.96498 6.66667 8.33317C6.66667 8.70136 6.36819 8.99984 6 8.99984H3.33333C2.96514 8.99984 2.66667 8.70136 2.66667 8.33317Z" fill="currentColor"/> <path d="M11.5523 8.69999C11.9428 8.30946 12.576 8.30946 12.9665 8.69999C13.357 9.09051 13.357 9.72367 12.9665 10.1142L12.2594 10.8213L10.8452 9.40709L11.5523 8.69999Z" fill="currentColor"/> <path d="M10.1381 10.1142L11.5523 11.5284L8.23093 14.8498C8.09164 14.9891 7.91229 15.0813 7.71798 15.1136L6.45737 15.3233C6.42136 15.3292 6.38467 15.3175 6.35885 15.2917C6.33271 15.2655 6.32099 15.2282 6.32749 15.1918L6.55128 13.9372C6.58465 13.7501 6.6746 13.5777 6.80901 13.4433L10.1381 10.1142Z" fill="currentColor"/> </svg> </image> </view> </tooltip> <tooltip title="相关讨论" className="aslcard-baike-fotter-icon"> <view bind='{"onClick":{ "callbacks":[{"funcName":"openURL","params":{"url":"https://ai.feishu-boe.cn/lingo/detail/7233732879589572628?anchor&#x3D;qaComment&amp;open_source&#x3D;answers_logo"}}], "events":[{"eventName":"event_track_v2","params":{"click":"function","function_type":"answers_logo"}}] }}' style="height: 16px;"> <image > <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path d="M3.66675 8.66634H2.00008V2.66634H10.6667V8.66634H6.33059L3.66675 10.8333V8.66634ZM6.66675 9.99968H10.6667C11.4031 9.99968 12.0001 9.40272 12.0001 8.66634V2.66634C12.0001 1.92996 11.4031 1.33301 10.6667 1.33301H2.00008C1.2637 1.33301 0.666748 1.92996 0.666748 2.66634V8.66634C0.666748 9.40272 1.2637 9.99968 2.00008 9.99968H2.33341V11.9495C2.33341 12.4539 2.87199 12.7756 3.31615 12.5365L6.66675 9.99968ZM8.99726 12.6667H5.34274L7.0094 11.3333H9.33341L12.0001 13.5V11.333H14.0001V5.99967H13.3334V4.66634H14.0001C14.7365 4.66634 15.3334 5.2633 15.3334 5.99967V11.333C15.3334 12.0694 14.7365 12.6663 14.0001 12.6663H13.3334V14.6162C13.3334 15.1206 12.7948 15.4423 12.3507 15.2031L8.99726 12.6667Z" fill="currentColor"/> </svg> </image> </view> </tooltip> </view> </view> </view> <abbr-data-carrier id="abbr-data-carry-id" data-report-card-view='[{"result_type":"success"}]'></abbr-data-carrier> <guide data-options='{"key":"Lingo_card_share","style":{"zIndex":100,"width":"max-content"},"conf":[{"content":"词典支持分享词条啦！","target":".larkw-aslCard-moreactions-wrapper .abbr_share_icon","direction":"bottom","align":"center","distance":4,"clickBlankToDisappear":true,"autoFinishMs":5000}],"extraDaInfo":{"abbr_id":"enterprise_7233732879589572628","onboarding_type":"bubble","onboarding_sub_type":"entity_share"}}' > </guide> <guide data-options='{"key":"Lingo_doc_homograph","style":{"zIndex":100,"width":"max-content"},"conf":[{"content":"点击置顶，在当前文档优先展示该释义","target":".abbrmultidescv2-item-pinItem .larkw-aslCard-icon-mask","direction":"top","align":"center","distance":4,"clickBlankToDisappear":true,"autoFinishMs":5000}],"extraDaInfo":{"abbr_id":"enterprise_7233732879589572628","onboarding_type":"bubble","onboarding_sub_type":"entity_pin"}}' > </guide> </view>
 func (builder *EntityCardDataBuilder) Card(card string) *EntityCardDataBuilder {
 	builder.card = card
 	builder.cardSet = true
@@ -1782,7 +1776,7 @@ func NewEntityWordBuilder() *EntityWordBuilder {
 
 // 抽取出的词条名
 //
-// 示例值：
+// 示例值：飞书词典
 func (builder *EntityWordBuilder) Name(name string) *EntityWordBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -1811,16 +1805,16 @@ func (builder *EntityWordBuilder) Build() *EntityWord {
 }
 
 type File struct {
-	Name *string `json:"name,omitempty"` // 文件名称，当前仅支持上传图片且图片格式为以下六种：icon、bmp、gif、png、jpeg、webp
+	Name *string `json:"name,omitempty"` //
 
-	File io.Reader `json:"file,omitempty"` // 二进制文件内容，高宽像素在 320-4096 像素之间，大小在 3KB-10MB 的图片
+	File io.Reader `json:"file,omitempty"` //
 }
 
 type FileBuilder struct {
-	name    string // 文件名称，当前仅支持上传图片且图片格式为以下六种：icon、bmp、gif、png、jpeg、webp
+	name    string //
 	nameSet bool
 
-	file    io.Reader // 二进制文件内容，高宽像素在 320-4096 像素之间，大小在 3KB-10MB 的图片
+	file    io.Reader //
 	fileSet bool
 }
 
@@ -1829,18 +1823,14 @@ func NewFileBuilder() *FileBuilder {
 	return builder
 }
 
-// 文件名称，当前仅支持上传图片且图片格式为以下六种：icon、bmp、gif、png、jpeg、webp
-//
-// 示例值：示例图片.png
+// 示例值：
 func (builder *FileBuilder) Name(name string) *FileBuilder {
 	builder.name = name
 	builder.nameSet = true
 	return builder
 }
 
-// 二进制文件内容，高宽像素在 320-4096 像素之间，大小在 3KB-10MB 的图片
-//
-// 示例值：
+// 示例值：file binary
 func (builder *FileBuilder) File(file io.Reader) *FileBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -1953,7 +1943,7 @@ func (builder *I18nEntryDescBuilder) Description(description string) *I18nEntryD
 
 // 富文本描述
 //
-// 示例值：<p><span>词典是飞书提供的一款知识管理工具，通过飞书词典可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通</span></p>
+// 示例值：&lt;b&gt;加粗&lt;/b&gt;&lt;i&gt;斜体&lt;/i&gt;&lt;p&gt;&lt;a href=\"https://feishu.cn\"&gt;链接&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span&gt;词典是飞书提供的一款知识管理工具，通过飞书词典可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通&lt;/span&gt;&lt;/p&gt;
 func (builder *I18nEntryDescBuilder) RichText(richText string) *I18nEntryDescBuilder {
 	builder.richText = richText
 	builder.richTextSet = true
@@ -1978,13 +1968,13 @@ func (builder *I18nEntryDescBuilder) Build() *I18nEntryDesc {
 }
 
 type MatchInfo struct {
-	EntityId *string `json:"entity_id,omitempty"` // 实体词 id
+	EntityId *string `json:"entity_id,omitempty"` // 词条 ID
 
 	Type *int `json:"type,omitempty"` // 匹配中的字段
 }
 
 type MatchInfoBuilder struct {
-	entityId    string // 实体词 id
+	entityId    string // 词条 ID
 	entityIdSet bool
 
 	type_    int // 匹配中的字段
@@ -1996,9 +1986,9 @@ func NewMatchInfoBuilder() *MatchInfoBuilder {
 	return builder
 }
 
-// 实体词 id
+// 词条 ID
 //
-// 示例值：enterprise_34809584
+// 示例值：enterprise_34***584
 func (builder *MatchInfoBuilder) EntityId(entityId string) *MatchInfoBuilder {
 	builder.entityId = entityId
 	builder.entityIdSet = true
@@ -2028,16 +2018,16 @@ func (builder *MatchInfoBuilder) Build() *MatchInfo {
 }
 
 type OuterInfo struct {
-	Provider *string `json:"provider,omitempty"` // 数据提供方（不能包含中横线 "-"）
+	Provider *string `json:"provider,omitempty"` // 外部系统（不能包含中横线 "-"）
 
-	OuterId *string `json:"outer_id,omitempty"` // 唯一标识，可用来和其他平台的内容进行绑定。需保证和百科词条唯一对应（不能包含中横线 "-"）
+	OuterId *string `json:"outer_id,omitempty"` // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
 }
 
 type OuterInfoBuilder struct {
-	provider    string // 数据提供方（不能包含中横线 "-"）
+	provider    string // 外部系统（不能包含中横线 "-"）
 	providerSet bool
 
-	outerId    string // 唯一标识，可用来和其他平台的内容进行绑定。需保证和百科词条唯一对应（不能包含中横线 "-"）
+	outerId    string // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
 	outerIdSet bool
 }
 
@@ -2046,7 +2036,7 @@ func NewOuterInfoBuilder() *OuterInfoBuilder {
 	return builder
 }
 
-// 数据提供方（不能包含中横线 "-"）
+// 外部系统（不能包含中横线 "-"）
 //
 // 示例值：星云
 func (builder *OuterInfoBuilder) Provider(provider string) *OuterInfoBuilder {
@@ -2055,9 +2045,9 @@ func (builder *OuterInfoBuilder) Provider(provider string) *OuterInfoBuilder {
 	return builder
 }
 
-// 唯一标识，可用来和其他平台的内容进行绑定。需保证和百科词条唯一对应（不能包含中横线 "-"）
+// 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
 //
-// 示例值：12345abc
+// 示例值：client_65326***7498d
 func (builder *OuterInfoBuilder) OuterId(outerId string) *OuterInfoBuilder {
 	builder.outerId = outerId
 	builder.outerIdSet = true
@@ -2082,7 +2072,7 @@ type Phrase struct {
 
 	EntityIds []string `json:"entity_ids,omitempty"` // 实体词 id 列表
 
-	Span *Span `json:"span,omitempty"` // 实体词所在位置
+	Span *Span `json:"span,omitempty"` // 词条所在位置
 }
 
 type PhraseBuilder struct {
@@ -2092,7 +2082,7 @@ type PhraseBuilder struct {
 	entityIds    []string // 实体词 id 列表
 	entityIdsSet bool
 
-	span    *Span // 实体词所在位置
+	span    *Span // 词条所在位置
 	spanSet bool
 }
 
@@ -2119,7 +2109,7 @@ func (builder *PhraseBuilder) EntityIds(entityIds []string) *PhraseBuilder {
 	return builder
 }
 
-// 实体词所在位置
+// 词条所在位置
 //
 // 示例值：
 func (builder *PhraseBuilder) Span(span *Span) *PhraseBuilder {
@@ -2144,18 +2134,18 @@ func (builder *PhraseBuilder) Build() *Phrase {
 }
 
 type Referer struct {
-	Id *string `json:"id,omitempty"` // 数据 id
+	Id *string `json:"id,omitempty"` // 对应相关信息 ID
 
-	Title *string `json:"title,omitempty"` // 标题
+	Title *string `json:"title,omitempty"` // 对应相关信息的描述，如相关联系人的描述、相关链接的标题
 
 	Url *string `json:"url,omitempty"` // 链接地址
 }
 
 type RefererBuilder struct {
-	id    string // 数据 id
+	id    string // 对应相关信息 ID
 	idSet bool
 
-	title    string // 标题
+	title    string // 对应相关信息的描述，如相关联系人的描述、相关链接的标题
 	titleSet bool
 
 	url    string // 链接地址
@@ -2167,16 +2157,16 @@ func NewRefererBuilder() *RefererBuilder {
 	return builder
 }
 
-// 数据 id
+// 对应相关信息 ID
 //
-// 示例值：7dab8a3d3cdcc9da365777c7ad535d62
+// 示例值：格式请看请求体示例
 func (builder *RefererBuilder) Id(id string) *RefererBuilder {
 	builder.id = id
 	builder.idSet = true
 	return builder
 }
 
-// 标题
+// 对应相关信息的描述，如相关联系人的描述、相关链接的标题
 //
 // 示例值：飞书官网
 func (builder *RefererBuilder) Title(title string) *RefererBuilder {
@@ -2212,46 +2202,46 @@ func (builder *RefererBuilder) Build() *Referer {
 }
 
 type RelatedMeta struct {
-	Users []*Referer `json:"users,omitempty"` // 关联用户信息
+	Users []*Referer `json:"users,omitempty"` // 相关联系人
 
-	Chats []*Referer `json:"chats,omitempty"` // 关联群组信息
+	Chats []*Referer `json:"chats,omitempty"` // 关联公开群组信息
 
-	Docs []*Referer `json:"docs,omitempty"` // 关联文档信息
+	Docs []*Referer `json:"docs,omitempty"` // 飞书文档或飞书 wiki
 
-	Oncalls []*Referer `json:"oncalls,omitempty"` // 关联值班者信息
+	Oncalls []*Referer `json:"oncalls,omitempty"` // 相关服务中的相关值班号
 
-	Links []*Referer `json:"links,omitempty"` // 关联链接信息
+	Links []*Referer `json:"links,omitempty"` // 相关链接
 
-	Abbreviations []*Abbreviation `json:"abbreviations,omitempty"` // 相关词条信息
+	Abbreviations []*Abbreviation `json:"abbreviations,omitempty"` // 相关词条
 
-	Classifications []*Classification `json:"classifications,omitempty"` // 所属分类信息（不支持传入一级分类。词条不可同时属于同一个一级分类下的多个二级分类，一级分类下的二级分类互斥）
+	Classifications []*Classification `json:"classifications,omitempty"` // 当前词条所属分类;词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
 
-	Images []*BaikeImage `json:"images,omitempty"` // 上传的相关图片
+	Images []*BaikeImage `json:"images,omitempty"` // 上传的图片
 }
 
 type RelatedMetaBuilder struct {
-	users    []*Referer // 关联用户信息
+	users    []*Referer // 相关联系人
 	usersSet bool
 
-	chats    []*Referer // 关联群组信息
+	chats    []*Referer // 关联公开群组信息
 	chatsSet bool
 
-	docs    []*Referer // 关联文档信息
+	docs    []*Referer // 飞书文档或飞书 wiki
 	docsSet bool
 
-	oncalls    []*Referer // 关联值班者信息
+	oncalls    []*Referer // 相关服务中的相关值班号
 	oncallsSet bool
 
-	links    []*Referer // 关联链接信息
+	links    []*Referer // 相关链接
 	linksSet bool
 
-	abbreviations    []*Abbreviation // 相关词条信息
+	abbreviations    []*Abbreviation // 相关词条
 	abbreviationsSet bool
 
-	classifications    []*Classification // 所属分类信息（不支持传入一级分类。词条不可同时属于同一个一级分类下的多个二级分类，一级分类下的二级分类互斥）
+	classifications    []*Classification // 当前词条所属分类;词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
 	classificationsSet bool
 
-	images    []*BaikeImage // 上传的相关图片
+	images    []*BaikeImage // 上传的图片
 	imagesSet bool
 }
 
@@ -2260,7 +2250,7 @@ func NewRelatedMetaBuilder() *RelatedMetaBuilder {
 	return builder
 }
 
-// 关联用户信息
+// 相关联系人
 //
 // 示例值：
 func (builder *RelatedMetaBuilder) Users(users []*Referer) *RelatedMetaBuilder {
@@ -2269,7 +2259,7 @@ func (builder *RelatedMetaBuilder) Users(users []*Referer) *RelatedMetaBuilder {
 	return builder
 }
 
-// 关联群组信息
+// 关联公开群组信息
 //
 // 示例值：
 func (builder *RelatedMetaBuilder) Chats(chats []*Referer) *RelatedMetaBuilder {
@@ -2278,7 +2268,7 @@ func (builder *RelatedMetaBuilder) Chats(chats []*Referer) *RelatedMetaBuilder {
 	return builder
 }
 
-// 关联文档信息
+// 飞书文档或飞书 wiki
 //
 // 示例值：
 func (builder *RelatedMetaBuilder) Docs(docs []*Referer) *RelatedMetaBuilder {
@@ -2287,7 +2277,7 @@ func (builder *RelatedMetaBuilder) Docs(docs []*Referer) *RelatedMetaBuilder {
 	return builder
 }
 
-// 关联值班者信息
+// 相关服务中的相关值班号
 //
 // 示例值：
 func (builder *RelatedMetaBuilder) Oncalls(oncalls []*Referer) *RelatedMetaBuilder {
@@ -2296,7 +2286,7 @@ func (builder *RelatedMetaBuilder) Oncalls(oncalls []*Referer) *RelatedMetaBuild
 	return builder
 }
 
-// 关联链接信息
+// 相关链接
 //
 // 示例值：
 func (builder *RelatedMetaBuilder) Links(links []*Referer) *RelatedMetaBuilder {
@@ -2305,7 +2295,7 @@ func (builder *RelatedMetaBuilder) Links(links []*Referer) *RelatedMetaBuilder {
 	return builder
 }
 
-// 相关词条信息
+// 相关词条
 //
 // 示例值：
 func (builder *RelatedMetaBuilder) Abbreviations(abbreviations []*Abbreviation) *RelatedMetaBuilder {
@@ -2314,7 +2304,7 @@ func (builder *RelatedMetaBuilder) Abbreviations(abbreviations []*Abbreviation) 
 	return builder
 }
 
-// 所属分类信息（不支持传入一级分类。词条不可同时属于同一个一级分类下的多个二级分类，一级分类下的二级分类互斥）
+// 当前词条所属分类;词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
 //
 // 示例值：
 func (builder *RelatedMetaBuilder) Classifications(classifications []*Classification) *RelatedMetaBuilder {
@@ -2323,7 +2313,7 @@ func (builder *RelatedMetaBuilder) Classifications(classifications []*Classifica
 	return builder
 }
 
-// 上传的相关图片
+// 上传的图片
 //
 // 示例值：
 func (builder *RelatedMetaBuilder) Images(images []*BaikeImage) *RelatedMetaBuilder {
@@ -2382,7 +2372,7 @@ func NewRepoBuilder() *RepoBuilder {
 
 // 词库 id
 //
-// 示例值：7152790921053274113
+// 示例值：71527909***274113
 func (builder *RepoBuilder) Id(id string) *RepoBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -2391,7 +2381,7 @@ func (builder *RepoBuilder) Id(id string) *RepoBuilder {
 
 // 词库名
 //
-// 示例值：企业词库
+// 示例值：全员词库
 func (builder *RepoBuilder) Name(name string) *RepoBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -2412,16 +2402,16 @@ func (builder *RepoBuilder) Build() *Repo {
 }
 
 type Span struct {
-	Start *int `json:"start,omitempty"` // 偏移量开始位置，从 0 开始计数（编码格式采用 utf-8）
+	Start *int `json:"start,omitempty"` // 关键词开始位置，从 0 开始计数（编码格式采用 utf-8）
 
-	End *int `json:"end,omitempty"` // 偏移量结束位置，从 0 开始计数（编码格式采用 utf-8）
+	End *int `json:"end,omitempty"` // 关键词结束位置，从 0 开始计数（编码格式采用 utf-8）
 }
 
 type SpanBuilder struct {
-	start    int // 偏移量开始位置，从 0 开始计数（编码格式采用 utf-8）
+	start    int // 关键词开始位置，从 0 开始计数（编码格式采用 utf-8）
 	startSet bool
 
-	end    int // 偏移量结束位置，从 0 开始计数（编码格式采用 utf-8）
+	end    int // 关键词结束位置，从 0 开始计数（编码格式采用 utf-8）
 	endSet bool
 }
 
@@ -2430,7 +2420,7 @@ func NewSpanBuilder() *SpanBuilder {
 	return builder
 }
 
-// 偏移量开始位置，从 0 开始计数（编码格式采用 utf-8）
+// 关键词开始位置，从 0 开始计数（编码格式采用 utf-8）
 //
 // 示例值：0
 func (builder *SpanBuilder) Start(start int) *SpanBuilder {
@@ -2439,9 +2429,9 @@ func (builder *SpanBuilder) Start(start int) *SpanBuilder {
 	return builder
 }
 
-// 偏移量结束位置，从 0 开始计数（编码格式采用 utf-8）
+// 关键词结束位置，从 0 开始计数（编码格式采用 utf-8）
 //
-// 示例值：4
+// 示例值：2
 func (builder *SpanBuilder) End(end int) *SpanBuilder {
 	builder.end = end
 	builder.endSet = true
@@ -2546,16 +2536,16 @@ func (builder *StatisticalReportBuilder) Build() *StatisticalReport {
 }
 
 type Statistics struct {
-	LikeCount *int `json:"like_count,omitempty"` // 点赞数量
+	LikeCount *int `json:"like_count,omitempty"` // 累计点赞
 
-	DislikeCount *int `json:"dislike_count,omitempty"` // 点踩数量
+	DislikeCount *int `json:"dislike_count,omitempty"` // 当前词条版本收到的负反馈数量
 }
 
 type StatisticsBuilder struct {
-	likeCount    int // 点赞数量
+	likeCount    int // 累计点赞
 	likeCountSet bool
 
-	dislikeCount    int // 点踩数量
+	dislikeCount    int // 当前词条版本收到的负反馈数量
 	dislikeCountSet bool
 }
 
@@ -2564,7 +2554,7 @@ func NewStatisticsBuilder() *StatisticsBuilder {
 	return builder
 }
 
-// 点赞数量
+// 累计点赞
 //
 // 示例值：55
 func (builder *StatisticsBuilder) LikeCount(likeCount int) *StatisticsBuilder {
@@ -2573,7 +2563,7 @@ func (builder *StatisticsBuilder) LikeCount(likeCount int) *StatisticsBuilder {
 	return builder
 }
 
-// 点踩数量
+// 当前词条版本收到的负反馈数量
 //
 // 示例值：3
 func (builder *StatisticsBuilder) DislikeCount(dislikeCount int) *StatisticsBuilder {
@@ -2596,16 +2586,16 @@ func (builder *StatisticsBuilder) Build() *Statistics {
 }
 
 type Term struct {
-	Key *string `json:"key,omitempty"` // 名称
+	Key *string `json:"key,omitempty"` // 名称的值
 
-	DisplayStatus *DisplayStatus `json:"display_status,omitempty"` // 展示状态
+	DisplayStatus *DisplayStatus `json:"display_status,omitempty"` // 名称展示范围
 }
 
 type TermBuilder struct {
-	key    string // 名称
+	key    string // 名称的值
 	keySet bool
 
-	displayStatus    *DisplayStatus // 展示状态
+	displayStatus    *DisplayStatus // 名称展示范围
 	displayStatusSet bool
 }
 
@@ -2614,16 +2604,16 @@ func NewTermBuilder() *TermBuilder {
 	return builder
 }
 
-// 名称
+// 名称的值
 //
-// 示例值：企业百科
+// 示例值：飞书词典
 func (builder *TermBuilder) Key(key string) *TermBuilder {
 	builder.key = key
 	builder.keySet = true
 	return builder
 }
 
-// 展示状态
+// 名称展示范围
 //
 // 示例值：
 func (builder *TermBuilder) DisplayStatus(displayStatus *DisplayStatus) *TermBuilder {
@@ -2976,7 +2966,7 @@ func (builder *ListClassificationReqBuilder) PageToken(pageToken string) *ListCl
 	return builder
 }
 
-// 词库ID
+// 词库ID（不传默认范围为全员词库）;;如以应用身份获取非全员词库中的分类，需要在“词库设置”页面添加应用；若以用户身份获取非全员词库中的分类，该用户需要拥有对应词库的可见权限。
 //
 // 示例值：7202510112396640276
 func (builder *ListClassificationReqBuilder) RepoId(repoId string) *ListClassificationReqBuilder {
@@ -2999,7 +2989,7 @@ type ListClassificationReq struct {
 }
 
 type ListClassificationRespData struct {
-	Items []*Classification `json:"items,omitempty"` // 分类list
+	Items []*Classification `json:"items,omitempty"` // 分类
 
 	PageToken *string `json:"page_token,omitempty"` // 分页标记，当还有下一页时会返回新的 page_token，否则 page_token 为空
 
@@ -3030,9 +3020,9 @@ func NewCreateDraftReqBuilder() *CreateDraftReqBuilder {
 	return builder
 }
 
-// 词库ID
+// 词库ID（需要在指定词库创建草稿时填写，不填写默认创建至全员词库）;;如以应用身份创建草稿到非全员词库，需要在“词库设置”页面添加应用；若以用户身份创建草稿到非全员词库，该用户需要拥有对应词库的可见权限。
 //
-// 示例值：7202510112396640276
+// 示例值：72025****640276
 func (builder *CreateDraftReqBuilder) RepoId(repoId string) *CreateDraftReqBuilder {
 	builder.apiReq.QueryParams.Set("repo_id", fmt.Sprint(repoId))
 	return builder
@@ -3046,7 +3036,7 @@ func (builder *CreateDraftReqBuilder) UserIdType(userIdType string) *CreateDraft
 	return builder
 }
 
-//
+// 草稿并非词条，而是指通过 API 发起创建新词条或更新现有词条的申请。;词典管理员审核通过后，草稿将变为新的词条或覆盖已有词条。
 func (builder *CreateDraftReqBuilder) Entity(entity *Entity) *CreateDraftReqBuilder {
 	builder.entity = entity
 	return builder
@@ -3066,7 +3056,7 @@ type CreateDraftReq struct {
 }
 
 type CreateDraftRespData struct {
-	Draft *Draft `json:"draft,omitempty"` //
+	Draft *Draft `json:"draft,omitempty"` // 草稿信息
 }
 
 type CreateDraftResp struct {
@@ -3109,7 +3099,7 @@ func (builder *UpdateDraftReqBuilder) UserIdType(userIdType string) *UpdateDraft
 	return builder
 }
 
-//
+// 根据 draft_id 更新草稿内容，已审批的草稿无法编辑。
 func (builder *UpdateDraftReqBuilder) Entity(entity *Entity) *UpdateDraftReqBuilder {
 	builder.entity = entity
 	return builder
@@ -3130,7 +3120,7 @@ type UpdateDraftReq struct {
 }
 
 type UpdateDraftRespData struct {
-	Draft *Draft `json:"draft,omitempty"` //
+	Draft *Draft `json:"draft,omitempty"` // 草稿
 }
 
 type UpdateDraftResp struct {
@@ -3157,9 +3147,9 @@ func NewCreateEntityReqBuilder() *CreateEntityReqBuilder {
 	return builder
 }
 
-// 词库 ID
+// 词库 ID（需要在指定词库创建词条时传入，不传时默认创建至全员词库）;;如以应用身份创建词条到非全员词库，需要在“词库设置”页面添加应用；若以用户身份创建词条到非全员词库，该用户需要拥有对应词库的可见权限。
 //
-// 示例值：7152790921053274113
+// 示例值：71527909****274113
 func (builder *CreateEntityReqBuilder) RepoId(repoId string) *CreateEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("repo_id", fmt.Sprint(repoId))
 	return builder
@@ -3173,7 +3163,7 @@ func (builder *CreateEntityReqBuilder) UserIdType(userIdType string) *CreateEnti
 	return builder
 }
 
-//
+// 通过此接口创建的词条，无需经过词典管理员审核，直接写入词库。因此，调用此接口时，应当慎重操作。
 func (builder *CreateEntityReqBuilder) Entity(entity *Entity) *CreateEntityReqBuilder {
 	builder.entity = entity
 	return builder
@@ -3193,7 +3183,7 @@ type CreateEntityReq struct {
 }
 
 type CreateEntityRespData struct {
-	Entity *Entity `json:"entity,omitempty"` //
+	Entity *Entity `json:"entity,omitempty"` // 词条信息
 }
 
 type CreateEntityResp struct {
@@ -3219,7 +3209,7 @@ func NewDeleteEntityReqBuilder() *DeleteEntityReqBuilder {
 	return builder
 }
 
-// 词条 id
+// 词条 ID
 //
 // 示例值：enterprise_43742132363
 func (builder *DeleteEntityReqBuilder) EntityId(entityId string) *DeleteEntityReqBuilder {
@@ -3227,7 +3217,7 @@ func (builder *DeleteEntityReqBuilder) EntityId(entityId string) *DeleteEntityRe
 	return builder
 }
 
-// 数据提供方（使用时需要将路径中的词条 ID 固定为：enterprise_0，且提供 provider 和 outer_id）
+// 外部系统（使用时需要将路径中的词条 ID 固定为：enterprise_0，且提供 provider 和 outer_id）
 //
 // 示例值：星云
 func (builder *DeleteEntityReqBuilder) Provider(provider string) *DeleteEntityReqBuilder {
@@ -3235,7 +3225,7 @@ func (builder *DeleteEntityReqBuilder) Provider(provider string) *DeleteEntityRe
 	return builder
 }
 
-// 外部唯一 id（使用时需要将路径中的词条 ID 固定为：enterprise_0，且提供 provider 和 outer_id）
+// 词条在外部系统中对应的唯一 ID（使用时需要将路径中的词条 ID 固定为：enterprise_0，且提供 provider 和 outer_id）
 //
 // 示例值：123aaa
 func (builder *DeleteEntityReqBuilder) OuterId(outerId string) *DeleteEntityReqBuilder {
@@ -3277,15 +3267,23 @@ func NewGetEntityReqBuilder() *GetEntityReqBuilder {
 	return builder
 }
 
-// 实体词 id
+// 词条 ID
 //
-// 示例值：enterprise_0
+// 示例值：enterprise_515879
 func (builder *GetEntityReqBuilder) EntityId(entityId string) *GetEntityReqBuilder {
 	builder.apiReq.PathParams.Set("entity_id", fmt.Sprint(entityId))
 	return builder
 }
 
-// 数据提供方（使用时需要将路径中的实体词 ID 固定为：enterprise_0，且提供 provider 和 outer_id）
+// 词库ID
+//
+// 示例值：7202510112396640276
+func (builder *GetEntityReqBuilder) RepoId(repoId string) *GetEntityReqBuilder {
+	builder.apiReq.PathParams.Set("repo_id", fmt.Sprint(repoId))
+	return builder
+}
+
+// 外部系统
 //
 // 示例值：星云
 func (builder *GetEntityReqBuilder) Provider(provider string) *GetEntityReqBuilder {
@@ -3293,7 +3291,7 @@ func (builder *GetEntityReqBuilder) Provider(provider string) *GetEntityReqBuild
 	return builder
 }
 
-// 外部唯一 id（使用时需要将路径中的实体词 ID 固定为：enterprise_0，且提供 provider 和 outer_id）
+// 词条在外部系统中对应的唯一 ID
 //
 // 示例值：123aaa
 func (builder *GetEntityReqBuilder) OuterId(outerId string) *GetEntityReqBuilder {
@@ -3322,7 +3320,7 @@ type GetEntityReq struct {
 }
 
 type GetEntityRespData struct {
-	Entity *Entity `json:"entity,omitempty"` // 实体词
+	Entity *Entity `json:"entity,omitempty"` // 词条
 }
 
 type GetEntityResp struct {
@@ -3336,7 +3334,7 @@ func (resp *GetEntityResp) Success() bool {
 }
 
 type HighlightEntityReqBodyBuilder struct {
-	text    string // 需要被识别实体词内容的一句话（不要超过1000字）
+	text    string // 需要识别词条的内容（不超过1000字）
 	textSet bool
 }
 
@@ -3345,9 +3343,9 @@ func NewHighlightEntityReqBodyBuilder() *HighlightEntityReqBodyBuilder {
 	return builder
 }
 
-// 需要被识别实体词内容的一句话（不要超过1000字）
+// 需要识别词条的内容（不超过1000字）
 //
-//示例值：企业百科是飞书提供的一款知识管理工具
+// 示例值：词典是飞书提供的一款知识管理工具
 func (builder *HighlightEntityReqBodyBuilder) Text(text string) *HighlightEntityReqBodyBuilder {
 	builder.text = text
 	builder.textSet = true
@@ -3372,9 +3370,9 @@ func NewHighlightEntityPathReqBodyBuilder() *HighlightEntityPathReqBodyBuilder {
 	return builder
 }
 
-// 需要被识别实体词内容的一句话（不要超过1000字）
+// 需要识别词条的内容（不超过1000字）
 //
-// 示例值：企业百科是飞书提供的一款知识管理工具
+// 示例值：词典是飞书提供的一款知识管理工具
 func (builder *HighlightEntityPathReqBodyBuilder) Text(text string) *HighlightEntityPathReqBodyBuilder {
 	builder.text = text
 	builder.textSet = true
@@ -3403,7 +3401,7 @@ func NewHighlightEntityReqBuilder() *HighlightEntityReqBuilder {
 	return builder
 }
 
-//
+// 传入一句话，智能识别句中对应的词条，并返回词条位置和 entity_id，可在外部系统中快速实现词条智能高亮。
 func (builder *HighlightEntityReqBuilder) Body(body *HighlightEntityReqBody) *HighlightEntityReqBuilder {
 	builder.body = body
 	return builder
@@ -3417,7 +3415,7 @@ func (builder *HighlightEntityReqBuilder) Build() *HighlightEntityReq {
 }
 
 type HighlightEntityReqBody struct {
-	Text *string `json:"text,omitempty"` // 需要被识别实体词内容的一句话（不要超过1000字）
+	Text *string `json:"text,omitempty"` // 需要识别词条的内容（不超过1000字）
 }
 
 type HighlightEntityReq struct {
@@ -3426,7 +3424,7 @@ type HighlightEntityReq struct {
 }
 
 type HighlightEntityRespData struct {
-	Phrases []*Phrase `json:"phrases,omitempty"` // 返回识别到的实体词信息
+	Phrases []*Phrase `json:"phrases,omitempty"` // 识别到的词条信息
 }
 
 type HighlightEntityResp struct {
@@ -3475,7 +3473,7 @@ func (builder *ListEntityReqBuilder) PageToken(pageToken string) *ListEntityReqB
 	return builder
 }
 
-// 数据提供方【可用来过滤数据】
+// 相关外部系统【可用来过滤词条数据】
 //
 // 示例值：星云
 func (builder *ListEntityReqBuilder) Provider(provider string) *ListEntityReqBuilder {
@@ -3483,7 +3481,7 @@ func (builder *ListEntityReqBuilder) Provider(provider string) *ListEntityReqBui
 	return builder
 }
 
-// 词库 id
+// 词库 id(不传时默认返回全员词库数据);;如以应用身份拉取非全员词库的词条，需要在“词库设置”页面添加应用；若以用户身份拉取非全员词库的词条，该用户需要拥有对应词库的可见权限。
 //
 // 示例值：7152790921053274113
 func (builder *ListEntityReqBuilder) RepoId(repoId string) *ListEntityReqBuilder {
@@ -3516,7 +3514,7 @@ type ListEntityReq struct {
 type ListEntityRespData struct {
 	Entities []*Entity `json:"entities,omitempty"` // 词条列表
 
-	PageToken *string `json:"page_token,omitempty"` // 分页标记，当还有下一页时会返回新的 page_token，否则 page_token 为空
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
 	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
 }
@@ -3532,7 +3530,7 @@ func (resp *ListEntityResp) Success() bool {
 }
 
 type MatchEntityReqBodyBuilder struct {
-	word    string // 实体词主关键词、全称、别名全匹配
+	word    string // 搜索关键词，将与词条名、别名进行精准匹配
 	wordSet bool
 }
 
@@ -3541,9 +3539,9 @@ func NewMatchEntityReqBodyBuilder() *MatchEntityReqBodyBuilder {
 	return builder
 }
 
-// 实体词主关键词、全称、别名全匹配
+// 搜索关键词，将与词条名、别名进行精准匹配
 //
-//示例值：企业百科
+// 示例值：飞书词典
 func (builder *MatchEntityReqBodyBuilder) Word(word string) *MatchEntityReqBodyBuilder {
 	builder.word = word
 	builder.wordSet = true
@@ -3568,9 +3566,9 @@ func NewMatchEntityPathReqBodyBuilder() *MatchEntityPathReqBodyBuilder {
 	return builder
 }
 
-// 实体词主关键词、全称、别名全匹配
+// 搜索关键词，将与词条名、别名进行精准匹配
 //
-// 示例值：企业百科
+// 示例值：飞书词典
 func (builder *MatchEntityPathReqBodyBuilder) Word(word string) *MatchEntityPathReqBodyBuilder {
 	builder.word = word
 	builder.wordSet = true
@@ -3599,7 +3597,7 @@ func NewMatchEntityReqBuilder() *MatchEntityReqBuilder {
 	return builder
 }
 
-// 词库ID
+// 词库ID(不传时默认在全员词库内搜索);;如以应用身份搜索非全员词库中的词条，需要在“词库设置”页面添加应用；若以用户身份搜索非全员词库中的词条，该用户需要拥有对应词库的可见权限。
 //
 // 示例值：7202510112396640276
 func (builder *MatchEntityReqBuilder) RepoId(repoId string) *MatchEntityReqBuilder {
@@ -3607,7 +3605,7 @@ func (builder *MatchEntityReqBuilder) RepoId(repoId string) *MatchEntityReqBuild
 	return builder
 }
 
-//
+// 将关键词与词条名、别名精准匹配，并返回对应的 词条 ID。
 func (builder *MatchEntityReqBuilder) Body(body *MatchEntityReqBody) *MatchEntityReqBuilder {
 	builder.body = body
 	return builder
@@ -3622,7 +3620,7 @@ func (builder *MatchEntityReqBuilder) Build() *MatchEntityReq {
 }
 
 type MatchEntityReqBody struct {
-	Word *string `json:"word,omitempty"` // 实体词主关键词、全称、别名全匹配
+	Word *string `json:"word,omitempty"` // 搜索关键词，将与词条名、别名进行精准匹配
 }
 
 type MatchEntityReq struct {
@@ -3631,7 +3629,7 @@ type MatchEntityReq struct {
 }
 
 type MatchEntityRespData struct {
-	Results []*MatchInfo `json:"results,omitempty"` // 匹配结果
+	Results []*MatchInfo `json:"results,omitempty"` // 搜索结果
 }
 
 type MatchEntityResp struct {
@@ -3648,7 +3646,7 @@ type SearchEntityReqBodyBuilder struct {
 	query    string // 搜索关键词
 	querySet bool
 
-	classificationFilter    *ClassificationFilter // 分类筛选
+	classificationFilter    *ClassificationFilter //
 	classificationFilterSet bool
 
 	sources    []int // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
@@ -3665,16 +3663,14 @@ func NewSearchEntityReqBodyBuilder() *SearchEntityReqBodyBuilder {
 
 // 搜索关键词
 //
-//示例值：飞书词典
+// 示例值：飞书词典
 func (builder *SearchEntityReqBodyBuilder) Query(query string) *SearchEntityReqBodyBuilder {
 	builder.query = query
 	builder.querySet = true
 	return builder
 }
 
-// 分类筛选
-//
-//示例值：
+// 示例值：
 func (builder *SearchEntityReqBodyBuilder) ClassificationFilter(classificationFilter *ClassificationFilter) *SearchEntityReqBodyBuilder {
 	builder.classificationFilter = classificationFilter
 	builder.classificationFilterSet = true
@@ -3683,7 +3679,7 @@ func (builder *SearchEntityReqBodyBuilder) ClassificationFilter(classificationFi
 
 // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
 //
-//示例值：
+// 示例值：
 func (builder *SearchEntityReqBodyBuilder) Sources(sources []int) *SearchEntityReqBodyBuilder {
 	builder.sources = sources
 	builder.sourcesSet = true
@@ -3692,7 +3688,7 @@ func (builder *SearchEntityReqBodyBuilder) Sources(sources []int) *SearchEntityR
 
 // 创建者
 //
-//示例值：ou_30b07b63089ea46518789914dac63d36
+// 示例值：ou_30b07b63089ea46518789914dac63d36
 func (builder *SearchEntityReqBodyBuilder) Creators(creators []string) *SearchEntityReqBodyBuilder {
 	builder.creators = creators
 	builder.creatorsSet = true
@@ -3741,8 +3737,6 @@ func (builder *SearchEntityPathReqBodyBuilder) Query(query string) *SearchEntity
 	return builder
 }
 
-// 分类筛选
-//
 // 示例值：
 func (builder *SearchEntityPathReqBodyBuilder) ClassificationFilter(classificationFilter *ClassificationFilter) *SearchEntityPathReqBodyBuilder {
 	builder.classificationFilter = classificationFilter
@@ -3822,7 +3816,7 @@ func (builder *SearchEntityReqBuilder) PageToken(pageToken string) *SearchEntity
 	return builder
 }
 
-// 词库ID
+// 词库ID(不传时默认在全员词库内搜索);;如以应用身份搜索非全员词库中的词条，需要在“词库设置”页面添加应用；若以用户身份搜索非全员词库中的词条，该用户需要拥有对应词库的可见权限。
 //
 // 示例值：7202510112396640276
 func (builder *SearchEntityReqBuilder) RepoId(repoId string) *SearchEntityReqBuilder {
@@ -3838,7 +3832,7 @@ func (builder *SearchEntityReqBuilder) UserIdType(userIdType string) *SearchEnti
 	return builder
 }
 
-//
+// 传入关键词，与词条名、别名、释义等信息进行模糊匹配，返回搜到的词条信息。
 func (builder *SearchEntityReqBuilder) Body(body *SearchEntityReqBody) *SearchEntityReqBuilder {
 	builder.body = body
 	return builder
@@ -3856,7 +3850,7 @@ func (builder *SearchEntityReqBuilder) Build() *SearchEntityReq {
 type SearchEntityReqBody struct {
 	Query *string `json:"query,omitempty"` // 搜索关键词
 
-	ClassificationFilter *ClassificationFilter `json:"classification_filter,omitempty"` // 分类筛选
+	ClassificationFilter *ClassificationFilter `json:"classification_filter,omitempty"` //
 
 	Sources []int `json:"sources,omitempty"` // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
 
@@ -3871,7 +3865,7 @@ type SearchEntityReq struct {
 }
 
 type SearchEntityRespData struct {
-	Entities []*Entity `json:"entities,omitempty"` // 数据数组
+	Entities []*Entity `json:"entities,omitempty"` // 搜索结果
 
 	PageToken *string `json:"page_token,omitempty"` // 分页标记，当还有下一页时会返回新的 page_token，否则 page_token 为空
 
@@ -3918,7 +3912,7 @@ func (builder *UpdateEntityReqBuilder) UserIdType(userIdType string) *UpdateEnti
 	return builder
 }
 
-//
+// 通过此接口更新已有的词条，无需经过词典管理员审核，直接写入词库。因此，调用该接口时应当慎重操作。
 func (builder *UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBuilder {
 	builder.entity = entity
 	return builder
@@ -3939,7 +3933,7 @@ type UpdateEntityReq struct {
 }
 
 type UpdateEntityRespData struct {
-	Entity *Entity `json:"entity,omitempty"` //
+	Entity *Entity `json:"entity,omitempty"` // 词条信息
 }
 
 type UpdateEntityResp struct {
@@ -3967,7 +3961,7 @@ func NewDownloadFileReqBuilder() *DownloadFileReqBuilder {
 
 // 需要下载的文件 token
 //
-// 示例值：
+// 示例值：boxbcEcmKiD3***vgqWTpvdc7jc
 func (builder *DownloadFileReqBuilder) FileToken(fileToken string) *DownloadFileReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -4022,7 +4016,7 @@ func NewUploadFileReqBuilder() *UploadFileReqBuilder {
 	return builder
 }
 
-//
+// 词条图片资源上传。
 func (builder *UploadFileReqBuilder) File(file *File) *UploadFileReqBuilder {
 	builder.file = file
 	return builder

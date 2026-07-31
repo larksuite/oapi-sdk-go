@@ -5,14 +5,17 @@ package okr
 import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 	v1 "github.com/larksuite/oapi-sdk-go/v3/service/okr/v1"
+	v2 "github.com/larksuite/oapi-sdk-go/v3/service/okr/v2"
 )
 
 type Service struct {
 	*v1.V1
+	V2 *v2.V2
 }
 
 func NewService(config *larkcore.Config) *Service {
 	return &Service{
 		V1: v1.New(config),
+		V2: v2.New(config),
 	}
 }

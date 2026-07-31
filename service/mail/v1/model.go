@@ -25,10 +25,10 @@ import (
 )
 
 const (
-	MailgroupWhoCanSendMailANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
-	MailgroupWhoCanSendMailALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
-	MailgroupWhoCanSendMailALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
-	MailgroupWhoCanSendMailCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
+	MailgroupWhoCanSendMailANYONE           = "ANYONE"             // 任何人
+	MailgroupWhoCanSendMailALLINTERNALUSERS = "ALL_INTERNAL_USERS" // 仅组织内部成员
+	MailgroupWhoCanSendMailALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // 仅邮件组成员
+	MailgroupWhoCanSendMailCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // 自定义成员
 )
 
 const (
@@ -38,17 +38,17 @@ const (
 )
 
 const (
-	MailgroupWhoCanSendMailPatchMailgroupANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
-	MailgroupWhoCanSendMailPatchMailgroupALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
-	MailgroupWhoCanSendMailPatchMailgroupALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
-	MailgroupWhoCanSendMailPatchMailgroupCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
+	MailgroupWhoCanSendMailPatchMailgroupANYONE           = "ANYONE"             // 任何人
+	MailgroupWhoCanSendMailPatchMailgroupALLINTERNALUSERS = "ALL_INTERNAL_USERS" // 仅组织内部成员
+	MailgroupWhoCanSendMailPatchMailgroupALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // 仅邮件组成员
+	MailgroupWhoCanSendMailPatchMailgroupCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // 自定义成员
 )
 
 const (
-	MailgroupWhoCanSendMailUpdateMailgroupANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
-	MailgroupWhoCanSendMailUpdateMailgroupALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
-	MailgroupWhoCanSendMailUpdateMailgroupALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
-	MailgroupWhoCanSendMailUpdateMailgroupCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
+	MailgroupWhoCanSendMailUpdateMailgroupANYONE           = "ANYONE"             // 任何人
+	MailgroupWhoCanSendMailUpdateMailgroupALLINTERNALUSERS = "ALL_INTERNAL_USERS" // 仅组织内部成员
+	MailgroupWhoCanSendMailUpdateMailgroupALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // 仅邮件组成员
+	MailgroupWhoCanSendMailUpdateMailgroupCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // 自定义成员
 )
 
 const (
@@ -172,6 +172,12 @@ const (
 const (
 	ListMailGroupPermissionMemberDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
 	ListMailGroupPermissionMemberDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -584,7 +590,7 @@ func (builder *AttachmentDownloadUrlItemBuilder) AttachmentId(attachmentId strin
 
 // 下载链接
 //
-// 示例值：https://api-drive-stream.feishu.cn/space/api/box/stream/download/authcode/?code=YTZiZGViMDg3NzRjMzEwOWRkMGI1MTJlYmQxYTFmYTBfZTA5ZjZiOWU4NDYzMzkxMDUyOTIxMzBmNTVjMjAyZTFfSUQ6NzI4MTE4Nzg1OTE5NTc3Mjk0N18xNjk1ODg4NjQyOjE2OTU4ODg3MDJfVjM
+// 示例值：https://api-drive-stream.blmpb.com/space/api/box/stream/download/authcode/?code=YTZiZGViMDg3NzRjMzEwOWRkMGI1MTJlYmQxYTFmYTBfZTA5ZjZiOWU4NDYzMzkxMDUyOTIxMzBmNTVjMjAyZTFfSUQ6NzI4MTE4Nzg1OTE5NTc3Mjk0N18xNjk1ODg4NjQyOjE2OTU4ODg3MDJfVjM
 func (builder *AttachmentDownloadUrlItemBuilder) DownloadUrl(downloadUrl string) *AttachmentDownloadUrlItemBuilder {
 	builder.downloadUrl = downloadUrl
 	builder.downloadUrlSet = true
@@ -777,8 +783,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -786,8 +790,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -803,6 +805,146 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	}
 	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	return req
+}
+
+type Domain struct {
+	DomainName *string `json:"domain_name,omitempty"` // 域名
+
+	IsOwnershipVerified *bool `json:"is_ownership_verified,omitempty"` // 是否已完成所有权验证
+
+	DomainType *int `json:"domain_type,omitempty"` // 域名类型，1 表示主域名，2 表示别名域名
+
+	UsingInMigration *bool `json:"using_in_migration,omitempty"` // 是否处于迁移中
+
+	PrimaryDomainName *string `json:"primary_domain_name,omitempty"` // 别名域名对应的主域名，主域名为空
+
+	SpfStatus *int `json:"spf_status,omitempty"` // SPF 验证状态，1 表示已验证，2 表示等待验证，3 表示验证失败
+
+	MxStatus *int `json:"mx_status,omitempty"` // MX 验证状态，1 表示已验证，2 表示等待验证，3 表示验证失败
+}
+
+type DomainBuilder struct {
+	domainName    string // 域名
+	domainNameSet bool
+
+	isOwnershipVerified    bool // 是否已完成所有权验证
+	isOwnershipVerifiedSet bool
+
+	domainType    int // 域名类型，1 表示主域名，2 表示别名域名
+	domainTypeSet bool
+
+	usingInMigration    bool // 是否处于迁移中
+	usingInMigrationSet bool
+
+	primaryDomainName    string // 别名域名对应的主域名，主域名为空
+	primaryDomainNameSet bool
+
+	spfStatus    int // SPF 验证状态，1 表示已验证，2 表示等待验证，3 表示验证失败
+	spfStatusSet bool
+
+	mxStatus    int // MX 验证状态，1 表示已验证，2 表示等待验证，3 表示验证失败
+	mxStatusSet bool
+}
+
+func NewDomainBuilder() *DomainBuilder {
+	builder := &DomainBuilder{}
+	return builder
+}
+
+// 域名
+//
+// 示例值：example.com
+func (builder *DomainBuilder) DomainName(domainName string) *DomainBuilder {
+	builder.domainName = domainName
+	builder.domainNameSet = true
+	return builder
+}
+
+// 是否已完成所有权验证
+//
+// 示例值：true
+func (builder *DomainBuilder) IsOwnershipVerified(isOwnershipVerified bool) *DomainBuilder {
+	builder.isOwnershipVerified = isOwnershipVerified
+	builder.isOwnershipVerifiedSet = true
+	return builder
+}
+
+// 域名类型，1 表示主域名，2 表示别名域名
+//
+// 示例值：1
+func (builder *DomainBuilder) DomainType(domainType int) *DomainBuilder {
+	builder.domainType = domainType
+	builder.domainTypeSet = true
+	return builder
+}
+
+// 是否处于迁移中
+//
+// 示例值：false
+func (builder *DomainBuilder) UsingInMigration(usingInMigration bool) *DomainBuilder {
+	builder.usingInMigration = usingInMigration
+	builder.usingInMigrationSet = true
+	return builder
+}
+
+// 别名域名对应的主域名，主域名为空
+//
+// 示例值：primary.example.com
+func (builder *DomainBuilder) PrimaryDomainName(primaryDomainName string) *DomainBuilder {
+	builder.primaryDomainName = primaryDomainName
+	builder.primaryDomainNameSet = true
+	return builder
+}
+
+// SPF 验证状态，1 表示已验证，2 表示等待验证，3 表示验证失败
+//
+// 示例值：1
+func (builder *DomainBuilder) SpfStatus(spfStatus int) *DomainBuilder {
+	builder.spfStatus = spfStatus
+	builder.spfStatusSet = true
+	return builder
+}
+
+// MX 验证状态，1 表示已验证，2 表示等待验证，3 表示验证失败
+//
+// 示例值：1
+func (builder *DomainBuilder) MxStatus(mxStatus int) *DomainBuilder {
+	builder.mxStatus = mxStatus
+	builder.mxStatusSet = true
+	return builder
+}
+
+func (builder *DomainBuilder) Build() *Domain {
+	req := &Domain{}
+	if builder.domainNameSet {
+		req.DomainName = &builder.domainName
+
+	}
+	if builder.isOwnershipVerifiedSet {
+		req.IsOwnershipVerified = &builder.isOwnershipVerified
+
+	}
+	if builder.domainTypeSet {
+		req.DomainType = &builder.domainType
+
+	}
+	if builder.usingInMigrationSet {
+		req.UsingInMigration = &builder.usingInMigration
+
+	}
+	if builder.primaryDomainNameSet {
+		req.PrimaryDomainName = &builder.primaryDomainName
+
+	}
+	if builder.spfStatusSet {
+		req.SpfStatus = &builder.spfStatus
+
+	}
+	if builder.mxStatusSet {
+		req.MxStatus = &builder.mxStatus
 
 	}
 	return req
@@ -1220,7 +1362,7 @@ type Folder struct {
 
 	Name *string `json:"name,omitempty"` // 文件夹名称
 
-	ParentFolderId *string `json:"parent_folder_id,omitempty"` // 父文件夹 id，该值为 0 表示根文件夹
+	ParentFolderId *string `json:"parent_folder_id,omitempty"` // 父文件夹 id，该值为 0 表示根文件夹，id 获取方式见 [列出邮箱文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list)
 
 	FolderType *int `json:"folder_type,omitempty"` // 文件夹类型
 
@@ -1236,7 +1378,7 @@ type FolderBuilder struct {
 	name    string // 文件夹名称
 	nameSet bool
 
-	parentFolderId    string // 父文件夹 id，该值为 0 表示根文件夹
+	parentFolderId    string // 父文件夹 id，该值为 0 表示根文件夹，id 获取方式见 [列出邮箱文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list)
 	parentFolderIdSet bool
 
 	folderType    int // 文件夹类型
@@ -1272,7 +1414,7 @@ func (builder *FolderBuilder) Name(name string) *FolderBuilder {
 	return builder
 }
 
-// 父文件夹 id，该值为 0 表示根文件夹
+// 父文件夹 id，该值为 0 表示根文件夹，id 获取方式见 [列出邮箱文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list)
 //
 // 示例值：725627422334644
 func (builder *FolderBuilder) ParentFolderId(parentFolderId string) *FolderBuilder {
@@ -1373,7 +1515,7 @@ func NewIncrementalSwitchEntityBuilder() *IncrementalSwitchEntityBuilder {
 
 // 实体类型
 //
-// 示例值：
+// 示例值：DEPARTMENT
 func (builder *IncrementalSwitchEntityBuilder) EntityType(entityType string) *IncrementalSwitchEntityBuilder {
 	builder.entityType = entityType
 	builder.entityTypeSet = true
@@ -1444,9 +1586,9 @@ func (builder *IncrementalSwitchEntityBuilder) Build() *IncrementalSwitchEntity 
 type Label struct {
 	Id *string `json:"id,omitempty"` // 标签ID
 
-	Name *string `json:"name,omitempty"` // 标签名称，最长 255 个字符。支持嵌套标签，嵌套层级之间以 / 分隔（如 a/b/c 表示三级嵌套标签）。创建或更新嵌套标签时，需要传入完整路径（如 a/b/c），不能只传最后一级名称。
+	Name *string `json:"name,omitempty"` // 标签名称，可选填写。最长255个字符。
 
-	BackgroundColor *string `json:"background_color,omitempty"` // 标签背景颜色，支持以下颜色值：blue、indigo、purple、violet、carmine、red、orange、yellow、lime、green、turquoise、wathet
+	BackgroundColor *string `json:"background_color,omitempty"` // 标签背景颜色，可选填写。支持以下颜色值：blue、indigo、purple、violet、carmine、red、orange、yellow、lime、green、turquoise、wathet
 
 	MessagesUnread *int `json:"messages_unread,omitempty"` // 带有该标签的未读邮件数量
 }
@@ -1455,10 +1597,10 @@ type LabelBuilder struct {
 	id    string // 标签ID
 	idSet bool
 
-	name    string // 标签名称，最长 255 个字符。支持嵌套标签，嵌套层级之间以 / 分隔（如 a/b/c 表示三级嵌套标签）。创建或更新嵌套标签时，需要传入完整路径（如 a/b/c），不能只传最后一级名称。
+	name    string // 标签名称，可选填写。最长255个字符。
 	nameSet bool
 
-	backgroundColor    string // 标签背景颜色，支持以下颜色值：blue、indigo、purple、violet、carmine、red、orange、yellow、lime、green、turquoise、wathet
+	backgroundColor    string // 标签背景颜色，可选填写。支持以下颜色值：blue、indigo、purple、violet、carmine、red、orange、yellow、lime、green、turquoise、wathet
 	backgroundColorSet bool
 
 	messagesUnread    int // 带有该标签的未读邮件数量
@@ -1479,7 +1621,7 @@ func (builder *LabelBuilder) Id(id string) *LabelBuilder {
 	return builder
 }
 
-// 标签名称，最长 255 个字符。支持嵌套标签，嵌套层级之间以 / 分隔（如 a/b/c 表示三级嵌套标签）。创建或更新嵌套标签时，需要传入完整路径（如 a/b/c），不能只传最后一级名称。
+// 标签名称，可选填写。最长255个字符。
 //
 // 示例值：test
 func (builder *LabelBuilder) Name(name string) *LabelBuilder {
@@ -1488,7 +1630,7 @@ func (builder *LabelBuilder) Name(name string) *LabelBuilder {
 	return builder
 }
 
-// 标签背景颜色，支持以下颜色值：blue、indigo、purple、violet、carmine、red、orange、yellow、lime、green、turquoise、wathet
+// 标签背景颜色，可选填写。支持以下颜色值：blue、indigo、purple、violet、carmine、red、orange、yellow、lime、green、turquoise、wathet
 //
 // 示例值：blue
 func (builder *LabelBuilder) BackgroundColor(backgroundColor string) *LabelBuilder {
@@ -1548,7 +1690,7 @@ func NewMailAddressBuilder() *MailAddressBuilder {
 
 // 邮件地址
 //
-// 示例值：mike@outlook.com
+// 示例值：user@xxx.xx
 func (builder *MailAddressBuilder) MailAddress(mailAddress string) *MailAddressBuilder {
 	builder.mailAddress = mailAddress
 	builder.mailAddressSet = true
@@ -1696,7 +1838,7 @@ func (builder *MailContactBuilder) Remark(remark string) *MailContactBuilder {
 
 // 联系人头像
 //
-// 示例值：https://exampeimg.com/xxxx.jpg
+// 示例值：https://exampleimg.com/xxxx.jpg
 func (builder *MailContactBuilder) Avatar(avatar string) *MailContactBuilder {
 	builder.avatar = avatar
 	builder.avatarSet = true
@@ -1872,11 +2014,11 @@ func (builder *MailFlowRuleInfoBuilder) Build() *MailFlowRuleInfo {
 }
 
 type MailGroupAsSenderPermissionMember struct {
-	UserId *string `json:"user_id,omitempty"` // 租户内用户的唯一标识
+	UserId *string `json:"user_id,omitempty"` // 租户内用户的唯一标识。ID 类型需与查询参数 user_id_type 的取值保持一致。
 }
 
 type MailGroupAsSenderPermissionMemberBuilder struct {
-	userId    string // 租户内用户的唯一标识
+	userId    string // 租户内用户的唯一标识。ID 类型需与查询参数 user_id_type 的取值保持一致。
 	userIdSet bool
 }
 
@@ -1885,9 +2027,9 @@ func NewMailGroupAsSenderPermissionMemberBuilder() *MailGroupAsSenderPermissionM
 	return builder
 }
 
-// 租户内用户的唯一标识
+// 租户内用户的唯一标识。ID 类型需与查询参数 user_id_type 的取值保持一致。
 //
-// 示例值：
+// 示例值：xxxx
 func (builder *MailGroupAsSenderPermissionMemberBuilder) UserId(userId string) *MailGroupAsSenderPermissionMemberBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -1904,13 +2046,13 @@ func (builder *MailGroupAsSenderPermissionMemberBuilder) Build() *MailGroupAsSen
 }
 
 type MailLog struct {
-	Timestamp *string `json:"timestamp,omitempty"` // 日志时间戳
+	Timestamp *string `json:"timestamp,omitempty"` // 日志时间戳（毫秒）
 
 	Id *string `json:"id,omitempty"` // 日志id
 
-	Initiator *UserMailEntity `json:"initiator,omitempty"` // 邮箱实体信息
+	Initiator *UserMailEntity `json:"initiator,omitempty"` // 邮件流规则的触发实体，用于判断邮件流应用范围;- 使用用户邮箱发信时，为用户邮箱;- 使用公共邮箱发信时，为公共邮箱;- 使用邮件组发信时，为邮件组
 
-	Operator *UserMailEntity `json:"operator,omitempty"` // 邮箱实体信息
+	Operator *UserMailEntity `json:"operator,omitempty"` // 邮件流规则的触发实体，用于判断邮件流应用范围;- 使用用户邮箱发信时，为用户邮箱;- 使用公共邮箱发信时，为公共邮箱;- 使用邮件组发信时，为邮件组
 
 	MailInfo *MailLogMailInfo `json:"mail_info,omitempty"` // 邮件信息
 
@@ -1920,16 +2062,16 @@ type MailLog struct {
 }
 
 type MailLogBuilder struct {
-	timestamp    string // 日志时间戳
+	timestamp    string // 日志时间戳（毫秒）
 	timestampSet bool
 
 	id    string // 日志id
 	idSet bool
 
-	initiator    *UserMailEntity // 邮箱实体信息
+	initiator    *UserMailEntity // 邮件流规则的触发实体，用于判断邮件流应用范围;- 使用用户邮箱发信时，为用户邮箱;- 使用公共邮箱发信时，为公共邮箱;- 使用邮件组发信时，为邮件组
 	initiatorSet bool
 
-	operator    *UserMailEntity // 邮箱实体信息
+	operator    *UserMailEntity // 邮件流规则的触发实体，用于判断邮件流应用范围;- 使用用户邮箱发信时，为用户邮箱;- 使用公共邮箱发信时，为公共邮箱;- 使用邮件组发信时，为邮件组
 	operatorSet bool
 
 	mailInfo    *MailLogMailInfo // 邮件信息
@@ -1947,7 +2089,7 @@ func NewMailLogBuilder() *MailLogBuilder {
 	return builder
 }
 
-// 日志时间戳
+// 日志时间戳（毫秒）
 //
 // 示例值：123456780
 func (builder *MailLogBuilder) Timestamp(timestamp string) *MailLogBuilder {
@@ -1965,7 +2107,7 @@ func (builder *MailLogBuilder) Id(id string) *MailLogBuilder {
 	return builder
 }
 
-// 邮箱实体信息
+// 邮件流规则的触发实体，用于判断邮件流应用范围;- 使用用户邮箱发信时，为用户邮箱;- 使用公共邮箱发信时，为公共邮箱;- 使用邮件组发信时，为邮件组
 //
 // 示例值：
 func (builder *MailLogBuilder) Initiator(initiator *UserMailEntity) *MailLogBuilder {
@@ -1974,7 +2116,7 @@ func (builder *MailLogBuilder) Initiator(initiator *UserMailEntity) *MailLogBuil
 	return builder
 }
 
-// 邮箱实体信息
+// 邮件流规则的触发实体，用于判断邮件流应用范围;- 使用用户邮箱发信时，为用户邮箱;- 使用公共邮箱发信时，为公共邮箱;- 使用邮件组发信时，为邮件组
 //
 // 示例值：
 func (builder *MailLogBuilder) Operator(operator *UserMailEntity) *MailLogBuilder {
@@ -2041,7 +2183,7 @@ func (builder *MailLogBuilder) Build() *MailLog {
 type MailLogMailInfo struct {
 	MessageId *string `json:"message_id,omitempty"` // 邮件ID
 
-	Owner *UserMailEntity `json:"owner,omitempty"` // 邮箱实体信息
+	Owner *UserMailEntity `json:"owner,omitempty"` // 邮件流规则的触发实体，用于判断邮件流应用范围;- 使用用户邮箱发信时，为用户邮箱;- 使用公共邮箱发信时，为公共邮箱;- 使用邮件组发信时，为邮件组
 
 	EventTypes []string `json:"event_types,omitempty"` // 收发信事件类型
 
@@ -2072,7 +2214,7 @@ type MailLogMailInfoBuilder struct {
 	messageId    string // 邮件ID
 	messageIdSet bool
 
-	owner    *UserMailEntity // 邮箱实体信息
+	owner    *UserMailEntity // 邮件流规则的触发实体，用于判断邮件流应用范围;- 使用用户邮箱发信时，为用户邮箱;- 使用公共邮箱发信时，为公共邮箱;- 使用邮件组发信时，为邮件组
 	ownerSet bool
 
 	eventTypes    []string // 收发信事件类型
@@ -2119,14 +2261,14 @@ func NewMailLogMailInfoBuilder() *MailLogMailInfoBuilder {
 
 // 邮件ID
 //
-// 示例值：abcdefg
+// 示例值：tfuh9N4WnzU6jdDw=
 func (builder *MailLogMailInfoBuilder) MessageId(messageId string) *MailLogMailInfoBuilder {
 	builder.messageId = messageId
 	builder.messageIdSet = true
 	return builder
 }
 
-// 邮箱实体信息
+// 邮件流规则的触发实体，用于判断邮件流应用范围;- 使用用户邮箱发信时，为用户邮箱;- 使用公共邮箱发信时，为公共邮箱;- 使用邮件组发信时，为邮件组
 //
 // 示例值：
 func (builder *MailLogMailInfoBuilder) Owner(owner *UserMailEntity) *MailLogMailInfoBuilder {
@@ -2292,6 +2434,182 @@ func (builder *MailLogMailInfoBuilder) Build() *MailLogMailInfo {
 	}
 	if builder.imagesSet {
 		req.Images = builder.images
+	}
+	return req
+}
+
+type MailLogSearchItem struct {
+	CreatedTimestamp *string `json:"created_timestamp,omitempty"` // 邮件创建时间的 Unix 秒时间戳
+
+	MessageId *string `json:"message_id,omitempty"` // 邮件唯一标识
+
+	Sender *string `json:"sender,omitempty"` // 发件人邮箱地址
+
+	Recipient *string `json:"recipient,omitempty"` // 收件人邮箱地址
+
+	Subject *string `json:"subject,omitempty"` // 邮件主题
+
+	Status *string `json:"status,omitempty"` // 最新投递状态说明
+
+	StatusType *int `json:"status_type,omitempty"` // 邮件日志状态类型
+
+	SenderIp *string `json:"sender_ip,omitempty"` // 发件服务器 IP
+
+	RealSender *string `json:"real_sender,omitempty"` // 实际发件人邮箱地址
+}
+
+type MailLogSearchItemBuilder struct {
+	createdTimestamp    string // 邮件创建时间的 Unix 秒时间戳
+	createdTimestampSet bool
+
+	messageId    string // 邮件唯一标识
+	messageIdSet bool
+
+	sender    string // 发件人邮箱地址
+	senderSet bool
+
+	recipient    string // 收件人邮箱地址
+	recipientSet bool
+
+	subject    string // 邮件主题
+	subjectSet bool
+
+	status    string // 最新投递状态说明
+	statusSet bool
+
+	statusType    int // 邮件日志状态类型
+	statusTypeSet bool
+
+	senderIp    string // 发件服务器 IP
+	senderIpSet bool
+
+	realSender    string // 实际发件人邮箱地址
+	realSenderSet bool
+}
+
+func NewMailLogSearchItemBuilder() *MailLogSearchItemBuilder {
+	builder := &MailLogSearchItemBuilder{}
+	return builder
+}
+
+// 邮件创建时间的 Unix 秒时间戳
+//
+// 示例值：1698729600
+func (builder *MailLogSearchItemBuilder) CreatedTimestamp(createdTimestamp string) *MailLogSearchItemBuilder {
+	builder.createdTimestamp = createdTimestamp
+	builder.createdTimestampSet = true
+	return builder
+}
+
+// 邮件唯一标识
+//
+// 示例值：msg_1234567890abcdef
+func (builder *MailLogSearchItemBuilder) MessageId(messageId string) *MailLogSearchItemBuilder {
+	builder.messageId = messageId
+	builder.messageIdSet = true
+	return builder
+}
+
+// 发件人邮箱地址
+//
+// 示例值：sender@example.com
+func (builder *MailLogSearchItemBuilder) Sender(sender string) *MailLogSearchItemBuilder {
+	builder.sender = sender
+	builder.senderSet = true
+	return builder
+}
+
+// 收件人邮箱地址
+//
+// 示例值：recipient@example.com
+func (builder *MailLogSearchItemBuilder) Recipient(recipient string) *MailLogSearchItemBuilder {
+	builder.recipient = recipient
+	builder.recipientSet = true
+	return builder
+}
+
+// 邮件主题
+//
+// 示例值：Quarterly report
+func (builder *MailLogSearchItemBuilder) Subject(subject string) *MailLogSearchItemBuilder {
+	builder.subject = subject
+	builder.subjectSet = true
+	return builder
+}
+
+// 最新投递状态说明
+//
+// 示例值：delivered
+func (builder *MailLogSearchItemBuilder) Status(status string) *MailLogSearchItemBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// 邮件日志状态类型
+//
+// 示例值：1
+func (builder *MailLogSearchItemBuilder) StatusType(statusType int) *MailLogSearchItemBuilder {
+	builder.statusType = statusType
+	builder.statusTypeSet = true
+	return builder
+}
+
+// 发件服务器 IP
+//
+// 示例值：192.0.2.1
+func (builder *MailLogSearchItemBuilder) SenderIp(senderIp string) *MailLogSearchItemBuilder {
+	builder.senderIp = senderIp
+	builder.senderIpSet = true
+	return builder
+}
+
+// 实际发件人邮箱地址
+//
+// 示例值：real-sender@example.com
+func (builder *MailLogSearchItemBuilder) RealSender(realSender string) *MailLogSearchItemBuilder {
+	builder.realSender = realSender
+	builder.realSenderSet = true
+	return builder
+}
+
+func (builder *MailLogSearchItemBuilder) Build() *MailLogSearchItem {
+	req := &MailLogSearchItem{}
+	if builder.createdTimestampSet {
+		req.CreatedTimestamp = &builder.createdTimestamp
+
+	}
+	if builder.messageIdSet {
+		req.MessageId = &builder.messageId
+
+	}
+	if builder.senderSet {
+		req.Sender = &builder.sender
+
+	}
+	if builder.recipientSet {
+		req.Recipient = &builder.recipient
+
+	}
+	if builder.subjectSet {
+		req.Subject = &builder.subject
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.statusTypeSet {
+		req.StatusType = &builder.statusType
+
+	}
+	if builder.senderIpSet {
+		req.SenderIp = &builder.senderIp
+
+	}
+	if builder.realSenderSet {
+		req.RealSender = &builder.realSender
+
 	}
 	return req
 }
@@ -3010,7 +3328,7 @@ func (builder *MailRecipientLogI18nTextParamBuilder) ParamType(paramType int) *M
 
 // 参数补充数据
 //
-// 示例值：
+// 示例值：{"key":"value"}
 func (builder *MailRecipientLogI18nTextParamBuilder) ParamExtra(paramExtra map[string]string) *MailRecipientLogI18nTextParamBuilder {
 	builder.paramExtra = paramExtra
 	builder.paramExtraSet = true
@@ -3253,7 +3571,7 @@ type MailSearchFilter struct {
 
 	IsUnread *bool `json:"is_unread,omitempty"` // 是否只筛选未读邮件，默认为**否**
 
-	CreateTime *TimeRange `json:"create_time,omitempty"` // 邮件接收时间范围筛选，只返回在所选时间范围内的邮件。;限制：一次搜索请求的时间范围不要超过1年。
+	CreateTime *TimeRange `json:"create_time,omitempty"` // 邮件接收时间范围筛选，只返回在所选时间范围内的邮件。使用该筛选条件时，需同时传入开始时间（start_time）和截止时间（end_time）；一次搜索请求的时间范围不要超过 1 年。
 }
 
 type MailSearchFilterBuilder struct {
@@ -3284,7 +3602,7 @@ type MailSearchFilterBuilder struct {
 	isUnread    bool // 是否只筛选未读邮件，默认为**否**
 	isUnreadSet bool
 
-	createTime    *TimeRange // 邮件接收时间范围筛选，只返回在所选时间范围内的邮件。;限制：一次搜索请求的时间范围不要超过1年。
+	createTime    *TimeRange // 邮件接收时间范围筛选，只返回在所选时间范围内的邮件。使用该筛选条件时，需同时传入开始时间（start_time）和截止时间（end_time）；一次搜索请求的时间范围不要超过 1 年。
 	createTimeSet bool
 }
 
@@ -3374,7 +3692,7 @@ func (builder *MailSearchFilterBuilder) IsUnread(isUnread bool) *MailSearchFilte
 	return builder
 }
 
-// 邮件接收时间范围筛选，只返回在所选时间范围内的邮件。;限制：一次搜索请求的时间范围不要超过1年。
+// 邮件接收时间范围筛选，只返回在所选时间范围内的邮件。使用该筛选条件时，需同时传入开始时间（start_time）和截止时间（end_time）；一次搜索请求的时间范围不要超过 1 年。
 //
 // 示例值：
 func (builder *MailSearchFilterBuilder) CreateTime(createTime *TimeRange) *MailSearchFilterBuilder {
@@ -3782,22 +4100,22 @@ func (builder *MailgroupManagerBuilder) Build() *MailgroupManager {
 }
 
 type MailgroupMember struct {
-	MemberId *string `json:"member_id,omitempty"` // 邮件组内成员唯一标识
+	MemberId *string `json:"member_id,omitempty"` // The unique ID of a member in this mail group
 
-	Email *string `json:"email,omitempty"` // 成员邮箱地址（当成员类型是EXTERNAL_USER/MAIL_GROUP/OTHER_MEMBER时有值）
+	Email *string `json:"email,omitempty"` // The member's email address. Value is valid when type is one of USER/EXTERNAL_USER/MAIL_GROUP/PUBLIC_MAILBOX/OTHER_MEMBER
 
 	UserId *string `json:"user_id,omitempty"` // 租户内用户的唯一标识（当成员类型是USER时有值）
 
 	DepartmentId *string `json:"department_id,omitempty"` // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
 
-	Type *string `json:"type,omitempty"` // 成员类型
+	Type *string `json:"type,omitempty"` // The type of member. Possible values are:;- USER: internal user in the team;- DEPARTMENT: member is a department;- COMPANY: member is the company;- EXTERNAL_USER: internet user outside the organization;- MAIL_GROUP: member is another mail group;- PUBLIC_MAILBOX: member is a public mailbox;- OTHER_MEMBER: other internal member
 }
 
 type MailgroupMemberBuilder struct {
-	memberId    string // 邮件组内成员唯一标识
+	memberId    string // The unique ID of a member in this mail group
 	memberIdSet bool
 
-	email    string // 成员邮箱地址（当成员类型是EXTERNAL_USER/MAIL_GROUP/OTHER_MEMBER时有值）
+	email    string // The member's email address. Value is valid when type is one of USER/EXTERNAL_USER/MAIL_GROUP/PUBLIC_MAILBOX/OTHER_MEMBER
 	emailSet bool
 
 	userId    string // 租户内用户的唯一标识（当成员类型是USER时有值）
@@ -3806,7 +4124,7 @@ type MailgroupMemberBuilder struct {
 	departmentId    string // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
 	departmentIdSet bool
 
-	type_    string // 成员类型
+	type_    string // The type of member. Possible values are:;- USER: internal user in the team;- DEPARTMENT: member is a department;- COMPANY: member is the company;- EXTERNAL_USER: internet user outside the organization;- MAIL_GROUP: member is another mail group;- PUBLIC_MAILBOX: member is a public mailbox;- OTHER_MEMBER: other internal member
 	type_Set bool
 }
 
@@ -3815,7 +4133,7 @@ func NewMailgroupMemberBuilder() *MailgroupMemberBuilder {
 	return builder
 }
 
-// 邮件组内成员唯一标识
+// The unique ID of a member in this mail group
 //
 // 示例值：xxxxxxxxxxxxxxx
 func (builder *MailgroupMemberBuilder) MemberId(memberId string) *MailgroupMemberBuilder {
@@ -3824,7 +4142,7 @@ func (builder *MailgroupMemberBuilder) MemberId(memberId string) *MailgroupMembe
 	return builder
 }
 
-// 成员邮箱地址（当成员类型是EXTERNAL_USER/MAIL_GROUP/OTHER_MEMBER时有值）
+// The member's email address. Value is valid when type is one of USER/EXTERNAL_USER/MAIL_GROUP/PUBLIC_MAILBOX/OTHER_MEMBER
 //
 // 示例值：test_memeber@xxx.xx
 func (builder *MailgroupMemberBuilder) Email(email string) *MailgroupMemberBuilder {
@@ -3851,7 +4169,7 @@ func (builder *MailgroupMemberBuilder) DepartmentId(departmentId string) *Mailgr
 	return builder
 }
 
-// 成员类型
+// The type of member. Possible values are:;- USER: internal user in the team;- DEPARTMENT: member is a department;- COMPANY: member is the company;- EXTERNAL_USER: internet user outside the organization;- MAIL_GROUP: member is another mail group;- PUBLIC_MAILBOX: member is a public mailbox;- OTHER_MEMBER: other internal member
 //
 // 示例值：USER
 func (builder *MailgroupMemberBuilder) Type(type_ string) *MailgroupMemberBuilder {
@@ -3886,19 +4204,19 @@ func (builder *MailgroupMemberBuilder) Build() *MailgroupMember {
 }
 
 type MailgroupPermissionMember struct {
-	PermissionMemberId *string `json:"permission_member_id,omitempty"` // 权限组内成员唯一标识
+	PermissionMemberId *string `json:"permission_member_id,omitempty"` // The unique ID of a member in this permission group
 
 	UserId *string `json:"user_id,omitempty"` // 租户内用户的唯一标识（当成员类型是USER时有值）
 
 	DepartmentId *string `json:"department_id,omitempty"` // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
 
-	Email *string `json:"email,omitempty"` // 成员邮箱地址（当成员类型是MAIL_GROUP/PUBLIC_MAILBOX时有值）
+	Email *string `json:"email,omitempty"` // The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
 
-	Type *string `json:"type,omitempty"` // 成员类型
+	Type *string `json:"type,omitempty"` // The type of member. Possible values are:;- USER: internal user in the team;- DEPARTMENT: member is a department
 }
 
 type MailgroupPermissionMemberBuilder struct {
-	permissionMemberId    string // 权限组内成员唯一标识
+	permissionMemberId    string // The unique ID of a member in this permission group
 	permissionMemberIdSet bool
 
 	userId    string // 租户内用户的唯一标识（当成员类型是USER时有值）
@@ -3907,10 +4225,10 @@ type MailgroupPermissionMemberBuilder struct {
 	departmentId    string // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
 	departmentIdSet bool
 
-	email    string // 成员邮箱地址（当成员类型是MAIL_GROUP/PUBLIC_MAILBOX时有值）
+	email    string // The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
 	emailSet bool
 
-	type_    string // 成员类型
+	type_    string // The type of member. Possible values are:;- USER: internal user in the team;- DEPARTMENT: member is a department
 	type_Set bool
 }
 
@@ -3919,7 +4237,7 @@ func NewMailgroupPermissionMemberBuilder() *MailgroupPermissionMemberBuilder {
 	return builder
 }
 
-// 权限组内成员唯一标识
+// The unique ID of a member in this permission group
 //
 // 示例值：xxxxxxxxxxxxxxx
 func (builder *MailgroupPermissionMemberBuilder) PermissionMemberId(permissionMemberId string) *MailgroupPermissionMemberBuilder {
@@ -3946,7 +4264,7 @@ func (builder *MailgroupPermissionMemberBuilder) DepartmentId(departmentId strin
 	return builder
 }
 
-// 成员邮箱地址（当成员类型是MAIL_GROUP/PUBLIC_MAILBOX时有值）
+// The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
 //
 // 示例值：xxx@xx.x
 func (builder *MailgroupPermissionMemberBuilder) Email(email string) *MailgroupPermissionMemberBuilder {
@@ -3955,7 +4273,7 @@ func (builder *MailgroupPermissionMemberBuilder) Email(email string) *MailgroupP
 	return builder
 }
 
-// 成员类型
+// The type of member. Possible values are:;- USER: internal user in the team;- DEPARTMENT: member is a department
 //
 // 示例值：USER
 func (builder *MailgroupPermissionMemberBuilder) Type(type_ string) *MailgroupPermissionMemberBuilder {
@@ -4006,7 +4324,7 @@ type Message struct {
 
 	InternalDate *string `json:"internal_date,omitempty"` // 创建/收/发信时间（毫秒）
 
-	MessageState *int `json:"message_state,omitempty"` // 邮件状态，1（收信）2（发信）3（草稿）
+	MessageState *int `json:"message_state,omitempty"` // 邮件状态，1为收信，2为发信，3为草稿
 
 	SmtpMessageId *string `json:"smtp_message_id,omitempty"` // RFC协议id
 
@@ -4062,7 +4380,7 @@ type MessageBuilder struct {
 	internalDate    string // 创建/收/发信时间（毫秒）
 	internalDateSet bool
 
-	messageState    int // 邮件状态，1（收信）2（发信）3（草稿）
+	messageState    int // 邮件状态，1为收信，2为发信，3为草稿
 	messageStateSet bool
 
 	smtpMessageId    string // RFC协议id
@@ -4169,7 +4487,7 @@ func (builder *MessageBuilder) HeadFrom(headFrom *MailAddress) *MessageBuilder {
 
 // 正文(base64url)
 //
-// 示例值：xxxx
+// 示例值：PHA-SGVsbG8sIHRoaXMgaXMgYSBkcmFmdCBlbWFpbC48L3A-
 func (builder *MessageBuilder) BodyHtml(bodyHtml string) *MessageBuilder {
 	builder.bodyHtml = bodyHtml
 	builder.bodyHtmlSet = true
@@ -4185,7 +4503,7 @@ func (builder *MessageBuilder) InternalDate(internalDate string) *MessageBuilder
 	return builder
 }
 
-// 邮件状态，1（收信）2（发信）3（草稿）
+// 邮件状态，1为收信，2为发信，3为草稿
 //
 // 示例值：1
 func (builder *MessageBuilder) MessageState(messageState int) *MessageBuilder {
@@ -4223,7 +4541,7 @@ func (builder *MessageBuilder) Attachments(attachments []*Attachment) *MessageBu
 
 // 正文纯文本(base64url)
 //
-// 示例值：xxxxx
+// 示例值：SGVsbG8sIHRoaXMgaXMgYSBkcmFmdCBlbWFpbC4
 func (builder *MessageBuilder) BodyPlainText(bodyPlainText string) *MessageBuilder {
 	builder.bodyPlainText = bodyPlainText
 	builder.bodyPlainTextSet = true
@@ -4241,7 +4559,7 @@ func (builder *MessageBuilder) ThreadId(threadId string) *MessageBuilder {
 
 // 邮件正文纯文本内容的前100个字符，基于base64url编码，用于快速预览邮件核心内容，无需解码完整正文
 //
-// 示例值：xxxxx
+// 示例值：Hello, this is a draft email.
 func (builder *MessageBuilder) BodyPreview(bodyPreview string) *MessageBuilder {
 	builder.bodyPreview = bodyPreview
 	builder.bodyPreviewSet = true
@@ -4456,7 +4774,7 @@ func NewMessageMetaBuilder() *MessageMetaBuilder {
 
 // 邮件的唯一标识符
 //
-// 示例值：msg_123456
+// 示例值：xxx
 func (builder *MessageMetaBuilder) MessageId(messageId string) *MessageMetaBuilder {
 	builder.messageId = messageId
 	builder.messageIdSet = true
@@ -4465,7 +4783,7 @@ func (builder *MessageMetaBuilder) MessageId(messageId string) *MessageMetaBuild
 
 // 邮件所属会话的唯一标识符
 //
-// 示例值：thread_789
+// 示例值：xxx
 func (builder *MessageMetaBuilder) ThreadId(threadId string) *MessageMetaBuilder {
 	builder.threadId = threadId
 	builder.threadIdSet = true
@@ -5042,21 +5360,21 @@ func (builder *PublicMailboxBuilder) Build() *PublicMailbox {
 }
 
 type PublicMailboxMember struct {
-	MemberId *string `json:"member_id,omitempty"` // 公共邮箱内成员唯一标识
+	MemberId *string `json:"member_id,omitempty"` // The unique ID of a member in this public mailbox
 
 	UserId *string `json:"user_id,omitempty"` // 租户内用户的唯一标识（当成员类型是USER时有值）
 
-	Type *string `json:"type,omitempty"` // 成员类型
+	Type *string `json:"type,omitempty"` // The type of member. Possible values are:;- USER: internal user in the team
 }
 
 type PublicMailboxMemberBuilder struct {
-	memberId    string // 公共邮箱内成员唯一标识
+	memberId    string // The unique ID of a member in this public mailbox
 	memberIdSet bool
 
 	userId    string // 租户内用户的唯一标识（当成员类型是USER时有值）
 	userIdSet bool
 
-	type_    string // 成员类型
+	type_    string // The type of member. Possible values are:;- USER: internal user in the team
 	type_Set bool
 }
 
@@ -5065,7 +5383,7 @@ func NewPublicMailboxMemberBuilder() *PublicMailboxMemberBuilder {
 	return builder
 }
 
-// 公共邮箱内成员唯一标识
+// The unique ID of a member in this public mailbox
 //
 // 示例值：xxxxxxxxxxxxxxx
 func (builder *PublicMailboxMemberBuilder) MemberId(memberId string) *PublicMailboxMemberBuilder {
@@ -5083,7 +5401,7 @@ func (builder *PublicMailboxMemberBuilder) UserId(userId string) *PublicMailboxM
 	return builder
 }
 
-// 成员类型
+// The type of member. Possible values are:;- USER: internal user in the team
 //
 // 示例值：USER
 func (builder *PublicMailboxMemberBuilder) Type(type_ string) *PublicMailboxMemberBuilder {
@@ -5196,7 +5514,7 @@ func (builder *RecallDetailItemBuilder) FailReason(failReason string) *RecallDet
 
 // 是否为邮件组地址
 //
-// 示例值：false
+// 示例值：true
 func (builder *RecallDetailItemBuilder) IsMailingList(isMailingList bool) *RecallDetailItemBuilder {
 	builder.isMailingList = isMailingList
 	builder.isMailingListSet = true
@@ -5268,26 +5586,26 @@ func (builder *RecallDetailItemBuilder) Build() *RecallDetailItem {
 }
 
 type RecallMessageSelector struct {
-	OwnerId *string `json:"owner_id,omitempty"` // 所有者ID
+	OwnerId *string `json:"owner_id,omitempty"` // 所有者ID（从search接口返回结果获取）
 
-	ThreadId *string `json:"thread_id,omitempty"` // 线程ID
+	ThreadId *string `json:"thread_id,omitempty"` // 会话ID（从search接口返回结果获取）
 
-	MessageBizId *string `json:"message_biz_id,omitempty"` // 消息业务ID
+	MessageBizId *string `json:"message_biz_id,omitempty"` // 业务ID（从search接口返回结果获取）
 
-	SmtpMessageId *string `json:"smtp_message_id,omitempty"` // SMTP消息ID
+	SmtpMessageId *string `json:"smtp_message_id,omitempty"` // SMTPID（从search接口返回结果获取）
 }
 
 type RecallMessageSelectorBuilder struct {
-	ownerId    string // 所有者ID
+	ownerId    string // 所有者ID（从search接口返回结果获取）
 	ownerIdSet bool
 
-	threadId    string // 线程ID
+	threadId    string // 会话ID（从search接口返回结果获取）
 	threadIdSet bool
 
-	messageBizId    string // 消息业务ID
+	messageBizId    string // 业务ID（从search接口返回结果获取）
 	messageBizIdSet bool
 
-	smtpMessageId    string // SMTP消息ID
+	smtpMessageId    string // SMTPID（从search接口返回结果获取）
 	smtpMessageIdSet bool
 }
 
@@ -5296,7 +5614,7 @@ func NewRecallMessageSelectorBuilder() *RecallMessageSelectorBuilder {
 	return builder
 }
 
-// 所有者ID
+// 所有者ID（从search接口返回结果获取）
 //
 // 示例值：U202405150001
 func (builder *RecallMessageSelectorBuilder) OwnerId(ownerId string) *RecallMessageSelectorBuilder {
@@ -5305,7 +5623,7 @@ func (builder *RecallMessageSelectorBuilder) OwnerId(ownerId string) *RecallMess
 	return builder
 }
 
-// 线程ID
+// 会话ID（从search接口返回结果获取）
 //
 // 示例值：THREAD20240515143000001
 func (builder *RecallMessageSelectorBuilder) ThreadId(threadId string) *RecallMessageSelectorBuilder {
@@ -5314,7 +5632,7 @@ func (builder *RecallMessageSelectorBuilder) ThreadId(threadId string) *RecallMe
 	return builder
 }
 
-// 消息业务ID
+// 业务ID（从search接口返回结果获取）
 //
 // 示例值：MSG20240515143000001
 func (builder *RecallMessageSelectorBuilder) MessageBizId(messageBizId string) *RecallMessageSelectorBuilder {
@@ -5323,7 +5641,7 @@ func (builder *RecallMessageSelectorBuilder) MessageBizId(messageBizId string) *
 	return builder
 }
 
-// SMTP消息ID
+// SMTPID（从search接口返回结果获取）
 //
 // 示例值：<1621034567.12345.1234567890@mail.example.com>
 func (builder *RecallMessageSelectorBuilder) SmtpMessageId(smtpMessageId string) *RecallMessageSelectorBuilder {
@@ -5360,7 +5678,7 @@ type Rule struct {
 
 	Action *RuleAction `json:"action,omitempty"` // 匹配命中后的操作
 
-	IgnoreTheRestOfRules *bool `json:"ignore_the_rest_of_rules,omitempty"` // 是否终点规则
+	IgnoreTheRestOfRules *bool `json:"ignore_the_rest_of_rules,omitempty"` // 是否终止规则
 
 	Name *string `json:"name,omitempty"` // 规则名称
 
@@ -5377,7 +5695,7 @@ type RuleBuilder struct {
 	action    *RuleAction // 匹配命中后的操作
 	actionSet bool
 
-	ignoreTheRestOfRules    bool // 是否终点规则
+	ignoreTheRestOfRules    bool // 是否终止规则
 	ignoreTheRestOfRulesSet bool
 
 	name    string // 规则名称
@@ -5419,7 +5737,7 @@ func (builder *RuleBuilder) Action(action *RuleAction) *RuleBuilder {
 	return builder
 }
 
-// 是否终点规则
+// 是否终止规则
 //
 // 示例值：false
 func (builder *RuleBuilder) IgnoreTheRestOfRules(ignoreTheRestOfRules bool) *RuleBuilder {
@@ -5474,11 +5792,11 @@ func (builder *RuleBuilder) Build() *Rule {
 }
 
 type RuleAction struct {
-	Items []*RuleActionItem `json:"items,omitempty"` // 匹配中规则后的操作列表
+	Items []*RuleActionItem `json:"items,omitempty"` // 匹配命中规则后的操作列表
 }
 
 type RuleActionBuilder struct {
-	items    []*RuleActionItem // 匹配中规则后的操作列表
+	items    []*RuleActionItem // 匹配命中规则后的操作列表
 	itemsSet bool
 }
 
@@ -5487,7 +5805,7 @@ func NewRuleActionBuilder() *RuleActionBuilder {
 	return builder
 }
 
-// 匹配中规则后的操作列表
+// 匹配命中规则后的操作列表
 //
 // 示例值：
 func (builder *RuleActionBuilder) Items(items []*RuleActionItem) *RuleActionBuilder {
@@ -5722,7 +6040,7 @@ func NewSecurityLevelBuilder() *SecurityLevelBuilder {
 
 // 是否风险邮件
 //
-// 示例值：
+// 示例值：false
 func (builder *SecurityLevelBuilder) IsRisk(isRisk bool) *SecurityLevelBuilder {
 	builder.isRisk = isRisk
 	builder.isRiskSet = true
@@ -5749,7 +6067,7 @@ func (builder *SecurityLevelBuilder) RiskBannerReason(riskBannerReason string) *
 
 // 发件人是否外部邮件
 //
-// 示例值：
+// 示例值：false
 func (builder *SecurityLevelBuilder) IsHeaderFromExternal(isHeaderFromExternal bool) *SecurityLevelBuilder {
 	builder.isHeaderFromExternal = isHeaderFromExternal
 	builder.isHeaderFromExternalSet = true
@@ -6289,16 +6607,16 @@ func (builder *ThreadBuilder) Build() *Thread {
 }
 
 type TimeRange struct {
-	StartTime *string `json:"start_time,omitempty"` // 时间范围的开始时间。（iso8601）精确到秒
+	StartTime *string `json:"start_time,omitempty"` // 时间范围的开始时间（start_time），ISO 8601 格式，精确到秒。使用 create_time 时间范围筛选时需与 end_time 同时传入。
 
-	EndTime *string `json:"end_time,omitempty"` // 时间范围的截止时间。（iso8601）精确到秒
+	EndTime *string `json:"end_time,omitempty"` // 时间范围的截止时间（end_time），ISO 8601 格式，精确到秒。使用 create_time 时间范围筛选时需与 start_time 同时传入。
 }
 
 type TimeRangeBuilder struct {
-	startTime    string // 时间范围的开始时间。（iso8601）精确到秒
+	startTime    string // 时间范围的开始时间（start_time），ISO 8601 格式，精确到秒。使用 create_time 时间范围筛选时需与 end_time 同时传入。
 	startTimeSet bool
 
-	endTime    string // 时间范围的截止时间。（iso8601）精确到秒
+	endTime    string // 时间范围的截止时间（end_time），ISO 8601 格式，精确到秒。使用 create_time 时间范围筛选时需与 start_time 同时传入。
 	endTimeSet bool
 }
 
@@ -6307,7 +6625,7 @@ func NewTimeRangeBuilder() *TimeRangeBuilder {
 	return builder
 }
 
-// 时间范围的开始时间。（iso8601）精确到秒
+// 时间范围的开始时间（start_time），ISO 8601 格式，精确到秒。使用 create_time 时间范围筛选时需与 end_time 同时传入。
 //
 // 示例值：2026-03-10T00:00:00+08:00
 func (builder *TimeRangeBuilder) StartTime(startTime string) *TimeRangeBuilder {
@@ -6316,7 +6634,7 @@ func (builder *TimeRangeBuilder) StartTime(startTime string) *TimeRangeBuilder {
 	return builder
 }
 
-// 时间范围的截止时间。（iso8601）精确到秒
+// 时间范围的截止时间（end_time），ISO 8601 格式，精确到秒。使用 create_time 时间范围筛选时需与 start_time 同时传入。
 //
 // 示例值：2026-03-10T00:00:00+08:00
 func (builder *TimeRangeBuilder) EndTime(endTime string) *TimeRangeBuilder {
@@ -6430,8 +6748,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -6439,8 +6755,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -6448,8 +6762,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -6475,21 +6787,21 @@ func (builder *UserIdBuilder) Build() *UserId {
 }
 
 type UserInfo struct {
-	Type *string `json:"type,omitempty"` // 个人邮箱还是公共邮箱
+	Type *string `json:"type,omitempty"` // owner是个人邮箱还是公共邮箱;;**示例值**：;- `user`：个人邮箱;- `public_mailbox`：公共邮箱
 
-	OwnerUserId *string `json:"owner_user_id,omitempty"` // 卡片owner的ID，卡片owner为个人邮箱时非空
+	OwnerUserId *string `json:"owner_user_id,omitempty"` // 邮件卡片owner的ID，type为`user`时非空（与`user_id_type`对应）;
 
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // 公共邮箱唯一标识
+	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // 公共邮箱唯一标识，type为`public_mailbox`时非空
 }
 
 type UserInfoBuilder struct {
-	type_    string // 个人邮箱还是公共邮箱
+	type_    string // owner是个人邮箱还是公共邮箱;;**示例值**：;- `user`：个人邮箱;- `public_mailbox`：公共邮箱
 	type_Set bool
 
-	ownerUserId    string // 卡片owner的ID，卡片owner为个人邮箱时非空
+	ownerUserId    string // 邮件卡片owner的ID，type为`user`时非空（与`user_id_type`对应）;
 	ownerUserIdSet bool
 
-	publicMailboxId    string // 公共邮箱唯一标识
+	publicMailboxId    string // 公共邮箱唯一标识，type为`public_mailbox`时非空
 	publicMailboxIdSet bool
 }
 
@@ -6498,16 +6810,16 @@ func NewUserInfoBuilder() *UserInfoBuilder {
 	return builder
 }
 
-// 个人邮箱还是公共邮箱
+// owner是个人邮箱还是公共邮箱;;**示例值**：;- `user`：个人邮箱;- `public_mailbox`：公共邮箱
 //
-// 示例值：user 或 public_mailbox
+// 示例值：user
 func (builder *UserInfoBuilder) Type(type_ string) *UserInfoBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
 	return builder
 }
 
-// 卡片owner的ID，卡片owner为个人邮箱时非空
+// 邮件卡片owner的ID，type为`user`时非空（与`user_id_type`对应）;
 //
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad115d62
 func (builder *UserInfoBuilder) OwnerUserId(ownerUserId string) *UserInfoBuilder {
@@ -6516,9 +6828,9 @@ func (builder *UserInfoBuilder) OwnerUserId(ownerUserId string) *UserInfoBuilder
 	return builder
 }
 
-// 公共邮箱唯一标识
+// 公共邮箱唯一标识，type为`public_mailbox`时非空
 //
-// 示例值：xxxxxxxxxx
+// 示例值：xxx
 func (builder *UserInfoBuilder) PublicMailboxId(publicMailboxId string) *UserInfoBuilder {
 	builder.publicMailboxId = publicMailboxId
 	builder.publicMailboxIdSet = true
@@ -6543,26 +6855,26 @@ func (builder *UserInfoBuilder) Build() *UserInfo {
 }
 
 type UserMailEntity struct {
-	Type *int `json:"type,omitempty"` // 邮箱类型
+	Type *int `json:"type,omitempty"` // 邮箱类型，目前initiator类型只有用户邮箱、公共邮箱和邮件组
 
 	EmailAddress *string `json:"email_address,omitempty"` // 邮箱地址
 
-	EntityId *string `json:"entity_id,omitempty"` // 公共邮箱、邮件组实体ID
+	EntityId *string `json:"entity_id,omitempty"` // 当邮箱类型为公共邮箱和邮件组时非空，表示公共邮箱的ID或邮件组ID
 
-	UserId *string `json:"user_id,omitempty"` // 个人邮箱，用户ID
+	UserId *string `json:"user_id,omitempty"` // 邮箱类型为个人邮箱时非空，邮箱所有者的用户ID，根据`user_id_type`返回对应的类型
 }
 
 type UserMailEntityBuilder struct {
-	type_    int // 邮箱类型
+	type_    int // 邮箱类型，目前initiator类型只有用户邮箱、公共邮箱和邮件组
 	type_Set bool
 
 	emailAddress    string // 邮箱地址
 	emailAddressSet bool
 
-	entityId    string // 公共邮箱、邮件组实体ID
+	entityId    string // 当邮箱类型为公共邮箱和邮件组时非空，表示公共邮箱的ID或邮件组ID
 	entityIdSet bool
 
-	userId    string // 个人邮箱，用户ID
+	userId    string // 邮箱类型为个人邮箱时非空，邮箱所有者的用户ID，根据`user_id_type`返回对应的类型
 	userIdSet bool
 }
 
@@ -6571,9 +6883,9 @@ func NewUserMailEntityBuilder() *UserMailEntityBuilder {
 	return builder
 }
 
-// 邮箱类型
+// 邮箱类型，目前initiator类型只有用户邮箱、公共邮箱和邮件组
 //
-// 示例值：
+// 示例值：3
 func (builder *UserMailEntityBuilder) Type(type_ int) *UserMailEntityBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
@@ -6582,23 +6894,23 @@ func (builder *UserMailEntityBuilder) Type(type_ int) *UserMailEntityBuilder {
 
 // 邮箱地址
 //
-// 示例值：user@xxx.xx
+// 示例值：Alice_group@outlook.com
 func (builder *UserMailEntityBuilder) EmailAddress(emailAddress string) *UserMailEntityBuilder {
 	builder.emailAddress = emailAddress
 	builder.emailAddressSet = true
 	return builder
 }
 
-// 公共邮箱、邮件组实体ID
+// 当邮箱类型为公共邮箱和邮件组时非空，表示公共邮箱的ID或邮件组ID
 //
-// 示例值：xxxxx
+// 示例值：VZ1O1Z2PE0W486E
 func (builder *UserMailEntityBuilder) EntityId(entityId string) *UserMailEntityBuilder {
 	builder.entityId = entityId
 	builder.entityIdSet = true
 	return builder
 }
 
-// 个人邮箱，用户ID
+// 邮箱类型为个人邮箱时非空，邮箱所有者的用户ID，根据`user_id_type`返回对应的类型
 //
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad115d62
 func (builder *UserMailEntityBuilder) UserId(userId string) *UserMailEntityBuilder {
@@ -6882,7 +7194,7 @@ func (builder *UserMailboxSignatureBuilder) Images(images []*UserMailboxSiganatu
 
 // 企业签名模版变量值
 //
-// 示例值：
+// 示例值：{"BNAME": "xxxx"}
 func (builder *UserMailboxSignatureBuilder) UserFields(userFields map[string]*UserMailboxSignatureI18nVal) *UserMailboxSignatureBuilder {
 	builder.userFields = userFields
 	builder.userFieldsSet = true
@@ -6953,7 +7265,7 @@ func (builder *UserMailboxSignatureI18nValBuilder) DefaultVal(defaultVal string)
 
 // 国际化值映射，key 为语言标识（如 zh_cn、en_us），value 为对应语言的值
 //
-// 示例值：
+// 示例值：zh_cn
 func (builder *UserMailboxSignatureI18nValBuilder) I18nVals(i18nVals map[string]string) *UserMailboxSignatureI18nValBuilder {
 	builder.i18nVals = i18nVals
 	builder.i18nValsSet = true
@@ -7073,21 +7385,21 @@ type CreateMailgroupReq struct {
 }
 
 type CreateMailgroupRespData struct {
-	MailgroupId *string `json:"mailgroup_id,omitempty"` // The unique ID of a mail group
+	MailgroupId *string `json:"mailgroup_id,omitempty"` // 邮件组ID
 
-	Email *string `json:"email,omitempty"` // The mail group's email address
+	Email *string `json:"email,omitempty"` // 邮件组地址
 
-	Name *string `json:"name,omitempty"` // The mail group's display name
+	Name *string `json:"name,omitempty"` // 邮件组名称
 
-	Description *string `json:"description,omitempty"` // The mail group's description
+	Description *string `json:"description,omitempty"` // 邮件组描述
 
-	DirectMembersCount *string `json:"direct_members_count,omitempty"` // The number of mail group's direct members
+	DirectMembersCount *string `json:"direct_members_count,omitempty"` // 邮件组成员数量
 
-	IncludeExternalMember *bool `json:"include_external_member,omitempty"` // Value is true if this mail group has external member
+	IncludeExternalMember *bool `json:"include_external_member,omitempty"` // 是否包含外部成员
 
-	IncludeAllCompanyMember *bool `json:"include_all_company_member,omitempty"` // Value is true if all company members are in this mail group
+	IncludeAllCompanyMember *bool `json:"include_all_company_member,omitempty"` // 是否是全员邮件组
 
-	WhoCanSendMail *string `json:"who_can_send_mail,omitempty"` // Who can send mail to this mail group. Possible values are:;- ANYONE: Any Internet user can send mail to this mail group;- ALL_INTERNAL_USERS: Anyone in the team can send mail to this mail group;- ALL_GROUP_MEMBERS: Any group member can send mail to this mail group;- CUSTOM_MEMBERS: Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
+	WhoCanSendMail *string `json:"who_can_send_mail,omitempty"` // 谁可发送邮件到此邮件组
 }
 
 type CreateMailgroupResp struct {
@@ -7174,21 +7486,21 @@ type GetMailgroupReq struct {
 }
 
 type GetMailgroupRespData struct {
-	MailgroupId *string `json:"mailgroup_id,omitempty"` // The unique ID of a mail group
+	MailgroupId *string `json:"mailgroup_id,omitempty"` // 邮件组ID
 
-	Email *string `json:"email,omitempty"` // The mail group's email address
+	Email *string `json:"email,omitempty"` // 邮件组地址
 
-	Name *string `json:"name,omitempty"` // The mail group's display name
+	Name *string `json:"name,omitempty"` // 邮件组名称
 
-	Description *string `json:"description,omitempty"` // The mail group's description
+	Description *string `json:"description,omitempty"` // 邮件组描述
 
-	DirectMembersCount *string `json:"direct_members_count,omitempty"` // The number of mail group's direct members
+	DirectMembersCount *string `json:"direct_members_count,omitempty"` // 邮件组成员数量
 
-	IncludeExternalMember *bool `json:"include_external_member,omitempty"` // Value is true if this mail group has external member
+	IncludeExternalMember *bool `json:"include_external_member,omitempty"` // 是否包含外部成员
 
-	IncludeAllCompanyMember *bool `json:"include_all_company_member,omitempty"` // Value is true if all company members are in this mail group
+	IncludeAllCompanyMember *bool `json:"include_all_company_member,omitempty"` // 是否是全员邮件组
 
-	WhoCanSendMail *string `json:"who_can_send_mail,omitempty"` // Who can send mail to this mail group. Possible values are:;- ANYONE: Any Internet user can send mail to this mail group;- ALL_INTERNAL_USERS: Anyone in the team can send mail to this mail group;- ALL_GROUP_MEMBERS: Any group member can send mail to this mail group;- CUSTOM_MEMBERS: Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
+	WhoCanSendMail *string `json:"who_can_send_mail,omitempty"` // 谁可发送邮件到此邮件组
 }
 
 type GetMailgroupResp struct {
@@ -7307,7 +7619,7 @@ func (builder *PatchMailgroupReqBuilder) MailgroupId(mailgroupId string) *PatchM
 	return builder
 }
 
-// 更新邮件组部分字段，没有填写的字段不会被更新
+// 更新邮件组部分字段，没有填写的字段不会被更新。
 func (builder *PatchMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *PatchMailgroupReqBuilder {
 	builder.mailgroup = mailgroup
 	return builder
@@ -7327,21 +7639,21 @@ type PatchMailgroupReq struct {
 }
 
 type PatchMailgroupRespData struct {
-	MailgroupId *string `json:"mailgroup_id,omitempty"` // The unique ID of a mail group
+	MailgroupId *string `json:"mailgroup_id,omitempty"` // 邮件组ID
 
-	Email *string `json:"email,omitempty"` // The mail group's email address
+	Email *string `json:"email,omitempty"` // 邮件组地址
 
-	Name *string `json:"name,omitempty"` // The mail group's display name
+	Name *string `json:"name,omitempty"` // 邮件组名称
 
-	Description *string `json:"description,omitempty"` // The mail group's description
+	Description *string `json:"description,omitempty"` // 邮件组描述
 
-	DirectMembersCount *string `json:"direct_members_count,omitempty"` // The number of mail group's direct members
+	DirectMembersCount *string `json:"direct_members_count,omitempty"` // 邮件组成员数量
 
-	IncludeExternalMember *bool `json:"include_external_member,omitempty"` // Value is true if this mail group has external member
+	IncludeExternalMember *bool `json:"include_external_member,omitempty"` // 是否包含外部成员
 
-	IncludeAllCompanyMember *bool `json:"include_all_company_member,omitempty"` // Value is true if all company members are in this mail group
+	IncludeAllCompanyMember *bool `json:"include_all_company_member,omitempty"` // 是否是全员邮件组
 
-	WhoCanSendMail *string `json:"who_can_send_mail,omitempty"` // Who can send mail to this mail group. Possible values are:;- ANYONE: Any Internet user can send mail to this mail group;- ALL_INTERNAL_USERS: Anyone in the team can send mail to this mail group;- ALL_GROUP_MEMBERS: Any group member can send mail to this mail group;- CUSTOM_MEMBERS: Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
+	WhoCanSendMail *string `json:"who_can_send_mail,omitempty"` // 谁可发送邮件到此邮件组
 }
 
 type PatchMailgroupResp struct {
@@ -7376,7 +7688,7 @@ func (builder *UpdateMailgroupReqBuilder) MailgroupId(mailgroupId string) *Updat
 	return builder
 }
 
-// 更新邮件组所有信息
+// 更新邮件组所有信息。
 func (builder *UpdateMailgroupReqBuilder) Mailgroup(mailgroup *Mailgroup) *UpdateMailgroupReqBuilder {
 	builder.mailgroup = mailgroup
 	return builder
@@ -7396,21 +7708,21 @@ type UpdateMailgroupReq struct {
 }
 
 type UpdateMailgroupRespData struct {
-	MailgroupId *string `json:"mailgroup_id,omitempty"` // The unique ID of a mail group
+	MailgroupId *string `json:"mailgroup_id,omitempty"` // 邮件组ID
 
-	Email *string `json:"email,omitempty"` // The mail group's email address
+	Email *string `json:"email,omitempty"` // 邮件组地址
 
-	Name *string `json:"name,omitempty"` // The mail group's display name
+	Name *string `json:"name,omitempty"` // 邮件组名称
 
-	Description *string `json:"description,omitempty"` // The mail group's description
+	Description *string `json:"description,omitempty"` // 邮件组描述
 
-	DirectMembersCount *string `json:"direct_members_count,omitempty"` // The number of mail group's direct members
+	DirectMembersCount *string `json:"direct_members_count,omitempty"` // 邮件组成员数量
 
-	IncludeExternalMember *bool `json:"include_external_member,omitempty"` // Value is true if this mail group has external member
+	IncludeExternalMember *bool `json:"include_external_member,omitempty"` // 是否包含外部成员
 
-	IncludeAllCompanyMember *bool `json:"include_all_company_member,omitempty"` // Value is true if all company members are in this mail group
+	IncludeAllCompanyMember *bool `json:"include_all_company_member,omitempty"` // 是否是全员邮件组
 
-	WhoCanSendMail *string `json:"who_can_send_mail,omitempty"` // Who can send mail to this mail group. Possible values are:;- ANYONE: Any Internet user can send mail to this mail group;- ALL_INTERNAL_USERS: Anyone in the team can send mail to this mail group;- ALL_GROUP_MEMBERS: Any group member can send mail to this mail group;- CUSTOM_MEMBERS: Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
+	WhoCanSendMail *string `json:"who_can_send_mail,omitempty"` // 谁可发送邮件到此邮件组
 }
 
 type UpdateMailgroupResp struct {
@@ -7437,7 +7749,7 @@ func NewCreateMailgroupAliasReqBuilder() *CreateMailgroupAliasReqBuilder {
 	return builder
 }
 
-// 邮件组id或邮件组邮箱地址
+// 邮件组ID或邮件组邮箱地址
 //
 // 示例值：xxxxxx 或者 xxx@xx.xxx
 func (builder *CreateMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *CreateMailgroupAliasReqBuilder {
@@ -7445,7 +7757,7 @@ func (builder *CreateMailgroupAliasReqBuilder) MailgroupId(mailgroupId string) *
 	return builder
 }
 
-// 创建邮件组别名
+// 创建邮件组别名。
 func (builder *CreateMailgroupAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreateMailgroupAliasReqBuilder {
 	builder.emailAlias = emailAlias
 	return builder
@@ -7585,7 +7897,7 @@ func NewBatchCreateMailgroupManagerReqBodyBuilder() *BatchCreateMailgroupManager
 
 // 邮件组管理员列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateMailgroupManagerReqBodyBuilder) MailgroupManagerList(mailgroupManagerList []*MailgroupManager) *BatchCreateMailgroupManagerReqBodyBuilder {
 	builder.mailgroupManagerList = mailgroupManagerList
 	builder.mailgroupManagerListSet = true
@@ -7657,7 +7969,7 @@ func (builder *BatchCreateMailgroupManagerReqBuilder) UserIdType(userIdType stri
 	return builder
 }
 
-// 批量创建邮件组管理员
+// 批量创建邮件组管理员。
 func (builder *BatchCreateMailgroupManagerReqBuilder) Body(body *BatchCreateMailgroupManagerReqBody) *BatchCreateMailgroupManagerReqBuilder {
 	builder.body = body
 	return builder
@@ -7702,7 +8014,7 @@ func NewBatchDeleteMailgroupManagerReqBodyBuilder() *BatchDeleteMailgroupManager
 
 // 邮件组管理员列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchDeleteMailgroupManagerReqBodyBuilder) MailgroupManagerList(mailgroupManagerList []*MailgroupManager) *BatchDeleteMailgroupManagerReqBodyBuilder {
 	builder.mailgroupManagerList = mailgroupManagerList
 	builder.mailgroupManagerListSet = true
@@ -7774,7 +8086,7 @@ func (builder *BatchDeleteMailgroupManagerReqBuilder) UserIdType(userIdType stri
 	return builder
 }
 
-// 批量删除邮件组管理员
+// 批量删除邮件组管理员。
 func (builder *BatchDeleteMailgroupManagerReqBuilder) Body(body *BatchDeleteMailgroupManagerReqBody) *BatchDeleteMailgroupManagerReqBuilder {
 	builder.body = body
 	return builder
@@ -7904,7 +8216,7 @@ func NewBatchCreateMailgroupMemberReqBodyBuilder() *BatchCreateMailgroupMemberRe
 
 // 本次添加的邮件组成员列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateMailgroupMemberReqBodyBuilder) Items(items []*MailgroupMember) *BatchCreateMailgroupMemberReqBodyBuilder {
 	builder.items = items
 	builder.itemsSet = true
@@ -7978,13 +8290,13 @@ func (builder *BatchCreateMailgroupMemberReqBuilder) UserIdType(userIdType strin
 
 // 此次调用中使用的部门ID的类型
 //
-// 示例值：
+// 示例值：open_department_id
 func (builder *BatchCreateMailgroupMemberReqBuilder) DepartmentIdType(departmentIdType string) *BatchCreateMailgroupMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 
-//
+// 一次请求可以给一个邮件组添加多个成员。
 func (builder *BatchCreateMailgroupMemberReqBuilder) Body(body *BatchCreateMailgroupMemberReqBody) *BatchCreateMailgroupMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -8034,7 +8346,7 @@ func NewBatchDeleteMailgroupMemberReqBodyBuilder() *BatchDeleteMailgroupMemberRe
 
 // 本次调用删除的成员ID列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchDeleteMailgroupMemberReqBodyBuilder) MemberIdList(memberIdList []string) *BatchDeleteMailgroupMemberReqBodyBuilder {
 	builder.memberIdList = memberIdList
 	builder.memberIdListSet = true
@@ -8098,7 +8410,7 @@ func (builder *BatchDeleteMailgroupMemberReqBuilder) MailgroupId(mailgroupId str
 	return builder
 }
 
-//
+// 一次请求可以删除一个邮件组中的多个成员。
 func (builder *BatchDeleteMailgroupMemberReqBuilder) Body(body *BatchDeleteMailgroupMemberReqBody) *BatchDeleteMailgroupMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -8168,7 +8480,7 @@ func (builder *CreateMailgroupMemberReqBuilder) DepartmentIdType(departmentIdTyp
 	return builder
 }
 
-// 向邮件组添加单个成员
+// 向邮件组添加单个成员。
 func (builder *CreateMailgroupMemberReqBuilder) MailgroupMember(mailgroupMember *MailgroupMember) *CreateMailgroupMemberReqBuilder {
 	builder.mailgroupMember = mailgroupMember
 	return builder
@@ -8193,9 +8505,9 @@ type CreateMailgroupMemberRespData struct {
 
 	Email *string `json:"email,omitempty"` // The member's email address. Value is valid when type is one of USER/EXTERNAL_USER/MAIL_GROUP/PUBLIC_MAILBOX/OTHER_MEMBER
 
-	UserId *string `json:"user_id,omitempty"` // The member's user id. Value is valid when type is USER
+	UserId *string `json:"user_id,omitempty"` // 租户内用户的唯一标识（当成员类型是USER时有值）
 
-	DepartmentId *string `json:"department_id,omitempty"` // The member's department id. Value is valid when type is DEPARTMENT
+	DepartmentId *string `json:"department_id,omitempty"` // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
 
 	Type *string `json:"type,omitempty"` // The type of member. Possible values are:;- USER: internal user in the team;- DEPARTMENT: member is a department;- COMPANY: member is the company;- EXTERNAL_USER: internet user outside the organization;- MAIL_GROUP: member is another mail group;- PUBLIC_MAILBOX: member is a public mailbox;- OTHER_MEMBER: other internal member
 }
@@ -8321,9 +8633,9 @@ type GetMailgroupMemberRespData struct {
 
 	Email *string `json:"email,omitempty"` // The member's email address. Value is valid when type is one of USER/EXTERNAL_USER/MAIL_GROUP/PUBLIC_MAILBOX/OTHER_MEMBER
 
-	UserId *string `json:"user_id,omitempty"` // The member's user id. Value is valid when type is USER
+	UserId *string `json:"user_id,omitempty"` // 租户内用户的唯一标识（当成员类型是USER时有值）
 
-	DepartmentId *string `json:"department_id,omitempty"` // The member's department id. Value is valid when type is DEPARTMENT
+	DepartmentId *string `json:"department_id,omitempty"` // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
 
 	Type *string `json:"type,omitempty"` // The type of member. Possible values are:;- USER: internal user in the team;- DEPARTMENT: member is a department;- COMPANY: member is the company;- EXTERNAL_USER: internet user outside the organization;- MAIL_GROUP: member is another mail group;- PUBLIC_MAILBOX: member is a public mailbox;- OTHER_MEMBER: other internal member
 }
@@ -8443,7 +8755,7 @@ func NewBatchCreateMailgroupPermissionMemberReqBodyBuilder() *BatchCreateMailgro
 
 // 本次添加的邮件组权限成员列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateMailgroupPermissionMemberReqBodyBuilder) Items(items []*MailgroupPermissionMember) *BatchCreateMailgroupPermissionMemberReqBodyBuilder {
 	builder.items = items
 	builder.itemsSet = true
@@ -8523,7 +8835,7 @@ func (builder *BatchCreateMailgroupPermissionMemberReqBuilder) DepartmentIdType(
 	return builder
 }
 
-//
+// 一次请求可以给一个邮件组添加多个权限成员。
 func (builder *BatchCreateMailgroupPermissionMemberReqBuilder) Body(body *BatchCreateMailgroupPermissionMemberReqBody) *BatchCreateMailgroupPermissionMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -8573,7 +8885,7 @@ func NewBatchDeleteMailgroupPermissionMemberReqBodyBuilder() *BatchDeleteMailgro
 
 // 本次调用删除的权限成员ID列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchDeleteMailgroupPermissionMemberReqBodyBuilder) PermissionMemberIdList(permissionMemberIdList []string) *BatchDeleteMailgroupPermissionMemberReqBodyBuilder {
 	builder.permissionMemberIdList = permissionMemberIdList
 	builder.permissionMemberIdListSet = true
@@ -8637,7 +8949,7 @@ func (builder *BatchDeleteMailgroupPermissionMemberReqBuilder) MailgroupId(mailg
 	return builder
 }
 
-//
+// 一次请求可以删除一个邮件组中的多个权限成员。
 func (builder *BatchDeleteMailgroupPermissionMemberReqBuilder) Body(body *BatchDeleteMailgroupPermissionMemberReqBody) *BatchDeleteMailgroupPermissionMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -8707,7 +9019,7 @@ func (builder *CreateMailgroupPermissionMemberReqBuilder) DepartmentIdType(depar
 	return builder
 }
 
-// 向邮件组添加单个自定义权限成员，添加后该成员可发送邮件到该邮件组
+// 向邮件组添加单个自定义权限成员，添加后该成员可发送邮件到该邮件组。
 func (builder *CreateMailgroupPermissionMemberReqBuilder) MailgroupPermissionMember(mailgroupPermissionMember *MailgroupPermissionMember) *CreateMailgroupPermissionMemberReqBuilder {
 	builder.mailgroupPermissionMember = mailgroupPermissionMember
 	return builder
@@ -8730,9 +9042,9 @@ type CreateMailgroupPermissionMemberReq struct {
 type CreateMailgroupPermissionMemberRespData struct {
 	PermissionMemberId *string `json:"permission_member_id,omitempty"` // The unique ID of a member in this permission group
 
-	UserId *string `json:"user_id,omitempty"` // The member's user id. Value is valid when type is USER
+	UserId *string `json:"user_id,omitempty"` // 租户内用户的唯一标识（当成员类型是USER时有值）
 
-	DepartmentId *string `json:"department_id,omitempty"` // The member's department id. Value is valid when type is DEPARTMENT
+	DepartmentId *string `json:"department_id,omitempty"` // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
 
 	Email *string `json:"email,omitempty"` // The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
 
@@ -8858,9 +9170,9 @@ type GetMailgroupPermissionMemberReq struct {
 type GetMailgroupPermissionMemberRespData struct {
 	PermissionMemberId *string `json:"permission_member_id,omitempty"` // The unique ID of a member in this permission group
 
-	UserId *string `json:"user_id,omitempty"` // The member's user id. Value is valid when type is USER
+	UserId *string `json:"user_id,omitempty"` // 租户内用户的唯一标识（当成员类型是USER时有值）
 
-	DepartmentId *string `json:"department_id,omitempty"` // The member's department id. Value is valid when type is DEPARTMENT
+	DepartmentId *string `json:"department_id,omitempty"` // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
 
 	Email *string `json:"email,omitempty"` // The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
 
@@ -8970,6 +9282,152 @@ func (resp *ListMailgroupPermissionMemberResp) Success() bool {
 	return resp.Code == 0
 }
 
+type SearchMultiEntityReqBodyBuilder struct {
+	query    string // 搜索关键词;;**数据校验规则：** 长度范围：1 字符 ～ 50 字符;
+	querySet bool
+
+	size    int // 获取的数据条数，**默认20，支持1-20**
+	sizeSet bool
+}
+
+func NewSearchMultiEntityReqBodyBuilder() *SearchMultiEntityReqBodyBuilder {
+	builder := &SearchMultiEntityReqBodyBuilder{}
+	return builder
+}
+
+// 搜索关键词;;**数据校验规则：** 长度范围：1 字符 ～ 50 字符;
+//
+// 示例值：周会
+func (builder *SearchMultiEntityReqBodyBuilder) Query(query string) *SearchMultiEntityReqBodyBuilder {
+	builder.query = query
+	builder.querySet = true
+	return builder
+}
+
+// 获取的数据条数，**默认20，支持1-20**
+//
+// 示例值：20
+func (builder *SearchMultiEntityReqBodyBuilder) Size(size int) *SearchMultiEntityReqBodyBuilder {
+	builder.size = size
+	builder.sizeSet = true
+	return builder
+}
+
+func (builder *SearchMultiEntityReqBodyBuilder) Build() *SearchMultiEntityReqBody {
+	req := &SearchMultiEntityReqBody{}
+	if builder.querySet {
+		req.Query = &builder.query
+	}
+	if builder.sizeSet {
+		req.Size = &builder.size
+	}
+	return req
+}
+
+type SearchMultiEntityPathReqBodyBuilder struct {
+	query    string
+	querySet bool
+	size     int
+	sizeSet  bool
+}
+
+func NewSearchMultiEntityPathReqBodyBuilder() *SearchMultiEntityPathReqBodyBuilder {
+	builder := &SearchMultiEntityPathReqBodyBuilder{}
+	return builder
+}
+
+// 搜索关键词;;**数据校验规则：** 长度范围：1 字符 ～ 50 字符;
+//
+// 示例值：周会
+func (builder *SearchMultiEntityPathReqBodyBuilder) Query(query string) *SearchMultiEntityPathReqBodyBuilder {
+	builder.query = query
+	builder.querySet = true
+	return builder
+}
+
+// 获取的数据条数，**默认20，支持1-20**
+//
+// 示例值：20
+func (builder *SearchMultiEntityPathReqBodyBuilder) Size(size int) *SearchMultiEntityPathReqBodyBuilder {
+	builder.size = size
+	builder.sizeSet = true
+	return builder
+}
+
+func (builder *SearchMultiEntityPathReqBodyBuilder) Build() (*SearchMultiEntityReqBody, error) {
+	req := &SearchMultiEntityReqBody{}
+	if builder.querySet {
+		req.Query = &builder.query
+	}
+	if builder.sizeSet {
+		req.Size = &builder.size
+	}
+	return req, nil
+}
+
+type SearchMultiEntityReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchMultiEntityReqBody
+}
+
+func NewSearchMultiEntityReqBuilder() *SearchMultiEntityReqBuilder {
+	builder := &SearchMultiEntityReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *SearchMultiEntityReqBuilder) UserIdType(userIdType string) *SearchMultiEntityReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 多实体搜索，适用于写信联系人搜索
+func (builder *SearchMultiEntityReqBuilder) Body(body *SearchMultiEntityReqBody) *SearchMultiEntityReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchMultiEntityReqBuilder) Build() *SearchMultiEntityReq {
+	req := &SearchMultiEntityReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchMultiEntityReqBody struct {
+	Query *string `json:"query,omitempty"` // 搜索关键词;;**数据校验规则：** 长度范围：1 字符 ～ 50 字符;
+
+	Size *int `json:"size,omitempty"` // 获取的数据条数，**默认20，支持1-20**
+}
+
+type SearchMultiEntityReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchMultiEntityReqBody `body:""`
+}
+
+type SearchMultiEntityRespData struct {
+	Items []*MultiEntitySearchItem `json:"items,omitempty"` // 返回的实体详情
+
+	Notice *string `json:"notice,omitempty"` // 搜索补充提示信息，返回本次搜索的额外说明，例如：query被截断；搜索结果不全 等
+}
+
+type SearchMultiEntityResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchMultiEntityRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchMultiEntityResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreatePublicMailboxReqBuilder struct {
 	apiReq        *larkcore.ApiReq
 	publicMailbox *PublicMailbox
@@ -8984,7 +9442,7 @@ func NewCreatePublicMailboxReqBuilder() *CreatePublicMailboxReqBuilder {
 	return builder
 }
 
-// 创建一个公共邮箱
+// 创建一个公共邮箱。
 func (builder *CreatePublicMailboxReqBuilder) PublicMailbox(publicMailbox *PublicMailbox) *CreatePublicMailboxReqBuilder {
 	builder.publicMailbox = publicMailbox
 	return builder
@@ -9003,11 +9461,11 @@ type CreatePublicMailboxReq struct {
 }
 
 type CreatePublicMailboxRespData struct {
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // The unique ID of a public mailbox
+	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // 公共邮箱唯一标识
 
-	Email *string `json:"email,omitempty"` // The public mailbox's email address
+	Email *string `json:"email,omitempty"` // 公共邮箱地址
 
-	Name *string `json:"name,omitempty"` // The public mailbox's display name
+	Name *string `json:"name,omitempty"` // 公共邮箱名称
 
 	Geo *string `json:"geo,omitempty"` // 数据驻留地
 }
@@ -9096,11 +9554,11 @@ type GetPublicMailboxReq struct {
 }
 
 type GetPublicMailboxRespData struct {
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // The unique ID of a public mailbox
+	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // 公共邮箱唯一标识
 
-	Email *string `json:"email,omitempty"` // The public mailbox's email address
+	Email *string `json:"email,omitempty"` // 公共邮箱地址
 
-	Name *string `json:"name,omitempty"` // The public mailbox's display name
+	Name *string `json:"name,omitempty"` // 公共邮箱名称
 
 	Geo *string `json:"geo,omitempty"` // 数据驻留地
 }
@@ -9221,7 +9679,7 @@ func (builder *PatchPublicMailboxReqBuilder) PublicMailboxId(publicMailboxId str
 	return builder
 }
 
-// 更新公共邮箱部分字段，没有填写的字段不会被更新
+// 更新公共邮箱部分字段，没有填写的字段不会被更新。
 func (builder *PatchPublicMailboxReqBuilder) PublicMailbox(publicMailbox *PublicMailbox) *PatchPublicMailboxReqBuilder {
 	builder.publicMailbox = publicMailbox
 	return builder
@@ -9241,11 +9699,11 @@ type PatchPublicMailboxReq struct {
 }
 
 type PatchPublicMailboxRespData struct {
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // The unique ID of a public mailbox
+	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // 公共邮箱唯一标识
 
-	Email *string `json:"email,omitempty"` // The public mailbox's email address
+	Email *string `json:"email,omitempty"` // 公共邮箱地址
 
-	Name *string `json:"name,omitempty"` // The public mailbox's display name
+	Name *string `json:"name,omitempty"` // 公共邮箱名称
 
 	Geo *string `json:"geo,omitempty"` // 数据驻留地
 }
@@ -9272,7 +9730,7 @@ func NewRemoveToRecycleBinPublicMailboxReqBodyBuilder() *RemoveToRecycleBinPubli
 
 // 接收删除邮件的邮箱地址，不填则删除该公共邮箱的邮件
 //
-//示例值：user@xxx.xx
+// 示例值：user@xxx.xx
 func (builder *RemoveToRecycleBinPublicMailboxReqBodyBuilder) ToMailAddress(toMailAddress string) *RemoveToRecycleBinPublicMailboxReqBodyBuilder {
 	builder.toMailAddress = toMailAddress
 	builder.toMailAddressSet = true
@@ -9336,7 +9794,7 @@ func (builder *RemoveToRecycleBinPublicMailboxReqBuilder) PublicMailboxId(public
 	return builder
 }
 
-//
+// 将公共邮箱移至回收站
 func (builder *RemoveToRecycleBinPublicMailboxReqBuilder) Body(body *RemoveToRecycleBinPublicMailboxReqBody) *RemoveToRecycleBinPublicMailboxReqBuilder {
 	builder.body = body
 	return builder
@@ -9390,7 +9848,7 @@ func (builder *UpdatePublicMailboxReqBuilder) PublicMailboxId(publicMailboxId st
 	return builder
 }
 
-// 更新公共邮箱所有信息
+// 更新公共邮箱所有信息。
 func (builder *UpdatePublicMailboxReqBuilder) PublicMailbox(publicMailbox *PublicMailbox) *UpdatePublicMailboxReqBuilder {
 	builder.publicMailbox = publicMailbox
 	return builder
@@ -9410,11 +9868,11 @@ type UpdatePublicMailboxReq struct {
 }
 
 type UpdatePublicMailboxRespData struct {
-	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // The unique ID of a public mailbox
+	PublicMailboxId *string `json:"public_mailbox_id,omitempty"` // 公共邮箱唯一标识
 
-	Email *string `json:"email,omitempty"` // The public mailbox's email address
+	Email *string `json:"email,omitempty"` // 公共邮箱地址
 
-	Name *string `json:"name,omitempty"` // The public mailbox's display name
+	Name *string `json:"name,omitempty"` // 公共邮箱名称
 
 	Geo *string `json:"geo,omitempty"` // 数据驻留地
 }
@@ -9443,7 +9901,7 @@ func NewCreatePublicMailboxAliasReqBuilder() *CreatePublicMailboxAliasReqBuilder
 	return builder
 }
 
-// 公共邮箱id或公共邮箱地址
+// 公共邮箱ID或公共邮箱地址
 //
 // 示例值：xxxxxx 或 xxx@xx.xxx
 func (builder *CreatePublicMailboxAliasReqBuilder) PublicMailboxId(publicMailboxId string) *CreatePublicMailboxAliasReqBuilder {
@@ -9451,7 +9909,7 @@ func (builder *CreatePublicMailboxAliasReqBuilder) PublicMailboxId(publicMailbox
 	return builder
 }
 
-// 创建公共邮箱别名
+// 创建公共邮箱别名。
 func (builder *CreatePublicMailboxAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreatePublicMailboxAliasReqBuilder {
 	builder.emailAlias = emailAlias
 	return builder
@@ -9591,7 +10049,7 @@ func NewBatchCreatePublicMailboxMemberReqBodyBuilder() *BatchCreatePublicMailbox
 
 // 本次调用添加的公共邮箱成员列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreatePublicMailboxMemberReqBodyBuilder) Items(items []*PublicMailboxMember) *BatchCreatePublicMailboxMemberReqBodyBuilder {
 	builder.items = items
 	builder.itemsSet = true
@@ -9663,7 +10121,7 @@ func (builder *BatchCreatePublicMailboxMemberReqBuilder) UserIdType(userIdType s
 	return builder
 }
 
-//
+// 一次请求可以给一个公共邮箱添加多个成员。
 func (builder *BatchCreatePublicMailboxMemberReqBuilder) Body(body *BatchCreatePublicMailboxMemberReqBody) *BatchCreatePublicMailboxMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -9713,7 +10171,7 @@ func NewBatchDeletePublicMailboxMemberReqBodyBuilder() *BatchDeletePublicMailbox
 
 // 本次调用删除的公共邮箱成员ID列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchDeletePublicMailboxMemberReqBodyBuilder) MemberIdList(memberIdList []string) *BatchDeletePublicMailboxMemberReqBodyBuilder {
 	builder.memberIdList = memberIdList
 	builder.memberIdListSet = true
@@ -9777,7 +10235,7 @@ func (builder *BatchDeletePublicMailboxMemberReqBuilder) PublicMailboxId(publicM
 	return builder
 }
 
-//
+// 一次请求可以删除一个公共邮箱中的多个成员。
 func (builder *BatchDeletePublicMailboxMemberReqBuilder) Body(body *BatchDeletePublicMailboxMemberReqBody) *BatchDeletePublicMailboxMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -9880,7 +10338,7 @@ func (builder *CreatePublicMailboxMemberReqBuilder) UserIdType(userIdType string
 	return builder
 }
 
-// 向公共邮箱添加单个成员
+// 向公共邮箱添加单个成员。
 func (builder *CreatePublicMailboxMemberReqBuilder) PublicMailboxMember(publicMailboxMember *PublicMailboxMember) *CreatePublicMailboxMemberReqBuilder {
 	builder.publicMailboxMember = publicMailboxMember
 	return builder
@@ -9903,7 +10361,7 @@ type CreatePublicMailboxMemberReq struct {
 type CreatePublicMailboxMemberRespData struct {
 	MemberId *string `json:"member_id,omitempty"` // The unique ID of a member in this public mailbox
 
-	UserId *string `json:"user_id,omitempty"` // The member's user id. Value is valid when type is USER
+	UserId *string `json:"user_id,omitempty"` // 租户内用户的唯一标识（当成员类型是USER时有值）
 
 	Type *string `json:"type,omitempty"` // The type of member. Possible values are:;- USER: internal user in the team
 }
@@ -10019,7 +10477,7 @@ type GetPublicMailboxMemberReq struct {
 type GetPublicMailboxMemberRespData struct {
 	MemberId *string `json:"member_id,omitempty"` // The unique ID of a member in this public mailbox
 
-	UserId *string `json:"user_id,omitempty"` // The member's user id. Value is valid when type is USER
+	UserId *string `json:"user_id,omitempty"` // 租户内用户的唯一标识（当成员类型是USER时有值）
 
 	Type *string `json:"type,omitempty"` // The type of member. Possible values are:;- USER: internal user in the team
 }
@@ -10131,7 +10589,7 @@ func NewQueryUserReqBodyBuilder() *QueryUserReqBodyBuilder {
 
 // 需要查询的邮箱地址列表
 //
-//示例值：["aaa@lark.com","bbb@lark.com"]
+// 示例值：
 func (builder *QueryUserReqBodyBuilder) EmailList(emailList []string) *QueryUserReqBodyBuilder {
 	builder.emailList = emailList
 	builder.emailListSet = true
@@ -10158,7 +10616,7 @@ func NewQueryUserPathReqBodyBuilder() *QueryUserPathReqBodyBuilder {
 
 // 需要查询的邮箱地址列表
 //
-// 示例值：["aaa@lark.com","bbb@lark.com"]
+// 示例值：
 func (builder *QueryUserPathReqBodyBuilder) EmailList(emailList []string) *QueryUserPathReqBodyBuilder {
 	builder.emailList = emailList
 	builder.emailListSet = true
@@ -10187,7 +10645,7 @@ func NewQueryUserReqBuilder() *QueryUserReqBuilder {
 	return builder
 }
 
-// 使用邮箱状态查询接口，可以输入邮箱地址，查询出该邮箱地址对应的类型以及状态
+// 使用邮箱状态查询接口，可以输入邮箱地址，查询出该邮箱地址对应的类型以及状态。
 func (builder *QueryUserReqBuilder) Body(body *QueryUserReqBody) *QueryUserReqBuilder {
 	builder.body = body
 	return builder
@@ -10210,7 +10668,7 @@ type QueryUserReq struct {
 }
 
 type QueryUserRespData struct {
-	UserList []*User `json:"user_list,omitempty"` // 邮箱地址以及其对应的类型类型和状态
+	UserList []*User `json:"user_list,omitempty"` // 邮箱地址以及其对应的类型和状态
 }
 
 type QueryUserResp struct {
@@ -10236,9 +10694,9 @@ func NewAccessibleMailboxesUserMailboxReqBuilder() *AccessibleMailboxesUserMailb
 	return builder
 }
 
-// 用户邮箱地址，用户身份下可以填写me。注意不可以使用公共邮箱访问此接口。
+// 用户邮箱地址，作为用户邮箱身份标识。使用 user_access_token 调用时，可使用占位符 `me` 表示当前授权用户的主邮箱。 注意：不支持使用公共邮箱访问此接口。
 //
-// 示例值：abc@abc.com
+// 示例值：user@example.com
 func (builder *AccessibleMailboxesUserMailboxReqBuilder) UserMailboxId(userMailboxId string) *AccessibleMailboxesUserMailboxReqBuilder {
 	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
@@ -10290,7 +10748,7 @@ func (builder *DeleteUserMailboxReqBuilder) UserMailboxId(userMailboxId string) 
 	return builder
 }
 
-// 用于接受转移的邮箱地址
+// 用于接收转移的邮箱地址
 //
 // 示例值：888888@abc.com
 func (builder *DeleteUserMailboxReqBuilder) TransferMailbox(transferMailbox string) *DeleteUserMailboxReqBuilder {
@@ -10319,6 +10777,229 @@ func (resp *DeleteUserMailboxResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ProfileUserMailboxReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewProfileUserMailboxReqBuilder() *ProfileUserMailboxReqBuilder {
+	builder := &ProfileUserMailboxReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 只支持填写me
+//
+// 示例值：me
+func (builder *ProfileUserMailboxReqBuilder) UserMailboxId(userMailboxId string) *ProfileUserMailboxReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+func (builder *ProfileUserMailboxReqBuilder) Build() *ProfileUserMailboxReq {
+	req := &ProfileUserMailboxReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type ProfileUserMailboxReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ProfileUserMailboxRespData struct {
+	PrimaryEmailAddress *string `json:"primary_email_address,omitempty"` // 用户主邮箱地址
+
+	NotFoundReason *string `json:"not_found_reason,omitempty"` // 邮箱地址不存在时的未命中原因；当 primary_email_address 为空时可用于判断未命中
+}
+
+type ProfileUserMailboxResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ProfileUserMailboxRespData `json:"data"` // 业务数据
+}
+
+func (resp *ProfileUserMailboxResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SearchUserMailboxReqBodyBuilder struct {
+	query    string // 搜索关键词。;**数据校验规则：**;- 长度范围：0 ～ 50 字符
+	querySet bool
+
+	filter    *MailSearchFilter //
+	filterSet bool
+}
+
+func NewSearchUserMailboxReqBodyBuilder() *SearchUserMailboxReqBodyBuilder {
+	builder := &SearchUserMailboxReqBodyBuilder{}
+	return builder
+}
+
+// 搜索关键词。;**数据校验规则：**;- 长度范围：0 ～ 50 字符
+//
+// 示例值：合同审批通知
+func (builder *SearchUserMailboxReqBodyBuilder) Query(query string) *SearchUserMailboxReqBodyBuilder {
+	builder.query = query
+	builder.querySet = true
+	return builder
+}
+
+// 示例值：
+func (builder *SearchUserMailboxReqBodyBuilder) Filter(filter *MailSearchFilter) *SearchUserMailboxReqBodyBuilder {
+	builder.filter = filter
+	builder.filterSet = true
+	return builder
+}
+
+func (builder *SearchUserMailboxReqBodyBuilder) Build() *SearchUserMailboxReqBody {
+	req := &SearchUserMailboxReqBody{}
+	if builder.querySet {
+		req.Query = &builder.query
+	}
+	if builder.filterSet {
+		req.Filter = builder.filter
+	}
+	return req
+}
+
+type SearchUserMailboxPathReqBodyBuilder struct {
+	query     string
+	querySet  bool
+	filter    *MailSearchFilter
+	filterSet bool
+}
+
+func NewSearchUserMailboxPathReqBodyBuilder() *SearchUserMailboxPathReqBodyBuilder {
+	builder := &SearchUserMailboxPathReqBodyBuilder{}
+	return builder
+}
+
+// 搜索关键词。;**数据校验规则：**;- 长度范围：0 ～ 50 字符
+//
+// 示例值：合同审批通知
+func (builder *SearchUserMailboxPathReqBodyBuilder) Query(query string) *SearchUserMailboxPathReqBodyBuilder {
+	builder.query = query
+	builder.querySet = true
+	return builder
+}
+
+// 示例值：
+func (builder *SearchUserMailboxPathReqBodyBuilder) Filter(filter *MailSearchFilter) *SearchUserMailboxPathReqBodyBuilder {
+	builder.filter = filter
+	builder.filterSet = true
+	return builder
+}
+
+func (builder *SearchUserMailboxPathReqBodyBuilder) Build() (*SearchUserMailboxReqBody, error) {
+	req := &SearchUserMailboxReqBody{}
+	if builder.querySet {
+		req.Query = &builder.query
+	}
+	if builder.filterSet {
+		req.Filter = builder.filter
+	}
+	return req, nil
+}
+
+type SearchUserMailboxReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchUserMailboxReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewSearchUserMailboxReqBuilder() *SearchUserMailboxReqBuilder {
+	builder := &SearchUserMailboxReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *SearchUserMailboxReqBuilder) Limit(limit int) *SearchUserMailboxReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 用户邮箱地址，作为用户邮箱身份标识。使用 user_access_token 调用时，可使用占位符 `me` 表示当前授权用户的主邮箱。
+//
+// 示例值：user@example.com
+func (builder *SearchUserMailboxReqBuilder) UserMailboxId(userMailboxId string) *SearchUserMailboxReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 翻页参数：单页返回结果数量。;默认值：15。;范围：1～15。
+//
+// 示例值：
+func (builder *SearchUserMailboxReqBuilder) PageSize(pageSize int) *SearchUserMailboxReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 翻页 token：首页无需传参，后续请求使用上一次返回的 page_token 实现翻页。
+//
+// 示例值：
+func (builder *SearchUserMailboxReqBuilder) PageToken(pageToken string) *SearchUserMailboxReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 搜索用户当前账户下的邮件
+func (builder *SearchUserMailboxReqBuilder) Body(body *SearchUserMailboxReqBody) *SearchUserMailboxReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchUserMailboxReqBuilder) Build() *SearchUserMailboxReq {
+	req := &SearchUserMailboxReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchUserMailboxReqBody struct {
+	Query *string `json:"query,omitempty"` // 搜索关键词。;**数据校验规则：**;- 长度范围：0 ～ 50 字符
+
+	Filter *MailSearchFilter `json:"filter,omitempty"` //
+}
+
+type SearchUserMailboxReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchUserMailboxReqBody `body:""`
+	Limit  int                       // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type SearchUserMailboxRespData struct {
+	Items []*MailSearchItem `json:"items,omitempty"` // 搜索结果列表
+
+	Total *int `json:"total,omitempty"` // 搜索命中结果数
+
+	HasMore *bool `json:"has_more,omitempty"` // 可继续翻页
+
+	PageToken *string `json:"page_token,omitempty"` // 翻页用的token。当has_more=true时，可用这个token作为入参继续翻页搜索。
+
+	Notice *string `json:"notice,omitempty"` // 搜索补充提示信息，返回本次搜索的额外说明，例如：query被截断；搜索结果不全 等
+}
+
+type SearchUserMailboxResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchUserMailboxRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchUserMailboxResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateUserMailboxAliasReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	emailAlias *EmailAlias
@@ -10341,7 +11022,7 @@ func (builder *CreateUserMailboxAliasReqBuilder) UserMailboxId(userMailboxId str
 	return builder
 }
 
-// 创建用户邮箱别名
+// 创建用户邮箱别名。
 func (builder *CreateUserMailboxAliasReqBuilder) EmailAlias(emailAlias *EmailAlias) *CreateUserMailboxAliasReqBuilder {
 	builder.emailAlias = emailAlias
 	return builder
@@ -10454,7 +11135,7 @@ func (builder *ListUserMailboxAliasReqBuilder) PageToken(pageToken string) *List
 
 // 分页大小
 //
-// 示例值：10
+// 示例值：
 func (builder *ListUserMailboxAliasReqBuilder) PageSize(pageSize int) *ListUserMailboxAliasReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -10486,6 +11167,55 @@ func (resp *ListUserMailboxAliasResp) Success() bool {
 	return resp.Code == 0
 }
 
+type CancelScheduledSendUserMailboxDraftReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewCancelScheduledSendUserMailboxDraftReqBuilder() *CancelScheduledSendUserMailboxDraftReqBuilder {
+	builder := &CancelScheduledSendUserMailboxDraftReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址。当使用用户身份访问时，可以输入"me"代表当前调用接口用户;
+//
+// 示例值：aba@aac.com
+func (builder *CancelScheduledSendUserMailboxDraftReqBuilder) UserMailboxId(userMailboxId string) *CancelScheduledSendUserMailboxDraftReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 已设置定时发送的邮件 ID
+//
+// 示例值：268dce11-85f7-427d-8756-6be3abc850fd
+func (builder *CancelScheduledSendUserMailboxDraftReqBuilder) MessageId(messageId string) *CancelScheduledSendUserMailboxDraftReqBuilder {
+	builder.apiReq.PathParams.Set("message_id", fmt.Sprint(messageId))
+	return builder
+}
+
+func (builder *CancelScheduledSendUserMailboxDraftReqBuilder) Build() *CancelScheduledSendUserMailboxDraftReq {
+	req := &CancelScheduledSendUserMailboxDraftReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type CancelScheduledSendUserMailboxDraftReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type CancelScheduledSendUserMailboxDraftResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *CancelScheduledSendUserMailboxDraftResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateUserMailboxDraftReqBodyBuilder struct {
 	raw    string // base64url 编码的完整 RFC 5822（EML）邮件内容，包含所有邮件头（Subject、From、To、Cc、Bcc 等）和邮件正文（含内联图片和附件的 MIME 结构）。原始EML大小不可超过37.5MB。
 	rawSet bool
@@ -10498,7 +11228,7 @@ func NewCreateUserMailboxDraftReqBodyBuilder() *CreateUserMailboxDraftReqBodyBui
 
 // base64url 编码的完整 RFC 5822（EML）邮件内容，包含所有邮件头（Subject、From、To、Cc、Bcc 等）和邮件正文（含内联图片和附件的 MIME 结构）。原始EML大小不可超过37.5MB。
 //
-//示例值：Q29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PSJ1cy1hc2NpaSIKTUlNRS1WZXJzaW9uOiAxLjAKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogN2JpdAp0bzogInRvIiA8dG9AeHh4Lnh4Pgpmcm9tOiAiZnJvbSIgPGZyb21AeHh4Lnh4PgpzdWJqZWN0OiB0aGlzIGlzIGEgc3ViamVjdAoKdGhpcyBpcyB0aGUgbWVzc2FnZSBib2R5Lg
+// 示例值：Q29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PSJ1cy1hc2NpaSIKTUlNRS1WZXJzaW9uOiAxLjAKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogN2JpdAp0bzogInRvIiA8dG9AeHh4Lnh4Pgpmcm9tOiAiZnJvbSIgPGZyb21AeHh4Lnh4PgpzdWJqZWN0OiB0aGlzIGlzIGEgc3ViamVjdAoKdGhpcyBpcyB0aGUgbWVzc2FnZSBib2R5Lg
 func (builder *CreateUserMailboxDraftReqBodyBuilder) Raw(raw string) *CreateUserMailboxDraftReqBodyBuilder {
 	builder.raw = raw
 	builder.rawSet = true
@@ -10554,7 +11284,7 @@ func NewCreateUserMailboxDraftReqBuilder() *CreateUserMailboxDraftReqBuilder {
 	return builder
 }
 
-// 用户邮箱地址。当使用用户身份访问时，可以输入"me"代表当前调用接口用户
+// 用户邮箱地址，作为用户邮箱身份标识。可通过获取用户邮箱信息接口获取用户主邮箱地址；使用 user_access_token 调用时，也可使用占位符 me 表示当前授权用户的主邮箱。
 //
 // 示例值：aba@aac.com 或 me
 func (builder *CreateUserMailboxDraftReqBuilder) UserMailboxId(userMailboxId string) *CreateUserMailboxDraftReqBuilder {
@@ -10562,7 +11292,7 @@ func (builder *CreateUserMailboxDraftReqBuilder) UserMailboxId(userMailboxId str
 	return builder
 }
 
-// 创建草稿
+// 根据指定的内容创建草稿
 func (builder *CreateUserMailboxDraftReqBuilder) Body(body *CreateUserMailboxDraftReqBody) *CreateUserMailboxDraftReqBuilder {
 	builder.body = body
 	return builder
@@ -10614,9 +11344,9 @@ func NewDeleteUserMailboxDraftReqBuilder() *DeleteUserMailboxDraftReqBuilder {
 	return builder
 }
 
-// 用户邮箱地址不存在，请检查输入的用户邮箱地址是否正确，或确认用户的邮箱处于正常状态
+// 用户邮箱地址，作为用户邮箱身份标识。使用 user_access_token 调用时，可使用占位符 `me` 表示当前授权用户的主邮箱。
 //
-// 示例值：aba@aac.com
+// 示例值：user@example.com
 func (builder *DeleteUserMailboxDraftReqBuilder) UserMailboxId(userMailboxId string) *DeleteUserMailboxDraftReqBuilder {
 	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
@@ -10663,7 +11393,7 @@ func NewGetUserMailboxDraftReqBuilder() *GetUserMailboxDraftReqBuilder {
 	return builder
 }
 
-// 用户邮箱地址，使用用户身份时可填写me
+// 用户邮箱地址，作为用户邮箱身份标识。可通过获取用户邮箱信息接口获取用户主邮箱地址；使用 user_access_token 调用时，也可使用占位符 me 表示当前授权用户的主邮箱。
 //
 // 示例值：aba@aac.com
 func (builder *GetUserMailboxDraftReqBuilder) UserMailboxId(userMailboxId string) *GetUserMailboxDraftReqBuilder {
@@ -10671,7 +11401,7 @@ func (builder *GetUserMailboxDraftReqBuilder) UserMailboxId(userMailboxId string
 	return builder
 }
 
-// 草稿ID，可通过列出草稿列表接口获得
+// 草稿 ID。可通过列出草稿列表接口获取。
 //
 // 示例值：268dce11-85f7-427d-8756-6be3abc850fd
 func (builder *GetUserMailboxDraftReqBuilder) DraftId(draftId string) *GetUserMailboxDraftReqBuilder {
@@ -10733,9 +11463,9 @@ func (builder *ListUserMailboxDraftReqBuilder) Limit(limit int) *ListUserMailbox
 	return builder
 }
 
-// 用户邮箱地址。当使用用户身份访问时，可以输入"me"代表当前调用接口用户
+// 用户邮箱地址，作为用户邮箱身份标识。使用 user_access_token 调用时，可使用占位符 `me` 表示当前授权用户的主邮箱。
 //
-// 示例值：user@xxx.xx 或 me
+// 示例值：user@example.com
 func (builder *ListUserMailboxDraftReqBuilder) UserMailboxId(userMailboxId string) *ListUserMailboxDraftReqBuilder {
 	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
@@ -10749,7 +11479,7 @@ func (builder *ListUserMailboxDraftReqBuilder) PageSize(pageSize int) *ListUserM
 	return builder
 }
 
-// 分页标记，配合page_size参数使用，用于获取下一页的结果。第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：xxx
 func (builder *ListUserMailboxDraftReqBuilder) PageToken(pageToken string) *ListUserMailboxDraftReqBuilder {
@@ -10802,7 +11532,7 @@ func NewSendUserMailboxDraftReqBodyBuilder() *SendUserMailboxDraftReqBodyBuilder
 
 // 定时发送的 Unix 时间戳（秒）。不传或为空时立即发送。需至少为当前时间 + 5 分钟。
 //
-//示例值：1720000000
+// 示例值：1720000000
 func (builder *SendUserMailboxDraftReqBodyBuilder) SendTime(sendTime string) *SendUserMailboxDraftReqBodyBuilder {
 	builder.sendTime = sendTime
 	builder.sendTimeSet = true
@@ -10858,7 +11588,7 @@ func NewSendUserMailboxDraftReqBuilder() *SendUserMailboxDraftReqBuilder {
 	return builder
 }
 
-// 用户邮箱地址。当使用用户身份访问时，可以输入"me"代表当前调用接口用户;
+// 用户邮箱地址。当使用用户身份访问时，可以输入"me"代表当前调用接口用户
 //
 // 示例值：aba@aac.com
 func (builder *SendUserMailboxDraftReqBuilder) UserMailboxId(userMailboxId string) *SendUserMailboxDraftReqBuilder {
@@ -10874,7 +11604,7 @@ func (builder *SendUserMailboxDraftReqBuilder) DraftId(draftId string) *SendUser
 	return builder
 }
 
-// 发送草稿
+// 发送指定草稿，并生成对应的已发送邮件和邮件会话。适用于在创建或更新草稿后触发实际发送，发送成功后返回已发送邮件 ID 和所属会话 ID。
 func (builder *SendUserMailboxDraftReqBuilder) Body(body *SendUserMailboxDraftReqBody) *SendUserMailboxDraftReqBuilder {
 	builder.body = body
 	return builder
@@ -10929,7 +11659,7 @@ func NewUpdateUserMailboxDraftReqBodyBuilder() *UpdateUserMailboxDraftReqBodyBui
 
 // base64url 编码的完整 RFC 5822（EML）邮件内容，包含所有邮件头（Subject、From、To、Cc、Bcc 等）和邮件正文（含内联图片和附件的 MIME 结构），将整体替换草稿原有内容。原始EML大小不可超过37.5MB。
 //
-//示例值：Q29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PSJ1cy1hc2NpaSIKTUlNRS1WZXJzaW9uOiAxLjAKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogN2JpdAp0bzogInRvIiA8dG9AeHh4Lnh4Pgpmcm9tOiAiZnJvbSIgPGZyb21AeHh4Lnh4PgpzdWJqZWN0OiB0aGlzIGlzIGEgc3ViamVjdAoKdGhpcyBpcyB0aGUgbWVzc2FnZSBib2R5Lg
+// 示例值：Q29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PSJ1cy1hc2NpaSIKTUlNRS1WZXJzaW9uOiAxLjAKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogN2JpdAp0bzogInRvIiA8dG9AeHh4Lnh4Pgpmcm9tOiAiZnJvbSIgPGZyb21AeHh4Lnh4PgpzdWJqZWN0OiB0aGlzIGlzIGEgc3ViamVjdAoKdGhpcyBpcyB0aGUgbWVzc2FnZSBib2R5Lg
 func (builder *UpdateUserMailboxDraftReqBodyBuilder) Raw(raw string) *UpdateUserMailboxDraftReqBodyBuilder {
 	builder.raw = raw
 	builder.rawSet = true
@@ -10985,15 +11715,15 @@ func NewUpdateUserMailboxDraftReqBuilder() *UpdateUserMailboxDraftReqBuilder {
 	return builder
 }
 
-// 用户邮箱地址，使用用户身份时可填写me
+// 用户邮箱地址。当使用用户身份访问时，可以输入"me"代表当前调用接口用户
 //
-// 示例值：aba@aac.com
+// 示例值：aba@aac.com 或 me
 func (builder *UpdateUserMailboxDraftReqBuilder) UserMailboxId(userMailboxId string) *UpdateUserMailboxDraftReqBuilder {
 	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
 }
 
-// 草稿ID，可通过创建草稿或列出草稿列表接口获得
+// 草稿ID，可通过创建草稿或列出草稿接口获得
 //
 // 示例值：268dce11-85f7-427d-8756-6be3abc850fd
 func (builder *UpdateUserMailboxDraftReqBuilder) DraftId(draftId string) *UpdateUserMailboxDraftReqBuilder {
@@ -11001,7 +11731,7 @@ func (builder *UpdateUserMailboxDraftReqBuilder) DraftId(draftId string) *Update
 	return builder
 }
 
-// 更新草稿
+// 更新指定草稿的邮件内容，包括主题、正文、收件人、抄送人、密送人和附件等信息。适用于发送前继续编辑已保存的草稿，更新成功后返回最新草稿内容。
 func (builder *UpdateUserMailboxDraftReqBuilder) Body(body *UpdateUserMailboxDraftReqBody) *UpdateUserMailboxDraftReqBuilder {
 	builder.body = body
 	return builder
@@ -11052,7 +11782,7 @@ func NewSubscribeUserMailboxEventReqBodyBuilder() *SubscribeUserMailboxEventReqB
 
 // 事件类型
 //
-//示例值：1
+// 示例值：1
 func (builder *SubscribeUserMailboxEventReqBodyBuilder) EventType(eventType int) *SubscribeUserMailboxEventReqBodyBuilder {
 	builder.eventType = eventType
 	builder.eventTypeSet = true
@@ -11108,7 +11838,7 @@ func NewSubscribeUserMailboxEventReqBuilder() *SubscribeUserMailboxEventReqBuild
 	return builder
 }
 
-// 用户邮箱地址，使用 user_access_token 时可使用 me
+// 用户邮箱地址，作为用户邮箱身份标识。可通过获取用户邮箱信息接口获取用户主邮箱地址；使用 user_access_token 调用时，也可使用占位符 me 表示当前授权用户的主邮箱。
 //
 // 示例值：user@xxx.xx 或 me
 func (builder *SubscribeUserMailboxEventReqBuilder) UserMailboxId(userMailboxId string) *SubscribeUserMailboxEventReqBuilder {
@@ -11116,7 +11846,7 @@ func (builder *SubscribeUserMailboxEventReqBuilder) UserMailboxId(userMailboxId 
 	return builder
 }
 
-// 订阅收信事件
+// 订阅事件
 func (builder *SubscribeUserMailboxEventReqBuilder) Body(body *SubscribeUserMailboxEventReqBody) *SubscribeUserMailboxEventReqBuilder {
 	builder.body = body
 	return builder
@@ -11206,7 +11936,7 @@ func NewUnsubscribeUserMailboxEventReqBodyBuilder() *UnsubscribeUserMailboxEvent
 
 // 事件类型
 //
-//示例值：1
+// 示例值：1
 func (builder *UnsubscribeUserMailboxEventReqBodyBuilder) EventType(eventType int) *UnsubscribeUserMailboxEventReqBodyBuilder {
 	builder.eventType = eventType
 	builder.eventTypeSet = true
@@ -11262,7 +11992,7 @@ func NewUnsubscribeUserMailboxEventReqBuilder() *UnsubscribeUserMailboxEventReqB
 	return builder
 }
 
-// 用户邮箱地址，使用 user_access_token 时可使用 me
+// 用户邮箱地址，作为用户邮箱身份标识。可通过获取用户邮箱信息接口获取用户主邮箱地址；使用 user_access_token 调用时，也可使用占位符 me 表示当前授权用户的主邮箱。
 //
 // 示例值：user@xxx.xx 或 me
 func (builder *UnsubscribeUserMailboxEventReqBuilder) UserMailboxId(userMailboxId string) *UnsubscribeUserMailboxEventReqBuilder {
@@ -11270,7 +12000,7 @@ func (builder *UnsubscribeUserMailboxEventReqBuilder) UserMailboxId(userMailboxI
 	return builder
 }
 
-// 取消订阅收信事件
+// 取消订阅
 func (builder *UnsubscribeUserMailboxEventReqBuilder) Body(body *UnsubscribeUserMailboxEventReqBody) *UnsubscribeUserMailboxEventReqBuilder {
 	builder.body = body
 	return builder
@@ -11378,9 +12108,9 @@ func (builder *DeleteUserMailboxFolderReqBuilder) UserMailboxId(userMailboxId st
 	return builder
 }
 
-// 文件夹 id，可通过列出文件夹列表接口获取
+// 文件夹 id，id 获取方式见 [列出邮箱文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list)
 //
-// 示例值：111111
+// 示例值：7620003644728938013
 func (builder *DeleteUserMailboxFolderReqBuilder) FolderId(folderId string) *DeleteUserMailboxFolderReqBuilder {
 	builder.apiReq.PathParams.Set("folder_id", fmt.Sprint(folderId))
 	return builder
@@ -11419,7 +12149,7 @@ func NewGetUserMailboxFolderReqBuilder() *GetUserMailboxFolderReqBuilder {
 	return builder
 }
 
-// 用户邮箱地址。当使用用户身份访问时，可以输入"me"代表当前调用接口用户
+// 用户邮箱地址。当使用用户身份访问时，可以输入"me"代表当前调用接口用户。
 //
 // 示例值：user@xxx.xx 或 me
 func (builder *GetUserMailboxFolderReqBuilder) UserMailboxId(userMailboxId string) *GetUserMailboxFolderReqBuilder {
@@ -11473,7 +12203,7 @@ func NewListUserMailboxFolderReqBuilder() *ListUserMailboxFolderReqBuilder {
 	return builder
 }
 
-// 用户邮箱地址。当使用用户身份访问时，可以输入"me"代表当前调用接口用户;
+// 用户邮箱地址。当使用用户身份访问时，可以输入"me"代表当前调用接口用户
 //
 // 示例值：user@xxx.xx 或 me
 func (builder *ListUserMailboxFolderReqBuilder) UserMailboxId(userMailboxId string) *ListUserMailboxFolderReqBuilder {
@@ -11537,15 +12267,15 @@ func (builder *PatchUserMailboxFolderReqBuilder) UserMailboxId(userMailboxId str
 	return builder
 }
 
-// 文件夹 id，可通过列出文件夹列表接口获取
+// 文件夹 id，id 获取方式见 [列出邮箱文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list)
 //
-// 示例值：111111
+// 示例值：7620003644728938013
 func (builder *PatchUserMailboxFolderReqBuilder) FolderId(folderId string) *PatchUserMailboxFolderReqBuilder {
 	builder.apiReq.PathParams.Set("folder_id", fmt.Sprint(folderId))
 	return builder
 }
 
-// 更新用户文件夹
+// 修改邮箱文件夹
 func (builder *PatchUserMailboxFolderReqBuilder) Folder(folder *Folder) *PatchUserMailboxFolderReqBuilder {
 	builder.folder = folder
 	return builder
@@ -11585,7 +12315,7 @@ func NewCreateUserMailboxLabelReqBodyBuilder() *CreateUserMailboxLabelReqBodyBui
 
 // 邮件标签，必须填写标签名称，可选填写背景颜色
 //
-//示例值：
+// 示例值：
 func (builder *CreateUserMailboxLabelReqBodyBuilder) Label(label interface{}) *CreateUserMailboxLabelReqBodyBuilder {
 	builder.label = label
 	builder.labelSet = true
@@ -11673,7 +12403,7 @@ type CreateUserMailboxLabelReq struct {
 }
 
 type CreateUserMailboxLabelRespData struct {
-	Label *Label `json:"label,omitempty"` // 标签
+	Label *Label `json:"label,omitempty"` // 邮件标签，必须填写名字或颜色中的至少一个字段
 }
 
 type CreateUserMailboxLabelResp struct {
@@ -11699,7 +12429,7 @@ func NewDeleteUserMailboxLabelReqBuilder() *DeleteUserMailboxLabelReqBuilder {
 	return builder
 }
 
-// 用户邮箱地址不存在，请检查输入的用户邮箱地址是否正确，或确认用户的邮箱处于正常状态
+// 用户邮箱地址，当使用user_access_token访问时，可以填写me
 //
 // 示例值：user@xxx.xx 或 me
 func (builder *DeleteUserMailboxLabelReqBuilder) UserMailboxId(userMailboxId string) *DeleteUserMailboxLabelReqBuilder {
@@ -11776,7 +12506,7 @@ type GetUserMailboxLabelReq struct {
 }
 
 type GetUserMailboxLabelRespData struct {
-	Label *Label `json:"label,omitempty"` // 标签
+	Label *Label `json:"label,omitempty"` // 邮件标签，必须填写名字或颜色中的至少一个字段
 }
 
 type GetUserMailboxLabelResp struct {
@@ -11836,7 +12566,7 @@ func (resp *ListUserMailboxLabelResp) Success() bool {
 }
 
 type PatchUserMailboxLabelReqBodyBuilder struct {
-	label    *Label // 邮件标签
+	label    *Label // 邮件标签，必须填写名字或颜色中的至少一个字段
 	labelSet bool
 }
 
@@ -11845,9 +12575,9 @@ func NewPatchUserMailboxLabelReqBodyBuilder() *PatchUserMailboxLabelReqBodyBuild
 	return builder
 }
 
-// 邮件标签
+// 邮件标签，必须填写名字或颜色中的至少一个字段
 //
-//示例值：
+// 示例值：
 func (builder *PatchUserMailboxLabelReqBodyBuilder) Label(label *Label) *PatchUserMailboxLabelReqBodyBuilder {
 	builder.label = label
 	builder.labelSet = true
@@ -11872,7 +12602,7 @@ func NewPatchUserMailboxLabelPathReqBodyBuilder() *PatchUserMailboxLabelPathReqB
 	return builder
 }
 
-// 邮件标签
+// 邮件标签，必须填写名字或颜色中的至少一个字段
 //
 // 示例值：
 func (builder *PatchUserMailboxLabelPathReqBodyBuilder) Label(label *Label) *PatchUserMailboxLabelPathReqBodyBuilder {
@@ -11919,7 +12649,7 @@ func (builder *PatchUserMailboxLabelReqBuilder) LabelId(labelId string) *PatchUs
 	return builder
 }
 
-// 更新邮件标签
+// 更新用户指定标签的名字、颜色等信息
 func (builder *PatchUserMailboxLabelReqBuilder) Body(body *PatchUserMailboxLabelReqBody) *PatchUserMailboxLabelReqBuilder {
 	builder.body = body
 	return builder
@@ -11934,7 +12664,7 @@ func (builder *PatchUserMailboxLabelReqBuilder) Build() *PatchUserMailboxLabelRe
 }
 
 type PatchUserMailboxLabelReqBody struct {
-	Label *Label `json:"label,omitempty"` // 邮件标签
+	Label *Label `json:"label,omitempty"` // 邮件标签，必须填写名字或颜色中的至少一个字段
 }
 
 type PatchUserMailboxLabelReq struct {
@@ -11943,7 +12673,7 @@ type PatchUserMailboxLabelReq struct {
 }
 
 type PatchUserMailboxLabelRespData struct {
-	Label *Label `json:"label,omitempty"` // 标签
+	Label *Label `json:"label,omitempty"` // 邮件标签，必须填写名字或颜色中的至少一个字段
 }
 
 type PatchUserMailboxLabelResp struct {
@@ -11970,15 +12700,15 @@ func NewCreateUserMailboxMailContactReqBuilder() *CreateUserMailboxMailContactRe
 	return builder
 }
 
-// 用户邮箱地址，使用 user_access_token 时可使用 me
+// 用户邮箱地址，作为用户邮箱身份标识，最大长度 255 字符。使用 user_access_token 调用时，可使用占位符 `me` 表示当前授权用户的主邮箱。
 //
-// 示例值：user@xxx.xx 或 me
+// 示例值：user@example.com
 func (builder *CreateUserMailboxMailContactReqBuilder) UserMailboxId(userMailboxId string) *CreateUserMailboxMailContactReqBuilder {
 	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
 }
 
-// 创建邮箱联系人
+// 创建一个邮箱联系人
 func (builder *CreateUserMailboxMailContactReqBuilder) MailContact(mailContact *MailContact) *CreateUserMailboxMailContactReqBuilder {
 	builder.mailContact = mailContact
 	return builder
@@ -11998,7 +12728,7 @@ type CreateUserMailboxMailContactReq struct {
 }
 
 type CreateUserMailboxMailContactRespData struct {
-	MailContact *MailContact `json:"mail_contact,omitempty"` // 联系人实体
+	MailContact *MailContact `json:"mail_contact,omitempty"` //
 }
 
 type CreateUserMailboxMailContactResp struct {
@@ -12024,15 +12754,15 @@ func NewDeleteUserMailboxMailContactReqBuilder() *DeleteUserMailboxMailContactRe
 	return builder
 }
 
-// 用户邮箱地址 或 输入me代表当前调用接口用户
+// 用户邮箱地址，作为用户邮箱身份标识，最大长度 255 字符。使用 user_access_token 调用时，可使用占位符 `me` 表示当前授权用户的主邮箱。
 //
-// 示例值：用户邮箱地址 或 输入me代表当前调用接口用户
+// 示例值：user@example.com
 func (builder *DeleteUserMailboxMailContactReqBuilder) UserMailboxId(userMailboxId string) *DeleteUserMailboxMailContactReqBuilder {
 	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
 }
 
-// 邮箱联系人 id
+// 邮箱联系人 id，获取方式见 [列出邮箱联系人](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-mail_contact/list)
 //
 // 示例值：123
 func (builder *DeleteUserMailboxMailContactReqBuilder) MailContactId(mailContactId string) *DeleteUserMailboxMailContactReqBuilder {
@@ -12080,9 +12810,9 @@ func (builder *ListUserMailboxMailContactReqBuilder) Limit(limit int) *ListUserM
 	return builder
 }
 
-// 用户邮箱地址 或 输入me代表当前调用接口用户
+// 用户邮箱地址，作为用户邮箱身份标识，最大长度 255 字符。使用 user_access_token 调用时，可使用占位符 `me` 表示当前授权用户的主邮箱。
 //
-// 示例值：user@xxx.xx 或 me
+// 示例值：user@example.com
 func (builder *ListUserMailboxMailContactReqBuilder) UserMailboxId(userMailboxId string) *ListUserMailboxMailContactReqBuilder {
 	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
@@ -12151,15 +12881,15 @@ func NewPatchUserMailboxMailContactReqBuilder() *PatchUserMailboxMailContactReqB
 	return builder
 }
 
-// 用户邮箱地址 或 输入me代表当前调用接口用户
+// 用户邮箱地址，作为用户邮箱身份标识，最大长度 255 字符。使用 user_access_token 调用时，可使用占位符 `me` 表示当前授权用户的主邮箱。
 //
-// 示例值：user@xxx.xx 或 me
+// 示例值：user@example.com
 func (builder *PatchUserMailboxMailContactReqBuilder) UserMailboxId(userMailboxId string) *PatchUserMailboxMailContactReqBuilder {
 	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
 }
 
-// 邮箱联系人 id
+// 邮箱联系人 id，获取方式见 [列出邮箱联系人](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-mail_contact/list)
 //
 // 示例值：123
 func (builder *PatchUserMailboxMailContactReqBuilder) MailContactId(mailContactId string) *PatchUserMailboxMailContactReqBuilder {
@@ -12167,7 +12897,7 @@ func (builder *PatchUserMailboxMailContactReqBuilder) MailContactId(mailContactI
 	return builder
 }
 
-// 更新邮箱联系人
+// 修改一个邮箱联系人的信息
 func (builder *PatchUserMailboxMailContactReqBuilder) MailContact(mailContact *MailContact) *PatchUserMailboxMailContactReqBuilder {
 	builder.mailContact = mailContact
 	return builder
@@ -12196,7 +12926,7 @@ func (resp *PatchUserMailboxMailContactResp) Success() bool {
 }
 
 type BatchGetUserMailboxMessageReqBodyBuilder struct {
-	format    string // 需要获取的邮件内容。支持选择full/plain_text_full/metadata
+	format    string // 需要获取的邮件内容
 	formatSet bool
 
 	messageIds    []string // 需要的邮件ID，可以通过列出邮件列表、收信事件通知等方式获得
@@ -12208,9 +12938,9 @@ func NewBatchGetUserMailboxMessageReqBodyBuilder() *BatchGetUserMailboxMessageRe
 	return builder
 }
 
-// 需要获取的邮件内容。支持选择full/plain_text_full/metadata
+// 需要获取的邮件内容
 //
-//示例值：full
+// 示例值：full
 func (builder *BatchGetUserMailboxMessageReqBodyBuilder) Format(format string) *BatchGetUserMailboxMessageReqBodyBuilder {
 	builder.format = format
 	builder.formatSet = true
@@ -12219,7 +12949,7 @@ func (builder *BatchGetUserMailboxMessageReqBodyBuilder) Format(format string) *
 
 // 需要的邮件ID，可以通过列出邮件列表、收信事件通知等方式获得
 //
-//示例值：
+// 示例值：
 func (builder *BatchGetUserMailboxMessageReqBodyBuilder) MessageIds(messageIds []string) *BatchGetUserMailboxMessageReqBodyBuilder {
 	builder.messageIds = messageIds
 	builder.messageIdsSet = true
@@ -12249,7 +12979,7 @@ func NewBatchGetUserMailboxMessagePathReqBodyBuilder() *BatchGetUserMailboxMessa
 	return builder
 }
 
-// 需要获取的邮件内容。支持选择full/plain_text_full/metadata
+// 需要获取的邮件内容
 //
 // 示例值：full
 func (builder *BatchGetUserMailboxMessagePathReqBodyBuilder) Format(format string) *BatchGetUserMailboxMessagePathReqBodyBuilder {
@@ -12292,7 +13022,7 @@ func NewBatchGetUserMailboxMessageReqBuilder() *BatchGetUserMailboxMessageReqBui
 	return builder
 }
 
-// 用户邮箱地址。当使用用户身份访问时，可以输入"me"代表当前调用接口用户
+// 用户邮箱地址，作为用户邮箱身份标识。可通过获取用户邮箱信息接口获取用户主邮箱地址；使用 user_access_token 调用时，也可使用占位符 me 表示当前授权用户的主邮箱。
 //
 // 示例值：me
 func (builder *BatchGetUserMailboxMessageReqBuilder) UserMailboxId(userMailboxId string) *BatchGetUserMailboxMessageReqBuilder {
@@ -12300,7 +13030,7 @@ func (builder *BatchGetUserMailboxMessageReqBuilder) UserMailboxId(userMailboxId
 	return builder
 }
 
-// 通过指定邮件ID，获取对应邮件的标签、文件夹、摘要、正文、html、附件等信息。注意，如需获取摘要、正文、主题或收发件人地址，需要申请对应的字段权限。
+// 通过指定邮件ID，获取对应邮件的标签、文件夹、摘要、正文、html、附件等信息。
 func (builder *BatchGetUserMailboxMessageReqBuilder) Body(body *BatchGetUserMailboxMessageReqBody) *BatchGetUserMailboxMessageReqBuilder {
 	builder.body = body
 	return builder
@@ -12315,7 +13045,7 @@ func (builder *BatchGetUserMailboxMessageReqBuilder) Build() *BatchGetUserMailbo
 }
 
 type BatchGetUserMailboxMessageReqBody struct {
-	Format *string `json:"format,omitempty"` // 需要获取的邮件内容。支持选择full/plain_text_full/metadata
+	Format *string `json:"format,omitempty"` // 需要获取的邮件内容
 
 	MessageIds []string `json:"message_ids,omitempty"` // 需要的邮件ID，可以通过列出邮件列表、收信事件通知等方式获得
 }
@@ -12360,7 +13090,7 @@ func NewBatchModifyUserMailboxMessageReqBodyBuilder() *BatchModifyUserMailboxMes
 
 // 需要修改的邮件ID，可通过列出邮件接口、收信事件通知等方式获得
 //
-//示例值：
+// 示例值：
 func (builder *BatchModifyUserMailboxMessageReqBodyBuilder) MessageIds(messageIds []string) *BatchModifyUserMailboxMessageReqBodyBuilder {
 	builder.messageIds = messageIds
 	builder.messageIdsSet = true
@@ -12369,7 +13099,7 @@ func (builder *BatchModifyUserMailboxMessageReqBodyBuilder) MessageIds(messageId
 
 // 待添加的标签。可选值包括：UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。
 //
-//示例值：
+// 示例值：
 func (builder *BatchModifyUserMailboxMessageReqBodyBuilder) AddLabelIds(addLabelIds []string) *BatchModifyUserMailboxMessageReqBodyBuilder {
 	builder.addLabelIds = addLabelIds
 	builder.addLabelIdsSet = true
@@ -12378,7 +13108,7 @@ func (builder *BatchModifyUserMailboxMessageReqBodyBuilder) AddLabelIds(addLabel
 
 // 待移除的标签。可选值包括：UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。
 //
-//示例值：
+// 示例值：
 func (builder *BatchModifyUserMailboxMessageReqBodyBuilder) RemoveLabelIds(removeLabelIds []string) *BatchModifyUserMailboxMessageReqBodyBuilder {
 	builder.removeLabelIds = removeLabelIds
 	builder.removeLabelIdsSet = true
@@ -12387,7 +13117,7 @@ func (builder *BatchModifyUserMailboxMessageReqBodyBuilder) RemoveLabelIds(remov
 
 // 需要移入的文件夹。支持INBOX、SENT、SPAM、ARCHIVED以及自定义文件夹ID
 //
-//示例值：INBOX
+// 示例值：INBOX
 func (builder *BatchModifyUserMailboxMessageReqBodyBuilder) AddFolder(addFolder string) *BatchModifyUserMailboxMessageReqBodyBuilder {
 	builder.addFolder = addFolder
 	builder.addFolderSet = true
@@ -12502,7 +13232,7 @@ func (builder *BatchModifyUserMailboxMessageReqBuilder) UserMailboxId(userMailbo
 	return builder
 }
 
-// 本接口提供修改邮件的能力，支持移动邮件的文件夹、给邮件添加和移除标签、标记邮件读和未读、移动邮件至垃圾邮件等能力。不支持移动邮件到已删除文件夹，如需，请使用批量删除邮件接口。
+// 批量修改邮件标签、所属文件夹、已读未读状态，可进行加旗标、归档、移至垃圾邮件等操作。不支持移入邮件进入已删除文件夹，如需，请使用批量删除邮件接口。
 func (builder *BatchModifyUserMailboxMessageReqBuilder) Body(body *BatchModifyUserMailboxMessageReqBody) *BatchModifyUserMailboxMessageReqBuilder {
 	builder.body = body
 	return builder
@@ -12552,7 +13282,7 @@ func NewBatchTrashUserMailboxMessageReqBodyBuilder() *BatchTrashUserMailboxMessa
 
 // 邮件ID，可通过列出邮件接口、收信事件通知等方式获得
 //
-//示例值：
+// 示例值：
 func (builder *BatchTrashUserMailboxMessageReqBodyBuilder) MessageIds(messageIds []string) *BatchTrashUserMailboxMessageReqBodyBuilder {
 	builder.messageIds = messageIds
 	builder.messageIdsSet = true
@@ -12616,7 +13346,7 @@ func (builder *BatchTrashUserMailboxMessageReqBuilder) UserMailboxId(userMailbox
 	return builder
 }
 
-// 通过指定邮件ID，批量移动邮件到已删除文件夹
+// 批量将邮件移动到已删除文件夹
 func (builder *BatchTrashUserMailboxMessageReqBuilder) Body(body *BatchTrashUserMailboxMessageReqBody) *BatchTrashUserMailboxMessageReqBuilder {
 	builder.body = body
 	return builder
@@ -12661,7 +13391,7 @@ func NewGetUserMailboxMessageReqBuilder() *GetUserMailboxMessageReqBuilder {
 	return builder
 }
 
-// 用户邮箱地址 或 输入me代表当前调用接口用户
+// 用户邮箱地址，作为用户邮箱身份标识。可通过获取用户邮箱信息接口获取用户主邮箱地址；使用 user_access_token 调用时，也可使用占位符 me 表示当前授权用户的主邮箱。
 //
 // 示例值：user@xxx.xx 或 me
 func (builder *GetUserMailboxMessageReqBuilder) UserMailboxId(userMailboxId string) *GetUserMailboxMessageReqBuilder {
@@ -12669,7 +13399,7 @@ func (builder *GetUserMailboxMessageReqBuilder) UserMailboxId(userMailboxId stri
 	return builder
 }
 
-// 用户邮件 id，可通过列出邮件列表获取
+// 用户邮件 id，获取方式见 [列出邮件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-message/list)
 //
 // 示例值：TUlHc1NoWFhJMXgyUi9VZTNVL3h6UnlkRUdzPQ==
 func (builder *GetUserMailboxMessageReqBuilder) MessageId(messageId string) *GetUserMailboxMessageReqBuilder {
@@ -12732,7 +13462,7 @@ func (builder *GetByCardUserMailboxMessageReqBuilder) UserMailboxId(userMailboxI
 	return builder
 }
 
-// 卡片ID
+// 邮件卡片ID，可通过[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件的推送获取
 //
 // 示例值：512ca581-6059-4449-8150-5522e6641d32
 func (builder *GetByCardUserMailboxMessageReqBuilder) CardId(cardId string) *GetByCardUserMailboxMessageReqBuilder {
@@ -12740,7 +13470,7 @@ func (builder *GetByCardUserMailboxMessageReqBuilder) CardId(cardId string) *Get
 	return builder
 }
 
-// 卡片OwnerID
+// 邮件卡片Owner ID，可通过[接收消息]( https://open.feishu.cn/document/server-docs/im-v1/message/events/receive)事件的推送获取（与`user_id_type`无关）
 //
 // 示例值：1234567890
 func (builder *GetByCardUserMailboxMessageReqBuilder) OwnerId(ownerId string) *GetByCardUserMailboxMessageReqBuilder {
@@ -12769,11 +13499,11 @@ type GetByCardUserMailboxMessageReq struct {
 }
 
 type GetByCardUserMailboxMessageRespData struct {
-	OwnerInfo *UserInfo `json:"owner_info,omitempty"` // 邮件Owner信息
+	OwnerInfo *UserInfo `json:"owner_info,omitempty"` // 邮件 Owner 信息
 
 	MessageIds []string `json:"message_ids,omitempty"` // 邮件ID列表
 
-	CardId *string `json:"card_id,omitempty"` // 卡片ID
+	CardId *string `json:"card_id,omitempty"` // 邮件卡片ID
 }
 
 type GetByCardUserMailboxMessageResp struct {
@@ -12806,7 +13536,7 @@ func (builder *ListUserMailboxMessageReqBuilder) Limit(limit int) *ListUserMailb
 	return builder
 }
 
-// 用户邮箱地址 或 输入me代表当前调用接口用户
+// 用户邮箱地址。当使用用户身份访问时，可以输入"me"代表当前调用接口用户
 //
 // 示例值：user@xxx.xx 或 me
 func (builder *ListUserMailboxMessageReqBuilder) UserMailboxId(userMailboxId string) *ListUserMailboxMessageReqBuilder {
@@ -12830,7 +13560,7 @@ func (builder *ListUserMailboxMessageReqBuilder) PageToken(pageToken string) *Li
 	return builder
 }
 
-// 文件夹 id，支持INBOX、SENT、SPAM、ARCHIVED、SCHEDULED、SCHEDULED、TRASH、DRAFT以及自定义文件夹ID
+// 文件夹 id， 获取方式见 [列出邮箱文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list)
 //
 // 示例值：INBOX 或者用户文件夹 id
 func (builder *ListUserMailboxMessageReqBuilder) FolderId(folderId string) *ListUserMailboxMessageReqBuilder {
@@ -12908,15 +13638,15 @@ func (builder *ListThreadMessageUserMailboxMessageReqBuilder) UserMailboxId(user
 	return builder
 }
 
-// 邮件会话ID。可通过发送邮件、回复邮件的接口返回值或获取邮件详情接口查询获得。
+// 邮件会话ID。可通过发送邮件、回复邮件的接口返回值或获取邮件详情接口查询获得。;;
 //
-// 示例值：th_xxxxxxxxxxxx
+// 示例值：xxxxxxxxxxxx
 func (builder *ListThreadMessageUserMailboxMessageReqBuilder) ThreadId(threadId string) *ListThreadMessageUserMailboxMessageReqBuilder {
 	builder.apiReq.PathParams.Set("thread_id", fmt.Sprint(threadId))
 	return builder
 }
 
-// 需要获取的邮件内容。支持选择full/plain_text_full/metadata
+// 需要获取的邮件内容
 //
 // 示例值：full
 func (builder *ListThreadMessageUserMailboxMessageReqBuilder) Format(format string) *ListThreadMessageUserMailboxMessageReqBuilder {
@@ -12959,13 +13689,13 @@ func (resp *ListThreadMessageUserMailboxMessageResp) Success() bool {
 }
 
 type ModifyUserMailboxMessageReqBodyBuilder struct {
-	addLabelIds    []string // 待添加的标签。可选值包括：UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。
+	addLabelIds    []string // 待添加的标签 ID 列表。可选值包括 UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。该参数与 remove_label_ids、add_folder 均为可选且可组合；与 remove_label_ids 同时设置时，会在同一次请求中分别添加和移除对应标签，请勿在两个列表中传入同一标签 ID。
 	addLabelIdsSet bool
 
-	removeLabelIds    []string // 待移除的标签。可选值包括：UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。
+	removeLabelIds    []string // 待移除的标签 ID 列表。可选值包括 UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。该参数与 add_label_ids、add_folder 均为可选且可组合；与 add_label_ids 同时设置时，会在同一次请求中分别移除和添加对应标签，请勿在两个列表中传入同一标签 ID。
 	removeLabelIdsSet bool
 
-	addFolder    string // 需要移入的文件夹。支持INBOX、SENT、SPAM、ARCHIVED以及自定义文件夹ID
+	addFolder    string // 需要移入的文件夹 ID。支持 INBOX、SENT、SPAM、ARCHIVED 以及自定义文件夹 ID。该参数与 add_label_ids、remove_label_ids 均为可选且可组合；设置后会在同一次请求中将邮件移动到指定文件夹，若仅需调整标签可不传该字段。
 	addFolderSet bool
 }
 
@@ -12974,27 +13704,27 @@ func NewModifyUserMailboxMessageReqBodyBuilder() *ModifyUserMailboxMessageReqBod
 	return builder
 }
 
-// 待添加的标签。可选值包括：UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。
+// 待添加的标签 ID 列表。可选值包括 UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。该参数与 remove_label_ids、add_folder 均为可选且可组合；与 remove_label_ids 同时设置时，会在同一次请求中分别添加和移除对应标签，请勿在两个列表中传入同一标签 ID。
 //
-//示例值：
+// 示例值：
 func (builder *ModifyUserMailboxMessageReqBodyBuilder) AddLabelIds(addLabelIds []string) *ModifyUserMailboxMessageReqBodyBuilder {
 	builder.addLabelIds = addLabelIds
 	builder.addLabelIdsSet = true
 	return builder
 }
 
-// 待移除的标签。可选值包括：UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。
+// 待移除的标签 ID 列表。可选值包括 UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。该参数与 add_label_ids、add_folder 均为可选且可组合；与 add_label_ids 同时设置时，会在同一次请求中分别移除和添加对应标签，请勿在两个列表中传入同一标签 ID。
 //
-//示例值：
+// 示例值：
 func (builder *ModifyUserMailboxMessageReqBodyBuilder) RemoveLabelIds(removeLabelIds []string) *ModifyUserMailboxMessageReqBodyBuilder {
 	builder.removeLabelIds = removeLabelIds
 	builder.removeLabelIdsSet = true
 	return builder
 }
 
-// 需要移入的文件夹。支持INBOX、SENT、SPAM、ARCHIVED以及自定义文件夹ID
+// 需要移入的文件夹 ID。支持 INBOX、SENT、SPAM、ARCHIVED 以及自定义文件夹 ID。该参数与 add_label_ids、remove_label_ids 均为可选且可组合；设置后会在同一次请求中将邮件移动到指定文件夹，若仅需调整标签可不传该字段。
 //
-//示例值：INBOX
+// 示例值：INBOX
 func (builder *ModifyUserMailboxMessageReqBodyBuilder) AddFolder(addFolder string) *ModifyUserMailboxMessageReqBodyBuilder {
 	builder.addFolder = addFolder
 	builder.addFolderSet = true
@@ -13029,7 +13759,7 @@ func NewModifyUserMailboxMessagePathReqBodyBuilder() *ModifyUserMailboxMessagePa
 	return builder
 }
 
-// 待添加的标签。可选值包括：UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。
+// 待添加的标签 ID 列表。可选值包括 UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。该参数与 remove_label_ids、add_folder 均为可选且可组合；与 remove_label_ids 同时设置时，会在同一次请求中分别添加和移除对应标签，请勿在两个列表中传入同一标签 ID。
 //
 // 示例值：
 func (builder *ModifyUserMailboxMessagePathReqBodyBuilder) AddLabelIds(addLabelIds []string) *ModifyUserMailboxMessagePathReqBodyBuilder {
@@ -13038,7 +13768,7 @@ func (builder *ModifyUserMailboxMessagePathReqBodyBuilder) AddLabelIds(addLabelI
 	return builder
 }
 
-// 待移除的标签。可选值包括：UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。
+// 待移除的标签 ID 列表。可选值包括 UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。该参数与 add_label_ids、add_folder 均为可选且可组合；与 add_label_ids 同时设置时，会在同一次请求中分别移除和添加对应标签，请勿在两个列表中传入同一标签 ID。
 //
 // 示例值：
 func (builder *ModifyUserMailboxMessagePathReqBodyBuilder) RemoveLabelIds(removeLabelIds []string) *ModifyUserMailboxMessagePathReqBodyBuilder {
@@ -13047,7 +13777,7 @@ func (builder *ModifyUserMailboxMessagePathReqBodyBuilder) RemoveLabelIds(remove
 	return builder
 }
 
-// 需要移入的文件夹。支持INBOX、SENT、SPAM、ARCHIVED以及自定义文件夹ID
+// 需要移入的文件夹 ID。支持 INBOX、SENT、SPAM、ARCHIVED 以及自定义文件夹 ID。该参数与 add_label_ids、remove_label_ids 均为可选且可组合；设置后会在同一次请求中将邮件移动到指定文件夹，若仅需调整标签可不传该字段。
 //
 // 示例值：INBOX
 func (builder *ModifyUserMailboxMessagePathReqBodyBuilder) AddFolder(addFolder string) *ModifyUserMailboxMessagePathReqBodyBuilder {
@@ -13084,7 +13814,7 @@ func NewModifyUserMailboxMessageReqBuilder() *ModifyUserMailboxMessageReqBuilder
 	return builder
 }
 
-// 用户邮箱地址。当使用用户身份访问时，可以输入"me"代表当前调用接口用户
+// 用户邮箱地址，作为用户邮箱身份标识。可通过获取用户邮箱信息接口获取用户主邮箱地址；使用 user_access_token 调用时，也可使用占位符 me 表示当前授权用户的主邮箱。
 //
 // 示例值：abc@abc.com
 func (builder *ModifyUserMailboxMessageReqBuilder) UserMailboxId(userMailboxId string) *ModifyUserMailboxMessageReqBuilder {
@@ -13100,7 +13830,7 @@ func (builder *ModifyUserMailboxMessageReqBuilder) MessageId(messageId string) *
 	return builder
 }
 
-// 本接口提供修改邮件的能力，支持移动邮件的文件夹、给邮件添加和移除标签、标记邮件已读和未读、移动邮件至垃圾邮件等能力。不支持移动邮件到已删除文件夹，如需删除邮件，请使用删除邮件接口。至少填写add_label_ids、remove_label_ids、add_folder中的一个参数。
+// 修改邮件标签、所属文件夹、已读未读状态，可为邮件添加旗标、归档、移入垃圾邮件等操作。不支持移动邮件到已删除文件夹，如需，请使用删除邮件接口。
 func (builder *ModifyUserMailboxMessageReqBuilder) Body(body *ModifyUserMailboxMessageReqBody) *ModifyUserMailboxMessageReqBuilder {
 	builder.body = body
 	return builder
@@ -13115,11 +13845,11 @@ func (builder *ModifyUserMailboxMessageReqBuilder) Build() *ModifyUserMailboxMes
 }
 
 type ModifyUserMailboxMessageReqBody struct {
-	AddLabelIds []string `json:"add_label_ids,omitempty"` // 待添加的标签。可选值包括：UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。
+	AddLabelIds []string `json:"add_label_ids,omitempty"` // 待添加的标签 ID 列表。可选值包括 UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。该参数与 remove_label_ids、add_folder 均为可选且可组合；与 remove_label_ids 同时设置时，会在同一次请求中分别添加和移除对应标签，请勿在两个列表中传入同一标签 ID。
 
-	RemoveLabelIds []string `json:"remove_label_ids,omitempty"` // 待移除的标签。可选值包括：UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。
+	RemoveLabelIds []string `json:"remove_label_ids,omitempty"` // 待移除的标签 ID 列表。可选值包括 UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。该参数与 add_label_ids、add_folder 均为可选且可组合；与 add_label_ids 同时设置时，会在同一次请求中分别移除和添加对应标签，请勿在两个列表中传入同一标签 ID。
 
-	AddFolder *string `json:"add_folder,omitempty"` // 需要移入的文件夹。支持INBOX、SENT、SPAM、ARCHIVED以及自定义文件夹ID
+	AddFolder *string `json:"add_folder,omitempty"` // 需要移入的文件夹 ID。支持 INBOX、SENT、SPAM、ARCHIVED 以及自定义文件夹 ID。该参数与 add_label_ids、remove_label_ids 均为可选且可组合；设置后会在同一次请求中将邮件移动到指定文件夹，若仅需调整标签可不传该字段。
 }
 
 type ModifyUserMailboxMessageReq struct {
@@ -13143,7 +13873,7 @@ type SendUserMailboxMessageReqBodyBuilder struct {
 	to    []*MailAddress // 收件人
 	toSet bool
 
-	raw    string // 原始EML信息base64后的字符串
+	raw    string // eml数据
 	rawSet bool
 
 	cc    []*MailAddress // 抄送
@@ -13175,7 +13905,7 @@ func NewSendUserMailboxMessageReqBodyBuilder() *SendUserMailboxMessageReqBodyBui
 
 // 主题
 //
-//示例值：邮件标题
+// 示例值：邮件标题
 func (builder *SendUserMailboxMessageReqBodyBuilder) Subject(subject string) *SendUserMailboxMessageReqBodyBuilder {
 	builder.subject = subject
 	builder.subjectSet = true
@@ -13184,16 +13914,16 @@ func (builder *SendUserMailboxMessageReqBodyBuilder) Subject(subject string) *Se
 
 // 收件人
 //
-//示例值：
+// 示例值：
 func (builder *SendUserMailboxMessageReqBodyBuilder) To(to []*MailAddress) *SendUserMailboxMessageReqBodyBuilder {
 	builder.to = to
 	builder.toSet = true
 	return builder
 }
 
-// 原始EML信息base64后的字符串
+// eml数据
 //
-//示例值：U3ViamVjdDogSGVsbG8hCkZyb206ICJtaWtlIiA8bWlrZUBtaWtlLmNvbT4KTWltZS1WZXJzaW9uOiAxLjAKQ29udGVudC1UeXBlOiBtdWx0aXBhcnQvYWx0ZXJuYXRpdmU7CiBib3VuZGFyeT1iMjhmYTIyNGExZWU2ZDY3ZjE3OTViNGUxZDEwM2Q3MTBlNzM5ZWVmYjFmZjlmOWQ4NWI4M2NlOTRmMTEKRGF0ZTogV2VkLCAyMyBKdWwgMjAyNSAxNTo0NDoxOCArMDgwMApNZXNzYWdlLUlkOiA8bW9ja3V1aWRtZXNzYWdlX2lkQGxhcmsuY29tPgpUbzogImphY2siIDxqYWNrQGphY2suY29tPgoKLS1iMjhmYTIyNGExZWU2ZDY3ZjE3OTViNGUxZDEwM2Q3MTBlNzM5ZWVmYjFmZjlmOWQ4NWI4M2NlOTRmMTEKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogN2JpdApDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9VVRGLTgKCldlbGNvbWUgdG8gTGFyayBtYWlsIQotLWIyOGZhMjI0YTFlZTZkNjdmMTc5NWI0ZTFkMTAzZDcxMGU3MzllZWZiMWZmOWY5ZDg1YjgzY2U5NGYxMQo=
+// 示例值：U3ViamVjdDogSGVsbG8hCkZyb206ICJtaWtlIiA8bWlrZUBtaWtlLmNvbT4KTWltZS1WZXJzaW9uOiAxLjAKQ29udGVudC1UeXBlOiBtdWx0aXBhcnQvYWx0ZXJuYXRpdmU7CiBib3VuZGFyeT1iMjhmYTIyNGExZWU2ZDY3ZjE3OTViNGUxZDEwM2Q3MTBlNzM5ZWVmYjFmZjlmOWQ4NWI4M2NlOTRmMTEKRGF0ZTogV2VkLCAyMyBKdWwgMjAyNSAxNTo0NDoxOCArMDgwMApNZXNzYWdlLUlkOiA8bW9ja3V1aWRtZXNzYWdlX2lkQGxhcmsuY29tPgpUbzogImphY2siIDxqYWNrQGphY2suY29tPgoKLS1iMjhmYTIyNGExZWU2ZDY3ZjE3OTViNGUxZDEwM2Q3MTBlNzM5ZWVmYjFmZjlmOWQ4NWI4M2NlOTRmMTEKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogN2JpdApDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9VVRGLTgKCldlbGNvbWUgdG8gTGFyayBtYWlsIQotLWIyOGZhMjI0YTFlZTZkNjdmMTc5NWI0ZTFkMTAzZDcxMGU3MzllZWZiMWZmOWY5ZDg1YjgzY2U5NGYxMQo=
 func (builder *SendUserMailboxMessageReqBodyBuilder) Raw(raw string) *SendUserMailboxMessageReqBodyBuilder {
 	builder.raw = raw
 	builder.rawSet = true
@@ -13202,7 +13932,7 @@ func (builder *SendUserMailboxMessageReqBodyBuilder) Raw(raw string) *SendUserMa
 
 // 抄送
 //
-//示例值：
+// 示例值：
 func (builder *SendUserMailboxMessageReqBodyBuilder) Cc(cc []*MailAddress) *SendUserMailboxMessageReqBodyBuilder {
 	builder.cc = cc
 	builder.ccSet = true
@@ -13211,7 +13941,7 @@ func (builder *SendUserMailboxMessageReqBodyBuilder) Cc(cc []*MailAddress) *Send
 
 // 密送
 //
-//示例值：
+// 示例值：
 func (builder *SendUserMailboxMessageReqBodyBuilder) Bcc(bcc []*MailAddress) *SendUserMailboxMessageReqBodyBuilder {
 	builder.bcc = bcc
 	builder.bccSet = true
@@ -13220,7 +13950,7 @@ func (builder *SendUserMailboxMessageReqBodyBuilder) Bcc(bcc []*MailAddress) *Se
 
 // 正文
 //
-//示例值：xxxx
+// 示例值：xxxx
 func (builder *SendUserMailboxMessageReqBodyBuilder) BodyHtml(bodyHtml string) *SendUserMailboxMessageReqBodyBuilder {
 	builder.bodyHtml = bodyHtml
 	builder.bodyHtmlSet = true
@@ -13229,7 +13959,7 @@ func (builder *SendUserMailboxMessageReqBodyBuilder) BodyHtml(bodyHtml string) *
 
 // 正文纯文本
 //
-//示例值：xxxx
+// 示例值：xxxx
 func (builder *SendUserMailboxMessageReqBodyBuilder) BodyPlainText(bodyPlainText string) *SendUserMailboxMessageReqBodyBuilder {
 	builder.bodyPlainText = bodyPlainText
 	builder.bodyPlainTextSet = true
@@ -13238,7 +13968,7 @@ func (builder *SendUserMailboxMessageReqBodyBuilder) BodyPlainText(bodyPlainText
 
 // 附件
 //
-//示例值：
+// 示例值：
 func (builder *SendUserMailboxMessageReqBodyBuilder) Attachments(attachments []*Attachment) *SendUserMailboxMessageReqBodyBuilder {
 	builder.attachments = attachments
 	builder.attachmentsSet = true
@@ -13247,7 +13977,7 @@ func (builder *SendUserMailboxMessageReqBodyBuilder) Attachments(attachments []*
 
 // 去重键
 //
-//示例值：abc-ddd-eee-fff-ggg
+// 示例值：abc-ddd-eee-fff-ggg
 func (builder *SendUserMailboxMessageReqBodyBuilder) DedupeKey(dedupeKey string) *SendUserMailboxMessageReqBodyBuilder {
 	builder.dedupeKey = dedupeKey
 	builder.dedupeKeySet = true
@@ -13256,7 +13986,7 @@ func (builder *SendUserMailboxMessageReqBodyBuilder) DedupeKey(dedupeKey string)
 
 // EML中发件人信息
 //
-//示例值：
+// 示例值：
 func (builder *SendUserMailboxMessageReqBodyBuilder) HeadFrom(headFrom *MailAddress) *SendUserMailboxMessageReqBodyBuilder {
 	builder.headFrom = headFrom
 	builder.headFromSet = true
@@ -13344,7 +14074,7 @@ func (builder *SendUserMailboxMessagePathReqBodyBuilder) To(to []*MailAddress) *
 	return builder
 }
 
-// 原始EML信息base64后的字符串
+// eml数据
 //
 // 示例值：U3ViamVjdDogSGVsbG8hCkZyb206ICJtaWtlIiA8bWlrZUBtaWtlLmNvbT4KTWltZS1WZXJzaW9uOiAxLjAKQ29udGVudC1UeXBlOiBtdWx0aXBhcnQvYWx0ZXJuYXRpdmU7CiBib3VuZGFyeT1iMjhmYTIyNGExZWU2ZDY3ZjE3OTViNGUxZDEwM2Q3MTBlNzM5ZWVmYjFmZjlmOWQ4NWI4M2NlOTRmMTEKRGF0ZTogV2VkLCAyMyBKdWwgMjAyNSAxNTo0NDoxOCArMDgwMApNZXNzYWdlLUlkOiA8bW9ja3V1aWRtZXNzYWdlX2lkQGxhcmsuY29tPgpUbzogImphY2siIDxqYWNrQGphY2suY29tPgoKLS1iMjhmYTIyNGExZWU2ZDY3ZjE3OTViNGUxZDEwM2Q3MTBlNzM5ZWVmYjFmZjlmOWQ4NWI4M2NlOTRmMTEKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogN2JpdApDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9VVRGLTgKCldlbGNvbWUgdG8gTGFyayBtYWlsIQotLWIyOGZhMjI0YTFlZTZkNjdmMTc5NWI0ZTFkMTAzZDcxMGU3MzllZWZiMWZmOWY5ZDg1YjgzY2U5NGYxMQo=
 func (builder *SendUserMailboxMessagePathReqBodyBuilder) Raw(raw string) *SendUserMailboxMessagePathReqBodyBuilder {
@@ -13473,7 +14203,7 @@ func (builder *SendUserMailboxMessageReqBuilder) UserMailboxId(userMailboxId str
 	return builder
 }
 
-//
+// 发送邮件
 func (builder *SendUserMailboxMessageReqBuilder) Body(body *SendUserMailboxMessageReqBody) *SendUserMailboxMessageReqBuilder {
 	builder.body = body
 	return builder
@@ -13492,7 +14222,7 @@ type SendUserMailboxMessageReqBody struct {
 
 	To []*MailAddress `json:"to,omitempty"` // 收件人
 
-	Raw *string `json:"raw,omitempty"` // 原始EML信息base64后的字符串
+	Raw *string `json:"raw,omitempty"` // eml数据
 
 	Cc []*MailAddress `json:"cc,omitempty"` // 抄送
 
@@ -13527,6 +14257,62 @@ type SendUserMailboxMessageResp struct {
 }
 
 func (resp *SendUserMailboxMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SendStatusUserMailboxMessageReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewSendStatusUserMailboxMessageReqBuilder() *SendStatusUserMailboxMessageReqBuilder {
+	builder := &SendStatusUserMailboxMessageReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址，在用户身份访问时可以直接填写me
+//
+// 示例值：aba@aac.com
+func (builder *SendStatusUserMailboxMessageReqBuilder) UserMailboxId(userMailboxId string) *SendStatusUserMailboxMessageReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 邮件的业务标识ID（message_biz_id）
+//
+// 示例值：197c5d72e22e1d78
+func (builder *SendStatusUserMailboxMessageReqBuilder) MessageId(messageId string) *SendStatusUserMailboxMessageReqBuilder {
+	builder.apiReq.PathParams.Set("message_id", fmt.Sprint(messageId))
+	return builder
+}
+
+func (builder *SendStatusUserMailboxMessageReqBuilder) Build() *SendStatusUserMailboxMessageReq {
+	req := &SendStatusUserMailboxMessageReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type SendStatusUserMailboxMessageReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type SendStatusUserMailboxMessageRespData struct {
+	MessageId *string `json:"message_id,omitempty"` // 邮件业务标识ID
+
+	Details []*SendStatusDetail `json:"details,omitempty"` // 收件人投递状态列表
+}
+
+type SendStatusUserMailboxMessageResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SendStatusUserMailboxMessageRespData `json:"data"` // 业务数据
+}
+
+func (resp *SendStatusUserMailboxMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -13600,7 +14386,7 @@ func (builder *DownloadUrlUserMailboxMessageAttachmentReqBuilder) UserMailboxId(
 	return builder
 }
 
-// 用户邮件 id
+// 用户邮件 id，获取方式见 [列出邮件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-message/list)
 //
 // 示例值：TUlHc1NoWFhJMXgyUi9VZTNVL3h6UnlkRUdzPQ==
 func (builder *DownloadUrlUserMailboxMessageAttachmentReqBuilder) MessageId(messageId string) *DownloadUrlUserMailboxMessageAttachmentReqBuilder {
@@ -13690,7 +14476,7 @@ type CreateUserMailboxRuleReq struct {
 }
 
 type CreateUserMailboxRuleRespData struct {
-	Rule *Rule `json:"rule,omitempty"` // 规则实体
+	Rule *Rule `json:"rule,omitempty"` //
 }
 
 type CreateUserMailboxRuleResp struct {
@@ -13724,7 +14510,7 @@ func (builder *DeleteUserMailboxRuleReqBuilder) UserMailboxId(userMailboxId stri
 	return builder
 }
 
-// 规则 id
+// 规则 id，获取方式见 [列出收信规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list)
 //
 // 示例值：123123123
 func (builder *DeleteUserMailboxRuleReqBuilder) RuleId(ruleId string) *DeleteUserMailboxRuleReqBuilder {
@@ -13799,7 +14585,7 @@ func (resp *ListUserMailboxRuleResp) Success() bool {
 }
 
 type ReorderUserMailboxRuleReqBodyBuilder struct {
-	ruleIds    []string // 规则 id 列表
+	ruleIds    []string // 规则 id 列表，获取方式见 [列出收信规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list)
 	ruleIdsSet bool
 }
 
@@ -13808,9 +14594,9 @@ func NewReorderUserMailboxRuleReqBodyBuilder() *ReorderUserMailboxRuleReqBodyBui
 	return builder
 }
 
-// 规则 id 列表
+// 规则 id 列表，获取方式见 [列出收信规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list)
 //
-//示例值：111111111
+// 示例值：111111111
 func (builder *ReorderUserMailboxRuleReqBodyBuilder) RuleIds(ruleIds []string) *ReorderUserMailboxRuleReqBodyBuilder {
 	builder.ruleIds = ruleIds
 	builder.ruleIdsSet = true
@@ -13835,7 +14621,7 @@ func NewReorderUserMailboxRulePathReqBodyBuilder() *ReorderUserMailboxRulePathRe
 	return builder
 }
 
-// 规则 id 列表
+// 规则 id 列表，获取方式见 [列出收信规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list)
 //
 // 示例值：111111111
 func (builder *ReorderUserMailboxRulePathReqBodyBuilder) RuleIds(ruleIds []string) *ReorderUserMailboxRulePathReqBodyBuilder {
@@ -13874,7 +14660,7 @@ func (builder *ReorderUserMailboxRuleReqBuilder) UserMailboxId(userMailboxId str
 	return builder
 }
 
-//
+// 对收信规则进行排序
 func (builder *ReorderUserMailboxRuleReqBuilder) Body(body *ReorderUserMailboxRuleReqBody) *ReorderUserMailboxRuleReqBuilder {
 	builder.body = body
 	return builder
@@ -13889,7 +14675,7 @@ func (builder *ReorderUserMailboxRuleReqBuilder) Build() *ReorderUserMailboxRule
 }
 
 type ReorderUserMailboxRuleReqBody struct {
-	RuleIds []string `json:"rule_ids,omitempty"` // 规则 id 列表
+	RuleIds []string `json:"rule_ids,omitempty"` // 规则 id 列表，获取方式见 [列出收信规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list)
 }
 
 type ReorderUserMailboxRuleReq struct {
@@ -13928,7 +14714,7 @@ func (builder *UpdateUserMailboxRuleReqBuilder) UserMailboxId(userMailboxId stri
 	return builder
 }
 
-// 规则 id
+// 规则 id，获取方式见 [列出收信规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list)
 //
 // 示例值：123123123
 func (builder *UpdateUserMailboxRuleReqBuilder) RuleId(ruleId string) *UpdateUserMailboxRuleReqBuilder {
@@ -13936,7 +14722,7 @@ func (builder *UpdateUserMailboxRuleReqBuilder) RuleId(ruleId string) *UpdateUse
 	return builder
 }
 
-//
+// 更新收信规则
 func (builder *UpdateUserMailboxRuleReqBuilder) Rule(rule *Rule) *UpdateUserMailboxRuleReqBuilder {
 	builder.rule = rule
 	return builder
@@ -13964,6 +14750,174 @@ func (resp *UpdateUserMailboxRuleResp) Success() bool {
 	return resp.Code == 0
 }
 
+type GetRecallDetailUserMailboxSentMessageReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetRecallDetailUserMailboxSentMessageReqBuilder() *GetRecallDetailUserMailboxSentMessageReqBuilder {
+	builder := &GetRecallDetailUserMailboxSentMessageReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址，作为用户邮箱身份标识，最大长度 255 字符。使用 user_access_token 调用时，可使用占位符 `me` 表示当前授权用户的主邮箱。
+//
+// 示例值：user@example.com
+func (builder *GetRecallDetailUserMailboxSentMessageReqBuilder) UserMailboxId(userMailboxId string) *GetRecallDetailUserMailboxSentMessageReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 需要查询撤回结果的邮件 ID。可通过撤回已发送邮件接口中使用的邮件 ID 获取。
+//
+// 示例值：om_6f8c3b2d4a9e1f0c
+func (builder *GetRecallDetailUserMailboxSentMessageReqBuilder) MessageId(messageId string) *GetRecallDetailUserMailboxSentMessageReqBuilder {
+	builder.apiReq.PathParams.Set("message_id", fmt.Sprint(messageId))
+	return builder
+}
+
+func (builder *GetRecallDetailUserMailboxSentMessageReqBuilder) Build() *GetRecallDetailUserMailboxSentMessageReq {
+	req := &GetRecallDetailUserMailboxSentMessageReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type GetRecallDetailUserMailboxSentMessageReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetRecallDetailUserMailboxSentMessageRespData struct {
+	RecallStatus *string `json:"recall_status,omitempty"` //
+
+	RecallResult *string `json:"recall_result,omitempty"` //
+
+	SuccessCount *int `json:"success_count,omitempty"` // 撤回成功的收件人数
+
+	FailureCount *int `json:"failure_count,omitempty"` // 撤回失败的收件人数
+
+	ProcessingCount *int `json:"processing_count,omitempty"` // 处理中的收件人数
+
+	Items []*RecallDetailItem `json:"items,omitempty"` // 每个收件人的撤回详情列表
+}
+
+type GetRecallDetailUserMailboxSentMessageResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetRecallDetailUserMailboxSentMessageRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetRecallDetailUserMailboxSentMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
+type RecallUserMailboxSentMessageReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewRecallUserMailboxSentMessageReqBuilder() *RecallUserMailboxSentMessageReqBuilder {
+	builder := &RecallUserMailboxSentMessageReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址。当使用用户身份访问时，可以输入"me"代表当前调用接口用户
+//
+// 示例值：me
+func (builder *RecallUserMailboxSentMessageReqBuilder) UserMailboxId(userMailboxId string) *RecallUserMailboxSentMessageReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 需要撤回的邮件ID，即调用接口[发送草稿](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-draft/send)返回的参数message_id
+//
+// 示例值：xxx
+func (builder *RecallUserMailboxSentMessageReqBuilder) MessageId(messageId string) *RecallUserMailboxSentMessageReqBuilder {
+	builder.apiReq.PathParams.Set("message_id", fmt.Sprint(messageId))
+	return builder
+}
+
+func (builder *RecallUserMailboxSentMessageReqBuilder) Build() *RecallUserMailboxSentMessageReq {
+	req := &RecallUserMailboxSentMessageReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type RecallUserMailboxSentMessageReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type RecallUserMailboxSentMessageRespData struct {
+	RecallStatus *string `json:"recall_status,omitempty"` //
+
+	RecallRestrictionReason *string `json:"recall_restriction_reason,omitempty"` //
+}
+
+type RecallUserMailboxSentMessageResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *RecallUserMailboxSentMessageRespData `json:"data"` // 业务数据
+}
+
+func (resp *RecallUserMailboxSentMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetSignaturesUserMailboxSettingReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetSignaturesUserMailboxSettingReqBuilder() *GetSignaturesUserMailboxSettingReqBuilder {
+	builder := &GetSignaturesUserMailboxSettingReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址，作为用户邮箱身份标识。使用 user_access_token 调用时，可使用占位符 `me` 表示当前授权用户的主邮箱。
+//
+// 示例值：user@example.com
+func (builder *GetSignaturesUserMailboxSettingReqBuilder) UserMailboxId(userMailboxId string) *GetSignaturesUserMailboxSettingReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+func (builder *GetSignaturesUserMailboxSettingReqBuilder) Build() *GetSignaturesUserMailboxSettingReq {
+	req := &GetSignaturesUserMailboxSettingReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type GetSignaturesUserMailboxSettingReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetSignaturesUserMailboxSettingRespData struct {
+	Signatures []*UserMailboxSignature `json:"signatures,omitempty"` // 用户邮箱签名列表
+
+	Usages []*UserMailboxSignatureUsage `json:"usages,omitempty"` // 用户邮箱签名使用情况列表
+}
+
+type GetSignaturesUserMailboxSettingResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetSignaturesUserMailboxSettingRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetSignaturesUserMailboxSettingResp) Success() bool {
+	return resp.Code == 0
+}
+
 type SendAsUserMailboxSettingReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -13977,9 +14931,9 @@ func NewSendAsUserMailboxSettingReqBuilder() *SendAsUserMailboxSettingReqBuilder
 	return builder
 }
 
-// 邮箱地址。用户身份下可以输入me代表用户。
+// 用户邮箱地址，作为用户邮箱身份标识。使用 user_access_token 调用时，可使用占位符 `me` 表示当前授权用户的主邮箱。
 //
-// 示例值：abc@abc.com
+// 示例值：user@example.com
 func (builder *SendAsUserMailboxSettingReqBuilder) UserMailboxId(userMailboxId string) *SendAsUserMailboxSettingReqBuilder {
 	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
 	return builder
@@ -14022,7 +14976,7 @@ func NewCreateUserMailboxTemplateReqBodyBuilder() *CreateUserMailboxTemplateReqB
 
 // 待创建的模板内容
 //
-//示例值：
+// 示例值：
 func (builder *CreateUserMailboxTemplateReqBodyBuilder) Template(template *Template) *CreateUserMailboxTemplateReqBodyBuilder {
 	builder.template = template
 	builder.templateSet = true
@@ -14284,7 +15238,7 @@ func NewUpdateUserMailboxTemplateReqBodyBuilder() *UpdateUserMailboxTemplateReqB
 
 // 替换后的完整模板内容（全量替换）
 //
-//示例值：
+// 示例值：
 func (builder *UpdateUserMailboxTemplateReqBodyBuilder) Template(template *Template) *UpdateUserMailboxTemplateReqBodyBuilder {
 	builder.template = template
 	builder.templateSet = true
@@ -14481,7 +15435,7 @@ func NewBatchModifyUserMailboxThreadReqBodyBuilder() *BatchModifyUserMailboxThre
 
 // 待添加的标签。可选值包括：UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。
 //
-//示例值：
+// 示例值：
 func (builder *BatchModifyUserMailboxThreadReqBodyBuilder) AddLabelIds(addLabelIds []string) *BatchModifyUserMailboxThreadReqBodyBuilder {
 	builder.addLabelIds = addLabelIds
 	builder.addLabelIdsSet = true
@@ -14490,7 +15444,7 @@ func (builder *BatchModifyUserMailboxThreadReqBodyBuilder) AddLabelIds(addLabelI
 
 // 待移除的标签。可选值包括：UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。
 //
-//示例值：
+// 示例值：
 func (builder *BatchModifyUserMailboxThreadReqBodyBuilder) RemoveLabelIds(removeLabelIds []string) *BatchModifyUserMailboxThreadReqBodyBuilder {
 	builder.removeLabelIds = removeLabelIds
 	builder.removeLabelIdsSet = true
@@ -14499,7 +15453,7 @@ func (builder *BatchModifyUserMailboxThreadReqBodyBuilder) RemoveLabelIds(remove
 
 // 需要移入的文件夹。支持INBOX、SENT、SPAM、ARCHIVED以及自定义文件夹ID
 //
-//示例值：INBOX
+// 示例值：INBOX
 func (builder *BatchModifyUserMailboxThreadReqBodyBuilder) AddFolder(addFolder string) *BatchModifyUserMailboxThreadReqBodyBuilder {
 	builder.addFolder = addFolder
 	builder.addFolderSet = true
@@ -14508,7 +15462,7 @@ func (builder *BatchModifyUserMailboxThreadReqBodyBuilder) AddFolder(addFolder s
 
 // 需要操作的邮件会话ID，可通过列出邮件会话获取
 //
-//示例值：
+// 示例值：
 func (builder *BatchModifyUserMailboxThreadReqBodyBuilder) ThreadIds(threadIds []string) *BatchModifyUserMailboxThreadReqBodyBuilder {
 	builder.threadIds = threadIds
 	builder.threadIdsSet = true
@@ -14623,7 +15577,7 @@ func (builder *BatchModifyUserMailboxThreadReqBuilder) UserMailboxId(userMailbox
 	return builder
 }
 
-// 本接口提供修改邮件会话的能力，支持移动邮件会话的文件夹、给邮件会话添加和移除标签、标记邮件会话读和未读、移动邮件会话至垃圾邮件等能力。不支持移动邮件会话到已删除文件夹，如需，请使用批量删除邮件会话接口。
+// 批量修改邮件会话的标签、所属文件夹和已读未读状态，支持为邮件会话添加旗标、归档、移入垃圾邮件文件夹。注意，接口不支持将邮件会话移入已删除文件夹，如需，请使用批量删除邮件会话接口。
 func (builder *BatchModifyUserMailboxThreadReqBuilder) Body(body *BatchModifyUserMailboxThreadReqBody) *BatchModifyUserMailboxThreadReqBuilder {
 	builder.body = body
 	return builder
@@ -14673,7 +15627,7 @@ func NewBatchTrashUserMailboxThreadReqBodyBuilder() *BatchTrashUserMailboxThread
 
 // 邮箱会话ID，可通过列出邮件会话接口获取
 //
-//示例值：
+// 示例值：
 func (builder *BatchTrashUserMailboxThreadReqBodyBuilder) ThreadIds(threadIds []string) *BatchTrashUserMailboxThreadReqBodyBuilder {
 	builder.threadIds = threadIds
 	builder.threadIdsSet = true
@@ -14737,7 +15691,7 @@ func (builder *BatchTrashUserMailboxThreadReqBuilder) UserMailboxId(userMailboxI
 	return builder
 }
 
-// 通过指定邮件会话ID，批量移动邮件到已删除文件夹
+// 批量将指定的邮件会话移入已删除文件夹
 func (builder *BatchTrashUserMailboxThreadReqBuilder) Body(body *BatchTrashUserMailboxThreadReqBody) *BatchTrashUserMailboxThreadReqBuilder {
 	builder.body = body
 	return builder
@@ -14808,7 +15762,7 @@ func (builder *GetUserMailboxThreadReqBuilder) Format(format string) *GetUserMai
 
 // 获取包含来自 SPAM 和 TRASH 的邮件
 //
-// 示例值：
+// 示例值：false
 func (builder *GetUserMailboxThreadReqBuilder) IncludeSpamTrash(includeSpamTrash bool) *GetUserMailboxThreadReqBuilder {
 	builder.apiReq.QueryParams.Set("include_spam_trash", fmt.Sprint(includeSpamTrash))
 	return builder
@@ -14827,7 +15781,7 @@ type GetUserMailboxThreadReq struct {
 }
 
 type GetUserMailboxThreadRespData struct {
-	Thread *Thread `json:"thread,omitempty"` // 邮件会话
+	Thread *Thread `json:"thread,omitempty"` //
 }
 
 type GetUserMailboxThreadResp struct {
@@ -14959,7 +15913,7 @@ func NewModifyUserMailboxThreadReqBodyBuilder() *ModifyUserMailboxThreadReqBodyB
 
 // 待添加的标签。可选值包括：UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。
 //
-//示例值：
+// 示例值：
 func (builder *ModifyUserMailboxThreadReqBodyBuilder) AddLabelIds(addLabelIds []string) *ModifyUserMailboxThreadReqBodyBuilder {
 	builder.addLabelIds = addLabelIds
 	builder.addLabelIdsSet = true
@@ -14968,7 +15922,7 @@ func (builder *ModifyUserMailboxThreadReqBodyBuilder) AddLabelIds(addLabelIds []
 
 // 待移除的标签。可选值包括：UNREAD、IMPORTANT、OTHER、FLAGGED，以及自定义标签 ID。
 //
-//示例值：
+// 示例值：
 func (builder *ModifyUserMailboxThreadReqBodyBuilder) RemoveLabelIds(removeLabelIds []string) *ModifyUserMailboxThreadReqBodyBuilder {
 	builder.removeLabelIds = removeLabelIds
 	builder.removeLabelIdsSet = true
@@ -14977,7 +15931,7 @@ func (builder *ModifyUserMailboxThreadReqBodyBuilder) RemoveLabelIds(removeLabel
 
 // 需要移入的文件夹。支持INBOX、SENT、SPAM、ARCHIVED以及自定义文件夹ID
 //
-//示例值：INBOX
+// 示例值：INBOX
 func (builder *ModifyUserMailboxThreadReqBodyBuilder) AddFolder(addFolder string) *ModifyUserMailboxThreadReqBodyBuilder {
 	builder.addFolder = addFolder
 	builder.addFolderSet = true
@@ -15083,7 +16037,7 @@ func (builder *ModifyUserMailboxThreadReqBuilder) ThreadId(threadId string) *Mod
 	return builder
 }
 
-// 本接口提供修改邮件会话的能力，支持移动邮件会话的文件夹、给邮件会话添加和移除标签、标记邮件会话读和未读、移动邮件会话至垃圾邮件等能力。不支持移动邮件会话到已删除文件夹，如需，请使用删除邮件会话接口。至少填写add_label_ids、remove_label_ids、add_folder中的一个参数。
+// 修改邮件会话的标签、所属文件夹和已读未读状态，支持为邮件会话添加旗标、归档、移入垃圾邮件文件夹。注意，接口不支持将邮件会话移入已删除文件夹，如需，请使用删除邮件会话接口。
 func (builder *ModifyUserMailboxThreadReqBuilder) Body(body *ModifyUserMailboxThreadReqBody) *ModifyUserMailboxThreadReqBuilder {
 	builder.body = body
 	return builder
@@ -15509,6 +16463,60 @@ func (iterator *ListPublicMailboxMemberIterator) Next() (bool, *PublicMailboxMem
 }
 
 func (iterator *ListPublicMailboxMemberIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type SearchUserMailboxIterator struct {
+	nextPageToken *string
+	items         []*MailSearchItem
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchUserMailboxReq
+	listFunc      func(ctx context.Context, req *SearchUserMailboxReq, options ...larkcore.RequestOptionFunc) (*SearchUserMailboxResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchUserMailboxIterator) Next() (bool, *MailSearchItem, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *SearchUserMailboxIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 

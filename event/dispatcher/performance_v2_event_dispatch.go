@@ -17,12 +17,13 @@ import (
 	"context"
 	"github.com/larksuite/oapi-sdk-go/v3/service/performance/v2"
 )
-// 
+
+// 绩效详情变更
 //
-// - 
+// - 当员工的绩效详情发生变更时，订阅这个事件的应用会收到该事件。
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2ReviewDataChangedV2(handler func(ctx context.Context, event *larkperformance.P2ReviewDataChangedV2) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2ReviewDataChangedV2(handler func(ctx context.Context, event *larkperformance.P2ReviewDataChangedV2) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["performance.review_data.changed_v2"]
 	if existed {
 		panic("event: multiple handler registrations for " + "performance.review_data.changed_v2")
@@ -30,12 +31,13 @@ func ( dispatcher * EventDispatcher ) OnP2ReviewDataChangedV2(handler func(ctx c
 	dispatcher.eventType2EventHandler["performance.review_data.changed_v2"] = larkperformance.NewP2ReviewDataChangedV2Handler(handler)
 	return dispatcher
 }
-// 
+
+// 绩效结果开通
 //
-// - 
+// - 当员工的绩效结果开通时，订阅这个事件的应用会收到该事件。
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2StageTaskOpenResultV2(handler func(ctx context.Context, event *larkperformance.P2StageTaskOpenResultV2) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2StageTaskOpenResultV2(handler func(ctx context.Context, event *larkperformance.P2StageTaskOpenResultV2) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["performance.stage_task.open_result_v2"]
 	if existed {
 		panic("event: multiple handler registrations for " + "performance.stage_task.open_result_v2")

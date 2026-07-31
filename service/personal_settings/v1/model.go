@@ -90,8 +90,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -99,8 +97,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -616,13 +612,13 @@ func (builder *SystemStatusUserCloseResultEntityBuilder) Build() *SystemStatusUs
 }
 
 type SystemStatusUserOpenParam struct {
-	UserId *string `json:"user_id,omitempty"` // 用户ID
+	UserId *string `json:"user_id,omitempty"` // 用户ID，传入的ID类型由user_id_type决定，推荐使用 OpenID，获取方式可参考文档[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。
 
 	EndTime *int `json:"end_time,omitempty"` // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
 }
 
 type SystemStatusUserOpenParamBuilder struct {
-	userId    string // 用户ID
+	userId    string // 用户ID，传入的ID类型由user_id_type决定，推荐使用 OpenID，获取方式可参考文档[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。
 	userIdSet bool
 
 	endTime    int // 结束时间，传入的应为秒单位的时间戳，距当前的时间跨度不能超过365天。
@@ -634,7 +630,7 @@ func NewSystemStatusUserOpenParamBuilder() *SystemStatusUserOpenParamBuilder {
 	return builder
 }
 
-// 用户ID
+// 用户ID，传入的ID类型由user_id_type决定，推荐使用 OpenID，获取方式可参考文档[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。
 //
 // 示例值：ou_53edd3282dbc2fdbe5c593cfa5ce82ab
 func (builder *SystemStatusUserOpenParamBuilder) UserId(userId string) *SystemStatusUserOpenParamBuilder {
@@ -734,7 +730,7 @@ func (builder *SystemStatusUserOpenResultEntityBuilder) Build() *SystemStatusUse
 }
 
 type BatchCloseSystemStatusReqBodyBuilder struct {
-	userList    []string // 成员列表
+	userList    []string // 用户ID列表，传入的ID类型由user_id_type决定，推荐使用 OpenID，获取方式可参考文档[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。
 	userListSet bool
 }
 
@@ -743,9 +739,9 @@ func NewBatchCloseSystemStatusReqBodyBuilder() *BatchCloseSystemStatusReqBodyBui
 	return builder
 }
 
-// 成员列表
+// 用户ID列表，传入的ID类型由user_id_type决定，推荐使用 OpenID，获取方式可参考文档[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。
 //
-//示例值：ou_53edd3282dbc2fdbe5c593cfa5ce82ab
+// 示例值：ou_53edd3282dbc2fdbe5c593cfa5ce82ab
 func (builder *BatchCloseSystemStatusReqBodyBuilder) UserList(userList []string) *BatchCloseSystemStatusReqBodyBuilder {
 	builder.userList = userList
 	builder.userListSet = true
@@ -770,7 +766,7 @@ func NewBatchCloseSystemStatusPathReqBodyBuilder() *BatchCloseSystemStatusPathRe
 	return builder
 }
 
-// 成员列表
+// 用户ID列表，传入的ID类型由user_id_type决定，推荐使用 OpenID，获取方式可参考文档[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。
 //
 // 示例值：ou_53edd3282dbc2fdbe5c593cfa5ce82ab
 func (builder *BatchCloseSystemStatusPathReqBodyBuilder) UserList(userList []string) *BatchCloseSystemStatusPathReqBodyBuilder {
@@ -817,7 +813,7 @@ func (builder *BatchCloseSystemStatusReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
-// 批量关闭用户系统状态可用
+// 批量关闭用户系统状态可用。
 func (builder *BatchCloseSystemStatusReqBuilder) Body(body *BatchCloseSystemStatusReqBody) *BatchCloseSystemStatusReqBuilder {
 	builder.body = body
 	return builder
@@ -833,7 +829,7 @@ func (builder *BatchCloseSystemStatusReqBuilder) Build() *BatchCloseSystemStatus
 }
 
 type BatchCloseSystemStatusReqBody struct {
-	UserList []string `json:"user_list,omitempty"` // 成员列表
+	UserList []string `json:"user_list,omitempty"` // 用户ID列表，传入的ID类型由user_id_type决定，推荐使用 OpenID，获取方式可参考文档[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。
 }
 
 type BatchCloseSystemStatusReq struct {
@@ -867,7 +863,7 @@ func NewBatchOpenSystemStatusReqBodyBuilder() *BatchOpenSystemStatusReqBodyBuild
 
 // 开启列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchOpenSystemStatusReqBodyBuilder) UserList(userList []*SystemStatusUserOpenParam) *BatchOpenSystemStatusReqBodyBuilder {
 	builder.userList = userList
 	builder.userListSet = true
@@ -939,7 +935,7 @@ func (builder *BatchOpenSystemStatusReqBuilder) UserIdType(userIdType string) *B
 	return builder
 }
 
-// 批量开启用户系统状态可用
+// 批量开启用户系统状态可用。
 func (builder *BatchOpenSystemStatusReqBuilder) Body(body *BatchOpenSystemStatusReqBody) *BatchOpenSystemStatusReqBuilder {
 	builder.body = body
 	return builder
@@ -1147,7 +1143,7 @@ func NewPatchSystemStatusReqBodyBuilder() *PatchSystemStatusReqBodyBuilder {
 
 // 系统状态
 //
-//示例值：
+// 示例值：
 func (builder *PatchSystemStatusReqBodyBuilder) SystemStatus(systemStatus *SystemStatus) *PatchSystemStatusReqBodyBuilder {
 	builder.systemStatus = systemStatus
 	builder.systemStatusSet = true
@@ -1156,7 +1152,7 @@ func (builder *PatchSystemStatusReqBodyBuilder) SystemStatus(systemStatus *Syste
 
 // 需要更新的字段
 //
-//示例值：['TITLE']
+// 示例值：['TITLE']
 func (builder *PatchSystemStatusReqBodyBuilder) UpdateFields(updateFields []string) *PatchSystemStatusReqBodyBuilder {
 	builder.updateFields = updateFields
 	builder.updateFieldsSet = true

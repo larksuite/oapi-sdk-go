@@ -26,21 +26,21 @@ const (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	OpenQueryRuleUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenQueryRuleUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenQueryRuleUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeRemoveRuleViewUserId  = "user_id"  //
-	UserIdTypeRemoveRuleViewUnionId = "union_id" //
-	UserIdTypeRemoveRuleViewOpenId  = "open_id"  //
+	RemoveRuleViewUserIDTypeUserId  = "user_id"  //
+	RemoveRuleViewUserIDTypeUnionId = "union_id" //
+	RemoveRuleViewUserIDTypeOpenId  = "open_id"  //
 )
 
 const (
-	UserIdTypeQueryTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeQueryTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeQueryTaskOpenId  = "open_id"  // 以open_id来识别用户
+	OpenQueryTaskUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenQueryTaskUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenQueryTaskUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type DepartmentId struct {
@@ -62,8 +62,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -71,8 +69,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -98,7 +94,7 @@ type FormContent struct {
 
 	FieldName *string `json:"field_name,omitempty"` // 表单字段名称
 
-	FieldValue *string `json:"field_value,omitempty"` // 表单字段值
+	FieldValue *string `json:"field_value,omitempty"` // 表单字段值;;**注意**：附件或图片该值为空，只返回 ID 与名称
 }
 
 type FormContentBuilder struct {
@@ -108,7 +104,7 @@ type FormContentBuilder struct {
 	fieldName    string // 表单字段名称
 	fieldNameSet bool
 
-	fieldValue    string // 表单字段值
+	fieldValue    string // 表单字段值;;**注意**：附件或图片该值为空，只返回 ID 与名称
 	fieldValueSet bool
 }
 
@@ -135,7 +131,7 @@ func (builder *FormContentBuilder) FieldName(fieldName string) *FormContentBuild
 	return builder
 }
 
-// 表单字段值
+// 表单字段值;;**注意**：附件或图片该值为空，只返回 ID 与名称
 //
 // 示例值：测试数据
 func (builder *FormContentBuilder) FieldValue(fieldValue string) *FormContentBuilder {
@@ -608,7 +604,7 @@ type Task struct {
 
 	RuleId *string `json:"rule_id,omitempty"` // 汇报规则ID
 
-	DepartmentIds []string `json:"department_ids,omitempty"` // 部门id
+	DepartmentIds []string `json:"department_ids,omitempty"` // 汇报用户部门id
 
 	ToUserIds []string `json:"to_user_ids,omitempty"` // 汇报给谁
 
@@ -640,7 +636,7 @@ type TaskBuilder struct {
 	ruleId    string // 汇报规则ID
 	ruleIdSet bool
 
-	departmentIds    []string // 部门id
+	departmentIds    []string // 汇报用户部门id
 	departmentIdsSet bool
 
 	toUserIds    []string // 汇报给谁
@@ -727,7 +723,7 @@ func (builder *TaskBuilder) RuleId(ruleId string) *TaskBuilder {
 	return builder
 }
 
-// 部门id
+// 汇报用户部门id
 //
 // 示例值：
 func (builder *TaskBuilder) DepartmentIds(departmentIds []string) *TaskBuilder {
@@ -796,22 +792,6 @@ func (builder *TaskBuilder) Build() *Task {
 	if builder.toUserNamesSet {
 		req.ToUserNames = builder.toUserNames
 	}
-	return req
-}
-
-type View struct {
-}
-
-type ViewBuilder struct {
-}
-
-func NewViewBuilder() *ViewBuilder {
-	builder := &ViewBuilder{}
-	return builder
-}
-
-func (builder *ViewBuilder) Build() *View {
-	req := &View{}
 	return req
 }
 
@@ -889,7 +869,7 @@ func NewRemoveRuleViewReqBodyBuilder() *RemoveRuleViewReqBodyBuilder {
 
 // 列表为空删除规则下全用户视图，列表不为空删除指定用户视图，大小限制200。
 //
-//示例值：["ou_d6a5b5a55c77ca0b5b6c6ca0dd628c85","ou_d6a5b5a55c77ca0b5b6c6ca0dd628c55"]
+// 示例值：
 func (builder *RemoveRuleViewReqBodyBuilder) UserIds(userIds []string) *RemoveRuleViewReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
@@ -916,7 +896,7 @@ func NewRemoveRuleViewPathReqBodyBuilder() *RemoveRuleViewPathReqBodyBuilder {
 
 // 列表为空删除规则下全用户视图，列表不为空删除指定用户视图，大小限制200。
 //
-// 示例值：["ou_d6a5b5a55c77ca0b5b6c6ca0dd628c85","ou_d6a5b5a55c77ca0b5b6c6ca0dd628c55"]
+// 示例值：
 func (builder *RemoveRuleViewPathReqBodyBuilder) UserIds(userIds []string) *RemoveRuleViewPathReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
@@ -953,8 +933,6 @@ func (builder *RemoveRuleViewReqBuilder) RuleId(ruleId string) *RemoveRuleViewRe
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemoveRuleViewReqBuilder) UserIdType(userIdType string) *RemoveRuleViewReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -1007,7 +985,7 @@ type QueryTaskReqBodyBuilder struct {
 	userId    string // 用户ID
 	userIdSet bool
 
-	pageToken    string // 分页标识符
+	pageToken    string // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 	pageTokenSet bool
 
 	pageSize    int // 单次分页返回的条数
@@ -1021,7 +999,7 @@ func NewQueryTaskReqBodyBuilder() *QueryTaskReqBodyBuilder {
 
 // 提交开始时间时间戳
 //
-//示例值：1622427266
+// 示例值：1622427266
 func (builder *QueryTaskReqBodyBuilder) CommitStartTime(commitStartTime int) *QueryTaskReqBodyBuilder {
 	builder.commitStartTime = commitStartTime
 	builder.commitStartTimeSet = true
@@ -1030,7 +1008,7 @@ func (builder *QueryTaskReqBodyBuilder) CommitStartTime(commitStartTime int) *Qu
 
 // 提交结束时间时间戳
 //
-//示例值：1622427266
+// 示例值：1622427266
 func (builder *QueryTaskReqBodyBuilder) CommitEndTime(commitEndTime int) *QueryTaskReqBodyBuilder {
 	builder.commitEndTime = commitEndTime
 	builder.commitEndTimeSet = true
@@ -1039,7 +1017,7 @@ func (builder *QueryTaskReqBodyBuilder) CommitEndTime(commitEndTime int) *QueryT
 
 // 汇报规则ID
 //
-//示例值：6894419345318182932
+// 示例值：6894419345318182932
 func (builder *QueryTaskReqBodyBuilder) RuleId(ruleId string) *QueryTaskReqBodyBuilder {
 	builder.ruleId = ruleId
 	builder.ruleIdSet = true
@@ -1048,16 +1026,16 @@ func (builder *QueryTaskReqBodyBuilder) RuleId(ruleId string) *QueryTaskReqBodyB
 
 // 用户ID
 //
-//示例值：ou_133f0b6d0f097cf7d7ba00b38fffb110
+// 示例值：ou_133f0b6d0f097cf7d7ba00b38fffb110
 func (builder *QueryTaskReqBodyBuilder) UserId(userId string) *QueryTaskReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
 	return builder
 }
 
-// 分页标识符
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-//示例值：6895699275733778451
+// 示例值：6895699275733778451
 func (builder *QueryTaskReqBodyBuilder) PageToken(pageToken string) *QueryTaskReqBodyBuilder {
 	builder.pageToken = pageToken
 	builder.pageTokenSet = true
@@ -1066,7 +1044,7 @@ func (builder *QueryTaskReqBodyBuilder) PageToken(pageToken string) *QueryTaskRe
 
 // 单次分页返回的条数
 //
-//示例值：10
+// 示例值：10
 func (builder *QueryTaskReqBodyBuilder) PageSize(pageSize int) *QueryTaskReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeSet = true
@@ -1152,7 +1130,7 @@ func (builder *QueryTaskPathReqBodyBuilder) UserId(userId string) *QueryTaskPath
 	return builder
 }
 
-// 分页标识符
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：6895699275733778451
 func (builder *QueryTaskPathReqBodyBuilder) PageToken(pageToken string) *QueryTaskPathReqBodyBuilder {
@@ -1215,7 +1193,7 @@ func (builder *QueryTaskReqBuilder) UserIdType(userIdType string) *QueryTaskReqB
 	return builder
 }
 
-// 任务查询
+// 查询任务。
 func (builder *QueryTaskReqBuilder) Body(body *QueryTaskReqBody) *QueryTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -1238,7 +1216,7 @@ type QueryTaskReqBody struct {
 
 	UserId *string `json:"user_id,omitempty"` // 用户ID
 
-	PageToken *string `json:"page_token,omitempty"` // 分页标识符
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 
 	PageSize *int `json:"page_size,omitempty"` // 单次分页返回的条数
 }
@@ -1251,9 +1229,9 @@ type QueryTaskReq struct {
 type QueryTaskRespData struct {
 	Items []*Task `json:"items,omitempty"` // 任务列表
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页数据
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页分页的token
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type QueryTaskResp struct {

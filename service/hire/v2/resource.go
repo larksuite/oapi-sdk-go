@@ -10,7 +10,7 @@ import (
 
 type V2 struct {
 	InterviewRecord *interviewRecord // interview_record
-	Talent          *talent          // 人才
+	Talent          *talent          // talent
 }
 
 func New(config *larkcore.Config) *V2 {
@@ -27,9 +27,9 @@ type talent struct {
 	config *larkcore.Config
 }
 
-// Get
+// Get 获取面试评价信息（新版）
 //
-// -
+// - 获取面试评价详细信息，如面试结论、面试得分和面试官等信息（含模块评价）。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=interview_record&version=v2
 //
@@ -39,7 +39,7 @@ func (i *interviewRecord) Get(ctx context.Context, req *GetInterviewRecordReq, o
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v2/interview_records/:interview_record_id"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, i.config, options...)
 	if err != nil {
 		return nil, err
@@ -53,9 +53,9 @@ func (i *interviewRecord) Get(ctx context.Context, req *GetInterviewRecordReq, o
 	return resp, err
 }
 
-// List
+// List 批量获取面试评价详细信息（新版）
 //
-// -
+// - 批量获取面试评价详细信息，如面试结论、面试得分和面试官等信息（含模块评价）。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=interview_record&version=v2
 //
@@ -87,11 +87,13 @@ func (i *interviewRecord) ListByIterator(ctx context.Context, req *ListInterview
 		limit:    req.Limit}, nil
 }
 
-// Get 获取人才信息V2
+// Get 获取人才详情
 //
-// - 根据人才 ID 获取人才信息
+// - 根据人才 ID 获取人才详情，包含人才加入文件夹列表、标签、人才库、备注以及屏蔽名单等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/hire-v2/talent/get
+// - 目前暂不支持查询被删除的人才详情
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=talent&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev2/get_talent.go
 func (t *talent) Get(ctx context.Context, req *GetTalentReq, options ...larkcore.RequestOptionFunc) (*GetTalentResp, error) {

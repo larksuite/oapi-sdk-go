@@ -36,8 +36,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -45,8 +43,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -117,22 +113,6 @@ func (builder *TermBuilder) Build() *Term {
 	return req
 }
 
-type Text struct {
-}
-
-type TextBuilder struct {
-}
-
-func NewTextBuilder() *TextBuilder {
-	builder := &TextBuilder{}
-	return builder
-}
-
-func (builder *TextBuilder) Build() *Text {
-	req := &Text{}
-	return req
-}
-
 type DetectTextReqBodyBuilder struct {
 	text    string // 需要被识别语种的文本
 	textSet bool
@@ -145,7 +125,7 @@ func NewDetectTextReqBodyBuilder() *DetectTextReqBodyBuilder {
 
 // 需要被识别语种的文本
 //
-//示例值：你好
+// 示例值：你好
 func (builder *DetectTextReqBodyBuilder) Text(text string) *DetectTextReqBodyBuilder {
 	builder.text = text
 	builder.textSet = true
@@ -201,7 +181,7 @@ func NewDetectTextReqBuilder() *DetectTextReqBuilder {
 	return builder
 }
 
-// 机器翻译 (MT)，支持 100 多种语言识别，返回符合 ISO 639-1 标准
+// 机器翻译 (MT)，支持 100 多种语言识别，返回符合 ISO 639-1 标准。
 func (builder *DetectTextReqBuilder) Body(body *DetectTextReqBody) *DetectTextReqBuilder {
 	builder.body = body
 	return builder
@@ -241,7 +221,7 @@ type TranslateTextReqBodyBuilder struct {
 	sourceLanguage    string // 源语言
 	sourceLanguageSet bool
 
-	text    string // 源文本
+	text    string // 源文本，字符上限为 1,000。
 	textSet bool
 
 	targetLanguage    string // 目标语言
@@ -258,16 +238,16 @@ func NewTranslateTextReqBodyBuilder() *TranslateTextReqBodyBuilder {
 
 // 源语言
 //
-//示例值：zh
+// 示例值：zh
 func (builder *TranslateTextReqBodyBuilder) SourceLanguage(sourceLanguage string) *TranslateTextReqBodyBuilder {
 	builder.sourceLanguage = sourceLanguage
 	builder.sourceLanguageSet = true
 	return builder
 }
 
-// 源文本
+// 源文本，字符上限为 1,000。
 //
-//示例值：尝试使用一下飞书吧
+// 示例值：尝试使用一下飞书吧
 func (builder *TranslateTextReqBodyBuilder) Text(text string) *TranslateTextReqBodyBuilder {
 	builder.text = text
 	builder.textSet = true
@@ -276,7 +256,7 @@ func (builder *TranslateTextReqBodyBuilder) Text(text string) *TranslateTextReqB
 
 // 目标语言
 //
-//示例值：en
+// 示例值：en
 func (builder *TranslateTextReqBodyBuilder) TargetLanguage(targetLanguage string) *TranslateTextReqBodyBuilder {
 	builder.targetLanguage = targetLanguage
 	builder.targetLanguageSet = true
@@ -285,7 +265,7 @@ func (builder *TranslateTextReqBodyBuilder) TargetLanguage(targetLanguage string
 
 // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
 //
-//示例值：
+// 示例值：
 func (builder *TranslateTextReqBodyBuilder) Glossary(glossary []*Term) *TranslateTextReqBodyBuilder {
 	builder.glossary = glossary
 	builder.glossarySet = true
@@ -334,7 +314,7 @@ func (builder *TranslateTextPathReqBodyBuilder) SourceLanguage(sourceLanguage st
 	return builder
 }
 
-// 源文本
+// 源文本，字符上限为 1,000。
 //
 // 示例值：尝试使用一下飞书吧
 func (builder *TranslateTextPathReqBodyBuilder) Text(text string) *TranslateTextPathReqBodyBuilder {
@@ -408,7 +388,7 @@ func (builder *TranslateTextReqBuilder) Build() *TranslateTextReq {
 type TranslateTextReqBody struct {
 	SourceLanguage *string `json:"source_language,omitempty"` // 源语言
 
-	Text *string `json:"text,omitempty"` // 源文本
+	Text *string `json:"text,omitempty"` // 源文本，字符上限为 1,000。
 
 	TargetLanguage *string `json:"target_language,omitempty"` // 目标语言
 

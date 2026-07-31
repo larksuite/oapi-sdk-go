@@ -16,6 +16,9 @@ package larkim
 import (
 	"fmt"
 
+	"context"
+	"errors"
+
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
@@ -38,7 +41,7 @@ const (
 )
 
 const (
-	TagBizTypeChat = "chat" // chat类型
+	TagBizTypeChat = "chat" // chat 会话类型
 )
 
 const (
@@ -47,6 +50,18 @@ const (
 
 const (
 	TagBizTypeUpdateBizEntityTagRelationChat = "chat" // chat类型
+)
+
+const (
+	SorterCreateTimeDesc  = "create_time_desc"  // 按照群组创建时间降序排序
+	SorterUpdateTimeDesc  = "update_time_desc"  // 按照群组更新时间降序排序
+	SorterMemberCountDesc = "member_count_desc" // 按照群组成员数量降序排序
+)
+
+const (
+	UserIdTypeSearchChatUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeSearchChatUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeSearchChatOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -91,8 +106,6 @@ func NewAnnouncementPinBuilder() *AnnouncementPinBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *AnnouncementPinBuilder) UseOpendoc(useOpendoc bool) *AnnouncementPinBuilder {
 	builder.useOpendoc = useOpendoc
@@ -100,8 +113,6 @@ func (builder *AnnouncementPinBuilder) UseOpendoc(useOpendoc bool) *Announcement
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *AnnouncementPinBuilder) Url(url string) *AnnouncementPinBuilder {
 	builder.url = url
@@ -109,8 +120,6 @@ func (builder *AnnouncementPinBuilder) Url(url string) *AnnouncementPinBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *AnnouncementPinBuilder) PreviewContent(previewContent *PreviewContent) *AnnouncementPinBuilder {
 	builder.previewContent = previewContent
@@ -137,19 +146,19 @@ func (builder *AnnouncementPinBuilder) Build() *AnnouncementPin {
 type AppFeedNotify struct {
 	CloseNotify *bool `json:"close_notify,omitempty"` // 是否关闭通知
 
-	CustomSoundText *string `json:"custom_sound_text,omitempty"` // 自定义语音播报文本内容
+	CustomSoundText *string `json:"custom_sound_text,omitempty"` // 自定义语音播报文本内容（仅支持移动端）
 
-	WithCustomSound *bool `json:"with_custom_sound,omitempty"` // 是否播报自定义语音
+	WithCustomSound *bool `json:"with_custom_sound,omitempty"` // 是否播报自定义语音（仅支持移动端；播报语音包暂不支持切换，默认为女声）
 }
 
 type AppFeedNotifyBuilder struct {
 	closeNotify    bool // 是否关闭通知
 	closeNotifySet bool
 
-	customSoundText    string // 自定义语音播报文本内容
+	customSoundText    string // 自定义语音播报文本内容（仅支持移动端）
 	customSoundTextSet bool
 
-	withCustomSound    bool // 是否播报自定义语音
+	withCustomSound    bool // 是否播报自定义语音（仅支持移动端；播报语音包暂不支持切换，默认为女声）
 	withCustomSoundSet bool
 }
 
@@ -167,7 +176,7 @@ func (builder *AppFeedNotifyBuilder) CloseNotify(closeNotify bool) *AppFeedNotif
 	return builder
 }
 
-// 自定义语音播报文本内容
+// 自定义语音播报文本内容（仅支持移动端）
 //
 // 示例值：您有新的订单
 func (builder *AppFeedNotifyBuilder) CustomSoundText(customSoundText string) *AppFeedNotifyBuilder {
@@ -176,7 +185,7 @@ func (builder *AppFeedNotifyBuilder) CustomSoundText(customSoundText string) *Ap
 	return builder
 }
 
-// 是否播报自定义语音
+// 是否播报自定义语音（仅支持移动端；播报语音包暂不支持切换，默认为女声）
 //
 // 示例值：true
 func (builder *AppFeedNotifyBuilder) WithCustomSound(withCustomSound bool) *AppFeedNotifyBuilder {
@@ -261,11 +270,11 @@ type ChatPin struct {
 
 	CreateTime *string `json:"create_time,omitempty"` // 置顶创建时间，毫秒级别
 
-	ChatterId *string `json:"chatter_id,omitempty"` // 创建置顶的操作者ID
+	ChatterId *string `json:"chatter_id,omitempty"` // 创建置顶的操作者ID;;- 当chatter_id为用户身份时，可以通过设置查询参数user_id_type控制接口返回值中chatter_id类型;- 当chatter_id为应用身份时，chatter_id为app_id
 
-	IsFixed *bool `json:"is_fixed,omitempty"` // 该置顶是否固定在置顶列表的最前面
+	IsFixed *bool `json:"is_fixed,omitempty"` // 置顶是否被固定到置顶列表前方,目前每个群内最多可以固定三个置顶。
 
-	OperateFixChatterId *string `json:"operate_fix_chatter_id,omitempty"` // 固定置顶到置顶列表前面的操作者ID
+	OperateFixChatterId *string `json:"operate_fix_chatter_id,omitempty"` // 固定置顶到置顶列表前面的操作者ID;;- 当operate_fix_chatter_id为用户身份时，可以通过设置查询参数user_id_type控制接口返回值中operate_fix_chatter_id类型;- 当operate_fix_chatter_id为应用身份时，operate_fix_chatter_id为app_id
 
 	MessagePinData *MessagePin `json:"message_pin_data,omitempty"` // 消息置顶数据
 
@@ -285,13 +294,13 @@ type ChatPinBuilder struct {
 	createTime    string // 置顶创建时间，毫秒级别
 	createTimeSet bool
 
-	chatterId    string // 创建置顶的操作者ID
+	chatterId    string // 创建置顶的操作者ID;;- 当chatter_id为用户身份时，可以通过设置查询参数user_id_type控制接口返回值中chatter_id类型;- 当chatter_id为应用身份时，chatter_id为app_id
 	chatterIdSet bool
 
-	isFixed    bool // 该置顶是否固定在置顶列表的最前面
+	isFixed    bool // 置顶是否被固定到置顶列表前方,目前每个群内最多可以固定三个置顶。
 	isFixedSet bool
 
-	operateFixChatterId    string // 固定置顶到置顶列表前面的操作者ID
+	operateFixChatterId    string // 固定置顶到置顶列表前面的操作者ID;;- 当operate_fix_chatter_id为用户身份时，可以通过设置查询参数user_id_type控制接口返回值中operate_fix_chatter_id类型;- 当operate_fix_chatter_id为应用身份时，operate_fix_chatter_id为app_id
 	operateFixChatterIdSet bool
 
 	messagePinData    *MessagePin // 消息置顶数据
@@ -342,7 +351,7 @@ func (builder *ChatPinBuilder) CreateTime(createTime string) *ChatPinBuilder {
 	return builder
 }
 
-// 创建置顶的操作者ID
+// 创建置顶的操作者ID;;- 当chatter_id为用户身份时，可以通过设置查询参数user_id_type控制接口返回值中chatter_id类型;- 当chatter_id为应用身份时，chatter_id为app_id
 //
 // 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
 func (builder *ChatPinBuilder) ChatterId(chatterId string) *ChatPinBuilder {
@@ -351,7 +360,7 @@ func (builder *ChatPinBuilder) ChatterId(chatterId string) *ChatPinBuilder {
 	return builder
 }
 
-// 该置顶是否固定在置顶列表的最前面
+// 置顶是否被固定到置顶列表前方,目前每个群内最多可以固定三个置顶。
 //
 // 示例值：false
 func (builder *ChatPinBuilder) IsFixed(isFixed bool) *ChatPinBuilder {
@@ -360,7 +369,7 @@ func (builder *ChatPinBuilder) IsFixed(isFixed bool) *ChatPinBuilder {
 	return builder
 }
 
-// 固定置顶到置顶列表前面的操作者ID
+// 固定置顶到置顶列表前面的操作者ID;;- 当operate_fix_chatter_id为用户身份时，可以通过设置查询参数user_id_type控制接口返回值中operate_fix_chatter_id类型;- 当operate_fix_chatter_id为应用身份时，operate_fix_chatter_id为app_id
 //
 // 示例值：ou_7d8a6e6df7621556ce0d21922b676706ccs
 func (builder *ChatPinBuilder) OperateFixChatterId(operateFixChatterId string) *ChatPinBuilder {
@@ -479,18 +488,20 @@ func (builder *ChatPinIconBuilder) Build() *ChatPinIcon {
 type ChatSearchFilter struct {
 	SearchTypes []string `json:"search_types,omitempty"` // 群组类型
 
-	MemberIds []string `json:"member_ids,omitempty"` // 群成员ID
+	MemberIds []string `json:"member_ids,omitempty"` // 群成员ID;成员ID即是User ID，获取方式：https://open.feishu.cn/document/server-docs/contact-v3/user/get
 
 	IsManager *bool `json:"is_manager,omitempty"` // 是否自己创建或者管理的群组
 
 	DisableSearchByUser *bool `json:"disable_search_by_user,omitempty"` // 是否关闭以人搜群功能： 先通过群成员名搜索，再搜群组(默认开启)
+
+	ChatModes []string `json:"chat_modes,omitempty"` // 群模式筛选器，支持按普通群/话题群过滤
 }
 
 type ChatSearchFilterBuilder struct {
 	searchTypes    []string // 群组类型
 	searchTypesSet bool
 
-	memberIds    []string // 群成员ID
+	memberIds    []string // 群成员ID;成员ID即是User ID，获取方式：https://open.feishu.cn/document/server-docs/contact-v3/user/get
 	memberIdsSet bool
 
 	isManager    bool // 是否自己创建或者管理的群组
@@ -498,6 +509,9 @@ type ChatSearchFilterBuilder struct {
 
 	disableSearchByUser    bool // 是否关闭以人搜群功能： 先通过群成员名搜索，再搜群组(默认开启)
 	disableSearchByUserSet bool
+
+	chatModes    []string // 群模式筛选器，支持按普通群/话题群过滤
+	chatModesSet bool
 }
 
 func NewChatSearchFilterBuilder() *ChatSearchFilterBuilder {
@@ -514,7 +528,7 @@ func (builder *ChatSearchFilterBuilder) SearchTypes(searchTypes []string) *ChatS
 	return builder
 }
 
-// 群成员ID
+// 群成员ID;成员ID即是User ID，获取方式：https://open.feishu.cn/document/server-docs/contact-v3/user/get
 //
 // 示例值：
 func (builder *ChatSearchFilterBuilder) MemberIds(memberIds []string) *ChatSearchFilterBuilder {
@@ -525,7 +539,7 @@ func (builder *ChatSearchFilterBuilder) MemberIds(memberIds []string) *ChatSearc
 
 // 是否自己创建或者管理的群组
 //
-// 示例值：
+// 示例值：true
 func (builder *ChatSearchFilterBuilder) IsManager(isManager bool) *ChatSearchFilterBuilder {
 	builder.isManager = isManager
 	builder.isManagerSet = true
@@ -534,10 +548,19 @@ func (builder *ChatSearchFilterBuilder) IsManager(isManager bool) *ChatSearchFil
 
 // 是否关闭以人搜群功能： 先通过群成员名搜索，再搜群组(默认开启)
 //
-// 示例值：
+// 示例值：true
 func (builder *ChatSearchFilterBuilder) DisableSearchByUser(disableSearchByUser bool) *ChatSearchFilterBuilder {
 	builder.disableSearchByUser = disableSearchByUser
 	builder.disableSearchByUserSet = true
+	return builder
+}
+
+// 群模式筛选器，支持按普通群/话题群过滤
+//
+// 示例值：
+func (builder *ChatSearchFilterBuilder) ChatModes(chatModes []string) *ChatSearchFilterBuilder {
+	builder.chatModes = chatModes
+	builder.chatModesSet = true
 	return builder
 }
 
@@ -556,6 +579,9 @@ func (builder *ChatSearchFilterBuilder) Build() *ChatSearchFilter {
 	if builder.disableSearchByUserSet {
 		req.DisableSearchByUser = &builder.disableSearchByUser
 
+	}
+	if builder.chatModesSet {
+		req.ChatModes = builder.chatModes
 	}
 	return req
 }
@@ -628,7 +654,7 @@ func (builder *ChatSearchItemBuilder) Build() *ChatSearchItem {
 }
 
 type ChatSearchMeta struct {
-	ChatId *string `json:"chat_id,omitempty"` // 	 群组 ID
+	ChatId *string `json:"chat_id,omitempty"` // 群组 ID
 
 	CreateTime *string `json:"create_time,omitempty"` // 创建时间(iso8601)
 
@@ -654,7 +680,7 @@ type ChatSearchMeta struct {
 }
 
 type ChatSearchMetaBuilder struct {
-	chatId    string // 	 群组 ID
+	chatId    string // 群组 ID
 	chatIdSet bool
 
 	createTime    string // 创建时间(iso8601)
@@ -696,7 +722,7 @@ func NewChatSearchMetaBuilder() *ChatSearchMetaBuilder {
 	return builder
 }
 
-// 	 群组 ID
+// 群组 ID
 //
 // 示例值：7890123456abcdef
 func (builder *ChatSearchMetaBuilder) ChatId(chatId string) *ChatSearchMetaBuilder {
@@ -716,7 +742,7 @@ func (builder *ChatSearchMetaBuilder) CreateTime(createTime string) *ChatSearchM
 
 // 更新时间(iso8601)
 //
-// 示例值：iso8601
+// 示例值：2026-03-21T16:15:30+08:00
 func (builder *ChatSearchMetaBuilder) UpdateTime(updateTime string) *ChatSearchMetaBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeSet = true
@@ -725,7 +751,7 @@ func (builder *ChatSearchMetaBuilder) UpdateTime(updateTime string) *ChatSearchM
 
 // 是否是外部群
 //
-// 示例值：
+// 示例值：true;
 func (builder *ChatSearchMetaBuilder) External(external bool) *ChatSearchMetaBuilder {
 	builder.external = external
 	builder.externalSet = true
@@ -788,7 +814,7 @@ func (builder *ChatSearchMetaBuilder) OwnerIdType(ownerIdType string) *ChatSearc
 
 // tenant key
 //
-// 示例值：fawefawea
+// 示例值：7010970696222244883
 func (builder *ChatSearchMetaBuilder) TenantKey(tenantKey string) *ChatSearchMetaBuilder {
 	builder.tenantKey = tenantKey
 	builder.tenantKeySet = true
@@ -797,7 +823,7 @@ func (builder *ChatSearchMetaBuilder) TenantKey(tenantKey string) *ChatSearchMet
 
 // 群状态
 //
-// 示例值：
+// 示例值：normal
 func (builder *ChatSearchMetaBuilder) ChatStatus(chatStatus string) *ChatSearchMetaBuilder {
 	builder.chatStatus = chatStatus
 	builder.chatStatusSet = true
@@ -862,7 +888,7 @@ type CreateTag struct {
 
 	Name *string `json:"name,omitempty"` // 标签默认名称
 
-	I18nNames []*TagI18nName `json:"i18n_names,omitempty"` // i18n标签名称集合
+	I18nNames []*TagI18nName `json:"i18n_names,omitempty"` // i18n多语言标签名称集合
 }
 
 type CreateTagBuilder struct {
@@ -872,7 +898,7 @@ type CreateTagBuilder struct {
 	name    string // 标签默认名称
 	nameSet bool
 
-	i18nNames    []*TagI18nName // i18n标签名称集合
+	i18nNames    []*TagI18nName // i18n多语言标签名称集合
 	i18nNamesSet bool
 }
 
@@ -899,7 +925,7 @@ func (builder *CreateTagBuilder) Name(name string) *CreateTagBuilder {
 	return builder
 }
 
-// i18n标签名称集合
+// i18n多语言标签名称集合
 //
 // 示例值：
 func (builder *CreateTagBuilder) I18nNames(i18nNames []*TagI18nName) *CreateTagBuilder {
@@ -1510,8 +1536,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1519,8 +1543,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -3000,48 +3022,48 @@ func (builder *MessagePinBuilder) Build() *MessagePin {
 }
 
 type OpenAppFeedCard struct {
-	BizId *string `json:"biz_id,omitempty"` // 业务 ID
+	BizId *string `json:"biz_id,omitempty"` // 业务 ID（非必填字段，开发者可自定义业务 ID 以方便管理数据；若不传入，则 API 响应体中会返回系统自动分配的业务 ID）
 
-	Title *string `json:"title,omitempty"` // 主标题
+	Title *string `json:"title,omitempty"` // 主标题（在用户界面中最多展示一行，自动省略超出部分的内容；不支持定义字号及颜色）
 
 	AvatarKey *string `json:"avatar_key,omitempty"` // 头像 key
 
-	Preview *string `json:"preview,omitempty"` // 预览信息
+	Preview *string `json:"preview,omitempty"` // 预览信息（在用户界面中最多展示一行，自动省略超出部分的内容；支持多个字段拼接、特殊符号和 emoji；不支持定义字号及颜色）
 
-	StatusLabel *OpenFeedStatusLabel `json:"status_label,omitempty"` // 状态标签
+	StatusLabel *OpenFeedStatusLabel `json:"status_label,omitempty"` // 状态标签（非必填字段，如未选择该字段，则默认展示卡片触达时间）
 
-	Buttons *OpenAppFeedCardButtons `json:"buttons,omitempty"` // 交互按钮
+	Buttons *OpenAppFeedCardButtons `json:"buttons,omitempty"` // 交互按钮（非必填字段，如未传入该字段，则不展示按钮；最多展示 2 个按钮）
 
-	Link *OpenAppFeedLink `json:"link,omitempty"` // 跳转链接
+	Link *OpenAppFeedLink `json:"link,omitempty"` // 卡片整体跳转链接（创建时该参数为必填参数）
 
-	TimeSensitive *bool `json:"time_sensitive,omitempty"` // 即时提醒状态，true-打开，false-关闭
+	TimeSensitive *bool `json:"time_sensitive,omitempty"` // 即时提醒状态（设置为 true 后，卡片在消息列表临时置顶；设置为 false，消息卡片不置顶）
 
 	Notify *AppFeedNotify `json:"notify,omitempty"` // 通知设置，当前可设置通知是否关闭，为空时默认进行通知
 }
 
 type OpenAppFeedCardBuilder struct {
-	bizId    string // 业务 ID
+	bizId    string // 业务 ID（非必填字段，开发者可自定义业务 ID 以方便管理数据；若不传入，则 API 响应体中会返回系统自动分配的业务 ID）
 	bizIdSet bool
 
-	title    string // 主标题
+	title    string // 主标题（在用户界面中最多展示一行，自动省略超出部分的内容；不支持定义字号及颜色）
 	titleSet bool
 
 	avatarKey    string // 头像 key
 	avatarKeySet bool
 
-	preview    string // 预览信息
+	preview    string // 预览信息（在用户界面中最多展示一行，自动省略超出部分的内容；支持多个字段拼接、特殊符号和 emoji；不支持定义字号及颜色）
 	previewSet bool
 
-	statusLabel    *OpenFeedStatusLabel // 状态标签
+	statusLabel    *OpenFeedStatusLabel // 状态标签（非必填字段，如未选择该字段，则默认展示卡片触达时间）
 	statusLabelSet bool
 
-	buttons    *OpenAppFeedCardButtons // 交互按钮
+	buttons    *OpenAppFeedCardButtons // 交互按钮（非必填字段，如未传入该字段，则不展示按钮；最多展示 2 个按钮）
 	buttonsSet bool
 
-	link    *OpenAppFeedLink // 跳转链接
+	link    *OpenAppFeedLink // 卡片整体跳转链接（创建时该参数为必填参数）
 	linkSet bool
 
-	timeSensitive    bool // 即时提醒状态，true-打开，false-关闭
+	timeSensitive    bool // 即时提醒状态（设置为 true 后，卡片在消息列表临时置顶；设置为 false，消息卡片不置顶）
 	timeSensitiveSet bool
 
 	notify    *AppFeedNotify // 通知设置，当前可设置通知是否关闭，为空时默认进行通知
@@ -3053,7 +3075,7 @@ func NewOpenAppFeedCardBuilder() *OpenAppFeedCardBuilder {
 	return builder
 }
 
-// 业务 ID
+// 业务 ID（非必填字段，开发者可自定义业务 ID 以方便管理数据；若不传入，则 API 响应体中会返回系统自动分配的业务 ID）
 //
 // 示例值：096e2927-40a6-41a3-9562-314d641d09ae
 func (builder *OpenAppFeedCardBuilder) BizId(bizId string) *OpenAppFeedCardBuilder {
@@ -3062,7 +3084,7 @@ func (builder *OpenAppFeedCardBuilder) BizId(bizId string) *OpenAppFeedCardBuild
 	return builder
 }
 
-// 主标题
+// 主标题（在用户界面中最多展示一行，自动省略超出部分的内容；不支持定义字号及颜色）
 //
 // 示例值：主标题
 func (builder *OpenAppFeedCardBuilder) Title(title string) *OpenAppFeedCardBuilder {
@@ -3080,7 +3102,7 @@ func (builder *OpenAppFeedCardBuilder) AvatarKey(avatarKey string) *OpenAppFeedC
 	return builder
 }
 
-// 预览信息
+// 预览信息（在用户界面中最多展示一行，自动省略超出部分的内容；支持多个字段拼接、特殊符号和 emoji；不支持定义字号及颜色）
 //
 // 示例值：预览信息
 func (builder *OpenAppFeedCardBuilder) Preview(preview string) *OpenAppFeedCardBuilder {
@@ -3089,7 +3111,7 @@ func (builder *OpenAppFeedCardBuilder) Preview(preview string) *OpenAppFeedCardB
 	return builder
 }
 
-// 状态标签
+// 状态标签（非必填字段，如未选择该字段，则默认展示卡片触达时间）
 //
 // 示例值：
 func (builder *OpenAppFeedCardBuilder) StatusLabel(statusLabel *OpenFeedStatusLabel) *OpenAppFeedCardBuilder {
@@ -3098,7 +3120,7 @@ func (builder *OpenAppFeedCardBuilder) StatusLabel(statusLabel *OpenFeedStatusLa
 	return builder
 }
 
-// 交互按钮
+// 交互按钮（非必填字段，如未传入该字段，则不展示按钮；最多展示 2 个按钮）
 //
 // 示例值：
 func (builder *OpenAppFeedCardBuilder) Buttons(buttons *OpenAppFeedCardButtons) *OpenAppFeedCardBuilder {
@@ -3107,7 +3129,7 @@ func (builder *OpenAppFeedCardBuilder) Buttons(buttons *OpenAppFeedCardButtons) 
 	return builder
 }
 
-// 跳转链接
+// 卡片整体跳转链接（创建时该参数为必填参数）
 //
 // 示例值：
 func (builder *OpenAppFeedCardBuilder) Link(link *OpenAppFeedLink) *OpenAppFeedCardBuilder {
@@ -3116,7 +3138,7 @@ func (builder *OpenAppFeedCardBuilder) Link(link *OpenAppFeedLink) *OpenAppFeedC
 	return builder
 }
 
-// 即时提醒状态，true-打开，false-关闭
+// 即时提醒状态（设置为 true 后，卡片在消息列表临时置顶；设置为 false，消息卡片不置顶）
 //
 // 示例值：false
 func (builder *OpenAppFeedCardBuilder) TimeSensitive(timeSensitive bool) *OpenAppFeedCardBuilder {
@@ -3172,7 +3194,7 @@ func (builder *OpenAppFeedCardBuilder) Build() *OpenAppFeedCard {
 }
 
 type OpenAppFeedCardButton struct {
-	MultiUrl *OpenAppFeedCardUrl `json:"multi_url,omitempty"` // 跳转 URL
+	MultiUrl *OpenAppFeedCardUrl `json:"multi_url,omitempty"` // 跳转 URL（仅支持 https 协议）
 
 	ActionType *string `json:"action_type,omitempty"` // 交互类型
 
@@ -3184,7 +3206,7 @@ type OpenAppFeedCardButton struct {
 }
 
 type OpenAppFeedCardButtonBuilder struct {
-	multiUrl    *OpenAppFeedCardUrl // 跳转 URL
+	multiUrl    *OpenAppFeedCardUrl // 跳转 URL（仅支持 https 协议）
 	multiUrlSet bool
 
 	actionType    string // 交互类型
@@ -3205,7 +3227,7 @@ func NewOpenAppFeedCardButtonBuilder() *OpenAppFeedCardButtonBuilder {
 	return builder
 }
 
-// 跳转 URL
+// 跳转 URL（仅支持 https 协议）
 //
 // 示例值：
 func (builder *OpenAppFeedCardButtonBuilder) MultiUrl(multiUrl *OpenAppFeedCardUrl) *OpenAppFeedCardButtonBuilder {
@@ -3243,7 +3265,7 @@ func (builder *OpenAppFeedCardButtonBuilder) ButtonType(buttonType string) *Open
 
 // action 字典
 //
-// 示例值：
+// 示例值：{"foo": "bar"}
 func (builder *OpenAppFeedCardButtonBuilder) ActionMap(actionMap map[string]string) *OpenAppFeedCardButtonBuilder {
 	builder.actionMap = actionMap
 	builder.actionMapSet = true
@@ -3273,11 +3295,11 @@ func (builder *OpenAppFeedCardButtonBuilder) Build() *OpenAppFeedCardButton {
 }
 
 type OpenAppFeedCardButtons struct {
-	Buttons []*OpenAppFeedCardButton `json:"buttons,omitempty"` // 按钮组合
+	Buttons []*OpenAppFeedCardButton `json:"buttons,omitempty"` // 按钮组合，该字段为全量更新字段，若未传入字段原有值，则会清空字段数据。例如：;;- 在保持原有按钮的字段配置的前提下，新增一个按钮配置会添加一个按钮。;- 在原有按钮的字段配置上做更新，会更新该按钮。;- 清空原有按钮的字段配置，会删除该按钮。
 }
 
 type OpenAppFeedCardButtonsBuilder struct {
-	buttons    []*OpenAppFeedCardButton // 按钮组合
+	buttons    []*OpenAppFeedCardButton // 按钮组合，该字段为全量更新字段，若未传入字段原有值，则会清空字段数据。例如：;;- 在保持原有按钮的字段配置的前提下，新增一个按钮配置会添加一个按钮。;- 在原有按钮的字段配置上做更新，会更新该按钮。;- 清空原有按钮的字段配置，会删除该按钮。
 	buttonsSet bool
 }
 
@@ -3286,7 +3308,7 @@ func NewOpenAppFeedCardButtonsBuilder() *OpenAppFeedCardButtonsBuilder {
 	return builder
 }
 
-// 按钮组合
+// 按钮组合，该字段为全量更新字段，若未传入字段原有值，则会清空字段数据。例如：;;- 在保持原有按钮的字段配置的前提下，新增一个按钮配置会添加一个按钮。;- 在原有按钮的字段配置上做更新，会更新该按钮。;- 清空原有按钮的字段配置，会删除该按钮。
 //
 // 示例值：
 func (builder *OpenAppFeedCardButtonsBuilder) Buttons(buttons []*OpenAppFeedCardButton) *OpenAppFeedCardButtonsBuilder {
@@ -3422,11 +3444,11 @@ func (builder *OpenAppFeedCardUrlBuilder) Build() *OpenAppFeedCardUrl {
 }
 
 type OpenAppFeedLink struct {
-	Link *string `json:"link,omitempty"` // 链接
+	Link *string `json:"link,omitempty"` // 链接;;**注意**：仅支持 HTTPS 协议，以及网页应用或小程序的 Applink（会校验 appid 是否正确）。
 }
 
 type OpenAppFeedLinkBuilder struct {
-	link    string // 链接
+	link    string // 链接;;**注意**：仅支持 HTTPS 协议，以及网页应用或小程序的 Applink（会校验 appid 是否正确）。
 	linkSet bool
 }
 
@@ -3435,7 +3457,7 @@ func NewOpenAppFeedLinkBuilder() *OpenAppFeedLinkBuilder {
 	return builder
 }
 
-// 链接
+// 链接;;**注意**：仅支持 HTTPS 协议，以及网页应用或小程序的 Applink（会校验 appid 是否正确）。
 //
 // 示例值：https://www.feishu.cn/
 func (builder *OpenAppFeedLinkBuilder) Link(link string) *OpenAppFeedLinkBuilder {
@@ -3586,7 +3608,7 @@ func (builder *OpenFailedUserAppFeedCardItemBuilder) BizId(bizId string) *OpenFa
 
 // 用户 ID
 //
-// 示例值：
+// 示例值：ou_88553eda9014c201e6969b478895c223
 func (builder *OpenFailedUserAppFeedCardItemBuilder) UserId(userId string) *OpenFailedUserAppFeedCardItemBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -3595,7 +3617,7 @@ func (builder *OpenFailedUserAppFeedCardItemBuilder) UserId(userId string) *Open
 
 // 原因
 //
-// 示例值：
+// 示例值：NO_PERMISSION
 func (builder *OpenFailedUserAppFeedCardItemBuilder) Reason(reason string) *OpenFailedUserAppFeedCardItemBuilder {
 	builder.reason = reason
 	builder.reasonSet = true
@@ -3720,21 +3742,21 @@ func (builder *OpenShortcutBuilder) Build() *OpenShortcut {
 }
 
 type PatchTag struct {
-	Id *string `json:"id,omitempty"` // tagid
+	Id *string `json:"id,omitempty"` // 标签 ID
 
-	Name *string `json:"name,omitempty"` // tag name
+	Name *string `json:"name,omitempty"` // 标签名称
 
-	I18nNames []*TagI18nName `json:"i18n_names,omitempty"` // i18n名称集合
+	I18nNames []*TagI18nName `json:"i18n_names,omitempty"` // i18n 多语言名称集合
 }
 
 type PatchTagBuilder struct {
-	id    string // tagid
+	id    string // 标签 ID
 	idSet bool
 
-	name    string // tag name
+	name    string // 标签名称
 	nameSet bool
 
-	i18nNames    []*TagI18nName // i18n名称集合
+	i18nNames    []*TagI18nName // i18n 多语言名称集合
 	i18nNamesSet bool
 }
 
@@ -3743,7 +3765,7 @@ func NewPatchTagBuilder() *PatchTagBuilder {
 	return builder
 }
 
-// tagid
+// 标签 ID
 //
 // 示例值：716168xxxxx
 func (builder *PatchTagBuilder) Id(id string) *PatchTagBuilder {
@@ -3752,16 +3774,16 @@ func (builder *PatchTagBuilder) Id(id string) *PatchTagBuilder {
 	return builder
 }
 
-// tag name
+// 标签名称
 //
-// 示例值：tag name
+// 示例值：标签名称
 func (builder *PatchTagBuilder) Name(name string) *PatchTagBuilder {
 	builder.name = name
 	builder.nameSet = true
 	return builder
 }
 
-// i18n名称集合
+// i18n 多语言名称集合
 //
 // 示例值：
 func (builder *PatchTagBuilder) I18nNames(i18nNames []*TagI18nName) *PatchTagBuilder {
@@ -3837,8 +3859,6 @@ func NewPreviewContentBuilder() *PreviewContentBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *PreviewContentBuilder) PreviewId(previewId string) *PreviewContentBuilder {
 	builder.previewId = previewId
@@ -3846,8 +3866,6 @@ func (builder *PreviewContentBuilder) PreviewId(previewId string) *PreviewConten
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *PreviewContentBuilder) PreviewUrl(previewUrl string) *PreviewContentBuilder {
 	builder.previewUrl = previewUrl
@@ -3889,7 +3907,7 @@ func NewTagI18nNameBuilder() *TagI18nNameBuilder {
 
 // 语言
 //
-// 示例值：zh-CN
+// 示例值：zh_cn
 func (builder *TagI18nNameBuilder) Locale(locale string) *TagI18nNameBuilder {
 	builder.locale = locale
 	builder.localeSet = true
@@ -3898,7 +3916,7 @@ func (builder *TagI18nNameBuilder) Locale(locale string) *TagI18nNameBuilder {
 
 // 名称
 //
-// 示例值：tagName1
+// 示例值：标签1
 func (builder *TagI18nNameBuilder) Name(name string) *TagI18nNameBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -3939,7 +3957,7 @@ func NewTagI18nNameV2Builder() *TagI18nNameV2Builder {
 
 // 语言
 //
-// 示例值：zh-CN
+// 示例值：zh_cn
 func (builder *TagI18nNameV2Builder) Locale(locale string) *TagI18nNameV2Builder {
 	builder.locale = locale
 	builder.localeSet = true
@@ -3948,7 +3966,7 @@ func (builder *TagI18nNameV2Builder) Locale(locale string) *TagI18nNameV2Builder
 
 // 名称
 //
-// 示例值：tagName1
+// 示例值：标签2
 func (builder *TagI18nNameV2Builder) Name(name string) *TagI18nNameV2Builder {
 	builder.name = name
 	builder.nameSet = true
@@ -3969,15 +3987,15 @@ func (builder *TagI18nNameV2Builder) Build() *TagI18nNameV2 {
 }
 
 type TagInfo struct {
-	Id *string `json:"id,omitempty"` // id
+	Id *string `json:"id,omitempty"` // 标签 ID
 
 	TenantId *string `json:"tenant_id,omitempty"` // 租户id
 
 	TagType *string `json:"tag_type,omitempty"` // 标签类型
 
-	Name *string `json:"name,omitempty"` // name
+	Name *string `json:"name,omitempty"` // 标签名称
 
-	I18nNames []*TagI18nNameV2 `json:"i18n_names,omitempty"` // i18n name
+	I18nNames []*TagI18nNameV2 `json:"i18n_names,omitempty"` // i18n 多语言名称集合
 
 	CreatorId *string `json:"creator_id,omitempty"` // 创建人
 
@@ -3987,7 +4005,7 @@ type TagInfo struct {
 }
 
 type TagInfoBuilder struct {
-	id    string // id
+	id    string // 标签 ID
 	idSet bool
 
 	tenantId    string // 租户id
@@ -3996,10 +4014,10 @@ type TagInfoBuilder struct {
 	tagType    string // 标签类型
 	tagTypeSet bool
 
-	name    string // name
+	name    string // 标签名称
 	nameSet bool
 
-	i18nNames    []*TagI18nNameV2 // i18n name
+	i18nNames    []*TagI18nNameV2 // i18n 多语言名称集合
 	i18nNamesSet bool
 
 	creatorId    string // 创建人
@@ -4017,7 +4035,7 @@ func NewTagInfoBuilder() *TagInfoBuilder {
 	return builder
 }
 
-// id
+// 标签 ID
 //
 // 示例值：716168xxxxx
 func (builder *TagInfoBuilder) Id(id string) *TagInfoBuilder {
@@ -4044,16 +4062,16 @@ func (builder *TagInfoBuilder) TagType(tagType string) *TagInfoBuilder {
 	return builder
 }
 
-// name
+// 标签名称
 //
-// 示例值：tagName1
+// 示例值：标签1
 func (builder *TagInfoBuilder) Name(name string) *TagInfoBuilder {
 	builder.name = name
 	builder.nameSet = true
 	return builder
 }
 
-// i18n name
+// i18n 多语言名称集合
 //
 // 示例值：
 func (builder *TagInfoBuilder) I18nNames(i18nNames []*TagI18nNameV2) *TagInfoBuilder {
@@ -4531,8 +4549,6 @@ func NewUnknownPinBuilder() *UnknownPinBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UnknownPinBuilder) Title(title string) *UnknownPinBuilder {
 	builder.title = title
@@ -4540,8 +4556,6 @@ func (builder *UnknownPinBuilder) Title(title string) *UnknownPinBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UnknownPinBuilder) I18nTitle(i18nTitle map[string]string) *UnknownPinBuilder {
 	builder.i18nTitle = i18nTitle
@@ -4549,8 +4563,6 @@ func (builder *UnknownPinBuilder) I18nTitle(i18nTitle map[string]string) *Unknow
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UnknownPinBuilder) Icon(icon *ChatPinIcon) *UnknownPinBuilder {
 	builder.icon = icon
@@ -4734,14 +4746,14 @@ func (builder *UnreadAtMessageBuilder) Build() *UnreadAtMessage {
 type UpdateChatPin struct {
 	IsFixed *bool `json:"is_fixed,omitempty"` // 置顶是否被固定到置顶列表前方,目前每个群内最多可以固定一个置顶。
 
-	UpdateUrlPin *UpdateUrlPin `json:"update_url_pin,omitempty"` //
+	UpdateUrlPin *UpdateUrlPin `json:"update_url_pin,omitempty"` // 链接类型置顶数据
 }
 
 type UpdateChatPinBuilder struct {
 	isFixed    bool // 置顶是否被固定到置顶列表前方,目前每个群内最多可以固定一个置顶。
 	isFixedSet bool
 
-	updateUrlPin    *UpdateUrlPin //
+	updateUrlPin    *UpdateUrlPin // 链接类型置顶数据
 	updateUrlPinSet bool
 }
 
@@ -4759,7 +4771,7 @@ func (builder *UpdateChatPinBuilder) IsFixed(isFixed bool) *UpdateChatPinBuilder
 	return builder
 }
 
-//
+// 链接类型置顶数据
 //
 // 示例值：
 func (builder *UpdateChatPinBuilder) UpdateUrlPin(updateUrlPin *UpdateUrlPin) *UpdateChatPinBuilder {
@@ -4883,7 +4895,7 @@ type UrlPin struct {
 
 	Icon *ChatPinIcon `json:"icon,omitempty"` //
 
-	Title *string `json:"title,omitempty"` // 名称
+	Title *string `json:"title,omitempty"` // 名称;;**注意**：;- 如果chat_pin_type为url_pin，则该字段必填。
 
 	I18nTitle *I18nNames `json:"i18n_title,omitempty"` // 国际化名称，如果客户端语言环境对应的i18n_title存在则会被优先展示，否则展示title。
 
@@ -4899,7 +4911,7 @@ type UrlPinBuilder struct {
 	icon    *ChatPinIcon //
 	iconSet bool
 
-	title    string // 名称
+	title    string // 名称;;**注意**：;- 如果chat_pin_type为url_pin，则该字段必填。
 	titleSet bool
 
 	i18nTitle    *I18nNames // 国际化名称，如果客户端语言环境对应的i18n_title存在则会被优先展示，否则展示title。
@@ -4926,8 +4938,6 @@ func (builder *UrlPinBuilder) Url(url string) *UrlPinBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UrlPinBuilder) Icon(icon *ChatPinIcon) *UrlPinBuilder {
 	builder.icon = icon
@@ -4935,7 +4945,7 @@ func (builder *UrlPinBuilder) Icon(icon *ChatPinIcon) *UrlPinBuilder {
 	return builder
 }
 
-// 名称
+// 名称;;**注意**：;- 如果chat_pin_type为url_pin，则该字段必填。
 //
 // 示例值：待办事项
 func (builder *UrlPinBuilder) Title(title string) *UrlPinBuilder {
@@ -5001,14 +5011,14 @@ func (builder *UrlPinBuilder) Build() *UrlPin {
 type UserOpenAppFeedCardDeleter struct {
 	BizId *string `json:"biz_id,omitempty"` // 业务 ID
 
-	UserId *string `json:"user_id,omitempty"` // 用户 ID
+	UserId *string `json:"user_id,omitempty"` // 用户 ID（ID 类型与 user_id_type 的取值一致。如果;是商店应用，因不支持获取用户 userID 权限，所以无法值使用 user_id 类型的用户 ID）
 }
 
 type UserOpenAppFeedCardDeleterBuilder struct {
 	bizId    string // 业务 ID
 	bizIdSet bool
 
-	userId    string // 用户 ID
+	userId    string // 用户 ID（ID 类型与 user_id_type 的取值一致。如果;是商店应用，因不支持获取用户 userID 权限，所以无法值使用 user_id 类型的用户 ID）
 	userIdSet bool
 }
 
@@ -5026,9 +5036,9 @@ func (builder *UserOpenAppFeedCardDeleterBuilder) BizId(bizId string) *UserOpenA
 	return builder
 }
 
-// 用户 ID
+// 用户 ID（ID 类型与 user_id_type 的取值一致。如果;是商店应用，因不支持获取用户 userID 权限，所以无法值使用 user_id 类型的用户 ID）
 //
-// 示例值：
+// 示例值：ou_88553eda9014c201e6969b478895c223
 func (builder *UserOpenAppFeedCardDeleterBuilder) UserId(userId string) *UserOpenAppFeedCardDeleterBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -5051,7 +5061,7 @@ func (builder *UserOpenAppFeedCardDeleterBuilder) Build() *UserOpenAppFeedCardDe
 type UserOpenAppFeedCardUpdater struct {
 	AppFeedCard *OpenAppFeedCard `json:"app_feed_card,omitempty"` // 应用消息卡片
 
-	UserId *string `json:"user_id,omitempty"` // 用户 id
+	UserId *string `json:"user_id,omitempty"` // 用户 ID（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 userID 权限，所以无法值使用 user_id 类型的用户 ID）
 
 	UpdateFields []string `json:"update_fields,omitempty"` // 更新字段列表
 }
@@ -5060,7 +5070,7 @@ type UserOpenAppFeedCardUpdaterBuilder struct {
 	appFeedCard    *OpenAppFeedCard // 应用消息卡片
 	appFeedCardSet bool
 
-	userId    string // 用户 id
+	userId    string // 用户 ID（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 userID 权限，所以无法值使用 user_id 类型的用户 ID）
 	userIdSet bool
 
 	updateFields    []string // 更新字段列表
@@ -5081,9 +5091,9 @@ func (builder *UserOpenAppFeedCardUpdaterBuilder) AppFeedCard(appFeedCard *OpenA
 	return builder
 }
 
-// 用户 id
+// 用户 ID（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 userID 权限，所以无法值使用 user_id 类型的用户 ID）
 //
-// 示例值：
+// 示例值：ou_a0553eda9014c201e6969b478895c230
 func (builder *UserOpenAppFeedCardUpdaterBuilder) UserId(userId string) *UserOpenAppFeedCardUpdaterBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -5118,7 +5128,7 @@ type CreateAppFeedCardReqBodyBuilder struct {
 	appFeedCard    *OpenAppFeedCard // 应用消息卡片
 	appFeedCardSet bool
 
-	userIds    []string // 用户 ID
+	userIds    []string // 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果;是商店应用，因不支持获取用户 userID 权限，所以无法值使用 user_id 类型的用户 ID）
 	userIdsSet bool
 }
 
@@ -5129,16 +5139,16 @@ func NewCreateAppFeedCardReqBodyBuilder() *CreateAppFeedCardReqBodyBuilder {
 
 // 应用消息卡片
 //
-//示例值：
+// 示例值：
 func (builder *CreateAppFeedCardReqBodyBuilder) AppFeedCard(appFeedCard *OpenAppFeedCard) *CreateAppFeedCardReqBodyBuilder {
 	builder.appFeedCard = appFeedCard
 	builder.appFeedCardSet = true
 	return builder
 }
 
-// 用户 ID
+// 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果;是商店应用，因不支持获取用户 userID 权限，所以无法值使用 user_id 类型的用户 ID）
 //
-//示例值：
+// 示例值：
 func (builder *CreateAppFeedCardReqBodyBuilder) UserIds(userIds []string) *CreateAppFeedCardReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
@@ -5177,7 +5187,7 @@ func (builder *CreateAppFeedCardPathReqBodyBuilder) AppFeedCard(appFeedCard *Ope
 	return builder
 }
 
-// 用户 ID
+// 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果;是商店应用，因不支持获取用户 userID 权限，所以无法值使用 user_id 类型的用户 ID）
 //
 // 示例值：
 func (builder *CreateAppFeedCardPathReqBodyBuilder) UserIds(userIds []string) *CreateAppFeedCardPathReqBodyBuilder {
@@ -5219,7 +5229,7 @@ func (builder *CreateAppFeedCardReqBuilder) UserIdType(userIdType string) *Creat
 	return builder
 }
 
-//
+// 应用消息流卡片是飞书为应用提供的消息触达能力，让应用可以直接在消息流发送消息，重要消息能更快触达用户。
 func (builder *CreateAppFeedCardReqBuilder) Body(body *CreateAppFeedCardReqBody) *CreateAppFeedCardReqBuilder {
 	builder.body = body
 	return builder
@@ -5236,7 +5246,7 @@ func (builder *CreateAppFeedCardReqBuilder) Build() *CreateAppFeedCardReq {
 type CreateAppFeedCardReqBody struct {
 	AppFeedCard *OpenAppFeedCard `json:"app_feed_card,omitempty"` // 应用消息卡片
 
-	UserIds []string `json:"user_ids,omitempty"` // 用户 ID
+	UserIds []string `json:"user_ids,omitempty"` // 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果;是商店应用，因不支持获取用户 userID 权限，所以无法值使用 user_id 类型的用户 ID）
 }
 
 type CreateAppFeedCardReq struct {
@@ -5272,7 +5282,7 @@ func NewDeleteAppFeedCardBatchReqBodyBuilder() *DeleteAppFeedCardBatchReqBodyBui
 
 // 应用消息卡片
 //
-//示例值：
+// 示例值：
 func (builder *DeleteAppFeedCardBatchReqBodyBuilder) FeedCards(feedCards []*UserOpenAppFeedCardDeleter) *DeleteAppFeedCardBatchReqBodyBuilder {
 	builder.feedCards = feedCards
 	builder.feedCardsSet = true
@@ -5328,7 +5338,7 @@ func NewDeleteAppFeedCardBatchReqBuilder() *DeleteAppFeedCardBatchReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型 可选值有:	 - open_id: 以open_id来识别用户	 - user_id: 以user_id来识别用户	 - union_id: 以union_id来识别用户
+// 此次调用中使用的用户ID的类型 可选值有: - open_id: 以open_id来识别用户 - user_id: 以user_id来识别用户 - union_id: 以union_id来识别用户
 //
 // 示例值：open_id
 func (builder *DeleteAppFeedCardBatchReqBuilder) UserIdType(userIdType string) *DeleteAppFeedCardBatchReqBuilder {
@@ -5336,7 +5346,7 @@ func (builder *DeleteAppFeedCardBatchReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
-//
+// 该接口用于删除应用消息流卡片
 func (builder *DeleteAppFeedCardBatchReqBuilder) Body(body *DeleteAppFeedCardBatchReqBody) *DeleteAppFeedCardBatchReqBuilder {
 	builder.body = body
 	return builder
@@ -5385,7 +5395,7 @@ func NewUpdateAppFeedCardBatchReqBodyBuilder() *UpdateAppFeedCardBatchReqBodyBui
 
 // 应用消息卡片
 //
-//示例值：
+// 示例值：
 func (builder *UpdateAppFeedCardBatchReqBodyBuilder) FeedCards(feedCards []*UserOpenAppFeedCardUpdater) *UpdateAppFeedCardBatchReqBodyBuilder {
 	builder.feedCards = feedCards
 	builder.feedCardsSet = true
@@ -5441,7 +5451,7 @@ func NewUpdateAppFeedCardBatchReqBuilder() *UpdateAppFeedCardBatchReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型 可选值有:	 - open_id: 以open_id来识别用户	 - user_id: 以user_id来识别用户	 - union_id: 以union_id来识别用户
+// 此次调用中使用的用户ID的类型 可选值有: - open_id: 以open_id来识别用户 - user_id: 以user_id来识别用户 - union_id: 以union_id来识别用户
 //
 // 示例值：open_id
 func (builder *UpdateAppFeedCardBatchReqBuilder) UserIdType(userIdType string) *UpdateAppFeedCardBatchReqBuilder {
@@ -5449,7 +5459,7 @@ func (builder *UpdateAppFeedCardBatchReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
-//
+// 该接口用于更新消息流卡片的头像、标题、预览、标签状态、按钮等信息
 func (builder *UpdateAppFeedCardBatchReqBuilder) Body(body *UpdateAppFeedCardBatchReqBody) *UpdateAppFeedCardBatchReqBuilder {
 	builder.body = body
 	return builder
@@ -5490,10 +5500,10 @@ type CreateBizEntityTagRelationReqBodyBuilder struct {
 	tagBizType    string // 业务类型
 	tagBizTypeSet bool
 
-	bizEntityId    string // 业务实体id
+	bizEntityId    string // 业务实体 ID
 	bizEntityIdSet bool
 
-	tagIds    []string // 标签id
+	tagIds    []string // 标签 ID
 	tagIdsSet bool
 
 	botId    string // 机器人id
@@ -5507,25 +5517,25 @@ func NewCreateBizEntityTagRelationReqBodyBuilder() *CreateBizEntityTagRelationRe
 
 // 业务类型
 //
-//示例值：chat
+// 示例值：chat
 func (builder *CreateBizEntityTagRelationReqBodyBuilder) TagBizType(tagBizType string) *CreateBizEntityTagRelationReqBodyBuilder {
 	builder.tagBizType = tagBizType
 	builder.tagBizTypeSet = true
 	return builder
 }
 
-// 业务实体id
+// 业务实体 ID
 //
-//示例值：71616xxxx
+// 示例值：oc_xxxxx
 func (builder *CreateBizEntityTagRelationReqBodyBuilder) BizEntityId(bizEntityId string) *CreateBizEntityTagRelationReqBodyBuilder {
 	builder.bizEntityId = bizEntityId
 	builder.bizEntityIdSet = true
 	return builder
 }
 
-// 标签id
+// 标签 ID
 //
-//示例值：
+// 示例值：
 func (builder *CreateBizEntityTagRelationReqBodyBuilder) TagIds(tagIds []string) *CreateBizEntityTagRelationReqBodyBuilder {
 	builder.tagIds = tagIds
 	builder.tagIdsSet = true
@@ -5571,16 +5581,16 @@ func (builder *CreateBizEntityTagRelationPathReqBodyBuilder) TagBizType(tagBizTy
 	return builder
 }
 
-// 业务实体id
+// 业务实体 ID
 //
-// 示例值：71616xxxx
+// 示例值：oc_xxxxx
 func (builder *CreateBizEntityTagRelationPathReqBodyBuilder) BizEntityId(bizEntityId string) *CreateBizEntityTagRelationPathReqBodyBuilder {
 	builder.bizEntityId = bizEntityId
 	builder.bizEntityIdSet = true
 	return builder
 }
 
-// 标签id
+// 标签 ID
 //
 // 示例值：
 func (builder *CreateBizEntityTagRelationPathReqBodyBuilder) TagIds(tagIds []string) *CreateBizEntityTagRelationPathReqBodyBuilder {
@@ -5617,7 +5627,7 @@ func NewCreateBizEntityTagRelationReqBuilder() *CreateBizEntityTagRelationReqBui
 	return builder
 }
 
-//
+// 绑定标签到业务实体。目前支持给会话打标签。
 func (builder *CreateBizEntityTagRelationReqBuilder) Body(body *CreateBizEntityTagRelationReqBody) *CreateBizEntityTagRelationReqBuilder {
 	builder.body = body
 	return builder
@@ -5633,9 +5643,9 @@ func (builder *CreateBizEntityTagRelationReqBuilder) Build() *CreateBizEntityTag
 type CreateBizEntityTagRelationReqBody struct {
 	TagBizType *string `json:"tag_biz_type,omitempty"` // 业务类型
 
-	BizEntityId *string `json:"biz_entity_id,omitempty"` // 业务实体id
+	BizEntityId *string `json:"biz_entity_id,omitempty"` // 业务实体 ID
 
-	TagIds []string `json:"tag_ids,omitempty"` // 标签id
+	TagIds []string `json:"tag_ids,omitempty"` // 标签 ID
 
 	BotId *string `json:"bot_id,omitempty"` // 机器人id
 }
@@ -5737,7 +5747,7 @@ func NewUpdateBizEntityTagRelationReqBodyBuilder() *UpdateBizEntityTagRelationRe
 
 // 业务类型
 //
-//示例值：chat
+// 示例值：chat
 func (builder *UpdateBizEntityTagRelationReqBodyBuilder) TagBizType(tagBizType string) *UpdateBizEntityTagRelationReqBodyBuilder {
 	builder.tagBizType = tagBizType
 	builder.tagBizTypeSet = true
@@ -5746,7 +5756,7 @@ func (builder *UpdateBizEntityTagRelationReqBodyBuilder) TagBizType(tagBizType s
 
 // 业务实体id
 //
-//示例值：7161681111
+// 示例值：oc_xxxxx
 func (builder *UpdateBizEntityTagRelationReqBodyBuilder) BizEntityId(bizEntityId string) *UpdateBizEntityTagRelationReqBodyBuilder {
 	builder.bizEntityId = bizEntityId
 	builder.bizEntityIdSet = true
@@ -5755,7 +5765,7 @@ func (builder *UpdateBizEntityTagRelationReqBodyBuilder) BizEntityId(bizEntityId
 
 // 标签id
 //
-//示例值：
+// 示例值：
 func (builder *UpdateBizEntityTagRelationReqBodyBuilder) TagIds(tagIds []string) *UpdateBizEntityTagRelationReqBodyBuilder {
 	builder.tagIds = tagIds
 	builder.tagIdsSet = true
@@ -5803,7 +5813,7 @@ func (builder *UpdateBizEntityTagRelationPathReqBodyBuilder) TagBizType(tagBizTy
 
 // 业务实体id
 //
-// 示例值：7161681111
+// 示例值：oc_xxxxx
 func (builder *UpdateBizEntityTagRelationPathReqBodyBuilder) BizEntityId(bizEntityId string) *UpdateBizEntityTagRelationPathReqBodyBuilder {
 	builder.bizEntityId = bizEntityId
 	builder.bizEntityIdSet = true
@@ -5847,7 +5857,7 @@ func NewUpdateBizEntityTagRelationReqBuilder() *UpdateBizEntityTagRelationReqBui
 	return builder
 }
 
-//
+// 从业务实体上解绑标签。
 func (builder *UpdateBizEntityTagRelationReqBuilder) Body(body *UpdateBizEntityTagRelationReqBody) *UpdateBizEntityTagRelationReqBuilder {
 	builder.body = body
 	return builder
@@ -5884,17 +5894,218 @@ func (resp *UpdateBizEntityTagRelationResp) Success() bool {
 	return resp.Code == 0
 }
 
+type SearchChatReqBodyBuilder struct {
+	query    string // query (长度范围：0 ～ 50 字符)
+	querySet bool
+
+	filter    *ChatSearchFilter //
+	filterSet bool
+
+	sorter    string // sorter
+	sorterSet bool
+}
+
+func NewSearchChatReqBodyBuilder() *SearchChatReqBodyBuilder {
+	builder := &SearchChatReqBodyBuilder{}
+	return builder
+}
+
+// query (长度范围：0 ～ 50 字符)
+//
+// 示例值：部门群
+func (builder *SearchChatReqBodyBuilder) Query(query string) *SearchChatReqBodyBuilder {
+	builder.query = query
+	builder.querySet = true
+	return builder
+}
+
+// 示例值：
+func (builder *SearchChatReqBodyBuilder) Filter(filter *ChatSearchFilter) *SearchChatReqBodyBuilder {
+	builder.filter = filter
+	builder.filterSet = true
+	return builder
+}
+
+// sorter
+//
+// 示例值：create_time_desc
+func (builder *SearchChatReqBodyBuilder) Sorter(sorter string) *SearchChatReqBodyBuilder {
+	builder.sorter = sorter
+	builder.sorterSet = true
+	return builder
+}
+
+func (builder *SearchChatReqBodyBuilder) Build() *SearchChatReqBody {
+	req := &SearchChatReqBody{}
+	if builder.querySet {
+		req.Query = &builder.query
+	}
+	if builder.filterSet {
+		req.Filter = builder.filter
+	}
+	if builder.sorterSet {
+		req.Sorter = &builder.sorter
+	}
+	return req
+}
+
+type SearchChatPathReqBodyBuilder struct {
+	query     string
+	querySet  bool
+	filter    *ChatSearchFilter
+	filterSet bool
+	sorter    string
+	sorterSet bool
+}
+
+func NewSearchChatPathReqBodyBuilder() *SearchChatPathReqBodyBuilder {
+	builder := &SearchChatPathReqBodyBuilder{}
+	return builder
+}
+
+// query (长度范围：0 ～ 50 字符)
+//
+// 示例值：部门群
+func (builder *SearchChatPathReqBodyBuilder) Query(query string) *SearchChatPathReqBodyBuilder {
+	builder.query = query
+	builder.querySet = true
+	return builder
+}
+
+// 示例值：
+func (builder *SearchChatPathReqBodyBuilder) Filter(filter *ChatSearchFilter) *SearchChatPathReqBodyBuilder {
+	builder.filter = filter
+	builder.filterSet = true
+	return builder
+}
+
+// sorter
+//
+// 示例值：create_time_desc
+func (builder *SearchChatPathReqBodyBuilder) Sorter(sorter string) *SearchChatPathReqBodyBuilder {
+	builder.sorter = sorter
+	builder.sorterSet = true
+	return builder
+}
+
+func (builder *SearchChatPathReqBodyBuilder) Build() (*SearchChatReqBody, error) {
+	req := &SearchChatReqBody{}
+	if builder.querySet {
+		req.Query = &builder.query
+	}
+	if builder.filterSet {
+		req.Filter = builder.filter
+	}
+	if builder.sorterSet {
+		req.Sorter = &builder.sorter
+	}
+	return req, nil
+}
+
+type SearchChatReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchChatReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewSearchChatReqBuilder() *SearchChatReqBuilder {
+	builder := &SearchChatReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *SearchChatReqBuilder) Limit(limit int) *SearchChatReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 示例值：
+func (builder *SearchChatReqBuilder) PageSize(pageSize int) *SearchChatReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 示例值：
+func (builder *SearchChatReqBuilder) PageToken(pageToken string) *SearchChatReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *SearchChatReqBuilder) UserIdType(userIdType string) *SearchChatReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 用户可以通过关键字搜索可见群组，可见性和套件内搜索一致。
+func (builder *SearchChatReqBuilder) Body(body *SearchChatReqBody) *SearchChatReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchChatReqBuilder) Build() *SearchChatReq {
+	req := &SearchChatReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchChatReqBody struct {
+	Query *string `json:"query,omitempty"` // query (长度范围：0 ～ 50 字符)
+
+	Filter *ChatSearchFilter `json:"filter,omitempty"` //
+
+	Sorter *string `json:"sorter,omitempty"` // sorter
+}
+
+type SearchChatReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchChatReqBody `body:""`
+	Limit  int                // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type SearchChatRespData struct {
+	Items []*ChatSearchItem `json:"items,omitempty"` // items
+
+	Total *int `json:"total,omitempty"` // total
+
+	HasMore *bool `json:"has_more,omitempty"` // has_more
+
+	PageToken *string `json:"page_token,omitempty"` // page_token
+
+	Notice *string `json:"notice,omitempty"` // 搜索补充提示信息，返回本次搜索的额外说明，例如：query被截断；搜索结果不全等
+}
+
+type SearchChatResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchChatRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchChatResp) Success() bool {
+	return resp.Code == 0
+}
+
 type UpdateChatButtonReqBodyBuilder struct {
 	botId    string // Bot id
 	botIdSet bool
 
-	userIds    []string // 用户 ID 列表
+	userIds    []string // 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 user ID 权限，所以无法使用 user_id 类型的用户 ID）
 	userIdsSet bool
 
 	chatId    string // 群 ID
 	chatIdSet bool
 
-	buttons    *OpenAppFeedCardButtons // 按钮
+	buttons    *OpenAppFeedCardButtons // 交互按钮（非必填字段，如未传入该字段，则不展示按钮；最多展示 2 个按钮）
 	buttonsSet bool
 }
 
@@ -5903,9 +6114,9 @@ func NewUpdateChatButtonReqBodyBuilder() *UpdateChatButtonReqBodyBuilder {
 	return builder
 }
 
-// 用户 ID 列表
+// 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 user ID 权限，所以无法使用 user_id 类型的用户 ID）
 //
-//示例值：
+// 示例值：
 func (builder *UpdateChatButtonReqBodyBuilder) UserIds(userIds []string) *UpdateChatButtonReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
@@ -5914,16 +6125,16 @@ func (builder *UpdateChatButtonReqBodyBuilder) UserIds(userIds []string) *Update
 
 // 群 ID
 //
-//示例值：oc_a0553eda9014c201e6969b478895c230
+// 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *UpdateChatButtonReqBodyBuilder) ChatId(chatId string) *UpdateChatButtonReqBodyBuilder {
 	builder.chatId = chatId
 	builder.chatIdSet = true
 	return builder
 }
 
-// 按钮
+// 交互按钮（非必填字段，如未传入该字段，则不展示按钮；最多展示 2 个按钮）
 //
-//示例值：
+// 示例值：
 func (builder *UpdateChatButtonReqBodyBuilder) Buttons(buttons *OpenAppFeedCardButtons) *UpdateChatButtonReqBodyBuilder {
 	builder.buttons = buttons
 	builder.buttonsSet = true
@@ -5960,7 +6171,7 @@ func NewUpdateChatButtonPathReqBodyBuilder() *UpdateChatButtonPathReqBodyBuilder
 	return builder
 }
 
-// 用户 ID 列表
+// 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 user ID 权限，所以无法使用 user_id 类型的用户 ID）
 //
 // 示例值：
 func (builder *UpdateChatButtonPathReqBodyBuilder) UserIds(userIds []string) *UpdateChatButtonPathReqBodyBuilder {
@@ -5978,7 +6189,7 @@ func (builder *UpdateChatButtonPathReqBodyBuilder) ChatId(chatId string) *Update
 	return builder
 }
 
-// 按钮
+// 交互按钮（非必填字段，如未传入该字段，则不展示按钮；最多展示 2 个按钮）
 //
 // 示例值：
 func (builder *UpdateChatButtonPathReqBodyBuilder) Buttons(buttons *OpenAppFeedCardButtons) *UpdateChatButtonPathReqBodyBuilder {
@@ -6023,7 +6234,7 @@ func (builder *UpdateChatButtonReqBuilder) UserIdType(userIdType string) *Update
 	return builder
 }
 
-//
+// 为群组消息、机器人消息的消息流卡片添加、更新、删除快捷操作按钮。
 func (builder *UpdateChatButtonReqBuilder) Body(body *UpdateChatButtonReqBody) *UpdateChatButtonReqBuilder {
 	builder.body = body
 	return builder
@@ -6040,11 +6251,11 @@ func (builder *UpdateChatButtonReqBuilder) Build() *UpdateChatButtonReq {
 type UpdateChatButtonReqBody struct {
 	BotId *string `json:"bot_id,omitempty"` // Bot id
 
-	UserIds []string `json:"user_ids,omitempty"` // 用户 ID 列表
+	UserIds []string `json:"user_ids,omitempty"` // 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 user ID 权限，所以无法使用 user_id 类型的用户 ID）
 
 	ChatId *string `json:"chat_id,omitempty"` // 群 ID
 
-	Buttons *OpenAppFeedCardButtons `json:"buttons,omitempty"` // 按钮
+	Buttons *OpenAppFeedCardButtons `json:"buttons,omitempty"` // 交互按钮（非必填字段，如未传入该字段，则不展示按钮；最多展示 2 个按钮）
 }
 
 type UpdateChatButtonReq struct {
@@ -6070,10 +6281,10 @@ type BotTimeSentiveFeedCardReqBodyBuilder struct {
 	botId    string // 机器人id
 	botIdSet bool
 
-	timeSensitive    bool // 临时置顶状态，true-打开，false-关闭
+	timeSensitive    bool // 即时提醒状态（设置为 true 后，卡片在消息列表临时置顶；设置为 false，消息卡片不置顶）
 	timeSensitiveSet bool
 
-	userIds    []string // 用户id 列表
+	userIds    []string // 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 user ID 权限，所以无法使用 user_id 类型的用户 ID）
 	userIdsSet bool
 }
 
@@ -6082,18 +6293,18 @@ func NewBotTimeSentiveFeedCardReqBodyBuilder() *BotTimeSentiveFeedCardReqBodyBui
 	return builder
 }
 
-// 临时置顶状态，true-打开，false-关闭
+// 即时提醒状态（设置为 true 后，卡片在消息列表临时置顶；设置为 false，消息卡片不置顶）
 //
-//示例值：true
+// 示例值：true
 func (builder *BotTimeSentiveFeedCardReqBodyBuilder) TimeSensitive(timeSensitive bool) *BotTimeSentiveFeedCardReqBodyBuilder {
 	builder.timeSensitive = timeSensitive
 	builder.timeSensitiveSet = true
 	return builder
 }
 
-// 用户id 列表
+// 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 user ID 权限，所以无法使用 user_id 类型的用户 ID）
 //
-//示例值：
+// 示例值：
 func (builder *BotTimeSentiveFeedCardReqBodyBuilder) UserIds(userIds []string) *BotTimeSentiveFeedCardReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
@@ -6125,7 +6336,7 @@ func NewBotTimeSentiveFeedCardPathReqBodyBuilder() *BotTimeSentiveFeedCardPathRe
 	return builder
 }
 
-// 临时置顶状态，true-打开，false-关闭
+// 即时提醒状态（设置为 true 后，卡片在消息列表临时置顶；设置为 false，消息卡片不置顶）
 //
 // 示例值：true
 func (builder *BotTimeSentiveFeedCardPathReqBodyBuilder) TimeSensitive(timeSensitive bool) *BotTimeSentiveFeedCardPathReqBodyBuilder {
@@ -6134,7 +6345,7 @@ func (builder *BotTimeSentiveFeedCardPathReqBodyBuilder) TimeSensitive(timeSensi
 	return builder
 }
 
-// 用户id 列表
+// 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 user ID 权限，所以无法使用 user_id 类型的用户 ID）
 //
 // 示例值：
 func (builder *BotTimeSentiveFeedCardPathReqBodyBuilder) UserIds(userIds []string) *BotTimeSentiveFeedCardPathReqBodyBuilder {
@@ -6168,7 +6379,7 @@ func NewBotTimeSentiveFeedCardReqBuilder() *BotTimeSentiveFeedCardReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型 可选值有:	 - open_id: 以open_id来识别用户	 - user_id: 以user_id来识别用户	 - union_id: 以union_id来识别用户
+// 此次调用中使用的用户ID的类型 可选值有: - open_id: 以open_id来识别用户 - user_id: 以user_id来识别用户 - union_id: 以union_id来识别用户
 //
 // 示例值：open_id
 func (builder *BotTimeSentiveFeedCardReqBuilder) UserIdType(userIdType string) *BotTimeSentiveFeedCardReqBuilder {
@@ -6176,7 +6387,7 @@ func (builder *BotTimeSentiveFeedCardReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
-//
+// 可将机器人对话在消息列表中置顶展示，打开飞书首页即可处理重要任务。
 func (builder *BotTimeSentiveFeedCardReqBuilder) Body(body *BotTimeSentiveFeedCardReqBody) *BotTimeSentiveFeedCardReqBuilder {
 	builder.body = body
 	return builder
@@ -6193,9 +6404,9 @@ func (builder *BotTimeSentiveFeedCardReqBuilder) Build() *BotTimeSentiveFeedCard
 type BotTimeSentiveFeedCardReqBody struct {
 	BotId *string `json:"bot_id,omitempty"` // 机器人id
 
-	TimeSensitive *bool `json:"time_sensitive,omitempty"` // 临时置顶状态，true-打开，false-关闭
+	TimeSensitive *bool `json:"time_sensitive,omitempty"` // 即时提醒状态（设置为 true 后，卡片在消息列表临时置顶；设置为 false，消息卡片不置顶）
 
-	UserIds []string `json:"user_ids,omitempty"` // 用户id 列表
+	UserIds []string `json:"user_ids,omitempty"` // 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 user ID 权限，所以无法使用 user_id 类型的用户 ID）
 }
 
 type BotTimeSentiveFeedCardReq struct {
@@ -6218,10 +6429,10 @@ func (resp *BotTimeSentiveFeedCardResp) Success() bool {
 }
 
 type PatchFeedCardReqBodyBuilder struct {
-	timeSensitive    bool // 临时置顶状态，true-打开，false-关闭
+	timeSensitive    bool // 即时提醒状态（设置为 true 后，卡片在消息列表临时置顶；设置为 false，消息卡片不置顶）
 	timeSensitiveSet bool
 
-	userIds    []string // 用户id 列表
+	userIds    []string // 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 user ID 权限，所以无法使用 user_id 类型的用户 ID）
 	userIdsSet bool
 }
 
@@ -6230,18 +6441,18 @@ func NewPatchFeedCardReqBodyBuilder() *PatchFeedCardReqBodyBuilder {
 	return builder
 }
 
-// 临时置顶状态，true-打开，false-关闭
+// 即时提醒状态（设置为 true 后，卡片在消息列表临时置顶；设置为 false，消息卡片不置顶）
 //
-//示例值：true
+// 示例值：true
 func (builder *PatchFeedCardReqBodyBuilder) TimeSensitive(timeSensitive bool) *PatchFeedCardReqBodyBuilder {
 	builder.timeSensitive = timeSensitive
 	builder.timeSensitiveSet = true
 	return builder
 }
 
-// 用户id 列表
+// 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 user ID 权限，所以无法使用 user_id 类型的用户 ID）
 //
-//示例值：
+// 示例值：
 func (builder *PatchFeedCardReqBodyBuilder) UserIds(userIds []string) *PatchFeedCardReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
@@ -6271,7 +6482,7 @@ func NewPatchFeedCardPathReqBodyBuilder() *PatchFeedCardPathReqBodyBuilder {
 	return builder
 }
 
-// 临时置顶状态，true-打开，false-关闭
+// 即时提醒状态（设置为 true 后，卡片在消息列表临时置顶；设置为 false，消息卡片不置顶）
 //
 // 示例值：true
 func (builder *PatchFeedCardPathReqBodyBuilder) TimeSensitive(timeSensitive bool) *PatchFeedCardPathReqBodyBuilder {
@@ -6280,7 +6491,7 @@ func (builder *PatchFeedCardPathReqBodyBuilder) TimeSensitive(timeSensitive bool
 	return builder
 }
 
-// 用户id 列表
+// 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 user ID 权限，所以无法使用 user_id 类型的用户 ID）
 //
 // 示例值：
 func (builder *PatchFeedCardPathReqBodyBuilder) UserIds(userIds []string) *PatchFeedCardPathReqBodyBuilder {
@@ -6314,7 +6525,7 @@ func NewPatchFeedCardReqBuilder() *PatchFeedCardReqBuilder {
 	return builder
 }
 
-// 群id，现只支持群
+// 消息卡片 id，当前只支持群聊类型
 //
 // 示例值：oc_679eaeb583654bff73fefcc6e6371370
 func (builder *PatchFeedCardReqBuilder) FeedCardId(feedCardId string) *PatchFeedCardReqBuilder {
@@ -6322,7 +6533,7 @@ func (builder *PatchFeedCardReqBuilder) FeedCardId(feedCardId string) *PatchFeed
 	return builder
 }
 
-// 此次调用中使用的用户ID的类型 可选值有:	 - open_id: 以open_id来识别用户	 - user_id: 以user_id来识别用户	 - union_id: 以union_id来识别用户
+// 此次调用中使用的用户ID的类型 可选值有: - open_id: 以open_id来识别用户 - user_id: 以user_id来识别用户 - union_id: 以union_id来识别用户
 //
 // 示例值：open_id
 func (builder *PatchFeedCardReqBuilder) UserIdType(userIdType string) *PatchFeedCardReqBuilder {
@@ -6330,7 +6541,7 @@ func (builder *PatchFeedCardReqBuilder) UserIdType(userIdType string) *PatchFeed
 	return builder
 }
 
-//
+// 即时提醒能力是飞书在消息列表中提供的强提醒能力，当有重要通知或任务需要及时触达用户，可将群组或机器人对话在消息列表中置顶展示，打开飞书首页即可处理重要任务。
 func (builder *PatchFeedCardReqBuilder) Body(body *PatchFeedCardReqBody) *PatchFeedCardReqBuilder {
 	builder.body = body
 	return builder
@@ -6346,9 +6557,9 @@ func (builder *PatchFeedCardReqBuilder) Build() *PatchFeedCardReq {
 }
 
 type PatchFeedCardReqBody struct {
-	TimeSensitive *bool `json:"time_sensitive,omitempty"` // 临时置顶状态，true-打开，false-关闭
+	TimeSensitive *bool `json:"time_sensitive,omitempty"` // 即时提醒状态（设置为 true 后，卡片在消息列表临时置顶；设置为 false，消息卡片不置顶）
 
-	UserIds []string `json:"user_ids,omitempty"` // 用户id 列表
+	UserIds []string `json:"user_ids,omitempty"` // 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用，因不支持获取用户 user ID 权限，所以无法使用 user_id 类型的用户 ID）
 }
 
 type PatchFeedCardReq struct {
@@ -6371,7 +6582,7 @@ func (resp *PatchFeedCardResp) Success() bool {
 }
 
 type CreateTagReqBodyBuilder struct {
-	createTag    *CreateTag // 创建标签
+	createTag    *CreateTag //
 	createTagSet bool
 
 	botId    string // 机器人id
@@ -6383,9 +6594,7 @@ func NewCreateTagReqBodyBuilder() *CreateTagReqBodyBuilder {
 	return builder
 }
 
-// 创建标签
-//
-//示例值：
+// 示例值：
 func (builder *CreateTagReqBodyBuilder) CreateTag(createTag *CreateTag) *CreateTagReqBodyBuilder {
 	builder.createTag = createTag
 	builder.createTagSet = true
@@ -6412,8 +6621,6 @@ func NewCreateTagPathReqBodyBuilder() *CreateTagPathReqBodyBuilder {
 	return builder
 }
 
-// 创建标签
-//
 // 示例值：
 func (builder *CreateTagPathReqBodyBuilder) CreateTag(createTag *CreateTag) *CreateTagPathReqBodyBuilder {
 	builder.createTag = createTag
@@ -6443,7 +6650,7 @@ func NewCreateTagReqBuilder() *CreateTagReqBuilder {
 	return builder
 }
 
-//
+// 创建标签并返回标签 ID。
 func (builder *CreateTagReqBuilder) Body(body *CreateTagReqBody) *CreateTagReqBuilder {
 	builder.body = body
 	return builder
@@ -6457,7 +6664,7 @@ func (builder *CreateTagReqBuilder) Build() *CreateTagReq {
 }
 
 type CreateTagReqBody struct {
-	CreateTag *CreateTag `json:"create_tag,omitempty"` // 创建标签
+	CreateTag *CreateTag `json:"create_tag,omitempty"` //
 
 	BotId *string `json:"bot_id,omitempty"` // 机器人id
 }
@@ -6468,7 +6675,7 @@ type CreateTagReq struct {
 }
 
 type CreateTagRespData struct {
-	Id *string `json:"id,omitempty"` // 创建的tagid
+	Id *string `json:"id,omitempty"` // 创建的 tag 的 ID
 
 	CreateTagFailReason *CreateTagFailReason `json:"create_tag_fail_reason,omitempty"` // 创建失败原因
 }
@@ -6484,7 +6691,7 @@ func (resp *CreateTagResp) Success() bool {
 }
 
 type PatchTagReqBodyBuilder struct {
-	patchTag    *PatchTag // 编辑标签
+	patchTag    *PatchTag //
 	patchTagSet bool
 
 	botId    string // 机器人id
@@ -6496,9 +6703,7 @@ func NewPatchTagReqBodyBuilder() *PatchTagReqBodyBuilder {
 	return builder
 }
 
-// 编辑标签
-//
-//示例值：
+// 示例值：
 func (builder *PatchTagReqBodyBuilder) PatchTag(patchTag *PatchTag) *PatchTagReqBodyBuilder {
 	builder.patchTag = patchTag
 	builder.patchTagSet = true
@@ -6525,8 +6730,6 @@ func NewPatchTagPathReqBodyBuilder() *PatchTagPathReqBodyBuilder {
 	return builder
 }
 
-// 编辑标签
-//
 // 示例值：
 func (builder *PatchTagPathReqBodyBuilder) PatchTag(patchTag *PatchTag) *PatchTagPathReqBodyBuilder {
 	builder.patchTag = patchTag
@@ -6556,7 +6759,7 @@ func NewPatchTagReqBuilder() *PatchTagReqBuilder {
 	return builder
 }
 
-// tagid
+// 标签 ID
 //
 // 示例值：716168xxxxx
 func (builder *PatchTagReqBuilder) TagId(tagId string) *PatchTagReqBuilder {
@@ -6564,7 +6767,7 @@ func (builder *PatchTagReqBuilder) TagId(tagId string) *PatchTagReqBuilder {
 	return builder
 }
 
-//
+// 修改标签在各个语言下的名称。
 func (builder *PatchTagReqBuilder) Body(body *PatchTagReqBody) *PatchTagReqBuilder {
 	builder.body = body
 	return builder
@@ -6579,7 +6782,7 @@ func (builder *PatchTagReqBuilder) Build() *PatchTagReq {
 }
 
 type PatchTagReqBody struct {
-	PatchTag *PatchTag `json:"patch_tag,omitempty"` // 编辑标签
+	PatchTag *PatchTag `json:"patch_tag,omitempty"` //
 
 	BotId *string `json:"bot_id,omitempty"` // 机器人id
 }
@@ -6590,7 +6793,7 @@ type PatchTagReq struct {
 }
 
 type PatchTagRespData struct {
-	TagInfo *TagInfo `json:"tag_info,omitempty"` // 编辑后的taginfo
+	TagInfo *TagInfo `json:"tag_info,omitempty"` // 编辑后的标签信息
 
 	PatchTagFailReason *PatchTagFailReason `json:"patch_tag_fail_reason,omitempty"` // 修改失败原因
 }
@@ -6606,10 +6809,10 @@ func (resp *PatchTagResp) Success() bool {
 }
 
 type BatchUpdateUrlPreviewReqBodyBuilder struct {
-	previewTokens    []string // URL预览的token列表
+	previewTokens    []string // URL 预览的 preview_tokens 列表。需要通过[拉取链接预览数据](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/development-link-preview/pull-link-preview-data-callback-structure)回调获取 preview_tokens。;;**注意**：单个 token 限制更新频率为 1次/5秒。
 	previewTokensSet bool
 
-	openIds    []string // 需要更新URL预览的用户open_id。若不传，则默认更新URL所在会话成员；若用户不在URL所在会话，则无法更新该用户
+	openIds    []string // 需要更新 URL 预览的用户 open_id。若不传，则默认更新 URL 预览所在会话的所有成员；若用户不在 URL 所在会话，则无法触发更新该用户对应的 URL 预览结果。获取方式参见[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。
 	openIdsSet bool
 }
 
@@ -6618,18 +6821,18 @@ func NewBatchUpdateUrlPreviewReqBodyBuilder() *BatchUpdateUrlPreviewReqBodyBuild
 	return builder
 }
 
-// URL预览的token列表
+// URL 预览的 preview_tokens 列表。需要通过[拉取链接预览数据](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/development-link-preview/pull-link-preview-data-callback-structure)回调获取 preview_tokens。;;**注意**：单个 token 限制更新频率为 1次/5秒。
 //
-//示例值：
+// 示例值：
 func (builder *BatchUpdateUrlPreviewReqBodyBuilder) PreviewTokens(previewTokens []string) *BatchUpdateUrlPreviewReqBodyBuilder {
 	builder.previewTokens = previewTokens
 	builder.previewTokensSet = true
 	return builder
 }
 
-// 需要更新URL预览的用户open_id。若不传，则默认更新URL所在会话成员；若用户不在URL所在会话，则无法更新该用户
+// 需要更新 URL 预览的用户 open_id。若不传，则默认更新 URL 预览所在会话的所有成员；若用户不在 URL 所在会话，则无法触发更新该用户对应的 URL 预览结果。获取方式参见[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。
 //
-//示例值：
+// 示例值：
 func (builder *BatchUpdateUrlPreviewReqBodyBuilder) OpenIds(openIds []string) *BatchUpdateUrlPreviewReqBodyBuilder {
 	builder.openIds = openIds
 	builder.openIdsSet = true
@@ -6659,7 +6862,7 @@ func NewBatchUpdateUrlPreviewPathReqBodyBuilder() *BatchUpdateUrlPreviewPathReqB
 	return builder
 }
 
-// URL预览的token列表
+// URL 预览的 preview_tokens 列表。需要通过[拉取链接预览数据](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/development-link-preview/pull-link-preview-data-callback-structure)回调获取 preview_tokens。;;**注意**：单个 token 限制更新频率为 1次/5秒。
 //
 // 示例值：
 func (builder *BatchUpdateUrlPreviewPathReqBodyBuilder) PreviewTokens(previewTokens []string) *BatchUpdateUrlPreviewPathReqBodyBuilder {
@@ -6668,7 +6871,7 @@ func (builder *BatchUpdateUrlPreviewPathReqBodyBuilder) PreviewTokens(previewTok
 	return builder
 }
 
-// 需要更新URL预览的用户open_id。若不传，则默认更新URL所在会话成员；若用户不在URL所在会话，则无法更新该用户
+// 需要更新 URL 预览的用户 open_id。若不传，则默认更新 URL 预览所在会话的所有成员；若用户不在 URL 所在会话，则无法触发更新该用户对应的 URL 预览结果。获取方式参见[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。
 //
 // 示例值：
 func (builder *BatchUpdateUrlPreviewPathReqBodyBuilder) OpenIds(openIds []string) *BatchUpdateUrlPreviewPathReqBodyBuilder {
@@ -6702,7 +6905,7 @@ func NewBatchUpdateUrlPreviewReqBuilder() *BatchUpdateUrlPreviewReqBuilder {
 	return builder
 }
 
-//
+// 该接口用于主动更新 [URL 预览](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/development-link-preview/link-preview-development-guide)，调用后会重新触发一次客户端拉取，需要回调服务返回更新后的数据。
 func (builder *BatchUpdateUrlPreviewReqBuilder) Body(body *BatchUpdateUrlPreviewReqBody) *BatchUpdateUrlPreviewReqBuilder {
 	builder.body = body
 	return builder
@@ -6716,9 +6919,9 @@ func (builder *BatchUpdateUrlPreviewReqBuilder) Build() *BatchUpdateUrlPreviewRe
 }
 
 type BatchUpdateUrlPreviewReqBody struct {
-	PreviewTokens []string `json:"preview_tokens,omitempty"` // URL预览的token列表
+	PreviewTokens []string `json:"preview_tokens,omitempty"` // URL 预览的 preview_tokens 列表。需要通过[拉取链接预览数据](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/development-link-preview/pull-link-preview-data-callback-structure)回调获取 preview_tokens。;;**注意**：单个 token 限制更新频率为 1次/5秒。
 
-	OpenIds []string `json:"open_ids,omitempty"` // 需要更新URL预览的用户open_id。若不传，则默认更新URL所在会话成员；若用户不在URL所在会话，则无法更新该用户
+	OpenIds []string `json:"open_ids,omitempty"` // 需要更新 URL 预览的用户 open_id。若不传，则默认更新 URL 预览所在会话的所有成员；若用户不在 URL 所在会话，则无法触发更新该用户对应的 URL 预览结果。获取方式参见[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。
 }
 
 type BatchUpdateUrlPreviewReq struct {
@@ -6733,4 +6936,58 @@ type BatchUpdateUrlPreviewResp struct {
 
 func (resp *BatchUpdateUrlPreviewResp) Success() bool {
 	return resp.Code == 0
+}
+
+type SearchChatIterator struct {
+	nextPageToken *string
+	items         []*ChatSearchItem
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchChatReq
+	listFunc      func(ctx context.Context, req *SearchChatReq, options ...larkcore.RequestOptionFunc) (*SearchChatResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchChatIterator) Next() (bool, *ChatSearchItem, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *SearchChatIterator) NextPageToken() *string {
+	return iterator.nextPageToken
 }

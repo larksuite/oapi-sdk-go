@@ -50,7 +50,7 @@ type V2 struct {
 	Pathway                            *pathway                            // pathway
 	Person                             *person                             // person
 	Position                           *position                           // position
-	PreHire                            *preHire                            // 待入职
+	PreHire                            *preHire                            // pre_hire
 	Probation                          *probation                          // probation
 	ProbationAssessment                *probationAssessment                // probation.assessment
 	Process                            *process                            // process
@@ -338,9 +338,11 @@ type workforcePlanDetailRow struct {
 	config *larkcore.Config
 }
 
-// Get
+// Get 根据流程 ID 查询组织架构调整记录
 //
-// - 获取审批组信息
+// - 用户通过『飞书人事-我的团队-组织架构』 发起一个组织架构调整会根据 审批流配置发起 一个或多个审批。 之后用户可通过流程的单据 ID， 查询到该审批进行的状态， 以及该流程中涉及到的 组织架构信息（包括部门变更、人员变更记录 ID、岗位变更记录 ID）。;如需查询具体变更详情可按需调用以下独立的接口：;;- 部门变更：[批量查询部门变更接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/open_query_position_change_list_by_ids);;- 岗位变更：[批量查询岗位调整内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/open_query_department_change_list_by_ids);;- 员工变更：[批量查询员工变更接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/open_query_job_change_list_by_ids)
+//
+// - - 用户使用该接口前需提前获取 组织架构调整流程信息 权限;- 延迟说明：数据库主从延迟2s以内，即：用户接收到流程状态变更消息后2s内调用此接口可能查询不到数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=approval_groups&version=v2
 //
@@ -364,9 +366,11 @@ func (a *approvalGroups) Get(ctx context.Context, req *GetApprovalGroupsReq, opt
 	return resp, err
 }
 
-// OpenQueryDepartmentChangeListByIds
+// OpenQueryDepartmentChangeListByIds 批量查询部门调整内容
 //
-// - 获取部门调整信息详情
+// - 根据部门调整记录 ID 批量查询部门调整内容，如：部门调整类型、部门调整前后名称、部门调整前后角色信息 等
+//
+// - - 延迟说明：数据库主从延迟2s以内，即：用户接收到流程状态变更消息后2s内调用此接口可能查询不到数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=open_query_department_change_list_by_ids&project=corehr&resource=approval_groups&version=v2
 //
@@ -390,9 +394,11 @@ func (a *approvalGroups) OpenQueryDepartmentChangeListByIds(ctx context.Context,
 	return resp, err
 }
 
-// OpenQueryJobChangeListByIds
+// OpenQueryJobChangeListByIds 批量查询人员调整内容
 //
-// -
+// - 根据人员异动记录 ID 批量查询人员调整内容
+//
+// - - 用户使用该接口前需提前获取 组织架构调整流程信息 权限;- 延迟说明：数据库主从延迟2s以内，即：用户接收到流程状态变更消息后2s内调用此接口可能查询不到数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=open_query_job_change_list_by_ids&project=corehr&resource=approval_groups&version=v2
 //
@@ -416,9 +422,11 @@ func (a *approvalGroups) OpenQueryJobChangeListByIds(ctx context.Context, req *O
 	return resp, err
 }
 
-// OpenQueryPositionChangeListByIds
+// OpenQueryPositionChangeListByIds 批量查询岗位调整内容
 //
-// - 获取岗位调整信息详情
+// - 根据岗位调整记录 ID 批量查询岗位调整内容
+//
+// - - 用户使用该接口前需提前获取 组织架构调整岗位调整内容 权限。;- 延迟说明：数据库主从延迟2s以内，即：用户接收到流程状态变更消息后2s内调用此接口可能查询不到数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=open_query_position_change_list_by_ids&project=corehr&resource=approval_groups&version=v2
 //
@@ -442,9 +450,9 @@ func (a *approvalGroups) OpenQueryPositionChangeListByIds(ctx context.Context, r
 	return resp, err
 }
 
-// List
+// List 获取指定人员审批任务列表
 //
-// -
+// - 审批任务依赖于流程节点实例存在，每一个流程节点实例可能包含有一或多个审批任务，每一个任务表明当前节点的审批人是谁，该接口可获取指定人员的审批任务列表（此功能不受数据权限范围控制）。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=approver&version=v2
 //
@@ -476,9 +484,9 @@ func (a *approver) ListByIterator(ctx context.Context, req *ListApproverReq, opt
 		limit:    req.Limit}, nil
 }
 
-// Search
+// Search 查询银行信息
 //
-// -
+// - 根据银行 ID 、银行名称，查询银行信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.bank&version=v2
 //
@@ -510,9 +518,9 @@ func (b *basicInfoBank) SearchByIterator(ctx context.Context, req *SearchBasicIn
 		limit:    req.Limit}, nil
 }
 
-// Search
+// Search 查询支行信息
 //
-// -
+// - 根据银行 ID、支行 ID 、支行名称、联行号，支行状态、更新时间 查询银行信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.bank_branch&version=v2
 //
@@ -544,9 +552,9 @@ func (b *basicInfoBankBranch) SearchByIterator(ctx context.Context, req *SearchB
 		limit:    req.Limit}, nil
 }
 
-// Search
+// Search 查询城市信息
 //
-// -
+// - 根据城市 ID、上级省份/主要行政区 ID ，查询城市（自治区、地区、县「美」、町、村「日」）信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.city&version=v2
 //
@@ -578,9 +586,9 @@ func (b *basicInfoCity) SearchByIterator(ctx context.Context, req *SearchBasicIn
 		limit:    req.Limit}, nil
 }
 
-// Search
+// Search 查询国家 / 地区信息
 //
-// -
+// - 根据国家/地区 ID、状态，批量查询国家/地区信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.country_region&version=v2
 //
@@ -612,9 +620,9 @@ func (b *basicInfoCountryRegion) SearchByIterator(ctx context.Context, req *Sear
 		limit:    req.Limit}, nil
 }
 
-// Search
+// Search 查询省份/主要行政区信息
 //
-// -
+// - 根据国家/地区 ID、省份/主要行政区 ID、状态，批量查询国家/地区下辖的一级行政区（如省份、直辖市、自治区、州等）数据
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.country_region_subdivision&version=v2
 //
@@ -646,9 +654,9 @@ func (b *basicInfoCountryRegionSubdivision) SearchByIterator(ctx context.Context
 		limit:    req.Limit}, nil
 }
 
-// Search
+// Search 查询货币信息
 //
-// -
+// - 根据货币 ID、状态查询货币信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.currency&version=v2
 //
@@ -680,9 +688,9 @@ func (b *basicInfoCurrency) SearchByIterator(ctx context.Context, req *SearchBas
 		limit:    req.Limit}, nil
 }
 
-// Search
+// Search 查询区 / 县信息
 //
-// -
+// - 根据区/县 ID、上级城市 ID，查询区/县信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.district&version=v2
 //
@@ -714,9 +722,9 @@ func (b *basicInfoDistrict) SearchByIterator(ctx context.Context, req *SearchBas
 		limit:    req.Limit}, nil
 }
 
-// Search
+// Search 查询语言信息
 //
-// -
+// - 根据语言 ID、状态，批量查询语言信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.language&version=v2
 //
@@ -748,9 +756,9 @@ func (b *basicInfoLanguage) SearchByIterator(ctx context.Context, req *SearchBas
 		limit:    req.Limit}, nil
 }
 
-// Search
+// Search 查询国籍信息
 //
-// -
+// - 根据国籍 ID、国家 ID，查询国籍信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.nationality&version=v2
 //
@@ -782,9 +790,9 @@ func (b *basicInfoNationality) SearchByIterator(ctx context.Context, req *Search
 		limit:    req.Limit}, nil
 }
 
-// Search
+// Search 查询时区信息
 //
-// -
+// - 根据时区 ID、状态，批量查询时区信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=basic_info.time_zone&version=v2
 //
@@ -816,9 +824,9 @@ func (b *basicInfoTimeZone) SearchByIterator(ctx context.Context, req *SearchBas
 		limit:    req.Limit}, nil
 }
 
-// GetByDepartment
+// GetByDepartment 查询部门 HRBP
 //
-// -
+// - 查询部门的 HRBP 信息，包括来自上级部门的 HRBP。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_by_department&project=corehr&resource=bp&version=v2
 //
@@ -842,9 +850,9 @@ func (b *bp) GetByDepartment(ctx context.Context, req *GetByDepartmentBpReq, opt
 	return resp, err
 }
 
-// List
+// List 获取 HRBP 列表
 //
-// - 待补充
+// - 获取 HRBP 列表。列表中包含HRBP的ID以及部门ID信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=bp&version=v2
 //
@@ -876,9 +884,11 @@ func (b *bp) ListByIterator(ctx context.Context, req *ListBpReq, options ...lark
 		limit:    req.Limit}, nil
 }
 
-// Active
+// Active 启用/停用公司
 //
-// -
+// - 对公司进行启用或停用操作
+//
+// - 停用公司时请确认有无在职员工、异动单据、待入职单据关联此公司，如有会导致停用失败。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=active&project=corehr&resource=company&version=v2
 //
@@ -902,9 +912,11 @@ func (c *company) Active(ctx context.Context, req *ActiveCompanyReq, options ...
 	return resp, err
 }
 
-// BatchGet
+// BatchGet 通过 ID 批量查询公司信息
 //
-// - 通过公司 ID 批量获取公司信息
+// - 通过 ID 批量查询公司信息
+//
+// - 延迟说明：;- **数据库主从延迟2s以内，即：直接创建公司后2s内调用此接口可能查询不到数据**;- **响应体registered_office_address_info （注册地址）、office_address_info （办公地址）下的full_address_local_script（完整地址，本地文字）、full_address_western_script（完整地址，西方文字）字段为计算字段，延迟5s以内，堆积时会延长**;;如果你只需要查询某一条公司信息，建议通过[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)获取公司信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=company&version=v2
 //
@@ -928,9 +940,9 @@ func (c *company) BatchGet(ctx context.Context, req *BatchGetCompanyReq, options
 	return resp, err
 }
 
-// QueryMultiTimeline
+// QueryMultiTimeline 查询指定时间范围公司版本
 //
-// - 查询生效时间在指定时间范围的公司
+// - - 接口支持查询出对象生效时间段在指定的start_date和end_date之间的版本（即：会查询出生效时间段和查询时间段有交集的版本）;- 接口支持对象版本相关字段的查询和返回（默认返回id和version_id）
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_multi_timeline&project=corehr&resource=company&version=v2
 //
@@ -954,9 +966,11 @@ func (c *company) QueryMultiTimeline(ctx context.Context, req *QueryMultiTimelin
 	return resp, err
 }
 
-// QueryRecentChange
+// QueryRecentChange 查询当前生效信息变更公司
 //
-// -
+// - 查询指定时间范围内当前生效信息发生变更的公司，即只有公司当前生效版本的生效时间在查询时间范围内，才返回该公司id
+//
+// - - 时间窗支持大范围查询，限定查询范围在90天以内，例如要查询2020年1月1日至2020年6月30日的数据，建议分成两次查询，分别为2020年1月1日至2020年3月31日，2020年4月1日至2020年6月30日，不建议查询大时间范围数据 ;- 未来生效的版本数据，会在生效日期当天凌晨产生变更事件。例如：今天为1月1日，新建公司 1月10日生效，则1月10日凌晨 1点之后可查询到;;- 默认排序条件：默认先按照组织记录 ID 增序排序， 便于滚动查询;- 使用滚动查询而非分页查询，是为了防止大批量获取数据时，深分页导致超时
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_recent_change&project=corehr&resource=company&version=v2
 //
@@ -980,9 +994,11 @@ func (c *company) QueryRecentChange(ctx context.Context, req *QueryRecentChangeC
 	return resp, err
 }
 
-// Search
+// Search 搜索合同
 //
-// - 根据合同 ID 、雇佣 ID 查询合同信息
+// - 该接口可用于搜索合同信息，包括合同开始时间、合同预计结束时间、合同实际结束时间、合同公司主体等信息
+//
+// - 创建合同后，调用搜索接口，会有5s 内数据延迟才能搜索到结果;;该接口会按照应用拥有的「员工资源」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限」中申请「员工资源」权限范围。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=contract&version=v2
 //
@@ -1014,9 +1030,9 @@ func (c *contract) SearchByIterator(ctx context.Context, req *SearchContractReq,
 		limit:    req.Limit}, nil
 }
 
-// BatchQuery
+// BatchQuery 查询成本分摊
 //
-// - 通过员工ID批量获取通道信息
+// - 查询成本分摊
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=corehr&resource=cost_allocation&version=v2
 //
@@ -1040,7 +1056,7 @@ func (c *costAllocation) BatchQuery(ctx context.Context, req *BatchQueryCostAllo
 	return resp, err
 }
 
-// CreateVersion
+// CreateVersion 创建成本分摊
 //
 // - 创建成本分摊
 //
@@ -1066,7 +1082,7 @@ func (c *costAllocation) CreateVersion(ctx context.Context, req *CreateVersionCo
 	return resp, err
 }
 
-// RemoveVersion
+// RemoveVersion 删除成本分摊
 //
 // - 删除成本分摊
 //
@@ -1092,7 +1108,7 @@ func (c *costAllocation) RemoveVersion(ctx context.Context, req *RemoveVersionCo
 	return resp, err
 }
 
-// UpdateVersion
+// UpdateVersion 更新成本分摊
 //
 // - 更新成本分摊
 //
@@ -1118,9 +1134,9 @@ func (c *costAllocation) UpdateVersion(ctx context.Context, req *UpdateVersionCo
 	return resp, err
 }
 
-// Create
+// Create 创建成本中心
 //
-// - 创建成本中心
+// - 单个创建成本中心；可定义成本中心的名称，父级成本中心，成本中心负责人，生效时间等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=cost_center&version=v2
 //
@@ -1144,9 +1160,11 @@ func (c *costCenter) Create(ctx context.Context, req *CreateCostCenterReq, optio
 	return resp, err
 }
 
-// Delete
+// Delete 删除成本中心
 //
-// -
+// - 删除成本中心记录
+//
+// - 删除后无法恢复， 并且在系统中无法搜索到对应成本中心信息，请谨慎操作。;;删除对象时请确认有无在职员工、异动单据、待入职单据关联此对象，如有会导致删除失败。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=cost_center&version=v2
 //
@@ -1170,9 +1188,11 @@ func (c *costCenter) Delete(ctx context.Context, req *DeleteCostCenterReq, optio
 	return resp, err
 }
 
-// Patch
+// Patch 启用 / 停用成本中心
 //
-// - 创建成本中心版本
+// - 该接口支持对单个成本中心进行启用和停用操作。
+//
+// - - 停用成本中心时请确认有无在职员工、异动单据、待入职单据关联此成本中心，如有会导致停用失败。;- 若启/停用的生效时间当天不存在版本则会自动生成一个版本。;- 若启/停用的生效时间当天存在版本则会修改该版本。 ;- 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=cost_center&version=v2
 //
@@ -1196,9 +1216,9 @@ func (c *costCenter) Patch(ctx context.Context, req *PatchCostCenterReq, options
 	return resp, err
 }
 
-// QueryMultiTimeline
+// QueryMultiTimeline 批量查询成本中心版本信息
 //
-// - 查询指定时间范围成本中心版本
+// - 根据成本中心 ID 列表，批量查询开始结束时间内的所有成本中心版本信息，含成本中心名称、编码、上级成本中心、负责人、版本生效日期、版本失效日期、是否启用、描述等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_multi_timeline&project=corehr&resource=cost_center&version=v2
 //
@@ -1222,9 +1242,11 @@ func (c *costCenter) QueryMultiTimeline(ctx context.Context, req *QueryMultiTime
 	return resp, err
 }
 
-// QueryRecentChange
+// QueryRecentChange 查询当前生效信息变更的成本中心
 //
-// -
+// - 查询指定时间范围内当前生效信息发生变更的成本中心，即只有部门当前生效版本的生效时间在查询时间范围内，才返回该成本中心id;
+//
+// - - 时间窗支持大范围查询，限定查询范围在90天以内，例如要查询2020年1月1日至2020年6月30日的数据，建议分成两次查询，分别为2020年1月1日至2020年3月31日，2020年4月1日至2020年6月30日，不建议查询大时间范围数据 ;- 未来生效的版本数据，会在生效日期当天凌晨产生变更事件。例如：今天为1月1日，新建成本中心 1月10日生效，则1月10日凌晨 1点之后可查询到;;- 默认排序条件：默认先按照组织记录 ID 增序排序， 便于滚动查询;- 使用滚动查询而非分页查询，是为了防止大批量获取数据时，深分页导致超时
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_recent_change&project=corehr&resource=cost_center&version=v2
 //
@@ -1248,9 +1270,11 @@ func (c *costCenter) QueryRecentChange(ctx context.Context, req *QueryRecentChan
 	return resp, err
 }
 
-// Search
+// Search 搜索成本中心信息
 //
-// - 查询成本中心信息
+// - 搜索成本中心信息；支持通过成本中心ID，成本中心名称，成本中心编码，成本中心上级搜索成本中心的信息，有分页功能。
+//
+// - - 请求体入参不填写默认为空，不参与筛选;- 所有筛选项可一起使用，之间为 AND 关系;- 数据库主从延迟 2s 以内，即：直接创建成本中心后2s内调用此接口可能查询不到数据。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=cost_center&version=v2
 //
@@ -1274,9 +1298,11 @@ func (c *costCenter) Search(ctx context.Context, req *SearchCostCenterReq, optio
 	return resp, err
 }
 
-// Tree
+// Tree 查询指定生效日期的成本中心架构树
 //
-// - 查询指定生效日期的成本中心架构树
+// - 支持传入成本中心ID，任意日期（不传默认当前日期）
+//
+// - 延迟说明：该数据同步延迟 10s 以内，即：直接创建/更新对象后10s内调用此接口可能查询不到数据，部门上下级关系变化10s内可能查询不到最新数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=tree&project=corehr&resource=cost_center&version=v2
 //
@@ -1300,9 +1326,11 @@ func (c *costCenter) Tree(ctx context.Context, req *TreeCostCenterReq, options .
 	return resp, err
 }
 
-// Create
+// Create 创建成本中心版本
 //
-// - 创建成本中心版本
+// - 创建成本中心版本；每次调用可创建一个成本中心版本，可定义成本中心的名称，描述，上级成本，成本中心负责人，版本生效时间等信息，接口内会做相关规则的校验
+//
+// - 非必填字段，不传时默认为空
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=cost_center.version&version=v2
 //
@@ -1326,9 +1354,11 @@ func (c *costCenterVersion) Create(ctx context.Context, req *CreateCostCenterVer
 	return resp, err
 }
 
-// Delete
+// Delete 撤销成本中心版本
 //
-// - 撤销成本中心版本
+// - 该接口支持通过成本中心的版本ID撤销成本中心版本信息
+//
+// - 撤销后无法恢复， 并且在系统中无法搜索到对应成本中心版本信息，请谨慎操作。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=cost_center.version&version=v2
 //
@@ -1352,9 +1382,9 @@ func (c *costCenterVersion) Delete(ctx context.Context, req *DeleteCostCenterVer
 	return resp, err
 }
 
-// Patch
+// Patch 更正成本中心版本
 //
-// - 创建成本中心版本
+// - 对成本中心的版本记录进行更正，可更正的字段包括：名称，上级成本中心，成本中心负责人列表，成本中心的描述，生效时间
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=cost_center.version&version=v2
 //
@@ -1378,9 +1408,11 @@ func (c *costCenterVersion) Patch(ctx context.Context, req *PatchCostCenterVersi
 	return resp, err
 }
 
-// Active
+// Active 启用/停用自定义组织
 //
-// - 启/停用自定义组织
+// - 对自定义组织进行启用或停用操作
+//
+// - - 停用自定义组织时请确认有无在职员工、异动单据、待入职单据关联此自定义组织，如有会导致停用失败。;- 若启/停用的生效时间当天不存在版本则会自动生成一个版本。;- 若启/停用的生效时间当天存在版本则会修改该版本。 ;- 如果该自定义组织设置了自动匹配规则，该规则也会同时被停用。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=active&project=corehr&resource=custom_org&version=v2
 //
@@ -1404,9 +1436,11 @@ func (c *customOrg) Active(ctx context.Context, req *ActiveCustomOrgReq, options
 	return resp, err
 }
 
-// Create
+// Create 创建自定义组织
 //
-// -
+// - 使用指定信息创建自定义组织，接口内会做相关规则校验。
+//
+// - - 每种自定义组织都可以通过此接口创建，不同种自定义组织通过不同 object_api_name 区分。;- 非必填字段，不传时默认为空。;- 此接口字段是否必填以【飞书人事-组织配置】为准。建议参照【飞书人事-组织管理-自定义组织-新建】页面来传参
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=custom_org&version=v2
 //
@@ -1430,9 +1464,11 @@ func (c *customOrg) Create(ctx context.Context, req *CreateCustomOrgReq, options
 	return resp, err
 }
 
-// DeleteOrg
+// DeleteOrg 删除自定义组织
 //
-// - 删除自定义组织
+// - 根据传入的自定义组织 ID 删除相应自定义组织
+//
+// - - 删除后无法恢复， 并且在系统中无法搜索到对应自定义组织信息，请谨慎操作。;- 删除自定义组织时请确认有无员工、异动单据、待入职单据关联此自定义组织，如有会导致删除失败。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete_org&project=corehr&resource=custom_org&version=v2
 //
@@ -1456,9 +1492,11 @@ func (c *customOrg) DeleteOrg(ctx context.Context, req *DeleteOrgCustomOrgReq, o
 	return resp, err
 }
 
-// Patch
+// Patch 更新自定义组织基础信息
 //
-// - 更新自定义组织
+// - 更新一个自定义组织基础信息，不支持更新自动匹配规则，如需更新自动匹配规则请使用[更新匹配规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/custom_org/update_rule)
+//
+// - 如果是新建版本时，会将停用版本更新为启用版本;;- 非必填字段，不传时即不做变更。;- 如果传入生效时间当天不存在版本则会自动生成一个版本。;- 如果传入生效时间当天存在版本则会修改该版本。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=custom_org&version=v2
 //
@@ -1482,9 +1520,9 @@ func (c *customOrg) Patch(ctx context.Context, req *PatchCustomOrgReq, options .
 	return resp, err
 }
 
-// Query
+// Query 批量查询当前版本的自定义组织信息
 //
-// - 查询自定义组织信息
+// - 根据传入的筛选条件批量查询自定义组织信息。不传任何筛选条件，默认获得该租户下所有的自定义组织数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=custom_org&version=v2
 //
@@ -1508,9 +1546,11 @@ func (c *customOrg) Query(ctx context.Context, req *QueryCustomOrgReq, options .
 	return resp, err
 }
 
-// QueryRecentChange
+// QueryRecentChange 查询当前生效信息发生变更的自定义组织
 //
-// -
+// - 查询指定时间范围内当前生效信息发生变更的自定义组织，即只有部门当前生效版本的生效时间在查询时间范围内，才返回该自定义组织id
+//
+// - - 时间窗支持大范围查询，限定查询范围在90天以内，例如要查询2020年1月1日至2020年6月30日的数据，建议分成两次查询，分别为2020年1月1日至2020年3月31日，2020年4月1日至2020年6月30日，不建议查询大时间范围数据 ;- 未来生效的版本数据，会在生效日期当天凌晨产生变更事件。例如：今天为1月1日，新建自定义组织 1月10日生效，则1月10日凌晨 1点之后可查询到。;;- 默认排序条件：默认先按照组织记录 ID 增序排序， 便于滚动查询;- 使用滚动查询而非分页查询，是为了防止大批量获取数据时，深分页导致超时
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_recent_change&project=corehr&resource=custom_org&version=v2
 //
@@ -1534,9 +1574,11 @@ func (c *customOrg) QueryRecentChange(ctx context.Context, req *QueryRecentChang
 	return resp, err
 }
 
-// UpdateRule
+// UpdateRule 更新自定义组织的匹配规则
 //
-// - 更新匹配规则
+// - 更新自定义组织的匹配规则。仅开启了「为组织设置自动匹配规则」的自定义组织类型可用。如需更新自定义组织基本信息可使用[更新自定义组织](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/custom_org/patch);
+//
+// - - 自定义组织规则无生效时间概念，规则变更不会生成相应版本。;- 自定义组织规则变更后不会自动生效，需要在「飞书人事-组织管理-对应自定义组织」页面右上角点击「立即计算匹配规则」按钮才会生效。或者每天 0 点自动生效。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_rule&project=corehr&resource=custom_org&version=v2
 //
@@ -1560,9 +1602,9 @@ func (c *customOrg) UpdateRule(ctx context.Context, req *UpdateRuleCustomOrgReq,
 	return resp, err
 }
 
-// BatchQuery
+// BatchQuery 查询默认成本中心
 //
-// -
+// - 查询默认成本中心
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=corehr&resource=default_cost_center&version=v2
 //
@@ -1586,9 +1628,9 @@ func (d *defaultCostCenter) BatchQuery(ctx context.Context, req *BatchQueryDefau
 	return resp, err
 }
 
-// CreateVersion
+// CreateVersion 添加默认成本中心
 //
-// -
+// - 添加默认成本中心
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create_version&project=corehr&resource=default_cost_center&version=v2
 //
@@ -1612,9 +1654,9 @@ func (d *defaultCostCenter) CreateVersion(ctx context.Context, req *CreateVersio
 	return resp, err
 }
 
-// RemoveVersion
+// RemoveVersion 删除默认成本中心
 //
-// -
+// - 删除默认成本中心
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=remove_version&project=corehr&resource=default_cost_center&version=v2
 //
@@ -1638,9 +1680,9 @@ func (d *defaultCostCenter) RemoveVersion(ctx context.Context, req *RemoveVersio
 	return resp, err
 }
 
-// UpdateVersion
+// UpdateVersion 更新默认成本中心
 //
-// -
+// - 更新默认成本中心
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_version&project=corehr&resource=default_cost_center&version=v2
 //
@@ -1664,9 +1706,11 @@ func (d *defaultCostCenter) UpdateVersion(ctx context.Context, req *UpdateVersio
 	return resp, err
 }
 
-// BatchGet
+// BatchGet 批量查询部门
 //
-// -
+// - 批量查询部门信息，**该接口只返回部门当前内容**。;
+//
+// - - 延迟说明：数据库主从延迟 2 秒以内，即：直接创建部门后 2 秒内调用此接口可能查询不到数据。;- 对比历史版本[批量查询部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/list);接口，本版本增加了敏感字段权限要求，并使用了 POST HTTP 请求。;;看权限
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=department&version=v2
 //
@@ -1690,9 +1734,11 @@ func (d *department) BatchGet(ctx context.Context, req *BatchGetDepartmentReq, o
 	return resp, err
 }
 
-// Delete
+// Delete 删除部门
 //
-// - 删除部门数据
+// - 可以通过该接口通过部门ID删除一个部门记录，带数据行权限判权
+//
+// - 删除后无法恢复， 并且在系统中无法查看到对应部门信息，请谨慎操作。;;该接口为 V2 版本接口。要查看旧版 V1 接口，参考：[【删除部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/delete)
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=department&version=v2
 //
@@ -1716,9 +1762,11 @@ func (d *department) Delete(ctx context.Context, req *DeleteDepartmentReq, optio
 	return resp, err
 }
 
-// Parents
+// Parents 获取父部门信息
 //
-// -
+// - 该接口用来递归获取部门的父部门信息，并按照由子到父的顺序返回有权限的父部门信息列表。
+//
+// - 延迟说明：该接口返回的数据延迟 10s内，即：直接部门上级或者上上级部门发生变化后，10s后才能查询到最新数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=parents&project=corehr&resource=department&version=v2
 //
@@ -1742,9 +1790,9 @@ func (d *department) Parents(ctx context.Context, req *ParentsDepartmentReq, opt
 	return resp, err
 }
 
-// Patch
+// Patch 更新部门
 //
-// - 更新部门数据
+// - 更新部门，支持数据行权限判权
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=department&version=v2
 //
@@ -1768,9 +1816,11 @@ func (d *department) Patch(ctx context.Context, req *PatchDepartmentReq, options
 	return resp, err
 }
 
-// QueryMultiTimeline
+// QueryMultiTimeline 批量查询部门版本信息
 //
-// - 查询任意日期部门信息
+// - 根据部门ID列表，批量查询开始结束时间内的所有部门版本信息，含部门名称、部门类型、上级、编码、负责人、是否启用、描述等信息
+//
+// - - 延迟说明：数据库主从延迟 2s 以内，即：直接创建部门后2s内调用此接口可能查询不到数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_multi_timeline&project=corehr&resource=department&version=v2
 //
@@ -1794,9 +1844,11 @@ func (d *department) QueryMultiTimeline(ctx context.Context, req *QueryMultiTime
 	return resp, err
 }
 
-// QueryOperationLogs
+// QueryOperationLogs 批量查询部门操作日志
 //
-// - 查询操作日志
+// - 批量查询指定时间范围内的部门操作日志
+//
+// - - 时间窗支持大范围查询，限定查询范围在366天以内，例如要查询2020年1月1日至2023年1月1日的数据，建议分成两次查询，分别为2020年1月1日至2021年1月1日，2022年1月2日至2023年1月1日，不建议查询大时间范围数据;- 支持查询批量部门的操作日志，限定查询最大部门数为100，查询部门数量大于100时，建议分批查询;;- 默认排序条件：默认以操作时间倒序排序;- 仅支持查询部门基础字段变更的操作日志，对于角色字段变更的操作日志查询功能待上线;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_operation_logs&project=corehr&resource=department&version=v2
 //
@@ -1820,9 +1872,11 @@ func (d *department) QueryOperationLogs(ctx context.Context, req *QueryOperation
 	return resp, err
 }
 
-// QueryRecentChange
+// QueryRecentChange 查询指定时间范围内当前生效信息发生变更的部门
 //
-// -
+// - 查询指定时间范围内当前生效信息发生变更的部门，即只有部门当前生效版本的生效时间在查询时间范围内，才返回该部门id
+//
+// - - 时间窗支持大范围查询，限定查询范围在90天以内，例如要查询2020年1月1日至2020年6月30日的数据，建议分成两次查询，分别为2020年1月1日至2020年3月31日，2020年4月1日至2020年6月30日，不建议查询大时间范围数据 ;- 未来生效的版本数据，会在生效日期当天凌晨产生变更事件。例如：今天为1月1日，新建部门 1月10日生效，则1月10日凌晨 1点之后可查询到。;;- 默认排序条件：默认先按照组织记录 ID 增序排序， 便于滚动查询;- 使用滚动查询而非分页查询，是为了防止大批量获取数据时，深分页导致超时
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_recent_change&project=corehr&resource=department&version=v2
 //
@@ -1846,9 +1900,11 @@ func (d *department) QueryRecentChange(ctx context.Context, req *QueryRecentChan
 	return resp, err
 }
 
-// QueryTimeline
+// QueryTimeline 查询指定日期的部门基本信息
 //
-// - 查询任意日期部门信息
+// - 查询指定生效的部门基本信息，含部门名称、部门类型、上级、编码、负责人、是否启用、描述等信息
+//
+// - 延迟说明：数据库主从延迟 2s 以内，即：直接创建部门后2s内调用此接口可能查询不到数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_timeline&project=corehr&resource=department&version=v2
 //
@@ -1872,9 +1928,11 @@ func (d *department) QueryTimeline(ctx context.Context, req *QueryTimelineDepart
 	return resp, err
 }
 
-// Search
+// Search 搜索部门信息
 //
-// - 根据部门 ID，上级部门查询部门列表
+// - 该接口支持通过部门id、上级部门ID、部门负责人、名称、编码字段批量搜索当天的部门详情信息，包括部门包含的名称、描述、启用状态等。;
+//
+// - 延迟说明：搜索同步延迟 10s 以内，即：直接创建部门后10s内调用此接口可能查询不到数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=department&version=v2
 //
@@ -1906,9 +1964,11 @@ func (d *department) SearchByIterator(ctx context.Context, req *SearchDepartment
 		limit:    req.Limit}, nil
 }
 
-// Tree
+// Tree 查询指定生效日期的部门架构树
 //
-// -
+// - 支持传入部门ID（不传默认根部门），任意日期（不传默认当前日期）。从给定部门ID开始广度遍历，每页最多返回2000行数据
+//
+// - - 延迟说明：该数据同步延迟 10s 以内，即：直接创建/更新对象后10s内调用此接口可能查询不到数据，部门上下级关系变化10s内可能查询不到最新数据。;- 如果对数据延迟较为敏感的场景，可以考虑定期or延迟调用该接口，或者走[批量查询部门V2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get) 逐级查询组织架构
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=tree&project=corehr&resource=department&version=v2
 //
@@ -1932,9 +1992,11 @@ func (d *department) Tree(ctx context.Context, req *TreeDepartmentReq, options .
 	return resp, err
 }
 
-// Get
+// Get 根据组织架构调整 ID 查询发起的流程信息
 //
-// - 根据组织架构调整 ID 查询调整流程信息
+// - 用户通过『飞书人事-我的团队/人员管理-组织架构』 发起一个组织架构调整会根据 审批流配置发起 一个或多个审批。之后用户可以通过组织架构调整 ID 查询对应的流程ID，以及审批流状态。如需查询单个审批的详情数据，可通过[根据流程 ID 查询组织架构调整记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/get)获取。
+//
+// - - 用户使用该接口前需提前获取 根据组织架构调整 ID 获取组织架构调整流程信息 权限;- 延迟说明：数据库主从延迟2s以内，即：用户接收到流程状态变更消息后2s内调用此接口可能查询不到数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=draft&version=v2
 //
@@ -1958,9 +2020,11 @@ func (d *draft) Get(ctx context.Context, req *GetDraftReq, options ...larkcore.R
 	return resp, err
 }
 
-// BatchGet
+// BatchGet 批量查询员工信息
 //
-// - 通过员工 ID 批量获取员工信息
+// - 通过员工 ID 、个人信息 ID、工作邮箱等筛选项批量查询员工的工作信息、个人信息。
+//
+// - - 字段未返回请检查：字段权限、用户该字段有值，以及飞书人事档案配置中字段是否启用;- 基于 `id_type` 类型字段（如 employment_id），在部分转换失败（ID映射不存在）的场景会返回 lark_id，无法区分值是否为对应 `id_type`。新增相关 id_v2 的字段，在转换失败时返回空值，用于区分是否转换成功；正常情况下两个字段的值是没有区别的，建议使用 id_v2 的字段;- 在人事系统开启【复用工号】后，存在一个工号对应多个员工的情况，请勿依赖工号做唯一性检查; ;;该接口会按照应用拥有的「员工数据」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围;- 每次最多传 100 个员工 ID，若需单次查询全量员工，可使用接口[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search);- 由于人员全数据关联较多业务数据和计算数据等，更新后存在2-5s短暂延时，建议数据更新动作完成后稍等几秒进行最新数据查询请求;- 当员工未完成入职时，该接口将无法查询到该员工数据，如【待入职】【撤销入职】【删除雇佣】等情况;- 部分计算字段是在凌晨零点进行计算，建议不要在零点时间段进行查询
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=employee&version=v2
 //
@@ -1984,9 +2048,11 @@ func (e *employee) BatchGet(ctx context.Context, req *BatchGetEmployeeReq, optio
 	return resp, err
 }
 
-// Create
+// Create 添加人员
 //
-// -
+// - 支持在单个接口中进行人员全信息添加，包括人员的基本信息，雇佣信息，入职任职记录及其他分组信息
+//
+// - - 此接口参数校验规则与【人事系统-人员档案配置】的校验规则一致，字段是否必填以【人事系统-人员档案配置】为准。建议参照【飞书人事-我的团队-添加人员】页面来传参;- 若开启工号自动编码规则则无需输入人员“工号”，系统将自动进行工号生成；若手动输入工号，则会按照手动输入工号内容进行人员档案建立
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=employee&version=v2
 //
@@ -2010,9 +2076,11 @@ func (e *employee) Create(ctx context.Context, req *CreateEmployeeReq, options .
 	return resp, err
 }
 
-// Search
+// Search 搜索员工信息
 //
-// - 根据 email、工号、个人电话等条件查询员工雇佣信息以及个人基础信息
+// - 查询员工的工作信息、个人信息等数据
+//
+// - - 请求体入参不填写默认为空;- 所有筛选项可一起使用，之间为 AND 关系;- 字段未返回请检查：字段权限、用户该字段有值，以及飞书人事档案配置中字段是否启用;- 在人事系统开启【复用工号】后，存在一个工号对应多个员工的情况，请勿依赖工号做唯一性检查;- 基于 `id_type` 类型字段（如 employment_id），在部分转换失败（ID映射不存在）的场景会返回 lark_id，无法区分值是否为对应 `id_type`。新增相关 xxx_id_v2 的字段，在转换失败时返回空值，用于区分是否转换成功；正常情况下两个字段的值是没有区别的，建议使用 id_v2 的字段;;- 该接口会按照应用拥有的「员工数据」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围;- 接口已升级，推荐使用，性能更优。;如需继续使用旧版本接口，可点击[ 查询单个雇佣信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/get) [ 查询单个个人信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/get);- 本接口关联数据库更新存在5分钟延迟，若希望获取刚更新的数据内容请延缓请求;- 当员工未完成入职时，该接口将无法查询到该员工数据，如【待入职】【撤销入职】【删除雇佣】等情况;- 部分计算字段是在凌晨零点进行计算，建议不要在零点时间段进行查询;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=employee&version=v2
 //
@@ -2044,9 +2112,9 @@ func (e *employee) SearchByIterator(ctx context.Context, req *SearchEmployeeReq,
 		limit:    req.Limit}, nil
 }
 
-// CreateEmpCustomOrg
+// CreateEmpCustomOrg 新增人员自定义组织变更记录
 //
-// -
+// - 为指定员工添加某一自定义组织变更记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create_emp_custom_org&project=corehr&resource=employee.custom_org&version=v2
 //
@@ -2070,9 +2138,9 @@ func (e *employeeCustomOrg) CreateEmpCustomOrg(ctx context.Context, req *CreateE
 	return resp, err
 }
 
-// Del
+// Del 删除人员自定义组织变更记录
 //
-// -
+// - 根据记录版本 ID 删除员工某一自定义组织某一版本记录信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=del&project=corehr&resource=employee.custom_org&version=v2
 //
@@ -2096,9 +2164,9 @@ func (e *employeeCustomOrg) Del(ctx context.Context, req *DelEmployeeCustomOrgRe
 	return resp, err
 }
 
-// EditEmpCustomOrg
+// EditEmpCustomOrg 更新人员自定义组织变更记录
 //
-// -
+// - 更新指定员工的某一条自定义组织变更记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=edit_emp_custom_org&project=corehr&resource=employee.custom_org&version=v2
 //
@@ -2122,9 +2190,9 @@ func (e *employeeCustomOrg) EditEmpCustomOrg(ctx context.Context, req *EditEmpCu
 	return resp, err
 }
 
-// EmploymentCustomOrgRecord
+// EmploymentCustomOrgRecord 批量查询人员自定义组织变更记录
 //
-// -
+// - 通过员工 ID 批量查询自定义组织变更记录信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=employment_custom_org_record&project=corehr&resource=employee.custom_org&version=v2
 //
@@ -2148,9 +2216,9 @@ func (e *employeeCustomOrg) EmploymentCustomOrgRecord(ctx context.Context, req *
 	return resp, err
 }
 
-// Querybyid
+// Querybyid 查询单个人员自定义组织变更记录
 //
-// -
+// - 根据自定义组织 id 查询自定义组织变更记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=querybyid&project=corehr&resource=employee.custom_org&version=v2
 //
@@ -2174,9 +2242,11 @@ func (e *employeeCustomOrg) Querybyid(ctx context.Context, req *QuerybyidEmploye
 	return resp, err
 }
 
-// Batch
+// Batch 批量查询兼职信息
 //
-// - 批量查询兼职信息
+// - 批量查询兼职信息，包括开始日期、职务、序列、上级、薪资类型等信息。;支持全量遍历和筛选查询。
+//
+// - - 延迟说明：搜索同步延迟 10s 以内，即：直接创建、更新对象后10s内调用此接口可能查询不到最新数据。;;- 本接口会按照「员工资源」权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限」中已申请此数据权限;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch&project=corehr&resource=employees.additional_job&version=v2
 //
@@ -2208,9 +2278,9 @@ func (e *employeesAdditionalJob) BatchByIterator(ctx context.Context, req *Batch
 		limit:    req.Limit}, nil
 }
 
-// Create
+// Create 创建兼职
 //
-// - 创建兼职
+// - 创建员工的兼职
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=employees.additional_job&version=v2
 //
@@ -2234,9 +2304,9 @@ func (e *employeesAdditionalJob) Create(ctx context.Context, req *CreateEmployee
 	return resp, err
 }
 
-// Delete
+// Delete 删除兼职
 //
-// - 删除兼职
+// - 删除一条指定的员工兼职
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=employees.additional_job&version=v2
 //
@@ -2260,9 +2330,9 @@ func (e *employeesAdditionalJob) Delete(ctx context.Context, req *DeleteEmployee
 	return resp, err
 }
 
-// Patch
+// Patch 更新兼职
 //
-// - 更新兼职
+// - 更新员工的兼职
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=employees.additional_job&version=v2
 //
@@ -2286,9 +2356,11 @@ func (e *employeesAdditionalJob) Patch(ctx context.Context, req *PatchEmployeesA
 	return resp, err
 }
 
-// BatchGet
+// BatchGet 查询员工 HRBP / 属地 BP
 //
-// -
+// - 查询员工的 HRBP 和属地 BP，包括来自上级部门的 HRBP 和属地 BP。
+//
+// - 该接口会按照应用拥有的「员工资源」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限 - 飞书人事（企业版）数据权限范围」中已申请「员工资源」权限范围
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=employees.bp&version=v2
 //
@@ -2312,9 +2384,11 @@ func (e *employeesBp) BatchGet(ctx context.Context, req *BatchGetEmployeesBpReq,
 	return resp, err
 }
 
-// Create
+// Create 创建外派
 //
-// -
+// - 为员工添加外派记录，包括外派信息、任职信息
+//
+// - - 文档中的必填字段，不可为空。;- 部门岗职模式，会影响岗位、职务等字段的必填校验;- 外派信息相关字段，会基于【飞书人事-人员档案配置】进行必填校验
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=employees.international_assignment&version=v2
 //
@@ -2338,9 +2412,9 @@ func (e *employeesInternationalAssignment) Create(ctx context.Context, req *Crea
 	return resp, err
 }
 
-// Delete
+// Delete 删除外派
 //
-// -
+// - 删除某一条外派信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=employees.international_assignment&version=v2
 //
@@ -2364,9 +2438,11 @@ func (e *employeesInternationalAssignment) Delete(ctx context.Context, req *Dele
 	return resp, err
 }
 
-// List
+// List 批量查询外派信息
 //
-// -
+// - 查询员工的外派信息：外派类型、外派地点、职务、职级、上级等。
+//
+// - - 延迟说明：搜索同步延迟 10s 以内，即：直接创建、更新对象后 10s 内调用此接口可能查询不到数据。;;- 本接口会按照「员工资源」权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限」中已申请此数据权限;- 字段未返回请检查：字段权限、用户该字段有值，以及「飞书人事-人员档案设置」中字段是否启用;- 数据按照外派 ID 降序返回;- 关于自定义字段格式，本接口已升级，不需要复杂转义了，可参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)-入职
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=employees.international_assignment&version=v2
 //
@@ -2390,9 +2466,11 @@ func (e *employeesInternationalAssignment) List(ctx context.Context, req *ListEm
 	return resp, err
 }
 
-// Patch
+// Patch 更新外派信息
 //
-// -
+// - 更新指定的外派信息
+//
+// - - 部门岗职模式，会影响岗位、职务等字段的必填校验;- 外派信息相关字段，会基于【飞书人事-人员档案配置】进行必填校验
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=employees.international_assignment&version=v2
 //
@@ -2416,9 +2494,11 @@ func (e *employeesInternationalAssignment) Patch(ctx context.Context, req *Patch
 	return resp, err
 }
 
-// BatchGet
+// BatchGet 批量查询员工任职信息
 //
-// -
+// - 通过员工雇佣 ID 批量查询任职信息。
+//
+// - 该接口会按照应用拥有的「员工资源」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限」中已申请「员工资源」权限范围。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=employees.job_data&version=v2
 //
@@ -2442,9 +2522,11 @@ func (e *employeesJobData) BatchGet(ctx context.Context, req *BatchGetEmployeesJ
 	return resp, err
 }
 
-// Query
+// Query 获取任职信息列表
 //
-// -
+// - 获取任职信息列表。
+//
+// - 该接口会按照应用拥有的「员工资源」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限」中已申请「员工资源」权限范围
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=employees.job_data&version=v2
 //
@@ -2468,9 +2550,9 @@ func (e *employeesJobData) Query(ctx context.Context, req *QueryEmployeesJobData
 	return resp, err
 }
 
-// Search
+// Search 查询枚举信息
 //
-// - 通过apiname批量获取枚举信息
+// - 根据枚举的APIName查询枚举详细信息，用于BPM等场景获取枚举选项。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=enum&version=v2
 //
@@ -2494,9 +2576,9 @@ func (e *enum) Search(ctx context.Context, req *SearchEnumReq, options ...larkco
 	return resp, err
 }
 
-// BatchGet
+// BatchGet 根据条件批量获取职务
 //
-// - 批量获取职务信息
+// - 根据传入的职务ID或职务Code批量获取当前生效版本职务信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=job&version=v2
 //
@@ -2520,9 +2602,11 @@ func (j *job) BatchGet(ctx context.Context, req *BatchGetJobReq, options ...lark
 	return resp, err
 }
 
-// Get
+// Get 查询单个职务
 //
-// - 根据 ID 查询单个职务。
+// - 根据 ID 查询单个职务的详细信息，如职务名称、描述等
+//
+// - 延迟说明：数据库主从延迟2s以内，即：直接创建对象后2s内调用此接口可能查询不到数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=job&version=v2
 //
@@ -2546,9 +2630,11 @@ func (j *job) Get(ctx context.Context, req *GetJobReq, options ...larkcore.Reque
 	return resp, err
 }
 
-// List
+// List 批量查询职务
 //
-// - 分页查询职务数据
+// - 查询全部职务详情，包括职务编码、名称等信息
+//
+// - 延迟说明：数据库主从延迟2s以内，即：直接创建对象后2s内调用此接口可能查询不到数据。;;使用建议：职务数量过多时，可以通过多次循环调用该接口获取所有职务详情信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=job&version=v2
 //
@@ -2572,9 +2658,11 @@ func (j *job) List(ctx context.Context, req *ListJobReq, options ...larkcore.Req
 	return resp, err
 }
 
-// QueryMultiTimeline
+// QueryMultiTimeline 查询指定时间范围职务版本
 //
-// - 查询生效时间在指定时间范围的职务
+// - - 接口支持查询出对象生效时间段在指定的start_date和end_date之间的版本（即：会查询出生效时间段和查询时间段有交集的版本）;- 接口支持对象版本相关字段的查询和返回（默认返回id和version_id）
+//
+// - 延迟说明：数据库主从延迟2s以内，即：直接创建对象后2s内调用此接口可能查询不到数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_multi_timeline&project=corehr&resource=job&version=v2
 //
@@ -2598,9 +2686,11 @@ func (j *job) QueryMultiTimeline(ctx context.Context, req *QueryMultiTimelineJob
 	return resp, err
 }
 
-// QueryRecentChange
+// QueryRecentChange 查询当前生效信息发生变更的职务
 //
-// -
+// - 查询指定时间范围内当前生效信息发生变更的职务，即只有职务当前生效版本的生效时间在查询时间范围内，才返回该职务id
+//
+// - - 时间窗支持大范围查询，**限定查询范围在90天以内**，例如要查询2020年1月1日至2020年6月30日的数据，建议分成两次查询，分别为2020年1月1日至2020年3月31日，2020年4月1日至2020年6月30日，不建议查询大时间范围数据 ;- 未来生效的版本数据，会在生效日期当天凌晨产生变更事件。例如：今天为1月1日，新建职务 1月10日生效，则1月10日凌晨 1点之后可查询到。;;- 默认排序条件：默认先按照组织记录 ID 增序排序， 便于滚动查询;- 使用滚动查询而非分页查询，是为了防止大批量获取数据时，深分页导致超时
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_recent_change&project=corehr&resource=job&version=v2
 //
@@ -2624,9 +2714,11 @@ func (j *job) QueryRecentChange(ctx context.Context, req *QueryRecentChangeJobRe
 	return resp, err
 }
 
-// Create
+// Create 发起员工异动
 //
-// -
+// - 该接口用于发起员工异动（变更员工雇佣信息），若发起成功，会生成一条员工的异动数据
+//
+// - 该接口会按照应用拥有的「异动记录资源」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限」中申请了「异动记录资源」权限范围;;;本接口会产生事件：[异动状态变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/events/status_updated)
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=job_change&version=v2
 //
@@ -2650,9 +2742,9 @@ func (j *jobChange) Create(ctx context.Context, req *CreateJobChangeReq, options
 	return resp, err
 }
 
-// Revoke
+// Revoke 撤销员工异动。
 //
-// -
+// - 该接口用于撤销员工异动，若发起成功，会撤销一条已发起、待生效或已生效的异动数据，同时产生相应的事件：[异动状态变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/events/updated)。该接口无法撤销批量发起的多人异动。使用时需指定操作人，关联了流程的异动需要流程管理员和审批单管理员权限。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=revoke&project=corehr&resource=job_change&version=v2
 //
@@ -2676,9 +2768,9 @@ func (j *jobChange) Revoke(ctx context.Context, req *RevokeJobChangeReq, options
 	return resp, err
 }
 
-// Search
+// Search 搜索异动信息
 //
-// - 获取员工异动列表
+// - 搜索异动信息，该接口会按照应用拥有的「员工数据」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=job_change&version=v2
 //
@@ -2710,9 +2802,9 @@ func (j *jobChange) SearchByIterator(ctx context.Context, req *SearchJobChangeRe
 		limit:    req.Limit}, nil
 }
 
-// BatchGet
+// BatchGet 根据条件批量查询序列信息
 //
-// - 批量获取序列信息
+// - 通过序列 ID 或序列 Code 批量查询当前生效版本序列的详情信息，包括序列名称、启用状态、上级序列等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=job_family&version=v2
 //
@@ -2736,9 +2828,11 @@ func (j *jobFamily) BatchGet(ctx context.Context, req *BatchGetJobFamilyReq, opt
 	return resp, err
 }
 
-// QueryMultiTimeline
+// QueryMultiTimeline 查询指定时间范围序列版本
 //
-// - 查询生效时间在指定时间范围的序列
+// - - 接口支持查询出对象生效时间段在指定的start_date和end_date之间的版本;- 接口支持对象版本相关字段的查询和返回（默认返回id和version_id）;- 适用于需要回顾某段时间内对象版本变化的场景
+//
+// - 延迟说明：数据库主从延迟2s以内，即：直接创建对象后2s内调用此接口可能查询不到数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_multi_timeline&project=corehr&resource=job_family&version=v2
 //
@@ -2762,9 +2856,11 @@ func (j *jobFamily) QueryMultiTimeline(ctx context.Context, req *QueryMultiTimel
 	return resp, err
 }
 
-// QueryRecentChange
+// QueryRecentChange 查询当前生效信息发生变更的序列
 //
-// -
+// - 查询指定时间范围内当前生效信息发生变更的序列，即只有序列前生效版本的生效时间在查询时间范围内，才返回该序列id
+//
+// - - 时间窗支持大范围查询，限定查询范围在90天以内，例如要查询2020年1月1日至2020年6月30日的数据，建议分成两次查询，分别为2020年1月1日至2020年3月31日，2020年4月1日至2020年6月30日，不建议查询大时间范围数据 ;- 未来生效的版本数据，会在生效日期当天凌晨产生变更事件。例如：今天为1月1日，新建序列 1月10日生效，则1月10日凌晨 1点之后可查询到;;- 默认排序条件：默认先按照组织记录 ID 增序排序， 便于滚动查询;- 使用滚动查询而非分页查询，是为了防止大批量获取数据时，深分页导致超时
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_recent_change&project=corehr&resource=job_family&version=v2
 //
@@ -2788,9 +2884,9 @@ func (j *jobFamily) QueryRecentChange(ctx context.Context, req *QueryRecentChang
 	return resp, err
 }
 
-// Create
+// Create 创建职等
 //
-// - 创建职等数据
+// - 创建职等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=job_grade&version=v2
 //
@@ -2814,9 +2910,9 @@ func (j *jobGrade) Create(ctx context.Context, req *CreateJobGradeReq, options .
 	return resp, err
 }
 
-// Delete
+// Delete 删除职等
 //
-// - 删除职等信息
+// - 删除职等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=job_grade&version=v2
 //
@@ -2840,9 +2936,9 @@ func (j *jobGrade) Delete(ctx context.Context, req *DeleteJobGradeReq, options .
 	return resp, err
 }
 
-// Patch
+// Patch 更新职等
 //
-// - 更新职等信息
+// - 更新职等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=job_grade&version=v2
 //
@@ -2866,9 +2962,11 @@ func (j *jobGrade) Patch(ctx context.Context, req *PatchJobGradeReq, options ...
 	return resp, err
 }
 
-// Query
+// Query 查询职等信息
 //
-// - 查询职等信息
+// - 查询职等的详细信息。
+//
+// - - 延迟说明：数据库主从延迟 2s 以内，即：直接创建职等后2s内调用此接口可能查询不到数据。;- 所有筛选项可一起使用，之间为 AND 关系;;- 每次最多传 100 个职等 ID 和 Code，如果不传则默认无筛选条件，返回全部列表
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=job_grade&version=v2
 //
@@ -2892,9 +2990,11 @@ func (j *jobGrade) Query(ctx context.Context, req *QueryJobGradeReq, options ...
 	return resp, err
 }
 
-// QueryRecentChange
+// QueryRecentChange 查询当前生效信息发生变更的职等
 //
-// -
+// - 查询指定时间范围内当前生效信息发生变更的职等，即只有职等当前生效版本的生效时间在查询时间范围内，才返回该地点id
+//
+// - - 时间窗支持大范围查询，限定查询范围在90天以内，例如要查询2020年1月1日至2020年6月30日的数据，建议分成两次查询，分别为2020年1月1日至2020年3月31日，2020年4月1日至2020年6月30日，不建议查询大时间范围数据 ;- 未来生效的版本数据，会在生效日期当天凌晨产生变更事件。例如：今天为1月1日，新建职等 1月10日生效，则1月10日凌晨 1点之后可查询到;;- 默认排序条件：默认先按照组织记录 ID 增序排序， 便于滚动查询;- 使用滚动查询而非分页查询，是为了防止大批量获取数据时，深分页导致超时
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_recent_change&project=corehr&resource=job_grade&version=v2
 //
@@ -2918,9 +3018,9 @@ func (j *jobGrade) QueryRecentChange(ctx context.Context, req *QueryRecentChange
 	return resp, err
 }
 
-// BatchGet
+// BatchGet 根据条件批量获取职级信息
 //
-// - 批量获取职级信息
+// - 该接口支持通过职级ID或职级Code批量查询职级详情信息，包括名称、描述、启用状态等。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=job_level&version=v2
 //
@@ -2944,9 +3044,11 @@ func (j *jobLevel) BatchGet(ctx context.Context, req *BatchGetJobLevelReq, optio
 	return resp, err
 }
 
-// QueryRecentChange
+// QueryRecentChange 查询当前生效信息发生变更的职级
 //
-// -
+// - 查询指定时间范围内当前生效信息发生变更的职级，即只有地点当前生效版本的生效时间在查询时间范围内，才返回该职级id
+//
+// - - 时间窗支持大范围查询，限定查询范围在90天以内，例如要查询2020年1月1日至2020年6月30日的数据，建议分成两次查询，分别为2020年1月1日至2020年3月31日，2020年4月1日至2020年6月30日，不建议查询大时间范围数据 ;- 未来生效的版本数据，会在生效日期当天凌晨产生变更事件。例如：今天为1月1日，新建职级 1月10日生效，则1月10日凌晨 1点之后可查询到;;- 默认排序条件：默认先按照组织记录 ID 增序排序， 便于滚动查询;- 使用滚动查询而非分页查询，是为了防止大批量获取数据时，深分页导致超时
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_recent_change&project=corehr&resource=job_level&version=v2
 //
@@ -2970,9 +3072,9 @@ func (j *jobLevel) QueryRecentChange(ctx context.Context, req *QueryRecentChange
 	return resp, err
 }
 
-// Active
+// Active 启用/停用地点
 //
-// - 启停/停用地点
+// - 启用/停用地点
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=active&project=corehr&resource=location&version=v2
 //
@@ -2996,9 +3098,11 @@ func (l *location) Active(ctx context.Context, req *ActiveLocationReq, options .
 	return resp, err
 }
 
-// BatchGet
+// BatchGet 通过地点 ID 批量获取地点信息
 //
-// - 通过地点 ID 批量获取地点信息
+// - 该接口用于根据地点 ID批量查询地点信息，信息包含地点名称、描述、地点用途、工时制度、区域设置、时区以及关联的地址信息等。
+//
+// - 延迟说明：数据库主从延迟 2s 以内，即：直接创建地点后2s内调用此接口可能查询不到数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=location&version=v2
 //
@@ -3022,7 +3126,7 @@ func (l *location) BatchGet(ctx context.Context, req *BatchGetLocationReq, optio
 	return resp, err
 }
 
-// Patch
+// Patch 更新地点
 //
 // - 更新地点
 //
@@ -3048,9 +3152,11 @@ func (l *location) Patch(ctx context.Context, req *PatchLocationReq, options ...
 	return resp, err
 }
 
-// QueryMultiTimeline
+// QueryMultiTimeline 查询指定时间范围地点版本
 //
-// - 查询生效时间在指定时间范围的地点
+// - - 接口支持查询出对象生效时间段在指定的start_date和end_date之间的版本（即：会查询出生效时间段和查询时间段有交集的版本）;- 接口支持对象版本相关字段的查询和返回（默认返回id和version_id）
+//
+// - 延迟说明：数据库主从延迟2s以内，即：直接创建对象后2s内调用此接口可能查询不到数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_multi_timeline&project=corehr&resource=location&version=v2
 //
@@ -3074,9 +3180,11 @@ func (l *location) QueryMultiTimeline(ctx context.Context, req *QueryMultiTimeli
 	return resp, err
 }
 
-// QueryRecentChange
+// QueryRecentChange 查询当前生效信息发生变更的地点
 //
-// -
+// - 查询指定时间范围内当前生效信息发生变更的地点，即只有地点当前生效版本的生效时间在查询时间范围内，才返回该地点id
+//
+// - - 时间窗支持大范围查询，限定查询范围在90天以内，例如要查询2020年1月1日至2020年6月30日的数据，建议分成两次查询，分别为2020年1月1日至2020年3月31日，2020年4月1日至2020年6月30日，不建议查询大时间范围数据 ;- 未来生效的版本数据，会在生效日期当天凌晨产生变更事件。例如：今天为1月1日，新建地点 1月10日生效，则1月10日凌晨 1点之后可查询到;;- 默认排序条件：默认先按照组织记录 ID 增序排序， 便于滚动查询;- 使用滚动查询而非分页查询，是为了防止大批量获取数据时，深分页导致超时
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_recent_change&project=corehr&resource=location&version=v2
 //
@@ -3100,7 +3208,7 @@ func (l *location) QueryRecentChange(ctx context.Context, req *QueryRecentChange
 	return resp, err
 }
 
-// Create
+// Create 添加地点地址
 //
 // - 添加地点地址
 //
@@ -3126,9 +3234,11 @@ func (l *locationAddress) Create(ctx context.Context, req *CreateLocationAddress
 	return resp, err
 }
 
-// Delete
+// Delete 删除地点地址
 //
 // - 删除地点地址
+//
+// - 删除地点地址时请确认是否为主要地址或是否为最后一个地址，如有会导致删除失败。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=location.address&version=v2
 //
@@ -3152,7 +3262,7 @@ func (l *locationAddress) Delete(ctx context.Context, req *DeleteLocationAddress
 	return resp, err
 }
 
-// Patch
+// Patch 更新地点地址
 //
 // - 更新地点地址
 //
@@ -3178,9 +3288,11 @@ func (l *locationAddress) Patch(ctx context.Context, req *PatchLocationAddressRe
 	return resp, err
 }
 
-// Edit
+// Edit 编辑离职信息
 //
-// - 编辑离职信息
+// - 该接口用于编辑飞书人事的[离职信息](https://people.feishu.cn/people/members/dimission/management)，支持的字段包括离职日期、离职原因、离职申请发起时间和离职申请审批通过时间等等，同时也支持编辑离职的自定义字段（附件字段除外）。当接口成功提交后，会产生对应的[离职信息变更](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/offboarding/events/updated)事件。
+//
+// - 注意：该接口会按照应用拥有的「员工数据」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限-飞书人事（企业版）数据权限」中申请了「员工资源」权限范围。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=edit&project=corehr&resource=offboarding&version=v2
 //
@@ -3204,9 +3316,11 @@ func (o *offboarding) Edit(ctx context.Context, req *EditOffboardingReq, options
 	return resp, err
 }
 
-// Revoke
+// Revoke 撤销离职
 //
-// - 撤销离职信息
+// - 通过离职ID撤销飞书人事的[离职信息](https://people.feishu.cn/people/members/dimission/management)。当接口成功提交后，会产生对应的[离职信息变更](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/offboarding/events/updated)事件。
+//
+// - 注意：该接口会限制应用拥有的「员工数据」的权限范围撤销离职信息，请先在「开发者后台 - 权限管理 - 数据权限-飞书人事（企业版）数据权限」中申请「员工资源」权限范围。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=revoke&project=corehr&resource=offboarding&version=v2
 //
@@ -3230,9 +3344,11 @@ func (o *offboarding) Revoke(ctx context.Context, req *RevokeOffboardingReq, opt
 	return resp, err
 }
 
-// SubmitV2
+// SubmitV2 操作员工离职
 //
-// -
+// - 该接口用于发起飞书人事的[离职信息](https://people.feishu.cn/people/members/dimission/management)，支持填写离职日期、离职原因、屏蔽名单和自定义字段（附件字段除外）等。当接口成功提交后，会产生对应的[离职信息变更](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/offboarding/events/updated)事件。
+//
+// - 注意，与[操作员工离职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/submit)相比：;;1、该接口会限制应用拥有的「员工数据」的权限范围发起离职信息，请先在「开发者后台 - 权限管理 - 数据权限-飞书人事（企业版）数据权限」中申请「员工资源」权限范围。;;2、该接口还支持发起离职审批流程。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=submit_v2&project=corehr&resource=offboarding&version=v2
 //
@@ -3256,9 +3372,9 @@ func (o *offboarding) SubmitV2(ctx context.Context, req *SubmitV2OffboardingReq,
 	return resp, err
 }
 
-// Active
+// Active 启停用通道
 //
-// - 启/停用通道
+// - 对通道进行 启用 或 停用 操作
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=active&project=corehr&resource=pathway&version=v2
 //
@@ -3282,9 +3398,11 @@ func (p *pathway) Active(ctx context.Context, req *ActivePathwayReq, options ...
 	return resp, err
 }
 
-// BatchGet
+// BatchGet 获取通道信息
 //
-// - 通过通道 ID 批量获取通道信息
+// - 根据通道的ID批量获取通道的名称、编码、描述信息
+//
+// - 由于该接口为ByID批量查询接口，当请求参数中的某个通道ID错误或者被删除时，接口不会报错。;;延迟说明：数据库主从延迟2s以内，即：创建通道后2s内调用此接口可能查询不到数据。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=pathway&version=v2
 //
@@ -3308,9 +3426,11 @@ func (p *pathway) BatchGet(ctx context.Context, req *BatchGetPathwayReq, options
 	return resp, err
 }
 
-// Create
+// Create 创建通道
 //
-// - 创建通道
+// - 创建通道，可以定义通道的名称、编码和描述信息
+//
+// - 非必填字段，不传时默认为空
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=pathway&version=v2
 //
@@ -3334,9 +3454,11 @@ func (p *pathway) Create(ctx context.Context, req *CreatePathwayReq, options ...
 	return resp, err
 }
 
-// Delete
+// Delete 删除通道
 //
-// - 删除通道
+// - 根据传入的通道 ID 删除一个相应的通道信息;
+//
+// - 删除后无法恢复， 并且在系统中无法搜索到对应通道信息，请谨慎操作。;;删除对象时请确认有无在职员工、待入职单据、职务、职级、序列等数据关联此对象，如有会导致删除失败。;;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=pathway&version=v2
 //
@@ -3360,9 +3482,11 @@ func (p *pathway) Delete(ctx context.Context, req *DeletePathwayReq, options ...
 	return resp, err
 }
 
-// Patch
+// Patch 更新通道
 //
-// - 更新通道信息
+// - 更新通道，可以根据通道的ID更新通道的名称、编码、描述信息
+//
+// - 非必填字段，不传时即不做变更
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=pathway&version=v2
 //
@@ -3386,9 +3510,9 @@ func (p *pathway) Patch(ctx context.Context, req *PatchPathwayReq, options ...la
 	return resp, err
 }
 
-// Create
+// Create 创建个人信息
 //
-// - 创建个人信息数据
+// - 创建员工的个人信息，包括姓名、个人电话、邮箱、联系地址、政治面貌、户口信息等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=person&version=v2
 //
@@ -3412,9 +3536,9 @@ func (p *person) Create(ctx context.Context, req *CreatePersonReq, options ...la
 	return resp, err
 }
 
-// Patch
+// Patch 更新个人信息
 //
-// -
+// - 更新员工的个人信息，包括姓名、个人电话、邮箱、联系地址、政治面貌、户口信息等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=person&version=v2
 //
@@ -3438,9 +3562,9 @@ func (p *person) Patch(ctx context.Context, req *PatchPersonReq, options ...lark
 	return resp, err
 }
 
-// Active
+// Active 启用或停用岗位
 //
-// - 启/停用岗位
+// - 对岗位进行启用或停用操作
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=active&project=corehr&resource=position&version=v2
 //
@@ -3464,9 +3588,11 @@ func (p *position) Active(ctx context.Context, req *ActivePositionReq, options .
 	return resp, err
 }
 
-// Create
+// Create 创建岗位信息
 //
-// -
+// - 创建岗位，可定义岗位关联的职务、职级、序列，以及岗位描述等
+//
+// - - 非必填字段，不传时默认为空;- 此接口字段是否必填以【飞书人事-组织配置】为准。建议参照【飞书人事-组织管理-岗位-新建】页面来传参
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=position&version=v2
 //
@@ -3490,9 +3616,11 @@ func (p *position) Create(ctx context.Context, req *CreatePositionReq, options .
 	return resp, err
 }
 
-// DelPosition
+// DelPosition 删除岗位
 //
-// - 删除岗位
+// - 删除整条岗位记录
+//
+// - 删除后不可恢复，请谨慎操作
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=del_position&project=corehr&resource=position&version=v2
 //
@@ -3516,9 +3644,11 @@ func (p *position) DelPosition(ctx context.Context, req *DelPositionPositionReq,
 	return resp, err
 }
 
-// Patch
+// Patch 更新岗位信息
 //
-// - 更新岗位
+// - 更新岗位的版本信息，例如岗位关联的职务、职级、序列，以及岗位描述等
+//
+// - 岗位在关联人员、异动、入职对象信息及建立自身上下级关系后，不允许更新部门;;- 非必填字段，不传时即不做变更;- 如果传入生效时间当天不存在版本则会自动生成一个版本。;- 如果传入生效时间当天存在版本则会修改该版本。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=position&version=v2
 //
@@ -3542,9 +3672,11 @@ func (p *position) Patch(ctx context.Context, req *PatchPositionReq, options ...
 	return resp, err
 }
 
-// Query
+// Query 查询岗位信息
 //
-// - 查询岗位信息
+// - 支持通过岗位 ID、部门 ID 查询岗位的详细信息，例如岗位关联的职务、职级、序列，以及岗位描述，是否关键岗位等
+//
+// - ;#### 限制说明:;- 在筛选 ID 和 查询字段对象个数过多时，可能出现超时现象，请减少筛选项和字段对象个数。阻塞性问题请联系[技术支持](https://applink.feishu.cn/TLJpeNdW);- 所有筛选项可一起使用，之间为 AND 关系;- 请求体入参不填写默认为空，不参与筛选;;#### 前提条件:;- 本接口会按照「岗位资源」权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限」中已申请此数据权限;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=position&version=v2
 //
@@ -3568,9 +3700,11 @@ func (p *position) Query(ctx context.Context, req *QueryPositionReq, options ...
 	return resp, err
 }
 
-// QueryRecentChange
+// QueryRecentChange 查询指定时范围内当前版本信息发生变更的岗位
 //
-// -
+// - 查询指定时间范围内信息发生变更的岗位，仅当岗位当前生效版本的生效时间在查询时间范围内，才返回该岗位id
+//
+// - - 时间窗支持大范围查询，限定查询范围在90天以内，例如要查询2020年1月1日至2020年6月30日的数据，建议分成两次查询，分别为2020年1月1日至2020年3月31日，2020年4月1日至2020年6月30日，不建议查询大时间范围数据 ;- 未来生效的版本数据，会在生效日期当天凌晨产生变更事件。例如：今天为1月1日，新建岗位 1月10日生效，则1月10日凌晨 1点之后可查询到;;- 默认排序条件：默认先按照组织记录 ID 增序排序， 便于滚动查询;- 使用滚动查询而非分页查询，是为了防止大批量获取数据时，深分页导致超时
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_recent_change&project=corehr&resource=position&version=v2
 //
@@ -3594,9 +3728,9 @@ func (p *position) QueryRecentChange(ctx context.Context, req *QueryRecentChange
 	return resp, err
 }
 
-// Complete
+// Complete 操作员工完成入职
 //
-// - 完成入职
+// - 操作待入职员工完成入职，正式入职建立员工和公司/组织的雇佣关系
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=complete&project=corehr&resource=pre_hire&version=v2
 //
@@ -3620,11 +3754,11 @@ func (p *preHire) Complete(ctx context.Context, req *CompletePreHireReq, options
 	return resp, err
 }
 
-// Create 创建待入职人员
+// Create 直接创建待入职
 //
-// - 创建待入职人员
+// - 使用指定数据创建一个待入职人员信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=pre_hire&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/create_preHire.go
 func (p *preHire) Create(ctx context.Context, req *CreatePreHireReq, options ...larkcore.RequestOptionFunc) (*CreatePreHireResp, error) {
@@ -3646,9 +3780,9 @@ func (p *preHire) Create(ctx context.Context, req *CreatePreHireReq, options ...
 	return resp, err
 }
 
-// Delete
+// Delete 删除待入职
 //
-// - 删除待入职
+// - 删除待入职人员，删除后无法搜索到待入职人员信息，请谨慎操作
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=pre_hire&version=v2
 //
@@ -3672,9 +3806,11 @@ func (p *preHire) Delete(ctx context.Context, req *DeletePreHireReq, options ...
 	return resp, err
 }
 
-// Patch
+// Patch 更新待入职
 //
-// - 更新待入职
+// - 通过指定系统字段和自定义字段以更新待入职数据
+//
+// - 该接口会按照应用拥有的「待入职人员」的权限范围返回数据，请提前在「开发者后台 - 权限管理 - 数据权限-飞书人事(企业版)数据权限范围」中申请「待入职人员」权限范围
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=pre_hire&version=v2
 //
@@ -3698,9 +3834,11 @@ func (p *preHire) Patch(ctx context.Context, req *PatchPreHireReq, options ...la
 	return resp, err
 }
 
-// Query
+// Query 查询待入职
 //
-// - 批量查询待入职数据
+// - 该接口用于根据待入职人员 ID(支持批量)查询待入职人员信息，信息包含姓名、手机号等个人信息和任职信息。;- 延迟说明：数据库主从延迟 2s 以内，即：直接创建待入职后2s内调用此接口可能查询不到数据。;- 性能说明：本接口返回数据量较多，查询时请控制每批次数量（<10）和适当减少查询字段数(<50)
+//
+// - 该接口会按照应用拥有的「待入职人员」的权限范围返回数据，请提前在「开发者后台 - 权限管理 - 数据权限-飞书人事(企业版)数据权限范围」中申请「待入职人员」权限范围
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=pre_hire&version=v2
 //
@@ -3732,9 +3870,9 @@ func (p *preHire) QueryByIterator(ctx context.Context, req *QueryPreHireReq, opt
 		limit:    req.Limit}, nil
 }
 
-// RestoreFlowInstance
+// RestoreFlowInstance 恢复入职
 //
-// -
+// - 通过本接口对指定已撤销的待入职员工执行恢复入职操作，对应入职管理页面恢复入职按钮
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=restore_flow_instance&project=corehr&resource=pre_hire&version=v2
 //
@@ -3758,9 +3896,11 @@ func (p *preHire) RestoreFlowInstance(ctx context.Context, req *RestoreFlowInsta
 	return resp, err
 }
 
-// Search
+// Search 搜索待入职人员信息
 //
-// - 根据部门 ID，上级部门查询部门列表
+// - 该接口用于根据工号/待入职人员 ID /入职地点等查询条件搜索待入职人员信息。;- 查询的待入职数量及字段越多，耗时越久，使用时建议细化指定需要的字段。;- 创建待入职后，会有5秒内的数据延迟导致搜索不到数据
+//
+// - 该接口会按照应用拥有的「待入职人员」的权限范围返回数据，请提前在「开发者后台 - 权限管理 - 数据权限-飞书人事(企业版)数据权限范围」中申请「待入职人员」权限范围
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=pre_hire&version=v2
 //
@@ -3792,9 +3932,11 @@ func (p *preHire) SearchByIterator(ctx context.Context, req *SearchPreHireReq, o
 		limit:    req.Limit}, nil
 }
 
-// TransformOnboardingTask
+// TransformOnboardingTask 流转入职任务
 //
-// - 入职常规任务的流转，支持手动开启任务，提交任务以及审批任务
+// - 处于进行中的入职流程，可通过本接口实现手动开启、提交或审批入职任务;;- 当任务处于「手动开启」时，可通过本接口手动开启任务，将任务状态流转到「进行中」;- 当任务处于「进行中」时，可通过本接口提交任务，将任务流转到「审批中」或「已完成」;- 当任务处于「审批中」时，可通过本接口审批任务，将任务流转到「已完成」或「已拒绝」;- 当任务处于「已拒绝」时，可通过本接口提交任务，将任务流转到「审批中」
+//
+// - 该接口会按照应用拥有的「待入职人员」的权限范围返回数据，请提前在「开发者后台 - 权限管理 - 数据权限-飞书人事(企业版)数据权限范围」中申请「待入职人员」权限范围
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=transform_onboarding_task&project=corehr&resource=pre_hire&version=v2
 //
@@ -3818,9 +3960,11 @@ func (p *preHire) TransformOnboardingTask(ctx context.Context, req *TransformOnb
 	return resp, err
 }
 
-// TransitTask
+// TransitTask 流转入职任务
 //
-// - 任务流转
+// - 配置入职流程后，可通过本接口流转进行中的任务
+//
+// - 该接口会按照应用拥有的「待入职人员」的权限范围返回数据，请提前在「开发者后台 - 权限管理 - 数据权限-飞书人事(企业版)数据权限范围」中申请「待入职人员」权限范围
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=transit_task&project=corehr&resource=pre_hire&version=v2
 //
@@ -3844,9 +3988,9 @@ func (p *preHire) TransitTask(ctx context.Context, req *TransitTaskPreHireReq, o
 	return resp, err
 }
 
-// WithdrawOnboarding
+// WithdrawOnboarding 撤销入职
 //
-// -
+// - 通过本接口对指定待入职，入职准备就绪的员工执行撤销入职操作，对应入职管理页面撤销入职按钮
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=withdraw_onboarding&project=corehr&resource=pre_hire&version=v2
 //
@@ -3870,9 +4014,9 @@ func (p *preHire) WithdrawOnboarding(ctx context.Context, req *WithdrawOnboardin
 	return resp, err
 }
 
-// Edit
+// Edit 编辑试用期
 //
-// -
+// - 通过本接口可新增、编辑、删除员工试用期信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=edit&project=corehr&resource=probation&version=v2
 //
@@ -3896,9 +4040,9 @@ func (p *probation) Edit(ctx context.Context, req *EditProbationReq, options ...
 	return resp, err
 }
 
-// EnableDisableAssessment
+// EnableDisableAssessment 启用/停用试用期考核功能
 //
-// -
+// - 启用/停用试用期考核功能，启用后系统功能中针对试用期考核相关的字段会自动启用，并可通过接口更新试用期考核结果
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=enable_disable_assessment&project=corehr&resource=probation&version=v2
 //
@@ -3922,9 +4066,9 @@ func (p *probation) EnableDisableAssessment(ctx context.Context, req *EnableDisa
 	return resp, err
 }
 
-// Search
+// Search 搜索试用期信息
 //
-// -
+// - 搜索试用期信息，创建试用期后立刻搜索，可能会存在 5s 左右延迟
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=probation&version=v2
 //
@@ -3956,9 +4100,9 @@ func (p *probation) SearchByIterator(ctx context.Context, req *SearchProbationRe
 		limit:    req.Limit}, nil
 }
 
-// Submit
+// Submit 发起转正
 //
-// -
+// - 通过本接口可以为员工发起转正
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=submit&project=corehr&resource=probation&version=v2
 //
@@ -3982,9 +4126,9 @@ func (p *probation) Submit(ctx context.Context, req *SubmitProbationReq, options
 	return resp, err
 }
 
-// Withdraw
+// Withdraw 撤销转正
 //
-// -
+// - 可通过本接口撤销对员工之前发起的转正
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=withdraw&project=corehr&resource=probation&version=v2
 //
@@ -4008,9 +4152,9 @@ func (p *probation) Withdraw(ctx context.Context, req *WithdrawProbationReq, opt
 	return resp, err
 }
 
-// Create
+// Create 新增试用期考核信息
 //
-// -
+// - 新增员工试用期考核结果
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=probation.assessment&version=v2
 //
@@ -4034,9 +4178,9 @@ func (p *probationAssessment) Create(ctx context.Context, req *CreateProbationAs
 	return resp, err
 }
 
-// Delete
+// Delete 删除试用期考核信息
 //
-// -
+// - 删除试用期的考核结果
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=probation.assessment&version=v2
 //
@@ -4060,9 +4204,9 @@ func (p *probationAssessment) Delete(ctx context.Context, req *DeleteProbationAs
 	return resp, err
 }
 
-// Patch
+// Patch 更新试用期考核信息
 //
-// -
+// - 更新试用期的考核结果
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=probation.assessment&version=v2
 //
@@ -4086,9 +4230,9 @@ func (p *probationAssessment) Patch(ctx context.Context, req *PatchProbationAsse
 	return resp, err
 }
 
-// FlowVariableData
+// FlowVariableData 获取流程数据
 //
-// -
+// - 根据流程实例 id（process_id）获取流程字段数据，包括业务字段和自定义字段，还有流程的数据（比如流程发起人、发起时间等），仅支持飞书人事、假勤相关业务流程。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=flow_variable_data&project=corehr&resource=process&version=v2
 //
@@ -4112,9 +4256,11 @@ func (p *process) FlowVariableData(ctx context.Context, req *FlowVariableDataPro
 	return resp, err
 }
 
-// Get
+// Get 获取单个流程详情
 //
-// -
+// - 根据流程实例 id（process_id）获取单个流程详情（此功能不受数据权限范围控制）。比如流程状态、流程发起人、流程发起时间、流程摘要、流程里的所有待办、已办、抄送任务等。
+//
+// - 休假类型流程的“撤销”的实例状态，以及是否属于“更正流程”需要去休假的[批量查询员工请假记录](https://open.larkoffice.com/document/server-docs/corehr-v1/leave/leave_request_history) 接口查询
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=process&version=v2
 //
@@ -4138,9 +4284,9 @@ func (p *process) Get(ctx context.Context, req *GetProcessReq, options ...larkco
 	return resp, err
 }
 
-// List
+// List 查询流程实例列表
 //
-// -
+// - 本接口用于查询流程实例列表，支持通过流程定义 ID 等进行查询（此功能不受数据权限范围控制），其中：;;- 流程实例：是指用户在业务功能或者飞书人事的审批中心发起的具体流程，process_id 是其唯一标识。;;- 流程定义：是指管理员在设置侧配置的流程，类似流程模板，flow_definition_id 是其唯一标识。用户发起的流程是按照对应的流程定义的配置生成。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=process&version=v2
 //
@@ -4172,9 +4318,9 @@ func (p *process) ListByIterator(ctx context.Context, req *ListProcessReq, optio
 		limit:    req.Limit}, nil
 }
 
-// Update
+// Update 通过/拒绝审批任务
 //
-// -
+// - 对于单个审批任务进行通过（提交）或拒绝操作。对于多人或签节点，一个审批任务通过则整个节点通过；对于多人会签节点，所有审批任务通过则节点通过。在通过（提交）时，若表单中有必填字段，支持写入表单字段。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=corehr&resource=process.approver&version=v2
 //
@@ -4198,9 +4344,9 @@ func (p *processApprover) Update(ctx context.Context, req *UpdateProcessApprover
 	return resp, err
 }
 
-// Update
+// Update 加签审批任务
 //
-// -
+// - 给单个流程中的节点或审批任务加签，加签方式有前加签、并加签、后加签三种。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=corehr&resource=process.extra&version=v2
 //
@@ -4224,9 +4370,11 @@ func (p *processExtra) Update(ctx context.Context, req *UpdateProcessExtraReq, o
 	return resp, err
 }
 
-// Get
+// Get 获取流程表单数据
 //
-// -
+// - 根据流程实例 id（process_id）获取流程表单字段数据，包括表单里的业务字段和自定义字段。仅支持飞书人事、假勤相关业务流程。;;注：[旧版 API](https://open.larkoffice.com/document/server-docs/corehr-v1/process-form_variable_data/get) 文档已移动到【历史版本】目录。
+//
+// - 此接口会返回表单配置的数据，包括下钻数据。BPM 业务会调用主数据接口获取对应信息并返回。但表单未配置的数据不会返回，即便后续配置也不会补充。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=process.form_variable_data&version=v2
 //
@@ -4250,9 +4398,11 @@ func (p *processFormVariableData) Get(ctx context.Context, req *GetProcessFormVa
 	return resp, err
 }
 
-// Create
+// Create 查询流程数据参数模板
 //
-// -
+// - 通过传入流程定义 ID 和变量的 ApiName，获取 process_form_variable_v2[] 类型参数模板。
+//
+// - 该接口用于帮助开发人员理解 process_form_variable_v2[] 的数据结构，**业务生产环境不建议使用**。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=process.query_flow_data_template&version=v2
 //
@@ -4276,9 +4426,9 @@ func (p *processQueryFlowDataTemplate) Create(ctx context.Context, req *CreatePr
 	return resp, err
 }
 
-// Update
+// Update 转交审批任务
 //
-// -
+// - 对于单个审批任务进行转交操作。转交后审批流程流转给被转交人。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=corehr&resource=process.transfer&version=v2
 //
@@ -4302,9 +4452,9 @@ func (p *processTransfer) Update(ctx context.Context, req *UpdateProcessTransfer
 	return resp, err
 }
 
-// Update
+// Update 撤销流程
 //
-// -
+// - 撤销单个流程，状态为已完成的流程能够进行撤销，使用时需指定操作人，目前支持流程管理员和审批单管理员。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=corehr&resource=process_revoke&version=v2
 //
@@ -4328,9 +4478,9 @@ func (p *processRevoke) Update(ctx context.Context, req *UpdateProcessRevokeReq,
 	return resp, err
 }
 
-// Create
+// Create 发起流程
 //
-// -
+// - 发起一个流程实例，目前只支持发起自定义业务类型的流程。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=process_start&version=v2
 //
@@ -4354,9 +4504,9 @@ func (p *processStart) Create(ctx context.Context, req *CreateProcessStartReq, o
 	return resp, err
 }
 
-// Update
+// Update 撤回流程
 //
-// -
+// - 对状态为“审批中”的单个审批实例进行撤回操作，撤回后审批流程结束
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=corehr&resource=process_withdraw&version=v2
 //
@@ -4380,9 +4530,11 @@ func (p *processWithdraw) Update(ctx context.Context, req *UpdateProcessWithdraw
 	return resp, err
 }
 
-// BatchDelete
+// BatchDelete 批量删除填报行
 //
-// - 批量删除填报行
+// - 批量删除填报行后，可在【设置-编制规划设置-编制规划XXX-集中填报-查看数据】进行查看。
+//
+// - 批量删除填报行说明：同批次操作场景下，禁止重复删除同一行。;;删除填报行的时候请注意：底层是将编制规划与预估在职人数清0，如果被删除行的预增人员、预减人员不为0，该行依旧会显示在页面上。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batchDelete&project=corehr&resource=report_detail_row&version=v2
 //
@@ -4406,9 +4558,11 @@ func (r *reportDetailRow) BatchDelete(ctx context.Context, req *BatchDeleteRepor
 	return resp, err
 }
 
-// BatchSave
+// BatchSave 批量创建/更新填报行
 //
-// - 批量创建/更新填报行
+// - 批量创建/更新填报行后，可在【设置-编制规划设置-编制规划XXX-集中填报-查看数据】进行查看。
+//
+// - 批量创建/更新填报行说明：同批次操作场景下，禁止创建/更新重复行，与此同时，创建时若填报行已存在于系统中，则会在底层自动触发更新机制；建议不要录入编制规划值和预估在职人数均为零值的填报行，系统会对全0填报行进行过滤，从而在页面上不显示该行，可能会导致用户误以为填报行不存在。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batchSave&project=corehr&resource=report_detail_row&version=v2
 //
@@ -4432,9 +4586,9 @@ func (r *reportDetailRow) BatchSave(ctx context.Context, req *BatchSaveReportDet
 	return resp, err
 }
 
-// Download
+// Download 下载电子签文件
 //
-// -
+// - 该接口用于下载电子签文件
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download&project=corehr&resource=signature_file&version=v2
 //
@@ -4464,9 +4618,9 @@ func (s *signatureFile) Download(ctx context.Context, req *DownloadSignatureFile
 	return resp, err
 }
 
-// List
+// List 获取电子签文件列表
 //
-// -
+// - 该接口用于获取电子签文件列表
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=signature_file&version=v2
 //
@@ -4498,9 +4652,9 @@ func (s *signatureFile) ListByIterator(ctx context.Context, req *ListSignatureFi
 		limit:    req.Limit}, nil
 }
 
-// ListByBizId
+// ListByBizId 根据流程获取电子签文件信息
 //
-// -
+// - 该接口可以根据传入的业务类型和流程ID获取该流程中签署的电子签文件信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list_by_biz_id&project=corehr&resource=signature_file&version=v2
 //
@@ -4524,9 +4678,9 @@ func (s *signatureFile) ListByBizId(ctx context.Context, req *ListByBizIdSignatu
 	return resp, err
 }
 
-// Query
+// Query 查询电子签文件详情
 //
-// -
+// - 该接口可用于批量查询电子签文件列表，并且支持根据文件ID、更新时间范围、文件状态、模板ID等条件检索
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=signature_file&version=v2
 //
@@ -4558,9 +4712,9 @@ func (s *signatureFile) QueryByIterator(ctx context.Context, req *QuerySignature
 		limit:    req.Limit}, nil
 }
 
-// Terminate
+// Terminate 终止电子签文件
 //
-// -
+// - 该接口用于终止在签署流程中的电子签文件，不再执行后续的签署流程
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=terminate&project=corehr&resource=signature_file&version=v2
 //
@@ -4584,9 +4738,9 @@ func (s *signatureFile) Terminate(ctx context.Context, req *TerminateSignatureFi
 	return resp, err
 }
 
-// ListByFileId
+// ListByFileId 获取文件签署节点信息
 //
-// -
+// - 该接口可以通过电子签文件ID查询到该电子签文件的签署流程的各个节点信息，包括签署节点、盖章节点、审阅节点等，各个节点有对应的内容、完成时间、审阅人、盖章人等信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list_by_file_id&project=corehr&resource=signature_node&version=v2
 //
@@ -4610,9 +4764,9 @@ func (s *signatureNode) ListByFileId(ctx context.Context, req *ListByFileIdSigna
 	return resp, err
 }
 
-// Search
+// Search 获取电子签模板内容
 //
-// -
+// - 根据多个模板ID获取电子签模板基本信息和内容列表。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=signature_template&version=v2
 //
@@ -4636,9 +4790,9 @@ func (s *signatureTemplate) Search(ctx context.Context, req *SearchSignatureTemp
 	return resp, err
 }
 
-// List
+// List 获取电子签模板列表
 //
-// -
+// - 该接口用于批量获取电子签模板信息，包括模板类别、用途、适用区域等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=signature_template_info_with_thumbnail&version=v2
 //
@@ -4662,9 +4816,11 @@ func (s *signatureTemplateInfoWithThumbnail) List(ctx context.Context, req *List
 	return resp, err
 }
 
-// List
+// List 查询编制规划方案
 //
-// -
+// - 根据传入的筛选项获取编制规划的方案列表
+//
+// - 该接口会按照应用拥有的「部门数据」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「部门资源」权限范围;;- 请求体入参如果没有特殊说明，不填写默认为空，不参与筛选。;- 所有筛选项可一起使用，之间为 AND 关系。;- 延迟说明：数据库主从延迟 2s 以内，即：直接创建编制规划方案后 2s 内调用此接口可能查询不到数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=workforce_plan&version=v2
 //
@@ -4696,9 +4852,11 @@ func (w *workforcePlan) ListByIterator(ctx context.Context, req *ListWorkforcePl
 		limit:    req.Limit}, nil
 }
 
-// Batch
+// Batch 查询编制规划明细信息（不支持自定义组织）
 //
-// -
+// - 查询编制规划明细，包括维度信息、编制数和预估在职人数
+//
+// - 延迟说明：搜索同步延迟 10s 以内，即：直接创建编制明细后 10s 内调用此接口可能查询不到数据。;;该接口会按照应用拥有的「部门数据」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「部门资源」权限范围;;- 本接口可查询编制规划或集中填报明细信息。;- 请求体入参如果没有特殊说明，不填写默认为空，不参与筛选。;- 所有筛选项可一起使用，之间为 AND 关系。如部门 + 人员类型，则返回同时满足部门及人员类型的编制规划明细数据。;- 本接口不支持自定义组织，如需使用自定义组织，可调用[查询编制规划明细信息（支持自定义组织）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/workforce_plan_detail/batch_v2)。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch&project=corehr&resource=workforce_plan_detail&version=v2
 //
@@ -4722,9 +4880,11 @@ func (w *workforcePlanDetail) Batch(ctx context.Context, req *BatchWorkforcePlan
 	return resp, err
 }
 
-// BatchV2
+// BatchV2 查询编制规划明细信息（支持自定义组织）
 //
-// -
+// - 查询编制规划明细，包括维度信息、编制数、预估在职人数、在职人数和预增/预减人数。
+//
+// - 延迟说明：搜索同步延迟 10s 以内，即：直接创建编制明细后 10s 内调用此接口可能查询不到数据。;;该接口会按照应用拥有的「部门数据」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「部门资源」权限范围;- 本接口可查询编制规划或集中填报明细信息。;- 请求体入参如果没有特殊说明，不填写默认为空，不参与筛选。;- 所有筛选项可一起使用，之间为 AND 关系。如部门 + 人员类型，则返回同时满足部门及人员类型的编制规划明细数据。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_v2&project=corehr&resource=workforce_plan_detail&version=v2
 //
@@ -4748,9 +4908,11 @@ func (w *workforcePlanDetail) BatchV2(ctx context.Context, req *BatchV2Workforce
 	return resp, err
 }
 
-// BatchDelete
+// BatchDelete 批量删除明细行
 //
-// - 批量删除明细行
+// - 批量删除明细行后，可在【设置-编制规划设置-编制规划XXX-编辑数据】进行查看明细行是否被删除。
+//
+// - 批量删除明细行说明：同批次操作场景下，禁止重复删除同一行。;;删除明细行的时候请注意：底层是将编制规划与预估在职人数清0，如果被删除行的预增人员、预减人员不为0，该行依旧会显示在页面上。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batchDelete&project=corehr&resource=workforce_plan_detail_row&version=v2
 //
@@ -4774,9 +4936,11 @@ func (w *workforcePlanDetailRow) BatchDelete(ctx context.Context, req *BatchDele
 	return resp, err
 }
 
-// BatchSave
+// BatchSave 批量创建/更新明细行
 //
-// - 批量创建/更新明细行
+// - 批量创建/更新明细行后，可在【设置-编制规划设置-编制规划XXX-编辑数据】进行查看。
+//
+// - 批量创建/更新明细行说明：同批次操作场景下，禁止创建/更新重复行，与此同时，创建时若明细行已存在于系统中，则会在底层自动触发更新机制；建议不要录入编制规划值和预估在职人数均为零值的明细行，系统会对全0明细行进行过滤，从而在页面上不显示该行，可能会导致用户误以为该明细行不存在。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batchSave&project=corehr&resource=workforce_plan_detail_row&version=v2
 //

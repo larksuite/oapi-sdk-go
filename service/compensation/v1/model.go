@@ -263,15 +263,15 @@ func (builder *ArchiveBuilder) Build() *Archive {
 }
 
 type ArchiveDetail struct {
-	UserId *string `json:"user_id,omitempty"` // 员工ID
+	UserId *string `json:"user_id,omitempty"` // 员工ID，返回的ID类型与查询参数中的「user_id_type」的取值一致
 
-	Id *string `json:"id,omitempty"` // 档案ID
+	Id *string `json:"id,omitempty"` // 员工薪资档案ID
 
-	Tid *string `json:"tid,omitempty"` // 档案TID
+	Tid *string `json:"tid,omitempty"` // 员工薪资档案版本ID，薪资档案唯一标识
 
-	PlanId *string `json:"plan_id,omitempty"` // 关联方案ID，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
+	PlanId *string `json:"plan_id,omitempty"` // 关联薪资方案ID，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
 
-	PlanTid *string `json:"plan_tid,omitempty"` // 关联方案TID，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
+	PlanTid *string `json:"plan_tid,omitempty"` // 关联薪资方案版本ID，薪资方案唯一标识，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
 
 	CurrencyId *string `json:"currency_id,omitempty"` // 档案币种ID，详细信息可以通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)接口查询获得
 
@@ -295,19 +295,19 @@ type ArchiveDetail struct {
 }
 
 type ArchiveDetailBuilder struct {
-	userId    string // 员工ID
+	userId    string // 员工ID，返回的ID类型与查询参数中的「user_id_type」的取值一致
 	userIdSet bool
 
-	id    string // 档案ID
+	id    string // 员工薪资档案ID
 	idSet bool
 
-	tid    string // 档案TID
+	tid    string // 员工薪资档案版本ID，薪资档案唯一标识
 	tidSet bool
 
-	planId    string // 关联方案ID，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
+	planId    string // 关联薪资方案ID，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
 	planIdSet bool
 
-	planTid    string // 关联方案TID，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
+	planTid    string // 关联薪资方案版本ID，薪资方案唯一标识，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
 	planTidSet bool
 
 	currencyId    string // 档案币种ID，详细信息可以通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)接口查询获得
@@ -346,7 +346,7 @@ func NewArchiveDetailBuilder() *ArchiveDetailBuilder {
 	return builder
 }
 
-// 员工ID
+// 员工ID，返回的ID类型与查询参数中的「user_id_type」的取值一致
 //
 // 示例值：344325234123
 func (builder *ArchiveDetailBuilder) UserId(userId string) *ArchiveDetailBuilder {
@@ -355,7 +355,7 @@ func (builder *ArchiveDetailBuilder) UserId(userId string) *ArchiveDetailBuilder
 	return builder
 }
 
-// 档案ID
+// 员工薪资档案ID
 //
 // 示例值：32141234412
 func (builder *ArchiveDetailBuilder) Id(id string) *ArchiveDetailBuilder {
@@ -364,7 +364,7 @@ func (builder *ArchiveDetailBuilder) Id(id string) *ArchiveDetailBuilder {
 	return builder
 }
 
-// 档案TID
+// 员工薪资档案版本ID，薪资档案唯一标识
 //
 // 示例值：141541351
 func (builder *ArchiveDetailBuilder) Tid(tid string) *ArchiveDetailBuilder {
@@ -373,7 +373,7 @@ func (builder *ArchiveDetailBuilder) Tid(tid string) *ArchiveDetailBuilder {
 	return builder
 }
 
-// 关联方案ID，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
+// 关联薪资方案ID，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
 //
 // 示例值：123412433
 func (builder *ArchiveDetailBuilder) PlanId(planId string) *ArchiveDetailBuilder {
@@ -382,7 +382,7 @@ func (builder *ArchiveDetailBuilder) PlanId(planId string) *ArchiveDetailBuilder
 	return builder
 }
 
-// 关联方案TID，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
+// 关联薪资方案版本ID，薪资方案唯一标识，详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得
 //
 // 示例值：213412343
 func (builder *ArchiveDetailBuilder) PlanTid(planTid string) *ArchiveDetailBuilder {
@@ -613,7 +613,7 @@ func (builder *ArchiveIndicatorBuilder) Build() *ArchiveIndicator {
 }
 
 type ArchiveItem struct {
-	ItemId *string `json:"item_id,omitempty"` // 薪酬项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
+	ItemId *string `json:"item_id,omitempty"` // 薪资项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
 
 	ItemResult *string `json:"item_result,omitempty"` // 档案关联薪酬项数值
 
@@ -621,7 +621,7 @@ type ArchiveItem struct {
 }
 
 type ArchiveItemBuilder struct {
-	itemId    string // 薪酬项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
+	itemId    string // 薪资项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
 	itemIdSet bool
 
 	itemResult    string // 档案关联薪酬项数值
@@ -636,7 +636,7 @@ func NewArchiveItemBuilder() *ArchiveItemBuilder {
 	return builder
 }
 
-// 薪酬项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
+// 薪资项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
 //
 // 示例值：213423144
 func (builder *ArchiveItemBuilder) ItemId(itemId string) *ArchiveItemBuilder {
@@ -681,21 +681,21 @@ func (builder *ArchiveItemBuilder) Build() *ArchiveItem {
 }
 
 type ArchiveItemValue struct {
-	ItemId *string `json:"item_id,omitempty"` // 薪资项ID
+	ItemId *string `json:"item_id,omitempty"` // 薪资项ID，具体值可通过接口查询[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)
 
-	ItemValue *string `json:"item_value,omitempty"` // 薪资项的值
+	ItemValue *string `json:"item_value,omitempty"` // - 薪资项的值，该值的单位取决于入参currency_id对应的币种;- 字符串为数字格式，且长度最大不超过18个字符，最小长度为1个字符，不支持负数，不允许为空
 
-	ItemValueRegular *string `json:"item_value_regular,omitempty"` // 员工转正后薪资项的值，仅用于开启试用期的薪资方案，以及员工处于实习期
+	ItemValueRegular *string `json:"item_value_regular,omitempty"` // - 员工转正后薪资项的值，该值的单位取决于入参currency_id对应的币种。字符串为数字格式，且长度不超过18个字符，不支持负数;- 当员工处于试用期且入参plan_id对应的薪资方案已开启试用期时，才能填写该值。;- 所有可编辑薪资项的转正值要么都为空，要么都不为空，否则会报错。
 }
 
 type ArchiveItemValueBuilder struct {
-	itemId    string // 薪资项ID
+	itemId    string // 薪资项ID，具体值可通过接口查询[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)
 	itemIdSet bool
 
-	itemValue    string // 薪资项的值
+	itemValue    string // - 薪资项的值，该值的单位取决于入参currency_id对应的币种;- 字符串为数字格式，且长度最大不超过18个字符，最小长度为1个字符，不支持负数，不允许为空
 	itemValueSet bool
 
-	itemValueRegular    string // 员工转正后薪资项的值，仅用于开启试用期的薪资方案，以及员工处于实习期
+	itemValueRegular    string // - 员工转正后薪资项的值，该值的单位取决于入参currency_id对应的币种。字符串为数字格式，且长度不超过18个字符，不支持负数;- 当员工处于试用期且入参plan_id对应的薪资方案已开启试用期时，才能填写该值。;- 所有可编辑薪资项的转正值要么都为空，要么都不为空，否则会报错。
 	itemValueRegularSet bool
 }
 
@@ -704,7 +704,7 @@ func NewArchiveItemValueBuilder() *ArchiveItemValueBuilder {
 	return builder
 }
 
-// 薪资项ID
+// 薪资项ID，具体值可通过接口查询[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)
 //
 // 示例值：7244131355509917228
 func (builder *ArchiveItemValueBuilder) ItemId(itemId string) *ArchiveItemValueBuilder {
@@ -713,7 +713,7 @@ func (builder *ArchiveItemValueBuilder) ItemId(itemId string) *ArchiveItemValueB
 	return builder
 }
 
-// 薪资项的值
+// - 薪资项的值，该值的单位取决于入参currency_id对应的币种;- 字符串为数字格式，且长度最大不超过18个字符，最小长度为1个字符，不支持负数，不允许为空
 //
 // 示例值：200.00
 func (builder *ArchiveItemValueBuilder) ItemValue(itemValue string) *ArchiveItemValueBuilder {
@@ -722,7 +722,7 @@ func (builder *ArchiveItemValueBuilder) ItemValue(itemValue string) *ArchiveItem
 	return builder
 }
 
-// 员工转正后薪资项的值，仅用于开启试用期的薪资方案，以及员工处于实习期
+// - 员工转正后薪资项的值，该值的单位取决于入参currency_id对应的币种。字符串为数字格式，且长度不超过18个字符，不支持负数;- 当员工处于试用期且入参plan_id对应的薪资方案已开启试用期时，才能填写该值。;- 所有可编辑薪资项的转正值要么都为空，要么都不为空，否则会报错。
 //
 // 示例值：600.00
 func (builder *ArchiveItemValueBuilder) ItemValueRegular(itemValueRegular string) *ArchiveItemValueBuilder {
@@ -937,8 +937,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -946,8 +944,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -1080,9 +1076,9 @@ type Grade struct {
 
 	Currency *Currency `json:"currency,omitempty"` // 币种
 
-	Description *I18n `json:"description,omitempty"` // 备注
+	Description *I18n `json:"description,omitempty"` // 薪级类型名称
 
-	EffectiveTime *string `json:"effective_time,omitempty"` // 生效日期，格式"2025-05-01"
+	EffectiveTime *string `json:"effective_time,omitempty"` // 数据生效日期，格式"2025-05-01"
 
 	StandardGradeVersion *string `json:"standard_grade_version,omitempty"` // 版本
 
@@ -1114,10 +1110,10 @@ type GradeBuilder struct {
 	currency    *Currency // 币种
 	currencySet bool
 
-	description    *I18n // 备注
+	description    *I18n // 薪级类型名称
 	descriptionSet bool
 
-	effectiveTime    string // 生效日期，格式"2025-05-01"
+	effectiveTime    string // 数据生效日期，格式"2025-05-01"
 	effectiveTimeSet bool
 
 	standardGradeVersion    string // 版本
@@ -1195,7 +1191,7 @@ func (builder *GradeBuilder) Currency(currency *Currency) *GradeBuilder {
 	return builder
 }
 
-// 备注
+// 薪级类型名称
 //
 // 示例值：
 func (builder *GradeBuilder) Description(description *I18n) *GradeBuilder {
@@ -1204,7 +1200,7 @@ func (builder *GradeBuilder) Description(description *I18n) *GradeBuilder {
 	return builder
 }
 
-// 生效日期，格式"2025-05-01"
+// 数据生效日期，格式"2025-05-01"
 //
 // 示例值：2025-05-01
 func (builder *GradeBuilder) EffectiveTime(effectiveTime string) *GradeBuilder {
@@ -1316,7 +1312,7 @@ type GradeStandardDimension struct {
 
 	ContainSub *bool `json:"contain_sub,omitempty"` // 是否包含下级
 
-	Values []string `json:"values,omitempty"` // 维度明细值，招聘类型维度枚举值为【日常实习："routine_intern"】【社招："experienced_professionals"】【校招: "recent_graduates"】，其他维度类型具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)，[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)，[获取薪级薪等列表数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/salary_level_type/query)
+	Values []string `json:"values,omitempty"` // 明细值列表，招聘类型维度枚举值为【日常实习："routine_intern"】【社招："experienced_professionals"】【校招: "recent_graduates"】，其他维度类型具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)，[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)，[获取薪级薪等列表数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/salary_level_type/query)
 }
 
 type GradeStandardDimensionBuilder struct {
@@ -1326,7 +1322,7 @@ type GradeStandardDimensionBuilder struct {
 	containSub    bool // 是否包含下级
 	containSubSet bool
 
-	values    []string // 维度明细值，招聘类型维度枚举值为【日常实习："routine_intern"】【社招："experienced_professionals"】【校招: "recent_graduates"】，其他维度类型具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)，[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)，[获取薪级薪等列表数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/salary_level_type/query)
+	values    []string // 明细值列表，招聘类型维度枚举值为【日常实习："routine_intern"】【社招："experienced_professionals"】【校招: "recent_graduates"】，其他维度类型具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)，[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)，[获取薪级薪等列表数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/salary_level_type/query)
 	valuesSet bool
 }
 
@@ -1353,7 +1349,7 @@ func (builder *GradeStandardDimensionBuilder) ContainSub(containSub bool) *Grade
 	return builder
 }
 
-// 维度明细值，招聘类型维度枚举值为【日常实习："routine_intern"】【社招："experienced_professionals"】【校招: "recent_graduates"】，其他维度类型具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)，[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)，[获取薪级薪等列表数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/salary_level_type/query)
+// 明细值列表，招聘类型维度枚举值为【日常实习："routine_intern"】【社招："experienced_professionals"】【校招: "recent_graduates"】，其他维度类型具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)，[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)，[获取薪级薪等列表数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/salary_level_type/query)
 //
 // 示例值：
 func (builder *GradeStandardDimensionBuilder) Values(values []string) *GradeStandardDimensionBuilder {
@@ -1464,16 +1460,16 @@ func (builder *GradeStandardValueBuilder) Build() *GradeStandardValue {
 }
 
 type I18n struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文名称
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文说明
 
-	EnUs *string `json:"en_us,omitempty"` // 英文名称
+	EnUs *string `json:"en_us,omitempty"` // 英文说明
 }
 
 type I18nBuilder struct {
-	zhCn    string // 中文名称
+	zhCn    string // 中文说明
 	zhCnSet bool
 
-	enUs    string // 英文名称
+	enUs    string // 英文说明
 	enUsSet bool
 }
 
@@ -1482,18 +1478,18 @@ func NewI18nBuilder() *I18nBuilder {
 	return builder
 }
 
-// 中文名称
+// 中文说明
 //
-// 示例值：中文名称
+// 示例值：2024年社保基数调整
 func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 	builder.zhCn = zhCn
 	builder.zhCnSet = true
 	return builder
 }
 
-// 英文名称
+// 英文说明
 //
-// 示例值：english_name
+// 示例值：2024 Social Insurance Base Adjustment
 func (builder *I18nBuilder) EnUs(enUs string) *I18nBuilder {
 	builder.enUs = enUs
 	builder.enUsSet = true
@@ -1514,13 +1510,13 @@ func (builder *I18nBuilder) Build() *I18n {
 }
 
 type I18nContent struct {
-	Locale *string `json:"locale,omitempty"` // 语言版本
+	Locale *string `json:"locale,omitempty"` // 语言版本，例如：“zh-CN”、“en-US”
 
 	Value *string `json:"value,omitempty"` // 语言名称
 }
 
 type I18nContentBuilder struct {
-	locale    string // 语言版本
+	locale    string // 语言版本，例如：“zh-CN”、“en-US”
 	localeSet bool
 
 	value    string // 语言名称
@@ -1532,7 +1528,7 @@ func NewI18nContentBuilder() *I18nContentBuilder {
 	return builder
 }
 
-// 语言版本
+// 语言版本，例如：“zh-CN”、“en-US”
 //
 // 示例值：zh_cn
 func (builder *I18nContentBuilder) Locale(locale string) *I18nContentBuilder {
@@ -1673,11 +1669,11 @@ type Item struct {
 
 	Description *string `json:"description,omitempty"` // 薪酬项描述
 
-	CategoryId *string `json:"category_id,omitempty"` // 薪酬项分类ID，详细信息可以通过[批量获取薪资项分类信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item_category/list)接口查询获得
+	CategoryId *string `json:"category_id,omitempty"` // 薪资项分类ID，详细信息可以通过[批量获取薪资项分类信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item_category/list)接口查询获得
 
 	ValueType *string `json:"value_type,omitempty"` // 薪酬项数值类型
 
-	PayOffFrequencyType *string `json:"pay_off_frequency_type,omitempty"` // 发放频率
+	PayOffFrequencyType *string `json:"pay_off_frequency_type,omitempty"` // 发放频率，该字段为空时，表示不存在发放频率
 
 	DecimalPlaces *int `json:"decimal_places,omitempty"` // 小数位数
 
@@ -1700,13 +1696,13 @@ type ItemBuilder struct {
 	description    string // 薪酬项描述
 	descriptionSet bool
 
-	categoryId    string // 薪酬项分类ID，详细信息可以通过[批量获取薪资项分类信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item_category/list)接口查询获得
+	categoryId    string // 薪资项分类ID，详细信息可以通过[批量获取薪资项分类信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item_category/list)接口查询获得
 	categoryIdSet bool
 
 	valueType    string // 薪酬项数值类型
 	valueTypeSet bool
 
-	payOffFrequencyType    string // 发放频率
+	payOffFrequencyType    string // 发放频率，该字段为空时，表示不存在发放频率
 	payOffFrequencyTypeSet bool
 
 	decimalPlaces    int // 小数位数
@@ -1757,7 +1753,7 @@ func (builder *ItemBuilder) Description(description string) *ItemBuilder {
 	return builder
 }
 
-// 薪酬项分类ID，详细信息可以通过[批量获取薪资项分类信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item_category/list)接口查询获得
+// 薪资项分类ID，详细信息可以通过[批量获取薪资项分类信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item_category/list)接口查询获得
 //
 // 示例值：7196951947268589223
 func (builder *ItemBuilder) CategoryId(categoryId string) *ItemBuilder {
@@ -1775,7 +1771,7 @@ func (builder *ItemBuilder) ValueType(valueType string) *ItemBuilder {
 	return builder
 }
 
-// 发放频率
+// 发放频率，该字段为空时，表示不存在发放频率
 //
 // 示例值：month
 func (builder *ItemBuilder) PayOffFrequencyType(payOffFrequencyType string) *ItemBuilder {
@@ -1946,7 +1942,7 @@ func (builder *ItemCategoryBuilder) Build() *ItemCategory {
 type LumpSumPayment struct {
 	Id *string `json:"id,omitempty"` // 一次性支付记录id
 
-	UniqueId *string `json:"unique_id,omitempty"` // 外部幂等id，由上游业务决定
+	UniqueId *string `json:"unique_id,omitempty"` // 外部幂等id，由上游业务自由决定
 
 	UserId *string `json:"user_id,omitempty"` // 员工id，具体类型由入参中的 user_id_type 指定
 
@@ -1962,7 +1958,7 @@ type LumpSumPayment struct {
 
 	Remark *string `json:"remark,omitempty"` // 备注
 
-	IssuanceDetailText *I18n `json:"issuance_detail_text,omitempty"` // 发放规则描述文本
+	IssuanceDetailText *I18n `json:"issuance_detail_text,omitempty"` // 薪级类型名称
 
 	ApplySource *int `json:"apply_source,omitempty"` // 申请来源
 
@@ -1989,7 +1985,7 @@ type LumpSumPaymentBuilder struct {
 	id    string // 一次性支付记录id
 	idSet bool
 
-	uniqueId    string // 外部幂等id，由上游业务决定
+	uniqueId    string // 外部幂等id，由上游业务自由决定
 	uniqueIdSet bool
 
 	userId    string // 员工id，具体类型由入参中的 user_id_type 指定
@@ -2013,7 +2009,7 @@ type LumpSumPaymentBuilder struct {
 	remark    string // 备注
 	remarkSet bool
 
-	issuanceDetailText    *I18n // 发放规则描述文本
+	issuanceDetailText    *I18n // 薪级类型名称
 	issuanceDetailTextSet bool
 
 	applySource    int // 申请来源
@@ -2061,7 +2057,7 @@ func (builder *LumpSumPaymentBuilder) Id(id string) *LumpSumPaymentBuilder {
 	return builder
 }
 
-// 外部幂等id，由上游业务决定
+// 外部幂等id，由上游业务自由决定
 //
 // 示例值：7402510801304718380_7309316347007764012_7402523725868058156_1726070400000_10000
 func (builder *LumpSumPaymentBuilder) UniqueId(uniqueId string) *LumpSumPaymentBuilder {
@@ -2133,7 +2129,7 @@ func (builder *LumpSumPaymentBuilder) Remark(remark string) *LumpSumPaymentBuild
 	return builder
 }
 
-// 发放规则描述文本
+// 薪级类型名称
 //
 // 示例值：
 func (builder *LumpSumPaymentBuilder) IssuanceDetailText(issuanceDetailText *I18n) *LumpSumPaymentBuilder {
@@ -2338,13 +2334,15 @@ type LumpSumPaymentDetail struct {
 
 	ModifyTime *string `json:"modify_time,omitempty"` // 更新时间
 
-	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家ID（可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)进行查询）
 
-	IssuancePayGroupId *string `json:"issuance_pay_group_id,omitempty"` // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+	IssuancePayGroupId *string `json:"issuance_pay_group_id,omitempty"` // 发放薪资组ID（可通过[获取薪资组基本信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list);进行查询）
 
 	DetailReferencePeriodStartDate *string `json:"detail_reference_period_start_date,omitempty"` // 一次性支付明细所属期开始日期
 
 	DetailReferencePeriodEndDate *string `json:"detail_reference_period_end_date,omitempty"` // 一次性支付明细所属期结束日期
+
+	IsNotIssuedDueToOffboardings *int `json:"is_not_issued_due_to_offboardings,omitempty"` // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
 }
 
 type LumpSumPaymentDetailBuilder struct {
@@ -2381,10 +2379,10 @@ type LumpSumPaymentDetailBuilder struct {
 	modifyTime    string // 更新时间
 	modifyTimeSet bool
 
-	issuanceCountryRegionId    string // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionId    string // 发放国家ID（可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)进行查询）
 	issuanceCountryRegionIdSet bool
 
-	issuancePayGroupId    string // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+	issuancePayGroupId    string // 发放薪资组ID（可通过[获取薪资组基本信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list);进行查询）
 	issuancePayGroupIdSet bool
 
 	detailReferencePeriodStartDate    string // 一次性支付明细所属期开始日期
@@ -2392,6 +2390,9 @@ type LumpSumPaymentDetailBuilder struct {
 
 	detailReferencePeriodEndDate    string // 一次性支付明细所属期结束日期
 	detailReferencePeriodEndDateSet bool
+
+	isNotIssuedDueToOffboardings    int // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
+	isNotIssuedDueToOffboardingsSet bool
 }
 
 func NewLumpSumPaymentDetailBuilder() *LumpSumPaymentDetailBuilder {
@@ -2498,7 +2499,7 @@ func (builder *LumpSumPaymentDetailBuilder) ModifyTime(modifyTime string) *LumpS
 	return builder
 }
 
-// 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+// 发放国家ID（可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)进行查询）
 //
 // 示例值：6862995757234914824
 func (builder *LumpSumPaymentDetailBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *LumpSumPaymentDetailBuilder {
@@ -2507,7 +2508,7 @@ func (builder *LumpSumPaymentDetailBuilder) IssuanceCountryRegionId(issuanceCoun
 	return builder
 }
 
-// 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+// 发放薪资组ID（可通过[获取薪资组基本信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list);进行查询）
 //
 // 示例值：6862995757234914824
 func (builder *LumpSumPaymentDetailBuilder) IssuancePayGroupId(issuancePayGroupId string) *LumpSumPaymentDetailBuilder {
@@ -2531,6 +2532,15 @@ func (builder *LumpSumPaymentDetailBuilder) DetailReferencePeriodStartDate(detai
 func (builder *LumpSumPaymentDetailBuilder) DetailReferencePeriodEndDate(detailReferencePeriodEndDate string) *LumpSumPaymentDetailBuilder {
 	builder.detailReferencePeriodEndDate = detailReferencePeriodEndDate
 	builder.detailReferencePeriodEndDateSet = true
+	return builder
+}
+
+// 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
+//
+// 示例值：0
+func (builder *LumpSumPaymentDetailBuilder) IsNotIssuedDueToOffboardings(isNotIssuedDueToOffboardings int) *LumpSumPaymentDetailBuilder {
+	builder.isNotIssuedDueToOffboardings = isNotIssuedDueToOffboardings
+	builder.isNotIssuedDueToOffboardingsSet = true
 	return builder
 }
 
@@ -2596,31 +2606,37 @@ func (builder *LumpSumPaymentDetailBuilder) Build() *LumpSumPaymentDetail {
 		req.DetailReferencePeriodEndDate = &builder.detailReferencePeriodEndDate
 
 	}
+	if builder.isNotIssuedDueToOffboardingsSet {
+		req.IsNotIssuedDueToOffboardings = &builder.isNotIssuedDueToOffboardings
+
+	}
 	return req
 }
 
 type LumpSumPaymentDetailForCreate struct {
-	IssuanceAmount *string `json:"issuance_amount,omitempty"` // 一次性支付明细发放金额，可转数字的字符串
+	IssuanceAmount *string `json:"issuance_amount,omitempty"` // 一次性支付明细发放金额，可转数字的字符串，单位为入参中 currency_id 给定的币种
 
 	IssuanceStatus *string `json:"issuance_status,omitempty"` // 发放状态
 
 	IssuanceWay *string `json:"issuance_way,omitempty"` // 发放方式
 
-	IssuanceTime *string `json:"issuance_time,omitempty"` // 发放日期
+	IssuanceTime *string `json:"issuance_time,omitempty"` // 发放时间
 
 	BelongTime *string `json:"belong_time,omitempty"` // 申请发放日期
 
-	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家ID（可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)进行查询）
 
-	IssuancePayGroupId *string `json:"issuance_pay_group_id,omitempty"` // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+	IssuancePayGroupId *string `json:"issuance_pay_group_id,omitempty"` // 发放薪资组ID（可通过[获取薪资组基本信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list);进行查询）
 
 	DetailReferencePeriodStartDate *string `json:"detail_reference_period_start_date,omitempty"` // 一次性支付明细所属期开始日期
 
 	DetailReferencePeriodEndDate *string `json:"detail_reference_period_end_date,omitempty"` // 一次性支付明细所属期结束日期
+
+	IsNotIssuedDueToOffboardings *int `json:"is_not_issued_due_to_offboardings,omitempty"` // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
 }
 
 type LumpSumPaymentDetailForCreateBuilder struct {
-	issuanceAmount    string // 一次性支付明细发放金额，可转数字的字符串
+	issuanceAmount    string // 一次性支付明细发放金额，可转数字的字符串，单位为入参中 currency_id 给定的币种
 	issuanceAmountSet bool
 
 	issuanceStatus    string // 发放状态
@@ -2629,16 +2645,16 @@ type LumpSumPaymentDetailForCreateBuilder struct {
 	issuanceWay    string // 发放方式
 	issuanceWaySet bool
 
-	issuanceTime    string // 发放日期
+	issuanceTime    string // 发放时间
 	issuanceTimeSet bool
 
 	belongTime    string // 申请发放日期
 	belongTimeSet bool
 
-	issuanceCountryRegionId    string // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionId    string // 发放国家ID（可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)进行查询）
 	issuanceCountryRegionIdSet bool
 
-	issuancePayGroupId    string // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+	issuancePayGroupId    string // 发放薪资组ID（可通过[获取薪资组基本信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list);进行查询）
 	issuancePayGroupIdSet bool
 
 	detailReferencePeriodStartDate    string // 一次性支付明细所属期开始日期
@@ -2646,6 +2662,9 @@ type LumpSumPaymentDetailForCreateBuilder struct {
 
 	detailReferencePeriodEndDate    string // 一次性支付明细所属期结束日期
 	detailReferencePeriodEndDateSet bool
+
+	isNotIssuedDueToOffboardings    int // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
+	isNotIssuedDueToOffboardingsSet bool
 }
 
 func NewLumpSumPaymentDetailForCreateBuilder() *LumpSumPaymentDetailForCreateBuilder {
@@ -2653,7 +2672,7 @@ func NewLumpSumPaymentDetailForCreateBuilder() *LumpSumPaymentDetailForCreateBui
 	return builder
 }
 
-// 一次性支付明细发放金额，可转数字的字符串
+// 一次性支付明细发放金额，可转数字的字符串，单位为入参中 currency_id 给定的币种
 //
 // 示例值：2000.00
 func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceAmount(issuanceAmount string) *LumpSumPaymentDetailForCreateBuilder {
@@ -2680,7 +2699,7 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceWay(issuanceWay str
 	return builder
 }
 
-// 发放日期
+// 发放时间
 //
 // 示例值：2024-08-01
 func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceTime(issuanceTime string) *LumpSumPaymentDetailForCreateBuilder {
@@ -2698,7 +2717,7 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) BelongTime(belongTime strin
 	return builder
 }
 
-// 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+// 发放国家ID（可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)进行查询）
 //
 // 示例值：6862995757234914824
 func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *LumpSumPaymentDetailForCreateBuilder {
@@ -2707,7 +2726,7 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceCountryRegionId(iss
 	return builder
 }
 
-// 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+// 发放薪资组ID（可通过[获取薪资组基本信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list);进行查询）
 //
 // 示例值：6862995757234914824
 func (builder *LumpSumPaymentDetailForCreateBuilder) IssuancePayGroupId(issuancePayGroupId string) *LumpSumPaymentDetailForCreateBuilder {
@@ -2731,6 +2750,15 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) DetailReferencePeriodStartD
 func (builder *LumpSumPaymentDetailForCreateBuilder) DetailReferencePeriodEndDate(detailReferencePeriodEndDate string) *LumpSumPaymentDetailForCreateBuilder {
 	builder.detailReferencePeriodEndDate = detailReferencePeriodEndDate
 	builder.detailReferencePeriodEndDateSet = true
+	return builder
+}
+
+// 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
+//
+// 示例值：0
+func (builder *LumpSumPaymentDetailForCreateBuilder) IsNotIssuedDueToOffboardings(isNotIssuedDueToOffboardings int) *LumpSumPaymentDetailForCreateBuilder {
+	builder.isNotIssuedDueToOffboardings = isNotIssuedDueToOffboardings
+	builder.isNotIssuedDueToOffboardingsSet = true
 	return builder
 }
 
@@ -2772,36 +2800,42 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) Build() *LumpSumPaymentDeta
 		req.DetailReferencePeriodEndDate = &builder.detailReferencePeriodEndDate
 
 	}
+	if builder.isNotIssuedDueToOffboardingsSet {
+		req.IsNotIssuedDueToOffboardings = &builder.isNotIssuedDueToOffboardings
+
+	}
 	return req
 }
 
 type LumpSumPaymentDetailForUpdate struct {
-	Id *string `json:"id,omitempty"` // 一次性支付记录明细id。传入已有的id代表直接在原明细上进行更新，不传则代表创建新的明细
+	Id *string `json:"id,omitempty"` // 一次性支付记录明细id，若需要基于已有记录进行更正，请传入（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）
 
-	IssuanceAmount *string `json:"issuance_amount,omitempty"` // 一次性支付明细发放金额，可转数字的字符串
+	IssuanceAmount *string `json:"issuance_amount,omitempty"` // 一次性支付明细发放金额，可转数字的字符串，单位为该一次性支付记录 currency_id 对应的币种
 
 	IssuanceStatus *string `json:"issuance_status,omitempty"` // 发放状态
 
 	IssuanceWay *string `json:"issuance_way,omitempty"` // 发放方式
 
-	IssuanceTime *string `json:"issuance_time,omitempty"` // 发放日期
+	IssuanceTime *string `json:"issuance_time,omitempty"` // 发放时间
 
 	BelongTime *string `json:"belong_time,omitempty"` // 申请发放日期
 
-	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家ID（可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)进行查询）
 
-	IssuancePayGroupId *string `json:"issuance_pay_group_id,omitempty"` // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+	IssuancePayGroupId *string `json:"issuance_pay_group_id,omitempty"` // 发放薪资组ID（可通过[获取薪资组基本信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list);进行查询）
 
 	DetailReferencePeriodStartDate *string `json:"detail_reference_period_start_date,omitempty"` // 一次性支付明细所属期开始日期
 
 	DetailReferencePeriodEndDate *string `json:"detail_reference_period_end_date,omitempty"` // 一次性支付明细所属期结束日期
+
+	IsNotIssuedDueToOffboardings *int `json:"is_not_issued_due_to_offboardings,omitempty"` // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
 }
 
 type LumpSumPaymentDetailForUpdateBuilder struct {
-	id    string // 一次性支付记录明细id。传入已有的id代表直接在原明细上进行更新，不传则代表创建新的明细
+	id    string // 一次性支付记录明细id，若需要基于已有记录进行更正，请传入（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）
 	idSet bool
 
-	issuanceAmount    string // 一次性支付明细发放金额，可转数字的字符串
+	issuanceAmount    string // 一次性支付明细发放金额，可转数字的字符串，单位为该一次性支付记录 currency_id 对应的币种
 	issuanceAmountSet bool
 
 	issuanceStatus    string // 发放状态
@@ -2810,16 +2844,16 @@ type LumpSumPaymentDetailForUpdateBuilder struct {
 	issuanceWay    string // 发放方式
 	issuanceWaySet bool
 
-	issuanceTime    string // 发放日期
+	issuanceTime    string // 发放时间
 	issuanceTimeSet bool
 
 	belongTime    string // 申请发放日期
 	belongTimeSet bool
 
-	issuanceCountryRegionId    string // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionId    string // 发放国家ID（可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)进行查询）
 	issuanceCountryRegionIdSet bool
 
-	issuancePayGroupId    string // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+	issuancePayGroupId    string // 发放薪资组ID（可通过[获取薪资组基本信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list);进行查询）
 	issuancePayGroupIdSet bool
 
 	detailReferencePeriodStartDate    string // 一次性支付明细所属期开始日期
@@ -2827,6 +2861,9 @@ type LumpSumPaymentDetailForUpdateBuilder struct {
 
 	detailReferencePeriodEndDate    string // 一次性支付明细所属期结束日期
 	detailReferencePeriodEndDateSet bool
+
+	isNotIssuedDueToOffboardings    int // 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
+	isNotIssuedDueToOffboardingsSet bool
 }
 
 func NewLumpSumPaymentDetailForUpdateBuilder() *LumpSumPaymentDetailForUpdateBuilder {
@@ -2834,7 +2871,7 @@ func NewLumpSumPaymentDetailForUpdateBuilder() *LumpSumPaymentDetailForUpdateBui
 	return builder
 }
 
-// 一次性支付记录明细id。传入已有的id代表直接在原明细上进行更新，不传则代表创建新的明细
+// 一次性支付记录明细id，若需要基于已有记录进行更正，请传入（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）
 //
 // 示例值：7395133551102200876
 func (builder *LumpSumPaymentDetailForUpdateBuilder) Id(id string) *LumpSumPaymentDetailForUpdateBuilder {
@@ -2843,7 +2880,7 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) Id(id string) *LumpSumPayme
 	return builder
 }
 
-// 一次性支付明细发放金额，可转数字的字符串
+// 一次性支付明细发放金额，可转数字的字符串，单位为该一次性支付记录 currency_id 对应的币种
 //
 // 示例值：2000.00
 func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceAmount(issuanceAmount string) *LumpSumPaymentDetailForUpdateBuilder {
@@ -2870,7 +2907,7 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceWay(issuanceWay str
 	return builder
 }
 
-// 发放日期
+// 发放时间
 //
 // 示例值：2024-08-20
 func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceTime(issuanceTime string) *LumpSumPaymentDetailForUpdateBuilder {
@@ -2888,7 +2925,7 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) BelongTime(belongTime strin
 	return builder
 }
 
-// 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+// 发放国家ID（可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)进行查询）
 //
 // 示例值：6862995757234914824
 func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *LumpSumPaymentDetailForUpdateBuilder {
@@ -2897,7 +2934,7 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceCountryRegionId(iss
 	return builder
 }
 
-// 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+// 发放薪资组ID（可通过[获取薪资组基本信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list);进行查询）
 //
 // 示例值：6862995757234914824
 func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuancePayGroupId(issuancePayGroupId string) *LumpSumPaymentDetailForUpdateBuilder {
@@ -2921,6 +2958,15 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) DetailReferencePeriodStartD
 func (builder *LumpSumPaymentDetailForUpdateBuilder) DetailReferencePeriodEndDate(detailReferencePeriodEndDate string) *LumpSumPaymentDetailForUpdateBuilder {
 	builder.detailReferencePeriodEndDate = detailReferencePeriodEndDate
 	builder.detailReferencePeriodEndDateSet = true
+	return builder
+}
+
+// 是否因离职不发放 0, // 空，未填写或不适用 Yes = 1, // 是，因离职停发 No = 2, // 否，非离职停发
+//
+// 示例值：0
+func (builder *LumpSumPaymentDetailForUpdateBuilder) IsNotIssuedDueToOffboardings(isNotIssuedDueToOffboardings int) *LumpSumPaymentDetailForUpdateBuilder {
+	builder.isNotIssuedDueToOffboardings = isNotIssuedDueToOffboardings
+	builder.isNotIssuedDueToOffboardingsSet = true
 	return builder
 }
 
@@ -2966,6 +3012,10 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) Build() *LumpSumPaymentDeta
 		req.DetailReferencePeriodEndDate = &builder.detailReferencePeriodEndDate
 
 	}
+	if builder.isNotIssuedDueToOffboardingsSet {
+		req.IsNotIssuedDueToOffboardings = &builder.isNotIssuedDueToOffboardings
+
+	}
 	return req
 }
 
@@ -2974,15 +3024,15 @@ type LumpSumPaymentForCreate struct {
 
 	UserId *string `json:"user_id,omitempty"` // 员工id，具体类型由入参中的 user_id_type 指定
 
-	TotalAmount *string `json:"total_amount,omitempty"` // 总金额，字符串表达的数字
+	TotalAmount *string `json:"total_amount,omitempty"` // 总金额，字符串表达的数字，单位为入参中 currency_id 给定的币种
 
 	BindingPeriod *int `json:"binding_period,omitempty"` // 绑定期，单位为月
 
-	CurrencyId *string `json:"currency_id,omitempty"` // 币种id
+	CurrencyId *string `json:"currency_id,omitempty"` // 币种 id（通过[【查询币种】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)) 接口进行查询）
 
 	IssuanceFrequency *int `json:"issuance_frequency,omitempty"` // 发放次数，必须与 details 的长度一致
 
-	ItemId *string `json:"item_id,omitempty"` // 薪酬项id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list?appId=cli_a3077e2bb03c100d 进行查询）
+	ItemId *string `json:"item_id,omitempty"` // 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 
 	ReferencePeriodStartDate *string `json:"reference_period_start_date,omitempty"` // 一次性支付记录所属期开始日期
 
@@ -3002,19 +3052,19 @@ type LumpSumPaymentForCreateBuilder struct {
 	userId    string // 员工id，具体类型由入参中的 user_id_type 指定
 	userIdSet bool
 
-	totalAmount    string // 总金额，字符串表达的数字
+	totalAmount    string // 总金额，字符串表达的数字，单位为入参中 currency_id 给定的币种
 	totalAmountSet bool
 
 	bindingPeriod    int // 绑定期，单位为月
 	bindingPeriodSet bool
 
-	currencyId    string // 币种id
+	currencyId    string // 币种 id（通过[【查询币种】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)) 接口进行查询）
 	currencyIdSet bool
 
 	issuanceFrequency    int // 发放次数，必须与 details 的长度一致
 	issuanceFrequencySet bool
 
-	itemId    string // 薪酬项id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list?appId=cli_a3077e2bb03c100d 进行查询）
+	itemId    string // 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 	itemIdSet bool
 
 	referencePeriodStartDate    string // 一次性支付记录所属期开始日期
@@ -3056,7 +3106,7 @@ func (builder *LumpSumPaymentForCreateBuilder) UserId(userId string) *LumpSumPay
 	return builder
 }
 
-// 总金额，字符串表达的数字
+// 总金额，字符串表达的数字，单位为入参中 currency_id 给定的币种
 //
 // 示例值：2000.00
 func (builder *LumpSumPaymentForCreateBuilder) TotalAmount(totalAmount string) *LumpSumPaymentForCreateBuilder {
@@ -3074,7 +3124,7 @@ func (builder *LumpSumPaymentForCreateBuilder) BindingPeriod(bindingPeriod int) 
 	return builder
 }
 
-// 币种id
+// 币种 id（通过[【查询币种】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)) 接口进行查询）
 //
 // 示例值：6863329932261459464
 func (builder *LumpSumPaymentForCreateBuilder) CurrencyId(currencyId string) *LumpSumPaymentForCreateBuilder {
@@ -3092,7 +3142,7 @@ func (builder *LumpSumPaymentForCreateBuilder) IssuanceFrequency(issuanceFrequen
 	return builder
 }
 
-// 薪酬项id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list?appId=cli_a3077e2bb03c100d 进行查询）
+// 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 //
 // 示例值：7411039006180312620
 func (builder *LumpSumPaymentForCreateBuilder) ItemId(itemId string) *LumpSumPaymentForCreateBuilder {
@@ -3130,7 +3180,7 @@ func (builder *LumpSumPaymentForCreateBuilder) Details(details []*LumpSumPayment
 
 // 备注
 //
-// 示例值：备注
+// 示例值：该员工表现优异，为其发放一笔奖金
 func (builder *LumpSumPaymentForCreateBuilder) Remark(remark string) *LumpSumPaymentForCreateBuilder {
 	builder.remark = remark
 	builder.remarkSet = true
@@ -3199,15 +3249,15 @@ func (builder *LumpSumPaymentForCreateBuilder) Build() *LumpSumPaymentForCreate 
 }
 
 type LumpSumPaymentForUpdate struct {
-	Id *string `json:"id,omitempty"` // 一次性支付记录id
+	Id *string `json:"id,omitempty"` // 一次性支付记录 id（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）
 
-	TotalAmount *string `json:"total_amount,omitempty"` // 总金额，字符串表达的数字
+	TotalAmount *string `json:"total_amount,omitempty"` // 总金额，字符串表达的数字，单位为该一次性支付记录 currency_id 对应的币种
 
 	BindingPeriod *int `json:"binding_period,omitempty"` // 绑定期，单位为月
 
-	CurrencyId *string `json:"currency_id,omitempty"` // 币种id
+	CurrencyId *string `json:"currency_id,omitempty"` // 币种 id（通过[【查询币种】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)) 接口进行查询）
 
-	IssuanceFrequency *int `json:"issuance_frequency,omitempty"` // 发放次数，必须与details的长度一致
+	IssuanceFrequency *int `json:"issuance_frequency,omitempty"` // 发放次数，必须与 details 的长度一致
 
 	Remark *string `json:"remark,omitempty"` // 备注
 
@@ -3223,19 +3273,19 @@ type LumpSumPaymentForUpdate struct {
 }
 
 type LumpSumPaymentForUpdateBuilder struct {
-	id    string // 一次性支付记录id
+	id    string // 一次性支付记录 id（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）
 	idSet bool
 
-	totalAmount    string // 总金额，字符串表达的数字
+	totalAmount    string // 总金额，字符串表达的数字，单位为该一次性支付记录 currency_id 对应的币种
 	totalAmountSet bool
 
 	bindingPeriod    int // 绑定期，单位为月
 	bindingPeriodSet bool
 
-	currencyId    string // 币种id
+	currencyId    string // 币种 id（通过[【查询币种】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)) 接口进行查询）
 	currencyIdSet bool
 
-	issuanceFrequency    int // 发放次数，必须与details的长度一致
+	issuanceFrequency    int // 发放次数，必须与 details 的长度一致
 	issuanceFrequencySet bool
 
 	remark    string // 备注
@@ -3262,7 +3312,7 @@ func NewLumpSumPaymentForUpdateBuilder() *LumpSumPaymentForUpdateBuilder {
 	return builder
 }
 
-// 一次性支付记录id
+// 一次性支付记录 id（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）
 //
 // 示例值：7397033607132351532
 func (builder *LumpSumPaymentForUpdateBuilder) Id(id string) *LumpSumPaymentForUpdateBuilder {
@@ -3271,7 +3321,7 @@ func (builder *LumpSumPaymentForUpdateBuilder) Id(id string) *LumpSumPaymentForU
 	return builder
 }
 
-// 总金额，字符串表达的数字
+// 总金额，字符串表达的数字，单位为该一次性支付记录 currency_id 对应的币种
 //
 // 示例值：2000.00
 func (builder *LumpSumPaymentForUpdateBuilder) TotalAmount(totalAmount string) *LumpSumPaymentForUpdateBuilder {
@@ -3289,7 +3339,7 @@ func (builder *LumpSumPaymentForUpdateBuilder) BindingPeriod(bindingPeriod int) 
 	return builder
 }
 
-// 币种id
+// 币种 id（通过[【查询币种】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)) 接口进行查询）
 //
 // 示例值：6863329932261459464
 func (builder *LumpSumPaymentForUpdateBuilder) CurrencyId(currencyId string) *LumpSumPaymentForUpdateBuilder {
@@ -3298,7 +3348,7 @@ func (builder *LumpSumPaymentForUpdateBuilder) CurrencyId(currencyId string) *Lu
 	return builder
 }
 
-// 发放次数，必须与details的长度一致
+// 发放次数，必须与 details 的长度一致
 //
 // 示例值：3
 func (builder *LumpSumPaymentForUpdateBuilder) IssuanceFrequency(issuanceFrequency int) *LumpSumPaymentForUpdateBuilder {
@@ -3309,7 +3359,7 @@ func (builder *LumpSumPaymentForUpdateBuilder) IssuanceFrequency(issuanceFrequen
 
 // 备注
 //
-// 示例值：备注
+// 示例值：该员工奖金数据不正确，予以更正
 func (builder *LumpSumPaymentForUpdateBuilder) Remark(remark string) *LumpSumPaymentForUpdateBuilder {
 	builder.remark = remark
 	builder.remarkSet = true
@@ -3500,7 +3550,7 @@ type Plan struct {
 
 	PlanTid *string `json:"plan_tid,omitempty"` // 方案时间轴版本ID
 
-	Name *I18n `json:"name,omitempty"` // 方案名称
+	Name *I18n `json:"name,omitempty"` // 薪级类型名称
 
 	PeopleId *int `json:"people_id,omitempty"` // People系统方案ID
 }
@@ -3512,7 +3562,7 @@ type PlanBuilder struct {
 	planTid    string // 方案时间轴版本ID
 	planTidSet bool
 
-	name    *I18n // 方案名称
+	name    *I18n // 薪级类型名称
 	nameSet bool
 
 	peopleId    int // People系统方案ID
@@ -3542,7 +3592,7 @@ func (builder *PlanBuilder) PlanTid(planTid string) *PlanBuilder {
 	return builder
 }
 
-// 方案名称
+// 薪级类型名称
 //
 // 示例值：
 func (builder *PlanBuilder) Name(name *I18n) *PlanBuilder {
@@ -3585,7 +3635,7 @@ type PlanCondition struct {
 
 	Operator *int `json:"operator,omitempty"` // 适用范围操作
 
-	RightValue []string `json:"right_value,omitempty"` // 适用范围右值
+	RightValue []string `json:"right_value,omitempty"` // - 适用范围左值为：部门、部门（包含下级部门），返回：部门ID，详细信息可以通过[批量查询部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口查询获得;;- 适用范围左值为：工作地点、工作地点（包含下级工作地点），返回：工作地点ID，详细信息可以通过[批量查询地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口查询获得;;- 适用范围左值为：公司、公司（包含下级公司），返回：公司ID，详细信息可以通过[通过公司 ID 批量获取公司信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)接口查询获得;;- 适用范围左值为：序列、序列（包含子序列），返回：序列ID，详细信息可以通过[通过序列 ID 批量获取序列信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)接口查询获得;;- 适用范围左值为：职务，返回：职务ID，详细信息可以通过[批量查询职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口查询获得;;- 适用范围左值为：职级，返回：职级ID，详细信息可以通过[通过职级 ID 批量获取职级信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)接口查询获得;;- 适用范围左值为：人员类型，返回：人员类型ID，详细信息可以通过[批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口查询获得;;- 适用范围左值为：招聘类型，返回：招聘类型;;- 适用范围左值为：国家/地区，返回：国家/地区;;- 适用范围左值为：职等，返回：职等ID，详细信息可以通过[查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口查询获得
 }
 
 type PlanConditionBuilder struct {
@@ -3595,7 +3645,7 @@ type PlanConditionBuilder struct {
 	operator    int // 适用范围操作
 	operatorSet bool
 
-	rightValue    []string // 适用范围右值
+	rightValue    []string // - 适用范围左值为：部门、部门（包含下级部门），返回：部门ID，详细信息可以通过[批量查询部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口查询获得;;- 适用范围左值为：工作地点、工作地点（包含下级工作地点），返回：工作地点ID，详细信息可以通过[批量查询地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口查询获得;;- 适用范围左值为：公司、公司（包含下级公司），返回：公司ID，详细信息可以通过[通过公司 ID 批量获取公司信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)接口查询获得;;- 适用范围左值为：序列、序列（包含子序列），返回：序列ID，详细信息可以通过[通过序列 ID 批量获取序列信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)接口查询获得;;- 适用范围左值为：职务，返回：职务ID，详细信息可以通过[批量查询职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口查询获得;;- 适用范围左值为：职级，返回：职级ID，详细信息可以通过[通过职级 ID 批量获取职级信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)接口查询获得;;- 适用范围左值为：人员类型，返回：人员类型ID，详细信息可以通过[批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口查询获得;;- 适用范围左值为：招聘类型，返回：招聘类型;;- 适用范围左值为：国家/地区，返回：国家/地区;;- 适用范围左值为：职等，返回：职等ID，详细信息可以通过[查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口查询获得
 	rightValueSet bool
 }
 
@@ -3622,7 +3672,7 @@ func (builder *PlanConditionBuilder) Operator(operator int) *PlanConditionBuilde
 	return builder
 }
 
-// 适用范围右值
+// - 适用范围左值为：部门、部门（包含下级部门），返回：部门ID，详细信息可以通过[批量查询部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口查询获得;;- 适用范围左值为：工作地点、工作地点（包含下级工作地点），返回：工作地点ID，详细信息可以通过[批量查询地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口查询获得;;- 适用范围左值为：公司、公司（包含下级公司），返回：公司ID，详细信息可以通过[通过公司 ID 批量获取公司信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)接口查询获得;;- 适用范围左值为：序列、序列（包含子序列），返回：序列ID，详细信息可以通过[通过序列 ID 批量获取序列信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)接口查询获得;;- 适用范围左值为：职务，返回：职务ID，详细信息可以通过[批量查询职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口查询获得;;- 适用范围左值为：职级，返回：职级ID，详细信息可以通过[通过职级 ID 批量获取职级信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)接口查询获得;;- 适用范围左值为：人员类型，返回：人员类型ID，详细信息可以通过[批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口查询获得;;- 适用范围左值为：招聘类型，返回：招聘类型;;- 适用范围左值为：国家/地区，返回：国家/地区;;- 适用范围左值为：职等，返回：职等ID，详细信息可以通过[查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口查询获得
 //
 // 示例值：21341234
 func (builder *PlanConditionBuilder) RightValue(rightValue []string) *PlanConditionBuilder {
@@ -3650,7 +3700,7 @@ func (builder *PlanConditionBuilder) Build() *PlanCondition {
 type PlanDetail struct {
 	Id *string `json:"id,omitempty"` // 薪资方案ID
 
-	Tid *string `json:"tid,omitempty"` // 薪资方案TID
+	Tid *string `json:"tid,omitempty"` // 薪资方案版本ID
 
 	Name *string `json:"name,omitempty"` // 薪资方案名称
 
@@ -3660,7 +3710,7 @@ type PlanDetail struct {
 
 	PlanScope *PlanScope `json:"plan_scope,omitempty"` // 薪资方案适用范围
 
-	CurrencyId *string `json:"currency_id,omitempty"` // 币种ID
+	CurrencyId *string `json:"currency_id,omitempty"` // 币种ID，可通过接口[【查询货币信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)获取
 
 	ProbationSalaryStatus *bool `json:"probation_salary_status,omitempty"` // 开启试用期薪酬状态
 
@@ -3677,7 +3727,7 @@ type PlanDetailBuilder struct {
 	id    string // 薪资方案ID
 	idSet bool
 
-	tid    string // 薪资方案TID
+	tid    string // 薪资方案版本ID
 	tidSet bool
 
 	name    string // 薪资方案名称
@@ -3692,7 +3742,7 @@ type PlanDetailBuilder struct {
 	planScope    *PlanScope // 薪资方案适用范围
 	planScopeSet bool
 
-	currencyId    string // 币种ID
+	currencyId    string // 币种ID，可通过接口[【查询货币信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)获取
 	currencyIdSet bool
 
 	probationSalaryStatus    bool // 开启试用期薪酬状态
@@ -3725,7 +3775,7 @@ func (builder *PlanDetailBuilder) Id(id string) *PlanDetailBuilder {
 	return builder
 }
 
-// 薪资方案TID
+// 薪资方案版本ID
 //
 // 示例值：129738122
 func (builder *PlanDetailBuilder) Tid(tid string) *PlanDetailBuilder {
@@ -3770,7 +3820,7 @@ func (builder *PlanDetailBuilder) PlanScope(planScope *PlanScope) *PlanDetailBui
 	return builder
 }
 
-// 币种ID
+// 币种ID，可通过接口[【查询货币信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)获取
 //
 // 示例值：341324121
 func (builder *PlanDetailBuilder) CurrencyId(currencyId string) *PlanDetailBuilder {
@@ -3924,7 +3974,7 @@ func (builder *PlanIndicatorBuilder) Build() *PlanIndicator {
 type PlanItem struct {
 	AdjustmentType *string `json:"adjustment_type,omitempty"` // 定薪方式
 
-	ItemId *string `json:"item_id,omitempty"` // 薪酬项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
+	ItemId *string `json:"item_id,omitempty"` // 薪资项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
 
 	PlanItemLogic *AdjustmentLogic `json:"plan_item_logic,omitempty"` // 方案关联薪资项逻辑配置
 
@@ -3937,7 +3987,7 @@ type PlanItemBuilder struct {
 	adjustmentType    string // 定薪方式
 	adjustmentTypeSet bool
 
-	itemId    string // 薪酬项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
+	itemId    string // 薪资项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
 	itemIdSet bool
 
 	planItemLogic    *AdjustmentLogic // 方案关联薪资项逻辑配置
@@ -3964,7 +4014,7 @@ func (builder *PlanItemBuilder) AdjustmentType(adjustmentType string) *PlanItemB
 	return builder
 }
 
-// 薪酬项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
+// 薪资项ID，详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
 //
 // 示例值：21341234
 func (builder *PlanItemBuilder) ItemId(itemId string) *PlanItemBuilder {
@@ -4304,11 +4354,11 @@ func (builder *RecurringPaymentBuilder) Build() *RecurringPayment {
 }
 
 type RecurringPaymentForCreate struct {
-	UniqueId *string `json:"unique_id,omitempty"` // 外部幂等id，由上游业务决定
+	UniqueId *string `json:"unique_id,omitempty"` // 经常性支付记录 unique_id，unique_id 在创建时由上游指定
 
 	UserId *string `json:"user_id,omitempty"` // 员工id，具体类型由入参中的 user_id_type 指定
 
-	ItemId *string `json:"item_id,omitempty"` // 薪酬项id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list?appId=cli_a3077e2bb03c100d 进行查询）
+	ItemId *string `json:"item_id,omitempty"` // 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 
 	EachAmount *string `json:"each_amount,omitempty"` // 每次发放金额
 
@@ -4316,7 +4366,7 @@ type RecurringPaymentForCreate struct {
 
 	EndDate *string `json:"end_date,omitempty"` // 发放结束时间
 
-	CurrencyId *string `json:"currency_id,omitempty"` // 币种id
+	CurrencyId *string `json:"currency_id,omitempty"` // 币种 id（通过[【查询币种】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)) 接口进行查询）
 
 	IssuanceType *string `json:"issuance_type,omitempty"` // 发放方式
 
@@ -4328,13 +4378,13 @@ type RecurringPaymentForCreate struct {
 }
 
 type RecurringPaymentForCreateBuilder struct {
-	uniqueId    string // 外部幂等id，由上游业务决定
+	uniqueId    string // 经常性支付记录 unique_id，unique_id 在创建时由上游指定
 	uniqueIdSet bool
 
 	userId    string // 员工id，具体类型由入参中的 user_id_type 指定
 	userIdSet bool
 
-	itemId    string // 薪酬项id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list?appId=cli_a3077e2bb03c100d 进行查询）
+	itemId    string // 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 	itemIdSet bool
 
 	eachAmount    string // 每次发放金额
@@ -4346,7 +4396,7 @@ type RecurringPaymentForCreateBuilder struct {
 	endDate    string // 发放结束时间
 	endDateSet bool
 
-	currencyId    string // 币种id
+	currencyId    string // 币种 id（通过[【查询币种】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)) 接口进行查询）
 	currencyIdSet bool
 
 	issuanceType    string // 发放方式
@@ -4367,7 +4417,7 @@ func NewRecurringPaymentForCreateBuilder() *RecurringPaymentForCreateBuilder {
 	return builder
 }
 
-// 外部幂等id，由上游业务决定
+// 经常性支付记录 unique_id，unique_id 在创建时由上游指定
 //
 // 示例值：7402510801304718380_7309316347007764012_7402523725868058156_1726070400000_10000
 func (builder *RecurringPaymentForCreateBuilder) UniqueId(uniqueId string) *RecurringPaymentForCreateBuilder {
@@ -4385,7 +4435,7 @@ func (builder *RecurringPaymentForCreateBuilder) UserId(userId string) *Recurrin
 	return builder
 }
 
-// 薪酬项id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list?appId=cli_a3077e2bb03c100d 进行查询）
+// 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 //
 // 示例值：7411039006180312620
 func (builder *RecurringPaymentForCreateBuilder) ItemId(itemId string) *RecurringPaymentForCreateBuilder {
@@ -4421,7 +4471,7 @@ func (builder *RecurringPaymentForCreateBuilder) EndDate(endDate string) *Recurr
 	return builder
 }
 
-// 币种id
+// 币种 id（通过[【查询币种】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)) 接口进行查询）
 //
 // 示例值：6863329932261459464
 func (builder *RecurringPaymentForCreateBuilder) CurrencyId(currencyId string) *RecurringPaymentForCreateBuilder {
@@ -4524,7 +4574,7 @@ type RecurringPaymentForUpdate struct {
 
 	EndDate *string `json:"end_date,omitempty"` // 发放结束时间
 
-	CurrencyId *string `json:"currency_id,omitempty"` // 币种id
+	CurrencyId *string `json:"currency_id,omitempty"` // 币种 id（通过[【查询币种】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)) 接口进行查询）
 
 	IssuanceType *string `json:"issuance_type,omitempty"` // 发放方式
 
@@ -4546,7 +4596,7 @@ type RecurringPaymentForUpdateBuilder struct {
 	endDate    string // 发放结束时间
 	endDateSet bool
 
-	currencyId    string // 币种id
+	currencyId    string // 币种 id（通过[【查询币种】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)) 接口进行查询）
 	currencyIdSet bool
 
 	issuanceType    string // 发放方式
@@ -4600,7 +4650,7 @@ func (builder *RecurringPaymentForUpdateBuilder) EndDate(endDate string) *Recurr
 	return builder
 }
 
-// 币种id
+// 币种 id（通过[【查询币种】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)) 接口进行查询）
 //
 // 示例值：6863329932261459464
 func (builder *RecurringPaymentForUpdateBuilder) CurrencyId(currencyId string) *RecurringPaymentForUpdateBuilder {
@@ -4731,7 +4781,7 @@ func (builder *RecurringPaymentOperateResultBuilder) Code(code int) *RecurringPa
 
 // 操作结果描述
 //
-// 示例值：uqniue id conflict
+// 示例值：unique id conflict
 func (builder *RecurringPaymentOperateResultBuilder) Message(message string) *RecurringPaymentOperateResultBuilder {
 	builder.message = message
 	builder.messageSet = true
@@ -4762,7 +4812,7 @@ func (builder *RecurringPaymentOperateResultBuilder) Build() *RecurringPaymentOp
 type SalaryGrade struct {
 	Id *string `json:"id,omitempty"` // 薪等ID
 
-	Name *I18n `json:"name,omitempty"` // 薪等名称
+	Name *I18n `json:"name,omitempty"` // 薪级类型名称
 
 	Status *bool `json:"status,omitempty"` // 是否启用
 }
@@ -4771,7 +4821,7 @@ type SalaryGradeBuilder struct {
 	id    string // 薪等ID
 	idSet bool
 
-	name    *I18n // 薪等名称
+	name    *I18n // 薪级类型名称
 	nameSet bool
 
 	status    bool // 是否启用
@@ -4792,7 +4842,7 @@ func (builder *SalaryGradeBuilder) Id(id string) *SalaryGradeBuilder {
 	return builder
 }
 
-// 薪等名称
+// 薪级类型名称
 //
 // 示例值：
 func (builder *SalaryGradeBuilder) Name(name *I18n) *SalaryGradeBuilder {
@@ -4829,7 +4879,7 @@ func (builder *SalaryGradeBuilder) Build() *SalaryGrade {
 type SalaryLevel struct {
 	Id *string `json:"id,omitempty"` // 薪级ID
 
-	Name *I18n `json:"name,omitempty"` // 薪级名称
+	Name *I18n `json:"name,omitempty"` // 薪级类型名称
 
 	Status *bool `json:"status,omitempty"` // 是否启用
 
@@ -4840,7 +4890,7 @@ type SalaryLevelBuilder struct {
 	id    string // 薪级ID
 	idSet bool
 
-	name    *I18n // 薪级名称
+	name    *I18n // 薪级类型名称
 	nameSet bool
 
 	status    bool // 是否启用
@@ -4864,7 +4914,7 @@ func (builder *SalaryLevelBuilder) Id(id string) *SalaryLevelBuilder {
 	return builder
 }
 
-// 薪级名称
+// 薪级类型名称
 //
 // 示例值：
 func (builder *SalaryLevelBuilder) Name(name *I18n) *SalaryLevelBuilder {
@@ -4875,7 +4925,7 @@ func (builder *SalaryLevelBuilder) Name(name *I18n) *SalaryLevelBuilder {
 
 // 是否启用
 //
-// 示例值：
+// 示例值：true
 func (builder *SalaryLevelBuilder) Status(status bool) *SalaryLevelBuilder {
 	builder.status = status
 	builder.statusSet = true
@@ -4995,13 +5045,13 @@ func (builder *SalaryLevelTypeBuilder) Build() *SalaryLevelType {
 }
 
 type SocialArchive struct {
-	UserId *string `json:"user_id,omitempty"` // 员工ID
+	UserId *string `json:"user_id,omitempty"` // 员工ID，与入参 user_id_type 类型一致
 
 	Details []*SocialArchiveDetail `json:"details,omitempty"` // 员工参保档案，包含社保、公积金档案
 }
 
 type SocialArchiveBuilder struct {
-	userId    string // 员工ID
+	userId    string // 员工ID，与入参 user_id_type 类型一致
 	userIdSet bool
 
 	details    []*SocialArchiveDetail // 员工参保档案，包含社保、公积金档案
@@ -5013,9 +5063,9 @@ func NewSocialArchiveBuilder() *SocialArchiveBuilder {
 	return builder
 }
 
-// 员工ID
+// 员工ID，与入参 user_id_type 类型一致
 //
-// 示例值：
+// 示例值：9960875
 func (builder *SocialArchiveBuilder) UserId(userId string) *SocialArchiveBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -5046,7 +5096,7 @@ func (builder *SocialArchiveBuilder) Build() *SocialArchive {
 type SocialArchiveAdjustRecord struct {
 	UserId *string `json:"user_id,omitempty"` // 员工ID
 
-	RecordType *string `json:"record_type,omitempty"` // 类型，increase: 增员; attrition: 减员
+	RecordType *string `json:"record_type,omitempty"` // 增减员类型
 
 	Details []*SocialArchiveDetail `json:"details,omitempty"` // 员工增减员记录，包括社保、公积金记录
 
@@ -5057,7 +5107,7 @@ type SocialArchiveAdjustRecordBuilder struct {
 	userId    string // 员工ID
 	userIdSet bool
 
-	recordType    string // 类型，increase: 增员; attrition: 减员
+	recordType    string // 增减员类型
 	recordTypeSet bool
 
 	details    []*SocialArchiveDetail // 员工增减员记录，包括社保、公积金记录
@@ -5081,7 +5131,7 @@ func (builder *SocialArchiveAdjustRecordBuilder) UserId(userId string) *SocialAr
 	return builder
 }
 
-// 类型，increase: 增员; attrition: 减员
+// 增减员类型
 //
 // 示例值：increase
 func (builder *SocialArchiveAdjustRecordBuilder) RecordType(recordType string) *SocialArchiveAdjustRecordBuilder {
@@ -5129,13 +5179,13 @@ func (builder *SocialArchiveAdjustRecordBuilder) Build() *SocialArchiveAdjustRec
 }
 
 type SocialArchiveAdjustRecordEvent struct {
-	Id *string `json:"id,omitempty"` // 记录id
+	Id *string `json:"id,omitempty"` // 记录详情id，可通过接口[根据记录ID查询社保增减员记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_archive_adjust_record/query_by_record_id)查询
 
-	InsuranceType *string `json:"insurance_type,omitempty"` // 参保类型。social_insurance社保、provident_fund公积金
+	InsuranceType *string `json:"insurance_type,omitempty"` // 参保类型
 
-	OperateType *string `json:"operate_type,omitempty"` // 待增/减员变更类型，increase新增、adjust编辑、confirm确认、submit_confirm提交并确认、delete取消
+	OperateType *string `json:"operate_type,omitempty"` // 待增/减员操作类型
 
-	SourceType *string `json:"source_type,omitempty"` // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、to_attrition_import待减员导入新增
+	SourceType *string `json:"source_type,omitempty"` // 变更事件来源
 
 	RecordType *string `json:"record_type,omitempty"` // 增减员类型, increase: 增员; attrition: 减员
 
@@ -5145,16 +5195,16 @@ type SocialArchiveAdjustRecordEvent struct {
 }
 
 type SocialArchiveAdjustRecordEventBuilder struct {
-	id    string // 记录id
+	id    string // 记录详情id，可通过接口[根据记录ID查询社保增减员记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_archive_adjust_record/query_by_record_id)查询
 	idSet bool
 
-	insuranceType    string // 参保类型。social_insurance社保、provident_fund公积金
+	insuranceType    string // 参保类型
 	insuranceTypeSet bool
 
-	operateType    string // 待增/减员变更类型，increase新增、adjust编辑、confirm确认、submit_confirm提交并确认、delete取消
+	operateType    string // 待增/减员操作类型
 	operateTypeSet bool
 
-	sourceType    string // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、to_attrition_import待减员导入新增
+	sourceType    string // 变更事件来源
 	sourceTypeSet bool
 
 	recordType    string // 增减员类型, increase: 增员; attrition: 减员
@@ -5172,7 +5222,7 @@ func NewSocialArchiveAdjustRecordEventBuilder() *SocialArchiveAdjustRecordEventB
 	return builder
 }
 
-// 记录id
+// 记录详情id，可通过接口[根据记录ID查询社保增减员记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_archive_adjust_record/query_by_record_id)查询
 //
 // 示例值：7563604424982054444
 func (builder *SocialArchiveAdjustRecordEventBuilder) Id(id string) *SocialArchiveAdjustRecordEventBuilder {
@@ -5181,16 +5231,16 @@ func (builder *SocialArchiveAdjustRecordEventBuilder) Id(id string) *SocialArchi
 	return builder
 }
 
-// 参保类型。social_insurance社保、provident_fund公积金
+// 参保类型
 //
-// 示例值：
+// 示例值：social_insurance
 func (builder *SocialArchiveAdjustRecordEventBuilder) InsuranceType(insuranceType string) *SocialArchiveAdjustRecordEventBuilder {
 	builder.insuranceType = insuranceType
 	builder.insuranceTypeSet = true
 	return builder
 }
 
-// 待增/减员变更类型，increase新增、adjust编辑、confirm确认、submit_confirm提交并确认、delete取消
+// 待增/减员操作类型
 //
 // 示例值：add
 func (builder *SocialArchiveAdjustRecordEventBuilder) OperateType(operateType string) *SocialArchiveAdjustRecordEventBuilder {
@@ -5199,7 +5249,7 @@ func (builder *SocialArchiveAdjustRecordEventBuilder) OperateType(operateType st
 	return builder
 }
 
-// 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、to_attrition_import待减员导入新增
+// 变更事件来源
 //
 // 示例值：new_join
 func (builder *SocialArchiveAdjustRecordEventBuilder) SourceType(sourceType string) *SocialArchiveAdjustRecordEventBuilder {
@@ -5267,9 +5317,9 @@ func (builder *SocialArchiveAdjustRecordEventBuilder) Build() *SocialArchiveAdju
 }
 
 type SocialArchiveDetail struct {
-	Description *I18n `json:"description,omitempty"` // 调整说明
+	Description *I18n `json:"description,omitempty"` // 薪级类型名称
 
-	InsuranceType *string `json:"insurance_type,omitempty"` // 类型。social_insurance: 社保; provident_fund: 公积金
+	InsuranceType *string `json:"insurance_type,omitempty"` // 参保类型
 
 	InsuranceStatus *string `json:"insurance_status,omitempty"` // 参保状态，非「参保」状态下，基数、险种数据等为空
 
@@ -5277,30 +5327,30 @@ type SocialArchiveDetail struct {
 
 	Tid *string `json:"tid,omitempty"` // 档案时间轴对象版本ID，仅参保档案对象会包含
 
-	PlanId *string `json:"plan_id,omitempty"` // 参保方案ID，详细信息可通过「查询参保方案」接口获取
+	PlanId *string `json:"plan_id,omitempty"` // 参保方案ID，详细信息可通过[根据方案ID和生效日期批量查询参保方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_plan/query)接口获取。当record_type为attrition时，不返回该数据
 
-	PlanTid *string `json:"plan_tid,omitempty"` // 参保方案版本ID
+	PlanTid *string `json:"plan_tid,omitempty"` // 参保方案版本ID，详细信息可通过[根据方案ID和生效日期批量查询参保方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_plan/query)接口获取。当record_type为attrition时，不返回该数据;
 
-	LocationId *string `json:"location_id,omitempty"` // 参保城市ID，可通过获取地点信息接口查询详细信息
+	LocationId *string `json:"location_id,omitempty"` // 参保城市ID，可通过[获取地点信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location/batch_get)接口查询详细信息。当record_type为attrition时，不返回该数据
 
-	CompanyId *string `json:"company_id,omitempty"` // 社保缴纳主体ID，可通过获取公司主体接口查询详细信息
+	CompanyId *string `json:"company_id,omitempty"` // 缴纳主体ID，可通过[获取公司主体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)接口查询详细信息。当record_type为attrition时，不返回该数据
 
-	AccountType *string `json:"account_type,omitempty"` // 社保账户类型
+	AccountType *string `json:"account_type,omitempty"` // 社保/公积金账户类型。当record_type为attrition时，不返回该数据
 
-	InsuranceAccount *string `json:"insurance_account,omitempty"` // 社保账号
+	InsuranceAccount *string `json:"insurance_account,omitempty"` // 社保/公积金账号。当record_type为attrition时，不返回该数据
 
-	BaseSalary *string `json:"base_salary,omitempty"` // 申报缴纳基数
+	BaseSalary *string `json:"base_salary,omitempty"` // 申报缴纳基数，单位：元。当record_type为attrition时，不返回该数据
 
-	InsuranceDetails []*SocialArchiveItem `json:"insurance_details,omitempty"` // 险种数据详情
+	InsuranceDetails []*SocialArchiveItem `json:"insurance_details,omitempty"` // 险种数据详情。当record_type为attrition时，不返回该数据
 
-	EffectiveDate *string `json:"effective_date,omitempty"` // 档案生效时间，HHHH-MM-DD
+	EffectiveDate *string `json:"effective_date,omitempty"` // 待增员参保年月/待减员停缴年月，HHHH-MM-DD，固定是每个月1号
 }
 
 type SocialArchiveDetailBuilder struct {
-	description    *I18n // 调整说明
+	description    *I18n // 薪级类型名称
 	descriptionSet bool
 
-	insuranceType    string // 类型。social_insurance: 社保; provident_fund: 公积金
+	insuranceType    string // 参保类型
 	insuranceTypeSet bool
 
 	insuranceStatus    string // 参保状态，非「参保」状态下，基数、险种数据等为空
@@ -5312,31 +5362,31 @@ type SocialArchiveDetailBuilder struct {
 	tid    string // 档案时间轴对象版本ID，仅参保档案对象会包含
 	tidSet bool
 
-	planId    string // 参保方案ID，详细信息可通过「查询参保方案」接口获取
+	planId    string // 参保方案ID，详细信息可通过[根据方案ID和生效日期批量查询参保方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_plan/query)接口获取。当record_type为attrition时，不返回该数据
 	planIdSet bool
 
-	planTid    string // 参保方案版本ID
+	planTid    string // 参保方案版本ID，详细信息可通过[根据方案ID和生效日期批量查询参保方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_plan/query)接口获取。当record_type为attrition时，不返回该数据;
 	planTidSet bool
 
-	locationId    string // 参保城市ID，可通过获取地点信息接口查询详细信息
+	locationId    string // 参保城市ID，可通过[获取地点信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location/batch_get)接口查询详细信息。当record_type为attrition时，不返回该数据
 	locationIdSet bool
 
-	companyId    string // 社保缴纳主体ID，可通过获取公司主体接口查询详细信息
+	companyId    string // 缴纳主体ID，可通过[获取公司主体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)接口查询详细信息。当record_type为attrition时，不返回该数据
 	companyIdSet bool
 
-	accountType    string // 社保账户类型
+	accountType    string // 社保/公积金账户类型。当record_type为attrition时，不返回该数据
 	accountTypeSet bool
 
-	insuranceAccount    string // 社保账号
+	insuranceAccount    string // 社保/公积金账号。当record_type为attrition时，不返回该数据
 	insuranceAccountSet bool
 
-	baseSalary    string // 申报缴纳基数
+	baseSalary    string // 申报缴纳基数，单位：元。当record_type为attrition时，不返回该数据
 	baseSalarySet bool
 
-	insuranceDetails    []*SocialArchiveItem // 险种数据详情
+	insuranceDetails    []*SocialArchiveItem // 险种数据详情。当record_type为attrition时，不返回该数据
 	insuranceDetailsSet bool
 
-	effectiveDate    string // 档案生效时间，HHHH-MM-DD
+	effectiveDate    string // 待增员参保年月/待减员停缴年月，HHHH-MM-DD，固定是每个月1号
 	effectiveDateSet bool
 }
 
@@ -5345,7 +5395,7 @@ func NewSocialArchiveDetailBuilder() *SocialArchiveDetailBuilder {
 	return builder
 }
 
-// 调整说明
+// 薪级类型名称
 //
 // 示例值：
 func (builder *SocialArchiveDetailBuilder) Description(description *I18n) *SocialArchiveDetailBuilder {
@@ -5354,9 +5404,9 @@ func (builder *SocialArchiveDetailBuilder) Description(description *I18n) *Socia
 	return builder
 }
 
-// 类型。social_insurance: 社保; provident_fund: 公积金
+// 参保类型
 //
-// 示例值：
+// 示例值：social_insurance
 func (builder *SocialArchiveDetailBuilder) InsuranceType(insuranceType string) *SocialArchiveDetailBuilder {
 	builder.insuranceType = insuranceType
 	builder.insuranceTypeSet = true
@@ -5374,7 +5424,7 @@ func (builder *SocialArchiveDetailBuilder) InsuranceStatus(insuranceStatus strin
 
 // 档案时间轴对象ID，仅参保档案对象会包含
 //
-// 示例值：123456
+// 示例值：null
 func (builder *SocialArchiveDetailBuilder) Id(id string) *SocialArchiveDetailBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -5383,59 +5433,59 @@ func (builder *SocialArchiveDetailBuilder) Id(id string) *SocialArchiveDetailBui
 
 // 档案时间轴对象版本ID，仅参保档案对象会包含
 //
-// 示例值：123456
+// 示例值：null
 func (builder *SocialArchiveDetailBuilder) Tid(tid string) *SocialArchiveDetailBuilder {
 	builder.tid = tid
 	builder.tidSet = true
 	return builder
 }
 
-// 参保方案ID，详细信息可通过「查询参保方案」接口获取
+// 参保方案ID，详细信息可通过[根据方案ID和生效日期批量查询参保方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_plan/query)接口获取。当record_type为attrition时，不返回该数据
 //
-// 示例值：123456
+// 示例值：7200668421690885676
 func (builder *SocialArchiveDetailBuilder) PlanId(planId string) *SocialArchiveDetailBuilder {
 	builder.planId = planId
 	builder.planIdSet = true
 	return builder
 }
 
-// 参保方案版本ID
+// 参保方案版本ID，详细信息可通过[根据方案ID和生效日期批量查询参保方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_plan/query)接口获取。当record_type为attrition时，不返回该数据;
 //
-// 示例值：123456
+// 示例值：7200668421690852908
 func (builder *SocialArchiveDetailBuilder) PlanTid(planTid string) *SocialArchiveDetailBuilder {
 	builder.planTid = planTid
 	builder.planTidSet = true
 	return builder
 }
 
-// 参保城市ID，可通过获取地点信息接口查询详细信息
+// 参保城市ID，可通过[获取地点信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location/batch_get)接口查询详细信息。当record_type为attrition时，不返回该数据
 //
-// 示例值：123456
+// 示例值：7152398273176192556
 func (builder *SocialArchiveDetailBuilder) LocationId(locationId string) *SocialArchiveDetailBuilder {
 	builder.locationId = locationId
 	builder.locationIdSet = true
 	return builder
 }
 
-// 社保缴纳主体ID，可通过获取公司主体接口查询详细信息
+// 缴纳主体ID，可通过[获取公司主体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)接口查询详细信息。当record_type为attrition时，不返回该数据
 //
-// 示例值：223456
+// 示例值：7096372135576618540
 func (builder *SocialArchiveDetailBuilder) CompanyId(companyId string) *SocialArchiveDetailBuilder {
 	builder.companyId = companyId
 	builder.companyIdSet = true
 	return builder
 }
 
-// 社保账户类型
+// 社保/公积金账户类型。当record_type为attrition时，不返回该数据
 //
-// 示例值：supplier
+// 示例值：associated_company
 func (builder *SocialArchiveDetailBuilder) AccountType(accountType string) *SocialArchiveDetailBuilder {
 	builder.accountType = accountType
 	builder.accountTypeSet = true
 	return builder
 }
 
-// 社保账号
+// 社保/公积金账号。当record_type为attrition时，不返回该数据
 //
 // 示例值：ac123456
 func (builder *SocialArchiveDetailBuilder) InsuranceAccount(insuranceAccount string) *SocialArchiveDetailBuilder {
@@ -5444,7 +5494,7 @@ func (builder *SocialArchiveDetailBuilder) InsuranceAccount(insuranceAccount str
 	return builder
 }
 
-// 申报缴纳基数
+// 申报缴纳基数，单位：元。当record_type为attrition时，不返回该数据
 //
 // 示例值：1000.10
 func (builder *SocialArchiveDetailBuilder) BaseSalary(baseSalary string) *SocialArchiveDetailBuilder {
@@ -5453,7 +5503,7 @@ func (builder *SocialArchiveDetailBuilder) BaseSalary(baseSalary string) *Social
 	return builder
 }
 
-// 险种数据详情
+// 险种数据详情。当record_type为attrition时，不返回该数据
 //
 // 示例值：
 func (builder *SocialArchiveDetailBuilder) InsuranceDetails(insuranceDetails []*SocialArchiveItem) *SocialArchiveDetailBuilder {
@@ -5462,7 +5512,7 @@ func (builder *SocialArchiveDetailBuilder) InsuranceDetails(insuranceDetails []*
 	return builder
 }
 
-// 档案生效时间，HHHH-MM-DD
+// 待增员参保年月/待减员停缴年月，HHHH-MM-DD，固定是每个月1号
 //
 // 示例值：2024-01-01
 func (builder *SocialArchiveDetailBuilder) EffectiveDate(effectiveDate string) *SocialArchiveDetailBuilder {
@@ -5531,11 +5581,11 @@ func (builder *SocialArchiveDetailBuilder) Build() *SocialArchiveDetail {
 }
 
 type SocialArchiveEventDetail struct {
-	InsuranceType *string `json:"insurance_type,omitempty"` // 社保档案类型。social_insurance社保、provident_fund公积金
+	InsuranceType *string `json:"insurance_type,omitempty"` // 参保档案类型
 
-	OperateType *string `json:"operate_type,omitempty"` // 档案变更类型。increase新增、adjust调整、delete删除
+	OperateType *string `json:"operate_type,omitempty"` // 档案变更类型
 
-	SourceType *string `json:"source_type,omitempty"` // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、import_increase增员导入、import_adjust调整导入、manual_edit手动编辑、manual_adjust手动调整、manual_delete手动删除、to_attrition_import待减员导入新增、plan_sync_arc方案同步档案
+	SourceType *string `json:"source_type,omitempty"` // 变更事件来源
 
 	AfterSocialArchiveDetail *SocialArchiveDetail `json:"after_social_archive_detail,omitempty"` // 参保档案
 
@@ -5543,13 +5593,13 @@ type SocialArchiveEventDetail struct {
 }
 
 type SocialArchiveEventDetailBuilder struct {
-	insuranceType    string // 社保档案类型。social_insurance社保、provident_fund公积金
+	insuranceType    string // 参保档案类型
 	insuranceTypeSet bool
 
-	operateType    string // 档案变更类型。increase新增、adjust调整、delete删除
+	operateType    string // 档案变更类型
 	operateTypeSet bool
 
-	sourceType    string // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、import_increase增员导入、import_adjust调整导入、manual_edit手动编辑、manual_adjust手动调整、manual_delete手动删除、to_attrition_import待减员导入新增、plan_sync_arc方案同步档案
+	sourceType    string // 变更事件来源
 	sourceTypeSet bool
 
 	afterSocialArchiveDetail    *SocialArchiveDetail // 参保档案
@@ -5564,7 +5614,7 @@ func NewSocialArchiveEventDetailBuilder() *SocialArchiveEventDetailBuilder {
 	return builder
 }
 
-// 社保档案类型。social_insurance社保、provident_fund公积金
+// 参保档案类型
 //
 // 示例值：social_insurance
 func (builder *SocialArchiveEventDetailBuilder) InsuranceType(insuranceType string) *SocialArchiveEventDetailBuilder {
@@ -5573,16 +5623,16 @@ func (builder *SocialArchiveEventDetailBuilder) InsuranceType(insuranceType stri
 	return builder
 }
 
-// 档案变更类型。increase新增、adjust调整、delete删除
+// 档案变更类型
 //
-// 示例值：add
+// 示例值：increase
 func (builder *SocialArchiveEventDetailBuilder) OperateType(operateType string) *SocialArchiveEventDetailBuilder {
 	builder.operateType = operateType
 	builder.operateTypeSet = true
 	return builder
 }
 
-// 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、import_increase增员导入、import_adjust调整导入、manual_edit手动编辑、manual_adjust手动调整、manual_delete手动删除、to_attrition_import待减员导入新增、plan_sync_arc方案同步档案
+// 变更事件来源
 //
 // 示例值：new_join
 func (builder *SocialArchiveEventDetailBuilder) SourceType(sourceType string) *SocialArchiveEventDetailBuilder {
@@ -5633,46 +5683,46 @@ func (builder *SocialArchiveEventDetailBuilder) Build() *SocialArchiveEventDetai
 }
 
 type SocialArchiveItem struct {
-	InsuranceId *string `json:"insurance_id,omitempty"` // 险种ID，详细信息可通过社保险种接口查询
+	InsuranceId *string `json:"insurance_id,omitempty"` // 险种ID，可通过[获取险种配置列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_insurance/list)接口查询
 
-	InsuranceName *I18n `json:"insurance_name,omitempty"` // 险种名称
+	InsuranceName *I18n `json:"insurance_name,omitempty"` // 薪级类型名称
 
-	CompanyDeduction *string `json:"company_deduction,omitempty"` // 企业缴纳金额
+	CompanyDeduction *string `json:"company_deduction,omitempty"` // 企业缴纳金额，单位：元
 
-	CompanySetting *SocialPlanItemSetting `json:"company_setting,omitempty"` // 险种缴纳配置
+	CompanySetting *SocialPlanItemSetting `json:"company_setting,omitempty"` // 企业缴纳配置
 
-	PersonalDeduction *string `json:"personal_deduction,omitempty"` // 企业缴纳金额
+	PersonalDeduction *string `json:"personal_deduction,omitempty"` // 个人缴纳金额，单位：元
 
-	PersonalSetting *SocialPlanItemSetting `json:"personal_setting,omitempty"` // 险种缴纳配置
+	PersonalSetting *SocialPlanItemSetting `json:"personal_setting,omitempty"` // 企业缴纳配置
 
 	PaymentFrequency *string `json:"payment_frequency,omitempty"` // 缴纳频率
 
-	PaymentMonths []int `json:"payment_months,omitempty"` // 缴纳月份
+	PaymentMonths []int `json:"payment_months,omitempty"` // 缴纳月份，1月～12月
 }
 
 type SocialArchiveItemBuilder struct {
-	insuranceId    string // 险种ID，详细信息可通过社保险种接口查询
+	insuranceId    string // 险种ID，可通过[获取险种配置列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_insurance/list)接口查询
 	insuranceIdSet bool
 
-	insuranceName    *I18n // 险种名称
+	insuranceName    *I18n // 薪级类型名称
 	insuranceNameSet bool
 
-	companyDeduction    string // 企业缴纳金额
+	companyDeduction    string // 企业缴纳金额，单位：元
 	companyDeductionSet bool
 
-	companySetting    *SocialPlanItemSetting // 险种缴纳配置
+	companySetting    *SocialPlanItemSetting // 企业缴纳配置
 	companySettingSet bool
 
-	personalDeduction    string // 企业缴纳金额
+	personalDeduction    string // 个人缴纳金额，单位：元
 	personalDeductionSet bool
 
-	personalSetting    *SocialPlanItemSetting // 险种缴纳配置
+	personalSetting    *SocialPlanItemSetting // 企业缴纳配置
 	personalSettingSet bool
 
 	paymentFrequency    string // 缴纳频率
 	paymentFrequencySet bool
 
-	paymentMonths    []int // 缴纳月份
+	paymentMonths    []int // 缴纳月份，1月～12月
 	paymentMonthsSet bool
 }
 
@@ -5681,16 +5731,16 @@ func NewSocialArchiveItemBuilder() *SocialArchiveItemBuilder {
 	return builder
 }
 
-// 险种ID，详细信息可通过社保险种接口查询
+// 险种ID，可通过[获取险种配置列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_insurance/list)接口查询
 //
-// 示例值：111223
+// 示例值：7023711013443944467
 func (builder *SocialArchiveItemBuilder) InsuranceId(insuranceId string) *SocialArchiveItemBuilder {
 	builder.insuranceId = insuranceId
 	builder.insuranceIdSet = true
 	return builder
 }
 
-// 险种名称
+// 薪级类型名称
 //
 // 示例值：
 func (builder *SocialArchiveItemBuilder) InsuranceName(insuranceName *I18n) *SocialArchiveItemBuilder {
@@ -5699,7 +5749,7 @@ func (builder *SocialArchiveItemBuilder) InsuranceName(insuranceName *I18n) *Soc
 	return builder
 }
 
-// 企业缴纳金额
+// 企业缴纳金额，单位：元
 //
 // 示例值：2000.20
 func (builder *SocialArchiveItemBuilder) CompanyDeduction(companyDeduction string) *SocialArchiveItemBuilder {
@@ -5708,7 +5758,7 @@ func (builder *SocialArchiveItemBuilder) CompanyDeduction(companyDeduction strin
 	return builder
 }
 
-// 险种缴纳配置
+// 企业缴纳配置
 //
 // 示例值：
 func (builder *SocialArchiveItemBuilder) CompanySetting(companySetting *SocialPlanItemSetting) *SocialArchiveItemBuilder {
@@ -5717,7 +5767,7 @@ func (builder *SocialArchiveItemBuilder) CompanySetting(companySetting *SocialPl
 	return builder
 }
 
-// 企业缴纳金额
+// 个人缴纳金额，单位：元
 //
 // 示例值：1000.20
 func (builder *SocialArchiveItemBuilder) PersonalDeduction(personalDeduction string) *SocialArchiveItemBuilder {
@@ -5726,7 +5776,7 @@ func (builder *SocialArchiveItemBuilder) PersonalDeduction(personalDeduction str
 	return builder
 }
 
-// 险种缴纳配置
+// 企业缴纳配置
 //
 // 示例值：
 func (builder *SocialArchiveItemBuilder) PersonalSetting(personalSetting *SocialPlanItemSetting) *SocialArchiveItemBuilder {
@@ -5737,14 +5787,14 @@ func (builder *SocialArchiveItemBuilder) PersonalSetting(personalSetting *Social
 
 // 缴纳频率
 //
-// 示例值：8.00
+// 示例值：monthly
 func (builder *SocialArchiveItemBuilder) PaymentFrequency(paymentFrequency string) *SocialArchiveItemBuilder {
 	builder.paymentFrequency = paymentFrequency
 	builder.paymentFrequencySet = true
 	return builder
 }
 
-// 缴纳月份
+// 缴纳月份，1月～12月
 //
 // 示例值：
 func (builder *SocialArchiveItemBuilder) PaymentMonths(paymentMonths []int) *SocialArchiveItemBuilder {
@@ -5789,29 +5839,29 @@ func (builder *SocialArchiveItemBuilder) Build() *SocialArchiveItem {
 type SocialInsurance struct {
 	Id *string `json:"id,omitempty"` // 险种唯一ID
 
-	Name *I18n `json:"name,omitempty"` // 险种名称
+	Name *I18n `json:"name,omitempty"` // 薪级类型名称
 
 	InsuranceType *string `json:"insurance_type,omitempty"` // 险种类型. social_insurance: 社保; provident_fund: 公积金
 
-	Active *bool `json:"active,omitempty"` // 启用状态
+	Active *bool `json:"active,omitempty"` // 启用状态，true：启用，false：停用；
 
-	IsSystem *bool `json:"is_system,omitempty"` // 是否为系统预置险种。养老保险、医疗保险、失业保险、工伤保险、生育保险、住房公积金为系统预置险种。
+	IsSystem *bool `json:"is_system,omitempty"` // 是否为系统预置险种，true：预置险种，false：自定义险种
 }
 
 type SocialInsuranceBuilder struct {
 	id    string // 险种唯一ID
 	idSet bool
 
-	name    *I18n // 险种名称
+	name    *I18n // 薪级类型名称
 	nameSet bool
 
 	insuranceType    string // 险种类型. social_insurance: 社保; provident_fund: 公积金
 	insuranceTypeSet bool
 
-	active    bool // 启用状态
+	active    bool // 启用状态，true：启用，false：停用；
 	activeSet bool
 
-	isSystem    bool // 是否为系统预置险种。养老保险、医疗保险、失业保险、工伤保险、生育保险、住房公积金为系统预置险种。
+	isSystem    bool // 是否为系统预置险种，true：预置险种，false：自定义险种
 	isSystemSet bool
 }
 
@@ -5822,14 +5872,14 @@ func NewSocialInsuranceBuilder() *SocialInsuranceBuilder {
 
 // 险种唯一ID
 //
-// 示例值：i12345
+// 示例值：7207415762276992556
 func (builder *SocialInsuranceBuilder) Id(id string) *SocialInsuranceBuilder {
 	builder.id = id
 	builder.idSet = true
 	return builder
 }
 
-// 险种名称
+// 薪级类型名称
 //
 // 示例值：
 func (builder *SocialInsuranceBuilder) Name(name *I18n) *SocialInsuranceBuilder {
@@ -5840,25 +5890,25 @@ func (builder *SocialInsuranceBuilder) Name(name *I18n) *SocialInsuranceBuilder 
 
 // 险种类型. social_insurance: 社保; provident_fund: 公积金
 //
-// 示例值：true
+// 示例值：social_insurance
 func (builder *SocialInsuranceBuilder) InsuranceType(insuranceType string) *SocialInsuranceBuilder {
 	builder.insuranceType = insuranceType
 	builder.insuranceTypeSet = true
 	return builder
 }
 
-// 启用状态
+// 启用状态，true：启用，false：停用；
 //
-// 示例值：
+// 示例值：true
 func (builder *SocialInsuranceBuilder) Active(active bool) *SocialInsuranceBuilder {
 	builder.active = active
 	builder.activeSet = true
 	return builder
 }
 
-// 是否为系统预置险种。养老保险、医疗保险、失业保险、工伤保险、生育保险、住房公积金为系统预置险种。
+// 是否为系统预置险种，true：预置险种，false：自定义险种
 //
-// 示例值：
+// 示例值：true
 func (builder *SocialInsuranceBuilder) IsSystem(isSystem bool) *SocialInsuranceBuilder {
 	builder.isSystem = isSystem
 	builder.isSystemSet = true
@@ -5894,9 +5944,9 @@ type SocialPlan struct {
 
 	PlanTid *string `json:"plan_tid,omitempty"` // 参保方案版本ID
 
-	Name *I18n `json:"name,omitempty"` // 参保方案名称
+	Name *I18n `json:"name,omitempty"` // 薪级类型名称
 
-	EffectiveDate *string `json:"effective_date,omitempty"` // 生效时间，HHHH-MM-DD
+	EffectiveDate *string `json:"effective_date,omitempty"` // 生效时间，yyyy-MM-dd
 
 	Active *bool `json:"active,omitempty"` // 是否启用
 
@@ -5906,7 +5956,7 @@ type SocialPlan struct {
 
 	ItemDetail []*SocialPlanItemDetail `json:"item_detail,omitempty"` // 参保信息
 
-	Remark *I18n `json:"remark,omitempty"` // 备注
+	Remark *I18n `json:"remark,omitempty"` // 薪级类型名称
 }
 
 type SocialPlanBuilder struct {
@@ -5916,10 +5966,10 @@ type SocialPlanBuilder struct {
 	planTid    string // 参保方案版本ID
 	planTidSet bool
 
-	name    *I18n // 参保方案名称
+	name    *I18n // 薪级类型名称
 	nameSet bool
 
-	effectiveDate    string // 生效时间，HHHH-MM-DD
+	effectiveDate    string // 生效时间，yyyy-MM-dd
 	effectiveDateSet bool
 
 	active    bool // 是否启用
@@ -5934,7 +5984,7 @@ type SocialPlanBuilder struct {
 	itemDetail    []*SocialPlanItemDetail // 参保信息
 	itemDetailSet bool
 
-	remark    *I18n // 备注
+	remark    *I18n // 薪级类型名称
 	remarkSet bool
 }
 
@@ -5961,7 +6011,7 @@ func (builder *SocialPlanBuilder) PlanTid(planTid string) *SocialPlanBuilder {
 	return builder
 }
 
-// 参保方案名称
+// 薪级类型名称
 //
 // 示例值：
 func (builder *SocialPlanBuilder) Name(name *I18n) *SocialPlanBuilder {
@@ -5970,7 +6020,7 @@ func (builder *SocialPlanBuilder) Name(name *I18n) *SocialPlanBuilder {
 	return builder
 }
 
-// 生效时间，HHHH-MM-DD
+// 生效时间，yyyy-MM-dd
 //
 // 示例值：2024-01-01
 func (builder *SocialPlanBuilder) EffectiveDate(effectiveDate string) *SocialPlanBuilder {
@@ -6015,7 +6065,7 @@ func (builder *SocialPlanBuilder) ItemDetail(itemDetail []*SocialPlanItemDetail)
 	return builder
 }
 
-// 备注
+// 薪级类型名称
 //
 // 示例值：
 func (builder *SocialPlanBuilder) Remark(remark *I18n) *SocialPlanBuilder {
@@ -6129,36 +6179,36 @@ func (builder *SocialPlanConditionBuilder) Build() *SocialPlanCondition {
 }
 
 type SocialPlanItemDetail struct {
-	ItemId *string `json:"item_id,omitempty"` // 险种ID，详细信息可通过社保险种接口查询
+	ItemId *string `json:"item_id,omitempty"` // 险种ID，可通过[获取险种配置列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_insurance/list)接口查询
 
-	ItemName *I18n `json:"item_name,omitempty"` // 险种名
+	ItemName *I18n `json:"item_name,omitempty"` // 薪级类型名称
 
-	ItemSettingOfPerson *SocialPlanItemSetting `json:"item_setting_of_person,omitempty"` // 险种缴纳配置
+	ItemSettingOfPerson *SocialPlanItemSetting `json:"item_setting_of_person,omitempty"` // 企业缴纳配置
 
-	ItemSettingOfCompany *SocialPlanItemSetting `json:"item_setting_of_company,omitempty"` // 险种缴纳配置
+	ItemSettingOfCompany *SocialPlanItemSetting `json:"item_setting_of_company,omitempty"` // 企业缴纳配置
 
 	PaymentFrequency *string `json:"payment_frequency,omitempty"` // 缴纳频率
 
-	PaymentMonths []int `json:"payment_months,omitempty"` // 缴纳月份
+	PaymentMonths []int `json:"payment_months,omitempty"` // 缴纳月份，1月～12月
 }
 
 type SocialPlanItemDetailBuilder struct {
-	itemId    string // 险种ID，详细信息可通过社保险种接口查询
+	itemId    string // 险种ID，可通过[获取险种配置列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_insurance/list)接口查询
 	itemIdSet bool
 
-	itemName    *I18n // 险种名
+	itemName    *I18n // 薪级类型名称
 	itemNameSet bool
 
-	itemSettingOfPerson    *SocialPlanItemSetting // 险种缴纳配置
+	itemSettingOfPerson    *SocialPlanItemSetting // 企业缴纳配置
 	itemSettingOfPersonSet bool
 
-	itemSettingOfCompany    *SocialPlanItemSetting // 险种缴纳配置
+	itemSettingOfCompany    *SocialPlanItemSetting // 企业缴纳配置
 	itemSettingOfCompanySet bool
 
 	paymentFrequency    string // 缴纳频率
 	paymentFrequencySet bool
 
-	paymentMonths    []int // 缴纳月份
+	paymentMonths    []int // 缴纳月份，1月～12月
 	paymentMonthsSet bool
 }
 
@@ -6167,16 +6217,16 @@ func NewSocialPlanItemDetailBuilder() *SocialPlanItemDetailBuilder {
 	return builder
 }
 
-// 险种ID，详细信息可通过社保险种接口查询
+// 险种ID，可通过[获取险种配置列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_insurance/list)接口查询
 //
-// 示例值：123456
+// 示例值：7200725830765987372
 func (builder *SocialPlanItemDetailBuilder) ItemId(itemId string) *SocialPlanItemDetailBuilder {
 	builder.itemId = itemId
 	builder.itemIdSet = true
 	return builder
 }
 
-// 险种名
+// 薪级类型名称
 //
 // 示例值：
 func (builder *SocialPlanItemDetailBuilder) ItemName(itemName *I18n) *SocialPlanItemDetailBuilder {
@@ -6185,7 +6235,7 @@ func (builder *SocialPlanItemDetailBuilder) ItemName(itemName *I18n) *SocialPlan
 	return builder
 }
 
-// 险种缴纳配置
+// 企业缴纳配置
 //
 // 示例值：
 func (builder *SocialPlanItemDetailBuilder) ItemSettingOfPerson(itemSettingOfPerson *SocialPlanItemSetting) *SocialPlanItemDetailBuilder {
@@ -6194,7 +6244,7 @@ func (builder *SocialPlanItemDetailBuilder) ItemSettingOfPerson(itemSettingOfPer
 	return builder
 }
 
-// 险种缴纳配置
+// 企业缴纳配置
 //
 // 示例值：
 func (builder *SocialPlanItemDetailBuilder) ItemSettingOfCompany(itemSettingOfCompany *SocialPlanItemSetting) *SocialPlanItemDetailBuilder {
@@ -6205,14 +6255,14 @@ func (builder *SocialPlanItemDetailBuilder) ItemSettingOfCompany(itemSettingOfCo
 
 // 缴纳频率
 //
-// 示例值：8.00
+// 示例值：monthly
 func (builder *SocialPlanItemDetailBuilder) PaymentFrequency(paymentFrequency string) *SocialPlanItemDetailBuilder {
 	builder.paymentFrequency = paymentFrequency
 	builder.paymentFrequencySet = true
 	return builder
 }
 
-// 缴纳月份
+// 缴纳月份，1月～12月
 //
 // 示例值：
 func (builder *SocialPlanItemDetailBuilder) PaymentMonths(paymentMonths []int) *SocialPlanItemDetailBuilder {
@@ -6247,36 +6297,36 @@ func (builder *SocialPlanItemDetailBuilder) Build() *SocialPlanItemDetail {
 }
 
 type SocialPlanItemSetting struct {
-	LowerLimit *string `json:"lower_limit,omitempty"` // 基数下限，浮点数，保留二位小数
+	LowerLimit *string `json:"lower_limit,omitempty"` // 基数下限，浮点数，保留二位小数，单位：元
 
-	UpperLimit *string `json:"upper_limit,omitempty"` // 基数上限，浮点数，保留二位小数
+	UpperLimit *string `json:"upper_limit,omitempty"` // 基数上限，浮点数，保留二位小数，单位：元
 
 	PaymentRatio *string `json:"payment_ratio,omitempty"` // 缴纳比例，浮点数，默认填充到二位小数，支持输入到四位，单位为 %
 
-	PaymentRoundingRule *string `json:"payment_rounding_rule,omitempty"` // 缴纳金舍入规则。rounding: 四舍五入; round_up: 向上舍入; round_down: 向下舍入
+	PaymentRoundingRule *string `json:"payment_rounding_rule,omitempty"` // 缴纳金舍入规则。
 
-	PaymentDecimals *int `json:"payment_decimals,omitempty"` // 缴纳金小数位数，0-6之间选择
+	PaymentDecimals *int `json:"payment_decimals,omitempty"` // 缴纳金小数位数，0位小数-6位小数之间选择
 
-	FixedPayment *string `json:"fixed_payment,omitempty"` // 附加固定金额，浮点数，保留二位小数
+	FixedPayment *string `json:"fixed_payment,omitempty"` // 附加固定金额，浮点数，保留二位小数，单位：元
 }
 
 type SocialPlanItemSettingBuilder struct {
-	lowerLimit    string // 基数下限，浮点数，保留二位小数
+	lowerLimit    string // 基数下限，浮点数，保留二位小数，单位：元
 	lowerLimitSet bool
 
-	upperLimit    string // 基数上限，浮点数，保留二位小数
+	upperLimit    string // 基数上限，浮点数，保留二位小数，单位：元
 	upperLimitSet bool
 
 	paymentRatio    string // 缴纳比例，浮点数，默认填充到二位小数，支持输入到四位，单位为 %
 	paymentRatioSet bool
 
-	paymentRoundingRule    string // 缴纳金舍入规则。rounding: 四舍五入; round_up: 向上舍入; round_down: 向下舍入
+	paymentRoundingRule    string // 缴纳金舍入规则。
 	paymentRoundingRuleSet bool
 
-	paymentDecimals    int // 缴纳金小数位数，0-6之间选择
+	paymentDecimals    int // 缴纳金小数位数，0位小数-6位小数之间选择
 	paymentDecimalsSet bool
 
-	fixedPayment    string // 附加固定金额，浮点数，保留二位小数
+	fixedPayment    string // 附加固定金额，浮点数，保留二位小数，单位：元
 	fixedPaymentSet bool
 }
 
@@ -6285,7 +6335,7 @@ func NewSocialPlanItemSettingBuilder() *SocialPlanItemSettingBuilder {
 	return builder
 }
 
-// 基数下限，浮点数，保留二位小数
+// 基数下限，浮点数，保留二位小数，单位：元
 //
 // 示例值：1000.00
 func (builder *SocialPlanItemSettingBuilder) LowerLimit(lowerLimit string) *SocialPlanItemSettingBuilder {
@@ -6294,7 +6344,7 @@ func (builder *SocialPlanItemSettingBuilder) LowerLimit(lowerLimit string) *Soci
 	return builder
 }
 
-// 基数上限，浮点数，保留二位小数
+// 基数上限，浮点数，保留二位小数，单位：元
 //
 // 示例值：2000.00
 func (builder *SocialPlanItemSettingBuilder) UpperLimit(upperLimit string) *SocialPlanItemSettingBuilder {
@@ -6305,23 +6355,23 @@ func (builder *SocialPlanItemSettingBuilder) UpperLimit(upperLimit string) *Soci
 
 // 缴纳比例，浮点数，默认填充到二位小数，支持输入到四位，单位为 %
 //
-// 示例值：8.00
+// 示例值：9.0
 func (builder *SocialPlanItemSettingBuilder) PaymentRatio(paymentRatio string) *SocialPlanItemSettingBuilder {
 	builder.paymentRatio = paymentRatio
 	builder.paymentRatioSet = true
 	return builder
 }
 
-// 缴纳金舍入规则。rounding: 四舍五入; round_up: 向上舍入; round_down: 向下舍入
+// 缴纳金舍入规则。
 //
-// 示例值：8.00
+// 示例值：rounding
 func (builder *SocialPlanItemSettingBuilder) PaymentRoundingRule(paymentRoundingRule string) *SocialPlanItemSettingBuilder {
 	builder.paymentRoundingRule = paymentRoundingRule
 	builder.paymentRoundingRuleSet = true
 	return builder
 }
 
-// 缴纳金小数位数，0-6之间选择
+// 缴纳金小数位数，0位小数-6位小数之间选择
 //
 // 示例值：2
 func (builder *SocialPlanItemSettingBuilder) PaymentDecimals(paymentDecimals int) *SocialPlanItemSettingBuilder {
@@ -6330,7 +6380,7 @@ func (builder *SocialPlanItemSettingBuilder) PaymentDecimals(paymentDecimals int
 	return builder
 }
 
-// 附加固定金额，浮点数，保留二位小数
+// 附加固定金额，浮点数，保留二位小数，单位：元
 //
 // 示例值：200.00
 func (builder *SocialPlanItemSettingBuilder) FixedPayment(fixedPayment string) *SocialPlanItemSettingBuilder {
@@ -6371,14 +6421,14 @@ func (builder *SocialPlanItemSettingBuilder) Build() *SocialPlanItemSetting {
 type SocialPlanScope struct {
 	IsAll *bool `json:"is_all,omitempty"` // 是否适用于全部
 
-	Rules [][]*SocialPlanCondition `json:"rules,omitempty"` // 适用范围，二维。外层or连接，内层and连接
+	Rules [][]*SocialPlanCondition `json:"rules,omitempty"` // rules：配置的条件规则。返回两层结构：[条件组[条件]]。多个 [条件组] 之间是 或 的关系，一个条件组内的多个 [条件] 是 且 的关系。;比如：rules: [[1,2],[3,4]]，业务含义为：(1 and 2) or (3 and 4)<br>rules [][]social_plan_condition 适用范围;- left_type int 可选值有：<br>``1``：参保城市<br>``2``：缴纳主体 ;- operator int 可选值有：<br>``1``：包含;- right_values []string;	- 当left_type=1时，是参保城市ID;	- 当left_type=2时，是缴纳主体ID
 }
 
 type SocialPlanScopeBuilder struct {
 	isAll    bool // 是否适用于全部
 	isAllSet bool
 
-	rules    [][]*SocialPlanCondition // 适用范围，二维。外层or连接，内层and连接
+	rules    [][]*SocialPlanCondition // rules：配置的条件规则。返回两层结构：[条件组[条件]]。多个 [条件组] 之间是 或 的关系，一个条件组内的多个 [条件] 是 且 的关系。;比如：rules: [[1,2],[3,4]]，业务含义为：(1 and 2) or (3 and 4)<br>rules [][]social_plan_condition 适用范围;- left_type int 可选值有：<br>``1``：参保城市<br>``2``：缴纳主体 ;- operator int 可选值有：<br>``1``：包含;- right_values []string;	- 当left_type=1时，是参保城市ID;	- 当left_type=2时，是缴纳主体ID
 	rulesSet bool
 }
 
@@ -6396,7 +6446,7 @@ func (builder *SocialPlanScopeBuilder) IsAll(isAll bool) *SocialPlanScopeBuilder
 	return builder
 }
 
-// 适用范围，二维。外层or连接，内层and连接
+// rules：配置的条件规则。返回两层结构：[条件组[条件]]。多个 [条件组] 之间是 或 的关系，一个条件组内的多个 [条件] 是 且 的关系。;比如：rules: [[1,2],[3,4]]，业务含义为：(1 and 2) or (3 and 4)<br>rules [][]social_plan_condition 适用范围;- left_type int 可选值有：<br>“1“：参保城市<br>“2“：缴纳主体 ;- operator int 可选值有：<br>“1“：包含;- right_values []string;	- 当left_type=1时，是参保城市ID;	- 当left_type=2时，是缴纳主体ID
 //
 // 示例值：
 func (builder *SocialPlanScopeBuilder) Rules(rules [][]*SocialPlanCondition) *SocialPlanScopeBuilder {
@@ -6420,13 +6470,13 @@ func (builder *SocialPlanScopeBuilder) Build() *SocialPlanScope {
 type Standard struct {
 	Id *string `json:"id,omitempty"` // 薪资标准表ID
 
-	Name *I18n `json:"name,omitempty"` // 薪资标准表名称
+	Name *I18n `json:"name,omitempty"` // 薪级类型名称
 
-	UpdatedBy *string `json:"updated_by,omitempty"` // 更新人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+	UpdatedBy *string `json:"updated_by,omitempty"` // 更新人雇佣id，具体类型由入参中的 user_id_type 指定，详细信息可查询接口[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)
 
 	UpdatedAt *string `json:"updated_at,omitempty"` // 更新时间，毫秒时间戳格式
 
-	CreatedBy *string `json:"created_by,omitempty"` // 创建人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+	CreatedBy *string `json:"created_by,omitempty"` // 创建人雇佣id，具体类型由入参中的 user_id_type 指定，详细信息可查询接口[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)
 
 	CreatedAt *string `json:"created_at,omitempty"` // 创建时间，毫秒时间戳格式
 
@@ -6443,16 +6493,16 @@ type StandardBuilder struct {
 	id    string // 薪资标准表ID
 	idSet bool
 
-	name    *I18n // 薪资标准表名称
+	name    *I18n // 薪级类型名称
 	nameSet bool
 
-	updatedBy    string // 更新人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+	updatedBy    string // 更新人雇佣id，具体类型由入参中的 user_id_type 指定，详细信息可查询接口[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)
 	updatedBySet bool
 
 	updatedAt    string // 更新时间，毫秒时间戳格式
 	updatedAtSet bool
 
-	createdBy    string // 创建人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+	createdBy    string // 创建人雇佣id，具体类型由入参中的 user_id_type 指定，详细信息可查询接口[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)
 	createdBySet bool
 
 	createdAt    string // 创建时间，毫秒时间戳格式
@@ -6485,7 +6535,7 @@ func (builder *StandardBuilder) Id(id string) *StandardBuilder {
 	return builder
 }
 
-// 薪资标准表名称
+// 薪级类型名称
 //
 // 示例值：
 func (builder *StandardBuilder) Name(name *I18n) *StandardBuilder {
@@ -6494,7 +6544,7 @@ func (builder *StandardBuilder) Name(name *I18n) *StandardBuilder {
 	return builder
 }
 
-// 更新人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+// 更新人雇佣id，具体类型由入参中的 user_id_type 指定，详细信息可查询接口[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)
 //
 // 示例值：7433328946189796908
 func (builder *StandardBuilder) UpdatedBy(updatedBy string) *StandardBuilder {
@@ -6512,7 +6562,7 @@ func (builder *StandardBuilder) UpdatedAt(updatedAt string) *StandardBuilder {
 	return builder
 }
 
-// 创建人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+// 创建人雇佣id，具体类型由入参中的 user_id_type 指定，详细信息可查询接口[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)
 //
 // 示例值：7433328946189796908
 func (builder *StandardBuilder) CreatedBy(createdBy string) *StandardBuilder {
@@ -6610,14 +6660,14 @@ func (builder *StandardBuilder) Build() *Standard {
 type StandardDimension struct {
 	ApiName *string `json:"api_name,omitempty"` // 资源名
 
-	Label *I18n `json:"label,omitempty"` // 名称
+	Label *I18n `json:"label,omitempty"` // 薪级类型名称
 }
 
 type StandardDimensionBuilder struct {
 	apiName    string // 资源名
 	apiNameSet bool
 
-	label    *I18n // 名称
+	label    *I18n // 薪级类型名称
 	labelSet bool
 }
 
@@ -6635,7 +6685,7 @@ func (builder *StandardDimensionBuilder) ApiName(apiName string) *StandardDimens
 	return builder
 }
 
-// 名称
+// 薪级类型名称
 //
 // 示例值：
 func (builder *StandardDimensionBuilder) Label(label *I18n) *StandardDimensionBuilder {
@@ -6709,7 +6759,7 @@ func (builder *StandardReferenceObjectBuilder) Build() *StandardReferenceObject 
 type StandardScope struct {
 	All *bool `json:"all,omitempty"` // 是否全部
 
-	DefineExpression *string `json:"define_expression,omitempty"` // 条件表达式
+	DefineExpression *string `json:"define_expression,omitempty"` // 条件表达式，如："1 and 2"，表示expressions中的两个规则是与关系，"1 or 2"，表示expressions中的两个规则是或关系
 
 	Expressions []*StandardScopeExpression `json:"expressions,omitempty"` // 适用范围明细列表
 }
@@ -6718,7 +6768,7 @@ type StandardScopeBuilder struct {
 	all    bool // 是否全部
 	allSet bool
 
-	defineExpression    string // 条件表达式
+	defineExpression    string // 条件表达式，如："1 and 2"，表示expressions中的两个规则是与关系，"1 or 2"，表示expressions中的两个规则是或关系
 	defineExpressionSet bool
 
 	expressions    []*StandardScopeExpression // 适用范围明细列表
@@ -6739,7 +6789,7 @@ func (builder *StandardScopeBuilder) All(all bool) *StandardScopeBuilder {
 	return builder
 }
 
-// 条件表达式
+// 条件表达式，如："1 and 2"，表示expressions中的两个规则是与关系，"1 or 2"，表示expressions中的两个规则是或关系
 //
 // 示例值：1 and 2 and 3
 func (builder *StandardScopeBuilder) DefineExpression(defineExpression string) *StandardScopeBuilder {
@@ -6776,29 +6826,29 @@ func (builder *StandardScopeBuilder) Build() *StandardScope {
 type StandardScopeExpression struct {
 	ApiName *string `json:"api_name,omitempty"` // 范围API
 
-	OperatorType *int `json:"operator_type,omitempty"` // 操作类型
+	OperatorType *int `json:"operator_type,omitempty"` // 操作类型, 可选值类型有：;1: 包含；2: 不包含; 3: 等于。
 
 	ContainSub *bool `json:"contain_sub,omitempty"` // 是否包含下级
 
-	Values []string `json:"values,omitempty"` // 适用范围明细值列表
+	Values []string `json:"values,omitempty"` // 适用范围明细值列表，招聘类型维度枚举值为【日常实习："routine_intern"】【社招："experienced_professionals"】【校招: "recent_graduates"】，其他维度类型具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)，[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)，[获取薪级薪等列表数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/salary_level_type/query)
 
-	ScopeName *I18n `json:"scope_name,omitempty"` // 范围名称
+	ScopeName *I18n `json:"scope_name,omitempty"` // 薪级类型名称
 }
 
 type StandardScopeExpressionBuilder struct {
 	apiName    string // 范围API
 	apiNameSet bool
 
-	operatorType    int // 操作类型
+	operatorType    int // 操作类型, 可选值类型有：;1: 包含；2: 不包含; 3: 等于。
 	operatorTypeSet bool
 
 	containSub    bool // 是否包含下级
 	containSubSet bool
 
-	values    []string // 适用范围明细值列表
+	values    []string // 适用范围明细值列表，招聘类型维度枚举值为【日常实习："routine_intern"】【社招："experienced_professionals"】【校招: "recent_graduates"】，其他维度类型具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)，[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)，[获取薪级薪等列表数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/salary_level_type/query)
 	valuesSet bool
 
-	scopeName    *I18n // 范围名称
+	scopeName    *I18n // 薪级类型名称
 	scopeNameSet bool
 }
 
@@ -6809,14 +6859,14 @@ func NewStandardScopeExpressionBuilder() *StandardScopeExpressionBuilder {
 
 // 范围API
 //
-// 示例值："cpst_plan"
+// 示例值：cpst_plan
 func (builder *StandardScopeExpressionBuilder) ApiName(apiName string) *StandardScopeExpressionBuilder {
 	builder.apiName = apiName
 	builder.apiNameSet = true
 	return builder
 }
 
-// 操作类型
+// 操作类型, 可选值类型有：;1: 包含；2: 不包含; 3: 等于。
 //
 // 示例值：1
 func (builder *StandardScopeExpressionBuilder) OperatorType(operatorType int) *StandardScopeExpressionBuilder {
@@ -6834,7 +6884,7 @@ func (builder *StandardScopeExpressionBuilder) ContainSub(containSub bool) *Stan
 	return builder
 }
 
-// 适用范围明细值列表
+// 适用范围明细值列表，招聘类型维度枚举值为【日常实习："routine_intern"】【社招："experienced_professionals"】【校招: "recent_graduates"】，其他维度类型具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)，[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)，[获取薪级薪等列表数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/salary_level_type/query)
 //
 // 示例值：
 func (builder *StandardScopeExpressionBuilder) Values(values []string) *StandardScopeExpressionBuilder {
@@ -6843,7 +6893,7 @@ func (builder *StandardScopeExpressionBuilder) Values(values []string) *Standard
 	return builder
 }
 
-// 范围名称
+// 薪级类型名称
 //
 // 示例值：
 func (builder *StandardScopeExpressionBuilder) ScopeName(scopeName *I18n) *StandardScopeExpressionBuilder {
@@ -6876,7 +6926,7 @@ func (builder *StandardScopeExpressionBuilder) Build() *StandardScopeExpression 
 }
 
 type CreateArchiveReqBodyBuilder struct {
-	uniqueId    string // 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4,
+	uniqueId    string // 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4（32 个十六进制字符 + 4 个连字符）
 	uniqueIdSet bool
 
 	operatorId    string // 操作人ID，具体类型由入参中的 user_id_type 指定，选择应用身份鉴权时，该参数不能为空
@@ -6885,28 +6935,28 @@ type CreateArchiveReqBodyBuilder struct {
 	userId    string // 员工id，具体类型由入参中的 user_id_type 指定
 	userIdSet bool
 
-	effectiveTime    string // 生效时间，日期格式
+	effectiveTime    string // 生效时间，日期格式为 YYYY-MM-DD，字符长度为10
 	effectiveTimeSet bool
 
-	currencyId    string // 币种ID，获取来源https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search?appId=cli_a63f5fc01866100c
+	currencyId    string // 币种ID，通过[查询货币信息](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)接口可获得
 	currencyIdSet bool
 
-	planId    string // 薪资方案ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+	planId    string // 薪资方案ID，通过[批量查询薪资方案](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口可获得
 	planIdSet bool
 
-	planTid    string // 薪资方案TID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+	planTid    string // 薪资方案TID，通过[批量查询薪资方案](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)可获得
 	planTidSet bool
 
-	changeReasonId    string // 调薪原因ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list
+	changeReasonId    string // 调薪原因ID，通过[批量查询定调薪原因](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)接口可获得
 	changeReasonIdSet bool
 
-	itemValueLists    []*ArchiveItemValue // 薪资项值集合
+	itemValueLists    []*ArchiveItemValue // - 薪资项值集合，所填薪资项信息必须是该方案中的薪资项;- 仅需填写方案中可编辑的薪资项即可，不可编辑的薪资项不能传入，否则会校验报错。 ;- 根据参数plan_id，可通过[批量查询薪资方案](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口获得对应的具体方案信息
 	itemValueListsSet bool
 
-	description    string // 调薪说明
+	description    string // 调薪说明，长度不超过1000字符
 	descriptionSet bool
 
-	editRemark    string // 更正说明，当员工在当天存在调薪记录时，该字段即为更正调薪的说明
+	editRemark    string // 更正说明，长度不超过1000字符，如果本次操作为更正员工薪资档案时，该字段即为更正调薪的说明。
 	editRemarkSet bool
 }
 
@@ -6915,9 +6965,9 @@ func NewCreateArchiveReqBodyBuilder() *CreateArchiveReqBodyBuilder {
 	return builder
 }
 
-// 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4,
+// 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4（32 个十六进制字符 + 4 个连字符）
 //
-//示例值：123e4567-e89b-42d3-a456-426614174000
+// 示例值：123e4567-e89b-42d3-a456-426614174000
 func (builder *CreateArchiveReqBodyBuilder) UniqueId(uniqueId string) *CreateArchiveReqBodyBuilder {
 	builder.uniqueId = uniqueId
 	builder.uniqueIdSet = true
@@ -6926,7 +6976,7 @@ func (builder *CreateArchiveReqBodyBuilder) UniqueId(uniqueId string) *CreateArc
 
 // 操作人ID，具体类型由入参中的 user_id_type 指定，选择应用身份鉴权时，该参数不能为空
 //
-//示例值：7337149697626801708
+// 示例值：7337149697626801708
 func (builder *CreateArchiveReqBodyBuilder) OperatorId(operatorId string) *CreateArchiveReqBodyBuilder {
 	builder.operatorId = operatorId
 	builder.operatorIdSet = true
@@ -6935,79 +6985,79 @@ func (builder *CreateArchiveReqBodyBuilder) OperatorId(operatorId string) *Creat
 
 // 员工id，具体类型由入参中的 user_id_type 指定
 //
-//示例值：7337149697626801708
+// 示例值：7337149697626801708
 func (builder *CreateArchiveReqBodyBuilder) UserId(userId string) *CreateArchiveReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
 	return builder
 }
 
-// 生效时间，日期格式
+// 生效时间，日期格式为 YYYY-MM-DD，字符长度为10
 //
-//示例值：2024-11-12
+// 示例值：2024-11-12
 func (builder *CreateArchiveReqBodyBuilder) EffectiveTime(effectiveTime string) *CreateArchiveReqBodyBuilder {
 	builder.effectiveTime = effectiveTime
 	builder.effectiveTimeSet = true
 	return builder
 }
 
-// 币种ID，获取来源https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search?appId=cli_a63f5fc01866100c
+// 币种ID，通过[查询货币信息](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)接口可获得
 //
-//示例值：6863329932261459464
+// 示例值：6863329932261459464
 func (builder *CreateArchiveReqBodyBuilder) CurrencyId(currencyId string) *CreateArchiveReqBodyBuilder {
 	builder.currencyId = currencyId
 	builder.currencyIdSet = true
 	return builder
 }
 
-// 薪资方案ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+// 薪资方案ID，通过[批量查询薪资方案](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口可获得
 //
-//示例值：7431430313074247212
+// 示例值：7431430313074247212
 func (builder *CreateArchiveReqBodyBuilder) PlanId(planId string) *CreateArchiveReqBodyBuilder {
 	builder.planId = planId
 	builder.planIdSet = true
 	return builder
 }
 
-// 薪资方案TID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+// 薪资方案TID，通过[批量查询薪资方案](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)可获得
 //
-//示例值：7431430313074279980
+// 示例值：7431430313074279980
 func (builder *CreateArchiveReqBodyBuilder) PlanTid(planTid string) *CreateArchiveReqBodyBuilder {
 	builder.planTid = planTid
 	builder.planTidSet = true
 	return builder
 }
 
-// 调薪原因ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list
+// 调薪原因ID，通过[批量查询定调薪原因](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)接口可获得
 //
-//示例值：7125907336899888684
+// 示例值：7125907336899888684
 func (builder *CreateArchiveReqBodyBuilder) ChangeReasonId(changeReasonId string) *CreateArchiveReqBodyBuilder {
 	builder.changeReasonId = changeReasonId
 	builder.changeReasonIdSet = true
 	return builder
 }
 
-// 薪资项值集合
+// - 薪资项值集合，所填薪资项信息必须是该方案中的薪资项;- 仅需填写方案中可编辑的薪资项即可，不可编辑的薪资项不能传入，否则会校验报错。 ;- 根据参数plan_id，可通过[批量查询薪资方案](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口获得对应的具体方案信息
 //
-//示例值：
+// 示例值：
 func (builder *CreateArchiveReqBodyBuilder) ItemValueLists(itemValueLists []*ArchiveItemValue) *CreateArchiveReqBodyBuilder {
 	builder.itemValueLists = itemValueLists
 	builder.itemValueListsSet = true
 	return builder
 }
 
-// 调薪说明
+// 调薪说明，长度不超过1000字符
 //
-//示例值：调薪说明
+// 示例值：因2024年Q2绩效优秀，对该同学调薪10%
 func (builder *CreateArchiveReqBodyBuilder) Description(description string) *CreateArchiveReqBodyBuilder {
 	builder.description = description
 	builder.descriptionSet = true
 	return builder
 }
 
-// 更正说明，当员工在当天存在调薪记录时，该字段即为更正调薪的说明
+// 更正说明，长度不超过1000字符，如果本次操作为更正员工薪资档案时，该字段即为更正调薪的说明。
 //
-//示例值：更正调薪说明
+// 示例值：更正2024年Q2绩效调薪金额
 func (builder *CreateArchiveReqBodyBuilder) EditRemark(editRemark string) *CreateArchiveReqBodyBuilder {
 	builder.editRemark = editRemark
 	builder.editRemarkSet = true
@@ -7082,7 +7132,7 @@ func NewCreateArchivePathReqBodyBuilder() *CreateArchivePathReqBodyBuilder {
 	return builder
 }
 
-// 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4,
+// 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4（32 个十六进制字符 + 4 个连字符）
 //
 // 示例值：123e4567-e89b-42d3-a456-426614174000
 func (builder *CreateArchivePathReqBodyBuilder) UniqueId(uniqueId string) *CreateArchivePathReqBodyBuilder {
@@ -7109,7 +7159,7 @@ func (builder *CreateArchivePathReqBodyBuilder) UserId(userId string) *CreateArc
 	return builder
 }
 
-// 生效时间，日期格式
+// 生效时间，日期格式为 YYYY-MM-DD，字符长度为10
 //
 // 示例值：2024-11-12
 func (builder *CreateArchivePathReqBodyBuilder) EffectiveTime(effectiveTime string) *CreateArchivePathReqBodyBuilder {
@@ -7118,7 +7168,7 @@ func (builder *CreateArchivePathReqBodyBuilder) EffectiveTime(effectiveTime stri
 	return builder
 }
 
-// 币种ID，获取来源https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search?appId=cli_a63f5fc01866100c
+// 币种ID，通过[查询货币信息](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)接口可获得
 //
 // 示例值：6863329932261459464
 func (builder *CreateArchivePathReqBodyBuilder) CurrencyId(currencyId string) *CreateArchivePathReqBodyBuilder {
@@ -7127,7 +7177,7 @@ func (builder *CreateArchivePathReqBodyBuilder) CurrencyId(currencyId string) *C
 	return builder
 }
 
-// 薪资方案ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+// 薪资方案ID，通过[批量查询薪资方案](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口可获得
 //
 // 示例值：7431430313074247212
 func (builder *CreateArchivePathReqBodyBuilder) PlanId(planId string) *CreateArchivePathReqBodyBuilder {
@@ -7136,7 +7186,7 @@ func (builder *CreateArchivePathReqBodyBuilder) PlanId(planId string) *CreateArc
 	return builder
 }
 
-// 薪资方案TID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+// 薪资方案TID，通过[批量查询薪资方案](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)可获得
 //
 // 示例值：7431430313074279980
 func (builder *CreateArchivePathReqBodyBuilder) PlanTid(planTid string) *CreateArchivePathReqBodyBuilder {
@@ -7145,7 +7195,7 @@ func (builder *CreateArchivePathReqBodyBuilder) PlanTid(planTid string) *CreateA
 	return builder
 }
 
-// 调薪原因ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list
+// 调薪原因ID，通过[批量查询定调薪原因](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)接口可获得
 //
 // 示例值：7125907336899888684
 func (builder *CreateArchivePathReqBodyBuilder) ChangeReasonId(changeReasonId string) *CreateArchivePathReqBodyBuilder {
@@ -7154,7 +7204,7 @@ func (builder *CreateArchivePathReqBodyBuilder) ChangeReasonId(changeReasonId st
 	return builder
 }
 
-// 薪资项值集合
+// - 薪资项值集合，所填薪资项信息必须是该方案中的薪资项;- 仅需填写方案中可编辑的薪资项即可，不可编辑的薪资项不能传入，否则会校验报错。 ;- 根据参数plan_id，可通过[批量查询薪资方案](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口获得对应的具体方案信息
 //
 // 示例值：
 func (builder *CreateArchivePathReqBodyBuilder) ItemValueLists(itemValueLists []*ArchiveItemValue) *CreateArchivePathReqBodyBuilder {
@@ -7163,18 +7213,18 @@ func (builder *CreateArchivePathReqBodyBuilder) ItemValueLists(itemValueLists []
 	return builder
 }
 
-// 调薪说明
+// 调薪说明，长度不超过1000字符
 //
-// 示例值：调薪说明
+// 示例值：因2024年Q2绩效优秀，对该同学调薪10%
 func (builder *CreateArchivePathReqBodyBuilder) Description(description string) *CreateArchivePathReqBodyBuilder {
 	builder.description = description
 	builder.descriptionSet = true
 	return builder
 }
 
-// 更正说明，当员工在当天存在调薪记录时，该字段即为更正调薪的说明
+// 更正说明，长度不超过1000字符，如果本次操作为更正员工薪资档案时，该字段即为更正调薪的说明。
 //
-// 示例值：更正调薪说明
+// 示例值：更正2024年Q2绩效调薪金额
 func (builder *CreateArchivePathReqBodyBuilder) EditRemark(editRemark string) *CreateArchivePathReqBodyBuilder {
 	builder.editRemark = editRemark
 	builder.editRemarkSet = true
@@ -7233,15 +7283,13 @@ func NewCreateArchiveReqBuilder() *CreateArchiveReqBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *CreateArchiveReqBuilder) UserIdType(userIdType string) *CreateArchiveReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
-//
+// - 该接口适用于员工入职定薪、调薪或者更正档案场景，通过创建调薪任务的方式，为员工生成对应薪资档案数据。;- 当员工在调薪生效日期存在档案数据时，则是对该档案进行更正操作。
 func (builder *CreateArchiveReqBuilder) Body(body *CreateArchiveReqBody) *CreateArchiveReqBuilder {
 	builder.body = body
 	return builder
@@ -7256,27 +7304,27 @@ func (builder *CreateArchiveReqBuilder) Build() *CreateArchiveReq {
 }
 
 type CreateArchiveReqBody struct {
-	UniqueId *string `json:"unique_id,omitempty"` // 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4,
+	UniqueId *string `json:"unique_id,omitempty"` // 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4（32 个十六进制字符 + 4 个连字符）
 
 	OperatorId *string `json:"operator_id,omitempty"` // 操作人ID，具体类型由入参中的 user_id_type 指定，选择应用身份鉴权时，该参数不能为空
 
 	UserId *string `json:"user_id,omitempty"` // 员工id，具体类型由入参中的 user_id_type 指定
 
-	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间，日期格式
+	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间，日期格式为 YYYY-MM-DD，字符长度为10
 
-	CurrencyId *string `json:"currency_id,omitempty"` // 币种ID，获取来源https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search?appId=cli_a63f5fc01866100c
+	CurrencyId *string `json:"currency_id,omitempty"` // 币种ID，通过[查询货币信息](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)接口可获得
 
-	PlanId *string `json:"plan_id,omitempty"` // 薪资方案ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+	PlanId *string `json:"plan_id,omitempty"` // 薪资方案ID，通过[批量查询薪资方案](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口可获得
 
-	PlanTid *string `json:"plan_tid,omitempty"` // 薪资方案TID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+	PlanTid *string `json:"plan_tid,omitempty"` // 薪资方案TID，通过[批量查询薪资方案](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)可获得
 
-	ChangeReasonId *string `json:"change_reason_id,omitempty"` // 调薪原因ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list
+	ChangeReasonId *string `json:"change_reason_id,omitempty"` // 调薪原因ID，通过[批量查询定调薪原因](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)接口可获得
 
-	ItemValueLists []*ArchiveItemValue `json:"item_value_lists,omitempty"` // 薪资项值集合
+	ItemValueLists []*ArchiveItemValue `json:"item_value_lists,omitempty"` // - 薪资项值集合，所填薪资项信息必须是该方案中的薪资项;- 仅需填写方案中可编辑的薪资项即可，不可编辑的薪资项不能传入，否则会校验报错。 ;- 根据参数plan_id，可通过[批量查询薪资方案](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口获得对应的具体方案信息
 
-	Description *string `json:"description,omitempty"` // 调薪说明
+	Description *string `json:"description,omitempty"` // 调薪说明，长度不超过1000字符
 
-	EditRemark *string `json:"edit_remark,omitempty"` // 更正说明，当员工在当天存在调薪记录时，该字段即为更正调薪的说明
+	EditRemark *string `json:"edit_remark,omitempty"` // 更正说明，长度不超过1000字符，如果本次操作为更正员工薪资档案时，该字段即为更正调薪的说明。
 }
 
 type CreateArchiveReq struct {
@@ -7287,7 +7335,7 @@ type CreateArchiveReq struct {
 type CreateArchiveRespData struct {
 	UniqueId *string `json:"unique_id,omitempty"` // 定调薪任务创建的唯一ID
 
-	ArchiveTid *string `json:"archive_tid,omitempty"` // 薪档案的TID
+	ArchiveTid *string `json:"archive_tid,omitempty"` // 薪资档案的TID
 }
 
 type CreateArchiveResp struct {
@@ -7301,7 +7349,7 @@ func (resp *CreateArchiveResp) Success() bool {
 }
 
 type QueryArchiveReqBodyBuilder struct {
-	userIdList    []string // 用户ID列表
+	userIdList    []string // 用户ID列表，获取方式可参考查询参数中的「user_id_type」字段
 	userIdListSet bool
 
 	tidList    []string // 档案Tid列表
@@ -7319,9 +7367,9 @@ func NewQueryArchiveReqBodyBuilder() *QueryArchiveReqBodyBuilder {
 	return builder
 }
 
-// 用户ID列表
+// 用户ID列表，获取方式可参考查询参数中的「user_id_type」字段
 //
-//示例值：
+// 示例值：
 func (builder *QueryArchiveReqBodyBuilder) UserIdList(userIdList []string) *QueryArchiveReqBodyBuilder {
 	builder.userIdList = userIdList
 	builder.userIdListSet = true
@@ -7330,7 +7378,7 @@ func (builder *QueryArchiveReqBodyBuilder) UserIdList(userIdList []string) *Quer
 
 // 档案Tid列表
 //
-//示例值：
+// 示例值：
 func (builder *QueryArchiveReqBodyBuilder) TidList(tidList []string) *QueryArchiveReqBodyBuilder {
 	builder.tidList = tidList
 	builder.tidListSet = true
@@ -7339,7 +7387,7 @@ func (builder *QueryArchiveReqBodyBuilder) TidList(tidList []string) *QueryArchi
 
 // 生效开始时间
 //
-//示例值：2022-05-10
+// 示例值：2022-05-10
 func (builder *QueryArchiveReqBodyBuilder) EffectiveStartDate(effectiveStartDate string) *QueryArchiveReqBodyBuilder {
 	builder.effectiveStartDate = effectiveStartDate
 	builder.effectiveStartDateSet = true
@@ -7348,7 +7396,7 @@ func (builder *QueryArchiveReqBodyBuilder) EffectiveStartDate(effectiveStartDate
 
 // 生效结束时间
 //
-//示例值：2023-05-15
+// 示例值：2023-05-15
 func (builder *QueryArchiveReqBodyBuilder) EffectiveEndDate(effectiveEndDate string) *QueryArchiveReqBodyBuilder {
 	builder.effectiveEndDate = effectiveEndDate
 	builder.effectiveEndDateSet = true
@@ -7388,7 +7436,7 @@ func NewQueryArchivePathReqBodyBuilder() *QueryArchivePathReqBodyBuilder {
 	return builder
 }
 
-// 用户ID列表
+// 用户ID列表，获取方式可参考查询参数中的「user_id_type」字段
 //
 // 示例值：
 func (builder *QueryArchivePathReqBodyBuilder) UserIdList(userIdList []string) *QueryArchivePathReqBodyBuilder {
@@ -7479,7 +7527,7 @@ func (builder *QueryArchiveReqBuilder) UserIdType(userIdType string) *QueryArchi
 	return builder
 }
 
-//
+// 批量查询员工薪资档案
 func (builder *QueryArchiveReqBuilder) Body(body *QueryArchiveReqBody) *QueryArchiveReqBuilder {
 	builder.body = body
 	return builder
@@ -7494,7 +7542,7 @@ func (builder *QueryArchiveReqBuilder) Build() *QueryArchiveReq {
 }
 
 type QueryArchiveReqBody struct {
-	UserIdList []string `json:"user_id_list,omitempty"` // 用户ID列表
+	UserIdList []string `json:"user_id_list,omitempty"` // 用户ID列表，获取方式可参考查询参数中的「user_id_type」字段
 
 	TidList []string `json:"tid_list,omitempty"` // 档案Tid列表
 
@@ -7818,7 +7866,7 @@ func NewBatchCreateLumpSumPaymentReqBodyBuilder() *BatchCreateLumpSumPaymentReqB
 
 // 要创建的一次性支付信息
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateLumpSumPaymentReqBodyBuilder) Records(records []*LumpSumPaymentForCreate) *BatchCreateLumpSumPaymentReqBodyBuilder {
 	builder.records = records
 	builder.recordsSet = true
@@ -7882,7 +7930,7 @@ func (builder *BatchCreateLumpSumPaymentReqBuilder) UserIdType(userIdType string
 	return builder
 }
 
-//
+// 通过传入的一次性支付记录数据，校验并创建一次性支付记录，并返回创建失败原因或创建成功数据的ID
 func (builder *BatchCreateLumpSumPaymentReqBuilder) Body(body *BatchCreateLumpSumPaymentReqBody) *BatchCreateLumpSumPaymentReqBuilder {
 	builder.body = body
 	return builder
@@ -7920,10 +7968,10 @@ func (resp *BatchCreateLumpSumPaymentResp) Success() bool {
 }
 
 type BatchRemoveLumpSumPaymentReqBodyBuilder struct {
-	recordIds    []string // 要删除的一次性支付记录id
+	recordIds    []string // 要删除的一次性支付记录id（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）
 	recordIdsSet bool
 
-	reason    string // 删除原因
+	reason    string // 因重复提交删除
 	reasonSet bool
 }
 
@@ -7932,18 +7980,18 @@ func NewBatchRemoveLumpSumPaymentReqBodyBuilder() *BatchRemoveLumpSumPaymentReqB
 	return builder
 }
 
-// 要删除的一次性支付记录id
+// 要删除的一次性支付记录id（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *BatchRemoveLumpSumPaymentReqBodyBuilder) RecordIds(recordIds []string) *BatchRemoveLumpSumPaymentReqBodyBuilder {
 	builder.recordIds = recordIds
 	builder.recordIdsSet = true
 	return builder
 }
 
-// 删除原因
+// 因重复提交删除
 //
-//示例值：这是个原因
+// 示例值：删除原因实例
 func (builder *BatchRemoveLumpSumPaymentReqBodyBuilder) Reason(reason string) *BatchRemoveLumpSumPaymentReqBodyBuilder {
 	builder.reason = reason
 	builder.reasonSet = true
@@ -7973,7 +8021,7 @@ func NewBatchRemoveLumpSumPaymentPathReqBodyBuilder() *BatchRemoveLumpSumPayment
 	return builder
 }
 
-// 要删除的一次性支付记录id
+// 要删除的一次性支付记录id（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）
 //
 // 示例值：
 func (builder *BatchRemoveLumpSumPaymentPathReqBodyBuilder) RecordIds(recordIds []string) *BatchRemoveLumpSumPaymentPathReqBodyBuilder {
@@ -7982,9 +8030,9 @@ func (builder *BatchRemoveLumpSumPaymentPathReqBodyBuilder) RecordIds(recordIds 
 	return builder
 }
 
-// 删除原因
+// 因重复提交删除
 //
-// 示例值：这是个原因
+// 示例值：删除原因实例
 func (builder *BatchRemoveLumpSumPaymentPathReqBodyBuilder) Reason(reason string) *BatchRemoveLumpSumPaymentPathReqBodyBuilder {
 	builder.reason = reason
 	builder.reasonSet = true
@@ -8016,7 +8064,7 @@ func NewBatchRemoveLumpSumPaymentReqBuilder() *BatchRemoveLumpSumPaymentReqBuild
 	return builder
 }
 
-//
+// 传入一次性支付记录ID，删除ID对应的一次性支付记录
 func (builder *BatchRemoveLumpSumPaymentReqBuilder) Body(body *BatchRemoveLumpSumPaymentReqBody) *BatchRemoveLumpSumPaymentReqBuilder {
 	builder.body = body
 	return builder
@@ -8030,9 +8078,9 @@ func (builder *BatchRemoveLumpSumPaymentReqBuilder) Build() *BatchRemoveLumpSumP
 }
 
 type BatchRemoveLumpSumPaymentReqBody struct {
-	RecordIds []string `json:"record_ids,omitempty"` // 要删除的一次性支付记录id
+	RecordIds []string `json:"record_ids,omitempty"` // 要删除的一次性支付记录id（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）
 
-	Reason *string `json:"reason,omitempty"` // 删除原因
+	Reason *string `json:"reason,omitempty"` // 因重复提交删除
 }
 
 type BatchRemoveLumpSumPaymentReq struct {
@@ -8041,7 +8089,7 @@ type BatchRemoveLumpSumPaymentReq struct {
 }
 
 type BatchRemoveLumpSumPaymentRespData struct {
-	OperateResults []*LumpSumPaymentOperateResult `json:"operate_results,omitempty"` // 每条记录的操作结果
+	OperateResults []*LumpSumPaymentOperateResult `json:"operate_results,omitempty"` // 每条记录的操作结果。对于创建成功的记录，会返回创建后的一次性支付记录id
 }
 
 type BatchRemoveLumpSumPaymentResp struct {
@@ -8066,7 +8114,7 @@ func NewBatchUpdateLumpSumPaymentReqBodyBuilder() *BatchUpdateLumpSumPaymentReqB
 
 // 要更正的一次性支付记录列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchUpdateLumpSumPaymentReqBodyBuilder) Records(records []*LumpSumPaymentForUpdate) *BatchUpdateLumpSumPaymentReqBodyBuilder {
 	builder.records = records
 	builder.recordsSet = true
@@ -8122,7 +8170,7 @@ func NewBatchUpdateLumpSumPaymentReqBuilder() *BatchUpdateLumpSumPaymentReqBuild
 	return builder
 }
 
-//
+// 通过传入的一次性支付记录数据，校验并更正一次性支付记录，并返回更正失败原因
 func (builder *BatchUpdateLumpSumPaymentReqBuilder) Body(body *BatchUpdateLumpSumPaymentReqBody) *BatchUpdateLumpSumPaymentReqBuilder {
 	builder.body = body
 	return builder
@@ -8145,7 +8193,7 @@ type BatchUpdateLumpSumPaymentReq struct {
 }
 
 type BatchUpdateLumpSumPaymentRespData struct {
-	OperateResults []*LumpSumPaymentOperateResult `json:"operate_results,omitempty"` // 每条记录的操作结果
+	OperateResults []*LumpSumPaymentOperateResult `json:"operate_results,omitempty"` // 每条记录的操作结果。对于创建成功的记录，会返回创建后的一次性支付记录id
 }
 
 type BatchUpdateLumpSumPaymentResp struct {
@@ -8159,61 +8207,61 @@ func (resp *BatchUpdateLumpSumPaymentResp) Success() bool {
 }
 
 type QueryLumpSumPaymentReqBodyBuilder struct {
-	ids    []string // id属于
+	ids    []string // 一次性支付记录 id，可通过本接口获取
 	idsSet bool
 
-	uniqueIds    []string // unique_id属于
+	uniqueIds    []string // 一次性支付记录 unique_id，unique_id 在创建时由上游指定
 	uniqueIdsSet bool
 
-	userIds    []string // 员工id属于
+	userIds    []string // 员工id，具体类型由入参中的 user_id_type 指定
 	userIdsSet bool
 
-	itemIds    []string // 薪酬项id属于
+	itemIds    []string // 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 	itemIdsSet bool
 
-	createTimeGte    string // 创建时间大于等于（东八区）
+	createTimeGte    string // 创建时间大于等于值（东八区）
 	createTimeGteSet bool
 
 	createTimeLte    string // 创建时间小于等于（东八区）
 	createTimeLteSet bool
 
-	modifyTimeGte    string // 更新时间大于等于（东八区）
+	modifyTimeGte    string // 更新时间大于等于值（东八区）
 	modifyTimeGteSet bool
 
-	modifyTimeLte    string // 更新时间小于等于（东八区）
+	modifyTimeLte    string // 更新时间小于等于值（东八区）
 	modifyTimeLteSet bool
 
-	companyIds    []string // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	companyIds    []string // 合同主体 id（通过[【查询合同主体】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 	companyIdsSet bool
 
-	serviceCompanyIds    []string // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	serviceCompanyIds    []string // 任职公司 id（通过[【查询任职公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 	serviceCompanyIdsSet bool
 
-	departmentIds    []string // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+	departmentIds    []string // 部门 id（部门id仅支持people_corehr_department_id，通过[【查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口进行查询）
 	departmentIdsSet bool
 
-	jobFamilyIds    []string // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+	jobFamilyIds    []string // 序列 id（通过 [【查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口进行查询）
 	jobFamilyIdsSet bool
 
-	jobLevelIds    []string // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+	jobLevelIds    []string // 职级 id（通过 [【查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口进行查询）
 	jobLevelIdsSet bool
 
-	workLocationIds    []string // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+	workLocationIds    []string // 工作地点 id（通过 [【查询工作地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list) 接口进行查询）
 	workLocationIdsSet bool
 
-	employeeTypeIds    []string // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+	employeeTypeIds    []string // 员工类型 id（可通过 [【查询员工类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list) 接口进行查询）
 	employeeTypeIdsSet bool
 
-	onboardDateGte    string // 入职日期大于等于
+	onboardDateGte    string // 员工入职日期大于等于值
 	onboardDateGteSet bool
 
-	onboardDateLte    string // 入职日期小于等于
+	onboardDateLte    string // 员工入职日期小于等于值
 	onboardDateLteSet bool
 
-	offboardDateGte    string // 离职日期大于等于
+	offboardDateGte    string // 员工离职日期大于等于值
 	offboardDateGteSet bool
 
-	offboardDateLte    string // 离职日期小于等于
+	offboardDateLte    string // 员工离职日期小于等于值
 	offboardDateLteSet bool
 }
 
@@ -8222,45 +8270,45 @@ func NewQueryLumpSumPaymentReqBodyBuilder() *QueryLumpSumPaymentReqBodyBuilder {
 	return builder
 }
 
-// id属于
+// 一次性支付记录 id，可通过本接口获取
 //
-//示例值：
+// 示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) Ids(ids []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.ids = ids
 	builder.idsSet = true
 	return builder
 }
 
-// unique_id属于
+// 一次性支付记录 unique_id，unique_id 在创建时由上游指定
 //
-//示例值：
+// 示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) UniqueIds(uniqueIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.uniqueIds = uniqueIds
 	builder.uniqueIdsSet = true
 	return builder
 }
 
-// 员工id属于
+// 员工id，具体类型由入参中的 user_id_type 指定
 //
-//示例值：
+// 示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) UserIds(userIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
 	return builder
 }
 
-// 薪酬项id属于
+// 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) ItemIds(itemIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.itemIds = itemIds
 	builder.itemIdsSet = true
 	return builder
 }
 
-// 创建时间大于等于（东八区）
+// 创建时间大于等于值（东八区）
 //
-//示例值：2023-04-01 12:34:56
+// 示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentReqBodyBuilder) CreateTimeGte(createTimeGte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.createTimeGte = createTimeGte
 	builder.createTimeGteSet = true
@@ -8269,124 +8317,124 @@ func (builder *QueryLumpSumPaymentReqBodyBuilder) CreateTimeGte(createTimeGte st
 
 // 创建时间小于等于（东八区）
 //
-//示例值：2023-04-01 12:34:56
+// 示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentReqBodyBuilder) CreateTimeLte(createTimeLte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.createTimeLte = createTimeLte
 	builder.createTimeLteSet = true
 	return builder
 }
 
-// 更新时间大于等于（东八区）
+// 更新时间大于等于值（东八区）
 //
-//示例值：2023-04-01 12:34:56
+// 示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentReqBodyBuilder) ModifyTimeGte(modifyTimeGte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.modifyTimeGte = modifyTimeGte
 	builder.modifyTimeGteSet = true
 	return builder
 }
 
-// 更新时间小于等于（东八区）
+// 更新时间小于等于值（东八区）
 //
-//示例值：2023-04-01 12:34:56
+// 示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentReqBodyBuilder) ModifyTimeLte(modifyTimeLte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.modifyTimeLte = modifyTimeLte
 	builder.modifyTimeLteSet = true
 	return builder
 }
 
-// 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+// 合同主体 id（通过[【查询合同主体】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) CompanyIds(companyIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.companyIds = companyIds
 	builder.companyIdsSet = true
 	return builder
 }
 
-// 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+// 任职公司 id（通过[【查询任职公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) ServiceCompanyIds(serviceCompanyIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.serviceCompanyIds = serviceCompanyIds
 	builder.serviceCompanyIdsSet = true
 	return builder
 }
 
-// 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+// 部门 id（部门id仅支持people_corehr_department_id，通过[【查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsSet = true
 	return builder
 }
 
-// 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+// 序列 id（通过 [【查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.jobFamilyIds = jobFamilyIds
 	builder.jobFamilyIdsSet = true
 	return builder
 }
 
-// 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+// 职级 id（通过 [【查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) JobLevelIds(jobLevelIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.jobLevelIds = jobLevelIds
 	builder.jobLevelIdsSet = true
 	return builder
 }
 
-// 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+// 工作地点 id（通过 [【查询工作地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) WorkLocationIds(workLocationIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.workLocationIds = workLocationIds
 	builder.workLocationIdsSet = true
 	return builder
 }
 
-// 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+// 员工类型 id（可通过 [【查询员工类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryLumpSumPaymentReqBodyBuilder) EmployeeTypeIds(employeeTypeIds []string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.employeeTypeIds = employeeTypeIds
 	builder.employeeTypeIdsSet = true
 	return builder
 }
 
-// 入职日期大于等于
+// 员工入职日期大于等于值
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryLumpSumPaymentReqBodyBuilder) OnboardDateGte(onboardDateGte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.onboardDateGte = onboardDateGte
 	builder.onboardDateGteSet = true
 	return builder
 }
 
-// 入职日期小于等于
+// 员工入职日期小于等于值
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryLumpSumPaymentReqBodyBuilder) OnboardDateLte(onboardDateLte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.onboardDateLte = onboardDateLte
 	builder.onboardDateLteSet = true
 	return builder
 }
 
-// 离职日期大于等于
+// 员工离职日期大于等于值
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryLumpSumPaymentReqBodyBuilder) OffboardDateGte(offboardDateGte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.offboardDateGte = offboardDateGte
 	builder.offboardDateGteSet = true
 	return builder
 }
 
-// 离职日期小于等于
+// 员工离职日期小于等于值
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryLumpSumPaymentReqBodyBuilder) OffboardDateLte(offboardDateLte string) *QueryLumpSumPaymentReqBodyBuilder {
 	builder.offboardDateLte = offboardDateLte
 	builder.offboardDateLteSet = true
@@ -8501,7 +8549,7 @@ func NewQueryLumpSumPaymentPathReqBodyBuilder() *QueryLumpSumPaymentPathReqBodyB
 	return builder
 }
 
-// id属于
+// 一次性支付记录 id，可通过本接口获取
 //
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) Ids(ids []string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8510,7 +8558,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) Ids(ids []string) *QueryLu
 	return builder
 }
 
-// unique_id属于
+// 一次性支付记录 unique_id，unique_id 在创建时由上游指定
 //
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) UniqueIds(uniqueIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8519,7 +8567,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) UniqueIds(uniqueIds []stri
 	return builder
 }
 
-// 员工id属于
+// 员工id，具体类型由入参中的 user_id_type 指定
 //
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) UserIds(userIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8528,7 +8576,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) UserIds(userIds []string) 
 	return builder
 }
 
-// 薪酬项id属于
+// 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ItemIds(itemIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8537,7 +8585,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ItemIds(itemIds []string) 
 	return builder
 }
 
-// 创建时间大于等于（东八区）
+// 创建时间大于等于值（东八区）
 //
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) CreateTimeGte(createTimeGte string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8555,7 +8603,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) CreateTimeLte(createTimeLt
 	return builder
 }
 
-// 更新时间大于等于（东八区）
+// 更新时间大于等于值（东八区）
 //
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ModifyTimeGte(modifyTimeGte string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8564,7 +8612,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ModifyTimeGte(modifyTimeGt
 	return builder
 }
 
-// 更新时间小于等于（东八区）
+// 更新时间小于等于值（东八区）
 //
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ModifyTimeLte(modifyTimeLte string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8573,7 +8621,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ModifyTimeLte(modifyTimeLt
 	return builder
 }
 
-// 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+// 合同主体 id（通过[【查询合同主体】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) CompanyIds(companyIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8582,7 +8630,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) CompanyIds(companyIds []st
 	return builder
 }
 
-// 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+// 任职公司 id（通过[【查询任职公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ServiceCompanyIds(serviceCompanyIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8591,7 +8639,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) ServiceCompanyIds(serviceC
 	return builder
 }
 
-// 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+// 部门 id（部门id仅支持people_corehr_department_id，通过[【查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口进行查询）
 //
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8600,7 +8648,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) DepartmentIds(departmentId
 	return builder
 }
 
-// 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+// 序列 id（通过 [【查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口进行查询）
 //
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8609,7 +8657,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) JobFamilyIds(jobFamilyIds 
 	return builder
 }
 
-// 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+// 职级 id（通过 [【查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口进行查询）
 //
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) JobLevelIds(jobLevelIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8618,7 +8666,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) JobLevelIds(jobLevelIds []
 	return builder
 }
 
-// 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+// 工作地点 id（通过 [【查询工作地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) WorkLocationIds(workLocationIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8627,7 +8675,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) WorkLocationIds(workLocati
 	return builder
 }
 
-// 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+// 员工类型 id（可通过 [【查询员工类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) EmployeeTypeIds(employeeTypeIds []string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8636,7 +8684,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) EmployeeTypeIds(employeeTy
 	return builder
 }
 
-// 入职日期大于等于
+// 员工入职日期大于等于值
 //
 // 示例值：2023-04-01
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) OnboardDateGte(onboardDateGte string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8645,7 +8693,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) OnboardDateGte(onboardDate
 	return builder
 }
 
-// 入职日期小于等于
+// 员工入职日期小于等于值
 //
 // 示例值：2023-04-01
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) OnboardDateLte(onboardDateLte string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8654,7 +8702,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) OnboardDateLte(onboardDate
 	return builder
 }
 
-// 离职日期大于等于
+// 员工离职日期大于等于值
 //
 // 示例值：2023-04-01
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) OffboardDateGte(offboardDateGte string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8663,7 +8711,7 @@ func (builder *QueryLumpSumPaymentPathReqBodyBuilder) OffboardDateGte(offboardDa
 	return builder
 }
 
-// 离职日期小于等于
+// 员工离职日期小于等于值
 //
 // 示例值：2023-04-01
 func (builder *QueryLumpSumPaymentPathReqBodyBuilder) OffboardDateLte(offboardDateLte string) *QueryLumpSumPaymentPathReqBodyBuilder {
@@ -8755,7 +8803,7 @@ func (builder *QueryLumpSumPaymentReqBuilder) Limit(limit int) *QueryLumpSumPaym
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：
 func (builder *QueryLumpSumPaymentReqBuilder) PageSize(pageSize int) *QueryLumpSumPaymentReqBuilder {
@@ -8763,8 +8811,6 @@ func (builder *QueryLumpSumPaymentReqBuilder) PageSize(pageSize int) *QueryLumpS
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *QueryLumpSumPaymentReqBuilder) PageToken(pageToken string) *QueryLumpSumPaymentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
@@ -8779,7 +8825,7 @@ func (builder *QueryLumpSumPaymentReqBuilder) UserIdType(userIdType string) *Que
 	return builder
 }
 
-//
+// 根据筛选条件查询一次性支付授予记录
 func (builder *QueryLumpSumPaymentReqBuilder) Body(body *QueryLumpSumPaymentReqBody) *QueryLumpSumPaymentReqBuilder {
 	builder.body = body
 	return builder
@@ -8795,43 +8841,43 @@ func (builder *QueryLumpSumPaymentReqBuilder) Build() *QueryLumpSumPaymentReq {
 }
 
 type QueryLumpSumPaymentReqBody struct {
-	Ids []string `json:"ids,omitempty"` // id属于
+	Ids []string `json:"ids,omitempty"` // 一次性支付记录 id，可通过本接口获取
 
-	UniqueIds []string `json:"unique_ids,omitempty"` // unique_id属于
+	UniqueIds []string `json:"unique_ids,omitempty"` // 一次性支付记录 unique_id，unique_id 在创建时由上游指定
 
-	UserIds []string `json:"user_ids,omitempty"` // 员工id属于
+	UserIds []string `json:"user_ids,omitempty"` // 员工id，具体类型由入参中的 user_id_type 指定
 
-	ItemIds []string `json:"item_ids,omitempty"` // 薪酬项id属于
+	ItemIds []string `json:"item_ids,omitempty"` // 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 
-	CreateTimeGte *string `json:"create_time_gte,omitempty"` // 创建时间大于等于（东八区）
+	CreateTimeGte *string `json:"create_time_gte,omitempty"` // 创建时间大于等于值（东八区）
 
 	CreateTimeLte *string `json:"create_time_lte,omitempty"` // 创建时间小于等于（东八区）
 
-	ModifyTimeGte *string `json:"modify_time_gte,omitempty"` // 更新时间大于等于（东八区）
+	ModifyTimeGte *string `json:"modify_time_gte,omitempty"` // 更新时间大于等于值（东八区）
 
-	ModifyTimeLte *string `json:"modify_time_lte,omitempty"` // 更新时间小于等于（东八区）
+	ModifyTimeLte *string `json:"modify_time_lte,omitempty"` // 更新时间小于等于值（东八区）
 
-	CompanyIds []string `json:"company_ids,omitempty"` // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	CompanyIds []string `json:"company_ids,omitempty"` // 合同主体 id（通过[【查询合同主体】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 
-	ServiceCompanyIds []string `json:"service_company_ids,omitempty"` // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	ServiceCompanyIds []string `json:"service_company_ids,omitempty"` // 任职公司 id（通过[【查询任职公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 
-	DepartmentIds []string `json:"department_ids,omitempty"` // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+	DepartmentIds []string `json:"department_ids,omitempty"` // 部门 id（部门id仅支持people_corehr_department_id，通过[【查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口进行查询）
 
-	JobFamilyIds []string `json:"job_family_ids,omitempty"` // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+	JobFamilyIds []string `json:"job_family_ids,omitempty"` // 序列 id（通过 [【查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口进行查询）
 
-	JobLevelIds []string `json:"job_level_ids,omitempty"` // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+	JobLevelIds []string `json:"job_level_ids,omitempty"` // 职级 id（通过 [【查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口进行查询）
 
-	WorkLocationIds []string `json:"work_location_ids,omitempty"` // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+	WorkLocationIds []string `json:"work_location_ids,omitempty"` // 工作地点 id（通过 [【查询工作地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list) 接口进行查询）
 
-	EmployeeTypeIds []string `json:"employee_type_ids,omitempty"` // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+	EmployeeTypeIds []string `json:"employee_type_ids,omitempty"` // 员工类型 id（可通过 [【查询员工类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list) 接口进行查询）
 
-	OnboardDateGte *string `json:"onboard_date_gte,omitempty"` // 入职日期大于等于
+	OnboardDateGte *string `json:"onboard_date_gte,omitempty"` // 员工入职日期大于等于值
 
-	OnboardDateLte *string `json:"onboard_date_lte,omitempty"` // 入职日期小于等于
+	OnboardDateLte *string `json:"onboard_date_lte,omitempty"` // 员工入职日期小于等于值
 
-	OffboardDateGte *string `json:"offboard_date_gte,omitempty"` // 离职日期大于等于
+	OffboardDateGte *string `json:"offboard_date_gte,omitempty"` // 员工离职日期大于等于值
 
-	OffboardDateLte *string `json:"offboard_date_lte,omitempty"` // 离职日期小于等于
+	OffboardDateLte *string `json:"offboard_date_lte,omitempty"` // 员工离职日期小于等于值
 }
 
 type QueryLumpSumPaymentReq struct {
@@ -8860,13 +8906,13 @@ func (resp *QueryLumpSumPaymentResp) Success() bool {
 }
 
 type QueryDetailLumpSumPaymentReqBodyBuilder struct {
-	ids    []string // id属于
+	ids    []string // 一次性支付明细 id，可通过本接口获取
 	idsSet bool
 
-	recordIds    []string // 一次性支付记录id
+	recordIds    []string // 一次性支付记录 id，可通过本接口获取
 	recordIdsSet bool
 
-	recordUniqueIds    []string // 一次性支付记录unique id
+	recordUniqueIds    []string // 一次性支付记录 unique_id，unique_id 在创建时由上游指定
 	recordUniqueIdsSet bool
 
 	issuanceWays    []string // 发放方式
@@ -8875,61 +8921,61 @@ type QueryDetailLumpSumPaymentReqBodyBuilder struct {
 	issuanceStatuses    []string // 发放状态
 	issuanceStatusesSet bool
 
-	userIds    []string // 员工id属于
+	userIds    []string // 员工id，具体类型由入参中的 user_id_type 指定
 	userIdsSet bool
 
-	itemIds    []string // 薪酬项id属于
+	itemIds    []string // 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 	itemIdsSet bool
 
-	issuanceDateGte    string // 发放时间大于等于
+	issuanceDateGte    string // 发放时间大于等于值
 	issuanceDateGteSet bool
 
-	issuanceDateLte    string // 发放时间小于等于
+	issuanceDateLte    string // 发放时间小于等于值
 	issuanceDateLteSet bool
 
-	createTimeGte    string // 创建时间大于等于（东八区）
+	createTimeGte    string // 创建时间大于等于值（东八区）
 	createTimeGteSet bool
 
-	createTimeLte    string // 创建时间小于等于（东八区）
+	createTimeLte    string // 创建时间小于等于值（东八区）
 	createTimeLteSet bool
 
-	modifyTimeGte    string // 更新时间大于等于（东八区）
+	modifyTimeGte    string // 更新时间大于等于值（东八区）
 	modifyTimeGteSet bool
 
-	modifyTimeLte    string // 更新时间小于等于（东八区）
+	modifyTimeLte    string // 更新时间小于等于值（东八区）
 	modifyTimeLteSet bool
 
-	companyIds    []string // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	companyIds    []string // 合同主体 id（通过[【查询合同主体】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 	companyIdsSet bool
 
-	serviceCompanyIds    []string // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	serviceCompanyIds    []string // 任职公司 id（通过[【查询任职公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 	serviceCompanyIdsSet bool
 
-	departmentIds    []string // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+	departmentIds    []string // 部门 id（部门id仅支持people_corehr_department_id，通过[【查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口进行查询）
 	departmentIdsSet bool
 
-	jobFamilyIds    []string // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+	jobFamilyIds    []string // 序列 id（通过 [【查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口进行查询）
 	jobFamilyIdsSet bool
 
-	jobLevelIds    []string // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+	jobLevelIds    []string // 职级 id（通过 [【查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口进行查询）
 	jobLevelIdsSet bool
 
-	workLocationIds    []string // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+	workLocationIds    []string // 工作地点 id（通过 [【查询工作地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list) 接口进行查询）
 	workLocationIdsSet bool
 
-	employeeTypeIds    []string // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+	employeeTypeIds    []string // 员工类型 id（可通过 [【查询员工类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list) 接口进行查询）
 	employeeTypeIdsSet bool
 
-	onboardDateGte    string // 入职日期大于等于
+	onboardDateGte    string // 员工入职日期大于等于值
 	onboardDateGteSet bool
 
-	onboardDateLte    string // 入职日期小于等于
+	onboardDateLte    string // 员工入职日期小于等于值
 	onboardDateLteSet bool
 
-	offboardDateGte    string // 离职日期大于等于
+	offboardDateGte    string // 员工离职日期大于等于值
 	offboardDateGteSet bool
 
-	offboardDateLte    string // 离职日期小于等于
+	offboardDateLte    string // 员工离职日期小于等于值
 	offboardDateLteSet bool
 }
 
@@ -8938,27 +8984,27 @@ func NewQueryDetailLumpSumPaymentReqBodyBuilder() *QueryDetailLumpSumPaymentReqB
 	return builder
 }
 
-// id属于
+// 一次性支付明细 id，可通过本接口获取
 //
-//示例值：
+// 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) Ids(ids []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.ids = ids
 	builder.idsSet = true
 	return builder
 }
 
-// 一次性支付记录id
+// 一次性支付记录 id，可通过本接口获取
 //
-//示例值：
+// 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) RecordIds(recordIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.recordIds = recordIds
 	builder.recordIdsSet = true
 	return builder
 }
 
-// 一次性支付记录unique id
+// 一次性支付记录 unique_id，unique_id 在创建时由上游指定
 //
-//示例值：
+// 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) RecordUniqueIds(recordUniqueIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.recordUniqueIds = recordUniqueIds
 	builder.recordUniqueIdsSet = true
@@ -8967,7 +9013,7 @@ func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) RecordUniqueIds(recordUn
 
 // 发放方式
 //
-//示例值：
+// 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) IssuanceWays(issuanceWays []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.issuanceWays = issuanceWays
 	builder.issuanceWaysSet = true
@@ -8976,178 +9022,178 @@ func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) IssuanceWays(issuanceWay
 
 // 发放状态
 //
-//示例值：
+// 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) IssuanceStatuses(issuanceStatuses []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.issuanceStatuses = issuanceStatuses
 	builder.issuanceStatusesSet = true
 	return builder
 }
 
-// 员工id属于
+// 员工id，具体类型由入参中的 user_id_type 指定
 //
-//示例值：
+// 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) UserIds(userIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
 	return builder
 }
 
-// 薪酬项id属于
+// 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) ItemIds(itemIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.itemIds = itemIds
 	builder.itemIdsSet = true
 	return builder
 }
 
-// 发放时间大于等于
+// 发放时间大于等于值
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) IssuanceDateGte(issuanceDateGte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.issuanceDateGte = issuanceDateGte
 	builder.issuanceDateGteSet = true
 	return builder
 }
 
-// 发放时间小于等于
+// 发放时间小于等于值
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) IssuanceDateLte(issuanceDateLte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.issuanceDateLte = issuanceDateLte
 	builder.issuanceDateLteSet = true
 	return builder
 }
 
-// 创建时间大于等于（东八区）
+// 创建时间大于等于值（东八区）
 //
-//示例值：2023-04-01 12:34:56
+// 示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) CreateTimeGte(createTimeGte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.createTimeGte = createTimeGte
 	builder.createTimeGteSet = true
 	return builder
 }
 
-// 创建时间小于等于（东八区）
+// 创建时间小于等于值（东八区）
 //
-//示例值：2023-04-01 12:34:56
+// 示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) CreateTimeLte(createTimeLte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.createTimeLte = createTimeLte
 	builder.createTimeLteSet = true
 	return builder
 }
 
-// 更新时间大于等于（东八区）
+// 更新时间大于等于值（东八区）
 //
-//示例值：2023-04-01 12:34:56
+// 示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) ModifyTimeGte(modifyTimeGte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.modifyTimeGte = modifyTimeGte
 	builder.modifyTimeGteSet = true
 	return builder
 }
 
-// 更新时间小于等于（东八区）
+// 更新时间小于等于值（东八区）
 //
-//示例值：2023-04-01 12:34:56
+// 示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) ModifyTimeLte(modifyTimeLte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.modifyTimeLte = modifyTimeLte
 	builder.modifyTimeLteSet = true
 	return builder
 }
 
-// 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+// 合同主体 id（通过[【查询合同主体】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) CompanyIds(companyIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.companyIds = companyIds
 	builder.companyIdsSet = true
 	return builder
 }
 
-// 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+// 任职公司 id（通过[【查询任职公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) ServiceCompanyIds(serviceCompanyIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.serviceCompanyIds = serviceCompanyIds
 	builder.serviceCompanyIdsSet = true
 	return builder
 }
 
-// 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+// 部门 id（部门id仅支持people_corehr_department_id，通过[【查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsSet = true
 	return builder
 }
 
-// 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+// 序列 id（通过 [【查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.jobFamilyIds = jobFamilyIds
 	builder.jobFamilyIdsSet = true
 	return builder
 }
 
-// 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+// 职级 id（通过 [【查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) JobLevelIds(jobLevelIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.jobLevelIds = jobLevelIds
 	builder.jobLevelIdsSet = true
 	return builder
 }
 
-// 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+// 工作地点 id（通过 [【查询工作地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) WorkLocationIds(workLocationIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.workLocationIds = workLocationIds
 	builder.workLocationIdsSet = true
 	return builder
 }
 
-// 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+// 员工类型 id（可通过 [【查询员工类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) EmployeeTypeIds(employeeTypeIds []string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.employeeTypeIds = employeeTypeIds
 	builder.employeeTypeIdsSet = true
 	return builder
 }
 
-// 入职日期大于等于
+// 员工入职日期大于等于值
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) OnboardDateGte(onboardDateGte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.onboardDateGte = onboardDateGte
 	builder.onboardDateGteSet = true
 	return builder
 }
 
-// 入职日期小于等于
+// 员工入职日期小于等于值
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) OnboardDateLte(onboardDateLte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.onboardDateLte = onboardDateLte
 	builder.onboardDateLteSet = true
 	return builder
 }
 
-// 离职日期大于等于
+// 员工离职日期大于等于值
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) OffboardDateGte(offboardDateGte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.offboardDateGte = offboardDateGte
 	builder.offboardDateGteSet = true
 	return builder
 }
 
-// 离职日期小于等于
+// 员工离职日期小于等于值
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentReqBodyBuilder) OffboardDateLte(offboardDateLte string) *QueryDetailLumpSumPaymentReqBodyBuilder {
 	builder.offboardDateLte = offboardDateLte
 	builder.offboardDateLteSet = true
@@ -9287,7 +9333,7 @@ func NewQueryDetailLumpSumPaymentPathReqBodyBuilder() *QueryDetailLumpSumPayment
 	return builder
 }
 
-// id属于
+// 一次性支付明细 id，可通过本接口获取
 //
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) Ids(ids []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9296,7 +9342,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) Ids(ids []string) *Q
 	return builder
 }
 
-// 一次性支付记录id
+// 一次性支付记录 id，可通过本接口获取
 //
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) RecordIds(recordIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9305,7 +9351,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) RecordIds(recordIds 
 	return builder
 }
 
-// 一次性支付记录unique id
+// 一次性支付记录 unique_id，unique_id 在创建时由上游指定
 //
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) RecordUniqueIds(recordUniqueIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9332,7 +9378,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) IssuanceStatuses(iss
 	return builder
 }
 
-// 员工id属于
+// 员工id，具体类型由入参中的 user_id_type 指定
 //
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) UserIds(userIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9341,7 +9387,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) UserIds(userIds []st
 	return builder
 }
 
-// 薪酬项id属于
+// 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ItemIds(itemIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9350,7 +9396,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ItemIds(itemIds []st
 	return builder
 }
 
-// 发放时间大于等于
+// 发放时间大于等于值
 //
 // 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) IssuanceDateGte(issuanceDateGte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9359,7 +9405,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) IssuanceDateGte(issu
 	return builder
 }
 
-// 发放时间小于等于
+// 发放时间小于等于值
 //
 // 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) IssuanceDateLte(issuanceDateLte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9368,7 +9414,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) IssuanceDateLte(issu
 	return builder
 }
 
-// 创建时间大于等于（东八区）
+// 创建时间大于等于值（东八区）
 //
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) CreateTimeGte(createTimeGte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9377,7 +9423,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) CreateTimeGte(create
 	return builder
 }
 
-// 创建时间小于等于（东八区）
+// 创建时间小于等于值（东八区）
 //
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) CreateTimeLte(createTimeLte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9386,7 +9432,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) CreateTimeLte(create
 	return builder
 }
 
-// 更新时间大于等于（东八区）
+// 更新时间大于等于值（东八区）
 //
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ModifyTimeGte(modifyTimeGte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9395,7 +9441,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ModifyTimeGte(modify
 	return builder
 }
 
-// 更新时间小于等于（东八区）
+// 更新时间小于等于值（东八区）
 //
 // 示例值：2023-04-01 12:34:56
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ModifyTimeLte(modifyTimeLte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9404,7 +9450,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ModifyTimeLte(modify
 	return builder
 }
 
-// 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+// 合同主体 id（通过[【查询合同主体】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) CompanyIds(companyIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9413,7 +9459,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) CompanyIds(companyId
 	return builder
 }
 
-// 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+// 任职公司 id（通过[【查询任职公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ServiceCompanyIds(serviceCompanyIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9422,7 +9468,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) ServiceCompanyIds(se
 	return builder
 }
 
-// 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+// 部门 id（部门id仅支持people_corehr_department_id，通过[【查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口进行查询）
 //
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9431,7 +9477,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) DepartmentIds(depart
 	return builder
 }
 
-// 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+// 序列 id（通过 [【查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口进行查询）
 //
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9440,7 +9486,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) JobFamilyIds(jobFami
 	return builder
 }
 
-// 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+// 职级 id（通过 [【查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口进行查询）
 //
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) JobLevelIds(jobLevelIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9449,7 +9495,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) JobLevelIds(jobLevel
 	return builder
 }
 
-// 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+// 工作地点 id（通过 [【查询工作地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) WorkLocationIds(workLocationIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9458,7 +9504,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) WorkLocationIds(work
 	return builder
 }
 
-// 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+// 员工类型 id（可通过 [【查询员工类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) EmployeeTypeIds(employeeTypeIds []string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9467,7 +9513,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) EmployeeTypeIds(empl
 	return builder
 }
 
-// 入职日期大于等于
+// 员工入职日期大于等于值
 //
 // 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) OnboardDateGte(onboardDateGte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9476,7 +9522,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) OnboardDateGte(onboa
 	return builder
 }
 
-// 入职日期小于等于
+// 员工入职日期小于等于值
 //
 // 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) OnboardDateLte(onboardDateLte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9485,7 +9531,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) OnboardDateLte(onboa
 	return builder
 }
 
-// 离职日期大于等于
+// 员工离职日期大于等于值
 //
 // 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) OffboardDateGte(offboardDateGte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9494,7 +9540,7 @@ func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) OffboardDateGte(offb
 	return builder
 }
 
-// 离职日期小于等于
+// 员工离职日期小于等于值
 //
 // 示例值：2023-04-01
 func (builder *QueryDetailLumpSumPaymentPathReqBodyBuilder) OffboardDateLte(offboardDateLte string) *QueryDetailLumpSumPaymentPathReqBodyBuilder {
@@ -9601,7 +9647,7 @@ func (builder *QueryDetailLumpSumPaymentReqBuilder) Limit(limit int) *QueryDetai
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBuilder) PageSize(pageSize int) *QueryDetailLumpSumPaymentReqBuilder {
@@ -9609,8 +9655,6 @@ func (builder *QueryDetailLumpSumPaymentReqBuilder) PageSize(pageSize int) *Quer
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *QueryDetailLumpSumPaymentReqBuilder) PageToken(pageToken string) *QueryDetailLumpSumPaymentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
@@ -9625,7 +9669,7 @@ func (builder *QueryDetailLumpSumPaymentReqBuilder) UserIdType(userIdType string
 	return builder
 }
 
-//
+// 根据筛选条件查询一次性授予明细
 func (builder *QueryDetailLumpSumPaymentReqBuilder) Body(body *QueryDetailLumpSumPaymentReqBody) *QueryDetailLumpSumPaymentReqBuilder {
 	builder.body = body
 	return builder
@@ -9641,53 +9685,53 @@ func (builder *QueryDetailLumpSumPaymentReqBuilder) Build() *QueryDetailLumpSumP
 }
 
 type QueryDetailLumpSumPaymentReqBody struct {
-	Ids []string `json:"ids,omitempty"` // id属于
+	Ids []string `json:"ids,omitempty"` // 一次性支付明细 id，可通过本接口获取
 
-	RecordIds []string `json:"record_ids,omitempty"` // 一次性支付记录id
+	RecordIds []string `json:"record_ids,omitempty"` // 一次性支付记录 id，可通过本接口获取
 
-	RecordUniqueIds []string `json:"record_unique_ids,omitempty"` // 一次性支付记录unique id
+	RecordUniqueIds []string `json:"record_unique_ids,omitempty"` // 一次性支付记录 unique_id，unique_id 在创建时由上游指定
 
 	IssuanceWays []string `json:"issuance_ways,omitempty"` // 发放方式
 
 	IssuanceStatuses []string `json:"issuance_statuses,omitempty"` // 发放状态
 
-	UserIds []string `json:"user_ids,omitempty"` // 员工id属于
+	UserIds []string `json:"user_ids,omitempty"` // 员工id，具体类型由入参中的 user_id_type 指定
 
-	ItemIds []string `json:"item_ids,omitempty"` // 薪酬项id属于
+	ItemIds []string `json:"item_ids,omitempty"` // 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 
-	IssuanceDateGte *string `json:"issuance_date_gte,omitempty"` // 发放时间大于等于
+	IssuanceDateGte *string `json:"issuance_date_gte,omitempty"` // 发放时间大于等于值
 
-	IssuanceDateLte *string `json:"issuance_date_lte,omitempty"` // 发放时间小于等于
+	IssuanceDateLte *string `json:"issuance_date_lte,omitempty"` // 发放时间小于等于值
 
-	CreateTimeGte *string `json:"create_time_gte,omitempty"` // 创建时间大于等于（东八区）
+	CreateTimeGte *string `json:"create_time_gte,omitempty"` // 创建时间大于等于值（东八区）
 
-	CreateTimeLte *string `json:"create_time_lte,omitempty"` // 创建时间小于等于（东八区）
+	CreateTimeLte *string `json:"create_time_lte,omitempty"` // 创建时间小于等于值（东八区）
 
-	ModifyTimeGte *string `json:"modify_time_gte,omitempty"` // 更新时间大于等于（东八区）
+	ModifyTimeGte *string `json:"modify_time_gte,omitempty"` // 更新时间大于等于值（东八区）
 
-	ModifyTimeLte *string `json:"modify_time_lte,omitempty"` // 更新时间小于等于（东八区）
+	ModifyTimeLte *string `json:"modify_time_lte,omitempty"` // 更新时间小于等于值（东八区）
 
-	CompanyIds []string `json:"company_ids,omitempty"` // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	CompanyIds []string `json:"company_ids,omitempty"` // 合同主体 id（通过[【查询合同主体】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 
-	ServiceCompanyIds []string `json:"service_company_ids,omitempty"` // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	ServiceCompanyIds []string `json:"service_company_ids,omitempty"` // 任职公司 id（通过[【查询任职公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 
-	DepartmentIds []string `json:"department_ids,omitempty"` // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+	DepartmentIds []string `json:"department_ids,omitempty"` // 部门 id（部门id仅支持people_corehr_department_id，通过[【查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口进行查询）
 
-	JobFamilyIds []string `json:"job_family_ids,omitempty"` // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+	JobFamilyIds []string `json:"job_family_ids,omitempty"` // 序列 id（通过 [【查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口进行查询）
 
-	JobLevelIds []string `json:"job_level_ids,omitempty"` // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+	JobLevelIds []string `json:"job_level_ids,omitempty"` // 职级 id（通过 [【查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口进行查询）
 
-	WorkLocationIds []string `json:"work_location_ids,omitempty"` // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+	WorkLocationIds []string `json:"work_location_ids,omitempty"` // 工作地点 id（通过 [【查询工作地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list) 接口进行查询）
 
-	EmployeeTypeIds []string `json:"employee_type_ids,omitempty"` // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+	EmployeeTypeIds []string `json:"employee_type_ids,omitempty"` // 员工类型 id（可通过 [【查询员工类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list) 接口进行查询）
 
-	OnboardDateGte *string `json:"onboard_date_gte,omitempty"` // 入职日期大于等于
+	OnboardDateGte *string `json:"onboard_date_gte,omitempty"` // 员工入职日期大于等于值
 
-	OnboardDateLte *string `json:"onboard_date_lte,omitempty"` // 入职日期小于等于
+	OnboardDateLte *string `json:"onboard_date_lte,omitempty"` // 员工入职日期小于等于值
 
-	OffboardDateGte *string `json:"offboard_date_gte,omitempty"` // 离职日期大于等于
+	OffboardDateGte *string `json:"offboard_date_gte,omitempty"` // 员工离职日期大于等于值
 
-	OffboardDateLte *string `json:"offboard_date_lte,omitempty"` // 离职日期小于等于
+	OffboardDateLte *string `json:"offboard_date_lte,omitempty"` // 员工离职日期小于等于值
 }
 
 type QueryDetailLumpSumPaymentReq struct {
@@ -9795,7 +9839,7 @@ func NewBatchCreateRecurringPaymentReqBodyBuilder() *BatchCreateRecurringPayment
 
 // 要创建的经常性支付记录
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateRecurringPaymentReqBodyBuilder) Records(records []*RecurringPaymentForCreate) *BatchCreateRecurringPaymentReqBodyBuilder {
 	builder.records = records
 	builder.recordsSet = true
@@ -9859,7 +9903,7 @@ func (builder *BatchCreateRecurringPaymentReqBuilder) UserIdType(userIdType stri
 	return builder
 }
 
-// 创建经常性支付记录
+// 根据传入的参数，校验并创建经常性支付记录，返回创建失败的原因或创建成功的数据ID
 func (builder *BatchCreateRecurringPaymentReqBuilder) Body(body *BatchCreateRecurringPaymentReqBody) *BatchCreateRecurringPaymentReqBuilder {
 	builder.body = body
 	return builder
@@ -9897,7 +9941,7 @@ func (resp *BatchCreateRecurringPaymentResp) Success() bool {
 }
 
 type BatchRemoveRecurringPaymentReqBodyBuilder struct {
-	recordIds    []string // 需要删除的记录ID
+	recordIds    []string // 需要删除的记录ID（通过[【查询经常性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/recurring_payment/query) 接口进行查询）
 	recordIdsSet bool
 
 	reason    string // 原因
@@ -9909,9 +9953,9 @@ func NewBatchRemoveRecurringPaymentReqBodyBuilder() *BatchRemoveRecurringPayment
 	return builder
 }
 
-// 需要删除的记录ID
+// 需要删除的记录ID（通过[【查询经常性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/recurring_payment/query) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *BatchRemoveRecurringPaymentReqBodyBuilder) RecordIds(recordIds []string) *BatchRemoveRecurringPaymentReqBodyBuilder {
 	builder.recordIds = recordIds
 	builder.recordIdsSet = true
@@ -9920,7 +9964,7 @@ func (builder *BatchRemoveRecurringPaymentReqBodyBuilder) RecordIds(recordIds []
 
 // 原因
 //
-//示例值：这是个删除原因
+// 示例值：删除错误创建的数据
 func (builder *BatchRemoveRecurringPaymentReqBodyBuilder) Reason(reason string) *BatchRemoveRecurringPaymentReqBodyBuilder {
 	builder.reason = reason
 	builder.reasonSet = true
@@ -9950,7 +9994,7 @@ func NewBatchRemoveRecurringPaymentPathReqBodyBuilder() *BatchRemoveRecurringPay
 	return builder
 }
 
-// 需要删除的记录ID
+// 需要删除的记录ID（通过[【查询经常性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/recurring_payment/query) 接口进行查询）
 //
 // 示例值：
 func (builder *BatchRemoveRecurringPaymentPathReqBodyBuilder) RecordIds(recordIds []string) *BatchRemoveRecurringPaymentPathReqBodyBuilder {
@@ -9961,7 +10005,7 @@ func (builder *BatchRemoveRecurringPaymentPathReqBodyBuilder) RecordIds(recordId
 
 // 原因
 //
-// 示例值：这是个删除原因
+// 示例值：删除错误创建的数据
 func (builder *BatchRemoveRecurringPaymentPathReqBodyBuilder) Reason(reason string) *BatchRemoveRecurringPaymentPathReqBodyBuilder {
 	builder.reason = reason
 	builder.reasonSet = true
@@ -9993,7 +10037,7 @@ func NewBatchRemoveRecurringPaymentReqBuilder() *BatchRemoveRecurringPaymentReqB
 	return builder
 }
 
-// 删除经常性支付记录
+// 指定经常性支付记录ID，删除ID对应的经常性支付记录
 func (builder *BatchRemoveRecurringPaymentReqBuilder) Body(body *BatchRemoveRecurringPaymentReqBody) *BatchRemoveRecurringPaymentReqBuilder {
 	builder.body = body
 	return builder
@@ -10007,7 +10051,7 @@ func (builder *BatchRemoveRecurringPaymentReqBuilder) Build() *BatchRemoveRecurr
 }
 
 type BatchRemoveRecurringPaymentReqBody struct {
-	RecordIds []string `json:"record_ids,omitempty"` // 需要删除的记录ID
+	RecordIds []string `json:"record_ids,omitempty"` // 需要删除的记录ID（通过[【查询经常性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/recurring_payment/query) 接口进行查询）
 
 	Reason *string `json:"reason,omitempty"` // 原因
 }
@@ -10043,7 +10087,7 @@ func NewBatchUpdateRecurringPaymentReqBodyBuilder() *BatchUpdateRecurringPayment
 
 // 需更正的经常性支付记录
 //
-//示例值：
+// 示例值：
 func (builder *BatchUpdateRecurringPaymentReqBodyBuilder) Records(records []*RecurringPaymentForUpdate) *BatchUpdateRecurringPaymentReqBodyBuilder {
 	builder.records = records
 	builder.recordsSet = true
@@ -10107,7 +10151,7 @@ func (builder *BatchUpdateRecurringPaymentReqBuilder) UserIdType(userIdType stri
 	return builder
 }
 
-// 更新经常性支付记录
+// 批量更正经常性支付记录
 func (builder *BatchUpdateRecurringPaymentReqBuilder) Body(body *BatchUpdateRecurringPaymentReqBody) *BatchUpdateRecurringPaymentReqBuilder {
 	builder.body = body
 	return builder
@@ -10145,16 +10189,16 @@ func (resp *BatchUpdateRecurringPaymentResp) Success() bool {
 }
 
 type QueryRecurringPaymentReqBodyBuilder struct {
-	ids    []string // id属于
+	ids    []string // 经常性支付记录id
 	idsSet bool
 
-	uniqueIds    []string // unique_id属于
+	uniqueIds    []string // 经常性支付记录 unique_id，unique_id 在创建时由上游指定
 	uniqueIdsSet bool
 
-	userIds    []string // 员工id属于
+	userIds    []string // 员工id，具体类型由入参中的 user_id_type 指定
 	userIdsSet bool
 
-	itemIds    []string // 薪酬项id属于
+	itemIds    []string // 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 	itemIdsSet bool
 
 	startDateGte    string // 发放开始日期大于等于
@@ -10181,25 +10225,25 @@ type QueryRecurringPaymentReqBodyBuilder struct {
 	modifyTimeLte    string // 更新时间小于等于（东八区）
 	modifyTimeLteSet bool
 
-	companyIds    []string // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	companyIds    []string // 合同主体id属于（可通过 [批量查询公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 	companyIdsSet bool
 
-	serviceCompanyIds    []string // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	serviceCompanyIds    []string // 任职公司 id（通过[【查询任职公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 	serviceCompanyIdsSet bool
 
-	departmentIds    []string // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+	departmentIds    []string // 部门 id（通过[【查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口进行查询）
 	departmentIdsSet bool
 
-	jobFamilyIds    []string // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+	jobFamilyIds    []string // 序列 id（通过 [【查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口进行查询）
 	jobFamilyIdsSet bool
 
-	jobLevelIds    []string // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+	jobLevelIds    []string // 职级 id（通过 [【查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口进行查询）
 	jobLevelIdsSet bool
 
-	workLocationIds    []string // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+	workLocationIds    []string // 工作地点 id（通过 [【查询工作地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list) 接口进行查询）
 	workLocationIdsSet bool
 
-	employeeTypeIds    []string // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+	employeeTypeIds    []string // 员工类型 id（可通过 [【查询员工类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list) 接口进行查询）
 	employeeTypeIdsSet bool
 
 	onboardDateGte    string // 入职日期大于等于
@@ -10220,36 +10264,36 @@ func NewQueryRecurringPaymentReqBodyBuilder() *QueryRecurringPaymentReqBodyBuild
 	return builder
 }
 
-// id属于
+// 经常性支付记录id
 //
-//示例值：
+// 示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) Ids(ids []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.ids = ids
 	builder.idsSet = true
 	return builder
 }
 
-// unique_id属于
+// 经常性支付记录 unique_id，unique_id 在创建时由上游指定
 //
-//示例值：
+// 示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) UniqueIds(uniqueIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.uniqueIds = uniqueIds
 	builder.uniqueIdsSet = true
 	return builder
 }
 
-// 员工id属于
+// 员工id，具体类型由入参中的 user_id_type 指定
 //
-//示例值：
+// 示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) UserIds(userIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
 	return builder
 }
 
-// 薪酬项id属于
+// 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) ItemIds(itemIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.itemIds = itemIds
 	builder.itemIdsSet = true
@@ -10258,7 +10302,7 @@ func (builder *QueryRecurringPaymentReqBodyBuilder) ItemIds(itemIds []string) *Q
 
 // 发放开始日期大于等于
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) StartDateGte(startDateGte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.startDateGte = startDateGte
 	builder.startDateGteSet = true
@@ -10267,7 +10311,7 @@ func (builder *QueryRecurringPaymentReqBodyBuilder) StartDateGte(startDateGte st
 
 // 发放开始日期小于等于
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) StartDateLte(startDateLte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.startDateLte = startDateLte
 	builder.startDateLteSet = true
@@ -10276,7 +10320,7 @@ func (builder *QueryRecurringPaymentReqBodyBuilder) StartDateLte(startDateLte st
 
 // 发放结束日期大于等于
 //
-//示例值：2025-04-01
+// 示例值：2025-04-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) EndDateGte(endDateGte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.endDateGte = endDateGte
 	builder.endDateGteSet = true
@@ -10285,7 +10329,7 @@ func (builder *QueryRecurringPaymentReqBodyBuilder) EndDateGte(endDateGte string
 
 // 发放结束日期小于等于
 //
-//示例值：2025-08-01
+// 示例值：2025-08-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) EndDateLte(endDateLte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.endDateLte = endDateLte
 	builder.endDateLteSet = true
@@ -10294,7 +10338,7 @@ func (builder *QueryRecurringPaymentReqBodyBuilder) EndDateLte(endDateLte string
 
 // 创建时间大于等于（东八区）
 //
-//示例值：2023-04-01 12:34:56
+// 示例值：2023-04-01 12:34:56
 func (builder *QueryRecurringPaymentReqBodyBuilder) CreateTimeGte(createTimeGte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.createTimeGte = createTimeGte
 	builder.createTimeGteSet = true
@@ -10303,7 +10347,7 @@ func (builder *QueryRecurringPaymentReqBodyBuilder) CreateTimeGte(createTimeGte 
 
 // 创建时间小于等于（东八区）
 //
-//示例值：2023-04-01 12:34:56
+// 示例值：2023-04-01 12:34:56
 func (builder *QueryRecurringPaymentReqBodyBuilder) CreateTimeLte(createTimeLte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.createTimeLte = createTimeLte
 	builder.createTimeLteSet = true
@@ -10312,7 +10356,7 @@ func (builder *QueryRecurringPaymentReqBodyBuilder) CreateTimeLte(createTimeLte 
 
 // 更新时间大于等于（东八区）
 //
-//示例值：2023-04-01 12:34:56
+// 示例值：2023-04-01 12:34:56
 func (builder *QueryRecurringPaymentReqBodyBuilder) ModifyTimeGte(modifyTimeGte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.modifyTimeGte = modifyTimeGte
 	builder.modifyTimeGteSet = true
@@ -10321,70 +10365,70 @@ func (builder *QueryRecurringPaymentReqBodyBuilder) ModifyTimeGte(modifyTimeGte 
 
 // 更新时间小于等于（东八区）
 //
-//示例值：2023-04-01 12:34:56
+// 示例值：2023-04-01 12:34:56
 func (builder *QueryRecurringPaymentReqBodyBuilder) ModifyTimeLte(modifyTimeLte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.modifyTimeLte = modifyTimeLte
 	builder.modifyTimeLteSet = true
 	return builder
 }
 
-// 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+// 合同主体id属于（可通过 [批量查询公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) CompanyIds(companyIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.companyIds = companyIds
 	builder.companyIdsSet = true
 	return builder
 }
 
-// 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+// 任职公司 id（通过[【查询任职公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) ServiceCompanyIds(serviceCompanyIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.serviceCompanyIds = serviceCompanyIds
 	builder.serviceCompanyIdsSet = true
 	return builder
 }
 
-// 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+// 部门 id（通过[【查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsSet = true
 	return builder
 }
 
-// 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+// 序列 id（通过 [【查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.jobFamilyIds = jobFamilyIds
 	builder.jobFamilyIdsSet = true
 	return builder
 }
 
-// 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+// 职级 id（通过 [【查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) JobLevelIds(jobLevelIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.jobLevelIds = jobLevelIds
 	builder.jobLevelIdsSet = true
 	return builder
 }
 
-// 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+// 工作地点 id（通过 [【查询工作地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) WorkLocationIds(workLocationIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.workLocationIds = workLocationIds
 	builder.workLocationIdsSet = true
 	return builder
 }
 
-// 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+// 员工类型 id（可通过 [【查询员工类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list) 接口进行查询）
 //
-//示例值：
+// 示例值：
 func (builder *QueryRecurringPaymentReqBodyBuilder) EmployeeTypeIds(employeeTypeIds []string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.employeeTypeIds = employeeTypeIds
 	builder.employeeTypeIdsSet = true
@@ -10393,7 +10437,7 @@ func (builder *QueryRecurringPaymentReqBodyBuilder) EmployeeTypeIds(employeeType
 
 // 入职日期大于等于
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) OnboardDateGte(onboardDateGte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.onboardDateGte = onboardDateGte
 	builder.onboardDateGteSet = true
@@ -10402,7 +10446,7 @@ func (builder *QueryRecurringPaymentReqBodyBuilder) OnboardDateGte(onboardDateGt
 
 // 入职日期小于等于
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) OnboardDateLte(onboardDateLte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.onboardDateLte = onboardDateLte
 	builder.onboardDateLteSet = true
@@ -10411,7 +10455,7 @@ func (builder *QueryRecurringPaymentReqBodyBuilder) OnboardDateLte(onboardDateLt
 
 // 离职日期大于等于
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) OffboardDateGte(offboardDateGte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.offboardDateGte = offboardDateGte
 	builder.offboardDateGteSet = true
@@ -10420,7 +10464,7 @@ func (builder *QueryRecurringPaymentReqBodyBuilder) OffboardDateGte(offboardDate
 
 // 离职日期小于等于
 //
-//示例值：2023-04-01
+// 示例值：2023-04-01
 func (builder *QueryRecurringPaymentReqBodyBuilder) OffboardDateLte(offboardDateLte string) *QueryRecurringPaymentReqBodyBuilder {
 	builder.offboardDateLte = offboardDateLte
 	builder.offboardDateLteSet = true
@@ -10555,7 +10599,7 @@ func NewQueryRecurringPaymentPathReqBodyBuilder() *QueryRecurringPaymentPathReqB
 	return builder
 }
 
-// id属于
+// 经常性支付记录id
 //
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) Ids(ids []string) *QueryRecurringPaymentPathReqBodyBuilder {
@@ -10564,7 +10608,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) Ids(ids []string) *Query
 	return builder
 }
 
-// unique_id属于
+// 经常性支付记录 unique_id，unique_id 在创建时由上游指定
 //
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) UniqueIds(uniqueIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
@@ -10573,7 +10617,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) UniqueIds(uniqueIds []st
 	return builder
 }
 
-// 员工id属于
+// 员工id，具体类型由入参中的 user_id_type 指定
 //
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) UserIds(userIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
@@ -10582,7 +10626,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) UserIds(userIds []string
 	return builder
 }
 
-// 薪酬项id属于
+// 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) ItemIds(itemIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
@@ -10663,7 +10707,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) ModifyTimeLte(modifyTime
 	return builder
 }
 
-// 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+// 合同主体id属于（可通过 [批量查询公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) CompanyIds(companyIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
@@ -10672,7 +10716,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) CompanyIds(companyIds []
 	return builder
 }
 
-// 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+// 任职公司 id（通过[【查询任职公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) ServiceCompanyIds(serviceCompanyIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
@@ -10681,7 +10725,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) ServiceCompanyIds(servic
 	return builder
 }
 
-// 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+// 部门 id（通过[【查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口进行查询）
 //
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
@@ -10690,7 +10734,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) DepartmentIds(department
 	return builder
 }
 
-// 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+// 序列 id（通过 [【查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口进行查询）
 //
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
@@ -10699,7 +10743,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) JobFamilyIds(jobFamilyId
 	return builder
 }
 
-// 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+// 职级 id（通过 [【查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口进行查询）
 //
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) JobLevelIds(jobLevelIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
@@ -10708,7 +10752,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) JobLevelIds(jobLevelIds 
 	return builder
 }
 
-// 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+// 工作地点 id（通过 [【查询工作地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) WorkLocationIds(workLocationIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
@@ -10717,7 +10761,7 @@ func (builder *QueryRecurringPaymentPathReqBodyBuilder) WorkLocationIds(workLoca
 	return builder
 }
 
-// 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+// 员工类型 id（可通过 [【查询员工类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list) 接口进行查询）
 //
 // 示例值：
 func (builder *QueryRecurringPaymentPathReqBodyBuilder) EmployeeTypeIds(employeeTypeIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
@@ -10857,16 +10901,12 @@ func (builder *QueryRecurringPaymentReqBuilder) Limit(limit int) *QueryRecurring
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *QueryRecurringPaymentReqBuilder) PageSize(pageSize int) *QueryRecurringPaymentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *QueryRecurringPaymentReqBuilder) PageToken(pageToken string) *QueryRecurringPaymentReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
@@ -10881,7 +10921,7 @@ func (builder *QueryRecurringPaymentReqBuilder) UserIdType(userIdType string) *Q
 	return builder
 }
 
-// 查询经常性支付记录
+// 通过筛选条件，批量查询经常性支付记录
 func (builder *QueryRecurringPaymentReqBuilder) Body(body *QueryRecurringPaymentReqBody) *QueryRecurringPaymentReqBuilder {
 	builder.body = body
 	return builder
@@ -10897,13 +10937,13 @@ func (builder *QueryRecurringPaymentReqBuilder) Build() *QueryRecurringPaymentRe
 }
 
 type QueryRecurringPaymentReqBody struct {
-	Ids []string `json:"ids,omitempty"` // id属于
+	Ids []string `json:"ids,omitempty"` // 经常性支付记录id
 
-	UniqueIds []string `json:"unique_ids,omitempty"` // unique_id属于
+	UniqueIds []string `json:"unique_ids,omitempty"` // 经常性支付记录 unique_id，unique_id 在创建时由上游指定
 
-	UserIds []string `json:"user_ids,omitempty"` // 员工id属于
+	UserIds []string `json:"user_ids,omitempty"` // 员工id，具体类型由入参中的 user_id_type 指定
 
-	ItemIds []string `json:"item_ids,omitempty"` // 薪酬项id属于
+	ItemIds []string `json:"item_ids,omitempty"` // 薪酬项 id（通过[【查询薪酬项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)) 接口进行查询）
 
 	StartDateGte *string `json:"start_date_gte,omitempty"` // 发放开始日期大于等于
 
@@ -10921,19 +10961,19 @@ type QueryRecurringPaymentReqBody struct {
 
 	ModifyTimeLte *string `json:"modify_time_lte,omitempty"` // 更新时间小于等于（东八区）
 
-	CompanyIds []string `json:"company_ids,omitempty"` // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	CompanyIds []string `json:"company_ids,omitempty"` // 合同主体id属于（可通过 [批量查询公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 
-	ServiceCompanyIds []string `json:"service_company_ids,omitempty"` // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	ServiceCompanyIds []string `json:"service_company_ids,omitempty"` // 任职公司 id（通过[【查询任职公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 接口进行查询）
 
-	DepartmentIds []string `json:"department_ids,omitempty"` // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+	DepartmentIds []string `json:"department_ids,omitempty"` // 部门 id（通过[【查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口进行查询）
 
-	JobFamilyIds []string `json:"job_family_ids,omitempty"` // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+	JobFamilyIds []string `json:"job_family_ids,omitempty"` // 序列 id（通过 [【查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口进行查询）
 
-	JobLevelIds []string `json:"job_level_ids,omitempty"` // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+	JobLevelIds []string `json:"job_level_ids,omitempty"` // 职级 id（通过 [【查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口进行查询）
 
-	WorkLocationIds []string `json:"work_location_ids,omitempty"` // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+	WorkLocationIds []string `json:"work_location_ids,omitempty"` // 工作地点 id（通过 [【查询工作地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list) 接口进行查询）
 
-	EmployeeTypeIds []string `json:"employee_type_ids,omitempty"` // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+	EmployeeTypeIds []string `json:"employee_type_ids,omitempty"` // 员工类型 id（可通过 [【查询员工类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list) 接口进行查询）
 
 	OnboardDateGte *string `json:"onboard_date_gte,omitempty"` // 入职日期大于等于
 
@@ -10970,10 +11010,10 @@ func (resp *QueryRecurringPaymentResp) Success() bool {
 }
 
 type QuerySocialArchiveReqBodyBuilder struct {
-	userIdList    []string // lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+	userIdList    []string // 用户ID列表，与入参 user_id_type 类型一致，最少1个，最大200
 	userIdListSet bool
 
-	effectiveDate    string // 生效日志，查询在该日期生效的社保档案
+	effectiveDate    string // 生效日期，查询在该日期生效的社保档案，格式为 YYYY-mm-dd，长度为 10 字符
 	effectiveDateSet bool
 }
 
@@ -10982,18 +11022,18 @@ func NewQuerySocialArchiveReqBodyBuilder() *QuerySocialArchiveReqBodyBuilder {
 	return builder
 }
 
-// lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+// 用户ID列表，与入参 user_id_type 类型一致，最少1个，最大200
 //
-//示例值：
+// 示例值：
 func (builder *QuerySocialArchiveReqBodyBuilder) UserIdList(userIdList []string) *QuerySocialArchiveReqBodyBuilder {
 	builder.userIdList = userIdList
 	builder.userIdListSet = true
 	return builder
 }
 
-// 生效日志，查询在该日期生效的社保档案
+// 生效日期，查询在该日期生效的社保档案，格式为 YYYY-mm-dd，长度为 10 字符
 //
-//示例值：2024-01-01
+// 示例值：2024-01-01
 func (builder *QuerySocialArchiveReqBodyBuilder) EffectiveDate(effectiveDate string) *QuerySocialArchiveReqBodyBuilder {
 	builder.effectiveDate = effectiveDate
 	builder.effectiveDateSet = true
@@ -11023,7 +11063,7 @@ func NewQuerySocialArchivePathReqBodyBuilder() *QuerySocialArchivePathReqBodyBui
 	return builder
 }
 
-// lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+// 用户ID列表，与入参 user_id_type 类型一致，最少1个，最大200
 //
 // 示例值：
 func (builder *QuerySocialArchivePathReqBodyBuilder) UserIdList(userIdList []string) *QuerySocialArchivePathReqBodyBuilder {
@@ -11032,7 +11072,7 @@ func (builder *QuerySocialArchivePathReqBodyBuilder) UserIdList(userIdList []str
 	return builder
 }
 
-// 生效日志，查询在该日期生效的社保档案
+// 生效日期，查询在该日期生效的社保档案，格式为 YYYY-mm-dd，长度为 10 字符
 //
 // 示例值：2024-01-01
 func (builder *QuerySocialArchivePathReqBodyBuilder) EffectiveDate(effectiveDate string) *QuerySocialArchivePathReqBodyBuilder {
@@ -11074,7 +11114,7 @@ func (builder *QuerySocialArchiveReqBuilder) UserIdType(userIdType string) *Quer
 	return builder
 }
 
-// 通过员工ID和生效时间查询参保档案
+// 通过用户ID列表和生效日期查询
 func (builder *QuerySocialArchiveReqBuilder) Body(body *QuerySocialArchiveReqBody) *QuerySocialArchiveReqBuilder {
 	builder.body = body
 	return builder
@@ -11089,9 +11129,9 @@ func (builder *QuerySocialArchiveReqBuilder) Build() *QuerySocialArchiveReq {
 }
 
 type QuerySocialArchiveReqBody struct {
-	UserIdList []string `json:"user_id_list,omitempty"` // lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+	UserIdList []string `json:"user_id_list,omitempty"` // 用户ID列表，与入参 user_id_type 类型一致，最少1个，最大200
 
-	EffectiveDate *string `json:"effective_date,omitempty"` // 生效日志，查询在该日期生效的社保档案
+	EffectiveDate *string `json:"effective_date,omitempty"` // 生效日期，查询在该日期生效的社保档案，格式为 YYYY-mm-dd，长度为 10 字符
 }
 
 type QuerySocialArchiveReq struct {
@@ -11114,10 +11154,10 @@ func (resp *QuerySocialArchiveResp) Success() bool {
 }
 
 type QuerySocialArchiveAdjustRecordReqBodyBuilder struct {
-	userIdList    []string // lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+	userIdList    []string // 用户ID列表，与入参 user_id_type 类型一致。ID可通过接口[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取
 	userIdListSet bool
 
-	recordType    string // 增减员类型, increase: 增员; attrtion: 减员
+	recordType    string // 增减员类型, increase: 增员; attrition: 减员
 	recordTypeSet bool
 }
 
@@ -11126,18 +11166,18 @@ func NewQuerySocialArchiveAdjustRecordReqBodyBuilder() *QuerySocialArchiveAdjust
 	return builder
 }
 
-// lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+// 用户ID列表，与入参 user_id_type 类型一致。ID可通过接口[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取
 //
-//示例值：
+// 示例值：
 func (builder *QuerySocialArchiveAdjustRecordReqBodyBuilder) UserIdList(userIdList []string) *QuerySocialArchiveAdjustRecordReqBodyBuilder {
 	builder.userIdList = userIdList
 	builder.userIdListSet = true
 	return builder
 }
 
-// 增减员类型, increase: 增员; attrtion: 减员
+// 增减员类型, increase: 增员; attrition: 减员
 //
-//示例值：increase
+// 示例值：increase
 func (builder *QuerySocialArchiveAdjustRecordReqBodyBuilder) RecordType(recordType string) *QuerySocialArchiveAdjustRecordReqBodyBuilder {
 	builder.recordType = recordType
 	builder.recordTypeSet = true
@@ -11167,7 +11207,7 @@ func NewQuerySocialArchiveAdjustRecordPathReqBodyBuilder() *QuerySocialArchiveAd
 	return builder
 }
 
-// lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+// 用户ID列表，与入参 user_id_type 类型一致。ID可通过接口[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取
 //
 // 示例值：
 func (builder *QuerySocialArchiveAdjustRecordPathReqBodyBuilder) UserIdList(userIdList []string) *QuerySocialArchiveAdjustRecordPathReqBodyBuilder {
@@ -11176,7 +11216,7 @@ func (builder *QuerySocialArchiveAdjustRecordPathReqBodyBuilder) UserIdList(user
 	return builder
 }
 
-// 增减员类型, increase: 增员; attrtion: 减员
+// 增减员类型, increase: 增员; attrition: 减员
 //
 // 示例值：increase
 func (builder *QuerySocialArchiveAdjustRecordPathReqBodyBuilder) RecordType(recordType string) *QuerySocialArchiveAdjustRecordPathReqBodyBuilder {
@@ -11218,7 +11258,7 @@ func (builder *QuerySocialArchiveAdjustRecordReqBuilder) UserIdType(userIdType s
 	return builder
 }
 
-// 根据员工ID查询待增员、待减员记录
+// 通过员工ID批量获取社保增减员记录;
 func (builder *QuerySocialArchiveAdjustRecordReqBuilder) Body(body *QuerySocialArchiveAdjustRecordReqBody) *QuerySocialArchiveAdjustRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -11233,9 +11273,9 @@ func (builder *QuerySocialArchiveAdjustRecordReqBuilder) Build() *QuerySocialArc
 }
 
 type QuerySocialArchiveAdjustRecordReqBody struct {
-	UserIdList []string `json:"user_id_list,omitempty"` // lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+	UserIdList []string `json:"user_id_list,omitempty"` // 用户ID列表，与入参 user_id_type 类型一致。ID可通过接口[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取
 
-	RecordType *string `json:"record_type,omitempty"` // 增减员类型, increase: 增员; attrtion: 减员
+	RecordType *string `json:"record_type,omitempty"` // 增减员类型, increase: 增员; attrition: 减员
 }
 
 type QuerySocialArchiveAdjustRecordReq struct {
@@ -11244,7 +11284,7 @@ type QuerySocialArchiveAdjustRecordReq struct {
 }
 
 type QuerySocialArchiveAdjustRecordRespData struct {
-	Records []*SocialArchiveAdjustRecord `json:"records,omitempty"` // 待增/减员记录
+	Records []*SocialArchiveAdjustRecord `json:"records,omitempty"` // 增/减员记录
 }
 
 type QuerySocialArchiveAdjustRecordResp struct {
@@ -11291,7 +11331,7 @@ func (builder *ListSocialPlanReqBuilder) Limit(limit int) *ListSocialPlanReqBuil
 	return builder
 }
 
-// 生效日期，查询在该日期生效的参保方案数据
+// 生效日期，查询在该日期生效的参保方案数据，格式为 YYYY-mm-dd，长度为 10 字符
 //
 // 示例值：2024-01-01
 func (builder *ListSocialPlanReqBuilder) EffectiveDate(effectiveDate string) *ListSocialPlanReqBuilder {
@@ -11317,7 +11357,7 @@ func (builder *ListSocialPlanReqBuilder) PageToken(pageToken string) *ListSocial
 
 // 社保方案/公积金方案
 //
-// 示例值：social_insuracne
+// 示例值：social_insurance
 func (builder *ListSocialPlanReqBuilder) InsuranceType(insuranceType string) *ListSocialPlanReqBuilder {
 	builder.apiReq.QueryParams.Set("insurance_type", fmt.Sprint(insuranceType))
 	return builder
@@ -11356,10 +11396,10 @@ func (resp *ListSocialPlanResp) Success() bool {
 }
 
 type QuerySocialPlanReqBodyBuilder struct {
-	planIds    []string // 参保方案ID列表，最大200
+	planIds    []string // 参保方案ID列表，最少1个，最大200，可以通过[通过员工ID批量获取社保增减员记录;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_archive_adjust_record/query)或[批量获取员工参保档案;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_archive/query)接口获取
 	planIdsSet bool
 
-	effectiveDate    string // 生效日期，查询在该日期生效的参保方案数据
+	effectiveDate    string // 生效日期，查询在该日期生效的参保方案数据，日期格式为：YYYY-mm-dd，长度为 10 字符
 	effectiveDateSet bool
 }
 
@@ -11368,18 +11408,18 @@ func NewQuerySocialPlanReqBodyBuilder() *QuerySocialPlanReqBodyBuilder {
 	return builder
 }
 
-// 参保方案ID列表，最大200
+// 参保方案ID列表，最少1个，最大200，可以通过[通过员工ID批量获取社保增减员记录;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_archive_adjust_record/query)或[批量获取员工参保档案;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_archive/query)接口获取
 //
-//示例值：
+// 示例值：
 func (builder *QuerySocialPlanReqBodyBuilder) PlanIds(planIds []string) *QuerySocialPlanReqBodyBuilder {
 	builder.planIds = planIds
 	builder.planIdsSet = true
 	return builder
 }
 
-// 生效日期，查询在该日期生效的参保方案数据
+// 生效日期，查询在该日期生效的参保方案数据，日期格式为：YYYY-mm-dd，长度为 10 字符
 //
-//示例值：2024-01-01
+// 示例值：2024-01-01
 func (builder *QuerySocialPlanReqBodyBuilder) EffectiveDate(effectiveDate string) *QuerySocialPlanReqBodyBuilder {
 	builder.effectiveDate = effectiveDate
 	builder.effectiveDateSet = true
@@ -11409,7 +11449,7 @@ func NewQuerySocialPlanPathReqBodyBuilder() *QuerySocialPlanPathReqBodyBuilder {
 	return builder
 }
 
-// 参保方案ID列表，最大200
+// 参保方案ID列表，最少1个，最大200，可以通过[通过员工ID批量获取社保增减员记录;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_archive_adjust_record/query)或[批量获取员工参保档案;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_archive/query)接口获取
 //
 // 示例值：
 func (builder *QuerySocialPlanPathReqBodyBuilder) PlanIds(planIds []string) *QuerySocialPlanPathReqBodyBuilder {
@@ -11418,7 +11458,7 @@ func (builder *QuerySocialPlanPathReqBodyBuilder) PlanIds(planIds []string) *Que
 	return builder
 }
 
-// 生效日期，查询在该日期生效的参保方案数据
+// 生效日期，查询在该日期生效的参保方案数据，日期格式为：YYYY-mm-dd，长度为 10 字符
 //
 // 示例值：2024-01-01
 func (builder *QuerySocialPlanPathReqBodyBuilder) EffectiveDate(effectiveDate string) *QuerySocialPlanPathReqBodyBuilder {
@@ -11452,7 +11492,7 @@ func NewQuerySocialPlanReqBuilder() *QuerySocialPlanReqBuilder {
 	return builder
 }
 
-// 批量查询参保方案
+// 通过plan_ids列表和effective_date联合过滤数据库中的参保方案数据
 func (builder *QuerySocialPlanReqBuilder) Body(body *QuerySocialPlanReqBody) *QuerySocialPlanReqBuilder {
 	builder.body = body
 	return builder
@@ -11466,9 +11506,9 @@ func (builder *QuerySocialPlanReqBuilder) Build() *QuerySocialPlanReq {
 }
 
 type QuerySocialPlanReqBody struct {
-	PlanIds []string `json:"plan_ids,omitempty"` // 参保方案ID列表，最大200
+	PlanIds []string `json:"plan_ids,omitempty"` // 参保方案ID列表，最少1个，最大200，可以通过[通过员工ID批量获取社保增减员记录;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_archive_adjust_record/query)或[批量获取员工参保档案;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_archive/query)接口获取
 
-	EffectiveDate *string `json:"effective_date,omitempty"` // 生效日期，查询在该日期生效的参保方案数据
+	EffectiveDate *string `json:"effective_date,omitempty"` // 生效日期，查询在该日期生效的参保方案数据，日期格式为：YYYY-mm-dd，长度为 10 字符
 }
 
 type QuerySocialPlanReq struct {
@@ -11493,13 +11533,13 @@ func (resp *QuerySocialPlanResp) Success() bool {
 type P2ArchiveChangedV1Data struct {
 	OperateType *string `json:"operate_type,omitempty"` // 档案变更类型。add新增、modify更正、delete删除
 
-	EmploymentId *string `json:"employment_id,omitempty"` // 员工 ID。查询员工薪资档案时指定user_id_type为people_corehr_id来识别用户
+	EmploymentId *string `json:"employment_id,omitempty"` // 员工 ID。;- 调用[【批量查询员工薪资档案】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/archive/query)接口返回员工薪资档案，需指定user_id_type为people_corehr_id来识别用户
 
-	EffectiveDate *string `json:"effective_date,omitempty"` // 生效时间
+	EffectiveDate *string `json:"effective_date,omitempty"` // 生效时间;- 示例值："2022-05-10"
 
-	BeforeTid *string `json:"before_tid,omitempty"` // 调前档案时间轴版本TID。更正、删除场景下有值
+	BeforeTid *string `json:"before_tid,omitempty"` // 调前档案时间轴版本Tid。更正、删除场景下有值;- 调用[【批量查询员工薪资档案】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/archive/query)接口返回员工薪资档案
 
-	AfterTid *string `json:"after_tid,omitempty"` // 调后档案时间轴版本TID。新增、更正场景下有值
+	AfterTid *string `json:"after_tid,omitempty"` // 调后档案时间轴版本Tid。新增、更正场景下有值;- 调用[【批量查询员工薪资档案】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/archive/query)接口返回员工薪资档案
 }
 
 type P2ArchiveChangedV1 struct {

@@ -9,7 +9,7 @@ import (
 )
 
 type V1 struct {
-	Speech *speech // 语音识别
+	Speech *speech // speech
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -22,13 +22,13 @@ type speech struct {
 	config *larkcore.Config
 }
 
-// FileRecognize 语音文件识别 (ASR)
+// FileRecognize 识别语音文件 (ASR)
 //
-// - 语音文件识别接口，上传整段语音文件进行一次性识别。接口适合 60 秒以内音频识别
+// - 语音文件识别接口，上传整段语音文件进行一次性识别。接口适合 60 秒以内音频识别。
 //
-// - 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
+// - 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流。免费版不支持调用。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/speech_to_text-v1/speech/file_recognize
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=file_recognize&project=speech_to_text&resource=speech&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/speech_to_textv1/fileRecognize_speech.go
 func (s *speech) FileRecognize(ctx context.Context, req *FileRecognizeSpeechReq, options ...larkcore.RequestOptionFunc) (*FileRecognizeSpeechResp, error) {
@@ -50,13 +50,13 @@ func (s *speech) FileRecognize(ctx context.Context, req *FileRecognizeSpeechReq,
 	return resp, err
 }
 
-// StreamRecognize 语音流式识别 (ASR)
+// StreamRecognize 识别流式语音 (ASR)
 //
-// - 语音流式接口，将整个音频文件分片进行传入模型。能够实时返回数据。建议每个音频分片的大小为 100-200ms
+// - 语音流式接口，将整个音频文件分片进行传入模型。能够实时返回数据。建议每个音频分片的大小为 100-200ms。
 //
-// - 单租户限流：20 路（一个 stream_id 称为一路会话），同租户下的应用没有限流，共享本租户的 20路限流
+// - 全局租户总限流：20 路（一个 stream_id 称为一路会话）。免费版不支持调用。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/speech_to_text-v1/speech/stream_recognize
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=stream_recognize&project=speech_to_text&resource=speech&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/speech_to_textv1/streamRecognize_speech.go
 func (s *speech) StreamRecognize(ctx context.Context, req *StreamRecognizeSpeechReq, options ...larkcore.RequestOptionFunc) (*StreamRecognizeSpeechResp, error) {

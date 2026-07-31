@@ -107,9 +107,9 @@ type vehicleLicense struct {
 	config *larkcore.Config
 }
 
-// Recognize
+// Recognize 识别文件中的银行卡
 //
-// -
+// - 银行卡识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。;文件大小需要小于10M。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=bank_card&version=v1
 //
@@ -134,9 +134,11 @@ func (b *bankCard) Recognize(ctx context.Context, req *RecognizeBankCardReq, opt
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的名片
 //
-// -
+// - 名片识别接口，通过上传 JPG / PNG / PDF 等文件类型进行一次性的名片识别。接口适用于20MB以下的文件，适用于英文、日语的名片。
+//
+// - 单租户限流：10QPS，同租户下的应用没有限流，共享本租户的 10QPS 限流
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=business_card&version=v1
 //
@@ -161,9 +163,9 @@ func (b *businessCard) Recognize(ctx context.Context, req *RecognizeBusinessCard
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的营业执照
 //
-// -
+// - 营业执照识别接口，支持JPG/JPEG/PNG/BMP/PDF五种文件类型的一次性的识别。;文件大小需要小于10M。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=business_license&version=v1
 //
@@ -188,9 +190,9 @@ func (b *businessLicense) Recognize(ctx context.Context, req *RecognizeBusinessL
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的中国护照
 //
-// -
+// - 中国护照识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。;文件大小需要小于10M。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=chinese_passport&version=v1
 //
@@ -215,9 +217,11 @@ func (c *chinesePassport) Recognize(ctx context.Context, req *RecognizeChinesePa
 	return resp, err
 }
 
-// FieldExtraction
+// FieldExtraction 提取文件中的合同字段
 //
-// -
+// - 支持从doc、docx和pdf文件类型中提取合同字段。;文件大小需要小于10M。
+//
+// - 单租户限流：10QPS，同租户下的应用没有限流，共享本租户的 10QPS 限流
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=field_extraction&project=document_ai&resource=contract&version=v1
 //
@@ -242,9 +246,9 @@ func (c *contract) FieldExtraction(ctx context.Context, req *FieldExtractionCont
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的驾驶证
 //
-// -
+// - 驾驶证识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。;文件大小需要小于10M。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=driving_license&version=v1
 //
@@ -269,9 +273,9 @@ func (d *drivingLicense) Recognize(ctx context.Context, req *RecognizeDrivingLic
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的食品经营许可证
 //
-// -
+// - 食品经营许可证识别接口，支持JPG/JPEG/PNG/BMP/PDF五种文件类型的一次性的识别。;文件大小需要小于10M。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=food_manage_license&version=v1
 //
@@ -296,9 +300,9 @@ func (f *foodManageLicense) Recognize(ctx context.Context, req *RecognizeFoodMan
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的食品生产许可证
 //
-// -
+// - 食品生产许可证识别接口，支持JPG/JPEG/PNG/BMP/PDF五种文件类型的一次性的识别。;文件大小需要小于10M。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=food_produce_license&version=v1
 //
@@ -323,9 +327,11 @@ func (f *foodProduceLicense) Recognize(ctx context.Context, req *RecognizeFoodPr
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的健康证
 //
-// -
+// - 健康证识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。文件大小需要小于10M。
+//
+// - 单租户限流：10QPS，同租户下的应用没有限流，共享本租户的 10QPS 限流
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=health_certificate&version=v1
 //
@@ -350,9 +356,9 @@ func (h *healthCertificate) Recognize(ctx context.Context, req *RecognizeHealthC
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的港澳居民来往内地通行证
 //
-// -
+// - 港澳居民来往内地通行证识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。;文件大小需要小于10M。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=hkm_mainland_travel_permit&version=v1
 //
@@ -377,9 +383,9 @@ func (h *hkmMainlandTravelPermit) Recognize(ctx context.Context, req *RecognizeH
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的身份证
 //
-// -
+// - 身份证识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。;文件大小需要小于10M。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=id_card&version=v1
 //
@@ -404,9 +410,11 @@ func (i *idCard) Recognize(ctx context.Context, req *RecognizeIdCardReq, options
 	return resp, err
 }
 
-// Parse
+// Parse 识别文件中的简历信息
 //
-// -
+// - 简历信息解析接口，支持PDF/DOCX/PNG/JPG四种文件类型的一次性的识别。文件大小需要小于30M。
+//
+// - 单租户限流：10QPS，同租户下的应用没有限流，共享本租户的 10QPS 限流
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=parse&project=document_ai&resource=resume&version=v1
 //
@@ -431,9 +439,9 @@ func (r *resume) Parse(ctx context.Context, req *ParseResumeReq, options ...lark
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的出租车发票
 //
-// -
+// - 出租车发票识别接口，支持JPG/JPEG/PNG/PDF/OFD五种文件类型的一次性的识别。;文件大小需要小于10M。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=taxi_invoice&version=v1
 //
@@ -458,9 +466,9 @@ func (t *taxiInvoice) Recognize(ctx context.Context, req *RecognizeTaxiInvoiceRe
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的火车票
 //
-// -
+// - 火车票识别接口，支持JPG/JPEG/PNG/PDF/OFD五种文件类型的一次性的识别。;文件大小需要小于10M。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=train_invoice&version=v1
 //
@@ -485,9 +493,11 @@ func (t *trainInvoice) Recognize(ctx context.Context, req *RecognizeTrainInvoice
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的台湾居民来往大陆通行证
 //
-// -
+// - 台湾居民来往大陆通行证识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。;文件大小需要小于10M。
+//
+// - 单租户限流：10QPS，同租户下的应用没有限流，共享本租户的 10QPS 限流
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=tw_mainland_travel_permit&version=v1
 //
@@ -512,9 +522,9 @@ func (t *twMainlandTravelPermit) Recognize(ctx context.Context, req *RecognizeTw
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的增值税发票
 //
-// -
+// - 增值税发票识别接口，支持JPG/JPEG/PNG/PDF/BMP/OFD六种文件类型的一次性的识别。;文件大小需要小于10M。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=vat_invoice&version=v1
 //
@@ -539,9 +549,11 @@ func (v *vatInvoice) Recognize(ctx context.Context, req *RecognizeVatInvoiceReq,
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的机动车发票
 //
-// -
+// - 机动车发票识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。文件大小需要小于10M。
+//
+// - 单租户限流：10QPS，同租户下的应用没有限流，共享本租户的 10QPS 限流
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=vehicle_invoice&version=v1
 //
@@ -566,9 +578,9 @@ func (v *vehicleInvoice) Recognize(ctx context.Context, req *RecognizeVehicleInv
 	return resp, err
 }
 
-// Recognize
+// Recognize 识别文件中的行驶证
 //
-// -
+// - 行驶证识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。;文件大小需要小于10M。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recognize&project=document_ai&resource=vehicle_license&version=v1
 //

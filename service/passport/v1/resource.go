@@ -9,22 +9,53 @@ import (
 )
 
 type V1 struct {
-	Session *session // 登录态
+	Password *password // password
+	Session  *session  // session
 }
 
 func New(config *larkcore.Config) *V1 {
 	return &V1{
-		Session: &session{config: config},
+		Password: &password{config: config},
+		Session:  &session{config: config},
 	}
 }
 
+type password struct {
+	config *larkcore.Config
+}
 type session struct {
 	config *larkcore.Config
 }
 
-// Logout
+// Update 重置登录密码
 //
-// -
+// - 当用户忘记密码、密码已过期或账号存在安全风险时，管理员可以为用户重置密码。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=passport&resource=password&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/passportv1/update_password.go
+func (p *password) Update(ctx context.Context, req *UpdatePasswordReq, options ...larkcore.RequestOptionFunc) (*UpdatePasswordResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/passport/v1/password"
+	apiReq.HttpMethod = http.MethodPut
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdatePasswordResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Logout 退出登录
+//
+// - 该接口用于退出用户的登录态
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=logout&project=passport&resource=session&version=v1
 //
@@ -48,11 +79,11 @@ func (s *session) Logout(ctx context.Context, req *LogoutSessionReq, options ...
 	return resp, err
 }
 
-// Query 批量获取用户登录信息（脱敏）
+// Query 批量获取脱敏的用户登录信息
 //
-// - 该接口用于查询用户的登录信息
+// - 该接口用于查询用户的登录信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/passport-v1/session/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=passport&resource=session&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/passportv1/query_session.go
 func (s *session) Query(ctx context.Context, req *QuerySessionReq, options ...larkcore.RequestOptionFunc) (*QuerySessionResp, error) {

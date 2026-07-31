@@ -32,7 +32,7 @@ const (
 )
 
 const (
-	ReportTypeListCostAllocationReportDefault = 0 // 默认
+	ReportTypeListCostAllocationReportDefault = 0 // 默认，表示没有开通计提和实发功能时的报表类型，开通计提和实发之后，该类型报表将无法发布。
 	ReportTypeListCostAllocationReportAccrued = 1 // 计提
 	ReportTypeListCostAllocationReportPaid    = 2 // 实发
 
@@ -258,13 +258,13 @@ func (builder *CalculationActivityBuilder) Build() *CalculationActivity {
 }
 
 type Calendar struct {
-	Id *string `json:"id,omitempty"` // 唯一标识
+	Id *string `json:"id,omitempty"` // 算薪日历ID，详细信息通过[获取算薪日历期间信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/calendar_period/list)获取
 
 	Names []*I18nContent `json:"names,omitempty"` // 名称
 
-	Region *string `json:"region,omitempty"` // 国家地区ID
+	Region *string `json:"region,omitempty"` // 国家地区ID，详细信息通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获取；
 
-	WorkCalendar *string `json:"work_calendar,omitempty"` // 工作日历ID
+	WorkCalendar *string `json:"work_calendar,omitempty"` // 工作日历ID，详细信息通过[获取工作日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar)获取；
 
 	TimeZone *string `json:"time_zone,omitempty"` // 时区ID
 
@@ -272,7 +272,7 @@ type Calendar struct {
 
 	Status *int `json:"status,omitempty"` // 状态：1-启用，2-停用
 
-	CreatorId *string `json:"creator_id,omitempty"` // 创建者saas_user_id
+	CreatorId *string `json:"creator_id,omitempty"` // 创建者雇佣ID，详细信息通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取
 
 	CreateTime *string `json:"create_time,omitempty"` // 创建时间，格式：yyyy-MM-dd HH:mm:ss utc+8
 
@@ -282,16 +282,16 @@ type Calendar struct {
 }
 
 type CalendarBuilder struct {
-	id    string // 唯一标识
+	id    string // 算薪日历ID，详细信息通过[获取算薪日历期间信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/calendar_period/list)获取
 	idSet bool
 
 	names    []*I18nContent // 名称
 	namesSet bool
 
-	region    string // 国家地区ID
+	region    string // 国家地区ID，详细信息通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获取；
 	regionSet bool
 
-	workCalendar    string // 工作日历ID
+	workCalendar    string // 工作日历ID，详细信息通过[获取工作日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar)获取；
 	workCalendarSet bool
 
 	timeZone    string // 时区ID
@@ -303,7 +303,7 @@ type CalendarBuilder struct {
 	status    int // 状态：1-启用，2-停用
 	statusSet bool
 
-	creatorId    string // 创建者saas_user_id
+	creatorId    string // 创建者雇佣ID，详细信息通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取
 	creatorIdSet bool
 
 	createTime    string // 创建时间，格式：yyyy-MM-dd HH:mm:ss utc+8
@@ -321,7 +321,7 @@ func NewCalendarBuilder() *CalendarBuilder {
 	return builder
 }
 
-// 唯一标识
+// 算薪日历ID，详细信息通过[获取算薪日历期间信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/calendar_period/list)获取
 //
 // 示例值：6823630319749580302
 func (builder *CalendarBuilder) Id(id string) *CalendarBuilder {
@@ -339,7 +339,7 @@ func (builder *CalendarBuilder) Names(names []*I18nContent) *CalendarBuilder {
 	return builder
 }
 
-// 国家地区ID
+// 国家地区ID，详细信息通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获取；
 //
 // 示例值：6823630319749580302
 func (builder *CalendarBuilder) Region(region string) *CalendarBuilder {
@@ -348,7 +348,7 @@ func (builder *CalendarBuilder) Region(region string) *CalendarBuilder {
 	return builder
 }
 
-// 工作日历ID
+// 工作日历ID，详细信息通过[获取工作日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar)获取；
 //
 // 示例值：6823630319749580303
 func (builder *CalendarBuilder) WorkCalendar(workCalendar string) *CalendarBuilder {
@@ -384,7 +384,7 @@ func (builder *CalendarBuilder) Status(status int) *CalendarBuilder {
 	return builder
 }
 
-// 创建者saas_user_id
+// 创建者雇佣ID，详细信息通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取
 //
 // 示例值：6823630319749580303
 func (builder *CalendarBuilder) CreatorId(creatorId string) *CalendarBuilder {
@@ -518,17 +518,17 @@ func (builder *CalendarFailItemBuilder) Build() *CalendarFailItem {
 }
 
 type CalendarPeriod struct {
-	PeriodStartDate *string `json:"period_start_date,omitempty"` // 计薪周期开始日期
+	PeriodStartDate *string `json:"period_start_date,omitempty"` // 算薪周期开始日期
 
-	PeriodEndDate *string `json:"period_end_date,omitempty"` // 计薪周期结束日期
+	PeriodEndDate *string `json:"period_end_date,omitempty"` // 算薪周期结束日期
 
-	PeriodKey *string `json:"period_key,omitempty"` // 计薪周期key
+	PeriodKey *string `json:"period_key,omitempty"` // 算薪周期key
 
-	PeriodName *I18n `json:"period_name,omitempty"` // 计薪周期名称
+	PeriodName *I18n `json:"period_name,omitempty"` // 算薪周期名称
 
-	PayrollCycle *int `json:"payroll_cycle,omitempty"` // 计薪周期类型
+	PayrollCycle *int `json:"payroll_cycle,omitempty"` // 算薪周期类型
 
-	TimeZone *string `json:"time_zone,omitempty"` // 时区
+	TimeZone *string `json:"time_zone,omitempty"` // 时区，对应算薪日历的时区
 
 	PayDate *string `json:"pay_date,omitempty"` // 发放日期
 
@@ -548,22 +548,22 @@ type CalendarPeriod struct {
 }
 
 type CalendarPeriodBuilder struct {
-	periodStartDate    string // 计薪周期开始日期
+	periodStartDate    string // 算薪周期开始日期
 	periodStartDateSet bool
 
-	periodEndDate    string // 计薪周期结束日期
+	periodEndDate    string // 算薪周期结束日期
 	periodEndDateSet bool
 
-	periodKey    string // 计薪周期key
+	periodKey    string // 算薪周期key
 	periodKeySet bool
 
-	periodName    *I18n // 计薪周期名称
+	periodName    *I18n // 算薪周期名称
 	periodNameSet bool
 
-	payrollCycle    int // 计薪周期类型
+	payrollCycle    int // 算薪周期类型
 	payrollCycleSet bool
 
-	timeZone    string // 时区
+	timeZone    string // 时区，对应算薪日历的时区
 	timeZoneSet bool
 
 	payDate    string // 发放日期
@@ -596,7 +596,7 @@ func NewCalendarPeriodBuilder() *CalendarPeriodBuilder {
 	return builder
 }
 
-// 计薪周期开始日期
+// 算薪周期开始日期
 //
 // 示例值：2022-01-01
 func (builder *CalendarPeriodBuilder) PeriodStartDate(periodStartDate string) *CalendarPeriodBuilder {
@@ -605,7 +605,7 @@ func (builder *CalendarPeriodBuilder) PeriodStartDate(periodStartDate string) *C
 	return builder
 }
 
-// 计薪周期结束日期
+// 算薪周期结束日期
 //
 // 示例值：2022-01-01
 func (builder *CalendarPeriodBuilder) PeriodEndDate(periodEndDate string) *CalendarPeriodBuilder {
@@ -614,7 +614,7 @@ func (builder *CalendarPeriodBuilder) PeriodEndDate(periodEndDate string) *Calen
 	return builder
 }
 
-// 计薪周期key
+// 算薪周期key
 //
 // 示例值：2022-01
 func (builder *CalendarPeriodBuilder) PeriodKey(periodKey string) *CalendarPeriodBuilder {
@@ -623,7 +623,7 @@ func (builder *CalendarPeriodBuilder) PeriodKey(periodKey string) *CalendarPerio
 	return builder
 }
 
-// 计薪周期名称
+// 算薪周期名称
 //
 // 示例值：
 func (builder *CalendarPeriodBuilder) PeriodName(periodName *I18n) *CalendarPeriodBuilder {
@@ -632,7 +632,7 @@ func (builder *CalendarPeriodBuilder) PeriodName(periodName *I18n) *CalendarPeri
 	return builder
 }
 
-// 计薪周期类型
+// 算薪周期类型
 //
 // 示例值：1
 func (builder *CalendarPeriodBuilder) PayrollCycle(payrollCycle int) *CalendarPeriodBuilder {
@@ -641,7 +641,7 @@ func (builder *CalendarPeriodBuilder) PayrollCycle(payrollCycle int) *CalendarPe
 	return builder
 }
 
-// 时区
+// 时区，对应算薪日历的时区
 //
 // 示例值：(GMT+08:00) 中国标准时间 - 上海
 func (builder *CalendarPeriodBuilder) TimeZone(timeZone string) *CalendarPeriodBuilder {
@@ -688,7 +688,7 @@ func (builder *CalendarPeriodBuilder) TaxablePeriod(taxablePeriod string) *Calen
 
 // 是否手动修改过
 //
-// 示例值：
+// 示例值：false
 func (builder *CalendarPeriodBuilder) ManualModified(manualModified bool) *CalendarPeriodBuilder {
 	builder.manualModified = manualModified
 	builder.manualModifiedSet = true
@@ -1472,7 +1472,7 @@ type CollectionItem struct {
 
 	ItemId *string `json:"item_id,omitempty"` // 填报项ID
 
-	ItemName *I18n `json:"item_name,omitempty"` // 填报项名称
+	ItemName *I18n `json:"item_name,omitempty"` // 算薪周期名称
 
 	FieldType *int `json:"field_type,omitempty"` // 填报项类型，1-文本，2-金额，3-数值，4-百分比，5-日期，6-日期范围
 
@@ -1495,7 +1495,7 @@ type CollectionItemBuilder struct {
 	itemId    string // 填报项ID
 	itemIdSet bool
 
-	itemName    *I18n // 填报项名称
+	itemName    *I18n // 算薪周期名称
 	itemNameSet bool
 
 	fieldType    int // 填报项类型，1-文本，2-金额，3-数值，4-百分比，5-日期，6-日期范围
@@ -1546,7 +1546,7 @@ func (builder *CollectionItemBuilder) ItemId(itemId string) *CollectionItemBuild
 	return builder
 }
 
-// 填报项名称
+// 算薪周期名称
 //
 // 示例值：
 func (builder *CollectionItemBuilder) ItemName(itemName *I18n) *CollectionItemBuilder {
@@ -1747,7 +1747,7 @@ func (builder *CollectionItemValueBuilder) Build() *CollectionItemValue {
 type CollectionTemplate struct {
 	TemplateId *string `json:"template_id,omitempty"` // 填报模板ID
 
-	TemplateName *I18n `json:"template_name,omitempty"` // 填报模板名称
+	TemplateName *I18n `json:"template_name,omitempty"` // 算薪周期名称
 
 	VersionId *string `json:"version_id,omitempty"` // 填报模板版本ID（主键ID）
 
@@ -1768,7 +1768,7 @@ type CollectionTemplateBuilder struct {
 	templateId    string // 填报模板ID
 	templateIdSet bool
 
-	templateName    *I18n // 填报模板名称
+	templateName    *I18n // 算薪周期名称
 	templateNameSet bool
 
 	versionId    string // 填报模板版本ID（主键ID）
@@ -1807,7 +1807,7 @@ func (builder *CollectionTemplateBuilder) TemplateId(templateId string) *Collect
 	return builder
 }
 
-// 填报模板名称
+// 算薪周期名称
 //
 // 示例值：
 func (builder *CollectionTemplateBuilder) TemplateName(templateName *I18n) *CollectionTemplateBuilder {
@@ -1920,7 +1920,7 @@ func (builder *CollectionTemplateBuilder) Build() *CollectionTemplate {
 type CollectionTemplateSnapshot struct {
 	TemplateId *string `json:"template_id,omitempty"` // 填报模板ID
 
-	TemplateName *I18n `json:"template_name,omitempty"` // 填报模板名称
+	TemplateName *I18n `json:"template_name,omitempty"` // 算薪周期名称
 
 	TemplateVersionId *string `json:"template_version_id,omitempty"` // 填报模板版本ID（主键ID）
 
@@ -1933,7 +1933,7 @@ type CollectionTemplateSnapshotBuilder struct {
 	templateId    string // 填报模板ID
 	templateIdSet bool
 
-	templateName    *I18n // 填报模板名称
+	templateName    *I18n // 算薪周期名称
 	templateNameSet bool
 
 	templateVersionId    string // 填报模板版本ID（主键ID）
@@ -1960,7 +1960,7 @@ func (builder *CollectionTemplateSnapshotBuilder) TemplateId(templateId string) 
 	return builder
 }
 
-// 填报模板名称
+// 算薪周期名称
 //
 // 示例值：
 func (builder *CollectionTemplateSnapshotBuilder) TemplateName(templateName *I18n) *CollectionTemplateSnapshotBuilder {
@@ -2436,13 +2436,13 @@ func (builder *CostItemBuilder) Build() *CostItem {
 }
 
 type CostItemValue struct {
-	Id *string `json:"id,omitempty"` // 成本项ID
+	Id *string `json:"id,omitempty"` // 成本项ID。从[批量查询成本分摊方案](/ssl:%2FuAjLw4CM%2FukTMukTMukTM%2Fpayroll-v1%2Fcost_allocation_plan%2Flist)开放平台接口获取。
 
 	Value *string `json:"value,omitempty"` // 成本项值
 }
 
 type CostItemValueBuilder struct {
-	id    string // 成本项ID
+	id    string // 成本项ID。从[批量查询成本分摊方案](/ssl:%2FuAjLw4CM%2FukTMukTMukTM%2Fpayroll-v1%2Fcost_allocation_plan%2Flist)开放平台接口获取。
 	idSet bool
 
 	value    string // 成本项值
@@ -2454,7 +2454,7 @@ func NewCostItemValueBuilder() *CostItemValueBuilder {
 	return builder
 }
 
-// 成本项ID
+// 成本项ID。从[批量查询成本分摊方案](/ssl:%2FuAjLw4CM%2FukTMukTMukTM%2Fpayroll-v1%2Fcost_allocation_plan%2Flist)开放平台接口获取。
 //
 // 示例值：7433424967234601004
 func (builder *CostItemValueBuilder) Id(id string) *CostItemValueBuilder {
@@ -2546,7 +2546,7 @@ type DataSummaryDimension struct {
 
 	DimensionValueLookupInfo *DimensionValueLookupInfo `json:"dimension_value_lookup_info,omitempty"` // 维度引用对象的基础信息，当维度为引用类型字段才会有值，目前支持的引用对象类型见type
 
-	DimensionNames []*I18nContent `json:"dimension_names,omitempty"` // 维度名称，自定义维度使用
+	DimensionNames []*I18nContent `json:"dimension_names,omitempty"` // 维度名称，算薪项、自定义维度使用
 
 	DimensionTitles []*I18nContent `json:"dimension_titles,omitempty"` // 数据维度表头，自定义维度使用
 }
@@ -2567,7 +2567,7 @@ type DataSummaryDimensionBuilder struct {
 	dimensionValueLookupInfo    *DimensionValueLookupInfo // 维度引用对象的基础信息，当维度为引用类型字段才会有值，目前支持的引用对象类型见type
 	dimensionValueLookupInfoSet bool
 
-	dimensionNames    []*I18nContent // 维度名称，自定义维度使用
+	dimensionNames    []*I18nContent // 维度名称，算薪项、自定义维度使用
 	dimensionNamesSet bool
 
 	dimensionTitles    []*I18nContent // 数据维度表头，自定义维度使用
@@ -2624,7 +2624,7 @@ func (builder *DataSummaryDimensionBuilder) DimensionValueLookupInfo(dimensionVa
 	return builder
 }
 
-// 维度名称，自定义维度使用
+// 维度名称，算薪项、自定义维度使用
 //
 // 示例值：
 func (builder *DataSummaryDimensionBuilder) DimensionNames(dimensionNames []*I18nContent) *DataSummaryDimensionBuilder {
@@ -2682,7 +2682,7 @@ type Datasource struct {
 
 	I18nDescription []*I18nContent `json:"i18n_description,omitempty"` // 数据源描述
 
-	DataPeriodType *int `json:"data_period_type,omitempty"` // 数据期间类型（数据写入维度）
+	DataPeriodType *int `json:"data_period_type,omitempty"` // 数据写入维度
 }
 
 type DatasourceBuilder struct {
@@ -2701,7 +2701,7 @@ type DatasourceBuilder struct {
 	i18nDescription    []*I18nContent // 数据源描述
 	i18nDescriptionSet bool
 
-	dataPeriodType    int // 数据期间类型（数据写入维度）
+	dataPeriodType    int // 数据写入维度
 	dataPeriodTypeSet bool
 }
 
@@ -2755,7 +2755,7 @@ func (builder *DatasourceBuilder) I18nDescription(i18nDescription []*I18nContent
 	return builder
 }
 
-// 数据期间类型（数据写入维度）
+// 数据写入维度
 //
 // 示例值：
 func (builder *DatasourceBuilder) DataPeriodType(dataPeriodType int) *DatasourceBuilder {
@@ -2911,16 +2911,16 @@ func (builder *DatasourceFieldBuilder) Build() *DatasourceField {
 }
 
 type DatasourceRecord struct {
-	ActiveStatus *int `json:"active_status,omitempty"` // 记录的启停用状态
+	ActiveStatus *int `json:"active_status,omitempty"` // 记录的启停用状态。说明：数据记录被停用后，依旧可以被API保存、查询，但无法被算薪使用。
 
-	FieldValues []*DatasourceRecordField `json:"field_values,omitempty"` // 记录的字段值列表
+	FieldValues []*DatasourceRecordField `json:"field_values,omitempty"` // 需创建或者更新记录的具体字段值列表：;- 必传字段：; 根据记录的数据源的数据写入维度属性，有不同的必传字段：;1. 算薪期间维度。“payroll_period”、“employment_id”字段必传，payroll_period格式：“2024-01”。;2. 数据发生日期维度（灰度中）。“occur_day”、“employment_id”字段必传。occur_day格式：“2024-01-02”。;3. 自定义数据周期维度（灰度中）。“custom_start”、“custom_end”、“employment_id”字段必传。custom_start、custom_end格式：“2024-01-02”。;;employment_id为飞书人事中员工的基本信息id，可通过[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取;- 其他自定字段按照诉求可选传入，需保证写入的字段在配置中存在且启用。字段code不得重复传入，且字段的值需符合类型对应的约束。
 }
 
 type DatasourceRecordBuilder struct {
-	activeStatus    int // 记录的启停用状态
+	activeStatus    int // 记录的启停用状态。说明：数据记录被停用后，依旧可以被API保存、查询，但无法被算薪使用。
 	activeStatusSet bool
 
-	fieldValues    []*DatasourceRecordField // 记录的字段值列表
+	fieldValues    []*DatasourceRecordField // 需创建或者更新记录的具体字段值列表：;- 必传字段：; 根据记录的数据源的数据写入维度属性，有不同的必传字段：;1. 算薪期间维度。“payroll_period”、“employment_id”字段必传，payroll_period格式：“2024-01”。;2. 数据发生日期维度（灰度中）。“occur_day”、“employment_id”字段必传。occur_day格式：“2024-01-02”。;3. 自定义数据周期维度（灰度中）。“custom_start”、“custom_end”、“employment_id”字段必传。custom_start、custom_end格式：“2024-01-02”。;;employment_id为飞书人事中员工的基本信息id，可通过[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取;- 其他自定字段按照诉求可选传入，需保证写入的字段在配置中存在且启用。字段code不得重复传入，且字段的值需符合类型对应的约束。
 	fieldValuesSet bool
 }
 
@@ -2929,7 +2929,7 @@ func NewDatasourceRecordBuilder() *DatasourceRecordBuilder {
 	return builder
 }
 
-// 记录的启停用状态
+// 记录的启停用状态。说明：数据记录被停用后，依旧可以被API保存、查询，但无法被算薪使用。
 //
 // 示例值：1
 func (builder *DatasourceRecordBuilder) ActiveStatus(activeStatus int) *DatasourceRecordBuilder {
@@ -2938,7 +2938,7 @@ func (builder *DatasourceRecordBuilder) ActiveStatus(activeStatus int) *Datasour
 	return builder
 }
 
-// 记录的字段值列表
+// 需创建或者更新记录的具体字段值列表：;- 必传字段：; 根据记录的数据源的数据写入维度属性，有不同的必传字段：;1. 算薪期间维度。“payroll_period”、“employment_id”字段必传，payroll_period格式：“2024-01”。;2. 数据发生日期维度（灰度中）。“occur_day”、“employment_id”字段必传。occur_day格式：“2024-01-02”。;3. 自定义数据周期维度（灰度中）。“custom_start”、“custom_end”、“employment_id”字段必传。custom_start、custom_end格式：“2024-01-02”。;;employment_id为飞书人事中员工的基本信息id，可通过[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取;- 其他自定字段按照诉求可选传入，需保证写入的字段在配置中存在且启用。字段code不得重复传入，且字段的值需符合类型对应的约束。
 //
 // 示例值：
 func (builder *DatasourceRecordBuilder) FieldValues(fieldValues []*DatasourceRecordField) *DatasourceRecordBuilder {
@@ -2960,21 +2960,21 @@ func (builder *DatasourceRecordBuilder) Build() *DatasourceRecord {
 }
 
 type DatasourceRecordField struct {
-	FieldCode *string `json:"field_code,omitempty"` // 数据源字段编码
+	FieldCode *string `json:"field_code,omitempty"` // 数据源字段编码，请确保字段存在且是启用的。可从「查询外部数据源设置」API 或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取
 
-	Value *string `json:"value,omitempty"` // 字段值 通过string传输，确保字段的值符合协议。  - money：金额  eg: "12.23"  超过设定精度会被四舍五入，目前只支持人民币¥元 - number：数值 eg: "12.87" 超过设定精度会被四舍五入 - text：文本 eg: "我是一段文本"。文本字符个数不允许超过500，一条记录的文本总的字符个数不允许超过3000. - date：日期 yyyy-MM-dd  eg: "2024-05-09" - percentage：百分比 "10" 代表10%，最多保留两位小数，超过后四舍五入
+	Value *string `json:"value,omitempty"` // 字段值 通过string传输，值为API写入的值。
 
-	FieldType *int `json:"field_type,omitempty"` // 字段类型
+	FieldType *int `json:"field_type,omitempty"` // 字段类型。可从「查询外部数据源设置」API 或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取。;1. 金额;2. 数值;3. 文本;4. 日期;5. 百分比
 }
 
 type DatasourceRecordFieldBuilder struct {
-	fieldCode    string // 数据源字段编码
+	fieldCode    string // 数据源字段编码，请确保字段存在且是启用的。可从「查询外部数据源设置」API 或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取
 	fieldCodeSet bool
 
-	value    string // 字段值 通过string传输，确保字段的值符合协议。  - money：金额  eg: "12.23"  超过设定精度会被四舍五入，目前只支持人民币¥元 - number：数值 eg: "12.87" 超过设定精度会被四舍五入 - text：文本 eg: "我是一段文本"。文本字符个数不允许超过500，一条记录的文本总的字符个数不允许超过3000. - date：日期 yyyy-MM-dd  eg: "2024-05-09" - percentage：百分比 "10" 代表10%，最多保留两位小数，超过后四舍五入
+	value    string // 字段值 通过string传输，值为API写入的值。
 	valueSet bool
 
-	fieldType    int // 字段类型
+	fieldType    int // 字段类型。可从「查询外部数据源设置」API 或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取。;1. 金额;2. 数值;3. 文本;4. 日期;5. 百分比
 	fieldTypeSet bool
 }
 
@@ -2983,25 +2983,25 @@ func NewDatasourceRecordFieldBuilder() *DatasourceRecordFieldBuilder {
 	return builder
 }
 
-// 数据源字段编码
+// 数据源字段编码，请确保字段存在且是启用的。可从「查询外部数据源设置」API 或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取
 //
-// 示例值：test__c
+// 示例值：yache41_8680__c
 func (builder *DatasourceRecordFieldBuilder) FieldCode(fieldCode string) *DatasourceRecordFieldBuilder {
 	builder.fieldCode = fieldCode
 	builder.fieldCodeSet = true
 	return builder
 }
 
-// 字段值 通过string传输，确保字段的值符合协议。  - money：金额  eg: "12.23"  超过设定精度会被四舍五入，目前只支持人民币¥元 - number：数值 eg: "12.87" 超过设定精度会被四舍五入 - text：文本 eg: "我是一段文本"。文本字符个数不允许超过500，一条记录的文本总的字符个数不允许超过3000. - date：日期 yyyy-MM-dd  eg: "2024-05-09" - percentage：百分比 "10" 代表10%，最多保留两位小数，超过后四舍五入
+// 字段值 通过string传输，值为API写入的值。
 //
-// 示例值：123
+// 示例值：2024-12-01
 func (builder *DatasourceRecordFieldBuilder) Value(value string) *DatasourceRecordFieldBuilder {
 	builder.value = value
 	builder.valueSet = true
 	return builder
 }
 
-// 字段类型
+// 字段类型。可从「查询外部数据源设置」API 或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取。;1. 金额;2. 数值;3. 文本;4. 日期;5. 百分比
 //
 // 示例值：1
 func (builder *DatasourceRecordFieldBuilder) FieldType(fieldType int) *DatasourceRecordFieldBuilder {
@@ -3028,21 +3028,21 @@ func (builder *DatasourceRecordFieldBuilder) Build() *DatasourceRecordField {
 }
 
 type DatasourceRecordFieldFilter struct {
-	FieldCode *string `json:"field_code,omitempty"` // 查询条件的字段编码
+	FieldCode *string `json:"field_code,omitempty"` // 字段编码
 
-	FieldValues []string `json:"field_values,omitempty"` // 条件值列表
+	FieldValues []string `json:"field_values,omitempty"` // 包含的字段值列表。
 
-	Operator *int `json:"operator,omitempty"` // 查询操作符
+	Operator *int `json:"operator,omitempty"` // 查询操作符，不传默认为IsAnyOf 包含查询。
 }
 
 type DatasourceRecordFieldFilterBuilder struct {
-	fieldCode    string // 查询条件的字段编码
+	fieldCode    string // 字段编码
 	fieldCodeSet bool
 
-	fieldValues    []string // 条件值列表
+	fieldValues    []string // 包含的字段值列表。
 	fieldValuesSet bool
 
-	operator    int // 查询操作符
+	operator    int // 查询操作符，不传默认为IsAnyOf 包含查询。
 	operatorSet bool
 }
 
@@ -3051,16 +3051,16 @@ func NewDatasourceRecordFieldFilterBuilder() *DatasourceRecordFieldFilterBuilder
 	return builder
 }
 
-// 查询条件的字段编码
+// 字段编码
 //
-// 示例值：test__c
+// 示例值：employment_id
 func (builder *DatasourceRecordFieldFilterBuilder) FieldCode(fieldCode string) *DatasourceRecordFieldFilterBuilder {
 	builder.fieldCode = fieldCode
 	builder.fieldCodeSet = true
 	return builder
 }
 
-// 条件值列表
+// 包含的字段值列表。
 //
 // 示例值：
 func (builder *DatasourceRecordFieldFilterBuilder) FieldValues(fieldValues []string) *DatasourceRecordFieldFilterBuilder {
@@ -3069,7 +3069,7 @@ func (builder *DatasourceRecordFieldFilterBuilder) FieldValues(fieldValues []str
 	return builder
 }
 
-// 查询操作符
+// 查询操作符，不传默认为IsAnyOf 包含查询。
 //
 // 示例值：1
 func (builder *DatasourceRecordFieldFilterBuilder) Operator(operator int) *DatasourceRecordFieldFilterBuilder {
@@ -3113,8 +3113,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -3122,8 +3120,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -3212,18 +3208,18 @@ func (builder *DimensionBuilder) Build() *Dimension {
 }
 
 type DimensionValue struct {
-	ObjApiName *string `json:"obj_api_name,omitempty"` // 汇总维度对象标识
+	ObjApiName *string `json:"obj_api_name,omitempty"` // 汇总维度对象标识。从[批量查询成本分摊方案](/ssl:%2FuAjLw4CM%2FukTMukTMukTM%2Fpayroll-v1%2Fcost_allocation_plan%2Flist)开放平台接口获取。
 
-	ApiName *string `json:"api_name,omitempty"` // 汇总维度字段标识
+	ApiName *string `json:"api_name,omitempty"` // 汇总维度字段标识。从[批量查询成本分摊方案](/ssl:%2FuAjLw4CM%2FukTMukTMukTM%2Fpayroll-v1%2Fcost_allocation_plan%2Flist)开放平台接口获取。
 
 	Value *string `json:"value,omitempty"` // 汇总维度值
 }
 
 type DimensionValueBuilder struct {
-	objApiName    string // 汇总维度对象标识
+	objApiName    string // 汇总维度对象标识。从[批量查询成本分摊方案](/ssl:%2FuAjLw4CM%2FukTMukTMukTM%2Fpayroll-v1%2Fcost_allocation_plan%2Flist)开放平台接口获取。
 	objApiNameSet bool
 
-	apiName    string // 汇总维度字段标识
+	apiName    string // 汇总维度字段标识。从[批量查询成本分摊方案](/ssl:%2FuAjLw4CM%2FukTMukTMukTM%2Fpayroll-v1%2Fcost_allocation_plan%2Flist)开放平台接口获取。
 	apiNameSet bool
 
 	value    string // 汇总维度值
@@ -3235,7 +3231,7 @@ func NewDimensionValueBuilder() *DimensionValueBuilder {
 	return builder
 }
 
-// 汇总维度对象标识
+// 汇总维度对象标识。从[批量查询成本分摊方案](/ssl:%2FuAjLw4CM%2FukTMukTMukTM%2Fpayroll-v1%2Fcost_allocation_plan%2Flist)开放平台接口获取。
 //
 // 示例值：jobData
 func (builder *DimensionValueBuilder) ObjApiName(objApiName string) *DimensionValueBuilder {
@@ -3244,7 +3240,7 @@ func (builder *DimensionValueBuilder) ObjApiName(objApiName string) *DimensionVa
 	return builder
 }
 
-// 汇总维度字段标识
+// 汇总维度字段标识。从[批量查询成本分摊方案](/ssl:%2FuAjLw4CM%2FukTMukTMukTM%2Fpayroll-v1%2Fcost_allocation_plan%2Flist)开放平台接口获取。
 //
 // 示例值：company
 func (builder *DimensionValueBuilder) ApiName(apiName string) *DimensionValueBuilder {
@@ -3776,7 +3772,7 @@ func (builder *DonationsTaxDataBuilder) Build() *DonationsTaxData {
 type EmployeeInfo struct {
 	UserId *string `json:"user_id,omitempty"` // saas user id
 
-	Name *I18n `json:"name,omitempty"` // 姓名
+	Name *I18n `json:"name,omitempty"` // 算薪周期名称
 
 	EmployeeNumber *string `json:"employee_number,omitempty"` // 工号
 
@@ -3787,7 +3783,7 @@ type EmployeeInfoBuilder struct {
 	userId    string // saas user id
 	userIdSet bool
 
-	name    *I18n // 姓名
+	name    *I18n // 算薪周期名称
 	nameSet bool
 
 	employeeNumber    string // 工号
@@ -3804,14 +3800,14 @@ func NewEmployeeInfoBuilder() *EmployeeInfoBuilder {
 
 // saas user id
 //
-// 示例值：
+// 示例值：1
 func (builder *EmployeeInfoBuilder) UserId(userId string) *EmployeeInfoBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
 	return builder
 }
 
-// 姓名
+// 算薪周期名称
 //
 // 示例值：
 func (builder *EmployeeInfoBuilder) Name(name *I18n) *EmployeeInfoBuilder {
@@ -3911,14 +3907,14 @@ func (builder *EnumObjectBuilder) Build() *EnumObject {
 type FailInfo struct {
 	Idx *int `json:"idx,omitempty"` // 写入失败的数据行索引
 
-	ErrorCode *int `json:"error_code,omitempty"` // 写入失败的原因错误码
+	ErrorCode *int `json:"error_code,omitempty"` // 写入失败的原因错误码。;具体参考：;- 300000002 无员工薪资组操作权限;- 300000003 参数错误（如：成分方案id不存在）;- 310010203 成本分摊更正报表汇总维度不一致;- 310010291 成本分摊更正报表金额格式不正确;- 310010292 成本分摊更正报表维度名称重复，需要使用维度编码;- 310010294 成本分摊更正报表成本项不存在;- 310010295 成本分摊更正报表成本项不可更正;- 310010296 成本分摊更正报表员工无薪资组;- 310010224 成本分摊更正报表员工不在当前成本分摊报表中;- 310010225 成本分摊更正报表维度不存在
 }
 
 type FailInfoBuilder struct {
 	idx    int // 写入失败的数据行索引
 	idxSet bool
 
-	errorCode    int // 写入失败的原因错误码
+	errorCode    int // 写入失败的原因错误码。;具体参考：;- 300000002 无员工薪资组操作权限;- 300000003 参数错误（如：成分方案id不存在）;- 310010203 成本分摊更正报表汇总维度不一致;- 310010291 成本分摊更正报表金额格式不正确;- 310010292 成本分摊更正报表维度名称重复，需要使用维度编码;- 310010294 成本分摊更正报表成本项不存在;- 310010295 成本分摊更正报表成本项不可更正;- 310010296 成本分摊更正报表员工无薪资组;- 310010224 成本分摊更正报表员工不在当前成本分摊报表中;- 310010225 成本分摊更正报表维度不存在
 	errorCodeSet bool
 }
 
@@ -3936,7 +3932,7 @@ func (builder *FailInfoBuilder) Idx(idx int) *FailInfoBuilder {
 	return builder
 }
 
-// 写入失败的原因错误码
+// 写入失败的原因错误码。;具体参考：;- 300000002 无员工薪资组操作权限;- 300000003 参数错误（如：成分方案id不存在）;- 310010203 成本分摊更正报表汇总维度不一致;- 310010291 成本分摊更正报表金额格式不正确;- 310010292 成本分摊更正报表维度名称重复，需要使用维度编码;- 310010294 成本分摊更正报表成本项不存在;- 310010295 成本分摊更正报表成本项不可更正;- 310010296 成本分摊更正报表员工无薪资组;- 310010224 成本分摊更正报表员工不在当前成本分摊报表中;- 310010225 成本分摊更正报表维度不存在
 //
 // 示例值：0
 func (builder *FailInfoBuilder) ErrorCode(errorCode int) *FailInfoBuilder {
@@ -4013,7 +4009,7 @@ type I18nContent struct {
 
 	Value *string `json:"value,omitempty"` // 语种对应的值
 
-	Id *string `json:"id,omitempty"` // 名称对应的实体id
+	Id *string `json:"id,omitempty"` // 名称对应的实体id，该场景不返回，请忽略
 }
 
 type I18nContentBuilder struct {
@@ -4023,7 +4019,7 @@ type I18nContentBuilder struct {
 	value    string // 语种对应的值
 	valueSet bool
 
-	id    string // 名称对应的实体id
+	id    string // 名称对应的实体id，该场景不返回，请忽略
 	idSet bool
 }
 
@@ -4050,7 +4046,7 @@ func (builder *I18nContentBuilder) Value(value string) *I18nContentBuilder {
 	return builder
 }
 
-// 名称对应的实体id
+// 名称对应的实体id，该场景不返回，请忽略
 //
 // 示例值：723123123123123213
 func (builder *I18nContentBuilder) Id(id string) *I18nContentBuilder {
@@ -4233,7 +4229,7 @@ func (builder *IntRangeBuilder) Build() *IntRange {
 type PayGroup struct {
 	PayGroupId *string `json:"pay_group_id,omitempty"` // 薪资组ID
 
-	Name *I18n `json:"name,omitempty"` // 薪资组名称
+	Name *I18n `json:"name,omitempty"` // 算薪周期名称
 
 	Code *string `json:"code,omitempty"` // 薪资组编码
 
@@ -4248,7 +4244,7 @@ type PayGroupBuilder struct {
 	payGroupId    string // 薪资组ID
 	payGroupIdSet bool
 
-	name    *I18n // 薪资组名称
+	name    *I18n // 算薪周期名称
 	nameSet bool
 
 	code    string // 薪资组编码
@@ -4278,7 +4274,7 @@ func (builder *PayGroupBuilder) PayGroupId(payGroupId string) *PayGroupBuilder {
 	return builder
 }
 
-// 薪资组名称
+// 算薪周期名称
 //
 // 示例值：CHN - 审核
 func (builder *PayGroupBuilder) Name(name *I18n) *PayGroupBuilder {
@@ -4353,7 +4349,7 @@ func (builder *PayGroupBuilder) Build() *PayGroup {
 type Paygroup struct {
 	PayGroupId *string `json:"pay_group_id,omitempty"` // 薪资组ID
 
-	Name *I18n `json:"name,omitempty"` // 薪资组名称
+	Name *I18n `json:"name,omitempty"` // 算薪周期名称
 
 	Code *string `json:"code,omitempty"` // 薪资组编码
 
@@ -4368,7 +4364,7 @@ type PaygroupBuilder struct {
 	payGroupId    string // 薪资组ID
 	payGroupIdSet bool
 
-	name    *I18n // 薪资组名称
+	name    *I18n // 算薪周期名称
 	nameSet bool
 
 	code    string // 薪资组编码
@@ -4398,7 +4394,7 @@ func (builder *PaygroupBuilder) PayGroupId(payGroupId string) *PaygroupBuilder {
 	return builder
 }
 
-// 薪资组名称
+// 算薪周期名称
 //
 // 示例值：CHN - 审核
 func (builder *PaygroupBuilder) Name(name *I18n) *PaygroupBuilder {
@@ -5459,7 +5455,7 @@ func (builder *VerifDatasourceItemBuilder) Build() *VerifDatasourceItem {
 }
 
 type VerifFieldSourceConfig struct {
-	FormulaId *string `json:"formula_id,omitempty"` //  公式id
+	FormulaId *string `json:"formula_id,omitempty"` // 公式id
 
 	FormulaItemId *string `json:"formula_item_id,omitempty"` // 公式数据项id
 
@@ -5469,11 +5465,11 @@ type VerifFieldSourceConfig struct {
 
 	SourceAggregationType *int `json:"source_aggregation_type,omitempty"` // 多条数据时计算方式
 
-	RefType *int `json:"ref_type,omitempty"` //  引用类型
+	RefType *int `json:"ref_type,omitempty"` // 引用类型
 }
 
 type VerifFieldSourceConfigBuilder struct {
-	formulaId    string //  公式id
+	formulaId    string // 公式id
 	formulaIdSet bool
 
 	formulaItemId    string // 公式数据项id
@@ -5488,7 +5484,7 @@ type VerifFieldSourceConfigBuilder struct {
 	sourceAggregationType    int // 多条数据时计算方式
 	sourceAggregationTypeSet bool
 
-	refType    int //  引用类型
+	refType    int // 引用类型
 	refTypeSet bool
 }
 
@@ -5497,7 +5493,7 @@ func NewVerifFieldSourceConfigBuilder() *VerifFieldSourceConfigBuilder {
 	return builder
 }
 
-//  公式id
+// 公式id
 //
 // 示例值：1
 func (builder *VerifFieldSourceConfigBuilder) FormulaId(formulaId string) *VerifFieldSourceConfigBuilder {
@@ -5542,7 +5538,7 @@ func (builder *VerifFieldSourceConfigBuilder) SourceAggregationType(sourceAggreg
 	return builder
 }
 
-//  引用类型
+// 引用类型
 //
 // 示例值：1
 func (builder *VerifFieldSourceConfigBuilder) RefType(refType int) *VerifFieldSourceConfigBuilder {
@@ -7160,7 +7156,7 @@ func (builder *ListAcctItemReqBuilder) PageSize(pageSize int) *ListAcctItemReqBu
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：
+// 示例值：7169773973790425132
 func (builder *ListAcctItemReqBuilder) PageToken(pageToken string) *ListAcctItemReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -7227,7 +7223,7 @@ func (builder *ListCostAllocationDetailReqBuilder) PageToken(pageToken string) *
 	return builder
 }
 
-// 成本分摊方案ID
+// 成本分摊方案ID，通过[批量查询成本分摊方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/cost_allocation_plan/list)获取
 //
 // 示例值：72131231231231231
 func (builder *ListCostAllocationDetailReqBuilder) CostAllocationPlanId(costAllocationPlanId string) *ListCostAllocationDetailReqBuilder {
@@ -7235,7 +7231,7 @@ func (builder *ListCostAllocationDetailReqBuilder) CostAllocationPlanId(costAllo
 	return builder
 }
 
-// 期间
+// 期间，成本分摊报表对应的年月。长度为7个字符。
 //
 // 示例值：2024-06
 func (builder *ListCostAllocationDetailReqBuilder) PayPeriod(payPeriod string) *ListCostAllocationDetailReqBuilder {
@@ -7314,13 +7310,13 @@ func (builder *ListCostAllocationPlanReqBuilder) PageSize(pageSize int) *ListCos
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：6823630319749580302
+// 示例值：6823630319749592024
 func (builder *ListCostAllocationPlanReqBuilder) PageToken(pageToken string) *ListCostAllocationPlanReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 期间
+// 期间，生成成本分摊报表对应的年月。格式为 yyyy-MM
 //
 // 示例值：2023-11
 func (builder *ListCostAllocationPlanReqBuilder) PayPeriod(payPeriod string) *ListCostAllocationPlanReqBuilder {
@@ -7345,9 +7341,9 @@ type ListCostAllocationPlanReq struct {
 type ListCostAllocationPlanRespData struct {
 	Items []*CostAllocationPlan `json:"items,omitempty"` // 方案
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页开始
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多数据
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 }
 
 type ListCostAllocationPlanResp struct {
@@ -7383,13 +7379,13 @@ func (builder *ListCostAllocationReportReqBuilder) PageSize(pageSize int) *ListC
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：6823630319749580304
+// 示例值：6823630319749592415
 func (builder *ListCostAllocationReportReqBuilder) PageToken(pageToken string) *ListCostAllocationReportReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 成本分摊方案ID
+// 成本分摊方案ID，通过[批量查询成本分摊方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/cost_allocation_plan/list)获取
 //
 // 示例值：6823630319749580304
 func (builder *ListCostAllocationReportReqBuilder) CostAllocationPlanId(costAllocationPlanId string) *ListCostAllocationReportReqBuilder {
@@ -7397,7 +7393,7 @@ func (builder *ListCostAllocationReportReqBuilder) CostAllocationPlanId(costAllo
 	return builder
 }
 
-// 期间
+// 期间，成本分摊数据对应的年月，格式 为yyyy-MM
 //
 // 示例值：2023-11
 func (builder *ListCostAllocationReportReqBuilder) PayPeriod(payPeriod string) *ListCostAllocationReportReqBuilder {
@@ -7425,9 +7421,9 @@ type ListCostAllocationReportReq struct {
 }
 
 type ListCostAllocationReportRespData struct {
-	PayPeriod *string `json:"pay_period,omitempty"` // 期间
+	PayPeriod *string `json:"pay_period,omitempty"` // 期间，成本分摊报表对应的年月
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页开始
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
 	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多数据
 
@@ -7466,16 +7462,12 @@ func (builder *ListDatasourceReqBuilder) Limit(limit int) *ListDatasourceReqBuil
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ListDatasourceReqBuilder) PageSize(pageSize int) *ListDatasourceReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ListDatasourceReqBuilder) PageToken(pageToken string) *ListDatasourceReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
@@ -7515,13 +7507,13 @@ func (resp *ListDatasourceResp) Success() bool {
 }
 
 type QueryDatasourceRecordReqBodyBuilder struct {
-	sourceCode    string // 数据源编码
+	sourceCode    string // 数据源code
 	sourceCodeSet bool
 
-	selectedFields    []string // 指定查询的数据源字段。如不传，默认返回所有数据源字段
+	selectedFields    []string // 指定查询的数据源字段code。;1. 如不传入此字段，默认返回所有数据源字段;2. 如果传入，除了返回指定字段外，系统会默认返回emplyment_id、payroll_period字段的值。
 	selectedFieldsSet bool
 
-	fieldFilters    []*DatasourceRecordFieldFilter // 查询过滤器列表，多个过滤器之间为And关系。本期员工月维度汇总类型数据源，只支持employment_id、payroll_period fieldKey的查询，其中payroll_period必传
+	fieldFilters    []*DatasourceRecordFieldFilter // 查询条件列表，多个条件之间为And关系，支持的查询条件如下：;1. employment_id;- 非必传，最多传入100个，field_type=3（文本类型）。;- 该id为飞书人事中员工的基本信息id，可通过[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取.;- 查询操作符只支持IsAnyOf（包含）;2. 时间范围条件必传，根据数据源的不同数据写入维度，支持的时间范围查询条件如下：;- 算薪期间维度。payroll_period字段，格式：2024-01，; 查询方式：IsAnyOf操作符枚举需要查的月份，最多可查2个月。;- 数据发生日期维度（灰度中）。occur_day字段，格式2024-01-02，; 查询方式：通过InDateRange操作符查询（日期范围查询），occur_day的时间范围不允许超过90天，;- 自定义数据周期维度（灰度中）。custom_start、custom_end字段，格式：2024-01-02。查询方式：两者都必传，通过InDateRange操作符查询（日期范围查询），时间范围不允许超过90天。
 	fieldFiltersSet bool
 }
 
@@ -7530,27 +7522,27 @@ func NewQueryDatasourceRecordReqBodyBuilder() *QueryDatasourceRecordReqBodyBuild
 	return builder
 }
 
-// 数据源编码
+// 数据源code
 //
-//示例值：test__c
+// 示例值：test__c
 func (builder *QueryDatasourceRecordReqBodyBuilder) SourceCode(sourceCode string) *QueryDatasourceRecordReqBodyBuilder {
 	builder.sourceCode = sourceCode
 	builder.sourceCodeSet = true
 	return builder
 }
 
-// 指定查询的数据源字段。如不传，默认返回所有数据源字段
+// 指定查询的数据源字段code。;1. 如不传入此字段，默认返回所有数据源字段;2. 如果传入，除了返回指定字段外，系统会默认返回emplyment_id、payroll_period字段的值。
 //
-//示例值：
+// 示例值：
 func (builder *QueryDatasourceRecordReqBodyBuilder) SelectedFields(selectedFields []string) *QueryDatasourceRecordReqBodyBuilder {
 	builder.selectedFields = selectedFields
 	builder.selectedFieldsSet = true
 	return builder
 }
 
-// 查询过滤器列表，多个过滤器之间为And关系。本期员工月维度汇总类型数据源，只支持employment_id、payroll_period fieldKey的查询，其中payroll_period必传
+// 查询条件列表，多个条件之间为And关系，支持的查询条件如下：;1. employment_id;- 非必传，最多传入100个，field_type=3（文本类型）。;- 该id为飞书人事中员工的基本信息id，可通过[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取.;- 查询操作符只支持IsAnyOf（包含）;2. 时间范围条件必传，根据数据源的不同数据写入维度，支持的时间范围查询条件如下：;- 算薪期间维度。payroll_period字段，格式：2024-01，; 查询方式：IsAnyOf操作符枚举需要查的月份，最多可查2个月。;- 数据发生日期维度（灰度中）。occur_day字段，格式2024-01-02，; 查询方式：通过InDateRange操作符查询（日期范围查询），occur_day的时间范围不允许超过90天，;- 自定义数据周期维度（灰度中）。custom_start、custom_end字段，格式：2024-01-02。查询方式：两者都必传，通过InDateRange操作符查询（日期范围查询），时间范围不允许超过90天。
 //
-//示例值：
+// 示例值：
 func (builder *QueryDatasourceRecordReqBodyBuilder) FieldFilters(fieldFilters []*DatasourceRecordFieldFilter) *QueryDatasourceRecordReqBodyBuilder {
 	builder.fieldFilters = fieldFilters
 	builder.fieldFiltersSet = true
@@ -7585,7 +7577,7 @@ func NewQueryDatasourceRecordPathReqBodyBuilder() *QueryDatasourceRecordPathReqB
 	return builder
 }
 
-// 数据源编码
+// 数据源code
 //
 // 示例值：test__c
 func (builder *QueryDatasourceRecordPathReqBodyBuilder) SourceCode(sourceCode string) *QueryDatasourceRecordPathReqBodyBuilder {
@@ -7594,7 +7586,7 @@ func (builder *QueryDatasourceRecordPathReqBodyBuilder) SourceCode(sourceCode st
 	return builder
 }
 
-// 指定查询的数据源字段。如不传，默认返回所有数据源字段
+// 指定查询的数据源字段code。;1. 如不传入此字段，默认返回所有数据源字段;2. 如果传入，除了返回指定字段外，系统会默认返回emplyment_id、payroll_period字段的值。
 //
 // 示例值：
 func (builder *QueryDatasourceRecordPathReqBodyBuilder) SelectedFields(selectedFields []string) *QueryDatasourceRecordPathReqBodyBuilder {
@@ -7603,7 +7595,7 @@ func (builder *QueryDatasourceRecordPathReqBodyBuilder) SelectedFields(selectedF
 	return builder
 }
 
-// 查询过滤器列表，多个过滤器之间为And关系。本期员工月维度汇总类型数据源，只支持employment_id、payroll_period fieldKey的查询，其中payroll_period必传
+// 查询条件列表，多个条件之间为And关系，支持的查询条件如下：;1. employment_id;- 非必传，最多传入100个，field_type=3（文本类型）。;- 该id为飞书人事中员工的基本信息id，可通过[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取.;- 查询操作符只支持IsAnyOf（包含）;2. 时间范围条件必传，根据数据源的不同数据写入维度，支持的时间范围查询条件如下：;- 算薪期间维度。payroll_period字段，格式：2024-01，; 查询方式：IsAnyOf操作符枚举需要查的月份，最多可查2个月。;- 数据发生日期维度（灰度中）。occur_day字段，格式2024-01-02，; 查询方式：通过InDateRange操作符查询（日期范围查询），occur_day的时间范围不允许超过90天，;- 自定义数据周期维度（灰度中）。custom_start、custom_end字段，格式：2024-01-02。查询方式：两者都必传，通过InDateRange操作符查询（日期范围查询），时间范围不允许超过90天。
 //
 // 示例值：
 func (builder *QueryDatasourceRecordPathReqBodyBuilder) FieldFilters(fieldFilters []*DatasourceRecordFieldFilter) *QueryDatasourceRecordPathReqBodyBuilder {
@@ -7647,23 +7639,19 @@ func (builder *QueryDatasourceRecordReqBuilder) Limit(limit int) *QueryDatasourc
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *QueryDatasourceRecordReqBuilder) PageSize(pageSize int) *QueryDatasourceRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *QueryDatasourceRecordReqBuilder) PageToken(pageToken string) *QueryDatasourceRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 获取外部数据源记录
+// 1. 支持通过payroll_period（必传）、employment_id（可选）这两个预置字段，批量查询指定数据源下的数据记录列表。;2. 数据源配置信息可从[获取外部数据源配置信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/datasource/list)或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取
 func (builder *QueryDatasourceRecordReqBuilder) Body(body *QueryDatasourceRecordReqBody) *QueryDatasourceRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -7679,11 +7667,11 @@ func (builder *QueryDatasourceRecordReqBuilder) Build() *QueryDatasourceRecordRe
 }
 
 type QueryDatasourceRecordReqBody struct {
-	SourceCode *string `json:"source_code,omitempty"` // 数据源编码
+	SourceCode *string `json:"source_code,omitempty"` // 数据源code
 
-	SelectedFields []string `json:"selected_fields,omitempty"` // 指定查询的数据源字段。如不传，默认返回所有数据源字段
+	SelectedFields []string `json:"selected_fields,omitempty"` // 指定查询的数据源字段code。;1. 如不传入此字段，默认返回所有数据源字段;2. 如果传入，除了返回指定字段外，系统会默认返回emplyment_id、payroll_period字段的值。
 
-	FieldFilters []*DatasourceRecordFieldFilter `json:"field_filters,omitempty"` // 查询过滤器列表，多个过滤器之间为And关系。本期员工月维度汇总类型数据源，只支持employment_id、payroll_period fieldKey的查询，其中payroll_period必传
+	FieldFilters []*DatasourceRecordFieldFilter `json:"field_filters,omitempty"` // 查询条件列表，多个条件之间为And关系，支持的查询条件如下：;1. employment_id;- 非必传，最多传入100个，field_type=3（文本类型）。;- 该id为飞书人事中员工的基本信息id，可通过[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取.;- 查询操作符只支持IsAnyOf（包含）;2. 时间范围条件必传，根据数据源的不同数据写入维度，支持的时间范围查询条件如下：;- 算薪期间维度。payroll_period字段，格式：2024-01，; 查询方式：IsAnyOf操作符枚举需要查的月份，最多可查2个月。;- 数据发生日期维度（灰度中）。occur_day字段，格式2024-01-02，; 查询方式：通过InDateRange操作符查询（日期范围查询），occur_day的时间范围不允许超过90天，;- 自定义数据周期维度（灰度中）。custom_start、custom_end字段，格式：2024-01-02。查询方式：两者都必传，通过InDateRange操作符查询（日期范围查询），时间范围不允许超过90天。
 }
 
 type QueryDatasourceRecordReq struct {
@@ -7712,7 +7700,7 @@ func (resp *QueryDatasourceRecordResp) Success() bool {
 }
 
 type SaveDatasourceRecordReqBodyBuilder struct {
-	sourceCode    string // 数据源code
+	sourceCode    string // 数据源code。可从[获取外部数据源配置信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/datasource/list);或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取
 	sourceCodeSet bool
 
 	records    []*DatasourceRecord // 需保存的记录列表
@@ -7724,9 +7712,9 @@ func NewSaveDatasourceRecordReqBodyBuilder() *SaveDatasourceRecordReqBodyBuilder
 	return builder
 }
 
-// 数据源code
+// 数据源code。可从[获取外部数据源配置信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/datasource/list);或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取
 //
-//示例值：test__c
+// 示例值：test__c
 func (builder *SaveDatasourceRecordReqBodyBuilder) SourceCode(sourceCode string) *SaveDatasourceRecordReqBodyBuilder {
 	builder.sourceCode = sourceCode
 	builder.sourceCodeSet = true
@@ -7735,7 +7723,7 @@ func (builder *SaveDatasourceRecordReqBodyBuilder) SourceCode(sourceCode string)
 
 // 需保存的记录列表
 //
-//示例值：
+// 示例值：
 func (builder *SaveDatasourceRecordReqBodyBuilder) Records(records []*DatasourceRecord) *SaveDatasourceRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsSet = true
@@ -7765,7 +7753,7 @@ func NewSaveDatasourceRecordPathReqBodyBuilder() *SaveDatasourceRecordPathReqBod
 	return builder
 }
 
-// 数据源code
+// 数据源code。可从[获取外部数据源配置信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/datasource/list);或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取
 //
 // 示例值：test__c
 func (builder *SaveDatasourceRecordPathReqBodyBuilder) SourceCode(sourceCode string) *SaveDatasourceRecordPathReqBodyBuilder {
@@ -7808,7 +7796,7 @@ func NewSaveDatasourceRecordReqBuilder() *SaveDatasourceRecordReqBuilder {
 	return builder
 }
 
-// 外部数据记录批量保存接口
+// 参照数据源配置字段格式，批量保存（创建或更新）数据记录。;1. 记录的唯一标志通过业务主键判断（employment_id + payroll_period）;2. 若不存在数据记录，则本次保存会插入1条记录。;3. 若已存在数据记录，则本次保存会覆盖更新已有记录（只更新传入字段的值，未传入字段值不更新），如果传入的数据记录没有任何变化，则不更新。;4. 若更新或者插入成功，会返回产生数据变更的记录条数。
 func (builder *SaveDatasourceRecordReqBuilder) Body(body *SaveDatasourceRecordReqBody) *SaveDatasourceRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -7822,7 +7810,7 @@ func (builder *SaveDatasourceRecordReqBuilder) Build() *SaveDatasourceRecordReq 
 }
 
 type SaveDatasourceRecordReqBody struct {
-	SourceCode *string `json:"source_code,omitempty"` // 数据源code
+	SourceCode *string `json:"source_code,omitempty"` // 数据源code。可从[获取外部数据源配置信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/datasource/list);或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取
 
 	Records []*DatasourceRecord `json:"records,omitempty"` // 需保存的记录列表
 }
@@ -7833,7 +7821,7 @@ type SaveDatasourceRecordReq struct {
 }
 
 type SaveDatasourceRecordRespData struct {
-	AffectCounts *string `json:"affect_counts,omitempty"` // 更新的记录条数
+	AffectCounts *string `json:"affect_counts,omitempty"` // 变更的记录条数，变更包含新建或者更新记录两种操作。（该字段为数字类型）
 }
 
 type SaveDatasourceRecordResp struct {
@@ -7866,7 +7854,7 @@ func (builder *ListPaygroupReqBuilder) Limit(limit int) *ListPaygroupReqBuilder 
 	return builder
 }
 
-// 分页大小
+// 分页大小，默认值100
 //
 // 示例值：50
 func (builder *ListPaygroupReqBuilder) PageSize(pageSize int) *ListPaygroupReqBuilder {
@@ -7915,7 +7903,7 @@ func (resp *ListPaygroupResp) Success() bool {
 }
 
 type ArchivePaymentActivityReqBodyBuilder struct {
-	activityId    string // 发薪活动ID
+	activityId    string // 发薪活动ID，可通过[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)获取。
 	activityIdSet bool
 }
 
@@ -7924,9 +7912,9 @@ func NewArchivePaymentActivityReqBodyBuilder() *ArchivePaymentActivityReqBodyBui
 	return builder
 }
 
-// 发薪活动ID
+// 发薪活动ID，可通过[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)获取。
 //
-//示例值：111111
+// 示例值：7433255159377444875
 func (builder *ArchivePaymentActivityReqBodyBuilder) ActivityId(activityId string) *ArchivePaymentActivityReqBodyBuilder {
 	builder.activityId = activityId
 	builder.activityIdSet = true
@@ -7951,9 +7939,9 @@ func NewArchivePaymentActivityPathReqBodyBuilder() *ArchivePaymentActivityPathRe
 	return builder
 }
 
-// 发薪活动ID
+// 发薪活动ID，可通过[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)获取。
 //
-// 示例值：111111
+// 示例值：7433255159377444875
 func (builder *ArchivePaymentActivityPathReqBodyBuilder) ActivityId(activityId string) *ArchivePaymentActivityPathReqBodyBuilder {
 	builder.activityId = activityId
 	builder.activityIdSet = true
@@ -7982,7 +7970,7 @@ func NewArchivePaymentActivityReqBuilder() *ArchivePaymentActivityReqBuilder {
 	return builder
 }
 
-// 封存发薪活动
+// 根据发薪活动ID对发薪活动进行封存。注意：仅当发薪活动状态为审批通过时，方可进行封存。
 func (builder *ArchivePaymentActivityReqBuilder) Body(body *ArchivePaymentActivityReqBody) *ArchivePaymentActivityReqBuilder {
 	builder.body = body
 	return builder
@@ -7996,7 +7984,7 @@ func (builder *ArchivePaymentActivityReqBuilder) Build() *ArchivePaymentActivity
 }
 
 type ArchivePaymentActivityReqBody struct {
-	ActivityId *string `json:"activity_id,omitempty"` // 发薪活动ID
+	ActivityId *string `json:"activity_id,omitempty"` // 发薪活动ID，可通过[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)获取。
 }
 
 type ArchivePaymentActivityReq struct {
@@ -8057,7 +8045,7 @@ func (builder *ListPaymentActivityReqBuilder) PageSize(pageSize int) *ListPaymen
 	return builder
 }
 
-// 分页标记,第一次请求不填,表示从头开始遍 历;分页查询结果还有更多项时会同时返回新 的page_token,下次遍历可采用该 page_token获取查询结果
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：
 func (builder *ListPaymentActivityReqBuilder) PageToken(pageToken string) *ListPaymentActivityReqBuilder {
@@ -8065,7 +8053,7 @@ func (builder *ListPaymentActivityReqBuilder) PageToken(pageToken string) *ListP
 	return builder
 }
 
-// 发薪活动审批状态列表，其中：100-待确认发薪名单；150-待提交审批；200-审批中；300-审批被拒绝；350-审批被撤回；360-审批被撤销；375-审批通过；400-已封存。
+// 发薪活动审批状态列表，其中：;1. 100 - 待确认名单;2. 150 - 待提交审批;3. 200 - 审批中;4. 300 - 审批被拒绝;5. 350 - 审批被撤回;6. 360 - 审批被撤销;7. 375 - 审批通过;8. 400 - 已封存
 //
 // 示例值：
 func (builder *ListPaymentActivityReqBuilder) Statuses(statuses []int) *ListPaymentActivityReqBuilder {
@@ -8136,7 +8124,7 @@ func (builder *ListPaymentActivityDetailReqBuilder) PageSize(pageSize int) *List
 	return builder
 }
 
-// 发薪活动唯一标识
+// 发薪活动 ID，调用[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)接口后，可以从返回结果中获取到发薪活动 ID。
 //
 // 示例值：7202076988667019308
 func (builder *ListPaymentActivityDetailReqBuilder) ActivityId(activityId string) *ListPaymentActivityDetailReqBuilder {
@@ -8146,13 +8134,13 @@ func (builder *ListPaymentActivityDetailReqBuilder) ActivityId(activityId string
 
 // 是否需要查询算薪明细的分段信息，如果不传该参数或传 false ，那么只返回发薪活动明细数据；如果该参数传了 true，那么同时返回发薪明细对应的算薪明细分段数据。
 //
-// 示例值：
+// 示例值：false
 func (builder *ListPaymentActivityDetailReqBuilder) IncludeSegmentData(includeSegmentData bool) *ListPaymentActivityDetailReqBuilder {
 	builder.apiReq.QueryParams.Set("include_segment_data", fmt.Sprint(includeSegmentData))
 	return builder
 }
 
-// 算薪项 ID 列表。当前参数传空时，接口会返回发薪明细中所有的算薪项；当前参数不为空时，接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。
+// 算薪项 ID 列表，调用[批量查询算薪项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list)接口后，可以从返回结果中获取到算薪项 ID。;1. 当前参数传空时，接口会返回发薪明细中所有的算薪项；;2. 当前参数不为空时，接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。
 //
 // 示例值：
 func (builder *ListPaymentActivityDetailReqBuilder) AcctItemIds(acctItemIds []string) *ListPaymentActivityDetailReqBuilder {
@@ -8196,19 +8184,19 @@ type QueryPaymentDetailReqBodyBuilder struct {
 	pageSize    int // 每页大小，范围为：[1, 100]
 	pageSizeSet bool
 
-	acctItemIds    []string // 算薪项 ID 列表。当前参数传空时，接口会返回发薪明细中所有的算薪项；当前参数不为空时，接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。
+	acctItemIds    []string // 算薪项 ID 列表，调用[批量查询算薪项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list)接口后，可以从返回结果中获取到算薪项 ID。;1. 当前参数传空时，接口会返回发薪明细中所有的算薪项；;2. 当前参数不为空时，接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。
 	acctItemIdsSet bool
 
-	employeeIds    []string // 员工的飞书人事雇佣 ID 列表。
+	employeeIds    []string // 员工的飞书人事雇佣 ID 列表，__该参数为必填__，调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口后，可以从返回结果中获取到飞书人事雇佣 ID。;;注：调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口时，查询入参 user_id_type 应为 people_corehr_id。
 	employeeIdsSet bool
 
 	payPeriodStartDate    string // 发薪日开始时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。
 	payPeriodStartDateSet bool
 
-	payPeriodEndDate    string // 发薪日结束时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间，pay_period_start_date 不得晚于 pay_period_end_date ，且 [pay_period_start_date, pay_period_end_date] 最大间隔为 12 个月。
+	payPeriodEndDate    string // 发薪日结束时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。;1. pay_period_start_date 不得晚于 pay_period_end_date 。;2. [pay_period_start_date, pay_period_end_date] 最大间隔为 12 个月。
 	payPeriodEndDateSet bool
 
-	activityIds    []string // 发薪活动 ID 列表
+	activityIds    []string // 发薪活动 ID 列表，调用[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)接口后，可以从返回结果中获取到发薪活动 ID。
 	activityIdsSet bool
 
 	includeSegmentData    bool // 是否需要查询算薪明细的分段信息，如果不传该参数或传 false ，那么只返回发薪活动明细数据；如果该参数传了 true，那么同时返回发薪明细对应的算薪明细分段数据。
@@ -8222,7 +8210,7 @@ func NewQueryPaymentDetailReqBodyBuilder() *QueryPaymentDetailReqBodyBuilder {
 
 // 页码，第一页从 1 开始
 //
-//示例值：100
+// 示例值：100
 func (builder *QueryPaymentDetailReqBodyBuilder) PageIndex(pageIndex int) *QueryPaymentDetailReqBodyBuilder {
 	builder.pageIndex = pageIndex
 	builder.pageIndexSet = true
@@ -8231,25 +8219,25 @@ func (builder *QueryPaymentDetailReqBodyBuilder) PageIndex(pageIndex int) *Query
 
 // 每页大小，范围为：[1, 100]
 //
-//示例值：
+// 示例值：
 func (builder *QueryPaymentDetailReqBodyBuilder) PageSize(pageSize int) *QueryPaymentDetailReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeSet = true
 	return builder
 }
 
-// 算薪项 ID 列表。当前参数传空时，接口会返回发薪明细中所有的算薪项；当前参数不为空时，接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。
+// 算薪项 ID 列表，调用[批量查询算薪项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list)接口后，可以从返回结果中获取到算薪项 ID。;1. 当前参数传空时，接口会返回发薪明细中所有的算薪项；;2. 当前参数不为空时，接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。
 //
-//示例值：
+// 示例值：
 func (builder *QueryPaymentDetailReqBodyBuilder) AcctItemIds(acctItemIds []string) *QueryPaymentDetailReqBodyBuilder {
 	builder.acctItemIds = acctItemIds
 	builder.acctItemIdsSet = true
 	return builder
 }
 
-// 员工的飞书人事雇佣 ID 列表。
+// 员工的飞书人事雇佣 ID 列表，__该参数为必填__，调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口后，可以从返回结果中获取到飞书人事雇佣 ID。;;注：调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口时，查询入参 user_id_type 应为 people_corehr_id。
 //
-//示例值：
+// 示例值：
 func (builder *QueryPaymentDetailReqBodyBuilder) EmployeeIds(employeeIds []string) *QueryPaymentDetailReqBodyBuilder {
 	builder.employeeIds = employeeIds
 	builder.employeeIdsSet = true
@@ -8258,25 +8246,25 @@ func (builder *QueryPaymentDetailReqBodyBuilder) EmployeeIds(employeeIds []strin
 
 // 发薪日开始时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。
 //
-//示例值：2024-01-01
+// 示例值：2024-01-01
 func (builder *QueryPaymentDetailReqBodyBuilder) PayPeriodStartDate(payPeriodStartDate string) *QueryPaymentDetailReqBodyBuilder {
 	builder.payPeriodStartDate = payPeriodStartDate
 	builder.payPeriodStartDateSet = true
 	return builder
 }
 
-// 发薪日结束时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间，pay_period_start_date 不得晚于 pay_period_end_date ，且 [pay_period_start_date, pay_period_end_date] 最大间隔为 12 个月。
+// 发薪日结束时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。;1. pay_period_start_date 不得晚于 pay_period_end_date 。;2. [pay_period_start_date, pay_period_end_date] 最大间隔为 12 个月。
 //
-//示例值：2024-01-31
+// 示例值：2024-01-31
 func (builder *QueryPaymentDetailReqBodyBuilder) PayPeriodEndDate(payPeriodEndDate string) *QueryPaymentDetailReqBodyBuilder {
 	builder.payPeriodEndDate = payPeriodEndDate
 	builder.payPeriodEndDateSet = true
 	return builder
 }
 
-// 发薪活动 ID 列表
+// 发薪活动 ID 列表，调用[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)接口后，可以从返回结果中获取到发薪活动 ID。
 //
-//示例值：
+// 示例值：
 func (builder *QueryPaymentDetailReqBodyBuilder) ActivityIds(activityIds []string) *QueryPaymentDetailReqBodyBuilder {
 	builder.activityIds = activityIds
 	builder.activityIdsSet = true
@@ -8285,7 +8273,7 @@ func (builder *QueryPaymentDetailReqBodyBuilder) ActivityIds(activityIds []strin
 
 // 是否需要查询算薪明细的分段信息，如果不传该参数或传 false ，那么只返回发薪活动明细数据；如果该参数传了 true，那么同时返回发薪明细对应的算薪明细分段数据。
 //
-//示例值：
+// 示例值：false
 func (builder *QueryPaymentDetailReqBodyBuilder) IncludeSegmentData(includeSegmentData bool) *QueryPaymentDetailReqBodyBuilder {
 	builder.includeSegmentData = includeSegmentData
 	builder.includeSegmentDataSet = true
@@ -8363,7 +8351,7 @@ func (builder *QueryPaymentDetailPathReqBodyBuilder) PageSize(pageSize int) *Que
 	return builder
 }
 
-// 算薪项 ID 列表。当前参数传空时，接口会返回发薪明细中所有的算薪项；当前参数不为空时，接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。
+// 算薪项 ID 列表，调用[批量查询算薪项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list)接口后，可以从返回结果中获取到算薪项 ID。;1. 当前参数传空时，接口会返回发薪明细中所有的算薪项；;2. 当前参数不为空时，接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。
 //
 // 示例值：
 func (builder *QueryPaymentDetailPathReqBodyBuilder) AcctItemIds(acctItemIds []string) *QueryPaymentDetailPathReqBodyBuilder {
@@ -8372,7 +8360,7 @@ func (builder *QueryPaymentDetailPathReqBodyBuilder) AcctItemIds(acctItemIds []s
 	return builder
 }
 
-// 员工的飞书人事雇佣 ID 列表。
+// 员工的飞书人事雇佣 ID 列表，__该参数为必填__，调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口后，可以从返回结果中获取到飞书人事雇佣 ID。;;注：调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口时，查询入参 user_id_type 应为 people_corehr_id。
 //
 // 示例值：
 func (builder *QueryPaymentDetailPathReqBodyBuilder) EmployeeIds(employeeIds []string) *QueryPaymentDetailPathReqBodyBuilder {
@@ -8390,7 +8378,7 @@ func (builder *QueryPaymentDetailPathReqBodyBuilder) PayPeriodStartDate(payPerio
 	return builder
 }
 
-// 发薪日结束时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间，pay_period_start_date 不得晚于 pay_period_end_date ，且 [pay_period_start_date, pay_period_end_date] 最大间隔为 12 个月。
+// 发薪日结束时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。;1. pay_period_start_date 不得晚于 pay_period_end_date 。;2. [pay_period_start_date, pay_period_end_date] 最大间隔为 12 个月。
 //
 // 示例值：2024-01-31
 func (builder *QueryPaymentDetailPathReqBodyBuilder) PayPeriodEndDate(payPeriodEndDate string) *QueryPaymentDetailPathReqBodyBuilder {
@@ -8399,7 +8387,7 @@ func (builder *QueryPaymentDetailPathReqBodyBuilder) PayPeriodEndDate(payPeriodE
 	return builder
 }
 
-// 发薪活动 ID 列表
+// 发薪活动 ID 列表，调用[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)接口后，可以从返回结果中获取到发薪活动 ID。
 //
 // 示例值：
 func (builder *QueryPaymentDetailPathReqBodyBuilder) ActivityIds(activityIds []string) *QueryPaymentDetailPathReqBodyBuilder {
@@ -8410,7 +8398,7 @@ func (builder *QueryPaymentDetailPathReqBodyBuilder) ActivityIds(activityIds []s
 
 // 是否需要查询算薪明细的分段信息，如果不传该参数或传 false ，那么只返回发薪活动明细数据；如果该参数传了 true，那么同时返回发薪明细对应的算薪明细分段数据。
 //
-// 示例值：
+// 示例值：false
 func (builder *QueryPaymentDetailPathReqBodyBuilder) IncludeSegmentData(includeSegmentData bool) *QueryPaymentDetailPathReqBodyBuilder {
 	builder.includeSegmentData = includeSegmentData
 	builder.includeSegmentDataSet = true
@@ -8460,7 +8448,7 @@ func NewQueryPaymentDetailReqBuilder() *QueryPaymentDetailReqBuilder {
 	return builder
 }
 
-//
+// 根据 __发薪活动 ID 列表__ 、__发薪日起止时间__ 和 __飞书人事雇佣 ID 列表__ 分页查询发薪明细列表和关联的算薪明细分段数据。;;
 func (builder *QueryPaymentDetailReqBuilder) Body(body *QueryPaymentDetailReqBody) *QueryPaymentDetailReqBuilder {
 	builder.body = body
 	return builder
@@ -8478,15 +8466,15 @@ type QueryPaymentDetailReqBody struct {
 
 	PageSize *int `json:"page_size,omitempty"` // 每页大小，范围为：[1, 100]
 
-	AcctItemIds []string `json:"acct_item_ids,omitempty"` // 算薪项 ID 列表。当前参数传空时，接口会返回发薪明细中所有的算薪项；当前参数不为空时，接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。
+	AcctItemIds []string `json:"acct_item_ids,omitempty"` // 算薪项 ID 列表，调用[批量查询算薪项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list)接口后，可以从返回结果中获取到算薪项 ID。;1. 当前参数传空时，接口会返回发薪明细中所有的算薪项；;2. 当前参数不为空时，接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。
 
-	EmployeeIds []string `json:"employee_ids,omitempty"` // 员工的飞书人事雇佣 ID 列表。
+	EmployeeIds []string `json:"employee_ids,omitempty"` // 员工的飞书人事雇佣 ID 列表，__该参数为必填__，调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口后，可以从返回结果中获取到飞书人事雇佣 ID。;;注：调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口时，查询入参 user_id_type 应为 people_corehr_id。
 
 	PayPeriodStartDate *string `json:"pay_period_start_date,omitempty"` // 发薪日开始时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。
 
-	PayPeriodEndDate *string `json:"pay_period_end_date,omitempty"` // 发薪日结束时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间，pay_period_start_date 不得晚于 pay_period_end_date ，且 [pay_period_start_date, pay_period_end_date] 最大间隔为 12 个月。
+	PayPeriodEndDate *string `json:"pay_period_end_date,omitempty"` // 发薪日结束时间，格式：YYYY-MM-dd，[pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。;1. pay_period_start_date 不得晚于 pay_period_end_date 。;2. [pay_period_start_date, pay_period_end_date] 最大间隔为 12 个月。
 
-	ActivityIds []string `json:"activity_ids,omitempty"` // 发薪活动 ID 列表
+	ActivityIds []string `json:"activity_ids,omitempty"` // 发薪活动 ID 列表，调用[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)接口后，可以从返回结果中获取到发薪活动 ID。
 
 	IncludeSegmentData *bool `json:"include_segment_data,omitempty"` // 是否需要查询算薪明细的分段信息，如果不传该参数或传 false ，那么只返回发薪活动明细数据；如果该参数传了 true，那么同时返回发薪明细对应的算薪明细分段数据。
 }
@@ -8513,7 +8501,7 @@ func (resp *QueryPaymentDetailResp) Success() bool {
 }
 
 type P2PaymentActivityApprovedV1Data struct {
-	ActivityId *string `json:"activity_id,omitempty"` // 审批通过的发薪活动 ID
+	ActivityId *string `json:"activity_id,omitempty"` // 封存的发薪活动 ID
 }
 
 type P2PaymentActivityApprovedV1 struct {
@@ -8527,9 +8515,9 @@ func (m *P2PaymentActivityApprovedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2PaymentActivityStatusChangedV1Data struct {
-	ActivityId *string `json:"activity_id,omitempty"` // 发薪活动ID
+	ActivityId *string `json:"activity_id,omitempty"` // 发薪活动ID，详情可查看[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)
 
-	Status *int `json:"status,omitempty"` // 发薪活动状态，其中：400-已封存。
+	Status *int `json:"status,omitempty"` // 发薪活动变更类型;- 2：封存;- 3：取消封存;- 4：撤销审批;- 5：跳过审批;- 6：审批通过
 }
 
 type P2PaymentActivityStatusChangedV1 struct {

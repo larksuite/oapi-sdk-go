@@ -23,114 +23,114 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIGetChatAnnouncementUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIGetChatAnnouncementUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIGetChatAnnouncementUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeBatchUpdateChatAnnouncementBlockUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeBatchUpdateChatAnnouncementBlockUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeBatchUpdateChatAnnouncementBlockOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIBatchUpdateChatAnnouncementBlockUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIBatchUpdateChatAnnouncementBlockUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIBatchUpdateChatAnnouncementBlockUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetChatAnnouncementBlockUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetChatAnnouncementBlockUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetChatAnnouncementBlockOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIGetChatAnnouncementBlockUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIGetChatAnnouncementBlockUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIGetChatAnnouncementBlockUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeListChatAnnouncementBlockUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListChatAnnouncementBlockUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListChatAnnouncementBlockOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIListChatAnnouncementBlockUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIListChatAnnouncementBlockUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIListChatAnnouncementBlockUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateChatAnnouncementBlockChildrenUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateChatAnnouncementBlockChildrenUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateChatAnnouncementBlockChildrenOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPICreateChatAnnouncementBlockChildrenUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPICreateChatAnnouncementBlockChildrenUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPICreateChatAnnouncementBlockChildrenUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetChatAnnouncementBlockChildrenUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetChatAnnouncementBlockChildrenUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetChatAnnouncementBlockChildrenOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIGetChatAnnouncementBlockChildrenUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIGetChatAnnouncementBlockChildrenUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIGetChatAnnouncementBlockChildrenUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	ContentTypeMarkdown = "markdown" // Markdown 格式
-	ContentTypeHTML     = "html"     // HTML 格式
+	OpenAPIConvertContentToDocXBlocksContentTypeMarkdown = "markdown" // Markdown 格式
+	OpenAPIConvertContentToDocXBlocksContentTypeHTML     = "html"     // HTML 格式
 )
 
 const (
-	UserIdTypeConvertDocumentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeConvertDocumentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeConvertDocumentOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIConvertContentToDocXBlocksUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIConvertContentToDocXBlocksUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIConvertContentToDocXBlocksUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	LangZH = 0 // 中文
-	LangEN = 1 // 英文
-	LangJP = 2 // 日文
+	OpenAPIGetDocumentRawContentLangZH = 0 // 该用户的默认名称。如：@张敏
+	OpenAPIGetDocumentRawContentLangEN = 1 // 该用户的英文名称。如：@Min Zhang
+	OpenAPIGetDocumentRawContentLangJP = 2 // 暂不支持该枚举，使用时返回该用户的默认名称
 
 )
 
 const (
-	UserIdTypeBatchUpdateDocumentBlockUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeBatchUpdateDocumentBlockUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeBatchUpdateDocumentBlockOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIBatchUpdateBlockUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIBatchUpdateBlockUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIBatchUpdateBlockUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetDocumentBlockUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetDocumentBlockUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetDocumentBlockOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIGetBlockUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIGetBlockUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIGetBlockUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeListDocumentBlockUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListDocumentBlockUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListDocumentBlockOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIListBlockUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIListBlockUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIListBlockUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypePatchDocumentBlockUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchDocumentBlockUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchDocumentBlockOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIUpdateBlockUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIUpdateBlockUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIUpdateBlockUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateDocumentBlockChildrenUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateDocumentBlockChildrenUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateDocumentBlockChildrenOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPICreateBlockChildrenUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPICreateBlockChildrenUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPICreateBlockChildrenUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetDocumentBlockChildrenUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetDocumentBlockChildrenUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetDocumentBlockChildrenOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIListBlockChildrenUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIListBlockChildrenUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIListBlockChildrenUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateDocumentBlockDescendantUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateDocumentBlockDescendantUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateDocumentBlockDescendantOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPICreateBlockDescendantUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPICreateBlockDescendantUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPICreateBlockDescendantUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type AddOns struct {
-	ComponentId *string `json:"component_id,omitempty"` // 团队互动应用唯一ID
+	ComponentId *string `json:"component_id,omitempty"` // 文档小组件 ID。该 ID 可通过调用[创建 BlockEntity](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/create) 接口，并从响应体中的 block_id 中获取，创建时使用的 `block_type_id` 需要与 `component_type_id` 一致。
 
-	ComponentTypeId *string `json:"component_type_id,omitempty"` // 团队互动应用类型，比如问答互动"blk_636a0a6657db8001c8df5488"
+	ComponentTypeId *string `json:"component_type_id,omitempty"` // 文档小组件类型，比如问答互动"blk_636a0a6657db8001c8df5488"。该 ID 可在 [开发者后台](https://open.feishu.cn/app) > **应用详情页** > **应用能力** > **云文档小组件** > **BlockTypeID** 获取。
 
 	Record *string `json:"record,omitempty"` // 文档小组件内容数据，JSON 字符串
 }
 
 type AddOnsBuilder struct {
-	componentId    string // 团队互动应用唯一ID
+	componentId    string // 文档小组件 ID。该 ID 可通过调用[创建 BlockEntity](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/create) 接口，并从响应体中的 block_id 中获取，创建时使用的 `block_type_id` 需要与 `component_type_id` 一致。
 	componentIdSet bool
 
-	componentTypeId    string // 团队互动应用类型，比如问答互动"blk_636a0a6657db8001c8df5488"
+	componentTypeId    string // 文档小组件类型，比如问答互动"blk_636a0a6657db8001c8df5488"。该 ID 可在 [开发者后台](https://open.feishu.cn/app) > **应用详情页** > **应用能力** > **云文档小组件** > **BlockTypeID** 获取。
 	componentTypeIdSet bool
 
 	record    string // 文档小组件内容数据，JSON 字符串
@@ -142,7 +142,7 @@ func NewAddOnsBuilder() *AddOnsBuilder {
 	return builder
 }
 
-// 团队互动应用唯一ID
+// 文档小组件 ID。该 ID 可通过调用[创建 BlockEntity](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/create) 接口，并从响应体中的 block_id 中获取，创建时使用的 `block_type_id` 需要与 `component_type_id` 一致。
 //
 // 示例值：7056882725002051603
 func (builder *AddOnsBuilder) ComponentId(componentId string) *AddOnsBuilder {
@@ -151,7 +151,7 @@ func (builder *AddOnsBuilder) ComponentId(componentId string) *AddOnsBuilder {
 	return builder
 }
 
-// 团队互动应用类型，比如问答互动"blk_636a0a6657db8001c8df5488"
+// 文档小组件类型，比如问答互动"blk_636a0a6657db8001c8df5488"。该 ID 可在 [开发者后台](https://open.feishu.cn/app) > **应用详情页** > **应用能力** > **云文档小组件** > **BlockTypeID** 获取。
 //
 // 示例值：blk_636a0a6657db8001c8df5488
 func (builder *AddOnsBuilder) ComponentTypeId(componentTypeId string) *AddOnsBuilder {
@@ -500,15 +500,15 @@ func (builder *BitableBuilder) Build() *Bitable {
 }
 
 type Block struct {
-	BlockId *string `json:"block_id,omitempty"` // Block 唯一标识
+	BlockId *string `json:"block_id,omitempty"` // 子块的唯一标识。
 
-	ParentId *string `json:"parent_id,omitempty"` // block 的父亲 id
+	ParentId *string `json:"parent_id,omitempty"` // 子块的父块 ID
 
-	Children []string `json:"children,omitempty"` // block 的孩子 id 列表
+	Children []string `json:"children,omitempty"` // 子块的子块 ID 列表
 
-	BlockType *int `json:"block_type,omitempty"` // block 类型
+	BlockType *int `json:"block_type,omitempty"` // Block 类型
 
-	Page *Text `json:"page,omitempty"` // 文档 Block
+	Page *Text `json:"page,omitempty"` // 文档的根 Block，也称页面 Block
 
 	Text *Text `json:"text,omitempty"` // 文本 Block
 
@@ -550,9 +550,9 @@ type Block struct {
 
 	Diagram *Diagram `json:"diagram,omitempty"` // 流程图/UML Block
 
-	Divider *Divider `json:"divider,omitempty"` // 分割线 Block
+	Divider *Divider `json:"divider,omitempty"` // 分割线 Block。为空结构体，需传入 `{}` 创建分割线 Block。
 
-	File *File `json:"file,omitempty"` // 文件 Block
+	File *File `json:"file,omitempty"` // 文件 Block。了解如何在文档中插入文件，参考[文档常见问题-如何插入文件/附件](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq)。
 
 	Grid *Grid `json:"grid,omitempty"` // 分栏 Block
 
@@ -560,7 +560,7 @@ type Block struct {
 
 	Iframe *Iframe `json:"iframe,omitempty"` // 内嵌 Block
 
-	Image *Image `json:"image,omitempty"` // 图片 Block
+	Image *Image `json:"image,omitempty"` // 图片 Block。了解如何在文档中插入图片，参考[文档常见问题-如何插入图片](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq)。
 
 	Isv *Isv `json:"isv,omitempty"` // 三方 Block
 
@@ -578,7 +578,7 @@ type Block struct {
 
 	Undefined *Undefined `json:"undefined,omitempty"` // 未支持 Block
 
-	QuoteContainer *QuoteContainer `json:"quote_container,omitempty"` // 引用容器 Block
+	QuoteContainer *QuoteContainer `json:"quote_container,omitempty"` // 引用容器 Block。为空结构体，需传入 `{}` 创建引用容器 Block。
 
 	Task *Task `json:"task,omitempty"` // 任务 Block
 
@@ -592,7 +592,7 @@ type Block struct {
 
 	CommentIds []string `json:"comment_ids,omitempty"` // 评论 id 列表
 
-	JiraIssue *JiraIssue `json:"jira_issue,omitempty"` // Jira Issue
+	JiraIssue *JiraIssue `json:"jira_issue,omitempty"` // Jira 问题
 
 	WikiCatalog *WikiCatalog `json:"wiki_catalog,omitempty"` // Wiki 子目录 Block
 
@@ -608,35 +608,43 @@ type Block struct {
 
 	LinkPreview *LinkPreview `json:"link_preview,omitempty"` // 链接预览 Block
 
-	SourceSynced *SourceSynced `json:"source_synced,omitempty"` // 源同步块
+	SourceSynced *SourceSynced `json:"source_synced,omitempty"` // 源同步块，仅支持查询
 
-	ReferenceSynced *ReferenceSynced `json:"reference_synced,omitempty"` // 引用同步块
+	ReferenceSynced *ReferenceSynced `json:"reference_synced,omitempty"` // 引用同步块，仅支持查询。获取引用同步块内容详见：[如何获取引用同步块的内容](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq#19b71234)
 
-	SubPageList *SubPageList `json:"sub_page_list,omitempty"` // 新版 Wiki 子目录 Block
+	SubPageList *SubPageList `json:"sub_page_list,omitempty"` // Wiki 新版子目录
 
-	AiTemplate *AiTemplate `json:"ai_template,omitempty"` // AI 模板 Block
+	AiTemplate *AiTemplate `json:"ai_template,omitempty"` // AI 模板 Block，仅支持查询
 
 	ReferenceBase *ReferenceBase `json:"reference_base,omitempty"` // 引用的多维表格
 
 	Project *Project `json:"project,omitempty"` // 飞书项目
 
 	MeetingNotesQa *MeetingNotesQa `json:"meeting_notes_qa,omitempty"` // 智能会议纪要 Block
+
+	VcTabs *VcTabs `json:"vc_tabs,omitempty"` // VC Tabs
+
+	VcSummaryTab *VcSummaryTab `json:"vc_summary_tab,omitempty"` // 纪要
+
+	VcTranscriptTab *VcTranscriptTab `json:"vc_transcript_tab,omitempty"` // 原始记录
+
+	Minutes *Minutes `json:"minutes,omitempty"` // 妙纪 Block
 }
 
 type BlockBuilder struct {
-	blockId    string // Block 唯一标识
+	blockId    string // 子块的唯一标识。
 	blockIdSet bool
 
-	parentId    string // block 的父亲 id
+	parentId    string // 子块的父块 ID
 	parentIdSet bool
 
-	children    []string // block 的孩子 id 列表
+	children    []string // 子块的子块 ID 列表
 	childrenSet bool
 
-	blockType    int // block 类型
+	blockType    int // Block 类型
 	blockTypeSet bool
 
-	page    *Text // 文档 Block
+	page    *Text // 文档的根 Block，也称页面 Block
 	pageSet bool
 
 	text    *Text // 文本 Block
@@ -699,10 +707,10 @@ type BlockBuilder struct {
 	diagram    *Diagram // 流程图/UML Block
 	diagramSet bool
 
-	divider    *Divider // 分割线 Block
+	divider    *Divider // 分割线 Block。为空结构体，需传入 `{}` 创建分割线 Block。
 	dividerSet bool
 
-	file    *File // 文件 Block
+	file    *File // 文件 Block。了解如何在文档中插入文件，参考[文档常见问题-如何插入文件/附件](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq)。
 	fileSet bool
 
 	grid    *Grid // 分栏 Block
@@ -714,7 +722,7 @@ type BlockBuilder struct {
 	iframe    *Iframe // 内嵌 Block
 	iframeSet bool
 
-	image    *Image // 图片 Block
+	image    *Image // 图片 Block。了解如何在文档中插入图片，参考[文档常见问题-如何插入图片](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq)。
 	imageSet bool
 
 	isv    *Isv // 三方 Block
@@ -741,7 +749,7 @@ type BlockBuilder struct {
 	undefined    *Undefined // 未支持 Block
 	undefinedSet bool
 
-	quoteContainer    *QuoteContainer // 引用容器 Block
+	quoteContainer    *QuoteContainer // 引用容器 Block。为空结构体，需传入 `{}` 创建引用容器 Block。
 	quoteContainerSet bool
 
 	task    *Task // 任务 Block
@@ -762,7 +770,7 @@ type BlockBuilder struct {
 	commentIds    []string // 评论 id 列表
 	commentIdsSet bool
 
-	jiraIssue    *JiraIssue // Jira Issue
+	jiraIssue    *JiraIssue // Jira 问题
 	jiraIssueSet bool
 
 	wikiCatalog    *WikiCatalog // Wiki 子目录 Block
@@ -786,16 +794,16 @@ type BlockBuilder struct {
 	linkPreview    *LinkPreview // 链接预览 Block
 	linkPreviewSet bool
 
-	sourceSynced    *SourceSynced // 源同步块
+	sourceSynced    *SourceSynced // 源同步块，仅支持查询
 	sourceSyncedSet bool
 
-	referenceSynced    *ReferenceSynced // 引用同步块
+	referenceSynced    *ReferenceSynced // 引用同步块，仅支持查询。获取引用同步块内容详见：[如何获取引用同步块的内容](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq#19b71234)
 	referenceSyncedSet bool
 
-	subPageList    *SubPageList // 新版 Wiki 子目录 Block
+	subPageList    *SubPageList // Wiki 新版子目录
 	subPageListSet bool
 
-	aiTemplate    *AiTemplate // AI 模板 Block
+	aiTemplate    *AiTemplate // AI 模板 Block，仅支持查询
 	aiTemplateSet bool
 
 	referenceBase    *ReferenceBase // 引用的多维表格
@@ -806,6 +814,18 @@ type BlockBuilder struct {
 
 	meetingNotesQa    *MeetingNotesQa // 智能会议纪要 Block
 	meetingNotesQaSet bool
+
+	vcTabs    *VcTabs // VC Tabs
+	vcTabsSet bool
+
+	vcSummaryTab    *VcSummaryTab // 纪要
+	vcSummaryTabSet bool
+
+	vcTranscriptTab    *VcTranscriptTab // 原始记录
+	vcTranscriptTabSet bool
+
+	minutes    *Minutes // 妙纪 Block
+	minutesSet bool
 }
 
 func NewBlockBuilder() *BlockBuilder {
@@ -813,7 +833,7 @@ func NewBlockBuilder() *BlockBuilder {
 	return builder
 }
 
-// Block 唯一标识
+// 子块的唯一标识。
 //
 // 示例值：doxcnSS4ouQkQEouGSUkTg9NJPe
 func (builder *BlockBuilder) BlockId(blockId string) *BlockBuilder {
@@ -822,7 +842,7 @@ func (builder *BlockBuilder) BlockId(blockId string) *BlockBuilder {
 	return builder
 }
 
-// block 的父亲 id
+// 子块的父块 ID
 //
 // 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
 func (builder *BlockBuilder) ParentId(parentId string) *BlockBuilder {
@@ -831,7 +851,7 @@ func (builder *BlockBuilder) ParentId(parentId string) *BlockBuilder {
 	return builder
 }
 
-// block 的孩子 id 列表
+// 子块的子块 ID 列表
 //
 // 示例值：[doxcnO6UW6wAw2qIcYf4hZpFIth]
 func (builder *BlockBuilder) Children(children []string) *BlockBuilder {
@@ -840,7 +860,7 @@ func (builder *BlockBuilder) Children(children []string) *BlockBuilder {
 	return builder
 }
 
-// block 类型
+// Block 类型
 //
 // 示例值：1
 func (builder *BlockBuilder) BlockType(blockType int) *BlockBuilder {
@@ -849,7 +869,7 @@ func (builder *BlockBuilder) BlockType(blockType int) *BlockBuilder {
 	return builder
 }
 
-// 文档 Block
+// 文档的根 Block，也称页面 Block
 //
 // 示例值：
 func (builder *BlockBuilder) Page(page *Text) *BlockBuilder {
@@ -1038,7 +1058,7 @@ func (builder *BlockBuilder) Diagram(diagram *Diagram) *BlockBuilder {
 	return builder
 }
 
-// 分割线 Block
+// 分割线 Block。为空结构体，需传入 `{}` 创建分割线 Block。
 //
 // 示例值：
 func (builder *BlockBuilder) Divider(divider *Divider) *BlockBuilder {
@@ -1047,7 +1067,7 @@ func (builder *BlockBuilder) Divider(divider *Divider) *BlockBuilder {
 	return builder
 }
 
-// 文件 Block
+// 文件 Block。了解如何在文档中插入文件，参考[文档常见问题-如何插入文件/附件](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq)。
 //
 // 示例值：
 func (builder *BlockBuilder) File(file *File) *BlockBuilder {
@@ -1083,7 +1103,7 @@ func (builder *BlockBuilder) Iframe(iframe *Iframe) *BlockBuilder {
 	return builder
 }
 
-// 图片 Block
+// 图片 Block。了解如何在文档中插入图片，参考[文档常见问题-如何插入图片](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq)。
 //
 // 示例值：
 func (builder *BlockBuilder) Image(image *Image) *BlockBuilder {
@@ -1164,7 +1184,7 @@ func (builder *BlockBuilder) Undefined(undefined *Undefined) *BlockBuilder {
 	return builder
 }
 
-// 引用容器 Block
+// 引用容器 Block。为空结构体，需传入 `{}` 创建引用容器 Block。
 //
 // 示例值：
 func (builder *BlockBuilder) QuoteContainer(quoteContainer *QuoteContainer) *BlockBuilder {
@@ -1220,14 +1240,14 @@ func (builder *BlockBuilder) OkrProgress(okrProgress *OkrProgress) *BlockBuilder
 
 // 评论 id 列表
 //
-// 示例值：["1660030311959965796"]
+// 示例值：[1660030311959965796]
 func (builder *BlockBuilder) CommentIds(commentIds []string) *BlockBuilder {
 	builder.commentIds = commentIds
 	builder.commentIdsSet = true
 	return builder
 }
 
-// Jira Issue
+// Jira 问题
 //
 // 示例值：
 func (builder *BlockBuilder) JiraIssue(jiraIssue *JiraIssue) *BlockBuilder {
@@ -1299,7 +1319,7 @@ func (builder *BlockBuilder) LinkPreview(linkPreview *LinkPreview) *BlockBuilder
 	return builder
 }
 
-// 源同步块
+// 源同步块，仅支持查询
 //
 // 示例值：
 func (builder *BlockBuilder) SourceSynced(sourceSynced *SourceSynced) *BlockBuilder {
@@ -1308,7 +1328,7 @@ func (builder *BlockBuilder) SourceSynced(sourceSynced *SourceSynced) *BlockBuil
 	return builder
 }
 
-// 引用同步块
+// 引用同步块，仅支持查询。获取引用同步块内容详见：[如何获取引用同步块的内容](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq#19b71234)
 //
 // 示例值：
 func (builder *BlockBuilder) ReferenceSynced(referenceSynced *ReferenceSynced) *BlockBuilder {
@@ -1317,7 +1337,7 @@ func (builder *BlockBuilder) ReferenceSynced(referenceSynced *ReferenceSynced) *
 	return builder
 }
 
-// 新版 Wiki 子目录 Block
+// Wiki 新版子目录
 //
 // 示例值：
 func (builder *BlockBuilder) SubPageList(subPageList *SubPageList) *BlockBuilder {
@@ -1326,7 +1346,7 @@ func (builder *BlockBuilder) SubPageList(subPageList *SubPageList) *BlockBuilder
 	return builder
 }
 
-// AI 模板 Block
+// AI 模板 Block，仅支持查询
 //
 // 示例值：
 func (builder *BlockBuilder) AiTemplate(aiTemplate *AiTemplate) *BlockBuilder {
@@ -1359,6 +1379,42 @@ func (builder *BlockBuilder) Project(project *Project) *BlockBuilder {
 func (builder *BlockBuilder) MeetingNotesQa(meetingNotesQa *MeetingNotesQa) *BlockBuilder {
 	builder.meetingNotesQa = meetingNotesQa
 	builder.meetingNotesQaSet = true
+	return builder
+}
+
+// VC Tabs
+//
+// 示例值：
+func (builder *BlockBuilder) VcTabs(vcTabs *VcTabs) *BlockBuilder {
+	builder.vcTabs = vcTabs
+	builder.vcTabsSet = true
+	return builder
+}
+
+// 纪要
+//
+// 示例值：
+func (builder *BlockBuilder) VcSummaryTab(vcSummaryTab *VcSummaryTab) *BlockBuilder {
+	builder.vcSummaryTab = vcSummaryTab
+	builder.vcSummaryTabSet = true
+	return builder
+}
+
+// 原始记录
+//
+// 示例值：
+func (builder *BlockBuilder) VcTranscriptTab(vcTranscriptTab *VcTranscriptTab) *BlockBuilder {
+	builder.vcTranscriptTab = vcTranscriptTab
+	builder.vcTranscriptTabSet = true
+	return builder
+}
+
+// 妙纪 Block
+//
+// 示例值：
+func (builder *BlockBuilder) Minutes(minutes *Minutes) *BlockBuilder {
+	builder.minutes = minutes
+	builder.minutesSet = true
 	return builder
 }
 
@@ -1550,20 +1606,32 @@ func (builder *BlockBuilder) Build() *Block {
 	if builder.meetingNotesQaSet {
 		req.MeetingNotesQa = builder.meetingNotesQa
 	}
+	if builder.vcTabsSet {
+		req.VcTabs = builder.vcTabs
+	}
+	if builder.vcSummaryTabSet {
+		req.VcSummaryTab = builder.vcSummaryTab
+	}
+	if builder.vcTranscriptTabSet {
+		req.VcTranscriptTab = builder.vcTranscriptTab
+	}
+	if builder.minutesSet {
+		req.Minutes = builder.minutes
+	}
 	return req
 }
 
 type BlockIdRelation struct {
-	TemporaryBlockId *string `json:"temporary_block_id,omitempty"` // 用户传入的临时 BlockID
+	TemporaryBlockId *string `json:"temporary_block_id,omitempty"` // 你传入的自定义临时 Block ID
 
-	BlockId *string `json:"block_id,omitempty"` // 真实使用的 BlockID
+	BlockId *string `json:"block_id,omitempty"` // 实际的 Block ID
 }
 
 type BlockIdRelationBuilder struct {
-	temporaryBlockId    string // 用户传入的临时 BlockID
+	temporaryBlockId    string // 你传入的自定义临时 Block ID
 	temporaryBlockIdSet bool
 
-	blockId    string // 真实使用的 BlockID
+	blockId    string // 实际的 Block ID
 	blockIdSet bool
 }
 
@@ -1572,7 +1640,7 @@ func NewBlockIdRelationBuilder() *BlockIdRelationBuilder {
 	return builder
 }
 
-// 用户传入的临时 BlockID
+// 你传入的自定义临时 Block ID
 //
 // 示例值：80bf5b2a-4dea-4c02-8a84-a0e682de463d
 func (builder *BlockIdRelationBuilder) TemporaryBlockId(temporaryBlockId string) *BlockIdRelationBuilder {
@@ -1581,7 +1649,7 @@ func (builder *BlockIdRelationBuilder) TemporaryBlockId(temporaryBlockId string)
 	return builder
 }
 
-// 真实使用的 BlockID
+// 实际的 Block ID
 //
 // 示例值：doxbcQOmtfkzY6BFFVQ86LH2J2d
 func (builder *BlockIdRelationBuilder) BlockId(blockId string) *BlockIdRelationBuilder {
@@ -1858,13 +1926,13 @@ func (builder *CaptionBuilder) Build() *Caption {
 }
 
 type ChatCard struct {
-	ChatId *string `json:"chat_id,omitempty"` // 群聊天会话 ID
+	ChatId *string `json:"chat_id,omitempty"` // 群聊天会话 ID。获取方式参考[群 ID 说明](ssl:ttdoc//uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 
 	Align *int `json:"align,omitempty"` // 对齐方式
 }
 
 type ChatCardBuilder struct {
-	chatId    string // 群聊天会话 ID
+	chatId    string // 群聊天会话 ID。获取方式参考[群 ID 说明](ssl:ttdoc//uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	chatIdSet bool
 
 	align    int // 对齐方式
@@ -1876,7 +1944,7 @@ func NewChatCardBuilder() *ChatCardBuilder {
 	return builder
 }
 
-// 群聊天会话 ID
+// 群聊天会话 ID。获取方式参考[群 ID 说明](ssl:ttdoc//uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 //
 // 示例值：7052227140476993555
 func (builder *ChatCardBuilder) ChatId(chatId string) *ChatCardBuilder {
@@ -2058,8 +2126,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -2067,8 +2133,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -2173,7 +2237,7 @@ func NewDocumentBuilder() *DocumentBuilder {
 
 // 文档唯一标识
 //
-// 示例值：doxcni6mOy7jLRWbEylaKKC7K88
+// 示例值：doxbcmEtbFrbbq10nPNu8gabcef
 func (builder *DocumentBuilder) DocumentId(documentId string) *DocumentBuilder {
 	builder.documentId = documentId
 	builder.documentIdSet = true
@@ -2274,19 +2338,19 @@ func (builder *DocumentAuthorBuilder) Build() *DocumentAuthor {
 type DocumentCover struct {
 	Token *string `json:"token,omitempty"` // 图片 token
 
-	OffsetRatioX *float64 `json:"offset_ratio_x,omitempty"` // 展示视图在水平方向的偏移比例。其值为距离原图中心的水平方向偏移值 px / 原图宽度 px。 视图在原图中心时，该值为 0； 视图在原图右部分时，该值为正数； 视图在原图左部分时，改值为负数。
+	OffsetRatioX *float64 `json:"offset_ratio_x,omitempty"` // 视图在水平方向的偏移比例。其值为距离原图中心的水平方向偏移值 px / 原图宽度 px。;视图在原图中心时，该值为 0；;视图在原图右部分时，该值为正数；;视图在原图左部分时，该值为负数。
 
-	OffsetRatioY *float64 `json:"offset_ratio_y,omitempty"` // 展示视图在垂直方向的偏移比例。其值为距离原图中心的垂直方向偏移值 px / 原图高度 px。 视图在原图中心时，该值为 0； 视图在原图上部分时，该值为正数； 视图在原图下部分时，改值为负数。
+	OffsetRatioY *float64 `json:"offset_ratio_y,omitempty"` // 视图在垂直方向的偏移比例。其值为距离原图中心的垂直方向偏移值 px / 原图高度 px。;视图在原图中心时，该值为 0；;视图在原图上部分时，该值为正数；;视图在原图下部分时，该值为负数。
 }
 
 type DocumentCoverBuilder struct {
 	token    string // 图片 token
 	tokenSet bool
 
-	offsetRatioX    float64 // 展示视图在水平方向的偏移比例。其值为距离原图中心的水平方向偏移值 px / 原图宽度 px。 视图在原图中心时，该值为 0； 视图在原图右部分时，该值为正数； 视图在原图左部分时，改值为负数。
+	offsetRatioX    float64 // 视图在水平方向的偏移比例。其值为距离原图中心的水平方向偏移值 px / 原图宽度 px。;视图在原图中心时，该值为 0；;视图在原图右部分时，该值为正数；;视图在原图左部分时，该值为负数。
 	offsetRatioXSet bool
 
-	offsetRatioY    float64 // 展示视图在垂直方向的偏移比例。其值为距离原图中心的垂直方向偏移值 px / 原图高度 px。 视图在原图中心时，该值为 0； 视图在原图上部分时，该值为正数； 视图在原图下部分时，改值为负数。
+	offsetRatioY    float64 // 视图在垂直方向的偏移比例。其值为距离原图中心的垂直方向偏移值 px / 原图高度 px。;视图在原图中心时，该值为 0；;视图在原图上部分时，该值为正数；;视图在原图下部分时，该值为负数。
 	offsetRatioYSet bool
 }
 
@@ -2304,7 +2368,7 @@ func (builder *DocumentCoverBuilder) Token(token string) *DocumentCoverBuilder {
 	return builder
 }
 
-// 展示视图在水平方向的偏移比例。其值为距离原图中心的水平方向偏移值 px / 原图宽度 px。 视图在原图中心时，该值为 0； 视图在原图右部分时，该值为正数； 视图在原图左部分时，改值为负数。
+// 视图在水平方向的偏移比例。其值为距离原图中心的水平方向偏移值 px / 原图宽度 px。;视图在原图中心时，该值为 0；;视图在原图右部分时，该值为正数；;视图在原图左部分时，该值为负数。
 //
 // 示例值：0
 func (builder *DocumentCoverBuilder) OffsetRatioX(offsetRatioX float64) *DocumentCoverBuilder {
@@ -2313,7 +2377,7 @@ func (builder *DocumentCoverBuilder) OffsetRatioX(offsetRatioX float64) *Documen
 	return builder
 }
 
-// 展示视图在垂直方向的偏移比例。其值为距离原图中心的垂直方向偏移值 px / 原图高度 px。 视图在原图中心时，该值为 0； 视图在原图上部分时，该值为正数； 视图在原图下部分时，改值为负数。
+// 视图在垂直方向的偏移比例。其值为距离原图中心的垂直方向偏移值 px / 原图高度 px。;视图在原图中心时，该值为 0；;视图在原图上部分时，该值为正数；;视图在原图下部分时，该值为负数。
 //
 // 示例值：0
 func (builder *DocumentCoverBuilder) OffsetRatioY(offsetRatioY float64) *DocumentCoverBuilder {
@@ -2352,7 +2416,7 @@ type DocumentDisplaySetting struct {
 
 	ShowCommentCount *bool `json:"show_comment_count,omitempty"` // 文档信息中是否展示评论总数
 
-	ShowRelatedMatters *bool `json:"show_related_matters,omitempty"` // 文档信息中是否展示关联事项
+	ShowRelatedMatters *bool `json:"show_related_matters,omitempty"` // 文档信息中是否展示关联事项。暂未支持
 }
 
 type DocumentDisplaySettingBuilder struct {
@@ -2374,7 +2438,7 @@ type DocumentDisplaySettingBuilder struct {
 	showCommentCount    bool // 文档信息中是否展示评论总数
 	showCommentCountSet bool
 
-	showRelatedMatters    bool // 文档信息中是否展示关联事项
+	showRelatedMatters    bool // 文档信息中是否展示关联事项。暂未支持
 	showRelatedMattersSet bool
 }
 
@@ -2437,7 +2501,7 @@ func (builder *DocumentDisplaySettingBuilder) ShowCommentCount(showCommentCount 
 	return builder
 }
 
-// 文档信息中是否展示关联事项
+// 文档信息中是否展示关联事项。暂未支持
 //
 // 示例值：true
 func (builder *DocumentDisplaySettingBuilder) ShowRelatedMatters(showRelatedMatters bool) *DocumentDisplaySettingBuilder {
@@ -2480,13 +2544,13 @@ func (builder *DocumentDisplaySettingBuilder) Build() *DocumentDisplaySetting {
 }
 
 type Equation struct {
-	Content *string `json:"content,omitempty"` // 符合 KaTeX 语法的公式内容，语法规则请参考：https://katex.org/docs/supported.html
+	Content *string `json:"content,omitempty"` // 符合 KaTeX 语法的公式内容，语法规则请参考：https://katex.org/docs/supported.html;;**数据校验规则**：;* 长度范围：`1`~`10,000`字符
 
 	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
 }
 
 type EquationBuilder struct {
-	content    string // 符合 KaTeX 语法的公式内容，语法规则请参考：https://katex.org/docs/supported.html
+	content    string // 符合 KaTeX 语法的公式内容，语法规则请参考：https://katex.org/docs/supported.html;;**数据校验规则**：;* 长度范围：`1`~`10,000`字符
 	contentSet bool
 
 	textElementStyle    *TextElementStyle // 文本局部样式
@@ -2498,7 +2562,7 @@ func NewEquationBuilder() *EquationBuilder {
 	return builder
 }
 
-// 符合 KaTeX 语法的公式内容，语法规则请参考：https://katex.org/docs/supported.html
+// 符合 KaTeX 语法的公式内容，语法规则请参考：https://katex.org/docs/supported.html;;**数据校验规则**：;* 长度范围：`1`~`10,000`字符
 //
 // 示例值：E=mc^2\n
 func (builder *EquationBuilder) Content(content string) *EquationBuilder {
@@ -2629,11 +2693,11 @@ func (builder *GridBuilder) Build() *Grid {
 }
 
 type GridColumn struct {
-	WidthRatio *int `json:"width_ratio,omitempty"` // 当前分栏列占整个分栏的比例
+	WidthRatio *int `json:"width_ratio,omitempty"` // 当前分栏列占整个分栏的比例，单位 %
 }
 
 type GridColumnBuilder struct {
-	widthRatio    int // 当前分栏列占整个分栏的比例
+	widthRatio    int // 当前分栏列占整个分栏的比例，单位 %
 	widthRatioSet bool
 }
 
@@ -2642,7 +2706,7 @@ func NewGridColumnBuilder() *GridColumnBuilder {
 	return builder
 }
 
-// 当前分栏列占整个分栏的比例
+// 当前分栏列占整个分栏的比例，单位 %
 //
 // 示例值：50
 func (builder *GridColumnBuilder) WidthRatio(widthRatio int) *GridColumnBuilder {
@@ -2744,7 +2808,7 @@ func (builder *IframeComponentBuilder) Build() *IframeComponent {
 type Image struct {
 	Width *int `json:"width,omitempty"` // 宽度单位 px
 
-	Height *int `json:"height,omitempty"` // 高度
+	Height *int `json:"height,omitempty"` // 高度单位 px
 
 	Token *string `json:"token,omitempty"` // 图片 Token
 
@@ -2759,7 +2823,7 @@ type ImageBuilder struct {
 	width    int // 宽度单位 px
 	widthSet bool
 
-	height    int // 高度
+	height    int // 高度单位 px
 	heightSet bool
 
 	token    string // 图片 Token
@@ -2789,7 +2853,7 @@ func (builder *ImageBuilder) Width(width int) *ImageBuilder {
 	return builder
 }
 
-// 高度
+// 高度单位 px
 //
 // 示例值：2480
 func (builder *ImageBuilder) Height(height int) *ImageBuilder {
@@ -2883,7 +2947,7 @@ func NewInlineBlockBuilder() *InlineBlockBuilder {
 
 // 关联的内联状态的 block 的 block_id
 //
-// 示例值：doxcnPFi0R56ctbvh2MjkkROFWf
+// 示例值：doxcnPFi0R56ctbvh2Mjkkabcef
 func (builder *InlineBlockBuilder) BlockId(blockId string) *InlineBlockBuilder {
 	builder.blockId = blockId
 	builder.blockIdSet = true
@@ -2914,7 +2978,7 @@ func (builder *InlineBlockBuilder) Build() *InlineBlock {
 type InlineFile struct {
 	FileToken *string `json:"file_token,omitempty"` // 附件 token
 
-	SourceBlockId *string `json:"source_block_id,omitempty"` // 当前文档中该附件所处的 block 的 id
+	SourceBlockId *string `json:"source_block_id,omitempty"` // 当前文档中该文件所处的 block 的 ID
 
 	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
 }
@@ -2923,7 +2987,7 @@ type InlineFileBuilder struct {
 	fileToken    string // 附件 token
 	fileTokenSet bool
 
-	sourceBlockId    string // 当前文档中该附件所处的 block 的 id
+	sourceBlockId    string // 当前文档中该文件所处的 block 的 ID
 	sourceBlockIdSet bool
 
 	textElementStyle    *TextElementStyle // 文本局部样式
@@ -2937,16 +3001,16 @@ func NewInlineFileBuilder() *InlineFileBuilder {
 
 // 附件 token
 //
-// 示例值：boxcnOj88GDkmWGm2zsTyCBqoLb
+// 示例值：boxcnOj88GDkmWGm2zsTyCabcef
 func (builder *InlineFileBuilder) FileToken(fileToken string) *InlineFileBuilder {
 	builder.fileToken = fileToken
 	builder.fileTokenSet = true
 	return builder
 }
 
-// 当前文档中该附件所处的 block 的 id
+// 当前文档中该文件所处的 block 的 ID
 //
-// 示例值：doxcnM46kSWSkgUMW04ldKsJDsc
+// 示例值：doxcnM46kSWSkgUMW04ldKabcef
 func (builder *InlineFileBuilder) SourceBlockId(sourceBlockId string) *InlineFileBuilder {
 	builder.sourceBlockId = sourceBlockId
 	builder.sourceBlockIdSet = true
@@ -3160,16 +3224,16 @@ func (builder *InsertTableRowRequestBuilder) Build() *InsertTableRowRequest {
 }
 
 type Isv struct {
-	ComponentId *string `json:"component_id,omitempty"` // 团队互动应用唯一ID
+	ComponentId *string `json:"component_id,omitempty"` // 团队互动应用唯一ID。该 ID 可通过调用[创建 BlockEntity](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/create) 接口，并从响应体中的 block_id 中获取，创建时使用的 `block_type_id` 需要与 `component_type_id` 一致。
 
-	ComponentTypeId *string `json:"component_type_id,omitempty"` // 团队互动应用类型，比如信息收集"blk_5f992038c64240015d280958"
+	ComponentTypeId *string `json:"component_type_id,omitempty"` // 团队互动应用类型，比如信息收集"blk_5f992038c64240015d280958"。该 ID 可在 [开发者后台](https://open.feishu.cn/app) > **应用详情页** > **应用能力** > **云文档小组件** > **BlockTypeID** 获取。
 }
 
 type IsvBuilder struct {
-	componentId    string // 团队互动应用唯一ID
+	componentId    string // 团队互动应用唯一ID。该 ID 可通过调用[创建 BlockEntity](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/create) 接口，并从响应体中的 block_id 中获取，创建时使用的 `block_type_id` 需要与 `component_type_id` 一致。
 	componentIdSet bool
 
-	componentTypeId    string // 团队互动应用类型，比如信息收集"blk_5f992038c64240015d280958"
+	componentTypeId    string // 团队互动应用类型，比如信息收集"blk_5f992038c64240015d280958"。该 ID 可在 [开发者后台](https://open.feishu.cn/app) > **应用详情页** > **应用能力** > **云文档小组件** > **BlockTypeID** 获取。
 	componentTypeIdSet bool
 }
 
@@ -3178,7 +3242,7 @@ func NewIsvBuilder() *IsvBuilder {
 	return builder
 }
 
-// 团队互动应用唯一ID
+// 团队互动应用唯一ID。该 ID 可通过调用[创建 BlockEntity](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/create) 接口，并从响应体中的 block_id 中获取，创建时使用的 `block_type_id` 需要与 `component_type_id` 一致。
 //
 // 示例值：7056882725002051603
 func (builder *IsvBuilder) ComponentId(componentId string) *IsvBuilder {
@@ -3187,7 +3251,7 @@ func (builder *IsvBuilder) ComponentId(componentId string) *IsvBuilder {
 	return builder
 }
 
-// 团队互动应用类型，比如信息收集"blk_5f992038c64240015d280958"
+// 团队互动应用类型，比如信息收集"blk_5f992038c64240015d280958"。该 ID 可在 [开发者后台](https://open.feishu.cn/app) > **应用详情页** > **应用能力** > **云文档小组件** > **BlockTypeID** 获取。
 //
 // 示例值：blk_5f992038c64240015d280958
 func (builder *IsvBuilder) ComponentTypeId(componentTypeId string) *IsvBuilder {
@@ -3210,16 +3274,16 @@ func (builder *IsvBuilder) Build() *Isv {
 }
 
 type JiraIssue struct {
-	Id *string `json:"id,omitempty"` // Jira issue ID
+	Id *string `json:"id,omitempty"` // Jira 问题 ID
 
-	Key *string `json:"key,omitempty"` // Jira issue key
+	Key *string `json:"key,omitempty"` // Jira 问题 key
 }
 
 type JiraIssueBuilder struct {
-	id    string // Jira issue ID
+	id    string // Jira 问题 ID
 	idSet bool
 
-	key    string // Jira issue key
+	key    string // Jira 问题 key
 	keySet bool
 }
 
@@ -3228,7 +3292,7 @@ func NewJiraIssueBuilder() *JiraIssueBuilder {
 	return builder
 }
 
-// Jira issue ID
+// Jira 问题 ID
 //
 // 示例值：12345
 func (builder *JiraIssueBuilder) Id(id string) *JiraIssueBuilder {
@@ -3237,7 +3301,7 @@ func (builder *JiraIssueBuilder) Id(id string) *JiraIssueBuilder {
 	return builder
 }
 
-// Jira issue key
+// Jira 问题 key
 //
 // 示例值：Project-123
 func (builder *JiraIssueBuilder) Key(key string) *JiraIssueBuilder {
@@ -3358,7 +3422,7 @@ func (builder *MeetingNotesQaBuilder) Build() *MeetingNotesQa {
 }
 
 type MentionDoc struct {
-	Token *string `json:"token,omitempty"` // 云文档 token
+	Token *string `json:"token,omitempty"` // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 
 	ObjType *int `json:"obj_type,omitempty"` // 云文档类型
 
@@ -3372,7 +3436,7 @@ type MentionDoc struct {
 }
 
 type MentionDocBuilder struct {
-	token    string // 云文档 token
+	token    string // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 	tokenSet bool
 
 	objType    int // 云文档类型
@@ -3396,7 +3460,7 @@ func NewMentionDocBuilder() *MentionDocBuilder {
 	return builder
 }
 
-// 云文档 token
+// 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 //
 // 示例值：doxbc873Y7cXD153gXqb76G1Y9b
 func (builder *MentionDocBuilder) Token(token string) *MentionDocBuilder {
@@ -3479,13 +3543,13 @@ func (builder *MentionDocBuilder) Build() *MentionDoc {
 }
 
 type MentionUser struct {
-	UserId *string `json:"user_id,omitempty"` // 用户 OpenID
+	UserId *string `json:"user_id,omitempty"` // 用户 OpenID，ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
 
 	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
 }
 
 type MentionUserBuilder struct {
-	userId    string // 用户 OpenID
+	userId    string // 用户 OpenID，ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
 	userIdSet bool
 
 	textElementStyle    *TextElementStyle // 文本局部样式
@@ -3497,7 +3561,7 @@ func NewMentionUserBuilder() *MentionUserBuilder {
 	return builder
 }
 
-// 用户 OpenID
+// 用户 OpenID，ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
 //
 // 示例值：ou_3bbe8a09c20e89cce9bff989ed840674
 func (builder *MentionUserBuilder) UserId(userId string) *MentionUserBuilder {
@@ -3640,6 +3704,56 @@ func (builder *MindnoteBuilder) Build() *Mindnote {
 	req := &Mindnote{}
 	if builder.tokenSet {
 		req.Token = &builder.token
+
+	}
+	return req
+}
+
+type Minutes struct {
+	Token *string `json:"token,omitempty"` // 妙记 Block 标识（RefID）
+
+	MinutesId *string `json:"minutes_id,omitempty"` // 原始妙记标识（妙记 ID）
+}
+
+type MinutesBuilder struct {
+	token    string // 妙记 Block 标识（RefID）
+	tokenSet bool
+
+	minutesId    string // 原始妙记标识（妙记 ID）
+	minutesIdSet bool
+}
+
+func NewMinutesBuilder() *MinutesBuilder {
+	builder := &MinutesBuilder{}
+	return builder
+}
+
+// 妙记 Block 标识（RefID）
+//
+// 示例值：acJPFAoJzLzdgkrXnn1yhln1flWSWM6HZ0e3t6abcdf
+func (builder *MinutesBuilder) Token(token string) *MinutesBuilder {
+	builder.token = token
+	builder.tokenSet = true
+	return builder
+}
+
+// 原始妙记标识（妙记 ID）
+//
+// 示例值：7648861541060611613
+func (builder *MinutesBuilder) MinutesId(minutesId string) *MinutesBuilder {
+	builder.minutesId = minutesId
+	builder.minutesIdSet = true
+	return builder
+}
+
+func (builder *MinutesBuilder) Build() *Minutes {
+	req := &Minutes{}
+	if builder.tokenSet {
+		req.Token = &builder.token
+
+	}
+	if builder.minutesIdSet {
+		req.MinutesId = &builder.minutesId
 
 	}
 	return req
@@ -4163,24 +4277,24 @@ func (builder *OkrProgressBuilder) Build() *OkrProgress {
 type OkrProgressRate struct {
 	Mode *string `json:"mode,omitempty"` // 状态模式
 
-	Current *float64 `json:"current,omitempty"` // 当前进度, advanced 模式使用
+	Current *float64 `json:"current,omitempty"` // 当前进度，单位 %，advanced 模式使用
 
 	Percent *float64 `json:"percent,omitempty"` // 当前进度百分比，simple 模式使用
 
 	ProgressStatus *string `json:"progress_status,omitempty"` // 进展状态
 
-	Start *float64 `json:"start,omitempty"` // 进度起始值，advanced 模式使用
+	Start *float64 `json:"start,omitempty"` // 进度起始值，单位 %，advanced 模式使用
 
 	StatusType *string `json:"status_type,omitempty"` // 状态计算类型
 
-	Target *float64 `json:"target,omitempty"` // 进度目标值，advanced 模式使用
+	Target *float64 `json:"target,omitempty"` // 进度目标值，单位 %，advanced 模式使用
 }
 
 type OkrProgressRateBuilder struct {
 	mode    string // 状态模式
 	modeSet bool
 
-	current    float64 // 当前进度, advanced 模式使用
+	current    float64 // 当前进度，单位 %，advanced 模式使用
 	currentSet bool
 
 	percent    float64 // 当前进度百分比，simple 模式使用
@@ -4189,13 +4303,13 @@ type OkrProgressRateBuilder struct {
 	progressStatus    string // 进展状态
 	progressStatusSet bool
 
-	start    float64 // 进度起始值，advanced 模式使用
+	start    float64 // 进度起始值，单位 %，advanced 模式使用
 	startSet bool
 
 	statusType    string // 状态计算类型
 	statusTypeSet bool
 
-	target    float64 // 进度目标值，advanced 模式使用
+	target    float64 // 进度目标值，单位 %，advanced 模式使用
 	targetSet bool
 }
 
@@ -4213,7 +4327,7 @@ func (builder *OkrProgressRateBuilder) Mode(mode string) *OkrProgressRateBuilder
 	return builder
 }
 
-// 当前进度, advanced 模式使用
+// 当前进度，单位 %，advanced 模式使用
 //
 // 示例值：0
 func (builder *OkrProgressRateBuilder) Current(current float64) *OkrProgressRateBuilder {
@@ -4240,7 +4354,7 @@ func (builder *OkrProgressRateBuilder) ProgressStatus(progressStatus string) *Ok
 	return builder
 }
 
-// 进度起始值，advanced 模式使用
+// 进度起始值，单位 %，advanced 模式使用
 //
 // 示例值：0
 func (builder *OkrProgressRateBuilder) Start(start float64) *OkrProgressRateBuilder {
@@ -4258,7 +4372,7 @@ func (builder *OkrProgressRateBuilder) StatusType(statusType string) *OkrProgres
 	return builder
 }
 
-// 进度目标值，advanced 模式使用
+// 进度目标值，单位 %，advanced 模式使用
 //
 // 示例值：
 func (builder *OkrProgressRateBuilder) Target(target float64) *OkrProgressRateBuilder {
@@ -4589,13 +4703,13 @@ func (builder *ReferenceSyncedBuilder) Build() *ReferenceSynced {
 }
 
 type Reminder struct {
-	CreateUserId *string `json:"create_user_id,omitempty"` // 创建者用户 ID
+	CreateUserId *string `json:"create_user_id,omitempty"` // 创建者用户 ID，ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
 
 	IsNotify *bool `json:"is_notify,omitempty"` // 是否通知
 
 	IsWholeDay *bool `json:"is_whole_day,omitempty"` // 是日期还是整点小时
 
-	ExpireTime *string `json:"expire_time,omitempty"` // 事件发生的时间（毫秒级事件戳）
+	ExpireTime *string `json:"expire_time,omitempty"` // 事件发生的时间（毫秒级时间戳）
 
 	NotifyTime *string `json:"notify_time,omitempty"` // 触发通知的时间（毫秒级时间戳）
 
@@ -4603,7 +4717,7 @@ type Reminder struct {
 }
 
 type ReminderBuilder struct {
-	createUserId    string // 创建者用户 ID
+	createUserId    string // 创建者用户 ID，ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
 	createUserIdSet bool
 
 	isNotify    bool // 是否通知
@@ -4612,7 +4726,7 @@ type ReminderBuilder struct {
 	isWholeDay    bool // 是日期还是整点小时
 	isWholeDaySet bool
 
-	expireTime    string // 事件发生的时间（毫秒级事件戳）
+	expireTime    string // 事件发生的时间（毫秒级时间戳）
 	expireTimeSet bool
 
 	notifyTime    string // 触发通知的时间（毫秒级时间戳）
@@ -4627,9 +4741,9 @@ func NewReminderBuilder() *ReminderBuilder {
 	return builder
 }
 
-// 创建者用户 ID
+// 创建者用户 ID，ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
 //
-// 示例值：0e2633a3-aa1a-4171-af9e-0768ff863566
+// 示例值：ou_84aad35d084aa403a838cf73eeabcef
 func (builder *ReminderBuilder) CreateUserId(createUserId string) *ReminderBuilder {
 	builder.createUserId = createUserId
 	builder.createUserIdSet = true
@@ -4654,7 +4768,7 @@ func (builder *ReminderBuilder) IsWholeDay(isWholeDay bool) *ReminderBuilder {
 	return builder
 }
 
-// 事件发生的时间（毫秒级事件戳）
+// 事件发生的时间（毫秒级时间戳）
 //
 // 示例值：1641967200000
 func (builder *ReminderBuilder) ExpireTime(expireTime string) *ReminderBuilder {
@@ -4725,7 +4839,7 @@ func NewReplaceFileRequestBuilder() *ReplaceFileRequestBuilder {
 
 // 附件 token
 //
-// 示例值：boxbckbfvfcqEg22hAzN8Dh9gJd
+// 示例值：boxbckbfvfcqEg22hAzN8Dabcef
 func (builder *ReplaceFileRequestBuilder) Token(token string) *ReplaceFileRequestBuilder {
 	builder.token = token
 	builder.tokenSet = true
@@ -4742,11 +4856,11 @@ func (builder *ReplaceFileRequestBuilder) Build() *ReplaceFileRequest {
 }
 
 type ReplaceImageRequest struct {
-	Token *string `json:"token,omitempty"` // 图片 token
+	Token *string `json:"token,omitempty"` // 图片 Token。可参考[如何插入图片-第二步：上传图片素材](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq#1908ddf0)上传图片得到图片 Token。
 
-	Width *int `json:"width,omitempty"` // 图片宽度，单位 px
+	Width *int `json:"width,omitempty"` // 图片宽度，单位像素（px）;1. 优先使用本次请求传入的 width 值；;2. 若本次请求未传 width，且为首次更新（待更新的图片块 token 为空），服务端将检测并使用请求传入的图片的实际 width；检测失败将兜底为 100 px。;3. 若本次请求未传 width，且非首次更新，width 字段将保持原值不变。
 
-	Height *int `json:"height,omitempty"` // 图片高度，单位 px
+	Height *int `json:"height,omitempty"` // 图片高度，单位像素（px）;1. 优先使用本次请求传入的 height 值；;2. 若本次请求未传 height，且为首次更新（待更新的图片块 token 为空），服务端将检测并使用请求传入的图片的实际 height；检测失败将兜底为 100 px。;3. 若本次请求未传 height，且非首次更新，height 字段将保持原值不变。
 
 	Align *int `json:"align,omitempty"` // 对齐方式
 
@@ -4756,13 +4870,13 @@ type ReplaceImageRequest struct {
 }
 
 type ReplaceImageRequestBuilder struct {
-	token    string // 图片 token
+	token    string // 图片 Token。可参考[如何插入图片-第二步：上传图片素材](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq#1908ddf0)上传图片得到图片 Token。
 	tokenSet bool
 
-	width    int // 图片宽度，单位 px
+	width    int // 图片宽度，单位像素（px）;1. 优先使用本次请求传入的 width 值；;2. 若本次请求未传 width，且为首次更新（待更新的图片块 token 为空），服务端将检测并使用请求传入的图片的实际 width；检测失败将兜底为 100 px。;3. 若本次请求未传 width，且非首次更新，width 字段将保持原值不变。
 	widthSet bool
 
-	height    int // 图片高度，单位 px
+	height    int // 图片高度，单位像素（px）;1. 优先使用本次请求传入的 height 值；;2. 若本次请求未传 height，且为首次更新（待更新的图片块 token 为空），服务端将检测并使用请求传入的图片的实际 height；检测失败将兜底为 100 px。;3. 若本次请求未传 height，且非首次更新，height 字段将保持原值不变。
 	heightSet bool
 
 	align    int // 对齐方式
@@ -4780,16 +4894,16 @@ func NewReplaceImageRequestBuilder() *ReplaceImageRequestBuilder {
 	return builder
 }
 
-// 图片 token
+// 图片 Token。可参考[如何插入图片-第二步：上传图片素材](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq#1908ddf0)上传图片得到图片 Token。
 //
-// 示例值：boxbckbfvfcqEg22hAzN8Dh9gJd
+// 示例值：boxbckbfvfcqEg22hAzN8Dabcef
 func (builder *ReplaceImageRequestBuilder) Token(token string) *ReplaceImageRequestBuilder {
 	builder.token = token
 	builder.tokenSet = true
 	return builder
 }
 
-// 图片宽度，单位 px
+// 图片宽度，单位像素（px）;1. 优先使用本次请求传入的 width 值；;2. 若本次请求未传 width，且为首次更新（待更新的图片块 token 为空），服务端将检测并使用请求传入的图片的实际 width；检测失败将兜底为 100 px。;3. 若本次请求未传 width，且非首次更新，width 字段将保持原值不变。
 //
 // 示例值：100
 func (builder *ReplaceImageRequestBuilder) Width(width int) *ReplaceImageRequestBuilder {
@@ -4798,7 +4912,7 @@ func (builder *ReplaceImageRequestBuilder) Width(width int) *ReplaceImageRequest
 	return builder
 }
 
-// 图片高度，单位 px
+// 图片高度，单位像素（px）;1. 优先使用本次请求传入的 height 值；;2. 若本次请求未传 height，且为首次更新（待更新的图片块 token 为空），服务端将检测并使用请求传入的图片的实际 height；检测失败将兜底为 100 px。;3. 若本次请求未传 height，且非首次更新，height 字段将保持原值不变。
 //
 // 示例值：100
 func (builder *ReplaceImageRequestBuilder) Height(height int) *ReplaceImageRequestBuilder {
@@ -4863,7 +4977,7 @@ func (builder *ReplaceImageRequestBuilder) Build() *ReplaceImageRequest {
 }
 
 type Sheet struct {
-	Token *string `json:"token,omitempty"` // 电子表格 block 的 token
+	Token *string `json:"token,omitempty"` // 电子表格 block 的 token 和工作表的 ID 的组合
 
 	RowSize *int `json:"row_size,omitempty"` // 电子表格行数量
 
@@ -4871,7 +4985,7 @@ type Sheet struct {
 }
 
 type SheetBuilder struct {
-	token    string // 电子表格 block 的 token
+	token    string // 电子表格 block 的 token 和工作表的 ID 的组合
 	tokenSet bool
 
 	rowSize    int // 电子表格行数量
@@ -4886,7 +5000,7 @@ func NewSheetBuilder() *SheetBuilder {
 	return builder
 }
 
-// 电子表格 block 的 token
+// 电子表格 block 的 token 和工作表的 ID 的组合
 //
 // 示例值：shtbcW6ufcUtRRet7Hz6Iv4ytzg
 func (builder *SheetBuilder) Token(token string) *SheetBuilder {
@@ -5126,13 +5240,13 @@ func (builder *TableMergeInfoBuilder) Build() *TableMergeInfo {
 }
 
 type TableProperty struct {
-	RowSize *int `json:"row_size,omitempty"` // 行数
+	RowSize *int `json:"row_size,omitempty"` // 行数;- **创建块**接口中，该字段最大值为 9 ;- **创建嵌套块**接口中，在单个表格单元格不超过上限 2000 情况下，该字段无固定最大值
 
-	ColumnSize *int `json:"column_size,omitempty"` // 列数
+	ColumnSize *int `json:"column_size,omitempty"` // 列数;- **创建块**接口中，该字段最大值为 9 ;- **创建嵌套块**接口中，该字段最大值为 100
 
-	ColumnWidth []int `json:"column_width,omitempty"` // 列宽，单位px
+	ColumnWidth []int `json:"column_width,omitempty"` // 列宽，单位像素（px）
 
-	MergeInfo []*TableMergeInfo `json:"merge_info,omitempty"` // 单元格合并信息
+	MergeInfo []*TableMergeInfo `json:"merge_info,omitempty"` // 单元格合并信息。创建 Table 时，此属性只读，将由系统自动生成。如果需要合并单元格，可以通过更新块接口的子请求 `merge_table_cells` 实现
 
 	HeaderRow *bool `json:"header_row,omitempty"` // 设置首行为标题行
 
@@ -5140,16 +5254,16 @@ type TableProperty struct {
 }
 
 type TablePropertyBuilder struct {
-	rowSize    int // 行数
+	rowSize    int // 行数;- **创建块**接口中，该字段最大值为 9 ;- **创建嵌套块**接口中，在单个表格单元格不超过上限 2000 情况下，该字段无固定最大值
 	rowSizeSet bool
 
-	columnSize    int // 列数
+	columnSize    int // 列数;- **创建块**接口中，该字段最大值为 9 ;- **创建嵌套块**接口中，该字段最大值为 100
 	columnSizeSet bool
 
-	columnWidth    []int // 列宽，单位px
+	columnWidth    []int // 列宽，单位像素（px）
 	columnWidthSet bool
 
-	mergeInfo    []*TableMergeInfo // 单元格合并信息
+	mergeInfo    []*TableMergeInfo // 单元格合并信息。创建 Table 时，此属性只读，将由系统自动生成。如果需要合并单元格，可以通过更新块接口的子请求 `merge_table_cells` 实现
 	mergeInfoSet bool
 
 	headerRow    bool // 设置首行为标题行
@@ -5164,7 +5278,7 @@ func NewTablePropertyBuilder() *TablePropertyBuilder {
 	return builder
 }
 
-// 行数
+// 行数;- **创建块**接口中，该字段最大值为 9 ;- **创建嵌套块**接口中，在单个表格单元格不超过上限 2000 情况下，该字段无固定最大值
 //
 // 示例值：1
 func (builder *TablePropertyBuilder) RowSize(rowSize int) *TablePropertyBuilder {
@@ -5173,7 +5287,7 @@ func (builder *TablePropertyBuilder) RowSize(rowSize int) *TablePropertyBuilder 
 	return builder
 }
 
-// 列数
+// 列数;- **创建块**接口中，该字段最大值为 9 ;- **创建嵌套块**接口中，该字段最大值为 100
 //
 // 示例值：1
 func (builder *TablePropertyBuilder) ColumnSize(columnSize int) *TablePropertyBuilder {
@@ -5182,16 +5296,16 @@ func (builder *TablePropertyBuilder) ColumnSize(columnSize int) *TablePropertyBu
 	return builder
 }
 
-// 列宽，单位px
+// 列宽，单位像素（px）
 //
-// 示例值：100
+// 示例值：[100]
 func (builder *TablePropertyBuilder) ColumnWidth(columnWidth []int) *TablePropertyBuilder {
 	builder.columnWidth = columnWidth
 	builder.columnWidthSet = true
 	return builder
 }
 
-// 单元格合并信息
+// 单元格合并信息。创建 Table 时，此属性只读，将由系统自动生成。如果需要合并单元格，可以通过更新块接口的子请求 `merge_table_cells` 实现
 //
 // 示例值：
 func (builder *TablePropertyBuilder) MergeInfo(mergeInfo []*TableMergeInfo) *TablePropertyBuilder {
@@ -5246,13 +5360,13 @@ func (builder *TablePropertyBuilder) Build() *TableProperty {
 }
 
 type Task struct {
-	TaskId *string `json:"task_id,omitempty"` // 任务 ID，查询具体任务详情见[获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
+	TaskId *string `json:"task_id,omitempty"` // 任务 ID，查询具体任务详情见 [获取任务详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/get)
 
 	Folded *bool `json:"folded,omitempty"` // 折叠状态
 }
 
 type TaskBuilder struct {
-	taskId    string // 任务 ID，查询具体任务详情见[获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
+	taskId    string // 任务 ID，查询具体任务详情见 [获取任务详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/get)
 	taskIdSet bool
 
 	folded    bool // 折叠状态
@@ -5264,7 +5378,7 @@ func NewTaskBuilder() *TaskBuilder {
 	return builder
 }
 
-// 任务 ID，查询具体任务详情见[获取任务详情;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get)
+// 任务 ID，查询具体任务详情见 [获取任务详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/get)
 //
 // 示例值：ba5040f4-8116-4042-ab3c-254e5cfe3ce7
 func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
@@ -5344,19 +5458,19 @@ func (builder *TextBuilder) Build() *Text {
 }
 
 type TextElement struct {
-	TextRun *TextRun `json:"text_run,omitempty"` // 文字
+	TextRun *TextRun `json:"text_run,omitempty"` // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
 
-	MentionUser *MentionUser `json:"mention_user,omitempty"` // @用户
+	MentionUser *MentionUser `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
 
-	MentionDoc *MentionDoc `json:"mention_doc,omitempty"` // @文档
+	MentionDoc *MentionDoc `json:"mention_doc,omitempty"` // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
 
-	Reminder *Reminder `json:"reminder,omitempty"` // 日期提醒
+	Reminder *Reminder `json:"reminder,omitempty"` // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
 
-	File *InlineFile `json:"file,omitempty"` // 内联附件
+	File *InlineFile `json:"file,omitempty"` // 内联文件。仅支持删除或移动位置，不支持创建新的内联文件
 
 	Undefined *UndefinedElement `json:"undefined,omitempty"` // 未支持的 TextElement
 
-	InlineBlock *InlineBlock `json:"inline_block,omitempty"` // 内联 block
+	InlineBlock *InlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置，不支持创建新的内联块
 
 	Equation *Equation `json:"equation,omitempty"` // 公式
 
@@ -5364,25 +5478,25 @@ type TextElement struct {
 }
 
 type TextElementBuilder struct {
-	textRun    *TextRun // 文字
+	textRun    *TextRun // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
 	textRunSet bool
 
-	mentionUser    *MentionUser // @用户
+	mentionUser    *MentionUser // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
 	mentionUserSet bool
 
-	mentionDoc    *MentionDoc // @文档
+	mentionDoc    *MentionDoc // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
 	mentionDocSet bool
 
-	reminder    *Reminder // 日期提醒
+	reminder    *Reminder // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
 	reminderSet bool
 
-	file    *InlineFile // 内联附件
+	file    *InlineFile // 内联文件。仅支持删除或移动位置，不支持创建新的内联文件
 	fileSet bool
 
 	undefined    *UndefinedElement // 未支持的 TextElement
 	undefinedSet bool
 
-	inlineBlock    *InlineBlock // 内联 block
+	inlineBlock    *InlineBlock // 内联块。仅支持删除或移动位置，不支持创建新的内联块
 	inlineBlockSet bool
 
 	equation    *Equation // 公式
@@ -5397,7 +5511,7 @@ func NewTextElementBuilder() *TextElementBuilder {
 	return builder
 }
 
-// 文字
+// 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
 //
 // 示例值：
 func (builder *TextElementBuilder) TextRun(textRun *TextRun) *TextElementBuilder {
@@ -5406,7 +5520,7 @@ func (builder *TextElementBuilder) TextRun(textRun *TextRun) *TextElementBuilder
 	return builder
 }
 
-// @用户
+// @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
 //
 // 示例值：
 func (builder *TextElementBuilder) MentionUser(mentionUser *MentionUser) *TextElementBuilder {
@@ -5415,7 +5529,7 @@ func (builder *TextElementBuilder) MentionUser(mentionUser *MentionUser) *TextEl
 	return builder
 }
 
-// @文档
+// @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
 //
 // 示例值：
 func (builder *TextElementBuilder) MentionDoc(mentionDoc *MentionDoc) *TextElementBuilder {
@@ -5424,7 +5538,7 @@ func (builder *TextElementBuilder) MentionDoc(mentionDoc *MentionDoc) *TextEleme
 	return builder
 }
 
-// 日期提醒
+// 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
 //
 // 示例值：
 func (builder *TextElementBuilder) Reminder(reminder *Reminder) *TextElementBuilder {
@@ -5433,7 +5547,7 @@ func (builder *TextElementBuilder) Reminder(reminder *Reminder) *TextElementBuil
 	return builder
 }
 
-// 内联附件
+// 内联文件。仅支持删除或移动位置，不支持创建新的内联文件
 //
 // 示例值：
 func (builder *TextElementBuilder) File(file *InlineFile) *TextElementBuilder {
@@ -5451,7 +5565,7 @@ func (builder *TextElementBuilder) Undefined(undefined *UndefinedElement) *TextE
 	return builder
 }
 
-// 内联 block
+// 内联块。仅支持删除或移动位置，不支持创建新的内联块
 //
 // 示例值：
 func (builder *TextElementBuilder) InlineBlock(inlineBlock *InlineBlock) *TextElementBuilder {
@@ -5527,7 +5641,7 @@ type TextElementStyle struct {
 
 	Link *Link `json:"link,omitempty"` // 链接
 
-	CommentIds []string `json:"comment_ids,omitempty"` // 评论 id 列表
+	CommentIds []string `json:"comment_ids,omitempty"` // 评论 ID 列表。在创建 Block 时，不支持传入评论 ID；在更新文本 Block 的 Element 时，允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中，但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
 }
 
 type TextElementStyleBuilder struct {
@@ -5555,7 +5669,7 @@ type TextElementStyleBuilder struct {
 	link    *Link // 链接
 	linkSet bool
 
-	commentIds    []string // 评论 id 列表
+	commentIds    []string // 评论 ID 列表。在创建 Block 时，不支持传入评论 ID；在更新文本 Block 的 Element 时，允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中，但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
 	commentIdsSet bool
 }
 
@@ -5636,7 +5750,7 @@ func (builder *TextElementStyleBuilder) Link(link *Link) *TextElementStyleBuilde
 	return builder
 }
 
-// 评论 id 列表
+// 评论 ID 列表。在创建 Block 时，不支持传入评论 ID；在更新文本 Block 的 Element 时，允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中，但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
 //
 // 示例值：["1660030311959965796"]
 func (builder *TextElementStyleBuilder) CommentIds(commentIds []string) *TextElementStyleBuilder {
@@ -5685,13 +5799,13 @@ func (builder *TextElementStyleBuilder) Build() *TextElementStyle {
 }
 
 type TextRun struct {
-	Content *string `json:"content,omitempty"` // 文本内容
+	Content *string `json:"content,omitempty"` // 文本内容。要实现文本内容的换行，你可以：;- 在传入的文本内容中添加 `\n` 实现软换行（Soft Break，与在文档中通过操作 `Shift + Enter` 的效果一致）;- 创建一个新的文本 Block，实现两个文本 Block 之间的硬换行（Hard Break，与在文档中通过操作 `Enter` 的效果一致）;;;**注意**：软换行在渲染时可能会被忽略，具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。;;**数据校验规则**：;* 一个文本 Block 中 content 总长度最大值：`100,000 个 UTF-16 编码的字符`;
 
 	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
 }
 
 type TextRunBuilder struct {
-	content    string // 文本内容
+	content    string // 文本内容。要实现文本内容的换行，你可以：;- 在传入的文本内容中添加 `\n` 实现软换行（Soft Break，与在文档中通过操作 `Shift + Enter` 的效果一致）;- 创建一个新的文本 Block，实现两个文本 Block 之间的硬换行（Hard Break，与在文档中通过操作 `Enter` 的效果一致）;;;**注意**：软换行在渲染时可能会被忽略，具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。;;**数据校验规则**：;* 一个文本 Block 中 content 总长度最大值：`100,000 个 UTF-16 编码的字符`;
 	contentSet bool
 
 	textElementStyle    *TextElementStyle // 文本局部样式
@@ -5703,7 +5817,7 @@ func NewTextRunBuilder() *TextRunBuilder {
 	return builder
 }
 
-// 文本内容
+// 文本内容。要实现文本内容的换行，你可以：;- 在传入的文本内容中添加 `\n` 实现软换行（Soft Break，与在文档中通过操作 `Shift + Enter` 的效果一致）;- 创建一个新的文本 Block，实现两个文本 Block 之间的硬换行（Hard Break，与在文档中通过操作 `Enter` 的效果一致）;;;**注意**：软换行在渲染时可能会被忽略，具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。;;**数据校验规则**：;* 一个文本 Block 中 content 总长度最大值：`100,000 个 UTF-16 编码的字符`;
 //
 // 示例值：文本
 func (builder *TextRunBuilder) Content(content string) *TextRunBuilder {
@@ -5736,44 +5850,44 @@ func (builder *TextRunBuilder) Build() *TextRun {
 type TextStyle struct {
 	Align *int `json:"align,omitempty"` // 对齐方式
 
-	Done *bool `json:"done,omitempty"` // todo 的完成状态
+	Done *bool `json:"done,omitempty"` // todo 的完成状态。支持对 Todo 块进行修改
 
-	Folded *bool `json:"folded,omitempty"` // 文本的折叠状态
+	Folded *bool `json:"folded,omitempty"` // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
 
-	Language *int `json:"language,omitempty"` // 代码块语言
+	Language *int `json:"language,omitempty"` // 代码块的语言类型。仅支持对 Code 块进行修改
 
-	Wrap *bool `json:"wrap,omitempty"` // 代码块是否自动换行
+	Wrap *bool `json:"wrap,omitempty"` // 代码块是否自动换行。支持对 Code 块进行修改
 
-	BackgroundColor *string `json:"background_color,omitempty"` // 块背景色
+	BackgroundColor *string `json:"background_color,omitempty"` // 块的背景色
 
-	IndentationLevel *string `json:"indentation_level,omitempty"` // 首行缩进级别
+	IndentationLevel *string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。
 
-	Sequence *string `json:"sequence,omitempty"` // 用于确定有序列表项编号，为具体数值或'auto'
+	Sequence *string `json:"sequence,omitempty"` // 用于确定有序列表项编号，为具体数值或'auto';- 开始新列表时，有序列表编号从 1 开始，sequence='1';- 手动修改为非连续编号时，有序列表编号为设定的具体数值，如 sequence='3';- 继续编号时，有序列表编号自动连续，sequence='auto';- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
 }
 
 type TextStyleBuilder struct {
 	align    int // 对齐方式
 	alignSet bool
 
-	done    bool // todo 的完成状态
+	done    bool // todo 的完成状态。支持对 Todo 块进行修改
 	doneSet bool
 
-	folded    bool // 文本的折叠状态
+	folded    bool // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
 	foldedSet bool
 
-	language    int // 代码块语言
+	language    int // 代码块的语言类型。仅支持对 Code 块进行修改
 	languageSet bool
 
-	wrap    bool // 代码块是否自动换行
+	wrap    bool // 代码块是否自动换行。支持对 Code 块进行修改
 	wrapSet bool
 
-	backgroundColor    string // 块背景色
+	backgroundColor    string // 块的背景色
 	backgroundColorSet bool
 
-	indentationLevel    string // 首行缩进级别
+	indentationLevel    string // 首行缩进级别。仅支持对 Text 块进行修改。
 	indentationLevelSet bool
 
-	sequence    string // 用于确定有序列表项编号，为具体数值或'auto'
+	sequence    string // 用于确定有序列表项编号，为具体数值或'auto';- 开始新列表时，有序列表编号从 1 开始，sequence='1';- 手动修改为非连续编号时，有序列表编号为设定的具体数值，如 sequence='3';- 继续编号时，有序列表编号自动连续，sequence='auto';- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
 	sequenceSet bool
 }
 
@@ -5791,7 +5905,7 @@ func (builder *TextStyleBuilder) Align(align int) *TextStyleBuilder {
 	return builder
 }
 
-// todo 的完成状态
+// todo 的完成状态。支持对 Todo 块进行修改
 //
 // 示例值：true
 func (builder *TextStyleBuilder) Done(done bool) *TextStyleBuilder {
@@ -5800,7 +5914,7 @@ func (builder *TextStyleBuilder) Done(done bool) *TextStyleBuilder {
 	return builder
 }
 
-// 文本的折叠状态
+// 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
 //
 // 示例值：true
 func (builder *TextStyleBuilder) Folded(folded bool) *TextStyleBuilder {
@@ -5809,7 +5923,7 @@ func (builder *TextStyleBuilder) Folded(folded bool) *TextStyleBuilder {
 	return builder
 }
 
-// 代码块语言
+// 代码块的语言类型。仅支持对 Code 块进行修改
 //
 // 示例值：1
 func (builder *TextStyleBuilder) Language(language int) *TextStyleBuilder {
@@ -5818,7 +5932,7 @@ func (builder *TextStyleBuilder) Language(language int) *TextStyleBuilder {
 	return builder
 }
 
-// 代码块是否自动换行
+// 代码块是否自动换行。支持对 Code 块进行修改
 //
 // 示例值：true
 func (builder *TextStyleBuilder) Wrap(wrap bool) *TextStyleBuilder {
@@ -5827,7 +5941,7 @@ func (builder *TextStyleBuilder) Wrap(wrap bool) *TextStyleBuilder {
 	return builder
 }
 
-// 块背景色
+// 块的背景色
 //
 // 示例值：LightGrayBackground
 func (builder *TextStyleBuilder) BackgroundColor(backgroundColor string) *TextStyleBuilder {
@@ -5836,7 +5950,7 @@ func (builder *TextStyleBuilder) BackgroundColor(backgroundColor string) *TextSt
 	return builder
 }
 
-// 首行缩进级别
+// 首行缩进级别。仅支持对 Text 块进行修改。
 //
 // 示例值：NoIndent
 func (builder *TextStyleBuilder) IndentationLevel(indentationLevel string) *TextStyleBuilder {
@@ -5845,7 +5959,7 @@ func (builder *TextStyleBuilder) IndentationLevel(indentationLevel string) *Text
 	return builder
 }
 
-// 用于确定有序列表项编号，为具体数值或'auto'
+// 用于确定有序列表项编号，为具体数值或'auto';- 开始新列表时，有序列表编号从 1 开始，sequence='1';- 手动修改为非连续编号时，有序列表编号为设定的具体数值，如 sequence='3';- 继续编号时，有序列表编号自动连续，sequence='auto';- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
 //
 // 示例值："auto"
 func (builder *TextStyleBuilder) Sequence(sequence string) *TextStyleBuilder {
@@ -6009,31 +6123,31 @@ type UpdateBlockRequest struct {
 
 	UpdateTextStyle *UpdateTextStyleRequest `json:"update_text_style,omitempty"` // 更新文本样式请求
 
-	UpdateTableProperty *UpdateTablePropertyRequest `json:"update_table_property,omitempty"` // 更新表格属性请求
+	UpdateTableProperty *UpdateTablePropertyRequest `json:"update_table_property,omitempty"` // 更新表格属性请求。仅支持对 Table 块进行修改
 
-	InsertTableRow *InsertTableRowRequest `json:"insert_table_row,omitempty"` // 表格插入新行请求
+	InsertTableRow *InsertTableRowRequest `json:"insert_table_row,omitempty"` // 表格插入新行请求。仅支持对 Table 块进行修改
 
-	InsertTableColumn *InsertTableColumnRequest `json:"insert_table_column,omitempty"` // 表格插入新列请求
+	InsertTableColumn *InsertTableColumnRequest `json:"insert_table_column,omitempty"` // 表格插入新列请求。仅支持对 Table 块进行修改
 
-	DeleteTableRows *DeleteTableRowsRequest `json:"delete_table_rows,omitempty"` // 表格批量删除行请求
+	DeleteTableRows *DeleteTableRowsRequest `json:"delete_table_rows,omitempty"` // 表格批量删除行请求。仅支持对 Table 块进行修改
 
-	DeleteTableColumns *DeleteTableColumnsRequest `json:"delete_table_columns,omitempty"` // 表格批量删除列请求
+	DeleteTableColumns *DeleteTableColumnsRequest `json:"delete_table_columns,omitempty"` // 表格批量删除列请求。仅支持对 Table 块进行修改
 
-	MergeTableCells *MergeTableCellsRequest `json:"merge_table_cells,omitempty"` // 表格合并单元格请求
+	MergeTableCells *MergeTableCellsRequest `json:"merge_table_cells,omitempty"` // 表格合并单元格请求。仅支持对 Table 块进行修改。表格单元格需要满足以下任一条件：;;- 完全包含在之前合并的区域内;;- 完全不在之前合并的区域内
 
-	UnmergeTableCells *UnmergeTableCellsRequest `json:"unmerge_table_cells,omitempty"` // 表格取消单元格合并状态请求
+	UnmergeTableCells *UnmergeTableCellsRequest `json:"unmerge_table_cells,omitempty"` // 表格取消单元格合并状态请求。仅支持对 Table 块进行修改
 
-	InsertGridColumn *InsertGridColumnRequest `json:"insert_grid_column,omitempty"` // 分栏插入新的分栏列请求
+	InsertGridColumn *InsertGridColumnRequest `json:"insert_grid_column,omitempty"` // 分栏插入新的分栏列请求。仅支持对 Grid 块进行修改
 
-	DeleteGridColumn *DeleteGridColumnRequest `json:"delete_grid_column,omitempty"` // 分栏删除列请求
+	DeleteGridColumn *DeleteGridColumnRequest `json:"delete_grid_column,omitempty"` // 分栏删除列请求。仅支持对 Grid 块进行修改
 
-	UpdateGridColumnWidthRatio *UpdateGridColumnWidthRatioRequest `json:"update_grid_column_width_ratio,omitempty"` // 更新分栏列宽比例请求
+	UpdateGridColumnWidthRatio *UpdateGridColumnWidthRatioRequest `json:"update_grid_column_width_ratio,omitempty"` // 更新分栏列宽比例请求。仅支持对 Grid 块进行修改
 
-	ReplaceImage *ReplaceImageRequest `json:"replace_image,omitempty"` // 替换图片请求
+	ReplaceImage *ReplaceImageRequest `json:"replace_image,omitempty"` // 替换图片请求。调用此请求前，你需确保已经上传过素材
 
-	ReplaceFile *ReplaceFileRequest `json:"replace_file,omitempty"` // 替换附件请求
+	ReplaceFile *ReplaceFileRequest `json:"replace_file,omitempty"` // 替换附件请求。调用此请求前，你需确保已经上传过素材
 
-	BlockId *string `json:"block_id,omitempty"` // Block 唯一标识
+	BlockId *string `json:"block_id,omitempty"` // Block 唯一标识。你可调用[获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)获取文档中块的 `block_id`
 
 	UpdateText *UpdateTextRequest `json:"update_text,omitempty"` // 更新文本元素及样式请求
 
@@ -6047,43 +6161,43 @@ type UpdateBlockRequestBuilder struct {
 	updateTextStyle    *UpdateTextStyleRequest // 更新文本样式请求
 	updateTextStyleSet bool
 
-	updateTableProperty    *UpdateTablePropertyRequest // 更新表格属性请求
+	updateTableProperty    *UpdateTablePropertyRequest // 更新表格属性请求。仅支持对 Table 块进行修改
 	updateTablePropertySet bool
 
-	insertTableRow    *InsertTableRowRequest // 表格插入新行请求
+	insertTableRow    *InsertTableRowRequest // 表格插入新行请求。仅支持对 Table 块进行修改
 	insertTableRowSet bool
 
-	insertTableColumn    *InsertTableColumnRequest // 表格插入新列请求
+	insertTableColumn    *InsertTableColumnRequest // 表格插入新列请求。仅支持对 Table 块进行修改
 	insertTableColumnSet bool
 
-	deleteTableRows    *DeleteTableRowsRequest // 表格批量删除行请求
+	deleteTableRows    *DeleteTableRowsRequest // 表格批量删除行请求。仅支持对 Table 块进行修改
 	deleteTableRowsSet bool
 
-	deleteTableColumns    *DeleteTableColumnsRequest // 表格批量删除列请求
+	deleteTableColumns    *DeleteTableColumnsRequest // 表格批量删除列请求。仅支持对 Table 块进行修改
 	deleteTableColumnsSet bool
 
-	mergeTableCells    *MergeTableCellsRequest // 表格合并单元格请求
+	mergeTableCells    *MergeTableCellsRequest // 表格合并单元格请求。仅支持对 Table 块进行修改。表格单元格需要满足以下任一条件：;;- 完全包含在之前合并的区域内;;- 完全不在之前合并的区域内
 	mergeTableCellsSet bool
 
-	unmergeTableCells    *UnmergeTableCellsRequest // 表格取消单元格合并状态请求
+	unmergeTableCells    *UnmergeTableCellsRequest // 表格取消单元格合并状态请求。仅支持对 Table 块进行修改
 	unmergeTableCellsSet bool
 
-	insertGridColumn    *InsertGridColumnRequest // 分栏插入新的分栏列请求
+	insertGridColumn    *InsertGridColumnRequest // 分栏插入新的分栏列请求。仅支持对 Grid 块进行修改
 	insertGridColumnSet bool
 
-	deleteGridColumn    *DeleteGridColumnRequest // 分栏删除列请求
+	deleteGridColumn    *DeleteGridColumnRequest // 分栏删除列请求。仅支持对 Grid 块进行修改
 	deleteGridColumnSet bool
 
-	updateGridColumnWidthRatio    *UpdateGridColumnWidthRatioRequest // 更新分栏列宽比例请求
+	updateGridColumnWidthRatio    *UpdateGridColumnWidthRatioRequest // 更新分栏列宽比例请求。仅支持对 Grid 块进行修改
 	updateGridColumnWidthRatioSet bool
 
-	replaceImage    *ReplaceImageRequest // 替换图片请求
+	replaceImage    *ReplaceImageRequest // 替换图片请求。调用此请求前，你需确保已经上传过素材
 	replaceImageSet bool
 
-	replaceFile    *ReplaceFileRequest // 替换附件请求
+	replaceFile    *ReplaceFileRequest // 替换附件请求。调用此请求前，你需确保已经上传过素材
 	replaceFileSet bool
 
-	blockId    string // Block 唯一标识
+	blockId    string // Block 唯一标识。你可调用[获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)获取文档中块的 `block_id`
 	blockIdSet bool
 
 	updateText    *UpdateTextRequest // 更新文本元素及样式请求
@@ -6116,7 +6230,7 @@ func (builder *UpdateBlockRequestBuilder) UpdateTextStyle(updateTextStyle *Updat
 	return builder
 }
 
-// 更新表格属性请求
+// 更新表格属性请求。仅支持对 Table 块进行修改
 //
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) UpdateTableProperty(updateTableProperty *UpdateTablePropertyRequest) *UpdateBlockRequestBuilder {
@@ -6125,7 +6239,7 @@ func (builder *UpdateBlockRequestBuilder) UpdateTableProperty(updateTablePropert
 	return builder
 }
 
-// 表格插入新行请求
+// 表格插入新行请求。仅支持对 Table 块进行修改
 //
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) InsertTableRow(insertTableRow *InsertTableRowRequest) *UpdateBlockRequestBuilder {
@@ -6134,7 +6248,7 @@ func (builder *UpdateBlockRequestBuilder) InsertTableRow(insertTableRow *InsertT
 	return builder
 }
 
-// 表格插入新列请求
+// 表格插入新列请求。仅支持对 Table 块进行修改
 //
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) InsertTableColumn(insertTableColumn *InsertTableColumnRequest) *UpdateBlockRequestBuilder {
@@ -6143,7 +6257,7 @@ func (builder *UpdateBlockRequestBuilder) InsertTableColumn(insertTableColumn *I
 	return builder
 }
 
-// 表格批量删除行请求
+// 表格批量删除行请求。仅支持对 Table 块进行修改
 //
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) DeleteTableRows(deleteTableRows *DeleteTableRowsRequest) *UpdateBlockRequestBuilder {
@@ -6152,7 +6266,7 @@ func (builder *UpdateBlockRequestBuilder) DeleteTableRows(deleteTableRows *Delet
 	return builder
 }
 
-// 表格批量删除列请求
+// 表格批量删除列请求。仅支持对 Table 块进行修改
 //
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) DeleteTableColumns(deleteTableColumns *DeleteTableColumnsRequest) *UpdateBlockRequestBuilder {
@@ -6161,7 +6275,7 @@ func (builder *UpdateBlockRequestBuilder) DeleteTableColumns(deleteTableColumns 
 	return builder
 }
 
-// 表格合并单元格请求
+// 表格合并单元格请求。仅支持对 Table 块进行修改。表格单元格需要满足以下任一条件：;;- 完全包含在之前合并的区域内;;- 完全不在之前合并的区域内
 //
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) MergeTableCells(mergeTableCells *MergeTableCellsRequest) *UpdateBlockRequestBuilder {
@@ -6170,7 +6284,7 @@ func (builder *UpdateBlockRequestBuilder) MergeTableCells(mergeTableCells *Merge
 	return builder
 }
 
-// 表格取消单元格合并状态请求
+// 表格取消单元格合并状态请求。仅支持对 Table 块进行修改
 //
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) UnmergeTableCells(unmergeTableCells *UnmergeTableCellsRequest) *UpdateBlockRequestBuilder {
@@ -6179,7 +6293,7 @@ func (builder *UpdateBlockRequestBuilder) UnmergeTableCells(unmergeTableCells *U
 	return builder
 }
 
-// 分栏插入新的分栏列请求
+// 分栏插入新的分栏列请求。仅支持对 Grid 块进行修改
 //
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) InsertGridColumn(insertGridColumn *InsertGridColumnRequest) *UpdateBlockRequestBuilder {
@@ -6188,7 +6302,7 @@ func (builder *UpdateBlockRequestBuilder) InsertGridColumn(insertGridColumn *Ins
 	return builder
 }
 
-// 分栏删除列请求
+// 分栏删除列请求。仅支持对 Grid 块进行修改
 //
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) DeleteGridColumn(deleteGridColumn *DeleteGridColumnRequest) *UpdateBlockRequestBuilder {
@@ -6197,7 +6311,7 @@ func (builder *UpdateBlockRequestBuilder) DeleteGridColumn(deleteGridColumn *Del
 	return builder
 }
 
-// 更新分栏列宽比例请求
+// 更新分栏列宽比例请求。仅支持对 Grid 块进行修改
 //
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) UpdateGridColumnWidthRatio(updateGridColumnWidthRatio *UpdateGridColumnWidthRatioRequest) *UpdateBlockRequestBuilder {
@@ -6206,7 +6320,7 @@ func (builder *UpdateBlockRequestBuilder) UpdateGridColumnWidthRatio(updateGridC
 	return builder
 }
 
-// 替换图片请求
+// 替换图片请求。调用此请求前，你需确保已经上传过素材
 //
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) ReplaceImage(replaceImage *ReplaceImageRequest) *UpdateBlockRequestBuilder {
@@ -6215,7 +6329,7 @@ func (builder *UpdateBlockRequestBuilder) ReplaceImage(replaceImage *ReplaceImag
 	return builder
 }
 
-// 替换附件请求
+// 替换附件请求。调用此请求前，你需确保已经上传过素材
 //
 // 示例值：
 func (builder *UpdateBlockRequestBuilder) ReplaceFile(replaceFile *ReplaceFileRequest) *UpdateBlockRequestBuilder {
@@ -6224,7 +6338,7 @@ func (builder *UpdateBlockRequestBuilder) ReplaceFile(replaceFile *ReplaceFileRe
 	return builder
 }
 
-// Block 唯一标识
+// Block 唯一标识。你可调用[获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)获取文档中块的 `block_id`
 //
 // 示例值：doxcnSS4ouQkQEouGSUkTg9NJPe
 func (builder *UpdateBlockRequestBuilder) BlockId(blockId string) *UpdateBlockRequestBuilder {
@@ -6388,11 +6502,11 @@ func (builder *UpdateDocumentRequestBuilder) Build() *UpdateDocumentRequest {
 }
 
 type UpdateGridColumnWidthRatioRequest struct {
-	WidthRatios []int `json:"width_ratios,omitempty"` // 更新列宽比例时，需要传入所有列宽占比
+	WidthRatios []int `json:"width_ratios,omitempty"` // 更新列宽比例时，需要传入所有列宽占比，单位 %
 }
 
 type UpdateGridColumnWidthRatioRequestBuilder struct {
-	widthRatios    []int // 更新列宽比例时，需要传入所有列宽占比
+	widthRatios    []int // 更新列宽比例时，需要传入所有列宽占比，单位 %
 	widthRatiosSet bool
 }
 
@@ -6401,7 +6515,7 @@ func NewUpdateGridColumnWidthRatioRequestBuilder() *UpdateGridColumnWidthRatioRe
 	return builder
 }
 
-// 更新列宽比例时，需要传入所有列宽占比
+// 更新列宽比例时，需要传入所有列宽占比，单位 %
 //
 // 示例值：50
 func (builder *UpdateGridColumnWidthRatioRequestBuilder) WidthRatios(widthRatios []int) *UpdateGridColumnWidthRatioRequestBuilder {
@@ -6469,7 +6583,7 @@ func (builder *UpdateReferenceBaseRequestBuilder) Build() *UpdateReferenceBaseRe
 }
 
 type UpdateTablePropertyRequest struct {
-	ColumnWidth *int `json:"column_width,omitempty"` // 表格列宽
+	ColumnWidth *int `json:"column_width,omitempty"` // 表格列宽，单位像素（px）
 
 	ColumnIndex *int `json:"column_index,omitempty"` // 需要修改列宽的表格列的索引
 
@@ -6479,7 +6593,7 @@ type UpdateTablePropertyRequest struct {
 }
 
 type UpdateTablePropertyRequestBuilder struct {
-	columnWidth    int // 表格列宽
+	columnWidth    int // 表格列宽，单位像素（px）
 	columnWidthSet bool
 
 	columnIndex    int // 需要修改列宽的表格列的索引
@@ -6497,7 +6611,7 @@ func NewUpdateTablePropertyRequestBuilder() *UpdateTablePropertyRequestBuilder {
 	return builder
 }
 
-// 表格列宽
+// 表格列宽，单位像素（px）
 //
 // 示例值：100
 func (builder *UpdateTablePropertyRequestBuilder) ColumnWidth(columnWidth int) *UpdateTablePropertyRequestBuilder {
@@ -6605,11 +6719,11 @@ func (builder *UpdateTaskRequestBuilder) Build() *UpdateTaskRequest {
 }
 
 type UpdateTextElementsRequest struct {
-	Elements []*TextElement `json:"elements,omitempty"` // 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个
+	Elements []*TextElement `json:"elements,omitempty"` // 更新后的文本元素列表，单次更新中：;;- reminder 元素上限 30 个;;- mention_doc 元素上限 50 个;;- mention_user 元素上限 100 个
 }
 
 type UpdateTextElementsRequestBuilder struct {
-	elements    []*TextElement // 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个
+	elements    []*TextElement // 更新后的文本元素列表，单次更新中：;;- reminder 元素上限 30 个;;- mention_doc 元素上限 50 个;;- mention_user 元素上限 100 个
 	elementsSet bool
 }
 
@@ -6618,7 +6732,7 @@ func NewUpdateTextElementsRequestBuilder() *UpdateTextElementsRequestBuilder {
 	return builder
 }
 
-// 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个
+// 更新后的文本元素列表，单次更新中：;;- reminder 元素上限 30 个;;- mention_doc 元素上限 50 个;;- mention_user 元素上限 100 个
 //
 // 示例值：
 func (builder *UpdateTextElementsRequestBuilder) Elements(elements []*TextElement) *UpdateTextElementsRequestBuilder {
@@ -6636,21 +6750,21 @@ func (builder *UpdateTextElementsRequestBuilder) Build() *UpdateTextElementsRequ
 }
 
 type UpdateTextRequest struct {
-	Elements []*TextElement `json:"elements,omitempty"` // 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个
+	Elements []*TextElement `json:"elements,omitempty"` // 更新的文本元素列表。单次更新中：;;- reminder 上限 30 个;;- mention_doc 上限 50 个;;- mention_user 上限 100 个
 
 	Style *TextStyle `json:"style,omitempty"` // 更新的文本样式
 
-	Fields []int `json:"fields,omitempty"` // 文本样式中应更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]。
+	Fields []int `json:"fields,omitempty"` // 文本样式中要更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]
 }
 
 type UpdateTextRequestBuilder struct {
-	elements    []*TextElement // 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个
+	elements    []*TextElement // 更新的文本元素列表。单次更新中：;;- reminder 上限 30 个;;- mention_doc 上限 50 个;;- mention_user 上限 100 个
 	elementsSet bool
 
 	style    *TextStyle // 更新的文本样式
 	styleSet bool
 
-	fields    []int // 文本样式中应更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]。
+	fields    []int // 文本样式中要更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]
 	fieldsSet bool
 }
 
@@ -6659,7 +6773,7 @@ func NewUpdateTextRequestBuilder() *UpdateTextRequestBuilder {
 	return builder
 }
 
-// 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个
+// 更新的文本元素列表。单次更新中：;;- reminder 上限 30 个;;- mention_doc 上限 50 个;;- mention_user 上限 100 个
 //
 // 示例值：
 func (builder *UpdateTextRequestBuilder) Elements(elements []*TextElement) *UpdateTextRequestBuilder {
@@ -6677,7 +6791,7 @@ func (builder *UpdateTextRequestBuilder) Style(style *TextStyle) *UpdateTextRequ
 	return builder
 }
 
-// 文本样式中应更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]。
+// 文本样式中要更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]
 //
 // 示例值：[1]
 func (builder *UpdateTextRequestBuilder) Fields(fields []int) *UpdateTextRequestBuilder {
@@ -6701,13 +6815,13 @@ func (builder *UpdateTextRequestBuilder) Build() *UpdateTextRequest {
 }
 
 type UpdateTextStyleRequest struct {
-	Style *TextStyle `json:"style,omitempty"` // 文本样式
+	Style *TextStyle `json:"style,omitempty"` // 文本样式。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo、Task 块进行修改
 
 	Fields []int `json:"fields,omitempty"` // 应更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]。
 }
 
 type UpdateTextStyleRequestBuilder struct {
-	style    *TextStyle // 文本样式
+	style    *TextStyle // 文本样式。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo、Task 块进行修改
 	styleSet bool
 
 	fields    []int // 应更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]。
@@ -6719,7 +6833,7 @@ func NewUpdateTextStyleRequestBuilder() *UpdateTextStyleRequestBuilder {
 	return builder
 }
 
-// 文本样式
+// 文本样式。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo、Task 块进行修改
 //
 // 示例值：
 func (builder *UpdateTextStyleRequestBuilder) Style(style *TextStyle) *UpdateTextStyleRequestBuilder {
@@ -6745,6 +6859,54 @@ func (builder *UpdateTextStyleRequestBuilder) Build() *UpdateTextStyleRequest {
 	if builder.fieldsSet {
 		req.Fields = builder.fields
 	}
+	return req
+}
+
+type VcSummaryTab struct {
+}
+
+type VcSummaryTabBuilder struct {
+}
+
+func NewVcSummaryTabBuilder() *VcSummaryTabBuilder {
+	builder := &VcSummaryTabBuilder{}
+	return builder
+}
+
+func (builder *VcSummaryTabBuilder) Build() *VcSummaryTab {
+	req := &VcSummaryTab{}
+	return req
+}
+
+type VcTabs struct {
+}
+
+type VcTabsBuilder struct {
+}
+
+func NewVcTabsBuilder() *VcTabsBuilder {
+	builder := &VcTabsBuilder{}
+	return builder
+}
+
+func (builder *VcTabsBuilder) Build() *VcTabs {
+	req := &VcTabs{}
+	return req
+}
+
+type VcTranscriptTab struct {
+}
+
+type VcTranscriptTabBuilder struct {
+}
+
+func NewVcTranscriptTabBuilder() *VcTranscriptTabBuilder {
+	builder := &VcTranscriptTabBuilder{}
+	return builder
+}
+
+func (builder *VcTranscriptTabBuilder) Build() *VcTranscriptTab {
+	req := &VcTranscriptTab{}
 	return req
 }
 
@@ -6825,7 +6987,7 @@ func NewGetChatAnnouncementReqBuilder() *GetChatAnnouncementReqBuilder {
 	return builder
 }
 
-// 群公告对应的群 ID
+// 群 ID。获取方式：;;- [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)，从返回结果中获取该群的 chat_id。;- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口，可以查询用户或机器人所在群的 chat_id。;- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search)，可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。;;**注意**：单聊（群类型为 `p2p`）不支持获取群公告。
 //
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *GetChatAnnouncementReqBuilder) ChatId(chatId string) *GetChatAnnouncementReqBuilder {
@@ -6854,11 +7016,11 @@ type GetChatAnnouncementReq struct {
 }
 
 type GetChatAnnouncementRespData struct {
-	RevisionId *int `json:"revision_id,omitempty"` // 当前版本号
+	RevisionId *int `json:"revision_id,omitempty"` // 群公告当前版本号
 
-	CreateTime *int64 `json:"create_time,omitempty"` // 群公告生成的时间戳（秒）（已废弃）
+	CreateTime *int64 `json:"create_time,omitempty"` // 群公告生成的时间戳（秒）
 
-	UpdateTime *int64 `json:"update_time,omitempty"` // 群公告更新的时间戳（秒）（已废弃）
+	UpdateTime *int64 `json:"update_time,omitempty"` // 群公告更新的时间戳（秒）
 
 	OwnerId *string `json:"owner_id,omitempty"` // 群公告所有者 ID，ID 值与 owner_id_type 中的ID类型对应
 
@@ -6866,13 +7028,13 @@ type GetChatAnnouncementRespData struct {
 
 	ModifierId *string `json:"modifier_id,omitempty"` // 群公告最新修改者 ID，ID 值与 modifier_id_type 中的ID类型对应
 
-	ModifierIdType *string `json:"modifier_id_type,omitempty"` // 群公告最新修改者 id 类型
+	ModifierIdType *string `json:"modifier_id_type,omitempty"` // 群公告最新修改者 ID 类型
 
 	AnnouncementType *string `json:"announcement_type,omitempty"` // 群公告类型
 
-	CreateTimeV2 *string `json:"create_time_v2,omitempty"` // 群公告生成的时间戳（秒）
+	CreateTimeV2 *string `json:"create_time_v2,omitempty"` // 群公告生成的时间戳（秒）（该字段暂未提供使用）
 
-	UpdateTimeV2 *string `json:"update_time_v2,omitempty"` // 群公告更新的时间戳（秒）
+	UpdateTimeV2 *string `json:"update_time_v2,omitempty"` // 群公告更新的时间戳（秒）（该字段暂未提供使用）
 }
 
 type GetChatAnnouncementResp struct {
@@ -6886,7 +7048,7 @@ func (resp *GetChatAnnouncementResp) Success() bool {
 }
 
 type BatchUpdateChatAnnouncementBlockReqBodyBuilder struct {
-	requests    []*UpdateBlockRequest // 批量更新 Block
+	requests    []*UpdateBlockRequest // 批量更新块。不支持在一次批量更新中，对同一个块进行多次更新。即请求体中的 Block ID 不能重复;;
 	requestsSet bool
 }
 
@@ -6895,9 +7057,9 @@ func NewBatchUpdateChatAnnouncementBlockReqBodyBuilder() *BatchUpdateChatAnnounc
 	return builder
 }
 
-// 批量更新 Block
+// 批量更新块。不支持在一次批量更新中，对同一个块进行多次更新。即请求体中的 Block ID 不能重复;;
 //
-//示例值：
+// 示例值：
 func (builder *BatchUpdateChatAnnouncementBlockReqBodyBuilder) Requests(requests []*UpdateBlockRequest) *BatchUpdateChatAnnouncementBlockReqBodyBuilder {
 	builder.requests = requests
 	builder.requestsSet = true
@@ -6922,7 +7084,7 @@ func NewBatchUpdateChatAnnouncementBlockPathReqBodyBuilder() *BatchUpdateChatAnn
 	return builder
 }
 
-// 批量更新 Block
+// 批量更新块。不支持在一次批量更新中，对同一个块进行多次更新。即请求体中的 Block ID 不能重复;;
 //
 // 示例值：
 func (builder *BatchUpdateChatAnnouncementBlockPathReqBodyBuilder) Requests(requests []*UpdateBlockRequest) *BatchUpdateChatAnnouncementBlockPathReqBodyBuilder {
@@ -6953,7 +7115,7 @@ func NewBatchUpdateChatAnnouncementBlockReqBuilder() *BatchUpdateChatAnnouncemen
 	return builder
 }
 
-// 群公告对应的群 ID
+// 群 ID。获取方式：;;- [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)，从返回结果中获取该群的 chat_id。;- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口，可以查询用户或机器人所在群的 chat_id。;- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search)，可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。;;**注意**：单聊（群类型为 `p2p`）不支持更新群公告。
 //
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *BatchUpdateChatAnnouncementBlockReqBuilder) ChatId(chatId string) *BatchUpdateChatAnnouncementBlockReqBuilder {
@@ -6961,7 +7123,7 @@ func (builder *BatchUpdateChatAnnouncementBlockReqBuilder) ChatId(chatId string)
 	return builder
 }
 
-// 要操作的群公告版本。-1 表示群公告最新版本。群公告创建后，版本为 1。你需确保你已拥有群公告的编辑权限。
+// 要操作的群公告版本。-1 表示群公告最新版本。群公告创建后，版本为 1。你需确保你已拥有群公告的编辑权限。你可通过调用[获取群公告基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement/get)获取群公告的最新 revision_id;
 //
 // 示例值：-1
 func (builder *BatchUpdateChatAnnouncementBlockReqBuilder) RevisionId(revisionId int) *BatchUpdateChatAnnouncementBlockReqBuilder {
@@ -6985,7 +7147,7 @@ func (builder *BatchUpdateChatAnnouncementBlockReqBuilder) UserIdType(userIdType
 	return builder
 }
 
-//
+// 批量更新块的富文本内容。;
 func (builder *BatchUpdateChatAnnouncementBlockReqBuilder) Body(body *BatchUpdateChatAnnouncementBlockReqBody) *BatchUpdateChatAnnouncementBlockReqBuilder {
 	builder.body = body
 	return builder
@@ -7001,7 +7163,7 @@ func (builder *BatchUpdateChatAnnouncementBlockReqBuilder) Build() *BatchUpdateC
 }
 
 type BatchUpdateChatAnnouncementBlockReqBody struct {
-	Requests []*UpdateBlockRequest `json:"requests,omitempty"` // 批量更新 Block
+	Requests []*UpdateBlockRequest `json:"requests,omitempty"` // 批量更新块。不支持在一次批量更新中，对同一个块进行多次更新。即请求体中的 Block ID 不能重复;;
 }
 
 type BatchUpdateChatAnnouncementBlockReq struct {
@@ -7040,7 +7202,7 @@ func NewGetChatAnnouncementBlockReqBuilder() *GetChatAnnouncementBlockReqBuilder
 	return builder
 }
 
-// 群公告对应的群 ID
+// 群 ID。获取方式：;;- [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)，从返回结果中获取该群的 chat_id。;- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口，可以查询用户或机器人所在群的 chat_id。;- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search)，可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。;;**注意**：单聊（群类型为 `p2p`）不支持获取群公告。
 //
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *GetChatAnnouncementBlockReqBuilder) ChatId(chatId string) *GetChatAnnouncementBlockReqBuilder {
@@ -7048,7 +7210,7 @@ func (builder *GetChatAnnouncementBlockReqBuilder) ChatId(chatId string) *GetCha
 	return builder
 }
 
-// Block 的唯一标识
+// Block 的唯一标识。你可通过调用[获取群公告所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/list)接口获取块的 block_id。
 //
 // 示例值：doxcnO6UW6wAw2qIcYf4hZabcef
 func (builder *GetChatAnnouncementBlockReqBuilder) BlockId(blockId string) *GetChatAnnouncementBlockReqBuilder {
@@ -7056,7 +7218,7 @@ func (builder *GetChatAnnouncementBlockReqBuilder) BlockId(blockId string) *GetC
 	return builder
 }
 
-// 查询的群公告版本，-1 表示群公告最新版本。群公告创建后，版本为 1。若查询的版本为群公告最新版本，则需要持有群公告的阅读权限；若查询的版本为群公告的历史版本，则需要持有群公告的更新权限
+// 查询的群公告版本，-1 表示群公告最新版本。群公告创建后，版本为 1。若查询的版本为群公告最新版本，则需要持有群公告的阅读权限；若查询的版本为群公告的历史版本，则需要持有群公告的更新权限。
 //
 // 示例值：-1
 func (builder *GetChatAnnouncementBlockReqBuilder) RevisionId(revisionId int) *GetChatAnnouncementBlockReqBuilder {
@@ -7118,7 +7280,7 @@ func (builder *ListChatAnnouncementBlockReqBuilder) Limit(limit int) *ListChatAn
 	return builder
 }
 
-// 群公告对应的群 ID
+// 群 ID。获取方式：;;- [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)，从返回结果中获取该群的 chat_id。;- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口，可以查询用户或机器人所在群的 chat_id。;- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search)，可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。;;**注意**：单聊（群类型为 `p2p`）不支持获取群公告。
 //
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *ListChatAnnouncementBlockReqBuilder) ChatId(chatId string) *ListChatAnnouncementBlockReqBuilder {
@@ -7206,7 +7368,7 @@ func NewBatchDeleteChatAnnouncementBlockChildrenReqBodyBuilder() *BatchDeleteCha
 
 // 删除的起始索引（操作区间左闭右开）
 //
-//示例值：0
+// 示例值：0
 func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBodyBuilder) StartIndex(startIndex int) *BatchDeleteChatAnnouncementBlockChildrenReqBodyBuilder {
 	builder.startIndex = startIndex
 	builder.startIndexSet = true
@@ -7215,7 +7377,7 @@ func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBodyBuilder) StartInde
 
 // 删除的末尾索引（操作区间左闭右开）
 //
-//示例值：1
+// 示例值：1
 func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBodyBuilder) EndIndex(endIndex int) *BatchDeleteChatAnnouncementBlockChildrenReqBodyBuilder {
 	builder.endIndex = endIndex
 	builder.endIndexSet = true
@@ -7288,7 +7450,7 @@ func NewBatchDeleteChatAnnouncementBlockChildrenReqBuilder() *BatchDeleteChatAnn
 	return builder
 }
 
-// 群公告对应的群 ID
+// 群 ID。获取方式：;;- [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)，从返回结果中获取该群的 chat_id。;- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口，可以查询用户或机器人所在群的 chat_id。;- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search)，可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。;;**注意**：单聊（群类型为 `p2p`）不支持获取群公告。
 //
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBuilder) ChatId(chatId string) *BatchDeleteChatAnnouncementBlockChildrenReqBuilder {
@@ -7296,7 +7458,7 @@ func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBuilder) ChatId(chatId
 	return builder
 }
 
-// Block 的唯一标识
+// 父 Block 的唯一标识。你可通过调用[获取群公告所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/list)接口获取块的 block_id。;;**注意**：;;- 此接口不支持删除表格（Table）的行列和删除分栏（Grid）的分栏列。你需通过[批量更新块的内容](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/batch_update)接口完成相关操作。;;- 此接口不支持删除表格单元格（Table Cell）、分栏列（Grid Column）和高亮块（Callout）的全部子块。
 //
 // 示例值：doxcnO6UW6wAw2qIcYf4hZpFIth
 func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBuilder) BlockId(blockId string) *BatchDeleteChatAnnouncementBlockChildrenReqBuilder {
@@ -7304,7 +7466,7 @@ func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBuilder) BlockId(block
 	return builder
 }
 
-// 要操作的群公告版本。-1 表示群公告最新版本。群公告创建后，版本为 1。你需确保你已拥有群公告的编辑权限
+// 要操作的群公告版本。-1 表示群公告最新版本。群公告创建后，版本为 1。你需确保你已拥有群公告的编辑权限。你可通过调用[获取群公告基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement/get)获取群公告的最新 revision_id
 //
 // 示例值：-1
 func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBuilder) RevisionId(revisionId int) *BatchDeleteChatAnnouncementBlockChildrenReqBuilder {
@@ -7320,7 +7482,7 @@ func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBuilder) ClientToken(c
 	return builder
 }
 
-//
+// 指定需要操作的块，删除其指定范围的子块。如果操作成功，接口将返回应用删除操作后的群公告版本号。;
 func (builder *BatchDeleteChatAnnouncementBlockChildrenReqBuilder) Body(body *BatchDeleteChatAnnouncementBlockChildrenReqBody) *BatchDeleteChatAnnouncementBlockChildrenReqBuilder {
 	builder.body = body
 	return builder
@@ -7363,7 +7525,7 @@ func (resp *BatchDeleteChatAnnouncementBlockChildrenResp) Success() bool {
 }
 
 type CreateChatAnnouncementBlockChildrenReqBodyBuilder struct {
-	children    []*Block // 添加的孩子列表。
+	children    []*Block // 添加的子块列表。在一次请求中，你最多可以创建 5 个电子表格（Sheet）块
 	childrenSet bool
 
 	index    int // 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
@@ -7375,9 +7537,9 @@ func NewCreateChatAnnouncementBlockChildrenReqBodyBuilder() *CreateChatAnnouncem
 	return builder
 }
 
-// 添加的孩子列表。
+// 添加的子块列表。在一次请求中，你最多可以创建 5 个电子表格（Sheet）块
 //
-//示例值：
+// 示例值：
 func (builder *CreateChatAnnouncementBlockChildrenReqBodyBuilder) Children(children []*Block) *CreateChatAnnouncementBlockChildrenReqBodyBuilder {
 	builder.children = children
 	builder.childrenSet = true
@@ -7386,7 +7548,7 @@ func (builder *CreateChatAnnouncementBlockChildrenReqBodyBuilder) Children(child
 
 // 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
 //
-//示例值：0
+// 示例值：0
 func (builder *CreateChatAnnouncementBlockChildrenReqBodyBuilder) Index(index int) *CreateChatAnnouncementBlockChildrenReqBodyBuilder {
 	builder.index = index
 	builder.indexSet = true
@@ -7416,7 +7578,7 @@ func NewCreateChatAnnouncementBlockChildrenPathReqBodyBuilder() *CreateChatAnnou
 	return builder
 }
 
-// 添加的孩子列表。
+// 添加的子块列表。在一次请求中，你最多可以创建 5 个电子表格（Sheet）块
 //
 // 示例值：
 func (builder *CreateChatAnnouncementBlockChildrenPathReqBodyBuilder) Children(children []*Block) *CreateChatAnnouncementBlockChildrenPathReqBodyBuilder {
@@ -7459,7 +7621,7 @@ func NewCreateChatAnnouncementBlockChildrenReqBuilder() *CreateChatAnnouncementB
 	return builder
 }
 
-// 群公告对应的群 ID
+// 群 ID。获取方式：;;- [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)，从返回结果中获取该群的 chat_id。;- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口，可以查询用户或机器人所在群的 chat_id。;- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search)，可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。;;**注意**：单聊（群类型为 `p2p`）不支持更新群公告。
 //
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *CreateChatAnnouncementBlockChildrenReqBuilder) ChatId(chatId string) *CreateChatAnnouncementBlockChildrenReqBuilder {
@@ -7467,7 +7629,7 @@ func (builder *CreateChatAnnouncementBlockChildrenReqBuilder) ChatId(chatId stri
 	return builder
 }
 
-// Block 的唯一标识
+// 父块的`block_id`，表示为其创建一批子块。如果需要对群公告树根节点创建子块，可将 `chat_id` 填入此处。你可通过调用[获取群公告所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/list)接口获取块的 block_id。
 //
 // 示例值：doxcnO6UW6wAw2qIcYf4hZpFIth
 func (builder *CreateChatAnnouncementBlockChildrenReqBuilder) BlockId(blockId string) *CreateChatAnnouncementBlockChildrenReqBuilder {
@@ -7475,7 +7637,7 @@ func (builder *CreateChatAnnouncementBlockChildrenReqBuilder) BlockId(blockId st
 	return builder
 }
 
-// 要操作的群公告版本。-1 表示群公告最新版本。群公告创建后，版本为 1。你需确保你已拥有群公告的编辑权限
+// 要操作的群公告版本。-1 表示群公告最新版本。群公告创建后，版本为 1。你需确保你已拥有群公告的编辑权限。你可通过调用[获取群公告基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement/get)获取群公告的最新 revision_id;
 //
 // 示例值：-1
 func (builder *CreateChatAnnouncementBlockChildrenReqBuilder) RevisionId(revisionId int) *CreateChatAnnouncementBlockChildrenReqBuilder {
@@ -7499,7 +7661,7 @@ func (builder *CreateChatAnnouncementBlockChildrenReqBuilder) UserIdType(userIdT
 	return builder
 }
 
-//
+// 在指定块的子块列表中，新创建一批子块，并放置到指定位置。如果操作成功，接口将返回新创建子块的富文本内容。调用该接口前，你可参考[群公告概述-基本概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/upgraded-group-announcement/group-announcement-overview)了解块的父子关系规则。
 func (builder *CreateChatAnnouncementBlockChildrenReqBuilder) Body(body *CreateChatAnnouncementBlockChildrenReqBody) *CreateChatAnnouncementBlockChildrenReqBuilder {
 	builder.body = body
 	return builder
@@ -7515,7 +7677,7 @@ func (builder *CreateChatAnnouncementBlockChildrenReqBuilder) Build() *CreateCha
 }
 
 type CreateChatAnnouncementBlockChildrenReqBody struct {
-	Children []*Block `json:"children,omitempty"` // 添加的孩子列表。
+	Children []*Block `json:"children,omitempty"` // 添加的子块列表。在一次请求中，你最多可以创建 5 个电子表格（Sheet）块
 
 	Index *int `json:"index,omitempty"` // 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
 }
@@ -7526,7 +7688,7 @@ type CreateChatAnnouncementBlockChildrenReq struct {
 }
 
 type CreateChatAnnouncementBlockChildrenRespData struct {
-	Children []*Block `json:"children,omitempty"` // 所添加的孩子的 Block 信息
+	Children []*Block `json:"children,omitempty"` // 所添加的子 Block 信息
 
 	RevisionId *int `json:"revision_id,omitempty"` // 当前 Block Children 创建成功后群公告的版本号
 
@@ -7556,7 +7718,7 @@ func NewGetChatAnnouncementBlockChildrenReqBuilder() *GetChatAnnouncementBlockCh
 	return builder
 }
 
-// 群公告对应的群 ID
+// 群 ID。获取方式：;;- [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)，从返回结果中获取该群的 chat_id。;- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口，可以查询用户或机器人所在群的 chat_id。;- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search)，可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。;;**注意**：单聊（群类型为 `p2p`）不支持获取群公告。
 //
 // 示例值：oc_5ad11d72b830411d72b836c20
 func (builder *GetChatAnnouncementBlockChildrenReqBuilder) ChatId(chatId string) *GetChatAnnouncementBlockChildrenReqBuilder {
@@ -7564,7 +7726,7 @@ func (builder *GetChatAnnouncementBlockChildrenReqBuilder) ChatId(chatId string)
 	return builder
 }
 
-// Block 的唯一标识
+// Block 的唯一标识。你可通过调用[获取群公告所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/list)接口获取块的 block_id。
 //
 // 示例值：doxcnO6UW6wAw2qIcYf4hZpFIth
 func (builder *GetChatAnnouncementBlockChildrenReqBuilder) BlockId(blockId string) *GetChatAnnouncementBlockChildrenReqBuilder {
@@ -7649,7 +7811,7 @@ func NewConvertDocumentReqBodyBuilder() *ConvertDocumentReqBodyBuilder {
 
 // 内容类型
 //
-//示例值：markdown
+// 示例值：markdown
 func (builder *ConvertDocumentReqBodyBuilder) ContentType(contentType string) *ConvertDocumentReqBodyBuilder {
 	builder.contentType = contentType
 	builder.contentTypeSet = true
@@ -7658,7 +7820,7 @@ func (builder *ConvertDocumentReqBodyBuilder) ContentType(contentType string) *C
 
 // 文本内容
 //
-//示例值：**第一段为加粗文本**\n\n```\n第二段为代码块\n```
+// 示例值：Text \*\*Bold\*\* \*Italic\* \~\~Strikethrough\~\~ \`inline code\` Hyperlink: \[Feishu Open Platform\]\(https://open.feishu.cn\)\n\n\!\[image\]\(https://sf3-scmcdn-cn.feishucdn.com/obj/feishu-static/lark/open/website/share-logo.png\)\n\n\# Heading1\n\n\`\`\`\n hello word\n\`\`\`\n\n\> quote\n\n1\. ordered1\n2\. ordered2\n\n\- bullet1\n\- bullet2\n\n|Location|Features|Cuisine|\n|\----|\----|\----|\n\|Seafood Street|Seafood Market|Fresh Seafood, Lobsters, Crabs, scallops|
 func (builder *ConvertDocumentReqBodyBuilder) Content(content string) *ConvertDocumentReqBodyBuilder {
 	builder.content = content
 	builder.contentSet = true
@@ -7699,7 +7861,7 @@ func (builder *ConvertDocumentPathReqBodyBuilder) ContentType(contentType string
 
 // 文本内容
 //
-// 示例值：**第一段为加粗文本**\n\n```\n第二段为代码块\n```
+// 示例值：Text \*\*Bold\*\* \*Italic\* \~\~Strikethrough\~\~ \`inline code\` Hyperlink: \[Feishu Open Platform\]\(https://open.feishu.cn\)\n\n\!\[image\]\(https://sf3-scmcdn-cn.feishucdn.com/obj/feishu-static/lark/open/website/share-logo.png\)\n\n\# Heading1\n\n\`\`\`\n hello word\n\`\`\`\n\n\> quote\n\n1\. ordered1\n2\. ordered2\n\n\- bullet1\n\- bullet2\n\n|Location|Features|Cuisine|\n|\----|\----|\----|\n\|Seafood Street|Seafood Market|Fresh Seafood, Lobsters, Crabs, scallops|
 func (builder *ConvertDocumentPathReqBodyBuilder) Content(content string) *ConvertDocumentPathReqBodyBuilder {
 	builder.content = content
 	builder.contentSet = true
@@ -7739,7 +7901,7 @@ func (builder *ConvertDocumentReqBuilder) UserIdType(userIdType string) *Convert
 	return builder
 }
 
-//
+// 将 Markdown/HTML 格式的内容转换为文档块，以便于将 Markdown/HTML 格式的内容插入到文档中。目前支持转换为的块类型包含文本、一到九级标题、无序列表、有序列表、代码块、引用、待办事项、图片、表格、表格单元格。
 func (builder *ConvertDocumentReqBuilder) Body(body *ConvertDocumentReqBody) *ConvertDocumentReqBuilder {
 	builder.body = body
 	return builder
@@ -7783,7 +7945,7 @@ func (resp *ConvertDocumentResp) Success() bool {
 }
 
 type CreateDocumentReqBodyBuilder struct {
-	folderToken    string // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+	folderToken    string // 指定文档所在文件夹 的 Token。不传或传空表示根目录。了解如何获取文件夹 Token，参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。;;**提示**：;若应用使用的是 `tenant_access_token` 权限，此处仅可指定应用创建的文件夹。
 	folderTokenSet bool
 
 	title    string // 文档标题，只支持纯文本
@@ -7795,9 +7957,9 @@ func NewCreateDocumentReqBodyBuilder() *CreateDocumentReqBodyBuilder {
 	return builder
 }
 
-// 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+// 指定文档所在文件夹 的 Token。不传或传空表示根目录。了解如何获取文件夹 Token，参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。;;**提示**：;若应用使用的是 `tenant_access_token` 权限，此处仅可指定应用创建的文件夹。
 //
-//示例值：fldcnqquW1svRIYVT2Np6IuLCKd
+// 示例值：fldcnqquW1svRIYVT2Np6Iabcef
 func (builder *CreateDocumentReqBodyBuilder) FolderToken(folderToken string) *CreateDocumentReqBodyBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenSet = true
@@ -7806,7 +7968,7 @@ func (builder *CreateDocumentReqBodyBuilder) FolderToken(folderToken string) *Cr
 
 // 文档标题，只支持纯文本
 //
-//示例值：undefined
+// 示例值：一篇新的文档
 func (builder *CreateDocumentReqBodyBuilder) Title(title string) *CreateDocumentReqBodyBuilder {
 	builder.title = title
 	builder.titleSet = true
@@ -7836,9 +7998,9 @@ func NewCreateDocumentPathReqBodyBuilder() *CreateDocumentPathReqBodyBuilder {
 	return builder
 }
 
-// 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+// 指定文档所在文件夹 的 Token。不传或传空表示根目录。了解如何获取文件夹 Token，参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。;;**提示**：;若应用使用的是 `tenant_access_token` 权限，此处仅可指定应用创建的文件夹。
 //
-// 示例值：fldcnqquW1svRIYVT2Np6IuLCKd
+// 示例值：fldcnqquW1svRIYVT2Np6Iabcef
 func (builder *CreateDocumentPathReqBodyBuilder) FolderToken(folderToken string) *CreateDocumentPathReqBodyBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenSet = true
@@ -7847,7 +8009,7 @@ func (builder *CreateDocumentPathReqBodyBuilder) FolderToken(folderToken string)
 
 // 文档标题，只支持纯文本
 //
-// 示例值：undefined
+// 示例值：一篇新的文档
 func (builder *CreateDocumentPathReqBodyBuilder) Title(title string) *CreateDocumentPathReqBodyBuilder {
 	builder.title = title
 	builder.titleSet = true
@@ -7879,7 +8041,7 @@ func NewCreateDocumentReqBuilder() *CreateDocumentReqBuilder {
 	return builder
 }
 
-// 创建新版文档，文档标题和目录可选。
+// 创建文档类型为 docx 的文档。你可选择传入文档标题和文件夹。
 func (builder *CreateDocumentReqBuilder) Body(body *CreateDocumentReqBody) *CreateDocumentReqBuilder {
 	builder.body = body
 	return builder
@@ -7893,7 +8055,7 @@ func (builder *CreateDocumentReqBuilder) Build() *CreateDocumentReq {
 }
 
 type CreateDocumentReqBody struct {
-	FolderToken *string `json:"folder_token,omitempty"` // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+	FolderToken *string `json:"folder_token,omitempty"` // 指定文档所在文件夹 的 Token。不传或传空表示根目录。了解如何获取文件夹 Token，参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。;;**提示**：;若应用使用的是 `tenant_access_token` 权限，此处仅可指定应用创建的文件夹。
 
 	Title *string `json:"title,omitempty"` // 文档标题，只支持纯文本
 }
@@ -7930,9 +8092,9 @@ func NewGetDocumentReqBuilder() *GetDocumentReqBuilder {
 	return builder
 }
 
-// 文档的唯一标识
+// 文档的唯一标识。你可通过以下方式获取文档的 `document_id`。了解更多，参考[文档概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview#e18a49a1)。;;- 若文档存储在云盘中，你可通过 URL 地址或通过[获取文件夹下文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list) 获取其中文档资源的 `document_id`。;;- 若文档挂载在知识库中，你需通过知识库相关接口[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)获取该节点下挂载的云资源的 `obj_token` 和 `obj_type`。在该情况下，`obj_type` 为 `docx` 时，其对应的 `obj_token` 即为文档的 `document_id`。;;**注意**：;;对于知识库（wiki）中的文档，其 URL 地址中的 token 并不是该文档的 `document_id`。使用时请注意区分。
 //
-// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
+// 示例值：doxcnePuYufKa49ISjhD8Iabcef
 func (builder *GetDocumentReqBuilder) DocumentId(documentId string) *GetDocumentReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
@@ -7976,15 +8138,15 @@ func NewRawContentDocumentReqBuilder() *RawContentDocumentReqBuilder {
 	return builder
 }
 
-// 文档的唯一标识
+// 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
 //
-// 示例值：doxbcmEtbFrbbq10nPNu8gO1F3b
+// 示例值：doxbcmEtbFrbbq10nPNu8gabcef
 func (builder *RawContentDocumentReqBuilder) DocumentId(documentId string) *RawContentDocumentReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 
-// 语言（用于 MentionUser 语言的选取）
+// 指定返回的 MentionUser 即 @用户 的语言
 //
 // 示例值：0
 func (builder *RawContentDocumentReqBuilder) Lang(lang int) *RawContentDocumentReqBuilder {
@@ -8019,7 +8181,7 @@ func (resp *RawContentDocumentResp) Success() bool {
 }
 
 type BatchUpdateDocumentBlockReqBodyBuilder struct {
-	requests    []*UpdateBlockRequest // 批量更新 Block
+	requests    []*UpdateBlockRequest // 批量更新块。不支持在一次批量更新中，对同一个块进行多次更新。即请求体中的 Block ID 不能重复
 	requestsSet bool
 }
 
@@ -8028,9 +8190,9 @@ func NewBatchUpdateDocumentBlockReqBodyBuilder() *BatchUpdateDocumentBlockReqBod
 	return builder
 }
 
-// 批量更新 Block
+// 批量更新块。不支持在一次批量更新中，对同一个块进行多次更新。即请求体中的 Block ID 不能重复
 //
-//示例值：
+// 示例值：
 func (builder *BatchUpdateDocumentBlockReqBodyBuilder) Requests(requests []*UpdateBlockRequest) *BatchUpdateDocumentBlockReqBodyBuilder {
 	builder.requests = requests
 	builder.requestsSet = true
@@ -8055,7 +8217,7 @@ func NewBatchUpdateDocumentBlockPathReqBodyBuilder() *BatchUpdateDocumentBlockPa
 	return builder
 }
 
-// 批量更新 Block
+// 批量更新块。不支持在一次批量更新中，对同一个块进行多次更新。即请求体中的 Block ID 不能重复
 //
 // 示例值：
 func (builder *BatchUpdateDocumentBlockPathReqBodyBuilder) Requests(requests []*UpdateBlockRequest) *BatchUpdateDocumentBlockPathReqBodyBuilder {
@@ -8086,15 +8248,15 @@ func NewBatchUpdateDocumentBlockReqBuilder() *BatchUpdateDocumentBlockReqBuilder
 	return builder
 }
 
-// 文档的唯一标识
+// 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
 //
-// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
+// 示例值：doxcnePuYufKa49ISjhD8Iabcef
 func (builder *BatchUpdateDocumentBlockReqBuilder) DocumentId(documentId string) *BatchUpdateDocumentBlockReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 
-// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+// 要操作的文档版本。-1 表示文档最新版本。文档创建后，版本为 1。你需确保你已拥有文档的编辑权限。你可通过调用[获取文档基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get)获取文档的最新 revision_id
 //
 // 示例值：-1
 func (builder *BatchUpdateDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *BatchUpdateDocumentBlockReqBuilder {
@@ -8102,7 +8264,7 @@ func (builder *BatchUpdateDocumentBlockReqBuilder) DocumentRevisionId(documentRe
 	return builder
 }
 
-// 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
+// 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作
 //
 // 示例值：0e2633a3-aa1a-4171-af9e-0768ff863566
 func (builder *BatchUpdateDocumentBlockReqBuilder) ClientToken(clientToken string) *BatchUpdateDocumentBlockReqBuilder {
@@ -8134,7 +8296,7 @@ func (builder *BatchUpdateDocumentBlockReqBuilder) Build() *BatchUpdateDocumentB
 }
 
 type BatchUpdateDocumentBlockReqBody struct {
-	Requests []*UpdateBlockRequest `json:"requests,omitempty"` // 批量更新 Block
+	Requests []*UpdateBlockRequest `json:"requests,omitempty"` // 批量更新块。不支持在一次批量更新中，对同一个块进行多次更新。即请求体中的 Block ID 不能重复
 }
 
 type BatchUpdateDocumentBlockReq struct {
@@ -8173,23 +8335,23 @@ func NewGetDocumentBlockReqBuilder() *GetDocumentBlockReqBuilder {
 	return builder
 }
 
-// 文档的唯一标识
+// 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
 //
-// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
+// 示例值：doxcnePuYufKa49ISjhD8Iabcef
 func (builder *GetDocumentBlockReqBuilder) DocumentId(documentId string) *GetDocumentBlockReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 
-// Block 的唯一标识
+// Block 的唯一标识。你可调用[获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)获取文档中块的 `block_id`
 //
-// 示例值：doxcnO6UW6wAw2qIcYf4hZpFIth
+// 示例值：doxcnO6UW6wAw2qIcYf4hZabcef
 func (builder *GetDocumentBlockReqBuilder) BlockId(blockId string) *GetDocumentBlockReqBuilder {
 	builder.apiReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
 
-// 查询的文档版本，-1表示文档最新版本。若此时查询的版本为文档最新版本，则需要持有文档的阅读权限；若此时查询的版本为文档的历史版本，则需要持有文档的编辑权限。
+// 查询的文档版本，-1 表示文档最新版本。文档创建后，版本为 1。若查询的版本为文档最新版本，则需要持有文档的阅读权限；若查询的版本为文档的历史版本，则需要持有文档的编辑权限。你可通过调用[获取文档基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get)获取文档的最新 revision_id
 //
 // 示例值：-1
 func (builder *GetDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *GetDocumentBlockReqBuilder {
@@ -8251,9 +8413,9 @@ func (builder *ListDocumentBlockReqBuilder) Limit(limit int) *ListDocumentBlockR
 	return builder
 }
 
-// 文档的唯一标识
+// 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
 //
-// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
+// 示例值：doxbcmEtbFrbbq10nPNu8gabcef
 func (builder *ListDocumentBlockReqBuilder) DocumentId(documentId string) *ListDocumentBlockReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
@@ -8275,7 +8437,7 @@ func (builder *ListDocumentBlockReqBuilder) PageToken(pageToken string) *ListDoc
 	return builder
 }
 
-// 查询的文档版本，-1表示文档最新版本。若此时查询的版本为文档最新版本，则需要持有文档的阅读权限；若此时查询的版本为文档的历史版本，则需要持有文档的编辑权限。
+// 查询的文档版本，-1 表示文档最新版本。文档创建后，版本为 1。;- 若查询的版本为文档最新版本，则需要持有文档的阅读权限；;- 若查询的版本为文档的历史版本，则需要持有文档的编辑权限。;;你可通过调用[获取文档基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get)获取文档的 revision_id
 //
 // 示例值：-1
 func (builder *ListDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *ListDocumentBlockReqBuilder {
@@ -8338,23 +8500,23 @@ func NewPatchDocumentBlockReqBuilder() *PatchDocumentBlockReqBuilder {
 	return builder
 }
 
-// 文档的唯一标识
+// 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
 //
-// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
+// 示例值：doxcnePuYufKa49ISjhD8Iabcef
 func (builder *PatchDocumentBlockReqBuilder) DocumentId(documentId string) *PatchDocumentBlockReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 
-// Block 的唯一标识
+// Block 的唯一标识。你可调用[获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)获取文档中块的 block_id
 //
-// 示例值：doxcnO6UW6wAw2qIcYf4hZpFIth
+// 示例值：doxcnO6UW6wAw2qIcYf4hZabcef
 func (builder *PatchDocumentBlockReqBuilder) BlockId(blockId string) *PatchDocumentBlockReqBuilder {
 	builder.apiReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
 
-// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+// 要操作的文档版本。-1 表示文档最新版本。文档创建后，版本为 1。你需确保你已拥有文档的编辑权限。你可通过调用[获取文档基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get)获取文档的最新 revision_id
 //
 // 示例值：-1
 func (builder *PatchDocumentBlockReqBuilder) DocumentRevisionId(documentRevisionId int) *PatchDocumentBlockReqBuilder {
@@ -8362,7 +8524,7 @@ func (builder *PatchDocumentBlockReqBuilder) DocumentRevisionId(documentRevision
 	return builder
 }
 
-// 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
+// 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作
 //
 // 示例值：0e2633a3-aa1a-4171-af9e-0768ff863566
 func (builder *PatchDocumentBlockReqBuilder) ClientToken(clientToken string) *PatchDocumentBlockReqBuilder {
@@ -8378,7 +8540,7 @@ func (builder *PatchDocumentBlockReqBuilder) UserIdType(userIdType string) *Patc
 	return builder
 }
 
-// 更新指定的块。
+// 更新指定块的内容。如果操作成功，接口将返回更新后的块的富文本内容。
 func (builder *PatchDocumentBlockReqBuilder) UpdateBlockRequest(updateBlockRequest *UpdateBlockRequest) *PatchDocumentBlockReqBuilder {
 	builder.updateBlockRequest = updateBlockRequest
 	return builder
@@ -8417,10 +8579,10 @@ func (resp *PatchDocumentBlockResp) Success() bool {
 }
 
 type BatchDeleteDocumentBlockChildrenReqBodyBuilder struct {
-	startIndex    int // 删除的起始索引（操作区间左闭右开）
+	startIndex    int // 删除的起始索引（操作区间左闭右开），start_index 需要小于 end_index
 	startIndexSet bool
 
-	endIndex    int // 删除的末尾索引（操作区间左闭右开）
+	endIndex    int // 删除的末尾索引（操作区间左闭右开），start_index 需要小于 end_index
 	endIndexSet bool
 }
 
@@ -8429,18 +8591,18 @@ func NewBatchDeleteDocumentBlockChildrenReqBodyBuilder() *BatchDeleteDocumentBlo
 	return builder
 }
 
-// 删除的起始索引（操作区间左闭右开）
+// 删除的起始索引（操作区间左闭右开），start_index 需要小于 end_index
 //
-//示例值：0
+// 示例值：0
 func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) StartIndex(startIndex int) *BatchDeleteDocumentBlockChildrenReqBodyBuilder {
 	builder.startIndex = startIndex
 	builder.startIndexSet = true
 	return builder
 }
 
-// 删除的末尾索引（操作区间左闭右开）
+// 删除的末尾索引（操作区间左闭右开），start_index 需要小于 end_index
 //
-//示例值：1
+// 示例值：1
 func (builder *BatchDeleteDocumentBlockChildrenReqBodyBuilder) EndIndex(endIndex int) *BatchDeleteDocumentBlockChildrenReqBodyBuilder {
 	builder.endIndex = endIndex
 	builder.endIndexSet = true
@@ -8470,7 +8632,7 @@ func NewBatchDeleteDocumentBlockChildrenPathReqBodyBuilder() *BatchDeleteDocumen
 	return builder
 }
 
-// 删除的起始索引（操作区间左闭右开）
+// 删除的起始索引（操作区间左闭右开），start_index 需要小于 end_index
 //
 // 示例值：0
 func (builder *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder) StartIndex(startIndex int) *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder {
@@ -8479,7 +8641,7 @@ func (builder *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder) StartIndex(st
 	return builder
 }
 
-// 删除的末尾索引（操作区间左闭右开）
+// 删除的末尾索引（操作区间左闭右开），start_index 需要小于 end_index
 //
 // 示例值：1
 func (builder *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder) EndIndex(endIndex int) *BatchDeleteDocumentBlockChildrenPathReqBodyBuilder {
@@ -8513,23 +8675,23 @@ func NewBatchDeleteDocumentBlockChildrenReqBuilder() *BatchDeleteDocumentBlockCh
 	return builder
 }
 
-// 文档的唯一标识
+// 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
 //
-// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
+// 示例值：doxcnePuYufKa49ISjhD8Iabcef
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *BatchDeleteDocumentBlockChildrenReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 
-// 父 Block 的唯一标识
+// 父 Block 的唯一标识。你可通过调用[获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)接口获取块的 block_id;;**注意**：;;- 此接口不支持删除表格（Table）的行列和删除分栏（Grid）的分栏列。你需通过[更新块的内容](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/patch)接口完成相关操作。;;- 此接口不支持删除表格单元格（Table Cell）、分栏列（Grid Column）和高亮块（Callout）的全部子块。
 //
-// 示例值：doxcnO6UW6wAw2qIcYf4hZpFIth
+// 示例值：doxcnO6UW6wAw2qIcYf4hZabcef
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) BlockId(blockId string) *BatchDeleteDocumentBlockChildrenReqBuilder {
 	builder.apiReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
 
-// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+// 要操作的文档版本。-1 表示文档最新版本。文档创建后，版本为 1。你需确保你已拥有文档的编辑权限。你可通过调用[获取文档基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get)获取文档的最新 revision_id
 //
 // 示例值：-1
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *BatchDeleteDocumentBlockChildrenReqBuilder {
@@ -8537,7 +8699,7 @@ func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) DocumentRevisionId(do
 	return builder
 }
 
-// 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
+// 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作
 //
 // 示例值：fe599b60-450f-46ff-b2ef-9f6675625b97
 func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) ClientToken(clientToken string) *BatchDeleteDocumentBlockChildrenReqBuilder {
@@ -8561,9 +8723,9 @@ func (builder *BatchDeleteDocumentBlockChildrenReqBuilder) Build() *BatchDeleteD
 }
 
 type BatchDeleteDocumentBlockChildrenReqBody struct {
-	StartIndex *int `json:"start_index,omitempty"` // 删除的起始索引（操作区间左闭右开）
+	StartIndex *int `json:"start_index,omitempty"` // 删除的起始索引（操作区间左闭右开），start_index 需要小于 end_index
 
-	EndIndex *int `json:"end_index,omitempty"` // 删除的末尾索引（操作区间左闭右开）
+	EndIndex *int `json:"end_index,omitempty"` // 删除的末尾索引（操作区间左闭右开），start_index 需要小于 end_index
 }
 
 type BatchDeleteDocumentBlockChildrenReq struct {
@@ -8588,10 +8750,10 @@ func (resp *BatchDeleteDocumentBlockChildrenResp) Success() bool {
 }
 
 type CreateDocumentBlockChildrenReqBodyBuilder struct {
-	children    []*Block // 添加的孩子列表。
+	children    []*Block // 添加的子块列表。了解块的父子关系规则，参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)。在一次请求中，你最多可以创建 5 个电子表格（Sheet）块
 	childrenSet bool
 
-	index    int // 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
+	index    int // 指定在某个块的子块列表中，新创建的子块的放置位置。索引的起始值为 0，表示子块列表的第一个位置；索引的最大值为某个块的子块数量，表示子块列表的最后一个位置。例如：一个块的子块列表中有 5 个子块，那么它们的索引分别为 0、1、2、3、4。如果要在该块的子块列表的中放置一个新创建的子块，并将其放置到第一个位置，那么索引值应为 0；如果要将新创建的子块放置到最后一个位置，那么索引值应为 -1
 	indexSet bool
 }
 
@@ -8600,18 +8762,18 @@ func NewCreateDocumentBlockChildrenReqBodyBuilder() *CreateDocumentBlockChildren
 	return builder
 }
 
-// 添加的孩子列表。
+// 添加的子块列表。了解块的父子关系规则，参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)。在一次请求中，你最多可以创建 5 个电子表格（Sheet）块
 //
-//示例值：
+// 示例值：
 func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Children(children []*Block) *CreateDocumentBlockChildrenReqBodyBuilder {
 	builder.children = children
 	builder.childrenSet = true
 	return builder
 }
 
-// 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
+// 指定在某个块的子块列表中，新创建的子块的放置位置。索引的起始值为 0，表示子块列表的第一个位置；索引的最大值为某个块的子块数量，表示子块列表的最后一个位置。例如：一个块的子块列表中有 5 个子块，那么它们的索引分别为 0、1、2、3、4。如果要在该块的子块列表的中放置一个新创建的子块，并将其放置到第一个位置，那么索引值应为 0；如果要将新创建的子块放置到最后一个位置，那么索引值应为 -1
 //
-//示例值：0
+// 示例值：0
 func (builder *CreateDocumentBlockChildrenReqBodyBuilder) Index(index int) *CreateDocumentBlockChildrenReqBodyBuilder {
 	builder.index = index
 	builder.indexSet = true
@@ -8641,7 +8803,7 @@ func NewCreateDocumentBlockChildrenPathReqBodyBuilder() *CreateDocumentBlockChil
 	return builder
 }
 
-// 添加的孩子列表。
+// 添加的子块列表。了解块的父子关系规则，参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)。在一次请求中，你最多可以创建 5 个电子表格（Sheet）块
 //
 // 示例值：
 func (builder *CreateDocumentBlockChildrenPathReqBodyBuilder) Children(children []*Block) *CreateDocumentBlockChildrenPathReqBodyBuilder {
@@ -8650,7 +8812,7 @@ func (builder *CreateDocumentBlockChildrenPathReqBodyBuilder) Children(children 
 	return builder
 }
 
-// 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
+// 指定在某个块的子块列表中，新创建的子块的放置位置。索引的起始值为 0，表示子块列表的第一个位置；索引的最大值为某个块的子块数量，表示子块列表的最后一个位置。例如：一个块的子块列表中有 5 个子块，那么它们的索引分别为 0、1、2、3、4。如果要在该块的子块列表的中放置一个新创建的子块，并将其放置到第一个位置，那么索引值应为 0；如果要将新创建的子块放置到最后一个位置，那么索引值应为 -1
 //
 // 示例值：0
 func (builder *CreateDocumentBlockChildrenPathReqBodyBuilder) Index(index int) *CreateDocumentBlockChildrenPathReqBodyBuilder {
@@ -8684,23 +8846,23 @@ func NewCreateDocumentBlockChildrenReqBuilder() *CreateDocumentBlockChildrenReqB
 	return builder
 }
 
-// 文档的唯一标识
+// 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
 //
-// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
+// 示例值：doxcnePuYufKa49ISjhD8Iabcef
 func (builder *CreateDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *CreateDocumentBlockChildrenReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 
-// Block 的唯一标识
+// 父块的`block_id`，表示为其创建一批子块。如果需要对文档树根节点创建子块，可将 `document_id` 填入此处。你可调用[获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)获取文档中块的 `block_id`。了解块的父子关系规则，参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)
 //
-// 示例值：doxcnO6UW6wAw2qIcYf4hZpFIth
+// 示例值：doxcnO6UW6wAw2qIcYf4hZabcef
 func (builder *CreateDocumentBlockChildrenReqBuilder) BlockId(blockId string) *CreateDocumentBlockChildrenReqBuilder {
 	builder.apiReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
 
-// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+// 要操作的文档版本。-1 表示文档最新版本。文档创建后，版本为 1。你需确保你已拥有文档的编辑权限。你可通过调用[获取文档基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get)获取文档的最新 `revision_id`
 //
 // 示例值：-1
 func (builder *CreateDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *CreateDocumentBlockChildrenReqBuilder {
@@ -8708,7 +8870,7 @@ func (builder *CreateDocumentBlockChildrenReqBuilder) DocumentRevisionId(documen
 	return builder
 }
 
-// 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
+// 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作
 //
 // 示例值：fe599b60-450f-46ff-b2ef-9f6675625b97
 func (builder *CreateDocumentBlockChildrenReqBuilder) ClientToken(clientToken string) *CreateDocumentBlockChildrenReqBuilder {
@@ -8724,7 +8886,7 @@ func (builder *CreateDocumentBlockChildrenReqBuilder) UserIdType(userIdType stri
 	return builder
 }
 
-// 指定需要操作的块，为其创建一批子块，并插入到指定位置。如果操作成功，接口将返回新创建子块的富文本内容。
+// 在指定块的子块列表中，新创建一批子块，并放置到指定位置。如果操作成功，接口将返回新创建子块的富文本内容。
 func (builder *CreateDocumentBlockChildrenReqBuilder) Body(body *CreateDocumentBlockChildrenReqBody) *CreateDocumentBlockChildrenReqBuilder {
 	builder.body = body
 	return builder
@@ -8740,9 +8902,9 @@ func (builder *CreateDocumentBlockChildrenReqBuilder) Build() *CreateDocumentBlo
 }
 
 type CreateDocumentBlockChildrenReqBody struct {
-	Children []*Block `json:"children,omitempty"` // 添加的孩子列表。
+	Children []*Block `json:"children,omitempty"` // 添加的子块列表。了解块的父子关系规则，参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)。在一次请求中，你最多可以创建 5 个电子表格（Sheet）块
 
-	Index *int `json:"index,omitempty"` // 当前 block 在 children 中的插入位置，起始值为 0，最大值为原 children 长度
+	Index *int `json:"index,omitempty"` // 指定在某个块的子块列表中，新创建的子块的放置位置。索引的起始值为 0，表示子块列表的第一个位置；索引的最大值为某个块的子块数量，表示子块列表的最后一个位置。例如：一个块的子块列表中有 5 个子块，那么它们的索引分别为 0、1、2、3、4。如果要在该块的子块列表的中放置一个新创建的子块，并将其放置到第一个位置，那么索引值应为 0；如果要将新创建的子块放置到最后一个位置，那么索引值应为 -1
 }
 
 type CreateDocumentBlockChildrenReq struct {
@@ -8751,7 +8913,7 @@ type CreateDocumentBlockChildrenReq struct {
 }
 
 type CreateDocumentBlockChildrenRespData struct {
-	Children []*Block `json:"children,omitempty"` // 所添加的孩子的 Block 信息
+	Children []*Block `json:"children,omitempty"` // 所添加的子块信息
 
 	DocumentRevisionId *int `json:"document_revision_id,omitempty"` // 当前 block children 创建成功后文档的版本号
 
@@ -8788,23 +8950,23 @@ func (builder *GetDocumentBlockChildrenReqBuilder) Limit(limit int) *GetDocument
 	return builder
 }
 
-// 文档的唯一标识
+// 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
 //
-// 示例值：doxcnePuYufKa49ISjhD8Ih0ikh
+// 示例值：doxcnePuYufKa49ISjhD8Iabcef
 func (builder *GetDocumentBlockChildrenReqBuilder) DocumentId(documentId string) *GetDocumentBlockChildrenReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 
-// Block 的唯一标识
+// Block 的唯一标识。你可调用[获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)获取文档中块的 `block_id`
 //
-// 示例值：doxcnO6UW6wAw2qIcYf4hZpFIth
+// 示例值：doxcnO6UW6wAw2qIcYf4hZabcef
 func (builder *GetDocumentBlockChildrenReqBuilder) BlockId(blockId string) *GetDocumentBlockChildrenReqBuilder {
 	builder.apiReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
 
-// 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。
+// 查询的文档版本，-1 表示文档最新版本。文档创建后，版本为 1。若查询的版本为文档最新版本，则需要持有文档的阅读权限；若查询的版本为文档的历史版本，则需要持有文档的编辑权限。你可通过调用[获取文档基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get)获取文档的 `revision_id`
 //
 // 示例值：-1
 func (builder *GetDocumentBlockChildrenReqBuilder) DocumentRevisionId(documentRevisionId int) *GetDocumentBlockChildrenReqBuilder {
@@ -8828,7 +8990,7 @@ func (builder *GetDocumentBlockChildrenReqBuilder) PageSize(pageSize int) *GetDo
 	return builder
 }
 
-// 查询的结果中是否返回指定块的所有子孙块。 with_descendants 为 false 时，仅会返回指定块的所有子块列表。 with_descendants 为 true 时，会以先序遍历的方式返回指定块的所有子孙块列表，包括当前指定的块。
+// 查询的结果中是否返回指定块的所有子孙块。 ;- with_descendants 为 false 时，仅会返回指定块的所有子块列表。;- with_descendants 为 true 时，会以先序遍历的方式返回指定块的所有子孙块列表，返回结果包含当前指定的块。
 //
 // 示例值：false
 func (builder *GetDocumentBlockChildrenReqBuilder) WithDescendants(withDescendants bool) *GetDocumentBlockChildrenReqBuilder {
@@ -8878,13 +9040,13 @@ func (resp *GetDocumentBlockChildrenResp) Success() bool {
 }
 
 type CreateDocumentBlockDescendantReqBodyBuilder struct {
-	childrenId    []string // 添加的孩子 BlockID 列表
+	childrenId    []string // 要添加的子块的临时 ID 列表。你需自定义子块的临时 ID，并确保这些 ID 在单次请求中唯一。服务端将生成实际的 Block ID，并在响应体中返回 `block_id_relations` 字段，表示临时 ID 与实际 ID 的映射关系。;;**注意**：仅需写入第一级子块即可，无需写入子块的子块，否则将返回 1770006 错误码。
 	childrenIdSet bool
 
-	index    int // 当前 Block 在 Children 中的插入位置，起始值为 0，最大值为原 Children 长度
+	index    int // 指定在某个块的子块列表中，新创建的子块的放置位置。索引的起始值为 0，表示子块列表的第一个位置；索引的最大值为某个块的子块数量，表示子块列表的最后一个位置。例如：一个块的子块列表中有 5 个子块，那么它们的索引分别为 0、1、2、3、4。如果要在该块的子块列表的中放置一个新创建的子块，并将其放置到第一个位置，那么索引值应为 0；如果要将新创建的子块放置到最后一个位置，那么索引值应为 -1
 	indexSet bool
 
-	descendants    []*Block // 添加的子孙列表，包括孩子
+	descendants    []*Block // 添加的含有父子关系的嵌套块列表，包括父块和子块。了解块的父子关系规则，参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)
 	descendantsSet bool
 }
 
@@ -8893,27 +9055,27 @@ func NewCreateDocumentBlockDescendantReqBodyBuilder() *CreateDocumentBlockDescen
 	return builder
 }
 
-// 添加的孩子 BlockID 列表
+// 要添加的子块的临时 ID 列表。你需自定义子块的临时 ID，并确保这些 ID 在单次请求中唯一。服务端将生成实际的 Block ID，并在响应体中返回 `block_id_relations` 字段，表示临时 ID 与实际 ID 的映射关系。;;**注意**：仅需写入第一级子块即可，无需写入子块的子块，否则将返回 1770006 错误码。
 //
-//示例值：
+// 示例值：["child1", "child2"]
 func (builder *CreateDocumentBlockDescendantReqBodyBuilder) ChildrenId(childrenId []string) *CreateDocumentBlockDescendantReqBodyBuilder {
 	builder.childrenId = childrenId
 	builder.childrenIdSet = true
 	return builder
 }
 
-// 当前 Block 在 Children 中的插入位置，起始值为 0，最大值为原 Children 长度
+// 指定在某个块的子块列表中，新创建的子块的放置位置。索引的起始值为 0，表示子块列表的第一个位置；索引的最大值为某个块的子块数量，表示子块列表的最后一个位置。例如：一个块的子块列表中有 5 个子块，那么它们的索引分别为 0、1、2、3、4。如果要在该块的子块列表的中放置一个新创建的子块，并将其放置到第一个位置，那么索引值应为 0；如果要将新创建的子块放置到最后一个位置，那么索引值应为 -1
 //
-//示例值：0
+// 示例值：0
 func (builder *CreateDocumentBlockDescendantReqBodyBuilder) Index(index int) *CreateDocumentBlockDescendantReqBodyBuilder {
 	builder.index = index
 	builder.indexSet = true
 	return builder
 }
 
-// 添加的子孙列表，包括孩子
+// 添加的含有父子关系的嵌套块列表，包括父块和子块。了解块的父子关系规则，参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)
 //
-//示例值：
+// 示例值：
 func (builder *CreateDocumentBlockDescendantReqBodyBuilder) Descendants(descendants []*Block) *CreateDocumentBlockDescendantReqBodyBuilder {
 	builder.descendants = descendants
 	builder.descendantsSet = true
@@ -8948,16 +9110,16 @@ func NewCreateDocumentBlockDescendantPathReqBodyBuilder() *CreateDocumentBlockDe
 	return builder
 }
 
-// 添加的孩子 BlockID 列表
+// 要添加的子块的临时 ID 列表。你需自定义子块的临时 ID，并确保这些 ID 在单次请求中唯一。服务端将生成实际的 Block ID，并在响应体中返回 `block_id_relations` 字段，表示临时 ID 与实际 ID 的映射关系。;;**注意**：仅需写入第一级子块即可，无需写入子块的子块，否则将返回 1770006 错误码。
 //
-// 示例值：
+// 示例值：["child1", "child2"]
 func (builder *CreateDocumentBlockDescendantPathReqBodyBuilder) ChildrenId(childrenId []string) *CreateDocumentBlockDescendantPathReqBodyBuilder {
 	builder.childrenId = childrenId
 	builder.childrenIdSet = true
 	return builder
 }
 
-// 当前 Block 在 Children 中的插入位置，起始值为 0，最大值为原 Children 长度
+// 指定在某个块的子块列表中，新创建的子块的放置位置。索引的起始值为 0，表示子块列表的第一个位置；索引的最大值为某个块的子块数量，表示子块列表的最后一个位置。例如：一个块的子块列表中有 5 个子块，那么它们的索引分别为 0、1、2、3、4。如果要在该块的子块列表的中放置一个新创建的子块，并将其放置到第一个位置，那么索引值应为 0；如果要将新创建的子块放置到最后一个位置，那么索引值应为 -1
 //
 // 示例值：0
 func (builder *CreateDocumentBlockDescendantPathReqBodyBuilder) Index(index int) *CreateDocumentBlockDescendantPathReqBodyBuilder {
@@ -8966,7 +9128,7 @@ func (builder *CreateDocumentBlockDescendantPathReqBodyBuilder) Index(index int)
 	return builder
 }
 
-// 添加的子孙列表，包括孩子
+// 添加的含有父子关系的嵌套块列表，包括父块和子块。了解块的父子关系规则，参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)
 //
 // 示例值：
 func (builder *CreateDocumentBlockDescendantPathReqBodyBuilder) Descendants(descendants []*Block) *CreateDocumentBlockDescendantPathReqBodyBuilder {
@@ -9003,23 +9165,23 @@ func NewCreateDocumentBlockDescendantReqBuilder() *CreateDocumentBlockDescendant
 	return builder
 }
 
-// 文档的唯一标识
+// 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
 //
-// 示例值：Ew13dgs8BoZSetxd0CNbr0h3c8e
+// 示例值：doxcnePuYufKa49ISjhD8Iabcef
 func (builder *CreateDocumentBlockDescendantReqBuilder) DocumentId(documentId string) *CreateDocumentBlockDescendantReqBuilder {
 	builder.apiReq.PathParams.Set("document_id", fmt.Sprint(documentId))
 	return builder
 }
 
-// Block 的唯一标识
+// 父块的`block_id`，表示为其创建一批子块。如果需要对文档树根节点创建子块，可将 `document_id` 填入此处。你可调用[获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)获取文档中块的 block_id。了解块的父子关系规则，参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)
 //
-// 示例值：Ew13dgs8BoZSetxd0CNbr0h3c8e
+// 示例值：doxcnO6UW6wAw2qIcYf4hZabcef
 func (builder *CreateDocumentBlockDescendantReqBuilder) BlockId(blockId string) *CreateDocumentBlockDescendantReqBuilder {
 	builder.apiReq.PathParams.Set("block_id", fmt.Sprint(blockId))
 	return builder
 }
 
-// 操作的文档版本，-1 表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限
+// 要操作的文档版本。-1 表示文档最新版本。文档创建后，版本为 1。你需确保你已拥有文档的编辑权限。你可通过调用[获取文档基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get)获取文档的最新 revision_id
 //
 // 示例值：-1
 func (builder *CreateDocumentBlockDescendantReqBuilder) DocumentRevisionId(documentRevisionId int) *CreateDocumentBlockDescendantReqBuilder {
@@ -9027,7 +9189,7 @@ func (builder *CreateDocumentBlockDescendantReqBuilder) DocumentRevisionId(docum
 	return builder
 }
 
-// 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作
+// 操作的唯一标识。**UUIDv4** 格式，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作
 //
 // 示例值：8aac2291-bc9e-4b12-a162-b3cf15bb06bd
 func (builder *CreateDocumentBlockDescendantReqBuilder) ClientToken(clientToken string) *CreateDocumentBlockDescendantReqBuilder {
@@ -9043,7 +9205,7 @@ func (builder *CreateDocumentBlockDescendantReqBuilder) UserIdType(userIdType st
 	return builder
 }
 
-//
+// 在指定块的子块列表中，新创建一批有父子关系的子块，并放置到指定位置。如果操作成功，接口将返回新创建子块的富文本内容。调用该接口前，你可参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解块的父子关系规则。当创建的子块中含有 GridColumn、TableCell、Callout 时其中至少需要包含一个子块 ，即内容为空时也需要填入一个空 Text Block 作为子块。
 func (builder *CreateDocumentBlockDescendantReqBuilder) Body(body *CreateDocumentBlockDescendantReqBody) *CreateDocumentBlockDescendantReqBuilder {
 	builder.body = body
 	return builder
@@ -9059,11 +9221,11 @@ func (builder *CreateDocumentBlockDescendantReqBuilder) Build() *CreateDocumentB
 }
 
 type CreateDocumentBlockDescendantReqBody struct {
-	ChildrenId []string `json:"children_id,omitempty"` // 添加的孩子 BlockID 列表
+	ChildrenId []string `json:"children_id,omitempty"` // 要添加的子块的临时 ID 列表。你需自定义子块的临时 ID，并确保这些 ID 在单次请求中唯一。服务端将生成实际的 Block ID，并在响应体中返回 `block_id_relations` 字段，表示临时 ID 与实际 ID 的映射关系。;;**注意**：仅需写入第一级子块即可，无需写入子块的子块，否则将返回 1770006 错误码。
 
-	Index *int `json:"index,omitempty"` // 当前 Block 在 Children 中的插入位置，起始值为 0，最大值为原 Children 长度
+	Index *int `json:"index,omitempty"` // 指定在某个块的子块列表中，新创建的子块的放置位置。索引的起始值为 0，表示子块列表的第一个位置；索引的最大值为某个块的子块数量，表示子块列表的最后一个位置。例如：一个块的子块列表中有 5 个子块，那么它们的索引分别为 0、1、2、3、4。如果要在该块的子块列表的中放置一个新创建的子块，并将其放置到第一个位置，那么索引值应为 0；如果要将新创建的子块放置到最后一个位置，那么索引值应为 -1
 
-	Descendants []*Block `json:"descendants,omitempty"` // 添加的子孙列表，包括孩子
+	Descendants []*Block `json:"descendants,omitempty"` // 添加的含有父子关系的嵌套块列表，包括父块和子块。了解块的父子关系规则，参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)
 }
 
 type CreateDocumentBlockDescendantReq struct {
@@ -9072,13 +9234,13 @@ type CreateDocumentBlockDescendantReq struct {
 }
 
 type CreateDocumentBlockDescendantRespData struct {
-	Children []*Block `json:"children,omitempty"` // 所添加的孩子的 Block 信息
+	Children []*Block `json:"children,omitempty"` // 添加的子块信息
 
 	DocumentRevisionId *int `json:"document_revision_id,omitempty"` // 当前提交的 Block 创建成功后文档的版本号
 
 	ClientToken *string `json:"client_token,omitempty"` // 操作的唯一标识，更新请求中使用此值表示幂等的进行此次更新
 
-	BlockIdRelations []*BlockIdRelation `json:"block_id_relations,omitempty"` // 传入的临时 BlockID 与真实 BlockID 映射关系
+	BlockIdRelations []*BlockIdRelation `json:"block_id_relations,omitempty"` // 传入的临时 Block ID 与实际 Block ID 映射关系
 }
 
 type CreateDocumentBlockDescendantResp struct {

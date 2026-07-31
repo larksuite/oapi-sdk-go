@@ -27,9 +27,9 @@ type countryRegion struct {
 	config *larkcore.Config
 }
 
-// Get
+// Get 通过mdmcode批量查询国家/地区信息
 //
-// - 查询国家 / 地区
+// - 通过mdmcode批量查询国家/地区信息。资源介绍请参考[概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/country_region/resource-definition)。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=mdm&resource=batch_country_region&version=v3
 //
@@ -53,9 +53,9 @@ func (b *batchCountryRegion) Get(ctx context.Context, req *GetBatchCountryRegion
 	return resp, err
 }
 
-// List
+// List 分页批量查询国家/地区
 //
-// - 搜索国家 / 地区
+// - 分页批量查询国家/地区。资源介绍请参考[概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/country_region/resource-definition)。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=mdm&resource=country_region&version=v3
 //

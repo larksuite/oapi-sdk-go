@@ -29,63 +29,63 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	ListAccessRecordUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListAccessRecordUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListAccessRecordUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateRuleExternalUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateRuleExternalUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateRuleExternalOpenId  = "open_id"  // 以open_id来识别用户
+	CreateRuleExternalUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateRuleExternalUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateRuleExternalUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetRuleExternalUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetRuleExternalUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetRuleExternalOpenId  = "open_id"  // 以open_id来识别用户
+	GetRuleExternalUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetRuleExternalUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetRuleExternalUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetUserOpenId  = "open_id"  // 以open_id来识别用户
+	GetUserUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetUserUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetUserUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeListUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListUserOpenId  = "open_id"  // 以open_id来识别用户
+	ListUserUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListUserUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListUserUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypePatchUserUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchUserUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchUserOpenId  = "open_id"  // 以open_id来识别用户
+	PatchUserUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	PatchUserUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	PatchUserUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetUserFaceUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetUserFaceUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetUserFaceOpenId  = "open_id"  // 以open_id来识别用户
+	GetUserFaceUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetUserFaceUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetUserFaceUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeUpdateUserFaceUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateUserFaceUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateUserFaceOpenId  = "open_id"  // 以open_id来识别用户
+	UpdateUserFaceOpenUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	UpdateUserFaceOpenUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	UpdateUserFaceOpenUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateVisitorUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateVisitorUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateVisitorOpenId  = "open_id"  // 以open_id来识别用户
+	CreateVisitorUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateVisitorUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateVisitorUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeDeleteVisitorUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDeleteVisitorUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDeleteVisitorOpenId  = "open_id"  // 以open_id来识别用户
+	DeleteVisitorUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	DeleteVisitorUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	DeleteVisitorUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type AccessRecord struct {
@@ -265,8 +265,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -274,8 +272,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -1110,7 +1106,7 @@ func NewUserExternalBuilder() *UserExternalBuilder {
 
 // 用户类型
 //
-// 示例值：1
+// 示例值：11
 func (builder *UserExternalBuilder) UserType(userType int) *UserExternalBuilder {
 	builder.userType = userType
 	builder.userTypeSet = true
@@ -1202,8 +1198,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -1211,8 +1205,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -1220,8 +1212,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -1417,7 +1407,7 @@ func (resp *ListDeviceResp) Success() bool {
 }
 
 type CreateRuleExternalReqBodyBuilder struct {
-	rule    *Rule // 权限组信息
+	rule    *Rule //
 	ruleSet bool
 }
 
@@ -1426,9 +1416,7 @@ func NewCreateRuleExternalReqBodyBuilder() *CreateRuleExternalReqBodyBuilder {
 	return builder
 }
 
-// 权限组信息
-//
-//示例值：
+// 示例值：
 func (builder *CreateRuleExternalReqBodyBuilder) Rule(rule *Rule) *CreateRuleExternalReqBodyBuilder {
 	builder.rule = rule
 	builder.ruleSet = true
@@ -1453,8 +1441,6 @@ func NewCreateRuleExternalPathReqBodyBuilder() *CreateRuleExternalPathReqBodyBui
 	return builder
 }
 
-// 权限组信息
-//
 // 示例值：
 func (builder *CreateRuleExternalPathReqBodyBuilder) Rule(rule *Rule) *CreateRuleExternalPathReqBodyBuilder {
 	builder.rule = rule
@@ -1500,7 +1486,7 @@ func (builder *CreateRuleExternalReqBuilder) UserIdType(userIdType string) *Crea
 	return builder
 }
 
-//
+// 创建或更新权限组
 func (builder *CreateRuleExternalReqBuilder) Body(body *CreateRuleExternalReqBody) *CreateRuleExternalReqBuilder {
 	builder.body = body
 	return builder
@@ -1515,7 +1501,7 @@ func (builder *CreateRuleExternalReqBuilder) Build() *CreateRuleExternalReq {
 }
 
 type CreateRuleExternalReqBody struct {
-	Rule *Rule `json:"rule,omitempty"` // 权限组信息
+	Rule *Rule `json:"rule,omitempty"` //
 }
 
 type CreateRuleExternalReq struct {
@@ -1593,7 +1579,7 @@ func NewDeviceBindRuleExternalReqBodyBuilder() *DeviceBindRuleExternalReqBodyBui
 
 // 设备id
 //
-//示例值：6939433228970082593
+// 示例值：6939433228970082593
 func (builder *DeviceBindRuleExternalReqBodyBuilder) DeviceId(deviceId string) *DeviceBindRuleExternalReqBodyBuilder {
 	builder.deviceId = deviceId
 	builder.deviceIdSet = true
@@ -1602,7 +1588,7 @@ func (builder *DeviceBindRuleExternalReqBodyBuilder) DeviceId(deviceId string) *
 
 // 权限组id列表
 //
-//示例值：
+// 示例值：
 func (builder *DeviceBindRuleExternalReqBodyBuilder) RuleIds(ruleIds []string) *DeviceBindRuleExternalReqBodyBuilder {
 	builder.ruleIds = ruleIds
 	builder.ruleIdsSet = true
@@ -1675,7 +1661,7 @@ func NewDeviceBindRuleExternalReqBuilder() *DeviceBindRuleExternalReqBuilder {
 	return builder
 }
 
-//
+// 设备绑定权限组
 func (builder *DeviceBindRuleExternalReqBuilder) Body(body *DeviceBindRuleExternalReqBody) *DeviceBindRuleExternalReqBuilder {
 	builder.body = body
 	return builder
@@ -2085,7 +2071,7 @@ func (resp *UpdateUserFaceResp) Success() bool {
 }
 
 type CreateVisitorReqBodyBuilder struct {
-	user    *UserExternal // 访客信息
+	user    *UserExternal //
 	userSet bool
 }
 
@@ -2094,9 +2080,7 @@ func NewCreateVisitorReqBodyBuilder() *CreateVisitorReqBodyBuilder {
 	return builder
 }
 
-// 访客信息
-//
-//示例值：
+// 示例值：
 func (builder *CreateVisitorReqBodyBuilder) User(user *UserExternal) *CreateVisitorReqBodyBuilder {
 	builder.user = user
 	builder.userSet = true
@@ -2121,8 +2105,6 @@ func NewCreateVisitorPathReqBodyBuilder() *CreateVisitorPathReqBodyBuilder {
 	return builder
 }
 
-// 访客信息
-//
 // 示例值：
 func (builder *CreateVisitorPathReqBodyBuilder) User(user *UserExternal) *CreateVisitorPathReqBodyBuilder {
 	builder.user = user
@@ -2160,7 +2142,7 @@ func (builder *CreateVisitorReqBuilder) UserIdType(userIdType string) *CreateVis
 	return builder
 }
 
-//
+// 添加访客
 func (builder *CreateVisitorReqBuilder) Body(body *CreateVisitorReqBody) *CreateVisitorReqBuilder {
 	builder.body = body
 	return builder
@@ -2175,7 +2157,7 @@ func (builder *CreateVisitorReqBuilder) Build() *CreateVisitorReq {
 }
 
 type CreateVisitorReqBody struct {
-	User *UserExternal `json:"user,omitempty"` // 访客信息
+	User *UserExternal `json:"user,omitempty"` //
 }
 
 type CreateVisitorReq struct {

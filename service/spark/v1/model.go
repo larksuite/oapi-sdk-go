@@ -42,13 +42,14 @@ const (
 	IdConvertTypeForceUserID2FeishuUnionID = 11 // 妙搭用户 ID 转飞书开放平台 Union ID
 	IdConvertTypeFeishuOpenID2ForceUserID  = 20 // 飞书开放平台 Open ID 转妙搭用户 ID
 	IdConvertTypeFeishuUnionID2ForceUserID = 21 // 飞书开放平台 Union ID 转妙搭用户 ID
+	IdConvertTypeForceUserID2LarkUserID    = 40 // 妙搭用户 ID 转飞书用户 ID
 
 )
 
 type App struct {
 	AppId *string `json:"app_id,omitempty"` // 应用唯一标识，系统自动生成，用于在接口中定位具体应用。可通过应用创建接口或开发者后台获取
 
-	AppType *string `json:"app_type,omitempty"` // 应用类型
+	AppType *string `json:"app_type,omitempty"` // 应用类型;可选值：HTML
 
 	Name *string `json:"name,omitempty"` // 应用名称，用于在管理后台和前端展示，支持中英文，长度不超过64字符
 
@@ -59,13 +60,19 @@ type App struct {
 	CreatedAt *string `json:"created_at,omitempty"` // 应用创建时间，遵循ISO 8601 UTC格式，由系统自动生成
 
 	UpdatedAt *string `json:"updated_at,omitempty"` // 应用最后更新时间，遵循ISO 8601 UTC格式，应用信息变更时自动更新
+
+	IsPublished *bool `json:"is_published,omitempty"` // 应用是否已发布
+
+	OnlineUrl *string `json:"online_url,omitempty"` // 应用发布后的访问地址
+
+	MetaToken *string `json:"meta_token,omitempty"` // 应用对应的文档 token
 }
 
 type AppBuilder struct {
 	appId    string // 应用唯一标识，系统自动生成，用于在接口中定位具体应用。可通过应用创建接口或开发者后台获取
 	appIdSet bool
 
-	appType    string // 应用类型
+	appType    string // 应用类型;可选值：HTML
 	appTypeSet bool
 
 	name    string // 应用名称，用于在管理后台和前端展示，支持中英文，长度不超过64字符
@@ -82,6 +89,15 @@ type AppBuilder struct {
 
 	updatedAt    string // 应用最后更新时间，遵循ISO 8601 UTC格式，应用信息变更时自动更新
 	updatedAtSet bool
+
+	isPublished    bool // 应用是否已发布
+	isPublishedSet bool
+
+	onlineUrl    string // 应用发布后的访问地址
+	onlineUrlSet bool
+
+	metaToken    string // 应用对应的文档 token
+	metaTokenSet bool
 }
 
 func NewAppBuilder() *AppBuilder {
@@ -98,9 +114,9 @@ func (builder *AppBuilder) AppId(appId string) *AppBuilder {
 	return builder
 }
 
-// 应用类型
+// 应用类型;可选值：HTML
 //
-// 示例值：
+// 示例值：HTML
 func (builder *AppBuilder) AppType(appType string) *AppBuilder {
 	builder.appType = appType
 	builder.appTypeSet = true
@@ -152,6 +168,33 @@ func (builder *AppBuilder) UpdatedAt(updatedAt string) *AppBuilder {
 	return builder
 }
 
+// 应用是否已发布
+//
+// 示例值：true
+func (builder *AppBuilder) IsPublished(isPublished bool) *AppBuilder {
+	builder.isPublished = isPublished
+	builder.isPublishedSet = true
+	return builder
+}
+
+// 应用发布后的访问地址
+//
+// 示例值：http://www.tos.dlxka.com
+func (builder *AppBuilder) OnlineUrl(onlineUrl string) *AppBuilder {
+	builder.onlineUrl = onlineUrl
+	builder.onlineUrlSet = true
+	return builder
+}
+
+// 应用对应的文档 token
+//
+// 示例值：wfjgyiyN2Fk17H8cgfFanWe
+func (builder *AppBuilder) MetaToken(metaToken string) *AppBuilder {
+	builder.metaToken = metaToken
+	builder.metaTokenSet = true
+	return builder
+}
+
 func (builder *AppBuilder) Build() *App {
 	req := &App{}
 	if builder.appIdSet {
@@ -180,6 +223,592 @@ func (builder *AppBuilder) Build() *App {
 	}
 	if builder.updatedAtSet {
 		req.UpdatedAt = &builder.updatedAt
+
+	}
+	if builder.isPublishedSet {
+		req.IsPublished = &builder.isPublished
+
+	}
+	if builder.onlineUrlSet {
+		req.OnlineUrl = &builder.onlineUrl
+
+	}
+	if builder.metaTokenSet {
+		req.MetaToken = &builder.metaToken
+
+	}
+	return req
+}
+
+type AppDbAuditLogItem struct {
+	EventId *string `json:"event_id,omitempty"` // 审计日志事件唯一标识，全局唯一，用于定位单条审计记录
+
+	EventTime *string `json:"event_time,omitempty"` // 事件发生时间，格式为YYYY-MM-DD HH:mm:SS
+
+	TargetTable *string `json:"target_table,omitempty"` // 操作目标数据库表名，标识审计事件涉及的具体业务表
+
+	Type *string `json:"type,omitempty"` // 操作类型，可选值包括INSERT/UPDATE/DELETE/QUERY等，标识对数据库表执行的具体操作
+
+	Operator *string `json:"operator,omitempty"` // 执行操作的用户标识，可通过用户管理接口获取对应账号信息
+
+	Summary *string `json:"summary,omitempty"` // 操作内容摘要，简要描述本次操作的核心内容，如“修改用户手机号”
+
+	Before *string `json:"before,omitempty"` // 操作前的记录快照，JSON格式，仅UPDATE/DELETE操作时返回，用于对比操作前后数据变化
+
+	After *string `json:"after,omitempty"` // 操作后的记录快照，JSON格式，仅INSERT/UPDATE操作时返回，用于展示操作后的最终数据状态
+}
+
+type AppDbAuditLogItemBuilder struct {
+	eventId    string // 审计日志事件唯一标识，全局唯一，用于定位单条审计记录
+	eventIdSet bool
+
+	eventTime    string // 事件发生时间，格式为YYYY-MM-DD HH:mm:SS
+	eventTimeSet bool
+
+	targetTable    string // 操作目标数据库表名，标识审计事件涉及的具体业务表
+	targetTableSet bool
+
+	type_    string // 操作类型，可选值包括INSERT/UPDATE/DELETE/QUERY等，标识对数据库表执行的具体操作
+	type_Set bool
+
+	operator    string // 执行操作的用户标识，可通过用户管理接口获取对应账号信息
+	operatorSet bool
+
+	summary    string // 操作内容摘要，简要描述本次操作的核心内容，如“修改用户手机号”
+	summarySet bool
+
+	before    string // 操作前的记录快照，JSON格式，仅UPDATE/DELETE操作时返回，用于对比操作前后数据变化
+	beforeSet bool
+
+	after    string // 操作后的记录快照，JSON格式，仅INSERT/UPDATE操作时返回，用于展示操作后的最终数据状态
+	afterSet bool
+}
+
+func NewAppDbAuditLogItemBuilder() *AppDbAuditLogItemBuilder {
+	builder := &AppDbAuditLogItemBuilder{}
+	return builder
+}
+
+// 审计日志事件唯一标识，全局唯一，用于定位单条审计记录
+//
+// 示例值：audit_20240520143000_001
+func (builder *AppDbAuditLogItemBuilder) EventId(eventId string) *AppDbAuditLogItemBuilder {
+	builder.eventId = eventId
+	builder.eventIdSet = true
+	return builder
+}
+
+// 事件发生时间，格式为YYYY-MM-DD HH:mm:SS
+//
+// 示例值：2024-05-20 14:30:00
+func (builder *AppDbAuditLogItemBuilder) EventTime(eventTime string) *AppDbAuditLogItemBuilder {
+	builder.eventTime = eventTime
+	builder.eventTimeSet = true
+	return builder
+}
+
+// 操作目标数据库表名，标识审计事件涉及的具体业务表
+//
+// 示例值：user_info
+func (builder *AppDbAuditLogItemBuilder) TargetTable(targetTable string) *AppDbAuditLogItemBuilder {
+	builder.targetTable = targetTable
+	builder.targetTableSet = true
+	return builder
+}
+
+// 操作类型，可选值包括INSERT/UPDATE/DELETE/QUERY等，标识对数据库表执行的具体操作
+//
+// 示例值：UPDATE
+func (builder *AppDbAuditLogItemBuilder) Type(type_ string) *AppDbAuditLogItemBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 执行操作的用户标识，可通过用户管理接口获取对应账号信息
+//
+// 示例值：user_138****0000
+func (builder *AppDbAuditLogItemBuilder) Operator(operator string) *AppDbAuditLogItemBuilder {
+	builder.operator = operator
+	builder.operatorSet = true
+	return builder
+}
+
+// 操作内容摘要，简要描述本次操作的核心内容，如“修改用户手机号”
+//
+// 示例值：修改用户手机号为138****0000
+func (builder *AppDbAuditLogItemBuilder) Summary(summary string) *AppDbAuditLogItemBuilder {
+	builder.summary = summary
+	builder.summarySet = true
+	return builder
+}
+
+// 操作前的记录快照，JSON格式，仅UPDATE/DELETE操作时返回，用于对比操作前后数据变化
+//
+// 示例值：{"user_id":"user_138****0000","phone":"137****1111"}
+func (builder *AppDbAuditLogItemBuilder) Before(before string) *AppDbAuditLogItemBuilder {
+	builder.before = before
+	builder.beforeSet = true
+	return builder
+}
+
+// 操作后的记录快照，JSON格式，仅INSERT/UPDATE操作时返回，用于展示操作后的最终数据状态
+//
+// 示例值：{"user_id":"user_138****0000","phone":"138****0000"}
+func (builder *AppDbAuditLogItemBuilder) After(after string) *AppDbAuditLogItemBuilder {
+	builder.after = after
+	builder.afterSet = true
+	return builder
+}
+
+func (builder *AppDbAuditLogItemBuilder) Build() *AppDbAuditLogItem {
+	req := &AppDbAuditLogItem{}
+	if builder.eventIdSet {
+		req.EventId = &builder.eventId
+
+	}
+	if builder.eventTimeSet {
+		req.EventTime = &builder.eventTime
+
+	}
+	if builder.targetTableSet {
+		req.TargetTable = &builder.targetTable
+
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.operatorSet {
+		req.Operator = &builder.operator
+
+	}
+	if builder.summarySet {
+		req.Summary = &builder.summary
+
+	}
+	if builder.beforeSet {
+		req.Before = &builder.before
+
+	}
+	if builder.afterSet {
+		req.After = &builder.after
+
+	}
+	return req
+}
+
+type AppDbAuditStatus struct {
+	Table *string `json:"table,omitempty"` // 数据库表名称，需与实际存储的业务表名完全一致，用于标识需要开启审计的目标数据表
+
+	Enabled *bool `json:"enabled,omitempty"` // 数据库审计开关状态，true 表示开启该表的增删改操作审计，false 表示关闭审计
+
+	EnabledAt *string `json:"enabled_at,omitempty"` // 审计功能启用时间，格式为YYYY-MM-DD HH:mm:ss，仅当enabled为true时生效
+
+	Retention *string `json:"retention,omitempty"` // 审计日志保留时长，支持按天/月/年设置，格式为数字+单位（如7d、1m、1y），未指定时采用系统默认保留周期
+}
+
+type AppDbAuditStatusBuilder struct {
+	table    string // 数据库表名称，需与实际存储的业务表名完全一致，用于标识需要开启审计的目标数据表
+	tableSet bool
+
+	enabled    bool // 数据库审计开关状态，true 表示开启该表的增删改操作审计，false 表示关闭审计
+	enabledSet bool
+
+	enabledAt    string // 审计功能启用时间，格式为YYYY-MM-DD HH:mm:ss，仅当enabled为true时生效
+	enabledAtSet bool
+
+	retention    string // 审计日志保留时长，支持按天/月/年设置，格式为数字+单位（如7d、1m、1y），未指定时采用系统默认保留周期
+	retentionSet bool
+}
+
+func NewAppDbAuditStatusBuilder() *AppDbAuditStatusBuilder {
+	builder := &AppDbAuditStatusBuilder{}
+	return builder
+}
+
+// 数据库表名称，需与实际存储的业务表名完全一致，用于标识需要开启审计的目标数据表
+//
+// 示例值：user_account
+func (builder *AppDbAuditStatusBuilder) Table(table string) *AppDbAuditStatusBuilder {
+	builder.table = table
+	builder.tableSet = true
+	return builder
+}
+
+// 数据库审计开关状态，true 表示开启该表的增删改操作审计，false 表示关闭审计
+//
+// 示例值：true
+func (builder *AppDbAuditStatusBuilder) Enabled(enabled bool) *AppDbAuditStatusBuilder {
+	builder.enabled = enabled
+	builder.enabledSet = true
+	return builder
+}
+
+// 审计功能启用时间，格式为YYYY-MM-DD HH:mm:ss，仅当enabled为true时生效
+//
+// 示例值：2024-01-01 00:00:00
+func (builder *AppDbAuditStatusBuilder) EnabledAt(enabledAt string) *AppDbAuditStatusBuilder {
+	builder.enabledAt = enabledAt
+	builder.enabledAtSet = true
+	return builder
+}
+
+// 审计日志保留时长，支持按天/月/年设置，格式为数字+单位（如7d、1m、1y），未指定时采用系统默认保留周期
+//
+// 示例值：30d
+func (builder *AppDbAuditStatusBuilder) Retention(retention string) *AppDbAuditStatusBuilder {
+	builder.retention = retention
+	builder.retentionSet = true
+	return builder
+}
+
+func (builder *AppDbAuditStatusBuilder) Build() *AppDbAuditStatus {
+	req := &AppDbAuditStatus{}
+	if builder.tableSet {
+		req.Table = &builder.table
+
+	}
+	if builder.enabledSet {
+		req.Enabled = &builder.enabled
+
+	}
+	if builder.enabledAtSet {
+		req.EnabledAt = &builder.enabledAt
+
+	}
+	if builder.retentionSet {
+		req.Retention = &builder.retention
+
+	}
+	return req
+}
+
+type AppDbChangelogItem struct {
+	ChangeId *string `json:"change_id,omitempty"` // 数据库变更记录的唯一标识，用于追踪和定位具体的变更操作，由系统自动生成。
+
+	ChangedAt *string `json:"changed_at,omitempty"` // 变更操作发生的时间，格式为YYYY-MM-DD HH:mm:SS。
+
+	Operator *string `json:"operator,omitempty"` // 执行变更操作的用户标识，通常为用户工号或系统账号，用于追溯操作责任人。
+
+	TargetTable *string `json:"target_table,omitempty"` // 变更操作所针对的数据库表名称，需与数据库中实际表名完全一致。
+
+	ChangeType *string `json:"change_type,omitempty"` // 变更操作的类型，可选值包括CREATE、ALTER、DROP、INSERT、UPDATE、DELETE等，用于区分不同的数据库操作类别。
+
+	Summary *string `json:"summary,omitempty"` // 变更操作的简要描述，需清晰说明变更目的和主要内容，便于快速理解变更背景。
+
+	Statement *string `json:"statement,omitempty"` // 执行变更的SQL语句原文，需与实际执行的语句完全一致，用于复盘和审计。
+}
+
+type AppDbChangelogItemBuilder struct {
+	changeId    string // 数据库变更记录的唯一标识，用于追踪和定位具体的变更操作，由系统自动生成。
+	changeIdSet bool
+
+	changedAt    string // 变更操作发生的时间，格式为YYYY-MM-DD HH:mm:SS。
+	changedAtSet bool
+
+	operator    string // 执行变更操作的用户标识，通常为用户工号或系统账号，用于追溯操作责任人。
+	operatorSet bool
+
+	targetTable    string // 变更操作所针对的数据库表名称，需与数据库中实际表名完全一致。
+	targetTableSet bool
+
+	changeType    string // 变更操作的类型，可选值包括CREATE、ALTER、DROP、INSERT、UPDATE、DELETE等，用于区分不同的数据库操作类别。
+	changeTypeSet bool
+
+	summary    string // 变更操作的简要描述，需清晰说明变更目的和主要内容，便于快速理解变更背景。
+	summarySet bool
+
+	statement    string // 执行变更的SQL语句原文，需与实际执行的语句完全一致，用于复盘和审计。
+	statementSet bool
+}
+
+func NewAppDbChangelogItemBuilder() *AppDbChangelogItemBuilder {
+	builder := &AppDbChangelogItemBuilder{}
+	return builder
+}
+
+// 数据库变更记录的唯一标识，用于追踪和定位具体的变更操作，由系统自动生成。
+//
+// 示例值：CLG-20240520-0001
+func (builder *AppDbChangelogItemBuilder) ChangeId(changeId string) *AppDbChangelogItemBuilder {
+	builder.changeId = changeId
+	builder.changeIdSet = true
+	return builder
+}
+
+// 变更操作发生的时间，格式为YYYY-MM-DD HH:mm:SS。
+//
+// 示例值：2024-05-20 14:30:00
+func (builder *AppDbChangelogItemBuilder) ChangedAt(changedAt string) *AppDbChangelogItemBuilder {
+	builder.changedAt = changedAt
+	builder.changedAtSet = true
+	return builder
+}
+
+// 执行变更操作的用户标识，通常为用户工号或系统账号，用于追溯操作责任人。
+//
+// 示例值：dev_zhang_san
+func (builder *AppDbChangelogItemBuilder) Operator(operator string) *AppDbChangelogItemBuilder {
+	builder.operator = operator
+	builder.operatorSet = true
+	return builder
+}
+
+// 变更操作所针对的数据库表名称，需与数据库中实际表名完全一致。
+//
+// 示例值：app_user_info
+func (builder *AppDbChangelogItemBuilder) TargetTable(targetTable string) *AppDbChangelogItemBuilder {
+	builder.targetTable = targetTable
+	builder.targetTableSet = true
+	return builder
+}
+
+// 变更操作的类型，可选值包括CREATE、ALTER、DROP、INSERT、UPDATE、DELETE等，用于区分不同的数据库操作类别。
+//
+// 示例值：ALTER
+func (builder *AppDbChangelogItemBuilder) ChangeType(changeType string) *AppDbChangelogItemBuilder {
+	builder.changeType = changeType
+	builder.changeTypeSet = true
+	return builder
+}
+
+// 变更操作的简要描述，需清晰说明变更目的和主要内容，便于快速理解变更背景。
+//
+// 示例值：为用户表添加手机号字段，用于账号绑定验证
+func (builder *AppDbChangelogItemBuilder) Summary(summary string) *AppDbChangelogItemBuilder {
+	builder.summary = summary
+	builder.summarySet = true
+	return builder
+}
+
+// 执行变更的SQL语句原文，需与实际执行的语句完全一致，用于复盘和审计。
+//
+// 示例值：ALTER TABLE app_user_info ADD COLUMN phone VARCHAR(20) COMMENT '用户手机号'
+func (builder *AppDbChangelogItemBuilder) Statement(statement string) *AppDbChangelogItemBuilder {
+	builder.statement = statement
+	builder.statementSet = true
+	return builder
+}
+
+func (builder *AppDbChangelogItemBuilder) Build() *AppDbChangelogItem {
+	req := &AppDbChangelogItem{}
+	if builder.changeIdSet {
+		req.ChangeId = &builder.changeId
+
+	}
+	if builder.changedAtSet {
+		req.ChangedAt = &builder.changedAt
+
+	}
+	if builder.operatorSet {
+		req.Operator = &builder.operator
+
+	}
+	if builder.targetTableSet {
+		req.TargetTable = &builder.targetTable
+
+	}
+	if builder.changeTypeSet {
+		req.ChangeType = &builder.changeType
+
+	}
+	if builder.summarySet {
+		req.Summary = &builder.summary
+
+	}
+	if builder.statementSet {
+		req.Statement = &builder.statement
+
+	}
+	return req
+}
+
+type AppDbMigrationChange struct {
+	Type *string `json:"type,omitempty"` // 数据库变更类型，用于标识本次迁移操作的具体类别，如CREATE_TABLE（创建表）、ALTER_TABLE（修改表结构）、DROP_TABLE（删除表）等。
+
+	Table *string `json:"table,omitempty"` // 目标数据库表名，指定本次变更操作所针对的数据库表，需与数据库中实际表名完全一致。
+
+	Statement *string `json:"statement,omitempty"` // 数据库变更执行语句，需符合目标数据库的SQL语法规范，将直接用于执行数据库结构变更操作。
+}
+
+type AppDbMigrationChangeBuilder struct {
+	type_    string // 数据库变更类型，用于标识本次迁移操作的具体类别，如CREATE_TABLE（创建表）、ALTER_TABLE（修改表结构）、DROP_TABLE（删除表）等。
+	type_Set bool
+
+	table    string // 目标数据库表名，指定本次变更操作所针对的数据库表，需与数据库中实际表名完全一致。
+	tableSet bool
+
+	statement    string // 数据库变更执行语句，需符合目标数据库的SQL语法规范，将直接用于执行数据库结构变更操作。
+	statementSet bool
+}
+
+func NewAppDbMigrationChangeBuilder() *AppDbMigrationChangeBuilder {
+	builder := &AppDbMigrationChangeBuilder{}
+	return builder
+}
+
+// 数据库变更类型，用于标识本次迁移操作的具体类别，如CREATE_TABLE（创建表）、ALTER_TABLE（修改表结构）、DROP_TABLE（删除表）等。
+//
+// 示例值：ALTER_TABLE
+func (builder *AppDbMigrationChangeBuilder) Type(type_ string) *AppDbMigrationChangeBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 目标数据库表名，指定本次变更操作所针对的数据库表，需与数据库中实际表名完全一致。
+//
+// 示例值：user_info
+func (builder *AppDbMigrationChangeBuilder) Table(table string) *AppDbMigrationChangeBuilder {
+	builder.table = table
+	builder.tableSet = true
+	return builder
+}
+
+// 数据库变更执行语句，需符合目标数据库的SQL语法规范，将直接用于执行数据库结构变更操作。
+//
+// 示例值：ALTER TABLE user_info ADD COLUMN email VARCHAR(255) NOT NULL;
+func (builder *AppDbMigrationChangeBuilder) Statement(statement string) *AppDbMigrationChangeBuilder {
+	builder.statement = statement
+	builder.statementSet = true
+	return builder
+}
+
+func (builder *AppDbMigrationChangeBuilder) Build() *AppDbMigrationChange {
+	req := &AppDbMigrationChange{}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.tableSet {
+		req.Table = &builder.table
+
+	}
+	if builder.statementSet {
+		req.Statement = &builder.statement
+
+	}
+	return req
+}
+
+type AppDbRecoveryChange struct {
+	Table *string `json:"table,omitempty"` // 数据库表名，标识发生变更的具体数据表，用于定位数据变更的来源范围
+
+	Inserted *string `json:"inserted,omitempty"` // 新增记录数量，统计本次变更中插入的数据条目数
+
+	Deleted *string `json:"deleted,omitempty"` // 删除记录数量，统计本次变更中删除的数据条目数
+
+	Modified *string `json:"modified,omitempty"` // 修改记录数量，统计本次变更中更新的数据条目数
+
+	Action *string `json:"action,omitempty"` // 变更操作类型，标识本次数据变更的具体动作，可选值包括 INSERT、DELETE、UPDATE、DROP 等
+
+	DroppedAt *string `json:"dropped_at,omitempty"` // 表删除时间，当 action 为 DROP 时生效，格式为 RFC3339 标准时间字符串
+}
+
+type AppDbRecoveryChangeBuilder struct {
+	table    string // 数据库表名，标识发生变更的具体数据表，用于定位数据变更的来源范围
+	tableSet bool
+
+	inserted    string // 新增记录数量，统计本次变更中插入的数据条目数
+	insertedSet bool
+
+	deleted    string // 删除记录数量，统计本次变更中删除的数据条目数
+	deletedSet bool
+
+	modified    string // 修改记录数量，统计本次变更中更新的数据条目数
+	modifiedSet bool
+
+	action    string // 变更操作类型，标识本次数据变更的具体动作，可选值包括 INSERT、DELETE、UPDATE、DROP 等
+	actionSet bool
+
+	droppedAt    string // 表删除时间，当 action 为 DROP 时生效，格式为 RFC3339 标准时间字符串
+	droppedAtSet bool
+}
+
+func NewAppDbRecoveryChangeBuilder() *AppDbRecoveryChangeBuilder {
+	builder := &AppDbRecoveryChangeBuilder{}
+	return builder
+}
+
+// 数据库表名，标识发生变更的具体数据表，用于定位数据变更的来源范围
+//
+// 示例值：user_info
+func (builder *AppDbRecoveryChangeBuilder) Table(table string) *AppDbRecoveryChangeBuilder {
+	builder.table = table
+	builder.tableSet = true
+	return builder
+}
+
+// 新增记录数量，统计本次变更中插入的数据条目数
+//
+// 示例值：5
+func (builder *AppDbRecoveryChangeBuilder) Inserted(inserted string) *AppDbRecoveryChangeBuilder {
+	builder.inserted = inserted
+	builder.insertedSet = true
+	return builder
+}
+
+// 删除记录数量，统计本次变更中删除的数据条目数
+//
+// 示例值：2
+func (builder *AppDbRecoveryChangeBuilder) Deleted(deleted string) *AppDbRecoveryChangeBuilder {
+	builder.deleted = deleted
+	builder.deletedSet = true
+	return builder
+}
+
+// 修改记录数量，统计本次变更中更新的数据条目数
+//
+// 示例值：8
+func (builder *AppDbRecoveryChangeBuilder) Modified(modified string) *AppDbRecoveryChangeBuilder {
+	builder.modified = modified
+	builder.modifiedSet = true
+	return builder
+}
+
+// 变更操作类型，标识本次数据变更的具体动作，可选值包括 INSERT、DELETE、UPDATE、DROP 等
+//
+// 示例值：UPDATE
+func (builder *AppDbRecoveryChangeBuilder) Action(action string) *AppDbRecoveryChangeBuilder {
+	builder.action = action
+	builder.actionSet = true
+	return builder
+}
+
+// 表删除时间，当 action 为 DROP 时生效，格式为 RFC3339 标准时间字符串
+//
+// 示例值：2024-05-20T14:30:00+08:00
+func (builder *AppDbRecoveryChangeBuilder) DroppedAt(droppedAt string) *AppDbRecoveryChangeBuilder {
+	builder.droppedAt = droppedAt
+	builder.droppedAtSet = true
+	return builder
+}
+
+func (builder *AppDbRecoveryChangeBuilder) Build() *AppDbRecoveryChange {
+	req := &AppDbRecoveryChange{}
+	if builder.tableSet {
+		req.Table = &builder.table
+
+	}
+	if builder.insertedSet {
+		req.Inserted = &builder.inserted
+
+	}
+	if builder.deletedSet {
+		req.Deleted = &builder.deleted
+
+	}
+	if builder.modifiedSet {
+		req.Modified = &builder.modified
+
+	}
+	if builder.actionSet {
+		req.Action = &builder.action
+
+	}
+	if builder.droppedAtSet {
+		req.DroppedAt = &builder.droppedAt
 
 	}
 	return req
@@ -270,12 +899,379 @@ func (builder *AppEnumBuilder) Build() *AppEnum {
 	return req
 }
 
+type AppFile struct {
+	FileName *string `json:"file_name,omitempty"` // 文件的原始名称，包含扩展名，用于标识文件的业务用途。
+
+	Path *string `json:"path,omitempty"` // 文件在存储系统中的唯一路径，用于定位文件存储位置。
+
+	SizeBytes *int `json:"size_bytes,omitempty"` // 文件的实际大小，单位为字节，用于校验文件完整性和计算存储占用。
+
+	Type *string `json:"type,omitempty"` // 文件的类型标识，通常为文件扩展名（不含点号），用于区分不同格式的文件。
+
+	CreatedBy *string `json:"created_by,omitempty"` // 上传文件的用户标识，可通过用户信息查询接口获取对应账号详情。
+
+	CreatedAt *string `json:"created_at,omitempty"` // 文件的创建时间，格式为 RFC3339 标准时间字符串。
+
+	DownloadUrl *string `json:"download_url,omitempty"` // 文件的下载链接（相对路径）
+}
+
+type AppFileBuilder struct {
+	fileName    string // 文件的原始名称，包含扩展名，用于标识文件的业务用途。
+	fileNameSet bool
+
+	path    string // 文件在存储系统中的唯一路径，用于定位文件存储位置。
+	pathSet bool
+
+	sizeBytes    int // 文件的实际大小，单位为字节，用于校验文件完整性和计算存储占用。
+	sizeBytesSet bool
+
+	type_    string // 文件的类型标识，通常为文件扩展名（不含点号），用于区分不同格式的文件。
+	type_Set bool
+
+	createdBy    string // 上传文件的用户标识，可通过用户信息查询接口获取对应账号详情。
+	createdBySet bool
+
+	createdAt    string // 文件的创建时间，格式为 RFC3339 标准时间字符串。
+	createdAtSet bool
+
+	downloadUrl    string // 文件的下载链接（相对路径）
+	downloadUrlSet bool
+}
+
+func NewAppFileBuilder() *AppFileBuilder {
+	builder := &AppFileBuilder{}
+	return builder
+}
+
+// 文件的原始名称，包含扩展名，用于标识文件的业务用途。
+//
+// 示例值：logo.png
+func (builder *AppFileBuilder) FileName(fileName string) *AppFileBuilder {
+	builder.fileName = fileName
+	builder.fileNameSet = true
+	return builder
+}
+
+// 文件在存储系统中的唯一路径，用于定位文件存储位置。
+//
+// 示例值：/1858537546760216.png
+func (builder *AppFileBuilder) Path(path string) *AppFileBuilder {
+	builder.path = path
+	builder.pathSet = true
+	return builder
+}
+
+// 文件的实际大小，单位为字节，用于校验文件完整性和计算存储占用。
+//
+// 示例值：1048576
+func (builder *AppFileBuilder) SizeBytes(sizeBytes int) *AppFileBuilder {
+	builder.sizeBytes = sizeBytes
+	builder.sizeBytesSet = true
+	return builder
+}
+
+// 文件的类型标识，通常为文件扩展名（不含点号），用于区分不同格式的文件。
+//
+// 示例值：image/png
+func (builder *AppFileBuilder) Type(type_ string) *AppFileBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 上传文件的用户标识，可通过用户信息查询接口获取对应账号详情。
+//
+// 示例值：1858537546760216
+func (builder *AppFileBuilder) CreatedBy(createdBy string) *AppFileBuilder {
+	builder.createdBy = createdBy
+	builder.createdBySet = true
+	return builder
+}
+
+// 文件的创建时间，格式为 RFC3339 标准时间字符串。
+//
+// 示例值：2024-05-20T14:30:00+08:00
+func (builder *AppFileBuilder) CreatedAt(createdAt string) *AppFileBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtSet = true
+	return builder
+}
+
+// 文件的下载链接（相对路径）
+//
+// 示例值：/spark/app/app_4kckt2/bucket/bucket_a12law/1858537546760216.png
+func (builder *AppFileBuilder) DownloadUrl(downloadUrl string) *AppFileBuilder {
+	builder.downloadUrl = downloadUrl
+	builder.downloadUrlSet = true
+	return builder
+}
+
+func (builder *AppFileBuilder) Build() *AppFile {
+	req := &AppFile{}
+	if builder.fileNameSet {
+		req.FileName = &builder.fileName
+
+	}
+	if builder.pathSet {
+		req.Path = &builder.path
+
+	}
+	if builder.sizeBytesSet {
+		req.SizeBytes = &builder.sizeBytes
+
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.createdBySet {
+		req.CreatedBy = &builder.createdBy
+
+	}
+	if builder.createdAtSet {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.downloadUrlSet {
+		req.DownloadUrl = &builder.downloadUrl
+
+	}
+	return req
+}
+
+type AppFileDeleteResult struct {
+	Status *string `json:"status,omitempty"` // 文件删除操作的执行状态标识。取值为 `success` 表示删除成功，`failed` 表示删除失败。
+
+	File *AppFile `json:"file,omitempty"` // 删除成功时返回的文件元信息，包含文件名、存储路径、大小等详情。仅当 `status=success` 时返回。
+
+	ErrorCode *string `json:"error_code,omitempty"` // 删除失败时返回的错误码，用于定位具体失败原因。仅当 `status=failed` 时返回。常见错误码包括：;- `FILE_NOT_FOUND`：文件不存在;- `PERMISSION_DENIED`：无文件删除权限;- `STORAGE_SERVICE_ERROR`：存储服务内部错误
+}
+
+type AppFileDeleteResultBuilder struct {
+	status    string // 文件删除操作的执行状态标识。取值为 `success` 表示删除成功，`failed` 表示删除失败。
+	statusSet bool
+
+	file    *AppFile // 删除成功时返回的文件元信息，包含文件名、存储路径、大小等详情。仅当 `status=success` 时返回。
+	fileSet bool
+
+	errorCode    string // 删除失败时返回的错误码，用于定位具体失败原因。仅当 `status=failed` 时返回。常见错误码包括：;- `FILE_NOT_FOUND`：文件不存在;- `PERMISSION_DENIED`：无文件删除权限;- `STORAGE_SERVICE_ERROR`：存储服务内部错误
+	errorCodeSet bool
+}
+
+func NewAppFileDeleteResultBuilder() *AppFileDeleteResultBuilder {
+	builder := &AppFileDeleteResultBuilder{}
+	return builder
+}
+
+// 文件删除操作的执行状态标识。取值为 `success` 表示删除成功，`failed` 表示删除失败。
+//
+// 示例值：success
+func (builder *AppFileDeleteResultBuilder) Status(status string) *AppFileDeleteResultBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// 删除成功时返回的文件元信息，包含文件名、存储路径、大小等详情。仅当 `status=success` 时返回。
+//
+// 示例值：
+func (builder *AppFileDeleteResultBuilder) File(file *AppFile) *AppFileDeleteResultBuilder {
+	builder.file = file
+	builder.fileSet = true
+	return builder
+}
+
+// 删除失败时返回的错误码，用于定位具体失败原因。仅当 `status=failed` 时返回。常见错误码包括：;- `FILE_NOT_FOUND`：文件不存在;- `PERMISSION_DENIED`：无文件删除权限;- `STORAGE_SERVICE_ERROR`：存储服务内部错误
+//
+// 示例值：FILE_NOT_FOUND
+func (builder *AppFileDeleteResultBuilder) ErrorCode(errorCode string) *AppFileDeleteResultBuilder {
+	builder.errorCode = errorCode
+	builder.errorCodeSet = true
+	return builder
+}
+
+func (builder *AppFileDeleteResultBuilder) Build() *AppFileDeleteResult {
+	req := &AppFileDeleteResult{}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.fileSet {
+		req.File = builder.file
+	}
+	if builder.errorCodeSet {
+		req.ErrorCode = &builder.errorCode
+
+	}
+	return req
+}
+
+type AppOpenApiKeyConfig struct {
+	RequestScope *RequestScope `json:"request_scope,omitempty"` // 请求范围
+
+	IsAllowAccessPreview *bool `json:"is_allow_access_preview,omitempty"` // 是否允许预览环境访问
+}
+
+type AppOpenApiKeyConfigBuilder struct {
+	requestScope    *RequestScope // 请求范围
+	requestScopeSet bool
+
+	isAllowAccessPreview    bool // 是否允许预览环境访问
+	isAllowAccessPreviewSet bool
+}
+
+func NewAppOpenApiKeyConfigBuilder() *AppOpenApiKeyConfigBuilder {
+	builder := &AppOpenApiKeyConfigBuilder{}
+	return builder
+}
+
+// 请求范围
+//
+// 示例值：
+func (builder *AppOpenApiKeyConfigBuilder) RequestScope(requestScope *RequestScope) *AppOpenApiKeyConfigBuilder {
+	builder.requestScope = requestScope
+	builder.requestScopeSet = true
+	return builder
+}
+
+// 是否允许预览环境访问
+//
+// 示例值：
+func (builder *AppOpenApiKeyConfigBuilder) IsAllowAccessPreview(isAllowAccessPreview bool) *AppOpenApiKeyConfigBuilder {
+	builder.isAllowAccessPreview = isAllowAccessPreview
+	builder.isAllowAccessPreviewSet = true
+	return builder
+}
+
+func (builder *AppOpenApiKeyConfigBuilder) Build() *AppOpenApiKeyConfig {
+	req := &AppOpenApiKeyConfig{}
+	if builder.requestScopeSet {
+		req.RequestScope = builder.requestScope
+	}
+	if builder.isAllowAccessPreviewSet {
+		req.IsAllowAccessPreview = &builder.isAllowAccessPreview
+
+	}
+	return req
+}
+
+type AppOpenApiKeyInfo struct {
+	ApiKeyId *string `json:"api_key_id,omitempty"` // API 密钥 ID
+
+	ApiKey *string `json:"api_key,omitempty"` // API 密钥
+
+	Name *string `json:"name,omitempty"` // API 密钥名
+
+	Config *AppOpenApiKeyConfig `json:"config,omitempty"` // API 密钥配置
+
+	Status *int `json:"status,omitempty"` // 状态
+}
+
+type AppOpenApiKeyInfoBuilder struct {
+	apiKeyId    string // API 密钥 ID
+	apiKeyIdSet bool
+
+	apiKey    string // API 密钥
+	apiKeySet bool
+
+	name    string // API 密钥名
+	nameSet bool
+
+	config    *AppOpenApiKeyConfig // API 密钥配置
+	configSet bool
+
+	status    int // 状态
+	statusSet bool
+}
+
+func NewAppOpenApiKeyInfoBuilder() *AppOpenApiKeyInfoBuilder {
+	builder := &AppOpenApiKeyInfoBuilder{}
+	return builder
+}
+
+// API 密钥 ID
+//
+// 示例值：1
+func (builder *AppOpenApiKeyInfoBuilder) ApiKeyId(apiKeyId string) *AppOpenApiKeyInfoBuilder {
+	builder.apiKeyId = apiKeyId
+	builder.apiKeyIdSet = true
+	return builder
+}
+
+// API 密钥
+//
+// 示例值：1
+func (builder *AppOpenApiKeyInfoBuilder) ApiKey(apiKey string) *AppOpenApiKeyInfoBuilder {
+	builder.apiKey = apiKey
+	builder.apiKeySet = true
+	return builder
+}
+
+// API 密钥名
+//
+// 示例值：apikey
+func (builder *AppOpenApiKeyInfoBuilder) Name(name string) *AppOpenApiKeyInfoBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// API 密钥配置
+//
+// 示例值：
+func (builder *AppOpenApiKeyInfoBuilder) Config(config *AppOpenApiKeyConfig) *AppOpenApiKeyInfoBuilder {
+	builder.config = config
+	builder.configSet = true
+	return builder
+}
+
+// 状态
+//
+// 示例值：
+func (builder *AppOpenApiKeyInfoBuilder) Status(status int) *AppOpenApiKeyInfoBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+func (builder *AppOpenApiKeyInfoBuilder) Build() *AppOpenApiKeyInfo {
+	req := &AppOpenApiKeyInfo{}
+	if builder.apiKeyIdSet {
+		req.ApiKeyId = &builder.apiKeyId
+
+	}
+	if builder.apiKeySet {
+		req.ApiKey = &builder.apiKey
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.configSet {
+		req.Config = builder.config
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	return req
+}
+
 type AppTable struct {
 	Name *string `json:"name,omitempty"` // 数据表名，如 student
 
 	Description *string `json:"description,omitempty"` // 数据表描述
 
 	Columns []*AppTableColumn `json:"columns,omitempty"` // 数据表列
+
+	Indexes []*AppTableIndex `json:"indexes,omitempty"` // 数据表索引
+
+	Constraints []*AppTableConstraint `json:"constraints,omitempty"` // 数据表约束
+
+	EstimatedRowCount *int `json:"estimated_row_count,omitempty"` // 表预估行数
+
+	SizeBytes *int `json:"size_bytes,omitempty"` // 表占用磁盘字节数
 }
 
 type AppTableBuilder struct {
@@ -287,6 +1283,18 @@ type AppTableBuilder struct {
 
 	columns    []*AppTableColumn // 数据表列
 	columnsSet bool
+
+	indexes    []*AppTableIndex // 数据表索引
+	indexesSet bool
+
+	constraints    []*AppTableConstraint // 数据表约束
+	constraintsSet bool
+
+	estimatedRowCount    int // 表预估行数
+	estimatedRowCountSet bool
+
+	sizeBytes    int // 表占用磁盘字节数
+	sizeBytesSet bool
 }
 
 func NewAppTableBuilder() *AppTableBuilder {
@@ -321,6 +1329,42 @@ func (builder *AppTableBuilder) Columns(columns []*AppTableColumn) *AppTableBuil
 	return builder
 }
 
+// 数据表索引
+//
+// 示例值：
+func (builder *AppTableBuilder) Indexes(indexes []*AppTableIndex) *AppTableBuilder {
+	builder.indexes = indexes
+	builder.indexesSet = true
+	return builder
+}
+
+// 数据表约束
+//
+// 示例值：
+func (builder *AppTableBuilder) Constraints(constraints []*AppTableConstraint) *AppTableBuilder {
+	builder.constraints = constraints
+	builder.constraintsSet = true
+	return builder
+}
+
+// 表预估行数
+//
+// 示例值：1234
+func (builder *AppTableBuilder) EstimatedRowCount(estimatedRowCount int) *AppTableBuilder {
+	builder.estimatedRowCount = estimatedRowCount
+	builder.estimatedRowCountSet = true
+	return builder
+}
+
+// 表占用磁盘字节数
+//
+// 示例值：8388
+func (builder *AppTableBuilder) SizeBytes(sizeBytes int) *AppTableBuilder {
+	builder.sizeBytes = sizeBytes
+	builder.sizeBytesSet = true
+	return builder
+}
+
 func (builder *AppTableBuilder) Build() *AppTable {
 	req := &AppTable{}
 	if builder.nameSet {
@@ -333,6 +1377,20 @@ func (builder *AppTableBuilder) Build() *AppTable {
 	}
 	if builder.columnsSet {
 		req.Columns = builder.columns
+	}
+	if builder.indexesSet {
+		req.Indexes = builder.indexes
+	}
+	if builder.constraintsSet {
+		req.Constraints = builder.constraints
+	}
+	if builder.estimatedRowCountSet {
+		req.EstimatedRowCount = &builder.estimatedRowCount
+
+	}
+	if builder.sizeBytesSet {
+		req.SizeBytes = &builder.sizeBytes
+
 	}
 	return req
 }
@@ -420,7 +1478,7 @@ func (builder *AppTableColumnBuilder) DataType(dataType string) *AppTableColumnB
 
 // 是否是主键
 //
-// 示例值：
+// 示例值：false
 func (builder *AppTableColumnBuilder) IsPrimaryKey(isPrimaryKey bool) *AppTableColumnBuilder {
 	builder.isPrimaryKey = isPrimaryKey
 	builder.isPrimaryKeySet = true
@@ -429,7 +1487,7 @@ func (builder *AppTableColumnBuilder) IsPrimaryKey(isPrimaryKey bool) *AppTableC
 
 // 是否唯一
 //
-// 示例值：
+// 示例值：false
 func (builder *AppTableColumnBuilder) IsUnique(isUnique bool) *AppTableColumnBuilder {
 	builder.isUnique = isUnique
 	builder.isUniqueSet = true
@@ -438,7 +1496,7 @@ func (builder *AppTableColumnBuilder) IsUnique(isUnique bool) *AppTableColumnBui
 
 // 是否是自增
 //
-// 示例值：
+// 示例值：false
 func (builder *AppTableColumnBuilder) IsAutoIncrement(isAutoIncrement bool) *AppTableColumnBuilder {
 	builder.isAutoIncrement = isAutoIncrement
 	builder.isAutoIncrementSet = true
@@ -447,7 +1505,7 @@ func (builder *AppTableColumnBuilder) IsAutoIncrement(isAutoIncrement bool) *App
 
 // 是否是数组类型
 //
-// 示例值：
+// 示例值：false
 func (builder *AppTableColumnBuilder) IsArray(isArray bool) *AppTableColumnBuilder {
 	builder.isArray = isArray
 	builder.isArraySet = true
@@ -456,7 +1514,7 @@ func (builder *AppTableColumnBuilder) IsArray(isArray bool) *AppTableColumnBuild
 
 // 是否允许为空
 //
-// 示例值：
+// 示例值：false
 func (builder *AppTableColumnBuilder) IsAllowNull(isAllowNull bool) *AppTableColumnBuilder {
 	builder.isAllowNull = isAllowNull
 	builder.isAllowNullSet = true
@@ -513,6 +1571,193 @@ func (builder *AppTableColumnBuilder) Build() *AppTableColumn {
 	return req
 }
 
+type AppTableConstraint struct {
+	Type *string `json:"type,omitempty"` // 约束类型
+
+	Name *string `json:"name,omitempty"` // 约束名
+
+	Columns []string `json:"columns,omitempty"` // 约束涉及的列名
+
+	ReferencedTable *string `json:"referenced_table,omitempty"` // 引用的目标表名
+
+	ReferencedColumns []string `json:"referenced_columns,omitempty"` // 引用的目标列名
+}
+
+type AppTableConstraintBuilder struct {
+	type_    string // 约束类型
+	type_Set bool
+
+	name    string // 约束名
+	nameSet bool
+
+	columns    []string // 约束涉及的列名
+	columnsSet bool
+
+	referencedTable    string // 引用的目标表名
+	referencedTableSet bool
+
+	referencedColumns    []string // 引用的目标列名
+	referencedColumnsSet bool
+}
+
+func NewAppTableConstraintBuilder() *AppTableConstraintBuilder {
+	builder := &AppTableConstraintBuilder{}
+	return builder
+}
+
+// 约束类型
+//
+// 示例值："primary_key" / "unique" / "foreign_key"
+func (builder *AppTableConstraintBuilder) Type(type_ string) *AppTableConstraintBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 约束名
+//
+// 示例值：orders_pkey
+func (builder *AppTableConstraintBuilder) Name(name string) *AppTableConstraintBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 约束涉及的列名
+//
+// 示例值：
+func (builder *AppTableConstraintBuilder) Columns(columns []string) *AppTableConstraintBuilder {
+	builder.columns = columns
+	builder.columnsSet = true
+	return builder
+}
+
+// 引用的目标表名
+//
+// 示例值：users
+func (builder *AppTableConstraintBuilder) ReferencedTable(referencedTable string) *AppTableConstraintBuilder {
+	builder.referencedTable = referencedTable
+	builder.referencedTableSet = true
+	return builder
+}
+
+// 引用的目标列名
+//
+// 示例值：
+func (builder *AppTableConstraintBuilder) ReferencedColumns(referencedColumns []string) *AppTableConstraintBuilder {
+	builder.referencedColumns = referencedColumns
+	builder.referencedColumnsSet = true
+	return builder
+}
+
+func (builder *AppTableConstraintBuilder) Build() *AppTableConstraint {
+	req := &AppTableConstraint{}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.columnsSet {
+		req.Columns = builder.columns
+	}
+	if builder.referencedTableSet {
+		req.ReferencedTable = &builder.referencedTable
+
+	}
+	if builder.referencedColumnsSet {
+		req.ReferencedColumns = builder.referencedColumns
+	}
+	return req
+}
+
+type AppTableIndex struct {
+	Name *string `json:"name,omitempty"` // 索引名
+
+	Columns []string `json:"columns,omitempty"` // 索引涉及的列名（按索引定义顺序）
+
+	Type *string `json:"type,omitempty"` // 索引类型
+
+	Definition *string `json:"definition,omitempty"` // PG 索引定义语句
+}
+
+type AppTableIndexBuilder struct {
+	name    string // 索引名
+	nameSet bool
+
+	columns    []string // 索引涉及的列名（按索引定义顺序）
+	columnsSet bool
+
+	type_    string // 索引类型
+	type_Set bool
+
+	definition    string // PG 索引定义语句
+	definitionSet bool
+}
+
+func NewAppTableIndexBuilder() *AppTableIndexBuilder {
+	builder := &AppTableIndexBuilder{}
+	return builder
+}
+
+// 索引名
+//
+// 示例值：orders_pkey
+func (builder *AppTableIndexBuilder) Name(name string) *AppTableIndexBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 索引涉及的列名（按索引定义顺序）
+//
+// 示例值：
+func (builder *AppTableIndexBuilder) Columns(columns []string) *AppTableIndexBuilder {
+	builder.columns = columns
+	builder.columnsSet = true
+	return builder
+}
+
+// 索引类型
+//
+// 示例值："btree" / "hash" / "gin" / "gist"
+func (builder *AppTableIndexBuilder) Type(type_ string) *AppTableIndexBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// PG 索引定义语句
+//
+// 示例值：CREATE INDEX idx_orders_user_id ON orders USING btree (user_id)
+func (builder *AppTableIndexBuilder) Definition(definition string) *AppTableIndexBuilder {
+	builder.definition = definition
+	builder.definitionSet = true
+	return builder
+}
+
+func (builder *AppTableIndexBuilder) Build() *AppTableIndex {
+	req := &AppTableIndex{}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.columnsSet {
+		req.Columns = builder.columns
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.definitionSet {
+		req.Definition = &builder.definition
+
+	}
+	return req
+}
+
 type ApplyConfig struct {
 	Enabled *bool `json:"enabled,omitempty"` // 控制审批流程是否启用。设为true时，提交申请后将触发配置的审批流程；设为false时，申请将直接通过无需审批。
 
@@ -558,6 +1803,389 @@ func (builder *ApplyConfigBuilder) Build() *ApplyConfig {
 	}
 	if builder.approversSet {
 		req.Approvers = builder.approvers
+	}
+	return req
+}
+
+type Attachment struct {
+	Id *string `json:"id,omitempty"` // 附件id
+
+	CreatedAt *string `json:"created_at,omitempty"` // 创建时间
+
+	CreatedBy *string `json:"created_by,omitempty"` // 创建人
+
+	UpdatedAt *string `json:"updated_at,omitempty"` // 创建时间
+
+	SourceApiId *string `json:"source_api_id,omitempty"` // 源api_id
+
+	Name *string `json:"name,omitempty"` // 文件名
+
+	Type *string `json:"type,omitempty"` //
+
+	MimeType *string `json:"mime_type,omitempty"` // mine_type
+
+	Summary *string `json:"summary,omitempty"` // 总结
+
+	Status *string `json:"status,omitempty"` //
+
+	RawUrl *string `json:"raw_url,omitempty"` // url
+
+	TextUrl *string `json:"text_url,omitempty"` // url
+
+	TextKey *string `json:"text_key,omitempty"` // key
+
+	DocMeta *FeishuDocMeta `json:"doc_meta,omitempty"` // 飞书云文档元数据
+
+	Size *int `json:"size,omitempty"` // 大小
+
+	Source *string `json:"source,omitempty"` // 附件上传来源
+
+	Raw *string `json:"raw,omitempty"` // raw内容
+
+	TosType *string `json:"tos_type,omitempty"` // 存储的tos 类型 0-字节云 1-火山
+}
+
+type AttachmentBuilder struct {
+	id    string // 附件id
+	idSet bool
+
+	createdAt    string // 创建时间
+	createdAtSet bool
+
+	createdBy    string // 创建人
+	createdBySet bool
+
+	updatedAt    string // 创建时间
+	updatedAtSet bool
+
+	sourceApiId    string // 源api_id
+	sourceApiIdSet bool
+
+	name    string // 文件名
+	nameSet bool
+
+	type_    string //
+	type_Set bool
+
+	mimeType    string // mine_type
+	mimeTypeSet bool
+
+	summary    string // 总结
+	summarySet bool
+
+	status    string //
+	statusSet bool
+
+	rawUrl    string // url
+	rawUrlSet bool
+
+	textUrl    string // url
+	textUrlSet bool
+
+	textKey    string // key
+	textKeySet bool
+
+	docMeta    *FeishuDocMeta // 飞书云文档元数据
+	docMetaSet bool
+
+	size    int // 大小
+	sizeSet bool
+
+	source    string // 附件上传来源
+	sourceSet bool
+
+	raw    string // raw内容
+	rawSet bool
+
+	tosType    string // 存储的tos 类型 0-字节云 1-火山
+	tosTypeSet bool
+}
+
+func NewAttachmentBuilder() *AttachmentBuilder {
+	builder := &AttachmentBuilder{}
+	return builder
+}
+
+// 附件id
+//
+// 示例值：123
+func (builder *AttachmentBuilder) Id(id string) *AttachmentBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 创建时间
+//
+// 示例值：2026-05-28T10:01:00Z
+func (builder *AttachmentBuilder) CreatedAt(createdAt string) *AttachmentBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtSet = true
+	return builder
+}
+
+// 创建人
+//
+// 示例值：2026-05-28T10:01:00Z
+func (builder *AttachmentBuilder) CreatedBy(createdBy string) *AttachmentBuilder {
+	builder.createdBy = createdBy
+	builder.createdBySet = true
+	return builder
+}
+
+// 创建时间
+//
+// 示例值：2026-05-28T10:01:00Z
+func (builder *AttachmentBuilder) UpdatedAt(updatedAt string) *AttachmentBuilder {
+	builder.updatedAt = updatedAt
+	builder.updatedAtSet = true
+	return builder
+}
+
+// 源api_id
+//
+// 示例值：aaaxs
+func (builder *AttachmentBuilder) SourceApiId(sourceApiId string) *AttachmentBuilder {
+	builder.sourceApiId = sourceApiId
+	builder.sourceApiIdSet = true
+	return builder
+}
+
+// 文件名
+//
+// 示例值：证券
+func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 示例值：
+func (builder *AttachmentBuilder) Type(type_ string) *AttachmentBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// mine_type
+//
+// 示例值：mine
+func (builder *AttachmentBuilder) MimeType(mimeType string) *AttachmentBuilder {
+	builder.mimeType = mimeType
+	builder.mimeTypeSet = true
+	return builder
+}
+
+// 总结
+//
+// 示例值：总结
+func (builder *AttachmentBuilder) Summary(summary string) *AttachmentBuilder {
+	builder.summary = summary
+	builder.summarySet = true
+	return builder
+}
+
+// 示例值：
+func (builder *AttachmentBuilder) Status(status string) *AttachmentBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// url
+//
+// 示例值：https://miaoda.feishu-boe.cn/aily/api/v1/feisuda/attachments/7ccc4a5e-7024-47a0-b525-10a92c62eaf1/raw
+func (builder *AttachmentBuilder) RawUrl(rawUrl string) *AttachmentBuilder {
+	builder.rawUrl = rawUrl
+	builder.rawUrlSet = true
+	return builder
+}
+
+// url
+//
+// 示例值：https://miaoda.feishu-boe.cn/aily/api/v1/feisuda/attachments/7ccc4a5e-7024-47a0-b525-10a92c62eaf1/text
+func (builder *AttachmentBuilder) TextUrl(textUrl string) *AttachmentBuilder {
+	builder.textUrl = textUrl
+	builder.textUrlSet = true
+	return builder
+}
+
+// key
+//
+// 示例值：attachment/7283059256756502547/7345369701167398931/7ccc4a5e-7024-47a0-b525-10a92c62eaf1/text
+func (builder *AttachmentBuilder) TextKey(textKey string) *AttachmentBuilder {
+	builder.textKey = textKey
+	builder.textKeySet = true
+	return builder
+}
+
+// 飞书云文档元数据
+//
+// 示例值：
+func (builder *AttachmentBuilder) DocMeta(docMeta *FeishuDocMeta) *AttachmentBuilder {
+	builder.docMeta = docMeta
+	builder.docMetaSet = true
+	return builder
+}
+
+// 大小
+//
+// 示例值：23234
+func (builder *AttachmentBuilder) Size(size int) *AttachmentBuilder {
+	builder.size = size
+	builder.sizeSet = true
+	return builder
+}
+
+// 附件上传来源
+//
+// 示例值：
+func (builder *AttachmentBuilder) Source(source string) *AttachmentBuilder {
+	builder.source = source
+	builder.sourceSet = true
+	return builder
+}
+
+// raw内容
+//
+// 示例值：sab
+func (builder *AttachmentBuilder) Raw(raw string) *AttachmentBuilder {
+	builder.raw = raw
+	builder.rawSet = true
+	return builder
+}
+
+// 存储的tos 类型 0-字节云 1-火山
+//
+// 示例值：2
+func (builder *AttachmentBuilder) TosType(tosType string) *AttachmentBuilder {
+	builder.tosType = tosType
+	builder.tosTypeSet = true
+	return builder
+}
+
+func (builder *AttachmentBuilder) Build() *Attachment {
+	req := &Attachment{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.createdAtSet {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.createdBySet {
+		req.CreatedBy = &builder.createdBy
+
+	}
+	if builder.updatedAtSet {
+		req.UpdatedAt = &builder.updatedAt
+
+	}
+	if builder.sourceApiIdSet {
+		req.SourceApiId = &builder.sourceApiId
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.mimeTypeSet {
+		req.MimeType = &builder.mimeType
+
+	}
+	if builder.summarySet {
+		req.Summary = &builder.summary
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.rawUrlSet {
+		req.RawUrl = &builder.rawUrl
+
+	}
+	if builder.textUrlSet {
+		req.TextUrl = &builder.textUrl
+
+	}
+	if builder.textKeySet {
+		req.TextKey = &builder.textKey
+
+	}
+	if builder.docMetaSet {
+		req.DocMeta = builder.docMeta
+	}
+	if builder.sizeSet {
+		req.Size = &builder.size
+
+	}
+	if builder.sourceSet {
+		req.Source = &builder.source
+
+	}
+	if builder.rawSet {
+		req.Raw = &builder.raw
+
+	}
+	if builder.tosTypeSet {
+		req.TosType = &builder.tosType
+
+	}
+	return req
+}
+
+type CronTriggerCondition struct {
+	Cron *string `json:"cron,omitempty"` // Cron 表达式，表示触发器的定时触发规则。
+
+	Timezone *string `json:"timezone,omitempty"` // 时区标识，用于解析 cron 表达式，格式需符合 IANA 时区标准。
+}
+
+type CronTriggerConditionBuilder struct {
+	cron    string // Cron 表达式，表示触发器的定时触发规则。
+	cronSet bool
+
+	timezone    string // 时区标识，用于解析 cron 表达式，格式需符合 IANA 时区标准。
+	timezoneSet bool
+}
+
+func NewCronTriggerConditionBuilder() *CronTriggerConditionBuilder {
+	builder := &CronTriggerConditionBuilder{}
+	return builder
+}
+
+// Cron 表达式，表示触发器的定时触发规则。
+//
+// 示例值：0 0 9 * * ?
+func (builder *CronTriggerConditionBuilder) Cron(cron string) *CronTriggerConditionBuilder {
+	builder.cron = cron
+	builder.cronSet = true
+	return builder
+}
+
+// 时区标识，用于解析 cron 表达式，格式需符合 IANA 时区标准。
+//
+// 示例值：Asia/Shanghai
+func (builder *CronTriggerConditionBuilder) Timezone(timezone string) *CronTriggerConditionBuilder {
+	builder.timezone = timezone
+	builder.timezoneSet = true
+	return builder
+}
+
+func (builder *CronTriggerConditionBuilder) Build() *CronTriggerCondition {
+	req := &CronTriggerCondition{}
+	if builder.cronSet {
+		req.Cron = &builder.cron
+
+	}
+	if builder.timezoneSet {
+		req.Timezone = &builder.timezone
+
 	}
 	return req
 }
@@ -721,8 +2349,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -730,8 +2356,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -747,6 +2371,416 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	}
 	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
+
+	}
+	return req
+}
+
+type EnvVar struct {
+	Key *string `json:"key,omitempty"` // 环境变量的唯一标识键名，用于区分不同的环境变量，需符合系统命名规范，仅支持字母、数字、下划线及连字符，且不能以数字开头
+
+	Value *string `json:"value,omitempty"` // 环境变量对应的值，需与key匹配业务场景的配置规则，如数据库连接地址、API密钥等敏感信息需加密存储
+
+	Extras []*Extra `json:"extras,omitempty"` // 环境变量的扩展属性集合，用于存储额外的配置信息或元数据。支持自定义键值对，可根据业务需求灵活添加，如变量所属模块、生效范围等非核心属性。
+}
+
+type EnvVarBuilder struct {
+	key    string // 环境变量的唯一标识键名，用于区分不同的环境变量，需符合系统命名规范，仅支持字母、数字、下划线及连字符，且不能以数字开头
+	keySet bool
+
+	value    string // 环境变量对应的值，需与key匹配业务场景的配置规则，如数据库连接地址、API密钥等敏感信息需加密存储
+	valueSet bool
+
+	extras    []*Extra // 环境变量的扩展属性集合，用于存储额外的配置信息或元数据。支持自定义键值对，可根据业务需求灵活添加，如变量所属模块、生效范围等非核心属性。
+	extrasSet bool
+}
+
+func NewEnvVarBuilder() *EnvVarBuilder {
+	builder := &EnvVarBuilder{}
+	return builder
+}
+
+// 环境变量的唯一标识键名，用于区分不同的环境变量，需符合系统命名规范，仅支持字母、数字、下划线及连字符，且不能以数字开头
+//
+// 示例值：foo
+func (builder *EnvVarBuilder) Key(key string) *EnvVarBuilder {
+	builder.key = key
+	builder.keySet = true
+	return builder
+}
+
+// 环境变量对应的值，需与key匹配业务场景的配置规则，如数据库连接地址、API密钥等敏感信息需加密存储
+//
+// 示例值：bar
+func (builder *EnvVarBuilder) Value(value string) *EnvVarBuilder {
+	builder.value = value
+	builder.valueSet = true
+	return builder
+}
+
+// 环境变量的扩展属性集合，用于存储额外的配置信息或元数据。支持自定义键值对，可根据业务需求灵活添加，如变量所属模块、生效范围等非核心属性。
+//
+// 示例值：
+func (builder *EnvVarBuilder) Extras(extras []*Extra) *EnvVarBuilder {
+	builder.extras = extras
+	builder.extrasSet = true
+	return builder
+}
+
+func (builder *EnvVarBuilder) Build() *EnvVar {
+	req := &EnvVar{}
+	if builder.keySet {
+		req.Key = &builder.key
+
+	}
+	if builder.valueSet {
+		req.Value = &builder.value
+
+	}
+	if builder.extrasSet {
+		req.Extras = builder.extras
+	}
+	return req
+}
+
+type Extra struct {
+	Key *string `json:"key,omitempty"` // 额外属性的唯一标识键，用于区分不同的扩展字段。取值长度需大于等于1个字符，支持字母、数字及下划线组合。
+
+	Value *string `json:"value,omitempty"` // 额外属性的具体值，用于存储与key对应的扩展数据。支持任意字符串格式内容，无长度限制。
+}
+
+type ExtraBuilder struct {
+	key    string // 额外属性的唯一标识键，用于区分不同的扩展字段。取值长度需大于等于1个字符，支持字母、数字及下划线组合。
+	keySet bool
+
+	value    string // 额外属性的具体值，用于存储与key对应的扩展数据。支持任意字符串格式内容，无长度限制。
+	valueSet bool
+}
+
+func NewExtraBuilder() *ExtraBuilder {
+	builder := &ExtraBuilder{}
+	return builder
+}
+
+// 额外属性的唯一标识键，用于区分不同的扩展字段。取值长度需大于等于1个字符，支持字母、数字及下划线组合。
+//
+// 示例值：foo
+func (builder *ExtraBuilder) Key(key string) *ExtraBuilder {
+	builder.key = key
+	builder.keySet = true
+	return builder
+}
+
+// 额外属性的具体值，用于存储与key对应的扩展数据。支持任意字符串格式内容，无长度限制。
+//
+// 示例值：bar
+func (builder *ExtraBuilder) Value(value string) *ExtraBuilder {
+	builder.value = value
+	builder.valueSet = true
+	return builder
+}
+
+func (builder *ExtraBuilder) Build() *Extra {
+	req := &Extra{}
+	if builder.keySet {
+		req.Key = &builder.key
+
+	}
+	if builder.valueSet {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type FeishuApprovalTriggerCondition struct {
+	ApprovalCode *string `json:"approval_code,omitempty"` // 飞书审批定义 Code；不传时表示匹配所有审批定义。
+
+	EventType *string `json:"event_type,omitempty"` // 飞书审批事件类型，支持 approval_task 或 approval_instance。
+
+	Status []string `json:"status,omitempty"` // 飞书审批状态列表，按 event_type 区分任务状态或实例状态。
+}
+
+type FeishuApprovalTriggerConditionBuilder struct {
+	approvalCode    string // 飞书审批定义 Code；不传时表示匹配所有审批定义。
+	approvalCodeSet bool
+
+	eventType    string // 飞书审批事件类型，支持 approval_task 或 approval_instance。
+	eventTypeSet bool
+
+	status    []string // 飞书审批状态列表，按 event_type 区分任务状态或实例状态。
+	statusSet bool
+}
+
+func NewFeishuApprovalTriggerConditionBuilder() *FeishuApprovalTriggerConditionBuilder {
+	builder := &FeishuApprovalTriggerConditionBuilder{}
+	return builder
+}
+
+// 飞书审批定义 Code；不传时表示匹配所有审批定义。
+//
+// 示例值：approval_code
+func (builder *FeishuApprovalTriggerConditionBuilder) ApprovalCode(approvalCode string) *FeishuApprovalTriggerConditionBuilder {
+	builder.approvalCode = approvalCode
+	builder.approvalCodeSet = true
+	return builder
+}
+
+// 飞书审批事件类型，支持 approval_task 或 approval_instance。
+//
+// 示例值：approval_task
+func (builder *FeishuApprovalTriggerConditionBuilder) EventType(eventType string) *FeishuApprovalTriggerConditionBuilder {
+	builder.eventType = eventType
+	builder.eventTypeSet = true
+	return builder
+}
+
+// 飞书审批状态列表，按 event_type 区分任务状态或实例状态。
+//
+// 示例值：
+func (builder *FeishuApprovalTriggerConditionBuilder) Status(status []string) *FeishuApprovalTriggerConditionBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+func (builder *FeishuApprovalTriggerConditionBuilder) Build() *FeishuApprovalTriggerCondition {
+	req := &FeishuApprovalTriggerCondition{}
+	if builder.approvalCodeSet {
+		req.ApprovalCode = &builder.approvalCode
+
+	}
+	if builder.eventTypeSet {
+		req.EventType = &builder.eventType
+
+	}
+	if builder.statusSet {
+		req.Status = builder.status
+	}
+	return req
+}
+
+type FeishuDocMeta struct {
+	Id *string `json:"id,omitempty"` // 飞书文档的系统唯一标识，由平台自动生成。可通过文档创建或查询接口获取
+
+	Token *string `json:"token,omitempty"` // 飞书文档的访问令牌，用于文档的权限验证与访问控制。可通过文档分享接口获取
+
+	Title *string `json:"title,omitempty"` // 飞书文档的标题，支持中文、英文及特殊字符，长度限制为1-255个字符
+
+	Url *string `json:"url,omitempty"` // 飞书文档的直接访问链接，格式为飞书官方文档标准URL，需拥有对应权限方可访问
+
+	Type *string `json:"type,omitempty"` // 飞书文档的类型标识。可选值：;- `doc`：普通文档;- `sheet`：电子表格;- `slide`：幻灯片;- `bitable`：多维表格
+
+	OwnerUid *string `json:"owner_uid,omitempty"` // 文档所有者的用户ID，对应企业内部用户唯一标识。可通过用户信息查询接口获取
+
+	OwnerName *string `json:"owner_name,omitempty"` // 文档所有者的用户名，展示为用户在企业内的真实姓名或昵称
+
+	Size *int `json:"size,omitempty"` // 文档的实际大小，单位为字节，取值范围0-99999999字节
+
+	EditTime *string `json:"edit_time,omitempty"` // 文档最后一次编辑的时间戳，单位为秒，精确到秒级
+}
+
+type FeishuDocMetaBuilder struct {
+	id    string // 飞书文档的系统唯一标识，由平台自动生成。可通过文档创建或查询接口获取
+	idSet bool
+
+	token    string // 飞书文档的访问令牌，用于文档的权限验证与访问控制。可通过文档分享接口获取
+	tokenSet bool
+
+	title    string // 飞书文档的标题，支持中文、英文及特殊字符，长度限制为1-255个字符
+	titleSet bool
+
+	url    string // 飞书文档的直接访问链接，格式为飞书官方文档标准URL，需拥有对应权限方可访问
+	urlSet bool
+
+	type_    string // 飞书文档的类型标识。可选值：;- `doc`：普通文档;- `sheet`：电子表格;- `slide`：幻灯片;- `bitable`：多维表格
+	type_Set bool
+
+	ownerUid    string // 文档所有者的用户ID，对应企业内部用户唯一标识。可通过用户信息查询接口获取
+	ownerUidSet bool
+
+	ownerName    string // 文档所有者的用户名，展示为用户在企业内的真实姓名或昵称
+	ownerNameSet bool
+
+	size    int // 文档的实际大小，单位为字节，取值范围0-99999999字节
+	sizeSet bool
+
+	editTime    string // 文档最后一次编辑的时间戳，单位为秒，精确到秒级
+	editTimeSet bool
+}
+
+func NewFeishuDocMetaBuilder() *FeishuDocMetaBuilder {
+	builder := &FeishuDocMetaBuilder{}
+	return builder
+}
+
+// 飞书文档的系统唯一标识，由平台自动生成。可通过文档创建或查询接口获取
+//
+// 示例值：123456789
+func (builder *FeishuDocMetaBuilder) Id(id string) *FeishuDocMetaBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 飞书文档的访问令牌，用于文档的权限验证与访问控制。可通过文档分享接口获取
+//
+// 示例值：doxcnxxxxxxxxxxxxxxxxxxxxxx
+func (builder *FeishuDocMetaBuilder) Token(token string) *FeishuDocMetaBuilder {
+	builder.token = token
+	builder.tokenSet = true
+	return builder
+}
+
+// 飞书文档的标题，支持中文、英文及特殊字符，长度限制为1-255个字符
+//
+// 示例值：2024年Q3项目规划文档
+func (builder *FeishuDocMetaBuilder) Title(title string) *FeishuDocMetaBuilder {
+	builder.title = title
+	builder.titleSet = true
+	return builder
+}
+
+// 飞书文档的直接访问链接，格式为飞书官方文档标准URL，需拥有对应权限方可访问
+//
+// 示例值：https://example.feishu.cn/docx/doxcnxxxxxxxxxxxxxxxxxxxxxx
+func (builder *FeishuDocMetaBuilder) Url(url string) *FeishuDocMetaBuilder {
+	builder.url = url
+	builder.urlSet = true
+	return builder
+}
+
+// 飞书文档的类型标识。可选值：;- `doc`：普通文档;- `sheet`：电子表格;- `slide`：幻灯片;- `bitable`：多维表格
+//
+// 示例值：doc
+func (builder *FeishuDocMetaBuilder) Type(type_ string) *FeishuDocMetaBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 文档所有者的用户ID，对应企业内部用户唯一标识。可通过用户信息查询接口获取
+//
+// 示例值：987654321
+func (builder *FeishuDocMetaBuilder) OwnerUid(ownerUid string) *FeishuDocMetaBuilder {
+	builder.ownerUid = ownerUid
+	builder.ownerUidSet = true
+	return builder
+}
+
+// 文档所有者的用户名，展示为用户在企业内的真实姓名或昵称
+//
+// 示例值：张三
+func (builder *FeishuDocMetaBuilder) OwnerName(ownerName string) *FeishuDocMetaBuilder {
+	builder.ownerName = ownerName
+	builder.ownerNameSet = true
+	return builder
+}
+
+// 文档的实际大小，单位为字节，取值范围0-99999999字节
+//
+// 示例值：13843
+func (builder *FeishuDocMetaBuilder) Size(size int) *FeishuDocMetaBuilder {
+	builder.size = size
+	builder.sizeSet = true
+	return builder
+}
+
+// 文档最后一次编辑的时间戳，单位为秒，精确到秒级
+//
+// 示例值：1725091200
+func (builder *FeishuDocMetaBuilder) EditTime(editTime string) *FeishuDocMetaBuilder {
+	builder.editTime = editTime
+	builder.editTimeSet = true
+	return builder
+}
+
+func (builder *FeishuDocMetaBuilder) Build() *FeishuDocMeta {
+	req := &FeishuDocMeta{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.tokenSet {
+		req.Token = &builder.token
+
+	}
+	if builder.titleSet {
+		req.Title = &builder.title
+
+	}
+	if builder.urlSet {
+		req.Url = &builder.url
+
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.ownerUidSet {
+		req.OwnerUid = &builder.ownerUid
+
+	}
+	if builder.ownerNameSet {
+		req.OwnerName = &builder.ownerName
+
+	}
+	if builder.sizeSet {
+		req.Size = &builder.size
+
+	}
+	if builder.editTimeSet {
+		req.EditTime = &builder.editTime
+
+	}
+	return req
+}
+
+type HttpInfo struct {
+	HttpMethod *string `json:"http_method,omitempty"` // HTTP 方法
+
+	HttpPath *string `json:"http_path,omitempty"` // HTTP 路径
+}
+
+type HttpInfoBuilder struct {
+	httpMethod    string // HTTP 方法
+	httpMethodSet bool
+
+	httpPath    string // HTTP 路径
+	httpPathSet bool
+}
+
+func NewHttpInfoBuilder() *HttpInfoBuilder {
+	builder := &HttpInfoBuilder{}
+	return builder
+}
+
+// HTTP 方法
+//
+// 示例值：GET
+func (builder *HttpInfoBuilder) HttpMethod(httpMethod string) *HttpInfoBuilder {
+	builder.httpMethod = httpMethod
+	builder.httpMethodSet = true
+	return builder
+}
+
+// HTTP 路径
+//
+// 示例值：/openapi/get
+func (builder *HttpInfoBuilder) HttpPath(httpPath string) *HttpInfoBuilder {
+	builder.httpPath = httpPath
+	builder.httpPathSet = true
+	return builder
+}
+
+func (builder *HttpInfoBuilder) Build() *HttpInfo {
+	req := &HttpInfo{}
+	if builder.httpMethodSet {
+		req.HttpMethod = &builder.httpMethod
+
+	}
+	if builder.httpPathSet {
+		req.HttpPath = &builder.httpPath
 
 	}
 	return req
@@ -802,11 +2836,2928 @@ func (builder *IdMapItemBuilder) Build() *IdMapItem {
 	return req
 }
 
+type Kv struct {
+	Key *string `json:"key,omitempty"` // key
+
+	Value *string `json:"value,omitempty"` // value
+}
+
+type KvBuilder struct {
+	key    string // key
+	keySet bool
+
+	value    string // value
+	valueSet bool
+}
+
+func NewKvBuilder() *KvBuilder {
+	builder := &KvBuilder{}
+	return builder
+}
+
+// key
+//
+// 示例值：foo
+func (builder *KvBuilder) Key(key string) *KvBuilder {
+	builder.key = key
+	builder.keySet = true
+	return builder
+}
+
+// value
+//
+// 示例值：bar
+func (builder *KvBuilder) Value(value string) *KvBuilder {
+	builder.value = value
+	builder.valueSet = true
+	return builder
+}
+
+func (builder *KvBuilder) Build() *Kv {
+	req := &Kv{}
+	if builder.keySet {
+		req.Key = &builder.key
+
+	}
+	if builder.valueSet {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type LarkApaasDevopsForceReleaseKv struct {
+	Key *string `json:"key,omitempty"` // key
+
+	Value *string `json:"value,omitempty"` // value
+}
+
+type LarkApaasDevopsForceReleaseKvBuilder struct {
+	key    string // key
+	keySet bool
+
+	value    string // value
+	valueSet bool
+}
+
+func NewLarkApaasDevopsForceReleaseKvBuilder() *LarkApaasDevopsForceReleaseKvBuilder {
+	builder := &LarkApaasDevopsForceReleaseKvBuilder{}
+	return builder
+}
+
+// key
+//
+// 示例值：tos_path
+func (builder *LarkApaasDevopsForceReleaseKvBuilder) Key(key string) *LarkApaasDevopsForceReleaseKvBuilder {
+	builder.key = key
+	builder.keySet = true
+	return builder
+}
+
+// value
+//
+// 示例值：foo
+func (builder *LarkApaasDevopsForceReleaseKvBuilder) Value(value string) *LarkApaasDevopsForceReleaseKvBuilder {
+	builder.value = value
+	builder.valueSet = true
+	return builder
+}
+
+func (builder *LarkApaasDevopsForceReleaseKvBuilder) Build() *LarkApaasDevopsForceReleaseKv {
+	req := &LarkApaasDevopsForceReleaseKv{}
+	if builder.keySet {
+		req.Key = &builder.key
+
+	}
+	if builder.valueSet {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type LatestTurn struct {
+	TurnId *string `json:"turn_id,omitempty"` // = reply_group_id（turn 执行后才有；未生成时为空）
+
+	Status *string `json:"status,omitempty"` // running / completed / failed / cancelled
+
+	UserMessage *UserMessageView `json:"user_message,omitempty"` // UserMessageView queued turn 的 user message 视图（来自 task.payload.user_message）。
+
+	Sender *MessageSender `json:"sender,omitempty"` // MessageSender turn 的消息发送者（= 提交该 chat 的用户，来自 task.SubmitterUserID 反查）。\n多用户协作时让 Agent 知道每个 turn 的消息是谁发的。
+
+	Messages []*MessageView `json:"messages,omitempty"` // assistant message
+}
+
+type LatestTurnBuilder struct {
+	turnId    string // = reply_group_id（turn 执行后才有；未生成时为空）
+	turnIdSet bool
+
+	status    string // running / completed / failed / cancelled
+	statusSet bool
+
+	userMessage    *UserMessageView // UserMessageView queued turn 的 user message 视图（来自 task.payload.user_message）。
+	userMessageSet bool
+
+	sender    *MessageSender // MessageSender turn 的消息发送者（= 提交该 chat 的用户，来自 task.SubmitterUserID 反查）。\n多用户协作时让 Agent 知道每个 turn 的消息是谁发的。
+	senderSet bool
+
+	messages    []*MessageView // assistant message
+	messagesSet bool
+}
+
+func NewLatestTurnBuilder() *LatestTurnBuilder {
+	builder := &LatestTurnBuilder{}
+	return builder
+}
+
+// = reply_group_id（turn 执行后才有；未生成时为空）
+//
+// 示例值：23nmibas3kdkafda
+func (builder *LatestTurnBuilder) TurnId(turnId string) *LatestTurnBuilder {
+	builder.turnId = turnId
+	builder.turnIdSet = true
+	return builder
+}
+
+// running / completed / failed / cancelled
+//
+// 示例值：running
+func (builder *LatestTurnBuilder) Status(status string) *LatestTurnBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// UserMessageView queued turn 的 user message 视图（来自 task.payload.user_message）。
+//
+// 示例值：
+func (builder *LatestTurnBuilder) UserMessage(userMessage *UserMessageView) *LatestTurnBuilder {
+	builder.userMessage = userMessage
+	builder.userMessageSet = true
+	return builder
+}
+
+// MessageSender turn 的消息发送者（= 提交该 chat 的用户，来自 task.SubmitterUserID 反查）。\n多用户协作时让 Agent 知道每个 turn 的消息是谁发的。
+//
+// 示例值：
+func (builder *LatestTurnBuilder) Sender(sender *MessageSender) *LatestTurnBuilder {
+	builder.sender = sender
+	builder.senderSet = true
+	return builder
+}
+
+// assistant message
+//
+// 示例值：
+func (builder *LatestTurnBuilder) Messages(messages []*MessageView) *LatestTurnBuilder {
+	builder.messages = messages
+	builder.messagesSet = true
+	return builder
+}
+
+func (builder *LatestTurnBuilder) Build() *LatestTurn {
+	req := &LatestTurn{}
+	if builder.turnIdSet {
+		req.TurnId = &builder.turnId
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.userMessageSet {
+		req.UserMessage = builder.userMessage
+	}
+	if builder.senderSet {
+		req.Sender = builder.sender
+	}
+	if builder.messagesSet {
+		req.Messages = builder.messages
+	}
+	return req
+}
+
+type LogFilter struct {
+	Levels []string `json:"levels,omitempty"` // 日志级别
+
+	LogIds []string `json:"log_ids,omitempty"` // 日志ID
+
+	TraceIds []string `json:"trace_ids,omitempty"` // TraceID
+
+	Modules []string `json:"modules,omitempty"` // 模块
+
+	UserIds []string `json:"user_ids,omitempty"` // 用户ID
+
+	Pages []string `json:"pages,omitempty"` // 页面路径
+
+	Apis []string `json:"apis,omitempty"` // 接口路径
+
+	MinDurationMs *string `json:"min_duration_ms,omitempty"` // 最小耗时
+
+	MaxDurationMs *string `json:"max_duration_ms,omitempty"` // 最大耗时
+
+	Keyword *string `json:"keyword,omitempty"` // 模糊搜索的关键词
+}
+
+type LogFilterBuilder struct {
+	levels    []string // 日志级别
+	levelsSet bool
+
+	logIds    []string // 日志ID
+	logIdsSet bool
+
+	traceIds    []string // TraceID
+	traceIdsSet bool
+
+	modules    []string // 模块
+	modulesSet bool
+
+	userIds    []string // 用户ID
+	userIdsSet bool
+
+	pages    []string // 页面路径
+	pagesSet bool
+
+	apis    []string // 接口路径
+	apisSet bool
+
+	minDurationMs    string // 最小耗时
+	minDurationMsSet bool
+
+	maxDurationMs    string // 最大耗时
+	maxDurationMsSet bool
+
+	keyword    string // 模糊搜索的关键词
+	keywordSet bool
+}
+
+func NewLogFilterBuilder() *LogFilterBuilder {
+	builder := &LogFilterBuilder{}
+	return builder
+}
+
+// 日志级别
+//
+// 示例值：
+func (builder *LogFilterBuilder) Levels(levels []string) *LogFilterBuilder {
+	builder.levels = levels
+	builder.levelsSet = true
+	return builder
+}
+
+// 日志ID
+//
+// 示例值：
+func (builder *LogFilterBuilder) LogIds(logIds []string) *LogFilterBuilder {
+	builder.logIds = logIds
+	builder.logIdsSet = true
+	return builder
+}
+
+// TraceID
+//
+// 示例值：
+func (builder *LogFilterBuilder) TraceIds(traceIds []string) *LogFilterBuilder {
+	builder.traceIds = traceIds
+	builder.traceIdsSet = true
+	return builder
+}
+
+// 模块
+//
+// 示例值：
+func (builder *LogFilterBuilder) Modules(modules []string) *LogFilterBuilder {
+	builder.modules = modules
+	builder.modulesSet = true
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：
+func (builder *LogFilterBuilder) UserIds(userIds []string) *LogFilterBuilder {
+	builder.userIds = userIds
+	builder.userIdsSet = true
+	return builder
+}
+
+// 页面路径
+//
+// 示例值：
+func (builder *LogFilterBuilder) Pages(pages []string) *LogFilterBuilder {
+	builder.pages = pages
+	builder.pagesSet = true
+	return builder
+}
+
+// 接口路径
+//
+// 示例值：
+func (builder *LogFilterBuilder) Apis(apis []string) *LogFilterBuilder {
+	builder.apis = apis
+	builder.apisSet = true
+	return builder
+}
+
+// 最小耗时
+//
+// 示例值：100
+func (builder *LogFilterBuilder) MinDurationMs(minDurationMs string) *LogFilterBuilder {
+	builder.minDurationMs = minDurationMs
+	builder.minDurationMsSet = true
+	return builder
+}
+
+// 最大耗时
+//
+// 示例值：100
+func (builder *LogFilterBuilder) MaxDurationMs(maxDurationMs string) *LogFilterBuilder {
+	builder.maxDurationMs = maxDurationMs
+	builder.maxDurationMsSet = true
+	return builder
+}
+
+// 模糊搜索的关键词
+//
+// 示例值：foo
+func (builder *LogFilterBuilder) Keyword(keyword string) *LogFilterBuilder {
+	builder.keyword = keyword
+	builder.keywordSet = true
+	return builder
+}
+
+func (builder *LogFilterBuilder) Build() *LogFilter {
+	req := &LogFilter{}
+	if builder.levelsSet {
+		req.Levels = builder.levels
+	}
+	if builder.logIdsSet {
+		req.LogIds = builder.logIds
+	}
+	if builder.traceIdsSet {
+		req.TraceIds = builder.traceIds
+	}
+	if builder.modulesSet {
+		req.Modules = builder.modules
+	}
+	if builder.userIdsSet {
+		req.UserIds = builder.userIds
+	}
+	if builder.pagesSet {
+		req.Pages = builder.pages
+	}
+	if builder.apisSet {
+		req.Apis = builder.apis
+	}
+	if builder.minDurationMsSet {
+		req.MinDurationMs = &builder.minDurationMs
+
+	}
+	if builder.maxDurationMsSet {
+		req.MaxDurationMs = &builder.maxDurationMs
+
+	}
+	if builder.keywordSet {
+		req.Keyword = &builder.keyword
+
+	}
+	return req
+}
+
+type MessageSender struct {
+	UserId *string `json:"user_id,omitempty"` // 发送者 user_id（string，避免 JS 大数精度丢失）
+
+	Name *string `json:"name,omitempty"` // 发送者名字
+}
+
+type MessageSenderBuilder struct {
+	userId    string // 发送者 user_id（string，避免 JS 大数精度丢失）
+	userIdSet bool
+
+	name    string // 发送者名字
+	nameSet bool
+}
+
+func NewMessageSenderBuilder() *MessageSenderBuilder {
+	builder := &MessageSenderBuilder{}
+	return builder
+}
+
+// 发送者 user_id（string，避免 JS 大数精度丢失）
+//
+// 示例值：
+func (builder *MessageSenderBuilder) UserId(userId string) *MessageSenderBuilder {
+	builder.userId = userId
+	builder.userIdSet = true
+	return builder
+}
+
+// 发送者名字
+//
+// 示例值：名字
+func (builder *MessageSenderBuilder) Name(name string) *MessageSenderBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+func (builder *MessageSenderBuilder) Build() *MessageSender {
+	req := &MessageSender{}
+	if builder.userIdSet {
+		req.UserId = &builder.userId
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+type MessageView struct {
+	MessageId *string `json:"message_id,omitempty"` // 消息id
+
+	Role *string `json:"role,omitempty"` // user / assistant / tool
+
+	Content *string `json:"content,omitempty"` // 消息内容
+
+	FinishReason *string `json:"finish_reason,omitempty"` // 消息内容
+}
+
+type MessageViewBuilder struct {
+	messageId    string // 消息id
+	messageIdSet bool
+
+	role    string // user / assistant / tool
+	roleSet bool
+
+	content    string // 消息内容
+	contentSet bool
+
+	finishReason    string // 消息内容
+	finishReasonSet bool
+}
+
+func NewMessageViewBuilder() *MessageViewBuilder {
+	builder := &MessageViewBuilder{}
+	return builder
+}
+
+// 消息id
+//
+// 示例值：7ea030e4-3dfe-4ca2-a6ea-8b137b37bc3b
+func (builder *MessageViewBuilder) MessageId(messageId string) *MessageViewBuilder {
+	builder.messageId = messageId
+	builder.messageIdSet = true
+	return builder
+}
+
+// user / assistant / tool
+//
+// 示例值：user
+func (builder *MessageViewBuilder) Role(role string) *MessageViewBuilder {
+	builder.role = role
+	builder.roleSet = true
+	return builder
+}
+
+// 消息内容
+//
+// 示例值：增加一个持仓管理页面
+func (builder *MessageViewBuilder) Content(content string) *MessageViewBuilder {
+	builder.content = content
+	builder.contentSet = true
+	return builder
+}
+
+// 消息内容
+//
+// 示例值：reason
+func (builder *MessageViewBuilder) FinishReason(finishReason string) *MessageViewBuilder {
+	builder.finishReason = finishReason
+	builder.finishReasonSet = true
+	return builder
+}
+
+func (builder *MessageViewBuilder) Build() *MessageView {
+	req := &MessageView{}
+	if builder.messageIdSet {
+		req.MessageId = &builder.messageId
+
+	}
+	if builder.roleSet {
+		req.Role = &builder.role
+
+	}
+	if builder.contentSet {
+		req.Content = &builder.content
+
+	}
+	if builder.finishReasonSet {
+		req.FinishReason = &builder.finishReason
+
+	}
+	return req
+}
+
+type MetricFilter struct {
+	Pages []string `json:"pages,omitempty"` // 页面路径
+
+	Apis []string `json:"apis,omitempty"` // 接口路径
+}
+
+type MetricFilterBuilder struct {
+	pages    []string // 页面路径
+	pagesSet bool
+
+	apis    []string // 接口路径
+	apisSet bool
+}
+
+func NewMetricFilterBuilder() *MetricFilterBuilder {
+	builder := &MetricFilterBuilder{}
+	return builder
+}
+
+// 页面路径
+//
+// 示例值：
+func (builder *MetricFilterBuilder) Pages(pages []string) *MetricFilterBuilder {
+	builder.pages = pages
+	builder.pagesSet = true
+	return builder
+}
+
+// 接口路径
+//
+// 示例值：
+func (builder *MetricFilterBuilder) Apis(apis []string) *MetricFilterBuilder {
+	builder.apis = apis
+	builder.apisSet = true
+	return builder
+}
+
+func (builder *MetricFilterBuilder) Build() *MetricFilter {
+	req := &MetricFilter{}
+	if builder.pagesSet {
+		req.Pages = builder.pages
+	}
+	if builder.apisSet {
+		req.Apis = builder.apis
+	}
+	return req
+}
+
+type OpenApiAnalyticsData struct {
+	TimestampNs *string `json:"timestamp_ns,omitempty"` // 数据点的时间戳，单位：纳秒
+
+	Value *float64 `json:"value,omitempty"` // 数据点的值
+
+	Dimensions []*Kv `json:"dimensions,omitempty"` // 数据点的维度
+}
+
+type OpenApiAnalyticsDataBuilder struct {
+	timestampNs    string // 数据点的时间戳，单位：纳秒
+	timestampNsSet bool
+
+	value    float64 // 数据点的值
+	valueSet bool
+
+	dimensions    []*Kv // 数据点的维度
+	dimensionsSet bool
+}
+
+func NewOpenApiAnalyticsDataBuilder() *OpenApiAnalyticsDataBuilder {
+	builder := &OpenApiAnalyticsDataBuilder{}
+	return builder
+}
+
+// 数据点的时间戳，单位：纳秒
+//
+// 示例值：1782132931498000000
+func (builder *OpenApiAnalyticsDataBuilder) TimestampNs(timestampNs string) *OpenApiAnalyticsDataBuilder {
+	builder.timestampNs = timestampNs
+	builder.timestampNsSet = true
+	return builder
+}
+
+// 数据点的值
+//
+// 示例值：1
+func (builder *OpenApiAnalyticsDataBuilder) Value(value float64) *OpenApiAnalyticsDataBuilder {
+	builder.value = value
+	builder.valueSet = true
+	return builder
+}
+
+// 数据点的维度
+//
+// 示例值：
+func (builder *OpenApiAnalyticsDataBuilder) Dimensions(dimensions []*Kv) *OpenApiAnalyticsDataBuilder {
+	builder.dimensions = dimensions
+	builder.dimensionsSet = true
+	return builder
+}
+
+func (builder *OpenApiAnalyticsDataBuilder) Build() *OpenApiAnalyticsData {
+	req := &OpenApiAnalyticsData{}
+	if builder.timestampNsSet {
+		req.TimestampNs = &builder.timestampNs
+
+	}
+	if builder.valueSet {
+		req.Value = &builder.value
+
+	}
+	if builder.dimensionsSet {
+		req.Dimensions = builder.dimensions
+	}
+	return req
+}
+
+type OpenApiAnalyticsDataSeries struct {
+	MetricType *string `json:"metric_type,omitempty"` // 指标类型
+
+	Points []*OpenApiAnalyticsData `json:"points,omitempty"` // 数据点
+}
+
+type OpenApiAnalyticsDataSeriesBuilder struct {
+	metricType    string // 指标类型
+	metricTypeSet bool
+
+	points    []*OpenApiAnalyticsData // 数据点
+	pointsSet bool
+}
+
+func NewOpenApiAnalyticsDataSeriesBuilder() *OpenApiAnalyticsDataSeriesBuilder {
+	builder := &OpenApiAnalyticsDataSeriesBuilder{}
+	return builder
+}
+
+// 指标类型
+//
+// 示例值：
+func (builder *OpenApiAnalyticsDataSeriesBuilder) MetricType(metricType string) *OpenApiAnalyticsDataSeriesBuilder {
+	builder.metricType = metricType
+	builder.metricTypeSet = true
+	return builder
+}
+
+// 数据点
+//
+// 示例值：
+func (builder *OpenApiAnalyticsDataSeriesBuilder) Points(points []*OpenApiAnalyticsData) *OpenApiAnalyticsDataSeriesBuilder {
+	builder.points = points
+	builder.pointsSet = true
+	return builder
+}
+
+func (builder *OpenApiAnalyticsDataSeriesBuilder) Build() *OpenApiAnalyticsDataSeries {
+	req := &OpenApiAnalyticsDataSeries{}
+	if builder.metricTypeSet {
+		req.MetricType = &builder.metricType
+
+	}
+	if builder.pointsSet {
+		req.Points = builder.points
+	}
+	return req
+}
+
+type OpenApiAnalyticsFilter struct {
+	Page *string `json:"page,omitempty"` // 页面路径
+
+	DeviceTypes []string `json:"device_types,omitempty"` // 终端类型
+}
+
+type OpenApiAnalyticsFilterBuilder struct {
+	page    string // 页面路径
+	pageSet bool
+
+	deviceTypes    []string // 终端类型
+	deviceTypesSet bool
+}
+
+func NewOpenApiAnalyticsFilterBuilder() *OpenApiAnalyticsFilterBuilder {
+	builder := &OpenApiAnalyticsFilterBuilder{}
+	return builder
+}
+
+// 页面路径
+//
+// 示例值：/home
+func (builder *OpenApiAnalyticsFilterBuilder) Page(page string) *OpenApiAnalyticsFilterBuilder {
+	builder.page = page
+	builder.pageSet = true
+	return builder
+}
+
+// 终端类型
+//
+// 示例值：
+func (builder *OpenApiAnalyticsFilterBuilder) DeviceTypes(deviceTypes []string) *OpenApiAnalyticsFilterBuilder {
+	builder.deviceTypes = deviceTypes
+	builder.deviceTypesSet = true
+	return builder
+}
+
+func (builder *OpenApiAnalyticsFilterBuilder) Build() *OpenApiAnalyticsFilter {
+	req := &OpenApiAnalyticsFilter{}
+	if builder.pageSet {
+		req.Page = &builder.page
+
+	}
+	if builder.deviceTypesSet {
+		req.DeviceTypes = builder.deviceTypes
+	}
+	return req
+}
+
+type OpenApiLogItem struct {
+	Id *string `json:"id,omitempty"` // 日志ID
+
+	Body *string `json:"body,omitempty"` // 日志主体内容
+
+	SeverityText *string `json:"severity_text,omitempty"` // 日志级别
+
+	TimestampNs *string `json:"timestamp_ns,omitempty"` // 打印日志的时间戳，单位：纳秒
+
+	Attributes []*Kv `json:"attributes,omitempty"` // 日志属性。包括各种系统属性：tenant_id, module, user_id 等
+
+	SpanId *string `json:"span_id,omitempty"` // 日志关联的SpanID
+
+	TraceId *string `json:"trace_id,omitempty"` // 日志关联的TraceID
+}
+
+type OpenApiLogItemBuilder struct {
+	id    string // 日志ID
+	idSet bool
+
+	body    string // 日志主体内容
+	bodySet bool
+
+	severityText    string // 日志级别
+	severityTextSet bool
+
+	timestampNs    string // 打印日志的时间戳，单位：纳秒
+	timestampNsSet bool
+
+	attributes    []*Kv // 日志属性。包括各种系统属性：tenant_id, module, user_id 等
+	attributesSet bool
+
+	spanId    string // 日志关联的SpanID
+	spanIdSet bool
+
+	traceId    string // 日志关联的TraceID
+	traceIdSet bool
+}
+
+func NewOpenApiLogItemBuilder() *OpenApiLogItemBuilder {
+	builder := &OpenApiLogItemBuilder{}
+	return builder
+}
+
+// 日志ID
+//
+// 示例值：LOG7654111293514976789
+func (builder *OpenApiLogItemBuilder) Id(id string) *OpenApiLogItemBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 日志主体内容
+//
+// 示例值：foo
+func (builder *OpenApiLogItemBuilder) Body(body string) *OpenApiLogItemBuilder {
+	builder.body = body
+	builder.bodySet = true
+	return builder
+}
+
+// 日志级别
+//
+// 示例值：INFO
+func (builder *OpenApiLogItemBuilder) SeverityText(severityText string) *OpenApiLogItemBuilder {
+	builder.severityText = severityText
+	builder.severityTextSet = true
+	return builder
+}
+
+// 打印日志的时间戳，单位：纳秒
+//
+// 示例值：1781233409265000000
+func (builder *OpenApiLogItemBuilder) TimestampNs(timestampNs string) *OpenApiLogItemBuilder {
+	builder.timestampNs = timestampNs
+	builder.timestampNsSet = true
+	return builder
+}
+
+// 日志属性。包括各种系统属性：tenant_id, module, user_id 等
+//
+// 示例值：
+func (builder *OpenApiLogItemBuilder) Attributes(attributes []*Kv) *OpenApiLogItemBuilder {
+	builder.attributes = attributes
+	builder.attributesSet = true
+	return builder
+}
+
+// 日志关联的SpanID
+//
+// 示例值：2235bb0f7cc5bc04
+func (builder *OpenApiLogItemBuilder) SpanId(spanId string) *OpenApiLogItemBuilder {
+	builder.spanId = spanId
+	builder.spanIdSet = true
+	return builder
+}
+
+// 日志关联的TraceID
+//
+// 示例值：b14cd821aa8c9775496f6a91a4e73d54
+func (builder *OpenApiLogItemBuilder) TraceId(traceId string) *OpenApiLogItemBuilder {
+	builder.traceId = traceId
+	builder.traceIdSet = true
+	return builder
+}
+
+func (builder *OpenApiLogItemBuilder) Build() *OpenApiLogItem {
+	req := &OpenApiLogItem{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.bodySet {
+		req.Body = &builder.body
+
+	}
+	if builder.severityTextSet {
+		req.SeverityText = &builder.severityText
+
+	}
+	if builder.timestampNsSet {
+		req.TimestampNs = &builder.timestampNs
+
+	}
+	if builder.attributesSet {
+		req.Attributes = builder.attributes
+	}
+	if builder.spanIdSet {
+		req.SpanId = &builder.spanId
+
+	}
+	if builder.traceIdSet {
+		req.TraceId = &builder.traceId
+
+	}
+	return req
+}
+
+type OpenApiMetricTimePoint struct {
+	Timestamp *string `json:"timestamp,omitempty"` // 时间戳，单位：秒
+
+	Dimensions []*Kv `json:"dimensions,omitempty"` // 维度组合，无 GroupBy 时不填
+
+	Values []*OpenApiMetricValue `json:"values,omitempty"` // metricName -> value
+}
+
+type OpenApiMetricTimePointBuilder struct {
+	timestamp    string // 时间戳，单位：秒
+	timestampSet bool
+
+	dimensions    []*Kv // 维度组合，无 GroupBy 时不填
+	dimensionsSet bool
+
+	values    []*OpenApiMetricValue // metricName -> value
+	valuesSet bool
+}
+
+func NewOpenApiMetricTimePointBuilder() *OpenApiMetricTimePointBuilder {
+	builder := &OpenApiMetricTimePointBuilder{}
+	return builder
+}
+
+// 时间戳，单位：秒
+//
+// 示例值：1782050274
+func (builder *OpenApiMetricTimePointBuilder) Timestamp(timestamp string) *OpenApiMetricTimePointBuilder {
+	builder.timestamp = timestamp
+	builder.timestampSet = true
+	return builder
+}
+
+// 维度组合，无 GroupBy 时不填
+//
+// 示例值：
+func (builder *OpenApiMetricTimePointBuilder) Dimensions(dimensions []*Kv) *OpenApiMetricTimePointBuilder {
+	builder.dimensions = dimensions
+	builder.dimensionsSet = true
+	return builder
+}
+
+// metricName -> value
+//
+// 示例值：
+func (builder *OpenApiMetricTimePointBuilder) Values(values []*OpenApiMetricValue) *OpenApiMetricTimePointBuilder {
+	builder.values = values
+	builder.valuesSet = true
+	return builder
+}
+
+func (builder *OpenApiMetricTimePointBuilder) Build() *OpenApiMetricTimePoint {
+	req := &OpenApiMetricTimePoint{}
+	if builder.timestampSet {
+		req.Timestamp = &builder.timestamp
+
+	}
+	if builder.dimensionsSet {
+		req.Dimensions = builder.dimensions
+	}
+	if builder.valuesSet {
+		req.Values = builder.values
+	}
+	return req
+}
+
+type OpenApiMetricValue struct {
+	MetricName *string `json:"metric_name,omitempty"` // 指标名
+
+	Value *float64 `json:"value,omitempty"` // 指标值
+}
+
+type OpenApiMetricValueBuilder struct {
+	metricName    string // 指标名
+	metricNameSet bool
+
+	value    float64 // 指标值
+	valueSet bool
+}
+
+func NewOpenApiMetricValueBuilder() *OpenApiMetricValueBuilder {
+	builder := &OpenApiMetricValueBuilder{}
+	return builder
+}
+
+// 指标名
+//
+// 示例值：
+func (builder *OpenApiMetricValueBuilder) MetricName(metricName string) *OpenApiMetricValueBuilder {
+	builder.metricName = metricName
+	builder.metricNameSet = true
+	return builder
+}
+
+// 指标值
+//
+// 示例值：1.2
+func (builder *OpenApiMetricValueBuilder) Value(value float64) *OpenApiMetricValueBuilder {
+	builder.value = value
+	builder.valueSet = true
+	return builder
+}
+
+func (builder *OpenApiMetricValueBuilder) Build() *OpenApiMetricValue {
+	req := &OpenApiMetricValue{}
+	if builder.metricNameSet {
+		req.MetricName = &builder.metricName
+
+	}
+	if builder.valueSet {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type OpenApiRelease struct {
+	ReleaseId *string `json:"release_id,omitempty"` // 发布单ID
+
+	Status *string `json:"status,omitempty"` // 发布状态，可选值：publishing, finished, failed
+
+	CreatedAt *string `json:"created_at,omitempty"` // 毫秒
+
+	UpdatedAt *string `json:"updated_at,omitempty"` // 毫秒
+
+	OnlineUrl *string `json:"online_url,omitempty"` // 线上访问链接
+
+	CommitId *string `json:"commit_id,omitempty"` // commit_id
+
+	Creator *OpenApiUserMeta `json:"creator,omitempty"` // 创建人
+}
+
+type OpenApiReleaseBuilder struct {
+	releaseId    string // 发布单ID
+	releaseIdSet bool
+
+	status    string // 发布状态，可选值：publishing, finished, failed
+	statusSet bool
+
+	createdAt    string // 毫秒
+	createdAtSet bool
+
+	updatedAt    string // 毫秒
+	updatedAtSet bool
+
+	onlineUrl    string // 线上访问链接
+	onlineUrlSet bool
+
+	commitId    string // commit_id
+	commitIdSet bool
+
+	creator    *OpenApiUserMeta // 创建人
+	creatorSet bool
+}
+
+func NewOpenApiReleaseBuilder() *OpenApiReleaseBuilder {
+	builder := &OpenApiReleaseBuilder{}
+	return builder
+}
+
+// 发布单ID
+//
+// 示例值：1
+func (builder *OpenApiReleaseBuilder) ReleaseId(releaseId string) *OpenApiReleaseBuilder {
+	builder.releaseId = releaseId
+	builder.releaseIdSet = true
+	return builder
+}
+
+// 发布状态，可选值：publishing, finished, failed
+//
+// 示例值：publishing, finished, failed
+func (builder *OpenApiReleaseBuilder) Status(status string) *OpenApiReleaseBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// 毫秒
+//
+// 示例值：1780312445123
+func (builder *OpenApiReleaseBuilder) CreatedAt(createdAt string) *OpenApiReleaseBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtSet = true
+	return builder
+}
+
+// 毫秒
+//
+// 示例值：1780312445123
+func (builder *OpenApiReleaseBuilder) UpdatedAt(updatedAt string) *OpenApiReleaseBuilder {
+	builder.updatedAt = updatedAt
+	builder.updatedAtSet = true
+	return builder
+}
+
+// 线上访问链接
+//
+// 示例值：https://ai-tenant.aiforce-boe.bytedance.net/app/app_xxxx
+func (builder *OpenApiReleaseBuilder) OnlineUrl(onlineUrl string) *OpenApiReleaseBuilder {
+	builder.onlineUrl = onlineUrl
+	builder.onlineUrlSet = true
+	return builder
+}
+
+// commit_id
+//
+// 示例值：1230aisdkjah9123913hi193
+func (builder *OpenApiReleaseBuilder) CommitId(commitId string) *OpenApiReleaseBuilder {
+	builder.commitId = commitId
+	builder.commitIdSet = true
+	return builder
+}
+
+// 创建人
+//
+// 示例值：
+func (builder *OpenApiReleaseBuilder) Creator(creator *OpenApiUserMeta) *OpenApiReleaseBuilder {
+	builder.creator = creator
+	builder.creatorSet = true
+	return builder
+}
+
+func (builder *OpenApiReleaseBuilder) Build() *OpenApiRelease {
+	req := &OpenApiRelease{}
+	if builder.releaseIdSet {
+		req.ReleaseId = &builder.releaseId
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.createdAtSet {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.updatedAtSet {
+		req.UpdatedAt = &builder.updatedAt
+
+	}
+	if builder.onlineUrlSet {
+		req.OnlineUrl = &builder.onlineUrl
+
+	}
+	if builder.commitIdSet {
+		req.CommitId = &builder.commitId
+
+	}
+	if builder.creatorSet {
+		req.Creator = builder.creator
+	}
+	return req
+}
+
+type OpenApiReleaseErrorLog struct {
+	Step *string `json:"step,omitempty"` // 步骤
+
+	ErrorLog *string `json:"error_log,omitempty"` // 错误日志
+}
+
+type OpenApiReleaseErrorLogBuilder struct {
+	step    string // 步骤
+	stepSet bool
+
+	errorLog    string // 错误日志
+	errorLogSet bool
+}
+
+func NewOpenApiReleaseErrorLogBuilder() *OpenApiReleaseErrorLogBuilder {
+	builder := &OpenApiReleaseErrorLogBuilder{}
+	return builder
+}
+
+// 步骤
+//
+// 示例值：编译
+func (builder *OpenApiReleaseErrorLogBuilder) Step(step string) *OpenApiReleaseErrorLogBuilder {
+	builder.step = step
+	builder.stepSet = true
+	return builder
+}
+
+// 错误日志
+//
+// 示例值：user has no permission.
+func (builder *OpenApiReleaseErrorLogBuilder) ErrorLog(errorLog string) *OpenApiReleaseErrorLogBuilder {
+	builder.errorLog = errorLog
+	builder.errorLogSet = true
+	return builder
+}
+
+func (builder *OpenApiReleaseErrorLogBuilder) Build() *OpenApiReleaseErrorLog {
+	req := &OpenApiReleaseErrorLog{}
+	if builder.stepSet {
+		req.Step = &builder.step
+
+	}
+	if builder.errorLogSet {
+		req.ErrorLog = &builder.errorLog
+
+	}
+	return req
+}
+
+type OpenApiSpan struct {
+	TraceId *string `json:"trace_id,omitempty"` // 链路ID
+
+	SpanId *string `json:"span_id,omitempty"` // span ID
+
+	ParentSpanId *string `json:"parent_span_id,omitempty"` // 父 span ID
+
+	Name *string `json:"name,omitempty"` // span 名称
+
+	StartTimeUnixNano *string `json:"start_time_unix_nano,omitempty"` // 开始时间戳（纳秒）
+
+	EndTimeUnixNano *string `json:"end_time_unix_nano,omitempty"` // 结束时间戳（纳秒）
+
+	Attributes []*Kv `json:"attributes,omitempty"` // Span 属性。包括各种系统属性：tenant_id, module, user_id 等
+}
+
+type OpenApiSpanBuilder struct {
+	traceId    string // 链路ID
+	traceIdSet bool
+
+	spanId    string // span ID
+	spanIdSet bool
+
+	parentSpanId    string // 父 span ID
+	parentSpanIdSet bool
+
+	name    string // span 名称
+	nameSet bool
+
+	startTimeUnixNano    string // 开始时间戳（纳秒）
+	startTimeUnixNanoSet bool
+
+	endTimeUnixNano    string // 结束时间戳（纳秒）
+	endTimeUnixNanoSet bool
+
+	attributes    []*Kv // Span 属性。包括各种系统属性：tenant_id, module, user_id 等
+	attributesSet bool
+}
+
+func NewOpenApiSpanBuilder() *OpenApiSpanBuilder {
+	builder := &OpenApiSpanBuilder{}
+	return builder
+}
+
+// 链路ID
+//
+// 示例值：bac45fb80fd570b7acb0a8b1e38c05de
+func (builder *OpenApiSpanBuilder) TraceId(traceId string) *OpenApiSpanBuilder {
+	builder.traceId = traceId
+	builder.traceIdSet = true
+	return builder
+}
+
+// span ID
+//
+// 示例值：fb768bc03a7a4a57
+func (builder *OpenApiSpanBuilder) SpanId(spanId string) *OpenApiSpanBuilder {
+	builder.spanId = spanId
+	builder.spanIdSet = true
+	return builder
+}
+
+// 父 span ID
+//
+// 示例值：fb768bc03a7a4a57
+func (builder *OpenApiSpanBuilder) ParentSpanId(parentSpanId string) *OpenApiSpanBuilder {
+	builder.parentSpanId = parentSpanId
+	builder.parentSpanIdSet = true
+	return builder
+}
+
+// span 名称
+//
+// 示例值：foo
+func (builder *OpenApiSpanBuilder) Name(name string) *OpenApiSpanBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 开始时间戳（纳秒）
+//
+// 示例值：1782132931498000000
+func (builder *OpenApiSpanBuilder) StartTimeUnixNano(startTimeUnixNano string) *OpenApiSpanBuilder {
+	builder.startTimeUnixNano = startTimeUnixNano
+	builder.startTimeUnixNanoSet = true
+	return builder
+}
+
+// 结束时间戳（纳秒）
+//
+// 示例值：1782132931498000000
+func (builder *OpenApiSpanBuilder) EndTimeUnixNano(endTimeUnixNano string) *OpenApiSpanBuilder {
+	builder.endTimeUnixNano = endTimeUnixNano
+	builder.endTimeUnixNanoSet = true
+	return builder
+}
+
+// Span 属性。包括各种系统属性：tenant_id, module, user_id 等
+//
+// 示例值：
+func (builder *OpenApiSpanBuilder) Attributes(attributes []*Kv) *OpenApiSpanBuilder {
+	builder.attributes = attributes
+	builder.attributesSet = true
+	return builder
+}
+
+func (builder *OpenApiSpanBuilder) Build() *OpenApiSpan {
+	req := &OpenApiSpan{}
+	if builder.traceIdSet {
+		req.TraceId = &builder.traceId
+
+	}
+	if builder.spanIdSet {
+		req.SpanId = &builder.spanId
+
+	}
+	if builder.parentSpanIdSet {
+		req.ParentSpanId = &builder.parentSpanId
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.startTimeUnixNanoSet {
+		req.StartTimeUnixNano = &builder.startTimeUnixNano
+
+	}
+	if builder.endTimeUnixNanoSet {
+		req.EndTimeUnixNano = &builder.endTimeUnixNano
+
+	}
+	if builder.attributesSet {
+		req.Attributes = builder.attributes
+	}
+	return req
+}
+
+type OpenApiUserMeta struct {
+	Username *string `json:"username,omitempty"` // 用户名
+
+	Email *string `json:"email,omitempty"` // 邮箱
+}
+
+type OpenApiUserMetaBuilder struct {
+	username    string // 用户名
+	usernameSet bool
+
+	email    string // 邮箱
+	emailSet bool
+}
+
+func NewOpenApiUserMetaBuilder() *OpenApiUserMetaBuilder {
+	builder := &OpenApiUserMetaBuilder{}
+	return builder
+}
+
+// 用户名
+//
+// 示例值：张三
+func (builder *OpenApiUserMetaBuilder) Username(username string) *OpenApiUserMetaBuilder {
+	builder.username = username
+	builder.usernameSet = true
+	return builder
+}
+
+// 邮箱
+//
+// 示例值：zhangsan@example.com
+func (builder *OpenApiUserMetaBuilder) Email(email string) *OpenApiUserMetaBuilder {
+	builder.email = email
+	builder.emailSet = true
+	return builder
+}
+
+func (builder *OpenApiUserMetaBuilder) Build() *OpenApiUserMeta {
+	req := &OpenApiUserMeta{}
+	if builder.usernameSet {
+		req.Username = &builder.username
+
+	}
+	if builder.emailSet {
+		req.Email = &builder.email
+
+	}
+	return req
+}
+
+type PluginVersion struct {
+	Key *string `json:"key,omitempty"` // 插件的唯一标识键，用于在系统中精准定位和区分不同插件，通常由插件开发者定义，全局唯一
+
+	Version *string `json:"version,omitempty"` // 插件的版本号，遵循语义化版本规范（如x.y.z），用于标识插件的迭代更新状态，区分不同功能阶段的版本
+
+	Name *string `json:"name,omitempty"` // 插件的显示名称，用于在前端界面或管理后台展示给用户，需简洁清晰地体现插件核心功能
+
+	Description *string `json:"description,omitempty"` // 插件的详细功能说明，用于向用户介绍插件的核心能力、适用场景及特色优势，帮助用户快速了解插件价值
+
+	DownloadUrl *string `json:"download_url,omitempty"` // 插件安装包的下载地址，用户可通过该链接获取插件安装文件，支持HTTP/HTTPS协议
+
+	DownloadApproach *string `json:"download_approach,omitempty"` // 插件的下载方式标识，用于区分不同的获取渠道，可选值包括官方仓库、第三方镜像、本地上传等
+
+	Status *string `json:"status,omitempty"` // 插件的状态标识，用于反映插件当前的可用状态，可选值包括待审核、已发布、已下架、维护中等
+}
+
+type PluginVersionBuilder struct {
+	key    string // 插件的唯一标识键，用于在系统中精准定位和区分不同插件，通常由插件开发者定义，全局唯一
+	keySet bool
+
+	version    string // 插件的版本号，遵循语义化版本规范（如x.y.z），用于标识插件的迭代更新状态，区分不同功能阶段的版本
+	versionSet bool
+
+	name    string // 插件的显示名称，用于在前端界面或管理后台展示给用户，需简洁清晰地体现插件核心功能
+	nameSet bool
+
+	description    string // 插件的详细功能说明，用于向用户介绍插件的核心能力、适用场景及特色优势，帮助用户快速了解插件价值
+	descriptionSet bool
+
+	downloadUrl    string // 插件安装包的下载地址，用户可通过该链接获取插件安装文件，支持HTTP/HTTPS协议
+	downloadUrlSet bool
+
+	downloadApproach    string // 插件的下载方式标识，用于区分不同的获取渠道，可选值包括官方仓库、第三方镜像、本地上传等
+	downloadApproachSet bool
+
+	status    string // 插件的状态标识，用于反映插件当前的可用状态，可选值包括待审核、已发布、已下架、维护中等
+	statusSet bool
+}
+
+func NewPluginVersionBuilder() *PluginVersionBuilder {
+	builder := &PluginVersionBuilder{}
+	return builder
+}
+
+// 插件的唯一标识键，用于在系统中精准定位和区分不同插件，通常由插件开发者定义，全局唯一
+//
+// 示例值：spark-code-analysis-plugin
+func (builder *PluginVersionBuilder) Key(key string) *PluginVersionBuilder {
+	builder.key = key
+	builder.keySet = true
+	return builder
+}
+
+// 插件的版本号，遵循语义化版本规范（如x.y.z），用于标识插件的迭代更新状态，区分不同功能阶段的版本
+//
+// 示例值：2.1.0
+func (builder *PluginVersionBuilder) Version(version string) *PluginVersionBuilder {
+	builder.version = version
+	builder.versionSet = true
+	return builder
+}
+
+// 插件的显示名称，用于在前端界面或管理后台展示给用户，需简洁清晰地体现插件核心功能
+//
+// 示例值：Spark代码质量分析插件
+func (builder *PluginVersionBuilder) Name(name string) *PluginVersionBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 插件的详细功能说明，用于向用户介绍插件的核心能力、适用场景及特色优势，帮助用户快速了解插件价值
+//
+// 示例值：集成静态代码扫描引擎，支持Java/Python多语言代码质量检测，自动生成可视化分析报告
+func (builder *PluginVersionBuilder) Description(description string) *PluginVersionBuilder {
+	builder.description = description
+	builder.descriptionSet = true
+	return builder
+}
+
+// 插件安装包的下载地址，用户可通过该链接获取插件安装文件，支持HTTP/HTTPS协议
+//
+// 示例值：https://spark-plugin-repo.com/packages/code-analysis/2.1.0.zip
+func (builder *PluginVersionBuilder) DownloadUrl(downloadUrl string) *PluginVersionBuilder {
+	builder.downloadUrl = downloadUrl
+	builder.downloadUrlSet = true
+	return builder
+}
+
+// 插件的下载方式标识，用于区分不同的获取渠道，可选值包括官方仓库、第三方镜像、本地上传等
+//
+// 示例值：official_repo
+func (builder *PluginVersionBuilder) DownloadApproach(downloadApproach string) *PluginVersionBuilder {
+	builder.downloadApproach = downloadApproach
+	builder.downloadApproachSet = true
+	return builder
+}
+
+// 插件的状态标识，用于反映插件当前的可用状态，可选值包括待审核、已发布、已下架、维护中等
+//
+// 示例值：published
+func (builder *PluginVersionBuilder) Status(status string) *PluginVersionBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+func (builder *PluginVersionBuilder) Build() *PluginVersion {
+	req := &PluginVersion{}
+	if builder.keySet {
+		req.Key = &builder.key
+
+	}
+	if builder.versionSet {
+		req.Version = &builder.version
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionSet {
+		req.Description = &builder.description
+
+	}
+	if builder.downloadUrlSet {
+		req.DownloadUrl = &builder.downloadUrl
+
+	}
+	if builder.downloadApproachSet {
+		req.DownloadApproach = &builder.downloadApproach
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	return req
+}
+
+type QueuedMessage struct {
+	SeqNo *string `json:"seq_no,omitempty"` // FIFO 排队顺序
+
+	SubmittedAt *string `json:"submitted_at,omitempty"` // 提交时间 ISO 8601 UTC
+
+	Content *string `json:"content,omitempty"` // 用户消息文本
+
+	AttachmentIds []string `json:"attachment_ids,omitempty"` // 附件 ID
+
+	Sender *MessageSender `json:"sender,omitempty"` // MessageSender turn 的消息发送者（= 提交该 chat 的用户，来自 task.SubmitterUserID 反查）。\n多用户协作时让 Agent 知道每个 turn 的消息是谁发的。
+}
+
+type QueuedMessageBuilder struct {
+	seqNo    string // FIFO 排队顺序
+	seqNoSet bool
+
+	submittedAt    string // 提交时间 ISO 8601 UTC
+	submittedAtSet bool
+
+	content    string // 用户消息文本
+	contentSet bool
+
+	attachmentIds    []string // 附件 ID
+	attachmentIdsSet bool
+
+	sender    *MessageSender // MessageSender turn 的消息发送者（= 提交该 chat 的用户，来自 task.SubmitterUserID 反查）。\n多用户协作时让 Agent 知道每个 turn 的消息是谁发的。
+	senderSet bool
+}
+
+func NewQueuedMessageBuilder() *QueuedMessageBuilder {
+	builder := &QueuedMessageBuilder{}
+	return builder
+}
+
+// FIFO 排队顺序
+//
+// 示例值：4
+func (builder *QueuedMessageBuilder) SeqNo(seqNo string) *QueuedMessageBuilder {
+	builder.seqNo = seqNo
+	builder.seqNoSet = true
+	return builder
+}
+
+// 提交时间 ISO 8601 UTC
+//
+// 示例值：2026-05-28T10:01:00Z
+func (builder *QueuedMessageBuilder) SubmittedAt(submittedAt string) *QueuedMessageBuilder {
+	builder.submittedAt = submittedAt
+	builder.submittedAtSet = true
+	return builder
+}
+
+// 用户消息文本
+//
+// 示例值：把标题颜色改成蓝色
+func (builder *QueuedMessageBuilder) Content(content string) *QueuedMessageBuilder {
+	builder.content = content
+	builder.contentSet = true
+	return builder
+}
+
+// 附件 ID
+//
+// 示例值：
+func (builder *QueuedMessageBuilder) AttachmentIds(attachmentIds []string) *QueuedMessageBuilder {
+	builder.attachmentIds = attachmentIds
+	builder.attachmentIdsSet = true
+	return builder
+}
+
+// MessageSender turn 的消息发送者（= 提交该 chat 的用户，来自 task.SubmitterUserID 反查）。\n多用户协作时让 Agent 知道每个 turn 的消息是谁发的。
+//
+// 示例值：
+func (builder *QueuedMessageBuilder) Sender(sender *MessageSender) *QueuedMessageBuilder {
+	builder.sender = sender
+	builder.senderSet = true
+	return builder
+}
+
+func (builder *QueuedMessageBuilder) Build() *QueuedMessage {
+	req := &QueuedMessage{}
+	if builder.seqNoSet {
+		req.SeqNo = &builder.seqNo
+
+	}
+	if builder.submittedAtSet {
+		req.SubmittedAt = &builder.submittedAt
+
+	}
+	if builder.contentSet {
+		req.Content = &builder.content
+
+	}
+	if builder.attachmentIdsSet {
+		req.AttachmentIds = builder.attachmentIds
+	}
+	if builder.senderSet {
+		req.Sender = builder.sender
+	}
+	return req
+}
+
+type RecordChangeTriggerCondition struct {
+	Event *string `json:"event,omitempty"` // 记录变更事件类型，支持 INSERT、UPDATE、DELETE、UPSERT。
+
+	Table *string `json:"table,omitempty"` // 触发器监听的数据表名称。
+
+	Fields []string `json:"fields,omitempty"` // 触发器监听的数据表字段列表；为空或传入 * 表示监听所有字段。
+}
+
+type RecordChangeTriggerConditionBuilder struct {
+	event    string // 记录变更事件类型，支持 INSERT、UPDATE、DELETE、UPSERT。
+	eventSet bool
+
+	table    string // 触发器监听的数据表名称。
+	tableSet bool
+
+	fields    []string // 触发器监听的数据表字段列表；为空或传入 * 表示监听所有字段。
+	fieldsSet bool
+}
+
+func NewRecordChangeTriggerConditionBuilder() *RecordChangeTriggerConditionBuilder {
+	builder := &RecordChangeTriggerConditionBuilder{}
+	return builder
+}
+
+// 记录变更事件类型，支持 INSERT、UPDATE、DELETE、UPSERT。
+//
+// 示例值：UPDATE
+func (builder *RecordChangeTriggerConditionBuilder) Event(event string) *RecordChangeTriggerConditionBuilder {
+	builder.event = event
+	builder.eventSet = true
+	return builder
+}
+
+// 触发器监听的数据表名称。
+//
+// 示例值：employee_info
+func (builder *RecordChangeTriggerConditionBuilder) Table(table string) *RecordChangeTriggerConditionBuilder {
+	builder.table = table
+	builder.tableSet = true
+	return builder
+}
+
+// 触发器监听的数据表字段列表；为空或传入 * 表示监听所有字段。
+//
+// 示例值：
+func (builder *RecordChangeTriggerConditionBuilder) Fields(fields []string) *RecordChangeTriggerConditionBuilder {
+	builder.fields = fields
+	builder.fieldsSet = true
+	return builder
+}
+
+func (builder *RecordChangeTriggerConditionBuilder) Build() *RecordChangeTriggerCondition {
+	req := &RecordChangeTriggerCondition{}
+	if builder.eventSet {
+		req.Event = &builder.event
+
+	}
+	if builder.tableSet {
+		req.Table = &builder.table
+
+	}
+	if builder.fieldsSet {
+		req.Fields = builder.fields
+	}
+	return req
+}
+
+type RequestScope struct {
+	AllowAll *bool `json:"allow_all,omitempty"` // 是否允许所有请求
+
+	HttpInfos []*HttpInfo `json:"http_infos,omitempty"` // HTTP 路径
+}
+
+type RequestScopeBuilder struct {
+	allowAll    bool // 是否允许所有请求
+	allowAllSet bool
+
+	httpInfos    []*HttpInfo // HTTP 路径
+	httpInfosSet bool
+}
+
+func NewRequestScopeBuilder() *RequestScopeBuilder {
+	builder := &RequestScopeBuilder{}
+	return builder
+}
+
+// 是否允许所有请求
+//
+// 示例值：
+func (builder *RequestScopeBuilder) AllowAll(allowAll bool) *RequestScopeBuilder {
+	builder.allowAll = allowAll
+	builder.allowAllSet = true
+	return builder
+}
+
+// HTTP 路径
+//
+// 示例值：
+func (builder *RequestScopeBuilder) HttpInfos(httpInfos []*HttpInfo) *RequestScopeBuilder {
+	builder.httpInfos = httpInfos
+	builder.httpInfosSet = true
+	return builder
+}
+
+func (builder *RequestScopeBuilder) Build() *RequestScope {
+	req := &RequestScope{}
+	if builder.allowAllSet {
+		req.AllowAll = &builder.allowAll
+
+	}
+	if builder.httpInfosSet {
+		req.HttpInfos = builder.httpInfos
+	}
+	return req
+}
+
+type Role struct {
+	RoleId *string `json:"role_id,omitempty"` // 角色 ID，应用内保持全局唯一
+
+	Name *string `json:"name,omitempty"` // 角色名称
+
+	Description *string `json:"description,omitempty"` // 角色描述
+
+	CreatedBy *string `json:"created_by,omitempty"` // 创建人 open_id
+
+	UpdatedBy *string `json:"updated_by,omitempty"` // 更新人 open_id
+
+	CreatedAt *string `json:"created_at,omitempty"` // 角色创建时间，秒级时间戳
+
+	UpdatedAt *string `json:"updated_at,omitempty"` // 角色更新时间，秒级时间戳
+
+	MemberCount *string `json:"member_count,omitempty"` // 角色成员总数（获取角色成员列表方法，需要指定 need_member = true）
+}
+
+type RoleBuilder struct {
+	roleId    string // 角色 ID，应用内保持全局唯一
+	roleIdSet bool
+
+	name    string // 角色名称
+	nameSet bool
+
+	description    string // 角色描述
+	descriptionSet bool
+
+	createdBy    string // 创建人 open_id
+	createdBySet bool
+
+	updatedBy    string // 更新人 open_id
+	updatedBySet bool
+
+	createdAt    string // 角色创建时间，秒级时间戳
+	createdAtSet bool
+
+	updatedAt    string // 角色更新时间，秒级时间戳
+	updatedAtSet bool
+
+	memberCount    string // 角色成员总数（获取角色成员列表方法，需要指定 need_member = true）
+	memberCountSet bool
+}
+
+func NewRoleBuilder() *RoleBuilder {
+	builder := &RoleBuilder{}
+	return builder
+}
+
+// 角色 ID，应用内保持全局唯一
+//
+// 示例值：role_1234
+func (builder *RoleBuilder) RoleId(roleId string) *RoleBuilder {
+	builder.roleId = roleId
+	builder.roleIdSet = true
+	return builder
+}
+
+// 角色名称
+//
+// 示例值：管理员
+func (builder *RoleBuilder) Name(name string) *RoleBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 角色描述
+//
+// 示例值：管理应用
+func (builder *RoleBuilder) Description(description string) *RoleBuilder {
+	builder.description = description
+	builder.descriptionSet = true
+	return builder
+}
+
+// 创建人 open_id
+//
+// 示例值：ou_testuser
+func (builder *RoleBuilder) CreatedBy(createdBy string) *RoleBuilder {
+	builder.createdBy = createdBy
+	builder.createdBySet = true
+	return builder
+}
+
+// 更新人 open_id
+//
+// 示例值：ou_testuser
+func (builder *RoleBuilder) UpdatedBy(updatedBy string) *RoleBuilder {
+	builder.updatedBy = updatedBy
+	builder.updatedBySet = true
+	return builder
+}
+
+// 角色创建时间，秒级时间戳
+//
+// 示例值：1783417708
+func (builder *RoleBuilder) CreatedAt(createdAt string) *RoleBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtSet = true
+	return builder
+}
+
+// 角色更新时间，秒级时间戳
+//
+// 示例值：1783417708
+func (builder *RoleBuilder) UpdatedAt(updatedAt string) *RoleBuilder {
+	builder.updatedAt = updatedAt
+	builder.updatedAtSet = true
+	return builder
+}
+
+// 角色成员总数（获取角色成员列表方法，需要指定 need_member = true）
+//
+// 示例值：1
+func (builder *RoleBuilder) MemberCount(memberCount string) *RoleBuilder {
+	builder.memberCount = memberCount
+	builder.memberCountSet = true
+	return builder
+}
+
+func (builder *RoleBuilder) Build() *Role {
+	req := &Role{}
+	if builder.roleIdSet {
+		req.RoleId = &builder.roleId
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionSet {
+		req.Description = &builder.description
+
+	}
+	if builder.createdBySet {
+		req.CreatedBy = &builder.createdBy
+
+	}
+	if builder.updatedBySet {
+		req.UpdatedBy = &builder.updatedBy
+
+	}
+	if builder.createdAtSet {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.updatedAtSet {
+		req.UpdatedAt = &builder.updatedAt
+
+	}
+	if builder.memberCountSet {
+		req.MemberCount = &builder.memberCount
+
+	}
+	return req
+}
+
+type Session struct {
+	Session *string `json:"session,omitempty"` // 会话session
+}
+
+type SessionBuilder struct {
+	session    string // 会话session
+	sessionSet bool
+}
+
+func NewSessionBuilder() *SessionBuilder {
+	builder := &SessionBuilder{}
+	return builder
+}
+
+// 会话session
+//
+// 示例值：conversation_dk2kdag
+func (builder *SessionBuilder) Session(session string) *SessionBuilder {
+	builder.session = session
+	builder.sessionSet = true
+	return builder
+}
+
+func (builder *SessionBuilder) Build() *Session {
+	req := &Session{}
+	if builder.sessionSet {
+		req.Session = &builder.session
+
+	}
+	return req
+}
+
+type SessionItem struct {
+	SessionId *string `json:"session_id,omitempty"` // 会话唯一标识
+
+	CreatedAt *string `json:"created_at,omitempty"` // ISO 8601 UTC
+
+	UpdatedAt *string `json:"updated_at,omitempty"` // ISO 8601 UTC
+
+	IsActive *bool `json:"is_active,omitempty"` // session 是否可写
+
+	Name *string `json:"name,omitempty"` // 任务名 — EXPERT: ProSubTask.Name；STANDARD: aily_agent Conversation.Name。Agent 据此识别 session 用途；最新进展看 +session-read
+}
+
+type SessionItemBuilder struct {
+	sessionId    string // 会话唯一标识
+	sessionIdSet bool
+
+	createdAt    string // ISO 8601 UTC
+	createdAtSet bool
+
+	updatedAt    string // ISO 8601 UTC
+	updatedAtSet bool
+
+	isActive    bool // session 是否可写
+	isActiveSet bool
+
+	name    string // 任务名 — EXPERT: ProSubTask.Name；STANDARD: aily_agent Conversation.Name。Agent 据此识别 session 用途；最新进展看 +session-read
+	nameSet bool
+}
+
+func NewSessionItemBuilder() *SessionItemBuilder {
+	builder := &SessionItemBuilder{}
+	return builder
+}
+
+// 会话唯一标识
+//
+// 示例值：conversation_xdhkfjhsdfds
+func (builder *SessionItemBuilder) SessionId(sessionId string) *SessionItemBuilder {
+	builder.sessionId = sessionId
+	builder.sessionIdSet = true
+	return builder
+}
+
+// ISO 8601 UTC
+//
+// 示例值：2026-06-02T11:05:00Z
+func (builder *SessionItemBuilder) CreatedAt(createdAt string) *SessionItemBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtSet = true
+	return builder
+}
+
+// ISO 8601 UTC
+//
+// 示例值：2026-06-02T11:05:00Z
+func (builder *SessionItemBuilder) UpdatedAt(updatedAt string) *SessionItemBuilder {
+	builder.updatedAt = updatedAt
+	builder.updatedAtSet = true
+	return builder
+}
+
+// session 是否可写
+//
+// 示例值：
+func (builder *SessionItemBuilder) IsActive(isActive bool) *SessionItemBuilder {
+	builder.isActive = isActive
+	builder.isActiveSet = true
+	return builder
+}
+
+// 任务名 — EXPERT: ProSubTask.Name；STANDARD: aily_agent Conversation.Name。Agent 据此识别 session 用途；最新进展看 +session-read
+//
+// 示例值：创建一个股票管理系统
+func (builder *SessionItemBuilder) Name(name string) *SessionItemBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+func (builder *SessionItemBuilder) Build() *SessionItem {
+	req := &SessionItem{}
+	if builder.sessionIdSet {
+		req.SessionId = &builder.sessionId
+
+	}
+	if builder.createdAtSet {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.updatedAtSet {
+		req.UpdatedAt = &builder.updatedAt
+
+	}
+	if builder.isActiveSet {
+		req.IsActive = &builder.isActive
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+type StackFrame struct {
+	FileName *string `json:"file_name,omitempty"` // 文件名
+
+	Line *int `json:"line,omitempty"` // 行号
+
+	Column *int `json:"column,omitempty"` // 列号
+
+	SourceFileName *string `json:"source_file_name,omitempty"` // 原始文件名 - 解析后填充
+
+	SourceLine *int `json:"source_line,omitempty"` // 原始行号 - 解析后填充
+
+	SourceColumn *int `json:"source_column,omitempty"` // 原始列号 - 解析后填充
+}
+
+type StackFrameBuilder struct {
+	fileName    string // 文件名
+	fileNameSet bool
+
+	line    int // 行号
+	lineSet bool
+
+	column    int // 列号
+	columnSet bool
+
+	sourceFileName    string // 原始文件名 - 解析后填充
+	sourceFileNameSet bool
+
+	sourceLine    int // 原始行号 - 解析后填充
+	sourceLineSet bool
+
+	sourceColumn    int // 原始列号 - 解析后填充
+	sourceColumnSet bool
+}
+
+func NewStackFrameBuilder() *StackFrameBuilder {
+	builder := &StackFrameBuilder{}
+	return builder
+}
+
+// 文件名
+//
+// 示例值：a/b/c.js
+func (builder *StackFrameBuilder) FileName(fileName string) *StackFrameBuilder {
+	builder.fileName = fileName
+	builder.fileNameSet = true
+	return builder
+}
+
+// 行号
+//
+// 示例值：1
+func (builder *StackFrameBuilder) Line(line int) *StackFrameBuilder {
+	builder.line = line
+	builder.lineSet = true
+	return builder
+}
+
+// 列号
+//
+// 示例值：1
+func (builder *StackFrameBuilder) Column(column int) *StackFrameBuilder {
+	builder.column = column
+	builder.columnSet = true
+	return builder
+}
+
+// 原始文件名 - 解析后填充
+//
+// 示例值：example
+func (builder *StackFrameBuilder) SourceFileName(sourceFileName string) *StackFrameBuilder {
+	builder.sourceFileName = sourceFileName
+	builder.sourceFileNameSet = true
+	return builder
+}
+
+// 原始行号 - 解析后填充
+//
+// 示例值：1
+func (builder *StackFrameBuilder) SourceLine(sourceLine int) *StackFrameBuilder {
+	builder.sourceLine = sourceLine
+	builder.sourceLineSet = true
+	return builder
+}
+
+// 原始列号 - 解析后填充
+//
+// 示例值：1
+func (builder *StackFrameBuilder) SourceColumn(sourceColumn int) *StackFrameBuilder {
+	builder.sourceColumn = sourceColumn
+	builder.sourceColumnSet = true
+	return builder
+}
+
+func (builder *StackFrameBuilder) Build() *StackFrame {
+	req := &StackFrame{}
+	if builder.fileNameSet {
+		req.FileName = &builder.fileName
+
+	}
+	if builder.lineSet {
+		req.Line = &builder.line
+
+	}
+	if builder.columnSet {
+		req.Column = &builder.column
+
+	}
+	if builder.sourceFileNameSet {
+		req.SourceFileName = &builder.sourceFileName
+
+	}
+	if builder.sourceLineSet {
+		req.SourceLine = &builder.sourceLine
+
+	}
+	if builder.sourceColumnSet {
+		req.SourceColumn = &builder.sourceColumn
+
+	}
+	return req
+}
+
+type TraceFilter struct {
+	TraceIds []string `json:"trace_ids,omitempty"` // TraceID
+
+	UserIds []string `json:"user_ids,omitempty"` // 用户ID
+
+	Keyword *string `json:"keyword,omitempty"` // 模糊搜索的关键词
+}
+
+type TraceFilterBuilder struct {
+	traceIds    []string // TraceID
+	traceIdsSet bool
+
+	userIds    []string // 用户ID
+	userIdsSet bool
+
+	keyword    string // 模糊搜索的关键词
+	keywordSet bool
+}
+
+func NewTraceFilterBuilder() *TraceFilterBuilder {
+	builder := &TraceFilterBuilder{}
+	return builder
+}
+
+// TraceID
+//
+// 示例值：
+func (builder *TraceFilterBuilder) TraceIds(traceIds []string) *TraceFilterBuilder {
+	builder.traceIds = traceIds
+	builder.traceIdsSet = true
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：
+func (builder *TraceFilterBuilder) UserIds(userIds []string) *TraceFilterBuilder {
+	builder.userIds = userIds
+	builder.userIdsSet = true
+	return builder
+}
+
+// 模糊搜索的关键词
+//
+// 示例值：foo
+func (builder *TraceFilterBuilder) Keyword(keyword string) *TraceFilterBuilder {
+	builder.keyword = keyword
+	builder.keywordSet = true
+	return builder
+}
+
+func (builder *TraceFilterBuilder) Build() *TraceFilter {
+	req := &TraceFilter{}
+	if builder.traceIdsSet {
+		req.TraceIds = builder.traceIds
+	}
+	if builder.userIdsSet {
+		req.UserIds = builder.userIds
+	}
+	if builder.keywordSet {
+		req.Keyword = &builder.keyword
+
+	}
+	return req
+}
+
+type TriggerCapabilities struct {
+	CanUpdate *bool `json:"can_update,omitempty"` // 是否支持更新触发器配置。
+
+	CanEnable *bool `json:"can_enable,omitempty"` // 是否支持启用触发器。
+
+	CanDisable *bool `json:"can_disable,omitempty"` // 是否支持停用触发器。
+
+	CanDelete *bool `json:"can_delete,omitempty"` // 是否支持删除触发器。
+
+	CanResetToken *bool `json:"can_reset_token,omitempty"` // 是否支持重置 Webhook 凭证。
+}
+
+type TriggerCapabilitiesBuilder struct {
+	canUpdate    bool // 是否支持更新触发器配置。
+	canUpdateSet bool
+
+	canEnable    bool // 是否支持启用触发器。
+	canEnableSet bool
+
+	canDisable    bool // 是否支持停用触发器。
+	canDisableSet bool
+
+	canDelete    bool // 是否支持删除触发器。
+	canDeleteSet bool
+
+	canResetToken    bool // 是否支持重置 Webhook 凭证。
+	canResetTokenSet bool
+}
+
+func NewTriggerCapabilitiesBuilder() *TriggerCapabilitiesBuilder {
+	builder := &TriggerCapabilitiesBuilder{}
+	return builder
+}
+
+// 是否支持更新触发器配置。
+//
+// 示例值：
+func (builder *TriggerCapabilitiesBuilder) CanUpdate(canUpdate bool) *TriggerCapabilitiesBuilder {
+	builder.canUpdate = canUpdate
+	builder.canUpdateSet = true
+	return builder
+}
+
+// 是否支持启用触发器。
+//
+// 示例值：
+func (builder *TriggerCapabilitiesBuilder) CanEnable(canEnable bool) *TriggerCapabilitiesBuilder {
+	builder.canEnable = canEnable
+	builder.canEnableSet = true
+	return builder
+}
+
+// 是否支持停用触发器。
+//
+// 示例值：
+func (builder *TriggerCapabilitiesBuilder) CanDisable(canDisable bool) *TriggerCapabilitiesBuilder {
+	builder.canDisable = canDisable
+	builder.canDisableSet = true
+	return builder
+}
+
+// 是否支持删除触发器。
+//
+// 示例值：
+func (builder *TriggerCapabilitiesBuilder) CanDelete(canDelete bool) *TriggerCapabilitiesBuilder {
+	builder.canDelete = canDelete
+	builder.canDeleteSet = true
+	return builder
+}
+
+// 是否支持重置 Webhook 凭证。
+//
+// 示例值：
+func (builder *TriggerCapabilitiesBuilder) CanResetToken(canResetToken bool) *TriggerCapabilitiesBuilder {
+	builder.canResetToken = canResetToken
+	builder.canResetTokenSet = true
+	return builder
+}
+
+func (builder *TriggerCapabilitiesBuilder) Build() *TriggerCapabilities {
+	req := &TriggerCapabilities{}
+	if builder.canUpdateSet {
+		req.CanUpdate = &builder.canUpdate
+
+	}
+	if builder.canEnableSet {
+		req.CanEnable = &builder.canEnable
+
+	}
+	if builder.canDisableSet {
+		req.CanDisable = &builder.canDisable
+
+	}
+	if builder.canDeleteSet {
+		req.CanDelete = &builder.canDelete
+
+	}
+	if builder.canResetTokenSet {
+		req.CanResetToken = &builder.canResetToken
+
+	}
+	return req
+}
+
+type TriggerConditionView struct {
+	Cron *string `json:"cron,omitempty"` // cron
+
+	Timezone *string `json:"timezone,omitempty"` // 时区标识，用于解析 cron 表达式的时间基准，格式需符合 IANA 时区标准（如 Asia/Shanghai）。仅当配置 cron 触发时生效。
+
+	Event *string `json:"event,omitempty"` // INSERT、UPDATE、DELETE
+
+	Table *string `json:"table,omitempty"` // 触发事件关联的数据表名称，需与数据源中已配置的表名完全一致。仅当事件类型为数据变更类时必填。
+
+	Fields []string `json:"fields,omitempty"` // 触发事件关注的数据表字段列表。仅当指定字段发生变更时触发事件，若为空则表示关注所有字段变更。
+
+	PreviewUrl *string `json:"preview_url,omitempty"` // 调试使用的url
+
+	RuntimeUrl *string `json:"runtime_url,omitempty"` // 触发事件时实际调用的回调地址，接收事件推送的结构化数据。需支持 HTTP/HTTPS 协议，且能处理 POST 请求。
+
+	WhiteIpList []string `json:"white_ip_list,omitempty"` // 允许触发回调请求的 IP 白名单列表，格式为 CIDR 或单个 IP 地址。未在白名单内的请求将被拒绝，为空时表示不限制来源 IP。
+
+	TokenEnabled *bool `json:"token_enabled,omitempty"` // 是否启用请求鉴权令牌。开启后，回调请求将携带 Token 用于身份验证，需在接收端进行校验。
+
+	TokenValue *string `json:"token_value,omitempty"` // 请求鉴权令牌
+
+	ApprovalCode *string `json:"approval_code,omitempty"` // feishu-approval
+
+	EventType *string `json:"event_type,omitempty"` // 审批状态类型
+
+	Status []string `json:"status,omitempty"` // 审批任务状态;;- REVERTED;- PENDING;- APPROVED;- REJECTED;- TRANSFERRED;- ROLLBACK;- DONE;- OVERTIME_CLOSE;- OVERTIME_RECOVER;;审批实例状态;- PENDING;- APPROVED;- REJECTED;- REJECTED;- DELETED;- REVERTED;- OVERTIME_CLOSE;- OVERTIME_RECOVER;;
+}
+
+type TriggerConditionViewBuilder struct {
+	cron    string // cron
+	cronSet bool
+
+	timezone    string // 时区标识，用于解析 cron 表达式的时间基准，格式需符合 IANA 时区标准（如 Asia/Shanghai）。仅当配置 cron 触发时生效。
+	timezoneSet bool
+
+	event    string // INSERT、UPDATE、DELETE
+	eventSet bool
+
+	table    string // 触发事件关联的数据表名称，需与数据源中已配置的表名完全一致。仅当事件类型为数据变更类时必填。
+	tableSet bool
+
+	fields    []string // 触发事件关注的数据表字段列表。仅当指定字段发生变更时触发事件，若为空则表示关注所有字段变更。
+	fieldsSet bool
+
+	previewUrl    string // 调试使用的url
+	previewUrlSet bool
+
+	runtimeUrl    string // 触发事件时实际调用的回调地址，接收事件推送的结构化数据。需支持 HTTP/HTTPS 协议，且能处理 POST 请求。
+	runtimeUrlSet bool
+
+	whiteIpList    []string // 允许触发回调请求的 IP 白名单列表，格式为 CIDR 或单个 IP 地址。未在白名单内的请求将被拒绝，为空时表示不限制来源 IP。
+	whiteIpListSet bool
+
+	tokenEnabled    bool // 是否启用请求鉴权令牌。开启后，回调请求将携带 Token 用于身份验证，需在接收端进行校验。
+	tokenEnabledSet bool
+
+	tokenValue    string // 请求鉴权令牌
+	tokenValueSet bool
+
+	approvalCode    string // feishu-approval
+	approvalCodeSet bool
+
+	eventType    string // 审批状态类型
+	eventTypeSet bool
+
+	status    []string // 审批任务状态;;- REVERTED;- PENDING;- APPROVED;- REJECTED;- TRANSFERRED;- ROLLBACK;- DONE;- OVERTIME_CLOSE;- OVERTIME_RECOVER;;审批实例状态;- PENDING;- APPROVED;- REJECTED;- REJECTED;- DELETED;- REVERTED;- OVERTIME_CLOSE;- OVERTIME_RECOVER;;
+	statusSet bool
+}
+
+func NewTriggerConditionViewBuilder() *TriggerConditionViewBuilder {
+	builder := &TriggerConditionViewBuilder{}
+	return builder
+}
+
+// cron
+//
+// 示例值：0 0 9 * * ?
+func (builder *TriggerConditionViewBuilder) Cron(cron string) *TriggerConditionViewBuilder {
+	builder.cron = cron
+	builder.cronSet = true
+	return builder
+}
+
+// 时区标识，用于解析 cron 表达式的时间基准，格式需符合 IANA 时区标准（如 Asia/Shanghai）。仅当配置 cron 触发时生效。
+//
+// 示例值：Asia/Shanghai
+func (builder *TriggerConditionViewBuilder) Timezone(timezone string) *TriggerConditionViewBuilder {
+	builder.timezone = timezone
+	builder.timezoneSet = true
+	return builder
+}
+
+// INSERT、UPDATE、DELETE
+//
+// 示例值：事件
+func (builder *TriggerConditionViewBuilder) Event(event string) *TriggerConditionViewBuilder {
+	builder.event = event
+	builder.eventSet = true
+	return builder
+}
+
+// 触发事件关联的数据表名称，需与数据源中已配置的表名完全一致。仅当事件类型为数据变更类时必填。
+//
+// 示例值：employee_info
+func (builder *TriggerConditionViewBuilder) Table(table string) *TriggerConditionViewBuilder {
+	builder.table = table
+	builder.tableSet = true
+	return builder
+}
+
+// 触发事件关注的数据表字段列表。仅当指定字段发生变更时触发事件，若为空则表示关注所有字段变更。
+//
+// 示例值：
+func (builder *TriggerConditionViewBuilder) Fields(fields []string) *TriggerConditionViewBuilder {
+	builder.fields = fields
+	builder.fieldsSet = true
+	return builder
+}
+
+// 调试使用的url
+//
+// 示例值：https://example.com/webhook/preview
+func (builder *TriggerConditionViewBuilder) PreviewUrl(previewUrl string) *TriggerConditionViewBuilder {
+	builder.previewUrl = previewUrl
+	builder.previewUrlSet = true
+	return builder
+}
+
+// 触发事件时实际调用的回调地址，接收事件推送的结构化数据。需支持 HTTP/HTTPS 协议，且能处理 POST 请求。
+//
+// 示例值：https://example.com/webhook/runtime
+func (builder *TriggerConditionViewBuilder) RuntimeUrl(runtimeUrl string) *TriggerConditionViewBuilder {
+	builder.runtimeUrl = runtimeUrl
+	builder.runtimeUrlSet = true
+	return builder
+}
+
+// 允许触发回调请求的 IP 白名单列表，格式为 CIDR 或单个 IP 地址。未在白名单内的请求将被拒绝，为空时表示不限制来源 IP。
+//
+// 示例值：
+func (builder *TriggerConditionViewBuilder) WhiteIpList(whiteIpList []string) *TriggerConditionViewBuilder {
+	builder.whiteIpList = whiteIpList
+	builder.whiteIpListSet = true
+	return builder
+}
+
+// 是否启用请求鉴权令牌。开启后，回调请求将携带 Token 用于身份验证，需在接收端进行校验。
+//
+// 示例值：
+func (builder *TriggerConditionViewBuilder) TokenEnabled(tokenEnabled bool) *TriggerConditionViewBuilder {
+	builder.tokenEnabled = tokenEnabled
+	builder.tokenEnabledSet = true
+	return builder
+}
+
+// 请求鉴权令牌
+//
+// 示例值：bearer_token_sample
+func (builder *TriggerConditionViewBuilder) TokenValue(tokenValue string) *TriggerConditionViewBuilder {
+	builder.tokenValue = tokenValue
+	builder.tokenValueSet = true
+	return builder
+}
+
+// feishu-approval
+//
+// 示例值：feishu-approval-20240501
+func (builder *TriggerConditionViewBuilder) ApprovalCode(approvalCode string) *TriggerConditionViewBuilder {
+	builder.approvalCode = approvalCode
+	builder.approvalCodeSet = true
+	return builder
+}
+
+// 审批状态类型
+//
+// 示例值：approval_task、approval_instance
+func (builder *TriggerConditionViewBuilder) EventType(eventType string) *TriggerConditionViewBuilder {
+	builder.eventType = eventType
+	builder.eventTypeSet = true
+	return builder
+}
+
+// 审批任务状态;;- REVERTED;- PENDING;- APPROVED;- REJECTED;- TRANSFERRED;- ROLLBACK;- DONE;- OVERTIME_CLOSE;- OVERTIME_RECOVER;;审批实例状态;- PENDING;- APPROVED;- REJECTED;- REJECTED;- DELETED;- REVERTED;- OVERTIME_CLOSE;- OVERTIME_RECOVER;;
+//
+// 示例值：
+func (builder *TriggerConditionViewBuilder) Status(status []string) *TriggerConditionViewBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+func (builder *TriggerConditionViewBuilder) Build() *TriggerConditionView {
+	req := &TriggerConditionView{}
+	if builder.cronSet {
+		req.Cron = &builder.cron
+
+	}
+	if builder.timezoneSet {
+		req.Timezone = &builder.timezone
+
+	}
+	if builder.eventSet {
+		req.Event = &builder.event
+
+	}
+	if builder.tableSet {
+		req.Table = &builder.table
+
+	}
+	if builder.fieldsSet {
+		req.Fields = builder.fields
+	}
+	if builder.previewUrlSet {
+		req.PreviewUrl = &builder.previewUrl
+
+	}
+	if builder.runtimeUrlSet {
+		req.RuntimeUrl = &builder.runtimeUrl
+
+	}
+	if builder.whiteIpListSet {
+		req.WhiteIpList = builder.whiteIpList
+	}
+	if builder.tokenEnabledSet {
+		req.TokenEnabled = &builder.tokenEnabled
+
+	}
+	if builder.tokenValueSet {
+		req.TokenValue = &builder.tokenValue
+
+	}
+	if builder.approvalCodeSet {
+		req.ApprovalCode = &builder.approvalCode
+
+	}
+	if builder.eventTypeSet {
+		req.EventType = &builder.eventType
+
+	}
+	if builder.statusSet {
+		req.Status = builder.status
+	}
+	return req
+}
+
+type TriggerInfo struct {
+	Name *string `json:"name,omitempty"` // 触发器名称
+
+	TriggerType *string `json:"trigger_type,omitempty"` // 触发器类型，标识触发规则的执行模式。可选值包含定时触发、事件触发、审批触发等类型，不同类型对应不同的触发逻辑配置。
+
+	Status *string `json:"status,omitempty"` // 触发器运行状态。可选值：;- `enabled`：触发器处于激活状态，满足条件时自动执行;- `disabled`：触发器已停用，不会触发执行
+
+	Editable *bool `json:"editable,omitempty"` // 是否允许修改触发器配置。值为`true`时可对触发器的名称、条件等信息进行编辑；值为`false`时触发器配置锁定，仅支持查看状态。
+
+	Description *string `json:"description,omitempty"` // 触发器的详细说明，用于描述触发规则的业务用途、执行逻辑等补充信息。
+
+	ConditionSummary *string `json:"condition_summary,omitempty"` // 触发条件的简洁描述，以自然语言展示触发器的核心执行条件，便于快速理解触发逻辑。
+
+	TriggerCondition *TriggerConditionView `json:"trigger_condition,omitempty"` // 触发器的具体执行条件配置，包含触发时机、过滤规则、目标对象等详细参数，不同触发器类型对应不同的配置结构。
+
+	Capabilities *TriggerCapabilities `json:"capabilities,omitempty"` // 当前触发器支持的操作权限集合，标识是否允许执行更新、启用、禁用、删除、重置令牌等操作。
+
+	CreatedAt *string `json:"created_at,omitempty"` // 触发器的创建时间，格式为毫秒级时间戳。
+
+	UpdatedAt *string `json:"updated_at,omitempty"` // 触发器的最后更新时间，格式为毫秒级时间戳，触发器配置变更时自动更新。
+}
+
+type TriggerInfoBuilder struct {
+	name    string // 触发器名称
+	nameSet bool
+
+	triggerType    string // 触发器类型，标识触发规则的执行模式。可选值包含定时触发、事件触发、审批触发等类型，不同类型对应不同的触发逻辑配置。
+	triggerTypeSet bool
+
+	status    string // 触发器运行状态。可选值：;- `enabled`：触发器处于激活状态，满足条件时自动执行;- `disabled`：触发器已停用，不会触发执行
+	statusSet bool
+
+	editable    bool // 是否允许修改触发器配置。值为`true`时可对触发器的名称、条件等信息进行编辑；值为`false`时触发器配置锁定，仅支持查看状态。
+	editableSet bool
+
+	description    string // 触发器的详细说明，用于描述触发规则的业务用途、执行逻辑等补充信息。
+	descriptionSet bool
+
+	conditionSummary    string // 触发条件的简洁描述，以自然语言展示触发器的核心执行条件，便于快速理解触发逻辑。
+	conditionSummarySet bool
+
+	triggerCondition    *TriggerConditionView // 触发器的具体执行条件配置，包含触发时机、过滤规则、目标对象等详细参数，不同触发器类型对应不同的配置结构。
+	triggerConditionSet bool
+
+	capabilities    *TriggerCapabilities // 当前触发器支持的操作权限集合，标识是否允许执行更新、启用、禁用、删除、重置令牌等操作。
+	capabilitiesSet bool
+
+	createdAt    string // 触发器的创建时间，格式为毫秒级时间戳。
+	createdAtSet bool
+
+	updatedAt    string // 触发器的最后更新时间，格式为毫秒级时间戳，触发器配置变更时自动更新。
+	updatedAtSet bool
+}
+
+func NewTriggerInfoBuilder() *TriggerInfoBuilder {
+	builder := &TriggerInfoBuilder{}
+	return builder
+}
+
+// 触发器名称
+//
+// 示例值：feishu_approval_write_json_data
+func (builder *TriggerInfoBuilder) Name(name string) *TriggerInfoBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 触发器类型，标识触发规则的执行模式。可选值包含定时触发、事件触发、审批触发等类型，不同类型对应不同的触发逻辑配置。
+//
+// 示例值：feishu_approval、webhook、record_change、cron
+func (builder *TriggerInfoBuilder) TriggerType(triggerType string) *TriggerInfoBuilder {
+	builder.triggerType = triggerType
+	builder.triggerTypeSet = true
+	return builder
+}
+
+// 触发器运行状态。可选值：;- `enabled`：触发器处于激活状态，满足条件时自动执行;- `disabled`：触发器已停用，不会触发执行
+//
+// 示例值：enabled
+func (builder *TriggerInfoBuilder) Status(status string) *TriggerInfoBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// 是否允许修改触发器配置。值为`true`时可对触发器的名称、条件等信息进行编辑；值为`false`时触发器配置锁定，仅支持查看状态。
+//
+// 示例值：true
+func (builder *TriggerInfoBuilder) Editable(editable bool) *TriggerInfoBuilder {
+	builder.editable = editable
+	builder.editableSet = true
+	return builder
+}
+
+// 触发器的详细说明，用于描述触发规则的业务用途、执行逻辑等补充信息。
+//
+// 示例值：当订单支付状态变为已支付时，自动向用户发送支付成功通知
+func (builder *TriggerInfoBuilder) Description(description string) *TriggerInfoBuilder {
+	builder.description = description
+	builder.descriptionSet = true
+	return builder
+}
+
+// 触发条件的简洁描述，以自然语言展示触发器的核心执行条件，便于快速理解触发逻辑。
+//
+// 示例值：订单支付状态变更为已支付时触发
+func (builder *TriggerInfoBuilder) ConditionSummary(conditionSummary string) *TriggerInfoBuilder {
+	builder.conditionSummary = conditionSummary
+	builder.conditionSummarySet = true
+	return builder
+}
+
+// 触发器的具体执行条件配置，包含触发时机、过滤规则、目标对象等详细参数，不同触发器类型对应不同的配置结构。
+//
+// 示例值：
+func (builder *TriggerInfoBuilder) TriggerCondition(triggerCondition *TriggerConditionView) *TriggerInfoBuilder {
+	builder.triggerCondition = triggerCondition
+	builder.triggerConditionSet = true
+	return builder
+}
+
+// 当前触发器支持的操作权限集合，标识是否允许执行更新、启用、禁用、删除、重置令牌等操作。
+//
+// 示例值：
+func (builder *TriggerInfoBuilder) Capabilities(capabilities *TriggerCapabilities) *TriggerInfoBuilder {
+	builder.capabilities = capabilities
+	builder.capabilitiesSet = true
+	return builder
+}
+
+// 触发器的创建时间，格式为毫秒级时间戳。
+//
+// 示例值：{"can_update":true,"can_enable":true,"can_disable":true,"can_delete":false,"can_reset_token":true}
+func (builder *TriggerInfoBuilder) CreatedAt(createdAt string) *TriggerInfoBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtSet = true
+	return builder
+}
+
+// 触发器的最后更新时间，格式为毫秒级时间戳，触发器配置变更时自动更新。
+//
+// 示例值：1698729600000
+func (builder *TriggerInfoBuilder) UpdatedAt(updatedAt string) *TriggerInfoBuilder {
+	builder.updatedAt = updatedAt
+	builder.updatedAtSet = true
+	return builder
+}
+
+func (builder *TriggerInfoBuilder) Build() *TriggerInfo {
+	req := &TriggerInfo{}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.triggerTypeSet {
+		req.TriggerType = &builder.triggerType
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.editableSet {
+		req.Editable = &builder.editable
+
+	}
+	if builder.descriptionSet {
+		req.Description = &builder.description
+
+	}
+	if builder.conditionSummarySet {
+		req.ConditionSummary = &builder.conditionSummary
+
+	}
+	if builder.triggerConditionSet {
+		req.TriggerCondition = builder.triggerCondition
+	}
+	if builder.capabilitiesSet {
+		req.Capabilities = builder.capabilities
+	}
+	if builder.createdAtSet {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.updatedAtSet {
+		req.UpdatedAt = &builder.updatedAt
+
+	}
+	return req
+}
+
+type UserMessageView struct {
+	Content *string `json:"content,omitempty"` // 消息内容
+
+	AttachmentIds []string `json:"attachment_ids,omitempty"` // 附件id列表
+}
+
+type UserMessageViewBuilder struct {
+	content    string // 消息内容
+	contentSet bool
+
+	attachmentIds    []string // 附件id列表
+	attachmentIdsSet bool
+}
+
+func NewUserMessageViewBuilder() *UserMessageViewBuilder {
+	builder := &UserMessageViewBuilder{}
+	return builder
+}
+
+// 消息内容
+//
+// 示例值：帮我创建一个股票管理系统
+func (builder *UserMessageViewBuilder) Content(content string) *UserMessageViewBuilder {
+	builder.content = content
+	builder.contentSet = true
+	return builder
+}
+
+// 附件id列表
+//
+// 示例值：
+func (builder *UserMessageViewBuilder) AttachmentIds(attachmentIds []string) *UserMessageViewBuilder {
+	builder.attachmentIds = attachmentIds
+	builder.attachmentIdsSet = true
+	return builder
+}
+
+func (builder *UserMessageViewBuilder) Build() *UserMessageView {
+	req := &UserMessageView{}
+	if builder.contentSet {
+		req.Content = &builder.content
+
+	}
+	if builder.attachmentIdsSet {
+		req.AttachmentIds = builder.attachmentIds
+	}
+	return req
+}
+
+type VersionAnchor struct {
+	AppVersion *int `json:"app_version,omitempty"` // 应用版本
+
+	GitSha *string `json:"git_sha,omitempty"` // git标识
+
+	PreviewUrl *string `json:"preview_url,omitempty"` // 预览url
+
+	OnlineUrl *string `json:"online_url,omitempty"` // 线上url
+}
+
+type VersionAnchorBuilder struct {
+	appVersion    int // 应用版本
+	appVersionSet bool
+
+	gitSha    string // git标识
+	gitShaSet bool
+
+	previewUrl    string // 预览url
+	previewUrlSet bool
+
+	onlineUrl    string // 线上url
+	onlineUrlSet bool
+}
+
+func NewVersionAnchorBuilder() *VersionAnchorBuilder {
+	builder := &VersionAnchorBuilder{}
+	return builder
+}
+
+// 应用版本
+//
+// 示例值：3
+func (builder *VersionAnchorBuilder) AppVersion(appVersion int) *VersionAnchorBuilder {
+	builder.appVersion = appVersion
+	builder.appVersionSet = true
+	return builder
+}
+
+// git标识
+//
+// 示例值：a4186722823d5cf79cdc48a9db144b922038d790
+func (builder *VersionAnchorBuilder) GitSha(gitSha string) *VersionAnchorBuilder {
+	builder.gitSha = gitSha
+	builder.gitShaSet = true
+	return builder
+}
+
+// 预览url
+//
+// 示例值：https://miaoda.feishu.cn/app/app_4k9pastd4vu27?from=FeidaHome&taskid=1866858702738596
+func (builder *VersionAnchorBuilder) PreviewUrl(previewUrl string) *VersionAnchorBuilder {
+	builder.previewUrl = previewUrl
+	builder.previewUrlSet = true
+	return builder
+}
+
+// 线上url
+//
+// 示例值：a4186722823d5cf79cdc48a9db144b922038d790
+func (builder *VersionAnchorBuilder) OnlineUrl(onlineUrl string) *VersionAnchorBuilder {
+	builder.onlineUrl = onlineUrl
+	builder.onlineUrlSet = true
+	return builder
+}
+
+func (builder *VersionAnchorBuilder) Build() *VersionAnchor {
+	req := &VersionAnchor{}
+	if builder.appVersionSet {
+		req.AppVersion = &builder.appVersion
+
+	}
+	if builder.gitShaSet {
+		req.GitSha = &builder.gitSha
+
+	}
+	if builder.previewUrlSet {
+		req.PreviewUrl = &builder.previewUrl
+
+	}
+	if builder.onlineUrlSet {
+		req.OnlineUrl = &builder.onlineUrl
+
+	}
+	return req
+}
+
+type WebhookTriggerCondition struct {
+	WhiteIpList []string `json:"white_ip_list,omitempty"` // Webhook 请求来源 IP 白名单，可为空数组；为空表示不限制来源 IP。
+}
+
+type WebhookTriggerConditionBuilder struct {
+	whiteIpList    []string // Webhook 请求来源 IP 白名单，可为空数组；为空表示不限制来源 IP。
+	whiteIpListSet bool
+}
+
+func NewWebhookTriggerConditionBuilder() *WebhookTriggerConditionBuilder {
+	builder := &WebhookTriggerConditionBuilder{}
+	return builder
+}
+
+// Webhook 请求来源 IP 白名单，可为空数组；为空表示不限制来源 IP。
+//
+// 示例值：
+func (builder *WebhookTriggerConditionBuilder) WhiteIpList(whiteIpList []string) *WebhookTriggerConditionBuilder {
+	builder.whiteIpList = whiteIpList
+	builder.whiteIpListSet = true
+	return builder
+}
+
+func (builder *WebhookTriggerConditionBuilder) Build() *WebhookTriggerCondition {
+	req := &WebhookTriggerCondition{}
+	if builder.whiteIpListSet {
+		req.WhiteIpList = builder.whiteIpList
+	}
+	return req
+}
+
 type CreateAppReqBodyBuilder struct {
 	name    string // 应用名称
 	nameSet bool
 
-	appType    string // 应用类型
+	appType    string // 应用类型;;可选值：HTML
 	appTypeSet bool
 
 	description    string // 应用描述
@@ -814,6 +5765,9 @@ type CreateAppReqBodyBuilder struct {
 
 	iconUrl    string // 应用图标地址
 	iconUrlSet bool
+
+	sourceAgent    string // 应用创建来源
+	sourceAgentSet bool
 }
 
 func NewCreateAppReqBodyBuilder() *CreateAppReqBodyBuilder {
@@ -823,16 +5777,16 @@ func NewCreateAppReqBodyBuilder() *CreateAppReqBodyBuilder {
 
 // 应用名称
 //
-//示例值：智能客服助手
+// 示例值：智能客服助手
 func (builder *CreateAppReqBodyBuilder) Name(name string) *CreateAppReqBodyBuilder {
 	builder.name = name
 	builder.nameSet = true
 	return builder
 }
 
-// 应用类型
+// 应用类型;;可选值：HTML
 //
-//示例值：
+// 示例值：HTML
 func (builder *CreateAppReqBodyBuilder) AppType(appType string) *CreateAppReqBodyBuilder {
 	builder.appType = appType
 	builder.appTypeSet = true
@@ -841,7 +5795,7 @@ func (builder *CreateAppReqBodyBuilder) AppType(appType string) *CreateAppReqBod
 
 // 应用描述
 //
-//示例值：提供7×24小时智能对话服务，支持常见问题自动解答与工单流转
+// 示例值：提供7×24小时智能对话服务，支持常见问题自动解答与工单流转
 func (builder *CreateAppReqBodyBuilder) Description(description string) *CreateAppReqBodyBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -850,10 +5804,19 @@ func (builder *CreateAppReqBodyBuilder) Description(description string) *CreateA
 
 // 应用图标地址
 //
-//示例值：https://example.com/app-icons/customer-service.png
+// 示例值：https://example.com/app-icons/customer-service.png
 func (builder *CreateAppReqBodyBuilder) IconUrl(iconUrl string) *CreateAppReqBodyBuilder {
 	builder.iconUrl = iconUrl
 	builder.iconUrlSet = true
+	return builder
+}
+
+// 应用创建来源
+//
+// 示例值：HTML
+func (builder *CreateAppReqBodyBuilder) SourceAgent(sourceAgent string) *CreateAppReqBodyBuilder {
+	builder.sourceAgent = sourceAgent
+	builder.sourceAgentSet = true
 	return builder
 }
 
@@ -871,6 +5834,9 @@ func (builder *CreateAppReqBodyBuilder) Build() *CreateAppReqBody {
 	if builder.iconUrlSet {
 		req.IconUrl = &builder.iconUrl
 	}
+	if builder.sourceAgentSet {
+		req.SourceAgent = &builder.sourceAgent
+	}
 	return req
 }
 
@@ -883,6 +5849,8 @@ type CreateAppPathReqBodyBuilder struct {
 	descriptionSet bool
 	iconUrl        string
 	iconUrlSet     bool
+	sourceAgent    string
+	sourceAgentSet bool
 }
 
 func NewCreateAppPathReqBodyBuilder() *CreateAppPathReqBodyBuilder {
@@ -899,9 +5867,9 @@ func (builder *CreateAppPathReqBodyBuilder) Name(name string) *CreateAppPathReqB
 	return builder
 }
 
-// 应用类型
+// 应用类型;;可选值：HTML
 //
-// 示例值：
+// 示例值：HTML
 func (builder *CreateAppPathReqBodyBuilder) AppType(appType string) *CreateAppPathReqBodyBuilder {
 	builder.appType = appType
 	builder.appTypeSet = true
@@ -926,6 +5894,15 @@ func (builder *CreateAppPathReqBodyBuilder) IconUrl(iconUrl string) *CreateAppPa
 	return builder
 }
 
+// 应用创建来源
+//
+// 示例值：HTML
+func (builder *CreateAppPathReqBodyBuilder) SourceAgent(sourceAgent string) *CreateAppPathReqBodyBuilder {
+	builder.sourceAgent = sourceAgent
+	builder.sourceAgentSet = true
+	return builder
+}
+
 func (builder *CreateAppPathReqBodyBuilder) Build() (*CreateAppReqBody, error) {
 	req := &CreateAppReqBody{}
 	if builder.nameSet {
@@ -939,6 +5916,9 @@ func (builder *CreateAppPathReqBodyBuilder) Build() (*CreateAppReqBody, error) {
 	}
 	if builder.iconUrlSet {
 		req.IconUrl = &builder.iconUrl
+	}
+	if builder.sourceAgentSet {
+		req.SourceAgent = &builder.sourceAgent
 	}
 	return req, nil
 }
@@ -973,11 +5953,13 @@ func (builder *CreateAppReqBuilder) Build() *CreateAppReq {
 type CreateAppReqBody struct {
 	Name *string `json:"name,omitempty"` // 应用名称
 
-	AppType *string `json:"app_type,omitempty"` // 应用类型
+	AppType *string `json:"app_type,omitempty"` // 应用类型;;可选值：HTML
 
 	Description *string `json:"description,omitempty"` // 应用描述
 
 	IconUrl *string `json:"icon_url,omitempty"` // 应用图标地址
+
+	SourceAgent *string `json:"source_agent,omitempty"` // 应用创建来源
 }
 
 type CreateAppReq struct {
@@ -1041,17 +6023,17 @@ type GetAppVisibilityAppReq struct {
 }
 
 type GetAppVisibilityAppRespData struct {
-	Scope *string `json:"scope,omitempty"` // Scope 可见范围类型：All/ Tenant / Range
+	Scope *string `json:"scope,omitempty"` // 当前可见范围类型，枚举值为 All / Tenant / Range
 
-	Users []string `json:"users,omitempty"` // Users 仅 Scope=Range 时返回，授权用户 open_id 列表
+	Users []string `json:"users,omitempty"` // 仅 Scope=Range 时返回，授权用户 open_id 列表
 
-	Departments []string `json:"departments,omitempty"` // Departments 仅 Scope=Range 时返回，授权部门 department_id 列表
+	Departments []string `json:"departments,omitempty"` // 仅 Scope=Range 时返回，授权部门 department_id 列表
 
-	Chats []string `json:"chats,omitempty"` // Chats 仅 Scope=Range 时返回，授权群聊 chat_id 列表
+	Chats []string `json:"chats,omitempty"` // 仅 Scope=Range 时返回，授权群聊 chat_id 列表
 
-	ApplyConfig *ApplyConfig `json:"apply_config,omitempty"` // ApplyConfig 当前申请访问配置（含审批人）；未启用申请时为 nil
+	ApplyConfig *ApplyConfig `json:"apply_config,omitempty"` // 申请访问配置（含审批人，仅支持单个用户 open_id）
 
-	RequireLogin *bool `json:"require_login,omitempty"` // 控制访问应用是否需要用户登录
+	RequireLogin *bool `json:"require_login,omitempty"` //
 }
 
 type GetAppVisibilityAppResp struct {
@@ -1065,7 +6047,7 @@ func (resp *GetAppVisibilityAppResp) Success() bool {
 }
 
 type IconAppReqBodyBuilder struct {
-	file    io.Reader // File 待上传的图标文件，multipart/form-data 的 file 部分。
+	file    io.Reader // File 待上传的图标文件，multipart/form-data 的 file 部分
 	fileSet bool
 }
 
@@ -1074,9 +6056,9 @@ func NewIconAppReqBodyBuilder() *IconAppReqBodyBuilder {
 	return builder
 }
 
-// File 待上传的图标文件，multipart/form-data 的 file 部分。
+// File 待上传的图标文件，multipart/form-data 的 file 部分
 //
-//示例值：app-icon-20240520.png
+// 示例值："./image.png"
 func (builder *IconAppReqBodyBuilder) File(file io.Reader) *IconAppReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -1092,7 +6074,7 @@ func (builder *IconAppReqBodyBuilder) Build() *IconAppReqBody {
 }
 
 type IconAppPathReqBodyBuilder struct {
-	filePath     string // File 待上传的图标文件，multipart/form-data 的 file 部分。
+	filePath     string // File 待上传的图标文件，multipart/form-data 的 file 部分
 	filePathFlag bool
 }
 
@@ -1101,9 +6083,9 @@ func NewIconAppPathReqBodyBuilder() *IconAppPathReqBodyBuilder {
 	return builder
 }
 
-// File 待上传的图标文件，multipart/form-data 的 file 部分。
+// File 待上传的图标文件，multipart/form-data 的 file 部分
 //
-// 示例值：app-icon-20240520.png
+// 示例值："./image.png"
 func (builder *IconAppPathReqBodyBuilder) FilePath(filePath string) *IconAppPathReqBodyBuilder {
 	builder.filePath = filePath
 	builder.filePathFlag = true
@@ -1136,7 +6118,7 @@ func NewIconAppReqBuilder() *IconAppReqBuilder {
 	return builder
 }
 
-// 上传妙搭应用图标（multipart/form-data，返回图标 URL；不绑定具体 App）
+// 上传妙搭应用图标
 func (builder *IconAppReqBuilder) Body(body *IconAppReqBody) *IconAppReqBuilder {
 	builder.body = body
 	return builder
@@ -1150,7 +6132,7 @@ func (builder *IconAppReqBuilder) Build() *IconAppReq {
 }
 
 type IconAppReqBody struct {
-	File io.Reader `json:"file,omitempty"` // File 待上传的图标文件，multipart/form-data 的 file 部分。
+	File io.Reader `json:"file,omitempty"` // File 待上传的图标文件，multipart/form-data 的 file 部分
 }
 
 type IconAppReq struct {
@@ -1201,6 +6183,38 @@ func (builder *ListAppReqBuilder) PageToken(pageToken string) *ListAppReqBuilder
 	return builder
 }
 
+// 筛选应用类型，仅返回指定类型的应用。;;可选值：;- `html`：轻量网页应用，基于前端技术栈开发，适用于展示类场景;- `full_stack`：全栈应用，包含前后端逻辑，支持复杂业务功能
+//
+// 示例值：html
+func (builder *ListAppReqBuilder) AppType(appType string) *ListAppReqBuilder {
+	builder.apiReq.QueryParams.Set("app_type", fmt.Sprint(appType))
+	return builder
+}
+
+// 用于模糊匹配应用名称或描述，支持中英文关键词。输入后将返回名称或描述中包含该关键词的应用，为空时返回全部有权限查看的应用
+//
+// 示例值：我的应用
+func (builder *ListAppReqBuilder) Keyword(keyword string) *ListAppReqBuilder {
+	builder.apiReq.QueryParams.Set("keyword", fmt.Sprint(keyword))
+	return builder
+}
+
+// 应用归属范围过滤，用于筛选不同权限范围内的应用。;;可选值：;- `all`：返回所有有权限查看的应用，包含自己创建的和共享给自己的;- `created_by_me`：仅返回当前用户创建的应用;- `shared_with_me`：仅返回其他用户共享给当前用户的应用;;默认值为 `all`，不传此参数等同于传入 `all`
+//
+// 示例值：created_by_me
+func (builder *ListAppReqBuilder) Scope(scope string) *ListAppReqBuilder {
+	builder.apiReq.QueryParams.Set("scope", fmt.Sprint(scope))
+	return builder
+}
+
+// Ownership 应用归属过滤，允许值：all / mine（我创建的） / shared（共享给我的）；默认 all（不传等同 all）。
+//
+// 示例值：all
+func (builder *ListAppReqBuilder) Ownership(ownership string) *ListAppReqBuilder {
+	builder.apiReq.QueryParams.Set("ownership", fmt.Sprint(ownership))
+	return builder
+}
+
 func (builder *ListAppReqBuilder) Build() *ListAppReq {
 	req := &ListAppReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -1248,7 +6262,7 @@ func NewPatchAppReqBodyBuilder() *PatchAppReqBodyBuilder {
 
 // 应用名称，用于在管理后台和前端展示，支持中英文，长度不超过64字符
 //
-//示例值：智能客服助手
+// 示例值：智能客服助手
 func (builder *PatchAppReqBodyBuilder) Name(name string) *PatchAppReqBodyBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -1257,7 +6271,7 @@ func (builder *PatchAppReqBodyBuilder) Name(name string) *PatchAppReqBodyBuilder
 
 // 应用功能说明，用于向用户介绍应用核心能力，长度不超过200字符
 //
-//示例值：提供7×24小时智能对话服务，支持常见问题自动解答与工单流转
+// 示例值：提供7×24小时智能对话服务，支持常见问题自动解答与工单流转
 func (builder *PatchAppReqBodyBuilder) Description(description string) *PatchAppReqBodyBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -1266,7 +6280,7 @@ func (builder *PatchAppReqBodyBuilder) Description(description string) *PatchApp
 
 // 应用图标访问地址，支持PNG/JPG格式，建议尺寸为128×128像素
 //
-//示例值：https://example.com/app-icons/customer-service.png
+// 示例值：https://example.com/app-icons/customer-service.png
 func (builder *PatchAppReqBodyBuilder) IconUrl(iconUrl string) *PatchAppReqBodyBuilder {
 	builder.iconUrl = iconUrl
 	builder.iconUrlSet = true
@@ -1364,7 +6378,7 @@ func (builder *PatchAppReqBuilder) AppId(appId string) *PatchAppReqBuilder {
 	return builder
 }
 
-// 更新妙搭应用
+// 更新妙搭应用信息
 func (builder *PatchAppReqBuilder) Body(body *PatchAppReqBody) *PatchAppReqBuilder {
 	builder.body = body
 	return builder
@@ -1417,7 +6431,7 @@ func NewSqlCommandsAppReqBodyBuilder() *SqlCommandsAppReqBodyBuilder {
 
 // 要执行的 SQL 语句
 //
-//示例值：SELECT name FROM student
+// 示例值：SELECT name FROM student
 func (builder *SqlCommandsAppReqBodyBuilder) Sql(sql string) *SqlCommandsAppReqBodyBuilder {
 	builder.sql = sql
 	builder.sqlSet = true
@@ -1489,7 +6503,15 @@ func (builder *SqlCommandsAppReqBuilder) Env(env string) *SqlCommandsAppReqBuild
 	return builder
 }
 
-// 执行 SQL
+// 是否在事务中执行，默认为true
+//
+// 示例值：
+func (builder *SqlCommandsAppReqBuilder) Transactional(transactional bool) *SqlCommandsAppReqBuilder {
+	builder.apiReq.QueryParams.Set("transactional", fmt.Sprint(transactional))
+	return builder
+}
+
+// 在应用下执行 SQL。
 func (builder *SqlCommandsAppReqBuilder) Body(body *SqlCommandsAppReqBody) *SqlCommandsAppReqBuilder {
 	builder.body = body
 	return builder
@@ -1528,22 +6550,22 @@ func (resp *SqlCommandsAppResp) Success() bool {
 }
 
 type UpdateAppVisibilityAppReqBodyBuilder struct {
-	users    []string // Users 仅 Scope=Range 时生效，授权用户 open_id 列表
+	users    []string // 仅 Scope = Range 时生效，授权用户 open_id 列表
 	usersSet bool
 
-	departments    []string // Departments 仅 Scope=Range 时生效，授权部门 department_id 列表
+	departments    []string // 仅 Scope = Range 时生效，授权部门 department_id 列表
 	departmentsSet bool
 
-	chats    []string // Chats 仅 Scope=Range 时生效，授权群聊 chat_id 列表
+	chats    []string // 仅 Scope= Range 时生效，授权群聊 chat_id 列表
 	chatsSet bool
 
-	applyConfig    *ApplyConfig // ApplyConfig 申请访问配置（含审批人，仅支持单个用户 open_id）
+	applyConfig    *ApplyConfig // 申请访问配置（含审批人，仅支持单个用户 open_id）
 	applyConfigSet bool
 
-	requireLogin    bool // 访问 share URL 是否需要登录
+	requireLogin    bool // 访问 Share URL 是否需要登录
 	requireLoginSet bool
 
-	scope    string // Scope 可见范围类型：All/ Tenant / Range
+	scope    string // 可见范围类型：Public / Tenant / Range;;Public: 互联网公开可见;;Tenant: 组织内可见;;Range: 部分人员/部门/租户可见
 	scopeSet bool
 }
 
@@ -1552,54 +6574,54 @@ func NewUpdateAppVisibilityAppReqBodyBuilder() *UpdateAppVisibilityAppReqBodyBui
 	return builder
 }
 
-// Users 仅 Scope=Range 时生效，授权用户 open_id 列表
+// 仅 Scope = Range 时生效，授权用户 open_id 列表
 //
-//示例值：
+// 示例值：
 func (builder *UpdateAppVisibilityAppReqBodyBuilder) Users(users []string) *UpdateAppVisibilityAppReqBodyBuilder {
 	builder.users = users
 	builder.usersSet = true
 	return builder
 }
 
-// Departments 仅 Scope=Range 时生效，授权部门 department_id 列表
+// 仅 Scope = Range 时生效，授权部门 department_id 列表
 //
-//示例值：
+// 示例值：
 func (builder *UpdateAppVisibilityAppReqBodyBuilder) Departments(departments []string) *UpdateAppVisibilityAppReqBodyBuilder {
 	builder.departments = departments
 	builder.departmentsSet = true
 	return builder
 }
 
-// Chats 仅 Scope=Range 时生效，授权群聊 chat_id 列表
+// 仅 Scope= Range 时生效，授权群聊 chat_id 列表
 //
-//示例值：
+// 示例值：
 func (builder *UpdateAppVisibilityAppReqBodyBuilder) Chats(chats []string) *UpdateAppVisibilityAppReqBodyBuilder {
 	builder.chats = chats
 	builder.chatsSet = true
 	return builder
 }
 
-// ApplyConfig 申请访问配置（含审批人，仅支持单个用户 open_id）
+// 申请访问配置（含审批人，仅支持单个用户 open_id）
 //
-//示例值：
+// 示例值：
 func (builder *UpdateAppVisibilityAppReqBodyBuilder) ApplyConfig(applyConfig *ApplyConfig) *UpdateAppVisibilityAppReqBodyBuilder {
 	builder.applyConfig = applyConfig
 	builder.applyConfigSet = true
 	return builder
 }
 
-// 访问 share URL 是否需要登录
+// 访问 Share URL 是否需要登录
 //
-//示例值：
+// 示例值：true
 func (builder *UpdateAppVisibilityAppReqBodyBuilder) RequireLogin(requireLogin bool) *UpdateAppVisibilityAppReqBodyBuilder {
 	builder.requireLogin = requireLogin
 	builder.requireLoginSet = true
 	return builder
 }
 
-// Scope 可见范围类型：All/ Tenant / Range
+// 可见范围类型：Public / Tenant / Range;;Public: 互联网公开可见;;Tenant: 组织内可见;;Range: 部分人员/部门/租户可见
 //
-//示例值：
+// 示例值：Range
 func (builder *UpdateAppVisibilityAppReqBodyBuilder) Scope(scope string) *UpdateAppVisibilityAppReqBodyBuilder {
 	builder.scope = scope
 	builder.scopeSet = true
@@ -1649,7 +6671,7 @@ func NewUpdateAppVisibilityAppPathReqBodyBuilder() *UpdateAppVisibilityAppPathRe
 	return builder
 }
 
-// Users 仅 Scope=Range 时生效，授权用户 open_id 列表
+// 仅 Scope = Range 时生效，授权用户 open_id 列表
 //
 // 示例值：
 func (builder *UpdateAppVisibilityAppPathReqBodyBuilder) Users(users []string) *UpdateAppVisibilityAppPathReqBodyBuilder {
@@ -1658,7 +6680,7 @@ func (builder *UpdateAppVisibilityAppPathReqBodyBuilder) Users(users []string) *
 	return builder
 }
 
-// Departments 仅 Scope=Range 时生效，授权部门 department_id 列表
+// 仅 Scope = Range 时生效，授权部门 department_id 列表
 //
 // 示例值：
 func (builder *UpdateAppVisibilityAppPathReqBodyBuilder) Departments(departments []string) *UpdateAppVisibilityAppPathReqBodyBuilder {
@@ -1667,7 +6689,7 @@ func (builder *UpdateAppVisibilityAppPathReqBodyBuilder) Departments(departments
 	return builder
 }
 
-// Chats 仅 Scope=Range 时生效，授权群聊 chat_id 列表
+// 仅 Scope= Range 时生效，授权群聊 chat_id 列表
 //
 // 示例值：
 func (builder *UpdateAppVisibilityAppPathReqBodyBuilder) Chats(chats []string) *UpdateAppVisibilityAppPathReqBodyBuilder {
@@ -1676,7 +6698,7 @@ func (builder *UpdateAppVisibilityAppPathReqBodyBuilder) Chats(chats []string) *
 	return builder
 }
 
-// ApplyConfig 申请访问配置（含审批人，仅支持单个用户 open_id）
+// 申请访问配置（含审批人，仅支持单个用户 open_id）
 //
 // 示例值：
 func (builder *UpdateAppVisibilityAppPathReqBodyBuilder) ApplyConfig(applyConfig *ApplyConfig) *UpdateAppVisibilityAppPathReqBodyBuilder {
@@ -1685,18 +6707,18 @@ func (builder *UpdateAppVisibilityAppPathReqBodyBuilder) ApplyConfig(applyConfig
 	return builder
 }
 
-// 访问 share URL 是否需要登录
+// 访问 Share URL 是否需要登录
 //
-// 示例值：
+// 示例值：true
 func (builder *UpdateAppVisibilityAppPathReqBodyBuilder) RequireLogin(requireLogin bool) *UpdateAppVisibilityAppPathReqBodyBuilder {
 	builder.requireLogin = requireLogin
 	builder.requireLoginSet = true
 	return builder
 }
 
-// Scope 可见范围类型：All/ Tenant / Range
+// 可见范围类型：Public / Tenant / Range;;Public: 互联网公开可见;;Tenant: 组织内可见;;Range: 部分人员/部门/租户可见
 //
-// 示例值：
+// 示例值：Range
 func (builder *UpdateAppVisibilityAppPathReqBodyBuilder) Scope(scope string) *UpdateAppVisibilityAppPathReqBodyBuilder {
 	builder.scope = scope
 	builder.scopeSet = true
@@ -1742,7 +6764,7 @@ func NewUpdateAppVisibilityAppReqBuilder() *UpdateAppVisibilityAppReqBuilder {
 
 // 妙搭应用的唯一标识，用于指定需要更新可见范围的目标应用。可通过调用「获取妙搭应用列表」接口或在妙搭控制台应用详情页获取。
 //
-// 示例值：app-20240520103000-xyz
+// 示例值：app_4k6af8utt2s0n
 func (builder *UpdateAppVisibilityAppReqBuilder) AppId(appId string) *UpdateAppVisibilityAppReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -1756,7 +6778,7 @@ func (builder *UpdateAppVisibilityAppReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
-// 更新妙搭应用可见范围（access-scope）
+// 更新妙搭应用可用范围
 func (builder *UpdateAppVisibilityAppReqBuilder) Body(body *UpdateAppVisibilityAppReqBody) *UpdateAppVisibilityAppReqBuilder {
 	builder.body = body
 	return builder
@@ -1772,17 +6794,17 @@ func (builder *UpdateAppVisibilityAppReqBuilder) Build() *UpdateAppVisibilityApp
 }
 
 type UpdateAppVisibilityAppReqBody struct {
-	Users []string `json:"users,omitempty"` // Users 仅 Scope=Range 时生效，授权用户 open_id 列表
+	Users []string `json:"users,omitempty"` // 仅 Scope = Range 时生效，授权用户 open_id 列表
 
-	Departments []string `json:"departments,omitempty"` // Departments 仅 Scope=Range 时生效，授权部门 department_id 列表
+	Departments []string `json:"departments,omitempty"` // 仅 Scope = Range 时生效，授权部门 department_id 列表
 
-	Chats []string `json:"chats,omitempty"` // Chats 仅 Scope=Range 时生效，授权群聊 chat_id 列表
+	Chats []string `json:"chats,omitempty"` // 仅 Scope= Range 时生效，授权群聊 chat_id 列表
 
-	ApplyConfig *ApplyConfig `json:"apply_config,omitempty"` // ApplyConfig 申请访问配置（含审批人，仅支持单个用户 open_id）
+	ApplyConfig *ApplyConfig `json:"apply_config,omitempty"` // 申请访问配置（含审批人，仅支持单个用户 open_id）
 
-	RequireLogin *bool `json:"require_login,omitempty"` // 访问 share URL 是否需要登录
+	RequireLogin *bool `json:"require_login,omitempty"` // 访问 Share URL 是否需要登录
 
-	Scope *string `json:"scope,omitempty"` // Scope 可见范围类型：All/ Tenant / Range
+	Scope *string `json:"scope,omitempty"` // 可见范围类型：Public / Tenant / Range;;Public: 互联网公开可见;;Tenant: 组织内可见;;Range: 部分人员/部门/租户可见
 }
 
 type UpdateAppVisibilityAppReq struct {
@@ -1800,7 +6822,7 @@ func (resp *UpdateAppVisibilityAppResp) Success() bool {
 }
 
 type UploadHtmlCodeAndReleaseAppReqBodyBuilder struct {
-	file    io.Reader // tar 格式的 HTML 文件。
+	file    io.Reader // tar 格式的 HTML 文件
 	fileSet bool
 }
 
@@ -1809,9 +6831,9 @@ func NewUploadHtmlCodeAndReleaseAppReqBodyBuilder() *UploadHtmlCodeAndReleaseApp
 	return builder
 }
 
-// tar 格式的 HTML 文件。
+// tar 格式的 HTML 文件
 //
-//示例值：app_html_code.tar
+// 示例值："./app_html_code.tar"
 func (builder *UploadHtmlCodeAndReleaseAppReqBodyBuilder) File(file io.Reader) *UploadHtmlCodeAndReleaseAppReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -1827,7 +6849,7 @@ func (builder *UploadHtmlCodeAndReleaseAppReqBodyBuilder) Build() *UploadHtmlCod
 }
 
 type UploadHtmlCodeAndReleaseAppPathReqBodyBuilder struct {
-	filePath     string // tar 格式的 HTML 文件。
+	filePath     string // tar 格式的 HTML 文件
 	filePathFlag bool
 }
 
@@ -1836,9 +6858,9 @@ func NewUploadHtmlCodeAndReleaseAppPathReqBodyBuilder() *UploadHtmlCodeAndReleas
 	return builder
 }
 
-// tar 格式的 HTML 文件。
+// tar 格式的 HTML 文件
 //
-// 示例值：app_html_code.tar
+// 示例值："./app_html_code.tar"
 func (builder *UploadHtmlCodeAndReleaseAppPathReqBodyBuilder) FilePath(filePath string) *UploadHtmlCodeAndReleaseAppPathReqBodyBuilder {
 	builder.filePath = filePath
 	builder.filePathFlag = true
@@ -1871,7 +6893,7 @@ func NewUploadHtmlCodeAndReleaseAppReqBuilder() *UploadHtmlCodeAndReleaseAppReqB
 	return builder
 }
 
-// 妙搭应用 id
+// 妙搭应用唯一标识，通过应用创建接口或妙搭管理后台获取
 //
 // 示例值：app_4k6af8utt2s0n
 func (builder *UploadHtmlCodeAndReleaseAppReqBuilder) AppId(appId string) *UploadHtmlCodeAndReleaseAppReqBuilder {
@@ -1879,7 +6901,7 @@ func (builder *UploadHtmlCodeAndReleaseAppReqBuilder) AppId(appId string) *Uploa
 	return builder
 }
 
-// 上传 HTML 代码并发布应用
+// 上传 HTML 代码并发布;
 func (builder *UploadHtmlCodeAndReleaseAppReqBuilder) Body(body *UploadHtmlCodeAndReleaseAppReqBody) *UploadHtmlCodeAndReleaseAppReqBuilder {
 	builder.body = body
 	return builder
@@ -1894,7 +6916,7 @@ func (builder *UploadHtmlCodeAndReleaseAppReqBuilder) Build() *UploadHtmlCodeAnd
 }
 
 type UploadHtmlCodeAndReleaseAppReqBody struct {
-	File io.Reader `json:"file,omitempty"` // tar 格式的 HTML 文件。
+	File io.Reader `json:"file,omitempty"` // tar 格式的 HTML 文件
 }
 
 type UploadHtmlCodeAndReleaseAppReq struct {
@@ -1937,7 +6959,7 @@ func (builder *GetEnumDetailAppEnumReqBuilder) AppId(appId string) *GetEnumDetai
 	return builder
 }
 
-// 枚举名称
+// 枚举名称，可以从`获取自定义枚举列表`接口返回列表中，获取到枚举名称。
 //
 // 示例值：enum_demo_1
 func (builder *GetEnumDetailAppEnumReqBuilder) EnumName(enumName string) *GetEnumDetailAppEnumReqBuilder {
@@ -1947,7 +6969,7 @@ func (builder *GetEnumDetailAppEnumReqBuilder) EnumName(enumName string) *GetEnu
 
 // 访问的 database 环境，默认为 online（线上环境）
 //
-// 示例值：online
+// 示例值：`online`、`dev`
 func (builder *GetEnumDetailAppEnumReqBuilder) Env(env string) *GetEnumDetailAppEnumReqBuilder {
 	builder.apiReq.QueryParams.Set("env", fmt.Sprint(env))
 	return builder
@@ -2024,7 +7046,7 @@ func (builder *GetEnumListAppEnumReqBuilder) PageToken(pageToken string) *GetEnu
 
 // 访问的 database 环境，默认为 online（线上环境）
 //
-// 示例值：online
+// 示例值：`online`、`dev`
 func (builder *GetEnumListAppEnumReqBuilder) Env(env string) *GetEnumListAppEnumReqBuilder {
 	builder.apiReq.QueryParams.Set("env", fmt.Sprint(env))
 	return builder
@@ -2155,7 +7177,7 @@ func NewUploadAppStorageReqBodyBuilder() *UploadAppStorageReqBodyBuilder {
 
 // 文件名称
 //
-//示例值：file_name
+// 示例值：file_name
 func (builder *UploadAppStorageReqBodyBuilder) FileName(fileName string) *UploadAppStorageReqBodyBuilder {
 	builder.fileName = fileName
 	builder.fileNameSet = true
@@ -2164,7 +7186,7 @@ func (builder *UploadAppStorageReqBodyBuilder) FileName(fileName string) *Upload
 
 // 文件的十六进制 SHA-256 值，用于文件一致性校验。如果传入此值，服务端会在上传完成后对比接收到文件的 SHA-256 值，如果不一致，会返回上传失败。
 //
-//示例值：f8d80a7f68b820d99f5612b952140319991d6599d95f29699d076684b0977f99
+// 示例值：f8d80a7f68b820d99f5612b952140319991d6599d95f29699d076684b0977f99
 func (builder *UploadAppStorageReqBodyBuilder) CheckSum(checkSum string) *UploadAppStorageReqBodyBuilder {
 	builder.checkSum = checkSum
 	builder.checkSumSet = true
@@ -2173,7 +7195,7 @@ func (builder *UploadAppStorageReqBodyBuilder) CheckSum(checkSum string) *Upload
 
 // 文件二进制
 //
-//示例值：
+// 示例值：
 func (builder *UploadAppStorageReqBodyBuilder) File(file io.Reader) *UploadAppStorageReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -2275,7 +7297,7 @@ func (builder *UploadAppStorageReqBuilder) AppId(appId string) *UploadAppStorage
 	return builder
 }
 
-// 上传文件
+// 用于上传 20MB（含） 以内的文件
 func (builder *UploadAppStorageReqBuilder) Body(body *UploadAppStorageReqBody) *UploadAppStorageReqBuilder {
 	builder.body = body
 	return builder
@@ -2325,7 +7347,7 @@ func (resp *UploadAppStorageResp) Success() bool {
 }
 
 type UploadCompleteAppStorageReqBodyBuilder struct {
-	uploadId    string // 上传请求 ID
+	uploadId    string // 上传请求 ID，可通过`分片上传文件 - 创建上传`请求获取。
 	uploadIdSet bool
 }
 
@@ -2334,9 +7356,9 @@ func NewUploadCompleteAppStorageReqBodyBuilder() *UploadCompleteAppStorageReqBod
 	return builder
 }
 
-// 上传请求 ID
+// 上传请求 ID，可通过`分片上传文件 - 创建上传`请求获取。
 //
-//示例值：upload_abc123xyz456
+// 示例值：upload_abc123xyz456
 func (builder *UploadCompleteAppStorageReqBodyBuilder) UploadId(uploadId string) *UploadCompleteAppStorageReqBodyBuilder {
 	builder.uploadId = uploadId
 	builder.uploadIdSet = true
@@ -2361,7 +7383,7 @@ func NewUploadCompleteAppStoragePathReqBodyBuilder() *UploadCompleteAppStoragePa
 	return builder
 }
 
-// 上传请求 ID
+// 上传请求 ID，可通过`分片上传文件 - 创建上传`请求获取。
 //
 // 示例值：upload_abc123xyz456
 func (builder *UploadCompleteAppStoragePathReqBodyBuilder) UploadId(uploadId string) *UploadCompleteAppStoragePathReqBodyBuilder {
@@ -2400,7 +7422,7 @@ func (builder *UploadCompleteAppStorageReqBuilder) AppId(appId string) *UploadCo
 	return builder
 }
 
-// 分片上传文件 - 完成上传
+// 调用`上传分片`将分片全部上传完毕后，调用本接口触发完成上传。
 func (builder *UploadCompleteAppStorageReqBuilder) Body(body *UploadCompleteAppStorageReqBody) *UploadCompleteAppStorageReqBuilder {
 	builder.body = body
 	return builder
@@ -2415,7 +7437,7 @@ func (builder *UploadCompleteAppStorageReqBuilder) Build() *UploadCompleteAppSto
 }
 
 type UploadCompleteAppStorageReqBody struct {
-	UploadId *string `json:"upload_id,omitempty"` // 上传请求 ID
+	UploadId *string `json:"upload_id,omitempty"` // 上传请求 ID，可通过`分片上传文件 - 创建上传`请求获取。
 }
 
 type UploadCompleteAppStorageReq struct {
@@ -2446,10 +7468,10 @@ func (resp *UploadCompleteAppStorageResp) Success() bool {
 }
 
 type UploadInitializeAppStorageReqBodyBuilder struct {
-	fileName    string // 文件名称
+	fileName    string // 文件的名称，建议最大长度不超过100
 	fileNameSet bool
 
-	fileSize    int // 文件大小（字节）
+	fileSize    int // 文件的大小，单位为字节。
 	fileSizeSet bool
 
 	mimeType    string // 文件 MIME 类型
@@ -2461,18 +7483,18 @@ func NewUploadInitializeAppStorageReqBodyBuilder() *UploadInitializeAppStorageRe
 	return builder
 }
 
-// 文件名称
+// 文件的名称，建议最大长度不超过100
 //
-//示例值：上传文件名称示例
+// 示例值：测试文本文件.txt
 func (builder *UploadInitializeAppStorageReqBodyBuilder) FileName(fileName string) *UploadInitializeAppStorageReqBodyBuilder {
 	builder.fileName = fileName
 	builder.fileNameSet = true
 	return builder
 }
 
-// 文件大小（字节）
+// 文件的大小，单位为字节。
 //
-//示例值：104857600
+// 示例值：104857600
 func (builder *UploadInitializeAppStorageReqBodyBuilder) FileSize(fileSize int) *UploadInitializeAppStorageReqBodyBuilder {
 	builder.fileSize = fileSize
 	builder.fileSizeSet = true
@@ -2481,7 +7503,7 @@ func (builder *UploadInitializeAppStorageReqBodyBuilder) FileSize(fileSize int) 
 
 // 文件 MIME 类型
 //
-//示例值：text/plain; charset=utf-8
+// 示例值：text/plain; charset=utf-8
 func (builder *UploadInitializeAppStorageReqBodyBuilder) MimeType(mimeType string) *UploadInitializeAppStorageReqBodyBuilder {
 	builder.mimeType = mimeType
 	builder.mimeTypeSet = true
@@ -2516,16 +7538,16 @@ func NewUploadInitializeAppStoragePathReqBodyBuilder() *UploadInitializeAppStora
 	return builder
 }
 
-// 文件名称
+// 文件的名称，建议最大长度不超过100
 //
-// 示例值：上传文件名称示例
+// 示例值：测试文本文件.txt
 func (builder *UploadInitializeAppStoragePathReqBodyBuilder) FileName(fileName string) *UploadInitializeAppStoragePathReqBodyBuilder {
 	builder.fileName = fileName
 	builder.fileNameSet = true
 	return builder
 }
 
-// 文件大小（字节）
+// 文件的大小，单位为字节。
 //
 // 示例值：104857600
 func (builder *UploadInitializeAppStoragePathReqBodyBuilder) FileSize(fileSize int) *UploadInitializeAppStoragePathReqBodyBuilder {
@@ -2579,7 +7601,7 @@ func (builder *UploadInitializeAppStorageReqBuilder) AppId(appId string) *Upload
 	return builder
 }
 
-// 分片上传文件 - 创建上传请求
+// 发送初始化请求，以获取上传请求 ID和分片策略，为上传分片做准备。获取结果后可调用`上传分片`接口完成文件分片上传。
 func (builder *UploadInitializeAppStorageReqBuilder) Body(body *UploadInitializeAppStorageReqBody) *UploadInitializeAppStorageReqBuilder {
 	builder.body = body
 	return builder
@@ -2594,9 +7616,9 @@ func (builder *UploadInitializeAppStorageReqBuilder) Build() *UploadInitializeAp
 }
 
 type UploadInitializeAppStorageReqBody struct {
-	FileName *string `json:"file_name,omitempty"` // 文件名称
+	FileName *string `json:"file_name,omitempty"` // 文件的名称，建议最大长度不超过100
 
-	FileSize *int `json:"file_size,omitempty"` // 文件大小（字节）
+	FileSize *int `json:"file_size,omitempty"` // 文件的大小，单位为字节。
 
 	MimeType *string `json:"mime_type,omitempty"` // 文件 MIME 类型
 }
@@ -2625,16 +7647,16 @@ func (resp *UploadInitializeAppStorageResp) Success() bool {
 }
 
 type UploadPartAppStorageReqBodyBuilder struct {
-	uploadId    string // 上传请求 ID
+	uploadId    string // 上传请求 ID，可通过`分片上传文件 - 创建上传请求`获取。
 	uploadIdSet bool
 
 	chunkIndex    int // 分片编号从 1 开始
 	chunkIndexSet bool
 
-	file    io.Reader // 对应分片文件的二进制内容
+	file    io.Reader // 对应分片文件的二进制内容，不限制文件格式，需要与`创建上传请求`接口中的文件 MIME 类型一致。
 	fileSet bool
 
-	chunkCheckSum    string // 文件分片的 md5
+	chunkCheckSum    string // 对应分片文件的 md5
 	chunkCheckSumSet bool
 }
 
@@ -2643,9 +7665,9 @@ func NewUploadPartAppStorageReqBodyBuilder() *UploadPartAppStorageReqBodyBuilder
 	return builder
 }
 
-// 上传请求 ID
+// 上传请求 ID，可通过`分片上传文件 - 创建上传请求`获取。
 //
-//示例值：upload_abc123xyz456
+// 示例值：upload_abc123xyz456
 func (builder *UploadPartAppStorageReqBodyBuilder) UploadId(uploadId string) *UploadPartAppStorageReqBodyBuilder {
 	builder.uploadId = uploadId
 	builder.uploadIdSet = true
@@ -2654,25 +7676,25 @@ func (builder *UploadPartAppStorageReqBodyBuilder) UploadId(uploadId string) *Up
 
 // 分片编号从 1 开始
 //
-//示例值：1
+// 示例值：1
 func (builder *UploadPartAppStorageReqBodyBuilder) ChunkIndex(chunkIndex int) *UploadPartAppStorageReqBodyBuilder {
 	builder.chunkIndex = chunkIndex
 	builder.chunkIndexSet = true
 	return builder
 }
 
-// 对应分片文件的二进制内容
+// 对应分片文件的二进制内容，不限制文件格式，需要与`创建上传请求`接口中的文件 MIME 类型一致。
 //
-//示例值：
+// 示例值：
 func (builder *UploadPartAppStorageReqBodyBuilder) File(file io.Reader) *UploadPartAppStorageReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
 	return builder
 }
 
-// 文件分片的 md5
+// 对应分片文件的 md5
 //
-//示例值：ef176a6c424f954fa42d4cde03949897
+// 示例值：ef176a6c424f954fa42d4cde03949897
 func (builder *UploadPartAppStorageReqBodyBuilder) ChunkCheckSum(chunkCheckSum string) *UploadPartAppStorageReqBodyBuilder {
 	builder.chunkCheckSum = chunkCheckSum
 	builder.chunkCheckSumSet = true
@@ -2701,7 +7723,7 @@ type UploadPartAppStoragePathReqBodyBuilder struct {
 	uploadIdSet      bool
 	chunkIndex       int
 	chunkIndexSet    bool
-	filePath         string // 对应分片文件的二进制内容
+	filePath         string // 对应分片文件的二进制内容，不限制文件格式，需要与`创建上传请求`接口中的文件 MIME 类型一致。
 	filePathFlag     bool
 	chunkCheckSum    string
 	chunkCheckSumSet bool
@@ -2712,7 +7734,7 @@ func NewUploadPartAppStoragePathReqBodyBuilder() *UploadPartAppStoragePathReqBod
 	return builder
 }
 
-// 上传请求 ID
+// 上传请求 ID，可通过`分片上传文件 - 创建上传请求`获取。
 //
 // 示例值：upload_abc123xyz456
 func (builder *UploadPartAppStoragePathReqBodyBuilder) UploadId(uploadId string) *UploadPartAppStoragePathReqBodyBuilder {
@@ -2730,7 +7752,7 @@ func (builder *UploadPartAppStoragePathReqBodyBuilder) ChunkIndex(chunkIndex int
 	return builder
 }
 
-// 对应分片文件的二进制内容
+// 对应分片文件的二进制内容，不限制文件格式，需要与`创建上传请求`接口中的文件 MIME 类型一致。
 //
 // 示例值：
 func (builder *UploadPartAppStoragePathReqBodyBuilder) FilePath(filePath string) *UploadPartAppStoragePathReqBodyBuilder {
@@ -2739,7 +7761,7 @@ func (builder *UploadPartAppStoragePathReqBodyBuilder) FilePath(filePath string)
 	return builder
 }
 
-// 文件分片的 md5
+// 对应分片文件的 md5
 //
 // 示例值：ef176a6c424f954fa42d4cde03949897
 func (builder *UploadPartAppStoragePathReqBodyBuilder) ChunkCheckSum(chunkCheckSum string) *UploadPartAppStoragePathReqBodyBuilder {
@@ -2791,7 +7813,7 @@ func (builder *UploadPartAppStorageReqBuilder) AppId(appId string) *UploadPartAp
 	return builder
 }
 
-// 分片上传文件 - 上传分片
+// 根据`创建上传请求`接口返回的上传请求 ID 和分片策略上传对应的文件分片。全部上传完成后可调用`完成上传`接口完成文件分片上传。
 func (builder *UploadPartAppStorageReqBuilder) Body(body *UploadPartAppStorageReqBody) *UploadPartAppStorageReqBuilder {
 	builder.body = body
 	return builder
@@ -2806,13 +7828,13 @@ func (builder *UploadPartAppStorageReqBuilder) Build() *UploadPartAppStorageReq 
 }
 
 type UploadPartAppStorageReqBody struct {
-	UploadId *string `json:"upload_id,omitempty"` // 上传请求 ID
+	UploadId *string `json:"upload_id,omitempty"` // 上传请求 ID，可通过`分片上传文件 - 创建上传请求`获取。
 
 	ChunkIndex *int `json:"chunk_index,omitempty"` // 分片编号从 1 开始
 
-	File io.Reader `json:"file,omitempty"` // 对应分片文件的二进制内容
+	File io.Reader `json:"file,omitempty"` // 对应分片文件的二进制内容，不限制文件格式，需要与`创建上传请求`接口中的文件 MIME 类型一致。
 
-	ChunkCheckSum *string `json:"chunk_check_sum,omitempty"` // 文件分片的 md5
+	ChunkCheckSum *string `json:"chunk_check_sum,omitempty"` // 对应分片文件的 md5
 }
 
 type UploadPartAppStorageReq struct {
@@ -2830,7 +7852,7 @@ func (resp *UploadPartAppStorageResp) Success() bool {
 }
 
 type BatchUpdateTableRecordsAppTableReqBodyBuilder struct {
-	records    string // 要更新的数据记录列表，单次支持最多 500条，每行 record 都必须包含主键 _id，且不同行要更新的字段需保持一致
+	records    string // 要更新的数据记录列表（JSON数组的字符串形式），单次支持最大长度 500条，每行 record 都必须包含主键如 _id，且不同行要更新的字段需保持一致
 	recordsSet bool
 }
 
@@ -2839,9 +7861,9 @@ func NewBatchUpdateTableRecordsAppTableReqBodyBuilder() *BatchUpdateTableRecords
 	return builder
 }
 
-// 要更新的数据记录列表，单次支持最多 500条，每行 record 都必须包含主键 _id，且不同行要更新的字段需保持一致
+// 要更新的数据记录列表（JSON数组的字符串形式），单次支持最大长度 500条，每行 record 都必须包含主键如 _id，且不同行要更新的字段需保持一致
 //
-//示例值：[{\"_id\":\"657fade8-394d-4d86-aa35-0129e3bd7614\",\"age\":10}]
+// 示例值：[{\"_id\":\"657fade8-394d-4d86-aa35-0129e3bd7614\",\"age\":10}]
 func (builder *BatchUpdateTableRecordsAppTableReqBodyBuilder) Records(records string) *BatchUpdateTableRecordsAppTableReqBodyBuilder {
 	builder.records = records
 	builder.recordsSet = true
@@ -2866,7 +7888,7 @@ func NewBatchUpdateTableRecordsAppTablePathReqBodyBuilder() *BatchUpdateTableRec
 	return builder
 }
 
-// 要更新的数据记录列表，单次支持最多 500条，每行 record 都必须包含主键 _id，且不同行要更新的字段需保持一致
+// 要更新的数据记录列表（JSON数组的字符串形式），单次支持最大长度 500条，每行 record 都必须包含主键如 _id，且不同行要更新的字段需保持一致
 //
 // 示例值：[{\"_id\":\"657fade8-394d-4d86-aa35-0129e3bd7614\",\"age\":10}]
 func (builder *BatchUpdateTableRecordsAppTablePathReqBodyBuilder) Records(records string) *BatchUpdateTableRecordsAppTablePathReqBodyBuilder {
@@ -2905,9 +7927,9 @@ func (builder *BatchUpdateTableRecordsAppTableReqBuilder) AppId(appId string) *B
 	return builder
 }
 
-// 数据表表名
+// 妙搭数据表表名，必须属于 app_id 对应的妙搭应用，可从妙搭应用数据库管理中获取
 //
-// 示例值：table_name_1
+// 示例值：student_table
 func (builder *BatchUpdateTableRecordsAppTableReqBuilder) TableName(tableName string) *BatchUpdateTableRecordsAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("table_name", fmt.Sprint(tableName))
 	return builder
@@ -2915,13 +7937,13 @@ func (builder *BatchUpdateTableRecordsAppTableReqBuilder) TableName(tableName st
 
 // 访问的 database 环境，默认为 online（线上环境）
 //
-// 示例值：online
+// 示例值：`online`、`dev`
 func (builder *BatchUpdateTableRecordsAppTableReqBuilder) Env(env string) *BatchUpdateTableRecordsAppTableReqBuilder {
 	builder.apiReq.QueryParams.Set("env", fmt.Sprint(env))
 	return builder
 }
 
-// 此次调用使用的用户 ID 类型，将使用指定的 ID 来标示某个用户在接口入参和出参中的值。;示例值：`miaoda_user_id`;可选值：;- `miaoda_user_id`：标识一个用户在飞书开发套件应用中的身份。示例值：1838493619298330;- `open_id`：标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。示例值：ou_bdbbd8f3f919829064b3ffc1b9476105 了解更多：如何获取 Open ID;- `union_id`：标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。示例值：on_b1b44199e8f3def4ebda5355409e2033 了解更多：如何获取 Union ID？;;默认值：`miaoda_user_id`
+// 此次调用使用的用户 ID 类型，将使用指定的 ID 来标示某个用户在接口入参和出参中的值。;示例值：`miaoda_user_id`;可选值：;- `miaoda_user_id`：标识一个用户在飞书开发套件应用中的身份。示例值：1838493619298330;- `open_id`：标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。示例值：ou_bdbbd8f3f919829064b3ffc1b9476105 了解更多：如何获取 Open ID;- `union_id`：标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。示例值：on_b1b44199e8f3def4ebda5355409e2033 了解更多：如何获取 Union ID？
 //
 // 示例值：miaoda_user_id
 func (builder *BatchUpdateTableRecordsAppTableReqBuilder) UserIdentifierType(userIdentifierType string) *BatchUpdateTableRecordsAppTableReqBuilder {
@@ -2929,7 +7951,7 @@ func (builder *BatchUpdateTableRecordsAppTableReqBuilder) UserIdentifierType(use
 	return builder
 }
 
-// 批量更新数据表中的记录
+// 批量更新应用下的数据表中的记录，每条记录需包含主键如_id，单次最多500条。
 func (builder *BatchUpdateTableRecordsAppTableReqBuilder) Body(body *BatchUpdateTableRecordsAppTableReqBody) *BatchUpdateTableRecordsAppTableReqBuilder {
 	builder.body = body
 	return builder
@@ -2945,7 +7967,7 @@ func (builder *BatchUpdateTableRecordsAppTableReqBuilder) Build() *BatchUpdateTa
 }
 
 type BatchUpdateTableRecordsAppTableReqBody struct {
-	Records *string `json:"records,omitempty"` // 要更新的数据记录列表，单次支持最多 500条，每行 record 都必须包含主键 _id，且不同行要更新的字段需保持一致
+	Records *string `json:"records,omitempty"` // 要更新的数据记录列表（JSON数组的字符串形式），单次支持最大长度 500条，每行 record 都必须包含主键如 _id，且不同行要更新的字段需保持一致
 }
 
 type BatchUpdateTableRecordsAppTableReq struct {
@@ -2988,15 +8010,15 @@ func (builder *DeleteTableRecordsAppTableReqBuilder) AppId(appId string) *Delete
 	return builder
 }
 
-// 数据表表名
+// 妙搭数据表表名，必须属于 app_id 对应的妙搭应用，可从妙搭应用数据库管理中获取
 //
-// 示例值：table_name_1
+// 示例值：student_table
 func (builder *DeleteTableRecordsAppTableReqBuilder) TableName(tableName string) *DeleteTableRecordsAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("table_name", fmt.Sprint(tableName))
 	return builder
 }
 
-// 筛选条件，尊许 PostgREST 语法，详情可查看 https://docs.postgrest.org/en/v13/references/api/tables_views.html#horizontal-filtering;此处用法和查询数据记录一致
+// 筛选条件，遵循 PostgREST 语法，详情可查看 https://docs.postgrest.org/en/v13/references/api/tables_views.html#horizontal-filtering;此处用法和查询数据记录一致
 //
 // 示例值：age=gt.10
 func (builder *DeleteTableRecordsAppTableReqBuilder) Filter(filter string) *DeleteTableRecordsAppTableReqBuilder {
@@ -3006,7 +8028,7 @@ func (builder *DeleteTableRecordsAppTableReqBuilder) Filter(filter string) *Dele
 
 // 访问的 database 环境，默认为 online（线上环境）
 //
-// 示例值：online
+// 示例值：`online`、`dev`
 func (builder *DeleteTableRecordsAppTableReqBuilder) Env(env string) *DeleteTableRecordsAppTableReqBuilder {
 	builder.apiReq.QueryParams.Set("env", fmt.Sprint(env))
 	return builder
@@ -3054,9 +8076,9 @@ func (builder *GetTableDetailAppTableReqBuilder) AppId(appId string) *GetTableDe
 	return builder
 }
 
-// 数据表表名
+// 妙搭数据表表名，必须属于 app_id 对应的妙搭应用，可从妙搭应用数据库管理中获取
 //
-// 示例值：table_name_1
+// 示例值：student_table
 func (builder *GetTableDetailAppTableReqBuilder) TableName(tableName string) *GetTableDetailAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("table_name", fmt.Sprint(tableName))
 	return builder
@@ -3064,9 +8086,17 @@ func (builder *GetTableDetailAppTableReqBuilder) TableName(tableName string) *Ge
 
 // 访问的 database 环境，默认为 online（线上环境）
 //
-// 示例值：online
+// 示例值：`online`、`dev`
 func (builder *GetTableDetailAppTableReqBuilder) Env(env string) *GetTableDetailAppTableReqBuilder {
 	builder.apiReq.QueryParams.Set("env", fmt.Sprint(env))
+	return builder
+}
+
+// 返回格式，是否包含建表ddl
+//
+// 示例值：ddl
+func (builder *GetTableDetailAppTableReqBuilder) Format(format string) *GetTableDetailAppTableReqBuilder {
+	builder.apiReq.QueryParams.Set("format", fmt.Sprint(format))
 	return builder
 }
 
@@ -3088,6 +8118,16 @@ type GetTableDetailAppTableRespData struct {
 	Description *string `json:"description,omitempty"` // 数据表描述
 
 	Columns []*AppTableColumn `json:"columns,omitempty"` // 数据表列
+
+	Indexes []*AppTableIndex `json:"indexes,omitempty"` // 数据表索引
+
+	Constraints []*AppTableConstraint `json:"constraints,omitempty"` // 数据表约束
+
+	EstimatedRowCount *int `json:"estimated_row_count,omitempty"` // 表预估行数
+
+	SizeBytes *int `json:"size_bytes,omitempty"` // 表占用字节数
+
+	Ddl *string `json:"ddl,omitempty"` // 建表ddl语句
 }
 
 type GetTableDetailAppTableResp struct {
@@ -3139,7 +8179,7 @@ func (builder *GetTableListAppTableReqBuilder) PageToken(pageToken string) *GetT
 
 // 访问的 database 环境，默认为 online（线上环境）
 //
-// 示例值：online
+// 示例值：`online`、`dev`
 func (builder *GetTableListAppTableReqBuilder) Env(env string) *GetTableListAppTableReqBuilder {
 	builder.apiReq.QueryParams.Set("env", fmt.Sprint(env))
 	return builder
@@ -3196,9 +8236,9 @@ func (builder *GetTableRecordListAppTableReqBuilder) AppId(appId string) *GetTab
 	return builder
 }
 
-// 数据表表名
+// 妙搭数据表表名，必须属于 app_id 对应的妙搭应用，可从妙搭应用数据库管理中获取
 //
-// 示例值：table_name_1
+// 示例值：student_table
 func (builder *GetTableRecordListAppTableReqBuilder) TableName(tableName string) *GetTableRecordListAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("table_name", fmt.Sprint(tableName))
 	return builder
@@ -3228,7 +8268,7 @@ func (builder *GetTableRecordListAppTableReqBuilder) Select(select_ string) *Get
 	return builder
 }
 
-// 筛选条件，尊许 PostgREST 语法，详情可查看 https://docs.postgrest.org/en/v13/references/api/tables_views.html#horizontal-filtering
+// 筛选条件，遵循 PostgREST 语法，详情可查看 https://docs.postgrest.org/en/v13/references/api/tables_views.html#horizontal-filtering
 //
 // 示例值：age=gt.10
 func (builder *GetTableRecordListAppTableReqBuilder) Filter(filter string) *GetTableRecordListAppTableReqBuilder {
@@ -3236,7 +8276,7 @@ func (builder *GetTableRecordListAppTableReqBuilder) Filter(filter string) *GetT
 	return builder
 }
 
-// 排序条件，如果没指定 asc/desc，默认为 asc，null 值可排在最前或最后。;尊许 PostgREST 语法，详情可查看;https://docs.postgrest.org/en/v13/references/api/tables_views.html#ordering
+// 排序条件，如果没指定 asc/desc，默认为 asc，null 值可排在最前或最后。;遵循 PostgREST 语法，详情可查看;https://docs.postgrest.org/en/v13/references/api/tables_views.html#ordering
 //
 // 示例值：age.desc,score.asc
 func (builder *GetTableRecordListAppTableReqBuilder) Order(order string) *GetTableRecordListAppTableReqBuilder {
@@ -3246,13 +8286,13 @@ func (builder *GetTableRecordListAppTableReqBuilder) Order(order string) *GetTab
 
 // 访问的 database 环境，默认为 online（线上环境）
 //
-// 示例值：online
+// 示例值：`online`、`dev`
 func (builder *GetTableRecordListAppTableReqBuilder) Env(env string) *GetTableRecordListAppTableReqBuilder {
 	builder.apiReq.QueryParams.Set("env", fmt.Sprint(env))
 	return builder
 }
 
-// 此次调用使用的用户 ID 类型，将使用指定的 ID 来标示某个用户在接口入参和出参中的值。;示例值：`miaoda_user_id`;可选值：;- `miaoda_user_id`：标识一个用户在飞书开发套件应用中的身份。示例值：1838493619298330;- `open_id`：标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。示例值：ou_bdbbd8f3f919829064b3ffc1b9476105 了解更多：如何获取 Open ID;- `union_id`：标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。示例值：on_b1b44199e8f3def4ebda5355409e2033 了解更多：如何获取 Union ID？;;默认值：`miaoda_user_id`
+// 此次调用使用的用户 ID 类型，将使用指定的 ID 来标示某个用户在接口入参和出参中的值。;示例值：`miaoda_user_id`;可选值：;- `miaoda_user_id`：标识一个用户在飞书开发套件应用中的身份。示例值：1838493619298330;- `open_id`：标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。示例值：ou_bdbbd8f3f919829064b3ffc1b9476105 了解更多：如何获取 Open ID;- `union_id`：标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。示例值：on_b1b44199e8f3def4ebda5355409e2033 了解更多：如何获取 Union ID？
 //
 // 示例值：miaoda_user_id
 func (builder *GetTableRecordListAppTableReqBuilder) UserIdentifierType(userIdentifierType string) *GetTableRecordListAppTableReqBuilder {
@@ -3293,7 +8333,7 @@ func (resp *GetTableRecordListAppTableResp) Success() bool {
 }
 
 type PatchTableRecordsAppTableReqBodyBuilder struct {
-	record    string // 要更新的数据记录信息
+	record    string // 要更新的数据记录信息（JSON字符串形式）
 	recordSet bool
 }
 
@@ -3302,9 +8342,9 @@ func NewPatchTableRecordsAppTableReqBodyBuilder() *PatchTableRecordsAppTableReqB
 	return builder
 }
 
-// 要更新的数据记录信息
+// 要更新的数据记录信息（JSON字符串形式）
 //
-//示例值：{\"age\":10}
+// 示例值：{\"age\":10}
 func (builder *PatchTableRecordsAppTableReqBodyBuilder) Record(record string) *PatchTableRecordsAppTableReqBodyBuilder {
 	builder.record = record
 	builder.recordSet = true
@@ -3329,7 +8369,7 @@ func NewPatchTableRecordsAppTablePathReqBodyBuilder() *PatchTableRecordsAppTable
 	return builder
 }
 
-// 要更新的数据记录信息
+// 要更新的数据记录信息（JSON字符串形式）
 //
 // 示例值：{\"age\":10}
 func (builder *PatchTableRecordsAppTablePathReqBodyBuilder) Record(record string) *PatchTableRecordsAppTablePathReqBodyBuilder {
@@ -3368,15 +8408,15 @@ func (builder *PatchTableRecordsAppTableReqBuilder) AppId(appId string) *PatchTa
 	return builder
 }
 
-// 数据表表名
+// 妙搭数据表表名，必须属于 app_id 对应的妙搭应用，可从妙搭应用数据库管理中获取
 //
-// 示例值：table_name_1
+// 示例值：student_table
 func (builder *PatchTableRecordsAppTableReqBuilder) TableName(tableName string) *PatchTableRecordsAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("table_name", fmt.Sprint(tableName))
 	return builder
 }
 
-// 筛选条件，尊许 PostgREST 语法，详情可查看 https://docs.postgrest.org/en/v13/references/api/tables_views.html#horizontal-filtering
+// 筛选条件，遵循 PostgREST 语法，详情可查看 https://docs.postgrest.org/en/v13/references/api/tables_views.html#horizontal-filtering
 //
 // 示例值：age=gt.10
 func (builder *PatchTableRecordsAppTableReqBuilder) Filter(filter string) *PatchTableRecordsAppTableReqBuilder {
@@ -3386,13 +8426,13 @@ func (builder *PatchTableRecordsAppTableReqBuilder) Filter(filter string) *Patch
 
 // 访问的 database 环境，默认为 online（线上环境）
 //
-// 示例值：online
+// 示例值：`online`、`dev`
 func (builder *PatchTableRecordsAppTableReqBuilder) Env(env string) *PatchTableRecordsAppTableReqBuilder {
 	builder.apiReq.QueryParams.Set("env", fmt.Sprint(env))
 	return builder
 }
 
-// 此次调用使用的用户 ID 类型，将使用指定的 ID 来标示某个用户在接口入参和出参中的值。;示例值：`miaoda_user_id`;可选值：;- `miaoda_user_id`：标识一个用户在飞书开发套件应用中的身份。示例值：1838493619298330;- `open_id`：标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。示例值：ou_bdbbd8f3f919829064b3ffc1b9476105 了解更多：如何获取 Open ID;- `union_id`：标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。示例值：on_b1b44199e8f3def4ebda5355409e2033 了解更多：如何获取 Union ID？;;默认值：`miaoda_user_id`
+// 此次调用使用的用户 ID 类型，将使用指定的 ID 来标示某个用户在接口入参和出参中的值。;示例值：`miaoda_user_id`;可选值：;- `miaoda_user_id`：标识一个用户在飞书开发套件应用中的身份。示例值：1838493619298330;- `open_id`：标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。示例值：ou_bdbbd8f3f919829064b3ffc1b9476105 了解更多：如何获取 Open ID;- `union_id`：标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。示例值：on_b1b44199e8f3def4ebda5355409e2033 了解更多：如何获取 Union ID？
 //
 // 示例值：miaoda_user_id
 func (builder *PatchTableRecordsAppTableReqBuilder) UserIdentifierType(userIdentifierType string) *PatchTableRecordsAppTableReqBuilder {
@@ -3400,7 +8440,7 @@ func (builder *PatchTableRecordsAppTableReqBuilder) UserIdentifierType(userIdent
 	return builder
 }
 
-// 按条件更新数据表中的记录
+// 将数据表中符合filter条件的记录更新为record参数指定的内容。
 func (builder *PatchTableRecordsAppTableReqBuilder) Body(body *PatchTableRecordsAppTableReqBody) *PatchTableRecordsAppTableReqBuilder {
 	builder.body = body
 	return builder
@@ -3416,7 +8456,7 @@ func (builder *PatchTableRecordsAppTableReqBuilder) Build() *PatchTableRecordsAp
 }
 
 type PatchTableRecordsAppTableReqBody struct {
-	Record *string `json:"record,omitempty"` // 要更新的数据记录信息
+	Record *string `json:"record,omitempty"` // 要更新的数据记录信息（JSON字符串形式）
 }
 
 type PatchTableRecordsAppTableReq struct {
@@ -3439,7 +8479,7 @@ func (resp *PatchTableRecordsAppTableResp) Success() bool {
 }
 
 type PostTableRecordsAppTableReqBodyBuilder struct {
-	records    string // 要插入的数据记录列表，单次支持最多 500 条
+	records    string // 要插入的数据记录列表（JSON数组的字符串形式），单次支持最大记录数量500条
 	recordsSet bool
 }
 
@@ -3448,9 +8488,9 @@ func NewPostTableRecordsAppTableReqBodyBuilder() *PostTableRecordsAppTableReqBod
 	return builder
 }
 
-// 要插入的数据记录列表，单次支持最多 500 条
+// 要插入的数据记录列表（JSON数组的字符串形式），单次支持最大记录数量500条
 //
-//示例值：[{\"name\":\"王一一\",\"gender\":\"male\",\"age\":10},{\"name\":\"王二二\",\"gender\":\"female\",\"age\":10}]
+// 示例值：[{\"name\":\"王一一\",\"gender\":\"male\",\"age\":10},{\"name\":\"王二二\",\"gender\":\"female\",\"age\":10}]
 func (builder *PostTableRecordsAppTableReqBodyBuilder) Records(records string) *PostTableRecordsAppTableReqBodyBuilder {
 	builder.records = records
 	builder.recordsSet = true
@@ -3475,7 +8515,7 @@ func NewPostTableRecordsAppTablePathReqBodyBuilder() *PostTableRecordsAppTablePa
 	return builder
 }
 
-// 要插入的数据记录列表，单次支持最多 500 条
+// 要插入的数据记录列表（JSON数组的字符串形式），单次支持最大记录数量500条
 //
 // 示例值：[{\"name\":\"王一一\",\"gender\":\"male\",\"age\":10},{\"name\":\"王二二\",\"gender\":\"female\",\"age\":10}]
 func (builder *PostTableRecordsAppTablePathReqBodyBuilder) Records(records string) *PostTableRecordsAppTablePathReqBodyBuilder {
@@ -3514,9 +8554,9 @@ func (builder *PostTableRecordsAppTableReqBuilder) AppId(appId string) *PostTabl
 	return builder
 }
 
-// 数据表表名
+// 妙搭数据表表名，必须属于 app_id 对应的妙搭应用，可从妙搭应用数据库管理中获取
 //
-// 示例值：table_name_1
+// 示例值：student_table
 func (builder *PostTableRecordsAppTableReqBuilder) TableName(tableName string) *PostTableRecordsAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("table_name", fmt.Sprint(tableName))
 	return builder
@@ -3540,13 +8580,13 @@ func (builder *PostTableRecordsAppTableReqBuilder) OnConflict(onConflict string)
 
 // 访问的 database 环境，默认为 online（线上环境）
 //
-// 示例值：online
+// 示例值：`online`、`dev`
 func (builder *PostTableRecordsAppTableReqBuilder) Env(env string) *PostTableRecordsAppTableReqBuilder {
 	builder.apiReq.QueryParams.Set("env", fmt.Sprint(env))
 	return builder
 }
 
-// 此次调用使用的用户 ID 类型，将使用指定的 ID 来标示某个用户在接口入参和出参中的值。;示例值：`miaoda_user_id`;可选值：;- `miaoda_user_id`：标识一个用户在飞书开发套件应用中的身份。示例值：1838493619298330;- `open_id`：标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。示例值：ou_bdbbd8f3f919829064b3ffc1b9476105 了解更多：如何获取 Open ID;- `union_id`：标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。示例值：on_b1b44199e8f3def4ebda5355409e2033 了解更多：如何获取 Union ID？;;默认值：`miaoda_user_id`
+// 此次调用使用的用户 ID 类型，将使用指定的 ID 来标示某个用户在接口入参和出参中的值。;示例值：`miaoda_user_id`;可选值：;- `miaoda_user_id`：标识一个用户在飞书开发套件应用中的身份。示例值：1838493619298330;- `open_id`：标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。示例值：ou_bdbbd8f3f919829064b3ffc1b9476105 了解更多：如何获取 Open ID;- `union_id`：标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。示例值：on_b1b44199e8f3def4ebda5355409e2033 了解更多：如何获取 Union ID？
 //
 // 示例值：miaoda_user_id
 func (builder *PostTableRecordsAppTableReqBuilder) UserIdentifierType(userIdentifierType string) *PostTableRecordsAppTableReqBuilder {
@@ -3554,7 +8594,7 @@ func (builder *PostTableRecordsAppTableReqBuilder) UserIdentifierType(userIdenti
 	return builder
 }
 
-// 向数据表中添加或更新记录
+// 向应用下的数据表中添加或更新记录。
 func (builder *PostTableRecordsAppTableReqBuilder) Body(body *PostTableRecordsAppTableReqBody) *PostTableRecordsAppTableReqBuilder {
 	builder.body = body
 	return builder
@@ -3570,7 +8610,7 @@ func (builder *PostTableRecordsAppTableReqBuilder) Build() *PostTableRecordsAppT
 }
 
 type PostTableRecordsAppTableReqBody struct {
-	Records *string `json:"records,omitempty"` // 要插入的数据记录列表，单次支持最多 500 条
+	Records *string `json:"records,omitempty"` // 要插入的数据记录列表（JSON数组的字符串形式），单次支持最大记录数量500条
 }
 
 type PostTableRecordsAppTableReq struct {
@@ -3613,9 +8653,9 @@ func (builder *GetViewRecordListAppViewReqBuilder) AppId(appId string) *GetViewR
 	return builder
 }
 
-// 视图名称
+// 妙搭视图表名，必须属于 app_id 对应的妙搭应用，可从妙搭应用数据库管理视图列表中获取
 //
-// 示例值：view_name_1
+// 示例值：student_table_view
 func (builder *GetViewRecordListAppViewReqBuilder) ViewName(viewName string) *GetViewRecordListAppViewReqBuilder {
 	builder.apiReq.PathParams.Set("view_name", fmt.Sprint(viewName))
 	return builder
@@ -3645,7 +8685,7 @@ func (builder *GetViewRecordListAppViewReqBuilder) Select(select_ string) *GetVi
 	return builder
 }
 
-// 筛选条件，尊许 PostgREST 语法，详情可查看 https://docs.postgrest.org/en/v13/references/api/tables_views.html#horizontal-filtering
+// 筛选条件，遵循 PostgREST 语法，详情可查看 https://docs.postgrest.org/en/v13/references/api/tables_views.html#horizontal-filtering
 //
 // 示例值：age=gt.10
 func (builder *GetViewRecordListAppViewReqBuilder) Filter(filter string) *GetViewRecordListAppViewReqBuilder {
@@ -3653,7 +8693,7 @@ func (builder *GetViewRecordListAppViewReqBuilder) Filter(filter string) *GetVie
 	return builder
 }
 
-// 排序条件，如果没指定 asc/desc，默认为 asc，null 值可排在最前或最后。;尊许 PostgREST 语法，详情可查看;https://docs.postgrest.org/en/v13/references/api/tables_views.html#ordering
+// 排序条件，如果没指定 asc/desc，默认为 asc，null 值可排在最前或最后。;遵循 PostgREST 语法，详情可查看;https://docs.postgrest.org/en/v13/references/api/tables_views.html#ordering
 //
 // 示例值：age.desc,score.asc
 func (builder *GetViewRecordListAppViewReqBuilder) Order(order string) *GetViewRecordListAppViewReqBuilder {
@@ -3663,13 +8703,13 @@ func (builder *GetViewRecordListAppViewReqBuilder) Order(order string) *GetViewR
 
 // 访问的 database 环境，默认为 online（线上环境）
 //
-// 示例值：online
+// 示例值：`online`、`dev`
 func (builder *GetViewRecordListAppViewReqBuilder) Env(env string) *GetViewRecordListAppViewReqBuilder {
 	builder.apiReq.QueryParams.Set("env", fmt.Sprint(env))
 	return builder
 }
 
-// 此次调用使用的用户 ID 类型，将使用指定的 ID 来标示某个用户在接口入参和出参中的值。;示例值：`miaoda_user_id`;可选值：;- `miaoda_user_id`：标识一个用户在飞书开发套件应用中的身份。示例值：1838493619298330;- `open_id`：标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。示例值：ou_bdbbd8f3f919829064b3ffc1b9476105 了解更多：如何获取 Open ID;- `union_id`：标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。示例值：on_b1b44199e8f3def4ebda5355409e2033 了解更多：如何获取 Union ID？;;默认值：`miaoda_user_id`
+// 此次调用使用的用户 ID 类型，将使用指定的 ID 来标示某个用户在接口入参和出参中的值。;示例值：`miaoda_user_id`;可选值：;- `miaoda_user_id`：标识一个用户在飞书开发套件应用中的身份。示例值：1838493619298330;- `open_id`：标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。示例值：ou_bdbbd8f3f919829064b3ffc1b9476105 了解更多：如何获取 Open ID;- `union_id`：标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。示例值：on_b1b44199e8f3def4ebda5355409e2033 了解更多：如何获取 Union ID？
 //
 // 示例值：miaoda_user_id
 func (builder *GetViewRecordListAppViewReqBuilder) UserIdentifierType(userIdentifierType string) *GetViewRecordListAppViewReqBuilder {
@@ -3710,10 +8750,10 @@ func (resp *GetViewRecordListAppViewResp) Success() bool {
 }
 
 type IdConvertDirectoryUserReqBodyBuilder struct {
-	idConvertType    int // ID 转换类型，枚举
+	idConvertType    int // ID 转换类型，枚举;设置为10、11、40时，ids需要传入妙搭用户 ID;设置为20时，需要传入飞书开平 OpenID;设置为21时，需要传入飞书开平 UnionID<br>
 	idConvertTypeSet bool
 
-	ids    []string // 长度最大100
+	ids    []string // 默认为空，为空时不返回
 	idsSet bool
 }
 
@@ -3722,18 +8762,18 @@ func NewIdConvertDirectoryUserReqBodyBuilder() *IdConvertDirectoryUserReqBodyBui
 	return builder
 }
 
-// ID 转换类型，枚举
+// ID 转换类型，枚举;设置为10、11、40时，ids需要传入妙搭用户 ID;设置为20时，需要传入飞书开平 OpenID;设置为21时，需要传入飞书开平 UnionID<br>
 //
-//示例值：
+// 示例值：10
 func (builder *IdConvertDirectoryUserReqBodyBuilder) IdConvertType(idConvertType int) *IdConvertDirectoryUserReqBodyBuilder {
 	builder.idConvertType = idConvertType
 	builder.idConvertTypeSet = true
 	return builder
 }
 
-// 长度最大100
+// 默认为空，为空时不返回
 //
-//示例值：
+// 示例值：
 func (builder *IdConvertDirectoryUserReqBodyBuilder) Ids(ids []string) *IdConvertDirectoryUserReqBodyBuilder {
 	builder.ids = ids
 	builder.idsSet = true
@@ -3763,16 +8803,16 @@ func NewIdConvertDirectoryUserPathReqBodyBuilder() *IdConvertDirectoryUserPathRe
 	return builder
 }
 
-// ID 转换类型，枚举
+// ID 转换类型，枚举;设置为10、11、40时，ids需要传入妙搭用户 ID;设置为20时，需要传入飞书开平 OpenID;设置为21时，需要传入飞书开平 UnionID<br>
 //
-// 示例值：
+// 示例值：10
 func (builder *IdConvertDirectoryUserPathReqBodyBuilder) IdConvertType(idConvertType int) *IdConvertDirectoryUserPathReqBodyBuilder {
 	builder.idConvertType = idConvertType
 	builder.idConvertTypeSet = true
 	return builder
 }
 
-// 长度最大100
+// 默认为空，为空时不返回
 //
 // 示例值：
 func (builder *IdConvertDirectoryUserPathReqBodyBuilder) Ids(ids []string) *IdConvertDirectoryUserPathReqBodyBuilder {
@@ -3806,7 +8846,7 @@ func NewIdConvertDirectoryUserReqBuilder() *IdConvertDirectoryUserReqBuilder {
 	return builder
 }
 
-// open api\nIDConvert: 飞书和force id转换\noapi.post = "/v1/directory/user/id_convert",
+// 转换飞书妙搭和飞书开放平台之间的用户 ID;#### 使用场景;适用于需要在飞书妙搭和飞书开放平台之间转换用户身份的场景;#### 实现方式;通过指定转换类型（id_convert_type）和待转换的 ID 列表（ids）实现指定 ID 转换
 func (builder *IdConvertDirectoryUserReqBuilder) Body(body *IdConvertDirectoryUserReqBody) *IdConvertDirectoryUserReqBuilder {
 	builder.body = body
 	return builder
@@ -3820,9 +8860,9 @@ func (builder *IdConvertDirectoryUserReqBuilder) Build() *IdConvertDirectoryUser
 }
 
 type IdConvertDirectoryUserReqBody struct {
-	IdConvertType *int `json:"id_convert_type,omitempty"` // ID 转换类型，枚举
+	IdConvertType *int `json:"id_convert_type,omitempty"` // ID 转换类型，枚举;设置为10、11、40时，ids需要传入妙搭用户 ID;设置为20时，需要传入飞书开平 OpenID;设置为21时，需要传入飞书开平 UnionID<br>
 
-	Ids []string `json:"ids,omitempty"` // 长度最大100
+	Ids []string `json:"ids,omitempty"` // 默认为空，为空时不返回
 }
 
 type IdConvertDirectoryUserReq struct {

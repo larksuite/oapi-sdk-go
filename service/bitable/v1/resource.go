@@ -9,18 +9,18 @@ import (
 )
 
 type V1 struct {
-	App                *app                // 多维表格
+	App                *app                // app
 	AppBlockWorkflow   *appBlockWorkflow   // app.block_workflow
-	AppDashboard       *appDashboard       // 仪表盘
-	AppRole            *appRole            // 自定义角色
-	AppRoleMember      *appRoleMember      // 协作者
-	AppTable           *appTable           // 数据表
-	AppTableField      *appTableField      // 字段
+	AppDashboard       *appDashboard       // app.dashboard
+	AppRole            *appRole            // app.role
+	AppRoleMember      *appRoleMember      // app.role.member
+	AppTable           *appTable           // app.table
+	AppTableField      *appTableField      // app.table.field
 	AppTableFieldGroup *appTableFieldGroup // app.table.field_group
-	AppTableForm       *appTableForm       // 表单
-	AppTableFormField  *appTableFormField  // 表单
-	AppTableRecord     *appTableRecord     // 记录
-	AppTableView       *appTableView       // 视图
+	AppTableForm       *appTableForm       // app.table.form
+	AppTableFormField  *appTableFormField  // app.table.form.field
+	AppTableRecord     *appTableRecord     // app.table.record
+	AppTableView       *appTableView       // app.table.view
 	AppWorkflow        *appWorkflow        // app.workflow
 }
 
@@ -82,9 +82,11 @@ type appWorkflow struct {
 	config *larkcore.Config
 }
 
-// Copy
+// Copy 复制多维表格
 //
-// -
+// - 复制一个多维表格，可以指定复制到某个有权限的文件夹下。
+//
+// - 当多维表格记录数超 50,000 条可复制上限时，仅可复制多维表格结构。;;## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格和目标文件夹的阅读、编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通云文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=copy&project=bitable&resource=app&version=v1
 //
@@ -108,9 +110,11 @@ func (a *app) Copy(ctx context.Context, req *CopyAppReq, options ...larkcore.Req
 	return resp, err
 }
 
-// Create
+// Create 创建多维表格
 //
-// -
+// - 在指定文件夹中创建一个多维表格，包含一个空白的数据表。
+//
+// - 要基于模板创建多维表格，可先获取模板多维表格 `app_token` 作为文件 token，再调用[复制文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/copy)接口创建多维表格。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=bitable&resource=app&version=v1
 //
@@ -136,11 +140,9 @@ func (a *app) Create(ctx context.Context, req *CreateAppReq, options ...larkcore
 
 // Get 获取多维表格元数据
 //
-// - 获取指定多维表格的元数据信息，包括多维表格名称，多维表格版本号，多维表格是否开启高级权限等。
+// - 获取指定多维表格的元数据信息，包括多维表格名称、多维表格版本号、多维表格是否开启高级权限等。
 //
-// - 该接口支持调用频率上限为 20 QPS（Query Per Second，每秒请求率）
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=bitable&resource=app&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/get_app.go
 func (a *app) Get(ctx context.Context, req *GetAppReq, options ...larkcore.RequestOptionFunc) (*GetAppResp, error) {
@@ -164,13 +166,9 @@ func (a *app) Get(ctx context.Context, req *GetAppReq, options ...larkcore.Reque
 
 // Update 更新多维表格元数据
 //
-// - 通过 app_token 更新多维表格元数据
+// - 更新多维表格元数据，包括多维表格的名称、是否开启高级权限。
 //
-// - - 飞书文档、飞书表格、知识库中的多维表格不支持开启高级权限;- 此接口非原子操作，先修改多维表格名字，后开关高级权限。可能存在部分成功的情况
-//
-// - 该接口支持调用频率上限为 10 QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=bitable&resource=app&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/update_app.go
 func (a *app) Update(ctx context.Context, req *UpdateAppReq, options ...larkcore.RequestOptionFunc) (*UpdateAppResp, error) {
@@ -192,9 +190,9 @@ func (a *app) Update(ctx context.Context, req *UpdateAppReq, options ...larkcore
 	return resp, err
 }
 
-// List
+// List 列出工作流
 //
-// - 列出工作流
+// - 此接口用于返回多维表格中所有工作流，多维表格管理员可通过此接口来管理表中的工作流
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=bitable&resource=app.block_workflow&version=v1
 //
@@ -220,9 +218,11 @@ func (a *appBlockWorkflow) List(ctx context.Context, req *ListAppBlockWorkflowRe
 
 // Copy 复制仪表盘
 //
-// - 该接口用于根据现有仪表盘复制出新的仪表盘
+// - 基于现有仪表盘复制出新的仪表盘。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-dashboard/copy
+// - ## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有原多维表格的阅读权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=copy&project=bitable&resource=app.dashboard&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/copy_appDashboard.go
 func (a *appDashboard) Copy(ctx context.Context, req *CopyAppDashboardReq, options ...larkcore.RequestOptionFunc) (*CopyAppDashboardResp, error) {
@@ -246,11 +246,11 @@ func (a *appDashboard) Copy(ctx context.Context, req *CopyAppDashboardReq, optio
 
 // List 列出仪表盘
 //
-// - 根据 app_token，获取多维表格下的所有仪表盘
+// - 获取多维表格中的所有仪表盘。
 //
-// - 该接口支持调用频率上限为 20 QPS
+// - ## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格的阅读等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-dashboard/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=bitable&resource=app.dashboard&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/list_appDashboard.go
 func (a *appDashboard) List(ctx context.Context, req *ListAppDashboardReq, options ...larkcore.RequestOptionFunc) (*ListAppDashboardResp, error) {
@@ -282,9 +282,11 @@ func (a *appDashboard) ListByIterator(ctx context.Context, req *ListAppDashboard
 
 // Create 新增自定义角色
 //
-// - 新增自定义角色
+// - 新增多维表格高级权限中自定义的角色。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/create
+// - 推荐使用新版[新增自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/advanced-permission/base-v2/app-role/create)接口，支持高级权限 2.0 版本新增的权限点位，包括更精细的行级别权限控制、多维表格的复制、导出点位的控制等。;;## 前提条件;;要调用自定义角色相关接口，你需确保多维表格已开启高级权限。你可通过[更新多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update)接口开启高级权限。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=bitable&resource=app.role&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/create_appRole.go
 func (a *appRole) Create(ctx context.Context, req *CreateAppRoleReq, options ...larkcore.RequestOptionFunc) (*CreateAppRoleResp, error) {
@@ -308,9 +310,11 @@ func (a *appRole) Create(ctx context.Context, req *CreateAppRoleReq, options ...
 
 // Delete 删除自定义角色
 //
-// - 删除自定义角色
+// - 删除多维表格高级权限中自定义的角色。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/delete
+// - ## 前提条件;;要调用自定义角色相关接口，你需确保多维表格已开启高级权限。你可通过[更新多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update)接口开启高级权限。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=bitable&resource=app.role&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/delete_appRole.go
 func (a *appRole) Delete(ctx context.Context, req *DeleteAppRoleReq, options ...larkcore.RequestOptionFunc) (*DeleteAppRoleResp, error) {
@@ -334,9 +338,11 @@ func (a *appRole) Delete(ctx context.Context, req *DeleteAppRoleReq, options ...
 
 // List 列出自定义角色
 //
-// - 列出自定义角色
+// - 列出多维表格高级权限中用户自定义的角色。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/list
+// - 推荐使用新版[列出自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/advanced-permission/base-v2/app-role/list)接口，支持高级权限 2.0 版本新增的权限点位，包括更精细的行级别权限控制、多维表格的复制、导出点位的控制等。;;## 前提条件;;要调用自定义角色相关接口，你需确保多维表格已开启高级权限。你可通过[更新多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update)接口开启高级权限。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=bitable&resource=app.role&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/list_appRole.go
 func (a *appRole) List(ctx context.Context, req *ListAppRoleReq, options ...larkcore.RequestOptionFunc) (*ListAppRoleResp, error) {
@@ -368,11 +374,11 @@ func (a *appRole) ListByIterator(ctx context.Context, req *ListAppRoleReq, optio
 
 // Update 更新自定义角色
 //
-// - 更新自定义角色
+// - 更新多维表格高级权限中自定义的角色。
 //
-// - 更新自定义角色是全量更新，会完全覆盖旧的自定义角色设置
+// - 更新自定义角色为增量更新，仅对传值的字段进行更新，不传值则不更新。推荐使用新版[更新自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/advanced-permission/base-v2/app-role/update)接口，支持高级权限 2.0 版本新增的权限点位，包括更精细的行级别权限控制、多维表格的复制、导出点位的控制等。;;## 前提条件;;要调用自定义角色相关接口，你需确保多维表格已开启高级权限。你可通过[更新多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update)接口开启高级权限。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=bitable&resource=app.role&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/update_appRole.go
 func (a *appRole) Update(ctx context.Context, req *UpdateAppRoleReq, options ...larkcore.RequestOptionFunc) (*UpdateAppRoleResp, error) {
@@ -396,9 +402,11 @@ func (a *appRole) Update(ctx context.Context, req *UpdateAppRoleReq, options ...
 
 // BatchCreate 批量新增协作者
 //
-// - 批量新增自定义角色的协作者
+// - 批量新增多维表格高级权限中自定义角色的协作者。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/batch_create
+// - ## 前提条件;;要调用协作者相关接口，你需确保多维表格已开启高级权限并设置了自定义角色。你可通过[更新多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update)接口开启高级权限，通过[新增自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/create)接口设置自定义角色。;
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=bitable&resource=app.role.member&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/batchCreate_appRoleMember.go
 func (a *appRoleMember) BatchCreate(ctx context.Context, req *BatchCreateAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*BatchCreateAppRoleMemberResp, error) {
@@ -422,9 +430,11 @@ func (a *appRoleMember) BatchCreate(ctx context.Context, req *BatchCreateAppRole
 
 // BatchDelete 批量删除协作者
 //
-// - 批量删除自定义角色的协作者
+// - 删除多维表格高级权限中自定义角色的协作者。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/batch_delete
+// - ## 前提条件;;要调用协作者相关接口，你需确保多维表格已开启高级权限并设置了自定义角色。你可通过[更新多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update)接口开启高级权限，通过[新增自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/create)接口设置自定义角色。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=bitable&resource=app.role.member&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/batchDelete_appRoleMember.go
 func (a *appRoleMember) BatchDelete(ctx context.Context, req *BatchDeleteAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteAppRoleMemberResp, error) {
@@ -448,9 +458,9 @@ func (a *appRoleMember) BatchDelete(ctx context.Context, req *BatchDeleteAppRole
 
 // Create 新增协作者
 //
-// - 新增自定义角色的协作者
+// - 新增多维表格高级权限中自定义角色的协作者。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=bitable&resource=app.role.member&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/create_appRoleMember.go
 func (a *appRoleMember) Create(ctx context.Context, req *CreateAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*CreateAppRoleMemberResp, error) {
@@ -474,9 +484,11 @@ func (a *appRoleMember) Create(ctx context.Context, req *CreateAppRoleMemberReq,
 
 // Delete 删除协作者
 //
-// - 删除自定义角色的协作者
+// - 删除多维表格高级权限中自定义角色的协作者。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/delete
+// - ## 前提条件;;要调用协作者相关接口，你需确保多维表格已开启高级权限并设置了自定义角色。你可通过[更新多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update)接口开启高级权限，通过[新增自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/create)接口设置自定义角色。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=bitable&resource=app.role.member&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/delete_appRoleMember.go
 func (a *appRoleMember) Delete(ctx context.Context, req *DeleteAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*DeleteAppRoleMemberResp, error) {
@@ -500,9 +512,11 @@ func (a *appRoleMember) Delete(ctx context.Context, req *DeleteAppRoleMemberReq,
 
 // List 列出协作者
 //
-// - 列出自定义角色的协作者
+// - 列出多维表格高级权限中自定义角色的协作者。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/list
+// - ## 前提条件;;要调用协作者相关接口，你需确保多维表格已开启高级权限并设置了自定义角色。你可通过[更新多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update)接口开启高级权限，通过[新增自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/create)接口设置自定义角色。;
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=bitable&resource=app.role.member&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/list_appRoleMember.go
 func (a *appRoleMember) List(ctx context.Context, req *ListAppRoleMemberReq, options ...larkcore.RequestOptionFunc) (*ListAppRoleMemberResp, error) {
@@ -534,11 +548,11 @@ func (a *appRoleMember) ListByIterator(ctx context.Context, req *ListAppRoleMemb
 
 // BatchCreate 新增多个数据表
 //
-// - 新增多个数据表
+// - 新增多个数据表，仅可指定数据表名称。
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - ## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格的编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。;;## 使用限制;;每个多维表格中，数据表与仪表盘的总数量上限为 100。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/batch_create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=bitable&resource=app.table&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/batchCreate_appTable.go
 func (a *appTable) BatchCreate(ctx context.Context, req *BatchCreateAppTableReq, options ...larkcore.RequestOptionFunc) (*BatchCreateAppTableResp, error) {
@@ -562,11 +576,11 @@ func (a *appTable) BatchCreate(ctx context.Context, req *BatchCreateAppTableReq,
 
 // BatchDelete 删除多个数据表
 //
-// - 删除多个数据表
+// - 通过 app_token 和 table_id 删除多个数据表。
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - ## 注意事项;;如果多维表格中只剩最后一张数据表，则不允许被删除。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/batch_delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=bitable&resource=app.table&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/batchDelete_appTable.go
 func (a *appTable) BatchDelete(ctx context.Context, req *BatchDeleteAppTableReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteAppTableResp, error) {
@@ -588,13 +602,13 @@ func (a *appTable) BatchDelete(ctx context.Context, req *BatchDeleteAppTableReq,
 	return resp, err
 }
 
-// Create 新增数据表
+// Create 新增一个数据表
 //
-// - 新增一个数据表
+// - 新增一个数据表，支持传入数据表名称、视图名称和字段。
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - ## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格的编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。;;## 使用限制;;每个多维表格中，数据表与仪表盘的总数量上限为 100。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=bitable&resource=app.table&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/create_appTable.go
 func (a *appTable) Create(ctx context.Context, req *CreateAppTableReq, options ...larkcore.RequestOptionFunc) (*CreateAppTableResp, error) {
@@ -616,13 +630,13 @@ func (a *appTable) Create(ctx context.Context, req *CreateAppTableReq, options .
 	return resp, err
 }
 
-// Delete 删除数据表
+// Delete 删除一个数据表
 //
-// - 删除一个数据表
+// - 通过 app_token 和 table_id 删除指定的多维表格数据表。
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - ## 注意事项;;如果多维表格中只剩最后一张数据表，则不允许被删除。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=bitable&resource=app.table&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/delete_appTable.go
 func (a *appTable) Delete(ctx context.Context, req *DeleteAppTableReq, options ...larkcore.RequestOptionFunc) (*DeleteAppTableResp, error) {
@@ -646,11 +660,9 @@ func (a *appTable) Delete(ctx context.Context, req *DeleteAppTableReq, options .
 
 // List 列出数据表
 //
-// - 根据  app_token，获取多维表格下的所有数据表
+// - 列出多维表格中的所有数据表，包括其 ID、版本号和名称。
 //
-// - 该接口支持调用频率上限为 20 QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=bitable&resource=app.table&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/list_appTable.go
 func (a *appTable) List(ctx context.Context, req *ListAppTableReq, options ...larkcore.RequestOptionFunc) (*ListAppTableResp, error) {
@@ -680,11 +692,11 @@ func (a *appTable) ListByIterator(ctx context.Context, req *ListAppTableReq, opt
 		limit:    req.Limit}, nil
 }
 
-// Patch
+// Patch 更新数据表
 //
-// -
+// - 更新数据表的名称。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=bitable&resource=app.table&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/patch_appTable.go
 func (a *appTable) Patch(ctx context.Context, req *PatchAppTableReq, options ...larkcore.RequestOptionFunc) (*PatchAppTableResp, error) {
@@ -708,11 +720,11 @@ func (a *appTable) Patch(ctx context.Context, req *PatchAppTableReq, options ...
 
 // Create 新增字段
 //
-// - 该接口用于在数据表中新增一个字段
+// - 在多维表格数据表中新增一个字段。
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - ## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格的编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=bitable&resource=app.table.field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/create_appTableField.go
 func (a *appTableField) Create(ctx context.Context, req *CreateAppTableFieldReq, options ...larkcore.RequestOptionFunc) (*CreateAppTableFieldResp, error) {
@@ -736,11 +748,9 @@ func (a *appTableField) Create(ctx context.Context, req *CreateAppTableFieldReq,
 
 // Delete 删除字段
 //
-// - 该接口用于在数据表中删除一个字段
+// - 删除多维表格数据表中的一个字段。
 //
-// - 该接口支持调用频率上限为 10 QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=bitable&resource=app.table.field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/delete_appTableField.go
 func (a *appTableField) Delete(ctx context.Context, req *DeleteAppTableFieldReq, options ...larkcore.RequestOptionFunc) (*DeleteAppTableFieldResp, error) {
@@ -764,11 +774,9 @@ func (a *appTableField) Delete(ctx context.Context, req *DeleteAppTableFieldReq,
 
 // List 列出字段
 //
-// - 根据 app_token 和 table_id，获取数据表的所有字段
+// - 获取多维表格数据表中的的所有字段。
 //
-// - 该接口支持调用频率上限为 20 QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=bitable&resource=app.table.field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/list_appTableField.go
 func (a *appTableField) List(ctx context.Context, req *ListAppTableFieldReq, options ...larkcore.RequestOptionFunc) (*ListAppTableFieldResp, error) {
@@ -800,11 +808,11 @@ func (a *appTableField) ListByIterator(ctx context.Context, req *ListAppTableFie
 
 // Update 更新字段
 //
-// - 该接口用于在数据表中更新一个字段
+// - 在多维表格数据表中更新一个字段。更新字段时为全量更新，property 等字段会被完全覆盖。
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - ## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格的编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=bitable&resource=app.table.field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/update_appTableField.go
 func (a *appTableField) Update(ctx context.Context, req *UpdateAppTableFieldReq, options ...larkcore.RequestOptionFunc) (*UpdateAppTableFieldResp, error) {
@@ -826,9 +834,9 @@ func (a *appTableField) Update(ctx context.Context, req *UpdateAppTableFieldReq,
 	return resp, err
 }
 
-// Create
+// Create 创建字段编组
 //
-// - 新增字段编组
+// - 该接口用于为多维表格数据表的字段创建编组。创建字段编组后，字段将被组织到该编组中，便于多维表格的数据管理;#### 业务使用场景;适用于多维表格字段较多，需要分类管理字段的场景
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=bitable&resource=app.table.field_group&version=v1
 //
@@ -854,11 +862,11 @@ func (a *appTableFieldGroup) Create(ctx context.Context, req *CreateAppTableFiel
 
 // Get 获取表单元数据
 //
-// - 获取表单的所有元数据项
+// - 获取表单的所有元数据，包括表单名称、描述、是否共享等。
 //
-// - 该接口支持调用频率上限为 20 QPS
+// - 表单视图是多维表格的一种视图类型。每个表单都有唯一标识 `form_id`，即当前视图的 `view_id`。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=bitable&resource=app.table.form&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/get_appTableForm.go
 func (a *appTableForm) Get(ctx context.Context, req *GetAppTableFormReq, options ...larkcore.RequestOptionFunc) (*GetAppTableFormResp, error) {
@@ -882,11 +890,11 @@ func (a *appTableForm) Get(ctx context.Context, req *GetAppTableFormReq, options
 
 // Patch 更新表单元数据
 //
-// - 该接口用于更新表单中的元数据项
+// - 更新表单视图中的元数据，包括表单名称、描述、是否共享等。
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - 表单视图是多维表格的一种视图类型。每个表单都有唯一标识 `form_id`，即当前视图的 `view_id`。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=bitable&resource=app.table.form&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/patch_appTableForm.go
 func (a *appTableForm) Patch(ctx context.Context, req *PatchAppTableFormReq, options ...larkcore.RequestOptionFunc) (*PatchAppTableFormResp, error) {
@@ -908,9 +916,9 @@ func (a *appTableForm) Patch(ctx context.Context, req *PatchAppTableFormReq, opt
 	return resp, err
 }
 
-// Upgrade
+// Upgrade 升级旧版表单
 //
-// - 升级表单
+// - 升级旧版表单至收集表
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upgrade&project=bitable&resource=app.table.form&version=v1
 //
@@ -936,11 +944,9 @@ func (a *appTableForm) Upgrade(ctx context.Context, req *UpgradeAppTableFormReq,
 
 // List 列出表单问题
 //
-// - 列出表单的所有问题项
+// - 列出表单中的所有问题项。
 //
-// - 该接口支持调用频率上限为 20 QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form-field/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=bitable&resource=app.table.form.field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/list_appTableFormField.go
 func (a *appTableFormField) List(ctx context.Context, req *ListAppTableFormFieldReq, options ...larkcore.RequestOptionFunc) (*ListAppTableFormFieldResp, error) {
@@ -972,11 +978,11 @@ func (a *appTableFormField) ListByIterator(ctx context.Context, req *ListAppTabl
 
 // Patch 更新表单问题
 //
-// - 该接口用于更新表单中的问题项
+// - 更新表单中的问题项。
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - 表单视图是多维表格的一种视图类型。每个表单都有唯一标识 `form_id`，即当前视图的 `view_id`。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form-field/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=bitable&resource=app.table.form.field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/patch_appTableFormField.go
 func (a *appTableFormField) Patch(ctx context.Context, req *PatchAppTableFormFieldReq, options ...larkcore.RequestOptionFunc) (*PatchAppTableFormFieldResp, error) {
@@ -1000,11 +1006,11 @@ func (a *appTableFormField) Patch(ctx context.Context, req *PatchAppTableFormFie
 
 // BatchCreate 新增多条记录
 //
-// - 该接口用于在数据表中新增多条记录，单次调用最多新增 500 条记录。
+// - 在多维表格数据表中新增多条记录，单次调用最多新增 1,000 条记录。
 //
-// - 该接口支持调用频率上限为 10 QPS（Query Per Second，每秒请求率）
+// - ## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格的编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。;;## 注意事项;;从其它数据源同步的数据表，不支持对记录进行增加、删除、和修改操作。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=bitable&resource=app.table.record&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/batchCreate_appTableRecord.go
 func (a *appTableRecord) BatchCreate(ctx context.Context, req *BatchCreateAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*BatchCreateAppTableRecordResp, error) {
@@ -1028,11 +1034,11 @@ func (a *appTableRecord) BatchCreate(ctx context.Context, req *BatchCreateAppTab
 
 // BatchDelete 删除多条记录
 //
-// - 该接口用于删除数据表中现有的多条记录，单次调用中最多删除 500 条记录。
+// - 删除多维表格数据表中现有的多条记录。
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - ## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格的编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。;## 注意事项;;- 从其它数据源同步的数据表，不支持开发者对记录进行增加、删除、和修改操作。;- 单次调用中最多删除 500 条记录。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=bitable&resource=app.table.record&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/batchDelete_appTableRecord.go
 func (a *appTableRecord) BatchDelete(ctx context.Context, req *BatchDeleteAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteAppTableRecordResp, error) {
@@ -1054,9 +1060,9 @@ func (a *appTableRecord) BatchDelete(ctx context.Context, req *BatchDeleteAppTab
 	return resp, err
 }
 
-// BatchGet
+// BatchGet 批量获取记录
 //
-// - 批量获取多维表格记录
+// - 通过多个记录 ID 查询记录信息。该接口最多支持查询 100 条记录。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=bitable&resource=app.table.record&version=v1
 //
@@ -1082,11 +1088,11 @@ func (a *appTableRecord) BatchGet(ctx context.Context, req *BatchGetAppTableReco
 
 // BatchUpdate 更新多条记录
 //
-// - 该接口用于更新数据表中的多条记录，单次调用最多更新 500 条记录。
+// - 更新数据表中的多条记录，单次调用最多更新 1,000 条记录。
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - ## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格的编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。;## 注意事项;从其它数据源同步的数据表，不支持对记录进行增加、删除、和修改操作。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=bitable&resource=app.table.record&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/batchUpdate_appTableRecord.go
 func (a *appTableRecord) BatchUpdate(ctx context.Context, req *BatchUpdateAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateAppTableRecordResp, error) {
@@ -1110,11 +1116,11 @@ func (a *appTableRecord) BatchUpdate(ctx context.Context, req *BatchUpdateAppTab
 
 // Create 新增记录
 //
-// - 该接口用于在数据表中新增一条记录
+// - 在多维表格数据表中新增一条记录。
 //
-// - 该接口支持调用频率上限为 10 QPS（Query Per Second，每秒请求率）
+// - ## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格的编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。;;;## 注意事项;;从其它数据源同步的数据表，不支持对记录进行增加、删除、和修改操作。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=bitable&resource=app.table.record&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/create_appTableRecord.go
 func (a *appTableRecord) Create(ctx context.Context, req *CreateAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*CreateAppTableRecordResp, error) {
@@ -1138,11 +1144,11 @@ func (a *appTableRecord) Create(ctx context.Context, req *CreateAppTableRecordRe
 
 // Delete 删除记录
 //
-// - 该接口用于删除数据表中的一条记录
+// - 删除多维表格数据表中的一条记录。
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - ## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格的编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。;;;## 注意事项;;从其它数据源同步的数据表，不支持对记录进行增加、删除、和修改操作。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=bitable&resource=app.table.record&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/delete_appTableRecord.go
 func (a *appTableRecord) Delete(ctx context.Context, req *DeleteAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*DeleteAppTableRecordResp, error) {
@@ -1166,11 +1172,11 @@ func (a *appTableRecord) Delete(ctx context.Context, req *DeleteAppTableRecordRe
 
 // Get 检索记录
 //
-// - 该接口用于根据 record_id 的值检索现有记录
+// - 该接口用于根据 record_id 的值检索现有记录。
 //
-// - 该接口支持调用频率上限为 20 QPS
+// - 该接口为历史版本接口，已不推荐使用。你可使用新版[批量获取记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_get)接口。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=bitable&resource=app.table.record&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/get_appTableRecord.go
 func (a *appTableRecord) Get(ctx context.Context, req *GetAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*GetAppTableRecordResp, error) {
@@ -1196,9 +1202,9 @@ func (a *appTableRecord) Get(ctx context.Context, req *GetAppTableRecordReq, opt
 //
 // - 该接口用于列出数据表中的现有记录，单次最多列出 500 行记录，支持分页获取。
 //
-// - 该接口支持调用频率上限为 10 QPS（Query Per Second，每秒请求率），1000 QPM（Query Per Minute，每分钟请求率）
+// - ::: note;该接口为历史接口，已不推荐使用。你可使用[查询记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/search)替代。;:::
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=bitable&resource=app.table.record&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/list_appTableRecord.go
 func (a *appTableRecord) List(ctx context.Context, req *ListAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*ListAppTableRecordResp, error) {
@@ -1228,9 +1234,11 @@ func (a *appTableRecord) ListByIterator(ctx context.Context, req *ListAppTableRe
 		limit:    req.Limit}, nil
 }
 
-// Search
+// Search 查询记录
 //
-// - 查找多维表格记录
+// - 该接口用于查询数据表中的现有记录，单次最多查询 500 行记录，支持分页获取。
+//
+// - ## 注意事项;;若多维表格开启了高级权限，你需确保调用身份拥有多维表格的可管理权限，否则可能出现调用成功但返回数据为空的情况。了解具体步骤，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=bitable&resource=app.table.record&version=v1
 //
@@ -1264,11 +1272,11 @@ func (a *appTableRecord) SearchByIterator(ctx context.Context, req *SearchAppTab
 
 // Update 更新记录
 //
-// - 该接口用于更新数据表中的一条记录
+// - 更新多维表格数据表中的一条记录。
 //
-// - 该接口支持调用频率上限为 10 QPS（Query Per Second，每秒请求率）
+// - ## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格的编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。;;## 注意事项;;;- 从其它数据源同步的数据表，不支持对记录进行增加、删除、和修改操作。;- 更新记录为增量更新，仅更新传入的字段。如果想对记录中的某个字段值置空，可将字段设为 null，例如：;```json;{; "fields": {; "文本字段": null; };};```
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=bitable&resource=app.table.record&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/update_appTableRecord.go
 func (a *appTableRecord) Update(ctx context.Context, req *UpdateAppTableRecordReq, options ...larkcore.RequestOptionFunc) (*UpdateAppTableRecordResp, error) {
@@ -1292,11 +1300,11 @@ func (a *appTableRecord) Update(ctx context.Context, req *UpdateAppTableRecordRe
 
 // Create 新增视图
 //
-// - 在数据表中新增一个视图
+// - 在多维表格数据表中新增一个视图，可指定视图类型，包括表格视图、看板视图、画册视图、甘特视图和表单视图。
 //
-// - 该接口支持调用频率上限为 10 QPS
+// - ## 使用限制;;视图最大支持数量为 200，包括公共视图、锁定视图和个人视图。因此个人在多维表格中看到的视图数量可能仅是部分视图。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=bitable&resource=app.table.view&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/create_appTableView.go
 func (a *appTableView) Create(ctx context.Context, req *CreateAppTableViewReq, options ...larkcore.RequestOptionFunc) (*CreateAppTableViewResp, error) {
@@ -1320,11 +1328,9 @@ func (a *appTableView) Create(ctx context.Context, req *CreateAppTableViewReq, o
 
 // Delete 删除视图
 //
-// - 删除数据表中的视图
+// - 通过 app_token、table_id 和 view_id，删除多维表格数据表中的指定视图。
 //
-// - 该接口支持调用频率上限为 10 QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=bitable&resource=app.table.view&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/delete_appTableView.go
 func (a *appTableView) Delete(ctx context.Context, req *DeleteAppTableViewReq, options ...larkcore.RequestOptionFunc) (*DeleteAppTableViewResp, error) {
@@ -1346,11 +1352,11 @@ func (a *appTableView) Delete(ctx context.Context, req *DeleteAppTableViewReq, o
 	return resp, err
 }
 
-// Get 检索视图
+// Get 获取视图
 //
-// - 该接口根据 view_id 检索现有视图
+// - 根据视图 ID 获取现有视图信息，包括视图名称、类型、属性等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=bitable&resource=app.table.view&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/get_appTableView.go
 func (a *appTableView) Get(ctx context.Context, req *GetAppTableViewReq, options ...larkcore.RequestOptionFunc) (*GetAppTableViewResp, error) {
@@ -1374,11 +1380,9 @@ func (a *appTableView) Get(ctx context.Context, req *GetAppTableViewReq, options
 
 // List 列出视图
 //
-// - 根据 app_token 和 table_id，获取数据表的所有视图
+// - 获取多维表格数据表中的所有视图。
 //
-// - 该接口支持调用频率上限为 20 QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=bitable&resource=app.table.view&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/list_appTableView.go
 func (a *appTableView) List(ctx context.Context, req *ListAppTableViewReq, options ...larkcore.RequestOptionFunc) (*ListAppTableViewResp, error) {
@@ -1410,9 +1414,9 @@ func (a *appTableView) ListByIterator(ctx context.Context, req *ListAppTableView
 
 // Patch 更新视图
 //
-// - 该接口用于增量修改视图信息
+// - 增量更新视图信息，包括视图名称、属性等，可设置视图的筛选条件。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=bitable&resource=app.table.view&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/bitablev1/patch_appTableView.go
 func (a *appTableView) Patch(ctx context.Context, req *PatchAppTableViewReq, options ...larkcore.RequestOptionFunc) (*PatchAppTableViewResp, error) {
@@ -1434,9 +1438,9 @@ func (a *appTableView) Patch(ctx context.Context, req *PatchAppTableViewReq, opt
 	return resp, err
 }
 
-// List
+// List 列出自动化流程
 //
-// -
+// - 该接口用于列出多维表格的自动化流程。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=bitable&resource=app.workflow&version=v1
 //
@@ -1460,9 +1464,9 @@ func (a *appWorkflow) List(ctx context.Context, req *ListAppWorkflowReq, options
 	return resp, err
 }
 
-// Update
+// Update 更新自动化流程状态
 //
-// -
+// - 开启或关闭自动化流程。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=bitable&resource=app.workflow&version=v1
 //

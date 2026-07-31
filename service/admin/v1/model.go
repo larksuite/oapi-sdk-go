@@ -27,8 +27,8 @@ import (
 )
 
 const (
-	ApiMGetDepartmentDailyStatisticsDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	ApiMGetDepartmentDailyStatisticsDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	ApiMGetDepartmentDailyStatisticsDepartmentIDTypeDepartmentId     = "department_id"      // 部门的 ID
+	ApiMGetDepartmentDailyStatisticsDepartmentIDTypeOpenDepartmentId = "open_department_id" // 部门的 Open ID
 )
 
 const (
@@ -38,8 +38,8 @@ const (
 )
 
 const (
-	ApiMGetUserDailyStatisticsDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	ApiMGetUserDailyStatisticsDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	ApiMGetUserDailyStatisticsDepartmentIDTypeDepartmentId     = "department_id"      // 部门的 ID
+	ApiMGetUserDailyStatisticsDepartmentIDTypeOpenDepartmentId = "open_department_id" // 部门的 Open ID
 )
 
 const (
@@ -255,7 +255,7 @@ type AdminDeptStat struct {
 
 	DepartmentId *string `json:"department_id,omitempty"` // 部门的department_id 或者open_department_id
 
-	DepartmentName *string `json:"department_name,omitempty"` // 部门名字
+	DepartmentName *string `json:"department_name,omitempty"` // 部门名
 
 	DepartmentPath *string `json:"department_path,omitempty"` // 部门路径
 
@@ -301,7 +301,7 @@ type AdminDeptStat struct {
 
 	VcDau *int `json:"vc_dau,omitempty"` // 音视频会议活跃人数
 
-	VcDuration *int `json:"vc_duration,omitempty"` // 会议时长：企业内员工参与通话与会议的总时长（分钟）
+	VcDuration *int `json:"vc_duration,omitempty"` // 会议时长（分钟）
 
 	AvgVcDuration *string `json:"avg_vc_duration,omitempty"` // 人均会议时长（分钟）
 
@@ -345,7 +345,7 @@ type AdminDeptStatBuilder struct {
 	departmentId    string // 部门的department_id 或者open_department_id
 	departmentIdSet bool
 
-	departmentName    string // 部门名字
+	departmentName    string // 部门名
 	departmentNameSet bool
 
 	departmentPath    string // 部门路径
@@ -414,7 +414,7 @@ type AdminDeptStatBuilder struct {
 	vcDau    int // 音视频会议活跃人数
 	vcDauSet bool
 
-	vcDuration    int // 会议时长：企业内员工参与通话与会议的总时长（分钟）
+	vcDuration    int // 会议时长（分钟）
 	vcDurationSet bool
 
 	avgVcDuration    string // 人均会议时长（分钟）
@@ -492,7 +492,7 @@ func (builder *AdminDeptStatBuilder) DepartmentId(departmentId string) *AdminDep
 	return builder
 }
 
-// 部门名字
+// 部门名
 //
 // 示例值：subtestkkk
 func (builder *AdminDeptStatBuilder) DepartmentName(departmentName string) *AdminDeptStatBuilder {
@@ -512,7 +512,7 @@ func (builder *AdminDeptStatBuilder) DepartmentPath(departmentPath string) *Admi
 
 // 部门总人数
 //
-// 示例值：2
+// 示例值：211
 func (builder *AdminDeptStatBuilder) TotalUserNum(totalUserNum int) *AdminDeptStatBuilder {
 	builder.totalUserNum = totalUserNum
 	builder.totalUserNumSet = true
@@ -521,7 +521,7 @@ func (builder *AdminDeptStatBuilder) TotalUserNum(totalUserNum int) *AdminDeptSt
 
 // 激活人数
 //
-// 示例值：0
+// 示例值：23
 func (builder *AdminDeptStatBuilder) ActiveUserNum(activeUserNum int) *AdminDeptStatBuilder {
 	builder.activeUserNum = activeUserNum
 	builder.activeUserNumSet = true
@@ -539,7 +539,7 @@ func (builder *AdminDeptStatBuilder) ActiveUserRate(activeUserRate string) *Admi
 
 // 活跃人数
 //
-// 示例值：0
+// 示例值：23
 func (builder *AdminDeptStatBuilder) SuiteDau(suiteDau int) *AdminDeptStatBuilder {
 	builder.suiteDau = suiteDau
 	builder.suiteDauSet = true
@@ -548,7 +548,7 @@ func (builder *AdminDeptStatBuilder) SuiteDau(suiteDau int) *AdminDeptStatBuilde
 
 // 活跃率
 //
-// 示例值：0.00
+// 示例值：1.00
 func (builder *AdminDeptStatBuilder) SuiteActiveRate(suiteActiveRate string) *AdminDeptStatBuilder {
 	builder.suiteActiveRate = suiteActiveRate
 	builder.suiteActiveRateSet = true
@@ -557,7 +557,7 @@ func (builder *AdminDeptStatBuilder) SuiteActiveRate(suiteActiveRate string) *Ad
 
 // 新用户数
 //
-// 示例值：0
+// 示例值：54
 func (builder *AdminDeptStatBuilder) NewUserNum(newUserNum int) *AdminDeptStatBuilder {
 	builder.newUserNum = newUserNum
 	builder.newUserNumSet = true
@@ -566,7 +566,7 @@ func (builder *AdminDeptStatBuilder) NewUserNum(newUserNum int) *AdminDeptStatBu
 
 // 新激活数
 //
-// 示例值：0
+// 示例值：64
 func (builder *AdminDeptStatBuilder) NewActiveNum(newActiveNum int) *AdminDeptStatBuilder {
 	builder.newActiveNum = newActiveNum
 	builder.newActiveNumSet = true
@@ -575,7 +575,7 @@ func (builder *AdminDeptStatBuilder) NewActiveNum(newActiveNum int) *AdminDeptSt
 
 // 离职人数
 //
-// 示例值：0
+// 示例值：61
 func (builder *AdminDeptStatBuilder) ResignUserNum(resignUserNum int) *AdminDeptStatBuilder {
 	builder.resignUserNum = resignUserNum
 	builder.resignUserNumSet = true
@@ -584,7 +584,7 @@ func (builder *AdminDeptStatBuilder) ResignUserNum(resignUserNum int) *AdminDept
 
 // 消息活跃人数
 //
-// 示例值：0
+// 示例值：45
 func (builder *AdminDeptStatBuilder) ImDau(imDau int) *AdminDeptStatBuilder {
 	builder.imDau = imDau
 	builder.imDauSet = true
@@ -593,7 +593,7 @@ func (builder *AdminDeptStatBuilder) ImDau(imDau int) *AdminDeptStatBuilder {
 
 // 发送消息人数
 //
-// 示例值：0
+// 示例值：43
 func (builder *AdminDeptStatBuilder) SendMessengerUserNum(sendMessengerUserNum int) *AdminDeptStatBuilder {
 	builder.sendMessengerUserNum = sendMessengerUserNum
 	builder.sendMessengerUserNumSet = true
@@ -602,7 +602,7 @@ func (builder *AdminDeptStatBuilder) SendMessengerUserNum(sendMessengerUserNum i
 
 // 发送消息数
 //
-// 示例值：0
+// 示例值：4456
 func (builder *AdminDeptStatBuilder) SendMessengerNum(sendMessengerNum int) *AdminDeptStatBuilder {
 	builder.sendMessengerNum = sendMessengerNum
 	builder.sendMessengerNumSet = true
@@ -611,7 +611,7 @@ func (builder *AdminDeptStatBuilder) SendMessengerNum(sendMessengerNum int) *Adm
 
 // 人均发送消息数
 //
-// 示例值：0.00
+// 示例值：343.00
 func (builder *AdminDeptStatBuilder) AvgSendMessengerNum(avgSendMessengerNum string) *AdminDeptStatBuilder {
 	builder.avgSendMessengerNum = avgSendMessengerNum
 	builder.avgSendMessengerNumSet = true
@@ -620,7 +620,7 @@ func (builder *AdminDeptStatBuilder) AvgSendMessengerNum(avgSendMessengerNum str
 
 // 云文档活跃人数
 //
-// 示例值：0
+// 示例值：45
 func (builder *AdminDeptStatBuilder) DocsDau(docsDau int) *AdminDeptStatBuilder {
 	builder.docsDau = docsDau
 	builder.docsDauSet = true
@@ -629,7 +629,7 @@ func (builder *AdminDeptStatBuilder) DocsDau(docsDau int) *AdminDeptStatBuilder 
 
 // 创建文件人数
 //
-// 示例值：0
+// 示例值：51
 func (builder *AdminDeptStatBuilder) CreateDocsUserNum(createDocsUserNum int) *AdminDeptStatBuilder {
 	builder.createDocsUserNum = createDocsUserNum
 	builder.createDocsUserNumSet = true
@@ -638,7 +638,7 @@ func (builder *AdminDeptStatBuilder) CreateDocsUserNum(createDocsUserNum int) *A
 
 // 创建文件数
 //
-// 示例值：0
+// 示例值：57
 func (builder *AdminDeptStatBuilder) CreateDocsNum(createDocsNum int) *AdminDeptStatBuilder {
 	builder.createDocsNum = createDocsNum
 	builder.createDocsNumSet = true
@@ -647,7 +647,7 @@ func (builder *AdminDeptStatBuilder) CreateDocsNum(createDocsNum int) *AdminDept
 
 // 人均创建文件数
 //
-// 示例值：0.00
+// 示例值：85.00
 func (builder *AdminDeptStatBuilder) AvgCreateDocsNum(avgCreateDocsNum string) *AdminDeptStatBuilder {
 	builder.avgCreateDocsNum = avgCreateDocsNum
 	builder.avgCreateDocsNumSet = true
@@ -656,7 +656,7 @@ func (builder *AdminDeptStatBuilder) AvgCreateDocsNum(avgCreateDocsNum string) *
 
 // 日历活跃人数
 //
-// 示例值：0
+// 示例值：47
 func (builder *AdminDeptStatBuilder) CalDau(calDau int) *AdminDeptStatBuilder {
 	builder.calDau = calDau
 	builder.calDauSet = true
@@ -665,7 +665,7 @@ func (builder *AdminDeptStatBuilder) CalDau(calDau int) *AdminDeptStatBuilder {
 
 // 创建日程人数
 //
-// 示例值：0
+// 示例值：87
 func (builder *AdminDeptStatBuilder) CreateCalUserNum(createCalUserNum int) *AdminDeptStatBuilder {
 	builder.createCalUserNum = createCalUserNum
 	builder.createCalUserNumSet = true
@@ -674,7 +674,7 @@ func (builder *AdminDeptStatBuilder) CreateCalUserNum(createCalUserNum int) *Adm
 
 // 创建日程数
 //
-// 示例值：0
+// 示例值：42
 func (builder *AdminDeptStatBuilder) CreateCalNum(createCalNum int) *AdminDeptStatBuilder {
 	builder.createCalNum = createCalNum
 	builder.createCalNumSet = true
@@ -683,7 +683,7 @@ func (builder *AdminDeptStatBuilder) CreateCalNum(createCalNum int) *AdminDeptSt
 
 // 人均创建日程数
 //
-// 示例值：0.00
+// 示例值：75.00
 func (builder *AdminDeptStatBuilder) AvgCreateCalNum(avgCreateCalNum string) *AdminDeptStatBuilder {
 	builder.avgCreateCalNum = avgCreateCalNum
 	builder.avgCreateCalNumSet = true
@@ -692,16 +692,16 @@ func (builder *AdminDeptStatBuilder) AvgCreateCalNum(avgCreateCalNum string) *Ad
 
 // 音视频会议活跃人数
 //
-// 示例值：0
+// 示例值：32
 func (builder *AdminDeptStatBuilder) VcDau(vcDau int) *AdminDeptStatBuilder {
 	builder.vcDau = vcDau
 	builder.vcDauSet = true
 	return builder
 }
 
-// 会议时长：企业内员工参与通话与会议的总时长（分钟）
+// 会议时长（分钟）
 //
-// 示例值：0
+// 示例值：535
 func (builder *AdminDeptStatBuilder) VcDuration(vcDuration int) *AdminDeptStatBuilder {
 	builder.vcDuration = vcDuration
 	builder.vcDurationSet = true
@@ -710,7 +710,7 @@ func (builder *AdminDeptStatBuilder) VcDuration(vcDuration int) *AdminDeptStatBu
 
 // 人均会议时长（分钟）
 //
-// 示例值：0.00
+// 示例值：313.00
 func (builder *AdminDeptStatBuilder) AvgVcDuration(avgVcDuration string) *AdminDeptStatBuilder {
 	builder.avgVcDuration = avgVcDuration
 	builder.avgVcDurationSet = true
@@ -719,7 +719,7 @@ func (builder *AdminDeptStatBuilder) AvgVcDuration(avgVcDuration string) *AdminD
 
 // 人均飞书使用时长（分钟）
 //
-// 示例值：0.00
+// 示例值：323.00
 func (builder *AdminDeptStatBuilder) AvgDuration(avgDuration string) *AdminDeptStatBuilder {
 	builder.avgDuration = avgDuration
 	builder.avgDurationSet = true
@@ -728,7 +728,7 @@ func (builder *AdminDeptStatBuilder) AvgDuration(avgDuration string) *AdminDeptS
 
 // 任务活跃人数
 //
-// 示例值：0
+// 示例值：23
 func (builder *AdminDeptStatBuilder) TaskDau(taskDau int) *AdminDeptStatBuilder {
 	builder.taskDau = taskDau
 	builder.taskDauSet = true
@@ -737,7 +737,7 @@ func (builder *AdminDeptStatBuilder) TaskDau(taskDau int) *AdminDeptStatBuilder 
 
 // 创建任务人数
 //
-// 示例值：0
+// 示例值：43
 func (builder *AdminDeptStatBuilder) CreateTaskUserNum(createTaskUserNum int) *AdminDeptStatBuilder {
 	builder.createTaskUserNum = createTaskUserNum
 	builder.createTaskUserNumSet = true
@@ -746,7 +746,7 @@ func (builder *AdminDeptStatBuilder) CreateTaskUserNum(createTaskUserNum int) *A
 
 // 创建任务数
 //
-// 示例值：0
+// 示例值：33
 func (builder *AdminDeptStatBuilder) CreateTaskNum(createTaskNum int) *AdminDeptStatBuilder {
 	builder.createTaskNum = createTaskNum
 	builder.createTaskNumSet = true
@@ -755,7 +755,7 @@ func (builder *AdminDeptStatBuilder) CreateTaskNum(createTaskNum int) *AdminDept
 
 // 人均创建任务数
 //
-// 示例值：0.00
+// 示例值：12.00
 func (builder *AdminDeptStatBuilder) AvgCreateTaskNum(avgCreateTaskNum string) *AdminDeptStatBuilder {
 	builder.avgCreateTaskNum = avgCreateTaskNum
 	builder.avgCreateTaskNumSet = true
@@ -1193,9 +1193,9 @@ type AdminUserStat struct {
 
 	CreateCalNum *int `json:"create_cal_num,omitempty"` // 创建日程数
 
-	VcActiveFlag *int `json:"vc_active_flag,omitempty"` // 用户音视频会议活跃状态，用户进入会中状态（不包含妙计和直播）即为活跃
+	VcActiveFlag *int `json:"vc_active_flag,omitempty"` // 用户音视频会议活跃状态，用户进入会中状态（不包含妙记和直播）即为活跃
 
-	VcDuration *int `json:"vc_duration,omitempty"` // 会议时长（分钟）
+	VcDuration *int `json:"vc_duration,omitempty"` // 会议时长（分钟，不包含会议室的时长）
 
 	ActiveOs *string `json:"active_os,omitempty"` // 活跃设备
 
@@ -1219,13 +1219,13 @@ type AdminUserStat struct {
 
 	EmailReceiveInCount *string `json:"email_receive_in_count,omitempty"` // 来自内部收件数
 
-	SearchActiveFlag *int `json:"search_active_flag,omitempty"` // 是否使用了大搜
+	SearchActiveFlag *int `json:"search_active_flag,omitempty"` // 是否使用了大搜（0：未使用，1：有使用）
 
-	TotalSearchCount *string `json:"total_search_count,omitempty"` // 总搜索次数
+	TotalSearchCount *string `json:"total_search_count,omitempty"` // 总搜索次数（在飞书主端搜索框发起过搜索请求的会话数）
 
-	QuickSearchCount *string `json:"quick_search_count,omitempty"` // 综搜次数
+	QuickSearchCount *string `json:"quick_search_count,omitempty"` // 综搜次数（在飞书主端搜索框的综合搜索发起过搜索请求的会话数）
 
-	TabSearchCount *string `json:"tab_search_count,omitempty"` // 垂搜次数
+	TabSearchCount *string `json:"tab_search_count,omitempty"` // 垂搜次数（在飞书主端搜索框的垂类搜索tab（例如消息tab、云文档tab）发起过搜索请求的会话数）
 }
 
 type AdminUserStatBuilder struct {
@@ -1277,10 +1277,10 @@ type AdminUserStatBuilder struct {
 	createCalNum    int // 创建日程数
 	createCalNumSet bool
 
-	vcActiveFlag    int // 用户音视频会议活跃状态，用户进入会中状态（不包含妙计和直播）即为活跃
+	vcActiveFlag    int // 用户音视频会议活跃状态，用户进入会中状态（不包含妙记和直播）即为活跃
 	vcActiveFlagSet bool
 
-	vcDuration    int // 会议时长（分钟）
+	vcDuration    int // 会议时长（分钟，不包含会议室的时长）
 	vcDurationSet bool
 
 	activeOs    string // 活跃设备
@@ -1316,16 +1316,16 @@ type AdminUserStatBuilder struct {
 	emailReceiveInCount    string // 来自内部收件数
 	emailReceiveInCountSet bool
 
-	searchActiveFlag    int // 是否使用了大搜
+	searchActiveFlag    int // 是否使用了大搜（0：未使用，1：有使用）
 	searchActiveFlagSet bool
 
-	totalSearchCount    string // 总搜索次数
+	totalSearchCount    string // 总搜索次数（在飞书主端搜索框发起过搜索请求的会话数）
 	totalSearchCountSet bool
 
-	quickSearchCount    string // 综搜次数
+	quickSearchCount    string // 综搜次数（在飞书主端搜索框的综合搜索发起过搜索请求的会话数）
 	quickSearchCountSet bool
 
-	tabSearchCount    string // 垂搜次数
+	tabSearchCount    string // 垂搜次数（在飞书主端搜索框的垂类搜索tab（例如消息tab、云文档tab）发起过搜索请求的会话数）
 	tabSearchCountSet bool
 }
 
@@ -1478,7 +1478,7 @@ func (builder *AdminUserStatBuilder) CreateCalNum(createCalNum int) *AdminUserSt
 	return builder
 }
 
-// 用户音视频会议活跃状态，用户进入会中状态（不包含妙计和直播）即为活跃
+// 用户音视频会议活跃状态，用户进入会中状态（不包含妙记和直播）即为活跃
 //
 // 示例值：1
 func (builder *AdminUserStatBuilder) VcActiveFlag(vcActiveFlag int) *AdminUserStatBuilder {
@@ -1487,7 +1487,7 @@ func (builder *AdminUserStatBuilder) VcActiveFlag(vcActiveFlag int) *AdminUserSt
 	return builder
 }
 
-// 会议时长（分钟）
+// 会议时长（分钟，不包含会议室的时长）
 //
 // 示例值：0
 func (builder *AdminUserStatBuilder) VcDuration(vcDuration int) *AdminUserStatBuilder {
@@ -1525,7 +1525,7 @@ func (builder *AdminUserStatBuilder) VcNum(vcNum int) *AdminUserStatBuilder {
 
 // 飞书的应用类型名称
 //
-// 示例值：Feishu，Lark
+// 示例值：Feishu,Lark
 func (builder *AdminUserStatBuilder) AppPackageType(appPackageType string) *AdminUserStatBuilder {
 	builder.appPackageType = appPackageType
 	builder.appPackageTypeSet = true
@@ -1595,7 +1595,7 @@ func (builder *AdminUserStatBuilder) EmailReceiveInCount(emailReceiveInCount str
 	return builder
 }
 
-// 是否使用了大搜
+// 是否使用了大搜（0：未使用，1：有使用）
 //
 // 示例值：1
 func (builder *AdminUserStatBuilder) SearchActiveFlag(searchActiveFlag int) *AdminUserStatBuilder {
@@ -1604,7 +1604,7 @@ func (builder *AdminUserStatBuilder) SearchActiveFlag(searchActiveFlag int) *Adm
 	return builder
 }
 
-// 总搜索次数
+// 总搜索次数（在飞书主端搜索框发起过搜索请求的会话数）
 //
 // 示例值：7
 func (builder *AdminUserStatBuilder) TotalSearchCount(totalSearchCount string) *AdminUserStatBuilder {
@@ -1613,7 +1613,7 @@ func (builder *AdminUserStatBuilder) TotalSearchCount(totalSearchCount string) *
 	return builder
 }
 
-// 综搜次数
+// 综搜次数（在飞书主端搜索框的综合搜索发起过搜索请求的会话数）
 //
 // 示例值：7
 func (builder *AdminUserStatBuilder) QuickSearchCount(quickSearchCount string) *AdminUserStatBuilder {
@@ -1622,7 +1622,7 @@ func (builder *AdminUserStatBuilder) QuickSearchCount(quickSearchCount string) *
 	return builder
 }
 
-// 垂搜次数
+// 垂搜次数（在飞书主端搜索框的垂类搜索tab（例如消息tab、云文档tab）发起过搜索请求的会话数）
 //
 // 示例值：7
 func (builder *AdminUserStatBuilder) TabSearchCount(tabSearchCount string) *AdminUserStatBuilder {
@@ -1792,8 +1792,6 @@ func NewAdministratorBuilder() *AdministratorBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *AdministratorBuilder) UserId(userId string) *AdministratorBuilder {
 	builder.userId = userId
@@ -1832,6 +1830,496 @@ func (builder *AdministratorBuilder) Build() *Administrator {
 	if builder.isAdministratorSet {
 		req.IsAdministrator = &builder.isAdministrator
 
+	}
+	return req
+}
+
+type AiUsageDetail struct {
+	EntityType *int `json:"entity_type,omitempty"` // 实体类型
+
+	EntityId *string `json:"entity_id,omitempty"` // 按请求 ID 类型回填的实体 ID
+
+	UsageValueGeneralAiQuota *float64 `json:"usage_value_general_ai_quota,omitempty"` // AI 通用额度消耗量
+
+	UsageValueAiNotesQuota *float64 `json:"usage_value_ai_notes_quota,omitempty"` // AI Notes 专用额度消耗量
+
+	UsageValueFeishuAilyQuota *float64 `json:"usage_value_feishu_aily_quota,omitempty"` // Feishu aily 专用额度消耗量
+}
+
+type AiUsageDetailBuilder struct {
+	entityType    int // 实体类型
+	entityTypeSet bool
+
+	entityId    string // 按请求 ID 类型回填的实体 ID
+	entityIdSet bool
+
+	usageValueGeneralAiQuota    float64 // AI 通用额度消耗量
+	usageValueGeneralAiQuotaSet bool
+
+	usageValueAiNotesQuota    float64 // AI Notes 专用额度消耗量
+	usageValueAiNotesQuotaSet bool
+
+	usageValueFeishuAilyQuota    float64 // Feishu aily 专用额度消耗量
+	usageValueFeishuAilyQuotaSet bool
+}
+
+func NewAiUsageDetailBuilder() *AiUsageDetailBuilder {
+	builder := &AiUsageDetailBuilder{}
+	return builder
+}
+
+// 实体类型
+//
+// 示例值：
+func (builder *AiUsageDetailBuilder) EntityType(entityType int) *AiUsageDetailBuilder {
+	builder.entityType = entityType
+	builder.entityTypeSet = true
+	return builder
+}
+
+// 按请求 ID 类型回填的实体 ID
+//
+// 示例值：1
+func (builder *AiUsageDetailBuilder) EntityId(entityId string) *AiUsageDetailBuilder {
+	builder.entityId = entityId
+	builder.entityIdSet = true
+	return builder
+}
+
+// AI 通用额度消耗量
+//
+// 示例值：1
+func (builder *AiUsageDetailBuilder) UsageValueGeneralAiQuota(usageValueGeneralAiQuota float64) *AiUsageDetailBuilder {
+	builder.usageValueGeneralAiQuota = usageValueGeneralAiQuota
+	builder.usageValueGeneralAiQuotaSet = true
+	return builder
+}
+
+// AI Notes 专用额度消耗量
+//
+// 示例值：1
+func (builder *AiUsageDetailBuilder) UsageValueAiNotesQuota(usageValueAiNotesQuota float64) *AiUsageDetailBuilder {
+	builder.usageValueAiNotesQuota = usageValueAiNotesQuota
+	builder.usageValueAiNotesQuotaSet = true
+	return builder
+}
+
+// Feishu aily 专用额度消耗量
+//
+// 示例值：1
+func (builder *AiUsageDetailBuilder) UsageValueFeishuAilyQuota(usageValueFeishuAilyQuota float64) *AiUsageDetailBuilder {
+	builder.usageValueFeishuAilyQuota = usageValueFeishuAilyQuota
+	builder.usageValueFeishuAilyQuotaSet = true
+	return builder
+}
+
+func (builder *AiUsageDetailBuilder) Build() *AiUsageDetail {
+	req := &AiUsageDetail{}
+	if builder.entityTypeSet {
+		req.EntityType = &builder.entityType
+
+	}
+	if builder.entityIdSet {
+		req.EntityId = &builder.entityId
+
+	}
+	if builder.usageValueGeneralAiQuotaSet {
+		req.UsageValueGeneralAiQuota = &builder.usageValueGeneralAiQuota
+
+	}
+	if builder.usageValueAiNotesQuotaSet {
+		req.UsageValueAiNotesQuota = &builder.usageValueAiNotesQuota
+
+	}
+	if builder.usageValueFeishuAilyQuotaSet {
+		req.UsageValueFeishuAilyQuota = &builder.usageValueFeishuAilyQuota
+
+	}
+	return req
+}
+
+type AiUsageFilter struct {
+	FeatureKeys []int `json:"feature_keys,omitempty"` // 额度类型筛选；映射到底层 FeatureKeyList
+
+	UsageType *int `json:"usage_type,omitempty"` // 用量类型筛选；1 -> [Business_Paid]，2 -> [Platform_Trial, Platform_Unlimited]
+
+	ScenarioIds []*BizTypeGroup `json:"scenario_ids,omitempty"` // 场景id
+}
+
+type AiUsageFilterBuilder struct {
+	featureKeys    []int // 额度类型筛选；映射到底层 FeatureKeyList
+	featureKeysSet bool
+
+	usageType    int // 用量类型筛选；1 -> [Business_Paid]，2 -> [Platform_Trial, Platform_Unlimited]
+	usageTypeSet bool
+
+	scenarioIds    []*BizTypeGroup // 场景id
+	scenarioIdsSet bool
+}
+
+func NewAiUsageFilterBuilder() *AiUsageFilterBuilder {
+	builder := &AiUsageFilterBuilder{}
+	return builder
+}
+
+// 额度类型筛选；映射到底层 FeatureKeyList
+//
+// 示例值：
+func (builder *AiUsageFilterBuilder) FeatureKeys(featureKeys []int) *AiUsageFilterBuilder {
+	builder.featureKeys = featureKeys
+	builder.featureKeysSet = true
+	return builder
+}
+
+// 用量类型筛选；1 -> [Business_Paid]，2 -> [Platform_Trial, Platform_Unlimited]
+//
+// 示例值：
+func (builder *AiUsageFilterBuilder) UsageType(usageType int) *AiUsageFilterBuilder {
+	builder.usageType = usageType
+	builder.usageTypeSet = true
+	return builder
+}
+
+// 场景id
+//
+// 示例值：
+func (builder *AiUsageFilterBuilder) ScenarioIds(scenarioIds []*BizTypeGroup) *AiUsageFilterBuilder {
+	builder.scenarioIds = scenarioIds
+	builder.scenarioIdsSet = true
+	return builder
+}
+
+func (builder *AiUsageFilterBuilder) Build() *AiUsageFilter {
+	req := &AiUsageFilter{}
+	if builder.featureKeysSet {
+		req.FeatureKeys = builder.featureKeys
+	}
+	if builder.usageTypeSet {
+		req.UsageType = &builder.usageType
+
+	}
+	if builder.scenarioIdsSet {
+		req.ScenarioIds = builder.scenarioIds
+	}
+	return req
+}
+
+type AiUsageLog struct {
+	EntityType *int `json:"entity_type,omitempty"` // 实体类型
+
+	EntityId *string `json:"entity_id,omitempty"` // 实体id
+
+	DepartmentId *string `json:"department_id,omitempty"` //
+
+	Time *int `json:"time,omitempty"` // 消耗时间，毫秒
+
+	ScenarioTranslate *string `json:"scenario_translate,omitempty"` // 场景文本
+
+	Scenarios []*BizTypeGroup `json:"scenarios,omitempty"` // 场景id
+
+	FeatureKey *int `json:"feature_key,omitempty"` //
+
+	UsageType *int `json:"usage_type,omitempty"` //
+
+	UsedQuota *float64 `json:"used_quota,omitempty"` // 使用量
+
+	Notes *AiUsageNote `json:"notes,omitempty"` // 用量记录备注
+
+	Descriptions []*AiUsageNote `json:"descriptions,omitempty"` // 备注列表
+}
+
+type AiUsageLogBuilder struct {
+	entityType    int // 实体类型
+	entityTypeSet bool
+
+	entityId    string // 实体id
+	entityIdSet bool
+
+	departmentId    string //
+	departmentIdSet bool
+
+	time    int // 消耗时间，毫秒
+	timeSet bool
+
+	scenarioTranslate    string // 场景文本
+	scenarioTranslateSet bool
+
+	scenarios    []*BizTypeGroup // 场景id
+	scenariosSet bool
+
+	featureKey    int //
+	featureKeySet bool
+
+	usageType    int //
+	usageTypeSet bool
+
+	usedQuota    float64 // 使用量
+	usedQuotaSet bool
+
+	notes    *AiUsageNote // 用量记录备注
+	notesSet bool
+
+	descriptions    []*AiUsageNote // 备注列表
+	descriptionsSet bool
+}
+
+func NewAiUsageLogBuilder() *AiUsageLogBuilder {
+	builder := &AiUsageLogBuilder{}
+	return builder
+}
+
+// 实体类型
+//
+// 示例值：
+func (builder *AiUsageLogBuilder) EntityType(entityType int) *AiUsageLogBuilder {
+	builder.entityType = entityType
+	builder.entityTypeSet = true
+	return builder
+}
+
+// 实体id
+//
+// 示例值：1
+func (builder *AiUsageLogBuilder) EntityId(entityId string) *AiUsageLogBuilder {
+	builder.entityId = entityId
+	builder.entityIdSet = true
+	return builder
+}
+
+// 示例值：
+func (builder *AiUsageLogBuilder) DepartmentId(departmentId string) *AiUsageLogBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdSet = true
+	return builder
+}
+
+// 消耗时间，毫秒
+//
+// 示例值：1781528484394
+func (builder *AiUsageLogBuilder) Time(time int) *AiUsageLogBuilder {
+	builder.time = time
+	builder.timeSet = true
+	return builder
+}
+
+// 场景文本
+//
+// 示例值：1
+func (builder *AiUsageLogBuilder) ScenarioTranslate(scenarioTranslate string) *AiUsageLogBuilder {
+	builder.scenarioTranslate = scenarioTranslate
+	builder.scenarioTranslateSet = true
+	return builder
+}
+
+// 场景id
+//
+// 示例值：
+func (builder *AiUsageLogBuilder) Scenarios(scenarios []*BizTypeGroup) *AiUsageLogBuilder {
+	builder.scenarios = scenarios
+	builder.scenariosSet = true
+	return builder
+}
+
+// 示例值：
+func (builder *AiUsageLogBuilder) FeatureKey(featureKey int) *AiUsageLogBuilder {
+	builder.featureKey = featureKey
+	builder.featureKeySet = true
+	return builder
+}
+
+// 示例值：
+func (builder *AiUsageLogBuilder) UsageType(usageType int) *AiUsageLogBuilder {
+	builder.usageType = usageType
+	builder.usageTypeSet = true
+	return builder
+}
+
+// 使用量
+//
+// 示例值：1
+func (builder *AiUsageLogBuilder) UsedQuota(usedQuota float64) *AiUsageLogBuilder {
+	builder.usedQuota = usedQuota
+	builder.usedQuotaSet = true
+	return builder
+}
+
+// 用量记录备注
+//
+// 示例值：
+func (builder *AiUsageLogBuilder) Notes(notes *AiUsageNote) *AiUsageLogBuilder {
+	builder.notes = notes
+	builder.notesSet = true
+	return builder
+}
+
+// 备注列表
+//
+// 示例值：
+func (builder *AiUsageLogBuilder) Descriptions(descriptions []*AiUsageNote) *AiUsageLogBuilder {
+	builder.descriptions = descriptions
+	builder.descriptionsSet = true
+	return builder
+}
+
+func (builder *AiUsageLogBuilder) Build() *AiUsageLog {
+	req := &AiUsageLog{}
+	if builder.entityTypeSet {
+		req.EntityType = &builder.entityType
+
+	}
+	if builder.entityIdSet {
+		req.EntityId = &builder.entityId
+
+	}
+	if builder.departmentIdSet {
+		req.DepartmentId = &builder.departmentId
+
+	}
+	if builder.timeSet {
+		req.Time = &builder.time
+
+	}
+	if builder.scenarioTranslateSet {
+		req.ScenarioTranslate = &builder.scenarioTranslate
+
+	}
+	if builder.scenariosSet {
+		req.Scenarios = builder.scenarios
+	}
+	if builder.featureKeySet {
+		req.FeatureKey = &builder.featureKey
+
+	}
+	if builder.usageTypeSet {
+		req.UsageType = &builder.usageType
+
+	}
+	if builder.usedQuotaSet {
+		req.UsedQuota = &builder.usedQuota
+
+	}
+	if builder.notesSet {
+		req.Notes = builder.notes
+	}
+	if builder.descriptionsSet {
+		req.Descriptions = builder.descriptions
+	}
+	return req
+}
+
+type AiUsageNote struct {
+	KeyName *string `json:"key_name,omitempty"` // 备注 key
+
+	KeyType *int `json:"key_type,omitempty"` // 备注值类型
+
+	Value *string `json:"value,omitempty"` // 备注值
+}
+
+type AiUsageNoteBuilder struct {
+	keyName    string // 备注 key
+	keyNameSet bool
+
+	keyType    int // 备注值类型
+	keyTypeSet bool
+
+	value    string // 备注值
+	valueSet bool
+}
+
+func NewAiUsageNoteBuilder() *AiUsageNoteBuilder {
+	builder := &AiUsageNoteBuilder{}
+	return builder
+}
+
+// 备注 key
+//
+// 示例值：1
+func (builder *AiUsageNoteBuilder) KeyName(keyName string) *AiUsageNoteBuilder {
+	builder.keyName = keyName
+	builder.keyNameSet = true
+	return builder
+}
+
+// 备注值类型
+//
+// 示例值：
+func (builder *AiUsageNoteBuilder) KeyType(keyType int) *AiUsageNoteBuilder {
+	builder.keyType = keyType
+	builder.keyTypeSet = true
+	return builder
+}
+
+// 备注值
+//
+// 示例值：1
+func (builder *AiUsageNoteBuilder) Value(value string) *AiUsageNoteBuilder {
+	builder.value = value
+	builder.valueSet = true
+	return builder
+}
+
+func (builder *AiUsageNoteBuilder) Build() *AiUsageNote {
+	req := &AiUsageNote{}
+	if builder.keyNameSet {
+		req.KeyName = &builder.keyName
+
+	}
+	if builder.keyTypeSet {
+		req.KeyType = &builder.keyType
+
+	}
+	if builder.valueSet {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
+type AiUsageSubject struct {
+	EntityType *int `json:"entity_type,omitempty"` // 复用 EntityType；开放层仅接受 PRD 允许的子集
+
+	EntityIds []string `json:"entity_ids,omitempty"` // 当前 EntityType 下的一组实体 ID
+}
+
+type AiUsageSubjectBuilder struct {
+	entityType    int // 复用 EntityType；开放层仅接受 PRD 允许的子集
+	entityTypeSet bool
+
+	entityIds    []string // 当前 EntityType 下的一组实体 ID
+	entityIdsSet bool
+}
+
+func NewAiUsageSubjectBuilder() *AiUsageSubjectBuilder {
+	builder := &AiUsageSubjectBuilder{}
+	return builder
+}
+
+// 复用 EntityType；开放层仅接受 PRD 允许的子集
+//
+// 示例值：
+func (builder *AiUsageSubjectBuilder) EntityType(entityType int) *AiUsageSubjectBuilder {
+	builder.entityType = entityType
+	builder.entityTypeSet = true
+	return builder
+}
+
+// 当前 EntityType 下的一组实体 ID
+//
+// 示例值：
+func (builder *AiUsageSubjectBuilder) EntityIds(entityIds []string) *AiUsageSubjectBuilder {
+	builder.entityIds = entityIds
+	builder.entityIdsSet = true
+	return builder
+}
+
+func (builder *AiUsageSubjectBuilder) Build() *AiUsageSubject {
+	req := &AiUsageSubject{}
+	if builder.entityTypeSet {
+		req.EntityType = &builder.entityType
+
+	}
+	if builder.entityIdsSet {
+		req.EntityIds = builder.entityIds
 	}
 	return req
 }
@@ -1885,7 +2373,7 @@ func (builder *AnnualBaseTopAiBuilder) NameEn(nameEn string) *AnnualBaseTopAiBui
 
 // 2025年用户多维表格文档使用的Top5 AI功能名称(中文)
 //
-// 示例值：AI 侧边栏,工作流 AI Agent 节点,AI 字段捷径,AI 生成公式,AI  浮窗工具栏
+// 示例值：AI 侧边栏,工作流 AI Agent 节点,AI 字段捷径,AI 生成公式,AI 浮窗工具栏
 func (builder *AnnualBaseTopAiBuilder) NameCnList(nameCnList string) *AnnualBaseTopAiBuilder {
 	builder.nameCnList = nameCnList
 	builder.nameCnListSet = true
@@ -1925,14 +2413,14 @@ func (builder *AnnualBaseTopAiBuilder) Build() *AnnualBaseTopAi {
 type AnnualReportMapFloat struct {
 	Year *string `json:"year,omitempty"` // 年份
 
-	Num *float64 `json:"num,omitempty"` // float64类型数据
+	Num *float64 `json:"num,omitempty"` // 全年总活跃时长
 }
 
 type AnnualReportMapFloatBuilder struct {
 	year    string // 年份
 	yearSet bool
 
-	num    float64 // float64类型数据
+	num    float64 // 全年总活跃时长
 	numSet bool
 }
 
@@ -1943,14 +2431,14 @@ func NewAnnualReportMapFloatBuilder() *AnnualReportMapFloatBuilder {
 
 // 年份
 //
-// 示例值：2024
+// 示例值：2023
 func (builder *AnnualReportMapFloatBuilder) Year(year string) *AnnualReportMapFloatBuilder {
 	builder.year = year
 	builder.yearSet = true
 	return builder
 }
 
-// float64类型数据
+// 全年总活跃时长
 //
 // 示例值：88.88
 func (builder *AnnualReportMapFloatBuilder) Num(num float64) *AnnualReportMapFloatBuilder {
@@ -1975,14 +2463,14 @@ func (builder *AnnualReportMapFloatBuilder) Build() *AnnualReportMapFloat {
 type AnnualReportMapInt struct {
 	Year *string `json:"year,omitempty"` // 年份
 
-	Count *string `json:"count,omitempty"` // int64类型数据
+	Count *string `json:"count,omitempty"` // 全年发出消息数
 }
 
 type AnnualReportMapIntBuilder struct {
 	year    string // 年份
 	yearSet bool
 
-	count    string // int64类型数据
+	count    string // 全年发出消息数
 	countSet bool
 }
 
@@ -1993,14 +2481,14 @@ func NewAnnualReportMapIntBuilder() *AnnualReportMapIntBuilder {
 
 // 年份
 //
-// 示例值：2024
+// 示例值：2023
 func (builder *AnnualReportMapIntBuilder) Year(year string) *AnnualReportMapIntBuilder {
 	builder.year = year
 	builder.yearSet = true
 	return builder
 }
 
-// int64类型数据
+// 全年发出消息数
 //
 // 示例值：88
 func (builder *AnnualReportMapIntBuilder) Count(count string) *AnnualReportMapIntBuilder {
@@ -4354,7 +4842,7 @@ type Badge struct {
 
 	I18nName *I18n `json:"i18n_name,omitempty"` // 勋章的多语言名称，同name字段限制，最多30个字符。
 
-	I18nExplanation *I18n `json:"i18n_explanation,omitempty"` // 勋章的多语言描述文案，同explanation字段限制，最多100个字符。
+	I18nExplanation *I18n `json:"i18n_explanation,omitempty"` // 勋章的多语言名称，同name字段限制，最多30个字符。
 }
 
 type BadgeBuilder struct {
@@ -4376,7 +4864,7 @@ type BadgeBuilder struct {
 	i18nName    *I18n // 勋章的多语言名称，同name字段限制，最多30个字符。
 	i18nNameSet bool
 
-	i18nExplanation    *I18n // 勋章的多语言描述文案，同explanation字段限制，最多100个字符。
+	i18nExplanation    *I18n // 勋章的多语言名称，同name字段限制，最多30个字符。
 	i18nExplanationSet bool
 }
 
@@ -4432,16 +4920,16 @@ func (builder *BadgeBuilder) ShowImage(showImage string) *BadgeBuilder {
 
 // 勋章的多语言名称，同name字段限制，最多30个字符。
 //
-// 示例值：{		 "zh_cn": "激励勋章",		 "en_us": "Incentive Medal",		 "ja_jp": "奨励メダル"	 }
+// 示例值：{ "zh_cn": "激励勋章", "en_us": "Incentive Medal", "ja_jp": "奨励メダル" }
 func (builder *BadgeBuilder) I18nName(i18nName *I18n) *BadgeBuilder {
 	builder.i18nName = i18nName
 	builder.i18nNameSet = true
 	return builder
 }
 
-// 勋章的多语言描述文案，同explanation字段限制，最多100个字符。
+// 勋章的多语言名称，同name字段限制，最多30个字符。
 //
-// 示例值：{		 "zh_cn": "这枚勋章为了激励员工颁发。",		 "en_us": "This medal is awarded to motivate employees.",		 "ja_jp": "このメダルは、従業員のモチベーションを高めるために授与されます。"	 }
+// 示例值：{ "zh_cn": "这枚勋章为了激励员工颁发。", "en_us": "This medal is awarded to motivate employees.", "ja_jp": "このメダルは、従業員のモチベーションを高めるために授与されます。" }
 func (builder *BadgeBuilder) I18nExplanation(i18nExplanation *I18n) *BadgeBuilder {
 	builder.i18nExplanation = i18nExplanation
 	builder.i18nExplanationSet = true
@@ -4479,6 +4967,74 @@ func (builder *BadgeBuilder) Build() *Badge {
 	return req
 }
 
+type BizTypeGroup struct {
+	BizType *string `json:"biz_type,omitempty"` // 一级场景 ID
+
+	Biz1Type *string `json:"biz1_type,omitempty"` // 二级场景 ID
+
+	Biz2Type *string `json:"biz2_type,omitempty"` // 三级场景 ID
+}
+
+type BizTypeGroupBuilder struct {
+	bizType    string // 一级场景 ID
+	bizTypeSet bool
+
+	biz1Type    string // 二级场景 ID
+	biz1TypeSet bool
+
+	biz2Type    string // 三级场景 ID
+	biz2TypeSet bool
+}
+
+func NewBizTypeGroupBuilder() *BizTypeGroupBuilder {
+	builder := &BizTypeGroupBuilder{}
+	return builder
+}
+
+// 一级场景 ID
+//
+// 示例值：1
+func (builder *BizTypeGroupBuilder) BizType(bizType string) *BizTypeGroupBuilder {
+	builder.bizType = bizType
+	builder.bizTypeSet = true
+	return builder
+}
+
+// 二级场景 ID
+//
+// 示例值：1
+func (builder *BizTypeGroupBuilder) Biz1Type(biz1Type string) *BizTypeGroupBuilder {
+	builder.biz1Type = biz1Type
+	builder.biz1TypeSet = true
+	return builder
+}
+
+// 三级场景 ID
+//
+// 示例值：1
+func (builder *BizTypeGroupBuilder) Biz2Type(biz2Type string) *BizTypeGroupBuilder {
+	builder.biz2Type = biz2Type
+	builder.biz2TypeSet = true
+	return builder
+}
+
+func (builder *BizTypeGroupBuilder) Build() *BizTypeGroup {
+	req := &BizTypeGroup{}
+	if builder.bizTypeSet {
+		req.BizType = &builder.bizType
+
+	}
+	if builder.biz1TypeSet {
+		req.Biz1Type = &builder.biz1Type
+
+	}
+	if builder.biz2TypeSet {
+		req.Biz2Type = &builder.biz2Type
+
+	}
+	return req
+}
+
 type DepartmentId struct {
 	DepartmentId *string `json:"department_id,omitempty"` //
 
@@ -4498,8 +5054,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -4507,8 +5061,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -4575,7 +5127,7 @@ func NewFileBuilder() *FileBuilder {
 
 // 文档标题
 //
-// 示例值：文件管理综述
+// 示例值：
 func (builder *FileBuilder) Title(title string) *FileBuilder {
 	builder.title = title
 	builder.titleSet = true
@@ -4584,7 +5136,7 @@ func (builder *FileBuilder) Title(title string) *FileBuilder {
 
 // 文档类型
 //
-// 示例值：doc
+// 示例值：
 func (builder *FileBuilder) Type(type_ string) *FileBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
@@ -4602,7 +5154,7 @@ func (builder *FileBuilder) Owner(owner *User) *FileBuilder {
 
 // 文档大小
 //
-// 示例值：1024
+// 示例值：
 func (builder *FileBuilder) Size(size string) *FileBuilder {
 	builder.size = size
 	builder.sizeSet = true
@@ -4611,7 +5163,7 @@ func (builder *FileBuilder) Size(size string) *FileBuilder {
 
 // 更新时间
 //
-// 示例值：1649419092
+// 示例值：
 func (builder *FileBuilder) LastOpTime(lastOpTime string) *FileBuilder {
 	builder.lastOpTime = lastOpTime
 	builder.lastOpTimeSet = true
@@ -4620,7 +5172,7 @@ func (builder *FileBuilder) LastOpTime(lastOpTime string) *FileBuilder {
 
 // 文档状态
 //
-// 示例值：1
+// 示例值：
 func (builder *FileBuilder) Status(status string) *FileBuilder {
 	builder.status = status
 	builder.statusSet = true
@@ -4629,7 +5181,7 @@ func (builder *FileBuilder) Status(status string) *FileBuilder {
 
 // 文档token
 //
-// 示例值：doxbcOIyUhrRBWSKpBGfzefQgHe
+// 示例值：
 func (builder *FileBuilder) Token(token string) *FileBuilder {
 	builder.token = token
 	builder.tokenSet = true
@@ -4832,7 +5384,7 @@ func (builder *GrantBuilder) UserIds(userIds []string) *GrantBuilder {
 
 // 授予的部门ID列表，授予名单列表接口返回结果中不返回该字段，只在详情接口返回
 //
-// 示例值：[h121921]
+// 示例值：
 func (builder *GrantBuilder) DepartmentIds(departmentIds []string) *GrantBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsSet = true
@@ -5009,14 +5561,14 @@ func (builder *OperatorDetailBuilder) Build() *OperatorDetail {
 type OperatorName struct {
 	DefaultName *string `json:"default_name,omitempty"` // 操作人默认名
 
-	I18nValue *I18n `json:"i18n_value,omitempty"` // 操作人 i18n 名字 map
+	I18nValue *I18n `json:"i18n_value,omitempty"` // 勋章的多语言名称，同name字段限制，最多30个字符。
 }
 
 type OperatorNameBuilder struct {
 	defaultName    string // 操作人默认名
 	defaultNameSet bool
 
-	i18nValue    *I18n // 操作人 i18n 名字 map
+	i18nValue    *I18n // 勋章的多语言名称，同name字段限制，最多30个字符。
 	i18nValueSet bool
 }
 
@@ -5034,7 +5586,7 @@ func (builder *OperatorNameBuilder) DefaultName(defaultName string) *OperatorNam
 	return builder
 }
 
-// 操作人 i18n 名字 map
+// 勋章的多语言名称，同name字段限制，最多30个字符。
 //
 // 示例值：
 func (builder *OperatorNameBuilder) I18nValue(i18nValue *I18n) *OperatorNameBuilder {
@@ -5514,7 +6066,7 @@ func NewUserBuilder() *UserBuilder {
 
 // 用户名称
 //
-// 示例值：张三
+// 示例值：
 func (builder *UserBuilder) Name(name string) *UserBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -5523,7 +6075,7 @@ func (builder *UserBuilder) Name(name string) *UserBuilder {
 
 // 用户头像
 //
-// 示例值：https://internal-api-lark-file.feishu-boe.cn/static-resource/v1/d50ddc01-5ddb-4431-950e-452637e4a09j~?image_size=72x72&cut_type=default-face&quality=&format=png&sticker_format=.webp
+// 示例值：
 func (builder *UserBuilder) Avatar(avatar string) *UserBuilder {
 	builder.avatar = avatar
 	builder.avatarSet = true
@@ -5532,7 +6084,7 @@ func (builder *UserBuilder) Avatar(avatar string) *UserBuilder {
 
 // 用户ID
 //
-// 示例值：6994699009591869459
+// 示例值：
 func (builder *UserBuilder) Id(id string) *UserBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -9086,7 +9638,7 @@ func (builder *UserReport2025Builder) BaseCreateFcnt(baseCreateFcnt string) *Use
 
 // 用户2025年多维表文档使用最多的AI功能名称（中英文，列表里为top5）
 //
-// 示例值：[{"name_cn":"AI 字段捷径","name_en":"AI field shortcuts","name_cn_list":"AI 侧边栏,工作流 AI Agent 节点,AI 字段捷径,AI 生成公式,AI  浮窗工具栏","name_en_list":"AI sidebar,Workflow AI Agent node,AI field shortcuts,AI-generated formulas,AI smart toolbar"}]
+// 示例值：[{"name_cn":"AI 字段捷径","name_en":"AI field shortcuts","name_cn_list":"AI 侧边栏,工作流 AI Agent 节点,AI 字段捷径,AI 生成公式,AI 浮窗工具栏","name_en_list":"AI sidebar,Workflow AI Agent node,AI field shortcuts,AI-generated formulas,AI smart toolbar"}]
 func (builder *UserReport2025Builder) BaseAiTop1NameMap(baseAiTop1NameMap []*AnnualBaseTopAi) *UserReport2025Builder {
 	builder.baseAiTop1NameMap = baseAiTop1NameMap
 	builder.baseAiTop1NameMapSet = true
@@ -9555,7 +10107,7 @@ func (builder *ListAdminDeptStatReqBuilder) DepartmentIdType(departmentIdType st
 	return builder
 }
 
-// 起始日期（包含），格式是YYYY-mm-dd
+// 起始日期（包含），格式是YYYY-mm-dd（CN UTC+8，非CN UTC+0）
 //
 // 示例值：2020-02-15
 func (builder *ListAdminDeptStatReqBuilder) StartDate(startDate string) *ListAdminDeptStatReqBuilder {
@@ -9563,7 +10115,7 @@ func (builder *ListAdminDeptStatReqBuilder) StartDate(startDate string) *ListAdm
 	return builder
 }
 
-// 终止日期（包含），格式是YYYY-mm-dd，起止日期之间相差不能超过91天（包含91天）
+// 终止日期（包含），格式是YYYY-mm-dd，与起止日期start_date之间相差不能超过91天（包含91天）（CN UTC+8，非CN UTC+0）
 //
 // 示例值：2020-02-15
 func (builder *ListAdminDeptStatReqBuilder) EndDate(endDate string) *ListAdminDeptStatReqBuilder {
@@ -9571,7 +10123,7 @@ func (builder *ListAdminDeptStatReqBuilder) EndDate(endDate string) *ListAdminDe
 	return builder
 }
 
-// 部门的 ID，取决于department_id_type，仅支持根部门及其下前4级子部门
+// 部门的 ID，取决于department_id_type，仅支持根部门及其下前4级子部门（通过管理后台部门详情获取）
 //
 // 示例值：od-382e2793cfc9471f892e8a672987654c
 func (builder *ListAdminDeptStatReqBuilder) DepartmentId(departmentId string) *ListAdminDeptStatReqBuilder {
@@ -9587,7 +10139,7 @@ func (builder *ListAdminDeptStatReqBuilder) ContainsChildDept(containsChildDept 
 	return builder
 }
 
-// 分页大小，默认是10
+// 默认值是10，表示每页返回10条数据
 //
 // 示例值：10
 func (builder *ListAdminDeptStatReqBuilder) PageSize(pageSize int) *ListAdminDeptStatReqBuilder {
@@ -9595,7 +10147,7 @@ func (builder *ListAdminDeptStatReqBuilder) PageSize(pageSize int) *ListAdminDep
 	return builder
 }
 
-// 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：2
 func (builder *ListAdminDeptStatReqBuilder) PageToken(pageToken string) *ListAdminDeptStatReqBuilder {
@@ -9603,7 +10155,7 @@ func (builder *ListAdminDeptStatReqBuilder) PageToken(pageToken string) *ListAdm
 	return builder
 }
 
-// 跨域访问的geo
+// 需跨域访问的Geo数据，每个Geo仅包含本Geo数据，不传默认查本地数据，调用前需要先开通MG(cn、sg、jp、us)
 //
 // 示例值：cn
 func (builder *ListAdminDeptStatReqBuilder) TargetGeo(targetGeo string) *ListAdminDeptStatReqBuilder {
@@ -9611,9 +10163,9 @@ func (builder *ListAdminDeptStatReqBuilder) TargetGeo(targetGeo string) *ListAdm
 	return builder
 }
 
-// 是否返回分产品版本数据
+// 是否返回分产品版本数据，默认false，不返回
 //
-// 示例值：true
+// 示例值：true(默认是false)
 func (builder *ListAdminDeptStatReqBuilder) WithProductVersion(withProductVersion bool) *ListAdminDeptStatReqBuilder {
 	builder.apiReq.QueryParams.Set("with_product_version", fmt.Sprint(withProductVersion))
 	return builder
@@ -9631,9 +10183,9 @@ type ListAdminDeptStatReq struct {
 }
 
 type ListAdminDeptStatRespData struct {
-	HasMore *bool `json:"has_more,omitempty"` // 分页查询时返回，代表是否还有更多数据
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 分页标记，下一页分页的token
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
 	Items []*AdminDeptStat `json:"items,omitempty"` // 数据报表
 }
@@ -9709,7 +10261,7 @@ func (builder *ListAdminUserStatReqBuilder) UserId(userId string) *ListAdminUser
 	return builder
 }
 
-// 分页大小，默认是10
+// 分页大小
 //
 // 示例值：10
 func (builder *ListAdminUserStatReqBuilder) PageSize(pageSize int) *ListAdminUserStatReqBuilder {
@@ -9717,7 +10269,7 @@ func (builder *ListAdminUserStatReqBuilder) PageSize(pageSize int) *ListAdminUse
 	return builder
 }
 
-// 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：2
 func (builder *ListAdminUserStatReqBuilder) PageToken(pageToken string) *ListAdminUserStatReqBuilder {
@@ -9725,7 +10277,7 @@ func (builder *ListAdminUserStatReqBuilder) PageToken(pageToken string) *ListAdm
 	return builder
 }
 
-// 跨域访问的geo
+// 需跨域访问的Geo数据，每个Geo仅包含本Geo数据，不传默认查本地数据，调用前需要先开通MG（cn、us、sg、jp），每次只能查一个Geo数据
 //
 // 示例值：cn
 func (builder *ListAdminUserStatReqBuilder) TargetGeo(targetGeo string) *ListAdminUserStatReqBuilder {
@@ -9745,9 +10297,9 @@ type ListAdminUserStatReq struct {
 }
 
 type ListAdminUserStatRespData struct {
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页数据
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页分页的token
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
 	Items []*AdminUserStat `json:"items,omitempty"` // 数据报表
 }
@@ -9798,7 +10350,7 @@ func (builder *ListAuditInfoReqBuilder) Latest(latest int) *ListAuditInfoReqBuil
 	return builder
 }
 
-// 日志时间范围: 起始时间. 格式: 秒级时间戳. 默认值:  30日前此刻
+// 日志时间范围: 起始时间. 格式: 秒级时间戳. 默认值: 30日前此刻
 //
 // 示例值：1668528000
 func (builder *ListAuditInfoReqBuilder) Oldest(oldest int) *ListAuditInfoReqBuilder {
@@ -10108,7 +10660,7 @@ func (builder *UpdateBadgeReqBuilder) BadgeId(badgeId string) *UpdateBadgeReqBui
 	return builder
 }
 
-// 通过该接口可以修改勋章的信息
+// 通过该接口可以修改勋章的信息。
 func (builder *UpdateBadgeReqBuilder) Badge(badge *Badge) *UpdateBadgeReqBuilder {
 	builder.badge = badge
 	return builder
@@ -10480,7 +11032,7 @@ func (builder *UpdateBadgeGrantReqBuilder) DepartmentIdType(departmentIdType str
 	return builder
 }
 
-// 通过该接口可以修改特定授予名单的相关信息
+// 通过该接口可以修改特定授予名单的相关信息。
 func (builder *UpdateBadgeGrantReqBuilder) Grant(grant *Grant) *UpdateBadgeGrantReqBuilder {
 	builder.grant = grant
 	return builder
@@ -10529,7 +11081,7 @@ func NewCreateBadgeImageReqBodyBuilder() *CreateBadgeImageReqBodyBuilder {
 
 // 勋章图片的文件，仅支持 PNG 格式，320 x 320 像素，大小不超过 1024 KB。
 //
-//示例值：file binary
+// 示例值：
 func (builder *CreateBadgeImageReqBodyBuilder) ImageFile(imageFile io.Reader) *CreateBadgeImageReqBodyBuilder {
 	builder.imageFile = imageFile
 	builder.imageFileSet = true
@@ -10538,7 +11090,7 @@ func (builder *CreateBadgeImageReqBodyBuilder) ImageFile(imageFile io.Reader) *C
 
 // 图片的类型
 //
-//示例值：1
+// 示例值：1
 func (builder *CreateBadgeImageReqBodyBuilder) ImageType(imageType int) *CreateBadgeImageReqBodyBuilder {
 	builder.imageType = imageType
 	builder.imageTypeSet = true
@@ -10570,7 +11122,7 @@ func NewCreateBadgeImagePathReqBodyBuilder() *CreateBadgeImagePathReqBodyBuilder
 
 // 勋章图片的文件，仅支持 PNG 格式，320 x 320 像素，大小不超过 1024 KB。
 //
-// 示例值：file binary
+// 示例值：
 func (builder *CreateBadgeImagePathReqBodyBuilder) ImageFilePath(imageFilePath string) *CreateBadgeImagePathReqBodyBuilder {
 	builder.imageFilePath = imageFilePath
 	builder.imageFilePathFlag = true
@@ -10615,7 +11167,7 @@ func NewCreateBadgeImageReqBuilder() *CreateBadgeImageReqBuilder {
 	return builder
 }
 
-// 通过该接口可以上传勋章详情图、挂饰图的文件，获取对应的文件key
+// 通过该接口可以上传勋章详情图、挂饰图的文件，获取对应的文件key。
 func (builder *CreateBadgeImageReqBuilder) Body(body *CreateBadgeImageReqBody) *CreateBadgeImageReqBuilder {
 	builder.body = body
 	return builder
@@ -10668,7 +11220,7 @@ func NewResetPasswordReqBodyBuilder() *ResetPasswordReqBodyBuilder {
 
 // 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
 //
-//示例值：1234abcd
+// 示例值：1234abcd
 func (builder *ResetPasswordReqBodyBuilder) Password(password *Password) *ResetPasswordReqBodyBuilder {
 	builder.password = password
 	builder.passwordSet = true
@@ -10677,7 +11229,7 @@ func (builder *ResetPasswordReqBodyBuilder) Password(password *Password) *ResetP
 
 // 待修改密码的用户ID，只针对邮箱登录凭证与企业邮箱(包括别名)相等的用户生效
 //
-//示例值：abc123
+// 示例值：abc123
 func (builder *ResetPasswordReqBodyBuilder) UserId(userId string) *ResetPasswordReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -10758,7 +11310,7 @@ func (builder *ResetPasswordReqBuilder) UserIdType(userIdType string) *ResetPass
 	return builder
 }
 
-// 重置用户的企业邮箱密码，仅当用户的邮箱和企业邮箱(别名)一致时生效，可用于处理飞书企业邮箱登录死锁的问题。;;邮箱死锁：当用户的登录凭证与飞书企业邮箱一致时，目前飞书登录流程要求用户输入验证码，由于飞书邮箱无单独的帐号体系，则未登录时无法收取邮箱验证码，即陷入死锁
+// 重置用户的企业邮箱密码，仅当用户的邮箱和企业邮箱(别名)一致时生效，可用于处理飞书企业邮箱登录死锁的问题。;;邮箱死锁：当用户的登录凭证与飞书企业邮箱一致时，目前飞书登录流程要求用户输入验证码，由于飞书邮箱无单独的帐号体系，则未登录时无法收取邮箱验证码，即陷入死锁。
 func (builder *ResetPasswordReqBuilder) Body(body *ResetPasswordReqBody) *ResetPasswordReqBuilder {
 	builder.body = body
 	return builder

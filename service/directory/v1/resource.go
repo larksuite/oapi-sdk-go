@@ -42,9 +42,9 @@ type employee struct {
 	config *larkcore.Config
 }
 
-// Create
+// Create 新增可搜可见规则
 //
-// - 创建关联组织规则
+// - 管理员视角新增可搜可见规则。用户需具备关联组织管理员权限。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=directory&resource=collaboration_rule&version=v1
 //
@@ -68,9 +68,9 @@ func (c *collaborationRule) Create(ctx context.Context, req *CreateCollaboration
 	return resp, err
 }
 
-// Delete
+// Delete 删除可搜可见规则
 //
-// - 删除关联组织的规则
+// - 管理员视角删除可搜可见规则。用户需具备关联组织管理员权限。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=directory&resource=collaboration_rule&version=v1
 //
@@ -94,9 +94,9 @@ func (c *collaborationRule) Delete(ctx context.Context, req *DeleteCollaboration
 	return resp, err
 }
 
-// List
+// List 查询可搜可见规则
 //
-// - 获取关联组织规则列表
+// - 管理员视角查询可搜可见规则。用户需具备关联组织管理员权限。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=directory&resource=collaboration_rule&version=v1
 //
@@ -128,9 +128,9 @@ func (c *collaborationRule) ListByIterator(ctx context.Context, req *ListCollabo
 		limit:    req.Limit}, nil
 }
 
-// Update
+// Update 更新可搜可见规则
 //
-// - 更新关联组织规则
+// - 管理员视角更新可搜可见规则。用户需具备关联组织管理员权限。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=directory&resource=collaboration_rule&version=v1
 //
@@ -154,9 +154,9 @@ func (c *collaborationRule) Update(ctx context.Context, req *UpdateCollaboration
 	return resp, err
 }
 
-// List
+// List 管理员获取所有关联组织列表
 //
-// - 在创建规则时，需要知道对方租户的tenant key，为拿到有效的tenant key，这里提供一个专门给管理员获取关联组织租户的接口，该接口可以直接请求到所有关联组织列表。
+// - 在创建规则时，需要知道对方组织的tenant key，可通过该接口获取有效的tenant key。只允许关联组织管理员权限调用。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=directory&resource=collaboration_tenant&version=v1
 //
@@ -188,9 +188,9 @@ func (c *collaborationTenant) ListByIterator(ctx context.Context, req *ListColla
 		limit:    req.Limit}, nil
 }
 
-// List
+// List 获取关联组织双方共享成员范围
 //
-// - 获取双方租户分享的实体ID,完成可见性规则的设置
+// - 在创建规则时，需要获取本组织以及对方组织人员、部门和用户组的ID，且这些实体都应该在关联组织的共享范围内。本接口可获取关联组织双方的共享范围下的人员、部门和用户组。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=directory&resource=collboration_share_entity&version=v1
 //
@@ -214,9 +214,11 @@ func (c *collborationShareEntity) List(ctx context.Context, req *ListCollboratio
 	return resp, err
 }
 
-// Create
+// Create 创建部门
 //
-// - 创建部门信息
+// - 本接口用于用于在企业通讯录中创建新部门，支持设置部门名称、父部门、负责人等信息。
+//
+// - 注意：;- 只能在当前应用的通讯录授权范围内的部门下创建部门，如果要在根部门下创建子部门，必须拥有全员权限。可以在 开发者后台-应用详情-权限管理中 查看通讯录授权范围。;- 本接口中支持的user_access_token 默认为管理员用户，将校验管理员管理范围。当用户有多个管理员身份均可创建部门时，管理员管理范围取最大集。管理员权限可查看帮助中心文档：[管理员创建管理员角色及分配权限](https://www.feishu.cn/hc/zh-CN/articles/360043495213-%E7%AE%A1%E7%90%86%E5%91%98%E5%88%9B%E5%BB%BA%E7%AE%A1%E7%90%86%E5%91%98%E8%A7%92%E8%89%B2%E5%8F%8A%E5%88%86%E9%85%8D%E6%9D%83%E9%99%90#tabs0|lineguid-dU31C);- 拥有本接口权限后，即可写入部门信息。但创建部门后仅返回应用有权限的字段数据，如果需要指定字段请按照文档中的描述申请对应权限。;- 本接口仅对自建应用开放。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=directory&resource=department&version=v1
 //
@@ -240,9 +242,11 @@ func (d *department) Create(ctx context.Context, req *CreateDepartmentReq, optio
 	return resp, err
 }
 
-// Delete
+// Delete 删除部门
 //
-// - 删除部门信息
+// - 本接口用于删除部门。
+//
+// - 注意：;- 删除部门需要有待删除部门及其父部门的应用数据权限[配置应用数据权限](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/configure-app-data-permissions)
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=directory&resource=department&version=v1
 //
@@ -266,9 +270,11 @@ func (d *department) Delete(ctx context.Context, req *DeleteDepartmentReq, optio
 	return resp, err
 }
 
-// Filter
+// Filter 获取部门列表
 //
-// - 查询部门ID列表
+// - 本接口用于依据指定条件，批量获取符合条件的部门详情列表。
+//
+// - 注意：;- 本接口支持tenant_access_token和user_access_token。; - 使用tenant_access_token时，数据权限遵循应用的通讯录权限范围，返回的字段数据为应用有权限的字段。可以在开发者后台-应用详情-权限管理中查看通讯录授权范围。; - 使用user_access_token时，默认为管理员用户，将校验管理员管理范围。当用户有多个管理员身份均可查看部门信息时，管理员管理范围取最大集。管理员权限可查看帮助中心文档： [管理员创建管理员角色及分配权限](https://www.feishu.cn/hc/zh-CN/articles/360043495213-%E7%AE%A1%E7%90%86%E5%91%98%E5%88%9B%E5%BB%BA%E7%AE%A1%E7%90%86%E5%91%98%E8%A7%92%E8%89%B2%E5%8F%8A%E5%88%86%E9%85%8D%E6%9D%83%E9%99%90#tabs0|lineguid-dU31C)
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=filter&project=directory&resource=department&version=v1
 //
@@ -292,9 +298,11 @@ func (d *department) Filter(ctx context.Context, req *FilterDepartmentReq, optio
 	return resp, err
 }
 
-// Mget
+// Mget 批量获取部门信息
 //
-// - 查询部门
+// - 该接口支持传入多个部门ID，返回每个部门的详细信息（如名称、负责人、子部门等）。
+//
+// - **注意**：;- 本接口支持tenant_access_token和user_access_token。; - 使用tenant_access_token时，数据权限遵循应用的通讯录权限范围，返回的字段数据为应用有权限的字段。可通过[获取应用通讯录权限范围配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/contacts_range_configuration)确定应用的通讯录权限范围。; - 使用user_access_token时，默认为管理员用户，将校验管理员管理范围。当用户有多个管理员身份均可查看部门信息时，管理员管理范围取最大集。管理员权限可查看帮助中心文档： [管理员创建管理员角色及分配权限](https://www.feishu.cn/hc/zh-CN/articles/360043495213-%E7%AE%A1%E7%90%86%E5%91%98%E5%88%9B%E5%BB%BA%E7%AE%A1%E7%90%86%E5%91%98%E8%A7%92%E8%89%B2%E5%8F%8A%E5%88%86%E9%85%8D%E6%9D%83%E9%99%90#tabs0|lineguid-dU31C);- 为增强飞书组织架构 OpenAPI 的灵活性，于 **2024 年 10 月 21 日**对该 API 接口做出了更新升级，升级内容包括：优化查询已删除部门信息的返回数据结构。; - 升级前，查询已删除部门的信息时，不会返回部门负责人信息；升级后，查询已删除部门的信息时，返回数据中将包括部门负责人信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=mget&project=directory&resource=department&version=v1
 //
@@ -318,9 +326,9 @@ func (d *department) Mget(ctx context.Context, req *MgetDepartmentReq, options .
 	return resp, err
 }
 
-// Patch
+// Patch 更新部门
 //
-// - 更新部门信息
+// - 本接口用于更新部门信息。仅更新显式传参的部分。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=directory&resource=department&version=v1
 //
@@ -344,9 +352,11 @@ func (d *department) Patch(ctx context.Context, req *PatchDepartmentReq, options
 	return resp, err
 }
 
-// Search
+// Search 搜索部门
 //
-// - 搜索租户内部门
+// - 本接口用于搜索部门信息，通过部门名称等关键词搜索部门信息，返回符合条件的部门列表。
+//
+// - 注意：;- 本接口支持tenant_access_token和user_access_token。; - 使用tenant_access_token时，数据权限遵循应用的通讯录权限范围，返回的字段数据为应用有权限的字段。**考虑到数据安全仅返回最多前100条匹配项**，若需精准结果需要更准确的输入。; - 使用user_access_token时，默认为管理员用户，将校验管理员管理范围。当用户有多个管理员身份均可查看员工信息时，管理员管理范围取最大集。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=directory&resource=department&version=v1
 //
@@ -370,9 +380,11 @@ func (d *department) Search(ctx context.Context, req *SearchDepartmentReq, optio
 	return resp, err
 }
 
-// Create
+// Create 创建员工
 //
-// - 创建员工信息
+// - 本接口用于在企业下创建员工。支持传入姓名、手机号等信息，生成在职状态的员工对象。;员工指飞书企业内身份为「Employee」的成员，等同于通讯录OpenAPI中的「User」。
+//
+// - 注意：;- 只能在当前应用的通讯录授权范围内的部门下创建员工，如果要在根部门下创建员工，必须拥有全员权限。可以在开发者后台-应用详情-权限管理中查看通讯录授权范围。;- 本接口中支持的user_access_token 默认为管理员用户，将校验管理员管理范围。当用户有多个管理员身份均可创建员工时，管理员管理范围取最大集。管理员权限可查看帮助中心文档：[管理员创建管理员角色及分配权限](https://www.feishu.cn/hc/zh-CN/articles/360043495213-%E7%AE%A1%E7%90%86%E5%91%98%E5%88%9B%E5%BB%BA%E7%AE%A1%E7%90%86%E5%91%98%E8%A7%92%E8%89%B2%E5%8F%8A%E5%88%86%E9%85%8D%E6%9D%83%E9%99%90#tabs0|lineguid-dU31C);- 拥有本接口权限后，即可写入员工信息。但创建员工后仅返回应用有权限的字段数据，如果需要指定字段请按照文档中的描述申请对应权限。;- 本接口仅对自建应用开放。;- 创建出来的是在职状态的员工。;- 创建员工后，会发送邀请短信/邮件，需被邀请人点击同意后才可加入企业。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=directory&resource=employee&version=v1
 //
@@ -396,9 +408,11 @@ func (e *employee) Create(ctx context.Context, req *CreateEmployeeReq, options .
 	return resp, err
 }
 
-// Delete
+// Delete 离职员工
 //
-// - 离职员工信息
+// - 本接口用于离职员工。
+//
+// - 注意：;- 本接口支持tenant_access_token和user_access_token。; - 使用tenant_access_token时，只能在当前应用的通讯录授权范围内离职员工。; - 若员工归属于多个部门，应用需要有员工所有所属部门的权限，才能离职成功。; - 使用user_access_token 时，默认为管理员用户，将校验管理员管理范围。当用户有多个管理员身份均可离职员工时，管理员管理范围取最大集。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=directory&resource=employee&version=v1
 //
@@ -422,9 +436,11 @@ func (e *employee) Delete(ctx context.Context, req *DeleteEmployeeReq, options .
 	return resp, err
 }
 
-// Filter
+// Filter 批量获取员工列表
 //
-// - 查询员工ID列表
+// - 本接口用于依据指定条件，批量获取符合条件的员工详情列表。;员工指飞书企业内身份为「Employee」的成员，等同于通讯录OpenAPI中的「User」
+//
+// - 注意：;- 本接口支持tenant_access_token和user_access_token; - 使用tenant_access_token时，数据权限遵循应用的通讯录权限范围，返回的字段数据为应用有权限的字段。可通过[获取应用通讯录权限范围配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/contacts_range_configuration)确定应用的通讯录权限范围。; - 使用user_access_token时，默认为管理员用户，将校验管理员管理范围。当用户有多个管理员身份均可查看员工信息时，管理员管理范围取最大集。管理员权限可查看帮助中心文档： [管理员创建管理员角色及分配权限](https://www.feishu.cn/hc/zh-CN/articles/360043495213-%E7%AE%A1%E7%90%86%E5%91%98%E5%88%9B%E5%BB%BA%E7%AE%A1%E7%90%86%E5%91%98%E8%A7%92%E8%89%B2%E5%8F%8A%E5%88%86%E9%85%8D%E6%9D%83%E9%99%90#tabs0|lineguid-dU31C)
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=filter&project=directory&resource=employee&version=v1
 //
@@ -448,9 +464,11 @@ func (e *employee) Filter(ctx context.Context, req *FilterEmployeeReq, options .
 	return resp, err
 }
 
-// Mget
+// Mget 批量获取员工信息
 //
-// - 批量获取员工数据
+// - 本接口用于批量根据员工的ID查询员工的详情，比如员工姓名，手机号，邮箱，部门等信息。;员工指飞书企业内身份为「Employee」的成员，等同于通讯录OpenAPI中的「User」
+//
+// - 注意：;- 本接口支持tenant_access_token和user_access_token。; - 使用tenant_access_token时，数据权限遵循应用的通讯录权限范围，返回的字段数据为应用有权限的字段。可通过[获取应用通讯录权限范围配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/contacts_range_configuration)确定应用的通讯录权限范围。; - 使用user_access_token时，默认为管理员用户，将校验管理员管理范围。当用户有多个管理员身份均可查看员工信息时，管理员管理范围取最大集。管理员权限可查看帮助中心文档： [管理员创建管理员角色及分配权限](https://www.feishu.cn/hc/zh-CN/articles/360043495213-%E7%AE%A1%E7%90%86%E5%91%98%E5%88%9B%E5%BB%BA%E7%AE%A1%E7%90%86%E5%91%98%E8%A7%92%E8%89%B2%E5%8F%8A%E5%88%86%E9%85%8D%E6%9D%83%E9%99%90#tabs0|lineguid-dU31C)
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=mget&project=directory&resource=employee&version=v1
 //
@@ -474,9 +492,11 @@ func (e *employee) Mget(ctx context.Context, req *MgetEmployeeReq, options ...la
 	return resp, err
 }
 
-// Patch
+// Patch 更新员工信息
 //
-// - 更新员工信息
+// - 本接口用于更新在职/离职员工的信息、冻结/恢复员工。未传递的参数不会进行更新。;员工指飞书企业内身份为「Employee」的成员，等同于通讯录OpenAPI中的「User」。
+//
+// - - 员工状态的修改遵循生命周期流转的规则，具体规则详见 [Directory-员工管理-资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/resources-introduction) 。;- 本接口支持tenant_access_token和user_access_token，接口获取方式参考[获取访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/uMTNz4yM1MjLzUzM);。; - 使用tenant_access_token时，只能在当前应用的通讯录授权范围内更新员工信息。可在开发者后台 > 权限管理 > 通讯录权限 中查看。; - 当变更员工的部门信息时，应用需要有变更前后的部门权限，才能变更成功。; - 使用user_access_token 时，默认为管理员用户，将校验管理员管理范围。当用户有多个管理员身份均可更新员工信息时，管理员管理范围取最大集。管理员权限可查看帮助中心文档：[管理员创建管理员角色及分配权限](https://www.feishu.cn/hc/zh-CN/articles/360043495213-%E7%AE%A1%E7%90%86%E5%91%98%E5%88%9B%E5%BB%BA%E7%AE%A1%E7%90%86%E5%91%98%E8%A7%92%E8%89%B2%E5%8F%8A%E5%88%86%E9%85%8D%E6%9D%83%E9%99%90#tabs0|lineguid-dU31C);- 变更「未加入」、「未激活」状态的员工的联系手机号、工作邮箱，会修改员工的登录凭证，并将员工重置为「未加入」状态，并发送邀请短信/邮件。其他状态的员工修改联系方式不影响登录凭证。;- 修改员工ID（employee_id）需要悉知以下影响：; - 员工ID（employee_id）是员工在企业内的唯一ID，可能会被应用引用来实现各种内部逻辑，唯一ID修改之后可能会导致引用失败，导致所有引用且保存了‘被修改 ID 员工’的业务全部受影响。;- 更新离职状态的员工信息时，以下字段不可更新：; - email、mobile、department_ids、leader_id、is_frozen、work_city_id
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=directory&resource=employee&version=v1
 //
@@ -500,9 +520,9 @@ func (e *employee) Patch(ctx context.Context, req *PatchEmployeeReq, options ...
 	return resp, err
 }
 
-// Regular
+// Regular 更新待离职成员为在职
 //
-// - 待离职雇员恢复成在职状态
+// - 本接口用于为待离职员工取消离职，将其更新为「在职」状态。取消离职时会清空离职信息。;使用user_access_token时默认为管理员用户，仅可操作「人事管理模式」的管理员可操作。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=regular&project=directory&resource=employee&version=v1
 //
@@ -526,9 +546,11 @@ func (e *employee) Regular(ctx context.Context, req *RegularEmployeeReq, options
 	return resp, err
 }
 
-// Resurrect
+// Resurrect 恢复离职员工
 //
-// - 恢复员工信息
+// - 该接口用于恢复已离职的成员，恢复已离职成员至在职状态。
+//
+// - 注意：;- 恢复离职员工为在职，需要企业的版本在商业专业版及以上，可通过管理后台>设置>版本信息查看企业当前版本，且员工需要在离职 30 天内。恢复后，部分用户数据仍不可恢复，请谨慎调用。;- 待恢复成员的用户 ID 不能被企业内其他成员使用，可通过[批量获取员工列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/filter)接口查询用户ID是否存在。如有重复，请先离职对应的成员，否则接口会报错。;- 待恢复成员的手机号和邮箱不能被企业内其他成员使用，可通过[批量获取员工列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/filter)接口查询手机号/邮箱是否存在。如有重复，请先修改对应成员的信息，否则接口会报错。;- 本接口支持tenant_access_token和user_access_token，两种token的获取方式可参照[获取访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/uMTNz4yM1MjLzUzM)。; - 使用tenant_access_token时，只能在将离职员工恢复到当前应用通讯录授权范围内的部门之下。; - 使用user_access_token 时，默认为管理员用户，将校验管理员管理范围。当用户有多个管理员身份均可恢复离职员工时，管理员管理范围取最大集。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=resurrect&project=directory&resource=employee&version=v1
 //
@@ -552,9 +574,11 @@ func (e *employee) Resurrect(ctx context.Context, req *ResurrectEmployeeReq, opt
 	return resp, err
 }
 
-// Search
+// Search 搜索员工信息
 //
-// - 搜索租户内员工
+// - 本接口用于搜索员工信息，如通过关键词搜索员工的名称、手机号、邮箱等信息。;员工指飞书企业内身份为「Employee」的成员，等同于通讯录OpenAPI中的「User」。
+//
+// - 注意：;- 本接口支持tenant_access_token和user_access_token。; - 使用tenant_access_token时，数据权限遵循应用的通讯录权限范围，返回的字段数据为应用有权限的字段。可通过[获取应用通讯录权限范围配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/contacts_range_configuration)确定应用的通讯录权限范围。; - 使用user_access_token时，默认为管理员用户，将校验管理员管理范围。当用户有多个管理员身份均可查看员工信息时，管理员管理范围取最大集。管理员权限可查看帮助中心文档：[管理员创建管理员角色及分配权限](https://www.feishu.cn/hc/zh-CN/articles/360043495213-%E7%AE%A1%E7%90%86%E5%91%98%E5%88%9B%E5%BB%BA%E7%AE%A1%E7%90%86%E5%91%98%E8%A7%92%E8%89%B2%E5%8F%8A%E5%88%86%E9%85%8D%E6%9D%83%E9%99%90#tabs0|lineguid-dU31C);- 本接口无法搜索到外部企业或已离职的用户。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=directory&resource=employee&version=v1
 //
@@ -578,9 +602,9 @@ func (e *employee) Search(ctx context.Context, req *SearchEmployeeReq, options .
 	return resp, err
 }
 
-// ToBeResigned
+// ToBeResigned 更新在职员工为待离职
 //
-// - 更新在职雇员到待离职状态
+// - 本接口用于为在职员工办理离职，将其更新为「待离职」状态。「待离职」员工不会自动离职，需要使用「离职员工」API操作离职和资源转交。;使用user_access_token时默认为管理员用户，仅「人事管理模式」的管理员可操作。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=to_be_resigned&project=directory&resource=employee&version=v1
 //

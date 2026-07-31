@@ -52,8 +52,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -61,8 +59,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -96,7 +92,7 @@ func NewGetContentReqBuilder() *GetContentReqBuilder {
 	return builder
 }
 
-// 文档唯一标识
+// 云文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `doc_token`
 //
 // 示例值：B4EPdAYx8oi8HRxgPQQbM15UcBf
 func (builder *GetContentReqBuilder) DocToken(docToken string) *GetContentReqBuilder {
@@ -104,7 +100,7 @@ func (builder *GetContentReqBuilder) DocToken(docToken string) *GetContentReqBui
 	return builder
 }
 
-// 文档类型
+// 云文档类型
 //
 // 示例值：docx
 func (builder *GetContentReqBuilder) DocType(docType string) *GetContentReqBuilder {
@@ -120,7 +116,7 @@ func (builder *GetContentReqBuilder) ContentType(contentType string) *GetContent
 	return builder
 }
 
-// 语言
+// 云文档中存在 @用户 元素时，指定该用户名称的语言。默认 `zh`，即中文;
 //
 // 示例值：zh
 func (builder *GetContentReqBuilder) Lang(lang string) *GetContentReqBuilder {

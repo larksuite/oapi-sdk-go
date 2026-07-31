@@ -7,7 +7,7 @@ import (
 )
 
 type V1 struct {
-	MeetingRoom *meetingRoom // 事件
+	MeetingRoom *meetingRoom // meeting_room
 }
 
 func New(config *larkcore.Config) *V1 {

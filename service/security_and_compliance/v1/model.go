@@ -44,43 +44,43 @@ const (
 )
 
 type AdminLog struct {
-	UniqueId *string `json:"unique_id,omitempty"` // 唯一id
+	UniqueId *string `json:"unique_id,omitempty"` // 日志唯一ID，用于定位一条具体的日志
 
-	UserId *string `json:"user_id,omitempty"` // 管理员id
+	UserId *string `json:"user_id,omitempty"` // 管理员 open_id
 
-	CategoryName *string `json:"category_name,omitempty"` // 一级类目
+	CategoryName *string `json:"category_name,omitempty"` // 目录编号，对应管理后台事件类型级联菜单的二级菜单（C1）
 
-	EventName *string `json:"event_name,omitempty"` // 事件名称
+	EventName *string `json:"event_name,omitempty"` // 事件编号，对应管理后台事件类型级联菜单的二级菜单（C2）
 
-	IpAddress *string `json:"ip_address,omitempty"` // ip地址
+	IpAddress *string `json:"ip_address,omitempty"` // IP地址
 
-	CreateTime *string `json:"create_time,omitempty"` // 创建时间戳
+	CreateTime *string `json:"create_time,omitempty"` // 日志行为发生时间戳
 
-	Content *string `json:"content,omitempty"` // 事件详情
+	Content *string `json:"content,omitempty"` // 日志事件详情
 
 	OperationStatus *int `json:"operation_status,omitempty"` // 操作状态
 }
 
 type AdminLogBuilder struct {
-	uniqueId    string // 唯一id
+	uniqueId    string // 日志唯一ID，用于定位一条具体的日志
 	uniqueIdSet bool
 
-	userId    string // 管理员id
+	userId    string // 管理员 open_id
 	userIdSet bool
 
-	categoryName    string // 一级类目
+	categoryName    string // 目录编号，对应管理后台事件类型级联菜单的二级菜单（C1）
 	categoryNameSet bool
 
-	eventName    string // 事件名称
+	eventName    string // 事件编号，对应管理后台事件类型级联菜单的二级菜单（C2）
 	eventNameSet bool
 
-	ipAddress    string // ip地址
+	ipAddress    string // IP地址
 	ipAddressSet bool
 
-	createTime    string // 创建时间戳
+	createTime    string // 日志行为发生时间戳
 	createTimeSet bool
 
-	content    string // 事件详情
+	content    string // 日志事件详情
 	contentSet bool
 
 	operationStatus    int // 操作状态
@@ -92,7 +92,7 @@ func NewAdminLogBuilder() *AdminLogBuilder {
 	return builder
 }
 
-// 唯一id
+// 日志唯一ID，用于定位一条具体的日志
 //
 // 示例值：1
 func (builder *AdminLogBuilder) UniqueId(uniqueId string) *AdminLogBuilder {
@@ -101,16 +101,16 @@ func (builder *AdminLogBuilder) UniqueId(uniqueId string) *AdminLogBuilder {
 	return builder
 }
 
-// 管理员id
+// 管理员 open_id
 //
-// 示例值：1
+// 示例值：ou_e7b25d9ee116ff0c2b3c4400e3bedc5c
 func (builder *AdminLogBuilder) UserId(userId string) *AdminLogBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
 	return builder
 }
 
-// 一级类目
+// 目录编号，对应管理后台事件类型级联菜单的二级菜单（C1）
 //
 // 示例值：1
 func (builder *AdminLogBuilder) CategoryName(categoryName string) *AdminLogBuilder {
@@ -119,7 +119,7 @@ func (builder *AdminLogBuilder) CategoryName(categoryName string) *AdminLogBuild
 	return builder
 }
 
-// 事件名称
+// 事件编号，对应管理后台事件类型级联菜单的二级菜单（C2）
 //
 // 示例值：1
 func (builder *AdminLogBuilder) EventName(eventName string) *AdminLogBuilder {
@@ -128,7 +128,7 @@ func (builder *AdminLogBuilder) EventName(eventName string) *AdminLogBuilder {
 	return builder
 }
 
-// ip地址
+// IP地址
 //
 // 示例值：1.0.0.127
 func (builder *AdminLogBuilder) IpAddress(ipAddress string) *AdminLogBuilder {
@@ -137,7 +137,7 @@ func (builder *AdminLogBuilder) IpAddress(ipAddress string) *AdminLogBuilder {
 	return builder
 }
 
-// 创建时间戳
+// 日志行为发生时间戳
 //
 // 示例值：1692773562
 func (builder *AdminLogBuilder) CreateTime(createTime string) *AdminLogBuilder {
@@ -146,9 +146,9 @@ func (builder *AdminLogBuilder) CreateTime(createTime string) *AdminLogBuilder {
 	return builder
 }
 
-// 事件详情
+// 日志事件详情
 //
-// 示例值：content
+// 示例值：[{\"logKey\":\"detail\",\"logValue\":\"在管理员角色“某角色”中增加某某人\",\"logKStarlingKey\":\"Suite_Admin_AdminLog_Title_EventDetails\",\"logKI18nText\":\"事件详情\",\"logValueType\":null,\"logVStarlingKey\":null,\"logVI18nText\":null,\"priority\":0}]
 func (builder *AdminLogBuilder) Content(content string) *AdminLogBuilder {
 	builder.content = content
 	builder.contentSet = true
@@ -382,7 +382,7 @@ func NewAppDlpExecuteLogBuilder() *AppDlpExecuteLogBuilder {
 
 // 事件名称
 //
-// 示例值："MYAIDLP"
+// 示例值：MYAIDLP
 func (builder *AppDlpExecuteLogBuilder) EventName(eventName string) *AppDlpExecuteLogBuilder {
 	builder.eventName = eventName
 	builder.eventNameSet = true
@@ -391,7 +391,7 @@ func (builder *AppDlpExecuteLogBuilder) EventName(eventName string) *AppDlpExecu
 
 // 用户的open_id
 //
-// 示例值："ou_04444ce34fe049fb495d150dddeac36a"
+// 示例值：ou_04444ce34fe049fb495d150dddeac36a
 func (builder *AppDlpExecuteLogBuilder) UserId(userId string) *AppDlpExecuteLogBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -409,7 +409,7 @@ func (builder *AppDlpExecuteLogBuilder) ExecuteTime(executeTime string) *AppDlpE
 
 // 执行动作
 //
-// 示例值："拦截"
+// 示例值：拦截
 func (builder *AppDlpExecuteLogBuilder) ActionName(actionName string) *AppDlpExecuteLogBuilder {
 	builder.actionName = actionName
 	builder.actionNameSet = true
@@ -427,7 +427,7 @@ func (builder *AppDlpExecuteLogBuilder) HitPolicies(hitPolicies []string) *AppDl
 
 // 指令id
 //
-// 示例值："7d8a6e6df7621556ce0d21922b676706ccs"
+// 示例值：7d8a6e6df7621556ce0d21922b676706ccs
 func (builder *AppDlpExecuteLogBuilder) EntityId(entityId string) *AppDlpExecuteLogBuilder {
 	builder.entityId = entityId
 	builder.entityIdSet = true
@@ -3027,7 +3027,7 @@ func (builder *CreateMigrationEntityBuilder) Build() *CreateMigrationEntity {
 type CreateMigrationItems struct {
 	TaskId *string `json:"task_id,omitempty"` // 迁移任务的 id
 
-	TaskStatus *string `json:"task_status,omitempty"` // 任务状态。任务创建成功固定返回 create ，若已存在其他待执行任务，则返回已存在任务的状态
+	TaskStatus *string `json:"task_status,omitempty"` // 任务状态。任务任务创建成功固定返回 create ，若已存在其他待执行任务，则返回已存在任务的状态
 
 	Entity *CreateMigrationEntity `json:"entity,omitempty"` // 实体
 }
@@ -3036,7 +3036,7 @@ type CreateMigrationItemsBuilder struct {
 	taskId    string // 迁移任务的 id
 	taskIdSet bool
 
-	taskStatus    string // 任务状态。任务创建成功固定返回 create ，若已存在其他待执行任务，则返回已存在任务的状态
+	taskStatus    string // 任务状态。任务任务创建成功固定返回 create ，若已存在其他待执行任务，则返回已存在任务的状态
 	taskStatusSet bool
 
 	entity    *CreateMigrationEntity // 实体
@@ -3057,7 +3057,7 @@ func (builder *CreateMigrationItemsBuilder) TaskId(taskId string) *CreateMigrati
 	return builder
 }
 
-// 任务状态。任务创建成功固定返回 create ，若已存在其他待执行任务，则返回已存在任务的状态
+// 任务状态。任务任务创建成功固定返回 create ，若已存在其他待执行任务，则返回已存在任务的状态
 //
 // 示例值：create
 func (builder *CreateMigrationItemsBuilder) TaskStatus(taskStatus string) *CreateMigrationItemsBuilder {
@@ -3523,8 +3523,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -3532,8 +3530,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -4067,9 +4063,9 @@ type DeviceRecord struct {
 
 	GoogleAid *string `json:"google_aid,omitempty"` // google广告id
 
-	Idfa *string `json:"idfa,omitempty"` // Ios广告主标识符
+	Idfa *string `json:"idfa,omitempty"` // iOS 广告主标识符
 
-	Idfv *string `json:"idfv,omitempty"` // Ios 供应商标识符
+	Idfv *string `json:"idfv,omitempty"` // iOS 供应商标识符
 
 	DeviceOwnership *string `json:"device_ownership,omitempty"` // 设备归属
 
@@ -4120,10 +4116,10 @@ type DeviceRecordBuilder struct {
 	googleAid    string // google广告id
 	googleAidSet bool
 
-	idfa    string // Ios广告主标识符
+	idfa    string // iOS 广告主标识符
 	idfaSet bool
 
-	idfv    string // Ios 供应商标识符
+	idfv    string // iOS 供应商标识符
 	idfvSet bool
 
 	deviceOwnership    string // 设备归属
@@ -4252,7 +4248,7 @@ func (builder *DeviceRecordBuilder) GoogleAid(googleAid string) *DeviceRecordBui
 	return builder
 }
 
-// Ios广告主标识符
+// iOS 广告主标识符
 //
 // 示例值：EA7583CD-A667-48BC-B806-42ECB2B48606
 func (builder *DeviceRecordBuilder) Idfa(idfa string) *DeviceRecordBuilder {
@@ -4261,7 +4257,7 @@ func (builder *DeviceRecordBuilder) Idfa(idfa string) *DeviceRecordBuilder {
 	return builder
 }
 
-// Ios 供应商标识符
+// iOS 供应商标识符
 //
 // 示例值：968F0E5C-C297-4122-ACB6-102494DEFD9A
 func (builder *DeviceRecordBuilder) Idfv(idfv string) *DeviceRecordBuilder {
@@ -4523,17 +4519,17 @@ func (builder *DirectoryItemsBuilder) Build() *DirectoryItems {
 }
 
 type DlpDetectModeProofContext struct {
-	DetectMode *int `json:"detect_mode,omitempty"` // 检测类型
+	DetectMode *int `json:"detect_mode,omitempty"` // 检测类型;; - 2: 关键词; - 3: 正则表达式; - 5: 文件大小; - 6: 文件扩展名; - 7: 文件类型; - 8: 敏感信息类型
 
 	DetectName *string `json:"detect_name,omitempty"` // 检测类型名称
 
 	ProofContexts []*DlpProofContext `json:"proof_contexts,omitempty"` // 命中片段
 
-	HitCount *int `json:"hit_count,omitempty"` // 命中次数
+	HitCount *int `json:"hit_count,omitempty"` // ~~命中次数~~（暂不支持）
 }
 
 type DlpDetectModeProofContextBuilder struct {
-	detectMode    int // 检测类型
+	detectMode    int // 检测类型;; - 2: 关键词; - 3: 正则表达式; - 5: 文件大小; - 6: 文件扩展名; - 7: 文件类型; - 8: 敏感信息类型
 	detectModeSet bool
 
 	detectName    string // 检测类型名称
@@ -4542,7 +4538,7 @@ type DlpDetectModeProofContextBuilder struct {
 	proofContexts    []*DlpProofContext // 命中片段
 	proofContextsSet bool
 
-	hitCount    int // 命中次数
+	hitCount    int // ~~命中次数~~（暂不支持）
 	hitCountSet bool
 }
 
@@ -4551,7 +4547,7 @@ func NewDlpDetectModeProofContextBuilder() *DlpDetectModeProofContextBuilder {
 	return builder
 }
 
-// 检测类型
+// 检测类型;; - 2: 关键词; - 3: 正则表达式; - 5: 文件大小; - 6: 文件扩展名; - 7: 文件类型; - 8: 敏感信息类型
 //
 // 示例值：1
 func (builder *DlpDetectModeProofContextBuilder) DetectMode(detectMode int) *DlpDetectModeProofContextBuilder {
@@ -4578,7 +4574,7 @@ func (builder *DlpDetectModeProofContextBuilder) ProofContexts(proofContexts []*
 	return builder
 }
 
-// 命中次数
+// ~~命中次数~~（暂不支持）
 //
 // 示例值：12
 func (builder *DlpDetectModeProofContextBuilder) HitCount(hitCount int) *DlpDetectModeProofContextBuilder {
@@ -4877,7 +4873,7 @@ type DlpExecuteLog struct {
 
 	FileToken *string `json:"file_token,omitempty"` // 文件token
 
-	TriggerEventType *string `json:"trigger_event_type,omitempty"` // 触发事件类型
+	TriggerEventType *string `json:"trigger_event_type,omitempty"` // 触发事件类型;- 是：系统送检;- 否：非系统送检
 
 	ChatType *string `json:"chat_type,omitempty"` // 会话类型
 
@@ -4968,7 +4964,7 @@ type DlpExecuteLogBuilder struct {
 	fileToken    string // 文件token
 	fileTokenSet bool
 
-	triggerEventType    string // 触发事件类型
+	triggerEventType    string // 触发事件类型;- 是：系统送检;- 否：非系统送检
 	triggerEventTypeSet bool
 
 	chatType    string // 会话类型
@@ -5229,9 +5225,9 @@ func (builder *DlpExecuteLogBuilder) FileToken(fileToken string) *DlpExecuteLogB
 	return builder
 }
 
-// 触发事件类型
+// 触发事件类型;- 是：系统送检;- 否：非系统送检
 //
-// 示例值：系统送检
+// 示例值：是
 func (builder *DlpExecuteLogBuilder) TriggerEventType(triggerEventType string) *DlpExecuteLogBuilder {
 	builder.triggerEventType = triggerEventType
 	builder.triggerEventTypeSet = true
@@ -5977,7 +5973,7 @@ func NewFailedInfoBuilder() *FailedInfoBuilder {
 
 // 失败记录的唯一标识，用于定位和追踪具体的失败事件，可通过失败日志查询接口获取
 //
-// 示例值：ou_0b26f6b7bc5091dabbaa1dfbed38dee3
+// 示例值：oc_75a1e78d8ba768dded4df6b0000bb981
 func (builder *FailedInfoBuilder) Id(id string) *FailedInfoBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -5995,7 +5991,7 @@ func (builder *FailedInfoBuilder) Code(code int) *FailedInfoBuilder {
 
 // 失败详情描述，包含失败原因的人性化说明，用于辅助开发者快速定位问题根源
 //
-// 示例值：openID convert to lark userID failed
+// 示例值：openID convert to larkID failed
 func (builder *FailedInfoBuilder) Msg(msg string) *FailedInfoBuilder {
 	builder.msg = msg
 	builder.msgSet = true
@@ -6016,22 +6012,6 @@ func (builder *FailedInfoBuilder) Build() *FailedInfo {
 		req.Msg = &builder.msg
 
 	}
-	return req
-}
-
-type File struct {
-}
-
-type FileBuilder struct {
-}
-
-func NewFileBuilder() *FileBuilder {
-	builder := &FileBuilder{}
-	return builder
-}
-
-func (builder *FileBuilder) Build() *File {
-	req := &File{}
 	return req
 }
 
@@ -6140,21 +6120,21 @@ func (builder *FileRiskDetectionRecordBuilder) Build() *FileRiskDetectionRecord 
 }
 
 type FileRiskDetectionRecordResult struct {
-	Status *string `json:"status,omitempty"` // 检测状态
+	Status *string `json:"status,omitempty"` //
 
-	RiskTag *string `json:"risk_tag,omitempty"` // 风险类型
+	RiskTag *string `json:"risk_tag,omitempty"` //
 
-	NeedBotNotify *bool `json:"need_bot_notify,omitempty"` // 是否需要机器人通知
+	NeedBotNotify *bool `json:"need_bot_notify,omitempty"` //
 }
 
 type FileRiskDetectionRecordResultBuilder struct {
-	status    string // 检测状态
+	status    string //
 	statusSet bool
 
-	riskTag    string // 风险类型
+	riskTag    string //
 	riskTagSet bool
 
-	needBotNotify    bool // 是否需要机器人通知
+	needBotNotify    bool //
 	needBotNotifySet bool
 }
 
@@ -6163,8 +6143,6 @@ func NewFileRiskDetectionRecordResultBuilder() *FileRiskDetectionRecordResultBui
 	return builder
 }
 
-// 检测状态
-//
 // 示例值：FINISHED
 func (builder *FileRiskDetectionRecordResultBuilder) Status(status string) *FileRiskDetectionRecordResultBuilder {
 	builder.status = status
@@ -6172,8 +6150,6 @@ func (builder *FileRiskDetectionRecordResultBuilder) Status(status string) *File
 	return builder
 }
 
-// 风险类型
-//
 // 示例值：RISK
 func (builder *FileRiskDetectionRecordResultBuilder) RiskTag(riskTag string) *FileRiskDetectionRecordResultBuilder {
 	builder.riskTag = riskTag
@@ -6181,8 +6157,6 @@ func (builder *FileRiskDetectionRecordResultBuilder) RiskTag(riskTag string) *Fi
 	return builder
 }
 
-// 是否需要机器人通知
-//
 // 示例值：true
 func (builder *FileRiskDetectionRecordResultBuilder) NeedBotNotify(needBotNotify bool) *FileRiskDetectionRecordResultBuilder {
 	builder.needBotNotify = needBotNotify
@@ -6228,7 +6202,7 @@ func NewGeoInfoBuilder() *GeoInfoBuilder {
 
 // 实体ID，使用open_id等对外标识id
 //
-// 示例值：oc_75a1e78d8ba768dded4df6b7550bb981
+// 示例值：oc_b696f25e40213bf3e5be752bd9f123d4
 func (builder *GeoInfoBuilder) Id(id string) *GeoInfoBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -6538,7 +6512,7 @@ func (builder *GwRequestBuilder) ClientIp(clientIp string) *GwRequestBuilder {
 
 // referer防盗链
 //
-// 示例值：https://bytedance.feishu.net/docx/<encryptToken>45c200080eea138771be507263e4c9930939c279?v=1.0.11.8737&vdx=1.0.9.4444
+// 示例值：https://bytedance.feishu.net/base/\u003cencryptToken\u003efca1cedc51312006579dc0740b4e5f5e6dd827c4?table=tblVVSlwxw9DwKcF\u0026view=vew9YX1Jv5
 func (builder *GwRequestBuilder) Referer(referer string) *GwRequestBuilder {
 	builder.referer = referer
 	builder.refererSet = true
@@ -6794,33 +6768,33 @@ func (builder *KeyPersonBuilder) Build() *KeyPerson {
 }
 
 type ListOpenapiLogRequest struct {
-	ApiKeys []string `json:"api_keys,omitempty"` // 飞书开放平台定义的API
+	ApiKeys []string `json:"api_keys,omitempty"` // 飞书开放平台定义的API，参考：[API列表](https://open.feishu.cn/document/server-docs/api-call-guide/server-api-list)
 
-	StartTime *int `json:"start_time,omitempty"` // 以秒为单位的起始时间戳
+	StartTime *int `json:"start_time,omitempty"` //
 
-	EndTime *int `json:"end_time,omitempty"` // 以秒为单位的终止时间戳
+	EndTime *int `json:"end_time,omitempty"` //
 
-	AppId *string `json:"app_id,omitempty"` // 在开发者后台——凭证与基础信息页面查看的app_id（cli_xxx），指调用openapi的应用
+	AppId *string `json:"app_id,omitempty"` // 调用OpenAPI的应用唯一标识，可以前往 [开发者后台](https://open.feishu.cn/app) > 应用详情页 > 凭证与基础信息中获取 app_id
 
-	PageSize *int `json:"page_size,omitempty"` // 分页大小
+	PageSize *int `json:"page_size,omitempty"` //
 
 	PageToken *string `json:"page_token,omitempty"` // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据
 }
 
 type ListOpenapiLogRequestBuilder struct {
-	apiKeys    []string // 飞书开放平台定义的API
+	apiKeys    []string // 飞书开放平台定义的API，参考：[API列表](https://open.feishu.cn/document/server-docs/api-call-guide/server-api-list)
 	apiKeysSet bool
 
-	startTime    int // 以秒为单位的起始时间戳
+	startTime    int //
 	startTimeSet bool
 
-	endTime    int // 以秒为单位的终止时间戳
+	endTime    int //
 	endTimeSet bool
 
-	appId    string // 在开发者后台——凭证与基础信息页面查看的app_id（cli_xxx），指调用openapi的应用
+	appId    string // 调用OpenAPI的应用唯一标识，可以前往 [开发者后台](https://open.feishu.cn/app) > 应用详情页 > 凭证与基础信息中获取 app_id
 	appIdSet bool
 
-	pageSize    int // 分页大小
+	pageSize    int //
 	pageSizeSet bool
 
 	pageToken    string // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据
@@ -6832,7 +6806,7 @@ func NewListOpenapiLogRequestBuilder() *ListOpenapiLogRequestBuilder {
 	return builder
 }
 
-// 飞书开放平台定义的API
+// 飞书开放平台定义的API，参考：[API列表](https://open.feishu.cn/document/server-docs/api-call-guide/server-api-list)
 //
 // 示例值：
 func (builder *ListOpenapiLogRequestBuilder) ApiKeys(apiKeys []string) *ListOpenapiLogRequestBuilder {
@@ -6841,8 +6815,6 @@ func (builder *ListOpenapiLogRequestBuilder) ApiKeys(apiKeys []string) *ListOpen
 	return builder
 }
 
-// 以秒为单位的起始时间戳
-//
 // 示例值：1610613336
 func (builder *ListOpenapiLogRequestBuilder) StartTime(startTime int) *ListOpenapiLogRequestBuilder {
 	builder.startTime = startTime
@@ -6850,8 +6822,6 @@ func (builder *ListOpenapiLogRequestBuilder) StartTime(startTime int) *ListOpena
 	return builder
 }
 
-// 以秒为单位的终止时间戳
-//
 // 示例值：1610613336
 func (builder *ListOpenapiLogRequestBuilder) EndTime(endTime int) *ListOpenapiLogRequestBuilder {
 	builder.endTime = endTime
@@ -6859,7 +6829,7 @@ func (builder *ListOpenapiLogRequestBuilder) EndTime(endTime int) *ListOpenapiLo
 	return builder
 }
 
-// 在开发者后台——凭证与基础信息页面查看的app_id（cli_xxx），指调用openapi的应用
+// 调用OpenAPI的应用唯一标识，可以前往 [开发者后台](https://open.feishu.cn/app) > 应用详情页 > 凭证与基础信息中获取 app_id
 //
 // 示例值：cli_xxx
 func (builder *ListOpenapiLogRequestBuilder) AppId(appId string) *ListOpenapiLogRequestBuilder {
@@ -6868,8 +6838,6 @@ func (builder *ListOpenapiLogRequestBuilder) AppId(appId string) *ListOpenapiLog
 	return builder
 }
 
-// 分页大小
-//
 // 示例值：20
 func (builder *ListOpenapiLogRequestBuilder) PageSize(pageSize int) *ListOpenapiLogRequestBuilder {
 	builder.pageSize = pageSize
@@ -7335,7 +7303,7 @@ type OpenapiLog struct {
 
 	EventTime *int `json:"event_time,omitempty"` // 日志产生的时间，以秒为单位的时间戳
 
-	AppId *string `json:"app_id,omitempty"` // 在开发者后台——凭证与基础信息页面查看的app_id（cli_xxxxx）
+	AppId *string `json:"app_id,omitempty"` // 调用OpenAPI的应用唯一标识
 
 	Ip *string `json:"ip,omitempty"` // 发起调用api的ip地址
 
@@ -7352,7 +7320,7 @@ type OpenapiLogBuilder struct {
 	eventTime    int // 日志产生的时间，以秒为单位的时间戳
 	eventTimeSet bool
 
-	appId    string // 在开发者后台——凭证与基础信息页面查看的app_id（cli_xxxxx）
+	appId    string // 调用OpenAPI的应用唯一标识
 	appIdSet bool
 
 	ip    string // 发起调用api的ip地址
@@ -7394,7 +7362,7 @@ func (builder *OpenapiLogBuilder) EventTime(eventTime int) *OpenapiLogBuilder {
 	return builder
 }
 
-// 在开发者后台——凭证与基础信息页面查看的app_id（cli_xxxxx）
+// 调用OpenAPI的应用唯一标识
 //
 // 示例值：cli_xxx
 func (builder *OpenapiLogBuilder) AppId(appId string) *OpenapiLogBuilder {
@@ -7624,14 +7592,14 @@ func (builder *ParamBuilder) Build() *Param {
 type Pdl struct {
 	Pdl *int `json:"pdl,omitempty"` // 人员的 PDL的枚举值，[pdl枚举值信息](https://code.byted.org/lark/idl/blob/master/idl/lark/dts/strategy/lark.dts.strategy.thrift#L12-21)
 
-	TimestampRange *TimestampRange `json:"timestamp_range,omitempty"` // 生效时间区间
+	TimestampRange *TimestampRange `json:"timestamp_range,omitempty"` // 需要查询的时间区间，可选参数。当不传入时，返回所查询用户完整的pdl时间线信息。
 }
 
 type PdlBuilder struct {
 	pdl    int // 人员的 PDL的枚举值，[pdl枚举值信息](https://code.byted.org/lark/idl/blob/master/idl/lark/dts/strategy/lark.dts.strategy.thrift#L12-21)
 	pdlSet bool
 
-	timestampRange    *TimestampRange // 生效时间区间
+	timestampRange    *TimestampRange // 需要查询的时间区间，可选参数。当不传入时，返回所查询用户完整的pdl时间线信息。
 	timestampRangeSet bool
 }
 
@@ -7649,7 +7617,7 @@ func (builder *PdlBuilder) Pdl(pdl int) *PdlBuilder {
 	return builder
 }
 
-// 生效时间区间
+// 需要查询的时间区间，可选参数。当不传入时，返回所查询用户完整的pdl时间线信息。
 //
 // 示例值：
 func (builder *PdlBuilder) TimestampRange(timestampRange *TimestampRange) *PdlBuilder {
@@ -7793,8 +7761,6 @@ func NewPolicyLogBuilder() *PolicyLogBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *PolicyLogBuilder) HasMore(hasMore bool) *PolicyLogBuilder {
 	builder.hasMore = hasMore
@@ -7802,8 +7768,6 @@ func (builder *PolicyLogBuilder) HasMore(hasMore bool) *PolicyLogBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *PolicyLogBuilder) PageToken(pageToken string) *PolicyLogBuilder {
 	builder.pageToken = pageToken
@@ -8534,11 +8498,11 @@ func (builder *TaskStatusBuilder) Build() *TaskStatus {
 }
 
 type Tenant struct {
-	AvailableGeoLocations []string `json:"available_geo_locations,omitempty"` // 可选多地理位置列表
+	AvailableGeoLocations []string `json:"available_geo_locations,omitempty"` // 可选地理位置列表
 }
 
 type TenantBuilder struct {
-	availableGeoLocations    []string // 可选多地理位置列表
+	availableGeoLocations    []string // 可选地理位置列表
 	availableGeoLocationsSet bool
 }
 
@@ -8547,7 +8511,7 @@ func NewTenantBuilder() *TenantBuilder {
 	return builder
 }
 
-// 可选多地理位置列表
+// 可选地理位置列表
 //
 // 示例值：["cn", "sg", "us", "jp"]
 func (builder *TenantBuilder) AvailableGeoLocations(availableGeoLocations []string) *TenantBuilder {
@@ -8719,16 +8683,16 @@ func (builder *TimeRangeBuilder) Build() *TimeRange {
 }
 
 type TimestampRange struct {
-	Start *string `json:"start,omitempty"` // 时间段的起始毫秒时间戳
+	Start *string `json:"start,omitempty"` // 时间段的起始毫秒时间戳。当pdl_time_range值不为空时，必填。
 
-	End *string `json:"end,omitempty"` // 时间段的终止毫秒时间戳
+	End *string `json:"end,omitempty"` // 时间段的终止毫秒时间戳。当pdl_time_range值不为空时，必填。
 }
 
 type TimestampRangeBuilder struct {
-	start    string // 时间段的起始毫秒时间戳
+	start    string // 时间段的起始毫秒时间戳。当pdl_time_range值不为空时，必填。
 	startSet bool
 
-	end    string // 时间段的终止毫秒时间戳
+	end    string // 时间段的终止毫秒时间戳。当pdl_time_range值不为空时，必填。
 	endSet bool
 }
 
@@ -8737,7 +8701,7 @@ func NewTimestampRangeBuilder() *TimestampRangeBuilder {
 	return builder
 }
 
-// 时间段的起始毫秒时间戳
+// 时间段的起始毫秒时间戳。当pdl_time_range值不为空时，必填。
 //
 // 示例值：1672502400000
 func (builder *TimestampRangeBuilder) Start(start string) *TimestampRangeBuilder {
@@ -8746,7 +8710,7 @@ func (builder *TimestampRangeBuilder) Start(start string) *TimestampRangeBuilder
 	return builder
 }
 
-// 时间段的终止毫秒时间戳
+// 时间段的终止毫秒时间戳。当pdl_time_range值不为空时，必填。
 //
 // 示例值：1693670400000
 func (builder *TimestampRangeBuilder) End(end string) *TimestampRangeBuilder {
@@ -8878,8 +8842,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -8887,8 +8849,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -8896,8 +8856,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -8923,31 +8881,31 @@ func (builder *UserIdBuilder) Build() *UserId {
 }
 
 type UserMigration struct {
-	UserId *string `json:"user_id,omitempty"` // 用户 id
+	UserId *string `json:"user_id,omitempty"` // 用户 ID
 
 	DestGeo *string `json:"dest_geo,omitempty"` // 目标地理位置区域
 
-	TaskId *string `json:"task_id,omitempty"` // 最新迁移任务 id
+	TaskId *string `json:"task_id,omitempty"` // 迁移任务 ID
 
 	Status *string `json:"status,omitempty"` // 用户迁移状态
 
-	Progress *int `json:"progress,omitempty"` // 用户迁移进度
+	Progress *int `json:"progress,omitempty"` // 迁移进度百分比，取值 0-100
 }
 
 type UserMigrationBuilder struct {
-	userId    string // 用户 id
+	userId    string // 用户 ID
 	userIdSet bool
 
 	destGeo    string // 目标地理位置区域
 	destGeoSet bool
 
-	taskId    string // 最新迁移任务 id
+	taskId    string // 迁移任务 ID
 	taskIdSet bool
 
 	status    string // 用户迁移状态
 	statusSet bool
 
-	progress    int // 用户迁移进度
+	progress    int // 迁移进度百分比，取值 0-100
 	progressSet bool
 }
 
@@ -8956,7 +8914,7 @@ func NewUserMigrationBuilder() *UserMigrationBuilder {
 	return builder
 }
 
-// 用户 id
+// 用户 ID
 //
 // 示例值：
 func (builder *UserMigrationBuilder) UserId(userId string) *UserMigrationBuilder {
@@ -8967,14 +8925,14 @@ func (builder *UserMigrationBuilder) UserId(userId string) *UserMigrationBuilder
 
 // 目标地理位置区域
 //
-// 示例值：
+// 示例值：us
 func (builder *UserMigrationBuilder) DestGeo(destGeo string) *UserMigrationBuilder {
 	builder.destGeo = destGeo
 	builder.destGeoSet = true
 	return builder
 }
 
-// 最新迁移任务 id
+// 迁移任务 ID
 //
 // 示例值：
 func (builder *UserMigrationBuilder) TaskId(taskId string) *UserMigrationBuilder {
@@ -8985,14 +8943,14 @@ func (builder *UserMigrationBuilder) TaskId(taskId string) *UserMigrationBuilder
 
 // 用户迁移状态
 //
-// 示例值：
+// 示例值：1
 func (builder *UserMigrationBuilder) Status(status string) *UserMigrationBuilder {
 	builder.status = status
 	builder.statusSet = true
 	return builder
 }
 
-// 用户迁移进度
+// 迁移进度百分比，取值 0-100
 //
 // 示例值：
 func (builder *UserMigrationBuilder) Progress(progress int) *UserMigrationBuilder {
@@ -9287,7 +9245,7 @@ func (builder *VaultTaskBuilder) Build() *VaultTask {
 }
 
 type GetMultiGeoEntityTenantRespData struct {
-	Tenant *Tenant `json:"tenant,omitempty"` // 多地理位置租户信息
+	Tenant *Tenant `json:"tenant,omitempty"` // 数据驻留租户信息
 }
 
 type GetMultiGeoEntityTenantResp struct {
@@ -9314,7 +9272,7 @@ func NewListDataOpenapiLogReqBuilder() *ListDataOpenapiLogReqBuilder {
 	return builder
 }
 
-//
+// 该接口用于获取OpenAPI审计日志数据
 func (builder *ListDataOpenapiLogReqBuilder) ListOpenapiLogRequest(listOpenapiLogRequest *ListOpenapiLogRequest) *ListDataOpenapiLogReqBuilder {
 	builder.listOpenapiLogRequest = listOpenapiLogRequest
 	return builder
@@ -9351,7 +9309,7 @@ func (resp *ListDataOpenapiLogResp) Success() bool {
 }
 
 type CancelUserMigrationReqBodyBuilder struct {
-	userIds    []string // 取消迁移用户 id 列表
+	userIds    []string // 取消迁移用户 ID 列表
 	userIdsSet bool
 }
 
@@ -9360,9 +9318,9 @@ func NewCancelUserMigrationReqBodyBuilder() *CancelUserMigrationReqBodyBuilder {
 	return builder
 }
 
-// 取消迁移用户 id 列表
+// 取消迁移用户 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *CancelUserMigrationReqBodyBuilder) UserIds(userIds []string) *CancelUserMigrationReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
@@ -9387,7 +9345,7 @@ func NewCancelUserMigrationPathReqBodyBuilder() *CancelUserMigrationPathReqBodyB
 	return builder
 }
 
-// 取消迁移用户 id 列表
+// 取消迁移用户 ID 列表
 //
 // 示例值：
 func (builder *CancelUserMigrationPathReqBodyBuilder) UserIds(userIds []string) *CancelUserMigrationPathReqBodyBuilder {
@@ -9426,7 +9384,7 @@ func (builder *CancelUserMigrationReqBuilder) UserIdType(userIdType string) *Can
 	return builder
 }
 
-//
+// 取消用户迁移任务，仅能对未启动迁移的用户做此操作。用户迁移状态可通过「获取单个用户迁移状态」查询。
 func (builder *CancelUserMigrationReqBuilder) Body(body *CancelUserMigrationReqBody) *CancelUserMigrationReqBuilder {
 	builder.body = body
 	return builder
@@ -9441,7 +9399,7 @@ func (builder *CancelUserMigrationReqBuilder) Build() *CancelUserMigrationReq {
 }
 
 type CancelUserMigrationReqBody struct {
-	UserIds []string `json:"user_ids,omitempty"` // 取消迁移用户 id 列表
+	UserIds []string `json:"user_ids,omitempty"` // 取消迁移用户 ID 列表
 }
 
 type CancelUserMigrationReq struct {
@@ -9459,10 +9417,10 @@ func (resp *CancelUserMigrationResp) Success() bool {
 }
 
 type CreateUserMigrationReqBodyBuilder struct {
-	userIds    []string // 迁移用户 id 列表
+	userIds    []string // 迁移用户 ID 列表，ID类型必须与查询参数user_id_type的取值一致
 	userIdsSet bool
 
-	destGeo    string // 迁移目标地理位置区域
+	destGeo    string // 迁移目标地理位置区域，参数长度2到10字符
 	destGeoSet bool
 }
 
@@ -9471,18 +9429,18 @@ func NewCreateUserMigrationReqBodyBuilder() *CreateUserMigrationReqBodyBuilder {
 	return builder
 }
 
-// 迁移用户 id 列表
+// 迁移用户 ID 列表，ID类型必须与查询参数user_id_type的取值一致
 //
-//示例值：
+// 示例值：
 func (builder *CreateUserMigrationReqBodyBuilder) UserIds(userIds []string) *CreateUserMigrationReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
 	return builder
 }
 
-// 迁移目标地理位置区域
+// 迁移目标地理位置区域，参数长度2到10字符
 //
-//示例值：
+// 示例值：sg
 func (builder *CreateUserMigrationReqBodyBuilder) DestGeo(destGeo string) *CreateUserMigrationReqBodyBuilder {
 	builder.destGeo = destGeo
 	builder.destGeoSet = true
@@ -9512,7 +9470,7 @@ func NewCreateUserMigrationPathReqBodyBuilder() *CreateUserMigrationPathReqBodyB
 	return builder
 }
 
-// 迁移用户 id 列表
+// 迁移用户 ID 列表，ID类型必须与查询参数user_id_type的取值一致
 //
 // 示例值：
 func (builder *CreateUserMigrationPathReqBodyBuilder) UserIds(userIds []string) *CreateUserMigrationPathReqBodyBuilder {
@@ -9521,9 +9479,9 @@ func (builder *CreateUserMigrationPathReqBodyBuilder) UserIds(userIds []string) 
 	return builder
 }
 
-// 迁移目标地理位置区域
+// 迁移目标地理位置区域，参数长度2到10字符
 //
-// 示例值：
+// 示例值：sg
 func (builder *CreateUserMigrationPathReqBodyBuilder) DestGeo(destGeo string) *CreateUserMigrationPathReqBodyBuilder {
 	builder.destGeo = destGeo
 	builder.destGeoSet = true
@@ -9563,7 +9521,7 @@ func (builder *CreateUserMigrationReqBuilder) UserIdType(userIdType string) *Cre
 	return builder
 }
 
-//
+// 将用户的数据驻留位置迁移到目标地理位置。
 func (builder *CreateUserMigrationReqBuilder) Body(body *CreateUserMigrationReqBody) *CreateUserMigrationReqBuilder {
 	builder.body = body
 	return builder
@@ -9578,9 +9536,9 @@ func (builder *CreateUserMigrationReqBuilder) Build() *CreateUserMigrationReq {
 }
 
 type CreateUserMigrationReqBody struct {
-	UserIds []string `json:"user_ids,omitempty"` // 迁移用户 id 列表
+	UserIds []string `json:"user_ids,omitempty"` // 迁移用户 ID 列表，ID类型必须与查询参数user_id_type的取值一致
 
-	DestGeo *string `json:"dest_geo,omitempty"` // 迁移目标地理位置区域
+	DestGeo *string `json:"dest_geo,omitempty"` // 迁移目标地理位置区域，参数长度2到10字符
 }
 
 type CreateUserMigrationReq struct {
@@ -9615,9 +9573,9 @@ func NewGetUserMigrationReqBuilder() *GetUserMigrationReqBuilder {
 	return builder
 }
 
-// 用户 id
+// ID类型必须与查询参数user_id_type的取值一致
 //
-// 示例值：
+// 示例值：ou_1234567890abcdef1234567890abcdef
 func (builder *GetUserMigrationReqBuilder) UserId(userId string) *GetUserMigrationReqBuilder {
 	builder.apiReq.PathParams.Set("user_id", fmt.Sprint(userId))
 	return builder
@@ -9658,7 +9616,7 @@ func (resp *GetUserMigrationResp) Success() bool {
 }
 
 type SearchUserMigrationReqBodyBuilder struct {
-	userIds    []string // 用户 id 列表
+	userIds    []string // 用户 ID 列表
 	userIdsSet bool
 }
 
@@ -9667,9 +9625,9 @@ func NewSearchUserMigrationReqBodyBuilder() *SearchUserMigrationReqBodyBuilder {
 	return builder
 }
 
-// 用户 id 列表
+// 用户 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchUserMigrationReqBodyBuilder) UserIds(userIds []string) *SearchUserMigrationReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
@@ -9694,7 +9652,7 @@ func NewSearchUserMigrationPathReqBodyBuilder() *SearchUserMigrationPathReqBodyB
 	return builder
 }
 
-// 用户 id 列表
+// 用户 ID 列表
 //
 // 示例值：
 func (builder *SearchUserMigrationPathReqBodyBuilder) UserIds(userIds []string) *SearchUserMigrationPathReqBodyBuilder {
@@ -9733,7 +9691,7 @@ func (builder *SearchUserMigrationReqBuilder) UserIdType(userIdType string) *Sea
 	return builder
 }
 
-//
+// 传入用户 ID 列表，批量获取用户迁移状态
 func (builder *SearchUserMigrationReqBuilder) Body(body *SearchUserMigrationReqBody) *SearchUserMigrationReqBuilder {
 	builder.body = body
 	return builder
@@ -9748,7 +9706,7 @@ func (builder *SearchUserMigrationReqBuilder) Build() *SearchUserMigrationReq {
 }
 
 type SearchUserMigrationReqBody struct {
-	UserIds []string `json:"user_ids,omitempty"` // 用户 id 列表
+	UserIds []string `json:"user_ids,omitempty"` // 用户 ID 列表
 }
 
 type SearchUserMigrationReq struct {

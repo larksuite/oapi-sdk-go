@@ -98,9 +98,9 @@ const (
 )
 
 const (
-	CycleTypeDay   = 1 // 日活
-	CycleTypeWeek  = 2 // 周活， date字段应该填自然周周一的日期
-	CycleTypeMonth = 3 // 月活， date字段应该填自然月1号的日期
+	CycleTypeDay   = 1 // 日活，指自然日，返回当前日期所在日的数据
+	CycleTypeWeek  = 2 // 周活，指自然周，返回当前日期所在周的数据。若到查询时当周还没结束，则返回周一到当前日期的数值。例如在2021/7/15 查询2021/7/5 这一周的数据，则代表的是2021/7/5 ~ 2021/7/11。但若是在2021/7/8 查询2021/7/5 这一周的数据，则返回的是2021/7/5 ~ 2021/7/7 的数据
+	CycleTypeMonth = 3 // 月活，指自然月，返回当前日期所在月的数据。若不满一个月则返回当月1日到截止日期前的数据。例如在2021/8/15 查询 7月的数据，则代表2021/7/1~2021/7/31。 若在2021/8/15 查询8月的数据，则代表2021/8/1~2021/8/14的数据
 
 )
 
@@ -110,9 +110,9 @@ const (
 )
 
 const (
-	MessagePushOverviewApplicationAppUsageCycleTypeDay   = 1 // 日活
-	MessagePushOverviewApplicationAppUsageCycleTypeWeek  = 2 // 周活， date字段应该填自然周周一的日期
-	MessagePushOverviewApplicationAppUsageCycleTypeMonth = 3 // 月活， date字段应该填自然月1号的日期
+	MessagePushOverviewApplicationAppUsageCycleTypeDay   = 1 // 日活，指自然日，返回当前日期所在日的数据
+	MessagePushOverviewApplicationAppUsageCycleTypeWeek  = 2 // 周活，指自然周，返回当前日期所在周的数据。若到查询时当周还没结束，则返回周一到当前日期的数值。例如在2021/7/15 查询2021/7/5 这一周的数据，则代表的是2021/7/5 ~ 2021/7/11。但若是在2021/7/8 查询2021/7/5 这一周的数据，则返回的是2021/7/5 ~ 2021/7/7 的数据
+	MessagePushOverviewApplicationAppUsageCycleTypeMonth = 3 // 月活，指自然月，返回当前日期所在月的数据。若不满一个月则返回当月1日到截止日期前的数据。例如在2021/8/15 查询 7月的数据，则代表2021/7/1~2021/7/31。 若在2021/8/15 查询8月的数据，则代表2021/8/1~2021/8/14的数据
 
 )
 
@@ -122,17 +122,17 @@ const (
 )
 
 const (
-	CycleTypeOverviewApplicationAppUsageDay   = 1 // 日活
-	CycleTypeOverviewApplicationAppUsageWeek  = 2 // 周活， date字段应该填自然周周一的日期
-	CycleTypeOverviewApplicationAppUsageMonth = 3 // 月活， date字段应该填自然月1号的日期
+	CycleTypeOverviewApplicationAppUsageDay   = 1 // 日活，指自然日，返回当前日期所在日的数据
+	CycleTypeOverviewApplicationAppUsageWeek  = 2 // 周活，指自然周，返回当前日期所在周的数据。若到查询时当周还没结束，则返回周一到当前日期的数值。例如在2021/7/15 查询2021/7/5 这一周的数据，则代表的是2021/7/5 ~ 2021/7/11。但若是在2021/7/8 查询2021/7/5 这一周的数据，则返回的是2021/7/5 ~ 2021/7/7 的数据
+	CycleTypeOverviewApplicationAppUsageMonth = 3 // 月活，指自然月，返回当前日期所在月的数据。若不满一个月则返回当月1日到截止日期前的数据。例如在2021/8/15 查询 7月的数据，则代表2021/7/1~2021/7/31。 若在2021/8/15 查询8月的数据，则代表2021/8/1~2021/8/14的数据
 
 )
 
 const (
-	OverviewApplicationAppUsageAbilityApp = "app" // 返回应用整体的数据
-	OverviewApplicationAppUsageAbilityMp  = "mp"  // 返回小程序的数据
-	OverviewApplicationAppUsageAbilityH5  = "h5"  // 返回网页的数据
-	OverviewApplicationAppUsageAbilityBot = "bot" // 返回机器人的数据
+	OverviewApplicationAppUsageAbilityApp = "app" // 返回应用整体的数据，指标值包括：uv：活跃用户数，total_users：累计用户数，new_users：新增用户数，pv：在应用（小程序或网页）中访问的页面数，lifecycle：打开应用（小程序或网页）的次数
+	OverviewApplicationAppUsageAbilityMp  = "mp"  // 返回小程序能力的数据，指标值包括：uv（小程序活跃用户数）、pv（用户在小程序中的访问页面数）、lifecycle（小程序的打开次数）
+	OverviewApplicationAppUsageAbilityH5  = "h5"  // 返回网页能力的数据，指标值包括：uv（网页应用活跃用户数）、pv（用户在网页应用中的访问页面数）、lifecycle（网页应用的打开次数）
+	OverviewApplicationAppUsageAbilityBot = "bot" // 返回机器人能力的数据，指标值包括：uv（机器人的活跃用户数）
 )
 
 const (
@@ -203,8 +203,8 @@ const (
 )
 
 const (
-	PatchApplicationContactsRangeContactsRangeTypeEqualToAvailability = "equal_to_availability" // 与应用可用范围一致
-	PatchApplicationContactsRangeContactsRangeTypeSome                = "some"                  // 修改部分成员
+	PatchApplicationContactsRangeContactsRangeTypeEqualToAvailability = "equal_to_availability" // 与应用可用性始终保持一致
+	PatchApplicationContactsRangeContactsRangeTypeSome                = "some"                  // 部分成员
 	PatchApplicationContactsRangeContactsRangeTypeAll                 = "all"                   // 全部成员范围
 )
 
@@ -266,7 +266,7 @@ const (
 )
 
 const (
-	CheckWhiteBlackListApplicationVisibilityDepartmentIDTypeDepartmentId     = "department_id"      // 以department_id来标识部门
+	CheckWhiteBlackListApplicationVisibilityDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
 	CheckWhiteBlackListApplicationVisibilityDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
@@ -282,16 +282,16 @@ const (
 )
 
 type Accessibility struct {
-	Reason *string `json:"reason,omitempty"` // 更新访问状态原因说明，停用OpenAPI时将作为OpenAPI错误消息返回；若设置停用，则该字段必填.
+	Reason *string `json:"reason,omitempty"` // 更新访问状态原因，停用OpenAPI时将作为OpenAPI错误消息返回。
 
-	State *string `json:"state,omitempty"` // 访问状态,取值"Enable"或"Disable"
+	State *string `json:"state,omitempty"` // 访问状态，应用是否可访问OpenAPI，取值"Enable"- 启用，"Disable" - 停用。
 }
 
 type AccessibilityBuilder struct {
-	reason    string // 更新访问状态原因说明，停用OpenAPI时将作为OpenAPI错误消息返回；若设置停用，则该字段必填.
+	reason    string // 更新访问状态原因，停用OpenAPI时将作为OpenAPI错误消息返回。
 	reasonSet bool
 
-	state    string // 访问状态,取值"Enable"或"Disable"
+	state    string // 访问状态，应用是否可访问OpenAPI，取值"Enable"- 启用，"Disable" - 停用。
 	stateSet bool
 }
 
@@ -300,18 +300,18 @@ func NewAccessibilityBuilder() *AccessibilityBuilder {
 	return builder
 }
 
-// 更新访问状态原因说明，停用OpenAPI时将作为OpenAPI错误消息返回；若设置停用，则该字段必填.
+// 更新访问状态原因，停用OpenAPI时将作为OpenAPI错误消息返回。
 //
-// 示例值：应用发送消息过于频繁，暂停应用调用发送OpenAPI
+// 示例值：应用发送消息过于频繁，暂停应用调用发送消息OpenAPI
 func (builder *AccessibilityBuilder) Reason(reason string) *AccessibilityBuilder {
 	builder.reason = reason
 	builder.reasonSet = true
 	return builder
 }
 
-// 访问状态,取值"Enable"或"Disable"
+// 访问状态，应用是否可访问OpenAPI，取值"Enable"- 启用，"Disable" - 停用。
 //
-// 示例值：Enable
+// 示例值：Disable
 func (builder *AccessibilityBuilder) State(state string) *AccessibilityBuilder {
 	builder.state = state
 	builder.stateSet = true
@@ -620,7 +620,7 @@ type AppAbilityWeb struct {
 
 	PcUrl *string `json:"pc_url,omitempty"` // PC端链接
 
-	PcNewPageOpenMode *string `json:"pc_new_page_open_mode,omitempty"` // PC端新页面打开方式
+	PcNewPageOpenMode *string `json:"pc_new_page_open_mode,omitempty"` // PC端主页通过window.open 或 <a> 标签打开新页面时的打开方式
 
 	MobileUrl *string `json:"mobile_url,omitempty"` // 移动端链接
 }
@@ -632,7 +632,7 @@ type AppAbilityWebBuilder struct {
 	pcUrl    string // PC端链接
 	pcUrlSet bool
 
-	pcNewPageOpenMode    string // PC端新页面打开方式
+	pcNewPageOpenMode    string // PC端主页通过window.open 或 <a> 标签打开新页面时的打开方式
 	pcNewPageOpenModeSet bool
 
 	mobileUrl    string // 移动端链接
@@ -662,7 +662,7 @@ func (builder *AppAbilityWebBuilder) PcUrl(pcUrl string) *AppAbilityWebBuilder {
 	return builder
 }
 
-// PC端新页面打开方式
+// PC端主页通过window.open 或 <a> 标签打开新页面时的打开方式
 //
 // 示例值：new_tab
 func (builder *AppAbilityWebBuilder) PcNewPageOpenMode(pcNewPageOpenMode string) *AppAbilityWebBuilder {
@@ -751,11 +751,11 @@ func (builder *AppAdminUserBuilder) Build() *AppAdminUser {
 }
 
 type AppBadge struct {
-	UserId *string `json:"user_id,omitempty"` // 用户ID
+	UserId *string `json:"user_id,omitempty"` //
 
-	Version *string `json:"version,omitempty"` // badge数据版本号
+	Version *string `json:"version,omitempty"` //
 
-	Extra *string `json:"extra,omitempty"` // badge extra 信息
+	Extra *string `json:"extra,omitempty"` //
 
 	Pc *ClientBadgeNum `json:"pc,omitempty"` // pc端badge数量
 
@@ -763,13 +763,13 @@ type AppBadge struct {
 }
 
 type AppBadgeBuilder struct {
-	userId    string // 用户ID
+	userId    string //
 	userIdSet bool
 
-	version    string // badge数据版本号
+	version    string //
 	versionSet bool
 
-	extra    string // badge extra 信息
+	extra    string //
 	extraSet bool
 
 	pc    *ClientBadgeNum // pc端badge数量
@@ -784,8 +784,6 @@ func NewAppBadgeBuilder() *AppBadgeBuilder {
 	return builder
 }
 
-// 用户ID
-//
 // 示例值：ou_d317f090b7258ad0372aa53963cda70d
 func (builder *AppBadgeBuilder) UserId(userId string) *AppBadgeBuilder {
 	builder.userId = userId
@@ -793,8 +791,6 @@ func (builder *AppBadgeBuilder) UserId(userId string) *AppBadgeBuilder {
 	return builder
 }
 
-// badge数据版本号
-//
 // 示例值：1664360599355
 func (builder *AppBadgeBuilder) Version(version string) *AppBadgeBuilder {
 	builder.version = version
@@ -802,8 +798,6 @@ func (builder *AppBadgeBuilder) Version(version string) *AppBadgeBuilder {
 	return builder
 }
 
-// badge extra 信息
-//
 // 示例值：{}
 func (builder *AppBadgeBuilder) Extra(extra string) *AppBadgeBuilder {
 	builder.extra = extra
@@ -855,14 +849,14 @@ func (builder *AppBadgeBuilder) Build() *AppBadge {
 type AppCollaborator struct {
 	Type *string `json:"type,omitempty"` // 人员类型
 
-	UserId *string `json:"user_id,omitempty"` // 用户ID
+	UserId *string `json:"user_id,omitempty"` // 用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 }
 
 type AppCollaboratorBuilder struct {
 	type_    string // 人员类型
 	type_Set bool
 
-	userId    string // 用户ID
+	userId    string // 用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 	userIdSet bool
 }
 
@@ -880,7 +874,7 @@ func (builder *AppCollaboratorBuilder) Type(type_ string) *AppCollaboratorBuilde
 	return builder
 }
 
-// 用户ID
+// 用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 //
 // 示例值：ou_d317f090b7258ad0372aa53963cda70d
 func (builder *AppCollaboratorBuilder) UserId(userId string) *AppCollaboratorBuilder {
@@ -1220,14 +1214,14 @@ func (builder *AppConfigScopeBuilder) Build() *AppConfigScope {
 type AppConfigScopeItem struct {
 	ScopeName *string `json:"scope_name,omitempty"` // 权限名称
 
-	TokenType *string `json:"token_type,omitempty"` // 身份类型
+	TokenType *string `json:"token_type,omitempty"` // 权限类型
 }
 
 type AppConfigScopeItemBuilder struct {
 	scopeName    string // 权限名称
 	scopeNameSet bool
 
-	tokenType    string // 身份类型
+	tokenType    string // 权限类型
 	tokenTypeSet bool
 }
 
@@ -1245,7 +1239,7 @@ func (builder *AppConfigScopeItemBuilder) ScopeName(scopeName string) *AppConfig
 	return builder
 }
 
-// 身份类型
+// 权限类型
 //
 // 示例值：tenant
 func (builder *AppConfigScopeItemBuilder) TokenType(tokenType string) *AppConfigScopeItemBuilder {
@@ -1326,7 +1320,7 @@ type AppConfigSecurityItem struct {
 
 	AllowedSchemas []string `json:"allowed_schemas,omitempty"` // 小程序协议名白名单
 
-	AllowedServerDomains []string `json:"allowed_server_domains,omitempty"` // 服务器可信域名
+	AllowedServerDomains []string `json:"allowed_server_domains,omitempty"` // 服务器域名白名单，云文档小组件、多维表格插件使用
 }
 
 type AppConfigSecurityItemBuilder struct {
@@ -1345,7 +1339,7 @@ type AppConfigSecurityItemBuilder struct {
 	allowedSchemas    []string // 小程序协议名白名单
 	allowedSchemasSet bool
 
-	allowedServerDomains    []string // 服务器可信域名
+	allowedServerDomains    []string // 服务器域名白名单，云文档小组件、多维表格插件使用
 	allowedServerDomainsSet bool
 }
 
@@ -1399,7 +1393,7 @@ func (builder *AppConfigSecurityItemBuilder) AllowedSchemas(allowedSchemas []str
 	return builder
 }
 
-// 服务器可信域名
+// 服务器域名白名单，云文档小组件、多维表格插件使用
 //
 // 示例值：
 func (builder *AppConfigSecurityItemBuilder) AllowedServerDomains(allowedServerDomains []string) *AppConfigSecurityItemBuilder {
@@ -1481,18 +1475,18 @@ func (builder *AppConfigVisibilityBuilder) Build() *AppConfigVisibility {
 }
 
 type AppContactsRangeIdList struct {
-	UserIds []string `json:"user_ids,omitempty"` // 成员id列表
+	UserIds []string `json:"user_ids,omitempty"` // 成员id列表 id类型根据user_id_type参数指定
 
-	DepartmentIds []string `json:"department_ids,omitempty"` // 部门id列表
+	DepartmentIds []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定
 
 	GroupIds []string `json:"group_ids,omitempty"` // 用户组列表
 }
 
 type AppContactsRangeIdListBuilder struct {
-	userIds    []string // 成员id列表
+	userIds    []string // 成员id列表 id类型根据user_id_type参数指定
 	userIdsSet bool
 
-	departmentIds    []string // 部门id列表
+	departmentIds    []string // 部门id列表 id类型根据department_id_type参数指定
 	departmentIdsSet bool
 
 	groupIds    []string // 用户组列表
@@ -1504,7 +1498,7 @@ func NewAppContactsRangeIdListBuilder() *AppContactsRangeIdListBuilder {
 	return builder
 }
 
-// 成员id列表
+// 成员id列表 id类型根据user_id_type参数指定
 //
 // 示例值：
 func (builder *AppContactsRangeIdListBuilder) UserIds(userIds []string) *AppContactsRangeIdListBuilder {
@@ -1513,7 +1507,7 @@ func (builder *AppContactsRangeIdListBuilder) UserIds(userIds []string) *AppCont
 	return builder
 }
 
-// 部门id列表
+// 部门id列表 id类型根据department_id_type参数指定
 //
 // 示例值：
 func (builder *AppContactsRangeIdListBuilder) DepartmentIds(departmentIds []string) *AppContactsRangeIdListBuilder {
@@ -1804,8 +1798,6 @@ func (builder *AppMessageTrendItemBuilder) MessageType(messageType string) *AppM
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *AppMessageTrendItemBuilder) Trend(trend []*UsageTrendItem) *AppMessageTrendItemBuilder {
 	builder.trend = trend
@@ -2053,7 +2045,7 @@ func (builder *AppRecommendRuleItemInfoBuilder) LinkUrl(linkUrl string) *AppReco
 
 // 应用类型应用项的 app id（链接类型该字段为空）
 //
-// 示例值：cli_a274440757b8901c
+// 示例值：cli_***
 func (builder *AppRecommendRuleItemInfoBuilder) ClientId(clientId string) *AppRecommendRuleItemInfoBuilder {
 	builder.clientId = clientId
 	builder.clientIdSet = true
@@ -2865,19 +2857,19 @@ func (builder *AppVisibilityEventBuilder) Build() *AppVisibilityEvent {
 type AppVisibilityIdList struct {
 	UserIds []string `json:"user_ids,omitempty"` // 成员id列表(open_id/union_id/user_id)
 
-	DepartmentIds []string `json:"department_ids,omitempty"` // 部门id列表(自定义部门id/open_department_id)
+	DepartmentIds []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定
 
-	GroupIds []string `json:"group_ids,omitempty"` // 用户组id
+	GroupIds []string `json:"group_ids,omitempty"` // 用户组id列表
 }
 
 type AppVisibilityIdListBuilder struct {
 	userIds    []string // 成员id列表(open_id/union_id/user_id)
 	userIdsSet bool
 
-	departmentIds    []string // 部门id列表(自定义部门id/open_department_id)
+	departmentIds    []string // 部门id列表 id类型根据department_id_type参数指定
 	departmentIdsSet bool
 
-	groupIds    []string // 用户组id
+	groupIds    []string // 用户组id列表
 	groupIdsSet bool
 }
 
@@ -2895,7 +2887,7 @@ func (builder *AppVisibilityIdListBuilder) UserIds(userIds []string) *AppVisibil
 	return builder
 }
 
-// 部门id列表(自定义部门id/open_department_id)
+// 部门id列表 id类型根据department_id_type参数指定
 //
 // 示例值：
 func (builder *AppVisibilityIdListBuilder) DepartmentIds(departmentIds []string) *AppVisibilityIdListBuilder {
@@ -2904,7 +2896,7 @@ func (builder *AppVisibilityIdListBuilder) DepartmentIds(departmentIds []string)
 	return builder
 }
 
-// 用户组id
+// 用户组id列表
 //
 // 示例值：
 func (builder *AppVisibilityIdListBuilder) GroupIds(groupIds []string) *AppVisibilityIdListBuilder {
@@ -2971,7 +2963,7 @@ func (builder *AppVisibilityItemBuilder) DepartmentId(departmentId string) *AppV
 
 // 用户组 ID group_id 用来标识租户内一个唯一的用户组
 //
-// 示例值：
+// 示例值：f4f5gff6ec897672
 func (builder *AppVisibilityItemBuilder) GroupId(groupId string) *AppVisibilityItemBuilder {
 	builder.groupId = groupId
 	builder.groupIdSet = true
@@ -3254,7 +3246,7 @@ func NewApplicationBuilder() *ApplicationBuilder {
 
 // 应用的 app_id
 //
-// 示例值：cli_9b445f5258795107
+// 示例值：cli_***
 func (builder *ApplicationBuilder) AppId(appId string) *ApplicationBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
@@ -3398,7 +3390,7 @@ func (builder *ApplicationBuilder) PrimaryLanguage(primaryLanguage string) *Appl
 
 // 应用分类的国际化描述
 //
-// 示例值：["办公效率"]
+// 示例值：
 func (builder *ApplicationBuilder) CommonCategories(commonCategories []string) *ApplicationBuilder {
 	builder.commonCategories = commonCategories
 	builder.commonCategoriesSet = true
@@ -3700,7 +3692,7 @@ func (builder *ApplicationAppUsageBuilder) Build() *ApplicationAppUsage {
 type ApplicationAppVersion struct {
 	AppId *string `json:"app_id,omitempty"` // 应用 id
 
-	Version *string `json:"version,omitempty"` // 在开发者后台填入的应用版本号
+	Version *string `json:"version,omitempty"` // 开发者填入的应用版本 ID
 
 	VersionId *string `json:"version_id,omitempty"` // 唯一标识应用版本的 ID
 
@@ -3737,7 +3729,7 @@ type ApplicationAppVersionBuilder struct {
 	appId    string // 应用 id
 	appIdSet bool
 
-	version    string // 在开发者后台填入的应用版本号
+	version    string // 开发者填入的应用版本 ID
 	versionSet bool
 
 	versionId    string // 唯一标识应用版本的 ID
@@ -3793,14 +3785,14 @@ func NewApplicationAppVersionBuilder() *ApplicationAppVersionBuilder {
 
 // 应用 id
 //
-// 示例值：cli_9f3ca975326b501b
+// 示例值：cli_***
 func (builder *ApplicationAppVersionBuilder) AppId(appId string) *ApplicationAppVersionBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
 	return builder
 }
 
-// 在开发者后台填入的应用版本号
+// 开发者填入的应用版本 ID
 //
 // 示例值：1.0.0
 func (builder *ApplicationAppVersionBuilder) Version(version string) *ApplicationAppVersionBuilder {
@@ -4101,7 +4093,7 @@ func NewApplicationAppVersionEventBuilder() *ApplicationAppVersionEventBuilder {
 
 // 应用 id
 //
-// 示例值：cli_9f3ca975326b501b
+// 示例值：cli_***
 func (builder *ApplicationAppVersionEventBuilder) AppId(appId string) *ApplicationAppVersionEventBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
@@ -4470,7 +4462,7 @@ func (builder *ApplicationEventOwnerBuilder) Name(name string) *ApplicationEvent
 
 // 应用开发商的服务台链接，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
 //
-// 示例值：
+// 示例值：https://open.feishu.cn/
 func (builder *ApplicationEventOwnerBuilder) HelpDesk(helpDesk string) *ApplicationEventOwnerBuilder {
 	builder.helpDesk = helpDesk
 	builder.helpDeskSet = true
@@ -4479,7 +4471,7 @@ func (builder *ApplicationEventOwnerBuilder) HelpDesk(helpDesk string) *Applicat
 
 // 应用开发商的邮箱，仅商店应用返回。仅当应用商店配置了这种联系方式时才会返回
 //
-// 示例值：
+// 示例值：feishu@bytedance.com
 func (builder *ApplicationEventOwnerBuilder) Email(email string) *ApplicationEventOwnerBuilder {
 	builder.email = email
 	builder.emailSet = true
@@ -4488,7 +4480,7 @@ func (builder *ApplicationEventOwnerBuilder) Email(email string) *ApplicationEve
 
 // 应用开发商的手机号，进商店应用返回。仅当应用商店配置了这种联系方式时才会返回
 //
-// 示例值：
+// 示例值：156xxxx5749
 func (builder *ApplicationEventOwnerBuilder) Phone(phone string) *ApplicationEventOwnerBuilder {
 	builder.phone = phone
 	builder.phoneSet = true
@@ -4558,7 +4550,7 @@ type ApplicationFeedback struct {
 
 	Status *int `json:"status,omitempty"` // 反馈处理状态
 
-	FaultType []int `json:"fault_type,omitempty"` // 故障类型列表：1: 黑屏 2: 白屏 3: 无法打开小程序  4: 卡顿 5: 小程序闪退 6: 页面加载慢 7: 死机 8: 其他异常
+	FaultType []int `json:"fault_type,omitempty"` // 故障类型列表：1: 黑屏 2: 白屏 3: 无法打开小程序 4: 卡顿 5: 小程序闪退 6: 页面加载慢 7: 死机 8: 其他异常
 
 	FaultTime *string `json:"fault_time,omitempty"` // 故障时间，格式为yyyy-mm-dd hh:mm:ss
 
@@ -4598,7 +4590,7 @@ type ApplicationFeedbackBuilder struct {
 	status    int // 反馈处理状态
 	statusSet bool
 
-	faultType    []int // 故障类型列表：1: 黑屏 2: 白屏 3: 无法打开小程序  4: 卡顿 5: 小程序闪退 6: 页面加载慢 7: 死机 8: 其他异常
+	faultType    []int // 故障类型列表：1: 黑屏 2: 白屏 3: 无法打开小程序 4: 卡顿 5: 小程序闪退 6: 页面加载慢 7: 死机 8: 其他异常
 	faultTypeSet bool
 
 	faultTime    string // 故障时间，格式为yyyy-mm-dd hh:mm:ss
@@ -4645,7 +4637,7 @@ func (builder *ApplicationFeedbackBuilder) FeedbackId(feedbackId string) *Applic
 
 // 被反馈应用ID
 //
-// 示例值：cli_9b445f5258795107
+// 示例值：cli_***
 func (builder *ApplicationFeedbackBuilder) AppId(appId string) *ApplicationFeedbackBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
@@ -4688,7 +4680,7 @@ func (builder *ApplicationFeedbackBuilder) Status(status int) *ApplicationFeedba
 	return builder
 }
 
-// 故障类型列表：1: 黑屏 2: 白屏 3: 无法打开小程序  4: 卡顿 5: 小程序闪退 6: 页面加载慢 7: 死机 8: 其他异常
+// 故障类型列表：1: 黑屏 2: 白屏 3: 无法打开小程序 4: 卡顿 5: 小程序闪退 6: 页面加载慢 7: 死机 8: 其他异常
 //
 // 示例值：[1,2,3]
 func (builder *ApplicationFeedbackBuilder) FaultType(faultType []int) *ApplicationFeedbackBuilder {
@@ -4848,7 +4840,7 @@ func (builder *ApplicationFeedbackBuilder) Build() *ApplicationFeedback {
 type ApplicationOwner struct {
 	Type *int `json:"type,omitempty"` // 应用所有者类型
 
-	OwnerId *string `json:"owner_id,omitempty"` // 应用所有者ID
+	OwnerId *string `json:"owner_id,omitempty"` // 应用所有者ID，根据user_id_type返回对应的类型
 
 	Name *string `json:"name,omitempty"` // 应用开发商名称(仅商店应用返回)
 
@@ -4865,7 +4857,7 @@ type ApplicationOwnerBuilder struct {
 	type_    int // 应用所有者类型
 	type_Set bool
 
-	ownerId    string // 应用所有者ID
+	ownerId    string // 应用所有者ID，根据user_id_type返回对应的类型
 	ownerIdSet bool
 
 	name    string // 应用开发商名称(仅商店应用返回)
@@ -4898,9 +4890,9 @@ func (builder *ApplicationOwnerBuilder) Type(type_ int) *ApplicationOwnerBuilder
 	return builder
 }
 
-// 应用所有者ID
+// 应用所有者ID，根据user_id_type返回对应的类型
 //
-// 示例值：ou_d317f090b7258ad0372aa53963cda70d
+// 示例值：ou_155184d1e73cbfb8973e5a9e698e74f2
 func (builder *ApplicationOwnerBuilder) OwnerId(ownerId string) *ApplicationOwnerBuilder {
 	builder.ownerId = ownerId
 	builder.ownerIdSet = true
@@ -5052,21 +5044,21 @@ func (builder *ApplicationVisibilityBuilder) Build() *ApplicationVisibility {
 }
 
 type ApplicationVisibilityDepartmentWhiteBlackInfo struct {
-	DepartmentId *string `json:"department_id,omitempty"` // 部门ID
+	DepartmentId *string `json:"department_id,omitempty"` // 查询的部门ID
 
-	InWhiteList *bool `json:"in_white_list,omitempty"` // 是否在白名单中
+	InWhiteList *bool `json:"in_white_list,omitempty"` // 是否在白名单。;;**可选值**：;- **true**：在白名单;- **false**：不在白名单
 
-	InBlackList *bool `json:"in_black_list,omitempty"` // 是否在黑名单中
+	InBlackList *bool `json:"in_black_list,omitempty"` // 是否在黑名单。;;**可选值**：;- **true**：在黑名单;- **false**：不在黑名单
 }
 
 type ApplicationVisibilityDepartmentWhiteBlackInfoBuilder struct {
-	departmentId    string // 部门ID
+	departmentId    string // 查询的部门ID
 	departmentIdSet bool
 
-	inWhiteList    bool // 是否在白名单中
+	inWhiteList    bool // 是否在白名单。;;**可选值**：;- **true**：在白名单;- **false**：不在白名单
 	inWhiteListSet bool
 
-	inBlackList    bool // 是否在黑名单中
+	inBlackList    bool // 是否在黑名单。;;**可选值**：;- **true**：在黑名单;- **false**：不在黑名单
 	inBlackListSet bool
 }
 
@@ -5075,7 +5067,7 @@ func NewApplicationVisibilityDepartmentWhiteBlackInfoBuilder() *ApplicationVisib
 	return builder
 }
 
-// 部门ID
+// 查询的部门ID
 //
 // 示例值：od-aa2c50a04769feefededb7a05b7525a8
 func (builder *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder) DepartmentId(departmentId string) *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder {
@@ -5084,7 +5076,7 @@ func (builder *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder) DepartmentI
 	return builder
 }
 
-// 是否在白名单中
+// 是否在白名单。;;**可选值**：;- **true**：在白名单;- **false**：不在白名单
 //
 // 示例值：false
 func (builder *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder) InWhiteList(inWhiteList bool) *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder {
@@ -5093,7 +5085,7 @@ func (builder *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder) InWhiteList
 	return builder
 }
 
-// 是否在黑名单中
+// 是否在黑名单。;;**可选值**：;- **true**：在黑名单;- **false**：不在黑名单
 //
 // 示例值：false
 func (builder *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder) InBlackList(inBlackList bool) *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder {
@@ -5120,21 +5112,21 @@ func (builder *ApplicationVisibilityDepartmentWhiteBlackInfoBuilder) Build() *Ap
 }
 
 type ApplicationVisibilityGroupWhiteBlackInfo struct {
-	GroupId *string `json:"group_id,omitempty"` // 用户组ID
+	GroupId *string `json:"group_id,omitempty"` // 查询的用户组ID
 
-	InWhiteList *bool `json:"in_white_list,omitempty"` // 是否在白名单中
+	InWhiteList *bool `json:"in_white_list,omitempty"` // 是否在白名单。;;**可选值**：;- **true**：在白名单;- **false**：不在白名单
 
-	InBlackList *bool `json:"in_black_list,omitempty"` // 是否在黑名单中
+	InBlackList *bool `json:"in_black_list,omitempty"` // 是否在黑名单。;;**可选值**：;- **true**：在黑名单;- **false**：不在黑名单
 }
 
 type ApplicationVisibilityGroupWhiteBlackInfoBuilder struct {
-	groupId    string // 用户组ID
+	groupId    string // 查询的用户组ID
 	groupIdSet bool
 
-	inWhiteList    bool // 是否在白名单中
+	inWhiteList    bool // 是否在白名单。;;**可选值**：;- **true**：在白名单;- **false**：不在白名单
 	inWhiteListSet bool
 
-	inBlackList    bool // 是否在黑名单中
+	inBlackList    bool // 是否在黑名单。;;**可选值**：;- **true**：在黑名单;- **false**：不在黑名单
 	inBlackListSet bool
 }
 
@@ -5143,7 +5135,7 @@ func NewApplicationVisibilityGroupWhiteBlackInfoBuilder() *ApplicationVisibility
 	return builder
 }
 
-// 用户组ID
+// 查询的用户组ID
 //
 // 示例值：96815a9cd9beg8g4
 func (builder *ApplicationVisibilityGroupWhiteBlackInfoBuilder) GroupId(groupId string) *ApplicationVisibilityGroupWhiteBlackInfoBuilder {
@@ -5152,7 +5144,7 @@ func (builder *ApplicationVisibilityGroupWhiteBlackInfoBuilder) GroupId(groupId 
 	return builder
 }
 
-// 是否在白名单中
+// 是否在白名单。;;**可选值**：;- **true**：在白名单;- **false**：不在白名单
 //
 // 示例值：false
 func (builder *ApplicationVisibilityGroupWhiteBlackInfoBuilder) InWhiteList(inWhiteList bool) *ApplicationVisibilityGroupWhiteBlackInfoBuilder {
@@ -5161,7 +5153,7 @@ func (builder *ApplicationVisibilityGroupWhiteBlackInfoBuilder) InWhiteList(inWh
 	return builder
 }
 
-// 是否在黑名单中
+// 是否在黑名单。;;**可选值**：;- **true**：在黑名单;- **false**：不在黑名单
 //
 // 示例值：false
 func (builder *ApplicationVisibilityGroupWhiteBlackInfoBuilder) InBlackList(inBlackList bool) *ApplicationVisibilityGroupWhiteBlackInfoBuilder {
@@ -5188,26 +5180,26 @@ func (builder *ApplicationVisibilityGroupWhiteBlackInfoBuilder) Build() *Applica
 }
 
 type ApplicationVisibilityUserWhiteBlackInfo struct {
-	UserId *string `json:"user_id,omitempty"` // 用户ID
+	UserId *string `json:"user_id,omitempty"` // 查询的用户ID，ID类型和user_id_type传参类型一致
 
-	InWhiteList *bool `json:"in_white_list,omitempty"` // 是否在白名单中
+	InWhiteList *bool `json:"in_white_list,omitempty"` // 是否在白名单。;;**可选值**：;- **true**：在白名单;- **false**：不在白名单
 
-	InBlackList *bool `json:"in_black_list,omitempty"` // 是否在黑名单中
+	InBlackList *bool `json:"in_black_list,omitempty"` // 是否在黑名单。;;**可选值**：;- **true**：在黑名单;- **false**：不在黑名单
 
-	InPaidList *bool `json:"in_paid_list,omitempty"` // 是否在付费名单中
+	InPaidList *bool `json:"in_paid_list,omitempty"` // 是否在付费名单。;;**可选值**：;- **true**：在付费名单;- **false**：不在付费名单
 }
 
 type ApplicationVisibilityUserWhiteBlackInfoBuilder struct {
-	userId    string // 用户ID
+	userId    string // 查询的用户ID，ID类型和user_id_type传参类型一致
 	userIdSet bool
 
-	inWhiteList    bool // 是否在白名单中
+	inWhiteList    bool // 是否在白名单。;;**可选值**：;- **true**：在白名单;- **false**：不在白名单
 	inWhiteListSet bool
 
-	inBlackList    bool // 是否在黑名单中
+	inBlackList    bool // 是否在黑名单。;;**可选值**：;- **true**：在黑名单;- **false**：不在黑名单
 	inBlackListSet bool
 
-	inPaidList    bool // 是否在付费名单中
+	inPaidList    bool // 是否在付费名单。;;**可选值**：;- **true**：在付费名单;- **false**：不在付费名单
 	inPaidListSet bool
 }
 
@@ -5216,7 +5208,7 @@ func NewApplicationVisibilityUserWhiteBlackInfoBuilder() *ApplicationVisibilityU
 	return builder
 }
 
-// 用户ID
+// 查询的用户ID，ID类型和user_id_type传参类型一致
 //
 // 示例值：ou_d317f090b7258ad0372aa53963cda70d
 func (builder *ApplicationVisibilityUserWhiteBlackInfoBuilder) UserId(userId string) *ApplicationVisibilityUserWhiteBlackInfoBuilder {
@@ -5225,7 +5217,7 @@ func (builder *ApplicationVisibilityUserWhiteBlackInfoBuilder) UserId(userId str
 	return builder
 }
 
-// 是否在白名单中
+// 是否在白名单。;;**可选值**：;- **true**：在白名单;- **false**：不在白名单
 //
 // 示例值：false
 func (builder *ApplicationVisibilityUserWhiteBlackInfoBuilder) InWhiteList(inWhiteList bool) *ApplicationVisibilityUserWhiteBlackInfoBuilder {
@@ -5234,7 +5226,7 @@ func (builder *ApplicationVisibilityUserWhiteBlackInfoBuilder) InWhiteList(inWhi
 	return builder
 }
 
-// 是否在黑名单中
+// 是否在黑名单。;;**可选值**：;- **true**：在黑名单;- **false**：不在黑名单
 //
 // 示例值：false
 func (builder *ApplicationVisibilityUserWhiteBlackInfoBuilder) InBlackList(inBlackList bool) *ApplicationVisibilityUserWhiteBlackInfoBuilder {
@@ -5243,7 +5235,7 @@ func (builder *ApplicationVisibilityUserWhiteBlackInfoBuilder) InBlackList(inBla
 	return builder
 }
 
-// 是否在付费名单中
+// 是否在付费名单。;;**可选值**：;- **true**：在付费名单;- **false**：不在付费名单
 //
 // 示例值：false
 func (builder *ApplicationVisibilityUserWhiteBlackInfoBuilder) InPaidList(inPaidList bool) *ApplicationVisibilityUserWhiteBlackInfoBuilder {
@@ -5428,11 +5420,26 @@ func (builder *BlockI18nInfoBuilder) Build() *BlockI18nInfo {
 
 type Bot struct {
 	CardRequestUrl *string `json:"card_request_url,omitempty"` // 消息卡片回调地址
+
+	BotMenuEnable *bool `json:"bot_menu_enable,omitempty"` // 是否启用机器人菜单
+
+	BotMenus []*BotMenuNode `json:"bot_menus,omitempty"` // 机器人菜单列表
+
+	BotMenuDisplayStrategy *int `json:"bot_menu_display_strategy,omitempty"` // 机器人菜单展示策略
 }
 
 type BotBuilder struct {
 	cardRequestUrl    string // 消息卡片回调地址
 	cardRequestUrlSet bool
+
+	botMenuEnable    bool // 是否启用机器人菜单
+	botMenuEnableSet bool
+
+	botMenus    []*BotMenuNode // 机器人菜单列表
+	botMenusSet bool
+
+	botMenuDisplayStrategy    int // 机器人菜单展示策略
+	botMenuDisplayStrategySet bool
 }
 
 func NewBotBuilder() *BotBuilder {
@@ -5449,10 +5456,48 @@ func (builder *BotBuilder) CardRequestUrl(cardRequestUrl string) *BotBuilder {
 	return builder
 }
 
+// 是否启用机器人菜单
+//
+// 示例值：true
+func (builder *BotBuilder) BotMenuEnable(botMenuEnable bool) *BotBuilder {
+	builder.botMenuEnable = botMenuEnable
+	builder.botMenuEnableSet = true
+	return builder
+}
+
+// 机器人菜单列表
+//
+// 示例值：
+func (builder *BotBuilder) BotMenus(botMenus []*BotMenuNode) *BotBuilder {
+	builder.botMenus = botMenus
+	builder.botMenusSet = true
+	return builder
+}
+
+// 机器人菜单展示策略
+//
+// 示例值：1
+func (builder *BotBuilder) BotMenuDisplayStrategy(botMenuDisplayStrategy int) *BotBuilder {
+	builder.botMenuDisplayStrategy = botMenuDisplayStrategy
+	builder.botMenuDisplayStrategySet = true
+	return builder
+}
+
 func (builder *BotBuilder) Build() *Bot {
 	req := &Bot{}
 	if builder.cardRequestUrlSet {
 		req.CardRequestUrl = &builder.cardRequestUrl
+
+	}
+	if builder.botMenuEnableSet {
+		req.BotMenuEnable = &builder.botMenuEnable
+
+	}
+	if builder.botMenusSet {
+		req.BotMenus = builder.botMenus
+	}
+	if builder.botMenuDisplayStrategySet {
+		req.BotMenuDisplayStrategy = &builder.botMenuDisplayStrategy
 
 	}
 	return req
@@ -5574,6 +5619,297 @@ func (builder *BotDisplayInfoBuilder) Build() *BotDisplayInfo {
 	}
 	if builder.i18nDescriptionsSet {
 		req.I18nDescriptions = builder.i18nDescriptions
+	}
+	return req
+}
+
+type BotMenuNode struct {
+	MenuId *string `json:"menu_id,omitempty"` // 节点唯一标识，同一次请求内唯一
+
+	ParentMenuId *string `json:"parent_menu_id,omitempty"` // 父节点 ID，为空表示一级菜单
+
+	Sort *int `json:"sort,omitempty"` // 同层级内排序，数值越小越靠前
+
+	DefaultName *string `json:"default_name,omitempty"` // 默认名称
+
+	I18nName map[string]string `json:"i18n_name,omitempty"` // 国际化名称配置。了解支持语种，参考配置卡片多语言
+
+	RedirectLink *BotMenuRedirectLink `json:"redirect_link,omitempty"` // 跳转链接
+
+	EventKey *string `json:"event_key,omitempty"` // 事件 key
+
+	IconFileKey *string `json:"icon_file_key,omitempty"` // 图标文件 key
+
+	UdIcon *BotMenuUdIcon `json:"ud_icon,omitempty"` // UD icon 配置
+
+	MenuContentType *int `json:"menu_content_type,omitempty"` // 菜单内容类型
+}
+
+type BotMenuNodeBuilder struct {
+	menuId    string // 节点唯一标识，同一次请求内唯一
+	menuIdSet bool
+
+	parentMenuId    string // 父节点 ID，为空表示一级菜单
+	parentMenuIdSet bool
+
+	sort    int // 同层级内排序，数值越小越靠前
+	sortSet bool
+
+	defaultName    string // 默认名称
+	defaultNameSet bool
+
+	i18nName    map[string]string // 国际化名称配置。了解支持语种，参考配置卡片多语言
+	i18nNameSet bool
+
+	redirectLink    *BotMenuRedirectLink // 跳转链接
+	redirectLinkSet bool
+
+	eventKey    string // 事件 key
+	eventKeySet bool
+
+	iconFileKey    string // 图标文件 key
+	iconFileKeySet bool
+
+	udIcon    *BotMenuUdIcon // UD icon 配置
+	udIconSet bool
+
+	menuContentType    int // 菜单内容类型
+	menuContentTypeSet bool
+}
+
+func NewBotMenuNodeBuilder() *BotMenuNodeBuilder {
+	builder := &BotMenuNodeBuilder{}
+	return builder
+}
+
+// 节点唯一标识，同一次请求内唯一
+//
+// 示例值：menu_1
+func (builder *BotMenuNodeBuilder) MenuId(menuId string) *BotMenuNodeBuilder {
+	builder.menuId = menuId
+	builder.menuIdSet = true
+	return builder
+}
+
+// 父节点 ID，为空表示一级菜单
+//
+// 示例值：menu_parent
+func (builder *BotMenuNodeBuilder) ParentMenuId(parentMenuId string) *BotMenuNodeBuilder {
+	builder.parentMenuId = parentMenuId
+	builder.parentMenuIdSet = true
+	return builder
+}
+
+// 同层级内排序，数值越小越靠前
+//
+// 示例值：1
+func (builder *BotMenuNodeBuilder) Sort(sort int) *BotMenuNodeBuilder {
+	builder.sort = sort
+	builder.sortSet = true
+	return builder
+}
+
+// 默认名称
+//
+// 示例值：菜单名称
+func (builder *BotMenuNodeBuilder) DefaultName(defaultName string) *BotMenuNodeBuilder {
+	builder.defaultName = defaultName
+	builder.defaultNameSet = true
+	return builder
+}
+
+// 国际化名称配置。了解支持语种，参考配置卡片多语言
+//
+// 示例值：
+func (builder *BotMenuNodeBuilder) I18nName(i18nName map[string]string) *BotMenuNodeBuilder {
+	builder.i18nName = i18nName
+	builder.i18nNameSet = true
+	return builder
+}
+
+// 跳转链接
+//
+// 示例值：
+func (builder *BotMenuNodeBuilder) RedirectLink(redirectLink *BotMenuRedirectLink) *BotMenuNodeBuilder {
+	builder.redirectLink = redirectLink
+	builder.redirectLinkSet = true
+	return builder
+}
+
+// 事件 key
+//
+// 示例值：event_key
+func (builder *BotMenuNodeBuilder) EventKey(eventKey string) *BotMenuNodeBuilder {
+	builder.eventKey = eventKey
+	builder.eventKeySet = true
+	return builder
+}
+
+// 图标文件 key
+//
+// 示例值：file_key
+func (builder *BotMenuNodeBuilder) IconFileKey(iconFileKey string) *BotMenuNodeBuilder {
+	builder.iconFileKey = iconFileKey
+	builder.iconFileKeySet = true
+	return builder
+}
+
+// UD icon 配置
+//
+// 示例值：
+func (builder *BotMenuNodeBuilder) UdIcon(udIcon *BotMenuUdIcon) *BotMenuNodeBuilder {
+	builder.udIcon = udIcon
+	builder.udIconSet = true
+	return builder
+}
+
+// 菜单内容类型
+//
+// 示例值：1
+func (builder *BotMenuNodeBuilder) MenuContentType(menuContentType int) *BotMenuNodeBuilder {
+	builder.menuContentType = menuContentType
+	builder.menuContentTypeSet = true
+	return builder
+}
+
+func (builder *BotMenuNodeBuilder) Build() *BotMenuNode {
+	req := &BotMenuNode{}
+	if builder.menuIdSet {
+		req.MenuId = &builder.menuId
+
+	}
+	if builder.parentMenuIdSet {
+		req.ParentMenuId = &builder.parentMenuId
+
+	}
+	if builder.sortSet {
+		req.Sort = &builder.sort
+
+	}
+	if builder.defaultNameSet {
+		req.DefaultName = &builder.defaultName
+
+	}
+	if builder.i18nNameSet {
+		req.I18nName = builder.i18nName
+	}
+	if builder.redirectLinkSet {
+		req.RedirectLink = builder.redirectLink
+	}
+	if builder.eventKeySet {
+		req.EventKey = &builder.eventKey
+
+	}
+	if builder.iconFileKeySet {
+		req.IconFileKey = &builder.iconFileKey
+
+	}
+	if builder.udIconSet {
+		req.UdIcon = builder.udIcon
+	}
+	if builder.menuContentTypeSet {
+		req.MenuContentType = &builder.menuContentType
+
+	}
+	return req
+}
+
+type BotMenuRedirectLink struct {
+	PcUrl *string `json:"pc_url,omitempty"` // PC 端跳转链接
+
+	MobileUrl *string `json:"mobile_url,omitempty"` // 移动端跳转链接
+}
+
+type BotMenuRedirectLinkBuilder struct {
+	pcUrl    string // PC 端跳转链接
+	pcUrlSet bool
+
+	mobileUrl    string // 移动端跳转链接
+	mobileUrlSet bool
+}
+
+func NewBotMenuRedirectLinkBuilder() *BotMenuRedirectLinkBuilder {
+	builder := &BotMenuRedirectLinkBuilder{}
+	return builder
+}
+
+// PC 端跳转链接
+//
+// 示例值：https://www.example.com
+func (builder *BotMenuRedirectLinkBuilder) PcUrl(pcUrl string) *BotMenuRedirectLinkBuilder {
+	builder.pcUrl = pcUrl
+	builder.pcUrlSet = true
+	return builder
+}
+
+// 移动端跳转链接
+//
+// 示例值：https://www.example.com
+func (builder *BotMenuRedirectLinkBuilder) MobileUrl(mobileUrl string) *BotMenuRedirectLinkBuilder {
+	builder.mobileUrl = mobileUrl
+	builder.mobileUrlSet = true
+	return builder
+}
+
+func (builder *BotMenuRedirectLinkBuilder) Build() *BotMenuRedirectLink {
+	req := &BotMenuRedirectLink{}
+	if builder.pcUrlSet {
+		req.PcUrl = &builder.pcUrl
+
+	}
+	if builder.mobileUrlSet {
+		req.MobileUrl = &builder.mobileUrl
+
+	}
+	return req
+}
+
+type BotMenuUdIcon struct {
+	Token *string `json:"token,omitempty"` // UD icon token
+
+	Color *string `json:"color,omitempty"` // UD icon 颜色
+}
+
+type BotMenuUdIconBuilder struct {
+	token    string // UD icon token
+	tokenSet bool
+
+	color    string // UD icon 颜色
+	colorSet bool
+}
+
+func NewBotMenuUdIconBuilder() *BotMenuUdIconBuilder {
+	builder := &BotMenuUdIconBuilder{}
+	return builder
+}
+
+// UD icon token
+//
+// 示例值：app_outlined
+func (builder *BotMenuUdIconBuilder) Token(token string) *BotMenuUdIconBuilder {
+	builder.token = token
+	builder.tokenSet = true
+	return builder
+}
+
+// UD icon 颜色
+//
+// 示例值：blue
+func (builder *BotMenuUdIconBuilder) Color(color string) *BotMenuUdIconBuilder {
+	builder.color = color
+	builder.colorSet = true
+	return builder
+}
+
+func (builder *BotMenuUdIconBuilder) Build() *BotMenuUdIcon {
+	req := &BotMenuUdIcon{}
+	if builder.tokenSet {
+		req.Token = &builder.token
+
+	}
+	if builder.colorSet {
+		req.Color = &builder.color
+
 	}
 	return req
 }
@@ -5713,16 +6049,16 @@ func (builder *CallbackInfoBuilder) Build() *CallbackInfo {
 }
 
 type ClientBadgeNum struct {
-	WebApp *int `json:"web_app,omitempty"` // h5能力的badge数量
+	WebApp *int `json:"web_app,omitempty"` //
 
-	Gadget *int `json:"gadget,omitempty"` // 小程序能力的badge数量
+	Gadget *int `json:"gadget,omitempty"` //
 }
 
 type ClientBadgeNumBuilder struct {
-	webApp    int // h5能力的badge数量
+	webApp    int //
 	webAppSet bool
 
-	gadget    int // 小程序能力的badge数量
+	gadget    int //
 	gadgetSet bool
 }
 
@@ -5731,8 +6067,6 @@ func NewClientBadgeNumBuilder() *ClientBadgeNumBuilder {
 	return builder
 }
 
-// h5能力的badge数量
-//
 // 示例值：1
 func (builder *ClientBadgeNumBuilder) WebApp(webApp int) *ClientBadgeNumBuilder {
 	builder.webApp = webApp
@@ -5740,8 +6074,6 @@ func (builder *ClientBadgeNumBuilder) WebApp(webApp int) *ClientBadgeNumBuilder 
 	return builder
 }
 
-// 小程序能力的badge数量
-//
 // 示例值：2
 func (builder *ClientBadgeNumBuilder) Gadget(gadget int) *ClientBadgeNumBuilder {
 	builder.gadget = gadget
@@ -5952,8 +6284,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -5961,8 +6291,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -6322,22 +6650,6 @@ func (builder *GadgetBuilder) Build() *Gadget {
 		req.PcMinLarkVersion = &builder.pcMinLarkVersion
 
 	}
-	return req
-}
-
-type LarksuiteCliApp struct {
-}
-
-type LarksuiteCliAppBuilder struct {
-}
-
-func NewLarksuiteCliAppBuilder() *LarksuiteCliAppBuilder {
-	builder := &LarksuiteCliAppBuilder{}
-	return builder
-}
-
-func (builder *LarksuiteCliAppBuilder) Build() *LarksuiteCliApp {
-	req := &LarksuiteCliApp{}
 	return req
 }
 
@@ -6960,7 +7272,7 @@ func NewOpenapiOptionBuilder() *OpenapiOptionBuilder {
 
 // OpenAPI HTTP method
 //
-// 示例值：GET
+// 示例值：POST
 func (builder *OpenapiOptionBuilder) HttpMethod(httpMethod string) *OpenapiOptionBuilder {
 	builder.httpMethod = httpMethod
 	builder.httpMethodSet = true
@@ -6969,7 +7281,7 @@ func (builder *OpenapiOptionBuilder) HttpMethod(httpMethod string) *OpenapiOptio
 
 // OpenAPI HTTP URL
 //
-// 示例值：/open-apis/contact/v3/users/:user_id
+// 示例值：/open-apis/message/v4/send
 func (builder *OpenapiOptionBuilder) UrlPattern(urlPattern string) *OpenapiOptionBuilder {
 	builder.urlPattern = urlPattern
 	builder.urlPatternSet = true
@@ -7004,14 +7316,14 @@ func (builder *OpenapiOptionBuilder) Build() *OpenapiOption {
 type Operator struct {
 	OperatorName *string `json:"operator_name,omitempty"` // 用户名称
 
-	OperatorId *UserId `json:"operator_id,omitempty"` // 用户 ID
+	OperatorId *UserId `json:"operator_id,omitempty"` // 用户id
 }
 
 type OperatorBuilder struct {
 	operatorName    string // 用户名称
 	operatorNameSet bool
 
-	operatorId    *UserId // 用户 ID
+	operatorId    *UserId // 用户id
 	operatorIdSet bool
 }
 
@@ -7029,7 +7341,7 @@ func (builder *OperatorBuilder) OperatorName(operatorName string) *OperatorBuild
 	return builder
 }
 
-// 用户 ID
+// 用户id
 //
 // 示例值：ou_ff0b7ba35fb********67dfc8b885136
 func (builder *OperatorBuilder) OperatorId(operatorId *UserId) *OperatorBuilder {
@@ -7101,18 +7413,18 @@ func (builder *PlusMenuBuilder) Build() *PlusMenu {
 }
 
 type Scope struct {
-	ScopeName *string `json:"scope_name,omitempty"` // 权限名称，形如 user.phone:readonly
+	ScopeName *string `json:"scope_name,omitempty"` // 权限名称。取值示例 `user.phone:readonly`。
 
-	GrantStatus *int `json:"grant_status,omitempty"` // 租户应用权限授予状态
+	GrantStatus *int `json:"grant_status,omitempty"` // 权限授予状态。
 
 	ScopeType *string `json:"scope_type,omitempty"` // 权限的身份类型，形如 user(用户身份)、tenant(应用身份)
 }
 
 type ScopeBuilder struct {
-	scopeName    string // 权限名称，形如 user.phone:readonly
+	scopeName    string // 权限名称。取值示例 `user.phone:readonly`。
 	scopeNameSet bool
 
-	grantStatus    int // 租户应用权限授予状态
+	grantStatus    int // 权限授予状态。
 	grantStatusSet bool
 
 	scopeType    string // 权限的身份类型，形如 user(用户身份)、tenant(应用身份)
@@ -7124,7 +7436,7 @@ func NewScopeBuilder() *ScopeBuilder {
 	return builder
 }
 
-// 权限名称，形如 user.phone:readonly
+// 权限名称。取值示例 `user.phone:readonly`。
 //
 // 示例值：user.phone:readonly
 func (builder *ScopeBuilder) ScopeName(scopeName string) *ScopeBuilder {
@@ -7133,9 +7445,9 @@ func (builder *ScopeBuilder) ScopeName(scopeName string) *ScopeBuilder {
 	return builder
 }
 
-// 租户应用权限授予状态
+// 权限授予状态。
 //
-// 示例值：
+// 示例值：1
 func (builder *ScopeBuilder) GrantStatus(grantStatus int) *ScopeBuilder {
 	builder.grantStatus = grantStatus
 	builder.grantStatusSet = true
@@ -7506,8 +7818,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -7515,8 +7825,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -7524,8 +7832,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -7597,22 +7903,6 @@ func (builder *WebAppBuilder) Build() *WebApp {
 		req.MobileUrl = &builder.mobileUrl
 
 	}
-	return req
-}
-
-type Widget struct {
-}
-
-type WidgetBuilder struct {
-}
-
-func NewWidgetBuilder() *WidgetBuilder {
-	builder := &WidgetBuilder{}
-	return builder
-}
-
-func (builder *WidgetBuilder) Build() *Widget {
-	req := &Widget{}
 	return req
 }
 
@@ -7787,9 +8077,9 @@ func NewContactsRangeConfigurationApplicationReqBuilder() *ContactsRangeConfigur
 	return builder
 }
 
-// 应用的 id
+// 应用的 app_id，可以在[开发者后台](https://open.feishu.cn/app) > 凭证与基础信息页查看。
 //
-// 示例值：cli_9b445f5258795107
+// 示例值：cli_***
 func (builder *ContactsRangeConfigurationApplicationReqBuilder) AppId(appId string) *ContactsRangeConfigurationApplicationReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -7840,7 +8130,7 @@ type ContactsRangeConfigurationApplicationReq struct {
 }
 
 type ContactsRangeConfigurationApplicationRespData struct {
-	ContactsRange *ApplicationAppContactsRange `json:"contacts_range,omitempty"` //
+	ContactsRange *ApplicationAppContactsRange `json:"contacts_range,omitempty"` // 获取线上已生效的通讯录权限范围配置
 
 	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
@@ -7872,7 +8162,7 @@ func NewGetApplicationReqBuilder() *GetApplicationReqBuilder {
 
 // 应用的 app_id，需要查询其他应用信息时，必须申请[获取应用信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限，仅查询本应用信息时，可填入 "me" 或者应用自身 app_id
 //
-// 示例值：cli_9b445f5258795107
+// 示例值：cli_***
 func (builder *GetApplicationReqBuilder) AppId(appId string) *GetApplicationReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -7964,7 +8254,7 @@ func (builder *ListApplicationReqBuilder) UserIdType(userIdType string) *ListApp
 	return builder
 }
 
-// 应用的图标、描述、帮助文档链接是按照应用的主语言返回；其他内容（如应用权限、应用分类）按照该参数设定返回对应的语言。可选值有： zh_cn：中文 en_us：英文 ja_jp：日文  如不填写，则按照应用的主语言返回
+// 应用的图标、描述、帮助文档链接是按照应用的主语言返回；其他内容（如应用权限、应用分类）按照该参数设定返回对应的语言。可选值有： zh_cn：中文 en_us：英文 ja_jp：日文 如不填写，则按照应用的主语言返回
 //
 // 示例值：zh_cn
 func (builder *ListApplicationReqBuilder) Lang(lang string) *ListApplicationReqBuilder {
@@ -8017,7 +8307,7 @@ type ListApplicationRespData struct {
 
 	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	TotalCount *int `json:"total_count,omitempty"` // 应用状态=启用的应用总数
+	TotalCount *int `json:"total_count,omitempty"` // 当前页面数据里，应用状态为“启用”的应用总数
 }
 
 type ListApplicationResp struct {
@@ -8046,7 +8336,7 @@ func NewPatchApplicationReqBuilder() *PatchApplicationReqBuilder {
 
 // 应用的 id
 //
-// 示例值：cli_9b445f5258795107
+// 示例值：cli_***
 func (builder *PatchApplicationReqBuilder) AppId(appId string) *PatchApplicationReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -8180,7 +8470,7 @@ type DepartmentOverviewApplicationAppUsageReqBodyBuilder struct {
 	cycleType    int // 活跃周期的统计类型
 	cycleTypeSet bool
 
-	departmentId    string // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
+	departmentId    string // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);- 若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;- 若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
 	departmentIdSet bool
 
 	recursion    int // 是否需要查询部门下多层子部门的数据。未设置或为0时，仅查询department_id对应的部门。设置为n时，查询department_id及其n级子部门的数据。仅在department_id参数传递时有效，最大值为4。
@@ -8189,7 +8479,7 @@ type DepartmentOverviewApplicationAppUsageReqBodyBuilder struct {
 	pageSize    int // 分页大小，取值范围 1~20
 	pageSizeSet bool
 
-	pageToken    string // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据。
+	pageToken    string // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 	pageTokenSet bool
 }
 
@@ -8200,7 +8490,7 @@ func NewDepartmentOverviewApplicationAppUsageReqBodyBuilder() *DepartmentOvervie
 
 // 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
 //
-//示例值：2021-07-08
+// 示例值：2021-07-08
 func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) Date(date string) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
 	builder.date = date
 	builder.dateSet = true
@@ -8209,16 +8499,16 @@ func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) Date(date st
 
 // 活跃周期的统计类型
 //
-//示例值：1
+// 示例值：1
 func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) CycleType(cycleType int) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
 	builder.cycleType = cycleType
 	builder.cycleTypeSet = true
 	return builder
 }
 
-// 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
+// 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);- 若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;- 若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
 //
-//示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) DepartmentId(departmentId string) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdSet = true
@@ -8227,7 +8517,7 @@ func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) DepartmentId
 
 // 是否需要查询部门下多层子部门的数据。未设置或为0时，仅查询department_id对应的部门。设置为n时，查询department_id及其n级子部门的数据。仅在department_id参数传递时有效，最大值为4。
 //
-//示例值：0
+// 示例值：0
 func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) Recursion(recursion int) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
 	builder.recursion = recursion
 	builder.recursionSet = true
@@ -8236,16 +8526,16 @@ func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) Recursion(re
 
 // 分页大小，取值范围 1~20
 //
-//示例值：10
+// 示例值：10
 func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) PageSize(pageSize int) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeSet = true
 	return builder
 }
 
-// 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据。
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-//示例值：new-1a8f509162ca3c95405838d05ccded09
+// 示例值：new-1a8f509162ca3c95405838d05ccded09
 func (builder *DepartmentOverviewApplicationAppUsageReqBodyBuilder) PageToken(pageToken string) *DepartmentOverviewApplicationAppUsageReqBodyBuilder {
 	builder.pageToken = pageToken
 	builder.pageTokenSet = true
@@ -8313,7 +8603,7 @@ func (builder *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder) CycleTyp
 	return builder
 }
 
-// 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
+// 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);- 若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;- 若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
 //
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder) DepartmentId(departmentId string) *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder {
@@ -8340,7 +8630,7 @@ func (builder *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder) PageSize
 	return builder
 }
 
-// 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据。
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：new-1a8f509162ca3c95405838d05ccded09
 func (builder *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder) PageToken(pageToken string) *DepartmentOverviewApplicationAppUsagePathReqBodyBuilder {
@@ -8388,7 +8678,7 @@ func NewDepartmentOverviewApplicationAppUsageReqBuilder() *DepartmentOverviewApp
 
 // 目标应用 ID
 //
-// 示例值：cli_9f115af860f7901b
+// 示例值：cli_***
 func (builder *DepartmentOverviewApplicationAppUsageReqBuilder) AppId(appId string) *DepartmentOverviewApplicationAppUsageReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -8422,13 +8712,13 @@ type DepartmentOverviewApplicationAppUsageReqBody struct {
 
 	CycleType *int `json:"cycle_type,omitempty"` // 活跃周期的统计类型
 
-	DepartmentId *string `json:"department_id,omitempty"` // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
+	DepartmentId *string `json:"department_id,omitempty"` // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);- 若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户） 以及多级子部门的使用数据。;- 若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。;- 若不填写则返回整个租户的数据
 
 	Recursion *int `json:"recursion,omitempty"` // 是否需要查询部门下多层子部门的数据。未设置或为0时，仅查询department_id对应的部门。设置为n时，查询department_id及其n级子部门的数据。仅在department_id参数传递时有效，最大值为4。
 
 	PageSize *int `json:"page_size,omitempty"` // 分页大小，取值范围 1~20
 
-	PageToken *string `json:"page_token,omitempty"` // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据。
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 }
 
 type DepartmentOverviewApplicationAppUsageReq struct {
@@ -8437,9 +8727,9 @@ type DepartmentOverviewApplicationAppUsageReq struct {
 }
 
 type DepartmentOverviewApplicationAppUsageRespData struct {
-	HasMore *bool `json:"has_more,omitempty"` // 分页查询时返回，代表是否还有更多数据
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 分页标记，下一页分页的token
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
 	Items []*ApplicationDepartmentAppUsage `json:"items,omitempty"` // 部门内员工使用应用的概览数据
 }
@@ -8461,7 +8751,7 @@ type MessagePushOverviewApplicationAppUsageReqBodyBuilder struct {
 	cycleType    int // 枚举值：day，week，month；week指自然周，返回当前日期所在周的数据；不满一周则从周一到当前日期算。month指自然月，返回当前日期所在月的数据。
 	cycleTypeSet bool
 
-	departmentId    string // 需要查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。返回当前部门的使用数据； 若不填写，则返回当前租户的使用数据
+	departmentId    string // 需要查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);- 若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;- 若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。返回当前部门的使用数据； 若不填写，则返回当前租户的使用数据
 	departmentIdSet bool
 }
 
@@ -8472,7 +8762,7 @@ func NewMessagePushOverviewApplicationAppUsageReqBodyBuilder() *MessagePushOverv
 
 // 查询日期，若cycle_type为week，则输入的date必须为周一； 若cycle_type为month，则输入的date必须为每月1号
 //
-//示例值：2021-07-08
+// 示例值：2021-07-08
 func (builder *MessagePushOverviewApplicationAppUsageReqBodyBuilder) Date(date string) *MessagePushOverviewApplicationAppUsageReqBodyBuilder {
 	builder.date = date
 	builder.dateSet = true
@@ -8481,16 +8771,16 @@ func (builder *MessagePushOverviewApplicationAppUsageReqBodyBuilder) Date(date s
 
 // 枚举值：day，week，month；week指自然周，返回当前日期所在周的数据；不满一周则从周一到当前日期算。month指自然月，返回当前日期所在月的数据。
 //
-//示例值：1
+// 示例值：1
 func (builder *MessagePushOverviewApplicationAppUsageReqBodyBuilder) CycleType(cycleType int) *MessagePushOverviewApplicationAppUsageReqBodyBuilder {
 	builder.cycleType = cycleType
 	builder.cycleTypeSet = true
 	return builder
 }
 
-// 需要查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。返回当前部门的使用数据； 若不填写，则返回当前租户的使用数据
+// 需要查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);- 若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;- 若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。返回当前部门的使用数据； 若不填写，则返回当前租户的使用数据
 //
-//示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *MessagePushOverviewApplicationAppUsageReqBodyBuilder) DepartmentId(departmentId string) *MessagePushOverviewApplicationAppUsageReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdSet = true
@@ -8543,7 +8833,7 @@ func (builder *MessagePushOverviewApplicationAppUsagePathReqBodyBuilder) CycleTy
 	return builder
 }
 
-// 需要查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。返回当前部门的使用数据； 若不填写，则返回当前租户的使用数据
+// 需要查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);- 若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;- 若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。返回当前部门的使用数据； 若不填写，则返回当前租户的使用数据
 //
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *MessagePushOverviewApplicationAppUsagePathReqBodyBuilder) DepartmentId(departmentId string) *MessagePushOverviewApplicationAppUsagePathReqBodyBuilder {
@@ -8582,7 +8872,7 @@ func NewMessagePushOverviewApplicationAppUsageReqBuilder() *MessagePushOverviewA
 
 // 目标应用ID，支持自建应用
 //
-// 示例值：cli_9f115af860f7901b
+// 示例值：cli_***
 func (builder *MessagePushOverviewApplicationAppUsageReqBuilder) AppId(appId string) *MessagePushOverviewApplicationAppUsageReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -8616,7 +8906,7 @@ type MessagePushOverviewApplicationAppUsageReqBody struct {
 
 	CycleType *int `json:"cycle_type,omitempty"` // 枚举值：day，week，month；week指自然周，返回当前日期所在周的数据；不满一周则从周一到当前日期算。month指自然月，返回当前日期所在月的数据。
 
-	DepartmentId *string `json:"department_id,omitempty"` // 需要查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。返回当前部门的使用数据； 若不填写，则返回当前租户的使用数据
+	DepartmentId *string `json:"department_id,omitempty"` // 需要查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);- 若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;- 若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。返回当前部门的使用数据； 若不填写，则返回当前租户的使用数据
 }
 
 type MessagePushOverviewApplicationAppUsageReq struct {
@@ -8625,7 +8915,7 @@ type MessagePushOverviewApplicationAppUsageReq struct {
 }
 
 type MessagePushOverviewApplicationAppUsageRespData struct {
-	Items []*ApplicationAppUsage `json:"items,omitempty"` // 消息推送情况，指标值包括：send_msg_count：消息推送数、send_user_count：消息触达人数、read_in_1h_count：消息1h阅读量、read_in_12h_count：消息12h阅读量
+	Items []*ApplicationAppUsage `json:"items,omitempty"` // 消息推送情况，指标值包括：send_msg_count：消息推送数、send_user_count：消息触达人数、read_in_1h_count：消息1h阅读量、read_in_12h_count：消息12h阅读量;;**注意**：将一条消息推送至群聊，该消息的推送数等于群聊人数。例如群聊内有 5 个人：;;- 如果将 1 条消息推送至群聊后，消息推送数（send_msg_count）为 5、消息触达人数（send_user_count）为 5。;- 如果将 2 条消息推送至群聊后，消息推送数（send_msg_count）为 10、消息触达人数（send_user_count）为 5。
 }
 
 type MessagePushOverviewApplicationAppUsageResp struct {
@@ -8645,7 +8935,7 @@ type OverviewApplicationAppUsageReqBodyBuilder struct {
 	cycleType    int // 活跃周期的统计类型
 	cycleTypeSet bool
 
-	departmentId    string // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
+	departmentId    string // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);- 若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;- 若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
 	departmentIdSet bool
 
 	ability    string // 能力类型，按能力类型进行筛选，返回对应能力的活跃数据
@@ -8659,7 +8949,7 @@ func NewOverviewApplicationAppUsageReqBodyBuilder() *OverviewApplicationAppUsage
 
 // 查询日期，格式为yyyy-mm-dd，若cycle_type为1，date可以为任何自然日；若cycle_type为2，则输入的date必须为周一； 若cycle_type为3，则输入的date必须为每月1号
 //
-//示例值：2021-07-08
+// 示例值：2021-07-08
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) Date(date string) *OverviewApplicationAppUsageReqBodyBuilder {
 	builder.date = date
 	builder.dateSet = true
@@ -8668,16 +8958,16 @@ func (builder *OverviewApplicationAppUsageReqBodyBuilder) Date(date string) *Ove
 
 // 活跃周期的统计类型
 //
-//示例值：1
+// 示例值：1
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) CycleType(cycleType int) *OverviewApplicationAppUsageReqBodyBuilder {
 	builder.cycleType = cycleType
 	builder.cycleTypeSet = true
 	return builder
 }
 
-// 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
+// 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);- 若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;- 若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
 //
-//示例值：od-4e6ac4d14bcd5071a37a39de902c7141
+// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) DepartmentId(departmentId string) *OverviewApplicationAppUsageReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdSet = true
@@ -8686,7 +8976,7 @@ func (builder *OverviewApplicationAppUsageReqBodyBuilder) DepartmentId(departmen
 
 // 能力类型，按能力类型进行筛选，返回对应能力的活跃数据
 //
-//示例值：app
+// 示例值：app
 func (builder *OverviewApplicationAppUsageReqBodyBuilder) Ability(ability string) *OverviewApplicationAppUsageReqBodyBuilder {
 	builder.ability = ability
 	builder.abilitySet = true
@@ -8744,7 +9034,7 @@ func (builder *OverviewApplicationAppUsagePathReqBodyBuilder) CycleType(cycleTyp
 	return builder
 }
 
-// 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
+// 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);- 若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;- 若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
 //
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *OverviewApplicationAppUsagePathReqBodyBuilder) DepartmentId(departmentId string) *OverviewApplicationAppUsagePathReqBodyBuilder {
@@ -8795,7 +9085,7 @@ func NewOverviewApplicationAppUsageReqBuilder() *OverviewApplicationAppUsageReqB
 
 // 目标应用 ID
 //
-// 示例值：cli_9f115af860f7901b
+// 示例值：cli_***
 func (builder *OverviewApplicationAppUsageReqBuilder) AppId(appId string) *OverviewApplicationAppUsageReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -8829,7 +9119,7 @@ type OverviewApplicationAppUsageReqBody struct {
 
 	CycleType *int `json:"cycle_type,omitempty"` // 活跃周期的统计类型
 
-	DepartmentId *string `json:"department_id,omitempty"` // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);-  若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;-  若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
+	DepartmentId *string `json:"department_id,omitempty"` // 查询的部门id，获取方法可参考[部门ID概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview);- 若部门id为空，则返回当前租户的使用数据；若填写部门id，则返回当前部门的使用数据（包含子部门的用户）； ;- 若路径参数中department_id_type为空或者为open_department_id，则此处应该填写部门的 open_department_id；若路径参数中department_id_type为department_id，则此处应该填写部门的 department_id。
 
 	Ability *string `json:"ability,omitempty"` // 能力类型，按能力类型进行筛选，返回对应能力的活跃数据
 }
@@ -8866,15 +9156,15 @@ func NewContactsRangeSuggestApplicationAppVersionReqBuilder() *ContactsRangeSugg
 	return builder
 }
 
-// 应用 id
+// 应用的 AppID，可以在[开发者后台](https://open.feishu.cn/app) > **凭证与基础信息**页查看。;* 仅查询本应用信息时，可填应用自身App ID 或 `me`。;;* 当值为其他应用的App ID时，必须申请以下权限：<md-perm name="admin:app.info:readonly" desc="获取应用信息" support_app_types="custom" tags="">获取应用信息</md-perm>
 //
-// 示例值：cli_9f3ca975326b501b
+// 示例值：cli_***
 func (builder *ContactsRangeSuggestApplicationAppVersionReqBuilder) AppId(appId string) *ContactsRangeSuggestApplicationAppVersionReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 
-// 唯一标识应用版本的 ID
+// 唯一标识应用版本的 ID，可以调用[获取应用版本列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/list)接口获取。
 //
 // 示例值：oav_d317f090b7258ad0372aa53963cda70d
 func (builder *ContactsRangeSuggestApplicationAppVersionReqBuilder) VersionId(versionId string) *ContactsRangeSuggestApplicationAppVersionReqBuilder {
@@ -8911,7 +9201,7 @@ type ContactsRangeSuggestApplicationAppVersionReq struct {
 }
 
 type ContactsRangeSuggestApplicationAppVersionRespData struct {
-	ContactsRange *ApplicationAppContactsRange `json:"contacts_range,omitempty"` //
+	ContactsRange *ApplicationAppContactsRange `json:"contacts_range,omitempty"` // 应用版本通讯录权限范围建议信息。开发者在提交该版本时如果修改了通讯录权限范围则返回申请的通讯录权限范围。不代表最终应用生效的通讯录权限范围。如果没有修改,则为空。【如果通讯录权限范围与应用可用范围保持一致，上次的配置也是如此，则认为没变化。】
 }
 
 type ContactsRangeSuggestApplicationAppVersionResp struct {
@@ -8939,7 +9229,7 @@ func NewGetApplicationAppVersionReqBuilder() *GetApplicationAppVersionReqBuilder
 
 // 应用的 app_id，需要查询其他应用版本信息时，必须申请[获取应用版本信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限，仅查询本应用版本信息时，可填入 "me" 或者应用自身 app_id
 //
-// 示例值：cli_9f3ca975326b501b
+// 示例值：cli_***
 func (builder *GetApplicationAppVersionReqBuilder) AppId(appId string) *GetApplicationAppVersionReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -9017,7 +9307,7 @@ func (builder *ListApplicationAppVersionReqBuilder) Limit(limit int) *ListApplic
 
 // 应用的 app_id，需要查询其他应用版本信息时，必须申请[获取应用版本信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限，仅查询本应用版本信息时，可填入 "me" 或者应用自身 app_id
 //
-// 示例值：cli_9b445f5258795107
+// 示例值：cli_***
 func (builder *ListApplicationAppVersionReqBuilder) AppId(appId string) *ListApplicationAppVersionReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -9112,7 +9402,7 @@ func NewPatchApplicationAppVersionReqBuilder() *PatchApplicationAppVersionReqBui
 
 // 应用 id
 //
-// 示例值：cli_9f3ca975326b501b
+// 示例值：cli_***
 func (builder *PatchApplicationAppVersionReqBuilder) AppId(appId string) *PatchApplicationAppVersionReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -9192,9 +9482,9 @@ func NewGetApplicationCollaboratorsReqBuilder() *GetApplicationCollaboratorsReqB
 	return builder
 }
 
-// 应用ID
+// 应用 ID，获取方式参见 [app_id](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology#b047be0c)。
 //
-// 示例值：cli_a5002df1b6f8d01c
+// 示例值：cli_***
 func (builder *GetApplicationCollaboratorsReqBuilder) AppId(appId string) *GetApplicationCollaboratorsReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -9249,7 +9539,7 @@ func NewUpdateApplicationCollaboratorsReqBodyBuilder() *UpdateApplicationCollabo
 
 // 添加人员
 //
-//示例值：
+// 示例值：
 func (builder *UpdateApplicationCollaboratorsReqBodyBuilder) Adds(adds []*AppCollaborator) *UpdateApplicationCollaboratorsReqBodyBuilder {
 	builder.adds = adds
 	builder.addsSet = true
@@ -9258,7 +9548,7 @@ func (builder *UpdateApplicationCollaboratorsReqBodyBuilder) Adds(adds []*AppCol
 
 // 移除人员
 //
-//示例值：
+// 示例值：
 func (builder *UpdateApplicationCollaboratorsReqBodyBuilder) Removes(removes []string) *UpdateApplicationCollaboratorsReqBodyBuilder {
 	builder.removes = removes
 	builder.removesSet = true
@@ -9331,9 +9621,9 @@ func NewUpdateApplicationCollaboratorsReqBuilder() *UpdateApplicationCollaborato
 	return builder
 }
 
-// 应用ID
+// 应用 ID，获取方式参见 [app_id](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology#b047be0c)。
 //
-// 示例值：cli_a5002df1b6f8d01c
+// 示例值：cli_***
 func (builder *UpdateApplicationCollaboratorsReqBuilder) AppId(appId string) *UpdateApplicationCollaboratorsReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -9347,7 +9637,7 @@ func (builder *UpdateApplicationCollaboratorsReqBuilder) UserIdType(userIdType s
 	return builder
 }
 
-//
+// 某个应用（包括自建应用和商店应用）中添加/移除应用协作者，添加后协作者将会收到添加通知。
 func (builder *UpdateApplicationCollaboratorsReqBuilder) Body(body *UpdateApplicationCollaboratorsReqBody) *UpdateApplicationCollaboratorsReqBuilder {
 	builder.body = body
 	return builder
@@ -9386,10 +9676,10 @@ type PatchApplicationContactsRangeReqBodyBuilder struct {
 	contactsRangeType    string // 更新范围方式
 	contactsRangeTypeSet bool
 
-	addVisibleList    *AppContactsRangeIdList // 可见范围新增列表
+	addVisibleList    *AppContactsRangeIdList // 通讯录权限范围新增列表;;仅contacts_range_type为some 时生效并进行增量更新
 	addVisibleListSet bool
 
-	delVisibleList    *AppContactsRangeIdList // 删除可用名单
+	delVisibleList    *AppContactsRangeIdList // 从通讯录权限范围删除的列表;;仅contacts_range_type为some 时生效并进行增量更新
 	delVisibleListSet bool
 }
 
@@ -9400,25 +9690,25 @@ func NewPatchApplicationContactsRangeReqBodyBuilder() *PatchApplicationContactsR
 
 // 更新范围方式
 //
-//示例值：some
+// 示例值：some
 func (builder *PatchApplicationContactsRangeReqBodyBuilder) ContactsRangeType(contactsRangeType string) *PatchApplicationContactsRangeReqBodyBuilder {
 	builder.contactsRangeType = contactsRangeType
 	builder.contactsRangeTypeSet = true
 	return builder
 }
 
-// 可见范围新增列表
+// 通讯录权限范围新增列表;;仅contacts_range_type为some 时生效并进行增量更新
 //
-//示例值：
+// 示例值：
 func (builder *PatchApplicationContactsRangeReqBodyBuilder) AddVisibleList(addVisibleList *AppContactsRangeIdList) *PatchApplicationContactsRangeReqBodyBuilder {
 	builder.addVisibleList = addVisibleList
 	builder.addVisibleListSet = true
 	return builder
 }
 
-// 删除可用名单
+// 从通讯录权限范围删除的列表;;仅contacts_range_type为some 时生效并进行增量更新
 //
-//示例值：
+// 示例值：
 func (builder *PatchApplicationContactsRangeReqBodyBuilder) DelVisibleList(delVisibleList *AppContactsRangeIdList) *PatchApplicationContactsRangeReqBodyBuilder {
 	builder.delVisibleList = delVisibleList
 	builder.delVisibleListSet = true
@@ -9462,7 +9752,7 @@ func (builder *PatchApplicationContactsRangePathReqBodyBuilder) ContactsRangeTyp
 	return builder
 }
 
-// 可见范围新增列表
+// 通讯录权限范围新增列表;;仅contacts_range_type为some 时生效并进行增量更新
 //
 // 示例值：
 func (builder *PatchApplicationContactsRangePathReqBodyBuilder) AddVisibleList(addVisibleList *AppContactsRangeIdList) *PatchApplicationContactsRangePathReqBodyBuilder {
@@ -9471,7 +9761,7 @@ func (builder *PatchApplicationContactsRangePathReqBodyBuilder) AddVisibleList(a
 	return builder
 }
 
-// 删除可用名单
+// 从通讯录权限范围删除的列表;;仅contacts_range_type为some 时生效并进行增量更新
 //
 // 示例值：
 func (builder *PatchApplicationContactsRangePathReqBodyBuilder) DelVisibleList(delVisibleList *AppContactsRangeIdList) *PatchApplicationContactsRangePathReqBodyBuilder {
@@ -9510,7 +9800,7 @@ func NewPatchApplicationContactsRangeReqBuilder() *PatchApplicationContactsRange
 
 // 应用id
 //
-// 示例值：cli_dsfjksdfee1
+// 示例值：cli_***
 func (builder *PatchApplicationContactsRangeReqBuilder) AppId(appId string) *PatchApplicationContactsRangeReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -9524,7 +9814,7 @@ func (builder *PatchApplicationContactsRangeReqBuilder) UserIdType(userIdType st
 	return builder
 }
 
-// 部门id 类型
+// 部门id类型
 //
 // 示例值：open_department_id
 func (builder *PatchApplicationContactsRangeReqBuilder) DepartmentIdType(departmentIdType string) *PatchApplicationContactsRangeReqBuilder {
@@ -9532,7 +9822,7 @@ func (builder *PatchApplicationContactsRangeReqBuilder) DepartmentIdType(departm
 	return builder
 }
 
-//
+// 该接口用于更新当前企业内自建应用或已安装的商店应用的通讯录权限范围配置。更新后线上立即生效。
 func (builder *PatchApplicationContactsRangeReqBuilder) Body(body *PatchApplicationContactsRangeReqBody) *PatchApplicationContactsRangeReqBuilder {
 	builder.body = body
 	return builder
@@ -9550,9 +9840,9 @@ func (builder *PatchApplicationContactsRangeReqBuilder) Build() *PatchApplicatio
 type PatchApplicationContactsRangeReqBody struct {
 	ContactsRangeType *string `json:"contacts_range_type,omitempty"` // 更新范围方式
 
-	AddVisibleList *AppContactsRangeIdList `json:"add_visible_list,omitempty"` // 可见范围新增列表
+	AddVisibleList *AppContactsRangeIdList `json:"add_visible_list,omitempty"` // 通讯录权限范围新增列表;;仅contacts_range_type为some 时生效并进行增量更新
 
-	DelVisibleList *AppContactsRangeIdList `json:"del_visible_list,omitempty"` // 删除可用名单
+	DelVisibleList *AppContactsRangeIdList `json:"del_visible_list,omitempty"` // 从通讯录权限范围删除的列表;;仅contacts_range_type为some 时生效并进行增量更新
 }
 
 type PatchApplicationContactsRangeReq struct {
@@ -9584,7 +9874,7 @@ func NewListApplicationFeedbackReqBuilder() *ListApplicationFeedbackReqBuilder {
 
 // 目标应用 ID（本租户创建的所有应用）
 //
-// 示例值：cli_9f115af860f7901b
+// 示例值：cli_***
 func (builder *ListApplicationFeedbackReqBuilder) AppId(appId string) *ListApplicationFeedbackReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -9622,15 +9912,13 @@ func (builder *ListApplicationFeedbackReqBuilder) Status(status int) *ListApplic
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *ListApplicationFeedbackReqBuilder) UserIdType(userIdType string) *ListApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
-// 分页拉取反馈列表起始位置标示，不填表示从头开始
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值："7064688334618378259"
 func (builder *ListApplicationFeedbackReqBuilder) PageToken(pageToken string) *ListApplicationFeedbackReqBuilder {
@@ -9661,9 +9949,9 @@ type ListApplicationFeedbackReq struct {
 type ListApplicationFeedbackRespData struct {
 	FeedbackList []*ApplicationFeedback `json:"feedback_list,omitempty"` // 应用的反馈列表
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多用户反馈列表，true：是，false：否
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 拉取下一页应用反馈列表时使用的 page_token
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListApplicationFeedbackResp struct {
@@ -9691,7 +9979,7 @@ func NewPatchApplicationFeedbackReqBuilder() *PatchApplicationFeedbackReqBuilder
 
 // 目标应用 ID（本租户创建的所有应用）
 //
-// 示例值：cli_9f115af860f7901b
+// 示例值：cli_***
 func (builder *PatchApplicationFeedbackReqBuilder) AppId(appId string) *PatchApplicationFeedbackReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -9705,8 +9993,6 @@ func (builder *PatchApplicationFeedbackReqBuilder) FeedbackId(feedbackId string)
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *PatchApplicationFeedbackReqBuilder) UserIdType(userIdType string) *PatchApplicationFeedbackReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -9762,7 +10048,7 @@ func NewUpdateApplicationManagementReqBodyBuilder() *UpdateApplicationManagement
 
 // 启用/停用应用
 //
-//示例值：true
+// 示例值：true
 func (builder *UpdateApplicationManagementReqBodyBuilder) Enable(enable bool) *UpdateApplicationManagementReqBodyBuilder {
 	builder.enable = enable
 	builder.enableSet = true
@@ -9820,13 +10106,13 @@ func NewUpdateApplicationManagementReqBuilder() *UpdateApplicationManagementReqB
 
 // 应用ID
 //
-// 示例值：cli_a4517c8461f8100a
+// 示例值：cli_***
 func (builder *UpdateApplicationManagementReqBuilder) AppId(appId string) *UpdateApplicationManagementReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 
-//
+// 可停用或启用企业内已安装的自建应用与商店应用。
 func (builder *UpdateApplicationManagementReqBuilder) Body(body *UpdateApplicationManagementReqBody) *UpdateApplicationManagementReqBuilder {
 	builder.body = body
 	return builder
@@ -9870,7 +10156,7 @@ func NewUpdateApplicationOwnerReqBodyBuilder() *UpdateApplicationOwnerReqBodyBui
 
 // 新的拥有者用户ID，类型由查询参数中的user_id_type确定
 //
-//示例值：ou_84aad35d084aa403a838cf73ee184670
+// 示例值：ou_84aad35d084aa403a838cf73ee184670
 func (builder *UpdateApplicationOwnerReqBodyBuilder) OwnerId(ownerId string) *UpdateApplicationOwnerReqBodyBuilder {
 	builder.ownerId = ownerId
 	builder.ownerIdSet = true
@@ -9926,9 +10212,9 @@ func NewUpdateApplicationOwnerReqBuilder() *UpdateApplicationOwnerReqBuilder {
 	return builder
 }
 
-// 应用ID
+// 应用 ID，获取方式参见 [app_id](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology#b047be0c)。
 //
-// 示例值：cli_a306c5476fb8d00c
+// 示例值：cli_***
 func (builder *UpdateApplicationOwnerReqBuilder) AppId(appId string) *UpdateApplicationOwnerReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -9942,7 +10228,7 @@ func (builder *UpdateApplicationOwnerReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
-//
+// 将某个自建应用的所有者转移给另外一个人。
 func (builder *UpdateApplicationOwnerReqBuilder) Body(body *UpdateApplicationOwnerReqBody) *UpdateApplicationOwnerReqBuilder {
 	builder.body = body
 	return builder
@@ -9976,13 +10262,13 @@ func (resp *UpdateApplicationOwnerResp) Success() bool {
 }
 
 type CheckWhiteBlackListApplicationVisibilityReqBodyBuilder struct {
-	userIds    []string // 用户ID列表
+	userIds    []string // 想要查询的用户id列表，按照user_id_type录入，最多录入100个。;;可以调用[获取部门直属用户列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/find_by_department)接口获取。
 	userIdsSet bool
 
-	departmentIds    []string // 部门ID列表
+	departmentIds    []string // 想要查询的部门的 id 列表，最多录入100个。;;可以[调用获取子部门列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children)接口获取。
 	departmentIdsSet bool
 
-	groupIds    []string // 用户组ID列表
+	groupIds    []string // 想要查询的用户组id列表，最多录入100个。;;可以调用[查询用户组列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist)接口获取。
 	groupIdsSet bool
 }
 
@@ -9991,27 +10277,27 @@ func NewCheckWhiteBlackListApplicationVisibilityReqBodyBuilder() *CheckWhiteBlac
 	return builder
 }
 
-// 用户ID列表
+// 想要查询的用户id列表，按照user_id_type录入，最多录入100个。;;可以调用[获取部门直属用户列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/find_by_department)接口获取。
 //
-//示例值：
+// 示例值：
 func (builder *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder) UserIds(userIds []string) *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
 	return builder
 }
 
-// 部门ID列表
+// 想要查询的部门的 id 列表，最多录入100个。;;可以[调用获取子部门列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children)接口获取。
 //
-//示例值：
+// 示例值：
 func (builder *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder) DepartmentIds(departmentIds []string) *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsSet = true
 	return builder
 }
 
-// 用户组ID列表
+// 想要查询的用户组id列表，最多录入100个。;;可以调用[查询用户组列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist)接口获取。
 //
-//示例值：
+// 示例值：
 func (builder *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder) GroupIds(groupIds []string) *CheckWhiteBlackListApplicationVisibilityReqBodyBuilder {
 	builder.groupIds = groupIds
 	builder.groupIdsSet = true
@@ -10046,7 +10332,7 @@ func NewCheckWhiteBlackListApplicationVisibilityPathReqBodyBuilder() *CheckWhite
 	return builder
 }
 
-// 用户ID列表
+// 想要查询的用户id列表，按照user_id_type录入，最多录入100个。;;可以调用[获取部门直属用户列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/find_by_department)接口获取。
 //
 // 示例值：
 func (builder *CheckWhiteBlackListApplicationVisibilityPathReqBodyBuilder) UserIds(userIds []string) *CheckWhiteBlackListApplicationVisibilityPathReqBodyBuilder {
@@ -10055,7 +10341,7 @@ func (builder *CheckWhiteBlackListApplicationVisibilityPathReqBodyBuilder) UserI
 	return builder
 }
 
-// 部门ID列表
+// 想要查询的部门的 id 列表，最多录入100个。;;可以[调用获取子部门列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children)接口获取。
 //
 // 示例值：
 func (builder *CheckWhiteBlackListApplicationVisibilityPathReqBodyBuilder) DepartmentIds(departmentIds []string) *CheckWhiteBlackListApplicationVisibilityPathReqBodyBuilder {
@@ -10064,7 +10350,7 @@ func (builder *CheckWhiteBlackListApplicationVisibilityPathReqBodyBuilder) Depar
 	return builder
 }
 
-// 用户组ID列表
+// 想要查询的用户组id列表，最多录入100个。;;可以调用[查询用户组列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist)接口获取。
 //
 // 示例值：
 func (builder *CheckWhiteBlackListApplicationVisibilityPathReqBodyBuilder) GroupIds(groupIds []string) *CheckWhiteBlackListApplicationVisibilityPathReqBodyBuilder {
@@ -10101,9 +10387,9 @@ func NewCheckWhiteBlackListApplicationVisibilityReqBuilder() *CheckWhiteBlackLis
 	return builder
 }
 
-// 目标应用ID
+// 应用的 AppID，可以在[开发者后台](https://open.feishu.cn/app) > **凭证与基础信息**页查看。;* 仅查询本应用信息时，可填应用自身AppID。;;* 当值为其他应用的App ID时，必须申请以下权限：<md-perm name="admin:app.info:readonly" desc="获取应用信息" support_app_types="custom" tags="">获取应用信息</md-perm>
 //
-// 示例值：cli_a3a3d00b40b8d01b
+// 示例值：cli_a3axxx01b
 func (builder *CheckWhiteBlackListApplicationVisibilityReqBuilder) AppId(appId string) *CheckWhiteBlackListApplicationVisibilityReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -10117,7 +10403,7 @@ func (builder *CheckWhiteBlackListApplicationVisibilityReqBuilder) UserIdType(us
 	return builder
 }
 
-// 此次请求传参中的department_id的类型
+// 部门ID类型
 //
 // 示例值：department_id
 func (builder *CheckWhiteBlackListApplicationVisibilityReqBuilder) DepartmentIdType(departmentIdType string) *CheckWhiteBlackListApplicationVisibilityReqBuilder {
@@ -10125,7 +10411,7 @@ func (builder *CheckWhiteBlackListApplicationVisibilityReqBuilder) DepartmentIdT
 	return builder
 }
 
-//
+// 该接口用于查询用户、部门、用户组是否在应用的可用或禁用名单中
 func (builder *CheckWhiteBlackListApplicationVisibilityReqBuilder) Body(body *CheckWhiteBlackListApplicationVisibilityReqBody) *CheckWhiteBlackListApplicationVisibilityReqBuilder {
 	builder.body = body
 	return builder
@@ -10141,11 +10427,11 @@ func (builder *CheckWhiteBlackListApplicationVisibilityReqBuilder) Build() *Chec
 }
 
 type CheckWhiteBlackListApplicationVisibilityReqBody struct {
-	UserIds []string `json:"user_ids,omitempty"` // 用户ID列表
+	UserIds []string `json:"user_ids,omitempty"` // 想要查询的用户id列表，按照user_id_type录入，最多录入100个。;;可以调用[获取部门直属用户列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/find_by_department)接口获取。
 
-	DepartmentIds []string `json:"department_ids,omitempty"` // 部门ID列表
+	DepartmentIds []string `json:"department_ids,omitempty"` // 想要查询的部门的 id 列表，最多录入100个。;;可以[调用获取子部门列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children)接口获取。
 
-	GroupIds []string `json:"group_ids,omitempty"` // 用户组ID列表
+	GroupIds []string `json:"group_ids,omitempty"` // 想要查询的用户组id列表，最多录入100个。;;可以调用[查询用户组列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist)接口获取。
 }
 
 type CheckWhiteBlackListApplicationVisibilityReq struct {
@@ -10154,11 +10440,11 @@ type CheckWhiteBlackListApplicationVisibilityReq struct {
 }
 
 type CheckWhiteBlackListApplicationVisibilityRespData struct {
-	UserVisibilityList []*ApplicationVisibilityUserWhiteBlackInfo `json:"user_visibility_list,omitempty"` // 用户可见性信息列表
+	UserVisibilityList []*ApplicationVisibilityUserWhiteBlackInfo `json:"user_visibility_list,omitempty"` // 查询的用户可见性结果列表，如果用户在白名单或付费白名单，且不在黑名单中，则可见该应用
 
-	DepartmentVisibilityList []*ApplicationVisibilityDepartmentWhiteBlackInfo `json:"department_visibility_list,omitempty"` // 部门可见性信息列表
+	DepartmentVisibilityList []*ApplicationVisibilityDepartmentWhiteBlackInfo `json:"department_visibility_list,omitempty"` // 查询的部门可见性结果列表，如果部门在白名单，且不在黑名单，则该部门下的用户可见该应用
 
-	GroupVisibilityList []*ApplicationVisibilityGroupWhiteBlackInfo `json:"group_visibility_list,omitempty"` // 用户组可见性信息列表
+	GroupVisibilityList []*ApplicationVisibilityGroupWhiteBlackInfo `json:"group_visibility_list,omitempty"` // 查询的用户组可见性结果列表，如果用户组在白名单，且不在黑名单，则该用户组下的用户可见该应用
 }
 
 type CheckWhiteBlackListApplicationVisibilityResp struct {
@@ -10172,19 +10458,19 @@ func (resp *CheckWhiteBlackListApplicationVisibilityResp) Success() bool {
 }
 
 type PatchApplicationVisibilityReqBodyBuilder struct {
-	addVisibleList    *AppVisibilityIdList // 添加可用人员名单
+	addVisibleList    *AppVisibilityIdList // 添加可用人员列表，如果参数is_visible_to_all不设置且当前已经是全员可见，或者参数is_visible_to_all设置为true，则该参数不生效
 	addVisibleListSet bool
 
-	delVisibleList    *AppVisibilityIdList // 删除可用人员名单
+	delVisibleList    *AppVisibilityIdList // 删除可用人员列表，如果参数is_visible_to_all不设置且当前已经是全员可见，或者参数is_visible_to_all设置为true，则该参数不生效
 	delVisibleListSet bool
 
-	addInvisibleList    *AppVisibilityIdList // 添加禁用人员名单
+	addInvisibleList    *AppVisibilityIdList // 添加禁用人员列表
 	addInvisibleListSet bool
 
-	delInvisibleList    *AppVisibilityIdList // 删除禁用人员名单
+	delInvisibleList    *AppVisibilityIdList // 删除禁用人员列表
 	delInvisibleListSet bool
 
-	isVisibleToAll    bool // 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
+	isVisibleToAll    bool // 是否全员可见;;false：否;;true：是;;不设置：继续保持当前状态不改变;;;如果参数不设置且当前已经是全员可见，或者设置为true，则add_visible_list/del_visible_list不生效
 	isVisibleToAllSet bool
 }
 
@@ -10193,45 +10479,45 @@ func NewPatchApplicationVisibilityReqBodyBuilder() *PatchApplicationVisibilityRe
 	return builder
 }
 
-// 添加可用人员名单
+// 添加可用人员列表，如果参数is_visible_to_all不设置且当前已经是全员可见，或者参数is_visible_to_all设置为true，则该参数不生效
 //
-//示例值：
+// 示例值：
 func (builder *PatchApplicationVisibilityReqBodyBuilder) AddVisibleList(addVisibleList *AppVisibilityIdList) *PatchApplicationVisibilityReqBodyBuilder {
 	builder.addVisibleList = addVisibleList
 	builder.addVisibleListSet = true
 	return builder
 }
 
-// 删除可用人员名单
+// 删除可用人员列表，如果参数is_visible_to_all不设置且当前已经是全员可见，或者参数is_visible_to_all设置为true，则该参数不生效
 //
-//示例值：
+// 示例值：
 func (builder *PatchApplicationVisibilityReqBodyBuilder) DelVisibleList(delVisibleList *AppVisibilityIdList) *PatchApplicationVisibilityReqBodyBuilder {
 	builder.delVisibleList = delVisibleList
 	builder.delVisibleListSet = true
 	return builder
 }
 
-// 添加禁用人员名单
+// 添加禁用人员列表
 //
-//示例值：
+// 示例值：
 func (builder *PatchApplicationVisibilityReqBodyBuilder) AddInvisibleList(addInvisibleList *AppVisibilityIdList) *PatchApplicationVisibilityReqBodyBuilder {
 	builder.addInvisibleList = addInvisibleList
 	builder.addInvisibleListSet = true
 	return builder
 }
 
-// 删除禁用人员名单
+// 删除禁用人员列表
 //
-//示例值：
+// 示例值：
 func (builder *PatchApplicationVisibilityReqBodyBuilder) DelInvisibleList(delInvisibleList *AppVisibilityIdList) *PatchApplicationVisibilityReqBodyBuilder {
 	builder.delInvisibleList = delInvisibleList
 	builder.delInvisibleListSet = true
 	return builder
 }
 
-// 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
+// 是否全员可见;;false：否;;true：是;;不设置：继续保持当前状态不改变;;;如果参数不设置且当前已经是全员可见，或者设置为true，则add_visible_list/del_visible_list不生效
 //
-//示例值：false
+// 示例值：false
 func (builder *PatchApplicationVisibilityReqBodyBuilder) IsVisibleToAll(isVisibleToAll bool) *PatchApplicationVisibilityReqBodyBuilder {
 	builder.isVisibleToAll = isVisibleToAll
 	builder.isVisibleToAllSet = true
@@ -10276,7 +10562,7 @@ func NewPatchApplicationVisibilityPathReqBodyBuilder() *PatchApplicationVisibili
 	return builder
 }
 
-// 添加可用人员名单
+// 添加可用人员列表，如果参数is_visible_to_all不设置且当前已经是全员可见，或者参数is_visible_to_all设置为true，则该参数不生效
 //
 // 示例值：
 func (builder *PatchApplicationVisibilityPathReqBodyBuilder) AddVisibleList(addVisibleList *AppVisibilityIdList) *PatchApplicationVisibilityPathReqBodyBuilder {
@@ -10285,7 +10571,7 @@ func (builder *PatchApplicationVisibilityPathReqBodyBuilder) AddVisibleList(addV
 	return builder
 }
 
-// 删除可用人员名单
+// 删除可用人员列表，如果参数is_visible_to_all不设置且当前已经是全员可见，或者参数is_visible_to_all设置为true，则该参数不生效
 //
 // 示例值：
 func (builder *PatchApplicationVisibilityPathReqBodyBuilder) DelVisibleList(delVisibleList *AppVisibilityIdList) *PatchApplicationVisibilityPathReqBodyBuilder {
@@ -10294,7 +10580,7 @@ func (builder *PatchApplicationVisibilityPathReqBodyBuilder) DelVisibleList(delV
 	return builder
 }
 
-// 添加禁用人员名单
+// 添加禁用人员列表
 //
 // 示例值：
 func (builder *PatchApplicationVisibilityPathReqBodyBuilder) AddInvisibleList(addInvisibleList *AppVisibilityIdList) *PatchApplicationVisibilityPathReqBodyBuilder {
@@ -10303,7 +10589,7 @@ func (builder *PatchApplicationVisibilityPathReqBodyBuilder) AddInvisibleList(ad
 	return builder
 }
 
-// 删除禁用人员名单
+// 删除禁用人员列表
 //
 // 示例值：
 func (builder *PatchApplicationVisibilityPathReqBodyBuilder) DelInvisibleList(delInvisibleList *AppVisibilityIdList) *PatchApplicationVisibilityPathReqBodyBuilder {
@@ -10312,7 +10598,7 @@ func (builder *PatchApplicationVisibilityPathReqBodyBuilder) DelInvisibleList(de
 	return builder
 }
 
-// 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
+// 是否全员可见;;false：否;;true：是;;不设置：继续保持当前状态不改变;;;如果参数不设置且当前已经是全员可见，或者设置为true，则add_visible_list/del_visible_list不生效
 //
 // 示例值：false
 func (builder *PatchApplicationVisibilityPathReqBodyBuilder) IsVisibleToAll(isVisibleToAll bool) *PatchApplicationVisibilityPathReqBodyBuilder {
@@ -10357,7 +10643,7 @@ func NewPatchApplicationVisibilityReqBuilder() *PatchApplicationVisibilityReqBui
 
 // 应用id
 //
-// 示例值：cli_9b445f5258795107
+// 示例值：cli_***
 func (builder *PatchApplicationVisibilityReqBuilder) AppId(appId string) *PatchApplicationVisibilityReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -10379,7 +10665,7 @@ func (builder *PatchApplicationVisibilityReqBuilder) UserIdType(userIdType strin
 	return builder
 }
 
-//
+// 调用该接口更新指定应用的可用范围，支持更新当前企业内自建应用的可用范围，或者已安装的商店应用的可用范围，包括可用人员与禁用人员。更新可用范围后对线上立即生效。
 func (builder *PatchApplicationVisibilityReqBuilder) Body(body *PatchApplicationVisibilityReqBody) *PatchApplicationVisibilityReqBuilder {
 	builder.body = body
 	return builder
@@ -10395,15 +10681,15 @@ func (builder *PatchApplicationVisibilityReqBuilder) Build() *PatchApplicationVi
 }
 
 type PatchApplicationVisibilityReqBody struct {
-	AddVisibleList *AppVisibilityIdList `json:"add_visible_list,omitempty"` // 添加可用人员名单
+	AddVisibleList *AppVisibilityIdList `json:"add_visible_list,omitempty"` // 添加可用人员列表，如果参数is_visible_to_all不设置且当前已经是全员可见，或者参数is_visible_to_all设置为true，则该参数不生效
 
-	DelVisibleList *AppVisibilityIdList `json:"del_visible_list,omitempty"` // 删除可用人员名单
+	DelVisibleList *AppVisibilityIdList `json:"del_visible_list,omitempty"` // 删除可用人员列表，如果参数is_visible_to_all不设置且当前已经是全员可见，或者参数is_visible_to_all设置为true，则该参数不生效
 
-	AddInvisibleList *AppVisibilityIdList `json:"add_invisible_list,omitempty"` // 添加禁用人员名单
+	AddInvisibleList *AppVisibilityIdList `json:"add_invisible_list,omitempty"` // 添加禁用人员列表
 
-	DelInvisibleList *AppVisibilityIdList `json:"del_invisible_list,omitempty"` // 删除禁用人员名单
+	DelInvisibleList *AppVisibilityIdList `json:"del_invisible_list,omitempty"` // 删除禁用人员列表
 
-	IsVisibleToAll *bool `json:"is_visible_to_all,omitempty"` // 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
+	IsVisibleToAll *bool `json:"is_visible_to_all,omitempty"` // 是否全员可见;;false：否;;true：是;;不设置：继续保持当前状态不改变;;;如果参数不设置且当前已经是全员可见，或者设置为true，则add_visible_list/del_visible_list不生效
 }
 
 type PatchApplicationVisibilityReq struct {
@@ -10430,7 +10716,7 @@ func (resp *ApplyScopeResp) Success() bool {
 }
 
 type ListScopeRespData struct {
-	Scopes []*Scope `json:"scopes,omitempty"` //
+	Scopes []*Scope `json:"scopes,omitempty"` // 租户对当前应用所需权限的授予情况。
 }
 
 type ListScopeResp struct {
@@ -10444,7 +10730,7 @@ func (resp *ListScopeResp) Success() bool {
 }
 
 type P2ApplicationCreatedV6Data struct {
-	OperatorId *UserId `json:"operator_id,omitempty"` // 用户 ID
+	OperatorId *UserId `json:"operator_id,omitempty"` // 操作人 ID
 
 	AppId *string `json:"app_id,omitempty"` // 应用 ID
 
@@ -10478,7 +10764,7 @@ type P2ApplicationAppVersionAuditV6Data struct {
 
 	CreatorId *UserId `json:"creator_id,omitempty"` // 应用创建者的 id
 
-	AppId *string `json:"app_id,omitempty"` // 撤回应用的 id
+	AppId *string `json:"app_id,omitempty"` // 审核应用的 id
 
 	Operation *string `json:"operation,omitempty"` // 审核通过 / 拒绝
 
@@ -10498,11 +10784,11 @@ func (m *P2ApplicationAppVersionAuditV6) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ApplicationAppVersionPublishApplyV6Data struct {
-	OperatorId *UserId `json:"operator_id,omitempty"` // 用户 ID
+	OperatorId *UserId `json:"operator_id,omitempty"` // 申请发布应用的成员 id
 
-	OnlineVersion *ApplicationAppVersionEvent `json:"online_version,omitempty"` // 当前线上版本信息
+	OnlineVersion *ApplicationAppVersionEvent `json:"online_version,omitempty"` // 当前在审核的版本信息
 
-	UnderAuditVersion *ApplicationAppVersionEvent `json:"under_audit_version,omitempty"` // 当前在审核的应用版本
+	UnderAuditVersion *ApplicationAppVersionEvent `json:"under_audit_version,omitempty"` // 当前在审核的版本信息
 
 	AppStatus *int `json:"app_status,omitempty"` // 应用状态
 }
@@ -10518,9 +10804,9 @@ func (m *P2ApplicationAppVersionPublishApplyV6) RawReq(req *larkevent.EventReq) 
 }
 
 type P2ApplicationAppVersionPublishRevokeV6Data struct {
-	OperatorId *UserId `json:"operator_id,omitempty"` // 用户 ID
+	OperatorId *UserId `json:"operator_id,omitempty"` // 撤回应用申请的成员 id
 
-	CreatorId *UserId `json:"creator_id,omitempty"` // 用户 ID
+	CreatorId *UserId `json:"creator_id,omitempty"` // 应用创建者
 
 	AppId *string `json:"app_id,omitempty"` // 撤回应用的 id
 
@@ -10538,7 +10824,7 @@ func (m *P2ApplicationAppVersionPublishRevokeV6) RawReq(req *larkevent.EventReq)
 }
 
 type P2ApplicationFeedbackCreatedV6Data struct {
-	UserId *UserId `json:"user_id,omitempty"` // 用户 ID
+	UserId *UserId `json:"user_id,omitempty"` //
 
 	AppId *string `json:"app_id,omitempty"` // 被反馈应用 ID
 
@@ -10548,7 +10834,7 @@ type P2ApplicationFeedbackCreatedV6Data struct {
 
 	FeedbackType *int `json:"feedback_type,omitempty"` // 反馈类型（枚举值，1：故障反馈，2：产品建议）
 
-	FaultType []int `json:"fault_type,omitempty"` // 故障类型列表：1: 黑屏 2: 白屏 3: 无法打开小程序  4: 卡顿 5: 小程序闪退 6: 页面加载慢 7: 死机 8: 其他异常
+	FaultType []int `json:"fault_type,omitempty"` // 故障类型列表：1: 黑屏 2: 白屏 3: 无法打开小程序 4: 卡顿 5: 小程序闪退 6: 页面加载慢 7: 死机 8: 其他异常
 
 	FaultTime *string `json:"fault_time,omitempty"` // 故障时间，格式为yyyy-mm-dd hh:mm:ss
 
@@ -10578,7 +10864,7 @@ func (m *P2ApplicationFeedbackCreatedV6) RawReq(req *larkevent.EventReq) {
 type P2ApplicationFeedbackUpdatedV6Data struct {
 	FeedbackIds []string `json:"feedback_ids,omitempty"` // 反馈id列表
 
-	Status *int `json:"status,omitempty"` // 反馈处理状态（枚举值，0: 未处理  1: 已处理  2: 处理中 3: 已关闭）
+	Status *int `json:"status,omitempty"` // 反馈处理状态（枚举值，0: 未处理 1: 已处理 2: 处理中 3: 已关闭）
 
 	AppId *string `json:"app_id,omitempty"` // 应用的 app_id
 

@@ -36,3 +36,43 @@ func (h *P2ApprovalUpdatedV4Handler) Event() interface{} {
 func (h *P2ApprovalUpdatedV4Handler) Handle(ctx context.Context, event interface{}) error {
 	return h.handler(ctx, event.(*P2ApprovalUpdatedV4))
 }
+
+// 消息处理器定义
+type P2InstanceStatusChangedV4Handler struct {
+	handler func(context.Context, *P2InstanceStatusChangedV4) error
+}
+
+func NewP2InstanceStatusChangedV4Handler(handler func(context.Context, *P2InstanceStatusChangedV4) error) *P2InstanceStatusChangedV4Handler {
+	h := &P2InstanceStatusChangedV4Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2InstanceStatusChangedV4Handler) Event() interface{} {
+	return &P2InstanceStatusChangedV4{}
+}
+
+// 回调开发者注册的handle
+func (h *P2InstanceStatusChangedV4Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2InstanceStatusChangedV4))
+}
+
+// 消息处理器定义
+type P2TaskStatusChangedV4Handler struct {
+	handler func(context.Context, *P2TaskStatusChangedV4) error
+}
+
+func NewP2TaskStatusChangedV4Handler(handler func(context.Context, *P2TaskStatusChangedV4) error) *P2TaskStatusChangedV4Handler {
+	h := &P2TaskStatusChangedV4Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2TaskStatusChangedV4Handler) Event() interface{} {
+	return &P2TaskStatusChangedV4{}
+}
+
+// 回调开发者注册的handle
+func (h *P2TaskStatusChangedV4Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2TaskStatusChangedV4))
+}

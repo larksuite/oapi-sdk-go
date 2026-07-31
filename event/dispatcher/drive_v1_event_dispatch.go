@@ -20,9 +20,9 @@ import (
 
 // 多维表格字段变更
 //
-// - 多维表格字段变更
+// - 多维表格字段变更事件。被订阅的多维表格字段发生变更时，将会触发此事件。了解事件订阅的配置流程和使用场景，参考[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/events/bitable_field_changed
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2FileBitableFieldChangedV1(handler func(ctx context.Context, event *larkdrive.P2FileBitableFieldChangedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.bitable_field_changed_v1"]
 	if existed {
@@ -32,9 +32,9 @@ func (dispatcher *EventDispatcher) OnP2FileBitableFieldChangedV1(handler func(ct
 	return dispatcher
 }
 
+// 多维表格记录变更
 //
-//
-// -
+// - 多维表格记录变更事件。被订阅的多维表格记录发生变更时，将会触发此事件。了解事件订阅的配置流程和使用场景，参考[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2FileBitableRecordChangedV1(handler func(ctx context.Context, event *larkdrive.P2FileBitableRecordChangedV1) error) *EventDispatcher {
@@ -46,9 +46,9 @@ func (dispatcher *EventDispatcher) OnP2FileBitableRecordChangedV1(handler func(c
 	return dispatcher
 }
 
+// 文件夹下文件创建
 //
-//
-// -
+// - 当用户订阅的文件夹下有新建文件时将触发此事件。
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2FileCreatedInFolderV1(handler func(ctx context.Context, event *larkdrive.P2FileCreatedInFolderV1) error) *EventDispatcher {
@@ -60,11 +60,9 @@ func (dispatcher *EventDispatcher) OnP2FileCreatedInFolderV1(handler func(ctx co
 	return dispatcher
 }
 
-//
-//
 // -
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-deleted-completely
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2FileDeletedV1(handler func(ctx context.Context, event *larkdrive.P2FileDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.deleted_v1"]
 	if existed {
@@ -74,11 +72,9 @@ func (dispatcher *EventDispatcher) OnP2FileDeletedV1(handler func(ctx context.Co
 	return dispatcher
 }
 
-//
-//
 // -
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-edited
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2FileEditV1(handler func(ctx context.Context, event *larkdrive.P2FileEditV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.edit_v1"]
 	if existed {
@@ -88,11 +84,9 @@ func (dispatcher *EventDispatcher) OnP2FileEditV1(handler func(ctx context.Conte
 	return dispatcher
 }
 
-//
-//
 // -
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-collaborator-add
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2FilePermissionMemberAddedV1(handler func(ctx context.Context, event *larkdrive.P2FilePermissionMemberAddedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.permission_member_added_v1"]
 	if existed {
@@ -102,9 +96,9 @@ func (dispatcher *EventDispatcher) OnP2FilePermissionMemberAddedV1(handler func(
 	return dispatcher
 }
 
+// 文件协作者权限申请
 //
-//
-// -
+// - 当用户发起申请文件协作者权限时将触发此事件，协作者权限包括阅读、编辑和管理权限。
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2FilePermissionMemberAppliedV1(handler func(ctx context.Context, event *larkdrive.P2FilePermissionMemberAppliedV1) error) *EventDispatcher {
@@ -116,11 +110,9 @@ func (dispatcher *EventDispatcher) OnP2FilePermissionMemberAppliedV1(handler fun
 	return dispatcher
 }
 
-//
-//
 // -
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-collaborator-remove
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2FilePermissionMemberRemovedV1(handler func(ctx context.Context, event *larkdrive.P2FilePermissionMemberRemovedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.permission_member_removed_v1"]
 	if existed {
@@ -130,11 +122,9 @@ func (dispatcher *EventDispatcher) OnP2FilePermissionMemberRemovedV1(handler fun
 	return dispatcher
 }
 
-//
-//
 // -
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-read
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2FileReadV1(handler func(ctx context.Context, event *larkdrive.P2FileReadV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.read_v1"]
 	if existed {
@@ -144,11 +134,9 @@ func (dispatcher *EventDispatcher) OnP2FileReadV1(handler func(ctx context.Conte
 	return dispatcher
 }
 
-//
-//
 // -
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-title-update
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2FileTitleUpdatedV1(handler func(ctx context.Context, event *larkdrive.P2FileTitleUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.title_updated_v1"]
 	if existed {
@@ -158,11 +146,9 @@ func (dispatcher *EventDispatcher) OnP2FileTitleUpdatedV1(handler func(ctx conte
 	return dispatcher
 }
 
-//
-//
 // -
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/delete-file-to-trash-can
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2FileTrashedV1(handler func(ctx context.Context, event *larkdrive.P2FileTrashedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["drive.file.trashed_v1"]
 	if existed {
@@ -172,9 +158,9 @@ func (dispatcher *EventDispatcher) OnP2FileTrashedV1(handler func(ctx context.Co
 	return dispatcher
 }
 
+// 添加评论、回复通知事件
 //
-//
-// -
+// - 当用户有新文档评论或回复通知会触发此事件。
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2NoticeCommentAddV1(handler func(ctx context.Context, event *larkdrive.P2NoticeCommentAddV1) error) *EventDispatcher {

@@ -298,16 +298,16 @@ func (builder *CallbackActionContextBuilder) Build() *CallbackActionContext {
 }
 
 type Card struct {
-	Type *string `json:"type,omitempty"` // 卡片数据的类型
+	Type *string `json:"type,omitempty"` // 卡片数据的类型。取固定值 `card_json`。
 
-	Data *string `json:"data,omitempty"` // 卡片数据内容，与卡片数据的类型相对应
+	Data *string `json:"data,omitempty"` // 卡片 JSON 数据的内容。;;**注意**：;- 仅支持 JSON 2.0 版本的卡片结构。;;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。
 }
 
 type CardBuilder struct {
-	type_    string // 卡片数据的类型
+	type_    string // 卡片数据的类型。取固定值 `card_json`。
 	type_Set bool
 
-	data    string // 卡片数据内容，与卡片数据的类型相对应
+	data    string // 卡片 JSON 数据的内容。;;**注意**：;- 仅支持 JSON 2.0 版本的卡片结构。;;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。
 	dataSet bool
 }
 
@@ -316,7 +316,7 @@ func NewCardBuilder() *CardBuilder {
 	return builder
 }
 
-// 卡片数据的类型
+// 卡片数据的类型。取固定值 `card_json`。
 //
 // 示例值：card_json
 func (builder *CardBuilder) Type(type_ string) *CardBuilder {
@@ -325,9 +325,9 @@ func (builder *CardBuilder) Type(type_ string) *CardBuilder {
 	return builder
 }
 
-// 卡片数据内容，与卡片数据的类型相对应
+// 卡片 JSON 数据的内容。;;**注意**：;- 仅支持 JSON 2.0 版本的卡片结构。;;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。
 //
-// 示例值：{\"schema\":\"2.0\",\"header\":{\"title\":{\"content\":\"卡片标题\",\"tag\":\"plain_text\"}},\"body\":{\"elements\":[{\"tag\":\"markdown\",\"content\":\"卡片内容\"}]}}
+// 示例值：{\"schema\":\"2.0\",\"header\":{\"title\":{\"content\":\"项目进度更新提醒\",\"tag\":\"plain_text\"}},\"body\":{\"elements\":[{\"tag\":\"markdown\",\"content\":\"截至今日，项目完成度已达80%\"}]}}
 func (builder *CardBuilder) Data(data string) *CardBuilder {
 	builder.data = data
 	builder.dataSet = true
@@ -502,7 +502,7 @@ func (builder *CardTemplateBuilder) TemplateName(templateName string) *CardTempl
 
 // 卡片模板所有者
 //
-// 示例值：cli_a62a4fe4e938d01c
+// 示例值：cli_***
 func (builder *CardTemplateBuilder) TemplateOwner(templateOwner string) *CardTemplateBuilder {
 	builder.templateOwner = templateOwner
 	builder.templateOwnerSet = true
@@ -592,7 +592,7 @@ func (builder *CardTemplateBuilder) Build() *CardTemplate {
 }
 
 type Config struct {
-	EnableForward *bool `json:"enable_forward,omitempty"` // 是否允许转发卡片。取值：  true：允许 false：不允许 默认值为 true，该字段要求飞书客户端的版本为 V3.31.0 及以上
+	EnableForward *bool `json:"enable_forward,omitempty"` // 是否允许转发卡片。取值： true：允许 false：不允许 默认值为 true，该字段要求飞书客户端的版本为 V3.31.0 及以上
 
 	StreamingMode *bool `json:"streaming_mode,omitempty"` // 标识是否开启流式
 
@@ -600,7 +600,7 @@ type Config struct {
 }
 
 type ConfigBuilder struct {
-	enableForward    bool // 是否允许转发卡片。取值：  true：允许 false：不允许 默认值为 true，该字段要求飞书客户端的版本为 V3.31.0 及以上
+	enableForward    bool // 是否允许转发卡片。取值： true：允许 false：不允许 默认值为 true，该字段要求飞书客户端的版本为 V3.31.0 及以上
 	enableForwardSet bool
 
 	streamingMode    bool // 标识是否开启流式
@@ -615,7 +615,7 @@ func NewConfigBuilder() *ConfigBuilder {
 	return builder
 }
 
-// 是否允许转发卡片。取值：  true：允许 false：不允许 默认值为 true，该字段要求飞书客户端的版本为 V3.31.0 及以上
+// 是否允许转发卡片。取值： true：允许 false：不允许 默认值为 true，该字段要求飞书客户端的版本为 V3.31.0 及以上
 //
 // 示例值：
 func (builder *ConfigBuilder) EnableForward(enableForward bool) *ConfigBuilder {
@@ -760,8 +760,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -769,8 +767,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -952,7 +948,7 @@ func (builder *KaCardTemplateBuilder) TemplateName(templateName string) *KaCardT
 
 // 卡片模板所有者
 //
-// 示例值：cli_a62a4fe4e938d01c
+// 示例值：cli_***
 func (builder *KaCardTemplateBuilder) TemplateOwner(templateOwner string) *KaCardTemplateBuilder {
 	builder.templateOwner = templateOwner
 	builder.templateOwnerSet = true
@@ -1070,7 +1066,7 @@ type KaCardTemplateOld struct {
 
 	Name *string `json:"name,omitempty"` // 模板名
 
-	BizExt *string `json:"biz_ext,omitempty"` //  扩展字段
+	BizExt *string `json:"biz_ext,omitempty"` // 扩展字段
 
 	LockStatus *int `json:"lock_status,omitempty"` // 锁定状态
 
@@ -1098,7 +1094,7 @@ type KaCardTemplateOldBuilder struct {
 	name    string // 模板名
 	nameSet bool
 
-	bizExt    string //  扩展字段
+	bizExt    string // 扩展字段
 	bizExtSet bool
 
 	lockStatus    int // 锁定状态
@@ -1152,7 +1148,7 @@ func (builder *KaCardTemplateOldBuilder) Name(name string) *KaCardTemplateOldBui
 	return builder
 }
 
-//  扩展字段
+// 扩展字段
 //
 // 示例值：{}
 func (builder *KaCardTemplateOldBuilder) BizExt(bizExt string) *KaCardTemplateOldBuilder {
@@ -1703,13 +1699,13 @@ func (builder *SummaryBuilder) Build() *Summary {
 }
 
 type BatchUpdateCardReqBodyBuilder struct {
-	uuid    string // 幂等 id，最大长度为 64。可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	uuid    string // 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 	uuidSet bool
 
-	sequence    int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	sequence    int // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数
 	sequenceSet bool
 
-	actions    string // 操作列表，可选值有： partial_update_setting：更新卡片设置，此时 parmas 结构参考更新卡片设置接口请求体的 settings 字段 ；add_elements，此时 parmas 结构参考添加组件接口请求体的 type、target_element_id、elements 字段 ； delete_elements，此时 parmas 结构内仅支持 element_ids 参数，参数值为组件 ID 数组 ； partial_update_element，此时 parmas 结构包括参考局部更新组件接口的路径参数 element_id 和请求体 partial_element 字段 ; update_element，此时 parmas 结构参考全量更新组件接口的路径参数 element_id 和请求体 element 字段
+	actions    string // 操作列表。参考示例更新配置或组件。支持的操作有：;- `partial_update_setting`：更新卡片配置，支持更新卡片的 config 和 card_link 字段。参数结构可参考[更新卡片配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/settings)；;- `add_elements`：添加组件，支持 type、 target_element_id、elements 字段。参数结构可参考[新增组件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/create)接口请求体；;- `delete_elements`：删除组件，支持 element_ids 字段。参数值为组件 ID 数组。参数结构可参考[删除组件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/delete)； ;- `partial_update_element`：更新组件的属性，支持 element_id 和 partial_element 字段。参数结构可参考[更新组件属性](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/patch)接口的路径参数 element_id 和请求体 partial_element 字段 ; ;- `update_element`：全量更新组件，支持 element_id 和 element 字段。参数结构可参考[全量更新组件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/update)接口的路径参数 element_id 和请求体 element 字段
 	actionsSet bool
 }
 
@@ -1718,27 +1714,27 @@ func NewBatchUpdateCardReqBodyBuilder() *BatchUpdateCardReqBodyBuilder {
 	return builder
 }
 
-// 幂等 id，最大长度为 64。可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+// 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *BatchUpdateCardReqBodyBuilder) Uuid(uuid string) *BatchUpdateCardReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数
 //
-//示例值：1712578784
+// 示例值：1
 func (builder *BatchUpdateCardReqBodyBuilder) Sequence(sequence int) *BatchUpdateCardReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
 	return builder
 }
 
-// 操作列表，可选值有： partial_update_setting：更新卡片设置，此时 parmas 结构参考更新卡片设置接口请求体的 settings 字段 ；add_elements，此时 parmas 结构参考添加组件接口请求体的 type、target_element_id、elements 字段 ； delete_elements，此时 parmas 结构内仅支持 element_ids 参数，参数值为组件 ID 数组 ； partial_update_element，此时 parmas 结构包括参考局部更新组件接口的路径参数 element_id 和请求体 partial_element 字段 ; update_element，此时 parmas 结构参考全量更新组件接口的路径参数 element_id 和请求体 element 字段
+// 操作列表。参考示例更新配置或组件。支持的操作有：;- `partial_update_setting`：更新卡片配置，支持更新卡片的 config 和 card_link 字段。参数结构可参考[更新卡片配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/settings)；;- `add_elements`：添加组件，支持 type、 target_element_id、elements 字段。参数结构可参考[新增组件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/create)接口请求体；;- `delete_elements`：删除组件，支持 element_ids 字段。参数值为组件 ID 数组。参数结构可参考[删除组件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/delete)； ;- `partial_update_element`：更新组件的属性，支持 element_id 和 partial_element 字段。参数结构可参考[更新组件属性](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/patch)接口的路径参数 element_id 和请求体 partial_element 字段 ; ;- `update_element`：全量更新组件，支持 element_id 和 element 字段。参数结构可参考[全量更新组件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/update)接口的路径参数 element_id 和请求体 element 字段
 //
-//示例值：[{\"action\":\"partial_update_setting\",\"params\":{\"config\":{\"streaming_mode\":true},\"card_link\":{\"url\":\"https://open.feishu.cn\"}}},{\"action\":\"add_elements\",\"params\":{\"type\":\"insert_before\",\"target_element_id\":\"text_1\",\"elements\":[{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"示例文本\"}]}},{\"action\":\"delete_elements\",\"params\":{\"element_ids\":[\"text_1\",\"text_2\"]}},{\"action\":\"partial_update_element\",\"params\":{\"element_id\":\"target_element\",\"partial_element\":{\"content\":\"更新后的组件文本\"}}},{\"action\":\"update_element\",\"params\":{\"element_id\":\"target_element\",\"element\":{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}}}]
+// 示例值：[{\"action\":\"partial_update_setting\",\"params\":{\"settings\":{\"config\":{\"streaming_mode\":true}}}},{\"action\":\"add_elements\",\"params\":{\"type\":\"insert_before\",\"target_element_id\":\"markdown_1\",\"elements\":[{\"tag\":\"markdown\",\"element_id\":\"md_1\",\"content\":\"欢迎使用[飞书卡片搭建工具](https://open.feishu.cn/cardkit?from=open_docs)。\"}]}},{\"action\":\"delete_elements\",\"params\":{\"element_ids\":[\"text_1\",\"text_2\"]}},{\"action\":\"partial_update_element\",\"params\":{\"element_id\":\"markdown_2\",\"partial_element\":{\"content\":\"详情参考飞书卡片相关文档。\"}}},{\"action\":\"update_element\",\"params\":{\"element_id\":\"markdown_3\",\"element\":{\"tag\":\"button\",\"text\":{\"tag\":\"plain_text\",\"content\":\"有帮助\"},\"size\":\"medium\",\"icon\":{\"tag\":\"standard_icon\",\"token\":\"emoji_outlined\"}}}}]
 func (builder *BatchUpdateCardReqBodyBuilder) Actions(actions string) *BatchUpdateCardReqBodyBuilder {
 	builder.actions = actions
 	builder.actionsSet = true
@@ -1773,27 +1769,27 @@ func NewBatchUpdateCardPathReqBodyBuilder() *BatchUpdateCardPathReqBodyBuilder {
 	return builder
 }
 
-// 幂等 id，最大长度为 64。可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+// 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *BatchUpdateCardPathReqBodyBuilder) Uuid(uuid string) *BatchUpdateCardPathReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数
 //
-// 示例值：1712578784
+// 示例值：1
 func (builder *BatchUpdateCardPathReqBodyBuilder) Sequence(sequence int) *BatchUpdateCardPathReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
 	return builder
 }
 
-// 操作列表，可选值有： partial_update_setting：更新卡片设置，此时 parmas 结构参考更新卡片设置接口请求体的 settings 字段 ；add_elements，此时 parmas 结构参考添加组件接口请求体的 type、target_element_id、elements 字段 ； delete_elements，此时 parmas 结构内仅支持 element_ids 参数，参数值为组件 ID 数组 ； partial_update_element，此时 parmas 结构包括参考局部更新组件接口的路径参数 element_id 和请求体 partial_element 字段 ; update_element，此时 parmas 结构参考全量更新组件接口的路径参数 element_id 和请求体 element 字段
+// 操作列表。参考示例更新配置或组件。支持的操作有：;- `partial_update_setting`：更新卡片配置，支持更新卡片的 config 和 card_link 字段。参数结构可参考[更新卡片配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/settings)；;- `add_elements`：添加组件，支持 type、 target_element_id、elements 字段。参数结构可参考[新增组件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/create)接口请求体；;- `delete_elements`：删除组件，支持 element_ids 字段。参数值为组件 ID 数组。参数结构可参考[删除组件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/delete)； ;- `partial_update_element`：更新组件的属性，支持 element_id 和 partial_element 字段。参数结构可参考[更新组件属性](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/patch)接口的路径参数 element_id 和请求体 partial_element 字段 ; ;- `update_element`：全量更新组件，支持 element_id 和 element 字段。参数结构可参考[全量更新组件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/update)接口的路径参数 element_id 和请求体 element 字段
 //
-// 示例值：[{\"action\":\"partial_update_setting\",\"params\":{\"config\":{\"streaming_mode\":true},\"card_link\":{\"url\":\"https://open.feishu.cn\"}}},{\"action\":\"add_elements\",\"params\":{\"type\":\"insert_before\",\"target_element_id\":\"text_1\",\"elements\":[{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"示例文本\"}]}},{\"action\":\"delete_elements\",\"params\":{\"element_ids\":[\"text_1\",\"text_2\"]}},{\"action\":\"partial_update_element\",\"params\":{\"element_id\":\"target_element\",\"partial_element\":{\"content\":\"更新后的组件文本\"}}},{\"action\":\"update_element\",\"params\":{\"element_id\":\"target_element\",\"element\":{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}}}]
+// 示例值：[{\"action\":\"partial_update_setting\",\"params\":{\"settings\":{\"config\":{\"streaming_mode\":true}}}},{\"action\":\"add_elements\",\"params\":{\"type\":\"insert_before\",\"target_element_id\":\"markdown_1\",\"elements\":[{\"tag\":\"markdown\",\"element_id\":\"md_1\",\"content\":\"欢迎使用[飞书卡片搭建工具](https://open.feishu.cn/cardkit?from=open_docs)。\"}]}},{\"action\":\"delete_elements\",\"params\":{\"element_ids\":[\"text_1\",\"text_2\"]}},{\"action\":\"partial_update_element\",\"params\":{\"element_id\":\"markdown_2\",\"partial_element\":{\"content\":\"详情参考飞书卡片相关文档。\"}}},{\"action\":\"update_element\",\"params\":{\"element_id\":\"markdown_3\",\"element\":{\"tag\":\"button\",\"text\":{\"tag\":\"plain_text\",\"content\":\"有帮助\"},\"size\":\"medium\",\"icon\":{\"tag\":\"standard_icon\",\"token\":\"emoji_outlined\"}}}}]
 func (builder *BatchUpdateCardPathReqBodyBuilder) Actions(actions string) *BatchUpdateCardPathReqBodyBuilder {
 	builder.actions = actions
 	builder.actionsSet = true
@@ -1828,7 +1824,7 @@ func NewBatchUpdateCardReqBuilder() *BatchUpdateCardReqBuilder {
 	return builder
 }
 
-// 卡片ID
+// 卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取。
 //
 // 示例值：7355439197428236291
 func (builder *BatchUpdateCardReqBuilder) CardId(cardId string) *BatchUpdateCardReqBuilder {
@@ -1836,7 +1832,7 @@ func (builder *BatchUpdateCardReqBuilder) CardId(cardId string) *BatchUpdateCard
 	return builder
 }
 
-// 按指定的多个操作批量局部更新卡片，支持更新卡片设置、添加组件、删除组件、更新组件
+// 更新卡片实体局部内容，包括配置和组件。支持同时对多个组件进行增删改等不同操作。
 func (builder *BatchUpdateCardReqBuilder) Body(body *BatchUpdateCardReqBody) *BatchUpdateCardReqBuilder {
 	builder.body = body
 	return builder
@@ -1851,11 +1847,11 @@ func (builder *BatchUpdateCardReqBuilder) Build() *BatchUpdateCardReq {
 }
 
 type BatchUpdateCardReqBody struct {
-	Uuid *string `json:"uuid,omitempty"` // 幂等 id，最大长度为 64。可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	Uuid *string `json:"uuid,omitempty"` // 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 
-	Sequence *int `json:"sequence,omitempty"` // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	Sequence *int `json:"sequence,omitempty"` // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数
 
-	Actions *string `json:"actions,omitempty"` // 操作列表，可选值有： partial_update_setting：更新卡片设置，此时 parmas 结构参考更新卡片设置接口请求体的 settings 字段 ；add_elements，此时 parmas 结构参考添加组件接口请求体的 type、target_element_id、elements 字段 ； delete_elements，此时 parmas 结构内仅支持 element_ids 参数，参数值为组件 ID 数组 ； partial_update_element，此时 parmas 结构包括参考局部更新组件接口的路径参数 element_id 和请求体 partial_element 字段 ; update_element，此时 parmas 结构参考全量更新组件接口的路径参数 element_id 和请求体 element 字段
+	Actions *string `json:"actions,omitempty"` // 操作列表。参考示例更新配置或组件。支持的操作有：;- `partial_update_setting`：更新卡片配置，支持更新卡片的 config 和 card_link 字段。参数结构可参考[更新卡片配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/settings)；;- `add_elements`：添加组件，支持 type、 target_element_id、elements 字段。参数结构可参考[新增组件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/create)接口请求体；;- `delete_elements`：删除组件，支持 element_ids 字段。参数值为组件 ID 数组。参数结构可参考[删除组件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/delete)； ;- `partial_update_element`：更新组件的属性，支持 element_id 和 partial_element 字段。参数结构可参考[更新组件属性](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/patch)接口的路径参数 element_id 和请求体 partial_element 字段 ; ;- `update_element`：全量更新组件，支持 element_id 和 element 字段。参数结构可参考[全量更新组件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/update)接口的路径参数 element_id 和请求体 element 字段
 }
 
 type BatchUpdateCardReq struct {
@@ -1873,10 +1869,10 @@ func (resp *BatchUpdateCardResp) Success() bool {
 }
 
 type CreateCardReqBodyBuilder struct {
-	type_    string // 卡片数据的类型
+	type_    string // 卡片类型。可选值：;;- `card_json`：由卡片 JSON 代码构建的卡片;- `template`：由[卡片搭建工具](https://open.feishu.cn/cardkit?from=open_docs)搭建的卡片模板
 	type_Set bool
 
-	data    string // 卡片数据内容，与卡片数据的类型相对应
+	data    string // 卡片数据。需要与 `type` 指定的类型一致：;- 若 `type` 为 `card_json`，则此处应传卡片 JSON 代码，并确保将其转义为字符串。仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)，即你必须声明 `schema` 为 `2.0`;- 若 `type` 为 `template`，则此处应传卡片模板的数据，并确保将其转义为字符串。仅支持新版卡片。即在搭建工具中，卡片名称旁应有“新版”标识
 	dataSet bool
 }
 
@@ -1885,18 +1881,18 @@ func NewCreateCardReqBodyBuilder() *CreateCardReqBodyBuilder {
 	return builder
 }
 
-// 卡片数据的类型
+// 卡片类型。可选值：;;- `card_json`：由卡片 JSON 代码构建的卡片;- `template`：由[卡片搭建工具](https://open.feishu.cn/cardkit?from=open_docs)搭建的卡片模板
 //
-//示例值：card_json
+// 示例值：card_json
 func (builder *CreateCardReqBodyBuilder) Type(type_ string) *CreateCardReqBodyBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
 	return builder
 }
 
-// 卡片数据内容，与卡片数据的类型相对应
+// 卡片数据。需要与 `type` 指定的类型一致：;- 若 `type` 为 `card_json`，则此处应传卡片 JSON 代码，并确保将其转义为字符串。仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)，即你必须声明 `schema` 为 `2.0`;- 若 `type` 为 `template`，则此处应传卡片模板的数据，并确保将其转义为字符串。仅支持新版卡片。即在搭建工具中，卡片名称旁应有“新版”标识
 //
-//示例值：{\"schema\":\"2.0\",\"header\":{\"title\":{\"content\":\"卡片标题\",\"tag\":\"plain_text\"}},\"body\":{\"elements\":[{\"tag\":\"markdown\",\"content\":\"卡片内容\"}]}}
+// 示例值：请参考下文请求体示例
 func (builder *CreateCardReqBodyBuilder) Data(data string) *CreateCardReqBodyBuilder {
 	builder.data = data
 	builder.dataSet = true
@@ -1926,7 +1922,7 @@ func NewCreateCardPathReqBodyBuilder() *CreateCardPathReqBodyBuilder {
 	return builder
 }
 
-// 卡片数据的类型
+// 卡片类型。可选值：;;- `card_json`：由卡片 JSON 代码构建的卡片;- `template`：由[卡片搭建工具](https://open.feishu.cn/cardkit?from=open_docs)搭建的卡片模板
 //
 // 示例值：card_json
 func (builder *CreateCardPathReqBodyBuilder) Type(type_ string) *CreateCardPathReqBodyBuilder {
@@ -1935,9 +1931,9 @@ func (builder *CreateCardPathReqBodyBuilder) Type(type_ string) *CreateCardPathR
 	return builder
 }
 
-// 卡片数据内容，与卡片数据的类型相对应
+// 卡片数据。需要与 `type` 指定的类型一致：;- 若 `type` 为 `card_json`，则此处应传卡片 JSON 代码，并确保将其转义为字符串。仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)，即你必须声明 `schema` 为 `2.0`;- 若 `type` 为 `template`，则此处应传卡片模板的数据，并确保将其转义为字符串。仅支持新版卡片。即在搭建工具中，卡片名称旁应有“新版”标识
 //
-// 示例值：{\"schema\":\"2.0\",\"header\":{\"title\":{\"content\":\"卡片标题\",\"tag\":\"plain_text\"}},\"body\":{\"elements\":[{\"tag\":\"markdown\",\"content\":\"卡片内容\"}]}}
+// 示例值：请参考下文请求体示例
 func (builder *CreateCardPathReqBodyBuilder) Data(data string) *CreateCardPathReqBodyBuilder {
 	builder.data = data
 	builder.dataSet = true
@@ -1969,7 +1965,7 @@ func NewCreateCardReqBuilder() *CreateCardReqBuilder {
 	return builder
 }
 
-// 创建卡片实例，成功后可通过发送消息等接口发送卡片实例
+// 基于卡片 JSON 代码或卡片搭建工具搭建的卡片，创建卡片实体。用于后续通过卡片实体 ID（card_id）发送卡片、更新卡片等。
 func (builder *CreateCardReqBuilder) Body(body *CreateCardReqBody) *CreateCardReqBuilder {
 	builder.body = body
 	return builder
@@ -1983,9 +1979,9 @@ func (builder *CreateCardReqBuilder) Build() *CreateCardReq {
 }
 
 type CreateCardReqBody struct {
-	Type *string `json:"type,omitempty"` // 卡片数据的类型
+	Type *string `json:"type,omitempty"` // 卡片类型。可选值：;;- `card_json`：由卡片 JSON 代码构建的卡片;- `template`：由[卡片搭建工具](https://open.feishu.cn/cardkit?from=open_docs)搭建的卡片模板
 
-	Data *string `json:"data,omitempty"` // 卡片数据内容，与卡片数据的类型相对应
+	Data *string `json:"data,omitempty"` // 卡片数据。需要与 `type` 指定的类型一致：;- 若 `type` 为 `card_json`，则此处应传卡片 JSON 代码，并确保将其转义为字符串。仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)，即你必须声明 `schema` 为 `2.0`;- 若 `type` 为 `template`，则此处应传卡片模板的数据，并确保将其转义为字符串。仅支持新版卡片。即在搭建工具中，卡片名称旁应有“新版”标识
 }
 
 type CreateCardReq struct {
@@ -1994,7 +1990,7 @@ type CreateCardReq struct {
 }
 
 type CreateCardRespData struct {
-	CardId *string `json:"card_id,omitempty"` // 卡片ID
+	CardId *string `json:"card_id,omitempty"` // 创建的卡片实体 ID。后续可通过[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口传入卡片实体 ID 发送卡片。
 }
 
 type CreateCardResp struct {
@@ -2008,7 +2004,7 @@ func (resp *CreateCardResp) Success() bool {
 }
 
 type IdConvertCardReqBodyBuilder struct {
-	messageId    string // 消息ID
+	messageId    string // 消息 ID。通过[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)等接口获取。其消息类型（msg_type）需为卡片（interactive）
 	messageIdSet bool
 }
 
@@ -2017,9 +2013,9 @@ func NewIdConvertCardReqBodyBuilder() *IdConvertCardReqBodyBuilder {
 	return builder
 }
 
-// 消息ID
+// 消息 ID。通过[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)等接口获取。其消息类型（msg_type）需为卡片（interactive）
 //
-//示例值：om_fbdf6ed2e17f1d98e78fb26c1370186e
+// 示例值：om_fbdf6ed2e17f1d98e78fb26c1370186e
 func (builder *IdConvertCardReqBodyBuilder) MessageId(messageId string) *IdConvertCardReqBodyBuilder {
 	builder.messageId = messageId
 	builder.messageIdSet = true
@@ -2044,7 +2040,7 @@ func NewIdConvertCardPathReqBodyBuilder() *IdConvertCardPathReqBodyBuilder {
 	return builder
 }
 
-// 消息ID
+// 消息 ID。通过[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)等接口获取。其消息类型（msg_type）需为卡片（interactive）
 //
 // 示例值：om_fbdf6ed2e17f1d98e78fb26c1370186e
 func (builder *IdConvertCardPathReqBodyBuilder) MessageId(messageId string) *IdConvertCardPathReqBodyBuilder {
@@ -2075,7 +2071,7 @@ func NewIdConvertCardReqBuilder() *IdConvertCardReqBuilder {
 	return builder
 }
 
-// 获取消息 id 对应的卡片 id
+// 将[消息 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#44c58e1c)（ `message_id` ）转换为卡片实体 ID（`card_id`）。用于将由[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)等接口返回的消息 ID 转换为卡片实体 ID，以进一步对卡片进行全量更新、局部更新、或文本流式更新操作。
 func (builder *IdConvertCardReqBuilder) Body(body *IdConvertCardReqBody) *IdConvertCardReqBuilder {
 	builder.body = body
 	return builder
@@ -2089,7 +2085,7 @@ func (builder *IdConvertCardReqBuilder) Build() *IdConvertCardReq {
 }
 
 type IdConvertCardReqBody struct {
-	MessageId *string `json:"message_id,omitempty"` // 消息ID
+	MessageId *string `json:"message_id,omitempty"` // 消息 ID。通过[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)等接口获取。其消息类型（msg_type）需为卡片（interactive）
 }
 
 type IdConvertCardReq struct {
@@ -2098,7 +2094,7 @@ type IdConvertCardReq struct {
 }
 
 type IdConvertCardRespData struct {
-	CardId *string `json:"card_id,omitempty"` // 消息 ID 对应的卡片 ID
+	CardId *string `json:"card_id,omitempty"` // 消息 ID 对应的卡片 ID。可用于对该卡片进行全量更新、局部更新、或文本流式更新操作
 }
 
 type IdConvertCardResp struct {
@@ -2112,13 +2108,13 @@ func (resp *IdConvertCardResp) Success() bool {
 }
 
 type SettingsCardReqBodyBuilder struct {
-	settings    string // 卡片设置
+	settings    string // 卡片配置相关字段转义后的字符串，包括 `config` 和 `card_link` 字段。;;;**注意**：;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 本字段仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)中的对应字段。
 	settingsSet bool
 
-	uuid    string // UUID
+	uuid    string // 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 	uuidSet bool
 
-	sequence    int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	sequence    int // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数
 	sequenceSet bool
 }
 
@@ -2127,27 +2123,27 @@ func NewSettingsCardReqBodyBuilder() *SettingsCardReqBodyBuilder {
 	return builder
 }
 
-// 卡片设置
+// 卡片配置相关字段转义后的字符串，包括 `config` 和 `card_link` 字段。;;;**注意**：;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 本字段仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)中的对应字段。
 //
-//示例值：{\"config\":{\"streaming_mode\":true,\"enable_forward\":true,\"update_multi\":true,\"width_mode\":\"fill\",\"enable_forward_interaction\":false},\"card_link\":{\"url\":\"https://open.feishu.cn\",\"android_url\":\"https://open.feishu.cn\",\"ios_url\":\"https://open.feishu.cn\",\"pc_url\":\"https://open.feishu.cn\"}}
+// 示例值：{\"config\":{\"streaming_mode\":true,\"streaming_config\":{\"print_frequency_ms\":{\"default\":70,\"android\":70,\"ios\":70,\"pc\":70},\"print_step\":{\"default\":1,\"android\":1,\"ios\":1,\"pc\":1},\"print_strategy\":\"fast\"}}}
 func (builder *SettingsCardReqBodyBuilder) Settings(settings string) *SettingsCardReqBodyBuilder {
 	builder.settings = settings
 	builder.settingsSet = true
 	return builder
 }
 
-// UUID
+// 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *SettingsCardReqBodyBuilder) Uuid(uuid string) *SettingsCardReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数
 //
-//示例值：1712578784
+// 示例值：1
 func (builder *SettingsCardReqBodyBuilder) Sequence(sequence int) *SettingsCardReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
@@ -2182,27 +2178,27 @@ func NewSettingsCardPathReqBodyBuilder() *SettingsCardPathReqBodyBuilder {
 	return builder
 }
 
-// 卡片设置
+// 卡片配置相关字段转义后的字符串，包括 `config` 和 `card_link` 字段。;;;**注意**：;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 本字段仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)中的对应字段。
 //
-// 示例值：{\"config\":{\"streaming_mode\":true,\"enable_forward\":true,\"update_multi\":true,\"width_mode\":\"fill\",\"enable_forward_interaction\":false},\"card_link\":{\"url\":\"https://open.feishu.cn\",\"android_url\":\"https://open.feishu.cn\",\"ios_url\":\"https://open.feishu.cn\",\"pc_url\":\"https://open.feishu.cn\"}}
+// 示例值：{\"config\":{\"streaming_mode\":true,\"streaming_config\":{\"print_frequency_ms\":{\"default\":70,\"android\":70,\"ios\":70,\"pc\":70},\"print_step\":{\"default\":1,\"android\":1,\"ios\":1,\"pc\":1},\"print_strategy\":\"fast\"}}}
 func (builder *SettingsCardPathReqBodyBuilder) Settings(settings string) *SettingsCardPathReqBodyBuilder {
 	builder.settings = settings
 	builder.settingsSet = true
 	return builder
 }
 
-// UUID
+// 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *SettingsCardPathReqBodyBuilder) Uuid(uuid string) *SettingsCardPathReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数
 //
-// 示例值：1712578784
+// 示例值：1
 func (builder *SettingsCardPathReqBodyBuilder) Sequence(sequence int) *SettingsCardPathReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
@@ -2237,7 +2233,7 @@ func NewSettingsCardReqBuilder() *SettingsCardReqBuilder {
 	return builder
 }
 
-// 卡片ID
+// 卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取
 //
 // 示例值：7355372766134157313
 func (builder *SettingsCardReqBuilder) CardId(cardId string) *SettingsCardReqBuilder {
@@ -2245,7 +2241,7 @@ func (builder *SettingsCardReqBuilder) CardId(cardId string) *SettingsCardReqBui
 	return builder
 }
 
-// 更新指定的卡片设置
+// 更新指定卡片实体的配置，支持卡片配置 `config` 字段和卡片跳转链接 `card_link` 字段。
 func (builder *SettingsCardReqBuilder) Body(body *SettingsCardReqBody) *SettingsCardReqBuilder {
 	builder.body = body
 	return builder
@@ -2260,11 +2256,11 @@ func (builder *SettingsCardReqBuilder) Build() *SettingsCardReq {
 }
 
 type SettingsCardReqBody struct {
-	Settings *string `json:"settings,omitempty"` // 卡片设置
+	Settings *string `json:"settings,omitempty"` // 卡片配置相关字段转义后的字符串，包括 `config` 和 `card_link` 字段。;;;**注意**：;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 本字段仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)中的对应字段。
 
-	Uuid *string `json:"uuid,omitempty"` // UUID
+	Uuid *string `json:"uuid,omitempty"` // 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 
-	Sequence *int `json:"sequence,omitempty"` // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	Sequence *int `json:"sequence,omitempty"` // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数
 }
 
 type SettingsCardReq struct {
@@ -2282,13 +2278,13 @@ func (resp *SettingsCardResp) Success() bool {
 }
 
 type UpdateCardReqBodyBuilder struct {
-	card    *Card // 卡片内容
+	card    *Card // 更新后的完整卡片 JSON 内容。
 	cardSet bool
 
-	uuid    string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	uuid    string // 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 	uuidSet bool
 
-	sequence    int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	sequence    int // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数
 	sequenceSet bool
 }
 
@@ -2297,27 +2293,27 @@ func NewUpdateCardReqBodyBuilder() *UpdateCardReqBodyBuilder {
 	return builder
 }
 
-// 卡片内容
+// 更新后的完整卡片 JSON 内容。
 //
-//示例值：
+// 示例值：
 func (builder *UpdateCardReqBodyBuilder) Card(card *Card) *UpdateCardReqBodyBuilder {
 	builder.card = card
 	builder.cardSet = true
 	return builder
 }
 
-// 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+// 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *UpdateCardReqBodyBuilder) Uuid(uuid string) *UpdateCardReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数
 //
-//示例值：1712578784
+// 示例值：1
 func (builder *UpdateCardReqBodyBuilder) Sequence(sequence int) *UpdateCardReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
@@ -2352,7 +2348,7 @@ func NewUpdateCardPathReqBodyBuilder() *UpdateCardPathReqBodyBuilder {
 	return builder
 }
 
-// 卡片内容
+// 更新后的完整卡片 JSON 内容。
 //
 // 示例值：
 func (builder *UpdateCardPathReqBodyBuilder) Card(card *Card) *UpdateCardPathReqBodyBuilder {
@@ -2361,18 +2357,18 @@ func (builder *UpdateCardPathReqBodyBuilder) Card(card *Card) *UpdateCardPathReq
 	return builder
 }
 
-// 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+// 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *UpdateCardPathReqBodyBuilder) Uuid(uuid string) *UpdateCardPathReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数
 //
-// 示例值：1712578784
+// 示例值：1
 func (builder *UpdateCardPathReqBodyBuilder) Sequence(sequence int) *UpdateCardPathReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
@@ -2407,7 +2403,7 @@ func NewUpdateCardReqBuilder() *UpdateCardReqBuilder {
 	return builder
 }
 
-// 卡片ID
+// 卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取。
 //
 // 示例值：7355372766134157313
 func (builder *UpdateCardReqBuilder) CardId(cardId string) *UpdateCardReqBuilder {
@@ -2415,7 +2411,7 @@ func (builder *UpdateCardReqBuilder) CardId(cardId string) *UpdateCardReqBuilder
 	return builder
 }
 
-// 对卡片进行全量更新，即：以全新的卡片内容更新已有卡片
+// 传入新的卡片 JSON 代码，覆盖更新指定的卡片实体的所有内容。
 func (builder *UpdateCardReqBuilder) Body(body *UpdateCardReqBody) *UpdateCardReqBuilder {
 	builder.body = body
 	return builder
@@ -2430,11 +2426,11 @@ func (builder *UpdateCardReqBuilder) Build() *UpdateCardReq {
 }
 
 type UpdateCardReqBody struct {
-	Card *Card `json:"card,omitempty"` // 卡片内容
+	Card *Card `json:"card,omitempty"` // 更新后的完整卡片 JSON 内容。
 
-	Uuid *string `json:"uuid,omitempty"` // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	Uuid *string `json:"uuid,omitempty"` // 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 
-	Sequence *int `json:"sequence,omitempty"` // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	Sequence *int `json:"sequence,omitempty"` // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数
 }
 
 type UpdateCardReq struct {
@@ -2452,13 +2448,13 @@ func (resp *UpdateCardResp) Success() bool {
 }
 
 type ContentCardElementReqBodyBuilder struct {
-	uuid    string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	uuid    string // 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 	uuidSet bool
 
-	content    string // 更新后的文本内容
+	content    string // 新的全量文本内容。使用时请注意转义为字符串。;;**注意**：;- 若 content 中含有代码块，你需将代码块前后的空格去掉，否则可能导致代码渲染失败。;- 若旧文本为传入的新文本的前缀子串，新增文本将在旧文本末尾继续以打字机效果输出；若新旧文本前缀不同，全量文本将直接上屏输出，无打字机效果。
 	contentSet bool
 
-	sequence    int // 顺序序号，用于保证更新文本内容的时序性。在卡片的单次 streaming 模式周期中（steaming 状态从开始到停止），该值需为递增的正整数，否则将报错。
+	sequence    int // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 	sequenceSet bool
 }
 
@@ -2467,27 +2463,27 @@ func NewContentCardElementReqBodyBuilder() *ContentCardElementReqBodyBuilder {
 	return builder
 }
 
-// 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+// 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *ContentCardElementReqBodyBuilder) Uuid(uuid string) *ContentCardElementReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 更新后的文本内容
+// 新的全量文本内容。使用时请注意转义为字符串。;;**注意**：;- 若 content 中含有代码块，你需将代码块前后的空格去掉，否则可能导致代码渲染失败。;- 若旧文本为传入的新文本的前缀子串，新增文本将在旧文本末尾继续以打字机效果输出；若新旧文本前缀不同，全量文本将直接上屏输出，无打字机效果。
 //
-//示例值：{\"content\":\"更新后的文本内容\"}
+// 示例值：这是更新后的文本内容。将以打字机式的效果输出
 func (builder *ContentCardElementReqBodyBuilder) Content(content string) *ContentCardElementReqBodyBuilder {
 	builder.content = content
 	builder.contentSet = true
 	return builder
 }
 
-// 顺序序号，用于保证更新文本内容的时序性。在卡片的单次 streaming 模式周期中（steaming 状态从开始到停止），该值需为递增的正整数，否则将报错。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 //
-//示例值：1712578784
+// 示例值：1
 func (builder *ContentCardElementReqBodyBuilder) Sequence(sequence int) *ContentCardElementReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
@@ -2522,27 +2518,27 @@ func NewContentCardElementPathReqBodyBuilder() *ContentCardElementPathReqBodyBui
 	return builder
 }
 
-// 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+// 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *ContentCardElementPathReqBodyBuilder) Uuid(uuid string) *ContentCardElementPathReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 更新后的文本内容
+// 新的全量文本内容。使用时请注意转义为字符串。;;**注意**：;- 若 content 中含有代码块，你需将代码块前后的空格去掉，否则可能导致代码渲染失败。;- 若旧文本为传入的新文本的前缀子串，新增文本将在旧文本末尾继续以打字机效果输出；若新旧文本前缀不同，全量文本将直接上屏输出，无打字机效果。
 //
-// 示例值：{\"content\":\"更新后的文本内容\"}
+// 示例值：这是更新后的文本内容。将以打字机式的效果输出
 func (builder *ContentCardElementPathReqBodyBuilder) Content(content string) *ContentCardElementPathReqBodyBuilder {
 	builder.content = content
 	builder.contentSet = true
 	return builder
 }
 
-// 顺序序号，用于保证更新文本内容的时序性。在卡片的单次 streaming 模式周期中（steaming 状态从开始到停止），该值需为递增的正整数，否则将报错。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 //
-// 示例值：1712578784
+// 示例值：1
 func (builder *ContentCardElementPathReqBodyBuilder) Sequence(sequence int) *ContentCardElementPathReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
@@ -2577,7 +2573,7 @@ func NewContentCardElementReqBuilder() *ContentCardElementReqBuilder {
 	return builder
 }
 
-// 卡片ID
+// 卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取
 //
 // 示例值：7355439197428236291
 func (builder *ContentCardElementReqBuilder) CardId(cardId string) *ContentCardElementReqBuilder {
@@ -2585,15 +2581,15 @@ func (builder *ContentCardElementReqBuilder) CardId(cardId string) *ContentCardE
 	return builder
 }
 
-// 组件ID
+// 卡片实体中，普通文本元素或富文本组件的 ID。对应卡片 JSON 中的 `element_id` 属性或搭建工具中的组件 ID 属性，由开发者自定义。;;**注意**： ;;- 仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)或卡片搭建工具搭建的[新版卡片](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/cardkit-upgraded-version-card-release-notes)。;- 对于搭建工具中的卡片，此处仅支持传入富文本组件的组件 ID。即仅支持对富文本组件中的内容进行流式更新。
 //
-// 示例值：elem_63529372
+// 示例值：markdown_1
 func (builder *ContentCardElementReqBuilder) ElementId(elementId string) *ContentCardElementReqBuilder {
 	builder.apiReq.PathParams.Set("element_id", fmt.Sprint(elementId))
 	return builder
 }
 
-// 以传入的文本内容覆盖已有卡片组件内容，卡片将自动识别其中的增量变更内容，并以“打字机”效果输出。
+// 对卡片中的普通文本元素（tag 为 plain_text 的元素）或富文本组件（tag 为 markdown 的组件）传入全量文本内容，以实现“打字机”式的文字输出效果。
 func (builder *ContentCardElementReqBuilder) Body(body *ContentCardElementReqBody) *ContentCardElementReqBuilder {
 	builder.body = body
 	return builder
@@ -2608,11 +2604,11 @@ func (builder *ContentCardElementReqBuilder) Build() *ContentCardElementReq {
 }
 
 type ContentCardElementReqBody struct {
-	Uuid *string `json:"uuid,omitempty"` // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	Uuid *string `json:"uuid,omitempty"` // 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 
-	Content *string `json:"content,omitempty"` // 更新后的文本内容
+	Content *string `json:"content,omitempty"` // 新的全量文本内容。使用时请注意转义为字符串。;;**注意**：;- 若 content 中含有代码块，你需将代码块前后的空格去掉，否则可能导致代码渲染失败。;- 若旧文本为传入的新文本的前缀子串，新增文本将在旧文本末尾继续以打字机效果输出；若新旧文本前缀不同，全量文本将直接上屏输出，无打字机效果。
 
-	Sequence *int `json:"sequence,omitempty"` // 顺序序号，用于保证更新文本内容的时序性。在卡片的单次 streaming 模式周期中（steaming 状态从开始到停止），该值需为递增的正整数，否则将报错。
+	Sequence *int `json:"sequence,omitempty"` // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 }
 
 type ContentCardElementReq struct {
@@ -2630,19 +2626,19 @@ func (resp *ContentCardElementResp) Success() bool {
 }
 
 type CreateCardElementReqBodyBuilder struct {
-	type_    string // 添加组件的方式
+	type_    string // 添加组件的方式。
 	type_Set bool
 
-	targetElementId    string // 目标组件的 ID。 当 type 为 insert_before、insert_after 时，为用于定位的目标组件。 当 type 为 append 时，该字段仅支持容器类组件，为用于指定末尾添加的目标组件，未填写默认为在卡片 body 末尾添加。
+	targetElementId    string // 目标组件的 ID。 填写规则如下所示：;- 当 `type` 为 `insert_before`、`insert_after` 时，字段必填，为用于定位的目标组件;- 当 `type` 为 `append` 时，该字段仅支持容器类组件，用于指定在末尾添加的目标组件。若未填写，则默认在卡片 body 末尾添加
 	targetElementIdSet bool
 
-	uuid    string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	uuid    string // 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 	uuidSet bool
 
-	sequence    int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	sequence    int // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 	sequenceSet bool
 
-	elements    string // 组件列表
+	elements    string // 添加的组件列表。;;;**注意**：;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 本参数仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。
 	elementsSet bool
 }
 
@@ -2651,45 +2647,45 @@ func NewCreateCardElementReqBodyBuilder() *CreateCardElementReqBodyBuilder {
 	return builder
 }
 
-// 添加组件的方式
+// 添加组件的方式。
 //
-//示例值：insert_before
+// 示例值：insert_after
 func (builder *CreateCardElementReqBodyBuilder) Type(type_ string) *CreateCardElementReqBodyBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
 	return builder
 }
 
-// 目标组件的 ID。 当 type 为 insert_before、insert_after 时，为用于定位的目标组件。 当 type 为 append 时，该字段仅支持容器类组件，为用于指定末尾添加的目标组件，未填写默认为在卡片 body 末尾添加。
+// 目标组件的 ID。 填写规则如下所示：;- 当 `type` 为 `insert_before`、`insert_after` 时，字段必填，为用于定位的目标组件;- 当 `type` 为 `append` 时，该字段仅支持容器类组件，用于指定在末尾添加的目标组件。若未填写，则默认在卡片 body 末尾添加
 //
-//示例值：elem_63529372
+// 示例值：markdown_1
 func (builder *CreateCardElementReqBodyBuilder) TargetElementId(targetElementId string) *CreateCardElementReqBodyBuilder {
 	builder.targetElementId = targetElementId
 	builder.targetElementIdSet = true
 	return builder
 }
 
-// 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+// 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *CreateCardElementReqBodyBuilder) Uuid(uuid string) *CreateCardElementReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 //
-//示例值：1712578784
+// 示例值：1
 func (builder *CreateCardElementReqBodyBuilder) Sequence(sequence int) *CreateCardElementReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
 	return builder
 }
 
-// 组件列表
+// 添加的组件列表。;;;**注意**：;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 本参数仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。
 //
-//示例值：[{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"示例文本\"}]
+// 示例值：[{\"tag\":\"button\",\"element_id\":\"button_1\",\"text\":{\"tag\":\"plain_text\",\"content\":\"查看更多\"},\"type\":\"default\",\"width\":\"default\",\"size\":\"medium\",\"behaviors\":[{\"type\":\"open_url\",\"default_url\":\"https://open.feishu.cn/?lang=zh-CN\",\"pc_url\":\"\",\"ios_url\":\"\",\"android_url\":\"\"}]}]
 func (builder *CreateCardElementReqBodyBuilder) Elements(elements string) *CreateCardElementReqBodyBuilder {
 	builder.elements = elements
 	builder.elementsSet = true
@@ -2734,45 +2730,45 @@ func NewCreateCardElementPathReqBodyBuilder() *CreateCardElementPathReqBodyBuild
 	return builder
 }
 
-// 添加组件的方式
+// 添加组件的方式。
 //
-// 示例值：insert_before
+// 示例值：insert_after
 func (builder *CreateCardElementPathReqBodyBuilder) Type(type_ string) *CreateCardElementPathReqBodyBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
 	return builder
 }
 
-// 目标组件的 ID。 当 type 为 insert_before、insert_after 时，为用于定位的目标组件。 当 type 为 append 时，该字段仅支持容器类组件，为用于指定末尾添加的目标组件，未填写默认为在卡片 body 末尾添加。
+// 目标组件的 ID。 填写规则如下所示：;- 当 `type` 为 `insert_before`、`insert_after` 时，字段必填，为用于定位的目标组件;- 当 `type` 为 `append` 时，该字段仅支持容器类组件，用于指定在末尾添加的目标组件。若未填写，则默认在卡片 body 末尾添加
 //
-// 示例值：elem_63529372
+// 示例值：markdown_1
 func (builder *CreateCardElementPathReqBodyBuilder) TargetElementId(targetElementId string) *CreateCardElementPathReqBodyBuilder {
 	builder.targetElementId = targetElementId
 	builder.targetElementIdSet = true
 	return builder
 }
 
-// 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+// 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *CreateCardElementPathReqBodyBuilder) Uuid(uuid string) *CreateCardElementPathReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 //
-// 示例值：1712578784
+// 示例值：1
 func (builder *CreateCardElementPathReqBodyBuilder) Sequence(sequence int) *CreateCardElementPathReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
 	return builder
 }
 
-// 组件列表
+// 添加的组件列表。;;;**注意**：;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 本参数仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。
 //
-// 示例值：[{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"示例文本\"}]
+// 示例值：[{\"tag\":\"button\",\"element_id\":\"button_1\",\"text\":{\"tag\":\"plain_text\",\"content\":\"查看更多\"},\"type\":\"default\",\"width\":\"default\",\"size\":\"medium\",\"behaviors\":[{\"type\":\"open_url\",\"default_url\":\"https://open.feishu.cn/?lang=zh-CN\",\"pc_url\":\"\",\"ios_url\":\"\",\"android_url\":\"\"}]}]
 func (builder *CreateCardElementPathReqBodyBuilder) Elements(elements string) *CreateCardElementPathReqBodyBuilder {
 	builder.elements = elements
 	builder.elementsSet = true
@@ -2813,7 +2809,7 @@ func NewCreateCardElementReqBuilder() *CreateCardElementReqBuilder {
 	return builder
 }
 
-// 卡片ID
+// 要新增组件的卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取
 //
 // 示例值：7355439197428236291
 func (builder *CreateCardElementReqBuilder) CardId(cardId string) *CreateCardElementReqBuilder {
@@ -2821,7 +2817,7 @@ func (builder *CreateCardElementReqBuilder) CardId(cardId string) *CreateCardEle
 	return builder
 }
 
-// 在卡片内指定位置添加组件
+// 为指定卡片实体新增组件，以扩展卡片内容，如在卡片中添加一个点击按钮。
 func (builder *CreateCardElementReqBuilder) Body(body *CreateCardElementReqBody) *CreateCardElementReqBuilder {
 	builder.body = body
 	return builder
@@ -2836,15 +2832,15 @@ func (builder *CreateCardElementReqBuilder) Build() *CreateCardElementReq {
 }
 
 type CreateCardElementReqBody struct {
-	Type *string `json:"type,omitempty"` // 添加组件的方式
+	Type *string `json:"type,omitempty"` // 添加组件的方式。
 
-	TargetElementId *string `json:"target_element_id,omitempty"` // 目标组件的 ID。 当 type 为 insert_before、insert_after 时，为用于定位的目标组件。 当 type 为 append 时，该字段仅支持容器类组件，为用于指定末尾添加的目标组件，未填写默认为在卡片 body 末尾添加。
+	TargetElementId *string `json:"target_element_id,omitempty"` // 目标组件的 ID。 填写规则如下所示：;- 当 `type` 为 `insert_before`、`insert_after` 时，字段必填，为用于定位的目标组件;- 当 `type` 为 `append` 时，该字段仅支持容器类组件，用于指定在末尾添加的目标组件。若未填写，则默认在卡片 body 末尾添加
 
-	Uuid *string `json:"uuid,omitempty"` // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	Uuid *string `json:"uuid,omitempty"` // 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 
-	Sequence *int `json:"sequence,omitempty"` // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	Sequence *int `json:"sequence,omitempty"` // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 
-	Elements *string `json:"elements,omitempty"` // 组件列表
+	Elements *string `json:"elements,omitempty"` // 添加的组件列表。;;;**注意**：;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 本参数仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。
 }
 
 type CreateCardElementReq struct {
@@ -2865,7 +2861,7 @@ type DeleteCardElementReqBodyBuilder struct {
 	uuid    string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 	uuidSet bool
 
-	sequence    int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	sequence    int // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 	sequenceSet bool
 }
 
@@ -2876,16 +2872,16 @@ func NewDeleteCardElementReqBodyBuilder() *DeleteCardElementReqBodyBuilder {
 
 // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *DeleteCardElementReqBodyBuilder) Uuid(uuid string) *DeleteCardElementReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 //
-//示例值：1712578784
+// 示例值：1
 func (builder *DeleteCardElementReqBodyBuilder) Sequence(sequence int) *DeleteCardElementReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
@@ -2917,16 +2913,16 @@ func NewDeleteCardElementPathReqBodyBuilder() *DeleteCardElementPathReqBodyBuild
 
 // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *DeleteCardElementPathReqBodyBuilder) Uuid(uuid string) *DeleteCardElementPathReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 //
-// 示例值：1712578784
+// 示例值：1
 func (builder *DeleteCardElementPathReqBodyBuilder) Sequence(sequence int) *DeleteCardElementPathReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
@@ -2958,7 +2954,7 @@ func NewDeleteCardElementReqBuilder() *DeleteCardElementReqBuilder {
 	return builder
 }
 
-// 卡片ID
+// 卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取
 //
 // 示例值：7355439197428236291
 func (builder *DeleteCardElementReqBuilder) CardId(cardId string) *DeleteCardElementReqBuilder {
@@ -2966,15 +2962,15 @@ func (builder *DeleteCardElementReqBuilder) CardId(cardId string) *DeleteCardEle
 	return builder
 }
 
-// 组件ID
+// 指定卡片实体内，要删除的组件 ID。对应卡片 JSON 中的 `element_id` 属性，由开发者自定义。
 //
-// 示例值：elem_63529372
+// 示例值：markdown_1
 func (builder *DeleteCardElementReqBuilder) ElementId(elementId string) *DeleteCardElementReqBuilder {
 	builder.apiReq.PathParams.Set("element_id", fmt.Sprint(elementId))
 	return builder
 }
 
-// 删除卡片内的指定组件
+// 删除指定卡片实体中的组件。
 func (builder *DeleteCardElementReqBuilder) Body(body *DeleteCardElementReqBody) *DeleteCardElementReqBuilder {
 	builder.body = body
 	return builder
@@ -2991,7 +2987,7 @@ func (builder *DeleteCardElementReqBuilder) Build() *DeleteCardElementReq {
 type DeleteCardElementReqBody struct {
 	Uuid *string `json:"uuid,omitempty"` // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
 
-	Sequence *int `json:"sequence,omitempty"` // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	Sequence *int `json:"sequence,omitempty"` // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 }
 
 type DeleteCardElementReq struct {
@@ -3009,13 +3005,13 @@ func (resp *DeleteCardElementResp) Success() bool {
 }
 
 type PatchCardElementReqBodyBuilder struct {
-	partialElement    string // 要更改的组件部分配置内容，传入 id 参数后将对原有组件的 id 进行更新，不支持修改 tag 参数。
+	partialElement    string // 组件的新的配置项字段。传入 `element_id` 参数后，原组件的 ID 将更新。;;**注意**：;- 不支持修改 `tag` 参数。 ;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。;
 	partialElementSet bool
 
-	uuid    string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	uuid    string // 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 	uuidSet bool
 
-	sequence    int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	sequence    int // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 	sequenceSet bool
 }
 
@@ -3024,27 +3020,27 @@ func NewPatchCardElementReqBodyBuilder() *PatchCardElementReqBodyBuilder {
 	return builder
 }
 
-// 要更改的组件部分配置内容，传入 id 参数后将对原有组件的 id 进行更新，不支持修改 tag 参数。
+// 组件的新的配置项字段。传入 `element_id` 参数后，原组件的 ID 将更新。;;**注意**：;- 不支持修改 `tag` 参数。 ;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。;
 //
-//示例值：{\"content\":\"更新后的组件文本\"}
+// 示例值：{\"content\":\"更新后的组件文本\"}
 func (builder *PatchCardElementReqBodyBuilder) PartialElement(partialElement string) *PatchCardElementReqBodyBuilder {
 	builder.partialElement = partialElement
 	builder.partialElementSet = true
 	return builder
 }
 
-// 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+// 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *PatchCardElementReqBodyBuilder) Uuid(uuid string) *PatchCardElementReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 //
-//示例值：1712578784
+// 示例值：1
 func (builder *PatchCardElementReqBodyBuilder) Sequence(sequence int) *PatchCardElementReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
@@ -3079,7 +3075,7 @@ func NewPatchCardElementPathReqBodyBuilder() *PatchCardElementPathReqBodyBuilder
 	return builder
 }
 
-// 要更改的组件部分配置内容，传入 id 参数后将对原有组件的 id 进行更新，不支持修改 tag 参数。
+// 组件的新的配置项字段。传入 `element_id` 参数后，原组件的 ID 将更新。;;**注意**：;- 不支持修改 `tag` 参数。 ;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。;
 //
 // 示例值：{\"content\":\"更新后的组件文本\"}
 func (builder *PatchCardElementPathReqBodyBuilder) PartialElement(partialElement string) *PatchCardElementPathReqBodyBuilder {
@@ -3088,18 +3084,18 @@ func (builder *PatchCardElementPathReqBodyBuilder) PartialElement(partialElement
 	return builder
 }
 
-// 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+// 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *PatchCardElementPathReqBodyBuilder) Uuid(uuid string) *PatchCardElementPathReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 //
-// 示例值：1712578784
+// 示例值：1
 func (builder *PatchCardElementPathReqBodyBuilder) Sequence(sequence int) *PatchCardElementPathReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
@@ -3134,7 +3130,7 @@ func NewPatchCardElementReqBuilder() *PatchCardElementReqBuilder {
 	return builder
 }
 
-// 卡片ID
+// 卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取
 //
 // 示例值：7355439197428236291
 func (builder *PatchCardElementReqBuilder) CardId(cardId string) *PatchCardElementReqBuilder {
@@ -3142,15 +3138,15 @@ func (builder *PatchCardElementReqBuilder) CardId(cardId string) *PatchCardEleme
 	return builder
 }
 
-// 组件ID
+// 要更新的组件的 ID。对应 JSON 代码中的 `element_id` 属性，由开发者自定义。
 //
-// 示例值：elem_63529372
+// 示例值：markdown_1
 func (builder *PatchCardElementReqBuilder) ElementId(elementId string) *PatchCardElementReqBuilder {
 	builder.apiReq.PathParams.Set("element_id", fmt.Sprint(elementId))
 	return builder
 }
 
-// 以传入的配置覆盖指定组件的已有配置
+// 通过传入 `card_id`（卡片实体 ID）和 `element_id`（组件 ID），更新卡片实体中对应组件的属性。
 func (builder *PatchCardElementReqBuilder) Body(body *PatchCardElementReqBody) *PatchCardElementReqBuilder {
 	builder.body = body
 	return builder
@@ -3165,11 +3161,11 @@ func (builder *PatchCardElementReqBuilder) Build() *PatchCardElementReq {
 }
 
 type PatchCardElementReqBody struct {
-	PartialElement *string `json:"partial_element,omitempty"` // 要更改的组件部分配置内容，传入 id 参数后将对原有组件的 id 进行更新，不支持修改 tag 参数。
+	PartialElement *string `json:"partial_element,omitempty"` // 组件的新的配置项字段。传入 `element_id` 参数后，原组件的 ID 将更新。;;**注意**：;- 不支持修改 `tag` 参数。 ;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。;
 
-	Uuid *string `json:"uuid,omitempty"` // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	Uuid *string `json:"uuid,omitempty"` // 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 
-	Sequence *int `json:"sequence,omitempty"` // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	Sequence *int `json:"sequence,omitempty"` // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 }
 
 type PatchCardElementReq struct {
@@ -3187,13 +3183,13 @@ func (resp *PatchCardElementResp) Success() bool {
 }
 
 type UpdateCardElementReqBodyBuilder struct {
-	uuid    string // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	uuid    string // 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 	uuidSet bool
 
-	element    string // 新的组件
+	element    string // 新的组件的完整的 JSON 数据。;;注意：;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。;
 	elementSet bool
 
-	sequence    int // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	sequence    int // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 	sequenceSet bool
 }
 
@@ -3202,27 +3198,27 @@ func NewUpdateCardElementReqBodyBuilder() *UpdateCardElementReqBodyBuilder {
 	return builder
 }
 
-// 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+// 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 //
-//示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *UpdateCardElementReqBodyBuilder) Uuid(uuid string) *UpdateCardElementReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 新的组件
+// 新的组件的完整的 JSON 数据。;;注意：;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。;
 //
-//示例值：{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}
+// 示例值：{\"tag\":\"markdown\",\"element_id\":\"md_1\",\"content\":\"这是一段更新后的文本\"}
 func (builder *UpdateCardElementReqBodyBuilder) Element(element string) *UpdateCardElementReqBodyBuilder {
 	builder.element = element
 	builder.elementSet = true
 	return builder
 }
 
-// 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 //
-//示例值：1712578784
+// 示例值：1
 func (builder *UpdateCardElementReqBodyBuilder) Sequence(sequence int) *UpdateCardElementReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
@@ -3257,27 +3253,27 @@ func NewUpdateCardElementPathReqBodyBuilder() *UpdateCardElementPathReqBodyBuild
 	return builder
 }
 
-// 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+// 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 //
-// 示例值：191857678434
+// 示例值：a0d69e20-1dd1-458b-k525-dfeca4015204
 func (builder *UpdateCardElementPathReqBodyBuilder) Uuid(uuid string) *UpdateCardElementPathReqBodyBuilder {
 	builder.uuid = uuid
 	builder.uuidSet = true
 	return builder
 }
 
-// 新的组件
+// 新的组件的完整的 JSON 数据。;;注意：;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。;
 //
-// 示例值：{\"tag\":\"markdown\",\"id\":\"md_1\",\"content\":\"普通文本\"}
+// 示例值：{\"tag\":\"markdown\",\"element_id\":\"md_1\",\"content\":\"这是一段更新后的文本\"}
 func (builder *UpdateCardElementPathReqBodyBuilder) Element(element string) *UpdateCardElementPathReqBodyBuilder {
 	builder.element = element
 	builder.elementSet = true
 	return builder
 }
 
-// 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+// 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 //
-// 示例值：1712578784
+// 示例值：1
 func (builder *UpdateCardElementPathReqBodyBuilder) Sequence(sequence int) *UpdateCardElementPathReqBodyBuilder {
 	builder.sequence = sequence
 	builder.sequenceSet = true
@@ -3312,7 +3308,7 @@ func NewUpdateCardElementReqBuilder() *UpdateCardElementReqBuilder {
 	return builder
 }
 
-// 卡片ID
+// 卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取。
 //
 // 示例值：7355439197428236291
 func (builder *UpdateCardElementReqBuilder) CardId(cardId string) *UpdateCardElementReqBuilder {
@@ -3320,15 +3316,15 @@ func (builder *UpdateCardElementReqBuilder) CardId(cardId string) *UpdateCardEle
 	return builder
 }
 
-// 组件ID
+// 要更新的组件 ID。对应卡片 JSON 中组件的 `element_id` 属性，由开发者自定义。;;**提示**：同一张卡片内字段值唯一。仅允许使用字母、数字和下划线，必须以字母开头。
 //
-// 示例值：elem_63529372
+// 示例值：markdown_1
 func (builder *UpdateCardElementReqBuilder) ElementId(elementId string) *UpdateCardElementReqBuilder {
 	builder.apiReq.PathParams.Set("element_id", fmt.Sprint(elementId))
 	return builder
 }
 
-// 以新组件全量替换更新指定组件
+// 更新卡片实体中的指定组件为新组件。
 func (builder *UpdateCardElementReqBuilder) Body(body *UpdateCardElementReqBody) *UpdateCardElementReqBuilder {
 	builder.body = body
 	return builder
@@ -3343,11 +3339,11 @@ func (builder *UpdateCardElementReqBuilder) Build() *UpdateCardElementReq {
 }
 
 type UpdateCardElementReqBody struct {
-	Uuid *string `json:"uuid,omitempty"` // 幂等 id，可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。
+	Uuid *string `json:"uuid,omitempty"` // 幂等 ID，可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。
 
-	Element *string `json:"element,omitempty"` // 新的组件
+	Element *string `json:"element,omitempty"` // 新的组件的完整的 JSON 数据。;;注意：;- 以下示例值未转义，使用时请注意将其转为 JSON 序列化后的字符串。;- 仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。;
 
-	Sequence *int `json:"sequence,omitempty"` // 卡片处于流式更新模式时，进行卡片操作的顺序序号，用于保证多次更新的时序性。值为正整数，一次流式状态的多次更新操作（streaming_mode 一次从 true 到 false 期间）需要保证 sequence 递增，否则将报错。推荐使用时间戳。
+	Sequence *int `json:"sequence,omitempty"` // 操作卡片的序号。用于保证多次更新的时序性。;;**注意**：;请确保在通过卡片 OpenAPI 操作同一张卡片时，sequence 的值相较于上一次操作严格递增。;;;**数据校验规则**：int32 范围（ `1`~`2147483647`）内的正整数。
 }
 
 type UpdateCardElementReq struct {

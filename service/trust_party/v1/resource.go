@@ -9,7 +9,7 @@ import (
 )
 
 type V1 struct {
-	CollaborationTenant                        *collaborationTenant                        // 关联组织（灰度租户可见）
+	CollaborationTenant                        *collaborationTenant                        // collaboration_tenant
 	CollaborationTenantCollaborationDepartment *collaborationTenantCollaborationDepartment // collaboration_tenant.collaboration_department
 	CollaborationTenantCollaborationUser       *collaborationTenantCollaborationUser       // collaboration_tenant.collaboration_user
 }
@@ -32,9 +32,11 @@ type collaborationTenantCollaborationUser struct {
 	config *larkcore.Config
 }
 
-// Get
+// Get 获取关联组织详情
 //
-// -
+// - 基于组织tenant key获取关联组织详情，需要对对方组织有可见权限才可以获取。
+//
+// - ## 提示;使用 user_access_token 时，按照 admin 管理后台关联组织列表中针对用户设置的可见性规则进行校验，使用 tenant_access_token 时，按照应用互通界面中针对应用设置的可见性规则进行校验。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=trust_party&resource=collaboration_tenant&version=v1
 //
@@ -58,11 +60,13 @@ func (c *collaborationTenant) Get(ctx context.Context, req *GetCollaborationTena
 	return resp, err
 }
 
-// List 获取关联租户的列表
+// List 获取可见关联组织的列表
 //
-// - 分页获取用户可见的关联租户列表。
+// - 分页获取用户可见的关联列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/trust_party-v1/collaboration_tenant/list
+// - ## 提示;;使用 user_access_token 时，按照 admin 管理后台关联组织列表中针对用户设置的可见性规则进行校验，使用 tenant_access_token 时，按照应用互通界面中针对应用设置的可见性规则进行校验。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=trust_party&resource=collaboration_tenant&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/trust_partyv1/list_collaborationTenant.go
 func (c *collaborationTenant) List(ctx context.Context, req *ListCollaborationTenantReq, options ...larkcore.RequestOptionFunc) (*ListCollaborationTenantResp, error) {
@@ -84,11 +88,13 @@ func (c *collaborationTenant) List(ctx context.Context, req *ListCollaborationTe
 	return resp, err
 }
 
-// VisibleOrganization 获取关联组织的部门和成员信息
+// VisibleOrganization 获取关联组织的成员信息
 //
-// - 该接口会返回用户在外部部门下可见的下级部门和用户
+// - 该接口会返回用户在外部部门下可见的下级部门、用户、用户组。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/trust_party-v1/collaboration_tenant/visible_organization
+// - ## 提示;;使用 user_access_token 时，按照 admin 管理后台关联组织列表中针对用户设置的可见性规则进行校验；使用 tenant_access_token 时，按照应用互通界面中针对应用设置的可见性规则进行校验。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=visible_organization&project=trust_party&resource=collaboration_tenant&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/trust_partyv1/visibleOrganization_collaborationTenant.go
 func (c *collaborationTenant) VisibleOrganization(ctx context.Context, req *VisibleOrganizationCollaborationTenantReq, options ...larkcore.RequestOptionFunc) (*VisibleOrganizationCollaborationTenantResp, error) {
@@ -110,9 +116,11 @@ func (c *collaborationTenant) VisibleOrganization(ctx context.Context, req *Visi
 	return resp, err
 }
 
-// Get
+// Get 获取关联组织部门详情
 //
-// -
+// - 获取对方的关联组织部门详情，需要对部门有可见性权限才可以获取。;
+//
+// - ## 提示;使用 user_access_token 时，按照 admin 管理后台关联组织列表中针对用户设置的可见性规则进行校验，使用 tenant_access_token 时，按照应用互通界面中针对应用设置的可见性规则进行校验。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=trust_party&resource=collaboration_tenant.collaboration_department&version=v1
 //
@@ -136,9 +144,11 @@ func (c *collaborationTenantCollaborationDepartment) Get(ctx context.Context, re
 	return resp, err
 }
 
-// Get
+// Get 获取关联组织成员详情
 //
-// -
+// - 获取关联组织成员详情，需要对关联组织成员有权限才可以获取。
+//
+// - ## 提示;使用 user_access_token 时，按照 admin 管理后台关联组织列表中针对用户设置的可见性规则进行校验，使用 tenant_access_token 时，按照应用互通界面中针对应用设置的可见性规则进行校验。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=trust_party&resource=collaboration_tenant.collaboration_user&version=v1
 //

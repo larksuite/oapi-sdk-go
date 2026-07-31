@@ -736,59 +736,59 @@ func (builder *CellStyleBuilder) Build() *CellStyle {
 type CellValue struct {
 	Type *string `json:"type,omitempty"` // 元素类型
 
-	Text *Text `json:"text,omitempty"` //
+	Text *Text `json:"text,omitempty"` // -
 
-	MentionUser *MentionUser `json:"mention_user,omitempty"` //
+	MentionUser *MentionUser `json:"mention_user,omitempty"` // -
 
-	MentionDocument *MentionDocument `json:"mention_document,omitempty"` //
+	MentionDocument *MentionDocument `json:"mention_document,omitempty"` // -
 
-	Value *ValueElement `json:"value,omitempty"` //
+	Value *ValueElement `json:"value,omitempty"` // -
 
-	DateTime *DateTime `json:"date_time,omitempty"` //
+	DateTime *DateTime `json:"date_time,omitempty"` // -
 
-	File *File `json:"file,omitempty"` //
+	File *File `json:"file,omitempty"` // -
 
-	Image *Image `json:"image,omitempty"` //
+	Image *Image `json:"image,omitempty"` // -
 
-	Link *Link `json:"link,omitempty"` //
+	Link *Link `json:"link,omitempty"` // -
 
-	Reminder *Reminder `json:"reminder,omitempty"` //
+	Reminder *Reminder `json:"reminder,omitempty"` // -
 
-	Formula *Formula `json:"formula,omitempty"` //
+	Formula *Formula `json:"formula,omitempty"` // -
 }
 
 type CellValueBuilder struct {
 	type_    string // 元素类型
 	type_Set bool
 
-	text    *Text //
+	text    *Text // -
 	textSet bool
 
-	mentionUser    *MentionUser //
+	mentionUser    *MentionUser // -
 	mentionUserSet bool
 
-	mentionDocument    *MentionDocument //
+	mentionDocument    *MentionDocument // -
 	mentionDocumentSet bool
 
-	value    *ValueElement //
+	value    *ValueElement // -
 	valueSet bool
 
-	dateTime    *DateTime //
+	dateTime    *DateTime // -
 	dateTimeSet bool
 
-	file    *File //
+	file    *File // -
 	fileSet bool
 
-	image    *Image //
+	image    *Image // -
 	imageSet bool
 
-	link    *Link //
+	link    *Link // -
 	linkSet bool
 
-	reminder    *Reminder //
+	reminder    *Reminder // -
 	reminderSet bool
 
-	formula    *Formula //
+	formula    *Formula // -
 	formulaSet bool
 }
 
@@ -806,7 +806,7 @@ func (builder *CellValueBuilder) Type(type_ string) *CellValueBuilder {
 	return builder
 }
 
-//
+// -
 //
 // 示例值：
 func (builder *CellValueBuilder) Text(text *Text) *CellValueBuilder {
@@ -815,7 +815,7 @@ func (builder *CellValueBuilder) Text(text *Text) *CellValueBuilder {
 	return builder
 }
 
-//
+// -
 //
 // 示例值：
 func (builder *CellValueBuilder) MentionUser(mentionUser *MentionUser) *CellValueBuilder {
@@ -824,7 +824,7 @@ func (builder *CellValueBuilder) MentionUser(mentionUser *MentionUser) *CellValu
 	return builder
 }
 
-//
+// -
 //
 // 示例值：
 func (builder *CellValueBuilder) MentionDocument(mentionDocument *MentionDocument) *CellValueBuilder {
@@ -833,7 +833,7 @@ func (builder *CellValueBuilder) MentionDocument(mentionDocument *MentionDocumen
 	return builder
 }
 
-//
+// -
 //
 // 示例值：
 func (builder *CellValueBuilder) Value(value *ValueElement) *CellValueBuilder {
@@ -842,7 +842,7 @@ func (builder *CellValueBuilder) Value(value *ValueElement) *CellValueBuilder {
 	return builder
 }
 
-//
+// -
 //
 // 示例值：
 func (builder *CellValueBuilder) DateTime(dateTime *DateTime) *CellValueBuilder {
@@ -851,7 +851,7 @@ func (builder *CellValueBuilder) DateTime(dateTime *DateTime) *CellValueBuilder 
 	return builder
 }
 
-//
+// -
 //
 // 示例值：
 func (builder *CellValueBuilder) File(file *File) *CellValueBuilder {
@@ -860,7 +860,7 @@ func (builder *CellValueBuilder) File(file *File) *CellValueBuilder {
 	return builder
 }
 
-//
+// -
 //
 // 示例值：
 func (builder *CellValueBuilder) Image(image *Image) *CellValueBuilder {
@@ -869,7 +869,7 @@ func (builder *CellValueBuilder) Image(image *Image) *CellValueBuilder {
 	return builder
 }
 
-//
+// -
 //
 // 示例值：
 func (builder *CellValueBuilder) Link(link *Link) *CellValueBuilder {
@@ -878,7 +878,7 @@ func (builder *CellValueBuilder) Link(link *Link) *CellValueBuilder {
 	return builder
 }
 
-//
+// -
 //
 // 示例值：
 func (builder *CellValueBuilder) Reminder(reminder *Reminder) *CellValueBuilder {
@@ -887,7 +887,7 @@ func (builder *CellValueBuilder) Reminder(reminder *Reminder) *CellValueBuilder 
 	return builder
 }
 
-//
+// -
 //
 // 示例值：
 func (builder *CellValueBuilder) Formula(formula *Formula) *CellValueBuilder {
@@ -1079,7 +1079,7 @@ func (builder *ClearStyleRangesBuilder) Build() *ClearStyleRanges {
 }
 
 type Condition struct {
-	FilterType *string `json:"filter_type,omitempty"` // 筛选类型
+	FilterType *string `json:"filter_type,omitempty"` // 筛选类型，枚举值如下所示。了解更多，参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。;- multiValue ：多值筛选;- number ：数字筛选;- text ：文本筛选;- color ：颜色筛选
 
 	CompareType *string `json:"compare_type,omitempty"` // 比较类型
 
@@ -1087,7 +1087,7 @@ type Condition struct {
 }
 
 type ConditionBuilder struct {
-	filterType    string // 筛选类型
+	filterType    string // 筛选类型，枚举值如下所示。了解更多，参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。;- multiValue ：多值筛选;- number ：数字筛选;- text ：文本筛选;- color ：颜色筛选
 	filterTypeSet bool
 
 	compareType    string // 比较类型
@@ -1102,7 +1102,7 @@ func NewConditionBuilder() *ConditionBuilder {
 	return builder
 }
 
-// 筛选类型
+// 筛选类型，枚举值如下所示。了解更多，参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。;- multiValue ：多值筛选;- number ：数字筛选;- text ：文本筛选;- color ：颜色筛选
 //
 // 示例值：number
 func (builder *ConditionBuilder) FilterType(filterType string) *ConditionBuilder {
@@ -1122,7 +1122,7 @@ func (builder *ConditionBuilder) CompareType(compareType string) *ConditionBuild
 
 // 筛选参数
 //
-// 示例值：6
+// 示例值：
 func (builder *ConditionBuilder) Expected(expected []string) *ConditionBuilder {
 	builder.expected = expected
 	builder.expectedSet = true
@@ -1554,21 +1554,21 @@ func (builder *CreateDataValidationBuilder) Build() *CreateDataValidation {
 }
 
 type CreateSheetFilter struct {
-	Range *string `json:"range,omitempty"` // 筛选应用范围
+	Range *string `json:"range,omitempty"` // 设置筛选的应用范围。支持以下五种写法，了解更多，参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。;;- `sheetId`：填写实际的工作表 ID，表示将筛选应用于整表;- `sheetId!{开始行索引}:{结束行索引}` ：填写工作表 ID 和行数区间，表示将筛选应用于整行;- `sheetId!{开始列索引}:{结束列索引}`：填写工作表 ID 和列的区间，表示将筛选应用于整列;- `sheetId!{开始单元格}:{结束单元格}`：填写工作表 ID 和单元格区间，表示将筛选应用于单元格选定的区域中;- `sheetId!{开始单元格}:{结束列索引}`：填写工作表 ID、起始单元格和结束列，表示省略结束行，使用表格的最后行作为结束行
 
-	Col *string `json:"col,omitempty"` // 设置筛选条件的列
+	Col *string `json:"col,omitempty"` // 设置应用筛选条件的列。
 
-	Condition *Condition `json:"condition,omitempty"` // 筛选的条件
+	Condition *Condition `json:"condition,omitempty"` // 设置筛选条件。
 }
 
 type CreateSheetFilterBuilder struct {
-	range_    string // 筛选应用范围
+	range_    string // 设置筛选的应用范围。支持以下五种写法，了解更多，参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。;;- `sheetId`：填写实际的工作表 ID，表示将筛选应用于整表;- `sheetId!{开始行索引}:{结束行索引}` ：填写工作表 ID 和行数区间，表示将筛选应用于整行;- `sheetId!{开始列索引}:{结束列索引}`：填写工作表 ID 和列的区间，表示将筛选应用于整列;- `sheetId!{开始单元格}:{结束单元格}`：填写工作表 ID 和单元格区间，表示将筛选应用于单元格选定的区域中;- `sheetId!{开始单元格}:{结束列索引}`：填写工作表 ID、起始单元格和结束列，表示省略结束行，使用表格的最后行作为结束行
 	range_Set bool
 
-	col    string // 设置筛选条件的列
+	col    string // 设置应用筛选条件的列。
 	colSet bool
 
-	condition    *Condition // 筛选的条件
+	condition    *Condition // 设置筛选条件。
 	conditionSet bool
 }
 
@@ -1577,16 +1577,16 @@ func NewCreateSheetFilterBuilder() *CreateSheetFilterBuilder {
 	return builder
 }
 
-// 筛选应用范围
+// 设置筛选的应用范围。支持以下五种写法，了解更多，参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。;;- `sheetId`：填写实际的工作表 ID，表示将筛选应用于整表;- `sheetId!{开始行索引}:{结束行索引}` ：填写工作表 ID 和行数区间，表示将筛选应用于整行;- `sheetId!{开始列索引}:{结束列索引}`：填写工作表 ID 和列的区间，表示将筛选应用于整列;- `sheetId!{开始单元格}:{结束单元格}`：填写工作表 ID 和单元格区间，表示将筛选应用于单元格选定的区域中;- `sheetId!{开始单元格}:{结束列索引}`：填写工作表 ID、起始单元格和结束列，表示省略结束行，使用表格的最后行作为结束行
 //
-// 示例值：xxxxxx!C1:H14
+// 示例值：8fe9d6!A1:H14
 func (builder *CreateSheetFilterBuilder) Range(range_ string) *CreateSheetFilterBuilder {
 	builder.range_ = range_
 	builder.range_Set = true
 	return builder
 }
 
-// 设置筛选条件的列
+// 设置应用筛选条件的列。
 //
 // 示例值：E
 func (builder *CreateSheetFilterBuilder) Col(col string) *CreateSheetFilterBuilder {
@@ -1595,7 +1595,7 @@ func (builder *CreateSheetFilterBuilder) Col(col string) *CreateSheetFilterBuild
 	return builder
 }
 
-// 筛选的条件
+// 设置筛选条件。
 //
 // 示例值：
 func (builder *CreateSheetFilterBuilder) Condition(condition *Condition) *CreateSheetFilterBuilder {
@@ -1872,8 +1872,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1881,8 +1879,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -2026,7 +2022,7 @@ type File struct {
 
 	Name *string `json:"name,omitempty"` // 附件名称
 
-	SegmentStyle *SegmentStyle `json:"segment_style,omitempty"` //
+	SegmentStyle *SegmentStyle `json:"segment_style,omitempty"` // -
 }
 
 type FileBuilder struct {
@@ -2036,7 +2032,7 @@ type FileBuilder struct {
 	name    string // 附件名称
 	nameSet bool
 
-	segmentStyle    *SegmentStyle //
+	segmentStyle    *SegmentStyle // -
 	segmentStyleSet bool
 }
 
@@ -2063,7 +2059,7 @@ func (builder *FileBuilder) Name(name string) *FileBuilder {
 	return builder
 }
 
-//
+// -
 //
 // 示例值：
 func (builder *FileBuilder) SegmentStyle(segmentStyle *SegmentStyle) *FileBuilder {
@@ -2181,7 +2177,7 @@ func (builder *FilterViewBuilder) FilterViewName(filterViewName string) *FilterV
 
 // 筛选视图的筛选范围
 //
-// 示例值：0b**12!C1:H14
+// 示例值：8fe9d6!C1:H14
 func (builder *FilterViewBuilder) Range(range_ string) *FilterViewBuilder {
 	builder.range_ = range_
 	builder.range_Set = true
@@ -2208,24 +2204,24 @@ func (builder *FilterViewBuilder) Build() *FilterView {
 type FilterViewCondition struct {
 	ConditionId *string `json:"condition_id,omitempty"` // 设置筛选条件的列，使用字母号
 
-	FilterType *string `json:"filter_type,omitempty"` // 筛选类型
+	FilterType *string `json:"filter_type,omitempty"` // 筛选类型。枚举值如下所示。了解更多，参考[筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)。;;- multiValue ：多值筛选;- number：数字筛选;- text：文本筛选;- color：颜色筛选
 
-	CompareType *string `json:"compare_type,omitempty"` // 比较类型
+	CompareType *string `json:"compare_type,omitempty"` // 比较类型。了解更多，参考[筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)。
 
-	Expected []string `json:"expected,omitempty"` // 筛选参数
+	Expected []string `json:"expected,omitempty"` // 筛选参数。了解更多，参考[筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)。
 }
 
 type FilterViewConditionBuilder struct {
 	conditionId    string // 设置筛选条件的列，使用字母号
 	conditionIdSet bool
 
-	filterType    string // 筛选类型
+	filterType    string // 筛选类型。枚举值如下所示。了解更多，参考[筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)。;;- multiValue ：多值筛选;- number：数字筛选;- text：文本筛选;- color：颜色筛选
 	filterTypeSet bool
 
-	compareType    string // 比较类型
+	compareType    string // 比较类型。了解更多，参考[筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)。
 	compareTypeSet bool
 
-	expected    []string // 筛选参数
+	expected    []string // 筛选参数。了解更多，参考[筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)。
 	expectedSet bool
 }
 
@@ -2243,7 +2239,7 @@ func (builder *FilterViewConditionBuilder) ConditionId(conditionId string) *Filt
 	return builder
 }
 
-// 筛选类型
+// 筛选类型。枚举值如下所示。了解更多，参考[筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)。;;- multiValue ：多值筛选;- number：数字筛选;- text：文本筛选;- color：颜色筛选
 //
 // 示例值：number
 func (builder *FilterViewConditionBuilder) FilterType(filterType string) *FilterViewConditionBuilder {
@@ -2252,7 +2248,7 @@ func (builder *FilterViewConditionBuilder) FilterType(filterType string) *Filter
 	return builder
 }
 
-// 比较类型
+// 比较类型。了解更多，参考[筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)。
 //
 // 示例值：less
 func (builder *FilterViewConditionBuilder) CompareType(compareType string) *FilterViewConditionBuilder {
@@ -2261,9 +2257,9 @@ func (builder *FilterViewConditionBuilder) CompareType(compareType string) *Filt
 	return builder
 }
 
-// 筛选参数
+// 筛选参数。了解更多，参考[筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)。
 //
-// 示例值：6
+// 示例值：
 func (builder *FilterViewConditionBuilder) Expected(expected []string) *FilterViewConditionBuilder {
 	builder.expected = expected
 	builder.expectedSet = true
@@ -2291,16 +2287,16 @@ func (builder *FilterViewConditionBuilder) Build() *FilterViewCondition {
 }
 
 type Find struct {
-	FindCondition *FindCondition `json:"find_condition,omitempty"` // 查找条件
+	FindCondition *FindCondition `json:"find_condition,omitempty"` // 指定查找单元格的条件。
 
-	Find *string `json:"find,omitempty"` // 查找的字符串，当`search_by_regex`字段为 true 时，该字段为正则表达式
+	Find *string `json:"find,omitempty"` // 查找的字符串。当`search_by_regex` 字段为 true 时，你需填入正则表达式
 }
 
 type FindBuilder struct {
-	findCondition    *FindCondition // 查找条件
+	findCondition    *FindCondition // 指定查找单元格的条件。
 	findConditionSet bool
 
-	find    string // 查找的字符串，当`search_by_regex`字段为 true 时，该字段为正则表达式
+	find    string // 查找的字符串。当`search_by_regex` 字段为 true 时，你需填入正则表达式
 	findSet bool
 }
 
@@ -2309,7 +2305,7 @@ func NewFindBuilder() *FindBuilder {
 	return builder
 }
 
-// 查找条件
+// 指定查找单元格的条件。
 //
 // 示例值：
 func (builder *FindBuilder) FindCondition(findCondition *FindCondition) *FindBuilder {
@@ -2318,9 +2314,9 @@ func (builder *FindBuilder) FindCondition(findCondition *FindCondition) *FindBui
 	return builder
 }
 
-// 查找的字符串，当`search_by_regex`字段为 true 时，该字段为正则表达式
+// 查找的字符串。当`search_by_regex` 字段为 true 时，你需填入正则表达式
 //
-// 示例值：如下;;- 普通查找示例: "hello";- 正则查找示例: "[A-Z]\w+"
+// 示例值：如下所示：;- 字符串查找示例： "hello";- 正则表达式查找示例："[A-Z]\w+
 func (builder *FindBuilder) Find(find string) *FindBuilder {
 	builder.find = find
 	builder.findSet = true
@@ -2340,31 +2336,31 @@ func (builder *FindBuilder) Build() *Find {
 }
 
 type FindCondition struct {
-	Range *string `json:"range,omitempty"` // 查找范围，参考 [名词解释 Range](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Range *string `json:"range,omitempty"` // 查找范围。格式为 `<sheetId>!<开始位置>:<结束位置>`。其中：;- `sheetId` 为工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取;- `<开始位置>:<结束位置>` 为工作表中单元格的范围，数字表示行索引，字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法，详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 
-	MatchCase *bool `json:"match_case,omitempty"` // 是否忽略大小写，默认为 false;- `true`：表示忽略字符串中字母大小写差异;- `false`：表示区分字符串中字母大小写
+	MatchCase *bool `json:"match_case,omitempty"` // 是否忽略查找字符串的大小写，默认为 false。;- `true`：忽略字符串中字母大小写差异;- `false`：区分字符串中字母大小写
 
-	MatchEntireCell *bool `json:"match_entire_cell,omitempty"` // 是否完全匹配整个单元格，默认值为 false;- `true`：表示完全匹配单元格，比如 find 取值为 "hello"，则单元格中的内容必须为 "hello";- `false`：表示允许部分匹配单元格，比如 find 取值为 "hello"，则单元格中的内容包含 "hello" 即可
+	MatchEntireCell *bool `json:"match_entire_cell,omitempty"` // 字符串是否需要完全匹配整个单元格，默认值为 false。;- `true`：完全匹配单元格，比如 `find` 参数 取值为 "hello"，则单元格中的内容必须为 "hello" 才会匹配替换;- `false`：允许部分匹配单元格，比如 `find` 取值为 "hello"，则单元格中的内容包含 "hello" 即可匹配替换
 
-	SearchByRegex *bool `json:"search_by_regex,omitempty"` // 是否为正则匹配，默认值为 false;- `true`：表示使用正则匹配;- `false`：表示不使用正则匹配
+	SearchByRegex *bool `json:"search_by_regex,omitempty"` // 是否使用正则表达式查找，默认值为 false。;- `true`：使用正则表达式;- `false`：不使用正则表达式
 
-	IncludeFormulas *bool `json:"include_formulas,omitempty"` // 是否仅搜索单元格公式，默认值为 false;- `true`：表示仅搜索单元格公式;- `false`：表示仅搜索单元格内容
+	IncludeFormulas *bool `json:"include_formulas,omitempty"` // 是否仅搜索单元格公式，默认值为 false。;- `true`：仅搜索单元格公式;- `false`：仅搜索单元格内容
 }
 
 type FindConditionBuilder struct {
-	range_    string // 查找范围，参考 [名词解释 Range](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	range_    string // 查找范围。格式为 `<sheetId>!<开始位置>:<结束位置>`。其中：;- `sheetId` 为工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取;- `<开始位置>:<结束位置>` 为工作表中单元格的范围，数字表示行索引，字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法，详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	range_Set bool
 
-	matchCase    bool // 是否忽略大小写，默认为 false;- `true`：表示忽略字符串中字母大小写差异;- `false`：表示区分字符串中字母大小写
+	matchCase    bool // 是否忽略查找字符串的大小写，默认为 false。;- `true`：忽略字符串中字母大小写差异;- `false`：区分字符串中字母大小写
 	matchCaseSet bool
 
-	matchEntireCell    bool // 是否完全匹配整个单元格，默认值为 false;- `true`：表示完全匹配单元格，比如 find 取值为 "hello"，则单元格中的内容必须为 "hello";- `false`：表示允许部分匹配单元格，比如 find 取值为 "hello"，则单元格中的内容包含 "hello" 即可
+	matchEntireCell    bool // 字符串是否需要完全匹配整个单元格，默认值为 false。;- `true`：完全匹配单元格，比如 `find` 参数 取值为 "hello"，则单元格中的内容必须为 "hello" 才会匹配替换;- `false`：允许部分匹配单元格，比如 `find` 取值为 "hello"，则单元格中的内容包含 "hello" 即可匹配替换
 	matchEntireCellSet bool
 
-	searchByRegex    bool // 是否为正则匹配，默认值为 false;- `true`：表示使用正则匹配;- `false`：表示不使用正则匹配
+	searchByRegex    bool // 是否使用正则表达式查找，默认值为 false。;- `true`：使用正则表达式;- `false`：不使用正则表达式
 	searchByRegexSet bool
 
-	includeFormulas    bool // 是否仅搜索单元格公式，默认值为 false;- `true`：表示仅搜索单元格公式;- `false`：表示仅搜索单元格内容
+	includeFormulas    bool // 是否仅搜索单元格公式，默认值为 false。;- `true`：仅搜索单元格公式;- `false`：仅搜索单元格内容
 	includeFormulasSet bool
 }
 
@@ -2373,7 +2369,7 @@ func NewFindConditionBuilder() *FindConditionBuilder {
 	return builder
 }
 
-// 查找范围，参考 [名词解释 Range](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+// 查找范围。格式为 `<sheetId>!<开始位置>:<结束位置>`。其中：;- `sheetId` 为工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取;- `<开始位置>:<结束位置>` 为工作表中单元格的范围，数字表示行索引，字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法，详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 //
 // 示例值：PNIfrm!A1:C5
 func (builder *FindConditionBuilder) Range(range_ string) *FindConditionBuilder {
@@ -2382,7 +2378,7 @@ func (builder *FindConditionBuilder) Range(range_ string) *FindConditionBuilder 
 	return builder
 }
 
-// 是否忽略大小写，默认为 false;- `true`：表示忽略字符串中字母大小写差异;- `false`：表示区分字符串中字母大小写
+// 是否忽略查找字符串的大小写，默认为 false。;- `true`：忽略字符串中字母大小写差异;- `false`：区分字符串中字母大小写
 //
 // 示例值：true
 func (builder *FindConditionBuilder) MatchCase(matchCase bool) *FindConditionBuilder {
@@ -2391,7 +2387,7 @@ func (builder *FindConditionBuilder) MatchCase(matchCase bool) *FindConditionBui
 	return builder
 }
 
-// 是否完全匹配整个单元格，默认值为 false;- `true`：表示完全匹配单元格，比如 find 取值为 "hello"，则单元格中的内容必须为 "hello";- `false`：表示允许部分匹配单元格，比如 find 取值为 "hello"，则单元格中的内容包含 "hello" 即可
+// 字符串是否需要完全匹配整个单元格，默认值为 false。;- `true`：完全匹配单元格，比如 `find` 参数 取值为 "hello"，则单元格中的内容必须为 "hello" 才会匹配替换;- `false`：允许部分匹配单元格，比如 `find` 取值为 "hello"，则单元格中的内容包含 "hello" 即可匹配替换
 //
 // 示例值：false
 func (builder *FindConditionBuilder) MatchEntireCell(matchEntireCell bool) *FindConditionBuilder {
@@ -2400,7 +2396,7 @@ func (builder *FindConditionBuilder) MatchEntireCell(matchEntireCell bool) *Find
 	return builder
 }
 
-// 是否为正则匹配，默认值为 false;- `true`：表示使用正则匹配;- `false`：表示不使用正则匹配
+// 是否使用正则表达式查找，默认值为 false。;- `true`：使用正则表达式;- `false`：不使用正则表达式
 //
 // 示例值：false
 func (builder *FindConditionBuilder) SearchByRegex(searchByRegex bool) *FindConditionBuilder {
@@ -2409,7 +2405,7 @@ func (builder *FindConditionBuilder) SearchByRegex(searchByRegex bool) *FindCond
 	return builder
 }
 
-// 是否仅搜索单元格公式，默认值为 false;- `true`：表示仅搜索单元格公式;- `false`：表示仅搜索单元格内容
+// 是否仅搜索单元格公式，默认值为 false。;- `true`：仅搜索单元格公式;- `false`：仅搜索单元格内容
 //
 // 示例值：false
 func (builder *FindConditionBuilder) IncludeFormulas(includeFormulas bool) *FindConditionBuilder {
@@ -2512,7 +2508,7 @@ func (builder *FindReplaceResultBuilder) Build() *FindReplaceResult {
 type FloatImage struct {
 	FloatImageId *string `json:"float_image_id,omitempty"` // 浮动图片 id
 
-	FloatImageToken *string `json:"float_image_token,omitempty"` // 【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
+	FloatImageToken *string `json:"float_image_token,omitempty"` // 浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的操作
 
 	Range *string `json:"range,omitempty"` // 浮动图片的左上角单元格定位，只支持一个单元格
 
@@ -2529,7 +2525,7 @@ type FloatImageBuilder struct {
 	floatImageId    string // 浮动图片 id
 	floatImageIdSet bool
 
-	floatImageToken    string // 【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
+	floatImageToken    string // 浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的操作
 	floatImageTokenSet bool
 
 	range_    string // 浮动图片的左上角单元格定位，只支持一个单元格
@@ -2562,9 +2558,9 @@ func (builder *FloatImageBuilder) FloatImageId(floatImageId string) *FloatImageB
 	return builder
 }
 
-// 【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
+// 浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的操作
 //
-// 示例值：boxbcbQsaSqIXsxxxxx1HCPJFbh
+// 示例值：
 func (builder *FloatImageBuilder) FloatImageToken(floatImageToken string) *FloatImageBuilder {
 	builder.floatImageToken = floatImageToken
 	builder.floatImageTokenSet = true
@@ -2573,7 +2569,7 @@ func (builder *FloatImageBuilder) FloatImageToken(floatImageToken string) *Float
 
 // 浮动图片的左上角单元格定位，只支持一个单元格
 //
-// 示例值：0b**12!A1:A1
+// 示例值：ahgsch!A1:A1
 func (builder *FloatImageBuilder) Range(range_ string) *FloatImageBuilder {
 	builder.range_ = range_
 	builder.range_Set = true
@@ -2720,24 +2716,24 @@ func (builder *FormulaBuilder) Build() *Formula {
 type GetSpreadsheet struct {
 	Title *string `json:"title,omitempty"` // 电子表格标题
 
-	OwnerId *string `json:"owner_id,omitempty"` // 电子表格owner
+	OwnerId *string `json:"owner_id,omitempty"` // 电子表格的所有者 ID。ID 类型由查询参数 user_id_type 决定。
 
-	Token *string `json:"token,omitempty"` // 电子表格token
+	Token *string `json:"token,omitempty"` // 电子表格 token
 
-	Url *string `json:"url,omitempty"` // 电子表格url
+	Url *string `json:"url,omitempty"` // 电子表格的 URL 链接
 }
 
 type GetSpreadsheetBuilder struct {
 	title    string // 电子表格标题
 	titleSet bool
 
-	ownerId    string // 电子表格owner
+	ownerId    string // 电子表格的所有者 ID。ID 类型由查询参数 user_id_type 决定。
 	ownerIdSet bool
 
-	token    string // 电子表格token
+	token    string // 电子表格 token
 	tokenSet bool
 
-	url    string // 电子表格url
+	url    string // 电子表格的 URL 链接
 	urlSet bool
 }
 
@@ -2755,27 +2751,27 @@ func (builder *GetSpreadsheetBuilder) Title(title string) *GetSpreadsheetBuilder
 	return builder
 }
 
-// 电子表格owner
+// 电子表格的所有者 ID。ID 类型由查询参数 user_id_type 决定。
 //
-// 示例值：ou_xxxxxxxxxxxx
+// 示例值：ou_48d0958ee4b2ab3eaf0b5f6c968abcef
 func (builder *GetSpreadsheetBuilder) OwnerId(ownerId string) *GetSpreadsheetBuilder {
 	builder.ownerId = ownerId
 	builder.ownerIdSet = true
 	return builder
 }
 
-// 电子表格token
+// 电子表格 token
 //
-// 示例值：shtxxxxxxxxxxxxxx
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *GetSpreadsheetBuilder) Token(token string) *GetSpreadsheetBuilder {
 	builder.token = token
 	builder.tokenSet = true
 	return builder
 }
 
-// 电子表格url
+// 电子表格的 URL 链接
 //
-// 示例值：https://bytedance.feishu.cn/sheets/shtcnmBA*****yGehy8
+// 示例值：https://example.feishu.cn/sheets/Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *GetSpreadsheetBuilder) Url(url string) *GetSpreadsheetBuilder {
 	builder.url = url
 	builder.urlSet = true
@@ -3025,7 +3021,7 @@ type Link struct {
 
 	Link *string `json:"link,omitempty"` // 链接
 
-	SegmentStyles []*SegmentStyle `json:"segment_styles,omitempty"` //
+	SegmentStyles []*SegmentStyle `json:"segment_styles,omitempty"` // -
 }
 
 type LinkBuilder struct {
@@ -3035,7 +3031,7 @@ type LinkBuilder struct {
 	link    string // 链接
 	linkSet bool
 
-	segmentStyles    []*SegmentStyle //
+	segmentStyles    []*SegmentStyle // -
 	segmentStylesSet bool
 }
 
@@ -3062,7 +3058,7 @@ func (builder *LinkBuilder) Link(link string) *LinkBuilder {
 	return builder
 }
 
-//
+// -
 //
 // 示例值：
 func (builder *LinkBuilder) SegmentStyles(segmentStyles []*SegmentStyle) *LinkBuilder {
@@ -3094,7 +3090,7 @@ type MentionDocument struct {
 
 	Token *string `json:"token,omitempty"` // 文档token
 
-	SegmentStyle *SegmentStyle `json:"segment_style,omitempty"` // 局部样式
+	SegmentStyle *SegmentStyle `json:"segment_style,omitempty"` // -
 
 	Link *string `json:"link,omitempty"` // mention 链接
 }
@@ -3109,7 +3105,7 @@ type MentionDocumentBuilder struct {
 	token    string // 文档token
 	tokenSet bool
 
-	segmentStyle    *SegmentStyle // 局部样式
+	segmentStyle    *SegmentStyle // -
 	segmentStyleSet bool
 
 	link    string // mention 链接
@@ -3148,7 +3144,7 @@ func (builder *MentionDocumentBuilder) Token(token string) *MentionDocumentBuild
 	return builder
 }
 
-// 局部样式
+// -
 //
 // 示例值：
 func (builder *MentionDocumentBuilder) SegmentStyle(segmentStyle *SegmentStyle) *MentionDocumentBuilder {
@@ -3197,7 +3193,7 @@ type MentionUser struct {
 
 	Notify *bool `json:"notify,omitempty"` // 是否通知用户
 
-	SegmentStyle *SegmentStyle `json:"segment_style,omitempty"` // 局部样式
+	SegmentStyle *SegmentStyle `json:"segment_style,omitempty"` // -
 }
 
 type MentionUserBuilder struct {
@@ -3210,7 +3206,7 @@ type MentionUserBuilder struct {
 	notify    bool // 是否通知用户
 	notifySet bool
 
-	segmentStyle    *SegmentStyle // 局部样式
+	segmentStyle    *SegmentStyle // -
 	segmentStyleSet bool
 }
 
@@ -3246,7 +3242,7 @@ func (builder *MentionUserBuilder) Notify(notify bool) *MentionUserBuilder {
 	return builder
 }
 
-// 局部样式
+// -
 //
 // 示例值：
 func (builder *MentionUserBuilder) SegmentStyle(segmentStyle *SegmentStyle) *MentionUserBuilder {
@@ -3411,16 +3407,16 @@ func (builder *MergeRangeBuilder) Build() *MergeRange {
 }
 
 type MoveDimension struct {
-	Source *Dimension `json:"source,omitempty"` // 移动源位置参数
+	Source *Dimension `json:"source,omitempty"` // 行列操作的维度
 
-	DestinationIndex *int `json:"destination_index,omitempty"` // 移动的目标位置行或者列号
+	DestinationIndex *int `json:"destination_index,omitempty"` // 移动的目标位置行或者列
 }
 
 type MoveDimensionBuilder struct {
-	source    *Dimension // 移动源位置参数
+	source    *Dimension // 行列操作的维度
 	sourceSet bool
 
-	destinationIndex    int // 移动的目标位置行或者列号
+	destinationIndex    int // 移动的目标位置行或者列
 	destinationIndexSet bool
 }
 
@@ -3429,7 +3425,7 @@ func NewMoveDimensionBuilder() *MoveDimensionBuilder {
 	return builder
 }
 
-// 移动源位置参数
+// 行列操作的维度
 //
 // 示例值：
 func (builder *MoveDimensionBuilder) Source(source *Dimension) *MoveDimensionBuilder {
@@ -3438,7 +3434,7 @@ func (builder *MoveDimensionBuilder) Source(source *Dimension) *MoveDimensionBui
 	return builder
 }
 
-// 移动的目标位置行或者列号
+// 移动的目标位置行或者列
 //
 // 示例值：4
 func (builder *MoveDimensionBuilder) DestinationIndex(destinationIndex int) *MoveDimensionBuilder {
@@ -3460,11 +3456,11 @@ func (builder *MoveDimensionBuilder) Build() *MoveDimension {
 }
 
 type MultiRange struct {
-	Ranges []string `json:"ranges,omitempty"` // 同一个工作表的多个范围
+	Ranges []string `json:"ranges,omitempty"` // 多个范围
 }
 
 type MultiRangeBuilder struct {
-	ranges    []string // 同一个工作表的多个范围
+	ranges    []string // 多个范围
 	rangesSet bool
 }
 
@@ -3473,7 +3469,7 @@ func NewMultiRangeBuilder() *MultiRangeBuilder {
 	return builder
 }
 
-// 同一个工作表的多个范围
+// 多个范围
 //
 // 示例值：Sheet1!A1:B2
 func (builder *MultiRangeBuilder) Ranges(ranges []string) *MultiRangeBuilder {
@@ -4375,18 +4371,18 @@ func (builder *ReminderBuilder) Build() *Reminder {
 }
 
 type Replace struct {
-	FindCondition *FindCondition `json:"find_condition,omitempty"` // 查找条件
+	FindCondition *FindCondition `json:"find_condition,omitempty"` // 指定查找单元格的条件。
 
-	Find *string `json:"find,omitempty"` // 查找的字符串
+	Find *string `json:"find,omitempty"` // 查找的字符串。当`search_by_regex` 字段为 true 时，你需填入正则表达式。
 
 	Replacement *string `json:"replacement,omitempty"` // 替换的字符串
 }
 
 type ReplaceBuilder struct {
-	findCondition    *FindCondition // 查找条件
+	findCondition    *FindCondition // 指定查找单元格的条件。
 	findConditionSet bool
 
-	find    string // 查找的字符串
+	find    string // 查找的字符串。当`search_by_regex` 字段为 true 时，你需填入正则表达式。
 	findSet bool
 
 	replacement    string // 替换的字符串
@@ -4398,7 +4394,7 @@ func NewReplaceBuilder() *ReplaceBuilder {
 	return builder
 }
 
-// 查找条件
+// 指定查找单元格的条件。
 //
 // 示例值：
 func (builder *ReplaceBuilder) FindCondition(findCondition *FindCondition) *ReplaceBuilder {
@@ -4407,7 +4403,7 @@ func (builder *ReplaceBuilder) FindCondition(findCondition *FindCondition) *Repl
 	return builder
 }
 
-// 查找的字符串
+// 查找的字符串。当`search_by_regex` 字段为 true 时，你需填入正则表达式。
 //
 // 示例值：hello
 func (builder *ReplaceBuilder) Find(find string) *ReplaceBuilder {
@@ -4491,11 +4487,11 @@ func (builder *RichTextValueRangeBuilder) Build() *RichTextValueRange {
 }
 
 type RichValue struct {
-	Values [][][]*CellValue `json:"values,omitempty"` // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+	Values [][][]*CellValue `json:"values,omitempty"` //
 }
 
 type RichValueBuilder struct {
-	values    [][][]*CellValue // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+	values    [][][]*CellValue //
 	valuesSet bool
 }
 
@@ -4504,9 +4500,7 @@ func NewRichValueBuilder() *RichValueBuilder {
 	return builder
 }
 
-// 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
-//
-// 示例值：数据
+// 示例值：
 func (builder *RichValueBuilder) Values(values [][][]*CellValue) *RichValueBuilder {
 	builder.values = values
 	builder.valuesSet = true
@@ -4706,7 +4700,7 @@ func (builder *SegmentStyleStyleBuilder) ForeColor(foreColor string) *SegmentSty
 
 // 字体大小
 //
-// 示例值：
+// 示例值：-
 func (builder *SegmentStyleStyleBuilder) FontSize(fontSize int) *SegmentStyleStyleBuilder {
 	builder.fontSize = fontSize
 	builder.fontSizeSet = true
@@ -4749,13 +4743,13 @@ type Sheet struct {
 
 	Index *int `json:"index,omitempty"` // 工作表索引位置，索引从 0 开始计数。
 
-	Hidden *bool `json:"hidden,omitempty"` // 工作表是否被隐藏;- `true`：表示被隐藏;- `false`：表示未被隐藏
+	Hidden *bool `json:"hidden,omitempty"` // 工作表是否被隐藏
 
 	GridProperties *GridProperties `json:"grid_properties,omitempty"` // 单元格属性
 
-	ResourceType *string `json:"resource_type,omitempty"` // 工作表类型;- `sheet`：工作表;- `bitable`：多维表格，[多维表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview);- `#UNSUPPORTED_TYPE`：不支持的类型
+	ResourceType *string `json:"resource_type,omitempty"` // 工作表类型
 
-	Merges []*MergeRange `json:"merges,omitempty"` // 合并单元格的相关信息
+	Merges []*MergeRange `json:"merges,omitempty"` //
 }
 
 type SheetBuilder struct {
@@ -4768,16 +4762,16 @@ type SheetBuilder struct {
 	index    int // 工作表索引位置，索引从 0 开始计数。
 	indexSet bool
 
-	hidden    bool // 工作表是否被隐藏;- `true`：表示被隐藏;- `false`：表示未被隐藏
+	hidden    bool // 工作表是否被隐藏
 	hiddenSet bool
 
 	gridProperties    *GridProperties // 单元格属性
 	gridPropertiesSet bool
 
-	resourceType    string // 工作表类型;- `sheet`：工作表;- `bitable`：多维表格，[多维表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview);- `#UNSUPPORTED_TYPE`：不支持的类型
+	resourceType    string // 工作表类型
 	resourceTypeSet bool
 
-	merges    []*MergeRange // 合并单元格的相关信息
+	merges    []*MergeRange //
 	mergesSet bool
 }
 
@@ -4797,7 +4791,7 @@ func (builder *SheetBuilder) SheetId(sheetId string) *SheetBuilder {
 
 // 工作表标题
 //
-// 示例值：title
+// 示例值：Sheet1
 func (builder *SheetBuilder) Title(title string) *SheetBuilder {
 	builder.title = title
 	builder.titleSet = true
@@ -4813,7 +4807,7 @@ func (builder *SheetBuilder) Index(index int) *SheetBuilder {
 	return builder
 }
 
-// 工作表是否被隐藏;- `true`：表示被隐藏;- `false`：表示未被隐藏
+// 工作表是否被隐藏
 //
 // 示例值：false
 func (builder *SheetBuilder) Hidden(hidden bool) *SheetBuilder {
@@ -4831,7 +4825,7 @@ func (builder *SheetBuilder) GridProperties(gridProperties *GridProperties) *She
 	return builder
 }
 
-// 工作表类型;- `sheet`：工作表;- `bitable`：多维表格，[多维表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview);- `#UNSUPPORTED_TYPE`：不支持的类型
+// 工作表类型
 //
 // 示例值：sheet
 func (builder *SheetBuilder) ResourceType(resourceType string) *SheetBuilder {
@@ -4840,8 +4834,6 @@ func (builder *SheetBuilder) ResourceType(resourceType string) *SheetBuilder {
 	return builder
 }
 
-// 合并单元格的相关信息
-//
 // 示例值：
 func (builder *SheetBuilder) Merges(merges []*MergeRange) *SheetBuilder {
 	builder.merges = merges
@@ -4881,21 +4873,21 @@ func (builder *SheetBuilder) Build() *Sheet {
 }
 
 type SheetFilterInfo struct {
-	Range *string `json:"range,omitempty"` // 筛选应用范围
+	Range *string `json:"range,omitempty"` // 筛选的应用范围
 
-	FilteredOutRows []int `json:"filtered_out_rows,omitempty"` // 筛选出来隐藏的行
+	FilteredOutRows []int `json:"filtered_out_rows,omitempty"` // 被筛选条件过滤掉的行。从 1 开始索引。
 
-	FilterInfos []*FilterInfo `json:"filter_infos,omitempty"` // sheet的筛选条件
+	FilterInfos []*FilterInfo `json:"filter_infos,omitempty"` // 工作表的筛选条件
 }
 
 type SheetFilterInfoBuilder struct {
-	range_    string // 筛选应用范围
+	range_    string // 筛选的应用范围
 	range_Set bool
 
-	filteredOutRows    []int // 筛选出来隐藏的行
+	filteredOutRows    []int // 被筛选条件过滤掉的行。从 1 开始索引。
 	filteredOutRowsSet bool
 
-	filterInfos    []*FilterInfo // sheet的筛选条件
+	filterInfos    []*FilterInfo // 工作表的筛选条件
 	filterInfosSet bool
 }
 
@@ -4904,16 +4896,16 @@ func NewSheetFilterInfoBuilder() *SheetFilterInfoBuilder {
 	return builder
 }
 
-// 筛选应用范围
+// 筛选的应用范围
 //
-// 示例值：xxxxxx!A1:H14
+// 示例值：8fe9d6!A1:H14
 func (builder *SheetFilterInfoBuilder) Range(range_ string) *SheetFilterInfoBuilder {
 	builder.range_ = range_
 	builder.range_Set = true
 	return builder
 }
 
-// 筛选出来隐藏的行
+// 被筛选条件过滤掉的行。从 1 开始索引。
 //
 // 示例值：
 func (builder *SheetFilterInfoBuilder) FilteredOutRows(filteredOutRows []int) *SheetFilterInfoBuilder {
@@ -4922,7 +4914,7 @@ func (builder *SheetFilterInfoBuilder) FilteredOutRows(filteredOutRows []int) *S
 	return builder
 }
 
-// sheet的筛选条件
+// 工作表的筛选条件
 //
 // 示例值：
 func (builder *SheetFilterInfoBuilder) FilterInfos(filterInfos []*FilterInfo) *SheetFilterInfoBuilder {
@@ -5119,11 +5111,11 @@ func (builder *SingleOptionBuilder) Build() *SingleOption {
 type Spreadsheet struct {
 	Title *string `json:"title,omitempty"` // 表格标题
 
-	FolderToken *string `json:"folder_token,omitempty"` // 文件夹token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
+	FolderToken *string `json:"folder_token,omitempty"` // 文件夹 token。你可通过以下两种方式获取文件夹的 token：;- 文件夹的 URL：https://sample.feishu.cn/drive/folder/==fldbcO1UuPz8VwnpPx5a92abcef==;- 调用开放平台接口获取：; - 调用[获取我的空间（root folder）元数据](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/get-root-folder-meta)接口获取根目录（即根文件夹）的 token。; - 继续调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)接口，获取根目录下文件夹的 token。;;;**提示**：要在知识库中创建电子表格，你需调用[创建知识空间节点](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/create)接口，并选择表格（sheet）类型。
 
-	Url *string `json:"url,omitempty"` // 文档url
+	Url *string `json:"url,omitempty"` // 电子表格的 URL 链接
 
-	SpreadsheetToken *string `json:"spreadsheet_token,omitempty"` // 表格token
+	SpreadsheetToken *string `json:"spreadsheet_token,omitempty"` // 电子表格 token
 
 	WithoutMount *bool `json:"without_mount,omitempty"` // 是否挂载到云空间
 }
@@ -5132,13 +5124,13 @@ type SpreadsheetBuilder struct {
 	title    string // 表格标题
 	titleSet bool
 
-	folderToken    string // 文件夹token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
+	folderToken    string // 文件夹 token。你可通过以下两种方式获取文件夹的 token：;- 文件夹的 URL：https://sample.feishu.cn/drive/folder/==fldbcO1UuPz8VwnpPx5a92abcef==;- 调用开放平台接口获取：; - 调用[获取我的空间（root folder）元数据](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/get-root-folder-meta)接口获取根目录（即根文件夹）的 token。; - 继续调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)接口，获取根目录下文件夹的 token。;;;**提示**：要在知识库中创建电子表格，你需调用[创建知识空间节点](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/create)接口，并选择表格（sheet）类型。
 	folderTokenSet bool
 
-	url    string // 文档url
+	url    string // 电子表格的 URL 链接
 	urlSet bool
 
-	spreadsheetToken    string // 表格token
+	spreadsheetToken    string // 电子表格 token
 	spreadsheetTokenSet bool
 
 	withoutMount    bool // 是否挂载到云空间
@@ -5152,34 +5144,34 @@ func NewSpreadsheetBuilder() *SpreadsheetBuilder {
 
 // 表格标题
 //
-// 示例值：title
+// 示例值：Sales sheet
 func (builder *SpreadsheetBuilder) Title(title string) *SpreadsheetBuilder {
 	builder.title = title
 	builder.titleSet = true
 	return builder
 }
 
-// 文件夹token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
+// 文件夹 token。你可通过以下两种方式获取文件夹的 token：;- 文件夹的 URL：https://sample.feishu.cn/drive/folder/==fldbcO1UuPz8VwnpPx5a92abcef==;- 调用开放平台接口获取：; - 调用[获取我的空间（root folder）元数据](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/get-root-folder-meta)接口获取根目录（即根文件夹）的 token。; - 继续调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)接口，获取根目录下文件夹的 token。;;;**提示**：要在知识库中创建电子表格，你需调用[创建知识空间节点](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/create)接口，并选择表格（sheet）类型。
 //
-// 示例值：fldcnMsNb*****hIW9IjG1LVswg
+// 示例值：fldbcO1UuPz8VwnpPx5a92abcef
 func (builder *SpreadsheetBuilder) FolderToken(folderToken string) *SpreadsheetBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenSet = true
 	return builder
 }
 
-// 文档url
+// 电子表格的 URL 链接
 //
-// 示例值：https://bytedance.feishu.cn/sheets/shtcnmBA*****yGehy8
+// 示例值：https://example.feishu.cn/sheets/Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *SpreadsheetBuilder) Url(url string) *SpreadsheetBuilder {
 	builder.url = url
 	builder.urlSet = true
 	return builder
 }
 
-// 表格token
+// 电子表格 token
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *SpreadsheetBuilder) SpreadsheetToken(spreadsheetToken string) *SpreadsheetBuilder {
 	builder.spreadsheetToken = spreadsheetToken
 	builder.spreadsheetTokenSet = true
@@ -5303,14 +5295,14 @@ func (builder *StyleRangesBuilder) Build() *StyleRanges {
 type Text struct {
 	Text *string `json:"text,omitempty"` // 文本值
 
-	SegmentStyle *SegmentStyle `json:"segment_style,omitempty"` //
+	SegmentStyle *SegmentStyle `json:"segment_style,omitempty"` // -
 }
 
 type TextBuilder struct {
 	text    string // 文本值
 	textSet bool
 
-	segmentStyle    *SegmentStyle //
+	segmentStyle    *SegmentStyle // -
 	segmentStyleSet bool
 }
 
@@ -5328,7 +5320,7 @@ func (builder *TextBuilder) Text(text string) *TextBuilder {
 	return builder
 }
 
-//
+// -
 //
 // 示例值：
 func (builder *TextBuilder) SegmentStyle(segmentStyle *SegmentStyle) *TextBuilder {
@@ -5400,13 +5392,13 @@ func (builder *TopBorderStyleBuilder) Build() *TopBorderStyle {
 }
 
 type UpdateDimensionProperties struct {
-	DimensionRange *Dimension `json:"dimension_range,omitempty"` // 需要更新的行列信息
+	DimensionRange *Dimension `json:"dimension_range,omitempty"` // 行列操作的维度
 
 	Properties *DimensionProperties `json:"properties,omitempty"` // 更新的属性
 }
 
 type UpdateDimensionPropertiesBuilder struct {
-	dimensionRange    *Dimension // 需要更新的行列信息
+	dimensionRange    *Dimension // 行列操作的维度
 	dimensionRangeSet bool
 
 	properties    *DimensionProperties // 更新的属性
@@ -5418,7 +5410,7 @@ func NewUpdateDimensionPropertiesBuilder() *UpdateDimensionPropertiesBuilder {
 	return builder
 }
 
-// 需要更新的行列信息
+// 行列操作的维度
 //
 // 示例值：
 func (builder *UpdateDimensionPropertiesBuilder) DimensionRange(dimensionRange *Dimension) *UpdateDimensionPropertiesBuilder {
@@ -5498,16 +5490,16 @@ func (builder *UpdateGridPropertiesBuilder) Build() *UpdateGridProperties {
 }
 
 type UpdateSheetFilter struct {
-	Col *string `json:"col,omitempty"` // 更新筛选条件的列
+	Col *string `json:"col,omitempty"` // 指定要更新筛选条件的列。
 
-	Condition *Condition `json:"condition,omitempty"` // 筛选条件
+	Condition *Condition `json:"condition,omitempty"` // 设置筛选条件。
 }
 
 type UpdateSheetFilterBuilder struct {
-	col    string // 更新筛选条件的列
+	col    string // 指定要更新筛选条件的列。
 	colSet bool
 
-	condition    *Condition // 筛选条件
+	condition    *Condition // 设置筛选条件。
 	conditionSet bool
 }
 
@@ -5516,16 +5508,16 @@ func NewUpdateSheetFilterBuilder() *UpdateSheetFilterBuilder {
 	return builder
 }
 
-// 更新筛选条件的列
+// 指定要更新筛选条件的列。
 //
-// 示例值：E
+// 示例值：G
 func (builder *UpdateSheetFilterBuilder) Col(col string) *UpdateSheetFilterBuilder {
 	builder.col = col
 	builder.colSet = true
 	return builder
 }
 
-// 筛选条件
+// 设置筛选条件。
 //
 // 示例值：
 func (builder *UpdateSheetFilterBuilder) Condition(condition *Condition) *UpdateSheetFilterBuilder {
@@ -5547,11 +5539,11 @@ func (builder *UpdateSheetFilterBuilder) Build() *UpdateSheetFilter {
 }
 
 type UpdateSpreadsheetProperties struct {
-	Title *string `json:"title,omitempty"` // 表格标题
+	Title *string `json:"title,omitempty"` // 新的电子表格标题。参数为空时，表格标题将显示为“未命名表格”或本地语言环境对应内容。
 }
 
 type UpdateSpreadsheetPropertiesBuilder struct {
-	title    string // 表格标题
+	title    string // 新的电子表格标题。参数为空时，表格标题将显示为“未命名表格”或本地语言环境对应内容。
 	titleSet bool
 }
 
@@ -5560,9 +5552,9 @@ func NewUpdateSpreadsheetPropertiesBuilder() *UpdateSpreadsheetPropertiesBuilder
 	return builder
 }
 
-// 表格标题
+// 新的电子表格标题。参数为空时，表格标题将显示为“未命名表格”或本地语言环境对应内容。
 //
-// 示例值：title
+// 示例值：Sales sheet
 func (builder *UpdateSpreadsheetPropertiesBuilder) Title(title string) *UpdateSpreadsheetPropertiesBuilder {
 	builder.title = title
 	builder.titleSet = true
@@ -5581,14 +5573,14 @@ func (builder *UpdateSpreadsheetPropertiesBuilder) Build() *UpdateSpreadsheetPro
 type Value struct {
 	Range *string `json:"range,omitempty"` // 范围
 
-	Values [][][]*CellValue `json:"values,omitempty"` // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+	Values [][][]*CellValue `json:"values,omitempty"` // 数据
 }
 
 type ValueBuilder struct {
 	range_    string // 范围
 	range_Set bool
 
-	values    [][][]*CellValue // 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+	values    [][][]*CellValue // 数据
 	valuesSet bool
 }
 
@@ -5606,9 +5598,9 @@ func (builder *ValueBuilder) Range(range_ string) *ValueBuilder {
 	return builder
 }
 
-// 数据，数据结构参见[单元格数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-value/cell-data-structure)
+// 数据
 //
-// 示例值：[]
+// 示例值：
 func (builder *ValueBuilder) Values(values [][][]*CellValue) *ValueBuilder {
 	builder.values = values
 	builder.valuesSet = true
@@ -5643,7 +5635,7 @@ func NewValueElementBuilder() *ValueElementBuilder {
 
 // 整型或浮点型数值
 //
-// 示例值：
+// 示例值：-
 func (builder *ValueElementBuilder) Value(value string) *ValueElementBuilder {
 	builder.value = value
 	builder.valueSet = true
@@ -5723,7 +5715,7 @@ func NewCreateSpreadsheetReqBuilder() *CreateSpreadsheetReqBuilder {
 	return builder
 }
 
-// 在指定目录下创建表格
+// 在云空间指定目录下创建电子表格。可自定义表格标题。不支持带内容创建表格。
 func (builder *CreateSpreadsheetReqBuilder) Spreadsheet(spreadsheet *Spreadsheet) *CreateSpreadsheetReqBuilder {
 	builder.spreadsheet = spreadsheet
 	return builder
@@ -5742,7 +5734,7 @@ type CreateSpreadsheetReq struct {
 }
 
 type CreateSpreadsheetRespData struct {
-	Spreadsheet *Spreadsheet `json:"spreadsheet,omitempty"` // 表格
+	Spreadsheet *Spreadsheet `json:"spreadsheet,omitempty"` // 电子表格的基础信息
 }
 
 type CreateSpreadsheetResp struct {
@@ -5768,9 +5760,9 @@ func NewGetSpreadsheetReqBuilder() *GetSpreadsheetReqBuilder {
 	return builder
 }
 
-// 表格的token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtxxxxxxxxxxxxxxx
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *GetSpreadsheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
@@ -5797,7 +5789,7 @@ type GetSpreadsheetReq struct {
 }
 
 type GetSpreadsheetRespData struct {
-	Spreadsheet *GetSpreadsheet `json:"spreadsheet,omitempty"` // 电子表格属性
+	Spreadsheet *GetSpreadsheet `json:"spreadsheet,omitempty"` // 电子表格的基础信息
 }
 
 type GetSpreadsheetResp struct {
@@ -5824,15 +5816,15 @@ func NewPatchSpreadsheetReqBuilder() *PatchSpreadsheetReqBuilder {
 	return builder
 }
 
-// 表格的token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtxxxxxxxxxxxxxxx
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *PatchSpreadsheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *PatchSpreadsheetReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 该接口用于修改电子表格的属性
+// 该接口用于修改电子表格的属性。目前支持修改电子表格标题。
 func (builder *PatchSpreadsheetReqBuilder) UpdateSpreadsheetProperties(updateSpreadsheetProperties *UpdateSpreadsheetProperties) *PatchSpreadsheetReqBuilder {
 	builder.updateSpreadsheetProperties = updateSpreadsheetProperties
 	return builder
@@ -5874,17 +5866,17 @@ func NewFindSpreadsheetSheetReqBuilder() *FindSpreadsheetSheetReqBuilder {
 	return builder
 }
 
-// 表格的token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *FindSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *FindSpreadsheetSheetReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 工作表的id，获取方式见[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)
+// 工作表的 ID，获取方式见[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)。
 //
-// 示例值：0b**12
+// 示例值：PNIfrm
 func (builder *FindSpreadsheetSheetReqBuilder) SheetId(sheetId string) *FindSpreadsheetSheetReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
@@ -5936,15 +5928,15 @@ func NewGetSpreadsheetSheetReqBuilder() *GetSpreadsheetSheetReqBuilder {
 	return builder
 }
 
-// 表格的token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtxxxxxxxxxxxxxxx
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *GetSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 工作表的id，获取方式见[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)
+// 工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。
 //
 // 示例值：giDk9k
 func (builder *GetSpreadsheetSheetReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetReqBuilder {
@@ -5991,23 +5983,23 @@ func NewMoveDimensionSpreadsheetSheetReqBuilder() *MoveDimensionSpreadsheetSheet
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA\*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *MoveDimensionSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *MoveDimensionSpreadsheetSheetReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID
 //
-// 示例值：0b\**12
+// 示例值：2jm6f6
 func (builder *MoveDimensionSpreadsheetSheetReqBuilder) SheetId(sheetId string) *MoveDimensionSpreadsheetSheetReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 该接口用于移动行列，行列被移动到目标位置后，原本在目标位置的行列会对应右移或下移。
+// 该接口用于移动行或列。行或列被移动到目标位置后，原本在目标位置的行列会对应右移或下移。
 func (builder *MoveDimensionSpreadsheetSheetReqBuilder) MoveDimension(moveDimension *MoveDimension) *MoveDimensionSpreadsheetSheetReqBuilder {
 	builder.moveDimension = moveDimension
 	return builder
@@ -6048,9 +6040,9 @@ func NewQuerySpreadsheetSheetReqBuilder() *QuerySpreadsheetSheetReqBuilder {
 	return builder
 }
 
-// 电子表格的token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtxxxxxxxxxxxxxxxx
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *QuerySpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
@@ -6095,23 +6087,23 @@ func NewReplaceSpreadsheetSheetReqBuilder() *ReplaceSpreadsheetSheetReqBuilder {
 	return builder
 }
 
-// Spreadsheet token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *ReplaceSpreadsheetSheetReqBuilder) SpreadsheetToken(spreadsheetToken string) *ReplaceSpreadsheetSheetReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// Sheet id
+// 工作表的 ID，获取方式见[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)。
 //
-// 示例值：0b**12
+// 示例值：PNIfrm
 func (builder *ReplaceSpreadsheetSheetReqBuilder) SheetId(sheetId string) *ReplaceSpreadsheetSheetReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 按照指定的条件查找子表的某个范围内的数据符合条件的单元格并替换值，返回替换成功的单元格位置。一次请求最多允许替换5000个单元格，如果超过请将range缩小范围再操作。请求体中的 range、find、replaccement 字段必填。
+// 在指定范围内，查找并替换符合查找条件的单元格。
 func (builder *ReplaceSpreadsheetSheetReqBuilder) Replace(replace *Replace) *ReplaceSpreadsheetSheetReqBuilder {
 	builder.replace = replace
 	return builder
@@ -6158,23 +6150,23 @@ func NewCreateSpreadsheetSheetFilterReqBuilder() *CreateSpreadsheetSheetFilterRe
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA\*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *CreateSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFilterReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。
 //
-// 示例值：0b\**12
+// 示例值：8fe9d6
 func (builder *CreateSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFilterReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 在子表内创建筛选。
+// 在电子表格工作表的指定范围内，设置筛选条件，创建筛选。
 func (builder *CreateSpreadsheetSheetFilterReqBuilder) CreateSheetFilter(createSheetFilter *CreateSheetFilter) *CreateSpreadsheetSheetFilterReqBuilder {
 	builder.createSheetFilter = createSheetFilter
 	return builder
@@ -6215,17 +6207,17 @@ func NewDeleteSpreadsheetSheetFilterReqBuilder() *DeleteSpreadsheetSheetFilterRe
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA\*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *DeleteSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFilterReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。
 //
-// 示例值：0b\**12
+// 示例值：8fe9d6
 func (builder *DeleteSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFilterReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
@@ -6264,17 +6256,17 @@ func NewGetSpreadsheetSheetFilterReqBuilder() *GetSpreadsheetSheetFilterReqBuild
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA\*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *GetSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFilterReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。
 //
-// 示例值：0b\**12
+// 示例值：8fe9d6
 func (builder *GetSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFilterReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
@@ -6319,23 +6311,23 @@ func NewUpdateSpreadsheetSheetFilterReqBuilder() *UpdateSpreadsheetSheetFilterRe
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA\*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *UpdateSpreadsheetSheetFilterReqBuilder) SpreadsheetToken(spreadsheetToken string) *UpdateSpreadsheetSheetFilterReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。
 //
-// 示例值：0b\**12
+// 示例值：8fe9d6
 func (builder *UpdateSpreadsheetSheetFilterReqBuilder) SheetId(sheetId string) *UpdateSpreadsheetSheetFilterReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 更新子表筛选范围中的列筛选条件。
+// 在电子表格工作表筛选范围中，更新指定列的筛选条件。
 func (builder *UpdateSpreadsheetSheetFilterReqBuilder) UpdateSheetFilter(updateSheetFilter *UpdateSheetFilter) *UpdateSpreadsheetSheetFilterReqBuilder {
 	builder.updateSheetFilter = updateSheetFilter
 	return builder
@@ -6377,23 +6369,23 @@ func NewCreateSpreadsheetSheetFilterViewReqBuilder() *CreateSpreadsheetSheetFilt
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFilterViewReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。
 //
-// 示例值：0b**12
+// 示例值：8fe9d6
 func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFilterViewReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 根据传入的参数创建一个筛选视图。Id 和 名字可选，不填的话会默认生成；range 必填。Id 长度为10，由 0-9、a-z、A-Z 组合生成。名字长度不超过100。单个子表内的筛选视图个数不超过 150。
+// 指定电子表格工作表的筛选范围，创建一个筛选视图。
 func (builder *CreateSpreadsheetSheetFilterViewReqBuilder) FilterView(filterView *FilterView) *CreateSpreadsheetSheetFilterViewReqBuilder {
 	builder.filterView = filterView
 	return builder
@@ -6413,7 +6405,7 @@ type CreateSpreadsheetSheetFilterViewReq struct {
 }
 
 type CreateSpreadsheetSheetFilterViewRespData struct {
-	FilterView *FilterView `json:"filter_view,omitempty"` // 创建的筛选视图的 id 、name、range
+	FilterView *FilterView `json:"filter_view,omitempty"` // 创建的筛选视图的信息
 }
 
 type CreateSpreadsheetSheetFilterViewResp struct {
@@ -6439,23 +6431,23 @@ func NewDeleteSpreadsheetSheetFilterViewReqBuilder() *DeleteSpreadsheetSheetFilt
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *DeleteSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFilterViewReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。
 //
-// 示例值：0b**12
+// 示例值：8fe9d6
 func (builder *DeleteSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFilterViewReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 筛选视图 id
+// 筛选视图 ID。通过[查询筛选视图](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/query)获取。
 //
 // 示例值：pH9hbVcCXA
 func (builder *DeleteSpreadsheetSheetFilterViewReqBuilder) FilterViewId(filterViewId string) *DeleteSpreadsheetSheetFilterViewReqBuilder {
@@ -6496,23 +6488,23 @@ func NewGetSpreadsheetSheetFilterViewReqBuilder() *GetSpreadsheetSheetFilterView
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *GetSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFilterViewReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。
 //
-// 示例值：0b**12
+// 示例值：8fe9d6
 func (builder *GetSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFilterViewReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 筛选视图 id
+// 筛选视图 ID。通过[查询筛选视图](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/query)获取。
 //
 // 示例值：pH9hbVcCXA
 func (builder *GetSpreadsheetSheetFilterViewReqBuilder) FilterViewId(filterViewId string) *GetSpreadsheetSheetFilterViewReqBuilder {
@@ -6532,7 +6524,7 @@ type GetSpreadsheetSheetFilterViewReq struct {
 }
 
 type GetSpreadsheetSheetFilterViewRespData struct {
-	FilterView *FilterView `json:"filter_view,omitempty"` // 筛选视图信息，包括 id、name、range
+	FilterView *FilterView `json:"filter_view,omitempty"` // 筛选视图的信息
 }
 
 type GetSpreadsheetSheetFilterViewResp struct {
@@ -6559,23 +6551,23 @@ func NewPatchSpreadsheetSheetFilterViewReqBuilder() *PatchSpreadsheetSheetFilter
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *PatchSpreadsheetSheetFilterViewReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。
 //
-// 示例值：0b**12
+// 示例值：8fe9d6
 func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *PatchSpreadsheetSheetFilterViewReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 筛选视图 id
+// 筛选视图 ID。通过[查询筛选视图](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/query)获取。
 //
 // 示例值：pH9hbVcCXA
 func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) FilterViewId(filterViewId string) *PatchSpreadsheetSheetFilterViewReqBuilder {
@@ -6583,7 +6575,7 @@ func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) FilterViewId(filterVie
 	return builder
 }
 
-// 更新筛选视图的名字或者筛选范围。名字长度不超过100，不能重复即子表内唯一；筛选范围不超过子表的最大范围。
+// 更新筛选视图的名称或筛选范围。
 func (builder *PatchSpreadsheetSheetFilterViewReqBuilder) FilterView(filterView *FilterView) *PatchSpreadsheetSheetFilterViewReqBuilder {
 	builder.filterView = filterView
 	return builder
@@ -6603,7 +6595,7 @@ type PatchSpreadsheetSheetFilterViewReq struct {
 }
 
 type PatchSpreadsheetSheetFilterViewRespData struct {
-	FilterView *FilterView `json:"filter_view,omitempty"` // 更新后的筛选视图的 id 、name、range
+	FilterView *FilterView `json:"filter_view,omitempty"` // 更新后的筛选视图的信息
 }
 
 type PatchSpreadsheetSheetFilterViewResp struct {
@@ -6629,17 +6621,17 @@ func NewQuerySpreadsheetSheetFilterViewReqBuilder() *QuerySpreadsheetSheetFilter
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *QuerySpreadsheetSheetFilterViewReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetFilterViewReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。
 //
-// 示例值：0b**12
+// 示例值：8fe9d6
 func (builder *QuerySpreadsheetSheetFilterViewReqBuilder) SheetId(sheetId string) *QuerySpreadsheetSheetFilterViewReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
@@ -6657,7 +6649,7 @@ type QuerySpreadsheetSheetFilterViewReq struct {
 }
 
 type QuerySpreadsheetSheetFilterViewRespData struct {
-	Items []*FilterView `json:"items,omitempty"` // 子表的所有筛选视图信息，id、name、range
+	Items []*FilterView `json:"items,omitempty"` // 筛选视图及其基本信息
 }
 
 type QuerySpreadsheetSheetFilterViewResp struct {
@@ -6684,23 +6676,23 @@ func NewCreateSpreadsheetSheetFilterViewConditionReqBuilder() *CreateSpreadsheet
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFilterViewConditionReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。
 //
-// 示例值：0b**12
+// 示例值：8fe9d6
 func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFilterViewConditionReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 筛选视图 id
+// 筛选视图 ID。通过[查询筛选视图](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/query)获取。
 //
 // 示例值：pH9hbVcCXA
 func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *CreateSpreadsheetSheetFilterViewConditionReqBuilder {
@@ -6708,7 +6700,7 @@ func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId
 	return builder
 }
 
-// 在筛选视图的筛选范围的某一列创建筛选条件。
+// 在筛选视图的指定列创建筛选条件，包括筛选的类型、比较类型、筛选参数等。
 func (builder *CreateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewCondition(filterViewCondition *FilterViewCondition) *CreateSpreadsheetSheetFilterViewConditionReqBuilder {
 	builder.filterViewCondition = filterViewCondition
 	return builder
@@ -6754,23 +6746,23 @@ func NewDeleteSpreadsheetSheetFilterViewConditionReqBuilder() *DeleteSpreadsheet
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。
 //
-// 示例值：0b**12
+// 示例值：8fe9d6
 func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 筛选视图 id
+// 筛选视图 ID。通过[查询筛选视图](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/query)获取。
 //
 // 示例值：pH9hbVcCXA
 func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder {
@@ -6778,7 +6770,7 @@ func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId
 	return builder
 }
 
-// 筛选范围内的某列字母号
+// 要删除所有筛选条件的列，用字母表示。
 //
 // 示例值：E
 func (builder *DeleteSpreadsheetSheetFilterViewConditionReqBuilder) ConditionId(conditionId string) *DeleteSpreadsheetSheetFilterViewConditionReqBuilder {
@@ -6819,23 +6811,23 @@ func NewGetSpreadsheetSheetFilterViewConditionReqBuilder() *GetSpreadsheetSheetF
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFilterViewConditionReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。
 //
-// 示例值：0b**12
+// 示例值：8fe9d6
 func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFilterViewConditionReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 筛选视图 id
+// 筛选视图 ID。通过[查询筛选视图](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/query)获取。
 //
 // 示例值：pH9hbVcCXA
 func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *GetSpreadsheetSheetFilterViewConditionReqBuilder {
@@ -6843,7 +6835,7 @@ func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(fi
 	return builder
 }
 
-// 需要查询筛选条件的列字母号
+// 要查询的筛选视图的列
 //
 // 示例值：E
 func (builder *GetSpreadsheetSheetFilterViewConditionReqBuilder) ConditionId(conditionId string) *GetSpreadsheetSheetFilterViewConditionReqBuilder {
@@ -6863,7 +6855,7 @@ type GetSpreadsheetSheetFilterViewConditionReq struct {
 }
 
 type GetSpreadsheetSheetFilterViewConditionRespData struct {
-	Condition *FilterViewCondition `json:"condition,omitempty"` // 筛选的条件
+	Condition *FilterViewCondition `json:"condition,omitempty"` // 指定列的筛选条件信息
 }
 
 type GetSpreadsheetSheetFilterViewConditionResp struct {
@@ -6889,23 +6881,23 @@ func NewQuerySpreadsheetSheetFilterViewConditionReqBuilder() *QuerySpreadsheetSh
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *QuerySpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetFilterViewConditionReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。
 //
-// 示例值：0b**12
+// 示例值：8fe9d6
 func (builder *QuerySpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *QuerySpreadsheetSheetFilterViewConditionReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 筛选视图 id
+// 筛选视图 ID。通过[查询筛选视图](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/query)获取。
 //
 // 示例值：pH9hbVcCXA
 func (builder *QuerySpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *QuerySpreadsheetSheetFilterViewConditionReqBuilder {
@@ -6925,7 +6917,7 @@ type QuerySpreadsheetSheetFilterViewConditionReq struct {
 }
 
 type QuerySpreadsheetSheetFilterViewConditionRespData struct {
-	Items []*FilterViewCondition `json:"items,omitempty"` // 筛选视图设置的所有筛选条件
+	Items []*FilterViewCondition `json:"items,omitempty"` // 筛选视图的所有筛选条件
 }
 
 type QuerySpreadsheetSheetFilterViewConditionResp struct {
@@ -6952,23 +6944,23 @@ func NewUpdateSpreadsheetSheetFilterViewConditionReqBuilder() *UpdateSpreadsheet
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) SpreadsheetToken(spreadsheetToken string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 工作表 ID，通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。
 //
-// 示例值：0b**12
+// 示例值：8fe9d6
 func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) SheetId(sheetId string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 筛选视图 id
+// 筛选视图 ID。通过[查询筛选视图](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/query)获取。
 //
 // 示例值：pH9hbVcCXA
 func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId(filterViewId string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
@@ -6976,7 +6968,7 @@ func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewId
 	return builder
 }
 
-// 列字母号
+// 要更新的筛选视图的列的索引，用字母表示
 //
 // 示例值：E
 func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) ConditionId(conditionId string) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
@@ -6984,7 +6976,7 @@ func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) ConditionId(
 	return builder
 }
 
-// 更新筛选视图范围的某列的筛选条件，condition id 即为列的字母号。
+// 更新筛选视图指定列的筛选条件，包括筛选的类型、比较类型、筛选参数等。
 func (builder *UpdateSpreadsheetSheetFilterViewConditionReqBuilder) FilterViewCondition(filterViewCondition *FilterViewCondition) *UpdateSpreadsheetSheetFilterViewConditionReqBuilder {
 	builder.filterViewCondition = filterViewCondition
 	return builder
@@ -7031,23 +7023,23 @@ func NewCreateSpreadsheetSheetFloatImageReqBuilder() *CreateSpreadsheetSheetFloa
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *CreateSpreadsheetSheetFloatImageReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。
 //
-// 示例值：0b**12
+// 示例值：0beg12
 func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *CreateSpreadsheetSheetFloatImageReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 根据传入的参数创建一张浮动图片。Float_image_token （[上传图片至表格后得到](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)）和range（只支持一个单元格） 必填。Float_image_id 可选，不填的话会默认生成，长度为10，由 0-9、a-z、A-Z 组合生成。表格内不重复的图片（浮动图片+单元格图片）总数不超过4000。width 和 height 为图片展示的宽高，可选，不填的话会使用图片的真实宽高。offset_x 和 offset_y 为图片左上角距离所在单元格左上角的偏移，可选，默认为 0。
+// 在电子表格工作表的指定位置创建一张浮动图片。
 func (builder *CreateSpreadsheetSheetFloatImageReqBuilder) FloatImage(floatImage *FloatImage) *CreateSpreadsheetSheetFloatImageReqBuilder {
 	builder.floatImage = floatImage
 	return builder
@@ -7067,7 +7059,7 @@ type CreateSpreadsheetSheetFloatImageReq struct {
 }
 
 type CreateSpreadsheetSheetFloatImageRespData struct {
-	FloatImage *FloatImage `json:"float_image,omitempty"` // 浮动图片返回值
+	FloatImage *FloatImage `json:"float_image,omitempty"` // 浮动图片的相关参数
 }
 
 type CreateSpreadsheetSheetFloatImageResp struct {
@@ -7093,23 +7085,23 @@ func NewDeleteSpreadsheetSheetFloatImageReqBuilder() *DeleteSpreadsheetSheetFloa
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list);
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *DeleteSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *DeleteSpreadsheetSheetFloatImageReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。
 //
-// 示例值：0b**12
+// 示例值：0beg12
 func (builder *DeleteSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *DeleteSpreadsheetSheetFloatImageReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 浮动图片 id
+// 工作表内浮动图片的唯一标识。通过[查询浮动图片](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/query)接口获取。
 //
 // 示例值：ye06SS14ph
 func (builder *DeleteSpreadsheetSheetFloatImageReqBuilder) FloatImageId(floatImageId string) *DeleteSpreadsheetSheetFloatImageReqBuilder {
@@ -7150,23 +7142,23 @@ func NewGetSpreadsheetSheetFloatImageReqBuilder() *GetSpreadsheetSheetFloatImage
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *GetSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *GetSpreadsheetSheetFloatImageReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。
 //
-// 示例值：0b**12
+// 示例值：0beg12
 func (builder *GetSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *GetSpreadsheetSheetFloatImageReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 浮动图片 id
+// 工作表内浮动图片的唯一标识。通过[查询浮动图片](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/query)接口获取。
 //
 // 示例值：ye06SS14ph
 func (builder *GetSpreadsheetSheetFloatImageReqBuilder) FloatImageId(floatImageId string) *GetSpreadsheetSheetFloatImageReqBuilder {
@@ -7186,7 +7178,7 @@ type GetSpreadsheetSheetFloatImageReq struct {
 }
 
 type GetSpreadsheetSheetFloatImageRespData struct {
-	FloatImage *FloatImage `json:"float_image,omitempty"` // 浮动图片信息
+	FloatImage *FloatImage `json:"float_image,omitempty"` // 浮动图片的相关参数
 }
 
 type GetSpreadsheetSheetFloatImageResp struct {
@@ -7213,23 +7205,23 @@ func NewPatchSpreadsheetSheetFloatImageReqBuilder() *PatchSpreadsheetSheetFloatI
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list);
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *PatchSpreadsheetSheetFloatImageReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。
 //
-// 示例值：0b**12
+// 示例值：0beg12
 func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *PatchSpreadsheetSheetFloatImageReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
 }
 
-// 浮动图片 id
+// 工作表内浮动图片的唯一标识。通过[查询浮动图片](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/query)接口获取。
 //
 // 示例值：ye06SS14ph
 func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) FloatImageId(floatImageId string) *PatchSpreadsheetSheetFloatImageReqBuilder {
@@ -7237,7 +7229,7 @@ func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) FloatImageId(floatImag
 	return builder
 }
 
-// 更新已有的浮动图片位置和宽高，包括 range、width、height、offset_x 和 offset_y，不包括 float_image_id 和 float_image_token。
+// 更新已有的浮动图片位置和宽高。
 func (builder *PatchSpreadsheetSheetFloatImageReqBuilder) FloatImage(floatImage *FloatImage) *PatchSpreadsheetSheetFloatImageReqBuilder {
 	builder.floatImage = floatImage
 	return builder
@@ -7257,7 +7249,7 @@ type PatchSpreadsheetSheetFloatImageReq struct {
 }
 
 type PatchSpreadsheetSheetFloatImageRespData struct {
-	FloatImage *FloatImage `json:"float_image,omitempty"` // 浮动图片信息
+	FloatImage *FloatImage `json:"float_image,omitempty"` // 浮动图片的相关参数
 }
 
 type PatchSpreadsheetSheetFloatImageResp struct {
@@ -7283,17 +7275,17 @@ func NewQuerySpreadsheetSheetFloatImageReqBuilder() *QuerySpreadsheetSheetFloatI
 	return builder
 }
 
-// 表格 token
+// 电子表格的 token。可通过以下两种方式获取。了解更多，参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。;- 电子表格的 URL：https://sample.feishu.cn/sheets/==Iow7sNNEphp3WbtnbCscPqabcef==;- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
-// 示例值：shtcnmBA*****yGehy8
+// 示例值：Iow7sNNEphp3WbtnbCscPqabcef
 func (builder *QuerySpreadsheetSheetFloatImageReqBuilder) SpreadsheetToken(spreadsheetToken string) *QuerySpreadsheetSheetFloatImageReqBuilder {
 	builder.apiReq.PathParams.Set("spreadsheet_token", fmt.Sprint(spreadsheetToken))
 	return builder
 }
 
-// 子表 id
+// 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。
 //
-// 示例值：0b**12
+// 示例值：0beg12
 func (builder *QuerySpreadsheetSheetFloatImageReqBuilder) SheetId(sheetId string) *QuerySpreadsheetSheetFloatImageReqBuilder {
 	builder.apiReq.PathParams.Set("sheet_id", fmt.Sprint(sheetId))
 	return builder
@@ -7311,7 +7303,7 @@ type QuerySpreadsheetSheetFloatImageReq struct {
 }
 
 type QuerySpreadsheetSheetFloatImageRespData struct {
-	Items []*FloatImage `json:"items,omitempty"` // 子表的所有浮动图片信息
+	Items []*FloatImage `json:"items,omitempty"` // 工作表的所有浮动图片信息
 }
 
 type QuerySpreadsheetSheetFloatImageResp struct {

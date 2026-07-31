@@ -46,6 +46,629 @@ const (
 	SourceTypeLarkHelpdesk  = "lark_helpdesk"   // 飞书服务台，只支持直连模式
 )
 
+type Agent struct {
+	Name *string `json:"name,omitempty"` // 名称
+}
+
+type AgentBuilder struct {
+	name    string // 名称
+	nameSet bool
+}
+
+func NewAgentBuilder() *AgentBuilder {
+	builder := &AgentBuilder{}
+	return builder
+}
+
+// 名称
+//
+// 示例值：通用智能体
+func (builder *AgentBuilder) Name(name string) *AgentBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+func (builder *AgentBuilder) Build() *Agent {
+	req := &Agent{}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+type AgentArtifact struct {
+	ArtifactId *string `json:"artifact_id,omitempty"` // 产物id
+
+	Name *string `json:"name,omitempty"` // 名称
+
+	Url *string `json:"url,omitempty"` // 下载URL，24小时内有效
+}
+
+type AgentArtifactBuilder struct {
+	artifactId    string // 产物id
+	artifactIdSet bool
+
+	name    string // 名称
+	nameSet bool
+
+	url    string // 下载URL，24小时内有效
+	urlSet bool
+}
+
+func NewAgentArtifactBuilder() *AgentArtifactBuilder {
+	builder := &AgentArtifactBuilder{}
+	return builder
+}
+
+// 产物id
+//
+// 示例值：artifact_4k6m2dbmrjeqf
+func (builder *AgentArtifactBuilder) ArtifactId(artifactId string) *AgentArtifactBuilder {
+	builder.artifactId = artifactId
+	builder.artifactIdSet = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：cute_kitten.png
+func (builder *AgentArtifactBuilder) Name(name string) *AgentArtifactBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 下载URL，24小时内有效
+//
+// 示例值：https://<bucket>.tos-cn-...volces.com/agent_runtime/artifact/.../dog2.png?X-Tos
+func (builder *AgentArtifactBuilder) Url(url string) *AgentArtifactBuilder {
+	builder.url = url
+	builder.urlSet = true
+	return builder
+}
+
+func (builder *AgentArtifactBuilder) Build() *AgentArtifact {
+	req := &AgentArtifact{}
+	if builder.artifactIdSet {
+		req.ArtifactId = &builder.artifactId
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.urlSet {
+		req.Url = &builder.url
+
+	}
+	return req
+}
+
+type AgentAttachment struct {
+	Name *string `json:"name,omitempty"` // 文件名称
+
+	MimeType *string `json:"mime_type,omitempty"` // 文件类型
+
+	Status *string `json:"status,omitempty"` // 状态
+
+	Url *string `json:"url,omitempty"` // 文件下载url
+}
+
+type AgentAttachmentBuilder struct {
+	name    string // 文件名称
+	nameSet bool
+
+	mimeType    string // 文件类型
+	mimeTypeSet bool
+
+	status    string // 状态
+	statusSet bool
+
+	url    string // 文件下载url
+	urlSet bool
+}
+
+func NewAgentAttachmentBuilder() *AgentAttachmentBuilder {
+	builder := &AgentAttachmentBuilder{}
+	return builder
+}
+
+// 文件名称
+//
+// 示例值：风景.jpg
+func (builder *AgentAttachmentBuilder) Name(name string) *AgentAttachmentBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 文件类型
+//
+// 示例值：image
+func (builder *AgentAttachmentBuilder) MimeType(mimeType string) *AgentAttachmentBuilder {
+	builder.mimeType = mimeType
+	builder.mimeTypeSet = true
+	return builder
+}
+
+// 状态
+//
+// 示例值：uploaded
+func (builder *AgentAttachmentBuilder) Status(status string) *AgentAttachmentBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// 文件下载url
+//
+// 示例值：
+func (builder *AgentAttachmentBuilder) Url(url string) *AgentAttachmentBuilder {
+	builder.url = url
+	builder.urlSet = true
+	return builder
+}
+
+func (builder *AgentAttachmentBuilder) Build() *AgentAttachment {
+	req := &AgentAttachment{}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.mimeTypeSet {
+		req.MimeType = &builder.mimeType
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.urlSet {
+		req.Url = &builder.url
+
+	}
+	return req
+}
+
+type AgentChat struct {
+	AgentId *string `json:"agent_id,omitempty"` // 智能体id
+
+	UserMessage *AgentUserMessage `json:"user_message,omitempty"` // 用户请求对话内容，必填参数
+}
+
+type AgentChatBuilder struct {
+	agentId    string // 智能体id
+	agentIdSet bool
+
+	userMessage    *AgentUserMessage // 用户请求对话内容，必填参数
+	userMessageSet bool
+}
+
+func NewAgentChatBuilder() *AgentChatBuilder {
+	builder := &AgentChatBuilder{}
+	return builder
+}
+
+// 智能体id
+//
+// 示例值：agent_4k4ue29hpwrx2
+func (builder *AgentChatBuilder) AgentId(agentId string) *AgentChatBuilder {
+	builder.agentId = agentId
+	builder.agentIdSet = true
+	return builder
+}
+
+// 用户请求对话内容，必填参数
+//
+// 示例值：
+func (builder *AgentChatBuilder) UserMessage(userMessage *AgentUserMessage) *AgentChatBuilder {
+	builder.userMessage = userMessage
+	builder.userMessageSet = true
+	return builder
+}
+
+func (builder *AgentChatBuilder) Build() *AgentChat {
+	req := &AgentChat{}
+	if builder.agentIdSet {
+		req.AgentId = &builder.agentId
+
+	}
+	if builder.userMessageSet {
+		req.UserMessage = builder.userMessage
+	}
+	return req
+}
+
+type AgentChatMessage struct {
+	Type *string `json:"type,omitempty"` // 类型
+
+	Text *string `json:"text,omitempty"` // 文本内容
+
+	AgentArtifactId *string `json:"agent_artifact_id,omitempty"` // 产物id
+
+	ArtifactType *string `json:"artifact_type,omitempty"` // 产物类型
+}
+
+type AgentChatMessageBuilder struct {
+	type_    string // 类型
+	type_Set bool
+
+	text    string // 文本内容
+	textSet bool
+
+	agentArtifactId    string // 产物id
+	agentArtifactIdSet bool
+
+	artifactType    string // 产物类型
+	artifactTypeSet bool
+}
+
+func NewAgentChatMessageBuilder() *AgentChatMessageBuilder {
+	builder := &AgentChatMessageBuilder{}
+	return builder
+}
+
+// 类型
+//
+// 示例值：text
+func (builder *AgentChatMessageBuilder) Type(type_ string) *AgentChatMessageBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 文本内容
+//
+// 示例值：你好，我是你的专属智能体，请问有什么可以帮你？
+func (builder *AgentChatMessageBuilder) Text(text string) *AgentChatMessageBuilder {
+	builder.text = text
+	builder.textSet = true
+	return builder
+}
+
+// 产物id
+//
+// 示例值：3d058789-6952-4697-bf9c-1add1ebc206e
+func (builder *AgentChatMessageBuilder) AgentArtifactId(agentArtifactId string) *AgentChatMessageBuilder {
+	builder.agentArtifactId = agentArtifactId
+	builder.agentArtifactIdSet = true
+	return builder
+}
+
+// 产物类型
+//
+// 示例值：sandbox_file
+func (builder *AgentChatMessageBuilder) ArtifactType(artifactType string) *AgentChatMessageBuilder {
+	builder.artifactType = artifactType
+	builder.artifactTypeSet = true
+	return builder
+}
+
+func (builder *AgentChatMessageBuilder) Build() *AgentChatMessage {
+	req := &AgentChatMessage{}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.textSet {
+		req.Text = &builder.text
+
+	}
+	if builder.agentArtifactIdSet {
+		req.AgentArtifactId = &builder.agentArtifactId
+
+	}
+	if builder.artifactTypeSet {
+		req.ArtifactType = &builder.artifactType
+
+	}
+	return req
+}
+
+type AgentChatSession struct {
+	SessionId *string `json:"session_id,omitempty"` // 会话ID
+
+	Name *string `json:"name,omitempty"` // 会话名
+
+	Status *string `json:"status,omitempty"` // 会话状态
+
+	CreatedAt *float64 `json:"created_at,omitempty"` // 创建时间
+
+	LastChatAt *float64 `json:"last_chat_at,omitempty"` // 最后一次对话时间
+}
+
+type AgentChatSessionBuilder struct {
+	sessionId    string // 会话ID
+	sessionIdSet bool
+
+	name    string // 会话名
+	nameSet bool
+
+	status    string // 会话状态
+	statusSet bool
+
+	createdAt    float64 // 创建时间
+	createdAtSet bool
+
+	lastChatAt    float64 // 最后一次对话时间
+	lastChatAtSet bool
+}
+
+func NewAgentChatSessionBuilder() *AgentChatSessionBuilder {
+	builder := &AgentChatSessionBuilder{}
+	return builder
+}
+
+// 会话ID
+//
+// 示例值：conversation_sadcadcds2
+func (builder *AgentChatSessionBuilder) SessionId(sessionId string) *AgentChatSessionBuilder {
+	builder.sessionId = sessionId
+	builder.sessionIdSet = true
+	return builder
+}
+
+// 会话名
+//
+// 示例值：question
+func (builder *AgentChatSessionBuilder) Name(name string) *AgentChatSessionBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 会话状态
+//
+// 示例值：done
+func (builder *AgentChatSessionBuilder) Status(status string) *AgentChatSessionBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// 创建时间
+//
+// 示例值：1783428305028
+func (builder *AgentChatSessionBuilder) CreatedAt(createdAt float64) *AgentChatSessionBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtSet = true
+	return builder
+}
+
+// 最后一次对话时间
+//
+// 示例值：1783428305028
+func (builder *AgentChatSessionBuilder) LastChatAt(lastChatAt float64) *AgentChatSessionBuilder {
+	builder.lastChatAt = lastChatAt
+	builder.lastChatAtSet = true
+	return builder
+}
+
+func (builder *AgentChatSessionBuilder) Build() *AgentChatSession {
+	req := &AgentChatSession{}
+	if builder.sessionIdSet {
+		req.SessionId = &builder.sessionId
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.createdAtSet {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.lastChatAtSet {
+		req.LastChatAt = &builder.lastChatAt
+
+	}
+	return req
+}
+
+type AgentChatTurn struct {
+	AgentChatId *string `json:"agent_chat_id,omitempty"` // 智能体对话ID
+
+	CreatedAt *float64 `json:"created_at,omitempty"` // 对话创建时间
+
+	Status *string `json:"status,omitempty"` // 对话状态
+}
+
+type AgentChatTurnBuilder struct {
+	agentChatId    string // 智能体对话ID
+	agentChatIdSet bool
+
+	createdAt    float64 // 对话创建时间
+	createdAtSet bool
+
+	status    string // 对话状态
+	statusSet bool
+}
+
+func NewAgentChatTurnBuilder() *AgentChatTurnBuilder {
+	builder := &AgentChatTurnBuilder{}
+	return builder
+}
+
+// 智能体对话ID
+//
+// 示例值：7659751102812343833
+func (builder *AgentChatTurnBuilder) AgentChatId(agentChatId string) *AgentChatTurnBuilder {
+	builder.agentChatId = agentChatId
+	builder.agentChatIdSet = true
+	return builder
+}
+
+// 对话创建时间
+//
+// 示例值：1783425174260
+func (builder *AgentChatTurnBuilder) CreatedAt(createdAt float64) *AgentChatTurnBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtSet = true
+	return builder
+}
+
+// 对话状态
+//
+// 示例值：Completed
+func (builder *AgentChatTurnBuilder) Status(status string) *AgentChatTurnBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+func (builder *AgentChatTurnBuilder) Build() *AgentChatTurn {
+	req := &AgentChatTurn{}
+	if builder.agentChatIdSet {
+		req.AgentChatId = &builder.agentChatId
+
+	}
+	if builder.createdAtSet {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	return req
+}
+
+type AgentUserMessage struct {
+	Content []*AgentUserMessageContent `json:"content,omitempty"` // 用户消息，元素最多100
+
+	AgentAttachmentIds []string `json:"agent_attachment_ids,omitempty"` // 附件id，通过调用[上传附件](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/aily-v1/agent-agent_attachment/create)接口获取
+}
+
+type AgentUserMessageBuilder struct {
+	content    []*AgentUserMessageContent // 用户消息，元素最多100
+	contentSet bool
+
+	agentAttachmentIds    []string // 附件id，通过调用[上传附件](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/aily-v1/agent-agent_attachment/create)接口获取
+	agentAttachmentIdsSet bool
+}
+
+func NewAgentUserMessageBuilder() *AgentUserMessageBuilder {
+	builder := &AgentUserMessageBuilder{}
+	return builder
+}
+
+// 用户消息，元素最多100
+//
+// 示例值：
+func (builder *AgentUserMessageBuilder) Content(content []*AgentUserMessageContent) *AgentUserMessageBuilder {
+	builder.content = content
+	builder.contentSet = true
+	return builder
+}
+
+// 附件id，通过调用[上传附件](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/aily-v1/agent-agent_attachment/create)接口获取
+//
+// 示例值：
+func (builder *AgentUserMessageBuilder) AgentAttachmentIds(agentAttachmentIds []string) *AgentUserMessageBuilder {
+	builder.agentAttachmentIds = agentAttachmentIds
+	builder.agentAttachmentIdsSet = true
+	return builder
+}
+
+func (builder *AgentUserMessageBuilder) Build() *AgentUserMessage {
+	req := &AgentUserMessage{}
+	if builder.contentSet {
+		req.Content = builder.content
+	}
+	if builder.agentAttachmentIdsSet {
+		req.AgentAttachmentIds = builder.agentAttachmentIds
+	}
+	return req
+}
+
+type AgentUserMessageContent struct {
+	Type *string `json:"type,omitempty"` // 内容类型;- 目前仅支持text
+
+	Text *string `json:"text,omitempty"` // 内容
+}
+
+type AgentUserMessageContentBuilder struct {
+	type_    string // 内容类型;- 目前仅支持text
+	type_Set bool
+
+	text    string // 内容
+	textSet bool
+}
+
+func NewAgentUserMessageContentBuilder() *AgentUserMessageContentBuilder {
+	builder := &AgentUserMessageContentBuilder{}
+	return builder
+}
+
+// 内容类型;- 目前仅支持text
+//
+// 示例值：text
+func (builder *AgentUserMessageContentBuilder) Type(type_ string) *AgentUserMessageContentBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 内容
+//
+// 示例值：你好！有什么可以帮您
+func (builder *AgentUserMessageContentBuilder) Text(text string) *AgentUserMessageContentBuilder {
+	builder.text = text
+	builder.textSet = true
+	return builder
+}
+
+func (builder *AgentUserMessageContentBuilder) Build() *AgentUserMessageContent {
+	req := &AgentUserMessageContent{}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.textSet {
+		req.Text = &builder.text
+
+	}
+	return req
+}
+
+type AgentVisibility struct {
+	AgentVisibilityId *string `json:"agent_visibility_id,omitempty"` // id
+}
+
+type AgentVisibilityBuilder struct {
+	agentVisibilityId    string // id
+	agentVisibilityIdSet bool
+}
+
+func NewAgentVisibilityBuilder() *AgentVisibilityBuilder {
+	builder := &AgentVisibilityBuilder{}
+	return builder
+}
+
+// id
+//
+// 示例值：56401865069
+func (builder *AgentVisibilityBuilder) AgentVisibilityId(agentVisibilityId string) *AgentVisibilityBuilder {
+	builder.agentVisibilityId = agentVisibilityId
+	builder.agentVisibilityIdSet = true
+	return builder
+}
+
+func (builder *AgentVisibilityBuilder) Build() *AgentVisibility {
+	req := &AgentVisibility{}
+	if builder.agentVisibilityIdSet {
+		req.AgentVisibilityId = &builder.agentVisibilityId
+
+	}
+	return req
+}
+
 type AilyKnowledgeAskProcessData struct {
 	ChartDsls []string `json:"chart_dsls,omitempty"` // 有数据分析时，根据数据生成的图表描述，按markdown语义描述
 
@@ -132,7 +755,7 @@ func NewAilyKnowledgeDatasetBuilder() *AilyKnowledgeDatasetBuilder {
 
 // 分析表ID
 //
-// 示例值：object_x
+// 示例值：object_a
 func (builder *AilyKnowledgeDatasetBuilder) ApiName(apiName string) *AilyKnowledgeDatasetBuilder {
 	builder.apiName = apiName
 	builder.apiNameSet = true
@@ -182,7 +805,7 @@ func NewAilyKnowledgeDatatableBuilder() *AilyKnowledgeDatatableBuilder {
 
 // 数据表ID
 //
-// 示例值：object_x
+// 示例值：object_a
 func (builder *AilyKnowledgeDatatableBuilder) ApiName(apiName string) *AilyKnowledgeDatatableBuilder {
 	builder.apiName = apiName
 	builder.apiNameSet = true
@@ -214,7 +837,7 @@ func (builder *AilyKnowledgeDatatableBuilder) Build() *AilyKnowledgeDatatable {
 type AilyKnowledgeDocs struct {
 	Title *string `json:"title,omitempty"` // 标题
 
-	Type *string `json:"type,omitempty"` // 飞书云文档类型
+	Type *string `json:"type,omitempty"` // 飞书云文档类型。
 
 	Token *string `json:"token,omitempty"` // 飞书云文档标识
 
@@ -225,7 +848,7 @@ type AilyKnowledgeDocsBuilder struct {
 	title    string // 标题
 	titleSet bool
 
-	type_    string // 飞书云文档类型
+	type_    string // 飞书云文档类型。
 	type_Set bool
 
 	token    string // 飞书云文档标识
@@ -249,9 +872,9 @@ func (builder *AilyKnowledgeDocsBuilder) Title(title string) *AilyKnowledgeDocsB
 	return builder
 }
 
-// 飞书云文档类型
+// 飞书云文档类型。
 //
-// 示例值：docx
+// 示例值：wiki
 func (builder *AilyKnowledgeDocsBuilder) Type(type_ string) *AilyKnowledgeDocsBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
@@ -260,7 +883,7 @@ func (builder *AilyKnowledgeDocsBuilder) Type(type_ string) *AilyKnowledgeDocsBu
 
 // 飞书云文档标识
 //
-// 示例值：NWicfaD1Rlp2utdR0zycOabcdef
+// 示例值：HJ92bMoEWaGitvs2Hudc6abcdef
 func (builder *AilyKnowledgeDocsBuilder) Token(token string) *AilyKnowledgeDocsBuilder {
 	builder.token = token
 	builder.tokenSet = true
@@ -269,7 +892,7 @@ func (builder *AilyKnowledgeDocsBuilder) Token(token string) *AilyKnowledgeDocsB
 
 // 链接
 //
-// 示例值：https://feishu.cn/docx/NWicfaD1Rlp2utdR0zycOabcdef
+// 示例值：https://xxx.feishu.cn/base/HJ92bMoEWaGitvs2Hudc6abcdef
 func (builder *AilyKnowledgeDocsBuilder) Url(url string) *AilyKnowledgeDocsBuilder {
 	builder.url = url
 	builder.urlSet = true
@@ -350,9 +973,9 @@ func (builder *AilyKnowledgeFaqBuilder) Build() *AilyKnowledgeFaq {
 type AilyKnowledgeFile struct {
 	Title *string `json:"title,omitempty"` // 标题
 
-	MimeType *string `json:"mime_type,omitempty"` // 文件mime类型
+	MimeType *string `json:"mime_type,omitempty"` // 文件mime类型。;可选值：;- text/plain;- application/pdf;- application/vnd.openxmlformats-officedocument.presentationml.presentation;- application/vnd.openxmlformats-officedocument.wordprocessingml.document
 
-	Content *string `json:"content,omitempty"` // 文件内容
+	Content *string `json:"content,omitempty"` // 文件内容。仅请求时传入。
 
 	SourceUrl *string `json:"source_url,omitempty"` // 文件来源URL
 }
@@ -361,10 +984,10 @@ type AilyKnowledgeFileBuilder struct {
 	title    string // 标题
 	titleSet bool
 
-	mimeType    string // 文件mime类型
+	mimeType    string // 文件mime类型。;可选值：;- text/plain;- application/pdf;- application/vnd.openxmlformats-officedocument.presentationml.presentation;- application/vnd.openxmlformats-officedocument.wordprocessingml.document
 	mimeTypeSet bool
 
-	content    string // 文件内容
+	content    string // 文件内容。仅请求时传入。
 	contentSet bool
 
 	sourceUrl    string // 文件来源URL
@@ -385,7 +1008,7 @@ func (builder *AilyKnowledgeFileBuilder) Title(title string) *AilyKnowledgeFileB
 	return builder
 }
 
-// 文件mime类型
+// 文件mime类型。;可选值：;- text/plain;- application/pdf;- application/vnd.openxmlformats-officedocument.presentationml.presentation;- application/vnd.openxmlformats-officedocument.wordprocessingml.document
 //
 // 示例值：text/plain
 func (builder *AilyKnowledgeFileBuilder) MimeType(mimeType string) *AilyKnowledgeFileBuilder {
@@ -394,7 +1017,7 @@ func (builder *AilyKnowledgeFileBuilder) MimeType(mimeType string) *AilyKnowledg
 	return builder
 }
 
-// 文件内容
+// 文件内容。仅请求时传入。
 //
 // 示例值：content
 func (builder *AilyKnowledgeFileBuilder) Content(content string) *AilyKnowledgeFileBuilder {
@@ -468,7 +1091,7 @@ func (builder *AilyKnowledgeFolderBuilder) Title(title string) *AilyKnowledgeFol
 
 // 文件夹标识
 //
-// 示例值：xxx
+// 示例值：NWicfaD1Rlp2utdR0zycOabcdef
 func (builder *AilyKnowledgeFolderBuilder) Token(token string) *AilyKnowledgeFolderBuilder {
 	builder.token = token
 	builder.tokenSet = true
@@ -477,7 +1100,7 @@ func (builder *AilyKnowledgeFolderBuilder) Token(token string) *AilyKnowledgeFol
 
 // 链接
 //
-// 示例值：xxx
+// 示例值：https://feishu.cn/drive/folder/NWicfaD1Rlp2utdR0zycOabcdef
 func (builder *AilyKnowledgeFolderBuilder) Url(url string) *AilyKnowledgeFolderBuilder {
 	builder.url = url
 	builder.urlSet = true
@@ -604,7 +1227,7 @@ func NewAilyKnowledgeWebBuilder() *AilyKnowledgeWebBuilder {
 
 // 链接
 //
-// 示例值：xxx
+// 示例值：https://open.feishu.cn
 func (builder *AilyKnowledgeWebBuilder) Url(url string) *AilyKnowledgeWebBuilder {
 	builder.url = url
 	builder.urlSet = true
@@ -638,7 +1261,7 @@ type AilyKnowledgeWikiSpace struct {
 
 	SpaceId *string `json:"space_id,omitempty"` // 知识空间ID
 
-	SubDocs []*AilyKnowledgeDocs `json:"sub_docs,omitempty"` // 子节点
+	SubDocs []*AilyKnowledgeDocs `json:"sub_docs,omitempty"` // 知识空间子节点
 }
 
 type AilyKnowledgeWikiSpaceBuilder struct {
@@ -648,7 +1271,7 @@ type AilyKnowledgeWikiSpaceBuilder struct {
 	spaceId    string // 知识空间ID
 	spaceIdSet bool
 
-	subDocs    []*AilyKnowledgeDocs // 子节点
+	subDocs    []*AilyKnowledgeDocs // 知识空间子节点
 	subDocsSet bool
 }
 
@@ -668,14 +1291,14 @@ func (builder *AilyKnowledgeWikiSpaceBuilder) Title(title string) *AilyKnowledge
 
 // 知识空间ID
 //
-// 示例值：123
+// 示例值：7292969894047123456
 func (builder *AilyKnowledgeWikiSpaceBuilder) SpaceId(spaceId string) *AilyKnowledgeWikiSpaceBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdSet = true
 	return builder
 }
 
-// 子节点
+// 知识空间子节点
 //
 // 示例值：
 func (builder *AilyKnowledgeWikiSpaceBuilder) SubDocs(subDocs []*AilyKnowledgeDocs) *AilyKnowledgeWikiSpaceBuilder {
@@ -709,7 +1332,7 @@ type AilyMention struct {
 
 	Name *string `json:"name,omitempty"` // 被@实体的名称
 
-	AilyId *string `json:"aily_id,omitempty"` // Aily 账号体系下的 ID
+	AilyId *string `json:"aily_id,omitempty"` // 飞书智能伙伴创建平台账号体系下的 ID
 }
 
 type AilyMentionBuilder struct {
@@ -725,7 +1348,7 @@ type AilyMentionBuilder struct {
 	name    string // 被@实体的名称
 	nameSet bool
 
-	ailyId    string // Aily 账号体系下的 ID
+	ailyId    string // 飞书智能伙伴创建平台账号体系下的 ID
 	ailyIdSet bool
 }
 
@@ -770,7 +1393,7 @@ func (builder *AilyMentionBuilder) Name(name string) *AilyMentionBuilder {
 	return builder
 }
 
-// Aily 账号体系下的 ID
+// 飞书智能伙伴创建平台账号体系下的 ID
 //
 // 示例值：1794840334557292
 func (builder *AilyMentionBuilder) AilyId(ailyId string) *AilyMentionBuilder {
@@ -979,7 +1602,7 @@ func (builder *AilyMessageBuilder) CreatedAt(createdAt string) *AilyMessageBuild
 
 // 状态
 //
-// 示例值：IN_PROGRESS
+// 示例值：COMPLETED
 func (builder *AilyMessageBuilder) Status(status string) *AilyMessageBuilder {
 	builder.status = status
 	builder.statusSet = true
@@ -1058,7 +1681,7 @@ type AilyMessageFile struct {
 
 	Metadata *string `json:"metadata,omitempty"` // 其他透传信息
 
-	CreatedAt *string `json:"created_at,omitempty"` // 文件的创建时间，毫秒时间戳
+	CreatedAt *string `json:"created_at,omitempty"` // 文件上传的时间
 
 	PreviewUrl *AilyMessageFilePreview `json:"preview_url,omitempty"` // 文件预览链接
 }
@@ -1076,7 +1699,7 @@ type AilyMessageFileBuilder struct {
 	metadata    string // 其他透传信息
 	metadataSet bool
 
-	createdAt    string // 文件的创建时间，毫秒时间戳
+	createdAt    string // 文件上传的时间
 	createdAtSet bool
 
 	previewUrl    *AilyMessageFilePreview // 文件预览链接
@@ -1124,7 +1747,7 @@ func (builder *AilyMessageFileBuilder) Metadata(metadata string) *AilyMessageFil
 	return builder
 }
 
-// 文件的创建时间，毫秒时间戳
+// 文件上传的时间
 //
 // 示例值：1711975665710
 func (builder *AilyMessageFileBuilder) CreatedAt(createdAt string) *AilyMessageFileBuilder {
@@ -1309,7 +1932,7 @@ type AilySender struct {
 
 	SenderType *string `json:"sender_type,omitempty"` // 发送人类型
 
-	AilyId *string `json:"aily_id,omitempty"` // Aily 账号体系下的 ID
+	AilyId *string `json:"aily_id,omitempty"` // 飞书智能伙伴创建平台账号体系下的 ID
 }
 
 type AilySenderBuilder struct {
@@ -1322,7 +1945,7 @@ type AilySenderBuilder struct {
 	senderType    string // 发送人类型
 	senderTypeSet bool
 
-	ailyId    string // Aily 账号体系下的 ID
+	ailyId    string // 飞书智能伙伴创建平台账号体系下的 ID
 	ailyIdSet bool
 }
 
@@ -1358,7 +1981,7 @@ func (builder *AilySenderBuilder) SenderType(senderType string) *AilySenderBuild
 	return builder
 }
 
-// Aily 账号体系下的 ID
+// 飞书智能伙伴创建平台账号体系下的 ID
 //
 // 示例值：1794840334557292
 func (builder *AilySenderBuilder) AilyId(ailyId string) *AilySenderBuilder {
@@ -1395,11 +2018,11 @@ type AilySession struct {
 
 	ModifiedAt *string `json:"modified_at,omitempty"` // 会话的上次更新时间，毫秒时间戳
 
-	CreatedBy *string `json:"created_by,omitempty"` // 会话的创建人
+	CreatedBy *string `json:"created_by,omitempty"` // 会话的创建人（Aily UserID）
 
-	ChannelContext *string `json:"channel_context,omitempty"` // 渠道上下文
+	ChannelContext *string `json:"channel_context,omitempty"` // 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量
 
-	Metadata *string `json:"metadata,omitempty"` // 其他透传信息
+	Metadata *string `json:"metadata,omitempty"` // 会话的自定义变量内容，变量数据保存在服务端 Session 中，可在 `GetSession` 时原样返回，无需在 API 调用侧存储
 }
 
 type AilySessionBuilder struct {
@@ -1412,13 +2035,13 @@ type AilySessionBuilder struct {
 	modifiedAt    string // 会话的上次更新时间，毫秒时间戳
 	modifiedAtSet bool
 
-	createdBy    string // 会话的创建人
+	createdBy    string // 会话的创建人（Aily UserID）
 	createdBySet bool
 
-	channelContext    string // 渠道上下文
+	channelContext    string // 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量
 	channelContextSet bool
 
-	metadata    string // 其他透传信息
+	metadata    string // 会话的自定义变量内容，变量数据保存在服务端 Session 中，可在 `GetSession` 时原样返回，无需在 API 调用侧存储
 	metadataSet bool
 }
 
@@ -1454,7 +2077,7 @@ func (builder *AilySessionBuilder) ModifiedAt(modifiedAt string) *AilySessionBui
 	return builder
 }
 
-// 会话的创建人
+// 会话的创建人（Aily UserID）
 //
 // 示例值：1794840334557292
 func (builder *AilySessionBuilder) CreatedBy(createdBy string) *AilySessionBuilder {
@@ -1463,7 +2086,7 @@ func (builder *AilySessionBuilder) CreatedBy(createdBy string) *AilySessionBuild
 	return builder
 }
 
-// 渠道上下文
+// 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量
 //
 // 示例值：{}
 func (builder *AilySessionBuilder) ChannelContext(channelContext string) *AilySessionBuilder {
@@ -1472,7 +2095,7 @@ func (builder *AilySessionBuilder) ChannelContext(channelContext string) *AilySe
 	return builder
 }
 
-// 其他透传信息
+// 会话的自定义变量内容，变量数据保存在服务端 Session 中，可在 `GetSession` 时原样返回，无需在 API 调用侧存储
 //
 // 示例值：{}
 func (builder *AilySessionBuilder) Metadata(metadata string) *AilySessionBuilder {
@@ -1728,7 +2351,7 @@ type AppStat struct {
 
 	AvgDailyCreditUsage *float64 `json:"avg_daily_credit_usage,omitempty"` // 日均消耗额度
 
-	TotalCreditUsage *float64 `json:"total_credit_usage,omitempty"` // 总消耗总额
+	TotalCreditUsage *float64 `json:"total_credit_usage,omitempty"` // 总消耗额度
 
 	Owner *LookupWithAvatar `json:"owner,omitempty"` // 应用所有者信息
 
@@ -1751,7 +2374,7 @@ type AppStatBuilder struct {
 	avgDailyCreditUsage    float64 // 日均消耗额度
 	avgDailyCreditUsageSet bool
 
-	totalCreditUsage    float64 // 总消耗总额
+	totalCreditUsage    float64 // 总消耗额度
 	totalCreditUsageSet bool
 
 	owner    *LookupWithAvatar // 应用所有者信息
@@ -1786,7 +2409,7 @@ func (builder *AppStatBuilder) Name(name string) *AppStatBuilder {
 
 // 活跃用户数
 //
-// 示例值：1256.89
+// 示例值：
 func (builder *AppStatBuilder) AvgDailyActiveUserNum(avgDailyActiveUserNum float64) *AppStatBuilder {
 	builder.avgDailyActiveUserNum = avgDailyActiveUserNum
 	builder.avgDailyActiveUserNumSet = true
@@ -1795,7 +2418,7 @@ func (builder *AppStatBuilder) AvgDailyActiveUserNum(avgDailyActiveUserNum float
 
 // 日均对话次数
 //
-// 示例值：8923.45
+// 示例值：
 func (builder *AppStatBuilder) AvgDailyRunNum(avgDailyRunNum float64) *AppStatBuilder {
 	builder.avgDailyRunNum = avgDailyRunNum
 	builder.avgDailyRunNumSet = true
@@ -1804,16 +2427,16 @@ func (builder *AppStatBuilder) AvgDailyRunNum(avgDailyRunNum float64) *AppStatBu
 
 // 日均消耗额度
 //
-// 示例值：5678.23
+// 示例值：
 func (builder *AppStatBuilder) AvgDailyCreditUsage(avgDailyCreditUsage float64) *AppStatBuilder {
 	builder.avgDailyCreditUsage = avgDailyCreditUsage
 	builder.avgDailyCreditUsageSet = true
 	return builder
 }
 
-// 总消耗总额
+// 总消耗额度
 //
-// 示例值：170346.9
+// 示例值：
 func (builder *AppStatBuilder) TotalCreditUsage(totalCreditUsage float64) *AppStatBuilder {
 	builder.totalCreditUsage = totalCreditUsage
 	builder.totalCreditUsageSet = true
@@ -1961,11 +2584,11 @@ func (builder *BuiltinActionBuilder) Build() *BuiltinAction {
 }
 
 type Channel struct {
-	Variables *string `json:"variables,omitempty"` // 自定义传入的变量
+	Variables *string `json:"variables,omitempty"` // 自定义传入的变量；可在 Workflow 技能全局变量中消费
 }
 
 type ChannelBuilder struct {
-	variables    string // 自定义传入的变量
+	variables    string // 自定义传入的变量；可在 Workflow 技能全局变量中消费
 	variablesSet bool
 }
 
@@ -1974,7 +2597,7 @@ func NewChannelBuilder() *ChannelBuilder {
 	return builder
 }
 
-// 自定义传入的变量
+// 自定义传入的变量；可在 Workflow 技能全局变量中消费
 //
 // 示例值：{"custom_key": "custom_value"}
 func (builder *ChannelBuilder) Variables(variables string) *ChannelBuilder {
@@ -2295,7 +2918,7 @@ func (builder *DataAssetChunkBuilder) Score(score float64) *DataAssetChunkBuilde
 
 // 切片所归属的数据知识名称
 //
-// 示例值：
+// 示例值：{"zh_cn":"电影数据"}
 func (builder *DataAssetChunkBuilder) DataAssetLabel(dataAssetLabel map[string]string) *DataAssetChunkBuilder {
 	builder.dataAssetLabel = dataAssetLabel
 	builder.dataAssetLabelSet = true
@@ -2424,16 +3047,16 @@ func (builder *DataAssetChunkSourceInfoBuilder) Build() *DataAssetChunkSourceInf
 }
 
 type DataAssetFile struct {
-	Token *string `json:"token,omitempty"` // 文件token
+	Token *string `json:"token,omitempty"` // 数据知识文件 token
 
-	MimeType *string `json:"mime_type,omitempty"` // 文件内容类型
+	MimeType *string `json:"mime_type,omitempty"` // 解析出的文件类型，包括pdf、docx、pptx、txt
 }
 
 type DataAssetFileBuilder struct {
-	token    string // 文件token
+	token    string // 数据知识文件 token
 	tokenSet bool
 
-	mimeType    string // 文件内容类型
+	mimeType    string // 解析出的文件类型，包括pdf、docx、pptx、txt
 	mimeTypeSet bool
 }
 
@@ -2442,7 +3065,7 @@ func NewDataAssetFileBuilder() *DataAssetFileBuilder {
 	return builder
 }
 
-// 文件token
+// 数据知识文件 token
 //
 // 示例值：file_token_abcd123
 func (builder *DataAssetFileBuilder) Token(token string) *DataAssetFileBuilder {
@@ -2451,9 +3074,9 @@ func (builder *DataAssetFileBuilder) Token(token string) *DataAssetFileBuilder {
 	return builder
 }
 
-// 文件内容类型
+// 解析出的文件类型，包括pdf、docx、pptx、txt
 //
-// 示例值：excel
+// 示例值：application/pdf
 func (builder *DataAssetFileBuilder) MimeType(mimeType string) *DataAssetFileBuilder {
 	builder.mimeType = mimeType
 	builder.mimeTypeSet = true
@@ -2480,7 +3103,7 @@ type DataAssetImportKnowledgeFile struct {
 
 	Content *string `json:"content,omitempty"` // 文件内容。和token二选一，优先使用token。有长度限制，大文件优先使用token方式。
 
-	MimeType *string `json:"mime_type,omitempty"` // 文件内容对应的 MIME 类型，使用token方式必须填写
+	MimeType *string `json:"mime_type,omitempty"` // 文件内容对应的 MIME 类型，必须填写;可选值：;- text/plain (.txt);- application/pdf (.pdf);- application/vnd.openxmlformats-officedocument.presentationml.presentation (.pptx);- application/vnd.openxmlformats-officedocument.wordprocessingml.document (.docx)
 
 	Url *string `json:"url,omitempty"` // 文件源的URL
 }
@@ -2495,7 +3118,7 @@ type DataAssetImportKnowledgeFileBuilder struct {
 	content    string // 文件内容。和token二选一，优先使用token。有长度限制，大文件优先使用token方式。
 	contentSet bool
 
-	mimeType    string // 文件内容对应的 MIME 类型，使用token方式必须填写
+	mimeType    string // 文件内容对应的 MIME 类型，必须填写;可选值：;- text/plain (.txt);- application/pdf (.pdf);- application/vnd.openxmlformats-officedocument.presentationml.presentation (.pptx);- application/vnd.openxmlformats-officedocument.wordprocessingml.document (.docx)
 	mimeTypeSet bool
 
 	url    string // 文件源的URL
@@ -2534,9 +3157,9 @@ func (builder *DataAssetImportKnowledgeFileBuilder) Content(content string) *Dat
 	return builder
 }
 
-// 文件内容对应的 MIME 类型，使用token方式必须填写
+// 文件内容对应的 MIME 类型，必须填写;可选值：;- text/plain (.txt);- application/pdf (.pdf);- application/vnd.openxmlformats-officedocument.presentationml.presentation (.pptx);- application/vnd.openxmlformats-officedocument.wordprocessingml.document (.docx)
 //
-// 示例值：.docx
+// 示例值：application/pdf
 func (builder *DataAssetImportKnowledgeFileBuilder) MimeType(mimeType string) *DataAssetImportKnowledgeFileBuilder {
 	builder.mimeType = mimeType
 	builder.mimeTypeSet = true
@@ -2578,11 +3201,11 @@ func (builder *DataAssetImportKnowledgeFileBuilder) Build() *DataAssetImportKnow
 }
 
 type DataAssetImportKnowledgeHelpdesk struct {
-	HelpdeskId *string `json:"helpdesk_id,omitempty"` // 飞书服务台ID
+	HelpdeskId *string `json:"helpdesk_id,omitempty"` // 飞书服务台ID，可以通过[服务台-接入指南](https://open.larkoffice.com/document/server-docs/helpdesk-v1/access-guide) 获取
 }
 
 type DataAssetImportKnowledgeHelpdeskBuilder struct {
-	helpdeskId    string // 飞书服务台ID
+	helpdeskId    string // 飞书服务台ID，可以通过[服务台-接入指南](https://open.larkoffice.com/document/server-docs/helpdesk-v1/access-guide) 获取
 	helpdeskIdSet bool
 }
 
@@ -2591,7 +3214,7 @@ func NewDataAssetImportKnowledgeHelpdeskBuilder() *DataAssetImportKnowledgeHelpd
 	return builder
 }
 
-// 飞书服务台ID
+// 飞书服务台ID，可以通过[服务台-接入指南](https://open.larkoffice.com/document/server-docs/helpdesk-v1/access-guide) 获取
 //
 // 示例值：123
 func (builder *DataAssetImportKnowledgeHelpdeskBuilder) HelpdeskId(helpdeskId string) *DataAssetImportKnowledgeHelpdeskBuilder {
@@ -2612,7 +3235,7 @@ func (builder *DataAssetImportKnowledgeHelpdeskBuilder) Build() *DataAssetImport
 type DataAssetImportKnowledgeLarkDoc struct {
 	Type *string `json:"type,omitempty"` // 云文档类型
 
-	Token *string `json:"token,omitempty"` // 云文档标识
+	Token *string `json:"token,omitempty"` // 云文档token，可以通过[搜索云文档](https://open.larkoffice.com/document/server-docs/docs/drive-v1/search/document-search)API获取
 
 	WithSubDocs *bool `json:"with_sub_docs,omitempty"` // 是否包含子文档，只有wiki类型的云文档支持
 
@@ -2623,7 +3246,7 @@ type DataAssetImportKnowledgeLarkDocBuilder struct {
 	type_    string // 云文档类型
 	type_Set bool
 
-	token    string // 云文档标识
+	token    string // 云文档token，可以通过[搜索云文档](https://open.larkoffice.com/document/server-docs/docs/drive-v1/search/document-search)API获取
 	tokenSet bool
 
 	withSubDocs    bool // 是否包含子文档，只有wiki类型的云文档支持
@@ -2647,7 +3270,7 @@ func (builder *DataAssetImportKnowledgeLarkDocBuilder) Type(type_ string) *DataA
 	return builder
 }
 
-// 云文档标识
+// 云文档token，可以通过[搜索云文档](https://open.larkoffice.com/document/server-docs/docs/drive-v1/search/document-search)API获取
 //
 // 示例值：T8FAcuilgC1fdaxkt58vcp91xngh
 func (builder *DataAssetImportKnowledgeLarkDocBuilder) Token(token string) *DataAssetImportKnowledgeLarkDocBuilder {
@@ -2658,7 +3281,7 @@ func (builder *DataAssetImportKnowledgeLarkDocBuilder) Token(token string) *Data
 
 // 是否包含子文档，只有wiki类型的云文档支持
 //
-// 示例值：
+// 示例值：false
 func (builder *DataAssetImportKnowledgeLarkDocBuilder) WithSubDocs(withSubDocs bool) *DataAssetImportKnowledgeLarkDocBuilder {
 	builder.withSubDocs = withSubDocs
 	builder.withSubDocsSet = true
@@ -2795,7 +3418,7 @@ func (builder *DataAssetImportKnowledgeSettingBuilder) Build() *DataAssetImportK
 }
 
 type DataAssetImportKnowledgeWiki struct {
-	SpaceId *string `json:"space_id,omitempty"` // 飞书知识空间ID
+	SpaceId *string `json:"space_id,omitempty"` // 飞书知识空间ID，可以通过[搜索 Wiki](https://open.larkoffice.com/document/server-docs/docs/wiki-v2/search_wiki)API获取
 
 	SubDocs []*DataAssetImportKnowledgeWikiSubDoc `json:"sub_docs,omitempty"` // 指定知识空间子节点时使用
 
@@ -2803,7 +3426,7 @@ type DataAssetImportKnowledgeWiki struct {
 }
 
 type DataAssetImportKnowledgeWikiBuilder struct {
-	spaceId    string // 飞书知识空间ID
+	spaceId    string // 飞书知识空间ID，可以通过[搜索 Wiki](https://open.larkoffice.com/document/server-docs/docs/wiki-v2/search_wiki)API获取
 	spaceIdSet bool
 
 	subDocs    []*DataAssetImportKnowledgeWikiSubDoc // 指定知识空间子节点时使用
@@ -2818,7 +3441,7 @@ func NewDataAssetImportKnowledgeWikiBuilder() *DataAssetImportKnowledgeWikiBuild
 	return builder
 }
 
-// 飞书知识空间ID
+// 飞书知识空间ID，可以通过[搜索 Wiki](https://open.larkoffice.com/document/server-docs/docs/wiki-v2/search_wiki)API获取
 //
 // 示例值：798546548961351
 func (builder *DataAssetImportKnowledgeWikiBuilder) SpaceId(spaceId string) *DataAssetImportKnowledgeWikiBuilder {
@@ -2864,7 +3487,7 @@ func (builder *DataAssetImportKnowledgeWikiBuilder) Build() *DataAssetImportKnow
 type DataAssetImportKnowledgeWikiSubDoc struct {
 	Type *string `json:"type,omitempty"` // 云文档类型，只支持wiki中的云文档
 
-	Token *string `json:"token,omitempty"` // 云文档标识
+	Token *string `json:"token,omitempty"` // 云文档token，可以通过[搜索云文档](https://open.larkoffice.com/document/server-docs/docs/drive-v1/search/document-search)API获取
 
 	Url *string `json:"url,omitempty"` // 云文档链接
 }
@@ -2873,7 +3496,7 @@ type DataAssetImportKnowledgeWikiSubDocBuilder struct {
 	type_    string // 云文档类型，只支持wiki中的云文档
 	type_Set bool
 
-	token    string // 云文档标识
+	token    string // 云文档token，可以通过[搜索云文档](https://open.larkoffice.com/document/server-docs/docs/drive-v1/search/document-search)API获取
 	tokenSet bool
 
 	url    string // 云文档链接
@@ -2894,7 +3517,7 @@ func (builder *DataAssetImportKnowledgeWikiSubDocBuilder) Type(type_ string) *Da
 	return builder
 }
 
-// 云文档标识
+// 云文档token，可以通过[搜索云文档](https://open.larkoffice.com/document/server-docs/docs/drive-v1/search/document-search)API获取
 //
 // 示例值：T8FAcuilgC1fdaxkt58vcp91xngh
 func (builder *DataAssetImportKnowledgeWikiSubDocBuilder) Token(token string) *DataAssetImportKnowledgeWikiSubDocBuilder {
@@ -2983,7 +3606,7 @@ func (builder *DataAssetItemBuilder) ApiName(apiName string) *DataAssetItemBuild
 
 // 数据知识项标题
 //
-// 示例值：
+// 示例值：{"zh_cn":"标题"}
 func (builder *DataAssetItemBuilder) Label(label map[string]string) *DataAssetItemBuilder {
 	builder.label = label
 	builder.labelSet = true
@@ -2992,7 +3615,7 @@ func (builder *DataAssetItemBuilder) Label(label map[string]string) *DataAssetIt
 
 // 数据知识项描述
 //
-// 示例值：
+// 示例值：{"zh_cn":"描述"}
 func (builder *DataAssetItemBuilder) Description(description map[string]string) *DataAssetItemBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -3302,8 +3925,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -3311,8 +3932,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -3374,7 +3993,7 @@ func NewFieldBuilder() *FieldBuilder {
 
 // 字段标识
 //
-// 示例值：object_a
+// 示例值：field_a
 func (builder *FieldBuilder) ApiName(apiName string) *FieldBuilder {
 	builder.apiName = apiName
 	builder.apiNameSet = true
@@ -3383,7 +4002,7 @@ func (builder *FieldBuilder) ApiName(apiName string) *FieldBuilder {
 
 // 字段名称
 //
-// 示例值：
+// 示例值：{"en_us":"中文名称","zh_cn":"english name"}
 func (builder *FieldBuilder) Label(label map[string]string) *FieldBuilder {
 	builder.label = label
 	builder.labelSet = true
@@ -3392,7 +4011,7 @@ func (builder *FieldBuilder) Label(label map[string]string) *FieldBuilder {
 
 // 字段描述信息
 //
-// 示例值：这是一个商品的数据表
+// 示例值：价格字段
 func (builder *FieldBuilder) AiDescription(aiDescription string) *FieldBuilder {
 	builder.aiDescription = aiDescription
 	builder.aiDescriptionSet = true
@@ -3512,7 +4131,7 @@ func (builder *FieldSettingBuilder) Required(required bool) *FieldSettingBuilder
 
 // 唯一性属性
 //
-// 示例值：
+// 示例值：true
 func (builder *FieldSettingBuilder) Unique(unique bool) *FieldSettingBuilder {
 	builder.unique = unique
 	builder.uniqueSet = true
@@ -3521,7 +4140,7 @@ func (builder *FieldSettingBuilder) Unique(unique bool) *FieldSettingBuilder {
 
 // 大小写敏感的唯一性
 //
-// 示例值：
+// 示例值：false
 func (builder *FieldSettingBuilder) CaseSensitive(caseSensitive bool) *FieldSettingBuilder {
 	builder.caseSensitive = caseSensitive
 	builder.caseSensitiveSet = true
@@ -3539,7 +4158,7 @@ func (builder *FieldSettingBuilder) TextMaxLength(textMaxLength int) *FieldSetti
 
 // 是否多值
 //
-// 示例值：
+// 示例值：true
 func (builder *FieldSettingBuilder) Multiple(multiple bool) *FieldSettingBuilder {
 	builder.multiple = multiple
 	builder.multipleSet = true
@@ -3566,7 +4185,7 @@ func (builder *FieldSettingBuilder) Options(options []string) *FieldSettingBuild
 
 // 属性扩展信息
 //
-// 示例值：[	 {	   "label": {		 "zh_cn": "示例文本",		 "en_us": "Sample text"	 },	   "api_name": "optionA",	   "description":{		 "zh_cn": "示例文本",		 "en_us": "Sample text"	 },	   "color": "R",	   "active": true	 }   ]
+// 示例值：{"options":[{"id":"package_f70c1a__c__option_1688640397305_aadeu2gufkybq9ee","api_alias":"option_2","color_id":"W","active":1,"name":[{"language_code":2052,"text":"2"}]}],"is_array":true,"option_type":"local"}
 func (builder *FieldSettingBuilder) Detail(detail string) *FieldSettingBuilder {
 	builder.detail = detail
 	builder.detailSet = true
@@ -4077,7 +4696,7 @@ type Knowledge struct {
 
 	Web *AilyKnowledgeWeb `json:"web,omitempty"` // 网页信息
 
-	ChunkCount *int `json:"chunk_count,omitempty"` // 切片数量
+	ChunkCount *int `json:"chunk_count,omitempty"` // 切片数量。;对于飞书云文档（包含飞书知识空间、飞书文件夹）类型的知识，以及学习失败的知识，不支持返回切片数据，返回值为-1。
 
 	CreateTime *int `json:"create_time,omitempty"` // 创建时间
 
@@ -4126,7 +4745,7 @@ type KnowledgeBuilder struct {
 	web    *AilyKnowledgeWeb // 网页信息
 	webSet bool
 
-	chunkCount    int // 切片数量
+	chunkCount    int // 切片数量。;对于飞书云文档（包含飞书知识空间、飞书文件夹）类型的知识，以及学习失败的知识，不支持返回切片数据，返回值为-1。
 	chunkCountSet bool
 
 	createTime    int // 创建时间
@@ -4146,7 +4765,7 @@ func NewKnowledgeBuilder() *KnowledgeBuilder {
 
 // 知识ID
 //
-// 示例值：spring_03c49e32bb__c_sdb_aadgfh
+// 示例值：spring_03c49e32bb__c_sdb_abcdef
 func (builder *KnowledgeBuilder) Id(id string) *KnowledgeBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -4155,7 +4774,7 @@ func (builder *KnowledgeBuilder) Id(id string) *KnowledgeBuilder {
 
 // 知识库ID
 //
-// 示例值：knowledge_aadgd7ozoxseilqpor
+// 示例值：knowledge_aadgd7ozoxseabcdef
 func (builder *KnowledgeBuilder) KnowledgeBaseId(knowledgeBaseId string) *KnowledgeBuilder {
 	builder.knowledgeBaseId = knowledgeBaseId
 	builder.knowledgeBaseIdSet = true
@@ -4164,7 +4783,7 @@ func (builder *KnowledgeBuilder) KnowledgeBaseId(knowledgeBaseId string) *Knowle
 
 // 学习状态
 //
-// 示例值：
+// 示例值：learned
 func (builder *KnowledgeBuilder) Status(status string) *KnowledgeBuilder {
 	builder.status = status
 	builder.statusSet = true
@@ -4182,7 +4801,7 @@ func (builder *KnowledgeBuilder) Title(title string) *KnowledgeBuilder {
 
 // 知识类型
 //
-// 示例值：
+// 示例值：file
 func (builder *KnowledgeBuilder) Type(type_ string) *KnowledgeBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
@@ -4261,7 +4880,7 @@ func (builder *KnowledgeBuilder) Web(web *AilyKnowledgeWeb) *KnowledgeBuilder {
 	return builder
 }
 
-// 切片数量
+// 切片数量。;对于飞书云文档（包含飞书知识空间、飞书文件夹）类型的知识，以及学习失败的知识，不支持返回切片数据，返回值为-1。
 //
 // 示例值：1
 func (builder *KnowledgeBuilder) ChunkCount(chunkCount int) *KnowledgeBuilder {
@@ -4363,20 +4982,24 @@ func (builder *KnowledgeBuilder) Build() *Knowledge {
 }
 
 type LookupWithAvatar struct {
-	Id *string `json:"id,omitempty"` // 唯一标识
+	Id *string `json:"id,omitempty"` // kunlun userId
 
-	Name *string `json:"name,omitempty"` // 数据条目名称
+	Name *string `json:"name,omitempty"` // 人员名称
 
 	TenantId *string `json:"tenant_id,omitempty"` // 租户ID
 
 	LarkUserId *string `json:"lark_user_id,omitempty"` // 飞书 User ID
+
+	OpenUserId *string `json:"open_user_id,omitempty"` // 开放平台 user_id
+
+	OpenId *string `json:"open_id,omitempty"` // 开放平台 open_id
 }
 
 type LookupWithAvatarBuilder struct {
-	id    string // 唯一标识
+	id    string // kunlun userId
 	idSet bool
 
-	name    string // 数据条目名称
+	name    string // 人员名称
 	nameSet bool
 
 	tenantId    string // 租户ID
@@ -4384,6 +5007,12 @@ type LookupWithAvatarBuilder struct {
 
 	larkUserId    string // 飞书 User ID
 	larkUserIdSet bool
+
+	openUserId    string // 开放平台 user_id
+	openUserIdSet bool
+
+	openId    string // 开放平台 open_id
+	openIdSet bool
 }
 
 func NewLookupWithAvatarBuilder() *LookupWithAvatarBuilder {
@@ -4391,16 +5020,16 @@ func NewLookupWithAvatarBuilder() *LookupWithAvatarBuilder {
 	return builder
 }
 
-// 唯一标识
+// kunlun userId
 //
-// 示例值：10001
+// 示例值：1787137372910676
 func (builder *LookupWithAvatarBuilder) Id(id string) *LookupWithAvatarBuilder {
 	builder.id = id
 	builder.idSet = true
 	return builder
 }
 
-// 数据条目名称
+// 人员名称
 //
 // 示例值：张三
 func (builder *LookupWithAvatarBuilder) Name(name string) *LookupWithAvatarBuilder {
@@ -4420,10 +5049,28 @@ func (builder *LookupWithAvatarBuilder) TenantId(tenantId string) *LookupWithAva
 
 // 飞书 User ID
 //
-// 示例值：5f7g42d9
+// 示例值：7563596720278863891
 func (builder *LookupWithAvatarBuilder) LarkUserId(larkUserId string) *LookupWithAvatarBuilder {
 	builder.larkUserId = larkUserId
 	builder.larkUserIdSet = true
+	return builder
+}
+
+// 开放平台 user_id
+//
+// 示例值：5f7g42d9
+func (builder *LookupWithAvatarBuilder) OpenUserId(openUserId string) *LookupWithAvatarBuilder {
+	builder.openUserId = openUserId
+	builder.openUserIdSet = true
+	return builder
+}
+
+// 开放平台 open_id
+//
+// 示例值：ou_80cbb9df643ab3872f6a0b1dc8f46078
+func (builder *LookupWithAvatarBuilder) OpenId(openId string) *LookupWithAvatarBuilder {
+	builder.openId = openId
+	builder.openIdSet = true
 	return builder
 }
 
@@ -4443,6 +5090,14 @@ func (builder *LookupWithAvatarBuilder) Build() *LookupWithAvatar {
 	}
 	if builder.larkUserIdSet {
 		req.LarkUserId = &builder.larkUserId
+
+	}
+	if builder.openUserIdSet {
+		req.OpenUserId = &builder.openUserId
+
+	}
+	if builder.openIdSet {
+		req.OpenId = &builder.openId
 
 	}
 	return req
@@ -4595,7 +5250,7 @@ func (builder *MessageBuilder) Error(error *MessageError) *MessageBuilder {
 
 // 触发类型
 //
-// 示例值：''
+// 示例值：”
 func (builder *MessageBuilder) TriggerType(triggerType string) *MessageBuilder {
 	builder.triggerType = triggerType
 	builder.triggerTypeSet = true
@@ -5298,7 +5953,7 @@ func NewRecordResultBuilder() *RecordResultBuilder {
 
 // 是否成功
 //
-// 示例值：
+// 示例值：false
 func (builder *RecordResultBuilder) Success(success bool) *RecordResultBuilder {
 	builder.success = success
 	builder.successSet = true
@@ -5640,7 +6295,7 @@ func (builder *SenderBuilder) Name(name string) *SenderBuilder {
 
 // 发送者描述
 //
-// 示例值：''
+// 示例值：”
 func (builder *SenderBuilder) Desc(desc string) *SenderBuilder {
 	builder.desc = desc
 	builder.descSet = true
@@ -5907,7 +6562,7 @@ func (builder *SkillBuilder) Id(id string) *SkillBuilder {
 
 // 技能名称
 //
-// 示例值：数据分析和问答
+// 示例值：""
 func (builder *SkillBuilder) Label(label string) *SkillBuilder {
 	builder.label = label
 	builder.labelSet = true
@@ -5916,7 +6571,7 @@ func (builder *SkillBuilder) Label(label string) *SkillBuilder {
 
 // 技能描述
 //
-// 示例值：理解用户提出的问题，对当前助手已经配置的数据资产进行知识搜索、数据分析、文档阅读，总结并返回答案。
+// 示例值：""
 func (builder *SkillBuilder) Description(description string) *SkillBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -5934,7 +6589,7 @@ func (builder *SkillBuilder) Samples(samples []string) *SkillBuilder {
 
 // 技能入参定义
 //
-// 示例值：[{"name":"custom_s","type":"String","required":true,"defaultValue":"qwert","description":"自定义字符串"},{"name":"custom_i","type":"Integer","required":true,"defaultValue":null,"description":""},{"name":"custom_b","type":"Boolean","required":true,"defaultValue":true,"description":""},{"name":"custom_f","type":"Float","required":true,"defaultValue":2.1,"description":""}]
+// 示例值：""
 func (builder *SkillBuilder) InputSchema(inputSchema string) *SkillBuilder {
 	builder.inputSchema = inputSchema
 	builder.inputSchemaSet = true
@@ -5943,7 +6598,7 @@ func (builder *SkillBuilder) InputSchema(inputSchema string) *SkillBuilder {
 
 // 技能出参定义
 //
-// 示例值：[{"name":"input","type":"String","required":false,"defaultValue":null},{"name":"custom","type":"Boolean","required":false,"defaultValue":null}]
+// 示例值：""
 func (builder *SkillBuilder) OutputSchema(outputSchema string) *SkillBuilder {
 	builder.outputSchema = outputSchema
 	builder.outputSchemaSet = true
@@ -6151,18 +6806,18 @@ func (builder *SkillCallBuilder) Build() *SkillCall {
 }
 
 type SkillGlobalVariable struct {
-	Query *string `json:"query,omitempty"` // 触发技能的消息文本
+	Query *string `json:"query,omitempty"` // 触发技能的消息文本；即用户在飞书机器人等渠道**对话输入的内容**
 
-	Files []string `json:"files,omitempty"` // 触发技能的消息文件
+	Files []string `json:"files,omitempty"` // 触发技能的文件信息（如 OCR 节点等所需消费的图片文件）;;> 如技能不需要文件，`files` 参数传空即可
 
 	Channel *Channel `json:"channel,omitempty"` // 渠道信息
 }
 
 type SkillGlobalVariableBuilder struct {
-	query    string // 触发技能的消息文本
+	query    string // 触发技能的消息文本；即用户在飞书机器人等渠道**对话输入的内容**
 	querySet bool
 
-	files    []string // 触发技能的消息文件
+	files    []string // 触发技能的文件信息（如 OCR 节点等所需消费的图片文件）;;> 如技能不需要文件，`files` 参数传空即可
 	filesSet bool
 
 	channel    *Channel // 渠道信息
@@ -6174,7 +6829,7 @@ func NewSkillGlobalVariableBuilder() *SkillGlobalVariableBuilder {
 	return builder
 }
 
-// 触发技能的消息文本
+// 触发技能的消息文本；即用户在飞书机器人等渠道**对话输入的内容**
 //
 // 示例值：你好
 func (builder *SkillGlobalVariableBuilder) Query(query string) *SkillGlobalVariableBuilder {
@@ -6183,7 +6838,7 @@ func (builder *SkillGlobalVariableBuilder) Query(query string) *SkillGlobalVaria
 	return builder
 }
 
-// 触发技能的消息文件
+// 触发技能的文件信息（如 OCR 节点等所需消费的图片文件）;;> 如技能不需要文件，`files` 参数传空即可
 //
 // 示例值：
 func (builder *SkillGlobalVariableBuilder) Files(files []string) *SkillGlobalVariableBuilder {
@@ -6265,7 +6920,7 @@ func (builder *SkillInstanceBuilder) Status(status string) *SkillInstanceBuilder
 
 // skill_instance 的输入，结构需要符合 skill 的 input schema
 //
-// 示例值：{	 "userInput": "今天天气怎么样" }
+// 示例值：{ "userInput": "今天天气怎么样" }
 func (builder *SkillInstanceBuilder) Input(input string) *SkillInstanceBuilder {
 	builder.input = input
 	builder.inputSet = true
@@ -6549,7 +7204,7 @@ func (builder *TableBuilder) ApiName(apiName string) *TableBuilder {
 
 // 数据表名称
 //
-// 示例值：
+// 示例值：{"en_us":"中文名称","zh_cn":"english name"}
 func (builder *TableBuilder) Label(label map[string]string) *TableBuilder {
 	builder.label = label
 	builder.labelSet = true
@@ -6609,11 +7264,1157 @@ func (builder *TableBuilder) Build() *Table {
 	return req
 }
 
+type TenantBuiltinSkillDetail struct {
+	SkillId *string `json:"skill_id,omitempty"` // 技能 UID
+
+	Name *string `json:"name,omitempty"` // 技能内部名（包内 name）
+
+	Label *string `json:"label,omitempty"` // 技能展示名
+
+	Description *string `json:"description,omitempty"` // 技能描述
+
+	Version *string `json:"version,omitempty"` // 当前生效版本号
+
+	Status *string `json:"status,omitempty"` // 状态：scanning/scan_failed/enabled
+
+	ScanFailReason *string `json:"scan_fail_reason,omitempty"` // 扫描失败原因（status=scan_failed 时有值）
+
+	Visibility *VisibilityConfig `json:"visibility,omitempty"` // 可见范围（Tenant/Range/Self，本组新建 struct，entity_id 为 open id）
+
+	UpdatedAt *string `json:"updated_at,omitempty"` // 更新时间（毫秒时间戳）
+}
+
+type TenantBuiltinSkillDetailBuilder struct {
+	skillId    string // 技能 UID
+	skillIdSet bool
+
+	name    string // 技能内部名（包内 name）
+	nameSet bool
+
+	label    string // 技能展示名
+	labelSet bool
+
+	description    string // 技能描述
+	descriptionSet bool
+
+	version    string // 当前生效版本号
+	versionSet bool
+
+	status    string // 状态：scanning/scan_failed/enabled
+	statusSet bool
+
+	scanFailReason    string // 扫描失败原因（status=scan_failed 时有值）
+	scanFailReasonSet bool
+
+	visibility    *VisibilityConfig // 可见范围（Tenant/Range/Self，本组新建 struct，entity_id 为 open id）
+	visibilitySet bool
+
+	updatedAt    string // 更新时间（毫秒时间戳）
+	updatedAtSet bool
+}
+
+func NewTenantBuiltinSkillDetailBuilder() *TenantBuiltinSkillDetailBuilder {
+	builder := &TenantBuiltinSkillDetailBuilder{}
+	return builder
+}
+
+// 技能 UID
+//
+// 示例值：skill_xxx
+func (builder *TenantBuiltinSkillDetailBuilder) SkillId(skillId string) *TenantBuiltinSkillDetailBuilder {
+	builder.skillId = skillId
+	builder.skillIdSet = true
+	return builder
+}
+
+// 技能内部名（包内 name）
+//
+// 示例值：test
+func (builder *TenantBuiltinSkillDetailBuilder) Name(name string) *TenantBuiltinSkillDetailBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 技能展示名
+//
+// 示例值：测试技能
+func (builder *TenantBuiltinSkillDetailBuilder) Label(label string) *TenantBuiltinSkillDetailBuilder {
+	builder.label = label
+	builder.labelSet = true
+	return builder
+}
+
+// 技能描述
+//
+// 示例值：测试描述
+func (builder *TenantBuiltinSkillDetailBuilder) Description(description string) *TenantBuiltinSkillDetailBuilder {
+	builder.description = description
+	builder.descriptionSet = true
+	return builder
+}
+
+// 当前生效版本号
+//
+// 示例值：1.0.0
+func (builder *TenantBuiltinSkillDetailBuilder) Version(version string) *TenantBuiltinSkillDetailBuilder {
+	builder.version = version
+	builder.versionSet = true
+	return builder
+}
+
+// 状态：scanning/scan_failed/enabled
+//
+// 示例值：enabled
+func (builder *TenantBuiltinSkillDetailBuilder) Status(status string) *TenantBuiltinSkillDetailBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// 扫描失败原因（status=scan_failed 时有值）
+//
+// 示例值：失败原因
+func (builder *TenantBuiltinSkillDetailBuilder) ScanFailReason(scanFailReason string) *TenantBuiltinSkillDetailBuilder {
+	builder.scanFailReason = scanFailReason
+	builder.scanFailReasonSet = true
+	return builder
+}
+
+// 可见范围（Tenant/Range/Self，本组新建 struct，entity_id 为 open id）
+//
+// 示例值：
+func (builder *TenantBuiltinSkillDetailBuilder) Visibility(visibility *VisibilityConfig) *TenantBuiltinSkillDetailBuilder {
+	builder.visibility = visibility
+	builder.visibilitySet = true
+	return builder
+}
+
+// 更新时间（毫秒时间戳）
+//
+// 示例值：1778597714404
+func (builder *TenantBuiltinSkillDetailBuilder) UpdatedAt(updatedAt string) *TenantBuiltinSkillDetailBuilder {
+	builder.updatedAt = updatedAt
+	builder.updatedAtSet = true
+	return builder
+}
+
+func (builder *TenantBuiltinSkillDetailBuilder) Build() *TenantBuiltinSkillDetail {
+	req := &TenantBuiltinSkillDetail{}
+	if builder.skillIdSet {
+		req.SkillId = &builder.skillId
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.labelSet {
+		req.Label = &builder.label
+
+	}
+	if builder.descriptionSet {
+		req.Description = &builder.description
+
+	}
+	if builder.versionSet {
+		req.Version = &builder.version
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.scanFailReasonSet {
+		req.ScanFailReason = &builder.scanFailReason
+
+	}
+	if builder.visibilitySet {
+		req.Visibility = builder.visibility
+	}
+	if builder.updatedAtSet {
+		req.UpdatedAt = &builder.updatedAt
+
+	}
+	return req
+}
+
+type VisibilityConfig struct {
+	Type *int `json:"type,omitempty"` //
+
+	Entities []*VisibilityEntity `json:"entities,omitempty"` // 实体列表
+}
+
+type VisibilityConfigBuilder struct {
+	type_    int //
+	type_Set bool
+
+	entities    []*VisibilityEntity // 实体列表
+	entitiesSet bool
+}
+
+func NewVisibilityConfigBuilder() *VisibilityConfigBuilder {
+	builder := &VisibilityConfigBuilder{}
+	return builder
+}
+
+// 示例值：
+func (builder *VisibilityConfigBuilder) Type(type_ int) *VisibilityConfigBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 实体列表
+//
+// 示例值：
+func (builder *VisibilityConfigBuilder) Entities(entities []*VisibilityEntity) *VisibilityConfigBuilder {
+	builder.entities = entities
+	builder.entitiesSet = true
+	return builder
+}
+
+func (builder *VisibilityConfigBuilder) Build() *VisibilityConfig {
+	req := &VisibilityConfig{}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.entitiesSet {
+		req.Entities = builder.entities
+	}
+	return req
+}
+
+type VisibilityEntity struct {
+	Type *int `json:"type,omitempty"` // 实体类型
+
+	EntityId *string `json:"entity_id,omitempty"` // 实体id
+}
+
+type VisibilityEntityBuilder struct {
+	type_    int // 实体类型
+	type_Set bool
+
+	entityId    string // 实体id
+	entityIdSet bool
+}
+
+func NewVisibilityEntityBuilder() *VisibilityEntityBuilder {
+	builder := &VisibilityEntityBuilder{}
+	return builder
+}
+
+// 实体类型
+//
+// 示例值：
+func (builder *VisibilityEntityBuilder) Type(type_ int) *VisibilityEntityBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 实体id
+//
+// 示例值：1778597714404
+func (builder *VisibilityEntityBuilder) EntityId(entityId string) *VisibilityEntityBuilder {
+	builder.entityId = entityId
+	builder.entityIdSet = true
+	return builder
+}
+
+func (builder *VisibilityEntityBuilder) Build() *VisibilityEntity {
+	req := &VisibilityEntity{}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.entityIdSet {
+		req.EntityId = &builder.entityId
+
+	}
+	return req
+}
+
+type GetAgentAgentArtifactReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetAgentAgentArtifactReqBuilder() *GetAgentAgentArtifactReqBuilder {
+	builder := &GetAgentAgentArtifactReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 智能体id，通过智能体后台详情的地址栏中获取
+//
+// 示例值：agent_4k6jukr5skfax
+func (builder *GetAgentAgentArtifactReqBuilder) AgentId(agentId string) *GetAgentAgentArtifactReqBuilder {
+	builder.apiReq.PathParams.Set("agent_id", fmt.Sprint(agentId))
+	return builder
+}
+
+// 智能体产物ID，调用[获取会话结果](https://open.larkoffice.com/document//uAjLw4CM/ukTMukTMukTM/aily-v1/agent-agent_chat/get)接口获取
+//
+// 示例值：artifact_4k6m2dbmrjeqf
+func (builder *GetAgentAgentArtifactReqBuilder) AgentArtifactId(agentArtifactId string) *GetAgentAgentArtifactReqBuilder {
+	builder.apiReq.PathParams.Set("agent_artifact_id", fmt.Sprint(agentArtifactId))
+	return builder
+}
+
+func (builder *GetAgentAgentArtifactReqBuilder) Build() *GetAgentAgentArtifactReq {
+	req := &GetAgentAgentArtifactReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type GetAgentAgentArtifactReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetAgentAgentArtifactRespData struct {
+	AgentArtifact *AgentArtifact `json:"agent_artifact,omitempty"` // 产物
+}
+
+type GetAgentAgentArtifactResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetAgentAgentArtifactRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetAgentAgentArtifactResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateAgentAgentAttachmentReqBodyBuilder struct {
+	file    io.Reader // 文件，仅在type=file时需要传入，支持png/jpg/pdf格式，文件最大支持40M，图片最大支持5M
+	fileSet bool
+
+	type_    string // 附件类型;- 当设置为 `image`或者`file` 时，file必传，doc_url不生效;- 当设置为 `feishu_doc`或者`bitable` 时，doc_url必传，file不生效;- 可选类型，image、file、feishu_doc、bitable
+	type_Set bool
+
+	docUrl    string // 云文档/多维表格url，仅在type=bitable或者feishu_doc时需要传入
+	docUrlSet bool
+}
+
+func NewCreateAgentAgentAttachmentReqBodyBuilder() *CreateAgentAgentAttachmentReqBodyBuilder {
+	builder := &CreateAgentAgentAttachmentReqBodyBuilder{}
+	return builder
+}
+
+// 文件，仅在type=file时需要传入，支持png/jpg/pdf格式，文件最大支持40M，图片最大支持5M
+//
+// 示例值：文件二进制
+func (builder *CreateAgentAgentAttachmentReqBodyBuilder) File(file io.Reader) *CreateAgentAgentAttachmentReqBodyBuilder {
+	builder.file = file
+	builder.fileSet = true
+	return builder
+}
+
+// 附件类型;- 当设置为 `image`或者`file` 时，file必传，doc_url不生效;- 当设置为 `feishu_doc`或者`bitable` 时，doc_url必传，file不生效;- 可选类型，image、file、feishu_doc、bitable
+//
+// 示例值：image
+func (builder *CreateAgentAgentAttachmentReqBodyBuilder) Type(type_ string) *CreateAgentAgentAttachmentReqBodyBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 云文档/多维表格url，仅在type=bitable或者feishu_doc时需要传入
+//
+// 示例值：
+func (builder *CreateAgentAgentAttachmentReqBodyBuilder) DocUrl(docUrl string) *CreateAgentAgentAttachmentReqBodyBuilder {
+	builder.docUrl = docUrl
+	builder.docUrlSet = true
+	return builder
+}
+
+func (builder *CreateAgentAgentAttachmentReqBodyBuilder) Build() *CreateAgentAgentAttachmentReqBody {
+	req := &CreateAgentAgentAttachmentReqBody{}
+	if builder.fileSet {
+		req.File = builder.file
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+	}
+	if builder.docUrlSet {
+		req.DocUrl = &builder.docUrl
+	}
+	return req
+}
+
+type CreateAgentAgentAttachmentPathReqBodyBuilder struct {
+	filePath     string // 文件，仅在type=file时需要传入，支持png/jpg/pdf格式，文件最大支持40M，图片最大支持5M
+	filePathFlag bool
+	type_        string
+	type_Set     bool
+	docUrl       string
+	docUrlSet    bool
+}
+
+func NewCreateAgentAgentAttachmentPathReqBodyBuilder() *CreateAgentAgentAttachmentPathReqBodyBuilder {
+	builder := &CreateAgentAgentAttachmentPathReqBodyBuilder{}
+	return builder
+}
+
+// 文件，仅在type=file时需要传入，支持png/jpg/pdf格式，文件最大支持40M，图片最大支持5M
+//
+// 示例值：文件二进制
+func (builder *CreateAgentAgentAttachmentPathReqBodyBuilder) FilePath(filePath string) *CreateAgentAgentAttachmentPathReqBodyBuilder {
+	builder.filePath = filePath
+	builder.filePathFlag = true
+	return builder
+}
+
+// 附件类型;- 当设置为 `image`或者`file` 时，file必传，doc_url不生效;- 当设置为 `feishu_doc`或者`bitable` 时，doc_url必传，file不生效;- 可选类型，image、file、feishu_doc、bitable
+//
+// 示例值：image
+func (builder *CreateAgentAgentAttachmentPathReqBodyBuilder) Type(type_ string) *CreateAgentAgentAttachmentPathReqBodyBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 云文档/多维表格url，仅在type=bitable或者feishu_doc时需要传入
+//
+// 示例值：
+func (builder *CreateAgentAgentAttachmentPathReqBodyBuilder) DocUrl(docUrl string) *CreateAgentAgentAttachmentPathReqBodyBuilder {
+	builder.docUrl = docUrl
+	builder.docUrlSet = true
+	return builder
+}
+
+func (builder *CreateAgentAgentAttachmentPathReqBodyBuilder) Build() (*CreateAgentAgentAttachmentReqBody, error) {
+	req := &CreateAgentAgentAttachmentReqBody{}
+	if builder.filePathFlag {
+		data, err := larkcore.File2Bytes(builder.filePath)
+		if err != nil {
+			return nil, err
+		}
+		req.File = bytes.NewBuffer(data)
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+	}
+	if builder.docUrlSet {
+		req.DocUrl = &builder.docUrl
+	}
+	return req, nil
+}
+
+type CreateAgentAgentAttachmentReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CreateAgentAgentAttachmentReqBody
+}
+
+func NewCreateAgentAgentAttachmentReqBuilder() *CreateAgentAgentAttachmentReqBuilder {
+	builder := &CreateAgentAgentAttachmentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 智能体id，通过智能体后台详情的地址栏中获取
+//
+// 示例值：agent_4k4ue29hpwrx2
+func (builder *CreateAgentAgentAttachmentReqBuilder) AgentId(agentId string) *CreateAgentAgentAttachmentReqBuilder {
+	builder.apiReq.PathParams.Set("agent_id", fmt.Sprint(agentId))
+	return builder
+}
+
+// 本接口用于上传需智能体分析的文件，上传成功后返回附件 ID。
+func (builder *CreateAgentAgentAttachmentReqBuilder) Body(body *CreateAgentAgentAttachmentReqBody) *CreateAgentAgentAttachmentReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CreateAgentAgentAttachmentReqBuilder) Build() *CreateAgentAgentAttachmentReq {
+	req := &CreateAgentAgentAttachmentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CreateAgentAgentAttachmentReqBody struct {
+	File io.Reader `json:"file,omitempty"` // 文件，仅在type=file时需要传入，支持png/jpg/pdf格式，文件最大支持40M，图片最大支持5M
+
+	Type *string `json:"type,omitempty"` // 附件类型;- 当设置为 `image`或者`file` 时，file必传，doc_url不生效;- 当设置为 `feishu_doc`或者`bitable` 时，doc_url必传，file不生效;- 可选类型，image、file、feishu_doc、bitable
+
+	DocUrl *string `json:"doc_url,omitempty"` // 云文档/多维表格url，仅在type=bitable或者feishu_doc时需要传入
+}
+
+type CreateAgentAgentAttachmentReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CreateAgentAgentAttachmentReqBody `body:""`
+}
+
+type CreateAgentAgentAttachmentRespData struct {
+	AgentAttachmentId *string `json:"agent_attachment_id,omitempty"` // 附件id
+}
+
+type CreateAgentAgentAttachmentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateAgentAgentAttachmentRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateAgentAgentAttachmentResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateAgentAgentChatReqBodyBuilder struct {
+	userMessage    *AgentUserMessage // 用户请求对话内容，必填参数
+	userMessageSet bool
+
+	stream    bool // 是否流式输出
+	streamSet bool
+
+	sessionId    string // 会话ID
+	sessionIdSet bool
+}
+
+func NewCreateAgentAgentChatReqBodyBuilder() *CreateAgentAgentChatReqBodyBuilder {
+	builder := &CreateAgentAgentChatReqBodyBuilder{}
+	return builder
+}
+
+// 用户请求对话内容，必填参数
+//
+// 示例值：
+func (builder *CreateAgentAgentChatReqBodyBuilder) UserMessage(userMessage *AgentUserMessage) *CreateAgentAgentChatReqBodyBuilder {
+	builder.userMessage = userMessage
+	builder.userMessageSet = true
+	return builder
+}
+
+// 是否流式输出
+//
+// 示例值：
+func (builder *CreateAgentAgentChatReqBodyBuilder) Stream(stream bool) *CreateAgentAgentChatReqBodyBuilder {
+	builder.stream = stream
+	builder.streamSet = true
+	return builder
+}
+
+// 会话ID
+//
+// 示例值：conversation_6521651561561
+func (builder *CreateAgentAgentChatReqBodyBuilder) SessionId(sessionId string) *CreateAgentAgentChatReqBodyBuilder {
+	builder.sessionId = sessionId
+	builder.sessionIdSet = true
+	return builder
+}
+
+func (builder *CreateAgentAgentChatReqBodyBuilder) Build() *CreateAgentAgentChatReqBody {
+	req := &CreateAgentAgentChatReqBody{}
+	if builder.userMessageSet {
+		req.UserMessage = builder.userMessage
+	}
+	if builder.streamSet {
+		req.Stream = &builder.stream
+	}
+	if builder.sessionIdSet {
+		req.SessionId = &builder.sessionId
+	}
+	return req
+}
+
+type CreateAgentAgentChatPathReqBodyBuilder struct {
+	userMessage    *AgentUserMessage
+	userMessageSet bool
+	stream         bool
+	streamSet      bool
+	sessionId      string
+	sessionIdSet   bool
+}
+
+func NewCreateAgentAgentChatPathReqBodyBuilder() *CreateAgentAgentChatPathReqBodyBuilder {
+	builder := &CreateAgentAgentChatPathReqBodyBuilder{}
+	return builder
+}
+
+// 用户请求对话内容，必填参数
+//
+// 示例值：
+func (builder *CreateAgentAgentChatPathReqBodyBuilder) UserMessage(userMessage *AgentUserMessage) *CreateAgentAgentChatPathReqBodyBuilder {
+	builder.userMessage = userMessage
+	builder.userMessageSet = true
+	return builder
+}
+
+// 是否流式输出
+//
+// 示例值：
+func (builder *CreateAgentAgentChatPathReqBodyBuilder) Stream(stream bool) *CreateAgentAgentChatPathReqBodyBuilder {
+	builder.stream = stream
+	builder.streamSet = true
+	return builder
+}
+
+// 会话ID
+//
+// 示例值：conversation_6521651561561
+func (builder *CreateAgentAgentChatPathReqBodyBuilder) SessionId(sessionId string) *CreateAgentAgentChatPathReqBodyBuilder {
+	builder.sessionId = sessionId
+	builder.sessionIdSet = true
+	return builder
+}
+
+func (builder *CreateAgentAgentChatPathReqBodyBuilder) Build() (*CreateAgentAgentChatReqBody, error) {
+	req := &CreateAgentAgentChatReqBody{}
+	if builder.userMessageSet {
+		req.UserMessage = builder.userMessage
+	}
+	if builder.streamSet {
+		req.Stream = &builder.stream
+	}
+	if builder.sessionIdSet {
+		req.SessionId = &builder.sessionId
+	}
+	return req, nil
+}
+
+type CreateAgentAgentChatReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CreateAgentAgentChatReqBody
+}
+
+func NewCreateAgentAgentChatReqBuilder() *CreateAgentAgentChatReqBuilder {
+	builder := &CreateAgentAgentChatReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 智能体id，通过智能体后台详情的地址栏中获取
+//
+// 示例值：agent_4k4ue29hpwrx2
+func (builder *CreateAgentAgentChatReqBuilder) AgentId(agentId string) *CreateAgentAgentChatReqBuilder {
+	builder.apiReq.PathParams.Set("agent_id", fmt.Sprint(agentId))
+	return builder
+}
+
+// 异步发起一轮智能体对话，提交用户消息后立即返回对话ID，触发智能体在后台运行。
+func (builder *CreateAgentAgentChatReqBuilder) Body(body *CreateAgentAgentChatReqBody) *CreateAgentAgentChatReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CreateAgentAgentChatReqBuilder) Build() *CreateAgentAgentChatReq {
+	req := &CreateAgentAgentChatReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CreateAgentAgentChatReqBody struct {
+	UserMessage *AgentUserMessage `json:"user_message,omitempty"` // 用户请求对话内容，必填参数
+
+	Stream *bool `json:"stream,omitempty"` // 是否流式输出
+
+	SessionId *string `json:"session_id,omitempty"` // 会话ID
+}
+
+type CreateAgentAgentChatReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CreateAgentAgentChatReqBody `body:""`
+}
+
+type CreateAgentAgentChatRespData struct {
+	AgentChatId *string `json:"agent_chat_id,omitempty"` // 对话ID
+
+	SessionId *string `json:"session_id,omitempty"` // 会话ID
+}
+
+type CreateAgentAgentChatResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateAgentAgentChatRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateAgentAgentChatResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetAgentAgentChatReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetAgentAgentChatReqBuilder() *GetAgentAgentChatReqBuilder {
+	builder := &GetAgentAgentChatReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 智能体id，通过智能体后台详情的地址栏中获取
+//
+// 示例值：agent_4k4ue29hpwrx2
+func (builder *GetAgentAgentChatReqBuilder) AgentId(agentId string) *GetAgentAgentChatReqBuilder {
+	builder.apiReq.PathParams.Set("agent_id", fmt.Sprint(agentId))
+	return builder
+}
+
+// 智能体对话ID，通过[发起对话](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/aily-v1/agent-agent_chat/create)接口获取
+//
+// 示例值：7640186506971926032
+func (builder *GetAgentAgentChatReqBuilder) AgentChatId(agentChatId string) *GetAgentAgentChatReqBuilder {
+	builder.apiReq.PathParams.Set("agent_chat_id", fmt.Sprint(agentChatId))
+	return builder
+}
+
+func (builder *GetAgentAgentChatReqBuilder) Build() *GetAgentAgentChatReq {
+	req := &GetAgentAgentChatReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type GetAgentAgentChatReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetAgentAgentChatRespData struct {
+	Content []*AgentChatMessage `json:"content,omitempty"` // Agent回复内容
+
+	FinishReason *string `json:"finish_reason,omitempty"` // 对话结束原因
+
+	Status *string `json:"status,omitempty"` // 状态
+}
+
+type GetAgentAgentChatResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetAgentAgentChatRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetAgentAgentChatResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateAgentAgentChatSessionReqBodyBuilder struct {
+	name    string // 会话名
+	nameSet bool
+}
+
+func NewCreateAgentAgentChatSessionReqBodyBuilder() *CreateAgentAgentChatSessionReqBodyBuilder {
+	builder := &CreateAgentAgentChatSessionReqBodyBuilder{}
+	return builder
+}
+
+// 会话名
+//
+// 示例值：计算问题
+func (builder *CreateAgentAgentChatSessionReqBodyBuilder) Name(name string) *CreateAgentAgentChatSessionReqBodyBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+func (builder *CreateAgentAgentChatSessionReqBodyBuilder) Build() *CreateAgentAgentChatSessionReqBody {
+	req := &CreateAgentAgentChatSessionReqBody{}
+	if builder.nameSet {
+		req.Name = &builder.name
+	}
+	return req
+}
+
+type CreateAgentAgentChatSessionPathReqBodyBuilder struct {
+	name    string
+	nameSet bool
+}
+
+func NewCreateAgentAgentChatSessionPathReqBodyBuilder() *CreateAgentAgentChatSessionPathReqBodyBuilder {
+	builder := &CreateAgentAgentChatSessionPathReqBodyBuilder{}
+	return builder
+}
+
+// 会话名
+//
+// 示例值：计算问题
+func (builder *CreateAgentAgentChatSessionPathReqBodyBuilder) Name(name string) *CreateAgentAgentChatSessionPathReqBodyBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+func (builder *CreateAgentAgentChatSessionPathReqBodyBuilder) Build() (*CreateAgentAgentChatSessionReqBody, error) {
+	req := &CreateAgentAgentChatSessionReqBody{}
+	if builder.nameSet {
+		req.Name = &builder.name
+	}
+	return req, nil
+}
+
+type CreateAgentAgentChatSessionReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CreateAgentAgentChatSessionReqBody
+}
+
+func NewCreateAgentAgentChatSessionReqBuilder() *CreateAgentAgentChatSessionReqBuilder {
+	builder := &CreateAgentAgentChatSessionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 智能体ID，通过智能体后台详情的地址栏中获取
+//
+// 示例值：agent_4k4ue29hpwrx2
+func (builder *CreateAgentAgentChatSessionReqBuilder) AgentId(agentId string) *CreateAgentAgentChatSessionReqBuilder {
+	builder.apiReq.PathParams.Set("agent_id", fmt.Sprint(agentId))
+	return builder
+}
+
+// 本接口用于智能体创建空白会话
+func (builder *CreateAgentAgentChatSessionReqBuilder) Body(body *CreateAgentAgentChatSessionReqBody) *CreateAgentAgentChatSessionReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CreateAgentAgentChatSessionReqBuilder) Build() *CreateAgentAgentChatSessionReq {
+	req := &CreateAgentAgentChatSessionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CreateAgentAgentChatSessionReqBody struct {
+	Name *string `json:"name,omitempty"` // 会话名
+}
+
+type CreateAgentAgentChatSessionReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CreateAgentAgentChatSessionReqBody `body:""`
+}
+
+type CreateAgentAgentChatSessionRespData struct {
+	SessionId *string `json:"session_id,omitempty"` // 会话ID
+
+	Name *string `json:"name,omitempty"` // 会话名
+
+	CreatedAt *string `json:"created_at,omitempty"` // 会话创建时间
+}
+
+type CreateAgentAgentChatSessionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateAgentAgentChatSessionRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateAgentAgentChatSessionResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteAgentAgentChatSessionReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeleteAgentAgentChatSessionReqBuilder() *DeleteAgentAgentChatSessionReqBuilder {
+	builder := &DeleteAgentAgentChatSessionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 智能体ID，通过智能体后台详情的地址栏中获取
+//
+// 示例值：agent_asdsad
+func (builder *DeleteAgentAgentChatSessionReqBuilder) AgentId(agentId string) *DeleteAgentAgentChatSessionReqBuilder {
+	builder.apiReq.PathParams.Set("agent_id", fmt.Sprint(agentId))
+	return builder
+}
+
+// 会话ID，发起对话、创建会话或查询会话列表获取
+//
+// 示例值：conversation_assadasd
+func (builder *DeleteAgentAgentChatSessionReqBuilder) AgentChatSessionId(agentChatSessionId string) *DeleteAgentAgentChatSessionReqBuilder {
+	builder.apiReq.PathParams.Set("agent_chat_session_id", fmt.Sprint(agentChatSessionId))
+	return builder
+}
+
+func (builder *DeleteAgentAgentChatSessionReqBuilder) Build() *DeleteAgentAgentChatSessionReq {
+	req := &DeleteAgentAgentChatSessionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type DeleteAgentAgentChatSessionReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeleteAgentAgentChatSessionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteAgentAgentChatSessionResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetAgentAgentChatSessionReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetAgentAgentChatSessionReqBuilder() *GetAgentAgentChatSessionReqBuilder {
+	builder := &GetAgentAgentChatSessionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 智能体ID，通过智能体后台详情的地址栏中获取
+//
+// 示例值：agent_ashcascsa
+func (builder *GetAgentAgentChatSessionReqBuilder) AgentId(agentId string) *GetAgentAgentChatSessionReqBuilder {
+	builder.apiReq.PathParams.Set("agent_id", fmt.Sprint(agentId))
+	return builder
+}
+
+// 会话ID，发起对话、创建会话或查询会话列表获取
+//
+// 示例值：conversation_asdasda
+func (builder *GetAgentAgentChatSessionReqBuilder) AgentChatSessionId(agentChatSessionId string) *GetAgentAgentChatSessionReqBuilder {
+	builder.apiReq.PathParams.Set("agent_chat_session_id", fmt.Sprint(agentChatSessionId))
+	return builder
+}
+
+func (builder *GetAgentAgentChatSessionReqBuilder) Build() *GetAgentAgentChatSessionReq {
+	req := &GetAgentAgentChatSessionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type GetAgentAgentChatSessionReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetAgentAgentChatSessionRespData struct {
+	SessionId *string `json:"session_id,omitempty"` // 会话ID
+
+	Name *string `json:"name,omitempty"` // 会话名
+
+	Status *string `json:"status,omitempty"` // 会话状态
+
+	CreatedAt *string `json:"created_at,omitempty"` // 会话创建时间
+
+	LastChatAt *string `json:"last_chat_at,omitempty"` // 会话上次对话时间
+
+	Turns *AgentChatTurn `json:"turns,omitempty"` // 会话的对话轮次
+}
+
+type GetAgentAgentChatSessionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetAgentAgentChatSessionRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetAgentAgentChatSessionResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListAgentAgentChatSessionReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListAgentAgentChatSessionReqBuilder() *ListAgentAgentChatSessionReqBuilder {
+	builder := &ListAgentAgentChatSessionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 智能体ID，通过智能体后台详情的地址栏中获取
+//
+// 示例值：agent_4k4ue29hpwrx2
+func (builder *ListAgentAgentChatSessionReqBuilder) AgentId(agentId string) *ListAgentAgentChatSessionReqBuilder {
+	builder.apiReq.PathParams.Set("agent_id", fmt.Sprint(agentId))
+	return builder
+}
+
+// 示例值：
+func (builder *ListAgentAgentChatSessionReqBuilder) PageSize(pageSize int) *ListAgentAgentChatSessionReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 示例值：
+func (builder *ListAgentAgentChatSessionReqBuilder) PageToken(pageToken string) *ListAgentAgentChatSessionReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+func (builder *ListAgentAgentChatSessionReqBuilder) Build() *ListAgentAgentChatSessionReq {
+	req := &ListAgentAgentChatSessionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListAgentAgentChatSessionReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListAgentAgentChatSessionRespData struct {
+	Sessions []*AgentChatSession `json:"sessions,omitempty"` // 会话列表
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+
+	NextPageToken *string `json:"next_page_token,omitempty"` // 下一页的token
+}
+
+type ListAgentAgentChatSessionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListAgentAgentChatSessionRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListAgentAgentChatSessionResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CheckAgentAgentVisibilityReqBodyBuilder struct {
+	channelType    string // 渠道类型;- 可选值为web_sdk
+	channelTypeSet bool
+}
+
+func NewCheckAgentAgentVisibilityReqBodyBuilder() *CheckAgentAgentVisibilityReqBodyBuilder {
+	builder := &CheckAgentAgentVisibilityReqBodyBuilder{}
+	return builder
+}
+
+// 渠道类型;- 可选值为web_sdk
+//
+// 示例值：web_sdk
+func (builder *CheckAgentAgentVisibilityReqBodyBuilder) ChannelType(channelType string) *CheckAgentAgentVisibilityReqBodyBuilder {
+	builder.channelType = channelType
+	builder.channelTypeSet = true
+	return builder
+}
+
+func (builder *CheckAgentAgentVisibilityReqBodyBuilder) Build() *CheckAgentAgentVisibilityReqBody {
+	req := &CheckAgentAgentVisibilityReqBody{}
+	if builder.channelTypeSet {
+		req.ChannelType = &builder.channelType
+	}
+	return req
+}
+
+type CheckAgentAgentVisibilityPathReqBodyBuilder struct {
+	channelType    string
+	channelTypeSet bool
+}
+
+func NewCheckAgentAgentVisibilityPathReqBodyBuilder() *CheckAgentAgentVisibilityPathReqBodyBuilder {
+	builder := &CheckAgentAgentVisibilityPathReqBodyBuilder{}
+	return builder
+}
+
+// 渠道类型;- 可选值为web_sdk
+//
+// 示例值：web_sdk
+func (builder *CheckAgentAgentVisibilityPathReqBodyBuilder) ChannelType(channelType string) *CheckAgentAgentVisibilityPathReqBodyBuilder {
+	builder.channelType = channelType
+	builder.channelTypeSet = true
+	return builder
+}
+
+func (builder *CheckAgentAgentVisibilityPathReqBodyBuilder) Build() (*CheckAgentAgentVisibilityReqBody, error) {
+	req := &CheckAgentAgentVisibilityReqBody{}
+	if builder.channelTypeSet {
+		req.ChannelType = &builder.channelType
+	}
+	return req, nil
+}
+
+type CheckAgentAgentVisibilityReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CheckAgentAgentVisibilityReqBody
+}
+
+func NewCheckAgentAgentVisibilityReqBuilder() *CheckAgentAgentVisibilityReqBuilder {
+	builder := &CheckAgentAgentVisibilityReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 智能体id，通过智能体后台详情的地址栏中获取
+//
+// 示例值：agent_4k4ue29hpwrx2
+func (builder *CheckAgentAgentVisibilityReqBuilder) AgentId(agentId string) *CheckAgentAgentVisibilityReqBuilder {
+	builder.apiReq.PathParams.Set("agent_id", fmt.Sprint(agentId))
+	return builder
+}
+
+// 查询当前调用用户对指定智能体的可见性。接口根据UserAccessToken(用户身份凭证)解析出当前用户,结合传入的 channel_type(渠道类型),返回可见性。
+func (builder *CheckAgentAgentVisibilityReqBuilder) Body(body *CheckAgentAgentVisibilityReqBody) *CheckAgentAgentVisibilityReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CheckAgentAgentVisibilityReqBuilder) Build() *CheckAgentAgentVisibilityReq {
+	req := &CheckAgentAgentVisibilityReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CheckAgentAgentVisibilityReqBody struct {
+	ChannelType *string `json:"channel_type,omitempty"` // 渠道类型;- 可选值为web_sdk
+}
+
+type CheckAgentAgentVisibilityReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CheckAgentAgentVisibilityReqBody `body:""`
+}
+
+type CheckAgentAgentVisibilityRespData struct {
+	Visibility *bool `json:"visibility,omitempty"` // 可见性
+}
+
+type CheckAgentAgentVisibilityResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CheckAgentAgentVisibilityRespData `json:"data"` // 业务数据
+}
+
+func (resp *CheckAgentAgentVisibilityResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateAilySessionReqBodyBuilder struct {
-	channelContext    string // 渠道上下文
+	channelContext    string // 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量
 	channelContextSet bool
 
-	metadata    string // 其他透传信息
+	metadata    string // 会话的自定义变量内容，变量数据保存在服务端 Session 中，可在 `GetSession` 时原样返回，无需在 API 调用侧存储
 	metadataSet bool
 }
 
@@ -6622,18 +8423,18 @@ func NewCreateAilySessionReqBodyBuilder() *CreateAilySessionReqBodyBuilder {
 	return builder
 }
 
-// 渠道上下文
+// 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量
 //
-//示例值：{}
+// 示例值：{}
 func (builder *CreateAilySessionReqBodyBuilder) ChannelContext(channelContext string) *CreateAilySessionReqBodyBuilder {
 	builder.channelContext = channelContext
 	builder.channelContextSet = true
 	return builder
 }
 
-// 其他透传信息
+// 会话的自定义变量内容，变量数据保存在服务端 Session 中，可在 `GetSession` 时原样返回，无需在 API 调用侧存储
 //
-//示例值：{}
+// 示例值：{}
 func (builder *CreateAilySessionReqBodyBuilder) Metadata(metadata string) *CreateAilySessionReqBodyBuilder {
 	builder.metadata = metadata
 	builder.metadataSet = true
@@ -6663,7 +8464,7 @@ func NewCreateAilySessionPathReqBodyBuilder() *CreateAilySessionPathReqBodyBuild
 	return builder
 }
 
-// 渠道上下文
+// 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量
 //
 // 示例值：{}
 func (builder *CreateAilySessionPathReqBodyBuilder) ChannelContext(channelContext string) *CreateAilySessionPathReqBodyBuilder {
@@ -6672,7 +8473,7 @@ func (builder *CreateAilySessionPathReqBodyBuilder) ChannelContext(channelContex
 	return builder
 }
 
-// 其他透传信息
+// 会话的自定义变量内容，变量数据保存在服务端 Session 中，可在 `GetSession` 时原样返回，无需在 API 调用侧存储
 //
 // 示例值：{}
 func (builder *CreateAilySessionPathReqBodyBuilder) Metadata(metadata string) *CreateAilySessionPathReqBodyBuilder {
@@ -6706,7 +8507,7 @@ func NewCreateAilySessionReqBuilder() *CreateAilySessionReqBuilder {
 	return builder
 }
 
-// 该 API 用于创建与某个飞书智能伙伴应用的一次会话（Session）。
+// 该 API 用于创建与某个飞书 Aily 应用的一次会话（Session）；当创建会话成功后，可以发送消息、创建运行。
 func (builder *CreateAilySessionReqBuilder) Body(body *CreateAilySessionReqBody) *CreateAilySessionReqBuilder {
 	builder.body = body
 	return builder
@@ -6720,9 +8521,9 @@ func (builder *CreateAilySessionReqBuilder) Build() *CreateAilySessionReq {
 }
 
 type CreateAilySessionReqBody struct {
-	ChannelContext *string `json:"channel_context,omitempty"` // 渠道上下文
+	ChannelContext *string `json:"channel_context,omitempty"` // 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量
 
-	Metadata *string `json:"metadata,omitempty"` // 其他透传信息
+	Metadata *string `json:"metadata,omitempty"` // 会话的自定义变量内容，变量数据保存在服务端 Session 中，可在 `GetSession` 时原样返回，无需在 API 调用侧存储
 }
 
 type CreateAilySessionReq struct {
@@ -6832,10 +8633,10 @@ func (resp *GetAilySessionResp) Success() bool {
 }
 
 type UpdateAilySessionReqBodyBuilder struct {
-	channelContext    string // 渠道上下文
+	channelContext    string // 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量
 	channelContextSet bool
 
-	metadata    string // 其他透传信息
+	metadata    string // 会话的自定义变量内容，变量数据保存在服务端 Session 中，可在 `GetSession` 时原样返回，无需在 API 调用侧存储
 	metadataSet bool
 }
 
@@ -6844,18 +8645,18 @@ func NewUpdateAilySessionReqBodyBuilder() *UpdateAilySessionReqBodyBuilder {
 	return builder
 }
 
-// 渠道上下文
+// 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量
 //
-//示例值：{}
+// 示例值：{}
 func (builder *UpdateAilySessionReqBodyBuilder) ChannelContext(channelContext string) *UpdateAilySessionReqBodyBuilder {
 	builder.channelContext = channelContext
 	builder.channelContextSet = true
 	return builder
 }
 
-// 其他透传信息
+// 会话的自定义变量内容，变量数据保存在服务端 Session 中，可在 `GetSession` 时原样返回，无需在 API 调用侧存储
 //
-//示例值：{}
+// 示例值：{}
 func (builder *UpdateAilySessionReqBodyBuilder) Metadata(metadata string) *UpdateAilySessionReqBodyBuilder {
 	builder.metadata = metadata
 	builder.metadataSet = true
@@ -6885,7 +8686,7 @@ func NewUpdateAilySessionPathReqBodyBuilder() *UpdateAilySessionPathReqBodyBuild
 	return builder
 }
 
-// 渠道上下文
+// 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量
 //
 // 示例值：{}
 func (builder *UpdateAilySessionPathReqBodyBuilder) ChannelContext(channelContext string) *UpdateAilySessionPathReqBodyBuilder {
@@ -6894,7 +8695,7 @@ func (builder *UpdateAilySessionPathReqBodyBuilder) ChannelContext(channelContex
 	return builder
 }
 
-// 其他透传信息
+// 会话的自定义变量内容，变量数据保存在服务端 Session 中，可在 `GetSession` 时原样返回，无需在 API 调用侧存储
 //
 // 示例值：{}
 func (builder *UpdateAilySessionPathReqBodyBuilder) Metadata(metadata string) *UpdateAilySessionPathReqBodyBuilder {
@@ -6936,7 +8737,7 @@ func (builder *UpdateAilySessionReqBuilder) AilySessionId(ailySessionId string) 
 	return builder
 }
 
-// 该 API 用于更新与某个飞书智能伙伴应用的一次会话（Session）。
+// 该 API 用于更新与某个飞书 Aily 应用的一次会话（Session）的信息。
 func (builder *UpdateAilySessionReqBuilder) Body(body *UpdateAilySessionReqBody) *UpdateAilySessionReqBuilder {
 	builder.body = body
 	return builder
@@ -6951,9 +8752,9 @@ func (builder *UpdateAilySessionReqBuilder) Build() *UpdateAilySessionReq {
 }
 
 type UpdateAilySessionReqBody struct {
-	ChannelContext *string `json:"channel_context,omitempty"` // 渠道上下文
+	ChannelContext *string `json:"channel_context,omitempty"` // 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量
 
-	Metadata *string `json:"metadata,omitempty"` // 其他透传信息
+	Metadata *string `json:"metadata,omitempty"` // 会话的自定义变量内容，变量数据保存在服务端 Session 中，可在 `GetSession` 时原样返回，无需在 API 调用侧存储
 }
 
 type UpdateAilySessionReq struct {
@@ -6976,10 +8777,10 @@ func (resp *UpdateAilySessionResp) Success() bool {
 }
 
 type CreateAilySessionAilyMessageReqBodyBuilder struct {
-	idempotentId    string // 幂等id，同一 session 下相同的幂等 id 算一条消息，有效期72h
+	idempotentId    string // 幂等 ID（如使用 UUID 生成器或时间戳），同一会话下相同的幂等 ID 视为同一个消息（72h）
 	idempotentIdSet bool
 
-	contentType    string // 消息内容类型
+	contentType    string // 消息的类型，包括 `MDX` | `TEXT` 等;;- `MDX` 能够表达富文本信息结构，可参考 Aily 消息节点 markdown 语法;- `TEXT` 作为纯文本进行处理
 	contentTypeSet bool
 
 	content    string // 消息内容
@@ -7000,18 +8801,18 @@ func NewCreateAilySessionAilyMessageReqBodyBuilder() *CreateAilySessionAilyMessa
 	return builder
 }
 
-// 幂等id，同一 session 下相同的幂等 id 算一条消息，有效期72h
+// 幂等 ID（如使用 UUID 生成器或时间戳），同一会话下相同的幂等 ID 视为同一个消息（72h）
 //
-//示例值：idempotent_id_1
+// 示例值：idempotent_id_1
 func (builder *CreateAilySessionAilyMessageReqBodyBuilder) IdempotentId(idempotentId string) *CreateAilySessionAilyMessageReqBodyBuilder {
 	builder.idempotentId = idempotentId
 	builder.idempotentIdSet = true
 	return builder
 }
 
-// 消息内容类型
+// 消息的类型，包括 `MDX` | `TEXT` 等;;- `MDX` 能够表达富文本信息结构，可参考 Aily 消息节点 markdown 语法;- `TEXT` 作为纯文本进行处理
 //
-//示例值：MDX
+// 示例值：MDX
 func (builder *CreateAilySessionAilyMessageReqBodyBuilder) ContentType(contentType string) *CreateAilySessionAilyMessageReqBodyBuilder {
 	builder.contentType = contentType
 	builder.contentTypeSet = true
@@ -7020,7 +8821,7 @@ func (builder *CreateAilySessionAilyMessageReqBodyBuilder) ContentType(contentTy
 
 // 消息内容
 //
-//示例值：你好
+// 示例值：你好
 func (builder *CreateAilySessionAilyMessageReqBodyBuilder) Content(content string) *CreateAilySessionAilyMessageReqBodyBuilder {
 	builder.content = content
 	builder.contentSet = true
@@ -7029,7 +8830,7 @@ func (builder *CreateAilySessionAilyMessageReqBodyBuilder) Content(content strin
 
 // 消息中包含的文件 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *CreateAilySessionAilyMessageReqBodyBuilder) FileIds(fileIds []string) *CreateAilySessionAilyMessageReqBodyBuilder {
 	builder.fileIds = fileIds
 	builder.fileIdsSet = true
@@ -7038,7 +8839,7 @@ func (builder *CreateAilySessionAilyMessageReqBodyBuilder) FileIds(fileIds []str
 
 // 引用的消息 ID
 //
-//示例值：message_4de9bpg70qskh
+// 示例值：message_4de9bpg70qskh
 func (builder *CreateAilySessionAilyMessageReqBodyBuilder) QuoteMessageId(quoteMessageId string) *CreateAilySessionAilyMessageReqBodyBuilder {
 	builder.quoteMessageId = quoteMessageId
 	builder.quoteMessageIdSet = true
@@ -7047,7 +8848,7 @@ func (builder *CreateAilySessionAilyMessageReqBodyBuilder) QuoteMessageId(quoteM
 
 // 被@的实体
 //
-//示例值：
+// 示例值：
 func (builder *CreateAilySessionAilyMessageReqBodyBuilder) Mentions(mentions []*AilyMention) *CreateAilySessionAilyMessageReqBodyBuilder {
 	builder.mentions = mentions
 	builder.mentionsSet = true
@@ -7097,7 +8898,7 @@ func NewCreateAilySessionAilyMessagePathReqBodyBuilder() *CreateAilySessionAilyM
 	return builder
 }
 
-// 幂等id，同一 session 下相同的幂等 id 算一条消息，有效期72h
+// 幂等 ID（如使用 UUID 生成器或时间戳），同一会话下相同的幂等 ID 视为同一个消息（72h）
 //
 // 示例值：idempotent_id_1
 func (builder *CreateAilySessionAilyMessagePathReqBodyBuilder) IdempotentId(idempotentId string) *CreateAilySessionAilyMessagePathReqBodyBuilder {
@@ -7106,7 +8907,7 @@ func (builder *CreateAilySessionAilyMessagePathReqBodyBuilder) IdempotentId(idem
 	return builder
 }
 
-// 消息内容类型
+// 消息的类型，包括 `MDX` | `TEXT` 等;;- `MDX` 能够表达富文本信息结构，可参考 Aily 消息节点 markdown 语法;- `TEXT` 作为纯文本进行处理
 //
 // 示例值：MDX
 func (builder *CreateAilySessionAilyMessagePathReqBodyBuilder) ContentType(contentType string) *CreateAilySessionAilyMessagePathReqBodyBuilder {
@@ -7188,7 +8989,7 @@ func NewCreateAilySessionAilyMessageReqBuilder() *CreateAilySessionAilyMessageRe
 	return builder
 }
 
-// 会话 ID
+// 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口
 //
 // 示例值：session_4dfunz7sp1g8m
 func (builder *CreateAilySessionAilyMessageReqBuilder) AilySessionId(ailySessionId string) *CreateAilySessionAilyMessageReqBuilder {
@@ -7196,7 +8997,7 @@ func (builder *CreateAilySessionAilyMessageReqBuilder) AilySessionId(ailySession
 	return builder
 }
 
-// 该 API 用于向某个飞书智能伙伴应用发送一条消息（Message）。
+// 该 API 用于向某个飞书 Aily 应用发送一条消息（Message）；每个消息从属于一个活跃的会话（Session）。
 func (builder *CreateAilySessionAilyMessageReqBuilder) Body(body *CreateAilySessionAilyMessageReqBody) *CreateAilySessionAilyMessageReqBuilder {
 	builder.body = body
 	return builder
@@ -7211,9 +9012,9 @@ func (builder *CreateAilySessionAilyMessageReqBuilder) Build() *CreateAilySessio
 }
 
 type CreateAilySessionAilyMessageReqBody struct {
-	IdempotentId *string `json:"idempotent_id,omitempty"` // 幂等id，同一 session 下相同的幂等 id 算一条消息，有效期72h
+	IdempotentId *string `json:"idempotent_id,omitempty"` // 幂等 ID（如使用 UUID 生成器或时间戳），同一会话下相同的幂等 ID 视为同一个消息（72h）
 
-	ContentType *string `json:"content_type,omitempty"` // 消息内容类型
+	ContentType *string `json:"content_type,omitempty"` // 消息的类型，包括 `MDX` | `TEXT` 等;;- `MDX` 能够表达富文本信息结构，可参考 Aily 消息节点 markdown 语法;- `TEXT` 作为纯文本进行处理
 
 	Content *string `json:"content,omitempty"` // 消息内容
 
@@ -7230,7 +9031,7 @@ type CreateAilySessionAilyMessageReq struct {
 }
 
 type CreateAilySessionAilyMessageRespData struct {
-	Message *AilyMessage `json:"message,omitempty"` // 消息信息
+	Message *AilyMessage `json:"message,omitempty"` //
 }
 
 type CreateAilySessionAilyMessageResp struct {
@@ -7256,7 +9057,7 @@ func NewGetAilySessionAilyMessageReqBuilder() *GetAilySessionAilyMessageReqBuild
 	return builder
 }
 
-// 会话 ID
+// 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口
 //
 // 示例值：session_4dfunz7sp1g8m
 func (builder *GetAilySessionAilyMessageReqBuilder) AilySessionId(ailySessionId string) *GetAilySessionAilyMessageReqBuilder {
@@ -7284,7 +9085,7 @@ type GetAilySessionAilyMessageReq struct {
 }
 
 type GetAilySessionAilyMessageRespData struct {
-	Message *AilyMessage `json:"message,omitempty"` // 消息信息
+	Message *AilyMessage `json:"message,omitempty"` //
 }
 
 type GetAilySessionAilyMessageResp struct {
@@ -7317,7 +9118,7 @@ func (builder *ListAilySessionAilyMessageReqBuilder) Limit(limit int) *ListAilyS
 	return builder
 }
 
-// 会话 ID
+// 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口
 //
 // 示例值：session_4dfunz7sp1g8m
 func (builder *ListAilySessionAilyMessageReqBuilder) AilySessionId(ailySessionId string) *ListAilySessionAilyMessageReqBuilder {
@@ -7325,15 +9126,15 @@ func (builder *ListAilySessionAilyMessageReqBuilder) AilySessionId(ailySessionId
 	return builder
 }
 
-// 页面大小
+// 本次请求获取的消息记录条数，默认 20
 //
-// 示例值：
+// 示例值：20
 func (builder *ListAilySessionAilyMessageReqBuilder) PageSize(pageSize int) *ListAilySessionAilyMessageReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-// 分页偏移量
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：
 func (builder *ListAilySessionAilyMessageReqBuilder) PageToken(pageToken string) *ListAilySessionAilyMessageReqBuilder {
@@ -7341,7 +9142,7 @@ func (builder *ListAilySessionAilyMessageReqBuilder) PageToken(pageToken string)
 	return builder
 }
 
-// 运行 ID
+// 过滤条件，按执行的唯一 ID 筛选
 //
 // 示例值：run_4dfrxvctjqzzj
 func (builder *ListAilySessionAilyMessageReqBuilder) RunId(runId string) *ListAilySessionAilyMessageReqBuilder {
@@ -7349,7 +9150,7 @@ func (builder *ListAilySessionAilyMessageReqBuilder) RunId(runId string) *ListAi
 	return builder
 }
 
-// 返回生成中的消息
+// 是否返回正在进行中（即流式输出中）的消息内容;;- 当设置为 `true` 时，返回的消息记录中、每个消息将额外包含一个 `status `字段（`IN_PROGRESS` | `COMPLETED`），此时 `content` 字段为当前时刻的消息内容;- 当设置为 `false` 时，返回的消息记录仅包含已完成的消息
 //
 // 示例值：false
 func (builder *ListAilySessionAilyMessageReqBuilder) WithPartialMessage(withPartialMessage bool) *ListAilySessionAilyMessageReqBuilder {
@@ -7403,7 +9204,7 @@ func NewCancelAilySessionRunReqBuilder() *CancelAilySessionRunReqBuilder {
 	return builder
 }
 
-// 会话 ID
+// 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口
 //
 // 示例值：session_4dfunz7sp1g8m
 func (builder *CancelAilySessionRunReqBuilder) AilySessionId(ailySessionId string) *CancelAilySessionRunReqBuilder {
@@ -7411,7 +9212,7 @@ func (builder *CancelAilySessionRunReqBuilder) AilySessionId(ailySessionId strin
 	return builder
 }
 
-// 运行 ID
+// 运行的唯一 ID
 //
 // 示例值：run_4dfrxvctjqzzj
 func (builder *CancelAilySessionRunReqBuilder) RunId(runId string) *CancelAilySessionRunReqBuilder {
@@ -7445,16 +9246,16 @@ func (resp *CancelAilySessionRunResp) Success() bool {
 }
 
 type CreateAilySessionRunReqBodyBuilder struct {
-	appId    string // 应用 ID
+	appId    string // 为 Aily 应用 ID（`spring_xxx__c`），可以在 Aily 应用开发页面的浏览器地址里获取
 	appIdSet bool
 
-	skillId    string // 技能 ID
+	skillId    string // 指定技能 ID（`skill_xxx`），可以在 Aily 技能配置页面的浏览器地址里获取;;> 指定技能后、能够节省意图匹配的耗时
 	skillIdSet bool
 
-	skillInput    string // 指定技能 ID 时可以同时指定技能输入
+	skillInput    string // 指定技能 ID 时可以同时指定技能输入;;> 备注：常用于工作流技能内指定自定义参数，`skill_input` 需要配合 `skill_id` 同时传递才能生效
 	skillInputSet bool
 
-	metadata    string // 其他透传信息
+	metadata    string // 其他扩展的参数（JSON String）;;> 备注：`metadata` 传递的参数，可以在后续 `GetRun` 调用中原样读取获得
 	metadataSet bool
 }
 
@@ -7463,36 +9264,36 @@ func NewCreateAilySessionRunReqBodyBuilder() *CreateAilySessionRunReqBodyBuilder
 	return builder
 }
 
-// 应用 ID
+// 为 Aily 应用 ID（`spring_xxx__c`），可以在 Aily 应用开发页面的浏览器地址里获取
 //
-//示例值：spring_xxx__c
+// 示例值：spring_449d72db2f__c
 func (builder *CreateAilySessionRunReqBodyBuilder) AppId(appId string) *CreateAilySessionRunReqBodyBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
 	return builder
 }
 
-// 技能 ID
+// 指定技能 ID（`skill_xxx`），可以在 Aily 技能配置页面的浏览器地址里获取;;> 指定技能后、能够节省意图匹配的耗时
 //
-//示例值：skill_6cc6166178ca
+// 示例值：skill_6cc6166178ca
 func (builder *CreateAilySessionRunReqBodyBuilder) SkillId(skillId string) *CreateAilySessionRunReqBodyBuilder {
 	builder.skillId = skillId
 	builder.skillIdSet = true
 	return builder
 }
 
-// 指定技能 ID 时可以同时指定技能输入
+// 指定技能 ID 时可以同时指定技能输入;;> 备注：常用于工作流技能内指定自定义参数，`skill_input` 需要配合 `skill_id` 同时传递才能生效
 //
-//示例值：{"key": "value"}
+// 示例值：{\"key\": \"value\"}
 func (builder *CreateAilySessionRunReqBodyBuilder) SkillInput(skillInput string) *CreateAilySessionRunReqBodyBuilder {
 	builder.skillInput = skillInput
 	builder.skillInputSet = true
 	return builder
 }
 
-// 其他透传信息
+// 其他扩展的参数（JSON String）;;> 备注：`metadata` 传递的参数，可以在后续 `GetRun` 调用中原样读取获得
 //
-//示例值：{}
+// 示例值：{}
 func (builder *CreateAilySessionRunReqBodyBuilder) Metadata(metadata string) *CreateAilySessionRunReqBodyBuilder {
 	builder.metadata = metadata
 	builder.metadataSet = true
@@ -7532,16 +9333,16 @@ func NewCreateAilySessionRunPathReqBodyBuilder() *CreateAilySessionRunPathReqBod
 	return builder
 }
 
-// 应用 ID
+// 为 Aily 应用 ID（`spring_xxx__c`），可以在 Aily 应用开发页面的浏览器地址里获取
 //
-// 示例值：spring_xxx__c
+// 示例值：spring_449d72db2f__c
 func (builder *CreateAilySessionRunPathReqBodyBuilder) AppId(appId string) *CreateAilySessionRunPathReqBodyBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
 	return builder
 }
 
-// 技能 ID
+// 指定技能 ID（`skill_xxx`），可以在 Aily 技能配置页面的浏览器地址里获取;;> 指定技能后、能够节省意图匹配的耗时
 //
 // 示例值：skill_6cc6166178ca
 func (builder *CreateAilySessionRunPathReqBodyBuilder) SkillId(skillId string) *CreateAilySessionRunPathReqBodyBuilder {
@@ -7550,16 +9351,16 @@ func (builder *CreateAilySessionRunPathReqBodyBuilder) SkillId(skillId string) *
 	return builder
 }
 
-// 指定技能 ID 时可以同时指定技能输入
+// 指定技能 ID 时可以同时指定技能输入;;> 备注：常用于工作流技能内指定自定义参数，`skill_input` 需要配合 `skill_id` 同时传递才能生效
 //
-// 示例值：{"key": "value"}
+// 示例值：{\"key\": \"value\"}
 func (builder *CreateAilySessionRunPathReqBodyBuilder) SkillInput(skillInput string) *CreateAilySessionRunPathReqBodyBuilder {
 	builder.skillInput = skillInput
 	builder.skillInputSet = true
 	return builder
 }
 
-// 其他透传信息
+// 其他扩展的参数（JSON String）;;> 备注：`metadata` 传递的参数，可以在后续 `GetRun` 调用中原样读取获得
 //
 // 示例值：{}
 func (builder *CreateAilySessionRunPathReqBodyBuilder) Metadata(metadata string) *CreateAilySessionRunPathReqBodyBuilder {
@@ -7599,7 +9400,7 @@ func NewCreateAilySessionRunReqBuilder() *CreateAilySessionRunReqBuilder {
 	return builder
 }
 
-// 会话 ID
+// 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口
 //
 // 示例值：session_4dfunz7sp1g8m
 func (builder *CreateAilySessionRunReqBuilder) AilySessionId(ailySessionId string) *CreateAilySessionRunReqBuilder {
@@ -7607,7 +9408,7 @@ func (builder *CreateAilySessionRunReqBuilder) AilySessionId(ailySessionId strin
 	return builder
 }
 
-// 该 API 用于启动一次运行（Run）。
+// 该 API 用于在某个飞书 Aily 应用会话（Session）上创建一次运行（Run）。
 func (builder *CreateAilySessionRunReqBuilder) Body(body *CreateAilySessionRunReqBody) *CreateAilySessionRunReqBuilder {
 	builder.body = body
 	return builder
@@ -7622,13 +9423,13 @@ func (builder *CreateAilySessionRunReqBuilder) Build() *CreateAilySessionRunReq 
 }
 
 type CreateAilySessionRunReqBody struct {
-	AppId *string `json:"app_id,omitempty"` // 应用 ID
+	AppId *string `json:"app_id,omitempty"` // 为 Aily 应用 ID（`spring_xxx__c`），可以在 Aily 应用开发页面的浏览器地址里获取
 
-	SkillId *string `json:"skill_id,omitempty"` // 技能 ID
+	SkillId *string `json:"skill_id,omitempty"` // 指定技能 ID（`skill_xxx`），可以在 Aily 技能配置页面的浏览器地址里获取;;> 指定技能后、能够节省意图匹配的耗时
 
-	SkillInput *string `json:"skill_input,omitempty"` // 指定技能 ID 时可以同时指定技能输入
+	SkillInput *string `json:"skill_input,omitempty"` // 指定技能 ID 时可以同时指定技能输入;;> 备注：常用于工作流技能内指定自定义参数，`skill_input` 需要配合 `skill_id` 同时传递才能生效
 
-	Metadata *string `json:"metadata,omitempty"` // 其他透传信息
+	Metadata *string `json:"metadata,omitempty"` // 其他扩展的参数（JSON String）;;> 备注：`metadata` 传递的参数，可以在后续 `GetRun` 调用中原样读取获得
 }
 
 type CreateAilySessionRunReq struct {
@@ -7663,7 +9464,7 @@ func NewGetAilySessionRunReqBuilder() *GetAilySessionRunReqBuilder {
 	return builder
 }
 
-// 会话 ID
+// 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口
 //
 // 示例值：session_4dfunz7sp1g8m
 func (builder *GetAilySessionRunReqBuilder) AilySessionId(ailySessionId string) *GetAilySessionRunReqBuilder {
@@ -7671,7 +9472,7 @@ func (builder *GetAilySessionRunReqBuilder) AilySessionId(ailySessionId string) 
 	return builder
 }
 
-// 运行 ID
+// 运行的唯一 ID
 //
 // 示例值：run_4dfrxvctjqzzj
 func (builder *GetAilySessionRunReqBuilder) RunId(runId string) *GetAilySessionRunReqBuilder {
@@ -7724,7 +9525,7 @@ func (builder *ListAilySessionRunReqBuilder) Limit(limit int) *ListAilySessionRu
 	return builder
 }
 
-// 会话 ID
+// 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口
 //
 // 示例值：session_4dfunz7sp1g8m
 func (builder *ListAilySessionRunReqBuilder) AilySessionId(ailySessionId string) *ListAilySessionRunReqBuilder {
@@ -7732,9 +9533,9 @@ func (builder *ListAilySessionRunReqBuilder) AilySessionId(ailySessionId string)
 	return builder
 }
 
-// 页面大小
+// 本次请求获取的运行记录条数，默认 20
 //
-// 示例值：
+// 示例值：20
 func (builder *ListAilySessionRunReqBuilder) PageSize(pageSize int) *ListAilySessionRunReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -7802,7 +9603,7 @@ func NewCreateAppDataAssetReqBodyBuilder() *CreateAppDataAssetReqBodyBuilder {
 
 // 连接类型
 //
-//示例值：direct
+// 示例值：direct
 func (builder *CreateAppDataAssetReqBodyBuilder) ConnectType(connectType string) *CreateAppDataAssetReqBodyBuilder {
 	builder.connectType = connectType
 	builder.connectTypeSet = true
@@ -7811,7 +9612,7 @@ func (builder *CreateAppDataAssetReqBodyBuilder) ConnectType(connectType string)
 
 // 数据源类型
 //
-//示例值：
+// 示例值：file
 func (builder *CreateAppDataAssetReqBodyBuilder) SourceType(sourceType string) *CreateAppDataAssetReqBodyBuilder {
 	builder.sourceType = sourceType
 	builder.sourceTypeSet = true
@@ -7820,7 +9621,7 @@ func (builder *CreateAppDataAssetReqBodyBuilder) SourceType(sourceType string) *
 
 // 知识导入配置
 //
-//示例值：
+// 示例值：
 func (builder *CreateAppDataAssetReqBodyBuilder) ImportKnowledgeSetting(importKnowledgeSetting *DataAssetImportKnowledgeSetting) *CreateAppDataAssetReqBodyBuilder {
 	builder.importKnowledgeSetting = importKnowledgeSetting
 	builder.importKnowledgeSettingSet = true
@@ -7829,7 +9630,7 @@ func (builder *CreateAppDataAssetReqBodyBuilder) ImportKnowledgeSetting(importKn
 
 // 数据知识描述信息
 //
-//示例值：
+// 示例值：{"zh_cn":"描述"}
 func (builder *CreateAppDataAssetReqBodyBuilder) Description(description map[string]string) *CreateAppDataAssetReqBodyBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -7880,7 +9681,7 @@ func (builder *CreateAppDataAssetPathReqBodyBuilder) ConnectType(connectType str
 
 // 数据源类型
 //
-// 示例值：
+// 示例值：file
 func (builder *CreateAppDataAssetPathReqBodyBuilder) SourceType(sourceType string) *CreateAppDataAssetPathReqBodyBuilder {
 	builder.sourceType = sourceType
 	builder.sourceTypeSet = true
@@ -7898,7 +9699,7 @@ func (builder *CreateAppDataAssetPathReqBodyBuilder) ImportKnowledgeSetting(impo
 
 // 数据知识描述信息
 //
-// 示例值：
+// 示例值：{"zh_cn":"描述"}
 func (builder *CreateAppDataAssetPathReqBodyBuilder) Description(description map[string]string) *CreateAppDataAssetPathReqBodyBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -7936,7 +9737,7 @@ func NewCreateAppDataAssetReqBuilder() *CreateAppDataAssetReqBuilder {
 	return builder
 }
 
-// APPID
+// Aily 平台的应用的APPID，可以直接从 Aily 应用的URL中获取。获取示例：/ai/{APPID}
 //
 // 示例值：spring_dfasdf__c
 func (builder *CreateAppDataAssetReqBuilder) AppId(appId string) *CreateAppDataAssetReqBuilder {
@@ -7944,7 +9745,7 @@ func (builder *CreateAppDataAssetReqBuilder) AppId(appId string) *CreateAppDataA
 	return builder
 }
 
-// 应用环境，默认为线上环境，dev代表开发环境，只支持dev
+// 应用环境，枚举值：;- `online`：线上环境（默认值）;- `dev`：开发环境；目前只支持 `dev`
 //
 // 示例值：dev
 func (builder *CreateAppDataAssetReqBuilder) TenantType(tenantType string) *CreateAppDataAssetReqBuilder {
@@ -7952,7 +9753,7 @@ func (builder *CreateAppDataAssetReqBuilder) TenantType(tenantType string) *Crea
 	return builder
 }
 
-// 创建数据知识
+// 在 Aily 中添加单个数据知识
 func (builder *CreateAppDataAssetReqBuilder) Body(body *CreateAppDataAssetReqBody) *CreateAppDataAssetReqBuilder {
 	builder.body = body
 	return builder
@@ -7983,7 +9784,7 @@ type CreateAppDataAssetReq struct {
 }
 
 type CreateAppDataAssetRespData struct {
-	DataAsset *DataAsset `json:"data_asset,omitempty"` // 数据知识
+	DataAsset *DataAsset `json:"data_asset,omitempty"` //
 }
 
 type CreateAppDataAssetResp struct {
@@ -8009,7 +9810,7 @@ func NewDeleteAppDataAssetReqBuilder() *DeleteAppDataAssetReqBuilder {
 	return builder
 }
 
-// APPID
+// Aily 平台的应用的APPID，可以直接从 Aily 应用的URL中获取。获取示例：/ai/{APPID}
 //
 // 示例值：spring_dfadsaf__c
 func (builder *DeleteAppDataAssetReqBuilder) AppId(appId string) *DeleteAppDataAssetReqBuilder {
@@ -8017,7 +9818,7 @@ func (builder *DeleteAppDataAssetReqBuilder) AppId(appId string) *DeleteAppDataA
 	return builder
 }
 
-// 数据知识ID
+// 数据知识ID，可通过在 Aily 平台查看知识详情页的url中获取，获取示例 https://***/ai/app_namespace/data/data-asset/data_asset_id
 //
 // 示例值：data_asset_dfadsafe
 func (builder *DeleteAppDataAssetReqBuilder) DataAssetId(dataAssetId string) *DeleteAppDataAssetReqBuilder {
@@ -8025,7 +9826,7 @@ func (builder *DeleteAppDataAssetReqBuilder) DataAssetId(dataAssetId string) *De
 	return builder
 }
 
-// 应用环境，默认为线上环境，dev代表开发环境，只支持dev
+// 应用环境，枚举值：;- `online`：线上环境（默认值）;- `dev`：开发环境；目前只支持 `dev`
 //
 // 示例值：dev
 func (builder *DeleteAppDataAssetReqBuilder) TenantType(tenantType string) *DeleteAppDataAssetReqBuilder {
@@ -8046,7 +9847,7 @@ type DeleteAppDataAssetReq struct {
 }
 
 type DeleteAppDataAssetRespData struct {
-	DataAsset *DataAsset `json:"data_asset,omitempty"` // 数据知识
+	DataAsset *DataAsset `json:"data_asset,omitempty"` //
 }
 
 type DeleteAppDataAssetResp struct {
@@ -8072,7 +9873,7 @@ func NewGetAppDataAssetReqBuilder() *GetAppDataAssetReqBuilder {
 	return builder
 }
 
-// APIID
+// Aily 平台的应用的APPID，可以直接从 Aily 应用的URL中获取。获取示例：/ai/{APPID}
 //
 // 示例值：spring_feafdsaf__c
 func (builder *GetAppDataAssetReqBuilder) AppId(appId string) *GetAppDataAssetReqBuilder {
@@ -8080,7 +9881,7 @@ func (builder *GetAppDataAssetReqBuilder) AppId(appId string) *GetAppDataAssetRe
 	return builder
 }
 
-// 数据知识ID
+// 数据知识ID，可通过在 Aily 平台查看知识详情页的url中获取，获取示例 https://***/ai/app_namespace/data/data-asset/data_asset_id
 //
 // 示例值：data_asset_dafefadsaf1
 func (builder *GetAppDataAssetReqBuilder) DataAssetId(dataAssetId string) *GetAppDataAssetReqBuilder {
@@ -8133,7 +9934,7 @@ type GetAppDataAssetReq struct {
 }
 
 type GetAppDataAssetRespData struct {
-	DataAsset *DataAsset `json:"data_asset,omitempty"` // 数据知识
+	DataAsset *DataAsset `json:"data_asset,omitempty"` //
 }
 
 type GetAppDataAssetResp struct {
@@ -8166,7 +9967,7 @@ func (builder *ListAppDataAssetReqBuilder) Limit(limit int) *ListAppDataAssetReq
 	return builder
 }
 
-// AppID
+// Aily 平台的应用的APPID，可以直接从 Aily 应用的URL中获取。获取示例：/ai/{APPID}
 //
 // 示例值：spring_5862e4fea8__c
 func (builder *ListAppDataAssetReqBuilder) AppId(appId string) *ListAppDataAssetReqBuilder {
@@ -8220,7 +10021,7 @@ func (builder *ListAppDataAssetReqBuilder) DataAssetTagIds(dataAssetTagIds []str
 
 // 结果是否包含数据与知识项目
 //
-// 示例值：
+// 示例值：true
 func (builder *ListAppDataAssetReqBuilder) WithDataAssetItem(withDataAssetItem bool) *ListAppDataAssetReqBuilder {
 	builder.apiReq.QueryParams.Set("with_data_asset_item", fmt.Sprint(withDataAssetItem))
 	return builder
@@ -8228,7 +10029,7 @@ func (builder *ListAppDataAssetReqBuilder) WithDataAssetItem(withDataAssetItem b
 
 // 结果是否包含数据连接状态
 //
-// 示例值：
+// 示例值：false
 func (builder *ListAppDataAssetReqBuilder) WithConnectStatus(withConnectStatus bool) *ListAppDataAssetReqBuilder {
 	builder.apiReq.QueryParams.Set("with_connect_status", fmt.Sprint(withConnectStatus))
 	return builder
@@ -8276,7 +10077,7 @@ func (resp *ListAppDataAssetResp) Success() bool {
 }
 
 type UploadFileAppDataAssetReqBodyBuilder struct {
-	file    io.Reader // 需要上传的文件
+	file    io.Reader // 需要上传的文件。仅支持上传 docx、txt、pdf、pptx 类型的文件。
 	fileSet bool
 }
 
@@ -8285,9 +10086,9 @@ func NewUploadFileAppDataAssetReqBodyBuilder() *UploadFileAppDataAssetReqBodyBui
 	return builder
 }
 
-// 需要上传的文件
+// 需要上传的文件。仅支持上传 docx、txt、pdf、pptx 类型的文件。
 //
-//示例值：
+// 示例值：
 func (builder *UploadFileAppDataAssetReqBodyBuilder) File(file io.Reader) *UploadFileAppDataAssetReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -8303,7 +10104,7 @@ func (builder *UploadFileAppDataAssetReqBodyBuilder) Build() *UploadFileAppDataA
 }
 
 type UploadFileAppDataAssetPathReqBodyBuilder struct {
-	filePath     string // 需要上传的文件
+	filePath     string // 需要上传的文件。仅支持上传 docx、txt、pdf、pptx 类型的文件。
 	filePathFlag bool
 }
 
@@ -8312,7 +10113,7 @@ func NewUploadFileAppDataAssetPathReqBodyBuilder() *UploadFileAppDataAssetPathRe
 	return builder
 }
 
-// 需要上传的文件
+// 需要上传的文件。仅支持上传 docx、txt、pdf、pptx 类型的文件。
 //
 // 示例值：
 func (builder *UploadFileAppDataAssetPathReqBodyBuilder) FilePath(filePath string) *UploadFileAppDataAssetPathReqBodyBuilder {
@@ -8347,7 +10148,7 @@ func NewUploadFileAppDataAssetReqBuilder() *UploadFileAppDataAssetReqBuilder {
 	return builder
 }
 
-// APPID
+// Aily 平台的应用的APPID，可以直接从 Aily 应用的URL中获取。获取示例：/ai/{APPID}
 //
 // 示例值：spring_dsafdsaf__c
 func (builder *UploadFileAppDataAssetReqBuilder) AppId(appId string) *UploadFileAppDataAssetReqBuilder {
@@ -8355,7 +10156,7 @@ func (builder *UploadFileAppDataAssetReqBuilder) AppId(appId string) *UploadFile
 	return builder
 }
 
-// 应用环境，默认为线上环境，dev代表开发环境，只支持dev
+// 应用环境，枚举值：;- `online`：线上环境（默认值）;- `dev`：开发环境；目前只支持 `dev`
 //
 // 示例值：dev
 func (builder *UploadFileAppDataAssetReqBuilder) TenantType(tenantType string) *UploadFileAppDataAssetReqBuilder {
@@ -8363,7 +10164,7 @@ func (builder *UploadFileAppDataAssetReqBuilder) TenantType(tenantType string) *
 	return builder
 }
 
-// 上传数据知识文件
+// 上传文件用于 Aily 的数据知识管理;。
 func (builder *UploadFileAppDataAssetReqBuilder) Body(body *UploadFileAppDataAssetReqBody) *UploadFileAppDataAssetReqBuilder {
 	builder.body = body
 	return builder
@@ -8379,7 +10180,7 @@ func (builder *UploadFileAppDataAssetReqBuilder) Build() *UploadFileAppDataAsset
 }
 
 type UploadFileAppDataAssetReqBody struct {
-	File io.Reader `json:"file,omitempty"` // 需要上传的文件
+	File io.Reader `json:"file,omitempty"` // 需要上传的文件。仅支持上传 docx、txt、pdf、pptx 类型的文件。
 }
 
 type UploadFileAppDataAssetReq struct {
@@ -8421,7 +10222,7 @@ func (builder *ListAppDataAssetTagReqBuilder) Limit(limit int) *ListAppDataAsset
 	return builder
 }
 
-// AppID
+// AppID，可通过在 Aily 平台进入应用的开发界面中获取，获取示例 https://***/ai/app_namespace
 //
 // 示例值：spring_5862e4fea8__c
 func (builder *ListAppDataAssetTagReqBuilder) AppId(appId string) *ListAppDataAssetTagReqBuilder {
@@ -8497,13 +10298,13 @@ func (resp *ListAppDataAssetTagResp) Success() bool {
 }
 
 type AskAppKnowledgeReqBodyBuilder struct {
-	message    *AilyKnowledgeMessage // 输入消息（当前仅支持纯文本输入）
+	message    *AilyKnowledgeMessage // 输入消息（message包含content参数，当前仅支持纯文本输入）
 	messageSet bool
 
-	dataAssetIds    []string // 控制知识问答所依据的数据知识范围
+	dataAssetIds    []string // 控制知识问答所依据的数据知识范围，默认值为空，此时不限制数据知识范围
 	dataAssetIdsSet bool
 
-	dataAssetTagIds    []string // 控制知识问答所依据的数据知识分类范围
+	dataAssetTagIds    []string // 控制知识问答所依据的数据知识分类范围，默认值为空，此时不限制数据知识分类范围
 	dataAssetTagIdsSet bool
 }
 
@@ -8512,27 +10313,27 @@ func NewAskAppKnowledgeReqBodyBuilder() *AskAppKnowledgeReqBodyBuilder {
 	return builder
 }
 
-// 输入消息（当前仅支持纯文本输入）
+// 输入消息（message包含content参数，当前仅支持纯文本输入）
 //
-//示例值：
+// 示例值：
 func (builder *AskAppKnowledgeReqBodyBuilder) Message(message *AilyKnowledgeMessage) *AskAppKnowledgeReqBodyBuilder {
 	builder.message = message
 	builder.messageSet = true
 	return builder
 }
 
-// 控制知识问答所依据的数据知识范围
+// 控制知识问答所依据的数据知识范围，默认值为空，此时不限制数据知识范围
 //
-//示例值：
+// 示例值：
 func (builder *AskAppKnowledgeReqBodyBuilder) DataAssetIds(dataAssetIds []string) *AskAppKnowledgeReqBodyBuilder {
 	builder.dataAssetIds = dataAssetIds
 	builder.dataAssetIdsSet = true
 	return builder
 }
 
-// 控制知识问答所依据的数据知识分类范围
+// 控制知识问答所依据的数据知识分类范围，默认值为空，此时不限制数据知识分类范围
 //
-//示例值：
+// 示例值：
 func (builder *AskAppKnowledgeReqBodyBuilder) DataAssetTagIds(dataAssetTagIds []string) *AskAppKnowledgeReqBodyBuilder {
 	builder.dataAssetTagIds = dataAssetTagIds
 	builder.dataAssetTagIdsSet = true
@@ -8567,7 +10368,7 @@ func NewAskAppKnowledgePathReqBodyBuilder() *AskAppKnowledgePathReqBodyBuilder {
 	return builder
 }
 
-// 输入消息（当前仅支持纯文本输入）
+// 输入消息（message包含content参数，当前仅支持纯文本输入）
 //
 // 示例值：
 func (builder *AskAppKnowledgePathReqBodyBuilder) Message(message *AilyKnowledgeMessage) *AskAppKnowledgePathReqBodyBuilder {
@@ -8576,7 +10377,7 @@ func (builder *AskAppKnowledgePathReqBodyBuilder) Message(message *AilyKnowledge
 	return builder
 }
 
-// 控制知识问答所依据的数据知识范围
+// 控制知识问答所依据的数据知识范围，默认值为空，此时不限制数据知识范围
 //
 // 示例值：
 func (builder *AskAppKnowledgePathReqBodyBuilder) DataAssetIds(dataAssetIds []string) *AskAppKnowledgePathReqBodyBuilder {
@@ -8585,7 +10386,7 @@ func (builder *AskAppKnowledgePathReqBodyBuilder) DataAssetIds(dataAssetIds []st
 	return builder
 }
 
-// 控制知识问答所依据的数据知识分类范围
+// 控制知识问答所依据的数据知识分类范围，默认值为空，此时不限制数据知识分类范围
 //
 // 示例值：
 func (builder *AskAppKnowledgePathReqBodyBuilder) DataAssetTagIds(dataAssetTagIds []string) *AskAppKnowledgePathReqBodyBuilder {
@@ -8622,7 +10423,7 @@ func NewAskAppKnowledgeReqBuilder() *AskAppKnowledgeReqBuilder {
 	return builder
 }
 
-// 飞书智能伙伴搭建平台的AppID
+// 飞书 Aily 平台的AppID，通过飞书 Aily 平台创建应用获取
 //
 // 示例值：spring_5862e4fea8__c
 func (builder *AskAppKnowledgeReqBuilder) AppId(appId string) *AskAppKnowledgeReqBuilder {
@@ -8630,7 +10431,7 @@ func (builder *AskAppKnowledgeReqBuilder) AppId(appId string) *AskAppKnowledgeRe
 	return builder
 }
 
-// 执行一次数据知识问答
+// 执行飞书 Aily 的数据知识问答，返回基于指定数据知识的问答结果
 func (builder *AskAppKnowledgeReqBuilder) Body(body *AskAppKnowledgeReqBody) *AskAppKnowledgeReqBuilder {
 	builder.body = body
 	return builder
@@ -8645,11 +10446,11 @@ func (builder *AskAppKnowledgeReqBuilder) Build() *AskAppKnowledgeReq {
 }
 
 type AskAppKnowledgeReqBody struct {
-	Message *AilyKnowledgeMessage `json:"message,omitempty"` // 输入消息（当前仅支持纯文本输入）
+	Message *AilyKnowledgeMessage `json:"message,omitempty"` // 输入消息（message包含content参数，当前仅支持纯文本输入）
 
-	DataAssetIds []string `json:"data_asset_ids,omitempty"` // 控制知识问答所依据的数据知识范围
+	DataAssetIds []string `json:"data_asset_ids,omitempty"` // 控制知识问答所依据的数据知识范围，默认值为空，此时不限制数据知识范围
 
-	DataAssetTagIds []string `json:"data_asset_tag_ids,omitempty"` // 控制知识问答所依据的数据知识分类范围
+	DataAssetTagIds []string `json:"data_asset_tag_ids,omitempty"` // 控制知识问答所依据的数据知识分类范围，默认值为空，此时不限制数据知识分类范围
 }
 
 type AskAppKnowledgeReq struct {
@@ -8662,11 +10463,11 @@ type AskAppKnowledgeRespData struct {
 
 	FinishType *string `json:"finish_type,omitempty"` // 结束类型，枚举值
 
-	Message *AilyKnowledgeMessage `json:"message,omitempty"` // 响应消息
+	Message *AilyKnowledgeMessage `json:"message,omitempty"` // 输入消息（message包含content参数，当前仅支持纯文本输入）
 
-	ProcessData *AilyKnowledgeAskProcessData `json:"process_data,omitempty"` // 知识问答运行过程结构化数据，status=finished 且 finish_type=qa 时返回
+	ProcessData *AilyKnowledgeAskProcessData `json:"process_data,omitempty"` //
 
-	FaqResult *AilyKnowledgeFaq `json:"faq_result,omitempty"` // 匹配标准问答对结果，status=finished 且 finish_type=faq时返回
+	FaqResult *AilyKnowledgeFaq `json:"faq_result,omitempty"` //
 
 	HasAnswer *bool `json:"has_answer,omitempty"` // 是否有结果，true 则 代表 message 中的内容是通过配置知识而生成的
 }
@@ -8694,15 +10495,15 @@ func NewGetAppSkillReqBuilder() *GetAppSkillReqBuilder {
 	return builder
 }
 
-// 应用 ID
+// Aily 应用 ID（`spring_xxx__c`），可以在 Aily 应用开发页面的浏览器地址里获取
 //
-// 示例值：spring_xxx__c
+// 示例值：spring_e7004f87f1__c
 func (builder *GetAppSkillReqBuilder) AppId(appId string) *GetAppSkillReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 
-// 技能 ID
+// 技能 ID；可通过技能编辑页面的浏览器地址栏获取（`skill_xxx`）
 //
 // 示例值：skill_6cc6166178ca
 func (builder *GetAppSkillReqBuilder) SkillId(skillId string) *GetAppSkillReqBuilder {
@@ -8755,15 +10556,15 @@ func (builder *ListAppSkillReqBuilder) Limit(limit int) *ListAppSkillReqBuilder 
 	return builder
 }
 
-// 应用 ID
+// Aily 应用 ID（`spring_xxx__c`），可以在 Aily 应用开发页面的浏览器地址里获取
 //
-// 示例值：spring_xxx__c
+// 示例值：spring_e7004f87f1__c
 func (builder *ListAppSkillReqBuilder) AppId(appId string) *ListAppSkillReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 
-// 页面大小
+// 本次请求获取的消息记录条数，默认 20
 //
 // 示例值：
 func (builder *ListAppSkillReqBuilder) PageSize(pageSize int) *ListAppSkillReqBuilder {
@@ -8813,7 +10614,7 @@ func (resp *ListAppSkillResp) Success() bool {
 }
 
 type StartAppSkillReqBodyBuilder struct {
-	globalVariable    *SkillGlobalVariable // 技能的全局变量
+	globalVariable    *SkillGlobalVariable //
 	globalVariableSet bool
 
 	input    string // 技能的自定义变量
@@ -8825,9 +10626,7 @@ func NewStartAppSkillReqBodyBuilder() *StartAppSkillReqBodyBuilder {
 	return builder
 }
 
-// 技能的全局变量
-//
-//示例值：
+// 示例值：
 func (builder *StartAppSkillReqBodyBuilder) GlobalVariable(globalVariable *SkillGlobalVariable) *StartAppSkillReqBodyBuilder {
 	builder.globalVariable = globalVariable
 	builder.globalVariableSet = true
@@ -8836,7 +10635,7 @@ func (builder *StartAppSkillReqBodyBuilder) GlobalVariable(globalVariable *Skill
 
 // 技能的自定义变量
 //
-//示例值：{"custom_s":"text","custom_i":12,"custom_b":true,"custom_f":1.2}
+// 示例值：{\"custom_string\":\"my string\",\"custom_integer\":22}
 func (builder *StartAppSkillReqBodyBuilder) Input(input string) *StartAppSkillReqBodyBuilder {
 	builder.input = input
 	builder.inputSet = true
@@ -8866,8 +10665,6 @@ func NewStartAppSkillPathReqBodyBuilder() *StartAppSkillPathReqBodyBuilder {
 	return builder
 }
 
-// 技能的全局变量
-//
 // 示例值：
 func (builder *StartAppSkillPathReqBodyBuilder) GlobalVariable(globalVariable *SkillGlobalVariable) *StartAppSkillPathReqBodyBuilder {
 	builder.globalVariable = globalVariable
@@ -8877,7 +10674,7 @@ func (builder *StartAppSkillPathReqBodyBuilder) GlobalVariable(globalVariable *S
 
 // 技能的自定义变量
 //
-// 示例值：{"custom_s":"text","custom_i":12,"custom_b":true,"custom_f":1.2}
+// 示例值：{\"custom_string\":\"my string\",\"custom_integer\":22}
 func (builder *StartAppSkillPathReqBodyBuilder) Input(input string) *StartAppSkillPathReqBodyBuilder {
 	builder.input = input
 	builder.inputSet = true
@@ -8909,15 +10706,15 @@ func NewStartAppSkillReqBuilder() *StartAppSkillReqBuilder {
 	return builder
 }
 
-// 应用 ID
+// Aily 应用 ID（`spring_xxx__c`），可以在 Aily 应用开发页面的浏览器地址里获取
 //
-// 示例值：spring_xxx__c
+// 示例值：spring_e7004f87f1__c
 func (builder *StartAppSkillReqBuilder) AppId(appId string) *StartAppSkillReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 
-// 技能 ID
+// 技能 ID；可通过技能编辑页面的浏览器地址栏获取（`skill_xxx`）
 //
 // 示例值：skill_6cc6166178ca
 func (builder *StartAppSkillReqBuilder) SkillId(skillId string) *StartAppSkillReqBuilder {
@@ -8925,7 +10722,7 @@ func (builder *StartAppSkillReqBuilder) SkillId(skillId string) *StartAppSkillRe
 	return builder
 }
 
-// 该 API 用于执行飞书智能伙伴应用的技能（Skill）获取输出
+// 该 API 用于调用某个 Aily 应用的特定技能，支持指定技能入参；并同步返回技能执行的结果。
 func (builder *StartAppSkillReqBuilder) Body(body *StartAppSkillReqBody) *StartAppSkillReqBuilder {
 	builder.body = body
 	return builder
@@ -8940,7 +10737,7 @@ func (builder *StartAppSkillReqBuilder) Build() *StartAppSkillReq {
 }
 
 type StartAppSkillReqBody struct {
-	GlobalVariable *SkillGlobalVariable `json:"global_variable,omitempty"` // 技能的全局变量
+	GlobalVariable *SkillGlobalVariable `json:"global_variable,omitempty"` //
 
 	Input *string `json:"input,omitempty"` // 技能的自定义变量
 }
@@ -8986,7 +10783,7 @@ func (builder *ListTenantAppStatReqBuilder) Limit(limit int) *ListTenantAppStatR
 	return builder
 }
 
-// 统计起始时间，格式为秒级时间戳。若未指定，默认取当前时间往前推1天的时间戳
+// 统计起始时间，格式为秒级时间戳。
 //
 // 示例值：1698729600
 func (builder *ListTenantAppStatReqBuilder) StartAt(startAt string) *ListTenantAppStatReqBuilder {
@@ -8994,7 +10791,7 @@ func (builder *ListTenantAppStatReqBuilder) StartAt(startAt string) *ListTenantA
 	return builder
 }
 
-// 统计结束时间，格式为秒级时间戳。若未指定，默认取当前时间戳
+// 统计结束时间，格式为秒级时间戳。
 //
 // 示例值：1701321599
 func (builder *ListTenantAppStatReqBuilder) EndAt(endAt string) *ListTenantAppStatReqBuilder {
@@ -9004,7 +10801,7 @@ func (builder *ListTenantAppStatReqBuilder) EndAt(endAt string) *ListTenantAppSt
 
 // 数据筛选类型，用于指定统计维度。可选值包括：;- `app`：返回工作流应用数据;- `agent`：返回智能体数据
 //
-// 示例值：all
+// 示例值：agent
 func (builder *ListTenantAppStatReqBuilder) FilterType(filterType string) *ListTenantAppStatReqBuilder {
 	builder.apiReq.QueryParams.Set("filter_type", fmt.Sprint(filterType))
 	return builder
@@ -9020,7 +10817,7 @@ func (builder *ListTenantAppStatReqBuilder) PageToken(pageToken string) *ListTen
 
 // 每页返回的数据条数，默认值为20，最大值为100
 //
-// 示例值：20
+// 示例值：
 func (builder *ListTenantAppStatReqBuilder) PageSize(pageSize int) *ListTenantAppStatReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder

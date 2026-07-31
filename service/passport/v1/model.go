@@ -20,9 +20,15 @@ import (
 )
 
 const (
-	KiteUserID          = 1 // UserID
-	KiteIdpCredentialID = 2 // IdpCredentialID
-	KiteSessionUUID     = 3 // Session 标识符
+	UserIdTypeOpenId  = "open_id"  // 用户 ID 类型open_id
+	UserIdTypeUserId  = "user_id"  // 用户 ID 类型user_id
+	UserIdTypeUnionId = "union_id" // 用户 ID 类型union_id
+)
+
+const (
+	KiteUserID          = 1 // UserID，使用开放平台的维度登出
+	KiteIdpCredentialID = 2 // IdpCredentialID，使用 idp 侧的唯一标识登出
+	KiteSessionUUID     = 3 // Session 标识符，基于session uuid 登出
 
 )
 
@@ -125,8 +131,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -134,8 +138,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -203,22 +205,6 @@ func (builder *DeviceBuilder) Build() *Device {
 		req.LegacyDeviceId = &builder.legacyDeviceId
 
 	}
-	return req
-}
-
-type IdpCredential struct {
-}
-
-type IdpCredentialBuilder struct {
-}
-
-func NewIdpCredentialBuilder() *IdpCredentialBuilder {
-	builder := &IdpCredentialBuilder{}
-	return builder
-}
-
-func (builder *IdpCredentialBuilder) Build() *IdpCredential {
-	req := &IdpCredential{}
 	return req
 }
 
@@ -340,23 +326,191 @@ func (builder *MaskSessionBuilder) Build() *MaskSession {
 	return req
 }
 
+type UpdatePasswordReqBodyBuilder struct {
+	userId    string // 待修改密码的用户ID。用户 ID 的类型需与查询参数 user_id_type 的取值保持一致
+	userIdSet bool
+
+	password    string // 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
+	passwordSet bool
+
+	requireReset    bool // 是否要求用户在下次登录时重新设置密码。如果同时为用户进行了密码重置，建议此处传true，用户可重新设置自己的密码。
+	requireResetSet bool
+}
+
+func NewUpdatePasswordReqBodyBuilder() *UpdatePasswordReqBodyBuilder {
+	builder := &UpdatePasswordReqBodyBuilder{}
+	return builder
+}
+
+// 待修改密码的用户ID。用户 ID 的类型需与查询参数 user_id_type 的取值保持一致
+//
+// 示例值：abcd1234ou_7dab8a3d3cdcc9da365777c7ad535d62
+func (builder *UpdatePasswordReqBodyBuilder) UserId(userId string) *UpdatePasswordReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdSet = true
+	return builder
+}
+
+// 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
+//
+// 示例值：1234abcd
+func (builder *UpdatePasswordReqBodyBuilder) Password(password string) *UpdatePasswordReqBodyBuilder {
+	builder.password = password
+	builder.passwordSet = true
+	return builder
+}
+
+// 是否要求用户在下次登录时重新设置密码。如果同时为用户进行了密码重置，建议此处传true，用户可重新设置自己的密码。
+//
+// 示例值：false
+func (builder *UpdatePasswordReqBodyBuilder) RequireReset(requireReset bool) *UpdatePasswordReqBodyBuilder {
+	builder.requireReset = requireReset
+	builder.requireResetSet = true
+	return builder
+}
+
+func (builder *UpdatePasswordReqBodyBuilder) Build() *UpdatePasswordReqBody {
+	req := &UpdatePasswordReqBody{}
+	if builder.userIdSet {
+		req.UserId = &builder.userId
+	}
+	if builder.passwordSet {
+		req.Password = &builder.password
+	}
+	if builder.requireResetSet {
+		req.RequireReset = &builder.requireReset
+	}
+	return req
+}
+
+type UpdatePasswordPathReqBodyBuilder struct {
+	userId          string
+	userIdSet       bool
+	password        string
+	passwordSet     bool
+	requireReset    bool
+	requireResetSet bool
+}
+
+func NewUpdatePasswordPathReqBodyBuilder() *UpdatePasswordPathReqBodyBuilder {
+	builder := &UpdatePasswordPathReqBodyBuilder{}
+	return builder
+}
+
+// 待修改密码的用户ID。用户 ID 的类型需与查询参数 user_id_type 的取值保持一致
+//
+// 示例值：abcd1234ou_7dab8a3d3cdcc9da365777c7ad535d62
+func (builder *UpdatePasswordPathReqBodyBuilder) UserId(userId string) *UpdatePasswordPathReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdSet = true
+	return builder
+}
+
+// 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
+//
+// 示例值：1234abcd
+func (builder *UpdatePasswordPathReqBodyBuilder) Password(password string) *UpdatePasswordPathReqBodyBuilder {
+	builder.password = password
+	builder.passwordSet = true
+	return builder
+}
+
+// 是否要求用户在下次登录时重新设置密码。如果同时为用户进行了密码重置，建议此处传true，用户可重新设置自己的密码。
+//
+// 示例值：false
+func (builder *UpdatePasswordPathReqBodyBuilder) RequireReset(requireReset bool) *UpdatePasswordPathReqBodyBuilder {
+	builder.requireReset = requireReset
+	builder.requireResetSet = true
+	return builder
+}
+
+func (builder *UpdatePasswordPathReqBodyBuilder) Build() (*UpdatePasswordReqBody, error) {
+	req := &UpdatePasswordReqBody{}
+	if builder.userIdSet {
+		req.UserId = &builder.userId
+	}
+	if builder.passwordSet {
+		req.Password = &builder.password
+	}
+	if builder.requireResetSet {
+		req.RequireReset = &builder.requireReset
+	}
+	return req, nil
+}
+
+type UpdatePasswordReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *UpdatePasswordReqBody
+}
+
+func NewUpdatePasswordReqBuilder() *UpdatePasswordReqBuilder {
+	builder := &UpdatePasswordReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 示例值：
+func (builder *UpdatePasswordReqBuilder) UserIdType(userIdType string) *UpdatePasswordReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 当用户忘记密码、密码已过期或账号存在安全风险时，管理员可以为用户重置密码。
+func (builder *UpdatePasswordReqBuilder) Body(body *UpdatePasswordReqBody) *UpdatePasswordReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *UpdatePasswordReqBuilder) Build() *UpdatePasswordReq {
+	req := &UpdatePasswordReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type UpdatePasswordReqBody struct {
+	UserId *string `json:"user_id,omitempty"` // 待修改密码的用户ID。用户 ID 的类型需与查询参数 user_id_type 的取值保持一致
+
+	Password *string `json:"password,omitempty"` // 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
+
+	RequireReset *bool `json:"require_reset,omitempty"` // 是否要求用户在下次登录时重新设置密码。如果同时为用户进行了密码重置，建议此处传true，用户可重新设置自己的密码。
+}
+
+type UpdatePasswordReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *UpdatePasswordReqBody `body:""`
+}
+
+type UpdatePasswordResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UpdatePasswordResp) Success() bool {
+	return resp.Code == 0
+}
+
 type LogoutSessionReqBodyBuilder struct {
-	idpCredentialId    string // idp 侧的唯一标识
+	idpCredentialId    string // idp 侧的唯一标识，logout_type = 2 时必填
 	idpCredentialIdSet bool
 
 	logoutType    int // 登出的方式
 	logoutTypeSet bool
 
-	terminalType    []int // 登出的客户端类型，默认全部登出，1-桌面端，2-网页端，3-安卓移动端，4-Apple移动端 5-服务端 6-旧版小程序端 8-其他移动端
+	terminalType    []int // 登出的客户端类型，默认全部登出。可选值：;- 1：PC 端;- 2：Web 端;- 3：Android 端;- 4：iOS 端;- 5：服务端;- 6：旧版小程序端;- 8：其他移动端
 	terminalTypeSet bool
 
-	userId    string // user_id
+	userId    string // 开放平台的数据标识，用户 ID 类型与查询参数 user_id_type 一致，logout_type = 1 时必填
 	userIdSet bool
 
-	logoutReason    int // 登出原因
+	logoutReason    int // 登出提示语，非必填，不传时默认提示：你已在其他客户端上退出了当前设备，请重新登录。;可选值：;- 34：您已修改登录密码，请重新登录;- 35：您的登录态已失效，请重新登录;- 36：您的密码已过期，请在登录页面通过忘记密码功能修改密码后重新登录
 	logoutReasonSet bool
 
-	sid    string // 需要精确登出的 session 标识符
+	sid    string // 需要精确登出的 session 标识符，logout_type = 3 时必填
 	sidSet bool
 }
 
@@ -365,9 +519,9 @@ func NewLogoutSessionReqBodyBuilder() *LogoutSessionReqBodyBuilder {
 	return builder
 }
 
-// idp 侧的唯一标识
+// idp 侧的唯一标识，logout_type = 2 时必填
 //
-//示例值：1
+// 示例值：user@xxx.xx
 func (builder *LogoutSessionReqBodyBuilder) IdpCredentialId(idpCredentialId string) *LogoutSessionReqBodyBuilder {
 	builder.idpCredentialId = idpCredentialId
 	builder.idpCredentialIdSet = true
@@ -376,43 +530,43 @@ func (builder *LogoutSessionReqBodyBuilder) IdpCredentialId(idpCredentialId stri
 
 // 登出的方式
 //
-//示例值：1
+// 示例值：1
 func (builder *LogoutSessionReqBodyBuilder) LogoutType(logoutType int) *LogoutSessionReqBodyBuilder {
 	builder.logoutType = logoutType
 	builder.logoutTypeSet = true
 	return builder
 }
 
-// 登出的客户端类型，默认全部登出，1-桌面端，2-网页端，3-安卓移动端，4-Apple移动端 5-服务端 6-旧版小程序端 8-其他移动端
+// 登出的客户端类型，默认全部登出。可选值：;- 1：PC 端;- 2：Web 端;- 3：Android 端;- 4：iOS 端;- 5：服务端;- 6：旧版小程序端;- 8：其他移动端
 //
-//示例值：
+// 示例值：
 func (builder *LogoutSessionReqBodyBuilder) TerminalType(terminalType []int) *LogoutSessionReqBodyBuilder {
 	builder.terminalType = terminalType
 	builder.terminalTypeSet = true
 	return builder
 }
 
-// user_id
+// 开放平台的数据标识，用户 ID 类型与查询参数 user_id_type 一致，logout_type = 1 时必填
 //
-//示例值：1
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *LogoutSessionReqBodyBuilder) UserId(userId string) *LogoutSessionReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
 	return builder
 }
 
-// 登出原因
+// 登出提示语，非必填，不传时默认提示：你已在其他客户端上退出了当前设备，请重新登录。;可选值：;- 34：您已修改登录密码，请重新登录;- 35：您的登录态已失效，请重新登录;- 36：您的密码已过期，请在登录页面通过忘记密码功能修改密码后重新登录
 //
-//示例值：34: 修改密码；35: 登陆态失效；36: 密码过期
+// 示例值：34
 func (builder *LogoutSessionReqBodyBuilder) LogoutReason(logoutReason int) *LogoutSessionReqBodyBuilder {
 	builder.logoutReason = logoutReason
 	builder.logoutReasonSet = true
 	return builder
 }
 
-// 需要精确登出的 session 标识符
+// 需要精确登出的 session 标识符，logout_type = 3 时必填
 //
-//示例值：AAAAAAAAAANll6nQoIAAFA==
+// 示例值：AAAAAAAAAANll6nQoIAAFA==
 func (builder *LogoutSessionReqBodyBuilder) Sid(sid string) *LogoutSessionReqBodyBuilder {
 	builder.sid = sid
 	builder.sidSet = true
@@ -462,9 +616,9 @@ func NewLogoutSessionPathReqBodyBuilder() *LogoutSessionPathReqBodyBuilder {
 	return builder
 }
 
-// idp 侧的唯一标识
+// idp 侧的唯一标识，logout_type = 2 时必填
 //
-// 示例值：1
+// 示例值：user@xxx.xx
 func (builder *LogoutSessionPathReqBodyBuilder) IdpCredentialId(idpCredentialId string) *LogoutSessionPathReqBodyBuilder {
 	builder.idpCredentialId = idpCredentialId
 	builder.idpCredentialIdSet = true
@@ -480,7 +634,7 @@ func (builder *LogoutSessionPathReqBodyBuilder) LogoutType(logoutType int) *Logo
 	return builder
 }
 
-// 登出的客户端类型，默认全部登出，1-桌面端，2-网页端，3-安卓移动端，4-Apple移动端 5-服务端 6-旧版小程序端 8-其他移动端
+// 登出的客户端类型，默认全部登出。可选值：;- 1：PC 端;- 2：Web 端;- 3：Android 端;- 4：iOS 端;- 5：服务端;- 6：旧版小程序端;- 8：其他移动端
 //
 // 示例值：
 func (builder *LogoutSessionPathReqBodyBuilder) TerminalType(terminalType []int) *LogoutSessionPathReqBodyBuilder {
@@ -489,25 +643,25 @@ func (builder *LogoutSessionPathReqBodyBuilder) TerminalType(terminalType []int)
 	return builder
 }
 
-// user_id
+// 开放平台的数据标识，用户 ID 类型与查询参数 user_id_type 一致，logout_type = 1 时必填
 //
-// 示例值：1
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *LogoutSessionPathReqBodyBuilder) UserId(userId string) *LogoutSessionPathReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
 	return builder
 }
 
-// 登出原因
+// 登出提示语，非必填，不传时默认提示：你已在其他客户端上退出了当前设备，请重新登录。;可选值：;- 34：您已修改登录密码，请重新登录;- 35：您的登录态已失效，请重新登录;- 36：您的密码已过期，请在登录页面通过忘记密码功能修改密码后重新登录
 //
-// 示例值：34: 修改密码；35: 登陆态失效；36: 密码过期
+// 示例值：34
 func (builder *LogoutSessionPathReqBodyBuilder) LogoutReason(logoutReason int) *LogoutSessionPathReqBodyBuilder {
 	builder.logoutReason = logoutReason
 	builder.logoutReasonSet = true
 	return builder
 }
 
-// 需要精确登出的 session 标识符
+// 需要精确登出的 session 标识符，logout_type = 3 时必填
 //
 // 示例值：AAAAAAAAAANll6nQoIAAFA==
 func (builder *LogoutSessionPathReqBodyBuilder) Sid(sid string) *LogoutSessionPathReqBodyBuilder {
@@ -561,7 +715,7 @@ func (builder *LogoutSessionReqBuilder) UserIdType(userIdType string) *LogoutSes
 	return builder
 }
 
-//
+// 该接口用于退出用户的登录态
 func (builder *LogoutSessionReqBuilder) Body(body *LogoutSessionReqBody) *LogoutSessionReqBuilder {
 	builder.body = body
 	return builder
@@ -576,17 +730,17 @@ func (builder *LogoutSessionReqBuilder) Build() *LogoutSessionReq {
 }
 
 type LogoutSessionReqBody struct {
-	IdpCredentialId *string `json:"idp_credential_id,omitempty"` // idp 侧的唯一标识
+	IdpCredentialId *string `json:"idp_credential_id,omitempty"` // idp 侧的唯一标识，logout_type = 2 时必填
 
 	LogoutType *int `json:"logout_type,omitempty"` // 登出的方式
 
-	TerminalType []int `json:"terminal_type,omitempty"` // 登出的客户端类型，默认全部登出，1-桌面端，2-网页端，3-安卓移动端，4-Apple移动端 5-服务端 6-旧版小程序端 8-其他移动端
+	TerminalType []int `json:"terminal_type,omitempty"` // 登出的客户端类型，默认全部登出。可选值：;- 1：PC 端;- 2：Web 端;- 3：Android 端;- 4：iOS 端;- 5：服务端;- 6：旧版小程序端;- 8：其他移动端
 
-	UserId *string `json:"user_id,omitempty"` // user_id
+	UserId *string `json:"user_id,omitempty"` // 开放平台的数据标识，用户 ID 类型与查询参数 user_id_type 一致，logout_type = 1 时必填
 
-	LogoutReason *int `json:"logout_reason,omitempty"` // 登出原因
+	LogoutReason *int `json:"logout_reason,omitempty"` // 登出提示语，非必填，不传时默认提示：你已在其他客户端上退出了当前设备，请重新登录。;可选值：;- 34：您已修改登录密码，请重新登录;- 35：您的登录态已失效，请重新登录;- 36：您的密码已过期，请在登录页面通过忘记密码功能修改密码后重新登录
 
-	Sid *string `json:"sid,omitempty"` // 需要精确登出的 session 标识符
+	Sid *string `json:"sid,omitempty"` // 需要精确登出的 session 标识符，logout_type = 3 时必填
 }
 
 type LogoutSessionReq struct {
@@ -615,7 +769,7 @@ func NewQuerySessionReqBodyBuilder() *QuerySessionReqBodyBuilder {
 
 // 用户 ID
 //
-//示例值：["47f621ff"]
+// 示例值：["47f621ff"]
 func (builder *QuerySessionReqBodyBuilder) UserIds(userIds []string) *QuerySessionReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
@@ -679,7 +833,7 @@ func (builder *QuerySessionReqBuilder) UserIdType(userIdType string) *QuerySessi
 	return builder
 }
 
-// 该接口用于查询用户的登录信息
+// 该接口用于查询用户的登录信息。
 func (builder *QuerySessionReqBuilder) Body(body *QuerySessionReqBody) *QuerySessionReqBuilder {
 	builder.body = body
 	return builder

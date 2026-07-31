@@ -9,7 +9,7 @@ import (
 )
 
 type V1 struct {
-	Text *text // 文本
+	Text *text // text
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -22,13 +22,13 @@ type text struct {
 	config *larkcore.Config
 }
 
-// Detect 文本语种识别
+// Detect 识别文本语种
 //
-// - 机器翻译 (MT)，支持 100 多种语言识别，返回符合 ISO 639-1 标准
+// - 机器翻译 (MT)，支持 100 多种语言识别，返回符合 ISO 639-1 标准。
 //
-// - 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
+// - 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流。免费版不支持调用。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/detect
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=detect&project=translation&resource=text&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/translationv1/detect_text.go
 func (t *text) Detect(ctx context.Context, req *DetectTextReq, options ...larkcore.RequestOptionFunc) (*DetectTextResp, error) {
@@ -50,13 +50,13 @@ func (t *text) Detect(ctx context.Context, req *DetectTextReq, options ...larkco
 	return resp, err
 }
 
-// Translate 文本翻译
+// Translate 翻译文本
 //
 // - 机器翻译 (MT)，支持以下语种互译：;"zh": 汉语；;"zh-Hant": 繁体汉语；;"en": 英语；;"ja": 日语；;"ru": 俄语；;"de": 德语；;"fr": 法语；;"it": 意大利语；;"pl": 波兰语；;"th": 泰语；;"hi": 印地语；;"id": 印尼语；;"es": 西班牙语；;"pt": 葡萄牙语；;"ko": 朝鲜语；;"vi": 越南语；
 //
-// - 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
+// - 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流。免费版不支持调用。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/translate
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=translate&project=translation&resource=text&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/translationv1/translate_text.go
 func (t *text) Translate(ctx context.Context, req *TranslateTextReq, options ...larkcore.RequestOptionFunc) (*TranslateTextResp, error) {

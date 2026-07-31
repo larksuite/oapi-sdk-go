@@ -9,7 +9,7 @@ import (
 )
 
 type V1 struct {
-	SystemStatus *systemStatus // 系统状态
+	SystemStatus *systemStatus // system_status
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -24,9 +24,9 @@ type systemStatus struct {
 
 // BatchClose 批量关闭系统状态
 //
-// - 批量关闭用户系统状态可用
+// - 批量关闭用户系统状态可用。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/batch_close
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_close&project=personal_settings&resource=system_status&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/personal_settingsv1/batchClose_systemStatus.go
 func (s *systemStatus) BatchClose(ctx context.Context, req *BatchCloseSystemStatusReq, options ...larkcore.RequestOptionFunc) (*BatchCloseSystemStatusResp, error) {
@@ -50,9 +50,9 @@ func (s *systemStatus) BatchClose(ctx context.Context, req *BatchCloseSystemStat
 
 // BatchOpen 批量开启系统状态
 //
-// - 批量开启用户系统状态可用
+// - 批量开启用户系统状态可用。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/batch_open
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_open&project=personal_settings&resource=system_status&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/personal_settingsv1/batchOpen_systemStatus.go
 func (s *systemStatus) BatchOpen(ctx context.Context, req *BatchOpenSystemStatusReq, options ...larkcore.RequestOptionFunc) (*BatchOpenSystemStatusResp, error) {
@@ -80,7 +80,7 @@ func (s *systemStatus) BatchOpen(ctx context.Context, req *BatchOpenSystemStatus
 //
 // - 注意事项:;- 操作的数据为租户维度数据，请小心操作。;- 每个租户最多创建10个系统状态。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=personal_settings&resource=system_status&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/personal_settingsv1/create_systemStatus.go
 func (s *systemStatus) Create(ctx context.Context, req *CreateSystemStatusReq, options ...larkcore.RequestOptionFunc) (*CreateSystemStatusResp, error) {
@@ -108,7 +108,7 @@ func (s *systemStatus) Create(ctx context.Context, req *CreateSystemStatusReq, o
 //
 // - 注意事项：;- 操作的数据为租户维度数据，请小心操作。 ;- 删除系统状态后，并不影响正在使用该状态用户下系统状态的客户端展示。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=personal_settings&resource=system_status&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/personal_settingsv1/delete_systemStatus.go
 func (s *systemStatus) Delete(ctx context.Context, req *DeleteSystemStatusReq, options ...larkcore.RequestOptionFunc) (*DeleteSystemStatusResp, error) {
@@ -132,9 +132,9 @@ func (s *systemStatus) Delete(ctx context.Context, req *DeleteSystemStatusReq, o
 
 // List 获取系统状态
 //
-// - 获取租户下所有系统状态
+// - 获取租户下所有系统状态。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=personal_settings&resource=system_status&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/personal_settingsv1/list_systemStatus.go
 func (s *systemStatus) List(ctx context.Context, req *ListSystemStatusReq, options ...larkcore.RequestOptionFunc) (*ListSystemStatusResp, error) {
@@ -168,9 +168,7 @@ func (s *systemStatus) ListByIterator(ctx context.Context, req *ListSystemStatus
 //
 // - 修改租户维度系统状态。
 //
-// - 注意事项：;- 操作的数据为租户维度数据，请小心操作。 ;- 修改系统状态后，并不影响正在使用的用户。该用户的系统状态可用时间到期后，再次被开启可用的时候，用户客户端才会同步到更新后的系统状态。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=personal_settings&resource=system_status&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/personal_settingsv1/patch_systemStatus.go
 func (s *systemStatus) Patch(ctx context.Context, req *PatchSystemStatusReq, options ...larkcore.RequestOptionFunc) (*PatchSystemStatusResp, error) {

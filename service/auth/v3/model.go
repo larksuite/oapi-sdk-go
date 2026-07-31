@@ -17,38 +17,6 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
-type AppAccessToken struct {
-}
-
-type AppAccessTokenBuilder struct {
-}
-
-func NewAppAccessTokenBuilder() *AppAccessTokenBuilder {
-	builder := &AppAccessTokenBuilder{}
-	return builder
-}
-
-func (builder *AppAccessTokenBuilder) Build() *AppAccessToken {
-	req := &AppAccessToken{}
-	return req
-}
-
-type AppTicket struct {
-}
-
-type AppTicketBuilder struct {
-}
-
-func NewAppTicketBuilder() *AppTicketBuilder {
-	builder := &AppTicketBuilder{}
-	return builder
-}
-
-func (builder *AppTicketBuilder) Build() *AppTicket {
-	req := &AppTicket{}
-	return req
-}
-
 type DepartmentId struct {
 	DepartmentId *string `json:"department_id,omitempty"` //
 
@@ -68,8 +36,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -77,8 +43,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -203,30 +167,14 @@ func (builder *RevokeTokenEventBuilder) Build() *RevokeTokenEvent {
 	return req
 }
 
-type TenantAccessToken struct {
-}
-
-type TenantAccessTokenBuilder struct {
-}
-
-func NewTenantAccessTokenBuilder() *TenantAccessTokenBuilder {
-	builder := &TenantAccessTokenBuilder{}
-	return builder
-}
-
-func (builder *TenantAccessTokenBuilder) Build() *TenantAccessToken {
-	req := &TenantAccessToken{}
-	return req
-}
-
 type CreateAppAccessTokenReqBodyBuilder struct {
-	appId    string // 应用唯一标识，创建应用后获得。有关app_id 的详细介绍。
+	appId    string // 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 	appIdSet bool
 
-	appSecret    string // 应用秘钥，创建应用后获得。
+	appSecret    string // 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 	appSecretSet bool
 
-	appTicket    string // 平台定时推送给应用的临时凭证，通过事件监听机制获得。
+	appTicket    string // 平台定时推送给应用的临时凭证，通过事件监听机制获得。有关 `app_ticket` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)
 	appTicketSet bool
 }
 
@@ -235,27 +183,27 @@ func NewCreateAppAccessTokenReqBodyBuilder() *CreateAppAccessTokenReqBodyBuilder
 	return builder
 }
 
-// 应用唯一标识，创建应用后获得。有关app_id 的详细介绍。
+// 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
-//示例值：cli_ddfgkk38emd38
+// 示例值：cli_***
 func (builder *CreateAppAccessTokenReqBodyBuilder) AppId(appId string) *CreateAppAccessTokenReqBodyBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
 	return builder
 }
 
-// 应用秘钥，创建应用后获得。
+// 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
-//示例值：clkfgkfdjes384kjdf9830d3k
+// 示例值：clkfgkfdjes384kjdf9830d3k
 func (builder *CreateAppAccessTokenReqBodyBuilder) AppSecret(appSecret string) *CreateAppAccessTokenReqBodyBuilder {
 	builder.appSecret = appSecret
 	builder.appSecretSet = true
 	return builder
 }
 
-// 平台定时推送给应用的临时凭证，通过事件监听机制获得。
+// 平台定时推送给应用的临时凭证，通过事件监听机制获得。有关 `app_ticket` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)
 //
-//示例值：jdjlsd03jk34hj3kldjflcmkel
+// 示例值：jdjlsd03jk34hj3kldjflcmkel
 func (builder *CreateAppAccessTokenReqBodyBuilder) AppTicket(appTicket string) *CreateAppAccessTokenReqBodyBuilder {
 	builder.appTicket = appTicket
 	builder.appTicketSet = true
@@ -290,16 +238,16 @@ func NewCreateAppAccessTokenPathReqBodyBuilder() *CreateAppAccessTokenPathReqBod
 	return builder
 }
 
-// 应用唯一标识，创建应用后获得。有关app_id 的详细介绍。
+// 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
-// 示例值：cli_ddfgkk38emd38
+// 示例值：cli_***
 func (builder *CreateAppAccessTokenPathReqBodyBuilder) AppId(appId string) *CreateAppAccessTokenPathReqBodyBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
 	return builder
 }
 
-// 应用秘钥，创建应用后获得。
+// 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
 // 示例值：clkfgkfdjes384kjdf9830d3k
 func (builder *CreateAppAccessTokenPathReqBodyBuilder) AppSecret(appSecret string) *CreateAppAccessTokenPathReqBodyBuilder {
@@ -308,7 +256,7 @@ func (builder *CreateAppAccessTokenPathReqBodyBuilder) AppSecret(appSecret strin
 	return builder
 }
 
-// 平台定时推送给应用的临时凭证，通过事件监听机制获得。
+// 平台定时推送给应用的临时凭证，通过事件监听机制获得。有关 `app_ticket` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)
 //
 // 示例值：jdjlsd03jk34hj3kldjflcmkel
 func (builder *CreateAppAccessTokenPathReqBodyBuilder) AppTicket(appTicket string) *CreateAppAccessTokenPathReqBodyBuilder {
@@ -345,7 +293,7 @@ func NewCreateAppAccessTokenReqBuilder() *CreateAppAccessTokenReqBuilder {
 	return builder
 }
 
-//
+// 商店应用通过此接口获取`app_access_token`。
 func (builder *CreateAppAccessTokenReqBuilder) Body(body *CreateAppAccessTokenReqBody) *CreateAppAccessTokenReqBuilder {
 	builder.body = body
 	return builder
@@ -359,11 +307,11 @@ func (builder *CreateAppAccessTokenReqBuilder) Build() *CreateAppAccessTokenReq 
 }
 
 type CreateAppAccessTokenReqBody struct {
-	AppId *string `json:"app_id,omitempty"` // 应用唯一标识，创建应用后获得。有关app_id 的详细介绍。
+	AppId *string `json:"app_id,omitempty"` // 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 
-	AppSecret *string `json:"app_secret,omitempty"` // 应用秘钥，创建应用后获得。
+	AppSecret *string `json:"app_secret,omitempty"` // 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 
-	AppTicket *string `json:"app_ticket,omitempty"` // 平台定时推送给应用的临时凭证，通过事件监听机制获得。
+	AppTicket *string `json:"app_ticket,omitempty"` // 平台定时推送给应用的临时凭证，通过事件监听机制获得。有关 `app_ticket` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)
 }
 
 type CreateAppAccessTokenReq struct {
@@ -371,9 +319,16 @@ type CreateAppAccessTokenReq struct {
 	Body   *CreateAppAccessTokenReqBody `body:""`
 }
 
+type CreateAppAccessTokenRespData struct {
+	AppAccessToken *string `json:"app_access_token,omitempty"` // 应用访问凭证
+
+	Expire *int `json:"expire,omitempty"` // `app_access_token` 的过期时间，单位为秒。
+}
+
 type CreateAppAccessTokenResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
+	Data *CreateAppAccessTokenRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateAppAccessTokenResp) Success() bool {
@@ -381,10 +336,10 @@ func (resp *CreateAppAccessTokenResp) Success() bool {
 }
 
 type InternalAppAccessTokenReqBodyBuilder struct {
-	appId    string // 应用唯一标识，创建应用后获得。
+	appId    string // 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 	appIdSet bool
 
-	appSecret    string // 应用秘钥，创建应用后获得。
+	appSecret    string // 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 	appSecretSet bool
 }
 
@@ -393,18 +348,18 @@ func NewInternalAppAccessTokenReqBodyBuilder() *InternalAppAccessTokenReqBodyBui
 	return builder
 }
 
-// 应用唯一标识，创建应用后获得。
+// 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
-//示例值：cli_hsjeriogfkd93jf84
+// 示例值：cli_***
 func (builder *InternalAppAccessTokenReqBodyBuilder) AppId(appId string) *InternalAppAccessTokenReqBodyBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
 	return builder
 }
 
-// 应用秘钥，创建应用后获得。
+// 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
-//示例值：jdsfslkjdg8e73hdf9237enbd
+// 示例值：jdsfslkjdg8e73hdf9237enbd
 func (builder *InternalAppAccessTokenReqBodyBuilder) AppSecret(appSecret string) *InternalAppAccessTokenReqBodyBuilder {
 	builder.appSecret = appSecret
 	builder.appSecretSet = true
@@ -434,16 +389,16 @@ func NewInternalAppAccessTokenPathReqBodyBuilder() *InternalAppAccessTokenPathRe
 	return builder
 }
 
-// 应用唯一标识，创建应用后获得。
+// 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
-// 示例值：cli_hsjeriogfkd93jf84
+// 示例值：cli_***
 func (builder *InternalAppAccessTokenPathReqBodyBuilder) AppId(appId string) *InternalAppAccessTokenPathReqBodyBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
 	return builder
 }
 
-// 应用秘钥，创建应用后获得。
+// 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
 // 示例值：jdsfslkjdg8e73hdf9237enbd
 func (builder *InternalAppAccessTokenPathReqBodyBuilder) AppSecret(appSecret string) *InternalAppAccessTokenPathReqBodyBuilder {
@@ -477,7 +432,7 @@ func NewInternalAppAccessTokenReqBuilder() *InternalAppAccessTokenReqBuilder {
 	return builder
 }
 
-//
+// 自建应用通过此接口获取`app_access_token`。
 func (builder *InternalAppAccessTokenReqBuilder) Body(body *InternalAppAccessTokenReqBody) *InternalAppAccessTokenReqBuilder {
 	builder.body = body
 	return builder
@@ -491,9 +446,9 @@ func (builder *InternalAppAccessTokenReqBuilder) Build() *InternalAppAccessToken
 }
 
 type InternalAppAccessTokenReqBody struct {
-	AppId *string `json:"app_id,omitempty"` // 应用唯一标识，创建应用后获得。
+	AppId *string `json:"app_id,omitempty"` // 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 
-	AppSecret *string `json:"app_secret,omitempty"` // 应用秘钥，创建应用后获得。
+	AppSecret *string `json:"app_secret,omitempty"` // 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 }
 
 type InternalAppAccessTokenReq struct {
@@ -501,9 +456,16 @@ type InternalAppAccessTokenReq struct {
 	Body   *InternalAppAccessTokenReqBody `body:""`
 }
 
+type InternalAppAccessTokenRespData struct {
+	AppAccessToken *string `json:"app_access_token,omitempty"` // 应用访问凭证
+
+	Expire *int `json:"expire,omitempty"` // `app_access_token` 的过期时间，单位为秒
+}
+
 type InternalAppAccessTokenResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
+	Data *InternalAppAccessTokenRespData `json:"data"` // 业务数据
 }
 
 func (resp *InternalAppAccessTokenResp) Success() bool {
@@ -511,10 +473,10 @@ func (resp *InternalAppAccessTokenResp) Success() bool {
 }
 
 type ResendAppTicketReqBodyBuilder struct {
-	appId    string // 应用唯一标识，创建应用后获得
+	appId    string // 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 	appIdSet bool
 
-	appSecret    string // 应用秘钥，创建应用后获得
+	appSecret    string // 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 	appSecretSet bool
 }
 
@@ -523,18 +485,18 @@ func NewResendAppTicketReqBodyBuilder() *ResendAppTicketReqBodyBuilder {
 	return builder
 }
 
-// 应用唯一标识，创建应用后获得
+// 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
-//示例值：cli_slkdjalasdkjasd
+// 示例值：cli_***
 func (builder *ResendAppTicketReqBodyBuilder) AppId(appId string) *ResendAppTicketReqBodyBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
 	return builder
 }
 
-// 应用秘钥，创建应用后获得
+// 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
-//示例值：dskLLdkasdjlasdKK
+// 示例值：dskLLdkasdjlasdKK
 func (builder *ResendAppTicketReqBodyBuilder) AppSecret(appSecret string) *ResendAppTicketReqBodyBuilder {
 	builder.appSecret = appSecret
 	builder.appSecretSet = true
@@ -564,16 +526,16 @@ func NewResendAppTicketPathReqBodyBuilder() *ResendAppTicketPathReqBodyBuilder {
 	return builder
 }
 
-// 应用唯一标识，创建应用后获得
+// 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
-// 示例值：cli_slkdjalasdkjasd
+// 示例值：cli_***
 func (builder *ResendAppTicketPathReqBodyBuilder) AppId(appId string) *ResendAppTicketPathReqBodyBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
 	return builder
 }
 
-// 应用秘钥，创建应用后获得
+// 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
 // 示例值：dskLLdkasdjlasdKK
 func (builder *ResendAppTicketPathReqBodyBuilder) AppSecret(appSecret string) *ResendAppTicketPathReqBodyBuilder {
@@ -607,7 +569,7 @@ func NewResendAppTicketReqBuilder() *ResendAppTicketReqBuilder {
 	return builder
 }
 
-//
+// 飞书开放平台每隔 1 小时会给应用推送一次最新的 `app_ticket`，应用也可以主动调用此接口，触发飞书开放平台进行即时推送。
 func (builder *ResendAppTicketReqBuilder) Body(body *ResendAppTicketReqBody) *ResendAppTicketReqBuilder {
 	builder.body = body
 	return builder
@@ -621,9 +583,9 @@ func (builder *ResendAppTicketReqBuilder) Build() *ResendAppTicketReq {
 }
 
 type ResendAppTicketReqBody struct {
-	AppId *string `json:"app_id,omitempty"` // 应用唯一标识，创建应用后获得
+	AppId *string `json:"app_id,omitempty"` // 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 
-	AppSecret *string `json:"app_secret,omitempty"` // 应用秘钥，创建应用后获得
+	AppSecret *string `json:"app_secret,omitempty"` // 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 }
 
 type ResendAppTicketReq struct {
@@ -641,10 +603,10 @@ func (resp *ResendAppTicketResp) Success() bool {
 }
 
 type CreateTenantAccessTokenReqBodyBuilder struct {
-	appAccessToken    string // 应用访问凭证，通过商店应用获取 app_access_token接口获取。
+	appAccessToken    string // 应用访问凭证，通过[商店应用获取 app_access_token](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/app_access_token/create)接口获取
 	appAccessTokenSet bool
 
-	tenantKey    string // 租户在飞书上的唯一标识，也可以理解为企业标识可以通过如下方式获取：  业开通应用时，开放平台推送给应用，具体可参考【首次启用应用】事件； 用户登录到小程序、H5 应用或者浏览器应用时，在用户的身份信息中获取。
+	tenantKey    string // 租户在飞书上的唯一标识，也可以理解为企业标识;可以通过如下方式获取：;- 业开通应用时，开放平台推送给应用，具体可参考[首次启用应用](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-first-enabled);- 用户登录到小程序、H5 应用或者浏览器应用时，在用户的身份信息中获取
 	tenantKeySet bool
 }
 
@@ -653,18 +615,18 @@ func NewCreateTenantAccessTokenReqBodyBuilder() *CreateTenantAccessTokenReqBodyB
 	return builder
 }
 
-// 应用访问凭证，通过商店应用获取 app_access_token接口获取。
+// 应用访问凭证，通过[商店应用获取 app_access_token](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/app_access_token/create)接口获取
 //
-//示例值：a-32bd8551db2f081cbfd26293f27516390b9feb04
+// 示例值：a-32bd8551db2f081cbfd26293f27516390b9feb04
 func (builder *CreateTenantAccessTokenReqBodyBuilder) AppAccessToken(appAccessToken string) *CreateTenantAccessTokenReqBodyBuilder {
 	builder.appAccessToken = appAccessToken
 	builder.appAccessTokenSet = true
 	return builder
 }
 
-// 租户在飞书上的唯一标识，也可以理解为企业标识可以通过如下方式获取：  业开通应用时，开放平台推送给应用，具体可参考【首次启用应用】事件； 用户登录到小程序、H5 应用或者浏览器应用时，在用户的身份信息中获取。
+// 租户在飞书上的唯一标识，也可以理解为企业标识;可以通过如下方式获取：;- 业开通应用时，开放平台推送给应用，具体可参考[首次启用应用](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-first-enabled);- 用户登录到小程序、H5 应用或者浏览器应用时，在用户的身份信息中获取
 //
-//示例值：73658811060f175d
+// 示例值：73658811060f175d
 func (builder *CreateTenantAccessTokenReqBodyBuilder) TenantKey(tenantKey string) *CreateTenantAccessTokenReqBodyBuilder {
 	builder.tenantKey = tenantKey
 	builder.tenantKeySet = true
@@ -694,7 +656,7 @@ func NewCreateTenantAccessTokenPathReqBodyBuilder() *CreateTenantAccessTokenPath
 	return builder
 }
 
-// 应用访问凭证，通过商店应用获取 app_access_token接口获取。
+// 应用访问凭证，通过[商店应用获取 app_access_token](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/app_access_token/create)接口获取
 //
 // 示例值：a-32bd8551db2f081cbfd26293f27516390b9feb04
 func (builder *CreateTenantAccessTokenPathReqBodyBuilder) AppAccessToken(appAccessToken string) *CreateTenantAccessTokenPathReqBodyBuilder {
@@ -703,7 +665,7 @@ func (builder *CreateTenantAccessTokenPathReqBodyBuilder) AppAccessToken(appAcce
 	return builder
 }
 
-// 租户在飞书上的唯一标识，也可以理解为企业标识可以通过如下方式获取：  业开通应用时，开放平台推送给应用，具体可参考【首次启用应用】事件； 用户登录到小程序、H5 应用或者浏览器应用时，在用户的身份信息中获取。
+// 租户在飞书上的唯一标识，也可以理解为企业标识;可以通过如下方式获取：;- 业开通应用时，开放平台推送给应用，具体可参考[首次启用应用](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-first-enabled);- 用户登录到小程序、H5 应用或者浏览器应用时，在用户的身份信息中获取
 //
 // 示例值：73658811060f175d
 func (builder *CreateTenantAccessTokenPathReqBodyBuilder) TenantKey(tenantKey string) *CreateTenantAccessTokenPathReqBodyBuilder {
@@ -737,7 +699,7 @@ func NewCreateTenantAccessTokenReqBuilder() *CreateTenantAccessTokenReqBuilder {
 	return builder
 }
 
-//
+// 商店应用通过此接口获取`tenant_access_token`。
 func (builder *CreateTenantAccessTokenReqBuilder) Body(body *CreateTenantAccessTokenReqBody) *CreateTenantAccessTokenReqBuilder {
 	builder.body = body
 	return builder
@@ -751,9 +713,9 @@ func (builder *CreateTenantAccessTokenReqBuilder) Build() *CreateTenantAccessTok
 }
 
 type CreateTenantAccessTokenReqBody struct {
-	AppAccessToken *string `json:"app_access_token,omitempty"` // 应用访问凭证，通过商店应用获取 app_access_token接口获取。
+	AppAccessToken *string `json:"app_access_token,omitempty"` // 应用访问凭证，通过[商店应用获取 app_access_token](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/app_access_token/create)接口获取
 
-	TenantKey *string `json:"tenant_key,omitempty"` // 租户在飞书上的唯一标识，也可以理解为企业标识可以通过如下方式获取：  业开通应用时，开放平台推送给应用，具体可参考【首次启用应用】事件； 用户登录到小程序、H5 应用或者浏览器应用时，在用户的身份信息中获取。
+	TenantKey *string `json:"tenant_key,omitempty"` // 租户在飞书上的唯一标识，也可以理解为企业标识;可以通过如下方式获取：;- 业开通应用时，开放平台推送给应用，具体可参考[首次启用应用](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-first-enabled);- 用户登录到小程序、H5 应用或者浏览器应用时，在用户的身份信息中获取
 }
 
 type CreateTenantAccessTokenReq struct {
@@ -761,9 +723,16 @@ type CreateTenantAccessTokenReq struct {
 	Body   *CreateTenantAccessTokenReqBody `body:""`
 }
 
+type CreateTenantAccessTokenRespData struct {
+	TenantAccessToken *string `json:"tenant_access_token,omitempty"` // 租户访问凭证
+
+	Expire *int `json:"expire,omitempty"` // `tenant_access_token` 的过期时间，单位为秒。
+}
+
 type CreateTenantAccessTokenResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
+	Data *CreateTenantAccessTokenRespData `json:"data"` // 业务数据
 }
 
 func (resp *CreateTenantAccessTokenResp) Success() bool {
@@ -771,10 +740,10 @@ func (resp *CreateTenantAccessTokenResp) Success() bool {
 }
 
 type InternalTenantAccessTokenReqBodyBuilder struct {
-	appId    string // 应用唯一标识，创建应用后获得。
+	appId    string // 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 	appIdSet bool
 
-	appSecret    string // 应用秘钥，创建应用后获得。
+	appSecret    string // 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 	appSecretSet bool
 }
 
@@ -783,18 +752,18 @@ func NewInternalTenantAccessTokenReqBodyBuilder() *InternalTenantAccessTokenReqB
 	return builder
 }
 
-// 应用唯一标识，创建应用后获得。
+// 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
-//示例值：cli_slkdjalasdkjasd
+// 示例值：cli_***
 func (builder *InternalTenantAccessTokenReqBodyBuilder) AppId(appId string) *InternalTenantAccessTokenReqBodyBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
 	return builder
 }
 
-// 应用秘钥，创建应用后获得。
+// 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
-//示例值：dskLLdkasdjlasdKK
+// 示例值：dskLLdkasdjlasdKK
 func (builder *InternalTenantAccessTokenReqBodyBuilder) AppSecret(appSecret string) *InternalTenantAccessTokenReqBodyBuilder {
 	builder.appSecret = appSecret
 	builder.appSecretSet = true
@@ -824,16 +793,16 @@ func NewInternalTenantAccessTokenPathReqBodyBuilder() *InternalTenantAccessToken
 	return builder
 }
 
-// 应用唯一标识，创建应用后获得。
+// 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
-// 示例值：cli_slkdjalasdkjasd
+// 示例值：cli_***
 func (builder *InternalTenantAccessTokenPathReqBodyBuilder) AppId(appId string) *InternalTenantAccessTokenPathReqBodyBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
 	return builder
 }
 
-// 应用秘钥，创建应用后获得。
+// 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 //
 // 示例值：dskLLdkasdjlasdKK
 func (builder *InternalTenantAccessTokenPathReqBodyBuilder) AppSecret(appSecret string) *InternalTenantAccessTokenPathReqBodyBuilder {
@@ -867,7 +836,7 @@ func NewInternalTenantAccessTokenReqBuilder() *InternalTenantAccessTokenReqBuild
 	return builder
 }
 
-//
+// 自建应用通过此接口获取 `tenant_access_token`。
 func (builder *InternalTenantAccessTokenReqBuilder) Body(body *InternalTenantAccessTokenReqBody) *InternalTenantAccessTokenReqBuilder {
 	builder.body = body
 	return builder
@@ -881,9 +850,9 @@ func (builder *InternalTenantAccessTokenReqBuilder) Build() *InternalTenantAcces
 }
 
 type InternalTenantAccessTokenReqBody struct {
-	AppId *string `json:"app_id,omitempty"` // 应用唯一标识，创建应用后获得。
+	AppId *string `json:"app_id,omitempty"` // 应用唯一标识，创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 
-	AppSecret *string `json:"app_secret,omitempty"` // 应用秘钥，创建应用后获得。
+	AppSecret *string `json:"app_secret,omitempty"` // 应用秘钥，创建应用后获得。有关 `app_secret` 的详细介绍，请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍
 }
 
 type InternalTenantAccessTokenReq struct {
@@ -891,9 +860,16 @@ type InternalTenantAccessTokenReq struct {
 	Body   *InternalTenantAccessTokenReqBody `body:""`
 }
 
+type InternalTenantAccessTokenRespData struct {
+	TenantAccessToken *string `json:"tenant_access_token,omitempty"` // 租户访问凭证。
+
+	Expire *int `json:"expire,omitempty"` // `tenant_access_token` 的过期时间，单位为秒。
+}
+
 type InternalTenantAccessTokenResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
+	Data *InternalTenantAccessTokenRespData `json:"data"` // 业务数据
 }
 
 func (resp *InternalTenantAccessTokenResp) Success() bool {

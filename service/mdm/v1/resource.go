@@ -9,7 +9,7 @@ import (
 )
 
 type V1 struct {
-	UserAuthDataRelation *userAuthDataRelation // 数据维度
+	UserAuthDataRelation *userAuthDataRelation // user_auth_data_relation
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -26,7 +26,7 @@ type userAuthDataRelation struct {
 //
 // - 通过该接口，可为指定应用下的用户绑定一类数据维度，支持批量给多个用户同时增量授权。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v1/user_auth_data_relation/bind
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=bind&project=mdm&resource=user_auth_data_relation&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mdmv1/bind_userAuthDataRelation.go
 func (u *userAuthDataRelation) Bind(ctx context.Context, req *BindUserAuthDataRelationReq, options ...larkcore.RequestOptionFunc) (*BindUserAuthDataRelationResp, error) {
@@ -52,7 +52,7 @@ func (u *userAuthDataRelation) Bind(ctx context.Context, req *BindUserAuthDataRe
 //
 // - 通过该接口，可为指定应用下的指定用户解除一类数据维度。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v1/user_auth_data_relation/unbind
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=unbind&project=mdm&resource=user_auth_data_relation&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mdmv1/unbind_userAuthDataRelation.go
 func (u *userAuthDataRelation) Unbind(ctx context.Context, req *UnbindUserAuthDataRelationReq, options ...larkcore.RequestOptionFunc) (*UnbindUserAuthDataRelationResp, error) {

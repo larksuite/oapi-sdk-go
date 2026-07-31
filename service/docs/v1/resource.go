@@ -22,9 +22,9 @@ type content struct {
 	config *larkcore.Config
 }
 
-// Get
+// Get 获取云文档内容
 //
-// - 获取云文档正文内容
+// - 可获取云文档内容，当前只支持获取新版文档 Markdown 格式的内容。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=docs&resource=content&version=v1
 //

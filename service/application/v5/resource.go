@@ -22,9 +22,9 @@ type application struct {
 	config *larkcore.Config
 }
 
-// Favourite
+// Favourite 获取用户自定义常用的应用
 //
-// -
+// - 获取用户自定义常用的应用。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=favourite&project=application&resource=application&version=v5
 //
@@ -56,9 +56,9 @@ func (a *application) FavouriteByIterator(ctx context.Context, req *FavouriteApp
 		limit:    req.Limit}, nil
 }
 
-// Recommend
+// Recommend 获取管理员推荐的应用
 //
-// -
+// - 获取管理员推荐的应用。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recommend&project=application&resource=application&version=v5
 //

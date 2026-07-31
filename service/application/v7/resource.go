@@ -42,9 +42,9 @@ type applicationPublish struct {
 	config *larkcore.Config
 }
 
-// Create
+// Create 上传应用图标
 //
-// -
+// - 上传应用图标
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=application&resource=app_avatar.upload&version=v7
 //
@@ -69,9 +69,11 @@ func (a *appAvatarUpload) Create(ctx context.Context, req *CreateAppAvatarUpload
 	return resp, err
 }
 
-// Patch
+// Patch 更新应用能力
 //
-// -
+// - 通过该接口可更新自建应用的应用能力（机器人、网页应用等）相关配置，不传入的参数则保持不变，仅针对传入的参数则进行更新。如果应用正在审核中，则无法更新配置
+//
+// - - 仅支持更新[开发者后台](https://open.feishu.cn/app)创建的自建应用，不包含通过机器人助手等其他渠道创建的自建应用;- 应用配置修改后需要[提交发布](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v7/application-v7/application-publish/create)，并审核通过后才会在线上生效;;- 若用 user_access_token 代表某个终端用户操作API，则需确保该用户为应用的所有者、管理员、开发者，否则无法操作成功;;- 若用 tenant_access_token 代表应用操作API，则仅可操作自身
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=application&resource=application.ability&version=v7
 //
@@ -95,9 +97,11 @@ func (a *applicationAbility) Patch(ctx context.Context, req *PatchApplicationAbi
 	return resp, err
 }
 
-// Patch
+// Patch 更新应用基础信息配置
 //
-// -
+// - 通过该接口可更新自建应用的基础信息（名称、头像等），不传入的参数则保持不变，仅针对传入的参数则进行更新。如果应用正在审核中，则无法更新配置
+//
+// - - 仅支持更新[开发者后台](https://open.feishu.cn/app)创建的自建应用，不包含通过机器人助手等其他渠道创建的自建应用;- 应用配置修改后需要[提交发布](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v7/application-v7/application-publish/create)，并审核通过后才会在线上生效;;- 若用 user_access_token 代表某个终端用户操作API，则需确保该用户为应用的所有者、管理员、开发者，否则无法操作成功;;- 若用 tenant_access_token 代表应用操作API，则仅可以操作应用自身
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=application&resource=application.base&version=v7
 //
@@ -121,9 +125,11 @@ func (a *applicationBase) Patch(ctx context.Context, req *PatchApplicationBaseRe
 	return resp, err
 }
 
-// Patch
+// Patch 更新应用开发配置
 //
-// -
+// - 通过该接口可更新自建应用的应用的开发配置（通讯录、安全、可见性等），不传入的参数则保持不变，仅针对传入的参数则进行更新。如果应用正在审核中，则无法更新配置
+//
+// - - 仅支持更新[开发者后台](https://open.feishu.cn/app)创建的自建应用，不包含通过机器人助手等其他渠道创建的自建应用;- 免审权限、事件订阅服务器地址、重定向URL、IP白名单、H5可信域名、协议名白名单修改后立即生效，其他应用配置修改后需要[提交发布](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v7/application-v7/application-publish/create)，并审核通过后才会在线上生效。为确保所有配置均能在线上生效，建议修改后提交应用发布。;;- 若用 user_access_token 代表某个终端用户操作API，则需确保该用户为应用的所有者、管理员、开发者，否则无法操作成功;;- 若用 tenant_access_token 代表应用操作API，则仅可以操作自身
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=application&resource=application.config&version=v7
 //
@@ -147,9 +153,11 @@ func (a *applicationConfig) Patch(ctx context.Context, req *PatchApplicationConf
 	return resp, err
 }
 
-// Create
+// Create 提交发布自建应用
 //
-// -
+// - 自建应用提交应用发布，如果当前自建应用没有待发布的版本，则会自动创建一个版本，如果有待发布的版本，则直接提交该版本。
+//
+// - 仅支持发布[开发者后台](https://open.feishu.cn/app)创建的自建应用，不包含通过机器人助手等其他渠道创建的自建应用;;- 若用 user_access_token 代表某个终端用户操作API，则需确保该用户为应用的所有者、管理员，否则无法操作成功;;- 若用 tenant_access_token 代表应用操作API，则仅可操作自身
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=application&resource=application.publish&version=v7
 //

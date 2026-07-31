@@ -133,9 +133,9 @@ type Activity struct {
 
 	Name *I18n `json:"name,omitempty"` // 项目名称
 
-	Description *I18n `json:"description,omitempty"` // 项目描述
+	Description *I18n `json:"description,omitempty"` // 项目名称
 
-	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID
+	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID，详情可查看：[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)
 
 	Mode *string `json:"mode,omitempty"` // 项目模式
 
@@ -145,9 +145,9 @@ type Activity struct {
 
 	ModifyTime *string `json:"modify_time,omitempty"` // 项目更新时间，毫秒时间戳
 
-	CreateUserId *string `json:"create_user_id,omitempty"` // 项目创建人 ID
+	CreateUserId *string `json:"create_user_id,omitempty"` // 项目创建人 ID，与入参 `user_id_type` 类型一致
 
-	ModifyUserId *string `json:"modify_user_id,omitempty"` // 项目更新人 ID
+	ModifyUserId *string `json:"modify_user_id,omitempty"` // 项目更新人 ID，与入参 `user_id_type` 类型一致
 }
 
 type ActivityBuilder struct {
@@ -157,10 +157,10 @@ type ActivityBuilder struct {
 	name    *I18n // 项目名称
 	nameSet bool
 
-	description    *I18n // 项目描述
+	description    *I18n // 项目名称
 	descriptionSet bool
 
-	semesterId    string // 周期 ID
+	semesterId    string // 周期 ID，详情可查看：[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)
 	semesterIdSet bool
 
 	mode    string // 项目模式
@@ -175,10 +175,10 @@ type ActivityBuilder struct {
 	modifyTime    string // 项目更新时间，毫秒时间戳
 	modifyTimeSet bool
 
-	createUserId    string // 项目创建人 ID
+	createUserId    string // 项目创建人 ID，与入参 `user_id_type` 类型一致
 	createUserIdSet bool
 
-	modifyUserId    string // 项目更新人 ID
+	modifyUserId    string // 项目更新人 ID，与入参 `user_id_type` 类型一致
 	modifyUserIdSet bool
 }
 
@@ -205,7 +205,7 @@ func (builder *ActivityBuilder) Name(name *I18n) *ActivityBuilder {
 	return builder
 }
 
-// 项目描述
+// 项目名称
 //
 // 示例值：
 func (builder *ActivityBuilder) Description(description *I18n) *ActivityBuilder {
@@ -214,7 +214,7 @@ func (builder *ActivityBuilder) Description(description *I18n) *ActivityBuilder 
 	return builder
 }
 
-// 周期 ID
+// 周期 ID，详情可查看：[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)
 //
 // 示例值：7343513161666707459
 func (builder *ActivityBuilder) SemesterId(semesterId string) *ActivityBuilder {
@@ -259,7 +259,7 @@ func (builder *ActivityBuilder) ModifyTime(modifyTime string) *ActivityBuilder {
 	return builder
 }
 
-// 项目创建人 ID
+// 项目创建人 ID，与入参 `user_id_type` 类型一致
 //
 // 示例值：6924187793321444877
 func (builder *ActivityBuilder) CreateUserId(createUserId string) *ActivityBuilder {
@@ -268,7 +268,7 @@ func (builder *ActivityBuilder) CreateUserId(createUserId string) *ActivityBuild
 	return builder
 }
 
-// 项目更新人 ID
+// 项目更新人 ID，与入参 `user_id_type` 类型一致
 //
 // 示例值：6924187793321444877
 func (builder *ActivityBuilder) ModifyUserId(modifyUserId string) *ActivityBuilder {
@@ -329,9 +329,9 @@ type AdditionalInformation struct {
 
 	Item *string `json:"item,omitempty"` // 事项
 
-	Time *string `json:"time,omitempty"` // 事项时间，格式为文本内容
+	Time *string `json:"time,omitempty"` // 时间;;;**说明**：文本内容，无格式校验
 
-	DetailedDescription *string `json:"detailed_description,omitempty"` // 事项详细描述
+	DetailedDescription *string `json:"detailed_description,omitempty"` // 具体描述
 }
 
 type AdditionalInformationBuilder struct {
@@ -347,10 +347,10 @@ type AdditionalInformationBuilder struct {
 	item    string // 事项
 	itemSet bool
 
-	time    string // 事项时间，格式为文本内容
+	time    string // 时间;;;**说明**：文本内容，无格式校验
 	timeSet bool
 
-	detailedDescription    string // 事项详细描述
+	detailedDescription    string // 具体描述
 	detailedDescriptionSet bool
 }
 
@@ -388,14 +388,14 @@ func (builder *AdditionalInformationBuilder) RevieweeUserId(revieweeUserId strin
 
 // 事项
 //
-// 示例值：文本
+// 示例值：业绩补充说明
 func (builder *AdditionalInformationBuilder) Item(item string) *AdditionalInformationBuilder {
 	builder.item = item
 	builder.itemSet = true
 	return builder
 }
 
-// 事项时间，格式为文本内容
+// 时间;;;**说明**：文本内容，无格式校验
 //
 // 示例值：2024-03-12
 func (builder *AdditionalInformationBuilder) Time(time string) *AdditionalInformationBuilder {
@@ -404,9 +404,9 @@ func (builder *AdditionalInformationBuilder) Time(time string) *AdditionalInform
 	return builder
 }
 
-// 事项详细描述
+// 具体描述
 //
-// 示例值：多行文本
+// 示例值：销售额增长目标超额完成
 func (builder *AdditionalInformationBuilder) DetailedDescription(detailedDescription string) *AdditionalInformationBuilder {
 	builder.detailedDescription = detailedDescription
 	builder.detailedDescriptionSet = true
@@ -445,9 +445,9 @@ func (builder *AdditionalInformationBuilder) Build() *AdditionalInformation {
 type CooperationProject struct {
 	Id *string `json:"id,omitempty"` // 合作项目 ID
 
-	Name *I18n `json:"name,omitempty"` // 合作项目的名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
-	Roles []*CooperationRole `json:"roles,omitempty"` // 项目角色
+	Roles []*CooperationRole `json:"roles,omitempty"` // 合作项目角色
 
 	UserRoles []*CooperationUserRole `json:"user_roles,omitempty"` // 评估人项目角色
 
@@ -458,10 +458,10 @@ type CooperationProjectBuilder struct {
 	id    string // 合作项目 ID
 	idSet bool
 
-	name    *I18n // 合作项目的名称
+	name    *I18n // 项目名称
 	nameSet bool
 
-	roles    []*CooperationRole // 项目角色
+	roles    []*CooperationRole // 合作项目角色
 	rolesSet bool
 
 	userRoles    []*CooperationUserRole // 评估人项目角色
@@ -485,7 +485,7 @@ func (builder *CooperationProjectBuilder) Id(id string) *CooperationProjectBuild
 	return builder
 }
 
-// 合作项目的名称
+// 项目名称
 //
 // 示例值：
 func (builder *CooperationProjectBuilder) Name(name *I18n) *CooperationProjectBuilder {
@@ -494,7 +494,7 @@ func (builder *CooperationProjectBuilder) Name(name *I18n) *CooperationProjectBu
 	return builder
 }
 
-// 项目角色
+// 合作项目角色
 //
 // 示例值：
 func (builder *CooperationProjectBuilder) Roles(roles []*CooperationRole) *CooperationProjectBuilder {
@@ -543,16 +543,16 @@ func (builder *CooperationProjectBuilder) Build() *CooperationProject {
 }
 
 type CooperationRole struct {
-	ReviewerRole *CooperationUserRole `json:"reviewer_role,omitempty"` // 评估人的项目角色。在未配置项目角色情况下，该字段为空值。
+	ReviewerRole *CooperationUserRole `json:"reviewer_role,omitempty"` // 评估人在合作项目中的角色。在未配置合作项目角色情况下，该字段为空值。
 
-	RevieweeRole *CooperationUserRole `json:"reviewee_role,omitempty"` // 被评估人的项目角色。在未配置项目角色情况下，该字段为空值。
+	RevieweeRole *CooperationUserRole `json:"reviewee_role,omitempty"` // 评估人在合作项目中的角色。在未配置合作项目角色情况下，该字段为空值。
 }
 
 type CooperationRoleBuilder struct {
-	reviewerRole    *CooperationUserRole // 评估人的项目角色。在未配置项目角色情况下，该字段为空值。
+	reviewerRole    *CooperationUserRole // 评估人在合作项目中的角色。在未配置合作项目角色情况下，该字段为空值。
 	reviewerRoleSet bool
 
-	revieweeRole    *CooperationUserRole // 被评估人的项目角色。在未配置项目角色情况下，该字段为空值。
+	revieweeRole    *CooperationUserRole // 评估人在合作项目中的角色。在未配置合作项目角色情况下，该字段为空值。
 	revieweeRoleSet bool
 }
 
@@ -561,7 +561,7 @@ func NewCooperationRoleBuilder() *CooperationRoleBuilder {
 	return builder
 }
 
-// 评估人的项目角色。在未配置项目角色情况下，该字段为空值。
+// 评估人在合作项目中的角色。在未配置合作项目角色情况下，该字段为空值。
 //
 // 示例值：
 func (builder *CooperationRoleBuilder) ReviewerRole(reviewerRole *CooperationUserRole) *CooperationRoleBuilder {
@@ -570,7 +570,7 @@ func (builder *CooperationRoleBuilder) ReviewerRole(reviewerRole *CooperationUse
 	return builder
 }
 
-// 被评估人的项目角色。在未配置项目角色情况下，该字段为空值。
+// 评估人在合作项目中的角色。在未配置合作项目角色情况下，该字段为空值。
 //
 // 示例值：
 func (builder *CooperationRoleBuilder) RevieweeRole(revieweeRole *CooperationUserRole) *CooperationRoleBuilder {
@@ -591,16 +591,16 @@ func (builder *CooperationRoleBuilder) Build() *CooperationRole {
 }
 
 type CooperationUserRole struct {
-	RoleId *string `json:"role_id,omitempty"` // 角色 ID
+	RoleId *string `json:"role_id,omitempty"` // 合作项目角色 ID
 
-	Name *I18n `json:"name,omitempty"` // 名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 }
 
 type CooperationUserRoleBuilder struct {
-	roleId    string // 角色 ID
+	roleId    string // 合作项目角色 ID
 	roleIdSet bool
 
-	name    *I18n // 名称
+	name    *I18n // 项目名称
 	nameSet bool
 }
 
@@ -609,7 +609,7 @@ func NewCooperationUserRoleBuilder() *CooperationUserRoleBuilder {
 	return builder
 }
 
-// 角色 ID
+// 合作项目角色 ID
 //
 // 示例值：7213434603057807379
 func (builder *CooperationUserRoleBuilder) RoleId(roleId string) *CooperationUserRoleBuilder {
@@ -618,7 +618,7 @@ func (builder *CooperationUserRoleBuilder) RoleId(roleId string) *CooperationUse
 	return builder
 }
 
-// 名称
+// 项目名称
 //
 // 示例值：
 func (builder *CooperationUserRoleBuilder) Name(name *I18n) *CooperationUserRoleBuilder {
@@ -640,21 +640,21 @@ func (builder *CooperationUserRoleBuilder) Build() *CooperationUserRole {
 }
 
 type CustomMetricConfig struct {
-	DefaultFormulaId *string `json:"default_formula_id,omitempty"` // 新增指标默认公式ID,非指标库指标的公式ID使用该值
+	DefaultFormulaId *string `json:"default_formula_id,omitempty"` // 非指标库指标的评分方式（手动评分是 0；评分公式是具体的公式 ID）
 
-	LeastMetricsSize *int `json:"least_metrics_size,omitempty"` // 维度允许添加指标下限(包含)
+	LeastMetricsSize *int `json:"least_metrics_size,omitempty"` // 最少需添加的指标数量
 
-	AddMetricOptions []int `json:"add_metric_options,omitempty"` // 添加的指标方式
+	AddMetricOptions []int `json:"add_metric_options,omitempty"` // 添加指标的方式
 }
 
 type CustomMetricConfigBuilder struct {
-	defaultFormulaId    string // 新增指标默认公式ID,非指标库指标的公式ID使用该值
+	defaultFormulaId    string // 非指标库指标的评分方式（手动评分是 0；评分公式是具体的公式 ID）
 	defaultFormulaIdSet bool
 
-	leastMetricsSize    int // 维度允许添加指标下限(包含)
+	leastMetricsSize    int // 最少需添加的指标数量
 	leastMetricsSizeSet bool
 
-	addMetricOptions    []int // 添加的指标方式
+	addMetricOptions    []int // 添加指标的方式
 	addMetricOptionsSet bool
 }
 
@@ -663,7 +663,7 @@ func NewCustomMetricConfigBuilder() *CustomMetricConfigBuilder {
 	return builder
 }
 
-// 新增指标默认公式ID,非指标库指标的公式ID使用该值
+// 非指标库指标的评分方式（手动评分是 0；评分公式是具体的公式 ID）
 //
 // 示例值：7296701873237786643
 func (builder *CustomMetricConfigBuilder) DefaultFormulaId(defaultFormulaId string) *CustomMetricConfigBuilder {
@@ -672,7 +672,7 @@ func (builder *CustomMetricConfigBuilder) DefaultFormulaId(defaultFormulaId stri
 	return builder
 }
 
-// 维度允许添加指标下限(包含)
+// 最少需添加的指标数量
 //
 // 示例值：1
 func (builder *CustomMetricConfigBuilder) LeastMetricsSize(leastMetricsSize int) *CustomMetricConfigBuilder {
@@ -681,7 +681,7 @@ func (builder *CustomMetricConfigBuilder) LeastMetricsSize(leastMetricsSize int)
 	return builder
 }
 
-// 添加的指标方式
+// 添加指标的方式
 //
 // 示例值：
 func (builder *CustomMetricConfigBuilder) AddMetricOptions(addMetricOptions []int) *CustomMetricConfigBuilder {
@@ -738,16 +738,16 @@ func (builder *DefaultInvitationBuilder) Build() *DefaultInvitation {
 }
 
 type Department struct {
-	Id *string `json:"id,omitempty"` // 部门 ID，与入参中的department_id_type类型一致，详情请查看：获取单个部门信息
+	Id *string `json:"id,omitempty"` // 部门 ID，与入参中的department_id_type类型一致，详情请查看：[获取单个部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get)
 
-	Name *I18n `json:"name,omitempty"` // 部门名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 }
 
 type DepartmentBuilder struct {
-	id    string // 部门 ID，与入参中的department_id_type类型一致，详情请查看：获取单个部门信息
+	id    string // 部门 ID，与入参中的department_id_type类型一致，详情请查看：[获取单个部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get)
 	idSet bool
 
-	name    *I18n // 部门名称
+	name    *I18n // 项目名称
 	nameSet bool
 }
 
@@ -756,7 +756,7 @@ func NewDepartmentBuilder() *DepartmentBuilder {
 	return builder
 }
 
-// 部门 ID，与入参中的department_id_type类型一致，详情请查看：获取单个部门信息
+// 部门 ID，与入参中的department_id_type类型一致，详情请查看：[获取单个部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get)
 //
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *DepartmentBuilder) Id(id string) *DepartmentBuilder {
@@ -765,7 +765,7 @@ func (builder *DepartmentBuilder) Id(id string) *DepartmentBuilder {
 	return builder
 }
 
-// 部门名称
+// 项目名称
 //
 // 示例值：
 func (builder *DepartmentBuilder) Name(name *I18n) *DepartmentBuilder {
@@ -805,8 +805,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -814,8 +812,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -919,16 +915,16 @@ func (builder *DirectProjectLeaderRecordInfoBuilder) Build() *DirectProjectLeade
 }
 
 type EvaluationScale struct {
-	UserId *string `json:"user_id,omitempty"` // 员工 ID
+	UserId *string `json:"user_id,omitempty"` // 360° 评估人 ID
 
-	UserEvaluationScales []*UserEvaluationScale `json:"user_evaluation_scales,omitempty"` // 员工的360° 评估尺度
+	UserEvaluationScales []*UserEvaluationScale `json:"user_evaluation_scales,omitempty"` // 该 360° 评估人的评估尺度
 }
 
 type EvaluationScaleBuilder struct {
-	userId    string // 员工 ID
+	userId    string // 360° 评估人 ID
 	userIdSet bool
 
-	userEvaluationScales    []*UserEvaluationScale // 员工的360° 评估尺度
+	userEvaluationScales    []*UserEvaluationScale // 该 360° 评估人的评估尺度
 	userEvaluationScalesSet bool
 }
 
@@ -937,16 +933,16 @@ func NewEvaluationScaleBuilder() *EvaluationScaleBuilder {
 	return builder
 }
 
-// 员工 ID
+// 360° 评估人 ID
 //
-// 示例值：
+// 示例值：ou-ux987dsf6x
 func (builder *EvaluationScaleBuilder) UserId(userId string) *EvaluationScaleBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
 	return builder
 }
 
-// 员工的360° 评估尺度
+// 该 360° 评估人的评估尺度
 //
 // 示例值：
 func (builder *EvaluationScaleBuilder) UserEvaluationScales(userEvaluationScales []*UserEvaluationScale) *EvaluationScaleBuilder {
@@ -970,15 +966,15 @@ func (builder *EvaluationScaleBuilder) Build() *EvaluationScale {
 type Field struct {
 	FieldId *string `json:"field_id,omitempty"` // 评估题 ID
 
-	Name *I18n `json:"name,omitempty"` // 如果是填写项，为填写项名称；如果是评估项，为评估项名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
-	IndicatorId *string `json:"indicator_id,omitempty"` // 评估项 ID
+	IndicatorId *string `json:"indicator_id,omitempty"` // 评估项 ID，详细信息请参考[获取评估项配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query)
 
-	TagBasedQuestionId *string `json:"tag_based_question_id,omitempty"` // 标签填写题 ID
+	TagBasedQuestionId *string `json:"tag_based_question_id,omitempty"` // 标签填写题 ID，详细信息请参考[获取标签填写题配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/question/query)
 
-	ObjectiveTextQustionTitle *I18n `json:"objective_text_qustion_title,omitempty"` // O 的填写项标题
+	ObjectiveTextQustionTitle *I18n `json:"objective_text_qustion_title,omitempty"` // 项目名称
 
-	KeyresultTextQustionTitle *I18n `json:"keyresult_text_qustion_title,omitempty"` // KR 的填写项标题
+	KeyresultTextQustionTitle *I18n `json:"keyresult_text_qustion_title,omitempty"` // 项目名称
 
 	ParentFieldId *string `json:"parent_field_id,omitempty"` // 关联的父级评估项 ID
 
@@ -989,19 +985,19 @@ type FieldBuilder struct {
 	fieldId    string // 评估题 ID
 	fieldIdSet bool
 
-	name    *I18n // 如果是填写项，为填写项名称；如果是评估项，为评估项名称
+	name    *I18n // 项目名称
 	nameSet bool
 
-	indicatorId    string // 评估项 ID
+	indicatorId    string // 评估项 ID，详细信息请参考[获取评估项配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query)
 	indicatorIdSet bool
 
-	tagBasedQuestionId    string // 标签填写题 ID
+	tagBasedQuestionId    string // 标签填写题 ID，详细信息请参考[获取标签填写题配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/question/query)
 	tagBasedQuestionIdSet bool
 
-	objectiveTextQustionTitle    *I18n // O 的填写项标题
+	objectiveTextQustionTitle    *I18n // 项目名称
 	objectiveTextQustionTitleSet bool
 
-	keyresultTextQustionTitle    *I18n // KR 的填写项标题
+	keyresultTextQustionTitle    *I18n // 项目名称
 	keyresultTextQustionTitleSet bool
 
 	parentFieldId    string // 关联的父级评估项 ID
@@ -1025,7 +1021,7 @@ func (builder *FieldBuilder) FieldId(fieldId string) *FieldBuilder {
 	return builder
 }
 
-// 如果是填写项，为填写项名称；如果是评估项，为评估项名称
+// 项目名称
 //
 // 示例值：
 func (builder *FieldBuilder) Name(name *I18n) *FieldBuilder {
@@ -1034,7 +1030,7 @@ func (builder *FieldBuilder) Name(name *I18n) *FieldBuilder {
 	return builder
 }
 
-// 评估项 ID
+// 评估项 ID，详细信息请参考[获取评估项配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query)
 //
 // 示例值：7343513161666707459
 func (builder *FieldBuilder) IndicatorId(indicatorId string) *FieldBuilder {
@@ -1043,7 +1039,7 @@ func (builder *FieldBuilder) IndicatorId(indicatorId string) *FieldBuilder {
 	return builder
 }
 
-// 标签填写题 ID
+// 标签填写题 ID，详细信息请参考[获取标签填写题配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/question/query)
 //
 // 示例值：7343513161666707459
 func (builder *FieldBuilder) TagBasedQuestionId(tagBasedQuestionId string) *FieldBuilder {
@@ -1052,7 +1048,7 @@ func (builder *FieldBuilder) TagBasedQuestionId(tagBasedQuestionId string) *Fiel
 	return builder
 }
 
-// O 的填写项标题
+// 项目名称
 //
 // 示例值：
 func (builder *FieldBuilder) ObjectiveTextQustionTitle(objectiveTextQustionTitle *I18n) *FieldBuilder {
@@ -1061,7 +1057,7 @@ func (builder *FieldBuilder) ObjectiveTextQustionTitle(objectiveTextQustionTitle
 	return builder
 }
 
-// KR 的填写项标题
+// 项目名称
 //
 // 示例值：
 func (builder *FieldBuilder) KeyresultTextQustionTitle(keyresultTextQustionTitle *I18n) *FieldBuilder {
@@ -1191,16 +1187,16 @@ func (builder *FormulaBuilder) Build() *Formula {
 }
 
 type I18n struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文
+	ZhCn *string `json:"zh_cn,omitempty"` // 项目中文名称
 
-	EnUs *string `json:"en_us,omitempty"` // 英文
+	EnUs *string `json:"en_us,omitempty"` // 项目英文名称
 }
 
 type I18nBuilder struct {
-	zhCn    string // 中文
+	zhCn    string // 项目中文名称
 	zhCnSet bool
 
-	enUs    string // 英文
+	enUs    string // 项目英文名称
 	enUsSet bool
 }
 
@@ -1209,18 +1205,18 @@ func NewI18nBuilder() *I18nBuilder {
 	return builder
 }
 
-// 中文
+// 项目中文名称
 //
-// 示例值：体验
+// 示例值：项目一
 func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 	builder.zhCn = zhCn
 	builder.zhCnSet = true
 	return builder
 }
 
-// 英文
+// 项目英文名称
 //
-// 示例值：Interactive experience
+// 示例值：Activity 1
 func (builder *I18nBuilder) EnUs(enUs string) *I18nBuilder {
 	builder.enUs = enUs
 	builder.enUsSet = true
@@ -1241,18 +1237,18 @@ func (builder *I18nBuilder) Build() *I18n {
 }
 
 type ImportedMetric struct {
-	RevieweeUserId *string `json:"reviewee_user_id,omitempty"` // 被评估人 ID
+	RevieweeUserId *string `json:"reviewee_user_id,omitempty"` // 被评估人 ID，与入参 `user_id_type` 类型一致
 
-	MetricId *string `json:"metric_id,omitempty"` // 指标 ID，指标的统一标识
+	MetricId *string `json:"metric_id,omitempty"` // 指标 ID，可通过[获取指标列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_lib/query)接口获取
 
 	Fields []*ImportedMetricField `json:"fields,omitempty"` // 指标字段信息
 }
 
 type ImportedMetricBuilder struct {
-	revieweeUserId    string // 被评估人 ID
+	revieweeUserId    string // 被评估人 ID，与入参 `user_id_type` 类型一致
 	revieweeUserIdSet bool
 
-	metricId    string // 指标 ID，指标的统一标识
+	metricId    string // 指标 ID，可通过[获取指标列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_lib/query)接口获取
 	metricIdSet bool
 
 	fields    []*ImportedMetricField // 指标字段信息
@@ -1264,7 +1260,7 @@ func NewImportedMetricBuilder() *ImportedMetricBuilder {
 	return builder
 }
 
-// 被评估人 ID
+// 被评估人 ID，与入参 `user_id_type` 类型一致
 //
 // 示例值：ou_3245842393d09e9428ad4655da6e30b3
 func (builder *ImportedMetricBuilder) RevieweeUserId(revieweeUserId string) *ImportedMetricBuilder {
@@ -1273,7 +1269,7 @@ func (builder *ImportedMetricBuilder) RevieweeUserId(revieweeUserId string) *Imp
 	return builder
 }
 
-// 指标 ID，指标的统一标识
+// 指标 ID，可通过[获取指标列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_lib/query)接口获取
 //
 // 示例值：7272580325522276372
 func (builder *ImportedMetricBuilder) MetricId(metricId string) *ImportedMetricBuilder {
@@ -1308,21 +1304,21 @@ func (builder *ImportedMetricBuilder) Build() *ImportedMetric {
 }
 
 type ImportedMetricField struct {
-	FieldId *string `json:"field_id,omitempty"` // 指标字段 ID
+	FieldId *string `json:"field_id,omitempty"` // 指标字段 ID，可通过[获取指标字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_field/query)接口获取
 
 	FieldValue *string `json:"field_value,omitempty"` // 字段值
 
-	FieldValuePerson *string `json:"field_value_person,omitempty"` // 字段值，当字段为人员信息时必填
+	FieldValuePerson *string `json:"field_value_person,omitempty"` // 字段值，当字段为人员信息时必填，与入参 `user_id_type` 类型一致
 }
 
 type ImportedMetricFieldBuilder struct {
-	fieldId    string // 指标字段 ID
+	fieldId    string // 指标字段 ID，可通过[获取指标字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_field/query)接口获取
 	fieldIdSet bool
 
 	fieldValue    string // 字段值
 	fieldValueSet bool
 
-	fieldValuePerson    string // 字段值，当字段为人员信息时必填
+	fieldValuePerson    string // 字段值，当字段为人员信息时必填，与入参 `user_id_type` 类型一致
 	fieldValuePersonSet bool
 }
 
@@ -1331,7 +1327,7 @@ func NewImportedMetricFieldBuilder() *ImportedMetricFieldBuilder {
 	return builder
 }
 
-// 指标字段 ID
+// 指标字段 ID，可通过[获取指标字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_field/query)接口获取
 //
 // 示例值：7283776005142675476
 func (builder *ImportedMetricFieldBuilder) FieldId(fieldId string) *ImportedMetricFieldBuilder {
@@ -1349,7 +1345,7 @@ func (builder *ImportedMetricFieldBuilder) FieldValue(fieldValue string) *Import
 	return builder
 }
 
-// 字段值，当字段为人员信息时必填
+// 字段值，当字段为人员信息时必填，与入参 `user_id_type` 类型一致
 //
 // 示例值：ou_3245842393d09e9428ad4655da6e30b3
 func (builder *ImportedMetricFieldBuilder) FieldValuePerson(fieldValuePerson string) *ImportedMetricFieldBuilder {
@@ -1378,7 +1374,7 @@ func (builder *ImportedMetricFieldBuilder) Build() *ImportedMetricField {
 type Indicator struct {
 	Id *string `json:"id,omitempty"` // 评估项 ID
 
-	Name *I18n `json:"name,omitempty"` // 评估项名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
 	Type *string `json:"type,omitempty"` // 评估项类型
 
@@ -1389,7 +1385,7 @@ type IndicatorBuilder struct {
 	id    string // 评估项 ID
 	idSet bool
 
-	name    *I18n // 评估项名称
+	name    *I18n // 项目名称
 	nameSet bool
 
 	type_    string // 评估项类型
@@ -1413,7 +1409,7 @@ func (builder *IndicatorBuilder) Id(id string) *IndicatorBuilder {
 	return builder
 }
 
-// 评估项名称
+// 项目名称
 //
 // 示例值：
 func (builder *IndicatorBuilder) Name(name *I18n) *IndicatorBuilder {
@@ -1460,21 +1456,21 @@ func (builder *IndicatorBuilder) Build() *Indicator {
 }
 
 type IndicatorOption struct {
-	Id *string `json:"id,omitempty"` // 等级 ID
+	Id *string `json:"id,omitempty"` // 评估项等级 ID
 
-	Name *I18n `json:"name,omitempty"` // 等级名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
-	Lable *string `json:"lable,omitempty"` // 等级代号
+	Lable *string `json:"lable,omitempty"` // 评估项等级代号
 }
 
 type IndicatorOptionBuilder struct {
-	id    string // 等级 ID
+	id    string // 评估项等级 ID
 	idSet bool
 
-	name    *I18n // 等级名称
+	name    *I18n // 项目名称
 	nameSet bool
 
-	lable    string // 等级代号
+	lable    string // 评估项等级代号
 	lableSet bool
 }
 
@@ -1483,7 +1479,7 @@ func NewIndicatorOptionBuilder() *IndicatorOptionBuilder {
 	return builder
 }
 
-// 等级 ID
+// 评估项等级 ID
 //
 // 示例值：7343513161666707459
 func (builder *IndicatorOptionBuilder) Id(id string) *IndicatorOptionBuilder {
@@ -1492,7 +1488,7 @@ func (builder *IndicatorOptionBuilder) Id(id string) *IndicatorOptionBuilder {
 	return builder
 }
 
-// 等级名称
+// 项目名称
 //
 // 示例值：
 func (builder *IndicatorOptionBuilder) Name(name *I18n) *IndicatorOptionBuilder {
@@ -1501,7 +1497,7 @@ func (builder *IndicatorOptionBuilder) Name(name *I18n) *IndicatorOptionBuilder 
 	return builder
 }
 
-// 等级代号
+// 评估项等级代号
 //
 // 示例值：qwerty
 func (builder *IndicatorOptionBuilder) Lable(lable string) *IndicatorOptionBuilder {
@@ -1576,16 +1572,16 @@ func (builder *InvitationBuilder) Build() *Invitation {
 }
 
 type InvitationRelation struct {
-	RevieweeUserId *string `json:"reviewee_user_id,omitempty"` // 被评估人ID
+	RevieweeUserId *string `json:"reviewee_user_id,omitempty"` // 被评估人ID。ID类型必须与查询参数user_id_type的取值一致
 
-	ReviewerUserIds []string `json:"reviewer_user_ids,omitempty"` // 评估人ID列表
+	ReviewerUserIds []string `json:"reviewer_user_ids,omitempty"` // 评估人ID列表。ID类型必须与查询参数user_id_type的取值一致
 }
 
 type InvitationRelationBuilder struct {
-	revieweeUserId    string // 被评估人ID
+	revieweeUserId    string // 被评估人ID。ID类型必须与查询参数user_id_type的取值一致
 	revieweeUserIdSet bool
 
-	reviewerUserIds    []string // 评估人ID列表
+	reviewerUserIds    []string // 评估人ID列表。ID类型必须与查询参数user_id_type的取值一致
 	reviewerUserIdsSet bool
 }
 
@@ -1594,7 +1590,7 @@ func NewInvitationRelationBuilder() *InvitationRelationBuilder {
 	return builder
 }
 
-// 被评估人ID
+// 被评估人ID。ID类型必须与查询参数user_id_type的取值一致
 //
 // 示例值：ou_3245842393d09e9428ad4655da6e30b3
 func (builder *InvitationRelationBuilder) RevieweeUserId(revieweeUserId string) *InvitationRelationBuilder {
@@ -1603,7 +1599,7 @@ func (builder *InvitationRelationBuilder) RevieweeUserId(revieweeUserId string) 
 	return builder
 }
 
-// 评估人ID列表
+// 评估人ID列表。ID类型必须与查询参数user_id_type的取值一致
 //
 // 示例值：
 func (builder *InvitationRelationBuilder) ReviewerUserIds(reviewerUserIds []string) *InvitationRelationBuilder {
@@ -1675,7 +1671,7 @@ func (builder *InvitationReviewerBuilder) Build() *InvitationReviewer {
 }
 
 type InvitedReviewRecordInfo struct {
-	ReviewerId *User `json:"reviewer_id,omitempty"` // 评估人 ID。如果开启了 360 匿名评估，并且是对全部查看者匿名，则不返回该值
+	ReviewerId *User `json:"reviewer_id,omitempty"` // 评估人 ID
 
 	IsRejected *bool `json:"is_rejected,omitempty"` // 是否拒绝
 
@@ -1691,7 +1687,7 @@ type InvitedReviewRecordInfo struct {
 }
 
 type InvitedReviewRecordInfoBuilder struct {
-	reviewerId    *User // 评估人 ID。如果开启了 360 匿名评估，并且是对全部查看者匿名，则不返回该值
+	reviewerId    *User // 评估人 ID
 	reviewerIdSet bool
 
 	isRejected    bool // 是否拒绝
@@ -1718,7 +1714,7 @@ func NewInvitedReviewRecordInfoBuilder() *InvitedReviewRecordInfoBuilder {
 	return builder
 }
 
-// 评估人 ID。如果开启了 360 匿名评估，并且是对全部查看者匿名，则不返回该值
+// 评估人 ID
 //
 // 示例值：
 func (builder *InvitedReviewRecordInfoBuilder) ReviewerId(reviewerId *User) *InvitedReviewRecordInfoBuilder {
@@ -1816,14 +1812,14 @@ func (builder *InvitedReviewRecordInfoBuilder) Build() *InvitedReviewRecordInfo 
 type JobFamily struct {
 	Id *string `json:"id,omitempty"` // 序列 ID
 
-	Name *I18n `json:"name,omitempty"` // 序列名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 }
 
 type JobFamilyBuilder struct {
 	id    string // 序列 ID
 	idSet bool
 
-	name    *I18n // 序列名称
+	name    *I18n // 项目名称
 	nameSet bool
 }
 
@@ -1841,7 +1837,7 @@ func (builder *JobFamilyBuilder) Id(id string) *JobFamilyBuilder {
 	return builder
 }
 
-// 序列名称
+// 项目名称
 //
 // 示例值：
 func (builder *JobFamilyBuilder) Name(name *I18n) *JobFamilyBuilder {
@@ -1865,14 +1861,14 @@ func (builder *JobFamilyBuilder) Build() *JobFamily {
 type JobLevel struct {
 	Id *string `json:"id,omitempty"` // 职级 ID
 
-	Name *I18n `json:"name,omitempty"` // 职级名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 }
 
 type JobLevelBuilder struct {
 	id    string // 职级 ID
 	idSet bool
 
-	name    *I18n // 职级名称
+	name    *I18n // 项目名称
 	nameSet bool
 }
 
@@ -1883,14 +1879,14 @@ func NewJobLevelBuilder() *JobLevelBuilder {
 
 // 职级 ID
 //
-// 示例值：mga5oa8ayjlp9rb
+// 示例值：mga5oa81212312
 func (builder *JobLevelBuilder) Id(id string) *JobLevelBuilder {
 	builder.id = id
 	builder.idSet = true
 	return builder
 }
 
-// 职级名称
+// 项目名称
 //
 // 示例值：
 func (builder *JobLevelBuilder) Name(name *I18n) *JobLevelBuilder {
@@ -1969,7 +1965,7 @@ func (builder *KeyresultDataBuilder) Text(text string) *KeyresultDataBuilder {
 
 // 富文本格式的填写内容，解析方式见 [editor](https://open.larkoffice.com/document/client-docs/gadget/component-component/basic-component/form/editor#51af2f4f)
 //
-// 示例值：{"ops":[{"name":"insert","text":"qwerty","attributes":{"bold":true}}]}
+// 示例值：{\"ops\":[{\"name\":\"insert\",\"text\":\"qwerty\"}]}
 func (builder *KeyresultDataBuilder) Richtext(richtext string) *KeyresultDataBuilder {
 	builder.richtext = richtext
 	builder.richtextSet = true
@@ -1998,13 +1994,13 @@ func (builder *KeyresultDataBuilder) Build() *KeyresultData {
 }
 
 type MetricData struct {
-	Id *string `json:"id,omitempty"` // 指标 ID，可以通过获取指标详情接口获取详细信息
+	Id *string `json:"id,omitempty"` // 指标 ID
 
 	Score *string `json:"score,omitempty"` // 指标评分
 }
 
 type MetricDataBuilder struct {
-	id    string // 指标 ID，可以通过获取指标详情接口获取详细信息
+	id    string // 指标 ID
 	idSet bool
 
 	score    string // 指标评分
@@ -2016,7 +2012,7 @@ func NewMetricDataBuilder() *MetricDataBuilder {
 	return builder
 }
 
-// 指标 ID，可以通过获取指标详情接口获取详细信息
+// 指标 ID
 //
 // 示例值：7343513161666707459
 func (builder *MetricDataBuilder) Id(id string) *MetricDataBuilder {
@@ -2048,17 +2044,17 @@ func (builder *MetricDataBuilder) Build() *MetricData {
 }
 
 type MetricDetail struct {
-	MetricId *string `json:"metric_id,omitempty"` // 指标 ID
+	MetricId *string `json:"metric_id,omitempty"` // 指标 ID，详情可查看：[获取指标列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_lib/query);
 
 	Name *string `json:"name,omitempty"` // 指标名称，指标在该明细数据中的名称
 
 	Fields []*MetricFieldInDetails `json:"fields,omitempty"` // 指标字段信息
 
-	DimensionId *string `json:"dimension_id,omitempty"` // 指标所属的指标维度 ID
+	DimensionId *string `json:"dimension_id,omitempty"` // 指标维度 ID
 
-	DimensionName *I18n `json:"dimension_name,omitempty"` // 指标维度名称
+	DimensionName *I18n `json:"dimension_name,omitempty"` // 项目名称
 
-	DimensionWeight *string `json:"dimension_weight,omitempty"` // 指标维度的维度权重，如果没有设置则返回为空
+	DimensionWeight *string `json:"dimension_weight,omitempty"` // 指标维度权重，如果没有设置则返回为空，单位为百分比
 
 	AddFrom *string `json:"add_from,omitempty"` // 指标添加来源
 
@@ -2066,7 +2062,7 @@ type MetricDetail struct {
 }
 
 type MetricDetailBuilder struct {
-	metricId    string // 指标 ID
+	metricId    string // 指标 ID，详情可查看：[获取指标列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_lib/query);
 	metricIdSet bool
 
 	name    string // 指标名称，指标在该明细数据中的名称
@@ -2075,13 +2071,13 @@ type MetricDetailBuilder struct {
 	fields    []*MetricFieldInDetails // 指标字段信息
 	fieldsSet bool
 
-	dimensionId    string // 指标所属的指标维度 ID
+	dimensionId    string // 指标维度 ID
 	dimensionIdSet bool
 
-	dimensionName    *I18n // 指标维度名称
+	dimensionName    *I18n // 项目名称
 	dimensionNameSet bool
 
-	dimensionWeight    string // 指标维度的维度权重，如果没有设置则返回为空
+	dimensionWeight    string // 指标维度权重，如果没有设置则返回为空，单位为百分比
 	dimensionWeightSet bool
 
 	addFrom    string // 指标添加来源
@@ -2096,7 +2092,7 @@ func NewMetricDetailBuilder() *MetricDetailBuilder {
 	return builder
 }
 
-// 指标 ID
+// 指标 ID，详情可查看：[获取指标列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_lib/query);
 //
 // 示例值：7272581996315099155
 func (builder *MetricDetailBuilder) MetricId(metricId string) *MetricDetailBuilder {
@@ -2123,7 +2119,7 @@ func (builder *MetricDetailBuilder) Fields(fields []*MetricFieldInDetails) *Metr
 	return builder
 }
 
-// 指标所属的指标维度 ID
+// 指标维度 ID
 //
 // 示例值：7303895818346430484
 func (builder *MetricDetailBuilder) DimensionId(dimensionId string) *MetricDetailBuilder {
@@ -2132,7 +2128,7 @@ func (builder *MetricDetailBuilder) DimensionId(dimensionId string) *MetricDetai
 	return builder
 }
 
-// 指标维度名称
+// 项目名称
 //
 // 示例值：
 func (builder *MetricDetailBuilder) DimensionName(dimensionName *I18n) *MetricDetailBuilder {
@@ -2141,7 +2137,7 @@ func (builder *MetricDetailBuilder) DimensionName(dimensionName *I18n) *MetricDe
 	return builder
 }
 
-// 指标维度的维度权重，如果没有设置则返回为空
+// 指标维度权重，如果没有设置则返回为空，单位为百分比
 //
 // 示例值：90%
 func (builder *MetricDetailBuilder) DimensionWeight(dimensionWeight string) *MetricDetailBuilder {
@@ -2152,7 +2148,7 @@ func (builder *MetricDetailBuilder) DimensionWeight(dimensionWeight string) *Met
 
 // 指标添加来源
 //
-// 示例值：
+// 示例值：admin
 func (builder *MetricDetailBuilder) AddFrom(addFrom string) *MetricDetailBuilder {
 	builder.addFrom = addFrom
 	builder.addFromSet = true
@@ -2161,7 +2157,7 @@ func (builder *MetricDetailBuilder) AddFrom(addFrom string) *MetricDetailBuilder
 
 // 指标是否引自指标库
 //
-// 示例值：
+// 示例值：true
 func (builder *MetricDetailBuilder) IsFromLibrary(isFromLibrary bool) *MetricDetailBuilder {
 	builder.isFromLibrary = isFromLibrary
 	builder.isFromLibrarySet = true
@@ -2208,17 +2204,17 @@ type MetricDimension struct {
 
 	MetricDimensionId *string `json:"metric_dimension_id,omitempty"` // 指标维度 ID
 
-	Name *I18n `json:"name,omitempty"` // 指标维度名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
-	EvaluationRuleIdForEachMetric *string `json:"evaluation_rule_id_for_each_metric,omitempty"` // 每条指标的评估规则 ID
+	EvaluationRuleIdForEachMetric *string `json:"evaluation_rule_id_for_each_metric,omitempty"` // 指标评估规则 ID
 
-	DimensionWeight *string `json:"dimension_weight,omitempty"` // 维度权重，如果没有设置则返回为空（备注：和 0 区分）
+	DimensionWeight *string `json:"dimension_weight,omitempty"` // 维度权重，如果没有设置则返回为空（和设置为 0 进行区分），单位为百分比
 
-	Description *I18n `json:"description,omitempty"` // 维度描述
+	Description *I18n `json:"description,omitempty"` // 项目名称
 
-	ReviewRuleOption *int `json:"review_rule_option,omitempty"` // 指标评分规则设置
+	ReviewRuleOption *int `json:"review_rule_option,omitempty"` // 各指标的评估规则
 
-	CustomMetricConfig *CustomMetricConfig `json:"custom_metric_config,omitempty"` // 自定义指标设置
+	CustomMetricConfig *CustomMetricConfig `json:"custom_metric_config,omitempty"` // 被评估人添加指标的设置
 }
 
 type MetricDimensionBuilder struct {
@@ -2228,22 +2224,22 @@ type MetricDimensionBuilder struct {
 	metricDimensionId    string // 指标维度 ID
 	metricDimensionIdSet bool
 
-	name    *I18n // 指标维度名称
+	name    *I18n // 项目名称
 	nameSet bool
 
-	evaluationRuleIdForEachMetric    string // 每条指标的评估规则 ID
+	evaluationRuleIdForEachMetric    string // 指标评估规则 ID
 	evaluationRuleIdForEachMetricSet bool
 
-	dimensionWeight    string // 维度权重，如果没有设置则返回为空（备注：和 0 区分）
+	dimensionWeight    string // 维度权重，如果没有设置则返回为空（和设置为 0 进行区分），单位为百分比
 	dimensionWeightSet bool
 
-	description    *I18n // 维度描述
+	description    *I18n // 项目名称
 	descriptionSet bool
 
-	reviewRuleOption    int // 指标评分规则设置
+	reviewRuleOption    int // 各指标的评估规则
 	reviewRuleOptionSet bool
 
-	customMetricConfig    *CustomMetricConfig // 自定义指标设置
+	customMetricConfig    *CustomMetricConfig // 被评估人添加指标的设置
 	customMetricConfigSet bool
 }
 
@@ -2270,7 +2266,7 @@ func (builder *MetricDimensionBuilder) MetricDimensionId(metricDimensionId strin
 	return builder
 }
 
-// 指标维度名称
+// 项目名称
 //
 // 示例值：
 func (builder *MetricDimensionBuilder) Name(name *I18n) *MetricDimensionBuilder {
@@ -2279,7 +2275,7 @@ func (builder *MetricDimensionBuilder) Name(name *I18n) *MetricDimensionBuilder 
 	return builder
 }
 
-// 每条指标的评估规则 ID
+// 指标评估规则 ID
 //
 // 示例值：7296701873237786643
 func (builder *MetricDimensionBuilder) EvaluationRuleIdForEachMetric(evaluationRuleIdForEachMetric string) *MetricDimensionBuilder {
@@ -2288,7 +2284,7 @@ func (builder *MetricDimensionBuilder) EvaluationRuleIdForEachMetric(evaluationR
 	return builder
 }
 
-// 维度权重，如果没有设置则返回为空（备注：和 0 区分）
+// 维度权重，如果没有设置则返回为空（和设置为 0 进行区分），单位为百分比
 //
 // 示例值：90
 func (builder *MetricDimensionBuilder) DimensionWeight(dimensionWeight string) *MetricDimensionBuilder {
@@ -2297,7 +2293,7 @@ func (builder *MetricDimensionBuilder) DimensionWeight(dimensionWeight string) *
 	return builder
 }
 
-// 维度描述
+// 项目名称
 //
 // 示例值：
 func (builder *MetricDimensionBuilder) Description(description *I18n) *MetricDimensionBuilder {
@@ -2306,7 +2302,7 @@ func (builder *MetricDimensionBuilder) Description(description *I18n) *MetricDim
 	return builder
 }
 
-// 指标评分规则设置
+// 各指标的评估规则
 //
 // 示例值：0
 func (builder *MetricDimensionBuilder) ReviewRuleOption(reviewRuleOption int) *MetricDimensionBuilder {
@@ -2315,7 +2311,7 @@ func (builder *MetricDimensionBuilder) ReviewRuleOption(reviewRuleOption int) *M
 	return builder
 }
 
-// 自定义指标设置
+// 被评估人添加指标的设置
 //
 // 示例值：
 func (builder *MetricDimensionBuilder) CustomMetricConfig(customMetricConfig *CustomMetricConfig) *MetricDimensionBuilder {
@@ -2359,21 +2355,21 @@ func (builder *MetricDimensionBuilder) Build() *MetricDimension {
 }
 
 type MetricField struct {
-	FieldId *string `json:"field_id,omitempty"` // 指标字段信息
+	FieldId *string `json:"field_id,omitempty"` // 指标字段 ID
 
-	Name *I18n `json:"name,omitempty"` // 字段名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
-	Type *string `json:"type,omitempty"` // 字段类型
+	Type *string `json:"type,omitempty"` // 指标字段类型
 }
 
 type MetricFieldBuilder struct {
-	fieldId    string // 指标字段信息
+	fieldId    string // 指标字段 ID
 	fieldIdSet bool
 
-	name    *I18n // 字段名称
+	name    *I18n // 项目名称
 	nameSet bool
 
-	type_    string // 字段类型
+	type_    string // 指标字段类型
 	type_Set bool
 }
 
@@ -2382,7 +2378,7 @@ func NewMetricFieldBuilder() *MetricFieldBuilder {
 	return builder
 }
 
-// 指标字段信息
+// 指标字段 ID
 //
 // 示例值：7272581996315099155
 func (builder *MetricFieldBuilder) FieldId(fieldId string) *MetricFieldBuilder {
@@ -2391,7 +2387,7 @@ func (builder *MetricFieldBuilder) FieldId(fieldId string) *MetricFieldBuilder {
 	return builder
 }
 
-// 字段名称
+// 项目名称
 //
 // 示例值：
 func (builder *MetricFieldBuilder) Name(name *I18n) *MetricFieldBuilder {
@@ -2400,7 +2396,7 @@ func (builder *MetricFieldBuilder) Name(name *I18n) *MetricFieldBuilder {
 	return builder
 }
 
-// 字段类型
+// 指标字段类型
 //
 // 示例值：text
 func (builder *MetricFieldBuilder) Type(type_ string) *MetricFieldBuilder {
@@ -2426,21 +2422,21 @@ func (builder *MetricFieldBuilder) Build() *MetricField {
 }
 
 type MetricFieldInDetails struct {
-	FieldId *string `json:"field_id,omitempty"` // 指标字段 ID。 系统预置的指标字段 ID 分别为：指标 1；权重 2；指标单位 3；目标值 4；完成值 5；完成说明 7。更多指标字段详情可通过【获取指标字段详情】接口获取
+	FieldId *string `json:"field_id,omitempty"` // 指标字段 ID，详情可查看：[获取指标字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_field/query);
 
-	FieldValue *string `json:"field_value,omitempty"` // 字段值
+	FieldValue *string `json:"field_value,omitempty"` // 指标字段值
 
-	FieldValuePerson *User `json:"field_value_person,omitempty"` // 字段值，当字段为人员信息时有值
+	FieldValuePerson *User `json:"field_value_person,omitempty"` // 评估人 ID
 }
 
 type MetricFieldInDetailsBuilder struct {
-	fieldId    string // 指标字段 ID。 系统预置的指标字段 ID 分别为：指标 1；权重 2；指标单位 3；目标值 4；完成值 5；完成说明 7。更多指标字段详情可通过【获取指标字段详情】接口获取
+	fieldId    string // 指标字段 ID，详情可查看：[获取指标字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_field/query);
 	fieldIdSet bool
 
-	fieldValue    string // 字段值
+	fieldValue    string // 指标字段值
 	fieldValueSet bool
 
-	fieldValuePerson    *User // 字段值，当字段为人员信息时有值
+	fieldValuePerson    *User // 评估人 ID
 	fieldValuePersonSet bool
 }
 
@@ -2449,7 +2445,7 @@ func NewMetricFieldInDetailsBuilder() *MetricFieldInDetailsBuilder {
 	return builder
 }
 
-// 指标字段 ID。 系统预置的指标字段 ID 分别为：指标 1；权重 2；指标单位 3；目标值 4；完成值 5；完成说明 7。更多指标字段详情可通过【获取指标字段详情】接口获取
+// 指标字段 ID，详情可查看：[获取指标字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_field/query);
 //
 // 示例值：7296082067266207764
 func (builder *MetricFieldInDetailsBuilder) FieldId(fieldId string) *MetricFieldInDetailsBuilder {
@@ -2458,7 +2454,7 @@ func (builder *MetricFieldInDetailsBuilder) FieldId(fieldId string) *MetricField
 	return builder
 }
 
-// 字段值
+// 指标字段值
 //
 // 示例值：90
 func (builder *MetricFieldInDetailsBuilder) FieldValue(fieldValue string) *MetricFieldInDetailsBuilder {
@@ -2467,7 +2463,7 @@ func (builder *MetricFieldInDetailsBuilder) FieldValue(fieldValue string) *Metri
 	return builder
 }
 
-// 字段值，当字段为人员信息时有值
+// 评估人 ID
 //
 // 示例值：
 func (builder *MetricFieldInDetailsBuilder) FieldValuePerson(fieldValuePerson *User) *MetricFieldInDetailsBuilder {
@@ -2499,7 +2495,7 @@ type MetricFieldInLibrary struct {
 
 	FieldValue *string `json:"field_value,omitempty"` // 字段值
 
-	FieldValuePerson *User `json:"field_value_person,omitempty"` // 字段值，当字段为人员信息时有值
+	FieldValuePerson *User `json:"field_value_person,omitempty"` // 评估人 ID
 }
 
 type MetricFieldInLibraryBuilder struct {
@@ -2512,7 +2508,7 @@ type MetricFieldInLibraryBuilder struct {
 	fieldValue    string // 字段值
 	fieldValueSet bool
 
-	fieldValuePerson    *User // 字段值，当字段为人员信息时有值
+	fieldValuePerson    *User // 评估人 ID
 	fieldValuePersonSet bool
 }
 
@@ -2548,7 +2544,7 @@ func (builder *MetricFieldInLibraryBuilder) FieldValue(fieldValue string) *Metri
 	return builder
 }
 
-// 字段值，当字段为人员信息时有值
+// 评估人 ID
 //
 // 示例值：
 func (builder *MetricFieldInLibraryBuilder) FieldValuePerson(fieldValuePerson *User) *MetricFieldInLibraryBuilder {
@@ -2578,17 +2574,17 @@ func (builder *MetricFieldInLibraryBuilder) Build() *MetricFieldInLibrary {
 }
 
 type MetricFieldInTemplate struct {
-	Id *string `json:"id,omitempty"` // 指标字段 ID
+	Id *string `json:"id,omitempty"` // 指标字段 ID，详情可查看：[获取指标字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_field/query)
 
 	InputSetting *string `json:"input_setting,omitempty"` // 字段填写方式设置
 
 	FiledValue *string `json:"filed_value,omitempty"` // 字段值
 
-	FieldValuePerson *User `json:"field_value_person,omitempty"` // 字段值，当字段为人员信息的时候有值
+	FieldValuePerson *User `json:"field_value_person,omitempty"` // 评估人 ID
 }
 
 type MetricFieldInTemplateBuilder struct {
-	id    string // 指标字段 ID
+	id    string // 指标字段 ID，详情可查看：[获取指标字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_field/query)
 	idSet bool
 
 	inputSetting    string // 字段填写方式设置
@@ -2597,7 +2593,7 @@ type MetricFieldInTemplateBuilder struct {
 	filedValue    string // 字段值
 	filedValueSet bool
 
-	fieldValuePerson    *User // 字段值，当字段为人员信息的时候有值
+	fieldValuePerson    *User // 评估人 ID
 	fieldValuePersonSet bool
 }
 
@@ -2606,7 +2602,7 @@ func NewMetricFieldInTemplateBuilder() *MetricFieldInTemplateBuilder {
 	return builder
 }
 
-// 指标字段 ID
+// 指标字段 ID，详情可查看：[获取指标字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_field/query)
 //
 // 示例值：7272581996315099155
 func (builder *MetricFieldInTemplateBuilder) Id(id string) *MetricFieldInTemplateBuilder {
@@ -2617,7 +2613,7 @@ func (builder *MetricFieldInTemplateBuilder) Id(id string) *MetricFieldInTemplat
 
 // 字段填写方式设置
 //
-// 示例值：
+// 示例值：admin
 func (builder *MetricFieldInTemplateBuilder) InputSetting(inputSetting string) *MetricFieldInTemplateBuilder {
 	builder.inputSetting = inputSetting
 	builder.inputSettingSet = true
@@ -2633,7 +2629,7 @@ func (builder *MetricFieldInTemplateBuilder) FiledValue(filedValue string) *Metr
 	return builder
 }
 
-// 字段值，当字段为人员信息的时候有值
+// 评估人 ID
 //
 // 示例值：
 func (builder *MetricFieldInTemplateBuilder) FieldValuePerson(fieldValuePerson *User) *MetricFieldInTemplateBuilder {
@@ -2663,16 +2659,16 @@ func (builder *MetricFieldInTemplateBuilder) Build() *MetricFieldInTemplate {
 }
 
 type MetricGroup struct {
-	GroupId *string `json:"group_id,omitempty"` // 人群分组ID
+	GroupId *string `json:"group_id,omitempty"` // 人群分组 ID
 
-	Name *string `json:"name,omitempty"` // 名称
+	Name *string `json:"name,omitempty"` // 人群分组名称
 }
 
 type MetricGroupBuilder struct {
-	groupId    string // 人群分组ID
+	groupId    string // 人群分组 ID
 	groupIdSet bool
 
-	name    string // 名称
+	name    string // 人群分组名称
 	nameSet bool
 }
 
@@ -2681,7 +2677,7 @@ func NewMetricGroupBuilder() *MetricGroupBuilder {
 	return builder
 }
 
-// 人群分组ID
+// 人群分组 ID
 //
 // 示例值：7296466589195436051
 func (builder *MetricGroupBuilder) GroupId(groupId string) *MetricGroupBuilder {
@@ -2690,9 +2686,9 @@ func (builder *MetricGroupBuilder) GroupId(groupId string) *MetricGroupBuilder {
 	return builder
 }
 
-// 名称
+// 人群分组名称
 //
-// 示例值：分组1
+// 示例值：分组 1
 func (builder *MetricGroupBuilder) Name(name string) *MetricGroupBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -2719,7 +2715,7 @@ type MetricInLibrary struct {
 
 	TypeId *string `json:"type_id,omitempty"` // 指标类型 ID
 
-	Tags []*MetricTag `json:"tags,omitempty"` // 所属的标签
+	Tags []*MetricTag `json:"tags,omitempty"` // 指标标签信息
 
 	Fields []*MetricFieldInLibrary `json:"fields,omitempty"` // 指标字段信息
 
@@ -2744,7 +2740,7 @@ type MetricInLibraryBuilder struct {
 	typeId    string // 指标类型 ID
 	typeIdSet bool
 
-	tags    []*MetricTag // 所属的标签
+	tags    []*MetricTag // 指标标签信息
 	tagsSet bool
 
 	fields    []*MetricFieldInLibrary // 指标字段信息
@@ -2798,7 +2794,7 @@ func (builder *MetricInLibraryBuilder) TypeId(typeId string) *MetricInLibraryBui
 	return builder
 }
 
-// 所属的标签
+// 指标标签信息
 //
 // 示例值：
 func (builder *MetricInLibraryBuilder) Tags(tags []*MetricTag) *MetricInLibraryBuilder {
@@ -2907,7 +2903,7 @@ type MetricInTemplate struct {
 
 	MetricId *string `json:"metric_id,omitempty"` // 指标 ID（备注：指标的统一标识 ID。如果模板存在分组，需要+分组 ID 才能标识到指标模板唯一的指标）
 
-	Name *string `json:"name,omitempty"` // 指标名称，指标在该模板中的名称
+	Name *string `json:"name,omitempty"` // 指标名称（指标在当前模板中的名称）
 
 	TypeId *string `json:"type_id,omitempty"` // 指标类型 ID
 
@@ -2919,9 +2915,9 @@ type MetricInTemplate struct {
 
 	DataSourceInputters []*User `json:"data_source_inputters,omitempty"` // 数据源录入人
 
-	MetricDimensionId *string `json:"metric_dimension_id,omitempty"` // 所属维度ID
+	MetricDimensionId *string `json:"metric_dimension_id,omitempty"` // 指标维度 ID
 
-	ReviewRuleConfig *MetricReviewRuleConfig `json:"review_rule_config,omitempty"` // 指标评估规则配置
+	ReviewRuleConfig *MetricReviewRuleConfig `json:"review_rule_config,omitempty"` // 评估规则
 }
 
 type MetricInTemplateBuilder struct {
@@ -2931,7 +2927,7 @@ type MetricInTemplateBuilder struct {
 	metricId    string // 指标 ID（备注：指标的统一标识 ID。如果模板存在分组，需要+分组 ID 才能标识到指标模板唯一的指标）
 	metricIdSet bool
 
-	name    string // 指标名称，指标在该模板中的名称
+	name    string // 指标名称（指标在当前模板中的名称）
 	nameSet bool
 
 	typeId    string // 指标类型 ID
@@ -2949,10 +2945,10 @@ type MetricInTemplateBuilder struct {
 	dataSourceInputters    []*User // 数据源录入人
 	dataSourceInputtersSet bool
 
-	metricDimensionId    string // 所属维度ID
+	metricDimensionId    string // 指标维度 ID
 	metricDimensionIdSet bool
 
-	reviewRuleConfig    *MetricReviewRuleConfig // 指标评估规则配置
+	reviewRuleConfig    *MetricReviewRuleConfig // 评估规则
 	reviewRuleConfigSet bool
 }
 
@@ -2979,7 +2975,7 @@ func (builder *MetricInTemplateBuilder) MetricId(metricId string) *MetricInTempl
 	return builder
 }
 
-// 指标名称，指标在该模板中的名称
+// 指标名称（指标在当前模板中的名称）
 //
 // 示例值：销售额
 func (builder *MetricInTemplateBuilder) Name(name string) *MetricInTemplateBuilder {
@@ -3008,7 +3004,7 @@ func (builder *MetricInTemplateBuilder) Fields(fields []*MetricFieldInTemplate) 
 
 // 指标是否引自指标库
 //
-// 示例值：
+// 示例值：true
 func (builder *MetricInTemplateBuilder) IsFromLibrary(isFromLibrary bool) *MetricInTemplateBuilder {
 	builder.isFromLibrary = isFromLibrary
 	builder.isFromLibrarySet = true
@@ -3017,7 +3013,7 @@ func (builder *MetricInTemplateBuilder) IsFromLibrary(isFromLibrary bool) *Metri
 
 // 评分设置类型
 //
-// 示例值：
+// 示例值：score_by_formula
 func (builder *MetricInTemplateBuilder) ScoringSettingType(scoringSettingType string) *MetricInTemplateBuilder {
 	builder.scoringSettingType = scoringSettingType
 	builder.scoringSettingTypeSet = true
@@ -3033,7 +3029,7 @@ func (builder *MetricInTemplateBuilder) DataSourceInputters(dataSourceInputters 
 	return builder
 }
 
-// 所属维度ID
+// 指标维度 ID
 //
 // 示例值：7272581996315099155
 func (builder *MetricInTemplateBuilder) MetricDimensionId(metricDimensionId string) *MetricInTemplateBuilder {
@@ -3042,7 +3038,7 @@ func (builder *MetricInTemplateBuilder) MetricDimensionId(metricDimensionId stri
 	return builder
 }
 
-// 指标评估规则配置
+// 评估规则
 //
 // 示例值：
 func (builder *MetricInTemplateBuilder) ReviewRuleConfig(reviewRuleConfig *MetricReviewRuleConfig) *MetricInTemplateBuilder {
@@ -3094,16 +3090,16 @@ func (builder *MetricInTemplateBuilder) Build() *MetricInTemplate {
 }
 
 type MetricReviewRuleConfig struct {
-	Max *string `json:"max,omitempty"` // 上限
+	Max *string `json:"max,omitempty"` // 最高分
 
-	Min *string `json:"min,omitempty"` // 下限
+	Min *string `json:"min,omitempty"` // 最低分
 }
 
 type MetricReviewRuleConfigBuilder struct {
-	max    string // 上限
+	max    string // 最高分
 	maxSet bool
 
-	min    string // 下限
+	min    string // 最低分
 	minSet bool
 }
 
@@ -3112,7 +3108,7 @@ func NewMetricReviewRuleConfigBuilder() *MetricReviewRuleConfigBuilder {
 	return builder
 }
 
-// 上限
+// 最高分
 //
 // 示例值：10
 func (builder *MetricReviewRuleConfigBuilder) Max(max string) *MetricReviewRuleConfigBuilder {
@@ -3121,7 +3117,7 @@ func (builder *MetricReviewRuleConfigBuilder) Max(max string) *MetricReviewRuleC
 	return builder
 }
 
-// 下限
+// 最低分
 //
 // 示例值：0
 func (builder *MetricReviewRuleConfigBuilder) Min(min string) *MetricReviewRuleConfigBuilder {
@@ -3146,7 +3142,7 @@ func (builder *MetricReviewRuleConfigBuilder) Build() *MetricReviewRuleConfig {
 type MetricTag struct {
 	TagId *string `json:"tag_id,omitempty"` // 标签 ID
 
-	TagName *I18n `json:"tag_name,omitempty"` // 标签名称
+	TagName *I18n `json:"tag_name,omitempty"` // 项目名称
 
 	Index *int `json:"index,omitempty"` // 标签顺序
 
@@ -3159,7 +3155,7 @@ type MetricTagBuilder struct {
 	tagId    string // 标签 ID
 	tagIdSet bool
 
-	tagName    *I18n // 标签名称
+	tagName    *I18n // 项目名称
 	tagNameSet bool
 
 	index    int // 标签顺序
@@ -3186,7 +3182,7 @@ func (builder *MetricTagBuilder) TagId(tagId string) *MetricTagBuilder {
 	return builder
 }
 
-// 标签名称
+// 项目名称
 //
 // 示例值：
 func (builder *MetricTagBuilder) TagName(tagName *I18n) *MetricTagBuilder {
@@ -3247,17 +3243,17 @@ func (builder *MetricTagBuilder) Build() *MetricTag {
 }
 
 type MetricTemplate struct {
-	Id *string `json:"id,omitempty"` // 指标模板ID
+	Id *string `json:"id,omitempty"` // 指标模板 ID
 
-	Name *I18n `json:"name,omitempty"` // 模版名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
-	Description *I18n `json:"description,omitempty"` // 模板描述
+	Description *I18n `json:"description,omitempty"` // 项目名称
 
-	Status *string `json:"status,omitempty"` // 状态
+	Status *string `json:"status,omitempty"` // 模版状态
 
-	IsSetByGroup *bool `json:"is_set_by_group,omitempty"` // 是否分人群设置指标
+	IsSetByGroup *bool `json:"is_set_by_group,omitempty"` // 模版是否分人群设置指标
 
-	TotalMetricScoreMethod *string `json:"total_metric_score_method,omitempty"` // 指标总分计算方式
+	TotalMetricScoreMethod *string `json:"total_metric_score_method,omitempty"` // 模版指标总分计算方式
 
 	MetricWeightMethod *string `json:"metric_weight_method,omitempty"` // 指标权重计算方式
 
@@ -3269,22 +3265,22 @@ type MetricTemplate struct {
 }
 
 type MetricTemplateBuilder struct {
-	id    string // 指标模板ID
+	id    string // 指标模板 ID
 	idSet bool
 
-	name    *I18n // 模版名称
+	name    *I18n // 项目名称
 	nameSet bool
 
-	description    *I18n // 模板描述
+	description    *I18n // 项目名称
 	descriptionSet bool
 
-	status    string // 状态
+	status    string // 模版状态
 	statusSet bool
 
-	isSetByGroup    bool // 是否分人群设置指标
+	isSetByGroup    bool // 模版是否分人群设置指标
 	isSetByGroupSet bool
 
-	totalMetricScoreMethod    string // 指标总分计算方式
+	totalMetricScoreMethod    string // 模版指标总分计算方式
 	totalMetricScoreMethodSet bool
 
 	metricWeightMethod    string // 指标权重计算方式
@@ -3305,7 +3301,7 @@ func NewMetricTemplateBuilder() *MetricTemplateBuilder {
 	return builder
 }
 
-// 指标模板ID
+// 指标模板 ID
 //
 // 示例值：7296488199415660563
 func (builder *MetricTemplateBuilder) Id(id string) *MetricTemplateBuilder {
@@ -3314,7 +3310,7 @@ func (builder *MetricTemplateBuilder) Id(id string) *MetricTemplateBuilder {
 	return builder
 }
 
-// 模版名称
+// 项目名称
 //
 // 示例值：
 func (builder *MetricTemplateBuilder) Name(name *I18n) *MetricTemplateBuilder {
@@ -3323,7 +3319,7 @@ func (builder *MetricTemplateBuilder) Name(name *I18n) *MetricTemplateBuilder {
 	return builder
 }
 
-// 模板描述
+// 项目名称
 //
 // 示例值：
 func (builder *MetricTemplateBuilder) Description(description *I18n) *MetricTemplateBuilder {
@@ -3332,7 +3328,7 @@ func (builder *MetricTemplateBuilder) Description(description *I18n) *MetricTemp
 	return builder
 }
 
-// 状态
+// 模版状态
 //
 // 示例值：to_be_configured
 func (builder *MetricTemplateBuilder) Status(status string) *MetricTemplateBuilder {
@@ -3341,18 +3337,18 @@ func (builder *MetricTemplateBuilder) Status(status string) *MetricTemplateBuild
 	return builder
 }
 
-// 是否分人群设置指标
+// 模版是否分人群设置指标
 //
-// 示例值：
+// 示例值：true
 func (builder *MetricTemplateBuilder) IsSetByGroup(isSetByGroup bool) *MetricTemplateBuilder {
 	builder.isSetByGroup = isSetByGroup
 	builder.isSetByGroupSet = true
 	return builder
 }
 
-// 指标总分计算方式
+// 模版指标总分计算方式
 //
-// 示例值：
+// 示例值：weight
 func (builder *MetricTemplateBuilder) TotalMetricScoreMethod(totalMetricScoreMethod string) *MetricTemplateBuilder {
 	builder.totalMetricScoreMethod = totalMetricScoreMethod
 	builder.totalMetricScoreMethodSet = true
@@ -3361,7 +3357,7 @@ func (builder *MetricTemplateBuilder) TotalMetricScoreMethod(totalMetricScoreMet
 
 // 指标权重计算方式
 //
-// 示例值：
+// 示例值：sum_of_metric_weights_for_each_dimension_equals_100
 func (builder *MetricTemplateBuilder) MetricWeightMethod(metricWeightMethod string) *MetricTemplateBuilder {
 	builder.metricWeightMethod = metricWeightMethod
 	builder.metricWeightMethodSet = true
@@ -3507,7 +3503,7 @@ func (builder *ObjectiveDataBuilder) KeyresultData(keyresultData []*KeyresultDat
 
 // 富文本格式的填写内容，解析方式见 [editor](https://open.larkoffice.com/document/client-docs/gadget/component-component/basic-component/form/editor#51af2f4f)
 //
-// 示例值：{"ops":[{"name":"insert","text":"qwerty","attributes":{"bold":true}}]}
+// 示例值：{\"ops\":[{\"name\":\"insert\",\"text\":\"qwerty\"}]}
 func (builder *ObjectiveDataBuilder) Richtext(richtext string) *ObjectiveDataBuilder {
 	builder.richtext = richtext
 	builder.richtextSet = true
@@ -3541,29 +3537,29 @@ func (builder *ObjectiveDataBuilder) Build() *ObjectiveData {
 type Okr struct {
 	Id *string `json:"id,omitempty"` // OKR ID
 
-	PeriodId *string `json:"period_id,omitempty"` // OKR周期 ID
+	PeriodId *string `json:"period_id,omitempty"` // OKR 周期 ID
 
-	CreateDate *string `json:"create_date,omitempty"` // 快照数据记录日期, 2006-01-02
+	CreateDate *string `json:"create_date,omitempty"` // 快照数据记录日期;;**示例值：** 2006-01-02
 
-	Name *I18n `json:"name,omitempty"` // OKR周期名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
-	Objectives []*OkrObjective `json:"objectives,omitempty"` // Objective列表
+	Objectives []*OkrObjective `json:"objectives,omitempty"` // Objective 列表
 }
 
 type OkrBuilder struct {
 	id    string // OKR ID
 	idSet bool
 
-	periodId    string // OKR周期 ID
+	periodId    string // OKR 周期 ID
 	periodIdSet bool
 
-	createDate    string // 快照数据记录日期, 2006-01-02
+	createDate    string // 快照数据记录日期;;**示例值：** 2006-01-02
 	createDateSet bool
 
-	name    *I18n // OKR周期名称
+	name    *I18n // 项目名称
 	nameSet bool
 
-	objectives    []*OkrObjective // Objective列表
+	objectives    []*OkrObjective // Objective 列表
 	objectivesSet bool
 }
 
@@ -3581,7 +3577,7 @@ func (builder *OkrBuilder) Id(id string) *OkrBuilder {
 	return builder
 }
 
-// OKR周期 ID
+// OKR 周期 ID
 //
 // 示例值：7067724095781142548
 func (builder *OkrBuilder) PeriodId(periodId string) *OkrBuilder {
@@ -3590,7 +3586,7 @@ func (builder *OkrBuilder) PeriodId(periodId string) *OkrBuilder {
 	return builder
 }
 
-// 快照数据记录日期, 2006-01-02
+// 快照数据记录日期;;**示例值：** 2006-01-02
 //
 // 示例值：2022-12-01
 func (builder *OkrBuilder) CreateDate(createDate string) *OkrBuilder {
@@ -3599,7 +3595,7 @@ func (builder *OkrBuilder) CreateDate(createDate string) *OkrBuilder {
 	return builder
 }
 
-// OKR周期名称
+// 项目名称
 //
 // 示例值：
 func (builder *OkrBuilder) Name(name *I18n) *OkrBuilder {
@@ -3608,7 +3604,7 @@ func (builder *OkrBuilder) Name(name *I18n) *OkrBuilder {
 	return builder
 }
 
-// Objective列表
+// Objective 列表
 //
 // 示例值：
 func (builder *OkrBuilder) Objectives(objectives []*OkrObjective) *OkrBuilder {
@@ -3779,7 +3775,7 @@ func (builder *OkrObjectiveBuilder) Build() *OkrObjective {
 }
 
 type OkrObjectiveKr struct {
-	Id *string `json:"id,omitempty"` // Key Result ID
+	Id *string `json:"id,omitempty"` // KeyResult ID
 
 	Content *string `json:"content,omitempty"` // KeyResult 内容
 
@@ -3791,7 +3787,7 @@ type OkrObjectiveKr struct {
 }
 
 type OkrObjectiveKrBuilder struct {
-	id    string // Key Result ID
+	id    string // KeyResult ID
 	idSet bool
 
 	content    string // KeyResult 内容
@@ -3812,7 +3808,7 @@ func NewOkrObjectiveKrBuilder() *OkrObjectiveKrBuilder {
 	return builder
 }
 
-// Key Result ID
+// KeyResult ID
 //
 // 示例值：7073360471990140948
 func (builder *OkrObjectiveKrBuilder) Id(id string) *OkrObjectiveKrBuilder {
@@ -3884,14 +3880,14 @@ func (builder *OkrObjectiveKrBuilder) Build() *OkrObjectiveKr {
 type OkrProgressRate struct {
 	Percent *int `json:"percent,omitempty"` // 进度百分比 >= 0
 
-	Status *string `json:"status,omitempty"` // 进度状态:"-1" 暂无"0" 正常"1" 风险"2" 延期
+	Status *string `json:"status,omitempty"` // 进度状态;;**可选值有：**; - `-1`：暂无; - `0`：正常; - `1`：风险; - `2`：延期
 }
 
 type OkrProgressRateBuilder struct {
 	percent    int // 进度百分比 >= 0
 	percentSet bool
 
-	status    string // 进度状态:"-1" 暂无"0" 正常"1" 风险"2" 延期
+	status    string // 进度状态;;**可选值有：**; - `-1`：暂无; - `0`：正常; - `1`：风险; - `2`：延期
 	statusSet bool
 }
 
@@ -3909,7 +3905,7 @@ func (builder *OkrProgressRateBuilder) Percent(percent int) *OkrProgressRateBuil
 	return builder
 }
 
-// 进度状态:"-1" 暂无"0" 正常"1" 风险"2" 延期
+// 进度状态;;**可选值有：**; - `-1`：暂无; - `0`：正常; - `1`：风险; - `2`：延期
 //
 // 示例值：0
 func (builder *OkrProgressRateBuilder) Status(status string) *OkrProgressRateBuilder {
@@ -3932,23 +3928,23 @@ func (builder *OkrProgressRateBuilder) Build() *OkrProgressRate {
 }
 
 type OpenResult struct {
-	UserId *UserId `json:"user_id,omitempty"` // 被评估人 ID
+	UserId *UserId `json:"user_id,omitempty"` // 员工 ID，用户 ID 类型请参考：[用户资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview);
 
-	SemesterId *string `json:"semester_id,omitempty"` // 绩效评估周期 ID
+	SemesterId *string `json:"semester_id,omitempty"` // 绩效评估周期 ID，详情可查看：[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)
 
-	ActivityId *string `json:"activity_id,omitempty"` // 绩效评估项目 ID
+	ActivityId *string `json:"activity_id,omitempty"` // 绩效评估项目 ID，详情可查看：[获取项目配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)
 
 	OpenTime *string `json:"open_time,omitempty"` // 结果开通时间，毫秒时间戳
 }
 
 type OpenResultBuilder struct {
-	userId    *UserId // 被评估人 ID
+	userId    *UserId // 员工 ID，用户 ID 类型请参考：[用户资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview);
 	userIdSet bool
 
-	semesterId    string // 绩效评估周期 ID
+	semesterId    string // 绩效评估周期 ID，详情可查看：[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)
 	semesterIdSet bool
 
-	activityId    string // 绩效评估项目 ID
+	activityId    string // 绩效评估项目 ID，详情可查看：[获取项目配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)
 	activityIdSet bool
 
 	openTime    string // 结果开通时间，毫秒时间戳
@@ -3960,7 +3956,7 @@ func NewOpenResultBuilder() *OpenResultBuilder {
 	return builder
 }
 
-// 被评估人 ID
+// 员工 ID，用户 ID 类型请参考：[用户资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview);
 //
 // 示例值：
 func (builder *OpenResultBuilder) UserId(userId *UserId) *OpenResultBuilder {
@@ -3969,7 +3965,7 @@ func (builder *OpenResultBuilder) UserId(userId *UserId) *OpenResultBuilder {
 	return builder
 }
 
-// 绩效评估周期 ID
+// 绩效评估周期 ID，详情可查看：[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)
 //
 // 示例值：7343576973861453844
 func (builder *OpenResultBuilder) SemesterId(semesterId string) *OpenResultBuilder {
@@ -3978,7 +3974,7 @@ func (builder *OpenResultBuilder) SemesterId(semesterId string) *OpenResultBuild
 	return builder
 }
 
-// 绩效评估项目 ID
+// 绩效评估项目 ID，详情可查看：[获取项目配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)
 //
 // 示例值：7343577163150393363
 func (builder *OpenResultBuilder) ActivityId(activityId string) *OpenResultBuilder {
@@ -4019,7 +4015,7 @@ func (builder *OpenResultBuilder) Build() *OpenResult {
 type Question struct {
 	QuestionId *string `json:"question_id,omitempty"` // 填写题 ID
 
-	Name *I18n `json:"name,omitempty"` // 填写题名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
 	TagItems []*TagItem `json:"tag_items,omitempty"` // 标签列表
 }
@@ -4028,7 +4024,7 @@ type QuestionBuilder struct {
 	questionId    string // 填写题 ID
 	questionIdSet bool
 
-	name    *I18n // 填写题名称
+	name    *I18n // 项目名称
 	nameSet bool
 
 	tagItems    []*TagItem // 标签列表
@@ -4049,7 +4045,7 @@ func (builder *QuestionBuilder) QuestionId(questionId string) *QuestionBuilder {
 	return builder
 }
 
-// 填写题名称
+// 项目名称
 //
 // 示例值：
 func (builder *QuestionBuilder) Name(name *I18n) *QuestionBuilder {
@@ -4083,26 +4079,26 @@ func (builder *QuestionBuilder) Build() *Question {
 }
 
 type ReviewDataChange struct {
-	UserId *UserId `json:"user_id,omitempty"` // 被更新的被评估人 ID
+	UserId *UserId `json:"user_id,omitempty"` // 员工 ID， ID 类型请参考：[用户资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview);
 
-	SemesterId *string `json:"semester_id,omitempty"` // 被更新的绩效评估周期 ID
+	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID，详情请查看：[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)
 
-	ActivityId *string `json:"activity_id,omitempty"` // 被更新的绩效评估项目 ID
+	ActivityId *string `json:"activity_id,omitempty"` // 项目 ID，详情请查看：[获取项目配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)
 
-	StageChanges []*StageChange `json:"stage_changes,omitempty"` // 被更新的环节
+	StageChanges []*StageChange `json:"stage_changes,omitempty"` // 发生更新的环节
 }
 
 type ReviewDataChangeBuilder struct {
-	userId    *UserId // 被更新的被评估人 ID
+	userId    *UserId // 员工 ID， ID 类型请参考：[用户资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview);
 	userIdSet bool
 
-	semesterId    string // 被更新的绩效评估周期 ID
+	semesterId    string // 周期 ID，详情请查看：[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)
 	semesterIdSet bool
 
-	activityId    string // 被更新的绩效评估项目 ID
+	activityId    string // 项目 ID，详情请查看：[获取项目配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)
 	activityIdSet bool
 
-	stageChanges    []*StageChange // 被更新的环节
+	stageChanges    []*StageChange // 发生更新的环节
 	stageChangesSet bool
 }
 
@@ -4111,7 +4107,7 @@ func NewReviewDataChangeBuilder() *ReviewDataChangeBuilder {
 	return builder
 }
 
-// 被更新的被评估人 ID
+// 员工 ID， ID 类型请参考：[用户资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview);
 //
 // 示例值：
 func (builder *ReviewDataChangeBuilder) UserId(userId *UserId) *ReviewDataChangeBuilder {
@@ -4120,7 +4116,7 @@ func (builder *ReviewDataChangeBuilder) UserId(userId *UserId) *ReviewDataChange
 	return builder
 }
 
-// 被更新的绩效评估周期 ID
+// 周期 ID，详情请查看：[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)
 //
 // 示例值：7343576973861453844
 func (builder *ReviewDataChangeBuilder) SemesterId(semesterId string) *ReviewDataChangeBuilder {
@@ -4129,7 +4125,7 @@ func (builder *ReviewDataChangeBuilder) SemesterId(semesterId string) *ReviewDat
 	return builder
 }
 
-// 被更新的绩效评估项目 ID
+// 项目 ID，详情请查看：[获取项目配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)
 //
 // 示例值：7343577163150393363
 func (builder *ReviewDataChangeBuilder) ActivityId(activityId string) *ReviewDataChangeBuilder {
@@ -4138,7 +4134,7 @@ func (builder *ReviewDataChangeBuilder) ActivityId(activityId string) *ReviewDat
 	return builder
 }
 
-// 被更新的环节
+// 发生更新的环节
 //
 // 示例值：
 func (builder *ReviewDataChangeBuilder) StageChanges(stageChanges []*StageChange) *ReviewDataChangeBuilder {
@@ -4167,7 +4163,7 @@ func (builder *ReviewDataChangeBuilder) Build() *ReviewDataChange {
 }
 
 type ReviewDataPermission struct {
-	UserId *User `json:"user_id,omitempty"` //
+	UserId *User `json:"user_id,omitempty"` // 评估人 ID
 
 	SemesterId *string `json:"semester_id,omitempty"` // 绩效评估周期 ID
 
@@ -4179,7 +4175,7 @@ type ReviewDataPermission struct {
 }
 
 type ReviewDataPermissionBuilder struct {
-	userId    *User //
+	userId    *User // 评估人 ID
 	userIdSet bool
 
 	semesterId    string // 绩效评估周期 ID
@@ -4200,7 +4196,7 @@ func NewReviewDataPermissionBuilder() *ReviewDataPermissionBuilder {
 	return builder
 }
 
-//
+// 评估人 ID
 //
 // 示例值：
 func (builder *ReviewDataPermissionBuilder) UserId(userId *User) *ReviewDataPermissionBuilder {
@@ -4454,11 +4450,11 @@ func (builder *ReviewDataPermissionUnitBuilder) Build() *ReviewDataPermissionUni
 type ReviewDetail struct {
 	FieldId *string `json:"field_id,omitempty"` // 评估题 ID，指评估内容中的每个评估项或填写项
 
-	ReviewerUserId *User `json:"reviewer_user_id,omitempty"` // 评估人 ID。如果开启了 360 匿名评估，并且是对全部查看者匿名，则不返回该值
+	ReviewerUserId *User `json:"reviewer_user_id,omitempty"` // 评估人 ID
 
-	SubmitTime *string `json:"submit_time,omitempty"` // 该评估题的最后提交时间
+	SubmitTime *string `json:"submit_time,omitempty"` // 该评估题的最后提交时间，毫秒级时间戳
 
-	IndicatorId *string `json:"indicator_id,omitempty"` // 评估项 ID（不包含子评估项），option_id 或 score 有值的时候有值
+	IndicatorId *string `json:"indicator_id,omitempty"` // 评估项 ID（不包含子评估项），option_id 或 score 有值的时候有值，详细信息请参考[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query)
 
 	OptionId *string `json:"option_id,omitempty"` // 评估等级 ID
 
@@ -4466,7 +4462,7 @@ type ReviewDetail struct {
 
 	Text *string `json:"text,omitempty"` // 填写项填写的文本
 
-	TagBasedQuestionId *string `json:"tag_based_question_id,omitempty"` // 标签填写题的 ID
+	TagBasedQuestionId *string `json:"tag_based_question_id,omitempty"` // 标签填写题 ID，详细信息请参考[获取标签填写题配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/question/query)
 
 	TagTextItemData []*TagText `json:"tag_text_item_data,omitempty"` // 标签填写项的内容
 
@@ -4493,13 +4489,13 @@ type ReviewDetailBuilder struct {
 	fieldId    string // 评估题 ID，指评估内容中的每个评估项或填写项
 	fieldIdSet bool
 
-	reviewerUserId    *User // 评估人 ID。如果开启了 360 匿名评估，并且是对全部查看者匿名，则不返回该值
+	reviewerUserId    *User // 评估人 ID
 	reviewerUserIdSet bool
 
-	submitTime    string // 该评估题的最后提交时间
+	submitTime    string // 该评估题的最后提交时间，毫秒级时间戳
 	submitTimeSet bool
 
-	indicatorId    string // 评估项 ID（不包含子评估项），option_id 或 score 有值的时候有值
+	indicatorId    string // 评估项 ID（不包含子评估项），option_id 或 score 有值的时候有值，详细信息请参考[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query)
 	indicatorIdSet bool
 
 	optionId    string // 评估等级 ID
@@ -4511,7 +4507,7 @@ type ReviewDetailBuilder struct {
 	text    string // 填写项填写的文本
 	textSet bool
 
-	tagBasedQuestionId    string // 标签填写题的 ID
+	tagBasedQuestionId    string // 标签填写题 ID，详细信息请参考[获取标签填写题配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/question/query)
 	tagBasedQuestionIdSet bool
 
 	tagTextItemData    []*TagText // 标签填写项的内容
@@ -4559,7 +4555,7 @@ func (builder *ReviewDetailBuilder) FieldId(fieldId string) *ReviewDetailBuilder
 	return builder
 }
 
-// 评估人 ID。如果开启了 360 匿名评估，并且是对全部查看者匿名，则不返回该值
+// 评估人 ID
 //
 // 示例值：
 func (builder *ReviewDetailBuilder) ReviewerUserId(reviewerUserId *User) *ReviewDetailBuilder {
@@ -4568,7 +4564,7 @@ func (builder *ReviewDetailBuilder) ReviewerUserId(reviewerUserId *User) *Review
 	return builder
 }
 
-// 该评估题的最后提交时间
+// 该评估题的最后提交时间，毫秒级时间戳
 //
 // 示例值：7343513161666707459
 func (builder *ReviewDetailBuilder) SubmitTime(submitTime string) *ReviewDetailBuilder {
@@ -4577,7 +4573,7 @@ func (builder *ReviewDetailBuilder) SubmitTime(submitTime string) *ReviewDetailB
 	return builder
 }
 
-// 评估项 ID（不包含子评估项），option_id 或 score 有值的时候有值
+// 评估项 ID（不包含子评估项），option_id 或 score 有值的时候有值，详细信息请参考[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query)
 //
 // 示例值：7343513161666707459
 func (builder *ReviewDetailBuilder) IndicatorId(indicatorId string) *ReviewDetailBuilder {
@@ -4613,7 +4609,7 @@ func (builder *ReviewDetailBuilder) Text(text string) *ReviewDetailBuilder {
 	return builder
 }
 
-// 标签填写题的 ID
+// 标签填写题 ID，详细信息请参考[获取标签填写题配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/question/query)
 //
 // 示例值：7343513161666707459
 func (builder *ReviewDetailBuilder) TagBasedQuestionId(tagBasedQuestionId string) *ReviewDetailBuilder {
@@ -4687,7 +4683,7 @@ func (builder *ReviewDetailBuilder) MultiTexts(multiTexts []string) *ReviewDetai
 
 // 富文本格式的填写内容，解析方式见 [editor](https://open.larkoffice.com/document/client-docs/gadget/component-component/basic-component/form/editor#51af2f4f)
 //
-// 示例值：{"ops":[{"name":"insert","text":"qwerty","attributes":{"bold":true}}]}
+// 示例值：{\"ops\":[{\"name\":\"insert\",\"text\":\"qwerty\"}]}
 func (builder *ReviewDetailBuilder) Richtext(richtext string) *ReviewDetailBuilder {
 	builder.richtext = richtext
 	builder.richtextSet = true
@@ -4783,28 +4779,28 @@ func (builder *ReviewDetailBuilder) Build() *ReviewDetail {
 }
 
 type ReviewProfile struct {
-	UserId *User `json:"user_id,omitempty"` // 被评估人 ID
+	UserId *User `json:"user_id,omitempty"` // 评估人 ID
 
 	SemesterId *string `json:"semester_id,omitempty"` // 绩效评估周期 ID
 
-	ActivityId *string `json:"activity_id,omitempty"` // 绩效评估项目 ID
+	ActivityId *string `json:"activity_id,omitempty"` // 绩效评估项目 ID，详细信息请参考[获取项目配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)
 
-	ReviewTemplateId *string `json:"review_template_id,omitempty"` // 被评估人在该周期对应的后台评估模板 ID
+	ReviewTemplateId *string `json:"review_template_id,omitempty"` // 被评估人在该周期对应的后台评估模板 ID，详细信息请参考[获取评估模板配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/review_template/query)
 
 	Stages []*ReviewStage `json:"stages,omitempty"` // 本周期内各环节内容
 }
 
 type ReviewProfileBuilder struct {
-	userId    *User // 被评估人 ID
+	userId    *User // 评估人 ID
 	userIdSet bool
 
 	semesterId    string // 绩效评估周期 ID
 	semesterIdSet bool
 
-	activityId    string // 绩效评估项目 ID
+	activityId    string // 绩效评估项目 ID，详细信息请参考[获取项目配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)
 	activityIdSet bool
 
-	reviewTemplateId    string // 被评估人在该周期对应的后台评估模板 ID
+	reviewTemplateId    string // 被评估人在该周期对应的后台评估模板 ID，详细信息请参考[获取评估模板配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/review_template/query)
 	reviewTemplateIdSet bool
 
 	stages    []*ReviewStage // 本周期内各环节内容
@@ -4816,7 +4812,7 @@ func NewReviewProfileBuilder() *ReviewProfileBuilder {
 	return builder
 }
 
-// 被评估人 ID
+// 评估人 ID
 //
 // 示例值：
 func (builder *ReviewProfileBuilder) UserId(userId *User) *ReviewProfileBuilder {
@@ -4834,7 +4830,7 @@ func (builder *ReviewProfileBuilder) SemesterId(semesterId string) *ReviewProfil
 	return builder
 }
 
-// 绩效评估项目 ID
+// 绩效评估项目 ID，详细信息请参考[获取项目配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)
 //
 // 示例值：7343513161666707459
 func (builder *ReviewProfileBuilder) ActivityId(activityId string) *ReviewProfileBuilder {
@@ -4843,7 +4839,7 @@ func (builder *ReviewProfileBuilder) ActivityId(activityId string) *ReviewProfil
 	return builder
 }
 
-// 被评估人在该周期对应的后台评估模板 ID
+// 被评估人在该周期对应的后台评估模板 ID，详细信息请参考[获取评估模板配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/review_template/query)
 //
 // 示例值：7343513161666707459
 func (builder *ReviewProfileBuilder) ReviewTemplateId(reviewTemplateId string) *ReviewProfileBuilder {
@@ -4885,19 +4881,19 @@ func (builder *ReviewProfileBuilder) Build() *ReviewProfile {
 }
 
 type ReviewRecord struct {
-	Progress *int `json:"progress,omitempty"` // 评估人的环节状态。各类型的环节分别有以下环节状态：  绩效结果查看环节状态 可选值： 0：已开通，绩效结果已开通，未发起复议也无需确认结果 1：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达 2：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达 3：已确认，绩效结果已开通，被评估人已确认结果 4：已复议，绩效结果已开通，且被评估人已发起  绩效结果复议环节状态 可选值： 1：待完成，任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成  除上述类型外的其他环节类型状态 可选值： 0：未开始，任务的开始时间未到达 1：待完成，任务的开始时间到达而截止时间未到达，且任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成
+	Progress *int `json:"progress,omitempty"` // 评估人的环节状态。各类型的环节分别有以下环节状态：; ; 查看绩效结果环节状态;; 可选值有：; - `0`：已开通，绩效结果已开通，未发起复议也无需确认结果; - `1`：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达; - `2`：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达; - `3`：已确认，绩效结果已开通，被评估人已确认结果; - `4`：已复议，绩效结果已开通，且被评估人已发起复议; ; 终评环节/结果沟通环节状态（不传默认包含所有的状态）; ; 绩效结果复议环节状态;; 可选值有：; - `1`：待完成，任务未完成; - `2`：已截止，任务的截止时间已到达，且任务未完成; - `3`：已完成，任务已完成; ; 除上述类型外的其他环节类型状态;; 可选值有：; - `0`：未开始，任务的开始时间未到达; - `1`：待完成，任务的开始时间到达而截止时间未到达，且任务未完成; - `2`：已截止，任务的截止时间已到达，且任务未完成; - `3`: 已完成，任务已完成
 
 	Units []*ReviewUnit `json:"units,omitempty"` // 评估记录中的评估内容明细
 
 	InvitedReviewRecordInfo *InvitedReviewRecordInfo `json:"invited_review_record_info,omitempty"` // 360 ° 评估记录的信息。如果开启了 360 匿名评估，并且是对全部查看者匿名，则不返回评估人的部分信息
 
-	DirectProjectLeaderRecordInfo *DirectProjectLeaderRecordInfo `json:"direct_project_leader_record_info,omitempty"` // 项目上级评估记录信息
+	DirectProjectLeaderRecordInfo *DirectProjectLeaderRecordInfo `json:"direct_project_leader_record_info,omitempty"` // 合作项目中上级的评估记录信息，仅在「项目直属上级环节」有值
 
 	RecordId *string `json:"record_id,omitempty"` // 评估记录 ID
 }
 
 type ReviewRecordBuilder struct {
-	progress    int // 评估人的环节状态。各类型的环节分别有以下环节状态：  绩效结果查看环节状态 可选值： 0：已开通，绩效结果已开通，未发起复议也无需确认结果 1：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达 2：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达 3：已确认，绩效结果已开通，被评估人已确认结果 4：已复议，绩效结果已开通，且被评估人已发起  绩效结果复议环节状态 可选值： 1：待完成，任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成  除上述类型外的其他环节类型状态 可选值： 0：未开始，任务的开始时间未到达 1：待完成，任务的开始时间到达而截止时间未到达，且任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成
+	progress    int // 评估人的环节状态。各类型的环节分别有以下环节状态：; ; 查看绩效结果环节状态;; 可选值有：; - `0`：已开通，绩效结果已开通，未发起复议也无需确认结果; - `1`：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达; - `2`：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达; - `3`：已确认，绩效结果已开通，被评估人已确认结果; - `4`：已复议，绩效结果已开通，且被评估人已发起复议; ; 终评环节/结果沟通环节状态（不传默认包含所有的状态）; ; 绩效结果复议环节状态;; 可选值有：; - `1`：待完成，任务未完成; - `2`：已截止，任务的截止时间已到达，且任务未完成; - `3`：已完成，任务已完成; ; 除上述类型外的其他环节类型状态;; 可选值有：; - `0`：未开始，任务的开始时间未到达; - `1`：待完成，任务的开始时间到达而截止时间未到达，且任务未完成; - `2`：已截止，任务的截止时间已到达，且任务未完成; - `3`: 已完成，任务已完成
 	progressSet bool
 
 	units    []*ReviewUnit // 评估记录中的评估内容明细
@@ -4906,7 +4902,7 @@ type ReviewRecordBuilder struct {
 	invitedReviewRecordInfo    *InvitedReviewRecordInfo // 360 ° 评估记录的信息。如果开启了 360 匿名评估，并且是对全部查看者匿名，则不返回评估人的部分信息
 	invitedReviewRecordInfoSet bool
 
-	directProjectLeaderRecordInfo    *DirectProjectLeaderRecordInfo // 项目上级评估记录信息
+	directProjectLeaderRecordInfo    *DirectProjectLeaderRecordInfo // 合作项目中上级的评估记录信息，仅在「项目直属上级环节」有值
 	directProjectLeaderRecordInfoSet bool
 
 	recordId    string // 评估记录 ID
@@ -4918,7 +4914,7 @@ func NewReviewRecordBuilder() *ReviewRecordBuilder {
 	return builder
 }
 
-// 评估人的环节状态。各类型的环节分别有以下环节状态：  绩效结果查看环节状态 可选值： 0：已开通，绩效结果已开通，未发起复议也无需确认结果 1：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达 2：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达 3：已确认，绩效结果已开通，被评估人已确认结果 4：已复议，绩效结果已开通，且被评估人已发起  绩效结果复议环节状态 可选值： 1：待完成，任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成  除上述类型外的其他环节类型状态 可选值： 0：未开始，任务的开始时间未到达 1：待完成，任务的开始时间到达而截止时间未到达，且任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成
+// 评估人的环节状态。各类型的环节分别有以下环节状态：; ; 查看绩效结果环节状态;; 可选值有：; - `0`：已开通，绩效结果已开通，未发起复议也无需确认结果; - `1`：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达; - `2`：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达; - `3`：已确认，绩效结果已开通，被评估人已确认结果; - `4`：已复议，绩效结果已开通，且被评估人已发起复议; ; 终评环节/结果沟通环节状态（不传默认包含所有的状态）; ; 绩效结果复议环节状态;; 可选值有：; - `1`：待完成，任务未完成; - `2`：已截止，任务的截止时间已到达，且任务未完成; - `3`：已完成，任务已完成; ; 除上述类型外的其他环节类型状态;; 可选值有：; - `0`：未开始，任务的开始时间未到达; - `1`：待完成，任务的开始时间到达而截止时间未到达，且任务未完成; - `2`：已截止，任务的截止时间已到达，且任务未完成; - `3`: 已完成，任务已完成
 //
 // 示例值：1
 func (builder *ReviewRecordBuilder) Progress(progress int) *ReviewRecordBuilder {
@@ -4945,7 +4941,7 @@ func (builder *ReviewRecordBuilder) InvitedReviewRecordInfo(invitedReviewRecordI
 	return builder
 }
 
-// 项目上级评估记录信息
+// 合作项目中上级的评估记录信息，仅在「项目直属上级环节」有值
 //
 // 示例值：
 func (builder *ReviewRecordBuilder) DirectProjectLeaderRecordInfo(directProjectLeaderRecordInfo *DirectProjectLeaderRecordInfo) *ReviewRecordBuilder {
@@ -4956,7 +4952,7 @@ func (builder *ReviewRecordBuilder) DirectProjectLeaderRecordInfo(directProjectL
 
 // 评估记录 ID
 //
-// 示例值：7343513161666707459
+// 示例值：7385000219907457024-7385000219907457025
 func (builder *ReviewRecordBuilder) RecordId(recordId string) *ReviewRecordBuilder {
 	builder.recordId = recordId
 	builder.recordIdSet = true
@@ -5110,13 +5106,13 @@ type ReviewTemplate struct {
 
 	Units []*Unit `json:"units,omitempty"` // 评估内容列表
 
-	ReviewTemplateId *string `json:"review_template_id,omitempty"` // 评估模板 ID
+	ReviewTemplateId *string `json:"review_template_id,omitempty"` // 绩效模板 ID
 
-	Name *I18n `json:"name,omitempty"` // 评估模板名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
-	Description *I18n `json:"description,omitempty"` // 评估模板描述
+	Description *I18n `json:"description,omitempty"` // 项目名称
 
-	Status *string `json:"status,omitempty"` // 状态
+	Status *string `json:"status,omitempty"` // 状态;;枚举值：;- `to_be_configured`: 待完成配置;- `to_be_enabled`: 待启用;- `enabled`: 已启用;- `disabled`: 已停用;- `deleted`: 已删除但曾经被项目引用过
 }
 
 type ReviewTemplateBuilder struct {
@@ -5126,16 +5122,16 @@ type ReviewTemplateBuilder struct {
 	units    []*Unit // 评估内容列表
 	unitsSet bool
 
-	reviewTemplateId    string // 评估模板 ID
+	reviewTemplateId    string // 绩效模板 ID
 	reviewTemplateIdSet bool
 
-	name    *I18n // 评估模板名称
+	name    *I18n // 项目名称
 	nameSet bool
 
-	description    *I18n // 评估模板描述
+	description    *I18n // 项目名称
 	descriptionSet bool
 
-	status    string // 状态
+	status    string // 状态;;枚举值：;- `to_be_configured`: 待完成配置;- `to_be_enabled`: 待启用;- `enabled`: 已启用;- `disabled`: 已停用;- `deleted`: 已删除但曾经被项目引用过
 	statusSet bool
 }
 
@@ -5162,7 +5158,7 @@ func (builder *ReviewTemplateBuilder) Units(units []*Unit) *ReviewTemplateBuilde
 	return builder
 }
 
-// 评估模板 ID
+// 绩效模板 ID
 //
 // 示例值：7343513161666723843
 func (builder *ReviewTemplateBuilder) ReviewTemplateId(reviewTemplateId string) *ReviewTemplateBuilder {
@@ -5171,7 +5167,7 @@ func (builder *ReviewTemplateBuilder) ReviewTemplateId(reviewTemplateId string) 
 	return builder
 }
 
-// 评估模板名称
+// 项目名称
 //
 // 示例值：
 func (builder *ReviewTemplateBuilder) Name(name *I18n) *ReviewTemplateBuilder {
@@ -5180,7 +5176,7 @@ func (builder *ReviewTemplateBuilder) Name(name *I18n) *ReviewTemplateBuilder {
 	return builder
 }
 
-// 评估模板描述
+// 项目名称
 //
 // 示例值：
 func (builder *ReviewTemplateBuilder) Description(description *I18n) *ReviewTemplateBuilder {
@@ -5189,7 +5185,7 @@ func (builder *ReviewTemplateBuilder) Description(description *I18n) *ReviewTemp
 	return builder
 }
 
-// 状态
+// 状态;;枚举值：;- `to_be_configured`: 待完成配置;- `to_be_enabled`: 待启用;- `enabled`: 已启用;- `disabled`: 已停用;- `deleted`: 已删除但曾经被项目引用过
 //
 // 示例值：enabled
 func (builder *ReviewTemplateBuilder) Status(status string) *ReviewTemplateBuilder {
@@ -5258,7 +5254,7 @@ func (builder *ReviewUnitBuilder) UnitId(unitId string) *ReviewUnitBuilder {
 
 // 是否为不了解。当评估人选不了解时，会返回为 true，其他时候不返回。
 //
-// 示例值：
+// 示例值：false
 func (builder *ReviewUnitBuilder) IsUnknown(isUnknown bool) *ReviewUnitBuilder {
 	builder.isUnknown = isUnknown
 	builder.isUnknownSet = true
@@ -5291,18 +5287,18 @@ func (builder *ReviewUnitBuilder) Build() *ReviewUnit {
 }
 
 type Reviewee struct {
-	RevieweeUserId *User `json:"reviewee_user_id,omitempty"` // 被评估人 ID
+	RevieweeUserId *User `json:"reviewee_user_id,omitempty"` // 评估人 ID
 
-	ActivityIds []string `json:"activity_ids,omitempty"` // 被评估人参与的项目
+	ActivityIds []string `json:"activity_ids,omitempty"` // 被评估人参与的项目，详细信息请参考[获取项目配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)
 
 	ReviewprofileUrl *string `json:"reviewprofile_url,omitempty"` // 被评估人在该周期的个人绩效详情页链接。如果参与的项目未启动则为空
 }
 
 type RevieweeBuilder struct {
-	revieweeUserId    *User // 被评估人 ID
+	revieweeUserId    *User // 评估人 ID
 	revieweeUserIdSet bool
 
-	activityIds    []string // 被评估人参与的项目
+	activityIds    []string // 被评估人参与的项目，详细信息请参考[获取项目配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)
 	activityIdsSet bool
 
 	reviewprofileUrl    string // 被评估人在该周期的个人绩效详情页链接。如果参与的项目未启动则为空
@@ -5314,7 +5310,7 @@ func NewRevieweeBuilder() *RevieweeBuilder {
 	return builder
 }
 
-// 被评估人 ID
+// 评估人 ID
 //
 // 示例值：
 func (builder *RevieweeBuilder) RevieweeUserId(revieweeUserId *User) *RevieweeBuilder {
@@ -5323,7 +5319,7 @@ func (builder *RevieweeBuilder) RevieweeUserId(revieweeUserId *User) *RevieweeBu
 	return builder
 }
 
-// 被评估人参与的项目
+// 被评估人参与的项目，详细信息请参考[获取项目配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)
 //
 // 示例值：
 func (builder *RevieweeBuilder) ActivityIds(activityIds []string) *RevieweeBuilder {
@@ -5334,7 +5330,7 @@ func (builder *RevieweeBuilder) ActivityIds(activityIds []string) *RevieweeBuild
 
 // 被评估人在该周期的个人绩效详情页链接。如果参与的项目未启动则为空
 //
-// 示例值：https://performance.feishu.cn/perf/profile?rootReviewId=7380183500051202067
+// 示例值：https://perf.feishu.cn/perf/profile?rootReviewId=7380183500051202067
 func (builder *RevieweeBuilder) ReviewprofileUrl(reviewprofileUrl string) *RevieweeBuilder {
 	builder.reviewprofileUrl = reviewprofileUrl
 	builder.reviewprofileUrlSet = true
@@ -5357,26 +5353,26 @@ func (builder *RevieweeBuilder) Build() *Reviewee {
 }
 
 type RevieweeMetric struct {
-	RevieweeUserId *User `json:"reviewee_user_id,omitempty"` // 被评估人
+	RevieweeUserId *User `json:"reviewee_user_id,omitempty"` // 评估人 ID
 
-	MetricTemplateId *string `json:"metric_template_id,omitempty"` // 被评估人在该周期所属的指标模板 ID
+	MetricTemplateId *string `json:"metric_template_id,omitempty"` // 指标模板 ID，详情可查看：[获取指标模板列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_template/query)
 
-	MetricDetails *MetricDetail `json:"metric_details,omitempty"` // 被评估人在周期下的指标明细数据
+	MetricDetails *MetricDetail `json:"metric_details,omitempty"` // 指标详情
 
-	RevieweeStageStatuses []*RevieweeStageStatus `json:"reviewee_stage_statuses,omitempty"` // 被评估人关键指标环节状态
+	RevieweeStageStatuses []*RevieweeStageStatus `json:"reviewee_stage_statuses,omitempty"` // 指标对应的环节状态
 }
 
 type RevieweeMetricBuilder struct {
-	revieweeUserId    *User // 被评估人
+	revieweeUserId    *User // 评估人 ID
 	revieweeUserIdSet bool
 
-	metricTemplateId    string // 被评估人在该周期所属的指标模板 ID
+	metricTemplateId    string // 指标模板 ID，详情可查看：[获取指标模板列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_template/query)
 	metricTemplateIdSet bool
 
-	metricDetails    *MetricDetail // 被评估人在周期下的指标明细数据
+	metricDetails    *MetricDetail // 指标详情
 	metricDetailsSet bool
 
-	revieweeStageStatuses    []*RevieweeStageStatus // 被评估人关键指标环节状态
+	revieweeStageStatuses    []*RevieweeStageStatus // 指标对应的环节状态
 	revieweeStageStatusesSet bool
 }
 
@@ -5385,7 +5381,7 @@ func NewRevieweeMetricBuilder() *RevieweeMetricBuilder {
 	return builder
 }
 
-// 被评估人
+// 评估人 ID
 //
 // 示例值：
 func (builder *RevieweeMetricBuilder) RevieweeUserId(revieweeUserId *User) *RevieweeMetricBuilder {
@@ -5394,7 +5390,7 @@ func (builder *RevieweeMetricBuilder) RevieweeUserId(revieweeUserId *User) *Revi
 	return builder
 }
 
-// 被评估人在该周期所属的指标模板 ID
+// 指标模板 ID，详情可查看：[获取指标模板列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_template/query)
 //
 // 示例值：7294570803306168339
 func (builder *RevieweeMetricBuilder) MetricTemplateId(metricTemplateId string) *RevieweeMetricBuilder {
@@ -5403,7 +5399,7 @@ func (builder *RevieweeMetricBuilder) MetricTemplateId(metricTemplateId string) 
 	return builder
 }
 
-// 被评估人在周期下的指标明细数据
+// 指标详情
 //
 // 示例值：
 func (builder *RevieweeMetricBuilder) MetricDetails(metricDetails *MetricDetail) *RevieweeMetricBuilder {
@@ -5412,7 +5408,7 @@ func (builder *RevieweeMetricBuilder) MetricDetails(metricDetails *MetricDetail)
 	return builder
 }
 
-// 被评估人关键指标环节状态
+// 指标对应的环节状态
 //
 // 示例值：
 func (builder *RevieweeMetricBuilder) RevieweeStageStatuses(revieweeStageStatuses []*RevieweeStageStatus) *RevieweeMetricBuilder {
@@ -5442,19 +5438,19 @@ func (builder *RevieweeMetricBuilder) Build() *RevieweeMetric {
 type RevieweeStageStatus struct {
 	StageId *string `json:"stage_id,omitempty"` // 环节ID
 
-	StageType *string `json:"stage_type,omitempty"` // 环节类型
+	StageType *string `json:"stage_type,omitempty"` // 环节类型;;**可选值有：**; - `kpi_metric_setting`：指标制定环节; - `kpi_result_recording`：结果录入环节
 
-	StageStatus *int `json:"stage_status,omitempty"` // 环节状态
+	StageStatus *int `json:"stage_status,omitempty"` // 环节状态;;**可选值有：**; - `0`：未开始; - `1`：待提交; - `2`：已逾期; - `3`：确认中; - `4`：被驳回; - `5`：已完成
 }
 
 type RevieweeStageStatusBuilder struct {
 	stageId    string // 环节ID
 	stageIdSet bool
 
-	stageType    string // 环节类型
+	stageType    string // 环节类型;;**可选值有：**; - `kpi_metric_setting`：指标制定环节; - `kpi_result_recording`：结果录入环节
 	stageTypeSet bool
 
-	stageStatus    int // 环节状态
+	stageStatus    int // 环节状态;;**可选值有：**; - `0`：未开始; - `1`：待提交; - `2`：已逾期; - `3`：确认中; - `4`：被驳回; - `5`：已完成
 	stageStatusSet bool
 }
 
@@ -5472,7 +5468,7 @@ func (builder *RevieweeStageStatusBuilder) StageId(stageId string) *RevieweeStag
 	return builder
 }
 
-// 环节类型
+// 环节类型;;**可选值有：**; - `kpi_metric_setting`：指标制定环节; - `kpi_result_recording`：结果录入环节
 //
 // 示例值：kpi_metric_setting
 func (builder *RevieweeStageStatusBuilder) StageType(stageType string) *RevieweeStageStatusBuilder {
@@ -5481,7 +5477,7 @@ func (builder *RevieweeStageStatusBuilder) StageType(stageType string) *Reviewee
 	return builder
 }
 
-// 环节状态
+// 环节状态;;**可选值有：**; - `0`：未开始; - `1`：待提交; - `2`：已逾期; - `3`：确认中; - `4`：被驳回; - `5`：已完成
 //
 // 示例值：0
 func (builder *RevieweeStageStatusBuilder) StageStatus(stageStatus int) *RevieweeStageStatusBuilder {
@@ -5518,7 +5514,7 @@ type ReviewerInfo struct {
 
 	CooperationProject *string `json:"cooperation_project,omitempty"` // 评估人作为直属项目上级所在的项目
 
-	CooperationProjectName *I18n `json:"cooperation_project_name,omitempty"` // 合作项目的名称
+	CooperationProjectName *I18n `json:"cooperation_project_name,omitempty"` // 项目名称
 
 	DirectProjectLeaderRoleId *string `json:"direct_project_leader_role_id,omitempty"` // 直属项目上级的项目角色 ID
 }
@@ -5539,7 +5535,7 @@ type ReviewerInfoBuilder struct {
 	cooperationProject    string // 评估人作为直属项目上级所在的项目
 	cooperationProjectSet bool
 
-	cooperationProjectName    *I18n // 合作项目的名称
+	cooperationProjectName    *I18n // 项目名称
 	cooperationProjectNameSet bool
 
 	directProjectLeaderRoleId    string // 直属项目上级的项目角色 ID
@@ -5596,7 +5592,7 @@ func (builder *ReviewerInfoBuilder) CooperationProject(cooperationProject string
 	return builder
 }
 
-// 合作项目的名称
+// 项目名称
 //
 // 示例值：
 func (builder *ReviewerInfoBuilder) CooperationProjectName(cooperationProjectName *I18n) *ReviewerInfoBuilder {
@@ -5649,7 +5645,7 @@ func (builder *ReviewerInfoBuilder) Build() *ReviewerInfo {
 type Semester struct {
 	Id *string `json:"id,omitempty"` // 周期 ID
 
-	Name *I18n `json:"name,omitempty"` // 周期名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
 	Type *string `json:"type,omitempty"` // 周期类型
 
@@ -5668,7 +5664,7 @@ type SemesterBuilder struct {
 	id    string // 周期 ID
 	idSet bool
 
-	name    *I18n // 周期名称
+	name    *I18n // 项目名称
 	nameSet bool
 
 	type_    string // 周期类型
@@ -5704,7 +5700,7 @@ func (builder *SemesterBuilder) Id(id string) *SemesterBuilder {
 	return builder
 }
 
-// 周期名称
+// 项目名称
 //
 // 示例值：
 func (builder *SemesterBuilder) Name(name *I18n) *SemesterBuilder {
@@ -5804,18 +5800,18 @@ func (builder *SemesterBuilder) Build() *Semester {
 }
 
 type SemesterStage struct {
-	Id *string `json:"id,omitempty"` // 周期环节id
+	Id *string `json:"id,omitempty"` // 周期环节ID
 
-	Name *I18n `json:"name,omitempty"` // 周期环节名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
 	Stages []*TemplateStage `json:"stages,omitempty"` // 模板环节列表
 }
 
 type SemesterStageBuilder struct {
-	id    string // 周期环节id
+	id    string // 周期环节ID
 	idSet bool
 
-	name    *I18n // 周期环节名称
+	name    *I18n // 项目名称
 	nameSet bool
 
 	stages    []*TemplateStage // 模板环节列表
@@ -5827,16 +5823,16 @@ func NewSemesterStageBuilder() *SemesterStageBuilder {
 	return builder
 }
 
-// 周期环节id
+// 周期环节ID
 //
-// 示例值：7343513161666707459
+// 示例值：7343513161666707458
 func (builder *SemesterStageBuilder) Id(id string) *SemesterStageBuilder {
 	builder.id = id
 	builder.idSet = true
 	return builder
 }
 
-// 周期环节名称
+// 项目名称
 //
 // 示例值：
 func (builder *SemesterStageBuilder) Name(name *I18n) *SemesterStageBuilder {
@@ -5870,7 +5866,7 @@ func (builder *SemesterStageBuilder) Build() *SemesterStage {
 }
 
 type StageChange struct {
-	StageId *string `json:"stage_id,omitempty"` // 被更新的环节 ID
+	StageId *string `json:"stage_id,omitempty"` // 发生更新的环节 ID
 
 	StageType *string `json:"stage_type,omitempty"` // 环节类型
 
@@ -5878,7 +5874,7 @@ type StageChange struct {
 }
 
 type StageChangeBuilder struct {
-	stageId    string // 被更新的环节 ID
+	stageId    string // 发生更新的环节 ID
 	stageIdSet bool
 
 	stageType    string // 环节类型
@@ -5893,7 +5889,7 @@ func NewStageChangeBuilder() *StageChangeBuilder {
 	return builder
 }
 
-// 被更新的环节 ID
+// 发生更新的环节 ID
 //
 // 示例值：7026250586485114406
 func (builder *StageChangeBuilder) StageId(stageId string) *StageChangeBuilder {
@@ -5938,33 +5934,33 @@ func (builder *StageChangeBuilder) Build() *StageChange {
 }
 
 type SubIndicator struct {
-	FieldId *string `json:"field_id,omitempty"` // 子评估项的 ID
+	FieldId *string `json:"field_id,omitempty"` // 子评估题 ID
 
-	IndicatorId *string `json:"indicator_id,omitempty"` // 子评估项的评估等级 ID
+	IndicatorId *string `json:"indicator_id,omitempty"` // 子评估项 ID
 
-	OptionId *string `json:"option_id,omitempty"` // 子评估项的评分
+	OptionId *string `json:"option_id,omitempty"` // 子评估项的评估等级 ID
 
-	Score *string `json:"score,omitempty"` // 子评估项的填写项标题名称
+	Score *string `json:"score,omitempty"` // 子评估项的评分
 
-	Text *string `json:"text,omitempty"` // 评估人在该子评估项填写的文本
+	Text *string `json:"text,omitempty"` // 子评估项填写的文本
 
 	Richtext *string `json:"richtext,omitempty"` // 富文本格式的填写内容，解析方式见 [editor](https://open.larkoffice.com/document/client-docs/gadget/component-component/basic-component/form/editor#51af2f4f)
 }
 
 type SubIndicatorBuilder struct {
-	fieldId    string // 子评估项的 ID
+	fieldId    string // 子评估题 ID
 	fieldIdSet bool
 
-	indicatorId    string // 子评估项的评估等级 ID
+	indicatorId    string // 子评估项 ID
 	indicatorIdSet bool
 
-	optionId    string // 子评估项的评分
+	optionId    string // 子评估项的评估等级 ID
 	optionIdSet bool
 
-	score    string // 子评估项的填写项标题名称
+	score    string // 子评估项的评分
 	scoreSet bool
 
-	text    string // 评估人在该子评估项填写的文本
+	text    string // 子评估项填写的文本
 	textSet bool
 
 	richtext    string // 富文本格式的填写内容，解析方式见 [editor](https://open.larkoffice.com/document/client-docs/gadget/component-component/basic-component/form/editor#51af2f4f)
@@ -5976,7 +5972,7 @@ func NewSubIndicatorBuilder() *SubIndicatorBuilder {
 	return builder
 }
 
-// 子评估项的 ID
+// 子评估题 ID
 //
 // 示例值：7343513161666707459
 func (builder *SubIndicatorBuilder) FieldId(fieldId string) *SubIndicatorBuilder {
@@ -5985,7 +5981,7 @@ func (builder *SubIndicatorBuilder) FieldId(fieldId string) *SubIndicatorBuilder
 	return builder
 }
 
-// 子评估项的评估等级 ID
+// 子评估项 ID
 //
 // 示例值：7343513161666707459
 func (builder *SubIndicatorBuilder) IndicatorId(indicatorId string) *SubIndicatorBuilder {
@@ -5994,7 +5990,7 @@ func (builder *SubIndicatorBuilder) IndicatorId(indicatorId string) *SubIndicato
 	return builder
 }
 
-// 子评估项的评分
+// 子评估项的评估等级 ID
 //
 // 示例值：7343513161666707459
 func (builder *SubIndicatorBuilder) OptionId(optionId string) *SubIndicatorBuilder {
@@ -6003,7 +5999,7 @@ func (builder *SubIndicatorBuilder) OptionId(optionId string) *SubIndicatorBuild
 	return builder
 }
 
-// 子评估项的填写项标题名称
+// 子评估项的评分
 //
 // 示例值：1.1
 func (builder *SubIndicatorBuilder) Score(score string) *SubIndicatorBuilder {
@@ -6012,7 +6008,7 @@ func (builder *SubIndicatorBuilder) Score(score string) *SubIndicatorBuilder {
 	return builder
 }
 
-// 评估人在该子评估项填写的文本
+// 子评估项填写的文本
 //
 // 示例值：qwertyuiop
 func (builder *SubIndicatorBuilder) Text(text string) *SubIndicatorBuilder {
@@ -6023,7 +6019,7 @@ func (builder *SubIndicatorBuilder) Text(text string) *SubIndicatorBuilder {
 
 // 富文本格式的填写内容，解析方式见 [editor](https://open.larkoffice.com/document/client-docs/gadget/component-component/basic-component/form/editor#51af2f4f)
 //
-// 示例值：{"ops":[{"name":"insert","text":"qwerty","attributes":{"bold":true}}]}
+// 示例值：{\"ops\":[{\"name\":\"insert\",\"text\":\"qwerty\"}]}
 func (builder *SubIndicatorBuilder) Richtext(richtext string) *SubIndicatorBuilder {
 	builder.richtext = richtext
 	builder.richtextSet = true
@@ -6062,14 +6058,14 @@ func (builder *SubIndicatorBuilder) Build() *SubIndicator {
 type TagItem struct {
 	Id *string `json:"id,omitempty"` // 标签 ID
 
-	Name *I18n `json:"name,omitempty"` // 标签名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 }
 
 type TagItemBuilder struct {
 	id    string // 标签 ID
 	idSet bool
 
-	name    *I18n // 标签名称
+	name    *I18n // 项目名称
 	nameSet bool
 }
 
@@ -6087,7 +6083,7 @@ func (builder *TagItemBuilder) Id(id string) *TagItemBuilder {
 	return builder
 }
 
-// 标签名称
+// 项目名称
 //
 // 示例值：
 func (builder *TagItemBuilder) Name(name *I18n) *TagItemBuilder {
@@ -6152,7 +6148,7 @@ func (builder *TagTextBuilder) TagText(tagText string) *TagTextBuilder {
 
 // 富文本格式的填写内容，解析方式见 [editor](https://open.larkoffice.com/document/client-docs/gadget/component-component/basic-component/form/editor#51af2f4f)
 //
-// 示例值：{"ops":[{"name":"insert","text":"qwerty","attributes":{"bold":true}}]}
+// 示例值：{\"ops\":[{\"name\":\"insert\",\"text\":\"qwerty\"}]}
 func (builder *TagTextBuilder) TagRichtext(tagRichtext string) *TagTextBuilder {
 	builder.tagRichtext = tagRichtext
 	builder.tagRichtextSet = true
@@ -6179,11 +6175,11 @@ func (builder *TagTextBuilder) Build() *TagText {
 type Template struct {
 	TemplateId *string `json:"template_id,omitempty"` // 环节模板 ID
 
-	Name *I18n `json:"name,omitempty"` // 环节模板对应的环节名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
-	StageType *string `json:"stage_type,omitempty"` // 环节类型
+	StageType *string `json:"stage_type,omitempty"` // 环节类型;;枚举值： ;- `summarize_key_outputs`: 工作总结环节;- `review`: 评估型环节;- `communication_and_open_result`: 结果沟通环节;- `view_result`: 绩效结果查看环节;- `calibration`: 校准环节;- `reconsideration`: 结果复议环节
 
-	ReviewStageRole *string `json:"review_stage_role,omitempty"` // 环节执行角色
+	ReviewStageRole *string `json:"review_stage_role,omitempty"` // 评估型环节的执行人角色;;枚举值：;- `reviewee`: 被评估人;- `invited_reviewer`: 360°评估人;- `solid_line_leader`: 实线上级;- `dotted_line_leader`: 虚线上级;- `secondary_solid_line_leader`: 第二实线上级;- `direct_project_leader`: 项目直属上级;- `custom_review_role`:自定义评估角色
 
 	ReviewStageDataWriteMode *string `json:"review_stage_data_write_mode,omitempty"` // 评估型环节评估模式
 }
@@ -6192,13 +6188,13 @@ type TemplateBuilder struct {
 	templateId    string // 环节模板 ID
 	templateIdSet bool
 
-	name    *I18n // 环节模板对应的环节名称
+	name    *I18n // 项目名称
 	nameSet bool
 
-	stageType    string // 环节类型
+	stageType    string // 环节类型;;枚举值： ;- `summarize_key_outputs`: 工作总结环节;- `review`: 评估型环节;- `communication_and_open_result`: 结果沟通环节;- `view_result`: 绩效结果查看环节;- `calibration`: 校准环节;- `reconsideration`: 结果复议环节
 	stageTypeSet bool
 
-	reviewStageRole    string // 环节执行角色
+	reviewStageRole    string // 评估型环节的执行人角色;;枚举值：;- `reviewee`: 被评估人;- `invited_reviewer`: 360°评估人;- `solid_line_leader`: 实线上级;- `dotted_line_leader`: 虚线上级;- `secondary_solid_line_leader`: 第二实线上级;- `direct_project_leader`: 项目直属上级;- `custom_review_role`:自定义评估角色
 	reviewStageRoleSet bool
 
 	reviewStageDataWriteMode    string // 评估型环节评估模式
@@ -6219,7 +6215,7 @@ func (builder *TemplateBuilder) TemplateId(templateId string) *TemplateBuilder {
 	return builder
 }
 
-// 环节模板对应的环节名称
+// 项目名称
 //
 // 示例值：
 func (builder *TemplateBuilder) Name(name *I18n) *TemplateBuilder {
@@ -6228,7 +6224,7 @@ func (builder *TemplateBuilder) Name(name *I18n) *TemplateBuilder {
 	return builder
 }
 
-// 环节类型
+// 环节类型;;枚举值： ;- `summarize_key_outputs`: 工作总结环节;- `review`: 评估型环节;- `communication_and_open_result`: 结果沟通环节;- `view_result`: 绩效结果查看环节;- `calibration`: 校准环节;- `reconsideration`: 结果复议环节
 //
 // 示例值：leader_review
 func (builder *TemplateBuilder) StageType(stageType string) *TemplateBuilder {
@@ -6237,7 +6233,7 @@ func (builder *TemplateBuilder) StageType(stageType string) *TemplateBuilder {
 	return builder
 }
 
-// 环节执行角色
+// 评估型环节的执行人角色;;枚举值：;- `reviewee`: 被评估人;- `invited_reviewer`: 360°评估人;- `solid_line_leader`: 实线上级;- `dotted_line_leader`: 虚线上级;- `secondary_solid_line_leader`: 第二实线上级;- `direct_project_leader`: 项目直属上级;- `custom_review_role`:自定义评估角色
 //
 // 示例值：reviewee
 func (builder *TemplateBuilder) ReviewStageRole(reviewStageRole string) *TemplateBuilder {
@@ -6282,7 +6278,7 @@ func (builder *TemplateBuilder) Build() *Template {
 type TemplateStage struct {
 	Id *string `json:"id,omitempty"` // 模板环节ID
 
-	Name *I18n `json:"name,omitempty"` // 环节名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
 	TemplateGroupId *string `json:"template_group_id,omitempty"` // 评估模板ID
 
@@ -6297,7 +6293,7 @@ type TemplateStageBuilder struct {
 	id    string // 模板环节ID
 	idSet bool
 
-	name    *I18n // 环节名称
+	name    *I18n // 项目名称
 	nameSet bool
 
 	templateGroupId    string // 评估模板ID
@@ -6327,7 +6323,7 @@ func (builder *TemplateStageBuilder) Id(id string) *TemplateStageBuilder {
 	return builder
 }
 
-// 环节名称
+// 项目名称
 //
 // 示例值：
 func (builder *TemplateStageBuilder) Name(name *I18n) *TemplateStageBuilder {
@@ -6338,7 +6334,7 @@ func (builder *TemplateStageBuilder) Name(name *I18n) *TemplateStageBuilder {
 
 // 评估模板ID
 //
-// 示例值：7343513161666707459
+// 示例值：7343513161666707457
 func (builder *TemplateStageBuilder) TemplateGroupId(templateGroupId string) *TemplateStageBuilder {
 	builder.templateGroupId = templateGroupId
 	builder.templateGroupIdSet = true
@@ -6347,7 +6343,7 @@ func (builder *TemplateStageBuilder) TemplateGroupId(templateGroupId string) *Te
 
 // 环节类型
 //
-// 示例值：
+// 示例值：summarize_key_outputs
 func (builder *TemplateStageBuilder) StageType(stageType string) *TemplateStageBuilder {
 	builder.stageType = stageType
 	builder.stageTypeSet = true
@@ -6356,7 +6352,7 @@ func (builder *TemplateStageBuilder) StageType(stageType string) *TemplateStageB
 
 // 执行角色
 //
-// 示例值：
+// 示例值：reviewee
 func (builder *TemplateStageBuilder) PerformRole(performRole string) *TemplateStageBuilder {
 	builder.performRole = performRole
 	builder.performRoleSet = true
@@ -6365,7 +6361,7 @@ func (builder *TemplateStageBuilder) PerformRole(performRole string) *TemplateSt
 
 // 是否作为终评
 //
-// 示例值：
+// 示例值：false
 func (builder *TemplateStageBuilder) AsFinalResult(asFinalResult bool) *TemplateStageBuilder {
 	builder.asFinalResult = asFinalResult
 	builder.asFinalResultSet = true
@@ -6403,7 +6399,7 @@ func (builder *TemplateStageBuilder) Build() *TemplateStage {
 type Unit struct {
 	UnitId *string `json:"unit_id,omitempty"` // 评估内容 ID
 
-	Name *I18n `json:"name,omitempty"` // 评估内容名称
+	Name *I18n `json:"name,omitempty"` // 项目名称
 
 	Fields []*Field `json:"fields,omitempty"` // 评估题列表，指评估内容中的每个题，可能是评估项或者填写项
 }
@@ -6412,7 +6408,7 @@ type UnitBuilder struct {
 	unitId    string // 评估内容 ID
 	unitIdSet bool
 
-	name    *I18n // 评估内容名称
+	name    *I18n // 项目名称
 	nameSet bool
 
 	fields    []*Field // 评估题列表，指评估内容中的每个题，可能是评估项或者填写项
@@ -6433,7 +6429,7 @@ func (builder *UnitBuilder) UnitId(unitId string) *UnitBuilder {
 	return builder
 }
 
-// 评估内容名称
+// 项目名称
 //
 // 示例值：
 func (builder *UnitBuilder) Name(name *I18n) *UnitBuilder {
@@ -6467,16 +6463,16 @@ func (builder *UnitBuilder) Build() *Unit {
 }
 
 type User struct {
-	OpenId *string `json:"open_id,omitempty"` // 用户的 open_id
+	OpenId *string `json:"open_id,omitempty"` // 人员的直属上级的 open_id
 
-	UserId *string `json:"user_id,omitempty"` // 用户的 user_id，取值与user_id_type一致
+	UserId *string `json:"user_id,omitempty"` // 用户的 user_id，与入参 `user_id_type` 类型一致
 }
 
 type UserBuilder struct {
-	openId    string // 用户的 open_id
+	openId    string // 人员的直属上级的 open_id
 	openIdSet bool
 
-	userId    string // 用户的 user_id，取值与user_id_type一致
+	userId    string // 用户的 user_id，与入参 `user_id_type` 类型一致
 	userIdSet bool
 }
 
@@ -6485,18 +6481,18 @@ func NewUserBuilder() *UserBuilder {
 	return builder
 }
 
-// 用户的 open_id
+// 人员的直属上级的 open_id
 //
-// 示例值：od-asd2dasdasd
+// 示例值：od-xxx2dasdasd
 func (builder *UserBuilder) OpenId(openId string) *UserBuilder {
 	builder.openId = openId
 	builder.openIdSet = true
 	return builder
 }
 
-// 用户的 user_id，取值与user_id_type一致
+// 用户的 user_id，与入参 `user_id_type` 类型一致
 //
-// 示例值：ou-ux987dsf6x
+// 示例值：ou-xxx87dsf6x
 func (builder *UserBuilder) UserId(userId string) *UserBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -6517,18 +6513,18 @@ func (builder *UserBuilder) Build() *User {
 }
 
 type UserEvaluationScale struct {
-	IndicatorId *string `json:"indicator_id,omitempty"` // 评估项 ID
+	IndicatorId *string `json:"indicator_id,omitempty"` // 评估项 ID，可通过[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query)解析
 
-	DistributeType *int `json:"distribute_type,omitempty"` // 360° 评估人的评估尺度标签
+	DistributeType *int `json:"distribute_type,omitempty"` // 360° 评估人的评估尺度标签;;**可选值有：**;- `1`：严格;- `2`：适中;- `3`：宽松
 
 	AvgDiff *string `json:"avg_diff,omitempty"` // 360° 评估人的评估尺度数值
 }
 
 type UserEvaluationScaleBuilder struct {
-	indicatorId    string // 评估项 ID
+	indicatorId    string // 评估项 ID，可通过[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query)解析
 	indicatorIdSet bool
 
-	distributeType    int // 360° 评估人的评估尺度标签
+	distributeType    int // 360° 评估人的评估尺度标签;;**可选值有：**;- `1`：严格;- `2`：适中;- `3`：宽松
 	distributeTypeSet bool
 
 	avgDiff    string // 360° 评估人的评估尺度数值
@@ -6540,7 +6536,7 @@ func NewUserEvaluationScaleBuilder() *UserEvaluationScaleBuilder {
 	return builder
 }
 
-// 评估项 ID
+// 评估项 ID，可通过[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query)解析
 //
 // 示例值：7343513161666707459
 func (builder *UserEvaluationScaleBuilder) IndicatorId(indicatorId string) *UserEvaluationScaleBuilder {
@@ -6549,7 +6545,7 @@ func (builder *UserEvaluationScaleBuilder) IndicatorId(indicatorId string) *User
 	return builder
 }
 
-// 360° 评估人的评估尺度标签
+// 360° 评估人的评估尺度标签;;**可选值有：**;- `1`：严格;- `2`：适中;- `3`：宽松
 //
 // 示例值：1
 func (builder *UserEvaluationScaleBuilder) DistributeType(distributeType int) *UserEvaluationScaleBuilder {
@@ -6608,8 +6604,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -6617,8 +6611,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -6626,8 +6618,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -6653,9 +6643,9 @@ func (builder *UserIdBuilder) Build() *UserId {
 }
 
 type UserInfo struct {
-	UserId *User `json:"user_id,omitempty"` // 人员
+	UserId *User `json:"user_id,omitempty"` // 评估人 ID
 
-	DirectLeaderUserId *User `json:"direct_leader_user_id,omitempty"` // 用户的直属上级的用户ID
+	DirectLeaderUserId *User `json:"direct_leader_user_id,omitempty"` // 评估人 ID
 
 	Department *Department `json:"department,omitempty"` // 人员的部门
 
@@ -6665,10 +6655,10 @@ type UserInfo struct {
 }
 
 type UserInfoBuilder struct {
-	userId    *User // 人员
+	userId    *User // 评估人 ID
 	userIdSet bool
 
-	directLeaderUserId    *User // 用户的直属上级的用户ID
+	directLeaderUserId    *User // 评估人 ID
 	directLeaderUserIdSet bool
 
 	department    *Department // 人员的部门
@@ -6686,7 +6676,7 @@ func NewUserInfoBuilder() *UserInfoBuilder {
 	return builder
 }
 
-// 人员
+// 评估人 ID
 //
 // 示例值：
 func (builder *UserInfoBuilder) UserId(userId *User) *UserInfoBuilder {
@@ -6695,7 +6685,7 @@ func (builder *UserInfoBuilder) UserId(userId *User) *UserInfoBuilder {
 	return builder
 }
 
-// 用户的直属上级的用户ID
+// 评估人 ID
 //
 // 示例值：
 func (builder *UserInfoBuilder) DirectLeaderUserId(directLeaderUserId *User) *UserInfoBuilder {
@@ -6752,16 +6742,16 @@ func (builder *UserInfoBuilder) Build() *UserInfo {
 }
 
 type UserOkr struct {
-	RevieweeUserId *User `json:"reviewee_user_id,omitempty"` // 被评估人 ID
+	RevieweeUserId *User `json:"reviewee_user_id,omitempty"` // 评估人 ID
 
-	Okrs []*Okr `json:"okrs,omitempty"` // OKR快照数据
+	Okrs []*Okr `json:"okrs,omitempty"` // OKR 快照数据
 }
 
 type UserOkrBuilder struct {
-	revieweeUserId    *User // 被评估人 ID
+	revieweeUserId    *User // 评估人 ID
 	revieweeUserIdSet bool
 
-	okrs    []*Okr // OKR快照数据
+	okrs    []*Okr // OKR 快照数据
 	okrsSet bool
 }
 
@@ -6770,7 +6760,7 @@ func NewUserOkrBuilder() *UserOkrBuilder {
 	return builder
 }
 
-// 被评估人 ID
+// 评估人 ID
 //
 // 示例值：
 func (builder *UserOkrBuilder) RevieweeUserId(revieweeUserId *User) *UserOkrBuilder {
@@ -6779,7 +6769,7 @@ func (builder *UserOkrBuilder) RevieweeUserId(revieweeUserId *User) *UserOkrBuil
 	return builder
 }
 
-// OKR快照数据
+// OKR 快照数据
 //
 // 示例值：
 func (builder *UserOkrBuilder) Okrs(okrs []*Okr) *UserOkrBuilder {
@@ -6800,16 +6790,16 @@ func (builder *UserOkrBuilder) Build() *UserOkr {
 }
 
 type WriteUserGroupScopeData struct {
-	SuccessUserIds []string `json:"success_user_ids,omitempty"` // 写入成功员工user_id列表
+	SuccessUserIds []string `json:"success_user_ids,omitempty"` // 更新成功的员工 ID 列表，与入参 `user_id_type` 类型一致
 
-	FailUserDatas []*WriteUserGroupScopeFailUserData `json:"fail_user_datas,omitempty"` // 失败的员工信息列表
+	FailUserDatas []*WriteUserGroupScopeFailUserData `json:"fail_user_datas,omitempty"` // 更新失败的员工信息
 }
 
 type WriteUserGroupScopeDataBuilder struct {
-	successUserIds    []string // 写入成功员工user_id列表
+	successUserIds    []string // 更新成功的员工 ID 列表，与入参 `user_id_type` 类型一致
 	successUserIdsSet bool
 
-	failUserDatas    []*WriteUserGroupScopeFailUserData // 失败的员工信息列表
+	failUserDatas    []*WriteUserGroupScopeFailUserData // 更新失败的员工信息
 	failUserDatasSet bool
 }
 
@@ -6818,7 +6808,7 @@ func NewWriteUserGroupScopeDataBuilder() *WriteUserGroupScopeDataBuilder {
 	return builder
 }
 
-// 写入成功员工user_id列表
+// 更新成功的员工 ID 列表，与入参 `user_id_type` 类型一致
 //
 // 示例值：
 func (builder *WriteUserGroupScopeDataBuilder) SuccessUserIds(successUserIds []string) *WriteUserGroupScopeDataBuilder {
@@ -6827,7 +6817,7 @@ func (builder *WriteUserGroupScopeDataBuilder) SuccessUserIds(successUserIds []s
 	return builder
 }
 
-// 失败的员工信息列表
+// 更新失败的员工信息
 //
 // 示例值：
 func (builder *WriteUserGroupScopeDataBuilder) FailUserDatas(failUserDatas []*WriteUserGroupScopeFailUserData) *WriteUserGroupScopeDataBuilder {
@@ -6848,13 +6838,13 @@ func (builder *WriteUserGroupScopeDataBuilder) Build() *WriteUserGroupScopeData 
 }
 
 type WriteUserGroupScopeFailUserData struct {
-	UserId *string `json:"user_id,omitempty"` // 员工user_id
+	UserId *string `json:"user_id,omitempty"` // 员工 ID，与入参 `user_id_type` 类型一致
 
 	FailCode *int `json:"fail_code,omitempty"` // 失败原因枚举
 }
 
 type WriteUserGroupScopeFailUserDataBuilder struct {
-	userId    string // 员工user_id
+	userId    string // 员工 ID，与入参 `user_id_type` 类型一致
 	userIdSet bool
 
 	failCode    int // 失败原因枚举
@@ -6866,9 +6856,9 @@ func NewWriteUserGroupScopeFailUserDataBuilder() *WriteUserGroupScopeFailUserDat
 	return builder
 }
 
-// 员工user_id
+// 员工 ID，与入参 `user_id_type` 类型一致
 //
-// 示例值：
+// 示例值：ou_ff77dba046431fc53ea21a0095df82f4
 func (builder *WriteUserGroupScopeFailUserDataBuilder) UserId(userId string) *WriteUserGroupScopeFailUserDataBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -6898,10 +6888,10 @@ func (builder *WriteUserGroupScopeFailUserDataBuilder) Build() *WriteUserGroupSc
 }
 
 type QueryActivityReqBodyBuilder struct {
-	semesterIds    []string // 评估周期 ID 列表，获取指定评估周期的项目 ID，semester_id 可通过【获取周期】接口获得
+	semesterIds    []string // 评估周期 ID 列表，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)获取;;;**注意**：若填写了 `activity_ids` 参数时，此参数无效
 	semesterIdsSet bool
 
-	activityIds    []string // 项目 ID 列表，如果同时传了「semester_ids」，则优先以「activity_ids」进行查询
+	activityIds    []string // 项目 ID 列表
 	activityIdsSet bool
 }
 
@@ -6910,18 +6900,18 @@ func NewQueryActivityReqBodyBuilder() *QueryActivityReqBodyBuilder {
 	return builder
 }
 
-// 评估周期 ID 列表，获取指定评估周期的项目 ID，semester_id 可通过【获取周期】接口获得
+// 评估周期 ID 列表，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)获取;;;**注意**：若填写了 `activity_ids` 参数时，此参数无效
 //
-//示例值：
+// 示例值：
 func (builder *QueryActivityReqBodyBuilder) SemesterIds(semesterIds []string) *QueryActivityReqBodyBuilder {
 	builder.semesterIds = semesterIds
 	builder.semesterIdsSet = true
 	return builder
 }
 
-// 项目 ID 列表，如果同时传了「semester_ids」，则优先以「activity_ids」进行查询
+// 项目 ID 列表
 //
-//示例值：
+// 示例值：
 func (builder *QueryActivityReqBodyBuilder) ActivityIds(activityIds []string) *QueryActivityReqBodyBuilder {
 	builder.activityIds = activityIds
 	builder.activityIdsSet = true
@@ -6951,7 +6941,7 @@ func NewQueryActivityPathReqBodyBuilder() *QueryActivityPathReqBodyBuilder {
 	return builder
 }
 
-// 评估周期 ID 列表，获取指定评估周期的项目 ID，semester_id 可通过【获取周期】接口获得
+// 评估周期 ID 列表，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)获取;;;**注意**：若填写了 `activity_ids` 参数时，此参数无效
 //
 // 示例值：
 func (builder *QueryActivityPathReqBodyBuilder) SemesterIds(semesterIds []string) *QueryActivityPathReqBodyBuilder {
@@ -6960,7 +6950,7 @@ func (builder *QueryActivityPathReqBodyBuilder) SemesterIds(semesterIds []string
 	return builder
 }
 
-// 项目 ID 列表，如果同时传了「semester_ids」，则优先以「activity_ids」进行查询
+// 项目 ID 列表
 //
 // 示例值：
 func (builder *QueryActivityPathReqBodyBuilder) ActivityIds(activityIds []string) *QueryActivityPathReqBodyBuilder {
@@ -6994,15 +6984,13 @@ func NewQueryActivityReqBuilder() *QueryActivityReqBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *QueryActivityReqBuilder) UserIdType(userIdType string) *QueryActivityReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
-// 获取项目的信息
+// 批量获取项目的配置信息，如项目名称、项目模式等信息。
 func (builder *QueryActivityReqBuilder) Body(body *QueryActivityReqBody) *QueryActivityReqBuilder {
 	builder.body = body
 	return builder
@@ -7017,9 +7005,9 @@ func (builder *QueryActivityReqBuilder) Build() *QueryActivityReq {
 }
 
 type QueryActivityReqBody struct {
-	SemesterIds []string `json:"semester_ids,omitempty"` // 评估周期 ID 列表，获取指定评估周期的项目 ID，semester_id 可通过【获取周期】接口获得
+	SemesterIds []string `json:"semester_ids,omitempty"` // 评估周期 ID 列表，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)获取;;;**注意**：若填写了 `activity_ids` 参数时，此参数无效
 
-	ActivityIds []string `json:"activity_ids,omitempty"` // 项目 ID 列表，如果同时传了「semester_ids」，则优先以「activity_ids」进行查询
+	ActivityIds []string `json:"activity_ids,omitempty"` // 项目 ID 列表
 }
 
 type QueryActivityReq struct {
@@ -7028,7 +7016,7 @@ type QueryActivityReq struct {
 }
 
 type QueryActivityRespData struct {
-	Activities []*Activity `json:"activities,omitempty"` // 绩效评估项目列表。
+	Activities []*Activity `json:"activities,omitempty"` // 项目列表
 }
 
 type QueryActivityResp struct {
@@ -7042,13 +7030,13 @@ func (resp *QueryActivityResp) Success() bool {
 }
 
 type ImportAdditionalInformationReqBodyBuilder struct {
-	semesterId    string // 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
+	semesterId    string // 评估周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 	semesterIdSet bool
 
-	additionalInformations    []*AdditionalInformation // 补充信息列表，一次最多 1000 个
+	additionalInformations    []*AdditionalInformation // 补充信息列表
 	additionalInformationsSet bool
 
-	importRecordName    string // 导入记录名称，管理员可在补充信息管理的导入记录中查看。不传则默认为 API 导入。
+	importRecordName    string // 补充信息导入记录名称，管理员可在补充信息管理的导入记录中查看。;;;**默认值**："API导入"
 	importRecordNameSet bool
 }
 
@@ -7057,27 +7045,27 @@ func NewImportAdditionalInformationReqBodyBuilder() *ImportAdditionalInformation
 	return builder
 }
 
-// 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
+// 评估周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 //
-//示例值：7348736302176534547
+// 示例值：7348736302176534547
 func (builder *ImportAdditionalInformationReqBodyBuilder) SemesterId(semesterId string) *ImportAdditionalInformationReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdSet = true
 	return builder
 }
 
-// 补充信息列表，一次最多 1000 个
+// 补充信息列表
 //
-//示例值：
+// 示例值：
 func (builder *ImportAdditionalInformationReqBodyBuilder) AdditionalInformations(additionalInformations []*AdditionalInformation) *ImportAdditionalInformationReqBodyBuilder {
 	builder.additionalInformations = additionalInformations
 	builder.additionalInformationsSet = true
 	return builder
 }
 
-// 导入记录名称，管理员可在补充信息管理的导入记录中查看。不传则默认为 API 导入。
+// 补充信息导入记录名称，管理员可在补充信息管理的导入记录中查看。;;;**默认值**："API导入"
 //
-//示例值：API导入
+// 示例值：人工导入
 func (builder *ImportAdditionalInformationReqBodyBuilder) ImportRecordName(importRecordName string) *ImportAdditionalInformationReqBodyBuilder {
 	builder.importRecordName = importRecordName
 	builder.importRecordNameSet = true
@@ -7112,7 +7100,7 @@ func NewImportAdditionalInformationPathReqBodyBuilder() *ImportAdditionalInforma
 	return builder
 }
 
-// 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
+// 评估周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 //
 // 示例值：7348736302176534547
 func (builder *ImportAdditionalInformationPathReqBodyBuilder) SemesterId(semesterId string) *ImportAdditionalInformationPathReqBodyBuilder {
@@ -7121,7 +7109,7 @@ func (builder *ImportAdditionalInformationPathReqBodyBuilder) SemesterId(semeste
 	return builder
 }
 
-// 补充信息列表，一次最多 1000 个
+// 补充信息列表
 //
 // 示例值：
 func (builder *ImportAdditionalInformationPathReqBodyBuilder) AdditionalInformations(additionalInformations []*AdditionalInformation) *ImportAdditionalInformationPathReqBodyBuilder {
@@ -7130,9 +7118,9 @@ func (builder *ImportAdditionalInformationPathReqBodyBuilder) AdditionalInformat
 	return builder
 }
 
-// 导入记录名称，管理员可在补充信息管理的导入记录中查看。不传则默认为 API 导入。
+// 补充信息导入记录名称，管理员可在补充信息管理的导入记录中查看。;;;**默认值**："API导入"
 //
-// 示例值：API导入
+// 示例值：人工导入
 func (builder *ImportAdditionalInformationPathReqBodyBuilder) ImportRecordName(importRecordName string) *ImportAdditionalInformationPathReqBodyBuilder {
 	builder.importRecordName = importRecordName
 	builder.importRecordNameSet = true
@@ -7167,7 +7155,7 @@ func NewImportAdditionalInformationReqBuilder() *ImportAdditionalInformationReqB
 	return builder
 }
 
-// 根据 client_token 是否一致来判断是否为同一请求
+// 根据 `client_token` 是否一致来判断是否为同一请求，同一请求多次调用将被拦截
 //
 // 示例值：12454646
 func (builder *ImportAdditionalInformationReqBuilder) ClientToken(clientToken string) *ImportAdditionalInformationReqBuilder {
@@ -7175,15 +7163,13 @@ func (builder *ImportAdditionalInformationReqBuilder) ClientToken(clientToken st
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *ImportAdditionalInformationReqBuilder) UserIdType(userIdType string) *ImportAdditionalInformationReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
-// 可批量导入被评估人的补充信息作为评估参考（包括新增和更新场景）
+// 批量导入被评估人的补充信息作为绩效评估的参考，如补充信息的事项、时间以及具体描述等。该接口支持创建和更新补充信息。
 func (builder *ImportAdditionalInformationReqBuilder) Body(body *ImportAdditionalInformationReqBody) *ImportAdditionalInformationReqBuilder {
 	builder.body = body
 	return builder
@@ -7198,11 +7184,11 @@ func (builder *ImportAdditionalInformationReqBuilder) Build() *ImportAdditionalI
 }
 
 type ImportAdditionalInformationReqBody struct {
-	SemesterId *string `json:"semester_id,omitempty"` // 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
+	SemesterId *string `json:"semester_id,omitempty"` // 评估周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 
-	AdditionalInformations []*AdditionalInformation `json:"additional_informations,omitempty"` // 补充信息列表，一次最多 1000 个
+	AdditionalInformations []*AdditionalInformation `json:"additional_informations,omitempty"` // 补充信息列表
 
-	ImportRecordName *string `json:"import_record_name,omitempty"` // 导入记录名称，管理员可在补充信息管理的导入记录中查看。不传则默认为 API 导入。
+	ImportRecordName *string `json:"import_record_name,omitempty"` // 补充信息导入记录名称，管理员可在补充信息管理的导入记录中查看。;;;**默认值**："API导入"
 }
 
 type ImportAdditionalInformationReq struct {
@@ -7227,16 +7213,16 @@ func (resp *ImportAdditionalInformationResp) Success() bool {
 }
 
 type QueryAdditionalInformationReqBodyBuilder struct {
-	semesterId    string // 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
+	semesterId    string // 评估周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取;;;**注意**：若请求参数 `item_ids`、`external_ids`、`reviewee_user_ids` 均为空，返回 `semester_id` 参数指定周期的所有补充信息
 	semesterIdSet bool
 
-	itemIds    []string // 事项 ID 列表，获取指定事项 ID 的信息。以下请求参数中「item_ids」、「external_ids」、「reviewee_user_ids」均为空时，返回该评估周期的所有补充信息。若单次请求中多个请求参数有值，按照【item_ids > external_ids > reviewee_user_ids】的顺序只识别第一个有值的请求参数
+	itemIds    []string // 补充信息 ID 列表，可通过[批量导入补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/import)接口获取;;;**说明**：若提供多个筛选参数，按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序，以第一个有值的筛选参数进行筛选
 	itemIdsSet bool
 
-	externalIds    []string // 外部系统的事项 ID 列表，获取对应的飞书绩效事项 ID。「item_ids」参数有值时该参数不生效
+	externalIds    []string // 外部系统补充信息 ID 列表，该 ID 在通过[批量导入补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/import)接口导入时写入;;;**说明**：若提供多个筛选参数，按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序，以第一个有值的筛选参数进行筛选
 	externalIdsSet bool
 
-	revieweeUserIds    []string // 被评估人 ID 列表，获取周期下被评估人的事项信息。「item_ids」、「external_ids」参数有值时该参数不生效
+	revieweeUserIds    []string // 被评估人 ID 列表，与入参 `user_id_type` 类型一致，可通过[获取被评估人信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/reviewee/query)接口获取;;;**说明**：若提供多个筛选参数，按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序，以第一个有值的筛选参数进行筛选
 	revieweeUserIdsSet bool
 }
 
@@ -7245,36 +7231,36 @@ func NewQueryAdditionalInformationReqBodyBuilder() *QueryAdditionalInformationRe
 	return builder
 }
 
-// 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
+// 评估周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取;;;**注意**：若请求参数 `item_ids`、`external_ids`、`reviewee_user_ids` 均为空，返回 `semester_id` 参数指定周期的所有补充信息
 //
-//示例值：7348736302176534547
+// 示例值：7348736302176534547
 func (builder *QueryAdditionalInformationReqBodyBuilder) SemesterId(semesterId string) *QueryAdditionalInformationReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdSet = true
 	return builder
 }
 
-// 事项 ID 列表，获取指定事项 ID 的信息。以下请求参数中「item_ids」、「external_ids」、「reviewee_user_ids」均为空时，返回该评估周期的所有补充信息。若单次请求中多个请求参数有值，按照【item_ids > external_ids > reviewee_user_ids】的顺序只识别第一个有值的请求参数
+// 补充信息 ID 列表，可通过[批量导入补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/import)接口获取;;;**说明**：若提供多个筛选参数，按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序，以第一个有值的筛选参数进行筛选
 //
-//示例值：
+// 示例值：
 func (builder *QueryAdditionalInformationReqBodyBuilder) ItemIds(itemIds []string) *QueryAdditionalInformationReqBodyBuilder {
 	builder.itemIds = itemIds
 	builder.itemIdsSet = true
 	return builder
 }
 
-// 外部系统的事项 ID 列表，获取对应的飞书绩效事项 ID。「item_ids」参数有值时该参数不生效
+// 外部系统补充信息 ID 列表，该 ID 在通过[批量导入补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/import)接口导入时写入;;;**说明**：若提供多个筛选参数，按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序，以第一个有值的筛选参数进行筛选
 //
-//示例值：
+// 示例值：
 func (builder *QueryAdditionalInformationReqBodyBuilder) ExternalIds(externalIds []string) *QueryAdditionalInformationReqBodyBuilder {
 	builder.externalIds = externalIds
 	builder.externalIdsSet = true
 	return builder
 }
 
-// 被评估人 ID 列表，获取周期下被评估人的事项信息。「item_ids」、「external_ids」参数有值时该参数不生效
+// 被评估人 ID 列表，与入参 `user_id_type` 类型一致，可通过[获取被评估人信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/reviewee/query)接口获取;;;**说明**：若提供多个筛选参数，按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序，以第一个有值的筛选参数进行筛选
 //
-//示例值：
+// 示例值：
 func (builder *QueryAdditionalInformationReqBodyBuilder) RevieweeUserIds(revieweeUserIds []string) *QueryAdditionalInformationReqBodyBuilder {
 	builder.revieweeUserIds = revieweeUserIds
 	builder.revieweeUserIdsSet = true
@@ -7314,7 +7300,7 @@ func NewQueryAdditionalInformationPathReqBodyBuilder() *QueryAdditionalInformati
 	return builder
 }
 
-// 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
+// 评估周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取;;;**注意**：若请求参数 `item_ids`、`external_ids`、`reviewee_user_ids` 均为空，返回 `semester_id` 参数指定周期的所有补充信息
 //
 // 示例值：7348736302176534547
 func (builder *QueryAdditionalInformationPathReqBodyBuilder) SemesterId(semesterId string) *QueryAdditionalInformationPathReqBodyBuilder {
@@ -7323,7 +7309,7 @@ func (builder *QueryAdditionalInformationPathReqBodyBuilder) SemesterId(semester
 	return builder
 }
 
-// 事项 ID 列表，获取指定事项 ID 的信息。以下请求参数中「item_ids」、「external_ids」、「reviewee_user_ids」均为空时，返回该评估周期的所有补充信息。若单次请求中多个请求参数有值，按照【item_ids > external_ids > reviewee_user_ids】的顺序只识别第一个有值的请求参数
+// 补充信息 ID 列表，可通过[批量导入补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/import)接口获取;;;**说明**：若提供多个筛选参数，按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序，以第一个有值的筛选参数进行筛选
 //
 // 示例值：
 func (builder *QueryAdditionalInformationPathReqBodyBuilder) ItemIds(itemIds []string) *QueryAdditionalInformationPathReqBodyBuilder {
@@ -7332,7 +7318,7 @@ func (builder *QueryAdditionalInformationPathReqBodyBuilder) ItemIds(itemIds []s
 	return builder
 }
 
-// 外部系统的事项 ID 列表，获取对应的飞书绩效事项 ID。「item_ids」参数有值时该参数不生效
+// 外部系统补充信息 ID 列表，该 ID 在通过[批量导入补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/import)接口导入时写入;;;**说明**：若提供多个筛选参数，按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序，以第一个有值的筛选参数进行筛选
 //
 // 示例值：
 func (builder *QueryAdditionalInformationPathReqBodyBuilder) ExternalIds(externalIds []string) *QueryAdditionalInformationPathReqBodyBuilder {
@@ -7341,7 +7327,7 @@ func (builder *QueryAdditionalInformationPathReqBodyBuilder) ExternalIds(externa
 	return builder
 }
 
-// 被评估人 ID 列表，获取周期下被评估人的事项信息。「item_ids」、「external_ids」参数有值时该参数不生效
+// 被评估人 ID 列表，与入参 `user_id_type` 类型一致，可通过[获取被评估人信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/reviewee/query)接口获取;;;**说明**：若提供多个筛选参数，按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序，以第一个有值的筛选参数进行筛选
 //
 // 示例值：
 func (builder *QueryAdditionalInformationPathReqBodyBuilder) RevieweeUserIds(revieweeUserIds []string) *QueryAdditionalInformationPathReqBodyBuilder {
@@ -7388,8 +7374,6 @@ func (builder *QueryAdditionalInformationReqBuilder) Limit(limit int) *QueryAddi
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *QueryAdditionalInformationReqBuilder) UserIdType(userIdType string) *QueryAdditionalInformationReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -7404,7 +7388,7 @@ func (builder *QueryAdditionalInformationReqBuilder) PageToken(pageToken string)
 	return builder
 }
 
-// 分页大小 示例值：30 默认值：20 数据校验规则：最大值：50
+// 分页大小
 //
 // 示例值：30
 func (builder *QueryAdditionalInformationReqBuilder) PageSize(pageSize int) *QueryAdditionalInformationReqBuilder {
@@ -7412,7 +7396,7 @@ func (builder *QueryAdditionalInformationReqBuilder) PageSize(pageSize int) *Que
 	return builder
 }
 
-// 可批量查询被评估人的补充信息
+// 批量查询被评估人的补充信息，如补充信息的事项、时间以及具体描述等。
 func (builder *QueryAdditionalInformationReqBuilder) Body(body *QueryAdditionalInformationReqBody) *QueryAdditionalInformationReqBuilder {
 	builder.body = body
 	return builder
@@ -7428,13 +7412,13 @@ func (builder *QueryAdditionalInformationReqBuilder) Build() *QueryAdditionalInf
 }
 
 type QueryAdditionalInformationReqBody struct {
-	SemesterId *string `json:"semester_id,omitempty"` // 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
+	SemesterId *string `json:"semester_id,omitempty"` // 评估周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取;;;**注意**：若请求参数 `item_ids`、`external_ids`、`reviewee_user_ids` 均为空，返回 `semester_id` 参数指定周期的所有补充信息
 
-	ItemIds []string `json:"item_ids,omitempty"` // 事项 ID 列表，获取指定事项 ID 的信息。以下请求参数中「item_ids」、「external_ids」、「reviewee_user_ids」均为空时，返回该评估周期的所有补充信息。若单次请求中多个请求参数有值，按照【item_ids > external_ids > reviewee_user_ids】的顺序只识别第一个有值的请求参数
+	ItemIds []string `json:"item_ids,omitempty"` // 补充信息 ID 列表，可通过[批量导入补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/import)接口获取;;;**说明**：若提供多个筛选参数，按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序，以第一个有值的筛选参数进行筛选
 
-	ExternalIds []string `json:"external_ids,omitempty"` // 外部系统的事项 ID 列表，获取对应的飞书绩效事项 ID。「item_ids」参数有值时该参数不生效
+	ExternalIds []string `json:"external_ids,omitempty"` // 外部系统补充信息 ID 列表，该 ID 在通过[批量导入补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/import)接口导入时写入;;;**说明**：若提供多个筛选参数，按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序，以第一个有值的筛选参数进行筛选
 
-	RevieweeUserIds []string `json:"reviewee_user_ids,omitempty"` // 被评估人 ID 列表，获取周期下被评估人的事项信息。「item_ids」、「external_ids」参数有值时该参数不生效
+	RevieweeUserIds []string `json:"reviewee_user_ids,omitempty"` // 被评估人 ID 列表，与入参 `user_id_type` 类型一致，可通过[获取被评估人信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/reviewee/query)接口获取;;;**说明**：若提供多个筛选参数，按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序，以第一个有值的筛选参数进行筛选
 }
 
 type QueryAdditionalInformationReq struct {
@@ -7463,10 +7447,10 @@ func (resp *QueryAdditionalInformationResp) Success() bool {
 }
 
 type DeleteAdditionalInformationsBatchReqBodyBuilder struct {
-	semesterId    string // 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
+	semesterId    string // 评估周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 	semesterIdSet bool
 
-	additionalInformations    []string // 补充信息列表，一次最多 100 个
+	additionalInformations    []string // 补充信息 ID 列表，可通过[批量查询补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/query)接口获取
 	additionalInformationsSet bool
 }
 
@@ -7475,18 +7459,18 @@ func NewDeleteAdditionalInformationsBatchReqBodyBuilder() *DeleteAdditionalInfor
 	return builder
 }
 
-// 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
+// 评估周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 //
-//示例值：7348736302176534547
+// 示例值：7348736302176534547
 func (builder *DeleteAdditionalInformationsBatchReqBodyBuilder) SemesterId(semesterId string) *DeleteAdditionalInformationsBatchReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdSet = true
 	return builder
 }
 
-// 补充信息列表，一次最多 100 个
+// 补充信息 ID 列表，可通过[批量查询补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/query)接口获取
 //
-//示例值：
+// 示例值：
 func (builder *DeleteAdditionalInformationsBatchReqBodyBuilder) AdditionalInformations(additionalInformations []string) *DeleteAdditionalInformationsBatchReqBodyBuilder {
 	builder.additionalInformations = additionalInformations
 	builder.additionalInformationsSet = true
@@ -7516,7 +7500,7 @@ func NewDeleteAdditionalInformationsBatchPathReqBodyBuilder() *DeleteAdditionalI
 	return builder
 }
 
-// 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
+// 评估周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 //
 // 示例值：7348736302176534547
 func (builder *DeleteAdditionalInformationsBatchPathReqBodyBuilder) SemesterId(semesterId string) *DeleteAdditionalInformationsBatchPathReqBodyBuilder {
@@ -7525,7 +7509,7 @@ func (builder *DeleteAdditionalInformationsBatchPathReqBodyBuilder) SemesterId(s
 	return builder
 }
 
-// 补充信息列表，一次最多 100 个
+// 补充信息 ID 列表，可通过[批量查询补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/query)接口获取
 //
 // 示例值：
 func (builder *DeleteAdditionalInformationsBatchPathReqBodyBuilder) AdditionalInformations(additionalInformations []string) *DeleteAdditionalInformationsBatchPathReqBodyBuilder {
@@ -7559,15 +7543,13 @@ func NewDeleteAdditionalInformationsBatchReqBuilder() *DeleteAdditionalInformati
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *DeleteAdditionalInformationsBatchReqBuilder) UserIdType(userIdType string) *DeleteAdditionalInformationsBatchReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
-// 批量删除补充信息
+// 批量删除被评估人的补充信息。
 func (builder *DeleteAdditionalInformationsBatchReqBuilder) Body(body *DeleteAdditionalInformationsBatchReqBody) *DeleteAdditionalInformationsBatchReqBuilder {
 	builder.body = body
 	return builder
@@ -7582,9 +7564,9 @@ func (builder *DeleteAdditionalInformationsBatchReqBuilder) Build() *DeleteAddit
 }
 
 type DeleteAdditionalInformationsBatchReqBody struct {
-	SemesterId *string `json:"semester_id,omitempty"` // 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
+	SemesterId *string `json:"semester_id,omitempty"` // 评估周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 
-	AdditionalInformations []string `json:"additional_informations,omitempty"` // 补充信息列表，一次最多 100 个
+	AdditionalInformations []string `json:"additional_informations,omitempty"` // 补充信息 ID 列表，可通过[批量查询补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/query)接口获取
 }
 
 type DeleteAdditionalInformationsBatchReq struct {
@@ -7593,7 +7575,7 @@ type DeleteAdditionalInformationsBatchReq struct {
 }
 
 type DeleteAdditionalInformationsBatchRespData struct {
-	AdditionalInformations []string `json:"additional_informations,omitempty"` // 被删除的补充信息列表
+	AdditionalInformations []string `json:"additional_informations,omitempty"` // 被删除的补充信息 ID 列表
 }
 
 type DeleteAdditionalInformationsBatchResp struct {
@@ -7607,7 +7589,7 @@ func (resp *DeleteAdditionalInformationsBatchResp) Success() bool {
 }
 
 type QueryIndicatorReqBodyBuilder struct {
-	indicatorIds    []string // 评估项 ID 列表，获取指定评估项的配置数据
+	indicatorIds    []string // 评估项 ID 列表，填写时获取指定的评估项，不填时返回所有评估项
 	indicatorIdsSet bool
 }
 
@@ -7616,9 +7598,9 @@ func NewQueryIndicatorReqBodyBuilder() *QueryIndicatorReqBodyBuilder {
 	return builder
 }
 
-// 评估项 ID 列表，获取指定评估项的配置数据
+// 评估项 ID 列表，填写时获取指定的评估项，不填时返回所有评估项
 //
-//示例值：
+// 示例值：
 func (builder *QueryIndicatorReqBodyBuilder) IndicatorIds(indicatorIds []string) *QueryIndicatorReqBodyBuilder {
 	builder.indicatorIds = indicatorIds
 	builder.indicatorIdsSet = true
@@ -7643,7 +7625,7 @@ func NewQueryIndicatorPathReqBodyBuilder() *QueryIndicatorPathReqBodyBuilder {
 	return builder
 }
 
-// 评估项 ID 列表，获取指定评估项的配置数据
+// 评估项 ID 列表，填写时获取指定的评估项，不填时返回所有评估项
 //
 // 示例值：
 func (builder *QueryIndicatorPathReqBodyBuilder) IndicatorIds(indicatorIds []string) *QueryIndicatorPathReqBodyBuilder {
@@ -7697,7 +7679,7 @@ func (builder *QueryIndicatorReqBuilder) PageSize(pageSize int) *QueryIndicatorR
 	return builder
 }
 
-// 获取评估题配置
+// 批量获取评估项信息，如评估项名称、评估项类型、评估项等级配置等信息。
 func (builder *QueryIndicatorReqBuilder) Body(body *QueryIndicatorReqBody) *QueryIndicatorReqBuilder {
 	builder.body = body
 	return builder
@@ -7713,7 +7695,7 @@ func (builder *QueryIndicatorReqBuilder) Build() *QueryIndicatorReq {
 }
 
 type QueryIndicatorReqBody struct {
-	IndicatorIds []string `json:"indicator_ids,omitempty"` // 评估项 ID 列表，获取指定评估项的配置数据
+	IndicatorIds []string `json:"indicator_ids,omitempty"` // 评估项 ID 列表，填写时获取指定的评估项，不填时返回所有评估项
 }
 
 type QueryIndicatorReq struct {
@@ -7742,13 +7724,13 @@ func (resp *QueryIndicatorResp) Success() bool {
 }
 
 type ImportMetricDetailReqBodyBuilder struct {
-	semesterId    string // 周期 ID，semester_id 可通过【获取周期】接口获得
+	semesterId    string // 周期 ID，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 	semesterIdSet bool
 
-	importRecordName    string // 录入记录名称，数据源录入人在录入记录页面可以查看该记录名称。如果不传则默认为「API 录入」
+	importRecordName    string // 数据源录入人，在录入记录页面可以查看该记录名称。
 	importRecordNameSet bool
 
-	importedMetrics    []*ImportedMetric // 指标明细列表，一次最多50个
+	importedMetrics    []*ImportedMetric // 指标明细列表
 	importedMetricsSet bool
 }
 
@@ -7757,27 +7739,27 @@ func NewImportMetricDetailReqBodyBuilder() *ImportMetricDetailReqBodyBuilder {
 	return builder
 }
 
-// 周期 ID，semester_id 可通过【获取周期】接口获得
+// 周期 ID，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 //
-//示例值：7293040702907514899
+// 示例值：7293040702907514899
 func (builder *ImportMetricDetailReqBodyBuilder) SemesterId(semesterId string) *ImportMetricDetailReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdSet = true
 	return builder
 }
 
-// 录入记录名称，数据源录入人在录入记录页面可以查看该记录名称。如果不传则默认为「API 录入」
+// 数据源录入人，在录入记录页面可以查看该记录名称。
 //
-//示例值：API录入
+// 示例值：API录入
 func (builder *ImportMetricDetailReqBodyBuilder) ImportRecordName(importRecordName string) *ImportMetricDetailReqBodyBuilder {
 	builder.importRecordName = importRecordName
 	builder.importRecordNameSet = true
 	return builder
 }
 
-// 指标明细列表，一次最多50个
+// 指标明细列表
 //
-//示例值：
+// 示例值：
 func (builder *ImportMetricDetailReqBodyBuilder) ImportedMetrics(importedMetrics []*ImportedMetric) *ImportMetricDetailReqBodyBuilder {
 	builder.importedMetrics = importedMetrics
 	builder.importedMetricsSet = true
@@ -7812,7 +7794,7 @@ func NewImportMetricDetailPathReqBodyBuilder() *ImportMetricDetailPathReqBodyBui
 	return builder
 }
 
-// 周期 ID，semester_id 可通过【获取周期】接口获得
+// 周期 ID，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 //
 // 示例值：7293040702907514899
 func (builder *ImportMetricDetailPathReqBodyBuilder) SemesterId(semesterId string) *ImportMetricDetailPathReqBodyBuilder {
@@ -7821,7 +7803,7 @@ func (builder *ImportMetricDetailPathReqBodyBuilder) SemesterId(semesterId strin
 	return builder
 }
 
-// 录入记录名称，数据源录入人在录入记录页面可以查看该记录名称。如果不传则默认为「API 录入」
+// 数据源录入人，在录入记录页面可以查看该记录名称。
 //
 // 示例值：API录入
 func (builder *ImportMetricDetailPathReqBodyBuilder) ImportRecordName(importRecordName string) *ImportMetricDetailPathReqBodyBuilder {
@@ -7830,7 +7812,7 @@ func (builder *ImportMetricDetailPathReqBodyBuilder) ImportRecordName(importReco
 	return builder
 }
 
-// 指标明细列表，一次最多50个
+// 指标明细列表
 //
 // 示例值：
 func (builder *ImportMetricDetailPathReqBodyBuilder) ImportedMetrics(importedMetrics []*ImportedMetric) *ImportMetricDetailPathReqBodyBuilder {
@@ -7883,7 +7865,7 @@ func (builder *ImportMetricDetailReqBuilder) UserIdType(userIdType string) *Impo
 	return builder
 }
 
-// 批量录入指定周期被评估人的关键指标详情
+// 批量录入指定周期中被评估人的关键指标数据。
 func (builder *ImportMetricDetailReqBuilder) Body(body *ImportMetricDetailReqBody) *ImportMetricDetailReqBuilder {
 	builder.body = body
 	return builder
@@ -7898,11 +7880,11 @@ func (builder *ImportMetricDetailReqBuilder) Build() *ImportMetricDetailReq {
 }
 
 type ImportMetricDetailReqBody struct {
-	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID，semester_id 可通过【获取周期】接口获得
+	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 
-	ImportRecordName *string `json:"import_record_name,omitempty"` // 录入记录名称，数据源录入人在录入记录页面可以查看该记录名称。如果不传则默认为「API 录入」
+	ImportRecordName *string `json:"import_record_name,omitempty"` // 数据源录入人，在录入记录页面可以查看该记录名称。
 
-	ImportedMetrics []*ImportedMetric `json:"imported_metrics,omitempty"` // 指标明细列表，一次最多50个
+	ImportedMetrics []*ImportedMetric `json:"imported_metrics,omitempty"` // 指标明细列表
 }
 
 type ImportMetricDetailReq struct {
@@ -7911,7 +7893,7 @@ type ImportMetricDetailReq struct {
 }
 
 type ImportMetricDetailRespData struct {
-	ImportRecordId *string `json:"import_record_id,omitempty"` // 成功时返回导入记录 ID，失败时则为 null
+	ImportRecordId *string `json:"import_record_id,omitempty"` // 导入记录 ID
 }
 
 type ImportMetricDetailResp struct {
@@ -7925,10 +7907,10 @@ func (resp *ImportMetricDetailResp) Success() bool {
 }
 
 type QueryMetricDetailReqBodyBuilder struct {
-	semesterId    string // 周期 ID，1 次只允许查询 1 个周期，semester_id 可通过【获取周期】接口获得
+	semesterId    string // 周期 ID，1 次只允许查询 1 个周期，semester_id 可通过【[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)】接口获得
 	semesterIdSet bool
 
-	revieweeUserIds    []string // 被评估人 ID 列表。如果不传则返回该周期所有参与的被评估人的关键指标详情
+	revieweeUserIds    []string // 被评估人 ID 列表，与入参 `user_id_type` 类型一致
 	revieweeUserIdsSet bool
 }
 
@@ -7937,18 +7919,18 @@ func NewQueryMetricDetailReqBodyBuilder() *QueryMetricDetailReqBodyBuilder {
 	return builder
 }
 
-// 周期 ID，1 次只允许查询 1 个周期，semester_id 可通过【获取周期】接口获得
+// 周期 ID，1 次只允许查询 1 个周期，semester_id 可通过【[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)】接口获得
 //
-//示例值：6992035450862224940
+// 示例值：6992035450862224940
 func (builder *QueryMetricDetailReqBodyBuilder) SemesterId(semesterId string) *QueryMetricDetailReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdSet = true
 	return builder
 }
 
-// 被评估人 ID 列表。如果不传则返回该周期所有参与的被评估人的关键指标详情
+// 被评估人 ID 列表，与入参 `user_id_type` 类型一致
 //
-//示例值：
+// 示例值：
 func (builder *QueryMetricDetailReqBodyBuilder) RevieweeUserIds(revieweeUserIds []string) *QueryMetricDetailReqBodyBuilder {
 	builder.revieweeUserIds = revieweeUserIds
 	builder.revieweeUserIdsSet = true
@@ -7978,7 +7960,7 @@ func NewQueryMetricDetailPathReqBodyBuilder() *QueryMetricDetailPathReqBodyBuild
 	return builder
 }
 
-// 周期 ID，1 次只允许查询 1 个周期，semester_id 可通过【获取周期】接口获得
+// 周期 ID，1 次只允许查询 1 个周期，semester_id 可通过【[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)】接口获得
 //
 // 示例值：6992035450862224940
 func (builder *QueryMetricDetailPathReqBodyBuilder) SemesterId(semesterId string) *QueryMetricDetailPathReqBodyBuilder {
@@ -7987,7 +7969,7 @@ func (builder *QueryMetricDetailPathReqBodyBuilder) SemesterId(semesterId string
 	return builder
 }
 
-// 被评估人 ID 列表。如果不传则返回该周期所有参与的被评估人的关键指标详情
+// 被评估人 ID 列表，与入参 `user_id_type` 类型一致
 //
 // 示例值：
 func (builder *QueryMetricDetailPathReqBodyBuilder) RevieweeUserIds(revieweeUserIds []string) *QueryMetricDetailPathReqBodyBuilder {
@@ -8021,15 +8003,13 @@ func NewQueryMetricDetailReqBuilder() *QueryMetricDetailReqBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *QueryMetricDetailReqBuilder) UserIdType(userIdType string) *QueryMetricDetailReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
-// 批量获取指定周期中被评估人的关键指标详情
+// 批量获取指定周期中被评估人的关键指标结果。
 func (builder *QueryMetricDetailReqBuilder) Body(body *QueryMetricDetailReqBody) *QueryMetricDetailReqBuilder {
 	builder.body = body
 	return builder
@@ -8044,9 +8024,9 @@ func (builder *QueryMetricDetailReqBuilder) Build() *QueryMetricDetailReq {
 }
 
 type QueryMetricDetailReqBody struct {
-	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID，1 次只允许查询 1 个周期，semester_id 可通过【获取周期】接口获得
+	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID，1 次只允许查询 1 个周期，semester_id 可通过【[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)】接口获得
 
-	RevieweeUserIds []string `json:"reviewee_user_ids,omitempty"` // 被评估人 ID 列表。如果不传则返回该周期所有参与的被评估人的关键指标详情
+	RevieweeUserIds []string `json:"reviewee_user_ids,omitempty"` // 被评估人 ID 列表，与入参 `user_id_type` 类型一致
 }
 
 type QueryMetricDetailReq struct {
@@ -8055,7 +8035,7 @@ type QueryMetricDetailReq struct {
 }
 
 type QueryMetricDetailRespData struct {
-	SemesterId *string `json:"semester_id,omitempty"` // 周期ID
+	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID，详情可查看：[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)
 
 	RevieweeMetrics []*RevieweeMetric `json:"reviewee_metrics,omitempty"` // 指标明细列表
 }
@@ -8071,7 +8051,7 @@ func (resp *QueryMetricDetailResp) Success() bool {
 }
 
 type QueryMetricFieldReqBodyBuilder struct {
-	fieldIds    []string // 指标的字段 ID，不传则默认获取全部字段信息
+	fieldIds    []string // 指标的字段 ID 列表，填写时获取指定指标字段，不填时获取全部指标字段
 	fieldIdsSet bool
 }
 
@@ -8080,9 +8060,9 @@ func NewQueryMetricFieldReqBodyBuilder() *QueryMetricFieldReqBodyBuilder {
 	return builder
 }
 
-// 指标的字段 ID，不传则默认获取全部字段信息
+// 指标的字段 ID 列表，填写时获取指定指标字段，不填时获取全部指标字段
 //
-//示例值：
+// 示例值：
 func (builder *QueryMetricFieldReqBodyBuilder) FieldIds(fieldIds []string) *QueryMetricFieldReqBodyBuilder {
 	builder.fieldIds = fieldIds
 	builder.fieldIdsSet = true
@@ -8107,7 +8087,7 @@ func NewQueryMetricFieldPathReqBodyBuilder() *QueryMetricFieldPathReqBodyBuilder
 	return builder
 }
 
-// 指标的字段 ID，不传则默认获取全部字段信息
+// 指标的字段 ID 列表，填写时获取指定指标字段，不填时获取全部指标字段
 //
 // 示例值：
 func (builder *QueryMetricFieldPathReqBodyBuilder) FieldIds(fieldIds []string) *QueryMetricFieldPathReqBodyBuilder {
@@ -8138,7 +8118,7 @@ func NewQueryMetricFieldReqBuilder() *QueryMetricFieldReqBuilder {
 	return builder
 }
 
-// 获取指标的字段基础信息
+// 批量获取指标的字段基础信息，如指标字段名称、指标字段类型等信息。
 func (builder *QueryMetricFieldReqBuilder) Body(body *QueryMetricFieldReqBody) *QueryMetricFieldReqBuilder {
 	builder.body = body
 	return builder
@@ -8152,7 +8132,7 @@ func (builder *QueryMetricFieldReqBuilder) Build() *QueryMetricFieldReq {
 }
 
 type QueryMetricFieldReqBody struct {
-	FieldIds []string `json:"field_ids,omitempty"` // 指标的字段 ID，不传则默认获取全部字段信息
+	FieldIds []string `json:"field_ids,omitempty"` // 指标的字段 ID 列表，填写时获取指定指标字段，不填时获取全部指标字段
 }
 
 type QueryMetricFieldReq struct {
@@ -8175,19 +8155,19 @@ func (resp *QueryMetricFieldResp) Success() bool {
 }
 
 type QueryMetricLibReqBodyBuilder struct {
-	isActive    bool // 状态是否为启用
+	isActive    bool // 指标启用状态，填写时根据指定启用状态进行筛选
 	isActiveSet bool
 
-	tagIds    []string // 指标所属的标签 ID
+	tagIds    []string // 指标标签 ID 列表，可通过[获取指标标签信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_tag/list)接口获取，填写时筛选拥有指定标签的指标
 	tagIdsSet bool
 
-	typeIds    []string // 所属的指标类型 ID
+	typeIds    []string // 指标类型 ID 列表，可通过[获取指标模板列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_template/query);接口返回结果中的 `data.items.metrics.type_id` 获取，填写时根据指定的指标类型进行筛选，type_ids的长度范围（0～99）
 	typeIdsSet bool
 
-	rangeOfAvailability    string // 可用范围
+	rangeOfAvailability    string // 指标可用范围，填写时根据指定可用范围进行筛选
 	rangeOfAvailabilitySet bool
 
-	scoringSettingType    string // 评分设置类型
+	scoringSettingType    string // 指标评分类型，填写时根据指定评分类型进行筛选
 	scoringSettingTypeSet bool
 }
 
@@ -8196,45 +8176,45 @@ func NewQueryMetricLibReqBodyBuilder() *QueryMetricLibReqBodyBuilder {
 	return builder
 }
 
-// 状态是否为启用
+// 指标启用状态，填写时根据指定启用状态进行筛选
 //
-//示例值：
+// 示例值：true
 func (builder *QueryMetricLibReqBodyBuilder) IsActive(isActive bool) *QueryMetricLibReqBodyBuilder {
 	builder.isActive = isActive
 	builder.isActiveSet = true
 	return builder
 }
 
-// 指标所属的标签 ID
+// 指标标签 ID 列表，可通过[获取指标标签信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_tag/list)接口获取，填写时筛选拥有指定标签的指标
 //
-//示例值：
+// 示例值：
 func (builder *QueryMetricLibReqBodyBuilder) TagIds(tagIds []string) *QueryMetricLibReqBodyBuilder {
 	builder.tagIds = tagIds
 	builder.tagIdsSet = true
 	return builder
 }
 
-// 所属的指标类型 ID
+// 指标类型 ID 列表，可通过[获取指标模板列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_template/query);接口返回结果中的 `data.items.metrics.type_id` 获取，填写时根据指定的指标类型进行筛选，type_ids的长度范围（0～99）
 //
-//示例值：
+// 示例值：
 func (builder *QueryMetricLibReqBodyBuilder) TypeIds(typeIds []string) *QueryMetricLibReqBodyBuilder {
 	builder.typeIds = typeIds
 	builder.typeIdsSet = true
 	return builder
 }
 
-// 可用范围
+// 指标可用范围，填写时根据指定可用范围进行筛选
 //
-//示例值：admins_and_reviewees
+// 示例值：admins_and_reviewees
 func (builder *QueryMetricLibReqBodyBuilder) RangeOfAvailability(rangeOfAvailability string) *QueryMetricLibReqBodyBuilder {
 	builder.rangeOfAvailability = rangeOfAvailability
 	builder.rangeOfAvailabilitySet = true
 	return builder
 }
 
-// 评分设置类型
+// 指标评分类型，填写时根据指定评分类型进行筛选
 //
-//示例值：score_manually
+// 示例值：score_manually
 func (builder *QueryMetricLibReqBodyBuilder) ScoringSettingType(scoringSettingType string) *QueryMetricLibReqBodyBuilder {
 	builder.scoringSettingType = scoringSettingType
 	builder.scoringSettingTypeSet = true
@@ -8279,16 +8259,16 @@ func NewQueryMetricLibPathReqBodyBuilder() *QueryMetricLibPathReqBodyBuilder {
 	return builder
 }
 
-// 状态是否为启用
+// 指标启用状态，填写时根据指定启用状态进行筛选
 //
-// 示例值：
+// 示例值：true
 func (builder *QueryMetricLibPathReqBodyBuilder) IsActive(isActive bool) *QueryMetricLibPathReqBodyBuilder {
 	builder.isActive = isActive
 	builder.isActiveSet = true
 	return builder
 }
 
-// 指标所属的标签 ID
+// 指标标签 ID 列表，可通过[获取指标标签信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_tag/list)接口获取，填写时筛选拥有指定标签的指标
 //
 // 示例值：
 func (builder *QueryMetricLibPathReqBodyBuilder) TagIds(tagIds []string) *QueryMetricLibPathReqBodyBuilder {
@@ -8297,7 +8277,7 @@ func (builder *QueryMetricLibPathReqBodyBuilder) TagIds(tagIds []string) *QueryM
 	return builder
 }
 
-// 所属的指标类型 ID
+// 指标类型 ID 列表，可通过[获取指标模板列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_template/query);接口返回结果中的 `data.items.metrics.type_id` 获取，填写时根据指定的指标类型进行筛选，type_ids的长度范围（0～99）
 //
 // 示例值：
 func (builder *QueryMetricLibPathReqBodyBuilder) TypeIds(typeIds []string) *QueryMetricLibPathReqBodyBuilder {
@@ -8306,7 +8286,7 @@ func (builder *QueryMetricLibPathReqBodyBuilder) TypeIds(typeIds []string) *Quer
 	return builder
 }
 
-// 可用范围
+// 指标可用范围，填写时根据指定可用范围进行筛选
 //
 // 示例值：admins_and_reviewees
 func (builder *QueryMetricLibPathReqBodyBuilder) RangeOfAvailability(rangeOfAvailability string) *QueryMetricLibPathReqBodyBuilder {
@@ -8315,7 +8295,7 @@ func (builder *QueryMetricLibPathReqBodyBuilder) RangeOfAvailability(rangeOfAvai
 	return builder
 }
 
-// 评分设置类型
+// 指标评分类型，填写时根据指定评分类型进行筛选
 //
 // 示例值：score_manually
 func (builder *QueryMetricLibPathReqBodyBuilder) ScoringSettingType(scoringSettingType string) *QueryMetricLibPathReqBodyBuilder {
@@ -8358,8 +8338,6 @@ func NewQueryMetricLibReqBuilder() *QueryMetricLibReqBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *QueryMetricLibReqBuilder) UserIdType(userIdType string) *QueryMetricLibReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -8376,13 +8354,13 @@ func (builder *QueryMetricLibReqBuilder) PageToken(pageToken string) *QueryMetri
 
 // 分页大小
 //
-// 示例值：30
+// 示例值：20
 func (builder *QueryMetricLibReqBuilder) PageSize(pageSize int) *QueryMetricLibReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-// 获取指标库的信息
+// 获取指标库中的指标信息，如指标名称、指标类型、指标标签和指标字段等信息。可通过指标启用状态、指标类型、指标可用范围等筛选条件获取指定范围的指标信息。
 func (builder *QueryMetricLibReqBuilder) Body(body *QueryMetricLibReqBody) *QueryMetricLibReqBuilder {
 	builder.body = body
 	return builder
@@ -8397,15 +8375,15 @@ func (builder *QueryMetricLibReqBuilder) Build() *QueryMetricLibReq {
 }
 
 type QueryMetricLibReqBody struct {
-	IsActive *bool `json:"is_active,omitempty"` // 状态是否为启用
+	IsActive *bool `json:"is_active,omitempty"` // 指标启用状态，填写时根据指定启用状态进行筛选
 
-	TagIds []string `json:"tag_ids,omitempty"` // 指标所属的标签 ID
+	TagIds []string `json:"tag_ids,omitempty"` // 指标标签 ID 列表，可通过[获取指标标签信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_tag/list)接口获取，填写时筛选拥有指定标签的指标
 
-	TypeIds []string `json:"type_ids,omitempty"` // 所属的指标类型 ID
+	TypeIds []string `json:"type_ids,omitempty"` // 指标类型 ID 列表，可通过[获取指标模板列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_template/query);接口返回结果中的 `data.items.metrics.type_id` 获取，填写时根据指定的指标类型进行筛选，type_ids的长度范围（0～99）
 
-	RangeOfAvailability *string `json:"range_of_availability,omitempty"` // 可用范围
+	RangeOfAvailability *string `json:"range_of_availability,omitempty"` // 指标可用范围，填写时根据指定可用范围进行筛选
 
-	ScoringSettingType *string `json:"scoring_setting_type,omitempty"` // 评分设置类型
+	ScoringSettingType *string `json:"scoring_setting_type,omitempty"` // 指标评分类型，填写时根据指定评分类型进行筛选
 }
 
 type QueryMetricLibReq struct {
@@ -8451,7 +8429,7 @@ func (builder *ListMetricTagReqBuilder) Limit(limit int) *ListMetricTagReqBuilde
 	return builder
 }
 
-// 分页大小
+// 分页大小;;;**默认值**：20
 //
 // 示例值：
 func (builder *ListMetricTagReqBuilder) PageSize(pageSize int) *ListMetricTagReqBuilder {
@@ -8467,7 +8445,7 @@ func (builder *ListMetricTagReqBuilder) PageToken(pageToken string) *ListMetricT
 	return builder
 }
 
-// 指标标签 ID 列表
+// 指标标签 ID 列表，传此参数时不进行分页，不传时分页返回所有数据。
 //
 // 示例值：
 func (builder *ListMetricTagReqBuilder) TagIds(tagIds []string) *ListMetricTagReqBuilder {
@@ -8510,10 +8488,10 @@ func (resp *ListMetricTagResp) Success() bool {
 }
 
 type QueryMetricTemplateReqBodyBuilder struct {
-	metricsTemplateIds    []string // 指标模板 ID 列表，metrics_template_id 可以通过指标模板的后台配置详情页的 url 获取，也可通过本接口的返回值获取。不填写则默认返回所有指标模板
+	metricsTemplateIds    []string // 指标模板 ID 列表，填写时获取指定的指标模版
 	metricsTemplateIdsSet bool
 
-	status    string // 状态
+	status    string // 指标模版状态
 	statusSet bool
 }
 
@@ -8522,18 +8500,18 @@ func NewQueryMetricTemplateReqBodyBuilder() *QueryMetricTemplateReqBodyBuilder {
 	return builder
 }
 
-// 指标模板 ID 列表，metrics_template_id 可以通过指标模板的后台配置详情页的 url 获取，也可通过本接口的返回值获取。不填写则默认返回所有指标模板
+// 指标模板 ID 列表，填写时获取指定的指标模版
 //
-//示例值：
+// 示例值：
 func (builder *QueryMetricTemplateReqBodyBuilder) MetricsTemplateIds(metricsTemplateIds []string) *QueryMetricTemplateReqBodyBuilder {
 	builder.metricsTemplateIds = metricsTemplateIds
 	builder.metricsTemplateIdsSet = true
 	return builder
 }
 
-// 状态
+// 指标模版状态
 //
-//示例值：to_be_configured
+// 示例值：to_be_configured
 func (builder *QueryMetricTemplateReqBodyBuilder) Status(status string) *QueryMetricTemplateReqBodyBuilder {
 	builder.status = status
 	builder.statusSet = true
@@ -8563,7 +8541,7 @@ func NewQueryMetricTemplatePathReqBodyBuilder() *QueryMetricTemplatePathReqBodyB
 	return builder
 }
 
-// 指标模板 ID 列表，metrics_template_id 可以通过指标模板的后台配置详情页的 url 获取，也可通过本接口的返回值获取。不填写则默认返回所有指标模板
+// 指标模板 ID 列表，填写时获取指定的指标模版
 //
 // 示例值：
 func (builder *QueryMetricTemplatePathReqBodyBuilder) MetricsTemplateIds(metricsTemplateIds []string) *QueryMetricTemplatePathReqBodyBuilder {
@@ -8572,7 +8550,7 @@ func (builder *QueryMetricTemplatePathReqBodyBuilder) MetricsTemplateIds(metrics
 	return builder
 }
 
-// 状态
+// 指标模版状态
 //
 // 示例值：to_be_configured
 func (builder *QueryMetricTemplatePathReqBodyBuilder) Status(status string) *QueryMetricTemplatePathReqBodyBuilder {
@@ -8606,8 +8584,6 @@ func NewQueryMetricTemplateReqBuilder() *QueryMetricTemplateReqBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *QueryMetricTemplateReqBuilder) UserIdType(userIdType string) *QueryMetricTemplateReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -8630,7 +8606,7 @@ func (builder *QueryMetricTemplateReqBuilder) PageSize(pageSize int) *QueryMetri
 	return builder
 }
 
-// 获取指标模板的信息
+// 批量获取指标模板的信息。
 func (builder *QueryMetricTemplateReqBuilder) Body(body *QueryMetricTemplateReqBody) *QueryMetricTemplateReqBuilder {
 	builder.body = body
 	return builder
@@ -8645,9 +8621,9 @@ func (builder *QueryMetricTemplateReqBuilder) Build() *QueryMetricTemplateReq {
 }
 
 type QueryMetricTemplateReqBody struct {
-	MetricsTemplateIds []string `json:"metrics_template_ids,omitempty"` // 指标模板 ID 列表，metrics_template_id 可以通过指标模板的后台配置详情页的 url 获取，也可通过本接口的返回值获取。不填写则默认返回所有指标模板
+	MetricsTemplateIds []string `json:"metrics_template_ids,omitempty"` // 指标模板 ID 列表，填写时获取指定的指标模版
 
-	Status *string `json:"status,omitempty"` // 状态
+	Status *string `json:"status,omitempty"` // 指标模版状态
 }
 
 type QueryMetricTemplateReq struct {
@@ -8685,7 +8661,7 @@ func NewQueryQuestionReqBodyBuilder() *QueryQuestionReqBodyBuilder {
 
 // 标签填写题 ID 列表，获取指定标签填写题的配置数据。如果不传则返回所有
 //
-//示例值：
+// 示例值：
 func (builder *QueryQuestionReqBodyBuilder) TagBasedQuestionIds(tagBasedQuestionIds []string) *QueryQuestionReqBodyBuilder {
 	builder.tagBasedQuestionIds = tagBasedQuestionIds
 	builder.tagBasedQuestionIdsSet = true
@@ -8764,7 +8740,7 @@ func (builder *QueryQuestionReqBuilder) PageSize(pageSize int) *QueryQuestionReq
 	return builder
 }
 
-// 获取标签填写题配置
+// 获取标签填写题信息，包括标签填写题名称、标签列表等
 func (builder *QueryQuestionReqBuilder) Body(body *QueryQuestionReqBody) *QueryQuestionReqBuilder {
 	builder.body = body
 	return builder
@@ -8809,28 +8785,28 @@ func (resp *QueryQuestionResp) Success() bool {
 }
 
 type QueryReviewDataReqBodyBuilder struct {
-	semesterIds    []string // 评估周期 ID 列表，semester_id 可通过【获取周期】
+	semesterIds    []string // 评估周期 ID 列表，semester_id 可通过[【获取周期】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)获得
 	semesterIdsSet bool
 
-	revieweeUserIds    []string // 被评估人 ID 列表
+	revieweeUserIds    []string // 被评估人 ID 列表，ID 类型与user_id_type 的取值一致
 	revieweeUserIdsSet bool
 
-	stageTypes    []string // 环节类型
+	stageTypes    []string // 环节类型，如果同时传了环节 ID 和环节类型，优先返回环节 ID 对应的绩效数据。;stage_types 和 stage_ids 至少要传一个，不传默认不返回任何环节评估数据。如果返回数据为空，可以检查模板对应环节是否有内容。
 	stageTypesSet bool
 
-	reviewStageRoles    []string // 评估型环节的执行人角色，不传默认包含所有的执行人角色。当传入的环节类型中有评估型环节时，返回指定执行人角色的评估型环节数据
+	reviewStageRoles    []string // 评估型环节的执行人角色，当传入的环节类型中有评估型环节时，该参数才生效，返回指定执行人角色的评估型环节数据，不传默认包含所有的执行人角色。
 	reviewStageRolesSet bool
 
-	stageIds    []string // 环节 ID，如果同时传了环节 ID 和环节类型，优先返回环节 ID 对应的绩效数据
+	stageIds    []string // 环节 ID，如果同时传了环节 ID 和环节类型，优先返回环节 ID 对应的绩效数据。;stage_types 和 stage_ids 至少要传一个，不传默认不返回任何环节评估数据。;;可在事件[绩效结果开通](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/stage_task/events/open_result)、[绩效详情变更](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/review_data/events/changed)获得，用于接收事件后按环节查询评估数据场景
 	stageIdsSet bool
 
-	needLeaderReviewDataSource    bool // 当要获取的绩效数据的环节类型包含终评环节时，可指定是否需要返回绩效终评数据的具体环节来源。不填则默认不返回 返回的来源枚举值为： 枚举值： review 产生终评结果的评估型环节 calibaration 校准环节 reconsideration 结果复议环节
+	needLeaderReviewDataSource    bool // 当要获取的绩效数据的环节类型包含终评环节时，可指定是否需要返回绩效终评数据的具体环节来源。不传则默认不返回。;; 可选值有：;- true: 返回绩效终评数据的具体环节来源;- false: 不返回绩效终评数据的具体环节来源
 	needLeaderReviewDataSourceSet bool
 
-	updatedLaterThan    string // 环节更新时间晚于，可筛选出在此时间之后，有内容提交的环节数据
+	updatedLaterThan    string // 可筛选出在此时间之后，有内容提交的环节数据，毫秒级时间戳。不传默认返回所有时间提交的环节数据，包括未提交的环节数据
 	updatedLaterThanSet bool
 
-	stageProgresses    []int // 环节状态，不传默认包含所有状态。各类型的环节分别有以下环节状态：  绩效结果查看环节状态 可选值： 0：已开通，绩效结果已开通，未发起复议也无需确认结果 1：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达 2：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达 3：已确认，绩效结果已开通，被评估人已确认结果 4：已复议，绩效结果已开通，且被评估人已发起  绩效结果复议环节状态 可选值： 1：待完成，任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成  除上述类型外的其他环节类型状态 可选值： 0：未开始，任务的开始时间未到达 1：待完成，任务的开始时间到达而截止时间未到达，且任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成
+	stageProgresses    []int // 环节状态，不传默认包含所有状态。各类型的环节分别有以下环节状态：; ; 查看绩效结果环节状态;; 可选值有：; - `0`：已开通，绩效结果已开通，未发起复议也无需确认结果; - `1`：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达; - `2`：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达; - `3`：已确认，绩效结果已开通，被评估人已确认结果; - `4`：已复议，绩效结果已开通，且被评估人已发起复议; ; 绩效结果复议环节状态;; 可选值有：; - `1`：待完成，任务未完成; - `2`：已截止，任务的截止时间已到达，且任务未完成; - `3`：已完成，任务已完成; ; 除上述类型外的其他环节类型状态;; 可选值有：; - `0`：未开始，任务的开始时间未到达; - `1`：待完成，任务的开始时间到达而截止时间未到达，且任务未完成; - `2`：已截止，任务的截止时间已到达，且任务未完成; - `3`: 已完成，任务已完成
 	stageProgressesSet bool
 }
 
@@ -8839,72 +8815,72 @@ func NewQueryReviewDataReqBodyBuilder() *QueryReviewDataReqBodyBuilder {
 	return builder
 }
 
-// 评估周期 ID 列表，semester_id 可通过【获取周期】
+// 评估周期 ID 列表，semester_id 可通过[【获取周期】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)获得
 //
-//示例值：
+// 示例值：
 func (builder *QueryReviewDataReqBodyBuilder) SemesterIds(semesterIds []string) *QueryReviewDataReqBodyBuilder {
 	builder.semesterIds = semesterIds
 	builder.semesterIdsSet = true
 	return builder
 }
 
-// 被评估人 ID 列表
+// 被评估人 ID 列表，ID 类型与user_id_type 的取值一致
 //
-//示例值：
+// 示例值：
 func (builder *QueryReviewDataReqBodyBuilder) RevieweeUserIds(revieweeUserIds []string) *QueryReviewDataReqBodyBuilder {
 	builder.revieweeUserIds = revieweeUserIds
 	builder.revieweeUserIdsSet = true
 	return builder
 }
 
-// 环节类型
+// 环节类型，如果同时传了环节 ID 和环节类型，优先返回环节 ID 对应的绩效数据。;stage_types 和 stage_ids 至少要传一个，不传默认不返回任何环节评估数据。如果返回数据为空，可以检查模板对应环节是否有内容。
 //
-//示例值：
+// 示例值：
 func (builder *QueryReviewDataReqBodyBuilder) StageTypes(stageTypes []string) *QueryReviewDataReqBodyBuilder {
 	builder.stageTypes = stageTypes
 	builder.stageTypesSet = true
 	return builder
 }
 
-// 评估型环节的执行人角色，不传默认包含所有的执行人角色。当传入的环节类型中有评估型环节时，返回指定执行人角色的评估型环节数据
+// 评估型环节的执行人角色，当传入的环节类型中有评估型环节时，该参数才生效，返回指定执行人角色的评估型环节数据，不传默认包含所有的执行人角色。
 //
-//示例值：
+// 示例值：
 func (builder *QueryReviewDataReqBodyBuilder) ReviewStageRoles(reviewStageRoles []string) *QueryReviewDataReqBodyBuilder {
 	builder.reviewStageRoles = reviewStageRoles
 	builder.reviewStageRolesSet = true
 	return builder
 }
 
-// 环节 ID，如果同时传了环节 ID 和环节类型，优先返回环节 ID 对应的绩效数据
+// 环节 ID，如果同时传了环节 ID 和环节类型，优先返回环节 ID 对应的绩效数据。;stage_types 和 stage_ids 至少要传一个，不传默认不返回任何环节评估数据。;;可在事件[绩效结果开通](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/stage_task/events/open_result)、[绩效详情变更](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/review_data/events/changed)获得，用于接收事件后按环节查询评估数据场景
 //
-//示例值：
+// 示例值：
 func (builder *QueryReviewDataReqBodyBuilder) StageIds(stageIds []string) *QueryReviewDataReqBodyBuilder {
 	builder.stageIds = stageIds
 	builder.stageIdsSet = true
 	return builder
 }
 
-// 当要获取的绩效数据的环节类型包含终评环节时，可指定是否需要返回绩效终评数据的具体环节来源。不填则默认不返回 返回的来源枚举值为： 枚举值： review 产生终评结果的评估型环节 calibaration 校准环节 reconsideration 结果复议环节
+// 当要获取的绩效数据的环节类型包含终评环节时，可指定是否需要返回绩效终评数据的具体环节来源。不传则默认不返回。;; 可选值有：;- true: 返回绩效终评数据的具体环节来源;- false: 不返回绩效终评数据的具体环节来源
 //
-//示例值：
+// 示例值：true
 func (builder *QueryReviewDataReqBodyBuilder) NeedLeaderReviewDataSource(needLeaderReviewDataSource bool) *QueryReviewDataReqBodyBuilder {
 	builder.needLeaderReviewDataSource = needLeaderReviewDataSource
 	builder.needLeaderReviewDataSourceSet = true
 	return builder
 }
 
-// 环节更新时间晚于，可筛选出在此时间之后，有内容提交的环节数据
+// 可筛选出在此时间之后，有内容提交的环节数据，毫秒级时间戳。不传默认返回所有时间提交的环节数据，包括未提交的环节数据
 //
-//示例值：1630425599999
+// 示例值：1630425599999
 func (builder *QueryReviewDataReqBodyBuilder) UpdatedLaterThan(updatedLaterThan string) *QueryReviewDataReqBodyBuilder {
 	builder.updatedLaterThan = updatedLaterThan
 	builder.updatedLaterThanSet = true
 	return builder
 }
 
-// 环节状态，不传默认包含所有状态。各类型的环节分别有以下环节状态：  绩效结果查看环节状态 可选值： 0：已开通，绩效结果已开通，未发起复议也无需确认结果 1：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达 2：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达 3：已确认，绩效结果已开通，被评估人已确认结果 4：已复议，绩效结果已开通，且被评估人已发起  绩效结果复议环节状态 可选值： 1：待完成，任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成  除上述类型外的其他环节类型状态 可选值： 0：未开始，任务的开始时间未到达 1：待完成，任务的开始时间到达而截止时间未到达，且任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成
+// 环节状态，不传默认包含所有状态。各类型的环节分别有以下环节状态：; ; 查看绩效结果环节状态;; 可选值有：; - `0`：已开通，绩效结果已开通，未发起复议也无需确认结果; - `1`：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达; - `2`：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达; - `3`：已确认，绩效结果已开通，被评估人已确认结果; - `4`：已复议，绩效结果已开通，且被评估人已发起复议; ; 绩效结果复议环节状态;; 可选值有：; - `1`：待完成，任务未完成; - `2`：已截止，任务的截止时间已到达，且任务未完成; - `3`：已完成，任务已完成; ; 除上述类型外的其他环节类型状态;; 可选值有：; - `0`：未开始，任务的开始时间未到达; - `1`：待完成，任务的开始时间到达而截止时间未到达，且任务未完成; - `2`：已截止，任务的截止时间已到达，且任务未完成; - `3`: 已完成，任务已完成
 //
-//示例值：
+// 示例值：
 func (builder *QueryReviewDataReqBodyBuilder) StageProgresses(stageProgresses []int) *QueryReviewDataReqBodyBuilder {
 	builder.stageProgresses = stageProgresses
 	builder.stageProgressesSet = true
@@ -8964,7 +8940,7 @@ func NewQueryReviewDataPathReqBodyBuilder() *QueryReviewDataPathReqBodyBuilder {
 	return builder
 }
 
-// 评估周期 ID 列表，semester_id 可通过【获取周期】
+// 评估周期 ID 列表，semester_id 可通过[【获取周期】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)获得
 //
 // 示例值：
 func (builder *QueryReviewDataPathReqBodyBuilder) SemesterIds(semesterIds []string) *QueryReviewDataPathReqBodyBuilder {
@@ -8973,7 +8949,7 @@ func (builder *QueryReviewDataPathReqBodyBuilder) SemesterIds(semesterIds []stri
 	return builder
 }
 
-// 被评估人 ID 列表
+// 被评估人 ID 列表，ID 类型与user_id_type 的取值一致
 //
 // 示例值：
 func (builder *QueryReviewDataPathReqBodyBuilder) RevieweeUserIds(revieweeUserIds []string) *QueryReviewDataPathReqBodyBuilder {
@@ -8982,7 +8958,7 @@ func (builder *QueryReviewDataPathReqBodyBuilder) RevieweeUserIds(revieweeUserId
 	return builder
 }
 
-// 环节类型
+// 环节类型，如果同时传了环节 ID 和环节类型，优先返回环节 ID 对应的绩效数据。;stage_types 和 stage_ids 至少要传一个，不传默认不返回任何环节评估数据。如果返回数据为空，可以检查模板对应环节是否有内容。
 //
 // 示例值：
 func (builder *QueryReviewDataPathReqBodyBuilder) StageTypes(stageTypes []string) *QueryReviewDataPathReqBodyBuilder {
@@ -8991,7 +8967,7 @@ func (builder *QueryReviewDataPathReqBodyBuilder) StageTypes(stageTypes []string
 	return builder
 }
 
-// 评估型环节的执行人角色，不传默认包含所有的执行人角色。当传入的环节类型中有评估型环节时，返回指定执行人角色的评估型环节数据
+// 评估型环节的执行人角色，当传入的环节类型中有评估型环节时，该参数才生效，返回指定执行人角色的评估型环节数据，不传默认包含所有的执行人角色。
 //
 // 示例值：
 func (builder *QueryReviewDataPathReqBodyBuilder) ReviewStageRoles(reviewStageRoles []string) *QueryReviewDataPathReqBodyBuilder {
@@ -9000,7 +8976,7 @@ func (builder *QueryReviewDataPathReqBodyBuilder) ReviewStageRoles(reviewStageRo
 	return builder
 }
 
-// 环节 ID，如果同时传了环节 ID 和环节类型，优先返回环节 ID 对应的绩效数据
+// 环节 ID，如果同时传了环节 ID 和环节类型，优先返回环节 ID 对应的绩效数据。;stage_types 和 stage_ids 至少要传一个，不传默认不返回任何环节评估数据。;;可在事件[绩效结果开通](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/stage_task/events/open_result)、[绩效详情变更](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/review_data/events/changed)获得，用于接收事件后按环节查询评估数据场景
 //
 // 示例值：
 func (builder *QueryReviewDataPathReqBodyBuilder) StageIds(stageIds []string) *QueryReviewDataPathReqBodyBuilder {
@@ -9009,16 +8985,16 @@ func (builder *QueryReviewDataPathReqBodyBuilder) StageIds(stageIds []string) *Q
 	return builder
 }
 
-// 当要获取的绩效数据的环节类型包含终评环节时，可指定是否需要返回绩效终评数据的具体环节来源。不填则默认不返回 返回的来源枚举值为： 枚举值： review 产生终评结果的评估型环节 calibaration 校准环节 reconsideration 结果复议环节
+// 当要获取的绩效数据的环节类型包含终评环节时，可指定是否需要返回绩效终评数据的具体环节来源。不传则默认不返回。;; 可选值有：;- true: 返回绩效终评数据的具体环节来源;- false: 不返回绩效终评数据的具体环节来源
 //
-// 示例值：
+// 示例值：true
 func (builder *QueryReviewDataPathReqBodyBuilder) NeedLeaderReviewDataSource(needLeaderReviewDataSource bool) *QueryReviewDataPathReqBodyBuilder {
 	builder.needLeaderReviewDataSource = needLeaderReviewDataSource
 	builder.needLeaderReviewDataSourceSet = true
 	return builder
 }
 
-// 环节更新时间晚于，可筛选出在此时间之后，有内容提交的环节数据
+// 可筛选出在此时间之后，有内容提交的环节数据，毫秒级时间戳。不传默认返回所有时间提交的环节数据，包括未提交的环节数据
 //
 // 示例值：1630425599999
 func (builder *QueryReviewDataPathReqBodyBuilder) UpdatedLaterThan(updatedLaterThan string) *QueryReviewDataPathReqBodyBuilder {
@@ -9027,7 +9003,7 @@ func (builder *QueryReviewDataPathReqBodyBuilder) UpdatedLaterThan(updatedLaterT
 	return builder
 }
 
-// 环节状态，不传默认包含所有状态。各类型的环节分别有以下环节状态：  绩效结果查看环节状态 可选值： 0：已开通，绩效结果已开通，未发起复议也无需确认结果 1：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达 2：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达 3：已确认，绩效结果已开通，被评估人已确认结果 4：已复议，绩效结果已开通，且被评估人已发起  绩效结果复议环节状态 可选值： 1：待完成，任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成  除上述类型外的其他环节类型状态 可选值： 0：未开始，任务的开始时间未到达 1：待完成，任务的开始时间到达而截止时间未到达，且任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成
+// 环节状态，不传默认包含所有状态。各类型的环节分别有以下环节状态：; ; 查看绩效结果环节状态;; 可选值有：; - `0`：已开通，绩效结果已开通，未发起复议也无需确认结果; - `1`：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达; - `2`：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达; - `3`：已确认，绩效结果已开通，被评估人已确认结果; - `4`：已复议，绩效结果已开通，且被评估人已发起复议; ; 绩效结果复议环节状态;; 可选值有：; - `1`：待完成，任务未完成; - `2`：已截止，任务的截止时间已到达，且任务未完成; - `3`：已完成，任务已完成; ; 除上述类型外的其他环节类型状态;; 可选值有：; - `0`：未开始，任务的开始时间未到达; - `1`：待完成，任务的开始时间到达而截止时间未到达，且任务未完成; - `2`：已截止，任务的截止时间已到达，且任务未完成; - `3`: 已完成，任务已完成
 //
 // 示例值：
 func (builder *QueryReviewDataPathReqBodyBuilder) StageProgresses(stageProgresses []int) *QueryReviewDataPathReqBodyBuilder {
@@ -9079,15 +9055,13 @@ func NewQueryReviewDataReqBuilder() *QueryReviewDataReqBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *QueryReviewDataReqBuilder) UserIdType(userIdType string) *QueryReviewDataReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
-// 获取绩效详情V2
+// 获取被评估人各环节的绩效评估详情（不包含校准环节），如环节评估数据、环节提交状态等
 func (builder *QueryReviewDataReqBuilder) Body(body *QueryReviewDataReqBody) *QueryReviewDataReqBuilder {
 	builder.body = body
 	return builder
@@ -9102,21 +9076,21 @@ func (builder *QueryReviewDataReqBuilder) Build() *QueryReviewDataReq {
 }
 
 type QueryReviewDataReqBody struct {
-	SemesterIds []string `json:"semester_ids,omitempty"` // 评估周期 ID 列表，semester_id 可通过【获取周期】
+	SemesterIds []string `json:"semester_ids,omitempty"` // 评估周期 ID 列表，semester_id 可通过[【获取周期】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)获得
 
-	RevieweeUserIds []string `json:"reviewee_user_ids,omitempty"` // 被评估人 ID 列表
+	RevieweeUserIds []string `json:"reviewee_user_ids,omitempty"` // 被评估人 ID 列表，ID 类型与user_id_type 的取值一致
 
-	StageTypes []string `json:"stage_types,omitempty"` // 环节类型
+	StageTypes []string `json:"stage_types,omitempty"` // 环节类型，如果同时传了环节 ID 和环节类型，优先返回环节 ID 对应的绩效数据。;stage_types 和 stage_ids 至少要传一个，不传默认不返回任何环节评估数据。如果返回数据为空，可以检查模板对应环节是否有内容。
 
-	ReviewStageRoles []string `json:"review_stage_roles,omitempty"` // 评估型环节的执行人角色，不传默认包含所有的执行人角色。当传入的环节类型中有评估型环节时，返回指定执行人角色的评估型环节数据
+	ReviewStageRoles []string `json:"review_stage_roles,omitempty"` // 评估型环节的执行人角色，当传入的环节类型中有评估型环节时，该参数才生效，返回指定执行人角色的评估型环节数据，不传默认包含所有的执行人角色。
 
-	StageIds []string `json:"stage_ids,omitempty"` // 环节 ID，如果同时传了环节 ID 和环节类型，优先返回环节 ID 对应的绩效数据
+	StageIds []string `json:"stage_ids,omitempty"` // 环节 ID，如果同时传了环节 ID 和环节类型，优先返回环节 ID 对应的绩效数据。;stage_types 和 stage_ids 至少要传一个，不传默认不返回任何环节评估数据。;;可在事件[绩效结果开通](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/stage_task/events/open_result)、[绩效详情变更](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/review_data/events/changed)获得，用于接收事件后按环节查询评估数据场景
 
-	NeedLeaderReviewDataSource *bool `json:"need_leader_review_data_source,omitempty"` // 当要获取的绩效数据的环节类型包含终评环节时，可指定是否需要返回绩效终评数据的具体环节来源。不填则默认不返回 返回的来源枚举值为： 枚举值： review 产生终评结果的评估型环节 calibaration 校准环节 reconsideration 结果复议环节
+	NeedLeaderReviewDataSource *bool `json:"need_leader_review_data_source,omitempty"` // 当要获取的绩效数据的环节类型包含终评环节时，可指定是否需要返回绩效终评数据的具体环节来源。不传则默认不返回。;; 可选值有：;- true: 返回绩效终评数据的具体环节来源;- false: 不返回绩效终评数据的具体环节来源
 
-	UpdatedLaterThan *string `json:"updated_later_than,omitempty"` // 环节更新时间晚于，可筛选出在此时间之后，有内容提交的环节数据
+	UpdatedLaterThan *string `json:"updated_later_than,omitempty"` // 可筛选出在此时间之后，有内容提交的环节数据，毫秒级时间戳。不传默认返回所有时间提交的环节数据，包括未提交的环节数据
 
-	StageProgresses []int `json:"stage_progresses,omitempty"` // 环节状态，不传默认包含所有状态。各类型的环节分别有以下环节状态：  绩效结果查看环节状态 可选值： 0：已开通，绩效结果已开通，未发起复议也无需确认结果 1：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达 2：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达 3：已确认，绩效结果已开通，被评估人已确认结果 4：已复议，绩效结果已开通，且被评估人已发起  绩效结果复议环节状态 可选值： 1：待完成，任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成  除上述类型外的其他环节类型状态 可选值： 0：未开始，任务的开始时间未到达 1：待完成，任务的开始时间到达而截止时间未到达，且任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成
+	StageProgresses []int `json:"stage_progresses,omitempty"` // 环节状态，不传默认包含所有状态。各类型的环节分别有以下环节状态：; ; 查看绩效结果环节状态;; 可选值有：; - `0`：已开通，绩效结果已开通，未发起复议也无需确认结果; - `1`：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达; - `2`：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达; - `3`：已确认，绩效结果已开通，被评估人已确认结果; - `4`：已复议，绩效结果已开通，且被评估人已发起复议; ; 绩效结果复议环节状态;; 可选值有：; - `1`：待完成，任务未完成; - `2`：已截止，任务的截止时间已到达，且任务未完成; - `3`：已完成，任务已完成; ; 除上述类型外的其他环节类型状态;; 可选值有：; - `0`：未开始，任务的开始时间未到达; - `1`：待完成，任务的开始时间到达而截止时间未到达，且任务未完成; - `2`：已截止，任务的截止时间已到达，且任务未完成; - `3`: 已完成，任务已完成
 }
 
 type QueryReviewDataReq struct {
@@ -9139,7 +9113,7 @@ func (resp *QueryReviewDataResp) Success() bool {
 }
 
 type QueryReviewTemplateReqBodyBuilder struct {
-	reviewTemplateIds    []string // 评估模板 ID 列表，获取指定评估模板的配置数据。如果不传则返回所有
+	reviewTemplateIds    []string // 绩效模板 ID 列表，获取指定绩效模板的配置数据。如果不传则返回所有
 	reviewTemplateIdsSet bool
 }
 
@@ -9148,9 +9122,9 @@ func NewQueryReviewTemplateReqBodyBuilder() *QueryReviewTemplateReqBodyBuilder {
 	return builder
 }
 
-// 评估模板 ID 列表，获取指定评估模板的配置数据。如果不传则返回所有
+// 绩效模板 ID 列表，获取指定绩效模板的配置数据。如果不传则返回所有
 //
-//示例值：
+// 示例值：
 func (builder *QueryReviewTemplateReqBodyBuilder) ReviewTemplateIds(reviewTemplateIds []string) *QueryReviewTemplateReqBodyBuilder {
 	builder.reviewTemplateIds = reviewTemplateIds
 	builder.reviewTemplateIdsSet = true
@@ -9175,7 +9149,7 @@ func NewQueryReviewTemplatePathReqBodyBuilder() *QueryReviewTemplatePathReqBodyB
 	return builder
 }
 
-// 评估模板 ID 列表，获取指定评估模板的配置数据。如果不传则返回所有
+// 绩效模板 ID 列表，获取指定绩效模板的配置数据。如果不传则返回所有
 //
 // 示例值：
 func (builder *QueryReviewTemplatePathReqBodyBuilder) ReviewTemplateIds(reviewTemplateIds []string) *QueryReviewTemplatePathReqBodyBuilder {
@@ -9229,7 +9203,7 @@ func (builder *QueryReviewTemplateReqBuilder) PageSize(pageSize int) *QueryRevie
 	return builder
 }
 
-// 获取评估模板配置
+// 获取绩效模板信息，包括模版名称、执行角色、填写项类型等
 func (builder *QueryReviewTemplateReqBuilder) Body(body *QueryReviewTemplateReqBody) *QueryReviewTemplateReqBuilder {
 	builder.body = body
 	return builder
@@ -9245,7 +9219,7 @@ func (builder *QueryReviewTemplateReqBuilder) Build() *QueryReviewTemplateReq {
 }
 
 type QueryReviewTemplateReqBody struct {
-	ReviewTemplateIds []string `json:"review_template_ids,omitempty"` // 评估模板 ID 列表，获取指定评估模板的配置数据。如果不传则返回所有
+	ReviewTemplateIds []string `json:"review_template_ids,omitempty"` // 绩效模板 ID 列表，获取指定绩效模板的配置数据。如果不传则返回所有
 }
 
 type QueryReviewTemplateReq struct {
@@ -9256,7 +9230,7 @@ type QueryReviewTemplateReq struct {
 }
 
 type QueryReviewTemplateRespData struct {
-	ReviewTemplates []*ReviewTemplate `json:"review_templates,omitempty"` // 评估模板信息
+	ReviewTemplates []*ReviewTemplate `json:"review_templates,omitempty"` // 绩效模板信息
 
 	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
@@ -9274,13 +9248,13 @@ func (resp *QueryReviewTemplateResp) Success() bool {
 }
 
 type QueryRevieweeReqBodyBuilder struct {
-	semesterId    string // 周期 ID，1 次只允许查询 1 个周期，semester_id 可通过【获取周期】接口获得
+	semesterId    string // 周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list);接口获取
 	semesterIdSet bool
 
-	userIds    []string // 用户 ID，类型需要与查询参数中的user_id_type保持一致。不传则默认返回该周期所有被评估人的信息。
+	userIds    []string // 用户 ID，与入参 `user_id_type` 类型一致，查询指定的被评估人信息
 	userIdsSet bool
 
-	activityIds    []string // 项目 ID 列表，查询指定的项目下的被评估人数据
+	activityIds    []string // 项目 ID 列表，可通过[获取项目列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query);接口获取，查询指定的项目下的被评估人信息
 	activityIdsSet bool
 }
 
@@ -9289,27 +9263,27 @@ func NewQueryRevieweeReqBodyBuilder() *QueryRevieweeReqBodyBuilder {
 	return builder
 }
 
-// 周期 ID，1 次只允许查询 1 个周期，semester_id 可通过【获取周期】接口获得
+// 周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list);接口获取
 //
-//示例值：6992035450862224940
+// 示例值：6992035450862224940
 func (builder *QueryRevieweeReqBodyBuilder) SemesterId(semesterId string) *QueryRevieweeReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdSet = true
 	return builder
 }
 
-// 用户 ID，类型需要与查询参数中的user_id_type保持一致。不传则默认返回该周期所有被评估人的信息。
+// 用户 ID，与入参 `user_id_type` 类型一致，查询指定的被评估人信息
 //
-//示例值：
+// 示例值：
 func (builder *QueryRevieweeReqBodyBuilder) UserIds(userIds []string) *QueryRevieweeReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
 	return builder
 }
 
-// 项目 ID 列表，查询指定的项目下的被评估人数据
+// 项目 ID 列表，可通过[获取项目列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query);接口获取，查询指定的项目下的被评估人信息
 //
-//示例值：
+// 示例值：
 func (builder *QueryRevieweeReqBodyBuilder) ActivityIds(activityIds []string) *QueryRevieweeReqBodyBuilder {
 	builder.activityIds = activityIds
 	builder.activityIdsSet = true
@@ -9344,7 +9318,7 @@ func NewQueryRevieweePathReqBodyBuilder() *QueryRevieweePathReqBodyBuilder {
 	return builder
 }
 
-// 周期 ID，1 次只允许查询 1 个周期，semester_id 可通过【获取周期】接口获得
+// 周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list);接口获取
 //
 // 示例值：6992035450862224940
 func (builder *QueryRevieweePathReqBodyBuilder) SemesterId(semesterId string) *QueryRevieweePathReqBodyBuilder {
@@ -9353,7 +9327,7 @@ func (builder *QueryRevieweePathReqBodyBuilder) SemesterId(semesterId string) *Q
 	return builder
 }
 
-// 用户 ID，类型需要与查询参数中的user_id_type保持一致。不传则默认返回该周期所有被评估人的信息。
+// 用户 ID，与入参 `user_id_type` 类型一致，查询指定的被评估人信息
 //
 // 示例值：
 func (builder *QueryRevieweePathReqBodyBuilder) UserIds(userIds []string) *QueryRevieweePathReqBodyBuilder {
@@ -9362,7 +9336,7 @@ func (builder *QueryRevieweePathReqBodyBuilder) UserIds(userIds []string) *Query
 	return builder
 }
 
-// 项目 ID 列表，查询指定的项目下的被评估人数据
+// 项目 ID 列表，可通过[获取项目列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query);接口获取，查询指定的项目下的被评估人信息
 //
 // 示例值：
 func (builder *QueryRevieweePathReqBodyBuilder) ActivityIds(activityIds []string) *QueryRevieweePathReqBodyBuilder {
@@ -9399,8 +9373,6 @@ func NewQueryRevieweeReqBuilder() *QueryRevieweeReqBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：open_id
 func (builder *QueryRevieweeReqBuilder) UserIdType(userIdType string) *QueryRevieweeReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -9423,7 +9395,7 @@ func (builder *QueryRevieweeReqBuilder) PageSize(pageSize int) *QueryRevieweeReq
 	return builder
 }
 
-// 获取指定周期参与了的被评估人
+// 获取绩效周期中被圈定到项目中的被评估人信息，包括未启动的项目。
 func (builder *QueryRevieweeReqBuilder) Body(body *QueryRevieweeReqBody) *QueryRevieweeReqBuilder {
 	builder.body = body
 	return builder
@@ -9438,11 +9410,11 @@ func (builder *QueryRevieweeReqBuilder) Build() *QueryRevieweeReq {
 }
 
 type QueryRevieweeReqBody struct {
-	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID，1 次只允许查询 1 个周期，semester_id 可通过【获取周期】接口获得
+	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID，可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list);接口获取
 
-	UserIds []string `json:"user_ids,omitempty"` // 用户 ID，类型需要与查询参数中的user_id_type保持一致。不传则默认返回该周期所有被评估人的信息。
+	UserIds []string `json:"user_ids,omitempty"` // 用户 ID，与入参 `user_id_type` 类型一致，查询指定的被评估人信息
 
-	ActivityIds []string `json:"activity_ids,omitempty"` // 项目 ID 列表，查询指定的项目下的被评估人数据
+	ActivityIds []string `json:"activity_ids,omitempty"` // 项目 ID 列表，可通过[获取项目列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query);接口获取，查询指定的项目下的被评估人信息
 }
 
 type QueryRevieweeReq struct {
@@ -9471,13 +9443,13 @@ func (resp *QueryRevieweeResp) Success() bool {
 }
 
 type WriteUserGroupUserRelReqBodyBuilder struct {
-	groupId    string // 分组id key
+	groupId    string // 人员组 ID，可以从**人员组管理**页面获取;;**必填：** 是
 	groupIdSet bool
 
-	scopeVisibleSetting    int // 人员组查看人员名单可见性配置
+	scopeVisibleSetting    int // 人员组可见性配置;;**必填：** 是
 	scopeVisibleSettingSet bool
 
-	userIds    []string // 人员列表
+	userIds    []string // 人员 ID 列表，ID 类型与查询参数 user_id_type 取值一致;;**必填：** 是
 	userIdsSet bool
 }
 
@@ -9486,27 +9458,27 @@ func NewWriteUserGroupUserRelReqBodyBuilder() *WriteUserGroupUserRelReqBodyBuild
 	return builder
 }
 
-// 分组id key
+// 人员组 ID，可以从**人员组管理**页面获取;;**必填：** 是
 //
-//示例值：ABCDEFG
+// 示例值：ABCDEFG
 func (builder *WriteUserGroupUserRelReqBodyBuilder) GroupId(groupId string) *WriteUserGroupUserRelReqBodyBuilder {
 	builder.groupId = groupId
 	builder.groupIdSet = true
 	return builder
 }
 
-// 人员组查看人员名单可见性配置
+// 人员组可见性配置;;**必填：** 是
 //
-//示例值：1
+// 示例值：1
 func (builder *WriteUserGroupUserRelReqBodyBuilder) ScopeVisibleSetting(scopeVisibleSetting int) *WriteUserGroupUserRelReqBodyBuilder {
 	builder.scopeVisibleSetting = scopeVisibleSetting
 	builder.scopeVisibleSettingSet = true
 	return builder
 }
 
-// 人员列表
+// 人员 ID 列表，ID 类型与查询参数 user_id_type 取值一致;;**必填：** 是
 //
-//示例值：
+// 示例值：
 func (builder *WriteUserGroupUserRelReqBodyBuilder) UserIds(userIds []string) *WriteUserGroupUserRelReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
@@ -9541,7 +9513,7 @@ func NewWriteUserGroupUserRelPathReqBodyBuilder() *WriteUserGroupUserRelPathReqB
 	return builder
 }
 
-// 分组id key
+// 人员组 ID，可以从**人员组管理**页面获取;;**必填：** 是
 //
 // 示例值：ABCDEFG
 func (builder *WriteUserGroupUserRelPathReqBodyBuilder) GroupId(groupId string) *WriteUserGroupUserRelPathReqBodyBuilder {
@@ -9550,7 +9522,7 @@ func (builder *WriteUserGroupUserRelPathReqBodyBuilder) GroupId(groupId string) 
 	return builder
 }
 
-// 人员组查看人员名单可见性配置
+// 人员组可见性配置;;**必填：** 是
 //
 // 示例值：1
 func (builder *WriteUserGroupUserRelPathReqBodyBuilder) ScopeVisibleSetting(scopeVisibleSetting int) *WriteUserGroupUserRelPathReqBodyBuilder {
@@ -9559,7 +9531,7 @@ func (builder *WriteUserGroupUserRelPathReqBodyBuilder) ScopeVisibleSetting(scop
 	return builder
 }
 
-// 人员列表
+// 人员 ID 列表，ID 类型与查询参数 user_id_type 取值一致;;**必填：** 是
 //
 // 示例值：
 func (builder *WriteUserGroupUserRelPathReqBodyBuilder) UserIds(userIds []string) *WriteUserGroupUserRelPathReqBodyBuilder {
@@ -9612,7 +9584,7 @@ func (builder *WriteUserGroupUserRelReqBuilder) UserIdType(userIdType string) *W
 	return builder
 }
 
-// 写入人员组成员范围
+// 更新指定人员组成员。
 func (builder *WriteUserGroupUserRelReqBuilder) Body(body *WriteUserGroupUserRelReqBody) *WriteUserGroupUserRelReqBuilder {
 	builder.body = body
 	return builder
@@ -9627,11 +9599,11 @@ func (builder *WriteUserGroupUserRelReqBuilder) Build() *WriteUserGroupUserRelRe
 }
 
 type WriteUserGroupUserRelReqBody struct {
-	GroupId *string `json:"group_id,omitempty"` // 分组id key
+	GroupId *string `json:"group_id,omitempty"` // 人员组 ID，可以从**人员组管理**页面获取;;**必填：** 是
 
-	ScopeVisibleSetting *int `json:"scope_visible_setting,omitempty"` // 人员组查看人员名单可见性配置
+	ScopeVisibleSetting *int `json:"scope_visible_setting,omitempty"` // 人员组可见性配置;;**必填：** 是
 
-	UserIds []string `json:"user_ids,omitempty"` // 人员列表
+	UserIds []string `json:"user_ids,omitempty"` // 人员 ID 列表，ID 类型与查询参数 user_id_type 取值一致;;**必填：** 是
 }
 
 type WriteUserGroupUserRelReq struct {
@@ -9640,7 +9612,7 @@ type WriteUserGroupUserRelReq struct {
 }
 
 type WriteUserGroupUserRelRespData struct {
-	Data *WriteUserGroupScopeData `json:"data,omitempty"` // 写入员工范围响应
+	Data *WriteUserGroupScopeData `json:"data,omitempty"` // 更新结果
 }
 
 type WriteUserGroupUserRelResp struct {
@@ -9654,7 +9626,7 @@ func (resp *WriteUserGroupUserRelResp) Success() bool {
 }
 
 type QueryUserInfoReqBodyBuilder struct {
-	semesterId    string // 评估周期 ID 列表，semester_id 可通过【获取周期】获得
+	semesterId    string // 评估周期 ID 列表，semester_id 可通过[【获取周期】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)获得
 	semesterIdSet bool
 
 	userIds    []string // 人员 ID 列表，ID 类型与user_id_type 的取值一致
@@ -9666,9 +9638,9 @@ func NewQueryUserInfoReqBodyBuilder() *QueryUserInfoReqBodyBuilder {
 	return builder
 }
 
-// 评估周期 ID 列表，semester_id 可通过【获取周期】获得
+// 评估周期 ID 列表，semester_id 可通过[【获取周期】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)获得
 //
-//示例值：6992035450862224940
+// 示例值：6992035450862224940
 func (builder *QueryUserInfoReqBodyBuilder) SemesterId(semesterId string) *QueryUserInfoReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdSet = true
@@ -9677,7 +9649,7 @@ func (builder *QueryUserInfoReqBodyBuilder) SemesterId(semesterId string) *Query
 
 // 人员 ID 列表，ID 类型与user_id_type 的取值一致
 //
-//示例值：
+// 示例值：
 func (builder *QueryUserInfoReqBodyBuilder) UserIds(userIds []string) *QueryUserInfoReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
@@ -9707,7 +9679,7 @@ func NewQueryUserInfoPathReqBodyBuilder() *QueryUserInfoPathReqBodyBuilder {
 	return builder
 }
 
-// 评估周期 ID 列表，semester_id 可通过【获取周期】获得
+// 评估周期 ID 列表，semester_id 可通过[【获取周期】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)获得
 //
 // 示例值：6992035450862224940
 func (builder *QueryUserInfoPathReqBodyBuilder) SemesterId(semesterId string) *QueryUserInfoPathReqBodyBuilder {
@@ -9750,23 +9722,21 @@ func NewQueryUserInfoReqBuilder() *QueryUserInfoReqBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *QueryUserInfoReqBuilder) UserIdType(userIdType string) *QueryUserInfoReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
-// 指定查询结果中的部门 ID 类型。关于部门 ID 的详细介绍，可参见部门 ID 说明。
+// 指定查询结果中的部门 ID 类型。关于部门 ID 的详细介绍，可参见[部门 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0) 说明。
 //
-// 示例值：open_department_id
+// 示例值：open_department_id;;**可选值有：**;- `department_id`：支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id，因此在未删除的部门范围内 department_id 具有唯一性。;- `open_department_id`：由系统自动生成的部门 ID，ID 前缀固定为 od-，在租户内全局唯一。;;**默认值：** open_department_id
 func (builder *QueryUserInfoReqBuilder) DepartmentIdType(departmentIdType string) *QueryUserInfoReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 
-//
+// 获取指定绩效周期下，被评估人在评估时的部门、序列、职级等人员信息。
 func (builder *QueryUserInfoReqBuilder) Body(body *QueryUserInfoReqBody) *QueryUserInfoReqBuilder {
 	builder.body = body
 	return builder
@@ -9781,7 +9751,7 @@ func (builder *QueryUserInfoReqBuilder) Build() *QueryUserInfoReq {
 }
 
 type QueryUserInfoReqBody struct {
-	SemesterId *string `json:"semester_id,omitempty"` // 评估周期 ID 列表，semester_id 可通过【获取周期】获得
+	SemesterId *string `json:"semester_id,omitempty"` // 评估周期 ID 列表，semester_id 可通过[【获取周期】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)获得
 
 	UserIds []string `json:"user_ids,omitempty"` // 人员 ID 列表，ID 类型与user_id_type 的取值一致
 }

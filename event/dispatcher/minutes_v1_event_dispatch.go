@@ -18,9 +18,9 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/minutes/v1"
 )
 
+// 妙记生成
 //
-//
-// -
+// - 当与用户有关联的妙记生成后，将会触发该事件。;;用户关联的妙记包括：;- 参与的会议所生成的妙记;- 录音或者上传音视频文件所生成的妙记
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MinuteGeneratedV1(handler func(ctx context.Context, event *larkminutes.P2MinuteGeneratedV1) error) *EventDispatcher {

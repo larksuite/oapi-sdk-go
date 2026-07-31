@@ -36,8 +36,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -45,8 +43,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -67,22 +63,6 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	return req
 }
 
-type Image struct {
-}
-
-type ImageBuilder struct {
-}
-
-func NewImageBuilder() *ImageBuilder {
-	builder := &ImageBuilder{}
-	return builder
-}
-
-func (builder *ImageBuilder) Build() *Image {
-	req := &Image{}
-	return req
-}
-
 type BasicRecognizeImageReqBodyBuilder struct {
 	image    string // base64 后的图片数据
 	imageSet bool
@@ -95,7 +75,7 @@ func NewBasicRecognizeImageReqBodyBuilder() *BasicRecognizeImageReqBodyBuilder {
 
 // base64 后的图片数据
 //
-//示例值：base64后的图片二进制数据
+// 示例值：base64后的图片二进制数据
 func (builder *BasicRecognizeImageReqBodyBuilder) Image(image string) *BasicRecognizeImageReqBodyBuilder {
 	builder.image = image
 	builder.imageSet = true
@@ -151,7 +131,7 @@ func NewBasicRecognizeImageReqBuilder() *BasicRecognizeImageReqBuilder {
 	return builder
 }
 
-// 可识别图片中的文字，按图片中的区域划分，分段返回文本列表
+// 可识别图片中的文字，按图片中的区域划分，分段返回文本列表。文件大小需小于5M。
 func (builder *BasicRecognizeImageReqBuilder) Body(body *BasicRecognizeImageReqBody) *BasicRecognizeImageReqBuilder {
 	builder.body = body
 	return builder

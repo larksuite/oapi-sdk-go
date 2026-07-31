@@ -122,8 +122,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -131,8 +129,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -307,7 +303,7 @@ func (builder *TenantBuilder) Avatar(avatar *Avatar) *TenantBuilder {
 
 // 企业完整域名。企业域名可用于企业成员访问管理后台、云文档等含URL地址的网页。
 //
-// 示例值：newpoint.feishu-boe.cn
+// 示例值：example.feishu.cn
 func (builder *TenantBuilder) Domain(domain string) *TenantBuilder {
 	builder.domain = domain
 	builder.domainSet = true

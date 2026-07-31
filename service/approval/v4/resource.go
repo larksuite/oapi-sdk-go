@@ -9,14 +9,14 @@ import (
 )
 
 type V4 struct {
-	Approval         *approval         // 事件
+	Approval         *approval         // approval
 	District         *district         // district
-	ExternalApproval *externalApproval // 三方审批定义
-	ExternalInstance *externalInstance // 三方审批实例
-	ExternalTask     *externalTask     // 三方审批任务
-	Instance         *instance         // 原生审批实例
-	InstanceComment  *instanceComment  // 原生审批评论
-	Task             *task             // 原生审批任务
+	ExternalApproval *externalApproval // external_approval
+	ExternalInstance *externalInstance // external_instance
+	ExternalTask     *externalTask     // external_task
+	Instance         *instance         // instance
+	InstanceComment  *instanceComment  // instance.comment
+	Task             *task             // task
 }
 
 func New(config *larkcore.Config) *V4 {
@@ -59,11 +59,9 @@ type task struct {
 
 // Create 创建审批定义
 //
-// - 用于通过接口创建简单的审批定义，可以灵活指定定义的基础信息、表单和流程等。创建成功后，不支持从审批管理后台删除该定义。不推荐企业自建应用使用，如有需要尽量联系管理员在审批管理后台创建定义。
+// - 该接口用于创建审批定义，可以灵活指定审批定义的基础信息、表单和流程等。
 //
-// - 接口谨慎调用，创建后的审批定义无法停用/删除
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=approval&resource=approval&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/create_approval.go
 func (a *approval) Create(ctx context.Context, req *CreateApprovalReq, options ...larkcore.RequestOptionFunc) (*CreateApprovalResp, error) {
@@ -85,11 +83,11 @@ func (a *approval) Create(ctx context.Context, req *CreateApprovalReq, options .
 	return resp, err
 }
 
-// Get 查看审批定义
+// Get 查看指定审批定义
 //
-// - 根据 Approval Code 获取某个审批定义的详情，用于构造创建审批实例的请求。
+// - 根据审批定义 Code 以及语言、用户 ID 等筛选条件获取指定审批定义的信息，包括审批定义名称、状态、表单控件以及节点等信息。获取审批定义信息后，可根据信息构造[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)的请求。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=approval&resource=approval&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/get_approval.go
 func (a *approval) Get(ctx context.Context, req *GetApprovalReq, options ...larkcore.RequestOptionFunc) (*GetApprovalResp, error) {
@@ -113,9 +111,11 @@ func (a *approval) Get(ctx context.Context, req *GetApprovalReq, options ...lark
 
 // Subscribe 订阅审批事件
 //
-// - 应用订阅 approval_code 后，该应用就可以收到该审批定义对应实例的事件通知。同一应用只需要订阅一次，无需重复订阅。;;当应用不希望再收到审批事件时，可以使用取消订阅接口进行取消，取消后将不再给应用推送消息。;;订阅和取消订阅都是应用维度的，多个应用可以同时订阅同一个 approval_code，每个应用都能收到审批事件。
+// - 当应用[订阅审批事件](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)后，需要调用该接口指定审批定义 Code（approval_code）开启订阅，开启后应用才可以接收该审批定义对应的事件。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe
+// - ## 注意事项;;- 该接口仅用于开启应用接收审批事件，实际使用时应用还需要订阅所需的审批事件。例如订阅[审批实例状态变更](https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-instance-event)事件。;- 同一应用只需要调用该接口一次即可，无需重复调用该接口。;- 当应用不再需要接收审批事件时，可以调用[取消订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/unsubscribe)接口，进行取消，取消后该应用将不再会收到事件订阅消息。;- 订阅和取消订阅接口的实现都是面向应用的，多个应用可以同时订阅同一个审批定义 Code（approval_code），每个应用在都能收到审批事件。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscribe&project=approval&resource=approval&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/subscribe_approval.go
 func (a *approval) Subscribe(ctx context.Context, req *SubscribeApprovalReq, options ...larkcore.RequestOptionFunc) (*SubscribeApprovalResp, error) {
@@ -139,9 +139,9 @@ func (a *approval) Subscribe(ctx context.Context, req *SubscribeApprovalReq, opt
 
 // Unsubscribe 取消订阅审批事件
 //
-// - 取消订阅 approval_code 后，无法再收到该审批定义对应实例的事件通知
+// - 调用[订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe)接口订阅审批定义 Code 后，如果不再需要接收该审批定义下的事件订阅通知，可以调用本接口取消订阅审批定义 Code，取消后应用无法再收到该审批定义对应实例的事件通知。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/unsubscribe
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=unsubscribe&project=approval&resource=approval&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/unsubscribe_approval.go
 func (a *approval) Unsubscribe(ctx context.Context, req *UnsubscribeApprovalReq, options ...larkcore.RequestOptionFunc) (*UnsubscribeApprovalResp, error) {
@@ -163,9 +163,9 @@ func (a *approval) Unsubscribe(ctx context.Context, req *UnsubscribeApprovalReq,
 	return resp, err
 }
 
-// List
+// List 查询地理库信息
 //
-// -
+// - 获取审批的地理库数据，用于在发起审批时填写地址控件的区域信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=approval&resource=district&version=v4
 //
@@ -197,9 +197,9 @@ func (d *district) ListByIterator(ctx context.Context, req *ListDistrictReq, opt
 		limit:    req.Limit}, nil
 }
 
-// Search
+// Search 搜索地理库信息
 //
-// -
+// - 搜索审批的地理库数据，可用于在发起审批时填写地址控件的区域信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=approval&resource=district&version=v4
 //
@@ -231,13 +231,11 @@ func (d *district) SearchByIterator(ctx context.Context, req *SearchDistrictReq,
 		limit:    req.Limit}, nil
 }
 
-// Create 三方审批定义创建
+// Create 同步三方审批定义
 //
-// - 审批定义是审批的描述，包括审批名称、图标、描述等基础信息。创建好审批定义，用户就可以在审批应用的发起页中看到审批，如果用户点击发起，则会跳转到配置的发起三方系统地址去发起审批。;;另外，审批定义还配置了审批操作时的回调地址：审批人在待审批列表中进行【同意】【拒绝】操作时，审批中心会调用回调地址通知三方系统。
+// - 该接口用于将其他系统的审批定义同步至飞书审批，配合[同步三方审批实例](https://open.feishu.cn/document%2FuAjLw4CM%2FukTMukTMukTM%2Freference%2Fapproval-v4%2Fexternal_instance%2Fcreate),[三方快捷审批回调](https://open.feishu.cn/document%2FukTMukTMukTM%2FukjNyYjL5YjM24SO2IjN%2Fquick-approval-callback)使用可将企业内所有审批流集中在飞书审批中统一处理。 方便企业员工在飞书审批内发起并操作三方审批。
 //
-// - 注意，审批中心不负责审批流程的流转，只负责展示、操作、消息通知。因此审批定义创建时没有审批流程的信息。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=approval&resource=external_approval&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/create_externalApproval.go
 func (e *externalApproval) Create(ctx context.Context, req *CreateExternalApprovalReq, options ...larkcore.RequestOptionFunc) (*CreateExternalApprovalResp, error) {
@@ -259,9 +257,9 @@ func (e *externalApproval) Create(ctx context.Context, req *CreateExternalApprov
 	return resp, err
 }
 
-// Get
+// Get 查看指定三方审批定义
 //
-// -
+// - 调用该接口通过三方审批定义 Code 获取审批定义的详细数据，包括三方审批定义的名称、说明、三方审批发起链接、回调 URL 以及审批定义可见人列表等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=approval&resource=external_approval&version=v4
 //
@@ -285,11 +283,11 @@ func (e *externalApproval) Get(ctx context.Context, req *GetExternalApprovalReq,
 	return resp, err
 }
 
-// Check 三方审批实例校验
+// Check 校验三方审批实例
 //
-// - 校验三方审批实例数据，用于判断服务端数据是否为最新的。用户提交实例最新更新时间，如果服务端不存在该实例，或者服务端实例更新时间不是最新的，则返回对应实例 id。;;例如，用户可以每隔5分钟，将最近5分钟产生的实例使用该接口进行对比。
+// - 调用该接口校验三方审批实例数据，用于判断服务端数据是否为最新的。请求时提交实例最新更新时间，如果服务端不存在该实例，或者服务端实例更新时间不是最新的，则返回对应实例 ID。;;例如，设置定时任务每隔 5 分钟，将最近 5 分钟产生的实例使用该接口进行对比。如果数据在服务端不存在或者不是最新，则可以根据本接口返回的实例 ID、任务 ID，前往[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/check
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=check&project=approval&resource=external_instance&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/check_externalInstance.go
 func (e *externalInstance) Check(ctx context.Context, req *CheckExternalInstanceReq, options ...larkcore.RequestOptionFunc) (*CheckExternalInstanceResp, error) {
@@ -311,11 +309,13 @@ func (e *externalInstance) Check(ctx context.Context, req *CheckExternalInstance
 	return resp, err
 }
 
-// Create 三方审批实例同步
+// Create 同步三方审批实例
 //
-// - 审批中心不负责审批的流转，审批的流转在三方系统，三方系统在审批流转后生成的审批实例、审批任务、审批抄送数据同步到审批中心。;;用户可以在审批中心中浏览三方系统同步过来的实例、任务、抄送信息，并且可以跳转回三方系统进行更详细的查看和操作，其中实例信息在【已发起】列表，任务信息在【待审批】和【已审批】列表，抄送信息在【抄送我】列表;;:::html;<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9dff4434afbeb0ef69de7f36b9a6e995_z5iwmTzEgg.png" alt="" style="zoom:17%;" />;;;<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ca6e0e984a7a6d64e1b16a0bac4bf868_tfqjCiaJQM.png" alt="" style="zoom:17%;" />;;;<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/529377e238df78d391bbd22e962ad195_T7eefLI1GA.png" alt="" style="zoom:17%;" />;:::;;对于审批任务，三方系统也可以配置审批任务的回调接口，这样审批人可以在审批中心中直接进行审批操作，审批中心会回调三方系统，三方系统收到回调后更新任务信息，并将新的任务信息同步回审批中心，形成闭环。;;:::html;<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/721c35428bc1187db3318c572f9979ad_je75QpElcg.png" alt=""  style="zoom:25%;" />;:::;<br>
+// - 审批中心不负责审批的流转，审批的流转在三方系统。本接口用于把三方系统在审批流转后生成的审批实例、审批任务、审批抄送数据同步到审批中心。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create
+// - 需确保审批实例内各类实体（实例、任务、抄送） ID 在审批实例内的唯一性，不属于同一实体之间的 ID 也要确保唯一性。如果实例 ID、任务 ID、抄送 ID 重复，则会导致在审批中心任务看不到对应的审批数据。;;## 实现效果;;调用本接口同步三方审批实例后，企业员工可以在审批中心浏览同步过来的审批实例、任务、抄送信息，并可以跳转回三方系统查看和操作审批，其中，实例信息在审批中心的 **已发起** 列表、任务信息在 **待办** 和 **已办** 列表、抄送信息在 **抄送我** 列表。;;:::html;<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1ae6658510d5bf5370cf9d92675d052e_ICznPXHJRl.png" alt="" style="zoom:40%;" />;:::;;[创建三方审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create)时如果设置了三方审批回调 URL，对于审批任务，可以配置[三方快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback)，这样审批人可以在审批中心直接进行审批操作，审批中心会将审批结果回调至三方系统，三方系统收到回调后更新任务信息，并将新的任务信息同步回审批中心，形成闭环。;;:::html;<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/80ed32b0bbb5d18cf1159e4534fc80eb_Dm49iUKXUp.png" alt="" style="zoom:17%;" />;:::;
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=approval&resource=external_instance&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/create_externalInstance.go
 func (e *externalInstance) Create(ctx context.Context, req *CreateExternalInstanceReq, options ...larkcore.RequestOptionFunc) (*CreateExternalInstanceResp, error) {
@@ -339,9 +339,11 @@ func (e *externalInstance) Create(ctx context.Context, req *CreateExternalInstan
 
 // List 获取三方审批任务状态
 //
-// - 该接口用于获取三方审批的状态。用户传入查询条件，接口返回满足条件的审批实例的状态。该接口支持多种参数的组合，包括如下组合：;;1.通过 instance_ids 获取指定实例的任务状态;;2.通过 user_ids 获取指定用户的任务状态;;3.通过 status 获取指定状态的所有任务;;4.通过page_token获取下一批数据
+// - 该接口用于获取三方审批的状态。支持传入三方审批定义 Code、三方审批实例 ID、审批人 ID 或 审批任务状态查询条件，获取满足条件的三方审批任务状态。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_task/list
+// - ## 使用示例;;该接口支持多种参数的组合，具体请参考请求体示例：;;- 通过 instance_ids 获取指定实例的任务状态时，instance_ids为必须字段;; ```json; {; "instance_ids": ["oa_159160304"]; }; ```;;- 通过 user_ids 获取指定用户的任务状态时，approval_codes、user_ids、status为必须字段;; ```json; {; "approval_codes": ["B7B65FFE-C2GC-452F-9F0F-9AA8352363D6"],; "user_ids": ["112321"],; "status": "PENDING"; }; ```;;- 通过 status 获取指定状态的所有任务时，approval_codes、status为必须字段;; ``` json; {; "approval_codes": [; "E78F1022-A166-447C-8320-E151DA90D70F"; ],; "status": "PENDING"; }; ```;;- 通过 page_token获取下一批数据时，page_token为必须字段
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=approval&resource=external_task&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/list_externalTask.go
 func (e *externalTask) List(ctx context.Context, req *ListExternalTaskReq, options ...larkcore.RequestOptionFunc) (*ListExternalTaskResp, error) {
@@ -371,11 +373,37 @@ func (e *externalTask) ListByIterator(ctx context.Context, req *ListExternalTask
 		limit:    req.Limit}, nil
 }
 
+// AddCc 抄送审批实例
+//
+// - 调用该接口将当前审批实例抄送给指定用户。被抄送的用户可以查看审批实例详情。例如，在飞书客户端的 **工作台 > 审批 > 审批中心 > 抄送我** 列表中查看到审批实例。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=add_cc&project=approval&resource=instance&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/addCc_instance.go
+func (i *instance) AddCc(ctx context.Context, req *AddCcInstanceReq, options ...larkcore.RequestOptionFunc) (*AddCcInstanceResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/instances/add_cc"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, i.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &AddCcInstanceResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, i.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // AddSign
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-task-addsign
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=add_sign&project=approval&resource=instance&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/addSign_instance.go
 func (i *instance) AddSign(ctx context.Context, req *AddSignInstanceReq, options ...larkcore.RequestOptionFunc) (*AddSignInstanceResp, error) {
@@ -397,11 +425,11 @@ func (i *instance) AddSign(ctx context.Context, req *AddSignInstanceReq, options
 	return resp, err
 }
 
-// Cancel 审批实例撤回
+// Cancel 撤回审批实例
 //
-// - 对于状态为“审批中”的单个审批实例进行撤销操作，撤销后审批流程结束
+// - 如果企业管理员在审批后台的某一审批定义的 **更多设置** 中，勾选了 **允许撤销审批中的申请** 或者 **允许撤销 x 天内通过的审批**，则在符合撤销规则的情况下，你可以调用本接口将指定提交人的审批实例撤回。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/cancel
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=cancel&project=approval&resource=instance&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/cancel_instance.go
 func (i *instance) Cancel(ctx context.Context, req *CancelInstanceReq, options ...larkcore.RequestOptionFunc) (*CancelInstanceResp, error) {
@@ -423,11 +451,11 @@ func (i *instance) Cancel(ctx context.Context, req *CancelInstanceReq, options .
 	return resp, err
 }
 
-// Cc 审批实例抄送
+// Cc 抄送审批实例
 //
-// - 通过接口可以将当前审批实例抄送给其他人。
+// - 调用该接口将当前审批实例抄送给指定用户。被抄送的用户可以查看审批实例详情。例如，在飞书客户端的 **工作台 > 审批 > 审批中心 > 抄送我** 列表中查看到审批实例。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/cc
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=cc&project=approval&resource=instance&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/cc_instance.go
 func (i *instance) Cc(ctx context.Context, req *CcInstanceReq, options ...larkcore.RequestOptionFunc) (*CcInstanceResp, error) {
@@ -451,9 +479,9 @@ func (i *instance) Cc(ctx context.Context, req *CcInstanceReq, options ...larkco
 
 // Create 创建审批实例
 //
-// - 创建一个审批实例，调用方需对审批定义的表单有详细了解，将按照定义的表单结构，将表单 Value 通过接口传入
+// - 调用本接口使用指定审批定义 Code 创建一个审批实例，接口调用者需对审批定义的表单有详细了解，按照定义的表单结构，将表单 Value 通过本接口传入。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=approval&resource=instance&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/create_instance.go
 func (i *instance) Create(ctx context.Context, req *CreateInstanceReq, options ...larkcore.RequestOptionFunc) (*CreateInstanceResp, error) {
@@ -475,11 +503,37 @@ func (i *instance) Create(ctx context.Context, req *CreateInstanceReq, options .
 	return resp, err
 }
 
+// Detail 获取单个审批实例详情
+//
+// - 通过审批实例 Code 获取指定审批实例的详细信息，包括审批实例的名称、创建时间、发起审批的用户、状态以及任务列表等信息。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=detail&project=approval&resource=instance&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/detail_instance.go
+func (i *instance) Detail(ctx context.Context, req *DetailInstanceReq, options ...larkcore.RequestOptionFunc) (*DetailInstanceResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/instances/detail"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, i.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DetailInstanceResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, i.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Get 获取单个审批实例详情
 //
-// - 通过审批实例 Instance Code  获取审批实例详情。Instance Code 由 [批量获取审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list) 接口获取。
+// - 通过审批实例 Code 获取指定审批实例的详细信息，包括审批实例的名称、创建时间、发起审批的用户、状态以及任务列表等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=approval&resource=instance&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/get_instance.go
 func (i *instance) Get(ctx context.Context, req *GetInstanceReq, options ...larkcore.RequestOptionFunc) (*GetInstanceResp, error) {
@@ -501,11 +555,45 @@ func (i *instance) Get(ctx context.Context, req *GetInstanceReq, options ...lark
 	return resp, err
 }
 
-// List 批量获取审批实例ID
+// Initiated 获取用户已发起审批列表
 //
-// - 根据 approval_code 批量获取审批实例的 instance_code，用于拉取租户下某个审批定义的全部审批实例。默认以审批创建时间先后顺序排列
+// - 以用户身份获取用户已发起的审批列表，与飞书中审批->审批中心->已发起一致
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=initiated&project=approval&resource=instance&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/initiated_instance.go
+func (i *instance) Initiated(ctx context.Context, req *InitiatedInstanceReq, options ...larkcore.RequestOptionFunc) (*InitiatedInstanceResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/instances/initiated"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, i.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &InitiatedInstanceResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, i.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (i *instance) InitiatedByIterator(ctx context.Context, req *InitiatedInstanceReq, options ...larkcore.RequestOptionFunc) (*InitiatedInstanceIterator, error) {
+	return &InitiatedInstanceIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: i.Initiated,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// List 批量获取审批实例 ID
+//
+// - 根据审批定义的 approval_code 批量获取审批实例的 instance_code，用于拉取企业下某个审批定义的全部审批实例。默认以审批创建时间先后顺序排列。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=approval&resource=instance&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/list_instance.go
 func (i *instance) List(ctx context.Context, req *ListInstanceReq, options ...larkcore.RequestOptionFunc) (*ListInstanceResp, error) {
@@ -539,7 +627,7 @@ func (i *instance) ListByIterator(ctx context.Context, req *ListInstanceReq, opt
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-preview
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=preview&project=approval&resource=instance&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/preview_instance.go
 func (i *instance) Preview(ctx context.Context, req *PreviewInstanceReq, options ...larkcore.RequestOptionFunc) (*PreviewInstanceResp, error) {
@@ -565,7 +653,7 @@ func (i *instance) Preview(ctx context.Context, req *PreviewInstanceReq, options
 //
 // - 该接口通过不同条件查询审批系统中符合条件的审批实例列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=approval&resource=instance&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/query_instance.go
 func (i *instance) Query(ctx context.Context, req *QueryInstanceReq, options ...larkcore.RequestOptionFunc) (*QueryInstanceResp, error) {
@@ -595,11 +683,65 @@ func (i *instance) QueryByIterator(ctx context.Context, req *QueryInstanceReq, o
 		limit:    req.Limit}, nil
 }
 
+// Recall 撤回审批实例
+//
+// - 在符合撤销规则的情况下，你可以调用本接口将**当前用户身份提交的**的审批实例撤回。
+//
+// - ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/0fa2d2e821074146781c1750e54fc7f6_FECsrbxOXW.png?height=278&maxWidth=550&width=1383);;## 注意事项;;- 如果撤回的是审批中的实例，则撤回后审批流程结束。;- 如果撤回的是已通过的实例，则审批实例会变更为 **审批中** 的状态。;- 撤销规则：企业管理员在审批后台的某一审批定义的 **更多设置** 中，勾选了 **允许撤销审批中的申请** 或者 **允许撤销 x 天内通过的审批**
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recall&project=approval&resource=instance&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/recall_instance.go
+func (i *instance) Recall(ctx context.Context, req *RecallInstanceReq, options ...larkcore.RequestOptionFunc) (*RecallInstanceResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/instances/recall"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, i.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RecallInstanceResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, i.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Remind 发送催办消息
+//
+// - 当需要催促审批人审批单据时，通过该接口给审批人发送催办消息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=remind&project=approval&resource=instance&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/remind_instance.go
+func (i *instance) Remind(ctx context.Context, req *RemindInstanceReq, options ...larkcore.RequestOptionFunc) (*RemindInstanceResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/instances/remind"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, i.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RemindInstanceResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, i.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // SearchCc 查询抄送列表
 //
 // - 该接口通过不同条件查询审批系统中符合条件的审批抄送列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/search_cc
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search_cc&project=approval&resource=instance&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/searchCc_instance.go
 func (i *instance) SearchCc(ctx context.Context, req *SearchCcInstanceReq, options ...larkcore.RequestOptionFunc) (*SearchCcInstanceResp, error) {
@@ -621,11 +763,11 @@ func (i *instance) SearchCc(ctx context.Context, req *SearchCcInstanceReq, optio
 	return resp, err
 }
 
-// SpecifiedRollback 审批任务退回
+// SpecifiedRollback 退回审批任务
 //
-// - 从当前审批任务，退回到已审批的一个或多个任务节点。退回后，已审批节点重新生成审批任务
+// - 从当前审批任务，退回到已审批的一个或多个任务节点。退回后，已审批节点重新生成审批任务。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/specified_rollback
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=specified_rollback&project=approval&resource=instance&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/specifiedRollback_instance.go
 func (i *instance) SpecifiedRollback(ctx context.Context, req *SpecifiedRollbackInstanceReq, options ...larkcore.RequestOptionFunc) (*SpecifiedRollbackInstanceResp, error) {
@@ -647,11 +789,63 @@ func (i *instance) SpecifiedRollback(ctx context.Context, req *SpecifiedRollback
 	return resp, err
 }
 
+// Subscription 订阅审批实例状态变更事件
+//
+// - 当应用[订阅审批事件](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)后，对于事件type为[审批实例状态变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/events/status_changed)的事件;，需要调用该接口指定需要接收通知的审批任务范围，指定后才可以接收到对应范围内的事件。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscription&project=approval&resource=instance&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/subscription_instance.go
+func (i *instance) Subscription(ctx context.Context, req *SubscriptionInstanceReq, options ...larkcore.RequestOptionFunc) (*SubscriptionInstanceResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/instances/subscription"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, i.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SubscriptionInstanceResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, i.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Unsubscription 退订审批实例状态变更事件
+//
+// - 当不再希望收到任务状态变更事件时，调用此接口，该接口用于撤销[订阅审批实例状态变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/subscription)中的操作
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=unsubscription&project=approval&resource=instance&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/unsubscription_instance.go
+func (i *instance) Unsubscription(ctx context.Context, req *UnsubscriptionInstanceReq, options ...larkcore.RequestOptionFunc) (*UnsubscriptionInstanceResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/instances/subscription"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, i.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UnsubscriptionInstanceResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, i.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Create 创建评论
 //
-// - 在某审批实例下创建、修改评论或评论回复（不包含审批同意、拒绝、转交等附加的理由或意见）。
+// - 在指定审批实例下创建、修改评论或回复评论（不包含审批同意、拒绝、转交等附加的理由或意见）。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=approval&resource=instance.comment&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/create_instanceComment.go
 func (i *instanceComment) Create(ctx context.Context, req *CreateInstanceCommentReq, options ...larkcore.RequestOptionFunc) (*CreateInstanceCommentResp, error) {
@@ -675,9 +869,9 @@ func (i *instanceComment) Create(ctx context.Context, req *CreateInstanceComment
 
 // Delete 删除评论
 //
-// - 逻辑删除某审批实例下的一条评论或评论回复（不包含审批同意、拒绝、转交等附加的理由或意见）。
+// - 删除某审批实例下的一条评论或评论回复（不包含审批同意、拒绝、转交等附加的理由或意见），删除后在审批中心的审批实例内不再显示评论内容，而是显示 **评论已删除**。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=approval&resource=instance.comment&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/delete_instanceComment.go
 func (i *instanceComment) Delete(ctx context.Context, req *DeleteInstanceCommentReq, options ...larkcore.RequestOptionFunc) (*DeleteInstanceCommentResp, error) {
@@ -701,9 +895,9 @@ func (i *instanceComment) Delete(ctx context.Context, req *DeleteInstanceComment
 
 // List 获取评论
 //
-// - 根据 Instance Code 获取某个审批实例下的全部评论与评论回复（不包含审批同意、拒绝、转交等附加的理由或意见）。
+// - 根据审批实例 Code 获取某个审批实例下，全部评论与评论回复（不包含审批同意、拒绝、转交等附加的理由或意见）。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=approval&resource=instance.comment&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/list_instanceComment.go
 func (i *instanceComment) List(ctx context.Context, req *ListInstanceCommentReq, options ...larkcore.RequestOptionFunc) (*ListInstanceCommentResp, error) {
@@ -727,9 +921,9 @@ func (i *instanceComment) List(ctx context.Context, req *ListInstanceCommentReq,
 
 // Remove 清空评论
 //
-// - 删除某审批实例下的全部评论与评论回复。
+// - 清空某审批实例下的全部评论与评论回复，包括显示为已删除的评论。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/remove
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=remove&project=approval&resource=instance.comment&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/remove_instanceComment.go
 func (i *instanceComment) Remove(ctx context.Context, req *RemoveInstanceCommentReq, options ...larkcore.RequestOptionFunc) (*RemoveInstanceCommentResp, error) {
@@ -751,11 +945,37 @@ func (i *instanceComment) Remove(ctx context.Context, req *RemoveInstanceComment
 	return resp, err
 }
 
-// Approve 审批任务同意
+// AddSign 加签审批任务
+//
+// - 通过调用该接口在当前节点增加审批人
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=add_sign&project=approval&resource=task&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/addSign_task.go
+func (t *task) AddSign(ctx context.Context, req *AddSignTaskReq, options ...larkcore.RequestOptionFunc) (*AddSignTaskResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/tasks/add_sign"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &AddSignTaskResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Approve 同意审批任务
 //
 // - 对于单个审批任务进行同意操作。同意后审批流程会流转到下一个审批人。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/approve
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=approve&project=approval&resource=task&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/approve_task.go
 func (t *task) Approve(ctx context.Context, req *ApproveTaskReq, options ...larkcore.RequestOptionFunc) (*ApproveTaskResp, error) {
@@ -777,11 +997,97 @@ func (t *task) Approve(ctx context.Context, req *ApproveTaskReq, options ...lark
 	return resp, err
 }
 
-// Query 用户角度列出任务
+// Forward 转交审批任务
 //
-// - 根据用户和任务分组查询任务列表
+// - 对于单个审批任务进行转交操作。转交后审批流程流转给被转交人。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=forward&project=approval&resource=task&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/forward_task.go
+func (t *task) Forward(ctx context.Context, req *ForwardTaskReq, options ...larkcore.RequestOptionFunc) (*ForwardTaskResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/tasks/forward"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ForwardTaskResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// List 获取审批任务列表
+//
+// - 通过设置任务分组、审批定义 Code（审批流程的唯一标识）等，查询任务列表。任务分组包括待办审批、已办审批等
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=approval&resource=task&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/list_task.go
+func (t *task) List(ctx context.Context, req *ListTaskReq, options ...larkcore.RequestOptionFunc) (*ListTaskResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/tasks"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListTaskResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (t *task) ListByIterator(ctx context.Context, req *ListTaskReq, options ...larkcore.RequestOptionFunc) (*ListTaskIterator, error) {
+	return &ListTaskIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: t.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// Pass 同意审批任务
+//
+// - 对于单个审批任务进行同意操作。同意后审批流程会流转到下一个审批人。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=pass&project=approval&resource=task&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/pass_task.go
+func (t *task) Pass(ctx context.Context, req *PassTaskReq, options ...larkcore.RequestOptionFunc) (*PassTaskResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/tasks/pass"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PassTaskResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Query 查询用户的任务列表
+//
+// - 通过设置用户、任务分组，查询任务信息。任务分组包括待办审批、已办审批以及已发起审批等。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=approval&resource=task&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/query_task.go
 func (t *task) Query(ctx context.Context, req *QueryTaskReq, options ...larkcore.RequestOptionFunc) (*QueryTaskResp, error) {
@@ -811,11 +1117,37 @@ func (t *task) QueryByIterator(ctx context.Context, req *QueryTaskReq, options .
 		limit:    req.Limit}, nil
 }
 
-// Reject 审批任务拒绝
+// Refuse 拒绝审批任务
 //
 // - 对于单个审批任务进行拒绝操作。拒绝后审批流程结束。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/reject
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=refuse&project=approval&resource=task&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/refuse_task.go
+func (t *task) Refuse(ctx context.Context, req *RefuseTaskReq, options ...larkcore.RequestOptionFunc) (*RefuseTaskResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/tasks/refuse"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RefuseTaskResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Reject 拒绝审批任务
+//
+// - 对于单个审批任务进行拒绝操作。拒绝后审批流程结束。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=reject&project=approval&resource=task&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/reject_task.go
 func (t *task) Reject(ctx context.Context, req *RejectTaskReq, options ...larkcore.RequestOptionFunc) (*RejectTaskResp, error) {
@@ -837,11 +1169,11 @@ func (t *task) Reject(ctx context.Context, req *RejectTaskReq, options ...larkco
 	return resp, err
 }
 
-// Resubmit 审批任务重新提交
+// Resubmit 重新提交审批任务
 //
-// - 对于单个退回到发起人的审批任务进行重新发起操作。发起后审批流程会流转到下一个审批人。
+// - 对于退回到发起人的审批任务进行重新发起操作。发起后审批流程会流转到下一个审批人。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/resubmit
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=resubmit&project=approval&resource=task&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/resubmit_task.go
 func (t *task) Resubmit(ctx context.Context, req *ResubmitTaskReq, options ...larkcore.RequestOptionFunc) (*ResubmitTaskResp, error) {
@@ -863,11 +1195,37 @@ func (t *task) Resubmit(ctx context.Context, req *ResubmitTaskReq, options ...la
 	return resp, err
 }
 
+// Rollback 退回审批任务
+//
+// - 从当前审批任务，退回到已审批的一个或多个任务节点。退回后，已审批节点重新生成审批任务。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=rollback&project=approval&resource=task&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/rollback_task.go
+func (t *task) Rollback(ctx context.Context, req *RollbackTaskReq, options ...larkcore.RequestOptionFunc) (*RollbackTaskResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/tasks/rollback"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RollbackTaskResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Search 查询任务列表
 //
-// - 该接口通过不同条件查询审批系统中符合条件的审批任务列表
+// - 该接口通过不同条件查询审批系统中符合条件的审批任务列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/search
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=approval&resource=task&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/search_task.go
 func (t *task) Search(ctx context.Context, req *SearchTaskReq, options ...larkcore.RequestOptionFunc) (*SearchTaskResp, error) {
@@ -889,11 +1247,37 @@ func (t *task) Search(ctx context.Context, req *SearchTaskReq, options ...larkco
 	return resp, err
 }
 
-// Transfer 审批任务转交
+// Subscription 订阅审批任务状态变更事件
+//
+// - 当应用[订阅审批事件](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)后，对于事件type为[审批任务状态变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/events/status_changed)的事件;，需要调用该接口指定需要接收通知的审批任务范围，指定后才可以接收到对应范围内的事件。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscription&project=approval&resource=task&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/subscription_task.go
+func (t *task) Subscription(ctx context.Context, req *SubscriptionTaskReq, options ...larkcore.RequestOptionFunc) (*SubscriptionTaskResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/tasks/subscription"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SubscriptionTaskResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Transfer 转交审批任务
 //
 // - 对于单个审批任务进行转交操作。转交后审批流程流转给被转交人。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/transfer
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=transfer&project=approval&resource=task&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/transfer_task.go
 func (t *task) Transfer(ctx context.Context, req *TransferTaskReq, options ...larkcore.RequestOptionFunc) (*TransferTaskResp, error) {
@@ -908,6 +1292,32 @@ func (t *task) Transfer(ctx context.Context, req *TransferTaskReq, options ...la
 	}
 	// 反序列响应结果
 	resp := &TransferTaskResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Unsubscription 退订审批任务状态变更事件
+//
+// - 当不再希望收到任务状态变更事件时，调用此接口，该接口用于撤销[订阅审批任务状态变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/subscription)中的操作
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=unsubscription&project=approval&resource=task&version=v4
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/approvalv4/unsubscription_task.go
+func (t *task) Unsubscription(ctx context.Context, req *UnsubscriptionTaskReq, options ...larkcore.RequestOptionFunc) (*UnsubscriptionTaskResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/approval/v4/tasks/subscription"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UnsubscriptionTaskResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, t.config)
 	if err != nil {
 		return nil, err

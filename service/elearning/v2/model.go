@@ -572,7 +572,7 @@ type Course struct {
 
 	CoverUrl *string `json:"cover_url,omitempty"` // 课程封面url
 
-	Owner *User `json:"owner,omitempty"` // 课程所有人
+	Owner *User `json:"owner,omitempty"` // 用户
 
 	TeacherList []*User `json:"teacher_list,omitempty"` // 讲师
 
@@ -626,7 +626,7 @@ type CourseBuilder struct {
 	coverUrl    string // 课程封面url
 	coverUrlSet bool
 
-	owner    *User // 课程所有人
+	owner    *User // 用户
 	ownerSet bool
 
 	teacherList    []*User // 讲师
@@ -728,7 +728,7 @@ func (builder *CourseBuilder) CoverUrl(coverUrl string) *CourseBuilder {
 	return builder
 }
 
-// 课程所有人
+// 用户
 //
 // 示例值：
 func (builder *CourseBuilder) Owner(owner *User) *CourseBuilder {
@@ -1203,7 +1203,7 @@ func (builder *CourseObjectBuilder) Build() *CourseObject {
 type CourseRegistration struct {
 	CourseId *string `json:"course_id,omitempty"` // 课程ID
 
-	Learner *User `json:"learner,omitempty"` // 课程学员信息
+	Learner *User `json:"learner,omitempty"` // 用户
 
 	EnrollAt *int `json:"enroll_at,omitempty"` // 加入学习时间
 
@@ -1228,7 +1228,7 @@ type CourseRegistrationBuilder struct {
 	courseId    string // 课程ID
 	courseIdSet bool
 
-	learner    *User // 课程学员信息
+	learner    *User // 用户
 	learnerSet bool
 
 	enrollAt    int // 加入学习时间
@@ -1273,7 +1273,7 @@ func (builder *CourseRegistrationBuilder) CourseId(courseId string) *CourseRegis
 	return builder
 }
 
-// 课程学员信息
+// 用户
 //
 // 示例值：
 func (builder *CourseRegistrationBuilder) Learner(learner *User) *CourseRegistrationBuilder {
@@ -1426,8 +1426,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1435,8 +1433,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -2026,7 +2022,7 @@ type LessonStudyRecord struct {
 
 	CourseId *string `json:"course_id,omitempty"` // 课程ID
 
-	Learner *User `json:"learner,omitempty"` // 课程学员信息
+	Learner *User `json:"learner,omitempty"` // 用户
 
 	LearningState *int `json:"learning_state,omitempty"` // 完成状态。[枚举值](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/elearning-v2/enum)
 
@@ -2046,7 +2042,7 @@ type LessonStudyRecordBuilder struct {
 	courseId    string // 课程ID
 	courseIdSet bool
 
-	learner    *User // 课程学员信息
+	learner    *User // 用户
 	learnerSet bool
 
 	learningState    int // 完成状态。[枚举值](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/elearning-v2/enum)
@@ -2088,7 +2084,7 @@ func (builder *LessonStudyRecordBuilder) CourseId(courseId string) *LessonStudyR
 	return builder
 }
 
-// 课程学员信息
+// 用户
 //
 // 示例值：
 func (builder *LessonStudyRecordBuilder) Learner(learner *User) *LessonStudyRecordBuilder {
@@ -2245,9 +2241,9 @@ type Session struct {
 
 	EndAt *string `json:"end_at,omitempty"` // 活动期次结束时间（10位时间戳）
 
-	StartDate *string `json:"start_date,omitempty"` // 活动期次举办日期
+	StartDate *string `json:"start_date,omitempty"` // 活动期次举办日期（例：2024-04-01）
 
-	Timezone *string `json:"timezone,omitempty"` // 活动期次时区
+	Timezone *string `json:"timezone,omitempty"` // 活动期次时区（例： Asia/Shanghai）
 
 	EnrollRule *int `json:"enroll_rule,omitempty"` // 报名时间类型
 
@@ -2300,10 +2296,10 @@ type SessionBuilder struct {
 	endAt    string // 活动期次结束时间（10位时间戳）
 	endAtSet bool
 
-	startDate    string // 活动期次举办日期
+	startDate    string // 活动期次举办日期（例：2024-04-01）
 	startDateSet bool
 
-	timezone    string // 活动期次时区
+	timezone    string // 活动期次时区（例： Asia/Shanghai）
 	timezoneSet bool
 
 	enrollRule    int // 报名时间类型
@@ -2426,7 +2422,7 @@ func (builder *SessionBuilder) EndAt(endAt string) *SessionBuilder {
 	return builder
 }
 
-// 活动期次举办日期
+// 活动期次举办日期（例：2024-04-01）
 //
 // 示例值：2024-04-01
 func (builder *SessionBuilder) StartDate(startDate string) *SessionBuilder {
@@ -2435,7 +2431,7 @@ func (builder *SessionBuilder) StartDate(startDate string) *SessionBuilder {
 	return builder
 }
 
-// 活动期次时区
+// 活动期次时区（例： Asia/Shanghai）
 //
 // 示例值：Asia/Shanghai
 func (builder *SessionBuilder) Timezone(timezone string) *SessionBuilder {
@@ -2706,7 +2702,7 @@ type TaskInfo struct {
 
 	Name *string `json:"name,omitempty"` // 名字
 
-	Type *int `json:"type,omitempty"` // 类型
+	Type *int `json:"type,omitempty"` // 类型。[枚举值](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/elearning-v2/enum#f1ca4c56)
 
 	IsDisable *bool `json:"is_disable,omitempty"` // 是否已停用
 }
@@ -2718,7 +2714,7 @@ type TaskInfoBuilder struct {
 	name    string // 名字
 	nameSet bool
 
-	type_    int // 类型
+	type_    int // 类型。[枚举值](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/elearning-v2/enum#f1ca4c56)
 	type_Set bool
 
 	isDisable    bool // 是否已停用
@@ -2748,7 +2744,7 @@ func (builder *TaskInfoBuilder) Name(name string) *TaskInfoBuilder {
 	return builder
 }
 
-// 类型
+// 类型。[枚举值](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/elearning-v2/enum#f1ca4c56)
 //
 // 示例值：1
 func (builder *TaskInfoBuilder) Type(type_ int) *TaskInfoBuilder {
@@ -2796,11 +2792,11 @@ type TrainProgram struct {
 
 	CoverLink *string `json:"cover_link,omitempty"` // 封面url
 
-	Owner *User `json:"owner,omitempty"` // 所有人
+	Owner *User `json:"owner,omitempty"` // 用户
 
 	CategoryList []*CourseCategory `json:"category_list,omitempty"` // 分类
 
-	VisibleScopeInfo *VisibleScopeInfo `json:"visible_scope_info,omitempty"` // 公开范围，不公开/全体员工/指定范围
+	VisibleScopeInfo *VisibleScopeInfo `json:"visible_scope_info,omitempty"` // 公开范围
 
 	CreatedAt *int `json:"created_at,omitempty"` // 创建时间
 
@@ -2838,13 +2834,13 @@ type TrainProgramBuilder struct {
 	coverLink    string // 封面url
 	coverLinkSet bool
 
-	owner    *User // 所有人
+	owner    *User // 用户
 	ownerSet bool
 
 	categoryList    []*CourseCategory // 分类
 	categoryListSet bool
 
-	visibleScopeInfo    *VisibleScopeInfo // 公开范围，不公开/全体员工/指定范围
+	visibleScopeInfo    *VisibleScopeInfo // 公开范围
 	visibleScopeInfoSet bool
 
 	createdAt    int // 创建时间
@@ -2922,7 +2918,7 @@ func (builder *TrainProgramBuilder) CoverLink(coverLink string) *TrainProgramBui
 	return builder
 }
 
-// 所有人
+// 用户
 //
 // 示例值：
 func (builder *TrainProgramBuilder) Owner(owner *User) *TrainProgramBuilder {
@@ -2940,7 +2936,7 @@ func (builder *TrainProgramBuilder) CategoryList(categoryList []*CourseCategory)
 	return builder
 }
 
-// 公开范围，不公开/全体员工/指定范围
+// 公开范围
 //
 // 示例值：
 func (builder *TrainProgramBuilder) VisibleScopeInfo(visibleScopeInfo *VisibleScopeInfo) *TrainProgramBuilder {
@@ -3124,7 +3120,7 @@ func (builder *TrainProgramBuilder) Build() *TrainProgram {
 type TrainProgramRegistration struct {
 	TrainProgramId *string `json:"train_program_id,omitempty"` // 项目ID
 
-	Learner *User `json:"learner,omitempty"` // 项目学员信息
+	Learner *User `json:"learner,omitempty"` // 用户
 
 	EnrollAt *int `json:"enroll_at,omitempty"` // 加入学习时间
 
@@ -3149,7 +3145,7 @@ type TrainProgramRegistrationBuilder struct {
 	trainProgramId    string // 项目ID
 	trainProgramIdSet bool
 
-	learner    *User // 项目学员信息
+	learner    *User // 用户
 	learnerSet bool
 
 	enrollAt    int // 加入学习时间
@@ -3194,7 +3190,7 @@ func (builder *TrainProgramRegistrationBuilder) TrainProgramId(trainProgramId st
 	return builder
 }
 
-// 项目学员信息
+// 用户
 //
 // 示例值：
 func (builder *TrainProgramRegistrationBuilder) Learner(learner *User) *TrainProgramRegistrationBuilder {
@@ -3488,7 +3484,7 @@ type TrainingRegistration struct {
 
 	SessionId *string `json:"session_id,omitempty"` // 期次ID
 
-	Learner *User `json:"learner,omitempty"` // 学员信息
+	Learner *User `json:"learner,omitempty"` // 用户
 
 	EnrollAt *string `json:"enroll_at,omitempty"` // 加入活动时间（10位时间戳）
 
@@ -3516,7 +3512,7 @@ type TrainingRegistrationBuilder struct {
 	sessionId    string // 期次ID
 	sessionIdSet bool
 
-	learner    *User // 学员信息
+	learner    *User // 用户
 	learnerSet bool
 
 	enrollAt    string // 加入活动时间（10位时间戳）
@@ -3570,7 +3566,7 @@ func (builder *TrainingRegistrationBuilder) SessionId(sessionId string) *Trainin
 	return builder
 }
 
-// 学员信息
+// 用户
 //
 // 示例值：
 func (builder *TrainingRegistrationBuilder) Learner(learner *User) *TrainingRegistrationBuilder {
@@ -3785,8 +3781,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -3794,8 +3788,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -3803,8 +3795,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId

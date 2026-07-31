@@ -77,9 +77,9 @@ type socialPlan struct {
 	config *larkcore.Config
 }
 
-// Create
+// Create 创建薪资档案
 //
-// -
+// - - 该接口适用于员工入职定薪、调薪或者更正档案场景，通过创建调薪任务的方式，为员工生成对应薪资档案数据。;- 当员工在调薪生效日期存在档案数据时，则是对该档案进行更正操作。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=compensation&resource=archive&version=v1
 //
@@ -103,9 +103,11 @@ func (a *archive) Create(ctx context.Context, req *CreateArchiveReq, options ...
 	return resp, err
 }
 
-// Query
+// Query 批量查询员工薪资档案
 //
-// -
+// - 批量查询员工薪资档案
+//
+// - 该接口会按照应用拥有的「薪资档案资源」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限」中已申请「薪资档案资源」权限范围
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=compensation&resource=archive&version=v1
 //
@@ -129,9 +131,9 @@ func (a *archive) Query(ctx context.Context, req *QueryArchiveReq, options ...la
 	return resp, err
 }
 
-// List
+// List 批量查询定调薪原因
 //
-// -
+// - 批量查询定调薪原因
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=compensation&resource=change_reason&version=v1
 //
@@ -163,9 +165,9 @@ func (c *changeReason) ListByIterator(ctx context.Context, req *ListChangeReason
 		limit:    req.Limit}, nil
 }
 
-// List
+// List 批量查询薪资统计指标
 //
-// -
+// - 批量查询薪资统计指标
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=compensation&resource=indicator&version=v1
 //
@@ -197,9 +199,9 @@ func (i *indicator) ListByIterator(ctx context.Context, req *ListIndicatorReq, o
 		limit:    req.Limit}, nil
 }
 
-// List
+// List 批量查询薪资项
 //
-// -
+// - 批量查询薪资项
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=compensation&resource=item&version=v1
 //
@@ -231,9 +233,9 @@ func (i *item) ListByIterator(ctx context.Context, req *ListItemReq, options ...
 		limit:    req.Limit}, nil
 }
 
-// List
+// List 批量获取薪资项分类信息
 //
-// -
+// - 批量获取薪资项分类信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=compensation&resource=item_category&version=v1
 //
@@ -265,9 +267,9 @@ func (i *itemCategory) ListByIterator(ctx context.Context, req *ListItemCategory
 		limit:    req.Limit}, nil
 }
 
-// BatchCreate
+// BatchCreate 批量创建一次性支付记录
 //
-// -
+// - 通过传入的一次性支付记录数据，校验并创建一次性支付记录，并返回创建失败原因或创建成功数据的ID
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=compensation&resource=lump_sum_payment&version=v1
 //
@@ -291,9 +293,11 @@ func (l *lumpSumPayment) BatchCreate(ctx context.Context, req *BatchCreateLumpSu
 	return resp, err
 }
 
-// BatchRemove
+// BatchRemove 批量删除一次性支付记录
 //
-// -
+// - 传入一次性支付记录ID，删除ID对应的一次性支付记录
+//
+// - 一次性支付记录被删除后，通过查询一次性支付授予明细接口或者查询一次性支付授予记录接口将查不到该数据
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_remove&project=compensation&resource=lump_sum_payment&version=v1
 //
@@ -317,9 +321,11 @@ func (l *lumpSumPayment) BatchRemove(ctx context.Context, req *BatchRemoveLumpSu
 	return resp, err
 }
 
-// BatchUpdate
+// BatchUpdate 批量更正一次性支付记录
 //
-// -
+// - 通过传入的一次性支付记录数据，校验并更正一次性支付记录，并返回更正失败原因
+//
+// - 本接口支持部分成功，失败部分详细报错信息参考 `data.operate_results.code`。;- 当 `data.operate_results.code` 存在非 0 时，响应体 code 仍可能返回 0;- 仅当出现非预期异常时，响应体 code 才会为非 0
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=compensation&resource=lump_sum_payment&version=v1
 //
@@ -343,9 +349,11 @@ func (l *lumpSumPayment) BatchUpdate(ctx context.Context, req *BatchUpdateLumpSu
 	return resp, err
 }
 
-// Query
+// Query 查询一次性支付授予记录
 //
-// -
+// - 根据筛选条件查询一次性支付授予记录
+//
+// - 请求体中的多个筛选项为”且“的关系
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=compensation&resource=lump_sum_payment&version=v1
 //
@@ -377,9 +385,11 @@ func (l *lumpSumPayment) QueryByIterator(ctx context.Context, req *QueryLumpSumP
 		limit:    req.Limit}, nil
 }
 
-// QueryDetail
+// QueryDetail 查询一次性授予明细
 //
-// -
+// - 根据筛选条件查询一次性授予明细
+//
+// - 一条一次性支付授予记录可能会存在多条明细，明细与记录之间通过其他薪酬记录id关联在一起，查询一次性授予记录接口也会返回授予明细
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_detail&project=compensation&resource=lump_sum_payment&version=v1
 //
@@ -411,9 +421,9 @@ func (l *lumpSumPayment) QueryDetailByIterator(ctx context.Context, req *QueryDe
 		limit:    req.Limit}, nil
 }
 
-// List
+// List 批量查询薪资方案
 //
-// -
+// - - 此接口将返回全部薪资方案信息，包括薪资方案 ID、生效日期、薪资项/薪资统计指标等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=compensation&resource=plan&version=v1
 //
@@ -445,9 +455,9 @@ func (p *plan) ListByIterator(ctx context.Context, req *ListPlanReq, options ...
 		limit:    req.Limit}, nil
 }
 
-// BatchCreate
+// BatchCreate 批量创建经常性支付记录
 //
-// - 创建经常性支付记录
+// - 根据传入的参数，校验并创建经常性支付记录，返回创建失败的原因或创建成功的数据ID
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=compensation&resource=recurring_payment&version=v1
 //
@@ -471,9 +481,9 @@ func (r *recurringPayment) BatchCreate(ctx context.Context, req *BatchCreateRecu
 	return resp, err
 }
 
-// BatchRemove
+// BatchRemove 批量删除经常性支付记录
 //
-// - 删除经常性支付记录
+// - 指定经常性支付记录ID，删除ID对应的经常性支付记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_remove&project=compensation&resource=recurring_payment&version=v1
 //
@@ -497,9 +507,9 @@ func (r *recurringPayment) BatchRemove(ctx context.Context, req *BatchRemoveRecu
 	return resp, err
 }
 
-// BatchUpdate
+// BatchUpdate 批量更正经常性支付记录
 //
-// - 更新经常性支付记录
+// - 批量更正经常性支付记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=compensation&resource=recurring_payment&version=v1
 //
@@ -523,9 +533,9 @@ func (r *recurringPayment) BatchUpdate(ctx context.Context, req *BatchUpdateRecu
 	return resp, err
 }
 
-// Query
+// Query 查询经常性支付记录
 //
-// - 查询经常性支付记录
+// - 通过筛选条件，批量查询经常性支付记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=compensation&resource=recurring_payment&version=v1
 //
@@ -557,9 +567,9 @@ func (r *recurringPayment) QueryByIterator(ctx context.Context, req *QueryRecurr
 		limit:    req.Limit}, nil
 }
 
-// Query
+// Query 批量获取员工参保档案
 //
-// - 通过员工ID和生效时间查询参保档案
+// - 通过用户ID列表和生效日期查询
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=compensation&resource=social_archive&version=v1
 //
@@ -583,9 +593,9 @@ func (s *socialArchive) Query(ctx context.Context, req *QuerySocialArchiveReq, o
 	return resp, err
 }
 
-// Query
+// Query 批量获取社保增减员记录
 //
-// - 根据员工ID查询待增员、待减员记录
+// - 通过员工ID批量获取社保增减员记录;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=compensation&resource=social_archive_adjust_record&version=v1
 //
@@ -609,9 +619,9 @@ func (s *socialArchiveAdjustRecord) Query(ctx context.Context, req *QuerySocialA
 	return resp, err
 }
 
-// List
+// List 获取险种配置列表
 //
-// - 获取险种列表
+// - 获取飞书人事系统中社保公积金设置下的险种配置详细列表，包括险种名称、类型等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=compensation&resource=social_insurance&version=v1
 //
@@ -638,9 +648,9 @@ func (s *socialInsurance) List(ctx context.Context, options ...larkcore.RequestO
 	return resp, err
 }
 
-// List
+// List 根据生效日期分页查询参保方案
 //
-// - 分页获取参保方案列表
+// - 通过生效日期effective_date参数过滤并分页返回结果
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=compensation&resource=social_plan&version=v1
 //
@@ -672,9 +682,9 @@ func (s *socialPlan) ListByIterator(ctx context.Context, req *ListSocialPlanReq,
 		limit:    req.Limit}, nil
 }
 
-// Query
+// Query 根据方案ID和生效日期批量查询参保方案;
 //
-// - 批量查询参保方案
+// - 通过plan_ids列表和effective_date联合过滤数据库中的参保方案数据
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=compensation&resource=social_plan&version=v1
 //

@@ -9,11 +9,11 @@ import (
 )
 
 type V2 struct {
-	Space        *space        // 知识空间
-	SpaceMember  *spaceMember  // 空间成员
-	SpaceNode    *spaceNode    // 节点
-	SpaceSetting *spaceSetting // 空间设置
-	Task         *task         // 云文档
+	Space        *space        // space
+	SpaceMember  *spaceMember  // space.member
+	SpaceNode    *spaceNode    // space.node
+	SpaceSetting *spaceSetting // space.setting
+	Task         *task         // task
 }
 
 func New(config *larkcore.Config) *V2 {
@@ -48,7 +48,7 @@ type task struct {
 //
 // - 此接口不支持tenant access token（应用身份访问）
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=wiki&resource=space&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/create_space.go
 func (s *space) Create(ctx context.Context, req *CreateSpaceReq, options ...larkcore.RequestOptionFunc) (*CreateSpaceResp, error) {
@@ -72,11 +72,11 @@ func (s *space) Create(ctx context.Context, req *CreateSpaceReq, options ...lark
 
 // Get 获取知识空间信息
 //
-// - 此接口用于根据知识空间ID来查询知识空间的信息。;;空间类型（type）：;- 个人空间：归个人管理。一人仅可拥有一个个人空间，无法添加其他管理员。;- 团队空间：归团队（多人)管理，可添加多个管理员。;;空间可见性（visibility）：;- 公开空间：租户所有用户可见，默认为成员权限。无法额外添加成员，但可以添加管理员。;- 私有空间：仅对知识空间管理员、成员可见，需要手动添加管理员、成员。
+// - 此接口用于根据知识空间 ID 查询知识空间的信息，包括空间的类型、可见性、分享状态等。
 //
-// - 本接口要求知识库权限：;- 需要为知识空间成员（管理员）
+// - ## 前提条件;;调用此接口前，请确保应用或用户为知识空间的成员或管理员。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=wiki&resource=space&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/get_space.go
 func (s *space) Get(ctx context.Context, req *GetSpaceReq, options ...larkcore.RequestOptionFunc) (*GetSpaceResp, error) {
@@ -104,7 +104,7 @@ func (s *space) Get(ctx context.Context, req *GetSpaceReq, options ...larkcore.R
 //
 // - 知识库权限要求，当前使用的 access token 所代表的应用或用户拥有：;- 节点阅读权限
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_node&project=wiki&resource=space&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/getNode_space.go
 func (s *space) GetNode(ctx context.Context, req *GetNodeSpaceReq, options ...larkcore.RequestOptionFunc) (*GetNodeSpaceResp, error) {
@@ -128,11 +128,11 @@ func (s *space) GetNode(ctx context.Context, req *GetNodeSpaceReq, options ...la
 
 // List 获取知识空间列表
 //
-// - 此接口用于获取有权限访问的知识空间列表。;;此接口为分页接口。由于权限过滤，可能返回列表为空，但分页标记（has_more）为true，可以继续分页请求。;;对于知识空间各项属性描述请参阅[获取知识空间信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get)
+// - 此接口用于获取有权限访问的知识空间列表。
 //
-// - 使用tenant access token调用时，请确认应用/机器人拥有部分知识空间的访问权限，否则返回列表容易为空。
+// - ## 注意事项;;- 使用 tenant access token 调用时，请确认应用或机器人拥有部分知识空间的访问权限，否则返回列表为空。参阅[如何将应用添加为知识库管理员（成员）](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/wiki-qa#b5da330b)。;- 此接口为分页接口。由于权限过滤，可能返回列表为空，但当分页标记（has_more）为 true 时，可以继续分页请求。;- 此接口不会返回**我的文档库**。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=wiki&resource=space&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/list_space.go
 func (s *space) List(ctx context.Context, req *ListSpaceReq, options ...larkcore.RequestOptionFunc) (*ListSpaceResp, error) {
@@ -166,9 +166,7 @@ func (s *space) ListByIterator(ctx context.Context, req *ListSpaceReq, options .
 //
 // - 添加知识空间成员或管理员。
 //
-// - 知识空间具有[类型](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)和[可见性](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)的概念。不同的类型或可见性可以对本操作做出限制：;- 可见性限制：公开知识空间（visibility为public）对租户所有用户可见，因此不支持再添加成员，但可以添加管理员。;- 类型限制：个人知识空间 （type为person）为个人管理的知识空间，不支持添加其他管理员（包括应用/机器人）。但可以添加成员。;;;知识空间权限要求，当前使用的 access token 所代表的应用或用户拥有：;- 为知识空间管理员
-//
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-member/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=wiki&resource=space.member&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/create_spaceMember.go
 func (s *spaceMember) Create(ctx context.Context, req *CreateSpaceMemberReq, options ...larkcore.RequestOptionFunc) (*CreateSpaceMemberResp, error) {
@@ -194,9 +192,9 @@ func (s *spaceMember) Create(ctx context.Context, req *CreateSpaceMemberReq, opt
 //
 // - 此接口用于删除知识空间成员或管理员。
 //
-// - 知识空间具有[类型](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)和[可见性](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)的概念。不同的类型或可见性可以对本操作做出限制：;- 可见性限制：公开知识空间（visibility为public）对租户所有用户可见，因此不支持再删除成员，但可以删除管理员。;- 类型限制：个人知识空间 （type为person）为个人管理的知识空间，不支持删除管理员。但可以删除成员。;;;知识空间权限要求，当前使用的 access token 所代表的应用或用户拥有：;- 为知识空间管理员
+// - 使用tenant access token操作时，无法使用部门ID(opendepartmentid)删除知识空间成员。;;知识空间具有[类型](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)和[可见性](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)的概念。不同的类型或可见性可以对本操作做出限制：;- 可见性限制：公开知识空间（visibility为public）对租户所有用户可见，因此不支持再删除成员，但可以删除管理员。;- 类型限制：个人知识空间 （type为person）为个人管理的知识空间，不支持删除管理员。但可以删除成员。;;;知识空间权限要求，当前用户或应用：;- 为知识空间管理员
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-member/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=wiki&resource=space.member&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/delete_spaceMember.go
 func (s *spaceMember) Delete(ctx context.Context, req *DeleteSpaceMemberReq, options ...larkcore.RequestOptionFunc) (*DeleteSpaceMemberResp, error) {
@@ -218,9 +216,9 @@ func (s *spaceMember) Delete(ctx context.Context, req *DeleteSpaceMemberReq, opt
 	return resp, err
 }
 
-// List
+// List 获取知识空间成员列表
 //
-// -
+// - 获取知识空间的成员与管理员列表。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=wiki&resource=space.member&version=v2
 //
@@ -248,7 +246,7 @@ func (s *spaceMember) List(ctx context.Context, req *ListSpaceMemberReq, options
 //
 // - 此接口用于在知识空间创建节点副本到指定位置。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/copy
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=copy&project=wiki&resource=space.node&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/copy_spaceNode.go
 func (s *spaceNode) Copy(ctx context.Context, req *CopySpaceNodeReq, options ...larkcore.RequestOptionFunc) (*CopySpaceNodeResp, error) {
@@ -274,9 +272,7 @@ func (s *spaceNode) Copy(ctx context.Context, req *CopySpaceNodeReq, options ...
 //
 // - 此接口用于在知识节点里创建[节点](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)到指定位置。
 //
-// - 知识空间权限要求，当前使用的 access token 所代表的应用或用户拥有：;- **父节点**容器编辑权限
-//
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=wiki&resource=space.node&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/create_spaceNode.go
 func (s *spaceNode) Create(ctx context.Context, req *CreateSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*CreateSpaceNodeResp, error) {
@@ -304,7 +300,7 @@ func (s *spaceNode) Create(ctx context.Context, req *CreateSpaceNodeReq, options
 //
 // - 知识库权限要求，当前使用的 access token 所代表的应用或用户拥有：;- 父节点阅读权限
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=wiki&resource=space.node&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/list_spaceNode.go
 func (s *spaceNode) List(ctx context.Context, req *ListSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*ListSpaceNodeResp, error) {
@@ -340,7 +336,7 @@ func (s *spaceNode) ListByIterator(ctx context.Context, req *ListSpaceNodeReq, o
 //
 // - 知识库权限要求：;- 节点编辑权限;- 原父节点容器编辑权限;- 目的父节点容器编辑权限
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/move
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=move&project=wiki&resource=space.node&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/move_spaceNode.go
 func (s *spaceNode) Move(ctx context.Context, req *MoveSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*MoveSpaceNodeResp, error) {
@@ -366,11 +362,9 @@ func (s *spaceNode) Move(ctx context.Context, req *MoveSpaceNodeReq, options ...
 //
 // - 该接口允许移动云空间文档至知识空间，并挂载在指定位置
 //
-// - ### 移动操作 ###;移动后，文档将从“我的空间”或“共享空间”转移至“知识库”后，无法从下列入口查看到文档：;- 云空间主页：快速访问;- 我的空间;- 共享空间;;### 权限变更 ###;移动后，文档会向所有可查看“页面树”的用户显示，默认继承父页面的权限设置。;</md-alert
+// - ### 移动操作 ###;移动后，文档将从“我的空间”或“共享空间”转移至“知识库”后，无法从下列入口查看到文档：;- 云空间主页：快速访问;- 我的空间;- 共享空间;;### 权限变更 ###;移动后，文档会向所有可查看“页面树”的用户显示，默认继承父页面的权限设置。;</md-alert;;此接口为异步接口。若移动已完成（或文档已在Wiki中），则直接返回结果（Wiki token）。若尚未完成，则返回task id。请使用[获取任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/task/get)接口进行查询。;;知识库权限要求，当前使用的 access token 所代表的应用或用户拥有：;- 文档可管理权限;- 原文件夹编辑权限;- 目标父节点容器编辑权限
 //
-// - 此接口为异步接口。若移动已完成（或文档已在Wiki中），则直接返回结果（Wiki token）。若尚未完成，则返回task id。请使用[获取任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/task/get)接口进行查询。;;知识库权限要求，当前使用的 access token 所代表的应用或用户拥有：;- 文档可管理权限;- 原文件夹编辑权限;- 目标父节点容器编辑权限
-//
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/move_docs_to_wiki
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=move_docs_to_wiki&project=wiki&resource=space.node&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/moveDocsToWiki_spaceNode.go
 func (s *spaceNode) MoveDocsToWiki(ctx context.Context, req *MoveDocsToWikiSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*MoveDocsToWikiSpaceNodeResp, error) {
@@ -398,7 +392,7 @@ func (s *spaceNode) MoveDocsToWiki(ctx context.Context, req *MoveDocsToWikiSpace
 //
 // - 此接口目前仅支持文档(doc)、新版文档(docx)和快捷方式。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/update_title
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_title&project=wiki&resource=space.node&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/updateTitle_spaceNode.go
 func (s *spaceNode) UpdateTitle(ctx context.Context, req *UpdateTitleSpaceNodeReq, options ...larkcore.RequestOptionFunc) (*UpdateTitleSpaceNodeResp, error) {
@@ -426,7 +420,7 @@ func (s *spaceNode) UpdateTitle(ctx context.Context, req *UpdateTitleSpaceNodeRe
 //
 // - 知识库权限要求：;- 为知识空间管理员
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-setting/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=wiki&resource=space.setting&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/update_spaceSetting.go
 func (s *spaceSetting) Update(ctx context.Context, req *UpdateSpaceSettingReq, options ...larkcore.RequestOptionFunc) (*UpdateSpaceSettingResp, error) {
@@ -454,7 +448,7 @@ func (s *spaceSetting) Update(ctx context.Context, req *UpdateSpaceSettingReq, o
 //
 // - 知识库权限要求，当前 access token 所代表的用户或应用（机器人）：;- 为任务创建者
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/task/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=wiki&resource=task&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv2/get_task.go
 func (t *task) Get(ctx context.Context, req *GetTaskReq, options ...larkcore.RequestOptionFunc) (*GetTaskResp, error) {

@@ -18,9 +18,9 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/elearning/v2"
 )
 
+// 课程学习进度新增事件
 //
-//
-// -
+// - 课程学习进度新增时触发
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2CourseRegistrationCreatedV2(handler func(ctx context.Context, event *larkelearning.P2CourseRegistrationCreatedV2) error) *EventDispatcher {
@@ -32,9 +32,9 @@ func (dispatcher *EventDispatcher) OnP2CourseRegistrationCreatedV2(handler func(
 	return dispatcher
 }
 
+// 课程学习进度删除事件
 //
-//
-// -
+// - 课程学习进度删除时触发
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2CourseRegistrationDeletedV2(handler func(ctx context.Context, event *larkelearning.P2CourseRegistrationDeletedV2) error) *EventDispatcher {
@@ -46,9 +46,9 @@ func (dispatcher *EventDispatcher) OnP2CourseRegistrationDeletedV2(handler func(
 	return dispatcher
 }
 
+// 课程学习进度更新事件
 //
-//
-// -
+// - 课程学习进度更新时触发
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2CourseRegistrationUpdatedV2(handler func(ctx context.Context, event *larkelearning.P2CourseRegistrationUpdatedV2) error) *EventDispatcher {

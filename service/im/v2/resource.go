@@ -12,6 +12,7 @@ type V2 struct {
 	AppFeedCard          *appFeedCard          // app_feed_card
 	AppFeedCardBatch     *appFeedCardBatch     // app_feed_card.batch
 	BizEntityTagRelation *bizEntityTagRelation // biz_entity_tag_relation
+	Chat                 *chat                 // chat
 	ChatButton           *chatButton           // chat_button
 	FeedCard             *feedCard             // feed_card
 	Tag                  *tag                  // tag
@@ -23,6 +24,7 @@ func New(config *larkcore.Config) *V2 {
 		AppFeedCard:          &appFeedCard{config: config},
 		AppFeedCardBatch:     &appFeedCardBatch{config: config},
 		BizEntityTagRelation: &bizEntityTagRelation{config: config},
+		Chat:                 &chat{config: config},
 		ChatButton:           &chatButton{config: config},
 		FeedCard:             &feedCard{config: config},
 		Tag:                  &tag{config: config},
@@ -39,6 +41,9 @@ type appFeedCardBatch struct {
 type bizEntityTagRelation struct {
 	config *larkcore.Config
 }
+type chat struct {
+	config *larkcore.Config
+}
 type chatButton struct {
 	config *larkcore.Config
 }
@@ -52,9 +57,11 @@ type urlPreview struct {
 	config *larkcore.Config
 }
 
-// Create
+// Create 创建应用消息流卡片
 //
-// -
+// - 应用消息流卡片是飞书为应用提供的消息触达能力，让应用可以直接在消息流发送消息，重要消息能更快触达用户。
+//
+// - **说明**：飞书客户端在 V7.6 及以上版本开始支持应用消息流卡片。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=im&resource=app_feed_card&version=v2
 //
@@ -78,9 +85,9 @@ func (a *appFeedCard) Create(ctx context.Context, req *CreateAppFeedCardReq, opt
 	return resp, err
 }
 
-// Delete
+// Delete 删除应用消息流卡片
 //
-// -
+// - 该接口用于删除应用消息流卡片
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=im&resource=app_feed_card.batch&version=v2
 //
@@ -104,9 +111,11 @@ func (a *appFeedCardBatch) Delete(ctx context.Context, req *DeleteAppFeedCardBat
 	return resp, err
 }
 
-// Update
+// Update 更新应用消息流卡片
 //
-// -
+// - 该接口用于更新消息流卡片的头像、标题、预览、标签状态、按钮等信息
+//
+// - **字段更新策略**：具体更新的字段以 `update_fields` 为准，根据 `update_fields` 代表的字段从 `app_feed_card` 中取出来进行更新，不在 `update_fields` 中的字段不会更新。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=im&resource=app_feed_card.batch&version=v2
 //
@@ -130,9 +139,9 @@ func (a *appFeedCardBatch) Update(ctx context.Context, req *UpdateAppFeedCardBat
 	return resp, err
 }
 
-// Create
+// Create 绑定标签到群
 //
-// -
+// - 绑定标签到业务实体。目前支持给会话打标签。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=im&resource=biz_entity_tag_relation&version=v2
 //
@@ -156,9 +165,9 @@ func (b *bizEntityTagRelation) Create(ctx context.Context, req *CreateBizEntityT
 	return resp, err
 }
 
-// Get
+// Get 查询实体与标签的绑定关系
 //
-// -
+// - 查询实体与标签的绑定关系
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=im&resource=biz_entity_tag_relation&version=v2
 //
@@ -182,9 +191,9 @@ func (b *bizEntityTagRelation) Get(ctx context.Context, req *GetBizEntityTagRela
 	return resp, err
 }
 
-// Update
+// Update 解绑标签与群
 //
-// -
+// - 从业务实体上解绑标签。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=im&resource=biz_entity_tag_relation&version=v2
 //
@@ -208,9 +217,45 @@ func (b *bizEntityTagRelation) Update(ctx context.Context, req *UpdateBizEntityT
 	return resp, err
 }
 
-// Update
+// Search 搜索群组
 //
-// -
+// - 用户可以通过关键字搜索可见群组，可见性和套件内搜索一致。
+//
+// - 该接口是 https://open.feishu.cn/document/server-docs/group/chat/search 搜群组能力的升级版，推荐使用该接口
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=im&resource=chat&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv2/search_chat.go
+func (c *chat) Search(ctx context.Context, req *SearchChatReq, options ...larkcore.RequestOptionFunc) (*SearchChatResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v2/chats/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchChatResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (c *chat) SearchByIterator(ctx context.Context, req *SearchChatReq, options ...larkcore.RequestOptionFunc) (*SearchChatIterator, error) {
+	return &SearchChatIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: c.Search,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// Update 更新消息流卡片按钮
+//
+// - 为群组消息、机器人消息的消息流卡片添加、更新、删除快捷操作按钮。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=im&resource=chat_button&version=v2
 //
@@ -234,9 +279,9 @@ func (c *chatButton) Update(ctx context.Context, req *UpdateChatButtonReq, optio
 	return resp, err
 }
 
-// BotTimeSentive
+// BotTimeSentive 机器人单聊会话即时提醒
 //
-// -
+// - 可将机器人对话在消息列表中置顶展示，打开飞书首页即可处理重要任务。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=bot_time_sentive&project=im&resource=feed_card&version=v2
 //
@@ -260,9 +305,9 @@ func (f *feedCard) BotTimeSentive(ctx context.Context, req *BotTimeSentiveFeedCa
 	return resp, err
 }
 
-// Patch
+// Patch 即时提醒
 //
-// -
+// - 即时提醒能力是飞书在消息列表中提供的强提醒能力，当有重要通知或任务需要及时触达用户，可将群组或机器人对话在消息列表中置顶展示，打开飞书首页即可处理重要任务。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=im&resource=feed_card&version=v2
 //
@@ -286,9 +331,9 @@ func (f *feedCard) Patch(ctx context.Context, req *PatchFeedCardReq, options ...
 	return resp, err
 }
 
-// Create
+// Create 创建标签
 //
-// -
+// - 创建标签并返回标签 ID。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=im&resource=tag&version=v2
 //
@@ -312,9 +357,9 @@ func (t *tag) Create(ctx context.Context, req *CreateTagReq, options ...larkcore
 	return resp, err
 }
 
-// Patch
+// Patch 修改标签
 //
-// -
+// - 修改标签在各个语言下的名称。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=im&resource=tag&version=v2
 //
@@ -338,9 +383,11 @@ func (t *tag) Patch(ctx context.Context, req *PatchTagReq, options ...larkcore.R
 	return resp, err
 }
 
-// BatchUpdate
+// BatchUpdate 更新 URL 预览
 //
-// -
+// - 该接口用于主动更新 [URL 预览](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/development-link-preview/link-preview-development-guide)，调用后会重新触发一次客户端拉取，需要回调服务返回更新后的数据。
+//
+// - **注意**：更新链接预览时需要注意更新频率，如果更新时不指定用户，则可能会造成链接预览请求放大。例如，群聊中的链接预览，所有群成员均会尝试重新拉取预览请求。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=im&resource=url_preview&version=v2
 //

@@ -9,6 +9,11 @@ import (
 )
 
 type V1 struct {
+	AgentAgentArtifact     *agentAgentArtifact     // agent.agent_artifact
+	AgentAgentAttachment   *agentAgentAttachment   // agent.agent_attachment
+	AgentAgentChat         *agentAgentChat         // agent.agent_chat
+	AgentAgentChatSession  *agentAgentChatSession  // agent.agent_chat_session
+	AgentAgentVisibility   *agentAgentVisibility   // agent.agent_visibility
 	AilySession            *ailySession            // aily_session
 	AilySessionAilyMessage *ailySessionAilyMessage // aily_session.aily_message
 	AilySessionRun         *ailySessionRun         // aily_session.run
@@ -21,6 +26,11 @@ type V1 struct {
 
 func New(config *larkcore.Config) *V1 {
 	return &V1{
+		AgentAgentArtifact:     &agentAgentArtifact{config: config},
+		AgentAgentAttachment:   &agentAgentAttachment{config: config},
+		AgentAgentChat:         &agentAgentChat{config: config},
+		AgentAgentChatSession:  &agentAgentChatSession{config: config},
+		AgentAgentVisibility:   &agentAgentVisibility{config: config},
 		AilySession:            &ailySession{config: config},
 		AilySessionAilyMessage: &ailySessionAilyMessage{config: config},
 		AilySessionRun:         &ailySessionRun{config: config},
@@ -32,6 +42,21 @@ func New(config *larkcore.Config) *V1 {
 	}
 }
 
+type agentAgentArtifact struct {
+	config *larkcore.Config
+}
+type agentAgentAttachment struct {
+	config *larkcore.Config
+}
+type agentAgentChat struct {
+	config *larkcore.Config
+}
+type agentAgentChatSession struct {
+	config *larkcore.Config
+}
+type agentAgentVisibility struct {
+	config *larkcore.Config
+}
 type ailySession struct {
 	config *larkcore.Config
 }
@@ -57,9 +82,252 @@ type tenantAppStat struct {
 	config *larkcore.Config
 }
 
-// Create
+// Get 下载智能体产物
 //
-// - 该 API 用于创建与某个飞书智能伙伴应用的一次会话（Session）。
+// - 根据产物 ID(agent_artifact_id)获取该产物的下载地址及基础信息(名称、URL),用于开发者拉取智能体在会话中生成的图片、文件、云文档等产物。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=aily&resource=agent.agent_artifact&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ailyv1/get_agentAgentArtifact.go
+func (a *agentAgentArtifact) Get(ctx context.Context, req *GetAgentAgentArtifactReq, options ...larkcore.RequestOptionFunc) (*GetAgentAgentArtifactResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/aily/v1/agents/:agent_id/artifacts/:agent_artifact_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetAgentAgentArtifactResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create 上传附件
+//
+// - 本接口用于上传需智能体分析的文件，上传成功后返回附件 ID。
+//
+// - 调用[发起对话](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/aily-v1/agent-agent_chat/create)中引用附件ID，发送给智能体识别和分析，获取智能体的分析结果和建议。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=aily&resource=agent.agent_attachment&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ailyv1/create_agentAgentAttachment.go
+func (a *agentAgentAttachment) Create(ctx context.Context, req *CreateAgentAgentAttachmentReq, options ...larkcore.RequestOptionFunc) (*CreateAgentAgentAttachmentResp, error) {
+	options = append(options, larkcore.WithFileUpload())
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/aily/v1/agents/:agent_id/attachments"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateAgentAgentAttachmentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create 发起智能体对话
+//
+// - 异步发起一轮智能体对话，提交用户消息后立即返回对话ID，触发智能体在后台运行。
+//
+// - 可通过 **流式输出** 实时获取结果或[获取对话结果](/uAjLw4CM/ukTMukTMukTM/aily-v1/agent-agent_chat/get)接口轮询运行状态与回复。;* 在请求体新增参数"stream": true 即可实现SSE的流式输出，超时时间5分钟;* 在请求体新增参数"session_id": "「会话ID」"，即可复用这个session_id进行多轮对话
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=aily&resource=agent.agent_chat&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ailyv1/create_agentAgentChat.go
+func (a *agentAgentChat) Create(ctx context.Context, req *CreateAgentAgentChatReq, options ...larkcore.RequestOptionFunc) (*CreateAgentAgentChatResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/aily/v1/agents/:agent_id/chats"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateAgentAgentChatResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Get 获取对话结果
+//
+// - 本接口用于获取智能体的对话回复，内容包括文字和产物等信息。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=aily&resource=agent.agent_chat&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ailyv1/get_agentAgentChat.go
+func (a *agentAgentChat) Get(ctx context.Context, req *GetAgentAgentChatReq, options ...larkcore.RequestOptionFunc) (*GetAgentAgentChatResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/aily/v1/agents/:agent_id/chats/:agent_chat_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetAgentAgentChatResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create 创建会话
+//
+// - 本接口用于智能体创建空白会话
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=aily&resource=agent.agent_chat_session&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ailyv1/create_agentAgentChatSession.go
+func (a *agentAgentChatSession) Create(ctx context.Context, req *CreateAgentAgentChatSessionReq, options ...larkcore.RequestOptionFunc) (*CreateAgentAgentChatSessionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/aily/v1/agents/:agent_id/sessions"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateAgentAgentChatSessionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Delete 删除会话
+//
+// - 本接口用于删除智能体的某次会话。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=aily&resource=agent.agent_chat_session&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ailyv1/delete_agentAgentChatSession.go
+func (a *agentAgentChatSession) Delete(ctx context.Context, req *DeleteAgentAgentChatSessionReq, options ...larkcore.RequestOptionFunc) (*DeleteAgentAgentChatSessionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/aily/v1/agents/:agent_id/sessions/:agent_chat_session_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteAgentAgentChatSessionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Get 获取指定会话信息
+//
+// - 本接口用于查询智能体某次指定会话的详细信息。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=aily&resource=agent.agent_chat_session&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ailyv1/get_agentAgentChatSession.go
+func (a *agentAgentChatSession) Get(ctx context.Context, req *GetAgentAgentChatSessionReq, options ...larkcore.RequestOptionFunc) (*GetAgentAgentChatSessionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/aily/v1/agents/:agent_id/sessions/:agent_chat_session_id"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetAgentAgentChatSessionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// List 查询会话列表
+//
+// - 本接口用于查询智能体的会话列表。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=aily&resource=agent.agent_chat_session&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ailyv1/list_agentAgentChatSession.go
+func (a *agentAgentChatSession) List(ctx context.Context, req *ListAgentAgentChatSessionReq, options ...larkcore.RequestOptionFunc) (*ListAgentAgentChatSessionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/aily/v1/agents/:agent_id/sessions"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListAgentAgentChatSessionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Check 获取智能体可见性
+//
+// - 查询当前调用用户对指定智能体的可见性。接口根据UserAccessToken(用户身份凭证)解析出当前用户,结合传入的 channel_type(渠道类型),返回可见性。
+//
+// - 典型用于 WebSDK 场景:前端据此决定是否向当前用户展示该智能体。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=check&project=aily&resource=agent.agent_visibility&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ailyv1/check_agentAgentVisibility.go
+func (a *agentAgentVisibility) Check(ctx context.Context, req *CheckAgentAgentVisibilityReq, options ...larkcore.RequestOptionFunc) (*CheckAgentAgentVisibilityResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/aily/v1/agents/:agent_id/agent_visibility/check"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CheckAgentAgentVisibilityResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create 创建会话
+//
+// - 该 API 用于创建与某个飞书 Aily 应用的一次会话（Session）；当创建会话成功后，可以发送消息、创建运行。
+//
+// - ## 实体概念说明;;- **会话**（Session）：管理用户与 Aily 助手之间的交互会话；每次会话记录了用户发送给 Aily 助手的消息以及 Aily 助手的响应。;- **消息**（Message）：消息可以包含文本、表格、图片等多种类型的内容。;- **运行**（Run）：Aily 助手基于会话内消息进行意图判定、调用匹配的技能，并返回技能执行后的结果消息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=aily&resource=aily_session&version=v1
 //
@@ -83,9 +351,11 @@ func (a *ailySession) Create(ctx context.Context, req *CreateAilySessionReq, opt
 	return resp, err
 }
 
-// Delete
+// Delete 删除会话
 //
-// - 该 API 用于销毁与某个飞书智能伙伴应用的一次会话（Session），当会话销毁后、无法继续在会话中创建 / 拉取消息。
+// - 该 API 用于删除与某个飞书 Aily 应用的一次会话（Session）。
+//
+// - 更多信息及示例代码，可参考 Aily OpenAPI 接入与接口说明。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=aily&resource=aily_session&version=v1
 //
@@ -109,9 +379,11 @@ func (a *ailySession) Delete(ctx context.Context, req *DeleteAilySessionReq, opt
 	return resp, err
 }
 
-// Get
+// Get 获取会话
 //
-// - 该 API 用于获取与某个飞书智能伙伴应用的一次会话（Session）的详细信息，包括会话的状态、渠道信息、创建时间等。
+// - 该 API 用于获取与某个飞书 Aily 应用的一次会话（Session）的详细信息，包括会话的状态、渠道上下文、创建时间等。
+//
+// - 更多信息及示例代码，可参考 Aily OpenAPI 接入与接口说明。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=aily&resource=aily_session&version=v1
 //
@@ -135,9 +407,11 @@ func (a *ailySession) Get(ctx context.Context, req *GetAilySessionReq, options .
 	return resp, err
 }
 
-// Update
+// Update 更新会话
 //
-// - 该 API 用于更新与某个飞书智能伙伴应用的一次会话（Session）。
+// - 该 API 用于更新与某个飞书 Aily 应用的一次会话（Session）的信息。
+//
+// - 更多信息及示例代码，可参考 Aily OpenAPI 接入与接口说明。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=aily&resource=aily_session&version=v1
 //
@@ -161,9 +435,9 @@ func (a *ailySession) Update(ctx context.Context, req *UpdateAilySessionReq, opt
 	return resp, err
 }
 
-// Create
+// Create 发送 Aily 消息
 //
-// - 该 API 用于向某个飞书智能伙伴应用发送一条消息（Message）。
+// - 该 API 用于向某个飞书 Aily 应用发送一条消息（Message）；每个消息从属于一个活跃的会话（Session）。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=aily&resource=aily_session.aily_message&version=v1
 //
@@ -187,9 +461,11 @@ func (a *ailySessionAilyMessage) Create(ctx context.Context, req *CreateAilySess
 	return resp, err
 }
 
-// Get
+// Get 获取 Aily 消息
 //
-// - 该 API 用于获取某个飞书智能伙伴应用的消息（Message）的详细信息；包括消息的内容、发送人等。
+// - 该 API 用于获取某个飞书 Aily 应用的消息（Message）的详细信息；包括消息的内容、发送人等。
+//
+// - ## 实体概念说明;;- **会话**（Session）：管理用户与 Aily 助手之间的交互会话；每次会话记录了用户发送给 Aily 助手的消息以及 Aily 助手的响应。;- **消息**（Message）：消息可以包含文本、表格、图片等多种类型的内容。;- **运行**（Run）：Aily 助手基于会话内消息进行意图判定、调用匹配的技能，并返回技能执行后的结果消息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=aily&resource=aily_session.aily_message&version=v1
 //
@@ -213,9 +489,9 @@ func (a *ailySessionAilyMessage) Get(ctx context.Context, req *GetAilySessionAil
 	return resp, err
 }
 
-// List
+// List 列出 Aily 消息
 //
-// - 该 API 用于批量获取飞书智能伙伴应用的消息（Message）的详细信息
+// - 该 API 用于列出某个飞书 Aily 应用的某个会话（Session）下消息（Message）的详细信息；包括消息的内容、发送人等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=aily&resource=aily_session.aily_message&version=v1
 //
@@ -247,9 +523,9 @@ func (a *ailySessionAilyMessage) ListByIterator(ctx context.Context, req *ListAi
 		limit:    req.Limit}, nil
 }
 
-// Cancel
+// Cancel 中止一次运行
 //
-// - 该 API 用于取消指定的运行（Run）。
+// - 该 API 用于中止某个飞书 Aily 的一次运行。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=cancel&project=aily&resource=aily_session.run&version=v1
 //
@@ -273,9 +549,11 @@ func (a *ailySessionRun) Cancel(ctx context.Context, req *CancelAilySessionRunRe
 	return resp, err
 }
 
-// Create
+// Create 创建运行
 //
-// - 该 API 用于启动一次运行（Run）。
+// - 该 API 用于在某个飞书 Aily 应用会话（Session）上创建一次运行（Run）。
+//
+// - ## 实体概念说明;;- **会话**（Session）：管理用户与 Aily 助手之间的交互会话；每次会话记录了用户发送给 Aily 助手的消息以及 Aily 助手的响应。;- **消息**（Message）：消息可以包含文本、表格、图片等多种类型的内容。;- **运行**（Run）：Aily 助手基于会话内消息进行意图判定、调用匹配的技能，并返回技能执行后的结果消息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=aily&resource=aily_session.run&version=v1
 //
@@ -299,9 +577,9 @@ func (a *ailySessionRun) Create(ctx context.Context, req *CreateAilySessionRunRe
 	return resp, err
 }
 
-// Get
+// Get 获取运行
 //
-// - 该 API 用于获取运行（Run）的详细信息。
+// - 该 API 用于获取某个飞书 Aily 应用的运行（Run）的详细信息；包括运行的状态、结束时间等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=aily&resource=aily_session.run&version=v1
 //
@@ -325,9 +603,9 @@ func (a *ailySessionRun) Get(ctx context.Context, req *GetAilySessionRunReq, opt
 	return resp, err
 }
 
-// List
+// List 列出运行
 //
-// - 该 API 用于批量获取运行（Run）的详细信息。
+// - 该 API 用于列出某个飞书 Aily 应用的运行（Run）的详细信息；包括状态、结束时间等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=aily&resource=aily_session.run&version=v1
 //
@@ -359,9 +637,11 @@ func (a *ailySessionRun) ListByIterator(ctx context.Context, req *ListAilySessio
 		limit:    req.Limit}, nil
 }
 
-// Create
+// Create 创建数据知识
 //
-// - 创建数据知识
+// - 在 Aily 中添加单个数据知识
+//
+// - - 仅支持开发环境;- 开发者需要 Aily 平台的应用协作者角色，包括管理员、开发者、运维人员;- 使用应用身份仅支持[ Aily 平台](https://aily.feishu.cn)渠道的应用身份
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=aily&resource=app.data_asset&version=v1
 //
@@ -385,9 +665,11 @@ func (a *appDataAsset) Create(ctx context.Context, req *CreateAppDataAssetReq, o
 	return resp, err
 }
 
-// Delete
+// Delete 删除数据知识
 //
-// - 删除数据知识
+// - 删除 Aily 的数据知识
+//
+// - - 仅支持开发环境;- 开发者需要 Aily 平台的应用协作者角色，包括管理员、开发者、运维人员;- 使用应用身份仅支持[ Aily 平台](https://aily.feishu.cn)渠道的应用身份
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=aily&resource=app.data_asset&version=v1
 //
@@ -411,9 +693,11 @@ func (a *appDataAsset) Delete(ctx context.Context, req *DeleteAppDataAssetReq, o
 	return resp, err
 }
 
-// Get
+// Get 获取数据知识
 //
-// - 获取数据知识
+// - 获取单个数据知识
+//
+// - - 开发者需要 Aily 平台的应用协作者角色，包括管理员、开发者、运维人员;- 使用应用身份仅支持[ Aily 平台](https://aily.feishu.cn)渠道的应用身份
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=aily&resource=app.data_asset&version=v1
 //
@@ -437,9 +721,11 @@ func (a *appDataAsset) Get(ctx context.Context, req *GetAppDataAssetReq, options
 	return resp, err
 }
 
-// List
+// List 获取数据知识列表
 //
-// - 获取数据与知识列表
+// - 获取 Aily 助手的数据知识列表
+//
+// - - `tenant_access_token` 仅支持[ Aily 平台](https://aily.feishu.cn)的渠道应用身份;- `user_access_token` 要求开发者需要 Aily 平台的应用协作者角色，包括管理员、开发者、运维人员
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=aily&resource=app.data_asset&version=v1
 //
@@ -471,9 +757,11 @@ func (a *appDataAsset) ListByIterator(ctx context.Context, req *ListAppDataAsset
 		limit:    req.Limit}, nil
 }
 
-// UploadFile
+// UploadFile 上传文件用于 Aily 的数据知识管理;
 //
-// - 上传数据知识文件
+// - 上传文件用于 Aily 的数据知识管理;。
+//
+// - - 仅支持开发环境;- 开发者需要 Aily 创建平台的应用协作者角色，包括管理员、开发者、运维人员;- 使用应用身份仅支持[ Aily 平台](https://aily.feishu.cn)渠道的应用身份;- 仅支持上传docx、txt、pdf、pptx类型的文件
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload_file&project=aily&resource=app.data_asset&version=v1
 //
@@ -498,9 +786,11 @@ func (a *appDataAsset) UploadFile(ctx context.Context, req *UploadFileAppDataAss
 	return resp, err
 }
 
-// List
+// List 获取数据知识分类列表
 //
-// - 获取数据与知识分类列表
+// - 获取 Aily 助手的数据知识分类列表
+//
+// - - `tenant_access_token` 仅支持[ Aily 平台](https://aily.feishu.cn)的渠道应用身份;- `user_access_token` 要求开发者需要 Aily 平台的应用协作者角色，包括管理员、开发者、运维人员
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=aily&resource=app.data_asset_tag&version=v1
 //
@@ -532,9 +822,9 @@ func (a *appDataAssetTag) ListByIterator(ctx context.Context, req *ListAppDataAs
 		limit:    req.Limit}, nil
 }
 
-// Ask
+// Ask 执行数据知识问答
 //
-// - 执行一次数据知识问答
+// - 执行飞书 Aily 的数据知识问答，返回基于指定数据知识的问答结果
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=ask&project=aily&resource=app.knowledge&version=v1
 //
@@ -558,9 +848,11 @@ func (a *appKnowledge) Ask(ctx context.Context, req *AskAppKnowledgeReq, options
 	return resp, err
 }
 
-// Get
+// Get 获取技能信息
 //
-// - 该 API 用于获取某个飞书智能伙伴应用的技能（Skill）的详细信息。
+// - 该 API 用于查询某个 Aily 应用的特定技能详情
+//
+// - 更多信息及示例代码，可参考 Aily 技能 OpenAPI 接口说明。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=aily&resource=app.skill&version=v1
 //
@@ -584,9 +876,11 @@ func (a *appSkill) Get(ctx context.Context, req *GetAppSkillReq, options ...lark
 	return resp, err
 }
 
-// List
+// List 查询技能列表
 //
-// - 该 API 用于批量获取飞书智能伙伴应用的技能（Skill）的详细信息
+// - 该 API 用于查询某个 Aily 应用的技能列表;;> 包括内置的数据分析与问答技能、以及未在对话开启的技能。
+//
+// - 更多信息及示例代码，可参考 Aily 技能 OpenAPI 接口说明。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=aily&resource=app.skill&version=v1
 //
@@ -618,9 +912,11 @@ func (a *appSkill) ListByIterator(ctx context.Context, req *ListAppSkillReq, opt
 		limit:    req.Limit}, nil
 }
 
-// Start
+// Start 调用技能
 //
-// - 该 API 用于执行飞书智能伙伴应用的技能（Skill）获取输出
+// - 该 API 用于调用某个 Aily 应用的特定技能，支持指定技能入参；并同步返回技能执行的结果。
+//
+// - > **技能 API** 能显著简化业务系统的集成工作（单轮 API 调用）。技能 API 提供更贴合系统间服务调用的参数传递模式（JSON 入参 / 出参），且无需通过文本消息对话的方式调用 AI 能力。;;:::html;<div style="text-align: center;">; <img src="https://lf3-static.bytednsdoc.com/obj/eden-cn/10eh7pbovhfnuhd/aily_skill_intro.png?x-resource-account=public" width="600" />;:::;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=start&project=aily&resource=app.skill&version=v1
 //
@@ -644,9 +940,9 @@ func (a *appSkill) Start(ctx context.Context, req *StartAppSkillReq, options ...
 	return resp, err
 }
 
-// List
+// List 查询应用统计数据
 //
-// - ## 功能介绍获取租户下应用的统计数据列表，支持按时间范围筛选，包含日活用户数、运行次数、额度使用等核心指标，用于租户级应用运营分析与成本监控场景。
+// - 该 API 用于查询租户下的工作流/智能体应用使用情况的统计数据
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=aily&resource=tenant.app_stat&version=v1
 //

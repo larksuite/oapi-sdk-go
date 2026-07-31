@@ -10,25 +10,25 @@ import (
 )
 
 type V1 struct {
-	BatchMessage     *batchMessage     // 消息 - 批量消息
-	Chat             *chat             // 群组
+	BatchMessage     *batchMessage     // batch_message
+	Chat             *chat             // chat
 	ChatAccessEvent  *chatAccessEvent  // chat.access_event
-	ChatAnnouncement *chatAnnouncement // 群组 - 群公告
-	ChatManagers     *chatManagers     // 群组 - 群成员
-	ChatMemberBot    *chatMemberBot    // 事件
-	ChatMemberUser   *chatMemberUser   // 事件
-	ChatMembers      *chatMembers      // 群组 - 群成员
+	ChatAnnouncement *chatAnnouncement // chat.announcement
+	ChatManagers     *chatManagers     // chat.managers
+	ChatMemberBot    *chatMemberBot    // chat.member.bot
+	ChatMemberUser   *chatMemberUser   // chat.member.user
+	ChatMembers      *chatMembers      // chat.members
 	ChatMenuItem     *chatMenuItem     // chat.menu_item
-	ChatMenuTree     *chatMenuTree     // 群组 - 群菜单
+	ChatMenuTree     *chatMenuTree     // chat.menu_tree
 	ChatModeration   *chatModeration   // chat.moderation
-	ChatTab          *chatTab          // 群组 - 会话标签页
+	ChatTab          *chatTab          // chat.tab
 	ChatTopNotice    *chatTopNotice    // chat.top_notice
-	File             *file             // 消息 - 文件信息
-	Image            *image            // 消息 - 图片信息
-	Message          *message          // 消息
-	MessageReaction  *messageReaction  // 消息 - 表情回复
+	File             *file             // file
+	Image            *image            // image
+	Message          *message          // message
+	MessageReaction  *messageReaction  // message.reaction
 	MessageResource  *messageResource  // message.resource
-	Pin              *pin              // 消息 - Pin
+	Pin              *pin              // pin
 	Thread           *thread           // thread
 }
 
@@ -120,11 +120,11 @@ type thread struct {
 
 // Delete 批量撤回消息
 //
-// - 批量撤回通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口发送的消息。
+// - 该接口用于撤回通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口发送的消息。
 //
-// - 注意事项：;- 应用需要启用[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability) ;- 撤回单条发送的消息请使用[撤回消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete)接口;- 不支持撤回发出时间超过1天的消息;- 一次调用涉及大量消息，所以为异步接口，会有一定延迟。
+// - ## 前提条件;;应用需要启用[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;- 仅支持撤回通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口发送的消息。如果你需要撤回单条消息，请使用[撤回消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete)接口。;- 不支持撤回时间较久的消息。撤回的消息需要符合由企业管理员设置的撤回时限。详情了解[管理员设置撤回和编辑消息权限](https://www.feishu.cn/hc/zh-CN/articles/325339752183)。;- 该接口为异步接口，会有一定延迟。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=im&resource=batch_message&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/delete_batchMessage.go
 func (b *batchMessage) Delete(ctx context.Context, req *DeleteBatchMessageReq, options ...larkcore.RequestOptionFunc) (*DeleteBatchMessageResp, error) {
@@ -148,11 +148,9 @@ func (b *batchMessage) Delete(ctx context.Context, req *DeleteBatchMessageReq, o
 
 // GetProgress 查询批量消息整体进度
 //
-// - 该接口在[查询批量消息推送和阅读人数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user)查询结果的基础上，增加了批量请求中有效的userid数量以及消息撤回进度数据。
+// - [批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)或者[批量撤回消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/delete)后，可通过该接口查询消息的发送进度和撤回进度。
 //
-// - 注意事项:;* 该接口返回的数据为查询时刻的快照数据
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/get_progress
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_progress&project=im&resource=batch_message&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/getProgress_batchMessage.go
 func (b *batchMessage) GetProgress(ctx context.Context, req *GetProgressBatchMessageReq, options ...larkcore.RequestOptionFunc) (*GetProgressBatchMessageResp, error) {
@@ -176,11 +174,11 @@ func (b *batchMessage) GetProgress(ctx context.Context, req *GetProgressBatchMes
 
 // ReadUser 查询批量消息推送和阅读人数
 //
-// - 批量发送消息后，可以通过该接口查询批量消息推送的总人数和阅读人数。
+// - [批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)后，可通过该接口查询消息推送的总人数以及消息已读人数。
 //
-// - 注意事项：;- 只能查询通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口产生的消息;- 该接口返回的数据为查询时刻的快照数据
+// - ## 前提条件;;应用需要启用[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 注意事项;- 只能查询 30 天内，通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口发送的消息。;- 该接口返回的数据为查询时刻的快照数据。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=read_user&project=im&resource=batch_message&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/readUser_batchMessage.go
 func (b *batchMessage) ReadUser(ctx context.Context, req *ReadUserBatchMessageReq, options ...larkcore.RequestOptionFunc) (*ReadUserBatchMessageResp, error) {
@@ -204,11 +202,11 @@ func (b *batchMessage) ReadUser(ctx context.Context, req *ReadUserBatchMessageRe
 
 // Create 创建群
 //
-// - 创建群并设置群头像、群名、群描述等。
+// - 创建群聊，创建时支持设置群头像、群名称、群主以及群类型等配置，同时支持邀请群成员、群机器人入群。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 本接口支持在创建群的同时拉用户或机器人进群；如果仅需要拉用户或者机器人入群参考 [将用户或机器人拉入群聊](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create)接口
+// - ## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;商店应用无法使用用户的 user_id，因此使用商店应用调用本接口时用户 ID 类型请选择 open_id 或者 union_id。;;## 注意事项;;- 如果你需要在已创建的群聊内邀请用户或机器人入群，可调用[将用户或机器人拉入群聊](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create)接口。;- 调用 API 只能创建普通消息群，消息形式可以选择对话消息或者话题消息。如果你需要直接创建话题群，请通过飞书客户端创建群组，创建时群模式选择 **话题**。;- 已添加外部共享能力的机器人，允许在创建群时将外部企业用户和内部用户同时添加到群组中，这样创建的群为外部群。详情参见[机器人支持外部群和外部用户单聊](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/develop-robots/add-bot-to-external-group)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=im&resource=chat&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/create_chat.go
 func (c *chat) Create(ctx context.Context, req *CreateChatReq, options ...larkcore.RequestOptionFunc) (*CreateChatResp, error) {
@@ -232,11 +230,11 @@ func (c *chat) Create(ctx context.Context, req *CreateChatReq, options ...larkco
 
 // Delete 解散群
 //
-// - 解散群组。
+// - 通过 chat_id 解散指定群组。通过 API 解散群组后，群聊天记录将不会保存。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 如果使用tenant_access_token，需要机器人符合以下任一情况才可解散群：;	- 机器人是群主;	- 机器人是群的创建者且具备==更新应用所创建群的群信息==权限;- 如果使用user_access_token，需要对应的用户是群主才可解散群
+// - ## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;- 如果以应用身份（tenant_access_token）解散群，则应用机器人需要符合以下任一情况。;; - 应用机器人是群主。; - 应用机器人是群的创建者，且应用已开通 **更新应用所创建群的群信息**（im:chat:operate_as_owner）权限。;;- 如果以用户身份（user_access_token）解散群，需要该用户是群主。;;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=im&resource=chat&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/delete_chat.go
 func (c *chat) Delete(ctx context.Context, req *DeleteChatReq, options ...larkcore.RequestOptionFunc) (*DeleteChatResp, error) {
@@ -260,11 +258,11 @@ func (c *chat) Delete(ctx context.Context, req *DeleteChatReq, options ...larkco
 
 // Get 获取群信息
 //
-// - 获取群名称、群描述、群头像、群主 ID 等群基本信息。
+// - 获取指定群的基本信息，包括群名称、群描述、群头像、群主 ID 以及群权限配置等。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability); - 机器人或授权用户必须在群里（否则只会返回群名称、群头像等基本信息）;- 获取内部群信息时，操作者须与群组在同一租户下
+// - ## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;- 调用接口的机器人或者用户需要在群组内，才可以获取完整信息，否则只返回群名称、群头像、成员数量以及群状态信息。;- 获取内部群信息时，调用接口的机器人或者用户需要与群组在同一租户下。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=im&resource=chat&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/get_chat.go
 func (c *chat) Get(ctx context.Context, req *GetChatReq, options ...larkcore.RequestOptionFunc) (*GetChatResp, error) {
@@ -288,11 +286,11 @@ func (c *chat) Get(ctx context.Context, req *GetChatReq, options ...larkcore.Req
 
 // Link 获取群分享链接
 //
-// - 获取指定群的分享链接。
+// - 获取指定群的分享链接，他人点击分享链接后可加入群组。
 //
-// - 注意事项:;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability); - access_token所对应的 **机器人** 或 **授权用户** 必须在`chat_id`参数指定的群组中;- 单聊、密聊、团队群不支持分享群链接;- 当Bot被停用或Bot退出群组时，Bot生成的群链接也将停用;- 当群聊开启了 ==仅群主和群管理员可添加群成员/分享群== 设置时，仅**群主**和**群管理员**可以获取群分享链接;- 获取内部群分享链接时，操作者须与群组在同一租户下
+// - ## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;- 调用该接口的用户或机器人必须在对应群组内。;- 单聊、密聊、团队群不支持生成分享链接。;- 当机器人被停用或者退出群组时，由该机器人获取的群分享链接也将失效。;- 当群组设置了 **仅群主和群管理员可添加群成员或分享群** 时，调用该接口的用户或机器人必须是群组的群主或管理员。;- 获取内部群分享链接时，调用该接口的用户或机器人必须和群组属于同一租户。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/link
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=link&project=im&resource=chat&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/link_chat.go
 func (c *chat) Link(ctx context.Context, req *LinkChatReq, options ...larkcore.RequestOptionFunc) (*LinkChatResp, error) {
@@ -316,11 +314,11 @@ func (c *chat) Link(ctx context.Context, req *LinkChatReq, options ...larkcore.R
 
 // List 获取用户或机器人所在的群列表
 //
-// - 获取用户或者机器人所在群列表。
+// - 获取 [access_token](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-choose-which-type-of-token-to-use) 所代表的用户或者机器人所在的群列表。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 请注意区分本接口和[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)的请求 URL;- 获取的群列表不包含P2P单聊
+// - ## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 注意事项;;- 请注意区分本接口和[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)的请求 URL。;- 获取到的群列表中，不包含单聊（群模式为 `p2p`）。;- 查询参数 **user_id_type** 用于控制响应体中 owner_id 的类型，如果是获取机器人所在群列表该值可以不填。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=im&resource=chat&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/list_chat.go
 func (c *chat) List(ctx context.Context, req *ListChatReq, options ...larkcore.RequestOptionFunc) (*ListChatResp, error) {
@@ -352,11 +350,11 @@ func (c *chat) ListByIterator(ctx context.Context, req *ListChatReq, options ...
 
 // Search 搜索对用户或机器人可见的群列表
 //
-// - 搜索对用户或机器人可见的群列表，包括：用户或机器人所在的群、对用户或机器人公开的群。;搜索可获得的群信息包括：群ID（chat_id）、群名称、群描述等。
+// - 获取当前身份（用户或机器人）可见的群列表，包括当前身份所在的群、对当前身份公开的群。支持关键词搜索、分页搜索。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
+// - ## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=im&resource=chat&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/search_chat.go
 func (c *chat) Search(ctx context.Context, req *SearchChatReq, options ...larkcore.RequestOptionFunc) (*SearchChatResp, error) {
@@ -388,11 +386,9 @@ func (c *chat) SearchByIterator(ctx context.Context, req *SearchChatReq, options
 
 // Update 更新群信息
 //
-// - 更新群头像、群名称、群描述、群配置、转让群主等。
+// - 更新指定群的信息，包括群头像、群名称、群描述、群配置以及群主等。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 对于群主/群管理员 或 创建群组且具备 ==更新应用所创建群的群信息== 权限的机器人，可更新所有信息;- 对于不满足上述权限条件的群成员或机器人：;	- 若未开启 ==仅群主和群管理员可编辑群信息== 配置，仅可更新群头像、群名称、群描述、群国际化名称信息;	- 若开启了 ==仅群主和群管理员可编辑群信息== 配置，任何群信息都不能修改;- 如果同时更新 ==邀请用户或机器人入群权限== 和 ==群分享权限== 这两项设置需要满足以下条件：;	- 若未开启 ==仅群主和管理员可以邀请用户或机器人入群==，需要设置 ==群分享权限== 为 ==允许分享==;	- 若开启了 ==仅群主和管理员可以邀请用户或机器人入群==，需要设置 ==群分享权限== 为 ==不允许分享==
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=im&resource=chat&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/update_chat.go
 func (c *chat) Update(ctx context.Context, req *UpdateChatReq, options ...larkcore.RequestOptionFunc) (*UpdateChatResp, error) {
@@ -416,11 +412,11 @@ func (c *chat) Update(ctx context.Context, req *UpdateChatReq, options ...larkco
 
 // Get 获取群公告信息
 //
-// - 获取会话中的群公告信息，公告信息格式与[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
+// - 获取指定群组中的群公告信息，公告信息格式与[旧版云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 机器人或授权用户必须在群里;- 获取内部群信息时，操作者须与群组在同一租户下
+// - ## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的用户或者机器人必须在对应的群组内。;- 获取内部群信息时，调用当前接口的用户或者机器人必须与对应群组在同一租户下。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=im&resource=chat.announcement&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/get_chatAnnouncement.go
 func (c *chatAnnouncement) Get(ctx context.Context, req *GetChatAnnouncementReq, options ...larkcore.RequestOptionFunc) (*GetChatAnnouncementResp, error) {
@@ -444,11 +440,11 @@ func (c *chatAnnouncement) Get(ctx context.Context, req *GetChatAnnouncementReq,
 
 // Patch 更新群公告信息
 //
-// - 更新会话中的群公告信息，更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
+// - 更新指定群组中的群公告信息。更新的公告内容格式和更新[旧版云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)的格式相同，不支持新版云文档格式。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 机器人或授权用户必须在群里;- 操作者需要拥有群公告文档的阅读权限;- 获取内部群信息时，操作者须与群组在同一租户下;- 若群开启了 ==仅群主和群管理员可编辑群信息== 配置，群主/群管理员 或 创建群组且具备 ==更新应用所创建群的群信息== 权限的机器人，可更新群公告;- 若群未开启 ==仅群主和群管理员可编辑群信息== 配置，所有成员可以更新群公告
+// - ## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的用户或者机器人必须在对应的群组内，且需要拥有群公告文档的阅读权限。;;## 使用限制;;- 如果群组配置了 **仅群主和群管理员可编辑群信息**，则仅有群主、群管理员，或者是创建群组且具有 **更新应用所创建群的群信息（im:chat:operate_as_owner）** 权限的机器人，可以更新群公告信息。;- 如果群组没有配置 **仅群主和群管理员可编辑群信息**，则所有群成员可以更新群公告信息。;- 操作内部群时，操作者和被操作的群组必须在同一租户下。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=im&resource=chat.announcement&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/patch_chatAnnouncement.go
 func (c *chatAnnouncement) Patch(ctx context.Context, req *PatchChatAnnouncementReq, options ...larkcore.RequestOptionFunc) (*PatchChatAnnouncementResp, error) {
@@ -472,11 +468,11 @@ func (c *chatAnnouncement) Patch(ctx context.Context, req *PatchChatAnnouncement
 
 // AddManagers 指定群管理员
 //
-// - 将用户或机器人指定为群管理员。
+// - 指定群组，将群内指定的用户或者机器人设置为群管理员。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 仅有群主可以指定群管理员
+// - ## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;仅群组内的群主可以指定群管理员。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-managers/add_managers
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=add_managers&project=im&resource=chat.managers&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/addManagers_chatManagers.go
 func (c *chatManagers) AddManagers(ctx context.Context, req *AddManagersChatManagersReq, options ...larkcore.RequestOptionFunc) (*AddManagersChatManagersResp, error) {
@@ -500,11 +496,11 @@ func (c *chatManagers) AddManagers(ctx context.Context, req *AddManagersChatMana
 
 // DeleteManagers 删除群管理员
 //
-// - 删除指定的群管理员（用户或机器人）。
+// - 指定群组，删除群组内指定的管理员，包括用户类型的管理员和机器人类型的管理员。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 仅有群主可以删除群管理员
+// - ## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;仅群组内的群主可以删除群管理员。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-managers/delete_managers
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete_managers&project=im&resource=chat.managers&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/deleteManagers_chatManagers.go
 func (c *chatManagers) DeleteManagers(ctx context.Context, req *DeleteManagersChatManagersReq, options ...larkcore.RequestOptionFunc) (*DeleteManagersChatManagersResp, error) {
@@ -528,11 +524,11 @@ func (c *chatManagers) DeleteManagers(ctx context.Context, req *DeleteManagersCh
 
 // Create 将用户或机器人拉入群聊
 //
-// - 将用户或机器人拉入群聊。
+// - 把指定的用户或机器人拉入指定群聊内。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability); - 如需拉用户进群，需要机器人对用户有[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability); - 机器人或授权用户必须在群组中;- 外部租户不能被加入到内部群中;- 操作内部群时，操作者须与群组在同一租户下; - 在开启 ==仅群主和群管理员可添加群成员== 的设置时，仅有群主/管理员 或 创建群组且具备 ==更新应用所创建群的群信息== 权限的机器人，可以拉用户或者机器人进群; - 在未开启 ==仅群主和群管理员可添加群成员== 的设置时，所有群成员都可以拉用户或机器人进群
+// - ## 前提条件;;- 调用该接口的应用，需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用该接口的应用或者用户，必须在相应的群组中。;- 如需拉机器人进群，则该机器人必须开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 如果以应用身份拉用户进群，则该用户需要在应用的[可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)内。;;## 使用限制;;- 外部租户不能被拉入内部群，但可以被拉入外部群。通过机器人拉外部租户的用户进群，需要先为机器人配置对外共享能力，详情参考[机器人支持外部群和外部用户单聊](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/develop-robots/add-bot-to-external-group)。;- 操作内部群时，当前操作者必须与群组在同一租户内。;- 如果群组配置了 **仅群主和群管理员可添加群成员**，则仅有群主、群管理员，或者是创建群组且具有 **更新应用所创建群的群信息（im:chat:operate_as_owner）** 权限的机器人，可以拉用户或机器人进群。;- 如果群组没有配置 **仅群主和群管理员可添加群成员**，则所有群成员都可以拉用户或机器人进群。;- 操作同一个群组时，如果同时多次调用当前接口，可能会出现 232019 错误码，建议你串行调用，即等待当前调用完成后再进行下一次调用。;;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=im&resource=chat.members&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/create_chatMembers.go
 func (c *chatMembers) Create(ctx context.Context, req *CreateChatMembersReq, options ...larkcore.RequestOptionFunc) (*CreateChatMembersResp, error) {
@@ -556,11 +552,11 @@ func (c *chatMembers) Create(ctx context.Context, req *CreateChatMembersReq, opt
 
 // Delete 将用户或机器人移出群聊
 //
-// - 将用户或机器人移出群聊。
+// - 将指定的用户或机器人从群聊中移出。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 用户或机器人在任何条件下均可移除自己出群（即主动退群）;- 仅有群主/管理员 或 创建群组并且具备 ==更新应用所创建群的群信息== 权限的机器人，可以移除其他用户或者机器人;- 每次请求，最多移除50个用户或者5个机器人;- 操作内部群时，操作者须与群组在同一租户下
+// - ## 前提条件;;调用该接口的应用，需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;- 仅群主、群管理员，或者是创建群组且具有 **更新应用所创建群的群信息（im:chat:operate_as_owner）** 权限的机器人，可以将其他群成员移出群组。;- 用户或机器人在任何条件下均可将自己移出群组（即主动退群）。;- 每次请求，最多移除 50 个用户或者 5 个机器人。;- 操作内部群时，操作者须与群组在同一租户下。;- 操作同一个群组时，如果同时多次调用当前接口，可能会出现 232019 错误码，建议你串行调用，即等待当前调用完成后再进行下一次调用。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=im&resource=chat.members&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/delete_chatMembers.go
 func (c *chatMembers) Delete(ctx context.Context, req *DeleteChatMembersReq, options ...larkcore.RequestOptionFunc) (*DeleteChatMembersResp, error) {
@@ -584,11 +580,11 @@ func (c *chatMembers) Delete(ctx context.Context, req *DeleteChatMembersReq, opt
 
 // Get 获取群成员列表
 //
-// - 获取用户/机器人所在群的群成员列表。
+// - 获取指定群组的成员信息，包括成员名字与 ID。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability); - 机器人或授权用户必须在群组中; - 该接口不会返回群内的机器人成员; - 由于返回的群成员列表会过滤掉机器人成员，因此返回的群成员个数可能会小于指定的page_size; - 如果有同一时间加入群的群成员，会一次性返回，这会导致返回的群成员个数可能会大于指定的page_size;- 获取内部群信息时，操作者须与群组在同一租户下
+// - ## 前提条件;;- 调用该接口的应用，需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 当前接口的操作者（机器人或用户）必须在被查询的群组内。;;## 使用限制;;- 该接口不会返回群组内的机器人成员。;- 由于返回的群成员列表会过滤掉机器人成员，因此返回的群成员个数可能会小于指定的 page_size。; - 如果有同一时间加入群的群成员，会一次性返回，这会导致返回的群成员个数可能会大于指定的 page_size。;- 获取内部群信息时，操作者须与群组在同一租户下。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=im&resource=chat.members&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/get_chatMembers.go
 func (c *chatMembers) Get(ctx context.Context, req *GetChatMembersReq, options ...larkcore.RequestOptionFunc) (*GetChatMembersResp, error) {
@@ -620,11 +616,11 @@ func (c *chatMembers) GetByIterator(ctx context.Context, req *GetChatMembersReq,
 
 // IsInChat 判断用户或机器人是否在群里
 //
-// - 根据使用的access_token判断对应的用户或者机器人是否在群里。
+// - 根据使用的 access_token 判断对应的用户或者机器人是否在指定的群里。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 获取内部群信息时，操作者须与群组在同一租户下
+// - ## 前提条件;;调用该接口的应用，需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;获取内部群信息时，操作者须与群组在同一租户下。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=is_in_chat&project=im&resource=chat.members&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/isInChat_chatMembers.go
 func (c *chatMembers) IsInChat(ctx context.Context, req *IsInChatChatMembersReq, options ...larkcore.RequestOptionFunc) (*IsInChatChatMembersResp, error) {
@@ -648,11 +644,11 @@ func (c *chatMembers) IsInChat(ctx context.Context, req *IsInChatChatMembersReq,
 
 // MeJoin 用户或机器人主动加入群聊
 //
-// - 用户或机器人主动加入群聊。
+// - 将当前调用接口的操作者（用户或机器人）加入指定群聊。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 目前仅支持加入公开群;- 操作内部群时，操作者须与群组在同一租户下
+// - ## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;- 调用该接口仅支持加入公开群。;; 公开群是指的群类型，你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口，在返回结果中查看 `chat_type ` 参数取值是否为 `public`。;;- 操作内部群时，操作者必须与相应的群组在同一租户内。;; 内部群是指的群标签，你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口，在返回结果中查看 `chat_tag ` 参数取值是否为 `inner `。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/me_join
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=me_join&project=im&resource=chat.members&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/meJoin_chatMembers.go
 func (c *chatMembers) MeJoin(ctx context.Context, req *MeJoinChatMembersReq, options ...larkcore.RequestOptionFunc) (*MeJoinChatMembersResp, error) {
@@ -676,11 +672,11 @@ func (c *chatMembers) MeJoin(ctx context.Context, req *MeJoinChatMembersReq, opt
 
 // Patch 修改群菜单元信息
 //
-// - 修改某个一级菜单或者二级菜单的元信息。
+// - 修改指定群组内的某个一级菜单或者二级菜单的元信息，包括图标、名称、国际化名称和跳转链接。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 机器人必须在群里。
+// - ## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的机器人必须在对应的群组内。;;## 使用限制;;- 该接口仅支持群模式为 `group` 的群组，你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口，在返回结果中查看 `chat_mode` 参数取值是否为 `group`。;- 本接口不支持在一级菜单上添加或删除二级菜单。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_item/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=im&resource=chat.menu_item&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/patch_chatMenuItem.go
 func (c *chatMenuItem) Patch(ctx context.Context, req *PatchChatMenuItemReq, options ...larkcore.RequestOptionFunc) (*PatchChatMenuItemResp, error) {
@@ -704,11 +700,11 @@ func (c *chatMenuItem) Patch(ctx context.Context, req *PatchChatMenuItemReq, opt
 
 // Create 添加群菜单
 //
-// - 向群内添加群菜单。
+// - 在指定群组中添加一个或多个群菜单。成功调用后接口会返回当前群组内所有群菜单信息。
 //
-// - 注意事项：;- 该API是向群内追加菜单，群内原来存在的菜单并不会被覆盖。操作API后，将返回群内所有菜单。;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 机器人必须在群里。;- 一个群内，一级菜单最多有3个，每个一级菜单最多有5个二级菜单。
+// - ## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的机器人必须在对应的群组内。;;## 使用限制;;- 该接口是向群内追加菜单，群内已存在的菜单不会被覆盖。;- 一个群内最多有 3 个一级菜单，每个一级菜单最多配置 5 个二级菜单。;- 不支持在已有的一级菜单中追加二级菜单。;- 该接口仅支持群模式为 `group` 的群组，你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口，在返回结果中查看 `chat_mode` 参数取值是否为 `group`。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=im&resource=chat.menu_tree&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/create_chatMenuTree.go
 func (c *chatMenuTree) Create(ctx context.Context, req *CreateChatMenuTreeReq, options ...larkcore.RequestOptionFunc) (*CreateChatMenuTreeResp, error) {
@@ -730,13 +726,13 @@ func (c *chatMenuTree) Create(ctx context.Context, req *CreateChatMenuTreeReq, o
 	return resp, err
 }
 
-// Delete 删除群菜单。
+// Delete 删除群菜单
 //
-// - 删除群内菜单。
+// - 删除指定群内的一级菜单。成功调用后接口会返回群组内最新的群菜单信息。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 机器人必须在群里。;- 操作API后，将返回群内所有菜单。
+// - ## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的用户或者机器人必须在对应的会话内。;;## 使用限制;;- 该接口仅支持群模式为 `group` 的群组，你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口，在返回结果中查看 `chat_mode` 参数取值是否为 `group`。;- 仅支持删除群组内的一级菜单。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=im&resource=chat.menu_tree&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/delete_chatMenuTree.go
 func (c *chatMenuTree) Delete(ctx context.Context, req *DeleteChatMenuTreeReq, options ...larkcore.RequestOptionFunc) (*DeleteChatMenuTreeResp, error) {
@@ -758,13 +754,13 @@ func (c *chatMenuTree) Delete(ctx context.Context, req *DeleteChatMenuTreeReq, o
 	return resp, err
 }
 
-// Get 获取群内菜单
+// Get 获取群菜单
 //
-// - 通过群ID获取群内菜单。
+// - 获取指定群组内的群菜单信息，包括所有一级或二级菜单的名称、跳转链接、图标等信息。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 机器人必须在群里。
+// - ## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的机器人必须在对应的群组内。;;## 使用限制;;该接口仅支持群模式为 `group` 的群组，你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口，在返回结果中查看 `chat_mode` 参数取值是否为 `group`。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=im&resource=chat.menu_tree&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/get_chatMenuTree.go
 func (c *chatMenuTree) Get(ctx context.Context, req *GetChatMenuTreeReq, options ...larkcore.RequestOptionFunc) (*GetChatMenuTreeResp, error) {
@@ -788,11 +784,11 @@ func (c *chatMenuTree) Get(ctx context.Context, req *GetChatMenuTreeReq, options
 
 // Sort 排序群菜单
 //
-// - 给一个群内的一级菜单排序。
+// - 调整指定群组内的群菜单排列顺序，成功调用后接口会返回群组内所有群菜单信息。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 机器人必须在群里。;- 操作API后，将返回群内所有菜单。
+// - ## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的机器人必须在对应的群组内。;;## 使用限制;;- 该接口仅支持群模式为 `group` 的群组，你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口，在返回结果中查看 `chat_mode` 参数取值是否为 `group`。;- 仅支持调整群组内一级菜单的排序。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/sort
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=sort&project=im&resource=chat.menu_tree&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/sort_chatMenuTree.go
 func (c *chatMenuTree) Sort(ctx context.Context, req *SortChatMenuTreeReq, options ...larkcore.RequestOptionFunc) (*SortChatMenuTreeResp, error) {
@@ -816,11 +812,11 @@ func (c *chatMenuTree) Sort(ctx context.Context, req *SortChatMenuTreeReq, optio
 
 // Get 获取群成员发言权限
 //
-// - 获取群发言模式、可发言用户名单等
+// - 获取指定群组的发言模式、可发言用户名单等信息。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability); - 机器人 或 授权用户 必须在群里
+// - ## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;调用本接口的用户或机器人必须要在对应的群组内。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-moderation/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=im&resource=chat.moderation&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/get_chatModeration.go
 func (c *chatModeration) Get(ctx context.Context, req *GetChatModerationReq, options ...larkcore.RequestOptionFunc) (*GetChatModerationResp, error) {
@@ -852,11 +848,11 @@ func (c *chatModeration) GetByIterator(ctx context.Context, req *GetChatModerati
 
 // Update 更新群发言权限
 //
-// - 更新群组的发言权限设置，可设置为全员可发言、仅管理员可发言  或 指定用户可发言。
+// - 更新指定群组的发言权限，可设置为所有群成员可发言、仅群主或管理员可发言、指定群成员可发言。
 //
-// - 注意事项：; - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 若以用户授权调用接口，**当授权用户是群主**时，可更新群发言权限;- 若以租户授权调用接口(即以机器人身份调用接口)，当**机器人是群主** 或者 **机器人是群组创建者、具备==更新应用所创建群的群信息==权限且仍在群内**时，可更新群发言权限
+// - ## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;- 如果以用户身份（user_access_token）调用本接口，则该用户必须是群组的群主，才可以更新群发言权限。;- 如果以应用身份（tenant_access_token）调用本接口，则该应用机器人需要符合以下任一情况才可以更新群发言权限。; - 机器人是群组的群主。; - 机器人是群组的创建者、具备==更新应用所创建群的群信息（im:chat:operate_as_owner）== 权限，且仍在群组内。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-moderation/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=im&resource=chat.moderation&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/update_chatModeration.go
 func (c *chatModeration) Update(ctx context.Context, req *UpdateChatModerationReq, options ...larkcore.RequestOptionFunc) (*UpdateChatModerationResp, error) {
@@ -880,11 +876,9 @@ func (c *chatModeration) Update(ctx context.Context, req *UpdateChatModerationRe
 
 // Create 添加会话标签页
 //
-// - 添加自定义会话标签页。
+// - 在指定会话内添加自定义会话标签页，仅支持添加文档类型（doc）或 URL （url）类型的标签页。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 机器人或授权用户必须在群里;- 只允许添加类型为`doc`和`url`的会话标签页;- 添加doc类型时，操作者（access token对应的身份）需要拥有对应文档的权限;- tab_config字段当前只对`url`类型的会话标签页生效;- 在开启 ==仅群主和管理员可管理标签页== 的设置时，仅群主和群管理员可以添加会话标签页;- 操作内部群时，操作者须与群组在同一租户下
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=im&resource=chat.tab&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/create_chatTab.go
 func (c *chatTab) Create(ctx context.Context, req *CreateChatTabReq, options ...larkcore.RequestOptionFunc) (*CreateChatTabResp, error) {
@@ -908,11 +902,9 @@ func (c *chatTab) Create(ctx context.Context, req *CreateChatTabReq, options ...
 
 // DeleteTabs 删除会话标签页
 //
-// - 删除会话标签页。
+// - 删除指定会话内的一个或多个会话标签页。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 机器人或授权用户必须在群里;- 只允许删除类型为`doc`和`url`的会话标签页;- 在开启 ==仅群主和管理员可管理标签页== 的设置时，仅群主和群管理员可以删除会话标签页;- 操作内部群时，操作者须与群组在同一租户下
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/delete_tabs
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete_tabs&project=im&resource=chat.tab&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/deleteTabs_chatTab.go
 func (c *chatTab) DeleteTabs(ctx context.Context, req *DeleteTabsChatTabReq, options ...larkcore.RequestOptionFunc) (*DeleteTabsChatTabResp, error) {
@@ -936,11 +928,9 @@ func (c *chatTab) DeleteTabs(ctx context.Context, req *DeleteTabsChatTabReq, opt
 
 // ListTabs 拉取会话标签页
 //
-// - 拉取会话标签页。
+// - 获取指定会话内的会话标签页信息，包括 ID、名称、类型以及内容等。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 机器人或授权用户必须在群里;- 操作内部群时，操作者须与群组在同一租户下
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list_tabs&project=im&resource=chat.tab&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/listTabs_chatTab.go
 func (c *chatTab) ListTabs(ctx context.Context, req *ListTabsChatTabReq, options ...larkcore.RequestOptionFunc) (*ListTabsChatTabResp, error) {
@@ -964,11 +954,9 @@ func (c *chatTab) ListTabs(ctx context.Context, req *ListTabsChatTabReq, options
 
 // SortTabs 会话标签页排序
 //
-// - 会话标签页排序。
+// - 调整指定会话内的多个会话标签页排列顺序。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 机器人或授权用户必须在群里;- 消息标签页强制固定为第一顺位，不参与排序，但是请求体中必须包含该标签页的Tab ID;- 操作内部群时，操作者须与群组在同一租户下
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/sort_tabs
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=sort_tabs&project=im&resource=chat.tab&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/sortTabs_chatTab.go
 func (c *chatTab) SortTabs(ctx context.Context, req *SortTabsChatTabReq, options ...larkcore.RequestOptionFunc) (*SortTabsChatTabResp, error) {
@@ -992,11 +980,9 @@ func (c *chatTab) SortTabs(ctx context.Context, req *SortTabsChatTabReq, options
 
 // UpdateTabs 更新会话标签页
 //
-// - 更新会话标签页
+// - 更新指定的会话标签页信息，包括名称、类型以及内容等。仅支持更新文档类型（doc）或 URL （url）类型的标签页。
 //
-// - 注意事项：;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 机器人或授权用户必须在群里;- 只允许更新类型为`doc`和`url`的会话标签页;- 更新doc类型时，操作者（access token对应的身份）需要拥有对应文档的权限;- 在开启 ==仅群主和管理员可管理标签页== 的设置时，仅群主和群管理员可以更新会话标签页;- 操作内部群时，操作者须与群组在同一租户下
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/update_tabs
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_tabs&project=im&resource=chat.tab&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/updateTabs_chatTab.go
 func (c *chatTab) UpdateTabs(ctx context.Context, req *UpdateTabsChatTabReq, options ...larkcore.RequestOptionFunc) (*UpdateTabsChatTabResp, error) {
@@ -1020,11 +1006,9 @@ func (c *chatTab) UpdateTabs(ctx context.Context, req *UpdateTabsChatTabReq, opt
 
 // DeleteTopNotice 撤销群置顶
 //
-// - 撤销会话中的置顶。
+// - 撤销指定群组中的置顶消息或群公告。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability); - 机器人或授权用户必须在群组中;- 撤销内部群置顶时，操作者须与群组在同一租户下
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-top_notice/delete_top_notice
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete_top_notice&project=im&resource=chat.top_notice&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/deleteTopNotice_chatTopNotice.go
 func (c *chatTopNotice) DeleteTopNotice(ctx context.Context, req *DeleteTopNoticeChatTopNoticeReq, options ...larkcore.RequestOptionFunc) (*DeleteTopNoticeChatTopNoticeResp, error) {
@@ -1048,11 +1032,9 @@ func (c *chatTopNotice) DeleteTopNotice(ctx context.Context, req *DeleteTopNotic
 
 // PutTopNotice 更新群置顶
 //
-// - 更新会话中的群置顶信息，可以将群中的某一条消息，或者群公告置顶显示。
+// - 更新群组中的群置顶信息，可以将群中的某一条消息，或群公告置顶展示。
 //
-// - 注意事项：; - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability); - 机器人或授权用户必须在群组中;- 更新内部群置顶时，操作者须与群组在同一租户下
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-top_notice/put_top_notice
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=put_top_notice&project=im&resource=chat.top_notice&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/putTopNotice_chatTopNotice.go
 func (c *chatTopNotice) PutTopNotice(ctx context.Context, req *PutTopNoticeChatTopNoticeReq, options ...larkcore.RequestOptionFunc) (*PutTopNoticeChatTopNoticeResp, error) {
@@ -1076,11 +1058,11 @@ func (c *chatTopNotice) PutTopNotice(ctx context.Context, req *PutTopNoticeChatT
 
 // Create 上传文件
 //
-// - 上传文件，可以上传视频，音频和常见的文件类型。
+// - 调用该接口将本地文件上传至开放平台，支持上传音频、视频、文档等文件类型。上传后接口会返回文件的 Key，使用该 Key 值可以调用其他 OpenAPI。例如，调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口，发送文件。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 文件大小不得超过30M，且不允许上传空文件
+// - ## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;文件大小不得超过 30 MB，且不允许上传空文件。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=im&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/create_file.go
 func (f *file) Create(ctx context.Context, req *CreateFileReq, options ...larkcore.RequestOptionFunc) (*CreateFileResp, error) {
@@ -1105,11 +1087,11 @@ func (f *file) Create(ctx context.Context, req *CreateFileReq, options ...larkco
 
 // Get 下载文件
 //
-// - 下载文件接口，只能下载应用自己上传的文件。
+// - 通过已上传文件的 Key 下载文件。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 只能下载机器人自己上传的文件;- 下载用户发送的资源，请使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口;- 下载的资源大小不能超过100M;- 如果需要Content-Disposition header，发起请求的时候需要在header中设置Content-Type为application/json
+// - ## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;- 只能下载由当前机器人上传的文件。;- 下载的资源大小不能超过 100 MB。 ;- 该接口仅适用于通过文件的 Key 下载文件。如果你需要下载用户发送消息内的资源文件，可使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口。;- 如果需要 Content-Disposition header，发起请求时需要在 header 中设置 Content-Type 为 application/json。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=im&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/get_file.go
 func (f *file) Get(ctx context.Context, req *GetFileReq, options ...larkcore.RequestOptionFunc) (*GetFileResp, error) {
@@ -1139,11 +1121,11 @@ func (f *file) Get(ctx context.Context, req *GetFileReq, options ...larkcore.Req
 
 // Create 上传图片
 //
-// - 上传图片接口，支持上传 JPEG、PNG、WEBP、GIF、TIFF、BMP、ICO格式图片。
+// - 调用本接口将图片上传至飞书开放平台，支持上传 JPG、JPEG、PNG、WEBP、GIF、BMP、ICO、TIFF、HEIC 格式的图片，但需要注意 TIFF、HEIC 上传后会被转为 JPG 格式。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 图片大小不得超过10M，且不支持上传大小为0的图片
+// - ## 使用场景;;如果需要发送图片消息，或者将图片作为头像，则需要先调用本接口将图片上传至开放平台，平台会返回一个图片标识（image_key），后续使用该 Key 值调用其他 API。例如：;;- [发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)时，如果需要发送图片，则需要先调用本接口上传图片（上传时图片类型需要选择 **用于发送消息**），并使用返回结果中的 image_key 发送图片消息。;- [创建用户](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)时，如果需要设置用户头像，则需要先调用本接口将头像上传（上传时图片类型需要选择 **用于设置头像**），并使用返回结果中的 image_key 设置头像。;;## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;- 上传的图片大小不能超过 10 MB，且不支持上传大小为 0 的图片。;- 上传图片的分辨率限制：;	- GIF 图片分辨率不能超过 2000 x 2000，其他图片分辨率不能超过 12000 x 12000。;	- 用于设置头像的图片分辨率不能超过 4096 x 4096。;;如需上传高分辨率图片，可使用[上传文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create)接口，将图片作为文件进行上传。注意该方式不支持将图片文件设置为头像。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=im&resource=image&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/create_image.go
 func (i *image) Create(ctx context.Context, req *CreateImageReq, options ...larkcore.RequestOptionFunc) (*CreateImageResp, error) {
@@ -1168,11 +1150,11 @@ func (i *image) Create(ctx context.Context, req *CreateImageReq, options ...lark
 
 // Get 下载图片
 //
-// - 下载图片资源，只能下载当前应用所上传且图片类型为message的图片。
+// - 通过已上传图片的 Key 值下载图片。;
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 只能下载机器人自己上传且图片类型为message的图片，avatar类型暂不支持下载;- 下载用户发送的资源，请使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口
+// - ## 前提条件;;应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;;## 使用限制;;- 只能下载由当前机器人上传的图片，且上传时图片类型为 **用于发送消息**。**用于设置头像** 的图片暂不支持下载。;- 该接口仅适用于通过图片的 Key 下载图片。如果你需要下载用户发送消息内的资源文件，可使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=im&resource=image&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/get_image.go
 func (i *image) Get(ctx context.Context, req *GetImageReq, options ...larkcore.RequestOptionFunc) (*GetImageResp, error) {
@@ -1202,11 +1184,9 @@ func (i *image) Get(ctx context.Context, req *GetImageReq, options ...larkcore.R
 
 // Create 发送消息
 //
-// - 给指定用户或者会话发送消息，支持文本、富文本、可交互的[消息卡片](https://open.feishu.cn/document/ukTMukTMukTM/uczM3QjL3MzN04yNzcDN)、群名片、个人名片、图片、视频、音频、文件、表情包。
+// - 调用该接口向指定用户或者群聊发送消息。支持发送的消息类型包括文本、富文本、卡片、群名片、个人名片、图片、视频、音频、文件以及表情包等。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ;- 给用户发送消息，需要机器人对用户有[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability);- 给群组发送消息，需要机器人在群组中
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=im&resource=message&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/create_message.go
 func (m *message) Create(ctx context.Context, req *CreateMessageReq, options ...larkcore.RequestOptionFunc) (*CreateMessageResp, error) {
@@ -1230,11 +1210,11 @@ func (m *message) Create(ctx context.Context, req *CreateMessageReq, options ...
 
 // Delete 撤回消息
 //
-// - 机器人撤回机器人自己发送的消息或群主撤回群内消息。
+// - 调用该接口撤回指定消息。调用接口的身份不同（身份通过 Authorization 请求头参数指定），可实现的效果不同：;;- 机器人可以撤回该机器人自己发送的消息。;- 群聊的群主可以撤回群内指定的消息。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ，撤回消息时机器人仍需要在会话内;- 机器人可以撤回单聊和群组内，自己发送 且 发送时间不超过1天(24小时)的消息;- 若机器人要撤回群内他人发送的消息，则机器人必须是该群的群主、管理员 或者 创建者，且消息发送时间不超过1年;- 无法撤回通过「[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)」接口发送的消息
+// - ## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 撤回用户单聊内的消息时，用户需要在机器人的[可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)内。;- 撤回群组内的消息时，机器人需要在该群组中。;;;## 使用限制;- 无法撤回通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口发送的消息，撤回该接口发送的消息需要使用[批量撤回消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/delete)接口。;- 撤回的消息需要符合由企业管理员设置的撤回时限。详情了解[管理员设置撤回和编辑消息权限](https://www.feishu.cn/hc/zh-CN/articles/325339752183)。;- 在群聊内的机器人如需撤回他人发送的消息，则该机器人必须是该群的群主、管理员或者创建者，且消息发送时间不超过 1 年。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=im&resource=message&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/delete_message.go
 func (m *message) Delete(ctx context.Context, req *DeleteMessageReq, options ...larkcore.RequestOptionFunc) (*DeleteMessageResp, error) {
@@ -1256,9 +1236,9 @@ func (m *message) Delete(ctx context.Context, req *DeleteMessageReq, options ...
 	return resp, err
 }
 
-// Forward
+// Forward 转发消息
 //
-// - 转发一条消息
+// - 调用该接口将一条指定的消息转发给用户、群聊或话题。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=forward&project=im&resource=message&version=v1
 //
@@ -1284,11 +1264,11 @@ func (m *message) Forward(ctx context.Context, req *ForwardMessageReq, options .
 
 // Get 获取指定消息的内容
 //
-// - 通过 message_id 查询消息内容。
+// - 调用该接口通过消息的 `message_id` 查询消息内容。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ;- 机器人必须在群组中
+// - ## 前提条件;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 机器人必须在消息所属的群组内。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=im&resource=message&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/get_message.go
 func (m *message) Get(ctx context.Context, req *GetMessageReq, options ...larkcore.RequestOptionFunc) (*GetMessageResp, error) {
@@ -1312,13 +1292,9 @@ func (m *message) Get(ctx context.Context, req *GetMessageReq, options ...larkco
 
 // List 获取会话历史消息
 //
-// - 获取会话（包括单聊、群组）的历史消息（聊天记录）。
+// - 获取指定会话（包括单聊、群组）内的历史消息（即聊天记录）。
 //
-// - 接口级别权限默认只能获取单聊（p2p）消息，如果需要获取群组（group）消息，应用还必须拥有 **==获取群组中所有消息==** 权限
-//
-// - - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ;- 获取消息时，机器人必须在群组中
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=im&resource=message&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/list_message.go
 func (m *message) List(ctx context.Context, req *ListMessageReq, options ...larkcore.RequestOptionFunc) (*ListMessageResp, error) {
@@ -1348,9 +1324,9 @@ func (m *message) ListByIterator(ctx context.Context, req *ListMessageReq, optio
 		limit:    req.Limit}, nil
 }
 
-// MergeForward
+// MergeForward 合并转发消息
 //
-// - 合并转发多条消息
+// - 将来自同一个会话内的多条消息，合并转发给指定的用户、群聊或话题。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=merge_forward&project=im&resource=message&version=v1
 //
@@ -1374,13 +1350,11 @@ func (m *message) MergeForward(ctx context.Context, req *MergeForwardMessageReq,
 	return resp, err
 }
 
-// Patch 更新应用发送的消息
+// Patch 更新已发送的消息卡片
 //
-// - 更新应用已发送的消息卡片内容。
+// - 通过消息 ID（message_id）更新已发送的消息卡片的内容。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 若以user_access_token更新消息，该操作用户必须是卡片消息的发送者;- 仅支持对所有人更新**未撤回**的[「共享卡片」](ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN)消息，需在卡片的config属性中，显式声明 =="update_multi":true==。 ;- **不支持更新批量消息**;- 文本消息请求体最大不能超过150KB；卡片及富文本消息请求体最大不能超过30KB;- 仅支持修改14天内发送的消息;- 单条消息更新频控为**5QPS**
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=im&resource=message&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/patch_message.go
 func (m *message) Patch(ctx context.Context, req *PatchMessageReq, options ...larkcore.RequestOptionFunc) (*PatchMessageResp, error) {
@@ -1402,9 +1376,11 @@ func (m *message) Patch(ctx context.Context, req *PatchMessageReq, options ...la
 	return resp, err
 }
 
-// PushFollowUp
+// PushFollowUp 添加跟随气泡
 //
-// -
+// - 调用该接口在最新一条消息下方添加气泡样式的内容，当消息接收者点击气泡或者新消息到达后，气泡消失。
+//
+// - ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/05f992f251e9949661370b6c73aa6eda_DseiZlt09t.png?height=278&maxWidth=450&width=1383);;## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 跟随气泡的效果在飞书客户端 v7.20 及以上版本生效。;- 仅支持在当前机器人与用户单聊的消息上添加跟随气泡，且消息需要符合：;; - 消息是机器人发送的。; - 消息是会话内最新的消息。; - 消息发送后未超过 600 秒。;;## 注意事项;;添加跟随气泡后，会话内的用户点击气泡会自动转换为该用户发送的一条消息，你可以为应用订阅[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件，接收用户发送的消息并判断是否为跟随气泡的内容。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=push_follow_up&project=im&resource=message&version=v1
 //
@@ -1428,13 +1404,13 @@ func (m *message) PushFollowUp(ctx context.Context, req *PushFollowUpMessageReq,
 	return resp, err
 }
 
-// ReadUsers 查询消息已读信息
+// ReadUsers 消息发送者查询消息已读状态
 //
-// - 查询消息的已读信息。
+// - 作为消息发送者，查询指定消息是否已读。接口只返回已读用户的信息，不返回未读用户的信息。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ;- 只能查询机器人自己发送，且发送时间不超过7天的消息;- 查询消息已读信息时机器人仍需要在会话内;- 本接口不支持查询批量消息
+// - ## 前提条件;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability) 。;- 查询消息已读信息时，机器人需要在待查询消息所在的会话内。;;## 使用限制;- 只能查询由当前机器人自己发送的、发送时间不超过 7 天的消息已读信息。;- 一次请求只能查询一条消息，不支持批量查询。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=read_users&project=im&resource=message&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/readUsers_message.go
 func (m *message) ReadUsers(ctx context.Context, req *ReadUsersMessageReq, options ...larkcore.RequestOptionFunc) (*ReadUsersMessageResp, error) {
@@ -1458,11 +1434,11 @@ func (m *message) ReadUsers(ctx context.Context, req *ReadUsersMessageReq, optio
 
 // Reply 回复消息
 //
-// - 回复指定消息，支持文本、富文本、卡片、群名片、个人名片、图片、视频、文件等多种消息类型。
+// - 调用该接口回复指定消息。回复的内容支持文本、富文本、卡片、群名片、个人名片、图片、视频、文件等多种类型。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ;- 回复私聊消息，需要机器人对用户有[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability);- 回复群组消息，需要机器人在群中
+// - ## 前提条件;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。 ;- 回复用户消息（即单聊消息）时，用户需要在机器人的[可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)内。;- 回复群消息时，机器人需要在群中，且拥有发言权限。;;## 使用限制;为避免消息发送频繁对用户造成打扰，向同一用户发送消息的限频为 ==5 QPS==、向同一群组发送消息的限频为群内机器人共享 ==5 QPS==。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=reply&project=im&resource=message&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/reply_message.go
 func (m *message) Reply(ctx context.Context, req *ReplyMessageReq, options ...larkcore.RequestOptionFunc) (*ReplyMessageResp, error) {
@@ -1484,9 +1460,43 @@ func (m *message) Reply(ctx context.Context, req *ReplyMessageReq, options ...la
 	return resp, err
 }
 
-// Update
+// Search 搜索消息
 //
-// - 编辑已发送的消息内容，当前仅支持编辑文本和富文本消息。
+// - 用户可以通过关键字搜索可见消息，可见性和套件内搜索一致。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=im&resource=message&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/search_message.go
+func (m *message) Search(ctx context.Context, req *SearchMessageReq, options ...larkcore.RequestOptionFunc) (*SearchMessageResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/im/v1/messages/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchMessageResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, m.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (m *message) SearchByIterator(ctx context.Context, req *SearchMessageReq, options ...larkcore.RequestOptionFunc) (*SearchMessageIterator, error) {
+	return &SearchMessageIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: m.Search,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// Update 编辑消息
+//
+// - 调用该接口编辑已发送的消息内容，支持编辑文本、富文本消息。如需编辑卡片消息，请使用[更新应用发送的消息卡片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch)接口
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=im&resource=message&version=v1
 //
@@ -1512,13 +1522,9 @@ func (m *message) Update(ctx context.Context, req *UpdateMessageReq, options ...
 
 // UrgentApp 发送应用内加急
 //
-// - 对指定消息进行应用内加急。
+// - 调用该接口把指定消息加急给目标用户，加急仅在飞书客户端内通知。了解加急可参见[加急功能](https://www.feishu.cn/hc/zh-CN/articles/360024757913)。
 //
-// - 特别说明：;- 默认接口限流为50 QPS，请谨慎调用
-//
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ;- 不支持加急批量消息;- 只能加急机器人自己发送的消息;- 加急时机器人需要在加急消息所在的群中;- 调用本接口需要用户已阅读加急的消息才可以继续加急（用户未读的加急上限为200条）
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/urgent_app
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=urgent_app&project=im&resource=message&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/urgentApp_message.go
 func (m *message) UrgentApp(ctx context.Context, req *UrgentAppMessageReq, options ...larkcore.RequestOptionFunc) (*UrgentAppMessageResp, error) {
@@ -1542,13 +1548,11 @@ func (m *message) UrgentApp(ctx context.Context, req *UrgentAppMessageReq, optio
 
 // UrgentPhone 发送电话加急
 //
-// - 对指定消息进行应用内加急与电话加急。
+// - 调用该接口把指定消息加急给目标用户，加急将通过飞书客户端和电话进行通知。了解加急可参见[加急功能](https://www.feishu.cn/hc/zh-CN/articles/360024757913)。
 //
-// - 特别说明：;- 通过接口产生的电话加急将消耗企业的加急额度，请慎重调用;- 通过[租户管理后台](https://admin.feishu.cn/)-费用中心-短信/电话加急 可以查看当前额度;- 默认接口限流为50 QPS，请谨慎调用
+// - **注意**：电话加急将消耗企业的加急额度（可通过[管理后台](https://admin.feishu.cn/) > **费用中心** > **权益数据** > **短信/电话加急** 查看当前额度），请慎重调用。;;## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability) 。;- 确保机器人在被加急消息所属会话中。如果是群组，还需要确保群管理中设置了 **所有群成员可以加急**，或者设置了 **仅群主或管理员可以加急** 且机器人是管理员。;;## 使用限制;;- 只能加急当前机器人自己发送的消息。;- 加急用户的未读加急总数不能超过 200 条。;- 不支持加急[批量发送的消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)。;- 加急[折叠会话](https://www.feishu.cn/hc/zh-CN/articles/360025267393)内的消息时，仅会在应用内推送提醒通知。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ;- 只能加急机器人自己发送的消息;- 加急时机器人需要在加急消息所在的群组中;- 需要用户阅读已加急的消息才可以继续加急（用户未读的加急上限为200条）
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/urgent_phone
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=urgent_phone&project=im&resource=message&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/urgentPhone_message.go
 func (m *message) UrgentPhone(ctx context.Context, req *UrgentPhoneMessageReq, options ...larkcore.RequestOptionFunc) (*UrgentPhoneMessageResp, error) {
@@ -1572,13 +1576,11 @@ func (m *message) UrgentPhone(ctx context.Context, req *UrgentPhoneMessageReq, o
 
 // UrgentSms 发送短信加急
 //
-// - 对指定消息进行应用内加急与短信加急。
+// - 调用该接口把指定消息加急给目标用户，加急将通过飞书客户端和短信进行通知。了解加急可参见[加急功能](https://www.feishu.cn/hc/zh-CN/articles/360024757913)。
 //
-// - 特别说明：;- 通过接口产生的短信加急将消耗企业的加急额度，请慎重调用;- 通过[租户管理后台](https://admin.feishu.cn/)-费用中心-短信/电话加急 可以查看当前额度;- 默认接口限流为50 QPS，请谨慎调用
+// - **注意**：短信加急将消耗企业的加急额度（可通过[管理后台](https://admin.feishu.cn/) > **费用中心** > **权益数据** > **短信/电话加急** 查看当前额度），请慎重调用。;;## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability) 。;- 确保机器人在被加急消息所属会话中。如果是群组，还需要确保群管理中设置了 **所有群成员可以加急**，或者设置了 **仅群主或管理员可以加急** 且机器人是管理员。;;## 使用限制;;- 只能加急当前机器人自己发送的消息。;- 加急用户的未读加急总数不能超过 200 条。;- 不支持加急[批量发送的消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)。;- 加急[折叠会话](https://www.feishu.cn/hc/zh-CN/articles/360025267393)内的消息时，仅会在应用内推送提醒通知。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ;- 只能加急机器人自己发送的消息;- 加急时机器人仍需要在加急消息所在的群组中;- 调用本接口需要用户已阅读加急的消息才可以继续加急（用户未读的加急上限为200条）
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/urgent_sms
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=urgent_sms&project=im&resource=message&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/urgentSms_message.go
 func (m *message) UrgentSms(ctx context.Context, req *UrgentSmsMessageReq, options ...larkcore.RequestOptionFunc) (*UrgentSmsMessageResp, error) {
@@ -1600,9 +1602,11 @@ func (m *message) UrgentSms(ctx context.Context, req *UrgentSmsMessageReq, optio
 	return resp, err
 }
 
-// BatchQuery
+// BatchQuery 批量获取消息表情回复
 //
-// - 批量获取消息表情
+// - 支持批量分页的获取消息上的表情详情、支持批量获取消息上表情的统计
+//
+// - ## 前提条件;;- 应用身份调用接口需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的机器人或者用户，需要在待查询的消息所属的会话内。;;## 使用限制;;已被撤回的消息、消息不可见等情况无法获取表情回复列表。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=im&resource=message.reaction&version=v1
 //
@@ -1628,11 +1632,11 @@ func (m *messageReaction) BatchQuery(ctx context.Context, req *BatchQueryMessage
 
 // Create 添加消息表情回复
 //
-// - 给指定消息添加指定类型的表情回复（reaction即表情回复，本文档统一用“reaction”代称）。
+// - 给指定消息添加指定类型的表情回复。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ;- 待添加reaction的消息要真实存在，不能被撤回;- 给消息添加reaction，需要reaction的发送方（机器人或者用户）在消息所在的会话内
+// - ## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的机器人或者用户，需要在待添加表情回复的消息所属的会话内。;;## 使用限制;;- 已被撤回的消息无法添加表情回复。;- [系统消息（system）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json#e159cb73)无法添加表情回复。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=im&resource=message.reaction&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/create_messageReaction.go
 func (m *messageReaction) Create(ctx context.Context, req *CreateMessageReactionReq, options ...larkcore.RequestOptionFunc) (*CreateMessageReactionResp, error) {
@@ -1656,11 +1660,11 @@ func (m *messageReaction) Create(ctx context.Context, req *CreateMessageReaction
 
 // Delete 删除消息表情回复
 //
-// - 删除指定消息的表情回复（reaction即表情回复，本文档统一用“reaction”代称）。
+// - 删除指定消息的某一表情回复。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ;- 只能删除真实存在的reaction，并且删除reaction请求的操作者必须是reaction的原始添加者
+// - ## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的机器人或者用户，需要在待删除表情回复的消息所属的会话内。;;## 使用限制;;- 已被撤回的消息无法添加表情回复。;- 调用当前接口的机器人或者用户，只能删除由自己添加的表情回复，且需要保证该表情回复真实存在于消息中。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=im&resource=message.reaction&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/delete_messageReaction.go
 func (m *messageReaction) Delete(ctx context.Context, req *DeleteMessageReactionReq, options ...larkcore.RequestOptionFunc) (*DeleteMessageReactionResp, error) {
@@ -1684,11 +1688,11 @@ func (m *messageReaction) Delete(ctx context.Context, req *DeleteMessageReaction
 
 // List 获取消息表情回复
 //
-// - 获取指定消息的特定类型表情回复列表（reaction即表情回复，本文档统一用“reaction”代称）。
+// - 获取指定消息内的表情回复列表
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ;- 待获取reaction信息的消息要真实存在，不能被撤回;- 获取消息的reaction，需要request的授权主体（机器人或者用户）在消息所在的会话内
+// - ## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的机器人或者用户，需要在待查询的消息所属的会话内。;;## 使用限制;;已被撤回的消息无法获取表情回复列表。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=im&resource=message.reaction&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/list_messageReaction.go
 func (m *messageReaction) List(ctx context.Context, req *ListMessageReactionReq, options ...larkcore.RequestOptionFunc) (*ListMessageReactionResp, error) {
@@ -1720,11 +1724,11 @@ func (m *messageReaction) ListByIterator(ctx context.Context, req *ListMessageRe
 
 // Get 获取消息中的资源文件
 //
-// - 获取消息中的资源文件，包括音频，视频，图片和文件，**暂不支持表情包资源下载**。当前仅支持 100M 以内的资源文件的下载。
+// - 获取指定消息内包含的资源文件，包括音频、视频、图片和文件。成功调用后，返回二进制文件流下载文件。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability);- 机器人和消息需要在同一会话中;- 暂不支持获取合并转发消息中的子消息的资源文件
+// - ## 前提条件; ;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 机器人和待操作的消息需要在同一会话内。;;## 使用限制;- 仅支持下载 100 MB 以内的资源文件。;- 暂不支持获取表情包资源。;- 暂不支持获取合并转发消息中的子消息、卡片消息中的资源文件。如果请求时传入了合并转发消息或子消息的 ID、卡片消息 ID，则会返回错误码 234043。;- 不支持在当前接口内调整文件格式，你可以获取资源文件后，在本地自行调整。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=im&resource=message.resource&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/get_messageResource.go
 func (m *messageResource) Get(ctx context.Context, req *GetMessageResourceReq, options ...larkcore.RequestOptionFunc) (*GetMessageResourceResp, error) {
@@ -1752,13 +1756,11 @@ func (m *messageResource) Get(ctx context.Context, req *GetMessageResourceReq, o
 	return resp, err
 }
 
-// Create Pin消息
+// Create Pin 消息
 //
-// - Pin一条指定的消息。
+// - Pin 一条指定的消息。Pin 消息的效果可参见[Pin 消息概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/pin-overview)。
 //
-// - 注意事项:;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ;- Pin消息时，机器人必须在对应的群组中;- 若消息已经被Pin，返回该Pin的操作信息;- 不能Pin一条对操作者不可见的消息;- 对同一条消息的Pin操作不能超过==5 QPS==
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=im&resource=pin&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/create_pin.go
 func (p *pin) Create(ctx context.Context, req *CreatePinReq, options ...larkcore.RequestOptionFunc) (*CreatePinResp, error) {
@@ -1780,13 +1782,11 @@ func (p *pin) Create(ctx context.Context, req *CreatePinReq, options ...larkcore
 	return resp, err
 }
 
-// Delete 移除Pin消息
+// Delete 移除 Pin 消息
 //
-// - 移除一条指定消息的Pin。
+// - 移除一条指定消息的 Pin。
 //
-// - 注意事项：;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ;- 移除Pin消息时，机器人必须在对应的群组中;- 若消息未被Pin或已被撤回，返回成功信息;- 不能移除一条对操作者不可见的Pin消息;- 对同一条消息移除Pin的操作不能超过==5 QPS==
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=im&resource=pin&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/delete_pin.go
 func (p *pin) Delete(ctx context.Context, req *DeletePinReq, options ...larkcore.RequestOptionFunc) (*DeletePinResp, error) {
@@ -1808,13 +1808,11 @@ func (p *pin) Delete(ctx context.Context, req *DeletePinReq, options ...larkcore
 	return resp, err
 }
 
-// List 获取群内Pin消息
+// List 获取群内 Pin 消息
 //
-// - 获取所在群内指定时间范围内的所有Pin消息。
+// - 获取指定群、指定时间范围内的所有 Pin 消息。
 //
-// - 注意事项：;- 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  ;- 获取Pin消息时，机器人必须在群组中;- 获取的Pin消息按Pin的创建时间降序排列;- 接口默认限流为==50 QPS==
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=im&resource=pin&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/imv1/list_pin.go
 func (p *pin) List(ctx context.Context, req *ListPinReq, options ...larkcore.RequestOptionFunc) (*ListPinResp, error) {
@@ -1844,9 +1842,9 @@ func (p *pin) ListByIterator(ctx context.Context, req *ListPinReq, options ...la
 		limit:    req.Limit}, nil
 }
 
-// Forward
+// Forward 转发话题
 //
-// - 转发
+// - 调用该接口将话题转发至指定的用户、群聊或话题。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=forward&project=im&resource=thread&version=v1
 //

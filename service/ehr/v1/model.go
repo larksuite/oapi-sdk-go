@@ -27,14 +27,14 @@ import (
 )
 
 const (
-	ViewBasic = "basic" // 概览, 只返回 id、name 等基本信息
-	ViewFull  = "full"  // 返回详细信息
+	ListEmployeeViewBasic = "basic" // 概览，只返回 id、name 等基本信息
+	ListEmployeeViewFull  = "full"  // 明细，返回系统标准字段和自定义字段集合
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	ListEmployeeUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListEmployeeUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListEmployeeUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type Attachment struct {
@@ -68,7 +68,7 @@ func NewAttachmentBuilder() *AttachmentBuilder {
 
 // 下载文件所需要的 Token
 //
-// 示例值：c7273e07ed9e40a394f88c7dccb49212
+// 示例值：
 func (builder *AttachmentBuilder) Id(id string) *AttachmentBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -95,7 +95,7 @@ func (builder *AttachmentBuilder) Name(name string) *AttachmentBuilder {
 
 // 大小
 //
-// 示例值：57380
+// 示例值：
 func (builder *AttachmentBuilder) Size(size int64) *AttachmentBuilder {
 	builder.size = size
 	builder.sizeSet = true
@@ -144,7 +144,7 @@ func NewContractCompanyBuilder() *ContractCompanyBuilder {
 
 // 公司 ID
 //
-// 示例值：1695838220091399
+// 示例值：
 func (builder *ContractCompanyBuilder) Id(id int64) *ContractCompanyBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -153,7 +153,7 @@ func (builder *ContractCompanyBuilder) Id(id int64) *ContractCompanyBuilder {
 
 // 公司名称
 //
-// 示例值：油条一号
+// 示例值：
 func (builder *ContractCompanyBuilder) Name(name string) *ContractCompanyBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -222,7 +222,7 @@ func (builder *CustomFieldsBuilder) Label(label string) *CustomFieldsBuilder {
 
 // 自定义字段类型
 //
-// 示例值：date
+// 示例值：
 func (builder *CustomFieldsBuilder) Type(type_ string) *CustomFieldsBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
@@ -231,7 +231,7 @@ func (builder *CustomFieldsBuilder) Type(type_ string) *CustomFieldsBuilder {
 
 // 根据 type 不同，结构不同，不同 type 对应的数据结构在 type 的枚举值中有描述
 //
-// 示例值：2021-01-13
+// 示例值：
 func (builder *CustomFieldsBuilder) Value(value string) *CustomFieldsBuilder {
 	builder.value = value
 	builder.valueSet = true
@@ -278,8 +278,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -287,8 +285,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -350,7 +346,7 @@ func NewEducationBuilder() *EducationBuilder {
 
 // 学历
 //
-// 示例值：8
+// 示例值：
 func (builder *EducationBuilder) Level(level int) *EducationBuilder {
 	builder.level = level
 	builder.levelSet = true
@@ -377,7 +373,7 @@ func (builder *EducationBuilder) Major(major string) *EducationBuilder {
 
 // 学位
 //
-// 示例值：2
+// 示例值：
 func (builder *EducationBuilder) Degree(degree int) *EducationBuilder {
 	builder.degree = degree
 	builder.degreeSet = true
@@ -457,7 +453,7 @@ func NewEmergencyContactBuilder() *EmergencyContactBuilder {
 
 // 紧急联系人姓名
 //
-// 示例值：张三
+// 示例值：
 func (builder *EmergencyContactBuilder) Name(name string) *EmergencyContactBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -466,7 +462,7 @@ func (builder *EmergencyContactBuilder) Name(name string) *EmergencyContactBuild
 
 // 与紧急联系人的关系
 //
-// 示例值：1
+// 示例值：
 func (builder *EmergencyContactBuilder) Relationship(relationship int) *EmergencyContactBuilder {
 	builder.relationship = relationship
 	builder.relationshipSet = true
@@ -525,7 +521,7 @@ func NewEmployeeBuilder() *EmployeeBuilder {
 
 // 员工的用户 ID;;;user_id_type 为 user_id 时返回 user_id；;;;user_id_type 为 open_id 时返回 open_id；;;;user_id_type 为 union_id 时返回 union_id；;;;「待入职」和「已取消入职」的员工，此字段值为 null
 //
-// 示例值：ou_db362c0e79f5a26db1ca8e94698ee417
+// 示例值：ou_8ebd4f35d7101ffdeb4771d7c8ec517e
 func (builder *EmployeeBuilder) UserId(userId string) *EmployeeBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -691,7 +687,7 @@ func NewManagerBuilder() *ManagerBuilder {
 
 // 上级的用户 ID（user_id）
 //
-// 示例值：ou_db362c0e79f5a26db1ca8e94698ee417
+// 示例值：ou_8ebd4f35d7101ffdeb4771d7c8ec517e
 func (builder *ManagerBuilder) UserId(userId string) *ManagerBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -754,7 +750,7 @@ func NewNativeRegionBuilder() *NativeRegionBuilder {
 
 // ISO 编码
 //
-// 示例值：CHN-11
+// 示例值：
 func (builder *NativeRegionBuilder) IsoCode(isoCode string) *NativeRegionBuilder {
 	builder.isoCode = isoCode
 	builder.isoCodeSet = true
@@ -834,7 +830,7 @@ type SystemFields struct {
 
 	EmployeeNo *string `json:"employee_no,omitempty"` // 工号
 
-	EmployeeType *int `json:"employee_type,omitempty"` // 雇员类型
+	EmployeeType *int `json:"employee_type,omitempty"` // 人员类型;;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称，参见 [获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
 
 	Status *int `json:"status,omitempty"` // 员工状态
 
@@ -983,7 +979,7 @@ type SystemFieldsBuilder struct {
 	employeeNo    string // 工号
 	employeeNoSet bool
 
-	employeeType    int // 雇员类型
+	employeeType    int // 人员类型;;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称，参见 [获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
 	employeeTypeSet bool
 
 	status    int // 员工状态
@@ -1180,7 +1176,7 @@ func (builder *SystemFieldsBuilder) WorkLocation(workLocation *WorkLocation) *Sy
 
 // 性别
 //
-// 示例值：1
+// 示例值：
 func (builder *SystemFieldsBuilder) Gender(gender int) *SystemFieldsBuilder {
 	builder.gender = gender
 	builder.genderSet = true
@@ -1207,7 +1203,7 @@ func (builder *SystemFieldsBuilder) NativeRegion(nativeRegion *NativeRegion) *Sy
 
 // 民族
 //
-// 示例值：2
+// 示例值：
 func (builder *SystemFieldsBuilder) Ethnicity(ethnicity int) *SystemFieldsBuilder {
 	builder.ethnicity = ethnicity
 	builder.ethnicitySet = true
@@ -1216,7 +1212,7 @@ func (builder *SystemFieldsBuilder) Ethnicity(ethnicity int) *SystemFieldsBuilde
 
 // 婚姻状况
 //
-// 示例值：2
+// 示例值：
 func (builder *SystemFieldsBuilder) MaritalStatus(maritalStatus int) *SystemFieldsBuilder {
 	builder.maritalStatus = maritalStatus
 	builder.maritalStatusSet = true
@@ -1225,7 +1221,7 @@ func (builder *SystemFieldsBuilder) MaritalStatus(maritalStatus int) *SystemFiel
 
 // 政治面貌
 //
-// 示例值：2
+// 示例值：
 func (builder *SystemFieldsBuilder) PoliticalStatus(politicalStatus int) *SystemFieldsBuilder {
 	builder.politicalStatus = politicalStatus
 	builder.politicalStatusSet = true
@@ -1243,7 +1239,7 @@ func (builder *SystemFieldsBuilder) EnteredWorkforceDate(enteredWorkforceDate st
 
 // 证件类型
 //
-// 示例值：1
+// 示例值：
 func (builder *SystemFieldsBuilder) IdType(idType int) *SystemFieldsBuilder {
 	builder.idType = idType
 	builder.idTypeSet = true
@@ -1261,7 +1257,7 @@ func (builder *SystemFieldsBuilder) IdNumber(idNumber string) *SystemFieldsBuild
 
 // 户口类型
 //
-// 示例值：1
+// 示例值：
 func (builder *SystemFieldsBuilder) HukouType(hukouType int) *SystemFieldsBuilder {
 	builder.hukouType = hukouType
 	builder.hukouTypeSet = true
@@ -1322,9 +1318,9 @@ func (builder *SystemFieldsBuilder) EmployeeNo(employeeNo string) *SystemFieldsB
 	return builder
 }
 
-// 雇员类型
+// 人员类型;;同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称，参见 [获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
 //
-// 示例值：1
+// 示例值：
 func (builder *SystemFieldsBuilder) EmployeeType(employeeType int) *SystemFieldsBuilder {
 	builder.employeeType = employeeType
 	builder.employeeTypeSet = true
@@ -1333,7 +1329,7 @@ func (builder *SystemFieldsBuilder) EmployeeType(employeeType int) *SystemFields
 
 // 员工状态
 //
-// 示例值：2
+// 示例值：
 func (builder *SystemFieldsBuilder) Status(status int) *SystemFieldsBuilder {
 	builder.status = status
 	builder.statusSet = true
@@ -1369,7 +1365,7 @@ func (builder *SystemFieldsBuilder) ConversionDate(conversionDate string) *Syste
 
 // 转正申请
 //
-// 示例值：1
+// 示例值：
 func (builder *SystemFieldsBuilder) Application(application int) *SystemFieldsBuilder {
 	builder.application = application
 	builder.applicationSet = true
@@ -1378,7 +1374,7 @@ func (builder *SystemFieldsBuilder) Application(application int) *SystemFieldsBu
 
 // 转正状态
 //
-// 示例值：2
+// 示例值：
 func (builder *SystemFieldsBuilder) ApplicationStatus(applicationStatus int) *SystemFieldsBuilder {
 	builder.applicationStatus = applicationStatus
 	builder.applicationStatusSet = true
@@ -1396,7 +1392,7 @@ func (builder *SystemFieldsBuilder) LastDay(lastDay string) *SystemFieldsBuilder
 
 // 离职类型
 //
-// 示例值：1
+// 示例值：
 func (builder *SystemFieldsBuilder) DepartureType(departureType int) *SystemFieldsBuilder {
 	builder.departureType = departureType
 	builder.departureTypeSet = true
@@ -1405,7 +1401,7 @@ func (builder *SystemFieldsBuilder) DepartureType(departureType int) *SystemFiel
 
 // 离职原因
 //
-// 示例值：4
+// 示例值：
 func (builder *SystemFieldsBuilder) DepartureReason(departureReason int) *SystemFieldsBuilder {
 	builder.departureReason = departureReason
 	builder.departureReasonSet = true
@@ -1432,7 +1428,7 @@ func (builder *SystemFieldsBuilder) ContractCompany(contractCompany *ContractCom
 
 // 合同类型
 //
-// 示例值：1
+// 示例值：
 func (builder *SystemFieldsBuilder) ContractType(contractType int) *SystemFieldsBuilder {
 	builder.contractType = contractType
 	builder.contractTypeSet = true
@@ -1603,7 +1599,7 @@ func (builder *SystemFieldsBuilder) OffboardingFile(offboardingFile []*Attachmen
 
 // 取消入职原因
 //
-// 示例值：2
+// 示例值：
 func (builder *SystemFieldsBuilder) CancelOnboardingReason(cancelOnboardingReason int) *SystemFieldsBuilder {
 	builder.cancelOnboardingReason = cancelOnboardingReason
 	builder.cancelOnboardingReasonSet = true
@@ -1621,7 +1617,7 @@ func (builder *SystemFieldsBuilder) CancelOnboardingNotes(cancelOnboardingNotes 
 
 // 入职登记表状态
 //
-// 示例值：1
+// 示例值：
 func (builder *SystemFieldsBuilder) EmployeeFormStatus(employeeFormStatus int) *SystemFieldsBuilder {
 	builder.employeeFormStatus = employeeFormStatus
 	builder.employeeFormStatusSet = true
@@ -2019,7 +2015,7 @@ func NewWorkLocationBuilder() *WorkLocationBuilder {
 
 // 工作地点 ID
 //
-// 示例值：1695838220091399
+// 示例值：
 func (builder *WorkLocationBuilder) Id(id int64) *WorkLocationBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -2028,7 +2024,7 @@ func (builder *WorkLocationBuilder) Id(id int64) *WorkLocationBuilder {
 
 // 工作地点名称
 //
-// 示例值：武汉
+// 示例值：
 func (builder *WorkLocationBuilder) Name(name string) *WorkLocationBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -2124,7 +2120,7 @@ func (builder *ListEmployeeReqBuilder) Limit(limit int) *ListEmployeeReqBuilder 
 	return builder
 }
 
-// 返回数据类型
+// 返回数据类型，不传值默认为 basic。
 //
 // 示例值：basic
 func (builder *ListEmployeeReqBuilder) View(view string) *ListEmployeeReqBuilder {
@@ -2134,7 +2130,7 @@ func (builder *ListEmployeeReqBuilder) View(view string) *ListEmployeeReqBuilder
 
 // 员工状态，不传代表查询所有员工状态;;实际在职 = 2&4;;可同时查询多个状态的记录，如 status=2&status=4
 //
-// 示例值：2
+// 示例值：
 func (builder *ListEmployeeReqBuilder) Status(status []int) *ListEmployeeReqBuilder {
 	for _, v := range status {
 		builder.apiReq.QueryParams.Add("status", fmt.Sprint(v))
@@ -2142,9 +2138,9 @@ func (builder *ListEmployeeReqBuilder) Status(status []int) *ListEmployeeReqBuil
 	return builder
 }
 
-// 雇员类型，不传代表查询所有雇员类型
+// 人员类型，不传代表查询所有人员类型;;同时可使用自定义员工类型的 int 值进行查询，可通过下方接口获取到该租户的自定义员工类型的名称，参见 [获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)
 //
-// 示例值：1
+// 示例值：
 func (builder *ListEmployeeReqBuilder) Type(type_ []int) *ListEmployeeReqBuilder {
 	for _, v := range type_ {
 		builder.apiReq.QueryParams.Add("type", fmt.Sprint(v))
@@ -2152,7 +2148,7 @@ func (builder *ListEmployeeReqBuilder) Type(type_ []int) *ListEmployeeReqBuilder
 	return builder
 }
 
-// 查询开始时间（创建时间 &gt;= 此时间）
+// 查询开始时间（入职时间 &gt;= 此时间）
 //
 // 示例值：1608690517811
 func (builder *ListEmployeeReqBuilder) StartTime(startTime string) *ListEmployeeReqBuilder {
@@ -2160,7 +2156,7 @@ func (builder *ListEmployeeReqBuilder) StartTime(startTime string) *ListEmployee
 	return builder
 }
 
-// 查询结束时间（创建时间 &lt;= 此时间）
+// 查询结束时间（入职时间 &lt;= 此时间）
 //
 // 示例值：1608690517811
 func (builder *ListEmployeeReqBuilder) EndTime(endTime string) *ListEmployeeReqBuilder {
@@ -2178,7 +2174,7 @@ func (builder *ListEmployeeReqBuilder) UserIdType(userIdType string) *ListEmploy
 
 // user_id、open_id 或 union_id，默认为 open_id。;;如果传入的值不是 open_id，需要一并传入 user_id_type 参数。;;可一次查询多个 id 的用户，例如：user_ids=ou_8ebd4f35d7101ffdeb4771d7c8ec517e&user_ids=ou_7abc4f35d7101ffdeb4771dabcde;;[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 //
-// 示例值：ou_8ebd4f35d7101ffdeb4771d7c8ec517e
+// 示例值：
 func (builder *ListEmployeeReqBuilder) UserIds(userIds []string) *ListEmployeeReqBuilder {
 	for _, v := range userIds {
 		builder.apiReq.QueryParams.Add("user_ids", fmt.Sprint(v))

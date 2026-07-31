@@ -20,86 +20,86 @@ import (
 )
 
 const (
-	UserIdTypeUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	QueryReviewDataUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	QueryReviewDataUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	QueryReviewDataUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	QueryReviewDataUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	TypeGroupAnnual      = "Annual"       // 年
-	TypeGroupSemiAnnual  = "Semi-annual"  // 半年
-	TypeGroupQuarter     = "Quarter"      // 季度
-	TypeGroupBimonth     = "Bimonth"      // 双月
-	TypeGroupMonth       = "Month"        // 月
-	TypeGroupNonStandard = "Non-standard" // 非标准周期
+	ListSemesterTypeGroupAnnual      = "Annual"       // 年
+	ListSemesterTypeGroupSemiAnnual  = "Semi-annual"  // 半年
+	ListSemesterTypeGroupQuarter     = "Quarter"      // 季度
+	ListSemesterTypeGroupBimonth     = "Bimonth"      // 双月
+	ListSemesterTypeGroupMonth       = "Month"        // 月
+	ListSemesterTypeGroupNonStandard = "Non-standard" // 非标准周期
 )
 
 const (
-	TypeAnnual            = "Annual"            // 全年
-	TypeH1                = "H1"                // 上半年
-	TypeH2                = "H2"                // 下半年
-	TypeQ1                = "Q1"                // 第一季度
-	TypeQ2                = "Q2"                // 第二季度
-	TypeQ3                = "Q3"                // 第三季度
-	TypeQ4                = "Q4"                // 第四季度
-	TypeJanuary2February  = "January-February"  // 1-2 双月
-	TypeMarch2April       = "March-April"       // 3-4 双月
-	TypeMay2June          = "May-June"          // 5-6 双月
-	TypeJuly2August       = "July-August"       // 7-8 双月
-	TypeSeptember2October = "September-October" // 9-10 双月
-	TypeNovember2December = "November-December" // 11-12 双月
-	TypeJanuary           = "January"           // 1月份
-	TypeFebruary          = "February"          // 2月份
-	TypeMarch             = "March"             // 3月份
-	TypeApril             = "April"             // 4月份
-	TypeMay               = "May"               // 5月份
-	TypeJune              = "June"              // 6月份
-	TypeJuly              = "July"              // 7月份
-	TypeAugust            = "August"            // 8月份
-	TypeSeptember         = "September"         // 9月份
-	TypeOctober           = "October"           // 10月份
-	TypeNovember          = "November"          // 11月份
-	TypeDecember          = "December"          // 12月份
-	TypeCustom            = "Custom"            // 自定义
+	ListSemesterTypeAnnual            = "Annual"            // 全年
+	ListSemesterTypeH1                = "H1"                // 上半年
+	ListSemesterTypeH2                = "H2"                // 下半年
+	ListSemesterTypeQ1                = "Q1"                // 第一季度
+	ListSemesterTypeQ2                = "Q2"                // 第二季度
+	ListSemesterTypeQ3                = "Q3"                // 第三季度
+	ListSemesterTypeQ4                = "Q4"                // 第四季度
+	ListSemesterTypeJanuary2February  = "January-February"  // 1-2 双月
+	ListSemesterTypeMarch2April       = "March-April"       // 3-4 双月
+	ListSemesterTypeMay2June          = "May-June"          // 5-6 双月
+	ListSemesterTypeJuly2August       = "July-August"       // 7-8 双月
+	ListSemesterTypeSeptember2October = "September-October" // 9-10 双月
+	ListSemesterTypeNovember2December = "November-December" // 11-12 双月
+	ListSemesterTypeJanuary           = "January"           // 1月份
+	ListSemesterTypeFebruary          = "February"          // 2月份
+	ListSemesterTypeMarch             = "March"             // 3月份
+	ListSemesterTypeApril             = "April"             // 4月份
+	ListSemesterTypeMay               = "May"               // 5月份
+	ListSemesterTypeJune              = "June"              // 6月份
+	ListSemesterTypeJuly              = "July"              // 7月份
+	ListSemesterTypeAugust            = "August"            // 8月份
+	ListSemesterTypeSeptember         = "September"         // 9月份
+	ListSemesterTypeOctober           = "October"           // 10月份
+	ListSemesterTypeNovember          = "November"          // 11月份
+	ListSemesterTypeDecember          = "December"          // 12月份
+	ListSemesterTypeCustom            = "Custom"            // 自定义
 )
 
 const (
-	UserIdTypeListSemesterUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListSemesterUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListSemesterOpenId  = "open_id"  // 以open_id来识别用户
+	ListSemesterUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListSemesterUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListSemesterUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeFindByPageStageTaskUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeFindByPageStageTaskUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeFindByPageStageTaskOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeFindByPageStageTaskPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	FindByPageStageTaskUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	FindByPageStageTaskUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	FindByPageStageTaskUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	FindByPageStageTaskUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 const (
-	UserIdTypeFindByUserListStageTaskUserId        = "user_id"         // 以user_id来识别用户
-	UserIdTypeFindByUserListStageTaskUnionId       = "union_id"        // 以union_id来识别用户
-	UserIdTypeFindByUserListStageTaskOpenId        = "open_id"         // 以open_id来识别用户
-	UserIdTypeFindByUserListStageTaskPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
+	FindByUserListStageTaskUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
+	FindByUserListStageTaskUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
+	FindByUserListStageTaskUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
+	FindByUserListStageTaskUserIDTypePeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
 type Activity struct {
-	Id *string `json:"id,omitempty"` // 绩效评估项目 ID
+	Id *string `json:"id,omitempty"` // 项目 ID，可通过[获取项目列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)接口获取;
 
-	Name *I18n `json:"name,omitempty"` // 绩效评估项目名称
+	Name *I18n `json:"name,omitempty"` // 周期名称
 
-	SemesterId *string `json:"semester_id,omitempty"` // 绩效评估周期 ID
+	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID，详情可查看：[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list);
 }
 
 type ActivityBuilder struct {
-	id    string // 绩效评估项目 ID
+	id    string // 项目 ID，可通过[获取项目列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)接口获取;
 	idSet bool
 
-	name    *I18n // 绩效评估项目名称
+	name    *I18n // 周期名称
 	nameSet bool
 
-	semesterId    string // 绩效评估周期 ID
+	semesterId    string // 周期 ID，详情可查看：[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list);
 	semesterIdSet bool
 }
 
@@ -108,7 +108,7 @@ func NewActivityBuilder() *ActivityBuilder {
 	return builder
 }
 
-// 绩效评估项目 ID
+// 项目 ID，可通过[获取项目列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)接口获取;
 //
 // 示例值：6992035450862323244
 func (builder *ActivityBuilder) Id(id string) *ActivityBuilder {
@@ -117,7 +117,7 @@ func (builder *ActivityBuilder) Id(id string) *ActivityBuilder {
 	return builder
 }
 
-// 绩效评估项目名称
+// 周期名称
 //
 // 示例值：
 func (builder *ActivityBuilder) Name(name *I18n) *ActivityBuilder {
@@ -126,7 +126,7 @@ func (builder *ActivityBuilder) Name(name *I18n) *ActivityBuilder {
 	return builder
 }
 
-// 绩效评估周期 ID
+// 周期 ID，详情可查看：[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list);
 //
 // 示例值：6992035450862224940
 func (builder *ActivityBuilder) SemesterId(semesterId string) *ActivityBuilder {
@@ -220,8 +220,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -229,8 +227,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -252,26 +248,26 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 }
 
 type Field struct {
-	Id *string `json:"id,omitempty"` // 填写项 ID
+	Id *string `json:"id,omitempty"` // 评估字段 ID
 
-	Name *I18n `json:"name,omitempty"` // 填写项名称
+	Name *I18n `json:"name,omitempty"` // 周期名称
 
-	IndicatorId *string `json:"indicator_id,omitempty"` // 评估项 ID
+	IndicatorId *string `json:"indicator_id,omitempty"` // 评估项 ID，详情可查看：[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query);
 
-	ParentFieldId *string `json:"parent_field_id,omitempty"` // 父级填写项 ID
+	ParentFieldId *string `json:"parent_field_id,omitempty"` // 父级评估字段 ID
 }
 
 type FieldBuilder struct {
-	id    string // 填写项 ID
+	id    string // 评估字段 ID
 	idSet bool
 
-	name    *I18n // 填写项名称
+	name    *I18n // 周期名称
 	nameSet bool
 
-	indicatorId    string // 评估项 ID
+	indicatorId    string // 评估项 ID，详情可查看：[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query);
 	indicatorIdSet bool
 
-	parentFieldId    string // 父级填写项 ID
+	parentFieldId    string // 父级评估字段 ID
 	parentFieldIdSet bool
 }
 
@@ -280,7 +276,7 @@ func NewFieldBuilder() *FieldBuilder {
 	return builder
 }
 
-// 填写项 ID
+// 评估字段 ID
 //
 // 示例值：6982759010081818159
 func (builder *FieldBuilder) Id(id string) *FieldBuilder {
@@ -289,7 +285,7 @@ func (builder *FieldBuilder) Id(id string) *FieldBuilder {
 	return builder
 }
 
-// 填写项名称
+// 周期名称
 //
 // 示例值：
 func (builder *FieldBuilder) Name(name *I18n) *FieldBuilder {
@@ -298,7 +294,7 @@ func (builder *FieldBuilder) Name(name *I18n) *FieldBuilder {
 	return builder
 }
 
-// 评估项 ID
+// 评估项 ID，详情可查看：[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query);
 //
 // 示例值：6982759010081818159
 func (builder *FieldBuilder) IndicatorId(indicatorId string) *FieldBuilder {
@@ -307,7 +303,7 @@ func (builder *FieldBuilder) IndicatorId(indicatorId string) *FieldBuilder {
 	return builder
 }
 
-// 父级填写项 ID
+// 父级评估字段 ID
 //
 // 示例值：6982759010081818159
 func (builder *FieldBuilder) ParentFieldId(parentFieldId string) *FieldBuilder {
@@ -389,7 +385,7 @@ func (builder *FixScoreOptionBuilder) Build() *FixScoreOption {
 type FullIndicator struct {
 	Id *string `json:"id,omitempty"` // 评估项id
 
-	Name *I18n `json:"name,omitempty"` // 评估项名称
+	Name *I18n `json:"name,omitempty"` // 周期名称
 
 	RuleId *string `json:"rule_id,omitempty"` // 评估项引用规则id，对于旧模版评估项，评估规则没有单独的数据结构，rule_id ==id
 }
@@ -398,7 +394,7 @@ type FullIndicatorBuilder struct {
 	id    string // 评估项id
 	idSet bool
 
-	name    *I18n // 评估项名称
+	name    *I18n // 周期名称
 	nameSet bool
 
 	ruleId    string // 评估项引用规则id，对于旧模版评估项，评估规则没有单独的数据结构，rule_id ==id
@@ -419,7 +415,7 @@ func (builder *FullIndicatorBuilder) Id(id string) *FullIndicatorBuilder {
 	return builder
 }
 
-// 评估项名称
+// 周期名称
 //
 // 示例值：
 func (builder *FullIndicatorBuilder) Name(name *I18n) *FullIndicatorBuilder {
@@ -454,16 +450,16 @@ func (builder *FullIndicatorBuilder) Build() *FullIndicator {
 }
 
 type I18n struct {
-	ZhCN *string `json:"zh-CN,omitempty"` // 中文
+	ZhCN *string `json:"zh-CN,omitempty"` // 周期中文名称
 
-	EnUS *string `json:"en-US,omitempty"` // 英文
+	EnUS *string `json:"en-US,omitempty"` // 周期英文名称
 }
 
 type I18nBuilder struct {
-	zhCN    string // 中文
+	zhCN    string // 周期中文名称
 	zhCNSet bool
 
-	enUS    string // 英文
+	enUS    string // 周期英文名称
 	enUSSet bool
 }
 
@@ -472,18 +468,18 @@ func NewI18nBuilder() *I18nBuilder {
 	return builder
 }
 
-// 中文
+// 周期中文名称
 //
-// 示例值：体验
+// 示例值：2024 全年周期
 func (builder *I18nBuilder) ZhCN(zhCN string) *I18nBuilder {
 	builder.zhCN = zhCN
 	builder.zhCNSet = true
 	return builder
 }
 
-// 英文
+// 周期英文名称
 //
-// 示例值：Interactive experience
+// 示例值：2024 Full year semester
 func (builder *I18nBuilder) EnUS(enUS string) *I18nBuilder {
 	builder.enUS = enUS
 	builder.enUSSet = true
@@ -504,18 +500,18 @@ func (builder *I18nBuilder) Build() *I18n {
 }
 
 type Indicator struct {
-	Id *string `json:"id,omitempty"` // 评估项 ID
+	Id *string `json:"id,omitempty"` // 评估项 ID，详情可查看：[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query)
 
-	Name *I18n `json:"name,omitempty"` // 评估项名称
+	Name *I18n `json:"name,omitempty"` // 周期名称
 
 	Options []*IndicatorOption `json:"options,omitempty"` // 评估项等级列表
 }
 
 type IndicatorBuilder struct {
-	id    string // 评估项 ID
+	id    string // 评估项 ID，详情可查看：[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query)
 	idSet bool
 
-	name    *I18n // 评估项名称
+	name    *I18n // 周期名称
 	nameSet bool
 
 	options    []*IndicatorOption // 评估项等级列表
@@ -527,7 +523,7 @@ func NewIndicatorBuilder() *IndicatorBuilder {
 	return builder
 }
 
-// 评估项 ID
+// 评估项 ID，详情可查看：[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query)
 //
 // 示例值：6982759010081818159
 func (builder *IndicatorBuilder) Id(id string) *IndicatorBuilder {
@@ -536,7 +532,7 @@ func (builder *IndicatorBuilder) Id(id string) *IndicatorBuilder {
 	return builder
 }
 
-// 评估项名称
+// 周期名称
 //
 // 示例值：
 func (builder *IndicatorBuilder) Name(name *I18n) *IndicatorBuilder {
@@ -572,7 +568,7 @@ func (builder *IndicatorBuilder) Build() *Indicator {
 type IndicatorOption struct {
 	Id *string `json:"id,omitempty"` // 等级 ID
 
-	Name *I18n `json:"name,omitempty"` // 等级名称
+	Name *I18n `json:"name,omitempty"` // 周期名称
 
 	Label *string `json:"label,omitempty"` // 等级代号
 }
@@ -581,7 +577,7 @@ type IndicatorOptionBuilder struct {
 	id    string // 等级 ID
 	idSet bool
 
-	name    *I18n // 等级名称
+	name    *I18n // 周期名称
 	nameSet bool
 
 	label    string // 等级代号
@@ -602,7 +598,7 @@ func (builder *IndicatorOptionBuilder) Id(id string) *IndicatorOptionBuilder {
 	return builder
 }
 
-// 等级名称
+// 周期名称
 //
 // 示例值：
 func (builder *IndicatorOptionBuilder) Name(name *I18n) *IndicatorOptionBuilder {
@@ -639,7 +635,7 @@ func (builder *IndicatorOptionBuilder) Build() *IndicatorOption {
 type IndicatorRule struct {
 	Id *string `json:"id,omitempty"` // id
 
-	Name *I18n `json:"name,omitempty"` // 名称
+	Name *I18n `json:"name,omitempty"` // 周期名称
 
 	Type *string `json:"type,omitempty"` // 评估类型
 
@@ -654,7 +650,7 @@ type IndicatorRuleBuilder struct {
 	id    string // id
 	idSet bool
 
-	name    *I18n // 名称
+	name    *I18n // 周期名称
 	nameSet bool
 
 	type_    string // 评估类型
@@ -684,7 +680,7 @@ func (builder *IndicatorRuleBuilder) Id(id string) *IndicatorRuleBuilder {
 	return builder
 }
 
-// 名称
+// 周期名称
 //
 // 示例值：
 func (builder *IndicatorRuleBuilder) Name(name *I18n) *IndicatorRuleBuilder {
@@ -757,9 +753,9 @@ func (builder *IndicatorRuleBuilder) Build() *IndicatorRule {
 type LevelOption struct {
 	Id *string `json:"id,omitempty"` // optionid
 
-	Name *I18n `json:"name,omitempty"` // 名称
+	Name *I18n `json:"name,omitempty"` // 周期名称
 
-	Label *I18n `json:"label,omitempty"` // 选项label
+	Label *I18n `json:"label,omitempty"` // 周期名称
 
 	Order *int `json:"order,omitempty"` // 评估项等级顺序
 
@@ -770,10 +766,10 @@ type LevelOptionBuilder struct {
 	id    string // optionid
 	idSet bool
 
-	name    *I18n // 名称
+	name    *I18n // 周期名称
 	nameSet bool
 
-	label    *I18n // 选项label
+	label    *I18n // 周期名称
 	labelSet bool
 
 	order    int // 评估项等级顺序
@@ -797,7 +793,7 @@ func (builder *LevelOptionBuilder) Id(id string) *LevelOptionBuilder {
 	return builder
 }
 
-// 名称
+// 周期名称
 //
 // 示例值：
 func (builder *LevelOptionBuilder) Name(name *I18n) *LevelOptionBuilder {
@@ -806,7 +802,7 @@ func (builder *LevelOptionBuilder) Name(name *I18n) *LevelOptionBuilder {
 	return builder
 }
 
-// 选项label
+// 周期名称
 //
 // 示例值：
 func (builder *LevelOptionBuilder) Label(label *I18n) *LevelOptionBuilder {
@@ -888,7 +884,7 @@ func (builder *LevelSettingBuilder) Build() *LevelSetting {
 }
 
 type ReviewData struct {
-	Semesters []*Semester `json:"semesters,omitempty"` // 绩效评估周期列表
+	Semesters []*Semester `json:"semesters,omitempty"` // 周期列表
 
 	Activities []*Activity `json:"activities,omitempty"` // 绩效评估项目列表
 
@@ -898,13 +894,13 @@ type ReviewData struct {
 
 	Units []*Unit `json:"units,omitempty"` // 评估内容列表
 
-	Fields []*Field `json:"fields,omitempty"` // 填写项列表
+	Fields []*Field `json:"fields,omitempty"` // 评估字段列表
 
 	Datas []*ReviewProfile `json:"datas,omitempty"` // 评估数据列表
 }
 
 type ReviewDataBuilder struct {
-	semesters    []*Semester // 绩效评估周期列表
+	semesters    []*Semester // 周期列表
 	semestersSet bool
 
 	activities    []*Activity // 绩效评估项目列表
@@ -919,7 +915,7 @@ type ReviewDataBuilder struct {
 	units    []*Unit // 评估内容列表
 	unitsSet bool
 
-	fields    []*Field // 填写项列表
+	fields    []*Field // 评估字段列表
 	fieldsSet bool
 
 	datas    []*ReviewProfile // 评估数据列表
@@ -931,7 +927,7 @@ func NewReviewDataBuilder() *ReviewDataBuilder {
 	return builder
 }
 
-// 绩效评估周期列表
+// 周期列表
 //
 // 示例值：
 func (builder *ReviewDataBuilder) Semesters(semesters []*Semester) *ReviewDataBuilder {
@@ -976,7 +972,7 @@ func (builder *ReviewDataBuilder) Units(units []*Unit) *ReviewDataBuilder {
 	return builder
 }
 
-// 填写项列表
+// 评估字段列表
 //
 // 示例值：
 func (builder *ReviewDataBuilder) Fields(fields []*Field) *ReviewDataBuilder {
@@ -1021,23 +1017,23 @@ func (builder *ReviewDataBuilder) Build() *ReviewData {
 }
 
 type ReviewDetail struct {
-	TemplateId *string `json:"template_id,omitempty"` // 评估模板 ID
+	TemplateId *string `json:"template_id,omitempty"` // 评估模板 ID，详情可查看：[获取评估模板](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/review_template/query);
 
 	UnitId *string `json:"unit_id,omitempty"` // 评估内容 ID
 
-	FieldId *string `json:"field_id,omitempty"` // 评估控件 ID
+	FieldId *string `json:"field_id,omitempty"` // 评估字段 ID
 
-	ReviewerUserId *User `json:"reviewer_user_id,omitempty"` // 评估人 ID
+	ReviewerUserId *User `json:"reviewer_user_id,omitempty"` // 被评估人 ID，ID 类型请参考：[用户资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview)
 
-	SubmitTime *string `json:"submit_time,omitempty"` // 最后提交时间
+	SubmitTime *string `json:"submit_time,omitempty"` // 最后提交时间，毫秒时间戳
 
-	IndicatorId *string `json:"indicator_id,omitempty"` // 评估项 ID，option_id 或 score 有值的时候有值
+	IndicatorId *string `json:"indicator_id,omitempty"` // 评估项 ID，详情可查看：[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query); ;;**说明**：当 option_id 或 score 有值的时候有值
 
-	OptionId *string `json:"option_id,omitempty"` // 评估项结果等级 ID，有值表示当前数据是评级型评估项数据
+	OptionId *string `json:"option_id,omitempty"` // 评估项结果等级 ID; ;;**说明**：当前评估项是评级型评估项数据时有值
 
-	Score *string `json:"score,omitempty"` // 评分型评估项填写内容，有值表示当前数据是评分型评估项数据
+	Score *string `json:"score,omitempty"` // 评分型评估项填写内容; ;;**说明**：当前评估项是评分型评估项数据时有值
 
-	Text *string `json:"text,omitempty"` // 填写项填写内容，有值表示当前数据是填写项数据
+	Text *string `json:"text,omitempty"` // 填写项填写内容 ;;;**说明**：当前评估项是填写项数据时有值
 
 	PerfCoefficientResult *string `json:"perf_coefficient_result,omitempty"` // 绩效系数值
 
@@ -1045,31 +1041,31 @@ type ReviewDetail struct {
 }
 
 type ReviewDetailBuilder struct {
-	templateId    string // 评估模板 ID
+	templateId    string // 评估模板 ID，详情可查看：[获取评估模板](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/review_template/query);
 	templateIdSet bool
 
 	unitId    string // 评估内容 ID
 	unitIdSet bool
 
-	fieldId    string // 评估控件 ID
+	fieldId    string // 评估字段 ID
 	fieldIdSet bool
 
-	reviewerUserId    *User // 评估人 ID
+	reviewerUserId    *User // 被评估人 ID，ID 类型请参考：[用户资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview)
 	reviewerUserIdSet bool
 
-	submitTime    string // 最后提交时间
+	submitTime    string // 最后提交时间，毫秒时间戳
 	submitTimeSet bool
 
-	indicatorId    string // 评估项 ID，option_id 或 score 有值的时候有值
+	indicatorId    string // 评估项 ID，详情可查看：[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query); ;;**说明**：当 option_id 或 score 有值的时候有值
 	indicatorIdSet bool
 
-	optionId    string // 评估项结果等级 ID，有值表示当前数据是评级型评估项数据
+	optionId    string // 评估项结果等级 ID; ;;**说明**：当前评估项是评级型评估项数据时有值
 	optionIdSet bool
 
-	score    string // 评分型评估项填写内容，有值表示当前数据是评分型评估项数据
+	score    string // 评分型评估项填写内容; ;;**说明**：当前评估项是评分型评估项数据时有值
 	scoreSet bool
 
-	text    string // 填写项填写内容，有值表示当前数据是填写项数据
+	text    string // 填写项填写内容 ;;;**说明**：当前评估项是填写项数据时有值
 	textSet bool
 
 	perfCoefficientResult    string // 绩效系数值
@@ -1084,7 +1080,7 @@ func NewReviewDetailBuilder() *ReviewDetailBuilder {
 	return builder
 }
 
-// 评估模板 ID
+// 评估模板 ID，详情可查看：[获取评估模板](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/review_template/query);
 //
 // 示例值：6982759008972326447
 func (builder *ReviewDetailBuilder) TemplateId(templateId string) *ReviewDetailBuilder {
@@ -1102,7 +1098,7 @@ func (builder *ReviewDetailBuilder) UnitId(unitId string) *ReviewDetailBuilder {
 	return builder
 }
 
-// 评估控件 ID
+// 评估字段 ID
 //
 // 示例值：6982759009698137641
 func (builder *ReviewDetailBuilder) FieldId(fieldId string) *ReviewDetailBuilder {
@@ -1111,7 +1107,7 @@ func (builder *ReviewDetailBuilder) FieldId(fieldId string) *ReviewDetailBuilder
 	return builder
 }
 
-// 评估人 ID
+// 被评估人 ID，ID 类型请参考：[用户资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview)
 //
 // 示例值：
 func (builder *ReviewDetailBuilder) ReviewerUserId(reviewerUserId *User) *ReviewDetailBuilder {
@@ -1120,7 +1116,7 @@ func (builder *ReviewDetailBuilder) ReviewerUserId(reviewerUserId *User) *Review
 	return builder
 }
 
-// 最后提交时间
+// 最后提交时间，毫秒时间戳
 //
 // 示例值：1627977114000
 func (builder *ReviewDetailBuilder) SubmitTime(submitTime string) *ReviewDetailBuilder {
@@ -1129,7 +1125,7 @@ func (builder *ReviewDetailBuilder) SubmitTime(submitTime string) *ReviewDetailB
 	return builder
 }
 
-// 评估项 ID，option_id 或 score 有值的时候有值
+// 评估项 ID，详情可查看：[获取评估项列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/indicator/query); ;;**说明**：当 option_id 或 score 有值的时候有值
 //
 // 示例值：6982759009698137641
 func (builder *ReviewDetailBuilder) IndicatorId(indicatorId string) *ReviewDetailBuilder {
@@ -1138,7 +1134,7 @@ func (builder *ReviewDetailBuilder) IndicatorId(indicatorId string) *ReviewDetai
 	return builder
 }
 
-// 评估项结果等级 ID，有值表示当前数据是评级型评估项数据
+// 评估项结果等级 ID; ;;**说明**：当前评估项是评级型评估项数据时有值
 //
 // 示例值：6966127279593686572
 func (builder *ReviewDetailBuilder) OptionId(optionId string) *ReviewDetailBuilder {
@@ -1147,7 +1143,7 @@ func (builder *ReviewDetailBuilder) OptionId(optionId string) *ReviewDetailBuild
 	return builder
 }
 
-// 评分型评估项填写内容，有值表示当前数据是评分型评估项数据
+// 评分型评估项填写内容; ;;**说明**：当前评估项是评分型评估项数据时有值
 //
 // 示例值：0.4
 func (builder *ReviewDetailBuilder) Score(score string) *ReviewDetailBuilder {
@@ -1156,7 +1152,7 @@ func (builder *ReviewDetailBuilder) Score(score string) *ReviewDetailBuilder {
 	return builder
 }
 
-// 填写项填写内容，有值表示当前数据是填写项数据
+// 填写项填写内容 ;;;**说明**：当前评估项是填写项数据时有值
 //
 // 示例值：与公司共同发展
 func (builder *ReviewDetailBuilder) Text(text string) *ReviewDetailBuilder {
@@ -1232,26 +1228,26 @@ func (builder *ReviewDetailBuilder) Build() *ReviewDetail {
 }
 
 type ReviewProfile struct {
-	UserId *User `json:"user_id,omitempty"` // 被评估人 ID
+	UserId *User `json:"user_id,omitempty"` // 被评估人 ID，ID 类型请参考：[用户资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview)
 
-	SemesterId *string `json:"semester_id,omitempty"` // 绩效评估周期 ID
+	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID，详情可查看：[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list);
 
-	ActivityId *string `json:"activity_id,omitempty"` // 绩效评估项目 ID
+	ActivityId *string `json:"activity_id,omitempty"` // 项目 ID，详情可查看：[获取项目列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query);
 
-	Stages []*ReviewStage `json:"stages,omitempty"` // 本周期内各环节内容
+	Stages []*ReviewStage `json:"stages,omitempty"` // 环节信息
 }
 
 type ReviewProfileBuilder struct {
-	userId    *User // 被评估人 ID
+	userId    *User // 被评估人 ID，ID 类型请参考：[用户资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview)
 	userIdSet bool
 
-	semesterId    string // 绩效评估周期 ID
+	semesterId    string // 周期 ID，详情可查看：[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list);
 	semesterIdSet bool
 
-	activityId    string // 绩效评估项目 ID
+	activityId    string // 项目 ID，详情可查看：[获取项目列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query);
 	activityIdSet bool
 
-	stages    []*ReviewStage // 本周期内各环节内容
+	stages    []*ReviewStage // 环节信息
 	stagesSet bool
 }
 
@@ -1260,7 +1256,7 @@ func NewReviewProfileBuilder() *ReviewProfileBuilder {
 	return builder
 }
 
-// 被评估人 ID
+// 被评估人 ID，ID 类型请参考：[用户资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview)
 //
 // 示例值：
 func (builder *ReviewProfileBuilder) UserId(userId *User) *ReviewProfileBuilder {
@@ -1269,7 +1265,7 @@ func (builder *ReviewProfileBuilder) UserId(userId *User) *ReviewProfileBuilder 
 	return builder
 }
 
-// 绩效评估周期 ID
+// 周期 ID，详情可查看：[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list);
 //
 // 示例值：6992035450862224940
 func (builder *ReviewProfileBuilder) SemesterId(semesterId string) *ReviewProfileBuilder {
@@ -1278,7 +1274,7 @@ func (builder *ReviewProfileBuilder) SemesterId(semesterId string) *ReviewProfil
 	return builder
 }
 
-// 绩效评估项目 ID
+// 项目 ID，详情可查看：[获取项目列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query);
 //
 // 示例值：6992035450862323244
 func (builder *ReviewProfileBuilder) ActivityId(activityId string) *ReviewProfileBuilder {
@@ -1287,7 +1283,7 @@ func (builder *ReviewProfileBuilder) ActivityId(activityId string) *ReviewProfil
 	return builder
 }
 
-// 本周期内各环节内容
+// 环节信息
 //
 // 示例值：
 func (builder *ReviewProfileBuilder) Stages(stages []*ReviewStage) *ReviewProfileBuilder {
@@ -1506,9 +1502,9 @@ func (builder *ScoreLevelSettingBuilder) Build() *ScoreLevelSetting {
 type ScoreOption struct {
 	Id *string `json:"id,omitempty"` // optionid
 
-	Name *I18n `json:"name,omitempty"` // 名称
+	Name *I18n `json:"name,omitempty"` // 周期名称
 
-	Label *I18n `json:"label,omitempty"` // 选项label
+	Label *I18n `json:"label,omitempty"` // 周期名称
 
 	Order *int `json:"order,omitempty"` // 评估项等级顺序
 
@@ -1519,10 +1515,10 @@ type ScoreOptionBuilder struct {
 	id    string // optionid
 	idSet bool
 
-	name    *I18n // 名称
+	name    *I18n // 周期名称
 	nameSet bool
 
-	label    *I18n // 选项label
+	label    *I18n // 周期名称
 	labelSet bool
 
 	order    int // 评估项等级顺序
@@ -1546,7 +1542,7 @@ func (builder *ScoreOptionBuilder) Id(id string) *ScoreOptionBuilder {
 	return builder
 }
 
-// 名称
+// 周期名称
 //
 // 示例值：
 func (builder *ScoreOptionBuilder) Name(name *I18n) *ScoreOptionBuilder {
@@ -1555,7 +1551,7 @@ func (builder *ScoreOptionBuilder) Name(name *I18n) *ScoreOptionBuilder {
 	return builder
 }
 
-// 选项label
+// 周期名称
 //
 // 示例值：
 func (builder *ScoreOptionBuilder) Label(label *I18n) *ScoreOptionBuilder {
@@ -1727,66 +1723,66 @@ func (builder *ScoreSettingBuilder) Build() *ScoreSetting {
 }
 
 type Semester struct {
-	Id *string `json:"id,omitempty"` // 绩效评估周期 ID
+	Id *string `json:"id,omitempty"` // 周期 ID，详情可查看：[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list);<!--;
 
-	Year *int `json:"year,omitempty"` // 年份
+	Year *int `json:"year,omitempty"` // 周期年份
 
 	TypeGroup *string `json:"type_group,omitempty"` // 周期类型分组
 
-	Type *string `json:"type,omitempty"` // 周期类型
+	Type *string `json:"type,omitempty"` // 周期类型-->
 
-	Name *I18n `json:"name,omitempty"` // 绩效评估周期名称
+	Name *I18n `json:"name,omitempty"` // 周期名称
 
-	Progress *string `json:"progress,omitempty"` // 绩效评估周期 状态
+	Progress *string `json:"progress,omitempty"` // 周期状态
 
-	StartTime *string `json:"start_time,omitempty"` // 绩效评估周期开始时间
+	StartTime *string `json:"start_time,omitempty"` // 周期开始时间，毫秒时间戳
 
-	EndTime *string `json:"end_time,omitempty"` // 绩效评估周期结束时间
+	EndTime *string `json:"end_time,omitempty"` // 周期结束时间，毫秒时间戳
 
-	CreateTime *string `json:"create_time,omitempty"` // 绩效评估周期 创建时间
+	CreateTime *string `json:"create_time,omitempty"` // 周期创建时间，毫秒时间戳
 
-	ModifyTime *string `json:"modify_time,omitempty"` // 绩效评估周期 更新时间
+	ModifyTime *string `json:"modify_time,omitempty"` // 周期更新时间，毫秒时间戳
 
-	CreateUserId *string `json:"create_user_id,omitempty"` // 绩效评估周期 创建人 ID
+	CreateUserId *string `json:"create_user_id,omitempty"` // 绩效评估周期 创建人 ID，与入参 user_id_type 类型一致
 
-	ModifyUserId *string `json:"modify_user_id,omitempty"` // 绩效评估周期 更新人 ID
+	ModifyUserId *string `json:"modify_user_id,omitempty"` // 绩效评估周期 更新人 ID，与入参 user_id_type 类型一致
 }
 
 type SemesterBuilder struct {
-	id    string // 绩效评估周期 ID
+	id    string // 周期 ID，详情可查看：[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list);<!--;
 	idSet bool
 
-	year    int // 年份
+	year    int // 周期年份
 	yearSet bool
 
 	typeGroup    string // 周期类型分组
 	typeGroupSet bool
 
-	type_    string // 周期类型
+	type_    string // 周期类型-->
 	type_Set bool
 
-	name    *I18n // 绩效评估周期名称
+	name    *I18n // 周期名称
 	nameSet bool
 
-	progress    string // 绩效评估周期 状态
+	progress    string // 周期状态
 	progressSet bool
 
-	startTime    string // 绩效评估周期开始时间
+	startTime    string // 周期开始时间，毫秒时间戳
 	startTimeSet bool
 
-	endTime    string // 绩效评估周期结束时间
+	endTime    string // 周期结束时间，毫秒时间戳
 	endTimeSet bool
 
-	createTime    string // 绩效评估周期 创建时间
+	createTime    string // 周期创建时间，毫秒时间戳
 	createTimeSet bool
 
-	modifyTime    string // 绩效评估周期 更新时间
+	modifyTime    string // 周期更新时间，毫秒时间戳
 	modifyTimeSet bool
 
-	createUserId    string // 绩效评估周期 创建人 ID
+	createUserId    string // 绩效评估周期 创建人 ID，与入参 user_id_type 类型一致
 	createUserIdSet bool
 
-	modifyUserId    string // 绩效评估周期 更新人 ID
+	modifyUserId    string // 绩效评估周期 更新人 ID，与入参 user_id_type 类型一致
 	modifyUserIdSet bool
 }
 
@@ -1795,7 +1791,7 @@ func NewSemesterBuilder() *SemesterBuilder {
 	return builder
 }
 
-// 绩效评估周期 ID
+// 周期 ID，详情可查看：[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list);<!--;
 //
 // 示例值：6992035450862224940
 func (builder *SemesterBuilder) Id(id string) *SemesterBuilder {
@@ -1804,7 +1800,7 @@ func (builder *SemesterBuilder) Id(id string) *SemesterBuilder {
 	return builder
 }
 
-// 年份
+// 周期年份
 //
 // 示例值：2024
 func (builder *SemesterBuilder) Year(year int) *SemesterBuilder {
@@ -1815,14 +1811,14 @@ func (builder *SemesterBuilder) Year(year int) *SemesterBuilder {
 
 // 周期类型分组
 //
-// 示例值：Month
+// 示例值：Quarter
 func (builder *SemesterBuilder) TypeGroup(typeGroup string) *SemesterBuilder {
 	builder.typeGroup = typeGroup
 	builder.typeGroupSet = true
 	return builder
 }
 
-// 周期类型
+// 周期类型-->
 //
 // 示例值：June
 func (builder *SemesterBuilder) Type(type_ string) *SemesterBuilder {
@@ -1831,7 +1827,7 @@ func (builder *SemesterBuilder) Type(type_ string) *SemesterBuilder {
 	return builder
 }
 
-// 绩效评估周期名称
+// 周期名称
 //
 // 示例值：
 func (builder *SemesterBuilder) Name(name *I18n) *SemesterBuilder {
@@ -1840,7 +1836,7 @@ func (builder *SemesterBuilder) Name(name *I18n) *SemesterBuilder {
 	return builder
 }
 
-// 绩效评估周期 状态
+// 周期状态
 //
 // 示例值：enabled
 func (builder *SemesterBuilder) Progress(progress string) *SemesterBuilder {
@@ -1849,7 +1845,7 @@ func (builder *SemesterBuilder) Progress(progress string) *SemesterBuilder {
 	return builder
 }
 
-// 绩效评估周期开始时间
+// 周期开始时间，毫秒时间戳
 //
 // 示例值：1625068800000
 func (builder *SemesterBuilder) StartTime(startTime string) *SemesterBuilder {
@@ -1858,7 +1854,7 @@ func (builder *SemesterBuilder) StartTime(startTime string) *SemesterBuilder {
 	return builder
 }
 
-// 绩效评估周期结束时间
+// 周期结束时间，毫秒时间戳
 //
 // 示例值：1640966399999
 func (builder *SemesterBuilder) EndTime(endTime string) *SemesterBuilder {
@@ -1867,7 +1863,7 @@ func (builder *SemesterBuilder) EndTime(endTime string) *SemesterBuilder {
 	return builder
 }
 
-// 绩效评估周期 创建时间
+// 周期创建时间，毫秒时间戳
 //
 // 示例值：1625068800000
 func (builder *SemesterBuilder) CreateTime(createTime string) *SemesterBuilder {
@@ -1876,7 +1872,7 @@ func (builder *SemesterBuilder) CreateTime(createTime string) *SemesterBuilder {
 	return builder
 }
 
-// 绩效评估周期 更新时间
+// 周期更新时间，毫秒时间戳
 //
 // 示例值：1625068800000
 func (builder *SemesterBuilder) ModifyTime(modifyTime string) *SemesterBuilder {
@@ -1885,7 +1881,7 @@ func (builder *SemesterBuilder) ModifyTime(modifyTime string) *SemesterBuilder {
 	return builder
 }
 
-// 绩效评估周期 创建人 ID
+// 绩效评估周期 创建人 ID，与入参 user_id_type 类型一致
 //
 // 示例值：ou_ce613028fe74745421f5dc320bb9c709
 func (builder *SemesterBuilder) CreateUserId(createUserId string) *SemesterBuilder {
@@ -1894,7 +1890,7 @@ func (builder *SemesterBuilder) CreateUserId(createUserId string) *SemesterBuild
 	return builder
 }
 
-// 绩效评估周期 更新人 ID
+// 绩效评估周期 更新人 ID，与入参 user_id_type 类型一致
 //
 // 示例值：ou_ce613028fe74745421f5dc320bb9c709
 func (builder *SemesterBuilder) ModifyUserId(modifyUserId string) *SemesterBuilder {
@@ -1956,26 +1952,26 @@ func (builder *SemesterBuilder) Build() *Semester {
 }
 
 type SemesterBaseInfo struct {
-	SemesterId *string `json:"semester_id,omitempty"` // 周期ID
+	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID，详情可查看[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)
 
 	SemesterName *I18n `json:"semester_name,omitempty"` // 周期名称
 
-	StartTime *string `json:"start_time,omitempty"` // 开始时间
+	StartTime *string `json:"start_time,omitempty"` // 周期开始时间，毫秒时间戳
 
-	EndTime *string `json:"end_time,omitempty"` // 结束时间
+	EndTime *string `json:"end_time,omitempty"` // 周期结束时间，毫秒时间戳
 }
 
 type SemesterBaseInfoBuilder struct {
-	semesterId    string // 周期ID
+	semesterId    string // 周期 ID，详情可查看[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)
 	semesterIdSet bool
 
 	semesterName    *I18n // 周期名称
 	semesterNameSet bool
 
-	startTime    string // 开始时间
+	startTime    string // 周期开始时间，毫秒时间戳
 	startTimeSet bool
 
-	endTime    string // 结束时间
+	endTime    string // 周期结束时间，毫秒时间戳
 	endTimeSet bool
 }
 
@@ -1984,7 +1980,7 @@ func NewSemesterBaseInfoBuilder() *SemesterBaseInfoBuilder {
 	return builder
 }
 
-// 周期ID
+// 周期 ID，详情可查看[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)
 //
 // 示例值：7263150499637264385
 func (builder *SemesterBaseInfoBuilder) SemesterId(semesterId string) *SemesterBaseInfoBuilder {
@@ -2002,7 +1998,7 @@ func (builder *SemesterBaseInfoBuilder) SemesterName(semesterName *I18n) *Semest
 	return builder
 }
 
-// 开始时间
+// 周期开始时间，毫秒时间戳
 //
 // 示例值：1625068800000
 func (builder *SemesterBaseInfoBuilder) StartTime(startTime string) *SemesterBaseInfoBuilder {
@@ -2011,7 +2007,7 @@ func (builder *SemesterBaseInfoBuilder) StartTime(startTime string) *SemesterBas
 	return builder
 }
 
-// 结束时间
+// 周期结束时间，毫秒时间戳
 //
 // 示例值：1625068800000
 func (builder *SemesterBaseInfoBuilder) EndTime(endTime string) *SemesterBaseInfoBuilder {
@@ -2090,21 +2086,21 @@ func (builder *SemesterIndicatorBuilder) Build() *SemesterIndicator {
 }
 
 type StageTask struct {
-	UserId *string `json:"user_id,omitempty"` // 用户ID
+	UserId *string `json:"user_id,omitempty"` // 用户 ID，与入参 `user_id_type` 类型一致
 
-	StageNumLists []*StageTaskStatusNum `json:"stage_num_lists,omitempty"` // 状态数量列表
+	StageNumLists []*StageTaskStatusNum `json:"stage_num_lists,omitempty"` // 各分类的任务数
 
-	StageTaskInfoLists []*StageTaskInfo `json:"stage_task_info_lists,omitempty"` // 任务信息列表
+	StageTaskInfoLists []*StageTaskInfo `json:"stage_task_info_lists,omitempty"` // 环节任务信息
 }
 
 type StageTaskBuilder struct {
-	userId    string // 用户ID
+	userId    string // 用户 ID，与入参 `user_id_type` 类型一致
 	userIdSet bool
 
-	stageNumLists    []*StageTaskStatusNum // 状态数量列表
+	stageNumLists    []*StageTaskStatusNum // 各分类的任务数
 	stageNumListsSet bool
 
-	stageTaskInfoLists    []*StageTaskInfo // 任务信息列表
+	stageTaskInfoLists    []*StageTaskInfo // 环节任务信息
 	stageTaskInfoListsSet bool
 }
 
@@ -2113,7 +2109,7 @@ func NewStageTaskBuilder() *StageTaskBuilder {
 	return builder
 }
 
-// 用户ID
+// 用户 ID，与入参 `user_id_type` 类型一致
 //
 // 示例值：6765375796711327240
 func (builder *StageTaskBuilder) UserId(userId string) *StageTaskBuilder {
@@ -2122,7 +2118,7 @@ func (builder *StageTaskBuilder) UserId(userId string) *StageTaskBuilder {
 	return builder
 }
 
-// 状态数量列表
+// 各分类的任务数
 //
 // 示例值：
 func (builder *StageTaskBuilder) StageNumLists(stageNumLists []*StageTaskStatusNum) *StageTaskBuilder {
@@ -2131,7 +2127,7 @@ func (builder *StageTaskBuilder) StageNumLists(stageNumLists []*StageTaskStatusN
 	return builder
 }
 
-// 任务信息列表
+// 环节任务信息
 //
 // 示例值：
 func (builder *StageTaskBuilder) StageTaskInfoLists(stageTaskInfoLists []*StageTaskInfo) *StageTaskBuilder {
@@ -2156,46 +2152,46 @@ func (builder *StageTaskBuilder) Build() *StageTask {
 }
 
 type StageTaskInfo struct {
-	StageId *string `json:"stage_id,omitempty"` // 环节ID
+	StageId *string `json:"stage_id,omitempty"` // 环节 ID
 
-	Name *I18n `json:"name,omitempty"` // 环节名称
+	Name *I18n `json:"name,omitempty"` // 周期名称
 
-	Deadline *string `json:"deadline,omitempty"` // 环节截止时间
+	Deadline *string `json:"deadline,omitempty"` // 环节截止时间，毫秒时间戳
 
-	NeedTodoCount *int `json:"need_todo_count,omitempty"` // 环节任务数量
+	NeedTodoCount *int `json:"need_todo_count,omitempty"` // 未完成的任务数量
 
-	JumpUrl *string `json:"jump_url,omitempty"` // 环节跳转链接
+	JumpUrl *string `json:"jump_url,omitempty"` // 处理任务的系统页面链接
 
 	StageTaskStatus *string `json:"stage_task_status,omitempty"` // 环节任务状态
 
-	TaskOptionId *int `json:"task_option_id,omitempty"` // 归属分类ID
+	TaskOptionId *int `json:"task_option_id,omitempty"` // 任务分类
 
-	FinishedCount *int `json:"finished_count,omitempty"` // 环节已完成任务数量
+	FinishedCount *int `json:"finished_count,omitempty"` // 已完成的任务数量
 }
 
 type StageTaskInfoBuilder struct {
-	stageId    string // 环节ID
+	stageId    string // 环节 ID
 	stageIdSet bool
 
-	name    *I18n // 环节名称
+	name    *I18n // 周期名称
 	nameSet bool
 
-	deadline    string // 环节截止时间
+	deadline    string // 环节截止时间，毫秒时间戳
 	deadlineSet bool
 
-	needTodoCount    int // 环节任务数量
+	needTodoCount    int // 未完成的任务数量
 	needTodoCountSet bool
 
-	jumpUrl    string // 环节跳转链接
+	jumpUrl    string // 处理任务的系统页面链接
 	jumpUrlSet bool
 
 	stageTaskStatus    string // 环节任务状态
 	stageTaskStatusSet bool
 
-	taskOptionId    int // 归属分类ID
+	taskOptionId    int // 任务分类
 	taskOptionIdSet bool
 
-	finishedCount    int // 环节已完成任务数量
+	finishedCount    int // 已完成的任务数量
 	finishedCountSet bool
 }
 
@@ -2204,7 +2200,7 @@ func NewStageTaskInfoBuilder() *StageTaskInfoBuilder {
 	return builder
 }
 
-// 环节ID
+// 环节 ID
 //
 // 示例值：7263150499637379073
 func (builder *StageTaskInfoBuilder) StageId(stageId string) *StageTaskInfoBuilder {
@@ -2213,7 +2209,7 @@ func (builder *StageTaskInfoBuilder) StageId(stageId string) *StageTaskInfoBuild
 	return builder
 }
 
-// 环节名称
+// 周期名称
 //
 // 示例值：
 func (builder *StageTaskInfoBuilder) Name(name *I18n) *StageTaskInfoBuilder {
@@ -2222,7 +2218,7 @@ func (builder *StageTaskInfoBuilder) Name(name *I18n) *StageTaskInfoBuilder {
 	return builder
 }
 
-// 环节截止时间
+// 环节截止时间，毫秒时间戳
 //
 // 示例值：1625068800000
 func (builder *StageTaskInfoBuilder) Deadline(deadline string) *StageTaskInfoBuilder {
@@ -2231,7 +2227,7 @@ func (builder *StageTaskInfoBuilder) Deadline(deadline string) *StageTaskInfoBui
 	return builder
 }
 
-// 环节任务数量
+// 未完成的任务数量
 //
 // 示例值：99
 func (builder *StageTaskInfoBuilder) NeedTodoCount(needTodoCount int) *StageTaskInfoBuilder {
@@ -2240,9 +2236,9 @@ func (builder *StageTaskInfoBuilder) NeedTodoCount(needTodoCount int) *StageTask
 	return builder
 }
 
-// 环节跳转链接
+// 处理任务的系统页面链接
 //
-// 示例值：/perf/review
+// 示例值：https://performance.feishu-pre.cn/perf/kpi/7235911950407352321/fill
 func (builder *StageTaskInfoBuilder) JumpUrl(jumpUrl string) *StageTaskInfoBuilder {
 	builder.jumpUrl = jumpUrl
 	builder.jumpUrlSet = true
@@ -2258,7 +2254,7 @@ func (builder *StageTaskInfoBuilder) StageTaskStatus(stageTaskStatus string) *St
 	return builder
 }
 
-// 归属分类ID
+// 任务分类
 //
 // 示例值：1
 func (builder *StageTaskInfoBuilder) TaskOptionId(taskOptionId int) *StageTaskInfoBuilder {
@@ -2267,7 +2263,7 @@ func (builder *StageTaskInfoBuilder) TaskOptionId(taskOptionId int) *StageTaskIn
 	return builder
 }
 
-// 环节已完成任务数量
+// 已完成的任务数量
 //
 // 示例值：99
 func (builder *StageTaskInfoBuilder) FinishedCount(finishedCount int) *StageTaskInfoBuilder {
@@ -2313,16 +2309,16 @@ func (builder *StageTaskInfoBuilder) Build() *StageTaskInfo {
 }
 
 type StageTaskStatusNum struct {
-	TaskOptionId *int `json:"task_option_id,omitempty"` // 支持的ID
+	TaskOptionId *int `json:"task_option_id,omitempty"` // 任务分类
 
-	StageNum *int `json:"stage_num,omitempty"` // 对Stage分类聚合
+	StageNum *int `json:"stage_num,omitempty"` // 环节任务数量
 }
 
 type StageTaskStatusNumBuilder struct {
-	taskOptionId    int // 支持的ID
+	taskOptionId    int // 任务分类
 	taskOptionIdSet bool
 
-	stageNum    int // 对Stage分类聚合
+	stageNum    int // 环节任务数量
 	stageNumSet bool
 }
 
@@ -2331,7 +2327,7 @@ func NewStageTaskStatusNumBuilder() *StageTaskStatusNumBuilder {
 	return builder
 }
 
-// 支持的ID
+// 任务分类
 //
 // 示例值：1
 func (builder *StageTaskStatusNumBuilder) TaskOptionId(taskOptionId int) *StageTaskStatusNumBuilder {
@@ -2340,7 +2336,7 @@ func (builder *StageTaskStatusNumBuilder) TaskOptionId(taskOptionId int) *StageT
 	return builder
 }
 
-// 对Stage分类聚合
+// 环节任务数量
 //
 // 示例值：4
 func (builder *StageTaskStatusNumBuilder) StageNum(stageNum int) *StageTaskStatusNumBuilder {
@@ -2363,21 +2359,21 @@ func (builder *StageTaskStatusNumBuilder) Build() *StageTaskStatusNum {
 }
 
 type Template struct {
-	Id *string `json:"id,omitempty"` // 评估模板 ID
+	Id *string `json:"id,omitempty"` // 评估模板 ID，详情可查看：[获取评估模板](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/review_template/query)
 
-	Name *I18n `json:"name,omitempty"` // 评估模板所在环节名称
+	Name *I18n `json:"name,omitempty"` // 周期名称
 
-	Stage *string `json:"stage,omitempty"` // 评估模板环节类型
+	Stage *string `json:"stage,omitempty"` // 环节类型
 }
 
 type TemplateBuilder struct {
-	id    string // 评估模板 ID
+	id    string // 评估模板 ID，详情可查看：[获取评估模板](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/review_template/query)
 	idSet bool
 
-	name    *I18n // 评估模板所在环节名称
+	name    *I18n // 周期名称
 	nameSet bool
 
-	stage    string // 评估模板环节类型
+	stage    string // 环节类型
 	stageSet bool
 }
 
@@ -2386,7 +2382,7 @@ func NewTemplateBuilder() *TemplateBuilder {
 	return builder
 }
 
-// 评估模板 ID
+// 评估模板 ID，详情可查看：[获取评估模板](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/review_template/query)
 //
 // 示例值：6982759007063000610
 func (builder *TemplateBuilder) Id(id string) *TemplateBuilder {
@@ -2395,7 +2391,7 @@ func (builder *TemplateBuilder) Id(id string) *TemplateBuilder {
 	return builder
 }
 
-// 评估模板所在环节名称
+// 周期名称
 //
 // 示例值：
 func (builder *TemplateBuilder) Name(name *I18n) *TemplateBuilder {
@@ -2404,7 +2400,7 @@ func (builder *TemplateBuilder) Name(name *I18n) *TemplateBuilder {
 	return builder
 }
 
-// 评估模板环节类型
+// 环节类型
 //
 // 示例值：communication_and_open_result
 func (builder *TemplateBuilder) Stage(stage string) *TemplateBuilder {
@@ -2432,14 +2428,14 @@ func (builder *TemplateBuilder) Build() *Template {
 type Unit struct {
 	Id *string `json:"id,omitempty"` // 评估内容 ID
 
-	Name *I18n `json:"name,omitempty"` // 评估内容名称
+	Name *I18n `json:"name,omitempty"` // 周期名称
 }
 
 type UnitBuilder struct {
 	id    string // 评估内容 ID
 	idSet bool
 
-	name    *I18n // 评估内容名称
+	name    *I18n // 周期名称
 	nameSet bool
 }
 
@@ -2457,7 +2453,7 @@ func (builder *UnitBuilder) Id(id string) *UnitBuilder {
 	return builder
 }
 
-// 评估内容名称
+// 周期名称
 //
 // 示例值：
 func (builder *UnitBuilder) Name(name *I18n) *UnitBuilder {
@@ -2481,14 +2477,14 @@ func (builder *UnitBuilder) Build() *Unit {
 type User struct {
 	OpenId *string `json:"open_id,omitempty"` // 用户的 open_id
 
-	UserId *string `json:"user_id,omitempty"` // 用户的 user_id，当 user_id_type 为 people_admin_id 时值为 saas_id，否则为飞书的 user_id
+	UserId *string `json:"user_id,omitempty"` // 用户的 user_id，与入参 `user_id_type` 类型一致
 }
 
 type UserBuilder struct {
 	openId    string // 用户的 open_id
 	openIdSet bool
 
-	userId    string // 用户的 user_id，当 user_id_type 为 people_admin_id 时值为 saas_id，否则为飞书的 user_id
+	userId    string // 用户的 user_id，与入参 `user_id_type` 类型一致
 	userIdSet bool
 }
 
@@ -2506,7 +2502,7 @@ func (builder *UserBuilder) OpenId(openId string) *UserBuilder {
 	return builder
 }
 
-// 用户的 user_id，当 user_id_type 为 people_admin_id 时值为 saas_id，否则为飞书的 user_id
+// 用户的 user_id，与入参 `user_id_type` 类型一致
 //
 // 示例值：ou-ux987dsf6x
 func (builder *UserBuilder) UserId(userId string) *UserBuilder {
@@ -2529,25 +2525,25 @@ func (builder *UserBuilder) Build() *User {
 }
 
 type QueryReviewDataReqBodyBuilder struct {
-	startTime    string // 查询范围的开始日期，毫秒级时间戳，开始日期不能晚于截止日期
+	startTime    string // 周期开始时间最小值，毫秒时间戳，小于该时间开始的周期会被过滤掉;;;**注意**：当填写了 `semester_id_list` 参数时，此参数无效
 	startTimeSet bool
 
-	endTime    string // 查询范围的截止日期，毫秒级时间戳，截止日期不能早于开始日期
+	endTime    string // 周期结束时间最大值，毫秒时间戳，大于该时间结束的周期会被过滤掉;;;**注意**：当填写了 `semester_id_list` 参数时，此参数无效
 	endTimeSet bool
 
-	stageTypes    []string // 评估环节类型，目前仅支持上级评估环节和结果沟通环节（不传默认包含所有的环节）;;**可选值有**：;- `leader_review`：上级评估环节;- `communication_and_open_result`：结果沟通环节
+	stageTypes    []string // 环节类型，目前仅支持终评环节、结果沟通环节、查看绩效结果环节
 	stageTypesSet bool
 
-	stageProgress    []int // 评估环节状态（不传默认包含所有的状态）;;**可选值有**：;- `0`：未开始，任务的开始时间未到达;- `1`：待完成，任务的开始时间到达而截止时间未到达，且任务未完成;- `2`：已截止，任务的截止时间已到达，且任务未完成;- `3`：已完成，任务已完成
+	stageProgress    []int // 环节状态，填写时按照指定状态获取绩效结果，不填查询所有状态的绩效结果
 	stageProgressSet bool
 
-	semesterIdList    []string // 评估周期 ID 列表，semester_id 是一个评估周期的唯一标识，可以通过「我的评估」页面 url 获取，也可通过本接口的返回值获取
+	semesterIdList    []string // 评估周期 ID 列表，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 	semesterIdListSet bool
 
-	revieweeUserIdList    []string // 被评估人 ID 列表
+	revieweeUserIdList    []string // 被评估人 ID 列表，与入参 `user_id_type` 类型一致
 	revieweeUserIdListSet bool
 
-	updatedLaterThan    string // 环节更新时间晚于，可筛选出在此时间之后，有内容提交的环节数据
+	updatedLaterThan    string // 环节更新时间最早时间，毫秒时间戳，可筛选出在此时间之后，有内容提交的环节数据
 	updatedLaterThanSet bool
 }
 
@@ -2556,63 +2552,63 @@ func NewQueryReviewDataReqBodyBuilder() *QueryReviewDataReqBodyBuilder {
 	return builder
 }
 
-// 查询范围的开始日期，毫秒级时间戳，开始日期不能晚于截止日期
+// 周期开始时间最小值，毫秒时间戳，小于该时间开始的周期会被过滤掉;;;**注意**：当填写了 `semester_id_list` 参数时，此参数无效
 //
-//示例值：1430425599999
+// 示例值：1430425599999
 func (builder *QueryReviewDataReqBodyBuilder) StartTime(startTime string) *QueryReviewDataReqBodyBuilder {
 	builder.startTime = startTime
 	builder.startTimeSet = true
 	return builder
 }
 
-// 查询范围的截止日期，毫秒级时间戳，截止日期不能早于开始日期
+// 周期结束时间最大值，毫秒时间戳，大于该时间结束的周期会被过滤掉;;;**注意**：当填写了 `semester_id_list` 参数时，此参数无效
 //
-//示例值：1630425599999
+// 示例值：1630425599999
 func (builder *QueryReviewDataReqBodyBuilder) EndTime(endTime string) *QueryReviewDataReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeSet = true
 	return builder
 }
 
-// 评估环节类型，目前仅支持上级评估环节和结果沟通环节（不传默认包含所有的环节）;;**可选值有**：;- `leader_review`：上级评估环节;- `communication_and_open_result`：结果沟通环节
+// 环节类型，目前仅支持终评环节、结果沟通环节、查看绩效结果环节
 //
-//示例值：["leader_review","communication_and_open_result"]
+// 示例值：
 func (builder *QueryReviewDataReqBodyBuilder) StageTypes(stageTypes []string) *QueryReviewDataReqBodyBuilder {
 	builder.stageTypes = stageTypes
 	builder.stageTypesSet = true
 	return builder
 }
 
-// 评估环节状态（不传默认包含所有的状态）;;**可选值有**：;- `0`：未开始，任务的开始时间未到达;- `1`：待完成，任务的开始时间到达而截止时间未到达，且任务未完成;- `2`：已截止，任务的截止时间已到达，且任务未完成;- `3`：已完成，任务已完成
+// 环节状态，填写时按照指定状态获取绩效结果，不填查询所有状态的绩效结果
 //
-//示例值：[0,1,2,3]
+// 示例值：
 func (builder *QueryReviewDataReqBodyBuilder) StageProgress(stageProgress []int) *QueryReviewDataReqBodyBuilder {
 	builder.stageProgress = stageProgress
 	builder.stageProgressSet = true
 	return builder
 }
 
-// 评估周期 ID 列表，semester_id 是一个评估周期的唯一标识，可以通过「我的评估」页面 url 获取，也可通过本接口的返回值获取
+// 评估周期 ID 列表，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 //
-//示例值：["6992035450862224940"]
+// 示例值：
 func (builder *QueryReviewDataReqBodyBuilder) SemesterIdList(semesterIdList []string) *QueryReviewDataReqBodyBuilder {
 	builder.semesterIdList = semesterIdList
 	builder.semesterIdListSet = true
 	return builder
 }
 
-// 被评估人 ID 列表
+// 被评估人 ID 列表，与入参 `user_id_type` 类型一致
 //
-//示例值：["ou_3245842393d09e9428ad4655da6e30b3"]
+// 示例值：
 func (builder *QueryReviewDataReqBodyBuilder) RevieweeUserIdList(revieweeUserIdList []string) *QueryReviewDataReqBodyBuilder {
 	builder.revieweeUserIdList = revieweeUserIdList
 	builder.revieweeUserIdListSet = true
 	return builder
 }
 
-// 环节更新时间晚于，可筛选出在此时间之后，有内容提交的环节数据
+// 环节更新时间最早时间，毫秒时间戳，可筛选出在此时间之后，有内容提交的环节数据
 //
-//示例值：1630425599999
+// 示例值：1630425599999
 func (builder *QueryReviewDataReqBodyBuilder) UpdatedLaterThan(updatedLaterThan string) *QueryReviewDataReqBodyBuilder {
 	builder.updatedLaterThan = updatedLaterThan
 	builder.updatedLaterThanSet = true
@@ -2667,7 +2663,7 @@ func NewQueryReviewDataPathReqBodyBuilder() *QueryReviewDataPathReqBodyBuilder {
 	return builder
 }
 
-// 查询范围的开始日期，毫秒级时间戳，开始日期不能晚于截止日期
+// 周期开始时间最小值，毫秒时间戳，小于该时间开始的周期会被过滤掉;;;**注意**：当填写了 `semester_id_list` 参数时，此参数无效
 //
 // 示例值：1430425599999
 func (builder *QueryReviewDataPathReqBodyBuilder) StartTime(startTime string) *QueryReviewDataPathReqBodyBuilder {
@@ -2676,7 +2672,7 @@ func (builder *QueryReviewDataPathReqBodyBuilder) StartTime(startTime string) *Q
 	return builder
 }
 
-// 查询范围的截止日期，毫秒级时间戳，截止日期不能早于开始日期
+// 周期结束时间最大值，毫秒时间戳，大于该时间结束的周期会被过滤掉;;;**注意**：当填写了 `semester_id_list` 参数时，此参数无效
 //
 // 示例值：1630425599999
 func (builder *QueryReviewDataPathReqBodyBuilder) EndTime(endTime string) *QueryReviewDataPathReqBodyBuilder {
@@ -2685,43 +2681,43 @@ func (builder *QueryReviewDataPathReqBodyBuilder) EndTime(endTime string) *Query
 	return builder
 }
 
-// 评估环节类型，目前仅支持上级评估环节和结果沟通环节（不传默认包含所有的环节）;;**可选值有**：;- `leader_review`：上级评估环节;- `communication_and_open_result`：结果沟通环节
+// 环节类型，目前仅支持终评环节、结果沟通环节、查看绩效结果环节
 //
-// 示例值：["leader_review","communication_and_open_result"]
+// 示例值：
 func (builder *QueryReviewDataPathReqBodyBuilder) StageTypes(stageTypes []string) *QueryReviewDataPathReqBodyBuilder {
 	builder.stageTypes = stageTypes
 	builder.stageTypesSet = true
 	return builder
 }
 
-// 评估环节状态（不传默认包含所有的状态）;;**可选值有**：;- `0`：未开始，任务的开始时间未到达;- `1`：待完成，任务的开始时间到达而截止时间未到达，且任务未完成;- `2`：已截止，任务的截止时间已到达，且任务未完成;- `3`：已完成，任务已完成
+// 环节状态，填写时按照指定状态获取绩效结果，不填查询所有状态的绩效结果
 //
-// 示例值：[0,1,2,3]
+// 示例值：
 func (builder *QueryReviewDataPathReqBodyBuilder) StageProgress(stageProgress []int) *QueryReviewDataPathReqBodyBuilder {
 	builder.stageProgress = stageProgress
 	builder.stageProgressSet = true
 	return builder
 }
 
-// 评估周期 ID 列表，semester_id 是一个评估周期的唯一标识，可以通过「我的评估」页面 url 获取，也可通过本接口的返回值获取
+// 评估周期 ID 列表，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 //
-// 示例值：["6992035450862224940"]
+// 示例值：
 func (builder *QueryReviewDataPathReqBodyBuilder) SemesterIdList(semesterIdList []string) *QueryReviewDataPathReqBodyBuilder {
 	builder.semesterIdList = semesterIdList
 	builder.semesterIdListSet = true
 	return builder
 }
 
-// 被评估人 ID 列表
+// 被评估人 ID 列表，与入参 `user_id_type` 类型一致
 //
-// 示例值：["ou_3245842393d09e9428ad4655da6e30b3"]
+// 示例值：
 func (builder *QueryReviewDataPathReqBodyBuilder) RevieweeUserIdList(revieweeUserIdList []string) *QueryReviewDataPathReqBodyBuilder {
 	builder.revieweeUserIdList = revieweeUserIdList
 	builder.revieweeUserIdListSet = true
 	return builder
 }
 
-// 环节更新时间晚于，可筛选出在此时间之后，有内容提交的环节数据
+// 环节更新时间最早时间，毫秒时间戳，可筛选出在此时间之后，有内容提交的环节数据
 //
 // 示例值：1630425599999
 func (builder *QueryReviewDataPathReqBodyBuilder) UpdatedLaterThan(updatedLaterThan string) *QueryReviewDataPathReqBodyBuilder {
@@ -2778,7 +2774,7 @@ func (builder *QueryReviewDataReqBuilder) UserIdType(userIdType string) *QueryRe
 	return builder
 }
 
-// 获取绩效结果
+// 获取被评估人在指定周期、指定项目中各个环节的评估结果信息，包含绩效所在的周期、项目、评估项、评估模版以及各环节评估数据等信息。
 func (builder *QueryReviewDataReqBuilder) Body(body *QueryReviewDataReqBody) *QueryReviewDataReqBuilder {
 	builder.body = body
 	return builder
@@ -2793,19 +2789,19 @@ func (builder *QueryReviewDataReqBuilder) Build() *QueryReviewDataReq {
 }
 
 type QueryReviewDataReqBody struct {
-	StartTime *string `json:"start_time,omitempty"` // 查询范围的开始日期，毫秒级时间戳，开始日期不能晚于截止日期
+	StartTime *string `json:"start_time,omitempty"` // 周期开始时间最小值，毫秒时间戳，小于该时间开始的周期会被过滤掉;;;**注意**：当填写了 `semester_id_list` 参数时，此参数无效
 
-	EndTime *string `json:"end_time,omitempty"` // 查询范围的截止日期，毫秒级时间戳，截止日期不能早于开始日期
+	EndTime *string `json:"end_time,omitempty"` // 周期结束时间最大值，毫秒时间戳，大于该时间结束的周期会被过滤掉;;;**注意**：当填写了 `semester_id_list` 参数时，此参数无效
 
-	StageTypes []string `json:"stage_types,omitempty"` // 评估环节类型，目前仅支持上级评估环节和结果沟通环节（不传默认包含所有的环节）;;**可选值有**：;- `leader_review`：上级评估环节;- `communication_and_open_result`：结果沟通环节
+	StageTypes []string `json:"stage_types,omitempty"` // 环节类型，目前仅支持终评环节、结果沟通环节、查看绩效结果环节
 
-	StageProgress []int `json:"stage_progress,omitempty"` // 评估环节状态（不传默认包含所有的状态）;;**可选值有**：;- `0`：未开始，任务的开始时间未到达;- `1`：待完成，任务的开始时间到达而截止时间未到达，且任务未完成;- `2`：已截止，任务的截止时间已到达，且任务未完成;- `3`：已完成，任务已完成
+	StageProgress []int `json:"stage_progress,omitempty"` // 环节状态，填写时按照指定状态获取绩效结果，不填查询所有状态的绩效结果
 
-	SemesterIdList []string `json:"semester_id_list,omitempty"` // 评估周期 ID 列表，semester_id 是一个评估周期的唯一标识，可以通过「我的评估」页面 url 获取，也可通过本接口的返回值获取
+	SemesterIdList []string `json:"semester_id_list,omitempty"` // 评估周期 ID 列表，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 
-	RevieweeUserIdList []string `json:"reviewee_user_id_list,omitempty"` // 被评估人 ID 列表
+	RevieweeUserIdList []string `json:"reviewee_user_id_list,omitempty"` // 被评估人 ID 列表，与入参 `user_id_type` 类型一致
 
-	UpdatedLaterThan *string `json:"updated_later_than,omitempty"` // 环节更新时间晚于，可筛选出在此时间之后，有内容提交的环节数据
+	UpdatedLaterThan *string `json:"updated_later_than,omitempty"` // 环节更新时间最早时间，毫秒时间戳，可筛选出在此时间之后，有内容提交的环节数据
 }
 
 type QueryReviewDataReq struct {
@@ -2814,7 +2810,7 @@ type QueryReviewDataReq struct {
 }
 
 type QueryReviewDataRespData struct {
-	Semesters []*Semester `json:"semesters,omitempty"` // 绩效评估周期列表
+	Semesters []*Semester `json:"semesters,omitempty"` // 周期列表
 
 	Activities []*Activity `json:"activities,omitempty"` // 绩效评估项目列表
 
@@ -2824,7 +2820,7 @@ type QueryReviewDataRespData struct {
 
 	Units []*Unit `json:"units,omitempty"` // 评估内容列表
 
-	Fields []*Field `json:"fields,omitempty"` // 填写项列表
+	Fields []*Field `json:"fields,omitempty"` // 评估字段列表
 
 	Datas []*ReviewProfile `json:"datas,omitempty"` // 评估数据列表
 }
@@ -2852,7 +2848,7 @@ func NewListSemesterReqBuilder() *ListSemesterReqBuilder {
 	return builder
 }
 
-// 周期开始时间
+// 周期开始时间最小值，毫秒时间戳，小于该时间开始的周期会被过滤掉
 //
 // 示例值：1630425599999
 func (builder *ListSemesterReqBuilder) StartTime(startTime string) *ListSemesterReqBuilder {
@@ -2860,15 +2856,15 @@ func (builder *ListSemesterReqBuilder) StartTime(startTime string) *ListSemester
 	return builder
 }
 
-// 周期结束时间
+// 周期结束时间最大值，毫秒时间戳，大于该时间结束的周期会被过滤掉
 //
-// 示例值：1630425599999
+// 示例值：1640425000000
 func (builder *ListSemesterReqBuilder) EndTime(endTime string) *ListSemesterReqBuilder {
 	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
 	return builder
 }
 
-// 年份
+// 周期年份，填写时按照周期年份筛选
 //
 // 示例值：2024
 func (builder *ListSemesterReqBuilder) Year(year int) *ListSemesterReqBuilder {
@@ -2876,17 +2872,17 @@ func (builder *ListSemesterReqBuilder) Year(year int) *ListSemesterReqBuilder {
 	return builder
 }
 
-// 周期类型分组
+// 周期类型分组，填写时按照周期类型分组
 //
-// 示例值：Month
+// 示例值：Annual
 func (builder *ListSemesterReqBuilder) TypeGroup(typeGroup string) *ListSemesterReqBuilder {
 	builder.apiReq.QueryParams.Set("type_group", fmt.Sprint(typeGroup))
 	return builder
 }
 
-// 周期类型
+// 周期类型，填写时按照周期类型筛选
 //
-// 示例值：June
+// 示例值：April
 func (builder *ListSemesterReqBuilder) Type(type_ string) *ListSemesterReqBuilder {
 	builder.apiReq.QueryParams.Set("type", fmt.Sprint(type_))
 	return builder
@@ -2912,7 +2908,7 @@ type ListSemesterReq struct {
 }
 
 type ListSemesterRespData struct {
-	Items []*Semester `json:"items,omitempty"` // 周期meta信息列表
+	Items []*Semester `json:"items,omitempty"` // 周期列表
 }
 
 type ListSemesterResp struct {
@@ -2926,16 +2922,16 @@ func (resp *ListSemesterResp) Success() bool {
 }
 
 type FindByPageStageTaskReqBodyBuilder struct {
-	semesterId    string // 周期ID，可以通过「查询周期」接口获得
+	semesterId    string // 周期 ID，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 	semesterIdSet bool
 
-	taskOptionLists    []int // 任务分类(不传默认包含所有)
+	taskOptionLists    []int // 任务分类，填写则获取指定分类的任务;;;**可选项有**：;- `1`：待完成;- `2`：已完成;- `3`：已逾期（仅当租户设置不允许逾期提交时才有此分类）
 	taskOptionListsSet bool
 
-	afterTime    string // 查询晚于当前时间截止的环节
+	afterTime    string // 任务截止时间最小值，毫秒时间戳，填写则查询在此时间之后截止的任务
 	afterTimeSet bool
 
-	beforeTime    string // 查询早于当前时间截止的环节
+	beforeTime    string // 任务截止时间最大值，毫秒时间戳，填写则查询在此时间之前截止的任务
 	beforeTimeSet bool
 
 	pageToken    string // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
@@ -2950,36 +2946,36 @@ func NewFindByPageStageTaskReqBodyBuilder() *FindByPageStageTaskReqBodyBuilder {
 	return builder
 }
 
-// 周期ID，可以通过「查询周期」接口获得
+// 周期 ID，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 //
-//示例值：7033710017401751071
+// 示例值：7033710017401751071
 func (builder *FindByPageStageTaskReqBodyBuilder) SemesterId(semesterId string) *FindByPageStageTaskReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdSet = true
 	return builder
 }
 
-// 任务分类(不传默认包含所有)
+// 任务分类，填写则获取指定分类的任务;;;**可选项有**：;- `1`：待完成;- `2`：已完成;- `3`：已逾期（仅当租户设置不允许逾期提交时才有此分类）
 //
-//示例值：
+// 示例值：
 func (builder *FindByPageStageTaskReqBodyBuilder) TaskOptionLists(taskOptionLists []int) *FindByPageStageTaskReqBodyBuilder {
 	builder.taskOptionLists = taskOptionLists
 	builder.taskOptionListsSet = true
 	return builder
 }
 
-// 查询晚于当前时间截止的环节
+// 任务截止时间最小值，毫秒时间戳，填写则查询在此时间之后截止的任务
 //
-//示例值：1630425599999
+// 示例值：1630425599999
 func (builder *FindByPageStageTaskReqBodyBuilder) AfterTime(afterTime string) *FindByPageStageTaskReqBodyBuilder {
 	builder.afterTime = afterTime
 	builder.afterTimeSet = true
 	return builder
 }
 
-// 查询早于当前时间截止的环节
+// 任务截止时间最大值，毫秒时间戳，填写则查询在此时间之前截止的任务
 //
-//示例值：1630425599999
+// 示例值：1630425599999
 func (builder *FindByPageStageTaskReqBodyBuilder) BeforeTime(beforeTime string) *FindByPageStageTaskReqBodyBuilder {
 	builder.beforeTime = beforeTime
 	builder.beforeTimeSet = true
@@ -2988,7 +2984,7 @@ func (builder *FindByPageStageTaskReqBodyBuilder) BeforeTime(beforeTime string) 
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-//示例值：AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
+// 示例值：AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
 func (builder *FindByPageStageTaskReqBodyBuilder) PageToken(pageToken string) *FindByPageStageTaskReqBodyBuilder {
 	builder.pageToken = pageToken
 	builder.pageTokenSet = true
@@ -2997,7 +2993,7 @@ func (builder *FindByPageStageTaskReqBodyBuilder) PageToken(pageToken string) *F
 
 // 分页大小
 //
-//示例值：
+// 示例值：30
 func (builder *FindByPageStageTaskReqBodyBuilder) PageSize(pageSize int) *FindByPageStageTaskReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeSet = true
@@ -3047,7 +3043,7 @@ func NewFindByPageStageTaskPathReqBodyBuilder() *FindByPageStageTaskPathReqBodyB
 	return builder
 }
 
-// 周期ID，可以通过「查询周期」接口获得
+// 周期 ID，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 //
 // 示例值：7033710017401751071
 func (builder *FindByPageStageTaskPathReqBodyBuilder) SemesterId(semesterId string) *FindByPageStageTaskPathReqBodyBuilder {
@@ -3056,7 +3052,7 @@ func (builder *FindByPageStageTaskPathReqBodyBuilder) SemesterId(semesterId stri
 	return builder
 }
 
-// 任务分类(不传默认包含所有)
+// 任务分类，填写则获取指定分类的任务;;;**可选项有**：;- `1`：待完成;- `2`：已完成;- `3`：已逾期（仅当租户设置不允许逾期提交时才有此分类）
 //
 // 示例值：
 func (builder *FindByPageStageTaskPathReqBodyBuilder) TaskOptionLists(taskOptionLists []int) *FindByPageStageTaskPathReqBodyBuilder {
@@ -3065,7 +3061,7 @@ func (builder *FindByPageStageTaskPathReqBodyBuilder) TaskOptionLists(taskOption
 	return builder
 }
 
-// 查询晚于当前时间截止的环节
+// 任务截止时间最小值，毫秒时间戳，填写则查询在此时间之后截止的任务
 //
 // 示例值：1630425599999
 func (builder *FindByPageStageTaskPathReqBodyBuilder) AfterTime(afterTime string) *FindByPageStageTaskPathReqBodyBuilder {
@@ -3074,7 +3070,7 @@ func (builder *FindByPageStageTaskPathReqBodyBuilder) AfterTime(afterTime string
 	return builder
 }
 
-// 查询早于当前时间截止的环节
+// 任务截止时间最大值，毫秒时间戳，填写则查询在此时间之前截止的任务
 //
 // 示例值：1630425599999
 func (builder *FindByPageStageTaskPathReqBodyBuilder) BeforeTime(beforeTime string) *FindByPageStageTaskPathReqBodyBuilder {
@@ -3094,7 +3090,7 @@ func (builder *FindByPageStageTaskPathReqBodyBuilder) PageToken(pageToken string
 
 // 分页大小
 //
-// 示例值：
+// 示例值：30
 func (builder *FindByPageStageTaskPathReqBodyBuilder) PageSize(pageSize int) *FindByPageStageTaskPathReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeSet = true
@@ -3146,7 +3142,7 @@ func (builder *FindByPageStageTaskReqBuilder) UserIdType(userIdType string) *Fin
 	return builder
 }
 
-//
+// 批量获取周期下所有用户的任务信息。支持传入任务分类、任务截止时间参数删选周期内任务数据。
 func (builder *FindByPageStageTaskReqBuilder) Body(body *FindByPageStageTaskReqBody) *FindByPageStageTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -3161,13 +3157,13 @@ func (builder *FindByPageStageTaskReqBuilder) Build() *FindByPageStageTaskReq {
 }
 
 type FindByPageStageTaskReqBody struct {
-	SemesterId *string `json:"semester_id,omitempty"` // 周期ID，可以通过「查询周期」接口获得
+	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 
-	TaskOptionLists []int `json:"task_option_lists,omitempty"` // 任务分类(不传默认包含所有)
+	TaskOptionLists []int `json:"task_option_lists,omitempty"` // 任务分类，填写则获取指定分类的任务;;;**可选项有**：;- `1`：待完成;- `2`：已完成;- `3`：已逾期（仅当租户设置不允许逾期提交时才有此分类）
 
-	AfterTime *string `json:"after_time,omitempty"` // 查询晚于当前时间截止的环节
+	AfterTime *string `json:"after_time,omitempty"` // 任务截止时间最小值，毫秒时间戳，填写则查询在此时间之后截止的任务
 
-	BeforeTime *string `json:"before_time,omitempty"` // 查询早于当前时间截止的环节
+	BeforeTime *string `json:"before_time,omitempty"` // 任务截止时间最大值，毫秒时间戳，填写则查询在此时间之前截止的任务
 
 	PageToken *string `json:"page_token,omitempty"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 
@@ -3180,9 +3176,9 @@ type FindByPageStageTaskReq struct {
 }
 
 type FindByPageStageTaskRespData struct {
-	Base *SemesterBaseInfo `json:"base,omitempty"` // 周期基础信息
+	Base *SemesterBaseInfo `json:"base,omitempty"` // 周期基本信息
 
-	Items []*StageTask `json:"items,omitempty"` // 周期环节信息列表
+	Items []*StageTask `json:"items,omitempty"` // 周期任务
 
 	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页数据
 
@@ -3200,19 +3196,19 @@ func (resp *FindByPageStageTaskResp) Success() bool {
 }
 
 type FindByUserListStageTaskReqBodyBuilder struct {
-	semesterId    string // 周期ID，可以通过「查询周期」接口获得
+	semesterId    string // 周期 ID，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 	semesterIdSet bool
 
-	userIdLists    []string // 用户ID列表
+	userIdLists    []string // 用户 ID 列表，与入参 `user_id_type` 类型一致。如果以用户身份访问（user_access_token）时，仅能填写本人用户 ID
 	userIdListsSet bool
 
-	taskOptionLists    []int // 任务分类(不传默认包含所有)
+	taskOptionLists    []int // 任务分类，填写则获取指定分类的任务;;;**可选项有**：;- `1`：待完成;- `2`：已完成;- `3`：已逾期（仅当租户设置不允许逾期提交时才有此分类）
 	taskOptionListsSet bool
 
-	afterTime    string // 查询晚于当前时间截止的环节
+	afterTime    string // 任务截止时间最小值，毫秒时间戳，填写则查询在此时间之后截止的任务
 	afterTimeSet bool
 
-	beforeTime    string // 查询早于当前时间截止的环节
+	beforeTime    string // 任务截止时间最大值，毫秒时间戳，填写则查询在此时间之前截止的任务
 	beforeTimeSet bool
 }
 
@@ -3221,45 +3217,45 @@ func NewFindByUserListStageTaskReqBodyBuilder() *FindByUserListStageTaskReqBodyB
 	return builder
 }
 
-// 周期ID，可以通过「查询周期」接口获得
+// 周期 ID，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 //
-//示例值：7033710017401751071
+// 示例值：7033710017401751071
 func (builder *FindByUserListStageTaskReqBodyBuilder) SemesterId(semesterId string) *FindByUserListStageTaskReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdSet = true
 	return builder
 }
 
-// 用户ID列表
+// 用户 ID 列表，与入参 `user_id_type` 类型一致。如果以用户身份访问（user_access_token）时，仅能填写本人用户 ID
 //
-//示例值：
+// 示例值：
 func (builder *FindByUserListStageTaskReqBodyBuilder) UserIdLists(userIdLists []string) *FindByUserListStageTaskReqBodyBuilder {
 	builder.userIdLists = userIdLists
 	builder.userIdListsSet = true
 	return builder
 }
 
-// 任务分类(不传默认包含所有)
+// 任务分类，填写则获取指定分类的任务;;;**可选项有**：;- `1`：待完成;- `2`：已完成;- `3`：已逾期（仅当租户设置不允许逾期提交时才有此分类）
 //
-//示例值：
+// 示例值：
 func (builder *FindByUserListStageTaskReqBodyBuilder) TaskOptionLists(taskOptionLists []int) *FindByUserListStageTaskReqBodyBuilder {
 	builder.taskOptionLists = taskOptionLists
 	builder.taskOptionListsSet = true
 	return builder
 }
 
-// 查询晚于当前时间截止的环节
+// 任务截止时间最小值，毫秒时间戳，填写则查询在此时间之后截止的任务
 //
-//示例值：1630425599999
+// 示例值：1630425599999
 func (builder *FindByUserListStageTaskReqBodyBuilder) AfterTime(afterTime string) *FindByUserListStageTaskReqBodyBuilder {
 	builder.afterTime = afterTime
 	builder.afterTimeSet = true
 	return builder
 }
 
-// 查询早于当前时间截止的环节
+// 任务截止时间最大值，毫秒时间戳，填写则查询在此时间之前截止的任务
 //
-//示例值：1630425599999
+// 示例值：1630425599999
 func (builder *FindByUserListStageTaskReqBodyBuilder) BeforeTime(beforeTime string) *FindByUserListStageTaskReqBodyBuilder {
 	builder.beforeTime = beforeTime
 	builder.beforeTimeSet = true
@@ -3304,7 +3300,7 @@ func NewFindByUserListStageTaskPathReqBodyBuilder() *FindByUserListStageTaskPath
 	return builder
 }
 
-// 周期ID，可以通过「查询周期」接口获得
+// 周期 ID，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 //
 // 示例值：7033710017401751071
 func (builder *FindByUserListStageTaskPathReqBodyBuilder) SemesterId(semesterId string) *FindByUserListStageTaskPathReqBodyBuilder {
@@ -3313,7 +3309,7 @@ func (builder *FindByUserListStageTaskPathReqBodyBuilder) SemesterId(semesterId 
 	return builder
 }
 
-// 用户ID列表
+// 用户 ID 列表，与入参 `user_id_type` 类型一致。如果以用户身份访问（user_access_token）时，仅能填写本人用户 ID
 //
 // 示例值：
 func (builder *FindByUserListStageTaskPathReqBodyBuilder) UserIdLists(userIdLists []string) *FindByUserListStageTaskPathReqBodyBuilder {
@@ -3322,7 +3318,7 @@ func (builder *FindByUserListStageTaskPathReqBodyBuilder) UserIdLists(userIdList
 	return builder
 }
 
-// 任务分类(不传默认包含所有)
+// 任务分类，填写则获取指定分类的任务;;;**可选项有**：;- `1`：待完成;- `2`：已完成;- `3`：已逾期（仅当租户设置不允许逾期提交时才有此分类）
 //
 // 示例值：
 func (builder *FindByUserListStageTaskPathReqBodyBuilder) TaskOptionLists(taskOptionLists []int) *FindByUserListStageTaskPathReqBodyBuilder {
@@ -3331,7 +3327,7 @@ func (builder *FindByUserListStageTaskPathReqBodyBuilder) TaskOptionLists(taskOp
 	return builder
 }
 
-// 查询晚于当前时间截止的环节
+// 任务截止时间最小值，毫秒时间戳，填写则查询在此时间之后截止的任务
 //
 // 示例值：1630425599999
 func (builder *FindByUserListStageTaskPathReqBodyBuilder) AfterTime(afterTime string) *FindByUserListStageTaskPathReqBodyBuilder {
@@ -3340,7 +3336,7 @@ func (builder *FindByUserListStageTaskPathReqBodyBuilder) AfterTime(afterTime st
 	return builder
 }
 
-// 查询早于当前时间截止的环节
+// 任务截止时间最大值，毫秒时间戳，填写则查询在此时间之前截止的任务
 //
 // 示例值：1630425599999
 func (builder *FindByUserListStageTaskPathReqBodyBuilder) BeforeTime(beforeTime string) *FindByUserListStageTaskPathReqBodyBuilder {
@@ -3391,7 +3387,7 @@ func (builder *FindByUserListStageTaskReqBuilder) UserIdType(userIdType string) 
 	return builder
 }
 
-//
+// 根据用户 ID 批量获取指定周期的任务信息。支持传入任务分类、任务截止时间参数删选周期内任务数据。
 func (builder *FindByUserListStageTaskReqBuilder) Body(body *FindByUserListStageTaskReqBody) *FindByUserListStageTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -3406,15 +3402,15 @@ func (builder *FindByUserListStageTaskReqBuilder) Build() *FindByUserListStageTa
 }
 
 type FindByUserListStageTaskReqBody struct {
-	SemesterId *string `json:"semester_id,omitempty"` // 周期ID，可以通过「查询周期」接口获得
+	SemesterId *string `json:"semester_id,omitempty"` // 周期 ID，可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取
 
-	UserIdLists []string `json:"user_id_lists,omitempty"` // 用户ID列表
+	UserIdLists []string `json:"user_id_lists,omitempty"` // 用户 ID 列表，与入参 `user_id_type` 类型一致。如果以用户身份访问（user_access_token）时，仅能填写本人用户 ID
 
-	TaskOptionLists []int `json:"task_option_lists,omitempty"` // 任务分类(不传默认包含所有)
+	TaskOptionLists []int `json:"task_option_lists,omitempty"` // 任务分类，填写则获取指定分类的任务;;;**可选项有**：;- `1`：待完成;- `2`：已完成;- `3`：已逾期（仅当租户设置不允许逾期提交时才有此分类）
 
-	AfterTime *string `json:"after_time,omitempty"` // 查询晚于当前时间截止的环节
+	AfterTime *string `json:"after_time,omitempty"` // 任务截止时间最小值，毫秒时间戳，填写则查询在此时间之后截止的任务
 
-	BeforeTime *string `json:"before_time,omitempty"` // 查询早于当前时间截止的环节
+	BeforeTime *string `json:"before_time,omitempty"` // 任务截止时间最大值，毫秒时间戳，填写则查询在此时间之前截止的任务
 }
 
 type FindByUserListStageTaskReq struct {
@@ -3423,9 +3419,9 @@ type FindByUserListStageTaskReq struct {
 }
 
 type FindByUserListStageTaskRespData struct {
-	Base *SemesterBaseInfo `json:"base,omitempty"` // 周期基础信息
+	Base *SemesterBaseInfo `json:"base,omitempty"` // 周期基本信息
 
-	Items []*StageTask `json:"items,omitempty"` // 周期环节信息列表
+	Items []*StageTask `json:"items,omitempty"` // 周期任务
 }
 
 type FindByUserListStageTaskResp struct {

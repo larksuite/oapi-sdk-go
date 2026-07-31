@@ -129,7 +129,7 @@ const (
 
 const (
 	DepartmentIdTypeMgetEmployeeDepartmentId     = "department_id"      // 用来标识租户内一个唯一的部门
-	DepartmentIdTypeMgetEmployeeOpenDepartmentId = "open_department_id" //  open_department_id：用来在具体某个应用中标识一个部门，同一个部门 在不同应用中的 open_department_id 不相同。
+	DepartmentIdTypeMgetEmployeeOpenDepartmentId = "open_department_id" // 用来在具体某个应用中标识一个部门，同一个部门 在不同应用中的 open_department_id 不相同。
 )
 
 const (
@@ -150,8 +150,8 @@ const (
 )
 
 const (
-	DepartmentIdTypeRegularEmployeeDepartmentId     = "department_id"      // department_id
-	DepartmentIdTypeRegularEmployeeOpenDepartmentId = "open_department_id" // open_department_id
+	DepartmentIdTypeRegularEmployeeDepartmentId     = "department_id"      // 用来标识租户内一个唯一的部门
+	DepartmentIdTypeRegularEmployeeOpenDepartmentId = "open_department_id" // 用来在具体某个应用中标识一个部门，同一个部门 在不同应用中的 open_department_id 相同。
 )
 
 const (
@@ -183,8 +183,8 @@ const (
 )
 
 const (
-	DepartmentIdTypeToBeResignedEmployeeDepartmentId     = "department_id"      // department_id
-	DepartmentIdTypeToBeResignedEmployeeOpenDepartmentId = "open_department_id" // open_department_id
+	DepartmentIdTypeToBeResignedEmployeeDepartmentId     = "department_id"      // 用来标识租户内一个唯一的部门
+	DepartmentIdTypeToBeResignedEmployeeOpenDepartmentId = "open_department_id" // 用来在具体某个应用中标识一个部门，同一个部门 在不同应用中的 open_department_id 相同。
 )
 
 type AbnormalRecord struct {
@@ -192,7 +192,7 @@ type AbnormalRecord struct {
 
 	RowError *int `json:"row_error,omitempty"` // 行级异常
 
-	FieldErrors map[string]int `json:"field_errors,omitempty"` // 列级异常
+	FieldErrors map[string]int `json:"field_errors,omitempty"` // 列级异常，key为字段名,value为下列枚举
 }
 
 type AbnormalRecordBuilder struct {
@@ -202,7 +202,7 @@ type AbnormalRecordBuilder struct {
 	rowError    int // 行级异常
 	rowErrorSet bool
 
-	fieldErrors    map[string]int // 列级异常
+	fieldErrors    map[string]int // 列级异常，key为字段名,value为下列枚举
 	fieldErrorsSet bool
 }
 
@@ -229,7 +229,7 @@ func (builder *AbnormalRecordBuilder) RowError(rowError int) *AbnormalRecordBuil
 	return builder
 }
 
-// 列级异常
+// 列级异常，key为字段名,value为下列枚举
 //
 // 示例值：
 func (builder *AbnormalRecordBuilder) FieldErrors(fieldErrors map[string]int) *AbnormalRecordBuilder {
@@ -307,7 +307,7 @@ type AddVisibleAssistRule struct {
 
 	Subjects []*EntityInfo `json:"subjects,omitempty"` // 规则主体
 
-	Objects []*EntityInfo `json:"objects,omitempty"` // 规则客体，类型只能为部门、用户、单位。不能为用户组
+	Objects []*EntityInfo `json:"objects,omitempty"` // 规则客体，类型只能为部门、用户、单位。**不能为用户组**
 
 	Effect *int `json:"effect,omitempty"` // 权限操作
 
@@ -321,7 +321,7 @@ type AddVisibleAssistRuleBuilder struct {
 	subjects    []*EntityInfo // 规则主体
 	subjectsSet bool
 
-	objects    []*EntityInfo // 规则客体，类型只能为部门、用户、单位。不能为用户组
+	objects    []*EntityInfo // 规则客体，类型只能为部门、用户、单位。**不能为用户组**
 	objectsSet bool
 
 	effect    int // 权限操作
@@ -354,7 +354,7 @@ func (builder *AddVisibleAssistRuleBuilder) Subjects(subjects []*EntityInfo) *Ad
 	return builder
 }
 
-// 规则客体，类型只能为部门、用户、单位。不能为用户组
+// 规则客体，类型只能为部门、用户、单位。**不能为用户组**
 //
 // 示例值：
 func (builder *AddVisibleAssistRuleBuilder) Objects(objects []*EntityInfo) *AddVisibleAssistRuleBuilder {
@@ -409,7 +409,7 @@ type Address struct {
 
 	TenantId *string `json:"tenant_id,omitempty"` // 租户ID
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
@@ -451,7 +451,7 @@ type AddressBuilder struct {
 	tenantId    string // 租户ID
 	tenantIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	isEnabled    bool // 是否启用
@@ -526,7 +526,7 @@ func (builder *AddressBuilder) TenantId(tenantId string) *AddressBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *AddressBuilder) Name(name *I18nText) *AddressBuilder {
@@ -761,9 +761,9 @@ func (builder *AddressBuilder) Build() *Address {
 type App struct {
 	Id *string `json:"id,omitempty"` // 在MyAI场景下为开平应用ID,其他场景是IdentityID
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	Avatar *string `json:"avatar,omitempty"` // 头像
 
@@ -774,10 +774,10 @@ type AppBuilder struct {
 	id    string // 在MyAI场景下为开平应用ID,其他场景是IdentityID
 	idSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	avatar    string // 头像
@@ -801,7 +801,7 @@ func (builder *AppBuilder) Id(id string) *AppBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *AppBuilder) Description(description *I18nText) *AppBuilder {
@@ -810,7 +810,7 @@ func (builder *AppBuilder) Description(description *I18nText) *AppBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *AppBuilder) Name(name *I18nText) *AppBuilder {
@@ -1531,7 +1531,7 @@ func (builder *CollaborationRuleBuilder) Objects(objects *CollaborationRuleEntit
 
 // 是否生效，如果规则客体超出了分享的范围，则is_valid为false，规则客体将不返回
 //
-// 示例值：
+// 示例值：true
 func (builder *CollaborationRuleBuilder) ObjectIsValid(objectIsValid bool) *CollaborationRuleBuilder {
 	builder.objectIsValid = objectIsValid
 	builder.objectIsValidSet = true
@@ -1631,13 +1631,13 @@ type CollaborationTenant struct {
 
 	ConnectTime *int `json:"connect_time,omitempty"` // 建联时间
 
-	Avatar *ImageLink `json:"avatar,omitempty"` // 租户头像
+	Avatar *ImageLink `json:"avatar,omitempty"` // 员工的头像url
 
 	Brand *string `json:"brand,omitempty"` // 租户品牌
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
-	ShortName *I18nText `json:"short_name,omitempty"` // i18n文本
+	ShortName *I18nText `json:"short_name,omitempty"` // 部门名称，最多可输入 100 字;
 }
 
 type CollaborationTenantBuilder struct {
@@ -1647,16 +1647,16 @@ type CollaborationTenantBuilder struct {
 	connectTime    int // 建联时间
 	connectTimeSet bool
 
-	avatar    *ImageLink // 租户头像
+	avatar    *ImageLink // 员工的头像url
 	avatarSet bool
 
 	brand    string // 租户品牌
 	brandSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
-	shortName    *I18nText // i18n文本
+	shortName    *I18nText // 部门名称，最多可输入 100 字;
 	shortNameSet bool
 }
 
@@ -1683,7 +1683,7 @@ func (builder *CollaborationTenantBuilder) ConnectTime(connectTime int) *Collabo
 	return builder
 }
 
-// 租户头像
+// 员工的头像url
 //
 // 示例值：
 func (builder *CollaborationTenantBuilder) Avatar(avatar *ImageLink) *CollaborationTenantBuilder {
@@ -1701,7 +1701,7 @@ func (builder *CollaborationTenantBuilder) Brand(brand string) *CollaborationTen
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CollaborationTenantBuilder) Name(name *I18nText) *CollaborationTenantBuilder {
@@ -1710,7 +1710,7 @@ func (builder *CollaborationTenantBuilder) Name(name *I18nText) *CollaborationTe
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CollaborationTenantBuilder) ShortName(shortName *I18nText) *CollaborationTenantBuilder {
@@ -1890,7 +1890,7 @@ type Company struct {
 
 	TenantId *string `json:"tenant_id,omitempty"` // 租户ID
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
@@ -1914,7 +1914,7 @@ type CompanyBuilder struct {
 	tenantId    string // 租户ID
 	tenantIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	isEnabled    bool // 是否启用
@@ -1962,7 +1962,7 @@ func (builder *CompanyBuilder) TenantId(tenantId string) *CompanyBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：北京科技有限责任公司
 func (builder *CompanyBuilder) Name(name *I18nText) *CompanyBuilder {
@@ -2183,7 +2183,7 @@ func (builder *ContactAddressBuilder) Build() *ContactAddress {
 }
 
 type CreateAddress struct {
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
@@ -2209,7 +2209,7 @@ type CreateAddress struct {
 }
 
 type CreateAddressBuilder struct {
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	isEnabled    bool // 是否启用
@@ -2251,7 +2251,7 @@ func NewCreateAddressBuilder() *CreateAddressBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateAddressBuilder) Name(name *I18nText) *CreateAddressBuilder {
@@ -2426,7 +2426,7 @@ func NewCreateAddressOptionsBuilder() *CreateAddressOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *CreateAddressOptionsBuilder) DataSource(dataSource int) *CreateAddressOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -2443,13 +2443,13 @@ func (builder *CreateAddressOptionsBuilder) Build() *CreateAddressOptions {
 }
 
 type CreateApp struct {
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	AvatarKey *string `json:"avatar_key,omitempty"` // 头像的文件key
 }
 
 type CreateAppBuilder struct {
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	avatarKey    string // 头像的文件key
@@ -2461,7 +2461,7 @@ func NewCreateAppBuilder() *CreateAppBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateAppBuilder) Name(name *I18nText) *CreateAppBuilder {
@@ -2768,7 +2768,7 @@ func (builder *CreateCertificateBuilder) Build() *CreateCertificate {
 }
 
 type CreateCompany struct {
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
@@ -2776,7 +2776,7 @@ type CreateCompany struct {
 }
 
 type CreateCompanyBuilder struct {
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	isEnabled    bool // 是否启用
@@ -2791,7 +2791,7 @@ func NewCreateCompanyBuilder() *CreateCompanyBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateCompanyBuilder) Name(name *I18nText) *CreateCompanyBuilder {
@@ -2850,7 +2850,7 @@ func NewCreateCompanyOptionsBuilder() *CreateCompanyOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *CreateCompanyOptionsBuilder) DataSource(dataSource int) *CreateCompanyOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -2869,13 +2869,13 @@ func (builder *CreateCompanyOptionsBuilder) Build() *CreateCompanyOptions {
 type CreateCustomField struct {
 	ExternalId *string `json:"external_id,omitempty"` // 外部自定义id
 
-	FieldName *I18nText `json:"field_name,omitempty"` // i18n文本
+	FieldName *I18nText `json:"field_name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	FieldType *string `json:"field_type,omitempty"` // 字段类型
 
 	EntityType *string `json:"entity_type,omitempty"` // 所属实体类型
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	EnumMeta *CreateEnumMeta `json:"enum_meta,omitempty"` // 枚举值元数据
 
@@ -2890,7 +2890,7 @@ type CreateCustomFieldBuilder struct {
 	externalId    string // 外部自定义id
 	externalIdSet bool
 
-	fieldName    *I18nText // i18n文本
+	fieldName    *I18nText // 部门名称，最多可输入 100 字;
 	fieldNameSet bool
 
 	fieldType    string // 字段类型
@@ -2899,7 +2899,7 @@ type CreateCustomFieldBuilder struct {
 	entityType    string // 所属实体类型
 	entityTypeSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	enumMeta    *CreateEnumMeta // 枚举值元数据
@@ -2929,7 +2929,7 @@ func (builder *CreateCustomFieldBuilder) ExternalId(externalId string) *CreateCu
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateCustomFieldBuilder) FieldName(fieldName *I18nText) *CreateCustomFieldBuilder {
@@ -2956,7 +2956,7 @@ func (builder *CreateCustomFieldBuilder) EntityType(entityType string) *CreateCu
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateCustomFieldBuilder) Description(description *I18nText) *CreateCustomFieldBuilder {
@@ -3040,19 +3040,19 @@ func (builder *CreateCustomFieldBuilder) Build() *CreateCustomField {
 }
 
 type CreateDepartment struct {
-	CustomDepartmentId *string `json:"custom_department_id,omitempty"` // 标识租户内一个唯一的部门，支持自定义，未自定义时系统自动生成。ID支持修改。详细说明参见 部门ID说明，获取department_id的方式：企业管理员在 管理后台 > 组织架构 > 成员与部门 页面，点击 部门详情，查询部门ID
+	CustomDepartmentId *string `json:"custom_department_id,omitempty"` // 标识租户内一个唯一的部门，支持自定义，未自定义时系统自动生成。ID支持修改。注意：;1. 除需要满足正则规则外，同时不能以od-开头;2. 正则校验：^[a-zA-Z0-9][a-zA-Z0-9_\-@.]{0,63}$
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
-	ParentDepartmentId *string `json:"parent_department_id,omitempty"` // 父部门ID
+	ParentDepartmentId *string `json:"parent_department_id,omitempty"` // 父部门ID，与department_id_type类型保持一致;。如果父部门为根部门，该参数值为 “0”
 
 	Leaders []*DepartmentLeader `json:"leaders,omitempty"` // 部门负责人
 
 	Hrbps []string `json:"hrbps,omitempty"` // HRBP
 
-	OrderWeight *string `json:"order_weight,omitempty"` // 在上级部门下的排序权重
+	OrderWeight *string `json:"order_weight,omitempty"` // 在上级部门下的排序权重，返回结果按order_weight降序排列
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	DepartmentType *int `json:"department_type,omitempty"` // 部门类型
 
@@ -3060,19 +3060,19 @@ type CreateDepartment struct {
 
 	CustomFieldValueMap map[string]*CustomFieldValue `json:"custom_field_value_map,omitempty"` // 自定义字段
 
-	CustomFieldValues []*CustomFieldValue `json:"custom_field_values,omitempty"` // 自定义字段
+	CustomFieldValues []*CustomFieldValue `json:"custom_field_values,omitempty"` // 部门自定义字段值
 
 	OrgDimension *string `json:"org_dimension,omitempty"` // 组织维度
 }
 
 type CreateDepartmentBuilder struct {
-	customDepartmentId    string // 标识租户内一个唯一的部门，支持自定义，未自定义时系统自动生成。ID支持修改。详细说明参见 部门ID说明，获取department_id的方式：企业管理员在 管理后台 > 组织架构 > 成员与部门 页面，点击 部门详情，查询部门ID
+	customDepartmentId    string // 标识租户内一个唯一的部门，支持自定义，未自定义时系统自动生成。ID支持修改。注意：;1. 除需要满足正则规则外，同时不能以od-开头;2. 正则校验：^[a-zA-Z0-9][a-zA-Z0-9_\-@.]{0,63}$
 	customDepartmentIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
-	parentDepartmentId    string // 父部门ID
+	parentDepartmentId    string // 父部门ID，与department_id_type类型保持一致;。如果父部门为根部门，该参数值为 “0”
 	parentDepartmentIdSet bool
 
 	leaders    []*DepartmentLeader // 部门负责人
@@ -3081,10 +3081,10 @@ type CreateDepartmentBuilder struct {
 	hrbps    []string // HRBP
 	hrbpsSet bool
 
-	orderWeight    string // 在上级部门下的排序权重
+	orderWeight    string // 在上级部门下的排序权重，返回结果按order_weight降序排列
 	orderWeightSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	departmentType    int // 部门类型
@@ -3096,7 +3096,7 @@ type CreateDepartmentBuilder struct {
 	customFieldValueMap    map[string]*CustomFieldValue // 自定义字段
 	customFieldValueMapSet bool
 
-	customFieldValues    []*CustomFieldValue // 自定义字段
+	customFieldValues    []*CustomFieldValue // 部门自定义字段值
 	customFieldValuesSet bool
 
 	orgDimension    string // 组织维度
@@ -3108,7 +3108,7 @@ func NewCreateDepartmentBuilder() *CreateDepartmentBuilder {
 	return builder
 }
 
-// 标识租户内一个唯一的部门，支持自定义，未自定义时系统自动生成。ID支持修改。详细说明参见 部门ID说明，获取department_id的方式：企业管理员在 管理后台 > 组织架构 > 成员与部门 页面，点击 部门详情，查询部门ID
+// 标识租户内一个唯一的部门，支持自定义，未自定义时系统自动生成。ID支持修改。注意：;1. 除需要满足正则规则外，同时不能以od-开头;2. 正则校验：^[a-zA-Z0-9][a-zA-Z0-9_\-@.]{0,63}$
 //
 // 示例值：eersdf
 func (builder *CreateDepartmentBuilder) CustomDepartmentId(customDepartmentId string) *CreateDepartmentBuilder {
@@ -3117,7 +3117,7 @@ func (builder *CreateDepartmentBuilder) CustomDepartmentId(customDepartmentId st
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateDepartmentBuilder) Name(name *I18nText) *CreateDepartmentBuilder {
@@ -3126,7 +3126,7 @@ func (builder *CreateDepartmentBuilder) Name(name *I18nText) *CreateDepartmentBu
 	return builder
 }
 
-// 父部门ID
+// 父部门ID，与department_id_type类型保持一致;。如果父部门为根部门，该参数值为 “0”
 //
 // 示例值：h121900
 func (builder *CreateDepartmentBuilder) ParentDepartmentId(parentDepartmentId string) *CreateDepartmentBuilder {
@@ -3153,7 +3153,7 @@ func (builder *CreateDepartmentBuilder) Hrbps(hrbps []string) *CreateDepartmentB
 	return builder
 }
 
-// 在上级部门下的排序权重
+// 在上级部门下的排序权重，返回结果按order_weight降序排列
 //
 // 示例值：100
 func (builder *CreateDepartmentBuilder) OrderWeight(orderWeight string) *CreateDepartmentBuilder {
@@ -3162,7 +3162,7 @@ func (builder *CreateDepartmentBuilder) OrderWeight(orderWeight string) *CreateD
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateDepartmentBuilder) Description(description *I18nText) *CreateDepartmentBuilder {
@@ -3182,7 +3182,7 @@ func (builder *CreateDepartmentBuilder) DepartmentType(departmentType int) *Crea
 
 // 是否启用
 //
-// 示例值：
+// 示例值：true
 func (builder *CreateDepartmentBuilder) EnabledStatus(enabledStatus bool) *CreateDepartmentBuilder {
 	builder.enabledStatus = enabledStatus
 	builder.enabledStatusSet = true
@@ -3198,7 +3198,7 @@ func (builder *CreateDepartmentBuilder) CustomFieldValueMap(customFieldValueMap 
 	return builder
 }
 
-// 自定义字段
+// 部门自定义字段值
 //
 // 示例值：
 func (builder *CreateDepartmentBuilder) CustomFieldValues(customFieldValues []*CustomFieldValue) *CreateDepartmentBuilder {
@@ -3279,7 +3279,7 @@ func NewCreateDepartmentOptionsBuilder() *CreateDepartmentOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *CreateDepartmentOptionsBuilder) DataSource(dataSource int) *CreateDepartmentOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -3298,17 +3298,17 @@ func (builder *CreateDepartmentOptionsBuilder) Build() *CreateDepartmentOptions 
 type CreateEmployee struct {
 	Name *UpsertName `json:"name,omitempty"` // 姓名
 
-	Mobile *string `json:"mobile,omitempty"` // 员工的联系手机号
+	Mobile *string `json:"mobile,omitempty"` // 员工的手机号，最多可输入 255 字。注意：;1. 在企业内的在职员工中不可重复。;2. 未认证企业仅支持添加中国大陆手机号，通过飞书认证的企业允许添加海外手机号。;3. 国际电话区号前缀中必须包含加号 +。
 
-	CustomEmployeeId *string `json:"custom_employee_id,omitempty"` // 用户的user_id
+	CustomEmployeeId *string `json:"custom_employee_id,omitempty"` // 企业内在职员工的唯一标识。支持自定义，未自定义时系统自动生成。ID支持修改。注意：;1. 在职员工的ID不可重复;2. ID不能包含空格;;
 
-	AvatarKey *string `json:"avatar_key,omitempty"` // 头像的文件key
+	AvatarKey *string `json:"avatar_key,omitempty"` // 员工的头像key。获取图片的key请使用 [上传图片 - 服务端 API - 开发文档 - 飞书开放平台](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)，上传时图片类型需要选择 用于设置头像
 
-	Email *string `json:"email,omitempty"` // 员工的联系邮箱
+	Email *string `json:"email,omitempty"` // 员工在工作中的邮箱。注意：;1. 在企业内的在职员工中不可重复。;2. 非中国大陆手机号成员必须同时添加邮箱。
 
 	PersonalEmail *string `json:"personal_email,omitempty"` // 员工在人事系统中的联系邮箱
 
-	EnterpriseEmail *string `json:"enterprise_email,omitempty"` // 员工的企业邮箱
+	EnterpriseEmail *string `json:"enterprise_email,omitempty"` // 员工的企业邮箱。请先确保已在管理后台启用飞书邮箱服务。企业邮箱的域名需要企业在管理后台申请并开启。如果企业没有开启对应域名的企业邮箱，设置用户的企业邮箱会操作失败。
 
 	Gender *int `json:"gender,omitempty"` // 性别
 
@@ -3316,21 +3316,21 @@ type CreateEmployee struct {
 
 	ContactAddresses []*ContactAddress `json:"contact_addresses,omitempty"` // 联系地址
 
-	EmployeeOrderInDepartments []*UpsertUserDepartmentSortInfo `json:"employee_order_in_departments,omitempty"` // 部门排序
+	EmployeeOrderInDepartments []*UpsertUserDepartmentSortInfo `json:"employee_order_in_departments,omitempty"` // 员工在所属部门内的排序信息。
 
-	LeaderId *string `json:"leader_id,omitempty"` // 员工直属上级的user_id
+	LeaderId *string `json:"leader_id,omitempty"` // 员工的直属上级ID，与employee_id_type类型保持一致。注意：;1. 不可成环，即A的上级是B，B的上级是A。;2. 上级需要是一个在职的员工。;
 
-	DottedLineLeaderIds []string `json:"dotted_line_leader_ids,omitempty"` // 员工虚线上级的user_id
+	DottedLineLeaderIds []string `json:"dotted_line_leader_ids,omitempty"` // 员工的虚线上级ID，与employee_id_type类型保持一致。注意：;1. 不可成环，即A的上级是B，B的上级是A。;2. 上级需要是一个在职的员工。;
 
-	WorkCountryOrRegion *string `json:"work_country_or_region,omitempty"` // 工作地国家/地区
+	WorkCountryOrRegion *string `json:"work_country_or_region,omitempty"` // 工作地国家/地区码。获取国家/地区的编码请使用 [分页批量查询国家/地区](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/country_region/list)。
 
-	WorkPlaceId *string `json:"work_place_id,omitempty"` // 工作地点
+	WorkPlaceId *string `json:"work_place_id,omitempty"` // 工作地点ID
 
-	WorkStation *I18nText `json:"work_station,omitempty"` // i18n文本
+	WorkStation *I18nText `json:"work_station,omitempty"` // 部门名称，最多可输入 100 字;
 
-	JobNumber *string `json:"job_number,omitempty"` // 工号
+	JobNumber *string `json:"job_number,omitempty"` // 工号。企业内在职员工的工号不可重复。
 
-	ExtensionNumber *string `json:"extension_number,omitempty"` // 分机号
+	ExtensionNumber *string `json:"extension_number,omitempty"` // 分机号，最多可输入 99 字。企业内所有员工的分机号不可重复。
 
 	JoinDate *string `json:"join_date,omitempty"` // 入职日期
 
@@ -3401,22 +3401,22 @@ type CreateEmployeeBuilder struct {
 	name    *UpsertName // 姓名
 	nameSet bool
 
-	mobile    string // 员工的联系手机号
+	mobile    string // 员工的手机号，最多可输入 255 字。注意：;1. 在企业内的在职员工中不可重复。;2. 未认证企业仅支持添加中国大陆手机号，通过飞书认证的企业允许添加海外手机号。;3. 国际电话区号前缀中必须包含加号 +。
 	mobileSet bool
 
-	customEmployeeId    string // 用户的user_id
+	customEmployeeId    string // 企业内在职员工的唯一标识。支持自定义，未自定义时系统自动生成。ID支持修改。注意：;1. 在职员工的ID不可重复;2. ID不能包含空格;;
 	customEmployeeIdSet bool
 
-	avatarKey    string // 头像的文件key
+	avatarKey    string // 员工的头像key。获取图片的key请使用 [上传图片 - 服务端 API - 开发文档 - 飞书开放平台](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)，上传时图片类型需要选择 用于设置头像
 	avatarKeySet bool
 
-	email    string // 员工的联系邮箱
+	email    string // 员工在工作中的邮箱。注意：;1. 在企业内的在职员工中不可重复。;2. 非中国大陆手机号成员必须同时添加邮箱。
 	emailSet bool
 
 	personalEmail    string // 员工在人事系统中的联系邮箱
 	personalEmailSet bool
 
-	enterpriseEmail    string // 员工的企业邮箱
+	enterpriseEmail    string // 员工的企业邮箱。请先确保已在管理后台启用飞书邮箱服务。企业邮箱的域名需要企业在管理后台申请并开启。如果企业没有开启对应域名的企业邮箱，设置用户的企业邮箱会操作失败。
 	enterpriseEmailSet bool
 
 	gender    int // 性别
@@ -3428,28 +3428,28 @@ type CreateEmployeeBuilder struct {
 	contactAddresses    []*ContactAddress // 联系地址
 	contactAddressesSet bool
 
-	employeeOrderInDepartments    []*UpsertUserDepartmentSortInfo // 部门排序
+	employeeOrderInDepartments    []*UpsertUserDepartmentSortInfo // 员工在所属部门内的排序信息。
 	employeeOrderInDepartmentsSet bool
 
-	leaderId    string // 员工直属上级的user_id
+	leaderId    string // 员工的直属上级ID，与employee_id_type类型保持一致。注意：;1. 不可成环，即A的上级是B，B的上级是A。;2. 上级需要是一个在职的员工。;
 	leaderIdSet bool
 
-	dottedLineLeaderIds    []string // 员工虚线上级的user_id
+	dottedLineLeaderIds    []string // 员工的虚线上级ID，与employee_id_type类型保持一致。注意：;1. 不可成环，即A的上级是B，B的上级是A。;2. 上级需要是一个在职的员工。;
 	dottedLineLeaderIdsSet bool
 
-	workCountryOrRegion    string // 工作地国家/地区
+	workCountryOrRegion    string // 工作地国家/地区码。获取国家/地区的编码请使用 [分页批量查询国家/地区](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/country_region/list)。
 	workCountryOrRegionSet bool
 
-	workPlaceId    string // 工作地点
+	workPlaceId    string // 工作地点ID
 	workPlaceIdSet bool
 
-	workStation    *I18nText // i18n文本
+	workStation    *I18nText // 部门名称，最多可输入 100 字;
 	workStationSet bool
 
-	jobNumber    string // 工号
+	jobNumber    string // 工号。企业内在职员工的工号不可重复。
 	jobNumberSet bool
 
-	extensionNumber    string // 分机号
+	extensionNumber    string // 分机号，最多可输入 99 字。企业内所有员工的分机号不可重复。
 	extensionNumberSet bool
 
 	joinDate    string // 入职日期
@@ -3563,7 +3563,7 @@ func (builder *CreateEmployeeBuilder) Name(name *UpsertName) *CreateEmployeeBuil
 	return builder
 }
 
-// 员工的联系手机号
+// 员工的手机号，最多可输入 255 字。注意：;1. 在企业内的在职员工中不可重复。;2. 未认证企业仅支持添加中国大陆手机号，通过飞书认证的企业允许添加海外手机号。;3. 国际电话区号前缀中必须包含加号 +。
 //
 // 示例值：13011111111" 或 "+8613011111111
 func (builder *CreateEmployeeBuilder) Mobile(mobile string) *CreateEmployeeBuilder {
@@ -3572,25 +3572,25 @@ func (builder *CreateEmployeeBuilder) Mobile(mobile string) *CreateEmployeeBuild
 	return builder
 }
 
-// 用户的user_id
+// 企业内在职员工的唯一标识。支持自定义，未自定义时系统自动生成。ID支持修改。注意：;1. 在职员工的ID不可重复;2. ID不能包含空格;;
 //
-// 示例值：u273y71
+// 示例值：u273y71;;**数据校验规则**：;;长度范围：1-64字符
 func (builder *CreateEmployeeBuilder) CustomEmployeeId(customEmployeeId string) *CreateEmployeeBuilder {
 	builder.customEmployeeId = customEmployeeId
 	builder.customEmployeeIdSet = true
 	return builder
 }
 
-// 头像的文件key
+// 员工的头像key。获取图片的key请使用 [上传图片 - 服务端 API - 开发文档 - 飞书开放平台](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)，上传时图片类型需要选择 用于设置头像
 //
-// 示例值：iimg_v2_8abc397a-9950-44ea-9302-e1d8fe00858g
+// 示例值：8abc397a-9950-44ea-9302-e1d8fe00858g
 func (builder *CreateEmployeeBuilder) AvatarKey(avatarKey string) *CreateEmployeeBuilder {
 	builder.avatarKey = avatarKey
 	builder.avatarKeySet = true
 	return builder
 }
 
-// 员工的联系邮箱
+// 员工在工作中的邮箱。注意：;1. 在企业内的在职员工中不可重复。;2. 非中国大陆手机号成员必须同时添加邮箱。
 //
 // 示例值：zhangsan@gmail.com
 func (builder *CreateEmployeeBuilder) Email(email string) *CreateEmployeeBuilder {
@@ -3608,7 +3608,7 @@ func (builder *CreateEmployeeBuilder) PersonalEmail(personalEmail string) *Creat
 	return builder
 }
 
-// 员工的企业邮箱
+// 员工的企业邮箱。请先确保已在管理后台启用飞书邮箱服务。企业邮箱的域名需要企业在管理后台申请并开启。如果企业没有开启对应域名的企业邮箱，设置用户的企业邮箱会操作失败。
 //
 // 示例值：zhangsan@gmail.com
 func (builder *CreateEmployeeBuilder) EnterpriseEmail(enterpriseEmail string) *CreateEmployeeBuilder {
@@ -3619,7 +3619,7 @@ func (builder *CreateEmployeeBuilder) EnterpriseEmail(enterpriseEmail string) *C
 
 // 性别
 //
-// 示例值：
+// 示例值：1
 func (builder *CreateEmployeeBuilder) Gender(gender int) *CreateEmployeeBuilder {
 	builder.gender = gender
 	builder.genderSet = true
@@ -3644,7 +3644,7 @@ func (builder *CreateEmployeeBuilder) ContactAddresses(contactAddresses []*Conta
 	return builder
 }
 
-// 部门排序
+// 员工在所属部门内的排序信息。
 //
 // 示例值：
 func (builder *CreateEmployeeBuilder) EmployeeOrderInDepartments(employeeOrderInDepartments []*UpsertUserDepartmentSortInfo) *CreateEmployeeBuilder {
@@ -3653,7 +3653,7 @@ func (builder *CreateEmployeeBuilder) EmployeeOrderInDepartments(employeeOrderIn
 	return builder
 }
 
-// 员工直属上级的user_id
+// 员工的直属上级ID，与employee_id_type类型保持一致。注意：;1. 不可成环，即A的上级是B，B的上级是A。;2. 上级需要是一个在职的员工。;
 //
 // 示例值：eeasdqwwe
 func (builder *CreateEmployeeBuilder) LeaderId(leaderId string) *CreateEmployeeBuilder {
@@ -3662,7 +3662,7 @@ func (builder *CreateEmployeeBuilder) LeaderId(leaderId string) *CreateEmployeeB
 	return builder
 }
 
-// 员工虚线上级的user_id
+// 员工的虚线上级ID，与employee_id_type类型保持一致。注意：;1. 不可成环，即A的上级是B，B的上级是A。;2. 上级需要是一个在职的员工。;
 //
 // 示例值：
 func (builder *CreateEmployeeBuilder) DottedLineLeaderIds(dottedLineLeaderIds []string) *CreateEmployeeBuilder {
@@ -3671,7 +3671,7 @@ func (builder *CreateEmployeeBuilder) DottedLineLeaderIds(dottedLineLeaderIds []
 	return builder
 }
 
-// 工作地国家/地区
+// 工作地国家/地区码。获取国家/地区的编码请使用 [分页批量查询国家/地区](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/country_region/list)。
 //
 // 示例值：MDM34234234
 func (builder *CreateEmployeeBuilder) WorkCountryOrRegion(workCountryOrRegion string) *CreateEmployeeBuilder {
@@ -3680,7 +3680,7 @@ func (builder *CreateEmployeeBuilder) WorkCountryOrRegion(workCountryOrRegion st
 	return builder
 }
 
-// 工作地点
+// 工作地点ID
 //
 // 示例值：eqwedas
 func (builder *CreateEmployeeBuilder) WorkPlaceId(workPlaceId string) *CreateEmployeeBuilder {
@@ -3689,7 +3689,7 @@ func (builder *CreateEmployeeBuilder) WorkPlaceId(workPlaceId string) *CreateEmp
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateEmployeeBuilder) WorkStation(workStation *I18nText) *CreateEmployeeBuilder {
@@ -3698,16 +3698,16 @@ func (builder *CreateEmployeeBuilder) WorkStation(workStation *I18nText) *Create
 	return builder
 }
 
-// 工号
+// 工号。企业内在职员工的工号不可重复。
 //
-// 示例值：2845435
+// 示例值：2845435;;**数据校验规则：**;;长度范围：0-255字符
 func (builder *CreateEmployeeBuilder) JobNumber(jobNumber string) *CreateEmployeeBuilder {
 	builder.jobNumber = jobNumber
 	builder.jobNumberSet = true
 	return builder
 }
 
-// 分机号
+// 分机号，最多可输入 99 字。企业内所有员工的分机号不可重复。
 //
 // 示例值：2845435
 func (builder *CreateEmployeeBuilder) ExtensionNumber(extensionNumber string) *CreateEmployeeBuilder {
@@ -3718,7 +3718,7 @@ func (builder *CreateEmployeeBuilder) ExtensionNumber(extensionNumber string) *C
 
 // 入职日期
 //
-// 示例值：2022-10-10
+// 示例值：2022-10-10;;**数据校验规则：**;;长度范围：固定长度：10 个字符，固定格式：“yyyy-mm-dd”
 func (builder *CreateEmployeeBuilder) JoinDate(joinDate string) *CreateEmployeeBuilder {
 	builder.joinDate = joinDate
 	builder.joinDateSet = true
@@ -3727,7 +3727,7 @@ func (builder *CreateEmployeeBuilder) JoinDate(joinDate string) *CreateEmployeeB
 
 // 员工类型
 //
-// 示例值：
+// 示例值：1;;**可选值有**：;<md-enum>;<md-enum-item key="1" >全职</md-enum-item>;<md-enum-item key="2" >实习</md-enum-item>;<md-enum-item key="3" >外包</md-enum-item>;<md-enum-item key="4" >劳务</md-enum-item>;<md-enum-item key="5" >顾问</md-enum-item>;</md-enum>
 func (builder *CreateEmployeeBuilder) EmploymentType(employmentType int) *CreateEmployeeBuilder {
 	builder.employmentType = employmentType
 	builder.employmentTypeSet = true
@@ -3736,7 +3736,7 @@ func (builder *CreateEmployeeBuilder) EmploymentType(employmentType int) *Create
 
 // 员工人事状态
 //
-// 示例值：
+// 示例值：1
 func (builder *CreateEmployeeBuilder) StaffStatus(staffStatus int) *CreateEmployeeBuilder {
 	builder.staffStatus = staffStatus
 	builder.staffStatusSet = true
@@ -4216,7 +4216,7 @@ func NewCreateEmployeeBankAccountOptionBuilder() *CreateEmployeeBankAccountOptio
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *CreateEmployeeBankAccountOptionBuilder) DataSource(dataSource int) *CreateEmployeeBankAccountOptionBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -4233,7 +4233,7 @@ func (builder *CreateEmployeeBankAccountOptionBuilder) Build() *CreateEmployeeBa
 }
 
 type CreateEmployeeOptions struct {
-	GeoName *string `json:"geo_name,omitempty"` // 用户指定geo/unit
+	GeoName *string `json:"geo_name,omitempty"` // 员工的数据驻留地。仅限开通了Multi-Geo的企业可选填，且仅能填入企业数据驻留地列表中的Geo。可通过**获取地理位置列表**接口查询企业开通的Geo，请注意这里需要传入**小写字母**。;<br>需要申请以下权限才能写入：<br><md-perm name="directory:employee.base.geo:write" desc="写入员工数据所在地" support_app_types="custom" tags="">写入员工数据所在地</md-perm>
 
 	HomeUserId *string `json:"home_user_id,omitempty"` // shadow关联的UserID
 
@@ -4243,13 +4243,13 @@ type CreateEmployeeOptions struct {
 
 	DataSource *int `json:"data_source,omitempty"` // 数据来源
 
-	SubscriptionIds []string `json:"subscription_ids,omitempty"` // 席位信息
+	SubscriptionIds []string `json:"subscription_ids,omitempty"` // 分配给员工的席位ID列表。可通过下方接口获取到该租户的可用席位ID，参见[获取席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query)。当在混合license模式下，此字段为必填。;<br>需要申请以下权限才能写入：;<br><md-perm name="directory:employee.base.subscription_ids:write" desc="写入员工席位信息" support_app_types="custom" tags="">写入员工席位信息</md-perm>
 
 	NeedSendNotification *SendNotification `json:"need_send_notification,omitempty"` // 发送通知
 }
 
 type CreateEmployeeOptionsBuilder struct {
-	geoName    string // 用户指定geo/unit
+	geoName    string // 员工的数据驻留地。仅限开通了Multi-Geo的企业可选填，且仅能填入企业数据驻留地列表中的Geo。可通过**获取地理位置列表**接口查询企业开通的Geo，请注意这里需要传入**小写字母**。;<br>需要申请以下权限才能写入：<br><md-perm name="directory:employee.base.geo:write" desc="写入员工数据所在地" support_app_types="custom" tags="">写入员工数据所在地</md-perm>
 	geoNameSet bool
 
 	homeUserId    string // shadow关联的UserID
@@ -4264,7 +4264,7 @@ type CreateEmployeeOptionsBuilder struct {
 	dataSource    int // 数据来源
 	dataSourceSet bool
 
-	subscriptionIds    []string // 席位信息
+	subscriptionIds    []string // 分配给员工的席位ID列表。可通过下方接口获取到该租户的可用席位ID，参见[获取席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query)。当在混合license模式下，此字段为必填。;<br>需要申请以下权限才能写入：;<br><md-perm name="directory:employee.base.subscription_ids:write" desc="写入员工席位信息" support_app_types="custom" tags="">写入员工席位信息</md-perm>
 	subscriptionIdsSet bool
 
 	needSendNotification    *SendNotification // 发送通知
@@ -4276,7 +4276,7 @@ func NewCreateEmployeeOptionsBuilder() *CreateEmployeeOptionsBuilder {
 	return builder
 }
 
-// 用户指定geo/unit
+// 员工的数据驻留地。仅限开通了Multi-Geo的企业可选填，且仅能填入企业数据驻留地列表中的Geo。可通过**获取地理位置列表**接口查询企业开通的Geo，请注意这里需要传入**小写字母**。;<br>需要申请以下权限才能写入：<br><md-perm name="directory:employee.base.geo:write" desc="写入员工数据所在地" support_app_types="custom" tags="">写入员工数据所在地</md-perm>
 //
 // 示例值：cn
 func (builder *CreateEmployeeOptionsBuilder) GeoName(geoName string) *CreateEmployeeOptionsBuilder {
@@ -4314,14 +4314,14 @@ func (builder *CreateEmployeeOptionsBuilder) EnterpriseEmailPassword(enterpriseE
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *CreateEmployeeOptionsBuilder) DataSource(dataSource int) *CreateEmployeeOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
 	return builder
 }
 
-// 席位信息
+// 分配给员工的席位ID列表。可通过下方接口获取到该租户的可用席位ID，参见[获取席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query)。当在混合license模式下，此字段为必填。;<br>需要申请以下权限才能写入：;<br><md-perm name="directory:employee.base.subscription_ids:write" desc="写入员工席位信息" support_app_types="custom" tags="">写入员工席位信息</md-perm>
 //
 // 示例值：
 func (builder *CreateEmployeeOptionsBuilder) SubscriptionIds(subscriptionIds []string) *CreateEmployeeOptionsBuilder {
@@ -4370,13 +4370,13 @@ func (builder *CreateEmployeeOptionsBuilder) Build() *CreateEmployeeOptions {
 }
 
 type CreateEmployeeTypeEnum struct {
-	Content *I18nText `json:"content,omitempty"` // i18n文本
+	Content *I18nText `json:"content,omitempty"` // 部门名称，最多可输入 100 字;
 
 	EnumStatus *string `json:"enum_status,omitempty"` // 枚举状态
 }
 
 type CreateEmployeeTypeEnumBuilder struct {
-	content    *I18nText // i18n文本
+	content    *I18nText // 部门名称，最多可输入 100 字;
 	contentSet bool
 
 	enumStatus    string // 枚举状态
@@ -4388,7 +4388,7 @@ func NewCreateEmployeeTypeEnumBuilder() *CreateEmployeeTypeEnumBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateEmployeeTypeEnumBuilder) Content(content *I18nText) *CreateEmployeeTypeEnumBuilder {
@@ -4434,7 +4434,7 @@ func NewCreateEmployeeTypeEnumOptionsBuilder() *CreateEmployeeTypeEnumOptionsBui
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *CreateEmployeeTypeEnumOptionsBuilder) DataSource(dataSource int) *CreateEmployeeTypeEnumOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -4502,7 +4502,7 @@ func (builder *CreateEnumMetaBuilder) Build() *CreateEnumMeta {
 type CreateGroupSet struct {
 	ExternalId *string `json:"external_id,omitempty"` // 外部ID
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	Type *int `json:"type,omitempty"` // 用户组分组的类型
 
@@ -4513,7 +4513,7 @@ type CreateGroupSetBuilder struct {
 	externalId    string // 外部ID
 	externalIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	type_    int // 用户组分组的类型
@@ -4537,7 +4537,7 @@ func (builder *CreateGroupSetBuilder) ExternalId(externalId string) *CreateGroup
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateGroupSetBuilder) Name(name *I18nText) *CreateGroupSetBuilder {
@@ -4755,19 +4755,19 @@ func (builder *CreateGuestOptionsBuilder) Build() *CreateGuestOptions {
 }
 
 type CreateJobFamily struct {
-	JobFamilyName *I18nText `json:"job_family_name,omitempty"` // i18n文本
+	JobFamilyName *I18nText `json:"job_family_name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
 	ParentId *string `json:"parent_id,omitempty"` // 上级序列
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	ExternalId *string `json:"external_id,omitempty"` // 外部ID
 }
 
 type CreateJobFamilyBuilder struct {
-	jobFamilyName    *I18nText // i18n文本
+	jobFamilyName    *I18nText // 部门名称，最多可输入 100 字;
 	jobFamilyNameSet bool
 
 	isEnabled    bool // 是否启用
@@ -4776,7 +4776,7 @@ type CreateJobFamilyBuilder struct {
 	parentId    string // 上级序列
 	parentIdSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	externalId    string // 外部ID
@@ -4788,7 +4788,7 @@ func NewCreateJobFamilyBuilder() *CreateJobFamilyBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateJobFamilyBuilder) JobFamilyName(jobFamilyName *I18nText) *CreateJobFamilyBuilder {
@@ -4815,7 +4815,7 @@ func (builder *CreateJobFamilyBuilder) ParentId(parentId string) *CreateJobFamil
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateJobFamilyBuilder) Description(description *I18nText) *CreateJobFamilyBuilder {
@@ -4872,7 +4872,7 @@ func NewCreateJobFamilyOptionsBuilder() *CreateJobFamilyOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *CreateJobFamilyOptionsBuilder) DataSource(dataSource int) *CreateJobFamilyOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -4889,19 +4889,19 @@ func (builder *CreateJobFamilyOptionsBuilder) Build() *CreateJobFamilyOptions {
 }
 
 type CreateJobLevel struct {
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
 	Order *string `json:"order,omitempty"` // 排序, 小的在前面
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	ExternalId *string `json:"external_id,omitempty"` // 外部ID
 }
 
 type CreateJobLevelBuilder struct {
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	isEnabled    bool // 是否启用
@@ -4910,7 +4910,7 @@ type CreateJobLevelBuilder struct {
 	order    string // 排序, 小的在前面
 	orderSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	externalId    string // 外部ID
@@ -4922,7 +4922,7 @@ func NewCreateJobLevelBuilder() *CreateJobLevelBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateJobLevelBuilder) Name(name *I18nText) *CreateJobLevelBuilder {
@@ -4949,7 +4949,7 @@ func (builder *CreateJobLevelBuilder) Order(order string) *CreateJobLevelBuilder
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateJobLevelBuilder) Description(description *I18nText) *CreateJobLevelBuilder {
@@ -5006,7 +5006,7 @@ func NewCreateJobLevelOptionsBuilder() *CreateJobLevelOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *CreateJobLevelOptionsBuilder) DataSource(dataSource int) *CreateJobLevelOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -5023,17 +5023,17 @@ func (builder *CreateJobLevelOptionsBuilder) Build() *CreateJobLevelOptions {
 }
 
 type CreateJobTitle struct {
-	JobTitleName *I18nText `json:"job_title_name,omitempty"` // i18n文本
+	JobTitleName *I18nText `json:"job_title_name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
-	Title *I18nText `json:"title,omitempty"` // i18n文本
+	Title *I18nText `json:"title,omitempty"` // 部门名称，最多可输入 100 字;
 
 	JobFamilyId *string `json:"job_family_id,omitempty"` // Deprecated 不再使用，换用JobFamilyIDs
 
 	JobLevelId *string `json:"job_level_id,omitempty"` // Deprecated 不再使用，换用JobLevelIDs
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	JobFamilyIds []string `json:"job_family_ids,omitempty"` // 序列
 
@@ -5043,13 +5043,13 @@ type CreateJobTitle struct {
 }
 
 type CreateJobTitleBuilder struct {
-	jobTitleName    *I18nText // i18n文本
+	jobTitleName    *I18nText // 部门名称，最多可输入 100 字;
 	jobTitleNameSet bool
 
 	isEnabled    bool // 是否启用
 	isEnabledSet bool
 
-	title    *I18nText // i18n文本
+	title    *I18nText // 部门名称，最多可输入 100 字;
 	titleSet bool
 
 	jobFamilyId    string // Deprecated 不再使用，换用JobFamilyIDs
@@ -5058,7 +5058,7 @@ type CreateJobTitleBuilder struct {
 	jobLevelId    string // Deprecated 不再使用，换用JobLevelIDs
 	jobLevelIdSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	jobFamilyIds    []string // 序列
@@ -5076,7 +5076,7 @@ func NewCreateJobTitleBuilder() *CreateJobTitleBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateJobTitleBuilder) JobTitleName(jobTitleName *I18nText) *CreateJobTitleBuilder {
@@ -5094,7 +5094,7 @@ func (builder *CreateJobTitleBuilder) IsEnabled(isEnabled bool) *CreateJobTitleB
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateJobTitleBuilder) Title(title *I18nText) *CreateJobTitleBuilder {
@@ -5121,7 +5121,7 @@ func (builder *CreateJobTitleBuilder) JobLevelId(jobLevelId string) *CreateJobTi
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateJobTitleBuilder) Description(description *I18nText) *CreateJobTitleBuilder {
@@ -5209,7 +5209,7 @@ func NewCreateJobTitleOptionsBuilder() *CreateJobTitleOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *CreateJobTitleOptionsBuilder) DataSource(dataSource int) *CreateJobTitleOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -5226,26 +5226,26 @@ func (builder *CreateJobTitleOptionsBuilder) Build() *CreateJobTitleOptions {
 }
 
 type CreateOrgdimension struct {
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnable *bool `json:"is_enable,omitempty"` // 是否启用
 
-	Order *string `json:"order,omitempty"` // 组织维度排序权重
+	Order *string `json:"order,omitempty"` // 组织维度排序权重。数字小的排序在前，相同权重的按创建时间排序。
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 }
 
 type CreateOrgdimensionBuilder struct {
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	isEnable    bool // 是否启用
 	isEnableSet bool
 
-	order    string // 组织维度排序权重
+	order    string // 组织维度排序权重。数字小的排序在前，相同权重的按创建时间排序。
 	orderSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 }
 
@@ -5254,7 +5254,7 @@ func NewCreateOrgdimensionBuilder() *CreateOrgdimensionBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateOrgdimensionBuilder) Name(name *I18nText) *CreateOrgdimensionBuilder {
@@ -5265,14 +5265,14 @@ func (builder *CreateOrgdimensionBuilder) Name(name *I18nText) *CreateOrgdimensi
 
 // 是否启用
 //
-// 示例值：
+// 示例值：true
 func (builder *CreateOrgdimensionBuilder) IsEnable(isEnable bool) *CreateOrgdimensionBuilder {
 	builder.isEnable = isEnable
 	builder.isEnableSet = true
 	return builder
 }
 
-// 组织维度排序权重
+// 组织维度排序权重。数字小的排序在前，相同权重的按创建时间排序。
 //
 // 示例值：100
 func (builder *CreateOrgdimensionBuilder) Order(order string) *CreateOrgdimensionBuilder {
@@ -5281,7 +5281,7 @@ func (builder *CreateOrgdimensionBuilder) Order(order string) *CreateOrgdimensio
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateOrgdimensionBuilder) Description(description *I18nText) *CreateOrgdimensionBuilder {
@@ -5310,11 +5310,11 @@ func (builder *CreateOrgdimensionBuilder) Build() *CreateOrgdimension {
 }
 
 type CreatePlace struct {
-	PlaceName *I18nText `json:"place_name,omitempty"` // i18n文本
+	PlaceName *I18nText `json:"place_name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	Usages []string `json:"usages,omitempty"` // 地点多用途
 
@@ -5324,13 +5324,13 @@ type CreatePlace struct {
 }
 
 type CreatePlaceBuilder struct {
-	placeName    *I18nText // i18n文本
+	placeName    *I18nText // 部门名称，最多可输入 100 字;
 	placeNameSet bool
 
 	isEnabled    bool // 是否启用
 	isEnabledSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	usages    []string // 地点多用途
@@ -5348,7 +5348,7 @@ func NewCreatePlaceBuilder() *CreatePlaceBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreatePlaceBuilder) PlaceName(placeName *I18nText) *CreatePlaceBuilder {
@@ -5366,7 +5366,7 @@ func (builder *CreatePlaceBuilder) IsEnabled(isEnabled bool) *CreatePlaceBuilder
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreatePlaceBuilder) Description(description *I18nText) *CreatePlaceBuilder {
@@ -5444,7 +5444,7 @@ func NewCreatePlaceOptionsBuilder() *CreatePlaceOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *CreatePlaceOptionsBuilder) DataSource(dataSource int) *CreatePlaceOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -5489,7 +5489,7 @@ type CreateResignedEmployee struct {
 
 	WorkPlaceId *string `json:"work_place_id,omitempty"` // 工作地点
 
-	WorkStation *I18nText `json:"work_station,omitempty"` // i18n文本
+	WorkStation *I18nText `json:"work_station,omitempty"` // 部门名称，最多可输入 100 字;
 
 	JobNumber *string `json:"job_number,omitempty"` // 工号
 
@@ -5593,7 +5593,7 @@ type CreateResignedEmployeeBuilder struct {
 	workPlaceId    string // 工作地点
 	workPlaceIdSet bool
 
-	workStation    *I18nText // i18n文本
+	workStation    *I18nText // 部门名称，最多可输入 100 字;
 	workStationSet bool
 
 	jobNumber    string // 工号
@@ -5745,7 +5745,7 @@ func (builder *CreateResignedEmployeeBuilder) PersonalEmail(personalEmail string
 
 // 性别
 //
-// 示例值：
+// 示例值：1
 func (builder *CreateResignedEmployeeBuilder) Gender(gender int) *CreateResignedEmployeeBuilder {
 	builder.gender = gender
 	builder.genderSet = true
@@ -5815,7 +5815,7 @@ func (builder *CreateResignedEmployeeBuilder) WorkPlaceId(workPlaceId string) *C
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateResignedEmployeeBuilder) WorkStation(workStation *I18nText) *CreateResignedEmployeeBuilder {
@@ -5844,7 +5844,7 @@ func (builder *CreateResignedEmployeeBuilder) JoinDate(joinDate string) *CreateR
 
 // 员工类型
 //
-// 示例值：
+// 示例值：1;;**可选值有**：;<md-enum>;<md-enum-item key="1" >全职</md-enum-item>;<md-enum-item key="2" >实习</md-enum-item>;<md-enum-item key="3" >外包</md-enum-item>;<md-enum-item key="4" >劳务</md-enum-item>;<md-enum-item key="5" >顾问</md-enum-item>;</md-enum>
 func (builder *CreateResignedEmployeeBuilder) EmploymentType(employmentType int) *CreateResignedEmployeeBuilder {
 	builder.employmentType = employmentType
 	builder.employmentTypeSet = true
@@ -6304,7 +6304,7 @@ func (builder *CreateResignedEmployeeOptionsBuilder) EmployeeTraceInfo(employeeT
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *CreateResignedEmployeeOptionsBuilder) DataSource(dataSource int) *CreateResignedEmployeeOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -6360,7 +6360,7 @@ func (builder *CreateSandboxTenantBuilder) Build() *CreateSandboxTenant {
 }
 
 type CreateTenant struct {
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	CreatorInfo *UserInfo `json:"creator_info,omitempty"` // 联系人信息
 
@@ -6390,13 +6390,13 @@ type CreateTenant struct {
 
 	Scale *string `json:"scale,omitempty"` // 企业规模
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	TraceInfo *TenantTraceInfo `json:"trace_info,omitempty"` // 租户创建追溯信息
 }
 
 type CreateTenantBuilder struct {
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	creatorInfo    *UserInfo // 联系人信息
@@ -6441,7 +6441,7 @@ type CreateTenantBuilder struct {
 	scale    string // 企业规模
 	scaleSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	traceInfo    *TenantTraceInfo // 租户创建追溯信息
@@ -6453,7 +6453,7 @@ func NewCreateTenantBuilder() *CreateTenantBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateTenantBuilder) Name(name *I18nText) *CreateTenantBuilder {
@@ -6588,7 +6588,7 @@ func (builder *CreateTenantBuilder) Scale(scale string) *CreateTenantBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CreateTenantBuilder) Description(description *I18nText) *CreateTenantBuilder {
@@ -6718,7 +6718,7 @@ func (builder *CreateTenantOptionBuilder) GeoName(geoName string) *CreateTenantO
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *CreateTenantOptionBuilder) DataSource(dataSource int) *CreateTenantOptionBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -6884,7 +6884,7 @@ type CustomField struct {
 
 	TenantId *string `json:"tenant_id,omitempty"` // 租户ID
 
-	FieldName *I18nText `json:"field_name,omitempty"` // i18n文本
+	FieldName *I18nText `json:"field_name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	FieldKey *string `json:"field_key,omitempty"` // 字段key
 
@@ -6894,7 +6894,7 @@ type CustomField struct {
 
 	EntityType *string `json:"entity_type,omitempty"` // 所属实体对象类型 orm的FieldBelong
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
@@ -6921,7 +6921,7 @@ type CustomFieldBuilder struct {
 	tenantId    string // 租户ID
 	tenantIdSet bool
 
-	fieldName    *I18nText // i18n文本
+	fieldName    *I18nText // 部门名称，最多可输入 100 字;
 	fieldNameSet bool
 
 	fieldKey    string // 字段key
@@ -6936,7 +6936,7 @@ type CustomFieldBuilder struct {
 	entityType    string // 所属实体对象类型 orm的FieldBelong
 	entityTypeSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	isEnabled    bool // 是否启用
@@ -6993,7 +6993,7 @@ func (builder *CustomFieldBuilder) TenantId(tenantId string) *CustomFieldBuilder
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CustomFieldBuilder) FieldName(fieldName *I18nText) *CustomFieldBuilder {
@@ -7038,7 +7038,7 @@ func (builder *CustomFieldBuilder) EntityType(entityType string) *CustomFieldBui
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CustomFieldBuilder) Description(description *I18nText) *CustomFieldBuilder {
@@ -7179,11 +7179,11 @@ func (builder *CustomFieldBuilder) Build() *CustomField {
 type CustomFieldValue struct {
 	FieldType *string `json:"field_type,omitempty"` // 自定义字段类型
 
-	TextValue *I18nText `json:"text_value,omitempty"` // i18n文本
+	TextValue *I18nText `json:"text_value,omitempty"` // 部门名称，最多可输入 100 字;
 
 	UrlValue *UrlValue `json:"url_value,omitempty"` // 网页链接字段值
 
-	EnumValue *EnumValue `json:"enum_value,omitempty"` // 枚举
+	EnumValue *EnumValue `json:"enum_value,omitempty"` // 枚举字段值
 
 	UserValues []*UserValue `json:"user_values,omitempty"` // 人员字段值
 
@@ -7202,13 +7202,13 @@ type CustomFieldValueBuilder struct {
 	fieldType    string // 自定义字段类型
 	fieldTypeSet bool
 
-	textValue    *I18nText // i18n文本
+	textValue    *I18nText // 部门名称，最多可输入 100 字;
 	textValueSet bool
 
 	urlValue    *UrlValue // 网页链接字段值
 	urlValueSet bool
 
-	enumValue    *EnumValue // 枚举
+	enumValue    *EnumValue // 枚举字段值
 	enumValueSet bool
 
 	userValues    []*UserValue // 人员字段值
@@ -7237,14 +7237,14 @@ func NewCustomFieldValueBuilder() *CustomFieldValueBuilder {
 
 // 自定义字段类型
 //
-// 示例值：
+// 示例值：1
 func (builder *CustomFieldValueBuilder) FieldType(fieldType string) *CustomFieldValueBuilder {
 	builder.fieldType = fieldType
 	builder.fieldTypeSet = true
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *CustomFieldValueBuilder) TextValue(textValue *I18nText) *CustomFieldValueBuilder {
@@ -7262,7 +7262,7 @@ func (builder *CustomFieldValueBuilder) UrlValue(urlValue *UrlValue) *CustomFiel
 	return builder
 }
 
-// 枚举
+// 枚举字段值
 //
 // 示例值：
 func (builder *CustomFieldValueBuilder) EnumValue(enumValue *EnumValue) *CustomFieldValueBuilder {
@@ -7366,13 +7366,13 @@ func (builder *CustomFieldValueBuilder) Build() *CustomFieldValue {
 }
 
 type DeleteEmployeeOptions struct {
-	ResignedEmployeeResourceReceiver *ResignedUserResouceReceiver `json:"resigned_employee_resource_receiver,omitempty"` // 资源转移方式
+	ResignedEmployeeResourceReceiver *ResignedUserResouceReceiver `json:"resigned_employee_resource_receiver,omitempty"` // 离职员工的资源转移方式。
 
 	Operator *Operator `json:"operator,omitempty"` // 操作人
 }
 
 type DeleteEmployeeOptionsBuilder struct {
-	resignedEmployeeResourceReceiver    *ResignedUserResouceReceiver // 资源转移方式
+	resignedEmployeeResourceReceiver    *ResignedUserResouceReceiver // 离职员工的资源转移方式。
 	resignedEmployeeResourceReceiverSet bool
 
 	operator    *Operator // 操作人
@@ -7384,7 +7384,7 @@ func NewDeleteEmployeeOptionsBuilder() *DeleteEmployeeOptionsBuilder {
 	return builder
 }
 
-// 资源转移方式
+// 离职员工的资源转移方式。
 //
 // 示例值：
 func (builder *DeleteEmployeeOptionsBuilder) ResignedEmployeeResourceReceiver(resignedEmployeeResourceReceiver *ResignedUserResouceReceiver) *DeleteEmployeeOptionsBuilder {
@@ -7429,7 +7429,7 @@ func NewDeleteEmployeeTypeEnumOptionsBuilder() *DeleteEmployeeTypeEnumOptionsBui
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *DeleteEmployeeTypeEnumOptionsBuilder) DataSource(dataSource int) *DeleteEmployeeTypeEnumOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -7446,7 +7446,7 @@ func (builder *DeleteEmployeeTypeEnumOptionsBuilder) Build() *DeleteEmployeeType
 }
 
 type Department struct {
-	DepartmentId *string `json:"department_id,omitempty"` // 部门ID
+	DepartmentId *string `json:"department_id,omitempty"` // 部门ID,部门ID类型为 open_department_id，了解部门 ID 可参见[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)。
 
 	TenantId *string `json:"tenant_id,omitempty"` // 租户ID
 
@@ -7454,7 +7454,7 @@ type Department struct {
 
 	EncryptedId *string `json:"encrypted_id,omitempty"` // 加密id
 
-	DepartmentCount *DepartmentCount `json:"department_count,omitempty"` // 部门计数
+	DepartmentCount *DepartmentCount `json:"department_count,omitempty"` // 部门成员计数与子部门计数。计算结果可能会有延迟
 
 	HasChild *bool `json:"has_child,omitempty"` // 是否有子部门
 
@@ -7462,19 +7462,19 @@ type Department struct {
 
 	Hrbps []string `json:"hrbps,omitempty"` // HRBP
 
-	ParentDepartmentId *string `json:"parent_department_id,omitempty"` // 父部门ID
+	ParentDepartmentId *string `json:"parent_department_id,omitempty"` // 父部门ID,与department_id_type类型保持一致
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	DeleteStatus *int `json:"delete_status,omitempty"` // 部门状态
 
 	EnabledStatus *bool `json:"enabled_status,omitempty"` // 是否启用
 
-	OrderWeight *string `json:"order_weight,omitempty"` // 部门排序权重
+	OrderWeight *string `json:"order_weight,omitempty"` // 在上级部门下的排序权重，返回结果将按照order_weight的值进行升序排列。
 
 	Type *int `json:"type,omitempty"` // 部门类型
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	CreateTime *string `json:"create_time,omitempty"` // 创建时间
 
@@ -7486,7 +7486,7 @@ type Department struct {
 
 	IsRoot *bool `json:"is_root,omitempty"` // 是否根部门
 
-	CustomFieldValues []*CustomFieldValue `json:"custom_field_values,omitempty"` // 自定义字段
+	CustomFieldValues []*CustomFieldValue `json:"custom_field_values,omitempty"` // 部门自定义字段值
 
 	DepartmentPaths []string `json:"department_paths,omitempty"` // 部门路径ID
 
@@ -7498,7 +7498,7 @@ type Department struct {
 }
 
 type DepartmentBuilder struct {
-	departmentId    string // 部门ID
+	departmentId    string // 部门ID,部门ID类型为 open_department_id，了解部门 ID 可参见[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)。
 	departmentIdSet bool
 
 	tenantId    string // 租户ID
@@ -7510,7 +7510,7 @@ type DepartmentBuilder struct {
 	encryptedId    string // 加密id
 	encryptedIdSet bool
 
-	departmentCount    *DepartmentCount // 部门计数
+	departmentCount    *DepartmentCount // 部门成员计数与子部门计数。计算结果可能会有延迟
 	departmentCountSet bool
 
 	hasChild    bool // 是否有子部门
@@ -7522,10 +7522,10 @@ type DepartmentBuilder struct {
 	hrbps    []string // HRBP
 	hrbpsSet bool
 
-	parentDepartmentId    string // 父部门ID
+	parentDepartmentId    string // 父部门ID,与department_id_type类型保持一致
 	parentDepartmentIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	deleteStatus    int // 部门状态
@@ -7534,13 +7534,13 @@ type DepartmentBuilder struct {
 	enabledStatus    bool // 是否启用
 	enabledStatusSet bool
 
-	orderWeight    string // 部门排序权重
+	orderWeight    string // 在上级部门下的排序权重，返回结果将按照order_weight的值进行升序排列。
 	orderWeightSet bool
 
 	type_    int // 部门类型
 	type_Set bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	createTime    string // 创建时间
@@ -7558,7 +7558,7 @@ type DepartmentBuilder struct {
 	isRoot    bool // 是否根部门
 	isRootSet bool
 
-	customFieldValues    []*CustomFieldValue // 自定义字段
+	customFieldValues    []*CustomFieldValue // 部门自定义字段值
 	customFieldValuesSet bool
 
 	departmentPaths    []string // 部门路径ID
@@ -7579,7 +7579,7 @@ func NewDepartmentBuilder() *DepartmentBuilder {
 	return builder
 }
 
-// 部门ID
+// 部门ID,部门ID类型为 open_department_id，了解部门 ID 可参见[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)。
 //
 // 示例值：h12921
 func (builder *DepartmentBuilder) DepartmentId(departmentId string) *DepartmentBuilder {
@@ -7615,7 +7615,7 @@ func (builder *DepartmentBuilder) EncryptedId(encryptedId string) *DepartmentBui
 	return builder
 }
 
-// 部门计数
+// 部门成员计数与子部门计数。计算结果可能会有延迟
 //
 // 示例值：
 func (builder *DepartmentBuilder) DepartmentCount(departmentCount *DepartmentCount) *DepartmentBuilder {
@@ -7651,7 +7651,7 @@ func (builder *DepartmentBuilder) Hrbps(hrbps []string) *DepartmentBuilder {
 	return builder
 }
 
-// 父部门ID
+// 父部门ID,与department_id_type类型保持一致
 //
 // 示例值：h12921
 func (builder *DepartmentBuilder) ParentDepartmentId(parentDepartmentId string) *DepartmentBuilder {
@@ -7660,7 +7660,7 @@ func (builder *DepartmentBuilder) ParentDepartmentId(parentDepartmentId string) 
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *DepartmentBuilder) Name(name *I18nText) *DepartmentBuilder {
@@ -7687,7 +7687,7 @@ func (builder *DepartmentBuilder) EnabledStatus(enabledStatus bool) *DepartmentB
 	return builder
 }
 
-// 部门排序权重
+// 在上级部门下的排序权重，返回结果将按照order_weight的值进行升序排列。
 //
 // 示例值：无
 func (builder *DepartmentBuilder) OrderWeight(orderWeight string) *DepartmentBuilder {
@@ -7705,7 +7705,7 @@ func (builder *DepartmentBuilder) Type(type_ int) *DepartmentBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：无
 func (builder *DepartmentBuilder) Description(description *I18nText) *DepartmentBuilder {
@@ -7759,7 +7759,7 @@ func (builder *DepartmentBuilder) IsRoot(isRoot bool) *DepartmentBuilder {
 	return builder
 }
 
-// 自定义字段
+// 部门自定义字段值
 //
 // 示例值：
 func (builder *DepartmentBuilder) CustomFieldValues(customFieldValues []*CustomFieldValue) *DepartmentBuilder {
@@ -7788,7 +7788,7 @@ func (builder *DepartmentBuilder) DepartmentPathInfos(departmentPathInfos []*Dep
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *DepartmentBuilder) DataSource(dataSource int) *DepartmentBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -7902,16 +7902,16 @@ func (builder *DepartmentBuilder) Build() *Department {
 }
 
 type DepartmentBaseInfo struct {
-	DepartmentId *string `json:"department_id,omitempty"` // 部门ID
+	DepartmentId *string `json:"department_id,omitempty"` // 部门ID，与department_id_type类型保持一致
 
-	DepartmentName *I18nText `json:"department_name,omitempty"` // i18n文本
+	DepartmentName *I18nText `json:"department_name,omitempty"` // 部门名称，最多可输入 100 字;
 }
 
 type DepartmentBaseInfoBuilder struct {
-	departmentId    string // 部门ID
+	departmentId    string // 部门ID，与department_id_type类型保持一致
 	departmentIdSet bool
 
-	departmentName    *I18nText // i18n文本
+	departmentName    *I18nText // 部门名称，最多可输入 100 字;
 	departmentNameSet bool
 }
 
@@ -7920,7 +7920,7 @@ func NewDepartmentBaseInfoBuilder() *DepartmentBaseInfoBuilder {
 	return builder
 }
 
-// 部门ID
+// 部门ID，与department_id_type类型保持一致
 //
 // 示例值：1
 func (builder *DepartmentBaseInfoBuilder) DepartmentId(departmentId string) *DepartmentBaseInfoBuilder {
@@ -7929,7 +7929,7 @@ func (builder *DepartmentBaseInfoBuilder) DepartmentId(departmentId string) *Dep
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *DepartmentBaseInfoBuilder) DepartmentName(departmentName *I18nText) *DepartmentBaseInfoBuilder {
@@ -7951,31 +7951,31 @@ func (builder *DepartmentBaseInfoBuilder) Build() *DepartmentBaseInfo {
 }
 
 type DepartmentCount struct {
-	RecursiveMembersCount *string `json:"recursive_members_count,omitempty"` // 递归成员数量
+	RecursiveMembersCount *string `json:"recursive_members_count,omitempty"` // 递归成员数量;;单位：个
 
-	DirectMembersCount *string `json:"direct_members_count,omitempty"` // 直属成员数量
+	DirectMembersCount *string `json:"direct_members_count,omitempty"` // 直属成员数量;;单位：个
 
-	RecursiveMembersCountExcludeLeaders *string `json:"recursive_members_count_exclude_leaders,omitempty"` // 递归成员数量(不含leader)
+	RecursiveMembersCountExcludeLeaders *string `json:"recursive_members_count_exclude_leaders,omitempty"` // 递归成员数量(不含leader);;单位：个
 
-	RecursiveDepartmentsCount *string `json:"recursive_departments_count,omitempty"` // 递归子部门数量
+	RecursiveDepartmentsCount *string `json:"recursive_departments_count,omitempty"` // 递归子部门数量;;单位：个
 
-	DirectDepartmentsCount *string `json:"direct_departments_count,omitempty"` // 直属子部门数量
+	DirectDepartmentsCount *string `json:"direct_departments_count,omitempty"` // 直属子部门数量;;单位：个
 }
 
 type DepartmentCountBuilder struct {
-	recursiveMembersCount    string // 递归成员数量
+	recursiveMembersCount    string // 递归成员数量;;单位：个
 	recursiveMembersCountSet bool
 
-	directMembersCount    string // 直属成员数量
+	directMembersCount    string // 直属成员数量;;单位：个
 	directMembersCountSet bool
 
-	recursiveMembersCountExcludeLeaders    string // 递归成员数量(不含leader)
+	recursiveMembersCountExcludeLeaders    string // 递归成员数量(不含leader);;单位：个
 	recursiveMembersCountExcludeLeadersSet bool
 
-	recursiveDepartmentsCount    string // 递归子部门数量
+	recursiveDepartmentsCount    string // 递归子部门数量;;单位：个
 	recursiveDepartmentsCountSet bool
 
-	directDepartmentsCount    string // 直属子部门数量
+	directDepartmentsCount    string // 直属子部门数量;;单位：个
 	directDepartmentsCountSet bool
 }
 
@@ -7984,16 +7984,16 @@ func NewDepartmentCountBuilder() *DepartmentCountBuilder {
 	return builder
 }
 
-// 递归成员数量
+// 递归成员数量;;单位：个
 //
-// 示例值：100
+// 示例值：200
 func (builder *DepartmentCountBuilder) RecursiveMembersCount(recursiveMembersCount string) *DepartmentCountBuilder {
 	builder.recursiveMembersCount = recursiveMembersCount
 	builder.recursiveMembersCountSet = true
 	return builder
 }
 
-// 直属成员数量
+// 直属成员数量;;单位：个
 //
 // 示例值：100
 func (builder *DepartmentCountBuilder) DirectMembersCount(directMembersCount string) *DepartmentCountBuilder {
@@ -8002,7 +8002,7 @@ func (builder *DepartmentCountBuilder) DirectMembersCount(directMembersCount str
 	return builder
 }
 
-// 递归成员数量(不含leader)
+// 递归成员数量(不含leader);;单位：个
 //
 // 示例值：100
 func (builder *DepartmentCountBuilder) RecursiveMembersCountExcludeLeaders(recursiveMembersCountExcludeLeaders string) *DepartmentCountBuilder {
@@ -8011,7 +8011,7 @@ func (builder *DepartmentCountBuilder) RecursiveMembersCountExcludeLeaders(recur
 	return builder
 }
 
-// 递归子部门数量
+// 递归子部门数量;;单位：个
 //
 // 示例值：100
 func (builder *DepartmentCountBuilder) RecursiveDepartmentsCount(recursiveDepartmentsCount string) *DepartmentCountBuilder {
@@ -8020,7 +8020,7 @@ func (builder *DepartmentCountBuilder) RecursiveDepartmentsCount(recursiveDepart
 	return builder
 }
 
-// 直属子部门数量
+// 直属子部门数量;;单位：个
 //
 // 示例值：100
 func (builder *DepartmentCountBuilder) DirectDepartmentsCount(directDepartmentsCount string) *DepartmentCountBuilder {
@@ -8188,8 +8188,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -8197,8 +8195,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -8534,7 +8530,7 @@ func (builder *DependentBuilder) Build() *Dependent {
 type Education struct {
 	Id *string `json:"id,omitempty"` // ID -- 废弃
 
-	School *I18nText `json:"school,omitempty"` // i18n文本
+	School *I18nText `json:"school,omitempty"` // 部门名称，最多可输入 100 字;
 
 	LevelOfEducation *string `json:"level_of_education,omitempty"` // 学历
 
@@ -8544,7 +8540,7 @@ type Education struct {
 
 	ExpectedEndDate *string `json:"expected_end_date,omitempty"` // 预计结束日期
 
-	FieldOfStudy *I18nText `json:"field_of_study,omitempty"` // i18n文本
+	FieldOfStudy *I18nText `json:"field_of_study,omitempty"` // 部门名称，最多可输入 100 字;
 
 	Degree *string `json:"degree,omitempty"` // 学位
 
@@ -8561,7 +8557,7 @@ type EducationBuilder struct {
 	id    string // ID -- 废弃
 	idSet bool
 
-	school    *I18nText // i18n文本
+	school    *I18nText // 部门名称，最多可输入 100 字;
 	schoolSet bool
 
 	levelOfEducation    string // 学历
@@ -8576,7 +8572,7 @@ type EducationBuilder struct {
 	expectedEndDate    string // 预计结束日期
 	expectedEndDateSet bool
 
-	fieldOfStudy    *I18nText // i18n文本
+	fieldOfStudy    *I18nText // 部门名称，最多可输入 100 字;
 	fieldOfStudySet bool
 
 	degree    string // 学位
@@ -8609,7 +8605,7 @@ func (builder *EducationBuilder) Id(id string) *EducationBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：无
 func (builder *EducationBuilder) School(school *I18nText) *EducationBuilder {
@@ -8654,7 +8650,7 @@ func (builder *EducationBuilder) ExpectedEndDate(expectedEndDate string) *Educat
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：无
 func (builder *EducationBuilder) FieldOfStudy(fieldOfStudy *I18nText) *EducationBuilder {
@@ -8862,7 +8858,7 @@ func (builder *EmergencyContactBuilder) Build() *EmergencyContact {
 }
 
 type EmployeeBaseEntity struct {
-	EmployeeId *string `json:"employee_id,omitempty"` // EmployeeID 和UserID一致
+	EmployeeId *string `json:"employee_id,omitempty"` // 用户的open_id,ID类型参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 
 	UserId *string `json:"user_id,omitempty"` // UserID
 
@@ -8872,11 +8868,11 @@ type EmployeeBaseEntity struct {
 
 	Mobile *string `json:"mobile,omitempty"` // 手机号
 
-	Email *string `json:"email,omitempty"` // 登录邮箱
+	Email *string `json:"email,omitempty"` // 用户的联系邮箱
 
 	PersonalEmail *string `json:"personal_email,omitempty"` // 个人邮箱
 
-	EnterpriseEmail *string `json:"enterprise_email,omitempty"` // 企业邮箱
+	EnterpriseEmail *string `json:"enterprise_email,omitempty"` // 员工的企业邮箱
 
 	Gender *int `json:"gender,omitempty"` // 性别
 
@@ -8906,9 +8902,9 @@ type EmployeeBaseEntity struct {
 
 	IsResigned *bool `json:"is_resigned,omitempty"` // 是否离职
 
-	LeaderId *string `json:"leader_id,omitempty"` // 直属上级ID
+	LeaderId *string `json:"leader_id,omitempty"` // 直属上级的用户open_id，了解用户 ID 可参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 
-	DottedLineLeaderIds []string `json:"dotted_line_leader_ids,omitempty"` // 虚线上级ID
+	DottedLineLeaderIds []string `json:"dotted_line_leader_ids,omitempty"` // 虚线上级的用户open_id，了解用户 ID 可参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 
 	IsPrimaryAdmin *bool `json:"is_primary_admin,omitempty"` // 是否租户超级管理员
 
@@ -8916,7 +8912,7 @@ type EmployeeBaseEntity struct {
 
 	UpdateTime *string `json:"update_time,omitempty"` // 更新时间
 
-	EnterpriseEmailAliases []string `json:"enterprise_email_aliases,omitempty"` // 企业邮箱别名
+	EnterpriseEmailAliases []string `json:"enterprise_email_aliases,omitempty"` // 员工的企业邮箱别名。当成员希望针对不同人使用不同的邮箱地址进行邮件往来时，可为其企业邮箱添加别名。添加后，成员可使用别名发送邮件，也可接受发送至别名的邮件
 
 	CustomFieldValues []*CustomFieldValue `json:"custom_field_values,omitempty"` // 自定义字段值
 
@@ -8932,9 +8928,9 @@ type EmployeeBaseEntity struct {
 
 	IsRegistered *bool `json:"is_registered,omitempty"` // 是否激活过
 
-	DepartmentPathInfos [][]*DepartmentBaseInfo `json:"department_path_infos,omitempty"` // 员工部门全路径节点 本字段不含根部门信息，部门顺序为父部门->当前部门 例如：三级部门为员工当前部门[[DepartmentBaseInfo{1,一级部门},DepartmentBaseInfo{2,二级部门}, DepartmentBaseInfo{3,三级部门}]]
+	DepartmentPathInfos [][]*DepartmentBaseInfo `json:"department_path_infos,omitempty"` // 全部直属部门对应的全路径。排列顺序为根部门到末级部门<br>对应结构;``` json;[; /*所属部门A相关部门路径*/; [; {/*根部门*/},; {/*A的父部门*/},; {; "department_id": "abcdefg",; "i18n_text": {; "default_value": "A",; "i18n_value": {; "zh_cn": "A cn name",; "en_us": "A en name"; }; }; }; ];];```
 
-	ResignTime *string `json:"resign_time,omitempty"` // 离职时间 管理后台进行离职操作的时间，系统自动生成，无法写入
+	ResignTime *string `json:"resign_time,omitempty"` // 离职时间
 
 	ResignedUserDepartmentPath map[string][]string `json:"resigned_user_department_path,omitempty"` // 离职用户离职前部门路径ID map<直属部门ID, 部门全路径ID集合且部门从大到小> 例如：{1, []int64{4,3,2,1}}，部门已删除则不返回
 
@@ -8942,7 +8938,7 @@ type EmployeeBaseEntity struct {
 
 	ResignedDepartments []*Department `json:"resigned_departments,omitempty"` // 离职用户离职前部门信息，部门可能已删除，如需过滤请通过查询DeleteStatus进行过滤
 
-	Avatar *ImageLink `json:"avatar,omitempty"` // 头像url
+	Avatar *ImageLink `json:"avatar,omitempty"` // 员工的头像url
 
 	BackgroundImage *string `json:"background_image,omitempty"` // 自定义背景图 url
 
@@ -8950,9 +8946,9 @@ type EmployeeBaseEntity struct {
 
 	DataSource *int `json:"data_source,omitempty"` // 数据来源
 
-	GeoName *string `json:"geo_name,omitempty"` // 员工Geo
+	GeoName *string `json:"geo_name,omitempty"` // 员工数据驻留地
 
-	SubscriptionIds []int64 `json:"subscription_ids,omitempty"` // 员工license
+	SubscriptionIds []int64 `json:"subscription_ids,omitempty"` // 分配给员工的席位ID列表。
 
 	VirtualOrgInfos []*UserVirtualOrgInfo `json:"virtual_org_infos,omitempty"` // 虚拟组织信息
 
@@ -8960,7 +8956,7 @@ type EmployeeBaseEntity struct {
 }
 
 type EmployeeBaseEntityBuilder struct {
-	employeeId    string // EmployeeID 和UserID一致
+	employeeId    string // 用户的open_id,ID类型参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	employeeIdSet bool
 
 	userId    string // UserID
@@ -8975,13 +8971,13 @@ type EmployeeBaseEntityBuilder struct {
 	mobile    string // 手机号
 	mobileSet bool
 
-	email    string // 登录邮箱
+	email    string // 用户的联系邮箱
 	emailSet bool
 
 	personalEmail    string // 个人邮箱
 	personalEmailSet bool
 
-	enterpriseEmail    string // 企业邮箱
+	enterpriseEmail    string // 员工的企业邮箱
 	enterpriseEmailSet bool
 
 	gender    int // 性别
@@ -9026,10 +9022,10 @@ type EmployeeBaseEntityBuilder struct {
 	isResigned    bool // 是否离职
 	isResignedSet bool
 
-	leaderId    string // 直属上级ID
+	leaderId    string // 直属上级的用户open_id，了解用户 ID 可参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 	leaderIdSet bool
 
-	dottedLineLeaderIds    []string // 虚线上级ID
+	dottedLineLeaderIds    []string // 虚线上级的用户open_id，了解用户 ID 可参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 	dottedLineLeaderIdsSet bool
 
 	isPrimaryAdmin    bool // 是否租户超级管理员
@@ -9041,7 +9037,7 @@ type EmployeeBaseEntityBuilder struct {
 	updateTime    string // 更新时间
 	updateTimeSet bool
 
-	enterpriseEmailAliases    []string // 企业邮箱别名
+	enterpriseEmailAliases    []string // 员工的企业邮箱别名。当成员希望针对不同人使用不同的邮箱地址进行邮件往来时，可为其企业邮箱添加别名。添加后，成员可使用别名发送邮件，也可接受发送至别名的邮件
 	enterpriseEmailAliasesSet bool
 
 	customFieldValues    []*CustomFieldValue // 自定义字段值
@@ -9065,10 +9061,10 @@ type EmployeeBaseEntityBuilder struct {
 	isRegistered    bool // 是否激活过
 	isRegisteredSet bool
 
-	departmentPathInfos    [][]*DepartmentBaseInfo // 员工部门全路径节点 本字段不含根部门信息，部门顺序为父部门->当前部门 例如：三级部门为员工当前部门[[DepartmentBaseInfo{1,一级部门},DepartmentBaseInfo{2,二级部门}, DepartmentBaseInfo{3,三级部门}]]
+	departmentPathInfos    [][]*DepartmentBaseInfo // 全部直属部门对应的全路径。排列顺序为根部门到末级部门<br>对应结构;``` json;[; /*所属部门A相关部门路径*/; [; {/*根部门*/},; {/*A的父部门*/},; {; "department_id": "abcdefg",; "i18n_text": {; "default_value": "A",; "i18n_value": {; "zh_cn": "A cn name",; "en_us": "A en name"; }; }; }; ];];```
 	departmentPathInfosSet bool
 
-	resignTime    string // 离职时间 管理后台进行离职操作的时间，系统自动生成，无法写入
+	resignTime    string // 离职时间
 	resignTimeSet bool
 
 	resignedUserDepartmentPath    map[string][]string // 离职用户离职前部门路径ID map<直属部门ID, 部门全路径ID集合且部门从大到小> 例如：{1, []int64{4,3,2,1}}，部门已删除则不返回
@@ -9080,7 +9076,7 @@ type EmployeeBaseEntityBuilder struct {
 	resignedDepartments    []*Department // 离职用户离职前部门信息，部门可能已删除，如需过滤请通过查询DeleteStatus进行过滤
 	resignedDepartmentsSet bool
 
-	avatar    *ImageLink // 头像url
+	avatar    *ImageLink // 员工的头像url
 	avatarSet bool
 
 	backgroundImage    string // 自定义背景图 url
@@ -9092,10 +9088,10 @@ type EmployeeBaseEntityBuilder struct {
 	dataSource    int // 数据来源
 	dataSourceSet bool
 
-	geoName    string // 员工Geo
+	geoName    string // 员工数据驻留地
 	geoNameSet bool
 
-	subscriptionIds    []int64 // 员工license
+	subscriptionIds    []int64 // 分配给员工的席位ID列表。
 	subscriptionIdsSet bool
 
 	virtualOrgInfos    []*UserVirtualOrgInfo // 虚拟组织信息
@@ -9110,7 +9106,7 @@ func NewEmployeeBaseEntityBuilder() *EmployeeBaseEntityBuilder {
 	return builder
 }
 
-// EmployeeID 和UserID一致
+// 用户的open_id,ID类型参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 //
 // 示例值：sddasdeqwe
 func (builder *EmployeeBaseEntityBuilder) EmployeeId(employeeId string) *EmployeeBaseEntityBuilder {
@@ -9148,16 +9144,16 @@ func (builder *EmployeeBaseEntityBuilder) Name(name *Name) *EmployeeBaseEntityBu
 
 // 手机号
 //
-// 示例值：13011111111 或 +8613011111111
+// 示例值：+8613011111111
 func (builder *EmployeeBaseEntityBuilder) Mobile(mobile string) *EmployeeBaseEntityBuilder {
 	builder.mobile = mobile
 	builder.mobileSet = true
 	return builder
 }
 
-// 登录邮箱
+// 用户的联系邮箱
 //
-// 示例值：zhangsan@gmail.com
+// 示例值：zhangsan@company.com
 func (builder *EmployeeBaseEntityBuilder) Email(email string) *EmployeeBaseEntityBuilder {
 	builder.email = email
 	builder.emailSet = true
@@ -9173,9 +9169,9 @@ func (builder *EmployeeBaseEntityBuilder) PersonalEmail(personalEmail string) *E
 	return builder
 }
 
-// 企业邮箱
+// 员工的企业邮箱
 //
-// 示例值：zhangsan@gmail.com
+// 示例值：zhangsan@company.com
 func (builder *EmployeeBaseEntityBuilder) EnterpriseEmail(enterpriseEmail string) *EmployeeBaseEntityBuilder {
 	builder.enterpriseEmail = enterpriseEmail
 	builder.enterpriseEmailSet = true
@@ -9308,7 +9304,7 @@ func (builder *EmployeeBaseEntityBuilder) IsResigned(isResigned bool) *EmployeeB
 	return builder
 }
 
-// 直属上级ID
+// 直属上级的用户open_id，了解用户 ID 可参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 //
 // 示例值：uyg77nx
 func (builder *EmployeeBaseEntityBuilder) LeaderId(leaderId string) *EmployeeBaseEntityBuilder {
@@ -9317,7 +9313,7 @@ func (builder *EmployeeBaseEntityBuilder) LeaderId(leaderId string) *EmployeeBas
 	return builder
 }
 
-// 虚线上级ID
+// 虚线上级的用户open_id，了解用户 ID 可参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 //
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) DottedLineLeaderIds(dottedLineLeaderIds []string) *EmployeeBaseEntityBuilder {
@@ -9353,7 +9349,7 @@ func (builder *EmployeeBaseEntityBuilder) UpdateTime(updateTime string) *Employe
 	return builder
 }
 
-// 企业邮箱别名
+// 员工的企业邮箱别名。当成员希望针对不同人使用不同的邮箱地址进行邮件往来时，可为其企业邮箱添加别名。添加后，成员可使用别名发送邮件，也可接受发送至别名的邮件
 //
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) EnterpriseEmailAliases(enterpriseEmailAliases []string) *EmployeeBaseEntityBuilder {
@@ -9425,7 +9421,7 @@ func (builder *EmployeeBaseEntityBuilder) IsRegistered(isRegistered bool) *Emplo
 	return builder
 }
 
-// 员工部门全路径节点 本字段不含根部门信息，部门顺序为父部门->当前部门 例如：三级部门为员工当前部门[[DepartmentBaseInfo{1,一级部门},DepartmentBaseInfo{2,二级部门}, DepartmentBaseInfo{3,三级部门}]]
+// 全部直属部门对应的全路径。排列顺序为根部门到末级部门<br>对应结构;``` json;[; /*所属部门A相关部门路径*/; [; {/*根部门*/},; {/*A的父部门*/},; {; "department_id": "abcdefg",; "i18n_text": {; "default_value": "A",; "i18n_value": {; "zh_cn": "A cn name",; "en_us": "A en name"; }; }; }; ];];```
 //
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) DepartmentPathInfos(departmentPathInfos [][]*DepartmentBaseInfo) *EmployeeBaseEntityBuilder {
@@ -9434,9 +9430,9 @@ func (builder *EmployeeBaseEntityBuilder) DepartmentPathInfos(departmentPathInfo
 	return builder
 }
 
-// 离职时间 管理后台进行离职操作的时间，系统自动生成，无法写入
+// 离职时间
 //
-// 示例值：1
+// 示例值：2023-10-01
 func (builder *EmployeeBaseEntityBuilder) ResignTime(resignTime string) *EmployeeBaseEntityBuilder {
 	builder.resignTime = resignTime
 	builder.resignTimeSet = true
@@ -9470,7 +9466,7 @@ func (builder *EmployeeBaseEntityBuilder) ResignedDepartments(resignedDepartment
 	return builder
 }
 
-// 头像url
+// 员工的头像url
 //
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) Avatar(avatar *ImageLink) *EmployeeBaseEntityBuilder {
@@ -9499,23 +9495,23 @@ func (builder *EmployeeBaseEntityBuilder) IsAdmin(isAdmin bool) *EmployeeBaseEnt
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *EmployeeBaseEntityBuilder) DataSource(dataSource int) *EmployeeBaseEntityBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
 	return builder
 }
 
-// 员工Geo
+// 员工数据驻留地
 //
-// 示例值：boe
+// 示例值：china
 func (builder *EmployeeBaseEntityBuilder) GeoName(geoName string) *EmployeeBaseEntityBuilder {
 	builder.geoName = geoName
 	builder.geoNameSet = true
 	return builder
 }
 
-// 员工license
+// 分配给员工的席位ID列表。
 //
 // 示例值：
 func (builder *EmployeeBaseEntityBuilder) SubscriptionIds(subscriptionIds []int64) *EmployeeBaseEntityBuilder {
@@ -10460,7 +10456,7 @@ func NewEmployeeStatusFilterBuilder() *EmployeeStatusFilterBuilder {
 
 // 用户雇员状态
 //
-// 示例值：
+// 示例值：1
 func (builder *EmployeeStatusFilterBuilder) StaffStatus(staffStatus int) *EmployeeStatusFilterBuilder {
 	builder.staffStatus = staffStatus
 	builder.staffStatusSet = true
@@ -10595,7 +10591,7 @@ func (builder *EmployeeTraceInfoBuilder) Build() *EmployeeTraceInfo {
 type EmployeeTypeEnum struct {
 	EnumId *string `json:"enum_id,omitempty"` // 枚举id
 
-	Content *I18nText `json:"content,omitempty"` // i18n文本
+	Content *I18nText `json:"content,omitempty"` // 部门名称，最多可输入 100 字;
 
 	EnumValue *string `json:"enum_value,omitempty"` // 枚举值
 
@@ -10610,7 +10606,7 @@ type EmployeeTypeEnumBuilder struct {
 	enumId    string // 枚举id
 	enumIdSet bool
 
-	content    *I18nText // i18n文本
+	content    *I18nText // 部门名称，最多可输入 100 字;
 	contentSet bool
 
 	enumValue    string // 枚举值
@@ -10640,7 +10636,7 @@ func (builder *EmployeeTypeEnumBuilder) EnumId(enumId string) *EmployeeTypeEnumB
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *EmployeeTypeEnumBuilder) Content(content *I18nText) *EmployeeTypeEnumBuilder {
@@ -10716,15 +10712,15 @@ func (builder *EmployeeTypeEnumBuilder) Build() *EmployeeTypeEnum {
 type EmployeeWorkEntity struct {
 	WorkCountryOrRegion *string `json:"work_country_or_region,omitempty"` // 工作地国家/地区
 
-	WorkPlace *Place `json:"work_place,omitempty"` // 地点
+	WorkPlace *Place `json:"work_place,omitempty"` // 工作地点
 
-	WorkStation *I18nText `json:"work_station,omitempty"` // i18n文本
+	WorkStation *I18nText `json:"work_station,omitempty"` // 部门名称，最多可输入 100 字;
 
 	JobNumber *string `json:"job_number,omitempty"` // 工号
 
 	ExtensionNumber *string `json:"extension_number,omitempty"` // 分机号
 
-	JoinDate *string `json:"join_date,omitempty"` // 入职日期 2007-03-20
+	JoinDate *string `json:"join_date,omitempty"` // 入职日期，例如：2007-03-20
 
 	EmploymentType *int `json:"employment_type,omitempty"` // 员工类型
 
@@ -10760,7 +10756,7 @@ type EmployeeWorkEntity struct {
 
 	LaborContractSigningTimes *string `json:"labor_contract_signing_times,omitempty"` // 劳动合同签订次数
 
-	ResignDate *string `json:"resign_date,omitempty"` // 离职日期 2007-03-20
+	ResignDate *string `json:"resign_date,omitempty"` // 离职日期，例如：2007-03-20
 
 	ResignReason *string `json:"resign_reason,omitempty"` // 离职原因
 
@@ -10781,10 +10777,10 @@ type EmployeeWorkEntityBuilder struct {
 	workCountryOrRegion    string // 工作地国家/地区
 	workCountryOrRegionSet bool
 
-	workPlace    *Place // 地点
+	workPlace    *Place // 工作地点
 	workPlaceSet bool
 
-	workStation    *I18nText // i18n文本
+	workStation    *I18nText // 部门名称，最多可输入 100 字;
 	workStationSet bool
 
 	jobNumber    string // 工号
@@ -10793,7 +10789,7 @@ type EmployeeWorkEntityBuilder struct {
 	extensionNumber    string // 分机号
 	extensionNumberSet bool
 
-	joinDate    string // 入职日期 2007-03-20
+	joinDate    string // 入职日期，例如：2007-03-20
 	joinDateSet bool
 
 	employmentType    int // 员工类型
@@ -10847,7 +10843,7 @@ type EmployeeWorkEntityBuilder struct {
 	laborContractSigningTimes    string // 劳动合同签订次数
 	laborContractSigningTimesSet bool
 
-	resignDate    string // 离职日期 2007-03-20
+	resignDate    string // 离职日期，例如：2007-03-20
 	resignDateSet bool
 
 	resignReason    string // 离职原因
@@ -10886,7 +10882,7 @@ func (builder *EmployeeWorkEntityBuilder) WorkCountryOrRegion(workCountryOrRegio
 	return builder
 }
 
-// 地点
+// 工作地点
 //
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) WorkPlace(workPlace *Place) *EmployeeWorkEntityBuilder {
@@ -10895,7 +10891,7 @@ func (builder *EmployeeWorkEntityBuilder) WorkPlace(workPlace *Place) *EmployeeW
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *EmployeeWorkEntityBuilder) WorkStation(workStation *I18nText) *EmployeeWorkEntityBuilder {
@@ -10922,7 +10918,7 @@ func (builder *EmployeeWorkEntityBuilder) ExtensionNumber(extensionNumber string
 	return builder
 }
 
-// 入职日期 2007-03-20
+// 入职日期，例如：2007-03-20
 //
 // 示例值：2007-03-20
 func (builder *EmployeeWorkEntityBuilder) JoinDate(joinDate string) *EmployeeWorkEntityBuilder {
@@ -10933,7 +10929,7 @@ func (builder *EmployeeWorkEntityBuilder) JoinDate(joinDate string) *EmployeeWor
 
 // 员工类型
 //
-// 示例值：
+// 示例值：1;;**可选值有**：;<md-enum>;<md-enum-item key="1" >全职</md-enum-item>;<md-enum-item key="2" >实习</md-enum-item>;<md-enum-item key="3" >外包</md-enum-item>;<md-enum-item key="4" >劳务</md-enum-item>;<md-enum-item key="5" >顾问</md-enum-item>;</md-enum>
 func (builder *EmployeeWorkEntityBuilder) EmploymentType(employmentType int) *EmployeeWorkEntityBuilder {
 	builder.employmentType = employmentType
 	builder.employmentTypeSet = true
@@ -10942,7 +10938,7 @@ func (builder *EmployeeWorkEntityBuilder) EmploymentType(employmentType int) *Em
 
 // 员工人事状态
 //
-// 示例值：
+// 示例值：1
 func (builder *EmployeeWorkEntityBuilder) StaffStatus(staffStatus int) *EmployeeWorkEntityBuilder {
 	builder.staffStatus = staffStatus
 	builder.staffStatusSet = true
@@ -11084,7 +11080,7 @@ func (builder *EmployeeWorkEntityBuilder) LaborContractSigningTimes(laborContrac
 	return builder
 }
 
-// 离职日期 2007-03-20
+// 离职日期，例如：2007-03-20
 //
 // 示例值：2007-03-20
 func (builder *EmployeeWorkEntityBuilder) ResignDate(resignDate string) *EmployeeWorkEntityBuilder {
@@ -11279,13 +11275,13 @@ func (builder *EmployeeWorkEntityBuilder) Build() *EmployeeWorkEntity {
 }
 
 type EntityInfo struct {
-	Id *string `json:"id,omitempty"` // 实体ID
+	Id *string `json:"id,omitempty"` // 实体ID。<br>如果要指代【全部成员】，则entity_type传1，id传0
 
 	EntityType *int `json:"entity_type,omitempty"` // 实体类型
 }
 
 type EntityInfoBuilder struct {
-	id    string // 实体ID
+	id    string // 实体ID。<br>如果要指代【全部成员】，则entity_type传1，id传0
 	idSet bool
 
 	entityType    int // 实体类型
@@ -11297,7 +11293,7 @@ func NewEntityInfoBuilder() *EntityInfoBuilder {
 	return builder
 }
 
-// 实体ID
+// 实体ID。<br>如果要指代【全部成员】，则entity_type传1，id传0
 //
 // 示例值：7259644494420836371
 func (builder *EntityInfoBuilder) Id(id string) *EntityInfoBuilder {
@@ -11417,9 +11413,9 @@ type EnumOption struct {
 
 	ExternalId *string `json:"external_id,omitempty"` // 选项自定义ID
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
-	Value *I18nText `json:"value,omitempty"` // i18n文本
+	Value *I18nText `json:"value,omitempty"` // 部门名称，最多可输入 100 字;
 
 	Description map[string]string `json:"description,omitempty"` // 枚举项国际化描述 仅限people admin兼容使用
 
@@ -11433,10 +11429,10 @@ type EnumOptionBuilder struct {
 	externalId    string // 选项自定义ID
 	externalIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
-	value    *I18nText // i18n文本
+	value    *I18nText // 部门名称，最多可输入 100 字;
 	valueSet bool
 
 	description    map[string]string // 枚举项国际化描述 仅限people admin兼容使用
@@ -11469,7 +11465,7 @@ func (builder *EnumOptionBuilder) ExternalId(externalId string) *EnumOptionBuild
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *EnumOptionBuilder) Name(name *I18nText) *EnumOptionBuilder {
@@ -11478,7 +11474,7 @@ func (builder *EnumOptionBuilder) Name(name *I18nText) *EnumOptionBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *EnumOptionBuilder) Value(value *I18nText) *EnumOptionBuilder {
@@ -11575,7 +11571,7 @@ func (builder *EnumValueBuilder) EnumName(enumName map[string]*OptionValue) *Enu
 
 // 选项类型
 //
-// 示例值：
+// 示例值：1
 func (builder *EnumValueBuilder) EnumType(enumType string) *EnumValueBuilder {
 	builder.enumType = enumType
 	builder.enumTypeSet = true
@@ -11598,11 +11594,11 @@ func (builder *EnumValueBuilder) Build() *EnumValue {
 }
 
 type FieldContentEntity struct {
-	TextValue *I18nText `json:"text_value,omitempty"` // i18n文本
+	TextValue *I18nText `json:"text_value,omitempty"` // 部门名称，最多可输入 100 字;
 
 	UrlValue *UrlValue `json:"url_value,omitempty"` // 链接
 
-	EnumValue *EnumValue `json:"enum_value,omitempty"` // 枚举
+	EnumValue *EnumValue `json:"enum_value,omitempty"` // 枚举字段值
 
 	UserValue *UserValue `json:"user_value,omitempty"` // 泛化用户类型的内容，接口设计允许实际允许Bot、Mail等非自然人用户，产品限制仅User
 
@@ -11620,13 +11616,13 @@ type FieldContentEntity struct {
 }
 
 type FieldContentEntityBuilder struct {
-	textValue    *I18nText // i18n文本
+	textValue    *I18nText // 部门名称，最多可输入 100 字;
 	textValueSet bool
 
 	urlValue    *UrlValue // 链接
 	urlValueSet bool
 
-	enumValue    *EnumValue // 枚举
+	enumValue    *EnumValue // 枚举字段值
 	enumValueSet bool
 
 	userValue    *UserValue // 泛化用户类型的内容，接口设计允许实际允许Bot、Mail等非自然人用户，产品限制仅User
@@ -11656,7 +11652,7 @@ func NewFieldContentEntityBuilder() *FieldContentEntityBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *FieldContentEntityBuilder) TextValue(textValue *I18nText) *FieldContentEntityBuilder {
@@ -11674,7 +11670,7 @@ func (builder *FieldContentEntityBuilder) UrlValue(urlValue *UrlValue) *FieldCon
 	return builder
 }
 
-// 枚举
+// 枚举字段值
 //
 // 示例值：
 func (builder *FieldContentEntityBuilder) EnumValue(enumValue *EnumValue) *FieldContentEntityBuilder {
@@ -11786,21 +11782,21 @@ func (builder *FieldContentEntityBuilder) Build() *FieldContentEntity {
 }
 
 type FilterCondition struct {
-	Field *string `json:"field,omitempty"` // 筛选条件的左值，值为字段的参数名称。具体可填哪些字段请看 https://bytedance.larkoffice.com/wiki/Yyrgw6kLLiGxMIkrEZece1ZvnWg
+	Field *string `json:"field,omitempty"` // 筛选条件的左值，值为字段的参数名称。具体可填哪些字段请看
 
 	Operator *string `json:"operator,omitempty"` // 比较操作符。可选值有： - equal：等于，支持任何类型的左值 - in：属于任一
 
-	Value *string `json:"value,omitempty"` // 筛选条件的右值。内容为左值字段类型及操作符组合下，对应的值类型。注意： 1. field为int类型，operator为in时，value应当为list<int>的json字符串   1. 示例值："[11,22]" 2. field为string类型，operator为in时，value应当为json序列化后的json字符串   1. 示例值："[\"正式\",\"实习\"]" 3. field为string类型，operator为eq时，value应当为json序列化后的string   1. 示例值："\正式\""
+	Value *string `json:"value,omitempty"` // 筛选条件的右值，内容为左值字段类型及操作符组合下，对应的值类型。其取值类型需与查询参数department_id_type的取值一致，最大长度为64字符，支持数字和字母。;使用parent_department_id条件时，根部门的ID可使用"0"
 }
 
 type FilterConditionBuilder struct {
-	field    string // 筛选条件的左值，值为字段的参数名称。具体可填哪些字段请看 https://bytedance.larkoffice.com/wiki/Yyrgw6kLLiGxMIkrEZece1ZvnWg
+	field    string // 筛选条件的左值，值为字段的参数名称。具体可填哪些字段请看
 	fieldSet bool
 
 	operator    string // 比较操作符。可选值有： - equal：等于，支持任何类型的左值 - in：属于任一
 	operatorSet bool
 
-	value    string // 筛选条件的右值。内容为左值字段类型及操作符组合下，对应的值类型。注意： 1. field为int类型，operator为in时，value应当为list<int>的json字符串   1. 示例值："[11,22]" 2. field为string类型，operator为in时，value应当为json序列化后的json字符串   1. 示例值："[\"正式\",\"实习\"]" 3. field为string类型，operator为eq时，value应当为json序列化后的string   1. 示例值："\正式\""
+	value    string // 筛选条件的右值，内容为左值字段类型及操作符组合下，对应的值类型。其取值类型需与查询参数department_id_type的取值一致，最大长度为64字符，支持数字和字母。;使用parent_department_id条件时，根部门的ID可使用"0"
 	valueSet bool
 }
 
@@ -11809,9 +11805,9 @@ func NewFilterConditionBuilder() *FilterConditionBuilder {
 	return builder
 }
 
-// 筛选条件的左值，值为字段的参数名称。具体可填哪些字段请看 https://bytedance.larkoffice.com/wiki/Yyrgw6kLLiGxMIkrEZece1ZvnWg
+// 筛选条件的左值，值为字段的参数名称。具体可填哪些字段请看
 //
-// 示例值：
+// 示例值：parent_department_id
 func (builder *FilterConditionBuilder) Field(field string) *FilterConditionBuilder {
 	builder.field = field
 	builder.fieldSet = true
@@ -11820,16 +11816,16 @@ func (builder *FilterConditionBuilder) Field(field string) *FilterConditionBuild
 
 // 比较操作符。可选值有： - equal：等于，支持任何类型的左值 - in：属于任一
 //
-// 示例值：
+// 示例值：eq
 func (builder *FilterConditionBuilder) Operator(operator string) *FilterConditionBuilder {
 	builder.operator = operator
 	builder.operatorSet = true
 	return builder
 }
 
-// 筛选条件的右值。内容为左值字段类型及操作符组合下，对应的值类型。注意： 1. field为int类型，operator为in时，value应当为list<int>的json字符串   1. 示例值："[11,22]" 2. field为string类型，operator为in时，value应当为json序列化后的json字符串   1. 示例值："[\"正式\",\"实习\"]" 3. field为string类型，operator为eq时，value应当为json序列化后的string   1. 示例值："\正式\""
+// 筛选条件的右值，内容为左值字段类型及操作符组合下，对应的值类型。其取值类型需与查询参数department_id_type的取值一致，最大长度为64字符，支持数字和字母。;使用parent_department_id条件时，根部门的ID可使用"0"
 //
-// 示例值：1
+// 示例值：\"0\"
 func (builder *FilterConditionBuilder) Value(value string) *FilterConditionBuilder {
 	builder.value = value
 	builder.valueSet = true
@@ -11959,7 +11955,7 @@ type GroupBase struct {
 
 	TenantId *string `json:"tenant_id,omitempty"` // 租户ID
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	ExternalId *string `json:"external_id,omitempty"` // 用户组外部ID
 
@@ -11991,7 +11987,7 @@ type GroupBaseBuilder struct {
 	tenantId    string // 租户ID
 	tenantIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	externalId    string // 用户组外部ID
@@ -12051,7 +12047,7 @@ func (builder *GroupBaseBuilder) TenantId(tenantId string) *GroupBaseBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *GroupBaseBuilder) Name(name *I18nText) *GroupBaseBuilder {
@@ -12228,7 +12224,7 @@ type GroupSet struct {
 
 	ExternalId *string `json:"external_id,omitempty"` // 外部 ID，原 facade 那边的 CustomID 改名
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	Type *int `json:"type,omitempty"` // 用户组分组类型，1对应普通用户组的分组，2对应动态用户组的分组
 
@@ -12252,7 +12248,7 @@ type GroupSetBuilder struct {
 	externalId    string // 外部 ID，原 facade 那边的 CustomID 改名
 	externalIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	type_    int // 用户组分组类型，1对应普通用户组的分组，2对应动态用户组的分组
@@ -12309,7 +12305,7 @@ func (builder *GroupSetBuilder) ExternalId(externalId string) *GroupSetBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *GroupSetBuilder) Name(name *I18nText) *GroupSetBuilder {
@@ -12674,13 +12670,13 @@ func (builder *GuestBuilder) Build() *Guest {
 }
 
 type GuestName struct {
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	NamePy *string `json:"name_py,omitempty"` // 姓名拼音
 }
 
 type GuestNameBuilder struct {
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	namePy    string // 姓名拼音
@@ -12692,7 +12688,7 @@ func NewGuestNameBuilder() *GuestNameBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *GuestNameBuilder) Name(name *I18nText) *GuestNameBuilder {
@@ -12851,7 +12847,7 @@ func NewI18nTextBuilder() *I18nTextBuilder {
 
 // 默认值
 //
-// 示例值：张三
+// 示例值：张三;;**数据校验规则**：;;长度范围：1-64 字符
 func (builder *I18nTextBuilder) DefaultValue(defaultValue string) *I18nTextBuilder {
 	builder.defaultValue = defaultValue
 	builder.defaultValueSet = true
@@ -12860,7 +12856,7 @@ func (builder *I18nTextBuilder) DefaultValue(defaultValue string) *I18nTextBuild
 
 // 国际化值，key为zh_cn, ja_jp, en_us, value为对应的值
 //
-// 示例值：
+// 示例值：{"en_us":"test"}
 func (builder *I18nTextBuilder) I18nValue(i18nValue map[string]string) *I18nTextBuilder {
 	builder.i18nValue = i18nValue
 	builder.i18nValueSet = true
@@ -13078,11 +13074,11 @@ func (builder *InviteOptionBuilder) Build() *InviteOption {
 }
 
 type JobFamily struct {
-	JobFamilyId *string `json:"job_family_id,omitempty"` // 序列ID
+	JobFamilyId *string `json:"job_family_id,omitempty"` // ID，不存在时默认返回"0"
 
 	TenantId *string `json:"tenant_id,omitempty"` // 租户ID
 
-	JobFamilyName *I18nText `json:"job_family_name,omitempty"` // i18n文本
+	JobFamilyName *I18nText `json:"job_family_name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
@@ -13090,7 +13086,7 @@ type JobFamily struct {
 
 	ParentJobFamilyId *string `json:"parent_job_family_id,omitempty"` // 上级序列
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	CreateTime *string `json:"create_time,omitempty"` // 创建时间
 
@@ -13104,13 +13100,13 @@ type JobFamily struct {
 }
 
 type JobFamilyBuilder struct {
-	jobFamilyId    string // 序列ID
+	jobFamilyId    string // ID，不存在时默认返回"0"
 	jobFamilyIdSet bool
 
 	tenantId    string // 租户ID
 	tenantIdSet bool
 
-	jobFamilyName    *I18nText // i18n文本
+	jobFamilyName    *I18nText // 部门名称，最多可输入 100 字;
 	jobFamilyNameSet bool
 
 	isEnabled    bool // 是否启用
@@ -13122,7 +13118,7 @@ type JobFamilyBuilder struct {
 	parentJobFamilyId    string // 上级序列
 	parentJobFamilyIdSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	createTime    string // 创建时间
@@ -13146,7 +13142,7 @@ func NewJobFamilyBuilder() *JobFamilyBuilder {
 	return builder
 }
 
-// 序列ID
+// ID，不存在时默认返回"0"
 //
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *JobFamilyBuilder) JobFamilyId(jobFamilyId string) *JobFamilyBuilder {
@@ -13164,7 +13160,7 @@ func (builder *JobFamilyBuilder) TenantId(tenantId string) *JobFamilyBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *JobFamilyBuilder) JobFamilyName(jobFamilyName *I18nText) *JobFamilyBuilder {
@@ -13200,7 +13196,7 @@ func (builder *JobFamilyBuilder) ParentJobFamilyId(parentJobFamilyId string) *Jo
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *JobFamilyBuilder) Description(description *I18nText) *JobFamilyBuilder {
@@ -13310,7 +13306,7 @@ type JobLevel struct {
 
 	TenantId *string `json:"tenant_id,omitempty"` // 租户ID
 
-	JobLevelName *I18nText `json:"job_level_name,omitempty"` // i18n文本
+	JobLevelName *I18nText `json:"job_level_name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
@@ -13318,7 +13314,7 @@ type JobLevel struct {
 
 	Order *string `json:"order,omitempty"` // 排序, 小的在前面
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	CreateTime *string `json:"create_time,omitempty"` // 创建时间
 
@@ -13338,7 +13334,7 @@ type JobLevelBuilder struct {
 	tenantId    string // 租户ID
 	tenantIdSet bool
 
-	jobLevelName    *I18nText // i18n文本
+	jobLevelName    *I18nText // 部门名称，最多可输入 100 字;
 	jobLevelNameSet bool
 
 	isEnabled    bool // 是否启用
@@ -13350,7 +13346,7 @@ type JobLevelBuilder struct {
 	order    string // 排序, 小的在前面
 	orderSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	createTime    string // 创建时间
@@ -13392,7 +13388,7 @@ func (builder *JobLevelBuilder) TenantId(tenantId string) *JobLevelBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *JobLevelBuilder) JobLevelName(jobLevelName *I18nText) *JobLevelBuilder {
@@ -13428,7 +13424,7 @@ func (builder *JobLevelBuilder) Order(order string) *JobLevelBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *JobLevelBuilder) Description(description *I18nText) *JobLevelBuilder {
@@ -13538,19 +13534,19 @@ type JobTitle struct {
 
 	TenantId *string `json:"tenant_id,omitempty"` // 租户ID
 
-	JobTitleName *I18nText `json:"job_title_name,omitempty"` // i18n文本
+	JobTitleName *I18nText `json:"job_title_name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
 	IsDeleted *bool `json:"is_deleted,omitempty"` // 是否删除
 
-	Title *I18nText `json:"title,omitempty"` // i18n文本
+	Title *I18nText `json:"title,omitempty"` // 部门名称，最多可输入 100 字;
 
 	JobFamilyId *string `json:"job_family_id,omitempty"` // Deprecated 不再使用，换用JobFamilyIDs
 
 	JobLevelId *string `json:"job_level_id,omitempty"` // Deprecated 不再使用，换用JobLevelIDs
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	CreateTime *string `json:"create_time,omitempty"` // 创建时间
 
@@ -13574,7 +13570,7 @@ type JobTitleBuilder struct {
 	tenantId    string // 租户ID
 	tenantIdSet bool
 
-	jobTitleName    *I18nText // i18n文本
+	jobTitleName    *I18nText // 部门名称，最多可输入 100 字;
 	jobTitleNameSet bool
 
 	isEnabled    bool // 是否启用
@@ -13583,7 +13579,7 @@ type JobTitleBuilder struct {
 	isDeleted    bool // 是否删除
 	isDeletedSet bool
 
-	title    *I18nText // i18n文本
+	title    *I18nText // 部门名称，最多可输入 100 字;
 	titleSet bool
 
 	jobFamilyId    string // Deprecated 不再使用，换用JobFamilyIDs
@@ -13592,7 +13588,7 @@ type JobTitleBuilder struct {
 	jobLevelId    string // Deprecated 不再使用，换用JobLevelIDs
 	jobLevelIdSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	createTime    string // 创建时间
@@ -13640,7 +13636,7 @@ func (builder *JobTitleBuilder) TenantId(tenantId string) *JobTitleBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *JobTitleBuilder) JobTitleName(jobTitleName *I18nText) *JobTitleBuilder {
@@ -13667,7 +13663,7 @@ func (builder *JobTitleBuilder) IsDeleted(isDeleted bool) *JobTitleBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *JobTitleBuilder) Title(title *I18nText) *JobTitleBuilder {
@@ -13694,7 +13690,7 @@ func (builder *JobTitleBuilder) JobLevelId(jobLevelId string) *JobTitleBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *JobTitleBuilder) Description(description *I18nText) *JobTitleBuilder {
@@ -13946,7 +13942,7 @@ func NewMCreateCustomFieldOptionsBuilder() *MCreateCustomFieldOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *MCreateCustomFieldOptionsBuilder) DataSource(dataSource int) *MCreateCustomFieldOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -14072,7 +14068,7 @@ func NewMUpdateCustomFieldOptionsBuilder() *MUpdateCustomFieldOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *MUpdateCustomFieldOptionsBuilder) DataSource(dataSource int) *MUpdateCustomFieldOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -14188,13 +14184,13 @@ func (builder *MultiFilterConditionBuilder) Build() *MultiFilterCondition {
 }
 
 type Name struct {
-	LastName *I18nText `json:"last_name,omitempty"` // i18n文本
+	LastName *I18nText `json:"last_name,omitempty"` // 部门名称，最多可输入 100 字;
 
-	FirstName *I18nText `json:"first_name,omitempty"` // i18n文本
+	FirstName *I18nText `json:"first_name,omitempty"` // 部门名称，最多可输入 100 字;
 
-	MiddleName *I18nText `json:"middle_name,omitempty"` // i18n文本
+	MiddleName *I18nText `json:"middle_name,omitempty"` // 部门名称，最多可输入 100 字;
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	NamePy *string `json:"name_py,omitempty"` // 姓名的拼音
 
@@ -14202,20 +14198,20 @@ type Name struct {
 
 	LegalName *string `json:"legal_name,omitempty"` // 法定姓名
 
-	DisplayName *I18nText `json:"display_name,omitempty"` // i18n文本
+	DisplayName *I18nText `json:"display_name,omitempty"` // 部门名称，最多可输入 100 字;
 }
 
 type NameBuilder struct {
-	lastName    *I18nText // i18n文本
+	lastName    *I18nText // 部门名称，最多可输入 100 字;
 	lastNameSet bool
 
-	firstName    *I18nText // i18n文本
+	firstName    *I18nText // 部门名称，最多可输入 100 字;
 	firstNameSet bool
 
-	middleName    *I18nText // i18n文本
+	middleName    *I18nText // 部门名称，最多可输入 100 字;
 	middleNameSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	namePy    string // 姓名的拼音
@@ -14227,7 +14223,7 @@ type NameBuilder struct {
 	legalName    string // 法定姓名
 	legalNameSet bool
 
-	displayName    *I18nText // i18n文本
+	displayName    *I18nText // 部门名称，最多可输入 100 字;
 	displayNameSet bool
 }
 
@@ -14236,7 +14232,7 @@ func NewNameBuilder() *NameBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *NameBuilder) LastName(lastName *I18nText) *NameBuilder {
@@ -14245,7 +14241,7 @@ func (builder *NameBuilder) LastName(lastName *I18nText) *NameBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *NameBuilder) FirstName(firstName *I18nText) *NameBuilder {
@@ -14254,7 +14250,7 @@ func (builder *NameBuilder) FirstName(firstName *I18nText) *NameBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *NameBuilder) MiddleName(middleName *I18nText) *NameBuilder {
@@ -14263,7 +14259,7 @@ func (builder *NameBuilder) MiddleName(middleName *I18nText) *NameBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *NameBuilder) Name(name *I18nText) *NameBuilder {
@@ -14299,7 +14295,7 @@ func (builder *NameBuilder) LegalName(legalName string) *NameBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *NameBuilder) DisplayName(displayName *I18nText) *NameBuilder {
@@ -14533,9 +14529,9 @@ func (builder *OperatorBuilder) Build() *Operator {
 type OptionValue struct {
 	Id *string `json:"id,omitempty"` // 选项ID
 
-	OptionValue *I18nText `json:"option_value,omitempty"` // i18n文本
+	OptionValue *I18nText `json:"option_value,omitempty"` // 部门名称，最多可输入 100 字;
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
@@ -14546,10 +14542,10 @@ type OptionValueBuilder struct {
 	id    string // 选项ID
 	idSet bool
 
-	optionValue    *I18nText // i18n文本
+	optionValue    *I18nText // 部门名称，最多可输入 100 字;
 	optionValueSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	isEnabled    bool // 是否启用
@@ -14573,7 +14569,7 @@ func (builder *OptionValueBuilder) Id(id string) *OptionValueBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *OptionValueBuilder) OptionValue(optionValue *I18nText) *OptionValueBuilder {
@@ -14582,7 +14578,7 @@ func (builder *OptionValueBuilder) OptionValue(optionValue *I18nText) *OptionVal
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *OptionValueBuilder) Description(description *I18nText) *OptionValueBuilder {
@@ -14683,11 +14679,11 @@ func (builder *OrderFieldBuilder) Build() *OrderField {
 }
 
 type OrgDimension struct {
-	Id *string `json:"id,omitempty"` // 组织维度id
+	Id *string `json:"id,omitempty"` // 组织维度ID
 
 	TenantId *string `json:"tenant_id,omitempty"` // 租户id
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	EnumType *int `json:"enum_type,omitempty"` // 组织维度类型(1.预置 2.自定义)
 
@@ -14695,21 +14691,21 @@ type OrgDimension struct {
 
 	IsDeleted *bool `json:"is_deleted,omitempty"` // 是否删除
 
-	Order *string `json:"order,omitempty"` // 组织维度排序权重
+	Order *string `json:"order,omitempty"` // 组织维度排序权重。数字小的排序在前，相同权重的按创建时间排序。
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
-	RootDepartmentId *string `json:"root_department_id,omitempty"` // 根部门id
+	RootDepartmentId *string `json:"root_department_id,omitempty"` // 根部门ID
 }
 
 type OrgDimensionBuilder struct {
-	id    string // 组织维度id
+	id    string // 组织维度ID
 	idSet bool
 
 	tenantId    string // 租户id
 	tenantIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	enumType    int // 组织维度类型(1.预置 2.自定义)
@@ -14721,13 +14717,13 @@ type OrgDimensionBuilder struct {
 	isDeleted    bool // 是否删除
 	isDeletedSet bool
 
-	order    string // 组织维度排序权重
+	order    string // 组织维度排序权重。数字小的排序在前，相同权重的按创建时间排序。
 	orderSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
-	rootDepartmentId    string // 根部门id
+	rootDepartmentId    string // 根部门ID
 	rootDepartmentIdSet bool
 }
 
@@ -14736,7 +14732,7 @@ func NewOrgDimensionBuilder() *OrgDimensionBuilder {
 	return builder
 }
 
-// 组织维度id
+// 组织维度ID
 //
 // 示例值：02c7141
 func (builder *OrgDimensionBuilder) Id(id string) *OrgDimensionBuilder {
@@ -14754,7 +14750,7 @@ func (builder *OrgDimensionBuilder) TenantId(tenantId string) *OrgDimensionBuild
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *OrgDimensionBuilder) Name(name *I18nText) *OrgDimensionBuilder {
@@ -14765,7 +14761,7 @@ func (builder *OrgDimensionBuilder) Name(name *I18nText) *OrgDimensionBuilder {
 
 // 组织维度类型(1.预置 2.自定义)
 //
-// 示例值：
+// 示例值：2
 func (builder *OrgDimensionBuilder) EnumType(enumType int) *OrgDimensionBuilder {
 	builder.enumType = enumType
 	builder.enumTypeSet = true
@@ -14774,7 +14770,7 @@ func (builder *OrgDimensionBuilder) EnumType(enumType int) *OrgDimensionBuilder 
 
 // 是否启用
 //
-// 示例值：
+// 示例值：true
 func (builder *OrgDimensionBuilder) IsEnable(isEnable bool) *OrgDimensionBuilder {
 	builder.isEnable = isEnable
 	builder.isEnableSet = true
@@ -14790,7 +14786,7 @@ func (builder *OrgDimensionBuilder) IsDeleted(isDeleted bool) *OrgDimensionBuild
 	return builder
 }
 
-// 组织维度排序权重
+// 组织维度排序权重。数字小的排序在前，相同权重的按创建时间排序。
 //
 // 示例值：100
 func (builder *OrgDimensionBuilder) Order(order string) *OrgDimensionBuilder {
@@ -14799,7 +14795,7 @@ func (builder *OrgDimensionBuilder) Order(order string) *OrgDimensionBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *OrgDimensionBuilder) Description(description *I18nText) *OrgDimensionBuilder {
@@ -14808,7 +14804,7 @@ func (builder *OrgDimensionBuilder) Description(description *I18nText) *OrgDimen
 	return builder
 }
 
-// 根部门id
+// 根部门ID
 //
 // 示例值：D12100
 func (builder *OrgDimensionBuilder) RootDepartmentId(rootDepartmentId string) *OrgDimensionBuilder {
@@ -14857,13 +14853,13 @@ func (builder *OrgDimensionBuilder) Build() *OrgDimension {
 }
 
 type OrgVisibility struct {
-	MainRule *VisibleMainRule `json:"main_rule,omitempty"` // 主规则
+	MainRule *VisibleMainRule `json:"main_rule,omitempty"` // 更新主规则
 
 	AssistRules []*VisibleAssistRule `json:"assist_rules,omitempty"` // 补充规则
 }
 
 type OrgVisibilityBuilder struct {
-	mainRule    *VisibleMainRule // 主规则
+	mainRule    *VisibleMainRule // 更新主规则
 	mainRuleSet bool
 
 	assistRules    []*VisibleAssistRule // 补充规则
@@ -14875,7 +14871,7 @@ func NewOrgVisibilityBuilder() *OrgVisibilityBuilder {
 	return builder
 }
 
-// 主规则
+// 更新主规则
 //
 // 示例值：
 func (builder *OrgVisibilityBuilder) MainRule(mainRule *VisibleMainRule) *OrgVisibilityBuilder {
@@ -14909,7 +14905,7 @@ type PageCondition struct {
 
 	PageSize *int `json:"page_size,omitempty"` // 本次请求条数
 
-	PageToken *string `json:"page_token,omitempty"` // 顺序分页查询，不能跳页查询，支持深分页，在需要遍历全部数据的场景只能使用该方式。第一次传空字符串或者不传，后面传上一次的返回值中的page_token
+	PageToken *string `json:"page_token,omitempty"` // 顺序分页查询，不能跳页查询，支持深分页，在需要遍历全部数据的场景只能使用该方式。;第一次传空字符串或者不传，后面传上一次的返回值中的page_token。
 
 	Offset *int `json:"offset,omitempty"` // 偏移量，支持跳页查询
 }
@@ -14921,7 +14917,7 @@ type PageConditionBuilder struct {
 	pageSize    int // 本次请求条数
 	pageSizeSet bool
 
-	pageToken    string // 顺序分页查询，不能跳页查询，支持深分页，在需要遍历全部数据的场景只能使用该方式。第一次传空字符串或者不传，后面传上一次的返回值中的page_token
+	pageToken    string // 顺序分页查询，不能跳页查询，支持深分页，在需要遍历全部数据的场景只能使用该方式。;第一次传空字符串或者不传，后面传上一次的返回值中的page_token。
 	pageTokenSet bool
 
 	offset    int // 偏移量，支持跳页查询
@@ -14951,7 +14947,7 @@ func (builder *PageConditionBuilder) PageSize(pageSize int) *PageConditionBuilde
 	return builder
 }
 
-// 顺序分页查询，不能跳页查询，支持深分页，在需要遍历全部数据的场景只能使用该方式。第一次传空字符串或者不传，后面传上一次的返回值中的page_token
+// 顺序分页查询，不能跳页查询，支持深分页，在需要遍历全部数据的场景只能使用该方式。;第一次传空字符串或者不传，后面传上一次的返回值中的page_token。
 //
 // 示例值：
 func (builder *PageConditionBuilder) PageToken(pageToken string) *PageConditionBuilder {
@@ -14997,7 +14993,7 @@ type PageRequest struct {
 
 	OrderType *int `json:"order_type,omitempty"` // 排序方式，每次请求只能使用一种
 
-	Offset *int `json:"offset,omitempty"` // 当PageType=OFFSET 时有效\n从0开始，默认通过ID字段排序，升降序方式可以通过OrderType指定，也可以通过OrderFields指定排序字段和对应的排序方式\n请求方需要根据自己的场景算好offset，例如根据PageSize *  PageNum得出结果\n支持跳页查询，不支持深分页\n如果Offset + Limit > 10000 时默认返回空，这种场景要么细化筛选条件，要么使用CURSOR方式
+	Offset *int `json:"offset,omitempty"` // 当PageType=OFFSET 时有效\n从0开始，默认通过ID字段排序，升降序方式可以通过OrderType指定，也可以通过OrderFields指定排序字段和对应的排序方式\n请求方需要根据自己的场景算好offset，例如根据PageSize * PageNum得出结果\n支持跳页查询，不支持深分页\n如果Offset + Limit > 10000 时默认返回空，这种场景要么细化筛选条件，要么使用CURSOR方式
 
 	Cursor *string `json:"cursor,omitempty"` // 当PageType=CURSOR 时有效\n该方式默认通过ID字段排序，升降序方式可以通过OrderType指定，也可以通过CursorField指定排序字段\n只能顺序分页，不能跳页查询，支持深分页，在需要遍历全部数据的场景只能使用该方式\n第一次传空字符串或者不传，后面传上一次的返回值中的cursor
 
@@ -15016,7 +15012,7 @@ type PageRequestBuilder struct {
 	orderType    int // 排序方式，每次请求只能使用一种
 	orderTypeSet bool
 
-	offset    int // 当PageType=OFFSET 时有效\n从0开始，默认通过ID字段排序，升降序方式可以通过OrderType指定，也可以通过OrderFields指定排序字段和对应的排序方式\n请求方需要根据自己的场景算好offset，例如根据PageSize *  PageNum得出结果\n支持跳页查询，不支持深分页\n如果Offset + Limit > 10000 时默认返回空，这种场景要么细化筛选条件，要么使用CURSOR方式
+	offset    int // 当PageType=OFFSET 时有效\n从0开始，默认通过ID字段排序，升降序方式可以通过OrderType指定，也可以通过OrderFields指定排序字段和对应的排序方式\n请求方需要根据自己的场景算好offset，例如根据PageSize * PageNum得出结果\n支持跳页查询，不支持深分页\n如果Offset + Limit > 10000 时默认返回空，这种场景要么细化筛选条件，要么使用CURSOR方式
 	offsetSet bool
 
 	cursor    string // 当PageType=CURSOR 时有效\n该方式默认通过ID字段排序，升降序方式可以通过OrderType指定，也可以通过CursorField指定排序字段\n只能顺序分页，不能跳页查询，支持深分页，在需要遍历全部数据的场景只能使用该方式\n第一次传空字符串或者不传，后面传上一次的返回值中的cursor
@@ -15061,7 +15057,7 @@ func (builder *PageRequestBuilder) OrderType(orderType int) *PageRequestBuilder 
 	return builder
 }
 
-// 当PageType=OFFSET 时有效\n从0开始，默认通过ID字段排序，升降序方式可以通过OrderType指定，也可以通过OrderFields指定排序字段和对应的排序方式\n请求方需要根据自己的场景算好offset，例如根据PageSize *  PageNum得出结果\n支持跳页查询，不支持深分页\n如果Offset + Limit > 10000 时默认返回空，这种场景要么细化筛选条件，要么使用CURSOR方式
+// 当PageType=OFFSET 时有效\n从0开始，默认通过ID字段排序，升降序方式可以通过OrderType指定，也可以通过OrderFields指定排序字段和对应的排序方式\n请求方需要根据自己的场景算好offset，例如根据PageSize * PageNum得出结果\n支持跳页查询，不支持深分页\n如果Offset + Limit > 10000 时默认返回空，这种场景要么细化筛选条件，要么使用CURSOR方式
 //
 // 示例值：0
 func (builder *PageRequestBuilder) Offset(offset int) *PageRequestBuilder {
@@ -15130,7 +15126,7 @@ func (builder *PageRequestBuilder) Build() *PageRequest {
 }
 
 type PageResponse struct {
-	HasMore *bool `json:"has_more,omitempty"` // 是否还有后续结果
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有后续结果，如果has_more为true，代表还有数据没有完全返回，需要使用响应结果中的page_token，并再次请求才能取得剩下的数据。
 
 	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
@@ -15138,7 +15134,7 @@ type PageResponse struct {
 }
 
 type PageResponseBuilder struct {
-	hasMore    bool // 是否还有后续结果
+	hasMore    bool // 是否还有后续结果，如果has_more为true，代表还有数据没有完全返回，需要使用响应结果中的page_token，并再次请求才能取得剩下的数据。
 	hasMoreSet bool
 
 	pageToken    string // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
@@ -15153,7 +15149,7 @@ func NewPageResponseBuilder() *PageResponseBuilder {
 	return builder
 }
 
-// 是否还有后续结果
+// 是否还有后续结果，如果has_more为true，代表还有数据没有完全返回，需要使用响应结果中的page_token，并再次请求才能取得剩下的数据。
 //
 // 示例值：
 func (builder *PageResponseBuilder) HasMore(hasMore bool) *PageResponseBuilder {
@@ -15294,7 +15290,7 @@ func (builder *PhoneValueBuilder) PhoneNumber(phoneNumber string) *PhoneValueBui
 
 // 分机号
 //
-// 示例值：234234234
+// 示例值：234234234;;长度范围：0-99字符
 func (builder *PhoneValueBuilder) ExtensionNumber(extensionNumber string) *PhoneValueBuilder {
 	builder.extensionNumber = extensionNumber
 	builder.extensionNumberSet = true
@@ -15319,11 +15315,11 @@ type Place struct {
 
 	TenantId *string `json:"tenant_id,omitempty"` // 租户ID
 
-	PlaceName *I18nText `json:"place_name,omitempty"` // i18n文本
+	PlaceName *I18nText `json:"place_name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	Usages []string `json:"usages,omitempty"` // 地点多用途
 
@@ -15353,13 +15349,13 @@ type PlaceBuilder struct {
 	tenantId    string // 租户ID
 	tenantIdSet bool
 
-	placeName    *I18nText // i18n文本
+	placeName    *I18nText // 部门名称，最多可输入 100 字;
 	placeNameSet bool
 
 	isEnabled    bool // 是否启用
 	isEnabledSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	usages    []string // 地点多用途
@@ -15416,7 +15412,7 @@ func (builder *PlaceBuilder) TenantId(tenantId string) *PlaceBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *PlaceBuilder) PlaceName(placeName *I18nText) *PlaceBuilder {
@@ -15434,7 +15430,7 @@ func (builder *PlaceBuilder) IsEnabled(isEnabled bool) *PlaceBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *PlaceBuilder) Description(description *I18nText) *PlaceBuilder {
@@ -15771,7 +15767,7 @@ func (builder *PositionBuilder) Build() *Position {
 }
 
 type ProfileCard struct {
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	Contacts []*Credential `json:"contacts,omitempty"` // 联系方式
 
@@ -15779,13 +15775,13 @@ type ProfileCard struct {
 
 	IsCustomAvatar *bool `json:"is_custom_avatar,omitempty"` // 是否自定义头像
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	BackgroundImageKey *string `json:"background_image_key,omitempty"` // 背景图
 }
 
 type ProfileCardBuilder struct {
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	contacts    []*Credential // 联系方式
@@ -15797,7 +15793,7 @@ type ProfileCardBuilder struct {
 	isCustomAvatar    bool // 是否自定义头像
 	isCustomAvatarSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	backgroundImageKey    string // 背景图
@@ -15809,7 +15805,7 @@ func NewProfileCardBuilder() *ProfileCardBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *ProfileCardBuilder) Name(name *I18nText) *ProfileCardBuilder {
@@ -15845,7 +15841,7 @@ func (builder *ProfileCardBuilder) IsCustomAvatar(isCustomAvatar bool) *ProfileC
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *ProfileCardBuilder) Description(description *I18nText) *ProfileCardBuilder {
@@ -15941,7 +15937,7 @@ func (builder *QueryOptionsBuilder) Build() *QueryOptions {
 type ReplaceEmployeeTypeEnum struct {
 	EnumId *string `json:"enum_id,omitempty"` // 枚举ID
 
-	Content *I18nText `json:"content,omitempty"` // i18n文本
+	Content *I18nText `json:"content,omitempty"` // 部门名称，最多可输入 100 字;
 
 	EnumStatus *string `json:"enum_status,omitempty"` // 枚举状态
 
@@ -15954,7 +15950,7 @@ type ReplaceEmployeeTypeEnumBuilder struct {
 	enumId    string // 枚举ID
 	enumIdSet bool
 
-	content    *I18nText // i18n文本
+	content    *I18nText // 部门名称，最多可输入 100 字;
 	contentSet bool
 
 	enumStatus    string // 枚举状态
@@ -15981,7 +15977,7 @@ func (builder *ReplaceEmployeeTypeEnumBuilder) EnumId(enumId string) *ReplaceEmp
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *ReplaceEmployeeTypeEnumBuilder) Content(content *I18nText) *ReplaceEmployeeTypeEnumBuilder {
@@ -16057,7 +16053,7 @@ func NewReplaceTenantEmployeeTypeEnumOptionsBuilder() *ReplaceTenantEmployeeType
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *ReplaceTenantEmployeeTypeEnumOptionsBuilder) DataSource(dataSource int) *ReplaceTenantEmployeeTypeEnumOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -16074,63 +16070,63 @@ func (builder *ReplaceTenantEmployeeTypeEnumOptionsBuilder) Build() *ReplaceTena
 }
 
 type ResignedUserResouceReceiver struct {
-	DepartmentChatAcceptorEmployeeId *string `json:"department_chat_acceptor_employee_id,omitempty"` // 部门群owner
+	DepartmentChatAcceptorEmployeeId *string `json:"department_chat_acceptor_employee_id,omitempty"` // 部门群接收者。ID值与查询参数中的employee_id_type 对应。;被删除用户为部门群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内第一个入群的人。
 
-	ExternalChatAcceptorEmployeeId *string `json:"external_chat_acceptor_employee_id,omitempty"` // 外部群owner
+	ExternalChatAcceptorEmployeeId *string `json:"external_chat_acceptor_employee_id,omitempty"` // 外部群接收者。ID值与查询参数中的employee_id_type 对应。;被删除用户为外部群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人，如果组织内只有该用户在群里，则解散外部群。
 
-	DocsAcceptorEmployeeId *string `json:"docs_acceptor_employee_id,omitempty"` // 文档owner
+	DocsAcceptorEmployeeId *string `json:"docs_acceptor_employee_id,omitempty"` // 文档接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的文档转让给接收者。不指定接收者则将文档资源保留在该用户名下。
 
-	CalendarAcceptorEmployeeId *string `json:"calendar_acceptor_employee_id,omitempty"` // 日历owner
+	CalendarAcceptorEmployeeId *string `json:"calendar_acceptor_employee_id,omitempty"` // 日程接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的日程转让给接收者。不指定接收者则将日程资源保留在该用户名下。
 
-	ApplicationAcceptorEmployeeId *string `json:"application_acceptor_employee_id,omitempty"` // 开放平台应用owner
+	ApplicationAcceptorEmployeeId *string `json:"application_acceptor_employee_id,omitempty"` // 应用接受者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其创建的应用转让给接收者，不指定接收者则保留应用在该用户名下，但该用户无法登录开发者后台进行应用管理，管理员可以在管理后台手动转移应用给其他人。
 
-	HelpdeskAcceptorEmployeeId *string `json:"helpdesk_acceptor_employee_id,omitempty"` // 服务台owner
+	HelpdeskAcceptorEmployeeId *string `json:"helpdesk_acceptor_employee_id,omitempty"` // 服务台资源接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的服务台资源转让给接收者，不指定接收者时保留服务台资源在该用户名下。
 
-	ApprovalAcceptorEmployeeId *string `json:"approval_acceptor_employee_id,omitempty"` // 审批owner
+	ApprovalAcceptorEmployeeId *string `json:"approval_acceptor_employee_id,omitempty"` // 审批资源接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的审批资源转让给接收者，不指定接收者时保留审批资源在该用户名下。
 
-	EmailAcceptorEmployeeId *string `json:"email_acceptor_employee_id,omitempty"` // 邮件owner
+	EmailAcceptorEmployeeId *string `json:"email_acceptor_employee_id,omitempty"` // 用户邮件资源接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的邮件资源转让给接收者，不指定接受者则保留邮件资源在该用户名下。
 
 	AwemeOwner *string `json:"aweme_owner,omitempty"` // 抖音owner
 
-	MinutesAcceptorEmployeeId *string `json:"minutes_acceptor_employee_id,omitempty"` // 妙记Owner
+	MinutesAcceptorEmployeeId *string `json:"minutes_acceptor_employee_id,omitempty"` // 妙记接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的妙记资源转让给接收者。如果不指定接收者则将妙记保留在该用户名下。
 
-	SurveyAcceptorEmployeeId *string `json:"survey_acceptor_employee_id,omitempty"` // 飞书问卷Owner
+	SurveyAcceptorEmployeeId *string `json:"survey_acceptor_employee_id,omitempty"` // 飞书问卷接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的飞书问卷资源转让给接收者，不指定接收者则直接删除飞书问卷资源。
 
 	AnycrossAcceptorEmployeeId *string `json:"anycross_acceptor_employee_id,omitempty"` // 集成平台资源Owner
 }
 
 type ResignedUserResouceReceiverBuilder struct {
-	departmentChatAcceptorEmployeeId    string // 部门群owner
+	departmentChatAcceptorEmployeeId    string // 部门群接收者。ID值与查询参数中的employee_id_type 对应。;被删除用户为部门群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内第一个入群的人。
 	departmentChatAcceptorEmployeeIdSet bool
 
-	externalChatAcceptorEmployeeId    string // 外部群owner
+	externalChatAcceptorEmployeeId    string // 外部群接收者。ID值与查询参数中的employee_id_type 对应。;被删除用户为外部群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人，如果组织内只有该用户在群里，则解散外部群。
 	externalChatAcceptorEmployeeIdSet bool
 
-	docsAcceptorEmployeeId    string // 文档owner
+	docsAcceptorEmployeeId    string // 文档接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的文档转让给接收者。不指定接收者则将文档资源保留在该用户名下。
 	docsAcceptorEmployeeIdSet bool
 
-	calendarAcceptorEmployeeId    string // 日历owner
+	calendarAcceptorEmployeeId    string // 日程接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的日程转让给接收者。不指定接收者则将日程资源保留在该用户名下。
 	calendarAcceptorEmployeeIdSet bool
 
-	applicationAcceptorEmployeeId    string // 开放平台应用owner
+	applicationAcceptorEmployeeId    string // 应用接受者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其创建的应用转让给接收者，不指定接收者则保留应用在该用户名下，但该用户无法登录开发者后台进行应用管理，管理员可以在管理后台手动转移应用给其他人。
 	applicationAcceptorEmployeeIdSet bool
 
-	helpdeskAcceptorEmployeeId    string // 服务台owner
+	helpdeskAcceptorEmployeeId    string // 服务台资源接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的服务台资源转让给接收者，不指定接收者时保留服务台资源在该用户名下。
 	helpdeskAcceptorEmployeeIdSet bool
 
-	approvalAcceptorEmployeeId    string // 审批owner
+	approvalAcceptorEmployeeId    string // 审批资源接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的审批资源转让给接收者，不指定接收者时保留审批资源在该用户名下。
 	approvalAcceptorEmployeeIdSet bool
 
-	emailAcceptorEmployeeId    string // 邮件owner
+	emailAcceptorEmployeeId    string // 用户邮件资源接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的邮件资源转让给接收者，不指定接受者则保留邮件资源在该用户名下。
 	emailAcceptorEmployeeIdSet bool
 
 	awemeOwner    string // 抖音owner
 	awemeOwnerSet bool
 
-	minutesAcceptorEmployeeId    string // 妙记Owner
+	minutesAcceptorEmployeeId    string // 妙记接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的妙记资源转让给接收者。如果不指定接收者则将妙记保留在该用户名下。
 	minutesAcceptorEmployeeIdSet bool
 
-	surveyAcceptorEmployeeId    string // 飞书问卷Owner
+	surveyAcceptorEmployeeId    string // 飞书问卷接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的飞书问卷资源转让给接收者，不指定接收者则直接删除飞书问卷资源。
 	surveyAcceptorEmployeeIdSet bool
 
 	anycrossAcceptorEmployeeId    string // 集成平台资源Owner
@@ -16142,16 +16138,16 @@ func NewResignedUserResouceReceiverBuilder() *ResignedUserResouceReceiverBuilder
 	return builder
 }
 
-// 部门群owner
+// 部门群接收者。ID值与查询参数中的employee_id_type 对应。;被删除用户为部门群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内第一个入群的人。
 //
-// 示例值：eehsdna
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *ResignedUserResouceReceiverBuilder) DepartmentChatAcceptorEmployeeId(departmentChatAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
 	builder.departmentChatAcceptorEmployeeId = departmentChatAcceptorEmployeeId
 	builder.departmentChatAcceptorEmployeeIdSet = true
 	return builder
 }
 
-// 外部群owner
+// 外部群接收者。ID值与查询参数中的employee_id_type 对应。;被删除用户为外部群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人，如果组织内只有该用户在群里，则解散外部群。
 //
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) ExternalChatAcceptorEmployeeId(externalChatAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
@@ -16160,7 +16156,7 @@ func (builder *ResignedUserResouceReceiverBuilder) ExternalChatAcceptorEmployeeI
 	return builder
 }
 
-// 文档owner
+// 文档接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的文档转让给接收者。不指定接收者则将文档资源保留在该用户名下。
 //
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) DocsAcceptorEmployeeId(docsAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
@@ -16169,7 +16165,7 @@ func (builder *ResignedUserResouceReceiverBuilder) DocsAcceptorEmployeeId(docsAc
 	return builder
 }
 
-// 日历owner
+// 日程接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的日程转让给接收者。不指定接收者则将日程资源保留在该用户名下。
 //
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) CalendarAcceptorEmployeeId(calendarAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
@@ -16178,7 +16174,7 @@ func (builder *ResignedUserResouceReceiverBuilder) CalendarAcceptorEmployeeId(ca
 	return builder
 }
 
-// 开放平台应用owner
+// 应用接受者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其创建的应用转让给接收者，不指定接收者则保留应用在该用户名下，但该用户无法登录开发者后台进行应用管理，管理员可以在管理后台手动转移应用给其他人。
 //
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) ApplicationAcceptorEmployeeId(applicationAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
@@ -16187,7 +16183,7 @@ func (builder *ResignedUserResouceReceiverBuilder) ApplicationAcceptorEmployeeId
 	return builder
 }
 
-// 服务台owner
+// 服务台资源接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的服务台资源转让给接收者，不指定接收者时保留服务台资源在该用户名下。
 //
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) HelpdeskAcceptorEmployeeId(helpdeskAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
@@ -16196,7 +16192,7 @@ func (builder *ResignedUserResouceReceiverBuilder) HelpdeskAcceptorEmployeeId(he
 	return builder
 }
 
-// 审批owner
+// 审批资源接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的审批资源转让给接收者，不指定接收者时保留审批资源在该用户名下。
 //
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) ApprovalAcceptorEmployeeId(approvalAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
@@ -16205,7 +16201,7 @@ func (builder *ResignedUserResouceReceiverBuilder) ApprovalAcceptorEmployeeId(ap
 	return builder
 }
 
-// 邮件owner
+// 用户邮件资源接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的邮件资源转让给接收者，不指定接受者则保留邮件资源在该用户名下。
 //
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) EmailAcceptorEmployeeId(emailAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
@@ -16223,7 +16219,7 @@ func (builder *ResignedUserResouceReceiverBuilder) AwemeOwner(awemeOwner string)
 	return builder
 }
 
-// 妙记Owner
+// 妙记接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的妙记资源转让给接收者。如果不指定接收者则将妙记保留在该用户名下。
 //
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) MinutesAcceptorEmployeeId(minutesAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
@@ -16232,7 +16228,7 @@ func (builder *ResignedUserResouceReceiverBuilder) MinutesAcceptorEmployeeId(min
 	return builder
 }
 
-// 飞书问卷Owner
+// 飞书问卷接收者。ID值与查询参数中的employee_id_type 对应。;用户被删除时，其拥有的飞书问卷资源转让给接收者，不指定接收者则直接删除飞书问卷资源。
 //
 // 示例值：eehsdna
 func (builder *ResignedUserResouceReceiverBuilder) SurveyAcceptorEmployeeId(surveyAcceptorEmployeeId string) *ResignedUserResouceReceiverBuilder {
@@ -16304,11 +16300,11 @@ func (builder *ResignedUserResouceReceiverBuilder) Build() *ResignedUserResouceR
 }
 
 type ResurrectEmployeeOptions struct {
-	SubscriptionIds []string `json:"subscription_ids,omitempty"` // License订阅ID
+	SubscriptionIds []string `json:"subscription_ids,omitempty"` // 分配给员工的席位ID列表。可通过下方接口获取到该租户的可用席位ID，参见[获取席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query)。当在混合license模式下，此字段为必填。
 }
 
 type ResurrectEmployeeOptionsBuilder struct {
-	subscriptionIds    []string // License订阅ID
+	subscriptionIds    []string // 分配给员工的席位ID列表。可通过下方接口获取到该租户的可用席位ID，参见[获取席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query)。当在混合license模式下，此字段为必填。
 	subscriptionIdsSet bool
 }
 
@@ -16317,7 +16313,7 @@ func NewResurrectEmployeeOptionsBuilder() *ResurrectEmployeeOptionsBuilder {
 	return builder
 }
 
-// License订阅ID
+// 分配给员工的席位ID列表。可通过下方接口获取到该租户的可用席位ID，参见[获取席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query)。当在混合license模式下，此字段为必填。
 //
 // 示例值：
 func (builder *ResurrectEmployeeOptionsBuilder) SubscriptionIds(subscriptionIds []string) *ResurrectEmployeeOptionsBuilder {
@@ -16743,14 +16739,14 @@ func (builder *SetEmployeePreResignedBuilder) Build() *SetEmployeePreResigned {
 type ShareDepartment struct {
 	OpenDepartmentId *string `json:"open_department_id,omitempty"` // 部门open ID
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 }
 
 type ShareDepartmentBuilder struct {
 	openDepartmentId    string // 部门open ID
 	openDepartmentIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 }
 
@@ -16761,14 +16757,14 @@ func NewShareDepartmentBuilder() *ShareDepartmentBuilder {
 
 // 部门open ID
 //
-// 示例值：
+// 示例值：ou-12121xxxx
 func (builder *ShareDepartmentBuilder) OpenDepartmentId(openDepartmentId string) *ShareDepartmentBuilder {
 	builder.openDepartmentId = openDepartmentId
 	builder.openDepartmentIdSet = true
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *ShareDepartmentBuilder) Name(name *I18nText) *ShareDepartmentBuilder {
@@ -16792,14 +16788,14 @@ func (builder *ShareDepartmentBuilder) Build() *ShareDepartment {
 type ShareGroup struct {
 	OpenGroupId *string `json:"open_group_id,omitempty"` // 用户组的open_id
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 }
 
 type ShareGroupBuilder struct {
 	openGroupId    string // 用户组的open_id
 	openGroupIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 }
 
@@ -16817,7 +16813,7 @@ func (builder *ShareGroupBuilder) OpenGroupId(openGroupId string) *ShareGroupBui
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *ShareGroupBuilder) Name(name *I18nText) *ShareGroupBuilder {
@@ -16841,19 +16837,19 @@ func (builder *ShareGroupBuilder) Build() *ShareGroup {
 type ShareUser struct {
 	OpenUserId *string `json:"open_user_id,omitempty"` // user open ID
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
-	Avatar *ImageLink `json:"avatar,omitempty"` // 用户的头像
+	Avatar *ImageLink `json:"avatar,omitempty"` // 员工的头像url
 }
 
 type ShareUserBuilder struct {
 	openUserId    string // user open ID
 	openUserIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
-	avatar    *ImageLink // 用户的头像
+	avatar    *ImageLink // 员工的头像url
 	avatarSet bool
 }
 
@@ -16871,7 +16867,7 @@ func (builder *ShareUserBuilder) OpenUserId(openUserId string) *ShareUserBuilder
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *ShareUserBuilder) Name(name *I18nText) *ShareUserBuilder {
@@ -16880,7 +16876,7 @@ func (builder *ShareUserBuilder) Name(name *I18nText) *ShareUserBuilder {
 	return builder
 }
 
-// 用户的头像
+// 员工的头像url
 //
 // 示例值：
 func (builder *ShareUserBuilder) Avatar(avatar *ImageLink) *ShareUserBuilder {
@@ -16911,7 +16907,7 @@ type Tenant struct {
 
 	EncryptedId *string `json:"encrypted_id,omitempty"` // 加密租户id -- 废弃
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	ContactUserInfo *UserInfo `json:"contact_user_info,omitempty"` // 联系人信息
 
@@ -16949,7 +16945,7 @@ type Tenant struct {
 
 	Brand *string `json:"brand,omitempty"` // 品牌
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	UpdatorId *string `json:"updator_id,omitempty"` // 更新人ID
 
@@ -16963,9 +16959,9 @@ type Tenant struct {
 
 	CanDomainBeModified *bool `json:"can_domain_be_modified,omitempty"` // 域名是否可修改
 
-	IndustryType *string `json:"industry_type,omitempty"` // 行业类型 主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-HX7addBffo1s4cxrXWmc2Mlwnuc
+	IndustryType *string `json:"industry_type,omitempty"` // 行业类型 主数据编码
 
-	StaffSize *string `json:"staff_size,omitempty"` // 企业规模 主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-HX7addBffo1s4cxrXWmc2Mlwnuc
+	StaffSize *string `json:"staff_size,omitempty"` // 企业规模 主数据编码
 }
 
 type TenantBuilder struct {
@@ -16978,7 +16974,7 @@ type TenantBuilder struct {
 	encryptedId    string // 加密租户id -- 废弃
 	encryptedIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	contactUserInfo    *UserInfo // 联系人信息
@@ -17035,7 +17031,7 @@ type TenantBuilder struct {
 	brand    string // 品牌
 	brandSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	updatorId    string // 更新人ID
@@ -17056,10 +17052,10 @@ type TenantBuilder struct {
 	canDomainBeModified    bool // 域名是否可修改
 	canDomainBeModifiedSet bool
 
-	industryType    string // 行业类型 主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-HX7addBffo1s4cxrXWmc2Mlwnuc
+	industryType    string // 行业类型 主数据编码
 	industryTypeSet bool
 
-	staffSize    string // 企业规模 主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-HX7addBffo1s4cxrXWmc2Mlwnuc
+	staffSize    string // 企业规模 主数据编码
 	staffSizeSet bool
 }
 
@@ -17095,7 +17091,7 @@ func (builder *TenantBuilder) EncryptedId(encryptedId string) *TenantBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *TenantBuilder) Name(name *I18nText) *TenantBuilder {
@@ -17266,7 +17262,7 @@ func (builder *TenantBuilder) Brand(brand string) *TenantBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *TenantBuilder) Description(description *I18nText) *TenantBuilder {
@@ -17329,7 +17325,7 @@ func (builder *TenantBuilder) CanDomainBeModified(canDomainBeModified bool) *Ten
 	return builder
 }
 
-// 行业类型 主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-HX7addBffo1s4cxrXWmc2Mlwnuc
+// 行业类型 主数据编码
 //
 // 示例值：1
 func (builder *TenantBuilder) IndustryType(industryType string) *TenantBuilder {
@@ -17338,7 +17334,7 @@ func (builder *TenantBuilder) IndustryType(industryType string) *TenantBuilder {
 	return builder
 }
 
-// 企业规模 主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-HX7addBffo1s4cxrXWmc2Mlwnuc
+// 企业规模 主数据编码
 //
 // 示例值：1
 func (builder *TenantBuilder) StaffSize(staffSize string) *TenantBuilder {
@@ -17758,7 +17754,7 @@ func (builder *TenantTraceInfoBuilder) Build() *TenantTraceInfo {
 type UpdateAddress struct {
 	Id *string `json:"id,omitempty"` // ID
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
@@ -17787,7 +17783,7 @@ type UpdateAddressBuilder struct {
 	id    string // ID
 	idSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	isEnabled    bool // 是否启用
@@ -17838,7 +17834,7 @@ func (builder *UpdateAddressBuilder) Id(id string) *UpdateAddressBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateAddressBuilder) Name(name *I18nText) *UpdateAddressBuilder {
@@ -18017,7 +18013,7 @@ func NewUpdateAddressOptionsBuilder() *UpdateAddressOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *UpdateAddressOptionsBuilder) DataSource(dataSource int) *UpdateAddressOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -18036,7 +18032,7 @@ func (builder *UpdateAddressOptionsBuilder) Build() *UpdateAddressOptions {
 type UpdateApp struct {
 	Id *string `json:"id,omitempty"` // AppUser ID
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	AvatarKey *string `json:"avatar_key,omitempty"` // 头像的文件key
 
@@ -18047,7 +18043,7 @@ type UpdateAppBuilder struct {
 	id    string // AppUser ID
 	idSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	avatarKey    string // 头像的文件key
@@ -18071,7 +18067,7 @@ func (builder *UpdateAppBuilder) Id(id string) *UpdateAppBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateAppBuilder) Name(name *I18nText) *UpdateAppBuilder {
@@ -18401,7 +18397,7 @@ func (builder *UpdateCertificateBuilder) Build() *UpdateCertificate {
 type UpdateCompany struct {
 	Id *string `json:"id,omitempty"` // 公司ID
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
@@ -18412,7 +18408,7 @@ type UpdateCompanyBuilder struct {
 	id    string // 公司ID
 	idSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	isEnabled    bool // 是否启用
@@ -18436,7 +18432,7 @@ func (builder *UpdateCompanyBuilder) Id(id string) *UpdateCompanyBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateCompanyBuilder) Name(name *I18nText) *UpdateCompanyBuilder {
@@ -18499,7 +18495,7 @@ func NewUpdateCompanyoptionsBuilder() *UpdateCompanyoptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *UpdateCompanyoptionsBuilder) DataSource(dataSource int) *UpdateCompanyoptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -18518,9 +18514,9 @@ func (builder *UpdateCompanyoptionsBuilder) Build() *UpdateCompanyoptions {
 type UpdateCustomField struct {
 	Id *string `json:"id,omitempty"` // 字段id
 
-	FieldName *I18nText `json:"field_name,omitempty"` // i18n文本
+	FieldName *I18nText `json:"field_name,omitempty"` // 部门名称，最多可输入 100 字;
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	Options []*EnumOption `json:"options,omitempty"` // 枚举值有序列表，全量覆盖更新，更新的枚举项需要传选项ID，选项ID为空认为是创建新的枚举项，原枚举项中不在此列表中的直接删除
 
@@ -18531,10 +18527,10 @@ type UpdateCustomFieldBuilder struct {
 	id    string // 字段id
 	idSet bool
 
-	fieldName    *I18nText // i18n文本
+	fieldName    *I18nText // 部门名称，最多可输入 100 字;
 	fieldNameSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	options    []*EnumOption // 枚举值有序列表，全量覆盖更新，更新的枚举项需要传选项ID，选项ID为空认为是创建新的枚举项，原枚举项中不在此列表中的直接删除
@@ -18558,7 +18554,7 @@ func (builder *UpdateCustomFieldBuilder) Id(id string) *UpdateCustomFieldBuilder
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateCustomFieldBuilder) FieldName(fieldName *I18nText) *UpdateCustomFieldBuilder {
@@ -18567,7 +18563,7 @@ func (builder *UpdateCustomFieldBuilder) FieldName(fieldName *I18nText) *UpdateC
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateCustomFieldBuilder) Description(description *I18nText) *UpdateCustomFieldBuilder {
@@ -18621,7 +18617,7 @@ type UpdateDepartment struct {
 
 	CustomDepartmentId *string `json:"custom_department_id,omitempty"` // 自定义部门ID
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	ParentDepartmentId *string `json:"parent_department_id,omitempty"` // 父部门ID
 
@@ -18631,7 +18627,7 @@ type UpdateDepartment struct {
 
 	OrderWeight *string `json:"order_weight,omitempty"` // 在上级部门下的排序权重
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	DepartmentType *int `json:"department_type,omitempty"` // 部门类型
 
@@ -18649,7 +18645,7 @@ type UpdateDepartmentBuilder struct {
 	customDepartmentId    string // 自定义部门ID
 	customDepartmentIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	parentDepartmentId    string // 父部门ID
@@ -18664,7 +18660,7 @@ type UpdateDepartmentBuilder struct {
 	orderWeight    string // 在上级部门下的排序权重
 	orderWeightSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	departmentType    int // 部门类型
@@ -18703,7 +18699,7 @@ func (builder *UpdateDepartmentBuilder) CustomDepartmentId(customDepartmentId st
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateDepartmentBuilder) Name(name *I18nText) *UpdateDepartmentBuilder {
@@ -18748,7 +18744,7 @@ func (builder *UpdateDepartmentBuilder) OrderWeight(orderWeight string) *UpdateD
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateDepartmentBuilder) Description(description *I18nText) *UpdateDepartmentBuilder {
@@ -18856,7 +18852,7 @@ func NewUpdateDepartmentOptionsBuilder() *UpdateDepartmentOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *UpdateDepartmentOptionsBuilder) DataSource(dataSource int) *UpdateDepartmentOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -18909,7 +18905,7 @@ type UpdateEmployee struct {
 
 	WorkPlaceId *string `json:"work_place_id,omitempty"` // 工作地点
 
-	WorkStation *I18nText `json:"work_station,omitempty"` // i18n文本
+	WorkStation *I18nText `json:"work_station,omitempty"` // 部门名称，最多可输入 100 字;
 
 	JobNumber *string `json:"job_number,omitempty"` // 工号
 
@@ -19039,7 +19035,7 @@ type UpdateEmployeeBuilder struct {
 	workPlaceId    string // 工作地点
 	workPlaceIdSet bool
 
-	workStation    *I18nText // i18n文本
+	workStation    *I18nText // 部门名称，最多可输入 100 字;
 	workStationSet bool
 
 	jobNumber    string // 工号
@@ -19230,7 +19226,7 @@ func (builder *UpdateEmployeeBuilder) EnterpriseEmail(enterpriseEmail string) *U
 
 // 性别
 //
-// 示例值：
+// 示例值：1
 func (builder *UpdateEmployeeBuilder) Gender(gender int) *UpdateEmployeeBuilder {
 	builder.gender = gender
 	builder.genderSet = true
@@ -19318,7 +19314,7 @@ func (builder *UpdateEmployeeBuilder) WorkPlaceId(workPlaceId string) *UpdateEmp
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateEmployeeBuilder) WorkStation(workStation *I18nText) *UpdateEmployeeBuilder {
@@ -19356,7 +19352,7 @@ func (builder *UpdateEmployeeBuilder) JoinDate(joinDate string) *UpdateEmployeeB
 
 // 员工类型
 //
-// 示例值：
+// 示例值：1;;**可选值有**：;<md-enum>;<md-enum-item key="1" >全职</md-enum-item>;<md-enum-item key="2" >实习</md-enum-item>;<md-enum-item key="3" >外包</md-enum-item>;<md-enum-item key="4" >劳务</md-enum-item>;<md-enum-item key="5" >顾问</md-enum-item>;</md-enum>
 func (builder *UpdateEmployeeBuilder) EmploymentType(employmentType int) *UpdateEmployeeBuilder {
 	builder.employmentType = employmentType
 	builder.employmentTypeSet = true
@@ -19365,7 +19361,7 @@ func (builder *UpdateEmployeeBuilder) EmploymentType(employmentType int) *Update
 
 // 员工人事状态
 //
-// 示例值：
+// 示例值：1
 func (builder *UpdateEmployeeBuilder) StaffStatus(staffStatus int) *UpdateEmployeeBuilder {
 	builder.staffStatus = staffStatus
 	builder.staffStatusSet = true
@@ -19883,7 +19879,7 @@ func NewUpdateEmployeeBankAccountOptionBuilder() *UpdateEmployeeBankAccountOptio
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *UpdateEmployeeBankAccountOptionBuilder) DataSource(dataSource int) *UpdateEmployeeBankAccountOptionBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -19902,7 +19898,7 @@ func (builder *UpdateEmployeeBankAccountOptionBuilder) Build() *UpdateEmployeeBa
 type UpdateEmployeeOptions struct {
 	EnterpriseEmailPassword *string `json:"enterprise_email_password,omitempty"` // 用户企业邮箱登录时的密码
 
-	ResignedUserResouceReceiver *ResignedUserResouceReceiver `json:"resigned_user_resouce_receiver,omitempty"` // 资源转移方式
+	ResignedUserResouceReceiver *ResignedUserResouceReceiver `json:"resigned_user_resouce_receiver,omitempty"` // 离职员工的资源转移方式。
 
 	DataSource *int `json:"data_source,omitempty"` // 数据来源
 
@@ -19919,7 +19915,7 @@ type UpdateEmployeeOptionsBuilder struct {
 	enterpriseEmailPassword    string // 用户企业邮箱登录时的密码
 	enterpriseEmailPasswordSet bool
 
-	resignedUserResouceReceiver    *ResignedUserResouceReceiver // 资源转移方式
+	resignedUserResouceReceiver    *ResignedUserResouceReceiver // 离职员工的资源转移方式。
 	resignedUserResouceReceiverSet bool
 
 	dataSource    int // 数据来源
@@ -19952,7 +19948,7 @@ func (builder *UpdateEmployeeOptionsBuilder) EnterpriseEmailPassword(enterpriseE
 	return builder
 }
 
-// 资源转移方式
+// 离职员工的资源转移方式。
 //
 // 示例值：
 func (builder *UpdateEmployeeOptionsBuilder) ResignedUserResouceReceiver(resignedUserResouceReceiver *ResignedUserResouceReceiver) *UpdateEmployeeOptionsBuilder {
@@ -19963,7 +19959,7 @@ func (builder *UpdateEmployeeOptionsBuilder) ResignedUserResouceReceiver(resigne
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *UpdateEmployeeOptionsBuilder) DataSource(dataSource int) *UpdateEmployeeOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -20037,7 +20033,7 @@ func (builder *UpdateEmployeeOptionsBuilder) Build() *UpdateEmployeeOptions {
 type UpdateEmployeeTypeEnum struct {
 	EnumId *string `json:"enum_id,omitempty"` // 枚举ID
 
-	Content *I18nText `json:"content,omitempty"` // i18n文本
+	Content *I18nText `json:"content,omitempty"` // 部门名称，最多可输入 100 字;
 
 	EnumStatus *string `json:"enum_status,omitempty"` // 枚举状态
 }
@@ -20046,7 +20042,7 @@ type UpdateEmployeeTypeEnumBuilder struct {
 	enumId    string // 枚举ID
 	enumIdSet bool
 
-	content    *I18nText // i18n文本
+	content    *I18nText // 部门名称，最多可输入 100 字;
 	contentSet bool
 
 	enumStatus    string // 枚举状态
@@ -20067,7 +20063,7 @@ func (builder *UpdateEmployeeTypeEnumBuilder) EnumId(enumId string) *UpdateEmplo
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateEmployeeTypeEnumBuilder) Content(content *I18nText) *UpdateEmployeeTypeEnumBuilder {
@@ -20117,7 +20113,7 @@ func NewUpdateEmployeeTypeEnumOptionsBuilder() *UpdateEmployeeTypeEnumOptionsBui
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *UpdateEmployeeTypeEnumOptionsBuilder) DataSource(dataSource int) *UpdateEmployeeTypeEnumOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -20136,14 +20132,14 @@ func (builder *UpdateEmployeeTypeEnumOptionsBuilder) Build() *UpdateEmployeeType
 type UpdateGroupSet struct {
 	GroupSetId *string `json:"group_set_id,omitempty"` // 用户组分组 ID
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 }
 
 type UpdateGroupSetBuilder struct {
 	groupSetId    string // 用户组分组 ID
 	groupSetIdSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 }
 
@@ -20161,7 +20157,7 @@ func (builder *UpdateGroupSetBuilder) GroupSetId(groupSetId string) *UpdateGroup
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateGroupSetBuilder) Name(name *I18nText) *UpdateGroupSetBuilder {
@@ -20324,13 +20320,13 @@ func (builder *UpdateGuestBuilder) Build() *UpdateGuest {
 type UpdateJobFamily struct {
 	JobFamilyId *string `json:"job_family_id,omitempty"` // 序列ID
 
-	JobFamilyName *I18nText `json:"job_family_name,omitempty"` // i18n文本
+	JobFamilyName *I18nText `json:"job_family_name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
 	ParentId *string `json:"parent_id,omitempty"` // 上级序列
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	ExternalId *string `json:"external_id,omitempty"` // 外部ID 不可更新成空
 }
@@ -20339,7 +20335,7 @@ type UpdateJobFamilyBuilder struct {
 	jobFamilyId    string // 序列ID
 	jobFamilyIdSet bool
 
-	jobFamilyName    *I18nText // i18n文本
+	jobFamilyName    *I18nText // 部门名称，最多可输入 100 字;
 	jobFamilyNameSet bool
 
 	isEnabled    bool // 是否启用
@@ -20348,7 +20344,7 @@ type UpdateJobFamilyBuilder struct {
 	parentId    string // 上级序列
 	parentIdSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	externalId    string // 外部ID 不可更新成空
@@ -20369,7 +20365,7 @@ func (builder *UpdateJobFamilyBuilder) JobFamilyId(jobFamilyId string) *UpdateJo
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateJobFamilyBuilder) JobFamilyName(jobFamilyName *I18nText) *UpdateJobFamilyBuilder {
@@ -20396,7 +20392,7 @@ func (builder *UpdateJobFamilyBuilder) ParentId(parentId string) *UpdateJobFamil
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateJobFamilyBuilder) Description(description *I18nText) *UpdateJobFamilyBuilder {
@@ -20457,7 +20453,7 @@ func NewUpdateJobFamilyOptionsBuilder() *UpdateJobFamilyOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *UpdateJobFamilyOptionsBuilder) DataSource(dataSource int) *UpdateJobFamilyOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -20476,13 +20472,13 @@ func (builder *UpdateJobFamilyOptionsBuilder) Build() *UpdateJobFamilyOptions {
 type UpdateJobLevel struct {
 	Id *string `json:"id,omitempty"` // 名称
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
 	Order *string `json:"order,omitempty"` // 排序, 小的在前面
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	ExternalId *string `json:"external_id,omitempty"` // 外部ID 不可更新成空
 }
@@ -20491,7 +20487,7 @@ type UpdateJobLevelBuilder struct {
 	id    string // 名称
 	idSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	isEnabled    bool // 是否启用
@@ -20500,7 +20496,7 @@ type UpdateJobLevelBuilder struct {
 	order    string // 排序, 小的在前面
 	orderSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	externalId    string // 外部ID 不可更新成空
@@ -20521,7 +20517,7 @@ func (builder *UpdateJobLevelBuilder) Id(id string) *UpdateJobLevelBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateJobLevelBuilder) Name(name *I18nText) *UpdateJobLevelBuilder {
@@ -20548,7 +20544,7 @@ func (builder *UpdateJobLevelBuilder) Order(order string) *UpdateJobLevelBuilder
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateJobLevelBuilder) Description(description *I18nText) *UpdateJobLevelBuilder {
@@ -20609,7 +20605,7 @@ func NewUpdateJobLevelOptionsBuilder() *UpdateJobLevelOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *UpdateJobLevelOptionsBuilder) DataSource(dataSource int) *UpdateJobLevelOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -20628,13 +20624,13 @@ func (builder *UpdateJobLevelOptionsBuilder) Build() *UpdateJobLevelOptions {
 type UpdateJobTitle struct {
 	JobTitleId *string `json:"job_title_id,omitempty"` // ID
 
-	JobTitleName *I18nText `json:"job_title_name,omitempty"` // i18n文本
+	JobTitleName *I18nText `json:"job_title_name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
-	Title *I18nText `json:"title,omitempty"` // i18n文本
+	Title *I18nText `json:"title,omitempty"` // 部门名称，最多可输入 100 字;
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	JobFamilyIds []string `json:"job_family_ids,omitempty"` // 序列
 
@@ -20647,16 +20643,16 @@ type UpdateJobTitleBuilder struct {
 	jobTitleId    string // ID
 	jobTitleIdSet bool
 
-	jobTitleName    *I18nText // i18n文本
+	jobTitleName    *I18nText // 部门名称，最多可输入 100 字;
 	jobTitleNameSet bool
 
 	isEnabled    bool // 是否启用
 	isEnabledSet bool
 
-	title    *I18nText // i18n文本
+	title    *I18nText // 部门名称，最多可输入 100 字;
 	titleSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	jobFamilyIds    []string // 序列
@@ -20683,7 +20679,7 @@ func (builder *UpdateJobTitleBuilder) JobTitleId(jobTitleId string) *UpdateJobTi
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateJobTitleBuilder) JobTitleName(jobTitleName *I18nText) *UpdateJobTitleBuilder {
@@ -20701,7 +20697,7 @@ func (builder *UpdateJobTitleBuilder) IsEnabled(isEnabled bool) *UpdateJobTitleB
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateJobTitleBuilder) Title(title *I18nText) *UpdateJobTitleBuilder {
@@ -20710,7 +20706,7 @@ func (builder *UpdateJobTitleBuilder) Title(title *I18nText) *UpdateJobTitleBuil
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateJobTitleBuilder) Description(description *I18nText) *UpdateJobTitleBuilder {
@@ -20794,7 +20790,7 @@ func NewUpdateJobTitleOptionsBuilder() *UpdateJobTitleOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *UpdateJobTitleOptionsBuilder) DataSource(dataSource int) *UpdateJobTitleOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -20813,20 +20809,20 @@ func (builder *UpdateJobTitleOptionsBuilder) Build() *UpdateJobTitleOptions {
 type UpdateOrgdimension struct {
 	Id *string `json:"id,omitempty"` // 虚拟组织id
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnable *bool `json:"is_enable,omitempty"` // 是否启用
 
 	Order *string `json:"order,omitempty"` // 组织维度排序权重
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 }
 
 type UpdateOrgdimensionBuilder struct {
 	id    string // 虚拟组织id
 	idSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	isEnable    bool // 是否启用
@@ -20835,7 +20831,7 @@ type UpdateOrgdimensionBuilder struct {
 	order    string // 组织维度排序权重
 	orderSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 }
 
@@ -20853,7 +20849,7 @@ func (builder *UpdateOrgdimensionBuilder) Id(id string) *UpdateOrgdimensionBuild
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateOrgdimensionBuilder) Name(name *I18nText) *UpdateOrgdimensionBuilder {
@@ -20880,7 +20876,7 @@ func (builder *UpdateOrgdimensionBuilder) Order(order string) *UpdateOrgdimensio
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateOrgdimensionBuilder) Description(description *I18nText) *UpdateOrgdimensionBuilder {
@@ -20915,11 +20911,11 @@ func (builder *UpdateOrgdimensionBuilder) Build() *UpdateOrgdimension {
 type UpdatePlace struct {
 	PlaceId *string `json:"place_id,omitempty"` // ID
 
-	PlaceName *I18nText `json:"place_name,omitempty"` // i18n文本
+	PlaceName *I18nText `json:"place_name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	IsEnabled *bool `json:"is_enabled,omitempty"` // 是否启用
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	Usages []string `json:"usages,omitempty"` // 地点用途
 
@@ -20932,13 +20928,13 @@ type UpdatePlaceBuilder struct {
 	placeId    string // ID
 	placeIdSet bool
 
-	placeName    *I18nText // i18n文本
+	placeName    *I18nText // 部门名称，最多可输入 100 字;
 	placeNameSet bool
 
 	isEnabled    bool // 是否启用
 	isEnabledSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	usages    []string // 地点用途
@@ -20965,7 +20961,7 @@ func (builder *UpdatePlaceBuilder) PlaceId(placeId string) *UpdatePlaceBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdatePlaceBuilder) PlaceName(placeName *I18nText) *UpdatePlaceBuilder {
@@ -20983,7 +20979,7 @@ func (builder *UpdatePlaceBuilder) IsEnabled(isEnabled bool) *UpdatePlaceBuilder
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdatePlaceBuilder) Description(description *I18nText) *UpdatePlaceBuilder {
@@ -21065,7 +21061,7 @@ func NewUpdatePlaceOptionsBuilder() *UpdatePlaceOptionsBuilder {
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *UpdatePlaceOptionsBuilder) DataSource(dataSource int) *UpdatePlaceOptionsBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -21084,7 +21080,7 @@ func (builder *UpdatePlaceOptionsBuilder) Build() *UpdatePlaceOptions {
 type UpdateTenant struct {
 	Id *string `json:"id,omitempty"` // 租户ID
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	ContactUserInfo *UserInfo `json:"contact_user_info,omitempty"` // 联系人信息
 
@@ -21108,11 +21104,11 @@ type UpdateTenant struct {
 
 	Tag *string `json:"tag,omitempty"` // 个人租户/企业租户
 
-	Industry *string `json:"industry,omitempty"` // 行业类型 兼容历史枚举和主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-WOWldq8Uvow6g3xmIjlck9eYnof
+	Industry *string `json:"industry,omitempty"` // 行业类型 兼容历史枚举和主数据编码
 
-	Scale *string `json:"scale,omitempty"` // 企业规模 兼容历史枚举和主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-WOWldq8Uvow6g3xmIjlck9eYnof
+	Scale *string `json:"scale,omitempty"` // 企业规模 兼容历史枚举和主数据编码
 
-	Description *I18nText `json:"description,omitempty"` // i18n文本
+	Description *I18nText `json:"description,omitempty"` // 部门名称，最多可输入 100 字;
 
 	CreatorId *string `json:"creator_id,omitempty"` // 创建人ID
 }
@@ -21121,7 +21117,7 @@ type UpdateTenantBuilder struct {
 	id    string // 租户ID
 	idSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	contactUserInfo    *UserInfo // 联系人信息
@@ -21157,13 +21153,13 @@ type UpdateTenantBuilder struct {
 	tag    string // 个人租户/企业租户
 	tagSet bool
 
-	industry    string // 行业类型 兼容历史枚举和主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-WOWldq8Uvow6g3xmIjlck9eYnof
+	industry    string // 行业类型 兼容历史枚举和主数据编码
 	industrySet bool
 
-	scale    string // 企业规模 兼容历史枚举和主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-WOWldq8Uvow6g3xmIjlck9eYnof
+	scale    string // 企业规模 兼容历史枚举和主数据编码
 	scaleSet bool
 
-	description    *I18nText // i18n文本
+	description    *I18nText // 部门名称，最多可输入 100 字;
 	descriptionSet bool
 
 	creatorId    string // 创建人ID
@@ -21184,7 +21180,7 @@ func (builder *UpdateTenantBuilder) Id(id string) *UpdateTenantBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateTenantBuilder) Name(name *I18nText) *UpdateTenantBuilder {
@@ -21292,7 +21288,7 @@ func (builder *UpdateTenantBuilder) Tag(tag string) *UpdateTenantBuilder {
 	return builder
 }
 
-// 行业类型 兼容历史枚举和主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-WOWldq8Uvow6g3xmIjlck9eYnof
+// 行业类型 兼容历史枚举和主数据编码
 //
 // 示例值：MDCT00000256
 func (builder *UpdateTenantBuilder) Industry(industry string) *UpdateTenantBuilder {
@@ -21301,7 +21297,7 @@ func (builder *UpdateTenantBuilder) Industry(industry string) *UpdateTenantBuild
 	return builder
 }
 
-// 企业规模 兼容历史枚举和主数据编码 https://bytedance.larkoffice.com/wiki/Ntd1wlmT2i0xrokY2DNcWDw0nHc#share-WOWldq8Uvow6g3xmIjlck9eYnof
+// 企业规模 兼容历史枚举和主数据编码
 //
 // 示例值：MDCT00000256
 func (builder *UpdateTenantBuilder) Scale(scale string) *UpdateTenantBuilder {
@@ -21310,7 +21306,7 @@ func (builder *UpdateTenantBuilder) Scale(scale string) *UpdateTenantBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpdateTenantBuilder) Description(description *I18nText) *UpdateTenantBuilder {
@@ -21428,7 +21424,7 @@ func (builder *UpdateTenantOptionBuilder) IsSkipDomainCheck(isSkipDomainCheck bo
 
 // 数据来源
 //
-// 示例值：
+// 示例值：1
 func (builder *UpdateTenantOptionBuilder) DataSource(dataSource int) *UpdateTenantOptionBuilder {
 	builder.dataSource = dataSource
 	builder.dataSourceSet = true
@@ -21453,7 +21449,7 @@ type UpdateVisibleAssistRule struct {
 
 	Subjects []*EntityInfo `json:"subjects,omitempty"` // 规则主体
 
-	Objects []*EntityInfo `json:"objects,omitempty"` // 规则客体，类型只能为部门、用户、单位。不能为用户组
+	Objects []*EntityInfo `json:"objects,omitempty"` // 规则客体，类型只能为部门、用户、单位。**不能为用户组**
 
 	Effect *int `json:"effect,omitempty"` // 权限操作
 
@@ -21467,7 +21463,7 @@ type UpdateVisibleAssistRuleBuilder struct {
 	subjects    []*EntityInfo // 规则主体
 	subjectsSet bool
 
-	objects    []*EntityInfo // 规则客体，类型只能为部门、用户、单位。不能为用户组
+	objects    []*EntityInfo // 规则客体，类型只能为部门、用户、单位。**不能为用户组**
 	objectsSet bool
 
 	effect    int // 权限操作
@@ -21500,7 +21496,7 @@ func (builder *UpdateVisibleAssistRuleBuilder) Subjects(subjects []*EntityInfo) 
 	return builder
 }
 
-// 规则客体，类型只能为部门、用户、单位。不能为用户组
+// 规则客体，类型只能为部门、用户、单位。**不能为用户组**
 //
 // 示例值：
 func (builder *UpdateVisibleAssistRuleBuilder) Objects(objects []*EntityInfo) *UpdateVisibleAssistRuleBuilder {
@@ -21551,11 +21547,11 @@ func (builder *UpdateVisibleAssistRuleBuilder) Build() *UpdateVisibleAssistRule 
 }
 
 type UpsertGuestName struct {
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 }
 
 type UpsertGuestNameBuilder struct {
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 }
 
@@ -21564,7 +21560,7 @@ func NewUpsertGuestNameBuilder() *UpsertGuestNameBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpsertGuestNameBuilder) Name(name *I18nText) *UpsertGuestNameBuilder {
@@ -21582,28 +21578,28 @@ func (builder *UpsertGuestNameBuilder) Build() *UpsertGuestName {
 }
 
 type UpsertName struct {
-	LastName *I18nText `json:"last_name,omitempty"` // i18n文本
+	LastName *I18nText `json:"last_name,omitempty"` // 部门名称，最多可输入 100 字;
 
-	FirstName *I18nText `json:"first_name,omitempty"` // i18n文本
+	FirstName *I18nText `json:"first_name,omitempty"` // 部门名称，最多可输入 100 字;
 
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
-	AnotherName *string `json:"another_name,omitempty"` // 别名
+	AnotherName *string `json:"another_name,omitempty"` // 别名，最多可输入 64 字;
 
 	LegalName *string `json:"legal_name,omitempty"` // 法定姓名
 }
 
 type UpsertNameBuilder struct {
-	lastName    *I18nText // i18n文本
+	lastName    *I18nText // 部门名称，最多可输入 100 字;
 	lastNameSet bool
 
-	firstName    *I18nText // i18n文本
+	firstName    *I18nText // 部门名称，最多可输入 100 字;
 	firstNameSet bool
 
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
-	anotherName    string // 别名
+	anotherName    string // 别名，最多可输入 64 字;
 	anotherNameSet bool
 
 	legalName    string // 法定姓名
@@ -21615,7 +21611,7 @@ func NewUpsertNameBuilder() *UpsertNameBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpsertNameBuilder) LastName(lastName *I18nText) *UpsertNameBuilder {
@@ -21624,7 +21620,7 @@ func (builder *UpsertNameBuilder) LastName(lastName *I18nText) *UpsertNameBuilde
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpsertNameBuilder) FirstName(firstName *I18nText) *UpsertNameBuilder {
@@ -21633,7 +21629,7 @@ func (builder *UpsertNameBuilder) FirstName(firstName *I18nText) *UpsertNameBuil
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UpsertNameBuilder) Name(name *I18nText) *UpsertNameBuilder {
@@ -21642,7 +21638,7 @@ func (builder *UpsertNameBuilder) Name(name *I18nText) *UpsertNameBuilder {
 	return builder
 }
 
-// 别名
+// 别名，最多可输入 64 字;
 //
 // 示例值：jack
 func (builder *UpsertNameBuilder) AnotherName(anotherName string) *UpsertNameBuilder {
@@ -21683,26 +21679,26 @@ func (builder *UpsertNameBuilder) Build() *UpsertName {
 }
 
 type UpsertUserDepartmentSortInfo struct {
-	DepartmentId *string `json:"department_id,omitempty"` // 部门id
+	DepartmentId *string `json:"department_id,omitempty"` // 指定员工所在的部门，标识企业内一个唯一的部门，与department_id_type类型保持一致。
 
-	OrderWeightInDeparment *string `json:"order_weight_in_deparment,omitempty"` // 用户在部门内的排序权重
+	OrderWeightInDeparment *string `json:"order_weight_in_deparment,omitempty"` // 员工在部门内的排序权重。
 
-	OrderWeightAmongDeparments *string `json:"order_weight_among_deparments,omitempty"` // 用户多个部门间的排序权重
+	OrderWeightAmongDeparments *string `json:"order_weight_among_deparments,omitempty"` // 该部门在用户所属的多个部门间的排序权重。
 
-	IsMainDepartment *bool `json:"is_main_department,omitempty"` // 是否为用户的主部门（用户只能有一个主部门，且排序权重应最大，不填则默认使用排序第一的部门作为主部门)
+	IsMainDepartment *bool `json:"is_main_department,omitempty"` // 是否为用户的主部门（用户只能有一个主部门，且排序权重应最大，不填则默认使用系统默认排序下的第一个部门作为主部门，系统默认排序与部门数组传入顺序无关）
 }
 
 type UpsertUserDepartmentSortInfoBuilder struct {
-	departmentId    string // 部门id
+	departmentId    string // 指定员工所在的部门，标识企业内一个唯一的部门，与department_id_type类型保持一致。
 	departmentIdSet bool
 
-	orderWeightInDeparment    string // 用户在部门内的排序权重
+	orderWeightInDeparment    string // 员工在部门内的排序权重。
 	orderWeightInDeparmentSet bool
 
-	orderWeightAmongDeparments    string // 用户多个部门间的排序权重
+	orderWeightAmongDeparments    string // 该部门在用户所属的多个部门间的排序权重。
 	orderWeightAmongDeparmentsSet bool
 
-	isMainDepartment    bool // 是否为用户的主部门（用户只能有一个主部门，且排序权重应最大，不填则默认使用排序第一的部门作为主部门)
+	isMainDepartment    bool // 是否为用户的主部门（用户只能有一个主部门，且排序权重应最大，不填则默认使用系统默认排序下的第一个部门作为主部门，系统默认排序与部门数组传入顺序无关）
 	isMainDepartmentSet bool
 }
 
@@ -21711,16 +21707,16 @@ func NewUpsertUserDepartmentSortInfoBuilder() *UpsertUserDepartmentSortInfoBuild
 	return builder
 }
 
-// 部门id
+// 指定员工所在的部门，标识企业内一个唯一的部门，与department_id_type类型保持一致。
 //
-// 示例值：
+// 示例值：eeddjisdwe
 func (builder *UpsertUserDepartmentSortInfoBuilder) DepartmentId(departmentId string) *UpsertUserDepartmentSortInfoBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdSet = true
 	return builder
 }
 
-// 用户在部门内的排序权重
+// 员工在部门内的排序权重。
 //
 // 示例值：100
 func (builder *UpsertUserDepartmentSortInfoBuilder) OrderWeightInDeparment(orderWeightInDeparment string) *UpsertUserDepartmentSortInfoBuilder {
@@ -21729,7 +21725,7 @@ func (builder *UpsertUserDepartmentSortInfoBuilder) OrderWeightInDeparment(order
 	return builder
 }
 
-// 用户多个部门间的排序权重
+// 该部门在用户所属的多个部门间的排序权重。
 //
 // 示例值：20
 func (builder *UpsertUserDepartmentSortInfoBuilder) OrderWeightAmongDeparments(orderWeightAmongDeparments string) *UpsertUserDepartmentSortInfoBuilder {
@@ -21738,9 +21734,9 @@ func (builder *UpsertUserDepartmentSortInfoBuilder) OrderWeightAmongDeparments(o
 	return builder
 }
 
-// 是否为用户的主部门（用户只能有一个主部门，且排序权重应最大，不填则默认使用排序第一的部门作为主部门)
+// 是否为用户的主部门（用户只能有一个主部门，且排序权重应最大，不填则默认使用系统默认排序下的第一个部门作为主部门，系统默认排序与部门数组传入顺序无关）
 //
-// 示例值：
+// 示例值：true
 func (builder *UpsertUserDepartmentSortInfoBuilder) IsMainDepartment(isMainDepartment bool) *UpsertUserDepartmentSortInfoBuilder {
 	builder.isMainDepartment = isMainDepartment
 	builder.isMainDepartmentSet = true
@@ -21835,7 +21831,7 @@ func (builder *UpsertUserVirtualOrgInfoBuilder) Build() *UpsertUserVirtualOrgInf
 }
 
 type UrlValue struct {
-	LinkText *I18nText `json:"link_text,omitempty"` // i18n文本
+	LinkText *I18nText `json:"link_text,omitempty"` // 部门名称，最多可输入 100 字;
 
 	Url *string `json:"url,omitempty"` // 移动端网页链接
 
@@ -21843,7 +21839,7 @@ type UrlValue struct {
 }
 
 type UrlValueBuilder struct {
-	linkText    *I18nText // i18n文本
+	linkText    *I18nText // 部门名称，最多可输入 100 字;
 	linkTextSet bool
 
 	url    string // 移动端网页链接
@@ -21858,7 +21854,7 @@ func NewUrlValueBuilder() *UrlValueBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UrlValueBuilder) LinkText(linkText *I18nText) *UrlValueBuilder {
@@ -21902,7 +21898,7 @@ func (builder *UrlValueBuilder) Build() *UrlValue {
 }
 
 type UserDepartmentSortInfo struct {
-	DepartmentId *string `json:"department_id,omitempty"` // 部门id
+	DepartmentId *string `json:"department_id,omitempty"` // 部门id，部门id类型为 open_department_id，了解部门 ID 可参见[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)。
 
 	OrderWeightInDeparment *string `json:"order_weight_in_deparment,omitempty"` // 用户在部门内的排序权重
 
@@ -21910,7 +21906,7 @@ type UserDepartmentSortInfo struct {
 }
 
 type UserDepartmentSortInfoBuilder struct {
-	departmentId    string // 部门id
+	departmentId    string // 部门id，部门id类型为 open_department_id，了解部门 ID 可参见[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)。
 	departmentIdSet bool
 
 	orderWeightInDeparment    string // 用户在部门内的排序权重
@@ -21925,7 +21921,7 @@ func NewUserDepartmentSortInfoBuilder() *UserDepartmentSortInfoBuilder {
 	return builder
 }
 
-// 部门id
+// 部门id，部门id类型为 open_department_id，了解部门 ID 可参见[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)。
 //
 // 示例值：h12921
 func (builder *UserDepartmentSortInfoBuilder) DepartmentId(departmentId string) *UserDepartmentSortInfoBuilder {
@@ -22419,19 +22415,19 @@ func (builder *UserFieldKeyContainerBuilder) Build() *UserFieldKeyContainer {
 }
 
 type UserInfo struct {
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	Mobile *string `json:"mobile,omitempty"` // 联系人手机
 
 	Email *string `json:"email,omitempty"` // 联系人邮箱
 
-	FirstName *I18nText `json:"first_name,omitempty"` // i18n文本
+	FirstName *I18nText `json:"first_name,omitempty"` // 部门名称，最多可输入 100 字;
 
-	LastName *I18nText `json:"last_name,omitempty"` // i18n文本
+	LastName *I18nText `json:"last_name,omitempty"` // 部门名称，最多可输入 100 字;
 }
 
 type UserInfoBuilder struct {
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	mobile    string // 联系人手机
@@ -22440,10 +22436,10 @@ type UserInfoBuilder struct {
 	email    string // 联系人邮箱
 	emailSet bool
 
-	firstName    *I18nText // i18n文本
+	firstName    *I18nText // 部门名称，最多可输入 100 字;
 	firstNameSet bool
 
-	lastName    *I18nText // i18n文本
+	lastName    *I18nText // 部门名称，最多可输入 100 字;
 	lastNameSet bool
 }
 
@@ -22452,7 +22448,7 @@ func NewUserInfoBuilder() *UserInfoBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *UserInfoBuilder) Name(name *I18nText) *UserInfoBuilder {
@@ -22479,7 +22475,7 @@ func (builder *UserInfoBuilder) Email(email string) *UserInfoBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：Albert
 func (builder *UserInfoBuilder) FirstName(firstName *I18nText) *UserInfoBuilder {
@@ -22488,7 +22484,7 @@ func (builder *UserInfoBuilder) FirstName(firstName *I18nText) *UserInfoBuilder 
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：Einstein
 func (builder *UserInfoBuilder) LastName(lastName *I18nText) *UserInfoBuilder {
@@ -22520,13 +22516,13 @@ func (builder *UserInfoBuilder) Build() *UserInfo {
 }
 
 type UserValue struct {
-	Ids []string `json:"ids,omitempty"` // 人员ID
+	Ids []string `json:"ids,omitempty"` // 人员ID列表，了解用户 ID 可参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 
 	UserType *string `json:"user_type,omitempty"` // 人员类型
 }
 
 type UserValueBuilder struct {
-	ids    []string // 人员ID
+	ids    []string // 人员ID列表，了解用户 ID 可参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 	idsSet bool
 
 	userType    string // 人员类型
@@ -22538,7 +22534,7 @@ func NewUserValueBuilder() *UserValueBuilder {
 	return builder
 }
 
-// 人员ID
+// 人员ID列表，了解用户 ID 可参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 //
 // 示例值：
 func (builder *UserValueBuilder) Ids(ids []string) *UserValueBuilder {
@@ -23100,13 +23096,13 @@ func (builder *WorkStatusBuilder) Build() *WorkStatus {
 }
 
 type WuKongEnum struct {
-	Name *I18nText `json:"name,omitempty"` // i18n文本
+	Name *I18nText `json:"name,omitempty"` // 部门名称，最多可输入 100 字;
 
 	ApiName *string `json:"api_name,omitempty"` // 枚举名
 }
 
 type WuKongEnumBuilder struct {
-	name    *I18nText // i18n文本
+	name    *I18nText // 部门名称，最多可输入 100 字;
 	nameSet bool
 
 	apiName    string // 枚举名
@@ -23118,7 +23114,7 @@ func NewWuKongEnumBuilder() *WuKongEnumBuilder {
 	return builder
 }
 
-// i18n文本
+// 部门名称，最多可输入 100 字;
 //
 // 示例值：
 func (builder *WuKongEnumBuilder) Name(name *I18nText) *WuKongEnumBuilder {
@@ -23163,7 +23159,7 @@ func NewCreateCollaborationRuleReqBodyBuilder() *CreateCollaborationRuleReqBodyB
 
 // 实体数量之和需要小于100
 //
-//示例值：
+// 示例值：
 func (builder *CreateCollaborationRuleReqBodyBuilder) Subjects(subjects *CollaborationRuleEntities) *CreateCollaborationRuleReqBodyBuilder {
 	builder.subjects = subjects
 	builder.subjectsSet = true
@@ -23172,7 +23168,7 @@ func (builder *CreateCollaborationRuleReqBodyBuilder) Subjects(subjects *Collabo
 
 // 实体数量之和需要小于100
 //
-//示例值：
+// 示例值：
 func (builder *CreateCollaborationRuleReqBodyBuilder) Objects(objects *CollaborationRuleEntities) *CreateCollaborationRuleReqBodyBuilder {
 	builder.objects = objects
 	builder.objectsSet = true
@@ -23245,7 +23241,7 @@ func NewCreateCollaborationRuleReqBuilder() *CreateCollaborationRuleReqBuilder {
 	return builder
 }
 
-// 对方租户的tenant key
+// 对方组织的tenant key，可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取
 //
 // 示例值：test_key
 func (builder *CreateCollaborationRuleReqBuilder) TargetTenantKey(targetTenantKey string) *CreateCollaborationRuleReqBuilder {
@@ -23261,7 +23257,7 @@ func (builder *CreateCollaborationRuleReqBuilder) TenantId(tenantId string) *Cre
 	return builder
 }
 
-// 创建关联组织规则
+// 管理员视角新增可搜可见规则。用户需具备关联组织管理员权限。
 func (builder *CreateCollaborationRuleReqBuilder) Body(body *CreateCollaborationRuleReqBody) *CreateCollaborationRuleReqBuilder {
 	builder.body = body
 	return builder
@@ -23313,7 +23309,7 @@ func NewDeleteCollaborationRuleReqBuilder() *DeleteCollaborationRuleReqBuilder {
 	return builder
 }
 
-// 规则ID
+// 规则ID，可通过[查询可搜可见规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_rule/list)获得
 //
 // 示例值：2121
 func (builder *DeleteCollaborationRuleReqBuilder) CollaborationRuleId(collaborationRuleId string) *DeleteCollaborationRuleReqBuilder {
@@ -23321,7 +23317,7 @@ func (builder *DeleteCollaborationRuleReqBuilder) CollaborationRuleId(collaborat
 	return builder
 }
 
-// 对方租户的tenant key
+// 对方组织的tenant key，可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取
 //
 // 示例值：test_key
 func (builder *DeleteCollaborationRuleReqBuilder) TargetTenantKey(targetTenantKey string) *DeleteCollaborationRuleReqBuilder {
@@ -23394,7 +23390,7 @@ func (builder *ListCollaborationRuleReqBuilder) PageToken(pageToken string) *Lis
 	return builder
 }
 
-// 对方租户的tenant key
+// 对方组织的tenant key，可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取
 //
 // 示例值：test_key
 func (builder *ListCollaborationRuleReqBuilder) TargetTenantKey(targetTenantKey string) *ListCollaborationRuleReqBuilder {
@@ -23457,7 +23453,7 @@ func NewUpdateCollaborationRuleReqBodyBuilder() *UpdateCollaborationRuleReqBodyB
 
 // 实体数量之和需要小于100
 //
-//示例值：
+// 示例值：
 func (builder *UpdateCollaborationRuleReqBodyBuilder) Subjects(subjects *CollaborationRuleEntities) *UpdateCollaborationRuleReqBodyBuilder {
 	builder.subjects = subjects
 	builder.subjectsSet = true
@@ -23466,7 +23462,7 @@ func (builder *UpdateCollaborationRuleReqBodyBuilder) Subjects(subjects *Collabo
 
 // 实体数量之和需要小于100
 //
-//示例值：
+// 示例值：
 func (builder *UpdateCollaborationRuleReqBodyBuilder) Objects(objects *CollaborationRuleEntities) *UpdateCollaborationRuleReqBodyBuilder {
 	builder.objects = objects
 	builder.objectsSet = true
@@ -23539,7 +23535,7 @@ func NewUpdateCollaborationRuleReqBuilder() *UpdateCollaborationRuleReqBuilder {
 	return builder
 }
 
-// 规则ID
+// 规则ID，可通过[查询可搜可见规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_rule/list)获得
 //
 // 示例值：12121
 func (builder *UpdateCollaborationRuleReqBuilder) CollaborationRuleId(collaborationRuleId string) *UpdateCollaborationRuleReqBuilder {
@@ -23547,7 +23543,7 @@ func (builder *UpdateCollaborationRuleReqBuilder) CollaborationRuleId(collaborat
 	return builder
 }
 
-// 对方租户的tenant key
+// 对方组织的tenant key，可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取
 //
 // 示例值：test_key
 func (builder *UpdateCollaborationRuleReqBuilder) TargetTenantKey(targetTenantKey string) *UpdateCollaborationRuleReqBuilder {
@@ -23563,7 +23559,7 @@ func (builder *UpdateCollaborationRuleReqBuilder) TenantId(tenantId string) *Upd
 	return builder
 }
 
-// 更新关联组织规则
+// 管理员视角更新可搜可见规则。用户需具备关联组织管理员权限。
 func (builder *UpdateCollaborationRuleReqBuilder) Body(body *UpdateCollaborationRuleReqBody) *UpdateCollaborationRuleReqBuilder {
 	builder.body = body
 	return builder
@@ -23687,7 +23683,7 @@ func NewListCollborationShareEntityReqBuilder() *ListCollborationShareEntityReqB
 	return builder
 }
 
-// 对方租户的tenant key
+// 对方组织的tenant key，可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取
 //
 // 示例值：test_key
 func (builder *ListCollborationShareEntityReqBuilder) TargetTenantKey(targetTenantKey string) *ListCollborationShareEntityReqBuilder {
@@ -23695,7 +23691,7 @@ func (builder *ListCollborationShareEntityReqBuilder) TargetTenantKey(targetTena
 	return builder
 }
 
-// 不填写该参数为租户的分享范围，可填写该字段继续下钻查看指定部门下的子部门+成员。填写0分为两种情况，若租户分享的为全员则展示一级部门，否则展示分享的部门+成员。
+// 不填写该参数时，查询整个组织的分享范围，可填写该字段继续下钻查看指定部门下的子部门+成员。填写0分为两种情况，若组织分享的为全员则展示一级部门，否则展示分享的部门+成员；可以递归使用该接口实现整个分享范围的下钻查询
 //
 // 示例值：test_key
 func (builder *ListCollborationShareEntityReqBuilder) TargetDepartmentId(targetDepartmentId string) *ListCollborationShareEntityReqBuilder {
@@ -23703,7 +23699,7 @@ func (builder *ListCollborationShareEntityReqBuilder) TargetDepartmentId(targetD
 	return builder
 }
 
-// 获取用户组下的成员，填写该值后忽略target_department_id
+// 获取用户组下的成员，填写该值后忽略target_department_id；可以通过本接口参数返回的用户组ID继续本接口查询
 //
 // 示例值：test_key
 func (builder *ListCollborationShareEntityReqBuilder) TargetGroupId(targetGroupId string) *ListCollborationShareEntityReqBuilder {
@@ -23711,9 +23707,9 @@ func (builder *ListCollborationShareEntityReqBuilder) TargetGroupId(targetGroupI
 	return builder
 }
 
-// 是否主体租户分享范围，默认是客体租户的分享范围
+// 是否主体组织分享范围，默认是客体组织的分享范围
 //
-// 示例值：
+// 示例值：true
 func (builder *ListCollborationShareEntityReqBuilder) IsSelectSubject(isSelectSubject bool) *ListCollborationShareEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("is_select_subject", fmt.Sprint(isSelectSubject))
 	return builder
@@ -23788,7 +23784,7 @@ func NewCreateDepartmentReqBodyBuilder() *CreateDepartmentReqBodyBuilder {
 
 // 创建部门
 //
-//示例值：
+// 示例值：
 func (builder *CreateDepartmentReqBodyBuilder) Department(department *CreateDepartment) *CreateDepartmentReqBodyBuilder {
 	builder.department = department
 	builder.departmentSet = true
@@ -23876,7 +23872,7 @@ func (builder *CreateDepartmentReqBuilder) TenantId(tenantId string) *CreateDepa
 	return builder
 }
 
-// 创建部门信息
+// 本接口用于用于在企业通讯录中创建新部门，支持设置部门名称、父部门、负责人等信息。
 func (builder *CreateDepartmentReqBuilder) Body(body *CreateDepartmentReqBody) *CreateDepartmentReqBuilder {
 	builder.body = body
 	return builder
@@ -23926,7 +23922,7 @@ func NewDeleteDepartmentReqBuilder() *DeleteDepartmentReqBuilder {
 	return builder
 }
 
-// 部门ID
+// 部门ID，与department_id_type类型保持一致
 //
 // 示例值：weasdqwe
 func (builder *DeleteDepartmentReqBuilder) DepartmentId(departmentId string) *DeleteDepartmentReqBuilder {
@@ -23980,10 +23976,10 @@ func (resp *DeleteDepartmentResp) Success() bool {
 }
 
 type FilterDepartmentReqBodyBuilder struct {
-	filter    *MultiFilterCondition // 查询条件
+	filter    *MultiFilterCondition // 查询条件[了解更多：查询条件用法](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/filter-usage)
 	filterSet bool
 
-	requiredFields    []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+	requiredFields    []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 	requiredFieldsSet bool
 
 	pageRequest    *PageCondition // 分页信息
@@ -23995,18 +23991,18 @@ func NewFilterDepartmentReqBodyBuilder() *FilterDepartmentReqBodyBuilder {
 	return builder
 }
 
-// 查询条件
+// 查询条件[了解更多：查询条件用法](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/filter-usage)
 //
-//示例值：
+// 示例值：
 func (builder *FilterDepartmentReqBodyBuilder) Filter(filter *MultiFilterCondition) *FilterDepartmentReqBodyBuilder {
 	builder.filter = filter
 	builder.filterSet = true
 	return builder
 }
 
-// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 //
-//示例值：
+// 示例值：
 func (builder *FilterDepartmentReqBodyBuilder) RequiredFields(requiredFields []string) *FilterDepartmentReqBodyBuilder {
 	builder.requiredFields = requiredFields
 	builder.requiredFieldsSet = true
@@ -24015,7 +24011,7 @@ func (builder *FilterDepartmentReqBodyBuilder) RequiredFields(requiredFields []s
 
 // 分页信息
 //
-//示例值：
+// 示例值：
 func (builder *FilterDepartmentReqBodyBuilder) PageRequest(pageRequest *PageCondition) *FilterDepartmentReqBodyBuilder {
 	builder.pageRequest = pageRequest
 	builder.pageRequestSet = true
@@ -24050,7 +24046,7 @@ func NewFilterDepartmentPathReqBodyBuilder() *FilterDepartmentPathReqBodyBuilder
 	return builder
 }
 
-// 查询条件
+// 查询条件[了解更多：查询条件用法](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/filter-usage)
 //
 // 示例值：
 func (builder *FilterDepartmentPathReqBodyBuilder) Filter(filter *MultiFilterCondition) *FilterDepartmentPathReqBodyBuilder {
@@ -24059,7 +24055,7 @@ func (builder *FilterDepartmentPathReqBodyBuilder) Filter(filter *MultiFilterCon
 	return builder
 }
 
-// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 //
 // 示例值：
 func (builder *FilterDepartmentPathReqBodyBuilder) RequiredFields(requiredFields []string) *FilterDepartmentPathReqBodyBuilder {
@@ -24137,7 +24133,7 @@ func (builder *FilterDepartmentReqBuilder) TenantId(tenantId string) *FilterDepa
 	return builder
 }
 
-// 查询部门ID列表
+// 本接口用于依据指定条件，批量获取符合条件的部门详情列表。
 func (builder *FilterDepartmentReqBuilder) Body(body *FilterDepartmentReqBody) *FilterDepartmentReqBuilder {
 	builder.body = body
 	return builder
@@ -24152,9 +24148,9 @@ func (builder *FilterDepartmentReqBuilder) Build() *FilterDepartmentReq {
 }
 
 type FilterDepartmentReqBody struct {
-	Filter *MultiFilterCondition `json:"filter,omitempty"` // 查询条件
+	Filter *MultiFilterCondition `json:"filter,omitempty"` // 查询条件[了解更多：查询条件用法](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/filter-usage)
 
-	RequiredFields []string `json:"required_fields,omitempty"` // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+	RequiredFields []string `json:"required_fields,omitempty"` // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 
 	PageRequest *PageCondition `json:"page_request,omitempty"` // 分页信息
 }
@@ -24183,10 +24179,10 @@ func (resp *FilterDepartmentResp) Success() bool {
 }
 
 type MgetDepartmentReqBodyBuilder struct {
-	departmentIds    []string // 部门id
+	departmentIds    []string // 部门ID，与department_id_type类型保持一致。id获取方式：可通过管理后台查询。
 	departmentIdsSet bool
 
-	requiredFields    []string // 字段枚举
+	requiredFields    []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 	requiredFieldsSet bool
 }
 
@@ -24195,18 +24191,18 @@ func NewMgetDepartmentReqBodyBuilder() *MgetDepartmentReqBodyBuilder {
 	return builder
 }
 
-// 部门id
+// 部门ID，与department_id_type类型保持一致。id获取方式：可通过管理后台查询。
 //
-//示例值：
+// 示例值：
 func (builder *MgetDepartmentReqBodyBuilder) DepartmentIds(departmentIds []string) *MgetDepartmentReqBodyBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsSet = true
 	return builder
 }
 
-// 字段枚举
+// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 //
-//示例值：
+// 示例值：
 func (builder *MgetDepartmentReqBodyBuilder) RequiredFields(requiredFields []string) *MgetDepartmentReqBodyBuilder {
 	builder.requiredFields = requiredFields
 	builder.requiredFieldsSet = true
@@ -24236,7 +24232,7 @@ func NewMgetDepartmentPathReqBodyBuilder() *MgetDepartmentPathReqBodyBuilder {
 	return builder
 }
 
-// 部门id
+// 部门ID，与department_id_type类型保持一致。id获取方式：可通过管理后台查询。
 //
 // 示例值：
 func (builder *MgetDepartmentPathReqBodyBuilder) DepartmentIds(departmentIds []string) *MgetDepartmentPathReqBodyBuilder {
@@ -24245,7 +24241,7 @@ func (builder *MgetDepartmentPathReqBodyBuilder) DepartmentIds(departmentIds []s
 	return builder
 }
 
-// 字段枚举
+// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 //
 // 示例值：
 func (builder *MgetDepartmentPathReqBodyBuilder) RequiredFields(requiredFields []string) *MgetDepartmentPathReqBodyBuilder {
@@ -24303,7 +24299,7 @@ func (builder *MgetDepartmentReqBuilder) IsAdminRole(isAdminRole bool) *MgetDepa
 	return builder
 }
 
-// 查询部门
+// 该接口支持传入多个部门ID，返回每个部门的详细信息（如名称、负责人、子部门等）。
 func (builder *MgetDepartmentReqBuilder) Body(body *MgetDepartmentReqBody) *MgetDepartmentReqBuilder {
 	builder.body = body
 	return builder
@@ -24318,9 +24314,9 @@ func (builder *MgetDepartmentReqBuilder) Build() *MgetDepartmentReq {
 }
 
 type MgetDepartmentReqBody struct {
-	DepartmentIds []string `json:"department_ids,omitempty"` // 部门id
+	DepartmentIds []string `json:"department_ids,omitempty"` // 部门ID，与department_id_type类型保持一致。id获取方式：可通过管理后台查询。
 
-	RequiredFields []string `json:"required_fields,omitempty"` // 字段枚举
+	RequiredFields []string `json:"required_fields,omitempty"` // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 }
 
 type MgetDepartmentReq struct {
@@ -24345,7 +24341,7 @@ func (resp *MgetDepartmentResp) Success() bool {
 }
 
 type PatchDepartmentReqBodyBuilder struct {
-	department    *UpdateDepartment // 更新部门
+	department    *UpdateDepartment // 更新部门信息
 	departmentSet bool
 }
 
@@ -24354,9 +24350,9 @@ func NewPatchDepartmentReqBodyBuilder() *PatchDepartmentReqBodyBuilder {
 	return builder
 }
 
-// 更新部门
+// 更新部门信息
 //
-//示例值：
+// 示例值：
 func (builder *PatchDepartmentReqBodyBuilder) Department(department *UpdateDepartment) *PatchDepartmentReqBodyBuilder {
 	builder.department = department
 	builder.departmentSet = true
@@ -24381,7 +24377,7 @@ func NewPatchDepartmentPathReqBodyBuilder() *PatchDepartmentPathReqBodyBuilder {
 	return builder
 }
 
-// 更新部门
+// 更新部门信息
 //
 // 示例值：
 func (builder *PatchDepartmentPathReqBodyBuilder) Department(department *UpdateDepartment) *PatchDepartmentPathReqBodyBuilder {
@@ -24412,7 +24408,7 @@ func NewPatchDepartmentReqBuilder() *PatchDepartmentReqBuilder {
 	return builder
 }
 
-// 部门ID
+// 部门ID，与department_id_type类型保持一致
 //
 // 示例值：h12921
 func (builder *PatchDepartmentReqBuilder) DepartmentId(departmentId string) *PatchDepartmentReqBuilder {
@@ -24444,7 +24440,7 @@ func (builder *PatchDepartmentReqBuilder) IsAdminRole(isAdminRole bool) *PatchDe
 	return builder
 }
 
-// 更新部门信息
+// 本接口用于更新部门信息。仅更新显式传参的部分。
 func (builder *PatchDepartmentReqBuilder) Body(body *PatchDepartmentReqBody) *PatchDepartmentReqBuilder {
 	builder.body = body
 	return builder
@@ -24460,7 +24456,7 @@ func (builder *PatchDepartmentReqBuilder) Build() *PatchDepartmentReq {
 }
 
 type PatchDepartmentReqBody struct {
-	Department *UpdateDepartment `json:"department,omitempty"` // 更新部门
+	Department *UpdateDepartment `json:"department,omitempty"` // 更新部门信息
 }
 
 type PatchDepartmentReq struct {
@@ -24478,13 +24474,13 @@ func (resp *PatchDepartmentResp) Success() bool {
 }
 
 type SearchDepartmentReqBodyBuilder struct {
-	query    string // 搜索关键词。支持部门名称的搜索
+	query    string // 搜索关键词。支持部门名称的搜索，最多可输入 100 字。
 	querySet bool
 
 	pageRequest    *PageCondition // 分页信息
 	pageRequestSet bool
 
-	requiredFields    []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+	requiredFields    []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段;[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration);
 	requiredFieldsSet bool
 
 	filter    *SearchDepartmentFilter // 查询条件
@@ -24496,9 +24492,9 @@ func NewSearchDepartmentReqBodyBuilder() *SearchDepartmentReqBodyBuilder {
 	return builder
 }
 
-// 搜索关键词。支持部门名称的搜索
+// 搜索关键词。支持部门名称的搜索，最多可输入 100 字。
 //
-//示例值：zhang
+// 示例值：zhang
 func (builder *SearchDepartmentReqBodyBuilder) Query(query string) *SearchDepartmentReqBodyBuilder {
 	builder.query = query
 	builder.querySet = true
@@ -24507,16 +24503,16 @@ func (builder *SearchDepartmentReqBodyBuilder) Query(query string) *SearchDepart
 
 // 分页信息
 //
-//示例值：
+// 示例值：
 func (builder *SearchDepartmentReqBodyBuilder) PageRequest(pageRequest *PageCondition) *SearchDepartmentReqBodyBuilder {
 	builder.pageRequest = pageRequest
 	builder.pageRequestSet = true
 	return builder
 }
 
-// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段;[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration);
 //
-//示例值：
+// 示例值：
 func (builder *SearchDepartmentReqBodyBuilder) RequiredFields(requiredFields []string) *SearchDepartmentReqBodyBuilder {
 	builder.requiredFields = requiredFields
 	builder.requiredFieldsSet = true
@@ -24553,7 +24549,7 @@ func NewSearchDepartmentPathReqBodyBuilder() *SearchDepartmentPathReqBodyBuilder
 	return builder
 }
 
-// 搜索关键词。支持部门名称的搜索
+// 搜索关键词。支持部门名称的搜索，最多可输入 100 字。
 //
 // 示例值：zhang
 func (builder *SearchDepartmentPathReqBodyBuilder) Query(query string) *SearchDepartmentPathReqBodyBuilder {
@@ -24571,7 +24567,7 @@ func (builder *SearchDepartmentPathReqBodyBuilder) PageRequest(pageRequest *Page
 	return builder
 }
 
-// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段;[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration);
 //
 // 示例值：
 func (builder *SearchDepartmentPathReqBodyBuilder) RequiredFields(requiredFields []string) *SearchDepartmentPathReqBodyBuilder {
@@ -24640,7 +24636,7 @@ func (builder *SearchDepartmentReqBuilder) TenantId(tenantId string) *SearchDepa
 	return builder
 }
 
-// 搜索租户内部门
+// 本接口用于搜索部门信息，通过部门名称等关键词搜索部门信息，返回符合条件的部门列表。
 func (builder *SearchDepartmentReqBuilder) Body(body *SearchDepartmentReqBody) *SearchDepartmentReqBuilder {
 	builder.body = body
 	return builder
@@ -24655,11 +24651,11 @@ func (builder *SearchDepartmentReqBuilder) Build() *SearchDepartmentReq {
 }
 
 type SearchDepartmentReqBody struct {
-	Query *string `json:"query,omitempty"` // 搜索关键词。支持部门名称的搜索
+	Query *string `json:"query,omitempty"` // 搜索关键词。支持部门名称的搜索，最多可输入 100 字。
 
 	PageRequest *PageCondition `json:"page_request,omitempty"` // 分页信息
 
-	RequiredFields []string `json:"required_fields,omitempty"` // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+	RequiredFields []string `json:"required_fields,omitempty"` // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段;[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration);
 
 	Filter *SearchDepartmentFilter `json:"filter,omitempty"` // 查询条件
 }
@@ -24702,7 +24698,7 @@ func NewCreateEmployeeReqBodyBuilder() *CreateEmployeeReqBodyBuilder {
 
 // 创建员工对象
 //
-//示例值：
+// 示例值：
 func (builder *CreateEmployeeReqBodyBuilder) Employee(employee *CreateEmployee) *CreateEmployeeReqBodyBuilder {
 	builder.employee = employee
 	builder.employeeSet = true
@@ -24711,7 +24707,7 @@ func (builder *CreateEmployeeReqBodyBuilder) Employee(employee *CreateEmployee) 
 
 // 接口拓展选项
 //
-//示例值：
+// 示例值：
 func (builder *CreateEmployeeReqBodyBuilder) Options(options *CreateEmployeeOptions) *CreateEmployeeReqBodyBuilder {
 	builder.options = options
 	builder.optionsSet = true
@@ -24816,7 +24812,7 @@ func (builder *CreateEmployeeReqBuilder) TenantId(tenantId string) *CreateEmploy
 	return builder
 }
 
-// 创建员工信息
+// 本接口用于在企业下创建员工。支持传入姓名、手机号等信息，生成在职状态的员工对象。;员工指飞书企业内身份为「Employee」的成员，等同于通讯录OpenAPI中的「User」。
 func (builder *CreateEmployeeReqBuilder) Body(body *CreateEmployeeReqBody) *CreateEmployeeReqBuilder {
 	builder.body = body
 	return builder
@@ -24842,7 +24838,7 @@ type CreateEmployeeReq struct {
 }
 
 type CreateEmployeeRespData struct {
-	EmployeeId *string `json:"employee_id,omitempty"` // 员工ID
+	EmployeeId *string `json:"employee_id,omitempty"` // 员工ID<br>**当`employee_id_type`值为 `employee_id`，字段权限要求**：;<md-perm name="directory:employee.base.external_id:read" desc="查看员工自定义 ID" support_app_types="custom,isv" tags="">查看员工自定义 ID</md-perm>;	</md-dt-td>;</md-dt-tr>
 }
 
 type CreateEmployeeResp struct {
@@ -24867,7 +24863,7 @@ func NewDeleteEmployeeReqBodyBuilder() *DeleteEmployeeReqBodyBuilder {
 
 // 接口拓展选项
 //
-//示例值：
+// 示例值：
 func (builder *DeleteEmployeeReqBodyBuilder) Options(options *DeleteEmployeeOptions) *DeleteEmployeeReqBodyBuilder {
 	builder.options = options
 	builder.optionsSet = true
@@ -24923,7 +24919,7 @@ func NewDeleteEmployeeReqBuilder() *DeleteEmployeeReqBuilder {
 	return builder
 }
 
-// 员工ID
+// 要离职的员工的ID。需要与查询参数中的employee_id_type类型保持一致
 //
 // 示例值：eesdasjd
 func (builder *DeleteEmployeeReqBuilder) EmployeeId(employeeId string) *DeleteEmployeeReqBuilder {
@@ -24955,7 +24951,7 @@ func (builder *DeleteEmployeeReqBuilder) DepartmentIdType(departmentIdType strin
 	return builder
 }
 
-// 离职员工信息
+// 本接口用于离职员工。
 func (builder *DeleteEmployeeReqBuilder) Body(body *DeleteEmployeeReqBody) *DeleteEmployeeReqBuilder {
 	builder.body = body
 	return builder
@@ -24989,10 +24985,10 @@ func (resp *DeleteEmployeeResp) Success() bool {
 }
 
 type FilterEmployeeReqBodyBuilder struct {
-	filter    *MultiFilterCondition // 查询条件
+	filter    *MultiFilterCondition // 查询条件[了解更多：查询条件用法](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/filter-usage)
 	filterSet bool
 
-	requiredFields    []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+	requiredFields    []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段。[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 	requiredFieldsSet bool
 
 	pageRequest    *PageCondition // 分页参数
@@ -25004,18 +25000,18 @@ func NewFilterEmployeeReqBodyBuilder() *FilterEmployeeReqBodyBuilder {
 	return builder
 }
 
-// 查询条件
+// 查询条件[了解更多：查询条件用法](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/filter-usage)
 //
-//示例值：
+// 示例值：
 func (builder *FilterEmployeeReqBodyBuilder) Filter(filter *MultiFilterCondition) *FilterEmployeeReqBodyBuilder {
 	builder.filter = filter
 	builder.filterSet = true
 	return builder
 }
 
-// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段。[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 //
-//示例值：
+// 示例值：
 func (builder *FilterEmployeeReqBodyBuilder) RequiredFields(requiredFields []string) *FilterEmployeeReqBodyBuilder {
 	builder.requiredFields = requiredFields
 	builder.requiredFieldsSet = true
@@ -25024,7 +25020,7 @@ func (builder *FilterEmployeeReqBodyBuilder) RequiredFields(requiredFields []str
 
 // 分页参数
 //
-//示例值：
+// 示例值：
 func (builder *FilterEmployeeReqBodyBuilder) PageRequest(pageRequest *PageCondition) *FilterEmployeeReqBodyBuilder {
 	builder.pageRequest = pageRequest
 	builder.pageRequestSet = true
@@ -25059,7 +25055,7 @@ func NewFilterEmployeePathReqBodyBuilder() *FilterEmployeePathReqBodyBuilder {
 	return builder
 }
 
-// 查询条件
+// 查询条件[了解更多：查询条件用法](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/filter-usage)
 //
 // 示例值：
 func (builder *FilterEmployeePathReqBodyBuilder) Filter(filter *MultiFilterCondition) *FilterEmployeePathReqBodyBuilder {
@@ -25068,7 +25064,7 @@ func (builder *FilterEmployeePathReqBodyBuilder) Filter(filter *MultiFilterCondi
 	return builder
 }
 
-// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段。[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 //
 // 示例值：
 func (builder *FilterEmployeePathReqBodyBuilder) RequiredFields(requiredFields []string) *FilterEmployeePathReqBodyBuilder {
@@ -25146,7 +25142,7 @@ func (builder *FilterEmployeeReqBuilder) TenantId(tenantId string) *FilterEmploy
 	return builder
 }
 
-// 查询员工ID列表
+// 本接口用于依据指定条件，批量获取符合条件的员工详情列表。;员工指飞书企业内身份为「Employee」的成员，等同于通讯录OpenAPI中的「User」
 func (builder *FilterEmployeeReqBuilder) Body(body *FilterEmployeeReqBody) *FilterEmployeeReqBuilder {
 	builder.body = body
 	return builder
@@ -25161,9 +25157,9 @@ func (builder *FilterEmployeeReqBuilder) Build() *FilterEmployeeReq {
 }
 
 type FilterEmployeeReqBody struct {
-	Filter *MultiFilterCondition `json:"filter,omitempty"` // 查询条件
+	Filter *MultiFilterCondition `json:"filter,omitempty"` // 查询条件[了解更多：查询条件用法](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/filter-usage)
 
-	RequiredFields []string `json:"required_fields,omitempty"` // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+	RequiredFields []string `json:"required_fields,omitempty"` // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段。[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 
 	PageRequest *PageCondition `json:"page_request,omitempty"` // 分页参数
 }
@@ -25192,10 +25188,10 @@ func (resp *FilterEmployeeResp) Success() bool {
 }
 
 type MgetEmployeeReqBodyBuilder struct {
-	employeeIds    []string // 员工id
+	employeeIds    []string // 员工ID，与employee_id_type类型保持一致
 	employeeIdsSet bool
 
-	requiredFields    []string // 字段枚举
+	requiredFields    []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段。[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 	requiredFieldsSet bool
 }
 
@@ -25204,18 +25200,18 @@ func NewMgetEmployeeReqBodyBuilder() *MgetEmployeeReqBodyBuilder {
 	return builder
 }
 
-// 员工id
+// 员工ID，与employee_id_type类型保持一致
 //
-//示例值：
+// 示例值：
 func (builder *MgetEmployeeReqBodyBuilder) EmployeeIds(employeeIds []string) *MgetEmployeeReqBodyBuilder {
 	builder.employeeIds = employeeIds
 	builder.employeeIdsSet = true
 	return builder
 }
 
-// 字段枚举
+// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段。[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 //
-//示例值：
+// 示例值：
 func (builder *MgetEmployeeReqBodyBuilder) RequiredFields(requiredFields []string) *MgetEmployeeReqBodyBuilder {
 	builder.requiredFields = requiredFields
 	builder.requiredFieldsSet = true
@@ -25245,7 +25241,7 @@ func NewMgetEmployeePathReqBodyBuilder() *MgetEmployeePathReqBodyBuilder {
 	return builder
 }
 
-// 员工id
+// 员工ID，与employee_id_type类型保持一致
 //
 // 示例值：
 func (builder *MgetEmployeePathReqBodyBuilder) EmployeeIds(employeeIds []string) *MgetEmployeePathReqBodyBuilder {
@@ -25254,7 +25250,7 @@ func (builder *MgetEmployeePathReqBodyBuilder) EmployeeIds(employeeIds []string)
 	return builder
 }
 
-// 字段枚举
+// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段。[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 //
 // 示例值：
 func (builder *MgetEmployeePathReqBodyBuilder) RequiredFields(requiredFields []string) *MgetEmployeePathReqBodyBuilder {
@@ -25312,7 +25308,7 @@ func (builder *MgetEmployeeReqBuilder) DepartmentIdType(departmentIdType string)
 	return builder
 }
 
-// 批量获取员工数据
+// 本接口用于批量根据员工的ID查询员工的详情，比如员工姓名，手机号，邮箱，部门等信息。;员工指飞书企业内身份为「Employee」的成员，等同于通讯录OpenAPI中的「User」
 func (builder *MgetEmployeeReqBuilder) Body(body *MgetEmployeeReqBody) *MgetEmployeeReqBuilder {
 	builder.body = body
 	return builder
@@ -25327,9 +25323,9 @@ func (builder *MgetEmployeeReqBuilder) Build() *MgetEmployeeReq {
 }
 
 type MgetEmployeeReqBody struct {
-	EmployeeIds []string `json:"employee_ids,omitempty"` // 员工id
+	EmployeeIds []string `json:"employee_ids,omitempty"` // 员工ID，与employee_id_type类型保持一致
 
-	RequiredFields []string `json:"required_fields,omitempty"` // 字段枚举
+	RequiredFields []string `json:"required_fields,omitempty"` // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段。[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 }
 
 type MgetEmployeeReq struct {
@@ -25365,7 +25361,7 @@ func NewPatchEmployeeReqBodyBuilder() *PatchEmployeeReqBodyBuilder {
 
 // 更新员工对象
 //
-//示例值：
+// 示例值：
 func (builder *PatchEmployeeReqBodyBuilder) Employee(employee *UpdateEmployee) *PatchEmployeeReqBodyBuilder {
 	builder.employee = employee
 	builder.employeeSet = true
@@ -25421,7 +25417,7 @@ func NewPatchEmployeeReqBuilder() *PatchEmployeeReqBuilder {
 	return builder
 }
 
-// 员工ID
+// 员工ID，与employee_id_type类型保持一致。
 //
 // 示例值：eehsdna
 func (builder *PatchEmployeeReqBuilder) EmployeeId(employeeId string) *PatchEmployeeReqBuilder {
@@ -25453,7 +25449,7 @@ func (builder *PatchEmployeeReqBuilder) DepartmentIdType(departmentIdType string
 	return builder
 }
 
-// 更新员工信息
+// 本接口用于更新在职/离职员工的信息、冻结/恢复员工。未传递的参数不会进行更新。;员工指飞书企业内身份为「Employee」的成员，等同于通讯录OpenAPI中的「User」。
 func (builder *PatchEmployeeReqBuilder) Body(body *PatchEmployeeReqBody) *PatchEmployeeReqBuilder {
 	builder.body = body
 	return builder
@@ -25530,7 +25526,7 @@ func NewRegularEmployeeReqBuilder() *RegularEmployeeReqBuilder {
 	return builder
 }
 
-// 雇员ID
+// 员工ID，与employee_id_type类型保持一致
 //
 // 示例值：d2e1jas
 func (builder *RegularEmployeeReqBuilder) EmployeeId(employeeId string) *RegularEmployeeReqBuilder {
@@ -25562,7 +25558,7 @@ func (builder *RegularEmployeeReqBuilder) DepartmentIdType(departmentIdType stri
 	return builder
 }
 
-// 待离职雇员恢复成在职状态
+// 本接口用于为待离职员工取消离职，将其更新为「在职」状态。取消离职时会清空离职信息。;使用user_access_token时默认为管理员用户，仅可操作「人事管理模式」的管理员可操作。
 func (builder *RegularEmployeeReqBuilder) Body(body *RegularEmployeeReqBody) *RegularEmployeeReqBuilder {
 	builder.body = body
 	return builder
@@ -25599,7 +25595,7 @@ type ResurrectEmployeeReqBodyBuilder struct {
 	employeeOrderInDepartments    []*UpsertUserDepartmentSortInfo // 部门信息
 	employeeOrderInDepartmentsSet bool
 
-	options    *ResurrectEmployeeOptions // 选项
+	options    *ResurrectEmployeeOptions //
 	optionsSet bool
 }
 
@@ -25610,16 +25606,14 @@ func NewResurrectEmployeeReqBodyBuilder() *ResurrectEmployeeReqBodyBuilder {
 
 // 部门信息
 //
-//示例值：
+// 示例值：
 func (builder *ResurrectEmployeeReqBodyBuilder) EmployeeOrderInDepartments(employeeOrderInDepartments []*UpsertUserDepartmentSortInfo) *ResurrectEmployeeReqBodyBuilder {
 	builder.employeeOrderInDepartments = employeeOrderInDepartments
 	builder.employeeOrderInDepartmentsSet = true
 	return builder
 }
 
-// 选项
-//
-//示例值：
+// 示例值：
 func (builder *ResurrectEmployeeReqBodyBuilder) Options(options *ResurrectEmployeeOptions) *ResurrectEmployeeReqBodyBuilder {
 	builder.options = options
 	builder.optionsSet = true
@@ -25658,8 +25652,6 @@ func (builder *ResurrectEmployeePathReqBodyBuilder) EmployeeOrderInDepartments(e
 	return builder
 }
 
-// 选项
-//
 // 示例值：
 func (builder *ResurrectEmployeePathReqBodyBuilder) Options(options *ResurrectEmployeeOptions) *ResurrectEmployeePathReqBodyBuilder {
 	builder.options = options
@@ -25692,7 +25684,7 @@ func NewResurrectEmployeeReqBuilder() *ResurrectEmployeeReqBuilder {
 	return builder
 }
 
-// 员工ID
+// 员工ID，与employee_id_type类型保持一致
 //
 // 示例值：eedasdas
 func (builder *ResurrectEmployeeReqBuilder) EmployeeId(employeeId string) *ResurrectEmployeeReqBuilder {
@@ -25724,7 +25716,7 @@ func (builder *ResurrectEmployeeReqBuilder) DepartmentIdType(departmentIdType st
 	return builder
 }
 
-// 恢复员工信息
+// 该接口用于恢复已离职的成员，恢复已离职成员至在职状态。
 func (builder *ResurrectEmployeeReqBuilder) Body(body *ResurrectEmployeeReqBody) *ResurrectEmployeeReqBuilder {
 	builder.body = body
 	return builder
@@ -25742,7 +25734,7 @@ func (builder *ResurrectEmployeeReqBuilder) Build() *ResurrectEmployeeReq {
 type ResurrectEmployeeReqBody struct {
 	EmployeeOrderInDepartments []*UpsertUserDepartmentSortInfo `json:"employee_order_in_departments,omitempty"` // 部门信息
 
-	Options *ResurrectEmployeeOptions `json:"options,omitempty"` // 选项
+	Options *ResurrectEmployeeOptions `json:"options,omitempty"` //
 }
 
 type ResurrectEmployeeReq struct {
@@ -25766,7 +25758,7 @@ type SearchEmployeeReqBodyBuilder struct {
 	pageRequest    *PageCondition // 分页信息
 	pageRequestSet bool
 
-	requiredFields    []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+	requiredFields    []string // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 	requiredFieldsSet bool
 
 	filter    *SearchEmployeeFilter // 查询条件
@@ -25780,7 +25772,7 @@ func NewSearchEmployeeReqBodyBuilder() *SearchEmployeeReqBodyBuilder {
 
 // 搜索关键词。支持员工ID、员工名称、员工手机号、员工邮箱的搜索。其中员工ID、员工手机号支持精确搜索，员工名称、员工邮箱支持模糊搜索，员工名称支持国际化名称的搜索。
 //
-//示例值：zhang
+// 示例值：zhang
 func (builder *SearchEmployeeReqBodyBuilder) Query(query string) *SearchEmployeeReqBodyBuilder {
 	builder.query = query
 	builder.querySet = true
@@ -25789,16 +25781,16 @@ func (builder *SearchEmployeeReqBodyBuilder) Query(query string) *SearchEmployee
 
 // 分页信息
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) PageRequest(pageRequest *PageCondition) *SearchEmployeeReqBodyBuilder {
 	builder.pageRequest = pageRequest
 	builder.pageRequestSet = true
 	return builder
 }
 
-// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 //
-//示例值：
+// 示例值：
 func (builder *SearchEmployeeReqBodyBuilder) RequiredFields(requiredFields []string) *SearchEmployeeReqBodyBuilder {
 	builder.requiredFields = requiredFields
 	builder.requiredFieldsSet = true
@@ -25853,7 +25845,7 @@ func (builder *SearchEmployeePathReqBodyBuilder) PageRequest(pageRequest *PageCo
 	return builder
 }
 
-// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+// 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 //
 // 示例值：
 func (builder *SearchEmployeePathReqBodyBuilder) RequiredFields(requiredFields []string) *SearchEmployeePathReqBodyBuilder {
@@ -25922,7 +25914,7 @@ func (builder *SearchEmployeeReqBuilder) TenantId(tenantId string) *SearchEmploy
 	return builder
 }
 
-// 搜索租户内员工
+// 本接口用于搜索员工信息，如通过关键词搜索员工的名称、手机号、邮箱等信息。;员工指飞书企业内身份为「Employee」的成员，等同于通讯录OpenAPI中的「User」。
 func (builder *SearchEmployeeReqBuilder) Body(body *SearchEmployeeReqBody) *SearchEmployeeReqBuilder {
 	builder.body = body
 	return builder
@@ -25941,7 +25933,7 @@ type SearchEmployeeReqBody struct {
 
 	PageRequest *PageCondition `json:"page_request,omitempty"` // 分页信息
 
-	RequiredFields []string `json:"required_fields,omitempty"` // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段
+	RequiredFields []string `json:"required_fields,omitempty"` // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多：字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)
 
 	Filter *SearchEmployeeFilter `json:"filter,omitempty"` // 查询条件
 }
@@ -25981,7 +25973,7 @@ func NewToBeResignedEmployeeReqBodyBuilder() *ToBeResignedEmployeeReqBodyBuilder
 
 // 在职员工流转到待离职
 //
-//示例值：
+// 示例值：
 func (builder *ToBeResignedEmployeeReqBodyBuilder) Employee(employee *SetEmployeePreResigned) *ToBeResignedEmployeeReqBodyBuilder {
 	builder.employee = employee
 	builder.employeeSet = true
@@ -26037,7 +26029,7 @@ func NewToBeResignedEmployeeReqBuilder() *ToBeResignedEmployeeReqBuilder {
 	return builder
 }
 
-// 员工ID
+// 员工ID，与employee_id_type类型保持一致
 //
 // 示例值：cad2cafa
 func (builder *ToBeResignedEmployeeReqBuilder) EmployeeId(employeeId string) *ToBeResignedEmployeeReqBuilder {
@@ -26069,7 +26061,7 @@ func (builder *ToBeResignedEmployeeReqBuilder) DepartmentIdType(departmentIdType
 	return builder
 }
 
-// 更新在职雇员到待离职状态
+// 本接口用于为在职员工办理离职，将其更新为「待离职」状态。「待离职」员工不会自动离职，需要使用「离职员工」API操作离职和资源转交。;使用user_access_token时默认为管理员用户，仅「人事管理模式」的管理员可操作。
 func (builder *ToBeResignedEmployeeReqBuilder) Body(body *ToBeResignedEmployeeReqBody) *ToBeResignedEmployeeReqBuilder {
 	builder.body = body
 	return builder

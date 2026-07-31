@@ -12,20 +12,20 @@ import (
 type V1 struct {
 	ApprovalInfo            *approvalInfo            // approval_info
 	ArchiveRule             *archiveRule             // archive_rule
-	File                    *file                    // 文件
-	Group                   *group                   // 考勤组管理
+	File                    *file                    // file
+	Group                   *group                   // group
 	LeaveAccrualRecord      *leaveAccrualRecord      // leave_accrual_record
 	LeaveEmployExpireRecord *leaveEmployExpireRecord // leave_employ_expire_record
-	Shift                   *shift                   // 考勤班次
-	UserApproval            *userApproval            // 假勤审批
-	UserDailyShift          *userDailyShift          // 考勤排班
+	Shift                   *shift                   // shift
+	UserApproval            *userApproval            // user_approval
+	UserDailyShift          *userDailyShift          // user_daily_shift
 	UserFlow                *userFlow                // user_flow
-	UserSetting             *userSetting             // 用户设置
-	UserStatsData           *userStatsData           // 考勤统计
+	UserSetting             *userSetting             // user_setting
+	UserStatsData           *userStatsData           // user_stats_data
 	UserStatsField          *userStatsField          // user_stats_field
 	UserStatsView           *userStatsView           // user_stats_view
-	UserTask                *userTask                // 考勤记录
-	UserTaskRemedy          *userTaskRemedy          // 考勤补卡
+	UserTask                *userTask                // user_task
+	UserTaskRemedy          *userTaskRemedy          // user_task_remedy
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -102,9 +102,7 @@ type userTaskRemedy struct {
 //
 // - 对于只使用飞书考勤系统而未使用飞书审批系统的企业，可以通过该接口更新写入飞书考勤系统中的三方系统审批状态，例如请假、加班、外出、出差、补卡等审批，状态包括通过、不通过、撤销等。
 //
-// - 发起状态的审批才可以被更新为通过、不通过，已经通过的审批才可以被更新为撤销。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/approval_info/process
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=process&project=attendance&resource=approval_info&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/process_approvalInfo.go
 func (a *approvalInfo) Process(ctx context.Context, req *ProcessApprovalInfoReq, options ...larkcore.RequestOptionFunc) (*ProcessApprovalInfoResp, error) {
@@ -126,9 +124,11 @@ func (a *approvalInfo) Process(ctx context.Context, req *ProcessApprovalInfoReq,
 	return resp, err
 }
 
-// DelReport
+// DelReport 删除归档报表行数据
 //
-// -
+// - 按月份、用户和归档规则ID直接删除归档报表行数据
+//
+// - 页面无对应功能，页面是通过导入并全量覆盖完成数据删除的
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=del_report&project=attendance&resource=archive_rule&version=v1
 //
@@ -152,9 +152,9 @@ func (a *archiveRule) DelReport(ctx context.Context, req *DelReportArchiveRuleRe
 	return resp, err
 }
 
-// List
+// List 查询所有归档规则
 //
-// -
+// - 查询所有归档规则，对应后台假勤管理-考勤统计-报表-[归档报表](https://example.feishu.cn/people/workforce-management/manage/statistics/report)功能
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=attendance&resource=archive_rule&version=v1
 //
@@ -186,9 +186,9 @@ func (a *archiveRule) ListByIterator(ctx context.Context, req *ListArchiveRuleRe
 		limit:    req.Limit}, nil
 }
 
-// UploadReport
+// UploadReport 写入归档报表结果
 //
-// -
+// - 写入归档报表结果，对应假勤管理-考勤统计-报表-[归档报表](https://example.feishu.cn/people/workforce-management/manage/statistics/report)页签，点击报表名称进入后的导入功能。可以将数据直接写入归档报表。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload_report&project=attendance&resource=archive_rule&version=v1
 //
@@ -212,9 +212,9 @@ func (a *archiveRule) UploadReport(ctx context.Context, req *UploadReportArchive
 	return resp, err
 }
 
-// UserStatsFieldsQuery
+// UserStatsFieldsQuery 查询归档报表表头
 //
-// -
+// - 查询归档报表表头，对应后台假勤管理-考勤统计-报表-[归档报表](https://example.feishu.cn/people/workforce-management/manage/statistics/report)中一个归档报表的表头信息。归档报表支持引用系统报表，可设置归档时间和数据归档周期，并且支持根据部门/人员、国家/地区、人员类型、工作地点、职级、序列、职务进行人员圈选。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=user_stats_fields_query&project=attendance&resource=archive_rule&version=v1
 //
@@ -238,11 +238,11 @@ func (a *archiveRule) UserStatsFieldsQuery(ctx context.Context, req *UserStatsFi
 	return resp, err
 }
 
-// Download 下载文件
+// Download 下载用户人脸识别照片
 //
-// - 通过文件 ID 下载指定的文件。
+// - 通过文件 ID 下载用户的头像照片文件。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/download
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download&project=attendance&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/download_file.go
 func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...larkcore.RequestOptionFunc) (*DownloadFileResp, error) {
@@ -270,11 +270,11 @@ func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...la
 	return resp, err
 }
 
-// Upload 上传文件
+// Upload 上传用户人脸识别照片
 //
-// - 上传文件并获取文件 ID，可用于“修改用户设置”接口中的 face_key 参数。
+// - 上传用户人脸照片并获取文件 ID，对应小程序端的人脸录入功能
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload&project=attendance&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/upload_file.go
 func (f *file) Upload(ctx context.Context, req *UploadFileReq, options ...larkcore.RequestOptionFunc) (*UploadFileResp, error) {
@@ -299,11 +299,11 @@ func (f *file) Upload(ctx context.Context, req *UploadFileReq, options ...larkco
 
 // Create 创建或修改考勤组
 //
-// - 考勤组，是对部门或者员工在某个特定场所及特定时间段内的出勤情况（包括上下班、迟到、早退、病假、婚假、丧假、公休、工作时间、加班情况等）的一种规则设定。;;通过设置考勤组，可以从部门、员工两个维度，来设定考勤方式、考勤时间、考勤地点等考勤规则。
+// - 考勤组，是对部门或者员工在某个特定场所及特定时间段内的出勤情况（包括上下班、迟到、早退、病假、婚假、丧假、公休、工作时间、加班情况等）的一种规则设定。;;通过设置考勤组，可以从部门、员工两个维度，来设定考勤方式、考勤时间、考勤地点等考勤规则。;;对应功能同设置-假勤设置-[考勤组](https://example.feishu.cn/people/workforce-management/setting/group/list)的“新建”功能
 //
-// - 出于安全考虑，目前通过该接口只允许修改自己创建的考勤组。
+// - 注意：此接口在修改时为数据覆盖，需要传入全部的考勤组信息;;出于安全考虑，如果传入操作人，该接口只允许修改操作人有权限的考勤组。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=attendance&resource=group&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/create_group.go
 func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...larkcore.RequestOptionFunc) (*CreateGroupResp, error) {
@@ -327,9 +327,9 @@ func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...lark
 
 // Delete 删除考勤组
 //
-// - 通过班次 ID 删除班次。
+// - 通过考勤组 ID 删除考勤组。对应设置-假勤设置-[考勤组](https://example.feishu.cn/people/workforce-management/setting/group/list)操作列的删除功能
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=attendance&resource=group&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/delete_group.go
 func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...larkcore.RequestOptionFunc) (*DeleteGroupResp, error) {
@@ -351,11 +351,11 @@ func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...lark
 	return resp, err
 }
 
-// Get 获取考勤组详情
+// Get 按 ID 查询考勤组
 //
-// - 通过考勤组 ID 获取考勤组详情。
+// - 通过考勤组 ID 获取考勤组详情。包含基本信息、考勤班次、考勤方式、考勤设置信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=attendance&resource=group&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/get_group.go
 func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...larkcore.RequestOptionFunc) (*GetGroupResp, error) {
@@ -377,11 +377,11 @@ func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...larkcore.R
 	return resp, err
 }
 
-// List 获取考勤组列表
+// List 查询所有考勤组
 //
-// - 翻页获取所有考勤组列表。
+// - 翻页获取所有考勤组列表。列表中的数据为考勤组信息，字段包含考勤组名称和考勤组id
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=attendance&resource=group&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/list_group.go
 func (g *group) List(ctx context.Context, req *ListGroupReq, options ...larkcore.RequestOptionFunc) (*ListGroupResp, error) {
@@ -411,9 +411,9 @@ func (g *group) ListByIterator(ctx context.Context, req *ListGroupReq, options .
 		limit:    req.Limit}, nil
 }
 
-// ListUser
+// ListUser 查询考勤组下所有成员
 //
-// -
+// - 查询指定考勤组下的所有成员
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list_user&project=attendance&resource=group&version=v1
 //
@@ -439,11 +439,11 @@ func (g *group) ListUser(ctx context.Context, req *ListUserGroupReq, options ...
 
 // Search 按名称查询考勤组
 //
-// - 按考勤组名称查询考勤组摘要信息。查询条件支持名称精确匹配和模糊匹配两种方式。查询结果按考勤组修改时间 desc 排序，且最大记录数为 10 条。
+// - 按考勤组名称查询考勤组摘要信息。查询条件支持名称精确匹配和模糊匹配两种方式。查询结果按考勤组修改时间 desc 排序，且最大记录数为 10 条。对应页面设置-假勤设置-[考勤组](https://example.feishu.cn/people/workforce-management/setting/group/list)的名称搜索功能
 //
 // - 该接口依赖的数据和考勤组主数据间存在数据同步延时（正常数据同步 2 秒以内），因此在使用该接口时需注意评估数据延迟潜在风险。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=attendance&resource=group&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/search_group.go
 func (g *group) Search(ctx context.Context, req *SearchGroupReq, options ...larkcore.RequestOptionFunc) (*SearchGroupResp, error) {
@@ -465,9 +465,9 @@ func (g *group) Search(ctx context.Context, req *SearchGroupReq, options ...lark
 	return resp, err
 }
 
-// Patch
+// Patch 修改发放记录;
 //
-// -
+// - 更新发放记录的发放数量和失效日期，对应假勤管理-休假管理-[发放记录](https://example.feishu.cn/people/workforce-management/manage/leave/leave_admin/granting_record)
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=attendance&resource=leave_accrual_record&version=v1
 //
@@ -491,9 +491,11 @@ func (l *leaveAccrualRecord) Patch(ctx context.Context, req *PatchLeaveAccrualRe
 	return resp, err
 }
 
-// Get
+// Get 通过过期时间获取发放记录
 //
-// -
+// - 只能获取到对应时间段过期的发放记录
+//
+// - 仅飞书人事企业版可用
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=attendance&resource=leave_employ_expire_record&version=v1
 //
@@ -519,11 +521,11 @@ func (l *leaveEmployExpireRecord) Get(ctx context.Context, req *GetLeaveEmployEx
 
 // Create 创建班次
 //
-// - 班次是描述一次考勤任务时间规则的统称，比如一天打多少次卡，每次卡的上下班时间，晚到多长时间算迟到，晚到多长时间算缺卡等。
+// - 该接口用于创建企业的考勤班次。
 //
 // - - 创建一个考勤组前，必须先创建一个或者多个班次。;- 一个公司内的班次是共享的，你可以直接引用他人创建的班次，但是需要注意的是，若他人修改了班次，会影响到你的考勤组及其考勤结果。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=attendance&resource=shift&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/create_shift.go
 func (s *shift) Create(ctx context.Context, req *CreateShiftReq, options ...larkcore.RequestOptionFunc) (*CreateShiftResp, error) {
@@ -547,9 +549,9 @@ func (s *shift) Create(ctx context.Context, req *CreateShiftReq, options ...lark
 
 // Delete 删除班次
 //
-// - 通过班次 ID 删除班次。
+// - 通过班次 ID 删除班次。对应功能为假勤设置-[班次设置](https://example.feishu.cn/people/workforce-management/setting/group/shifts)班次列表中操作栏的删除按钮。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=attendance&resource=shift&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/delete_shift.go
 func (s *shift) Delete(ctx context.Context, req *DeleteShiftReq, options ...larkcore.RequestOptionFunc) (*DeleteShiftResp, error) {
@@ -571,11 +573,11 @@ func (s *shift) Delete(ctx context.Context, req *DeleteShiftReq, options ...lark
 	return resp, err
 }
 
-// Get 获取班次详情
+// Get 查询班次
 //
 // - 通过班次 ID 获取班次详情。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=attendance&resource=shift&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/get_shift.go
 func (s *shift) Get(ctx context.Context, req *GetShiftReq, options ...larkcore.RequestOptionFunc) (*GetShiftResp, error) {
@@ -597,11 +599,11 @@ func (s *shift) Get(ctx context.Context, req *GetShiftReq, options ...larkcore.R
 	return resp, err
 }
 
-// List 获取班次列表
+// List 查询所有班次
 //
-// - 翻页获取所有班次列表。
+// - 飞书人事管理后台中假勤设置-[班次配置](https://example.feishu.cn/people/workforce-management/setting/group/shifts)中的翻页查询所有班次功能，展示班次名称、打卡规则、弹性班次规则、休息规则等
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=attendance&resource=shift&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/list_shift.go
 func (s *shift) List(ctx context.Context, req *ListShiftReq, options ...larkcore.RequestOptionFunc) (*ListShiftResp, error) {
@@ -633,9 +635,9 @@ func (s *shift) ListByIterator(ctx context.Context, req *ListShiftReq, options .
 
 // Query 按名称查询班次
 //
-// - 通过班次的名称查询班次信息。
+// - 飞书人事管理后台中假勤设置-[班次配置](https://example.feishu.cn/people/workforce-management/setting/group/shifts)中的搜索班次名称功能，展示班次名称、打卡规则、弹性班次规则、休息规则等
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=attendance&resource=shift&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_shift.go
 func (s *shift) Query(ctx context.Context, req *QueryShiftReq, options ...larkcore.RequestOptionFunc) (*QueryShiftResp, error) {
@@ -659,11 +661,11 @@ func (s *shift) Query(ctx context.Context, req *QueryShiftReq, options ...larkco
 
 // Create 写入审批结果
 //
-// - 由于部分企业使用的是自己的审批系统，而不是飞书审批系统，因此员工的请假、加班等数据无法流入到飞书考勤系统中，导致员工在请假时间段内依然收到打卡提醒，并且被记为缺卡。;;对于这些只使用飞书考勤系统，而未使用飞书审批系统的企业，可以通过考勤开放接口的形式，将三方审批结果数据回写到飞书考勤系统中。
+// - 由于部分企业使用的是自己的审批系统，而不是飞书审批系统，因此员工的请假、加班等数据无法流入到飞书考勤系统中，导致员工在请假时间段内依然收到打卡提醒，并且被记为缺卡。;对于这些只使用飞书考勤系统，而未使用飞书审批系统的企业，可以通过考勤开放接口的形式，将三方审批结果数据回写到飞书考勤系统中。（请注意，如果在飞书审批、自助服务或假勤应用中发起加班，请勿使用该接口写入和系统同一天生成的加班数据，否则写入的数据不计入）
 //
-// - 目前支持写入加班、请假、出差和外出这四种审批结果，写入只会追加(insert)，不会覆盖(update)（开放接口导入的加班假期记录，在管理后台的假期加班里查不到，只能通过[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query)来查询）
+// - 1. 目前支持写入加班、请假、出差和外出这四种审批结果，写入只会追加(insert)，不会覆盖(update)（开放接口导入的加班假期记录，在管理后台的假期加班里查不到，可以在考勤统计报表查看，或者通过[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query)来查询）;2. 离职人员没有考勤组，所以写入和返回的时间会有差异
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=attendance&resource=user_approval&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/create_userApproval.go
 func (u *userApproval) Create(ctx context.Context, req *CreateUserApprovalReq, options ...larkcore.RequestOptionFunc) (*CreateUserApprovalResp, error) {
@@ -685,13 +687,13 @@ func (u *userApproval) Create(ctx context.Context, req *CreateUserApprovalReq, o
 	return resp, err
 }
 
-// Query 获取审批通过数据
+// Query 获取审批数据
 //
-// - 获取员工在某段时间内的请假、加班、外出和出差四种审批的通过数据。
+// - 获取员工在某段时间内的请假、加班、外出和出差四种审批数据。
 //
-// - 请假的假期时长字段，暂未开放提供，待后续提供。
+// - 请假的假期时长字段，暂未开放提供，待后续提供。;;请假、加班：仅支持查询已通过和已撤回状态的审批数据;;外出、出差：支持查询所有状态的审批数据
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=attendance&resource=user_approval&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userApproval.go
 func (u *userApproval) Query(ctx context.Context, req *QueryUserApprovalReq, options ...larkcore.RequestOptionFunc) (*QueryUserApprovalResp, error) {
@@ -713,11 +715,13 @@ func (u *userApproval) Query(ctx context.Context, req *QueryUserApprovalReq, opt
 	return resp, err
 }
 
-// BatchCreate 创建或修改班表
+// BatchCreate 创建或修改排班表
 //
-// - 班表是用来描述考勤组内人员每天按哪个班次进行上班。目前班表支持按一个整月对一位或多位人员进行排班。
+// - 排班表是用来描述考勤组内人员每天按哪个班次进行上班。目前排班表支持按x月y日对一位或多位人员进行排班。当用户的排班数据不存在时会进行创建，当用户的排班数据存在时会按照入参信息进行修改。注意：每人每天只能在一个考勤组中。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_daily_shift/batch_create
+// - 注意：如果返回code=0，但是msg返回如{人员：[日期，日期]}格式，代表人员在排班日期下未生效。这种一般是考勤组id与人员不匹配造成。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=attendance&resource=user_daily_shift&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/batchCreate_userDailyShift.go
 func (u *userDailyShift) BatchCreate(ctx context.Context, req *BatchCreateUserDailyShiftReq, options ...larkcore.RequestOptionFunc) (*BatchCreateUserDailyShiftResp, error) {
@@ -739,9 +743,11 @@ func (u *userDailyShift) BatchCreate(ctx context.Context, req *BatchCreateUserDa
 	return resp, err
 }
 
-// BatchCreateTemp
+// BatchCreateTemp 创建或更改临时排班
 //
-// -
+// - 可在排班表上创建或修改临时班次，并用于排班。目前支持按日期对一位或多位人员进行排临时班次。;临时排班为付费功能，如需使用请联系您的客户经理。
+//
+// - 注意：如果返回code=0，且msg不为空，表示临时排班部分成功。 如msg返回{人员：[日期，日期]}格式，代表人员在排班日期下临时排班未成功。这种一般是考勤组id与人员不匹配造成的。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create_temp&project=attendance&resource=user_daily_shift&version=v1
 //
@@ -767,9 +773,9 @@ func (u *userDailyShift) BatchCreateTemp(ctx context.Context, req *BatchCreateTe
 
 // Query 查询班表信息
 //
-// - 支持查询多个用户的排班情况，查询的时间跨度不能超过 30 天。
+// - 支持查询多个用户的排班情况，注意此接口返回的是用户维度的排班结果，与页面功能并不对应。可以通过返回结果中的group_id查询考勤组[按 ID 查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/get) ，shift_id查询班次[按 ID 查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/get) 。查询的时间跨度不能超过 30 天。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_daily_shift/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=attendance&resource=user_daily_shift&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userDailyShift.go
 func (u *userDailyShift) Query(ctx context.Context, req *QueryUserDailyShiftReq, options ...larkcore.RequestOptionFunc) (*QueryUserDailyShiftResp, error) {
@@ -791,13 +797,13 @@ func (u *userDailyShift) Query(ctx context.Context, req *QueryUserDailyShiftReq,
 	return resp, err
 }
 
-// BatchCreate 导入打卡流水记录
+// BatchCreate 导入打卡流水
 //
-// - 导入授权内员工的打卡流水记录。导入后，会根据员工所在的考勤组班次规则，计算最终的打卡状态与结果。
+// - 导入员工的打卡流水记录。导入后，会根据员工所在的考勤组班次规则，计算最终的打卡状态与结果。可在打卡管理-[打卡记录](https://example.feishu.cn/people/workforce-management/manage/statistics/flow)中查询
 //
 // - 适用于考勤机数据导入等场景。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/batch_create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=attendance&resource=user_flow&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/batchCreate_userFlow.go
 func (u *userFlow) BatchCreate(ctx context.Context, req *BatchCreateUserFlowReq, options ...larkcore.RequestOptionFunc) (*BatchCreateUserFlowResp, error) {
@@ -819,9 +825,11 @@ func (u *userFlow) BatchCreate(ctx context.Context, req *BatchCreateUserFlowReq,
 	return resp, err
 }
 
-// BatchDel
+// BatchDel 删除打卡流水
 //
-// - 批量删除流水
+// - 删除员工从开放平台导入的打卡记录。删除后会重新计算打卡记录对应考勤任务结果。
+//
+// - 当返回结果fail_record_ids不为空时，msg字段返回对应失败原因，格式为：{"xx id": "xx reason"}
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_del&project=attendance&resource=user_flow&version=v1
 //
@@ -845,11 +853,11 @@ func (u *userFlow) BatchDel(ctx context.Context, req *BatchDelUserFlowReq, optio
 	return resp, err
 }
 
-// Get 获取打卡流水记录
+// Get 查询打卡流水
 //
-// - 通过打卡记录 ID 获取用户的打卡流水记录。
+// - 通过打卡记录 ID 获取用户的打卡流水记录。返回信息主要包含：;* 用户id和创建者id;* 记录信息;* 打卡位置信息、时间信息;* 打卡方式信息; * GPS 打卡：location_name（定位地址信息）; * Wi-Fi 打卡：ssid（Wi-Fi名称）、bssid（mac地址）; * 考勤机打卡：device_id（考勤机设备id）;;对应页面功能打卡管理-[打卡记录](https://example.feishu.cn/people/workforce-management/manage/statistics/flow)
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=attendance&resource=user_flow&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/get_userFlow.go
 func (u *userFlow) Get(ctx context.Context, req *GetUserFlowReq, options ...larkcore.RequestOptionFunc) (*GetUserFlowResp, error) {
@@ -871,13 +879,13 @@ func (u *userFlow) Get(ctx context.Context, req *GetUserFlowReq, options ...lark
 	return resp, err
 }
 
-// Query 批量查询打卡流水记录
+// Query 批量查询打卡流水
 //
-// - 批量查询授权内员工的实际打卡流水记录。例如，企业给一个员工设定的班次是上午 9 点和下午 6 点各打一次上下班卡，但是该员工在这期间打了多次卡，该接口会把所有的打卡记录都返回。
+// - 通过用户 ID 获取用户的打卡流水记录。返回信息主要包含：;* 用户id和创建者id;* 记录信息;* 打卡位置信息、时间信息;* 打卡方式信息; * GPS 打卡：location_name（定位地址信息）; * Wi-Fi 打卡：ssid（wifi名称）、bssid（mac地址）; * 考勤机打卡：device_id（考勤机设备id）;;对应页面功能打卡管理-[打卡记录](https://example.feishu.cn/people/workforce-management/manage/statistics/flow)
 //
-// - 如果只需获取打卡结果，而不需要详细的打卡数据，可使用“获取打卡结果”的接口。
+// - 这里只返回有效的打卡流水，无效或待生效的不会返回;;如果只需获取打卡结果，而不需要详细的打卡数据，可使用“获取打卡结果”的接口。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=attendance&resource=user_flow&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userFlow.go
 func (u *userFlow) Query(ctx context.Context, req *QueryUserFlowReq, options ...larkcore.RequestOptionFunc) (*QueryUserFlowResp, error) {
@@ -899,11 +907,11 @@ func (u *userFlow) Query(ctx context.Context, req *QueryUserFlowReq, options ...
 	return resp, err
 }
 
-// Modify 修改用户设置
+// Modify 修改用户人脸识别信息
 //
-// - 修改授权内员工的用户设置信息，包括人脸照片文件 ID。
+// - 修改授权内员工的用户设置信息，包括人脸照片文件 ID。修改用户人脸识别信息目前只支持 API 方式修改，管理后台已无法修改。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_setting/modify
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=modify&project=attendance&resource=user_setting&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/modify_userSetting.go
 func (u *userSetting) Modify(ctx context.Context, req *ModifyUserSettingReq, options ...larkcore.RequestOptionFunc) (*ModifyUserSettingResp, error) {
@@ -925,11 +933,11 @@ func (u *userSetting) Modify(ctx context.Context, req *ModifyUserSettingReq, opt
 	return resp, err
 }
 
-// Query 批量查询用户设置
+// Query 批量查询用户人脸识别信息
 //
-// - 批量查询授权内员工的用户设置信息，包括人脸照片文件 ID、人脸照片更新时间。
+// - 批量查询授权内员工的用户设置信息，包括人脸照片文件 ID、人脸照片更新时间。对应页面假勤设置-[人脸识别](https://example.feishu.cn/people/workforce-management/setting/group/security)。根据返回的face_key可以下载人脸信息[下载用户人脸识别照片;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/download)
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_setting/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=attendance&resource=user_setting&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userSetting.go
 func (u *userSetting) Query(ctx context.Context, req *QueryUserSettingReq, options ...larkcore.RequestOptionFunc) (*QueryUserSettingResp, error) {
@@ -953,9 +961,9 @@ func (u *userSetting) Query(ctx context.Context, req *QueryUserSettingReq, optio
 
 // Query 查询统计数据
 //
-// - 查询日度统计或月度统计的统计数据。
+// - 查询日度统计或月度统计的统计数据。字段包含基本信息、考勤组信息、出勤统计、异常统计、请假统计、加班统计、打卡时间、考勤结果和自定义字段。具体报表可在考勤统计-[报表](https://example.feishu.cn/people/workforce-management/manage/statistics/report)中找到
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_data/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=attendance&resource=user_stats_data&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userStatsData.go
 func (u *userStatsData) Query(ctx context.Context, req *QueryUserStatsDataReq, options ...larkcore.RequestOptionFunc) (*QueryUserStatsDataResp, error) {
@@ -979,9 +987,11 @@ func (u *userStatsData) Query(ctx context.Context, req *QueryUserStatsDataReq, o
 
 // Query 查询统计表头
 //
-// - 查询考勤统计支持的日度统计或月度统计的统计表头。
+// - 查询考勤统计支持的日度统计或月度统计的统计表头。报表的表头信息可以在考勤统计-[报表](https://example.feishu.cn/people/workforce-management/manage/statistics/report)中查询到具体的报表信息，此接口专门用于查询表头数据
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_field/query
+// - 调用统计开放接口api目前不返回请假统计和加班统计的新增字段类型
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=attendance&resource=user_stats_field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userStatsField.go
 func (u *userStatsField) Query(ctx context.Context, req *QueryUserStatsFieldReq, options ...larkcore.RequestOptionFunc) (*QueryUserStatsFieldResp, error) {
@@ -1005,9 +1015,9 @@ func (u *userStatsField) Query(ctx context.Context, req *QueryUserStatsFieldReq,
 
 // Query 查询统计设置
 //
-// - 查询开发者定制的日度统计或月度统计的统计报表表头设置信息。
+// - 查询考勤统计支持的日度统计或月度统计的统计表头。报表的表头信息可以在考勤统计-[报表](https://example.feishu.cn/people/workforce-management/manage/statistics/report)中查询到具体的报表信息，此接口专门用于查询表头数据。注意此接口和[查询统计表头](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_field/query)基本相同，区别点在于在兼容历史统计视图模型（历史统计数据模型可以按用户ID设置，后续统计升级为仅支持租户维度）
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_view/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=attendance&resource=user_stats_view&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userStatsView.go
 func (u *userStatsView) Query(ctx context.Context, req *QueryUserStatsViewReq, options ...larkcore.RequestOptionFunc) (*QueryUserStatsViewResp, error) {
@@ -1031,9 +1041,11 @@ func (u *userStatsView) Query(ctx context.Context, req *QueryUserStatsViewReq, o
 
 // Update 更新统计设置
 //
-// - 更新开发者定制的日度统计或月度统计的统计报表表头设置信息。
+// - 更新开发者定制的日度统计或月度统计的统计报表表头设置信息。报表的表头信息可以在考勤统计-[报表](https://example.feishu.cn/people/workforce-management/manage/statistics/report)中查询到具体的报表信息，此接口专门用于更新表头信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_view/update
+// - 本接口会对设置进行全量覆盖更新
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=attendance&resource=user_stats_view&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/update_userStatsView.go
 func (u *userStatsView) Update(ctx context.Context, req *UpdateUserStatsViewReq, options ...larkcore.RequestOptionFunc) (*UpdateUserStatsViewResp, error) {
@@ -1055,13 +1067,13 @@ func (u *userStatsView) Update(ctx context.Context, req *UpdateUserStatsViewReq,
 	return resp, err
 }
 
-// Query 获取打卡结果
+// Query 查询打卡结果
 //
-// - 获取企业内员工的实际打卡结果，包括上班打卡结果和下班打卡结果。
+// - 获取企业内员工的实际打卡结果，包括： * 打卡任务列表 * 打卡记录id * 用户信息 * 考勤组ID * 班次 ID * 考勤记录 * 上班记录 * 下班记录 * 上班打卡结果 * 下班打卡结果 * 上班打卡结果补充 * 下班打卡结果补充 * 上班打卡时间 * 下班打卡时间 * 无效用户 ID 列表 * 没有权限用户ID列表
 //
-// - - 如果企业给一个员工设定的班次是上午 9 点和下午 6 点各打一次上下班卡，即使员工在这期间打了多次卡，该接口也只会返回 1 条记录。;- 如果要获取打卡的详细数据，如打卡位置等信息，可使用“获取打卡流水记录”或“批量查询打卡流水记录”的接口。
+// - - 如果企业给一个员工设定的班次是上午 9 点和下午 6 点各打一次上下班卡，即使员工在这期间打了多次卡，该接口也只会返回 1 条记录。;- 如果要获取打卡的详细数据，如打卡位置等信息，可使用[查询打卡流水](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/get)或[批量查询打卡流水](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/query)的接口
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=attendance&resource=user_task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userTask.go
 func (u *userTask) Query(ctx context.Context, req *QueryUserTaskReq, options ...larkcore.RequestOptionFunc) (*QueryUserTaskResp, error) {
@@ -1087,7 +1099,7 @@ func (u *userTask) Query(ctx context.Context, req *QueryUserTaskReq, options ...
 //
 // - 对于只使用飞书考勤系统而未使用飞书审批系统的企业，可以通过该接口，将在三方审批系统中发起的补卡审批数据，写入到飞书考勤系统中，状态为审批中。写入后可以由[通知审批状态更新](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/approval_info/process) 进行状态更新
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=attendance&resource=user_task_remedy&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/create_userTaskRemedy.go
 func (u *userTaskRemedy) Create(ctx context.Context, req *CreateUserTaskRemedyReq, options ...larkcore.RequestOptionFunc) (*CreateUserTaskRemedyResp, error) {
@@ -1111,9 +1123,9 @@ func (u *userTaskRemedy) Create(ctx context.Context, req *CreateUserTaskRemedyRe
 
 // Query 获取补卡记录
 //
-// - 获取授权内员工的补卡记录。
+// - 补卡：用户通过审批的方式，在某一次上/下班的打卡时间范围内，补充一条打卡记录，用以修正用户的考勤结果。本接口专用于获取员工的补卡记录（无页面功能对应）
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=attendance&resource=user_task_remedy&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/query_userTaskRemedy.go
 func (u *userTaskRemedy) Query(ctx context.Context, req *QueryUserTaskRemedyReq, options ...larkcore.RequestOptionFunc) (*QueryUserTaskRemedyResp, error) {
@@ -1135,11 +1147,11 @@ func (u *userTaskRemedy) Query(ctx context.Context, req *QueryUserTaskRemedyReq,
 	return resp, err
 }
 
-// QueryUserAllowedRemedys 获取用户可补卡时间
+// QueryUserAllowedRemedys 获取可补卡时间
 //
 // - 获取用户某天可以补的第几次上 / 下班卡的时间。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/query_user_allowed_remedys
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_user_allowed_remedys&project=attendance&resource=user_task_remedy&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/attendancev1/queryUserAllowedRemedys_userTaskRemedy.go
 func (u *userTaskRemedy) QueryUserAllowedRemedys(ctx context.Context, req *QueryUserAllowedRemedysUserTaskRemedyReq, options ...larkcore.RequestOptionFunc) (*QueryUserAllowedRemedysUserTaskRemedyResp, error) {

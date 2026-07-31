@@ -38,8 +38,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -47,8 +45,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -70,7 +66,7 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 }
 
 type Entity struct {
-	BlockId *string `json:"block_id,omitempty"` // block 唯一标识
+	BlockId *string `json:"block_id,omitempty"` // block 唯一标识。;;- 该 ID 对应的是定制化工作台添加工作台小组件时，页面右上角组件名称下方的 **BlockID**。;;- 同一个工作台小组件在同一个定制化工作台中添加的位置不同时，block_id 也会不同。
 
 	Title *string `json:"title,omitempty"` // 标题
 
@@ -98,7 +94,7 @@ type Entity struct {
 }
 
 type EntityBuilder struct {
-	blockId    string // block 唯一标识
+	blockId    string // block 唯一标识。;;- 该 ID 对应的是定制化工作台添加工作台小组件时，页面右上角组件名称下方的 **BlockID**。;;- 同一个工作台小组件在同一个定制化工作台中添加的位置不同时，block_id 也会不同。
 	blockIdSet bool
 
 	title    string // 标题
@@ -143,7 +139,7 @@ func NewEntityBuilder() *EntityBuilder {
 	return builder
 }
 
-// block 唯一标识
+// block 唯一标识。;;- 该 ID 对应的是定制化工作台添加工作台小组件时，页面右上角组件名称下方的 **BlockID**。;;- 同一个工作台小组件在同一个定制化工作台中添加的位置不同时，block_id 也会不同。
 //
 // 示例值：7794641623571830467
 func (builder *EntityBuilder) BlockId(blockId string) *EntityBuilder {
@@ -424,7 +420,7 @@ type CreateEntityReqBodyBuilder struct {
 	title    string // 标题
 	titleSet bool
 
-	blockTypeId    string // block 类型ID
+	blockTypeId    string // block 类型 ID。该 ID 可在 [开发者后台](https://open.feishu.cn/app) > **应用详情页** > **应用能力** > **工作台小组件** > **BlockTypeID** 获取。
 	blockTypeIdSet bool
 
 	sourceData    string // 内容
@@ -465,16 +461,16 @@ func NewCreateEntityReqBodyBuilder() *CreateEntityReqBodyBuilder {
 
 // 标题
 //
-//示例值：已阅block
+// 示例值：已阅block
 func (builder *CreateEntityReqBodyBuilder) Title(title string) *CreateEntityReqBodyBuilder {
 	builder.title = title
 	builder.titleSet = true
 	return builder
 }
 
-// block 类型ID
+// block 类型 ID。该 ID 可在 [开发者后台](https://open.feishu.cn/app) > **应用详情页** > **应用能力** > **工作台小组件** > **BlockTypeID** 获取。
 //
-//示例值：blk_614c1c952f800014b27f87d6
+// 示例值：blk_614c1c952f800014b27f87d6
 func (builder *CreateEntityReqBodyBuilder) BlockTypeId(blockTypeId string) *CreateEntityReqBodyBuilder {
 	builder.blockTypeId = blockTypeId
 	builder.blockTypeIdSet = true
@@ -483,7 +479,7 @@ func (builder *CreateEntityReqBodyBuilder) BlockTypeId(blockTypeId string) *Crea
 
 // 内容
 //
-//示例值：{"data":"业务数据"}
+// 示例值：{"data":"业务数据"}
 func (builder *CreateEntityReqBodyBuilder) SourceData(sourceData string) *CreateEntityReqBodyBuilder {
 	builder.sourceData = sourceData
 	builder.sourceDataSet = true
@@ -492,7 +488,7 @@ func (builder *CreateEntityReqBodyBuilder) SourceData(sourceData string) *Create
 
 // 元数据
 //
-//示例值：{"id":7090084015725608979}
+// 示例值：{"id":7090084015725608979}
 func (builder *CreateEntityReqBodyBuilder) SourceMeta(sourceMeta string) *CreateEntityReqBodyBuilder {
 	builder.sourceMeta = sourceMeta
 	builder.sourceMetaSet = true
@@ -501,7 +497,7 @@ func (builder *CreateEntityReqBodyBuilder) SourceMeta(sourceMeta string) *Create
 
 // 版本号(自增值)
 //
-//示例值：1
+// 示例值：1
 func (builder *CreateEntityReqBodyBuilder) Version(version string) *CreateEntityReqBodyBuilder {
 	builder.version = version
 	builder.versionSet = true
@@ -510,7 +506,7 @@ func (builder *CreateEntityReqBodyBuilder) Version(version string) *CreateEntity
 
 // block原链接
 //
-//示例值：{"_data":"https://docs.feishu.cn/block/78","_version":1}
+// 示例值：{"_data":"https://docs.feishu.cn/block/78","_version":1}
 func (builder *CreateEntityReqBodyBuilder) SourceLink(sourceLink string) *CreateEntityReqBodyBuilder {
 	builder.sourceLink = sourceLink
 	builder.sourceLinkSet = true
@@ -519,7 +515,7 @@ func (builder *CreateEntityReqBodyBuilder) SourceLink(sourceLink string) *Create
 
 // 所有者
 //
-//示例值：ou_fa7aa170f92d1615de63371ac425a767
+// 示例值：ou_fa7aa170f92d1615de63371ac425a767
 func (builder *CreateEntityReqBodyBuilder) Owner(owner string) *CreateEntityReqBodyBuilder {
 	builder.owner = owner
 	builder.ownerSet = true
@@ -528,7 +524,7 @@ func (builder *CreateEntityReqBodyBuilder) Owner(owner string) *CreateEntityReqB
 
 // 扩展字段
 //
-//示例值：{}
+// 示例值：{}
 func (builder *CreateEntityReqBodyBuilder) Extra(extra string) *CreateEntityReqBodyBuilder {
 	builder.extra = extra
 	builder.extraSet = true
@@ -537,7 +533,7 @@ func (builder *CreateEntityReqBodyBuilder) Extra(extra string) *CreateEntityReqB
 
 // 国际化概括
 //
-//示例值：{"cn":"这是一个block","va": "this is a block"}
+// 示例值：{"cn":"这是一个block","va": "this is a block"}
 func (builder *CreateEntityReqBodyBuilder) I18nSummary(i18nSummary string) *CreateEntityReqBodyBuilder {
 	builder.i18nSummary = i18nSummary
 	builder.i18nSummarySet = true
@@ -546,7 +542,7 @@ func (builder *CreateEntityReqBodyBuilder) I18nSummary(i18nSummary string) *Crea
 
 // 国际化预览
 //
-//示例值：{"cn":"这是一个block","va": "this is a block"}
+// 示例值：{"cn":"这是一个block","va": "this is a block"}
 func (builder *CreateEntityReqBodyBuilder) I18nPreview(i18nPreview string) *CreateEntityReqBodyBuilder {
 	builder.i18nPreview = i18nPreview
 	builder.i18nPreviewSet = true
@@ -555,7 +551,7 @@ func (builder *CreateEntityReqBodyBuilder) I18nPreview(i18nPreview string) *Crea
 
 // 概括
 //
-//示例值：{"cn":"这是一个block"}
+// 示例值：{"cn":"这是一个block"}
 func (builder *CreateEntityReqBodyBuilder) Summary(summary string) *CreateEntityReqBodyBuilder {
 	builder.summary = summary
 	builder.summarySet = true
@@ -564,7 +560,7 @@ func (builder *CreateEntityReqBodyBuilder) Summary(summary string) *CreateEntity
 
 // 预览
 //
-//示例值：{"cn":"这是一个block"}
+// 示例值：{"cn":"这是一个block"}
 func (builder *CreateEntityReqBodyBuilder) Preview(preview string) *CreateEntityReqBodyBuilder {
 	builder.preview = preview
 	builder.previewSet = true
@@ -653,7 +649,7 @@ func (builder *CreateEntityPathReqBodyBuilder) Title(title string) *CreateEntity
 	return builder
 }
 
-// block 类型ID
+// block 类型 ID。该 ID 可在 [开发者后台](https://open.feishu.cn/app) > **应用详情页** > **应用能力** > **工作台小组件** > **BlockTypeID** 获取。
 //
 // 示例值：blk_614c1c952f800014b27f87d6
 func (builder *CreateEntityPathReqBodyBuilder) BlockTypeId(blockTypeId string) *CreateEntityPathReqBodyBuilder {
@@ -823,7 +819,7 @@ func (builder *CreateEntityReqBuilder) Build() *CreateEntityReq {
 type CreateEntityReqBody struct {
 	Title *string `json:"title,omitempty"` // 标题
 
-	BlockTypeId *string `json:"block_type_id,omitempty"` // block 类型ID
+	BlockTypeId *string `json:"block_type_id,omitempty"` // block 类型 ID。该 ID 可在 [开发者后台](https://open.feishu.cn/app) > **应用详情页** > **应用能力** > **工作台小组件** > **BlockTypeID** 获取。
 
 	SourceData *string `json:"source_data,omitempty"` // 内容
 

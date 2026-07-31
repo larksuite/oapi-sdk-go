@@ -14,36 +14,36 @@ type V1 struct {
 	Authorization           *authorization           // authorization
 	CommonDataId            *commonDataId            // common_data.id
 	CommonDataMetaData      *commonDataMetaData      // common_data.meta_data
-	Company                 *company                 // 公司
+	Company                 *company                 // company
 	CompensationStandard    *compensationStandard    // compensation_standard
-	Contract                *contract                // 合同
-	CountryRegion           *countryRegion           // 地理库信息
-	Currency                *currency                // 货币信息
-	CustomField             *customField             // 自定义字段
-	Department              *department              // 部门
-	EmployeeType            *employeeType            // 人员类型
-	Employment              *employment              // 雇佣信息
+	Contract                *contract                // contract
+	CountryRegion           *countryRegion           // country_region
+	Currency                *currency                // currency
+	CustomField             *customField             // custom_field
+	Department              *department              // department
+	EmployeeType            *employeeType            // employee_type
+	Employment              *employment              // employment
 	File                    *file                    // file
-	Job                     *job                     // 职务
-	JobChange               *jobChange               // 异动信息
-	JobData                 *jobData                 // 任职信息
-	JobFamily               *jobFamily               // 职务序列
-	JobLevel                *jobLevel                // 职务级别
-	Leave                   *leave                   // 休假管理
+	Job                     *job                     // job
+	JobChange               *jobChange               // job_change
+	JobData                 *jobData                 // job_data
+	JobFamily               *jobFamily               // job_family
+	JobLevel                *jobLevel                // job_level
+	Leave                   *leave                   // leave
 	LeaveGrantingRecord     *leaveGrantingRecord     // leave_granting_record
-	Location                *location                // 地点
-	NationalIdType          *nationalIdType          // 国家证件类型
-	Offboarding             *offboarding             // 员工离职
+	Location                *location                // location
+	NationalIdType          *nationalIdType          // national_id_type
+	Offboarding             *offboarding             // offboarding
 	OrgRoleAuthorization    *orgRoleAuthorization    // org_role_authorization
-	Person                  *person                  // 个人信息
-	PreHire                 *preHire                 // 待入职
-	ProcessFormVariableData *processFormVariableData // 流程管理
+	Person                  *person                  // person
+	PreHire                 *preHire                 // pre_hire
+	ProcessFormVariableData *processFormVariableData // process.form_variable_data
 	SecurityGroup           *securityGroup           // security_group
-	Subdivision             *subdivision             // 地理库信息
-	Subregion               *subregion               // 地理库信息
-	TransferReason          *transferReason          // 异动原因
-	TransferType            *transferType            // 异动类型
-	WorkingHoursType        *workingHoursType        // 工时制度
+	Subdivision             *subdivision             // subdivision
+	Subregion               *subregion               // subregion
+	TransferReason          *transferReason          // transfer_reason
+	TransferType            *transferType            // transfer_type
+	WorkingHoursType        *workingHoursType        // working_hours_type
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -190,9 +190,9 @@ type workingHoursType struct {
 
 // Search 获取组织类角色授权列表
 //
-// - 查询组织类角色的授权信息
+// - 查询组织类角色的授权信息，返回的授权列表中包含被授权的用户ID和被授权的管理维度等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/assigned_user/search
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=assigned_user&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/search_assignedUser.go
 func (a *assignedUser) Search(ctx context.Context, req *SearchAssignedUserReq, options ...larkcore.RequestOptionFunc) (*SearchAssignedUserResp, error) {
@@ -214,9 +214,11 @@ func (a *assignedUser) Search(ctx context.Context, req *SearchAssignedUserReq, o
 	return resp, err
 }
 
-// AddRoleAssign
+// AddRoleAssign 为用户授权角色
 //
-// - 追加更新组织类授权
+// - 为用户授权角色及管理范围 ;对已被授权某个角色的用户继续授权，将在原授权的数据范围基础上追加数据范围。
+//
+// - 暂时仅支持授权「按组织架构管理」的角色
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=add_role_assign&project=corehr&resource=authorization&version=v1
 //
@@ -240,9 +242,9 @@ func (a *authorization) AddRoleAssign(ctx context.Context, req *AddRoleAssignAut
 	return resp, err
 }
 
-// GetByParam
+// GetByParam 查询单个用户授权
 //
-// - 根据ID查询单个用户授权
+// - 查询[飞书人事管理后台](https://people.feishu.cn/people/)里 -「设置」-「权限设置」中的单个用户授权信息。授权信息中包括员工ID、被授权的角色等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_by_param&project=corehr&resource=authorization&version=v1
 //
@@ -266,9 +268,9 @@ func (a *authorization) GetByParam(ctx context.Context, req *GetByParamAuthoriza
 	return resp, err
 }
 
-// Query
+// Query 批量查询用户授权
 //
-// - 批量查询用户授权
+// - 批量查询[飞书人事管理后台](https://people.feishu.cn/people/) -「设置」-「权限设置」中的用户授权信息。授权列表信息中包括员工ID、被授权的角色等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=authorization&version=v1
 //
@@ -292,9 +294,11 @@ func (a *authorization) Query(ctx context.Context, req *QueryAuthorizationReq, o
 	return resp, err
 }
 
-// RemoveRoleAssign
+// RemoveRoleAssign 移除用户被授权的角色
 //
-// - 删除组织类授权
+// - 移除用户被授权的指定角色及授权范围，已经存在授权可通过[查询单个用户授权](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/authorization/get_by_param)获得。或者在[飞书人事管理后台](https://people.feishu.cn/people/)里 -「设置」-「权限设置」中的查看已有用户授权信息。
+//
+// - 无法移除「按规则授权」的角色
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=remove_role_assign&project=corehr&resource=authorization&version=v1
 //
@@ -318,9 +322,11 @@ func (a *authorization) RemoveRoleAssign(ctx context.Context, req *RemoveRoleAss
 	return resp, err
 }
 
-// UpdateRoleAssign
+// UpdateRoleAssign 更新用户被授权的数据范围
 //
-// - 覆盖更新组织类授权
+// - 更新角色被授权的管理范围 ;更新后的数据范围，以本次提交的数据范围为准，本次未提交的部分将被移除。
+//
+// - 暂时仅支持更新「按组织架构管理」角色的数据范围
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_role_assign&project=corehr&resource=authorization&version=v1
 //
@@ -344,9 +350,9 @@ func (a *authorization) UpdateRoleAssign(ctx context.Context, req *UpdateRoleAss
 	return resp, err
 }
 
-// Convert
+// Convert ID 转换
 //
-// -
+// - 该接口用来进行飞书人事和飞书通讯录、people admin 的各种 ID 转换（仅适用于飞书人事新链路租户）
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=convert&project=corehr&resource=common_data.id&version=v1
 //
@@ -370,9 +376,11 @@ func (c *commonDataId) Convert(ctx context.Context, req *ConvertCommonDataIdReq,
 	return resp, err
 }
 
-// AddEnumOption
+// AddEnumOption 增加字段枚举值选项
 //
-// -
+// - 对于当前已有的所有自定义枚举字段，以及部分系统预置枚举字段，通过本接口可在字段中批量新增可选项
+//
+// - 本接口当前允许修改的系统预置字段如下：; - person（个人信息）：gender（性别）、marital_status（婚姻状态）; - address（地址）：address_type（地址类型）; - national_id（证件）：national_id_type（证件类型）; - education（教育经历）：degree（学位）、level_of_education（学历）; - person_info_chn (个人附加信息) ： hukou_type（户口类型）; - emergency_contact（紧急联系人）：relationship（关系）; - dependent（家庭成员）：relationship_with_dependent（关系）; - job_data （任职信息）：employee_type (人员类型); - probation （试用期对象）：final_assessment_grade （试用期最终考核等级）; - department（部门）：subtype（部门类型）
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=add_enum_option&project=corehr&resource=common_data.meta_data&version=v1
 //
@@ -396,9 +404,11 @@ func (c *commonDataMetaData) AddEnumOption(ctx context.Context, req *AddEnumOpti
 	return resp, err
 }
 
-// EditEnumOption
+// EditEnumOption 修改字段枚举值选项
 //
-// -
+// - 对于当前已有的所有自定义枚举字段，以及部分系统预置枚举字段，通过本接口可修改字段中已有可选项的展示名称、停启用状态
+//
+// - 本接口当前允许修改的系统预置字段如下：; - person（个人信息）：gender（性别）、marital_status（婚姻状态）; - address（地址）：address_type（地址类型）; - national_id（证件）：national_id_type（证件类型）; - education（教育经历）：degree（学位）、level_of_education（学历）; - person_info_chn (个人附加信息) ： hukou_type（户口类型）; - emergency_contact（紧急联系人）：relationship（关系）; - dependent（家庭成员）：relationship_with_dependent（关系）; - job_data （任职信息）：employee_type (人员类型); - probation （试用期对象）：final_assessment_grade （试用期最终考核等级）; - department（部门）：subtype（部门类型）
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=edit_enum_option&project=corehr&resource=common_data.meta_data&version=v1
 //
@@ -424,9 +434,9 @@ func (c *commonDataMetaData) EditEnumOption(ctx context.Context, req *EditEnumOp
 
 // Create 创建公司
 //
-// - 创建公司
+// - 支持在单个接口中进行公司信息添加，包括公司基本信息、注册地址信息、工作地址信息等
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=company&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_company.go
 func (c *company) Create(ctx context.Context, req *CreateCompanyReq, options ...larkcore.RequestOptionFunc) (*CreateCompanyResp, error) {
@@ -452,7 +462,9 @@ func (c *company) Create(ctx context.Context, req *CreateCompanyReq, options ...
 //
 // - 删除公司
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/delete
+// - 删除后无法恢复， 并且在系统中无法搜索到对应公司信息，请谨慎操作。;;如果公司存在关联的合同，则不允许删除该公司。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=company&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_company.go
 func (c *company) Delete(ctx context.Context, req *DeleteCompanyReq, options ...larkcore.RequestOptionFunc) (*DeleteCompanyResp, error) {
@@ -476,9 +488,11 @@ func (c *company) Delete(ctx context.Context, req *DeleteCompanyReq, options ...
 
 // Get 查询单个公司
 //
-// - 根据 ID 查询单个公司
+// - 根据 ID 查询单个公司。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get
+// - 延迟说明：;- **数据库主从延迟2s以内，即：直接创建公司后2s内调用此接口可能查询不到数据**;- **响应体registered_office_address_info （注册地址）、office_address_info （办公地址）下的full_address_local_script（完整地址，本地文字）、full_address_western_script（完整地址，西方文字）字段为计算字段，延迟5s以内，堆积时会延长**
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=company&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_company.go
 func (c *company) Get(ctx context.Context, req *GetCompanyReq, options ...larkcore.RequestOptionFunc) (*GetCompanyResp, error) {
@@ -502,9 +516,11 @@ func (c *company) Get(ctx context.Context, req *GetCompanyReq, options ...larkco
 
 // List 批量查询公司
 //
-// - 批量查询公司
+// - 分页查询公司，可分页遍历全量公司数据。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list
+// - 延迟说明：;- **数据库主从延迟2s以内，即：直接创建公司后2s内调用此接口可能查询不到数据**;- **响应体registered_office_address_info （注册地址）、office_address_info （办公地址）下的full_address_local_script（完整地址，本地文字）、full_address_western_script（完整地址，西方文字）字段为计算字段，延迟5s以内，堆积时会延长**
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=company&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_company.go
 func (c *company) List(ctx context.Context, req *ListCompanyReq, options ...larkcore.RequestOptionFunc) (*ListCompanyResp, error) {
@@ -526,9 +542,9 @@ func (c *company) List(ctx context.Context, req *ListCompanyReq, options ...lark
 	return resp, err
 }
 
-// Patch
+// Patch 更新公司
 //
-// - 更新公司数据
+// - 更新公司信息，包括基本信息、注册地址、办公地址等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=company&version=v1
 //
@@ -552,9 +568,11 @@ func (c *company) Patch(ctx context.Context, req *PatchCompanyReq, options ...la
 	return resp, err
 }
 
-// Match
+// Match 获取员工薪资标准
 //
-// - 分页查询地点数据
+// - - 调用此接口来获取员工匹配的薪资标准信息;- 请求时，可选传递员工的部门 ID、职级 ID、职务ID 、序列 ID 等筛选条件，用于匹配薪资标准;- 此接口将返回员工可匹配到的薪资标准全部信息，包括薪资标准表 ID、薪级薪等、薪资带宽、薪资标准值等
+//
+// - 该接口会按照应用拥有的「薪资标准资源」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限-飞书人事(企业版)数据权限范围」中已申请「薪资标准资源」权限范围
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=match&project=corehr&resource=compensation_standard&version=v1
 //
@@ -578,11 +596,13 @@ func (c *compensationStandard) Match(ctx context.Context, req *MatchCompensation
 	return resp, err
 }
 
-// Create 创建合同
+// Create 新建合同
 //
-// - 创建合同
+// - 通过本接口可以为员工创建一份新合同
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/create
+// - 延迟说明：搜索同步延迟 10s 以内，即：直接创建对象后10s内调用此接口可能查询不到数据。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=contract&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_contract.go
 func (c *contract) Create(ctx context.Context, req *CreateContractReq, options ...larkcore.RequestOptionFunc) (*CreateContractResp, error) {
@@ -606,9 +626,9 @@ func (c *contract) Create(ctx context.Context, req *CreateContractReq, options .
 
 // Delete 删除合同
 //
-// - 删除合同
+// - 通过本接口可以删除合同数据，删除后即无法查询到。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=contract&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_contract.go
 func (c *contract) Delete(ctx context.Context, req *DeleteContractReq, options ...larkcore.RequestOptionFunc) (*DeleteContractResp, error) {
@@ -632,9 +652,11 @@ func (c *contract) Delete(ctx context.Context, req *DeleteContractReq, options .
 
 // Get 查询单个合同
 //
-// - 根据 ID 查询单个合同
+// - 该接口用于根据合同 ID 查询单个合同详细信息，包括合同开始日期、结束日期、公司主体等信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/get
+// - 如需要一次性查询多份合同，请检索[批量查询接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)，更适合分批查询合同列表的场景
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=contract&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_contract.go
 func (c *contract) Get(ctx context.Context, req *GetContractReq, options ...larkcore.RequestOptionFunc) (*GetContractResp, error) {
@@ -658,9 +680,11 @@ func (c *contract) Get(ctx context.Context, req *GetContractReq, options ...lark
 
 // List 批量查询合同
 //
-// - 批量查询合同
+// - 通过接口可以批量查询合同列表信息，目前暂不支持其他筛选条件且一次查询最多支持50条数据。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list
+// - 如果你只需要单一合同查询场景，建议通过[【查询单个合同接口】](/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/get)获取合同信息。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=contract&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_contract.go
 func (c *contract) List(ctx context.Context, req *ListContractReq, options ...larkcore.RequestOptionFunc) (*ListContractResp, error) {
@@ -684,9 +708,9 @@ func (c *contract) List(ctx context.Context, req *ListContractReq, options ...la
 
 // Patch 更新合同
 //
-// - 更新合同
+// - 通过该接口可以更新员工合同相关信息，没有修改的参数会保留原值
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=contract&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/patch_contract.go
 func (c *contract) Patch(ctx context.Context, req *PatchContractReq, options ...larkcore.RequestOptionFunc) (*PatchContractResp, error) {
@@ -710,9 +734,9 @@ func (c *contract) Patch(ctx context.Context, req *PatchContractReq, options ...
 
 // Get 查询单条国家/地区信息
 //
-// - 查询单条国家/地区信息
+// - 查询单条国家/地区信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/country_region/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=country_region&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_countryRegion.go
 func (c *countryRegion) Get(ctx context.Context, req *GetCountryRegionReq, options ...larkcore.RequestOptionFunc) (*GetCountryRegionResp, error) {
@@ -736,9 +760,9 @@ func (c *countryRegion) Get(ctx context.Context, req *GetCountryRegionReq, optio
 
 // List 批量查询国家/地区信息
 //
-// - 批量查询国家/地区信息
+// - 批量查询国家/地区信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/country_region/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=country_region&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_countryRegion.go
 func (c *countryRegion) List(ctx context.Context, req *ListCountryRegionReq, options ...larkcore.RequestOptionFunc) (*ListCountryRegionResp, error) {
@@ -762,9 +786,9 @@ func (c *countryRegion) List(ctx context.Context, req *ListCountryRegionReq, opt
 
 // Get 查询单个货币信息
 //
-// - 查询单个货币信息
+// - 查询单个货币信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/currency/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=currency&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_currency.go
 func (c *currency) Get(ctx context.Context, req *GetCurrencyReq, options ...larkcore.RequestOptionFunc) (*GetCurrencyResp, error) {
@@ -788,9 +812,9 @@ func (c *currency) Get(ctx context.Context, req *GetCurrencyReq, options ...lark
 
 // List 批量查询货币信息
 //
-// - 批量查询货币信息
+// - 批量查询货币信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/currency/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=currency&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_currency.go
 func (c *currency) List(ctx context.Context, req *ListCurrencyReq, options ...larkcore.RequestOptionFunc) (*ListCurrencyResp, error) {
@@ -812,11 +836,11 @@ func (c *currency) List(ctx context.Context, req *ListCurrencyReq, options ...la
 	return resp, err
 }
 
-// GetByParam 获取自定义字段详情
+// GetByParam 获取字段详情
 //
-// - 获取「飞书人事」具体对象下某自定义字段的详细信息
+// - 获取「飞书人事」对象下某字段的详细信息，支持系统预置字段和自定义字段。可通过该接口获取某个选项字段包含的选项列表，某个自定义分组中包含的字段列表等。使用方式可参考「[如何通过 OpenAPI 维护自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/how-to)」
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_by_param&project=corehr&resource=custom_field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/getByParam_customField.go
 func (c *customField) GetByParam(ctx context.Context, req *GetByParamCustomFieldReq, options ...larkcore.RequestOptionFunc) (*GetByParamCustomFieldResp, error) {
@@ -840,9 +864,9 @@ func (c *customField) GetByParam(ctx context.Context, req *GetByParamCustomField
 
 // ListObjectApiName 获取飞书人事对象列表
 //
-// - 获取「飞书人事」中的对象列表，含系统预置对象与自定义对象
+// - 获取「飞书人事」中的对象列表，含系统预置对象与自定义对象。使用方式可参考「[如何通过 OpenAPI 维护自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/how-to)」
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list_object_api_name&project=corehr&resource=custom_field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/listObjectApiName_customField.go
 func (c *customField) ListObjectApiName(ctx context.Context, req *ListObjectApiNameCustomFieldReq, options ...larkcore.RequestOptionFunc) (*ListObjectApiNameCustomFieldResp, error) {
@@ -866,9 +890,11 @@ func (c *customField) ListObjectApiName(ctx context.Context, req *ListObjectApiN
 
 // Query 获取自定义字段列表
 //
-// - 获取「飞书人事」具体对象下的自定义字段列表
+// - 根据对象的 API name，获取「飞书人事」具体对象下的自定义字段列表
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query
+// - 在人事设置[「人员档案配置」页面](https://people.feishu.cn/people/hr-settings/profile)添加的分组，实际上都是自定义对象，可以通过该接口查询分组内的所有字段。使用方式可参考「[如何通过 OpenAPI 维护自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/how-to)」
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=custom_field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/query_customField.go
 func (c *customField) Query(ctx context.Context, req *QueryCustomFieldReq, options ...larkcore.RequestOptionFunc) (*QueryCustomFieldResp, error) {
@@ -892,9 +918,11 @@ func (c *customField) Query(ctx context.Context, req *QueryCustomFieldReq, optio
 
 // Create 创建部门
 //
-// - 创建部门
+// - 支持在单个接口中进行部门信息添加，包括部门基本信息、部门负责人、部门自定义字段信息等
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/create
+// - 此接口字段是否必填以【飞书人事-组织配置】为准。建议参照【飞书人事-组织管理-部门-新建】页面来传参
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=department&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_department.go
 func (d *department) Create(ctx context.Context, req *CreateDepartmentReq, options ...larkcore.RequestOptionFunc) (*CreateDepartmentResp, error) {
@@ -918,9 +946,11 @@ func (d *department) Create(ctx context.Context, req *CreateDepartmentReq, optio
 
 // Delete 删除部门
 //
-// - 删除部门
+// - 可以通过该接口通过部门ID删除一个部门记录
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/delete
+// - 删除后无法恢复， 并且在系统中无法查看到对应部门信息，请谨慎操作。;;该接口不再推荐使用，请使用[【删除部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/delete)接口。;;
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=department&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_department.go
 func (d *department) Delete(ctx context.Context, req *DeleteDepartmentReq, options ...larkcore.RequestOptionFunc) (*DeleteDepartmentResp, error) {
@@ -944,9 +974,11 @@ func (d *department) Delete(ctx context.Context, req *DeleteDepartmentReq, optio
 
 // Get 查询单个部门
 //
-// - 根据 ID 查询单个部门
+// - 该接口支持通过部门id批量查询当天的部门详情信息，包括部门包含的名称、描述、启用状态等。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get
+// - 本接口不再推荐使用（不支持更复杂的字段鉴权功能），请使用[批量查询部门V2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口（支持对成本中心、部门负责人、自定义字段鉴权）。;;延迟说明：数据库主从延迟 2s 以内，即：直接创建职级后2s内调用此接口可能查询不到数据。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=department&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_department.go
 func (d *department) Get(ctx context.Context, req *GetDepartmentReq, options ...larkcore.RequestOptionFunc) (*GetDepartmentResp, error) {
@@ -968,11 +1000,13 @@ func (d *department) Get(ctx context.Context, req *GetDepartmentReq, options ...
 	return resp, err
 }
 
-// List 批量查询部门
+// List 批量查询部门（不推荐）
 //
-// - 批量查询部门
+// - 批量查询部门信息，包括部门基本信息、自定义字段信息等
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/list
+// - 本接口不再推荐使用（不支持更复杂的字段鉴权功能），请使用[批量查询部门V2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口（支持对成本中心、部门负责人、自定义字段鉴权）。;;延迟说明：数据库主从延迟2s以内，即：直接创建部门后2s内调用此接口可能查询不到数据。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=department&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_department.go
 func (d *department) List(ctx context.Context, req *ListDepartmentReq, options ...larkcore.RequestOptionFunc) (*ListDepartmentResp, error) {
@@ -996,9 +1030,11 @@ func (d *department) List(ctx context.Context, req *ListDepartmentReq, options .
 
 // Patch 更新部门
 //
-// - 更新部门
+// - 更新部门信息，包括基础信息、自定义字段信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/patch
+// - 该接口不再推荐使用，请使用[【更新部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/patch)接口。;;;权限说明：该接口不支持范围权限校验，不支持字段权限校验
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=department&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/patch_department.go
 func (d *department) Patch(ctx context.Context, req *PatchDepartmentReq, options ...larkcore.RequestOptionFunc) (*PatchDepartmentResp, error) {
@@ -1022,9 +1058,9 @@ func (d *department) Patch(ctx context.Context, req *PatchDepartmentReq, options
 
 // Create 创建人员类型
 //
-// - 创建人员类型
+// - 创建人员类型。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=employee_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_employeeType.go
 func (e *employeeType) Create(ctx context.Context, req *CreateEmployeeTypeReq, options ...larkcore.RequestOptionFunc) (*CreateEmployeeTypeResp, error) {
@@ -1048,9 +1084,9 @@ func (e *employeeType) Create(ctx context.Context, req *CreateEmployeeTypeReq, o
 
 // Delete 删除人员类型
 //
-// - 删除人员类型
+// - 删除人员类型。删除之后查询接口不能获取到已删除的数据。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=employee_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_employeeType.go
 func (e *employeeType) Delete(ctx context.Context, req *DeleteEmployeeTypeReq, options ...larkcore.RequestOptionFunc) (*DeleteEmployeeTypeResp, error) {
@@ -1074,9 +1110,9 @@ func (e *employeeType) Delete(ctx context.Context, req *DeleteEmployeeTypeReq, o
 
 // Get 查询单个人员类型
 //
-// - 根据 ID 查询单个人员类型
+// - 根据 ID 查询单个人员类型。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=employee_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_employeeType.go
 func (e *employeeType) Get(ctx context.Context, req *GetEmployeeTypeReq, options ...larkcore.RequestOptionFunc) (*GetEmployeeTypeResp, error) {
@@ -1100,9 +1136,9 @@ func (e *employeeType) Get(ctx context.Context, req *GetEmployeeTypeReq, options
 
 // List 批量查询人员类型
 //
-// - 批量查询人员类型
+// - 批量查询人员类型。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=employee_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_employeeType.go
 func (e *employeeType) List(ctx context.Context, req *ListEmployeeTypeReq, options ...larkcore.RequestOptionFunc) (*ListEmployeeTypeResp, error) {
@@ -1124,11 +1160,11 @@ func (e *employeeType) List(ctx context.Context, req *ListEmployeeTypeReq, optio
 	return resp, err
 }
 
-// Patch 更新人员类型数据
+// Patch 更新人员类型
 //
-// - 更新人员类型数据
+// - 更新人员类型。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=employee_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/patch_employeeType.go
 func (e *employeeType) Patch(ctx context.Context, req *PatchEmployeeTypeReq, options ...larkcore.RequestOptionFunc) (*PatchEmployeeTypeResp, error) {
@@ -1152,9 +1188,11 @@ func (e *employeeType) Patch(ctx context.Context, req *PatchEmployeeTypeReq, opt
 
 // Create 创建雇佣信息
 //
-// - 创建人员的雇佣信息
+// - 创建人员的雇佣信息，需要先[创建个人信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/create)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/create
+// - - 非必填字段，不传时默认为空;- 若开启工号自动编码规则则无需输入人员“工号”，系统将自动进行工号生成；若手动输入工号，则会按照手动输入工号内容进行人员档案建立
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=employment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_employment.go
 func (e *employment) Create(ctx context.Context, req *CreateEmploymentReq, options ...larkcore.RequestOptionFunc) (*CreateEmploymentResp, error) {
@@ -1178,9 +1216,11 @@ func (e *employment) Create(ctx context.Context, req *CreateEmploymentReq, optio
 
 // Delete 删除雇佣信息
 //
-// - 删除人员的雇佣信息
+// - 删除人员的雇佣信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/delete
+// - 删除后无法恢复， 并且在系统中无法查询到对应雇佣信息，请谨慎操作。;;删除雇佣信息前，请先删除与其相关联的全部任职信息。;;可通过[【批量查询员工任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-job_data/batch_get)接口查询全部任职信息，并通过[【删除任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/delete)接口删除
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=employment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_employment.go
 func (e *employment) Delete(ctx context.Context, req *DeleteEmploymentReq, options ...larkcore.RequestOptionFunc) (*DeleteEmploymentResp, error) {
@@ -1204,9 +1244,9 @@ func (e *employment) Delete(ctx context.Context, req *DeleteEmploymentReq, optio
 
 // Patch 更新雇佣信息
 //
-// - 更新雇佣信息
+// - 更新人事工作信息下的字段，如：工号、工作邮箱、雇佣类型、自定义字段等
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=employment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/patch_employment.go
 func (e *employment) Patch(ctx context.Context, req *PatchEmploymentReq, options ...larkcore.RequestOptionFunc) (*PatchEmploymentResp, error) {
@@ -1228,9 +1268,9 @@ func (e *employment) Patch(ctx context.Context, req *PatchEmploymentReq, options
 	return resp, err
 }
 
-// Get
+// Get 下载文件
 //
-// -
+// - 根据ID下载文件
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=file&version=v1
 //
@@ -1262,9 +1302,11 @@ func (f *file) Get(ctx context.Context, req *GetFileReq, options ...larkcore.Req
 
 // Create 创建职务
 //
-// - 创建职务
+// - 该接口用于创建职务信息，创建后系统中新增一条包含职务编码、名称、描述等信息的职务记录，适用于企业新增职务类型时，HR需要创建职务信息以便分配给员工的场景
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/create
+// - 此接口字段是否必填以【飞书人事-组织配置】为准。建议参照【飞书人事-组织管理-职务-新建】页面来传参
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=job&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_job.go
 func (j *job) Create(ctx context.Context, req *CreateJobReq, options ...larkcore.RequestOptionFunc) (*CreateJobResp, error) {
@@ -1288,9 +1330,11 @@ func (j *job) Create(ctx context.Context, req *CreateJobReq, options ...larkcore
 
 // Delete 删除职务
 //
-// - 删除职务
+// - 你可以通过该接口删除一个职务信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/delete
+// - 删除后无法恢复， 并且在系统中无法搜索到对应职务信息，请谨慎操作。;;删除对象时请确认有无在职员工、待入职单据、职级、序列、岗位等数据关联此对象，如有会导致删除失败。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=job&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_job.go
 func (j *job) Delete(ctx context.Context, req *DeleteJobReq, options ...larkcore.RequestOptionFunc) (*DeleteJobResp, error) {
@@ -1314,9 +1358,11 @@ func (j *job) Delete(ctx context.Context, req *DeleteJobReq, options ...larkcore
 
 // Get 查询单个职务
 //
-// - 根据 ID 查询单个职务
+// - 该接口支持通过职务id批量查询当天的职务详情信息，包括职务包含的名称、描述、启用状态等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get
+// - 本接口不再推荐使用，请使用[查询单个职务V2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)接口。;;延迟说明：数据库主从延迟 2s 以内，即：直接创建职级后2s内调用此接口可能查询不到数据。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=job&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_job.go
 func (j *job) Get(ctx context.Context, req *GetJobReq, options ...larkcore.RequestOptionFunc) (*GetJobResp, error) {
@@ -1340,9 +1386,11 @@ func (j *job) Get(ctx context.Context, req *GetJobReq, options ...larkcore.Reque
 
 // List 批量查询职务
 //
-// - 批量查询职务
+// - 批量查询职务。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/list
+// - 本接口不再推荐使用，请使用[批量查询职务V2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/list)接口。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=job&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_job.go
 func (j *job) List(ctx context.Context, req *ListJobReq, options ...larkcore.RequestOptionFunc) (*ListJobResp, error) {
@@ -1364,11 +1412,11 @@ func (j *job) List(ctx context.Context, req *ListJobReq, options ...larkcore.Req
 	return resp, err
 }
 
-// Patch 更新职务
+// Patch 更新单个职务
 //
-// - 更新职务
+// - 可以通过职务ID更新单个职务详情信息，例如职务名称、描述等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=job&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/patch_job.go
 func (j *job) Patch(ctx context.Context, req *PatchJobReq, options ...larkcore.RequestOptionFunc) (*PatchJobResp, error) {
@@ -1390,11 +1438,13 @@ func (j *job) Patch(ctx context.Context, req *PatchJobReq, options ...larkcore.R
 	return resp, err
 }
 
-// Create 发起员工异动
+// Create 发起员工异动（不推荐）
 //
-// - 创建员工异动信息
+// - 该接口用于发起员工异动（变更员工雇佣信息），若发起成功，会生成一条员工的异动数据，同时产生相应的事件：[异动状态变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/events/updated)
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/create
+// - 本事件不再推荐使用，请使用新版本[发起员工异动](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/create)
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=job_change&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_jobChange.go
 func (j *jobChange) Create(ctx context.Context, req *CreateJobChangeReq, options ...larkcore.RequestOptionFunc) (*CreateJobChangeResp, error) {
@@ -1418,9 +1468,11 @@ func (j *jobChange) Create(ctx context.Context, req *CreateJobChangeReq, options
 
 // Create 创建任职信息
 //
-// - 在系统中第一次创建员工任职数据，通常在员工入职或者做数据批量导入的时候使用，【任职原因】只支持填写“入职”
+// - 在系统中第一次创建员工任职数据，通常在员工入职或者做数据批量导入的时候使用，【任职原因】只支持填写“onboarding”。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/create
+// - - 非必填字段，不传时默认为空
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=job_data&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_jobData.go
 func (j *jobData) Create(ctx context.Context, req *CreateJobDataReq, options ...larkcore.RequestOptionFunc) (*CreateJobDataResp, error) {
@@ -1444,9 +1496,11 @@ func (j *jobData) Create(ctx context.Context, req *CreateJobDataReq, options ...
 
 // Delete 删除任职信息
 //
-// - 删除人员的任职信息
+// - 删除人员的任职信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/delete
+// - 删除后无法恢复， 并且在系统中无法查询到对应任职信息，请谨慎操作。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=job_data&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_jobData.go
 func (j *jobData) Delete(ctx context.Context, req *DeleteJobDataReq, options ...larkcore.RequestOptionFunc) (*DeleteJobDataResp, error) {
@@ -1470,9 +1524,11 @@ func (j *jobData) Delete(ctx context.Context, req *DeleteJobDataReq, options ...
 
 // Get 查询单个任职信息
 //
-// - 根据 ID 查询单任职信息
+// - 根据 ID 查询当前生效的主任职记录。所有主任职记录中只有一条记录版本当前生效
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get
+// - 当前接口为历史版本。推荐使用新版接口，详情参见[批量查询员工任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-job_data/batch_get)、[获取任职信息列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-job_data/query)。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=job_data&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_jobData.go
 func (j *jobData) Get(ctx context.Context, req *GetJobDataReq, options ...larkcore.RequestOptionFunc) (*GetJobDataResp, error) {
@@ -1496,9 +1552,9 @@ func (j *jobData) Get(ctx context.Context, req *GetJobDataReq, options ...larkco
 
 // List 批量查询任职信息
 //
-// - 批量查询人员的任职信息
+// - 批量查询员工的任职信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=job_data&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_jobData.go
 func (j *jobData) List(ctx context.Context, req *ListJobDataReq, options ...larkcore.RequestOptionFunc) (*ListJobDataResp, error) {
@@ -1522,9 +1578,11 @@ func (j *jobData) List(ctx context.Context, req *ListJobDataReq, options ...lark
 
 // Patch 更新任职信息
 //
-// - 更新任职信息
+// - 默认为新增一条任职记录，包括职务、职级、序列、部门等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/patch
+// - - 本接口不再推荐使用（历史问题较多），请使用以下接口（对齐业务、功能完善）; - [【发起员工异动】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/create); - [【操作员工离职】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/submit);- 为解决默认无校验容易产生脏数据问题，已于 <b>2024.10.18</b> 日修改 strict_verify 的默认值为 true;;- 此接口默认缺乏业务校验，使用 strict_verify=true，相当于【人事系统-异动无审批】; - 应用业务校验、发送异动事件、新增任职记录; - 在【修改工时制度】、【插入任职记录】等场景下请检查异动管理;- 「任职原因」不允许填写为「onboarding」或「offboarding」;- 当上一个任职版本的「任职原因」为「onboarding」时，「任职原因」必填;- 该接口默认是新增一条任职记录，并非原地编辑;;;- 非必填字段，如无特殊说明，不传时即不做变更
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=job_data&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/patch_jobData.go
 func (j *jobData) Patch(ctx context.Context, req *PatchJobDataReq, options ...larkcore.RequestOptionFunc) (*PatchJobDataResp, error) {
@@ -1546,11 +1604,11 @@ func (j *jobData) Patch(ctx context.Context, req *PatchJobDataReq, options ...la
 	return resp, err
 }
 
-// Create 创建职务序列
+// Create 创建单个序列
 //
-// - 创建职务序列
+// - 该接口用于创建单个序列，创建后系统中新增一条包含序列编码、名称、描述等信息的序列记录;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=job_family&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_jobFamily.go
 func (j *jobFamily) Create(ctx context.Context, req *CreateJobFamilyReq, options ...larkcore.RequestOptionFunc) (*CreateJobFamilyResp, error) {
@@ -1572,11 +1630,13 @@ func (j *jobFamily) Create(ctx context.Context, req *CreateJobFamilyReq, options
 	return resp, err
 }
 
-// Delete 删除职务序列
+// Delete 删除序列
 //
-// - 删除职务序列
+// - 该接口支持通过序列ID删除单个序列信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/delete
+// - 删除后无法恢复， 并且在系统中无法搜索到对应序列信息，请谨慎操作。;;删除对象时请确认有无在职员工、异动单据、待入职单据、职务、职级、职等、岗位等关联此对象，如有会导致删除失败。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=job_family&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_jobFamily.go
 func (j *jobFamily) Delete(ctx context.Context, req *DeleteJobFamilyReq, options ...larkcore.RequestOptionFunc) (*DeleteJobFamilyResp, error) {
@@ -1598,11 +1658,13 @@ func (j *jobFamily) Delete(ctx context.Context, req *DeleteJobFamilyReq, options
 	return resp, err
 }
 
-// Get 查询单个职务序列
+// Get 查询单个序列详情
 //
-// - 根据 ID 查询单个职务序列
+// - 该接口通过序列ID查询单个序列详情信息，如序列名称、描述、状态等
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get
+// - 延迟说明：数据库主从延迟2s以内，即：直接创建序列后2s内调用此接口可能查询不到数据。;;如果你需要批量序列查询场景，建议通过[批量查询序列信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)获取序列信息。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=job_family&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_jobFamily.go
 func (j *jobFamily) Get(ctx context.Context, req *GetJobFamilyReq, options ...larkcore.RequestOptionFunc) (*GetJobFamilyResp, error) {
@@ -1624,11 +1686,13 @@ func (j *jobFamily) Get(ctx context.Context, req *GetJobFamilyReq, options ...la
 	return resp, err
 }
 
-// List 批量查询职务序列
+// List 批量查询序列信息
 //
-// - 批量查询职务序列
+// - 该接口支持获取租户下的所有序列信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list
+// - 延迟说明：数据库主从延迟 2s 以内，即：直接创建序列后2s内调用此接口可能查询不到数据。;;使用建议：序列数量过多时，可以通过多次循环调用该接口获取所有序列详情信息，包括序列编码、名称等。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=job_family&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_jobFamily.go
 func (j *jobFamily) List(ctx context.Context, req *ListJobFamilyReq, options ...larkcore.RequestOptionFunc) (*ListJobFamilyResp, error) {
@@ -1650,11 +1714,11 @@ func (j *jobFamily) List(ctx context.Context, req *ListJobFamilyReq, options ...
 	return resp, err
 }
 
-// Patch 更新职务序列
+// Patch 更新单个序列;
 //
-// - 更新职务序列
+// - 可以通过序列ID更新单个序列详情信息，例如序列名称、上级序列ID等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=job_family&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/patch_jobFamily.go
 func (j *jobFamily) Patch(ctx context.Context, req *PatchJobFamilyReq, options ...larkcore.RequestOptionFunc) (*PatchJobFamilyResp, error) {
@@ -1676,11 +1740,11 @@ func (j *jobFamily) Patch(ctx context.Context, req *PatchJobFamilyReq, options .
 	return resp, err
 }
 
-// Create 创建职务级别
+// Create 新建单个职级
 //
-// - 创建职务级别
+// - 该接口通过传入职级名称、职级数值等参数，创建单个职级对象;适用场景：;- 适用于HR系统中新增职级的场景
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=job_level&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_jobLevel.go
 func (j *jobLevel) Create(ctx context.Context, req *CreateJobLevelReq, options ...larkcore.RequestOptionFunc) (*CreateJobLevelResp, error) {
@@ -1702,11 +1766,13 @@ func (j *jobLevel) Create(ctx context.Context, req *CreateJobLevelReq, options .
 	return resp, err
 }
 
-// Delete 删除职务级别
+// Delete 删除职级
 //
-// - 删除职务级别
+// - 可以通过该接口通过职级ID删除一个职级对象。;- 删除对象时请确认有无在职员工、待入职单据、职务等关联此对象，如有会导致删除失败。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/delete
+// - 删除后无法恢复， 并且在系统中无法查看到对应职级信息，请谨慎操作。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=job_level&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_jobLevel.go
 func (j *jobLevel) Delete(ctx context.Context, req *DeleteJobLevelReq, options ...larkcore.RequestOptionFunc) (*DeleteJobLevelResp, error) {
@@ -1728,11 +1794,13 @@ func (j *jobLevel) Delete(ctx context.Context, req *DeleteJobLevelReq, options .
 	return resp, err
 }
 
-// Get 查询单个职务级别
+// Get 查询单个职级
 //
-// - 根据 ID 查询单个职务级别
+// - 该接口通过职级id 查询单个职级详情信息，包括职级包含的名称、描述、启用状态等
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get
+// - 注意事项：数据库主从延迟 2s 以内，直接创建职级后2s内调用此接口可能查询不到数据。;;;;使用建议：该接口只支持查询单个职级，如果你需要批量查询多个职级信息，建议通过[【通过职级 ID 批量获取职级信息】](/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get;)获取职级信息。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=job_level&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_jobLevel.go
 func (j *jobLevel) Get(ctx context.Context, req *GetJobLevelReq, options ...larkcore.RequestOptionFunc) (*GetJobLevelResp, error) {
@@ -1754,11 +1822,13 @@ func (j *jobLevel) Get(ctx context.Context, req *GetJobLevelReq, options ...lark
 	return resp, err
 }
 
-// List 批量查询职务级别
+// List 批量查询职级
 //
-// - 批量查询职务级别
+// - 获取租户下的所有职级详情，包括职级数值、编码、名称等;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list
+// - 延迟说明：数据库主从延迟 2s 以内，即：直接创建职级后2s内调用此接口可能查询不到数据。;;使用建议：职级数量过多时，可以通过多次循环调用该接口获取所有职级详情信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=job_level&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_jobLevel.go
 func (j *jobLevel) List(ctx context.Context, req *ListJobLevelReq, options ...larkcore.RequestOptionFunc) (*ListJobLevelResp, error) {
@@ -1780,11 +1850,11 @@ func (j *jobLevel) List(ctx context.Context, req *ListJobLevelReq, options ...la
 	return resp, err
 }
 
-// Patch 更新职务级别
+// Patch 更新单个职级
 //
-// - 更新职务级别
+// - 该接口通过职级ID更新单个职级信息，包括职级数值、名称等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=job_level&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/patch_jobLevel.go
 func (j *jobLevel) Patch(ctx context.Context, req *PatchJobLevelReq, options ...larkcore.RequestOptionFunc) (*PatchJobLevelResp, error) {
@@ -1806,9 +1876,9 @@ func (j *jobLevel) Patch(ctx context.Context, req *PatchJobLevelReq, options ...
 	return resp, err
 }
 
-// CalendarByScope
+// CalendarByScope 根据适用条件获取工作日历 ID
 //
-// -
+// - 根据日历的适用范围，获取工作日历 ID。适用范围包含工作地点，工时制度等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=calendar_by_scope&project=corehr&resource=leave&version=v1
 //
@@ -1834,9 +1904,11 @@ func (l *leave) CalendarByScope(ctx context.Context, req *CalendarByScopeLeaveRe
 
 // LeaveBalances 批量查询员工假期余额
 //
-// - 批量获取员工各个假期的余额数据
+// - 批量获取员工各个假期的余额数据。对应页面为假勤管理-休假管理-[假期报表](https://example.feishu.cn/people/workforce-management/manage/leave/leave_admin/balance)
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_balances
+// - 仅飞书人事企业版可用
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=leave_balances&project=corehr&resource=leave&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/leaveBalances_leave.go
 func (l *leave) LeaveBalances(ctx context.Context, req *LeaveBalancesLeaveReq, options ...larkcore.RequestOptionFunc) (*LeaveBalancesLeaveResp, error) {
@@ -1860,9 +1932,11 @@ func (l *leave) LeaveBalances(ctx context.Context, req *LeaveBalancesLeaveReq, o
 
 // LeaveRequestHistory 批量查询员工请假记录
 //
-// - 批量获取员工的请假记录数据
+// - 批量获取员工的请假记录数据。对应页面为假勤管理-休假管理-[请假记录](https://example.feishu.cn/people/workforce-management/manage/leave/leave_admin/leave_request)
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_request_history
+// - 仅飞书人事企业版可用
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=leave_request_history&project=corehr&resource=leave&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/leaveRequestHistory_leave.go
 func (l *leave) LeaveRequestHistory(ctx context.Context, req *LeaveRequestHistoryLeaveReq, options ...larkcore.RequestOptionFunc) (*LeaveRequestHistoryLeaveResp, error) {
@@ -1886,9 +1960,11 @@ func (l *leave) LeaveRequestHistory(ctx context.Context, req *LeaveRequestHistor
 
 // LeaveTypes 获取假期类型列表
 //
-// - 获取休假设置后台配置的假期类型列表（比如年假、事假、婚假等）
+// - 获取休假设置后台配置的假期类型列表（比如年假、事假、婚假等）。对应页面功能为设置-假勤设置-[假期类型](https://example.feishu.cn/people/workforce-management/setting/leave/leave_admin/leave_type)
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_types
+// - 仅飞书人事企业版可用
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=leave_types&project=corehr&resource=leave&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/leaveTypes_leave.go
 func (l *leave) LeaveTypes(ctx context.Context, req *LeaveTypesLeaveReq, options ...larkcore.RequestOptionFunc) (*LeaveTypesLeaveResp, error) {
@@ -1910,9 +1986,9 @@ func (l *leave) LeaveTypes(ctx context.Context, req *LeaveTypesLeaveReq, options
 	return resp, err
 }
 
-// WorkCalendar
+// WorkCalendar 获取工作日历信息
 //
-// -
+// - 获取工作日历信息，如名称，状态等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=work_calendar&project=corehr&resource=leave&version=v1
 //
@@ -1936,9 +2012,9 @@ func (l *leave) WorkCalendar(ctx context.Context, req *WorkCalendarLeaveReq, opt
 	return resp, err
 }
 
-// WorkCalendarDate
+// WorkCalendarDate 获取工作日历日期详情
 //
-// -
+// - 获取工作日历每一天的日期详情，如日期、日期类型等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=work_calendar_date&project=corehr&resource=leave&version=v1
 //
@@ -1962,11 +2038,13 @@ func (l *leave) WorkCalendarDate(ctx context.Context, req *WorkCalendarDateLeave
 	return resp, err
 }
 
-// Create 创建假期授予记录
+// Create 创建假期发放记录
 //
-// - 向飞书人事休假系统写入假期授予记录
+// - 向飞书人事休假系统写入假期发放记录。对应假勤管理-休假管理-[发放记录](https://example.feishu.cn/people/workforce-management/manage/leave/leave_admin/granting_record)的创建或者导入功能
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/create
+// - 仅飞书人事企业版可用
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=leave_granting_record&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_leaveGrantingRecord.go
 func (l *leaveGrantingRecord) Create(ctx context.Context, req *CreateLeaveGrantingRecordReq, options ...larkcore.RequestOptionFunc) (*CreateLeaveGrantingRecordResp, error) {
@@ -1988,11 +2066,13 @@ func (l *leaveGrantingRecord) Create(ctx context.Context, req *CreateLeaveGranti
 	return resp, err
 }
 
-// Delete 删除假期授予记录
+// Delete 删除假期发放记录
 //
-// - 删除飞书人事休假系统中的假期授予记录（仅支持删除授予来源是「手动授予」或「外部系统授予」的记录）
+// - 删除飞书人事休假系统中的发放记录，假勤管理-休假管理-[发放记录](https://example.feishu.cn/people/workforce-management/manage/leave/leave_admin/granting_record)（仅支持删除发放来源是「手动发放」或「外部系统发放」的记录）。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/delete
+// - 仅飞书人事企业版可用
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=leave_granting_record&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_leaveGrantingRecord.go
 func (l *leaveGrantingRecord) Delete(ctx context.Context, req *DeleteLeaveGrantingRecordReq, options ...larkcore.RequestOptionFunc) (*DeleteLeaveGrantingRecordResp, error) {
@@ -2016,9 +2096,9 @@ func (l *leaveGrantingRecord) Delete(ctx context.Context, req *DeleteLeaveGranti
 
 // Create 创建地点
 //
-// - 创建地点
+// - 在系统中第一次创建地点数据
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=location&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_location.go
 func (l *location) Create(ctx context.Context, req *CreateLocationReq, options ...larkcore.RequestOptionFunc) (*CreateLocationResp, error) {
@@ -2042,9 +2122,11 @@ func (l *location) Create(ctx context.Context, req *CreateLocationReq, options .
 
 // Delete 删除地点
 //
-// - 删除地点
+// - 删除地点信息;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/delete
+// - 删除后无法恢复， 并且在系统中无法搜索到对应地点信息，请谨慎操作。;;- 删除对象时请确认有无在职员工、异动单据、待入职单据关联此对象，如有会导致删除失败。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=location&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_location.go
 func (l *location) Delete(ctx context.Context, req *DeleteLocationReq, options ...larkcore.RequestOptionFunc) (*DeleteLocationResp, error) {
@@ -2068,9 +2150,11 @@ func (l *location) Delete(ctx context.Context, req *DeleteLocationReq, options .
 
 // Get 查询单个地点
 //
-// - 根据 ID 查询单个地点
+// - 该接口用于根据地点 ID查询地点信息，信息包含地点名称、描述、地点用途、工时制度、区域设置、时区以及关联的地址信息等。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get
+// - 延迟说明：数据库主从延迟 2s 以内，即：直接创建地点后2s内调用此接口可能查询不到数据。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=location&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_location.go
 func (l *location) Get(ctx context.Context, req *GetLocationReq, options ...larkcore.RequestOptionFunc) (*GetLocationResp, error) {
@@ -2092,11 +2176,13 @@ func (l *location) Get(ctx context.Context, req *GetLocationReq, options ...lark
 	return resp, err
 }
 
-// List 批量查询地点
+// List 批量分页查询地点信息
 //
-// - 批量查询地点
+// - 该接口用于批量查询地点信息，信息包含地点名称、描述、地点用途、工时制度、区域设置、时区以及关联的地址信息等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list
+// - 延迟说明：数据库主从延迟 2s 以内，即：直接创建地点后2s内调用此接口可能查询不到数据。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=location&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_location.go
 func (l *location) List(ctx context.Context, req *ListLocationReq, options ...larkcore.RequestOptionFunc) (*ListLocationResp, error) {
@@ -2120,9 +2206,9 @@ func (l *location) List(ctx context.Context, req *ListLocationReq, options ...la
 
 // Create 创建国家证件类型
 //
-// - 创建国家证件类型
+// - 创建国家证件类型。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=national_id_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_nationalIdType.go
 func (n *nationalIdType) Create(ctx context.Context, req *CreateNationalIdTypeReq, options ...larkcore.RequestOptionFunc) (*CreateNationalIdTypeResp, error) {
@@ -2146,9 +2232,9 @@ func (n *nationalIdType) Create(ctx context.Context, req *CreateNationalIdTypeRe
 
 // Delete 删除国家证件类型
 //
-// - 删除国家证件类型
+// - 删除国家证件类型，已删除的数据将无法通过查询接口获取。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=national_id_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_nationalIdType.go
 func (n *nationalIdType) Delete(ctx context.Context, req *DeleteNationalIdTypeReq, options ...larkcore.RequestOptionFunc) (*DeleteNationalIdTypeResp, error) {
@@ -2172,9 +2258,9 @@ func (n *nationalIdType) Delete(ctx context.Context, req *DeleteNationalIdTypeRe
 
 // Get 查询单个国家证件类型
 //
-// - 根据 ID 查询单个国家证件类型
+// - 根据 ID 查询单个国家证件类型。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=national_id_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_nationalIdType.go
 func (n *nationalIdType) Get(ctx context.Context, req *GetNationalIdTypeReq, options ...larkcore.RequestOptionFunc) (*GetNationalIdTypeResp, error) {
@@ -2198,9 +2284,9 @@ func (n *nationalIdType) Get(ctx context.Context, req *GetNationalIdTypeReq, opt
 
 // List 批量查询国家证件类型
 //
-// - 批量查询国家证件类型
+// - 批量查询国家证件类型。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=national_id_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_nationalIdType.go
 func (n *nationalIdType) List(ctx context.Context, req *ListNationalIdTypeReq, options ...larkcore.RequestOptionFunc) (*ListNationalIdTypeResp, error) {
@@ -2224,9 +2310,9 @@ func (n *nationalIdType) List(ctx context.Context, req *ListNationalIdTypeReq, o
 
 // Patch 更新国家证件类型
 //
-// - 更新国家证件类型
+// - 更新国家证件类型。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=national_id_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/patch_nationalIdType.go
 func (n *nationalIdType) Patch(ctx context.Context, req *PatchNationalIdTypeReq, options ...larkcore.RequestOptionFunc) (*PatchNationalIdTypeResp, error) {
@@ -2250,9 +2336,9 @@ func (n *nationalIdType) Patch(ctx context.Context, req *PatchNationalIdTypeReq,
 
 // Query 查询员工离职原因列表
 //
-// - 查询「飞书人事」-「离职设置」中的离职原因
+// - 该接口用于查询[离职配置](https://people.feishu.cn/people/hr-settings/dimission/setting)> 离职原因的选项信息，包括离职原因选项的唯一标识、名称和启用状态等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=offboarding&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/query_offboarding.go
 func (o *offboarding) Query(ctx context.Context, req *QueryOffboardingReq, options ...larkcore.RequestOptionFunc) (*QueryOffboardingResp, error) {
@@ -2274,9 +2360,11 @@ func (o *offboarding) Query(ctx context.Context, req *QueryOffboardingReq, optio
 	return resp, err
 }
 
-// Search
+// Search 搜索离职信息
 //
-// - 根据 雇佣 ID 查询员工离职信息
+// - 该接口支持根据员工ID、离职审批发起时间和离职日期等字段搜索离职信息，可获取包括离职日期、离职原因、离职状态和流程审批状态等信息。
+//
+// - 注意：该接口会按照应用拥有的「员工数据」的权限范围返回数据，请确定在「开发者后台 - 权限管理 - 数据权限-飞书人事（企业版）数据权限」中申请了「员工资源」权限范围。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=corehr&resource=offboarding&version=v1
 //
@@ -2310,9 +2398,11 @@ func (o *offboarding) SearchByIterator(ctx context.Context, req *SearchOffboardi
 
 // Submit 操作员工离职
 //
-// - 操作员工直接离职
+// - 该接口用于发起员工离职。若发起成功，会生成一条员工的离职数据，同时产生相应的事件。参考[离职申请状态变更](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/offboarding/events/status_updated)
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/submit
+// - 该接口暂不支持员工数据鉴权，拥有接口权限即可操作对应租户所有员工的离职，使用时请注意数据安全。同时该接口不支持发起离职申请流程，推荐使用[新版操作员工离职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/offboarding/submit_v2);;
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=submit&project=corehr&resource=offboarding&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/submit_offboarding.go
 func (o *offboarding) Submit(ctx context.Context, req *SubmitOffboardingReq, options ...larkcore.RequestOptionFunc) (*SubmitOffboardingResp, error) {
@@ -2336,9 +2426,11 @@ func (o *offboarding) Submit(ctx context.Context, req *SubmitOffboardingReq, opt
 
 // Create 创建个人信息
 //
-// - 创建人员的个人信息
+// - 创建人员的个人信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/create
+// - 接口已升级，推荐使用：[创建个人信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/create)
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=person&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_person.go
 func (p *person) Create(ctx context.Context, req *CreatePersonReq, options ...larkcore.RequestOptionFunc) (*CreatePersonResp, error) {
@@ -2362,9 +2454,11 @@ func (p *person) Create(ctx context.Context, req *CreatePersonReq, options ...la
 
 // Delete 删除个人信息
 //
-// - 删除人员的个人信息
+// - 删除人员的个人信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/delete
+// - 删除后无法恢复， 并且在系统中无法查询到对应个人信息，请谨慎操作。;;删除个人信息前，请先删除与其相关联的全部个人附加信息。;;可通过[【批量查询个人附加信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person_info_chn/list)接口查询全部个人附加信息，并通过[【删除个人附加信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person_info_chn/delete)接口删除
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=person&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_person.go
 func (p *person) Delete(ctx context.Context, req *DeletePersonReq, options ...larkcore.RequestOptionFunc) (*DeletePersonResp, error) {
@@ -2388,9 +2482,9 @@ func (p *person) Delete(ctx context.Context, req *DeletePersonReq, options ...la
 
 // Get 查询单个个人信息
 //
-// - 根据 ID 查询单个人员的个人信息
+// - 根据 ID 查询单个人员的个人信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=person&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_person.go
 func (p *person) Get(ctx context.Context, req *GetPersonReq, options ...larkcore.RequestOptionFunc) (*GetPersonResp, error) {
@@ -2414,9 +2508,11 @@ func (p *person) Get(ctx context.Context, req *GetPersonReq, options ...larkcore
 
 // Patch 更新个人信息
 //
-// - 更新个人信息
+// - 更新个人信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/patch
+// - 接口已升级，推荐使用：[更新个人信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/patch)
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=person&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/patch_person.go
 func (p *person) Patch(ctx context.Context, req *PatchPersonReq, options ...larkcore.RequestOptionFunc) (*PatchPersonResp, error) {
@@ -2440,9 +2536,9 @@ func (p *person) Patch(ctx context.Context, req *PatchPersonReq, options ...lark
 
 // Upload 上传文件
 //
-// - 上传文件
+// - 上传文件。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/upload
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload&project=corehr&resource=person&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/upload_person.go
 func (p *person) Upload(ctx context.Context, req *UploadPersonReq, options ...larkcore.RequestOptionFunc) (*UploadPersonResp, error) {
@@ -2465,11 +2561,11 @@ func (p *person) Upload(ctx context.Context, req *UploadPersonReq, options ...la
 	return resp, err
 }
 
-// Delete 删除待入职人员
+// Delete 删除待入职人员（不推荐）
 //
-// - 删除待入职人员
+// - 删除待入职人员接口，本接口直接删除待入职数据，不会判断入职流程，推荐使用新接口进行删除[【删除待入职】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/delete)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=pre_hire&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_preHire.go
 func (p *preHire) Delete(ctx context.Context, req *DeletePreHireReq, options ...larkcore.RequestOptionFunc) (*DeletePreHireResp, error) {
@@ -2491,11 +2587,11 @@ func (p *preHire) Delete(ctx context.Context, req *DeletePreHireReq, options ...
 	return resp, err
 }
 
-// Get 查询单个待入职人员
+// Get 查询单个待入职信息
 //
-// - 根据 ID 查询单个待入职人员
+// - 根据 ID 查询单个待入职人员，本接口不再推荐使用（个人信息相关数据不完整），请使用[查询待入职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/query)接口获取更完整信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=pre_hire&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_preHire.go
 func (p *preHire) Get(ctx context.Context, req *GetPreHireReq, options ...larkcore.RequestOptionFunc) (*GetPreHireResp, error) {
@@ -2517,11 +2613,11 @@ func (p *preHire) Get(ctx context.Context, req *GetPreHireReq, options ...larkco
 	return resp, err
 }
 
-// List 批量查询待入职人员
+// List 批量查询待入职信息
 //
-// - 批量查询待入职人员
+// - 可通过本接口批量查询待入职人员信息，本接口不再推荐使用（个人信息相关数据不完整），请使用[查询待入职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/query)接口获取更完整信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=pre_hire&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_preHire.go
 func (p *preHire) List(ctx context.Context, req *ListPreHireReq, options ...larkcore.RequestOptionFunc) (*ListPreHireResp, error) {
@@ -2543,11 +2639,11 @@ func (p *preHire) List(ctx context.Context, req *ListPreHireReq, options ...lark
 	return resp, err
 }
 
-// Patch 更新待入职数据
+// Patch 更新待入职信息（不推荐）
 //
-// - 更新待入职数据
+// - 更新待入职信息接口，本接口只是会更新待入职数据，不会校验数据规则，推荐使用新接口[【更新待入职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/patch)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=pre_hire&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/patch_preHire.go
 func (p *preHire) Patch(ctx context.Context, req *PatchPreHireReq, options ...larkcore.RequestOptionFunc) (*PatchPreHireResp, error) {
@@ -2571,9 +2667,11 @@ func (p *preHire) Patch(ctx context.Context, req *PatchPreHireReq, options ...la
 
 // Get 获取流程表单数据
 //
-// - 获取流程表单数据
+// - 根据流程实例 id（process_id）获取流程表单字段数据，包括表单里的业务字段和自定义字段。仅支持飞书人事、假勤相关业务流程。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/get
+// - 建议使用新版本 API 文档。详情参见[获取流程表单数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-form_variable_data/get)。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=process.form_variable_data&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_processFormVariableData.go
 func (p *processFormVariableData) Get(ctx context.Context, req *GetProcessFormVariableDataReq, options ...larkcore.RequestOptionFunc) (*GetProcessFormVariableDataResp, error) {
@@ -2597,9 +2695,9 @@ func (p *processFormVariableData) Get(ctx context.Context, req *GetProcessFormVa
 
 // List 批量获取角色列表
 //
-// - 批量查询「飞书人事」-「权限设置」-「角色设置」中的角色列表
+// - 用于查询飞书人事中的角色列表（对应[飞书人事管理后台](https://people.feishu.cn/people/) - 设置 - 权限设置 - 角色设置中的角色列表），列表内包含角色 ID、名称、状态以及描述等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/security_group/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=security_group&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_securityGroup.go
 func (s *securityGroup) List(ctx context.Context, req *ListSecurityGroupReq, options ...larkcore.RequestOptionFunc) (*ListSecurityGroupResp, error) {
@@ -2621,11 +2719,11 @@ func (s *securityGroup) List(ctx context.Context, req *ListSecurityGroupReq, opt
 	return resp, err
 }
 
-// Query HRBP/属地 BP 查询
+// Query 查询部门 / 地点的 HRBP / 属地 BP
 //
-// - 通过部门或工作地点，查询对应的 HRBP/属地 BP
+// - 通过部门或工作地点，查询对应的 HRBP / 属地 BP，返回的信息中包含BP的员工ID、部门ID、属地ID等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/security_group/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=security_group&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/query_securityGroup.go
 func (s *securityGroup) Query(ctx context.Context, req *QuerySecurityGroupReq, options ...larkcore.RequestOptionFunc) (*QuerySecurityGroupResp, error) {
@@ -2649,9 +2747,9 @@ func (s *securityGroup) Query(ctx context.Context, req *QuerySecurityGroupReq, o
 
 // Get 查询单条省份/行政区信息
 //
-// - 查询单条省份/行政区信息
+// - 查询单条省份/行政区信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/subdivision/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=subdivision&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_subdivision.go
 func (s *subdivision) Get(ctx context.Context, req *GetSubdivisionReq, options ...larkcore.RequestOptionFunc) (*GetSubdivisionResp, error) {
@@ -2675,9 +2773,9 @@ func (s *subdivision) Get(ctx context.Context, req *GetSubdivisionReq, options .
 
 // List 批量查询省份/行政区信息
 //
-// - 批量查询省份/行政区信息
+// - 批量查询省份/行政区信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/subdivision/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=subdivision&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_subdivision.go
 func (s *subdivision) List(ctx context.Context, req *ListSubdivisionReq, options ...larkcore.RequestOptionFunc) (*ListSubdivisionResp, error) {
@@ -2701,9 +2799,9 @@ func (s *subdivision) List(ctx context.Context, req *ListSubdivisionReq, options
 
 // Get 查询单条城市/区域信息
 //
-// - 查询单条城市/区域信息
+// - 查询单条城市/区域信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/subregion/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=subregion&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_subregion.go
 func (s *subregion) Get(ctx context.Context, req *GetSubregionReq, options ...larkcore.RequestOptionFunc) (*GetSubregionResp, error) {
@@ -2727,9 +2825,9 @@ func (s *subregion) Get(ctx context.Context, req *GetSubregionReq, options ...la
 
 // List 批量查询城市/区域信息
 //
-// - 批量查询城市/区域信息
+// - 批量查询城市/区域信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/subregion/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=subregion&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_subregion.go
 func (s *subregion) List(ctx context.Context, req *ListSubregionReq, options ...larkcore.RequestOptionFunc) (*ListSubregionResp, error) {
@@ -2753,9 +2851,9 @@ func (s *subregion) List(ctx context.Context, req *ListSubregionReq, options ...
 
 // Query 获取异动原因列表
 //
-// - 获取异动原因列表
+// - 该接口用于查询[异动配置](https://people.feishu.cn/people/hr-settings/transaction/setting) > 异动原因的选项信息，包括异动原因选项的唯一标识、名称和启用状态等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_reason/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=transfer_reason&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/query_transferReason.go
 func (t *transferReason) Query(ctx context.Context, req *QueryTransferReasonReq, options ...larkcore.RequestOptionFunc) (*QueryTransferReasonResp, error) {
@@ -2779,9 +2877,9 @@ func (t *transferReason) Query(ctx context.Context, req *QueryTransferReasonReq,
 
 // Query 获取异动类型列表
 //
-// - 获取异动类型列表
+// - 该接口用于查询[异动配置](https://people.feishu.cn/people/hr-settings/transaction/setting) > 异动类型的选项信息，包括异动类型选项的唯一标识、名称和启用状态等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=transfer_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/query_transferType.go
 func (t *transferType) Query(ctx context.Context, req *QueryTransferTypeReq, options ...larkcore.RequestOptionFunc) (*QueryTransferTypeResp, error) {
@@ -2805,9 +2903,9 @@ func (t *transferType) Query(ctx context.Context, req *QueryTransferTypeReq, opt
 
 // Create 创建工时制度
 //
-// - 创建工时制度
+// - 创建工时制度。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=working_hours_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/create_workingHoursType.go
 func (w *workingHoursType) Create(ctx context.Context, req *CreateWorkingHoursTypeReq, options ...larkcore.RequestOptionFunc) (*CreateWorkingHoursTypeResp, error) {
@@ -2831,9 +2929,9 @@ func (w *workingHoursType) Create(ctx context.Context, req *CreateWorkingHoursTy
 
 // Delete 删除工时制度
 //
-// - 删除工时制度
+// - 删除工时制度。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=working_hours_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/delete_workingHoursType.go
 func (w *workingHoursType) Delete(ctx context.Context, req *DeleteWorkingHoursTypeReq, options ...larkcore.RequestOptionFunc) (*DeleteWorkingHoursTypeResp, error) {
@@ -2857,9 +2955,9 @@ func (w *workingHoursType) Delete(ctx context.Context, req *DeleteWorkingHoursTy
 
 // Get 查询单个工时制度
 //
-// - 根据 ID 查询单个工时制度
+// - 根据 ID 查询单个工时制度。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=corehr&resource=working_hours_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/get_workingHoursType.go
 func (w *workingHoursType) Get(ctx context.Context, req *GetWorkingHoursTypeReq, options ...larkcore.RequestOptionFunc) (*GetWorkingHoursTypeResp, error) {
@@ -2883,9 +2981,9 @@ func (w *workingHoursType) Get(ctx context.Context, req *GetWorkingHoursTypeReq,
 
 // List 批量查询工时制度
 //
-// - 批量查询工时制度
+// - 批量查询工时制度。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=working_hours_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/list_workingHoursType.go
 func (w *workingHoursType) List(ctx context.Context, req *ListWorkingHoursTypeReq, options ...larkcore.RequestOptionFunc) (*ListWorkingHoursTypeResp, error) {
@@ -2909,9 +3007,9 @@ func (w *workingHoursType) List(ctx context.Context, req *ListWorkingHoursTypeRe
 
 // Patch 更新工时制度
 //
-// - 更新工时制度
+// - 更新工时制度。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=working_hours_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv1/patch_workingHoursType.go
 func (w *workingHoursType) Patch(ctx context.Context, req *PatchWorkingHoursTypeReq, options ...larkcore.RequestOptionFunc) (*PatchWorkingHoursTypeResp, error) {

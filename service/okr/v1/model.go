@@ -453,7 +453,7 @@ func (builder *ContentImageItemBuilder) FileToken(fileToken string) *ContentImag
 
 // 图片链接
 //
-// 示例值：https://bytedance.feishu.cn/drive/home/
+// 示例值：https://example.com/drive/home/
 func (builder *ContentImageItemBuilder) Src(src string) *ContentImageItemBuilder {
 	builder.src = src
 	builder.srcSet = true
@@ -777,7 +777,7 @@ func NewContentPersonBuilder() *ContentPersonBuilder {
 
 // 员工的OpenID
 //
-// 示例值：ou_3bbe8a09c20e89cce9bff989ed840674
+// 示例值：ou_3bbe8a09c20e89cce9bff989ed84xxxx
 func (builder *ContentPersonBuilder) OpenId(openId string) *ContentPersonBuilder {
 	builder.openId = openId
 	builder.openIdSet = true
@@ -849,7 +849,7 @@ type ContentTextStyle struct {
 
 	BackColor *ContentColor `json:"backColor,omitempty"` // 背景颜色
 
-	TextColor *ContentColor `json:"textColor,omitempty"` // 字体颜色
+	TextColor *ContentColor `json:"textColor,omitempty"` // 背景颜色
 
 	Link *ContentLink `json:"link,omitempty"` // 链接地址
 }
@@ -864,7 +864,7 @@ type ContentTextStyleBuilder struct {
 	backColor    *ContentColor // 背景颜色
 	backColorSet bool
 
-	textColor    *ContentColor // 字体颜色
+	textColor    *ContentColor // 背景颜色
 	textColorSet bool
 
 	link    *ContentLink // 链接地址
@@ -903,7 +903,7 @@ func (builder *ContentTextStyleBuilder) BackColor(backColor *ContentColor) *Cont
 	return builder
 }
 
-// 字体颜色
+// 背景颜色
 //
 // 示例值：
 func (builder *ContentTextStyleBuilder) TextColor(textColor *ContentColor) *ContentTextStyleBuilder {
@@ -1012,8 +1012,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1021,8 +1019,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -1155,7 +1151,7 @@ func (builder *ImageInfoBuilder) FileToken(fileToken string) *ImageInfoBuilder {
 
 // 图片下载链接
 //
-// 示例值：https://bytedance.feishu.cn/drive/home/
+// 示例值：
 func (builder *ImageInfoBuilder) Url(url string) *ImageInfoBuilder {
 	builder.url = url
 	builder.urlSet = true
@@ -2388,13 +2384,13 @@ type OkrComment struct {
 
 	CommentTime *int `json:"comment_time,omitempty"` // 全局评论时间 毫秒
 
-	Commentator *OkrObjectiveAlignedObjectiveOwner `json:"commentator,omitempty"` // 评论人员
+	Commentator *OkrObjectiveAlignedObjectiveOwner `json:"commentator,omitempty"` // 该Objective的Owner
 
-	LastModifier *OkrObjectiveAlignedObjectiveOwner `json:"last_modifier,omitempty"` // 修改评论的用户
+	LastModifier *OkrObjectiveAlignedObjectiveOwner `json:"last_modifier,omitempty"` // 该Objective的Owner
 
-	ContentModifyTime *int `json:"content_modify_time,omitempty"` // 评论的被修改时间  0 表示未被修改过， ms级别时间戳
+	ContentModifyTime *int `json:"content_modify_time,omitempty"` // 评论的被修改时间 0 表示未被修改过， ms级别时间戳
 
-	SolvedTime *int `json:"solved_time,omitempty"` // 评论被解决的时间   0 表示未解决过， ms级别时间戳
+	SolvedTime *int `json:"solved_time,omitempty"` // 评论被解决的时间 0 表示未解决过， ms级别时间戳
 }
 
 type OkrCommentBuilder struct {
@@ -2407,16 +2403,16 @@ type OkrCommentBuilder struct {
 	commentTime    int // 全局评论时间 毫秒
 	commentTimeSet bool
 
-	commentator    *OkrObjectiveAlignedObjectiveOwner // 评论人员
+	commentator    *OkrObjectiveAlignedObjectiveOwner // 该Objective的Owner
 	commentatorSet bool
 
-	lastModifier    *OkrObjectiveAlignedObjectiveOwner // 修改评论的用户
+	lastModifier    *OkrObjectiveAlignedObjectiveOwner // 该Objective的Owner
 	lastModifierSet bool
 
-	contentModifyTime    int // 评论的被修改时间  0 表示未被修改过， ms级别时间戳
+	contentModifyTime    int // 评论的被修改时间 0 表示未被修改过， ms级别时间戳
 	contentModifyTimeSet bool
 
-	solvedTime    int // 评论被解决的时间   0 表示未解决过， ms级别时间戳
+	solvedTime    int // 评论被解决的时间 0 表示未解决过， ms级别时间戳
 	solvedTimeSet bool
 }
 
@@ -2452,7 +2448,7 @@ func (builder *OkrCommentBuilder) CommentTime(commentTime int) *OkrCommentBuilde
 	return builder
 }
 
-// 评论人员
+// 该Objective的Owner
 //
 // 示例值：
 func (builder *OkrCommentBuilder) Commentator(commentator *OkrObjectiveAlignedObjectiveOwner) *OkrCommentBuilder {
@@ -2461,7 +2457,7 @@ func (builder *OkrCommentBuilder) Commentator(commentator *OkrObjectiveAlignedOb
 	return builder
 }
 
-// 修改评论的用户
+// 该Objective的Owner
 //
 // 示例值：
 func (builder *OkrCommentBuilder) LastModifier(lastModifier *OkrObjectiveAlignedObjectiveOwner) *OkrCommentBuilder {
@@ -2470,7 +2466,7 @@ func (builder *OkrCommentBuilder) LastModifier(lastModifier *OkrObjectiveAligned
 	return builder
 }
 
-// 评论的被修改时间  0 表示未被修改过， ms级别时间戳
+// 评论的被修改时间 0 表示未被修改过， ms级别时间戳
 //
 // 示例值：1624267575928
 func (builder *OkrCommentBuilder) ContentModifyTime(contentModifyTime int) *OkrCommentBuilder {
@@ -2479,7 +2475,7 @@ func (builder *OkrCommentBuilder) ContentModifyTime(contentModifyTime int) *OkrC
 	return builder
 }
 
-// 评论被解决的时间   0 表示未解决过， ms级别时间戳
+// 评论被解决的时间 0 表示未解决过， ms级别时间戳
 //
 // 示例值：1624267575928
 func (builder *OkrCommentBuilder) SolvedTime(solvedTime int) *OkrCommentBuilder {
@@ -3872,7 +3868,7 @@ type OkrObjectiveKr struct {
 
 	KrWeight *float64 `json:"kr_weight,omitempty"` // KeyResult的权重（0 - 100）
 
-	ProgressRate *OkrObjectiveProgressRate `json:"progress_rate,omitempty"` // KR进度
+	ProgressRate *OkrObjectiveProgressRate `json:"progress_rate,omitempty"` // Objective进度
 
 	ProgressRecordList []*ProgressRecordSimplify `json:"progress_record_list,omitempty"` // 该KR的进度列表
 
@@ -3907,7 +3903,7 @@ type OkrObjectiveKrBuilder struct {
 	krWeight    float64 // KeyResult的权重（0 - 100）
 	krWeightSet bool
 
-	progressRate    *OkrObjectiveProgressRate // KR进度
+	progressRate    *OkrObjectiveProgressRate // Objective进度
 	progressRateSet bool
 
 	progressRecordList    []*ProgressRecordSimplify // 该KR的进度列表
@@ -3985,7 +3981,7 @@ func (builder *OkrObjectiveKrBuilder) KrWeight(krWeight float64) *OkrObjectiveKr
 	return builder
 }
 
-// KR进度
+// Objective进度
 //
 // 示例值：
 func (builder *OkrObjectiveKrBuilder) ProgressRate(progressRate *OkrObjectiveProgressRate) *OkrObjectiveKrBuilder {
@@ -4175,13 +4171,13 @@ func (builder *OkrObjectiveProgressRateBuilder) Build() *OkrObjectiveProgressRat
 }
 
 type OkrReview struct {
-	UserId *OkrObjectiveAlignedObjectiveOwner `json:"user_id,omitempty"` // 复盘的用户
+	UserId *OkrObjectiveAlignedObjectiveOwner `json:"user_id,omitempty"` // 该Objective的Owner
 
 	ReviewPeriodList []*OkrReviewPeriod `json:"review_period_list,omitempty"` // 用户对应的OKR复盘列表
 }
 
 type OkrReviewBuilder struct {
-	userId    *OkrObjectiveAlignedObjectiveOwner // 复盘的用户
+	userId    *OkrObjectiveAlignedObjectiveOwner // 该Objective的Owner
 	userIdSet bool
 
 	reviewPeriodList    []*OkrReviewPeriod // 用户对应的OKR复盘列表
@@ -4193,7 +4189,7 @@ func NewOkrReviewBuilder() *OkrReviewBuilder {
 	return builder
 }
 
-// 复盘的用户
+// 该Objective的Owner
 //
 // 示例值：
 func (builder *OkrReviewBuilder) UserId(userId *OkrObjectiveAlignedObjectiveOwner) *OkrReviewBuilder {
@@ -4309,7 +4305,7 @@ func NewOkrReviewPeriodUrlBuilder() *OkrReviewPeriodUrlBuilder {
 
 // 文档链接
 //
-// 示例值：https://bytedance.feishu.cn/drive/home/
+// 示例值：
 func (builder *OkrReviewPeriodUrlBuilder) Url(url string) *OkrReviewPeriodUrlBuilder {
 	builder.url = url
 	builder.urlSet = true
@@ -4424,7 +4420,7 @@ func (builder *OkrSimpleBuilder) Build() *OkrSimple {
 }
 
 type Period struct {
-	Id *string `json:"id,omitempty"` // id
+	Id *string `json:"id,omitempty"` // OKD周期ID
 
 	ZhName *string `json:"zh_name,omitempty"` // 中文名称
 
@@ -4438,7 +4434,7 @@ type Period struct {
 }
 
 type PeriodBuilder struct {
-	id    string // id
+	id    string // OKD周期ID
 	idSet bool
 
 	zhName    string // 中文名称
@@ -4462,7 +4458,7 @@ func NewPeriodBuilder() *PeriodBuilder {
 	return builder
 }
 
-// id
+// OKD周期ID
 //
 // 示例值：635782378412311
 func (builder *PeriodBuilder) Id(id string) *PeriodBuilder {
@@ -5869,13 +5865,13 @@ func (builder *UserOkrObjectiveProgressRateBuilder) Build() *UserOkrObjectivePro
 }
 
 type UploadImageReqBodyBuilder struct {
-	data    io.Reader // 图片
+	data    io.Reader // 图片二进制文件。目前仅支持上传 JPG、JPEG、PNG、WEBP、GIF、BMP、ICO、TIFF、HEIC 格式的图片。
 	dataSet bool
 
-	targetId    string // 图片的目标ID
+	targetId    string // 插入图片所在的待创建/修改的进展记录对应的目标 ID，可以通过调用“批量获取 OKR”或“获取用户的 OKR 列表”接口获取对应的 Objective 或 KR 的 ID。
 	targetIdSet bool
 
-	targetType    int // 图片使用的目标类型
+	targetType    int // 插入图片所在的待创建/修改的进展记录对应的目标类型
 	targetTypeSet bool
 }
 
@@ -5884,27 +5880,27 @@ func NewUploadImageReqBodyBuilder() *UploadImageReqBodyBuilder {
 	return builder
 }
 
-// 图片
+// 图片二进制文件。目前仅支持上传 JPG、JPEG、PNG、WEBP、GIF、BMP、ICO、TIFF、HEIC 格式的图片。
 //
-//示例值：file binary
+// 示例值：
 func (builder *UploadImageReqBodyBuilder) Data(data io.Reader) *UploadImageReqBodyBuilder {
 	builder.data = data
 	builder.dataSet = true
 	return builder
 }
 
-// 图片的目标ID
+// 插入图片所在的待创建/修改的进展记录对应的目标 ID，可以通过调用“批量获取 OKR”或“获取用户的 OKR 列表”接口获取对应的 Objective 或 KR 的 ID。
 //
-//示例值：6974586812998174252
+// 示例值：6974586812998174252
 func (builder *UploadImageReqBodyBuilder) TargetId(targetId string) *UploadImageReqBodyBuilder {
 	builder.targetId = targetId
 	builder.targetIdSet = true
 	return builder
 }
 
-// 图片使用的目标类型
+// 插入图片所在的待创建/修改的进展记录对应的目标类型
 //
-//示例值：1
+// 示例值：2
 func (builder *UploadImageReqBodyBuilder) TargetType(targetType int) *UploadImageReqBodyBuilder {
 	builder.targetType = targetType
 	builder.targetTypeSet = true
@@ -5926,7 +5922,7 @@ func (builder *UploadImageReqBodyBuilder) Build() *UploadImageReqBody {
 }
 
 type UploadImagePathReqBodyBuilder struct {
-	dataPath      string // 图片
+	dataPath      string // 图片二进制文件。目前仅支持上传 JPG、JPEG、PNG、WEBP、GIF、BMP、ICO、TIFF、HEIC 格式的图片。
 	dataPathFlag  bool
 	targetId      string
 	targetIdSet   bool
@@ -5939,16 +5935,16 @@ func NewUploadImagePathReqBodyBuilder() *UploadImagePathReqBodyBuilder {
 	return builder
 }
 
-// 图片
+// 图片二进制文件。目前仅支持上传 JPG、JPEG、PNG、WEBP、GIF、BMP、ICO、TIFF、HEIC 格式的图片。
 //
-// 示例值：file binary
+// 示例值：
 func (builder *UploadImagePathReqBodyBuilder) DataPath(dataPath string) *UploadImagePathReqBodyBuilder {
 	builder.dataPath = dataPath
 	builder.dataPathFlag = true
 	return builder
 }
 
-// 图片的目标ID
+// 插入图片所在的待创建/修改的进展记录对应的目标 ID，可以通过调用“批量获取 OKR”或“获取用户的 OKR 列表”接口获取对应的 Objective 或 KR 的 ID。
 //
 // 示例值：6974586812998174252
 func (builder *UploadImagePathReqBodyBuilder) TargetId(targetId string) *UploadImagePathReqBodyBuilder {
@@ -5957,9 +5953,9 @@ func (builder *UploadImagePathReqBodyBuilder) TargetId(targetId string) *UploadI
 	return builder
 }
 
-// 图片使用的目标类型
+// 插入图片所在的待创建/修改的进展记录对应的目标类型
 //
-// 示例值：1
+// 示例值：2
 func (builder *UploadImagePathReqBodyBuilder) TargetType(targetType int) *UploadImagePathReqBodyBuilder {
 	builder.targetType = targetType
 	builder.targetTypeSet = true
@@ -5998,7 +5994,7 @@ func NewUploadImageReqBuilder() *UploadImageReqBuilder {
 	return builder
 }
 
-// 上传图片
+// 上传图片，以获取在进展记录富文本中使用的 token。成功调用该接口后，你可继续调用[创建 OKR 进展记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/create)或[更新 OKR 进展记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/update)，将返回的 `url`参数和`file_token` 参数传入 `imageList` 参数中。
 func (builder *UploadImageReqBuilder) Body(body *UploadImageReqBody) *UploadImageReqBuilder {
 	builder.body = body
 	return builder
@@ -6012,11 +6008,11 @@ func (builder *UploadImageReqBuilder) Build() *UploadImageReq {
 }
 
 type UploadImageReqBody struct {
-	Data io.Reader `json:"data,omitempty"` // 图片
+	Data io.Reader `json:"data,omitempty"` // 图片二进制文件。目前仅支持上传 JPG、JPEG、PNG、WEBP、GIF、BMP、ICO、TIFF、HEIC 格式的图片。
 
-	TargetId *string `json:"target_id,omitempty"` // 图片的目标ID
+	TargetId *string `json:"target_id,omitempty"` // 插入图片所在的待创建/修改的进展记录对应的目标 ID，可以通过调用“批量获取 OKR”或“获取用户的 OKR 列表”接口获取对应的 Objective 或 KR 的 ID。
 
-	TargetType *int `json:"target_type,omitempty"` // 图片使用的目标类型
+	TargetType *int `json:"target_type,omitempty"` // 插入图片所在的待创建/修改的进展记录对应的目标类型
 }
 
 type UploadImageReq struct {
@@ -6063,7 +6059,7 @@ func (builder *BatchGetOkrReqBuilder) UserIdType(userIdType string) *BatchGetOkr
 
 // OKR ID 列表，最多10个
 //
-// 示例值：7043693679567028244
+// 示例值：
 func (builder *BatchGetOkrReqBuilder) OkrIds(okrIds []string) *BatchGetOkrReqBuilder {
 	for _, v := range okrIds {
 		builder.apiReq.QueryParams.Add("okr_ids", fmt.Sprint(v))
@@ -6119,7 +6115,7 @@ func NewCreatePeriodReqBodyBuilder() *CreatePeriodReqBodyBuilder {
 
 // 周期规则 id
 //
-//示例值：6969864184272078374
+// 示例值：6969864184272078374
 func (builder *CreatePeriodReqBodyBuilder) PeriodRuleId(periodRuleId string) *CreatePeriodReqBodyBuilder {
 	builder.periodRuleId = periodRuleId
 	builder.periodRuleIdSet = true
@@ -6128,7 +6124,7 @@ func (builder *CreatePeriodReqBodyBuilder) PeriodRuleId(periodRuleId string) *Cr
 
 // 周期起始年月
 //
-//示例值：2022-01
+// 示例值：2022-01
 func (builder *CreatePeriodReqBodyBuilder) StartMonth(startMonth string) *CreatePeriodReqBodyBuilder {
 	builder.startMonth = startMonth
 	builder.startMonthSet = true
@@ -6201,7 +6197,7 @@ func NewCreatePeriodReqBuilder() *CreatePeriodReqBuilder {
 	return builder
 }
 
-// 根据周期规则创建一个 OKR 周期
+// 根据周期规则创建一个 OKR 周期。
 func (builder *CreatePeriodReqBuilder) Body(body *CreatePeriodReqBody) *CreatePeriodReqBuilder {
 	builder.body = body
 	return builder
@@ -6256,7 +6252,7 @@ func NewListPeriodReqBuilder() *ListPeriodReqBuilder {
 	return builder
 }
 
-// 分页标志page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：xaasdasdax
 func (builder *ListPeriodReqBuilder) PageToken(pageToken string) *ListPeriodReqBuilder {
@@ -6284,9 +6280,9 @@ type ListPeriodReq struct {
 }
 
 type ListPeriodRespData struct {
-	PageToken *string `json:"page_token,omitempty"` // 分页标志
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有更多
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
 	Items []*Period `json:"items,omitempty"` // 数据项
 }
@@ -6313,7 +6309,7 @@ func NewPatchPeriodReqBodyBuilder() *PatchPeriodReqBodyBuilder {
 
 // 周期显示状态
 //
-//示例值：1
+// 示例值：1
 func (builder *PatchPeriodReqBodyBuilder) Status(status int) *PatchPeriodReqBodyBuilder {
 	builder.status = status
 	builder.statusSet = true
@@ -6437,7 +6433,7 @@ type CreateProgressRecordReqBodyBuilder struct {
 	sourceUrl    string // 进展来源链接
 	sourceUrlSet bool
 
-	targetId    string // 目标id，与target_type对应
+	targetId    string // 目标 id，与 target_type 对应，可通过 OKR 内容相关接口获取
 	targetIdSet bool
 
 	targetType    int // 目标类型
@@ -6463,7 +6459,7 @@ func NewCreateProgressRecordReqBodyBuilder() *CreateProgressRecordReqBodyBuilder
 
 // 进展来源
 //
-//示例值：周报系统
+// 示例值：周报系统
 func (builder *CreateProgressRecordReqBodyBuilder) SourceTitle(sourceTitle string) *CreateProgressRecordReqBodyBuilder {
 	builder.sourceTitle = sourceTitle
 	builder.sourceTitleSet = true
@@ -6472,16 +6468,16 @@ func (builder *CreateProgressRecordReqBodyBuilder) SourceTitle(sourceTitle strin
 
 // 进展来源链接
 //
-//示例值：https://www.zhoubao.com
+// 示例值：https://www.zhoubao.com
 func (builder *CreateProgressRecordReqBodyBuilder) SourceUrl(sourceUrl string) *CreateProgressRecordReqBodyBuilder {
 	builder.sourceUrl = sourceUrl
 	builder.sourceUrlSet = true
 	return builder
 }
 
-// 目标id，与target_type对应
+// 目标 id，与 target_type 对应，可通过 OKR 内容相关接口获取
 //
-//示例值：7041430377642082323
+// 示例值：7041430377642082323
 func (builder *CreateProgressRecordReqBodyBuilder) TargetId(targetId string) *CreateProgressRecordReqBodyBuilder {
 	builder.targetId = targetId
 	builder.targetIdSet = true
@@ -6490,7 +6486,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) TargetId(targetId string) *Cr
 
 // 目标类型
 //
-//示例值：1
+// 示例值：2
 func (builder *CreateProgressRecordReqBodyBuilder) TargetType(targetType int) *CreateProgressRecordReqBodyBuilder {
 	builder.targetType = targetType
 	builder.targetTypeSet = true
@@ -6499,7 +6495,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) TargetType(targetType int) *C
 
 // 进展详情 富文本格式
 //
-//示例值：
+// 示例值：
 func (builder *CreateProgressRecordReqBodyBuilder) Content(content *ContentBlock) *CreateProgressRecordReqBodyBuilder {
 	builder.content = content
 	builder.contentSet = true
@@ -6508,7 +6504,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) Content(content *ContentBlock
 
 // pc进展来源链接
 //
-//示例值：open.feishu.cn
+// 示例值：open.feishu.cn
 func (builder *CreateProgressRecordReqBodyBuilder) SourceUrlPc(sourceUrlPc string) *CreateProgressRecordReqBodyBuilder {
 	builder.sourceUrlPc = sourceUrlPc
 	builder.sourceUrlPcSet = true
@@ -6517,7 +6513,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) SourceUrlPc(sourceUrlPc strin
 
 // mobile进展来源链接
 //
-//示例值：open.feishu.cn
+// 示例值：open.feishu.cn
 func (builder *CreateProgressRecordReqBodyBuilder) SourceUrlMobile(sourceUrlMobile string) *CreateProgressRecordReqBodyBuilder {
 	builder.sourceUrlMobile = sourceUrlMobile
 	builder.sourceUrlMobileSet = true
@@ -6526,7 +6522,7 @@ func (builder *CreateProgressRecordReqBodyBuilder) SourceUrlMobile(sourceUrlMobi
 
 // 进展，包括百分比和状态
 //
-//示例值：
+// 示例值：
 func (builder *CreateProgressRecordReqBodyBuilder) ProgressRate(progressRate *ProgressRateNew) *CreateProgressRecordReqBodyBuilder {
 	builder.progressRate = progressRate
 	builder.progressRateSet = true
@@ -6604,7 +6600,7 @@ func (builder *CreateProgressRecordPathReqBodyBuilder) SourceUrl(sourceUrl strin
 	return builder
 }
 
-// 目标id，与target_type对应
+// 目标 id，与 target_type 对应，可通过 OKR 内容相关接口获取
 //
 // 示例值：7041430377642082323
 func (builder *CreateProgressRecordPathReqBodyBuilder) TargetId(targetId string) *CreateProgressRecordPathReqBodyBuilder {
@@ -6615,7 +6611,7 @@ func (builder *CreateProgressRecordPathReqBodyBuilder) TargetId(targetId string)
 
 // 目标类型
 //
-// 示例值：1
+// 示例值：2
 func (builder *CreateProgressRecordPathReqBodyBuilder) TargetType(targetType int) *CreateProgressRecordPathReqBodyBuilder {
 	builder.targetType = targetType
 	builder.targetTypeSet = true
@@ -6709,7 +6705,7 @@ func (builder *CreateProgressRecordReqBuilder) UserIdType(userIdType string) *Cr
 	return builder
 }
 
-// 创建OKR进展记录
+// 创建 OKR 进展记录。
 func (builder *CreateProgressRecordReqBuilder) Body(body *CreateProgressRecordReqBody) *CreateProgressRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -6728,7 +6724,7 @@ type CreateProgressRecordReqBody struct {
 
 	SourceUrl *string `json:"source_url,omitempty"` // 进展来源链接
 
-	TargetId *string `json:"target_id,omitempty"` // 目标id，与target_type对应
+	TargetId *string `json:"target_id,omitempty"` // 目标 id，与 target_type 对应，可通过 OKR 内容相关接口获取
 
 	TargetType *int `json:"target_type,omitempty"` // 目标类型
 
@@ -6779,7 +6775,7 @@ func NewDeleteProgressRecordReqBuilder() *DeleteProgressRecordReqBuilder {
 	return builder
 }
 
-// 待删除的 OKR进展记录 ID
+// 待删除的 OKR进展记录 ID，“创建 OKR 进展记录”接口返回值中会提供，也可以通过 OKR 内容相关接口获取。
 //
 // 示例值：7041857032248410131
 func (builder *DeleteProgressRecordReqBuilder) ProgressId(progressId string) *DeleteProgressRecordReqBuilder {
@@ -6820,7 +6816,7 @@ func NewGetProgressRecordReqBuilder() *GetProgressRecordReqBuilder {
 	return builder
 }
 
-// 待查询的 OKR进展记录 ID
+// 待查询的 OKR进展记录 ，可以通过调用“批量获取 OKR”或“获取用户的 OKR 列表”接口获取
 //
 // 示例值：7041857032248410131
 func (builder *GetProgressRecordReqBuilder) ProgressId(progressId string) *GetProgressRecordReqBuilder {
@@ -6883,7 +6879,7 @@ func NewUpdateProgressRecordReqBodyBuilder() *UpdateProgressRecordReqBodyBuilder
 
 // 进展详情 富文本格式
 //
-//示例值：
+// 示例值：
 func (builder *UpdateProgressRecordReqBodyBuilder) Content(content *ContentBlock) *UpdateProgressRecordReqBodyBuilder {
 	builder.content = content
 	builder.contentSet = true
@@ -6892,7 +6888,7 @@ func (builder *UpdateProgressRecordReqBodyBuilder) Content(content *ContentBlock
 
 // 进展，包括百分比和状态
 //
-//示例值：
+// 示例值：
 func (builder *UpdateProgressRecordReqBodyBuilder) ProgressRate(progressRate *ProgressRateNew) *UpdateProgressRecordReqBodyBuilder {
 	builder.progressRate = progressRate
 	builder.progressRateSet = true
@@ -6965,7 +6961,7 @@ func NewUpdateProgressRecordReqBuilder() *UpdateProgressRecordReqBuilder {
 	return builder
 }
 
-// 待更新的 OKR进展记录 ID
+// 待更新的 OKR进展记录 ID，“创建 OKR 进展记录”接口返回值中会提供，也可以通过 OKR 内容相关接口获取。
 //
 // 示例值：7041857032248410131
 func (builder *UpdateProgressRecordReqBuilder) ProgressId(progressId string) *UpdateProgressRecordReqBuilder {
@@ -6981,7 +6977,7 @@ func (builder *UpdateProgressRecordReqBuilder) UserIdType(userIdType string) *Up
 	return builder
 }
 
-// 根据OKR进展记录ID更新进展详情
+// 根据 OKR 进展记录 ID 更新进展详情。
 func (builder *UpdateProgressRecordReqBuilder) Body(body *UpdateProgressRecordReqBody) *UpdateProgressRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -7050,7 +7046,7 @@ func (builder *QueryReviewReqBuilder) UserIdType(userIdType string) *QueryReview
 
 // 目标用户id列表，最多5个
 //
-// 示例值：ou_e6139117c300506837def50545420c6a
+// 示例值：
 func (builder *QueryReviewReqBuilder) UserIds(userIds []string) *QueryReviewReqBuilder {
 	for _, v := range userIds {
 		builder.apiReq.QueryParams.Add("user_ids", fmt.Sprint(v))
@@ -7060,7 +7056,7 @@ func (builder *QueryReviewReqBuilder) UserIds(userIds []string) *QueryReviewReqB
 
 // period_id列表，最多5个
 //
-// 示例值：7067724095781142548
+// 示例值：
 func (builder *QueryReviewReqBuilder) PeriodIds(periodIds []string) *QueryReviewReqBuilder {
 	for _, v := range periodIds {
 		builder.apiReq.QueryParams.Add("period_ids", fmt.Sprint(v))
@@ -7122,7 +7118,7 @@ func (builder *ListUserOkrReqBuilder) UserIdType(userIdType string) *ListUserOkr
 	return builder
 }
 
-// 请求列表的偏移，offset>=0
+// 请求列表的偏移（对应响应体的 okr_list 字段），offset>=0
 //
 // 示例值：0
 func (builder *ListUserOkrReqBuilder) Offset(offset string) *ListUserOkrReqBuilder {
@@ -7148,7 +7144,7 @@ func (builder *ListUserOkrReqBuilder) Lang(lang string) *ListUserOkrReqBuilder {
 
 // period_id列表，最多10个
 //
-// 示例值：["6951461264858777132"]
+// 示例值：
 func (builder *ListUserOkrReqBuilder) PeriodIds(periodIds []string) *ListUserOkrReqBuilder {
 	for _, v := range periodIds {
 		builder.apiReq.QueryParams.Add("period_ids", fmt.Sprint(v))

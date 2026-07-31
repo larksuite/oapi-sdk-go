@@ -48,7 +48,7 @@ type directoryUser struct {
 	config *larkcore.Config
 }
 
-// Create
+// Create 创建妙搭应用
 //
 // - 创建妙搭应用
 //
@@ -74,9 +74,9 @@ func (a *app) Create(ctx context.Context, req *CreateAppReq, options ...larkcore
 	return resp, err
 }
 
-// GetAppVisibility
+// GetAppVisibility 获取妙搭应用可用范围;
 //
-// - 查询妙搭应用可见范围
+// - 获取妙搭应用可用范围;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_app_visibility&project=spark&resource=app&version=v1
 //
@@ -100,9 +100,9 @@ func (a *app) GetAppVisibility(ctx context.Context, req *GetAppVisibilityAppReq,
 	return resp, err
 }
 
-// Icon
+// Icon 上传妙搭应用图标
 //
-// - 上传妙搭应用图标（multipart/form-data，返回图标 URL；不绑定具体 App）
+// - 上传妙搭应用图标
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=icon&project=spark&resource=app&version=v1
 //
@@ -127,9 +127,9 @@ func (a *app) Icon(ctx context.Context, req *IconAppReq, options ...larkcore.Req
 	return resp, err
 }
 
-// List
+// List 批量获取妙搭应用
 //
-// - 列出当前用户的妙搭应用
+// - 批量获取妙搭应用
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=spark&resource=app&version=v1
 //
@@ -153,9 +153,9 @@ func (a *app) List(ctx context.Context, req *ListAppReq, options ...larkcore.Req
 	return resp, err
 }
 
-// Patch
+// Patch 更新妙搭应用信息
 //
-// - 更新妙搭应用
+// - 更新妙搭应用信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=spark&resource=app&version=v1
 //
@@ -179,9 +179,9 @@ func (a *app) Patch(ctx context.Context, req *PatchAppReq, options ...larkcore.R
 	return resp, err
 }
 
-// SqlCommands
+// SqlCommands 执行 SQL
 //
-// - 执行 SQL
+// - 在应用下执行 SQL。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=sql_commands&project=spark&resource=app&version=v1
 //
@@ -205,9 +205,9 @@ func (a *app) SqlCommands(ctx context.Context, req *SqlCommandsAppReq, options .
 	return resp, err
 }
 
-// UpdateAppVisibility
+// UpdateAppVisibility 更新妙搭应用可用范围
 //
-// - 更新妙搭应用可见范围（access-scope）
+// - 更新妙搭应用可用范围
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_app_visibility&project=spark&resource=app&version=v1
 //
@@ -231,9 +231,9 @@ func (a *app) UpdateAppVisibility(ctx context.Context, req *UpdateAppVisibilityA
 	return resp, err
 }
 
-// UploadHtmlCodeAndRelease
+// UploadHtmlCodeAndRelease 上传 HTML 代码并发布;
 //
-// - 上传 HTML 代码并发布应用
+// - 上传 HTML 代码并发布;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload_html_code_and_release&project=spark&resource=app&version=v1
 //
@@ -258,9 +258,9 @@ func (a *app) UploadHtmlCodeAndRelease(ctx context.Context, req *UploadHtmlCodeA
 	return resp, err
 }
 
-// GetEnumDetail
+// GetEnumDetail 获取自定义枚举详细信息
 //
-// - 获取自定义枚举详细信息
+// - 获取应用下的自定义枚举详细信息，包括枚举名称、描述、枚举值列表等字段信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_enum_detail&project=spark&resource=app.enum&version=v1
 //
@@ -284,9 +284,9 @@ func (a *appEnum) GetEnumDetail(ctx context.Context, req *GetEnumDetailAppEnumRe
 	return resp, err
 }
 
-// GetEnumList
+// GetEnumList 获取自定义枚举列表
 //
-// - 获取自定义枚举列表
+// - 获取应用下的自定义枚举列表，包括枚举名称、描述、枚举值列表等字段信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_enum_list&project=spark&resource=app.enum&version=v1
 //
@@ -310,9 +310,9 @@ func (a *appEnum) GetEnumList(ctx context.Context, req *GetEnumListAppEnumReq, o
 	return resp, err
 }
 
-// Download
+// Download 下载文件
 //
-// - 下载文件
+// - 用于下传 20MB（含） 以内的文件
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download&project=spark&resource=app.storage&version=v1
 //
@@ -343,9 +343,9 @@ func (a *appStorage) Download(ctx context.Context, req *DownloadAppStorageReq, o
 	return resp, err
 }
 
-// Upload
+// Upload 上传文件
 //
-// - 上传文件
+// - 用于上传 20MB（含） 以内的文件
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload&project=spark&resource=app.storage&version=v1
 //
@@ -370,9 +370,9 @@ func (a *appStorage) Upload(ctx context.Context, req *UploadAppStorageReq, optio
 	return resp, err
 }
 
-// UploadComplete
+// UploadComplete 分片上传文件 - 完成上传
 //
-// - 分片上传文件 - 完成上传
+// - 调用`上传分片`将分片全部上传完毕后，调用本接口触发完成上传。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload_complete&project=spark&resource=app.storage&version=v1
 //
@@ -396,9 +396,9 @@ func (a *appStorage) UploadComplete(ctx context.Context, req *UploadCompleteAppS
 	return resp, err
 }
 
-// UploadInitialize
+// UploadInitialize 分片上传文件 - 创建上传请求
 //
-// - 分片上传文件 - 创建上传请求
+// - 发送初始化请求，以获取上传请求 ID和分片策略，为上传分片做准备。获取结果后可调用`上传分片`接口完成文件分片上传。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload_initialize&project=spark&resource=app.storage&version=v1
 //
@@ -422,9 +422,9 @@ func (a *appStorage) UploadInitialize(ctx context.Context, req *UploadInitialize
 	return resp, err
 }
 
-// UploadPart
+// UploadPart 分片上传文件 - 上传分片
 //
-// - 分片上传文件 - 上传分片
+// - 根据`创建上传请求`接口返回的上传请求 ID 和分片策略上传对应的文件分片。全部上传完成后可调用`完成上传`接口完成文件分片上传。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload_part&project=spark&resource=app.storage&version=v1
 //
@@ -449,9 +449,9 @@ func (a *appStorage) UploadPart(ctx context.Context, req *UploadPartAppStorageRe
 	return resp, err
 }
 
-// BatchUpdateTableRecords
+// BatchUpdateTableRecords 批量更新数据表中的记录
 //
-// - 批量更新数据表中的记录
+// - 批量更新应用下的数据表中的记录，每条记录需包含主键如_id，单次最多500条。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update_table_records&project=spark&resource=app.table&version=v1
 //
@@ -475,9 +475,9 @@ func (a *appTable) BatchUpdateTableRecords(ctx context.Context, req *BatchUpdate
 	return resp, err
 }
 
-// DeleteTableRecords
+// DeleteTableRecords 删除数据表中的记录
 //
-// - 删除数据表中的记录
+// - 删除指定应用下数据表中符合filter筛选条件的记录，删除后记录不可恢复。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete_table_records&project=spark&resource=app.table&version=v1
 //
@@ -501,9 +501,9 @@ func (a *appTable) DeleteTableRecords(ctx context.Context, req *DeleteTableRecor
 	return resp, err
 }
 
-// GetTableDetail
+// GetTableDetail 获取数据表详细信息
 //
-// - 获取数据表详细信息
+// - 获取应用下的数据表详情，包含数据表名称、描述，以及数据表列信息等字段。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_table_detail&project=spark&resource=app.table&version=v1
 //
@@ -527,9 +527,9 @@ func (a *appTable) GetTableDetail(ctx context.Context, req *GetTableDetailAppTab
 	return resp, err
 }
 
-// GetTableList
+// GetTableList 获取数据表列表
 //
-// - 获取数据表列表
+// - 获取应用下的数据表列表，包含数据表名称、描述，以及数据表列信息等字段。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_table_list&project=spark&resource=app.table&version=v1
 //
@@ -553,9 +553,9 @@ func (a *appTable) GetTableList(ctx context.Context, req *GetTableListAppTableRe
 	return resp, err
 }
 
-// GetTableRecordList
+// GetTableRecordList 查询数据表数据记录
 //
-// - 查询数据表数据记录
+// - 查询应用下的数据表数据记录，包括指定列、字段值及分页信息，适用于需要获取应用下某数据表数据的记录、展示等场景。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_table_record_list&project=spark&resource=app.table&version=v1
 //
@@ -579,9 +579,9 @@ func (a *appTable) GetTableRecordList(ctx context.Context, req *GetTableRecordLi
 	return resp, err
 }
 
-// PatchTableRecords
+// PatchTableRecords 按条件更新数据表中的记录
 //
-// - 按条件更新数据表中的记录
+// - 将数据表中符合filter条件的记录更新为record参数指定的内容。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch_table_records&project=spark&resource=app.table&version=v1
 //
@@ -605,9 +605,9 @@ func (a *appTable) PatchTableRecords(ctx context.Context, req *PatchTableRecords
 	return resp, err
 }
 
-// PostTableRecords
+// PostTableRecords 向数据表中添加或更新记录
 //
-// - 向数据表中添加或更新记录
+// - 向应用下的数据表中添加或更新记录。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=post_table_records&project=spark&resource=app.table&version=v1
 //
@@ -631,9 +631,9 @@ func (a *appTable) PostTableRecords(ctx context.Context, req *PostTableRecordsAp
 	return resp, err
 }
 
-// GetViewRecordList
+// GetViewRecordList 查询视图数据记录
 //
-// - 查询视图数据记录
+// - 查询应用下的视图数据记录，包括指定列、字段值及分页信息，适用于需要获取应用下某视图数据的记录、展示等场景。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_view_record_list&project=spark&resource=app.view&version=v1
 //
@@ -657,9 +657,9 @@ func (a *appView) GetViewRecordList(ctx context.Context, req *GetViewRecordListA
 	return resp, err
 }
 
-// IdConvert
+// IdConvert 转换飞书妙搭和飞书开放平台用户 ID
 //
-// - open api\nIDConvert: 飞书和force id转换\noapi.post = "/v1/directory/user/id_convert",
+// - 转换飞书妙搭和飞书开放平台之间的用户 ID;#### 使用场景;适用于需要在飞书妙搭和飞书开放平台之间转换用户身份的场景;#### 实现方式;通过指定转换类型（id_convert_type）和待转换的 ID 列表（ids）实现指定 ID 转换
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=id_convert&project=spark&resource=directory.user&version=v1
 //

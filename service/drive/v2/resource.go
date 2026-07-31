@@ -32,9 +32,9 @@ type permissionPublic struct {
 	config *larkcore.Config
 }
 
-// UpdateReaction
+// UpdateReaction 添加/取消表情回应
 //
-// - 开放平台：添加/删除 reaction
+// - 使用该接口可对云文档中的某条评论进行emoji表情回应或取消emoji表情回应。适用于用户需要对云文档评论进行emoji表情互动的场景。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_reaction&project=drive&resource=comment_reaction&version=v2
 //
@@ -58,9 +58,9 @@ func (c *commentReaction) UpdateReaction(ctx context.Context, req *UpdateReactio
 	return resp, err
 }
 
-// List
+// List 获取云文档的点赞者列表
 //
-// - 获取指定文件的点赞者列表并分页返回。
+// - 获取指定云文档的点赞者列表并按点赞时间由近到远分页返回。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=drive&resource=file.like&version=v2
 //
@@ -92,9 +92,9 @@ func (f *fileLike) ListByIterator(ctx context.Context, req *ListFileLikeReq, opt
 		limit:    req.Limit}, nil
 }
 
-// Get
+// Get 获取云文档权限设置
 //
-// -
+// - 获取指定云文档的权限设置，包括是否允许内容被分享到组织外、谁可以查看、添加、移除协作者、谁可以复制内容等设置。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=drive&resource=permission.public&version=v2
 //
@@ -118,9 +118,11 @@ func (p *permissionPublic) Get(ctx context.Context, req *GetPermissionPublicReq,
 	return resp, err
 }
 
-// Patch
+// Patch 更新云文档权限设置
 //
-// -
+// - 更新指定云文档的权限设置，包括是否允许内容被分享到组织外、谁可以查看、添加、移除协作者、谁可以复制内容等设置。;
+//
+// - 本接口为增量更新，即仅更新传入的参数对应的权限设置。若参数不传，则不更新设置。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=drive&resource=permission.public&version=v2
 //

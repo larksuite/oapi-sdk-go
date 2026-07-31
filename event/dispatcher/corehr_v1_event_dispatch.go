@@ -17,12 +17,13 @@ import (
 	"context"
 	"github.com/larksuite/oapi-sdk-go/v3/service/corehr/v1"
 )
-// 
+
+// 用户ID映射变更
 //
-// - 
+// - 用户ID映射变更事件
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2CommonDataIdUserMappingChangedV1(handler func(ctx context.Context, event *larkcorehr.P2CommonDataIdUserMappingChangedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2CommonDataIdUserMappingChangedV1(handler func(ctx context.Context, event *larkcorehr.P2CommonDataIdUserMappingChangedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.common_data.id.user_mapping_changed_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.common_data.id.user_mapping_changed_v1")
@@ -30,12 +31,13 @@ func ( dispatcher * EventDispatcher ) OnP2CommonDataIdUserMappingChangedV1(handl
 	dispatcher.eventType2EventHandler["corehr.common_data.id.user_mapping_changed_v1"] = larkcorehr.NewP2CommonDataIdUserMappingChangedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 元数据信息变更
 //
-// - 
+// - People元数据定义变更会对外推送事件。例如在People系统中，设置-人员档案配置-个人信息-基本信息 中添加一个字段。就会收到person相关的元数据变更推送。;;可通过[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)查询对象列表，包括了预置对象的字段变更以及自定义对象的字段变更，不保证顺序，所以要使用的话当监听到变更事件后需要判断是否关心该对象然后查询对象的字段来做业务逻辑。
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2CommonDataMetaDataUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2CommonDataMetaDataUpdatedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2CommonDataMetaDataUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2CommonDataMetaDataUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.common_data.meta_data.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.common_data.meta_data.updated_v1")
@@ -43,12 +45,13 @@ func ( dispatcher * EventDispatcher ) OnP2CommonDataMetaDataUpdatedV1(handler fu
 	dispatcher.eventType2EventHandler["corehr.common_data.meta_data.updated_v1"] = larkcorehr.NewP2CommonDataMetaDataUpdatedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 合同创建
 //
-// - 
+// - 通过开放平台创建合同或飞书人事系统中员工新签一份合同时，会触发合同创建事件
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2ContractCreatedV1(handler func(ctx context.Context, event *larkcorehr.P2ContractCreatedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2ContractCreatedV1(handler func(ctx context.Context, event *larkcorehr.P2ContractCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.contract.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.contract.created_v1")
@@ -56,12 +59,13 @@ func ( dispatcher * EventDispatcher ) OnP2ContractCreatedV1(handler func(ctx con
 	dispatcher.eventType2EventHandler["corehr.contract.created_v1"] = larkcorehr.NewP2ContractCreatedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 合同删除
 //
-// - 
+// - 通过开放平台删除合同时，会触发该事件。注意：删除后，无法通过搜索接口查询到合同信息。
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2ContractDeletedV1(handler func(ctx context.Context, event *larkcorehr.P2ContractDeletedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2ContractDeletedV1(handler func(ctx context.Context, event *larkcorehr.P2ContractDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.contract.deleted_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.contract.deleted_v1")
@@ -69,12 +73,13 @@ func ( dispatcher * EventDispatcher ) OnP2ContractDeletedV1(handler func(ctx con
 	dispatcher.eventType2EventHandler["corehr.contract.deleted_v1"] = larkcorehr.NewP2ContractDeletedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 合同更新
 //
-// - 
+// - 通过开放平台更新合同或者在飞书人事系统进行变更和续约等业务操作时，会触发本事件
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2ContractUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2ContractUpdatedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2ContractUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2ContractUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.contract.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.contract.updated_v1")
@@ -82,12 +87,13 @@ func ( dispatcher * EventDispatcher ) OnP2ContractUpdatedV1(handler func(ctx con
 	dispatcher.eventType2EventHandler["corehr.contract.updated_v1"] = larkcorehr.NewP2ContractUpdatedV1Handler(handler)
 	return dispatcher
 }
-// 部门创建
+
+// 【事件】创建部门
 //
-// - 飞书人事中「部门被创建」时将触发此事件。触发时间为部门实际生效时间，如在 2022-01-01 创建部门，部门生效时间设置为 2022-05-01，事件将在 2022-05-01 进行推送。
+// - 飞书人事中「部门被创建」时将触发此事件。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/created
-func ( dispatcher * EventDispatcher ) OnP2DepartmentCreatedV1(handler func(ctx context.Context, event *larkcorehr.P2DepartmentCreatedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2DepartmentCreatedV1(handler func(ctx context.Context, event *larkcorehr.P2DepartmentCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.department.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.department.created_v1")
@@ -95,12 +101,13 @@ func ( dispatcher * EventDispatcher ) OnP2DepartmentCreatedV1(handler func(ctx c
 	dispatcher.eventType2EventHandler["corehr.department.created_v1"] = larkcorehr.NewP2DepartmentCreatedV1Handler(handler)
 	return dispatcher
 }
-// 部门删除
+
+// 【事件】删除部门
 //
-// - 飞书人事中「部门被删除」时将触发此事件
+// - 飞书人事中「部门被删除」时将触发此事件。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/deleted
-func ( dispatcher * EventDispatcher ) OnP2DepartmentDeletedV1(handler func(ctx context.Context, event *larkcorehr.P2DepartmentDeletedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2DepartmentDeletedV1(handler func(ctx context.Context, event *larkcorehr.P2DepartmentDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.department.deleted_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.department.deleted_v1")
@@ -108,12 +115,13 @@ func ( dispatcher * EventDispatcher ) OnP2DepartmentDeletedV1(handler func(ctx c
 	dispatcher.eventType2EventHandler["corehr.department.deleted_v1"] = larkcorehr.NewP2DepartmentDeletedV1Handler(handler)
 	return dispatcher
 }
-// 部门更新
+
+// 【事件】更新部门
 //
-// - 飞书人事中「部门信息被更新」时将触发此事件。触发时间为部门更新实际生效时间，如在 2022-01-01 更新部门，部门更新生效时间设置为 2022-05-01，事件将在 2022-05-01 进行推送。
+// - 飞书人事中「部门信息被更新」时将触发此事件。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/updated
-func ( dispatcher * EventDispatcher ) OnP2DepartmentUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2DepartmentUpdatedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2DepartmentUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2DepartmentUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.department.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.department.updated_v1")
@@ -121,12 +129,13 @@ func ( dispatcher * EventDispatcher ) OnP2DepartmentUpdatedV1(handler func(ctx c
 	dispatcher.eventType2EventHandler["corehr.department.updated_v1"] = larkcorehr.NewP2DepartmentUpdatedV1Handler(handler)
 	return dispatcher
 }
-// 员工转正
+
+// 员工完成转正
 //
-// - 员工在飞书人事转正完成后将触发该事件
+// - 当员工转正生效时触发该事件
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/converted
-func ( dispatcher * EventDispatcher ) OnP2EmploymentConvertedV1(handler func(ctx context.Context, event *larkcorehr.P2EmploymentConvertedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2EmploymentConvertedV1(handler func(ctx context.Context, event *larkcorehr.P2EmploymentConvertedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.employment.converted_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.employment.converted_v1")
@@ -134,12 +143,13 @@ func ( dispatcher * EventDispatcher ) OnP2EmploymentConvertedV1(handler func(ctx
 	dispatcher.eventType2EventHandler["corehr.employment.converted_v1"] = larkcorehr.NewP2EmploymentConvertedV1Handler(handler)
 	return dispatcher
 }
-// 雇佣信息创建
+
+// 【事件】创建雇佣信息
 //
-// - 员工在飞书人事的「雇佣信息被创建」时将触发此事件
+// - 员工雇佣信息被创建时发送该事件，场景举例：;- 调用[【创建雇佣信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/create)、[【添加人员】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/create)接口;- 人事系统【添加人员】、【导入人员】功能
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/created
-func ( dispatcher * EventDispatcher ) OnP2EmploymentCreatedV1(handler func(ctx context.Context, event *larkcorehr.P2EmploymentCreatedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2EmploymentCreatedV1(handler func(ctx context.Context, event *larkcorehr.P2EmploymentCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.employment.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.employment.created_v1")
@@ -147,12 +157,13 @@ func ( dispatcher * EventDispatcher ) OnP2EmploymentCreatedV1(handler func(ctx c
 	dispatcher.eventType2EventHandler["corehr.employment.created_v1"] = larkcorehr.NewP2EmploymentCreatedV1Handler(handler)
 	return dispatcher
 }
-// 雇佣信息删除
+
+// 【事件】删除雇佣信息
 //
-// - 员工在飞书人事的「雇佣信息被删除」时将触发此事件
+// - 员工在飞书人事的「雇佣信息被删除」时将触发此事件。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/deleted
-func ( dispatcher * EventDispatcher ) OnP2EmploymentDeletedV1(handler func(ctx context.Context, event *larkcorehr.P2EmploymentDeletedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2EmploymentDeletedV1(handler func(ctx context.Context, event *larkcorehr.P2EmploymentDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.employment.deleted_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.employment.deleted_v1")
@@ -160,12 +171,13 @@ func ( dispatcher * EventDispatcher ) OnP2EmploymentDeletedV1(handler func(ctx c
 	dispatcher.eventType2EventHandler["corehr.employment.deleted_v1"] = larkcorehr.NewP2EmploymentDeletedV1Handler(handler)
 	return dispatcher
 }
+
 // 员工完成离职
 //
-// - 员工完成离职，即离职日期的次日凌晨时，员工雇佣状态更改为“离职”后触发该事件
+// - 员工完成离职，即离职日期的次日凌晨时，员工雇佣状态更改为“离职”后触发该事件。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/resigned
-func ( dispatcher * EventDispatcher ) OnP2EmploymentResignedV1(handler func(ctx context.Context, event *larkcorehr.P2EmploymentResignedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2EmploymentResignedV1(handler func(ctx context.Context, event *larkcorehr.P2EmploymentResignedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.employment.resigned_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.employment.resigned_v1")
@@ -173,12 +185,13 @@ func ( dispatcher * EventDispatcher ) OnP2EmploymentResignedV1(handler func(ctx 
 	dispatcher.eventType2EventHandler["corehr.employment.resigned_v1"] = larkcorehr.NewP2EmploymentResignedV1Handler(handler)
 	return dispatcher
 }
-// 雇佣信息更新
+
+// 【事件】更新雇佣信息
 //
-// - 员工在飞书人事的「雇佣信息被更新」时将触发此事件
+// - 员工雇佣信息变更时发送该事件，场景举例：;- 调用[【更新雇佣信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/patch)接口;- 人事系统【编辑工作信息】、【导入编辑人员】功能;- 计算字段变更
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/updated
-func ( dispatcher * EventDispatcher ) OnP2EmploymentUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2EmploymentUpdatedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2EmploymentUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2EmploymentUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.employment.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.employment.updated_v1")
@@ -186,12 +199,13 @@ func ( dispatcher * EventDispatcher ) OnP2EmploymentUpdatedV1(handler func(ctx c
 	dispatcher.eventType2EventHandler["corehr.employment.updated_v1"] = larkcorehr.NewP2EmploymentUpdatedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 【事件】创建职务
 //
-// - 
+// - 飞书人事中「职务被创建」时将触发此事件。注意：触发时间为职务实际生效时间，如在 2022-01-01 创建职务，职务生效时间设置为 2022-05-01，事件将在 2022-05-01 进行推送。
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2JobCreatedV1(handler func(ctx context.Context, event *larkcorehr.P2JobCreatedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2JobCreatedV1(handler func(ctx context.Context, event *larkcorehr.P2JobCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.job.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.job.created_v1")
@@ -199,12 +213,13 @@ func ( dispatcher * EventDispatcher ) OnP2JobCreatedV1(handler func(ctx context.
 	dispatcher.eventType2EventHandler["corehr.job.created_v1"] = larkcorehr.NewP2JobCreatedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 【事件】删除职务
 //
-// - 
+// - 飞书人事中「职务被删除」时将触发此事件。
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2JobDeletedV1(handler func(ctx context.Context, event *larkcorehr.P2JobDeletedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2JobDeletedV1(handler func(ctx context.Context, event *larkcorehr.P2JobDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.job.deleted_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.job.deleted_v1")
@@ -212,12 +227,13 @@ func ( dispatcher * EventDispatcher ) OnP2JobDeletedV1(handler func(ctx context.
 	dispatcher.eventType2EventHandler["corehr.job.deleted_v1"] = larkcorehr.NewP2JobDeletedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 【事件】更新职务
 //
-// - 
+// - 飞书人事中「职务信息被更新」时将触发此事件。注意：触发时间为职务实际生效时间，如在 2022-01-01 更新职务，职务生效时间设置为 2022-05-01，事件将在 2022-05-01 进行推送。
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2JobUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2JobUpdatedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2JobUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2JobUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.job.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.job.updated_v1")
@@ -225,12 +241,13 @@ func ( dispatcher * EventDispatcher ) OnP2JobUpdatedV1(handler func(ctx context.
 	dispatcher.eventType2EventHandler["corehr.job.updated_v1"] = larkcorehr.NewP2JobUpdatedV1Handler(handler)
 	return dispatcher
 }
-// 异动状态变更事件
+
+// 异动状态变更
 //
-// - 在异动发起审批和产生审批结果时触发该事件，审批结果产生的场景包括撤销、审批通过、审批拒绝
+// - 在异动审批状态变更、异动生效时都会触发该事件，审批结果产生的场景包括撤销、审批通过、审批拒绝。本事件没有数据范围鉴权。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/events/updated
-func ( dispatcher * EventDispatcher ) OnP2JobChangeUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2JobChangeUpdatedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2JobChangeUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2JobChangeUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.job_change.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.job_change.updated_v1")
@@ -238,12 +255,13 @@ func ( dispatcher * EventDispatcher ) OnP2JobChangeUpdatedV1(handler func(ctx co
 	dispatcher.eventType2EventHandler["corehr.job_change.updated_v1"] = larkcorehr.NewP2JobChangeUpdatedV1Handler(handler)
 	return dispatcher
 }
-// 员工异动
+
+// 员工完成异动
 //
-// - 员工在飞书人事异动完成后将触发该事件
+// - 员工在飞书人事异动生效后（到达异动生效时间）将触发该事件。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/events/changed
-func ( dispatcher * EventDispatcher ) OnP2JobDataChangedV1(handler func(ctx context.Context, event *larkcorehr.P2JobDataChangedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2JobDataChangedV1(handler func(ctx context.Context, event *larkcorehr.P2JobDataChangedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.job_data.changed_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.job_data.changed_v1")
@@ -251,12 +269,13 @@ func ( dispatcher * EventDispatcher ) OnP2JobDataChangedV1(handler func(ctx cont
 	dispatcher.eventType2EventHandler["corehr.job_data.changed_v1"] = larkcorehr.NewP2JobDataChangedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 任职信息创建
 //
-// - 
+// - 目前以下场景会触发该事件：;- 调用[【创建任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/create)、[【更新任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/patch)、[【添加人员】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/create)接口;- 人事系统【添加人员】、【发起异动】、【导入任职】、【创建兼职】功能
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2JobDataCreatedV1(handler func(ctx context.Context, event *larkcorehr.P2JobDataCreatedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2JobDataCreatedV1(handler func(ctx context.Context, event *larkcorehr.P2JobDataCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.job_data.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.job_data.created_v1")
@@ -264,12 +283,13 @@ func ( dispatcher * EventDispatcher ) OnP2JobDataCreatedV1(handler func(ctx cont
 	dispatcher.eventType2EventHandler["corehr.job_data.created_v1"] = larkcorehr.NewP2JobDataCreatedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 任职信息删除
 //
-// - 
+// - 目前以下场景会触发事件：;- 调用[【删除任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/delete)接口;- 人事系统【删除任职】【删除兼职】功能
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2JobDataDeletedV1(handler func(ctx context.Context, event *larkcorehr.P2JobDataDeletedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2JobDataDeletedV1(handler func(ctx context.Context, event *larkcorehr.P2JobDataDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.job_data.deleted_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.job_data.deleted_v1")
@@ -277,12 +297,13 @@ func ( dispatcher * EventDispatcher ) OnP2JobDataDeletedV1(handler func(ctx cont
 	dispatcher.eventType2EventHandler["corehr.job_data.deleted_v1"] = larkcorehr.NewP2JobDataDeletedV1Handler(handler)
 	return dispatcher
 }
+
 // 员工完成入职
 //
-// - 在「飞书人事」将待入职员工手动操作“完成入职”后，触发该事件
+// - 以下业务场景会触发此事件：;- 开放平台[操作员工完成入职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/complete)接口;- 开放平台[添加人员](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/create)接口;- 「飞书人事-人员管理-入职」将待入职员工操作“完成入职”;- 「飞书人事-人员管理-花名册」操作”添加人员”或”导入人员”
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/events/employed
-func ( dispatcher * EventDispatcher ) OnP2JobDataEmployedV1(handler func(ctx context.Context, event *larkcorehr.P2JobDataEmployedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2JobDataEmployedV1(handler func(ctx context.Context, event *larkcorehr.P2JobDataEmployedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.job_data.employed_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.job_data.employed_v1")
@@ -290,12 +311,13 @@ func ( dispatcher * EventDispatcher ) OnP2JobDataEmployedV1(handler func(ctx con
 	dispatcher.eventType2EventHandler["corehr.job_data.employed_v1"] = larkcorehr.NewP2JobDataEmployedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 任职信息更新
 //
-// - 
+// - 目前以下场景会触发该事件：;- 人事系统【编辑任职】【编辑兼职】【导入编辑任职】【发起异动】功能;- 仅对于当前生效的任职记录数据
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2JobDataUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2JobDataUpdatedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2JobDataUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2JobDataUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.job_data.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.job_data.updated_v1")
@@ -303,12 +325,13 @@ func ( dispatcher * EventDispatcher ) OnP2JobDataUpdatedV1(handler func(ctx cont
 	dispatcher.eventType2EventHandler["corehr.job_data.updated_v1"] = larkcorehr.NewP2JobDataUpdatedV1Handler(handler)
 	return dispatcher
 }
-// 离职状态变更事件
+
+// 离职申请状态变更
 //
-// - 在离职发起审批和产生审批结果时触发该事件，审批结果产生的场景包括撤销、审批通过、审批拒绝
+// - 在发起离职审批、产生审批结果、离职生效、离职状态回退等离职申请状态变更时触发该事件推送对应消息。审批结果产生的场景包括撤销、通过、拒绝审批。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/events/updated
-func ( dispatcher * EventDispatcher ) OnP2OffboardingUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2OffboardingUpdatedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2OffboardingUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2OffboardingUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.offboarding.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.offboarding.updated_v1")
@@ -316,12 +339,13 @@ func ( dispatcher * EventDispatcher ) OnP2OffboardingUpdatedV1(handler func(ctx 
 	dispatcher.eventType2EventHandler["corehr.offboarding.updated_v1"] = larkcorehr.NewP2OffboardingUpdatedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 组织角色授权变更
 //
-// - 
+// - 当组织上的角色授权发生变更时，触发该事件。例如在部门上修改了角色，并在 2030-01-01 年生效，则事件将在 2030-01-01 触发。注意：当前事件只返回在飞书人事中组织角色的变化，下游组织的影响，可以通过 「获取组织类角色授权列表」获取。
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2OrgRoleAuthorizationUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2OrgRoleAuthorizationUpdatedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2OrgRoleAuthorizationUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2OrgRoleAuthorizationUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.org_role_authorization.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.org_role_authorization.updated_v1")
@@ -329,12 +353,13 @@ func ( dispatcher * EventDispatcher ) OnP2OrgRoleAuthorizationUpdatedV1(handler 
 	dispatcher.eventType2EventHandler["corehr.org_role_authorization.updated_v1"] = larkcorehr.NewP2OrgRoleAuthorizationUpdatedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 【事件】个人信息创建
 //
-// - 
+// - 目前以下场景会触发该事件：;- 调用[【创建个人信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/create)、[【添加人员】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/create)接口;- 人事系统【添加人员】、【导入人员】功能
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2PersonCreatedV1(handler func(ctx context.Context, event *larkcorehr.P2PersonCreatedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2PersonCreatedV1(handler func(ctx context.Context, event *larkcorehr.P2PersonCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.person.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.person.created_v1")
@@ -342,12 +367,13 @@ func ( dispatcher * EventDispatcher ) OnP2PersonCreatedV1(handler func(ctx conte
 	dispatcher.eventType2EventHandler["corehr.person.created_v1"] = larkcorehr.NewP2PersonCreatedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 【事件】个人信息删除
 //
-// - 
+// - 个人信息删除
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2PersonDeletedV1(handler func(ctx context.Context, event *larkcorehr.P2PersonDeletedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2PersonDeletedV1(handler func(ctx context.Context, event *larkcorehr.P2PersonDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.person.deleted_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.person.deleted_v1")
@@ -355,12 +381,13 @@ func ( dispatcher * EventDispatcher ) OnP2PersonDeletedV1(handler func(ctx conte
 	dispatcher.eventType2EventHandler["corehr.person.deleted_v1"] = larkcorehr.NewP2PersonDeletedV1Handler(handler)
 	return dispatcher
 }
-// 个人信息更新
+
+// 【事件】更新个人信息
 //
-// - 员工在飞书人事的「个人信息被更新」时将触发此事件
+// - 员工个人信息发生变更时发送该事件，场景举例：;- 调用[【更新个人信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/patch)接口;- 人事系统【编辑个人信息】、【导入编辑人员】功能;- 计算字段变更;;注：籍贯、政治面貌、户口类型、户口所在地变化不会触发该事件
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/events/updated
-func ( dispatcher * EventDispatcher ) OnP2PersonUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2PersonUpdatedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2PersonUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2PersonUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.person.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.person.updated_v1")
@@ -368,12 +395,13 @@ func ( dispatcher * EventDispatcher ) OnP2PersonUpdatedV1(handler func(ctx conte
 	dispatcher.eventType2EventHandler["corehr.person.updated_v1"] = larkcorehr.NewP2PersonUpdatedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 入职信息变更(不推荐)
 //
-// - 
+// - 待入职人员任职信息更新后，触发此事件，包括两种场景：;- 通过开放平台接口创建待入职、更新待入职;- 在飞书人事-入职系统，HR 补充任职信息;;如果有创建待入职后，更新数据的场景，请收到创建事件后延迟10s时间再执行更新操作
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2PreHireUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2PreHireUpdatedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2PreHireUpdatedV1(handler func(ctx context.Context, event *larkcorehr.P2PreHireUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["corehr.pre_hire.updated_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "corehr.pre_hire.updated_v1")

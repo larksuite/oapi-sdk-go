@@ -40,7 +40,7 @@ const (
 )
 
 const (
-	TokenTypeDoc      = "doc"      // 旧版文档
+	TokenTypeDoc      = "doc"      // 旧版文档。了解更多，参考[新旧版本文档说明](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs/upgraded-docs-access-guide/upgraded-docs-openapi-access-guide)。
 	TokenTypeSheet    = "sheet"    // 电子表格
 	TokenTypeFile     = "file"     // 云空间文件
 	TokenTypeWiki     = "wiki"     // 知识库节点
@@ -49,11 +49,13 @@ const (
 	TokenTypeMindnote = "mindnote" // 思维笔记
 	TokenTypeMinutes  = "minutes"  // 妙记
 	TokenTypeSlides   = "slides"   // 幻灯片
+	TokenTypeFolder   = "folder"   // 文件夹
+	TokenTypeApps     = "apps"     // 妙搭应用
 )
 
 const (
 	PermissionPublicExternalAccessEntityOpen                    = "open"                       // 打开
-	PermissionPublicExternalAccessEntityClosed                  = "closed"                     // 关闭
+	PermissionPublicExternalAccessEntityClosed                  = "closed"                     // 关闭，即不允许内容被分享到组织外
 	PermissionPublicExternalAccessEntityAllowSharePartnerTenant = "allow_share_partner_tenant" // 允许分享给关联组织
 )
 
@@ -96,7 +98,7 @@ const (
 )
 
 const (
-	TokenTypePatchPermissionPublicDoc      = "doc"      // 旧版文档
+	TokenTypePatchPermissionPublicDoc      = "doc"      // 旧版文档。了解更多，参考[新旧版本文档说明](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs/upgraded-docs-access-guide/upgraded-docs-openapi-access-guide)。
 	TokenTypePatchPermissionPublicSheet    = "sheet"    // 电子表格
 	TokenTypePatchPermissionPublicFile     = "file"     // 云空间文件
 	TokenTypePatchPermissionPublicWiki     = "wiki"     // 知识库节点
@@ -105,6 +107,7 @@ const (
 	TokenTypePatchPermissionPublicMindnote = "mindnote" // 思维笔记
 	TokenTypePatchPermissionPublicMinutes  = "minutes"  // 妙记
 	TokenTypePatchPermissionPublicSlides   = "slides"   // 幻灯片
+	TokenTypePatchPermissionPublicApps     = "apps"     // 妙搭应用
 )
 
 type BizInfo struct {
@@ -346,8 +349,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -355,8 +356,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -586,7 +585,7 @@ func (builder *ExportJobBuilder) Build() *ExportJob {
 }
 
 type FileLike struct {
-	UserId *string `json:"user_id,omitempty"` // 用户 ID
+	UserId *string `json:"user_id,omitempty"` // 用户 ID。与查询参数 user_id_type 一致
 
 	LastLikedTime *string `json:"last_liked_time,omitempty"` // 用户最后点赞时间，秒级时间戳
 
@@ -600,7 +599,7 @@ type FileLike struct {
 }
 
 type FileLikeBuilder struct {
-	userId    string // 用户 ID
+	userId    string // 用户 ID。与查询参数 user_id_type 一致
 	userIdSet bool
 
 	lastLikedTime    string // 用户最后点赞时间，秒级时间戳
@@ -624,7 +623,7 @@ func NewFileLikeBuilder() *FileLikeBuilder {
 	return builder
 }
 
-// 用户 ID
+// 用户 ID。与查询参数 user_id_type 一致
 //
 // 示例值：ou_3bbe8a09c20e89cce9bff989ed840674
 func (builder *FileLikeBuilder) UserId(userId string) *FileLikeBuilder {
@@ -1000,7 +999,7 @@ func (builder *ListAccessedFileBuilder) Type(type_ string) *ListAccessedFileBuil
 
 // 文档 url 链接
 //
-// 示例值：https://bytedance.larkoffice.com/wiki/LBX6wOWhviGofqkWGfUcIIxnnHc
+// 示例值：
 func (builder *ListAccessedFileBuilder) Url(url string) *ListAccessedFileBuilder {
 	builder.url = url
 	builder.urlSet = true
@@ -1122,7 +1121,7 @@ func (builder *ListEditedFileBuilder) Type(type_ string) *ListEditedFileBuilder 
 
 // 文档 url 链接
 //
-// 示例值：https://bytedance.larkoffice.com/wiki/LBX6wOWhviGofqkWGfUcIIxnnHc
+// 示例值：
 func (builder *ListEditedFileBuilder) Url(url string) *ListEditedFileBuilder {
 	builder.url = url
 	builder.urlSet = true
@@ -1239,7 +1238,7 @@ func (builder *ListOwnedFileBuilder) Type(type_ string) *ListOwnedFileBuilder {
 
 // 文档 url 链接
 //
-// 示例值：https://bytedance.larkoffice.com/wiki/LBX6wOWhviGofqkWGfUcIIxnnHc
+// 示例值：
 func (builder *ListOwnedFileBuilder) Url(url string) *ListOwnedFileBuilder {
 	builder.url = url
 	builder.urlSet = true
@@ -1283,34 +1282,34 @@ func (builder *ListOwnedFileBuilder) Build() *ListOwnedFile {
 type MyLike struct {
 	LastLikedTime *string `json:"last_liked_time,omitempty"` // 用户最后点赞时间，秒级时间戳
 
-	FileToken *string `json:"file_token,omitempty"` // 点赞的文件 token
+	FileToken *string `json:"file_token,omitempty"` // 点赞的云文档 token，云文档被删除时不返回此字段
 
-	FileType *string `json:"file_type,omitempty"` // 点赞的文件类型
+	FileType *string `json:"file_type,omitempty"` // 点赞的云文档类型，云文档被删除时不返回此字段
 
-	FileName *string `json:"file_name,omitempty"` // 点赞的文件名，无文件阅读权限时不返回此字段
+	FileName *string `json:"file_name,omitempty"` // 点赞的云文档名，无云文档阅读权限或云文档被删除时不返回此字段
 
-	FileUrl *string `json:"file_url,omitempty"` // 点赞的文件链接，无文件阅读权限时不返回此字段
+	FileUrl *string `json:"file_url,omitempty"` // 点赞的云文档链接，无云文档阅读权限或云文档被删除时不返回此字段
 
-	FileIsDeleted *bool `json:"file_is_deleted,omitempty"` // 点赞的文件是否已被删除
+	FileIsDeleted *bool `json:"file_is_deleted,omitempty"` // 点赞的云文档是否已被删除
 }
 
 type MyLikeBuilder struct {
 	lastLikedTime    string // 用户最后点赞时间，秒级时间戳
 	lastLikedTimeSet bool
 
-	fileToken    string // 点赞的文件 token
+	fileToken    string // 点赞的云文档 token，云文档被删除时不返回此字段
 	fileTokenSet bool
 
-	fileType    string // 点赞的文件类型
+	fileType    string // 点赞的云文档类型，云文档被删除时不返回此字段
 	fileTypeSet bool
 
-	fileName    string // 点赞的文件名，无文件阅读权限时不返回此字段
+	fileName    string // 点赞的云文档名，无云文档阅读权限或云文档被删除时不返回此字段
 	fileNameSet bool
 
-	fileUrl    string // 点赞的文件链接，无文件阅读权限时不返回此字段
+	fileUrl    string // 点赞的云文档链接，无云文档阅读权限或云文档被删除时不返回此字段
 	fileUrlSet bool
 
-	fileIsDeleted    bool // 点赞的文件是否已被删除
+	fileIsDeleted    bool // 点赞的云文档是否已被删除
 	fileIsDeletedSet bool
 }
 
@@ -1328,7 +1327,7 @@ func (builder *MyLikeBuilder) LastLikedTime(lastLikedTime string) *MyLikeBuilder
 	return builder
 }
 
-// 点赞的文件 token
+// 点赞的云文档 token，云文档被删除时不返回此字段
 //
 // 示例值：J6Lddz22AovnqkxWEXBcUJIingx
 func (builder *MyLikeBuilder) FileToken(fileToken string) *MyLikeBuilder {
@@ -1337,7 +1336,7 @@ func (builder *MyLikeBuilder) FileToken(fileToken string) *MyLikeBuilder {
 	return builder
 }
 
-// 点赞的文件类型
+// 点赞的云文档类型，云文档被删除时不返回此字段
 //
 // 示例值：doc
 func (builder *MyLikeBuilder) FileType(fileType string) *MyLikeBuilder {
@@ -1346,7 +1345,7 @@ func (builder *MyLikeBuilder) FileType(fileType string) *MyLikeBuilder {
 	return builder
 }
 
-// 点赞的文件名，无文件阅读权限时不返回此字段
+// 点赞的云文档名，无云文档阅读权限或云文档被删除时不返回此字段
 //
 // 示例值：title
 func (builder *MyLikeBuilder) FileName(fileName string) *MyLikeBuilder {
@@ -1355,7 +1354,7 @@ func (builder *MyLikeBuilder) FileName(fileName string) *MyLikeBuilder {
 	return builder
 }
 
-// 点赞的文件链接，无文件阅读权限时不返回此字段
+// 点赞的云文档链接，无云文档阅读权限或云文档被删除时不返回此字段
 //
 // 示例值：https://sample.feishu.cn/docs/doccnfYZzTlvXqZIGTdAHKabcef
 func (builder *MyLikeBuilder) FileUrl(fileUrl string) *MyLikeBuilder {
@@ -1364,7 +1363,7 @@ func (builder *MyLikeBuilder) FileUrl(fileUrl string) *MyLikeBuilder {
 	return builder
 }
 
-// 点赞的文件是否已被删除
+// 点赞的云文档是否已被删除
 //
 // 示例值：false
 func (builder *MyLikeBuilder) FileIsDeleted(fileIsDeleted bool) *MyLikeBuilder {
@@ -1402,6 +1401,56 @@ func (builder *MyLikeBuilder) Build() *MyLike {
 	return req
 }
 
+type PermType struct {
+	ExternalAccessEntity *string `json:"external_access_entity,omitempty"` // 对外开放范围
+
+	LinkShareEntity *string `json:"link_share_entity,omitempty"` // 链接分享范围
+}
+
+type PermTypeBuilder struct {
+	externalAccessEntity    string // 对外开放范围
+	externalAccessEntitySet bool
+
+	linkShareEntity    string // 链接分享范围
+	linkShareEntitySet bool
+}
+
+func NewPermTypeBuilder() *PermTypeBuilder {
+	builder := &PermTypeBuilder{}
+	return builder
+}
+
+// 对外开放范围
+//
+// 示例值：container
+func (builder *PermTypeBuilder) ExternalAccessEntity(externalAccessEntity string) *PermTypeBuilder {
+	builder.externalAccessEntity = externalAccessEntity
+	builder.externalAccessEntitySet = true
+	return builder
+}
+
+// 链接分享范围
+//
+// 示例值：single_page
+func (builder *PermTypeBuilder) LinkShareEntity(linkShareEntity string) *PermTypeBuilder {
+	builder.linkShareEntity = linkShareEntity
+	builder.linkShareEntitySet = true
+	return builder
+}
+
+func (builder *PermTypeBuilder) Build() *PermType {
+	req := &PermType{}
+	if builder.externalAccessEntitySet {
+		req.ExternalAccessEntity = &builder.externalAccessEntity
+
+	}
+	if builder.linkShareEntitySet {
+		req.LinkShareEntity = &builder.linkShareEntity
+
+	}
+	return req
+}
+
 type PermissionPublic struct {
 	ExternalAccessEntity *string `json:"external_access_entity,omitempty"` // 允许内容被分享到组织外
 
@@ -1409,15 +1458,17 @@ type PermissionPublic struct {
 
 	CommentEntity *string `json:"comment_entity,omitempty"` // 谁可以评论
 
-	ShareEntity *string `json:"share_entity,omitempty"` // 谁可以添加和管理协作者-组织维度
+	ShareEntity *string `json:"share_entity,omitempty"` // 从组织维度，设置谁可以查看、添加、移除协作者
 
-	ManageCollaboratorEntity *string `json:"manage_collaborator_entity,omitempty"` // 谁可以添加和管理协作者-协作者维度
+	ManageCollaboratorEntity *string `json:"manage_collaborator_entity,omitempty"` // 从协作者维度，设置谁可以查看、添加、移除协作者
 
 	LinkShareEntity *string `json:"link_share_entity,omitempty"` // 链接分享设置
 
 	CopyEntity *string `json:"copy_entity,omitempty"` // 谁可以复制内容
 
-	LockSwitch *bool `json:"lock_switch,omitempty"` // 节点是否已加锁，加锁之后不再继承父级页面的权限
+	LockSwitch *bool `json:"lock_switch,omitempty"` // 知识库中的子页面是否已限制权限，不再继承父级页面的权限设置。;;**枚举值有：** ;- `true`: 已限制权限;- `false`: 未限制权限;;**提示**：当知识库中的子页面权限范围小于父级页面时，该页面权限将默认限制权限。;;;![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a99780710c3f7e5e390280ff6d87fc47_HIjzKDxscr.png?maxWidth=200)
+
+	PermType *PermType `json:"perm_type,omitempty"` // 权限生效范围
 }
 
 type PermissionPublicBuilder struct {
@@ -1430,10 +1481,10 @@ type PermissionPublicBuilder struct {
 	commentEntity    string // 谁可以评论
 	commentEntitySet bool
 
-	shareEntity    string // 谁可以添加和管理协作者-组织维度
+	shareEntity    string // 从组织维度，设置谁可以查看、添加、移除协作者
 	shareEntitySet bool
 
-	manageCollaboratorEntity    string // 谁可以添加和管理协作者-协作者维度
+	manageCollaboratorEntity    string // 从协作者维度，设置谁可以查看、添加、移除协作者
 	manageCollaboratorEntitySet bool
 
 	linkShareEntity    string // 链接分享设置
@@ -1442,8 +1493,11 @@ type PermissionPublicBuilder struct {
 	copyEntity    string // 谁可以复制内容
 	copyEntitySet bool
 
-	lockSwitch    bool // 节点是否已加锁，加锁之后不再继承父级页面的权限
+	lockSwitch    bool // 知识库中的子页面是否已限制权限，不再继承父级页面的权限设置。;;**枚举值有：** ;- `true`: 已限制权限;- `false`: 未限制权限;;**提示**：当知识库中的子页面权限范围小于父级页面时，该页面权限将默认限制权限。;;;![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a99780710c3f7e5e390280ff6d87fc47_HIjzKDxscr.png?maxWidth=200)
 	lockSwitchSet bool
+
+	permType    *PermType // 权限生效范围
+	permTypeSet bool
 }
 
 func NewPermissionPublicBuilder() *PermissionPublicBuilder {
@@ -1478,7 +1532,7 @@ func (builder *PermissionPublicBuilder) CommentEntity(commentEntity string) *Per
 	return builder
 }
 
-// 谁可以添加和管理协作者-组织维度
+// 从组织维度，设置谁可以查看、添加、移除协作者
 //
 // 示例值：anyone
 func (builder *PermissionPublicBuilder) ShareEntity(shareEntity string) *PermissionPublicBuilder {
@@ -1487,7 +1541,7 @@ func (builder *PermissionPublicBuilder) ShareEntity(shareEntity string) *Permiss
 	return builder
 }
 
-// 谁可以添加和管理协作者-协作者维度
+// 从协作者维度，设置谁可以查看、添加、移除协作者
 //
 // 示例值：collaborator_can_view
 func (builder *PermissionPublicBuilder) ManageCollaboratorEntity(manageCollaboratorEntity string) *PermissionPublicBuilder {
@@ -1514,12 +1568,21 @@ func (builder *PermissionPublicBuilder) CopyEntity(copyEntity string) *Permissio
 	return builder
 }
 
-// 节点是否已加锁，加锁之后不再继承父级页面的权限
+// 知识库中的子页面是否已限制权限，不再继承父级页面的权限设置。;;**枚举值有：** ;- `true`: 已限制权限;- `false`: 未限制权限;;**提示**：当知识库中的子页面权限范围小于父级页面时，该页面权限将默认限制权限。;;;![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a99780710c3f7e5e390280ff6d87fc47_HIjzKDxscr.png?maxWidth=200)
 //
 // 示例值：false
 func (builder *PermissionPublicBuilder) LockSwitch(lockSwitch bool) *PermissionPublicBuilder {
 	builder.lockSwitch = lockSwitch
 	builder.lockSwitchSet = true
+	return builder
+}
+
+// 权限生效范围
+//
+// 示例值：
+func (builder *PermissionPublicBuilder) PermType(permType *PermType) *PermissionPublicBuilder {
+	builder.permType = permType
+	builder.permTypeSet = true
 	return builder
 }
 
@@ -1556,6 +1619,9 @@ func (builder *PermissionPublicBuilder) Build() *PermissionPublic {
 	if builder.lockSwitchSet {
 		req.LockSwitch = &builder.lockSwitch
 
+	}
+	if builder.permTypeSet {
+		req.PermType = builder.permType
 	}
 	return req
 }
@@ -2031,13 +2097,13 @@ func (builder *UserInfoBuilder) Build() *UserInfo {
 }
 
 type UpdateReactionCommentReactionReqBodyBuilder struct {
-	action    string // 操作类型: add/delete
+	action    string // 操作类型
 	actionSet bool
 
-	replyId    string // 回复 ID
+	replyId    string // 回复 ID;;可通过调用 添加回复、获取回复信息 接口获取
 	replyIdSet bool
 
-	reactionType    string // reaction 类型
+	reactionType    string // reaction 类型;;可选值：ANGRY, APPLAUSE, ATTENTION, AWESOME, BEAR, BEER, BETRAYED, BIGKISS, BLACKFACE, BLUBBER, BLUSH, BOMB, CAKE, CHUCKLE, CLAP, CLEAVER, COMFORT, CRAZY, CRY, CUCUMBER, DETERGENT, DIZZY, DONE, DONNOTGO, DROOL, DROWSY, DULL, DULLSTARE, EATING, EMBARRASSED, ENOUGH, ERROR, EYESCLOSED, FACEPALM, FINGERHEART, FISTBUMP, FOLLOWME, FROWN, GIFT, GLANCE, GOODJOB, HAMMER, HAUGHTY, HEADSET, HEART, HEARTBROKEN, HIGHFIVE, HUG, HUSKY, INNOCENTSMILE, JIAYI, JOYFUL, KISS, LAUGH, LIPS, LOL, LOOKDOWN, LOVE, MONEY, MUSCLE, NOSEPICK, OBSESSED, OK, PARTY, PETRIFIED, POOP, PRAISE, PROUD, PUKE, RAINBOWPUKE, ROSE, SALUTE, SCOWL, SHAKE, SHHH, SHOCKED, SHOWOFF, SHY, SICK, SILENT, SKULL, SLAP, SLEEP, SLIGHT, SMART, SMILE, SMIRK, SMOOCH, SMUG, SOB, SPEECHLESS, SPITBLOOD, STRIVE, SWEAT, TEARS, TEASE, TERROR, THANKS, THINKING, THUMBSUP, TOASTED, TONGUE, TRICK, UPPERLEFT, WAIL, WAVE, WELLDONE, WHAT, WHIMPER, WINK, WITTY, WOW, WRONGED, XBLUSH, YAWN, YEAH, FIREWORKS, BULL, CALF, AWESOMEN, 2021, CANDIEDHAWS, REDPACKET, FORTUNE, LUCK, FIRECRACKER, Yes, No, Get, LGTM, Lemon, EatingFood, Hundred, MinusOne, ThumbsDown, Fire, OKR, Drumstick, BubbleTea, Loudspeaker, Pin, Coffee, Alarm, Trophy, Music, Typing, Pepper, CheckMark, CrossMark.
 	reactionTypeSet bool
 }
 
@@ -2046,27 +2112,27 @@ func NewUpdateReactionCommentReactionReqBodyBuilder() *UpdateReactionCommentReac
 	return builder
 }
 
-// 操作类型: add/delete
+// 操作类型
 //
-//示例值：add/delete
+// 示例值：add
 func (builder *UpdateReactionCommentReactionReqBodyBuilder) Action(action string) *UpdateReactionCommentReactionReqBodyBuilder {
 	builder.action = action
 	builder.actionSet = true
 	return builder
 }
 
-// 回复 ID
+// 回复 ID;;可通过调用 添加回复、获取回复信息 接口获取
 //
-//示例值：1234567890
+// 示例值：1234567890
 func (builder *UpdateReactionCommentReactionReqBodyBuilder) ReplyId(replyId string) *UpdateReactionCommentReactionReqBodyBuilder {
 	builder.replyId = replyId
 	builder.replyIdSet = true
 	return builder
 }
 
-// reaction 类型
+// reaction 类型;;可选值：ANGRY, APPLAUSE, ATTENTION, AWESOME, BEAR, BEER, BETRAYED, BIGKISS, BLACKFACE, BLUBBER, BLUSH, BOMB, CAKE, CHUCKLE, CLAP, CLEAVER, COMFORT, CRAZY, CRY, CUCUMBER, DETERGENT, DIZZY, DONE, DONNOTGO, DROOL, DROWSY, DULL, DULLSTARE, EATING, EMBARRASSED, ENOUGH, ERROR, EYESCLOSED, FACEPALM, FINGERHEART, FISTBUMP, FOLLOWME, FROWN, GIFT, GLANCE, GOODJOB, HAMMER, HAUGHTY, HEADSET, HEART, HEARTBROKEN, HIGHFIVE, HUG, HUSKY, INNOCENTSMILE, JIAYI, JOYFUL, KISS, LAUGH, LIPS, LOL, LOOKDOWN, LOVE, MONEY, MUSCLE, NOSEPICK, OBSESSED, OK, PARTY, PETRIFIED, POOP, PRAISE, PROUD, PUKE, RAINBOWPUKE, ROSE, SALUTE, SCOWL, SHAKE, SHHH, SHOCKED, SHOWOFF, SHY, SICK, SILENT, SKULL, SLAP, SLEEP, SLIGHT, SMART, SMILE, SMIRK, SMOOCH, SMUG, SOB, SPEECHLESS, SPITBLOOD, STRIVE, SWEAT, TEARS, TEASE, TERROR, THANKS, THINKING, THUMBSUP, TOASTED, TONGUE, TRICK, UPPERLEFT, WAIL, WAVE, WELLDONE, WHAT, WHIMPER, WINK, WITTY, WOW, WRONGED, XBLUSH, YAWN, YEAH, FIREWORKS, BULL, CALF, AWESOMEN, 2021, CANDIEDHAWS, REDPACKET, FORTUNE, LUCK, FIRECRACKER, Yes, No, Get, LGTM, Lemon, EatingFood, Hundred, MinusOne, ThumbsDown, Fire, OKR, Drumstick, BubbleTea, Loudspeaker, Pin, Coffee, Alarm, Trophy, Music, Typing, Pepper, CheckMark, CrossMark.
 //
-//示例值：like
+// 示例值：ANGRY
 func (builder *UpdateReactionCommentReactionReqBodyBuilder) ReactionType(reactionType string) *UpdateReactionCommentReactionReqBodyBuilder {
 	builder.reactionType = reactionType
 	builder.reactionTypeSet = true
@@ -2101,16 +2167,16 @@ func NewUpdateReactionCommentReactionPathReqBodyBuilder() *UpdateReactionComment
 	return builder
 }
 
-// 操作类型: add/delete
+// 操作类型
 //
-// 示例值：add/delete
+// 示例值：add
 func (builder *UpdateReactionCommentReactionPathReqBodyBuilder) Action(action string) *UpdateReactionCommentReactionPathReqBodyBuilder {
 	builder.action = action
 	builder.actionSet = true
 	return builder
 }
 
-// 回复 ID
+// 回复 ID;;可通过调用 添加回复、获取回复信息 接口获取
 //
 // 示例值：1234567890
 func (builder *UpdateReactionCommentReactionPathReqBodyBuilder) ReplyId(replyId string) *UpdateReactionCommentReactionPathReqBodyBuilder {
@@ -2119,9 +2185,9 @@ func (builder *UpdateReactionCommentReactionPathReqBodyBuilder) ReplyId(replyId 
 	return builder
 }
 
-// reaction 类型
+// reaction 类型;;可选值：ANGRY, APPLAUSE, ATTENTION, AWESOME, BEAR, BEER, BETRAYED, BIGKISS, BLACKFACE, BLUBBER, BLUSH, BOMB, CAKE, CHUCKLE, CLAP, CLEAVER, COMFORT, CRAZY, CRY, CUCUMBER, DETERGENT, DIZZY, DONE, DONNOTGO, DROOL, DROWSY, DULL, DULLSTARE, EATING, EMBARRASSED, ENOUGH, ERROR, EYESCLOSED, FACEPALM, FINGERHEART, FISTBUMP, FOLLOWME, FROWN, GIFT, GLANCE, GOODJOB, HAMMER, HAUGHTY, HEADSET, HEART, HEARTBROKEN, HIGHFIVE, HUG, HUSKY, INNOCENTSMILE, JIAYI, JOYFUL, KISS, LAUGH, LIPS, LOL, LOOKDOWN, LOVE, MONEY, MUSCLE, NOSEPICK, OBSESSED, OK, PARTY, PETRIFIED, POOP, PRAISE, PROUD, PUKE, RAINBOWPUKE, ROSE, SALUTE, SCOWL, SHAKE, SHHH, SHOCKED, SHOWOFF, SHY, SICK, SILENT, SKULL, SLAP, SLEEP, SLIGHT, SMART, SMILE, SMIRK, SMOOCH, SMUG, SOB, SPEECHLESS, SPITBLOOD, STRIVE, SWEAT, TEARS, TEASE, TERROR, THANKS, THINKING, THUMBSUP, TOASTED, TONGUE, TRICK, UPPERLEFT, WAIL, WAVE, WELLDONE, WHAT, WHIMPER, WINK, WITTY, WOW, WRONGED, XBLUSH, YAWN, YEAH, FIREWORKS, BULL, CALF, AWESOMEN, 2021, CANDIEDHAWS, REDPACKET, FORTUNE, LUCK, FIRECRACKER, Yes, No, Get, LGTM, Lemon, EatingFood, Hundred, MinusOne, ThumbsDown, Fire, OKR, Drumstick, BubbleTea, Loudspeaker, Pin, Coffee, Alarm, Trophy, Music, Typing, Pepper, CheckMark, CrossMark.
 //
-// 示例值：like
+// 示例值：ANGRY
 func (builder *UpdateReactionCommentReactionPathReqBodyBuilder) ReactionType(reactionType string) *UpdateReactionCommentReactionPathReqBodyBuilder {
 	builder.reactionType = reactionType
 	builder.reactionTypeSet = true
@@ -2164,7 +2230,7 @@ func (builder *UpdateReactionCommentReactionReqBuilder) FileToken(fileToken stri
 	return builder
 }
 
-// 文件类型，用于区分不同类型的云文档，可选值需参考开放平台文件类型枚举规范。
+// 文件类型，用于区分不同类型的云文档，可选值需参考[开放平台文件类型枚举](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 //
 // 示例值：docx
 func (builder *UpdateReactionCommentReactionReqBuilder) FileType(fileType string) *UpdateReactionCommentReactionReqBuilder {
@@ -2172,7 +2238,7 @@ func (builder *UpdateReactionCommentReactionReqBuilder) FileType(fileType string
 	return builder
 }
 
-// 开放平台：添加/删除 reaction
+// 使用该接口可对云文档中的某条评论进行emoji表情回应或取消emoji表情回应。适用于用户需要对云文档评论进行emoji表情互动的场景。
 func (builder *UpdateReactionCommentReactionReqBuilder) Body(body *UpdateReactionCommentReactionReqBody) *UpdateReactionCommentReactionReqBuilder {
 	builder.body = body
 	return builder
@@ -2188,11 +2254,11 @@ func (builder *UpdateReactionCommentReactionReqBuilder) Build() *UpdateReactionC
 }
 
 type UpdateReactionCommentReactionReqBody struct {
-	Action *string `json:"action,omitempty"` // 操作类型: add/delete
+	Action *string `json:"action,omitempty"` // 操作类型
 
-	ReplyId *string `json:"reply_id,omitempty"` // 回复 ID
+	ReplyId *string `json:"reply_id,omitempty"` // 回复 ID;;可通过调用 添加回复、获取回复信息 接口获取
 
-	ReactionType *string `json:"reaction_type,omitempty"` // reaction 类型
+	ReactionType *string `json:"reaction_type,omitempty"` // reaction 类型;;可选值：ANGRY, APPLAUSE, ATTENTION, AWESOME, BEAR, BEER, BETRAYED, BIGKISS, BLACKFACE, BLUBBER, BLUSH, BOMB, CAKE, CHUCKLE, CLAP, CLEAVER, COMFORT, CRAZY, CRY, CUCUMBER, DETERGENT, DIZZY, DONE, DONNOTGO, DROOL, DROWSY, DULL, DULLSTARE, EATING, EMBARRASSED, ENOUGH, ERROR, EYESCLOSED, FACEPALM, FINGERHEART, FISTBUMP, FOLLOWME, FROWN, GIFT, GLANCE, GOODJOB, HAMMER, HAUGHTY, HEADSET, HEART, HEARTBROKEN, HIGHFIVE, HUG, HUSKY, INNOCENTSMILE, JIAYI, JOYFUL, KISS, LAUGH, LIPS, LOL, LOOKDOWN, LOVE, MONEY, MUSCLE, NOSEPICK, OBSESSED, OK, PARTY, PETRIFIED, POOP, PRAISE, PROUD, PUKE, RAINBOWPUKE, ROSE, SALUTE, SCOWL, SHAKE, SHHH, SHOCKED, SHOWOFF, SHY, SICK, SILENT, SKULL, SLAP, SLEEP, SLIGHT, SMART, SMILE, SMIRK, SMOOCH, SMUG, SOB, SPEECHLESS, SPITBLOOD, STRIVE, SWEAT, TEARS, TEASE, TERROR, THANKS, THINKING, THUMBSUP, TOASTED, TONGUE, TRICK, UPPERLEFT, WAIL, WAVE, WELLDONE, WHAT, WHIMPER, WINK, WITTY, WOW, WRONGED, XBLUSH, YAWN, YEAH, FIREWORKS, BULL, CALF, AWESOMEN, 2021, CANDIEDHAWS, REDPACKET, FORTUNE, LUCK, FIRECRACKER, Yes, No, Get, LGTM, Lemon, EatingFood, Hundred, MinusOne, ThumbsDown, Fire, OKR, Drumstick, BubbleTea, Loudspeaker, Pin, Coffee, Alarm, Trophy, Music, Typing, Pepper, CheckMark, CrossMark.
 }
 
 type UpdateReactionCommentReactionReq struct {
@@ -2229,15 +2295,15 @@ func (builder *ListFileLikeReqBuilder) Limit(limit int) *ListFileLikeReqBuilder 
 	return builder
 }
 
-// 需要查询点赞列表的文件 token
+// 需要查询点赞者列表的云文档 token。[点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 //
-// 示例值：J6Lddz22AovnqkxWEXBcUJIingx
+// 示例值：J6Lddz22AovnqkxWEXBcUJabcef
 func (builder *ListFileLikeReqBuilder) FileToken(fileToken string) *ListFileLikeReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
 }
 
-// 文件类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。
+// 云文档类型，如果该值为空或者与云文档实际类型不匹配，接口会返回失败。
 //
 // 示例值：doc
 func (builder *ListFileLikeReqBuilder) FileType(fileType string) *ListFileLikeReqBuilder {
@@ -2285,7 +2351,7 @@ type ListFileLikeReq struct {
 }
 
 type ListFileLikeRespData struct {
-	Items []*FileLike `json:"items,omitempty"` // 文件的点赞者列表
+	Items []*FileLike `json:"items,omitempty"` // 云文档的点赞者列表
 
 	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
@@ -2315,17 +2381,17 @@ func NewGetPermissionPublicReqBuilder() *GetPermissionPublicReqBuilder {
 	return builder
 }
 
-// 文件的 token
+// 云文档的 token，需要与 type 参数指定的云文档类型相匹配。可参考[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 //
-// 示例值：doccnBKgoMyY5OMbUG6FioTXuBe
+// 示例值：doccnBKgoMyY5OMbUG6Fioabcef
 func (builder *GetPermissionPublicReqBuilder) Token(token string) *GetPermissionPublicReqBuilder {
 	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
 	return builder
 }
 
-// 文件类型，需要与文件的 token 相匹配
+// 云文档类型，需要与云文档的 token 相匹配。
 //
-// 示例值：doc
+// 示例值：docx
 func (builder *GetPermissionPublicReqBuilder) Type(type_ string) *GetPermissionPublicReqBuilder {
 	builder.apiReq.QueryParams.Set("type", fmt.Sprint(type_))
 	return builder
@@ -2344,7 +2410,7 @@ type GetPermissionPublicReq struct {
 }
 
 type GetPermissionPublicRespData struct {
-	PermissionPublic *PermissionPublic `json:"permission_public,omitempty"` // 返回的文档公共设置
+	PermissionPublic *PermissionPublic `json:"permission_public,omitempty"` // 返回的文档公共访问和协作权限设置
 }
 
 type GetPermissionPublicResp struct {
@@ -2371,23 +2437,23 @@ func NewPatchPermissionPublicReqBuilder() *PatchPermissionPublicReqBuilder {
 	return builder
 }
 
-// 文件的 token
+// 云文档的 token，需要与 type 参数指定的云文档类型相匹配。可参考[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 //
-// 示例值：doccnBKgoMyY5OMbUG6FioTXuBe
+// 示例值：doccnBKgoMyY5OMbUG6Fioabcef
 func (builder *PatchPermissionPublicReqBuilder) Token(token string) *PatchPermissionPublicReqBuilder {
 	builder.apiReq.PathParams.Set("token", fmt.Sprint(token))
 	return builder
 }
 
-// 文件类型，需要与文件的 token 相匹配
+// 云文档类型，需要与云文档的 token 相匹配。
 //
-// 示例值：doc
+// 示例值：docx
 func (builder *PatchPermissionPublicReqBuilder) Type(type_ string) *PatchPermissionPublicReqBuilder {
 	builder.apiReq.QueryParams.Set("type", fmt.Sprint(type_))
 	return builder
 }
 
-//
+// 更新指定云文档的权限设置，包括是否允许内容被分享到组织外、谁可以查看、添加、移除协作者、谁可以复制内容等设置。;
 func (builder *PatchPermissionPublicReqBuilder) PermissionPublic(permissionPublic *PermissionPublic) *PatchPermissionPublicReqBuilder {
 	builder.permissionPublic = permissionPublic
 	return builder
@@ -2408,7 +2474,7 @@ type PatchPermissionPublicReq struct {
 }
 
 type PatchPermissionPublicRespData struct {
-	PermissionPublic *PermissionPublic `json:"permission_public,omitempty"` // 本次更新后文档公共设置
+	PermissionPublic *PermissionPublic `json:"permission_public,omitempty"` // 本次更新后的文档权限设置。如权限设置未更新，则不返回对应参数。
 }
 
 type PatchPermissionPublicResp struct {

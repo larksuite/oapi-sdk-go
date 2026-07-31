@@ -52,6 +52,14 @@ type AppAbilityBot struct {
 	MessageCardCallbackUrl *string `json:"message_card_callback_url,omitempty"` // 消息卡片的回调地址
 
 	I18ns []*AppAbilityBotI18n `json:"i18ns,omitempty"` // 国际化内容
+
+	BotMenuEnable *bool `json:"bot_menu_enable,omitempty"` // 机器人菜单状态是否开启。如果不传，则不处理机器人菜单数据变更。如果该字段为true，bot_menu字段为空列表，返回400
+
+	BotMenus []*BotMenuNode `json:"bot_menus,omitempty"` // 机器人菜单选项列表.非悬浮菜单最多支持两级菜单，一级菜单最多3个节点，二级菜单最多5个节点。悬浮菜单最多支持两级菜单，每级菜单最多支持五个节点
+
+	BotMenuDisplayStrategy *int `json:"bot_menu_display_strategy,omitempty"` // 菜单展示类型
+
+	AllowInvitedToGroupByOtherAppSwitchOpen *bool `json:"allow_invited_to_group_by_other_app_switch_open,omitempty"` // 是否允许被其他应用邀请进群
 }
 
 type AppAbilityBotBuilder struct {
@@ -63,6 +71,18 @@ type AppAbilityBotBuilder struct {
 
 	i18ns    []*AppAbilityBotI18n // 国际化内容
 	i18nsSet bool
+
+	botMenuEnable    bool // 机器人菜单状态是否开启。如果不传，则不处理机器人菜单数据变更。如果该字段为true，bot_menu字段为空列表，返回400
+	botMenuEnableSet bool
+
+	botMenus    []*BotMenuNode // 机器人菜单选项列表.非悬浮菜单最多支持两级菜单，一级菜单最多3个节点，二级菜单最多5个节点。悬浮菜单最多支持两级菜单，每级菜单最多支持五个节点
+	botMenusSet bool
+
+	botMenuDisplayStrategy    int // 菜单展示类型
+	botMenuDisplayStrategySet bool
+
+	allowInvitedToGroupByOtherAppSwitchOpen    bool // 是否允许被其他应用邀请进群
+	allowInvitedToGroupByOtherAppSwitchOpenSet bool
 }
 
 func NewAppAbilityBotBuilder() *AppAbilityBotBuilder {
@@ -97,6 +117,42 @@ func (builder *AppAbilityBotBuilder) I18ns(i18ns []*AppAbilityBotI18n) *AppAbili
 	return builder
 }
 
+// 机器人菜单状态是否开启。如果不传，则不处理机器人菜单数据变更。如果该字段为true，bot_menu字段为空列表，返回400
+//
+// 示例值：
+func (builder *AppAbilityBotBuilder) BotMenuEnable(botMenuEnable bool) *AppAbilityBotBuilder {
+	builder.botMenuEnable = botMenuEnable
+	builder.botMenuEnableSet = true
+	return builder
+}
+
+// 机器人菜单选项列表.非悬浮菜单最多支持两级菜单，一级菜单最多3个节点，二级菜单最多5个节点。悬浮菜单最多支持两级菜单，每级菜单最多支持五个节点
+//
+// 示例值：
+func (builder *AppAbilityBotBuilder) BotMenus(botMenus []*BotMenuNode) *AppAbilityBotBuilder {
+	builder.botMenus = botMenus
+	builder.botMenusSet = true
+	return builder
+}
+
+// 菜单展示类型
+//
+// 示例值：1
+func (builder *AppAbilityBotBuilder) BotMenuDisplayStrategy(botMenuDisplayStrategy int) *AppAbilityBotBuilder {
+	builder.botMenuDisplayStrategy = botMenuDisplayStrategy
+	builder.botMenuDisplayStrategySet = true
+	return builder
+}
+
+// 是否允许被其他应用邀请进群
+//
+// 示例值：false
+func (builder *AppAbilityBotBuilder) AllowInvitedToGroupByOtherAppSwitchOpen(allowInvitedToGroupByOtherAppSwitchOpen bool) *AppAbilityBotBuilder {
+	builder.allowInvitedToGroupByOtherAppSwitchOpen = allowInvitedToGroupByOtherAppSwitchOpen
+	builder.allowInvitedToGroupByOtherAppSwitchOpenSet = true
+	return builder
+}
+
 func (builder *AppAbilityBotBuilder) Build() *AppAbilityBot {
 	req := &AppAbilityBot{}
 	if builder.enableSet {
@@ -109,6 +165,21 @@ func (builder *AppAbilityBotBuilder) Build() *AppAbilityBot {
 	}
 	if builder.i18nsSet {
 		req.I18ns = builder.i18ns
+	}
+	if builder.botMenuEnableSet {
+		req.BotMenuEnable = &builder.botMenuEnable
+
+	}
+	if builder.botMenusSet {
+		req.BotMenus = builder.botMenus
+	}
+	if builder.botMenuDisplayStrategySet {
+		req.BotMenuDisplayStrategy = &builder.botMenuDisplayStrategy
+
+	}
+	if builder.allowInvitedToGroupByOtherAppSwitchOpenSet {
+		req.AllowInvitedToGroupByOtherAppSwitchOpen = &builder.allowInvitedToGroupByOtherAppSwitchOpen
+
 	}
 	return req
 }
@@ -385,7 +456,7 @@ func (builder *AppConfigContactsRangeBuilder) Build() *AppConfigContactsRange {
 type AppConfigEvent struct {
 	SubscriptionType *string `json:"subscription_type,omitempty"` // 订阅方式
 
-	RequestUrl *string `json:"request_url,omitempty"` // 接收事件的服务器地址
+	RequestUrl *string `json:"request_url,omitempty"` // 接收事件的服务器地址，当subscription_type为webhook需要填写
 
 	AddEvents []string `json:"add_events,omitempty"` // 添加事件列表
 
@@ -396,7 +467,7 @@ type AppConfigEventBuilder struct {
 	subscriptionType    string // 订阅方式
 	subscriptionTypeSet bool
 
-	requestUrl    string // 接收事件的服务器地址
+	requestUrl    string // 接收事件的服务器地址，当subscription_type为webhook需要填写
 	requestUrlSet bool
 
 	addEvents    []string // 添加事件列表
@@ -420,7 +491,7 @@ func (builder *AppConfigEventBuilder) SubscriptionType(subscriptionType string) 
 	return builder
 }
 
-// 接收事件的服务器地址
+// 接收事件的服务器地址，当subscription_type为webhook需要填写
 //
 // 示例值：https://open.feishu.cn/
 func (builder *AppConfigEventBuilder) RequestUrl(requestUrl string) *AppConfigEventBuilder {
@@ -608,7 +679,7 @@ func (builder *AppConfigSecurityBuilder) Remove(remove *AppConfigSecurityItem) *
 
 // 是否允许刷新 user_access_token
 //
-// 示例值：
+// 示例值：false
 func (builder *AppConfigSecurityBuilder) AllowRefreshToken(allowRefreshToken bool) *AppConfigSecurityBuilder {
 	builder.allowRefreshToken = allowRefreshToken
 	builder.allowRefreshTokenSet = true
@@ -749,14 +820,14 @@ func (builder *AppConfigSecurityItemBuilder) Build() *AppConfigSecurityItem {
 type AppConfigVisibility struct {
 	IsVisibleToAll *bool `json:"is_visible_to_all,omitempty"` // 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
 
-	VisibleList *AppVisibilityIdList `json:"visible_list,omitempty"` // 可用人员列表
+	VisibleList *AppVisibilityIdList `json:"visible_list,omitempty"` // 可用人员列表，当is_visible_to_all为true时，visible_list中的参数无效
 }
 
 type AppConfigVisibilityBuilder struct {
 	isVisibleToAll    bool // 是否全员可见,false:否;true:是;不填:继续当前状态不改变.如果可见范围为全员后添加的可用人员则无效,禁用人员仍然有效
 	isVisibleToAllSet bool
 
-	visibleList    *AppVisibilityIdList // 可用人员列表
+	visibleList    *AppVisibilityIdList // 可用人员列表，当is_visible_to_all为true时，visible_list中的参数无效
 	visibleListSet bool
 }
 
@@ -774,7 +845,7 @@ func (builder *AppConfigVisibilityBuilder) IsVisibleToAll(isVisibleToAll bool) *
 	return builder
 }
 
-// 可用人员列表
+// 可用人员列表，当is_visible_to_all为true时，visible_list中的参数无效
 //
 // 示例值：
 func (builder *AppConfigVisibilityBuilder) VisibleList(visibleList *AppVisibilityIdList) *AppConfigVisibilityBuilder {
@@ -861,9 +932,9 @@ func (builder *AppContactsRangeIdListBuilder) Build() *AppContactsRangeIdList {
 }
 
 type AppI18nInfo struct {
-	I18nKey *string `json:"i18n_key,omitempty"` // 国际化语言的 key
+	I18nKey *string `json:"i18n_key,omitempty"` // 必填，国际化语言的 key
 
-	Name *string `json:"name,omitempty"` // 应用国际化名称
+	Name *string `json:"name,omitempty"` // i18n_key对应的应用国际化名称
 
 	Description *string `json:"description,omitempty"` // 应用国际化描述（副标题）
 
@@ -871,10 +942,10 @@ type AppI18nInfo struct {
 }
 
 type AppI18nInfoBuilder struct {
-	i18nKey    string // 国际化语言的 key
+	i18nKey    string // 必填，国际化语言的 key
 	i18nKeySet bool
 
-	name    string // 应用国际化名称
+	name    string // i18n_key对应的应用国际化名称
 	nameSet bool
 
 	description    string // 应用国际化描述（副标题）
@@ -889,7 +960,7 @@ func NewAppI18nInfoBuilder() *AppI18nInfoBuilder {
 	return builder
 }
 
-// 国际化语言的 key
+// 必填，国际化语言的 key
 //
 // 示例值：zh_cn
 func (builder *AppI18nInfoBuilder) I18nKey(i18nKey string) *AppI18nInfoBuilder {
@@ -898,7 +969,7 @@ func (builder *AppI18nInfoBuilder) I18nKey(i18nKey string) *AppI18nInfoBuilder {
 	return builder
 }
 
-// 应用国际化名称
+// i18n_key对应的应用国际化名称
 //
 // 示例值：应用名称
 func (builder *AppI18nInfoBuilder) Name(name string) *AppI18nInfoBuilder {
@@ -1041,6 +1112,8 @@ type AppSlashCommand struct {
 	CreateTime *string `json:"create_time,omitempty"` // 命令的创建时间，Unix 时间戳（毫秒），由系统自动生成，不可修改。
 
 	UpdateTime *string `json:"update_time,omitempty"` // 命令的最后更新时间，Unix 时间戳（毫秒），命令内容修改时自动更新，不可手动设置。
+
+	Icon *AppSlashCommandIcon `json:"icon,omitempty"` // 命令 icon
 }
 
 type AppSlashCommandBuilder struct {
@@ -1058,6 +1131,9 @@ type AppSlashCommandBuilder struct {
 
 	updateTime    string // 命令的最后更新时间，Unix 时间戳（毫秒），命令内容修改时自动更新，不可手动设置。
 	updateTimeSet bool
+
+	icon    *AppSlashCommandIcon // 命令 icon
+	iconSet bool
 }
 
 func NewAppSlashCommandBuilder() *AppSlashCommandBuilder {
@@ -1110,6 +1186,15 @@ func (builder *AppSlashCommandBuilder) UpdateTime(updateTime string) *AppSlashCo
 	return builder
 }
 
+// 命令 icon
+//
+// 示例值：
+func (builder *AppSlashCommandBuilder) Icon(icon *AppSlashCommandIcon) *AppSlashCommandBuilder {
+	builder.icon = icon
+	builder.iconSet = true
+	return builder
+}
+
 func (builder *AppSlashCommandBuilder) Build() *AppSlashCommand {
 	req := &AppSlashCommand{}
 	if builder.commandIdSet {
@@ -1130,6 +1215,9 @@ func (builder *AppSlashCommandBuilder) Build() *AppSlashCommand {
 	if builder.updateTimeSet {
 		req.UpdateTime = &builder.updateTime
 
+	}
+	if builder.iconSet {
+		req.Icon = builder.icon
 	}
 	return req
 }
@@ -1485,6 +1573,38 @@ func (builder *AppSlashCommandI18nTextBuilder) Build() *AppSlashCommandI18nText 
 	return req
 }
 
+type AppSlashCommandIcon struct {
+	IconKey *string `json:"icon_key,omitempty"` // UD icon key
+}
+
+type AppSlashCommandIconBuilder struct {
+	iconKey    string // UD icon key
+	iconKeySet bool
+}
+
+func NewAppSlashCommandIconBuilder() *AppSlashCommandIconBuilder {
+	builder := &AppSlashCommandIconBuilder{}
+	return builder
+}
+
+// UD icon key
+//
+// 示例值：skill_outlined
+func (builder *AppSlashCommandIconBuilder) IconKey(iconKey string) *AppSlashCommandIconBuilder {
+	builder.iconKey = iconKey
+	builder.iconKeySet = true
+	return builder
+}
+
+func (builder *AppSlashCommandIconBuilder) Build() *AppSlashCommandIcon {
+	req := &AppSlashCommandIcon{}
+	if builder.iconKeySet {
+		req.IconKey = &builder.iconKey
+
+	}
+	return req
+}
+
 type AppVisibilityIdList struct {
 	UserIds []string `json:"user_ids,omitempty"` // 成员id列表(open_id/union_id/user_id)
 
@@ -1686,7 +1806,7 @@ func NewApplicationBuilder() *ApplicationBuilder {
 
 // 应用的 id
 //
-// 示例值：cli_9b445f5258795107
+// 示例值：cli_***
 func (builder *ApplicationBuilder) AppId(appId string) *ApplicationBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
@@ -2145,6 +2265,588 @@ func (builder *ApplicationOwnerBuilder) Build() *ApplicationOwner {
 	return req
 }
 
+type BotMenuConfig struct {
+	DefaultName *string `json:"default_name,omitempty"` // 菜单选项默认名称
+
+	I18nName map[string]string `json:"i18n_name,omitempty"` // 国际化文案
+
+	RedirectLink *BotMenuRedirectLink `json:"redirect_link,omitempty"` // 在客户端内打开链接。当 menu_content_type = 1 时必填。
+
+	EventKey *string `json:"event_key,omitempty"` // 事件回调
+
+	IconFileKey *string `json:"icon_file_key,omitempty"` // 自定义icon
+
+	UdIcon *BotMenuUdIcon `json:"ud_icon,omitempty"` // 图标库中的图标。
+
+	Children []*BotMenuConfig1 `json:"children,omitempty"` // 子菜单
+
+	MenuContentType *int `json:"menu_content_type,omitempty"` // 菜单响应动作
+}
+
+type BotMenuConfigBuilder struct {
+	defaultName    string // 菜单选项默认名称
+	defaultNameSet bool
+
+	i18nName    map[string]string // 国际化文案
+	i18nNameSet bool
+
+	redirectLink    *BotMenuRedirectLink // 在客户端内打开链接。当 menu_content_type = 1 时必填。
+	redirectLinkSet bool
+
+	eventKey    string // 事件回调
+	eventKeySet bool
+
+	iconFileKey    string // 自定义icon
+	iconFileKeySet bool
+
+	udIcon    *BotMenuUdIcon // 图标库中的图标。
+	udIconSet bool
+
+	children    []*BotMenuConfig1 // 子菜单
+	childrenSet bool
+
+	menuContentType    int // 菜单响应动作
+	menuContentTypeSet bool
+}
+
+func NewBotMenuConfigBuilder() *BotMenuConfigBuilder {
+	builder := &BotMenuConfigBuilder{}
+	return builder
+}
+
+// 菜单选项默认名称
+//
+// 示例值：xxx
+func (builder *BotMenuConfigBuilder) DefaultName(defaultName string) *BotMenuConfigBuilder {
+	builder.defaultName = defaultName
+	builder.defaultNameSet = true
+	return builder
+}
+
+// 国际化文案
+//
+// 示例值：
+func (builder *BotMenuConfigBuilder) I18nName(i18nName map[string]string) *BotMenuConfigBuilder {
+	builder.i18nName = i18nName
+	builder.i18nNameSet = true
+	return builder
+}
+
+// 在客户端内打开链接。当 menu_content_type = 1 时必填。
+//
+// 示例值：
+func (builder *BotMenuConfigBuilder) RedirectLink(redirectLink *BotMenuRedirectLink) *BotMenuConfigBuilder {
+	builder.redirectLink = redirectLink
+	builder.redirectLinkSet = true
+	return builder
+}
+
+// 事件回调
+//
+// 示例值：xxx
+func (builder *BotMenuConfigBuilder) EventKey(eventKey string) *BotMenuConfigBuilder {
+	builder.eventKey = eventKey
+	builder.eventKeySet = true
+	return builder
+}
+
+// 自定义icon
+//
+// 示例值：xxxx
+func (builder *BotMenuConfigBuilder) IconFileKey(iconFileKey string) *BotMenuConfigBuilder {
+	builder.iconFileKey = iconFileKey
+	builder.iconFileKeySet = true
+	return builder
+}
+
+// 图标库中的图标。
+//
+// 示例值：
+func (builder *BotMenuConfigBuilder) UdIcon(udIcon *BotMenuUdIcon) *BotMenuConfigBuilder {
+	builder.udIcon = udIcon
+	builder.udIconSet = true
+	return builder
+}
+
+// 子菜单
+//
+// 示例值：
+func (builder *BotMenuConfigBuilder) Children(children []*BotMenuConfig1) *BotMenuConfigBuilder {
+	builder.children = children
+	builder.childrenSet = true
+	return builder
+}
+
+// 菜单响应动作
+//
+// 示例值：1
+func (builder *BotMenuConfigBuilder) MenuContentType(menuContentType int) *BotMenuConfigBuilder {
+	builder.menuContentType = menuContentType
+	builder.menuContentTypeSet = true
+	return builder
+}
+
+func (builder *BotMenuConfigBuilder) Build() *BotMenuConfig {
+	req := &BotMenuConfig{}
+	if builder.defaultNameSet {
+		req.DefaultName = &builder.defaultName
+
+	}
+	if builder.i18nNameSet {
+		req.I18nName = builder.i18nName
+	}
+	if builder.redirectLinkSet {
+		req.RedirectLink = builder.redirectLink
+	}
+	if builder.eventKeySet {
+		req.EventKey = &builder.eventKey
+
+	}
+	if builder.iconFileKeySet {
+		req.IconFileKey = &builder.iconFileKey
+
+	}
+	if builder.udIconSet {
+		req.UdIcon = builder.udIcon
+	}
+	if builder.childrenSet {
+		req.Children = builder.children
+	}
+	if builder.menuContentTypeSet {
+		req.MenuContentType = &builder.menuContentType
+
+	}
+	return req
+}
+
+type BotMenuConfig1 struct {
+	DefaultName *string `json:"default_name,omitempty"` // 子菜单选项默认名称
+
+	I18nName map[string]string `json:"i18n_name,omitempty"` // 国际化文案
+
+	RedirectLink *BotMenuRedirectLink `json:"redirect_link,omitempty"` // 在客户端内打开链接。当 menu_content_type = 1 时必填。
+
+	EventKey *string `json:"event_key,omitempty"` // 事件回调
+
+	IconFileKey *string `json:"icon_file_key,omitempty"` // icon file key
+
+	UdIcon *BotMenuUdIcon `json:"ud_icon,omitempty"` // 图标库中的图标。
+
+	MenuContentType *int `json:"menu_content_type,omitempty"` // 点击跳转类型
+}
+
+type BotMenuConfig1Builder struct {
+	defaultName    string // 子菜单选项默认名称
+	defaultNameSet bool
+
+	i18nName    map[string]string // 国际化文案
+	i18nNameSet bool
+
+	redirectLink    *BotMenuRedirectLink // 在客户端内打开链接。当 menu_content_type = 1 时必填。
+	redirectLinkSet bool
+
+	eventKey    string // 事件回调
+	eventKeySet bool
+
+	iconFileKey    string // icon file key
+	iconFileKeySet bool
+
+	udIcon    *BotMenuUdIcon // 图标库中的图标。
+	udIconSet bool
+
+	menuContentType    int // 点击跳转类型
+	menuContentTypeSet bool
+}
+
+func NewBotMenuConfig1Builder() *BotMenuConfig1Builder {
+	builder := &BotMenuConfig1Builder{}
+	return builder
+}
+
+// 子菜单选项默认名称
+//
+// 示例值：xxx
+func (builder *BotMenuConfig1Builder) DefaultName(defaultName string) *BotMenuConfig1Builder {
+	builder.defaultName = defaultName
+	builder.defaultNameSet = true
+	return builder
+}
+
+// 国际化文案
+//
+// 示例值：
+func (builder *BotMenuConfig1Builder) I18nName(i18nName map[string]string) *BotMenuConfig1Builder {
+	builder.i18nName = i18nName
+	builder.i18nNameSet = true
+	return builder
+}
+
+// 在客户端内打开链接。当 menu_content_type = 1 时必填。
+//
+// 示例值：
+func (builder *BotMenuConfig1Builder) RedirectLink(redirectLink *BotMenuRedirectLink) *BotMenuConfig1Builder {
+	builder.redirectLink = redirectLink
+	builder.redirectLinkSet = true
+	return builder
+}
+
+// 事件回调
+//
+// 示例值：xxx
+func (builder *BotMenuConfig1Builder) EventKey(eventKey string) *BotMenuConfig1Builder {
+	builder.eventKey = eventKey
+	builder.eventKeySet = true
+	return builder
+}
+
+// icon file key
+//
+// 示例值：img_xxx
+func (builder *BotMenuConfig1Builder) IconFileKey(iconFileKey string) *BotMenuConfig1Builder {
+	builder.iconFileKey = iconFileKey
+	builder.iconFileKeySet = true
+	return builder
+}
+
+// 图标库中的图标。
+//
+// 示例值：
+func (builder *BotMenuConfig1Builder) UdIcon(udIcon *BotMenuUdIcon) *BotMenuConfig1Builder {
+	builder.udIcon = udIcon
+	builder.udIconSet = true
+	return builder
+}
+
+// 点击跳转类型
+//
+// 示例值：1
+func (builder *BotMenuConfig1Builder) MenuContentType(menuContentType int) *BotMenuConfig1Builder {
+	builder.menuContentType = menuContentType
+	builder.menuContentTypeSet = true
+	return builder
+}
+
+func (builder *BotMenuConfig1Builder) Build() *BotMenuConfig1 {
+	req := &BotMenuConfig1{}
+	if builder.defaultNameSet {
+		req.DefaultName = &builder.defaultName
+
+	}
+	if builder.i18nNameSet {
+		req.I18nName = builder.i18nName
+	}
+	if builder.redirectLinkSet {
+		req.RedirectLink = builder.redirectLink
+	}
+	if builder.eventKeySet {
+		req.EventKey = &builder.eventKey
+
+	}
+	if builder.iconFileKeySet {
+		req.IconFileKey = &builder.iconFileKey
+
+	}
+	if builder.udIconSet {
+		req.UdIcon = builder.udIcon
+	}
+	if builder.menuContentTypeSet {
+		req.MenuContentType = &builder.menuContentType
+
+	}
+	return req
+}
+
+type BotMenuNode struct {
+	MenuId *string `json:"menu_id,omitempty"` // 节点唯一标识，同一次请求内唯一
+
+	ParentMenuId *string `json:"parent_menu_id,omitempty"` // 父节点 menu_id，为空表示一级菜单
+
+	Sort *int `json:"sort,omitempty"` // 同层级内排序，数值越小越靠前
+
+	DefaultName *string `json:"default_name,omitempty"` // 默认名称
+
+	I18nName map[string]string `json:"i18n_name,omitempty"` // 国际化名称配置。了解支持语种，参考配置卡片多语言。
+
+	RedirectLink *BotMenuRedirectLink `json:"redirect_link,omitempty"` // 在客户端内打开链接。当 menu_content_type = 1 时必填。
+
+	EventKey *string `json:"event_key,omitempty"` // 向注册的事件回调地址发送事件 key。当用户点击菜单项时，机器人自定义菜单事件（application.bot.menu_v6）将发送给事件订阅者，你可在事件结构体中找到 event_key 的值。当 menu_content_type = 2时必填。
+
+	IconFileKey *string `json:"icon_file_key,omitempty"` // 用于自定义icon,自定义图标的图片 key。获取方式：调用上传图片接口，上传用于发送消息的图片，并在返回值中获取图片的 image_key。
+
+	UdIcon *BotMenuUdIcon `json:"ud_icon,omitempty"` // 图标库中的图标。
+
+	MenuContentType *int `json:"menu_content_type,omitempty"` // 菜单响应动作类型.0:未知，1：跳转链接，2：事件通知，3展开子菜单，4：发消息
+}
+
+type BotMenuNodeBuilder struct {
+	menuId    string // 节点唯一标识，同一次请求内唯一
+	menuIdSet bool
+
+	parentMenuId    string // 父节点 menu_id，为空表示一级菜单
+	parentMenuIdSet bool
+
+	sort    int // 同层级内排序，数值越小越靠前
+	sortSet bool
+
+	defaultName    string // 默认名称
+	defaultNameSet bool
+
+	i18nName    map[string]string // 国际化名称配置。了解支持语种，参考配置卡片多语言。
+	i18nNameSet bool
+
+	redirectLink    *BotMenuRedirectLink // 在客户端内打开链接。当 menu_content_type = 1 时必填。
+	redirectLinkSet bool
+
+	eventKey    string // 向注册的事件回调地址发送事件 key。当用户点击菜单项时，机器人自定义菜单事件（application.bot.menu_v6）将发送给事件订阅者，你可在事件结构体中找到 event_key 的值。当 menu_content_type = 2时必填。
+	eventKeySet bool
+
+	iconFileKey    string // 用于自定义icon,自定义图标的图片 key。获取方式：调用上传图片接口，上传用于发送消息的图片，并在返回值中获取图片的 image_key。
+	iconFileKeySet bool
+
+	udIcon    *BotMenuUdIcon // 图标库中的图标。
+	udIconSet bool
+
+	menuContentType    int // 菜单响应动作类型.0:未知，1：跳转链接，2：事件通知，3展开子菜单，4：发消息
+	menuContentTypeSet bool
+}
+
+func NewBotMenuNodeBuilder() *BotMenuNodeBuilder {
+	builder := &BotMenuNodeBuilder{}
+	return builder
+}
+
+// 节点唯一标识，同一次请求内唯一
+//
+// 示例值：menu_1
+func (builder *BotMenuNodeBuilder) MenuId(menuId string) *BotMenuNodeBuilder {
+	builder.menuId = menuId
+	builder.menuIdSet = true
+	return builder
+}
+
+// 父节点 menu_id，为空表示一级菜单
+//
+// 示例值：menu_parent
+func (builder *BotMenuNodeBuilder) ParentMenuId(parentMenuId string) *BotMenuNodeBuilder {
+	builder.parentMenuId = parentMenuId
+	builder.parentMenuIdSet = true
+	return builder
+}
+
+// 同层级内排序，数值越小越靠前
+//
+// 示例值：1
+func (builder *BotMenuNodeBuilder) Sort(sort int) *BotMenuNodeBuilder {
+	builder.sort = sort
+	builder.sortSet = true
+	return builder
+}
+
+// 默认名称
+//
+// 示例值：菜单名称
+func (builder *BotMenuNodeBuilder) DefaultName(defaultName string) *BotMenuNodeBuilder {
+	builder.defaultName = defaultName
+	builder.defaultNameSet = true
+	return builder
+}
+
+// 国际化名称配置。了解支持语种，参考配置卡片多语言。
+//
+// 示例值：
+func (builder *BotMenuNodeBuilder) I18nName(i18nName map[string]string) *BotMenuNodeBuilder {
+	builder.i18nName = i18nName
+	builder.i18nNameSet = true
+	return builder
+}
+
+// 在客户端内打开链接。当 menu_content_type = 1 时必填。
+//
+// 示例值：
+func (builder *BotMenuNodeBuilder) RedirectLink(redirectLink *BotMenuRedirectLink) *BotMenuNodeBuilder {
+	builder.redirectLink = redirectLink
+	builder.redirectLinkSet = true
+	return builder
+}
+
+// 向注册的事件回调地址发送事件 key。当用户点击菜单项时，机器人自定义菜单事件（application.bot.menu_v6）将发送给事件订阅者，你可在事件结构体中找到 event_key 的值。当 menu_content_type = 2时必填。
+//
+// 示例值：event_key
+func (builder *BotMenuNodeBuilder) EventKey(eventKey string) *BotMenuNodeBuilder {
+	builder.eventKey = eventKey
+	builder.eventKeySet = true
+	return builder
+}
+
+// 用于自定义icon,自定义图标的图片 key。获取方式：调用上传图片接口，上传用于发送消息的图片，并在返回值中获取图片的 image_key。
+//
+// 示例值：file_key
+func (builder *BotMenuNodeBuilder) IconFileKey(iconFileKey string) *BotMenuNodeBuilder {
+	builder.iconFileKey = iconFileKey
+	builder.iconFileKeySet = true
+	return builder
+}
+
+// 图标库中的图标。
+//
+// 示例值：
+func (builder *BotMenuNodeBuilder) UdIcon(udIcon *BotMenuUdIcon) *BotMenuNodeBuilder {
+	builder.udIcon = udIcon
+	builder.udIconSet = true
+	return builder
+}
+
+// 菜单响应动作类型.0:未知，1：跳转链接，2：事件通知，3展开子菜单，4：发消息
+//
+// 示例值：1
+func (builder *BotMenuNodeBuilder) MenuContentType(menuContentType int) *BotMenuNodeBuilder {
+	builder.menuContentType = menuContentType
+	builder.menuContentTypeSet = true
+	return builder
+}
+
+func (builder *BotMenuNodeBuilder) Build() *BotMenuNode {
+	req := &BotMenuNode{}
+	if builder.menuIdSet {
+		req.MenuId = &builder.menuId
+
+	}
+	if builder.parentMenuIdSet {
+		req.ParentMenuId = &builder.parentMenuId
+
+	}
+	if builder.sortSet {
+		req.Sort = &builder.sort
+
+	}
+	if builder.defaultNameSet {
+		req.DefaultName = &builder.defaultName
+
+	}
+	if builder.i18nNameSet {
+		req.I18nName = builder.i18nName
+	}
+	if builder.redirectLinkSet {
+		req.RedirectLink = builder.redirectLink
+	}
+	if builder.eventKeySet {
+		req.EventKey = &builder.eventKey
+
+	}
+	if builder.iconFileKeySet {
+		req.IconFileKey = &builder.iconFileKey
+
+	}
+	if builder.udIconSet {
+		req.UdIcon = builder.udIcon
+	}
+	if builder.menuContentTypeSet {
+		req.MenuContentType = &builder.menuContentType
+
+	}
+	return req
+}
+
+type BotMenuRedirectLink struct {
+	PcUrl *string `json:"pc_url,omitempty"` // pc端链接
+
+	MobileUrl *string `json:"mobile_url,omitempty"` // 移动端链接
+}
+
+type BotMenuRedirectLinkBuilder struct {
+	pcUrl    string // pc端链接
+	pcUrlSet bool
+
+	mobileUrl    string // 移动端链接
+	mobileUrlSet bool
+}
+
+func NewBotMenuRedirectLinkBuilder() *BotMenuRedirectLinkBuilder {
+	builder := &BotMenuRedirectLinkBuilder{}
+	return builder
+}
+
+// pc端链接
+//
+// 示例值：http://xxx
+func (builder *BotMenuRedirectLinkBuilder) PcUrl(pcUrl string) *BotMenuRedirectLinkBuilder {
+	builder.pcUrl = pcUrl
+	builder.pcUrlSet = true
+	return builder
+}
+
+// 移动端链接
+//
+// 示例值：xxx
+func (builder *BotMenuRedirectLinkBuilder) MobileUrl(mobileUrl string) *BotMenuRedirectLinkBuilder {
+	builder.mobileUrl = mobileUrl
+	builder.mobileUrlSet = true
+	return builder
+}
+
+func (builder *BotMenuRedirectLinkBuilder) Build() *BotMenuRedirectLink {
+	req := &BotMenuRedirectLink{}
+	if builder.pcUrlSet {
+		req.PcUrl = &builder.pcUrl
+
+	}
+	if builder.mobileUrlSet {
+		req.MobileUrl = &builder.mobileUrl
+
+	}
+	return req
+}
+
+type BotMenuUdIcon struct {
+	Token *string `json:"token,omitempty"` // 图标库中图标的 token。枚举值参见图标库。
+
+	Color *string `json:"color,omitempty"` // 图标的颜色。枚举值参见颜色枚举值。
+}
+
+type BotMenuUdIconBuilder struct {
+	token    string // 图标库中图标的 token。枚举值参见图标库。
+	tokenSet bool
+
+	color    string // 图标的颜色。枚举值参见颜色枚举值。
+	colorSet bool
+}
+
+func NewBotMenuUdIconBuilder() *BotMenuUdIconBuilder {
+	builder := &BotMenuUdIconBuilder{}
+	return builder
+}
+
+// 图标库中图标的 token。枚举值参见图标库。
+//
+// 示例值：xxx
+func (builder *BotMenuUdIconBuilder) Token(token string) *BotMenuUdIconBuilder {
+	builder.token = token
+	builder.tokenSet = true
+	return builder
+}
+
+// 图标的颜色。枚举值参见颜色枚举值。
+//
+// 示例值：xxx
+func (builder *BotMenuUdIconBuilder) Color(color string) *BotMenuUdIconBuilder {
+	builder.color = color
+	builder.colorSet = true
+	return builder
+}
+
+func (builder *BotMenuUdIconBuilder) Build() *BotMenuUdIcon {
+	req := &BotMenuUdIcon{}
+	if builder.tokenSet {
+		req.Token = &builder.token
+
+	}
+	if builder.colorSet {
+		req.Color = &builder.color
+
+	}
+	return req
+}
+
 type Callback struct {
 	CallbackType *string `json:"callback_type,omitempty"` // 回调类型
 
@@ -2231,8 +2933,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -2240,8 +2940,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -2283,7 +2981,7 @@ func NewEventAndCallbackEncryptStrategyBuilder() *EventAndCallbackEncryptStrateg
 
 // 加密key, 配置 Encrypt Key 后，开放平台将向请求地址推送加密后的事件
 //
-// 示例值：xE4k2SkQgtbC8jZEviGRshiZrdPqdkRI
+// 示例值：xE4k2SkQgtbC8jZEviGRxxxxxxxx
 func (builder *EventAndCallbackEncryptStrategyBuilder) EncryptionKey(encryptionKey string) *EventAndCallbackEncryptStrategyBuilder {
 	builder.encryptionKey = encryptionKey
 	builder.encryptionKeySet = true
@@ -2292,7 +2990,7 @@ func (builder *EventAndCallbackEncryptStrategyBuilder) EncryptionKey(encryptionK
 
 // 开放平台向应用推送的事件中都带有此 Token，应用可以据此 Token 验证推送的事件是否属于该应用。
 //
-// 示例值：lVEjWtBAu6kVIgSLMV3C4f5W2sAAwvqS
+// 示例值：lVEjWtBAu6kVIgSLMV3C4fxxxx
 func (builder *EventAndCallbackEncryptStrategyBuilder) VerificationToken(verificationToken string) *EventAndCallbackEncryptStrategyBuilder {
 	builder.verificationToken = verificationToken
 	builder.verificationTokenSet = true
@@ -2380,7 +3078,7 @@ func (builder *SubscribedEventBuilder) Build() *SubscribedEvent {
 }
 
 type CreateAppAvatarUploadReqBodyBuilder struct {
-	avatar    io.Reader // 图片
+	avatar    io.Reader // 图片，JPEG/PNG/SVG/BMP 格式，2 MB 以内，大于 240*240 px，无圆角
 	avatarSet bool
 }
 
@@ -2389,9 +3087,9 @@ func NewCreateAppAvatarUploadReqBodyBuilder() *CreateAppAvatarUploadReqBodyBuild
 	return builder
 }
 
-// 图片
+// 图片，JPEG/PNG/SVG/BMP 格式，2 MB 以内，大于 240*240 px，无圆角
 //
-//示例值：
+// 示例值：
 func (builder *CreateAppAvatarUploadReqBodyBuilder) Avatar(avatar io.Reader) *CreateAppAvatarUploadReqBodyBuilder {
 	builder.avatar = avatar
 	builder.avatarSet = true
@@ -2407,7 +3105,7 @@ func (builder *CreateAppAvatarUploadReqBodyBuilder) Build() *CreateAppAvatarUplo
 }
 
 type CreateAppAvatarUploadPathReqBodyBuilder struct {
-	avatarPath     string // 图片
+	avatarPath     string // 图片，JPEG/PNG/SVG/BMP 格式，2 MB 以内，大于 240*240 px，无圆角
 	avatarPathFlag bool
 }
 
@@ -2416,7 +3114,7 @@ func NewCreateAppAvatarUploadPathReqBodyBuilder() *CreateAppAvatarUploadPathReqB
 	return builder
 }
 
-// 图片
+// 图片，JPEG/PNG/SVG/BMP 格式，2 MB 以内，大于 240*240 px，无圆角
 //
 // 示例值：
 func (builder *CreateAppAvatarUploadPathReqBodyBuilder) AvatarPath(avatarPath string) *CreateAppAvatarUploadPathReqBodyBuilder {
@@ -2451,7 +3149,7 @@ func NewCreateAppAvatarUploadReqBuilder() *CreateAppAvatarUploadReqBuilder {
 	return builder
 }
 
-//
+// 上传应用图标
 func (builder *CreateAppAvatarUploadReqBuilder) Body(body *CreateAppAvatarUploadReqBody) *CreateAppAvatarUploadReqBuilder {
 	builder.body = body
 	return builder
@@ -2465,7 +3163,7 @@ func (builder *CreateAppAvatarUploadReqBuilder) Build() *CreateAppAvatarUploadRe
 }
 
 type CreateAppAvatarUploadReqBody struct {
-	Avatar io.Reader `json:"avatar,omitempty"` // 图片
+	Avatar io.Reader `json:"avatar,omitempty"` // 图片，JPEG/PNG/SVG/BMP 格式，2 MB 以内，大于 240*240 px，无圆角
 }
 
 type CreateAppAvatarUploadReq struct {
@@ -2488,10 +3186,10 @@ func (resp *CreateAppAvatarUploadResp) Success() bool {
 }
 
 type PatchApplicationAbilityReqBodyBuilder struct {
-	webApp    *AppAbilityWeb // 网页应用
+	webApp    *AppAbilityWeb //
 	webAppSet bool
 
-	bot    *AppAbilityBot // 机器人
+	bot    *AppAbilityBot //
 	botSet bool
 }
 
@@ -2500,18 +3198,14 @@ func NewPatchApplicationAbilityReqBodyBuilder() *PatchApplicationAbilityReqBodyB
 	return builder
 }
 
-// 网页应用
-//
-//示例值：
+// 示例值：
 func (builder *PatchApplicationAbilityReqBodyBuilder) WebApp(webApp *AppAbilityWeb) *PatchApplicationAbilityReqBodyBuilder {
 	builder.webApp = webApp
 	builder.webAppSet = true
 	return builder
 }
 
-// 机器人
-//
-//示例值：
+// 示例值：
 func (builder *PatchApplicationAbilityReqBodyBuilder) Bot(bot *AppAbilityBot) *PatchApplicationAbilityReqBodyBuilder {
 	builder.bot = bot
 	builder.botSet = true
@@ -2541,8 +3235,6 @@ func NewPatchApplicationAbilityPathReqBodyBuilder() *PatchApplicationAbilityPath
 	return builder
 }
 
-// 网页应用
-//
 // 示例值：
 func (builder *PatchApplicationAbilityPathReqBodyBuilder) WebApp(webApp *AppAbilityWeb) *PatchApplicationAbilityPathReqBodyBuilder {
 	builder.webApp = webApp
@@ -2550,8 +3242,6 @@ func (builder *PatchApplicationAbilityPathReqBodyBuilder) WebApp(webApp *AppAbil
 	return builder
 }
 
-// 机器人
-//
 // 示例值：
 func (builder *PatchApplicationAbilityPathReqBodyBuilder) Bot(bot *AppAbilityBot) *PatchApplicationAbilityPathReqBodyBuilder {
 	builder.bot = bot
@@ -2584,15 +3274,15 @@ func NewPatchApplicationAbilityReqBuilder() *PatchApplicationAbilityReqBuilder {
 	return builder
 }
 
-// 应用ID
+// 应用的app_id [如何获取应用的 App ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)
 //
-// 示例值：cli_a42d0b833ab8d01b
+// 示例值：cli_***
 func (builder *PatchApplicationAbilityReqBuilder) AppId(appId string) *PatchApplicationAbilityReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 
-//
+// 通过该接口可更新自建应用的应用能力（机器人、网页应用等）相关配置，不传入的参数则保持不变，仅针对传入的参数则进行更新。如果应用正在审核中，则无法更新配置
 func (builder *PatchApplicationAbilityReqBuilder) Body(body *PatchApplicationAbilityReqBody) *PatchApplicationAbilityReqBuilder {
 	builder.body = body
 	return builder
@@ -2607,9 +3297,9 @@ func (builder *PatchApplicationAbilityReqBuilder) Build() *PatchApplicationAbili
 }
 
 type PatchApplicationAbilityReqBody struct {
-	WebApp *AppAbilityWeb `json:"web_app,omitempty"` // 网页应用
+	WebApp *AppAbilityWeb `json:"web_app,omitempty"` //
 
-	Bot *AppAbilityBot `json:"bot,omitempty"` // 机器人
+	Bot *AppAbilityBot `json:"bot,omitempty"` //
 }
 
 type PatchApplicationAbilityReq struct {
@@ -2644,7 +3334,7 @@ func NewPatchApplicationBaseReqBodyBuilder() *PatchApplicationBaseReqBodyBuilder
 
 // 应用名称描述多语种
 //
-//示例值：
+// 示例值：
 func (builder *PatchApplicationBaseReqBodyBuilder) I18ns(i18ns []*AppI18nInfo) *PatchApplicationBaseReqBodyBuilder {
 	builder.i18ns = i18ns
 	builder.i18nsSet = true
@@ -2653,7 +3343,7 @@ func (builder *PatchApplicationBaseReqBodyBuilder) I18ns(i18ns []*AppI18nInfo) *
 
 // 应用icon图片链接
 //
-//示例值：https://s3-imfile.feishucdn.com/static-resource/v1/v2_953a8fc1-50bd-4b2e-87e2-b09e47dba23g
+// 示例值：https://s3-imfile.feishucdn.com/static-resource/v1/v2_953a8fc1-50bd-4b2e-87e2-b09e47dba23g
 func (builder *PatchApplicationBaseReqBodyBuilder) AvatarUrl(avatarUrl string) *PatchApplicationBaseReqBodyBuilder {
 	builder.avatarUrl = avatarUrl
 	builder.avatarUrlSet = true
@@ -2662,7 +3352,7 @@ func (builder *PatchApplicationBaseReqBodyBuilder) AvatarUrl(avatarUrl string) *
 
 // 应用管理后台url链接
 //
-//示例值：https://open.feishu.cn/
+// 示例值：https://open.feishu.cn/
 func (builder *PatchApplicationBaseReqBodyBuilder) HomepageUrl(homepageUrl string) *PatchApplicationBaseReqBodyBuilder {
 	builder.homepageUrl = homepageUrl
 	builder.homepageUrlSet = true
@@ -2752,15 +3442,15 @@ func NewPatchApplicationBaseReqBuilder() *PatchApplicationBaseReqBuilder {
 	return builder
 }
 
-// 应用ID
+// 应用的app_id [如何获取应用的 App ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)
 //
-// 示例值：cli_a306c5476fb8d00c
+// 示例值：cli_***
 func (builder *PatchApplicationBaseReqBuilder) AppId(appId string) *PatchApplicationBaseReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 
-//
+// 通过该接口可更新自建应用的基础信息（名称、头像等），不传入的参数则保持不变，仅针对传入的参数则进行更新。如果应用正在审核中，则无法更新配置
 func (builder *PatchApplicationBaseReqBuilder) Body(body *PatchApplicationBaseReqBody) *PatchApplicationBaseReqBuilder {
 	builder.body = body
 	return builder
@@ -2797,25 +3487,25 @@ func (resp *PatchApplicationBaseResp) Success() bool {
 }
 
 type PatchApplicationConfigReqBodyBuilder struct {
-	scope    *AppConfigScope // 权限配置
+	scope    *AppConfigScope // 权限配置[API 权限列表](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/scope-list)
 	scopeSet bool
 
-	event    *AppConfigEvent // 事件配置
+	event    *AppConfigEvent //
 	eventSet bool
 
-	security    *AppConfigSecurity // 安全配置
+	security    *AppConfigSecurity //
 	securitySet bool
 
-	visibility    *AppConfigVisibility // 可见性范围配置
+	visibility    *AppConfigVisibility //
 	visibilitySet bool
 
-	contacts    *AppConfigContactsRange // 通讯录权限范围配置
+	contacts    *AppConfigContactsRange //
 	contactsSet bool
 
-	eventAndCallbackEncryptStrategy    *EventAndCallbackEncryptStrategy // 事件与回调加密策略
+	eventAndCallbackEncryptStrategy    *EventAndCallbackEncryptStrategy //
 	eventAndCallbackEncryptStrategySet bool
 
-	callback    *AppConfigCallback // 回调配置
+	callback    *AppConfigCallback //
 	callbackSet bool
 }
 
@@ -2824,63 +3514,51 @@ func NewPatchApplicationConfigReqBodyBuilder() *PatchApplicationConfigReqBodyBui
 	return builder
 }
 
-// 权限配置
+// 权限配置[API 权限列表](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/scope-list)
 //
-//示例值：
+// 示例值：
 func (builder *PatchApplicationConfigReqBodyBuilder) Scope(scope *AppConfigScope) *PatchApplicationConfigReqBodyBuilder {
 	builder.scope = scope
 	builder.scopeSet = true
 	return builder
 }
 
-// 事件配置
-//
-//示例值：
+// 示例值：
 func (builder *PatchApplicationConfigReqBodyBuilder) Event(event *AppConfigEvent) *PatchApplicationConfigReqBodyBuilder {
 	builder.event = event
 	builder.eventSet = true
 	return builder
 }
 
-// 安全配置
-//
-//示例值：
+// 示例值：
 func (builder *PatchApplicationConfigReqBodyBuilder) Security(security *AppConfigSecurity) *PatchApplicationConfigReqBodyBuilder {
 	builder.security = security
 	builder.securitySet = true
 	return builder
 }
 
-// 可见性范围配置
-//
-//示例值：
+// 示例值：
 func (builder *PatchApplicationConfigReqBodyBuilder) Visibility(visibility *AppConfigVisibility) *PatchApplicationConfigReqBodyBuilder {
 	builder.visibility = visibility
 	builder.visibilitySet = true
 	return builder
 }
 
-// 通讯录权限范围配置
-//
-//示例值：
+// 示例值：
 func (builder *PatchApplicationConfigReqBodyBuilder) Contacts(contacts *AppConfigContactsRange) *PatchApplicationConfigReqBodyBuilder {
 	builder.contacts = contacts
 	builder.contactsSet = true
 	return builder
 }
 
-// 事件与回调加密策略
-//
-//示例值：
+// 示例值：
 func (builder *PatchApplicationConfigReqBodyBuilder) EventAndCallbackEncryptStrategy(eventAndCallbackEncryptStrategy *EventAndCallbackEncryptStrategy) *PatchApplicationConfigReqBodyBuilder {
 	builder.eventAndCallbackEncryptStrategy = eventAndCallbackEncryptStrategy
 	builder.eventAndCallbackEncryptStrategySet = true
 	return builder
 }
 
-// 回调配置
-//
-//示例值：
+// 示例值：
 func (builder *PatchApplicationConfigReqBodyBuilder) Callback(callback *AppConfigCallback) *PatchApplicationConfigReqBodyBuilder {
 	builder.callback = callback
 	builder.callbackSet = true
@@ -2935,7 +3613,7 @@ func NewPatchApplicationConfigPathReqBodyBuilder() *PatchApplicationConfigPathRe
 	return builder
 }
 
-// 权限配置
+// 权限配置[API 权限列表](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/scope-list)
 //
 // 示例值：
 func (builder *PatchApplicationConfigPathReqBodyBuilder) Scope(scope *AppConfigScope) *PatchApplicationConfigPathReqBodyBuilder {
@@ -2944,8 +3622,6 @@ func (builder *PatchApplicationConfigPathReqBodyBuilder) Scope(scope *AppConfigS
 	return builder
 }
 
-// 事件配置
-//
 // 示例值：
 func (builder *PatchApplicationConfigPathReqBodyBuilder) Event(event *AppConfigEvent) *PatchApplicationConfigPathReqBodyBuilder {
 	builder.event = event
@@ -2953,8 +3629,6 @@ func (builder *PatchApplicationConfigPathReqBodyBuilder) Event(event *AppConfigE
 	return builder
 }
 
-// 安全配置
-//
 // 示例值：
 func (builder *PatchApplicationConfigPathReqBodyBuilder) Security(security *AppConfigSecurity) *PatchApplicationConfigPathReqBodyBuilder {
 	builder.security = security
@@ -2962,8 +3636,6 @@ func (builder *PatchApplicationConfigPathReqBodyBuilder) Security(security *AppC
 	return builder
 }
 
-// 可见性范围配置
-//
 // 示例值：
 func (builder *PatchApplicationConfigPathReqBodyBuilder) Visibility(visibility *AppConfigVisibility) *PatchApplicationConfigPathReqBodyBuilder {
 	builder.visibility = visibility
@@ -2971,8 +3643,6 @@ func (builder *PatchApplicationConfigPathReqBodyBuilder) Visibility(visibility *
 	return builder
 }
 
-// 通讯录权限范围配置
-//
 // 示例值：
 func (builder *PatchApplicationConfigPathReqBodyBuilder) Contacts(contacts *AppConfigContactsRange) *PatchApplicationConfigPathReqBodyBuilder {
 	builder.contacts = contacts
@@ -2980,8 +3650,6 @@ func (builder *PatchApplicationConfigPathReqBodyBuilder) Contacts(contacts *AppC
 	return builder
 }
 
-// 事件与回调加密策略
-//
 // 示例值：
 func (builder *PatchApplicationConfigPathReqBodyBuilder) EventAndCallbackEncryptStrategy(eventAndCallbackEncryptStrategy *EventAndCallbackEncryptStrategy) *PatchApplicationConfigPathReqBodyBuilder {
 	builder.eventAndCallbackEncryptStrategy = eventAndCallbackEncryptStrategy
@@ -2989,8 +3657,6 @@ func (builder *PatchApplicationConfigPathReqBodyBuilder) EventAndCallbackEncrypt
 	return builder
 }
 
-// 回调配置
-//
 // 示例值：
 func (builder *PatchApplicationConfigPathReqBodyBuilder) Callback(callback *AppConfigCallback) *PatchApplicationConfigPathReqBodyBuilder {
 	builder.callback = callback
@@ -3038,9 +3704,9 @@ func NewPatchApplicationConfigReqBuilder() *PatchApplicationConfigReqBuilder {
 	return builder
 }
 
-// 应用ID
+// 应用的app_id [如何获取应用的 App ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)
 //
-// 示例值：cli_a306c5476fb8d00c
+// 示例值：cli_***
 func (builder *PatchApplicationConfigReqBuilder) AppId(appId string) *PatchApplicationConfigReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
@@ -3062,7 +3728,7 @@ func (builder *PatchApplicationConfigReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
-//
+// 通过该接口可更新自建应用的应用的开发配置（通讯录、安全、可见性等），不传入的参数则保持不变，仅针对传入的参数则进行更新。如果应用正在审核中，则无法更新配置
 func (builder *PatchApplicationConfigReqBuilder) Body(body *PatchApplicationConfigReqBody) *PatchApplicationConfigReqBuilder {
 	builder.body = body
 	return builder
@@ -3078,19 +3744,19 @@ func (builder *PatchApplicationConfigReqBuilder) Build() *PatchApplicationConfig
 }
 
 type PatchApplicationConfigReqBody struct {
-	Scope *AppConfigScope `json:"scope,omitempty"` // 权限配置
+	Scope *AppConfigScope `json:"scope,omitempty"` // 权限配置[API 权限列表](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/scope-list)
 
-	Event *AppConfigEvent `json:"event,omitempty"` // 事件配置
+	Event *AppConfigEvent `json:"event,omitempty"` //
 
-	Security *AppConfigSecurity `json:"security,omitempty"` // 安全配置
+	Security *AppConfigSecurity `json:"security,omitempty"` //
 
-	Visibility *AppConfigVisibility `json:"visibility,omitempty"` // 可见性范围配置
+	Visibility *AppConfigVisibility `json:"visibility,omitempty"` //
 
-	Contacts *AppConfigContactsRange `json:"contacts,omitempty"` // 通讯录权限范围配置
+	Contacts *AppConfigContactsRange `json:"contacts,omitempty"` //
 
-	EventAndCallbackEncryptStrategy *EventAndCallbackEncryptStrategy `json:"event_and_callback_encrypt_strategy,omitempty"` // 事件与回调加密策略
+	EventAndCallbackEncryptStrategy *EventAndCallbackEncryptStrategy `json:"event_and_callback_encrypt_strategy,omitempty"` //
 
-	Callback *AppConfigCallback `json:"callback,omitempty"` // 回调配置
+	Callback *AppConfigCallback `json:"callback,omitempty"` //
 }
 
 type PatchApplicationConfigReq struct {
@@ -3108,16 +3774,16 @@ func (resp *PatchApplicationConfigResp) Success() bool {
 }
 
 type CreateApplicationPublishReqBodyBuilder struct {
-	mobileDefaultAbility    string // 移动端默认能力
+	mobileDefaultAbility    string // 移动端默认能力;;**注意**：如果应用开启了小程序、机器人或者网页应用能力，则该参数必填。
 	mobileDefaultAbilitySet bool
 
-	pcDefaultAbility    string // PC端默认能力
+	pcDefaultAbility    string // PC端默认能力;;**注意**：如果应用开启了小程序、机器人或者网页应用能力，则该参数必填。
 	pcDefaultAbilitySet bool
 
-	remark    string // 申请理由
+	remark    string // 申请理由（500字符以内）
 	remarkSet bool
 
-	changelog    string // 更新描述
+	changelog    string // 更新描述（500字符以内）
 	changelogSet bool
 
 	version    string // 应用版本号
@@ -3129,36 +3795,36 @@ func NewCreateApplicationPublishReqBodyBuilder() *CreateApplicationPublishReqBod
 	return builder
 }
 
-// 移动端默认能力
+// 移动端默认能力;;**注意**：如果应用开启了小程序、机器人或者网页应用能力，则该参数必填。
 //
-//示例值：gadget
+// 示例值：gadget
 func (builder *CreateApplicationPublishReqBodyBuilder) MobileDefaultAbility(mobileDefaultAbility string) *CreateApplicationPublishReqBodyBuilder {
 	builder.mobileDefaultAbility = mobileDefaultAbility
 	builder.mobileDefaultAbilitySet = true
 	return builder
 }
 
-// PC端默认能力
+// PC端默认能力;;**注意**：如果应用开启了小程序、机器人或者网页应用能力，则该参数必填。
 //
-//示例值：gadget
+// 示例值：gadget
 func (builder *CreateApplicationPublishReqBodyBuilder) PcDefaultAbility(pcDefaultAbility string) *CreateApplicationPublishReqBodyBuilder {
 	builder.pcDefaultAbility = pcDefaultAbility
 	builder.pcDefaultAbilitySet = true
 	return builder
 }
 
-// 申请理由
+// 申请理由（500字符以内）
 //
-//示例值：更新了移动端默认应用能力
+// 示例值：更新了移动端默认应用能力
 func (builder *CreateApplicationPublishReqBodyBuilder) Remark(remark string) *CreateApplicationPublishReqBodyBuilder {
 	builder.remark = remark
 	builder.remarkSet = true
 	return builder
 }
 
-// 更新描述
+// 更新描述（500字符以内）
 //
-//示例值：更新了小程序的头像
+// 示例值：更新了小程序的头像
 func (builder *CreateApplicationPublishReqBodyBuilder) Changelog(changelog string) *CreateApplicationPublishReqBodyBuilder {
 	builder.changelog = changelog
 	builder.changelogSet = true
@@ -3167,7 +3833,7 @@ func (builder *CreateApplicationPublishReqBodyBuilder) Changelog(changelog strin
 
 // 应用版本号
 //
-//示例值：1.1.1
+// 示例值：1.1.1
 func (builder *CreateApplicationPublishReqBodyBuilder) Version(version string) *CreateApplicationPublishReqBodyBuilder {
 	builder.version = version
 	builder.versionSet = true
@@ -3212,7 +3878,7 @@ func NewCreateApplicationPublishPathReqBodyBuilder() *CreateApplicationPublishPa
 	return builder
 }
 
-// 移动端默认能力
+// 移动端默认能力;;**注意**：如果应用开启了小程序、机器人或者网页应用能力，则该参数必填。
 //
 // 示例值：gadget
 func (builder *CreateApplicationPublishPathReqBodyBuilder) MobileDefaultAbility(mobileDefaultAbility string) *CreateApplicationPublishPathReqBodyBuilder {
@@ -3221,7 +3887,7 @@ func (builder *CreateApplicationPublishPathReqBodyBuilder) MobileDefaultAbility(
 	return builder
 }
 
-// PC端默认能力
+// PC端默认能力;;**注意**：如果应用开启了小程序、机器人或者网页应用能力，则该参数必填。
 //
 // 示例值：gadget
 func (builder *CreateApplicationPublishPathReqBodyBuilder) PcDefaultAbility(pcDefaultAbility string) *CreateApplicationPublishPathReqBodyBuilder {
@@ -3230,7 +3896,7 @@ func (builder *CreateApplicationPublishPathReqBodyBuilder) PcDefaultAbility(pcDe
 	return builder
 }
 
-// 申请理由
+// 申请理由（500字符以内）
 //
 // 示例值：更新了移动端默认应用能力
 func (builder *CreateApplicationPublishPathReqBodyBuilder) Remark(remark string) *CreateApplicationPublishPathReqBodyBuilder {
@@ -3239,7 +3905,7 @@ func (builder *CreateApplicationPublishPathReqBodyBuilder) Remark(remark string)
 	return builder
 }
 
-// 更新描述
+// 更新描述（500字符以内）
 //
 // 示例值：更新了小程序的头像
 func (builder *CreateApplicationPublishPathReqBodyBuilder) Changelog(changelog string) *CreateApplicationPublishPathReqBodyBuilder {
@@ -3291,15 +3957,15 @@ func NewCreateApplicationPublishReqBuilder() *CreateApplicationPublishReqBuilder
 	return builder
 }
 
-// 应用ID
+// 应用的app_id [如何获取应用的 App ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)
 //
-// 示例值：cli_a508dbf34038d01c
+// 示例值：cli_***
 func (builder *CreateApplicationPublishReqBuilder) AppId(appId string) *CreateApplicationPublishReqBuilder {
 	builder.apiReq.PathParams.Set("app_id", fmt.Sprint(appId))
 	return builder
 }
 
-//
+// 自建应用提交应用发布，如果当前自建应用没有待发布的版本，则会自动创建一个版本，如果有待发布的版本，则直接提交该版本。
 func (builder *CreateApplicationPublishReqBuilder) Body(body *CreateApplicationPublishReqBody) *CreateApplicationPublishReqBuilder {
 	builder.body = body
 	return builder
@@ -3314,13 +3980,13 @@ func (builder *CreateApplicationPublishReqBuilder) Build() *CreateApplicationPub
 }
 
 type CreateApplicationPublishReqBody struct {
-	MobileDefaultAbility *string `json:"mobile_default_ability,omitempty"` // 移动端默认能力
+	MobileDefaultAbility *string `json:"mobile_default_ability,omitempty"` // 移动端默认能力;;**注意**：如果应用开启了小程序、机器人或者网页应用能力，则该参数必填。
 
-	PcDefaultAbility *string `json:"pc_default_ability,omitempty"` // PC端默认能力
+	PcDefaultAbility *string `json:"pc_default_ability,omitempty"` // PC端默认能力;;**注意**：如果应用开启了小程序、机器人或者网页应用能力，则该参数必填。
 
-	Remark *string `json:"remark,omitempty"` // 申请理由
+	Remark *string `json:"remark,omitempty"` // 申请理由（500字符以内）
 
-	Changelog *string `json:"changelog,omitempty"` // 更新描述
+	Changelog *string `json:"changelog,omitempty"` // 更新描述（500字符以内）
 
 	Version *string `json:"version,omitempty"` // 应用版本号
 }
