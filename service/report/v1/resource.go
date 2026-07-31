@@ -9,9 +9,9 @@ import (
 )
 
 type V1 struct {
-	Rule     *rule     // 规则
-	RuleView *ruleView // 规则看板
-	Task     *task     // 任务
+	Rule     *rule     // rule
+	RuleView *ruleView // rule.view
+	Task     *task     // task
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -32,11 +32,11 @@ type task struct {
 	config *larkcore.Config
 }
 
-// Query 规则查询
+// Query 查询规则
 //
-// - 规则查询
+// - 查询规则。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/report/report-v1/rule/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=report&resource=rule&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/reportv1/query_rule.go
 func (r *rule) Query(ctx context.Context, req *QueryRuleReq, options ...larkcore.RequestOptionFunc) (*QueryRuleResp, error) {
@@ -62,7 +62,7 @@ func (r *rule) Query(ctx context.Context, req *QueryRuleReq, options ...larkcore
 //
 // - 移除规则看板
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/report/report-v1/rule-view/remove
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=remove&project=report&resource=rule.view&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/reportv1/remove_ruleView.go
 func (r *ruleView) Remove(ctx context.Context, req *RemoveRuleViewReq, options ...larkcore.RequestOptionFunc) (*RemoveRuleViewResp, error) {
@@ -84,11 +84,13 @@ func (r *ruleView) Remove(ctx context.Context, req *RemoveRuleViewReq, options .
 	return resp, err
 }
 
-// Query 任务查询
+// Query 查询任务
 //
-// - 任务查询
+// - 查询任务。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/report/report-v1/task/query
+// - **注意**：;1. 请求参数 page_token 为必填字段，首次调用接口时必须传空值，表示从头开始遍历。;2. 当使用user access token访问时，表示获取当前用户发起以及收到的汇报，且结果不分页
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=report&resource=task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/reportv1/query_task.go
 func (t *task) Query(ctx context.Context, req *QueryTaskReq, options ...larkcore.RequestOptionFunc) (*QueryTaskResp, error) {

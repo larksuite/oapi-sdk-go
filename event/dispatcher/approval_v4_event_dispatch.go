@@ -17,16 +17,43 @@ import (
 	"context"
 	"github.com/larksuite/oapi-sdk-go/v3/service/approval/v4"
 )
-// 
+
+// -
 //
-// - 
-//
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/custom-approval-event
-func ( dispatcher * EventDispatcher ) OnP2ApprovalUpdatedV4(handler func(ctx context.Context, event *larkapproval.P2ApprovalUpdatedV4) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2ApprovalUpdatedV4(handler func(ctx context.Context, event *larkapproval.P2ApprovalUpdatedV4) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["approval.approval.updated_v4"]
 	if existed {
 		panic("event: multiple handler registrations for " + "approval.approval.updated_v4")
 	}
 	dispatcher.eventType2EventHandler["approval.approval.updated_v4"] = larkapproval.NewP2ApprovalUpdatedV4Handler(handler)
+	return dispatcher
+}
+
+// 审批实例状态变更事件
+//
+// - 审批实例状态发生变更时会触发该事件。状态变更包括：;;- 用户创建审批后，触发该事件并推送 PENDING（审批中）状态。;- 审批实例内，任一审批人拒绝审批任务后，触发该事件并推送 REJECTED（已拒绝）状态。;- 审批实例内，所有审批任务均同意后，触发该事件并推送 APPROVED（已通过）状态。;- 发起人撤回审批后，推送 CANCELED（已撤回）状态。;- 审批定义下存在审批中的审批实例时，若该审批定义被管理员删除，则触发该事件并推送 DELETED（已删除）状态。;- 发起人撤销已通过的审批时，触发该事件并推送 REVERTED（已撤销）状态。;- 审批实例超时未处理被关闭，触发该事件并推送 OVERTIME_CLOSE（超时被关闭）状态。;- 已超时的审批实例被手动恢复，触发该事件并推送 OVERTIME_RECOVER（超时实例被恢复）状态。
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2InstanceStatusChangedV4(handler func(ctx context.Context, event *larkapproval.P2InstanceStatusChangedV4) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["approval.instance.status_changed_v4"]
+	if existed {
+		panic("event: multiple handler registrations for " + "approval.instance.status_changed_v4")
+	}
+	dispatcher.eventType2EventHandler["approval.instance.status_changed_v4"] = larkapproval.NewP2InstanceStatusChangedV4Handler(handler)
+	return dispatcher
+}
+
+// 审批任务状态变更事件
+//
+// - 审批任务状态发生变更时会触发该事件。状态变更包括：;;- 用户创建审批实例后，推送第一个审批节点的审批任务 `PENDING` 状态。;- 如果当前审批节点是会签（AND）节点：; - 任一审批任务被同意，推送该任务的 `APPROVED`（已通过）状态，并推送当前节点剩余任务的 `PENDING` 状态。; - 任一审批任务被拒绝，推送该任务的 `REJECTED`（已拒绝）状态，并推送当前节点剩余任务的 `DONE` 状态。;- 如果当前节点是或签（OR）节点：; - 任一审批任务被同意，推送该任务的 `APPROVED`（已通过）状态，并推送当前节点剩余任务的 `DONE`（已完成）状态、下一个节点所有任务的 `PENDING`（进行中）状态。; - 任一审批任务被拒绝，推送该任务的 `REJECTED`（已拒绝）状态，并推送当前节点剩余任务的 `DONE`（已完成）状态。;- 如果用户对审批任务进行转交，推送该任务的 `TRANSFERRED`（已转交）状态，和被转交人任务的 `PENDING`（进行中）状态。;- 发起人撤回审批后，推送剩余所有任务的 `DONE`（已完成）状态。;- 审批定义被管理员删除后，推送剩余所有任务的 `DONE`（已完成）状态。;- 如果用户对审批任务进行退回，推送该任务的 `ROLLBACK`（已退回）状态，和被退回人任务的 `PENDING`（进行中）状态。;- 如果进行中的审批任务超时未处理被关闭，推送该任务的 `OVERTIME_CLOSE`（超时未处理被关闭）状态。;- 如果超时已关闭的审批任务被手动恢复，推送该任务的 `OVERTIME_RECOVER`（超时已关闭的任务被手动恢复）状态。
+//
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2TaskStatusChangedV4(handler func(ctx context.Context, event *larkapproval.P2TaskStatusChangedV4) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["approval.task.status_changed_v4"]
+	if existed {
+		panic("event: multiple handler registrations for " + "approval.task.status_changed_v4")
+	}
+	dispatcher.eventType2EventHandler["approval.task.status_changed_v4"] = larkapproval.NewP2TaskStatusChangedV4Handler(handler)
 	return dispatcher
 }

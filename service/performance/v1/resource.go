@@ -9,7 +9,7 @@ import (
 )
 
 type V1 struct {
-	ReviewData *reviewData // 绩效
+	ReviewData *reviewData // review_data
 	Semester   *semester   // semester
 	StageTask  *stageTask  // stage_task
 }
@@ -34,9 +34,9 @@ type stageTask struct {
 
 // Query 获取绩效结果
 //
-// - 获取绩效结果
+// - 获取被评估人在指定周期、指定项目中各个环节的评估结果信息，包含绩效所在的周期、项目、评估项、评估模版以及各环节评估数据等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/review_data/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=performance&resource=review_data&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/performancev1/query_reviewData.go
 func (r *reviewData) Query(ctx context.Context, req *QueryReviewDataReq, options ...larkcore.RequestOptionFunc) (*QueryReviewDataResp, error) {
@@ -58,9 +58,9 @@ func (r *reviewData) Query(ctx context.Context, req *QueryReviewDataReq, options
 	return resp, err
 }
 
-// List
+// List 获取周期列表
 //
-// -
+// - 批量获取周期的基本信息，如周期的名称、类型等信息。支持根据时间段、周期年份、周期类型等过滤条件进行筛选。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=performance&resource=semester&version=v1
 //
@@ -84,9 +84,9 @@ func (s *semester) List(ctx context.Context, req *ListSemesterReq, options ...la
 	return resp, err
 }
 
-// FindByPage
+// FindByPage 获取周期任务（全部用户）
 //
-// -
+// - 批量获取周期下所有用户的任务信息。支持传入任务分类、任务截止时间参数删选周期内任务数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=find_by_page&project=performance&resource=stage_task&version=v1
 //
@@ -110,9 +110,9 @@ func (s *stageTask) FindByPage(ctx context.Context, req *FindByPageStageTaskReq,
 	return resp, err
 }
 
-// FindByUserList
+// FindByUserList 获取周期任务（指定用户）
 //
-// -
+// - 根据用户 ID 批量获取指定周期的任务信息。支持传入任务分类、任务截止时间参数删选周期内任务数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=find_by_user_list&project=performance&resource=stage_task&version=v1
 //

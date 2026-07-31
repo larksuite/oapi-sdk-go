@@ -17,12 +17,13 @@ import (
 	"context"
 	"github.com/larksuite/oapi-sdk-go/v3/service/mail/v1"
 )
-// 
+
+// 收信通知
 //
-// - 
+// - ## 前提条件;你需要在应用中配置事件订阅，这样才可以在事件触发时接收到事件数据。了解事件订阅可参见 [事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2UserMailboxEventMessageReceivedV1(handler func(ctx context.Context, event *larkmail.P2UserMailboxEventMessageReceivedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2UserMailboxEventMessageReceivedV1(handler func(ctx context.Context, event *larkmail.P2UserMailboxEventMessageReceivedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["mail.user_mailbox.event.message_received_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "mail.user_mailbox.event.message_received_v1")

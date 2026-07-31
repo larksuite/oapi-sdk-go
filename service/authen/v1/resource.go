@@ -42,9 +42,11 @@ type userInfo struct {
 	config *larkcore.Config
 }
 
-// Create
+// Create 获取 user_access_token（v1 版本）
 //
-// -
+// - :::html;<md-alert type="error">;本接口已成为历史版本，不推荐使用。请使用最新版本：[获取 user_access_token ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/authentication-management/access-token/get-user-access-token);</md-alert>。;:::;;根据[登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN) code 获取 `user_access_token`。
+//
+// - 本接口用于网页应用免登录应用场景，小程序应用获取 user_access_token 的方法，请参考小程序应用提供的 [code2session](https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN) 接口。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=authen&resource=access_token&version=v1
 //
@@ -68,9 +70,9 @@ func (a *accessToken) Create(ctx context.Context, req *CreateAccessTokenReq, opt
 	return resp, err
 }
 
-// Create
+// Create 获取 user_access_token
 //
-// -
+// - :::html;<md-alert type="error">;本接口已成为历史版本，不推荐使用。请使用最新版本：[获取 user_access_token ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/authentication-management/access-token/get-user-access-token);</md-alert>。;:::;;根据[登录预授权码](https://open.feishu.cn/document/common-capabilities/sso/api/obtain-oauth-code) 返回 code 获取 `user_access_token`。;;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=authen&resource=oidc.access_token&version=v1
 //
@@ -94,9 +96,9 @@ func (o *oidcAccessToken) Create(ctx context.Context, req *CreateOidcAccessToken
 	return resp, err
 }
 
-// Create
+// Create 刷新 user_access_token
 //
-// -
+// - :::html;<md-alert type="error">;本接口已成为历史版本，不推荐使用。请使用最新版本：[刷新 user_access_token ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/authentication-management/access-token/refresh-user-access-token);</md-alert>。;:::;;user_access_token 的最大有效期是 2小时左右。当 user_access_token 过期时，可以调用本接口获取新的 user_access_token。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=authen&resource=oidc.refresh_access_token&version=v1
 //
@@ -120,9 +122,11 @@ func (o *oidcRefreshAccessToken) Create(ctx context.Context, req *CreateOidcRefr
 	return resp, err
 }
 
-// Create
+// Create 刷新 user_access_token（v1 版本）
 //
-// -
+// - :::html;<md-alert type="error">;本接口已成为历史版本，不推荐使用。请使用最新版本：[刷新 user_access_token](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/authentication-management/access-token/refresh-user-access-token);</md-alert>。;:::;;user_access_token 的最大有效期是 2小时左右。当 user_access_token 过期时，可以调用本接口获取新的 user_access_token。
+//
+// - 刷新后请更新本地user_access_token和refresh_token，不要继续使用旧值重复刷新。保证参数是最新值
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=authen&resource=refresh_access_token&version=v1
 //
@@ -146,9 +150,11 @@ func (r *refreshAccessToken) Create(ctx context.Context, req *CreateRefreshAcces
 	return resp, err
 }
 
-// Get
+// Get 获取用户信息
 //
-// -
+// - 通过 `user_access_token` 获取相关用户信息。
+//
+// - 手机号和邮箱信息为管理员导入的用户联系方式，未经过用户本人实时验证，不建议开发者直接将其作为业务系统的登录凭证。如使用，务必自行认证。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=authen&resource=user_info&version=v1
 //

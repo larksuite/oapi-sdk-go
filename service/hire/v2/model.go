@@ -42,16 +42,16 @@ const (
 )
 
 type Ability struct {
-	Name *I18n `json:"name,omitempty"` // 能力项名称
+	Name *I18n `json:"name,omitempty"` // 最高职级建议
 
-	Description *I18n `json:"description,omitempty"` // 能力项描述
+	Description *I18n `json:"description,omitempty"` // 最高职级建议
 }
 
 type AbilityBuilder struct {
-	name    *I18n // 能力项名称
+	name    *I18n // 最高职级建议
 	nameSet bool
 
-	description    *I18n // 能力项描述
+	description    *I18n // 最高职级建议
 	descriptionSet bool
 }
 
@@ -60,7 +60,7 @@ func NewAbilityBuilder() *AbilityBuilder {
 	return builder
 }
 
-// 能力项名称
+// 最高职级建议
 //
 // 示例值：
 func (builder *AbilityBuilder) Name(name *I18n) *AbilityBuilder {
@@ -69,7 +69,7 @@ func (builder *AbilityBuilder) Name(name *I18n) *AbilityBuilder {
 	return builder
 }
 
-// 能力项描述
+// 最高职级建议
 //
 // 示例值：
 func (builder *AbilityBuilder) Description(description *I18n) *AbilityBuilder {
@@ -166,7 +166,7 @@ type Attachment struct {
 
 	FileSize *int64 `json:"file_size,omitempty"` // 附件大小
 
-	CreateTime *string `json:"create_time,omitempty"` // 附件创建时间(ms)
+	CreateTime *string `json:"create_time,omitempty"` // 附件创建时间，毫秒时间戳
 }
 
 type AttachmentBuilder struct {
@@ -182,7 +182,7 @@ type AttachmentBuilder struct {
 	fileSize    int64 // 附件大小
 	fileSizeSet bool
 
-	createTime    string // 附件创建时间(ms)
+	createTime    string // 附件创建时间，毫秒时间戳
 	createTimeSet bool
 }
 
@@ -227,7 +227,7 @@ func (builder *AttachmentBuilder) FileSize(fileSize int64) *AttachmentBuilder {
 	return builder
 }
 
-// 附件创建时间(ms)
+// 附件创建时间，毫秒时间戳
 //
 // 示例值：1710399930151
 func (builder *AttachmentBuilder) CreateTime(createTime string) *AttachmentBuilder {
@@ -286,7 +286,7 @@ type CompositeTalent struct {
 
 	CustomizedDataList []*CompositeTalentCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 
-	ResumeAttachmentIdList []string `json:"resume_attachment_id_list,omitempty"` // 简历附件id列表（按照简历创建时间降序）
+	ResumeAttachmentIdList []string `json:"resume_attachment_id_list,omitempty"` // 简历附件id列表（按照简历创建时间降序）（废弃，请使用resume_attachment_list代替）
 
 	ResumeAttachmentList []*TalentResumeAttachment `json:"resume_attachment_list,omitempty"` // 简历附件列表（按照简历创建时间降序）
 
@@ -308,7 +308,7 @@ type CompositeTalent struct {
 
 	SimilarInfoV2 *TalentSimilar `json:"similar_info_v2,omitempty"` // 相似人才信息
 
-	BlockInfo *TalentBlock `json:"block_info,omitempty"` // 人才黑名单详情
+	BlockInfo *TalentBlock `json:"block_info,omitempty"` // 人才屏蔽名单信息
 
 	TalentPoolRefListV2 []*TalentPool `json:"talent_pool_ref_list_v2,omitempty"` // 人才已经加入的人才库列表
 
@@ -352,7 +352,7 @@ type CompositeTalentBuilder struct {
 	customizedDataList    []*CompositeTalentCustomizedData // 自定义字段
 	customizedDataListSet bool
 
-	resumeAttachmentIdList    []string // 简历附件id列表（按照简历创建时间降序）
+	resumeAttachmentIdList    []string // 简历附件id列表（按照简历创建时间降序）（废弃，请使用resume_attachment_list代替）
 	resumeAttachmentIdListSet bool
 
 	resumeAttachmentList    []*TalentResumeAttachment // 简历附件列表（按照简历创建时间降序）
@@ -385,7 +385,7 @@ type CompositeTalentBuilder struct {
 	similarInfoV2    *TalentSimilar // 相似人才信息
 	similarInfoV2Set bool
 
-	blockInfo    *TalentBlock // 人才黑名单详情
+	blockInfo    *TalentBlock // 人才屏蔽名单信息
 	blockInfoSet bool
 
 	talentPoolRefListV2    []*TalentPool // 人才已经加入的人才库列表
@@ -508,7 +508,7 @@ func (builder *CompositeTalentBuilder) CustomizedDataList(customizedDataList []*
 	return builder
 }
 
-// 简历附件id列表（按照简历创建时间降序）
+// 简历附件id列表（按照简历创建时间降序）（废弃，请使用resume_attachment_list代替）
 //
 // 示例值：
 func (builder *CompositeTalentBuilder) ResumeAttachmentIdList(resumeAttachmentIdList []string) *CompositeTalentBuilder {
@@ -607,7 +607,7 @@ func (builder *CompositeTalentBuilder) SimilarInfoV2(similarInfoV2 *TalentSimila
 	return builder
 }
 
-// 人才黑名单详情
+// 人才屏蔽名单信息
 //
 // 示例值：
 func (builder *CompositeTalentBuilder) BlockInfo(blockInfo *TalentBlock) *CompositeTalentBuilder {
@@ -994,7 +994,7 @@ func (builder *CompositeTalentBasicInfoBuilder) Gender(gender int) *CompositeTal
 
 // 所在地点
 //
-// 示例值：CN_2
+// 示例值：CN_1
 func (builder *CompositeTalentBasicInfoBuilder) CurrentLocationCode(currentLocationCode string) *CompositeTalentBasicInfoBuilder {
 	builder.currentLocationCode = currentLocationCode
 	builder.currentLocationCodeSet = true
@@ -1003,7 +1003,7 @@ func (builder *CompositeTalentBasicInfoBuilder) CurrentLocationCode(currentLocat
 
 // 家乡
 //
-// 示例值：CN_3
+// 示例值：CN_1
 func (builder *CompositeTalentBasicInfoBuilder) HometownLocationCode(hometownLocationCode string) *CompositeTalentBasicInfoBuilder {
 	builder.hometownLocationCode = hometownLocationCode
 	builder.hometownLocationCodeSet = true
@@ -1021,7 +1021,7 @@ func (builder *CompositeTalentBasicInfoBuilder) PreferredLocationCodeList(prefer
 
 // 家庭住址
 //
-// 示例值：北京市朝阳区
+// 示例值：测试地址
 func (builder *CompositeTalentBasicInfoBuilder) HomeAddress(homeAddress string) *CompositeTalentBasicInfoBuilder {
 	builder.homeAddress = homeAddress
 	builder.homeAddressSet = true
@@ -1237,7 +1237,7 @@ func NewCompositeTalentCareerInfoBuilder() *CompositeTalentCareerInfoBuilder {
 
 // 公司
 //
-// 示例值：xx网络科技有限公司
+// 示例值：明日科技
 func (builder *CompositeTalentCareerInfoBuilder) CompanyName(companyName string) *CompositeTalentCareerInfoBuilder {
 	builder.companyName = companyName
 	builder.companyNameSet = true
@@ -1246,7 +1246,7 @@ func (builder *CompositeTalentCareerInfoBuilder) CompanyName(companyName string)
 
 // 描述
 //
-// 示例值：主营短视频
+// 示例值：科技公司
 func (builder *CompositeTalentCareerInfoBuilder) Description(description string) *CompositeTalentCareerInfoBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -1273,7 +1273,7 @@ func (builder *CompositeTalentCareerInfoBuilder) StartTime(startTime string) *Co
 
 // 职称
 //
-// 示例值：高级工程师
+// 示例值：科学家
 func (builder *CompositeTalentCareerInfoBuilder) Title(title string) *CompositeTalentCareerInfoBuilder {
 	builder.title = title
 	builder.titleSet = true
@@ -1320,7 +1320,7 @@ func (builder *CompositeTalentCareerInfoBuilder) Build() *CompositeTalentCareerI
 type CompositeTalentCustomizedData struct {
 	ModuleId *string `json:"module_id,omitempty"` // 模块 ID
 
-	Name *I18n `json:"name,omitempty"` // 模块名称
+	Name *I18n `json:"name,omitempty"` // 最高职级建议
 
 	ObjectType *int `json:"object_type,omitempty"` // 类型
 
@@ -1331,7 +1331,7 @@ type CompositeTalentCustomizedDataBuilder struct {
 	moduleId    string // 模块 ID
 	moduleIdSet bool
 
-	name    *I18n // 模块名称
+	name    *I18n // 最高职级建议
 	nameSet bool
 
 	objectType    int // 类型
@@ -1355,7 +1355,7 @@ func (builder *CompositeTalentCustomizedDataBuilder) ModuleId(moduleId string) *
 	return builder
 }
 
-// 模块名称
+// 最高职级建议
 //
 // 示例值：
 func (builder *CompositeTalentCustomizedDataBuilder) Name(name *I18n) *CompositeTalentCustomizedDataBuilder {
@@ -1616,7 +1616,7 @@ func NewCompositeTalentInternshipInfoBuilder() *CompositeTalentInternshipInfoBui
 
 // 公司
 //
-// 示例值：xx网络科技有限公司
+// 示例值：明日科技公司
 func (builder *CompositeTalentInternshipInfoBuilder) CompanyName(companyName string) *CompositeTalentInternshipInfoBuilder {
 	builder.companyName = companyName
 	builder.companyNameSet = true
@@ -1625,7 +1625,7 @@ func (builder *CompositeTalentInternshipInfoBuilder) CompanyName(companyName str
 
 // 描述
 //
-// 示例值：作为测试实习生参与公司xx项目的测试工作
+// 示例值：该公司为中国 500 强公司
 func (builder *CompositeTalentInternshipInfoBuilder) Description(description string) *CompositeTalentInternshipInfoBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -1652,7 +1652,7 @@ func (builder *CompositeTalentInternshipInfoBuilder) StartTime(startTime string)
 
 // 职称
 //
-// 示例值：测试工程师
+// 示例值：财务
 func (builder *CompositeTalentInternshipInfoBuilder) Title(title string) *CompositeTalentInternshipInfoBuilder {
 	builder.title = title
 	builder.titleSet = true
@@ -1827,7 +1827,7 @@ func (builder *CompositeTalentProjectInfoBuilder) Role(role string) *CompositeTa
 
 // 项目链接
 //
-// 示例值：项目链接
+// 示例值：
 func (builder *CompositeTalentProjectInfoBuilder) Link(link string) *CompositeTalentProjectInfoBuilder {
 	builder.link = link
 	builder.linkSet = true
@@ -1836,7 +1836,7 @@ func (builder *CompositeTalentProjectInfoBuilder) Link(link string) *CompositeTa
 
 // 描述
 //
-// 示例值：直播项目
+// 示例值：
 func (builder *CompositeTalentProjectInfoBuilder) Description(description string) *CompositeTalentProjectInfoBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -1986,7 +1986,7 @@ func (builder *CompositeTalentSnsInfoBuilder) SnsType(snsType int) *CompositeTal
 
 // SNS链接
 //
-// 示例值：www.test.com
+// 示例值：
 func (builder *CompositeTalentSnsInfoBuilder) Link(link string) *CompositeTalentSnsInfoBuilder {
 	builder.link = link
 	builder.linkSet = true
@@ -2058,7 +2058,7 @@ func (builder *CompositeTalentWorksInfoBuilder) Id(id string) *CompositeTalentWo
 
 // 链接
 //
-// 示例值：作品链接
+// 示例值：
 func (builder *CompositeTalentWorksInfoBuilder) Link(link string) *CompositeTalentWorksInfoBuilder {
 	builder.link = link
 	builder.linkSet = true
@@ -2067,7 +2067,7 @@ func (builder *CompositeTalentWorksInfoBuilder) Link(link string) *CompositeTale
 
 // 描述
 //
-// 示例值：毕设作品
+// 示例值：
 func (builder *CompositeTalentWorksInfoBuilder) Description(description string) *CompositeTalentWorksInfoBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -2122,8 +2122,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -2131,8 +2129,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -2154,58 +2150,58 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 }
 
 type DimensionAssessment struct {
-	InterviewFeedbackFormDimensionId *string `json:"interview_feedback_form_dimension_id,omitempty"` // 对应模版中维度ID
+	InterviewFeedbackFormDimensionId *string `json:"interview_feedback_form_dimension_id,omitempty"` // 维度 ID，详情可查看：[获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules.dimensions` 字段;
 
-	DimensionName *I18n `json:"dimension_name,omitempty"` // 维度名称
+	DimensionName *I18n `json:"dimension_name,omitempty"` // 最高职级建议
 
-	DimensionType *int `json:"dimension_type,omitempty"` // 维度类型
+	DimensionType *int `json:"dimension_type,omitempty"` // 维度评价方式
 
-	Weight *float64 `json:"weight,omitempty"` // 维度权重
+	Weight *float64 `json:"weight,omitempty"` // 维度权重，精确到小数点后两位
 
-	DimensionContent *string `json:"dimension_content,omitempty"` // 当维度类型为描述题时，从此取值
+	DimensionContent *string `json:"dimension_content,omitempty"` // 当维度评价方式为 `描述题` 时，从此取值
 
-	DimensionOption *DimensionOption `json:"dimension_option,omitempty"` // 当维度类型为单选题时，从此取值
+	DimensionOption *DimensionOption `json:"dimension_option,omitempty"` // 当维度评价方式为 `单选题` 时，从此取值
 
-	DimensionOptions []*DimensionOption `json:"dimension_options,omitempty"` // 当维度类型为多选题时，从此取值
+	DimensionOptions []*DimensionOption `json:"dimension_options,omitempty"` // 当维度评价方式为 `多选题` 时，从此取值
 
-	DimensionScore *int64 `json:"dimension_score,omitempty"` // 当维度评价方式为「打分题(填空)时」，从此取值
+	DimensionScore *int64 `json:"dimension_score,omitempty"` // 当维度评价方式为 `打分题(填空)` 时，从此取值
 
-	RecommendedJobLevel *RecommendedJobLevel `json:"recommended_job_level,omitempty"` // 当维度为「职级建议」时，从此取值
+	RecommendedJobLevel *RecommendedJobLevel `json:"recommended_job_level,omitempty"` // 当维度评价方式为 `职级建议` 时，从此取值
 
-	QuestionAssessments []*QuestionAssessment `json:"question_assessments,omitempty"` // 维度关联面试题
+	QuestionAssessments []*QuestionAssessment `json:"question_assessments,omitempty"` // 面试题
 
 	AbilityAssessments []*AbilityAssessment `json:"ability_assessments,omitempty"` // 能力项评价
 }
 
 type DimensionAssessmentBuilder struct {
-	interviewFeedbackFormDimensionId    string // 对应模版中维度ID
+	interviewFeedbackFormDimensionId    string // 维度 ID，详情可查看：[获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules.dimensions` 字段;
 	interviewFeedbackFormDimensionIdSet bool
 
-	dimensionName    *I18n // 维度名称
+	dimensionName    *I18n // 最高职级建议
 	dimensionNameSet bool
 
-	dimensionType    int // 维度类型
+	dimensionType    int // 维度评价方式
 	dimensionTypeSet bool
 
-	weight    float64 // 维度权重
+	weight    float64 // 维度权重，精确到小数点后两位
 	weightSet bool
 
-	dimensionContent    string // 当维度类型为描述题时，从此取值
+	dimensionContent    string // 当维度评价方式为 `描述题` 时，从此取值
 	dimensionContentSet bool
 
-	dimensionOption    *DimensionOption // 当维度类型为单选题时，从此取值
+	dimensionOption    *DimensionOption // 当维度评价方式为 `单选题` 时，从此取值
 	dimensionOptionSet bool
 
-	dimensionOptions    []*DimensionOption // 当维度类型为多选题时，从此取值
+	dimensionOptions    []*DimensionOption // 当维度评价方式为 `多选题` 时，从此取值
 	dimensionOptionsSet bool
 
-	dimensionScore    int64 // 当维度评价方式为「打分题(填空)时」，从此取值
+	dimensionScore    int64 // 当维度评价方式为 `打分题(填空)` 时，从此取值
 	dimensionScoreSet bool
 
-	recommendedJobLevel    *RecommendedJobLevel // 当维度为「职级建议」时，从此取值
+	recommendedJobLevel    *RecommendedJobLevel // 当维度评价方式为 `职级建议` 时，从此取值
 	recommendedJobLevelSet bool
 
-	questionAssessments    []*QuestionAssessment // 维度关联面试题
+	questionAssessments    []*QuestionAssessment // 面试题
 	questionAssessmentsSet bool
 
 	abilityAssessments    []*AbilityAssessment // 能力项评价
@@ -2217,7 +2213,7 @@ func NewDimensionAssessmentBuilder() *DimensionAssessmentBuilder {
 	return builder
 }
 
-// 对应模版中维度ID
+// 维度 ID，详情可查看：[获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules.dimensions` 字段;
 //
 // 示例值：7171693733661327361
 func (builder *DimensionAssessmentBuilder) InterviewFeedbackFormDimensionId(interviewFeedbackFormDimensionId string) *DimensionAssessmentBuilder {
@@ -2226,7 +2222,7 @@ func (builder *DimensionAssessmentBuilder) InterviewFeedbackFormDimensionId(inte
 	return builder
 }
 
-// 维度名称
+// 最高职级建议
 //
 // 示例值：
 func (builder *DimensionAssessmentBuilder) DimensionName(dimensionName *I18n) *DimensionAssessmentBuilder {
@@ -2235,7 +2231,7 @@ func (builder *DimensionAssessmentBuilder) DimensionName(dimensionName *I18n) *D
 	return builder
 }
 
-// 维度类型
+// 维度评价方式
 //
 // 示例值：1
 func (builder *DimensionAssessmentBuilder) DimensionType(dimensionType int) *DimensionAssessmentBuilder {
@@ -2244,16 +2240,16 @@ func (builder *DimensionAssessmentBuilder) DimensionType(dimensionType int) *Dim
 	return builder
 }
 
-// 维度权重
+// 维度权重，精确到小数点后两位
 //
-// 示例值：1
+// 示例值：1.00
 func (builder *DimensionAssessmentBuilder) Weight(weight float64) *DimensionAssessmentBuilder {
 	builder.weight = weight
 	builder.weightSet = true
 	return builder
 }
 
-// 当维度类型为描述题时，从此取值
+// 当维度评价方式为 `描述题` 时，从此取值
 //
 // 示例值：描述题作答
 func (builder *DimensionAssessmentBuilder) DimensionContent(dimensionContent string) *DimensionAssessmentBuilder {
@@ -2262,7 +2258,7 @@ func (builder *DimensionAssessmentBuilder) DimensionContent(dimensionContent str
 	return builder
 }
 
-// 当维度类型为单选题时，从此取值
+// 当维度评价方式为 `单选题` 时，从此取值
 //
 // 示例值：
 func (builder *DimensionAssessmentBuilder) DimensionOption(dimensionOption *DimensionOption) *DimensionAssessmentBuilder {
@@ -2271,7 +2267,7 @@ func (builder *DimensionAssessmentBuilder) DimensionOption(dimensionOption *Dime
 	return builder
 }
 
-// 当维度类型为多选题时，从此取值
+// 当维度评价方式为 `多选题` 时，从此取值
 //
 // 示例值：
 func (builder *DimensionAssessmentBuilder) DimensionOptions(dimensionOptions []*DimensionOption) *DimensionAssessmentBuilder {
@@ -2280,7 +2276,7 @@ func (builder *DimensionAssessmentBuilder) DimensionOptions(dimensionOptions []*
 	return builder
 }
 
-// 当维度评价方式为「打分题(填空)时」，从此取值
+// 当维度评价方式为 `打分题(填空)` 时，从此取值
 //
 // 示例值：10
 func (builder *DimensionAssessmentBuilder) DimensionScore(dimensionScore int64) *DimensionAssessmentBuilder {
@@ -2289,7 +2285,7 @@ func (builder *DimensionAssessmentBuilder) DimensionScore(dimensionScore int64) 
 	return builder
 }
 
-// 当维度为「职级建议」时，从此取值
+// 当维度评价方式为 `职级建议` 时，从此取值
 //
 // 示例值：
 func (builder *DimensionAssessmentBuilder) RecommendedJobLevel(recommendedJobLevel *RecommendedJobLevel) *DimensionAssessmentBuilder {
@@ -2298,7 +2294,7 @@ func (builder *DimensionAssessmentBuilder) RecommendedJobLevel(recommendedJobLev
 	return builder
 }
 
-// 维度关联面试题
+// 面试题
 //
 // 示例值：
 func (builder *DimensionAssessmentBuilder) QuestionAssessments(questionAssessments []*QuestionAssessment) *DimensionAssessmentBuilder {
@@ -2360,26 +2356,26 @@ func (builder *DimensionAssessmentBuilder) Build() *DimensionAssessment {
 }
 
 type DimensionOption struct {
-	Id *string `json:"id,omitempty"` // 选项ID
+	Id *string `json:"id,omitempty"` // 选项 ID，详情可查看：[获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules.dimensions.option_items` 字段
 
-	Name *I18n `json:"name,omitempty"` // 选项名称
+	Name *I18n `json:"name,omitempty"` // 最高职级建议
 
-	ScoreVal *int64 `json:"score_val,omitempty"` // 选项对应的分数
+	ScoreVal *int64 `json:"score_val,omitempty"` // 选项分数;;;**数据范围**：;- `0` ～ `100`
 
-	AliasName *I18n `json:"alias_name,omitempty"` // 选项全称
+	AliasName *I18n `json:"alias_name,omitempty"` // 最高职级建议
 }
 
 type DimensionOptionBuilder struct {
-	id    string // 选项ID
+	id    string // 选项 ID，详情可查看：[获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules.dimensions.option_items` 字段
 	idSet bool
 
-	name    *I18n // 选项名称
+	name    *I18n // 最高职级建议
 	nameSet bool
 
-	scoreVal    int64 // 选项对应的分数
+	scoreVal    int64 // 选项分数;;;**数据范围**：;- `0` ～ `100`
 	scoreValSet bool
 
-	aliasName    *I18n // 选项全称
+	aliasName    *I18n // 最高职级建议
 	aliasNameSet bool
 }
 
@@ -2388,7 +2384,7 @@ func NewDimensionOptionBuilder() *DimensionOptionBuilder {
 	return builder
 }
 
-// 选项ID
+// 选项 ID，详情可查看：[获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules.dimensions.option_items` 字段
 //
 // 示例值：7171693733661327361
 func (builder *DimensionOptionBuilder) Id(id string) *DimensionOptionBuilder {
@@ -2397,7 +2393,7 @@ func (builder *DimensionOptionBuilder) Id(id string) *DimensionOptionBuilder {
 	return builder
 }
 
-// 选项名称
+// 最高职级建议
 //
 // 示例值：7171693733661327361
 func (builder *DimensionOptionBuilder) Name(name *I18n) *DimensionOptionBuilder {
@@ -2406,7 +2402,7 @@ func (builder *DimensionOptionBuilder) Name(name *I18n) *DimensionOptionBuilder 
 	return builder
 }
 
-// 选项对应的分数
+// 选项分数;;;**数据范围**：;- `0` ～ `100`
 //
 // 示例值：10
 func (builder *DimensionOptionBuilder) ScoreVal(scoreVal int64) *DimensionOptionBuilder {
@@ -2415,7 +2411,7 @@ func (builder *DimensionOptionBuilder) ScoreVal(scoreVal int64) *DimensionOption
 	return builder
 }
 
-// 选项全称
+// 最高职级建议
 //
 // 示例值：
 func (builder *DimensionOptionBuilder) AliasName(aliasName *I18n) *DimensionOptionBuilder {
@@ -2444,16 +2440,16 @@ func (builder *DimensionOptionBuilder) Build() *DimensionOption {
 }
 
 type I18n struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文
+	ZhCn *string `json:"zh_cn,omitempty"` // 选项中文名称
 
-	EnUs *string `json:"en_us,omitempty"` // 英文
+	EnUs *string `json:"en_us,omitempty"` // 选项英文名称
 }
 
 type I18nBuilder struct {
-	zhCn    string // 中文
+	zhCn    string // 选项中文名称
 	zhCnSet bool
 
-	enUs    string // 英文
+	enUs    string // 选项英文名称
 	enUsSet bool
 }
 
@@ -2462,18 +2458,18 @@ func NewI18nBuilder() *I18nBuilder {
 	return builder
 }
 
-// 中文
+// 选项中文名称
 //
-// 示例值：测试
+// 示例值：面试记录
 func (builder *I18nBuilder) ZhCn(zhCn string) *I18nBuilder {
 	builder.zhCn = zhCn
 	builder.zhCnSet = true
 	return builder
 }
 
-// 英文
+// 选项英文名称
 //
-// 示例值：test
+// 示例值：Interview Result
 func (builder *I18nBuilder) EnUs(enUs string) *I18nBuilder {
 	builder.enUs = enUs
 	builder.enUsSet = true
@@ -2494,16 +2490,16 @@ func (builder *I18nBuilder) Build() *I18n {
 }
 
 type IdNameObject struct {
-	Id *string `json:"id,omitempty"` // 用户 ID
+	Id *string `json:"id,omitempty"` // 面试官 ID，与入参 `user_id_type` 类型一致
 
-	Name *I18n `json:"name,omitempty"` //  用户姓名
+	Name *I18n `json:"name,omitempty"` // 最高职级建议
 }
 
 type IdNameObjectBuilder struct {
-	id    string // 用户 ID
+	id    string // 面试官 ID，与入参 `user_id_type` 类型一致
 	idSet bool
 
-	name    *I18n //  用户姓名
+	name    *I18n // 最高职级建议
 	nameSet bool
 }
 
@@ -2512,7 +2508,7 @@ func NewIdNameObjectBuilder() *IdNameObjectBuilder {
 	return builder
 }
 
-// 用户 ID
+// 面试官 ID，与入参 `user_id_type` 类型一致
 //
 // 示例值：7171693733661327364
 func (builder *IdNameObjectBuilder) Id(id string) *IdNameObjectBuilder {
@@ -2521,7 +2517,7 @@ func (builder *IdNameObjectBuilder) Id(id string) *IdNameObjectBuilder {
 	return builder
 }
 
-//  用户姓名
+// 最高职级建议
 //
 // 示例值：
 func (builder *IdNameObjectBuilder) Name(name *I18n) *IdNameObjectBuilder {
@@ -2543,13 +2539,13 @@ func (builder *IdNameObjectBuilder) Build() *IdNameObject {
 }
 
 type InterviewRecord struct {
-	Id *string `json:"id,omitempty"` // 面试评价ID
+	Id *string `json:"id,omitempty"` // 面试评价 ID
 
-	FeedbackFormId *string `json:"feedback_form_id,omitempty"` // 面试评价表ID
+	FeedbackFormId *string `json:"feedback_form_id,omitempty"` // 面试评价表 ID，详情可查看：[获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)
 
 	CommitStatus *int `json:"commit_status,omitempty"` // 提交状态
 
-	SubmitTime *string `json:"submit_time,omitempty"` // 面试评价提交时间
+	SubmitTime *string `json:"submit_time,omitempty"` // 面试评价提交时间，毫秒时间戳
 
 	RecordScore *RecordScore `json:"record_score,omitempty"` // 面试评价分数
 
@@ -2561,16 +2557,16 @@ type InterviewRecord struct {
 }
 
 type InterviewRecordBuilder struct {
-	id    string // 面试评价ID
+	id    string // 面试评价 ID
 	idSet bool
 
-	feedbackFormId    string // 面试评价表ID
+	feedbackFormId    string // 面试评价表 ID，详情可查看：[获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)
 	feedbackFormIdSet bool
 
 	commitStatus    int // 提交状态
 	commitStatusSet bool
 
-	submitTime    string // 面试评价提交时间
+	submitTime    string // 面试评价提交时间，毫秒时间戳
 	submitTimeSet bool
 
 	recordScore    *RecordScore // 面试评价分数
@@ -2591,7 +2587,7 @@ func NewInterviewRecordBuilder() *InterviewRecordBuilder {
 	return builder
 }
 
-// 面试评价ID
+// 面试评价 ID
 //
 // 示例值：7171693733661327361
 func (builder *InterviewRecordBuilder) Id(id string) *InterviewRecordBuilder {
@@ -2600,7 +2596,7 @@ func (builder *InterviewRecordBuilder) Id(id string) *InterviewRecordBuilder {
 	return builder
 }
 
-// 面试评价表ID
+// 面试评价表 ID，详情可查看：[获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)
 //
 // 示例值：71716937336613273612
 func (builder *InterviewRecordBuilder) FeedbackFormId(feedbackFormId string) *InterviewRecordBuilder {
@@ -2618,7 +2614,7 @@ func (builder *InterviewRecordBuilder) CommitStatus(commitStatus int) *Interview
 	return builder
 }
 
-// 面试评价提交时间
+// 面试评价提交时间，毫秒时间戳
 //
 // 示例值：1710405457390
 func (builder *InterviewRecordBuilder) SubmitTime(submitTime string) *InterviewRecordBuilder {
@@ -2697,33 +2693,33 @@ func (builder *InterviewRecordBuilder) Build() *InterviewRecord {
 }
 
 type ModuleAssessment struct {
-	InterviewFeedbackFormModuleId *string `json:"interview_feedback_form_module_id,omitempty"` // 对应面试评价表中模块 ID
+	InterviewFeedbackFormModuleId *string `json:"interview_feedback_form_module_id,omitempty"` // 面试评价表模块 ID，详情可查看：[获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules` 字段;
 
-	ModuleName *I18n `json:"module_name,omitempty"` // 模块名称
+	ModuleName *I18n `json:"module_name,omitempty"` // 最高职级建议
 
 	ModuleType *int `json:"module_type,omitempty"` // 模块类型
 
-	ModuleWeight *float64 `json:"module_weight,omitempty"` // 模块权重
+	ModuleWeight *float64 `json:"module_weight,omitempty"` // 模块权重，精确到小数点后两位
 
-	ModuleScore *float64 `json:"module_score,omitempty"` // 模块打分
+	ModuleScore *float64 `json:"module_score,omitempty"` // 模块打分，精确到小数点后两位
 
 	DimensionAssessments []*DimensionAssessment `json:"dimension_assessments,omitempty"` // 模块评价
 }
 
 type ModuleAssessmentBuilder struct {
-	interviewFeedbackFormModuleId    string // 对应面试评价表中模块 ID
+	interviewFeedbackFormModuleId    string // 面试评价表模块 ID，详情可查看：[获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules` 字段;
 	interviewFeedbackFormModuleIdSet bool
 
-	moduleName    *I18n // 模块名称
+	moduleName    *I18n // 最高职级建议
 	moduleNameSet bool
 
 	moduleType    int // 模块类型
 	moduleTypeSet bool
 
-	moduleWeight    float64 // 模块权重
+	moduleWeight    float64 // 模块权重，精确到小数点后两位
 	moduleWeightSet bool
 
-	moduleScore    float64 // 模块打分
+	moduleScore    float64 // 模块打分，精确到小数点后两位
 	moduleScoreSet bool
 
 	dimensionAssessments    []*DimensionAssessment // 模块评价
@@ -2735,7 +2731,7 @@ func NewModuleAssessmentBuilder() *ModuleAssessmentBuilder {
 	return builder
 }
 
-// 对应面试评价表中模块 ID
+// 面试评价表模块 ID，详情可查看：[获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules` 字段;
 //
 // 示例值：7171693733661327361
 func (builder *ModuleAssessmentBuilder) InterviewFeedbackFormModuleId(interviewFeedbackFormModuleId string) *ModuleAssessmentBuilder {
@@ -2744,7 +2740,7 @@ func (builder *ModuleAssessmentBuilder) InterviewFeedbackFormModuleId(interviewF
 	return builder
 }
 
-// 模块名称
+// 最高职级建议
 //
 // 示例值：
 func (builder *ModuleAssessmentBuilder) ModuleName(moduleName *I18n) *ModuleAssessmentBuilder {
@@ -2755,25 +2751,25 @@ func (builder *ModuleAssessmentBuilder) ModuleName(moduleName *I18n) *ModuleAsse
 
 // 模块类型
 //
-// 示例值：
+// 示例值：1
 func (builder *ModuleAssessmentBuilder) ModuleType(moduleType int) *ModuleAssessmentBuilder {
 	builder.moduleType = moduleType
 	builder.moduleTypeSet = true
 	return builder
 }
 
-// 模块权重
+// 模块权重，精确到小数点后两位
 //
-// 示例值：10
+// 示例值：10.00
 func (builder *ModuleAssessmentBuilder) ModuleWeight(moduleWeight float64) *ModuleAssessmentBuilder {
 	builder.moduleWeight = moduleWeight
 	builder.moduleWeightSet = true
 	return builder
 }
 
-// 模块打分
+// 模块打分，精确到小数点后两位
 //
-// 示例值：10
+// 示例值：10.00
 func (builder *ModuleAssessmentBuilder) ModuleScore(moduleScore float64) *ModuleAssessmentBuilder {
 	builder.moduleScore = moduleScore
 	builder.moduleScoreSet = true
@@ -2817,11 +2813,11 @@ func (builder *ModuleAssessmentBuilder) Build() *ModuleAssessment {
 }
 
 type QuestionAssessment struct {
-	QuestionType *int `json:"question_type,omitempty"` // 所关联面试题的类型
+	QuestionType *int `json:"question_type,omitempty"` // 面试题类型
 
-	Title *I18n `json:"title,omitempty"` // 关联面试题的名称
+	Title *I18n `json:"title,omitempty"` // 最高职级建议
 
-	Description *I18n `json:"description,omitempty"` // 关联面试题的描述
+	Description *I18n `json:"description,omitempty"` // 最高职级建议
 
 	Content *string `json:"content,omitempty"` // 面试者作答内容
 
@@ -2829,13 +2825,13 @@ type QuestionAssessment struct {
 }
 
 type QuestionAssessmentBuilder struct {
-	questionType    int // 所关联面试题的类型
+	questionType    int // 面试题类型
 	questionTypeSet bool
 
-	title    *I18n // 关联面试题的名称
+	title    *I18n // 最高职级建议
 	titleSet bool
 
-	description    *I18n // 关联面试题的描述
+	description    *I18n // 最高职级建议
 	descriptionSet bool
 
 	content    string // 面试者作答内容
@@ -2850,7 +2846,7 @@ func NewQuestionAssessmentBuilder() *QuestionAssessmentBuilder {
 	return builder
 }
 
-// 所关联面试题的类型
+// 面试题类型
 //
 // 示例值：1
 func (builder *QuestionAssessmentBuilder) QuestionType(questionType int) *QuestionAssessmentBuilder {
@@ -2859,7 +2855,7 @@ func (builder *QuestionAssessmentBuilder) QuestionType(questionType int) *Questi
 	return builder
 }
 
-// 关联面试题的名称
+// 最高职级建议
 //
 // 示例值：
 func (builder *QuestionAssessmentBuilder) Title(title *I18n) *QuestionAssessmentBuilder {
@@ -2868,7 +2864,7 @@ func (builder *QuestionAssessmentBuilder) Title(title *I18n) *QuestionAssessment
 	return builder
 }
 
-// 关联面试题的描述
+// 最高职级建议
 //
 // 示例值：
 func (builder *QuestionAssessmentBuilder) Description(description *I18n) *QuestionAssessmentBuilder {
@@ -2879,7 +2875,7 @@ func (builder *QuestionAssessmentBuilder) Description(description *I18n) *Questi
 
 // 面试者作答内容
 //
-// 示例值：test
+// 示例值：操作系统的进程调度是通过...
 func (builder *QuestionAssessmentBuilder) Content(content string) *QuestionAssessmentBuilder {
 	builder.content = content
 	builder.contentSet = true
@@ -2918,16 +2914,16 @@ func (builder *QuestionAssessmentBuilder) Build() *QuestionAssessment {
 }
 
 type RecommendedJobLevel struct {
-	LowerLimitJobLevelName *I18n `json:"lower_limit_job_level_name,omitempty"` // 最低职级建议
+	LowerLimitJobLevelName *I18n `json:"lower_limit_job_level_name,omitempty"` // 最高职级建议
 
-	HigherLimitJobLevelName *I18n `json:"higher_limit_job_level_name,omitempty"` // 最低职级建议
+	HigherLimitJobLevelName *I18n `json:"higher_limit_job_level_name,omitempty"` // 最高职级建议
 }
 
 type RecommendedJobLevelBuilder struct {
-	lowerLimitJobLevelName    *I18n // 最低职级建议
+	lowerLimitJobLevelName    *I18n // 最高职级建议
 	lowerLimitJobLevelNameSet bool
 
-	higherLimitJobLevelName    *I18n // 最低职级建议
+	higherLimitJobLevelName    *I18n // 最高职级建议
 	higherLimitJobLevelNameSet bool
 }
 
@@ -2936,7 +2932,7 @@ func NewRecommendedJobLevelBuilder() *RecommendedJobLevelBuilder {
 	return builder
 }
 
-// 最低职级建议
+// 最高职级建议
 //
 // 示例值：
 func (builder *RecommendedJobLevelBuilder) LowerLimitJobLevelName(lowerLimitJobLevelName *I18n) *RecommendedJobLevelBuilder {
@@ -2945,7 +2941,7 @@ func (builder *RecommendedJobLevelBuilder) LowerLimitJobLevelName(lowerLimitJobL
 	return builder
 }
 
-// 最低职级建议
+// 最高职级建议
 //
 // 示例值：
 func (builder *RecommendedJobLevelBuilder) HigherLimitJobLevelName(higherLimitJobLevelName *I18n) *RecommendedJobLevelBuilder {
@@ -2966,16 +2962,16 @@ func (builder *RecommendedJobLevelBuilder) Build() *RecommendedJobLevel {
 }
 
 type RecordScore struct {
-	Score *float64 `json:"score,omitempty"` // 分数，即面试评价得分，精确到小数点后两位
+	Score *float64 `json:"score,omitempty"` // 面试评价得分，精确到小数点后两位
 
-	TotalScore *float64 `json:"total_score,omitempty"` // 满分，即面试评价的总分
+	TotalScore *float64 `json:"total_score,omitempty"` // 面试评价总分，精确到小数点后两位
 }
 
 type RecordScoreBuilder struct {
-	score    float64 // 分数，即面试评价得分，精确到小数点后两位
+	score    float64 // 面试评价得分，精确到小数点后两位
 	scoreSet bool
 
-	totalScore    float64 // 满分，即面试评价的总分
+	totalScore    float64 // 面试评价总分，精确到小数点后两位
 	totalScoreSet bool
 }
 
@@ -2984,18 +2980,18 @@ func NewRecordScoreBuilder() *RecordScoreBuilder {
 	return builder
 }
 
-// 分数，即面试评价得分，精确到小数点后两位
+// 面试评价得分，精确到小数点后两位
 //
-// 示例值：100
+// 示例值：100.00
 func (builder *RecordScoreBuilder) Score(score float64) *RecordScoreBuilder {
 	builder.score = score
 	builder.scoreSet = true
 	return builder
 }
 
-// 满分，即面试评价的总分
+// 面试评价总分，精确到小数点后两位
 //
-// 示例值：100
+// 示例值：100.00
 func (builder *RecordScoreBuilder) TotalScore(totalScore float64) *RecordScoreBuilder {
 	builder.totalScore = totalScore
 	builder.totalScoreSet = true
@@ -3258,7 +3254,7 @@ func (builder *TalentCustomizedAttachmentBuilder) Build() *TalentCustomizedAttac
 type TalentCustomizedDataChild struct {
 	ObjectId *string `json:"object_id,omitempty"` // 自定义字段 ID
 
-	Name *I18n `json:"name,omitempty"` // 字段名称
+	Name *I18n `json:"name,omitempty"` // 最高职级建议
 
 	ObjectType *int `json:"object_type,omitempty"` // 字段类型
 
@@ -3269,7 +3265,7 @@ type TalentCustomizedDataChildBuilder struct {
 	objectId    string // 自定义字段 ID
 	objectIdSet bool
 
-	name    *I18n // 字段名称
+	name    *I18n // 最高职级建议
 	nameSet bool
 
 	objectType    int // 字段类型
@@ -3293,7 +3289,7 @@ func (builder *TalentCustomizedDataChildBuilder) ObjectId(objectId string) *Tale
 	return builder
 }
 
-// 字段名称
+// 最高职级建议
 //
 // 示例值：
 func (builder *TalentCustomizedDataChildBuilder) Name(name *I18n) *TalentCustomizedDataChildBuilder {
@@ -3342,14 +3338,14 @@ func (builder *TalentCustomizedDataChildBuilder) Build() *TalentCustomizedDataCh
 type TalentCustomizedOption struct {
 	Key *string `json:"key,omitempty"` // 选项 ID
 
-	Name *I18n `json:"name,omitempty"` // 选项名称
+	Name *I18n `json:"name,omitempty"` // 最高职级建议
 }
 
 type TalentCustomizedOptionBuilder struct {
 	key    string // 选项 ID
 	keySet bool
 
-	name    *I18n // 选项名称
+	name    *I18n // 最高职级建议
 	nameSet bool
 }
 
@@ -3367,7 +3363,7 @@ func (builder *TalentCustomizedOptionBuilder) Key(key string) *TalentCustomizedO
 	return builder
 }
 
-// 选项名称
+// 最高职级建议
 //
 // 示例值：
 func (builder *TalentCustomizedOptionBuilder) Name(name *I18n) *TalentCustomizedOptionBuilder {
@@ -3389,16 +3385,16 @@ func (builder *TalentCustomizedOptionBuilder) Build() *TalentCustomizedOption {
 }
 
 type TalentCustomizedTimeRange struct {
-	StartTime *string `json:"start_time,omitempty"` // 开始时间
+	StartTime *string `json:"start_time,omitempty"` // 开始时间，秒级时间戳
 
-	EndTime *string `json:"end_time,omitempty"` // 结束时间，当值为至今时，返回「-」
+	EndTime *string `json:"end_time,omitempty"` // 结束时间，当值为至今时，返回「-」，秒级时间戳
 }
 
 type TalentCustomizedTimeRangeBuilder struct {
-	startTime    string // 开始时间
+	startTime    string // 开始时间，秒级时间戳
 	startTimeSet bool
 
-	endTime    string // 结束时间，当值为至今时，返回「-」
+	endTime    string // 结束时间，当值为至今时，返回「-」，秒级时间戳
 	endTimeSet bool
 }
 
@@ -3407,7 +3403,7 @@ func NewTalentCustomizedTimeRangeBuilder() *TalentCustomizedTimeRangeBuilder {
 	return builder
 }
 
-// 开始时间
+// 开始时间，秒级时间戳
 //
 // 示例值：1625456721
 func (builder *TalentCustomizedTimeRangeBuilder) StartTime(startTime string) *TalentCustomizedTimeRangeBuilder {
@@ -3416,7 +3412,7 @@ func (builder *TalentCustomizedTimeRangeBuilder) StartTime(startTime string) *Ta
 	return builder
 }
 
-// 结束时间，当值为至今时，返回「-」
+// 结束时间，当值为至今时，返回「-」，秒级时间戳
 //
 // 示例值：1625656721
 func (builder *TalentCustomizedTimeRangeBuilder) EndTime(endTime string) *TalentCustomizedTimeRangeBuilder {
@@ -3889,9 +3885,9 @@ func (builder *TalentNoteBuilder) Build() *TalentNote {
 type TalentPool struct {
 	Id *string `json:"id,omitempty"` // 人才库 ID
 
-	Name *I18n `json:"name,omitempty"` // 人才库名称
+	Name *I18n `json:"name,omitempty"` // 最高职级建议
 
-	Description *I18n `json:"description,omitempty"` // 人才库描述
+	Description *I18n `json:"description,omitempty"` // 最高职级建议
 
 	AddTime *string `json:"add_time,omitempty"` // 人才库加入时间,毫秒级时间戳
 }
@@ -3900,10 +3896,10 @@ type TalentPoolBuilder struct {
 	id    string // 人才库 ID
 	idSet bool
 
-	name    *I18n // 人才库名称
+	name    *I18n // 最高职级建议
 	nameSet bool
 
-	description    *I18n // 人才库描述
+	description    *I18n // 最高职级建议
 	descriptionSet bool
 
 	addTime    string // 人才库加入时间,毫秒级时间戳
@@ -3924,7 +3920,7 @@ func (builder *TalentPoolBuilder) Id(id string) *TalentPoolBuilder {
 	return builder
 }
 
-// 人才库名称
+// 最高职级建议
 //
 // 示例值：
 func (builder *TalentPoolBuilder) Name(name *I18n) *TalentPoolBuilder {
@@ -3933,7 +3929,7 @@ func (builder *TalentPoolBuilder) Name(name *I18n) *TalentPoolBuilder {
 	return builder
 }
 
-// 人才库描述
+// 最高职级建议
 //
 // 示例值：
 func (builder *TalentPoolBuilder) Description(description *I18n) *TalentPoolBuilder {
@@ -4176,9 +4172,9 @@ func (builder *TalentSimilarBuilder) Build() *TalentSimilar {
 type TalentTag struct {
 	Id *string `json:"id,omitempty"` // 标签 ID
 
-	Name *I18n `json:"name,omitempty"` // 标签名称
+	Name *I18n `json:"name,omitempty"` // 最高职级建议
 
-	Description *I18n `json:"description,omitempty"` // 描述名称
+	Description *I18n `json:"description,omitempty"` // 最高职级建议
 
 	Type *int `json:"type,omitempty"` // 标签类型
 }
@@ -4187,10 +4183,10 @@ type TalentTagBuilder struct {
 	id    string // 标签 ID
 	idSet bool
 
-	name    *I18n // 标签名称
+	name    *I18n // 最高职级建议
 	nameSet bool
 
-	description    *I18n // 描述名称
+	description    *I18n // 最高职级建议
 	descriptionSet bool
 
 	type_    int // 标签类型
@@ -4211,7 +4207,7 @@ func (builder *TalentTagBuilder) Id(id string) *TalentTagBuilder {
 	return builder
 }
 
-// 标签名称
+// 最高职级建议
 //
 // 示例值：
 func (builder *TalentTagBuilder) Name(name *I18n) *TalentTagBuilder {
@@ -4220,7 +4216,7 @@ func (builder *TalentTagBuilder) Name(name *I18n) *TalentTagBuilder {
 	return builder
 }
 
-// 描述名称
+// 最高职级建议
 //
 // 示例值：
 func (builder *TalentTagBuilder) Description(description *I18n) *TalentTagBuilder {
@@ -4270,7 +4266,7 @@ func NewGetInterviewRecordReqBuilder() *GetInterviewRecordReqBuilder {
 	return builder
 }
 
-// 面试记录ID
+// 面试评价 ID，可通过[获取面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list)接口获取
 //
 // 示例值：7171693733661327361
 func (builder *GetInterviewRecordReqBuilder) InterviewRecordId(interviewRecordId string) *GetInterviewRecordReqBuilder {
@@ -4299,7 +4295,7 @@ type GetInterviewRecordReq struct {
 }
 
 type GetInterviewRecordRespData struct {
-	InterviewRecord *InterviewRecord `json:"interview_record,omitempty"` //
+	InterviewRecord *InterviewRecord `json:"interview_record,omitempty"` // 面试评价详细信息
 }
 
 type GetInterviewRecordResp struct {
@@ -4332,7 +4328,7 @@ func (builder *ListInterviewRecordReqBuilder) Limit(limit int) *ListInterviewRec
 	return builder
 }
 
-// 面试评价ID列表，使用该筛选项时不会分页
+// 面试评价 ID 列表，可通过[获取面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list)接口获取，使用该筛选项时不会分页
 //
 // 示例值：
 func (builder *ListInterviewRecordReqBuilder) Ids(ids []string) *ListInterviewRecordReqBuilder {
@@ -4342,7 +4338,7 @@ func (builder *ListInterviewRecordReqBuilder) Ids(ids []string) *ListInterviewRe
 	return builder
 }
 
-// 分页大小
+// 分页大小;;;**注意**：若不传该参数，则默认根据 `ids` 参数获取数据
 //
 // 示例值：
 func (builder *ListInterviewRecordReqBuilder) PageSize(pageSize int) *ListInterviewRecordReqBuilder {
@@ -4411,7 +4407,7 @@ func NewGetTalentReqBuilder() *GetTalentReqBuilder {
 	return builder
 }
 
-// 人才 ID
+// 人才 ID，可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取
 //
 // 示例值：6960663240925956555
 func (builder *GetTalentReqBuilder) TalentId(talentId string) *GetTalentReqBuilder {
@@ -4486,7 +4482,7 @@ type GetTalentRespData struct {
 
 	SimilarInfoV2 *TalentSimilar `json:"similar_info_v2,omitempty"` // 相似人才信息
 
-	BlockInfo *TalentBlock `json:"block_info,omitempty"` // 人才黑名单详情
+	BlockInfo *TalentBlock `json:"block_info,omitempty"` // 人才屏蔽名单信息
 
 	TalentPoolRefListV2 []*TalentPool `json:"talent_pool_ref_list_v2,omitempty"` // 人才已经加入的人才库列表
 

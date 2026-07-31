@@ -30,8 +30,8 @@ const (
 )
 
 const (
-	StyleTypeBoard   = 1 // 画板样式
-	StyleTypeClassic = 2 // 经典样式
+	StyleTypeBoard   = 1 // 画板样式（解析之后为多个画板节点，粘贴到画板中，不可对语法进行二次编辑）
+	StyleTypeClassic = 2 // 经典样式（解析之后为一张图片，粘贴到画板中，可对语法进行二次编辑）（只有PlantUml语法支持经典样式）
 
 )
 
@@ -188,8 +188,6 @@ func (builder *AuthInfoBuilder) AuthType(authType string) *AuthInfoBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *AuthInfoBuilder) Extra(extra map[string]string) *AuthInfoBuilder {
 	builder.extra = extra
@@ -320,11 +318,11 @@ func (builder *BorderRadiusBuilder) Build() *BorderRadius {
 }
 
 type ClientInfo struct {
-	ClientIp *string `json:"client_ip,omitempty"` // 1: optional string Platform (gw.ctx="mw_platform"); //$ depracated 请求的平台\n2: optional string LarkVersion (gw.ctx="mw_lark_version"); //$ depracated 如果是来自Feisu, 这里是飞书的Version\n3: optional AppForm AppForm (gw.ctx="mw_app_form");   //$ depracated 应用形态 1-小程序\n4: optional string AppVersion (gw.ctx="mw_app_version"); //$ depracated 应用版本\n5: optional string OS (gw.ctx="mw_os"); //$ depracated 操作系统\n$ 客户端IP
+	ClientIp *string `json:"client_ip,omitempty"` // 1: optional string Platform (gw.ctx="mw_platform"); //$ depracated 请求的平台\n2: optional string LarkVersion (gw.ctx="mw_lark_version"); //$ depracated 如果是来自Feisu, 这里是飞书的Version\n3: optional AppForm AppForm (gw.ctx="mw_app_form"); //$ depracated 应用形态 1-小程序\n4: optional string AppVersion (gw.ctx="mw_app_version"); //$ depracated 应用版本\n5: optional string OS (gw.ctx="mw_os"); //$ depracated 操作系统\n$ 客户端IP
 }
 
 type ClientInfoBuilder struct {
-	clientIp    string // 1: optional string Platform (gw.ctx="mw_platform"); //$ depracated 请求的平台\n2: optional string LarkVersion (gw.ctx="mw_lark_version"); //$ depracated 如果是来自Feisu, 这里是飞书的Version\n3: optional AppForm AppForm (gw.ctx="mw_app_form");   //$ depracated 应用形态 1-小程序\n4: optional string AppVersion (gw.ctx="mw_app_version"); //$ depracated 应用版本\n5: optional string OS (gw.ctx="mw_os"); //$ depracated 操作系统\n$ 客户端IP
+	clientIp    string // 1: optional string Platform (gw.ctx="mw_platform"); //$ depracated 请求的平台\n2: optional string LarkVersion (gw.ctx="mw_lark_version"); //$ depracated 如果是来自Feisu, 这里是飞书的Version\n3: optional AppForm AppForm (gw.ctx="mw_app_form"); //$ depracated 应用形态 1-小程序\n4: optional string AppVersion (gw.ctx="mw_app_version"); //$ depracated 应用版本\n5: optional string OS (gw.ctx="mw_os"); //$ depracated 操作系统\n$ 客户端IP
 	clientIpSet bool
 }
 
@@ -333,7 +331,7 @@ func NewClientInfoBuilder() *ClientInfoBuilder {
 	return builder
 }
 
-// 1: optional string Platform (gw.ctx="mw_platform"); //$ depracated 请求的平台\n2: optional string LarkVersion (gw.ctx="mw_lark_version"); //$ depracated 如果是来自Feisu, 这里是飞书的Version\n3: optional AppForm AppForm (gw.ctx="mw_app_form");   //$ depracated 应用形态 1-小程序\n4: optional string AppVersion (gw.ctx="mw_app_version"); //$ depracated 应用版本\n5: optional string OS (gw.ctx="mw_os"); //$ depracated 操作系统\n$ 客户端IP
+// 1: optional string Platform (gw.ctx="mw_platform"); //$ depracated 请求的平台\n2: optional string LarkVersion (gw.ctx="mw_lark_version"); //$ depracated 如果是来自Feisu, 这里是飞书的Version\n3: optional AppForm AppForm (gw.ctx="mw_app_form"); //$ depracated 应用形态 1-小程序\n4: optional string AppVersion (gw.ctx="mw_app_version"); //$ depracated 应用版本\n5: optional string OS (gw.ctx="mw_os"); //$ depracated 操作系统\n$ 客户端IP
 //
 // 示例值：
 func (builder *ClientInfoBuilder) ClientIp(clientIp string) *ClientInfoBuilder {
@@ -387,7 +385,7 @@ func NewCompositeShapeBuilder() *CompositeShapeBuilder {
 
 // 基础图形的具体类型
 //
-// 示例值：
+// 示例值：circle
 func (builder *CompositeShapeBuilder) Type(type_ string) *CompositeShapeBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
@@ -452,9 +450,9 @@ func (builder *CompositeShapeBuilder) Build() *CompositeShape {
 }
 
 type Connector struct {
-	StartObject *ConnectorAttachedObject `json:"start_object,omitempty"` // 开始连接节点信息（兼容线上数据，只读，写操作使用 start 字段）
+	StartObject *ConnectorAttachedObject `json:"start_object,omitempty"` // 连接图形信息，与position参数二选一，同时设置时attached_object生效
 
-	EndObject *ConnectorAttachedObject `json:"end_object,omitempty"` // 结束连接点信息（兼容线上数据， 只读，写操作使用 end 字段）
+	EndObject *ConnectorAttachedObject `json:"end_object,omitempty"` // 连接图形信息，与position参数二选一，同时设置时attached_object生效
 
 	Start *ConnectorInfo `json:"start,omitempty"` // 连线端点信息
 
@@ -476,10 +474,10 @@ type Connector struct {
 }
 
 type ConnectorBuilder struct {
-	startObject    *ConnectorAttachedObject // 开始连接节点信息（兼容线上数据，只读，写操作使用 start 字段）
+	startObject    *ConnectorAttachedObject // 连接图形信息，与position参数二选一，同时设置时attached_object生效
 	startObjectSet bool
 
-	endObject    *ConnectorAttachedObject // 结束连接点信息（兼容线上数据， 只读，写操作使用 end 字段）
+	endObject    *ConnectorAttachedObject // 连接图形信息，与position参数二选一，同时设置时attached_object生效
 	endObjectSet bool
 
 	start    *ConnectorInfo // 连线端点信息
@@ -515,7 +513,7 @@ func NewConnectorBuilder() *ConnectorBuilder {
 	return builder
 }
 
-// 开始连接节点信息（兼容线上数据，只读，写操作使用 start 字段）
+// 连接图形信息，与position参数二选一，同时设置时attached_object生效
 //
 // 示例值：
 func (builder *ConnectorBuilder) StartObject(startObject *ConnectorAttachedObject) *ConnectorBuilder {
@@ -524,7 +522,7 @@ func (builder *ConnectorBuilder) StartObject(startObject *ConnectorAttachedObjec
 	return builder
 }
 
-// 结束连接点信息（兼容线上数据， 只读，写操作使用 end 字段）
+// 连接图形信息，与position参数二选一，同时设置时attached_object生效
 //
 // 示例值：
 func (builder *ConnectorBuilder) EndObject(endObject *ConnectorAttachedObject) *ConnectorBuilder {
@@ -662,7 +660,7 @@ type ConnectorAttachedObject struct {
 
 	SnapTo *string `json:"snap_to,omitempty"` // 连接图形的方向
 
-	Position *Point `json:"position,omitempty"` // 连接图形的相对坐标，0-1
+	Position *Point `json:"position,omitempty"` // 连线端点在画布内的坐标，position与attached_object二选一，position与attached_object 同时设置时 attched_object 生效
 }
 
 type ConnectorAttachedObjectBuilder struct {
@@ -672,7 +670,7 @@ type ConnectorAttachedObjectBuilder struct {
 	snapTo    string // 连接图形的方向
 	snapToSet bool
 
-	position    *Point // 连接图形的相对坐标，0-1
+	position    *Point // 连线端点在画布内的坐标，position与attached_object二选一，position与attached_object 同时设置时 attched_object 生效
 	positionSet bool
 }
 
@@ -699,7 +697,7 @@ func (builder *ConnectorAttachedObjectBuilder) SnapTo(snapTo string) *ConnectorA
 	return builder
 }
 
-// 连接图形的相对坐标，0-1
+// 连线端点在画布内的坐标，position与attached_object二选一，position与attached_object 同时设置时 attched_object 生效
 //
 // 示例值：
 func (builder *ConnectorAttachedObjectBuilder) Position(position *Point) *ConnectorAttachedObjectBuilder {
@@ -756,18 +754,18 @@ func (builder *ConnectorCaptionBuilder) Build() *ConnectorCaption {
 }
 
 type ConnectorInfo struct {
-	AttachedObject *ConnectorAttachedObject `json:"attached_object,omitempty"` // 连接图形信息
+	AttachedObject *ConnectorAttachedObject `json:"attached_object,omitempty"` // 连接图形信息，与position参数二选一，同时设置时attached_object生效
 
-	Position *Point `json:"position,omitempty"` // 连线端点在画布内的坐标，position与attached_object二选一
+	Position *Point `json:"position,omitempty"` // 连线端点在画布内的坐标，position与attached_object二选一，position与attached_object 同时设置时 attched_object 生效
 
 	ArrowStyle *string `json:"arrow_style,omitempty"` // 连线端点箭头样式
 }
 
 type ConnectorInfoBuilder struct {
-	attachedObject    *ConnectorAttachedObject // 连接图形信息
+	attachedObject    *ConnectorAttachedObject // 连接图形信息，与position参数二选一，同时设置时attached_object生效
 	attachedObjectSet bool
 
-	position    *Point // 连线端点在画布内的坐标，position与attached_object二选一
+	position    *Point // 连线端点在画布内的坐标，position与attached_object二选一，position与attached_object 同时设置时 attched_object 生效
 	positionSet bool
 
 	arrowStyle    string // 连线端点箭头样式
@@ -779,7 +777,7 @@ func NewConnectorInfoBuilder() *ConnectorInfoBuilder {
 	return builder
 }
 
-// 连接图形信息
+// 连接图形信息，与position参数二选一，同时设置时attached_object生效
 //
 // 示例值：
 func (builder *ConnectorInfoBuilder) AttachedObject(attachedObject *ConnectorAttachedObject) *ConnectorInfoBuilder {
@@ -788,7 +786,7 @@ func (builder *ConnectorInfoBuilder) AttachedObject(attachedObject *ConnectorAtt
 	return builder
 }
 
-// 连线端点在画布内的坐标，position与attached_object二选一
+// 连线端点在画布内的坐标，position与attached_object二选一，position与attached_object 同时设置时 attched_object 生效
 //
 // 示例值：
 func (builder *ConnectorInfoBuilder) Position(position *Point) *ConnectorInfoBuilder {
@@ -822,11 +820,11 @@ func (builder *ConnectorInfoBuilder) Build() *ConnectorInfo {
 }
 
 type Cube struct {
-	ControlPoint *Point `json:"control_point,omitempty"` // 六面体控制点，相对六面体外接矩形的相对坐标。默认控制点为外接矩形长的0.8，宽的0.25
+	ControlPoint *Point `json:"control_point,omitempty"` // 连线端点在画布内的坐标，position与attached_object二选一，position与attached_object 同时设置时 attched_object 生效
 }
 
 type CubeBuilder struct {
-	controlPoint    *Point // 六面体控制点，相对六面体外接矩形的相对坐标。默认控制点为外接矩形长的0.8，宽的0.25
+	controlPoint    *Point // 连线端点在画布内的坐标，position与attached_object二选一，position与attached_object 同时设置时 attched_object 生效
 	controlPointSet bool
 }
 
@@ -835,7 +833,7 @@ func NewCubeBuilder() *CubeBuilder {
 	return builder
 }
 
-// 六面体控制点，相对六面体外接矩形的相对坐标。默认控制点为外接矩形长的0.8，宽的0.25
+// 连线端点在画布内的坐标，position与attached_object二选一，position与attached_object 同时设置时 attched_object 生效
 //
 // 示例值：
 func (builder *CubeBuilder) ControlPoint(controlPoint *Point) *CubeBuilder {
@@ -871,8 +869,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -880,8 +876,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -1228,11 +1222,11 @@ func (builder *HeadBuilder) Build() *Head {
 }
 
 type Image struct {
-	Token *string `json:"token,omitempty"` // 图片 token
+	Token *string `json:"token,omitempty"` // 图片 token，通过云文档下的素材上传接口 [上传素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all) 上传图片后返回的 token
 }
 
 type ImageBuilder struct {
-	token    string // 图片 token
+	token    string // 图片 token，通过云文档下的素材上传接口 [上传素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all) 上传图片后返回的 token
 	tokenSet bool
 }
 
@@ -1241,7 +1235,7 @@ func NewImageBuilder() *ImageBuilder {
 	return builder
 }
 
-// 图片 token
+// 图片 token，通过云文档下的素材上传接口 [上传素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all) 上传图片后返回的 token
 //
 // 示例值：EeSHb3qs9oSBXoxvw33bqtOsczb
 func (builder *ImageBuilder) Token(token string) *ImageBuilder {
@@ -1260,13 +1254,13 @@ func (builder *ImageBuilder) Build() *Image {
 }
 
 type Lifeline struct {
-	Size *float64 `json:"size,omitempty"` // 生命线长度
+	Size *float64 `json:"size,omitempty"` // 生命线长度，单位 px
 
 	Type *string `json:"type,omitempty"` // 生命线类型
 }
 
 type LifelineBuilder struct {
-	size    float64 // 生命线长度
+	size    float64 // 生命线长度，单位 px
 	sizeSet bool
 
 	type_    string // 生命线类型
@@ -1278,7 +1272,7 @@ func NewLifelineBuilder() *LifelineBuilder {
 	return builder
 }
 
-// 生命线长度
+// 生命线长度，单位 px
 //
 // 示例值：10
 func (builder *LifelineBuilder) Size(size float64) *LifelineBuilder {
@@ -1391,7 +1385,7 @@ func (builder *MindMapNodeBuilder) ParentId(parentId string) *MindMapNodeBuilder
 
 // 思维导图节点图形类型
 //
-// 示例值：
+// 示例值：mind_map_round_rect
 func (builder *MindMapNodeBuilder) Type(type_ string) *MindMapNodeBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
@@ -1517,7 +1511,7 @@ func (builder *MindMapRootBuilder) Layout(layout string) *MindMapRootBuilder {
 
 // 思维导图根节点图形类型
 //
-// 示例值：
+// 示例值：mind_map_round_rect
 func (builder *MindMapRootBuilder) Type(type_ string) *MindMapRootBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
@@ -1526,7 +1520,7 @@ func (builder *MindMapRootBuilder) Type(type_ string) *MindMapRootBuilder {
 
 // 思维导图图形连接线样式
 //
-// 示例值：
+// 示例值：round_angle
 func (builder *MindMapRootBuilder) LineStyle(lineStyle string) *MindMapRootBuilder {
 	builder.lineStyle = lineStyle
 	builder.lineStyleSet = true
@@ -1684,23 +1678,23 @@ func (builder *PaintBuilder) Build() *Paint {
 }
 
 type Pie struct {
-	StartRadialLineAngle *float64 `json:"start_radial_line_angle,omitempty"` // 开始径向边角度，水平向右x轴正方向为0度，顺时针方向角度值递增
+	StartRadialLineAngle *float64 `json:"start_radial_line_angle,omitempty"` // 开始径向边角度，水平向右x轴正方向为0度，顺时针方向角度值递增，单位度
 
-	CentralAngle *float64 `json:"central_angle,omitempty"` // 圆心角角度，角度方向为始径向边逆时针方向
+	CentralAngle *float64 `json:"central_angle,omitempty"` // 圆心角角度，角度方向为始径向边逆时针方向，单位度
 
-	Radius *float64 `json:"radius,omitempty"` // 半径长度
+	Radius *float64 `json:"radius,omitempty"` // 半径长度，单位 px
 
 	SectorRatio *float64 `json:"sector_ratio,omitempty"` // 扇区占比，0为一个圆周线，1为一个圆盘
 }
 
 type PieBuilder struct {
-	startRadialLineAngle    float64 // 开始径向边角度，水平向右x轴正方向为0度，顺时针方向角度值递增
+	startRadialLineAngle    float64 // 开始径向边角度，水平向右x轴正方向为0度，顺时针方向角度值递增，单位度
 	startRadialLineAngleSet bool
 
-	centralAngle    float64 // 圆心角角度，角度方向为始径向边逆时针方向
+	centralAngle    float64 // 圆心角角度，角度方向为始径向边逆时针方向，单位度
 	centralAngleSet bool
 
-	radius    float64 // 半径长度
+	radius    float64 // 半径长度，单位 px
 	radiusSet bool
 
 	sectorRatio    float64 // 扇区占比，0为一个圆周线，1为一个圆盘
@@ -1712,7 +1706,7 @@ func NewPieBuilder() *PieBuilder {
 	return builder
 }
 
-// 开始径向边角度，水平向右x轴正方向为0度，顺时针方向角度值递增
+// 开始径向边角度，水平向右x轴正方向为0度，顺时针方向角度值递增，单位度
 //
 // 示例值：30.0
 func (builder *PieBuilder) StartRadialLineAngle(startRadialLineAngle float64) *PieBuilder {
@@ -1721,7 +1715,7 @@ func (builder *PieBuilder) StartRadialLineAngle(startRadialLineAngle float64) *P
 	return builder
 }
 
-// 圆心角角度，角度方向为始径向边逆时针方向
+// 圆心角角度，角度方向为始径向边逆时针方向，单位度
 //
 // 示例值：40.0
 func (builder *PieBuilder) CentralAngle(centralAngle float64) *PieBuilder {
@@ -1730,7 +1724,7 @@ func (builder *PieBuilder) CentralAngle(centralAngle float64) *PieBuilder {
 	return builder
 }
 
-// 半径长度
+// 半径长度，单位 px
 //
 // 示例值：10
 func (builder *PieBuilder) Radius(radius float64) *PieBuilder {
@@ -1770,16 +1764,16 @@ func (builder *PieBuilder) Build() *Pie {
 }
 
 type Point struct {
-	X *float64 `json:"x,omitempty"` // 点位置x坐标
+	X *float64 `json:"x,omitempty"` // 点位置x坐标，单位百分比
 
-	Y *float64 `json:"y,omitempty"` // 点位置y坐标
+	Y *float64 `json:"y,omitempty"` // 点位置y坐标，单位百分比
 }
 
 type PointBuilder struct {
-	x    float64 // 点位置x坐标
+	x    float64 // 点位置x坐标，单位百分比
 	xSet bool
 
-	y    float64 // 点位置y坐标
+	y    float64 // 点位置y坐标，单位百分比
 	ySet bool
 }
 
@@ -1788,18 +1782,18 @@ func NewPointBuilder() *PointBuilder {
 	return builder
 }
 
-// 点位置x坐标
+// 点位置x坐标，单位百分比
 //
-// 示例值：10
+// 示例值：0.5
 func (builder *PointBuilder) X(x float64) *PointBuilder {
 	builder.x = x
 	builder.xSet = true
 	return builder
 }
 
-// 点位置y坐标
+// 点位置y坐标，单位百分比
 //
-// 示例值：10
+// 示例值：0.5
 func (builder *PointBuilder) Y(y float64) *PointBuilder {
 	builder.y = y
 	builder.ySet = true
@@ -1853,29 +1847,29 @@ func (builder *RichTextBuilder) Build() *RichText {
 type RichTextElement struct {
 	ElementType *int `json:"element_type,omitempty"` // 元素类别
 
-	TextElement *RichTextElementText `json:"text_element,omitempty"` // 文本类别信息
+	TextElement *RichTextElementText `json:"text_element,omitempty"` // 文本元素信息（当前元素为文本类别时候需要填写当前字段）
 
-	LinkElement *RichTextElementLink `json:"link_element,omitempty"` // 超链接类别信息
+	LinkElement *RichTextElementLink `json:"link_element,omitempty"` // 超链接类别信息（当前元素为链接类别时候需要有当前字段）
 
-	MentionUserElement *RichTextElementMentionUser `json:"mention_user_element,omitempty"` // @用户类别信息
+	MentionUserElement *RichTextElementMentionUser `json:"mention_user_element,omitempty"` // @用户类别信息（当前元素为@用户类别时候需要有当前字段）
 
-	MentionDocElement *RichTextElementMentionDoc `json:"mention_doc_element,omitempty"` // 文档类别信息
+	MentionDocElement *RichTextElementMentionDoc `json:"mention_doc_element,omitempty"` // 文档类别信息（当前元素为文档类别时候需要有当前字段）
 }
 
 type RichTextElementBuilder struct {
 	elementType    int // 元素类别
 	elementTypeSet bool
 
-	textElement    *RichTextElementText // 文本类别信息
+	textElement    *RichTextElementText // 文本元素信息（当前元素为文本类别时候需要填写当前字段）
 	textElementSet bool
 
-	linkElement    *RichTextElementLink // 超链接类别信息
+	linkElement    *RichTextElementLink // 超链接类别信息（当前元素为链接类别时候需要有当前字段）
 	linkElementSet bool
 
-	mentionUserElement    *RichTextElementMentionUser // @用户类别信息
+	mentionUserElement    *RichTextElementMentionUser // @用户类别信息（当前元素为@用户类别时候需要有当前字段）
 	mentionUserElementSet bool
 
-	mentionDocElement    *RichTextElementMentionDoc // 文档类别信息
+	mentionDocElement    *RichTextElementMentionDoc // 文档类别信息（当前元素为文档类别时候需要有当前字段）
 	mentionDocElementSet bool
 }
 
@@ -1893,7 +1887,7 @@ func (builder *RichTextElementBuilder) ElementType(elementType int) *RichTextEle
 	return builder
 }
 
-// 文本类别信息
+// 文本元素信息（当前元素为文本类别时候需要填写当前字段）
 //
 // 示例值：
 func (builder *RichTextElementBuilder) TextElement(textElement *RichTextElementText) *RichTextElementBuilder {
@@ -1902,7 +1896,7 @@ func (builder *RichTextElementBuilder) TextElement(textElement *RichTextElementT
 	return builder
 }
 
-// 超链接类别信息
+// 超链接类别信息（当前元素为链接类别时候需要有当前字段）
 //
 // 示例值：
 func (builder *RichTextElementBuilder) LinkElement(linkElement *RichTextElementLink) *RichTextElementBuilder {
@@ -1911,7 +1905,7 @@ func (builder *RichTextElementBuilder) LinkElement(linkElement *RichTextElementL
 	return builder
 }
 
-// @用户类别信息
+// @用户类别信息（当前元素为@用户类别时候需要有当前字段）
 //
 // 示例值：
 func (builder *RichTextElementBuilder) MentionUserElement(mentionUserElement *RichTextElementMentionUser) *RichTextElementBuilder {
@@ -1920,7 +1914,7 @@ func (builder *RichTextElementBuilder) MentionUserElement(mentionUserElement *Ri
 	return builder
 }
 
-// 文档类别信息
+// 文档类别信息（当前元素为文档类别时候需要有当前字段）
 //
 // 示例值：
 func (builder *RichTextElementBuilder) MentionDocElement(mentionDocElement *RichTextElementMentionDoc) *RichTextElementBuilder {
@@ -1953,7 +1947,7 @@ func (builder *RichTextElementBuilder) Build() *RichTextElement {
 type RichTextElementLink struct {
 	Herf *string `json:"herf,omitempty"` // 链接
 
-	Text *string `json:"text,omitempty"` // 文字
+	Text *string `json:"text,omitempty"` // 超链接的文字（为空时会默认文字为超链接）
 
 	TextStyle *RichTextElementTextStyle `json:"text_style,omitempty"` // 文字样式
 }
@@ -1962,7 +1956,7 @@ type RichTextElementLinkBuilder struct {
 	herf    string // 链接
 	herfSet bool
 
-	text    string // 文字
+	text    string // 超链接的文字（为空时会默认文字为超链接）
 	textSet bool
 
 	textStyle    *RichTextElementTextStyle // 文字样式
@@ -1976,14 +1970,14 @@ func NewRichTextElementLinkBuilder() *RichTextElementLinkBuilder {
 
 // 链接
 //
-// 示例值：https://bytedance.larkoffice.com
+// 示例值：
 func (builder *RichTextElementLinkBuilder) Herf(herf string) *RichTextElementLinkBuilder {
 	builder.herf = herf
 	builder.herfSet = true
 	return builder
 }
 
-// 文字
+// 超链接的文字（为空时会默认文字为超链接）
 //
 // 示例值：示例文案
 func (builder *RichTextElementLinkBuilder) Text(text string) *RichTextElementLinkBuilder {
@@ -2038,7 +2032,7 @@ func NewRichTextElementMentionDocBuilder() *RichTextElementMentionDocBuilder {
 
 // 文档超链接
 //
-// 示例值：https://bytedance.larkoffice.com/wiki/xxxxx
+// 示例值：
 func (builder *RichTextElementMentionDocBuilder) DocUrl(docUrl string) *RichTextElementMentionDocBuilder {
 	builder.docUrl = docUrl
 	builder.docUrlSet = true
@@ -2067,13 +2061,13 @@ func (builder *RichTextElementMentionDocBuilder) Build() *RichTextElementMention
 }
 
 type RichTextElementMentionUser struct {
-	UserId *string `json:"user_id,omitempty"` // 用户id
+	UserId *string `json:"user_id,omitempty"` // 用户openID，可通过 [获取指定用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 获取
 
 	TextStyle *RichTextElementTextStyle `json:"text_style,omitempty"` // 文字属性
 }
 
 type RichTextElementMentionUserBuilder struct {
-	userId    string // 用户id
+	userId    string // 用户openID，可通过 [获取指定用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 获取
 	userIdSet bool
 
 	textStyle    *RichTextElementTextStyle // 文字属性
@@ -2085,9 +2079,9 @@ func NewRichTextElementMentionUserBuilder() *RichTextElementMentionUserBuilder {
 	return builder
 }
 
-// 用户id
+// 用户openID，可通过 [获取指定用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) 获取
 //
-// 示例值：
+// 示例值：ou_da5****************dfe
 func (builder *RichTextElementMentionUserBuilder) UserId(userId string) *RichTextElementMentionUserBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -2116,13 +2110,13 @@ func (builder *RichTextElementMentionUserBuilder) Build() *RichTextElementMentio
 }
 
 type RichTextElementText struct {
-	Text *string `json:"text,omitempty"` // 文字
+	Text *string `json:"text,omitempty"` // 文字（文字中不能包含换行符）
 
 	TextStyle *RichTextElementTextStyle `json:"text_style,omitempty"` // 文字样式
 }
 
 type RichTextElementTextBuilder struct {
-	text    string // 文字
+	text    string // 文字（文字中不能包含换行符）
 	textSet bool
 
 	textStyle    *RichTextElementTextStyle // 文字样式
@@ -2134,7 +2128,7 @@ func NewRichTextElementTextBuilder() *RichTextElementTextBuilder {
 	return builder
 }
 
-// 文字
+// 文字（文字中不能包含换行符）
 //
 // 示例值：示例文案
 func (builder *RichTextElementTextBuilder) Text(text string) *RichTextElementTextBuilder {
@@ -2165,9 +2159,9 @@ func (builder *RichTextElementTextBuilder) Build() *RichTextElementText {
 }
 
 type RichTextElementTextStyle struct {
-	FontWeight *string `json:"font_weight,omitempty"` // 文字字重
+	FontWeight *string `json:"font_weight,omitempty"` // 文字字重(可选值有：regular：常规, bold：加粗)
 
-	FontSize *int `json:"font_size,omitempty"` // 文字大小
+	FontSize *int `json:"font_size,omitempty"` // 文字大小，单位 px，默认为 14 px
 
 	TextColor *string `json:"text_color,omitempty"` // 文字颜色，16 进制 rgb 值
 
@@ -2181,10 +2175,10 @@ type RichTextElementTextStyle struct {
 }
 
 type RichTextElementTextStyleBuilder struct {
-	fontWeight    string // 文字字重
+	fontWeight    string // 文字字重(可选值有：regular：常规, bold：加粗)
 	fontWeightSet bool
 
-	fontSize    int // 文字大小
+	fontSize    int // 文字大小，单位 px，默认为 14 px
 	fontSizeSet bool
 
 	textColor    string // 文字颜色，16 进制 rgb 值
@@ -2208,7 +2202,7 @@ func NewRichTextElementTextStyleBuilder() *RichTextElementTextStyleBuilder {
 	return builder
 }
 
-// 文字字重
+// 文字字重(可选值有：regular：常规, bold：加粗)
 //
 // 示例值：bold
 func (builder *RichTextElementTextStyleBuilder) FontWeight(fontWeight string) *RichTextElementTextStyleBuilder {
@@ -2217,7 +2211,7 @@ func (builder *RichTextElementTextStyleBuilder) FontWeight(fontWeight string) *R
 	return builder
 }
 
-// 文字大小
+// 文字大小，单位 px，默认为 14 px
 //
 // 示例值：14
 func (builder *RichTextElementTextStyleBuilder) FontSize(fontSize int) *RichTextElementTextStyleBuilder {
@@ -2307,11 +2301,11 @@ func (builder *RichTextElementTextStyleBuilder) Build() *RichTextElementTextStyl
 type RichTextParagraph struct {
 	ParagraphType *int `json:"paragraph_type,omitempty"` // 段落类别
 
-	Elements []*RichTextElement `json:"elements,omitempty"` // 元素列表
+	Elements []*RichTextElement `json:"elements,omitempty"` // 段落的元素列表
 
-	Indent *int `json:"indent,omitempty"` // 缩进
+	Indent *int `json:"indent,omitempty"` // 缩进（单位：字符）
 
-	ListBeginIndex *int `json:"list_begin_index,omitempty"` // 有序列表开始序号
+	ListBeginIndex *int `json:"list_begin_index,omitempty"` // 有序列表开始序号(第一个有序列表的序号为list_begin_index+1);例如：list_begin_index = 0， 则第一个有序列表的序号为1
 
 	Quote *bool `json:"quote,omitempty"` // 引用
 }
@@ -2320,13 +2314,13 @@ type RichTextParagraphBuilder struct {
 	paragraphType    int // 段落类别
 	paragraphTypeSet bool
 
-	elements    []*RichTextElement // 元素列表
+	elements    []*RichTextElement // 段落的元素列表
 	elementsSet bool
 
-	indent    int // 缩进
+	indent    int // 缩进（单位：字符）
 	indentSet bool
 
-	listBeginIndex    int // 有序列表开始序号
+	listBeginIndex    int // 有序列表开始序号(第一个有序列表的序号为list_begin_index+1);例如：list_begin_index = 0， 则第一个有序列表的序号为1
 	listBeginIndexSet bool
 
 	quote    bool // 引用
@@ -2347,7 +2341,7 @@ func (builder *RichTextParagraphBuilder) ParagraphType(paragraphType int) *RichT
 	return builder
 }
 
-// 元素列表
+// 段落的元素列表
 //
 // 示例值：
 func (builder *RichTextParagraphBuilder) Elements(elements []*RichTextElement) *RichTextParagraphBuilder {
@@ -2356,7 +2350,7 @@ func (builder *RichTextParagraphBuilder) Elements(elements []*RichTextElement) *
 	return builder
 }
 
-// 缩进
+// 缩进（单位：字符）
 //
 // 示例值：0
 func (builder *RichTextParagraphBuilder) Indent(indent int) *RichTextParagraphBuilder {
@@ -2365,7 +2359,7 @@ func (builder *RichTextParagraphBuilder) Indent(indent int) *RichTextParagraphBu
 	return builder
 }
 
-// 有序列表开始序号
+// 有序列表开始序号(第一个有序列表的序号为list_begin_index+1);例如：list_begin_index = 0， 则第一个有序列表的序号为1
 //
 // 示例值：0
 func (builder *RichTextParagraphBuilder) ListBeginIndex(listBeginIndex int) *RichTextParagraphBuilder {
@@ -2564,7 +2558,7 @@ func NewStickyNoteBuilder() *StickyNoteBuilder {
 
 // 用户id
 //
-// 示例值：
+// 示例值：12345678
 func (builder *StickyNoteBuilder) UserId(userId string) *StickyNoteBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -2573,7 +2567,7 @@ func (builder *StickyNoteBuilder) UserId(userId string) *StickyNoteBuilder {
 
 // 是否展示用户信息
 //
-// 示例值：
+// 示例值：true
 func (builder *StickyNoteBuilder) ShowAuthorInfo(showAuthorInfo bool) *StickyNoteBuilder {
 	builder.showAuthorInfo = showAuthorInfo
 	builder.showAuthorInfoSet = true
@@ -2596,13 +2590,13 @@ func (builder *StickyNoteBuilder) Build() *StickyNote {
 type Style struct {
 	FillColor *string `json:"fill_color,omitempty"` // 填充颜色，16 进制 rbg 值
 
-	FillOpacity *float64 `json:"fill_opacity,omitempty"` // 填充透明度
+	FillOpacity *float64 `json:"fill_opacity,omitempty"` // 填充透明度，百分比
 
 	BorderStyle *string `json:"border_style,omitempty"` // 边框样式
 
 	BorderWidth *string `json:"border_width,omitempty"` // 边框宽度
 
-	BorderOpacity *float64 `json:"border_opacity,omitempty"` // 边框透明度
+	BorderOpacity *float64 `json:"border_opacity,omitempty"` // 边框透明度，百分比
 
 	HFlip *bool `json:"h_flip,omitempty"` // 水平翻折
 
@@ -2633,7 +2627,7 @@ type StyleBuilder struct {
 	fillColor    string // 填充颜色，16 进制 rbg 值
 	fillColorSet bool
 
-	fillOpacity    float64 // 填充透明度
+	fillOpacity    float64 // 填充透明度，百分比
 	fillOpacitySet bool
 
 	borderStyle    string // 边框样式
@@ -2642,7 +2636,7 @@ type StyleBuilder struct {
 	borderWidth    string // 边框宽度
 	borderWidthSet bool
 
-	borderOpacity    float64 // 边框透明度
+	borderOpacity    float64 // 边框透明度，百分比
 	borderOpacitySet bool
 
 	hFlip    bool // 水平翻折
@@ -2696,7 +2690,7 @@ func (builder *StyleBuilder) FillColor(fillColor string) *StyleBuilder {
 	return builder
 }
 
-// 填充透明度
+// 填充透明度，百分比
 //
 // 示例值：50
 func (builder *StyleBuilder) FillOpacity(fillOpacity float64) *StyleBuilder {
@@ -2707,7 +2701,7 @@ func (builder *StyleBuilder) FillOpacity(fillOpacity float64) *StyleBuilder {
 
 // 边框样式
 //
-// 示例值：
+// 示例值：solid
 func (builder *StyleBuilder) BorderStyle(borderStyle string) *StyleBuilder {
 	builder.borderStyle = borderStyle
 	builder.borderStyleSet = true
@@ -2716,14 +2710,14 @@ func (builder *StyleBuilder) BorderStyle(borderStyle string) *StyleBuilder {
 
 // 边框宽度
 //
-// 示例值：
+// 示例值：narrow
 func (builder *StyleBuilder) BorderWidth(borderWidth string) *StyleBuilder {
 	builder.borderWidth = borderWidth
 	builder.borderWidthSet = true
 	return builder
 }
 
-// 边框透明度
+// 边框透明度，百分比
 //
 // 示例值：50
 func (builder *StyleBuilder) BorderOpacity(borderOpacity float64) *StyleBuilder {
@@ -2779,7 +2773,7 @@ func (builder *StyleBuilder) ThemeBorderColorCode(themeBorderColorCode int) *Sty
 
 // 填充颜色类型：0=系统颜色，取theme_fill_color_code，1=自定义颜色，取fill_color
 //
-// 示例值：
+// 示例值：0
 func (builder *StyleBuilder) FillColorType(fillColorType int) *StyleBuilder {
 	builder.fillColorType = fillColorType
 	builder.fillColorTypeSet = true
@@ -2788,7 +2782,7 @@ func (builder *StyleBuilder) FillColorType(fillColorType int) *StyleBuilder {
 
 // 边框颜色类型：0=系统颜色，取theme_border_color_code，1=自定义颜色，取border_color
 //
-// 示例值：
+// 示例值：0
 func (builder *StyleBuilder) BorderColorType(borderColorType int) *StyleBuilder {
 	builder.borderColorType = borderColorType
 	builder.borderColorTypeSet = true
@@ -2909,7 +2903,7 @@ func (builder *StyleBuilder) Build() *Style {
 }
 
 type Svg struct {
-	SvgCode *string `json:"svg_code,omitempty"` // svg code
+	SvgCode *string `json:"svg_code,omitempty"` // svg 代码
 
 	Key *string `json:"key,omitempty"` // 资源外部标识
 
@@ -2917,7 +2911,7 @@ type Svg struct {
 }
 
 type SvgBuilder struct {
-	svgCode    string // svg code
+	svgCode    string // svg 代码
 	svgCodeSet bool
 
 	key    string // 资源外部标识
@@ -2932,9 +2926,9 @@ func NewSvgBuilder() *SvgBuilder {
 	return builder
 }
 
-// svg code
+// svg 代码
 //
-// 示例值：code
+// 示例值：<svg width="100" height="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="red" /></svg>
 func (builder *SvgBuilder) SvgCode(svgCode string) *SvgBuilder {
 	builder.svgCode = svgCode
 	builder.svgCodeSet = true
@@ -3002,7 +2996,7 @@ func NewSyntaxBuilder() *SyntaxBuilder {
 
 // 语法类别
 //
-// 示例值：
+// 示例值：1
 func (builder *SyntaxBuilder) SyntaxType(syntaxType int) *SyntaxBuilder {
 	builder.syntaxType = syntaxType
 	builder.syntaxTypeSet = true
@@ -3119,9 +3113,9 @@ type TableCell struct {
 
 	Children []string `json:"children,omitempty"` // 单元格包含的子节点 id
 
-	Text *Text `json:"text,omitempty"` // 单元格内文字
+	Text *Text `json:"text,omitempty"` // 图形内文字（节点类型为 text_shape 时，该字段不能为空）（节点类型为group、section，connector、paint、svg、activation时候，该字段必须为空)
 
-	Style *Style `json:"style,omitempty"` // 单元格样式，设置后会覆盖表格样式
+	Style *Style `json:"style,omitempty"` // 图形样式(节点类型为group、paint时，该字段必须为空)
 }
 
 type TableCellBuilder struct {
@@ -3137,10 +3131,10 @@ type TableCellBuilder struct {
 	children    []string // 单元格包含的子节点 id
 	childrenSet bool
 
-	text    *Text // 单元格内文字
+	text    *Text // 图形内文字（节点类型为 text_shape 时，该字段不能为空）（节点类型为group、section，connector、paint、svg、activation时候，该字段必须为空)
 	textSet bool
 
-	style    *Style // 单元格样式，设置后会覆盖表格样式
+	style    *Style // 图形样式(节点类型为group、paint时，该字段必须为空)
 	styleSet bool
 }
 
@@ -3185,7 +3179,7 @@ func (builder *TableCellBuilder) Children(children []string) *TableCellBuilder {
 	return builder
 }
 
-// 单元格内文字
+// 图形内文字（节点类型为 text_shape 时，该字段不能为空）（节点类型为group、section，connector、paint、svg、activation时候，该字段必须为空)
 //
 // 示例值：
 func (builder *TableCellBuilder) Text(text *Text) *TableCellBuilder {
@@ -3194,7 +3188,7 @@ func (builder *TableCellBuilder) Text(text *Text) *TableCellBuilder {
 	return builder
 }
 
-// 单元格样式，设置后会覆盖表格样式
+// 图形样式(节点类型为group、paint时，该字段必须为空)
 //
 // 示例值：
 func (builder *TableCellBuilder) Style(style *Style) *TableCellBuilder {
@@ -3283,13 +3277,13 @@ type TableMeta struct {
 
 	ColNum *int `json:"col_num,omitempty"` // 列数
 
-	RowSizes []float64 `json:"row_sizes,omitempty"` // 行高
+	RowSizes []float64 `json:"row_sizes,omitempty"` // 行高，单位 px
 
-	ColSizes []float64 `json:"col_sizes,omitempty"` // 列宽
+	ColSizes []float64 `json:"col_sizes,omitempty"` // 列宽，单位 px
 
-	Style *Style `json:"style,omitempty"` // 整个表格的样式
+	Style *Style `json:"style,omitempty"` // 图形样式(节点类型为group、paint时，该字段必须为空)
 
-	Text *Text `json:"text,omitempty"` // 整个表格的文字样式
+	Text *Text `json:"text,omitempty"` // 图形内文字（节点类型为 text_shape 时，该字段不能为空）（节点类型为group、section，connector、paint、svg、activation时候，该字段必须为空)
 }
 
 type TableMetaBuilder struct {
@@ -3299,16 +3293,16 @@ type TableMetaBuilder struct {
 	colNum    int // 列数
 	colNumSet bool
 
-	rowSizes    []float64 // 行高
+	rowSizes    []float64 // 行高，单位 px
 	rowSizesSet bool
 
-	colSizes    []float64 // 列宽
+	colSizes    []float64 // 列宽，单位 px
 	colSizesSet bool
 
-	style    *Style // 整个表格的样式
+	style    *Style // 图形样式(节点类型为group、paint时，该字段必须为空)
 	styleSet bool
 
-	text    *Text // 整个表格的文字样式
+	text    *Text // 图形内文字（节点类型为 text_shape 时，该字段不能为空）（节点类型为group、section，connector、paint、svg、activation时候，该字段必须为空)
 	textSet bool
 }
 
@@ -3335,7 +3329,7 @@ func (builder *TableMetaBuilder) ColNum(colNum int) *TableMetaBuilder {
 	return builder
 }
 
-// 行高
+// 行高，单位 px
 //
 // 示例值：
 func (builder *TableMetaBuilder) RowSizes(rowSizes []float64) *TableMetaBuilder {
@@ -3344,7 +3338,7 @@ func (builder *TableMetaBuilder) RowSizes(rowSizes []float64) *TableMetaBuilder 
 	return builder
 }
 
-// 列宽
+// 列宽，单位 px
 //
 // 示例值：
 func (builder *TableMetaBuilder) ColSizes(colSizes []float64) *TableMetaBuilder {
@@ -3353,7 +3347,7 @@ func (builder *TableMetaBuilder) ColSizes(colSizes []float64) *TableMetaBuilder 
 	return builder
 }
 
-// 整个表格的样式
+// 图形样式(节点类型为group、paint时，该字段必须为空)
 //
 // 示例值：
 func (builder *TableMetaBuilder) Style(style *Style) *TableMetaBuilder {
@@ -3362,7 +3356,7 @@ func (builder *TableMetaBuilder) Style(style *Style) *TableMetaBuilder {
 	return builder
 }
 
-// 整个表格的文字样式
+// 图形内文字（节点类型为 text_shape 时，该字段不能为空）（节点类型为group、section，connector、paint、svg、activation时候，该字段必须为空)
 //
 // 示例值：
 func (builder *TableMetaBuilder) Text(text *Text) *TableMetaBuilder {
@@ -3401,7 +3395,7 @@ type Text struct {
 
 	FontWeight *string `json:"font_weight,omitempty"` // 文字字重
 
-	FontSize *int `json:"font_size,omitempty"` // 文字大小
+	FontSize *int `json:"font_size,omitempty"` // 文字大小，单位 px，默认为 14 px
 
 	HorizontalAlign *string `json:"horizontal_align,omitempty"` // 水平对齐
 
@@ -3423,7 +3417,7 @@ type Text struct {
 
 	ThemeTextBackgroundColorCode *int `json:"theme_text_background_color_code,omitempty"` // 文字背景颜色主题配色编码值
 
-	RichText *RichText `json:"rich_text,omitempty"` // 富文本
+	RichText *RichText `json:"rich_text,omitempty"` // 富文本（富文本有值时候会覆盖上面的text信息）;如果整段文本只有一个样式，不推荐使用富文本;
 
 	TextColorType *int `json:"text_color_type,omitempty"` // 文字颜色类型，0=系统颜色，1=自定义颜色
 
@@ -3437,7 +3431,7 @@ type TextBuilder struct {
 	fontWeight    string // 文字字重
 	fontWeightSet bool
 
-	fontSize    int // 文字大小
+	fontSize    int // 文字大小，单位 px，默认为 14 px
 	fontSizeSet bool
 
 	horizontalAlign    string // 水平对齐
@@ -3470,7 +3464,7 @@ type TextBuilder struct {
 	themeTextBackgroundColorCode    int // 文字背景颜色主题配色编码值
 	themeTextBackgroundColorCodeSet bool
 
-	richText    *RichText // 富文本
+	richText    *RichText // 富文本（富文本有值时候会覆盖上面的text信息）;如果整段文本只有一个样式，不推荐使用富文本;
 	richTextSet bool
 
 	textColorType    int // 文字颜色类型，0=系统颜色，1=自定义颜色
@@ -3503,7 +3497,7 @@ func (builder *TextBuilder) FontWeight(fontWeight string) *TextBuilder {
 	return builder
 }
 
-// 文字大小
+// 文字大小，单位 px，默认为 14 px
 //
 // 示例值：14
 func (builder *TextBuilder) FontSize(fontSize int) *TextBuilder {
@@ -3514,7 +3508,7 @@ func (builder *TextBuilder) FontSize(fontSize int) *TextBuilder {
 
 // 水平对齐
 //
-// 示例值：
+// 示例值：center
 func (builder *TextBuilder) HorizontalAlign(horizontalAlign string) *TextBuilder {
 	builder.horizontalAlign = horizontalAlign
 	builder.horizontalAlignSet = true
@@ -3523,7 +3517,7 @@ func (builder *TextBuilder) HorizontalAlign(horizontalAlign string) *TextBuilder
 
 // 垂直对齐
 //
-// 示例值：
+// 示例值：mid
 func (builder *TextBuilder) VerticalAlign(verticalAlign string) *TextBuilder {
 	builder.verticalAlign = verticalAlign
 	builder.verticalAlignSet = true
@@ -3602,7 +3596,7 @@ func (builder *TextBuilder) ThemeTextBackgroundColorCode(themeTextBackgroundColo
 	return builder
 }
 
-// 富文本
+// 富文本（富文本有值时候会覆盖上面的text信息）;如果整段文本只有一个样式，不推荐使用富文本;
 //
 // 示例值：
 func (builder *TextBuilder) RichText(richText *RichText) *TextBuilder {
@@ -3613,7 +3607,7 @@ func (builder *TextBuilder) RichText(richText *RichText) *TextBuilder {
 
 // 文字颜色类型，0=系统颜色，1=自定义颜色
 //
-// 示例值：
+// 示例值：0
 func (builder *TextBuilder) TextColorType(textColorType int) *TextBuilder {
 	builder.textColorType = textColorType
 	builder.textColorTypeSet = true
@@ -3622,7 +3616,7 @@ func (builder *TextBuilder) TextColorType(textColorType int) *TextBuilder {
 
 // 文字背景颜色类型，0=系统颜色，1=自定义颜色
 //
-// 示例值：
+// 示例值：0
 func (builder *TextBuilder) TextBackgroundColorType(textBackgroundColorType int) *TextBuilder {
 	builder.textBackgroundColorType = textBackgroundColorType
 	builder.textBackgroundColorTypeSet = true
@@ -3730,9 +3724,9 @@ func (builder *TrapezoidBuilder) Build() *Trapezoid {
 }
 
 type WhiteboardNode struct {
-	Id *string `json:"id,omitempty"` // 节点 id
+	Id *string `json:"id,omitempty"` // 节点 id，用于唯一标识此节点，不能重复，在创建父子节点、关联其它节点做标记使用
 
-	Type *string `json:"type,omitempty"` // 节点图形类型，目前创建节点仅支持创建图片、文本、基础图形等类型
+	Type *string `json:"type,omitempty"` // 节点图形类型
 
 	ParentId *string `json:"parent_id,omitempty"` // 父节点 id
 
@@ -3742,35 +3736,35 @@ type WhiteboardNode struct {
 
 	Y *float64 `json:"y,omitempty"` // 图形相对画布的 y 轴位置信息（存在父容器时为相对父容器的坐标，父容器为组合图形 group 时，坐标是穿透的），单位为 px
 
-	Angle *float64 `json:"angle,omitempty"` // 图形旋转角度
+	Angle *float64 `json:"angle,omitempty"` // 图形旋转角度，单位度
 
 	Height *float64 `json:"height,omitempty"` // 图形高度，单位为 px
 
-	Text *Text `json:"text,omitempty"` // 图形内文字
+	Text *Text `json:"text,omitempty"` // 图形内文字（节点类型为 text_shape 时，该字段不能为空）（节点类型为group、section，connector、paint、svg、activation时候，该字段必须为空)
 
-	Style *Style `json:"style,omitempty"` // 图形样式
+	Style *Style `json:"style,omitempty"` // 图形样式(节点类型为group、paint时，该字段必须为空)
 
 	Image *Image `json:"image,omitempty"` // 图片
 
-	CompositeShape *CompositeShape `json:"composite_shape,omitempty"` // 基础图形属性
+	CompositeShape *CompositeShape `json:"composite_shape,omitempty"` // 基础图形属性(节点的 type 为 composite_shape 时不可为空)
 
-	Connector *Connector `json:"connector,omitempty"` // 连线属性
+	Connector *Connector `json:"connector,omitempty"` // 连线属性(节点类型为connector时，该字段不可为空)
 
 	Width *float64 `json:"width,omitempty"` // 图形宽度，单位为 px
 
 	Section *Section `json:"section,omitempty"` // 分区属性
 
-	Table *Table `json:"table,omitempty"` // 表格属性
+	Table *Table `json:"table,omitempty"` // 表格属性(节点类型为table、table_er、table_uml、combined_fragment时，该字段不可为空)
 
-	Locked *bool `json:"locked,omitempty"` // 图形是否锁定
+	Locked *bool `json:"locked,omitempty"` // 图形是否锁定，锁定后无法编辑图形，默认false
 
 	ZIndex *int `json:"z_index,omitempty"` // 图形在兄弟节点中的层级，层级大的会覆盖层级小的
 
-	Lifeline *Lifeline `json:"lifeline,omitempty"` // 生命对象属性
+	Lifeline *Lifeline `json:"lifeline,omitempty"` // 生命对象属性(节点类型为life_line时，该字段不可为空)
 
-	Paint *Paint `json:"paint,omitempty"` // 画笔属性
+	Paint *Paint `json:"paint,omitempty"` // 画笔属性(节点类型为paint时，该字段不可为空)
 
-	Svg *Svg `json:"svg,omitempty"` // svg图形属性
+	Svg *Svg `json:"svg,omitempty"` // svg图形属性(节点类型为svg时，该字段不可为空)
 
 	StickyNote *StickyNote `json:"sticky_note,omitempty"` // 便签图形属性
 
@@ -3784,10 +3778,10 @@ type WhiteboardNode struct {
 }
 
 type WhiteboardNodeBuilder struct {
-	id    string // 节点 id
+	id    string // 节点 id，用于唯一标识此节点，不能重复，在创建父子节点、关联其它节点做标记使用
 	idSet bool
 
-	type_    string // 节点图形类型，目前创建节点仅支持创建图片、文本、基础图形等类型
+	type_    string // 节点图形类型
 	type_Set bool
 
 	parentId    string // 父节点 id
@@ -3802,25 +3796,25 @@ type WhiteboardNodeBuilder struct {
 	y    float64 // 图形相对画布的 y 轴位置信息（存在父容器时为相对父容器的坐标，父容器为组合图形 group 时，坐标是穿透的），单位为 px
 	ySet bool
 
-	angle    float64 // 图形旋转角度
+	angle    float64 // 图形旋转角度，单位度
 	angleSet bool
 
 	height    float64 // 图形高度，单位为 px
 	heightSet bool
 
-	text    *Text // 图形内文字
+	text    *Text // 图形内文字（节点类型为 text_shape 时，该字段不能为空）（节点类型为group、section，connector、paint、svg、activation时候，该字段必须为空)
 	textSet bool
 
-	style    *Style // 图形样式
+	style    *Style // 图形样式(节点类型为group、paint时，该字段必须为空)
 	styleSet bool
 
 	image    *Image // 图片
 	imageSet bool
 
-	compositeShape    *CompositeShape // 基础图形属性
+	compositeShape    *CompositeShape // 基础图形属性(节点的 type 为 composite_shape 时不可为空)
 	compositeShapeSet bool
 
-	connector    *Connector // 连线属性
+	connector    *Connector // 连线属性(节点类型为connector时，该字段不可为空)
 	connectorSet bool
 
 	width    float64 // 图形宽度，单位为 px
@@ -3829,22 +3823,22 @@ type WhiteboardNodeBuilder struct {
 	section    *Section // 分区属性
 	sectionSet bool
 
-	table    *Table // 表格属性
+	table    *Table // 表格属性(节点类型为table、table_er、table_uml、combined_fragment时，该字段不可为空)
 	tableSet bool
 
-	locked    bool // 图形是否锁定
+	locked    bool // 图形是否锁定，锁定后无法编辑图形，默认false
 	lockedSet bool
 
 	zIndex    int // 图形在兄弟节点中的层级，层级大的会覆盖层级小的
 	zIndexSet bool
 
-	lifeline    *Lifeline // 生命对象属性
+	lifeline    *Lifeline // 生命对象属性(节点类型为life_line时，该字段不可为空)
 	lifelineSet bool
 
-	paint    *Paint // 画笔属性
+	paint    *Paint // 画笔属性(节点类型为paint时，该字段不可为空)
 	paintSet bool
 
-	svg    *Svg // svg图形属性
+	svg    *Svg // svg图形属性(节点类型为svg时，该字段不可为空)
 	svgSet bool
 
 	stickyNote    *StickyNote // 便签图形属性
@@ -3868,7 +3862,7 @@ func NewWhiteboardNodeBuilder() *WhiteboardNodeBuilder {
 	return builder
 }
 
-// 节点 id
+// 节点 id，用于唯一标识此节点，不能重复，在创建父子节点、关联其它节点做标记使用
 //
 // 示例值：o1:1
 func (builder *WhiteboardNodeBuilder) Id(id string) *WhiteboardNodeBuilder {
@@ -3877,9 +3871,9 @@ func (builder *WhiteboardNodeBuilder) Id(id string) *WhiteboardNodeBuilder {
 	return builder
 }
 
-// 节点图形类型，目前创建节点仅支持创建图片、文本、基础图形等类型
+// 节点图形类型
 //
-// 示例值：
+// 示例值：composite_shape
 func (builder *WhiteboardNodeBuilder) Type(type_ string) *WhiteboardNodeBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
@@ -3888,7 +3882,7 @@ func (builder *WhiteboardNodeBuilder) Type(type_ string) *WhiteboardNodeBuilder 
 
 // 父节点 id
 //
-// 示例值：o1:1
+// 示例值：n1:1
 func (builder *WhiteboardNodeBuilder) ParentId(parentId string) *WhiteboardNodeBuilder {
 	builder.parentId = parentId
 	builder.parentIdSet = true
@@ -3922,7 +3916,7 @@ func (builder *WhiteboardNodeBuilder) Y(y float64) *WhiteboardNodeBuilder {
 	return builder
 }
 
-// 图形旋转角度
+// 图形旋转角度，单位度
 //
 // 示例值：100
 func (builder *WhiteboardNodeBuilder) Angle(angle float64) *WhiteboardNodeBuilder {
@@ -3940,7 +3934,7 @@ func (builder *WhiteboardNodeBuilder) Height(height float64) *WhiteboardNodeBuil
 	return builder
 }
 
-// 图形内文字
+// 图形内文字（节点类型为 text_shape 时，该字段不能为空）（节点类型为group、section，connector、paint、svg、activation时候，该字段必须为空)
 //
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Text(text *Text) *WhiteboardNodeBuilder {
@@ -3949,7 +3943,7 @@ func (builder *WhiteboardNodeBuilder) Text(text *Text) *WhiteboardNodeBuilder {
 	return builder
 }
 
-// 图形样式
+// 图形样式(节点类型为group、paint时，该字段必须为空)
 //
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Style(style *Style) *WhiteboardNodeBuilder {
@@ -3967,7 +3961,7 @@ func (builder *WhiteboardNodeBuilder) Image(image *Image) *WhiteboardNodeBuilder
 	return builder
 }
 
-// 基础图形属性
+// 基础图形属性(节点的 type 为 composite_shape 时不可为空)
 //
 // 示例值：
 func (builder *WhiteboardNodeBuilder) CompositeShape(compositeShape *CompositeShape) *WhiteboardNodeBuilder {
@@ -3976,7 +3970,7 @@ func (builder *WhiteboardNodeBuilder) CompositeShape(compositeShape *CompositeSh
 	return builder
 }
 
-// 连线属性
+// 连线属性(节点类型为connector时，该字段不可为空)
 //
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Connector(connector *Connector) *WhiteboardNodeBuilder {
@@ -4003,7 +3997,7 @@ func (builder *WhiteboardNodeBuilder) Section(section *Section) *WhiteboardNodeB
 	return builder
 }
 
-// 表格属性
+// 表格属性(节点类型为table、table_er、table_uml、combined_fragment时，该字段不可为空)
 //
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Table(table *Table) *WhiteboardNodeBuilder {
@@ -4012,7 +4006,7 @@ func (builder *WhiteboardNodeBuilder) Table(table *Table) *WhiteboardNodeBuilder
 	return builder
 }
 
-// 图形是否锁定
+// 图形是否锁定，锁定后无法编辑图形，默认false
 //
 // 示例值：true
 func (builder *WhiteboardNodeBuilder) Locked(locked bool) *WhiteboardNodeBuilder {
@@ -4030,7 +4024,7 @@ func (builder *WhiteboardNodeBuilder) ZIndex(zIndex int) *WhiteboardNodeBuilder 
 	return builder
 }
 
-// 生命对象属性
+// 生命对象属性(节点类型为life_line时，该字段不可为空)
 //
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Lifeline(lifeline *Lifeline) *WhiteboardNodeBuilder {
@@ -4039,7 +4033,7 @@ func (builder *WhiteboardNodeBuilder) Lifeline(lifeline *Lifeline) *WhiteboardNo
 	return builder
 }
 
-// 画笔属性
+// 画笔属性(节点类型为paint时，该字段不可为空)
 //
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Paint(paint *Paint) *WhiteboardNodeBuilder {
@@ -4048,7 +4042,7 @@ func (builder *WhiteboardNodeBuilder) Paint(paint *Paint) *WhiteboardNodeBuilder
 	return builder
 }
 
-// svg图形属性
+// svg图形属性(节点类型为svg时，该字段不可为空)
 //
 // 示例值：
 func (builder *WhiteboardNodeBuilder) Svg(svg *Svg) *WhiteboardNodeBuilder {
@@ -4208,7 +4202,7 @@ func NewDownloadAsImageWhiteboardReqBuilder() *DownloadAsImageWhiteboardReqBuild
 	return builder
 }
 
-// 画板唯一标识
+// 画板唯一标识。可通过文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取，`block_type` 为 43 的 block 即为画板，对应的 <code>block.token</code> 就是画板的<code>whiteboard_id</code>。;
 //
 // 示例值：Ru8nwrWFOhEmaFbEU2VbPRsHcxb
 func (builder *DownloadAsImageWhiteboardReqBuilder) WhiteboardId(whiteboardId string) *DownloadAsImageWhiteboardReqBuilder {
@@ -4264,7 +4258,7 @@ func NewThemeWhiteboardReqBuilder() *ThemeWhiteboardReqBuilder {
 	return builder
 }
 
-// 画板token
+// 画板标识，可通过云文档下的文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取，`block_type` 为 43 的 block 即为画板，对应的 <code>block.token</code> 就是画板的<code>whiteboard_id</code>
 //
 // 示例值：Ud8xwWH01hO5mwbakqHbHeqmcCI
 func (builder *ThemeWhiteboardReqBuilder) WhiteboardId(whiteboardId string) *ThemeWhiteboardReqBuilder {
@@ -4298,7 +4292,7 @@ func (resp *ThemeWhiteboardResp) Success() bool {
 }
 
 type UpdateThemeWhiteboardReqBodyBuilder struct {
-	theme    string // 主题名称
+	theme    string // 主题名称，可选值有 classic、minimalist_gray、retro、vibrant_color、default
 	themeSet bool
 }
 
@@ -4307,9 +4301,9 @@ func NewUpdateThemeWhiteboardReqBodyBuilder() *UpdateThemeWhiteboardReqBodyBuild
 	return builder
 }
 
-// 主题名称
+// 主题名称，可选值有 classic、minimalist_gray、retro、vibrant_color、default
 //
-//示例值：classic
+// 示例值：classic
 func (builder *UpdateThemeWhiteboardReqBodyBuilder) Theme(theme string) *UpdateThemeWhiteboardReqBodyBuilder {
 	builder.theme = theme
 	builder.themeSet = true
@@ -4334,7 +4328,7 @@ func NewUpdateThemeWhiteboardPathReqBodyBuilder() *UpdateThemeWhiteboardPathReqB
 	return builder
 }
 
-// 主题名称
+// 主题名称，可选值有 classic、minimalist_gray、retro、vibrant_color、default
 //
 // 示例值：classic
 func (builder *UpdateThemeWhiteboardPathReqBodyBuilder) Theme(theme string) *UpdateThemeWhiteboardPathReqBodyBuilder {
@@ -4365,7 +4359,7 @@ func NewUpdateThemeWhiteboardReqBuilder() *UpdateThemeWhiteboardReqBuilder {
 	return builder
 }
 
-// 画板 id，唯一标识
+// 画板 id，唯一标识，可通过云文档下的文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取，`block_type` 为 43 的 block 即为画板，对应的 <code>block.token</code> 就是画板的<code>whiteboard_id</code>
 //
 // 示例值：KRy1wHU6dhmdWIbgkSIbqikMcQc
 func (builder *UpdateThemeWhiteboardReqBuilder) WhiteboardId(whiteboardId string) *UpdateThemeWhiteboardReqBuilder {
@@ -4373,7 +4367,7 @@ func (builder *UpdateThemeWhiteboardReqBuilder) WhiteboardId(whiteboardId string
 	return builder
 }
 
-// 更新画板主题
+// 更新画板主题，具体主题介绍可以参考[主题简介](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/theme-introduction) 。
 func (builder *UpdateThemeWhiteboardReqBuilder) Body(body *UpdateThemeWhiteboardReqBody) *UpdateThemeWhiteboardReqBuilder {
 	builder.body = body
 	return builder
@@ -4388,7 +4382,7 @@ func (builder *UpdateThemeWhiteboardReqBuilder) Build() *UpdateThemeWhiteboardRe
 }
 
 type UpdateThemeWhiteboardReqBody struct {
-	Theme *string `json:"theme,omitempty"` // 主题名称
+	Theme *string `json:"theme,omitempty"` // 主题名称，可选值有 classic、minimalist_gray、retro、vibrant_color、default
 }
 
 type UpdateThemeWhiteboardReq struct {
@@ -4417,7 +4411,7 @@ func NewBatchDeleteWhiteboardNodeReqBodyBuilder() *BatchDeleteWhiteboardNodeReqB
 
 // 需要删除的节点 id 列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchDeleteWhiteboardNodeReqBodyBuilder) Ids(ids []string) *BatchDeleteWhiteboardNodeReqBodyBuilder {
 	builder.ids = ids
 	builder.idsSet = true
@@ -4473,7 +4467,7 @@ func NewBatchDeleteWhiteboardNodeReqBuilder() *BatchDeleteWhiteboardNodeReqBuild
 	return builder
 }
 
-// 画板唯一标识
+// 画板唯一标识。可通过云文档下的文档接口[获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)获取正确的 whiteboard_id（block_type 为 43 的 block 对应的 block.token 即为 whiteboard_id）
 //
 // 示例值：Ru8nwrWFOhEmaFbEU2VbPRsHcxb
 func (builder *BatchDeleteWhiteboardNodeReqBuilder) WhiteboardId(whiteboardId string) *BatchDeleteWhiteboardNodeReqBuilder {
@@ -4489,7 +4483,7 @@ func (builder *BatchDeleteWhiteboardNodeReqBuilder) ClientToken(clientToken stri
 	return builder
 }
 
-// 批量删除画板内的节点，存在子节点时子节点也被删除
+// 画板批量删除节点，子节点会被递归删除。
 func (builder *BatchDeleteWhiteboardNodeReqBuilder) Body(body *BatchDeleteWhiteboardNodeReqBody) *BatchDeleteWhiteboardNodeReqBuilder {
 	builder.body = body
 	return builder
@@ -4528,7 +4522,7 @@ func (resp *BatchDeleteWhiteboardNodeResp) Success() bool {
 }
 
 type CreateWhiteboardNodeReqBodyBuilder struct {
-	nodes    []*WhiteboardNode // 子节点数据
+	nodes    []*WhiteboardNode // 子节点数据，不允许传入空数组
 	nodesSet bool
 
 	overwrite    bool // 是否覆盖画板中已存在的节点
@@ -4540,9 +4534,9 @@ func NewCreateWhiteboardNodeReqBodyBuilder() *CreateWhiteboardNodeReqBodyBuilder
 	return builder
 }
 
-// 子节点数据
+// 子节点数据，不允许传入空数组
 //
-//示例值：
+// 示例值：
 func (builder *CreateWhiteboardNodeReqBodyBuilder) Nodes(nodes []*WhiteboardNode) *CreateWhiteboardNodeReqBodyBuilder {
 	builder.nodes = nodes
 	builder.nodesSet = true
@@ -4551,7 +4545,7 @@ func (builder *CreateWhiteboardNodeReqBodyBuilder) Nodes(nodes []*WhiteboardNode
 
 // 是否覆盖画板中已存在的节点
 //
-//示例值：
+// 示例值：
 func (builder *CreateWhiteboardNodeReqBodyBuilder) Overwrite(overwrite bool) *CreateWhiteboardNodeReqBodyBuilder {
 	builder.overwrite = overwrite
 	builder.overwriteSet = true
@@ -4581,7 +4575,7 @@ func NewCreateWhiteboardNodePathReqBodyBuilder() *CreateWhiteboardNodePathReqBod
 	return builder
 }
 
-// 子节点数据
+// 子节点数据，不允许传入空数组
 //
 // 示例值：
 func (builder *CreateWhiteboardNodePathReqBodyBuilder) Nodes(nodes []*WhiteboardNode) *CreateWhiteboardNodePathReqBodyBuilder {
@@ -4624,7 +4618,7 @@ func NewCreateWhiteboardNodeReqBuilder() *CreateWhiteboardNodeReqBuilder {
 	return builder
 }
 
-// 画板唯一标识
+// 画板唯一标识，可通过云文档下的文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取，`block_type` 为 43 的 block 即为画板，对应的 <code>block.token</code> 就是画板的<code>whiteboard_id</code>
 //
 // 示例值：Ru8nwrWFOhEmaFbEU2VbPRsHcxb
 func (builder *CreateWhiteboardNodeReqBuilder) WhiteboardId(whiteboardId string) *CreateWhiteboardNodeReqBuilder {
@@ -4648,7 +4642,7 @@ func (builder *CreateWhiteboardNodeReqBuilder) UserIdType(userIdType string) *Cr
 	return builder
 }
 
-// 在画板中创建节点
+// 创建画板节点，支持批量创建、创建含父子关系的节点等。
 func (builder *CreateWhiteboardNodeReqBuilder) Body(body *CreateWhiteboardNodeReqBody) *CreateWhiteboardNodeReqBuilder {
 	builder.body = body
 	return builder
@@ -4664,7 +4658,7 @@ func (builder *CreateWhiteboardNodeReqBuilder) Build() *CreateWhiteboardNodeReq 
 }
 
 type CreateWhiteboardNodeReqBody struct {
-	Nodes []*WhiteboardNode `json:"nodes,omitempty"` // 子节点数据
+	Nodes []*WhiteboardNode `json:"nodes,omitempty"` // 子节点数据，不允许传入空数组
 
 	Overwrite *bool `json:"overwrite,omitempty"` // 是否覆盖画板中已存在的节点
 }
@@ -4694,13 +4688,13 @@ type CreatePlantumlWhiteboardNodeReqBodyBuilder struct {
 	plantUmlCode    string // plant uml 代码
 	plantUmlCodeSet bool
 
-	styleType    int //
+	styleType    int // 画板样式（默认为2 经典样式）
 	styleTypeSet bool
 
-	syntaxType    int // 语法类型
+	syntaxType    int // 语法类型（必传）
 	syntaxTypeSet bool
 
-	diagramType    int //
+	diagramType    int // PlantUml语法类型（传0会自动识别语法类型，plantUML语法补充超集GML不可自动识别）;当syntax_type为2（Mermaid解析）时，diagram_type传 0， 默认为 0
 	diagramTypeSet bool
 
 	overwrite    bool // 是否覆盖画板内容：true=覆盖，会将画板当前内容清除再写入；false=不覆盖，直接写入画板。默认为 false
@@ -4720,34 +4714,34 @@ func NewCreatePlantumlWhiteboardNodeReqBodyBuilder() *CreatePlantumlWhiteboardNo
 
 // plant uml 代码
 //
-//示例值：@startuml\nAlice -> Bob: Authentication Request\nBob --> Alice: Authentication Response\n@enduml
+// 示例值：@startuml\nAlice -> Bob: Authentication Request\nBob --> Alice: Authentication Response\n@enduml
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) PlantUmlCode(plantUmlCode string) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.plantUmlCode = plantUmlCode
 	builder.plantUmlCodeSet = true
 	return builder
 }
 
+// 画板样式（默认为2 经典样式）
 //
-//
-//示例值：1
+// 示例值：1
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) StyleType(styleType int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.styleType = styleType
 	builder.styleTypeSet = true
 	return builder
 }
 
-// 语法类型
+// 语法类型（必传）
 //
-//示例值：
+// 示例值：1
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) SyntaxType(syntaxType int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.syntaxType = syntaxType
 	builder.syntaxTypeSet = true
 	return builder
 }
 
+// PlantUml语法类型（传0会自动识别语法类型，plantUML语法补充超集GML不可自动识别）;当syntax_type为2（Mermaid解析）时，diagram_type传 0， 默认为 0
 //
-//
-//示例值：
+// 示例值：0
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) DiagramType(diagramType int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.diagramType = diagramType
 	builder.diagramTypeSet = true
@@ -4756,7 +4750,7 @@ func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) DiagramType(diagramTy
 
 // 是否覆盖画板内容：true=覆盖，会将画板当前内容清除再写入；false=不覆盖，直接写入画板。默认为 false
 //
-//示例值：
+// 示例值：
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) Overwrite(overwrite bool) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.overwrite = overwrite
 	builder.overwriteSet = true
@@ -4765,7 +4759,7 @@ func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) Overwrite(overwrite b
 
 // 解析模式
 //
-//示例值：0
+// 示例值：0
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) ParseMode(parseMode int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.parseMode = parseMode
 	builder.parseModeSet = true
@@ -4774,7 +4768,7 @@ func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) ParseMode(parseMode i
 
 // 外观类型
 //
-//示例值：
+// 示例值：
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) LookType(lookType int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
 	builder.lookType = lookType
 	builder.lookTypeSet = true
@@ -4838,7 +4832,7 @@ func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) PlantUmlCode(plan
 	return builder
 }
 
-//
+// 画板样式（默认为2 经典样式）
 //
 // 示例值：1
 func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) StyleType(styleType int) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
@@ -4847,18 +4841,18 @@ func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) StyleType(styleTy
 	return builder
 }
 
-// 语法类型
+// 语法类型（必传）
 //
-// 示例值：
+// 示例值：1
 func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) SyntaxType(syntaxType int) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
 	builder.syntaxType = syntaxType
 	builder.syntaxTypeSet = true
 	return builder
 }
 
+// PlantUml语法类型（传0会自动识别语法类型，plantUML语法补充超集GML不可自动识别）;当syntax_type为2（Mermaid解析）时，diagram_type传 0， 默认为 0
 //
-//
-// 示例值：
+// 示例值：0
 func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) DiagramType(diagramType int) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
 	builder.diagramType = diagramType
 	builder.diagramTypeSet = true
@@ -4932,7 +4926,7 @@ func NewCreatePlantumlWhiteboardNodeReqBuilder() *CreatePlantumlWhiteboardNodeRe
 	return builder
 }
 
-// 画板 token
+// 画板唯一标识，可通过云文档下的文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取，`block_type` 为 43 的 block 即为画板，对应的 <code>block.token</code> 就是画板的<code>whiteboard_id</code>
 //
 // 示例值：VF5Bwo7Z5icC0bk8EWbb57Vbckh
 func (builder *CreatePlantumlWhiteboardNodeReqBuilder) WhiteboardId(whiteboardId string) *CreatePlantumlWhiteboardNodeReqBuilder {
@@ -4940,7 +4934,7 @@ func (builder *CreatePlantumlWhiteboardNodeReqBuilder) WhiteboardId(whiteboardId
 	return builder
 }
 
-// 创建 plant uml 图形
+// 用户可以将PlantUml/Mermaid图表导入画板进行协同编辑
 func (builder *CreatePlantumlWhiteboardNodeReqBuilder) Body(body *CreatePlantumlWhiteboardNodeReqBody) *CreatePlantumlWhiteboardNodeReqBuilder {
 	builder.body = body
 	return builder
@@ -4957,11 +4951,11 @@ func (builder *CreatePlantumlWhiteboardNodeReqBuilder) Build() *CreatePlantumlWh
 type CreatePlantumlWhiteboardNodeReqBody struct {
 	PlantUmlCode *string `json:"plant_uml_code,omitempty"` // plant uml 代码
 
-	StyleType *int `json:"style_type,omitempty"` //
+	StyleType *int `json:"style_type,omitempty"` // 画板样式（默认为2 经典样式）
 
-	SyntaxType *int `json:"syntax_type,omitempty"` // 语法类型
+	SyntaxType *int `json:"syntax_type,omitempty"` // 语法类型（必传）
 
-	DiagramType *int `json:"diagram_type,omitempty"` //
+	DiagramType *int `json:"diagram_type,omitempty"` // PlantUml语法类型（传0会自动识别语法类型，plantUML语法补充超集GML不可自动识别）;当syntax_type为2（Mermaid解析）时，diagram_type传 0， 默认为 0
 
 	Overwrite *bool `json:"overwrite,omitempty"` // 是否覆盖画板内容：true=覆盖，会将画板当前内容清除再写入；false=不覆盖，直接写入画板。默认为 false
 
@@ -5004,7 +4998,7 @@ func NewListWhiteboardNodeReqBuilder() *ListWhiteboardNodeReqBuilder {
 	return builder
 }
 
-// 画板唯一标识
+// 画板唯一标识，可通过云文档下的文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取，`block_type` 为 43 的 block 即为画板，对应的 <code>block.token</code> 就是画板的<code>whiteboard_id</code>
 //
 // 示例值：Ru8nwrWFOhEmaFbEU2VbPRsHcxb
 func (builder *ListWhiteboardNodeReqBuilder) WhiteboardId(whiteboardId string) *ListWhiteboardNodeReqBuilder {

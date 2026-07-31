@@ -22,6 +22,193 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
+type AuthInfo struct {
+	SessionKey *string `json:"session_key,omitempty"` // $ session key
+
+	UserId *string `json:"user_id,omitempty"` // $ feishu id for internal app.
+
+	OpenAppId *string `json:"open_app_id,omitempty"` // $ app id of open platform.
+
+	Region *string `json:"region,omitempty"` // $ user account region. cn for china; va for oversea
+
+	OpenBotId *string `json:"open_bot_id,omitempty"` // $ open bot id
+
+	BotId *string `json:"bot_id,omitempty"` // $ bot id
+
+	AuthType *string `json:"auth_type,omitempty"` // $ 鉴权类型: LarkSession, TenantAccessToken, UserAccessToken, OpenSession等
+
+	Extra map[string]string `json:"extra,omitempty"` //
+}
+
+type AuthInfoBuilder struct {
+	sessionKey    string // $ session key
+	sessionKeySet bool
+
+	userId    string // $ feishu id for internal app.
+	userIdSet bool
+
+	openAppId    string // $ app id of open platform.
+	openAppIdSet bool
+
+	region    string // $ user account region. cn for china; va for oversea
+	regionSet bool
+
+	openBotId    string // $ open bot id
+	openBotIdSet bool
+
+	botId    string // $ bot id
+	botIdSet bool
+
+	authType    string // $ 鉴权类型: LarkSession, TenantAccessToken, UserAccessToken, OpenSession等
+	authTypeSet bool
+
+	extra    map[string]string //
+	extraSet bool
+}
+
+func NewAuthInfoBuilder() *AuthInfoBuilder {
+	builder := &AuthInfoBuilder{}
+	return builder
+}
+
+// $ session key
+//
+// 示例值：
+func (builder *AuthInfoBuilder) SessionKey(sessionKey string) *AuthInfoBuilder {
+	builder.sessionKey = sessionKey
+	builder.sessionKeySet = true
+	return builder
+}
+
+// $ feishu id for internal app.
+//
+// 示例值：
+func (builder *AuthInfoBuilder) UserId(userId string) *AuthInfoBuilder {
+	builder.userId = userId
+	builder.userIdSet = true
+	return builder
+}
+
+// $ app id of open platform.
+//
+// 示例值：
+func (builder *AuthInfoBuilder) OpenAppId(openAppId string) *AuthInfoBuilder {
+	builder.openAppId = openAppId
+	builder.openAppIdSet = true
+	return builder
+}
+
+// $ user account region. cn for china; va for oversea
+//
+// 示例值：
+func (builder *AuthInfoBuilder) Region(region string) *AuthInfoBuilder {
+	builder.region = region
+	builder.regionSet = true
+	return builder
+}
+
+// $ open bot id
+//
+// 示例值：
+func (builder *AuthInfoBuilder) OpenBotId(openBotId string) *AuthInfoBuilder {
+	builder.openBotId = openBotId
+	builder.openBotIdSet = true
+	return builder
+}
+
+// $ bot id
+//
+// 示例值：
+func (builder *AuthInfoBuilder) BotId(botId string) *AuthInfoBuilder {
+	builder.botId = botId
+	builder.botIdSet = true
+	return builder
+}
+
+// $ 鉴权类型: LarkSession, TenantAccessToken, UserAccessToken, OpenSession等
+//
+// 示例值：
+func (builder *AuthInfoBuilder) AuthType(authType string) *AuthInfoBuilder {
+	builder.authType = authType
+	builder.authTypeSet = true
+	return builder
+}
+
+// 示例值：
+func (builder *AuthInfoBuilder) Extra(extra map[string]string) *AuthInfoBuilder {
+	builder.extra = extra
+	builder.extraSet = true
+	return builder
+}
+
+func (builder *AuthInfoBuilder) Build() *AuthInfo {
+	req := &AuthInfo{}
+	if builder.sessionKeySet {
+		req.SessionKey = &builder.sessionKey
+
+	}
+	if builder.userIdSet {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openAppIdSet {
+		req.OpenAppId = &builder.openAppId
+
+	}
+	if builder.regionSet {
+		req.Region = &builder.region
+
+	}
+	if builder.openBotIdSet {
+		req.OpenBotId = &builder.openBotId
+
+	}
+	if builder.botIdSet {
+		req.BotId = &builder.botId
+
+	}
+	if builder.authTypeSet {
+		req.AuthType = &builder.authType
+
+	}
+	if builder.extraSet {
+		req.Extra = builder.extra
+	}
+	return req
+}
+
+type ClientInfo struct {
+	ClientIp *string `json:"client_ip,omitempty"` // 1: optional string Platform (gw.ctx="mw_platform"); //$ depracated 请求的平台\n2: optional string LarkVersion (gw.ctx="mw_lark_version"); //$ depracated 如果是来自Feisu, 这里是飞书的Version\n3: optional AppForm AppForm (gw.ctx="mw_app_form"); //$ depracated 应用形态 1-小程序\n4: optional string AppVersion (gw.ctx="mw_app_version"); //$ depracated 应用版本\n5: optional string OS (gw.ctx="mw_os"); //$ depracated 操作系统\n$ 客户端IP
+}
+
+type ClientInfoBuilder struct {
+	clientIp    string // 1: optional string Platform (gw.ctx="mw_platform"); //$ depracated 请求的平台\n2: optional string LarkVersion (gw.ctx="mw_lark_version"); //$ depracated 如果是来自Feisu, 这里是飞书的Version\n3: optional AppForm AppForm (gw.ctx="mw_app_form"); //$ depracated 应用形态 1-小程序\n4: optional string AppVersion (gw.ctx="mw_app_version"); //$ depracated 应用版本\n5: optional string OS (gw.ctx="mw_os"); //$ depracated 操作系统\n$ 客户端IP
+	clientIpSet bool
+}
+
+func NewClientInfoBuilder() *ClientInfoBuilder {
+	builder := &ClientInfoBuilder{}
+	return builder
+}
+
+// 1: optional string Platform (gw.ctx="mw_platform"); //$ depracated 请求的平台\n2: optional string LarkVersion (gw.ctx="mw_lark_version"); //$ depracated 如果是来自Feisu, 这里是飞书的Version\n3: optional AppForm AppForm (gw.ctx="mw_app_form"); //$ depracated 应用形态 1-小程序\n4: optional string AppVersion (gw.ctx="mw_app_version"); //$ depracated 应用版本\n5: optional string OS (gw.ctx="mw_os"); //$ depracated 操作系统\n$ 客户端IP
+//
+// 示例值：
+func (builder *ClientInfoBuilder) ClientIp(clientIp string) *ClientInfoBuilder {
+	builder.clientIp = clientIp
+	builder.clientIpSet = true
+	return builder
+}
+
+func (builder *ClientInfoBuilder) Build() *ClientInfo {
+	req := &ClientInfo{}
+	if builder.clientIpSet {
+		req.ClientIp = &builder.clientIp
+
+	}
+	return req
+}
+
 type DepartmentId struct {
 	DepartmentId *string `json:"department_id,omitempty"` //
 
@@ -41,8 +228,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -50,8 +235,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -68,6 +251,197 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	if builder.openDepartmentIdSet {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
+	}
+	return req
+}
+
+type Head struct {
+	Id *string `json:"id,omitempty"` // 请求方的id deprecated
+
+	TenantId *string `json:"tenant_id,omitempty"` // 请求方的组织，在多租户业务中使用
+
+	AppId *string `json:"app_id,omitempty"` // 请求方的appid
+
+	OpenId *string `json:"open_id,omitempty"` // 开放平台的OpenID
+
+	TenantKey *string `json:"tenant_key,omitempty"` // 如果小程序登录，这个是原始的信息，和OpenID是一个意思
+
+	Auth *AuthInfo `json:"auth,omitempty"` // thrift --gen go idl/common.thrift
+
+	Fields map[string]string `json:"fields,omitempty"` // $ plugin output
+
+	Env *string `json:"env,omitempty"` // Header的环境
+
+	Locale *string `json:"locale,omitempty"` // 200: optional HttpHeader HttpHeader (api.json="HttpHeader"), //$ 从HttpHeader透传的HttpHeader\n$ 所在区域，参考:https://zh.wikipedia.org/wiki/%E5%8C%BA%E5%9F%9F%E8%AE%BE%E7%BD%AE的简称
+
+	Client *ClientInfo `json:"client,omitempty"` // $ 客户端信息
+}
+
+type HeadBuilder struct {
+	id    string // 请求方的id deprecated
+	idSet bool
+
+	tenantId    string // 请求方的组织，在多租户业务中使用
+	tenantIdSet bool
+
+	appId    string // 请求方的appid
+	appIdSet bool
+
+	openId    string // 开放平台的OpenID
+	openIdSet bool
+
+	tenantKey    string // 如果小程序登录，这个是原始的信息，和OpenID是一个意思
+	tenantKeySet bool
+
+	auth    *AuthInfo // thrift --gen go idl/common.thrift
+	authSet bool
+
+	fields    map[string]string // $ plugin output
+	fieldsSet bool
+
+	env    string // Header的环境
+	envSet bool
+
+	locale    string // 200: optional HttpHeader HttpHeader (api.json="HttpHeader"), //$ 从HttpHeader透传的HttpHeader\n$ 所在区域，参考:https://zh.wikipedia.org/wiki/%E5%8C%BA%E5%9F%9F%E8%AE%BE%E7%BD%AE的简称
+	localeSet bool
+
+	client    *ClientInfo // $ 客户端信息
+	clientSet bool
+}
+
+func NewHeadBuilder() *HeadBuilder {
+	builder := &HeadBuilder{}
+	return builder
+}
+
+// 请求方的id deprecated
+//
+// 示例值：
+func (builder *HeadBuilder) Id(id string) *HeadBuilder {
+	builder.id = id
+	builder.idSet = true
+	return builder
+}
+
+// 请求方的组织，在多租户业务中使用
+//
+// 示例值：
+func (builder *HeadBuilder) TenantId(tenantId string) *HeadBuilder {
+	builder.tenantId = tenantId
+	builder.tenantIdSet = true
+	return builder
+}
+
+// 请求方的appid
+//
+// 示例值：
+func (builder *HeadBuilder) AppId(appId string) *HeadBuilder {
+	builder.appId = appId
+	builder.appIdSet = true
+	return builder
+}
+
+// 开放平台的OpenID
+//
+// 示例值：
+func (builder *HeadBuilder) OpenId(openId string) *HeadBuilder {
+	builder.openId = openId
+	builder.openIdSet = true
+	return builder
+}
+
+// 如果小程序登录，这个是原始的信息，和OpenID是一个意思
+//
+// 示例值：
+func (builder *HeadBuilder) TenantKey(tenantKey string) *HeadBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeySet = true
+	return builder
+}
+
+// thrift --gen go idl/common.thrift
+//
+// 示例值：
+func (builder *HeadBuilder) Auth(auth *AuthInfo) *HeadBuilder {
+	builder.auth = auth
+	builder.authSet = true
+	return builder
+}
+
+// $ plugin output
+//
+// 示例值：
+func (builder *HeadBuilder) Fields(fields map[string]string) *HeadBuilder {
+	builder.fields = fields
+	builder.fieldsSet = true
+	return builder
+}
+
+// Header的环境
+//
+// 示例值：
+func (builder *HeadBuilder) Env(env string) *HeadBuilder {
+	builder.env = env
+	builder.envSet = true
+	return builder
+}
+
+// 200: optional HttpHeader HttpHeader (api.json="HttpHeader"), //$ 从HttpHeader透传的HttpHeader\n$ 所在区域，参考:https://zh.wikipedia.org/wiki/%E5%8C%BA%E5%9F%9F%E8%AE%BE%E7%BD%AE的简称
+//
+// 示例值：
+func (builder *HeadBuilder) Locale(locale string) *HeadBuilder {
+	builder.locale = locale
+	builder.localeSet = true
+	return builder
+}
+
+// $ 客户端信息
+//
+// 示例值：
+func (builder *HeadBuilder) Client(client *ClientInfo) *HeadBuilder {
+	builder.client = client
+	builder.clientSet = true
+	return builder
+}
+
+func (builder *HeadBuilder) Build() *Head {
+	req := &Head{}
+	if builder.idSet {
+		req.Id = &builder.id
+
+	}
+	if builder.tenantIdSet {
+		req.TenantId = &builder.tenantId
+
+	}
+	if builder.appIdSet {
+		req.AppId = &builder.appId
+
+	}
+	if builder.openIdSet {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.tenantKeySet {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	if builder.authSet {
+		req.Auth = builder.auth
+	}
+	if builder.fieldsSet {
+		req.Fields = builder.fields
+	}
+	if builder.envSet {
+		req.Env = &builder.env
+
+	}
+	if builder.localeSet {
+		req.Locale = &builder.locale
+
+	}
+	if builder.clientSet {
+		req.Client = builder.client
 	}
 	return req
 }
@@ -374,422 +748,6 @@ func (builder *NodeBuilder) Build() *Node {
 	return req
 }
 
-type NodeChild struct {
-}
-
-type NodeChildBuilder struct {
-}
-
-func NewNodeChildBuilder() *NodeChildBuilder {
-	builder := &NodeChildBuilder{}
-	return builder
-}
-
-func (builder *NodeChildBuilder) Build() *NodeChild {
-	req := &NodeChild{}
-	return req
-}
-
-type Space struct {
-	SpaceId *string `json:"space_id,omitempty"` // space的唯一标识
-
-	Name *string `json:"name,omitempty"` // 名称
-
-	Description *string `json:"description,omitempty"` // 描述
-
-	AvatarUrl *string `json:"avatar_url,omitempty"` // 头像url
-
-	TenantId *string `json:"tenant_id,omitempty"` // 所属租户id
-
-	Domain *string `json:"domain,omitempty"` // 所在域名
-
-	IsCrossTenant *bool `json:"is_cross_tenant,omitempty"` // 是否跨租户
-
-	DefaultAttr *int `json:"default_attr,omitempty"` // 默认属性
-
-	HomePage *SpaceHomePage `json:"home_page,omitempty"` // 空间主页
-
-	CoverInfo *SpaceCoverInfo `json:"cover_info,omitempty"` // 空间封面
-
-	Version *int `json:"version,omitempty"` // 版本号
-}
-
-type SpaceBuilder struct {
-	spaceId    string // space的唯一标识
-	spaceIdSet bool
-
-	name    string // 名称
-	nameSet bool
-
-	description    string // 描述
-	descriptionSet bool
-
-	avatarUrl    string // 头像url
-	avatarUrlSet bool
-
-	tenantId    string // 所属租户id
-	tenantIdSet bool
-
-	domain    string // 所在域名
-	domainSet bool
-
-	isCrossTenant    bool // 是否跨租户
-	isCrossTenantSet bool
-
-	defaultAttr    int // 默认属性
-	defaultAttrSet bool
-
-	homePage    *SpaceHomePage // 空间主页
-	homePageSet bool
-
-	coverInfo    *SpaceCoverInfo // 空间封面
-	coverInfoSet bool
-
-	version    int // 版本号
-	versionSet bool
-}
-
-func NewSpaceBuilder() *SpaceBuilder {
-	builder := &SpaceBuilder{}
-	return builder
-}
-
-// space的唯一标识
-//
-// 示例值：
-func (builder *SpaceBuilder) SpaceId(spaceId string) *SpaceBuilder {
-	builder.spaceId = spaceId
-	builder.spaceIdSet = true
-	return builder
-}
-
-// 名称
-//
-// 示例值：
-func (builder *SpaceBuilder) Name(name string) *SpaceBuilder {
-	builder.name = name
-	builder.nameSet = true
-	return builder
-}
-
-// 描述
-//
-// 示例值：
-func (builder *SpaceBuilder) Description(description string) *SpaceBuilder {
-	builder.description = description
-	builder.descriptionSet = true
-	return builder
-}
-
-// 头像url
-//
-// 示例值：
-func (builder *SpaceBuilder) AvatarUrl(avatarUrl string) *SpaceBuilder {
-	builder.avatarUrl = avatarUrl
-	builder.avatarUrlSet = true
-	return builder
-}
-
-// 所属租户id
-//
-// 示例值：
-func (builder *SpaceBuilder) TenantId(tenantId string) *SpaceBuilder {
-	builder.tenantId = tenantId
-	builder.tenantIdSet = true
-	return builder
-}
-
-// 所在域名
-//
-// 示例值：
-func (builder *SpaceBuilder) Domain(domain string) *SpaceBuilder {
-	builder.domain = domain
-	builder.domainSet = true
-	return builder
-}
-
-// 是否跨租户
-//
-// 示例值：
-func (builder *SpaceBuilder) IsCrossTenant(isCrossTenant bool) *SpaceBuilder {
-	builder.isCrossTenant = isCrossTenant
-	builder.isCrossTenantSet = true
-	return builder
-}
-
-// 默认属性
-//
-// 示例值：
-func (builder *SpaceBuilder) DefaultAttr(defaultAttr int) *SpaceBuilder {
-	builder.defaultAttr = defaultAttr
-	builder.defaultAttrSet = true
-	return builder
-}
-
-// 空间主页
-//
-// 示例值：
-func (builder *SpaceBuilder) HomePage(homePage *SpaceHomePage) *SpaceBuilder {
-	builder.homePage = homePage
-	builder.homePageSet = true
-	return builder
-}
-
-// 空间封面
-//
-// 示例值：
-func (builder *SpaceBuilder) CoverInfo(coverInfo *SpaceCoverInfo) *SpaceBuilder {
-	builder.coverInfo = coverInfo
-	builder.coverInfoSet = true
-	return builder
-}
-
-// 版本号
-//
-// 示例值：
-func (builder *SpaceBuilder) Version(version int) *SpaceBuilder {
-	builder.version = version
-	builder.versionSet = true
-	return builder
-}
-
-func (builder *SpaceBuilder) Build() *Space {
-	req := &Space{}
-	if builder.spaceIdSet {
-		req.SpaceId = &builder.spaceId
-
-	}
-	if builder.nameSet {
-		req.Name = &builder.name
-
-	}
-	if builder.descriptionSet {
-		req.Description = &builder.description
-
-	}
-	if builder.avatarUrlSet {
-		req.AvatarUrl = &builder.avatarUrl
-
-	}
-	if builder.tenantIdSet {
-		req.TenantId = &builder.tenantId
-
-	}
-	if builder.domainSet {
-		req.Domain = &builder.domain
-
-	}
-	if builder.isCrossTenantSet {
-		req.IsCrossTenant = &builder.isCrossTenant
-
-	}
-	if builder.defaultAttrSet {
-		req.DefaultAttr = &builder.defaultAttr
-
-	}
-	if builder.homePageSet {
-		req.HomePage = builder.homePage
-	}
-	if builder.coverInfoSet {
-		req.CoverInfo = builder.coverInfo
-	}
-	if builder.versionSet {
-		req.Version = &builder.version
-
-	}
-	return req
-}
-
-type SpaceCoverInfo struct {
-	Origin *string `json:"origin,omitempty"` // 封面图片的url
-
-	Thumbnail *string `json:"thumbnail,omitempty"` // 封面图片缩略图的url
-
-	Name *string `json:"name,omitempty"` // 封面图片的名称
-
-	IsGraphDark *bool `json:"is_graph_dark,omitempty"` // 封面是否为深色，如果为深色，则封面标题应当为白色，反之应当为黑色
-
-	Color *string `json:"color,omitempty"` // 封面的色值
-}
-
-type SpaceCoverInfoBuilder struct {
-	origin    string // 封面图片的url
-	originSet bool
-
-	thumbnail    string // 封面图片缩略图的url
-	thumbnailSet bool
-
-	name    string // 封面图片的名称
-	nameSet bool
-
-	isGraphDark    bool // 封面是否为深色，如果为深色，则封面标题应当为白色，反之应当为黑色
-	isGraphDarkSet bool
-
-	color    string // 封面的色值
-	colorSet bool
-}
-
-func NewSpaceCoverInfoBuilder() *SpaceCoverInfoBuilder {
-	builder := &SpaceCoverInfoBuilder{}
-	return builder
-}
-
-// 封面图片的url
-//
-// 示例值：
-func (builder *SpaceCoverInfoBuilder) Origin(origin string) *SpaceCoverInfoBuilder {
-	builder.origin = origin
-	builder.originSet = true
-	return builder
-}
-
-// 封面图片缩略图的url
-//
-// 示例值：
-func (builder *SpaceCoverInfoBuilder) Thumbnail(thumbnail string) *SpaceCoverInfoBuilder {
-	builder.thumbnail = thumbnail
-	builder.thumbnailSet = true
-	return builder
-}
-
-// 封面图片的名称
-//
-// 示例值：
-func (builder *SpaceCoverInfoBuilder) Name(name string) *SpaceCoverInfoBuilder {
-	builder.name = name
-	builder.nameSet = true
-	return builder
-}
-
-// 封面是否为深色，如果为深色，则封面标题应当为白色，反之应当为黑色
-//
-// 示例值：
-func (builder *SpaceCoverInfoBuilder) IsGraphDark(isGraphDark bool) *SpaceCoverInfoBuilder {
-	builder.isGraphDark = isGraphDark
-	builder.isGraphDarkSet = true
-	return builder
-}
-
-// 封面的色值
-//
-// 示例值：
-func (builder *SpaceCoverInfoBuilder) Color(color string) *SpaceCoverInfoBuilder {
-	builder.color = color
-	builder.colorSet = true
-	return builder
-}
-
-func (builder *SpaceCoverInfoBuilder) Build() *SpaceCoverInfo {
-	req := &SpaceCoverInfo{}
-	if builder.originSet {
-		req.Origin = &builder.origin
-
-	}
-	if builder.thumbnailSet {
-		req.Thumbnail = &builder.thumbnail
-
-	}
-	if builder.nameSet {
-		req.Name = &builder.name
-
-	}
-	if builder.isGraphDarkSet {
-		req.IsGraphDark = &builder.isGraphDark
-
-	}
-	if builder.colorSet {
-		req.Color = &builder.color
-
-	}
-	return req
-}
-
-type SpaceHomePage struct {
-	NodeId *string `json:"node_id,omitempty"` // 空间首页对应的node_id
-
-	ObjToken *string `json:"obj_token,omitempty"` // 空间首页对应的obj_token
-
-	ObjType *int `json:"obj_type,omitempty"` // 空间首页对应的obj_type
-
-	Url *string `json:"url,omitempty"` // 空间首页url
-}
-
-type SpaceHomePageBuilder struct {
-	nodeId    string // 空间首页对应的node_id
-	nodeIdSet bool
-
-	objToken    string // 空间首页对应的obj_token
-	objTokenSet bool
-
-	objType    int // 空间首页对应的obj_type
-	objTypeSet bool
-
-	url    string // 空间首页url
-	urlSet bool
-}
-
-func NewSpaceHomePageBuilder() *SpaceHomePageBuilder {
-	builder := &SpaceHomePageBuilder{}
-	return builder
-}
-
-// 空间首页对应的node_id
-//
-// 示例值：
-func (builder *SpaceHomePageBuilder) NodeId(nodeId string) *SpaceHomePageBuilder {
-	builder.nodeId = nodeId
-	builder.nodeIdSet = true
-	return builder
-}
-
-// 空间首页对应的obj_token
-//
-// 示例值：
-func (builder *SpaceHomePageBuilder) ObjToken(objToken string) *SpaceHomePageBuilder {
-	builder.objToken = objToken
-	builder.objTokenSet = true
-	return builder
-}
-
-// 空间首页对应的obj_type
-//
-// 示例值：
-func (builder *SpaceHomePageBuilder) ObjType(objType int) *SpaceHomePageBuilder {
-	builder.objType = objType
-	builder.objTypeSet = true
-	return builder
-}
-
-// 空间首页url
-//
-// 示例值：
-func (builder *SpaceHomePageBuilder) Url(url string) *SpaceHomePageBuilder {
-	builder.url = url
-	builder.urlSet = true
-	return builder
-}
-
-func (builder *SpaceHomePageBuilder) Build() *SpaceHomePage {
-	req := &SpaceHomePage{}
-	if builder.nodeIdSet {
-		req.NodeId = &builder.nodeId
-
-	}
-	if builder.objTokenSet {
-		req.ObjToken = &builder.objToken
-
-	}
-	if builder.objTypeSet {
-		req.ObjType = &builder.objType
-
-	}
-	if builder.urlSet {
-		req.Url = &builder.url
-
-	}
-	return req
-}
-
 type SearchNodeReqBodyBuilder struct {
 	query    string // 搜索关键词
 	querySet bool
@@ -808,7 +766,7 @@ func NewSearchNodeReqBodyBuilder() *SearchNodeReqBodyBuilder {
 
 // 搜索关键词
 //
-//示例值：123
+// 示例值：123
 func (builder *SearchNodeReqBodyBuilder) Query(query string) *SearchNodeReqBodyBuilder {
 	builder.query = query
 	builder.querySet = true
@@ -817,7 +775,7 @@ func (builder *SearchNodeReqBodyBuilder) Query(query string) *SearchNodeReqBodyB
 
 // 文档所属的知识空间ID，为空搜索所有 wiki
 //
-//示例值：6967549310762221587
+// 示例值：6967549310762221587
 func (builder *SearchNodeReqBodyBuilder) SpaceId(spaceId string) *SearchNodeReqBodyBuilder {
 	builder.spaceId = spaceId
 	builder.spaceIdSet = true
@@ -826,7 +784,7 @@ func (builder *SearchNodeReqBodyBuilder) SpaceId(spaceId string) *SearchNodeReqB
 
 // wiki token，不为空搜索该节点及其所有子节点，为空搜索所有 wiki（根据 space_id 选择 space）
 //
-//示例值：O5UIw9NA8iW308kQQeybWLZqcXc
+// 示例值：O5UIw9NA8iW308kQQeybWLZqcXc
 func (builder *SearchNodeReqBodyBuilder) NodeId(nodeId string) *SearchNodeReqBodyBuilder {
 	builder.nodeId = nodeId
 	builder.nodeIdSet = true
@@ -923,23 +881,18 @@ func (builder *SearchNodeReqBuilder) Limit(limit int) *SearchNodeReqBuilder {
 	return builder
 }
 
-// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token 获取查询结果
-//
 // 示例值：
 func (builder *SearchNodeReqBuilder) PageToken(pageToken string) *SearchNodeReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 分页大小
-//
 // 示例值：
 func (builder *SearchNodeReqBuilder) PageSize(pageSize int) *SearchNodeReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-//
 func (builder *SearchNodeReqBuilder) Body(body *SearchNodeReqBody) *SearchNodeReqBuilder {
 	builder.body = body
 	return builder

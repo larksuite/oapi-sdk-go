@@ -22,6 +22,425 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
+type Authority struct {
+	Type *string `json:"type,omitempty"` // 授权类型，支持 app、user
+
+	OpenId *string `json:"open_id,omitempty"` // type 为用户时的飞书用户 Open ID
+
+	AppId *string `json:"app_id,omitempty"` // type 为应用时的飞书应用 ID
+}
+
+type AuthorityBuilder struct {
+	type_    string // 授权类型，支持 app、user
+	type_Set bool
+
+	openId    string // type 为用户时的飞书用户 Open ID
+	openIdSet bool
+
+	appId    string // type 为应用时的飞书应用 ID
+	appIdSet bool
+}
+
+func NewAuthorityBuilder() *AuthorityBuilder {
+	builder := &AuthorityBuilder{}
+	return builder
+}
+
+// 授权类型，支持 app、user
+//
+// 示例值：user
+func (builder *AuthorityBuilder) Type(type_ string) *AuthorityBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// type 为用户时的飞书用户 Open ID
+//
+// 示例值：ou_xxx
+func (builder *AuthorityBuilder) OpenId(openId string) *AuthorityBuilder {
+	builder.openId = openId
+	builder.openIdSet = true
+	return builder
+}
+
+// type 为应用时的飞书应用 ID
+//
+// 示例值：cli_xxx
+func (builder *AuthorityBuilder) AppId(appId string) *AuthorityBuilder {
+	builder.appId = appId
+	builder.appIdSet = true
+	return builder
+}
+
+func (builder *AuthorityBuilder) Build() *Authority {
+	req := &Authority{}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.openIdSet {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.appIdSet {
+		req.AppId = &builder.appId
+
+	}
+	return req
+}
+
+type BatchCreateSubscriptionFailedItem struct {
+	ErrorCode *int `json:"error_code,omitempty"` // 单个订阅创建失败的错误码
+
+	ErrorMsg *string `json:"error_msg,omitempty"` // 单个订阅创建失败的错误信息
+
+	Subscription *BatchCreateSubscriptionRequestItem `json:"subscription,omitempty"` // 创建失败的事件订阅信息，不包含 subscription_id
+}
+
+type BatchCreateSubscriptionFailedItemBuilder struct {
+	errorCode    int // 单个订阅创建失败的错误码
+	errorCodeSet bool
+
+	errorMsg    string // 单个订阅创建失败的错误信息
+	errorMsgSet bool
+
+	subscription    *BatchCreateSubscriptionRequestItem // 创建失败的事件订阅信息，不包含 subscription_id
+	subscriptionSet bool
+}
+
+func NewBatchCreateSubscriptionFailedItemBuilder() *BatchCreateSubscriptionFailedItemBuilder {
+	builder := &BatchCreateSubscriptionFailedItemBuilder{}
+	return builder
+}
+
+// 单个订阅创建失败的错误码
+//
+// 示例值：1810001
+func (builder *BatchCreateSubscriptionFailedItemBuilder) ErrorCode(errorCode int) *BatchCreateSubscriptionFailedItemBuilder {
+	builder.errorCode = errorCode
+	builder.errorCodeSet = true
+	return builder
+}
+
+// 单个订阅创建失败的错误信息
+//
+// 示例值：target_resource is invalid
+func (builder *BatchCreateSubscriptionFailedItemBuilder) ErrorMsg(errorMsg string) *BatchCreateSubscriptionFailedItemBuilder {
+	builder.errorMsg = errorMsg
+	builder.errorMsgSet = true
+	return builder
+}
+
+// 创建失败的事件订阅信息，不包含 subscription_id
+//
+// 示例值：
+func (builder *BatchCreateSubscriptionFailedItemBuilder) Subscription(subscription *BatchCreateSubscriptionRequestItem) *BatchCreateSubscriptionFailedItemBuilder {
+	builder.subscription = subscription
+	builder.subscriptionSet = true
+	return builder
+}
+
+func (builder *BatchCreateSubscriptionFailedItemBuilder) Build() *BatchCreateSubscriptionFailedItem {
+	req := &BatchCreateSubscriptionFailedItem{}
+	if builder.errorCodeSet {
+		req.ErrorCode = &builder.errorCode
+
+	}
+	if builder.errorMsgSet {
+		req.ErrorMsg = &builder.errorMsg
+
+	}
+	if builder.subscriptionSet {
+		req.Subscription = builder.subscription
+	}
+	return req
+}
+
+type BatchCreateSubscriptionRequestItem struct {
+	TargetResource *string `json:"target_resource,omitempty"` // 目标资源，例如 im.message?chat_id=oc_xxx
+
+	EventType *string `json:"event_type,omitempty"` // 事件类型
+
+	PayloadOptions *CreatePayloadOptions `json:"payload_options,omitempty"` // 事件载荷选项
+
+	Filter *Filter `json:"filter,omitempty"` // 事件过滤条件
+}
+
+type BatchCreateSubscriptionRequestItemBuilder struct {
+	targetResource    string // 目标资源，例如 im.message?chat_id=oc_xxx
+	targetResourceSet bool
+
+	eventType    string // 事件类型
+	eventTypeSet bool
+
+	payloadOptions    *CreatePayloadOptions // 事件载荷选项
+	payloadOptionsSet bool
+
+	filter    *Filter // 事件过滤条件
+	filterSet bool
+}
+
+func NewBatchCreateSubscriptionRequestItemBuilder() *BatchCreateSubscriptionRequestItemBuilder {
+	builder := &BatchCreateSubscriptionRequestItemBuilder{}
+	return builder
+}
+
+// 目标资源，例如 im.message?chat_id=oc_xxx
+//
+// 示例值：im.message?chat_id=oc_xxx
+func (builder *BatchCreateSubscriptionRequestItemBuilder) TargetResource(targetResource string) *BatchCreateSubscriptionRequestItemBuilder {
+	builder.targetResource = targetResource
+	builder.targetResourceSet = true
+	return builder
+}
+
+// 事件类型
+//
+// 示例值：im.message.created_v1
+func (builder *BatchCreateSubscriptionRequestItemBuilder) EventType(eventType string) *BatchCreateSubscriptionRequestItemBuilder {
+	builder.eventType = eventType
+	builder.eventTypeSet = true
+	return builder
+}
+
+// 事件载荷选项
+//
+// 示例值：
+func (builder *BatchCreateSubscriptionRequestItemBuilder) PayloadOptions(payloadOptions *CreatePayloadOptions) *BatchCreateSubscriptionRequestItemBuilder {
+	builder.payloadOptions = payloadOptions
+	builder.payloadOptionsSet = true
+	return builder
+}
+
+// 事件过滤条件
+//
+// 示例值：
+func (builder *BatchCreateSubscriptionRequestItemBuilder) Filter(filter *Filter) *BatchCreateSubscriptionRequestItemBuilder {
+	builder.filter = filter
+	builder.filterSet = true
+	return builder
+}
+
+func (builder *BatchCreateSubscriptionRequestItemBuilder) Build() *BatchCreateSubscriptionRequestItem {
+	req := &BatchCreateSubscriptionRequestItem{}
+	if builder.targetResourceSet {
+		req.TargetResource = &builder.targetResource
+
+	}
+	if builder.eventTypeSet {
+		req.EventType = &builder.eventType
+
+	}
+	if builder.payloadOptionsSet {
+		req.PayloadOptions = builder.payloadOptions
+	}
+	if builder.filterSet {
+		req.Filter = builder.filter
+	}
+	return req
+}
+
+type CompositeCondition struct {
+	LogicOp *string `json:"logic_op,omitempty"` // 逻辑运算符。支持 and、or、not
+
+	Condition *Contidion `json:"condition,omitempty"` // 单个条件
+
+	CompositeConditions []*CompositeCondition `json:"composite_conditions,omitempty"` // 组合条件
+}
+
+type CompositeConditionBuilder struct {
+	logicOp    string // 逻辑运算符。支持 and、or、not
+	logicOpSet bool
+
+	condition    *Contidion // 单个条件
+	conditionSet bool
+
+	compositeConditions    []*CompositeCondition // 组合条件
+	compositeConditionsSet bool
+}
+
+func NewCompositeConditionBuilder() *CompositeConditionBuilder {
+	builder := &CompositeConditionBuilder{}
+	return builder
+}
+
+// 逻辑运算符。支持 and、or、not
+//
+// 示例值：and
+func (builder *CompositeConditionBuilder) LogicOp(logicOp string) *CompositeConditionBuilder {
+	builder.logicOp = logicOp
+	builder.logicOpSet = true
+	return builder
+}
+
+// 单个条件
+//
+// 示例值：
+func (builder *CompositeConditionBuilder) Condition(condition *Contidion) *CompositeConditionBuilder {
+	builder.condition = condition
+	builder.conditionSet = true
+	return builder
+}
+
+// 组合条件
+//
+// 示例值：
+func (builder *CompositeConditionBuilder) CompositeConditions(compositeConditions []*CompositeCondition) *CompositeConditionBuilder {
+	builder.compositeConditions = compositeConditions
+	builder.compositeConditionsSet = true
+	return builder
+}
+
+func (builder *CompositeConditionBuilder) Build() *CompositeCondition {
+	req := &CompositeCondition{}
+	if builder.logicOpSet {
+		req.LogicOp = &builder.logicOp
+
+	}
+	if builder.conditionSet {
+		req.Condition = builder.condition
+	}
+	if builder.compositeConditionsSet {
+		req.CompositeConditions = builder.compositeConditions
+	}
+	return req
+}
+
+type Contidion struct {
+	Operand *string `json:"operand,omitempty"` // 操作数
+
+	Op *string `json:"op,omitempty"` // 算数操作符。支持 eq、in、contains
+
+	Value *string `json:"value,omitempty"` // 操作值
+
+	ListValue []string `json:"list_value,omitempty"` // 操作值列表。当 op 使用 in 时，操作值需要使用该字段传入
+}
+
+type ContidionBuilder struct {
+	operand    string // 操作数
+	operandSet bool
+
+	op    string // 算数操作符。支持 eq、in、contains
+	opSet bool
+
+	value    string // 操作值
+	valueSet bool
+
+	listValue    []string // 操作值列表。当 op 使用 in 时，操作值需要使用该字段传入
+	listValueSet bool
+}
+
+func NewContidionBuilder() *ContidionBuilder {
+	builder := &ContidionBuilder{}
+	return builder
+}
+
+// 操作数
+//
+// 示例值：sender
+func (builder *ContidionBuilder) Operand(operand string) *ContidionBuilder {
+	builder.operand = operand
+	builder.operandSet = true
+	return builder
+}
+
+// 算数操作符。支持 eq、in、contains
+//
+// 示例值：eq
+func (builder *ContidionBuilder) Op(op string) *ContidionBuilder {
+	builder.op = op
+	builder.opSet = true
+	return builder
+}
+
+// 操作值
+//
+// 示例值：ou_xxx
+func (builder *ContidionBuilder) Value(value string) *ContidionBuilder {
+	builder.value = value
+	builder.valueSet = true
+	return builder
+}
+
+// 操作值列表。当 op 使用 in 时，操作值需要使用该字段传入
+//
+// 示例值：
+func (builder *ContidionBuilder) ListValue(listValue []string) *ContidionBuilder {
+	builder.listValue = listValue
+	builder.listValueSet = true
+	return builder
+}
+
+func (builder *ContidionBuilder) Build() *Contidion {
+	req := &Contidion{}
+	if builder.operandSet {
+		req.Operand = &builder.operand
+
+	}
+	if builder.opSet {
+		req.Op = &builder.op
+
+	}
+	if builder.valueSet {
+		req.Value = &builder.value
+
+	}
+	if builder.listValueSet {
+		req.ListValue = builder.listValue
+	}
+	return req
+}
+
+type CreatePayloadOptions struct {
+	IncludeResourceData *bool `json:"include_resource_data,omitempty"` // 是否在事件投递中包含资源数据
+
+	Encrypt *PayloadOptionsEncrypt `json:"encrypt,omitempty"` // 资源数据加密配置，仅 CreateSubscription 请求体支持
+}
+
+type CreatePayloadOptionsBuilder struct {
+	includeResourceData    bool // 是否在事件投递中包含资源数据
+	includeResourceDataSet bool
+
+	encrypt    *PayloadOptionsEncrypt // 资源数据加密配置，仅 CreateSubscription 请求体支持
+	encryptSet bool
+}
+
+func NewCreatePayloadOptionsBuilder() *CreatePayloadOptionsBuilder {
+	builder := &CreatePayloadOptionsBuilder{}
+	return builder
+}
+
+// 是否在事件投递中包含资源数据
+//
+// 示例值：true
+func (builder *CreatePayloadOptionsBuilder) IncludeResourceData(includeResourceData bool) *CreatePayloadOptionsBuilder {
+	builder.includeResourceData = includeResourceData
+	builder.includeResourceDataSet = true
+	return builder
+}
+
+// 资源数据加密配置，仅 CreateSubscription 请求体支持
+//
+// 示例值：
+func (builder *CreatePayloadOptionsBuilder) Encrypt(encrypt *PayloadOptionsEncrypt) *CreatePayloadOptionsBuilder {
+	builder.encrypt = encrypt
+	builder.encryptSet = true
+	return builder
+}
+
+func (builder *CreatePayloadOptionsBuilder) Build() *CreatePayloadOptions {
+	req := &CreatePayloadOptions{}
+	if builder.includeResourceDataSet {
+		req.IncludeResourceData = &builder.includeResourceData
+
+	}
+	if builder.encryptSet {
+		req.Encrypt = builder.encrypt
+	}
+	return req
+}
+
 type DepartmentId struct {
 	DepartmentId *string `json:"department_id,omitempty"` //
 
@@ -41,8 +460,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -50,8 +467,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -70,6 +485,355 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 
 	}
 	return req
+}
+
+type Filter struct {
+	CompositeCondition *CompositeCondition `json:"composite_condition,omitempty"` // 组合条件
+}
+
+type FilterBuilder struct {
+	compositeCondition    *CompositeCondition // 组合条件
+	compositeConditionSet bool
+}
+
+func NewFilterBuilder() *FilterBuilder {
+	builder := &FilterBuilder{}
+	return builder
+}
+
+// 组合条件
+//
+// 示例值：
+func (builder *FilterBuilder) CompositeCondition(compositeCondition *CompositeCondition) *FilterBuilder {
+	builder.compositeCondition = compositeCondition
+	builder.compositeConditionSet = true
+	return builder
+}
+
+func (builder *FilterBuilder) Build() *Filter {
+	req := &Filter{}
+	if builder.compositeConditionSet {
+		req.CompositeCondition = builder.compositeCondition
+	}
+	return req
+}
+
+type PayloadOptions struct {
+	IncludeResourceData *bool `json:"include_resource_data,omitempty"` // 是否在推送 payload 中包含资源数据
+}
+
+type PayloadOptionsBuilder struct {
+	includeResourceData    bool // 是否在推送 payload 中包含资源数据
+	includeResourceDataSet bool
+}
+
+func NewPayloadOptionsBuilder() *PayloadOptionsBuilder {
+	builder := &PayloadOptionsBuilder{}
+	return builder
+}
+
+// 是否在推送 payload 中包含资源数据
+//
+// 示例值：true
+func (builder *PayloadOptionsBuilder) IncludeResourceData(includeResourceData bool) *PayloadOptionsBuilder {
+	builder.includeResourceData = includeResourceData
+	builder.includeResourceDataSet = true
+	return builder
+}
+
+func (builder *PayloadOptionsBuilder) Build() *PayloadOptions {
+	req := &PayloadOptions{}
+	if builder.includeResourceDataSet {
+		req.IncludeResourceData = &builder.includeResourceData
+
+	}
+	return req
+}
+
+type PayloadOptionsEncrypt struct {
+	EncryptKey *string `json:"encrypt_key,omitempty"` // 加密密钥
+}
+
+type PayloadOptionsEncryptBuilder struct {
+	encryptKey    string // 加密密钥
+	encryptKeySet bool
+}
+
+func NewPayloadOptionsEncryptBuilder() *PayloadOptionsEncryptBuilder {
+	builder := &PayloadOptionsEncryptBuilder{}
+	return builder
+}
+
+// 加密密钥
+//
+// 示例值：foo
+func (builder *PayloadOptionsEncryptBuilder) EncryptKey(encryptKey string) *PayloadOptionsEncryptBuilder {
+	builder.encryptKey = encryptKey
+	builder.encryptKeySet = true
+	return builder
+}
+
+func (builder *PayloadOptionsEncryptBuilder) Build() *PayloadOptionsEncrypt {
+	req := &PayloadOptionsEncrypt{}
+	if builder.encryptKeySet {
+		req.EncryptKey = &builder.encryptKey
+
+	}
+	return req
+}
+
+type SubscriptionDetail struct {
+	SubscriptionId *string `json:"subscription_id,omitempty"` // 订阅的 Open ID
+
+	Authority *Authority `json:"authority,omitempty"` // 订阅身份
+
+	TargetResource *string `json:"target_resource,omitempty"` // 目标资源，格式为 {resource}?{selector}={value}[&...]
+
+	EventType *string `json:"event_type,omitempty"` // 订阅的事件类型
+
+	PayloadOptions *PayloadOptions `json:"payload_options,omitempty"` // 事件载荷选项
+
+	Filter *Filter `json:"filter,omitempty"` // 过滤条件
+
+	State *string `json:"state,omitempty"` // 订阅状态
+
+	Suspension *Suspension `json:"suspension,omitempty"` // 挂起原因，仅 state=suspended 时返回
+
+	ExpireTime *int `json:"expire_time,omitempty"` // 过期时间，Unix 秒
+
+	CreateTime *int `json:"create_time,omitempty"` // 创建时间，Unix 秒
+
+	UpdateTime *int `json:"update_time,omitempty"` // 更新时间，Unix 秒
+}
+
+type SubscriptionDetailBuilder struct {
+	subscriptionId    string // 订阅的 Open ID
+	subscriptionIdSet bool
+
+	authority    *Authority // 订阅身份
+	authoritySet bool
+
+	targetResource    string // 目标资源，格式为 {resource}?{selector}={value}[&...]
+	targetResourceSet bool
+
+	eventType    string // 订阅的事件类型
+	eventTypeSet bool
+
+	payloadOptions    *PayloadOptions // 事件载荷选项
+	payloadOptionsSet bool
+
+	filter    *Filter // 过滤条件
+	filterSet bool
+
+	state    string // 订阅状态
+	stateSet bool
+
+	suspension    *Suspension // 挂起原因，仅 state=suspended 时返回
+	suspensionSet bool
+
+	expireTime    int // 过期时间，Unix 秒
+	expireTimeSet bool
+
+	createTime    int // 创建时间，Unix 秒
+	createTimeSet bool
+
+	updateTime    int // 更新时间，Unix 秒
+	updateTimeSet bool
+}
+
+func NewSubscriptionDetailBuilder() *SubscriptionDetailBuilder {
+	builder := &SubscriptionDetailBuilder{}
+	return builder
+}
+
+// 订阅的 Open ID
+//
+// 示例值：sub_xxx
+func (builder *SubscriptionDetailBuilder) SubscriptionId(subscriptionId string) *SubscriptionDetailBuilder {
+	builder.subscriptionId = subscriptionId
+	builder.subscriptionIdSet = true
+	return builder
+}
+
+// 订阅身份
+//
+// 示例值：
+func (builder *SubscriptionDetailBuilder) Authority(authority *Authority) *SubscriptionDetailBuilder {
+	builder.authority = authority
+	builder.authoritySet = true
+	return builder
+}
+
+// 目标资源，格式为 {resource}?{selector}={value}[&...]
+//
+// 示例值：im.message?chat_id=oc_xxx
+func (builder *SubscriptionDetailBuilder) TargetResource(targetResource string) *SubscriptionDetailBuilder {
+	builder.targetResource = targetResource
+	builder.targetResourceSet = true
+	return builder
+}
+
+// 订阅的事件类型
+//
+// 示例值：im.message.created_v1
+func (builder *SubscriptionDetailBuilder) EventType(eventType string) *SubscriptionDetailBuilder {
+	builder.eventType = eventType
+	builder.eventTypeSet = true
+	return builder
+}
+
+// 事件载荷选项
+//
+// 示例值：
+func (builder *SubscriptionDetailBuilder) PayloadOptions(payloadOptions *PayloadOptions) *SubscriptionDetailBuilder {
+	builder.payloadOptions = payloadOptions
+	builder.payloadOptionsSet = true
+	return builder
+}
+
+// 过滤条件
+//
+// 示例值：
+func (builder *SubscriptionDetailBuilder) Filter(filter *Filter) *SubscriptionDetailBuilder {
+	builder.filter = filter
+	builder.filterSet = true
+	return builder
+}
+
+// 订阅状态
+//
+// 示例值：active
+func (builder *SubscriptionDetailBuilder) State(state string) *SubscriptionDetailBuilder {
+	builder.state = state
+	builder.stateSet = true
+	return builder
+}
+
+// 挂起原因，仅 state=suspended 时返回
+//
+// 示例值：
+func (builder *SubscriptionDetailBuilder) Suspension(suspension *Suspension) *SubscriptionDetailBuilder {
+	builder.suspension = suspension
+	builder.suspensionSet = true
+	return builder
+}
+
+// 过期时间，Unix 秒
+//
+// 示例值：1767225600
+func (builder *SubscriptionDetailBuilder) ExpireTime(expireTime int) *SubscriptionDetailBuilder {
+	builder.expireTime = expireTime
+	builder.expireTimeSet = true
+	return builder
+}
+
+// 创建时间，Unix 秒
+//
+// 示例值：1700000000
+func (builder *SubscriptionDetailBuilder) CreateTime(createTime int) *SubscriptionDetailBuilder {
+	builder.createTime = createTime
+	builder.createTimeSet = true
+	return builder
+}
+
+// 更新时间，Unix 秒
+//
+// 示例值：1700000000
+func (builder *SubscriptionDetailBuilder) UpdateTime(updateTime int) *SubscriptionDetailBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeSet = true
+	return builder
+}
+
+func (builder *SubscriptionDetailBuilder) Build() *SubscriptionDetail {
+	req := &SubscriptionDetail{}
+	if builder.subscriptionIdSet {
+		req.SubscriptionId = &builder.subscriptionId
+
+	}
+	if builder.authoritySet {
+		req.Authority = builder.authority
+	}
+	if builder.targetResourceSet {
+		req.TargetResource = &builder.targetResource
+
+	}
+	if builder.eventTypeSet {
+		req.EventType = &builder.eventType
+
+	}
+	if builder.payloadOptionsSet {
+		req.PayloadOptions = builder.payloadOptions
+	}
+	if builder.filterSet {
+		req.Filter = builder.filter
+	}
+	if builder.stateSet {
+		req.State = &builder.state
+
+	}
+	if builder.suspensionSet {
+		req.Suspension = builder.suspension
+	}
+	if builder.expireTimeSet {
+		req.ExpireTime = &builder.expireTime
+
+	}
+	if builder.createTimeSet {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeSet {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	return req
+}
+
+type Suspension struct {
+	Code *string `json:"code,omitempty"` // 停用 Code，映射一个停用原因
+}
+
+type SuspensionBuilder struct {
+	code    string // 停用 Code，映射一个停用原因
+	codeSet bool
+}
+
+func NewSuspensionBuilder() *SuspensionBuilder {
+	builder := &SuspensionBuilder{}
+	return builder
+}
+
+// 停用 Code，映射一个停用原因
+//
+// 示例值：authority_revoked
+func (builder *SuspensionBuilder) Code(code string) *SuspensionBuilder {
+	builder.code = code
+	builder.codeSet = true
+	return builder
+}
+
+func (builder *SuspensionBuilder) Build() *Suspension {
+	req := &Suspension{}
+	if builder.codeSet {
+		req.Code = &builder.code
+
+	}
+	return req
+}
+
+type GetConnectionRespData struct {
+	OnlineInstanceCnt *int `json:"online_instance_cnt,omitempty"` // 应用长连接数量
+}
+
+type GetConnectionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetConnectionRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetConnectionResp) Success() bool {
+	return resp.Code == 0
 }
 
 type ListOutboundIpReqBuilder struct {

@@ -10,68 +10,68 @@ import (
 
 type V1 struct {
 	Advertisement                   *advertisement                   // advertisement
-	Agency                          *agency                          // 猎头（灰度租户可见）
-	Application                     *application                     // 投递
+	Agency                          *agency                          // agency
+	Application                     *application                     // application
 	ApplicationInterview            *applicationInterview            // application.interview
-	Attachment                      *attachment                      // 附件
-	BackgroundCheckOrder            *backgroundCheckOrder            // 背调 （灰度租户可见）
+	Attachment                      *attachment                      // attachment
+	BackgroundCheckOrder            *backgroundCheckOrder            // background_check_order
 	DiversityInclusion              *diversityInclusion              // diversity_inclusion
-	EcoAccount                      *ecoAccount                      // 事件
-	EcoAccountCustomField           *ecoAccountCustomField           // 生态对接账号自定义字段
-	EcoBackgroundCheck              *ecoBackgroundCheck              // 背调订单
-	EcoBackgroundCheckCustomField   *ecoBackgroundCheckCustomField   // 背调自定义字段
-	EcoBackgroundCheckPackage       *ecoBackgroundCheckPackage       // 背调套餐和附加调查项
+	EcoAccount                      *ecoAccount                      // eco_account
+	EcoAccountCustomField           *ecoAccountCustomField           // eco_account_custom_field
+	EcoBackgroundCheck              *ecoBackgroundCheck              // eco_background_check
+	EcoBackgroundCheckCustomField   *ecoBackgroundCheckCustomField   // eco_background_check_custom_field
+	EcoBackgroundCheckPackage       *ecoBackgroundCheckPackage       // eco_background_check_package
 	EcoExam                         *ecoExam                         // eco_exam
 	EcoExamPaper                    *ecoExamPaper                    // eco_exam_paper
-	EhrImportTask                   *ehrImportTask                   // 导入 e-HR
+	EhrImportTask                   *ehrImportTask                   // ehr_import_task
 	EhrImportTaskForInternshipOffer *ehrImportTaskForInternshipOffer // ehr_import_task_for_internship_offer
-	Employee                        *employee                        // 入职
-	Evaluation                      *evaluation                      // 评估（灰度租户可见）
-	EvaluationTask                  *evaluationTask                  // 评估任务
-	Exam                            *exam                            // 笔试 (灰度租户可见)
-	ExamMarkingTask                 *examMarkingTask                 // 笔试阅卷任务
-	ExternalApplication             *externalApplication             // 导入外部系统信息（灰度租户可见）
-	ExternalBackgroundCheck         *externalBackgroundCheck         // 导入外部系统信息（灰度租户可见）
-	ExternalInterview               *externalInterview               // 导入外部系统信息（灰度租户可见）
-	ExternalInterviewAssessment     *externalInterviewAssessment     // 导入外部系统信息（灰度租户可见）
+	Employee                        *employee                        // employee
+	Evaluation                      *evaluation                      // evaluation
+	EvaluationTask                  *evaluationTask                  // evaluation_task
+	Exam                            *exam                            // exam
+	ExamMarkingTask                 *examMarkingTask                 // exam_marking_task
+	ExternalApplication             *externalApplication             // external_application
+	ExternalBackgroundCheck         *externalBackgroundCheck         // external_background_check
+	ExternalInterview               *externalInterview               // external_interview
+	ExternalInterviewAssessment     *externalInterviewAssessment     // external_interview_assessment
 	ExternalOffer                   *externalOffer                   // external_offer
 	ExternalReferralReward          *externalReferralReward          // external_referral_reward
-	Interview                       *interview                       // 面试
+	Interview                       *interview                       // interview
 	InterviewFeedbackForm           *interviewFeedbackForm           // interview_feedback_form
 	InterviewRecord                 *interviewRecord                 // interview_record
 	InterviewRecordAttachment       *interviewRecordAttachment       // interview_record.attachment
 	InterviewRegistrationSchema     *interviewRegistrationSchema     // interview_registration_schema
-	InterviewRoundType              *interviewRoundType              // 面试轮次类型
-	InterviewTask                   *interviewTask                   // 面试任务
+	InterviewRoundType              *interviewRoundType              // interview_round_type
+	InterviewTask                   *interviewTask                   // interview_task
 	Interviewer                     *interviewer                     // interviewer
-	Job                             *job                             // 职位
+	Job                             *job                             // job
 	JobManager                      *jobManager                      // job.manager
 	JobFunction                     *jobFunction                     // job_function
-	JobProcess                      *jobProcess                      // 流程
+	JobProcess                      *jobProcess                      // job_process
 	JobPublishRecord                *jobPublishRecord                // job_publish_record
-	JobRequirement                  *jobRequirement                  // 招聘需求（灰度租户可见）
+	JobRequirement                  *jobRequirement                  // job_requirement
 	JobRequirementSchema            *jobRequirementSchema            // job_requirement_schema
 	JobSchema                       *jobSchema                       // job_schema
 	JobType                         *jobType                         // job_type
-	Location                        *location                        // 地址（灰度租户可见）
+	Location                        *location                        // location
 	Minutes                         *minutes                         // minutes
-	Note                            *note                            // 备注
-	Offer                           *offer                           // Offer
-	OfferApplicationForm            *offerApplicationForm            // Offer 申请表（灰度租户可见）
-	OfferApprovalTemplate           *offerApprovalTemplate           // Offer 审批流配置（灰度租户可见）
+	Note                            *note                            // note
+	Offer                           *offer                           // offer
+	OfferApplicationForm            *offerApplicationForm            // offer_application_form
+	OfferApprovalTemplate           *offerApprovalTemplate           // offer_approval_template
 	OfferCustomField                *offerCustomField                // offer_custom_field
 	OfferSchema                     *offerSchema                     // offer_schema
 	PortalApplySchema               *portalApplySchema               // portal_apply_schema
-	Questionnaire                   *questionnaire                   // 问卷（灰度租户可见）
-	Referral                        *referral                        // 内推
+	Questionnaire                   *questionnaire                   // questionnaire
+	Referral                        *referral                        // referral
 	ReferralAccount                 *referralAccount                 // referral_account
 	ReferralWebsiteJobPost          *referralWebsiteJobPost          // referral_website.job_post
 	RegistrationSchema              *registrationSchema              // registration_schema
-	ResumeSource                    *resumeSource                    // 简历来源
-	Role                            *role                            // 权限
-	Subject                         *subject                         // 项目（灰度租户可见）
-	Talent                          *talent                          // 人才
-	TalentExternalInfo              *talentExternalInfo              // 导入外部系统信息（灰度租户可见）
+	ResumeSource                    *resumeSource                    // resume_source
+	Role                            *role                            // role
+	Subject                         *subject                         // subject
+	Talent                          *talent                          // talent
+	TalentExternalInfo              *talentExternalInfo              // talent.external_info
 	TalentBlocklist                 *talentBlocklist                 // talent_blocklist
 	TalentFolder                    *talentFolder                    // talent_folder
 	TalentObject                    *talentObject                    // talent_object
@@ -80,10 +80,10 @@ type V1 struct {
 	TalentTag                       *talentTag                       // talent_tag
 	TerminationReason               *terminationReason               // termination_reason
 	Test                            *test                            // test
-	Todo                            *todo                            // 待办
+	Todo                            *todo                            // todo
 	TripartiteAgreement             *tripartiteAgreement             // tripartite_agreement
-	UserRole                        *userRole                        // 权限
-	Website                         *website                         // 官网（灰度租户可见）
+	UserRole                        *userRole                        // user_role
+	Website                         *website                         // website
 	WebsiteChannel                  *websiteChannel                  // website.channel
 	WebsiteDelivery                 *websiteDelivery                 // website.delivery
 	WebsiteDeliveryTask             *websiteDeliveryTask             // website.delivery_task
@@ -417,11 +417,13 @@ type websiteSiteUser struct {
 	config *larkcore.Config
 }
 
-// Publish 职位发布至官网
+// Publish 发布职位广告
 //
-// - 支持把职位发布至招聘官网、内推平台
+// - 支持把职位广告发布上线至招聘官网、内推平台。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/advertisement/publish
+// - ## 注意事项;;调用此接口前，需先打开「飞书招聘」-「设置」-「职位管理」-「职位设置」-「通过 API 同步职位开关」开关。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=publish&project=hire&resource=advertisement&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/publish_advertisement.go
 func (a *advertisement) Publish(ctx context.Context, req *PublishAdvertisementReq, options ...larkcore.RequestOptionFunc) (*PublishAdvertisementResp, error) {
@@ -443,9 +445,9 @@ func (a *advertisement) Publish(ctx context.Context, req *PublishAdvertisementRe
 	return resp, err
 }
 
-// BatchQuery
+// BatchQuery 搜索猎头供应商列表
 //
-// -
+// - 可根据猎头供应商 ID 列表或关键字、筛选项查询供应商信息。暂不支持获取【邀请中】的供应商列表。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=hire&resource=agency&version=v1
 //
@@ -471,9 +473,9 @@ func (a *agency) BatchQuery(ctx context.Context, req *BatchQueryAgencyReq, optio
 
 // Get 获取猎头供应商信息
 //
-// - 根据猎头供应商 ID 获取猎头供应商信息
+// - 根据猎头供应商 ID 获取有合作关系的猎头供应商信息，包含猎头供应商ID、名称、联系人等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/agency/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=agency&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_agency.go
 func (a *agency) Get(ctx context.Context, req *GetAgencyReq, options ...larkcore.RequestOptionFunc) (*GetAgencyResp, error) {
@@ -495,9 +497,9 @@ func (a *agency) Get(ctx context.Context, req *GetAgencyReq, options ...larkcore
 	return resp, err
 }
 
-// GetAgencyAccount
+// GetAgencyAccount 查询猎头供应商下猎头列表
 //
-// -
+// - 根据猎头供应商 ID 查询该猎头供应商下的猎头列表。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_agency_account&project=hire&resource=agency&version=v1
 //
@@ -521,9 +523,9 @@ func (a *agency) GetAgencyAccount(ctx context.Context, req *GetAgencyAccountAgen
 	return resp, err
 }
 
-// OperateAgencyAccount
+// OperateAgencyAccount 禁用/取消禁用猎头
 //
-// -
+// - 可根据猎头 ID 对猎头执行禁用/取消禁用操作。被禁用的猎头，不能推荐候选人与被分配职位。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=operate_agency_account&project=hire&resource=agency&version=v1
 //
@@ -549,9 +551,9 @@ func (a *agency) OperateAgencyAccount(ctx context.Context, req *OperateAgencyAcc
 
 // Protect 设置猎头保护期
 //
-// - 设置猎头保护期
+// - 设置指定人才的猎头保护期，当「飞书招聘」内置的保护期功能不满足需求时，客户可通过此接口自定义人才的保护期。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/agency/protect
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=protect&project=hire&resource=agency&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/protect_agency.go
 func (a *agency) Protect(ctx context.Context, req *ProtectAgencyReq, options ...larkcore.RequestOptionFunc) (*ProtectAgencyResp, error) {
@@ -573,9 +575,9 @@ func (a *agency) Protect(ctx context.Context, req *ProtectAgencyReq, options ...
 	return resp, err
 }
 
-// ProtectSearch
+// ProtectSearch 查询人才猎头保护期信息
 //
-// -
+// - 查询指定人才的猎头保护期信息列表，包含保护期起止时间、猎头供应商、猎头顾问信息等。若人才已经入职，还会返回入职时所在的保护期信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=protect_search&project=hire&resource=agency&version=v1
 //
@@ -601,9 +603,9 @@ func (a *agency) ProtectSearch(ctx context.Context, req *ProtectSearchAgencyReq,
 
 // Query 查询猎头供应商信息
 //
-// - 根据猎头供应商名称查询猎头供应商信息
+// - 根据猎头供应商名称查询有合作关系的猎头供应商信息，包含猎头供应商ID、名称、联系人等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/agency/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=hire&resource=agency&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/query_agency.go
 func (a *agency) Query(ctx context.Context, req *QueryAgencyReq, options ...larkcore.RequestOptionFunc) (*QueryAgencyResp, error) {
@@ -627,9 +629,11 @@ func (a *agency) Query(ctx context.Context, req *QueryAgencyReq, options ...lark
 
 // CancelOnboard 取消候选人入职
 //
-// - 操作候选人取消入职
+// - 取消待入职状态的候选人入职。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/cancel_onboard
+// - ## 注意事项;;- 本接口适用于对待入职阶段的候选人取消入职。对于已入职的候选人，取消入职请使用[更新入职状态](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/patch);对候选人进行离职操作。;;- 对于集成了飞书人事的租户，候选人在飞书人事创建待入职记录后，只能在飞书人事取消入职，不可使用本接口取消入职。;;
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=cancel_onboard&project=hire&resource=application&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/cancelOnboard_application.go
 func (a *application) CancelOnboard(ctx context.Context, req *CancelOnboardApplicationReq, options ...larkcore.RequestOptionFunc) (*CancelOnboardApplicationResp, error) {
@@ -651,11 +655,11 @@ func (a *application) CancelOnboard(ctx context.Context, req *CancelOnboardAppli
 	return resp, err
 }
 
-// Create 创建投递
+// Create
 //
-// - 根据人才 ID 和职位 ID 创建投递
+// -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=application&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_application.go
 func (a *application) Create(ctx context.Context, req *CreateApplicationReq, options ...larkcore.RequestOptionFunc) (*CreateApplicationResp, error) {
@@ -677,11 +681,11 @@ func (a *application) Create(ctx context.Context, req *CreateApplicationReq, opt
 	return resp, err
 }
 
-// Get 获取投递信息
+// Get
 //
-// - 根据投递 ID 获取单个投递信息
+// -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=application&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_application.go
 func (a *application) Get(ctx context.Context, req *GetApplicationReq, options ...larkcore.RequestOptionFunc) (*GetApplicationResp, error) {
@@ -703,9 +707,11 @@ func (a *application) Get(ctx context.Context, req *GetApplicationReq, options .
 	return resp, err
 }
 
-// GetDetail
+// GetDetail 获取投递详情
 //
-// -
+// - 根据投递 ID 获取投递信息并通过参数按需获取该投递相关的实体信息，如「职位」、「人才」、「评估」、「面试」、「Offer」、「猎头」、「内推」、「官网」等实体的信息。
+//
+// - 目前暂不支持查询被删除的投递详情
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_detail&project=hire&resource=application&version=v1
 //
@@ -715,7 +721,7 @@ func (a *application) GetDetail(ctx context.Context, req *GetDetailApplicationRe
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v1/applications/:application_id/get_detail"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		return nil, err
@@ -729,11 +735,11 @@ func (a *application) GetDetail(ctx context.Context, req *GetDetailApplicationRe
 	return resp, err
 }
 
-// List 获取投递列表
+// List
 //
-// - 根据限定条件获取投递列表信息
+// -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=application&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_application.go
 func (a *application) List(ctx context.Context, req *ListApplicationReq, options ...larkcore.RequestOptionFunc) (*ListApplicationResp, error) {
@@ -741,7 +747,7 @@ func (a *application) List(ctx context.Context, req *ListApplicationReq, options
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v1/applications"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		return nil, err
@@ -755,11 +761,11 @@ func (a *application) List(ctx context.Context, req *ListApplicationReq, options
 	return resp, err
 }
 
-// Offer 获取 Offer 信息
+// Offer
 //
-// - 根据投递 ID 获取 Offer 信息
+// -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/offer
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=offer&project=hire&resource=application&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/offer_application.go
 func (a *application) Offer(ctx context.Context, req *OfferApplicationReq, options ...larkcore.RequestOptionFunc) (*OfferApplicationResp, error) {
@@ -781,9 +787,11 @@ func (a *application) Offer(ctx context.Context, req *OfferApplicationReq, optio
 	return resp, err
 }
 
-// Recover
+// Recover 恢复投递
 //
-// -
+// - 根据投递 ID 将「已终止」投递进行恢复。
+//
+// - ## 注意事项;;投递被终止，且人才未入职、未锁在其他投递才可执行此接口进行恢复。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recover&project=hire&resource=application&version=v1
 //
@@ -807,11 +815,11 @@ func (a *application) Recover(ctx context.Context, req *RecoverApplicationReq, o
 	return resp, err
 }
 
-// Terminate 终止投递
+// Terminate
 //
-// - 根据投递 ID 修改投递状态为「已终止」
+// -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/terminate
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=terminate&project=hire&resource=application&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/terminate_application.go
 func (a *application) Terminate(ctx context.Context, req *TerminateApplicationReq, options ...larkcore.RequestOptionFunc) (*TerminateApplicationResp, error) {
@@ -833,11 +841,11 @@ func (a *application) Terminate(ctx context.Context, req *TerminateApplicationRe
 	return resp, err
 }
 
-// TransferOnboard 操作候选人入职
+// TransferOnboard
 //
-// - 根据投递 ID 操作候选人入职并创建员工。投递须处于「待入职」阶段，可通过「转移阶段」接口变更投递状态
+// -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/transfer_onboard
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=transfer_onboard&project=hire&resource=application&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/transferOnboard_application.go
 func (a *application) TransferOnboard(ctx context.Context, req *TransferOnboardApplicationReq, options ...larkcore.RequestOptionFunc) (*TransferOnboardApplicationResp, error) {
@@ -859,11 +867,13 @@ func (a *application) TransferOnboard(ctx context.Context, req *TransferOnboardA
 	return resp, err
 }
 
-// TransferStage 转移阶段
+// TransferStage 转移投递阶段
 //
-// - 转移投递阶段
+// - 根据投递 ID 和投递阶段 ID 转移投递阶段。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/transfer_stage
+// - ## 注意事项;- 当目标转移阶段或当前投递阶段为「已入职」阶段时，无法转移。;- 候选人被锁定在其它投递时，无法转移。;- 若「飞书招聘」-「设置」-「Offer 设置」-「Offer 审批设置」开启了「所有职位都必须进行 Offer 审批」，且当前投递没有审批完成的 Offer，则无法转移到「待入职」阶段。;- 若「飞书招聘」-「设置」-「候选人流程管理」-「招聘流程管控规则设置」中设置了管控规则，则不满足管控规则的转移操作将无法转移。;
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=transfer_stage&project=hire&resource=application&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/transferStage_application.go
 func (a *application) TransferStage(ctx context.Context, req *TransferStageApplicationReq, options ...larkcore.RequestOptionFunc) (*TransferStageApplicationResp, error) {
@@ -885,9 +895,9 @@ func (a *application) TransferStage(ctx context.Context, req *TransferStageAppli
 	return resp, err
 }
 
-// List
+// List 获取面试记录列表
 //
-// -
+// - 根据投递 ID 获取面试记录列表
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=application.interview&version=v1
 //
@@ -915,7 +925,7 @@ func (a *applicationInterview) List(ctx context.Context, req *ListApplicationInt
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=attachment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_attachment.go
 func (a *attachment) Create(ctx context.Context, options ...larkcore.RequestOptionFunc) (*CreateAttachmentResp, error) {
@@ -943,9 +953,9 @@ func (a *attachment) Create(ctx context.Context, options ...larkcore.RequestOpti
 
 // Get 获取附件信息
 //
-// - 获取招聘系统中附件的元信息，比如文件名、创建时间、文件url等
+// - 根据附件 ID 和附件类型获取招聘系统中附件的信息，比如附件名称、附件创建时间、附件下载地址等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=attachment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_attachment.go
 func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...larkcore.RequestOptionFunc) (*GetAttachmentResp, error) {
@@ -967,11 +977,11 @@ func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...
 	return resp, err
 }
 
-// Preview 获取附件预览信息
+// Preview 获取人才简历附件 PDF 格式下载链接
 //
-// - 根据附件 ID 获取附件预览信息
+// - 根据人才简历附件 ID 获取该简历附件对应的 PDF 文件的下载地址。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/preview
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=preview&project=hire&resource=attachment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/preview_attachment.go
 func (a *attachment) Preview(ctx context.Context, req *PreviewAttachmentReq, options ...larkcore.RequestOptionFunc) (*PreviewAttachmentResp, error) {
@@ -993,9 +1003,9 @@ func (a *attachment) Preview(ctx context.Context, req *PreviewAttachmentReq, opt
 	return resp, err
 }
 
-// BatchQuery
+// BatchQuery 查询背调信息列表
 //
-// -
+// - 可根据背调 ID 列表或投递 ID 等过滤条件查询背调订单信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=hire&resource=background_check_order&version=v1
 //
@@ -1019,11 +1029,11 @@ func (b *backgroundCheckOrder) BatchQuery(ctx context.Context, req *BatchQueryBa
 	return resp, err
 }
 
-// List 获取背调信息
+// List 获取背调信息列表
 //
-// - 根据投递ID或背调更新时间获取背调信息
+// - 根据投递 ID 或背调更新时间批量获取背调订单信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/background_check_order/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=background_check_order&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_backgroundCheckOrder.go
 func (b *backgroundCheckOrder) List(ctx context.Context, req *ListBackgroundCheckOrderReq, options ...larkcore.RequestOptionFunc) (*ListBackgroundCheckOrderResp, error) {
@@ -1045,9 +1055,9 @@ func (b *backgroundCheckOrder) List(ctx context.Context, req *ListBackgroundChec
 	return resp, err
 }
 
-// Search
+// Search 获取申请表附加信息
 //
-// -
+// - 获取候选人的申请表附加信息。支持通过投递 ID 或者人才 ID 进行查询。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=hire&resource=diversity_inclusion&version=v1
 //
@@ -1071,11 +1081,13 @@ func (d *diversityInclusion) Search(ctx context.Context, req *SearchDiversityInc
 	return resp, err
 }
 
-// BatchDelete 删除帐号自定义字段
+// BatchDelete 删除账号自定义字段
 //
-// - 删除用户在服务商处的身份标示字段（如用户在服务商处的租户 ID）。删除后，不影响已添加帐号对应的自定义字段的值。但在添加新帐号时，将不能再使用此自定义字段。删除不支持撤销，对应的 key 将无法再次复用。
+// - 飞书招聘的背调或笔试服务商，可通过此接口删除账号自定义字段（如客户在服务商处的租户 ID、账号 ID等）。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account_custom_field/batch_delete
+// - * 删除操作不支持撤销，对应的自定义字段的 key 将无法重复使用。;* 该接口不支持删除所有的自定义字段——即须保留至少一个自定义字段。如需删除所有字段，可先通过[创建账号自定义字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account_custom_field/create)接口新增，然后将多余的自定义字段删除。;* 删除后，客户已有账号的自定义字段的值不受影响，只影响添加新账号时的表单展示。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=hire&resource=eco_account_custom_field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchDelete_ecoAccountCustomField.go
 func (e *ecoAccountCustomField) BatchDelete(ctx context.Context, req *BatchDeleteEcoAccountCustomFieldReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteEcoAccountCustomFieldResp, error) {
@@ -1097,11 +1109,11 @@ func (e *ecoAccountCustomField) BatchDelete(ctx context.Context, req *BatchDelet
 	return resp, err
 }
 
-// BatchUpdate 更新帐号自定义字段
+// BatchUpdate 更新账号自定义字段
 //
-// - 更新用户在服务商处的身份标示字段（如用户在服务商处的租户 ID），此方法只会更新同一 scope 内 key 一致的自定义字段。
+// - 飞书招聘的背调或笔试服务商，可通过此接口更新账号自定义字段（比如客户在服务商处的租户 ID、账号 ID等）的名称和描述。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account_custom_field/batch_update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=hire&resource=eco_account_custom_field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchUpdate_ecoAccountCustomField.go
 func (e *ecoAccountCustomField) BatchUpdate(ctx context.Context, req *BatchUpdateEcoAccountCustomFieldReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateEcoAccountCustomFieldResp, error) {
@@ -1123,11 +1135,13 @@ func (e *ecoAccountCustomField) BatchUpdate(ctx context.Context, req *BatchUpdat
 	return resp, err
 }
 
-// Create 创建帐号自定义字段
+// Create 创建账号自定义字段
 //
-// - 定制用户在服务商处的身份标示字段（如用户在服务商处的租户 ID）。用户在飞书招聘后台添加帐号后，系统会推送「帐号绑定」事件给开发者，事件将携带用户填写的自定义字段信息，开发者可根据此信息识别飞书招聘用户在服务商处的身份信息，完成飞书招聘用户和服务商帐号的绑定，并以此来推送对应的套餐或试卷列表等。
+// - 飞书招聘的背调或笔试服务商，可通过此接口创建账号自定义字段，用来标识飞书招聘客户在服务商处的身份（比如客户在服务商处的租户 ID、账号 ID等字段）。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account_custom_field/create
+// - * 对于飞书招聘客户的自建应用，客户须先在「飞书招聘」-「设置」-「生态对接」-「笔试/背景调查」添加自建应用后，才可调用本接口。;* 本接口为全量更新，多次调用时，将生效最后一次调用传入的自定义字段。;;## 使用流程;客户在「飞书招聘」-「设置」-「生态对接」-「笔试/背景调查」添加服务商账号时，需填写本接口创建的自定义字段，之后系统将通过[账号绑定](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created)事件将客户填入的自定义字段值推送给服务商，服务商可据此识别和绑定飞书招聘客户，并以此来[创建背调套餐和附加调查项](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/create)或[创建试卷列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam_paper/create)等。;<br>详细的接入步骤可参考 [背调/笔试生态接入概览文档](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ecological-docking/summary)。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=eco_account_custom_field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_ecoAccountCustomField.go
 func (e *ecoAccountCustomField) Create(ctx context.Context, req *CreateEcoAccountCustomFieldReq, options ...larkcore.RequestOptionFunc) (*CreateEcoAccountCustomFieldResp, error) {
@@ -1151,9 +1165,9 @@ func (e *ecoAccountCustomField) Create(ctx context.Context, req *CreateEcoAccoun
 
 // Cancel 终止背调订单
 //
-// - 终止背调订单
+// - 调用此接口将会将背调订单状态变成已终止，已终止订单将将无法通过[更新背调订单进度](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_progress)和[回传背调订单的最终结果](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_result)修改订单进度和最终结果。 调用此接口前，建议先调用[更新背调订单进度](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_progress)接口将订单进度更新为「已终止」。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/cancel
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=cancel&project=hire&resource=eco_background_check&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/cancel_ecoBackgroundCheck.go
 func (e *ecoBackgroundCheck) Cancel(ctx context.Context, req *CancelEcoBackgroundCheckReq, options ...larkcore.RequestOptionFunc) (*CancelEcoBackgroundCheckResp, error) {
@@ -1175,11 +1189,11 @@ func (e *ecoBackgroundCheck) Cancel(ctx context.Context, req *CancelEcoBackgroun
 	return resp, err
 }
 
-// UpdateProgress 更新背调进度
+// UpdateProgress 更新背调订单进度
 //
-// - 更新指定背调的进度信息
+// - 更新指定背调订单的进度信息和阶段性报告，进度信息将会被展示在「飞书招聘」-「投递详情页」-「背调卡片」上，告知用户目前背调订单的流转状态。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_progress
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_progress&project=hire&resource=eco_background_check&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/updateProgress_ecoBackgroundCheck.go
 func (e *ecoBackgroundCheck) UpdateProgress(ctx context.Context, req *UpdateProgressEcoBackgroundCheckReq, options ...larkcore.RequestOptionFunc) (*UpdateProgressEcoBackgroundCheckResp, error) {
@@ -1201,11 +1215,11 @@ func (e *ecoBackgroundCheck) UpdateProgress(ctx context.Context, req *UpdateProg
 	return resp, err
 }
 
-// UpdateResult 回传背调的最终结果
+// UpdateResult 回传背调订单的最终结果
 //
-// - 回传背调的最终结果
+// - 回传背调的最终结果和终版报告。回传后，若租户未启用背调报告审批功能，则背调订单状态将会直接变成「已完成」。若启用背调报告审批功能，则在管理员审批通过后，订单状态流转为「已完成」。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_result
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_result&project=hire&resource=eco_background_check&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/updateResult_ecoBackgroundCheck.go
 func (e *ecoBackgroundCheck) UpdateResult(ctx context.Context, req *UpdateResultEcoBackgroundCheckReq, options ...larkcore.RequestOptionFunc) (*UpdateResultEcoBackgroundCheckResp, error) {
@@ -1229,9 +1243,11 @@ func (e *ecoBackgroundCheck) UpdateResult(ctx context.Context, req *UpdateResult
 
 // BatchDelete 删除背调自定义字段
 //
-// - 删除用户在发起背调时的自定义字段，删除不影响已创建的背调，删除后对应的自定义字段的 key 不能再复用。
+// - 删除用户在发起背调时展示的表单自定义字段。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/batch_delete
+// - * 删除操作不影响已创建的背调。;* 该账号下被删除的自定义字段的key（详见[创建背调自定义字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/create)）不能被重复使用。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=hire&resource=eco_background_check_custom_field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchDelete_ecoBackgroundCheckCustomField.go
 func (e *ecoBackgroundCheckCustomField) BatchDelete(ctx context.Context, req *BatchDeleteEcoBackgroundCheckCustomFieldReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteEcoBackgroundCheckCustomFieldResp, error) {
@@ -1255,9 +1271,11 @@ func (e *ecoBackgroundCheckCustomField) BatchDelete(ctx context.Context, req *Ba
 
 // BatchUpdate 更新背调自定义字段
 //
-// - 更新用户在发起背调时的自定义字段。更新操作不支持更新自定义字段类型，且将影响已发起的背调表单展示。
+// - 更新用户在发起背调时展示的表单自定义字段名称和描述。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/batch_update
+// - * 更新操作将影响已发起的背调表单展示，但不影响实际背调内容。;* 更新操作只允许更新已有字段的名称和描述，不支持更新字段类型，也不允许新增或删除自定义字段。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=hire&resource=eco_background_check_custom_field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchUpdate_ecoBackgroundCheckCustomField.go
 func (e *ecoBackgroundCheckCustomField) BatchUpdate(ctx context.Context, req *BatchUpdateEcoBackgroundCheckCustomFieldReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateEcoBackgroundCheckCustomFieldResp, error) {
@@ -1281,9 +1299,11 @@ func (e *ecoBackgroundCheckCustomField) BatchUpdate(ctx context.Context, req *Ba
 
 // Create 创建背调自定义字段
 //
-// - 定制用户在发起背调时的自定义字段
+// - 创建用户在发起背调时展示的表单自定义字段。自定义字段支持多种类型如单行文本、单选等，可以设置为必填或非必填。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/create
+// - * 创建操作不影响已发起的背调。;* 此接口为全量更新，多次调用时，将生效最后一次调用传入的自定义字段。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=eco_background_check_custom_field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_ecoBackgroundCheckCustomField.go
 func (e *ecoBackgroundCheckCustomField) Create(ctx context.Context, req *CreateEcoBackgroundCheckCustomFieldReq, options ...larkcore.RequestOptionFunc) (*CreateEcoBackgroundCheckCustomFieldResp, error) {
@@ -1307,9 +1327,9 @@ func (e *ecoBackgroundCheckCustomField) Create(ctx context.Context, req *CreateE
 
 // BatchDelete 删除背调套餐和附加调查项
 //
-// - 删除指定帐号的指定背调套餐和附加调查项信息，删除不会影响已创建的背调。
+// - 删除背调帐号下的背调套餐和附加调查项信息。删除操作不会影响已创建的背调。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/batch_delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=hire&resource=eco_background_check_package&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchDelete_ecoBackgroundCheckPackage.go
 func (e *ecoBackgroundCheckPackage) BatchDelete(ctx context.Context, req *BatchDeleteEcoBackgroundCheckPackageReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteEcoBackgroundCheckPackageResp, error) {
@@ -1333,9 +1353,11 @@ func (e *ecoBackgroundCheckPackage) BatchDelete(ctx context.Context, req *BatchD
 
 // BatchUpdate 更新背调套餐和附加调查项
 //
-// - 更新指定帐号可用的背调套餐和附加调查项信息，更新将影响已发起背调的表单项展示
+// - 更新指定背调帐号下的背调套餐和附加调查项信息。如需新增背调套餐、附加调查项请使用[创建背调套餐和附加调查项](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/create)进行添加。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/batch_update
+// - 更新将影响已发起背调订单的表单项展示
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=hire&resource=eco_background_check_package&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchUpdate_ecoBackgroundCheckPackage.go
 func (e *ecoBackgroundCheckPackage) BatchUpdate(ctx context.Context, req *BatchUpdateEcoBackgroundCheckPackageReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateEcoBackgroundCheckPackageResp, error) {
@@ -1357,11 +1379,13 @@ func (e *ecoBackgroundCheckPackage) BatchUpdate(ctx context.Context, req *BatchU
 	return resp, err
 }
 
-// Create 推送背调套餐和附加调查项
+// Create 创建背调套餐和附加调查项
 //
-// - 定制指定帐号可用的背调套餐和附加调查项信息
+// - 在指定背调帐号下创建可用的背调套餐列表和附加调查项信息列表。该接口为增量创建，每次调用会在原有的套餐列表和附加调查项列表基础上新增。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/create
+// - ## 注意事项;已经创建过的套餐 ID和附加调查项 ID无法重复创建，如需修改，请使用[更新背调套餐和附加调查项](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/batch_update)或;[删除背调套餐和附加调查项](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/batch_delete)接口进行操作。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=eco_background_check_package&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_ecoBackgroundCheckPackage.go
 func (e *ecoBackgroundCheckPackage) Create(ctx context.Context, req *CreateEcoBackgroundCheckPackageReq, options ...larkcore.RequestOptionFunc) (*CreateEcoBackgroundCheckPackageResp, error) {
@@ -1383,9 +1407,9 @@ func (e *ecoBackgroundCheckPackage) Create(ctx context.Context, req *CreateEcoBa
 	return resp, err
 }
 
-// LoginInfo
+// LoginInfo 回传笔试安排结果
 //
-// -
+// - 飞书招聘的笔试服务商，在收到[创建笔试](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam/events/created)事件并安排笔试后，应通过本接口;回传笔试安排结果。若安排成功，须返回笔试链接；若笔试链接需要登录鉴权，则须返回登录凭证（`username`，`password`)。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=login_info&project=hire&resource=eco_exam&version=v1
 //
@@ -1409,9 +1433,11 @@ func (e *ecoExam) LoginInfo(ctx context.Context, req *LoginInfoEcoExamReq, optio
 	return resp, err
 }
 
-// UpdateResult
+// UpdateResult 回传笔试结果
 //
-// -
+// - 飞书招聘的笔试服务商，可通过该接口回传候选人的笔试结果。回传笔试结果后，候选人在飞书招聘内的笔试状态将变为「已作答」。
+//
+// - * 该接口支持重复调用，每次调用将覆盖前序调用回传的笔试结果。如回传后需更新笔试结果，可再次调用该接口。;* 若客户已在飞书招聘内完成阅卷，则无法再调用该接口更新笔试结果。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_result&project=hire&resource=eco_exam&version=v1
 //
@@ -1435,9 +1461,11 @@ func (e *ecoExam) UpdateResult(ctx context.Context, req *UpdateResultEcoExamReq,
 	return resp, err
 }
 
-// BatchDelete
+// BatchDelete 删除试卷列表
 //
-// -
+// - 飞书招聘的笔试服务商，可通过该接口删除客户笔试帐号下的试卷列表。删除操作不影响已安排的笔试，删除不存在的试卷时不会报错。
+//
+// - 若被删除的试卷下存在已安排的笔试，后续[创建试卷列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam_paper/create)时又传入被删除的试卷 ID，并且修改了笔试开始/结束时间，则会影响已安排笔试的笔试时间。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=hire&resource=eco_exam_paper&version=v1
 //
@@ -1461,9 +1489,11 @@ func (e *ecoExamPaper) BatchDelete(ctx context.Context, req *BatchDeleteEcoExamP
 	return resp, err
 }
 
-// BatchUpdate
+// BatchUpdate 更新试卷列表
 //
-// -
+// - 飞书招聘的笔试服务商，可通过该接口更新客户笔试账号下的试卷列表。
+//
+// - * 该接口仅支持修改已有试卷信息（通过试卷 ID标识），不支持新增或删除试卷。;* 修改已有试卷的笔试开始/结束时间，将影响已安排笔试的笔试时间。;* 此接口为全量更新接口，若字段值为空，则原有值将会清空。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=hire&resource=eco_exam_paper&version=v1
 //
@@ -1487,9 +1517,11 @@ func (e *ecoExamPaper) BatchUpdate(ctx context.Context, req *BatchUpdateEcoExamP
 	return resp, err
 }
 
-// Create
+// Create 创建试卷列表
 //
-// -
+// - 飞书招聘的笔试服务商，在完成[账号绑定](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created)后，可通过本接口在客户的笔试帐号下创建试卷列表。若客户的笔试账号为「未激活」、「停用」状态，则试卷创建成功后，客户的账号将变为「正常」状态，可正常安排笔试。
+//
+// - 本接口为全量更新，多次调用时，将生效最后一次调用传入的试卷列表。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=eco_exam_paper&version=v1
 //
@@ -1515,9 +1547,9 @@ func (e *ecoExamPaper) Create(ctx context.Context, req *CreateEcoExamPaperReq, o
 
 // Patch 更新 e-HR 导入任务结果
 //
-// - 在处理完导入 e-HR 事件后，可调用该接口，更新  e-HR 导入任务结果
+// - 在处理完[导入 e-HR](;https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/event/import-ehr)事件后，可调用该接口，更新 e-HR 导入任务结果。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=hire&resource=ehr_import_task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/patch_ehrImportTask.go
 func (e *ehrImportTask) Patch(ctx context.Context, req *PatchEhrImportTaskReq, options ...larkcore.RequestOptionFunc) (*PatchEhrImportTaskResp, error) {
@@ -1541,9 +1573,9 @@ func (e *ehrImportTask) Patch(ctx context.Context, req *PatchEhrImportTaskReq, o
 
 // Get 通过员工 ID 获取入职信息
 //
-// - 通过员工 ID 获取入职信息
+// - 通过员工 ID 获取入职信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=employee&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_employee.go
 func (e *employee) Get(ctx context.Context, req *GetEmployeeReq, options ...larkcore.RequestOptionFunc) (*GetEmployeeResp, error) {
@@ -1567,9 +1599,9 @@ func (e *employee) Get(ctx context.Context, req *GetEmployeeReq, options ...lark
 
 // GetByApplication 通过投递 ID 获取入职信息
 //
-// - 通过投递 ID 获取入职信息
+// - 通过投递 ID 获取员工入职信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get_by_application
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_by_application&project=hire&resource=employee&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/getByApplication_employee.go
 func (e *employee) GetByApplication(ctx context.Context, req *GetByApplicationEmployeeReq, options ...larkcore.RequestOptionFunc) (*GetByApplicationEmployeeResp, error) {
@@ -1591,11 +1623,11 @@ func (e *employee) GetByApplication(ctx context.Context, req *GetByApplicationEm
 	return resp, err
 }
 
-// Patch 更新入职状态
+// Patch 更新员工状态
 //
-// - 根据员工 ID 更新员工转正、离职状态
+// - 根据员工 ID 更新员工招聘系统内的转正、离职状态。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=hire&resource=employee&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/patch_employee.go
 func (e *employee) Patch(ctx context.Context, req *PatchEmployeeReq, options ...larkcore.RequestOptionFunc) (*PatchEmployeeResp, error) {
@@ -1617,11 +1649,11 @@ func (e *employee) Patch(ctx context.Context, req *PatchEmployeeReq, options ...
 	return resp, err
 }
 
-// List 获取简历评估信息
+// List 获取简历评估信息列表
 //
-// - 获取简历评估信息
+// - 批量获取简历评估信息，包含评估人、评估结论、评估详情等信息。支持按照投递 ID、更新时间来进行筛选。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/evaluation/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=evaluation&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_evaluation.go
 func (e *evaluation) List(ctx context.Context, req *ListEvaluationReq, options ...larkcore.RequestOptionFunc) (*ListEvaluationResp, error) {
@@ -1651,11 +1683,11 @@ func (e *evaluation) ListByIterator(ctx context.Context, req *ListEvaluationReq,
 		limit:    req.Limit}, nil
 }
 
-// List 获取员工评估任务
+// List 获取简历评估任务列表
 //
-// - 获取员工评估任务
+// - 根据评估人ID查询评估任务列表，可以查询到的信息包括：评估ID、投递ID、任务状态等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/evaluation_task/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=evaluation_task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_evaluationTask.go
 func (e *evaluationTask) List(ctx context.Context, req *ListEvaluationTaskReq, options ...larkcore.RequestOptionFunc) (*ListEvaluationTaskResp, error) {
@@ -1687,9 +1719,9 @@ func (e *evaluationTask) ListByIterator(ctx context.Context, req *ListEvaluation
 
 // Create 添加笔试结果
 //
-// - 根据投递 ID 添加该投递下的笔试结果
+// - 根据投递 ID 添加该投递下的笔试结果。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/exam/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=exam&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_exam.go
 func (e *exam) Create(ctx context.Context, req *CreateExamReq, options ...larkcore.RequestOptionFunc) (*CreateExamResp, error) {
@@ -1711,11 +1743,11 @@ func (e *exam) Create(ctx context.Context, req *CreateExamReq, options ...larkco
 	return resp, err
 }
 
-// List 获取员工笔试阅卷任务
+// List 获取笔试阅卷任务列表
 //
-// - 获取员工笔试阅卷任务
+// - 根据阅卷人ID查询员工笔试阅卷任务列表，能查询到的信息包括：笔试阅卷任务ID、投递ID、任务状态等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/exam_marking_task/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=exam_marking_task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_examMarkingTask.go
 func (e *examMarkingTask) List(ctx context.Context, req *ListExamMarkingTaskReq, options ...larkcore.RequestOptionFunc) (*ListExamMarkingTaskResp, error) {
@@ -1747,9 +1779,9 @@ func (e *examMarkingTask) ListByIterator(ctx context.Context, req *ListExamMarki
 
 // Create 创建外部投递
 //
-// - 导入来自其他系统的投递信息，创建为外部投递
+// - 创建外部投递，可用于导入来自其他系统的投递信息。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=external_application&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_externalApplication.go
 func (e *externalApplication) Create(ctx context.Context, req *CreateExternalApplicationReq, options ...larkcore.RequestOptionFunc) (*CreateExternalApplicationResp, error) {
@@ -1771,9 +1803,9 @@ func (e *externalApplication) Create(ctx context.Context, req *CreateExternalApp
 	return resp, err
 }
 
-// Delete
+// Delete 删除外部投递
 //
-// - 删除外部投递
+// - 根据外部投递 ID 删除外部投递。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=hire&resource=external_application&version=v1
 //
@@ -1797,9 +1829,9 @@ func (e *externalApplication) Delete(ctx context.Context, req *DeleteExternalApp
 	return resp, err
 }
 
-// List
+// List 查询外部投递列表
 //
-// - 根据人才 id 获取外部投递列表
+// - 可根据人才 ID 获取人才外部投递列表。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=external_application&version=v1
 //
@@ -1831,9 +1863,11 @@ func (e *externalApplication) ListByIterator(ctx context.Context, req *ListExter
 		limit:    req.Limit}, nil
 }
 
-// Update
+// Update 更新外部投递
 //
-// - 更新外部投递
+// - 更新外部投递信息。
+//
+// - ## 注意事项;该接口会对原投递内容进行全量覆盖更新。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=hire&resource=external_application&version=v1
 //
@@ -1857,9 +1891,9 @@ func (e *externalApplication) Update(ctx context.Context, req *UpdateExternalApp
 	return resp, err
 }
 
-// BatchQuery
+// BatchQuery 查询外部背调列表
 //
-// -
+// - 可根据外部投递 ID 或外部背调 ID 列表查询外部背调信息。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=hire&resource=external_background_check&version=v1
 //
@@ -1893,9 +1927,9 @@ func (e *externalBackgroundCheck) BatchQueryByIterator(ctx context.Context, req 
 
 // Create 创建外部背调
 //
-// - 导入来自其他系统的背调信息，创建为外部背调
+// - 创建外部背调，可用于导入来自其他系统的背调信息。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=external_background_check&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_externalBackgroundCheck.go
 func (e *externalBackgroundCheck) Create(ctx context.Context, req *CreateExternalBackgroundCheckReq, options ...larkcore.RequestOptionFunc) (*CreateExternalBackgroundCheckResp, error) {
@@ -1917,9 +1951,9 @@ func (e *externalBackgroundCheck) Create(ctx context.Context, req *CreateExterna
 	return resp, err
 }
 
-// Delete
+// Delete 删除外部背调
 //
-// -
+// - 根据外部背调 ID 删除外部背调。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=hire&resource=external_background_check&version=v1
 //
@@ -1943,9 +1977,11 @@ func (e *externalBackgroundCheck) Delete(ctx context.Context, req *DeleteExterna
 	return resp, err
 }
 
-// Update
+// Update 更新外部背调
 //
-// -
+// - 更新外部背调信息。;
+//
+// - ## 注意事项;该接口会对原背调内容进行全量覆盖更新。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=hire&resource=external_background_check&version=v1
 //
@@ -1969,9 +2005,9 @@ func (e *externalBackgroundCheck) Update(ctx context.Context, req *UpdateExterna
 	return resp, err
 }
 
-// BatchQuery
+// BatchQuery 查询外部面试列表
 //
-// -
+// - 可根据外部投递 ID 或外部面试 ID 列表查询外部面试信息。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=hire&resource=external_interview&version=v1
 //
@@ -2005,9 +2041,9 @@ func (e *externalInterview) BatchQueryByIterator(ctx context.Context, req *Batch
 
 // Create 创建外部面试
 //
-// - 导入来自其他系统的面试信息，创建为外部面试
+// - 创建外部面试，可用于导入来自其他系统的面试信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_interview/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=external_interview&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_externalInterview.go
 func (e *externalInterview) Create(ctx context.Context, req *CreateExternalInterviewReq, options ...larkcore.RequestOptionFunc) (*CreateExternalInterviewResp, error) {
@@ -2029,9 +2065,9 @@ func (e *externalInterview) Create(ctx context.Context, req *CreateExternalInter
 	return resp, err
 }
 
-// Delete
+// Delete 删除外部面试
 //
-// -
+// - 根据外部面试 ID 删除外部面试。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=hire&resource=external_interview&version=v1
 //
@@ -2055,9 +2091,11 @@ func (e *externalInterview) Delete(ctx context.Context, req *DeleteExternalInter
 	return resp, err
 }
 
-// Update
+// Update 更新外部面试
 //
-// -
+// - 更新外部面试信息。
+//
+// - ## 注意事项;该接口会对原面试以及面试评价内容进行全量覆盖更新。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=hire&resource=external_interview&version=v1
 //
@@ -2083,9 +2121,9 @@ func (e *externalInterview) Update(ctx context.Context, req *UpdateExternalInter
 
 // Create 创建外部面评
 //
-// - 导入来自其他系统的面评信息，创建为外部面评
+// - 导入来自其他系统的面评信息，创建为外部面评。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_interview_assessment/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=external_interview_assessment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_externalInterviewAssessment.go
 func (e *externalInterviewAssessment) Create(ctx context.Context, req *CreateExternalInterviewAssessmentReq, options ...larkcore.RequestOptionFunc) (*CreateExternalInterviewAssessmentResp, error) {
@@ -2107,9 +2145,9 @@ func (e *externalInterviewAssessment) Create(ctx context.Context, req *CreateExt
 	return resp, err
 }
 
-// Patch
+// Patch 更新外部面评
 //
-// -
+// - 更新外部面评部分字段，没有填写的字段不会被更新
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=hire&resource=external_interview_assessment&version=v1
 //
@@ -2133,9 +2171,9 @@ func (e *externalInterviewAssessment) Patch(ctx context.Context, req *PatchExter
 	return resp, err
 }
 
-// BatchQuery
+// BatchQuery 查询外部 Offer 列表
 //
-// -
+// - 可根据外部投递 ID 或外部 Offer ID 列表查询外部 Offer 信息。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=hire&resource=external_offer&version=v1
 //
@@ -2167,9 +2205,9 @@ func (e *externalOffer) BatchQueryByIterator(ctx context.Context, req *BatchQuer
 		limit:    req.Limit}, nil
 }
 
-// Create
+// Create 创建外部 Offer
 //
-// -
+// - 创建外部 Offer，可用于导入来自其他系统的 Offer 信息。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=external_offer&version=v1
 //
@@ -2193,9 +2231,9 @@ func (e *externalOffer) Create(ctx context.Context, req *CreateExternalOfferReq,
 	return resp, err
 }
 
-// Delete
+// Delete 删除外部 Offer
 //
-// -
+// - 根据外部 Offer ID 删除外部 Offer。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=hire&resource=external_offer&version=v1
 //
@@ -2219,9 +2257,11 @@ func (e *externalOffer) Delete(ctx context.Context, req *DeleteExternalOfferReq,
 	return resp, err
 }
 
-// Update
+// Update 更新外部 Offer
 //
-// -
+// - 更新外部 Offer 信息。;
+//
+// - ## 注意事项;该接口会对原 Offer 内容进行全量覆盖更新。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=hire&resource=external_offer&version=v1
 //
@@ -2245,9 +2285,9 @@ func (e *externalOffer) Update(ctx context.Context, req *UpdateExternalOfferReq,
 	return resp, err
 }
 
-// Create
+// Create 导入外部内推奖励
 //
-// -
+// - 支持将外部的内推奖励（积分/现金）导入到招聘的「内推账号」中
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=external_referral_reward&version=v1
 //
@@ -2271,9 +2311,11 @@ func (e *externalReferralReward) Create(ctx context.Context, req *CreateExternal
 	return resp, err
 }
 
-// Delete
+// Delete 删除外部内推奖励
 //
-// -
+// - 根据外部内推奖励ID删除外部内推奖励。
+//
+// - ## 注意事项;- 仅支持删除通过[导入外部内推奖励](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_referral_reward/create)导入的内推奖励，飞书招聘系统本身产生的内推奖励不支持删除。;- 删除指定外部奖励后，「飞书招聘」- 「设置」- 「内推」-「内推奖励管理」中对应的内推奖励明细将会被删除。;- 若删除「已确认」、「已发放」的奖励，内推人在「飞书招聘」-「设置」-「内推」-「我的奖励」中对应内推奖励明细将会被删除，请注意与内推人提前沟通。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=hire&resource=external_referral_reward&version=v1
 //
@@ -2299,9 +2341,9 @@ func (e *externalReferralReward) Delete(ctx context.Context, req *DeleteExternal
 
 // GetByTalent 获取人才面试信息
 //
-// - 获取人才面试信息
+// - 获取人才下所有面试信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/get_by_talent
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_by_talent&project=hire&resource=interview&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/getByTalent_interview.go
 func (i *interview) GetByTalent(ctx context.Context, req *GetByTalentInterviewReq, options ...larkcore.RequestOptionFunc) (*GetByTalentInterviewResp, error) {
@@ -2325,9 +2367,9 @@ func (i *interview) GetByTalent(ctx context.Context, req *GetByTalentInterviewRe
 
 // List 获取面试信息
 //
-// - 根据投递 ID 或面试时间获取面试信息
+// - 获取面试信息。可通过「投递 ID」、「面试 ID」以及「面试开始时间」进行条件筛选，筛选条件不能同时为空。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=interview&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_interview.go
 func (i *interview) List(ctx context.Context, req *ListInterviewReq, options ...larkcore.RequestOptionFunc) (*ListInterviewResp, error) {
@@ -2349,9 +2391,11 @@ func (i *interview) List(ctx context.Context, req *ListInterviewReq, options ...
 	return resp, err
 }
 
-// List
+// List 获取面试评价表列表
 //
-// -
+// - 获取面试评价表信息列表，评价表信息包括题目描述、题目选项等。可用于面试评价表展示等场景。
+//
+// - ## 注意事项;- 面试评价表通过版本进行变更管理，每次修改评价表都会更新版本，同时变更评价表ID、模块ID、模块维度ID、选项ID、能力项ID。;- 当使用分页方式获取数据时，仅能获取到最新版本的面试评价表，当指定面试评价表 ID 列表时，可以获取到历史版本面评评价表。;;;;## 面试评价表产品示意图;![img_v3_02cu_dbef7451-9eaa-40f7-b0b4-9f2763f95d2g.jpg](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/bd4b1897cc67b112c3d8f15893e701b7_d7TrcHP0B4.jpg)
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=interview_feedback_form&version=v1
 //
@@ -2385,9 +2429,9 @@ func (i *interviewFeedbackForm) ListByIterator(ctx context.Context, req *ListInt
 
 // Get 获取面试评价详细信息
 //
-// - 获取面试评价详细信息
+// - 获取面试评价详细信息，如面试结论、面试得分和面试官等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_record/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=interview_record&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_interviewRecord.go
 func (i *interviewRecord) Get(ctx context.Context, req *GetInterviewRecordReq, options ...larkcore.RequestOptionFunc) (*GetInterviewRecordResp, error) {
@@ -2409,9 +2453,9 @@ func (i *interviewRecord) Get(ctx context.Context, req *GetInterviewRecordReq, o
 	return resp, err
 }
 
-// List
+// List 批量获取面试评价详细信息
 //
-// -
+// - 批量获取面试评价详细信息，如面试结论、面试得分和面试官等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=interview_record&version=v1
 //
@@ -2443,9 +2487,9 @@ func (i *interviewRecord) ListByIterator(ctx context.Context, req *ListInterview
 		limit:    req.Limit}, nil
 }
 
-// Get
+// Get 获取面试记录附件
 //
-// -
+// - 获取面试记录 PDF 附件，包含相关投递基本信息、面试评价信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=interview_record.attachment&version=v1
 //
@@ -2469,11 +2513,13 @@ func (i *interviewRecordAttachment) Get(ctx context.Context, req *GetInterviewRe
 	return resp, err
 }
 
-// List 获取面试登记表模板列表
+// List 获取面试登记表列表
 //
-// - 获取面试登记表模板列表
+// - 获取面试登记表列表，可获取到的信息包括登记表名称、登记表模块、登记表字段
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_registration_schema/list
+// - 面试登记表配置请参考「飞书招聘」-「设置」-「候选人信息管理」- 「信息登记表设置」
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=interview_registration_schema&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_interviewRegistrationSchema.go
 func (i *interviewRegistrationSchema) List(ctx context.Context, req *ListInterviewRegistrationSchemaReq, options ...larkcore.RequestOptionFunc) (*ListInterviewRegistrationSchemaResp, error) {
@@ -2505,9 +2551,9 @@ func (i *interviewRegistrationSchema) ListByIterator(ctx context.Context, req *L
 
 // List 获取面试轮次类型列表
 //
-// - 获取面试轮次类型列表
+// - 根据职位流程查询面试轮次类型列表，可以查询到的信息包括：面试轮次类型名称、启用状态、关联的面试评价表信息。可应用于更新职位设置场景：[更新职位设置](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/update_config);
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_round_type/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=interview_round_type&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_interviewRoundType.go
 func (i *interviewRoundType) List(ctx context.Context, req *ListInterviewRoundTypeReq, options ...larkcore.RequestOptionFunc) (*ListInterviewRoundTypeResp, error) {
@@ -2529,11 +2575,11 @@ func (i *interviewRoundType) List(ctx context.Context, req *ListInterviewRoundTy
 	return resp, err
 }
 
-// List 获取员工面试任务
+// List 获取面试任务列表
 //
-// - 获取员工面试任务
+// - 根据面试官ID查询面试任务列表，可以查询到的信息包括：面试ID、投递ID、任务状态等
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_task/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=interview_task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_interviewTask.go
 func (i *interviewTask) List(ctx context.Context, req *ListInterviewTaskReq, options ...larkcore.RequestOptionFunc) (*ListInterviewTaskResp, error) {
@@ -2563,9 +2609,9 @@ func (i *interviewTask) ListByIterator(ctx context.Context, req *ListInterviewTa
 		limit:    req.Limit}, nil
 }
 
-// List
+// List 查询面试官信息列表
 //
-// -
+// - 分页查询面试官列表，接口只会返回执行过「更新面试官信息」用户的数据，通过接口查询不到的数据则默认为「未认证」面试官。接口默认按更新时间、user_id顺序进行顺序拉取。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=interviewer&version=v1
 //
@@ -2597,9 +2643,9 @@ func (i *interviewer) ListByIterator(ctx context.Context, req *ListInterviewerRe
 		limit:    req.Limit}, nil
 }
 
-// Patch
+// Patch 更新面试官信息
 //
-// -
+// - 用于更新面试官认证信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=hire&resource=interviewer&version=v1
 //
@@ -2625,9 +2671,9 @@ func (i *interviewer) Patch(ctx context.Context, req *PatchInterviewerReq, optio
 
 // Close 关闭职位
 //
-// - 支持关闭职位，关闭后，职位将同步从官网、内推、猎头渠道下线
+// - 关闭职位后，职位所有的职位广告将同步从官网、内推、猎头渠道下线。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/close
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=close&project=hire&resource=job&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/close_job.go
 func (j *job) Close(ctx context.Context, req *CloseJobReq, options ...larkcore.RequestOptionFunc) (*CloseJobResp, error) {
@@ -2651,9 +2697,11 @@ func (j *job) Close(ctx context.Context, req *CloseJobReq, options ...larkcore.R
 
 // CombinedCreate 新建职位
 //
-// - 新建职位，字段的是否必填，以系统中的「职位字段管理」中的设置为准。
+// - 创建一个新的职位。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/combined_create
+// - ## 注意事项;;- 调用此接口前，需先打开「飞书招聘」-「设置」-「职位管理」-「职位设置」-「通过API同步职位开关」开关。;;- 字段是否必填，将以「飞书招聘」-「设置」-「职位管理」-「职位字段管理」中的设置为准。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=combined_create&project=hire&resource=job&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/combinedCreate_job.go
 func (j *job) CombinedCreate(ctx context.Context, req *CombinedCreateJobReq, options ...larkcore.RequestOptionFunc) (*CombinedCreateJobResp, error) {
@@ -2677,9 +2725,11 @@ func (j *job) CombinedCreate(ctx context.Context, req *CombinedCreateJobReq, opt
 
 // CombinedUpdate 更新职位
 //
-// - 更新职位信息，该接口为全量更新，若字段没有返回值，则原有值将会被清空。字段的是否必填，将以系统中的「职位字段管理」中的设置为准。
+// - 更新职位信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/combined_update
+// - ## 注意事项;;- 调用此接口前，需先打开「飞书招聘」-「设置」-「职位管理」-「职位设置」-「通过API同步职位开关」开关。;;- 该接口为全量更新，若字段没有填充值，则原有值将会被清空。;;- 字段是否必填，将以「飞书招聘」-「设置」-「职位管理」-「职位字段管理」中的设置为准。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=combined_update&project=hire&resource=job&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/combinedUpdate_job.go
 func (j *job) CombinedUpdate(ctx context.Context, req *CombinedUpdateJobReq, options ...larkcore.RequestOptionFunc) (*CombinedUpdateJobResp, error) {
@@ -2703,9 +2753,9 @@ func (j *job) CombinedUpdate(ctx context.Context, req *CombinedUpdateJobReq, opt
 
 // Config 获取职位设置
 //
-// - 获取职位设置
+// - 获取职位设置，包含 Offer 申请表、Offer 审批流程、建议评估人列表、面试评价表、建议面试官列表、招聘需求、面试登记表、入职登记表、面试轮次类型列表、关联职位列表等设置。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/config
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=config&project=hire&resource=job&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/config_job.go
 func (j *job) Config(ctx context.Context, req *ConfigJobReq, options ...larkcore.RequestOptionFunc) (*ConfigJobResp, error) {
@@ -2727,11 +2777,11 @@ func (j *job) Config(ctx context.Context, req *ConfigJobReq, options ...larkcore
 	return resp, err
 }
 
-// Get 获取职位信息
+// Get
 //
-// - 根据职位 ID 获取职位信息
+// -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=job&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_job.go
 func (j *job) Get(ctx context.Context, req *GetJobReq, options ...larkcore.RequestOptionFunc) (*GetJobResp, error) {
@@ -2753,9 +2803,9 @@ func (j *job) Get(ctx context.Context, req *GetJobReq, options ...larkcore.Reque
 	return resp, err
 }
 
-// GetDetail
+// GetDetail 获取职位详情
 //
-// -
+// - 根据职位 ID 获取职位详情，包含职位基本信息、职位负责人、协助人、用人经理、职位地址列表、职位设置、关联招需、门店列表及标签列表等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_detail&project=hire&resource=job&version=v1
 //
@@ -2781,9 +2831,9 @@ func (j *job) GetDetail(ctx context.Context, req *GetDetailJobReq, options ...la
 
 // List 获取职位列表
 //
-// - 根据更新时间获取职位列表，仅支持获取默认字段信息，获取详细信息可调用[获取职位详细](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get)接口
+// - 获取职位列表，仅支持获取默认字段信息，获取详细信息可调用[获取职位信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get)接口。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=job&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_job.go
 func (j *job) List(ctx context.Context, req *ListJobReq, options ...larkcore.RequestOptionFunc) (*ListJobResp, error) {
@@ -2807,9 +2857,11 @@ func (j *job) List(ctx context.Context, req *ListJobReq, options ...larkcore.Req
 
 // Open 重启职位
 //
-// - 支持开启职位
+// - 对于已关闭的职位，可通过本接口重启职位。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/open
+// - 在调用本接口前，须在「飞书招聘」-「设置」-「职位管理」-「职位设置」中开启「通过 API 同步职位」开关，否则将只能在招聘系统内重启职位。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=open&project=hire&resource=job&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/open_job.go
 func (j *job) Open(ctx context.Context, req *OpenJobReq, options ...larkcore.RequestOptionFunc) (*OpenJobResp, error) {
@@ -2831,9 +2883,9 @@ func (j *job) Open(ctx context.Context, req *OpenJobReq, options ...larkcore.Req
 	return resp, err
 }
 
-// Recruiter
+// Recruiter 获取职位上的招聘人员信息
 //
-// -
+// - 根据职位 ID 获取职位上的招聘人员信息，如招聘负责人、用人经理等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=recruiter&project=hire&resource=job&version=v1
 //
@@ -2859,9 +2911,11 @@ func (j *job) Recruiter(ctx context.Context, req *RecruiterJobReq, options ...la
 
 // UpdateConfig 更新职位设置
 //
-// - 更新职位设置，包括面试评价表、Offer 申请表等。接口将按照所选择的「更新选项」进行设置参数校验和更新。
+// - 更新职位设置，包括面试评价表、Offer 申请表等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/update_config
+// - ## 注意事项;;调用此接口前，需先打开「飞书招聘」-「设置」-「职位管理」-「职位设置」-「通过 API 同步职位开关」开关。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_config&project=hire&resource=job&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/updateConfig_job.go
 func (j *job) UpdateConfig(ctx context.Context, req *UpdateConfigJobReq, options ...larkcore.RequestOptionFunc) (*UpdateConfigJobResp, error) {
@@ -2885,9 +2939,11 @@ func (j *job) UpdateConfig(ctx context.Context, req *UpdateConfigJobReq, options
 
 // BatchUpdate 更新职位相关人员
 //
-// - 更新职位相关人员
+// - 更新职位相关人员，包含招聘负责人、招聘协助人、用人经理。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job-manager/batch_update
+// - ## 注意事项;; 接口将按照所选择的「更新人员类型」进行设置参数校验和更新。若设置的更新类型所对应字段更新时未填写内容，接口将报错无法完成更新。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=hire&resource=job.manager&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchUpdate_jobManager.go
 func (j *jobManager) BatchUpdate(ctx context.Context, req *BatchUpdateJobManagerReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateJobManagerResp, error) {
@@ -2911,9 +2967,9 @@ func (j *jobManager) BatchUpdate(ctx context.Context, req *BatchUpdateJobManager
 
 // Get 获取职位上的招聘人员信息
 //
-// - 根据职位 ID 获取职位上的招聘人员信息，如招聘负责人、用人经理
+// - 根据职位 ID 获取职位上的招聘人员信息，如招聘负责人、用人经理。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job-manager/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=job.manager&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_jobManager.go
 func (j *jobManager) Get(ctx context.Context, req *GetJobManagerReq, options ...larkcore.RequestOptionFunc) (*GetJobManagerResp, error) {
@@ -2937,9 +2993,9 @@ func (j *jobManager) Get(ctx context.Context, req *GetJobManagerReq, options ...
 
 // List 获取职能分类列表
 //
-// - 获取职能分类列表
+// - 根据page_token与page_size对职能分类进行游标分页查询，可查询到的信息包括：职能分类ID、职能分类中英文名、启用状态，可应用于职位基础信息绑定等场景
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_function/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=job_function&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_jobFunction.go
 func (j *jobFunction) List(ctx context.Context, req *ListJobFunctionReq, options ...larkcore.RequestOptionFunc) (*ListJobFunctionResp, error) {
@@ -2969,11 +3025,11 @@ func (j *jobFunction) ListByIterator(ctx context.Context, req *ListJobFunctionRe
 		limit:    req.Limit}, nil
 }
 
-// List 获取招聘流程信息
+// List
 //
-// - 获取全部招聘流程信息
+// -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=job_process&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_jobProcess.go
 func (j *jobProcess) List(ctx context.Context, req *ListJobProcessReq, options ...larkcore.RequestOptionFunc) (*ListJobProcessResp, error) {
@@ -2981,7 +3037,7 @@ func (j *jobProcess) List(ctx context.Context, req *ListJobProcessReq, options .
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v1/job_processes"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, j.config, options...)
 	if err != nil {
 		return nil, err
@@ -2997,9 +3053,9 @@ func (j *jobProcess) List(ctx context.Context, req *ListJobProcessReq, options .
 
 // Search 获取职位广告发布记录
 //
-// - 获取职位广告发布记录
+// - 根据招聘渠道 ID 获取当前渠道下曾发布过的职位广告信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_publish_record/search
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=hire&resource=job_publish_record&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/search_jobPublishRecord.go
 func (j *jobPublishRecord) Search(ctx context.Context, req *SearchJobPublishRecordReq, options ...larkcore.RequestOptionFunc) (*SearchJobPublishRecordResp, error) {
@@ -3023,9 +3079,11 @@ func (j *jobPublishRecord) Search(ctx context.Context, req *SearchJobPublishReco
 
 // Create 创建招聘需求
 //
-// - 创建招聘需求，除招聘需求编号为必填外，其他字段是否必填与飞书招聘「招聘需求字段管理」内设置一致
+// - 创建招聘需求，可指定招聘需求部门、招聘人数、需求描述等，具体可参考「飞书招聘」-「设置」-「招聘需求字段管理」，或者参考[获取招聘需求模板](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement_schema/list)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/create
+// - 除招聘需求编号（`short_code`）为必填外，其他字段是否必填请参考「飞书招聘」-「设置」-「招聘需求字段管理」
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=job_requirement&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_jobRequirement.go
 func (j *jobRequirement) Create(ctx context.Context, req *CreateJobRequirementReq, options ...larkcore.RequestOptionFunc) (*CreateJobRequirementResp, error) {
@@ -3049,9 +3107,9 @@ func (j *jobRequirement) Create(ctx context.Context, req *CreateJobRequirementRe
 
 // Delete 删除招聘需求
 //
-// - 删除招聘需求
+// - 删除指定的招聘需求，请注意：若该招聘需求已经关联到职位上，则需先接触关联后，才能删除招聘需求。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=hire&resource=job_requirement&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/delete_jobRequirement.go
 func (j *jobRequirement) Delete(ctx context.Context, req *DeleteJobRequirementReq, options ...larkcore.RequestOptionFunc) (*DeleteJobRequirementResp, error) {
@@ -3075,9 +3133,9 @@ func (j *jobRequirement) Delete(ctx context.Context, req *DeleteJobRequirementRe
 
 // List 获取招聘需求列表
 //
-// - 获取招聘需求列表
+// - 获取招聘需求列表。若需要获取审批中的招聘需求，以及获取招聘需求的审批实时的状态，请使用「[获取招聘需求列表（新版）](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list_v2)」
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=job_requirement&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_jobRequirement.go
 func (j *jobRequirement) List(ctx context.Context, req *ListJobRequirementReq, options ...larkcore.RequestOptionFunc) (*ListJobRequirementResp, error) {
@@ -3099,9 +3157,9 @@ func (j *jobRequirement) List(ctx context.Context, req *ListJobRequirementReq, o
 	return resp, err
 }
 
-// ListById
+// ListById 获取招聘需求信息
 //
-// - 获取招聘需求信息
+// - 根据「招聘需求ID」获取招聘需求信息，支持批量查询。;;;注意：本接口不返回审批状态为「审批中」的招聘需求信息。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list_by_id&project=hire&resource=job_requirement&version=v1
 //
@@ -3127,9 +3185,11 @@ func (j *jobRequirement) ListById(ctx context.Context, req *ListByIdJobRequireme
 
 // Update 更新招聘需求
 //
-// - 更新招聘需求
+// - 更新指定招聘需求的信息，包含招聘需求的名称、状态、需求人数等。（审批中的招聘需求无法更新）
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/update
+// - - 除文档中描述的必填字段（`name`、`display_progress`、`head_count`）外，其他字段是否必填请参考「飞书招聘」-「设置」-「招聘需求字段管理」
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=hire&resource=job_requirement&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/update_jobRequirement.go
 func (j *jobRequirement) Update(ctx context.Context, req *UpdateJobRequirementReq, options ...larkcore.RequestOptionFunc) (*UpdateJobRequirementResp, error) {
@@ -3151,11 +3211,11 @@ func (j *jobRequirement) Update(ctx context.Context, req *UpdateJobRequirementRe
 	return resp, err
 }
 
-// List 获取招聘需求模板
+// List 获取招聘需求模板列表
 //
-// - 获取招聘需求模板
+// - 获取招聘需求模板列表，包含需求模板ID，以及模板里的字段定义等。招聘需求模板可参考「飞书招聘」-「设置」-「招聘需求字段管理」。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement_schema/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=job_requirement_schema&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_jobRequirementSchema.go
 func (j *jobRequirementSchema) List(ctx context.Context, req *ListJobRequirementSchemaReq, options ...larkcore.RequestOptionFunc) (*ListJobRequirementSchemaResp, error) {
@@ -3179,9 +3239,9 @@ func (j *jobRequirementSchema) List(ctx context.Context, req *ListJobRequirement
 
 // List 获取职位模板
 //
-// - 获取社招、校招职位模板中的职位字段，包括系统默认字段和自定义字段
+// - 获取社招、校招职位模板中的职位字段，返回结果包括系统默认字段和自定义字段。招聘管理员可在「飞书招聘」-「设置」-「职位管理」-「职位字段管理」中修改职位模板。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_schema/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=job_schema&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_jobSchema.go
 func (j *jobSchema) List(ctx context.Context, req *ListJobSchemaReq, options ...larkcore.RequestOptionFunc) (*ListJobSchemaResp, error) {
@@ -3203,9 +3263,9 @@ func (j *jobSchema) List(ctx context.Context, req *ListJobSchemaReq, options ...
 	return resp, err
 }
 
-// List
+// List 获取职位类别列表
 //
-// -
+// - 获取招聘系统预置的职位类别列表，可用于操作职位（如[新建职位](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/combined_create)），操作招聘需求（如[创建招聘需求](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/create)）时回填职位类别字段。返回列表默认按创建时间升序排序，且包含节点的层级关系（节点的父节点 ID），可在获取全量数据后自行构建职位类别树。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=job_type&version=v1
 //
@@ -3239,9 +3299,11 @@ func (j *jobType) ListByIterator(ctx context.Context, req *ListJobTypeReq, optio
 
 // List 获取地址列表
 //
-// - 获取地址列表
+// - 获取地址列表，可查询到的信息包括地址与地点信息，可应用在职位地点、面试地点、人才意向工作城市等场景。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list
+// - ## 名词解释;地点和地址的描述如下：;- 地点：行政区域划分，如 「中国大陆」、「四川省」、「成都市」、「高新区」;;- 地址：具体地理位置，包括职位地址、面试地址、门店地址，如：「中国四川省成都市成华区熊猫大道 1375 号」
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=location&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_location.go
 func (l *location) List(ctx context.Context, req *ListLocationReq, options ...larkcore.RequestOptionFunc) (*ListLocationResp, error) {
@@ -3271,9 +3333,11 @@ func (l *location) ListByIterator(ctx context.Context, req *ListLocationReq, opt
 		limit:    req.Limit}, nil
 }
 
-// Query
+// Query 查询地点列表
 //
-// -
+// - 根据地点类型和地点码查询地点列表，获取地点名称信息。
+//
+// - ## 名词解释;;地点：行政区域划分，如 「中国大陆」、「四川省」、「成都市」、「高新区」;;地址：分为职位地址与面试地址，如：「中国四川省成都市成华区熊猫大道1375号」
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=hire&resource=location&version=v1
 //
@@ -3297,9 +3361,9 @@ func (l *location) Query(ctx context.Context, req *QueryLocationReq, options ...
 	return resp, err
 }
 
-// Get
+// Get 获取面试速记明细
 //
-// -
+// - 获取指定面试的面试速记明细记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=minutes&version=v1
 //
@@ -3309,7 +3373,7 @@ func (m *minutes) Get(ctx context.Context, req *GetMinutesReq, options ...larkco
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v1/minutes"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
 	if err != nil {
 		return nil, err
@@ -3325,9 +3389,11 @@ func (m *minutes) Get(ctx context.Context, req *GetMinutesReq, options ...larkco
 
 // Create 创建备注
 //
-// - 创建备注信息
+// - 为人才创建备注信息，支持在备注中@其他用户。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/create
+// - ## 注意事项;;在备注中@其他用户时，会同时赋予该用户查看该人才的权限，即该用户有权限在「飞书招聘」产品中查看该人才。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=note&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_note.go
 func (n *note) Create(ctx context.Context, req *CreateNoteReq, options ...larkcore.RequestOptionFunc) (*CreateNoteResp, error) {
@@ -3349,9 +3415,9 @@ func (n *note) Create(ctx context.Context, req *CreateNoteReq, options ...larkco
 	return resp, err
 }
 
-// Delete
+// Delete 删除备注
 //
-// -
+// - 根据备注 ID 删除备注。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=hire&resource=note&version=v1
 //
@@ -3377,9 +3443,9 @@ func (n *note) Delete(ctx context.Context, req *DeleteNoteReq, options ...larkco
 
 // Get 获取备注
 //
-// - 根据备注 ID 获取备注信息
+// - 根据备注 ID 查询人才备注信息，包括备注内容、人才 ID、投递 ID 等。可用于人才备注信息展示等场景。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=note&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_note.go
 func (n *note) Get(ctx context.Context, req *GetNoteReq, options ...larkcore.RequestOptionFunc) (*GetNoteResp, error) {
@@ -3403,9 +3469,9 @@ func (n *note) Get(ctx context.Context, req *GetNoteReq, options ...larkcore.Req
 
 // List 获取备注列表
 //
-// - 获取备注列表
+// - 根据人才ID获取备注列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=note&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_note.go
 func (n *note) List(ctx context.Context, req *ListNoteReq, options ...larkcore.RequestOptionFunc) (*ListNoteResp, error) {
@@ -3429,9 +3495,11 @@ func (n *note) List(ctx context.Context, req *ListNoteReq, options ...larkcore.R
 
 // Patch 更新备注
 //
-// - 根据备注 ID 更新备注信息
+// - 根据备注 ID 更新备注信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/patch
+// - ## 注意事项;;在备注中@其他用户时，会同时赋予该用户查看该人才的权限，即该用户有权限在「飞书招聘」产品中查看该人才。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=hire&resource=note&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/patch_note.go
 func (n *note) Patch(ctx context.Context, req *PatchNoteReq, options ...larkcore.RequestOptionFunc) (*PatchNoteResp, error) {
@@ -3455,9 +3523,11 @@ func (n *note) Patch(ctx context.Context, req *PatchNoteReq, options ...larkcore
 
 // Create 创建 Offer
 //
-// - 创建 Offer 时，需传入本文档中标注为必传的参数，其余参数是否必传参考「获取 Offer 申请表模板信息」的参数定义
+// - 传入 Offer 基本信息，创建 Offer。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/create
+// - ## 注意事项;- 创建 Offer 时，需传入本文档中标注为必传的参数，其余参数是否必传参考[获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)的参数定义或在「飞书招聘」-「设置」-「Offer 设置」-「Offer 申请表设置」中进行查看。;- 若客户购买了飞书人事，且「飞书招聘」-「设置」-「Offer 设置」-「Offer 审批设置」中「Offer 薪酬信息来源」配置为“飞书人事「企业版」基础薪酬设置”，该接口将无法创建薪酬信息。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=offer&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_offer.go
 func (o *offer) Create(ctx context.Context, req *CreateOfferReq, options ...larkcore.RequestOptionFunc) (*CreateOfferResp, error) {
@@ -3481,9 +3551,9 @@ func (o *offer) Create(ctx context.Context, req *CreateOfferReq, options ...lark
 
 // Get 获取 Offer 详情
 //
-// - 根据 Offer ID 获取 Offer 详细信息
+// - 根据 Offer ID 获取 Offer 详细信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=offer&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_offer.go
 func (o *offer) Get(ctx context.Context, req *GetOfferReq, options ...larkcore.RequestOptionFunc) (*GetOfferResp, error) {
@@ -3507,9 +3577,9 @@ func (o *offer) Get(ctx context.Context, req *GetOfferReq, options ...larkcore.R
 
 // InternOfferStatus 更新实习 Offer 入/离职状态
 //
-// - 对「实习待入职」状态的实习 Offer 确认入职、放弃入职，或对「实习已入职」状态的实习 Offer 操作离职
+// - 对「实习待入职」状态的实习 Offer 确认入职、放弃入职，或对「实习已入职」状态的实习 Offer 操作离职。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/intern_offer_status
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=intern_offer_status&project=hire&resource=offer&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/internOfferStatus_offer.go
 func (o *offer) InternOfferStatus(ctx context.Context, req *InternOfferStatusOfferReq, options ...larkcore.RequestOptionFunc) (*InternOfferStatusOfferResp, error) {
@@ -3533,9 +3603,9 @@ func (o *offer) InternOfferStatus(ctx context.Context, req *InternOfferStatusOff
 
 // List 获取 Offer 列表
 //
-// - 根据人才 ID 获取 Offer 列表
+// - 根据人才 ID 获取 Offer 列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=offer&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_offer.go
 func (o *offer) List(ctx context.Context, req *ListOfferReq, options ...larkcore.RequestOptionFunc) (*ListOfferResp, error) {
@@ -3557,9 +3627,9 @@ func (o *offer) List(ctx context.Context, req *ListOfferReq, options ...larkcore
 	return resp, err
 }
 
-// OfferStatus
+// OfferStatus 更新 Offer 状态
 //
-// -
+// - 通过 Offer ID 更新候选人 Offer 的「Offer 审批状态」或 「Offer 发送和接受状态」。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=offer_status&project=hire&resource=offer&version=v1
 //
@@ -3585,9 +3655,11 @@ func (o *offer) OfferStatus(ctx context.Context, req *OfferStatusOfferReq, optio
 
 // Update 更新 Offer 信息
 //
-// - 1. 更新 Offer 时，需传入本文档中标注为必传的参数，其余参数是否必传参考「获取 Offer 申请表模板信息」的参数定义；;2. 对系统中已存在的 offer 进行更新的，若更新 offer 中含有「修改需审批」的字段，更新后原 Offer 的审批会自动撤回，需要重新发起审批
+// - 更新 Offer 信息，包含基本信息、薪资信息、自定义信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/update
+// - ## 注意事项;- 更新 Offer 时，除了本文中标注为必填的参数外，其余参数是否必填请参考[获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)的参数定义;- 对系统中 Offer 进行更新时，若本次更新 Offer 字段中含有「修改需审批」的字段，更新后原 Offer 的审批会自动撤回，需要重新发起审批；修改需审批字段详情可查看：[获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)接口中`need_approve`字段;- 当 Offer 状态为以下 2 种时， 不可更新 Offer：`Offer 已发送`、`Offer 被候选人接受`，Offer 状态详情可查看：[获取 Offer 详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/get);- 该接口会对原 Offer 内容进行全量覆盖更新，若非必填参数未填写则会清空原有内容，必填参数未填写会拦截报错。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=hire&resource=offer&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/update_offer.go
 func (o *offer) Update(ctx context.Context, req *UpdateOfferReq, options ...larkcore.RequestOptionFunc) (*UpdateOfferResp, error) {
@@ -3609,11 +3681,11 @@ func (o *offer) Update(ctx context.Context, req *UpdateOfferReq, options ...lark
 	return resp, err
 }
 
-// Get 获取Offer申请表模板信息
+// Get 获取 Offer 申请表信息
 //
-// - 获取Offer申请表模板信息
+// - 根据 Offer 申请表 ID 获取 Offer 申请表信息，可获取到的信息包括申请表名称、申请表模块、申请表字段等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=offer_application_form&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_offerApplicationForm.go
 func (o *offerApplicationForm) Get(ctx context.Context, req *GetOfferApplicationFormReq, options ...larkcore.RequestOptionFunc) (*GetOfferApplicationFormResp, error) {
@@ -3637,9 +3709,9 @@ func (o *offerApplicationForm) Get(ctx context.Context, req *GetOfferApplication
 
 // List 获取 Offer 申请表列表
 //
-// - 获取 Offer 申请表列表
+// - 获取 Offer 申请表列表，可获取的信息包括申请表名称、创建时间等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=offer_application_form&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_offerApplicationForm.go
 func (o *offerApplicationForm) List(ctx context.Context, req *ListOfferApplicationFormReq, options ...larkcore.RequestOptionFunc) (*ListOfferApplicationFormResp, error) {
@@ -3661,11 +3733,13 @@ func (o *offerApplicationForm) List(ctx context.Context, req *ListOfferApplicati
 	return resp, err
 }
 
-// List 获取 Offer 审批流配置列表
+// List 获取 Offer 审批流列表
 //
-// - 获取 Offer 审批流配置列表
+// - 获取飞书招聘系统中默认和自定义 Offer 审批流列表。Offer 审批流可以在「飞书招聘」-「设置」-「Offer 设置」-「Offer 审批设置」中维护。可在职位设置的「Offer 审批流程」中使用。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_approval_template/list
+// - 若当前租户开通了「飞书人事」，且使用了「流程平台」配置的审批流，当前接口无法获取「流程平台」配置的审批流。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=offer_approval_template&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_offerApprovalTemplate.go
 func (o *offerApprovalTemplate) List(ctx context.Context, req *ListOfferApprovalTemplateReq, options ...larkcore.RequestOptionFunc) (*ListOfferApprovalTemplateResp, error) {
@@ -3689,9 +3763,11 @@ func (o *offerApprovalTemplate) List(ctx context.Context, req *ListOfferApproval
 
 // Update 更新 Offer 申请表自定义字段
 //
-// - - 本文档支持通过接口更新「飞书招聘」-「设置」-「Offer 申请表设置」中 Offer 申请表的自定义字段配置；;- 当前修改申请表信息（包括更新自定义字段）后，所有申请表的 schema_id 均会更新，即所有申请表均会新增一个版本，申请表的 schema_id 会在创建 offer、更新 offer 中使用；;- 「飞书招聘」中 Offer 申请表自定义字段创建后，不支持修改字段类型，本接口亦不支持更新字段类型；;- 当前字段类型为「公式」的，不支持通过接口更新
+// - 本接口支持修改 Offer 申请表的自定义字段，Offer 申请表的定义可参考「飞书招聘」-「设置」-「Offer 设置」-「Offer 申请表设置」中的内容。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_custom_field/update
+// - ## 注意事项;;- Offer 申请表通过版本 (schema_id) 进行变更管理，自定义字段每次修改，全量申请表的 schema_id 会同步更新。;- 本接口不支持修改自定义字段类型。;- 本接口不支持修改字段类型为「公式」类型的字段值。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=hire&resource=offer_custom_field&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/update_offerCustomField.go
 func (o *offerCustomField) Update(ctx context.Context, req *UpdateOfferCustomFieldReq, options ...larkcore.RequestOptionFunc) (*UpdateOfferCustomFieldResp, error) {
@@ -3739,9 +3815,9 @@ func (o *offerSchema) Get(ctx context.Context, req *GetOfferSchemaReq, options .
 	return resp, err
 }
 
-// List
+// List 获取申请表模板列表
 //
-// -
+// - 获取招聘官网申请表模板列表，在官网申请职位时，申请表需按照官网申请表模板的格式进行填写。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=portal_apply_schema&version=v1
 //
@@ -3775,9 +3851,9 @@ func (p *portalApplySchema) ListByIterator(ctx context.Context, req *ListPortalA
 
 // List 获取面试满意度问卷列表
 //
-// - 获取面试满意度问卷列表
+// - 批量获取面试满意度问卷信息，包含问卷完成情况、问卷题目及问卷题目作答内容等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/questionnaire/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=questionnaire&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_questionnaire.go
 func (q *questionnaire) List(ctx context.Context, req *ListQuestionnaireReq, options ...larkcore.RequestOptionFunc) (*ListQuestionnaireResp, error) {
@@ -3801,9 +3877,9 @@ func (q *questionnaire) List(ctx context.Context, req *ListQuestionnaireReq, opt
 
 // GetByApplication 获取内推信息
 //
-// - 根据投递 ID 获取内推信息
+// - 根据投递 ID 获取内推信息，包含内推人信息、内推创建时间等。;;;注意：;;;1.本接口根据 application_id （投递ID）查询内推信息时，仅适用于内推时选择了具体职位的场景;;;2.对于 无职位内推 （内推时未选择职位），内推信息中不存储投递ID，使用 application_id 查询将返回空结果;;;3.查询无职位内推信息，请使用 referral_id （内推ID）或 talent_id （人才ID）作为查询条件
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral/get_by_application
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_by_application&project=hire&resource=referral&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/getByApplication_referral.go
 func (r *referral) GetByApplication(ctx context.Context, req *GetByApplicationReferralReq, options ...larkcore.RequestOptionFunc) (*GetByApplicationReferralResp, error) {
@@ -3825,9 +3901,9 @@ func (r *referral) GetByApplication(ctx context.Context, req *GetByApplicationRe
 	return resp, err
 }
 
-// Search
+// Search 查询内推信息
 //
-// -
+// - 根据人才查询内推信息列表，包含内推人信息、内推时间、投递 ID等，按内推投递的`创建时间`从小到大排序返回。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=hire&resource=referral&version=v1
 //
@@ -3851,9 +3927,9 @@ func (r *referral) Search(ctx context.Context, req *SearchReferralReq, options .
 	return resp, err
 }
 
-// Create
+// Create 注册内推账户
 //
-// -
+// - 通过内推人的手机号或邮箱注册「内推奖励账户」。注册后，可通过[查询内推账户](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/get_account_assets)接口获取内推账户 ID、积分余额、现金余额等，可通过[「全额提取内推账号余额」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw)接口提取账户余额，可通过[启动内推账户](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/enable)、[「停用内推账户」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/deactivate)接口启/停用账户。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=referral_account&version=v1
 //
@@ -3877,9 +3953,9 @@ func (r *referralAccount) Create(ctx context.Context, req *CreateReferralAccount
 	return resp, err
 }
 
-// Deactivate
+// Deactivate 停用内推账户
 //
-// -
+// - 停用内推账户，停用后，将不再发送[「内推账户余额变更事件」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/events/assets_update)，也无法通过[「提取内推账号余额」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw)提取。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=deactivate&project=hire&resource=referral_account&version=v1
 //
@@ -3903,9 +3979,9 @@ func (r *referralAccount) Deactivate(ctx context.Context, req *DeactivateReferra
 	return resp, err
 }
 
-// Enable
+// Enable 启用内推账户;
 //
-// -
+// - 根据账户 ID 启用账户，启用后可通过[「内推账户余额变更事件」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/events/assets_update)监听余额变更、通过[「全额提取内推账户余额」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw)提取余额。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=enable&project=hire&resource=referral_account&version=v1
 //
@@ -3929,9 +4005,9 @@ func (r *referralAccount) Enable(ctx context.Context, req *EnableReferralAccount
 	return resp, err
 }
 
-// GetAccountAssets
+// GetAccountAssets 查询内推账户
 //
-// -
+// - 根据账户 ID 查询内推账户信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_account_assets&project=hire&resource=referral_account&version=v1
 //
@@ -3955,9 +4031,9 @@ func (r *referralAccount) GetAccountAssets(ctx context.Context, req *GetAccountA
 	return resp, err
 }
 
-// Reconciliation
+// Reconciliation 内推账户提现数据对账
 //
-// -
+// - 对一段时间内的内推账户积分提现数据进行对账，调用方需传入调用方系统的内推账户积分变动信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=reconciliation&project=hire&resource=referral_account&version=v1
 //
@@ -3981,9 +4057,9 @@ func (r *referralAccount) Reconciliation(ctx context.Context, req *Reconciliatio
 	return resp, err
 }
 
-// Withdraw
+// Withdraw 全额提取内推账户余额
 //
-// -
+// - 通过账户 ID 全额提取内推账户下的积分/现金。全额提现后，内推人在飞书招聘系统中的积分/现金余额会变为 0，对应的积分/现金奖励状态也会变为「已发放」。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=withdraw&project=hire&resource=referral_account&version=v1
 //
@@ -4007,9 +4083,9 @@ func (r *referralAccount) Withdraw(ctx context.Context, req *WithdrawReferralAcc
 	return resp, err
 }
 
-// Get
+// Get 获取内推官网下职位广告详情
 //
-// - 获取内推官网下职位广告详情
+// - 根据职位广告 ID 获取内推官网下的职位广告详情，包含职位广告 ID 以及职位信息等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=referral_website.job_post&version=v1
 //
@@ -4033,9 +4109,9 @@ func (r *referralWebsiteJobPost) Get(ctx context.Context, req *GetReferralWebsit
 	return resp, err
 }
 
-// List
+// List 获取内推官网下职位广告列表
 //
-// - 获取内推官网下的职位列表。自定义数据暂不支持列表获取，请从「获取内推官网下职位广告详情」接口获取
+// - 获取内推官网下的职位列表，包含职位广告ID、职位广告名称、职位信息等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=referral_website.job_post&version=v1
 //
@@ -4067,9 +4143,9 @@ func (r *referralWebsiteJobPost) ListByIterator(ctx context.Context, req *ListRe
 		limit:    req.Limit}, nil
 }
 
-// List
+// List 获取信息登记表列表
 //
-// -
+// - 根据适用场景获取信息登记表列表，可获取到的信息包括登记表名称、登记表模块、登记表字段等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=registration_schema&version=v1
 //
@@ -4103,9 +4179,9 @@ func (r *registrationSchema) ListByIterator(ctx context.Context, req *ListRegist
 
 // List 获取简历来源列表
 //
-// - 获取简历来源列表
+// - 获取简历来源列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=resume_source&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_resumeSource.go
 func (r *resumeSource) List(ctx context.Context, req *ListResumeSourceReq, options ...larkcore.RequestOptionFunc) (*ListResumeSourceResp, error) {
@@ -4135,9 +4211,9 @@ func (r *resumeSource) ListByIterator(ctx context.Context, req *ListResumeSource
 		limit:    req.Limit}, nil
 }
 
-// Get
+// Get 获取角色详情
 //
-// -
+// - 可通过此接口获取角色详情信息，包括名称、描述、权限列表等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=role&version=v1
 //
@@ -4163,9 +4239,9 @@ func (r *role) Get(ctx context.Context, req *GetRoleReq, options ...larkcore.Req
 
 // List 获取角色列表
 //
-// - 获取角色列表
+// - 根据 page_token 与 page_size 对权限角色进行游标分页查询，可查询到的信息包括：权限角色ID、角色名、角色描述。可应用于权限判断等鉴权场景。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/role/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=role&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_role.go
 func (r *role) List(ctx context.Context, req *ListRoleReq, options ...larkcore.RequestOptionFunc) (*ListRoleResp, error) {
@@ -4197,9 +4273,9 @@ func (r *role) ListByIterator(ctx context.Context, req *ListRoleReq, options ...
 
 // List 获取项目列表
 //
-// - 获取项目列表（概念上一批集体启动和管理的职位可以定义为一个项目，例如 「2012 秋招项目」）
+// - 获取项目列表（概念上一批集体启动和管理的职位可以定义为一个项目，例如 「2012 秋招项目」）。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/subject/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=subject&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_subject.go
 func (s *subject) List(ctx context.Context, req *ListSubjectReq, options ...larkcore.RequestOptionFunc) (*ListSubjectResp, error) {
@@ -4223,9 +4299,9 @@ func (s *subject) List(ctx context.Context, req *ListSubjectReq, options ...lark
 
 // AddToFolder 将人才加入指定文件夹
 //
-// - 将人才加入指定文件夹
+// - 根据人才 ID 列表将人才加入指定文件夹。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/add_to_folder
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=add_to_folder&project=hire&resource=talent&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/addToFolder_talent.go
 func (t *talent) AddToFolder(ctx context.Context, req *AddToFolderTalentReq, options ...larkcore.RequestOptionFunc) (*AddToFolderTalentResp, error) {
@@ -4247,11 +4323,13 @@ func (t *talent) AddToFolder(ctx context.Context, req *AddToFolderTalentReq, opt
 	return resp, err
 }
 
-// BatchGetId 通过人才信息获取人才 ID
+// BatchGetId 批量获取人才ID
 //
-// - 通过人才信息获取人才 ID
+// - 通过手机号、邮箱、证件号，批量查询人才ID
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/batch_get_id
+// - - 入参的手机号、邮箱、证件号至少需要传一种，否则无法查询到人才数据;- 入参的手机号、邮箱、证件号是AND的逻辑关系。也就是当条件同时满足时才会返回人才数据。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get_id&project=hire&resource=talent&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchGetId_talent.go
 func (t *talent) BatchGetId(ctx context.Context, req *BatchGetIdTalentReq, options ...larkcore.RequestOptionFunc) (*BatchGetIdTalentResp, error) {
@@ -4275,9 +4353,11 @@ func (t *talent) BatchGetId(ctx context.Context, req *BatchGetIdTalentReq, optio
 
 // CombinedCreate 创建人才
 //
-// - 用于在企业内创建一个人才。姓名为系统预设的必填字段，邮箱/电话字段请在飞书招聘标准简历模板设置中确认是否必填。可配合[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)接口获取自定义字段信息。
+// - 用于在企业内创建一个人才。支持自定义字段数据，可配合[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query);接口获取自定义字段信息使用。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/combined_create
+// - ## 注意事项;请求参数中邮箱/电话字段请在「飞书招聘」-「设置」-「候选人信息管理」-「标准简历设置」中确认是否必填。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=combined_create&project=hire&resource=talent&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/combinedCreate_talent.go
 func (t *talent) CombinedCreate(ctx context.Context, req *CombinedCreateTalentReq, options ...larkcore.RequestOptionFunc) (*CombinedCreateTalentResp, error) {
@@ -4299,11 +4379,11 @@ func (t *talent) CombinedCreate(ctx context.Context, req *CombinedCreateTalentRe
 	return resp, err
 }
 
-// CombinedUpdate 更新人才信息
+// CombinedUpdate 更新人才
 //
-// - 用于在企业内更新一个人才。姓名为系统预设的必填字段，邮箱/电话字段请在飞书招聘标准简历模板设置中确认是否必填。可配合[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)接口获取自定义字段信息。
+// - 用于在企业内更新一个人才。支持自定义字段数据，可配合[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query);接口获取自定义字段信息使用。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/combined_update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=combined_update&project=hire&resource=talent&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/combinedUpdate_talent.go
 func (t *talent) CombinedUpdate(ctx context.Context, req *CombinedUpdateTalentReq, options ...larkcore.RequestOptionFunc) (*CombinedUpdateTalentResp, error) {
@@ -4325,11 +4405,11 @@ func (t *talent) CombinedUpdate(ctx context.Context, req *CombinedUpdateTalentRe
 	return resp, err
 }
 
-// Get 获取人才信息
+// Get
 //
-// - 根据人才 ID 获取人才信息
+// -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=talent&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_talent.go
 func (t *talent) Get(ctx context.Context, req *GetTalentReq, options ...larkcore.RequestOptionFunc) (*GetTalentResp, error) {
@@ -4353,9 +4433,9 @@ func (t *talent) Get(ctx context.Context, req *GetTalentReq, options ...larkcore
 
 // List 获取人才列表
 //
-// - 根据更新时间获取人才列表，仅支持获取默认字段信息，获取详细信息可调用「获取人才详细」接口
+// - 批量获取人才摘要信息，包括人才 ID、人才基信息、教育经历、工作经历等。若需要获取人才详细信息请使用[获取人才详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/hire-v2/talent/get)接口。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=talent&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_talent.go
 func (t *talent) List(ctx context.Context, req *ListTalentReq, options ...larkcore.RequestOptionFunc) (*ListTalentResp, error) {
@@ -4377,9 +4457,11 @@ func (t *talent) List(ctx context.Context, req *ListTalentReq, options ...larkco
 	return resp, err
 }
 
-// OnboardStatus
+// OnboardStatus 更新人才在职状态
 //
-// -
+// - 更新人才的在职状态，可进行的操作包括入职与离职。
+//
+// - ## 注意事项;- 进行入职、离职操作后，「飞书招聘」- 「人才库」-「人才详情页」等场景会相应展示已入职、已离职标签;;- 已入职的人才不能进行入职操作，已离职的人才不能进行入职操作。已离职的人才若需入职，需走正常的招聘流程
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=onboard_status&project=hire&resource=talent&version=v1
 //
@@ -4403,9 +4485,9 @@ func (t *talent) OnboardStatus(ctx context.Context, req *OnboardStatusTalentReq,
 	return resp, err
 }
 
-// RemoveToFolder
+// RemoveToFolder 将人才从指定文件夹移除
 //
-// -
+// - 根据人才 ID 列表将人才从指定文件夹移除。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=remove_to_folder&project=hire&resource=talent&version=v1
 //
@@ -4429,9 +4511,9 @@ func (t *talent) RemoveToFolder(ctx context.Context, req *RemoveToFolderTalentRe
 	return resp, err
 }
 
-// Tag
+// Tag 操作人才标签
 //
-// -
+// - 可为人才新增、删除标签。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=tag&project=hire&resource=talent&version=v1
 //
@@ -4457,9 +4539,9 @@ func (t *talent) Tag(ctx context.Context, req *TagTalentReq, options ...larkcore
 
 // Create 创建人才外部信息
 //
-// - 创建人才外部信息
+// - 创建外部人才，可将已存在人才标记为外部人才，并写入外部系统创建时间。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent-external_info/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=talent.external_info&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_talentExternalInfo.go
 func (t *talentExternalInfo) Create(ctx context.Context, req *CreateTalentExternalInfoReq, options ...larkcore.RequestOptionFunc) (*CreateTalentExternalInfoResp, error) {
@@ -4483,9 +4565,9 @@ func (t *talentExternalInfo) Create(ctx context.Context, req *CreateTalentExtern
 
 // Update 更新人才外部信息
 //
-// - 更新人才外部信息
+// - 更新人才外部信息，包含外部系统创建时间。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent-external_info/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=hire&resource=talent.external_info&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/update_talentExternalInfo.go
 func (t *talentExternalInfo) Update(ctx context.Context, req *UpdateTalentExternalInfoReq, options ...larkcore.RequestOptionFunc) (*UpdateTalentExternalInfoResp, error) {
@@ -4507,9 +4589,9 @@ func (t *talentExternalInfo) Update(ctx context.Context, req *UpdateTalentExtern
 	return resp, err
 }
 
-// ChangeTalentBlock
+// ChangeTalentBlock 加入/移除屏蔽名单
 //
-// -
+// - 根据人才 ID 将人才加入或移除屏蔽名单。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=change_talent_block&project=hire&resource=talent_blocklist&version=v1
 //
@@ -4533,11 +4615,11 @@ func (t *talentBlocklist) ChangeTalentBlock(ctx context.Context, req *ChangeTale
 	return resp, err
 }
 
-// List 获取人才文件夹信息
+// List 获取人才文件夹列表
 //
-// - 用于获取招聘系统中人才文件夹信息
+// - 获取招聘系统中人才文件夹信息列表，包括文件夹 ID、文件夹名称、文件夹所有者 ID。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_folder/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=talent_folder&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_talentFolder.go
 func (t *talentFolder) List(ctx context.Context, req *ListTalentFolderReq, options ...larkcore.RequestOptionFunc) (*ListTalentFolderResp, error) {
@@ -4569,9 +4651,11 @@ func (t *talentFolder) ListByIterator(ctx context.Context, req *ListTalentFolder
 
 // Query 获取人才字段
 //
-// - 获取人才字段
+// - 获取全部人才字段详细信息，包含字段名称、字段描述、字段类型、启用状态等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query
+// - ## 概念说明;在「飞书招聘」-「设置」-「候选人字段管理」中，人才中的字段按照模块进行组织，一个模块下可以包含多个字段，对应人才字段类型中`模块`类型，如下图所示。;;![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ef34f907d66c16101567d67d48b08b06_NDaFV3Wupm.png?maxWidth=500);
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=hire&resource=talent_object&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/query_talentObject.go
 func (t *talentObject) Query(ctx context.Context, options ...larkcore.RequestOptionFunc) (*QueryTalentObjectResp, error) {
@@ -4596,11 +4680,11 @@ func (t *talentObject) Query(ctx context.Context, options ...larkcore.RequestOpt
 	return resp, err
 }
 
-// Search 查询操作人对人才的操作记录
+// Search 查询人才操作记录
 //
-// - 查询操作人对人才的操作记录
+// - 根据操作人和操作类型查询人才的操作记录。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/talent_operation_log/search
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=hire&resource=talent_operation_log&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/search_talentOperationLog.go
 func (t *talentOperationLog) Search(ctx context.Context, req *SearchTalentOperationLogReq, options ...larkcore.RequestOptionFunc) (*SearchTalentOperationLogResp, error) {
@@ -4622,9 +4706,9 @@ func (t *talentOperationLog) Search(ctx context.Context, req *SearchTalentOperat
 	return resp, err
 }
 
-// BatchChangeTalentPool
+// BatchChangeTalentPool 批量加入/移除人才库中人才
 //
-// -
+// - 对于同一个人才库，可批量执行人才加入或移除操作;;- 执行加入操作：当传入不存在人才 ID 时，接口会报错返回不存在人才 ID 列表。 当人才已在人才库中时，接口静默处理。;;- 执行移除操作：当传入不存在人才 ID 时，接口会报错返回不存在人才 ID 列表。 当人才未在人才库中时，接口静默处理。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_change_talent_pool&project=hire&resource=talent_pool&version=v1
 //
@@ -4648,9 +4732,9 @@ func (t *talentPool) BatchChangeTalentPool(ctx context.Context, req *BatchChange
 	return resp, err
 }
 
-// MoveTalent
+// MoveTalent 将人才加入人才库
 //
-// -
+// - 将人才加入人才库。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=move_talent&project=hire&resource=talent_pool&version=v1
 //
@@ -4674,9 +4758,9 @@ func (t *talentPool) MoveTalent(ctx context.Context, req *MoveTalentTalentPoolRe
 	return resp, err
 }
 
-// Search
+// Search 获取人才库列表
 //
-// -
+// - 获取人才库列表，可获取的信息包括人才库 ID、人才库名称等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=hire&resource=talent_pool&version=v1
 //
@@ -4708,9 +4792,9 @@ func (t *talentPool) SearchByIterator(ctx context.Context, req *SearchTalentPool
 		limit:    req.Limit}, nil
 }
 
-// List
+// List 获取人才标签信息列表
 //
-// -
+// - 可通过关键词、ID 列表、标签类型、停用状态等获取人才标签信息列表，结果按照创建时间倒序排序。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=talent_tag&version=v1
 //
@@ -4744,9 +4828,9 @@ func (t *talentTag) ListByIterator(ctx context.Context, req *ListTalentTagReq, o
 
 // List 获取终止投递原因
 //
-// - 获取终止投递原因
+// - 获取系统中默认的投递终止原因以及用户配置的自定义投递终止原因。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/termination_reason/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=termination_reason&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_terminationReason.go
 func (t *terminationReason) List(ctx context.Context, req *ListTerminationReasonReq, options ...larkcore.RequestOptionFunc) (*ListTerminationReasonResp, error) {
@@ -4778,9 +4862,9 @@ func (t *terminationReason) ListByIterator(ctx context.Context, req *ListTermina
 
 // Search 获取笔试列表
 //
-// - 批量获取人才在某投递流程中的笔试信息，如作答状态、笔试得分等。（目前仅支持获取 1w 条数据，若数据量较大，可通过控制 test_start_time 查询条件分批次获取全量数据）
+// - 批量获取人才在投递流程中的笔试信息。如作答状态、笔试得分等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/test/search
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=hire&resource=test&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/search_test.go
 func (t *test) Search(ctx context.Context, req *SearchTestReq, options ...larkcore.RequestOptionFunc) (*SearchTestResp, error) {
@@ -4788,7 +4872,7 @@ func (t *test) Search(ctx context.Context, req *SearchTestReq, options ...larkco
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/hire/v1/tests/search"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
 	if err != nil {
 		return nil, err
@@ -4810,11 +4894,11 @@ func (t *test) SearchByIterator(ctx context.Context, req *SearchTestReq, options
 		limit:    req.Limit}, nil
 }
 
-// List 获取待办列表
+// List 批量获取待办事项
 //
-// - 获取待办列表
+// - 批量获取当前用户的待办事项信息，包含评估待办事项、面试待办事项、笔试待办事项和 Offer 待办事项。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/todo/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=todo&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_todo.go
 func (t *todo) List(ctx context.Context, req *ListTodoReq, options ...larkcore.RequestOptionFunc) (*ListTodoResp, error) {
@@ -4844,9 +4928,11 @@ func (t *todo) ListByIterator(ctx context.Context, req *ListTodoReq, options ...
 		limit:    req.Limit}, nil
 }
 
-// Create
+// Create 创建三方协议
 //
-// -
+// - 在校招投递上创建三方协议。
+//
+// - ## 前提条件;- 在「飞书招聘」-「设置」-「候选人流程管理」-「三方协议设置」中勾选了「通过 API 维护三方协议」。;- 该投递为校招投递。;- 该投递的 Offer 办公地点在中国大陆。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=tripartite_agreement&version=v1
 //
@@ -4870,9 +4956,9 @@ func (t *tripartiteAgreement) Create(ctx context.Context, req *CreateTripartiteA
 	return resp, err
 }
 
-// Delete
+// Delete 删除三方协议
 //
-// -
+// - 删除投递的三方协议。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=hire&resource=tripartite_agreement&version=v1
 //
@@ -4896,9 +4982,9 @@ func (t *tripartiteAgreement) Delete(ctx context.Context, req *DeleteTripartiteA
 	return resp, err
 }
 
-// List
+// List 获取三方协议
 //
-// -
+// - 根据三方协议 ID 或投递 ID 获取三方协议信息，如三方协议状态、创建时间等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=tripartite_agreement&version=v1
 //
@@ -4930,9 +5016,11 @@ func (t *tripartiteAgreement) ListByIterator(ctx context.Context, req *ListTripa
 		limit:    req.Limit}, nil
 }
 
-// Update
+// Update 更新三方协议
 //
-// -
+// - 更新三方协议的状态及修改时间信息。
+//
+// - ## 前提条件;在「飞书招聘」-「设置」-「候选人流程管理」-「三方协议设置」中勾选了「通过 API 维护三方协议」。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=hire&resource=tripartite_agreement&version=v1
 //
@@ -4958,9 +5046,9 @@ func (t *tripartiteAgreement) Update(ctx context.Context, req *UpdateTripartiteA
 
 // List 获取用户角色列表
 //
-// - 获取用户角色列表
+// - 通过用户ID、角色ID等筛选条件获取用户角色列表，可获取的信息包括用户ID、角色ID、角色姓名、业务管理范围等
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/user_role/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=user_role&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_userRole.go
 func (u *userRole) List(ctx context.Context, req *ListUserRoleReq, options ...larkcore.RequestOptionFunc) (*ListUserRoleResp, error) {
@@ -4990,11 +5078,11 @@ func (u *userRole) ListByIterator(ctx context.Context, req *ListUserRoleReq, opt
 		limit:    req.Limit}, nil
 }
 
-// List 获取自定义官网列表
+// List 获取招聘官网列表
 //
-// - 获取自定义官网列表
+// - 获取招聘官网列表，返回信息包括官网名称、官网ID、招聘渠道ID等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=website&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_website.go
 func (w *website) List(ctx context.Context, req *ListWebsiteReq, options ...larkcore.RequestOptionFunc) (*ListWebsiteResp, error) {
@@ -5024,11 +5112,11 @@ func (w *website) ListByIterator(ctx context.Context, req *ListWebsiteReq, optio
 		limit:    req.Limit}, nil
 }
 
-// Create 创建官网推广渠道
+// Create 新建招聘官网推广渠道
 //
-// - 根据官网 ID 和推广渠道名称创建官网推广渠道
+// - 新建指定官网的推广渠道。每个官网可以新建多个推广渠道，每个推广渠道具有不同的推广链接和推广码。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-channel/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=website.channel&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_websiteChannel.go
 func (w *websiteChannel) Create(ctx context.Context, req *CreateWebsiteChannelReq, options ...larkcore.RequestOptionFunc) (*CreateWebsiteChannelResp, error) {
@@ -5050,11 +5138,11 @@ func (w *websiteChannel) Create(ctx context.Context, req *CreateWebsiteChannelRe
 	return resp, err
 }
 
-// Delete 删除官网推广渠道
+// Delete 删除招聘官网推广渠道
 //
-// - 根据官网 ID 和推广渠道 ID 删除官网推广渠道
+// - 根据招聘官网 ID 和推广渠道 ID 删除推广渠道。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-channel/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=hire&resource=website.channel&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/delete_websiteChannel.go
 func (w *websiteChannel) Delete(ctx context.Context, req *DeleteWebsiteChannelReq, options ...larkcore.RequestOptionFunc) (*DeleteWebsiteChannelResp, error) {
@@ -5078,9 +5166,9 @@ func (w *websiteChannel) Delete(ctx context.Context, req *DeleteWebsiteChannelRe
 
 // List 获取官网推广渠道列表
 //
-// - 根据官网 ID 分页获取推广渠道列表
+// - 根据官网 ID 获取推广渠道列表，支持分页查询。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-channel/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=website.channel&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_websiteChannel.go
 func (w *websiteChannel) List(ctx context.Context, req *ListWebsiteChannelReq, options ...larkcore.RequestOptionFunc) (*ListWebsiteChannelResp, error) {
@@ -5102,11 +5190,11 @@ func (w *websiteChannel) List(ctx context.Context, req *ListWebsiteChannelReq, o
 	return resp, err
 }
 
-// Update 更新官网推广渠道
+// Update 更新招聘官网推广渠道
 //
-// - 根据官网 ID 和推广渠道 ID 更改推广渠道名称
+// - 根据招聘官网 ID 和推广渠道 ID 更改推广渠道，仅支持修改推广渠道名称。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-channel/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=hire&resource=website.channel&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/update_websiteChannel.go
 func (w *websiteChannel) Update(ctx context.Context, req *UpdateWebsiteChannelReq, options ...larkcore.RequestOptionFunc) (*UpdateWebsiteChannelResp, error) {
@@ -5128,11 +5216,11 @@ func (w *websiteChannel) Update(ctx context.Context, req *UpdateWebsiteChannelRe
 	return resp, err
 }
 
-// CreateByAttachment 根据简历附件解析创建官网投递
+// CreateByAttachment 根据简历附件创建招聘官网投递任务
 //
-// - 根据简历附件解析创建官网投递
+// - 根据简历附件创建招聘官网投递任务，创建投递的最终结果请通过[获取招聘官网投递任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-delivery_task/get)获取。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-delivery/create_by_attachment
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create_by_attachment&project=hire&resource=website.delivery&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/createByAttachment_websiteDelivery.go
 func (w *websiteDelivery) CreateByAttachment(ctx context.Context, req *CreateByAttachmentWebsiteDeliveryReq, options ...larkcore.RequestOptionFunc) (*CreateByAttachmentWebsiteDeliveryResp, error) {
@@ -5154,13 +5242,11 @@ func (w *websiteDelivery) CreateByAttachment(ctx context.Context, req *CreateByA
 	return resp, err
 }
 
-// CreateByResume 创建官网投递
+// CreateByResume 新建招聘官网投递
 //
-// - 创建官网投递。
+// - 新建招聘官网投递。
 //
-// - 对于自定义字段，若字段类型为单行文本，传值格式为"这是一个单行文本"；若字段类型为多行文本，传值格式为"这是一个多行文本"；若字段类型为单选，传值内容为选项的 ID，格式为"1";若字段类型为多选，传值内容为选项的ID 列表，格式为"["2", "3" ]"；若字段类型为时间段，传值格式为"["1609430400000", "1612108800000" ]"，单位是毫米级时间戳，结束时间是「至今」时，用「"-1"」表示；若字段类型为年份选择，传值格式为"1609430400000"，单位是毫秒级时间戳；若字段类型为月份选择，传值格式为"1625068800000"，单位是毫秒级时间戳；若字段类型为数字，传值格式为"1"
-//
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-delivery/create_by_resume
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create_by_resume&project=hire&resource=website.delivery&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/createByResume_websiteDelivery.go
 func (w *websiteDelivery) CreateByResume(ctx context.Context, req *CreateByResumeWebsiteDeliveryReq, options ...larkcore.RequestOptionFunc) (*CreateByResumeWebsiteDeliveryResp, error) {
@@ -5182,11 +5268,11 @@ func (w *websiteDelivery) CreateByResume(ctx context.Context, req *CreateByResum
 	return resp, err
 }
 
-// Get 获取简历解析创建官网投递任务结果
+// Get 获取招聘官网投递任务结果
 //
-// - 获取官网投递任务信息;，如果获取到的数据data为空，仍然继续轮询，直到data不为空时，再查询data里面的数据
+// - 通过[根据简历附件创建招聘官网投递](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-delivery/create_by_attachment)接口创建的投递任务，可通过本接口获取投递任务结果。如果获取到的数据 data 为空，可继续轮询（正常情况下不会超过1分钟）直到获取到的 data 不为空。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-delivery_task/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=website.delivery_task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_websiteDeliveryTask.go
 func (w *websiteDeliveryTask) Get(ctx context.Context, req *GetWebsiteDeliveryTaskReq, options ...larkcore.RequestOptionFunc) (*GetWebsiteDeliveryTaskResp, error) {
@@ -5208,11 +5294,13 @@ func (w *websiteDeliveryTask) Get(ctx context.Context, req *GetWebsiteDeliveryTa
 	return resp, err
 }
 
-// Get 获取自定义官网下职位广告详情
+// Get 获取招聘官网下职位广告详情
 //
-// - 获取自定义官网下职位广告详情
+// - 获取招聘官网下的职位广告详情，包含职位广告 ID、名称、关联职位 ID、关联职位编码等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-job_post/get
+// - **提示**;;官网上创建的投递，都是通过 `job_post_id`（职位广告 ID）而不是 `job_id`（职位 ID）创建的。例如：[新建招聘官网投递](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-delivery/create_by_resume)，[根据简历附件创建招聘官网投递任务](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-delivery/create_by_attachment)等。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=hire&resource=website.job_post&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/get_websiteJobPost.go
 func (w *websiteJobPost) Get(ctx context.Context, req *GetWebsiteJobPostReq, options ...larkcore.RequestOptionFunc) (*GetWebsiteJobPostResp, error) {
@@ -5234,11 +5322,13 @@ func (w *websiteJobPost) Get(ctx context.Context, req *GetWebsiteJobPostReq, opt
 	return resp, err
 }
 
-// List 获取自定义官网下的职位列表
+// List 获取招聘官网下的职位广告列表
 //
-// - 获取自定义官网下的职位列表。自定义数据暂不支持列表获取，请从「获取自定义官网下职位广告详情」接口获取。
+// - 获取招聘官网下的职位信息列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-job_post/list
+// - ## 注意事项; ;该接口暂不支持获取自定义数据。你可使用「获取招聘官网下职位广告详情」接口获取。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=hire&resource=website.job_post&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/list_websiteJobPost.go
 func (w *websiteJobPost) List(ctx context.Context, req *ListWebsiteJobPostReq, options ...larkcore.RequestOptionFunc) (*ListWebsiteJobPostResp, error) {
@@ -5268,11 +5358,11 @@ func (w *websiteJobPost) ListByIterator(ctx context.Context, req *ListWebsiteJob
 		limit:    req.Limit}, nil
 }
 
-// Search 搜索自定义官网下的职位列表
+// Search 搜索招聘官网下的职位广告列表
 //
-// - 搜索自定义官网下的职位列表
+// - 搜索招聘官网下的职位列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-job_post/search
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=hire&resource=website.job_post&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/search_websiteJobPost.go
 func (w *websiteJobPost) Search(ctx context.Context, req *SearchWebsiteJobPostReq, options ...larkcore.RequestOptionFunc) (*SearchWebsiteJobPostResp, error) {
@@ -5302,11 +5392,11 @@ func (w *websiteJobPost) SearchByIterator(ctx context.Context, req *SearchWebsit
 		limit:    req.Limit}, nil
 }
 
-// Create 创建官网用户
+// Create 新建招聘官网用户
 //
-// - 创建官网用户
+// - 注册指定招聘官网的用户，注册完成后，可通过[根据简历附件创建招聘官网投递任务](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-delivery/create_by_attachment)创建官网投递任务，或通过[新建招聘官网投递](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-delivery/create_by_resume)创建官网投递
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-site_user/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=hire&resource=website.site_user&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/create_websiteSiteUser.go
 func (w *websiteSiteUser) Create(ctx context.Context, req *CreateWebsiteSiteUserReq, options ...larkcore.RequestOptionFunc) (*CreateWebsiteSiteUserResp, error) {

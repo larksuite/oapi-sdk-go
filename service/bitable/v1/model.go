@@ -23,26 +23,26 @@ import (
 )
 
 const (
-	MemberIdTypeOpenID           = "open_id"            // 以open_id来识别协作者
-	MemberIdTypeUnionID          = "union_id"           // 以union_id来识别协作者
-	MemberIdTypeUserID           = "user_id"            // 以user_id来识别协作者
-	MemberIdTypeChatID           = "chat_id"            // 以chat_id来识别协作者
-	MemberIdTypeDepartmentID     = "department_id"      // 以department_id来识别协作者
-	MemberIdTypeOpenDepartmentID = "open_department_id" // 以open_department_id来识别协作者
+	MemberIdTypeOpenID           = "open_id"            // 以 open_id 来识别协作者。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)
+	MemberIdTypeUnionID          = "union_id"           // 以 union_id 来识别协作者。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)
+	MemberIdTypeUserID           = "user_id"            // 以 user_id 来识别协作者。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)
+	MemberIdTypeChatID           = "chat_id"            // 以 chat_id 来识别协作者。获取方式参考[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	MemberIdTypeDepartmentID     = "department_id"      // 以 department_id 来识别协作者。调用前，请确保应用有部门的可见性，参考[配置应用可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)。获取 department_id 方式参考[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
+	MemberIdTypeOpenDepartmentID = "open_department_id" // 以 open_department_id 来识别协作者。调用前，请确保应用有部门的可见性，参考[配置应用可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)。获取 open_department_id 方式参考[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 )
 
 const (
-	MemberIdTypeDeleteAppRoleMemberOpenID           = "open_id"            // 以open_id来识别协作者
-	MemberIdTypeDeleteAppRoleMemberUnionID          = "union_id"           // 以union_id来识别协作者
-	MemberIdTypeDeleteAppRoleMemberUserID           = "user_id"            // 以user_id来识别协作者
-	MemberIdTypeDeleteAppRoleMemberChatID           = "chat_id"            // 以chat_id来识别协作者
-	MemberIdTypeDeleteAppRoleMemberDepartmentID     = "department_id"      // 以department_id来识别协作者
-	MemberIdTypeDeleteAppRoleMemberOpenDepartmentID = "open_department_id" // 以open_department_id来识别协作者
+	MemberIdTypeDeleteAppRoleMemberOpenID           = "open_id"            // 以 open_id 来识别协作者。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)
+	MemberIdTypeDeleteAppRoleMemberUnionID          = "union_id"           // 以 union_id 来识别协作者。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)
+	MemberIdTypeDeleteAppRoleMemberUserID           = "user_id"            // 以 user_id 来识别协作者。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)
+	MemberIdTypeDeleteAppRoleMemberChatID           = "chat_id"            // 以 chat_id 来识别协作者。获取方式参考[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	MemberIdTypeDeleteAppRoleMemberDepartmentID     = "department_id"      // 以 department_id 来识别协作者。调用前，请确保应用有部门的可见性，参考[配置应用可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)。获取 department_id 方式参考[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
+	MemberIdTypeDeleteAppRoleMemberOpenDepartmentID = "open_department_id" // 以 open_department_id 来识别协作者。调用前，请确保应用有部门的可见性，参考[配置应用可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)。获取 open_department_id 方式参考[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 )
 
 const (
-	TypeText         = 1    // 多行文本（默认值）、条码
-	TypeNumber       = 2    // 数字（默认值）、进度、货币、评分
+	TypeText         = 1    // 文本
+	TypeNumber       = 2    // 数字
 	TypeSingleSelect = 3    // 单选
 	TypeMultiSelect  = 4    // 多选
 	TypeDateTime     = 5    // 日期
@@ -65,7 +65,7 @@ const (
 )
 
 const (
-	UiTypeText         = "Text"         // 多行文本
+	UiTypeText         = "Text"         // 文本
 	UiTypeEmail        = "Email"        // 邮箱地址
 	UiTypeBarcode      = "Barcode"      // 条码
 	UiTypeNumber       = "Number"       // 数字
@@ -90,11 +90,12 @@ const (
 	UiTypeCreatedUser  = "CreatedUser"  // 创建人
 	UiTypeModifiedUser = "ModifiedUser" // 修改人
 	UiTypeAutoNumber   = "AutoNumber"   // 自动编号
+	UiTypeSignature    = "Signature"    // 签字
 )
 
 const (
-	TypeUpdateAppTableFieldText         = 1    // 多行文本（默认值）、条码
-	TypeUpdateAppTableFieldNumber       = 2    // 数字（默认值）、进度、货币、评分
+	TypeUpdateAppTableFieldText         = 1    // 文本
+	TypeUpdateAppTableFieldNumber       = 2    // 数字
 	TypeUpdateAppTableFieldSingleSelect = 3    // 单选
 	TypeUpdateAppTableFieldMultiSelect  = 4    // 多选
 	TypeUpdateAppTableFieldDateTime     = 5    // 日期
@@ -117,7 +118,7 @@ const (
 )
 
 const (
-	UiTypeUpdateAppTableFieldText         = "Text"         // 多行文本
+	UiTypeUpdateAppTableFieldText         = "Text"         // 文本
 	UiTypeUpdateAppTableFieldEmail        = "Email"        // 邮箱地址
 	UiTypeUpdateAppTableFieldBarcode      = "Barcode"      // 条码
 	UiTypeUpdateAppTableFieldNumber       = "Number"       // 数字
@@ -142,6 +143,7 @@ const (
 	UiTypeUpdateAppTableFieldCreatedUser  = "CreatedUser"  // 创建人
 	UiTypeUpdateAppTableFieldModifiedUser = "ModifiedUser" // 修改人
 	UiTypeUpdateAppTableFieldAutoNumber   = "AutoNumber"   // 自动编号
+	UiTypeUpdateAppTableFieldSignature    = "Signature"    // 签字
 )
 
 const (
@@ -218,16 +220,16 @@ const (
 )
 
 type AllowedEditModes struct {
-	Manual *bool `json:"manual,omitempty"` // 是否允许手动录入
+	Manual *bool `json:"manual,omitempty"` // 是否允许手动录入。默认为 true
 
-	Scan *bool `json:"scan,omitempty"` // 是否允许移动端录入
+	Scan *bool `json:"scan,omitempty"` // 是否允许移动端录入。默认为 true
 }
 
 type AllowedEditModesBuilder struct {
-	manual    bool // 是否允许手动录入
+	manual    bool // 是否允许手动录入。默认为 true
 	manualSet bool
 
-	scan    bool // 是否允许移动端录入
+	scan    bool // 是否允许移动端录入。默认为 true
 	scanSet bool
 }
 
@@ -236,7 +238,7 @@ func NewAllowedEditModesBuilder() *AllowedEditModesBuilder {
 	return builder
 }
 
-// 是否允许手动录入
+// 是否允许手动录入。默认为 true
 //
 // 示例值：true
 func (builder *AllowedEditModesBuilder) Manual(manual bool) *AllowedEditModesBuilder {
@@ -245,7 +247,7 @@ func (builder *AllowedEditModesBuilder) Manual(manual bool) *AllowedEditModesBui
 	return builder
 }
 
-// 是否允许移动端录入
+// 是否允许移动端录入。默认为 true
 //
 // 示例值：true
 func (builder *AllowedEditModesBuilder) Scan(scan bool) *AllowedEditModesBuilder {
@@ -280,7 +282,7 @@ type App struct {
 
 	DefaultTableId *string `json:"default_table_id,omitempty"` // 默认的表格id
 
-	TimeZone *string `json:"time_zone,omitempty"` // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+	TimeZone *string `json:"time_zone,omitempty"` // 文档时区，说明见：
 }
 
 type AppBuilder struct {
@@ -302,7 +304,7 @@ type AppBuilder struct {
 	defaultTableId    string // 默认的表格id
 	defaultTableIdSet bool
 
-	timeZone    string // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+	timeZone    string // 文档时区，说明见：
 	timeZoneSet bool
 }
 
@@ -365,7 +367,7 @@ func (builder *AppBuilder) DefaultTableId(defaultTableId string) *AppBuilder {
 	return builder
 }
 
-// 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+// 文档时区，说明见：
 //
 // 示例值：
 func (builder *AppBuilder) TimeZone(timeZone string) *AppBuilder {
@@ -477,14 +479,14 @@ func (builder *AppDashboardBuilder) Build() *AppDashboard {
 type AppFieldPropertyAutoSerial struct {
 	Type *string `json:"type,omitempty"` // 自动编号类型
 
-	Options []*AppFieldPropertyAutoSerialOptions `json:"options,omitempty"` // 自动编号规则列表
+	Options []*AppFieldPropertyAutoSerialOptions `json:"options,omitempty"` // 自定义编号规则列表
 }
 
 type AppFieldPropertyAutoSerialBuilder struct {
 	type_    string // 自动编号类型
 	type_Set bool
 
-	options    []*AppFieldPropertyAutoSerialOptions // 自动编号规则列表
+	options    []*AppFieldPropertyAutoSerialOptions // 自定义编号规则列表
 	optionsSet bool
 }
 
@@ -502,7 +504,7 @@ func (builder *AppFieldPropertyAutoSerialBuilder) Type(type_ string) *AppFieldPr
 	return builder
 }
 
-// 自动编号规则列表
+// 自定义编号规则列表
 //
 // 示例值：
 func (builder *AppFieldPropertyAutoSerialBuilder) Options(options []*AppFieldPropertyAutoSerialOptions) *AppFieldPropertyAutoSerialBuilder {
@@ -526,14 +528,14 @@ func (builder *AppFieldPropertyAutoSerialBuilder) Build() *AppFieldPropertyAutoS
 type AppFieldPropertyAutoSerialOptions struct {
 	Type *string `json:"type,omitempty"` // 自动编号的可选规则项类型
 
-	Value *string `json:"value,omitempty"` // 与类型相对应的取值
+	Value *string `json:"value,omitempty"` // 规则类型对应的值。;- 若规则类型为 `"type": "system_number"`，value 为范围在 1-9 的整数，表示自增数字的位数;- 若规则类型为 `"type": "fixed_text"`，value 为范围在 20 个字符以内的固定字符;- 若规则类型为 `"type": "created_time"`，value 用于指定日期的格式。可选值如下所示：; - "yyyyMMdd"：日期为 20220130 的格式; - "yyyyMM"：日期为 202201 的格式; - "yyyy"：日期为 2022 的格式; - "MMdd"：日期为 130 的格式，表示 1 月 30 日; - "MM"：日期为 1 的格式，表示月份; - "dd"：日期为 30 的格式
 }
 
 type AppFieldPropertyAutoSerialOptionsBuilder struct {
 	type_    string // 自动编号的可选规则项类型
 	type_Set bool
 
-	value    string // 与类型相对应的取值
+	value    string // 规则类型对应的值。;- 若规则类型为 `"type": "system_number"`，value 为范围在 1-9 的整数，表示自增数字的位数;- 若规则类型为 `"type": "fixed_text"`，value 为范围在 20 个字符以内的固定字符;- 若规则类型为 `"type": "created_time"`，value 用于指定日期的格式。可选值如下所示：; - "yyyyMMdd"：日期为 20220130 的格式; - "yyyyMM"：日期为 202201 的格式; - "yyyy"：日期为 2022 的格式; - "MMdd"：日期为 130 的格式，表示 1 月 30 日; - "MM"：日期为 1 的格式，表示月份; - "dd"：日期为 30 的格式
 	valueSet bool
 }
 
@@ -551,7 +553,7 @@ func (builder *AppFieldPropertyAutoSerialOptionsBuilder) Type(type_ string) *App
 	return builder
 }
 
-// 与类型相对应的取值
+// 规则类型对应的值。;- 若规则类型为 `"type": "system_number"`，value 为范围在 1-9 的整数，表示自增数字的位数;- 若规则类型为 `"type": "fixed_text"`，value 为范围在 20 个字符以内的固定字符;- 若规则类型为 `"type": "created_time"`，value 用于指定日期的格式。可选值如下所示：; - "yyyyMMdd"：日期为 20220130 的格式; - "yyyyMM"：日期为 202201 的格式; - "yyyy"：日期为 2022 的格式; - "MMdd"：日期为 130 的格式，表示 1 月 30 日; - "MM"：日期为 1 的格式，表示月份; - "dd"：日期为 30 的格式
 //
 // 示例值：yyyyMMdd
 func (builder *AppFieldPropertyAutoSerialOptionsBuilder) Value(value string) *AppFieldPropertyAutoSerialOptionsBuilder {
@@ -674,26 +676,26 @@ func (builder *AppRichDescriptionSegmentBuilder) Build() *AppRichDescriptionSegm
 }
 
 type AppRole struct {
-	RoleName *string `json:"role_name,omitempty"` // 自定义权限的名字
+	RoleName *string `json:"role_name,omitempty"` // 自定义角色名称
 
-	RoleId *string `json:"role_id,omitempty"` // 自定义权限的id
+	RoleId *string `json:"role_id,omitempty"` // 自定义角色 ID
 
-	TableRoles []*AppRoleTableRole `json:"table_roles,omitempty"` // 数据表权限
+	TableRoles []*AppRoleTableRole `json:"table_roles,omitempty"` // 针对数据表的权限设置
 
-	BlockRoles []*AppRoleBlockRole `json:"block_roles,omitempty"` // block权限
+	BlockRoles []*AppRoleBlockRole `json:"block_roles,omitempty"` // 针对仪表盘的权限设置
 }
 
 type AppRoleBuilder struct {
-	roleName    string // 自定义权限的名字
+	roleName    string // 自定义角色名称
 	roleNameSet bool
 
-	roleId    string // 自定义权限的id
+	roleId    string // 自定义角色 ID
 	roleIdSet bool
 
-	tableRoles    []*AppRoleTableRole // 数据表权限
+	tableRoles    []*AppRoleTableRole // 针对数据表的权限设置
 	tableRolesSet bool
 
-	blockRoles    []*AppRoleBlockRole // block权限
+	blockRoles    []*AppRoleBlockRole // 针对仪表盘的权限设置
 	blockRolesSet bool
 }
 
@@ -702,7 +704,7 @@ func NewAppRoleBuilder() *AppRoleBuilder {
 	return builder
 }
 
-// 自定义权限的名字
+// 自定义角色名称
 //
 // 示例值：自定义权限1
 func (builder *AppRoleBuilder) RoleName(roleName string) *AppRoleBuilder {
@@ -711,7 +713,7 @@ func (builder *AppRoleBuilder) RoleName(roleName string) *AppRoleBuilder {
 	return builder
 }
 
-// 自定义权限的id
+// 自定义角色 ID
 //
 // 示例值：roljRpwIUt
 func (builder *AppRoleBuilder) RoleId(roleId string) *AppRoleBuilder {
@@ -720,7 +722,7 @@ func (builder *AppRoleBuilder) RoleId(roleId string) *AppRoleBuilder {
 	return builder
 }
 
-// 数据表权限
+// 针对数据表的权限设置
 //
 // 示例值：
 func (builder *AppRoleBuilder) TableRoles(tableRoles []*AppRoleTableRole) *AppRoleBuilder {
@@ -729,7 +731,7 @@ func (builder *AppRoleBuilder) TableRoles(tableRoles []*AppRoleTableRole) *AppRo
 	return builder
 }
 
-// block权限
+// 针对仪表盘的权限设置
 //
 // 示例值：
 func (builder *AppRoleBuilder) BlockRoles(blockRoles []*AppRoleBlockRole) *AppRoleBuilder {
@@ -758,21 +760,21 @@ func (builder *AppRoleBuilder) Build() *AppRole {
 }
 
 type AppRoleBlockRole struct {
-	BlockId *string `json:"block_id,omitempty"` //
+	BlockId *string `json:"block_id,omitempty"` // 多维表格仪表盘的唯一标识，以 blk 开头。获取方式：;;- 在多维表格的 URL 地址栏中，`block_id` 是下图中高亮部分：; ; ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a966d15323ee73c66b1e9a31d34ae6c7_x3ctncH2nO.png?height=575&lazyload=true&width=1397); ;- 通过[列出仪表盘](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-dashboard/list)接口获取
 
-	BlockType *string `json:"block_type,omitempty"` // Block类型
+	BlockType *string `json:"block_type,omitempty"` // 仪表盘的类型
 
-	BlockPerm *int `json:"block_perm,omitempty"` // Block权限
+	BlockPerm *int `json:"block_perm,omitempty"` // 仪表盘的权限
 }
 
 type AppRoleBlockRoleBuilder struct {
-	blockId    string //
+	blockId    string // 多维表格仪表盘的唯一标识，以 blk 开头。获取方式：;;- 在多维表格的 URL 地址栏中，`block_id` 是下图中高亮部分：; ; ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a966d15323ee73c66b1e9a31d34ae6c7_x3ctncH2nO.png?height=575&lazyload=true&width=1397); ;- 通过[列出仪表盘](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-dashboard/list)接口获取
 	blockIdSet bool
 
-	blockType    string // Block类型
+	blockType    string // 仪表盘的类型
 	blockTypeSet bool
 
-	blockPerm    int // Block权限
+	blockPerm    int // 仪表盘的权限
 	blockPermSet bool
 }
 
@@ -781,7 +783,7 @@ func NewAppRoleBlockRoleBuilder() *AppRoleBlockRoleBuilder {
 	return builder
 }
 
-//
+// 多维表格仪表盘的唯一标识，以 blk 开头。获取方式：;;- 在多维表格的 URL 地址栏中，`block_id` 是下图中高亮部分：; ; ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a966d15323ee73c66b1e9a31d34ae6c7_x3ctncH2nO.png?height=575&lazyload=true&width=1397); ;- 通过[列出仪表盘](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-dashboard/list)接口获取
 //
 // 示例值：blknkqrP3RqUkcAW
 func (builder *AppRoleBlockRoleBuilder) BlockId(blockId string) *AppRoleBlockRoleBuilder {
@@ -790,7 +792,7 @@ func (builder *AppRoleBlockRoleBuilder) BlockId(blockId string) *AppRoleBlockRol
 	return builder
 }
 
-// Block类型
+// 仪表盘的类型
 //
 // 示例值：dashboard
 func (builder *AppRoleBlockRoleBuilder) BlockType(blockType string) *AppRoleBlockRoleBuilder {
@@ -799,7 +801,7 @@ func (builder *AppRoleBlockRoleBuilder) BlockType(blockType string) *AppRoleBloc
 	return builder
 }
 
-// Block权限
+// 仪表盘的权限
 //
 // 示例值：0
 func (builder *AppRoleBlockRoleBuilder) BlockPerm(blockPerm int) *AppRoleBlockRoleBuilder {
@@ -826,56 +828,56 @@ func (builder *AppRoleBlockRoleBuilder) Build() *AppRoleBlockRole {
 }
 
 type AppRoleMember struct {
-	MemberId *string `json:"member_id,omitempty"` // 协作者id
+	MemberId *string `json:"member_id,omitempty"` // 高级权限中自定义角色协作者的 ID，需与查询参数中 member_id_type 的类型需一致。获取 ID 方式参考 member_id_type 参数描述。
 
-	OpenId *string `json:"open_id,omitempty"` // 用户的open_id
+	OpenId *string `json:"open_id,omitempty"` // 协作者的 open_id
 
-	UnionId *string `json:"union_id,omitempty"` // 用户的union_id
+	UnionId *string `json:"union_id,omitempty"` // 协作者的 union_id
 
-	UserId *string `json:"user_id,omitempty"` // 用户的user_id
+	UserId *string `json:"user_id,omitempty"` // 协作者的 user_id
 
-	ChatId *string `json:"chat_id,omitempty"` // 群聊的chat_id
+	ChatId *string `json:"chat_id,omitempty"` // 协作者为一个群聊，群聊的 chat_id
 
-	DepartmentId *string `json:"department_id,omitempty"` // 部门的department_id
+	DepartmentId *string `json:"department_id,omitempty"` // 协作者为一个部门，部门的 department_id
 
-	OpenDepartmentId *string `json:"open_department_id,omitempty"` // 部门的open_department_id
+	OpenDepartmentId *string `json:"open_department_id,omitempty"` // 协作者为一个部门，部门的 open_department_id
 
-	MemberName *string `json:"member_name,omitempty"` // 协作者名字
+	MemberName *string `json:"member_name,omitempty"` // 协作者的名称
 
-	MemberEnName *string `json:"member_en_name,omitempty"` // 协作者英文名
+	MemberEnName *string `json:"member_en_name,omitempty"` // 协作者的英文名称
 
-	MemberType *string `json:"member_type,omitempty"` // 协作者类型
+	MemberType *string `json:"member_type,omitempty"` // 协作者的类型
 }
 
 type AppRoleMemberBuilder struct {
-	memberId    string // 协作者id
+	memberId    string // 高级权限中自定义角色协作者的 ID，需与查询参数中 member_id_type 的类型需一致。获取 ID 方式参考 member_id_type 参数描述。
 	memberIdSet bool
 
-	openId    string // 用户的open_id
+	openId    string // 协作者的 open_id
 	openIdSet bool
 
-	unionId    string // 用户的union_id
+	unionId    string // 协作者的 union_id
 	unionIdSet bool
 
-	userId    string // 用户的user_id
+	userId    string // 协作者的 user_id
 	userIdSet bool
 
-	chatId    string // 群聊的chat_id
+	chatId    string // 协作者为一个群聊，群聊的 chat_id
 	chatIdSet bool
 
-	departmentId    string // 部门的department_id
+	departmentId    string // 协作者为一个部门，部门的 department_id
 	departmentIdSet bool
 
-	openDepartmentId    string // 部门的open_department_id
+	openDepartmentId    string // 协作者为一个部门，部门的 open_department_id
 	openDepartmentIdSet bool
 
-	memberName    string // 协作者名字
+	memberName    string // 协作者的名称
 	memberNameSet bool
 
-	memberEnName    string // 协作者英文名
+	memberEnName    string // 协作者的英文名称
 	memberEnNameSet bool
 
-	memberType    string // 协作者类型
+	memberType    string // 协作者的类型
 	memberTypeSet bool
 }
 
@@ -884,7 +886,7 @@ func NewAppRoleMemberBuilder() *AppRoleMemberBuilder {
 	return builder
 }
 
-// 协作者id
+// 高级权限中自定义角色协作者的 ID，需与查询参数中 member_id_type 的类型需一致。获取 ID 方式参考 member_id_type 参数描述。
 //
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *AppRoleMemberBuilder) MemberId(memberId string) *AppRoleMemberBuilder {
@@ -893,79 +895,79 @@ func (builder *AppRoleMemberBuilder) MemberId(memberId string) *AppRoleMemberBui
 	return builder
 }
 
-// 用户的open_id
+// 协作者的 open_id
 //
-// 示例值：ou_xxxxxxxx
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad5abcef
 func (builder *AppRoleMemberBuilder) OpenId(openId string) *AppRoleMemberBuilder {
 	builder.openId = openId
 	builder.openIdSet = true
 	return builder
 }
 
-// 用户的union_id
+// 协作者的 union_id
 //
-// 示例值：on_xxxxxxxx
+// 示例值：on_7dab8a3d3cdcc9da365777c7ad5abcef
 func (builder *AppRoleMemberBuilder) UnionId(unionId string) *AppRoleMemberBuilder {
 	builder.unionId = unionId
 	builder.unionIdSet = true
 	return builder
 }
 
-// 用户的user_id
+// 协作者的 user_id
 //
-// 示例值：xxxxxxxx
+// 示例值：13e4beac
 func (builder *AppRoleMemberBuilder) UserId(userId string) *AppRoleMemberBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
 	return builder
 }
 
-// 群聊的chat_id
+// 协作者为一个群聊，群聊的 chat_id
 //
-// 示例值：oc_xxxxxxxx
+// 示例值：oc_a0553eda9014c201e6969b478895c230
 func (builder *AppRoleMemberBuilder) ChatId(chatId string) *AppRoleMemberBuilder {
 	builder.chatId = chatId
 	builder.chatIdSet = true
 	return builder
 }
 
-// 部门的department_id
+// 协作者为一个部门，部门的 department_id
 //
-// 示例值：xxxxxxxx
+// 示例值：h121921
 func (builder *AppRoleMemberBuilder) DepartmentId(departmentId string) *AppRoleMemberBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdSet = true
 	return builder
 }
 
-// 部门的open_department_id
+// 协作者为一个部门，部门的 open_department_id
 //
-// 示例值：od-xxxxxxxx
+// 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *AppRoleMemberBuilder) OpenDepartmentId(openDepartmentId string) *AppRoleMemberBuilder {
 	builder.openDepartmentId = openDepartmentId
 	builder.openDepartmentIdSet = true
 	return builder
 }
 
-// 协作者名字
+// 协作者的名称
 //
-// 示例值：张三
+// 示例值：张敏
 func (builder *AppRoleMemberBuilder) MemberName(memberName string) *AppRoleMemberBuilder {
 	builder.memberName = memberName
 	builder.memberNameSet = true
 	return builder
 }
 
-// 协作者英文名
+// 协作者的英文名称
 //
-// 示例值：San Zhang
+// 示例值：Min Zhang
 func (builder *AppRoleMemberBuilder) MemberEnName(memberEnName string) *AppRoleMemberBuilder {
 	builder.memberEnName = memberEnName
 	builder.memberEnNameSet = true
 	return builder
 }
 
-// 协作者类型
+// 协作者的类型
 //
 // 示例值：user
 func (builder *AppRoleMemberBuilder) MemberType(memberType string) *AppRoleMemberBuilder {
@@ -1022,14 +1024,14 @@ func (builder *AppRoleMemberBuilder) Build() *AppRoleMember {
 type AppRoleMemberId struct {
 	Type *string `json:"type,omitempty"` // 协作者 ID 类型
 
-	Id *string `json:"id,omitempty"` // 协作者 ID
+	Id *string `json:"id,omitempty"` // 协作者的 ID，需与 type 的类型需一致。获取 ID 方式参考 type 参数描述。
 }
 
 type AppRoleMemberIdBuilder struct {
 	type_    string // 协作者 ID 类型
 	type_Set bool
 
-	id    string // 协作者 ID
+	id    string // 协作者的 ID，需与 type 的类型需一致。获取 ID 方式参考 type 参数描述。
 	idSet bool
 }
 
@@ -1040,16 +1042,16 @@ func NewAppRoleMemberIdBuilder() *AppRoleMemberIdBuilder {
 
 // 协作者 ID 类型
 //
-// 示例值：
+// 示例值：open_id
 func (builder *AppRoleMemberIdBuilder) Type(type_ string) *AppRoleMemberIdBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
 	return builder
 }
 
-// 协作者 ID
+// 协作者的 ID，需与 type 的类型需一致。获取 ID 方式参考 type 参数描述。
 //
-// 示例值：
+// 示例值：ou_35990a9d9052051a2fae9b2f1afabcef
 func (builder *AppRoleMemberIdBuilder) Id(id string) *AppRoleMemberIdBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -1070,41 +1072,41 @@ func (builder *AppRoleMemberIdBuilder) Build() *AppRoleMemberId {
 }
 
 type AppRoleTableRole struct {
-	TablePerm *int `json:"table_perm,omitempty"` // 数据表权限
+	TablePerm *int `json:"table_perm,omitempty"` // 数据表权限。;;**提示**：**协作者可编辑自己的记录** 和 **可编辑指定字段** 是 **可编辑记录** 的特殊情况，可通过指定 `rec_rule` 或 `field_perm` 参数实现相同的效果。
 
-	TableName *string `json:"table_name,omitempty"` // 数据表名
+	TableName *string `json:"table_name,omitempty"` // 数据表名称
 
-	TableId *string `json:"table_id,omitempty"` // 数据表ID
+	TableId *string `json:"table_id,omitempty"` // 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 
-	RecRule *AppRoleTableRoleRecRule `json:"rec_rule,omitempty"` // 记录筛选条件，在table_perm为1或2时有意义，用于指定可编辑或可阅读某些记录
+	RecRule *AppRoleTableRoleRecRule `json:"rec_rule,omitempty"` // 记录筛选条件，当 `table_perm` 为 1 或 2 时生效。用于指定可编辑或可阅读的记录。
 
-	FieldPerm map[string]int `json:"field_perm,omitempty"` // 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读
+	FieldPerm map[string]int `json:"field_perm,omitempty"` // 字段权限，仅在 `table_perm` 为 2 时生效。用于设置字段可编辑或可阅读。类型为 map，key 是字段名称，value 是字段权限。value 枚举值有：;- `1`：可阅读;- `2`：可编辑
 
-	AllowAddRecord *bool `json:"allow_add_record,omitempty"` // 新增记录权限，仅在table_perm为2时有意义，用于设置记录是否可以新增
+	AllowAddRecord *bool `json:"allow_add_record,omitempty"` // 新增记录权限，仅当 `table_perm` 为 2 时生效。用于设置记录是否可以新增。
 
-	AllowDeleteRecord *bool `json:"allow_delete_record,omitempty"` // 删除记录权限，仅在table_perm为2时有意义，用于设置记录是否可以删除
+	AllowDeleteRecord *bool `json:"allow_delete_record,omitempty"` // 删除记录权限，仅当 `table_perm` 为 2 时生效。用于设置记录是否可以删除。
 }
 
 type AppRoleTableRoleBuilder struct {
-	tablePerm    int // 数据表权限
+	tablePerm    int // 数据表权限。;;**提示**：**协作者可编辑自己的记录** 和 **可编辑指定字段** 是 **可编辑记录** 的特殊情况，可通过指定 `rec_rule` 或 `field_perm` 参数实现相同的效果。
 	tablePermSet bool
 
-	tableName    string // 数据表名
+	tableName    string // 数据表名称
 	tableNameSet bool
 
-	tableId    string // 数据表ID
+	tableId    string // 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 	tableIdSet bool
 
-	recRule    *AppRoleTableRoleRecRule // 记录筛选条件，在table_perm为1或2时有意义，用于指定可编辑或可阅读某些记录
+	recRule    *AppRoleTableRoleRecRule // 记录筛选条件，当 `table_perm` 为 1 或 2 时生效。用于指定可编辑或可阅读的记录。
 	recRuleSet bool
 
-	fieldPerm    map[string]int // 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读
+	fieldPerm    map[string]int // 字段权限，仅在 `table_perm` 为 2 时生效。用于设置字段可编辑或可阅读。类型为 map，key 是字段名称，value 是字段权限。value 枚举值有：;- `1`：可阅读;- `2`：可编辑
 	fieldPermSet bool
 
-	allowAddRecord    bool // 新增记录权限，仅在table_perm为2时有意义，用于设置记录是否可以新增
+	allowAddRecord    bool // 新增记录权限，仅当 `table_perm` 为 2 时生效。用于设置记录是否可以新增。
 	allowAddRecordSet bool
 
-	allowDeleteRecord    bool // 删除记录权限，仅在table_perm为2时有意义，用于设置记录是否可以删除
+	allowDeleteRecord    bool // 删除记录权限，仅当 `table_perm` 为 2 时生效。用于设置记录是否可以删除。
 	allowDeleteRecordSet bool
 }
 
@@ -1113,7 +1115,7 @@ func NewAppRoleTableRoleBuilder() *AppRoleTableRoleBuilder {
 	return builder
 }
 
-// 数据表权限
+// 数据表权限。;;**提示**：**协作者可编辑自己的记录** 和 **可编辑指定字段** 是 **可编辑记录** 的特殊情况，可通过指定 `rec_rule` 或 `field_perm` 参数实现相同的效果。
 //
 // 示例值：0
 func (builder *AppRoleTableRoleBuilder) TablePerm(tablePerm int) *AppRoleTableRoleBuilder {
@@ -1122,7 +1124,7 @@ func (builder *AppRoleTableRoleBuilder) TablePerm(tablePerm int) *AppRoleTableRo
 	return builder
 }
 
-// 数据表名
+// 数据表名称
 //
 // 示例值：数据表1
 func (builder *AppRoleTableRoleBuilder) TableName(tableName string) *AppRoleTableRoleBuilder {
@@ -1131,7 +1133,7 @@ func (builder *AppRoleTableRoleBuilder) TableName(tableName string) *AppRoleTabl
 	return builder
 }
 
-// 数据表ID
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblKz5D60T4JlfcT
 func (builder *AppRoleTableRoleBuilder) TableId(tableId string) *AppRoleTableRoleBuilder {
@@ -1140,7 +1142,7 @@ func (builder *AppRoleTableRoleBuilder) TableId(tableId string) *AppRoleTableRol
 	return builder
 }
 
-// 记录筛选条件，在table_perm为1或2时有意义，用于指定可编辑或可阅读某些记录
+// 记录筛选条件，当 `table_perm` 为 1 或 2 时生效。用于指定可编辑或可阅读的记录。
 //
 // 示例值：
 func (builder *AppRoleTableRoleBuilder) RecRule(recRule *AppRoleTableRoleRecRule) *AppRoleTableRoleBuilder {
@@ -1149,7 +1151,7 @@ func (builder *AppRoleTableRoleBuilder) RecRule(recRule *AppRoleTableRoleRecRule
 	return builder
 }
 
-// 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读
+// 字段权限，仅在 `table_perm` 为 2 时生效。用于设置字段可编辑或可阅读。类型为 map，key 是字段名称，value 是字段权限。value 枚举值有：;- `1`：可阅读;- `2`：可编辑
 //
 // 示例值：{"姓名": 1, "年龄": 2}
 func (builder *AppRoleTableRoleBuilder) FieldPerm(fieldPerm map[string]int) *AppRoleTableRoleBuilder {
@@ -1158,7 +1160,7 @@ func (builder *AppRoleTableRoleBuilder) FieldPerm(fieldPerm map[string]int) *App
 	return builder
 }
 
-// 新增记录权限，仅在table_perm为2时有意义，用于设置记录是否可以新增
+// 新增记录权限，仅当 `table_perm` 为 2 时生效。用于设置记录是否可以新增。
 //
 // 示例值：true
 func (builder *AppRoleTableRoleBuilder) AllowAddRecord(allowAddRecord bool) *AppRoleTableRoleBuilder {
@@ -1167,7 +1169,7 @@ func (builder *AppRoleTableRoleBuilder) AllowAddRecord(allowAddRecord bool) *App
 	return builder
 }
 
-// 删除记录权限，仅在table_perm为2时有意义，用于设置记录是否可以删除
+// 删除记录权限，仅当 `table_perm` 为 2 时生效。用于设置记录是否可以删除。
 //
 // 示例值：true
 func (builder *AppRoleTableRoleBuilder) AllowDeleteRecord(allowDeleteRecord bool) *AppRoleTableRoleBuilder {
@@ -1208,21 +1210,21 @@ func (builder *AppRoleTableRoleBuilder) Build() *AppRoleTableRole {
 }
 
 type AppRoleTableRoleRecRule struct {
-	Conditions []*AppRoleTableRoleRecRuleCondition `json:"conditions,omitempty"` // 记录筛选条件
+	Conditions []*AppRoleTableRoleRecRuleCondition `json:"conditions,omitempty"` // 记录筛选条件，用于指定可编辑或可阅读的记录。
 
 	Conjunction *string `json:"conjunction,omitempty"` // 多个筛选条件的关系
 
-	OtherPerm *int `json:"other_perm,omitempty"` // 其他记录权限，仅在table_perm为2时有效
+	OtherPerm *int `json:"other_perm,omitempty"` // 其他记录权限，仅当 `table_perm` 为 2 时生效。
 }
 
 type AppRoleTableRoleRecRuleBuilder struct {
-	conditions    []*AppRoleTableRoleRecRuleCondition // 记录筛选条件
+	conditions    []*AppRoleTableRoleRecRuleCondition // 记录筛选条件，用于指定可编辑或可阅读的记录。
 	conditionsSet bool
 
 	conjunction    string // 多个筛选条件的关系
 	conjunctionSet bool
 
-	otherPerm    int // 其他记录权限，仅在table_perm为2时有效
+	otherPerm    int // 其他记录权限，仅当 `table_perm` 为 2 时生效。
 	otherPermSet bool
 }
 
@@ -1231,7 +1233,7 @@ func NewAppRoleTableRoleRecRuleBuilder() *AppRoleTableRoleRecRuleBuilder {
 	return builder
 }
 
-// 记录筛选条件
+// 记录筛选条件，用于指定可编辑或可阅读的记录。
 //
 // 示例值：
 func (builder *AppRoleTableRoleRecRuleBuilder) Conditions(conditions []*AppRoleTableRoleRecRuleCondition) *AppRoleTableRoleRecRuleBuilder {
@@ -1249,9 +1251,9 @@ func (builder *AppRoleTableRoleRecRuleBuilder) Conjunction(conjunction string) *
 	return builder
 }
 
-// 其他记录权限，仅在table_perm为2时有效
+// 其他记录权限，仅当 `table_perm` 为 2 时生效。
 //
-// 示例值：1
+// 示例值：0
 func (builder *AppRoleTableRoleRecRuleBuilder) OtherPerm(otherPerm int) *AppRoleTableRoleRecRuleBuilder {
 	builder.otherPerm = otherPerm
 	builder.otherPermSet = true
@@ -1275,26 +1277,26 @@ func (builder *AppRoleTableRoleRecRuleBuilder) Build() *AppRoleTableRoleRecRule 
 }
 
 type AppRoleTableRoleRecRuleCondition struct {
-	FieldName *string `json:"field_name,omitempty"` // 字段名
+	FieldName *string `json:"field_name,omitempty"` // 条件字段的名称。记录筛选条件是“创建人包含访问者本人”时，此参数值为 ""。
 
-	Operator *string `json:"operator,omitempty"` // 运算符
+	Operator *string `json:"operator,omitempty"` // 条件运算符
 
-	Value []string `json:"value,omitempty"` // 单选或多选字段的选项id
+	Value []string `json:"value,omitempty"` // 条件的值，可以是单个值或多个值的数组。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。
 
-	FieldType *int `json:"field_type,omitempty"` // 字段类型
+	FieldType *int `json:"field_type,omitempty"` // 字段类型。枚举参考[字段类型 type](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide#46001acf)。
 }
 
 type AppRoleTableRoleRecRuleConditionBuilder struct {
-	fieldName    string // 字段名
+	fieldName    string // 条件字段的名称。记录筛选条件是“创建人包含访问者本人”时，此参数值为 ""。
 	fieldNameSet bool
 
-	operator    string // 运算符
+	operator    string // 条件运算符
 	operatorSet bool
 
-	value    []string // 单选或多选字段的选项id
+	value    []string // 条件的值，可以是单个值或多个值的数组。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。
 	valueSet bool
 
-	fieldType    int // 字段类型
+	fieldType    int // 字段类型。枚举参考[字段类型 type](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide#46001acf)。
 	fieldTypeSet bool
 }
 
@@ -1303,7 +1305,7 @@ func NewAppRoleTableRoleRecRuleConditionBuilder() *AppRoleTableRoleRecRuleCondit
 	return builder
 }
 
-// 字段名
+// 条件字段的名称。记录筛选条件是“创建人包含访问者本人”时，此参数值为 ""。
 //
 // 示例值：单选
 func (builder *AppRoleTableRoleRecRuleConditionBuilder) FieldName(fieldName string) *AppRoleTableRoleRecRuleConditionBuilder {
@@ -1312,7 +1314,7 @@ func (builder *AppRoleTableRoleRecRuleConditionBuilder) FieldName(fieldName stri
 	return builder
 }
 
-// 运算符
+// 条件运算符
 //
 // 示例值：is
 func (builder *AppRoleTableRoleRecRuleConditionBuilder) Operator(operator string) *AppRoleTableRoleRecRuleConditionBuilder {
@@ -1321,7 +1323,7 @@ func (builder *AppRoleTableRoleRecRuleConditionBuilder) Operator(operator string
 	return builder
 }
 
-// 单选或多选字段的选项id
+// 条件的值，可以是单个值或多个值的数组。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。
 //
 // 示例值：["optbdVHf4q", "optrpd3eIJ"]
 func (builder *AppRoleTableRoleRecRuleConditionBuilder) Value(value []string) *AppRoleTableRoleRecRuleConditionBuilder {
@@ -1330,7 +1332,7 @@ func (builder *AppRoleTableRoleRecRuleConditionBuilder) Value(value []string) *A
 	return builder
 }
 
-// 字段类型
+// 字段类型。枚举参考[字段类型 type](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide#46001acf)。
 //
 // 示例值：3
 func (builder *AppRoleTableRoleRecRuleConditionBuilder) FieldType(fieldType int) *AppRoleTableRoleRecRuleConditionBuilder {
@@ -1360,21 +1362,21 @@ func (builder *AppRoleTableRoleRecRuleConditionBuilder) Build() *AppRoleTableRol
 }
 
 type AppTable struct {
-	TableId *string `json:"table_id,omitempty"` // 表格Id
+	TableId *string `json:"table_id,omitempty"` // 数据表 ID
 
-	Revision *int `json:"revision,omitempty"` // 数据表 版本号
+	Revision *int `json:"revision,omitempty"` // 数据表的版本号。对数据表进行修改时更新，如新增、删除记录，修改数据表名称等，初始为 1，每次更新+1
 
-	Name *string `json:"name,omitempty"` // 数据表 名字
+	Name *string `json:"name,omitempty"` // 数据表名称
 }
 
 type AppTableBuilder struct {
-	tableId    string // 表格Id
+	tableId    string // 数据表 ID
 	tableIdSet bool
 
-	revision    int // 数据表 版本号
+	revision    int // 数据表的版本号。对数据表进行修改时更新，如新增、删除记录，修改数据表名称等，初始为 1，每次更新+1
 	revisionSet bool
 
-	name    string // 数据表 名字
+	name    string // 数据表名称
 	nameSet bool
 }
 
@@ -1383,27 +1385,27 @@ func NewAppTableBuilder() *AppTableBuilder {
 	return builder
 }
 
-// 表格Id
+// 数据表 ID
 //
-// 示例值：
+// 示例值：\-
 func (builder *AppTableBuilder) TableId(tableId string) *AppTableBuilder {
 	builder.tableId = tableId
 	builder.tableIdSet = true
 	return builder
 }
 
-// 数据表 版本号
+// 数据表的版本号。对数据表进行修改时更新，如新增、删除记录，修改数据表名称等，初始为 1，每次更新+1
 //
-// 示例值：
+// 示例值：\-
 func (builder *AppTableBuilder) Revision(revision int) *AppTableBuilder {
 	builder.revision = revision
 	builder.revisionSet = true
 	return builder
 }
 
-// 数据表 名字
+// 数据表名称
 //
-// 示例值：
+// 示例值：\-
 func (builder *AppTableBuilder) Name(name string) *AppTableBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -1436,7 +1438,7 @@ type AppTableCreateHeader struct {
 
 	FieldId *string `json:"field_id,omitempty"` // 字段Id
 
-	Property *AppTableFieldProperty `json:"property,omitempty"` // 字段属性
+	Property *AppTableFieldProperty `json:"property,omitempty"` // 字段属性，了解如何填写字段，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 
 	Description *AppTableFieldDescription `json:"description,omitempty"` // 字段的描述
 }
@@ -1454,7 +1456,7 @@ type AppTableCreateHeaderBuilder struct {
 	fieldId    string // 字段Id
 	fieldIdSet bool
 
-	property    *AppTableFieldProperty // 字段属性
+	property    *AppTableFieldProperty // 字段属性，了解如何填写字段，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 	propertySet bool
 
 	description    *AppTableFieldDescription // 字段的描述
@@ -1502,7 +1504,7 @@ func (builder *AppTableCreateHeaderBuilder) FieldId(fieldId string) *AppTableCre
 	return builder
 }
 
-// 字段属性
+// 字段属性，了解如何填写字段，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 //
 // 示例值：
 func (builder *AppTableCreateHeaderBuilder) Property(property *AppTableFieldProperty) *AppTableCreateHeaderBuilder {
@@ -1552,15 +1554,15 @@ type AppTableField struct {
 
 	Type *int `json:"type,omitempty"` // 字段类型
 
-	Property *AppTableFieldProperty `json:"property,omitempty"` // 字段属性
+	Property *AppTableFieldProperty `json:"property,omitempty"` // 字段属性，了解如何填写字段，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 
 	Description *AppTableFieldDescription `json:"description,omitempty"` // 字段的描述
 
 	IsPrimary *bool `json:"is_primary,omitempty"` // 是否是索引列
 
-	FieldId *string `json:"field_id,omitempty"` // 字段Id
+	FieldId *string `json:"field_id,omitempty"` // 多维表格字段 ID
 
-	UiType *string `json:"ui_type,omitempty"` // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+	UiType *string `json:"ui_type,omitempty"` // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态。了解更多，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 
 	IsHidden *bool `json:"is_hidden,omitempty"` // 是否是隐藏字段
 }
@@ -1572,7 +1574,7 @@ type AppTableFieldBuilder struct {
 	type_    int // 字段类型
 	type_Set bool
 
-	property    *AppTableFieldProperty // 字段属性
+	property    *AppTableFieldProperty // 字段属性，了解如何填写字段，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 	propertySet bool
 
 	description    *AppTableFieldDescription // 字段的描述
@@ -1581,10 +1583,10 @@ type AppTableFieldBuilder struct {
 	isPrimary    bool // 是否是索引列
 	isPrimarySet bool
 
-	fieldId    string // 字段Id
+	fieldId    string // 多维表格字段 ID
 	fieldIdSet bool
 
-	uiType    string // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+	uiType    string // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态。了解更多，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 	uiTypeSet bool
 
 	isHidden    bool // 是否是隐藏字段
@@ -1607,14 +1609,14 @@ func (builder *AppTableFieldBuilder) FieldName(fieldName string) *AppTableFieldB
 
 // 字段类型
 //
-// 示例值：1（type值相同的时候，加上ui_type区分）
+// 示例值：1
 func (builder *AppTableFieldBuilder) Type(type_ int) *AppTableFieldBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
 	return builder
 }
 
-// 字段属性
+// 字段属性，了解如何填写字段，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 //
 // 示例值：
 func (builder *AppTableFieldBuilder) Property(property *AppTableFieldProperty) *AppTableFieldBuilder {
@@ -1641,7 +1643,7 @@ func (builder *AppTableFieldBuilder) IsPrimary(isPrimary bool) *AppTableFieldBui
 	return builder
 }
 
-// 字段Id
+// 多维表格字段 ID
 //
 // 示例值：fldWJyCkFQ
 func (builder *AppTableFieldBuilder) FieldId(fieldId string) *AppTableFieldBuilder {
@@ -1650,7 +1652,7 @@ func (builder *AppTableFieldBuilder) FieldId(fieldId string) *AppTableFieldBuild
 	return builder
 }
 
-// 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+// 字段在界面上的展示类型，例如进度字段是数字的一种展示形态。了解更多，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 //
 // 示例值：Progress
 func (builder *AppTableFieldBuilder) UiType(uiType string) *AppTableFieldBuilder {
@@ -1704,16 +1706,16 @@ func (builder *AppTableFieldBuilder) Build() *AppTableField {
 }
 
 type AppTableFieldDescription struct {
-	DisableSync *bool `json:"disable_sync,omitempty"` // 是否禁止同步，如果为true，表示禁止同步该描述内容到表单的问题描述
+	DisableSync *bool `json:"disable_sync,omitempty"` // 是否禁止同步该描述，只在新增、修改字段时生效。枚举值：;- true：表示禁止同步该描述内容到表单的问题描述;- false：允许同步该描述
 
-	Text *string `json:"text,omitempty"` // 字段描述内容，支持换行\n
+	Text *string `json:"text,omitempty"` // 字段描述内容
 }
 
 type AppTableFieldDescriptionBuilder struct {
-	disableSync    bool // 是否禁止同步，如果为true，表示禁止同步该描述内容到表单的问题描述
+	disableSync    bool // 是否禁止同步该描述，只在新增、修改字段时生效。枚举值：;- true：表示禁止同步该描述内容到表单的问题描述;- false：允许同步该描述
 	disableSyncSet bool
 
-	text    string // 字段描述内容，支持换行\n
+	text    string // 字段描述内容
 	textSet bool
 }
 
@@ -1722,7 +1724,7 @@ func NewAppTableFieldDescriptionBuilder() *AppTableFieldDescriptionBuilder {
 	return builder
 }
 
-// 是否禁止同步，如果为true，表示禁止同步该描述内容到表单的问题描述
+// 是否禁止同步该描述，只在新增、修改字段时生效。枚举值：;- true：表示禁止同步该描述内容到表单的问题描述;- false：允许同步该描述
 //
 // 示例值：true
 func (builder *AppTableFieldDescriptionBuilder) DisableSync(disableSync bool) *AppTableFieldDescriptionBuilder {
@@ -1731,9 +1733,9 @@ func (builder *AppTableFieldDescriptionBuilder) DisableSync(disableSync bool) *A
 	return builder
 }
 
-// 字段描述内容，支持换行\n
+// 字段描述内容
 //
-// 示例值：请按 name_id 格式填写\n例如：“Alice_20202020”
+// 示例值：这是一个字段描述
 func (builder *AppTableFieldDescriptionBuilder) Text(text string) *AppTableFieldDescriptionBuilder {
 	builder.text = text
 	builder.textSet = true
@@ -1754,43 +1756,43 @@ func (builder *AppTableFieldDescriptionBuilder) Build() *AppTableFieldDescriptio
 }
 
 type AppTableFieldForList struct {
-	FieldName *string `json:"field_name,omitempty"` // 字段名
+	FieldName *string `json:"field_name,omitempty"` // 多维表格字段名称。名称中的首尾空格将会被去除。
 
-	Type *int `json:"type,omitempty"` // 字段类型
+	Type *int `json:"type,omitempty"` // 多维表格字段类型
 
-	Property *AppTableFieldProperty `json:"property,omitempty"` // 字段属性
+	Property *AppTableFieldProperty `json:"property,omitempty"` // 字段属性，了解如何填写字段，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 
-	Description interface{} `json:"description,omitempty"` // 字段的描述, text_field_as_array为false时值为字符串，为true则是对象数组
+	Description interface{} `json:"description,omitempty"` // 字段的描述。可能是数组或字符串类型。由请求参数 `text_field_as_array` 决定。
 
 	IsPrimary *bool `json:"is_primary,omitempty"` // 是否是索引列
 
-	FieldId *string `json:"field_id,omitempty"` // 字段Id
+	FieldId *string `json:"field_id,omitempty"` // 多维表格字段 ID
 
-	UiType *string `json:"ui_type,omitempty"` // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+	UiType *string `json:"ui_type,omitempty"` // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态。了解更多，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 
 	IsHidden *bool `json:"is_hidden,omitempty"` // 是否是隐藏字段
 }
 
 type AppTableFieldForListBuilder struct {
-	fieldName    string // 字段名
+	fieldName    string // 多维表格字段名称。名称中的首尾空格将会被去除。
 	fieldNameSet bool
 
-	type_    int // 字段类型
+	type_    int // 多维表格字段类型
 	type_Set bool
 
-	property    *AppTableFieldProperty // 字段属性
+	property    *AppTableFieldProperty // 字段属性，了解如何填写字段，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 	propertySet bool
 
-	description    interface{} // 字段的描述, text_field_as_array为false时值为字符串，为true则是对象数组
+	description    interface{} // 字段的描述。可能是数组或字符串类型。由请求参数 `text_field_as_array` 决定。
 	descriptionSet bool
 
 	isPrimary    bool // 是否是索引列
 	isPrimarySet bool
 
-	fieldId    string // 字段Id
+	fieldId    string // 多维表格字段 ID
 	fieldIdSet bool
 
-	uiType    string // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+	uiType    string // 字段在界面上的展示类型，例如进度字段是数字的一种展示形态。了解更多，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 	uiTypeSet bool
 
 	isHidden    bool // 是否是隐藏字段
@@ -1802,7 +1804,7 @@ func NewAppTableFieldForListBuilder() *AppTableFieldForListBuilder {
 	return builder
 }
 
-// 字段名
+// 多维表格字段名称。名称中的首尾空格将会被去除。
 //
 // 示例值：字段名称
 func (builder *AppTableFieldForListBuilder) FieldName(fieldName string) *AppTableFieldForListBuilder {
@@ -1811,7 +1813,7 @@ func (builder *AppTableFieldForListBuilder) FieldName(fieldName string) *AppTabl
 	return builder
 }
 
-// 字段类型
+// 多维表格字段类型
 //
 // 示例值：1
 func (builder *AppTableFieldForListBuilder) Type(type_ int) *AppTableFieldForListBuilder {
@@ -1820,7 +1822,7 @@ func (builder *AppTableFieldForListBuilder) Type(type_ int) *AppTableFieldForLis
 	return builder
 }
 
-// 字段属性
+// 字段属性，了解如何填写字段，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 //
 // 示例值：
 func (builder *AppTableFieldForListBuilder) Property(property *AppTableFieldProperty) *AppTableFieldForListBuilder {
@@ -1829,7 +1831,7 @@ func (builder *AppTableFieldForListBuilder) Property(property *AppTableFieldProp
 	return builder
 }
 
-// 字段的描述, text_field_as_array为false时值为字符串，为true则是对象数组
+// 字段的描述。可能是数组或字符串类型。由请求参数 `text_field_as_array` 决定。
 //
 // 示例值：
 func (builder *AppTableFieldForListBuilder) Description(description interface{}) *AppTableFieldForListBuilder {
@@ -1847,7 +1849,7 @@ func (builder *AppTableFieldForListBuilder) IsPrimary(isPrimary bool) *AppTableF
 	return builder
 }
 
-// 字段Id
+// 多维表格字段 ID
 //
 // 示例值：fldWJyCkFQ
 func (builder *AppTableFieldForListBuilder) FieldId(fieldId string) *AppTableFieldForListBuilder {
@@ -1856,7 +1858,7 @@ func (builder *AppTableFieldForListBuilder) FieldId(fieldId string) *AppTableFie
 	return builder
 }
 
-// 字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+// 字段在界面上的展示类型，例如进度字段是数字的一种展示形态。了解更多，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 //
 // 示例值：Progress
 func (builder *AppTableFieldForListBuilder) UiType(uiType string) *AppTableFieldForListBuilder {
@@ -1913,39 +1915,39 @@ func (builder *AppTableFieldForListBuilder) Build() *AppTableFieldForList {
 type AppTableFieldProperty struct {
 	Options []*AppTableFieldPropertyOption `json:"options,omitempty"` // 单选、多选字段的选项信息
 
-	Formatter *string `json:"formatter,omitempty"` // 数字、公式字段的显示格式
+	Formatter *string `json:"formatter,omitempty"` // 数字和公式字段的显示格式。详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。;
 
-	DateFormatter *string `json:"date_formatter,omitempty"` // 日期、创建时间、最后更新时间字段的显示格式
+	DateFormatter *string `json:"date_formatter,omitempty"` // 日期、创建时间、最后更新时间字段的显示格式。默认为 "yyyy/MM/dd"。枚举值如下所示：;- "yyyy/MM/dd"：2021/1/30;- "yyyy-MM-dd HH:mm"：2021/1/30 14:00;- "MM-dd"：1月30日;- "MM/dd/yyyy"：2021/1/30;- "dd/MM/yyyy"：2021/1/30"
 
-	AutoFill *bool `json:"auto_fill,omitempty"` // 日期字段中新纪录自动填写创建时间
+	AutoFill *bool `json:"auto_fill,omitempty"` // 对于新记录，是否自动填写创建时间。默认为 false。
 
-	Multiple *bool `json:"multiple,omitempty"` // 人员、群组字段中允许添加多个成员，单向关联、双向关联中允许添加多个记录
+	Multiple *bool `json:"multiple,omitempty"` // 人员字段中是否允许添加多个成员，或单向关联、双向关联字段中是否允许添加多个记录。默认为 true。
 
-	TableId *string `json:"table_id,omitempty"` // 单向关联、双向关联字段中关联的数据表的id
+	TableId *string `json:"table_id,omitempty"` // 单向关联、双向关联字段中关联的数据表的 ID
 
-	TableName *string `json:"table_name,omitempty"` // 单向关联、双向关联字段中关联的数据表的名字
+	TableName *string `json:"table_name,omitempty"` // 单向关联、双向关联字段中关联的数据表的名称
 
-	BackFieldName *string `json:"back_field_name,omitempty"` // 双向关联字段中关联的数据表中对应的双向关联字段的名字
+	BackFieldName *string `json:"back_field_name,omitempty"` // 双向关联字段中，关联的数据表中对应的双向关联字段名称
 
 	AutoSerial *AppFieldPropertyAutoSerial `json:"auto_serial,omitempty"` // 自动编号类型
 
 	Location *AppFieldPropertyLocation `json:"location,omitempty"` // 地理位置输入方式
 
-	FormulaExpression *string `json:"formula_expression,omitempty"` // 公式字段的表达式
+	FormulaExpression *string `json:"formula_expression,omitempty"` // 公式字段的表达式。参考[飞书帮助中心文档](https://www.feishu.cn/hc/zh-CN/articles/360049067853-%E5%A4%9A%E7%BB%B4%E8%A1%A8%E6%A0%BC%E5%85%AC%E5%BC%8F%E5%AD%97%E6%AE%B5%E6%A6%82%E8%BF%B0)了解如何设置公式。
 
-	AllowedEditModes *AllowedEditModes `json:"allowed_edit_modes,omitempty"` // 字段支持的编辑模式
+	AllowedEditModes *AllowedEditModes `json:"allowed_edit_modes,omitempty"` // 条码展示类型字段支持的配置
 
-	Min *float64 `json:"min,omitempty"` // 进度、评分等字段的数据范围最小值
+	Min *float64 `json:"min,omitempty"` // 进度和评分字段的数据范围最小值。不同字段类型中，该参数的必填属性和取值范围不同，详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 
-	Max *float64 `json:"max,omitempty"` // 进度、评分等字段的数据范围最大值
+	Max *float64 `json:"max,omitempty"` // 进度和评分字段的数据范围最大值。不同字段类型中，该参数的必填属性和取值范围不同，详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 
-	RangeCustomize *bool `json:"range_customize,omitempty"` // 进度等字段是否支持自定义范围
+	RangeCustomize *bool `json:"range_customize,omitempty"` // 进度字段是否允许自定义进度条值，默认为 false。
 
-	CurrencyCode *string `json:"currency_code,omitempty"` // 货币币种
+	CurrencyCode *string `json:"currency_code,omitempty"` // 货币的具体类型，枚举值如下所示：;- CNY：人民币，货币符号为 ¥;- USD：美元，货币符号为 $;- EUR：欧元，货币符号为 €;- GBP：英镑，货币符号为 £;- AED：阿联酋迪拉姆，货币符号为 dh;- AUD：澳大利亚元，货币符号为 $;- BRL：巴西雷亚尔，货币符号为 R$;- CAD：加拿大元，货币符号为 $;- CHF：瑞士法郎，货币符号为 CHF;- HKD：港元，货币符号为 $;- INR：印度卢比，货币符号为 ₹;- IDR：印尼盾，货币符号为 Rp;- JPY：日元，货币符号为 ¥;- KRW：韩元，货币符号为 ₩;- MOP：澳门元，货币符号为 MOP$;- MXN：墨西哥比索，货币符号为 $;- MYR：马来西亚令吉，货币符号为 RM;- PHP：菲律宾比索，货币符号为 ₱;- PLN：波兰兹罗提，货币符号为 zł;- RUB：俄罗斯卢布，货币符号为 ₽;- SGD：新加坡元，货币符号为 $;- THB：泰国铢，货币符号为 ฿;- TRY：土耳其里拉，货币符号为 ₺;- TWD：新台币，货币符号为 NT$;- VND：越南盾，货币符号为 ₫
 
 	Rating *Rating `json:"rating,omitempty"` // 评分字段的相关设置
 
-	Type *AppTableFieldPropertyType `json:"type,omitempty"` // 公式字段数据类型
+	Type *AppTableFieldPropertyType `json:"type,omitempty"` // 设置公式字段的数据类型;;**注意**：非所有多维表格都支持该能力。请参考[获取多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get)接口返回的formula_type 判断，当 `formula_type` 等于 2 时，表示需要设置该字段。
 
 	FilterInfo *AppTableFieldPropertyLookupFilter `json:"filter_info,omitempty"` // 查找引用关系
 }
@@ -1954,25 +1956,25 @@ type AppTableFieldPropertyBuilder struct {
 	options    []*AppTableFieldPropertyOption // 单选、多选字段的选项信息
 	optionsSet bool
 
-	formatter    string // 数字、公式字段的显示格式
+	formatter    string // 数字和公式字段的显示格式。详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。;
 	formatterSet bool
 
-	dateFormatter    string // 日期、创建时间、最后更新时间字段的显示格式
+	dateFormatter    string // 日期、创建时间、最后更新时间字段的显示格式。默认为 "yyyy/MM/dd"。枚举值如下所示：;- "yyyy/MM/dd"：2021/1/30;- "yyyy-MM-dd HH:mm"：2021/1/30 14:00;- "MM-dd"：1月30日;- "MM/dd/yyyy"：2021/1/30;- "dd/MM/yyyy"：2021/1/30"
 	dateFormatterSet bool
 
-	autoFill    bool // 日期字段中新纪录自动填写创建时间
+	autoFill    bool // 对于新记录，是否自动填写创建时间。默认为 false。
 	autoFillSet bool
 
-	multiple    bool // 人员、群组字段中允许添加多个成员，单向关联、双向关联中允许添加多个记录
+	multiple    bool // 人员字段中是否允许添加多个成员，或单向关联、双向关联字段中是否允许添加多个记录。默认为 true。
 	multipleSet bool
 
-	tableId    string // 单向关联、双向关联字段中关联的数据表的id
+	tableId    string // 单向关联、双向关联字段中关联的数据表的 ID
 	tableIdSet bool
 
-	tableName    string // 单向关联、双向关联字段中关联的数据表的名字
+	tableName    string // 单向关联、双向关联字段中关联的数据表的名称
 	tableNameSet bool
 
-	backFieldName    string // 双向关联字段中关联的数据表中对应的双向关联字段的名字
+	backFieldName    string // 双向关联字段中，关联的数据表中对应的双向关联字段名称
 	backFieldNameSet bool
 
 	autoSerial    *AppFieldPropertyAutoSerial // 自动编号类型
@@ -1981,28 +1983,28 @@ type AppTableFieldPropertyBuilder struct {
 	location    *AppFieldPropertyLocation // 地理位置输入方式
 	locationSet bool
 
-	formulaExpression    string // 公式字段的表达式
+	formulaExpression    string // 公式字段的表达式。参考[飞书帮助中心文档](https://www.feishu.cn/hc/zh-CN/articles/360049067853-%E5%A4%9A%E7%BB%B4%E8%A1%A8%E6%A0%BC%E5%85%AC%E5%BC%8F%E5%AD%97%E6%AE%B5%E6%A6%82%E8%BF%B0)了解如何设置公式。
 	formulaExpressionSet bool
 
-	allowedEditModes    *AllowedEditModes // 字段支持的编辑模式
+	allowedEditModes    *AllowedEditModes // 条码展示类型字段支持的配置
 	allowedEditModesSet bool
 
-	min    float64 // 进度、评分等字段的数据范围最小值
+	min    float64 // 进度和评分字段的数据范围最小值。不同字段类型中，该参数的必填属性和取值范围不同，详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 	minSet bool
 
-	max    float64 // 进度、评分等字段的数据范围最大值
+	max    float64 // 进度和评分字段的数据范围最大值。不同字段类型中，该参数的必填属性和取值范围不同，详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 	maxSet bool
 
-	rangeCustomize    bool // 进度等字段是否支持自定义范围
+	rangeCustomize    bool // 进度字段是否允许自定义进度条值，默认为 false。
 	rangeCustomizeSet bool
 
-	currencyCode    string // 货币币种
+	currencyCode    string // 货币的具体类型，枚举值如下所示：;- CNY：人民币，货币符号为 ¥;- USD：美元，货币符号为 $;- EUR：欧元，货币符号为 €;- GBP：英镑，货币符号为 £;- AED：阿联酋迪拉姆，货币符号为 dh;- AUD：澳大利亚元，货币符号为 $;- BRL：巴西雷亚尔，货币符号为 R$;- CAD：加拿大元，货币符号为 $;- CHF：瑞士法郎，货币符号为 CHF;- HKD：港元，货币符号为 $;- INR：印度卢比，货币符号为 ₹;- IDR：印尼盾，货币符号为 Rp;- JPY：日元，货币符号为 ¥;- KRW：韩元，货币符号为 ₩;- MOP：澳门元，货币符号为 MOP$;- MXN：墨西哥比索，货币符号为 $;- MYR：马来西亚令吉，货币符号为 RM;- PHP：菲律宾比索，货币符号为 ₱;- PLN：波兰兹罗提，货币符号为 zł;- RUB：俄罗斯卢布，货币符号为 ₽;- SGD：新加坡元，货币符号为 $;- THB：泰国铢，货币符号为 ฿;- TRY：土耳其里拉，货币符号为 ₺;- TWD：新台币，货币符号为 NT$;- VND：越南盾，货币符号为 ₫
 	currencyCodeSet bool
 
 	rating    *Rating // 评分字段的相关设置
 	ratingSet bool
 
-	type_    *AppTableFieldPropertyType // 公式字段数据类型
+	type_    *AppTableFieldPropertyType // 设置公式字段的数据类型;;**注意**：非所有多维表格都支持该能力。请参考[获取多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get)接口返回的formula_type 判断，当 `formula_type` 等于 2 时，表示需要设置该字段。
 	type_Set bool
 
 	filterInfo    *AppTableFieldPropertyLookupFilter // 查找引用关系
@@ -2023,7 +2025,7 @@ func (builder *AppTableFieldPropertyBuilder) Options(options []*AppTableFieldPro
 	return builder
 }
 
-// 数字、公式字段的显示格式
+// 数字和公式字段的显示格式。详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。;
 //
 // 示例值：0
 func (builder *AppTableFieldPropertyBuilder) Formatter(formatter string) *AppTableFieldPropertyBuilder {
@@ -2032,7 +2034,7 @@ func (builder *AppTableFieldPropertyBuilder) Formatter(formatter string) *AppTab
 	return builder
 }
 
-// 日期、创建时间、最后更新时间字段的显示格式
+// 日期、创建时间、最后更新时间字段的显示格式。默认为 "yyyy/MM/dd"。枚举值如下所示：;- "yyyy/MM/dd"：2021/1/30;- "yyyy-MM-dd HH:mm"：2021/1/30 14:00;- "MM-dd"：1月30日;- "MM/dd/yyyy"：2021/1/30;- "dd/MM/yyyy"：2021/1/30"
 //
 // 示例值：yyyy/MM/dd
 func (builder *AppTableFieldPropertyBuilder) DateFormatter(dateFormatter string) *AppTableFieldPropertyBuilder {
@@ -2041,45 +2043,45 @@ func (builder *AppTableFieldPropertyBuilder) DateFormatter(dateFormatter string)
 	return builder
 }
 
-// 日期字段中新纪录自动填写创建时间
+// 对于新记录，是否自动填写创建时间。默认为 false。
 //
-// 示例值：true
+// 示例值：false
 func (builder *AppTableFieldPropertyBuilder) AutoFill(autoFill bool) *AppTableFieldPropertyBuilder {
 	builder.autoFill = autoFill
 	builder.autoFillSet = true
 	return builder
 }
 
-// 人员、群组字段中允许添加多个成员，单向关联、双向关联中允许添加多个记录
+// 人员字段中是否允许添加多个成员，或单向关联、双向关联字段中是否允许添加多个记录。默认为 true。
 //
-// 示例值：true
+// 示例值：false
 func (builder *AppTableFieldPropertyBuilder) Multiple(multiple bool) *AppTableFieldPropertyBuilder {
 	builder.multiple = multiple
 	builder.multipleSet = true
 	return builder
 }
 
-// 单向关联、双向关联字段中关联的数据表的id
+// 单向关联、双向关联字段中关联的数据表的 ID
 //
-// 示例值：tbl116kI1ZXWRAPR
+// 示例值：tblsRc9GRRXKqhvW
 func (builder *AppTableFieldPropertyBuilder) TableId(tableId string) *AppTableFieldPropertyBuilder {
 	builder.tableId = tableId
 	builder.tableIdSet = true
 	return builder
 }
 
-// 单向关联、双向关联字段中关联的数据表的名字
+// 单向关联、双向关联字段中关联的数据表的名称
 //
-// 示例值：被关联数据表
+// 示例值："table2"
 func (builder *AppTableFieldPropertyBuilder) TableName(tableName string) *AppTableFieldPropertyBuilder {
 	builder.tableName = tableName
 	builder.tableNameSet = true
 	return builder
 }
 
-// 双向关联字段中关联的数据表中对应的双向关联字段的名字
+// 双向关联字段中，关联的数据表中对应的双向关联字段名称
 //
-// 示例值：被关联字段
+// 示例值：table1-双向关联
 func (builder *AppTableFieldPropertyBuilder) BackFieldName(backFieldName string) *AppTableFieldPropertyBuilder {
 	builder.backFieldName = backFieldName
 	builder.backFieldNameSet = true
@@ -2104,16 +2106,16 @@ func (builder *AppTableFieldPropertyBuilder) Location(location *AppFieldProperty
 	return builder
 }
 
-// 公式字段的表达式
+// 公式字段的表达式。参考[飞书帮助中心文档](https://www.feishu.cn/hc/zh-CN/articles/360049067853-%E5%A4%9A%E7%BB%B4%E8%A1%A8%E6%A0%BC%E5%85%AC%E5%BC%8F%E5%AD%97%E6%AE%B5%E6%A6%82%E8%BF%B0)了解如何设置公式。
 //
-// 示例值：CONTAINTEXT([多行文本],\"被包含的文本\")
+// 示例值：bitable::$table[tblNj92WQBAasdEf].$field[fldMV60rYs]*2
 func (builder *AppTableFieldPropertyBuilder) FormulaExpression(formulaExpression string) *AppTableFieldPropertyBuilder {
 	builder.formulaExpression = formulaExpression
 	builder.formulaExpressionSet = true
 	return builder
 }
 
-// 字段支持的编辑模式
+// 条码展示类型字段支持的配置
 //
 // 示例值：
 func (builder *AppTableFieldPropertyBuilder) AllowedEditModes(allowedEditModes *AllowedEditModes) *AppTableFieldPropertyBuilder {
@@ -2122,7 +2124,7 @@ func (builder *AppTableFieldPropertyBuilder) AllowedEditModes(allowedEditModes *
 	return builder
 }
 
-// 进度、评分等字段的数据范围最小值
+// 进度和评分字段的数据范围最小值。不同字段类型中，该参数的必填属性和取值范围不同，详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 //
 // 示例值：0
 func (builder *AppTableFieldPropertyBuilder) Min(min float64) *AppTableFieldPropertyBuilder {
@@ -2131,7 +2133,7 @@ func (builder *AppTableFieldPropertyBuilder) Min(min float64) *AppTableFieldProp
 	return builder
 }
 
-// 进度、评分等字段的数据范围最大值
+// 进度和评分字段的数据范围最大值。不同字段类型中，该参数的必填属性和取值范围不同，详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 //
 // 示例值：10
 func (builder *AppTableFieldPropertyBuilder) Max(max float64) *AppTableFieldPropertyBuilder {
@@ -2140,7 +2142,7 @@ func (builder *AppTableFieldPropertyBuilder) Max(max float64) *AppTableFieldProp
 	return builder
 }
 
-// 进度等字段是否支持自定义范围
+// 进度字段是否允许自定义进度条值，默认为 false。
 //
 // 示例值：true
 func (builder *AppTableFieldPropertyBuilder) RangeCustomize(rangeCustomize bool) *AppTableFieldPropertyBuilder {
@@ -2149,7 +2151,7 @@ func (builder *AppTableFieldPropertyBuilder) RangeCustomize(rangeCustomize bool)
 	return builder
 }
 
-// 货币币种
+// 货币的具体类型，枚举值如下所示：;- CNY：人民币，货币符号为 ¥;- USD：美元，货币符号为 $;- EUR：欧元，货币符号为 €;- GBP：英镑，货币符号为 £;- AED：阿联酋迪拉姆，货币符号为 dh;- AUD：澳大利亚元，货币符号为 $;- BRL：巴西雷亚尔，货币符号为 R$;- CAD：加拿大元，货币符号为 $;- CHF：瑞士法郎，货币符号为 CHF;- HKD：港元，货币符号为 $;- INR：印度卢比，货币符号为 ₹;- IDR：印尼盾，货币符号为 Rp;- JPY：日元，货币符号为 ¥;- KRW：韩元，货币符号为 ₩;- MOP：澳门元，货币符号为 MOP$;- MXN：墨西哥比索，货币符号为 $;- MYR：马来西亚令吉，货币符号为 RM;- PHP：菲律宾比索，货币符号为 ₱;- PLN：波兰兹罗提，货币符号为 zł;- RUB：俄罗斯卢布，货币符号为 ₽;- SGD：新加坡元，货币符号为 $;- THB：泰国铢，货币符号为 ฿;- TRY：土耳其里拉，货币符号为 ₺;- TWD：新台币，货币符号为 NT$;- VND：越南盾，货币符号为 ₫
 //
 // 示例值：CNY
 func (builder *AppTableFieldPropertyBuilder) CurrencyCode(currencyCode string) *AppTableFieldPropertyBuilder {
@@ -2167,7 +2169,7 @@ func (builder *AppTableFieldPropertyBuilder) Rating(rating *Rating) *AppTableFie
 	return builder
 }
 
-// 公式字段数据类型
+// 设置公式字段的数据类型;;**注意**：非所有多维表格都支持该能力。请参考[获取多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get)接口返回的formula_type 判断，当 `formula_type` 等于 2 时，表示需要设置该字段。
 //
 // 示例值：
 func (builder *AppTableFieldPropertyBuilder) Type(type_ *AppTableFieldPropertyType) *AppTableFieldPropertyBuilder {
@@ -2462,21 +2464,21 @@ func (builder *AppTableFieldPropertyLookupFilterBuilder) Build() *AppTableFieldP
 }
 
 type AppTableFieldPropertyOption struct {
-	Name *string `json:"name,omitempty"` // 选项名
+	Name *string `json:"name,omitempty"` // 选项名称
 
-	Id *string `json:"id,omitempty"` // 选项id
+	Id *string `json:"id,omitempty"` // 选项 ID，创建字段时不允许指定 ID。
 
-	Color *int `json:"color,omitempty"` // 选项颜色
+	Color *int `json:"color,omitempty"` // 选项颜色，详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。;
 }
 
 type AppTableFieldPropertyOptionBuilder struct {
-	name    string // 选项名
+	name    string // 选项名称
 	nameSet bool
 
-	id    string // 选项id
+	id    string // 选项 ID，创建字段时不允许指定 ID。
 	idSet bool
 
-	color    int // 选项颜色
+	color    int // 选项颜色，详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。;
 	colorSet bool
 }
 
@@ -2485,25 +2487,25 @@ func NewAppTableFieldPropertyOptionBuilder() *AppTableFieldPropertyOptionBuilder
 	return builder
 }
 
-// 选项名
+// 选项名称
 //
-// 示例值：
+// 示例值：红色
 func (builder *AppTableFieldPropertyOptionBuilder) Name(name string) *AppTableFieldPropertyOptionBuilder {
 	builder.name = name
 	builder.nameSet = true
 	return builder
 }
 
-// 选项id
+// 选项 ID，创建字段时不允许指定 ID。
 //
-// 示例值：
+// 示例值：optKl35lnG
 func (builder *AppTableFieldPropertyOptionBuilder) Id(id string) *AppTableFieldPropertyOptionBuilder {
 	builder.id = id
 	builder.idSet = true
 	return builder
 }
 
-// 选项颜色
+// 选项颜色，详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。;
 //
 // 示例值：0
 func (builder *AppTableFieldPropertyOptionBuilder) Color(color int) *AppTableFieldPropertyOptionBuilder {
@@ -2532,19 +2534,19 @@ func (builder *AppTableFieldPropertyOptionBuilder) Build() *AppTableFieldPropert
 type AppTableFieldPropertyType struct {
 	DataType *int `json:"data_type,omitempty"` // 公式字段对应的数据类型
 
-	UiProperty *AppTableFieldPropertyTypeUiProperty `json:"ui_property,omitempty"` // 公式数据属性
+	UiProperty *AppTableFieldPropertyTypeUiProperty `json:"ui_property,omitempty"` // 公式数据属性信息
 
-	UiType *string `json:"ui_type,omitempty"` // 公式字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+	UiType *string `json:"ui_type,omitempty"` // 公式字段在界面上的展示类型，例如进度字段是数字的一种展示形态。了解更多，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 }
 
 type AppTableFieldPropertyTypeBuilder struct {
 	dataType    int // 公式字段对应的数据类型
 	dataTypeSet bool
 
-	uiProperty    *AppTableFieldPropertyTypeUiProperty // 公式数据属性
+	uiProperty    *AppTableFieldPropertyTypeUiProperty // 公式数据属性信息
 	uiPropertySet bool
 
-	uiType    string // 公式字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+	uiType    string // 公式字段在界面上的展示类型，例如进度字段是数字的一种展示形态。了解更多，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 	uiTypeSet bool
 }
 
@@ -2562,7 +2564,7 @@ func (builder *AppTableFieldPropertyTypeBuilder) DataType(dataType int) *AppTabl
 	return builder
 }
 
-// 公式数据属性
+// 公式数据属性信息
 //
 // 示例值：
 func (builder *AppTableFieldPropertyTypeBuilder) UiProperty(uiProperty *AppTableFieldPropertyTypeUiProperty) *AppTableFieldPropertyTypeBuilder {
@@ -2571,7 +2573,7 @@ func (builder *AppTableFieldPropertyTypeBuilder) UiProperty(uiProperty *AppTable
 	return builder
 }
 
-// 公式字段在界面上的展示类型，例如进度字段是数字的一种展示形态
+// 公式字段在界面上的展示类型，例如进度字段是数字的一种展示形态。了解更多，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
 //
 // 示例值：Progress
 func (builder *AppTableFieldPropertyTypeBuilder) UiType(uiType string) *AppTableFieldPropertyTypeBuilder {
@@ -2740,13 +2742,13 @@ type AppTableForm struct {
 
 	Description *string `json:"description,omitempty"` // 表单描述
 
-	Shared *bool `json:"shared,omitempty"` // 是否开启共享
+	Shared *bool `json:"shared,omitempty"` // 是否开启表单分享，使表单支持填写。可选值：;- true：支持填写;- false：不支持填写
 
 	SharedUrl *string `json:"shared_url,omitempty"` // 分享 URL
 
 	SharedLimit *string `json:"shared_limit,omitempty"` // 分享范围限制
 
-	SubmitLimitOnce *bool `json:"submit_limit_once,omitempty"` // 填写次数限制一次
+	SubmitLimitOnce *bool `json:"submit_limit_once,omitempty"` // 是否将填写次数限制为一次。可选值：;- true：设置表单仅支持填写一次;- false：不限制表单填写次数
 }
 
 type AppTableFormBuilder struct {
@@ -2756,7 +2758,7 @@ type AppTableFormBuilder struct {
 	description    string // 表单描述
 	descriptionSet bool
 
-	shared    bool // 是否开启共享
+	shared    bool // 是否开启表单分享，使表单支持填写。可选值：;- true：支持填写;- false：不支持填写
 	sharedSet bool
 
 	sharedUrl    string // 分享 URL
@@ -2765,7 +2767,7 @@ type AppTableFormBuilder struct {
 	sharedLimit    string // 分享范围限制
 	sharedLimitSet bool
 
-	submitLimitOnce    bool // 填写次数限制一次
+	submitLimitOnce    bool // 是否将填写次数限制为一次。可选值：;- true：设置表单仅支持填写一次;- false：不限制表单填写次数
 	submitLimitOnceSet bool
 }
 
@@ -2776,7 +2778,7 @@ func NewAppTableFormBuilder() *AppTableFormBuilder {
 
 // 表单名称
 //
-// 示例值：
+// 示例值：文档问题反馈
 func (builder *AppTableFormBuilder) Name(name string) *AppTableFormBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -2785,16 +2787,16 @@ func (builder *AppTableFormBuilder) Name(name string) *AppTableFormBuilder {
 
 // 表单描述
 //
-// 示例值：
+// 示例值：请详细描述开发中遇到的问题，并附上问题截图
 func (builder *AppTableFormBuilder) Description(description string) *AppTableFormBuilder {
 	builder.description = description
 	builder.descriptionSet = true
 	return builder
 }
 
-// 是否开启共享
+// 是否开启表单分享，使表单支持填写。可选值：;- true：支持填写;- false：不支持填写
 //
-// 示例值：
+// 示例值：true
 func (builder *AppTableFormBuilder) Shared(shared bool) *AppTableFormBuilder {
 	builder.shared = shared
 	builder.sharedSet = true
@@ -2812,16 +2814,16 @@ func (builder *AppTableFormBuilder) SharedUrl(sharedUrl string) *AppTableFormBui
 
 // 分享范围限制
 //
-// 示例值：
+// 示例值：tenant_editable
 func (builder *AppTableFormBuilder) SharedLimit(sharedLimit string) *AppTableFormBuilder {
 	builder.sharedLimit = sharedLimit
 	builder.sharedLimitSet = true
 	return builder
 }
 
-// 填写次数限制一次
+// 是否将填写次数限制为一次。可选值：;- true：设置表单仅支持填写一次;- false：不限制表单填写次数
 //
-// 示例值：
+// 示例值：true
 func (builder *AppTableFormBuilder) SubmitLimitOnce(submitLimitOnce bool) *AppTableFormBuilder {
 	builder.submitLimitOnce = submitLimitOnce
 	builder.submitLimitOnceSet = true
@@ -2858,21 +2860,21 @@ func (builder *AppTableFormBuilder) Build() *AppTableForm {
 }
 
 type AppTableFormPatchedField struct {
-	PreFieldId *string `json:"pre_field_id,omitempty"` // 上一个表单问题 ID
+	PreFieldId *string `json:"pre_field_id,omitempty"` // 要更新的表单问题的前一个表单问题的 `field_id`，用于更新当前表单问题的位置。若该字段为空字符串，则表示将该表单问题的顺序排至首个位置。
 
 	Title *string `json:"title,omitempty"` // 表单问题
 
 	Description *string `json:"description,omitempty"` // 问题描述
 
-	Required *bool `json:"required,omitempty"` // 是否必填
+	Required *bool `json:"required,omitempty"` // 该问题是否必填。可选值：;- true：必填;- false：非必填
 
-	Visible *bool `json:"visible,omitempty"` // 是否可见
+	Visible *bool `json:"visible,omitempty"` // 该问题是否可见。当值为 false 时，不允许更新其他字段。可选值：;- true：可见;- false：不可见
 
 	RichDescription []*AppRichDescriptionSegment `json:"rich_description,omitempty"` // 富文本描述
 }
 
 type AppTableFormPatchedFieldBuilder struct {
-	preFieldId    string // 上一个表单问题 ID
+	preFieldId    string // 要更新的表单问题的前一个表单问题的 `field_id`，用于更新当前表单问题的位置。若该字段为空字符串，则表示将该表单问题的顺序排至首个位置。
 	preFieldIdSet bool
 
 	title    string // 表单问题
@@ -2881,10 +2883,10 @@ type AppTableFormPatchedFieldBuilder struct {
 	description    string // 问题描述
 	descriptionSet bool
 
-	required    bool // 是否必填
+	required    bool // 该问题是否必填。可选值：;- true：必填;- false：非必填
 	requiredSet bool
 
-	visible    bool // 是否可见
+	visible    bool // 该问题是否可见。当值为 false 时，不允许更新其他字段。可选值：;- true：可见;- false：不可见
 	visibleSet bool
 
 	richDescription    []*AppRichDescriptionSegment // 富文本描述
@@ -2896,9 +2898,9 @@ func NewAppTableFormPatchedFieldBuilder() *AppTableFormPatchedFieldBuilder {
 	return builder
 }
 
-// 上一个表单问题 ID
+// 要更新的表单问题的前一个表单问题的 `field_id`，用于更新当前表单问题的位置。若该字段为空字符串，则表示将该表单问题的顺序排至首个位置。
 //
-// 示例值：
+// 示例值：fldjX7dUj5
 func (builder *AppTableFormPatchedFieldBuilder) PreFieldId(preFieldId string) *AppTableFormPatchedFieldBuilder {
 	builder.preFieldId = preFieldId
 	builder.preFieldIdSet = true
@@ -2907,7 +2909,7 @@ func (builder *AppTableFormPatchedFieldBuilder) PreFieldId(preFieldId string) *A
 
 // 表单问题
 //
-// 示例值：
+// 示例值：任务名称
 func (builder *AppTableFormPatchedFieldBuilder) Title(title string) *AppTableFormPatchedFieldBuilder {
 	builder.title = title
 	builder.titleSet = true
@@ -2916,25 +2918,25 @@ func (builder *AppTableFormPatchedFieldBuilder) Title(title string) *AppTableFor
 
 // 问题描述
 //
-// 示例值：
+// 示例值：请概述该任务
 func (builder *AppTableFormPatchedFieldBuilder) Description(description string) *AppTableFormPatchedFieldBuilder {
 	builder.description = description
 	builder.descriptionSet = true
 	return builder
 }
 
-// 是否必填
+// 该问题是否必填。可选值：;- true：必填;- false：非必填
 //
-// 示例值：
+// 示例值：true
 func (builder *AppTableFormPatchedFieldBuilder) Required(required bool) *AppTableFormPatchedFieldBuilder {
 	builder.required = required
 	builder.requiredSet = true
 	return builder
 }
 
-// 是否可见
+// 该问题是否可见。当值为 false 时，不允许更新其他字段。可选值：;- true：可见;- false：不可见
 //
-// 示例值：
+// 示例值：true
 func (builder *AppTableFormPatchedFieldBuilder) Visible(visible bool) *AppTableFormPatchedFieldBuilder {
 	builder.visible = visible
 	builder.visibleSet = true
@@ -2983,11 +2985,11 @@ type AppTableRecord struct {
 
 	RecordId *string `json:"record_id,omitempty"` // 记录Id
 
-	CreatedBy *Person `json:"created_by,omitempty"` // 创建人
+	CreatedBy *Person `json:"created_by,omitempty"` // 该记录的创建人信息。本接口不返回该参数;;
 
 	CreatedTime *int64 `json:"created_time,omitempty"` // 创建时间
 
-	LastModifiedBy *Person `json:"last_modified_by,omitempty"` // 修改人
+	LastModifiedBy *Person `json:"last_modified_by,omitempty"` // 该记录的创建人信息。本接口不返回该参数;;
 
 	LastModifiedTime *int64 `json:"last_modified_time,omitempty"` // 最近更新时间
 
@@ -3003,13 +3005,13 @@ type AppTableRecordBuilder struct {
 	recordId    string // 记录Id
 	recordIdSet bool
 
-	createdBy    *Person // 创建人
+	createdBy    *Person // 该记录的创建人信息。本接口不返回该参数;;
 	createdBySet bool
 
 	createdTime    int64 // 创建时间
 	createdTimeSet bool
 
-	lastModifiedBy    *Person // 修改人
+	lastModifiedBy    *Person // 该记录的创建人信息。本接口不返回该参数;;
 	lastModifiedBySet bool
 
 	lastModifiedTime    int64 // 最近更新时间
@@ -3045,7 +3047,7 @@ func (builder *AppTableRecordBuilder) RecordId(recordId string) *AppTableRecordB
 	return builder
 }
 
-// 创建人
+// 该记录的创建人信息。本接口不返回该参数;;
 //
 // 示例值：
 func (builder *AppTableRecordBuilder) CreatedBy(createdBy *Person) *AppTableRecordBuilder {
@@ -3063,7 +3065,7 @@ func (builder *AppTableRecordBuilder) CreatedTime(createdTime int64) *AppTableRe
 	return builder
 }
 
-// 修改人
+// 该记录的创建人信息。本接口不返回该参数;;
 //
 // 示例值：
 func (builder *AppTableRecordBuilder) LastModifiedBy(lastModifiedBy *Person) *AppTableRecordBuilder {
@@ -3134,9 +3136,9 @@ func (builder *AppTableRecordBuilder) Build() *AppTableRecord {
 }
 
 type AppTableView struct {
-	ViewId *string `json:"view_id,omitempty"` // 视图Id
+	ViewId *string `json:"view_id,omitempty"` // 视图 ID
 
-	ViewName *string `json:"view_name,omitempty"` // 视图名字
+	ViewName *string `json:"view_name,omitempty"` // 视图名称
 
 	ViewType *string `json:"view_type,omitempty"` // 视图类型
 
@@ -3144,10 +3146,10 @@ type AppTableView struct {
 }
 
 type AppTableViewBuilder struct {
-	viewId    string // 视图Id
+	viewId    string // 视图 ID
 	viewIdSet bool
 
-	viewName    string // 视图名字
+	viewName    string // 视图名称
 	viewNameSet bool
 
 	viewType    string // 视图类型
@@ -3162,7 +3164,7 @@ func NewAppTableViewBuilder() *AppTableViewBuilder {
 	return builder
 }
 
-// 视图Id
+// 视图 ID
 //
 // 示例值：vewieWxfON
 func (builder *AppTableViewBuilder) ViewId(viewId string) *AppTableViewBuilder {
@@ -3171,9 +3173,9 @@ func (builder *AppTableViewBuilder) ViewId(viewId string) *AppTableViewBuilder {
 	return builder
 }
 
-// 视图名字
+// 视图名称
 //
-// 示例值：表格 1
+// 示例值：表格视图 1
 func (builder *AppTableViewBuilder) ViewName(viewName string) *AppTableViewBuilder {
 	builder.viewName = viewName
 	builder.viewNameSet = true
@@ -3221,7 +3223,7 @@ func (builder *AppTableViewBuilder) Build() *AppTableView {
 type AppTableViewProperty struct {
 	FilterInfo *AppTableViewPropertyFilterInfo `json:"filter_info,omitempty"` // 过滤条件
 
-	HiddenFields []string `json:"hidden_fields,omitempty"` // 隐藏字段ID列表
+	HiddenFields []string `json:"hidden_fields,omitempty"` // 隐藏字段 ID 列表
 
 	HierarchyConfig *AppTableViewPropertyHierarchyConfig `json:"hierarchy_config,omitempty"` // 表格视图层级结构设置
 }
@@ -3230,7 +3232,7 @@ type AppTableViewPropertyBuilder struct {
 	filterInfo    *AppTableViewPropertyFilterInfo // 过滤条件
 	filterInfoSet bool
 
-	hiddenFields    []string // 隐藏字段ID列表
+	hiddenFields    []string // 隐藏字段 ID 列表
 	hiddenFieldsSet bool
 
 	hierarchyConfig    *AppTableViewPropertyHierarchyConfig // 表格视图层级结构设置
@@ -3251,7 +3253,7 @@ func (builder *AppTableViewPropertyBuilder) FilterInfo(filterInfo *AppTableViewP
 	return builder
 }
 
-// 隐藏字段ID列表
+// 隐藏字段 ID 列表
 //
 // 示例值：["fldCGzANXx", "fldCGzANXx"]
 func (builder *AppTableViewPropertyBuilder) HiddenFields(hiddenFields []string) *AppTableViewPropertyBuilder {
@@ -3351,19 +3353,19 @@ func (builder *AppTableViewPropertyFilterInfoBuilder) Build() *AppTableViewPrope
 }
 
 type AppTableViewPropertyFilterInfoCondition struct {
-	FieldId *string `json:"field_id,omitempty"` // 用于过滤的字段唯一ID
+	FieldId *string `json:"field_id,omitempty"` // 用于过滤的字段的唯一标识
 
 	Operator *string `json:"operator,omitempty"` // 过滤操作的类型
 
 	Value *string `json:"value,omitempty"` // 筛选值
 
-	ConditionId *string `json:"condition_id,omitempty"` // 过滤条件的唯一ID
+	ConditionId *string `json:"condition_id,omitempty"` // 过滤条件的 ID
 
-	FieldType *int `json:"field_type,omitempty"` // 用于过滤的字段类型
+	FieldType *int `json:"field_type,omitempty"` // 用于过滤的字段类型;- 1：多行文本;- 2：数字;- 3：单选;- 4：多选;- 5：日期;- 7：复选框;- 11：人员;- 13：电话号码;- 15：超链接;- 17：附件;- 18：单向关联;- 19：查找引用;- 20：公式;- 21：双向关联;- 22：地理位置;- 23：群组;- 1001：创建时间;- 1002：最后更新时间;- 1003：创建人;- 1004：修改人;- 1005：自动编号
 }
 
 type AppTableViewPropertyFilterInfoConditionBuilder struct {
-	fieldId    string // 用于过滤的字段唯一ID
+	fieldId    string // 用于过滤的字段的唯一标识
 	fieldIdSet bool
 
 	operator    string // 过滤操作的类型
@@ -3372,10 +3374,10 @@ type AppTableViewPropertyFilterInfoConditionBuilder struct {
 	value    string // 筛选值
 	valueSet bool
 
-	conditionId    string // 过滤条件的唯一ID
+	conditionId    string // 过滤条件的 ID
 	conditionIdSet bool
 
-	fieldType    int // 用于过滤的字段类型
+	fieldType    int // 用于过滤的字段类型;- 1：多行文本;- 2：数字;- 3：单选;- 4：多选;- 5：日期;- 7：复选框;- 11：人员;- 13：电话号码;- 15：超链接;- 17：附件;- 18：单向关联;- 19：查找引用;- 20：公式;- 21：双向关联;- 22：地理位置;- 23：群组;- 1001：创建时间;- 1002：最后更新时间;- 1003：创建人;- 1004：修改人;- 1005：自动编号
 	fieldTypeSet bool
 }
 
@@ -3384,9 +3386,9 @@ func NewAppTableViewPropertyFilterInfoConditionBuilder() *AppTableViewPropertyFi
 	return builder
 }
 
-// 用于过滤的字段唯一ID
+// 用于过滤的字段的唯一标识
 //
-// 示例值：单选
+// 示例值：fldmeqmpVA
 func (builder *AppTableViewPropertyFilterInfoConditionBuilder) FieldId(fieldId string) *AppTableViewPropertyFilterInfoConditionBuilder {
 	builder.fieldId = fieldId
 	builder.fieldIdSet = true
@@ -3404,14 +3406,14 @@ func (builder *AppTableViewPropertyFilterInfoConditionBuilder) Operator(operator
 
 // 筛选值
 //
-// 示例值：["optbdVHf4q", "optrpd3eIJ"]
+// 示例值：`[\"text content\"]`
 func (builder *AppTableViewPropertyFilterInfoConditionBuilder) Value(value string) *AppTableViewPropertyFilterInfoConditionBuilder {
 	builder.value = value
 	builder.valueSet = true
 	return builder
 }
 
-// 过滤条件的唯一ID
+// 过滤条件的 ID
 //
 // 示例值：conNaOEK6O
 func (builder *AppTableViewPropertyFilterInfoConditionBuilder) ConditionId(conditionId string) *AppTableViewPropertyFilterInfoConditionBuilder {
@@ -3420,7 +3422,7 @@ func (builder *AppTableViewPropertyFilterInfoConditionBuilder) ConditionId(condi
 	return builder
 }
 
-// 用于过滤的字段类型
+// 用于过滤的字段类型;- 1：多行文本;- 2：数字;- 3：单选;- 4：多选;- 5：日期;- 7：复选框;- 11：人员;- 13：电话号码;- 15：超链接;- 17：附件;- 18：单向关联;- 19：查找引用;- 20：公式;- 21：双向关联;- 22：地理位置;- 23：群组;- 1001：创建时间;- 1002：最后更新时间;- 1003：创建人;- 1004：修改人;- 1005：自动编号
 //
 // 示例值：3
 func (builder *AppTableViewPropertyFilterInfoConditionBuilder) FieldType(fieldType int) *AppTableViewPropertyFilterInfoConditionBuilder {
@@ -3455,11 +3457,11 @@ func (builder *AppTableViewPropertyFilterInfoConditionBuilder) Build() *AppTable
 }
 
 type AppTableViewPropertyHierarchyConfig struct {
-	FieldId *string `json:"field_id,omitempty"` // 层级结构的关联列id
+	FieldId *string `json:"field_id,omitempty"` // 层级结构的关联列 ID
 }
 
 type AppTableViewPropertyHierarchyConfigBuilder struct {
-	fieldId    string // 层级结构的关联列id
+	fieldId    string // 层级结构的关联列 ID
 	fieldIdSet bool
 }
 
@@ -3468,9 +3470,9 @@ func NewAppTableViewPropertyHierarchyConfigBuilder() *AppTableViewPropertyHierar
 	return builder
 }
 
-// 层级结构的关联列id
+// 层级结构的关联列 ID
 //
-// 示例值：fldTca**hb
+// 示例值：fldmeqmpVA
 func (builder *AppTableViewPropertyHierarchyConfigBuilder) FieldId(fieldId string) *AppTableViewPropertyHierarchyConfigBuilder {
 	builder.fieldId = fieldId
 	builder.fieldIdSet = true
@@ -3647,8 +3649,6 @@ func NewBaseBuilder() *BaseBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *BaseBuilder) LogId(logId string) *BaseBuilder {
 	builder.logId = logId
@@ -3656,8 +3656,6 @@ func (builder *BaseBuilder) LogId(logId string) *BaseBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *BaseBuilder) Caller(caller string) *BaseBuilder {
 	builder.caller = caller
@@ -3665,8 +3663,6 @@ func (builder *BaseBuilder) Caller(caller string) *BaseBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *BaseBuilder) Addr(addr string) *BaseBuilder {
 	builder.addr = addr
@@ -3674,8 +3670,6 @@ func (builder *BaseBuilder) Addr(addr string) *BaseBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *BaseBuilder) Client(client string) *BaseBuilder {
 	builder.client = client
@@ -3683,8 +3677,6 @@ func (builder *BaseBuilder) Client(client string) *BaseBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *BaseBuilder) TrafficEnv(trafficEnv *TrafficEnv) *BaseBuilder {
 	builder.trafficEnv = trafficEnv
@@ -3692,8 +3684,6 @@ func (builder *BaseBuilder) TrafficEnv(trafficEnv *TrafficEnv) *BaseBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *BaseBuilder) Extra(extra map[string]string) *BaseBuilder {
 	builder.extra = extra
@@ -3850,7 +3840,7 @@ type Condition struct {
 
 	Operator *string `json:"operator,omitempty"` // 条件运算符
 
-	Value []string `json:"value,omitempty"` // 目标值
+	Value []string `json:"value,omitempty"` // 条件的值，可以是单个值或多个值的数组。不同字段类型和不同的 operator 可填的值不同。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。
 }
 
 type ConditionBuilder struct {
@@ -3860,7 +3850,7 @@ type ConditionBuilder struct {
 	operator    string // 条件运算符
 	operatorSet bool
 
-	value    []string // 目标值
+	value    []string // 条件的值，可以是单个值或多个值的数组。不同字段类型和不同的 operator 可填的值不同。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。
 	valueSet bool
 }
 
@@ -3871,7 +3861,7 @@ func NewConditionBuilder() *ConditionBuilder {
 
 // 筛选条件的左值，值为字段的名称
 //
-// 示例值：字段名称
+// 示例值：字段1
 func (builder *ConditionBuilder) FieldName(fieldName string) *ConditionBuilder {
 	builder.fieldName = fieldName
 	builder.fieldNameSet = true
@@ -3887,7 +3877,7 @@ func (builder *ConditionBuilder) Operator(operator string) *ConditionBuilder {
 	return builder
 }
 
-// 目标值
+// 条件的值，可以是单个值或多个值的数组。不同字段类型和不同的 operator 可填的值不同。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。
 //
 // 示例值：
 func (builder *ConditionBuilder) Value(value []string) *ConditionBuilder {
@@ -3913,9 +3903,9 @@ func (builder *ConditionBuilder) Build() *Condition {
 }
 
 type Connector struct {
-	Token *string `json:"token,omitempty"` // 目标文档token
+	Token *string `json:"token,omitempty"` // 目标多维表格 token
 
-	TableId *string `json:"table_id,omitempty"` // 目标表id
+	TableId *string `json:"table_id,omitempty"` // 目标表 ID
 
 	SrcTablePath *string `json:"src_table_path,omitempty"` // 数据源路径
 
@@ -3929,10 +3919,10 @@ type Connector struct {
 }
 
 type ConnectorBuilder struct {
-	token    string // 目标文档token
+	token    string // 目标多维表格 token
 	tokenSet bool
 
-	tableId    string // 目标表id
+	tableId    string // 目标表 ID
 	tableIdSet bool
 
 	srcTablePath    string // 数据源路径
@@ -3956,7 +3946,7 @@ func NewConnectorBuilder() *ConnectorBuilder {
 	return builder
 }
 
-// 目标文档token
+// 目标多维表格 token
 //
 // 示例值：OqfIbgJYkaECb7sECGSb9Wbqc7g
 func (builder *ConnectorBuilder) Token(token string) *ConnectorBuilder {
@@ -3965,7 +3955,7 @@ func (builder *ConnectorBuilder) Token(token string) *ConnectorBuilder {
 	return builder
 }
 
-// 目标表id
+// 目标表 ID
 //
 // 示例值：tbljrm2jMSJdR9gf
 func (builder *ConnectorBuilder) TableId(tableId string) *ConnectorBuilder {
@@ -4176,14 +4166,14 @@ func (builder *DashboardShareConfigBuilder) Build() *DashboardShareConfig {
 type DeleteRecord struct {
 	Deleted *bool `json:"deleted,omitempty"` // 是否成功删除
 
-	RecordId *string `json:"record_id,omitempty"` // 删除的记录 ID
+	RecordId *string `json:"record_id,omitempty"` // 删除的记录id
 }
 
 type DeleteRecordBuilder struct {
 	deleted    bool // 是否成功删除
 	deletedSet bool
 
-	recordId    string // 删除的记录 ID
+	recordId    string // 删除的记录id
 	recordIdSet bool
 }
 
@@ -4201,7 +4191,7 @@ func (builder *DeleteRecordBuilder) Deleted(deleted bool) *DeleteRecordBuilder {
 	return builder
 }
 
-// 删除的记录 ID
+// 删除的记录id
 //
 // 示例值：recpCsf4ME
 func (builder *DeleteRecordBuilder) RecordId(recordId string) *DeleteRecordBuilder {
@@ -4242,8 +4232,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -4251,8 +4239,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -4274,41 +4260,41 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 }
 
 type DisplayApp struct {
-	AppToken *string `json:"app_token,omitempty"` // 多维表格的 app_token;[app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
+	AppToken *string `json:"app_token,omitempty"` // 多维表格的唯一标识 app_token
 
-	Name *string `json:"name,omitempty"` // 多维表格的名字
+	Name *string `json:"name,omitempty"` // 多维表格的名称
 
-	Revision *int `json:"revision,omitempty"` // 多维表格的版本号（对多维表格进行修改时更新，如新增、删除数据表，修改数据表名等，初始为1，每次更新+1）
+	Revision *int `json:"revision,omitempty"` // 多维表格的版本号。对多维表格进行修改时更新，如新增、删除数据表，修改数据表名等，初始为 1，每次更新+1
 
-	IsAdvanced *bool `json:"is_advanced,omitempty"` // 多维表格是否开启了高级权限。取值包括：;- true：表示开启了高级权限;- false：表示关闭了高级权限;;[了解更多：使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)
+	IsAdvanced *bool `json:"is_advanced,omitempty"` // 多维表格是否开启了高级权限。取值包括：;- true：开启了高级权限;- false：关闭了高级权限;;了解更多参考飞书帮助中心文档[使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)。
 
-	TimeZone *string `json:"time_zone,omitempty"` // 文档时区
+	TimeZone *string `json:"time_zone,omitempty"` // 多维表格的时区
 
-	FormulaType *int `json:"formula_type,omitempty"` // 文档公式字段类型
+	FormulaType *int `json:"formula_type,omitempty"` // 多维表格的公式字段类型。可结合[字段相关 API](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/create)使用。
 
-	AdvanceVersion *string `json:"advance_version,omitempty"` // 文档高级权限版本
+	AdvanceVersion *string `json:"advance_version,omitempty"` // 文档高级权限版本。可结合[自定义角色 API](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/create)使用。
 }
 
 type DisplayAppBuilder struct {
-	appToken    string // 多维表格的 app_token;[app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
+	appToken    string // 多维表格的唯一标识 app_token
 	appTokenSet bool
 
-	name    string // 多维表格的名字
+	name    string // 多维表格的名称
 	nameSet bool
 
-	revision    int // 多维表格的版本号（对多维表格进行修改时更新，如新增、删除数据表，修改数据表名等，初始为1，每次更新+1）
+	revision    int // 多维表格的版本号。对多维表格进行修改时更新，如新增、删除数据表，修改数据表名等，初始为 1，每次更新+1
 	revisionSet bool
 
-	isAdvanced    bool // 多维表格是否开启了高级权限。取值包括：;- true：表示开启了高级权限;- false：表示关闭了高级权限;;[了解更多：使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)
+	isAdvanced    bool // 多维表格是否开启了高级权限。取值包括：;- true：开启了高级权限;- false：关闭了高级权限;;了解更多参考飞书帮助中心文档[使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)。
 	isAdvancedSet bool
 
-	timeZone    string // 文档时区
+	timeZone    string // 多维表格的时区
 	timeZoneSet bool
 
-	formulaType    int // 文档公式字段类型
+	formulaType    int // 多维表格的公式字段类型。可结合[字段相关 API](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/create)使用。
 	formulaTypeSet bool
 
-	advanceVersion    string // 文档高级权限版本
+	advanceVersion    string // 文档高级权限版本。可结合[自定义角色 API](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/create)使用。
 	advanceVersionSet bool
 }
 
@@ -4317,43 +4303,43 @@ func NewDisplayAppBuilder() *DisplayAppBuilder {
 	return builder
 }
 
-// 多维表格的 app_token;[app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
+// 多维表格的唯一标识 app_token
 //
-// 示例值：
+// 示例值：\-
 func (builder *DisplayAppBuilder) AppToken(appToken string) *DisplayAppBuilder {
 	builder.appToken = appToken
 	builder.appTokenSet = true
 	return builder
 }
 
-// 多维表格的名字
+// 多维表格的名称
 //
-// 示例值：
+// 示例值：\-
 func (builder *DisplayAppBuilder) Name(name string) *DisplayAppBuilder {
 	builder.name = name
 	builder.nameSet = true
 	return builder
 }
 
-// 多维表格的版本号（对多维表格进行修改时更新，如新增、删除数据表，修改数据表名等，初始为1，每次更新+1）
+// 多维表格的版本号。对多维表格进行修改时更新，如新增、删除数据表，修改数据表名等，初始为 1，每次更新+1
 //
-// 示例值：
+// 示例值：\-
 func (builder *DisplayAppBuilder) Revision(revision int) *DisplayAppBuilder {
 	builder.revision = revision
 	builder.revisionSet = true
 	return builder
 }
 
-// 多维表格是否开启了高级权限。取值包括：;- true：表示开启了高级权限;- false：表示关闭了高级权限;;[了解更多：使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)
+// 多维表格是否开启了高级权限。取值包括：;- true：开启了高级权限;- false：关闭了高级权限;;了解更多参考飞书帮助中心文档[使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)。
 //
-// 示例值：
+// 示例值：\-
 func (builder *DisplayAppBuilder) IsAdvanced(isAdvanced bool) *DisplayAppBuilder {
 	builder.isAdvanced = isAdvanced
 	builder.isAdvancedSet = true
 	return builder
 }
 
-// 文档时区
+// 多维表格的时区
 //
 // 示例值：
 func (builder *DisplayAppBuilder) TimeZone(timeZone string) *DisplayAppBuilder {
@@ -4362,7 +4348,7 @@ func (builder *DisplayAppBuilder) TimeZone(timeZone string) *DisplayAppBuilder {
 	return builder
 }
 
-// 文档公式字段类型
+// 多维表格的公式字段类型。可结合[字段相关 API](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/create)使用。
 //
 // 示例值：
 func (builder *DisplayAppBuilder) FormulaType(formulaType int) *DisplayAppBuilder {
@@ -4371,7 +4357,7 @@ func (builder *DisplayAppBuilder) FormulaType(formulaType int) *DisplayAppBuilde
 	return builder
 }
 
-// 文档高级权限版本
+// 文档高级权限版本。可结合[自定义角色 API](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/create)使用。
 //
 // 示例值：
 func (builder *DisplayAppBuilder) AdvanceVersion(advanceVersion string) *DisplayAppBuilder {
@@ -4414,9 +4400,9 @@ func (builder *DisplayAppBuilder) Build() *DisplayApp {
 }
 
 type DisplayAppV2 struct {
-	AppToken *string `json:"app_token,omitempty"` // 多维表格的 app_token
+	AppToken *string `json:"app_token,omitempty"` // 多维表格的唯一标识 app_token
 
-	Name *string `json:"name,omitempty"` // 多维表格的名字
+	Name *string `json:"name,omitempty"` // 多维表格的名称
 
 	IsAdvanced *bool `json:"is_advanced,omitempty"` // 多维表格是否已开启高级权限
 
@@ -4424,10 +4410,10 @@ type DisplayAppV2 struct {
 }
 
 type DisplayAppV2Builder struct {
-	appToken    string // 多维表格的 app_token
+	appToken    string // 多维表格的唯一标识 app_token
 	appTokenSet bool
 
-	name    string // 多维表格的名字
+	name    string // 多维表格的名称
 	nameSet bool
 
 	isAdvanced    bool // 多维表格是否已开启高级权限
@@ -4442,18 +4428,18 @@ func NewDisplayAppV2Builder() *DisplayAppV2Builder {
 	return builder
 }
 
-// 多维表格的 app_token
+// 多维表格的唯一标识 app_token
 //
-// 示例值：
+// 示例值：S404b*****e9PQsYDWYcNryFn0g
 func (builder *DisplayAppV2Builder) AppToken(appToken string) *DisplayAppV2Builder {
 	builder.appToken = appToken
 	builder.appTokenSet = true
 	return builder
 }
 
-// 多维表格的名字
+// 多维表格的名称
 //
-// 示例值：
+// 示例值：app name
 func (builder *DisplayAppV2Builder) Name(name string) *DisplayAppV2Builder {
 	builder.name = name
 	builder.nameSet = true
@@ -4462,7 +4448,7 @@ func (builder *DisplayAppV2Builder) Name(name string) *DisplayAppV2Builder {
 
 // 多维表格是否已开启高级权限
 //
-// 示例值：
+// 示例值：false
 func (builder *DisplayAppV2Builder) IsAdvanced(isAdvanced bool) *DisplayAppV2Builder {
 	builder.isAdvanced = isAdvanced
 	builder.isAdvancedSet = true
@@ -4500,21 +4486,21 @@ func (builder *DisplayAppV2Builder) Build() *DisplayAppV2 {
 }
 
 type DisplayWorkflow struct {
-	WorkflowId *string `json:"workflow_id,omitempty"` // 自动化工作流的id
+	WorkflowId *string `json:"workflow_id,omitempty"` // 自动化流程的 ID
 
-	Status *string `json:"status,omitempty"` // 自动化工作流的状态
+	Status *string `json:"status,omitempty"` // 自动化流程的状态
 
-	Title *string `json:"title,omitempty"` // 自动化工作流的名称
+	Title *string `json:"title,omitempty"` // 自动化流程的名称
 }
 
 type DisplayWorkflowBuilder struct {
-	workflowId    string // 自动化工作流的id
+	workflowId    string // 自动化流程的 ID
 	workflowIdSet bool
 
-	status    string // 自动化工作流的状态
+	status    string // 自动化流程的状态
 	statusSet bool
 
-	title    string // 自动化工作流的名称
+	title    string // 自动化流程的名称
 	titleSet bool
 }
 
@@ -4523,7 +4509,7 @@ func NewDisplayWorkflowBuilder() *DisplayWorkflowBuilder {
 	return builder
 }
 
-// 自动化工作流的id
+// 自动化流程的 ID
 //
 // 示例值：72934597xxxx9998484
 func (builder *DisplayWorkflowBuilder) WorkflowId(workflowId string) *DisplayWorkflowBuilder {
@@ -4532,7 +4518,7 @@ func (builder *DisplayWorkflowBuilder) WorkflowId(workflowId string) *DisplayWor
 	return builder
 }
 
-// 自动化工作流的状态
+// 自动化流程的状态
 //
 // 示例值：Enable
 func (builder *DisplayWorkflowBuilder) Status(status string) *DisplayWorkflowBuilder {
@@ -4541,9 +4527,9 @@ func (builder *DisplayWorkflowBuilder) Status(status string) *DisplayWorkflowBui
 	return builder
 }
 
-// 自动化工作流的名称
+// 自动化流程的名称
 //
-// 示例值：流程
+// 示例值：流程 1
 func (builder *DisplayWorkflowBuilder) Title(title string) *DisplayWorkflowBuilder {
 	builder.title = title
 	builder.titleSet = true
@@ -4625,8 +4611,6 @@ func (builder *ExtInfoBuilder) SubType(subType string) *ExtInfoBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ExtInfoBuilder) Version(version string) *ExtInfoBuilder {
 	builder.version = version
@@ -4725,7 +4709,7 @@ func (builder *ExtInfoBuilder) Build() *ExtInfo {
 }
 
 type FieldGroup struct {
-	Id *string `json:"id,omitempty"` // 字段编组的ID
+	Id *string `json:"id,omitempty"` // 字段编组的ID，默认由系统生成新的字段编组ID
 
 	Name *string `json:"name,omitempty"` // 字段编组的名称
 
@@ -4735,7 +4719,7 @@ type FieldGroup struct {
 }
 
 type FieldGroupBuilder struct {
-	id    string // 字段编组的ID
+	id    string // 字段编组的ID，默认由系统生成新的字段编组ID
 	idSet bool
 
 	name    string // 字段编组的名称
@@ -4753,7 +4737,7 @@ func NewFieldGroupBuilder() *FieldGroupBuilder {
 	return builder
 }
 
-// 字段编组的ID
+// 字段编组的ID，默认由系统生成新的字段编组ID
 //
 // 示例值：fldPTb0U2y
 func (builder *FieldGroupBuilder) Id(id string) *FieldGroupBuilder {
@@ -4764,7 +4748,7 @@ func (builder *FieldGroupBuilder) Id(id string) *FieldGroupBuilder {
 
 // 字段编组的名称
 //
-// 示例值：字段编组名称
+// 示例值：用户信息组
 func (builder *FieldGroupBuilder) Name(name string) *FieldGroupBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -4782,7 +4766,7 @@ func (builder *FieldGroupBuilder) Children(children []*FieldGroupChild) *FieldGr
 
 // 字段编组的描述
 //
-// 示例值：字段编组用于分组
+// 示例值：用于组织用户信息相关的字段
 func (builder *FieldGroupBuilder) Description(description string) *FieldGroupBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -4812,14 +4796,14 @@ func (builder *FieldGroupBuilder) Build() *FieldGroup {
 type FieldGroupChild struct {
 	Type *string `json:"type,omitempty"` // 编组成员类型
 
-	Id *string `json:"id,omitempty"` // 编组成员ID
+	Id *string `json:"id,omitempty"` // 编组成员ID，必须与type的取值一致（如type为field时，id为字段的ID）；字段ID可以通过调用[获取字段列表]接口获取
 }
 
 type FieldGroupChildBuilder struct {
 	type_    string // 编组成员类型
 	type_Set bool
 
-	id    string // 编组成员ID
+	id    string // 编组成员ID，必须与type的取值一致（如type为field时，id为字段的ID）；字段ID可以通过调用[获取字段列表]接口获取
 	idSet bool
 }
 
@@ -4830,14 +4814,14 @@ func NewFieldGroupChildBuilder() *FieldGroupChildBuilder {
 
 // 编组成员类型
 //
-// 示例值：
+// 示例值：field
 func (builder *FieldGroupChildBuilder) Type(type_ string) *FieldGroupChildBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
 	return builder
 }
 
-// 编组成员ID
+// 编组成员ID，必须与type的取值一致（如type为field时，id为字段的ID）；字段ID可以通过调用[获取字段列表]接口获取
 //
 // 示例值：fldPTb0U2y
 func (builder *FieldGroupChildBuilder) Id(id string) *FieldGroupChildBuilder {
@@ -4932,9 +4916,9 @@ type FormField struct {
 
 	Description *string `json:"description,omitempty"` // 问题描述
 
-	Required *bool `json:"required,omitempty"` // 是否必填
+	Required *bool `json:"required,omitempty"` // 该问题是否必填。可选值：;- true：必填;- false：非必填
 
-	Visible *bool `json:"visible,omitempty"` // 是否可见
+	Visible *bool `json:"visible,omitempty"` // 该问题是否可见。可选值：;- true：可见;- false：不可见
 
 	RichDescription []*AppRichDescriptionSegment `json:"rich_description,omitempty"` // 富文本描述
 }
@@ -4949,10 +4933,10 @@ type FormFieldBuilder struct {
 	description    string // 问题描述
 	descriptionSet bool
 
-	required    bool // 是否必填
+	required    bool // 该问题是否必填。可选值：;- true：必填;- false：非必填
 	requiredSet bool
 
-	visible    bool // 是否可见
+	visible    bool // 该问题是否可见。可选值：;- true：可见;- false：不可见
 	visibleSet bool
 
 	richDescription    []*AppRichDescriptionSegment // 富文本描述
@@ -4966,7 +4950,7 @@ func NewFormFieldBuilder() *FormFieldBuilder {
 
 // 表单问题 ID
 //
-// 示例值：
+// 示例值：fldjX7dUj5
 func (builder *FormFieldBuilder) FieldId(fieldId string) *FormFieldBuilder {
 	builder.fieldId = fieldId
 	builder.fieldIdSet = true
@@ -4975,7 +4959,7 @@ func (builder *FormFieldBuilder) FieldId(fieldId string) *FormFieldBuilder {
 
 // 表单问题
 //
-// 示例值：
+// 示例值：任务名称
 func (builder *FormFieldBuilder) Title(title string) *FormFieldBuilder {
 	builder.title = title
 	builder.titleSet = true
@@ -4984,25 +4968,25 @@ func (builder *FormFieldBuilder) Title(title string) *FormFieldBuilder {
 
 // 问题描述
 //
-// 示例值：
+// 示例值：请概述该任务
 func (builder *FormFieldBuilder) Description(description string) *FormFieldBuilder {
 	builder.description = description
 	builder.descriptionSet = true
 	return builder
 }
 
-// 是否必填
+// 该问题是否必填。可选值：;- true：必填;- false：非必填
 //
-// 示例值：
+// 示例值：true
 func (builder *FormFieldBuilder) Required(required bool) *FormFieldBuilder {
 	builder.required = required
 	builder.requiredSet = true
 	return builder
 }
 
-// 是否可见
+// 该问题是否可见。可选值：;- true：可见;- false：不可见
 //
-// 示例值：
+// 示例值：true
 func (builder *FormFieldBuilder) Visible(visible bool) *FormFieldBuilder {
 	builder.visible = visible
 	builder.visibleSet = true
@@ -5496,8 +5480,6 @@ func NewMetaBuilder() *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) Id(id string) *MetaBuilder {
 	builder.id = id
@@ -5505,8 +5487,6 @@ func (builder *MetaBuilder) Id(id string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) Token(token string) *MetaBuilder {
 	builder.token = token
@@ -5514,8 +5494,6 @@ func (builder *MetaBuilder) Token(token string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) Title(title string) *MetaBuilder {
 	builder.title = title
@@ -5523,8 +5501,6 @@ func (builder *MetaBuilder) Title(title string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) OwnerUid(ownerUid string) *MetaBuilder {
 	builder.ownerUid = ownerUid
@@ -5532,8 +5508,6 @@ func (builder *MetaBuilder) OwnerUid(ownerUid string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) EditUid(editUid string) *MetaBuilder {
 	builder.editUid = editUid
@@ -5541,8 +5515,6 @@ func (builder *MetaBuilder) EditUid(editUid string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) CreateTime(createTime string) *MetaBuilder {
 	builder.createTime = createTime
@@ -5550,8 +5522,6 @@ func (builder *MetaBuilder) CreateTime(createTime string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) EditTime(editTime string) *MetaBuilder {
 	builder.editTime = editTime
@@ -5559,8 +5529,6 @@ func (builder *MetaBuilder) EditTime(editTime string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) DeleteFlag(deleteFlag string) *MetaBuilder {
 	builder.deleteFlag = deleteFlag
@@ -5568,8 +5536,6 @@ func (builder *MetaBuilder) DeleteFlag(deleteFlag string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) ObjType(objType string) *MetaBuilder {
 	builder.objType = objType
@@ -5577,8 +5543,6 @@ func (builder *MetaBuilder) ObjType(objType string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) Source(source string) *MetaBuilder {
 	builder.source = source
@@ -5586,8 +5550,6 @@ func (builder *MetaBuilder) Source(source string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) ParentId(parentId string) *MetaBuilder {
 	builder.parentId = parentId
@@ -5595,8 +5557,6 @@ func (builder *MetaBuilder) ParentId(parentId string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) SubType(subType string) *MetaBuilder {
 	builder.subType = subType
@@ -5640,8 +5600,6 @@ func (builder *MetaBuilder) TenantId(tenantId string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) MixState(mixState string) *MetaBuilder {
 	builder.mixState = mixState
@@ -5694,8 +5652,6 @@ func (builder *MetaBuilder) IconInfo(iconInfo string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) Ext(ext *ExtInfo) *MetaBuilder {
 	builder.ext = ext
@@ -5837,8 +5793,6 @@ func NewPatchedFormFieldBuilder() *PatchedFormFieldBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *PatchedFormFieldBuilder) PreFieldId(preFieldId string) *PatchedFormFieldBuilder {
 	builder.preFieldId = preFieldId
@@ -5846,8 +5800,6 @@ func (builder *PatchedFormFieldBuilder) PreFieldId(preFieldId string) *PatchedFo
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *PatchedFormFieldBuilder) Title(title string) *PatchedFormFieldBuilder {
 	builder.title = title
@@ -5855,8 +5807,6 @@ func (builder *PatchedFormFieldBuilder) Title(title string) *PatchedFormFieldBui
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *PatchedFormFieldBuilder) Description(description string) *PatchedFormFieldBuilder {
 	builder.description = description
@@ -5864,8 +5814,6 @@ func (builder *PatchedFormFieldBuilder) Description(description string) *Patched
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *PatchedFormFieldBuilder) Required(required bool) *PatchedFormFieldBuilder {
 	builder.required = required
@@ -5873,8 +5821,6 @@ func (builder *PatchedFormFieldBuilder) Required(required bool) *PatchedFormFiel
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *PatchedFormFieldBuilder) Visible(visible bool) *PatchedFormFieldBuilder {
 	builder.visible = visible
@@ -5882,8 +5828,6 @@ func (builder *PatchedFormFieldBuilder) Visible(visible bool) *PatchedFormFieldB
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *PatchedFormFieldBuilder) RichDescription(richDescription []*AppRichDescriptionSegment) *PatchedFormFieldBuilder {
 	builder.richDescription = richDescription
@@ -5928,7 +5872,7 @@ type Person struct {
 
 	Email *string `json:"email,omitempty"` // 用户的邮箱
 
-	AvatarUrl *string `json:"avatar_url,omitempty"` // 头像链接
+	AvatarUrl *string `json:"avatar_url,omitempty"` // 创建人头像链接
 }
 
 type PersonBuilder struct {
@@ -5944,7 +5888,7 @@ type PersonBuilder struct {
 	email    string // 用户的邮箱
 	emailSet bool
 
-	avatarUrl    string // 头像链接
+	avatarUrl    string // 创建人头像链接
 	avatarUrlSet bool
 }
 
@@ -5989,7 +5933,7 @@ func (builder *PersonBuilder) Email(email string) *PersonBuilder {
 	return builder
 }
 
-// 头像链接
+// 创建人头像链接
 //
 // 示例值：https://example.com/avatar
 func (builder *PersonBuilder) AvatarUrl(avatarUrl string) *PersonBuilder {
@@ -6024,11 +5968,11 @@ func (builder *PersonBuilder) Build() *Person {
 }
 
 type Rating struct {
-	Symbol *string `json:"symbol,omitempty"` // 评分字段的符号展示
+	Symbol *string `json:"symbol,omitempty"` // 评分的图标，默认为 "star"。枚举值如下所示：;;- star：星星;- heart：爱心;- thumbsup：赞;- fire：火;- smile：笑脸;- lightning：闪电;- flower：花;- number：数字
 }
 
 type RatingBuilder struct {
-	symbol    string // 评分字段的符号展示
+	symbol    string // 评分的图标，默认为 "star"。枚举值如下所示：;;- star：星星;- heart：爱心;- thumbsup：赞;- fire：火;- smile：笑脸;- lightning：闪电;- flower：花;- number：数字
 	symbolSet bool
 }
 
@@ -6037,7 +5981,7 @@ func NewRatingBuilder() *RatingBuilder {
 	return builder
 }
 
-// 评分字段的符号展示
+// 评分的图标，默认为 "star"。枚举值如下所示：;;- star：星星;- heart：爱心;- thumbsup：赞;- fire：火;- smile：笑脸;- lightning：闪电;- flower：花;- number：数字
 //
 // 示例值：star
 func (builder *RatingBuilder) Symbol(symbol string) *RatingBuilder {
@@ -6056,21 +6000,21 @@ func (builder *RatingBuilder) Build() *Rating {
 }
 
 type ReqApp struct {
-	Name *string `json:"name,omitempty"` // 多维表格App名字
+	Name *string `json:"name,omitempty"` // 多维表格 App 名称。最长为 255 个字符。
 
-	FolderToken *string `json:"folder_token,omitempty"` // 多维表格App归属文件夹
+	FolderToken *string `json:"folder_token,omitempty"` // 多维表格 App 归属文件夹。默认为空，表示多维表格将被创建在云空间根目录。了解如何获取文件夹 Token，参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。;;;**注意**：;请确保调用身份拥有在该文件夹中的编辑权限。若应用使用的是 `tenant_access_token` 权限，此处仅可指定应用创建的文件夹。详情参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。
 
-	TimeZone *string `json:"time_zone,omitempty"` // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+	TimeZone *string `json:"time_zone,omitempty"` // 文档时区，详情参考[文档时区介绍](https://feishu.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf)。
 }
 
 type ReqAppBuilder struct {
-	name    string // 多维表格App名字
+	name    string // 多维表格 App 名称。最长为 255 个字符。
 	nameSet bool
 
-	folderToken    string // 多维表格App归属文件夹
+	folderToken    string // 多维表格 App 归属文件夹。默认为空，表示多维表格将被创建在云空间根目录。了解如何获取文件夹 Token，参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。;;;**注意**：;请确保调用身份拥有在该文件夹中的编辑权限。若应用使用的是 `tenant_access_token` 权限，此处仅可指定应用创建的文件夹。详情参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。
 	folderTokenSet bool
 
-	timeZone    string // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+	timeZone    string // 文档时区，详情参考[文档时区介绍](https://feishu.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf)。
 	timeZoneSet bool
 }
 
@@ -6079,7 +6023,7 @@ func NewReqAppBuilder() *ReqAppBuilder {
 	return builder
 }
 
-// 多维表格App名字
+// 多维表格 App 名称。最长为 255 个字符。
 //
 // 示例值：一篇新的多维表格
 func (builder *ReqAppBuilder) Name(name string) *ReqAppBuilder {
@@ -6088,16 +6032,16 @@ func (builder *ReqAppBuilder) Name(name string) *ReqAppBuilder {
 	return builder
 }
 
-// 多维表格App归属文件夹
+// 多维表格 App 归属文件夹。默认为空，表示多维表格将被创建在云空间根目录。了解如何获取文件夹 Token，参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。;;;**注意**：;请确保调用身份拥有在该文件夹中的编辑权限。若应用使用的是 `tenant_access_token` 权限，此处仅可指定应用创建的文件夹。详情参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。
 //
-// 示例值：fldbcoh8O99CIMltVc
+// 示例值：fldcnqquW1svRIYVT2Np6Iabcef
 func (builder *ReqAppBuilder) FolderToken(folderToken string) *ReqAppBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenSet = true
 	return builder
 }
 
-// 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+// 文档时区，详情参考[文档时区介绍](https://feishu.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf)。
 //
 // 示例值：Asia/Macau
 func (builder *ReqAppBuilder) TimeZone(timeZone string) *ReqAppBuilder {
@@ -6124,21 +6068,21 @@ func (builder *ReqAppBuilder) Build() *ReqApp {
 }
 
 type ReqTable struct {
-	Name *string `json:"name,omitempty"` // 数据表名字，必填字段
+	Name *string `json:"name,omitempty"` // 数据表名称。该字段必填。;;**注意**：;- 名称中的首尾空格将会被默认去除;- 数据表名称不可以包含 `/ \ ? * : [ ]` 等特殊字符
 
-	DefaultViewName *string `json:"default_view_name,omitempty"` // 默认表格视图的名称
+	DefaultViewName *string `json:"default_view_name,omitempty"` // 默认表格视图的名称。;;注意：;;- 名称中的首尾空格将会被去除;- 名称中不允许包含 [ ] 两个字符
 
-	Fields []*AppTableCreateHeader `json:"fields,omitempty"` // 允许设置数据表的初始字段,默认第一个字段为索引列
+	Fields []*AppTableCreateHeader `json:"fields,omitempty"` // 数据表的初始字段。了解如何填写字段，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。;;**注意**：;;- 如果传入了 `default_view_name` 字段，则必须传入 `fields` 字段;- 如果不传 `default_view_name` 字段，则 `fields` 字段为可选字段;- 若 `default_view_name` 字段和 `fields` 字段都不传，将会创建一个仅包含索引字段的空数据表。;- 数据表的第一个字段为索引字段。索引字段仅支持以下类型：; - 1：多行文本; - 2：数字; - 5：日期; - 13：电话号码; - 15：超链接; - 20：公式; - 22：地理位置
 }
 
 type ReqTableBuilder struct {
-	name    string // 数据表名字，必填字段
+	name    string // 数据表名称。该字段必填。;;**注意**：;- 名称中的首尾空格将会被默认去除;- 数据表名称不可以包含 `/ \ ? * : [ ]` 等特殊字符
 	nameSet bool
 
-	defaultViewName    string // 默认表格视图的名称
+	defaultViewName    string // 默认表格视图的名称。;;注意：;;- 名称中的首尾空格将会被去除;- 名称中不允许包含 [ ] 两个字符
 	defaultViewNameSet bool
 
-	fields    []*AppTableCreateHeader // 允许设置数据表的初始字段,默认第一个字段为索引列
+	fields    []*AppTableCreateHeader // 数据表的初始字段。了解如何填写字段，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。;;**注意**：;;- 如果传入了 `default_view_name` 字段，则必须传入 `fields` 字段;- 如果不传 `default_view_name` 字段，则 `fields` 字段为可选字段;- 若 `default_view_name` 字段和 `fields` 字段都不传，将会创建一个仅包含索引字段的空数据表。;- 数据表的第一个字段为索引字段。索引字段仅支持以下类型：; - 1：多行文本; - 2：数字; - 5：日期; - 13：电话号码; - 15：超链接; - 20：公式; - 22：地理位置
 	fieldsSet bool
 }
 
@@ -6147,25 +6091,25 @@ func NewReqTableBuilder() *ReqTableBuilder {
 	return builder
 }
 
-// 数据表名字，必填字段
+// 数据表名称。该字段必填。;;**注意**：;- 名称中的首尾空格将会被默认去除;- 数据表名称不可以包含 `/ \ ? * : [ ]` 等特殊字符
 //
-// 示例值：table1
+// 示例值：一个新的数据表
 func (builder *ReqTableBuilder) Name(name string) *ReqTableBuilder {
 	builder.name = name
 	builder.nameSet = true
 	return builder
 }
 
-// 默认表格视图的名称
+// 默认表格视图的名称。;;注意：;;- 名称中的首尾空格将会被去除;- 名称中不允许包含 [ ] 两个字符
 //
-// 示例值：表格
+// 示例值：表格视图
 func (builder *ReqTableBuilder) DefaultViewName(defaultViewName string) *ReqTableBuilder {
 	builder.defaultViewName = defaultViewName
 	builder.defaultViewNameSet = true
 	return builder
 }
 
-// 允许设置数据表的初始字段,默认第一个字段为索引列
+// 数据表的初始字段。了解如何填写字段，参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。;;**注意**：;;- 如果传入了 `default_view_name` 字段，则必须传入 `fields` 字段;- 如果不传 `default_view_name` 字段，则 `fields` 字段为可选字段;- 若 `default_view_name` 字段和 `fields` 字段都不传，将会创建一个仅包含索引字段的空数据表。;- 数据表的第一个字段为索引字段。索引字段仅支持以下类型：; - 1：多行文本; - 2：数字; - 5：日期; - 13：电话号码; - 15：超链接; - 20：公式; - 22：地理位置
 //
 // 示例值：
 func (builder *ReqTableBuilder) Fields(fields []*AppTableCreateHeader) *ReqTableBuilder {
@@ -6191,16 +6135,16 @@ func (builder *ReqTableBuilder) Build() *ReqTable {
 }
 
 type ReqView struct {
-	ViewName *string `json:"view_name,omitempty"` // 视图名字
+	ViewName *string `json:"view_name,omitempty"` // 视图名称。名称不能包含特殊字符，请确保其符合以下规则：;- 长度不超过 100 个字符;- 不为空且不包含这些特殊符号：[ ]
 
-	ViewType *string `json:"view_type,omitempty"` // 视图类型
+	ViewType *string `json:"view_type,omitempty"` // 视图类型，不填默认为表格视图。
 }
 
 type ReqViewBuilder struct {
-	viewName    string // 视图名字
+	viewName    string // 视图名称。名称不能包含特殊字符，请确保其符合以下规则：;- 长度不超过 100 个字符;- 不为空且不包含这些特殊符号：[ ]
 	viewNameSet bool
 
-	viewType    string // 视图类型
+	viewType    string // 视图类型，不填默认为表格视图。
 	viewTypeSet bool
 }
 
@@ -6209,16 +6153,16 @@ func NewReqViewBuilder() *ReqViewBuilder {
 	return builder
 }
 
-// 视图名字
+// 视图名称。名称不能包含特殊字符，请确保其符合以下规则：;- 长度不超过 100 个字符;- 不为空且不包含这些特殊符号：[ ]
 //
-// 示例值：表格视图1
+// 示例值：表格视图 1
 func (builder *ReqViewBuilder) ViewName(viewName string) *ReqViewBuilder {
 	builder.viewName = viewName
 	builder.viewNameSet = true
 	return builder
 }
 
-// 视图类型
+// 视图类型，不填默认为表格视图。
 //
 // 示例值：grid
 func (builder *ReqViewBuilder) ViewType(viewType string) *ReqViewBuilder {
@@ -6318,8 +6262,6 @@ func (builder *TemplateInfoBuilder) TemplateType(templateType string) *TemplateI
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *TemplateInfoBuilder) PublishFlag(publishFlag string) *TemplateInfoBuilder {
 	builder.publishFlag = publishFlag
@@ -6359,8 +6301,6 @@ func NewTrafficEnvBuilder() *TrafficEnvBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *TrafficEnvBuilder) Open(open bool) *TrafficEnvBuilder {
 	builder.open = open
@@ -6368,8 +6308,6 @@ func (builder *TrafficEnvBuilder) Open(open bool) *TrafficEnvBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *TrafficEnvBuilder) Env(env string) *TrafficEnvBuilder {
 	builder.env = env
@@ -6473,16 +6411,16 @@ func (builder *UrlBuilder) Build() *Url {
 }
 
 type CopyAppReqBodyBuilder struct {
-	name    string // 多维表格 App 名字
+	name    string // 多维表格 App 的名称
 	nameSet bool
 
-	folderToken    string // 多维表格 App 归属文件夹
+	folderToken    string // 了解如何获取文件夹 Token，参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。;;;**注意**：;请确保调用身份拥有在该文件夹中的编辑权限。若应用使用的是 `tenant_access_token` 权限，此处仅可指定应用创建的文件夹。详情参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。;
 	folderTokenSet bool
 
-	withoutContent    bool // 不复制文档内容，只复制文档结构
+	withoutContent    bool // 是否复制多维表格中的内容，默认 false，即复制多维表格中的内容。可取值：;* true：不复制;* false：复制
 	withoutContentSet bool
 
-	timeZone    string // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+	timeZone    string // 文档时区，详情参考[文档时区介绍](https://feishu.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf)。
 	timeZoneSet bool
 }
 
@@ -6491,36 +6429,36 @@ func NewCopyAppReqBodyBuilder() *CopyAppReqBodyBuilder {
 	return builder
 }
 
-// 多维表格 App 名字
+// 多维表格 App 的名称
 //
-//示例值：一篇新的多维表格
+// 示例值：一篇新的多维表格
 func (builder *CopyAppReqBodyBuilder) Name(name string) *CopyAppReqBodyBuilder {
 	builder.name = name
 	builder.nameSet = true
 	return builder
 }
 
-// 多维表格 App 归属文件夹
+// 了解如何获取文件夹 Token，参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。;;;**注意**：;请确保调用身份拥有在该文件夹中的编辑权限。若应用使用的是 `tenant_access_token` 权限，此处仅可指定应用创建的文件夹。详情参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。;
 //
-//示例值：fldbco*****CIMltVc
+// 示例值：fldcnqquW1svRIYVT2Np6Iabcef
 func (builder *CopyAppReqBodyBuilder) FolderToken(folderToken string) *CopyAppReqBodyBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenSet = true
 	return builder
 }
 
-// 不复制文档内容，只复制文档结构
+// 是否复制多维表格中的内容，默认 false，即复制多维表格中的内容。可取值：;* true：不复制;* false：复制
 //
-//示例值：false
+// 示例值：false
 func (builder *CopyAppReqBodyBuilder) WithoutContent(withoutContent bool) *CopyAppReqBodyBuilder {
 	builder.withoutContent = withoutContent
 	builder.withoutContentSet = true
 	return builder
 }
 
-// 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+// 文档时区，详情参考[文档时区介绍](https://feishu.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf)。
 //
-//示例值：Asia/Shanghai
+// 示例值：Asia/Shanghai
 func (builder *CopyAppReqBodyBuilder) TimeZone(timeZone string) *CopyAppReqBodyBuilder {
 	builder.timeZone = timeZone
 	builder.timeZoneSet = true
@@ -6560,7 +6498,7 @@ func NewCopyAppPathReqBodyBuilder() *CopyAppPathReqBodyBuilder {
 	return builder
 }
 
-// 多维表格 App 名字
+// 多维表格 App 的名称
 //
 // 示例值：一篇新的多维表格
 func (builder *CopyAppPathReqBodyBuilder) Name(name string) *CopyAppPathReqBodyBuilder {
@@ -6569,16 +6507,16 @@ func (builder *CopyAppPathReqBodyBuilder) Name(name string) *CopyAppPathReqBodyB
 	return builder
 }
 
-// 多维表格 App 归属文件夹
+// 了解如何获取文件夹 Token，参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。;;;**注意**：;请确保调用身份拥有在该文件夹中的编辑权限。若应用使用的是 `tenant_access_token` 权限，此处仅可指定应用创建的文件夹。详情参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。;
 //
-// 示例值：fldbco*****CIMltVc
+// 示例值：fldcnqquW1svRIYVT2Np6Iabcef
 func (builder *CopyAppPathReqBodyBuilder) FolderToken(folderToken string) *CopyAppPathReqBodyBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenSet = true
 	return builder
 }
 
-// 不复制文档内容，只复制文档结构
+// 是否复制多维表格中的内容，默认 false，即复制多维表格中的内容。可取值：;* true：不复制;* false：复制
 //
 // 示例值：false
 func (builder *CopyAppPathReqBodyBuilder) WithoutContent(withoutContent bool) *CopyAppPathReqBodyBuilder {
@@ -6587,7 +6525,7 @@ func (builder *CopyAppPathReqBodyBuilder) WithoutContent(withoutContent bool) *C
 	return builder
 }
 
-// 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+// 文档时区，详情参考[文档时区介绍](https://feishu.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf)。
 //
 // 示例值：Asia/Shanghai
 func (builder *CopyAppPathReqBodyBuilder) TimeZone(timeZone string) *CopyAppPathReqBodyBuilder {
@@ -6627,15 +6565,15 @@ func NewCopyAppReqBuilder() *CopyAppReqBuilder {
 	return builder
 }
 
-// 多维表格 App token
+// 要复制的多维表格 App 的唯一标识。不同形态的多维表格，其 app_token 的获取方式不同，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview)获取。;
 //
-// 示例值：S404b*****e9PQsYDWYcNryFn0g
+// 示例值：AW3Qbtr2cakCnesXzXVbbsrIcVT
 func (builder *CopyAppReqBuilder) AppToken(appToken string) *CopyAppReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 
-//
+// 复制一个多维表格，可以指定复制到某个有权限的文件夹下。
 func (builder *CopyAppReqBuilder) Body(body *CopyAppReqBody) *CopyAppReqBuilder {
 	builder.body = body
 	return builder
@@ -6650,13 +6588,13 @@ func (builder *CopyAppReqBuilder) Build() *CopyAppReq {
 }
 
 type CopyAppReqBody struct {
-	Name *string `json:"name,omitempty"` // 多维表格 App 名字
+	Name *string `json:"name,omitempty"` // 多维表格 App 的名称
 
-	FolderToken *string `json:"folder_token,omitempty"` // 多维表格 App 归属文件夹
+	FolderToken *string `json:"folder_token,omitempty"` // 了解如何获取文件夹 Token，参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。;;;**注意**：;请确保调用身份拥有在该文件夹中的编辑权限。若应用使用的是 `tenant_access_token` 权限，此处仅可指定应用创建的文件夹。详情参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。;
 
-	WithoutContent *bool `json:"without_content,omitempty"` // 不复制文档内容，只复制文档结构
+	WithoutContent *bool `json:"without_content,omitempty"` // 是否复制多维表格中的内容，默认 false，即复制多维表格中的内容。可取值：;* true：不复制;* false：复制
 
-	TimeZone *string `json:"time_zone,omitempty"` // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+	TimeZone *string `json:"time_zone,omitempty"` // 文档时区，详情参考[文档时区介绍](https://feishu.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf)。
 }
 
 type CopyAppReq struct {
@@ -6665,7 +6603,7 @@ type CopyAppReq struct {
 }
 
 type CopyAppRespData struct {
-	App *App `json:"app,omitempty"` //
+	App *App `json:"app,omitempty"` // 返回响应体
 }
 
 type CopyAppResp struct {
@@ -6726,7 +6664,7 @@ func (builder *CreateAppReqBuilder) ApiType(apiType string) *CreateAppReqBuilder
 	return builder
 }
 
-//
+// 在指定文件夹中创建一个多维表格，包含一个空白的数据表。
 func (builder *CreateAppReqBuilder) ReqApp(reqApp *ReqApp) *CreateAppReqBuilder {
 	builder.reqApp = reqApp
 	return builder
@@ -6746,7 +6684,7 @@ type CreateAppReq struct {
 }
 
 type CreateAppRespData struct {
-	App *App `json:"app,omitempty"` //
+	App *App `json:"app,omitempty"` // 返回响应体
 }
 
 type CreateAppResp struct {
@@ -6772,7 +6710,7 @@ func NewGetAppReqBuilder() *GetAppReqBuilder {
 	return builder
 }
 
-// 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *GetAppReqBuilder) AppToken(appToken string) *GetAppReqBuilder {
@@ -6806,10 +6744,10 @@ func (resp *GetAppResp) Success() bool {
 }
 
 type UpdateAppReqBodyBuilder struct {
-	name    string // 新的多维表格名字
+	name    string // 新的多维表格名称，不传则不更新名称。
 	nameSet bool
 
-	isAdvanced    bool // 多维表格是否开启高级权限
+	isAdvanced    bool // 多维表格是否开启高级权限。不传则不更新设置。可选值：;- true：开启高级权限;- false：关闭高级权限
 	isAdvancedSet bool
 }
 
@@ -6818,18 +6756,18 @@ func NewUpdateAppReqBodyBuilder() *UpdateAppReqBodyBuilder {
 	return builder
 }
 
-// 新的多维表格名字
+// 新的多维表格名称，不传则不更新名称。
 //
-//示例值：新的多维表格名字
+// 示例值：新的多维表格名称
 func (builder *UpdateAppReqBodyBuilder) Name(name string) *UpdateAppReqBodyBuilder {
 	builder.name = name
 	builder.nameSet = true
 	return builder
 }
 
-// 多维表格是否开启高级权限
+// 多维表格是否开启高级权限。不传则不更新设置。可选值：;- true：开启高级权限;- false：关闭高级权限
 //
-//示例值：true
+// 示例值：true
 func (builder *UpdateAppReqBodyBuilder) IsAdvanced(isAdvanced bool) *UpdateAppReqBodyBuilder {
 	builder.isAdvanced = isAdvanced
 	builder.isAdvancedSet = true
@@ -6859,16 +6797,16 @@ func NewUpdateAppPathReqBodyBuilder() *UpdateAppPathReqBodyBuilder {
 	return builder
 }
 
-// 新的多维表格名字
+// 新的多维表格名称，不传则不更新名称。
 //
-// 示例值：新的多维表格名字
+// 示例值：新的多维表格名称
 func (builder *UpdateAppPathReqBodyBuilder) Name(name string) *UpdateAppPathReqBodyBuilder {
 	builder.name = name
 	builder.nameSet = true
 	return builder
 }
 
-// 多维表格是否开启高级权限
+// 多维表格是否开启高级权限。不传则不更新设置。可选值：;- true：开启高级权限;- false：关闭高级权限
 //
 // 示例值：true
 func (builder *UpdateAppPathReqBodyBuilder) IsAdvanced(isAdvanced bool) *UpdateAppPathReqBodyBuilder {
@@ -6902,7 +6840,7 @@ func NewUpdateAppReqBuilder() *UpdateAppReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 目标多维表格的 App token。该接口仅支持存储在云空间文件夹中的多维表格，即 URL 以 **feishu.cn/base** 开头的多维表格形态。该类多维表格的 app_token 为 URL 下图高亮部分：;;![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_sTn7sVvhOB.png?height=766&lazyload=true&maxWidth=700&width=3004);;
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *UpdateAppReqBuilder) AppToken(appToken string) *UpdateAppReqBuilder {
@@ -6910,7 +6848,7 @@ func (builder *UpdateAppReqBuilder) AppToken(appToken string) *UpdateAppReqBuild
 	return builder
 }
 
-// 通过 app_token 更新多维表格元数据
+// 更新多维表格元数据，包括多维表格的名称、是否开启高级权限。
 func (builder *UpdateAppReqBuilder) Body(body *UpdateAppReqBody) *UpdateAppReqBuilder {
 	builder.body = body
 	return builder
@@ -6925,9 +6863,9 @@ func (builder *UpdateAppReqBuilder) Build() *UpdateAppReq {
 }
 
 type UpdateAppReqBody struct {
-	Name *string `json:"name,omitempty"` // 新的多维表格名字
+	Name *string `json:"name,omitempty"` // 新的多维表格名称，不传则不更新名称。
 
-	IsAdvanced *bool `json:"is_advanced,omitempty"` // 多维表格是否开启高级权限
+	IsAdvanced *bool `json:"is_advanced,omitempty"` // 多维表格是否开启高级权限。不传则不更新设置。可选值：;- true：开启高级权限;- false：关闭高级权限
 }
 
 type UpdateAppReq struct {
@@ -6962,7 +6900,7 @@ func NewListAppBlockWorkflowReqBuilder() *ListAppBlockWorkflowReqBuilder {
 	return builder
 }
 
-// 多维表格Token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 app_token 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 app_token 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 obj_type 的值为 bitable 时，obj_token 字段的值才是多维表格的 app_token。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：U9sGw5wyoiOIqdk1C4mcbYmMnbt
 func (builder *ListAppBlockWorkflowReqBuilder) AppToken(appToken string) *ListAppBlockWorkflowReqBuilder {
@@ -6996,7 +6934,7 @@ func (resp *ListAppBlockWorkflowResp) Success() bool {
 }
 
 type CopyAppDashboardReqBodyBuilder struct {
-	name    string // 仪表盘名称
+	name    string // 新的仪表盘名称
 	nameSet bool
 }
 
@@ -7005,9 +6943,9 @@ func NewCopyAppDashboardReqBodyBuilder() *CopyAppDashboardReqBodyBuilder {
 	return builder
 }
 
-// 仪表盘名称
+// 新的仪表盘名称
 //
-//示例值：Dashboard
+// 示例值：New Dashboard
 func (builder *CopyAppDashboardReqBodyBuilder) Name(name string) *CopyAppDashboardReqBodyBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -7032,9 +6970,9 @@ func NewCopyAppDashboardPathReqBodyBuilder() *CopyAppDashboardPathReqBodyBuilder
 	return builder
 }
 
-// 仪表盘名称
+// 新的仪表盘名称
 //
-// 示例值：Dashboard
+// 示例值：New Dashboard
 func (builder *CopyAppDashboardPathReqBodyBuilder) Name(name string) *CopyAppDashboardPathReqBodyBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -7063,7 +7001,7 @@ func NewCopyAppDashboardReqBuilder() *CopyAppDashboardReqBuilder {
 	return builder
 }
 
-// 多维表格 token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：basbcldP5xZeskcHDFZQfeToydb
 func (builder *CopyAppDashboardReqBuilder) AppToken(appToken string) *CopyAppDashboardReqBuilder {
@@ -7071,7 +7009,7 @@ func (builder *CopyAppDashboardReqBuilder) AppToken(appToken string) *CopyAppDas
 	return builder
 }
 
-// 多维表格 block_id
+// 多维表格仪表盘的唯一标识，以 blk 开头。获取方式：;;- 在多维表格的 URL 地址栏中，`block_id` 是下图中高亮部分：; ; ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a966d15323ee73c66b1e9a31d34ae6c7_x3ctncH2nO.png?height=575&lazyload=true&width=1397); ;- 通过[列出仪表盘](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-dashboard/list)接口获取
 //
 // 示例值：blkEsvEEaNllY2UV
 func (builder *CopyAppDashboardReqBuilder) BlockId(blockId string) *CopyAppDashboardReqBuilder {
@@ -7079,7 +7017,7 @@ func (builder *CopyAppDashboardReqBuilder) BlockId(blockId string) *CopyAppDashb
 	return builder
 }
 
-// 该接口用于根据现有仪表盘复制出新的仪表盘
+// 基于现有仪表盘复制出新的仪表盘。
 func (builder *CopyAppDashboardReqBuilder) Body(body *CopyAppDashboardReqBody) *CopyAppDashboardReqBuilder {
 	builder.body = body
 	return builder
@@ -7094,7 +7032,7 @@ func (builder *CopyAppDashboardReqBuilder) Build() *CopyAppDashboardReq {
 }
 
 type CopyAppDashboardReqBody struct {
-	Name *string `json:"name,omitempty"` // 仪表盘名称
+	Name *string `json:"name,omitempty"` // 新的仪表盘名称
 }
 
 type CopyAppDashboardReq struct {
@@ -7103,9 +7041,9 @@ type CopyAppDashboardReq struct {
 }
 
 type CopyAppDashboardRespData struct {
-	BlockId *string `json:"block_id,omitempty"` // 多维表格 block_id
+	BlockId *string `json:"block_id,omitempty"` // 新的仪表盘的 block_id
 
-	Name *string `json:"name,omitempty"` // block 名称
+	Name *string `json:"name,omitempty"` // 新的仪表盘名称
 }
 
 type CopyAppDashboardResp struct {
@@ -7138,7 +7076,7 @@ func (builder *ListAppDashboardReqBuilder) Limit(limit int) *ListAppDashboardReq
 	return builder
 }
 
-// 多维表格文档 Token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：bascng7vrxcxpig7geggXiCtadY
 func (builder *ListAppDashboardReqBuilder) AppToken(appToken string) *ListAppDashboardReqBuilder {
@@ -7162,8 +7100,6 @@ func (builder *ListAppDashboardReqBuilder) PageToken(pageToken string) *ListAppD
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ListAppDashboardReqBuilder) WithShareConfig(withShareConfig bool) *ListAppDashboardReqBuilder {
 	builder.apiReq.QueryParams.Set("with_share_config", fmt.Sprint(withShareConfig))
@@ -7219,7 +7155,7 @@ func NewCreateAppRoleReqBuilder() *CreateAppRoleReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *CreateAppRoleReqBuilder) AppToken(appToken string) *CreateAppRoleReqBuilder {
@@ -7227,7 +7163,7 @@ func (builder *CreateAppRoleReqBuilder) AppToken(appToken string) *CreateAppRole
 	return builder
 }
 
-// 新增自定义角色
+// 新增多维表格高级权限中自定义的角色。
 func (builder *CreateAppRoleReqBuilder) AppRole(appRole *AppRole) *CreateAppRoleReqBuilder {
 	builder.appRole = appRole
 	return builder
@@ -7247,7 +7183,7 @@ type CreateAppRoleReq struct {
 }
 
 type CreateAppRoleRespData struct {
-	Role *AppRole `json:"role,omitempty"` // 自定义权限
+	Role *AppRole `json:"role,omitempty"` // 自定义角色列表
 }
 
 type CreateAppRoleResp struct {
@@ -7273,7 +7209,7 @@ func NewDeleteAppRoleReqBuilder() *DeleteAppRoleReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *DeleteAppRoleReqBuilder) AppToken(appToken string) *DeleteAppRoleReqBuilder {
@@ -7281,7 +7217,7 @@ func (builder *DeleteAppRoleReqBuilder) AppToken(appToken string) *DeleteAppRole
 	return builder
 }
 
-// 自定义角色的id
+// 多维表格高级权限中自定义角色的唯一标识，以 rol 开头。获取方式：通过[列出自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/list)接口获取。
 //
 // 示例值：roljRpwIUt
 func (builder *DeleteAppRoleReqBuilder) RoleId(roleId string) *DeleteAppRoleReqBuilder {
@@ -7329,7 +7265,7 @@ func (builder *ListAppRoleReqBuilder) Limit(limit int) *ListAppRoleReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *ListAppRoleReqBuilder) AppToken(appToken string) *ListAppRoleReqBuilder {
@@ -7347,7 +7283,7 @@ func (builder *ListAppRoleReqBuilder) PageSize(pageSize int) *ListAppRoleReqBuil
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：roljRpwIUt
+// 示例值：eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0
 func (builder *ListAppRoleReqBuilder) PageToken(pageToken string) *ListAppRoleReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -7402,7 +7338,7 @@ func NewUpdateAppRoleReqBuilder() *UpdateAppRoleReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *UpdateAppRoleReqBuilder) AppToken(appToken string) *UpdateAppRoleReqBuilder {
@@ -7410,7 +7346,7 @@ func (builder *UpdateAppRoleReqBuilder) AppToken(appToken string) *UpdateAppRole
 	return builder
 }
 
-// 自定义角色的id
+// 多维表格高级权限中自定义角色的唯一标识，以 rol 开头。获取方式：通过[列出自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/list)接口获取。
 //
 // 示例值：roljRpwIUt
 func (builder *UpdateAppRoleReqBuilder) RoleId(roleId string) *UpdateAppRoleReqBuilder {
@@ -7418,7 +7354,7 @@ func (builder *UpdateAppRoleReqBuilder) RoleId(roleId string) *UpdateAppRoleReqB
 	return builder
 }
 
-// 更新自定义角色
+// 更新多维表格高级权限中自定义的角色。
 func (builder *UpdateAppRoleReqBuilder) AppRole(appRole *AppRole) *UpdateAppRoleReqBuilder {
 	builder.appRole = appRole
 	return builder
@@ -7438,7 +7374,7 @@ type UpdateAppRoleReq struct {
 }
 
 type UpdateAppRoleRespData struct {
-	Role *AppRole `json:"role,omitempty"` // 自定义角色
+	Role *AppRole `json:"role,omitempty"` // 自定义角色列表
 }
 
 type UpdateAppRoleResp struct {
@@ -7463,7 +7399,7 @@ func NewBatchCreateAppRoleMemberReqBodyBuilder() *BatchCreateAppRoleMemberReqBod
 
 // 协作者列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateAppRoleMemberReqBodyBuilder) MemberList(memberList []*AppRoleMemberId) *BatchCreateAppRoleMemberReqBodyBuilder {
 	builder.memberList = memberList
 	builder.memberListSet = true
@@ -7519,7 +7455,7 @@ func NewBatchCreateAppRoleMemberReqBuilder() *BatchCreateAppRoleMemberReqBuilder
 	return builder
 }
 
-// Bitable 文档 Token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：bascnnKKvcoUblgmmhZkYqabcef
 func (builder *BatchCreateAppRoleMemberReqBuilder) AppToken(appToken string) *BatchCreateAppRoleMemberReqBuilder {
@@ -7527,7 +7463,7 @@ func (builder *BatchCreateAppRoleMemberReqBuilder) AppToken(appToken string) *Ba
 	return builder
 }
 
-// 自定义角色 ID
+// 多维表格高级权限中自定义角色的唯一标识，以 rol 开头。获取方式：通过[列出自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/list)接口获取。
 //
 // 示例值：rolNGhPqks
 func (builder *BatchCreateAppRoleMemberReqBuilder) RoleId(roleId string) *BatchCreateAppRoleMemberReqBuilder {
@@ -7535,7 +7471,7 @@ func (builder *BatchCreateAppRoleMemberReqBuilder) RoleId(roleId string) *BatchC
 	return builder
 }
 
-// 批量新增自定义角色的协作者
+// 批量新增多维表格高级权限中自定义角色的协作者。
 func (builder *BatchCreateAppRoleMemberReqBuilder) Body(body *BatchCreateAppRoleMemberReqBody) *BatchCreateAppRoleMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -7579,7 +7515,7 @@ func NewBatchDeleteAppRoleMemberReqBodyBuilder() *BatchDeleteAppRoleMemberReqBod
 
 // 协作者列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchDeleteAppRoleMemberReqBodyBuilder) MemberList(memberList []*AppRoleMemberId) *BatchDeleteAppRoleMemberReqBodyBuilder {
 	builder.memberList = memberList
 	builder.memberListSet = true
@@ -7635,7 +7571,7 @@ func NewBatchDeleteAppRoleMemberReqBuilder() *BatchDeleteAppRoleMemberReqBuilder
 	return builder
 }
 
-// 多维表格文档 Token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：bascnnKKvcoUblgmmhZkYqabcef
 func (builder *BatchDeleteAppRoleMemberReqBuilder) AppToken(appToken string) *BatchDeleteAppRoleMemberReqBuilder {
@@ -7643,7 +7579,7 @@ func (builder *BatchDeleteAppRoleMemberReqBuilder) AppToken(appToken string) *Ba
 	return builder
 }
 
-// 自定义角色 ID
+// 多维表格高级权限中自定义角色的唯一标识，以 rol 开头。获取方式：通过[列出自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/list)接口获取。
 //
 // 示例值：rolNGhPqks
 func (builder *BatchDeleteAppRoleMemberReqBuilder) RoleId(roleId string) *BatchDeleteAppRoleMemberReqBuilder {
@@ -7651,7 +7587,7 @@ func (builder *BatchDeleteAppRoleMemberReqBuilder) RoleId(roleId string) *BatchD
 	return builder
 }
 
-// 批量删除自定义角色的协作者
+// 删除多维表格高级权限中自定义角色的协作者。
 func (builder *BatchDeleteAppRoleMemberReqBuilder) Body(body *BatchDeleteAppRoleMemberReqBody) *BatchDeleteAppRoleMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -7697,7 +7633,7 @@ func NewCreateAppRoleMemberReqBuilder() *CreateAppRoleMemberReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *CreateAppRoleMemberReqBuilder) AppToken(appToken string) *CreateAppRoleMemberReqBuilder {
@@ -7705,7 +7641,7 @@ func (builder *CreateAppRoleMemberReqBuilder) AppToken(appToken string) *CreateA
 	return builder
 }
 
-// 自定义角色的id
+// 多维表格高级权限中自定义角色的唯一标识，以 rol 开头。获取方式：通过[列出自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/list)接口获取。
 //
 // 示例值：roljRpwIUt
 func (builder *CreateAppRoleMemberReqBuilder) RoleId(roleId string) *CreateAppRoleMemberReqBuilder {
@@ -7713,7 +7649,7 @@ func (builder *CreateAppRoleMemberReqBuilder) RoleId(roleId string) *CreateAppRo
 	return builder
 }
 
-// 协作者id类型，与请求体中的member_id要对应
+// 协作者 ID 的类型
 //
 // 示例值：open_id
 func (builder *CreateAppRoleMemberReqBuilder) MemberIdType(memberIdType string) *CreateAppRoleMemberReqBuilder {
@@ -7721,7 +7657,7 @@ func (builder *CreateAppRoleMemberReqBuilder) MemberIdType(memberIdType string) 
 	return builder
 }
 
-// 新增自定义角色的协作者
+// 新增多维表格高级权限中自定义角色的协作者。
 func (builder *CreateAppRoleMemberReqBuilder) AppRoleMember(appRoleMember *AppRoleMember) *CreateAppRoleMemberReqBuilder {
 	builder.appRoleMember = appRoleMember
 	return builder
@@ -7763,7 +7699,7 @@ func NewDeleteAppRoleMemberReqBuilder() *DeleteAppRoleMemberReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *DeleteAppRoleMemberReqBuilder) AppToken(appToken string) *DeleteAppRoleMemberReqBuilder {
@@ -7771,7 +7707,7 @@ func (builder *DeleteAppRoleMemberReqBuilder) AppToken(appToken string) *DeleteA
 	return builder
 }
 
-// 自定义角色的id
+// 多维表格高级权限中自定义角色的唯一标识，以 rol 开头。获取方式：通过[列出自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/list)接口获取。
 //
 // 示例值：roljRpwIUt
 func (builder *DeleteAppRoleMemberReqBuilder) RoleId(roleId string) *DeleteAppRoleMemberReqBuilder {
@@ -7779,7 +7715,7 @@ func (builder *DeleteAppRoleMemberReqBuilder) RoleId(roleId string) *DeleteAppRo
 	return builder
 }
 
-// 协作者id
+// 高级权限中自定义角色协作者的 ID，需与查询参数中 member_id_type 的类型需一致。获取 ID 方式参考 member_id_type 参数描述。
 //
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad53uew2
 func (builder *DeleteAppRoleMemberReqBuilder) MemberId(memberId string) *DeleteAppRoleMemberReqBuilder {
@@ -7787,7 +7723,7 @@ func (builder *DeleteAppRoleMemberReqBuilder) MemberId(memberId string) *DeleteA
 	return builder
 }
 
-// 协作者id类型，与请求体中的member_id要对应
+// 协作者 ID 的类型
 //
 // 示例值：open_id
 func (builder *DeleteAppRoleMemberReqBuilder) MemberIdType(memberIdType string) *DeleteAppRoleMemberReqBuilder {
@@ -7836,7 +7772,7 @@ func (builder *ListAppRoleMemberReqBuilder) Limit(limit int) *ListAppRoleMemberR
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *ListAppRoleMemberReqBuilder) AppToken(appToken string) *ListAppRoleMemberReqBuilder {
@@ -7844,7 +7780,7 @@ func (builder *ListAppRoleMemberReqBuilder) AppToken(appToken string) *ListAppRo
 	return builder
 }
 
-// 自定义角色的id
+// 多维表格高级权限中自定义角色的唯一标识，以 rol 开头。获取方式：通过[列出自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/list)接口获取。
 //
 // 示例值：roljRpwIUt
 func (builder *ListAppRoleMemberReqBuilder) RoleId(roleId string) *ListAppRoleMemberReqBuilder {
@@ -7862,7 +7798,7 @@ func (builder *ListAppRoleMemberReqBuilder) PageSize(pageSize int) *ListAppRoleM
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：xxxxx
+// 示例值：eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0
 func (builder *ListAppRoleMemberReqBuilder) PageToken(pageToken string) *ListAppRoleMemberReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -7915,7 +7851,7 @@ func NewBatchCreateAppTableReqBodyBuilder() *BatchCreateAppTableReqBodyBuilder {
 
 // tables
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateAppTableReqBodyBuilder) Tables(tables []*ReqTable) *BatchCreateAppTableReqBodyBuilder {
 	builder.tables = tables
 	builder.tablesSet = true
@@ -7971,7 +7907,7 @@ func NewBatchCreateAppTableReqBuilder() *BatchCreateAppTableReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 app_token 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 app_token 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 obj_type 的值为 bitable 时，obj_token 字段的值才是多维表格的 app_token。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *BatchCreateAppTableReqBuilder) AppToken(appToken string) *BatchCreateAppTableReqBuilder {
@@ -7979,7 +7915,7 @@ func (builder *BatchCreateAppTableReqBuilder) AppToken(appToken string) *BatchCr
 	return builder
 }
 
-// 新增多个数据表
+// 新增多个数据表，仅可指定数据表名称。
 func (builder *BatchCreateAppTableReqBuilder) Body(body *BatchCreateAppTableReqBody) *BatchCreateAppTableReqBuilder {
 	builder.body = body
 	return builder
@@ -8017,7 +7953,7 @@ func (resp *BatchCreateAppTableResp) Success() bool {
 }
 
 type BatchDeleteAppTableReqBodyBuilder struct {
-	tableIds    []string // 删除的多条tableid列表
+	tableIds    []string // 待删除的数据表的 ID。当前一次操作最多支持 50 个数据表。;;获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`。;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`。;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 	tableIdsSet bool
 }
 
@@ -8026,9 +7962,9 @@ func NewBatchDeleteAppTableReqBodyBuilder() *BatchDeleteAppTableReqBodyBuilder {
 	return builder
 }
 
-// 删除的多条tableid列表
+// 待删除的数据表的 ID。当前一次操作最多支持 50 个数据表。;;获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`。;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`。;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
-//示例值：["tblsRc9GRRXKqhvW"]
+// 示例值：
 func (builder *BatchDeleteAppTableReqBodyBuilder) TableIds(tableIds []string) *BatchDeleteAppTableReqBodyBuilder {
 	builder.tableIds = tableIds
 	builder.tableIdsSet = true
@@ -8053,9 +7989,9 @@ func NewBatchDeleteAppTablePathReqBodyBuilder() *BatchDeleteAppTablePathReqBodyB
 	return builder
 }
 
-// 删除的多条tableid列表
+// 待删除的数据表的 ID。当前一次操作最多支持 50 个数据表。;;获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`。;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`。;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
-// 示例值：["tblsRc9GRRXKqhvW"]
+// 示例值：
 func (builder *BatchDeleteAppTablePathReqBodyBuilder) TableIds(tableIds []string) *BatchDeleteAppTablePathReqBodyBuilder {
 	builder.tableIds = tableIds
 	builder.tableIdsSet = true
@@ -8084,7 +8020,7 @@ func NewBatchDeleteAppTableReqBuilder() *BatchDeleteAppTableReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *BatchDeleteAppTableReqBuilder) AppToken(appToken string) *BatchDeleteAppTableReqBuilder {
@@ -8092,7 +8028,7 @@ func (builder *BatchDeleteAppTableReqBuilder) AppToken(appToken string) *BatchDe
 	return builder
 }
 
-// 删除多个数据表
+// 通过 app_token 和 table_id 删除多个数据表。
 func (builder *BatchDeleteAppTableReqBuilder) Body(body *BatchDeleteAppTableReqBody) *BatchDeleteAppTableReqBuilder {
 	builder.body = body
 	return builder
@@ -8107,7 +8043,7 @@ func (builder *BatchDeleteAppTableReqBuilder) Build() *BatchDeleteAppTableReq {
 }
 
 type BatchDeleteAppTableReqBody struct {
-	TableIds []string `json:"table_ids,omitempty"` // 删除的多条tableid列表
+	TableIds []string `json:"table_ids,omitempty"` // 待删除的数据表的 ID。当前一次操作最多支持 50 个数据表。;;获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`。;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`。;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 }
 
 type BatchDeleteAppTableReq struct {
@@ -8136,7 +8072,7 @@ func NewCreateAppTableReqBodyBuilder() *CreateAppTableReqBodyBuilder {
 
 // 数据表
 //
-//示例值：
+// 示例值：
 func (builder *CreateAppTableReqBodyBuilder) Table(table *ReqTable) *CreateAppTableReqBodyBuilder {
 	builder.table = table
 	builder.tableSet = true
@@ -8192,7 +8128,7 @@ func NewCreateAppTableReqBuilder() *CreateAppTableReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 app_token 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 app_token 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 obj_type 的值为 bitable 时，obj_token 字段的值才是多维表格的 app_token。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *CreateAppTableReqBuilder) AppToken(appToken string) *CreateAppTableReqBuilder {
@@ -8200,7 +8136,7 @@ func (builder *CreateAppTableReqBuilder) AppToken(appToken string) *CreateAppTab
 	return builder
 }
 
-// 新增一个数据表
+// 新增一个数据表，支持传入数据表名称、视图名称和字段。
 func (builder *CreateAppTableReqBuilder) Body(body *CreateAppTableReqBody) *CreateAppTableReqBuilder {
 	builder.body = body
 	return builder
@@ -8224,11 +8160,11 @@ type CreateAppTableReq struct {
 }
 
 type CreateAppTableRespData struct {
-	TableId *string `json:"table_id,omitempty"` // table id
+	TableId *string `json:"table_id,omitempty"` // 多维表格数据表的 ID
 
-	DefaultViewId *string `json:"default_view_id,omitempty"` // 默认表格视图的id，该字段仅在请求参数中填写了default_view_name或fields才会返回
+	DefaultViewId *string `json:"default_view_id,omitempty"` // 默认表格视图的 ID。该字段仅在请求参数中填写了`default_view_name` 或 `fields` 字段才会返回
 
-	FieldIdList []string `json:"field_id_list,omitempty"` // 数据表初始字段的id列表，该字段仅在请求参数中填写了fields才会返回
+	FieldIdList []string `json:"field_id_list,omitempty"` // 数据表初始字段的 ID 列表，该字段仅在请求参数中填写了 `fields` 才会返回
 }
 
 type CreateAppTableResp struct {
@@ -8254,7 +8190,7 @@ func NewDeleteAppTableReqBuilder() *DeleteAppTableReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *DeleteAppTableReqBuilder) AppToken(appToken string) *DeleteAppTableReqBuilder {
@@ -8262,7 +8198,7 @@ func (builder *DeleteAppTableReqBuilder) AppToken(appToken string) *DeleteAppTab
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *DeleteAppTableReqBuilder) TableId(tableId string) *DeleteAppTableReqBuilder {
@@ -8310,7 +8246,7 @@ func (builder *ListAppTableReqBuilder) Limit(limit int) *ListAppTableReqBuilder 
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *ListAppTableReqBuilder) AppToken(appToken string) *ListAppTableReqBuilder {
@@ -8370,7 +8306,7 @@ func (resp *ListAppTableResp) Success() bool {
 }
 
 type PatchAppTableReqBodyBuilder struct {
-	name    string // 数据表的新名称
+	name    string // 数据表的新名称。;**注意**：;;- 名称中的首尾空格将会被去除。;- 数据表名称不可以包含 `/ \ ? * : [ ]` 等特殊字符。;- 如果名称为空或和旧名称相同，接口仍然会返回成功，但是名称不会被更改。
 	nameSet bool
 }
 
@@ -8379,9 +8315,9 @@ func NewPatchAppTableReqBodyBuilder() *PatchAppTableReqBodyBuilder {
 	return builder
 }
 
-// 数据表的新名称
+// 数据表的新名称。;**注意**：;;- 名称中的首尾空格将会被去除。;- 数据表名称不可以包含 `/ \ ? * : [ ]` 等特殊字符。;- 如果名称为空或和旧名称相同，接口仍然会返回成功，但是名称不会被更改。
 //
-//示例值：
+// 示例值：新的数据表名称
 func (builder *PatchAppTableReqBodyBuilder) Name(name string) *PatchAppTableReqBodyBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -8406,9 +8342,9 @@ func NewPatchAppTablePathReqBodyBuilder() *PatchAppTablePathReqBodyBuilder {
 	return builder
 }
 
-// 数据表的新名称
+// 数据表的新名称。;**注意**：;;- 名称中的首尾空格将会被去除。;- 数据表名称不可以包含 `/ \ ? * : [ ]` 等特殊字符。;- 如果名称为空或和旧名称相同，接口仍然会返回成功，但是名称不会被更改。
 //
-// 示例值：
+// 示例值：新的数据表名称
 func (builder *PatchAppTablePathReqBodyBuilder) Name(name string) *PatchAppTablePathReqBodyBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -8437,23 +8373,23 @@ func NewPatchAppTableReqBuilder() *PatchAppTableReqBuilder {
 	return builder
 }
 
-// 多维表格 app_token，请参照接入指南获取
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
-// 示例值：
+// 示例值：XrgTb4y1haKYnasu0xXb1g7lcSg
 func (builder *PatchAppTableReqBuilder) AppToken(appToken string) *PatchAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 
-// 多维表格 table_id，请参照接入指南获取
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
-// 示例值：
+// 示例值：tbl1TkhyTWDkSoZ3
 func (builder *PatchAppTableReqBuilder) TableId(tableId string) *PatchAppTableReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 
-//
+// 更新数据表的名称。
 func (builder *PatchAppTableReqBuilder) Body(body *PatchAppTableReqBody) *PatchAppTableReqBuilder {
 	builder.body = body
 	return builder
@@ -8468,7 +8404,7 @@ func (builder *PatchAppTableReqBuilder) Build() *PatchAppTableReq {
 }
 
 type PatchAppTableReqBody struct {
-	Name *string `json:"name,omitempty"` // 数据表的新名称
+	Name *string `json:"name,omitempty"` // 数据表的新名称。;**注意**：;;- 名称中的首尾空格将会被去除。;- 数据表名称不可以包含 `/ \ ? * : [ ]` 等特殊字符。;- 如果名称为空或和旧名称相同，接口仍然会返回成功，但是名称不会被更改。
 }
 
 type PatchAppTableReq struct {
@@ -8477,7 +8413,7 @@ type PatchAppTableReq struct {
 }
 
 type PatchAppTableRespData struct {
-	Name *string `json:"name,omitempty"` // 数据表的名称
+	Name *string `json:"name,omitempty"` // 新的数据表名称
 }
 
 type PatchAppTableResp struct {
@@ -8504,7 +8440,7 @@ func NewCreateAppTableFieldReqBuilder() *CreateAppTableFieldReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *CreateAppTableFieldReqBuilder) AppToken(appToken string) *CreateAppTableFieldReqBuilder {
@@ -8512,7 +8448,7 @@ func (builder *CreateAppTableFieldReqBuilder) AppToken(appToken string) *CreateA
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *CreateAppTableFieldReqBuilder) TableId(tableId string) *CreateAppTableFieldReqBuilder {
@@ -8520,7 +8456,7 @@ func (builder *CreateAppTableFieldReqBuilder) TableId(tableId string) *CreateApp
 	return builder
 }
 
-// 格式为标准的 uuid，操作的唯一标识，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
+// 格式为标准的 uuidv4，操作的唯一标识，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
 //
 // 示例值：fe599b60-450f-46ff-b2ef-9f6675625b97
 func (builder *CreateAppTableFieldReqBuilder) ClientToken(clientToken string) *CreateAppTableFieldReqBuilder {
@@ -8528,7 +8464,7 @@ func (builder *CreateAppTableFieldReqBuilder) ClientToken(clientToken string) *C
 	return builder
 }
 
-// 该接口用于在数据表中新增一个字段
+// 在多维表格数据表中新增一个字段。
 func (builder *CreateAppTableFieldReqBuilder) AppTableField(appTableField *AppTableField) *CreateAppTableFieldReqBuilder {
 	builder.appTableField = appTableField
 	return builder
@@ -8575,7 +8511,7 @@ func NewDeleteAppTableFieldReqBuilder() *DeleteAppTableFieldReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *DeleteAppTableFieldReqBuilder) AppToken(appToken string) *DeleteAppTableFieldReqBuilder {
@@ -8583,7 +8519,7 @@ func (builder *DeleteAppTableFieldReqBuilder) AppToken(appToken string) *DeleteA
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *DeleteAppTableFieldReqBuilder) TableId(tableId string) *DeleteAppTableFieldReqBuilder {
@@ -8591,7 +8527,7 @@ func (builder *DeleteAppTableFieldReqBuilder) TableId(tableId string) *DeleteApp
 	return builder
 }
 
-// field id
+// 数据表中一个字段的唯一标识。通过[列出字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/list)接口获取。
 //
 // 示例值：fldPTb0U2y
 func (builder *DeleteAppTableFieldReqBuilder) FieldId(fieldId string) *DeleteAppTableFieldReqBuilder {
@@ -8611,9 +8547,9 @@ type DeleteAppTableFieldReq struct {
 }
 
 type DeleteAppTableFieldRespData struct {
-	FieldId *string `json:"field_id,omitempty"` // field id
+	FieldId *string `json:"field_id,omitempty"` // 被删除的字段的 ID
 
-	Deleted *bool `json:"deleted,omitempty"` // 删除标记
+	Deleted *bool `json:"deleted,omitempty"` // 是否删除
 }
 
 type DeleteAppTableFieldResp struct {
@@ -8646,7 +8582,7 @@ func (builder *ListAppTableFieldReqBuilder) Limit(limit int) *ListAppTableFieldR
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *ListAppTableFieldReqBuilder) AppToken(appToken string) *ListAppTableFieldReqBuilder {
@@ -8654,7 +8590,7 @@ func (builder *ListAppTableFieldReqBuilder) AppToken(appToken string) *ListAppTa
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *ListAppTableFieldReqBuilder) TableId(tableId string) *ListAppTableFieldReqBuilder {
@@ -8662,7 +8598,7 @@ func (builder *ListAppTableFieldReqBuilder) TableId(tableId string) *ListAppTabl
 	return builder
 }
 
-// 视图 ID
+// 多维表格中视图的唯一标识。获取方式：;;- 在多维表格的 URL 地址栏中，`view_id` 是下图中高亮部分：; ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998);- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 `view_id`。;;**注意**：;当 `filter` 参数 或 `sort` 参数不为空时，请求视为对数据表中的全部数据做条件过滤，指定的 `view_id` 会被忽略。
 //
 // 示例值：vewOVMEXPF
 func (builder *ListAppTableFieldReqBuilder) ViewId(viewId string) *ListAppTableFieldReqBuilder {
@@ -8670,7 +8606,7 @@ func (builder *ListAppTableFieldReqBuilder) ViewId(viewId string) *ListAppTableF
 	return builder
 }
 
-// 控制字段描述（多行文本格式）数据的返回格式, true 表示以数组富文本形式返回
+// 控制字段描述 `description` 数据的返回格式，默认为 false。true 表示 `description` 将以数组形式返回，如：;```json;{; "description": [; {; "text": "字段的描述",; "type": "text"; }; ];};```
 //
 // 示例值：true
 func (builder *ListAppTableFieldReqBuilder) TextFieldAsArray(textFieldAsArray bool) *ListAppTableFieldReqBuilder {
@@ -8743,7 +8679,7 @@ func NewUpdateAppTableFieldReqBuilder() *UpdateAppTableFieldReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *UpdateAppTableFieldReqBuilder) AppToken(appToken string) *UpdateAppTableFieldReqBuilder {
@@ -8751,7 +8687,7 @@ func (builder *UpdateAppTableFieldReqBuilder) AppToken(appToken string) *UpdateA
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *UpdateAppTableFieldReqBuilder) TableId(tableId string) *UpdateAppTableFieldReqBuilder {
@@ -8759,7 +8695,7 @@ func (builder *UpdateAppTableFieldReqBuilder) TableId(tableId string) *UpdateApp
 	return builder
 }
 
-// field id
+// 数据表中一个字段的唯一标识。通过[列出字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/list)接口获取。
 //
 // 示例值：fldPTb0U2y
 func (builder *UpdateAppTableFieldReqBuilder) FieldId(fieldId string) *UpdateAppTableFieldReqBuilder {
@@ -8767,15 +8703,13 @@ func (builder *UpdateAppTableFieldReqBuilder) FieldId(fieldId string) *UpdateApp
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UpdateAppTableFieldReqBuilder) ClientToken(clientToken string) *UpdateAppTableFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
 
-// 该接口用于在数据表中更新一个字段
+// 在多维表格数据表中更新一个字段。更新字段时为全量更新，property 等字段会被完全覆盖。
 func (builder *UpdateAppTableFieldReqBuilder) AppTableField(appTableField *AppTableField) *UpdateAppTableFieldReqBuilder {
 	builder.appTableField = appTableField
 	return builder
@@ -8821,7 +8755,7 @@ func NewCreateAppTableFieldGroupReqBodyBuilder() *CreateAppTableFieldGroupReqBod
 
 // 要新增字段编组列表
 //
-//示例值：
+// 示例值：
 func (builder *CreateAppTableFieldGroupReqBodyBuilder) FieldGroups(fieldGroups []*FieldGroup) *CreateAppTableFieldGroupReqBodyBuilder {
 	builder.fieldGroups = fieldGroups
 	builder.fieldGroupsSet = true
@@ -8877,15 +8811,15 @@ func NewCreateAppTableFieldGroupReqBuilder() *CreateAppTableFieldGroupReqBuilder
 	return builder
 }
 
-// 多维表格 App 的唯一标识
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 app_token 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 app_token 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 obj_type 的值为 bitable 时，obj_token 字段的值才是多维表格的 app_token。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
-// 示例值：bascnv1jIEppJdTCn3jOosabcef
+// 示例值：bascnv1jIEppJdTCn3jOosaxxxxx
 func (builder *CreateAppTableFieldGroupReqBuilder) AppToken(appToken string) *CreateAppTableFieldGroupReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 
-// 多维表格数据表的唯一标识
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976);;**数据校验规则**：;;- 长度范围：`0` ～ `50` 字符
 //
 // 示例值：tblz8nadEUdxNMt5
 func (builder *CreateAppTableFieldGroupReqBuilder) TableId(tableId string) *CreateAppTableFieldGroupReqBuilder {
@@ -8893,7 +8827,7 @@ func (builder *CreateAppTableFieldGroupReqBuilder) TableId(tableId string) *Crea
 	return builder
 }
 
-// 新增字段编组
+// 该接口用于为多维表格数据表的字段创建编组。创建字段编组后，字段将被组织到该编组中，便于多维表格的数据管理;#### 业务使用场景;适用于多维表格字段较多，需要分类管理字段的场景
 func (builder *CreateAppTableFieldGroupReqBuilder) Body(body *CreateAppTableFieldGroupReqBody) *CreateAppTableFieldGroupReqBuilder {
 	builder.body = body
 	return builder
@@ -8943,7 +8877,7 @@ func NewGetAppTableFormReqBuilder() *GetAppTableFormReqBuilder {
 	return builder
 }
 
-// 多维表格文档 Token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：bascnv1jIEppJdTCn3jOosabcef
 func (builder *GetAppTableFormReqBuilder) AppToken(appToken string) *GetAppTableFormReqBuilder {
@@ -8951,7 +8885,7 @@ func (builder *GetAppTableFormReqBuilder) AppToken(appToken string) *GetAppTable
 	return builder
 }
 
-// 表格 ID
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblz8nadEUdxNMt5
 func (builder *GetAppTableFormReqBuilder) TableId(tableId string) *GetAppTableFormReqBuilder {
@@ -8959,7 +8893,7 @@ func (builder *GetAppTableFormReqBuilder) TableId(tableId string) *GetAppTableFo
 	return builder
 }
 
-// 表单 ID
+// 多维表格中表单的唯一标识。表单也是视图的一种，其获取方式与获取 `view_id` 相同：;;- 在多维表格的 URL 地址栏中，`form_id` 是下图中高亮部分：; ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998);- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 `form_id`
 //
 // 示例值：vew6oMbAa4
 func (builder *GetAppTableFormReqBuilder) FormId(formId string) *GetAppTableFormReqBuilder {
@@ -9006,7 +8940,7 @@ func NewPatchAppTableFormReqBuilder() *PatchAppTableFormReqBuilder {
 	return builder
 }
 
-// 多维表格文档 Token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：bascnv1jIEppJdTCn3jOosabcef
 func (builder *PatchAppTableFormReqBuilder) AppToken(appToken string) *PatchAppTableFormReqBuilder {
@@ -9014,7 +8948,7 @@ func (builder *PatchAppTableFormReqBuilder) AppToken(appToken string) *PatchAppT
 	return builder
 }
 
-// 表格 ID
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblz8nadEUdxNMt5
 func (builder *PatchAppTableFormReqBuilder) TableId(tableId string) *PatchAppTableFormReqBuilder {
@@ -9022,7 +8956,7 @@ func (builder *PatchAppTableFormReqBuilder) TableId(tableId string) *PatchAppTab
 	return builder
 }
 
-// 表单 ID
+// 多维表格中表单的唯一标识。表单也是视图的一种，其获取方式与获取 `view_id` 相同：;;- 在多维表格的 URL 地址栏中，`form_id` 是下图中高亮部分：; ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998);- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 `form_id`
 //
 // 示例值：vew6oMbAa4
 func (builder *PatchAppTableFormReqBuilder) FormId(formId string) *PatchAppTableFormReqBuilder {
@@ -9030,7 +8964,7 @@ func (builder *PatchAppTableFormReqBuilder) FormId(formId string) *PatchAppTable
 	return builder
 }
 
-// 该接口用于更新表单中的元数据项
+// 更新表单视图中的元数据，包括表单名称、描述、是否共享等。
 func (builder *PatchAppTableFormReqBuilder) AppTableForm(appTableForm *AppTableForm) *PatchAppTableFormReqBuilder {
 	builder.appTableForm = appTableForm
 	return builder
@@ -9067,7 +9001,7 @@ type UpgradeAppTableFormReqBodyBuilder struct {
 	formName    string // 升级后的表单名称
 	formNameSet bool
 
-	displayMode    string // 表单布局模式。可选值;- traditional：传统布局;- one_question_per_page：一页一题布局:
+	displayMode    string // 表单布局模式。
 	displayModeSet bool
 }
 
@@ -9078,16 +9012,16 @@ func NewUpgradeAppTableFormReqBodyBuilder() *UpgradeAppTableFormReqBodyBuilder {
 
 // 升级后的表单名称
 //
-//示例值：文档问题反馈
+// 示例值：文档问题反馈
 func (builder *UpgradeAppTableFormReqBodyBuilder) FormName(formName string) *UpgradeAppTableFormReqBodyBuilder {
 	builder.formName = formName
 	builder.formNameSet = true
 	return builder
 }
 
-// 表单布局模式。可选值;- traditional：传统布局;- one_question_per_page：一页一题布局:
+// 表单布局模式。
 //
-//示例值：
+// 示例值：one_question_per_page
 func (builder *UpgradeAppTableFormReqBodyBuilder) DisplayMode(displayMode string) *UpgradeAppTableFormReqBodyBuilder {
 	builder.displayMode = displayMode
 	builder.displayModeSet = true
@@ -9126,9 +9060,9 @@ func (builder *UpgradeAppTableFormPathReqBodyBuilder) FormName(formName string) 
 	return builder
 }
 
-// 表单布局模式。可选值;- traditional：传统布局;- one_question_per_page：一页一题布局:
+// 表单布局模式。
 //
-// 示例值：
+// 示例值：one_question_per_page
 func (builder *UpgradeAppTableFormPathReqBodyBuilder) DisplayMode(displayMode string) *UpgradeAppTableFormPathReqBodyBuilder {
 	builder.displayMode = displayMode
 	builder.displayModeSet = true
@@ -9160,7 +9094,7 @@ func NewUpgradeAppTableFormReqBuilder() *UpgradeAppTableFormReqBuilder {
 	return builder
 }
 
-// 多维表格 App 的唯一标识
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：bascnv1jIEppJdTCn3jOosabcef
 func (builder *UpgradeAppTableFormReqBuilder) AppToken(appToken string) *UpgradeAppTableFormReqBuilder {
@@ -9168,7 +9102,7 @@ func (builder *UpgradeAppTableFormReqBuilder) AppToken(appToken string) *Upgrade
 	return builder
 }
 
-// 多维表格数据表的唯一标识
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976);;**数据校验规则**：;;- 长度范围：`0` ～ `50` 字符
 //
 // 示例值：tblz8nadEUdxNMt5
 func (builder *UpgradeAppTableFormReqBuilder) TableId(tableId string) *UpgradeAppTableFormReqBuilder {
@@ -9176,7 +9110,7 @@ func (builder *UpgradeAppTableFormReqBuilder) TableId(tableId string) *UpgradeAp
 	return builder
 }
 
-// 多维表格中表单的唯一标识
+// 多维表格中表单的唯一标识。表单也是视图的一种，其获取方式与获取 `view_id` 相同：;;- 在多维表格的 URL 地址栏中，`form_id` 是下图中高亮部分：; ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998);- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 `form_id`
 //
 // 示例值：vew6oMbAa4
 func (builder *UpgradeAppTableFormReqBuilder) FormId(formId string) *UpgradeAppTableFormReqBuilder {
@@ -9184,7 +9118,7 @@ func (builder *UpgradeAppTableFormReqBuilder) FormId(formId string) *UpgradeAppT
 	return builder
 }
 
-// 升级表单
+// 升级旧版表单至收集表
 func (builder *UpgradeAppTableFormReqBuilder) Body(body *UpgradeAppTableFormReqBody) *UpgradeAppTableFormReqBuilder {
 	builder.body = body
 	return builder
@@ -9201,7 +9135,7 @@ func (builder *UpgradeAppTableFormReqBuilder) Build() *UpgradeAppTableFormReq {
 type UpgradeAppTableFormReqBody struct {
 	FormName *string `json:"form_name,omitempty"` // 升级后的表单名称
 
-	DisplayMode *string `json:"display_mode,omitempty"` // 表单布局模式。可选值;- traditional：传统布局;- one_question_per_page：一页一题布局:
+	DisplayMode *string `json:"display_mode,omitempty"` // 表单布局模式。
 }
 
 type UpgradeAppTableFormReq struct {
@@ -9210,7 +9144,7 @@ type UpgradeAppTableFormReq struct {
 }
 
 type UpgradeAppTableFormRespData struct {
-	Form *UpgradedForm `json:"form,omitempty"` // 升级后的表单
+	Form *UpgradedForm `json:"form,omitempty"` //
 }
 
 type UpgradeAppTableFormResp struct {
@@ -9243,7 +9177,7 @@ func (builder *ListAppTableFormFieldReqBuilder) Limit(limit int) *ListAppTableFo
 	return builder
 }
 
-// 多维表格文档 Token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：bascnCMII2ORej2RItqpZZUNMIe
 func (builder *ListAppTableFormFieldReqBuilder) AppToken(appToken string) *ListAppTableFormFieldReqBuilder {
@@ -9251,7 +9185,7 @@ func (builder *ListAppTableFormFieldReqBuilder) AppToken(appToken string) *ListA
 	return builder
 }
 
-// 表格 ID
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblxI2tWaxP5dG7p
 func (builder *ListAppTableFormFieldReqBuilder) TableId(tableId string) *ListAppTableFormFieldReqBuilder {
@@ -9259,7 +9193,7 @@ func (builder *ListAppTableFormFieldReqBuilder) TableId(tableId string) *ListApp
 	return builder
 }
 
-// 表单 ID
+// 多维表格中表单的唯一标识。表单也是视图的一种，其获取方式与获取 `view_id` 相同：;;- 在多维表格的 URL 地址栏中，`form_id` 是下图中高亮部分：; ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998);- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 `form_id`
 //
 // 示例值：vewTpR1urY
 func (builder *ListAppTableFormFieldReqBuilder) FormId(formId string) *ListAppTableFormFieldReqBuilder {
@@ -9269,7 +9203,7 @@ func (builder *ListAppTableFormFieldReqBuilder) FormId(formId string) *ListAppTa
 
 // 分页大小
 //
-// 示例值：10
+// 示例值：
 func (builder *ListAppTableFormFieldReqBuilder) PageSize(pageSize int) *ListAppTableFormFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -9332,7 +9266,7 @@ func NewPatchAppTableFormFieldReqBuilder() *PatchAppTableFormFieldReqBuilder {
 	return builder
 }
 
-// 多维表格文档 Token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：bascnCMII2ORej2RItqpZZUNMIe
 func (builder *PatchAppTableFormFieldReqBuilder) AppToken(appToken string) *PatchAppTableFormFieldReqBuilder {
@@ -9340,7 +9274,7 @@ func (builder *PatchAppTableFormFieldReqBuilder) AppToken(appToken string) *Patc
 	return builder
 }
 
-// 表格 ID
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *PatchAppTableFormFieldReqBuilder) TableId(tableId string) *PatchAppTableFormFieldReqBuilder {
@@ -9348,7 +9282,7 @@ func (builder *PatchAppTableFormFieldReqBuilder) TableId(tableId string) *PatchA
 	return builder
 }
 
-// 表单 ID
+// 多维表格中表单的唯一标识。表单也是视图的一种，其获取方式与获取 `view_id` 相同：;;- 在多维表格的 URL 地址栏中，`form_id` 是下图中高亮部分：; ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998);- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 `form_id`
 //
 // 示例值：vewTpR1urY
 func (builder *PatchAppTableFormFieldReqBuilder) FormId(formId string) *PatchAppTableFormFieldReqBuilder {
@@ -9356,7 +9290,7 @@ func (builder *PatchAppTableFormFieldReqBuilder) FormId(formId string) *PatchApp
 	return builder
 }
 
-// 表单问题 ID
+// 表单问题的唯一标识。表单中的问题本质上是表单视图中的字段，因此你可通过[列出字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/list)接口获取表单问题的唯一标识。
 //
 // 示例值：fldjX7dUj5
 func (builder *PatchAppTableFormFieldReqBuilder) FieldId(fieldId string) *PatchAppTableFormFieldReqBuilder {
@@ -9364,7 +9298,7 @@ func (builder *PatchAppTableFormFieldReqBuilder) FieldId(fieldId string) *PatchA
 	return builder
 }
 
-// 该接口用于更新表单中的问题项
+// 更新表单中的问题项。
 func (builder *PatchAppTableFormFieldReqBuilder) AppTableFormPatchedField(appTableFormPatchedField *AppTableFormPatchedField) *PatchAppTableFormFieldReqBuilder {
 	builder.appTableFormPatchedField = appTableFormPatchedField
 	return builder
@@ -9384,7 +9318,7 @@ type PatchAppTableFormFieldReq struct {
 }
 
 type PatchAppTableFormFieldRespData struct {
-	Fields *AppTableFormPatchedField `json:"fields,omitempty"` // 更新后的field值
+	Fields *AppTableFormPatchedField `json:"fields,omitempty"` //
 }
 
 type PatchAppTableFormFieldResp struct {
@@ -9398,7 +9332,7 @@ func (resp *PatchAppTableFormFieldResp) Success() bool {
 }
 
 type BatchCreateAppTableRecordReqBodyBuilder struct {
-	records    []*AppTableRecord // 本次请求将要新增的记录列表
+	records    []*AppTableRecord // 要新增的记录列表
 	recordsSet bool
 }
 
@@ -9407,9 +9341,9 @@ func NewBatchCreateAppTableRecordReqBodyBuilder() *BatchCreateAppTableRecordReqB
 	return builder
 }
 
-// 本次请求将要新增的记录列表
+// 要新增的记录列表
 //
-//示例值：
+// 示例值：
 func (builder *BatchCreateAppTableRecordReqBodyBuilder) Records(records []*AppTableRecord) *BatchCreateAppTableRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsSet = true
@@ -9434,7 +9368,7 @@ func NewBatchCreateAppTableRecordPathReqBodyBuilder() *BatchCreateAppTableRecord
 	return builder
 }
 
-// 本次请求将要新增的记录列表
+// 要新增的记录列表
 //
 // 示例值：
 func (builder *BatchCreateAppTableRecordPathReqBodyBuilder) Records(records []*AppTableRecord) *BatchCreateAppTableRecordPathReqBodyBuilder {
@@ -9465,7 +9399,7 @@ func NewBatchCreateAppTableRecordReqBuilder() *BatchCreateAppTableRecordReqBuild
 	return builder
 }
 
-// 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 app_token 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 app_token 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 obj_type 的值为 bitable 时，obj_token 字段的值才是多维表格的 app_token。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *BatchCreateAppTableRecordReqBuilder) AppToken(appToken string) *BatchCreateAppTableRecordReqBuilder {
@@ -9473,7 +9407,7 @@ func (builder *BatchCreateAppTableRecordReqBuilder) AppToken(appToken string) *B
 	return builder
 }
 
-// 多维表格数据表的唯一标识符 [table_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883)
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *BatchCreateAppTableRecordReqBuilder) TableId(tableId string) *BatchCreateAppTableRecordReqBuilder {
@@ -9489,7 +9423,7 @@ func (builder *BatchCreateAppTableRecordReqBuilder) UserIdType(userIdType string
 	return builder
 }
 
-// 格式为标准的 uuid，操作的唯一标识，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
+// 格式为标准的 uuidv4，操作的唯一标识，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
 //
 // 示例值：fe599b60-450f-46ff-b2ef-9f6675625b97
 func (builder *BatchCreateAppTableRecordReqBuilder) ClientToken(clientToken string) *BatchCreateAppTableRecordReqBuilder {
@@ -9497,7 +9431,7 @@ func (builder *BatchCreateAppTableRecordReqBuilder) ClientToken(clientToken stri
 	return builder
 }
 
-// 用于控制一致性读写，默认开启检查
+// 是否忽略一致性读写检查，默认为 false，即在进行读写操作时，系统将确保读取到的数据和写入的数据是一致的。可选值：;- true：忽略读写一致性检查，提高性能，但可能会导致某些节点的数据不同步，出现暂时不一致;- false：开启读写一致性检查，确保数据在读写过程中一致
 //
 // 示例值：true
 func (builder *BatchCreateAppTableRecordReqBuilder) IgnoreConsistencyCheck(ignoreConsistencyCheck bool) *BatchCreateAppTableRecordReqBuilder {
@@ -9505,7 +9439,7 @@ func (builder *BatchCreateAppTableRecordReqBuilder) IgnoreConsistencyCheck(ignor
 	return builder
 }
 
-// 该接口用于在数据表中新增多条记录，单次调用最多新增 500 条记录。
+// 在多维表格数据表中新增多条记录，单次调用最多新增 1,000 条记录。
 func (builder *BatchCreateAppTableRecordReqBuilder) Body(body *BatchCreateAppTableRecordReqBody) *BatchCreateAppTableRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -9521,7 +9455,7 @@ func (builder *BatchCreateAppTableRecordReqBuilder) Build() *BatchCreateAppTable
 }
 
 type BatchCreateAppTableRecordReqBody struct {
-	Records []*AppTableRecord `json:"records,omitempty"` // 本次请求将要新增的记录列表
+	Records []*AppTableRecord `json:"records,omitempty"` // 要新增的记录列表
 }
 
 type BatchCreateAppTableRecordReq struct {
@@ -9530,7 +9464,7 @@ type BatchCreateAppTableRecordReq struct {
 }
 
 type BatchCreateAppTableRecordRespData struct {
-	Records []*AppTableRecord `json:"records,omitempty"` // 本次请求新增的记录列表
+	Records []*AppTableRecord `json:"records,omitempty"` // 新增的记录列表
 }
 
 type BatchCreateAppTableRecordResp struct {
@@ -9544,7 +9478,7 @@ func (resp *BatchCreateAppTableRecordResp) Success() bool {
 }
 
 type BatchDeleteAppTableRecordReqBodyBuilder struct {
-	records    []string // 删除的多条记录id列表
+	records    []string // 删除的多条记录 ID 列表。通过[查询记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/search)接口获取。;;**注意**：;单次调用中最多删除 500 条记录。
 	recordsSet bool
 }
 
@@ -9553,9 +9487,9 @@ func NewBatchDeleteAppTableRecordReqBodyBuilder() *BatchDeleteAppTableRecordReqB
 	return builder
 }
 
-// 删除的多条记录id列表
+// 删除的多条记录 ID 列表。通过[查询记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/search)接口获取。;;**注意**：;单次调用中最多删除 500 条记录。
 //
-//示例值：[;	"recIcJBbvC",;	"recvmiCORa";]
+// 示例值：
 func (builder *BatchDeleteAppTableRecordReqBodyBuilder) Records(records []string) *BatchDeleteAppTableRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsSet = true
@@ -9580,9 +9514,9 @@ func NewBatchDeleteAppTableRecordPathReqBodyBuilder() *BatchDeleteAppTableRecord
 	return builder
 }
 
-// 删除的多条记录id列表
+// 删除的多条记录 ID 列表。通过[查询记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/search)接口获取。;;**注意**：;单次调用中最多删除 500 条记录。
 //
-// 示例值：[;	"recIcJBbvC",;	"recvmiCORa";]
+// 示例值：
 func (builder *BatchDeleteAppTableRecordPathReqBodyBuilder) Records(records []string) *BatchDeleteAppTableRecordPathReqBodyBuilder {
 	builder.records = records
 	builder.recordsSet = true
@@ -9611,7 +9545,7 @@ func NewBatchDeleteAppTableRecordReqBuilder() *BatchDeleteAppTableRecordReqBuild
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *BatchDeleteAppTableRecordReqBuilder) AppToken(appToken string) *BatchDeleteAppTableRecordReqBuilder {
@@ -9619,7 +9553,7 @@ func (builder *BatchDeleteAppTableRecordReqBuilder) AppToken(appToken string) *B
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *BatchDeleteAppTableRecordReqBuilder) TableId(tableId string) *BatchDeleteAppTableRecordReqBuilder {
@@ -9627,15 +9561,13 @@ func (builder *BatchDeleteAppTableRecordReqBuilder) TableId(tableId string) *Bat
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *BatchDeleteAppTableRecordReqBuilder) IgnoreConsistencyCheck(ignoreConsistencyCheck bool) *BatchDeleteAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("ignore_consistency_check", fmt.Sprint(ignoreConsistencyCheck))
 	return builder
 }
 
-// 该接口用于删除数据表中现有的多条记录，单次调用中最多删除 500 条记录。
+// 删除多维表格数据表中现有的多条记录。
 func (builder *BatchDeleteAppTableRecordReqBuilder) Body(body *BatchDeleteAppTableRecordReqBody) *BatchDeleteAppTableRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -9651,7 +9583,7 @@ func (builder *BatchDeleteAppTableRecordReqBuilder) Build() *BatchDeleteAppTable
 }
 
 type BatchDeleteAppTableRecordReqBody struct {
-	Records []string `json:"records,omitempty"` // 删除的多条记录id列表
+	Records []string `json:"records,omitempty"` // 删除的多条记录 ID 列表。通过[查询记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/search)接口获取。;;**注意**：;单次调用中最多删除 500 条记录。
 }
 
 type BatchDeleteAppTableRecordReq struct {
@@ -9660,7 +9592,7 @@ type BatchDeleteAppTableRecordReq struct {
 }
 
 type BatchDeleteAppTableRecordRespData struct {
-	Records []*DeleteRecord `json:"records,omitempty"` // 记录
+	Records []*DeleteRecord `json:"records,omitempty"` // 删除的记录列表
 }
 
 type BatchDeleteAppTableRecordResp struct {
@@ -9674,16 +9606,16 @@ func (resp *BatchDeleteAppTableRecordResp) Success() bool {
 }
 
 type BatchGetAppTableRecordReqBodyBuilder struct {
-	recordIds    []string // 记录 id 列表
+	recordIds    []string // 记录 ID 列表。调用[查询记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/search)获取。
 	recordIdsSet bool
 
 	userIdType    string // 此次调用中使用的用户 id 的类型
 	userIdTypeSet bool
 
-	withSharedUrl    bool // 控制是否返回记录的分享链接，true 表示返回分享链接
+	withSharedUrl    bool // 是否返回记录的分享链接。可选值：;- true：返回分享链接;- false：不返回分享链接;;**默认值**：false
 	withSharedUrlSet bool
 
-	automaticFields    bool // 控制是否返回自动计算的字段，true 表示返回
+	automaticFields    bool // 是否返回自动计算的字段。可选值：;- true：返回自动计算的字段;- false：不返回自动计算的字段;;**默认值**：false
 	automaticFieldsSet bool
 }
 
@@ -9692,9 +9624,9 @@ func NewBatchGetAppTableRecordReqBodyBuilder() *BatchGetAppTableRecordReqBodyBui
 	return builder
 }
 
-// 记录 id 列表
+// 记录 ID 列表。调用[查询记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/search)获取。
 //
-//示例值：
+// 示例值：
 func (builder *BatchGetAppTableRecordReqBodyBuilder) RecordIds(recordIds []string) *BatchGetAppTableRecordReqBodyBuilder {
 	builder.recordIds = recordIds
 	builder.recordIdsSet = true
@@ -9703,25 +9635,25 @@ func (builder *BatchGetAppTableRecordReqBodyBuilder) RecordIds(recordIds []strin
 
 // 此次调用中使用的用户 id 的类型
 //
-//示例值：open_id
+// 示例值：open_id
 func (builder *BatchGetAppTableRecordReqBodyBuilder) UserIdType(userIdType string) *BatchGetAppTableRecordReqBodyBuilder {
 	builder.userIdType = userIdType
 	builder.userIdTypeSet = true
 	return builder
 }
 
-// 控制是否返回记录的分享链接，true 表示返回分享链接
+// 是否返回记录的分享链接。可选值：;- true：返回分享链接;- false：不返回分享链接;;**默认值**：false
 //
-//示例值：
+// 示例值：true
 func (builder *BatchGetAppTableRecordReqBodyBuilder) WithSharedUrl(withSharedUrl bool) *BatchGetAppTableRecordReqBodyBuilder {
 	builder.withSharedUrl = withSharedUrl
 	builder.withSharedUrlSet = true
 	return builder
 }
 
-// 控制是否返回自动计算的字段，true 表示返回
+// 是否返回自动计算的字段。可选值：;- true：返回自动计算的字段;- false：不返回自动计算的字段;;**默认值**：false
 //
-//示例值：
+// 示例值：true
 func (builder *BatchGetAppTableRecordReqBodyBuilder) AutomaticFields(automaticFields bool) *BatchGetAppTableRecordReqBodyBuilder {
 	builder.automaticFields = automaticFields
 	builder.automaticFieldsSet = true
@@ -9761,7 +9693,7 @@ func NewBatchGetAppTableRecordPathReqBodyBuilder() *BatchGetAppTableRecordPathRe
 	return builder
 }
 
-// 记录 id 列表
+// 记录 ID 列表。调用[查询记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/search)获取。
 //
 // 示例值：
 func (builder *BatchGetAppTableRecordPathReqBodyBuilder) RecordIds(recordIds []string) *BatchGetAppTableRecordPathReqBodyBuilder {
@@ -9779,18 +9711,18 @@ func (builder *BatchGetAppTableRecordPathReqBodyBuilder) UserIdType(userIdType s
 	return builder
 }
 
-// 控制是否返回记录的分享链接，true 表示返回分享链接
+// 是否返回记录的分享链接。可选值：;- true：返回分享链接;- false：不返回分享链接;;**默认值**：false
 //
-// 示例值：
+// 示例值：true
 func (builder *BatchGetAppTableRecordPathReqBodyBuilder) WithSharedUrl(withSharedUrl bool) *BatchGetAppTableRecordPathReqBodyBuilder {
 	builder.withSharedUrl = withSharedUrl
 	builder.withSharedUrlSet = true
 	return builder
 }
 
-// 控制是否返回自动计算的字段，true 表示返回
+// 是否返回自动计算的字段。可选值：;- true：返回自动计算的字段;- false：不返回自动计算的字段;;**默认值**：false
 //
-// 示例值：
+// 示例值：true
 func (builder *BatchGetAppTableRecordPathReqBodyBuilder) AutomaticFields(automaticFields bool) *BatchGetAppTableRecordPathReqBodyBuilder {
 	builder.automaticFields = automaticFields
 	builder.automaticFieldsSet = true
@@ -9828,23 +9760,23 @@ func NewBatchGetAppTableRecordReqBuilder() *BatchGetAppTableRecordReqBuilder {
 	return builder
 }
 
-// 表格token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
-// 示例值：NQRxbRkBMa6OnZsjtERcxhNWnNh
+// 示例值：NQRxbRkBMa6OnZsjtERcxhabcef
 func (builder *BatchGetAppTableRecordReqBuilder) AppToken(appToken string) *BatchGetAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("app_token", fmt.Sprint(appToken))
 	return builder
 }
 
-// 表格id
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
-// 示例值：tbl0xe5g8PP3U3cS
+// 示例值：tbl0xe5g8PPabcef
 func (builder *BatchGetAppTableRecordReqBuilder) TableId(tableId string) *BatchGetAppTableRecordReqBuilder {
 	builder.apiReq.PathParams.Set("table_id", fmt.Sprint(tableId))
 	return builder
 }
 
-// 批量获取多维表格记录
+// 通过多个记录 ID 查询记录信息。该接口最多支持查询 100 条记录。
 func (builder *BatchGetAppTableRecordReqBuilder) Body(body *BatchGetAppTableRecordReqBody) *BatchGetAppTableRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -9859,13 +9791,13 @@ func (builder *BatchGetAppTableRecordReqBuilder) Build() *BatchGetAppTableRecord
 }
 
 type BatchGetAppTableRecordReqBody struct {
-	RecordIds []string `json:"record_ids,omitempty"` // 记录 id 列表
+	RecordIds []string `json:"record_ids,omitempty"` // 记录 ID 列表。调用[查询记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/search)获取。
 
 	UserIdType *string `json:"user_id_type,omitempty"` // 此次调用中使用的用户 id 的类型
 
-	WithSharedUrl *bool `json:"with_shared_url,omitempty"` // 控制是否返回记录的分享链接，true 表示返回分享链接
+	WithSharedUrl *bool `json:"with_shared_url,omitempty"` // 是否返回记录的分享链接。可选值：;- true：返回分享链接;- false：不返回分享链接;;**默认值**：false
 
-	AutomaticFields *bool `json:"automatic_fields,omitempty"` // 控制是否返回自动计算的字段，true 表示返回
+	AutomaticFields *bool `json:"automatic_fields,omitempty"` // 是否返回自动计算的字段。可选值：;- true：返回自动计算的字段;- false：不返回自动计算的字段;;**默认值**：false
 }
 
 type BatchGetAppTableRecordReq struct {
@@ -9876,7 +9808,7 @@ type BatchGetAppTableRecordReq struct {
 type BatchGetAppTableRecordRespData struct {
 	Records []*AppTableRecord `json:"records,omitempty"` // 记录列表
 
-	ForbiddenRecordIds []string `json:"forbidden_record_ids,omitempty"` // 禁止访问的记录列表(针对开启了高级权限的文档)
+	ForbiddenRecordIds []string `json:"forbidden_record_ids,omitempty"` // 禁止访问的记录列表（针对开启了高级权限的多维表格）
 
 	AbsentRecordIds []string `json:"absent_record_ids,omitempty"` // 不存在的记录列表
 }
@@ -9892,7 +9824,7 @@ func (resp *BatchGetAppTableRecordResp) Success() bool {
 }
 
 type BatchUpdateAppTableRecordReqBodyBuilder struct {
-	records    []*AppTableRecord // 记录
+	records    []*AppTableRecord // 要更新的记录
 	recordsSet bool
 }
 
@@ -9901,9 +9833,9 @@ func NewBatchUpdateAppTableRecordReqBodyBuilder() *BatchUpdateAppTableRecordReqB
 	return builder
 }
 
-// 记录
+// 要更新的记录
 //
-//示例值：
+// 示例值：
 func (builder *BatchUpdateAppTableRecordReqBodyBuilder) Records(records []*AppTableRecord) *BatchUpdateAppTableRecordReqBodyBuilder {
 	builder.records = records
 	builder.recordsSet = true
@@ -9928,7 +9860,7 @@ func NewBatchUpdateAppTableRecordPathReqBodyBuilder() *BatchUpdateAppTableRecord
 	return builder
 }
 
-// 记录
+// 要更新的记录
 //
 // 示例值：
 func (builder *BatchUpdateAppTableRecordPathReqBodyBuilder) Records(records []*AppTableRecord) *BatchUpdateAppTableRecordPathReqBodyBuilder {
@@ -9959,7 +9891,7 @@ func NewBatchUpdateAppTableRecordReqBuilder() *BatchUpdateAppTableRecordReqBuild
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 app_token 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 app_token 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 obj_type 的值为 bitable 时，obj_token 字段的值才是多维表格的 app_token。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *BatchUpdateAppTableRecordReqBuilder) AppToken(appToken string) *BatchUpdateAppTableRecordReqBuilder {
@@ -9967,7 +9899,7 @@ func (builder *BatchUpdateAppTableRecordReqBuilder) AppToken(appToken string) *B
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *BatchUpdateAppTableRecordReqBuilder) TableId(tableId string) *BatchUpdateAppTableRecordReqBuilder {
@@ -9983,7 +9915,7 @@ func (builder *BatchUpdateAppTableRecordReqBuilder) UserIdType(userIdType string
 	return builder
 }
 
-// 用于控制一致性读写，默认开启检查
+// 是否忽略一致性读写检查，默认为 false，即在进行读写操作时，系统将确保读取到的数据和写入的数据是一致的。可选值：;- true：忽略读写一致性检查，提高性能，但可能会导致某些节点的数据不同步，出现暂时不一致;- false：开启读写一致性检查，确保数据在读写过程中一致
 //
 // 示例值：true
 func (builder *BatchUpdateAppTableRecordReqBuilder) IgnoreConsistencyCheck(ignoreConsistencyCheck bool) *BatchUpdateAppTableRecordReqBuilder {
@@ -9991,15 +9923,13 @@ func (builder *BatchUpdateAppTableRecordReqBuilder) IgnoreConsistencyCheck(ignor
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *BatchUpdateAppTableRecordReqBuilder) ClientToken(clientToken string) *BatchUpdateAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
 
-// 该接口用于更新数据表中的多条记录，单次调用最多更新 500 条记录。
+// 更新数据表中的多条记录，单次调用最多更新 1,000 条记录。
 func (builder *BatchUpdateAppTableRecordReqBuilder) Body(body *BatchUpdateAppTableRecordReqBody) *BatchUpdateAppTableRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -10015,7 +9945,7 @@ func (builder *BatchUpdateAppTableRecordReqBuilder) Build() *BatchUpdateAppTable
 }
 
 type BatchUpdateAppTableRecordReqBody struct {
-	Records []*AppTableRecord `json:"records,omitempty"` // 记录
+	Records []*AppTableRecord `json:"records,omitempty"` // 要更新的记录
 }
 
 type BatchUpdateAppTableRecordReq struct {
@@ -10024,7 +9954,7 @@ type BatchUpdateAppTableRecordReq struct {
 }
 
 type BatchUpdateAppTableRecordRespData struct {
-	Records []*AppTableRecord `json:"records,omitempty"` // 记录
+	Records []*AppTableRecord `json:"records,omitempty"` // 记录更新后的内容
 }
 
 type BatchUpdateAppTableRecordResp struct {
@@ -10051,7 +9981,7 @@ func NewCreateAppTableRecordReqBuilder() *CreateAppTableRecordReqBuilder {
 	return builder
 }
 
-// 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：bascng7vrxcxpig7geggXiCtadY
 func (builder *CreateAppTableRecordReqBuilder) AppToken(appToken string) *CreateAppTableRecordReqBuilder {
@@ -10059,7 +9989,7 @@ func (builder *CreateAppTableRecordReqBuilder) AppToken(appToken string) *Create
 	return builder
 }
 
-// 多维表格数据表的唯一标识符 [table_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883)
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976);;**数据校验规则**：;;- 长度范围：`0` ～ `50` 字符
 //
 // 示例值：tblUa9vcYjWQYJCj
 func (builder *CreateAppTableRecordReqBuilder) TableId(tableId string) *CreateAppTableRecordReqBuilder {
@@ -10075,7 +10005,7 @@ func (builder *CreateAppTableRecordReqBuilder) UserIdType(userIdType string) *Cr
 	return builder
 }
 
-// 格式为标准的 uuid，操作的唯一标识，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
+// 格式为标准的 uuidv4，操作的唯一标识，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
 //
 // 示例值：fe599b60-450f-46ff-b2ef-9f6675625b97
 func (builder *CreateAppTableRecordReqBuilder) ClientToken(clientToken string) *CreateAppTableRecordReqBuilder {
@@ -10083,7 +10013,7 @@ func (builder *CreateAppTableRecordReqBuilder) ClientToken(clientToken string) *
 	return builder
 }
 
-// 用于控制一致性读写，默认开启检查
+// 是否忽略一致性读写检查，默认为 false，即在进行读写操作时，系统将确保读取到的数据和写入的数据是一致的。可选值：;- true：忽略读写一致性检查，提高性能，但可能会导致某些节点的数据不同步，出现暂时不一致;- false：开启读写一致性检查，确保数据在读写过程中一致
 //
 // 示例值：true
 func (builder *CreateAppTableRecordReqBuilder) IgnoreConsistencyCheck(ignoreConsistencyCheck bool) *CreateAppTableRecordReqBuilder {
@@ -10091,7 +10021,7 @@ func (builder *CreateAppTableRecordReqBuilder) IgnoreConsistencyCheck(ignoreCons
 	return builder
 }
 
-// 该接口用于在数据表中新增一条记录
+// 在多维表格数据表中新增一条记录。
 func (builder *CreateAppTableRecordReqBuilder) AppTableRecord(appTableRecord *AppTableRecord) *CreateAppTableRecordReqBuilder {
 	builder.appTableRecord = appTableRecord
 	return builder
@@ -10112,7 +10042,7 @@ type CreateAppTableRecordReq struct {
 }
 
 type CreateAppTableRecordRespData struct {
-	Record *AppTableRecord `json:"record,omitempty"` // 新增的记录的内容
+	Record *AppTableRecord `json:"record,omitempty"` // 新增记录的内容
 }
 
 type CreateAppTableRecordResp struct {
@@ -10138,7 +10068,7 @@ func NewDeleteAppTableRecordReqBuilder() *DeleteAppTableRecordReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *DeleteAppTableRecordReqBuilder) AppToken(appToken string) *DeleteAppTableRecordReqBuilder {
@@ -10146,7 +10076,7 @@ func (builder *DeleteAppTableRecordReqBuilder) AppToken(appToken string) *Delete
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *DeleteAppTableRecordReqBuilder) TableId(tableId string) *DeleteAppTableRecordReqBuilder {
@@ -10154,7 +10084,7 @@ func (builder *DeleteAppTableRecordReqBuilder) TableId(tableId string) *DeleteAp
 	return builder
 }
 
-// 单条记录的Id
+// 数据表中一条记录的唯一标识。通过[查询记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/search)接口获取。
 //
 // 示例值：recpCsf4ME
 func (builder *DeleteAppTableRecordReqBuilder) RecordId(recordId string) *DeleteAppTableRecordReqBuilder {
@@ -10162,8 +10092,6 @@ func (builder *DeleteAppTableRecordReqBuilder) RecordId(recordId string) *Delete
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DeleteAppTableRecordReqBuilder) IgnoreConsistencyCheck(ignoreConsistencyCheck bool) *DeleteAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("ignore_consistency_check", fmt.Sprint(ignoreConsistencyCheck))
@@ -10185,7 +10113,7 @@ type DeleteAppTableRecordReq struct {
 type DeleteAppTableRecordRespData struct {
 	Deleted *bool `json:"deleted,omitempty"` // 是否成功删除
 
-	RecordId *string `json:"record_id,omitempty"` // 删除的记录id
+	RecordId *string `json:"record_id,omitempty"` // 删除的记录 ID
 }
 
 type DeleteAppTableRecordResp struct {
@@ -10211,7 +10139,7 @@ func NewGetAppTableRecordReqBuilder() *GetAppTableRecordReqBuilder {
 	return builder
 }
 
-// bitable app token
+// base app token
 //
 // 示例值：bascnCMII2ORej2RItqpZZUNMIe
 func (builder *GetAppTableRecordReqBuilder) AppToken(appToken string) *GetAppTableRecordReqBuilder {
@@ -10235,7 +10163,7 @@ func (builder *GetAppTableRecordReqBuilder) RecordId(recordId string) *GetAppTab
 	return builder
 }
 
-// 控制多行文本字段数据的返回格式, true 表示以数组形式返回
+// 多行文本字段数据是否以数组形式返回。true 表示以数组形式返回。默认为 false
 //
 // 示例值：true
 func (builder *GetAppTableRecordReqBuilder) TextFieldAsArray(textFieldAsArray bool) *GetAppTableRecordReqBuilder {
@@ -10251,7 +10179,7 @@ func (builder *GetAppTableRecordReqBuilder) UserIdType(userIdType string) *GetAp
 	return builder
 }
 
-// 控制公式、查找引用是否显示完整的原样返回结果
+// 控制公式、查找引用是否显示完整原样的返回结果。默认为 false
 //
 // 示例值：true
 func (builder *GetAppTableRecordReqBuilder) DisplayFormulaRef(displayFormulaRef bool) *GetAppTableRecordReqBuilder {
@@ -10259,7 +10187,7 @@ func (builder *GetAppTableRecordReqBuilder) DisplayFormulaRef(displayFormulaRef 
 	return builder
 }
 
-// 控制是否返回该记录的链接
+// 控制是否返回该记录的链接，即 record_url 参数。默认为 false，即不返回
 //
 // 示例值：
 func (builder *GetAppTableRecordReqBuilder) WithSharedUrl(withSharedUrl bool) *GetAppTableRecordReqBuilder {
@@ -10267,7 +10195,7 @@ func (builder *GetAppTableRecordReqBuilder) WithSharedUrl(withSharedUrl bool) *G
 	return builder
 }
 
-// 控制是否返回自动计算的字段，例如 `created_by`/`created_time`/`last_modified_by`/`last_modified_time`，true 表示返回
+// 控制是否返回自动计算的字段，例如 `created_by`/`created_time`/`last_modified_by`/`last_modified_time`，true 表示返回。默认为 false
 //
 // 示例值：true
 func (builder *GetAppTableRecordReqBuilder) AutomaticFields(automaticFields bool) *GetAppTableRecordReqBuilder {
@@ -10437,7 +10365,7 @@ type ListAppTableRecordRespData struct {
 
 	PageToken *string `json:"page_token,omitempty"` // 下一页分页的token
 
-	Total *int `json:"total,omitempty"` // 本次请求返回的总记录数
+	Total *int `json:"total,omitempty"` // 总记录数
 
 	Items []*AppTableRecord `json:"items,omitempty"` // 本次请求返回的全部记录列表
 }
@@ -10453,19 +10381,19 @@ func (resp *ListAppTableRecordResp) Success() bool {
 }
 
 type SearchAppTableRecordReqBodyBuilder struct {
-	viewId    string // 视图Id,指定视图id则按照视图的筛选排序结果返回数据
+	viewId    string // 多维表格中视图的唯一标识。获取方式：;;- 在多维表格的 URL 地址栏中，view_id 是下图中高亮部分：; ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998);- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 view_id。;;**注意**：;当 filter 参数 或 sort 参数不为空时，请求视为对数据表中的全部数据做条件过滤，指定的 view_id 会被忽略。
 	viewIdSet bool
 
-	fieldNames    []string // 指定要返回的字段
+	fieldNames    []string // 字段名称，用于指定本次查询返回记录中包含的字段
 	fieldNamesSet bool
 
 	sort    []*Sort // 排序条件
 	sortSet bool
 
-	filter    *FilterInfo // 筛选条件
+	filter    *FilterInfo // 包含条件筛选信息的对象。了解 filter 填写指南和使用示例（如怎样同时使用 `and` 和 `or` 逻辑链接词），参考[记录筛选参数填写指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide)。
 	filterSet bool
 
-	automaticFields    bool // 控制是否返回自动计算的字段, true 表示返回
+	automaticFields    bool // 是否自动计算并返回创建时间（created_time）、修改时间（last_modified_time）、创建人（created_by）、修改人（last_modified_by）这四类字段。默认为 false，表示不返回。
 	automaticFieldsSet bool
 }
 
@@ -10474,18 +10402,18 @@ func NewSearchAppTableRecordReqBodyBuilder() *SearchAppTableRecordReqBodyBuilder
 	return builder
 }
 
-// 视图Id,指定视图id则按照视图的筛选排序结果返回数据
+// 多维表格中视图的唯一标识。获取方式：;;- 在多维表格的 URL 地址栏中，view_id 是下图中高亮部分：; ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998);- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 view_id。;;**注意**：;当 filter 参数 或 sort 参数不为空时，请求视为对数据表中的全部数据做条件过滤，指定的 view_id 会被忽略。
 //
-//示例值：viex
+// 示例值：vewqhz51lk
 func (builder *SearchAppTableRecordReqBodyBuilder) ViewId(viewId string) *SearchAppTableRecordReqBodyBuilder {
 	builder.viewId = viewId
 	builder.viewIdSet = true
 	return builder
 }
 
-// 指定要返回的字段
+// 字段名称，用于指定本次查询返回记录中包含的字段
 //
-//示例值：
+// 示例值：
 func (builder *SearchAppTableRecordReqBodyBuilder) FieldNames(fieldNames []string) *SearchAppTableRecordReqBodyBuilder {
 	builder.fieldNames = fieldNames
 	builder.fieldNamesSet = true
@@ -10494,25 +10422,25 @@ func (builder *SearchAppTableRecordReqBodyBuilder) FieldNames(fieldNames []strin
 
 // 排序条件
 //
-//示例值：
+// 示例值：
 func (builder *SearchAppTableRecordReqBodyBuilder) Sort(sort []*Sort) *SearchAppTableRecordReqBodyBuilder {
 	builder.sort = sort
 	builder.sortSet = true
 	return builder
 }
 
-// 筛选条件
+// 包含条件筛选信息的对象。了解 filter 填写指南和使用示例（如怎样同时使用 `and` 和 `or` 逻辑链接词），参考[记录筛选参数填写指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide)。
 //
-//示例值：
+// 示例值：
 func (builder *SearchAppTableRecordReqBodyBuilder) Filter(filter *FilterInfo) *SearchAppTableRecordReqBodyBuilder {
 	builder.filter = filter
 	builder.filterSet = true
 	return builder
 }
 
-// 控制是否返回自动计算的字段, true 表示返回
+// 是否自动计算并返回创建时间（created_time）、修改时间（last_modified_time）、创建人（created_by）、修改人（last_modified_by）这四类字段。默认为 false，表示不返回。
 //
-//示例值：
+// 示例值：false
 func (builder *SearchAppTableRecordReqBodyBuilder) AutomaticFields(automaticFields bool) *SearchAppTableRecordReqBodyBuilder {
 	builder.automaticFields = automaticFields
 	builder.automaticFieldsSet = true
@@ -10557,16 +10485,16 @@ func NewSearchAppTableRecordPathReqBodyBuilder() *SearchAppTableRecordPathReqBod
 	return builder
 }
 
-// 视图Id,指定视图id则按照视图的筛选排序结果返回数据
+// 多维表格中视图的唯一标识。获取方式：;;- 在多维表格的 URL 地址栏中，view_id 是下图中高亮部分：; ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998);- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 view_id。;;**注意**：;当 filter 参数 或 sort 参数不为空时，请求视为对数据表中的全部数据做条件过滤，指定的 view_id 会被忽略。
 //
-// 示例值：viex
+// 示例值：vewqhz51lk
 func (builder *SearchAppTableRecordPathReqBodyBuilder) ViewId(viewId string) *SearchAppTableRecordPathReqBodyBuilder {
 	builder.viewId = viewId
 	builder.viewIdSet = true
 	return builder
 }
 
-// 指定要返回的字段
+// 字段名称，用于指定本次查询返回记录中包含的字段
 //
 // 示例值：
 func (builder *SearchAppTableRecordPathReqBodyBuilder) FieldNames(fieldNames []string) *SearchAppTableRecordPathReqBodyBuilder {
@@ -10584,7 +10512,7 @@ func (builder *SearchAppTableRecordPathReqBodyBuilder) Sort(sort []*Sort) *Searc
 	return builder
 }
 
-// 筛选条件
+// 包含条件筛选信息的对象。了解 filter 填写指南和使用示例（如怎样同时使用 `and` 和 `or` 逻辑链接词），参考[记录筛选参数填写指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide)。
 //
 // 示例值：
 func (builder *SearchAppTableRecordPathReqBodyBuilder) Filter(filter *FilterInfo) *SearchAppTableRecordPathReqBodyBuilder {
@@ -10593,9 +10521,9 @@ func (builder *SearchAppTableRecordPathReqBodyBuilder) Filter(filter *FilterInfo
 	return builder
 }
 
-// 控制是否返回自动计算的字段, true 表示返回
+// 是否自动计算并返回创建时间（created_time）、修改时间（last_modified_time）、创建人（created_by）、修改人（last_modified_by）这四类字段。默认为 false，表示不返回。
 //
-// 示例值：
+// 示例值：false
 func (builder *SearchAppTableRecordPathReqBodyBuilder) AutomaticFields(automaticFields bool) *SearchAppTableRecordPathReqBodyBuilder {
 	builder.automaticFields = automaticFields
 	builder.automaticFieldsSet = true
@@ -10643,7 +10571,7 @@ func (builder *SearchAppTableRecordReqBuilder) Limit(limit int) *SearchAppTableR
 	return builder
 }
 
-// 表格token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 app_token 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 app_token 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 obj_type 的值为 bitable 时，obj_token 字段的值才是多维表格的 app_token。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：NQRxbRkBMa6OnZsjtERcxhNWnNh
 func (builder *SearchAppTableRecordReqBuilder) AppToken(appToken string) *SearchAppTableRecordReqBuilder {
@@ -10651,7 +10579,7 @@ func (builder *SearchAppTableRecordReqBuilder) AppToken(appToken string) *Search
 	return builder
 }
 
-// 表ID
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tbl0xe5g8PP3U3cS
 func (builder *SearchAppTableRecordReqBuilder) TableId(tableId string) *SearchAppTableRecordReqBuilder {
@@ -10675,7 +10603,7 @@ func (builder *SearchAppTableRecordReqBuilder) PageToken(pageToken string) *Sear
 	return builder
 }
 
-// 分页大小
+// 分页大小。最大值为 500
 //
 // 示例值：
 func (builder *SearchAppTableRecordReqBuilder) PageSize(pageSize int) *SearchAppTableRecordReqBuilder {
@@ -10683,7 +10611,7 @@ func (builder *SearchAppTableRecordReqBuilder) PageSize(pageSize int) *SearchApp
 	return builder
 }
 
-// 查找多维表格记录
+// 该接口用于查询数据表中的现有记录，单次最多查询 500 行记录，支持分页获取。
 func (builder *SearchAppTableRecordReqBuilder) Body(body *SearchAppTableRecordReqBody) *SearchAppTableRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -10700,15 +10628,15 @@ func (builder *SearchAppTableRecordReqBuilder) Build() *SearchAppTableRecordReq 
 }
 
 type SearchAppTableRecordReqBody struct {
-	ViewId *string `json:"view_id,omitempty"` // 视图Id,指定视图id则按照视图的筛选排序结果返回数据
+	ViewId *string `json:"view_id,omitempty"` // 多维表格中视图的唯一标识。获取方式：;;- 在多维表格的 URL 地址栏中，view_id 是下图中高亮部分：; ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998);- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 view_id。;;**注意**：;当 filter 参数 或 sort 参数不为空时，请求视为对数据表中的全部数据做条件过滤，指定的 view_id 会被忽略。
 
-	FieldNames []string `json:"field_names,omitempty"` // 指定要返回的字段
+	FieldNames []string `json:"field_names,omitempty"` // 字段名称，用于指定本次查询返回记录中包含的字段
 
 	Sort []*Sort `json:"sort,omitempty"` // 排序条件
 
-	Filter *FilterInfo `json:"filter,omitempty"` // 筛选条件
+	Filter *FilterInfo `json:"filter,omitempty"` // 包含条件筛选信息的对象。了解 filter 填写指南和使用示例（如怎样同时使用 `and` 和 `or` 逻辑链接词），参考[记录筛选参数填写指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide)。
 
-	AutomaticFields *bool `json:"automatic_fields,omitempty"` // 控制是否返回自动计算的字段, true 表示返回
+	AutomaticFields *bool `json:"automatic_fields,omitempty"` // 是否自动计算并返回创建时间（created_time）、修改时间（last_modified_time）、创建人（created_by）、修改人（last_modified_by）这四类字段。默认为 false，表示不返回。
 }
 
 type SearchAppTableRecordReq struct {
@@ -10719,13 +10647,13 @@ type SearchAppTableRecordReq struct {
 }
 
 type SearchAppTableRecordRespData struct {
-	Items []*AppTableRecord `json:"items,omitempty"` // record 结果
+	Items []*AppTableRecord `json:"items,omitempty"` // 数组类型。record 结果。了解 record 数据结构，参考[数据结构](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)。
 
 	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页数据
 
 	PageToken *string `json:"page_token,omitempty"` // 下一页分页的token
 
-	Total *int `json:"total,omitempty"` // 总数
+	Total *int `json:"total,omitempty"` // 记录总数
 }
 
 type SearchAppTableRecordResp struct {
@@ -10752,7 +10680,7 @@ func NewUpdateAppTableRecordReqBuilder() *UpdateAppTableRecordReqBuilder {
 	return builder
 }
 
-// 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 app_token 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 app_token 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 obj_type 的值为 bitable 时，obj_token 字段的值才是多维表格的 app_token。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *UpdateAppTableRecordReqBuilder) AppToken(appToken string) *UpdateAppTableRecordReqBuilder {
@@ -10760,7 +10688,7 @@ func (builder *UpdateAppTableRecordReqBuilder) AppToken(appToken string) *Update
 	return builder
 }
 
-// 多维表格数据表的唯一标识符 [table_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883)
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *UpdateAppTableRecordReqBuilder) TableId(tableId string) *UpdateAppTableRecordReqBuilder {
@@ -10768,7 +10696,7 @@ func (builder *UpdateAppTableRecordReqBuilder) TableId(tableId string) *UpdateAp
 	return builder
 }
 
-// 一条记录的唯一标识 id [record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94)
+// 数据表中一条记录的唯一标识。通过[查询记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/search)接口获取。
 //
 // 示例值：recqwIwhc6
 func (builder *UpdateAppTableRecordReqBuilder) RecordId(recordId string) *UpdateAppTableRecordReqBuilder {
@@ -10784,7 +10712,7 @@ func (builder *UpdateAppTableRecordReqBuilder) UserIdType(userIdType string) *Up
 	return builder
 }
 
-// 用于控制一致性读写，默认开启检查
+// 是否忽略一致性读写检查，默认为 false，即在进行读写操作时，系统将确保读取到的数据和写入的数据是一致的。可选值：;- true：忽略读写一致性检查，提高性能，但可能会导致某些节点的数据不同步，出现暂时不一致;- false：开启读写一致性检查，确保数据在读写过程中一致
 //
 // 示例值：true
 func (builder *UpdateAppTableRecordReqBuilder) IgnoreConsistencyCheck(ignoreConsistencyCheck bool) *UpdateAppTableRecordReqBuilder {
@@ -10792,15 +10720,13 @@ func (builder *UpdateAppTableRecordReqBuilder) IgnoreConsistencyCheck(ignoreCons
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UpdateAppTableRecordReqBuilder) ClientToken(clientToken string) *UpdateAppTableRecordReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
 
-// 该接口用于更新数据表中的一条记录
+// 更新多维表格数据表中的一条记录。
 func (builder *UpdateAppTableRecordReqBuilder) AppTableRecord(appTableRecord *AppTableRecord) *UpdateAppTableRecordReqBuilder {
 	builder.appTableRecord = appTableRecord
 	return builder
@@ -10848,7 +10774,7 @@ func NewCreateAppTableViewReqBuilder() *CreateAppTableViewReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *CreateAppTableViewReqBuilder) AppToken(appToken string) *CreateAppTableViewReqBuilder {
@@ -10856,7 +10782,7 @@ func (builder *CreateAppTableViewReqBuilder) AppToken(appToken string) *CreateAp
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *CreateAppTableViewReqBuilder) TableId(tableId string) *CreateAppTableViewReqBuilder {
@@ -10864,7 +10790,7 @@ func (builder *CreateAppTableViewReqBuilder) TableId(tableId string) *CreateAppT
 	return builder
 }
 
-// 在数据表中新增一个视图
+// 在多维表格数据表中新增一个视图，可指定视图类型，包括表格视图、看板视图、画册视图、甘特视图和表单视图。
 func (builder *CreateAppTableViewReqBuilder) ReqView(reqView *ReqView) *CreateAppTableViewReqBuilder {
 	builder.reqView = reqView
 	return builder
@@ -10910,7 +10836,7 @@ func NewDeleteAppTableViewReqBuilder() *DeleteAppTableViewReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *DeleteAppTableViewReqBuilder) AppToken(appToken string) *DeleteAppTableViewReqBuilder {
@@ -10918,7 +10844,7 @@ func (builder *DeleteAppTableViewReqBuilder) AppToken(appToken string) *DeleteAp
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *DeleteAppTableViewReqBuilder) TableId(tableId string) *DeleteAppTableViewReqBuilder {
@@ -10926,7 +10852,7 @@ func (builder *DeleteAppTableViewReqBuilder) TableId(tableId string) *DeleteAppT
 	return builder
 }
 
-// 视图Id
+// 多维表格中视图的唯一标识。获取方式：;;- 在多维表格的 URL 地址栏中，`view_id` 是下图中高亮部分：; ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998);- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 `view_id`。;;**注意**：;当 `filter` 参数 或 `sort` 参数不为空时，请求视为对数据表中的全部数据做条件过滤，指定的 `view_id` 会被忽略。
 //
 // 示例值：vewTpR1urY
 func (builder *DeleteAppTableViewReqBuilder) ViewId(viewId string) *DeleteAppTableViewReqBuilder {
@@ -10967,7 +10893,7 @@ func NewGetAppTableViewReqBuilder() *GetAppTableViewReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：bascnCMII2ORej2RItqpZZUNMIe
 func (builder *GetAppTableViewReqBuilder) AppToken(appToken string) *GetAppTableViewReqBuilder {
@@ -10975,7 +10901,7 @@ func (builder *GetAppTableViewReqBuilder) AppToken(appToken string) *GetAppTable
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *GetAppTableViewReqBuilder) TableId(tableId string) *GetAppTableViewReqBuilder {
@@ -10983,7 +10909,7 @@ func (builder *GetAppTableViewReqBuilder) TableId(tableId string) *GetAppTableVi
 	return builder
 }
 
-// 视图 ID
+// 多维表格中视图的唯一标识。获取方式：;;- 在多维表格的 URL 地址栏中，`view_id` 是下图中高亮部分：; ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998);- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 `view_id`。;;**注意**：;当 `filter` 参数 或 `sort` 参数不为空时，请求视为对数据表中的全部数据做条件过滤，指定的 `view_id` 会被忽略。
 //
 // 示例值：vewTpR1urY
 func (builder *GetAppTableViewReqBuilder) ViewId(viewId string) *GetAppTableViewReqBuilder {
@@ -10991,8 +10917,6 @@ func (builder *GetAppTableViewReqBuilder) ViewId(viewId string) *GetAppTableView
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *GetAppTableViewReqBuilder) UserIdType(userIdType string) *GetAppTableViewReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -11045,7 +10969,7 @@ func (builder *ListAppTableViewReqBuilder) Limit(limit int) *ListAppTableViewReq
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *ListAppTableViewReqBuilder) AppToken(appToken string) *ListAppTableViewReqBuilder {
@@ -11053,7 +10977,7 @@ func (builder *ListAppTableViewReqBuilder) AppToken(appToken string) *ListAppTab
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *ListAppTableViewReqBuilder) TableId(tableId string) *ListAppTableViewReqBuilder {
@@ -11121,7 +11045,7 @@ func (resp *ListAppTableViewResp) Success() bool {
 }
 
 type PatchAppTableViewReqBodyBuilder struct {
-	viewName    string // 视图名称
+	viewName    string // 视图名称。名称不能包含特殊字符，请确保其符合以下规则：;- 长度不超过 100 个字符;- 不为空且不包含这些特殊符号：[ ]
 	viewNameSet bool
 
 	property    *AppTableViewProperty // 视图属性
@@ -11133,9 +11057,9 @@ func NewPatchAppTableViewReqBodyBuilder() *PatchAppTableViewReqBodyBuilder {
 	return builder
 }
 
-// 视图名称
+// 视图名称。名称不能包含特殊字符，请确保其符合以下规则：;- 长度不超过 100 个字符;- 不为空且不包含这些特殊符号：[ ]
 //
-//示例值：grid
+// 示例值：表格视图 1
 func (builder *PatchAppTableViewReqBodyBuilder) ViewName(viewName string) *PatchAppTableViewReqBodyBuilder {
 	builder.viewName = viewName
 	builder.viewNameSet = true
@@ -11144,7 +11068,7 @@ func (builder *PatchAppTableViewReqBodyBuilder) ViewName(viewName string) *Patch
 
 // 视图属性
 //
-//示例值：
+// 示例值：
 func (builder *PatchAppTableViewReqBodyBuilder) Property(property *AppTableViewProperty) *PatchAppTableViewReqBodyBuilder {
 	builder.property = property
 	builder.propertySet = true
@@ -11174,9 +11098,9 @@ func NewPatchAppTableViewPathReqBodyBuilder() *PatchAppTableViewPathReqBodyBuild
 	return builder
 }
 
-// 视图名称
+// 视图名称。名称不能包含特殊字符，请确保其符合以下规则：;- 长度不超过 100 个字符;- 不为空且不包含这些特殊符号：[ ]
 //
-// 示例值：grid
+// 示例值：表格视图 1
 func (builder *PatchAppTableViewPathReqBodyBuilder) ViewName(viewName string) *PatchAppTableViewPathReqBodyBuilder {
 	builder.viewName = viewName
 	builder.viewNameSet = true
@@ -11217,7 +11141,7 @@ func NewPatchAppTableViewReqBuilder() *PatchAppTableViewReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：bascng7vrxcxpig7geggXiCtadY
 func (builder *PatchAppTableViewReqBuilder) AppToken(appToken string) *PatchAppTableViewReqBuilder {
@@ -11225,7 +11149,7 @@ func (builder *PatchAppTableViewReqBuilder) AppToken(appToken string) *PatchAppT
 	return builder
 }
 
-// table id
+// 多维表格数据表的唯一标识。获取方式：;- 你可通过多维表格 URL 获取 `table_id`，下图高亮部分即为当前数据表的 `table_id`;- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`;; ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)
 //
 // 示例值：tblsRc9GRRXKqhvW
 func (builder *PatchAppTableViewReqBuilder) TableId(tableId string) *PatchAppTableViewReqBuilder {
@@ -11233,7 +11157,7 @@ func (builder *PatchAppTableViewReqBuilder) TableId(tableId string) *PatchAppTab
 	return builder
 }
 
-// 视图 ID
+// 多维表格中视图的唯一标识。获取方式：;;- 在多维表格的 URL 地址栏中，`view_id` 是下图中高亮部分：; ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998);- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 `view_id`。
 //
 // 示例值：vewTpR1urY
 func (builder *PatchAppTableViewReqBuilder) ViewId(viewId string) *PatchAppTableViewReqBuilder {
@@ -11241,15 +11165,13 @@ func (builder *PatchAppTableViewReqBuilder) ViewId(viewId string) *PatchAppTable
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *PatchAppTableViewReqBuilder) UserIdType(userIdType string) *PatchAppTableViewReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
 	return builder
 }
 
-// 该接口用于增量修改视图信息
+// 增量更新视图信息，包括视图名称、属性等，可设置视图的筛选条件。
 func (builder *PatchAppTableViewReqBuilder) Body(body *PatchAppTableViewReqBody) *PatchAppTableViewReqBuilder {
 	builder.body = body
 	return builder
@@ -11265,7 +11187,7 @@ func (builder *PatchAppTableViewReqBuilder) Build() *PatchAppTableViewReq {
 }
 
 type PatchAppTableViewReqBody struct {
-	ViewName *string `json:"view_name,omitempty"` // 视图名称
+	ViewName *string `json:"view_name,omitempty"` // 视图名称。名称不能包含特殊字符，请确保其符合以下规则：;- 长度不超过 100 个字符;- 不为空且不包含这些特殊符号：[ ]
 
 	Property *AppTableViewProperty `json:"property,omitempty"` // 视图属性
 }
@@ -11302,7 +11224,7 @@ func NewListAppWorkflowReqBuilder() *ListAppWorkflowReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *ListAppWorkflowReqBuilder) AppToken(appToken string) *ListAppWorkflowReqBuilder {
@@ -11322,7 +11244,7 @@ type ListAppWorkflowReq struct {
 }
 
 type ListAppWorkflowRespData struct {
-	Workflows []*DisplayWorkflow `json:"workflows,omitempty"` // 自动化工作流信息
+	Workflows []*DisplayWorkflow `json:"workflows,omitempty"` // 自动化流程信息
 }
 
 type ListAppWorkflowResp struct {
@@ -11336,7 +11258,7 @@ func (resp *ListAppWorkflowResp) Success() bool {
 }
 
 type UpdateAppWorkflowReqBodyBuilder struct {
-	status    string // 自动化状态
+	status    string // 自动化状态。可选值：;- Enable：开启自动化流程;- Disable：关闭自动化流程
 	statusSet bool
 }
 
@@ -11345,9 +11267,9 @@ func NewUpdateAppWorkflowReqBodyBuilder() *UpdateAppWorkflowReqBodyBuilder {
 	return builder
 }
 
-// 自动化状态
+// 自动化状态。可选值：;- Enable：开启自动化流程;- Disable：关闭自动化流程
 //
-//示例值：Enable
+// 示例值：Enable
 func (builder *UpdateAppWorkflowReqBodyBuilder) Status(status string) *UpdateAppWorkflowReqBodyBuilder {
 	builder.status = status
 	builder.statusSet = true
@@ -11372,7 +11294,7 @@ func NewUpdateAppWorkflowPathReqBodyBuilder() *UpdateAppWorkflowPathReqBodyBuild
 	return builder
 }
 
-// 自动化状态
+// 自动化状态。可选值：;- Enable：开启自动化流程;- Disable：关闭自动化流程
 //
 // 示例值：Enable
 func (builder *UpdateAppWorkflowPathReqBodyBuilder) Status(status string) *UpdateAppWorkflowPathReqBodyBuilder {
@@ -11403,7 +11325,7 @@ func NewUpdateAppWorkflowReqBuilder() *UpdateAppWorkflowReqBuilder {
 	return builder
 }
 
-// bitable app token
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezh
 func (builder *UpdateAppWorkflowReqBuilder) AppToken(appToken string) *UpdateAppWorkflowReqBuilder {
@@ -11411,7 +11333,7 @@ func (builder *UpdateAppWorkflowReqBuilder) AppToken(appToken string) *UpdateApp
 	return builder
 }
 
-// workflow_id
+// 自动化工作流 ID，通过[列出自动化流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-workflow/list)接口获取。
 //
 // 示例值：730887xxxx552638996
 func (builder *UpdateAppWorkflowReqBuilder) WorkflowId(workflowId string) *UpdateAppWorkflowReqBuilder {
@@ -11419,7 +11341,7 @@ func (builder *UpdateAppWorkflowReqBuilder) WorkflowId(workflowId string) *Updat
 	return builder
 }
 
-//
+// 开启或关闭自动化流程。
 func (builder *UpdateAppWorkflowReqBuilder) Body(body *UpdateAppWorkflowReqBody) *UpdateAppWorkflowReqBuilder {
 	builder.body = body
 	return builder
@@ -11434,7 +11356,7 @@ func (builder *UpdateAppWorkflowReqBuilder) Build() *UpdateAppWorkflowReq {
 }
 
 type UpdateAppWorkflowReqBody struct {
-	Status *string `json:"status,omitempty"` // 自动化状态
+	Status *string `json:"status,omitempty"` // 自动化状态。可选值：;- Enable：开启自动化流程;- Disable：关闭自动化流程
 }
 
 type UpdateAppWorkflowReq struct {

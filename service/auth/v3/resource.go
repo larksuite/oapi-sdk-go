@@ -32,9 +32,11 @@ type tenantAccessToken struct {
 	config *larkcore.Config
 }
 
-// Create
+// Create 商店应用获取 app_access_token
 //
-// -
+// - 商店应用通过此接口获取`app_access_token`。
+//
+// - 说明1： `app_access_token` 的最大有效期是 2 小时。如果在有效期小于 30 分钟的情况下，调用本接口，会返回一个新的 `app_access_token`，这会同时存在两个有效的 `app_access_token`。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=auth&resource=app_access_token&version=v3
 //
@@ -58,9 +60,11 @@ func (a *appAccessToken) Create(ctx context.Context, req *CreateAppAccessTokenRe
 	return resp, err
 }
 
-// Internal
+// Internal 自建应用获取 app_access_token
 //
-// -
+// - 自建应用通过此接口获取`app_access_token`。
+//
+// - 说明： `app_access_token` 的最大有效期是 2 小时。如果在有效期小于 30 分钟的情况下，调用本接口，会返回一个新的 `app_access_token`，这会同时存在两个有效的 `app_access_token`。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=internal&project=auth&resource=app_access_token&version=v3
 //
@@ -84,9 +88,9 @@ func (a *appAccessToken) Internal(ctx context.Context, req *InternalAppAccessTok
 	return resp, err
 }
 
-// Resend
+// Resend 重新获取 app_ticket
 //
-// -
+// - 飞书开放平台每隔 1 小时会给应用推送一次最新的 `app_ticket`，应用也可以主动调用此接口，触发飞书开放平台进行即时推送。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=resend&project=auth&resource=app_ticket&version=v3
 //
@@ -110,9 +114,11 @@ func (a *appTicket) Resend(ctx context.Context, req *ResendAppTicketReq, options
 	return resp, err
 }
 
-// Create
+// Create 商店应用获取 tenant_access_token
 //
-// -
+// - 商店应用通过此接口获取`tenant_access_token`。
+//
+// - 说明 ： `tenant_access_token `的最大有效期是 2 小时。如果在有效期小于 30 分钟的情况下，调用本接口，会返回一个新的 `tenant_access_token`，这会同时存在两个有效的 `tenant_access_token`。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=auth&resource=tenant_access_token&version=v3
 //
@@ -136,9 +142,11 @@ func (t *tenantAccessToken) Create(ctx context.Context, req *CreateTenantAccessT
 	return resp, err
 }
 
-// Internal
+// Internal 自建应用获取 tenant_access_token
 //
-// -
+// - 自建应用通过此接口获取 `tenant_access_token`。
+//
+// - 说明： `tenant_access_token `的最大有效期是 2 小时。如果在有效期小于 30 分钟的情况下，调用本接口，会返回一个新的 `tenant_access_token`，这会同时存在两个有效的 `tenant_access_token`。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=internal&project=auth&resource=tenant_access_token&version=v3
 //

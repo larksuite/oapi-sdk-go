@@ -38,9 +38,9 @@ type minuteTranscript struct {
 	config *larkcore.Config
 }
 
-// Artifacts
+// Artifacts 获取妙记AI产物
 //
-// - 返回妙记AI产物
+// - 通过妙记唯一标识minute_token获取AI产物
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=artifacts&project=minutes&resource=minute&version=v1
 //
@@ -50,7 +50,7 @@ func (m *minute) Artifacts(ctx context.Context, req *ArtifactsMinuteReq, options
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/minutes/v1/minutes/:minute_token/artifacts"
 	apiReq.HttpMethod = http.MethodGet
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
 	apiResp, err := larkcore.Request(ctx, apiReq, m.config, options...)
 	if err != nil {
 		return nil, err
@@ -64,9 +64,9 @@ func (m *minute) Artifacts(ctx context.Context, req *ArtifactsMinuteReq, options
 	return resp, err
 }
 
-// Get
+// Get 获取单个妙记信息
 //
-// - 获取妙记的基础概括信息
+// - 获取一篇妙记的基础概述信息，包含 `owner_id`（妙记所有者）、`create_time`（妙记创建时间）、标题、封面、时长和 URL
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=minutes&resource=minute&version=v1
 //
@@ -90,9 +90,9 @@ func (m *minute) Get(ctx context.Context, req *GetMinuteReq, options ...larkcore
 	return resp, err
 }
 
-// Search
+// Search 搜索妙记
 //
-// - 搜索妙记
+// - 根据关键词、时间范围等条件搜索妙记，返回符合条件的妙记列表，包含妙记 token（用于标识妙记的唯一身份）、标题、开始时间等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=minutes&resource=minute&version=v1
 //
@@ -124,9 +124,9 @@ func (m *minute) SearchByIterator(ctx context.Context, req *SearchMinuteReq, opt
 		limit:    req.Limit}, nil
 }
 
-// Subscription
+// Subscription 订阅妙记变更事件
 //
-// - 订阅妙记变更事件
+// - 订阅当前用户身份相关的妙记资源变更事件。通过指定事件类型，来订阅妙记资源不同的事件变更。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscription&project=minutes&resource=minute&version=v1
 //
@@ -150,9 +150,9 @@ func (m *minute) Subscription(ctx context.Context, req *SubscriptionMinuteReq, o
 	return resp, err
 }
 
-// Unsubscription
+// Unsubscription 取消订阅妙记变更事件
 //
-// - 取消订阅妙记变更事件
+// - 取消订阅当前用户身份相关的妙记资源变更事件。通过指定事件类型，来取消订阅妙记资源对应的事件变更。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=unsubscription&project=minutes&resource=minute&version=v1
 //
@@ -176,7 +176,7 @@ func (m *minute) Unsubscription(ctx context.Context, req *UnsubscriptionMinuteRe
 	return resp, err
 }
 
-// Get
+// Get 下载妙记音视频文件
 //
 // - 获取妙记的音视频文件
 //
@@ -202,9 +202,9 @@ func (m *minuteMedia) Get(ctx context.Context, req *GetMinuteMediaReq, options .
 	return resp, err
 }
 
-// Get
+// Get 获取妙记统计数据
 //
-// - 获取妙记的访问统计数据
+// - 通过这个接口，可以获得妙记的访问情况统计，包含PV、UV、访问过的 user id、访问过的 user timestamp。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=minutes&resource=minute.statistics&version=v1
 //
@@ -228,9 +228,9 @@ func (m *minuteStatistics) Get(ctx context.Context, req *GetMinuteStatisticsReq,
 	return resp, err
 }
 
-// Get
+// Get 导出妙记文字记录
 //
-// - 获取妙记的对话文本，成功时返回文件二进制流
+// - 获取妙记的对话文本
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=minutes&resource=minute.transcript&version=v1
 //

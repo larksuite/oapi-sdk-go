@@ -11,7 +11,7 @@ import (
 type V1 struct {
 	MultiGeoEntityTenant *multiGeoEntityTenant // multi_geo_entity.tenant
 	OpenapiLog           *openapiLog           // openapi_log
-	UserMigration        *userMigration        // 用户迁移
+	UserMigration        *userMigration        // user_migration
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -32,9 +32,9 @@ type userMigration struct {
 	config *larkcore.Config
 }
 
-// Get
+// Get 获取数据驻留地理位置列表
 //
-// -
+// - 获取租户可用的数据驻留地理位置列表
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=security_and_compliance&resource=multi_geo_entity.tenant&version=v1
 //
@@ -61,9 +61,9 @@ func (m *multiGeoEntityTenant) Get(ctx context.Context, options ...larkcore.Requ
 	return resp, err
 }
 
-// ListData
+// ListData 获取OpenAPI审计日志数据
 //
-// -
+// - 该接口用于获取OpenAPI审计日志数据
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list_data&project=security_and_compliance&resource=openapi_log&version=v1
 //
@@ -87,11 +87,11 @@ func (o *openapiLog) ListData(ctx context.Context, req *ListDataOpenapiLogReq, o
 	return resp, err
 }
 
-// Cancel
+// Cancel 取消用户迁移任务
 //
-// -
+// - 取消用户迁移任务，仅能对未启动迁移的用户做此操作。用户迁移状态可通过「获取单个用户迁移状态」查询。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/security_and_compliance-v1/user_migration/cancel
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=cancel&project=security_and_compliance&resource=user_migration&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/security_and_compliancev1/cancel_userMigration.go
 func (u *userMigration) Cancel(ctx context.Context, req *CancelUserMigrationReq, options ...larkcore.RequestOptionFunc) (*CancelUserMigrationResp, error) {
@@ -113,11 +113,11 @@ func (u *userMigration) Cancel(ctx context.Context, req *CancelUserMigrationReq,
 	return resp, err
 }
 
-// Create
+// Create 迁移用户数据驻留位置
 //
-// -
+// - 将用户的数据驻留位置迁移到目标地理位置。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/security_and_compliance-v1/user_migration/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=security_and_compliance&resource=user_migration&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/security_and_compliancev1/create_userMigration.go
 func (u *userMigration) Create(ctx context.Context, req *CreateUserMigrationReq, options ...larkcore.RequestOptionFunc) (*CreateUserMigrationResp, error) {
@@ -139,11 +139,11 @@ func (u *userMigration) Create(ctx context.Context, req *CreateUserMigrationReq,
 	return resp, err
 }
 
-// Get
+// Get 获取单个用户迁移状态
 //
-// -
+// - 通过user_id获取指定用户当前的迁移状态
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/security_and_compliance-v1/user_migration/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=security_and_compliance&resource=user_migration&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/security_and_compliancev1/get_userMigration.go
 func (u *userMigration) Get(ctx context.Context, req *GetUserMigrationReq, options ...larkcore.RequestOptionFunc) (*GetUserMigrationResp, error) {
@@ -165,11 +165,11 @@ func (u *userMigration) Get(ctx context.Context, req *GetUserMigrationReq, optio
 	return resp, err
 }
 
-// Search
+// Search 批量获取用户迁移状态
 //
-// -
+// - 传入用户 ID 列表，批量获取用户迁移状态
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/security_and_compliance-v1/user_migration/search
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=security_and_compliance&resource=user_migration&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/security_and_compliancev1/search_userMigration.go
 func (u *userMigration) Search(ctx context.Context, req *SearchUserMigrationReq, options ...larkcore.RequestOptionFunc) (*SearchUserMigrationResp, error) {

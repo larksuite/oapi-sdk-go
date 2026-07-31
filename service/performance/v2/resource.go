@@ -97,9 +97,9 @@ type userInfo struct {
 	config *larkcore.Config
 }
 
-// Query
+// Query 获取项目列表
 //
-// - 获取项目的信息
+// - 批量获取项目的配置信息，如项目名称、项目模式等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=performance&resource=activity&version=v2
 //
@@ -123,9 +123,11 @@ func (a *activity) Query(ctx context.Context, req *QueryActivityReq, options ...
 	return resp, err
 }
 
-// Import
+// Import 批量导入补充信息
 //
-// - 可批量导入被评估人的补充信息作为评估参考（包括新增和更新场景）
+// - 批量导入被评估人的补充信息作为绩效评估的参考，如补充信息的事项、时间以及具体描述等。该接口支持创建和更新补充信息。
+//
+// - ## 注意事项;该接口执行创建或者更新的判断逻辑如下（按顺序判断）：;;1. 若请求参数 `additional_informations` 中 `item_ids` 传入系统中已有的补充信息 ID 时，将更新对应的补充消息数据。;2. 若请求参数 `additional_informations` 中 `external_ids` 传入系统中已有的外部系统补充信息 ID 时，将更新对应的补充消息数据。;3. 若请求参数 `additional_informations` 中 `reviewee_user_id`、`item `、`time `、`detailed_description` 的参数组合在系统中已存在内容一致的补充消息时，将更新对应的补充消息数据。;4. 以上情况都不符合时，创建新的补充消息数据。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=import&project=performance&resource=additional_information&version=v2
 //
@@ -149,9 +151,9 @@ func (a *additionalInformation) Import(ctx context.Context, req *ImportAdditiona
 	return resp, err
 }
 
-// Query
+// Query 批量查询补充信息
 //
-// - 可批量查询被评估人的补充信息
+// - 批量查询被评估人的补充信息，如补充信息的事项、时间以及具体描述等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=performance&resource=additional_information&version=v2
 //
@@ -183,9 +185,9 @@ func (a *additionalInformation) QueryByIterator(ctx context.Context, req *QueryA
 		limit:    req.Limit}, nil
 }
 
-// Delete
+// Delete 批量删除补充信息
 //
-// - 批量删除补充信息
+// - 批量删除被评估人的补充信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=performance&resource=additional_informations.batch&version=v2
 //
@@ -209,9 +211,9 @@ func (a *additionalInformationsBatch) Delete(ctx context.Context, req *DeleteAdd
 	return resp, err
 }
 
-// Query
+// Query 获取评估项列表
 //
-// - 获取评估题配置
+// - 批量获取评估项信息，如评估项名称、评估项类型、评估项等级配置等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=performance&resource=indicator&version=v2
 //
@@ -243,9 +245,9 @@ func (i *indicator) QueryByIterator(ctx context.Context, req *QueryIndicatorReq,
 		limit:    req.Limit}, nil
 }
 
-// Import
+// Import 录入被评估人关键指标数据
 //
-// - 批量录入指定周期被评估人的关键指标详情
+// - 批量录入指定周期中被评估人的关键指标数据。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=import&project=performance&resource=metric_detail&version=v2
 //
@@ -269,9 +271,9 @@ func (m *metricDetail) Import(ctx context.Context, req *ImportMetricDetailReq, o
 	return resp, err
 }
 
-// Query
+// Query 获取被评估人关键指标结果
 //
-// - 批量获取指定周期中被评估人的关键指标详情
+// - 批量获取指定周期中被评估人的关键指标结果。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=performance&resource=metric_detail&version=v2
 //
@@ -295,9 +297,9 @@ func (m *metricDetail) Query(ctx context.Context, req *QueryMetricDetailReq, opt
 	return resp, err
 }
 
-// Query
+// Query 获取指标字段列表
 //
-// - 获取指标的字段基础信息
+// - 批量获取指标的字段基础信息，如指标字段名称、指标字段类型等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=performance&resource=metric_field&version=v2
 //
@@ -321,9 +323,9 @@ func (m *metricField) Query(ctx context.Context, req *QueryMetricFieldReq, optio
 	return resp, err
 }
 
-// Query
+// Query 获取指标列表
 //
-// - 获取指标库的信息
+// - 获取指标库中的指标信息，如指标名称、指标类型、指标标签和指标字段等信息。可通过指标启用状态、指标类型、指标可用范围等筛选条件获取指定范围的指标信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=performance&resource=metric_lib&version=v2
 //
@@ -347,9 +349,9 @@ func (m *metricLib) Query(ctx context.Context, req *QueryMetricLibReq, options .
 	return resp, err
 }
 
-// List
+// List 获取指标标签列表
 //
-// - 获取指标标签列表
+// - 批量获取指标的标签信息，如标签名称、创建时间等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=performance&resource=metric_tag&version=v2
 //
@@ -381,9 +383,9 @@ func (m *metricTag) ListByIterator(ctx context.Context, req *ListMetricTagReq, o
 		limit:    req.Limit}, nil
 }
 
-// Query
+// Query 获取指标模板列表
 //
-// - 获取指标模板的信息
+// - 批量获取指标模板的信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=performance&resource=metric_template&version=v2
 //
@@ -407,9 +409,9 @@ func (m *metricTemplate) Query(ctx context.Context, req *QueryMetricTemplateReq,
 	return resp, err
 }
 
-// Query
+// Query 获取标签填写题
 //
-// - 获取标签填写题配置
+// - 获取标签填写题信息，包括标签填写题名称、标签列表等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=performance&resource=question&version=v2
 //
@@ -441,9 +443,9 @@ func (q *question) QueryByIterator(ctx context.Context, req *QueryQuestionReq, o
 		limit:    req.Limit}, nil
 }
 
-// Query
+// Query 获取绩效详情数据
 //
-// - 获取绩效详情V2
+// - 获取被评估人各环节的绩效评估详情（不包含校准环节），如环节评估数据、环节提交状态等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=performance&resource=review_data&version=v2
 //
@@ -467,9 +469,9 @@ func (r *reviewData) Query(ctx context.Context, req *QueryReviewDataReq, options
 	return resp, err
 }
 
-// Query
+// Query 获取绩效模板
 //
-// - 获取评估模板配置
+// - 获取绩效模板信息，包括模版名称、执行角色、填写项类型等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=performance&resource=review_template&version=v2
 //
@@ -501,9 +503,9 @@ func (r *reviewTemplate) QueryByIterator(ctx context.Context, req *QueryReviewTe
 		limit:    req.Limit}, nil
 }
 
-// Query
+// Query 获取被评估人信息
 //
-// - 获取指定周期参与了的被评估人
+// - 获取绩效周期中被圈定到项目中的被评估人信息，包括未启动的项目。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=performance&resource=reviewee&version=v2
 //
@@ -527,9 +529,11 @@ func (r *reviewee) Query(ctx context.Context, req *QueryRevieweeReq, options ...
 	return resp, err
 }
 
-// Write
+// Write 更新人员组成员
 //
-// - 写入人员组成员范围
+// - 更新指定人员组成员。
+//
+// - 该接口更新模式为覆盖式更新，更新操作会清除人员组以前的成员。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=write&project=performance&resource=user_group_user_rel&version=v2
 //
@@ -553,9 +557,9 @@ func (u *userGroupUserRel) Write(ctx context.Context, req *WriteUserGroupUserRel
 	return resp, err
 }
 
-// Query
+// Query 获取绩效周期人员信息
 //
-// -
+// - 获取指定绩效周期下，被评估人在评估时的部门、序列、职级等人员信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=performance&resource=user_info&version=v2
 //

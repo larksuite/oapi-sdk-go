@@ -36,8 +36,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -45,8 +43,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -67,12 +63,97 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	return req
 }
 
+type EventInfo struct {
+	Uid *string `json:"uid,omitempty"` // 日程唯一ID
+
+	OriginalTime *int `json:"original_time,omitempty"` // 日程实例原始时间。非重复性日程和重复性日程，此处传0；重复性日程的例外，传对应的original_time
+
+	Summary *string `json:"summary,omitempty"` // 日程主题
+
+	Vchat []*Vchat `json:"vchat,omitempty"` // 视频会议信息
+}
+
+type EventInfoBuilder struct {
+	uid    string // 日程唯一ID
+	uidSet bool
+
+	originalTime    int // 日程实例原始时间。非重复性日程和重复性日程，此处传0；重复性日程的例外，传对应的original_time
+	originalTimeSet bool
+
+	summary    string // 日程主题
+	summarySet bool
+
+	vchat    []*Vchat // 视频会议信息
+	vchatSet bool
+}
+
+func NewEventInfoBuilder() *EventInfoBuilder {
+	builder := &EventInfoBuilder{}
+	return builder
+}
+
+// 日程唯一ID
+//
+// 示例值：a04dbea1-86b9-4372-aa8d-64ebe801be2a
+func (builder *EventInfoBuilder) Uid(uid string) *EventInfoBuilder {
+	builder.uid = uid
+	builder.uidSet = true
+	return builder
+}
+
+// 日程实例原始时间。非重复性日程和重复性日程，此处传0；重复性日程的例外，传对应的original_time
+//
+// 示例值：0
+func (builder *EventInfoBuilder) OriginalTime(originalTime int) *EventInfoBuilder {
+	builder.originalTime = originalTime
+	builder.originalTimeSet = true
+	return builder
+}
+
+// 日程主题
+//
+// 示例值：test
+func (builder *EventInfoBuilder) Summary(summary string) *EventInfoBuilder {
+	builder.summary = summary
+	builder.summarySet = true
+	return builder
+}
+
+// 视频会议信息
+//
+// 示例值：
+func (builder *EventInfoBuilder) Vchat(vchat []*Vchat) *EventInfoBuilder {
+	builder.vchat = vchat
+	builder.vchatSet = true
+	return builder
+}
+
+func (builder *EventInfoBuilder) Build() *EventInfo {
+	req := &EventInfo{}
+	if builder.uidSet {
+		req.Uid = &builder.uid
+
+	}
+	if builder.originalTimeSet {
+		req.OriginalTime = &builder.originalTime
+
+	}
+	if builder.summarySet {
+		req.Summary = &builder.summary
+
+	}
+	if builder.vchatSet {
+		req.Vchat = builder.vchat
+	}
+	return req
+}
+
 type EventTime struct {
-	TimeStamp *int `json:"time_stamp,omitempty"` //
+	TimeStamp *int `json:"time_stamp,omitempty"` // 日程时间戳
 }
 
 type EventTimeBuilder struct {
-	timeStamp    int //
+	timeStamp    int // 日程时间戳
 	timeStampSet bool
 }
 
@@ -81,9 +162,9 @@ func NewEventTimeBuilder() *EventTimeBuilder {
 	return builder
 }
 
+// 日程时间戳
 //
-//
-// 示例值：
+// 示例值：1553853600000
 func (builder *EventTimeBuilder) TimeStamp(timeStamp int) *EventTimeBuilder {
 	builder.timeStamp = timeStamp
 	builder.timeStampSet = true
@@ -94,6 +175,56 @@ func (builder *EventTimeBuilder) Build() *EventTime {
 	req := &EventTime{}
 	if builder.timeStampSet {
 		req.TimeStamp = &builder.timeStamp
+
+	}
+	return req
+}
+
+type EventUid struct {
+	Uid *string `json:"uid,omitempty"` // 日程唯一ID
+
+	OriginalTime *int `json:"original_time,omitempty"` // original_time
+}
+
+type EventUidBuilder struct {
+	uid    string // 日程唯一ID
+	uidSet bool
+
+	originalTime    int // original_time
+	originalTimeSet bool
+}
+
+func NewEventUidBuilder() *EventUidBuilder {
+	builder := &EventUidBuilder{}
+	return builder
+}
+
+// 日程唯一ID
+//
+// 示例值：a04dbea1-86b9-4372-aa8d-64ebe801be2a
+func (builder *EventUidBuilder) Uid(uid string) *EventUidBuilder {
+	builder.uid = uid
+	builder.uidSet = true
+	return builder
+}
+
+// original_time
+//
+// 示例值：0
+func (builder *EventUidBuilder) OriginalTime(originalTime int) *EventUidBuilder {
+	builder.originalTime = originalTime
+	builder.originalTimeSet = true
+	return builder
+}
+
+func (builder *EventUidBuilder) Build() *EventUid {
+	req := &EventUid{}
+	if builder.uidSet {
+		req.Uid = &builder.uid
+
+	}
+	if builder.originalTimeSet {
+		req.OriginalTime = &builder.originalTime
 
 	}
 	return req
@@ -115,7 +246,7 @@ func NewMeetingRoomBuilder() *MeetingRoomBuilder {
 
 // your description here
 //
-// 示例值：
+// 示例值：omm_83d09ad4f6896e02029a6a075f71xxxx
 func (builder *MeetingRoomBuilder) RoomId(roomId int) *MeetingRoomBuilder {
 	builder.roomId = roomId
 	builder.roomIdSet = true
@@ -132,13 +263,13 @@ func (builder *MeetingRoomBuilder) Build() *MeetingRoom {
 }
 
 type UserInfo struct {
-	OpenId *string `json:"open_id,omitempty"` //
+	OpenId *string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同
 
 	UserId *string `json:"user_id,omitempty"` // 用户在ISV下的唯一标识，申请了"获取用户 user ID"权限后才会返回
 }
 
 type UserInfoBuilder struct {
-	openId    string //
+	openId    string // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同
 	openIdSet bool
 
 	userId    string // 用户在ISV下的唯一标识，申请了"获取用户 user ID"权限后才会返回
@@ -150,9 +281,9 @@ func NewUserInfoBuilder() *UserInfoBuilder {
 	return builder
 }
 
+// 员工对此应用的唯一标识，同一员工对不同应用的open_id不同
 //
-//
-// 示例值：
+// 示例值：ou_xxxxxxxxxxxxxxxxxxxx
 func (builder *UserInfoBuilder) OpenId(openId string) *UserInfoBuilder {
 	builder.openId = openId
 	builder.openIdSet = true
@@ -161,7 +292,7 @@ func (builder *UserInfoBuilder) OpenId(openId string) *UserInfoBuilder {
 
 // 用户在ISV下的唯一标识，申请了"获取用户 user ID"权限后才会返回
 //
-// 示例值：
+// 示例值：xxxxxxxx
 func (builder *UserInfoBuilder) UserId(userId string) *UserInfoBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -181,10 +312,60 @@ func (builder *UserInfoBuilder) Build() *UserInfo {
 	return req
 }
 
-type P2MeetingRoomCreatedV1Data struct {
-	RoomName *string `json:"room_name,omitempty"` //
+type Vchat struct {
+	MeetingUrl *string `json:"meeting_url,omitempty"` // 视频会议链接
 
-	RoomId *string `json:"room_id,omitempty"` //
+	VcType *string `json:"vc_type,omitempty"` // 视频会议类型
+}
+
+type VchatBuilder struct {
+	meetingUrl    string // 视频会议链接
+	meetingUrlSet bool
+
+	vcType    string // 视频会议类型
+	vcTypeSet bool
+}
+
+func NewVchatBuilder() *VchatBuilder {
+	builder := &VchatBuilder{}
+	return builder
+}
+
+// 视频会议链接
+//
+// 示例值：https://vc.feishu.cn/j/935314044
+func (builder *VchatBuilder) MeetingUrl(meetingUrl string) *VchatBuilder {
+	builder.meetingUrl = meetingUrl
+	builder.meetingUrlSet = true
+	return builder
+}
+
+// 视频会议类型
+//
+// 示例值：vc
+func (builder *VchatBuilder) VcType(vcType string) *VchatBuilder {
+	builder.vcType = vcType
+	builder.vcTypeSet = true
+	return builder
+}
+
+func (builder *VchatBuilder) Build() *Vchat {
+	req := &Vchat{}
+	if builder.meetingUrlSet {
+		req.MeetingUrl = &builder.meetingUrl
+
+	}
+	if builder.vcTypeSet {
+		req.VcType = &builder.vcType
+
+	}
+	return req
+}
+
+type P2MeetingRoomCreatedV1Data struct {
+	RoomName *string `json:"room_name,omitempty"` // 会议室名称
+
+	RoomId *string `json:"room_id,omitempty"` // 会议室 ID
 }
 
 type P2MeetingRoomCreatedV1 struct {
@@ -198,9 +379,9 @@ func (m *P2MeetingRoomCreatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingRoomDeletedV1Data struct {
-	RoomName *string `json:"room_name,omitempty"` //
+	RoomName *string `json:"room_name,omitempty"` // 会议室名称
 
-	RoomId *string `json:"room_id,omitempty"` //
+	RoomId *string `json:"room_id,omitempty"` // 会议室 ID
 }
 
 type P2MeetingRoomDeletedV1 struct {
@@ -214,9 +395,9 @@ func (m *P2MeetingRoomDeletedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingRoomStatusChangedV1Data struct {
-	RoomName *string `json:"room_name,omitempty"` // 会议室名称
+	RoomName *string `json:"room_name,omitempty"` // 会议室名称。
 
-	RoomId *string `json:"room_id,omitempty"` // 会议室 ID
+	RoomId *string `json:"room_id,omitempty"` // 会议室 ID。
 }
 
 type P2MeetingRoomStatusChangedV1 struct {
@@ -230,9 +411,9 @@ func (m *P2MeetingRoomStatusChangedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2MeetingRoomUpdatedV1Data struct {
-	RoomName *string `json:"room_name,omitempty"` //
+	RoomName *string `json:"room_name,omitempty"` // Meeting room name
 
-	RoomId *string `json:"room_id,omitempty"` //
+	RoomId *string `json:"room_id,omitempty"` // Meeting room ID
 }
 
 type P2MeetingRoomUpdatedV1 struct {

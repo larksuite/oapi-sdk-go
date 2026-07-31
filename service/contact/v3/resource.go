@@ -9,20 +9,20 @@ import (
 )
 
 type V3 struct {
-	CustomAttr           *customAttr           // 自定义用户字段
-	CustomAttrEvent      *customAttrEvent      // 事件
-	Department           *department           // 部门
-	EmployeeTypeEnum     *employeeTypeEnum     // 人员类型
+	CustomAttr           *customAttr           // custom_attr
+	CustomAttrEvent      *customAttrEvent      // custom_attr_event
+	Department           *department           // department
+	EmployeeTypeEnum     *employeeTypeEnum     // employee_type_enum
 	FunctionalRole       *functionalRole       // functional_role
 	FunctionalRoleMember *functionalRoleMember // functional_role.member
-	Group                *group                // 用户组
-	GroupMember          *groupMember          // 用户组成员
+	Group                *group                // group
+	GroupMember          *groupMember          // group.member
 	JobFamily            *jobFamily            // job_family
 	JobLevel             *jobLevel             // job_level
 	JobTitle             *jobTitle             // job_title
-	Scope                *scope                // 通讯录权限范围
-	Unit                 *unit                 // 单位
-	User                 *user                 // 用户
+	Scope                *scope                // scope
+	Unit                 *unit                 // unit
+	User                 *user                 // user
 	WorkCity             *workCity             // work_city
 }
 
@@ -94,11 +94,9 @@ type workCity struct {
 
 // List 获取企业自定义用户字段
 //
-// - 获取企业自定义的用户字段配置信息
+// - 调用该接口查询当前企业内自定义用户字段的配置信息。
 //
-// - 调用该接口前，需要先确认[企业管理员](https://www.feishu.cn/hc/zh-CN/articles/360049067822)在[企业管理后台 - 组织架构 - 成员字段管理](http://www.feishu.cn/admin/contacts/employee-field-new/custom) 自定义字段管理栏开启了“允许开放平台API调用“。;;![通讯录.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/544738c94f13ef0b9ebaff53a5133cc7_E9EGMkXyzX.gif)
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/custom_attr/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=custom_attr&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_customAttr.go
 func (c *customAttr) List(ctx context.Context, req *ListCustomAttrReq, options ...larkcore.RequestOptionFunc) (*ListCustomAttrResp, error) {
@@ -128,9 +126,9 @@ func (c *customAttr) ListByIterator(ctx context.Context, req *ListCustomAttrReq,
 		limit:    req.Limit}, nil
 }
 
-// Batch
+// Batch 批量获取部门信息
 //
-// -
+// - 调用该接口获取一个或多个部门的信息，包括部门名称、ID、父部门、负责人、状态以及成员个数等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch&project=contact&resource=department&version=v3
 //
@@ -156,11 +154,9 @@ func (d *department) Batch(ctx context.Context, req *BatchDepartmentReq, options
 
 // Children 获取子部门列表
 //
-// - 通过部门ID获取部门的子部门列表。
+// - 调用该接口查询指定部门下的子部门列表，列表内包含部门的名称、ID、父部门、负责人以及状态等信息。
 //
-// - - 部门ID 必填，根部门的部门ID 为0。;- 使用 `user_access_token` 时，返回该用户组织架构可见性范围（[登陆企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内的所有可见部门。当进行递归查询时，最多1000个部门对该用户可见。;;- 使用 ;`tenant_access_token` 则基于应用的通讯录权限范围进行权限校验与过滤。;如果部门ID为0，会检验应用是否有全员通讯录权限，如果是非0 部门ID，则会校验应用是否有该部门的通讯录权限。无部门权限返回无部门通讯录权限错误码，有权限则返回部门下子部门列表（根据fetch_child决定是否递归）。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=children&project=contact&resource=department&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/children_department.go
 func (d *department) Children(ctx context.Context, req *ChildrenDepartmentReq, options ...larkcore.RequestOptionFunc) (*ChildrenDepartmentResp, error) {
@@ -192,11 +188,9 @@ func (d *department) ChildrenByIterator(ctx context.Context, req *ChildrenDepart
 
 // Create 创建部门
 //
-// - 该接口用于向通讯录中创建部门。
+// - 调用该接口在通讯录内创建一个部门。
 //
-// - 只可在应用的通讯录权限范围内的部门下创建部门。若需要在根部门下创建子部门，则应用通讯录权限范围需要设置为“全部成员”。应用商店应用无权限调用此接口。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=department&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_department.go
 func (d *department) Create(ctx context.Context, req *CreateDepartmentReq, options ...larkcore.RequestOptionFunc) (*CreateDepartmentResp, error) {
@@ -220,11 +214,9 @@ func (d *department) Create(ctx context.Context, req *CreateDepartmentReq, optio
 
 // Delete 删除部门
 //
-// - 该接口用于从通讯录中删除部门。
+// - 调用该接口从通讯录中删除指定的部门。
 //
-// - 应用需要同时拥有待删除部门及其父部门的通讯录授权。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=department&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_department.go
 func (d *department) Delete(ctx context.Context, req *DeleteDepartmentReq, options ...larkcore.RequestOptionFunc) (*DeleteDepartmentResp, error) {
@@ -248,11 +240,9 @@ func (d *department) Delete(ctx context.Context, req *DeleteDepartmentReq, optio
 
 // Get 获取单个部门信息
 //
-// - 该接口用于向通讯录获取单个部门信息。
+// - 调用该接口获取单个部门信息，包括部门名称、ID、父部门、负责人、状态以及成员个数等。
 //
-// - - 使用`tenant_access_token`时，应用需要拥有待查询部门的通讯录授权。如果需要获取根部门信息，则需要拥有全员权限。;- 使用`user_access_token`时，用户需要有待查询部门的可见性，如果需要获取根部门信息，则要求员工可见所有人。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=department&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_department.go
 func (d *department) Get(ctx context.Context, req *GetDepartmentReq, options ...larkcore.RequestOptionFunc) (*GetDepartmentResp, error) {
@@ -274,9 +264,11 @@ func (d *department) Get(ctx context.Context, req *GetDepartmentReq, options ...
 	return resp, err
 }
 
-// List
+// List 获取部门信息列表
 //
-// -
+// - 该接口用于获取当前部门子部门列表。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+//
+// - 本接口为历史版本接口，不再维护。推荐接口：;;- 查询指定部门的详细信息，可调用[获取单个部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get)、[批量获取部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/batch)。;- 查询当前部门下子部门信息，可调用[获取子部门列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children)。;- 查询当前部门的父部门信息，可调用[获取父部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent)。;- 通过关键词搜索部门，可调用[搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search)。;;- 使用 user_access_token 时，返回该用户组织架构可见性范围（[登陆企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内的所有可见部门。当进行递归查询时，只筛查最多1000个部门的可见性。;;- 使用 ; tenant_access_token 则基于应用的通讯录权限范围进行权限校验与过滤。由于 ; parent_department_id 是非必填参数，填与不填存在<b>两种数据权限校验与返回</b>情况：;<br> <br>1、请求设置了 ; parent_department_id 为A（根部门0），会检验A是否在通讯录权限内，若在( parent_department_id=0 时会校验是否为全员权限），则返回部门下子部门列表（根据fetch_child决定是否递归），否则返回无部门通讯录权限错误码。;<br> <br>2、请求未带 ; parent_department_id 参数，如通讯录范围为全员权限，只返回根部门ID(部门ID为0)，否则返回根据通讯录范围配置的部门ID及子部门(根据 ; fetch_child 决定是否递归)。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=department&version=v3
 //
@@ -310,11 +302,9 @@ func (d *department) ListByIterator(ctx context.Context, req *ListDepartmentReq,
 
 // Parent 获取父部门信息
 //
-// - 该接口用来递归获取部门父部门的信息，并按照由子到父的顺序返回有权限的父部门信息列表。
+// - 调用该接口递归获取指定部门的父部门信息，包括部门名称、ID、负责人以及状态等。
 //
-// - 使用`tenant_access_token`时,该接口只返回可见性范围内的父部门信息。;例如：A >>B>>C>>D四级部门，通讯录权限只到B，那么查询D部门的parent，会返回B和C两级部门。;使用user_access_token时,该接口只返回对于用户可见的父部门信息。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=parent&project=contact&resource=department&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/parent_department.go
 func (d *department) Parent(ctx context.Context, req *ParentDepartmentReq, options ...larkcore.RequestOptionFunc) (*ParentDepartmentResp, error) {
@@ -346,11 +336,9 @@ func (d *department) ParentByIterator(ctx context.Context, req *ParentDepartment
 
 // Patch 修改部门部分信息
 //
-// - 该接口用于更新通讯录中部门的信息。
+// - 调用该接口更新指定部门的部分信息，包括名称、父部门、排序以及负责人等。
 //
-// - 调用该接口需要具有该部门以及更新操作涉及的部门的通讯录权限。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=contact&resource=department&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/patch_department.go
 func (d *department) Patch(ctx context.Context, req *PatchDepartmentReq, options ...larkcore.RequestOptionFunc) (*PatchDepartmentResp, error) {
@@ -374,11 +362,9 @@ func (d *department) Patch(ctx context.Context, req *PatchDepartmentReq, options
 
 // Search 搜索部门
 //
-// - 搜索部门，用户通过关键词查询可见的部门数据，部门可见性需要管理员在后台配置。
+// - 调用该接口以用户身份通过部门名称关键词查询可见部门的信息，包括部门的 ID、父部门、负责人以及状态等。
 //
-// - 部门存在，但用户搜索不到并不一定是搜索有问题，可能是管理员在后台配置了权限控制，导致用户无法搜索到该部门。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=contact&resource=department&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/search_department.go
 func (d *department) Search(ctx context.Context, req *SearchDepartmentReq, options ...larkcore.RequestOptionFunc) (*SearchDepartmentResp, error) {
@@ -410,9 +396,11 @@ func (d *department) SearchByIterator(ctx context.Context, req *SearchDepartment
 
 // UnbindDepartmentChat 部门群转为普通群
 //
-// - 通过该接口将部门群转为普通群。
+// - 调用该接口将指定部门的部门群转为普通群。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/unbind_department_chat
+// - ## 注意事项;;应用的通讯录权限范围内需要包含当前操作的部门。了解权限范围，参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=unbind_department_chat&project=contact&resource=department&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/unbindDepartmentChat_department.go
 func (d *department) UnbindDepartmentChat(ctx context.Context, req *UnbindDepartmentChatDepartmentReq, options ...larkcore.RequestOptionFunc) (*UnbindDepartmentChatDepartmentResp, error) {
@@ -436,11 +424,9 @@ func (d *department) UnbindDepartmentChat(ctx context.Context, req *UnbindDepart
 
 // Update 更新部门所有信息
 //
-// - 该接口用于更新当前部门所有信息。
+// - 调用该接口更新指定部门的信息，包括名称、父部门以及负责人等信息。
 //
-// - - 调用该接口需要具有该部门与更新部门信息涉及的通讯录权限。;; - 没有填写的字段会被置为空值（order字段除外）。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=department&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_department.go
 func (d *department) Update(ctx context.Context, req *UpdateDepartmentReq, options ...larkcore.RequestOptionFunc) (*UpdateDepartmentResp, error) {
@@ -462,9 +448,9 @@ func (d *department) Update(ctx context.Context, req *UpdateDepartmentReq, optio
 	return resp, err
 }
 
-// UpdateDepartmentId
+// UpdateDepartmentId 更新部门ID
 //
-// -
+// - 调用该接口可以更新部门的自定义 ID，即 department_id。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_department_id&project=contact&resource=department&version=v3
 //
@@ -490,9 +476,11 @@ func (d *department) UpdateDepartmentId(ctx context.Context, req *UpdateDepartme
 
 // Create 新增人员类型
 //
-// - 新增自定义人员类型
+// - 调用该接口新增一个自定义的人员类型。人员类型是用户属性之一，用于灵活标记用户的身份类型。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/create
+// - ## 使用限制;;自定义的人员类型数量上限为 255，其中创建后又删除的自定义人员类型也会计入数量限制内。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=employee_type_enum&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_employeeTypeEnum.go
 func (e *employeeTypeEnum) Create(ctx context.Context, req *CreateEmployeeTypeEnumReq, options ...larkcore.RequestOptionFunc) (*CreateEmployeeTypeEnumResp, error) {
@@ -516,9 +504,9 @@ func (e *employeeTypeEnum) Create(ctx context.Context, req *CreateEmployeeTypeEn
 
 // Delete 删除人员类型
 //
-// - 删除自定义人员类型
+// - 调用该接口删除指定的自定义人员类型。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=employee_type_enum&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_employeeTypeEnum.go
 func (e *employeeTypeEnum) Delete(ctx context.Context, req *DeleteEmployeeTypeEnumReq, options ...larkcore.RequestOptionFunc) (*DeleteEmployeeTypeEnumResp, error) {
@@ -542,9 +530,9 @@ func (e *employeeTypeEnum) Delete(ctx context.Context, req *DeleteEmployeeTypeEn
 
 // List 查询人员类型
 //
-// - 该接口用于获取员工的人员类型
+// - 调用该接口查询当前租户下所有的人员类型信息，包括选项 ID、类型、编号以及内容等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=employee_type_enum&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_employeeTypeEnum.go
 func (e *employeeTypeEnum) List(ctx context.Context, req *ListEmployeeTypeEnumReq, options ...larkcore.RequestOptionFunc) (*ListEmployeeTypeEnumResp, error) {
@@ -576,9 +564,9 @@ func (e *employeeTypeEnum) ListByIterator(ctx context.Context, req *ListEmployee
 
 // Update 更新人员类型
 //
-// - 更新自定义人员类型
+// - 调用该接口更新指定的自定义人员类型信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=employee_type_enum&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_employeeTypeEnum.go
 func (e *employeeTypeEnum) Update(ctx context.Context, req *UpdateEmployeeTypeEnumReq, options ...larkcore.RequestOptionFunc) (*UpdateEmployeeTypeEnumResp, error) {
@@ -600,9 +588,11 @@ func (e *employeeTypeEnum) Update(ctx context.Context, req *UpdateEmployeeTypeEn
 	return resp, err
 }
 
-// Create
+// Create 创建角色
 //
-// -
+// - 调用该接口创建一个角色。
+//
+// - ## 使用限制;;同一租户下，角色数量上限为 500。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=functional_role&version=v3
 //
@@ -626,9 +616,11 @@ func (f *functionalRole) Create(ctx context.Context, req *CreateFunctionalRoleRe
 	return resp, err
 }
 
-// Delete
+// Delete 删除角色
 //
-// -
+// - 调用该接口删除指定角色。
+//
+// - ## 注意事项;;角色内如果有成员，则不支持直接删除。你可以调用[查询角色下的所有成员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role-member/list)接口，查看角色内是否还有成员，如果有，可以调用[删除角色下的成员](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role-member/batch_delete)接口，将角色成员删除后，再删除角色。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=functional_role&version=v3
 //
@@ -652,9 +644,9 @@ func (f *functionalRole) Delete(ctx context.Context, req *DeleteFunctionalRoleRe
 	return resp, err
 }
 
-// Update
+// Update 修改角色名称
 //
-// -
+// - 调用本接口修改指定角色的角色名称。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=functional_role&version=v3
 //
@@ -678,9 +670,11 @@ func (f *functionalRole) Update(ctx context.Context, req *UpdateFunctionalRoleRe
 	return resp, err
 }
 
-// BatchCreate
+// BatchCreate 批量添加角色成员
 //
-// -
+// - 调用该接口在指定角色内添加一个或多个成员。
+//
+// - ## 使用限制;;单个角色内成员数量上限为 1000。;;## 注意事项;;待添加到角色的成员，需要包含在当前应用的通讯录权限范围内，否则将会操作失败。如何设置通讯录权限范围，可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=contact&resource=functional_role.member&version=v3
 //
@@ -704,9 +698,11 @@ func (f *functionalRoleMember) BatchCreate(ctx context.Context, req *BatchCreate
 	return resp, err
 }
 
-// BatchDelete
+// BatchDelete 删除角色下的成员
 //
-// -
+// - 调用该接口在指定角色内删除一个或多个成员。
+//
+// - ## 注意事项;;待删除的角色成员，需要包含在当前应用的通讯录权限范围内，否则将会操作失败。如何设置通讯录权限范围，可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=contact&resource=functional_role.member&version=v3
 //
@@ -730,9 +726,9 @@ func (f *functionalRoleMember) BatchDelete(ctx context.Context, req *BatchDelete
 	return resp, err
 }
 
-// Get
+// Get 查询角色下某个成员的管理范围
 //
-// -
+// - 调用本接口查询指定角色内的指定成员的管理范围。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=functional_role.member&version=v3
 //
@@ -756,9 +752,9 @@ func (f *functionalRoleMember) Get(ctx context.Context, req *GetFunctionalRoleMe
 	return resp, err
 }
 
-// List
+// List 查询角色下的所有成员信息
 //
-// -
+// - 调用本接口查询指定角色内的所有成员信息，包括成员的用户 ID、管理范围。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=functional_role.member&version=v3
 //
@@ -790,9 +786,11 @@ func (f *functionalRoleMember) ListByIterator(ctx context.Context, req *ListFunc
 		limit:    req.Limit}, nil
 }
 
-// Scopes
+// Scopes 批量设置角色成员管理范围
 //
-// -
+// - 调用该接口为指定角色内的一个或多个角色成员设置管理范围。管理范围是指角色成员可以管理的部门范围。
+//
+// - ## 注意事项;;当前应用的通讯录权限范围需要包含待操作的用户与部门，否则将会操作失败。如何设置通讯录权限范围，可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=scopes&project=contact&resource=functional_role.member&version=v3
 //
@@ -818,9 +816,9 @@ func (f *functionalRoleMember) Scopes(ctx context.Context, req *ScopesFunctional
 
 // Create 创建用户组
 //
-// - 使用该接口创建用户组，请注意创建用户组时应用的通讯录权限范围需为“全部员工”，否则会创建失败，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 调用该接口创建一个用户组。用户组是飞书通讯录中基础实体之一，在用户组内可添加用户或部门资源。各类业务权限管控可以与用户组关联，从而实现高效便捷的成员权限管控。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=group&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_group.go
 func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...larkcore.RequestOptionFunc) (*CreateGroupResp, error) {
@@ -844,9 +842,9 @@ func (g *group) Create(ctx context.Context, req *CreateGroupReq, options ...lark
 
 // Delete 删除用户组
 //
-// - 通过该接口可删除企业中的用户组，请注意删除用户组时应用的通讯录权限范围需为“全部员工”，否则会删除失败，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 调用该接口删除指定用户组。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=group&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_group.go
 func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...larkcore.RequestOptionFunc) (*DeleteGroupResp, error) {
@@ -868,11 +866,13 @@ func (g *group) Delete(ctx context.Context, req *DeleteGroupReq, options ...lark
 	return resp, err
 }
 
-// Get 查询用户组
+// Get 查询指定用户组
 //
-// - 根据用户组 ID 查询某个用户组的基本信息，支持查询普通用户组和动态用户组。请确保应用的通讯录权限范围里包括该用户组或者是“全部员工”，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 调用该接口通过用户组 ID 查询指定用户组的基本信息，包括用户组名称、成员数量和类型等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/get
+// - ## 注意事项;;- 应用的通讯录权限范围需要符合以下任一设置，才可以成功调用本接口。了解应用通讯录权限范围，可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。;; - 通讯录权限范围设置为 **全部员工**。; - 由企业管理员在管理后台设置应用可见范围内包含当前待查询的用户组，然后应用的通讯录权限范围设置为 **与应用的可用范围一致**。;- 支持查询普通用户组和动态用户组。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=group&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_group.go
 func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...larkcore.RequestOptionFunc) (*GetGroupResp, error) {
@@ -896,9 +896,11 @@ func (g *group) Get(ctx context.Context, req *GetGroupReq, options ...larkcore.R
 
 // MemberBelong 查询用户所属用户组
 //
-// - 通过该接口可查询该用户所属的用户组列表，可分别查询普通用户组和动态用户组。如果应用的通讯录权限范围是“全部员工”，则可获取该员工所属的全部用户组列表。如果应用的通讯录权限范围不是“全部员工”，则仅可获取通讯录权限范围内该员工所属的用户组。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 调用该接口查询指定用户所属的用户组列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/member_belong
+// - ## 注意事项;;- 如果应用的通讯录权限范围设置为 **全部员工**，则通过本接口可查询到用户所属的全部用户组列表，否则，仅会查询到应用通讯录权限范围内该用户所属的用户组。了解应用通讯录权限范围，可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。;;- 支持查询到普通用户组和动态用户组的信息。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=member_belong&project=contact&resource=group&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/memberBelong_group.go
 func (g *group) MemberBelong(ctx context.Context, req *MemberBelongGroupReq, options ...larkcore.RequestOptionFunc) (*MemberBelongGroupResp, error) {
@@ -922,9 +924,9 @@ func (g *group) MemberBelong(ctx context.Context, req *MemberBelongGroupReq, opt
 
 // Patch 更新用户组
 //
-// - 使用该接口更新用户组信息，请注意更新用户组时应用的通讯录权限范围需为“全部员工”，否则会更新失败。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 调用该接口更新指定用户组的名称或描述。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=contact&resource=group&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/patch_group.go
 func (g *group) Patch(ctx context.Context, req *PatchGroupReq, options ...larkcore.RequestOptionFunc) (*PatchGroupResp, error) {
@@ -948,9 +950,11 @@ func (g *group) Patch(ctx context.Context, req *PatchGroupReq, options ...larkco
 
 // Simplelist 查询用户组列表
 //
-// - 通过该接口可查询企业的用户组列表，可分别查询普通用户组或动态用户组。如果应用的通讯录权限范围是“全部员工”，则可获取企业全部用户组列表。如果应用的通讯录权限范围不是“全部员工”，则仅可获取通讯录权限范围内的用户组。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 调用该接口查询当前租户下的用户组列表，列表内包含用户组的 ID、名字、成员数量和类型等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist
+// - ## 注意事项;;- 如果应用的通讯录权限范围设置为 **全部员工**，则通过本接口可查询到租户内所有用户组的信息，否则，仅会查询到应用通讯录权限范围内的用户组信息。了解应用通讯录权限范围，可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。;;- 支持查询到普通用户组和动态用户组的信息。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=simplelist&project=contact&resource=group&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/simplelist_group.go
 func (g *group) Simplelist(ctx context.Context, req *SimplelistGroupReq, options ...larkcore.RequestOptionFunc) (*SimplelistGroupResp, error) {
@@ -982,9 +986,11 @@ func (g *group) SimplelistByIterator(ctx context.Context, req *SimplelistGroupRe
 
 // Add 添加用户组成员
 //
-// - 向用户组中添加成员(目前成员仅支持用户，未来会支持部门)，如果应用的通讯录权限范围是“全部员工”，则可将任何成员添加到任何用户组。如果应用的通讯录权限范围不是“全部员工”，则仅可将通讯录权限范围中的成员添加到通讯录权限范围的用户组中，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 调用该接口向指定的普通用户组内添加成员。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/add
+// - ## 注意事项;;- 目前仅支持添加用户类型的成员，暂不支持添加部门类型的成员。;;- 如果应用的通讯录权限范围是 **全部员工**，则可以将当前租户内的任何用户添加到任何用户组当中。如果应用的通讯录权限范围不是 **全部员工**，则所要添加的用户以及对应的用户组，均需要在应用的通讯录权限范围内。了解通讯录权限范围，可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。;;## 使用限制;;单租户内单个普通用户组的成员数量上限为 100,000，但需要注意，单租户内所有普通用户组的成员数量总和不能超过当前租户成员数量的 10 倍。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=add&project=contact&resource=group.member&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/add_groupMember.go
 func (g *groupMember) Add(ctx context.Context, req *AddGroupMemberReq, options ...larkcore.RequestOptionFunc) (*AddGroupMemberResp, error) {
@@ -1008,11 +1014,11 @@ func (g *groupMember) Add(ctx context.Context, req *AddGroupMemberReq, options .
 
 // BatchAdd 批量添加用户组成员
 //
-// - 向普通用户组中批量添加成员(目前仅支持添加用户，暂不支持添加部门），如果应用的通讯录权限范围是“全部员工”，则可将任何成员添加到任何用户组。如果应用的通讯录权限范围不是“全部员工”，则仅可将通讯录权限范围中的成员添加到通讯录权限范围的用户组中，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 调用该接口向指定的普通用户组内添加一个或多个成员。
 //
-// - 请求体中的member_type，目前仅支持user， 未来将支持department。
+// - ## 注意事项;;- 目前仅支持添加用户类型的成员，暂不支持添加部门类型的成员。;;- 如果应用的通讯录权限范围是 **全部员工**，则可以将当前租户内的任何用户添加到任何用户组当中。如果应用的通讯录权限范围不是 **全部员工**，则所要添加的用户以及对应的用户组，均需要在应用的通讯录权限范围内。了解通讯录权限范围，可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。;;## 使用限制;;单租户内单个普通用户组的成员数量上限为 100,000。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/batch_add
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_add&project=contact&resource=group.member&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batchAdd_groupMember.go
 func (g *groupMember) BatchAdd(ctx context.Context, req *BatchAddGroupMemberReq, options ...larkcore.RequestOptionFunc) (*BatchAddGroupMemberResp, error) {
@@ -1036,11 +1042,9 @@ func (g *groupMember) BatchAdd(ctx context.Context, req *BatchAddGroupMemberReq,
 
 // BatchRemove 批量移除用户组成员
 //
-// - 从普通用户组中批量移除成员 (目前仅支持移除用户，暂不支持移除部门）。如果应用的通讯录权限范围是“全部员工”，则可将任何成员移出任何用户组。如果应用的通讯录权限范围不是“全部员工”，则仅可将通讯录权限范围中的成员从通讯录权限范围的用户组中移除， [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 调用该接口从指定普通用户组内移除一个或多个成员。
 //
-// - 请求体中的member_type，目前仅支持user， 未来将支持department。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/batch_remove
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_remove&project=contact&resource=group.member&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batchRemove_groupMember.go
 func (g *groupMember) BatchRemove(ctx context.Context, req *BatchRemoveGroupMemberReq, options ...larkcore.RequestOptionFunc) (*BatchRemoveGroupMemberResp, error) {
@@ -1064,9 +1068,11 @@ func (g *groupMember) BatchRemove(ctx context.Context, req *BatchRemoveGroupMemb
 
 // Remove 移除用户组成员
 //
-// - 从用户组中移除成员 (目前成员仅支持用户，未来会支持部门)，如果应用的通讯录权限范围是“全部员工”，则可将任何成员移出任何用户组。如果应用的通讯录权限范围不是“全部员工”，则仅可将通讯录权限范围中的成员从通讯录权限范围的用户组中移除， [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 调用该接口移除指定普通用户组内的某一成员。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/remove
+// - ## 注意事项;;- 目前仅支持移除用户类型的成员，暂不支持移除部门类型的成员。;;- 如果应用的通讯录权限范围是 **全部员工**，则可以将当前租户内的任何用户移除任何用户组。如果应用的通讯录权限范围不是 **全部员工**，则所要移除的用户以及对应的用户组，均需要在应用的通讯录权限范围内。了解通讯录权限范围，可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=remove&project=contact&resource=group.member&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/remove_groupMember.go
 func (g *groupMember) Remove(ctx context.Context, req *RemoveGroupMemberReq, options ...larkcore.RequestOptionFunc) (*RemoveGroupMemberResp, error) {
@@ -1090,9 +1096,11 @@ func (g *groupMember) Remove(ctx context.Context, req *RemoveGroupMemberReq, opt
 
 // Simplelist 查询用户组成员列表
 //
-// - 通过该接口可查询某个用户组的成员列表（支持查询成员中的用户和部门）, 本接口支持普通用户组和动态用户组。如果应用的通讯录权限范围是“全部员工”，则可查询企业内任何用户组的成员列表。如果应用的通讯录权限范围不是“全部员工”，则仅可查询通讯录权限范围中的用户组的成员列表，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 调用该接口查询指定用户组内的成员列表，列表内主要包括成员 ID 信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/simplelist
+// - ## 注意事项;;- 本接口支持查询普通用户组和动态用户组的成员信息。;- 本接口支持查询用户组内的用户类型成员或部门类型成员。一次请求中只能查询用户类型成员或者部门类型成员，不支持查询所有类型的用户组成员。;- 如果应用的通讯录权限范围是 **全部员工**，则可以查询当前租户下任何用户组成员列表。如果应用的通讯录权限范围不是 **全部员工**，则仅可查询通讯录权限范围内的用户组成员列表。了解通讯录权限范围，可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=simplelist&project=contact&resource=group.member&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/simplelist_groupMember.go
 func (g *groupMember) Simplelist(ctx context.Context, req *SimplelistGroupMemberReq, options ...larkcore.RequestOptionFunc) (*SimplelistGroupMemberResp, error) {
@@ -1114,9 +1122,11 @@ func (g *groupMember) Simplelist(ctx context.Context, req *SimplelistGroupMember
 	return resp, err
 }
 
-// Create
+// Create 创建序列
 //
-// -
+// - 调用该接口创建一个序列。序列是用户属性之一，用来定义用户的工作类型，例如产品、研发、运营等。
+//
+// - ## 使用限制;;单租户内序列数量总数上限为 10,000，但需要注意，如果总数超过 4,000，则无法在[管理后台](https://feishu.cn/admin)打开序列列表。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=job_family&version=v3
 //
@@ -1140,9 +1150,11 @@ func (j *jobFamily) Create(ctx context.Context, req *CreateJobFamilyReq, options
 	return resp, err
 }
 
-// Delete
+// Delete 删除序列
 //
-// -
+// - 调用该接口删除指定序列。
+//
+// - ## 使用限制;;仅支持删除没有子序列的序列。如果序列内存在子序列，则不能直接删除。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=job_family&version=v3
 //
@@ -1166,9 +1178,9 @@ func (j *jobFamily) Delete(ctx context.Context, req *DeleteJobFamilyReq, options
 	return resp, err
 }
 
-// Get
+// Get 获取单个序列信息
 //
-// -
+// - 调用该接口获取指定序列的信息，包括序列的名称、描述、启用状态以及 ID 等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=job_family&version=v3
 //
@@ -1192,9 +1204,9 @@ func (j *jobFamily) Get(ctx context.Context, req *GetJobFamilyReq, options ...la
 	return resp, err
 }
 
-// List
+// List 获取租户序列列表
 //
-// -
+// - 调用该接口获取当前租户下的序列信息，包含序列的名称、描述、启用状态以及 ID 等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=job_family&version=v3
 //
@@ -1226,9 +1238,9 @@ func (j *jobFamily) ListByIterator(ctx context.Context, req *ListJobFamilyReq, o
 		limit:    req.Limit}, nil
 }
 
-// Update
+// Update 更新序列
 //
-// -
+// - 调用该接口更新指定序列的信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=job_family&version=v3
 //
@@ -1252,9 +1264,11 @@ func (j *jobFamily) Update(ctx context.Context, req *UpdateJobFamilyReq, options
 	return resp, err
 }
 
-// Create
+// Create 创建职级
 //
-// -
+// - 调用该接口创建一个职级。职级是用户属性之一，用于标识用户的职位级别，例如 P1、P2、P3、P4。
+//
+// - ## 使用限制;;单租户内职级数量总数上限为 10,000，但需要注意，如果总数超过 4,000，则无法在[管理后台](https://feishu.cn/admin)打开职级列表。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=job_level&version=v3
 //
@@ -1278,9 +1292,9 @@ func (j *jobLevel) Create(ctx context.Context, req *CreateJobLevelReq, options .
 	return resp, err
 }
 
-// Delete
+// Delete 删除职级
 //
-// -
+// - 调用该接口删除指定的职级。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=job_level&version=v3
 //
@@ -1304,9 +1318,9 @@ func (j *jobLevel) Delete(ctx context.Context, req *DeleteJobLevelReq, options .
 	return resp, err
 }
 
-// Get
+// Get 获取单个职级信息
 //
-// -
+// - 调用该接口获取指定职级的信息，包括职级名称、描述、排序、状态以及多语言等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=job_level&version=v3
 //
@@ -1330,9 +1344,9 @@ func (j *jobLevel) Get(ctx context.Context, req *GetJobLevelReq, options ...lark
 	return resp, err
 }
 
-// List
+// List 获取租户职级列表
 //
-// -
+// - 调用该接口获取当前租户下的职级信息，包括职级名称、描述、排序、状态以及多语言等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=job_level&version=v3
 //
@@ -1364,9 +1378,9 @@ func (j *jobLevel) ListByIterator(ctx context.Context, req *ListJobLevelReq, opt
 		limit:    req.Limit}, nil
 }
 
-// Update
+// Update 更新职级
 //
-// -
+// - 调用该接口更新指定职级的信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=job_level&version=v3
 //
@@ -1390,9 +1404,9 @@ func (j *jobLevel) Update(ctx context.Context, req *UpdateJobLevelReq, options .
 	return resp, err
 }
 
-// Get
+// Get 获取单个职务信息
 //
-// -
+// - 调用该接口获取指定职务的信息，包括职务的 ID、名称、多语言名称以及启用状态。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=job_title&version=v3
 //
@@ -1416,9 +1430,9 @@ func (j *jobTitle) Get(ctx context.Context, req *GetJobTitleReq, options ...lark
 	return resp, err
 }
 
-// List
+// List 获取租户职务列表
 //
-// -
+// - 调用该接口获取当前租户下的职务信息，包括职务的 ID、名称、多语言名称以及启用状态。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=job_title&version=v3
 //
@@ -1452,9 +1466,9 @@ func (j *jobTitle) ListByIterator(ctx context.Context, req *ListJobTitleReq, opt
 
 // List 获取通讯录授权范围
 //
-// - 该接口用于获取应用被授权可访问的通讯录范围，包括可访问的部门列表、用户列表和用户组列表。;授权范围为全员时，返回的部门列表为该企业所有的一级部门；否则返回的部门为管理员在设置授权范围时勾选的部门（不包含勾选部门的子部门）。
+// - 调用该接口获取当前应用被授权可访问的通讯录范围，包括可访问的部门列表、用户列表和用户组列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/scope/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=scope&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_scope.go
 func (s *scope) List(ctx context.Context, req *ListScopeReq, options ...larkcore.RequestOptionFunc) (*ListScopeResp, error) {
@@ -1478,9 +1492,11 @@ func (s *scope) List(ctx context.Context, req *ListScopeReq, options ...larkcore
 
 // BindDepartment 建立部门与单位的绑定关系
 //
-// - 通过该接口建立部门与单位的绑定关系。由于单位是旗舰版付费功能，企业需开通相关版本，否则会绑定失败，不同版本请参考[飞书版本对比](https://www.feishu.cn/service)
+// - 调用该接口建立部门与单位的绑定关系。一个部门同时只能绑定一个单位。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/bind_department
+// - ## 注意事项;;操作的部门需要在应用的通讯录权限范围内。了解通讯录权限范围，可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。;;## 使用限制;;- 单个单位可关联的部门数量上限为 1,000。;- 同一个部门只能关联一个单位。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=bind_department&project=contact&resource=unit&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/bindDepartment_unit.go
 func (u *unit) BindDepartment(ctx context.Context, req *BindDepartmentUnitReq, options ...larkcore.RequestOptionFunc) (*BindDepartmentUnitResp, error) {
@@ -1504,9 +1520,11 @@ func (u *unit) BindDepartment(ctx context.Context, req *BindDepartmentUnitReq, o
 
 // Create 创建单位
 //
-// - 该接口用于创建单位。注意：单位功能属于旗舰版付费功能，企业需开通对应版本才可以创建单位，不同版本请参考[飞书版本对比](https://www.feishu.cn/service)。
+// - 调用该接口创建一个单位。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/create
+// - ## 前提条件;;单位属于付费功能，企业需要开通对应的飞书版本才可以使用。了解更多，可参见[单位管理](https://www.feishu.cn/hc/zh-CN/articles/333548009177)。;;## 使用限制;;单租户内单位总数上限为 1,000。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=unit&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_unit.go
 func (u *unit) Create(ctx context.Context, req *CreateUnitReq, options ...larkcore.RequestOptionFunc) (*CreateUnitResp, error) {
@@ -1530,9 +1548,11 @@ func (u *unit) Create(ctx context.Context, req *CreateUnitReq, options ...larkco
 
 // Delete 删除单位
 //
-// - 使用该接口删除单位，需要有更新单位的权限。注意：如果单位的单位类型被其它的业务使用，不允许删除。
+// - 调用该接口删除指定单位。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/delete
+// - ## 注意事项;;如果单位类型被其他业务应用，则不允许直接删除单位。例如，在配置成员的组织架构可见范围时，通过单位类型设置了可见范围，那么该单位类型对应的单位就无法直接删除。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=unit&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_unit.go
 func (u *unit) Delete(ctx context.Context, req *DeleteUnitReq, options ...larkcore.RequestOptionFunc) (*DeleteUnitResp, error) {
@@ -1556,9 +1576,9 @@ func (u *unit) Delete(ctx context.Context, req *DeleteUnitReq, options ...larkco
 
 // Get 获取单位信息
 //
-// - 该接口用于获取单位信息
+// - 调用该接口获取指定单位的信息，包括单位 ID、名字、类型。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=unit&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_unit.go
 func (u *unit) Get(ctx context.Context, req *GetUnitReq, options ...larkcore.RequestOptionFunc) (*GetUnitResp, error) {
@@ -1580,11 +1600,11 @@ func (u *unit) Get(ctx context.Context, req *GetUnitReq, options ...larkcore.Req
 	return resp, err
 }
 
-// List 批量获取单位列表
+// List 获取单位列表
 //
-// - 通过该接口获取企业的单位列表，需获取单位的权限
+// - 调用该接口获取当前租户内的单位列表。列表内主要包含各单位的 ID、名字、类型信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=unit&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/list_unit.go
 func (u *unit) List(ctx context.Context, req *ListUnitReq, options ...larkcore.RequestOptionFunc) (*ListUnitResp, error) {
@@ -1608,9 +1628,9 @@ func (u *unit) List(ctx context.Context, req *ListUnitReq, options ...larkcore.R
 
 // ListDepartment 获取单位绑定的部门列表
 //
-// - 通过该接口获取单位绑定的部门列表，需具有获取单位的权限
+// - 调用该接口获取指定单位绑定的部门列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list_department
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list_department&project=contact&resource=unit&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/listDepartment_unit.go
 func (u *unit) ListDepartment(ctx context.Context, req *ListDepartmentUnitReq, options ...larkcore.RequestOptionFunc) (*ListDepartmentUnitResp, error) {
@@ -1634,9 +1654,9 @@ func (u *unit) ListDepartment(ctx context.Context, req *ListDepartmentUnitReq, o
 
 // Patch 修改单位信息
 //
-// - 调用该接口，需要有更新单位的权限。注意：单位功能属于旗舰版付费功能，企业需开通对应版本才可以修改单位
+// - 调用该接口修改指定单位的名字。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=contact&resource=unit&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/patch_unit.go
 func (u *unit) Patch(ctx context.Context, req *PatchUnitReq, options ...larkcore.RequestOptionFunc) (*PatchUnitResp, error) {
@@ -1660,9 +1680,11 @@ func (u *unit) Patch(ctx context.Context, req *PatchUnitReq, options ...larkcore
 
 // UnbindDepartment 解除部门与单位的绑定关系
 //
-// - 通过该接口解除部门与单位的绑定关系，需更新单位的权限，需对应部门的通讯录权限。由于单位是旗舰版付费功能，企业需开通相关功能，否则会解绑失败
+// - 调用该接口解除部门与单位的绑定关系。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/unbind_department
+// - ## 注意事项;;操作的部门需要在应用的通讯录权限范围内。了解通讯录权限范围，可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=unbind_department&project=contact&resource=unit&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/unbindDepartment_unit.go
 func (u *unit) UnbindDepartment(ctx context.Context, req *UnbindDepartmentUnitReq, options ...larkcore.RequestOptionFunc) (*UnbindDepartmentUnitResp, error) {
@@ -1684,9 +1706,11 @@ func (u *unit) UnbindDepartment(ctx context.Context, req *UnbindDepartmentUnitRe
 	return resp, err
 }
 
-// BasicBatch
+// BasicBatch 获取用户姓名
 //
-// - 批量获取用户基本信息
+// - 根据用户 ID 获取用户姓名，仅返回核心信息（姓名），不含扩展字段及敏感信息。
+//
+// - 本接口不校验[通讯录授权范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)，将直接根据传入的用户 ID 返回对应基础信息（姓名），不受数据权限范围限制。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=basic_batch&project=contact&resource=user&version=v3
 //
@@ -1710,9 +1734,9 @@ func (u *user) BasicBatch(ctx context.Context, req *BasicBatchUserReq, options .
 	return resp, err
 }
 
-// Batch
+// Batch 批量获取用户信息
 //
-// -
+// - 调用该接口获取通讯录内一个或多个用户的信息，包括用户 ID、名称、邮箱、手机号、状态以及所属部门等信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch&project=contact&resource=user&version=v3
 //
@@ -1738,11 +1762,11 @@ func (u *user) Batch(ctx context.Context, req *BatchUserReq, options ...larkcore
 
 // BatchGetId 通过手机号或邮箱获取用户 ID
 //
-// - 通过该接口，可使用手机号/邮箱获取用户的 ID 信息，具体获取支持的 ID 类型包括 open_id、user_id、union_id，可通过查询参数指定。
+// - 调用该接口通过手机号或邮箱获取一个或多个用户的 ID （包括 user_id、open_id、union_id）与状态信息。
 //
-// - 如果查询的手机号、邮箱不存在，或者无权限查看对应的用户，则返回的用户ID列表为空。
+// - ## 注意事项;;请求后不返回用户 ID 的可能原因：;- 请求头 Authorization 传入的 tenant_access_token 有误。例如，tenant_access_token 对应的应用与实际所需应用不一致。;- 输入的手机号或者邮箱不存在。;- 应用未开通 **获取用户 user ID** API 权限。;- 应用无权限查看用户信息。你需要在应用详情页为应用配置数据权限，具体说明参见[配置应用数据权限](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/configure-app-data-permissions)。;- 使用企业邮箱查询将无法返回用户 ID，必须使用用户的邮箱地址。;- 所查询的用户已离职，如果请求参数 include_resigned 取值为 false，则不会返回离职用户 ID。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get_id&project=contact&resource=user&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/batchGetId_user.go
 func (u *user) BatchGetId(ctx context.Context, req *BatchGetIdUserReq, options ...larkcore.RequestOptionFunc) (*BatchGetIdUserResp, error) {
@@ -1766,11 +1790,9 @@ func (u *user) BatchGetId(ctx context.Context, req *BatchGetIdUserReq, options .
 
 // Create 创建用户
 //
-// - 使用该接口向通讯录创建一个用户，可以理解为员工入职。创建用户后只返回有数据权限的数据。具体的数据权限的与字段的对应关系请参照[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。
+// - 调用该接口向通讯录创建一个用户（该动作可以理解为员工入职）。成功创建用户后，系统会以短信或邮件的形式向用户发送邀请，用户在同意邀请后方可访问企业或团队。
 //
-// - - 新增用户的所有部门必须都在当前应用的通讯录授权范围内才允许新增用户，如果想要在根部门下新增用户，必须要有全员权限。;- 应用商店应用无权限调用此接口。;- 创建用户后，会给用户发送邀请短信/邮件，用户在操作同意后才可访问团队。;- 返回数据中不返回手机号，如果需要请重新查询用户信息获取手机号。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=contact&resource=user&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/create_user.go
 func (u *user) Create(ctx context.Context, req *CreateUserReq, options ...larkcore.RequestOptionFunc) (*CreateUserResp, error) {
@@ -1794,11 +1816,9 @@ func (u *user) Create(ctx context.Context, req *CreateUserReq, options ...larkco
 
 // Delete 删除用户
 //
-// - 该接口用于从通讯录删除一个用户信息，可以理解为员工离职。
+// - 调用该接口从通讯录内删除一个指定用户（该动作可以理解为员工离职），删除时可通过请求参数将用户所有的群组、文档、日程和应用等数据转让至他人。
 //
-// - - 若用户归属部门A、部门B，应用的通讯录权限范围必须包括部门A和部门B才可以删除用户。;- 用户可以在删除员工时设置删除员工数据（如文档）的接收者，如果不设置则由其leader接收，如果该员工没有leader，则会将该员工的数据删除。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=contact&resource=user&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/delete_user.go
 func (u *user) Delete(ctx context.Context, req *DeleteUserReq, options ...larkcore.RequestOptionFunc) (*DeleteUserResp, error) {
@@ -1822,11 +1842,9 @@ func (u *user) Delete(ctx context.Context, req *DeleteUserReq, options ...larkco
 
 // FindByDepartment 获取部门直属用户列表
 //
-// - 基于部门ID获取部门直属用户列表。
+// - 调用该接口获取指定部门直属的用户信息列表。用户信息包括用户 ID、名称、邮箱、手机号以及状态等信息。
 //
-// - - 部门ID 必填，根部门的部门ID为0。;- 使用 `user_access_token` 情况下根据个人组织架构的通讯录可见范围进行权限过滤，返回个人组织架构通讯录范围（[登录企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内可见的用户数据。;- 使用`tenant_access_token`会根据应用通讯录的范围进行权限过滤。 如果请求的部门ID为0，则校验应用是否具有全员通讯录权限； 如果是非0的部门ID，则会验证应用是否具有该部门的通讯录权限。 无权限返回无权限错误码，有权限则返回对应部门下的直接用户列表。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/find_by_department
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=find_by_department&project=contact&resource=user&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/findByDepartment_user.go
 func (u *user) FindByDepartment(ctx context.Context, req *FindByDepartmentUserReq, options ...larkcore.RequestOptionFunc) (*FindByDepartmentUserResp, error) {
@@ -1858,9 +1876,9 @@ func (u *user) FindByDepartmentByIterator(ctx context.Context, req *FindByDepart
 
 // Get 获取单个用户信息
 //
-// - 该接口用于获取通讯录中单个用户的信息。
+// - 调用该接口获取通讯录中某一用户的信息，包括用户 ID、名称、邮箱、手机号、状态以及所属部门等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=user&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/get_user.go
 func (u *user) Get(ctx context.Context, req *GetUserReq, options ...larkcore.RequestOptionFunc) (*GetUserResp, error) {
@@ -1882,9 +1900,11 @@ func (u *user) Get(ctx context.Context, req *GetUserReq, options ...larkcore.Req
 	return resp, err
 }
 
-// List
+// List 获取用户列表
 //
-// -
+// - 基于部门ID获取部门下直属用户列表。;[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+//
+// - 本接口已为历史版本，不再维护更新，不推荐使用。推荐你使用[获取部门直属用户列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/find_by_department)接口。;;- 使用 user_access_token 情况下根据个人组织架构的通讯录可见范围进行权限过滤，返回个人组织架构通讯录范围（[登陆企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内可见的用户数据。;- tenant_access_token 基于应用通讯录范围进行权限鉴定。由于 department_id 是非必填参数，填与不填存在<b>两种数据权限校验与返回</b>情况：<br>1、请求设置了 department_id ;（根部门为0），会检验所带部门ID是否具有通讯录权限（如果带上 ; department_id=0 会校验是否有全员权限），有则返回部门下直属的成员列表, 否则提示无部门权限的错误码返回。<br>2、请求未带 ; department_id 参数，则会返回权限范围内的独立用户（权限范围直接包含了某用户，则该用户视为权限范围内的独立用户）。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=user&version=v3
 //
@@ -1918,9 +1938,9 @@ func (u *user) ListByIterator(ctx context.Context, req *ListUserReq, options ...
 
 // Patch 修改用户部分信息
 //
-// - 该接口用于更新通讯录中用户的字段，未传递的参数不会更新。
+// - 调用该接口更新通讯录中指定用户的信息，包括名称、邮箱、手机号、所属部门以及自定义字段等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=contact&resource=user&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/patch_user.go
 func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore.RequestOptionFunc) (*PatchUserResp, error) {
@@ -1944,11 +1964,9 @@ func (u *user) Patch(ctx context.Context, req *PatchUserReq, options ...larkcore
 
 // Resurrect 恢复已删除用户
 //
-// - 该接口用于恢复已删除用户（已离职的成员），仅自建应用可申请，应用商店应用无权调用接口。
+// - 该接口用于恢复已删除用户（已离职的成员）。
 //
-// - - 仅支持恢复离职 30 天内的成员。恢复后，部分用户数据仍不可恢复，请谨慎调用。;- 待恢复成员的用户 ID 不能被企业内其他成员使用。如有重复，请先离职对应的成员，否则接口会报错。;- 待恢复成员的手机号和邮箱不能被企业内其他成员使用。如有重复，请先修改对应成员的信息，否则接口会报错。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/resurrect
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=resurrect&project=contact&resource=user&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/resurrect_user.go
 func (u *user) Resurrect(ctx context.Context, req *ResurrectUserReq, options ...larkcore.RequestOptionFunc) (*ResurrectUserResp, error) {
@@ -1974,9 +1992,9 @@ func (u *user) Resurrect(ctx context.Context, req *ResurrectUserReq, options ...
 //
 // - 该接口用于更新通讯录中用户的字段。
 //
-// - 应用需要拥有待更新用户的通讯录授权，如果涉及到用户部门变更，还需要同时拥有变更前、后所有新部门的通讯录授权。
+// - 应用需要拥有待更新用户的通讯录授权，如果涉及到用户部门变更，还需要同时拥有变更前、后所有新部门的通讯录授权。;;本接口已为历史版本，不再维护更新，不推荐使用。推荐你使用[修改用户部分信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch)接口。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=contact&resource=user&version=v3
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/contactv3/update_user.go
 func (u *user) Update(ctx context.Context, req *UpdateUserReq, options ...larkcore.RequestOptionFunc) (*UpdateUserResp, error) {
@@ -1998,9 +2016,9 @@ func (u *user) Update(ctx context.Context, req *UpdateUserReq, options ...larkco
 	return resp, err
 }
 
-// UpdateUserId
+// UpdateUserId 更新用户ID
 //
-// -
+// - 调用该接口更新用户的 user_id。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_user_id&project=contact&resource=user&version=v3
 //
@@ -2024,9 +2042,9 @@ func (u *user) UpdateUserId(ctx context.Context, req *UpdateUserIdUserReq, optio
 	return resp, err
 }
 
-// Get
+// Get 获取单个工作城市信息
 //
-// -
+// - 调用该接口获取指定工作城市的信息，包括工作城市的 ID、名称、多语言名称以及启用状态。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=contact&resource=work_city&version=v3
 //
@@ -2050,9 +2068,9 @@ func (w *workCity) Get(ctx context.Context, req *GetWorkCityReq, options ...lark
 	return resp, err
 }
 
-// List
+// List 获取租户工作城市列表
 //
-// -
+// - 调用该接口获取当前租户下所有工作城市信息，包括工作城市的 ID、名称、多语言名称以及启用状态。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=contact&resource=work_city&version=v3
 //

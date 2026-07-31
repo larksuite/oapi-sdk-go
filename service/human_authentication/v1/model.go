@@ -20,9 +20,9 @@ import (
 )
 
 const (
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UploadUserIdentityUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
+	UploadUserIdentityUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	UploadUserIdentityUserIDTypeUnionId = "union_id" // 以union_id来识别用户
 )
 
 type DepartmentId struct {
@@ -44,8 +44,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -53,8 +51,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -161,7 +157,7 @@ func NewCreateIdentityReqBodyBuilder() *CreateIdentityReqBodyBuilder {
 
 // 姓名
 //
-//示例值：张三
+// 示例值：张三
 func (builder *CreateIdentityReqBodyBuilder) IdentityName(identityName string) *CreateIdentityReqBodyBuilder {
 	builder.identityName = identityName
 	builder.identityNameSet = true
@@ -170,7 +166,7 @@ func (builder *CreateIdentityReqBodyBuilder) IdentityName(identityName string) *
 
 // 身份证号
 //
-//示例值：4xxxxxxxx
+// 示例值：4xxxxxxxx
 func (builder *CreateIdentityReqBodyBuilder) IdentityCode(identityCode string) *CreateIdentityReqBodyBuilder {
 	builder.identityCode = identityCode
 	builder.identityCodeSet = true
@@ -179,7 +175,7 @@ func (builder *CreateIdentityReqBodyBuilder) IdentityCode(identityCode string) *
 
 // 手机号
 //
-//示例值：13xxxxxxx
+// 示例值：13xxxxxxx
 func (builder *CreateIdentityReqBodyBuilder) Mobile(mobile string) *CreateIdentityReqBodyBuilder {
 	builder.mobile = mobile
 	builder.mobileSet = true

@@ -22,6 +22,7 @@ type V1 struct {
 	ApprovalTask                      *approvalTask                      // approval_task
 	SeatActivity                      *seatActivity                      // seat_activity
 	SeatAssignment                    *seatAssignment                    // seat_assignment
+	TenantAppMetrics                  *tenantAppMetrics                  // tenant_app_metrics
 	UserTask                          *userTask                          // user_task
 	Workspace                         *workspace                         // workspace
 	WorkspaceEnum                     *workspaceEnum                     // workspace.enum
@@ -44,6 +45,7 @@ func New(config *larkcore.Config) *V1 {
 		ApprovalTask:                      &approvalTask{config: config},
 		SeatActivity:                      &seatActivity{config: config},
 		SeatAssignment:                    &seatAssignment{config: config},
+		TenantAppMetrics:                  &tenantAppMetrics{config: config},
 		UserTask:                          &userTask{config: config},
 		Workspace:                         &workspace{config: config},
 		WorkspaceEnum:                     &workspaceEnum{config: config},
@@ -91,6 +93,9 @@ type seatActivity struct {
 type seatAssignment struct {
 	config *larkcore.Config
 }
+type tenantAppMetrics struct {
+	config *larkcore.Config
+}
 type userTask struct {
 	config *larkcore.Config
 }
@@ -107,9 +112,9 @@ type workspaceView struct {
 	config *larkcore.Config
 }
 
-// List
+// List 查看应用基本信息
 //
-// -
+// - 获取企业下应用基本信息，如应用名称 、应用命名空间等。;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=apaas&resource=app&version=v1
 //
@@ -141,9 +146,11 @@ func (a *app) ListByIterator(ctx context.Context, req *ListAppReq, options ...la
 		limit:    req.Limit}, nil
 }
 
-// AuditLogList
+// AuditLogList 查询审计日志列表
 //
-// - 获取审计日志列表
+// - 根据搜索/筛选条件，查询审计日志列表
+//
+// - 每次最多可查询 10,000 条数据
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=audit_log_list&project=apaas&resource=application.audit_log&version=v1
 //
@@ -167,9 +174,9 @@ func (a *applicationAuditLog) AuditLogList(ctx context.Context, req *AuditLogLis
 	return resp, err
 }
 
-// DataChangeLogDetail
+// DataChangeLogDetail 飞书低代码平台-查询数据变更日志详情
 //
-// - 获取数据变更日志详情
+// - 根据日志 ID 查询数据变更日志详情
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=data_change_log_detail&project=apaas&resource=application.audit_log&version=v1
 //
@@ -193,9 +200,11 @@ func (a *applicationAuditLog) DataChangeLogDetail(ctx context.Context, req *Data
 	return resp, err
 }
 
-// DataChangeLogsList
+// DataChangeLogsList 飞书低代码平台-查询数据变更日志列表
 //
-// - 获取数据变更日志列表
+// - 根据搜索/筛选条件，查询数据变更日志列表
+//
+// - 每次最多可查询 10,000 条数据
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=data_change_logs_list&project=apaas&resource=application.audit_log&version=v1
 //
@@ -219,9 +228,9 @@ func (a *applicationAuditLog) DataChangeLogsList(ctx context.Context, req *DataC
 	return resp, err
 }
 
-// Get
+// Get 飞书低代码平台-查询审计日志详情
 //
-// - 获取审计日志详情
+// - 根据日志 ID 查询审计日志详情
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=apaas&resource=application.audit_log&version=v1
 //
@@ -245,9 +254,9 @@ func (a *applicationAuditLog) Get(ctx context.Context, req *GetApplicationAuditL
 	return resp, err
 }
 
-// Get
+// Get 查询环境变量详情
 //
-// - 查询环境变量详情
+// - 查询基于飞书 aPaaS 开发的应用的环境变量详情，包括名称、描述、变量值等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=apaas&resource=application.environment_variable&version=v1
 //
@@ -271,9 +280,9 @@ func (a *applicationEnvironmentVariable) Get(ctx context.Context, req *GetApplic
 	return resp, err
 }
 
-// Query
+// Query 查询环境变量列表
 //
-// - 查询环境变量列表
+// - 查询基于飞书 aPaaS 开发的应用的环境变量列表
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=apaas&resource=application.environment_variable&version=v1
 //
@@ -297,9 +306,9 @@ func (a *applicationEnvironmentVariable) Query(ctx context.Context, req *QueryAp
 	return resp, err
 }
 
-// Execute
+// Execute 发起流程
 //
-// - 流程执行接口
+// - 执行相应流程
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=execute&project=apaas&resource=application.flow&version=v1
 //
@@ -323,9 +332,9 @@ func (a *applicationFlow) Execute(ctx context.Context, req *ExecuteApplicationFl
 	return resp, err
 }
 
-// Invoke
+// Invoke 执行函数
 //
-// - 执行函数
+// - 执行基于飞书应用引擎开发的应用的自定义函数
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=invoke&project=apaas&resource=application.function&version=v1
 //
@@ -349,9 +358,9 @@ func (a *applicationFunction) Invoke(ctx context.Context, req *InvokeApplication
 	return resp, err
 }
 
-// OqlQuery
+// OqlQuery 执行 OQL
 //
-// - 执行 OQL
+// - 在应用内执行 OQL 语句
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=oql_query&project=apaas&resource=application.object&version=v1
 //
@@ -375,9 +384,9 @@ func (a *applicationObject) OqlQuery(ctx context.Context, req *OqlQueryApplicati
 	return resp, err
 }
 
-// Search
+// Search 搜索记录
 //
-// - 搜索记录
+// - 在应用内搜索记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=apaas&resource=application.object&version=v1
 //
@@ -401,9 +410,9 @@ func (a *applicationObject) Search(ctx context.Context, req *SearchApplicationOb
 	return resp, err
 }
 
-// BatchCreate
+// BatchCreate 批量新建记录
 //
-// - 记录批量创建
+// - 一次新建多条对象中的记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=apaas&resource=application.object.record&version=v1
 //
@@ -427,9 +436,9 @@ func (a *applicationObjectRecord) BatchCreate(ctx context.Context, req *BatchCre
 	return resp, err
 }
 
-// BatchDelete
+// BatchDelete 批量删除记录
 //
-// - 记录批量删除
+// - 一次删除多条对象中的记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=apaas&resource=application.object.record&version=v1
 //
@@ -453,9 +462,9 @@ func (a *applicationObjectRecord) BatchDelete(ctx context.Context, req *BatchDel
 	return resp, err
 }
 
-// BatchQuery
+// BatchQuery 查询记录列表
 //
-// - 批量查询对象记录
+// - 获取对象中符合指定条件的记录列表
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=apaas&resource=application.object.record&version=v1
 //
@@ -479,9 +488,9 @@ func (a *applicationObjectRecord) BatchQuery(ctx context.Context, req *BatchQuer
 	return resp, err
 }
 
-// BatchUpdate
+// BatchUpdate 批量编辑记录
 //
-// - 记录批量更新
+// - 一次编辑多条对象中的记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=apaas&resource=application.object.record&version=v1
 //
@@ -505,9 +514,9 @@ func (a *applicationObjectRecord) BatchUpdate(ctx context.Context, req *BatchUpd
 	return resp, err
 }
 
-// Create
+// Create 新建记录
 //
-// - 创建记录
+// - 在对象中新建记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=apaas&resource=application.object.record&version=v1
 //
@@ -531,9 +540,9 @@ func (a *applicationObjectRecord) Create(ctx context.Context, req *CreateApplica
 	return resp, err
 }
 
-// Delete
+// Delete 删除记录
 //
-// - 删除记录
+// - 删除对象中的指定记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=apaas&resource=application.object.record&version=v1
 //
@@ -557,9 +566,9 @@ func (a *applicationObjectRecord) Delete(ctx context.Context, req *DeleteApplica
 	return resp, err
 }
 
-// Patch
+// Patch 编辑记录
 //
-// - 更新记录
+// - 编辑对象中的指定记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=apaas&resource=application.object.record&version=v1
 //
@@ -583,9 +592,9 @@ func (a *applicationObjectRecord) Patch(ctx context.Context, req *PatchApplicati
 	return resp, err
 }
 
-// Query
+// Query 获取记录详情
 //
-// - 获取记录
+// - 获取对象中指定的记录详情
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=apaas&resource=application.object.record&version=v1
 //
@@ -609,9 +618,9 @@ func (a *applicationObjectRecord) Query(ctx context.Context, req *QueryApplicati
 	return resp, err
 }
 
-// BatchCreateAuthorization
+// BatchCreateAuthorization 批量创建记录权限授权
 //
-// -
+// - 批量创建记录权限授权
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create_authorization&project=apaas&resource=application.record_permission.member&version=v1
 //
@@ -635,9 +644,9 @@ func (a *applicationRecordPermissionMember) BatchCreateAuthorization(ctx context
 	return resp, err
 }
 
-// BatchRemoveAuthorization
+// BatchRemoveAuthorization 批量删除记录权限授权
 //
-// -
+// - 批量删除记录权限授权
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_remove_authorization&project=apaas&resource=application.record_permission.member&version=v1
 //
@@ -661,9 +670,9 @@ func (a *applicationRecordPermissionMember) BatchRemoveAuthorization(ctx context
 	return resp, err
 }
 
-// BatchCreateAuthorization
+// BatchCreateAuthorization 批量创建角色成员授权
 //
-// - 批量添加角色成员用户和部门
+// - 批量创建角色成员授权
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create_authorization&project=apaas&resource=application.role.member&version=v1
 //
@@ -687,9 +696,9 @@ func (a *applicationRoleMember) BatchCreateAuthorization(ctx context.Context, re
 	return resp, err
 }
 
-// BatchRemoveAuthorization
+// BatchRemoveAuthorization 批量删除角色成员授权
 //
-// - 批量删除角色成员用户和部门
+// - 批量删除角色成员授权
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_remove_authorization&project=apaas&resource=application.role.member&version=v1
 //
@@ -713,9 +722,9 @@ func (a *applicationRoleMember) BatchRemoveAuthorization(ctx context.Context, re
 	return resp, err
 }
 
-// Get
+// Get 获取角色成员详情
 //
-// -
+// - 获取角色成员详情
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=apaas&resource=application.role.member&version=v1
 //
@@ -739,9 +748,9 @@ func (a *applicationRoleMember) Get(ctx context.Context, req *GetApplicationRole
 	return resp, err
 }
 
-// Cancel
+// Cancel 人工任务 - 撤销
 //
-// -
+// - 撤销一个人工任务（包括审批任务，填写任务）
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=cancel&project=apaas&resource=approval_instance&version=v1
 //
@@ -765,9 +774,9 @@ func (a *approvalInstance) Cancel(ctx context.Context, req *CancelApprovalInstan
 	return resp, err
 }
 
-// AddAssignee
+// AddAssignee 人工任务加签
 //
-// -
+// - 对于人工任务进行加签操作
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=add_assignee&project=apaas&resource=approval_task&version=v1
 //
@@ -791,9 +800,9 @@ func (a *approvalTask) AddAssignee(ctx context.Context, req *AddAssigneeApproval
 	return resp, err
 }
 
-// Agree
+// Agree 同意人工任务
 //
-// -
+// - 对于人工任务进行同意操作
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=agree&project=apaas&resource=approval_task&version=v1
 //
@@ -817,9 +826,9 @@ func (a *approvalTask) Agree(ctx context.Context, req *AgreeApprovalTaskReq, opt
 	return resp, err
 }
 
-// Reject
+// Reject 拒绝人工任务
 //
-// -
+// - 对于人工任务进行拒绝操作
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=reject&project=apaas&resource=approval_task&version=v1
 //
@@ -843,9 +852,9 @@ func (a *approvalTask) Reject(ctx context.Context, req *RejectApprovalTaskReq, o
 	return resp, err
 }
 
-// Transfer
+// Transfer 转交人工任务
 //
-// -
+// - 对于人工任务进行转交操作
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=transfer&project=apaas&resource=approval_task&version=v1
 //
@@ -869,9 +878,9 @@ func (a *approvalTask) Transfer(ctx context.Context, req *TransferApprovalTaskRe
 	return resp, err
 }
 
-// List
+// List 查询席位活跃详情
 //
-// -
+// - 获取租户下用户使用飞书 aPaaS 席位最近访问应用时间。需要飞书 aPaaS 系统管理员作为授权人调用当前API。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=apaas&resource=seat_activity&version=v1
 //
@@ -903,9 +912,9 @@ func (s *seatActivity) ListByIterator(ctx context.Context, req *ListSeatActivity
 		limit:    req.Limit}, nil
 }
 
-// List
+// List 查询席位分配详情
 //
-// -
+// - 获取租户下平台席位和应用访问席位分配详情，如用户 ID 、应用命名空间等，需要飞书 aPaaS 系统管理员作为授权人调用当前 API 。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=apaas&resource=seat_assignment&version=v1
 //
@@ -937,9 +946,35 @@ func (s *seatAssignment) ListByIterator(ctx context.Context, req *ListSeatAssign
 		limit:    req.Limit}, nil
 }
 
-// Cc
+// Query 获取应用运营数据
 //
-// -
+// - 获取 aPaaS 应用活跃数据、存储或运行资源用量数据。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=apaas&resource=tenant_app_metrics&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/apaasv1/query_tenantAppMetrics.go
+func (t *tenantAppMetrics) Query(ctx context.Context, req *QueryTenantAppMetricsReq, options ...larkcore.RequestOptionFunc) (*QueryTenantAppMetricsResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/apaas/v1/tenant_app_metrics/query"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, t.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryTenantAppMetricsResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, t.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Cc 人工任务 - 抄送任务
+//
+// - 对当前的任务进行一次抄送
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=cc&project=apaas&resource=user_task&version=v1
 //
@@ -963,9 +998,9 @@ func (u *userTask) Cc(ctx context.Context, req *CcUserTaskReq, options ...larkco
 	return resp, err
 }
 
-// ChatGroup
+// ChatGroup 人工任务 - 发起群聊
 //
-// -
+// - 基于任务，发起一个飞书群聊
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=chat_group&project=apaas&resource=user_task&version=v1
 //
@@ -989,9 +1024,9 @@ func (u *userTask) ChatGroup(ctx context.Context, req *ChatGroupUserTaskReq, opt
 	return resp, err
 }
 
-// Expediting
+// Expediting 人工任务 - 催办任务
 //
-// -
+// - 对任务当前的处理人发起一次催办
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=expediting&project=apaas&resource=user_task&version=v1
 //
@@ -1015,9 +1050,9 @@ func (u *userTask) Expediting(ctx context.Context, req *ExpeditingUserTaskReq, o
 	return resp, err
 }
 
-// Query
+// Query 查询人工任务列表
 //
-// - 获取任务列表
+// - 查询人工任务列表
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=apaas&resource=user_task&version=v1
 //
@@ -1041,9 +1076,9 @@ func (u *userTask) Query(ctx context.Context, req *QueryUserTaskReq, options ...
 	return resp, err
 }
 
-// Rollback
+// Rollback 人工任务 - 退回
 //
-// -
+// - 对当前任务进行一次退回
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=rollback&project=apaas&resource=user_task&version=v1
 //
@@ -1067,9 +1102,9 @@ func (u *userTask) Rollback(ctx context.Context, req *RollbackUserTaskReq, optio
 	return resp, err
 }
 
-// RollbackPoints
+// RollbackPoints 人工任务 - 查询可退回的位置
 //
-// -
+// - 查询当前任务可以退回的位置
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=rollback_points&project=apaas&resource=user_task&version=v1
 //
@@ -1093,9 +1128,9 @@ func (u *userTask) RollbackPoints(ctx context.Context, req *RollbackPointsUserTa
 	return resp, err
 }
 
-// SqlCommands
+// SqlCommands 执行 SQL
 //
-// - 执行 SQL
+// - 在工作空间下执行 SQL 语句
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=sql_commands&project=apaas&resource=workspace&version=v1
 //
@@ -1119,7 +1154,7 @@ func (w *workspace) SqlCommands(ctx context.Context, req *SqlCommandsWorkspaceRe
 	return resp, err
 }
 
-// EnumGet
+// EnumGet 获取自定义枚举详细信息
 //
 // - 获取自定义枚举详细信息
 //
@@ -1145,7 +1180,7 @@ func (w *workspaceEnum) EnumGet(ctx context.Context, req *EnumGetWorkspaceEnumRe
 	return resp, err
 }
 
-// List
+// List 获取工作空间下的自定义枚举列表
 //
 // - 获取工作空间下的自定义枚举列表
 //
@@ -1171,7 +1206,7 @@ func (w *workspaceEnum) List(ctx context.Context, req *ListWorkspaceEnumReq, opt
 	return resp, err
 }
 
-// List
+// List 获取工作空间下的数据表列表
 //
 // - 获取工作空间下的数据表列表
 //
@@ -1197,7 +1232,7 @@ func (w *workspaceTable) List(ctx context.Context, req *ListWorkspaceTableReq, o
 	return resp, err
 }
 
-// RecordsBatchUpdate
+// RecordsBatchUpdate 批量更新数据表中的记录
 //
 // - 批量更新数据表中的记录
 //
@@ -1223,7 +1258,7 @@ func (w *workspaceTable) RecordsBatchUpdate(ctx context.Context, req *RecordsBat
 	return resp, err
 }
 
-// RecordsDelete
+// RecordsDelete 删除数据表中的记录
 //
 // - 删除数据表中的记录
 //
@@ -1249,7 +1284,7 @@ func (w *workspaceTable) RecordsDelete(ctx context.Context, req *RecordsDeleteWo
 	return resp, err
 }
 
-// RecordsGet
+// RecordsGet 查询数据表数据记录
 //
 // - 查询数据表数据记录
 //
@@ -1275,7 +1310,7 @@ func (w *workspaceTable) RecordsGet(ctx context.Context, req *RecordsGetWorkspac
 	return resp, err
 }
 
-// RecordsPatch
+// RecordsPatch 按条件更新数据表中的记录
 //
 // - 按条件更新数据表中的记录
 //
@@ -1301,7 +1336,7 @@ func (w *workspaceTable) RecordsPatch(ctx context.Context, req *RecordsPatchWork
 	return resp, err
 }
 
-// RecordsPost
+// RecordsPost 向数据表中添加或更新记录
 //
 // - 向数据表中添加或更新记录
 //
@@ -1327,7 +1362,7 @@ func (w *workspaceTable) RecordsPost(ctx context.Context, req *RecordsPostWorksp
 	return resp, err
 }
 
-// TableGet
+// TableGet 获取数据表详细信息
 //
 // - 获取数据表详细信息
 //
@@ -1353,9 +1388,9 @@ func (w *workspaceTable) TableGet(ctx context.Context, req *TableGetWorkspaceTab
 	return resp, err
 }
 
-// ViewsGet
+// ViewsGet 查询视图数据记录
 //
-// -
+// - 查询视图数据记录
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=views_get&project=apaas&resource=workspace.view&version=v1
 //

@@ -27,9 +27,9 @@ type deviceRecord struct {
 	config *larkcore.Config
 }
 
-// Update
+// Update 审批设备申报
 //
-// -
+// - 使用该接口在设备管理中通过或驳回一条成员自主申报申请
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=security_and_compliance&resource=device_apply_record&version=v2
 //
@@ -53,9 +53,9 @@ func (d *deviceApplyRecord) Update(ctx context.Context, req *UpdateDeviceApplyRe
 	return resp, err
 }
 
-// Create
+// Create 新增设备
 //
-// -
+// - 使用该接口在设备管理中新增一台设备。新增设备的类型为管理员导入
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=security_and_compliance&resource=device_record&version=v2
 //
@@ -79,9 +79,9 @@ func (d *deviceRecord) Create(ctx context.Context, req *CreateDeviceRecordReq, o
 	return resp, err
 }
 
-// Delete
+// Delete 删除设备
 //
-// -
+// - 使用该接口在设备管理中删除一台设备
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=security_and_compliance&resource=device_record&version=v2
 //
@@ -105,9 +105,9 @@ func (d *deviceRecord) Delete(ctx context.Context, req *DeleteDeviceRecordReq, o
 	return resp, err
 }
 
-// Get
+// Get 获取设备信息
 //
-// -
+// - 使用该接口在设备管理中获取设备的设备参数、设备归属、设备状态等信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=security_and_compliance&resource=device_record&version=v2
 //
@@ -131,9 +131,9 @@ func (d *deviceRecord) Get(ctx context.Context, req *GetDeviceRecordReq, options
 	return resp, err
 }
 
-// List
+// List 查询设备信息
 //
-// -
+// - 使用该接口可分页查询设备列表信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=security_and_compliance&resource=device_record&version=v2
 //
@@ -165,9 +165,9 @@ func (d *deviceRecord) ListByIterator(ctx context.Context, req *ListDeviceRecord
 		limit:    req.Limit}, nil
 }
 
-// Mine
+// Mine 获取设备认证信息
 //
-// -
+// - 通过客户端授权信息获取对应设备认证信息，包含设备归属、可信状态等
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=mine&project=security_and_compliance&resource=device_record&version=v2
 //
@@ -194,9 +194,9 @@ func (d *deviceRecord) Mine(ctx context.Context, options ...larkcore.RequestOpti
 	return resp, err
 }
 
-// Update
+// Update 更新设备
 //
-// -
+// - 使用该接口在设备管理中修改一台设备的设备归属、设备状态等信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=security_and_compliance&resource=device_record&version=v2
 //

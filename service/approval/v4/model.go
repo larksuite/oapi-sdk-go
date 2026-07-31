@@ -25,8 +25,8 @@ import (
 )
 
 const (
-	CreateApprovalV4DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	CreateApprovalV4DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	CreateApprovalV4DepartmentIDTypeDepartmentId     = "department_id"      // 支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id，因此在未删除的部门范围内 department_id 具有唯一性。
+	CreateApprovalV4DepartmentIDTypeOpenDepartmentId = "open_department_id" // 由系统自动生成的部门 ID，ID 前缀固定为 `od-`，在租户内全局唯一。
 )
 
 const (
@@ -76,8 +76,8 @@ const (
 )
 
 const (
-	CreateExternalApprovalV4DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	CreateExternalApprovalV4DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	CreateExternalApprovalV4DepartmentIDTypeDepartmentId     = "department_id"      // 支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id，因此在未删除的部门范围内 department_id 具有唯一性。
+	CreateExternalApprovalV4DepartmentIDTypeOpenDepartmentId = "open_department_id" // 由系统自动生成的部门 ID，ID 前缀固定为 `od-`，在租户内全局唯一。
 )
 
 const (
@@ -98,7 +98,7 @@ const (
 	ExternalInstanceStatusRejected   = "REJECTED"   // 审批流程结束，结果为拒绝
 	ExternalInstanceStatusCanceled   = "CANCELED"   // 审批发起人撤回
 	ExternalInstanceStatusDeleted    = "DELETED"    // 审批被删除
-	ExternalInstanceStatusHidden     = "HIDDEN"     // 状态隐藏(不显示状态)
+	ExternalInstanceStatusHidden     = "HIDDEN"     // 状态隐藏（不显示状态）
 	ExternalInstanceStatusTerminated = "TERMINATED" // 审批终止
 )
 
@@ -106,11 +106,11 @@ const (
 	ExternalInstanceDisplayMethodBrowser     = "BROWSER"     // 跳转系统默认浏览器打开
 	ExternalInstanceDisplayMethodSIdebar     = "SIDEBAR"     // 飞书中侧边抽屉打开
 	ExternalInstanceDisplayMethodNormal      = "NORMAL"      // 飞书内嵌页面打开
-	ExternalInstanceDisplayMethodTrusteeship = "TRUSTEESHIP" // 以托管打开
+	ExternalInstanceDisplayMethodTrusteeship = "TRUSTEESHIP" // 以托管打开（即托管在飞书审批中心打开）
 )
 
 const (
-	ExternalInstanceUpdateModeReplace = "REPLACE" // 全量替换，默认值
+	ExternalInstanceUpdateModeReplace = "REPLACE" // 全量替换
 	ExternalInstanceUpdateModeUpdate  = "UPDATE"  // 增量更新
 )
 
@@ -119,7 +119,13 @@ const (
 	ExternalTaskStatusApproved    = "APPROVED"    // 审批流程结束，结果为同意
 	ExternalTaskStatusRejected    = "REJECTED"    // 审批流程结束，结果为拒绝
 	ExternalTaskStatusTransferred = "TRANSFERRED" // 任务转交
-	ExternalTaskStatusDone        = "DONE"        // 任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
+	ExternalTaskStatusDone        = "DONE"        // 任务通过但审批人未操作。审批人看不到该任务时，如需查看可抄送至该审批人。**注意，该状态不支持直接查询，仅在响应结果中返回。**
+)
+
+const (
+	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -149,8 +155,8 @@ const (
 )
 
 const (
-	InstanceCreateTitleDisplayMethodDisplayAll           = 0 // 如果都有title，展示approval 和instance的title，竖线分割。
-	InstanceCreateTitleDisplayMethodDisplayInstanceTitle = 1 // 如果都有title，只展示instance的title
+	InstanceCreateTitleDisplayMethodDisplayAll           = 0 // 如果审批定义和审批实例都有 title，则全部展示，通过竖线分割。
+	InstanceCreateTitleDisplayMethodDisplayInstanceTitle = 1 // 如果审批定义和审批实例都有 title，只展示审批实例的 title。
 
 )
 
@@ -174,9 +180,46 @@ const (
 )
 
 const (
+	UserIdTypeDetailInstanceUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeDetailInstanceUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeDetailInstanceOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	GetInstanceV4LocaleGetInstanceZhcn = "zh-CN" // 中文
+	GetInstanceV4LocaleGetInstanceEnus = "en-US" // 英文
+	GetInstanceV4LocaleGetInstanceJajp = "ja-JP" // 日文
+	GetInstanceV4LocaleGetInstanceZhhk = "zh-HK" // 繁体中文（中国香港）
+	GetInstanceV4LocaleGetInstanceZhtw = "zh-TW" // 繁体中文（中国台湾）
+	GetInstanceV4LocaleGetInstanceDede = "de-DE" // 德语
+	GetInstanceV4LocaleGetInstanceEses = "es-ES" // 西班牙语
+	GetInstanceV4LocaleGetInstanceFrfr = "fr-FR" // 法语
+	GetInstanceV4LocaleGetInstanceIdid = "id-ID" // 印度尼西亚语
+	GetInstanceV4LocaleGetInstanceItit = "it-IT" // 意大利语
+	GetInstanceV4LocaleGetInstanceKokr = "ko-KR" // 韩语
+	GetInstanceV4LocaleGetInstancePtbr = "pt-BR" // 葡萄牙语
+	GetInstanceV4LocaleGetInstanceThth = "th-TH" // 泰语
+	GetInstanceV4LocaleGetInstanceVivn = "vi-VN" // 越南语
+	GetInstanceV4LocaleGetInstanceMsmy = "ms-MY" // 马来语
+	GetInstanceV4LocaleGetInstanceRuru = "ru-RU" // 俄语
+)
+
+const (
 	GetInstanceV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
 	GetInstanceV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 	GetInstanceV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+)
+
+const (
+	LocaleZhcn = "zh-CN" // 中文
+	LocaleEnus = "en-US" // 英文
+	LocaleJajp = "ja-JP" // 日文
+)
+
+const (
+	UserIdTypeInitiatedInstanceUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeInitiatedInstanceUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeInitiatedInstanceOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -187,10 +230,10 @@ const (
 
 const (
 	InstanceSearchInstanceStatusPending   = "PENDING"  // 审批中
-	InstanceSearchInstanceStatusRecall    = "RECALL"   // 撤回
-	InstanceSearchInstanceStatusReject    = "REJECT"   // 拒绝
+	InstanceSearchInstanceStatusRecall    = "RECALL"   // 已撤回
+	InstanceSearchInstanceStatusReject    = "REJECT"   // 已拒绝
 	InstanceSearchInstanceStatusDeleted   = "DELETED"  // 已删除
-	InstanceSearchInstanceStatusApproverd = "APPROVED" // 通过
+	InstanceSearchInstanceStatusApproverd = "APPROVED" // 已通过
 	InstanceSearchInstanceStatusAll       = "ALL"      // 所有状态
 )
 
@@ -257,6 +300,16 @@ const (
 )
 
 const (
+	SubscriptionTypeINVOLVEDAPPROVAL = "INVOLVED_APPROVAL" // 订阅自身作为审批人的参与类审批任务通知
+	SubscriptionTypeMANAGEDAPPROVAL  = "MANAGED_APPROVAL"  // 订阅自身作为审批管理员的管理类审批任务通知
+)
+
+const (
+	SubscriptionTypeUnsubscriptionInstanceINVOLVEDAPPROVAL = "INVOLVED_APPROVAL" // 参与审批订阅
+	SubscriptionTypeUnsubscriptionInstanceMANAGEDAPPROVAL  = "MANAGED_APPROVAL"  // 管理审批订阅
+)
+
+const (
 	CreateInstanceCommentUserIDTypeOpenId  = "open_id"  // open_id(ou_开头)
 	CreateInstanceCommentUserIDTypeUserId  = "user_id"  // user_id(字符串)
 	CreateInstanceCommentUserIDTypeUnionId = "union_id" // union_id(on_开头)
@@ -281,9 +334,35 @@ const (
 )
 
 const (
+	AddSignEnumAddSignTaskAddSignPre      = 1 // 前加签
+	AddSignEnumAddSignTaskAddSignPost     = 2 // 后加签
+	AddSignEnumAddSignTaskAddSignParallel = 3 // 并加签
+
+)
+
+const (
+	ApprovalMethodEnumAddSignTaskOrSign         = 1 // 或签
+	ApprovalMethodEnumAddSignTaskAddSign        = 2 // 会签
+	ApprovalMethodEnumAddSignTaskSequentialSign = 3 // 依次审批
+
+)
+
+const (
+	UserIdTypeAddSignTaskUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeAddSignTaskUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeAddSignTaskOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	ApproveTaskV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
 	ApproveTaskV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
 	ApproveTaskV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	UserIdTypeForwardTaskUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeForwardTaskUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeForwardTaskOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -292,6 +371,26 @@ const (
 	TopicInitiatedApproval = "3"  // 已发起审批
 	TopicUnreadNotice      = "17" // 未读知会
 	TopicReadNotice        = "18" // 已读知会
+)
+
+const (
+	LocaleListTaskZhcn = "zh-CN" // 中文
+	LocaleListTaskEnus = "en-US" // 英文
+	LocaleListTaskJajp = "ja-JP" // 日文
+)
+
+const (
+	UserIdTypeListTaskUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeListTaskUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeListTaskOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	TopicQueryTaskTodoApproval      = "1"  // 待办审批
+	TopicQueryTaskDoneApproval      = "2"  // 已办审批
+	TopicQueryTaskInitiatedApproval = "3"  // 已发起审批
+	TopicQueryTaskUnreadNotice      = "17" // 抄送未读
+	TopicQueryTaskReadNotice        = "18" // 抄送已读
 )
 
 const (
@@ -314,9 +413,9 @@ const (
 
 const (
 	TaskSearchTaskStatusPending     = "PENDING"     // 审批中
-	TaskSearchTaskStatusReject      = "REJECTED"    // 拒绝
-	TaskSearchTaskStatusApproverd   = "APPROVED"    // 通过
-	TaskSearchTaskStatusTRANSFERRED = "TRANSFERRED" // 转交
+	TaskSearchTaskStatusReject      = "REJECTED"    // 已拒绝
+	TaskSearchTaskStatusApproverd   = "APPROVED"    // 已通过
+	TaskSearchTaskStatusTRANSFERRED = "TRANSFERRED" // 已转交
 	TaskSearchTaskStatusDONE        = "DONE"        // 已完成
 	TaskSearchTaskStatusRMREPEAT    = "RM_REPEAT"   // 去重
 	TaskSearchTaskStatusPROCESSED   = "PROCESSED"   // 已处理
@@ -343,10 +442,10 @@ const (
 )
 
 const (
-	TaskSearchOrderUpdateTimeDESC = 0 // 按update_time倒排
-	TaskSearchOrderUpdateTimeASC  = 1 // 按update_time正排
-	TaskSearchOrderStartTimeDESC  = 2 // 按start_time倒排
-	TaskSearchOrderStartTimeASC   = 3 // 按start_time正排
+	TaskSearchOrderUpdateTimeDESC = 0 // 按审批任务更新时间（update_time）倒排。
+	TaskSearchOrderUpdateTimeASC  = 1 // 按审批任务更新时间（update_time）正排。
+	TaskSearchOrderStartTimeDESC  = 2 // 按审批任务开始时间（start_time）倒排。
+	TaskSearchOrderStartTimeASC   = 3 // 按审批任务开始时间（start_time）正排。
 
 )
 
@@ -357,37 +456,47 @@ const (
 )
 
 const (
+	SubscriptionTypeSubscriptionTaskINVOLVEDAPPROVAL = "INVOLVED_APPROVAL" // 订阅自身作为审批人的参与类审批任务通知
+	SubscriptionTypeSubscriptionTaskMANAGEDAPPROVAL  = "MANAGED_APPROVAL"  // 订阅自身作为审批管理员的管理类审批任务通知
+)
+
+const (
 	TransferTaskV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
 	TransferTaskV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
 	TransferTaskV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
+const (
+	SubscriptionTypeUnsubscriptionTaskINVOLVEDAPPROVAL = "INVOLVED_APPROVAL" // 参与审批订阅
+	SubscriptionTypeUnsubscriptionTaskMANAGEDAPPROVAL  = "MANAGED_APPROVAL"  // 管理审批订阅
+)
+
 type ActionConfig struct {
-	ActionType *string `json:"action_type,omitempty"` // 操作类型，每个任务都可以配置2个操作，会展示审批列表中，当用户操作时，回调请求会带上该字段，表示用户进行了同意操作还是拒绝操作
+	ActionType *string `json:"action_type,omitempty"` // 操作类型。每个任务都可以配置两个操作（同意、拒绝或任意中的两个），操作会展示审批列表中。当用户操作时，回调请求会包含该字段，三方审批可接受到审批人的操作数据。;;**可选值有**：;<md-enum>;<md-enum-item key="APPROVE" >同意</md-enum-item>;<md-enum-item key="REJECT" >拒绝</md-enum-item>;<md-enum-item key="{KEY}" >任意字符串。如果使用任意字符串，则需要提供 action_name</md-enum-item>;</md-enum>
 
-	ActionName *string `json:"action_name,omitempty"` // 操作名称，i18n key 用于前台展示，如果 action_type 不是 APPROVAL和REJECT，则必须提供该字段，用于展示特定的操作名称
+	ActionName *string `json:"action_name,omitempty"` // 操作名称。如果 action_type 不等于 APPROVAL 或 REJECT，则必须提供该字段，用于展示特定的操作名称。; ;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 
-	IsNeedReason *bool `json:"is_need_reason,omitempty"` // 是否需要意见, 如果为true,则用户操作时，会跳转到 意见填写页面
+	IsNeedReason *bool `json:"is_need_reason,omitempty"` // 是否需要审批意见。取值为 true 时，审批人在审批中心操作任务后，还需要跳转填写审批意见。
 
 	IsReasonRequired *bool `json:"is_reason_required,omitempty"` // 审批意见是否必填
 
-	IsNeedAttachment *bool `json:"is_need_attachment,omitempty"` // 意见是否支持上传附件
+	IsNeedAttachment *bool `json:"is_need_attachment,omitempty"` // 审批意见是否支持上传附件
 }
 
 type ActionConfigBuilder struct {
-	actionType    string // 操作类型，每个任务都可以配置2个操作，会展示审批列表中，当用户操作时，回调请求会带上该字段，表示用户进行了同意操作还是拒绝操作
+	actionType    string // 操作类型。每个任务都可以配置两个操作（同意、拒绝或任意中的两个），操作会展示审批列表中。当用户操作时，回调请求会包含该字段，三方审批可接受到审批人的操作数据。;;**可选值有**：;<md-enum>;<md-enum-item key="APPROVE" >同意</md-enum-item>;<md-enum-item key="REJECT" >拒绝</md-enum-item>;<md-enum-item key="{KEY}" >任意字符串。如果使用任意字符串，则需要提供 action_name</md-enum-item>;</md-enum>
 	actionTypeSet bool
 
-	actionName    string // 操作名称，i18n key 用于前台展示，如果 action_type 不是 APPROVAL和REJECT，则必须提供该字段，用于展示特定的操作名称
+	actionName    string // 操作名称。如果 action_type 不等于 APPROVAL 或 REJECT，则必须提供该字段，用于展示特定的操作名称。; ;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 	actionNameSet bool
 
-	isNeedReason    bool // 是否需要意见, 如果为true,则用户操作时，会跳转到 意见填写页面
+	isNeedReason    bool // 是否需要审批意见。取值为 true 时，审批人在审批中心操作任务后，还需要跳转填写审批意见。
 	isNeedReasonSet bool
 
 	isReasonRequired    bool // 审批意见是否必填
 	isReasonRequiredSet bool
 
-	isNeedAttachment    bool // 意见是否支持上传附件
+	isNeedAttachment    bool // 审批意见是否支持上传附件
 	isNeedAttachmentSet bool
 }
 
@@ -396,7 +505,7 @@ func NewActionConfigBuilder() *ActionConfigBuilder {
 	return builder
 }
 
-// 操作类型，每个任务都可以配置2个操作，会展示审批列表中，当用户操作时，回调请求会带上该字段，表示用户进行了同意操作还是拒绝操作
+// 操作类型。每个任务都可以配置两个操作（同意、拒绝或任意中的两个），操作会展示审批列表中。当用户操作时，回调请求会包含该字段，三方审批可接受到审批人的操作数据。;;**可选值有**：;<md-enum>;<md-enum-item key="APPROVE" >同意</md-enum-item>;<md-enum-item key="REJECT" >拒绝</md-enum-item>;<md-enum-item key="{KEY}" >任意字符串。如果使用任意字符串，则需要提供 action_name</md-enum-item>;</md-enum>
 //
 // 示例值：APPROVE
 func (builder *ActionConfigBuilder) ActionType(actionType string) *ActionConfigBuilder {
@@ -405,7 +514,7 @@ func (builder *ActionConfigBuilder) ActionType(actionType string) *ActionConfigB
 	return builder
 }
 
-// 操作名称，i18n key 用于前台展示，如果 action_type 不是 APPROVAL和REJECT，则必须提供该字段，用于展示特定的操作名称
+// 操作名称。如果 action_type 不等于 APPROVAL 或 REJECT，则必须提供该字段，用于展示特定的操作名称。; ;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 //
 // 示例值：@i18n@5
 func (builder *ActionConfigBuilder) ActionName(actionName string) *ActionConfigBuilder {
@@ -414,7 +523,7 @@ func (builder *ActionConfigBuilder) ActionName(actionName string) *ActionConfigB
 	return builder
 }
 
-// 是否需要意见, 如果为true,则用户操作时，会跳转到 意见填写页面
+// 是否需要审批意见。取值为 true 时，审批人在审批中心操作任务后，还需要跳转填写审批意见。
 //
 // 示例值：false
 func (builder *ActionConfigBuilder) IsNeedReason(isNeedReason bool) *ActionConfigBuilder {
@@ -432,7 +541,7 @@ func (builder *ActionConfigBuilder) IsReasonRequired(isReasonRequired bool) *Act
 	return builder
 }
 
-// 意见是否支持上传附件
+// 审批意见是否支持上传附件
 //
 // 示例值：false
 func (builder *ActionConfigBuilder) IsNeedAttachment(isNeedAttachment bool) *ActionConfigBuilder {
@@ -643,21 +752,21 @@ func (builder *ApprovalBuilder) Build() *Approval {
 }
 
 type ApprovalApproverCcer struct {
-	Type *string `json:"type,omitempty"` // 审批/抄送人类型， ; 1. 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时，需要在 level 中填写对应的级数，例如：由下往上三级主管审批，level = 3；;; 2. 当 type 为 Personal 时，需要填写对应的user_id ，用于指定用户；;; 3. 当 approver 为 Free 发起人自选时，不需要指定 user_id 和level；;; 4. ccer不支持 Free 发起人自选
+	Type *string `json:"type,omitempty"` // 审批人类型。使用说明：;;- 该参数取值为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时，需要在 level 参数中填写对应的级数。例如：由下往上三级主管审批，该参数取值 Supervisor 、level 参数取值 3。;; - 该参数取值为 Personal 时，需要填写对应的 user_id ，用于指定用户。;; - 该参数取值为 Free 时，无需指定 user_id 和 level。
 
-	UserId *string `json:"user_id,omitempty"` // 用户id，根据user_id_type填写
+	UserId *string `json:"user_id,omitempty"` // 用户 ID。;;- type 取值 Personal 时需要通过该参数设置指定的用户。;;- ID 类型与查询参数 user_id_type 取值一致。
 
-	Level *string `json:"level,omitempty"` // 审批级数，当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时，需要在 level 中填写对应的级数，例如：由下往上三级主管审批，level = 3
+	Level *string `json:"level,omitempty"` // 审批级数。当 type 取值为 Supervisor、SupervisorTopDown、DepartmentManager、DepartmentManagerTopDown 这 4 种时，需要在 level 中填写对应的级数。例如：由下往上三级主管审批，level 取值 3。
 }
 
 type ApprovalApproverCcerBuilder struct {
-	type_    string // 审批/抄送人类型， ; 1. 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时，需要在 level 中填写对应的级数，例如：由下往上三级主管审批，level = 3；;; 2. 当 type 为 Personal 时，需要填写对应的user_id ，用于指定用户；;; 3. 当 approver 为 Free 发起人自选时，不需要指定 user_id 和level；;; 4. ccer不支持 Free 发起人自选
+	type_    string // 审批人类型。使用说明：;;- 该参数取值为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时，需要在 level 参数中填写对应的级数。例如：由下往上三级主管审批，该参数取值 Supervisor 、level 参数取值 3。;; - 该参数取值为 Personal 时，需要填写对应的 user_id ，用于指定用户。;; - 该参数取值为 Free 时，无需指定 user_id 和 level。
 	type_Set bool
 
-	userId    string // 用户id，根据user_id_type填写
+	userId    string // 用户 ID。;;- type 取值 Personal 时需要通过该参数设置指定的用户。;;- ID 类型与查询参数 user_id_type 取值一致。
 	userIdSet bool
 
-	level    string // 审批级数，当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时，需要在 level 中填写对应的级数，例如：由下往上三级主管审批，level = 3
+	level    string // 审批级数。当 type 取值为 Supervisor、SupervisorTopDown、DepartmentManager、DepartmentManagerTopDown 这 4 种时，需要在 level 中填写对应的级数。例如：由下往上三级主管审批，level 取值 3。
 	levelSet bool
 }
 
@@ -666,7 +775,7 @@ func NewApprovalApproverCcerBuilder() *ApprovalApproverCcerBuilder {
 	return builder
 }
 
-// 审批/抄送人类型， ; 1. 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时，需要在 level 中填写对应的级数，例如：由下往上三级主管审批，level = 3；;; 2. 当 type 为 Personal 时，需要填写对应的user_id ，用于指定用户；;; 3. 当 approver 为 Free 发起人自选时，不需要指定 user_id 和level；;; 4. ccer不支持 Free 发起人自选
+// 审批人类型。使用说明：;;- 该参数取值为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时，需要在 level 参数中填写对应的级数。例如：由下往上三级主管审批，该参数取值 Supervisor 、level 参数取值 3。;; - 该参数取值为 Personal 时，需要填写对应的 user_id ，用于指定用户。;; - 该参数取值为 Free 时，无需指定 user_id 和 level。
 //
 // 示例值：Supervisor
 func (builder *ApprovalApproverCcerBuilder) Type(type_ string) *ApprovalApproverCcerBuilder {
@@ -675,7 +784,7 @@ func (builder *ApprovalApproverCcerBuilder) Type(type_ string) *ApprovalApprover
 	return builder
 }
 
-// 用户id，根据user_id_type填写
+// 用户 ID。;;- type 取值 Personal 时需要通过该参数设置指定的用户。;;- ID 类型与查询参数 user_id_type 取值一致。
 //
 // 示例值：f7cb567e
 func (builder *ApprovalApproverCcerBuilder) UserId(userId string) *ApprovalApproverCcerBuilder {
@@ -684,7 +793,7 @@ func (builder *ApprovalApproverCcerBuilder) UserId(userId string) *ApprovalAppro
 	return builder
 }
 
-// 审批级数，当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时，需要在 level 中填写对应的级数，例如：由下往上三级主管审批，level = 3
+// 审批级数。当 type 取值为 Supervisor、SupervisorTopDown、DepartmentManager、DepartmentManagerTopDown 这 4 种时，需要在 level 中填写对应的级数。例如：由下往上三级主管审批，level 取值 3。
 //
 // 示例值：3
 func (builder *ApprovalApproverCcerBuilder) Level(level string) *ApprovalApproverCcerBuilder {
@@ -711,31 +820,31 @@ func (builder *ApprovalApproverCcerBuilder) Build() *ApprovalApproverCcer {
 }
 
 type ApprovalConfig struct {
-	CanUpdateViewer *bool `json:"can_update_viewer,omitempty"` // 允许用户修改可见范围
+	CanUpdateViewer *bool `json:"can_update_viewer,omitempty"` // 是否允许用户修改可见范围;;**默认值**：false
 
-	CanUpdateForm *bool `json:"can_update_form,omitempty"` // 允许用户更新表单
+	CanUpdateForm *bool `json:"can_update_form,omitempty"` // 是否允许用户更新表单;;**默认值**：false
 
-	CanUpdateProcess *bool `json:"can_update_process,omitempty"` // 允许用户更新流程定义
+	CanUpdateProcess *bool `json:"can_update_process,omitempty"` // 是否允许用户更新流程定义;;**默认值**：false
 
-	CanUpdateRevert *bool `json:"can_update_revert,omitempty"` // 允许用户更新撤回设置
+	CanUpdateRevert *bool `json:"can_update_revert,omitempty"` // 是否允许用户更新撤回设置;;**默认值**：false
 
-	HelpUrl *string `json:"help_url,omitempty"` // 帮助文档链接
+	HelpUrl *string `json:"help_url,omitempty"` // 审批定义的帮助文档链接
 }
 
 type ApprovalConfigBuilder struct {
-	canUpdateViewer    bool // 允许用户修改可见范围
+	canUpdateViewer    bool // 是否允许用户修改可见范围;;**默认值**：false
 	canUpdateViewerSet bool
 
-	canUpdateForm    bool // 允许用户更新表单
+	canUpdateForm    bool // 是否允许用户更新表单;;**默认值**：false
 	canUpdateFormSet bool
 
-	canUpdateProcess    bool // 允许用户更新流程定义
+	canUpdateProcess    bool // 是否允许用户更新流程定义;;**默认值**：false
 	canUpdateProcessSet bool
 
-	canUpdateRevert    bool // 允许用户更新撤回设置
+	canUpdateRevert    bool // 是否允许用户更新撤回设置;;**默认值**：false
 	canUpdateRevertSet bool
 
-	helpUrl    string // 帮助文档链接
+	helpUrl    string // 审批定义的帮助文档链接
 	helpUrlSet bool
 }
 
@@ -744,7 +853,7 @@ func NewApprovalConfigBuilder() *ApprovalConfigBuilder {
 	return builder
 }
 
-// 允许用户修改可见范围
+// 是否允许用户修改可见范围;;**默认值**：false
 //
 // 示例值：false
 func (builder *ApprovalConfigBuilder) CanUpdateViewer(canUpdateViewer bool) *ApprovalConfigBuilder {
@@ -753,7 +862,7 @@ func (builder *ApprovalConfigBuilder) CanUpdateViewer(canUpdateViewer bool) *App
 	return builder
 }
 
-// 允许用户更新表单
+// 是否允许用户更新表单;;**默认值**：false
 //
 // 示例值：false
 func (builder *ApprovalConfigBuilder) CanUpdateForm(canUpdateForm bool) *ApprovalConfigBuilder {
@@ -762,7 +871,7 @@ func (builder *ApprovalConfigBuilder) CanUpdateForm(canUpdateForm bool) *Approva
 	return builder
 }
 
-// 允许用户更新流程定义
+// 是否允许用户更新流程定义;;**默认值**：false
 //
 // 示例值：false
 func (builder *ApprovalConfigBuilder) CanUpdateProcess(canUpdateProcess bool) *ApprovalConfigBuilder {
@@ -771,7 +880,7 @@ func (builder *ApprovalConfigBuilder) CanUpdateProcess(canUpdateProcess bool) *A
 	return builder
 }
 
-// 允许用户更新撤回设置
+// 是否允许用户更新撤回设置;;**默认值**：false
 //
 // 示例值：false
 func (builder *ApprovalConfigBuilder) CanUpdateRevert(canUpdateRevert bool) *ApprovalConfigBuilder {
@@ -780,9 +889,9 @@ func (builder *ApprovalConfigBuilder) CanUpdateRevert(canUpdateRevert bool) *App
 	return builder
 }
 
-// 帮助文档链接
+// 审批定义的帮助文档链接
 //
-// 示例值：https://www.baidu.com
+// 示例值：https://xxx.xxx.xxx
 func (builder *ApprovalConfigBuilder) HelpUrl(helpUrl string) *ApprovalConfigBuilder {
 	builder.helpUrl = helpUrl
 	builder.helpUrlSet = true
@@ -815,61 +924,61 @@ func (builder *ApprovalConfigBuilder) Build() *ApprovalConfig {
 }
 
 type ApprovalCreate struct {
-	ApprovalName *string `json:"approval_name,omitempty"` // 审批名称的国际化文案 Key，以 @i18n@ 开头，长度不得少于 9 个字符
+	ApprovalName *string `json:"approval_name,omitempty"` // 审批名称的国际化文案 Key，以 `@i18n@` 开头，长度不得少于 9 个字符。
 
-	ApprovalCode *string `json:"approval_code,omitempty"` // 传空表示新建
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code。使用说明：;;- 该参数不传值时，表示新建审批定义，最终响应结果会返回由系统自动生成的审批定义 Code。;- 该参数传入指定审批定义 Code 时，表示调用该接口更新该审批定义内容，更新方式为覆盖原定义内容的全量更新。;;审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 
-	Description *string `json:"description,omitempty"` // 审批描述的国际化文案 Key，以 @i18n@ 开头，长度不得少于 9 个字符
+	Description *string `json:"description,omitempty"` // 审批描述的国际化文案 Key，以 `@i18n@` 开头，长度不得少于 9 个字符。
 
-	Viewers []*ApprovalCreateViewers `json:"viewers,omitempty"` // viewers 字段指定了哪些人能从审批应用的前台发起该审批。;; 1. 当 viewer_type 为 USER，需要填写viewer_user_id；;; 2. 当 viewer_type 为DEPARTMENT，需要填写viewer_department_id；;; 3. 当 viewer_type 为TENANT或NONE时，viewer_user_id和viewer_department_id无需填写
+	Viewers []*ApprovalCreateViewers `json:"viewers,omitempty"` // viewers 字段指定了哪些人能从审批应用的前台发起该审批。使用说明：;; - 当 viewer_type 为 USER，需要填写 viewer_user_id;; - 当 viewer_type 为 DEPARTMENT，需要填写 viewer_department_id;; - 当 viewer_type 为 TENANT 或 NONE 时，无需填写 viewer_user_id 和 viewer_department_id;;**注意**：列表最大长度为 200。
 
 	Form *ApprovalForm `json:"form,omitempty"` // 审批定义表单
 
-	NodeList []*ApprovalNode `json:"node_list,omitempty"` // 审批定义节点，需要将开始节点作为 list 第一个元素，结束节点作为最后一个元素
+	NodeList []*ApprovalNode `json:"node_list,omitempty"` // 审批定义节点列表，用于设置审批流程所需要的各个节点，审批流程的始末固定为开始节点和结束节点，因此传值时需要将开始节点作为 list 第一个元素，结束节点作为 list 最后一个元素。;;**说明**：API 方式不支持设置条件分支，如需设置条件分支请前往[飞书审批后台](https://www.feishu.cn/approval/admin/approvalList?devMode=on)创建审批定义。
 
 	Settings *ApprovalSetting `json:"settings,omitempty"` // 审批定义其他设置
 
-	Config *ApprovalConfig `json:"config,omitempty"` // 审批定义配置项，用于配置对应审批定义是否可以由用户在审批后台进行修改
+	Config *ApprovalConfig `json:"config,omitempty"` // 审批定义配置项，用于配置对应审批定义是否可以由用户在[审批后台](https://www.feishu.cn/approval/admin)进行修改。
 
-	Icon *int `json:"icon,omitempty"` // 审批图标枚举，详见下方说明，默认为 0
+	Icon *int `json:"icon,omitempty"` // 审批图标枚举，默认为 0。下图从左至右，从上到下依次为 0~24 号图标。; ; ;![icon.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2c60da4397e18c0ae1fdf6bf50b36ad4_tQc0Lfgx4D.png?height=1080&lazyload=true&width=1066)
 
 	I18nResources []*I18nResource `json:"i18n_resources,omitempty"` // 国际化文案
 
-	ProcessManagerIds []string `json:"process_manager_ids,omitempty"` // 根据user_id_type填写流程管理员的用户id
+	ProcessManagerIds []string `json:"process_manager_ids,omitempty"` // 审批流程管理员的用户 ID 列表。;;- ID 类型与查询参数 user_id_type 取值一致;- 列表最大长度为 200
 }
 
 type ApprovalCreateBuilder struct {
-	approvalName    string // 审批名称的国际化文案 Key，以 @i18n@ 开头，长度不得少于 9 个字符
+	approvalName    string // 审批名称的国际化文案 Key，以 `@i18n@` 开头，长度不得少于 9 个字符。
 	approvalNameSet bool
 
-	approvalCode    string // 传空表示新建
+	approvalCode    string // 审批定义 Code。使用说明：;;- 该参数不传值时，表示新建审批定义，最终响应结果会返回由系统自动生成的审批定义 Code。;- 该参数传入指定审批定义 Code 时，表示调用该接口更新该审批定义内容，更新方式为覆盖原定义内容的全量更新。;;审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 	approvalCodeSet bool
 
-	description    string // 审批描述的国际化文案 Key，以 @i18n@ 开头，长度不得少于 9 个字符
+	description    string // 审批描述的国际化文案 Key，以 `@i18n@` 开头，长度不得少于 9 个字符。
 	descriptionSet bool
 
-	viewers    []*ApprovalCreateViewers // viewers 字段指定了哪些人能从审批应用的前台发起该审批。;; 1. 当 viewer_type 为 USER，需要填写viewer_user_id；;; 2. 当 viewer_type 为DEPARTMENT，需要填写viewer_department_id；;; 3. 当 viewer_type 为TENANT或NONE时，viewer_user_id和viewer_department_id无需填写
+	viewers    []*ApprovalCreateViewers // viewers 字段指定了哪些人能从审批应用的前台发起该审批。使用说明：;; - 当 viewer_type 为 USER，需要填写 viewer_user_id;; - 当 viewer_type 为 DEPARTMENT，需要填写 viewer_department_id;; - 当 viewer_type 为 TENANT 或 NONE 时，无需填写 viewer_user_id 和 viewer_department_id;;**注意**：列表最大长度为 200。
 	viewersSet bool
 
 	form    *ApprovalForm // 审批定义表单
 	formSet bool
 
-	nodeList    []*ApprovalNode // 审批定义节点，需要将开始节点作为 list 第一个元素，结束节点作为最后一个元素
+	nodeList    []*ApprovalNode // 审批定义节点列表，用于设置审批流程所需要的各个节点，审批流程的始末固定为开始节点和结束节点，因此传值时需要将开始节点作为 list 第一个元素，结束节点作为 list 最后一个元素。;;**说明**：API 方式不支持设置条件分支，如需设置条件分支请前往[飞书审批后台](https://www.feishu.cn/approval/admin/approvalList?devMode=on)创建审批定义。
 	nodeListSet bool
 
 	settings    *ApprovalSetting // 审批定义其他设置
 	settingsSet bool
 
-	config    *ApprovalConfig // 审批定义配置项，用于配置对应审批定义是否可以由用户在审批后台进行修改
+	config    *ApprovalConfig // 审批定义配置项，用于配置对应审批定义是否可以由用户在[审批后台](https://www.feishu.cn/approval/admin)进行修改。
 	configSet bool
 
-	icon    int // 审批图标枚举，详见下方说明，默认为 0
+	icon    int // 审批图标枚举，默认为 0。下图从左至右，从上到下依次为 0~24 号图标。; ; ;![icon.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2c60da4397e18c0ae1fdf6bf50b36ad4_tQc0Lfgx4D.png?height=1080&lazyload=true&width=1066)
 	iconSet bool
 
 	i18nResources    []*I18nResource // 国际化文案
 	i18nResourcesSet bool
 
-	processManagerIds    []string // 根据user_id_type填写流程管理员的用户id
+	processManagerIds    []string // 审批流程管理员的用户 ID 列表。;;- ID 类型与查询参数 user_id_type 取值一致;- 列表最大长度为 200
 	processManagerIdsSet bool
 }
 
@@ -878,7 +987,7 @@ func NewApprovalCreateBuilder() *ApprovalCreateBuilder {
 	return builder
 }
 
-// 审批名称的国际化文案 Key，以 @i18n@ 开头，长度不得少于 9 个字符
+// 审批名称的国际化文案 Key，以 `@i18n@` 开头，长度不得少于 9 个字符。
 //
 // 示例值：@i18n@approval_name
 func (builder *ApprovalCreateBuilder) ApprovalName(approvalName string) *ApprovalCreateBuilder {
@@ -887,7 +996,7 @@ func (builder *ApprovalCreateBuilder) ApprovalName(approvalName string) *Approva
 	return builder
 }
 
-// 传空表示新建
+// 审批定义 Code。使用说明：;;- 该参数不传值时，表示新建审批定义，最终响应结果会返回由系统自动生成的审批定义 Code。;- 该参数传入指定审批定义 Code 时，表示调用该接口更新该审批定义内容，更新方式为覆盖原定义内容的全量更新。;;审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *ApprovalCreateBuilder) ApprovalCode(approvalCode string) *ApprovalCreateBuilder {
@@ -896,7 +1005,7 @@ func (builder *ApprovalCreateBuilder) ApprovalCode(approvalCode string) *Approva
 	return builder
 }
 
-// 审批描述的国际化文案 Key，以 @i18n@ 开头，长度不得少于 9 个字符
+// 审批描述的国际化文案 Key，以 `@i18n@` 开头，长度不得少于 9 个字符。
 //
 // 示例值：@i18n@description
 func (builder *ApprovalCreateBuilder) Description(description string) *ApprovalCreateBuilder {
@@ -905,7 +1014,7 @@ func (builder *ApprovalCreateBuilder) Description(description string) *ApprovalC
 	return builder
 }
 
-// viewers 字段指定了哪些人能从审批应用的前台发起该审批。;; 1. 当 viewer_type 为 USER，需要填写viewer_user_id；;; 2. 当 viewer_type 为DEPARTMENT，需要填写viewer_department_id；;; 3. 当 viewer_type 为TENANT或NONE时，viewer_user_id和viewer_department_id无需填写
+// viewers 字段指定了哪些人能从审批应用的前台发起该审批。使用说明：;; - 当 viewer_type 为 USER，需要填写 viewer_user_id;; - 当 viewer_type 为 DEPARTMENT，需要填写 viewer_department_id;; - 当 viewer_type 为 TENANT 或 NONE 时，无需填写 viewer_user_id 和 viewer_department_id;;**注意**：列表最大长度为 200。
 //
 // 示例值：
 func (builder *ApprovalCreateBuilder) Viewers(viewers []*ApprovalCreateViewers) *ApprovalCreateBuilder {
@@ -923,7 +1032,7 @@ func (builder *ApprovalCreateBuilder) Form(form *ApprovalForm) *ApprovalCreateBu
 	return builder
 }
 
-// 审批定义节点，需要将开始节点作为 list 第一个元素，结束节点作为最后一个元素
+// 审批定义节点列表，用于设置审批流程所需要的各个节点，审批流程的始末固定为开始节点和结束节点，因此传值时需要将开始节点作为 list 第一个元素，结束节点作为 list 最后一个元素。;;**说明**：API 方式不支持设置条件分支，如需设置条件分支请前往[飞书审批后台](https://www.feishu.cn/approval/admin/approvalList?devMode=on)创建审批定义。
 //
 // 示例值：
 func (builder *ApprovalCreateBuilder) NodeList(nodeList []*ApprovalNode) *ApprovalCreateBuilder {
@@ -941,7 +1050,7 @@ func (builder *ApprovalCreateBuilder) Settings(settings *ApprovalSetting) *Appro
 	return builder
 }
 
-// 审批定义配置项，用于配置对应审批定义是否可以由用户在审批后台进行修改
+// 审批定义配置项，用于配置对应审批定义是否可以由用户在[审批后台](https://www.feishu.cn/approval/admin)进行修改。
 //
 // 示例值：
 func (builder *ApprovalCreateBuilder) Config(config *ApprovalConfig) *ApprovalCreateBuilder {
@@ -950,7 +1059,7 @@ func (builder *ApprovalCreateBuilder) Config(config *ApprovalConfig) *ApprovalCr
 	return builder
 }
 
-// 审批图标枚举，详见下方说明，默认为 0
+// 审批图标枚举，默认为 0。下图从左至右，从上到下依次为 0~24 号图标。; ; ;![icon.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2c60da4397e18c0ae1fdf6bf50b36ad4_tQc0Lfgx4D.png?height=1080&lazyload=true&width=1066)
 //
 // 示例值：0
 func (builder *ApprovalCreateBuilder) Icon(icon int) *ApprovalCreateBuilder {
@@ -968,9 +1077,9 @@ func (builder *ApprovalCreateBuilder) I18nResources(i18nResources []*I18nResourc
 	return builder
 }
 
-// 根据user_id_type填写流程管理员的用户id
+// 审批流程管理员的用户 ID 列表。;;- ID 类型与查询参数 user_id_type 取值一致;- 列表最大长度为 200
 //
-// 示例值：["1c5ea995"]
+// 示例值：
 func (builder *ApprovalCreateBuilder) ProcessManagerIds(processManagerIds []string) *ApprovalCreateBuilder {
 	builder.processManagerIds = processManagerIds
 	builder.processManagerIdsSet = true
@@ -1020,29 +1129,29 @@ func (builder *ApprovalCreateBuilder) Build() *ApprovalCreate {
 }
 
 type ApprovalCreateExternal struct {
-	BizName *string `json:"biz_name,omitempty"` // 列表中用于提示审批来自哪里，i18n key， 注意不需要“来自”前缀，审批中心会拼上前缀
+	BizName *string `json:"biz_name,omitempty"` // 列表中用于提示审批来自哪里。当前参数返回的是 @i18n@ 开头的 key，需要通过 i18n_resources.texts 参数值查阅当前 key 对应的取值（value）。
 
-	BizType *string `json:"biz_type,omitempty"` // 审批定义业务类别
+	BizType *string `json:"biz_type,omitempty"` // 审批定义业务类别，可由用户自定义，用于分类审批定义。
 
-	CreateLinkMobile *string `json:"create_link_mobile,omitempty"` // 移动端发起链接，如果设置了该链接，则会在移动端审批发起页展示该审批，用户点击后会跳转到该链接进行发起； 如果不填，则在mobile端不显示该审批
+	CreateLinkMobile *string `json:"create_link_mobile,omitempty"` // 移动端发起三方审批的链接。如果没有配置移动端链接，则返回空值。
 
-	CreateLinkPc *string `json:"create_link_pc,omitempty"` // PC端发起链接，如果设置了该链接，则会在PC端审批发起页展示该审批，用户点击后会跳转到该链接进行发起； 如果不填，则在PC端不显示该审批；
+	CreateLinkPc *string `json:"create_link_pc,omitempty"` // PC 端发起三方审批的链接。如果没有配置 PC 端链接，则返回空值。
 
-	SupportPc *bool `json:"support_pc,omitempty"` // 审批实例、审批任务、审批抄送是否要在PC端展示，如果为 true，则PC端列表会展示该定义下的实例信息，否则，不展示
+	SupportPc *bool `json:"support_pc,omitempty"` // 审批实例、审批任务、审批抄送是否在 PC 端展示。
 
-	SupportMobile *bool `json:"support_mobile,omitempty"` // 审批实例、审批任务、审批抄送是否要在移动端展示，如果为 true，则移动端列表会展示该定义下的实例信息，否则，不展示； support_pc和support_mobile不可都为false，否则不展示
+	SupportMobile *bool `json:"support_mobile,omitempty"` // 审批实例、审批任务、审批抄送是否在移动端展示。
 
 	SupportBatchRead *bool `json:"support_batch_read,omitempty"` // 是否支持批量已读
 
-	EnableMarkReaded *bool `json:"enable_mark_readed,omitempty"` // 是否支持标注可读（该字段无效）
+	EnableMarkReaded *bool `json:"enable_mark_readed,omitempty"` // 是否支持标注可读
 
 	EnableQuickOperate *bool `json:"enable_quick_operate,omitempty"` // 是否支持快速操作
 
-	ActionCallbackUrl *string `json:"action_callback_url,omitempty"` // 三方系统的操作回调 url，【待审批】列表的任务审批人点同意或拒绝操作后，审批中心调用该地址通知三方系统，回调地址相关信息可参见：[三方审批快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback)
+	ActionCallbackUrl *string `json:"action_callback_url,omitempty"` // 三方系统的操作回调 URL，**待审批** 实例的任务审批人点击同意或拒绝操作后，审批中心调用该 URL 通知三方系统，回调地址相关信息可参见[三方审批快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback)。
 
-	ActionCallbackToken *string `json:"action_callback_token,omitempty"` // 回调时带的 token， 用于业务系统验证请求来自审批,具体参考 [开放平台文档](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+	ActionCallbackToken *string `json:"action_callback_token,omitempty"` // 回调时带的 token，用于业务系统验证请求来自审批中心。
 
-	ActionCallbackKey *string `json:"action_callback_key,omitempty"` // 请求参数加密密钥，如果配置了该参数，则会对请求参数进行加密，业务需要对请求进行解密，加解密算法参考 [关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN)
+	ActionCallbackKey *string `json:"action_callback_key,omitempty"` // 请求参数加密密钥。如果配置了该参数，则会对请求参数进行加密，接收请求后需要对请求进行解密。加解密算法参考[关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN)。
 
 	AllowBatchOperate *bool `json:"allow_batch_operate,omitempty"` // 是否支持批量审批
 
@@ -1050,40 +1159,40 @@ type ApprovalCreateExternal struct {
 }
 
 type ApprovalCreateExternalBuilder struct {
-	bizName    string // 列表中用于提示审批来自哪里，i18n key， 注意不需要“来自”前缀，审批中心会拼上前缀
+	bizName    string // 列表中用于提示审批来自哪里。当前参数返回的是 @i18n@ 开头的 key，需要通过 i18n_resources.texts 参数值查阅当前 key 对应的取值（value）。
 	bizNameSet bool
 
-	bizType    string // 审批定义业务类别
+	bizType    string // 审批定义业务类别，可由用户自定义，用于分类审批定义。
 	bizTypeSet bool
 
-	createLinkMobile    string // 移动端发起链接，如果设置了该链接，则会在移动端审批发起页展示该审批，用户点击后会跳转到该链接进行发起； 如果不填，则在mobile端不显示该审批
+	createLinkMobile    string // 移动端发起三方审批的链接。如果没有配置移动端链接，则返回空值。
 	createLinkMobileSet bool
 
-	createLinkPc    string // PC端发起链接，如果设置了该链接，则会在PC端审批发起页展示该审批，用户点击后会跳转到该链接进行发起； 如果不填，则在PC端不显示该审批；
+	createLinkPc    string // PC 端发起三方审批的链接。如果没有配置 PC 端链接，则返回空值。
 	createLinkPcSet bool
 
-	supportPc    bool // 审批实例、审批任务、审批抄送是否要在PC端展示，如果为 true，则PC端列表会展示该定义下的实例信息，否则，不展示
+	supportPc    bool // 审批实例、审批任务、审批抄送是否在 PC 端展示。
 	supportPcSet bool
 
-	supportMobile    bool // 审批实例、审批任务、审批抄送是否要在移动端展示，如果为 true，则移动端列表会展示该定义下的实例信息，否则，不展示； support_pc和support_mobile不可都为false，否则不展示
+	supportMobile    bool // 审批实例、审批任务、审批抄送是否在移动端展示。
 	supportMobileSet bool
 
 	supportBatchRead    bool // 是否支持批量已读
 	supportBatchReadSet bool
 
-	enableMarkReaded    bool // 是否支持标注可读（该字段无效）
+	enableMarkReaded    bool // 是否支持标注可读
 	enableMarkReadedSet bool
 
 	enableQuickOperate    bool // 是否支持快速操作
 	enableQuickOperateSet bool
 
-	actionCallbackUrl    string // 三方系统的操作回调 url，【待审批】列表的任务审批人点同意或拒绝操作后，审批中心调用该地址通知三方系统，回调地址相关信息可参见：[三方审批快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback)
+	actionCallbackUrl    string // 三方系统的操作回调 URL，**待审批** 实例的任务审批人点击同意或拒绝操作后，审批中心调用该 URL 通知三方系统，回调地址相关信息可参见[三方审批快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback)。
 	actionCallbackUrlSet bool
 
-	actionCallbackToken    string // 回调时带的 token， 用于业务系统验证请求来自审批,具体参考 [开放平台文档](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+	actionCallbackToken    string // 回调时带的 token，用于业务系统验证请求来自审批中心。
 	actionCallbackTokenSet bool
 
-	actionCallbackKey    string // 请求参数加密密钥，如果配置了该参数，则会对请求参数进行加密，业务需要对请求进行解密，加解密算法参考 [关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN)
+	actionCallbackKey    string // 请求参数加密密钥。如果配置了该参数，则会对请求参数进行加密，接收请求后需要对请求进行解密。加解密算法参考[关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN)。
 	actionCallbackKeySet bool
 
 	allowBatchOperate    bool // 是否支持批量审批
@@ -1098,7 +1207,7 @@ func NewApprovalCreateExternalBuilder() *ApprovalCreateExternalBuilder {
 	return builder
 }
 
-// 列表中用于提示审批来自哪里，i18n key， 注意不需要“来自”前缀，审批中心会拼上前缀
+// 列表中用于提示审批来自哪里。当前参数返回的是 @i18n@ 开头的 key，需要通过 i18n_resources.texts 参数值查阅当前 key 对应的取值（value）。
 //
 // 示例值：@i18n@3
 func (builder *ApprovalCreateExternalBuilder) BizName(bizName string) *ApprovalCreateExternalBuilder {
@@ -1107,7 +1216,7 @@ func (builder *ApprovalCreateExternalBuilder) BizName(bizName string) *ApprovalC
 	return builder
 }
 
-// 审批定义业务类别
+// 审批定义业务类别，可由用户自定义，用于分类审批定义。
 //
 // 示例值：permission
 func (builder *ApprovalCreateExternalBuilder) BizType(bizType string) *ApprovalCreateExternalBuilder {
@@ -1116,25 +1225,25 @@ func (builder *ApprovalCreateExternalBuilder) BizType(bizType string) *ApprovalC
 	return builder
 }
 
-// 移动端发起链接，如果设置了该链接，则会在移动端审批发起页展示该审批，用户点击后会跳转到该链接进行发起； 如果不填，则在mobile端不显示该审批
+// 移动端发起三方审批的链接。如果没有配置移动端链接，则返回空值。
 //
-// 示例值：https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/approval-form/index?id=9999
+// 示例值：https://applink.feishu.cn/client/mini_program/open?path=pages/approval-form/index?id=9999
 func (builder *ApprovalCreateExternalBuilder) CreateLinkMobile(createLinkMobile string) *ApprovalCreateExternalBuilder {
 	builder.createLinkMobile = createLinkMobile
 	builder.createLinkMobileSet = true
 	return builder
 }
 
-// PC端发起链接，如果设置了该链接，则会在PC端审批发起页展示该审批，用户点击后会跳转到该链接进行发起； 如果不填，则在PC端不显示该审批；
+// PC 端发起三方审批的链接。如果没有配置 PC 端链接，则返回空值。
 //
-// 示例值：https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/create-form/index?id=9999
+// 示例值：https://applink.feishu.cn/client/mini_program/open?mode=appCenter&path=pc/pages/create-form/index?id=9999
 func (builder *ApprovalCreateExternalBuilder) CreateLinkPc(createLinkPc string) *ApprovalCreateExternalBuilder {
 	builder.createLinkPc = createLinkPc
 	builder.createLinkPcSet = true
 	return builder
 }
 
-// 审批实例、审批任务、审批抄送是否要在PC端展示，如果为 true，则PC端列表会展示该定义下的实例信息，否则，不展示
+// 审批实例、审批任务、审批抄送是否在 PC 端展示。
 //
 // 示例值：true
 func (builder *ApprovalCreateExternalBuilder) SupportPc(supportPc bool) *ApprovalCreateExternalBuilder {
@@ -1143,7 +1252,7 @@ func (builder *ApprovalCreateExternalBuilder) SupportPc(supportPc bool) *Approva
 	return builder
 }
 
-// 审批实例、审批任务、审批抄送是否要在移动端展示，如果为 true，则移动端列表会展示该定义下的实例信息，否则，不展示； support_pc和support_mobile不可都为false，否则不展示
+// 审批实例、审批任务、审批抄送是否在移动端展示。
 //
 // 示例值：true
 func (builder *ApprovalCreateExternalBuilder) SupportMobile(supportMobile bool) *ApprovalCreateExternalBuilder {
@@ -1161,7 +1270,7 @@ func (builder *ApprovalCreateExternalBuilder) SupportBatchRead(supportBatchRead 
 	return builder
 }
 
-// 是否支持标注可读（该字段无效）
+// 是否支持标注可读
 //
 // 示例值：true
 func (builder *ApprovalCreateExternalBuilder) EnableMarkReaded(enableMarkReaded bool) *ApprovalCreateExternalBuilder {
@@ -1179,7 +1288,7 @@ func (builder *ApprovalCreateExternalBuilder) EnableQuickOperate(enableQuickOper
 	return builder
 }
 
-// 三方系统的操作回调 url，【待审批】列表的任务审批人点同意或拒绝操作后，审批中心调用该地址通知三方系统，回调地址相关信息可参见：[三方审批快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback)
+// 三方系统的操作回调 URL，**待审批** 实例的任务审批人点击同意或拒绝操作后，审批中心调用该 URL 通知三方系统，回调地址相关信息可参见[三方审批快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback)。
 //
 // 示例值：http://www.feishu.cn/approval/openapi/instanceOperate
 func (builder *ApprovalCreateExternalBuilder) ActionCallbackUrl(actionCallbackUrl string) *ApprovalCreateExternalBuilder {
@@ -1188,7 +1297,7 @@ func (builder *ApprovalCreateExternalBuilder) ActionCallbackUrl(actionCallbackUr
 	return builder
 }
 
-// 回调时带的 token， 用于业务系统验证请求来自审批,具体参考 [开放平台文档](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// 回调时带的 token，用于业务系统验证请求来自审批中心。
 //
 // 示例值：sdjkljkx9lsadf110
 func (builder *ApprovalCreateExternalBuilder) ActionCallbackToken(actionCallbackToken string) *ApprovalCreateExternalBuilder {
@@ -1197,7 +1306,7 @@ func (builder *ApprovalCreateExternalBuilder) ActionCallbackToken(actionCallback
 	return builder
 }
 
-// 请求参数加密密钥，如果配置了该参数，则会对请求参数进行加密，业务需要对请求进行解密，加解密算法参考 [关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN)
+// 请求参数加密密钥。如果配置了该参数，则会对请求参数进行加密，接收请求后需要对请求进行解密。加解密算法参考[关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN)。
 //
 // 示例值：gfdqedvsadfgfsd
 func (builder *ApprovalCreateExternalBuilder) ActionCallbackKey(actionCallbackKey string) *ApprovalCreateExternalBuilder {
@@ -1286,21 +1395,21 @@ func (builder *ApprovalCreateExternalBuilder) Build() *ApprovalCreateExternal {
 }
 
 type ApprovalCreateViewers struct {
-	ViewerType *string `json:"viewer_type,omitempty"` // 可见人类型
+	ViewerType *string `json:"viewer_type,omitempty"` // 审批定义的可见范围
 
-	ViewerUserId *string `json:"viewer_user_id,omitempty"` // 当 viewer_type 是 USER，根据user_id_type填写用户id
+	ViewerUserId *string `json:"viewer_user_id,omitempty"` // 当 viewer_type 是 USER 时，需要通过该参数传入用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 
-	ViewerDepartmentId *string `json:"viewer_department_id,omitempty"` // 当 viewer_type 为DEPARTMENT，根据department_id_type填写部门id
+	ViewerDepartmentId *string `json:"viewer_department_id,omitempty"` // 当 viewer_type 为DEPARTMENT，需要通过该参数传入部门 ID，ID 类型与查询参数 department_id_type 取值一致。
 }
 
 type ApprovalCreateViewersBuilder struct {
-	viewerType    string // 可见人类型
+	viewerType    string // 审批定义的可见范围
 	viewerTypeSet bool
 
-	viewerUserId    string // 当 viewer_type 是 USER，根据user_id_type填写用户id
+	viewerUserId    string // 当 viewer_type 是 USER 时，需要通过该参数传入用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 	viewerUserIdSet bool
 
-	viewerDepartmentId    string // 当 viewer_type 为DEPARTMENT，根据department_id_type填写部门id
+	viewerDepartmentId    string // 当 viewer_type 为DEPARTMENT，需要通过该参数传入部门 ID，ID 类型与查询参数 department_id_type 取值一致。
 	viewerDepartmentIdSet bool
 }
 
@@ -1309,7 +1418,7 @@ func NewApprovalCreateViewersBuilder() *ApprovalCreateViewersBuilder {
 	return builder
 }
 
-// 可见人类型
+// 审批定义的可见范围
 //
 // 示例值：USER
 func (builder *ApprovalCreateViewersBuilder) ViewerType(viewerType string) *ApprovalCreateViewersBuilder {
@@ -1318,7 +1427,7 @@ func (builder *ApprovalCreateViewersBuilder) ViewerType(viewerType string) *Appr
 	return builder
 }
 
-// 当 viewer_type 是 USER，根据user_id_type填写用户id
+// 当 viewer_type 是 USER 时，需要通过该参数传入用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 //
 // 示例值：19a294c2
 func (builder *ApprovalCreateViewersBuilder) ViewerUserId(viewerUserId string) *ApprovalCreateViewersBuilder {
@@ -1327,7 +1436,7 @@ func (builder *ApprovalCreateViewersBuilder) ViewerUserId(viewerUserId string) *
 	return builder
 }
 
-// 当 viewer_type 为DEPARTMENT，根据department_id_type填写部门id
+// 当 viewer_type 为DEPARTMENT，需要通过该参数传入部门 ID，ID 类型与查询参数 department_id_type 取值一致。
 //
 // 示例值：od-ac9d697abfa990b715dcc33d58a62a9d
 func (builder *ApprovalCreateViewersBuilder) ViewerDepartmentId(viewerDepartmentId string) *ApprovalCreateViewersBuilder {
@@ -1402,8 +1511,6 @@ func NewApprovalEventBuilder() *ApprovalEventBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) ApprovalId(approvalId string) *ApprovalEventBuilder {
 	builder.approvalId = approvalId
@@ -1411,8 +1518,6 @@ func (builder *ApprovalEventBuilder) ApprovalId(approvalId string) *ApprovalEven
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) ApprovalCode(approvalCode string) *ApprovalEventBuilder {
 	builder.approvalCode = approvalCode
@@ -1420,8 +1525,6 @@ func (builder *ApprovalEventBuilder) ApprovalCode(approvalCode string) *Approval
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) VersionId(versionId string) *ApprovalEventBuilder {
 	builder.versionId = versionId
@@ -1429,8 +1532,6 @@ func (builder *ApprovalEventBuilder) VersionId(versionId string) *ApprovalEventB
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) WidgetGroupType(widgetGroupType int) *ApprovalEventBuilder {
 	builder.widgetGroupType = widgetGroupType
@@ -1438,8 +1539,6 @@ func (builder *ApprovalEventBuilder) WidgetGroupType(widgetGroupType int) *Appro
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) FormDefinitionId(formDefinitionId string) *ApprovalEventBuilder {
 	builder.formDefinitionId = formDefinitionId
@@ -1447,8 +1546,6 @@ func (builder *ApprovalEventBuilder) FormDefinitionId(formDefinitionId string) *
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) ProcessObj(processObj string) *ApprovalEventBuilder {
 	builder.processObj = processObj
@@ -1456,8 +1553,6 @@ func (builder *ApprovalEventBuilder) ProcessObj(processObj string) *ApprovalEven
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) Timestamp(timestamp string) *ApprovalEventBuilder {
 	builder.timestamp = timestamp
@@ -1465,8 +1560,6 @@ func (builder *ApprovalEventBuilder) Timestamp(timestamp string) *ApprovalEventB
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ApprovalEventBuilder) Extra(extra string) *ApprovalEventBuilder {
 	builder.extra = extra
@@ -1512,13 +1605,13 @@ func (builder *ApprovalEventBuilder) Build() *ApprovalEvent {
 }
 
 type ApprovalForm struct {
-	FormContent *string `json:"form_content,omitempty"` // 审批定义表单，json 数组，见下方form_content字段说明
+	FormContent *string `json:"form_content,omitempty"` // 审批定义表单。表单格式为 JSON 数组，实际传值时需要将 JSON 压缩转义为 String 类型。表单内各个控件的 JSON 字段说明参见[审批定义表单控件参数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/approval-definition-form-control-parameters)。;;**注意**：以下示例值未转义，你可以参考下文**请求示例**章节的示例代码。
 
 	WidgetRelation *string `json:"widget_relation,omitempty"` // 控件之间数据条件约束表达式
 }
 
 type ApprovalFormBuilder struct {
-	formContent    string // 审批定义表单，json 数组，见下方form_content字段说明
+	formContent    string // 审批定义表单。表单格式为 JSON 数组，实际传值时需要将 JSON 压缩转义为 String 类型。表单内各个控件的 JSON 字段说明参见[审批定义表单控件参数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/approval-definition-form-control-parameters)。;;**注意**：以下示例值未转义，你可以参考下文**请求示例**章节的示例代码。
 	formContentSet bool
 
 	widgetRelation    string // 控件之间数据条件约束表达式
@@ -1530,7 +1623,7 @@ func NewApprovalFormBuilder() *ApprovalFormBuilder {
 	return builder
 }
 
-// 审批定义表单，json 数组，见下方form_content字段说明
+// 审批定义表单。表单格式为 JSON 数组，实际传值时需要将 JSON 压缩转义为 String 类型。表单内各个控件的 JSON 字段说明参见[审批定义表单控件参数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/approval-definition-form-control-parameters)。;;**注意**：以下示例值未转义，你可以参考下文**请求示例**章节的示例代码。
 //
 // 示例值：[{\"id\":\"user_name\", \"type\": \"input\", \"required\":true, \"name\":\"@i18n@widget1\"}]
 func (builder *ApprovalFormBuilder) FormContent(formContent string) *ApprovalFormBuilder {
@@ -1562,33 +1655,33 @@ func (builder *ApprovalFormBuilder) Build() *ApprovalForm {
 }
 
 type ApprovalNode struct {
-	Id *string `json:"id,omitempty"` // 节点 ID，开始节点的 ID 为 START，结束节点的 ID 为 END，开始和结束节点不需要指定 name、node_type 以及 approver
+	Id *string `json:"id,omitempty"` // 节点 ID。;;- 开始节点的 ID 为 START;- 结束节点的 ID 为 END;;开始和结束节点不需要指定 name、node_type 以及 approver。
 
-	Name *string `json:"name,omitempty"` // 节点名称的国际化文案 Key，以 @i18n@ 开头，长度不得少于 9 个字符
+	Name *string `json:"name,omitempty"` // 节点名称的国际化文案 Key，以 `@i18n@` 开头，长度不得少于 9 个字符。
 
-	NodeType *string `json:"node_type,omitempty"` // 审批类型枚举,当 node_type 为依次审批时，审批人必须为『发起人自选』
+	NodeType *string `json:"node_type,omitempty"` // 当前节点的审批方式。;;**注意**：当该参数取值为依次审批（SEQUENTIAL）时，审批人类型（approver.type）必须为发起人自选（Free）。
 
 	Approver []*ApprovalApproverCcer `json:"approver,omitempty"` // 审批人列表
 
 	Ccer []*ApprovalApproverCcer `json:"ccer,omitempty"` // 抄送人列表
 
-	PrivilegeField *FieldGroup `json:"privilege_field,omitempty"` // 表单项的控件权限
+	PrivilegeField *FieldGroup `json:"privilege_field,omitempty"` // 表单内的控件权限
 
-	ApproverChosenMulti *bool `json:"approver_chosen_multi,omitempty"` // 自选审批人是否允许多选
+	ApproverChosenMulti *bool `json:"approver_chosen_multi,omitempty"` // 发起人自选审批人时，是否允许多选。;;- true：允许;- false：不允许
 
-	ApproverChosenRange []*ApproverRange `json:"approver_chosen_range,omitempty"` // 自选审批人选择范围
+	ApproverChosenRange []*ApproverRange `json:"approver_chosen_range,omitempty"` // 发起人自选审批人时，可选择的范围。
 
-	StarterAssignee *string `json:"starter_assignee,omitempty"` // 审批人为提交人时的操作
+	StarterAssignee *string `json:"starter_assignee,omitempty"` // 审批人为提交人本人时的操作
 }
 
 type ApprovalNodeBuilder struct {
-	id    string // 节点 ID，开始节点的 ID 为 START，结束节点的 ID 为 END，开始和结束节点不需要指定 name、node_type 以及 approver
+	id    string // 节点 ID。;;- 开始节点的 ID 为 START;- 结束节点的 ID 为 END;;开始和结束节点不需要指定 name、node_type 以及 approver。
 	idSet bool
 
-	name    string // 节点名称的国际化文案 Key，以 @i18n@ 开头，长度不得少于 9 个字符
+	name    string // 节点名称的国际化文案 Key，以 `@i18n@` 开头，长度不得少于 9 个字符。
 	nameSet bool
 
-	nodeType    string // 审批类型枚举,当 node_type 为依次审批时，审批人必须为『发起人自选』
+	nodeType    string // 当前节点的审批方式。;;**注意**：当该参数取值为依次审批（SEQUENTIAL）时，审批人类型（approver.type）必须为发起人自选（Free）。
 	nodeTypeSet bool
 
 	approver    []*ApprovalApproverCcer // 审批人列表
@@ -1597,16 +1690,16 @@ type ApprovalNodeBuilder struct {
 	ccer    []*ApprovalApproverCcer // 抄送人列表
 	ccerSet bool
 
-	privilegeField    *FieldGroup // 表单项的控件权限
+	privilegeField    *FieldGroup // 表单内的控件权限
 	privilegeFieldSet bool
 
-	approverChosenMulti    bool // 自选审批人是否允许多选
+	approverChosenMulti    bool // 发起人自选审批人时，是否允许多选。;;- true：允许;- false：不允许
 	approverChosenMultiSet bool
 
-	approverChosenRange    []*ApproverRange // 自选审批人选择范围
+	approverChosenRange    []*ApproverRange // 发起人自选审批人时，可选择的范围。
 	approverChosenRangeSet bool
 
-	starterAssignee    string // 审批人为提交人时的操作
+	starterAssignee    string // 审批人为提交人本人时的操作
 	starterAssigneeSet bool
 }
 
@@ -1615,7 +1708,7 @@ func NewApprovalNodeBuilder() *ApprovalNodeBuilder {
 	return builder
 }
 
-// 节点 ID，开始节点的 ID 为 START，结束节点的 ID 为 END，开始和结束节点不需要指定 name、node_type 以及 approver
+// 节点 ID。;;- 开始节点的 ID 为 START;- 结束节点的 ID 为 END;;开始和结束节点不需要指定 name、node_type 以及 approver。
 //
 // 示例值：START
 func (builder *ApprovalNodeBuilder) Id(id string) *ApprovalNodeBuilder {
@@ -1624,7 +1717,7 @@ func (builder *ApprovalNodeBuilder) Id(id string) *ApprovalNodeBuilder {
 	return builder
 }
 
-// 节点名称的国际化文案 Key，以 @i18n@ 开头，长度不得少于 9 个字符
+// 节点名称的国际化文案 Key，以 `@i18n@` 开头，长度不得少于 9 个字符。
 //
 // 示例值：@i18n@node_name
 func (builder *ApprovalNodeBuilder) Name(name string) *ApprovalNodeBuilder {
@@ -1633,7 +1726,7 @@ func (builder *ApprovalNodeBuilder) Name(name string) *ApprovalNodeBuilder {
 	return builder
 }
 
-// 审批类型枚举,当 node_type 为依次审批时，审批人必须为『发起人自选』
+// 当前节点的审批方式。;;**注意**：当该参数取值为依次审批（SEQUENTIAL）时，审批人类型（approver.type）必须为发起人自选（Free）。
 //
 // 示例值：AND
 func (builder *ApprovalNodeBuilder) NodeType(nodeType string) *ApprovalNodeBuilder {
@@ -1660,7 +1753,7 @@ func (builder *ApprovalNodeBuilder) Ccer(ccer []*ApprovalApproverCcer) *Approval
 	return builder
 }
 
-// 表单项的控件权限
+// 表单内的控件权限
 //
 // 示例值：
 func (builder *ApprovalNodeBuilder) PrivilegeField(privilegeField *FieldGroup) *ApprovalNodeBuilder {
@@ -1669,7 +1762,7 @@ func (builder *ApprovalNodeBuilder) PrivilegeField(privilegeField *FieldGroup) *
 	return builder
 }
 
-// 自选审批人是否允许多选
+// 发起人自选审批人时，是否允许多选。;;- true：允许;- false：不允许
 //
 // 示例值：false
 func (builder *ApprovalNodeBuilder) ApproverChosenMulti(approverChosenMulti bool) *ApprovalNodeBuilder {
@@ -1678,7 +1771,7 @@ func (builder *ApprovalNodeBuilder) ApproverChosenMulti(approverChosenMulti bool
 	return builder
 }
 
-// 自选审批人选择范围
+// 发起人自选审批人时，可选择的范围。
 //
 // 示例值：
 func (builder *ApprovalNodeBuilder) ApproverChosenRange(approverChosenRange []*ApproverRange) *ApprovalNodeBuilder {
@@ -1687,7 +1780,7 @@ func (builder *ApprovalNodeBuilder) ApproverChosenRange(approverChosenRange []*A
 	return builder
 }
 
-// 审批人为提交人时的操作
+// 审批人为提交人本人时的操作
 //
 // 示例值：STARTER
 func (builder *ApprovalNodeBuilder) StarterAssignee(starterAssignee string) *ApprovalNodeBuilder {
@@ -1736,7 +1829,7 @@ func (builder *ApprovalNodeBuilder) Build() *ApprovalNode {
 type ApprovalNodeInfo struct {
 	Name *string `json:"name,omitempty"` // 节点名称
 
-	NeedApprover *bool `json:"need_approver,omitempty"` // 是否发起人自选节点 true - 发起审批时需要提交审批人
+	NeedApprover *bool `json:"need_approver,omitempty"` // 是否为发起人自选节点。取值为 true 表示发起审批时需要提交人自选审批人。
 
 	NodeId *string `json:"node_id,omitempty"` // 节点 ID
 
@@ -1744,18 +1837,18 @@ type ApprovalNodeInfo struct {
 
 	NodeType *string `json:"node_type,omitempty"` // 审批方式
 
-	ApproverChosenMulti *bool `json:"approver_chosen_multi,omitempty"` // 是否支持多选：true-支持，发起、结束节点该值无意义
+	ApproverChosenMulti *bool `json:"approver_chosen_multi,omitempty"` // 选择方式是否支持多选。流程的开始、结束节点该值无意义。
 
-	ApproverChosenRange []*ApproverChosenRange `json:"approver_chosen_range,omitempty"` // 自选范围
+	ApproverChosenRange []*ApproverChosenRange `json:"approver_chosen_range,omitempty"` // 提交人自选审批人的范围
 
-	RequireSignature *bool `json:"require_signature,omitempty"` // 是否签名
+	RequireSignature *bool `json:"require_signature,omitempty"` // 审批同意时是否需要手写签名。
 }
 
 type ApprovalNodeInfoBuilder struct {
 	name    string // 节点名称
 	nameSet bool
 
-	needApprover    bool // 是否发起人自选节点 true - 发起审批时需要提交审批人
+	needApprover    bool // 是否为发起人自选节点。取值为 true 表示发起审批时需要提交人自选审批人。
 	needApproverSet bool
 
 	nodeId    string // 节点 ID
@@ -1767,13 +1860,13 @@ type ApprovalNodeInfoBuilder struct {
 	nodeType    string // 审批方式
 	nodeTypeSet bool
 
-	approverChosenMulti    bool // 是否支持多选：true-支持，发起、结束节点该值无意义
+	approverChosenMulti    bool // 选择方式是否支持多选。流程的开始、结束节点该值无意义。
 	approverChosenMultiSet bool
 
-	approverChosenRange    []*ApproverChosenRange // 自选范围
+	approverChosenRange    []*ApproverChosenRange // 提交人自选审批人的范围
 	approverChosenRangeSet bool
 
-	requireSignature    bool // 是否签名
+	requireSignature    bool // 审批同意时是否需要手写签名。
 	requireSignatureSet bool
 }
 
@@ -1791,7 +1884,7 @@ func (builder *ApprovalNodeInfoBuilder) Name(name string) *ApprovalNodeInfoBuild
 	return builder
 }
 
-// 是否发起人自选节点 true - 发起审批时需要提交审批人
+// 是否为发起人自选节点。取值为 true 表示发起审批时需要提交人自选审批人。
 //
 // 示例值：true
 func (builder *ApprovalNodeInfoBuilder) NeedApprover(needApprover bool) *ApprovalNodeInfoBuilder {
@@ -1827,7 +1920,7 @@ func (builder *ApprovalNodeInfoBuilder) NodeType(nodeType string) *ApprovalNodeI
 	return builder
 }
 
-// 是否支持多选：true-支持，发起、结束节点该值无意义
+// 选择方式是否支持多选。流程的开始、结束节点该值无意义。
 //
 // 示例值：true
 func (builder *ApprovalNodeInfoBuilder) ApproverChosenMulti(approverChosenMulti bool) *ApprovalNodeInfoBuilder {
@@ -1836,7 +1929,7 @@ func (builder *ApprovalNodeInfoBuilder) ApproverChosenMulti(approverChosenMulti 
 	return builder
 }
 
-// 自选范围
+// 提交人自选审批人的范围
 //
 // 示例值：
 func (builder *ApprovalNodeInfoBuilder) ApproverChosenRange(approverChosenRange []*ApproverChosenRange) *ApprovalNodeInfoBuilder {
@@ -1845,7 +1938,7 @@ func (builder *ApprovalNodeInfoBuilder) ApproverChosenRange(approverChosenRange 
 	return builder
 }
 
-// 是否签名
+// 审批同意时是否需要手写签名。
 //
 // 示例值：false
 func (builder *ApprovalNodeInfoBuilder) RequireSignature(requireSignature bool) *ApprovalNodeInfoBuilder {
@@ -1891,13 +1984,13 @@ func (builder *ApprovalNodeInfoBuilder) Build() *ApprovalNodeInfo {
 }
 
 type ApprovalSetting struct {
-	RevertInterval *int `json:"revert_interval,omitempty"` // 审批实例通过后允许撤回的时间，以秒为单位，默认 31 天，0 为不可撤回
+	RevertInterval *int `json:"revert_interval,omitempty"` // 审批实例通过后允许撤回的时间，以秒为单位，默认 31 天，取值 0 为不可撤回。
 
-	RevertOption *int `json:"revert_option,omitempty"` // 是否支持审批通过第一个节点后撤回，默认为1，0为不支持
+	RevertOption *int `json:"revert_option,omitempty"` // 是否支持审批通过第一个节点后撤回，默认为 1 表示支持，取值为 0 表示不支持。
 
-	RejectOption *int `json:"reject_option,omitempty"` // 拒绝设置
+	RejectOption *int `json:"reject_option,omitempty"` // 审批被拒绝后的设置
 
-	QuickApprovalOption *int `json:"quick_approval_option,omitempty"` // 快捷审批配置项，开启后可在卡片上直接审批。默认值1为启用， 0为禁用
+	QuickApprovalOption *int `json:"quick_approval_option,omitempty"` // 快捷审批配置项，开启后可在卡片上直接审批。;;**默认值**：1
 
 	OvertimeDisable *bool `json:"overtime_disable,omitempty"` // 流程关闭超时配置，传true就是关闭超时配置
 
@@ -1909,16 +2002,16 @@ type ApprovalSetting struct {
 }
 
 type ApprovalSettingBuilder struct {
-	revertInterval    int // 审批实例通过后允许撤回的时间，以秒为单位，默认 31 天，0 为不可撤回
+	revertInterval    int // 审批实例通过后允许撤回的时间，以秒为单位，默认 31 天，取值 0 为不可撤回。
 	revertIntervalSet bool
 
-	revertOption    int // 是否支持审批通过第一个节点后撤回，默认为1，0为不支持
+	revertOption    int // 是否支持审批通过第一个节点后撤回，默认为 1 表示支持，取值为 0 表示不支持。
 	revertOptionSet bool
 
-	rejectOption    int // 拒绝设置
+	rejectOption    int // 审批被拒绝后的设置
 	rejectOptionSet bool
 
-	quickApprovalOption    int // 快捷审批配置项，开启后可在卡片上直接审批。默认值1为启用， 0为禁用
+	quickApprovalOption    int // 快捷审批配置项，开启后可在卡片上直接审批。;;**默认值**：1
 	quickApprovalOptionSet bool
 
 	overtimeDisable    bool // 流程关闭超时配置，传true就是关闭超时配置
@@ -1939,7 +2032,7 @@ func NewApprovalSettingBuilder() *ApprovalSettingBuilder {
 	return builder
 }
 
-// 审批实例通过后允许撤回的时间，以秒为单位，默认 31 天，0 为不可撤回
+// 审批实例通过后允许撤回的时间，以秒为单位，默认 31 天，取值 0 为不可撤回。
 //
 // 示例值：0
 func (builder *ApprovalSettingBuilder) RevertInterval(revertInterval int) *ApprovalSettingBuilder {
@@ -1948,7 +2041,7 @@ func (builder *ApprovalSettingBuilder) RevertInterval(revertInterval int) *Appro
 	return builder
 }
 
-// 是否支持审批通过第一个节点后撤回，默认为1，0为不支持
+// 是否支持审批通过第一个节点后撤回，默认为 1 表示支持，取值为 0 表示不支持。
 //
 // 示例值：0
 func (builder *ApprovalSettingBuilder) RevertOption(revertOption int) *ApprovalSettingBuilder {
@@ -1957,7 +2050,7 @@ func (builder *ApprovalSettingBuilder) RevertOption(revertOption int) *ApprovalS
 	return builder
 }
 
-// 拒绝设置
+// 审批被拒绝后的设置
 //
 // 示例值：0
 func (builder *ApprovalSettingBuilder) RejectOption(rejectOption int) *ApprovalSettingBuilder {
@@ -1966,7 +2059,7 @@ func (builder *ApprovalSettingBuilder) RejectOption(rejectOption int) *ApprovalS
 	return builder
 }
 
-// 快捷审批配置项，开启后可在卡片上直接审批。默认值1为启用， 0为禁用
+// 快捷审批配置项，开启后可在卡片上直接审批。;;**默认值**：1
 //
 // 示例值：1
 func (builder *ApprovalSettingBuilder) QuickApprovalOption(quickApprovalOption int) *ApprovalSettingBuilder {
@@ -2137,19 +2230,19 @@ func (builder *ApprovalViewerBuilder) Build() *ApprovalViewer {
 type ApprovalViewerInfo struct {
 	Type *string `json:"type,omitempty"` // 可见人类型
 
-	Id *string `json:"id,omitempty"` // 在可见人类型为DEPARTMENT时，id为部门的id ；在可见人类型为USER时，id为用户的id ；在可见人类型为ROLE时，id为角色的id ；在可见人类型为USER_GROUP时，id为用户组的id
+	Id *string `json:"id,omitempty"` // 资源 ID。;;- 在可见人类型为 DEPARTMENT 时，ID 为部门 ID。;- 在可见人类型为 USER 时，ID 为用户 open_id。;- 在可见人类型为 ROLE 时，ID 为角色 ID。;- 在可见人类型为 USER_GROUP 时，ID 为用户组 ID。
 
-	UserId *string `json:"user_id,omitempty"` // 在可见人类型为USER时，表示可见人用户id
+	UserId *string `json:"user_id,omitempty"` // 在可见人类型为 USER 时，表示可见人用户 open_id。
 }
 
 type ApprovalViewerInfoBuilder struct {
 	type_    string // 可见人类型
 	type_Set bool
 
-	id    string // 在可见人类型为DEPARTMENT时，id为部门的id ；在可见人类型为USER时，id为用户的id ；在可见人类型为ROLE时，id为角色的id ；在可见人类型为USER_GROUP时，id为用户组的id
+	id    string // 资源 ID。;;- 在可见人类型为 DEPARTMENT 时，ID 为部门 ID。;- 在可见人类型为 USER 时，ID 为用户 open_id。;- 在可见人类型为 ROLE 时，ID 为角色 ID。;- 在可见人类型为 USER_GROUP 时，ID 为用户组 ID。
 	idSet bool
 
-	userId    string // 在可见人类型为USER时，表示可见人用户id
+	userId    string // 在可见人类型为 USER 时，表示可见人用户 open_id。
 	userIdSet bool
 }
 
@@ -2167,7 +2260,7 @@ func (builder *ApprovalViewerInfoBuilder) Type(type_ string) *ApprovalViewerInfo
 	return builder
 }
 
-// 在可见人类型为DEPARTMENT时，id为部门的id ；在可见人类型为USER时，id为用户的id ；在可见人类型为ROLE时，id为角色的id ；在可见人类型为USER_GROUP时，id为用户组的id
+// 资源 ID。;;- 在可见人类型为 DEPARTMENT 时，ID 为部门 ID。;- 在可见人类型为 USER 时，ID 为用户 open_id。;- 在可见人类型为 ROLE 时，ID 为角色 ID。;- 在可见人类型为 USER_GROUP 时，ID 为用户组 ID。
 //
 // 示例值：ou_e03053f0541cecc3269d7a9dc34a0b21
 func (builder *ApprovalViewerInfoBuilder) Id(id string) *ApprovalViewerInfoBuilder {
@@ -2176,7 +2269,7 @@ func (builder *ApprovalViewerInfoBuilder) Id(id string) *ApprovalViewerInfoBuild
 	return builder
 }
 
-// 在可见人类型为USER时，表示可见人用户id
+// 在可见人类型为 USER 时，表示可见人用户 open_id。
 //
 // 示例值：f7cb567e
 func (builder *ApprovalViewerInfoBuilder) UserId(userId string) *ApprovalViewerInfoBuilder {
@@ -2203,16 +2296,16 @@ func (builder *ApprovalViewerInfoBuilder) Build() *ApprovalViewerInfo {
 }
 
 type ApproverChosenRange struct {
-	ApproverRangeType *int `json:"approver_range_type,omitempty"` // 指定范围：0-all，1-指定角色，2-指定人员
+	ApproverRangeType *int `json:"approver_range_type,omitempty"` // 指定范围
 
-	ApproverRangeIds []string `json:"approver_range_ids,omitempty"` // 根据上面的type，分别存放角色id与userid，type为0时本字段为空列表
+	ApproverRangeIds []string `json:"approver_range_ids,omitempty"` // 资源 ID。;- approver_range_type 取值为 0 时，该参数为空。;- approver_range_type 取值为 1 时，该参数取值为角色 ID。;- approver_range_type 取值为 2 时，该参数取值为用户 open_id。
 }
 
 type ApproverChosenRangeBuilder struct {
-	approverRangeType    int // 指定范围：0-all，1-指定角色，2-指定人员
+	approverRangeType    int // 指定范围
 	approverRangeTypeSet bool
 
-	approverRangeIds    []string // 根据上面的type，分别存放角色id与userid，type为0时本字段为空列表
+	approverRangeIds    []string // 资源 ID。;- approver_range_type 取值为 0 时，该参数为空。;- approver_range_type 取值为 1 时，该参数取值为角色 ID。;- approver_range_type 取值为 2 时，该参数取值为用户 open_id。
 	approverRangeIdsSet bool
 }
 
@@ -2221,7 +2314,7 @@ func NewApproverChosenRangeBuilder() *ApproverChosenRangeBuilder {
 	return builder
 }
 
-// 指定范围：0-all，1-指定角色，2-指定人员
+// 指定范围
 //
 // 示例值：2
 func (builder *ApproverChosenRangeBuilder) ApproverRangeType(approverRangeType int) *ApproverChosenRangeBuilder {
@@ -2230,7 +2323,7 @@ func (builder *ApproverChosenRangeBuilder) ApproverRangeType(approverRangeType i
 	return builder
 }
 
-// 根据上面的type，分别存放角色id与userid，type为0时本字段为空列表
+// 资源 ID。;- approver_range_type 取值为 0 时，该参数为空。;- approver_range_type 取值为 1 时，该参数取值为角色 ID。;- approver_range_type 取值为 2 时，该参数取值为用户 open_id。
 //
 // 示例值：
 func (builder *ApproverChosenRangeBuilder) ApproverRangeIds(approverRangeIds []string) *ApproverChosenRangeBuilder {
@@ -2252,16 +2345,16 @@ func (builder *ApproverChosenRangeBuilder) Build() *ApproverChosenRange {
 }
 
 type ApproverRange struct {
-	Type *string `json:"type,omitempty"` // 审批人类型
+	Type *string `json:"type,omitempty"` //
 
-	IdList []string `json:"id_list,omitempty"` // 审批人id
+	IdList []string `json:"id_list,omitempty"` // ID 列表。;;- 当 type 取值 ALL 时，无需传值。;- 当 type 取值 PERSONAL 时，传入用户 ID，ID 类型与 user_id_type 取值一致。;- 当 type 取值 ROLE 时，传入角色 ID。获取方式：成功[创建角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role/create)后，在返回结果中可获取角色 ID。
 }
 
 type ApproverRangeBuilder struct {
-	type_    string // 审批人类型
+	type_    string //
 	type_Set bool
 
-	idList    []string // 审批人id
+	idList    []string // ID 列表。;;- 当 type 取值 ALL 时，无需传值。;- 当 type 取值 PERSONAL 时，传入用户 ID，ID 类型与 user_id_type 取值一致。;- 当 type 取值 ROLE 时，传入角色 ID。获取方式：成功[创建角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role/create)后，在返回结果中可获取角色 ID。
 	idListSet bool
 }
 
@@ -2270,8 +2363,6 @@ func NewApproverRangeBuilder() *ApproverRangeBuilder {
 	return builder
 }
 
-// 审批人类型
-//
 // 示例值：ALL
 func (builder *ApproverRangeBuilder) Type(type_ string) *ApproverRangeBuilder {
 	builder.type_ = type_
@@ -2279,7 +2370,7 @@ func (builder *ApproverRangeBuilder) Type(type_ string) *ApproverRangeBuilder {
 	return builder
 }
 
-// 审批人id
+// ID 列表。;;- 当 type 取值 ALL 时，无需传值。;- 当 type 取值 PERSONAL 时，传入用户 ID，ID 类型与 user_id_type 取值一致。;- 当 type 取值 ROLE 时，传入角色 ID。获取方式：成功[创建角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role/create)后，在返回结果中可获取角色 ID。
 //
 // 示例值：f7cb567e
 func (builder *ApproverRangeBuilder) IdList(idList []string) *ApproverRangeBuilder {
@@ -2349,7 +2440,7 @@ func (builder *BankAccountBuilder) Name(name string) *BankAccountBuilder {
 
 // 账户类型
 //
-// 示例值：
+// 示例值：Corporate
 func (builder *BankAccountBuilder) AccountType(accountType string) *BankAccountBuilder {
 	builder.accountType = accountType
 	builder.accountTypeSet = true
@@ -2387,56 +2478,56 @@ func (builder *BankAccountBuilder) Build() *BankAccount {
 }
 
 type CcNode struct {
-	CcId *string `json:"cc_id,omitempty"` // 审批实例内唯一标识
+	CcId *string `json:"cc_id,omitempty"` // 审批实例内抄送唯一标识。
 
-	UserId *string `json:"user_id,omitempty"` // 抄送人 employee id
+	UserId *string `json:"user_id,omitempty"` // 抄送人的 user_id。获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。; ;**注意**：抄送人的 open_id 和 user_id 需至少传入一个。
 
-	OpenId *string `json:"open_id,omitempty"` // 抄送人 open id，和user id 二者至少填一个
+	OpenId *string `json:"open_id,omitempty"` // 抄送人的 open_id。获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。; ;**注意**：抄送人的 open_id 和 user_id 需至少传入一个。
 
-	Links *ExternalInstanceLink `json:"links,omitempty"` // 跳转链接，用于【抄送我的】列表中的跳转pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
+	Links *ExternalInstanceLink `json:"links,omitempty"` // 审批实例链接信息。设置的链接用于在审批中心 **已发起** 列表内点击跳转，跳回三方审批系统查看审批详情。
 
-	ReadStatus *string `json:"read_status,omitempty"` // 阅读状态，空值表示不支持已读未读：
+	ReadStatus *string `json:"read_status,omitempty"` // 抄送人的阅读状态
 
-	Extra *string `json:"extra,omitempty"` // 扩展 json
+	Extra *string `json:"extra,omitempty"` // 保留字段，目前无实际使用场景。JSON 格式，传值时需要压缩转义为字符串。
 
-	Title *string `json:"title,omitempty"` // 抄送任务名称
+	Title *string `json:"title,omitempty"` // 抄送任务名称。
 
-	CreateTime *string `json:"create_time,omitempty"` // 抄送发起时间，Unix 毫秒时间戳
+	CreateTime *string `json:"create_time,omitempty"` // 抄送发起时间，Unix 毫秒时间戳。
 
-	UpdateTime *string `json:"update_time,omitempty"` // 抄送最近更新时间，用于推送数据版本控制更新策略同 instance 的update_time
+	UpdateTime *string `json:"update_time,omitempty"` // 抄送最近更新时间，Unix 毫秒时间戳，用于推送数据版本。;;<md-alert type=warn>如果 update_mode 值为 UPDATE，则仅当传过来的 update_time 有变化时（变大），才会更新审批中心中的审批实例信息。</md-alert>
 
-	DisplayMethod *string `json:"display_method,omitempty"` // 列表页打开审批任务的方式
+	DisplayMethod *string `json:"display_method,omitempty"` // 列表页打开审批任务的方式。
 }
 
 type CcNodeBuilder struct {
-	ccId    string // 审批实例内唯一标识
+	ccId    string // 审批实例内抄送唯一标识。
 	ccIdSet bool
 
-	userId    string // 抄送人 employee id
+	userId    string // 抄送人的 user_id。获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。; ;**注意**：抄送人的 open_id 和 user_id 需至少传入一个。
 	userIdSet bool
 
-	openId    string // 抄送人 open id，和user id 二者至少填一个
+	openId    string // 抄送人的 open_id。获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。; ;**注意**：抄送人的 open_id 和 user_id 需至少传入一个。
 	openIdSet bool
 
-	links    *ExternalInstanceLink // 跳转链接，用于【抄送我的】列表中的跳转pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
+	links    *ExternalInstanceLink // 审批实例链接信息。设置的链接用于在审批中心 **已发起** 列表内点击跳转，跳回三方审批系统查看审批详情。
 	linksSet bool
 
-	readStatus    string // 阅读状态，空值表示不支持已读未读：
+	readStatus    string // 抄送人的阅读状态
 	readStatusSet bool
 
-	extra    string // 扩展 json
+	extra    string // 保留字段，目前无实际使用场景。JSON 格式，传值时需要压缩转义为字符串。
 	extraSet bool
 
-	title    string // 抄送任务名称
+	title    string // 抄送任务名称。
 	titleSet bool
 
-	createTime    string // 抄送发起时间，Unix 毫秒时间戳
+	createTime    string // 抄送发起时间，Unix 毫秒时间戳。
 	createTimeSet bool
 
-	updateTime    string // 抄送最近更新时间，用于推送数据版本控制更新策略同 instance 的update_time
+	updateTime    string // 抄送最近更新时间，Unix 毫秒时间戳，用于推送数据版本。;;<md-alert type=warn>如果 update_mode 值为 UPDATE，则仅当传过来的 update_time 有变化时（变大），才会更新审批中心中的审批实例信息。</md-alert>
 	updateTimeSet bool
 
-	displayMethod    string // 列表页打开审批任务的方式
+	displayMethod    string // 列表页打开审批任务的方式。
 	displayMethodSet bool
 }
 
@@ -2445,7 +2536,7 @@ func NewCcNodeBuilder() *CcNodeBuilder {
 	return builder
 }
 
-// 审批实例内唯一标识
+// 审批实例内抄送唯一标识。
 //
 // 示例值：123456
 func (builder *CcNodeBuilder) CcId(ccId string) *CcNodeBuilder {
@@ -2454,7 +2545,7 @@ func (builder *CcNodeBuilder) CcId(ccId string) *CcNodeBuilder {
 	return builder
 }
 
-// 抄送人 employee id
+// 抄送人的 user_id。获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。; ;**注意**：抄送人的 open_id 和 user_id 需至少传入一个。
 //
 // 示例值：12345
 func (builder *CcNodeBuilder) UserId(userId string) *CcNodeBuilder {
@@ -2463,7 +2554,7 @@ func (builder *CcNodeBuilder) UserId(userId string) *CcNodeBuilder {
 	return builder
 }
 
-// 抄送人 open id，和user id 二者至少填一个
+// 抄送人的 open_id。获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。; ;**注意**：抄送人的 open_id 和 user_id 需至少传入一个。
 //
 // 示例值：ou_be73cbc0ee35eb6ca54e9e7cc14998c1
 func (builder *CcNodeBuilder) OpenId(openId string) *CcNodeBuilder {
@@ -2472,7 +2563,7 @@ func (builder *CcNodeBuilder) OpenId(openId string) *CcNodeBuilder {
 	return builder
 }
 
-// 跳转链接，用于【抄送我的】列表中的跳转pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
+// 审批实例链接信息。设置的链接用于在审批中心 **已发起** 列表内点击跳转，跳回三方审批系统查看审批详情。
 //
 // 示例值：
 func (builder *CcNodeBuilder) Links(links *ExternalInstanceLink) *CcNodeBuilder {
@@ -2481,7 +2572,7 @@ func (builder *CcNodeBuilder) Links(links *ExternalInstanceLink) *CcNodeBuilder 
 	return builder
 }
 
-// 阅读状态，空值表示不支持已读未读：
+// 抄送人的阅读状态
 //
 // 示例值：READ
 func (builder *CcNodeBuilder) ReadStatus(readStatus string) *CcNodeBuilder {
@@ -2490,7 +2581,7 @@ func (builder *CcNodeBuilder) ReadStatus(readStatus string) *CcNodeBuilder {
 	return builder
 }
 
-// 扩展 json
+// 保留字段，目前无实际使用场景。JSON 格式，传值时需要压缩转义为字符串。
 //
 // 示例值：{\"xxx\":\"xxx\"}
 func (builder *CcNodeBuilder) Extra(extra string) *CcNodeBuilder {
@@ -2499,7 +2590,7 @@ func (builder *CcNodeBuilder) Extra(extra string) *CcNodeBuilder {
 	return builder
 }
 
-// 抄送任务名称
+// 抄送任务名称。
 //
 // 示例值：xxx
 func (builder *CcNodeBuilder) Title(title string) *CcNodeBuilder {
@@ -2508,7 +2599,7 @@ func (builder *CcNodeBuilder) Title(title string) *CcNodeBuilder {
 	return builder
 }
 
-// 抄送发起时间，Unix 毫秒时间戳
+// 抄送发起时间，Unix 毫秒时间戳。
 //
 // 示例值：1556468012678
 func (builder *CcNodeBuilder) CreateTime(createTime string) *CcNodeBuilder {
@@ -2517,7 +2608,7 @@ func (builder *CcNodeBuilder) CreateTime(createTime string) *CcNodeBuilder {
 	return builder
 }
 
-// 抄送最近更新时间，用于推送数据版本控制更新策略同 instance 的update_time
+// 抄送最近更新时间，Unix 毫秒时间戳，用于推送数据版本。;;<md-alert type=warn>如果 update_mode 值为 UPDATE，则仅当传过来的 update_time 有变化时（变大），才会更新审批中心中的审批实例信息。</md-alert>
 //
 // 示例值：1556468012678
 func (builder *CcNodeBuilder) UpdateTime(updateTime string) *CcNodeBuilder {
@@ -2526,7 +2617,7 @@ func (builder *CcNodeBuilder) UpdateTime(updateTime string) *CcNodeBuilder {
 	return builder
 }
 
-// 列表页打开审批任务的方式
+// 列表页打开审批任务的方式。
 //
 // 示例值：BROWSER
 func (builder *CcNodeBuilder) DisplayMethod(displayMethod string) *CcNodeBuilder {
@@ -2580,58 +2671,58 @@ func (builder *CcNodeBuilder) Build() *CcNode {
 }
 
 type CcSearch struct {
-	UserId *string `json:"user_id,omitempty"` // 根据x_user_type填写用户 id
+	UserId *string `json:"user_id,omitempty"` // 用户 ID，ID 类型与查询参数 user_id_type 保持一致。
 
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 
-	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 code
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 
-	InstanceExternalId *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id 注：和 approval_code 取并集
+	InstanceExternalId *string `json:"instance_external_id,omitempty"` // 审批实例的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 
-	GroupExternalId *string `json:"group_external_id,omitempty"` // 审批定义分组第三方 id 注：和 instance_code 取并集
+	GroupExternalId *string `json:"group_external_id,omitempty"` // 审批定义分组的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 
-	CcTitle *string `json:"cc_title,omitempty"` // 审批抄送标题（只有第三方审批有）
+	CcTitle *string `json:"cc_title,omitempty"` // 审批抄送标题。;;**说明**：仅第三方审批存在审批抄送标题。
 
-	ReadStatus *string `json:"read_status,omitempty"` // 审批抄送状态，注：若不设置，查询全部状态 若不在集合中，报错
+	ReadStatus *string `json:"read_status,omitempty"` // 审批抄送状态。;;**注意**：若不设置则查询全部状态，若不在集合中，则报错。
 
-	CcCreateTimeFrom *string `json:"cc_create_time_from,omitempty"` // 抄送查询开始时间（unix毫秒时间戳）
+	CcCreateTimeFrom *string `json:"cc_create_time_from,omitempty"` // 抄送查询开始时间，Unix 毫秒时间戳。与 cc_create_time_to 参数构成时间段查询条件，仅会返回在该时间段内的审批抄送。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 
-	CcCreateTimeTo *string `json:"cc_create_time_to,omitempty"` // 抄送查询结束时间 (unix毫秒时间戳)
+	CcCreateTimeTo *string `json:"cc_create_time_to,omitempty"` // 抄送查询结束时间，Unix 毫秒时间戳。与 cc_create_time_from 参数构成时间段查询条件，仅会返回在该时间段内的审批抄送。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 
-	Locale *string `json:"locale,omitempty"` // 地区
+	Locale *string `json:"locale,omitempty"` // 语言
 
 	WithRevokedInstance *bool `json:"with_revoked_instance,omitempty"` // 是否包含撤销申请对应的审批单
 }
 
 type CcSearchBuilder struct {
-	userId    string // 根据x_user_type填写用户 id
+	userId    string // 用户 ID，ID 类型与查询参数 user_id_type 保持一致。
 	userIdSet bool
 
-	approvalCode    string // 审批定义 code
+	approvalCode    string // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 	approvalCodeSet bool
 
-	instanceCode    string // 审批实例 code
+	instanceCode    string // 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 	instanceCodeSet bool
 
-	instanceExternalId    string // 审批实例第三方 id 注：和 approval_code 取并集
+	instanceExternalId    string // 审批实例的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 	instanceExternalIdSet bool
 
-	groupExternalId    string // 审批定义分组第三方 id 注：和 instance_code 取并集
+	groupExternalId    string // 审批定义分组的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 	groupExternalIdSet bool
 
-	ccTitle    string // 审批抄送标题（只有第三方审批有）
+	ccTitle    string // 审批抄送标题。;;**说明**：仅第三方审批存在审批抄送标题。
 	ccTitleSet bool
 
-	readStatus    string // 审批抄送状态，注：若不设置，查询全部状态 若不在集合中，报错
+	readStatus    string // 审批抄送状态。;;**注意**：若不设置则查询全部状态，若不在集合中，则报错。
 	readStatusSet bool
 
-	ccCreateTimeFrom    string // 抄送查询开始时间（unix毫秒时间戳）
+	ccCreateTimeFrom    string // 抄送查询开始时间，Unix 毫秒时间戳。与 cc_create_time_to 参数构成时间段查询条件，仅会返回在该时间段内的审批抄送。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 	ccCreateTimeFromSet bool
 
-	ccCreateTimeTo    string // 抄送查询结束时间 (unix毫秒时间戳)
+	ccCreateTimeTo    string // 抄送查询结束时间，Unix 毫秒时间戳。与 cc_create_time_from 参数构成时间段查询条件，仅会返回在该时间段内的审批抄送。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 	ccCreateTimeToSet bool
 
-	locale    string // 地区
+	locale    string // 语言
 	localeSet bool
 
 	withRevokedInstance    bool // 是否包含撤销申请对应的审批单
@@ -2643,7 +2734,7 @@ func NewCcSearchBuilder() *CcSearchBuilder {
 	return builder
 }
 
-// 根据x_user_type填写用户 id
+// 用户 ID，ID 类型与查询参数 user_id_type 保持一致。
 //
 // 示例值：lwiu098wj
 func (builder *CcSearchBuilder) UserId(userId string) *CcSearchBuilder {
@@ -2652,7 +2743,7 @@ func (builder *CcSearchBuilder) UserId(userId string) *CcSearchBuilder {
 	return builder
 }
 
-// 审批定义 code
+// 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 //
 // 示例值：EB828003-9FFE-4B3F-AA50-2E199E2ED942
 func (builder *CcSearchBuilder) ApprovalCode(approvalCode string) *CcSearchBuilder {
@@ -2661,7 +2752,7 @@ func (builder *CcSearchBuilder) ApprovalCode(approvalCode string) *CcSearchBuild
 	return builder
 }
 
-// 审批实例 code
+// 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 //
 // 示例值：EB828003-9FFE-4B3F-AA50-2E199E2ED943
 func (builder *CcSearchBuilder) InstanceCode(instanceCode string) *CcSearchBuilder {
@@ -2670,7 +2761,7 @@ func (builder *CcSearchBuilder) InstanceCode(instanceCode string) *CcSearchBuild
 	return builder
 }
 
-// 审批实例第三方 id 注：和 approval_code 取并集
+// 审批实例的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 //
 // 示例值：EB828003-9FFE-4B3F-AA50-2E199E2ED976
 func (builder *CcSearchBuilder) InstanceExternalId(instanceExternalId string) *CcSearchBuilder {
@@ -2679,7 +2770,7 @@ func (builder *CcSearchBuilder) InstanceExternalId(instanceExternalId string) *C
 	return builder
 }
 
-// 审批定义分组第三方 id 注：和 instance_code 取并集
+// 审批定义分组的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 //
 // 示例值：1234567
 func (builder *CcSearchBuilder) GroupExternalId(groupExternalId string) *CcSearchBuilder {
@@ -2688,7 +2779,7 @@ func (builder *CcSearchBuilder) GroupExternalId(groupExternalId string) *CcSearc
 	return builder
 }
 
-// 审批抄送标题（只有第三方审批有）
+// 审批抄送标题。;;**说明**：仅第三方审批存在审批抄送标题。
 //
 // 示例值：test
 func (builder *CcSearchBuilder) CcTitle(ccTitle string) *CcSearchBuilder {
@@ -2697,7 +2788,7 @@ func (builder *CcSearchBuilder) CcTitle(ccTitle string) *CcSearchBuilder {
 	return builder
 }
 
-// 审批抄送状态，注：若不设置，查询全部状态 若不在集合中，报错
+// 审批抄送状态。;;**注意**：若不设置则查询全部状态，若不在集合中，则报错。
 //
 // 示例值：read
 func (builder *CcSearchBuilder) ReadStatus(readStatus string) *CcSearchBuilder {
@@ -2706,7 +2797,7 @@ func (builder *CcSearchBuilder) ReadStatus(readStatus string) *CcSearchBuilder {
 	return builder
 }
 
-// 抄送查询开始时间（unix毫秒时间戳）
+// 抄送查询开始时间，Unix 毫秒时间戳。与 cc_create_time_to 参数构成时间段查询条件，仅会返回在该时间段内的审批抄送。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 //
 // 示例值：1547654251506
 func (builder *CcSearchBuilder) CcCreateTimeFrom(ccCreateTimeFrom string) *CcSearchBuilder {
@@ -2715,7 +2806,7 @@ func (builder *CcSearchBuilder) CcCreateTimeFrom(ccCreateTimeFrom string) *CcSea
 	return builder
 }
 
-// 抄送查询结束时间 (unix毫秒时间戳)
+// 抄送查询结束时间，Unix 毫秒时间戳。与 cc_create_time_from 参数构成时间段查询条件，仅会返回在该时间段内的审批抄送。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 //
 // 示例值：1547654251506
 func (builder *CcSearchBuilder) CcCreateTimeTo(ccCreateTimeTo string) *CcSearchBuilder {
@@ -2724,7 +2815,7 @@ func (builder *CcSearchBuilder) CcCreateTimeTo(ccCreateTimeTo string) *CcSearchB
 	return builder
 }
 
-// 地区
+// 语言
 //
 // 示例值：zh-CN
 func (builder *CcSearchBuilder) Locale(locale string) *CcSearchBuilder {
@@ -2792,17 +2883,17 @@ func (builder *CcSearchBuilder) Build() *CcSearch {
 }
 
 type CcSearchItem struct {
-	Approval *InstanceSearchApproval `json:"approval,omitempty"` // 审批定义
+	Approval *InstanceSearchApproval `json:"approval,omitempty"` // 审批定义信息
 
 	Group *InstanceSearchGroup `json:"group,omitempty"` // 审批定义分组
 
 	Instance *InstanceSearchNode `json:"instance,omitempty"` // 审批实例信息
 
-	Cc *CcSearchNode `json:"cc,omitempty"` // 审批抄送
+	Cc *CcSearchNode `json:"cc,omitempty"` // 审批抄送信息
 }
 
 type CcSearchItemBuilder struct {
-	approval    *InstanceSearchApproval // 审批定义
+	approval    *InstanceSearchApproval // 审批定义信息
 	approvalSet bool
 
 	group    *InstanceSearchGroup // 审批定义分组
@@ -2811,7 +2902,7 @@ type CcSearchItemBuilder struct {
 	instance    *InstanceSearchNode // 审批实例信息
 	instanceSet bool
 
-	cc    *CcSearchNode // 审批抄送
+	cc    *CcSearchNode // 审批抄送信息
 	ccSet bool
 }
 
@@ -2820,7 +2911,7 @@ func NewCcSearchItemBuilder() *CcSearchItemBuilder {
 	return builder
 }
 
-// 审批定义
+// 审批定义信息
 //
 // 示例值：
 func (builder *CcSearchItemBuilder) Approval(approval *InstanceSearchApproval) *CcSearchItemBuilder {
@@ -2847,7 +2938,7 @@ func (builder *CcSearchItemBuilder) Instance(instance *InstanceSearchNode) *CcSe
 	return builder
 }
 
-// 审批抄送
+// 审批抄送信息
 //
 // 示例值：
 func (builder *CcSearchItemBuilder) Cc(cc *CcSearchNode) *CcSearchItemBuilder {
@@ -2874,36 +2965,36 @@ func (builder *CcSearchItemBuilder) Build() *CcSearchItem {
 }
 
 type CcSearchNode struct {
-	UserId *string `json:"user_id,omitempty"` // 审批抄送发起人 id
+	UserId *string `json:"user_id,omitempty"` // 审批抄送发起人的 user_id
 
-	CreateTime *string `json:"create_time,omitempty"` // 审批抄送开始时间
+	CreateTime *string `json:"create_time,omitempty"` // 审批抄送开始时间，Unix 毫秒时间戳
 
 	ReadStatus *string `json:"read_status,omitempty"` // 审批抄送状态
 
-	Title *string `json:"title,omitempty"` // 审批抄送名称（只有第三方审批有）
+	Title *string `json:"title,omitempty"` // 审批抄送名称（只有第三方审批有返回值）
 
-	Extra *string `json:"extra,omitempty"` // 审批抄送扩展字段，string型json
+	Extra *string `json:"extra,omitempty"` // 审批抄送扩展字段，字符串类型的 JSON 数据
 
-	Link *InstanceSearchLink `json:"link,omitempty"` // 审批抄送链接（只有第三方审批有）
+	Link *InstanceSearchLink `json:"link,omitempty"` // 审批实例链接（只有第三方审批有返回值）
 }
 
 type CcSearchNodeBuilder struct {
-	userId    string // 审批抄送发起人 id
+	userId    string // 审批抄送发起人的 user_id
 	userIdSet bool
 
-	createTime    string // 审批抄送开始时间
+	createTime    string // 审批抄送开始时间，Unix 毫秒时间戳
 	createTimeSet bool
 
 	readStatus    string // 审批抄送状态
 	readStatusSet bool
 
-	title    string // 审批抄送名称（只有第三方审批有）
+	title    string // 审批抄送名称（只有第三方审批有返回值）
 	titleSet bool
 
-	extra    string // 审批抄送扩展字段，string型json
+	extra    string // 审批抄送扩展字段，字符串类型的 JSON 数据
 	extraSet bool
 
-	link    *InstanceSearchLink // 审批抄送链接（只有第三方审批有）
+	link    *InstanceSearchLink // 审批实例链接（只有第三方审批有返回值）
 	linkSet bool
 }
 
@@ -2912,7 +3003,7 @@ func NewCcSearchNodeBuilder() *CcSearchNodeBuilder {
 	return builder
 }
 
-// 审批抄送发起人 id
+// 审批抄送发起人的 user_id
 //
 // 示例值：lwiu098wj
 func (builder *CcSearchNodeBuilder) UserId(userId string) *CcSearchNodeBuilder {
@@ -2921,7 +3012,7 @@ func (builder *CcSearchNodeBuilder) UserId(userId string) *CcSearchNodeBuilder {
 	return builder
 }
 
-// 审批抄送开始时间
+// 审批抄送开始时间，Unix 毫秒时间戳
 //
 // 示例值：1547654251506
 func (builder *CcSearchNodeBuilder) CreateTime(createTime string) *CcSearchNodeBuilder {
@@ -2939,7 +3030,7 @@ func (builder *CcSearchNodeBuilder) ReadStatus(readStatus string) *CcSearchNodeB
 	return builder
 }
 
-// 审批抄送名称（只有第三方审批有）
+// 审批抄送名称（只有第三方审批有返回值）
 //
 // 示例值：test
 func (builder *CcSearchNodeBuilder) Title(title string) *CcSearchNodeBuilder {
@@ -2948,7 +3039,7 @@ func (builder *CcSearchNodeBuilder) Title(title string) *CcSearchNodeBuilder {
 	return builder
 }
 
-// 审批抄送扩展字段，string型json
+// 审批抄送扩展字段，字符串类型的 JSON 数据
 //
 // 示例值：{}
 func (builder *CcSearchNodeBuilder) Extra(extra string) *CcSearchNodeBuilder {
@@ -2957,7 +3048,7 @@ func (builder *CcSearchNodeBuilder) Extra(extra string) *CcSearchNodeBuilder {
 	return builder
 }
 
-// 审批抄送链接（只有第三方审批有）
+// 审批实例链接（只有第三方审批有返回值）
 //
 // 示例值：
 func (builder *CcSearchNodeBuilder) Link(link *InstanceSearchLink) *CcSearchNodeBuilder {
@@ -2995,17 +3086,17 @@ func (builder *CcSearchNodeBuilder) Build() *CcSearchNode {
 }
 
 type Comment struct {
-	Id *string `json:"id,omitempty"` // 评论ID
+	Id *string `json:"id,omitempty"` // 评论 ID
 
 	Content *string `json:"content,omitempty"` // 评论内容
 
-	CreateTime *string `json:"create_time,omitempty"` // 评论创建时间
+	CreateTime *string `json:"create_time,omitempty"` // 评论创建时间，毫秒时间戳。
 
-	UpdateTime *string `json:"update_time,omitempty"` // 评论更新时间
+	UpdateTime *string `json:"update_time,omitempty"` // 评论更新时间，毫秒时间戳。
 
-	IsDelete *int `json:"is_delete,omitempty"` // 是否删除，0:未删除，1:已删除
+	IsDelete *int `json:"is_delete,omitempty"` // 是否删除。可能值有：;;- 0：未删除;- 1：已删除
 
-	Replies []*CommentReply `json:"replies,omitempty"` // 评论的回复
+	Replies []*CommentReply `json:"replies,omitempty"` // 评论的回复数据
 
 	AtInfoList []*CommentAtInfo `json:"at_info_list,omitempty"` // 评论中艾特人信息
 
@@ -3015,22 +3106,22 @@ type Comment struct {
 }
 
 type CommentBuilder struct {
-	id    string // 评论ID
+	id    string // 评论 ID
 	idSet bool
 
 	content    string // 评论内容
 	contentSet bool
 
-	createTime    string // 评论创建时间
+	createTime    string // 评论创建时间，毫秒时间戳。
 	createTimeSet bool
 
-	updateTime    string // 评论更新时间
+	updateTime    string // 评论更新时间，毫秒时间戳。
 	updateTimeSet bool
 
-	isDelete    int // 是否删除，0:未删除，1:已删除
+	isDelete    int // 是否删除。可能值有：;;- 0：未删除;- 1：已删除
 	isDeleteSet bool
 
-	replies    []*CommentReply // 评论的回复
+	replies    []*CommentReply // 评论的回复数据
 	repliesSet bool
 
 	atInfoList    []*CommentAtInfo // 评论中艾特人信息
@@ -3048,7 +3139,7 @@ func NewCommentBuilder() *CommentBuilder {
 	return builder
 }
 
-// 评论ID
+// 评论 ID
 //
 // 示例值：7081516627711524883
 func (builder *CommentBuilder) Id(id string) *CommentBuilder {
@@ -3059,14 +3150,14 @@ func (builder *CommentBuilder) Id(id string) *CommentBuilder {
 
 // 评论内容
 //
-// 示例值：{\"text\":\"x@王某自小程序的评论111我带了附件，而且我艾特了人 \",\"files\":[{\"url\":\"https://xx-xxx-xxx.bytedance.net/lark-approval-attachment/image/20220401/1/d43216ca-93b5-43a8-8a34-23c66820463a.png~tplv-k7bg0smxju-image.image?x-orig-authkey=boeorigin\&x-orig-expires=1650963890\&x-orig-sign=668QhQbRSt6638x2Ws8wFI%2FxqVg%3D#.png\",\"fileSize\":155149,\"title\":\"9a9fedc5cfb01a4a20c715098.png\",\"type\":\"image\"}]}
+// 示例值：{\"text\":\"x@某某来自小程序的评论，这是一条回复\"}
 func (builder *CommentBuilder) Content(content string) *CommentBuilder {
 	builder.content = content
 	builder.contentSet = true
 	return builder
 }
 
-// 评论创建时间
+// 评论创建时间，毫秒时间戳。
 //
 // 示例值：1648801211000
 func (builder *CommentBuilder) CreateTime(createTime string) *CommentBuilder {
@@ -3075,7 +3166,7 @@ func (builder *CommentBuilder) CreateTime(createTime string) *CommentBuilder {
 	return builder
 }
 
-// 评论更新时间
+// 评论更新时间，毫秒时间戳。
 //
 // 示例值：1648801211000
 func (builder *CommentBuilder) UpdateTime(updateTime string) *CommentBuilder {
@@ -3084,7 +3175,7 @@ func (builder *CommentBuilder) UpdateTime(updateTime string) *CommentBuilder {
 	return builder
 }
 
-// 是否删除，0:未删除，1:已删除
+// 是否删除。可能值有：;;- 0：未删除;- 1：已删除
 //
 // 示例值：1
 func (builder *CommentBuilder) IsDelete(isDelete int) *CommentBuilder {
@@ -3093,7 +3184,7 @@ func (builder *CommentBuilder) IsDelete(isDelete int) *CommentBuilder {
 	return builder
 }
 
-// 评论的回复
+// 评论的回复数据
 //
 // 示例值：
 func (builder *CommentBuilder) Replies(replies []*CommentReply) *CommentBuilder {
@@ -3169,21 +3260,21 @@ func (builder *CommentBuilder) Build() *Comment {
 }
 
 type CommentAtInfo struct {
-	UserId *string `json:"user_id,omitempty"` // 被艾特人的ID
+	UserId *string `json:"user_id,omitempty"` // 被艾特人的 ID，ID 类型与查询参数 user_id_type 取值一致。
 
 	Name *string `json:"name,omitempty"` // 被艾特人的姓名
 
-	Offset *string `json:"offset,omitempty"` // 被艾特人在评论中的位置，从0开始
+	Offset *string `json:"offset,omitempty"` // 被艾特人在评论中的位置，从 0 开始。用于偏移覆盖。例如：;;- 取值为 0 时的效果：@username 示例文本;- 取值为 2 时的效果：示例 @username 文本;- 取值为 4 时的效果：示例文本 @username; ;**注意**：该参数生效方式是覆盖生效，因此你需要先通过 content 参数设置用户名称的文本内容，然后再通过该参数将实际生效的@效果覆盖到用户名称的文本内容上。
 }
 
 type CommentAtInfoBuilder struct {
-	userId    string // 被艾特人的ID
+	userId    string // 被艾特人的 ID，ID 类型与查询参数 user_id_type 取值一致。
 	userIdSet bool
 
 	name    string // 被艾特人的姓名
 	nameSet bool
 
-	offset    string // 被艾特人在评论中的位置，从0开始
+	offset    string // 被艾特人在评论中的位置，从 0 开始。用于偏移覆盖。例如：;;- 取值为 0 时的效果：@username 示例文本;- 取值为 2 时的效果：示例 @username 文本;- 取值为 4 时的效果：示例文本 @username; ;**注意**：该参数生效方式是覆盖生效，因此你需要先通过 content 参数设置用户名称的文本内容，然后再通过该参数将实际生效的@效果覆盖到用户名称的文本内容上。
 	offsetSet bool
 }
 
@@ -3192,7 +3283,7 @@ func NewCommentAtInfoBuilder() *CommentAtInfoBuilder {
 	return builder
 }
 
-// 被艾特人的ID
+// 被艾特人的 ID，ID 类型与查询参数 user_id_type 取值一致。
 //
 // 示例值：579fd9c4
 func (builder *CommentAtInfoBuilder) UserId(userId string) *CommentAtInfoBuilder {
@@ -3203,16 +3294,16 @@ func (builder *CommentAtInfoBuilder) UserId(userId string) *CommentAtInfoBuilder
 
 // 被艾特人的姓名
 //
-// 示例值：张某
+// 示例值：张敏
 func (builder *CommentAtInfoBuilder) Name(name string) *CommentAtInfoBuilder {
 	builder.name = name
 	builder.nameSet = true
 	return builder
 }
 
-// 被艾特人在评论中的位置，从0开始
+// 被艾特人在评论中的位置，从 0 开始。用于偏移覆盖。例如：;;- 取值为 0 时的效果：@username 示例文本;- 取值为 2 时的效果：示例 @username 文本;- 取值为 4 时的效果：示例文本 @username; ;**注意**：该参数生效方式是覆盖生效，因此你需要先通过 content 参数设置用户名称的文本内容，然后再通过该参数将实际生效的@效果覆盖到用户名称的文本内容上。
 //
-// 示例值：1
+// 示例值：0
 func (builder *CommentAtInfoBuilder) Offset(offset string) *CommentAtInfoBuilder {
 	builder.offset = offset
 	builder.offsetSet = true
@@ -3237,15 +3328,15 @@ func (builder *CommentAtInfoBuilder) Build() *CommentAtInfo {
 }
 
 type CommentReply struct {
-	Id *string `json:"id,omitempty"` // 评论ID
+	Id *string `json:"id,omitempty"` // 评论 ID
 
 	Content *string `json:"content,omitempty"` // 评论内容
 
-	CreateTime *string `json:"create_time,omitempty"` // 评论创建时间
+	CreateTime *string `json:"create_time,omitempty"` // 评论创建时间，毫秒时间戳。
 
-	UpdateTime *string `json:"update_time,omitempty"` // 评论更新时间
+	UpdateTime *string `json:"update_time,omitempty"` // 评论更新时间，毫秒时间戳。
 
-	IsDelete *int `json:"is_delete,omitempty"` // 是否删除，0:未删除，1:已删除
+	IsDelete *int `json:"is_delete,omitempty"` // 是否删除。可能值有：;;- 0：未删除;- 1：已删除
 
 	AtInfoList []*CommentAtInfo `json:"at_info_list,omitempty"` // 评论中艾特人信息
 
@@ -3255,19 +3346,19 @@ type CommentReply struct {
 }
 
 type CommentReplyBuilder struct {
-	id    string // 评论ID
+	id    string // 评论 ID
 	idSet bool
 
 	content    string // 评论内容
 	contentSet bool
 
-	createTime    string // 评论创建时间
+	createTime    string // 评论创建时间，毫秒时间戳。
 	createTimeSet bool
 
-	updateTime    string // 评论更新时间
+	updateTime    string // 评论更新时间，毫秒时间戳。
 	updateTimeSet bool
 
-	isDelete    int // 是否删除，0:未删除，1:已删除
+	isDelete    int // 是否删除。可能值有：;;- 0：未删除;- 1：已删除
 	isDeleteSet bool
 
 	atInfoList    []*CommentAtInfo // 评论中艾特人信息
@@ -3285,7 +3376,7 @@ func NewCommentReplyBuilder() *CommentReplyBuilder {
 	return builder
 }
 
-// 评论ID
+// 评论 ID
 //
 // 示例值：7081516611634741268
 func (builder *CommentReplyBuilder) Id(id string) *CommentReplyBuilder {
@@ -3296,14 +3387,14 @@ func (builder *CommentReplyBuilder) Id(id string) *CommentReplyBuilder {
 
 // 评论内容
 //
-// 示例值：{\"text\":\"x@张某来自小程序的评论111,这是一条回复\",\"files\":[{\"url\":\"https://xx-xxx-xxx.bytedance.net/lark-approval-attachment/image/20220401/1/d43216ca-93b5-43a8-8a34-23c66820463a.png~tplv-k7bg0smxju-image.image?x-orig-authkey=boeorigin\&x-orig-expires=1650963890\&x-orig-sign=668QhQbRSt6638x2Ws8wFI%2FxqVg%3D#.png\",\"fileSize\":155149,\"title\":\"9a9fedc5cfb01a4a20c715098.png\",\"type\":\"image\"}]}
+// 示例值：{\"text\":\"x@某某来自小程序的评论，这是一条回复\"}
 func (builder *CommentReplyBuilder) Content(content string) *CommentReplyBuilder {
 	builder.content = content
 	builder.contentSet = true
 	return builder
 }
 
-// 评论创建时间
+// 评论创建时间，毫秒时间戳。
 //
 // 示例值：1648803677000
 func (builder *CommentReplyBuilder) CreateTime(createTime string) *CommentReplyBuilder {
@@ -3312,7 +3403,7 @@ func (builder *CommentReplyBuilder) CreateTime(createTime string) *CommentReplyB
 	return builder
 }
 
-// 评论更新时间
+// 评论更新时间，毫秒时间戳。
 //
 // 示例值：1648803677000
 func (builder *CommentReplyBuilder) UpdateTime(updateTime string) *CommentReplyBuilder {
@@ -3321,7 +3412,7 @@ func (builder *CommentReplyBuilder) UpdateTime(updateTime string) *CommentReplyB
 	return builder
 }
 
-// 是否删除，0:未删除，1:已删除
+// 是否删除。可能值有：;;- 0：未删除;- 1：已删除
 //
 // 示例值：0
 func (builder *CommentReplyBuilder) IsDelete(isDelete int) *CommentReplyBuilder {
@@ -3394,36 +3485,36 @@ func (builder *CommentReplyBuilder) Build() *CommentReply {
 }
 
 type CommentRequest struct {
-	Content *string `json:"content,omitempty"` // 评论内容，包含艾特人、附件等
+	Content *string `json:"content,omitempty"` // 评论内容，JSON 格式，传入时需要压缩转义为字符串。以下示例值未转义，你可参考请求体示例中的示例 content 进行编辑。;;**JSON 内参数说明**：;;- text：string 类型，评论文本内容。;- files：Attachment[] 类型，附件信息。; - url：string 类型，附件链接。; - thumbnailURL：string 类型，缩略图链接。; - fileSize：int64 类型，文件大小。; - title：string 类型，标题。; - type：string 类型，附件类型，取值 image 表示图片类型。;;**注意**：;- 如需 @用户，则需要在该参数内设置用户名的文本，例如 `@username`，同时通过 at_info_list 参数实现 @ 效果。;- 对于附件，在 PC 端使用 HTTP 资源链接传图片资源可能会导致缩略图异常，建议使用 HTTPS 传资源附件。
 
 	AtInfoList []*CommentAtInfo `json:"at_info_list,omitempty"` // 评论中艾特人信息
 
-	ParentCommentId *string `json:"parent_comment_id,omitempty"` // 父评论ID，如果是回复评论，需要传
+	ParentCommentId *string `json:"parent_comment_id,omitempty"` // 父评论 ID，如果是回复评论，需要传入该值。获取方式：;;- 调用当前接口成功后会返回本次评论的 ID，你可以保存用于下次使用。;- 调用[获取评论](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/list)接口，获取评论 ID。
 
-	CommentId *string `json:"comment_id,omitempty"` // 评论ID，如果是编辑、删除一条评论，需要传
+	CommentId *string `json:"comment_id,omitempty"` // 评论 ID。如果需要编辑、删除一条评论，则需要将该评论的 ID 传入当前参数。获取方式：;;- 调用当前接口成功后会返回本次评论的 ID，你可以保存用于下次使用。;- 调用[获取评论](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/list)接口，获取评论 ID。
 
-	DisableBot *bool `json:"disable_bot,omitempty"` // disable_bot=true只同步数据，不触发bot
+	DisableBot *bool `json:"disable_bot,omitempty"` // 是否不启用 Bot，取值为 true 时只同步数据，不触发 Bot。;;**说明**：飞书审批中自定义审批填写 false，其他情况填写 true。
 
-	Extra *string `json:"extra,omitempty"` // 附加字段
+	Extra *string `json:"extra,omitempty"` // 附加字段，JSON 格式，传入时需要压缩转义为字符串。
 }
 
 type CommentRequestBuilder struct {
-	content    string // 评论内容，包含艾特人、附件等
+	content    string // 评论内容，JSON 格式，传入时需要压缩转义为字符串。以下示例值未转义，你可参考请求体示例中的示例 content 进行编辑。;;**JSON 内参数说明**：;;- text：string 类型，评论文本内容。;- files：Attachment[] 类型，附件信息。; - url：string 类型，附件链接。; - thumbnailURL：string 类型，缩略图链接。; - fileSize：int64 类型，文件大小。; - title：string 类型，标题。; - type：string 类型，附件类型，取值 image 表示图片类型。;;**注意**：;- 如需 @用户，则需要在该参数内设置用户名的文本，例如 `@username`，同时通过 at_info_list 参数实现 @ 效果。;- 对于附件，在 PC 端使用 HTTP 资源链接传图片资源可能会导致缩略图异常，建议使用 HTTPS 传资源附件。
 	contentSet bool
 
 	atInfoList    []*CommentAtInfo // 评论中艾特人信息
 	atInfoListSet bool
 
-	parentCommentId    string // 父评论ID，如果是回复评论，需要传
+	parentCommentId    string // 父评论 ID，如果是回复评论，需要传入该值。获取方式：;;- 调用当前接口成功后会返回本次评论的 ID，你可以保存用于下次使用。;- 调用[获取评论](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/list)接口，获取评论 ID。
 	parentCommentIdSet bool
 
-	commentId    string // 评论ID，如果是编辑、删除一条评论，需要传
+	commentId    string // 评论 ID。如果需要编辑、删除一条评论，则需要将该评论的 ID 传入当前参数。获取方式：;;- 调用当前接口成功后会返回本次评论的 ID，你可以保存用于下次使用。;- 调用[获取评论](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/list)接口，获取评论 ID。
 	commentIdSet bool
 
-	disableBot    bool // disable_bot=true只同步数据，不触发bot
+	disableBot    bool // 是否不启用 Bot，取值为 true 时只同步数据，不触发 Bot。;;**说明**：飞书审批中自定义审批填写 false，其他情况填写 true。
 	disableBotSet bool
 
-	extra    string // 附加字段
+	extra    string // 附加字段，JSON 格式，传入时需要压缩转义为字符串。
 	extraSet bool
 }
 
@@ -3432,9 +3523,9 @@ func NewCommentRequestBuilder() *CommentRequestBuilder {
 	return builder
 }
 
-// 评论内容，包含艾特人、附件等
+// 评论内容，JSON 格式，传入时需要压缩转义为字符串。以下示例值未转义，你可参考请求体示例中的示例 content 进行编辑。;;**JSON 内参数说明**：;;- text：string 类型，评论文本内容。;- files：Attachment[] 类型，附件信息。; - url：string 类型，附件链接。; - thumbnailURL：string 类型，缩略图链接。; - fileSize：int64 类型，文件大小。; - title：string 类型，标题。; - type：string 类型，附件类型，取值 image 表示图片类型。;;**注意**：;- 如需 @用户，则需要在该参数内设置用户名的文本，例如 `@username`，同时通过 at_info_list 参数实现 @ 效果。;- 对于附件，在 PC 端使用 HTTP 资源链接传图片资源可能会导致缩略图异常，建议使用 HTTPS 传资源附件。
 //
-// 示例值：{\"text\":\"来自小程序的评论111我带附件中有extra \",\"files\":[{\"url\":\"xxx\",\"fileSize\":155149,\"title\":\"9a9fedc5cfb01a4a20c715098.png\",\"type\":\"image\",\"extra\":\"\"}]}
+// 示例值：{\"text\":\"@username艾特展示\",\"files\":[{\"url\":\"xxx\",\"fileSize\":155149,\"title\":\"9a9fedc5cfb01a4a20c715098.png\",\"type\":\"image\",\"extra\":\"\"}]}
 func (builder *CommentRequestBuilder) Content(content string) *CommentRequestBuilder {
 	builder.content = content
 	builder.contentSet = true
@@ -3450,7 +3541,7 @@ func (builder *CommentRequestBuilder) AtInfoList(atInfoList []*CommentAtInfo) *C
 	return builder
 }
 
-// 父评论ID，如果是回复评论，需要传
+// 父评论 ID，如果是回复评论，需要传入该值。获取方式：;;- 调用当前接口成功后会返回本次评论的 ID，你可以保存用于下次使用。;- 调用[获取评论](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/list)接口，获取评论 ID。
 //
 // 示例值：7081516627711524883
 func (builder *CommentRequestBuilder) ParentCommentId(parentCommentId string) *CommentRequestBuilder {
@@ -3459,7 +3550,7 @@ func (builder *CommentRequestBuilder) ParentCommentId(parentCommentId string) *C
 	return builder
 }
 
-// 评论ID，如果是编辑、删除一条评论，需要传
+// 评论 ID。如果需要编辑、删除一条评论，则需要将该评论的 ID 传入当前参数。获取方式：;;- 调用当前接口成功后会返回本次评论的 ID，你可以保存用于下次使用。;- 调用[获取评论](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/list)接口，获取评论 ID。
 //
 // 示例值：7081516627711524883
 func (builder *CommentRequestBuilder) CommentId(commentId string) *CommentRequestBuilder {
@@ -3468,7 +3559,7 @@ func (builder *CommentRequestBuilder) CommentId(commentId string) *CommentReques
 	return builder
 }
 
-// disable_bot=true只同步数据，不触发bot
+// 是否不启用 Bot，取值为 true 时只同步数据，不触发 Bot。;;**说明**：飞书审批中自定义审批填写 false，其他情况填写 true。
 //
 // 示例值：false
 func (builder *CommentRequestBuilder) DisableBot(disableBot bool) *CommentRequestBuilder {
@@ -3477,7 +3568,7 @@ func (builder *CommentRequestBuilder) DisableBot(disableBot bool) *CommentReques
 	return builder
 }
 
-// 附加字段
+// 附加字段，JSON 格式，传入时需要压缩转义为字符串。
 //
 // 示例值：{\"a\":\"a\"}
 func (builder *CommentRequestBuilder) Extra(extra string) *CommentRequestBuilder {
@@ -3686,16 +3777,16 @@ func (builder *ConnectorLogDataBuilder) Build() *ConnectorLogData {
 }
 
 type Count struct {
-	Total *int `json:"total,omitempty"` // 总数，大于等于 1000 个项目时将返回 999
+	Total *int `json:"total,omitempty"` // 返回的任务总数量，总数量大于等于 1000 时将返回 999。
 
-	HasMore *bool `json:"has_more,omitempty"` // 还有更多，当大于等于 1000 时将返回 true
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多数据，当总数量大于等于 1000 时将返回 true。
 }
 
 type CountBuilder struct {
-	total    int // 总数，大于等于 1000 个项目时将返回 999
+	total    int // 返回的任务总数量，总数量大于等于 1000 时将返回 999。
 	totalSet bool
 
-	hasMore    bool // 还有更多，当大于等于 1000 时将返回 true
+	hasMore    bool // 是否还有更多数据，当总数量大于等于 1000 时将返回 true。
 	hasMoreSet bool
 }
 
@@ -3704,7 +3795,7 @@ func NewCountBuilder() *CountBuilder {
 	return builder
 }
 
-// 总数，大于等于 1000 个项目时将返回 999
+// 返回的任务总数量，总数量大于等于 1000 时将返回 999。
 //
 // 示例值：123
 func (builder *CountBuilder) Total(total int) *CountBuilder {
@@ -3713,7 +3804,7 @@ func (builder *CountBuilder) Total(total int) *CountBuilder {
 	return builder
 }
 
-// 还有更多，当大于等于 1000 时将返回 true
+// 是否还有更多数据，当总数量大于等于 1000 时将返回 true。
 //
 // 示例值：false
 func (builder *CountBuilder) HasMore(hasMore bool) *CountBuilder {
@@ -3736,9 +3827,9 @@ func (builder *CountBuilder) Build() *Count {
 }
 
 type Definition struct {
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code 示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
 
-	ApprovalName *string `json:"approval_name,omitempty"` // 审批名称，根据传入的local字段返回对应的国际化文案，未设置该国际化文案时返回默认语言对应文案
+	ApprovalName *string `json:"approval_name,omitempty"` // 审批名称，根据传入的local字段返回对应的国际化文案，未设置国际化文案时该字段为空
 
 	GroupName *string `json:"group_name,omitempty"` // 分组名称，值的格式是 i18n key，文案放在 i18n_resource
 
@@ -3756,10 +3847,10 @@ type Definition struct {
 }
 
 type DefinitionBuilder struct {
-	approvalCode    string // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
+	approvalCode    string // 审批定义 code 示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
 	approvalCodeSet bool
 
-	approvalName    string // 审批名称，根据传入的local字段返回对应的国际化文案，未设置该国际化文案时返回默认语言对应文案
+	approvalName    string // 审批名称，根据传入的local字段返回对应的国际化文案，未设置国际化文案时该字段为空
 	approvalNameSet bool
 
 	groupName    string // 分组名称，值的格式是 i18n key，文案放在 i18n_resource
@@ -3789,7 +3880,7 @@ func NewDefinitionBuilder() *DefinitionBuilder {
 	return builder
 }
 
-// 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
+// 审批定义 code 示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *DefinitionBuilder) ApprovalCode(approvalCode string) *DefinitionBuilder {
@@ -3798,7 +3889,7 @@ func (builder *DefinitionBuilder) ApprovalCode(approvalCode string) *DefinitionB
 	return builder
 }
 
-// 审批名称，根据传入的local字段返回对应的国际化文案，未设置该国际化文案时返回默认语言对应文案
+// 审批名称，根据传入的local字段返回对应的国际化文案，未设置国际化文案时该字段为空
 //
 // 示例值：请假
 func (builder *DefinitionBuilder) ApprovalName(approvalName string) *DefinitionBuilder {
@@ -3854,7 +3945,7 @@ func (builder *DefinitionBuilder) IsExternal(isExternal bool) *DefinitionBuilder
 
 // PC端发起页链接
 //
-// 示例值：https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/create-form/index?id=9999
+// 示例值：https://applink.feishu.cn/client/mini_program/open?mode=appCenter&path=pc/pages/create-form/index?id=9999
 func (builder *DefinitionBuilder) CreateLinkPc(createLinkPc string) *DefinitionBuilder {
 	builder.createLinkPc = createLinkPc
 	builder.createLinkPcSet = true
@@ -3863,7 +3954,7 @@ func (builder *DefinitionBuilder) CreateLinkPc(createLinkPc string) *DefinitionB
 
 // 移动端发起页链接
 //
-// 示例值：https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/approval-form/index?id=9999
+// 示例值：https://applink.feishu.cn/client/mini_program/open?path=pages/approval-form/index?id=9999
 func (builder *DefinitionBuilder) CreateLinkMobile(createLinkMobile string) *DefinitionBuilder {
 	builder.createLinkMobile = createLinkMobile
 	builder.createLinkMobileSet = true
@@ -3930,8 +4021,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -3939,8 +4028,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -4201,18 +4288,18 @@ func (builder *EntityProcessRecordBuilder) Build() *EntityProcessRecord {
 }
 
 type ExteranlInstanceCheck struct {
-	InstanceId *string `json:"instance_id,omitempty"` // 审批实例 id
+	InstanceId *string `json:"instance_id,omitempty"` // 审批实例 ID。自定义配置，需要确保当前企业、应用内唯一。;;**注意**：调用本接口和[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)接口操作同一个三方审批实例时，需要确保所用的实例 ID 一致。
 
-	UpdateTime *string `json:"update_time,omitempty"` // 审批实例最近更新时间
+	UpdateTime *string `json:"update_time,omitempty"` // 审批实例最近更新时间，Unix 毫秒时间戳。
 
 	Tasks []*ExternalInstanceTask `json:"tasks,omitempty"` // 任务信息
 }
 
 type ExteranlInstanceCheckBuilder struct {
-	instanceId    string // 审批实例 id
+	instanceId    string // 审批实例 ID。自定义配置，需要确保当前企业、应用内唯一。;;**注意**：调用本接口和[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)接口操作同一个三方审批实例时，需要确保所用的实例 ID 一致。
 	instanceIdSet bool
 
-	updateTime    string // 审批实例最近更新时间
+	updateTime    string // 审批实例最近更新时间，Unix 毫秒时间戳。
 	updateTimeSet bool
 
 	tasks    []*ExternalInstanceTask // 任务信息
@@ -4224,7 +4311,7 @@ func NewExteranlInstanceCheckBuilder() *ExteranlInstanceCheckBuilder {
 	return builder
 }
 
-// 审批实例 id
+// 审批实例 ID。自定义配置，需要确保当前企业、应用内唯一。;;**注意**：调用本接口和[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)接口操作同一个三方审批实例时，需要确保所用的实例 ID 一致。
 //
 // 示例值：1234234234242423
 func (builder *ExteranlInstanceCheckBuilder) InstanceId(instanceId string) *ExteranlInstanceCheckBuilder {
@@ -4233,7 +4320,7 @@ func (builder *ExteranlInstanceCheckBuilder) InstanceId(instanceId string) *Exte
 	return builder
 }
 
-// 审批实例最近更新时间
+// 审批实例最近更新时间，Unix 毫秒时间戳。
 //
 // 示例值：1591603040000
 func (builder *ExteranlInstanceCheckBuilder) UpdateTime(updateTime string) *ExteranlInstanceCheckBuilder {
@@ -4268,18 +4355,18 @@ func (builder *ExteranlInstanceCheckBuilder) Build() *ExteranlInstanceCheck {
 }
 
 type ExteranlInstanceCheckResponse struct {
-	InstanceId *string `json:"instance_id,omitempty"` // 审批实例 id
+	InstanceId *string `json:"instance_id,omitempty"` // 审批实例 ID
 
-	UpdateTime *string `json:"update_time,omitempty"` // 任务最近更新时间
+	UpdateTime *string `json:"update_time,omitempty"` // 任务最近更新时间，Unix 毫秒时间戳。
 
 	Tasks []*ExternalInstanceTask `json:"tasks,omitempty"` // 任务信息
 }
 
 type ExteranlInstanceCheckResponseBuilder struct {
-	instanceId    string // 审批实例 id
+	instanceId    string // 审批实例 ID
 	instanceIdSet bool
 
-	updateTime    string // 任务最近更新时间
+	updateTime    string // 任务最近更新时间，Unix 毫秒时间戳。
 	updateTimeSet bool
 
 	tasks    []*ExternalInstanceTask // 任务信息
@@ -4291,7 +4378,7 @@ func NewExteranlInstanceCheckResponseBuilder() *ExteranlInstanceCheckResponseBui
 	return builder
 }
 
-// 审批实例 id
+// 审批实例 ID
 //
 // 示例值：1234234234242423
 func (builder *ExteranlInstanceCheckResponseBuilder) InstanceId(instanceId string) *ExteranlInstanceCheckResponseBuilder {
@@ -4300,7 +4387,7 @@ func (builder *ExteranlInstanceCheckResponseBuilder) InstanceId(instanceId strin
 	return builder
 }
 
-// 任务最近更新时间
+// 任务最近更新时间，Unix 毫秒时间戳。
 //
 // 示例值：1591603040000
 func (builder *ExteranlInstanceCheckResponseBuilder) UpdateTime(updateTime string) *ExteranlInstanceCheckResponseBuilder {
@@ -4339,13 +4426,13 @@ type ExternalApproval struct {
 
 	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code，用户自定义，定义的唯一标识，如果不存在该 code，则创建，否则更新
 
-	GroupCode *string `json:"group_code,omitempty"` // 审批定义所属审批分组，用户自定义； 如果group_code当前不存在，则会新建审批分组； 如果group_code已经存在，则会使用group_name更新审批分组名称
+	GroupCode *string `json:"group_code,omitempty"` // 应用自定义的分组code，最大支持128字符，用于唯一关联三方审批定义分组，具体说明：;;- 如果传入的 group_code 当前不存在，则会新建审批分组。;- 如果 group_code 已经存在，则会使用 group_name 更新审批分组名称。;- 更新审批定义时可以不传该字段，会继续使用当前绑定的分组。
 
 	GroupName *string `json:"group_name,omitempty"` // 分组名称，值的格式是 i18n key，文案放在 i18n_resource； 如果是 group_code 当前不存在，则该 group_name 必填，否则，如果填写了则会更新分组名称，不填则不更新分组名称； 审批发起页 审批定义的分组名称来自该字段
 
 	Description *string `json:"description,omitempty"` // 审批定义的说明，值的格式是 i18n key，文案放在 i18n_resource； 审批发起页 审批定义的说明内容来自该字段
 
-	External *ApprovalCreateExternal `json:"external,omitempty"` // 三方审批相关
+	External *ApprovalCreateExternal `json:"external,omitempty"` // 三方审批定义相关信息。
 
 	Viewers []*ApprovalCreateViewers `json:"viewers,omitempty"` // 可见人列表，可通知配置多个可见人，只有在配置的范围内用户可以在审批发起也看到该审批，默认不传，则是任何人不可见
 
@@ -4361,7 +4448,7 @@ type ExternalApprovalBuilder struct {
 	approvalCode    string // 审批定义 code，用户自定义，定义的唯一标识，如果不存在该 code，则创建，否则更新
 	approvalCodeSet bool
 
-	groupCode    string // 审批定义所属审批分组，用户自定义； 如果group_code当前不存在，则会新建审批分组； 如果group_code已经存在，则会使用group_name更新审批分组名称
+	groupCode    string // 应用自定义的分组code，最大支持128字符，用于唯一关联三方审批定义分组，具体说明：;;- 如果传入的 group_code 当前不存在，则会新建审批分组。;- 如果 group_code 已经存在，则会使用 group_name 更新审批分组名称。;- 更新审批定义时可以不传该字段，会继续使用当前绑定的分组。
 	groupCodeSet bool
 
 	groupName    string // 分组名称，值的格式是 i18n key，文案放在 i18n_resource； 如果是 group_code 当前不存在，则该 group_name 必填，否则，如果填写了则会更新分组名称，不填则不更新分组名称； 审批发起页 审批定义的分组名称来自该字段
@@ -4370,7 +4457,7 @@ type ExternalApprovalBuilder struct {
 	description    string // 审批定义的说明，值的格式是 i18n key，文案放在 i18n_resource； 审批发起页 审批定义的说明内容来自该字段
 	descriptionSet bool
 
-	external    *ApprovalCreateExternal // 三方审批相关
+	external    *ApprovalCreateExternal // 三方审批定义相关信息。
 	externalSet bool
 
 	viewers    []*ApprovalCreateViewers // 可见人列表，可通知配置多个可见人，只有在配置的范围内用户可以在审批发起也看到该审批，默认不传，则是任何人不可见
@@ -4390,7 +4477,7 @@ func NewExternalApprovalBuilder() *ExternalApprovalBuilder {
 
 // 审批定义名称，创建审批定义返回的值，表示该实例属于哪个流程；该字段会影响到列表中该实例的标题，标题取自对应定义的 name 字段。
 //
-// 示例值：@i18n@1
+// 示例值：E78F1022-A166-447C-8320-E151DA90D70F
 func (builder *ExternalApprovalBuilder) ApprovalName(approvalName string) *ExternalApprovalBuilder {
 	builder.approvalName = approvalName
 	builder.approvalNameSet = true
@@ -4406,7 +4493,7 @@ func (builder *ExternalApprovalBuilder) ApprovalCode(approvalCode string) *Exter
 	return builder
 }
 
-// 审批定义所属审批分组，用户自定义； 如果group_code当前不存在，则会新建审批分组； 如果group_code已经存在，则会使用group_name更新审批分组名称
+// 应用自定义的分组code，最大支持128字符，用于唯一关联三方审批定义分组，具体说明：;;- 如果传入的 group_code 当前不存在，则会新建审批分组。;- 如果 group_code 已经存在，则会使用 group_name 更新审批分组名称。;- 更新审批定义时可以不传该字段，会继续使用当前绑定的分组。
 //
 // 示例值：work_group
 func (builder *ExternalApprovalBuilder) GroupCode(groupCode string) *ExternalApprovalBuilder {
@@ -4433,7 +4520,7 @@ func (builder *ExternalApprovalBuilder) Description(description string) *Externa
 	return builder
 }
 
-// 三方审批相关
+// 三方审批定义相关信息。
 //
 // 示例值：
 func (builder *ExternalApprovalBuilder) External(external *ApprovalCreateExternal) *ExternalApprovalBuilder {
@@ -4557,39 +4644,39 @@ func (builder *ExternalApprovalItemBuilder) Build() *ExternalApprovalItem {
 }
 
 type ExternalInstance struct {
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code， 创建审批定义返回的值，表示该实例属于哪个流程；该字段会影响到列表中该实例的标题，标题取自对应定义的 name 字段
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code。[创建三方审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create)的返回值，用来指定当前实例属于的审批定义。
 
-	Status *string `json:"status,omitempty"` // 审批实例状态
+	Status *string `json:"status,omitempty"` // 审批实例状态;<md-alert type=warn>实例状态不影响任务状态，实例状态为通过时仍可同步待办状态的任务，所以同步时需要保证整体的状态一致性</md-alert>
 
-	Extra *string `json:"extra,omitempty"` // 审批实例扩展 JSON
+	Extra *string `json:"extra,omitempty"` // 审批实例扩展参数，JSON 格式，传值时需要压缩转义为字符串。单据编号通过传 business_key 参数来实现，目前仅托管模式支持展示三方的单据编号，其余模式仅展示单据来源(biz_type)，可通过[创建三方审批定义](https://open.feishu.cn/document%2FuAjLw4CM%2FukTMukTMukTM%2Freference%2Fapproval-v4%2Fexternal_approval%2Fcreate)接口指定。;;**注意**：以下示例值未转义，使用时请注意转义。你可查看请求体示例中转义后的 extra 示例值。
 
-	InstanceId *string `json:"instance_id,omitempty"` // 审批实例唯一标识，用户自定义，需确保证租户下唯一
+	InstanceId *string `json:"instance_id,omitempty"` // 审批实例唯一标识，自定义设置。需确保证在当前企业和应用内唯一。
 
-	Links *ExternalInstanceLink `json:"links,omitempty"` // 审批实例链接集合 ，用于【已发起】列表的跳转，跳转回三方系统； pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
+	Links *ExternalInstanceLink `json:"links,omitempty"` // 审批实例链接信息。设置的链接用于在审批中心 **已发起** 列表内点击跳转，跳回三方审批系统查看审批详情。
 
-	Title *string `json:"title,omitempty"` // 审批展示名称，如果填写了该字段，则审批列表中的审批名称使用该字段，如果不填该字段，则审批名称使用审批定义的名称
+	Title *string `json:"title,omitempty"` // 审批展示名称。;; ;**说明**：;;- 如果设置了 title 参数，则审批实例名称按照 title 展示。如果未设置 title，审批实例的标题取自对应审批定义（approval_code）的 name 参数。;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;- Key 需要以 @i18n@ 开头。
 
-	Form []*ExternalInstanceForm `json:"form,omitempty"` // 用户提交审批时填写的表单数据，用于所有审批列表中展示。可传多个值，但审批中心pc展示前2个,移动端展示前3个,长度不超过2048字符
+	Form []*ExternalInstanceForm `json:"form,omitempty"` // 用户提交审批时填写的表单数据，用于所有审批列表中展示。可传多个值，最多展示前 3 个，长度不超过 2048 字符。;;![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/69fd0009295b654b28ba2fb46727b4aa_KWIEEvsNPu.png?height=294&maxWidth=200&width=626)
 
-	UserId *string `json:"user_id,omitempty"` // 审批发起人 user_id，发起人可在【已发起】列表中看到所有已发起的审批; 在【待审批】，【已审批】【抄送我】列表中，该字段展示审批是谁发起的。审批发起人 open id，和 user id 二者至少填一个。
+	UserId *string `json:"user_id,omitempty"` // 审批发起人 user_id。发起人可在审批中心的 **已发起** 列表中看到所有已发起的审批。在 **待办**、**已办**、**抄送我** 列表中，该字段用来展示审批的发起人。获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。; ;**注意**：审批发起人的 open_id 和 user_id 需至少传入一个。
 
-	UserName *string `json:"user_name,omitempty"` // 审批发起人 用户名，如果发起人不是真实的用户（例如是某个部门），没有 user_id，则可以使用该字段传名称
+	UserName *string `json:"user_name,omitempty"` // 审批发起人的用户名。如果发起人不是真实的用户（例如是某个部门），没有 user_id，则可以使用该参数传入一个名称。; ;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 
-	OpenId *string `json:"open_id,omitempty"` // 审批发起人 open id，和 user id 二者至少填一个
+	OpenId *string `json:"open_id,omitempty"` // 审批发起人 open_id。发起人可在审批中心的 **已发起** 列表中看到所有已发起的审批。在 **待办**、**已办**、**抄送我** 列表中，该字段用来展示审批的发起人。获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。; ;**注意**：审批发起人的 open_id 和 user_id 需至少传入一个。
 
-	DepartmentId *string `json:"department_id,omitempty"` // 发起人部门，用于列表中展示发起人所属部门。不传则不展示。如果用户没加入任何部门，传 ""，将展示租户名称传 department_name 展示部门名称
+	DepartmentId *string `json:"department_id,omitempty"` // 发起人的部门 ID，department_id类型的参数，获取方式参见[部门 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#9c02ed7a)。
 
-	DepartmentName *string `json:"department_name,omitempty"` // 审批发起人 部门，如果发起人不是真实的用户（例如是某个部门），没有 department_id，则可以使用该字段传名称
+	DepartmentName *string `json:"department_name,omitempty"` // 审批发起人的部门名称。如果发起人不是真实的用户或没有部门，则可以使用该参数传入部门名称。;;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;- Key 需要以 @i18n@ 开头。
 
-	StartTime *string `json:"start_time,omitempty"` // 审批发起时间，Unix毫秒时间戳
+	StartTime *string `json:"start_time,omitempty"` // 审批发起时间，Unix 毫秒时间戳。
 
-	EndTime *string `json:"end_time,omitempty"` // 审批实例结束时间：未结束的审批为 0，Unix毫秒时间戳
+	EndTime *string `json:"end_time,omitempty"` // 审批实例结束时间。未结束的审批为 0，Unix 毫秒时间戳。
 
-	UpdateTime *string `json:"update_time,omitempty"` // 审批实例最近更新时间；用于推送数据版本控制如果 update_mode 值为 UPDATE，则只有传过来的 update_time 有变化时（变大），才会更新审批中心中的审批实例信息。使用该字段主要用来避免并发时老的数据更新了新的数据
+	UpdateTime *string `json:"update_time,omitempty"` // 审批实例最近更新时间，Unix 毫秒时间戳，用于推送数据版本控制。;;<md-alert type=warn>如果 update_mode 值为 UPDATE，则仅当传过来的 update_time 有变化时（变大），才会更新审批中心中的审批实例信息。</md-alert>; ;**说明**：使用该参数主要用来避免并发时，旧数据更新了新数据。
 
-	DisplayMethod *string `json:"display_method,omitempty"` // 列表页打开审批实例的方式
+	DisplayMethod *string `json:"display_method,omitempty"` // 列表页打开审批实例的方式。
 
-	UpdateMode *string `json:"update_mode,omitempty"` // 更新方式， 当 update_mode=REPLACE时，每次都以当前推送的数据为最终数据，会删掉审批中心中多余的任务、抄送数据（不在这次推送的数据中）; 当 update_mode=UPDATE时，则不会删除审批中心的数据，而只是进行新增和更新实例、任务数据
+	UpdateMode *string `json:"update_mode,omitempty"` // 更新方式。; ;- 当 update_mode 取值为 REPLACE 时，每次都以当前推送的数据为最终数据，会删上一次成功同步的记录中不在本次推送数据中的任务和抄送记录。;- 当 update_mode 取值为 UPDATE 时，不会删除审批中心的数据，而只进行新增，更新实例、任务和抄送数据。;;;<md-alert>推荐使用Update模式，性能与稳定性会更好</md-alert>;;**默认值**：REPLACE
 
 	TaskList []*ExternalInstanceTaskNode `json:"task_list,omitempty"` // 任务列表
 
@@ -4597,67 +4684,67 @@ type ExternalInstance struct {
 
 	I18nResources []*I18nResource `json:"i18n_resources,omitempty"` // 国际化文案
 
-	TrusteeshipUrlToken *string `json:"trusteeship_url_token,omitempty"` // 单据托管认证token，托管回调会附带此token，帮助业务方认证
+	TrusteeshipUrlToken *string `json:"trusteeship_url_token,omitempty"` // 单据托管认证 token，托管回调会附带此 token，帮助业务认证。
 
-	TrusteeshipUserIdType *string `json:"trusteeship_user_id_type,omitempty"` // 用户的类型，会影响请求参数用户标识域的选择，包括加签操作回传的目标用户， 目前仅支持 "user_id"
+	TrusteeshipUserIdType *string `json:"trusteeship_user_id_type,omitempty"` // 用户的类型，会影响请求参数用户标识域的选择，包括加签操作回传的目标用户， 目前仅支持 user_id。
 
-	TrusteeshipUrls *TrusteeshipUrls `json:"trusteeship_urls,omitempty"` // 单据托管回调接入方的接口的URL地址
+	TrusteeshipUrls *TrusteeshipUrls `json:"trusteeship_urls,omitempty"` // 单据托管回调接入方的接口 URL 地址。
 
-	TrusteeshipCacheConfig *TrusteeshipInstanceCacheConfig `json:"trusteeship_cache_config,omitempty"` // 托管预缓存策略
+	TrusteeshipCacheConfig *TrusteeshipInstanceCacheConfig `json:"trusteeship_cache_config,omitempty"` // 托管预缓存策略。
 
-	ResourceRegion *string `json:"resource_region,omitempty"` // 资源所在地区， 内部统计用字段， 不需要填
+	ResourceRegion *string `json:"resource_region,omitempty"` // 保留字段，无需填写
 }
 
 type ExternalInstanceBuilder struct {
-	approvalCode    string // 审批定义 code， 创建审批定义返回的值，表示该实例属于哪个流程；该字段会影响到列表中该实例的标题，标题取自对应定义的 name 字段
+	approvalCode    string // 审批定义 Code。[创建三方审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create)的返回值，用来指定当前实例属于的审批定义。
 	approvalCodeSet bool
 
-	status    string // 审批实例状态
+	status    string // 审批实例状态;<md-alert type=warn>实例状态不影响任务状态，实例状态为通过时仍可同步待办状态的任务，所以同步时需要保证整体的状态一致性</md-alert>
 	statusSet bool
 
-	extra    string // 审批实例扩展 JSON
+	extra    string // 审批实例扩展参数，JSON 格式，传值时需要压缩转义为字符串。单据编号通过传 business_key 参数来实现，目前仅托管模式支持展示三方的单据编号，其余模式仅展示单据来源(biz_type)，可通过[创建三方审批定义](https://open.feishu.cn/document%2FuAjLw4CM%2FukTMukTMukTM%2Freference%2Fapproval-v4%2Fexternal_approval%2Fcreate)接口指定。;;**注意**：以下示例值未转义，使用时请注意转义。你可查看请求体示例中转义后的 extra 示例值。
 	extraSet bool
 
-	instanceId    string // 审批实例唯一标识，用户自定义，需确保证租户下唯一
+	instanceId    string // 审批实例唯一标识，自定义设置。需确保证在当前企业和应用内唯一。
 	instanceIdSet bool
 
-	links    *ExternalInstanceLink // 审批实例链接集合 ，用于【已发起】列表的跳转，跳转回三方系统； pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
+	links    *ExternalInstanceLink // 审批实例链接信息。设置的链接用于在审批中心 **已发起** 列表内点击跳转，跳回三方审批系统查看审批详情。
 	linksSet bool
 
-	title    string // 审批展示名称，如果填写了该字段，则审批列表中的审批名称使用该字段，如果不填该字段，则审批名称使用审批定义的名称
+	title    string // 审批展示名称。;; ;**说明**：;;- 如果设置了 title 参数，则审批实例名称按照 title 展示。如果未设置 title，审批实例的标题取自对应审批定义（approval_code）的 name 参数。;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;- Key 需要以 @i18n@ 开头。
 	titleSet bool
 
-	form    []*ExternalInstanceForm // 用户提交审批时填写的表单数据，用于所有审批列表中展示。可传多个值，但审批中心pc展示前2个,移动端展示前3个,长度不超过2048字符
+	form    []*ExternalInstanceForm // 用户提交审批时填写的表单数据，用于所有审批列表中展示。可传多个值，最多展示前 3 个，长度不超过 2048 字符。;;![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/69fd0009295b654b28ba2fb46727b4aa_KWIEEvsNPu.png?height=294&maxWidth=200&width=626)
 	formSet bool
 
-	userId    string // 审批发起人 user_id，发起人可在【已发起】列表中看到所有已发起的审批; 在【待审批】，【已审批】【抄送我】列表中，该字段展示审批是谁发起的。审批发起人 open id，和 user id 二者至少填一个。
+	userId    string // 审批发起人 user_id。发起人可在审批中心的 **已发起** 列表中看到所有已发起的审批。在 **待办**、**已办**、**抄送我** 列表中，该字段用来展示审批的发起人。获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。; ;**注意**：审批发起人的 open_id 和 user_id 需至少传入一个。
 	userIdSet bool
 
-	userName    string // 审批发起人 用户名，如果发起人不是真实的用户（例如是某个部门），没有 user_id，则可以使用该字段传名称
+	userName    string // 审批发起人的用户名。如果发起人不是真实的用户（例如是某个部门），没有 user_id，则可以使用该参数传入一个名称。; ;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 	userNameSet bool
 
-	openId    string // 审批发起人 open id，和 user id 二者至少填一个
+	openId    string // 审批发起人 open_id。发起人可在审批中心的 **已发起** 列表中看到所有已发起的审批。在 **待办**、**已办**、**抄送我** 列表中，该字段用来展示审批的发起人。获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。; ;**注意**：审批发起人的 open_id 和 user_id 需至少传入一个。
 	openIdSet bool
 
-	departmentId    string // 发起人部门，用于列表中展示发起人所属部门。不传则不展示。如果用户没加入任何部门，传 ""，将展示租户名称传 department_name 展示部门名称
+	departmentId    string // 发起人的部门 ID，department_id类型的参数，获取方式参见[部门 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#9c02ed7a)。
 	departmentIdSet bool
 
-	departmentName    string // 审批发起人 部门，如果发起人不是真实的用户（例如是某个部门），没有 department_id，则可以使用该字段传名称
+	departmentName    string // 审批发起人的部门名称。如果发起人不是真实的用户或没有部门，则可以使用该参数传入部门名称。;;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;- Key 需要以 @i18n@ 开头。
 	departmentNameSet bool
 
-	startTime    string // 审批发起时间，Unix毫秒时间戳
+	startTime    string // 审批发起时间，Unix 毫秒时间戳。
 	startTimeSet bool
 
-	endTime    string // 审批实例结束时间：未结束的审批为 0，Unix毫秒时间戳
+	endTime    string // 审批实例结束时间。未结束的审批为 0，Unix 毫秒时间戳。
 	endTimeSet bool
 
-	updateTime    string // 审批实例最近更新时间；用于推送数据版本控制如果 update_mode 值为 UPDATE，则只有传过来的 update_time 有变化时（变大），才会更新审批中心中的审批实例信息。使用该字段主要用来避免并发时老的数据更新了新的数据
+	updateTime    string // 审批实例最近更新时间，Unix 毫秒时间戳，用于推送数据版本控制。;;<md-alert type=warn>如果 update_mode 值为 UPDATE，则仅当传过来的 update_time 有变化时（变大），才会更新审批中心中的审批实例信息。</md-alert>; ;**说明**：使用该参数主要用来避免并发时，旧数据更新了新数据。
 	updateTimeSet bool
 
-	displayMethod    string // 列表页打开审批实例的方式
+	displayMethod    string // 列表页打开审批实例的方式。
 	displayMethodSet bool
 
-	updateMode    string // 更新方式， 当 update_mode=REPLACE时，每次都以当前推送的数据为最终数据，会删掉审批中心中多余的任务、抄送数据（不在这次推送的数据中）; 当 update_mode=UPDATE时，则不会删除审批中心的数据，而只是进行新增和更新实例、任务数据
+	updateMode    string // 更新方式。; ;- 当 update_mode 取值为 REPLACE 时，每次都以当前推送的数据为最终数据，会删上一次成功同步的记录中不在本次推送数据中的任务和抄送记录。;- 当 update_mode 取值为 UPDATE 时，不会删除审批中心的数据，而只进行新增，更新实例、任务和抄送数据。;;;<md-alert>推荐使用Update模式，性能与稳定性会更好</md-alert>;;**默认值**：REPLACE
 	updateModeSet bool
 
 	taskList    []*ExternalInstanceTaskNode // 任务列表
@@ -4669,19 +4756,19 @@ type ExternalInstanceBuilder struct {
 	i18nResources    []*I18nResource // 国际化文案
 	i18nResourcesSet bool
 
-	trusteeshipUrlToken    string // 单据托管认证token，托管回调会附带此token，帮助业务方认证
+	trusteeshipUrlToken    string // 单据托管认证 token，托管回调会附带此 token，帮助业务认证。
 	trusteeshipUrlTokenSet bool
 
-	trusteeshipUserIdType    string // 用户的类型，会影响请求参数用户标识域的选择，包括加签操作回传的目标用户， 目前仅支持 "user_id"
+	trusteeshipUserIdType    string // 用户的类型，会影响请求参数用户标识域的选择，包括加签操作回传的目标用户， 目前仅支持 user_id。
 	trusteeshipUserIdTypeSet bool
 
-	trusteeshipUrls    *TrusteeshipUrls // 单据托管回调接入方的接口的URL地址
+	trusteeshipUrls    *TrusteeshipUrls // 单据托管回调接入方的接口 URL 地址。
 	trusteeshipUrlsSet bool
 
-	trusteeshipCacheConfig    *TrusteeshipInstanceCacheConfig // 托管预缓存策略
+	trusteeshipCacheConfig    *TrusteeshipInstanceCacheConfig // 托管预缓存策略。
 	trusteeshipCacheConfigSet bool
 
-	resourceRegion    string // 资源所在地区， 内部统计用字段， 不需要填
+	resourceRegion    string // 保留字段，无需填写
 	resourceRegionSet bool
 }
 
@@ -4690,7 +4777,7 @@ func NewExternalInstanceBuilder() *ExternalInstanceBuilder {
 	return builder
 }
 
-// 审批定义 code， 创建审批定义返回的值，表示该实例属于哪个流程；该字段会影响到列表中该实例的标题，标题取自对应定义的 name 字段
+// 审批定义 Code。[创建三方审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create)的返回值，用来指定当前实例属于的审批定义。
 //
 // 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
 func (builder *ExternalInstanceBuilder) ApprovalCode(approvalCode string) *ExternalInstanceBuilder {
@@ -4699,7 +4786,7 @@ func (builder *ExternalInstanceBuilder) ApprovalCode(approvalCode string) *Exter
 	return builder
 }
 
-// 审批实例状态
+// 审批实例状态;<md-alert type=warn>实例状态不影响任务状态，实例状态为通过时仍可同步待办状态的任务，所以同步时需要保证整体的状态一致性</md-alert>
 //
 // 示例值：PENDING
 func (builder *ExternalInstanceBuilder) Status(status string) *ExternalInstanceBuilder {
@@ -4708,16 +4795,16 @@ func (builder *ExternalInstanceBuilder) Status(status string) *ExternalInstanceB
 	return builder
 }
 
-// 审批实例扩展 JSON
+// 审批实例扩展参数，JSON 格式，传值时需要压缩转义为字符串。单据编号通过传 business_key 参数来实现，目前仅托管模式支持展示三方的单据编号，其余模式仅展示单据来源(biz_type)，可通过[创建三方审批定义](https://open.feishu.cn/document%2FuAjLw4CM%2FukTMukTMukTM%2Freference%2Fapproval-v4%2Fexternal_approval%2Fcreate)接口指定。;;**注意**：以下示例值未转义，使用时请注意转义。你可查看请求体示例中转义后的 extra 示例值。
 //
-// 示例值：{\"xxx\":\"xxx\"}
+// 示例值：{\"business_key\":\"xxx\"}
 func (builder *ExternalInstanceBuilder) Extra(extra string) *ExternalInstanceBuilder {
 	builder.extra = extra
 	builder.extraSet = true
 	return builder
 }
 
-// 审批实例唯一标识，用户自定义，需确保证租户下唯一
+// 审批实例唯一标识，自定义设置。需确保证在当前企业和应用内唯一。
 //
 // 示例值：24492654
 func (builder *ExternalInstanceBuilder) InstanceId(instanceId string) *ExternalInstanceBuilder {
@@ -4726,7 +4813,7 @@ func (builder *ExternalInstanceBuilder) InstanceId(instanceId string) *ExternalI
 	return builder
 }
 
-// 审批实例链接集合 ，用于【已发起】列表的跳转，跳转回三方系统； pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
+// 审批实例链接信息。设置的链接用于在审批中心 **已发起** 列表内点击跳转，跳回三方审批系统查看审批详情。
 //
 // 示例值：
 func (builder *ExternalInstanceBuilder) Links(links *ExternalInstanceLink) *ExternalInstanceBuilder {
@@ -4735,7 +4822,7 @@ func (builder *ExternalInstanceBuilder) Links(links *ExternalInstanceLink) *Exte
 	return builder
 }
 
-// 审批展示名称，如果填写了该字段，则审批列表中的审批名称使用该字段，如果不填该字段，则审批名称使用审批定义的名称
+// 审批展示名称。;; ;**说明**：;;- 如果设置了 title 参数，则审批实例名称按照 title 展示。如果未设置 title，审批实例的标题取自对应审批定义（approval_code）的 name 参数。;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;- Key 需要以 @i18n@ 开头。
 //
 // 示例值：@i18n@1
 func (builder *ExternalInstanceBuilder) Title(title string) *ExternalInstanceBuilder {
@@ -4744,7 +4831,7 @@ func (builder *ExternalInstanceBuilder) Title(title string) *ExternalInstanceBui
 	return builder
 }
 
-// 用户提交审批时填写的表单数据，用于所有审批列表中展示。可传多个值，但审批中心pc展示前2个,移动端展示前3个,长度不超过2048字符
+// 用户提交审批时填写的表单数据，用于所有审批列表中展示。可传多个值，最多展示前 3 个，长度不超过 2048 字符。;;![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/69fd0009295b654b28ba2fb46727b4aa_KWIEEvsNPu.png?height=294&maxWidth=200&width=626)
 //
 // 示例值：[{ "name": "@i18n@2", "value": "@i18n@3" }]
 func (builder *ExternalInstanceBuilder) Form(form []*ExternalInstanceForm) *ExternalInstanceBuilder {
@@ -4753,7 +4840,7 @@ func (builder *ExternalInstanceBuilder) Form(form []*ExternalInstanceForm) *Exte
 	return builder
 }
 
-// 审批发起人 user_id，发起人可在【已发起】列表中看到所有已发起的审批; 在【待审批】，【已审批】【抄送我】列表中，该字段展示审批是谁发起的。审批发起人 open id，和 user id 二者至少填一个。
+// 审批发起人 user_id。发起人可在审批中心的 **已发起** 列表中看到所有已发起的审批。在 **待办**、**已办**、**抄送我** 列表中，该字段用来展示审批的发起人。获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。; ;**注意**：审批发起人的 open_id 和 user_id 需至少传入一个。
 //
 // 示例值：a987sf9s
 func (builder *ExternalInstanceBuilder) UserId(userId string) *ExternalInstanceBuilder {
@@ -4762,7 +4849,7 @@ func (builder *ExternalInstanceBuilder) UserId(userId string) *ExternalInstanceB
 	return builder
 }
 
-// 审批发起人 用户名，如果发起人不是真实的用户（例如是某个部门），没有 user_id，则可以使用该字段传名称
+// 审批发起人的用户名。如果发起人不是真实的用户（例如是某个部门），没有 user_id，则可以使用该参数传入一个名称。; ;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 //
 // 示例值：@i18n@9
 func (builder *ExternalInstanceBuilder) UserName(userName string) *ExternalInstanceBuilder {
@@ -4771,7 +4858,7 @@ func (builder *ExternalInstanceBuilder) UserName(userName string) *ExternalInsta
 	return builder
 }
 
-// 审批发起人 open id，和 user id 二者至少填一个
+// 审批发起人 open_id。发起人可在审批中心的 **已发起** 列表中看到所有已发起的审批。在 **待办**、**已办**、**抄送我** 列表中，该字段用来展示审批的发起人。获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。; ;**注意**：审批发起人的 open_id 和 user_id 需至少传入一个。
 //
 // 示例值：ou_be73cbc0ee35eb6ca54e9e7cc14998c1
 func (builder *ExternalInstanceBuilder) OpenId(openId string) *ExternalInstanceBuilder {
@@ -4780,16 +4867,16 @@ func (builder *ExternalInstanceBuilder) OpenId(openId string) *ExternalInstanceB
 	return builder
 }
 
-// 发起人部门，用于列表中展示发起人所属部门。不传则不展示。如果用户没加入任何部门，传 ""，将展示租户名称传 department_name 展示部门名称
+// 发起人的部门 ID，department_id类型的参数，获取方式参见[部门 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#9c02ed7a)。
 //
-// 示例值：od-8ec33278bc2
+// 示例值：743b25b8ef662f36
 func (builder *ExternalInstanceBuilder) DepartmentId(departmentId string) *ExternalInstanceBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdSet = true
 	return builder
 }
 
-// 审批发起人 部门，如果发起人不是真实的用户（例如是某个部门），没有 department_id，则可以使用该字段传名称
+// 审批发起人的部门名称。如果发起人不是真实的用户或没有部门，则可以使用该参数传入部门名称。;;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;- Key 需要以 @i18n@ 开头。
 //
 // 示例值：@i18n@10
 func (builder *ExternalInstanceBuilder) DepartmentName(departmentName string) *ExternalInstanceBuilder {
@@ -4798,7 +4885,7 @@ func (builder *ExternalInstanceBuilder) DepartmentName(departmentName string) *E
 	return builder
 }
 
-// 审批发起时间，Unix毫秒时间戳
+// 审批发起时间，Unix 毫秒时间戳。
 //
 // 示例值：1556468012678
 func (builder *ExternalInstanceBuilder) StartTime(startTime string) *ExternalInstanceBuilder {
@@ -4807,7 +4894,7 @@ func (builder *ExternalInstanceBuilder) StartTime(startTime string) *ExternalIns
 	return builder
 }
 
-// 审批实例结束时间：未结束的审批为 0，Unix毫秒时间戳
+// 审批实例结束时间。未结束的审批为 0，Unix 毫秒时间戳。
 //
 // 示例值：1556468012678
 func (builder *ExternalInstanceBuilder) EndTime(endTime string) *ExternalInstanceBuilder {
@@ -4816,7 +4903,7 @@ func (builder *ExternalInstanceBuilder) EndTime(endTime string) *ExternalInstanc
 	return builder
 }
 
-// 审批实例最近更新时间；用于推送数据版本控制如果 update_mode 值为 UPDATE，则只有传过来的 update_time 有变化时（变大），才会更新审批中心中的审批实例信息。使用该字段主要用来避免并发时老的数据更新了新的数据
+// 审批实例最近更新时间，Unix 毫秒时间戳，用于推送数据版本控制。;;<md-alert type=warn>如果 update_mode 值为 UPDATE，则仅当传过来的 update_time 有变化时（变大），才会更新审批中心中的审批实例信息。</md-alert>; ;**说明**：使用该参数主要用来避免并发时，旧数据更新了新数据。
 //
 // 示例值：1556468012678
 func (builder *ExternalInstanceBuilder) UpdateTime(updateTime string) *ExternalInstanceBuilder {
@@ -4825,7 +4912,7 @@ func (builder *ExternalInstanceBuilder) UpdateTime(updateTime string) *ExternalI
 	return builder
 }
 
-// 列表页打开审批实例的方式
+// 列表页打开审批实例的方式。
 //
 // 示例值：BROWSER
 func (builder *ExternalInstanceBuilder) DisplayMethod(displayMethod string) *ExternalInstanceBuilder {
@@ -4834,7 +4921,7 @@ func (builder *ExternalInstanceBuilder) DisplayMethod(displayMethod string) *Ext
 	return builder
 }
 
-// 更新方式， 当 update_mode=REPLACE时，每次都以当前推送的数据为最终数据，会删掉审批中心中多余的任务、抄送数据（不在这次推送的数据中）; 当 update_mode=UPDATE时，则不会删除审批中心的数据，而只是进行新增和更新实例、任务数据
+// 更新方式。; ;- 当 update_mode 取值为 REPLACE 时，每次都以当前推送的数据为最终数据，会删上一次成功同步的记录中不在本次推送数据中的任务和抄送记录。;- 当 update_mode 取值为 UPDATE 时，不会删除审批中心的数据，而只进行新增，更新实例、任务和抄送数据。;;;<md-alert>推荐使用Update模式，性能与稳定性会更好</md-alert>;;**默认值**：REPLACE
 //
 // 示例值：UPDATE
 func (builder *ExternalInstanceBuilder) UpdateMode(updateMode string) *ExternalInstanceBuilder {
@@ -4870,7 +4957,7 @@ func (builder *ExternalInstanceBuilder) I18nResources(i18nResources []*I18nResou
 	return builder
 }
 
-// 单据托管认证token，托管回调会附带此token，帮助业务方认证
+// 单据托管认证 token，托管回调会附带此 token，帮助业务认证。
 //
 // 示例值：788981c886b1c28ac29d1e68efd60683d6d90dfce80938ee9453e2a5f3e9e306
 func (builder *ExternalInstanceBuilder) TrusteeshipUrlToken(trusteeshipUrlToken string) *ExternalInstanceBuilder {
@@ -4879,7 +4966,7 @@ func (builder *ExternalInstanceBuilder) TrusteeshipUrlToken(trusteeshipUrlToken 
 	return builder
 }
 
-// 用户的类型，会影响请求参数用户标识域的选择，包括加签操作回传的目标用户， 目前仅支持 "user_id"
+// 用户的类型，会影响请求参数用户标识域的选择，包括加签操作回传的目标用户， 目前仅支持 user_id。
 //
 // 示例值：user_id
 func (builder *ExternalInstanceBuilder) TrusteeshipUserIdType(trusteeshipUserIdType string) *ExternalInstanceBuilder {
@@ -4888,7 +4975,7 @@ func (builder *ExternalInstanceBuilder) TrusteeshipUserIdType(trusteeshipUserIdT
 	return builder
 }
 
-// 单据托管回调接入方的接口的URL地址
+// 单据托管回调接入方的接口 URL 地址。
 //
 // 示例值：
 func (builder *ExternalInstanceBuilder) TrusteeshipUrls(trusteeshipUrls *TrusteeshipUrls) *ExternalInstanceBuilder {
@@ -4897,7 +4984,7 @@ func (builder *ExternalInstanceBuilder) TrusteeshipUrls(trusteeshipUrls *Trustee
 	return builder
 }
 
-// 托管预缓存策略
+// 托管预缓存策略。
 //
 // 示例值：
 func (builder *ExternalInstanceBuilder) TrusteeshipCacheConfig(trusteeshipCacheConfig *TrusteeshipInstanceCacheConfig) *ExternalInstanceBuilder {
@@ -4906,9 +4993,9 @@ func (builder *ExternalInstanceBuilder) TrusteeshipCacheConfig(trusteeshipCacheC
 	return builder
 }
 
-// 资源所在地区， 内部统计用字段， 不需要填
+// 保留字段，无需填写
 //
-// 示例值：""
+// 示例值：cn
 func (builder *ExternalInstanceBuilder) ResourceRegion(resourceRegion string) *ExternalInstanceBuilder {
 	builder.resourceRegion = resourceRegion
 	builder.resourceRegionSet = true
@@ -5014,16 +5101,16 @@ func (builder *ExternalInstanceBuilder) Build() *ExternalInstance {
 }
 
 type ExternalInstanceForm struct {
-	Name *string `json:"name,omitempty"` // 表单字段名称
+	Name *string `json:"name,omitempty"` // 表单字段名称。;	;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 
-	Value *string `json:"value,omitempty"` // 表单值
+	Value *string `json:"value,omitempty"` // 表单值。; ;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 }
 
 type ExternalInstanceFormBuilder struct {
-	name    string // 表单字段名称
+	name    string // 表单字段名称。;	;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 	nameSet bool
 
-	value    string // 表单值
+	value    string // 表单值。; ;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 	valueSet bool
 }
 
@@ -5032,7 +5119,7 @@ func NewExternalInstanceFormBuilder() *ExternalInstanceFormBuilder {
 	return builder
 }
 
-// 表单字段名称
+// 表单字段名称。;	;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 //
 // 示例值：@i18n@2
 func (builder *ExternalInstanceFormBuilder) Name(name string) *ExternalInstanceFormBuilder {
@@ -5041,7 +5128,7 @@ func (builder *ExternalInstanceFormBuilder) Name(name string) *ExternalInstanceF
 	return builder
 }
 
-// 表单值
+// 表单值。; ;**说明**：; ;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 //
 // 示例值：@i18n@3
 func (builder *ExternalInstanceFormBuilder) Value(value string) *ExternalInstanceFormBuilder {
@@ -5064,16 +5151,16 @@ func (builder *ExternalInstanceFormBuilder) Build() *ExternalInstanceForm {
 }
 
 type ExternalInstanceLink struct {
-	PcLink *string `json:"pc_link,omitempty"` // pc 端的跳转链接，当用户使用飞书 pc 端时，使用该字段进行跳转
+	PcLink *string `json:"pc_link,omitempty"` // PC 端的三方审批实例跳转链接。; ;**说明**： ;;- 当用户使用飞书 PC 端查看实例详情时，通过该链接进行跳转。;- pc_link为必填。
 
-	MobileLink *string `json:"mobile_link,omitempty"` // 移动端 跳转链接，当用户使用飞书 移动端时，使用该字段进行跳转
+	MobileLink *string `json:"mobile_link,omitempty"` // 移动端的三方审批实例跳转链接。; ;**说明**： ;;- 当用户使用飞书移动端查看实例详情时，通过该链接进行跳转。;- 如果不指定mobile_link则会在移动端访问pc_link作为兜底策略。
 }
 
 type ExternalInstanceLinkBuilder struct {
-	pcLink    string // pc 端的跳转链接，当用户使用飞书 pc 端时，使用该字段进行跳转
+	pcLink    string // PC 端的三方审批实例跳转链接。; ;**说明**： ;;- 当用户使用飞书 PC 端查看实例详情时，通过该链接进行跳转。;- pc_link为必填。
 	pcLinkSet bool
 
-	mobileLink    string // 移动端 跳转链接，当用户使用飞书 移动端时，使用该字段进行跳转
+	mobileLink    string // 移动端的三方审批实例跳转链接。; ;**说明**： ;;- 当用户使用飞书移动端查看实例详情时，通过该链接进行跳转。;- 如果不指定mobile_link则会在移动端访问pc_link作为兜底策略。
 	mobileLinkSet bool
 }
 
@@ -5082,18 +5169,18 @@ func NewExternalInstanceLinkBuilder() *ExternalInstanceLinkBuilder {
 	return builder
 }
 
-// pc 端的跳转链接，当用户使用飞书 pc 端时，使用该字段进行跳转
+// PC 端的三方审批实例跳转链接。; ;**说明**： ;;- 当用户使用飞书 PC 端查看实例详情时，通过该链接进行跳转。;- pc_link为必填。
 //
-// 示例值：https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/detail?id=1234
+// 示例值：https://applink.feishu.cn/client/mini_program/open?mode=appCenter&path=pc/pages/detail?id=1234
 func (builder *ExternalInstanceLinkBuilder) PcLink(pcLink string) *ExternalInstanceLinkBuilder {
 	builder.pcLink = pcLink
 	builder.pcLinkSet = true
 	return builder
 }
 
-// 移动端 跳转链接，当用户使用飞书 移动端时，使用该字段进行跳转
+// 移动端的三方审批实例跳转链接。; ;**说明**： ;;- 当用户使用飞书移动端查看实例详情时，通过该链接进行跳转。;- 如果不指定mobile_link则会在移动端访问pc_link作为兜底策略。
 //
-// 示例值：https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/detail?id=1234
+// 示例值：https://applink.feishu.cn/client/mini_program/open?path=pages/detail?id=1234
 func (builder *ExternalInstanceLinkBuilder) MobileLink(mobileLink string) *ExternalInstanceLinkBuilder {
 	builder.mobileLink = mobileLink
 	builder.mobileLinkSet = true
@@ -5114,16 +5201,16 @@ func (builder *ExternalInstanceLinkBuilder) Build() *ExternalInstanceLink {
 }
 
 type ExternalInstanceTask struct {
-	TaskId *string `json:"task_id,omitempty"` // 任务 id
+	TaskId *string `json:"task_id,omitempty"` // 审批实例内的审批任务 ID。自定义配置，需要确保当前企业、应用内唯一。;;**注意**：调用本接口和[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)接口操作同一个三方审批实例内的任务时，需要确保所用的任务 ID 一致。
 
-	UpdateTime *string `json:"update_time,omitempty"` // 任务最近更新时间
+	UpdateTime *string `json:"update_time,omitempty"` // 任务最近更新时间，Unix 毫秒时间戳。
 }
 
 type ExternalInstanceTaskBuilder struct {
-	taskId    string // 任务 id
+	taskId    string // 审批实例内的审批任务 ID。自定义配置，需要确保当前企业、应用内唯一。;;**注意**：调用本接口和[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)接口操作同一个三方审批实例内的任务时，需要确保所用的任务 ID 一致。
 	taskIdSet bool
 
-	updateTime    string // 任务最近更新时间
+	updateTime    string // 任务最近更新时间，Unix 毫秒时间戳。
 	updateTimeSet bool
 }
 
@@ -5132,7 +5219,7 @@ func NewExternalInstanceTaskBuilder() *ExternalInstanceTaskBuilder {
 	return builder
 }
 
-// 任务 id
+// 审批实例内的审批任务 ID。自定义配置，需要确保当前企业、应用内唯一。;;**注意**：调用本接口和[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)接口操作同一个三方审批实例内的任务时，需要确保所用的任务 ID 一致。
 //
 // 示例值：112253
 func (builder *ExternalInstanceTaskBuilder) TaskId(taskId string) *ExternalInstanceTaskBuilder {
@@ -5141,7 +5228,7 @@ func (builder *ExternalInstanceTaskBuilder) TaskId(taskId string) *ExternalInsta
 	return builder
 }
 
-// 任务最近更新时间
+// 任务最近更新时间，Unix 毫秒时间戳。
 //
 // 示例值：1591603040000
 func (builder *ExternalInstanceTaskBuilder) UpdateTime(updateTime string) *ExternalInstanceTaskBuilder {
@@ -5164,91 +5251,91 @@ func (builder *ExternalInstanceTaskBuilder) Build() *ExternalInstanceTask {
 }
 
 type ExternalInstanceTaskNode struct {
-	TaskId *string `json:"task_id,omitempty"` // 审批实例内的唯一标识，用于更新审批任务时定位数据
+	TaskId *string `json:"task_id,omitempty"` // 审批实例内，审批任务的唯一标识，用于更新审批任务时定位数据。
 
-	UserId *string `json:"user_id,omitempty"` // 审批人 user_id ，和 open_id 二者至少填一个。该任务会出现在审批人的【待审批】或【已审批】列表中
+	UserId *string `json:"user_id,omitempty"` // 审批人 user_id，获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。; ;**说明**：; ;- 该任务会出现在审批人的飞书审批中心 **待办** 或 **已办** 的列表中。;- user_id 与 open_id 需至少传入一个。
 
-	OpenId *string `json:"open_id,omitempty"` // 审批人 open_id，和 user_id 二者至少填一个
+	OpenId *string `json:"open_id,omitempty"` // 审批人 open_id，获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。; ;**说明**：; ;- 该任务会出现在审批人的飞书审批中心 **待办** 或 **已办** 的列表中。;- user_id 与 open_id 需至少传入一个。
 
-	Title *string `json:"title,omitempty"` // 审批任务名称
+	Title *string `json:"title,omitempty"` // 审批任务名称。; ;**说明**：;;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 
-	Links *ExternalInstanceLink `json:"links,omitempty"` // 【待审批】或【已审批】中使用的跳转链接，用于跳转回三方系统pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
+	Links *ExternalInstanceLink `json:"links,omitempty"` // 审批实例链接信息。设置的链接用于在审批中心 **已发起** 列表内点击跳转，跳回三方审批系统查看审批详情。
 
 	Status *string `json:"status,omitempty"` // 任务状态
 
-	Extra *string `json:"extra,omitempty"` // 扩展 json，任务结束原因需传complete_reason字段。枚举值与对应说明：;  - approved：同意;  - rejected：拒绝;  - node_auto_reject：（因逻辑判断产生的）自动拒绝;  - specific_rollback：退回（包括退回到发起人、退回到中间任一审批人）;  - add：并加签（添加新审批人，和我一起审批）;  - add_pre：前加签（添加新审批人，在我之前审批）;  - add_post：后加签（添加新审批人，在我之后审批）;  - delete_assignee：减签;  - forward_resign：转交（转给其他人审批）;  - recall：撤销（撤回单据，单据失效）;  - delete ：删除审批单;  - admin_forward：管理员在后台操作转交;  - system_forward：系统自动转交;  - auto_skip：自动通过;  - manual_skip：手动跳过;  - submit_again：重新提交任务;  - restart：重新启动流程;  - others：其他（作为兜底）
+	Extra *string `json:"extra,omitempty"` // 扩展字段。JSON 格式，传值时需要压缩转义为字符串。目前支持指定任务结束原因(complete_reason)，用于三方审批的效率诊断，如需关注效率数据，请传入正确的值，枚举值说明如下：;; - approved：同意; - rejected：拒绝; - node_auto_reject：因逻辑判断产生的自动拒绝; - specific_rollback：退回（包括退回到发起人、退回到中间任一审批人）; - add：并加签（添加新审批人，与我一起审批）; - add_pre：前加签（添加新审批人，在我之前审批）; - add_post：后加签（添加新审批人，在我之后审批）; - delete_assignee：减签; - forward: 手动转交; - forward_resign：离职自动转交; - recall：撤销（撤回单据，单据失效）; - delete ：删除审批单; - admin_forward：管理员在后台操作转交; - system_forward：系统自动转交; - auto_skip：自动通过; - manual_skip：手动跳过; - submit_again：重新提交任务; - restart：重新启动流程; - others：其他
 
-	CreateTime *string `json:"create_time,omitempty"` // 任务创建时间，Unix 毫秒时间戳
+	CreateTime *string `json:"create_time,omitempty"` // 任务创建时间，Unix 毫秒时间戳。
 
-	EndTime *string `json:"end_time,omitempty"` // 任务完成时间：未结束的审批为 0，Unix 毫秒时间戳
+	EndTime *string `json:"end_time,omitempty"` // 任务完成时间。未结束的审批为 0，Unix 毫秒时间戳。
 
-	UpdateTime *string `json:"update_time,omitempty"` // task最近更新时间，用于推送数据版本控制； 更新策略同 instance 中的 update_time
+	UpdateTime *string `json:"update_time,omitempty"` // 任务最近更新时间，Unix 毫秒时间戳，用于推送数据版本控制。;<md-alert type=warn>如果 update_mode 值为 UPDATE，则仅当传过来的 update_time 有变化时（变大），才会更新审批中心中的审批任务信息。<md-alert>
 
-	ActionContext *string `json:"action_context,omitempty"` // 操作上下文，当用户操作时，回调请求中带上该参数，用于传递该任务的上下文数据
+	ActionContext *string `json:"action_context,omitempty"` // 操作上下文。当用户操作审批时，回调请求中会包含该参数，用于传递该任务的上下文数据。
 
-	ActionConfigs []*ActionConfig `json:"action_configs,omitempty"` // 任务级别操作配置,快捷审批目前支持移动端操作
+	ActionConfigs []*ActionConfig `json:"action_configs,omitempty"` // 任务级别的快捷审批操作配置，需要在[创建三方审批定义](https://open.feishu.cn/document%2FuAjLw4CM%2FukTMukTMukTM%2Freference%2Fapproval-v4%2Fexternal_approval%2Fcreate)中配置正确的回调地址，回调参数参考[三方快捷审批回调](https://open.feishu.cn/document%2FukTMukTMukTM%2FukjNyYjL5YjM24SO2IjN%2Fquick-approval-callback)。; ;**注意**：快捷审批目前仅支持在飞书移动端操作。
 
-	DisplayMethod *string `json:"display_method,omitempty"` // 列表页打开审批任务的方式
+	DisplayMethod *string `json:"display_method,omitempty"` // 审批中心列表页打开审批任务的方式。
 
-	ExcludeStatistics *bool `json:"exclude_statistics,omitempty"` // 三方任务支持不纳入效率统计。;false：纳入效率统计。;true：不纳入效率统计
+	ExcludeStatistics *bool `json:"exclude_statistics,omitempty"` // 三方审批任务是否不纳入效率统计。可选值有：;;- true：此任务不纳入效率统计;- false：此任务纳入效率统计
 
-	NodeId *string `json:"node_id,omitempty"` // 节点id：必须同时满足;- 一个流程内，每个节点id唯一。如一个流程下「直属上级」、「隔级上级」等每个节点的Node_id均不一样;- 同一个流程定义内，不同审批实例中的相同节点，Node_id要保持不变。例如张三和李四分别发起了请假申请，这2个审批实例中的「直属上级」节点的node_id应该保持一致
+	NodeId *string `json:"node_id,omitempty"` // 审批节点 ID，目前用于效率诊断的流程诊断，如需关注效率数据，请按照准确的流程数据填写，要求如下：;;- 一个审批流程内，每个节点 ID 唯一。例如，一个流程下直属上级、隔级上级等节点的 node_id 均不一样。;- 同一个三方审批定义内，不同审批实例中的相同节点，node_id 要保持不变。例如，用户 A 和用户 B 分别发起了请假申请，这两个审批实例中的直属上级节点的 node_id 应该保持一致。
 
-	NodeName *string `json:"node_name,omitempty"` // 节点名称，如「财务审批」「法务审批」，支持中英日三种语言。示例：i18n@name。需要在i18n_resources中传该名称对应的国际化文案
+	NodeName *string `json:"node_name,omitempty"` // 节点名称，审批节点名称，目前用于效率诊断流程诊断，如需关注效率数据，请按照准确的流程数据填写，要求如下：;;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 
-	GenerateType *string `json:"generate_type,omitempty"` // 任务生成类型
+	GenerateType *string `json:"generate_type,omitempty"` // 任务生成类型，保留字段，可不填， **但是不要填空字符串**
 }
 
 type ExternalInstanceTaskNodeBuilder struct {
-	taskId    string // 审批实例内的唯一标识，用于更新审批任务时定位数据
+	taskId    string // 审批实例内，审批任务的唯一标识，用于更新审批任务时定位数据。
 	taskIdSet bool
 
-	userId    string // 审批人 user_id ，和 open_id 二者至少填一个。该任务会出现在审批人的【待审批】或【已审批】列表中
+	userId    string // 审批人 user_id，获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。; ;**说明**：; ;- 该任务会出现在审批人的飞书审批中心 **待办** 或 **已办** 的列表中。;- user_id 与 open_id 需至少传入一个。
 	userIdSet bool
 
-	openId    string // 审批人 open_id，和 user_id 二者至少填一个
+	openId    string // 审批人 open_id，获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。; ;**说明**：; ;- 该任务会出现在审批人的飞书审批中心 **待办** 或 **已办** 的列表中。;- user_id 与 open_id 需至少传入一个。
 	openIdSet bool
 
-	title    string // 审批任务名称
+	title    string // 审批任务名称。; ;**说明**：;;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 	titleSet bool
 
-	links    *ExternalInstanceLink // 【待审批】或【已审批】中使用的跳转链接，用于跳转回三方系统pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
+	links    *ExternalInstanceLink // 审批实例链接信息。设置的链接用于在审批中心 **已发起** 列表内点击跳转，跳回三方审批系统查看审批详情。
 	linksSet bool
 
 	status    string // 任务状态
 	statusSet bool
 
-	extra    string // 扩展 json，任务结束原因需传complete_reason字段。枚举值与对应说明：;  - approved：同意;  - rejected：拒绝;  - node_auto_reject：（因逻辑判断产生的）自动拒绝;  - specific_rollback：退回（包括退回到发起人、退回到中间任一审批人）;  - add：并加签（添加新审批人，和我一起审批）;  - add_pre：前加签（添加新审批人，在我之前审批）;  - add_post：后加签（添加新审批人，在我之后审批）;  - delete_assignee：减签;  - forward_resign：转交（转给其他人审批）;  - recall：撤销（撤回单据，单据失效）;  - delete ：删除审批单;  - admin_forward：管理员在后台操作转交;  - system_forward：系统自动转交;  - auto_skip：自动通过;  - manual_skip：手动跳过;  - submit_again：重新提交任务;  - restart：重新启动流程;  - others：其他（作为兜底）
+	extra    string // 扩展字段。JSON 格式，传值时需要压缩转义为字符串。目前支持指定任务结束原因(complete_reason)，用于三方审批的效率诊断，如需关注效率数据，请传入正确的值，枚举值说明如下：;; - approved：同意; - rejected：拒绝; - node_auto_reject：因逻辑判断产生的自动拒绝; - specific_rollback：退回（包括退回到发起人、退回到中间任一审批人）; - add：并加签（添加新审批人，与我一起审批）; - add_pre：前加签（添加新审批人，在我之前审批）; - add_post：后加签（添加新审批人，在我之后审批）; - delete_assignee：减签; - forward: 手动转交; - forward_resign：离职自动转交; - recall：撤销（撤回单据，单据失效）; - delete ：删除审批单; - admin_forward：管理员在后台操作转交; - system_forward：系统自动转交; - auto_skip：自动通过; - manual_skip：手动跳过; - submit_again：重新提交任务; - restart：重新启动流程; - others：其他
 	extraSet bool
 
-	createTime    string // 任务创建时间，Unix 毫秒时间戳
+	createTime    string // 任务创建时间，Unix 毫秒时间戳。
 	createTimeSet bool
 
-	endTime    string // 任务完成时间：未结束的审批为 0，Unix 毫秒时间戳
+	endTime    string // 任务完成时间。未结束的审批为 0，Unix 毫秒时间戳。
 	endTimeSet bool
 
-	updateTime    string // task最近更新时间，用于推送数据版本控制； 更新策略同 instance 中的 update_time
+	updateTime    string // 任务最近更新时间，Unix 毫秒时间戳，用于推送数据版本控制。;<md-alert type=warn>如果 update_mode 值为 UPDATE，则仅当传过来的 update_time 有变化时（变大），才会更新审批中心中的审批任务信息。<md-alert>
 	updateTimeSet bool
 
-	actionContext    string // 操作上下文，当用户操作时，回调请求中带上该参数，用于传递该任务的上下文数据
+	actionContext    string // 操作上下文。当用户操作审批时，回调请求中会包含该参数，用于传递该任务的上下文数据。
 	actionContextSet bool
 
-	actionConfigs    []*ActionConfig // 任务级别操作配置,快捷审批目前支持移动端操作
+	actionConfigs    []*ActionConfig // 任务级别的快捷审批操作配置，需要在[创建三方审批定义](https://open.feishu.cn/document%2FuAjLw4CM%2FukTMukTMukTM%2Freference%2Fapproval-v4%2Fexternal_approval%2Fcreate)中配置正确的回调地址，回调参数参考[三方快捷审批回调](https://open.feishu.cn/document%2FukTMukTMukTM%2FukjNyYjL5YjM24SO2IjN%2Fquick-approval-callback)。; ;**注意**：快捷审批目前仅支持在飞书移动端操作。
 	actionConfigsSet bool
 
-	displayMethod    string // 列表页打开审批任务的方式
+	displayMethod    string // 审批中心列表页打开审批任务的方式。
 	displayMethodSet bool
 
-	excludeStatistics    bool // 三方任务支持不纳入效率统计。;false：纳入效率统计。;true：不纳入效率统计
+	excludeStatistics    bool // 三方审批任务是否不纳入效率统计。可选值有：;;- true：此任务不纳入效率统计;- false：此任务纳入效率统计
 	excludeStatisticsSet bool
 
-	nodeId    string // 节点id：必须同时满足;- 一个流程内，每个节点id唯一。如一个流程下「直属上级」、「隔级上级」等每个节点的Node_id均不一样;- 同一个流程定义内，不同审批实例中的相同节点，Node_id要保持不变。例如张三和李四分别发起了请假申请，这2个审批实例中的「直属上级」节点的node_id应该保持一致
+	nodeId    string // 审批节点 ID，目前用于效率诊断的流程诊断，如需关注效率数据，请按照准确的流程数据填写，要求如下：;;- 一个审批流程内，每个节点 ID 唯一。例如，一个流程下直属上级、隔级上级等节点的 node_id 均不一样。;- 同一个三方审批定义内，不同审批实例中的相同节点，node_id 要保持不变。例如，用户 A 和用户 B 分别发起了请假申请，这两个审批实例中的直属上级节点的 node_id 应该保持一致。
 	nodeIdSet bool
 
-	nodeName    string // 节点名称，如「财务审批」「法务审批」，支持中英日三种语言。示例：i18n@name。需要在i18n_resources中传该名称对应的国际化文案
+	nodeName    string // 节点名称，审批节点名称，目前用于效率诊断流程诊断，如需关注效率数据，请按照准确的流程数据填写，要求如下：;;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 	nodeNameSet bool
 
-	generateType    string // 任务生成类型
+	generateType    string // 任务生成类型，保留字段，可不填， **但是不要填空字符串**
 	generateTypeSet bool
 }
 
@@ -5257,7 +5344,7 @@ func NewExternalInstanceTaskNodeBuilder() *ExternalInstanceTaskNodeBuilder {
 	return builder
 }
 
-// 审批实例内的唯一标识，用于更新审批任务时定位数据
+// 审批实例内，审批任务的唯一标识，用于更新审批任务时定位数据。
 //
 // 示例值：112534
 func (builder *ExternalInstanceTaskNodeBuilder) TaskId(taskId string) *ExternalInstanceTaskNodeBuilder {
@@ -5266,7 +5353,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) TaskId(taskId string) *ExternalI
 	return builder
 }
 
-// 审批人 user_id ，和 open_id 二者至少填一个。该任务会出现在审批人的【待审批】或【已审批】列表中
+// 审批人 user_id，获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。; ;**说明**：; ;- 该任务会出现在审批人的飞书审批中心 **待办** 或 **已办** 的列表中。;- user_id 与 open_id 需至少传入一个。
 //
 // 示例值：a987sf9s
 func (builder *ExternalInstanceTaskNodeBuilder) UserId(userId string) *ExternalInstanceTaskNodeBuilder {
@@ -5275,7 +5362,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) UserId(userId string) *ExternalI
 	return builder
 }
 
-// 审批人 open_id，和 user_id 二者至少填一个
+// 审批人 open_id，获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。; ;**说明**：; ;- 该任务会出现在审批人的飞书审批中心 **待办** 或 **已办** 的列表中。;- user_id 与 open_id 需至少传入一个。
 //
 // 示例值：ou_be73cbc0ee35eb6ca54e9e7cc14998c1
 func (builder *ExternalInstanceTaskNodeBuilder) OpenId(openId string) *ExternalInstanceTaskNodeBuilder {
@@ -5284,16 +5371,16 @@ func (builder *ExternalInstanceTaskNodeBuilder) OpenId(openId string) *ExternalI
 	return builder
 }
 
-// 审批任务名称
+// 审批任务名称。; ;**说明**：;;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 //
-// 示例值：i18n1
+// 示例值：@i18n@4
 func (builder *ExternalInstanceTaskNodeBuilder) Title(title string) *ExternalInstanceTaskNodeBuilder {
 	builder.title = title
 	builder.titleSet = true
 	return builder
 }
 
-// 【待审批】或【已审批】中使用的跳转链接，用于跳转回三方系统pc_link 和 mobile_link 必须填一个，填写的是哪一端的链接，即会跳转到该链接，不受平台影响
+// 审批实例链接信息。设置的链接用于在审批中心 **已发起** 列表内点击跳转，跳回三方审批系统查看审批详情。
 //
 // 示例值：
 func (builder *ExternalInstanceTaskNodeBuilder) Links(links *ExternalInstanceLink) *ExternalInstanceTaskNodeBuilder {
@@ -5311,7 +5398,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) Status(status string) *ExternalI
 	return builder
 }
 
-// 扩展 json，任务结束原因需传complete_reason字段。枚举值与对应说明：;  - approved：同意;  - rejected：拒绝;  - node_auto_reject：（因逻辑判断产生的）自动拒绝;  - specific_rollback：退回（包括退回到发起人、退回到中间任一审批人）;  - add：并加签（添加新审批人，和我一起审批）;  - add_pre：前加签（添加新审批人，在我之前审批）;  - add_post：后加签（添加新审批人，在我之后审批）;  - delete_assignee：减签;  - forward_resign：转交（转给其他人审批）;  - recall：撤销（撤回单据，单据失效）;  - delete ：删除审批单;  - admin_forward：管理员在后台操作转交;  - system_forward：系统自动转交;  - auto_skip：自动通过;  - manual_skip：手动跳过;  - submit_again：重新提交任务;  - restart：重新启动流程;  - others：其他（作为兜底）
+// 扩展字段。JSON 格式，传值时需要压缩转义为字符串。目前支持指定任务结束原因(complete_reason)，用于三方审批的效率诊断，如需关注效率数据，请传入正确的值，枚举值说明如下：;; - approved：同意; - rejected：拒绝; - node_auto_reject：因逻辑判断产生的自动拒绝; - specific_rollback：退回（包括退回到发起人、退回到中间任一审批人）; - add：并加签（添加新审批人，与我一起审批）; - add_pre：前加签（添加新审批人，在我之前审批）; - add_post：后加签（添加新审批人，在我之后审批）; - delete_assignee：减签; - forward: 手动转交; - forward_resign：离职自动转交; - recall：撤销（撤回单据，单据失效）; - delete ：删除审批单; - admin_forward：管理员在后台操作转交; - system_forward：系统自动转交; - auto_skip：自动通过; - manual_skip：手动跳过; - submit_again：重新提交任务; - restart：重新启动流程; - others：其他
 //
 // 示例值：{\"xxx\":\"xxx\",\"complete_reason\":\"approved\"}
 func (builder *ExternalInstanceTaskNodeBuilder) Extra(extra string) *ExternalInstanceTaskNodeBuilder {
@@ -5320,7 +5407,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) Extra(extra string) *ExternalIns
 	return builder
 }
 
-// 任务创建时间，Unix 毫秒时间戳
+// 任务创建时间，Unix 毫秒时间戳。
 //
 // 示例值：1556468012678
 func (builder *ExternalInstanceTaskNodeBuilder) CreateTime(createTime string) *ExternalInstanceTaskNodeBuilder {
@@ -5329,7 +5416,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) CreateTime(createTime string) *E
 	return builder
 }
 
-// 任务完成时间：未结束的审批为 0，Unix 毫秒时间戳
+// 任务完成时间。未结束的审批为 0，Unix 毫秒时间戳。
 //
 // 示例值：1556468012678
 func (builder *ExternalInstanceTaskNodeBuilder) EndTime(endTime string) *ExternalInstanceTaskNodeBuilder {
@@ -5338,7 +5425,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) EndTime(endTime string) *Externa
 	return builder
 }
 
-// task最近更新时间，用于推送数据版本控制； 更新策略同 instance 中的 update_time
+// 任务最近更新时间，Unix 毫秒时间戳，用于推送数据版本控制。;<md-alert type=warn>如果 update_mode 值为 UPDATE，则仅当传过来的 update_time 有变化时（变大），才会更新审批中心中的审批任务信息。<md-alert>
 //
 // 示例值：1556468012678
 func (builder *ExternalInstanceTaskNodeBuilder) UpdateTime(updateTime string) *ExternalInstanceTaskNodeBuilder {
@@ -5347,7 +5434,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) UpdateTime(updateTime string) *E
 	return builder
 }
 
-// 操作上下文，当用户操作时，回调请求中带上该参数，用于传递该任务的上下文数据
+// 操作上下文。当用户操作审批时，回调请求中会包含该参数，用于传递该任务的上下文数据。
 //
 // 示例值：123456
 func (builder *ExternalInstanceTaskNodeBuilder) ActionContext(actionContext string) *ExternalInstanceTaskNodeBuilder {
@@ -5356,7 +5443,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) ActionContext(actionContext stri
 	return builder
 }
 
-// 任务级别操作配置,快捷审批目前支持移动端操作
+// 任务级别的快捷审批操作配置，需要在[创建三方审批定义](https://open.feishu.cn/document%2FuAjLw4CM%2FukTMukTMukTM%2Freference%2Fapproval-v4%2Fexternal_approval%2Fcreate)中配置正确的回调地址，回调参数参考[三方快捷审批回调](https://open.feishu.cn/document%2FukTMukTMukTM%2FukjNyYjL5YjM24SO2IjN%2Fquick-approval-callback)。; ;**注意**：快捷审批目前仅支持在飞书移动端操作。
 //
 // 示例值：
 func (builder *ExternalInstanceTaskNodeBuilder) ActionConfigs(actionConfigs []*ActionConfig) *ExternalInstanceTaskNodeBuilder {
@@ -5365,7 +5452,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) ActionConfigs(actionConfigs []*A
 	return builder
 }
 
-// 列表页打开审批任务的方式
+// 审批中心列表页打开审批任务的方式。
 //
 // 示例值：BROWSER
 func (builder *ExternalInstanceTaskNodeBuilder) DisplayMethod(displayMethod string) *ExternalInstanceTaskNodeBuilder {
@@ -5374,7 +5461,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) DisplayMethod(displayMethod stri
 	return builder
 }
 
-// 三方任务支持不纳入效率统计。;false：纳入效率统计。;true：不纳入效率统计
+// 三方审批任务是否不纳入效率统计。可选值有：;;- true：此任务不纳入效率统计;- false：此任务纳入效率统计
 //
 // 示例值：false
 func (builder *ExternalInstanceTaskNodeBuilder) ExcludeStatistics(excludeStatistics bool) *ExternalInstanceTaskNodeBuilder {
@@ -5383,7 +5470,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) ExcludeStatistics(excludeStatist
 	return builder
 }
 
-// 节点id：必须同时满足;- 一个流程内，每个节点id唯一。如一个流程下「直属上级」、「隔级上级」等每个节点的Node_id均不一样;- 同一个流程定义内，不同审批实例中的相同节点，Node_id要保持不变。例如张三和李四分别发起了请假申请，这2个审批实例中的「直属上级」节点的node_id应该保持一致
+// 审批节点 ID，目前用于效率诊断的流程诊断，如需关注效率数据，请按照准确的流程数据填写，要求如下：;;- 一个审批流程内，每个节点 ID 唯一。例如，一个流程下直属上级、隔级上级等节点的 node_id 均不一样。;- 同一个三方审批定义内，不同审批实例中的相同节点，node_id 要保持不变。例如，用户 A 和用户 B 分别发起了请假申请，这两个审批实例中的直属上级节点的 node_id 应该保持一致。
 //
 // 示例值：node
 func (builder *ExternalInstanceTaskNodeBuilder) NodeId(nodeId string) *ExternalInstanceTaskNodeBuilder {
@@ -5392,7 +5479,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) NodeId(nodeId string) *ExternalI
 	return builder
 }
 
-// 节点名称，如「财务审批」「法务审批」，支持中英日三种语言。示例：i18n@name。需要在i18n_resources中传该名称对应的国际化文案
+// 节点名称，审批节点名称，目前用于效率诊断流程诊断，如需关注效率数据，请按照准确的流程数据填写，要求如下：;;- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。;;- Key 需要以 @i18n@ 开头。
 //
 // 示例值：i18n@name
 func (builder *ExternalInstanceTaskNodeBuilder) NodeName(nodeName string) *ExternalInstanceTaskNodeBuilder {
@@ -5401,7 +5488,7 @@ func (builder *ExternalInstanceTaskNodeBuilder) NodeName(nodeName string) *Exter
 	return builder
 }
 
-// 任务生成类型
+// 任务生成类型，保留字段，可不填， **但是不要填空字符串**
 //
 // 示例值：EXTERNAL_CONSIGN
 func (builder *ExternalInstanceTaskNodeBuilder) GenerateType(generateType string) *ExternalInstanceTaskNodeBuilder {
@@ -5486,7 +5573,7 @@ type ExternalTaskItem struct {
 
 	Status *string `json:"status,omitempty"` // 审批任务状态
 
-	UpdateTime *string `json:"update_time,omitempty"` // 审批任务最后更新时间，单位 毫秒
+	UpdateTime *string `json:"update_time,omitempty"` // 审批任务最后更新时间，Unix 毫秒时间戳。
 }
 
 type ExternalTaskItemBuilder struct {
@@ -5496,7 +5583,7 @@ type ExternalTaskItemBuilder struct {
 	status    string // 审批任务状态
 	statusSet bool
 
-	updateTime    string // 审批任务最后更新时间，单位 毫秒
+	updateTime    string // 审批任务最后更新时间，Unix 毫秒时间戳。
 	updateTimeSet bool
 }
 
@@ -5523,7 +5610,7 @@ func (builder *ExternalTaskItemBuilder) Status(status string) *ExternalTaskItemB
 	return builder
 }
 
-// 审批任务最后更新时间，单位 毫秒
+// 审批任务最后更新时间，Unix 毫秒时间戳。
 //
 // 示例值：1621863215000
 func (builder *ExternalTaskItemBuilder) UpdateTime(updateTime string) *ExternalTaskItemBuilder {
@@ -5552,13 +5639,13 @@ func (builder *ExternalTaskItemBuilder) Build() *ExternalTaskItem {
 type ExternalTaskList struct {
 	InstanceId *string `json:"instance_id,omitempty"` // 审批实例 ID
 
-	ApprovalId *string `json:"approval_id,omitempty"` // 审批的id
+	ApprovalId *string `json:"approval_id,omitempty"` // 审批定义 ID
 
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批对应的 approval_code
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code
 
 	Status *string `json:"status,omitempty"` // 审批实例当前的状态
 
-	UpdateTime *string `json:"update_time,omitempty"` // 审批实例最后更新时间，单位 毫秒
+	UpdateTime *string `json:"update_time,omitempty"` // 审批实例最后更新时间，Unix 毫秒时间戳。
 
 	Tasks []*ExternalTaskItem `json:"tasks,omitempty"` // 审批实例下的审批任务
 }
@@ -5567,16 +5654,16 @@ type ExternalTaskListBuilder struct {
 	instanceId    string // 审批实例 ID
 	instanceIdSet bool
 
-	approvalId    string // 审批的id
+	approvalId    string // 审批定义 ID
 	approvalIdSet bool
 
-	approvalCode    string // 审批对应的 approval_code
+	approvalCode    string // 审批定义 Code
 	approvalCodeSet bool
 
 	status    string // 审批实例当前的状态
 	statusSet bool
 
-	updateTime    string // 审批实例最后更新时间，单位 毫秒
+	updateTime    string // 审批实例最后更新时间，Unix 毫秒时间戳。
 	updateTimeSet bool
 
 	tasks    []*ExternalTaskItem // 审批实例下的审批任务
@@ -5597,7 +5684,7 @@ func (builder *ExternalTaskListBuilder) InstanceId(instanceId string) *ExternalT
 	return builder
 }
 
-// 审批的id
+// 审批定义 ID
 //
 // 示例值：fwwweffff33111133xxx
 func (builder *ExternalTaskListBuilder) ApprovalId(approvalId string) *ExternalTaskListBuilder {
@@ -5606,7 +5693,7 @@ func (builder *ExternalTaskListBuilder) ApprovalId(approvalId string) *ExternalT
 	return builder
 }
 
-// 审批对应的 approval_code
+// 审批定义 Code
 //
 // 示例值：B7B65FFE-C2GC-452F-9F0F-9AA8352363D6
 func (builder *ExternalTaskListBuilder) ApprovalCode(approvalCode string) *ExternalTaskListBuilder {
@@ -5624,7 +5711,7 @@ func (builder *ExternalTaskListBuilder) Status(status string) *ExternalTaskListB
 	return builder
 }
 
-// 审批实例最后更新时间，单位 毫秒
+// 审批实例最后更新时间，Unix 毫秒时间戳。
 //
 // 示例值：1621863215000
 func (builder *ExternalTaskListBuilder) UpdateTime(updateTime string) *ExternalTaskListBuilder {
@@ -5671,16 +5758,16 @@ func (builder *ExternalTaskListBuilder) Build() *ExternalTaskList {
 }
 
 type FieldGroup struct {
-	Writable []string `json:"writable,omitempty"` // 可写权限的表单项的 id列表
+	Writable []string `json:"writable,omitempty"` // 可写权限的表单控件项的 ID 列表，ID 需要与表单参数（form）内传入的控件 ID 值保持一致。
 
-	Readable []string `json:"readable,omitempty"` // 可读权限的表单项的 id列表
+	Readable []string `json:"readable,omitempty"` // 可读权限的表单控件项的 ID 列表，ID 需要与表单参数（form）内传入的控件 ID 值保持一致。
 }
 
 type FieldGroupBuilder struct {
-	writable    []string // 可写权限的表单项的 id列表
+	writable    []string // 可写权限的表单控件项的 ID 列表，ID 需要与表单参数（form）内传入的控件 ID 值保持一致。
 	writableSet bool
 
-	readable    []string // 可读权限的表单项的 id列表
+	readable    []string // 可读权限的表单控件项的 ID 列表，ID 需要与表单参数（form）内传入的控件 ID 值保持一致。
 	readableSet bool
 }
 
@@ -5689,7 +5776,7 @@ func NewFieldGroupBuilder() *FieldGroupBuilder {
 	return builder
 }
 
-// 可写权限的表单项的 id列表
+// 可写权限的表单控件项的 ID 列表，ID 需要与表单参数（form）内传入的控件 ID 值保持一致。
 //
 // 示例值：9293493
 func (builder *FieldGroupBuilder) Writable(writable []string) *FieldGroupBuilder {
@@ -5698,7 +5785,7 @@ func (builder *FieldGroupBuilder) Writable(writable []string) *FieldGroupBuilder
 	return builder
 }
 
-// 可读权限的表单项的 id列表
+// 可读权限的表单控件项的 ID 列表，ID 需要与表单参数（form）内传入的控件 ID 值保持一致。
 //
 // 示例值：9293493
 func (builder *FieldGroupBuilder) Readable(readable []string) *FieldGroupBuilder {
@@ -5721,24 +5808,24 @@ func (builder *FieldGroupBuilder) Build() *FieldGroup {
 type File struct {
 	Url *string `json:"url,omitempty"` // 附件路径
 
-	FileSize *int `json:"file_size,omitempty"` // 附件大小
+	FileSize *int `json:"file_size,omitempty"` // 资源大小（字节数）
 
 	Title *string `json:"title,omitempty"` // 附件标题
 
-	Type *string `json:"type,omitempty"` // 附件类别
+	Type *string `json:"type,omitempty"` // 附件类别;;- image：图片;- attachment：附件，与上传时选择的类型一致
 }
 
 type FileBuilder struct {
 	url    string // 附件路径
 	urlSet bool
 
-	fileSize    int // 附件大小
+	fileSize    int // 资源大小（字节数）
 	fileSizeSet bool
 
 	title    string // 附件标题
 	titleSet bool
 
-	type_    string // 附件类别
+	type_    string // 附件类别;;- image：图片;- attachment：附件，与上传时选择的类型一致
 	type_Set bool
 }
 
@@ -5749,16 +5836,16 @@ func NewFileBuilder() *FileBuilder {
 
 // 附件路径
 //
-// 示例值：https://p3-approval-sign.byteimg.com/lark-approval-attachment/image/20220714/1/332f3596-0845-4746-a4bc-818d54ad435b.png~tplv-ottatrvjsm-image.image?x-expires=1659033558&x-signature=6edF3k%2BaHeAuvfcBRGOkbckoUl4%3D#.png
+// 示例值：https://xxxxx.xxx
 func (builder *FileBuilder) Url(url string) *FileBuilder {
 	builder.url = url
 	builder.urlSet = true
 	return builder
 }
 
-// 附件大小
+// 资源大小（字节数）
 //
-// 示例值：186823
+// 示例值：55555
 func (builder *FileBuilder) FileSize(fileSize int) *FileBuilder {
 	builder.fileSize = fileSize
 	builder.fileSizeSet = true
@@ -5767,14 +5854,14 @@ func (builder *FileBuilder) FileSize(fileSize int) *FileBuilder {
 
 // 附件标题
 //
-// 示例值：e018906140ed9388234bd03b0.png
+// 示例值：文件名称
 func (builder *FileBuilder) Title(title string) *FileBuilder {
 	builder.title = title
 	builder.titleSet = true
 	return builder
 }
 
-// 附件类别
+// 附件类别;;- image：图片;- attachment：附件，与上传时选择的类型一致
 //
 // 示例值：image
 func (builder *FileBuilder) Type(type_ string) *FileBuilder {
@@ -5855,21 +5942,21 @@ func (builder *FileUrlBuilder) Build() *FileUrl {
 }
 
 type I18nResource struct {
-	Locale *string `json:"locale,omitempty"` // 语言可选值有： zh-CN：中文 en-US：英文 ja-JP：日文
+	Locale *string `json:"locale,omitempty"` // 语言。
 
-	Texts []*I18nResourceText `json:"texts,omitempty"` // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化，允许用户同时传多个语言的文案，审批中心会根据用户当前的语音环境使用对应的文案，如果没有传用户当前的语音环境文案，则会使用默认的语言文案。
+	Texts []*I18nResourceText `json:"texts,omitempty"` // 文案的 key、value。
 
-	IsDefault *bool `json:"is_default,omitempty"` // 是否默认语言，默认语言需要包含所有key，非默认语言如果key不存在会使用默认语言代替
+	IsDefault *bool `json:"is_default,omitempty"` // 是否为默认语言。默认语言需要包含所有 key，非默认语言如果 key 不存在会使用默认语言代替。
 }
 
 type I18nResourceBuilder struct {
-	locale    string // 语言可选值有： zh-CN：中文 en-US：英文 ja-JP：日文
+	locale    string // 语言。
 	localeSet bool
 
-	texts    []*I18nResourceText // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化，允许用户同时传多个语言的文案，审批中心会根据用户当前的语音环境使用对应的文案，如果没有传用户当前的语音环境文案，则会使用默认的语言文案。
+	texts    []*I18nResourceText // 文案的 key、value。
 	textsSet bool
 
-	isDefault    bool // 是否默认语言，默认语言需要包含所有key，非默认语言如果key不存在会使用默认语言代替
+	isDefault    bool // 是否为默认语言。默认语言需要包含所有 key，非默认语言如果 key 不存在会使用默认语言代替。
 	isDefaultSet bool
 }
 
@@ -5878,7 +5965,7 @@ func NewI18nResourceBuilder() *I18nResourceBuilder {
 	return builder
 }
 
-// 语言可选值有： zh-CN：中文 en-US：英文 ja-JP：日文
+// 语言。
 //
 // 示例值：zh-CN
 func (builder *I18nResourceBuilder) Locale(locale string) *I18nResourceBuilder {
@@ -5887,7 +5974,7 @@ func (builder *I18nResourceBuilder) Locale(locale string) *I18nResourceBuilder {
 	return builder
 }
 
-// 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化，允许用户同时传多个语言的文案，审批中心会根据用户当前的语音环境使用对应的文案，如果没有传用户当前的语音环境文案，则会使用默认的语言文案。
+// 文案的 key、value。
 //
 // 示例值：{ "@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission" }
 func (builder *I18nResourceBuilder) Texts(texts []*I18nResourceText) *I18nResourceBuilder {
@@ -5896,7 +5983,7 @@ func (builder *I18nResourceBuilder) Texts(texts []*I18nResourceText) *I18nResour
 	return builder
 }
 
-// 是否默认语言，默认语言需要包含所有key，非默认语言如果key不存在会使用默认语言代替
+// 是否为默认语言。默认语言需要包含所有 key，非默认语言如果 key 不存在会使用默认语言代替。
 //
 // 示例值：true
 func (builder *I18nResourceBuilder) IsDefault(isDefault bool) *I18nResourceBuilder {
@@ -5922,16 +6009,16 @@ func (builder *I18nResourceBuilder) Build() *I18nResource {
 }
 
 type I18nResourceText struct {
-	Key *string `json:"key,omitempty"` // 文案key
+	Key *string `json:"key,omitempty"` // 文案 key。key 以 `@i18n@` 开头，该字段主要用于做国际化，允许用户同时传多个语言的文案，审批中心会根据用户当前的语言环境使用对应的文案，如果没有传用户当前的语言环境文案，则会使用默认的语言文案。
 
-	Value *string `json:"value,omitempty"` // 文案
+	Value *string `json:"value,omitempty"` // 文案内容
 }
 
 type I18nResourceTextBuilder struct {
-	key    string // 文案key
+	key    string // 文案 key。key 以 `@i18n@` 开头，该字段主要用于做国际化，允许用户同时传多个语言的文案，审批中心会根据用户当前的语言环境使用对应的文案，如果没有传用户当前的语言环境文案，则会使用默认的语言文案。
 	keySet bool
 
-	value    string // 文案
+	value    string // 文案内容
 	valueSet bool
 }
 
@@ -5940,7 +6027,7 @@ func NewI18nResourceTextBuilder() *I18nResourceTextBuilder {
 	return builder
 }
 
-// 文案key
+// 文案 key。key 以 `@i18n@` 开头，该字段主要用于做国际化，允许用户同时传多个语言的文案，审批中心会根据用户当前的语言环境使用对应的文案，如果没有传用户当前的语言环境文案，则会使用默认的语言文案。
 //
 // 示例值：@i18n@1
 func (builder *I18nResourceTextBuilder) Key(key string) *I18nResourceTextBuilder {
@@ -5949,7 +6036,7 @@ func (builder *I18nResourceTextBuilder) Key(key string) *I18nResourceTextBuilder
 	return builder
 }
 
-// 文案
+// 文案内容
 //
 // 示例值：people
 func (builder *I18nResourceTextBuilder) Value(value string) *I18nResourceTextBuilder {
@@ -6094,21 +6181,21 @@ func (builder *InstanceBuilder) Build() *Instance {
 }
 
 type InstanceCancel struct {
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义Code
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 
-	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例Code
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code。获取方式：;;- [创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create) 后，从返回结果中获取审批实例 Code。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)，获取指定审批定义内的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 
-	UserId *string `json:"user_id,omitempty"` // 操作用户, 根据user_id_type填写
+	UserId *string `json:"user_id,omitempty"` // 审批提交人的用户 ID，ID 类型与查询参数 user_id_type 的取值一致。
 }
 
 type InstanceCancelBuilder struct {
-	approvalCode    string // 审批定义Code
+	approvalCode    string // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 	approvalCodeSet bool
 
-	instanceCode    string // 审批实例Code
+	instanceCode    string // 审批实例 Code。获取方式：;;- [创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create) 后，从返回结果中获取审批实例 Code。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)，获取指定审批定义内的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 	instanceCodeSet bool
 
-	userId    string // 操作用户, 根据user_id_type填写
+	userId    string // 审批提交人的用户 ID，ID 类型与查询参数 user_id_type 的取值一致。
 	userIdSet bool
 }
 
@@ -6117,7 +6204,7 @@ func NewInstanceCancelBuilder() *InstanceCancelBuilder {
 	return builder
 }
 
-// 审批定义Code
+// 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *InstanceCancelBuilder) ApprovalCode(approvalCode string) *InstanceCancelBuilder {
@@ -6126,7 +6213,7 @@ func (builder *InstanceCancelBuilder) ApprovalCode(approvalCode string) *Instanc
 	return builder
 }
 
-// 审批实例Code
+// 审批实例 Code。获取方式：;;- [创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create) 后，从返回结果中获取审批实例 Code。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)，获取指定审批定义内的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 //
 // 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
 func (builder *InstanceCancelBuilder) InstanceCode(instanceCode string) *InstanceCancelBuilder {
@@ -6135,7 +6222,7 @@ func (builder *InstanceCancelBuilder) InstanceCode(instanceCode string) *Instanc
 	return builder
 }
 
-// 操作用户, 根据user_id_type填写
+// 审批提交人的用户 ID，ID 类型与查询参数 user_id_type 的取值一致。
 //
 // 示例值：f7cb567e
 func (builder *InstanceCancelBuilder) UserId(userId string) *InstanceCancelBuilder {
@@ -6162,28 +6249,28 @@ func (builder *InstanceCancelBuilder) Build() *InstanceCancel {
 }
 
 type InstanceCc struct {
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 
-	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 code
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code。获取方式：;;- [创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create) 后，从返回结果中获取审批实例 Code。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)，获取指定审批定义内的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 
-	UserId *string `json:"user_id,omitempty"` // 根据user_id_type填写发起抄送的人的用户id
+	UserId *string `json:"user_id,omitempty"` // 发起当前操作的用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 
-	CcUserIds []string `json:"cc_user_ids,omitempty"` // 根据user_id_type填写被抄送人的 用户id 列表
+	CcUserIds []string `json:"cc_user_ids,omitempty"` // 抄送人的用户 ID 列表，ID 类型与查询参数 user_id_type 取值一致。
 
 	Comment *string `json:"comment,omitempty"` // 抄送留言
 }
 
 type InstanceCcBuilder struct {
-	approvalCode    string // 审批定义 code
+	approvalCode    string // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 	approvalCodeSet bool
 
-	instanceCode    string // 审批实例 code
+	instanceCode    string // 审批实例 Code。获取方式：;;- [创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create) 后，从返回结果中获取审批实例 Code。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)，获取指定审批定义内的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 	instanceCodeSet bool
 
-	userId    string // 根据user_id_type填写发起抄送的人的用户id
+	userId    string // 发起当前操作的用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 	userIdSet bool
 
-	ccUserIds    []string // 根据user_id_type填写被抄送人的 用户id 列表
+	ccUserIds    []string // 抄送人的用户 ID 列表，ID 类型与查询参数 user_id_type 取值一致。
 	ccUserIdsSet bool
 
 	comment    string // 抄送留言
@@ -6195,7 +6282,7 @@ func NewInstanceCcBuilder() *InstanceCcBuilder {
 	return builder
 }
 
-// 审批定义 code
+// 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *InstanceCcBuilder) ApprovalCode(approvalCode string) *InstanceCcBuilder {
@@ -6204,7 +6291,7 @@ func (builder *InstanceCcBuilder) ApprovalCode(approvalCode string) *InstanceCcB
 	return builder
 }
 
-// 审批实例 code
+// 审批实例 Code。获取方式：;;- [创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create) 后，从返回结果中获取审批实例 Code。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)，获取指定审批定义内的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *InstanceCcBuilder) InstanceCode(instanceCode string) *InstanceCcBuilder {
@@ -6213,7 +6300,7 @@ func (builder *InstanceCcBuilder) InstanceCode(instanceCode string) *InstanceCcB
 	return builder
 }
 
-// 根据user_id_type填写发起抄送的人的用户id
+// 发起当前操作的用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 //
 // 示例值：f7cb567e
 func (builder *InstanceCcBuilder) UserId(userId string) *InstanceCcBuilder {
@@ -6222,7 +6309,7 @@ func (builder *InstanceCcBuilder) UserId(userId string) *InstanceCcBuilder {
 	return builder
 }
 
-// 根据user_id_type填写被抄送人的 用户id 列表
+// 抄送人的用户 ID 列表，ID 类型与查询参数 user_id_type 取值一致。
 //
 // 示例值：f7cb567e
 func (builder *InstanceCcBuilder) CcUserIds(ccUserIds []string) *InstanceCcBuilder {
@@ -6265,21 +6352,21 @@ func (builder *InstanceCcBuilder) Build() *InstanceCc {
 }
 
 type InstanceCcUser struct {
-	UserId *string `json:"user_id,omitempty"` // 抄送人 user id
+	UserId *string `json:"user_id,omitempty"` // 抄送人的 user_id
 
 	CcId *string `json:"cc_id,omitempty"` // 审批实例内抄送唯一标识
 
-	OpenId *string `json:"open_id,omitempty"` // 抄送人 open id
+	OpenId *string `json:"open_id,omitempty"` // 抄送人的 open_id
 }
 
 type InstanceCcUserBuilder struct {
-	userId    string // 抄送人 user id
+	userId    string // 抄送人的 user_id
 	userIdSet bool
 
 	ccId    string // 审批实例内抄送唯一标识
 	ccIdSet bool
 
-	openId    string // 抄送人 open id
+	openId    string // 抄送人的 open_id
 	openIdSet bool
 }
 
@@ -6288,7 +6375,7 @@ func NewInstanceCcUserBuilder() *InstanceCcUserBuilder {
 	return builder
 }
 
-// 抄送人 user id
+// 抄送人的 user_id
 //
 // 示例值：eea5gefe
 func (builder *InstanceCcUserBuilder) UserId(userId string) *InstanceCcUserBuilder {
@@ -6306,7 +6393,7 @@ func (builder *InstanceCcUserBuilder) CcId(ccId string) *InstanceCcUserBuilder {
 	return builder
 }
 
-// 抄送人 open id
+// 抄送人的 open_id
 //
 // 示例值：ou_12345
 func (builder *InstanceCcUserBuilder) OpenId(openId string) *InstanceCcUserBuilder {
@@ -6333,33 +6420,33 @@ func (builder *InstanceCcUserBuilder) Build() *InstanceCcUser {
 }
 
 type InstanceComment struct {
-	Id *string `json:"id,omitempty"` // 评论 id
+	Id *string `json:"id,omitempty"` // 评论 ID
 
-	UserId *string `json:"user_id,omitempty"` // 发表评论用户
+	UserId *string `json:"user_id,omitempty"` // 发表评论的用户 user_id
 
-	OpenId *string `json:"open_id,omitempty"` // 发表评论用户 open id
+	OpenId *string `json:"open_id,omitempty"` // 发表评论的用户 open_id
 
 	Comment *string `json:"comment,omitempty"` // 评论内容
 
-	CreateTime *string `json:"create_time,omitempty"` // 1564590532967
+	CreateTime *string `json:"create_time,omitempty"` // 评论时间，毫秒级时间戳。
 
 	Files []*File `json:"files,omitempty"` // 评论附件
 }
 
 type InstanceCommentBuilder struct {
-	id    string // 评论 id
+	id    string // 评论 ID
 	idSet bool
 
-	userId    string // 发表评论用户
+	userId    string // 发表评论的用户 user_id
 	userIdSet bool
 
-	openId    string // 发表评论用户 open id
+	openId    string // 发表评论的用户 open_id
 	openIdSet bool
 
 	comment    string // 评论内容
 	commentSet bool
 
-	createTime    string // 1564590532967
+	createTime    string // 评论时间，毫秒级时间戳。
 	createTimeSet bool
 
 	files    []*File // 评论附件
@@ -6371,7 +6458,7 @@ func NewInstanceCommentBuilder() *InstanceCommentBuilder {
 	return builder
 }
 
-// 评论 id
+// 评论 ID
 //
 // 示例值：1234
 func (builder *InstanceCommentBuilder) Id(id string) *InstanceCommentBuilder {
@@ -6380,7 +6467,7 @@ func (builder *InstanceCommentBuilder) Id(id string) *InstanceCommentBuilder {
 	return builder
 }
 
-// 发表评论用户
+// 发表评论的用户 user_id
 //
 // 示例值：f7cb567e
 func (builder *InstanceCommentBuilder) UserId(userId string) *InstanceCommentBuilder {
@@ -6389,7 +6476,7 @@ func (builder *InstanceCommentBuilder) UserId(userId string) *InstanceCommentBui
 	return builder
 }
 
-// 发表评论用户 open id
+// 发表评论的用户 open_id
 //
 // 示例值：ou_123456
 func (builder *InstanceCommentBuilder) OpenId(openId string) *InstanceCommentBuilder {
@@ -6407,9 +6494,9 @@ func (builder *InstanceCommentBuilder) Comment(comment string) *InstanceCommentB
 	return builder
 }
 
-// 1564590532967
+// 评论时间，毫秒级时间戳。
 //
-// 示例值：评论时间
+// 示例值：1564590532967
 func (builder *InstanceCommentBuilder) CreateTime(createTime string) *InstanceCommentBuilder {
 	builder.createTime = createTime
 	builder.createTimeSet = true
@@ -6454,41 +6541,41 @@ func (builder *InstanceCommentBuilder) Build() *InstanceComment {
 }
 
 type InstanceCreate struct {
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 
-	UserId *string `json:"user_id,omitempty"` // 发起审批用户
+	UserId *string `json:"user_id,omitempty"` // 审批发起人的 user_id，与 open_id 必须传入其中一个。如果传入了 user_id 则优先使用 user_id。获取方式参考[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
 
-	OpenId *string `json:"open_id,omitempty"` // 发起审批用户 open id, 如果传了 user_id 则优先使用 user_id
+	OpenId *string `json:"open_id,omitempty"` // 审批发起人的 open_id，与 user_id 必须传入其中一个。如果传入了 user_id 则优先使用 user_id。获取方式参考[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)
 
-	DepartmentId *string `json:"department_id,omitempty"` // 发起审批用户部门id，如果用户只属于一个部门，可以不填。如果属于多个部门，默认会选择部门列表第一个部门
+	DepartmentId *string `json:"department_id,omitempty"` // 审批发起人所属部门 ID。如果用户只属于一个部门，可以不填。如果用户属于多个部门，不填值则默认选择部门列表第一个部门。获取方式参见[部门 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#9c02ed7a)。;;**说明**：;;- 不支持填写根部门。;- 需填写 department_id 类型的部门 ID。
 
-	Form *string `json:"form,omitempty"` // json 数组，控件值
+	Form *string `json:"form,omitempty"` // 填写的审批表单控件值，JSON 数组，传值时需要压缩转义为字符串。各控件值的参数说明参考[审批实例表单控件参数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/approval-instance-form-control-parameters)。
 
-	NodeApproverUserIdList []*NodeApprover `json:"node_approver_user_id_list,omitempty"` // 如果有发起人自选节点，则需要填写对应节点的审批人
+	NodeApproverUserIdList []*NodeApprover `json:"node_approver_user_id_list,omitempty"` // 如果审批定义的流程中，有节点需要发起人自选审批人，则需要通过本参数填写对应节点的审批人（通过用户 user_id 指定审批人）。;;**说明**：如果同时传入了 node_approver_user_id_list、node_approver_open_id_list，则取两个参数的并集生效审批人。
 
-	NodeApproverOpenIdList []*NodeApprover `json:"node_approver_open_id_list,omitempty"` // 审批人发起人自选 open id，与上述node_approver_user_id_list字段取并集
+	NodeApproverOpenIdList []*NodeApprover `json:"node_approver_open_id_list,omitempty"` // 如果审批定义的流程中，有节点需要发起人自选审批人，则需要通过本参数填写对应节点的审批人（通过用户 open_id 指定审批人）。;;**说明**：如果同时传入了 node_approver_user_id_list、node_approver_open_id_list，则取两个参数的并集生效审批人。
 
-	NodeCcUserIdList []*NodeCc `json:"node_cc_user_id_list,omitempty"` // 如果有发起人自选节点，则可填写对应节点的抄送人，单个节点最多选择20位抄送人
+	NodeCcUserIdList []*NodeCc `json:"node_cc_user_id_list,omitempty"` // 如果审批定义的流程中，有节点需要发起人自选抄送人，则需要通过本参数填写对应节点的抄送人（通过用户 user_id 指定审批人）。;;**说明**：如果同时传入了 node_cc_user_id_list、node_cc_open_id_list，则取两个参数的并集生效抄送人。
 
-	NodeCcOpenIdList []*NodeCc `json:"node_cc_open_id_list,omitempty"` // 抄送人发起人自选 open id 单个节点最多选择20位抄送人
+	NodeCcOpenIdList []*NodeCc `json:"node_cc_open_id_list,omitempty"` // 如果审批定义的流程中，有节点需要发起人自选抄送人，则需要通过本参数填写对应节点的抄送人（通过用户 open_id 指定审批人）。;;**说明**：如果同时传入了 node_cc_user_id_list、node_cc_open_id_list，则取两个参数的并集生效抄送人。
 
-	Uuid *string `json:"uuid,omitempty"` // 审批实例 uuid，用于幂等操作, 每个租户下面的唯一key，同一个 uuid 只能用于创建一个审批实例，如果冲突，返回错误码 60012 ，格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX，不区分大小写
+	Uuid *string `json:"uuid,omitempty"` // 审批实例 uuid，用于幂等操作，单个企业内的唯一 key。同一个 uuid 只能用于创建一个审批实例，如果冲突则创建失败并返回错误码 60012 ，格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX，不区分大小写。
 
-	AllowResubmit *bool `json:"allow_resubmit,omitempty"` // 可配置是否可以再次提交
+	AllowResubmit *bool `json:"allow_resubmit,omitempty"` // 是否配置 **提交** 按钮，适用于任务的审批人退回审批单据后，审批提交人可以在同一个审批实例内点击 **提交**，提交单据。
 
-	AllowSubmitAgain *bool `json:"allow_submit_again,omitempty"` // 可配置是否可以重新提交
+	AllowSubmitAgain *bool `json:"allow_submit_again,omitempty"` // 是否配置 **再次提交** 按钮，适用于周期性提单场景，按照当前表单内容再次发起一个新审批实例。
 
-	CancelBotNotification *string `json:"cancel_bot_notification,omitempty"` // 配置bot是否取消通知结果
+	CancelBotNotification *string `json:"cancel_bot_notification,omitempty"` // 取消指定的 Bot 推送通知。可选值有：;;- 1：取消审批实例通过推送。;- 2：取消审批实例拒绝推送。;- 4：取消审批实例取消推送。;;支持同时取消多个 bot 推送通知。位运算，即如需取消 1 和 2 两种通知，则需要传入加和值 3。
 
-	ForbidRevoke *bool `json:"forbid_revoke,omitempty"` // 配置是否可以禁止撤销
+	ForbidRevoke *bool `json:"forbid_revoke,omitempty"` // 是否禁止撤销审批实例
 
-	I18nResources []*I18nResource `json:"i18n_resources,omitempty"` // 国际化文案
+	I18nResources []*I18nResource `json:"i18n_resources,omitempty"` // 国际化文案。目前只支持为表单的单行、多行文本控件赋值。
 
-	Title *string `json:"title,omitempty"` // 审批展示名称，如果填写了该字段，则审批列表中的审批名称使用该字段，如果不填该字段，则审批名称使用审批定义的名称
+	Title *string `json:"title,omitempty"` // 审批实例的展示名称。如果填写了该参数，则审批列表中的审批名称使用该参数，如果不填该参数，则审批名称使用审批定义的名称。;;**说明**：这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），必须以 @i18n@ 开头，还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。
 
-	TitleDisplayMethod *int `json:"title_display_method,omitempty"` // 详情页title展示模式
+	TitleDisplayMethod *int `json:"title_display_method,omitempty"` // 审批详情页 title 展示模式。
 
-	NodeAutoApprovalList []*NodeAutoApproval `json:"node_auto_approval_list,omitempty"` // 自动通过节点ID
+	NodeAutoApprovalList []*NodeAutoApproval `json:"node_auto_approval_list,omitempty"` // 设置自动通过的节点。
 
 	ByteExtra *string `json:"byte_extra,omitempty"` // 字节内部扩展字段
 
@@ -6496,58 +6583,58 @@ type InstanceCreate struct {
 }
 
 type InstanceCreateBuilder struct {
-	approvalCode    string // 审批定义 code
+	approvalCode    string // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 	approvalCodeSet bool
 
-	userId    string // 发起审批用户
+	userId    string // 审批发起人的 user_id，与 open_id 必须传入其中一个。如果传入了 user_id 则优先使用 user_id。获取方式参考[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
 	userIdSet bool
 
-	openId    string // 发起审批用户 open id, 如果传了 user_id 则优先使用 user_id
+	openId    string // 审批发起人的 open_id，与 user_id 必须传入其中一个。如果传入了 user_id 则优先使用 user_id。获取方式参考[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)
 	openIdSet bool
 
-	departmentId    string // 发起审批用户部门id，如果用户只属于一个部门，可以不填。如果属于多个部门，默认会选择部门列表第一个部门
+	departmentId    string // 审批发起人所属部门 ID。如果用户只属于一个部门，可以不填。如果用户属于多个部门，不填值则默认选择部门列表第一个部门。获取方式参见[部门 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#9c02ed7a)。;;**说明**：;;- 不支持填写根部门。;- 需填写 department_id 类型的部门 ID。
 	departmentIdSet bool
 
-	form    string // json 数组，控件值
+	form    string // 填写的审批表单控件值，JSON 数组，传值时需要压缩转义为字符串。各控件值的参数说明参考[审批实例表单控件参数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/approval-instance-form-control-parameters)。
 	formSet bool
 
-	nodeApproverUserIdList    []*NodeApprover // 如果有发起人自选节点，则需要填写对应节点的审批人
+	nodeApproverUserIdList    []*NodeApprover // 如果审批定义的流程中，有节点需要发起人自选审批人，则需要通过本参数填写对应节点的审批人（通过用户 user_id 指定审批人）。;;**说明**：如果同时传入了 node_approver_user_id_list、node_approver_open_id_list，则取两个参数的并集生效审批人。
 	nodeApproverUserIdListSet bool
 
-	nodeApproverOpenIdList    []*NodeApprover // 审批人发起人自选 open id，与上述node_approver_user_id_list字段取并集
+	nodeApproverOpenIdList    []*NodeApprover // 如果审批定义的流程中，有节点需要发起人自选审批人，则需要通过本参数填写对应节点的审批人（通过用户 open_id 指定审批人）。;;**说明**：如果同时传入了 node_approver_user_id_list、node_approver_open_id_list，则取两个参数的并集生效审批人。
 	nodeApproverOpenIdListSet bool
 
-	nodeCcUserIdList    []*NodeCc // 如果有发起人自选节点，则可填写对应节点的抄送人，单个节点最多选择20位抄送人
+	nodeCcUserIdList    []*NodeCc // 如果审批定义的流程中，有节点需要发起人自选抄送人，则需要通过本参数填写对应节点的抄送人（通过用户 user_id 指定审批人）。;;**说明**：如果同时传入了 node_cc_user_id_list、node_cc_open_id_list，则取两个参数的并集生效抄送人。
 	nodeCcUserIdListSet bool
 
-	nodeCcOpenIdList    []*NodeCc // 抄送人发起人自选 open id 单个节点最多选择20位抄送人
+	nodeCcOpenIdList    []*NodeCc // 如果审批定义的流程中，有节点需要发起人自选抄送人，则需要通过本参数填写对应节点的抄送人（通过用户 open_id 指定审批人）。;;**说明**：如果同时传入了 node_cc_user_id_list、node_cc_open_id_list，则取两个参数的并集生效抄送人。
 	nodeCcOpenIdListSet bool
 
-	uuid    string // 审批实例 uuid，用于幂等操作, 每个租户下面的唯一key，同一个 uuid 只能用于创建一个审批实例，如果冲突，返回错误码 60012 ，格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX，不区分大小写
+	uuid    string // 审批实例 uuid，用于幂等操作，单个企业内的唯一 key。同一个 uuid 只能用于创建一个审批实例，如果冲突则创建失败并返回错误码 60012 ，格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX，不区分大小写。
 	uuidSet bool
 
-	allowResubmit    bool // 可配置是否可以再次提交
+	allowResubmit    bool // 是否配置 **提交** 按钮，适用于任务的审批人退回审批单据后，审批提交人可以在同一个审批实例内点击 **提交**，提交单据。
 	allowResubmitSet bool
 
-	allowSubmitAgain    bool // 可配置是否可以重新提交
+	allowSubmitAgain    bool // 是否配置 **再次提交** 按钮，适用于周期性提单场景，按照当前表单内容再次发起一个新审批实例。
 	allowSubmitAgainSet bool
 
-	cancelBotNotification    string // 配置bot是否取消通知结果
+	cancelBotNotification    string // 取消指定的 Bot 推送通知。可选值有：;;- 1：取消审批实例通过推送。;- 2：取消审批实例拒绝推送。;- 4：取消审批实例取消推送。;;支持同时取消多个 bot 推送通知。位运算，即如需取消 1 和 2 两种通知，则需要传入加和值 3。
 	cancelBotNotificationSet bool
 
-	forbidRevoke    bool // 配置是否可以禁止撤销
+	forbidRevoke    bool // 是否禁止撤销审批实例
 	forbidRevokeSet bool
 
-	i18nResources    []*I18nResource // 国际化文案
+	i18nResources    []*I18nResource // 国际化文案。目前只支持为表单的单行、多行文本控件赋值。
 	i18nResourcesSet bool
 
-	title    string // 审批展示名称，如果填写了该字段，则审批列表中的审批名称使用该字段，如果不填该字段，则审批名称使用审批定义的名称
+	title    string // 审批实例的展示名称。如果填写了该参数，则审批列表中的审批名称使用该参数，如果不填该参数，则审批名称使用审批定义的名称。;;**说明**：这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），必须以 @i18n@ 开头，还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。
 	titleSet bool
 
-	titleDisplayMethod    int // 详情页title展示模式
+	titleDisplayMethod    int // 审批详情页 title 展示模式。
 	titleDisplayMethodSet bool
 
-	nodeAutoApprovalList    []*NodeAutoApproval // 自动通过节点ID
+	nodeAutoApprovalList    []*NodeAutoApproval // 设置自动通过的节点。
 	nodeAutoApprovalListSet bool
 
 	byteExtra    string // 字节内部扩展字段
@@ -6562,7 +6649,7 @@ func NewInstanceCreateBuilder() *InstanceCreateBuilder {
 	return builder
 }
 
-// 审批定义 code
+// 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *InstanceCreateBuilder) ApprovalCode(approvalCode string) *InstanceCreateBuilder {
@@ -6571,7 +6658,7 @@ func (builder *InstanceCreateBuilder) ApprovalCode(approvalCode string) *Instanc
 	return builder
 }
 
-// 发起审批用户
+// 审批发起人的 user_id，与 open_id 必须传入其中一个。如果传入了 user_id 则优先使用 user_id。获取方式参考[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
 //
 // 示例值：f7cb567e
 func (builder *InstanceCreateBuilder) UserId(userId string) *InstanceCreateBuilder {
@@ -6580,7 +6667,7 @@ func (builder *InstanceCreateBuilder) UserId(userId string) *InstanceCreateBuild
 	return builder
 }
 
-// 发起审批用户 open id, 如果传了 user_id 则优先使用 user_id
+// 审批发起人的 open_id，与 user_id 必须传入其中一个。如果传入了 user_id 则优先使用 user_id。获取方式参考[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)
 //
 // 示例值：ou_3cda9c969f737aaa05e6915dce306cb9
 func (builder *InstanceCreateBuilder) OpenId(openId string) *InstanceCreateBuilder {
@@ -6589,7 +6676,7 @@ func (builder *InstanceCreateBuilder) OpenId(openId string) *InstanceCreateBuild
 	return builder
 }
 
-// 发起审批用户部门id，如果用户只属于一个部门，可以不填。如果属于多个部门，默认会选择部门列表第一个部门
+// 审批发起人所属部门 ID。如果用户只属于一个部门，可以不填。如果用户属于多个部门，不填值则默认选择部门列表第一个部门。获取方式参见[部门 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#9c02ed7a)。;;**说明**：;;- 不支持填写根部门。;- 需填写 department_id 类型的部门 ID。
 //
 // 示例值：9293493ccacbdb9a
 func (builder *InstanceCreateBuilder) DepartmentId(departmentId string) *InstanceCreateBuilder {
@@ -6598,7 +6685,7 @@ func (builder *InstanceCreateBuilder) DepartmentId(departmentId string) *Instanc
 	return builder
 }
 
-// json 数组，控件值
+// 填写的审批表单控件值，JSON 数组，传值时需要压缩转义为字符串。各控件值的参数说明参考[审批实例表单控件参数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/approval-instance-form-control-parameters)。
 //
 // 示例值：[{\"id\":\"111\", \"type\": \"input\", \"value\":\"test\"}]
 func (builder *InstanceCreateBuilder) Form(form string) *InstanceCreateBuilder {
@@ -6607,7 +6694,7 @@ func (builder *InstanceCreateBuilder) Form(form string) *InstanceCreateBuilder {
 	return builder
 }
 
-// 如果有发起人自选节点，则需要填写对应节点的审批人
+// 如果审批定义的流程中，有节点需要发起人自选审批人，则需要通过本参数填写对应节点的审批人（通过用户 user_id 指定审批人）。;;**说明**：如果同时传入了 node_approver_user_id_list、node_approver_open_id_list，则取两个参数的并集生效审批人。
 //
 // 示例值：
 func (builder *InstanceCreateBuilder) NodeApproverUserIdList(nodeApproverUserIdList []*NodeApprover) *InstanceCreateBuilder {
@@ -6616,7 +6703,7 @@ func (builder *InstanceCreateBuilder) NodeApproverUserIdList(nodeApproverUserIdL
 	return builder
 }
 
-// 审批人发起人自选 open id，与上述node_approver_user_id_list字段取并集
+// 如果审批定义的流程中，有节点需要发起人自选审批人，则需要通过本参数填写对应节点的审批人（通过用户 open_id 指定审批人）。;;**说明**：如果同时传入了 node_approver_user_id_list、node_approver_open_id_list，则取两个参数的并集生效审批人。
 //
 // 示例值：
 func (builder *InstanceCreateBuilder) NodeApproverOpenIdList(nodeApproverOpenIdList []*NodeApprover) *InstanceCreateBuilder {
@@ -6625,7 +6712,7 @@ func (builder *InstanceCreateBuilder) NodeApproverOpenIdList(nodeApproverOpenIdL
 	return builder
 }
 
-// 如果有发起人自选节点，则可填写对应节点的抄送人，单个节点最多选择20位抄送人
+// 如果审批定义的流程中，有节点需要发起人自选抄送人，则需要通过本参数填写对应节点的抄送人（通过用户 user_id 指定审批人）。;;**说明**：如果同时传入了 node_cc_user_id_list、node_cc_open_id_list，则取两个参数的并集生效抄送人。
 //
 // 示例值：
 func (builder *InstanceCreateBuilder) NodeCcUserIdList(nodeCcUserIdList []*NodeCc) *InstanceCreateBuilder {
@@ -6634,7 +6721,7 @@ func (builder *InstanceCreateBuilder) NodeCcUserIdList(nodeCcUserIdList []*NodeC
 	return builder
 }
 
-// 抄送人发起人自选 open id 单个节点最多选择20位抄送人
+// 如果审批定义的流程中，有节点需要发起人自选抄送人，则需要通过本参数填写对应节点的抄送人（通过用户 open_id 指定审批人）。;;**说明**：如果同时传入了 node_cc_user_id_list、node_cc_open_id_list，则取两个参数的并集生效抄送人。
 //
 // 示例值：
 func (builder *InstanceCreateBuilder) NodeCcOpenIdList(nodeCcOpenIdList []*NodeCc) *InstanceCreateBuilder {
@@ -6643,7 +6730,7 @@ func (builder *InstanceCreateBuilder) NodeCcOpenIdList(nodeCcOpenIdList []*NodeC
 	return builder
 }
 
-// 审批实例 uuid，用于幂等操作, 每个租户下面的唯一key，同一个 uuid 只能用于创建一个审批实例，如果冲突，返回错误码 60012 ，格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX，不区分大小写
+// 审批实例 uuid，用于幂等操作，单个企业内的唯一 key。同一个 uuid 只能用于创建一个审批实例，如果冲突则创建失败并返回错误码 60012 ，格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX，不区分大小写。
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A87
 func (builder *InstanceCreateBuilder) Uuid(uuid string) *InstanceCreateBuilder {
@@ -6652,7 +6739,7 @@ func (builder *InstanceCreateBuilder) Uuid(uuid string) *InstanceCreateBuilder {
 	return builder
 }
 
-// 可配置是否可以再次提交
+// 是否配置 **提交** 按钮，适用于任务的审批人退回审批单据后，审批提交人可以在同一个审批实例内点击 **提交**，提交单据。
 //
 // 示例值：true
 func (builder *InstanceCreateBuilder) AllowResubmit(allowResubmit bool) *InstanceCreateBuilder {
@@ -6661,7 +6748,7 @@ func (builder *InstanceCreateBuilder) AllowResubmit(allowResubmit bool) *Instanc
 	return builder
 }
 
-// 可配置是否可以重新提交
+// 是否配置 **再次提交** 按钮，适用于周期性提单场景，按照当前表单内容再次发起一个新审批实例。
 //
 // 示例值：true
 func (builder *InstanceCreateBuilder) AllowSubmitAgain(allowSubmitAgain bool) *InstanceCreateBuilder {
@@ -6670,16 +6757,16 @@ func (builder *InstanceCreateBuilder) AllowSubmitAgain(allowSubmitAgain bool) *I
 	return builder
 }
 
-// 配置bot是否取消通知结果
+// 取消指定的 Bot 推送通知。可选值有：;;- 1：取消审批实例通过推送。;- 2：取消审批实例拒绝推送。;- 4：取消审批实例取消推送。;;支持同时取消多个 bot 推送通知。位运算，即如需取消 1 和 2 两种通知，则需要传入加和值 3。
 //
-// 示例值：0
+// 示例值：1
 func (builder *InstanceCreateBuilder) CancelBotNotification(cancelBotNotification string) *InstanceCreateBuilder {
 	builder.cancelBotNotification = cancelBotNotification
 	builder.cancelBotNotificationSet = true
 	return builder
 }
 
-// 配置是否可以禁止撤销
+// 是否禁止撤销审批实例
 //
 // 示例值：false
 func (builder *InstanceCreateBuilder) ForbidRevoke(forbidRevoke bool) *InstanceCreateBuilder {
@@ -6688,7 +6775,7 @@ func (builder *InstanceCreateBuilder) ForbidRevoke(forbidRevoke bool) *InstanceC
 	return builder
 }
 
-// 国际化文案
+// 国际化文案。目前只支持为表单的单行、多行文本控件赋值。
 //
 // 示例值：
 func (builder *InstanceCreateBuilder) I18nResources(i18nResources []*I18nResource) *InstanceCreateBuilder {
@@ -6697,7 +6784,7 @@ func (builder *InstanceCreateBuilder) I18nResources(i18nResources []*I18nResourc
 	return builder
 }
 
-// 审批展示名称，如果填写了该字段，则审批列表中的审批名称使用该字段，如果不填该字段，则审批名称使用审批定义的名称
+// 审批实例的展示名称。如果填写了该参数，则审批列表中的审批名称使用该参数，如果不填该参数，则审批名称使用审批定义的名称。;;**说明**：这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key），必须以 @i18n@ 开头，还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。
 //
 // 示例值：@i18n@1
 func (builder *InstanceCreateBuilder) Title(title string) *InstanceCreateBuilder {
@@ -6706,7 +6793,7 @@ func (builder *InstanceCreateBuilder) Title(title string) *InstanceCreateBuilder
 	return builder
 }
 
-// 详情页title展示模式
+// 审批详情页 title 展示模式。
 //
 // 示例值：0
 func (builder *InstanceCreateBuilder) TitleDisplayMethod(titleDisplayMethod int) *InstanceCreateBuilder {
@@ -6715,7 +6802,7 @@ func (builder *InstanceCreateBuilder) TitleDisplayMethod(titleDisplayMethod int)
 	return builder
 }
 
-// 自动通过节点ID
+// 设置自动通过的节点。
 //
 // 示例值：
 func (builder *InstanceCreateBuilder) NodeAutoApprovalList(nodeAutoApprovalList []*NodeAutoApproval) *InstanceCreateBuilder {
@@ -6902,58 +6989,58 @@ func (builder *InstanceDraftBuilder) Build() *InstanceDraft {
 }
 
 type InstanceSearch struct {
-	UserId *string `json:"user_id,omitempty"` // 根据x_user_type填写用户 id
+	UserId *string `json:"user_id,omitempty"` // 用户 ID，ID 类型与查询参数 user_id_type 保持一致。
 
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 
-	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 code
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 
-	InstanceExternalId *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id 注：和 approval_code 取并集
+	InstanceExternalId *string `json:"instance_external_id,omitempty"` // 审批实例的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 
-	GroupExternalId *string `json:"group_external_id,omitempty"` // 审批定义分组第三方 id 注：和 instance_code 取并集
+	GroupExternalId *string `json:"group_external_id,omitempty"` // 审批定义分组的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 
-	InstanceTitle *string `json:"instance_title,omitempty"` // 审批实例标题（只有第三方审批有）
+	InstanceTitle *string `json:"instance_title,omitempty"` // 审批实例标题。;;**说明**：仅第三方审批存在审批实例标题。
 
-	InstanceStatus *string `json:"instance_status,omitempty"` // 审批实例状态，注：若不设置，查询全部状态 若不在集合中，报错
+	InstanceStatus *string `json:"instance_status,omitempty"` // 审批实例状态。
 
-	InstanceStartTimeFrom *string `json:"instance_start_time_from,omitempty"` // 实例查询开始时间（unix毫秒时间戳）
+	InstanceStartTimeFrom *string `json:"instance_start_time_from,omitempty"` // 实例查询开始时间，Unix 毫秒时间戳。与 instance_start_time_to 参数构成时间段查询条件，仅会返回在该时间段内的审批实例。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 
-	InstanceStartTimeTo *string `json:"instance_start_time_to,omitempty"` // 实例查询结束时间 (unix毫秒时间戳)
+	InstanceStartTimeTo *string `json:"instance_start_time_to,omitempty"` // 实例查询结束时间，Unix 毫秒时间戳。与 instance_start_time_from 参数构成时间段查询条件，仅会返回在该时间段内的审批实例。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 
-	Locale *string `json:"locale,omitempty"` // 地区
+	Locale *string `json:"locale,omitempty"` // 语言。
 
 	WithRevokedInstance *bool `json:"with_revoked_instance,omitempty"` // 是否包含撤销申请对应的审批单
 }
 
 type InstanceSearchBuilder struct {
-	userId    string // 根据x_user_type填写用户 id
+	userId    string // 用户 ID，ID 类型与查询参数 user_id_type 保持一致。
 	userIdSet bool
 
-	approvalCode    string // 审批定义 code
+	approvalCode    string // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 	approvalCodeSet bool
 
-	instanceCode    string // 审批实例 code
+	instanceCode    string // 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 	instanceCodeSet bool
 
-	instanceExternalId    string // 审批实例第三方 id 注：和 approval_code 取并集
+	instanceExternalId    string // 审批实例的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 	instanceExternalIdSet bool
 
-	groupExternalId    string // 审批定义分组第三方 id 注：和 instance_code 取并集
+	groupExternalId    string // 审批定义分组的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 	groupExternalIdSet bool
 
-	instanceTitle    string // 审批实例标题（只有第三方审批有）
+	instanceTitle    string // 审批实例标题。;;**说明**：仅第三方审批存在审批实例标题。
 	instanceTitleSet bool
 
-	instanceStatus    string // 审批实例状态，注：若不设置，查询全部状态 若不在集合中，报错
+	instanceStatus    string // 审批实例状态。
 	instanceStatusSet bool
 
-	instanceStartTimeFrom    string // 实例查询开始时间（unix毫秒时间戳）
+	instanceStartTimeFrom    string // 实例查询开始时间，Unix 毫秒时间戳。与 instance_start_time_to 参数构成时间段查询条件，仅会返回在该时间段内的审批实例。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 	instanceStartTimeFromSet bool
 
-	instanceStartTimeTo    string // 实例查询结束时间 (unix毫秒时间戳)
+	instanceStartTimeTo    string // 实例查询结束时间，Unix 毫秒时间戳。与 instance_start_time_from 参数构成时间段查询条件，仅会返回在该时间段内的审批实例。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 	instanceStartTimeToSet bool
 
-	locale    string // 地区
+	locale    string // 语言。
 	localeSet bool
 
 	withRevokedInstance    bool // 是否包含撤销申请对应的审批单
@@ -6965,7 +7052,7 @@ func NewInstanceSearchBuilder() *InstanceSearchBuilder {
 	return builder
 }
 
-// 根据x_user_type填写用户 id
+// 用户 ID，ID 类型与查询参数 user_id_type 保持一致。
 //
 // 示例值：lwiu098wj
 func (builder *InstanceSearchBuilder) UserId(userId string) *InstanceSearchBuilder {
@@ -6974,7 +7061,7 @@ func (builder *InstanceSearchBuilder) UserId(userId string) *InstanceSearchBuild
 	return builder
 }
 
-// 审批定义 code
+// 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 //
 // 示例值：EB828003-9FFE-4B3F-AA50-2E199E2ED942
 func (builder *InstanceSearchBuilder) ApprovalCode(approvalCode string) *InstanceSearchBuilder {
@@ -6983,7 +7070,7 @@ func (builder *InstanceSearchBuilder) ApprovalCode(approvalCode string) *Instanc
 	return builder
 }
 
-// 审批实例 code
+// 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 //
 // 示例值：EB828003-9FFE-4B3F-AA50-2E199E2ED943
 func (builder *InstanceSearchBuilder) InstanceCode(instanceCode string) *InstanceSearchBuilder {
@@ -6992,7 +7079,7 @@ func (builder *InstanceSearchBuilder) InstanceCode(instanceCode string) *Instanc
 	return builder
 }
 
-// 审批实例第三方 id 注：和 approval_code 取并集
+// 审批实例的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 //
 // 示例值：EB828003-9FFE-4B3F-AA50-2E199E2ED976
 func (builder *InstanceSearchBuilder) InstanceExternalId(instanceExternalId string) *InstanceSearchBuilder {
@@ -7001,7 +7088,7 @@ func (builder *InstanceSearchBuilder) InstanceExternalId(instanceExternalId stri
 	return builder
 }
 
-// 审批定义分组第三方 id 注：和 instance_code 取并集
+// 审批定义分组的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 //
 // 示例值：1234567
 func (builder *InstanceSearchBuilder) GroupExternalId(groupExternalId string) *InstanceSearchBuilder {
@@ -7010,7 +7097,7 @@ func (builder *InstanceSearchBuilder) GroupExternalId(groupExternalId string) *I
 	return builder
 }
 
-// 审批实例标题（只有第三方审批有）
+// 审批实例标题。;;**说明**：仅第三方审批存在审批实例标题。
 //
 // 示例值：test
 func (builder *InstanceSearchBuilder) InstanceTitle(instanceTitle string) *InstanceSearchBuilder {
@@ -7019,7 +7106,7 @@ func (builder *InstanceSearchBuilder) InstanceTitle(instanceTitle string) *Insta
 	return builder
 }
 
-// 审批实例状态，注：若不设置，查询全部状态 若不在集合中，报错
+// 审批实例状态。
 //
 // 示例值：PENDING
 func (builder *InstanceSearchBuilder) InstanceStatus(instanceStatus string) *InstanceSearchBuilder {
@@ -7028,7 +7115,7 @@ func (builder *InstanceSearchBuilder) InstanceStatus(instanceStatus string) *Ins
 	return builder
 }
 
-// 实例查询开始时间（unix毫秒时间戳）
+// 实例查询开始时间，Unix 毫秒时间戳。与 instance_start_time_to 参数构成时间段查询条件，仅会返回在该时间段内的审批实例。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 //
 // 示例值：1547654251506
 func (builder *InstanceSearchBuilder) InstanceStartTimeFrom(instanceStartTimeFrom string) *InstanceSearchBuilder {
@@ -7037,7 +7124,7 @@ func (builder *InstanceSearchBuilder) InstanceStartTimeFrom(instanceStartTimeFro
 	return builder
 }
 
-// 实例查询结束时间 (unix毫秒时间戳)
+// 实例查询结束时间，Unix 毫秒时间戳。与 instance_start_time_from 参数构成时间段查询条件，仅会返回在该时间段内的审批实例。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 //
 // 示例值：1547654251506
 func (builder *InstanceSearchBuilder) InstanceStartTimeTo(instanceStartTimeTo string) *InstanceSearchBuilder {
@@ -7046,7 +7133,7 @@ func (builder *InstanceSearchBuilder) InstanceStartTimeTo(instanceStartTimeTo st
 	return builder
 }
 
-// 地区
+// 语言。
 //
 // 示例值：zh-CN
 func (builder *InstanceSearchBuilder) Locale(locale string) *InstanceSearchBuilder {
@@ -7114,7 +7201,7 @@ func (builder *InstanceSearchBuilder) Build() *InstanceSearch {
 }
 
 type InstanceSearchApproval struct {
-	Code *string `json:"code,omitempty"` // 审批定义 code
+	Code *string `json:"code,omitempty"` // 审批定义 Code
 
 	Name *string `json:"name,omitempty"` // 审批定义名称
 
@@ -7122,13 +7209,13 @@ type InstanceSearchApproval struct {
 
 	External *InstanceSearchApprovalExternal `json:"external,omitempty"` // 第三方审批信息
 
-	ApprovalId *string `json:"approval_id,omitempty"` // 审批定义Id
+	ApprovalId *string `json:"approval_id,omitempty"` // 审批定义 ID
 
 	Icon *string `json:"icon,omitempty"` // 审批定义图标信息
 }
 
 type InstanceSearchApprovalBuilder struct {
-	code    string // 审批定义 code
+	code    string // 审批定义 Code
 	codeSet bool
 
 	name    string // 审批定义名称
@@ -7140,7 +7227,7 @@ type InstanceSearchApprovalBuilder struct {
 	external    *InstanceSearchApprovalExternal // 第三方审批信息
 	externalSet bool
 
-	approvalId    string // 审批定义Id
+	approvalId    string // 审批定义 ID
 	approvalIdSet bool
 
 	icon    string // 审批定义图标信息
@@ -7152,7 +7239,7 @@ func NewInstanceSearchApprovalBuilder() *InstanceSearchApprovalBuilder {
 	return builder
 }
 
-// 审批定义 code
+// 审批定义 Code
 //
 // 示例值：EB828003-9FFE-4B3F-AA50-2E199E2ED943
 func (builder *InstanceSearchApprovalBuilder) Code(code string) *InstanceSearchApprovalBuilder {
@@ -7188,7 +7275,7 @@ func (builder *InstanceSearchApprovalBuilder) External(external *InstanceSearchA
 	return builder
 }
 
-// 审批定义Id
+// 审批定义 ID
 //
 // 示例值：7090754740375519252
 func (builder *InstanceSearchApprovalBuilder) ApprovalId(approvalId string) *InstanceSearchApprovalBuilder {
@@ -7267,13 +7354,13 @@ func (builder *InstanceSearchApprovalExternalBuilder) Build() *InstanceSearchApp
 }
 
 type InstanceSearchGroup struct {
-	ExternalId *string `json:"external_id,omitempty"` // 审批定义分组外部 id
+	ExternalId *string `json:"external_id,omitempty"` // 审批定义分组的第三方 ID
 
 	Name *string `json:"name,omitempty"` // 审批定义分组名称
 }
 
 type InstanceSearchGroupBuilder struct {
-	externalId    string // 审批定义分组外部 id
+	externalId    string // 审批定义分组的第三方 ID
 	externalIdSet bool
 
 	name    string // 审批定义分组名称
@@ -7285,7 +7372,7 @@ func NewInstanceSearchGroupBuilder() *InstanceSearchGroupBuilder {
 	return builder
 }
 
-// 审批定义分组外部 id
+// 审批定义分组的第三方 ID
 //
 // 示例值：0004
 func (builder *InstanceSearchGroupBuilder) ExternalId(externalId string) *InstanceSearchGroupBuilder {
@@ -7317,7 +7404,7 @@ func (builder *InstanceSearchGroupBuilder) Build() *InstanceSearchGroup {
 }
 
 type InstanceSearchItem struct {
-	Approval *InstanceSearchApproval `json:"approval,omitempty"` // 审批定义
+	Approval *InstanceSearchApproval `json:"approval,omitempty"` // 审批定义信息
 
 	Group *InstanceSearchGroup `json:"group,omitempty"` // 审批定义分组
 
@@ -7325,7 +7412,7 @@ type InstanceSearchItem struct {
 }
 
 type InstanceSearchItemBuilder struct {
-	approval    *InstanceSearchApproval // 审批定义
+	approval    *InstanceSearchApproval // 审批定义信息
 	approvalSet bool
 
 	group    *InstanceSearchGroup // 审批定义分组
@@ -7340,7 +7427,7 @@ func NewInstanceSearchItemBuilder() *InstanceSearchItemBuilder {
 	return builder
 }
 
-// 审批定义
+// 审批定义信息
 //
 // 示例值：
 func (builder *InstanceSearchItemBuilder) Approval(approval *InstanceSearchApproval) *InstanceSearchItemBuilder {
@@ -7382,13 +7469,13 @@ func (builder *InstanceSearchItemBuilder) Build() *InstanceSearchItem {
 }
 
 type InstanceSearchLink struct {
-	PcLink *string `json:"pc_link,omitempty"` // 审批实例 pc 端链接
+	PcLink *string `json:"pc_link,omitempty"` // 审批实例 PC 端链接
 
 	MobileLink *string `json:"mobile_link,omitempty"` // 审批实例移动端链接
 }
 
 type InstanceSearchLinkBuilder struct {
-	pcLink    string // 审批实例 pc 端链接
+	pcLink    string // 审批实例 PC 端链接
 	pcLinkSet bool
 
 	mobileLink    string // 审批实例移动端链接
@@ -7400,9 +7487,9 @@ func NewInstanceSearchLinkBuilder() *InstanceSearchLinkBuilder {
 	return builder
 }
 
-// 审批实例 pc 端链接
+// 审批实例 PC 端链接
 //
-// 示例值：https://www.baidu.com/
+// 示例值：https://www.example.com/
 func (builder *InstanceSearchLinkBuilder) PcLink(pcLink string) *InstanceSearchLinkBuilder {
 	builder.pcLink = pcLink
 	builder.pcLinkSet = true
@@ -7411,7 +7498,7 @@ func (builder *InstanceSearchLinkBuilder) PcLink(pcLink string) *InstanceSearchL
 
 // 审批实例移动端链接
 //
-// 示例值：https://www.baidu.com/
+// 示例值：https://www.example.com/
 func (builder *InstanceSearchLinkBuilder) MobileLink(mobileLink string) *InstanceSearchLinkBuilder {
 	builder.mobileLink = mobileLink
 	builder.mobileLinkSet = true
@@ -7432,56 +7519,56 @@ func (builder *InstanceSearchLinkBuilder) Build() *InstanceSearchLink {
 }
 
 type InstanceSearchNode struct {
-	Code *string `json:"code,omitempty"` // 审批实例 code
+	Code *string `json:"code,omitempty"` // 审批实例 Code
 
-	ExternalId *string `json:"external_id,omitempty"` // 审批实例外部 id
+	ExternalId *string `json:"external_id,omitempty"` // 审批实例的第三方 ID
 
-	UserId *string `json:"user_id,omitempty"` // 审批实例发起人 id
+	UserId *string `json:"user_id,omitempty"` // 审批实例发起人的 user_id
 
-	StartTime *string `json:"start_time,omitempty"` // 审批实例开始时间
+	StartTime *string `json:"start_time,omitempty"` // 审批实例开始时间，Unix 毫秒时间戳
 
-	EndTime *string `json:"end_time,omitempty"` // 审批实例结束时间
+	EndTime *string `json:"end_time,omitempty"` // 审批实例结束时间，Unix 毫秒时间戳
 
 	Status *string `json:"status,omitempty"` // 审批实例状态
 
-	Title *string `json:"title,omitempty"` // 审批实例名称（只有第三方审批有）
+	Title *string `json:"title,omitempty"` // 审批实例名称（只有第三方审批有返回值）
 
-	Extra *string `json:"extra,omitempty"` // 审批实例扩展字段，string型json
+	Extra *string `json:"extra,omitempty"` // 审批实例扩展字段，字符串类型的 JSON 数据
 
 	SerialId *string `json:"serial_id,omitempty"` // 审批流水号
 
-	Link *InstanceSearchLink `json:"link,omitempty"` // 审批实例链接（只有第三方审批有）
+	Link *InstanceSearchLink `json:"link,omitempty"` // 审批实例链接（只有第三方审批有返回值）
 }
 
 type InstanceSearchNodeBuilder struct {
-	code    string // 审批实例 code
+	code    string // 审批实例 Code
 	codeSet bool
 
-	externalId    string // 审批实例外部 id
+	externalId    string // 审批实例的第三方 ID
 	externalIdSet bool
 
-	userId    string // 审批实例发起人 id
+	userId    string // 审批实例发起人的 user_id
 	userIdSet bool
 
-	startTime    string // 审批实例开始时间
+	startTime    string // 审批实例开始时间，Unix 毫秒时间戳
 	startTimeSet bool
 
-	endTime    string // 审批实例结束时间
+	endTime    string // 审批实例结束时间，Unix 毫秒时间戳
 	endTimeSet bool
 
 	status    string // 审批实例状态
 	statusSet bool
 
-	title    string // 审批实例名称（只有第三方审批有）
+	title    string // 审批实例名称（只有第三方审批有返回值）
 	titleSet bool
 
-	extra    string // 审批实例扩展字段，string型json
+	extra    string // 审批实例扩展字段，字符串类型的 JSON 数据
 	extraSet bool
 
 	serialId    string // 审批流水号
 	serialIdSet bool
 
-	link    *InstanceSearchLink // 审批实例链接（只有第三方审批有）
+	link    *InstanceSearchLink // 审批实例链接（只有第三方审批有返回值）
 	linkSet bool
 }
 
@@ -7490,7 +7577,7 @@ func NewInstanceSearchNodeBuilder() *InstanceSearchNodeBuilder {
 	return builder
 }
 
-// 审批实例 code
+// 审批实例 Code
 //
 // 示例值：EB828003-9FFE-4B3F-AA50-2E199E2ED943
 func (builder *InstanceSearchNodeBuilder) Code(code string) *InstanceSearchNodeBuilder {
@@ -7499,7 +7586,7 @@ func (builder *InstanceSearchNodeBuilder) Code(code string) *InstanceSearchNodeB
 	return builder
 }
 
-// 审批实例外部 id
+// 审批实例的第三方 ID
 //
 // 示例值：0004_3ED52DC1-AA6C
 func (builder *InstanceSearchNodeBuilder) ExternalId(externalId string) *InstanceSearchNodeBuilder {
@@ -7508,7 +7595,7 @@ func (builder *InstanceSearchNodeBuilder) ExternalId(externalId string) *Instanc
 	return builder
 }
 
-// 审批实例发起人 id
+// 审批实例发起人的 user_id
 //
 // 示例值：lwiu098wj
 func (builder *InstanceSearchNodeBuilder) UserId(userId string) *InstanceSearchNodeBuilder {
@@ -7517,7 +7604,7 @@ func (builder *InstanceSearchNodeBuilder) UserId(userId string) *InstanceSearchN
 	return builder
 }
 
-// 审批实例开始时间
+// 审批实例开始时间，Unix 毫秒时间戳
 //
 // 示例值：1547654251506
 func (builder *InstanceSearchNodeBuilder) StartTime(startTime string) *InstanceSearchNodeBuilder {
@@ -7526,7 +7613,7 @@ func (builder *InstanceSearchNodeBuilder) StartTime(startTime string) *InstanceS
 	return builder
 }
 
-// 审批实例结束时间
+// 审批实例结束时间，Unix 毫秒时间戳
 //
 // 示例值：1547654251506
 func (builder *InstanceSearchNodeBuilder) EndTime(endTime string) *InstanceSearchNodeBuilder {
@@ -7544,7 +7631,7 @@ func (builder *InstanceSearchNodeBuilder) Status(status string) *InstanceSearchN
 	return builder
 }
 
-// 审批实例名称（只有第三方审批有）
+// 审批实例名称（只有第三方审批有返回值）
 //
 // 示例值：test
 func (builder *InstanceSearchNodeBuilder) Title(title string) *InstanceSearchNodeBuilder {
@@ -7553,7 +7640,7 @@ func (builder *InstanceSearchNodeBuilder) Title(title string) *InstanceSearchNod
 	return builder
 }
 
-// 审批实例扩展字段，string型json
+// 审批实例扩展字段，字符串类型的 JSON 数据
 //
 // 示例值：{}
 func (builder *InstanceSearchNodeBuilder) Extra(extra string) *InstanceSearchNodeBuilder {
@@ -7571,7 +7658,7 @@ func (builder *InstanceSearchNodeBuilder) SerialId(serialId string) *InstanceSea
 	return builder
 }
 
-// 审批实例链接（只有第三方审批有）
+// 审批实例链接（只有第三方审批有返回值）
 //
 // 示例值：
 func (builder *InstanceSearchNodeBuilder) Link(link *InstanceSearchLink) *InstanceSearchNodeBuilder {
@@ -7625,56 +7712,56 @@ func (builder *InstanceSearchNodeBuilder) Build() *InstanceSearchNode {
 }
 
 type InstanceTask struct {
-	Id *string `json:"id,omitempty"` // task id
+	Id *string `json:"id,omitempty"` // 审批任务 ID
 
-	UserId *string `json:"user_id,omitempty"` // 审批人的用户id，自动通过、自动拒绝 时为空
+	UserId *string `json:"user_id,omitempty"` // 审批人的 user_id，自动通过、自动拒绝时该参数返回值为空。
 
-	OpenId *string `json:"open_id,omitempty"` // 审批人 open id
+	OpenId *string `json:"open_id,omitempty"` // 审批人的 open_id，自动通过、自动拒绝时该参数返回值为空。
 
-	Status *string `json:"status,omitempty"` // 任务状态
+	Status *string `json:"status,omitempty"` // 审批任务状态
 
-	NodeId *string `json:"node_id,omitempty"` // task 所属节点 id
+	NodeId *string `json:"node_id,omitempty"` // 审批任务所属的审批节点 ID
 
-	NodeName *string `json:"node_name,omitempty"` // task 所属节点名称
+	NodeName *string `json:"node_name,omitempty"` // 审批任务所属的审批节点名称
 
-	CustomNodeId *string `json:"custom_node_id,omitempty"` // task 所属节点自定义 id, 如果没设置自定义 id, 则不返回该字段
+	CustomNodeId *string `json:"custom_node_id,omitempty"` // 审批任务所属的审批节点的自定义 ID。如果没设置自定义 ID，则不返回该参数值。
 
 	Type *string `json:"type,omitempty"` // 审批方式
 
-	StartTime *string `json:"start_time,omitempty"` // task 开始时间
+	StartTime *string `json:"start_time,omitempty"` // 审批任务的开始时间，毫秒级时间戳。
 
-	EndTime *string `json:"end_time,omitempty"` // task 完成时间, 未完成为 0
+	EndTime *string `json:"end_time,omitempty"` // 审批任务的完成时间，毫秒级时间戳。未完成时返回 0。
 }
 
 type InstanceTaskBuilder struct {
-	id    string // task id
+	id    string // 审批任务 ID
 	idSet bool
 
-	userId    string // 审批人的用户id，自动通过、自动拒绝 时为空
+	userId    string // 审批人的 user_id，自动通过、自动拒绝时该参数返回值为空。
 	userIdSet bool
 
-	openId    string // 审批人 open id
+	openId    string // 审批人的 open_id，自动通过、自动拒绝时该参数返回值为空。
 	openIdSet bool
 
-	status    string // 任务状态
+	status    string // 审批任务状态
 	statusSet bool
 
-	nodeId    string // task 所属节点 id
+	nodeId    string // 审批任务所属的审批节点 ID
 	nodeIdSet bool
 
-	nodeName    string // task 所属节点名称
+	nodeName    string // 审批任务所属的审批节点名称
 	nodeNameSet bool
 
-	customNodeId    string // task 所属节点自定义 id, 如果没设置自定义 id, 则不返回该字段
+	customNodeId    string // 审批任务所属的审批节点的自定义 ID。如果没设置自定义 ID，则不返回该参数值。
 	customNodeIdSet bool
 
 	type_    string // 审批方式
 	type_Set bool
 
-	startTime    string // task 开始时间
+	startTime    string // 审批任务的开始时间，毫秒级时间戳。
 	startTimeSet bool
 
-	endTime    string // task 完成时间, 未完成为 0
+	endTime    string // 审批任务的完成时间，毫秒级时间戳。未完成时返回 0。
 	endTimeSet bool
 }
 
@@ -7683,7 +7770,7 @@ func NewInstanceTaskBuilder() *InstanceTaskBuilder {
 	return builder
 }
 
-// task id
+// 审批任务 ID
 //
 // 示例值：1234
 func (builder *InstanceTaskBuilder) Id(id string) *InstanceTaskBuilder {
@@ -7692,7 +7779,7 @@ func (builder *InstanceTaskBuilder) Id(id string) *InstanceTaskBuilder {
 	return builder
 }
 
-// 审批人的用户id，自动通过、自动拒绝 时为空
+// 审批人的 user_id，自动通过、自动拒绝时该参数返回值为空。
 //
 // 示例值：f7cb567e
 func (builder *InstanceTaskBuilder) UserId(userId string) *InstanceTaskBuilder {
@@ -7701,7 +7788,7 @@ func (builder *InstanceTaskBuilder) UserId(userId string) *InstanceTaskBuilder {
 	return builder
 }
 
-// 审批人 open id
+// 审批人的 open_id，自动通过、自动拒绝时该参数返回值为空。
 //
 // 示例值：ou_123457
 func (builder *InstanceTaskBuilder) OpenId(openId string) *InstanceTaskBuilder {
@@ -7710,7 +7797,7 @@ func (builder *InstanceTaskBuilder) OpenId(openId string) *InstanceTaskBuilder {
 	return builder
 }
 
-// 任务状态
+// 审批任务状态
 //
 // 示例值：PENDING
 func (builder *InstanceTaskBuilder) Status(status string) *InstanceTaskBuilder {
@@ -7719,7 +7806,7 @@ func (builder *InstanceTaskBuilder) Status(status string) *InstanceTaskBuilder {
 	return builder
 }
 
-// task 所属节点 id
+// 审批任务所属的审批节点 ID
 //
 // 示例值：46e6d96cfa756980907209209ec03b64
 func (builder *InstanceTaskBuilder) NodeId(nodeId string) *InstanceTaskBuilder {
@@ -7728,7 +7815,7 @@ func (builder *InstanceTaskBuilder) NodeId(nodeId string) *InstanceTaskBuilder {
 	return builder
 }
 
-// task 所属节点名称
+// 审批任务所属的审批节点名称
 //
 // 示例值：开始
 func (builder *InstanceTaskBuilder) NodeName(nodeName string) *InstanceTaskBuilder {
@@ -7737,7 +7824,7 @@ func (builder *InstanceTaskBuilder) NodeName(nodeName string) *InstanceTaskBuild
 	return builder
 }
 
-// task 所属节点自定义 id, 如果没设置自定义 id, 则不返回该字段
+// 审批任务所属的审批节点的自定义 ID。如果没设置自定义 ID，则不返回该参数值。
 //
 // 示例值：manager
 func (builder *InstanceTaskBuilder) CustomNodeId(customNodeId string) *InstanceTaskBuilder {
@@ -7755,7 +7842,7 @@ func (builder *InstanceTaskBuilder) Type(type_ string) *InstanceTaskBuilder {
 	return builder
 }
 
-// task 开始时间
+// 审批任务的开始时间，毫秒级时间戳。
 //
 // 示例值：1564590532967
 func (builder *InstanceTaskBuilder) StartTime(startTime string) *InstanceTaskBuilder {
@@ -7764,7 +7851,7 @@ func (builder *InstanceTaskBuilder) StartTime(startTime string) *InstanceTaskBui
 	return builder
 }
 
-// task 完成时间, 未完成为 0
+// 审批任务的完成时间，毫秒级时间戳。未完成时返回 0。
 //
 // 示例值：0
 func (builder *InstanceTaskBuilder) EndTime(endTime string) *InstanceTaskBuilder {
@@ -7819,51 +7906,51 @@ func (builder *InstanceTaskBuilder) Build() *InstanceTask {
 }
 
 type InstanceTimeline struct {
-	Type *string `json:"type,omitempty"` // 动态类型，不同类型 ext 内的 user_id_list 含义不一样
+	Type *string `json:"type,omitempty"` // 动态类型。不同的动态类型，对应 ext 返回值也不同，具体参考以下各枚举值描述。
 
-	CreateTime *string `json:"create_time,omitempty"` // 发生时间
+	CreateTime *string `json:"create_time,omitempty"` // 发生时间，毫秒级时间戳。
 
-	UserId *string `json:"user_id,omitempty"` // 动态产生用户
+	UserId *string `json:"user_id,omitempty"` // 产生该动态的用户 user_id
 
-	OpenId *string `json:"open_id,omitempty"` // 动态产生用户 open id
+	OpenId *string `json:"open_id,omitempty"` // 产生该动态的用户 open_id
 
-	UserIdList []string `json:"user_id_list,omitempty"` // 被抄送人列表
+	UserIdList []string `json:"user_id_list,omitempty"` // 被抄送人列表，列表内包含的是用户 user_id。
 
-	OpenIdList []string `json:"open_id_list,omitempty"` // 被抄送人列表
+	OpenIdList []string `json:"open_id_list,omitempty"` // 被抄送人列表，列表内包含的是用户 open_id。
 
-	TaskId *string `json:"task_id,omitempty"` // 产生动态关联的task_id
+	TaskId *string `json:"task_id,omitempty"` // 产生动态关联的任务 ID
 
 	Comment *string `json:"comment,omitempty"` // 理由
 
 	CcUserList []*InstanceCcUser `json:"cc_user_list,omitempty"` // 抄送人列表
 
-	Ext *string `json:"ext,omitempty"` // 动态其他信息，json格式，目前包括 user_id_list, user_id，open_id_list，open_id
+	Ext *string `json:"ext,omitempty"` // 其他信息，JSON 格式，目前包括 user_id_list, user_id，open_id_list，open_id
 
-	NodeKey *string `json:"node_key,omitempty"` // 产生task的节点key
+	NodeKey *string `json:"node_key,omitempty"` // 产生审批任务的节点 key
 
 	Files []*File `json:"files,omitempty"` // 审批附件
 }
 
 type InstanceTimelineBuilder struct {
-	type_    string // 动态类型，不同类型 ext 内的 user_id_list 含义不一样
+	type_    string // 动态类型。不同的动态类型，对应 ext 返回值也不同，具体参考以下各枚举值描述。
 	type_Set bool
 
-	createTime    string // 发生时间
+	createTime    string // 发生时间，毫秒级时间戳。
 	createTimeSet bool
 
-	userId    string // 动态产生用户
+	userId    string // 产生该动态的用户 user_id
 	userIdSet bool
 
-	openId    string // 动态产生用户 open id
+	openId    string // 产生该动态的用户 open_id
 	openIdSet bool
 
-	userIdList    []string // 被抄送人列表
+	userIdList    []string // 被抄送人列表，列表内包含的是用户 user_id。
 	userIdListSet bool
 
-	openIdList    []string // 被抄送人列表
+	openIdList    []string // 被抄送人列表，列表内包含的是用户 open_id。
 	openIdListSet bool
 
-	taskId    string // 产生动态关联的task_id
+	taskId    string // 产生动态关联的任务 ID
 	taskIdSet bool
 
 	comment    string // 理由
@@ -7872,10 +7959,10 @@ type InstanceTimelineBuilder struct {
 	ccUserList    []*InstanceCcUser // 抄送人列表
 	ccUserListSet bool
 
-	ext    string // 动态其他信息，json格式，目前包括 user_id_list, user_id，open_id_list，open_id
+	ext    string // 其他信息，JSON 格式，目前包括 user_id_list, user_id，open_id_list，open_id
 	extSet bool
 
-	nodeKey    string // 产生task的节点key
+	nodeKey    string // 产生审批任务的节点 key
 	nodeKeySet bool
 
 	files    []*File // 审批附件
@@ -7887,7 +7974,7 @@ func NewInstanceTimelineBuilder() *InstanceTimelineBuilder {
 	return builder
 }
 
-// 动态类型，不同类型 ext 内的 user_id_list 含义不一样
+// 动态类型。不同的动态类型，对应 ext 返回值也不同，具体参考以下各枚举值描述。
 //
 // 示例值：PASS
 func (builder *InstanceTimelineBuilder) Type(type_ string) *InstanceTimelineBuilder {
@@ -7896,7 +7983,7 @@ func (builder *InstanceTimelineBuilder) Type(type_ string) *InstanceTimelineBuil
 	return builder
 }
 
-// 发生时间
+// 发生时间，毫秒级时间戳。
 //
 // 示例值：1564590532967
 func (builder *InstanceTimelineBuilder) CreateTime(createTime string) *InstanceTimelineBuilder {
@@ -7905,7 +7992,7 @@ func (builder *InstanceTimelineBuilder) CreateTime(createTime string) *InstanceT
 	return builder
 }
 
-// 动态产生用户
+// 产生该动态的用户 user_id
 //
 // 示例值：f7cb567e
 func (builder *InstanceTimelineBuilder) UserId(userId string) *InstanceTimelineBuilder {
@@ -7914,7 +8001,7 @@ func (builder *InstanceTimelineBuilder) UserId(userId string) *InstanceTimelineB
 	return builder
 }
 
-// 动态产生用户 open id
+// 产生该动态的用户 open_id
 //
 // 示例值：ou_123456
 func (builder *InstanceTimelineBuilder) OpenId(openId string) *InstanceTimelineBuilder {
@@ -7923,7 +8010,7 @@ func (builder *InstanceTimelineBuilder) OpenId(openId string) *InstanceTimelineB
 	return builder
 }
 
-// 被抄送人列表
+// 被抄送人列表，列表内包含的是用户 user_id。
 //
 // 示例值：
 func (builder *InstanceTimelineBuilder) UserIdList(userIdList []string) *InstanceTimelineBuilder {
@@ -7932,7 +8019,7 @@ func (builder *InstanceTimelineBuilder) UserIdList(userIdList []string) *Instanc
 	return builder
 }
 
-// 被抄送人列表
+// 被抄送人列表，列表内包含的是用户 open_id。
 //
 // 示例值：
 func (builder *InstanceTimelineBuilder) OpenIdList(openIdList []string) *InstanceTimelineBuilder {
@@ -7941,7 +8028,7 @@ func (builder *InstanceTimelineBuilder) OpenIdList(openIdList []string) *Instanc
 	return builder
 }
 
-// 产生动态关联的task_id
+// 产生动态关联的任务 ID
 //
 // 示例值：1234
 func (builder *InstanceTimelineBuilder) TaskId(taskId string) *InstanceTimelineBuilder {
@@ -7968,7 +8055,7 @@ func (builder *InstanceTimelineBuilder) CcUserList(ccUserList []*InstanceCcUser)
 	return builder
 }
 
-// 动态其他信息，json格式，目前包括 user_id_list, user_id，open_id_list，open_id
+// 其他信息，JSON 格式，目前包括 user_id_list, user_id，open_id_list，open_id
 //
 // 示例值：{\"user_id\":\"62d4a44c\",\"open_id\":\"ou_123456\"}
 func (builder *InstanceTimelineBuilder) Ext(ext string) *InstanceTimelineBuilder {
@@ -7977,7 +8064,7 @@ func (builder *InstanceTimelineBuilder) Ext(ext string) *InstanceTimelineBuilder
 	return builder
 }
 
-// 产生task的节点key
+// 产生审批任务的节点 key
 //
 // 示例值：APPROVAL_240330_4058663
 func (builder *InstanceTimelineBuilder) NodeKey(nodeKey string) *InstanceTimelineBuilder {
@@ -8044,8 +8131,112 @@ func (builder *InstanceTimelineBuilder) Build() *InstanceTimeline {
 	return req
 }
 
+type LaunchableApproval struct {
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义编码
+
+	ApprovalName *string `json:"approval_name,omitempty"` // 审批定义名称
+
+	Description *string `json:"description,omitempty"` // 审批定义描述
+
+	IsExternal *bool `json:"is_external,omitempty"` // 是否三方定义。false 表示原生审批定义，true 表示三方审批定义。
+
+	CreateLink *string `json:"create_link,omitempty"` // 提单链接，可用于发起审批。
+}
+
+type LaunchableApprovalBuilder struct {
+	approvalCode    string // 审批定义编码
+	approvalCodeSet bool
+
+	approvalName    string // 审批定义名称
+	approvalNameSet bool
+
+	description    string // 审批定义描述
+	descriptionSet bool
+
+	isExternal    bool // 是否三方定义。false 表示原生审批定义，true 表示三方审批定义。
+	isExternalSet bool
+
+	createLink    string // 提单链接，可用于发起审批。
+	createLinkSet bool
+}
+
+func NewLaunchableApprovalBuilder() *LaunchableApprovalBuilder {
+	builder := &LaunchableApprovalBuilder{}
+	return builder
+}
+
+// 审批定义编码
+//
+// 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
+func (builder *LaunchableApprovalBuilder) ApprovalCode(approvalCode string) *LaunchableApprovalBuilder {
+	builder.approvalCode = approvalCode
+	builder.approvalCodeSet = true
+	return builder
+}
+
+// 审批定义名称
+//
+// 示例值：请假
+func (builder *LaunchableApprovalBuilder) ApprovalName(approvalName string) *LaunchableApprovalBuilder {
+	builder.approvalName = approvalName
+	builder.approvalNameSet = true
+	return builder
+}
+
+// 审批定义描述
+//
+// 示例值：请假审批
+func (builder *LaunchableApprovalBuilder) Description(description string) *LaunchableApprovalBuilder {
+	builder.description = description
+	builder.descriptionSet = true
+	return builder
+}
+
+// 是否三方定义。false 表示原生审批定义，true 表示三方审批定义。
+//
+// 示例值：
+func (builder *LaunchableApprovalBuilder) IsExternal(isExternal bool) *LaunchableApprovalBuilder {
+	builder.isExternal = isExternal
+	builder.isExternalSet = true
+	return builder
+}
+
+// 提单链接，可用于发起审批。
+//
+// 示例值：https://www.example.com
+func (builder *LaunchableApprovalBuilder) CreateLink(createLink string) *LaunchableApprovalBuilder {
+	builder.createLink = createLink
+	builder.createLinkSet = true
+	return builder
+}
+
+func (builder *LaunchableApprovalBuilder) Build() *LaunchableApproval {
+	req := &LaunchableApproval{}
+	if builder.approvalCodeSet {
+		req.ApprovalCode = &builder.approvalCode
+
+	}
+	if builder.approvalNameSet {
+		req.ApprovalName = &builder.approvalName
+
+	}
+	if builder.descriptionSet {
+		req.Description = &builder.description
+
+	}
+	if builder.isExternalSet {
+		req.IsExternal = &builder.isExternal
+
+	}
+	if builder.createLinkSet {
+		req.CreateLink = &builder.createLink
+
+	}
+	return req
+}
+
 type ManageableDefinition struct {
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code 示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
 
 	ApprovalName *string `json:"approval_name,omitempty"` // 审批名称，根据传入的local字段返回对应的国际化文案，未设置国际化文案时该字段为空
 
@@ -8055,7 +8246,7 @@ type ManageableDefinition struct {
 }
 
 type ManageableDefinitionBuilder struct {
-	approvalCode    string // 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
+	approvalCode    string // 审批定义 code 示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
 	approvalCodeSet bool
 
 	approvalName    string // 审批名称，根据传入的local字段返回对应的国际化文案，未设置国际化文案时该字段为空
@@ -8073,7 +8264,7 @@ func NewManageableDefinitionBuilder() *ManageableDefinitionBuilder {
 	return builder
 }
 
-// 审批定义 code  示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
+// 审批定义 code 示例值："7C468A54-8745-2245-9675-08B7C63E7A85"
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *ManageableDefinitionBuilder) ApprovalCode(approvalCode string) *ManageableDefinitionBuilder {
@@ -9233,16 +9424,16 @@ func (builder *MyAiTaskBuilder) Build() *MyAiTask {
 }
 
 type NodeApprover struct {
-	Key *string `json:"key,omitempty"` // node id 或 custom node id，通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
+	Key *string `json:"key,omitempty"` // 节点的 node_id 或 custom_node_id，可调用 [查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 接口，从接口返回的 node_list 参数中获取。
 
-	Value []string `json:"value,omitempty"` // value: 审批人列表
+	Value []string `json:"value,omitempty"` // 审批人列表，需传入用户 user_id。获取方式参考[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
 }
 
 type NodeApproverBuilder struct {
-	key    string // node id 或 custom node id，通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
+	key    string // 节点的 node_id 或 custom_node_id，可调用 [查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 接口，从接口返回的 node_list 参数中获取。
 	keySet bool
 
-	value    []string // value: 审批人列表
+	value    []string // 审批人列表，需传入用户 user_id。获取方式参考[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
 	valueSet bool
 }
 
@@ -9251,7 +9442,7 @@ func NewNodeApproverBuilder() *NodeApproverBuilder {
 	return builder
 }
 
-// node id 或 custom node id，通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
+// 节点的 node_id 或 custom_node_id，可调用 [查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 接口，从接口返回的 node_list 参数中获取。
 //
 // 示例值：46e6d96cfa756980907209209ec03b64
 func (builder *NodeApproverBuilder) Key(key string) *NodeApproverBuilder {
@@ -9260,9 +9451,9 @@ func (builder *NodeApproverBuilder) Key(key string) *NodeApproverBuilder {
 	return builder
 }
 
-// value: 审批人列表
+// 审批人列表，需传入用户 user_id。获取方式参考[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
 //
-// 示例值：["f7cb567e"]
+// 示例值：f7cb567e
 func (builder *NodeApproverBuilder) Value(value []string) *NodeApproverBuilder {
 	builder.value = value
 	builder.valueSet = true
@@ -9282,16 +9473,16 @@ func (builder *NodeApproverBuilder) Build() *NodeApprover {
 }
 
 type NodeAutoApproval struct {
-	NodeIdType *string `json:"node_id_type,omitempty"` // 节点id的类型
+	NodeIdType *string `json:"node_id_type,omitempty"` // 节点 ID 类型
 
-	NodeId *string `json:"node_id,omitempty"` // 节点id
+	NodeId *string `json:"node_id,omitempty"` // 节点 ID 值，可调用 [查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 接口，从接口返回的 node_list 参数中获取。
 }
 
 type NodeAutoApprovalBuilder struct {
-	nodeIdType    string // 节点id的类型
+	nodeIdType    string // 节点 ID 类型
 	nodeIdTypeSet bool
 
-	nodeId    string // 节点id
+	nodeId    string // 节点 ID 值，可调用 [查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 接口，从接口返回的 node_list 参数中获取。
 	nodeIdSet bool
 }
 
@@ -9300,7 +9491,7 @@ func NewNodeAutoApprovalBuilder() *NodeAutoApprovalBuilder {
 	return builder
 }
 
-// 节点id的类型
+// 节点 ID 类型
 //
 // 示例值：NON_CUSTOM
 func (builder *NodeAutoApprovalBuilder) NodeIdType(nodeIdType string) *NodeAutoApprovalBuilder {
@@ -9309,7 +9500,7 @@ func (builder *NodeAutoApprovalBuilder) NodeIdType(nodeIdType string) *NodeAutoA
 	return builder
 }
 
-// 节点id
+// 节点 ID 值，可调用 [查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 接口，从接口返回的 node_list 参数中获取。
 //
 // 示例值：manager_node_id
 func (builder *NodeAutoApprovalBuilder) NodeId(nodeId string) *NodeAutoApprovalBuilder {
@@ -9332,16 +9523,16 @@ func (builder *NodeAutoApprovalBuilder) Build() *NodeAutoApproval {
 }
 
 type NodeCc struct {
-	Key *string `json:"key,omitempty"` // node id ，通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
+	Key *string `json:"key,omitempty"` // 节点的 node_id，可调用 [查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 接口，从接口返回的 node_list 参数中获取。
 
-	Value []string `json:"value,omitempty"` // value: 审批人列表
+	Value []string `json:"value,omitempty"` // 抄送人列表，需传入用户 user_id。获取方式参考[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
 }
 
 type NodeCcBuilder struct {
-	key    string // node id ，通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
+	key    string // 节点的 node_id，可调用 [查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 接口，从接口返回的 node_list 参数中获取。
 	keySet bool
 
-	value    []string // value: 审批人列表
+	value    []string // 抄送人列表，需传入用户 user_id。获取方式参考[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
 	valueSet bool
 }
 
@@ -9350,7 +9541,7 @@ func NewNodeCcBuilder() *NodeCcBuilder {
 	return builder
 }
 
-// node id ，通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取
+// 节点的 node_id，可调用 [查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 接口，从接口返回的 node_list 参数中获取。
 //
 // 示例值：46e6d96cfa756980907209209ec03b75
 func (builder *NodeCcBuilder) Key(key string) *NodeCcBuilder {
@@ -9359,9 +9550,9 @@ func (builder *NodeCcBuilder) Key(key string) *NodeCcBuilder {
 	return builder
 }
 
-// value: 审批人列表
+// 抄送人列表，需传入用户 user_id。获取方式参考[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
 //
-// 示例值：["f7cb567e"]
+// 示例值：f7cb567e
 func (builder *NodeCcBuilder) Value(value []string) *NodeCcBuilder {
 	builder.value = value
 	builder.valueSet = true
@@ -9589,7 +9780,7 @@ type PreviewNode struct {
 
 	NodeName *string `json:"node_name,omitempty"` // 节点名称
 
-	NodeType *string `json:"node_type,omitempty"` // 节点类型 “AND":会签  “OR”:或签
+	NodeType *string `json:"node_type,omitempty"` // 节点类型 “AND":会签 “OR”:或签
 
 	Comments []string `json:"comments,omitempty"` // 节点描述
 
@@ -9613,7 +9804,7 @@ type PreviewNodeBuilder struct {
 	nodeName    string // 节点名称
 	nodeNameSet bool
 
-	nodeType    string // 节点类型 “AND":会签  “OR”:或签
+	nodeType    string // 节点类型 “AND":会签 “OR”:或签
 	nodeTypeSet bool
 
 	comments    []string // 节点描述
@@ -9661,7 +9852,7 @@ func (builder *PreviewNodeBuilder) NodeName(nodeName string) *PreviewNodeBuilder
 	return builder
 }
 
-// 节点类型 “AND":会签  “OR”:或签
+// 节点类型 “AND":会签 “OR”:或签
 //
 // 示例值：
 func (builder *PreviewNodeBuilder) NodeType(nodeType string) *PreviewNodeBuilder {
@@ -9938,8 +10129,6 @@ func NewRemedyGroupBuilder() *RemedyGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) Type(type_ string) *RemedyGroupBuilder {
 	builder.type_ = type_
@@ -9947,8 +10136,6 @@ func (builder *RemedyGroupBuilder) Type(type_ string) *RemedyGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) InstanceCode(instanceCode string) *RemedyGroupBuilder {
 	builder.instanceCode = instanceCode
@@ -9956,8 +10143,6 @@ func (builder *RemedyGroupBuilder) InstanceCode(instanceCode string) *RemedyGrou
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) EmployeeId(employeeId string) *RemedyGroupBuilder {
 	builder.employeeId = employeeId
@@ -9965,8 +10150,6 @@ func (builder *RemedyGroupBuilder) EmployeeId(employeeId string) *RemedyGroupBui
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) StartTime(startTime int) *RemedyGroupBuilder {
 	builder.startTime = startTime
@@ -9974,8 +10157,6 @@ func (builder *RemedyGroupBuilder) StartTime(startTime int) *RemedyGroupBuilder 
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) EndTime(endTime int) *RemedyGroupBuilder {
 	builder.endTime = endTime
@@ -9983,8 +10164,6 @@ func (builder *RemedyGroupBuilder) EndTime(endTime int) *RemedyGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) RemedyTime(remedyTime int) *RemedyGroupBuilder {
 	builder.remedyTime = remedyTime
@@ -9992,8 +10171,6 @@ func (builder *RemedyGroupBuilder) RemedyTime(remedyTime int) *RemedyGroupBuilde
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) RemedyReason(remedyReason string) *RemedyGroupBuilder {
 	builder.remedyReason = remedyReason
@@ -10001,8 +10178,6 @@ func (builder *RemedyGroupBuilder) RemedyReason(remedyReason string) *RemedyGrou
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *RemedyGroupBuilder) Status(status string) *RemedyGroupBuilder {
 	builder.status = status
@@ -10438,8 +10613,6 @@ func NewSignGroupBuilder() *SignGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) InstanceCode(instanceCode string) *SignGroupBuilder {
 	builder.instanceCode = instanceCode
@@ -10447,8 +10620,6 @@ func (builder *SignGroupBuilder) InstanceCode(instanceCode string) *SignGroupBui
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) UserId(userId *UserId) *SignGroupBuilder {
 	builder.userId = userId
@@ -10456,8 +10627,6 @@ func (builder *SignGroupBuilder) UserId(userId *UserId) *SignGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) AccountCode(accountCode string) *SignGroupBuilder {
 	builder.accountCode = accountCode
@@ -10465,8 +10634,6 @@ func (builder *SignGroupBuilder) AccountCode(accountCode string) *SignGroupBuild
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) BoilerplateUniqueCode(boilerplateUniqueCode string) *SignGroupBuilder {
 	builder.boilerplateUniqueCode = boilerplateUniqueCode
@@ -10474,8 +10641,6 @@ func (builder *SignGroupBuilder) BoilerplateUniqueCode(boilerplateUniqueCode str
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) StartTime(startTime int) *SignGroupBuilder {
 	builder.startTime = startTime
@@ -10483,8 +10648,6 @@ func (builder *SignGroupBuilder) StartTime(startTime int) *SignGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) EndTime(endTime int) *SignGroupBuilder {
 	builder.endTime = endTime
@@ -10492,8 +10655,6 @@ func (builder *SignGroupBuilder) EndTime(endTime int) *SignGroupBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SignGroupBuilder) Type(type_ string) *SignGroupBuilder {
 	builder.type_ = type_
@@ -10534,31 +10695,31 @@ func (builder *SignGroupBuilder) Build() *SignGroup {
 }
 
 type SpecifiedRollback struct {
-	UserId *string `json:"user_id,omitempty"` // 用户ID
+	UserId *string `json:"user_id,omitempty"` // 当前审批任务的审批人的用户 ID，ID 类型与查询参数 user_id_type 取值一致。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 参数中获取用户 ID 以及任务状态必须为 PENDING。
 
-	TaskId *string `json:"task_id,omitempty"` // 回退的任务ID
+	TaskId *string `json:"task_id,omitempty"` // 当前需要回退的审批任务 ID。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 参数中获取任务 ID 以及任务状态必须为 PENDING。
 
 	Reason *string `json:"reason,omitempty"` // 退回原因
 
-	Extra *string `json:"extra,omitempty"` // 扩展字段
+	Extra *string `json:"extra,omitempty"` // 扩展字段。;;**注意**：灰度参数，暂未开放使用。
 
-	TaskDefKeyList []string `json:"task_def_key_list,omitempty"` // 指定退回的任务node_key，从实例详情中获取timeline中获取，必须是PASS的任务node_key
+	TaskDefKeyList []string `json:"task_def_key_list,omitempty"` // 需要退回到的任务 node_key。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 timeline 参数中获取，且动态类型 type 必须为 PASS。
 }
 
 type SpecifiedRollbackBuilder struct {
-	userId    string // 用户ID
+	userId    string // 当前审批任务的审批人的用户 ID，ID 类型与查询参数 user_id_type 取值一致。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 参数中获取用户 ID 以及任务状态必须为 PENDING。
 	userIdSet bool
 
-	taskId    string // 回退的任务ID
+	taskId    string // 当前需要回退的审批任务 ID。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 参数中获取任务 ID 以及任务状态必须为 PENDING。
 	taskIdSet bool
 
 	reason    string // 退回原因
 	reasonSet bool
 
-	extra    string // 扩展字段
+	extra    string // 扩展字段。;;**注意**：灰度参数，暂未开放使用。
 	extraSet bool
 
-	taskDefKeyList    []string // 指定退回的任务node_key，从实例详情中获取timeline中获取，必须是PASS的任务node_key
+	taskDefKeyList    []string // 需要退回到的任务 node_key。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 timeline 参数中获取，且动态类型 type 必须为 PASS。
 	taskDefKeyListSet bool
 }
 
@@ -10567,7 +10728,7 @@ func NewSpecifiedRollbackBuilder() *SpecifiedRollbackBuilder {
 	return builder
 }
 
-// 用户ID
+// 当前审批任务的审批人的用户 ID，ID 类型与查询参数 user_id_type 取值一致。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 参数中获取用户 ID 以及任务状态必须为 PENDING。
 //
 // 示例值：893g4c45
 func (builder *SpecifiedRollbackBuilder) UserId(userId string) *SpecifiedRollbackBuilder {
@@ -10576,7 +10737,7 @@ func (builder *SpecifiedRollbackBuilder) UserId(userId string) *SpecifiedRollbac
 	return builder
 }
 
-// 回退的任务ID
+// 当前需要回退的审批任务 ID。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 参数中获取任务 ID 以及任务状态必须为 PENDING。
 //
 // 示例值：7026591166355210260
 func (builder *SpecifiedRollbackBuilder) TaskId(taskId string) *SpecifiedRollbackBuilder {
@@ -10594,16 +10755,16 @@ func (builder *SpecifiedRollbackBuilder) Reason(reason string) *SpecifiedRollbac
 	return builder
 }
 
-// 扩展字段
+// 扩展字段。;;**注意**：灰度参数，暂未开放使用。
 //
-// 示例值：暂不填写
+// 示例值：demo
 func (builder *SpecifiedRollbackBuilder) Extra(extra string) *SpecifiedRollbackBuilder {
 	builder.extra = extra
 	builder.extraSet = true
 	return builder
 }
 
-// 指定退回的任务node_key，从实例详情中获取timeline中获取，必须是PASS的任务node_key
+// 需要退回到的任务 node_key。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 timeline 参数中获取，且动态类型 type 必须为 PASS。
 //
 // 示例值：["START","APPROVAL_27997_285502","APPROVAL_462205_2734554"]
 func (builder *SpecifiedRollbackBuilder) TaskDefKeyList(taskDefKeyList []string) *SpecifiedRollbackBuilder {
@@ -10705,33 +10866,33 @@ func (builder *SwapShiftDetailBuilder) Build() *SwapShiftDetail {
 }
 
 type Task struct {
-	Topic *string `json:"topic,omitempty"` // 任务所属的任务分组，如「待办」、「已办」等
+	Topic *string `json:"topic,omitempty"` // 任务所属的任务分组，例如，待处理、已完成等。
 
 	UserId *string `json:"user_id,omitempty"` // 任务所属的用户 ID
 
-	Title *string `json:"title,omitempty"` // 任务题目
+	Title *string `json:"title,omitempty"` // 任务标题
 
 	Urls *TaskUrls `json:"urls,omitempty"` // 任务相关 URL
 
-	ProcessExternalId *string `json:"process_external_id,omitempty"` // 流程三方 ID，仅第三方流程，需要在当前租户、当前 APP 内唯一
+	ProcessExternalId *string `json:"process_external_id,omitempty"` // 流程三方 ID，仅第三方流程有返回值，需要在当前租户、当前 APP 内唯一。
 
-	TaskExternalId *string `json:"task_external_id,omitempty"` // 任务三方 ID，仅第三方流程，需要在当前流程实例内唯一
+	TaskExternalId *string `json:"task_external_id,omitempty"` // 任务三方 ID，仅第三方流程有返回值，需要在当前流程实例内唯一。
 
 	Status *string `json:"status,omitempty"` // 任务状态
 
 	ProcessStatus *string `json:"process_status,omitempty"` // 流程实例状态
 
-	DefinitionCode *string `json:"definition_code,omitempty"` // 流程定义 Code
+	DefinitionCode *string `json:"definition_code,omitempty"` // 流程定义 Code，即审批定义 Code。
 
-	Initiators []string `json:"initiators,omitempty"` // 发起人 ID 列表
+	Initiators []string `json:"initiators,omitempty"` // 审批发起人 ID 列表，ID 类型与输入参数 user_id_type 取值一致。
 
 	InitiatorNames []string `json:"initiator_names,omitempty"` // 发起人姓名列表
 
-	TaskId *string `json:"task_id,omitempty"` // 任务 ID，全局唯一
+	TaskId *string `json:"task_id,omitempty"` // 审批任务 ID，全局唯一
 
-	ProcessId *string `json:"process_id,omitempty"` // 流程 ID，全局唯一
+	ProcessId *string `json:"process_id,omitempty"` // 审批流程 ID，全局唯一
 
-	ProcessCode *string `json:"process_code,omitempty"` // 流程 Code
+	ProcessCode *string `json:"process_code,omitempty"` // 审批流程 Code，即审批实例 Code
 
 	DefinitionGroupId *string `json:"definition_group_id,omitempty"` // 流程定义分组 ID
 
@@ -10743,22 +10904,22 @@ type Task struct {
 }
 
 type TaskBuilder struct {
-	topic    string // 任务所属的任务分组，如「待办」、「已办」等
+	topic    string // 任务所属的任务分组，例如，待处理、已完成等。
 	topicSet bool
 
 	userId    string // 任务所属的用户 ID
 	userIdSet bool
 
-	title    string // 任务题目
+	title    string // 任务标题
 	titleSet bool
 
 	urls    *TaskUrls // 任务相关 URL
 	urlsSet bool
 
-	processExternalId    string // 流程三方 ID，仅第三方流程，需要在当前租户、当前 APP 内唯一
+	processExternalId    string // 流程三方 ID，仅第三方流程有返回值，需要在当前租户、当前 APP 内唯一。
 	processExternalIdSet bool
 
-	taskExternalId    string // 任务三方 ID，仅第三方流程，需要在当前流程实例内唯一
+	taskExternalId    string // 任务三方 ID，仅第三方流程有返回值，需要在当前流程实例内唯一。
 	taskExternalIdSet bool
 
 	status    string // 任务状态
@@ -10767,22 +10928,22 @@ type TaskBuilder struct {
 	processStatus    string // 流程实例状态
 	processStatusSet bool
 
-	definitionCode    string // 流程定义 Code
+	definitionCode    string // 流程定义 Code，即审批定义 Code。
 	definitionCodeSet bool
 
-	initiators    []string // 发起人 ID 列表
+	initiators    []string // 审批发起人 ID 列表，ID 类型与输入参数 user_id_type 取值一致。
 	initiatorsSet bool
 
 	initiatorNames    []string // 发起人姓名列表
 	initiatorNamesSet bool
 
-	taskId    string // 任务 ID，全局唯一
+	taskId    string // 审批任务 ID，全局唯一
 	taskIdSet bool
 
-	processId    string // 流程 ID，全局唯一
+	processId    string // 审批流程 ID，全局唯一
 	processIdSet bool
 
-	processCode    string // 流程 Code
+	processCode    string // 审批流程 Code，即审批实例 Code
 	processCodeSet bool
 
 	definitionGroupId    string // 流程定义分组 ID
@@ -10803,7 +10964,7 @@ func NewTaskBuilder() *TaskBuilder {
 	return builder
 }
 
-// 任务所属的任务分组，如「待办」、「已办」等
+// 任务所属的任务分组，例如，待处理、已完成等。
 //
 // 示例值：1
 func (builder *TaskBuilder) Topic(topic string) *TaskBuilder {
@@ -10821,9 +10982,9 @@ func (builder *TaskBuilder) UserId(userId string) *TaskBuilder {
 	return builder
 }
 
-// 任务题目
+// 任务标题
 //
-// 示例值：任务题目示例
+// 示例值：Employee Leave Approval
 func (builder *TaskBuilder) Title(title string) *TaskBuilder {
 	builder.title = title
 	builder.titleSet = true
@@ -10839,7 +11000,7 @@ func (builder *TaskBuilder) Urls(urls *TaskUrls) *TaskBuilder {
 	return builder
 }
 
-// 流程三方 ID，仅第三方流程，需要在当前租户、当前 APP 内唯一
+// 流程三方 ID，仅第三方流程有返回值，需要在当前租户、当前 APP 内唯一。
 //
 // 示例值：example_instance_id
 func (builder *TaskBuilder) ProcessExternalId(processExternalId string) *TaskBuilder {
@@ -10848,7 +11009,7 @@ func (builder *TaskBuilder) ProcessExternalId(processExternalId string) *TaskBui
 	return builder
 }
 
-// 任务三方 ID，仅第三方流程，需要在当前流程实例内唯一
+// 任务三方 ID，仅第三方流程有返回值，需要在当前流程实例内唯一。
 //
 // 示例值：example_task_id
 func (builder *TaskBuilder) TaskExternalId(taskExternalId string) *TaskBuilder {
@@ -10859,7 +11020,7 @@ func (builder *TaskBuilder) TaskExternalId(taskExternalId string) *TaskBuilder {
 
 // 任务状态
 //
-// 示例值：Todo
+// 示例值：2
 func (builder *TaskBuilder) Status(status string) *TaskBuilder {
 	builder.status = status
 	builder.statusSet = true
@@ -10868,23 +11029,23 @@ func (builder *TaskBuilder) Status(status string) *TaskBuilder {
 
 // 流程实例状态
 //
-// 示例值：Running
+// 示例值：2
 func (builder *TaskBuilder) ProcessStatus(processStatus string) *TaskBuilder {
 	builder.processStatus = processStatus
 	builder.processStatusSet = true
 	return builder
 }
 
-// 流程定义 Code
+// 流程定义 Code，即审批定义 Code。
 //
-// 示例值：000000-00000000000000-0example
+// 示例值：5B43240B-848C-49BD-9D27-11EF0EE11234
 func (builder *TaskBuilder) DefinitionCode(definitionCode string) *TaskBuilder {
 	builder.definitionCode = definitionCode
 	builder.definitionCodeSet = true
 	return builder
 }
 
-// 发起人 ID 列表
+// 审批发起人 ID 列表，ID 类型与输入参数 user_id_type 取值一致。
 //
 // 示例值：
 func (builder *TaskBuilder) Initiators(initiators []string) *TaskBuilder {
@@ -10902,7 +11063,7 @@ func (builder *TaskBuilder) InitiatorNames(initiatorNames []string) *TaskBuilder
 	return builder
 }
 
-// 任务 ID，全局唯一
+// 审批任务 ID，全局唯一
 //
 // 示例值：1212564555454
 func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
@@ -10911,7 +11072,7 @@ func (builder *TaskBuilder) TaskId(taskId string) *TaskBuilder {
 	return builder
 }
 
-// 流程 ID，全局唯一
+// 审批流程 ID，全局唯一
 //
 // 示例值：1214564545474
 func (builder *TaskBuilder) ProcessId(processId string) *TaskBuilder {
@@ -10920,7 +11081,7 @@ func (builder *TaskBuilder) ProcessId(processId string) *TaskBuilder {
 	return builder
 }
 
-// 流程 Code
+// 审批流程 Code，即审批实例 Code
 //
 // 示例值：123e4567-e89b-12d3-a456-426655440000
 func (builder *TaskBuilder) ProcessCode(processCode string) *TaskBuilder {
@@ -10940,7 +11101,7 @@ func (builder *TaskBuilder) DefinitionGroupId(definitionGroupId string) *TaskBui
 
 // 流程定义分组名称
 //
-// 示例值：流程定义名称
+// 示例值：Attendance
 func (builder *TaskBuilder) DefinitionGroupName(definitionGroupName string) *TaskBuilder {
 	builder.definitionGroupName = definitionGroupName
 	builder.definitionGroupNameSet = true
@@ -10958,7 +11119,7 @@ func (builder *TaskBuilder) DefinitionId(definitionId string) *TaskBuilder {
 
 // 流程定义名称
 //
-// 示例值：流程定义组名称
+// 示例值：Employee Leave Approval
 func (builder *TaskBuilder) DefinitionName(definitionName string) *TaskBuilder {
 	builder.definitionName = definitionName
 	builder.definitionNameSet = true
@@ -11040,36 +11201,36 @@ func (builder *TaskBuilder) Build() *Task {
 }
 
 type TaskApprove struct {
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 
-	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 
-	UserId *string `json:"user_id,omitempty"` // 根据user_id_type填写操作用户id
+	UserId *string `json:"user_id,omitempty"` // 审批人的用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 
-	Comment *string `json:"comment,omitempty"` // 意见
+	Comment *string `json:"comment,omitempty"` // 审批意见
 
-	TaskId *string `json:"task_id,omitempty"` // 任务 ID， 审批实例详情task_list中id
+	TaskId *string `json:"task_id,omitempty"` // 审批任务 ID，调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 中获取所需的 id。
 
-	Form *string `json:"form,omitempty"` // json 数组，控件值
+	Form *string `json:"form,omitempty"` //
 }
 
 type TaskApproveBuilder struct {
-	approvalCode    string // 审批定义 Code
+	approvalCode    string // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 	approvalCodeSet bool
 
-	instanceCode    string // 审批实例 Code
+	instanceCode    string // 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 	instanceCodeSet bool
 
-	userId    string // 根据user_id_type填写操作用户id
+	userId    string // 审批人的用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 	userIdSet bool
 
-	comment    string // 意见
+	comment    string // 审批意见
 	commentSet bool
 
-	taskId    string // 任务 ID， 审批实例详情task_list中id
+	taskId    string // 审批任务 ID，调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 中获取所需的 id。
 	taskIdSet bool
 
-	form    string // json 数组，控件值
+	form    string //
 	formSet bool
 }
 
@@ -11078,7 +11239,7 @@ func NewTaskApproveBuilder() *TaskApproveBuilder {
 	return builder
 }
 
-// 审批定义 Code
+// 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *TaskApproveBuilder) ApprovalCode(approvalCode string) *TaskApproveBuilder {
@@ -11087,7 +11248,7 @@ func (builder *TaskApproveBuilder) ApprovalCode(approvalCode string) *TaskApprov
 	return builder
 }
 
-// 审批实例 Code
+// 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 //
 // 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
 func (builder *TaskApproveBuilder) InstanceCode(instanceCode string) *TaskApproveBuilder {
@@ -11096,7 +11257,7 @@ func (builder *TaskApproveBuilder) InstanceCode(instanceCode string) *TaskApprov
 	return builder
 }
 
-// 根据user_id_type填写操作用户id
+// 审批人的用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 //
 // 示例值：f7cb567e
 func (builder *TaskApproveBuilder) UserId(userId string) *TaskApproveBuilder {
@@ -11105,7 +11266,7 @@ func (builder *TaskApproveBuilder) UserId(userId string) *TaskApproveBuilder {
 	return builder
 }
 
-// 意见
+// 审批意见
 //
 // 示例值：OK
 func (builder *TaskApproveBuilder) Comment(comment string) *TaskApproveBuilder {
@@ -11114,7 +11275,7 @@ func (builder *TaskApproveBuilder) Comment(comment string) *TaskApproveBuilder {
 	return builder
 }
 
-// 任务 ID， 审批实例详情task_list中id
+// 审批任务 ID，调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 中获取所需的 id。
 //
 // 示例值：12345
 func (builder *TaskApproveBuilder) TaskId(taskId string) *TaskApproveBuilder {
@@ -11123,8 +11284,6 @@ func (builder *TaskApproveBuilder) TaskId(taskId string) *TaskApproveBuilder {
 	return builder
 }
 
-// json 数组，控件值
-//
 // 示例值：[{\"id\":\"111\", \"type\": \"input\", \"value\":\"test\"}]
 func (builder *TaskApproveBuilder) Form(form string) *TaskApproveBuilder {
 	builder.form = form
@@ -11162,36 +11321,36 @@ func (builder *TaskApproveBuilder) Build() *TaskApprove {
 }
 
 type TaskResubmit struct {
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 
-	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 
-	UserId *string `json:"user_id,omitempty"` // 根据user_id_type填写操作用户id
+	UserId *string `json:"user_id,omitempty"` // 操作人 ID，ID 类型与查询参数 user_id_type 取值一致。
 
-	Comment *string `json:"comment,omitempty"` // 意见
+	Comment *string `json:"comment,omitempty"` // 意见。JSON 格式，传入时需要压缩转义为字符串。以下示例值未转义，你可参考请求体示例中的示例 comment 进行编辑。;;**JSON 内参数说明**：;;- text：string 类型，评论文本内容。;- files：Attachment[] 类型，附件信息。; - url：string 类型，附件链接。; - thumbnailURL：string 类型，缩略图链接。; - fileSize：int64 类型，文件大小。; - title：string 类型，标题。; - type：string 类型，附件类型，取值 image 表示图片类型。;;**注意**：对于附件，在 PC 端使用 HTTP 资源链接传图片资源可能会导致缩略图异常，建议使用 HTTPS 传资源附件。
 
-	TaskId *string `json:"task_id,omitempty"` // 任务 ID， 审批实例详情task_list中id
+	TaskId *string `json:"task_id,omitempty"` // 任务 ID。你可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 中获取所需的 id。
 
-	Form *string `json:"form,omitempty"` // json 数组，控件值，同创建审批实例接口中form字段
+	Form *string `json:"form,omitempty"` // 审批表单控件值，JSON 数组，传值时需要压缩转义为字符串。该参数与[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)中的 form 参数用法一致。
 }
 
 type TaskResubmitBuilder struct {
-	approvalCode    string // 审批定义 Code
+	approvalCode    string // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 	approvalCodeSet bool
 
-	instanceCode    string // 审批实例 Code
+	instanceCode    string // 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 	instanceCodeSet bool
 
-	userId    string // 根据user_id_type填写操作用户id
+	userId    string // 操作人 ID，ID 类型与查询参数 user_id_type 取值一致。
 	userIdSet bool
 
-	comment    string // 意见
+	comment    string // 意见。JSON 格式，传入时需要压缩转义为字符串。以下示例值未转义，你可参考请求体示例中的示例 comment 进行编辑。;;**JSON 内参数说明**：;;- text：string 类型，评论文本内容。;- files：Attachment[] 类型，附件信息。; - url：string 类型，附件链接。; - thumbnailURL：string 类型，缩略图链接。; - fileSize：int64 类型，文件大小。; - title：string 类型，标题。; - type：string 类型，附件类型，取值 image 表示图片类型。;;**注意**：对于附件，在 PC 端使用 HTTP 资源链接传图片资源可能会导致缩略图异常，建议使用 HTTPS 传资源附件。
 	commentSet bool
 
-	taskId    string // 任务 ID， 审批实例详情task_list中id
+	taskId    string // 任务 ID。你可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 中获取所需的 id。
 	taskIdSet bool
 
-	form    string // json 数组，控件值，同创建审批实例接口中form字段
+	form    string // 审批表单控件值，JSON 数组，传值时需要压缩转义为字符串。该参数与[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)中的 form 参数用法一致。
 	formSet bool
 }
 
@@ -11200,7 +11359,7 @@ func NewTaskResubmitBuilder() *TaskResubmitBuilder {
 	return builder
 }
 
-// 审批定义 Code
+// 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *TaskResubmitBuilder) ApprovalCode(approvalCode string) *TaskResubmitBuilder {
@@ -11209,7 +11368,7 @@ func (builder *TaskResubmitBuilder) ApprovalCode(approvalCode string) *TaskResub
 	return builder
 }
 
-// 审批实例 Code
+// 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 //
 // 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
 func (builder *TaskResubmitBuilder) InstanceCode(instanceCode string) *TaskResubmitBuilder {
@@ -11218,7 +11377,7 @@ func (builder *TaskResubmitBuilder) InstanceCode(instanceCode string) *TaskResub
 	return builder
 }
 
-// 根据user_id_type填写操作用户id
+// 操作人 ID，ID 类型与查询参数 user_id_type 取值一致。
 //
 // 示例值：f7cb567e
 func (builder *TaskResubmitBuilder) UserId(userId string) *TaskResubmitBuilder {
@@ -11227,16 +11386,16 @@ func (builder *TaskResubmitBuilder) UserId(userId string) *TaskResubmitBuilder {
 	return builder
 }
 
-// 意见
+// 意见。JSON 格式，传入时需要压缩转义为字符串。以下示例值未转义，你可参考请求体示例中的示例 comment 进行编辑。;;**JSON 内参数说明**：;;- text：string 类型，评论文本内容。;- files：Attachment[] 类型，附件信息。; - url：string 类型，附件链接。; - thumbnailURL：string 类型，缩略图链接。; - fileSize：int64 类型，文件大小。; - title：string 类型，标题。; - type：string 类型，附件类型，取值 image 表示图片类型。;;**注意**：对于附件，在 PC 端使用 HTTP 资源链接传图片资源可能会导致缩略图异常，建议使用 HTTPS 传资源附件。
 //
-// 示例值：{\"text\":\"评论\",\"file_codes\":[\"ABCD1232s\",\"ABC12334d22\"]}
+// 示例值：{\"text\":\"评论\"]}
 func (builder *TaskResubmitBuilder) Comment(comment string) *TaskResubmitBuilder {
 	builder.comment = comment
 	builder.commentSet = true
 	return builder
 }
 
-// 任务 ID， 审批实例详情task_list中id
+// 任务 ID。你可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 中获取所需的 id。
 //
 // 示例值：12345
 func (builder *TaskResubmitBuilder) TaskId(taskId string) *TaskResubmitBuilder {
@@ -11245,7 +11404,7 @@ func (builder *TaskResubmitBuilder) TaskId(taskId string) *TaskResubmitBuilder {
 	return builder
 }
 
-// json 数组，控件值，同创建审批实例接口中form字段
+// 审批表单控件值，JSON 数组，传值时需要压缩转义为字符串。该参数与[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)中的 form 参数用法一致。
 //
 // 示例值：[{\"id\":\"user_name\", \"type\": \"input\", \"value\":\"test\"}]
 func (builder *TaskResubmitBuilder) Form(form string) *TaskResubmitBuilder {
@@ -11388,27 +11547,27 @@ func (builder *TaskRollbackBuilder) Build() *TaskRollback {
 }
 
 type TaskSearch struct {
-	UserId *string `json:"user_id,omitempty"` // 根据x_user_type填写审批人id
+	UserId *string `json:"user_id,omitempty"` // 任务审批人 ID，ID 类型与查询参数 user_id_type 保持一致。
 
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 code
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 
-	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 code
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 
-	InstanceExternalId *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id 注：和 approval_code 取并集
+	InstanceExternalId *string `json:"instance_external_id,omitempty"` // 审批实例的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 
-	GroupExternalId *string `json:"group_external_id,omitempty"` // 审批定义分组第三方 id 注：和 instance_code 取并集
+	GroupExternalId *string `json:"group_external_id,omitempty"` // 审批定义分组的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 
-	TaskTitle *string `json:"task_title,omitempty"` // 审批任务标题（只有第三方审批有）
+	TaskTitle *string `json:"task_title,omitempty"` // 审批任务标题。;;**说明**：仅第三方审批存在审批任务标题。
 
-	TaskStatus *string `json:"task_status,omitempty"` // 审批任务状态，注：若不设置，查询全部状态 若不在集合中，报错
+	TaskStatus *string `json:"task_status,omitempty"` // 审批任务状态。;;**注意**：若不设置则查询全部状态，若不在集合中，则报错。
 
-	TaskStartTimeFrom *string `json:"task_start_time_from,omitempty"` // 任务查询开始时间（unix毫秒时间戳）
+	TaskStartTimeFrom *string `json:"task_start_time_from,omitempty"` // 任务查询开始时间，Unix 毫秒时间戳。与 task_start_time_to 参数构成时间段查询条件，仅会返回在该时间段内的审批任务。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 
-	TaskStartTimeTo *string `json:"task_start_time_to,omitempty"` // 任务查询结束时间 (unix毫秒时间戳)
+	TaskStartTimeTo *string `json:"task_start_time_to,omitempty"` // 任务查询结束时间，Unix 毫秒时间戳。与 task_start_time_from 参数构成时间段查询条件，仅会返回在该时间段内的审批任务。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 
-	Locale *string `json:"locale,omitempty"` // 地区
+	Locale *string `json:"locale,omitempty"` // 语言。
 
-	TaskStatusList []string `json:"task_status_list,omitempty"` // 可选择task_status中的多个状态，当填写此参数时，task_status失效
+	TaskStatusList []string `json:"task_status_list,omitempty"` // 查询多种状态的任务，当填写此参数时，task_status 参数将失效。;;**可选值有**：;;- `PENDING`：审批中;- `REJECTED`：拒绝;- `APPROVED`：通过;- `TRANSFERRED`：转交;- `DONE`：已完成;- `RM_REPEAT`：去重;- `PROCESSED`：已处理
 
 	Order *int `json:"order,omitempty"` // 按任务时间排序
 
@@ -11416,37 +11575,37 @@ type TaskSearch struct {
 }
 
 type TaskSearchBuilder struct {
-	userId    string // 根据x_user_type填写审批人id
+	userId    string // 任务审批人 ID，ID 类型与查询参数 user_id_type 保持一致。
 	userIdSet bool
 
-	approvalCode    string // 审批定义 code
+	approvalCode    string // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 	approvalCodeSet bool
 
-	instanceCode    string // 审批实例 code
+	instanceCode    string // 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 	instanceCodeSet bool
 
-	instanceExternalId    string // 审批实例第三方 id 注：和 approval_code 取并集
+	instanceExternalId    string // 审批实例的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 	instanceExternalIdSet bool
 
-	groupExternalId    string // 审批定义分组第三方 id 注：和 instance_code 取并集
+	groupExternalId    string // 审批定义分组的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 	groupExternalIdSet bool
 
-	taskTitle    string // 审批任务标题（只有第三方审批有）
+	taskTitle    string // 审批任务标题。;;**说明**：仅第三方审批存在审批任务标题。
 	taskTitleSet bool
 
-	taskStatus    string // 审批任务状态，注：若不设置，查询全部状态 若不在集合中，报错
+	taskStatus    string // 审批任务状态。;;**注意**：若不设置则查询全部状态，若不在集合中，则报错。
 	taskStatusSet bool
 
-	taskStartTimeFrom    string // 任务查询开始时间（unix毫秒时间戳）
+	taskStartTimeFrom    string // 任务查询开始时间，Unix 毫秒时间戳。与 task_start_time_to 参数构成时间段查询条件，仅会返回在该时间段内的审批任务。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 	taskStartTimeFromSet bool
 
-	taskStartTimeTo    string // 任务查询结束时间 (unix毫秒时间戳)
+	taskStartTimeTo    string // 任务查询结束时间，Unix 毫秒时间戳。与 task_start_time_from 参数构成时间段查询条件，仅会返回在该时间段内的审批任务。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 	taskStartTimeToSet bool
 
-	locale    string // 地区
+	locale    string // 语言。
 	localeSet bool
 
-	taskStatusList    []string // 可选择task_status中的多个状态，当填写此参数时，task_status失效
+	taskStatusList    []string // 查询多种状态的任务，当填写此参数时，task_status 参数将失效。;;**可选值有**：;;- `PENDING`：审批中;- `REJECTED`：拒绝;- `APPROVED`：通过;- `TRANSFERRED`：转交;- `DONE`：已完成;- `RM_REPEAT`：去重;- `PROCESSED`：已处理
 	taskStatusListSet bool
 
 	order    int // 按任务时间排序
@@ -11461,7 +11620,7 @@ func NewTaskSearchBuilder() *TaskSearchBuilder {
 	return builder
 }
 
-// 根据x_user_type填写审批人id
+// 任务审批人 ID，ID 类型与查询参数 user_id_type 保持一致。
 //
 // 示例值：lwiu098wj
 func (builder *TaskSearchBuilder) UserId(userId string) *TaskSearchBuilder {
@@ -11470,7 +11629,7 @@ func (builder *TaskSearchBuilder) UserId(userId string) *TaskSearchBuilder {
 	return builder
 }
 
-// 审批定义 code
+// 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 //
 // 示例值：EB828003-9FFE-4B3F-AA50-2E199E2ED942
 func (builder *TaskSearchBuilder) ApprovalCode(approvalCode string) *TaskSearchBuilder {
@@ -11479,7 +11638,7 @@ func (builder *TaskSearchBuilder) ApprovalCode(approvalCode string) *TaskSearchB
 	return builder
 }
 
-// 审批实例 code
+// 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 //
 // 示例值：EB828003-9FFE-4B3F-AA50-2E199E2ED943
 func (builder *TaskSearchBuilder) InstanceCode(instanceCode string) *TaskSearchBuilder {
@@ -11488,7 +11647,7 @@ func (builder *TaskSearchBuilder) InstanceCode(instanceCode string) *TaskSearchB
 	return builder
 }
 
-// 审批实例第三方 id 注：和 approval_code 取并集
+// 审批实例的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- instance_code 和 instance_external_id 查询结果取并集。
 //
 // 示例值：EB828003-9FFE-4B3F-AA50-2E199E2ED976
 func (builder *TaskSearchBuilder) InstanceExternalId(instanceExternalId string) *TaskSearchBuilder {
@@ -11497,7 +11656,7 @@ func (builder *TaskSearchBuilder) InstanceExternalId(instanceExternalId string) 
 	return builder
 }
 
-// 审批定义分组第三方 id 注：和 instance_code 取并集
+// 审批定义分组的第三方 ID。;;**注意**：;;- user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。;;- approval_code 和 group_external_id 查询结果取并集。
 //
 // 示例值：1234567
 func (builder *TaskSearchBuilder) GroupExternalId(groupExternalId string) *TaskSearchBuilder {
@@ -11506,7 +11665,7 @@ func (builder *TaskSearchBuilder) GroupExternalId(groupExternalId string) *TaskS
 	return builder
 }
 
-// 审批任务标题（只有第三方审批有）
+// 审批任务标题。;;**说明**：仅第三方审批存在审批任务标题。
 //
 // 示例值：test
 func (builder *TaskSearchBuilder) TaskTitle(taskTitle string) *TaskSearchBuilder {
@@ -11515,7 +11674,7 @@ func (builder *TaskSearchBuilder) TaskTitle(taskTitle string) *TaskSearchBuilder
 	return builder
 }
 
-// 审批任务状态，注：若不设置，查询全部状态 若不在集合中，报错
+// 审批任务状态。;;**注意**：若不设置则查询全部状态，若不在集合中，则报错。
 //
 // 示例值：PENDING
 func (builder *TaskSearchBuilder) TaskStatus(taskStatus string) *TaskSearchBuilder {
@@ -11524,7 +11683,7 @@ func (builder *TaskSearchBuilder) TaskStatus(taskStatus string) *TaskSearchBuild
 	return builder
 }
 
-// 任务查询开始时间（unix毫秒时间戳）
+// 任务查询开始时间，Unix 毫秒时间戳。与 task_start_time_to 参数构成时间段查询条件，仅会返回在该时间段内的审批任务。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 //
 // 示例值：1547654251506
 func (builder *TaskSearchBuilder) TaskStartTimeFrom(taskStartTimeFrom string) *TaskSearchBuilder {
@@ -11533,7 +11692,7 @@ func (builder *TaskSearchBuilder) TaskStartTimeFrom(taskStartTimeFrom string) *T
 	return builder
 }
 
-// 任务查询结束时间 (unix毫秒时间戳)
+// 任务查询结束时间，Unix 毫秒时间戳。与 task_start_time_from 参数构成时间段查询条件，仅会返回在该时间段内的审批任务。;;**注意**：查询时间跨度不得大于 30 天，开始和结束时间必须同时设置或者同时不设置。
 //
 // 示例值：1547654251506
 func (builder *TaskSearchBuilder) TaskStartTimeTo(taskStartTimeTo string) *TaskSearchBuilder {
@@ -11542,7 +11701,7 @@ func (builder *TaskSearchBuilder) TaskStartTimeTo(taskStartTimeTo string) *TaskS
 	return builder
 }
 
-// 地区
+// 语言。
 //
 // 示例值：zh-CN
 func (builder *TaskSearchBuilder) Locale(locale string) *TaskSearchBuilder {
@@ -11551,7 +11710,7 @@ func (builder *TaskSearchBuilder) Locale(locale string) *TaskSearchBuilder {
 	return builder
 }
 
-// 可选择task_status中的多个状态，当填写此参数时，task_status失效
+// 查询多种状态的任务，当填写此参数时，task_status 参数将失效。;;**可选值有**：;;- `PENDING`：审批中;- `REJECTED`：拒绝;- `APPROVED`：通过;- `TRANSFERRED`：转交;- `DONE`：已完成;- `RM_REPEAT`：去重;- `PROCESSED`：已处理
 //
 // 示例值：PENDING
 func (builder *TaskSearchBuilder) TaskStatusList(taskStatusList []string) *TaskSearchBuilder {
@@ -11635,17 +11794,17 @@ func (builder *TaskSearchBuilder) Build() *TaskSearch {
 }
 
 type TaskSearchItem struct {
-	Approval *InstanceSearchApproval `json:"approval,omitempty"` // 审批定义
+	Approval *InstanceSearchApproval `json:"approval,omitempty"` // 审批定义信息
 
 	Group *InstanceSearchGroup `json:"group,omitempty"` // 审批定义分组
 
 	Instance *InstanceSearchNode `json:"instance,omitempty"` // 审批实例信息
 
-	Task *TaskSearchNode `json:"task,omitempty"` // 审批任务
+	Task *TaskSearchNode `json:"task,omitempty"` // 审批任务信息
 }
 
 type TaskSearchItemBuilder struct {
-	approval    *InstanceSearchApproval // 审批定义
+	approval    *InstanceSearchApproval // 审批定义信息
 	approvalSet bool
 
 	group    *InstanceSearchGroup // 审批定义分组
@@ -11654,7 +11813,7 @@ type TaskSearchItemBuilder struct {
 	instance    *InstanceSearchNode // 审批实例信息
 	instanceSet bool
 
-	task    *TaskSearchNode // 审批任务
+	task    *TaskSearchNode // 审批任务信息
 	taskSet bool
 }
 
@@ -11663,7 +11822,7 @@ func NewTaskSearchItemBuilder() *TaskSearchItemBuilder {
 	return builder
 }
 
-// 审批定义
+// 审批定义信息
 //
 // 示例值：
 func (builder *TaskSearchItemBuilder) Approval(approval *InstanceSearchApproval) *TaskSearchItemBuilder {
@@ -11690,7 +11849,7 @@ func (builder *TaskSearchItemBuilder) Instance(instance *InstanceSearchNode) *Ta
 	return builder
 }
 
-// 审批任务
+// 审批任务信息
 //
 // 示例值：
 func (builder *TaskSearchItemBuilder) Task(task *TaskSearchNode) *TaskSearchItemBuilder {
@@ -11717,56 +11876,56 @@ func (builder *TaskSearchItemBuilder) Build() *TaskSearchItem {
 }
 
 type TaskSearchNode struct {
-	UserId *string `json:"user_id,omitempty"` // 审批任务审批人 id
+	UserId *string `json:"user_id,omitempty"` // 审批任务的审批人 user_id
 
-	StartTime *string `json:"start_time,omitempty"` // 审批任务开始时间
+	StartTime *string `json:"start_time,omitempty"` // 审批任务开始时间，Unix 毫秒时间戳
 
-	EndTime *string `json:"end_time,omitempty"` // 审批任务结束时间
+	EndTime *string `json:"end_time,omitempty"` // 审批任务结束时间，Unix 毫秒时间戳
 
 	Status *string `json:"status,omitempty"` // 审批任务状态
 
-	Title *string `json:"title,omitempty"` // 审批任务名称（只有第三方审批有）
+	Title *string `json:"title,omitempty"` // 审批任务名称（只有第三方审批有返回值）
 
-	Extra *string `json:"extra,omitempty"` // 审批任务扩展字段，string型json
+	Extra *string `json:"extra,omitempty"` // 审批任务扩展字段，字符串类型的 JSON 数据
 
-	Link *InstanceSearchLink `json:"link,omitempty"` // 审批任务链接（只有第三方审批有）
+	Link *InstanceSearchLink `json:"link,omitempty"` // 审批实例链接（只有第三方审批有返回值）
 
-	TaskId *string `json:"task_id,omitempty"` // 任务id
+	TaskId *string `json:"task_id,omitempty"` // 审批任务 ID
 
-	UpdateTime *string `json:"update_time,omitempty"` // 审批任务更新时间
+	UpdateTime *string `json:"update_time,omitempty"` // 审批任务更新时间，Unix 毫秒时间戳
 
-	TaskExternalId *string `json:"task_external_id,omitempty"` // 三方审批扩展 ID
+	TaskExternalId *string `json:"task_external_id,omitempty"` // 三方审批扩展任务 ID
 }
 
 type TaskSearchNodeBuilder struct {
-	userId    string // 审批任务审批人 id
+	userId    string // 审批任务的审批人 user_id
 	userIdSet bool
 
-	startTime    string // 审批任务开始时间
+	startTime    string // 审批任务开始时间，Unix 毫秒时间戳
 	startTimeSet bool
 
-	endTime    string // 审批任务结束时间
+	endTime    string // 审批任务结束时间，Unix 毫秒时间戳
 	endTimeSet bool
 
 	status    string // 审批任务状态
 	statusSet bool
 
-	title    string // 审批任务名称（只有第三方审批有）
+	title    string // 审批任务名称（只有第三方审批有返回值）
 	titleSet bool
 
-	extra    string // 审批任务扩展字段，string型json
+	extra    string // 审批任务扩展字段，字符串类型的 JSON 数据
 	extraSet bool
 
-	link    *InstanceSearchLink // 审批任务链接（只有第三方审批有）
+	link    *InstanceSearchLink // 审批实例链接（只有第三方审批有返回值）
 	linkSet bool
 
-	taskId    string // 任务id
+	taskId    string // 审批任务 ID
 	taskIdSet bool
 
-	updateTime    string // 审批任务更新时间
+	updateTime    string // 审批任务更新时间，Unix 毫秒时间戳
 	updateTimeSet bool
 
-	taskExternalId    string // 三方审批扩展 ID
+	taskExternalId    string // 三方审批扩展任务 ID
 	taskExternalIdSet bool
 }
 
@@ -11775,7 +11934,7 @@ func NewTaskSearchNodeBuilder() *TaskSearchNodeBuilder {
 	return builder
 }
 
-// 审批任务审批人 id
+// 审批任务的审批人 user_id
 //
 // 示例值：lwiu098wj
 func (builder *TaskSearchNodeBuilder) UserId(userId string) *TaskSearchNodeBuilder {
@@ -11784,7 +11943,7 @@ func (builder *TaskSearchNodeBuilder) UserId(userId string) *TaskSearchNodeBuild
 	return builder
 }
 
-// 审批任务开始时间
+// 审批任务开始时间，Unix 毫秒时间戳
 //
 // 示例值：1547654251506
 func (builder *TaskSearchNodeBuilder) StartTime(startTime string) *TaskSearchNodeBuilder {
@@ -11793,7 +11952,7 @@ func (builder *TaskSearchNodeBuilder) StartTime(startTime string) *TaskSearchNod
 	return builder
 }
 
-// 审批任务结束时间
+// 审批任务结束时间，Unix 毫秒时间戳
 //
 // 示例值：1547654251506
 func (builder *TaskSearchNodeBuilder) EndTime(endTime string) *TaskSearchNodeBuilder {
@@ -11804,14 +11963,14 @@ func (builder *TaskSearchNodeBuilder) EndTime(endTime string) *TaskSearchNodeBui
 
 // 审批任务状态
 //
-// 示例值：pending
+// 示例值：PENDING
 func (builder *TaskSearchNodeBuilder) Status(status string) *TaskSearchNodeBuilder {
 	builder.status = status
 	builder.statusSet = true
 	return builder
 }
 
-// 审批任务名称（只有第三方审批有）
+// 审批任务名称（只有第三方审批有返回值）
 //
 // 示例值：test
 func (builder *TaskSearchNodeBuilder) Title(title string) *TaskSearchNodeBuilder {
@@ -11820,7 +11979,7 @@ func (builder *TaskSearchNodeBuilder) Title(title string) *TaskSearchNodeBuilder
 	return builder
 }
 
-// 审批任务扩展字段，string型json
+// 审批任务扩展字段，字符串类型的 JSON 数据
 //
 // 示例值：{}
 func (builder *TaskSearchNodeBuilder) Extra(extra string) *TaskSearchNodeBuilder {
@@ -11829,7 +11988,7 @@ func (builder *TaskSearchNodeBuilder) Extra(extra string) *TaskSearchNodeBuilder
 	return builder
 }
 
-// 审批任务链接（只有第三方审批有）
+// 审批实例链接（只有第三方审批有返回值）
 //
 // 示例值：
 func (builder *TaskSearchNodeBuilder) Link(link *InstanceSearchLink) *TaskSearchNodeBuilder {
@@ -11838,7 +11997,7 @@ func (builder *TaskSearchNodeBuilder) Link(link *InstanceSearchLink) *TaskSearch
 	return builder
 }
 
-// 任务id
+// 审批任务 ID
 //
 // 示例值：7110153401253494803
 func (builder *TaskSearchNodeBuilder) TaskId(taskId string) *TaskSearchNodeBuilder {
@@ -11847,7 +12006,7 @@ func (builder *TaskSearchNodeBuilder) TaskId(taskId string) *TaskSearchNodeBuild
 	return builder
 }
 
-// 审批任务更新时间
+// 审批任务更新时间，Unix 毫秒时间戳
 //
 // 示例值：1547654251506
 func (builder *TaskSearchNodeBuilder) UpdateTime(updateTime string) *TaskSearchNodeBuilder {
@@ -11856,7 +12015,7 @@ func (builder *TaskSearchNodeBuilder) UpdateTime(updateTime string) *TaskSearchN
 	return builder
 }
 
-// 三方审批扩展 ID
+// 三方审批扩展任务 ID
 //
 // 示例值：123123daddf21313
 func (builder *TaskSearchNodeBuilder) TaskExternalId(taskExternalId string) *TaskSearchNodeBuilder {
@@ -11910,36 +12069,36 @@ func (builder *TaskSearchNodeBuilder) Build() *TaskSearchNode {
 }
 
 type TaskTransfer struct {
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 
-	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 
-	UserId *string `json:"user_id,omitempty"` // 根据user_id_type填写操作用户id
+	UserId *string `json:"user_id,omitempty"` // 当前审批人的用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 
-	Comment *string `json:"comment,omitempty"` // 意见
+	Comment *string `json:"comment,omitempty"` // 审批意见
 
-	TransferUserId *string `json:"transfer_user_id,omitempty"` // 根据user_id_type填写被转交人唯一 ID
+	TransferUserId *string `json:"transfer_user_id,omitempty"` // 被转交人的用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 
-	TaskId *string `json:"task_id,omitempty"` // 任务 ID， 审批实例详情task_list中id
+	TaskId *string `json:"task_id,omitempty"` // 审批任务 ID，调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 中获取所需的 id。
 }
 
 type TaskTransferBuilder struct {
-	approvalCode    string // 审批定义 Code
+	approvalCode    string // 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 	approvalCodeSet bool
 
-	instanceCode    string // 审批实例 Code
+	instanceCode    string // 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 	instanceCodeSet bool
 
-	userId    string // 根据user_id_type填写操作用户id
+	userId    string // 当前审批人的用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 	userIdSet bool
 
-	comment    string // 意见
+	comment    string // 审批意见
 	commentSet bool
 
-	transferUserId    string // 根据user_id_type填写被转交人唯一 ID
+	transferUserId    string // 被转交人的用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 	transferUserIdSet bool
 
-	taskId    string // 任务 ID， 审批实例详情task_list中id
+	taskId    string // 审批任务 ID，调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 中获取所需的 id。
 	taskIdSet bool
 }
 
@@ -11948,7 +12107,7 @@ func NewTaskTransferBuilder() *TaskTransferBuilder {
 	return builder
 }
 
-// 审批定义 Code
+// 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *TaskTransferBuilder) ApprovalCode(approvalCode string) *TaskTransferBuilder {
@@ -11957,7 +12116,7 @@ func (builder *TaskTransferBuilder) ApprovalCode(approvalCode string) *TaskTrans
 	return builder
 }
 
-// 审批实例 Code
+// 审批实例 Code。获取方式：;;- 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后，从响应参数 instance_code 获取。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口，获取所需的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。
 //
 // 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
 func (builder *TaskTransferBuilder) InstanceCode(instanceCode string) *TaskTransferBuilder {
@@ -11966,7 +12125,7 @@ func (builder *TaskTransferBuilder) InstanceCode(instanceCode string) *TaskTrans
 	return builder
 }
 
-// 根据user_id_type填写操作用户id
+// 当前审批人的用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 //
 // 示例值：f7cb567e
 func (builder *TaskTransferBuilder) UserId(userId string) *TaskTransferBuilder {
@@ -11975,7 +12134,7 @@ func (builder *TaskTransferBuilder) UserId(userId string) *TaskTransferBuilder {
 	return builder
 }
 
-// 意见
+// 审批意见
 //
 // 示例值：OK
 func (builder *TaskTransferBuilder) Comment(comment string) *TaskTransferBuilder {
@@ -11984,7 +12143,7 @@ func (builder *TaskTransferBuilder) Comment(comment string) *TaskTransferBuilder
 	return builder
 }
 
-// 根据user_id_type填写被转交人唯一 ID
+// 被转交人的用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 //
 // 示例值：f4ip317q
 func (builder *TaskTransferBuilder) TransferUserId(transferUserId string) *TaskTransferBuilder {
@@ -11993,7 +12152,7 @@ func (builder *TaskTransferBuilder) TransferUserId(transferUserId string) *TaskT
 	return builder
 }
 
-// 任务 ID， 审批实例详情task_list中id
+// 审批任务 ID，调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)，从返回结果的 task_list 中获取所需的 id。
 //
 // 示例值：12345
 func (builder *TaskTransferBuilder) TaskId(taskId string) *TaskTransferBuilder {
@@ -12057,7 +12216,7 @@ func NewTaskUrlsBuilder() *TaskUrlsBuilder {
 
 // 帮助服务台 URL
 //
-// 示例值：https://blabla
+// 示例值：https://www.example.com
 func (builder *TaskUrlsBuilder) Helpdesk(helpdesk string) *TaskUrlsBuilder {
 	builder.helpdesk = helpdesk
 	builder.helpdeskSet = true
@@ -12066,7 +12225,7 @@ func (builder *TaskUrlsBuilder) Helpdesk(helpdesk string) *TaskUrlsBuilder {
 
 // 移动端 URL
 //
-// 示例值：https://blabla
+// 示例值：https://www.example.com
 func (builder *TaskUrlsBuilder) Mobile(mobile string) *TaskUrlsBuilder {
 	builder.mobile = mobile
 	builder.mobileSet = true
@@ -12075,7 +12234,7 @@ func (builder *TaskUrlsBuilder) Mobile(mobile string) *TaskUrlsBuilder {
 
 // PC 端 URL
 //
-// 示例值：https://blabla
+// 示例值：https://www.example.com
 func (builder *TaskUrlsBuilder) Pc(pc string) *TaskUrlsBuilder {
 	builder.pc = pc
 	builder.pcSet = true
@@ -12466,21 +12625,21 @@ func (builder *TripGroupScheduleBuilder) Build() *TripGroupSchedule {
 }
 
 type TrusteeshipInstanceCacheConfig struct {
-	FormPolicy *string `json:"form_policy,omitempty"` // 托管预缓存策略
+	FormPolicy *string `json:"form_policy,omitempty"` // 托管预缓存策略。
 
-	FormVaryWithLocale *bool `json:"form_vary_with_locale,omitempty"` // 表单是否随国际化改变
+	FormVaryWithLocale *bool `json:"form_vary_with_locale,omitempty"` // 表单是否随国际化改变。
 
-	FormVersion *string `json:"form_version,omitempty"` // 当前使用的表单版本号，保证表单改变后，版本号增加，实际值为int64整数
+	FormVersion *string `json:"form_version,omitempty"` // 当前使用的表单版本号，保证表单改变后，版本号增加，实际值为 int64 整数。
 }
 
 type TrusteeshipInstanceCacheConfigBuilder struct {
-	formPolicy    string // 托管预缓存策略
+	formPolicy    string // 托管预缓存策略。
 	formPolicySet bool
 
-	formVaryWithLocale    bool // 表单是否随国际化改变
+	formVaryWithLocale    bool // 表单是否随国际化改变。
 	formVaryWithLocaleSet bool
 
-	formVersion    string // 当前使用的表单版本号，保证表单改变后，版本号增加，实际值为int64整数
+	formVersion    string // 当前使用的表单版本号，保证表单改变后，版本号增加，实际值为 int64 整数。
 	formVersionSet bool
 }
 
@@ -12489,7 +12648,7 @@ func NewTrusteeshipInstanceCacheConfigBuilder() *TrusteeshipInstanceCacheConfigB
 	return builder
 }
 
-// 托管预缓存策略
+// 托管预缓存策略。
 //
 // 示例值：DISABLE
 func (builder *TrusteeshipInstanceCacheConfigBuilder) FormPolicy(formPolicy string) *TrusteeshipInstanceCacheConfigBuilder {
@@ -12498,7 +12657,7 @@ func (builder *TrusteeshipInstanceCacheConfigBuilder) FormPolicy(formPolicy stri
 	return builder
 }
 
-// 表单是否随国际化改变
+// 表单是否随国际化改变。
 //
 // 示例值：false
 func (builder *TrusteeshipInstanceCacheConfigBuilder) FormVaryWithLocale(formVaryWithLocale bool) *TrusteeshipInstanceCacheConfigBuilder {
@@ -12507,9 +12666,9 @@ func (builder *TrusteeshipInstanceCacheConfigBuilder) FormVaryWithLocale(formVar
 	return builder
 }
 
-// 当前使用的表单版本号，保证表单改变后，版本号增加，实际值为int64整数
+// 当前使用的表单版本号，保证表单改变后，版本号增加，实际值为 int64 整数。
 //
-// 示例值："1"
+// 示例值：1
 func (builder *TrusteeshipInstanceCacheConfigBuilder) FormVersion(formVersion string) *TrusteeshipInstanceCacheConfigBuilder {
 	builder.formVersion = formVersion
 	builder.formVersionSet = true
@@ -12534,31 +12693,31 @@ func (builder *TrusteeshipInstanceCacheConfigBuilder) Build() *TrusteeshipInstan
 }
 
 type TrusteeshipUrls struct {
-	FormDetailUrl *string `json:"form_detail_url,omitempty"` // 获取表单schema相关数据的url地址
+	FormDetailUrl *string `json:"form_detail_url,omitempty"` // 获取表单 schema 相关数据的 URL 地址。
 
-	ActionDefinitionUrl *string `json:"action_definition_url,omitempty"` // 表示获取审批操作区数据的url地址
+	ActionDefinitionUrl *string `json:"action_definition_url,omitempty"` // 表示获取审批操作区数据的 URL 地址。
 
-	ApprovalNodeUrl *string `json:"approval_node_url,omitempty"` // 获取审批记录相关数据的url地址
+	ApprovalNodeUrl *string `json:"approval_node_url,omitempty"` // 获取审批记录相关数据的 URL 地址。
 
-	ActionCallbackUrl *string `json:"action_callback_url,omitempty"` // 进行审批操作时回调的url地址
+	ActionCallbackUrl *string `json:"action_callback_url,omitempty"` // 进行审批操作时回调的 URL 地址。
 
-	PullBusinessDataUrl *string `json:"pull_business_data_url,omitempty"` // 获取托管动态数据URL,使用该接口时必须要保证历史托管单据的数据中都同步了该接口地址,如果历史单据中没有该接口需要重新同步历史托管单据的数据来更新该URL
+	PullBusinessDataUrl *string `json:"pull_business_data_url,omitempty"` // 获取托管动态数据 URL 地址。使用该接口时，必须要保证历史托管单据的数据中都同步了该接口地址。如果历史单据中没有该接口，需要重新同步历史托管单据的数据来更新该 URL。该接口用于飞书审批前端和业务进行交互使用，只有使用审批前端的特定组件（由飞书审批前端提供的组件，并且需要和业务进行接口交互的组件）才会需要。
 }
 
 type TrusteeshipUrlsBuilder struct {
-	formDetailUrl    string // 获取表单schema相关数据的url地址
+	formDetailUrl    string // 获取表单 schema 相关数据的 URL 地址。
 	formDetailUrlSet bool
 
-	actionDefinitionUrl    string // 表示获取审批操作区数据的url地址
+	actionDefinitionUrl    string // 表示获取审批操作区数据的 URL 地址。
 	actionDefinitionUrlSet bool
 
-	approvalNodeUrl    string // 获取审批记录相关数据的url地址
+	approvalNodeUrl    string // 获取审批记录相关数据的 URL 地址。
 	approvalNodeUrlSet bool
 
-	actionCallbackUrl    string // 进行审批操作时回调的url地址
+	actionCallbackUrl    string // 进行审批操作时回调的 URL 地址。
 	actionCallbackUrlSet bool
 
-	pullBusinessDataUrl    string // 获取托管动态数据URL,使用该接口时必须要保证历史托管单据的数据中都同步了该接口地址,如果历史单据中没有该接口需要重新同步历史托管单据的数据来更新该URL
+	pullBusinessDataUrl    string // 获取托管动态数据 URL 地址。使用该接口时，必须要保证历史托管单据的数据中都同步了该接口地址。如果历史单据中没有该接口，需要重新同步历史托管单据的数据来更新该 URL。该接口用于飞书审批前端和业务进行交互使用，只有使用审批前端的特定组件（由飞书审批前端提供的组件，并且需要和业务进行接口交互的组件）才会需要。
 	pullBusinessDataUrlSet bool
 }
 
@@ -12567,7 +12726,7 @@ func NewTrusteeshipUrlsBuilder() *TrusteeshipUrlsBuilder {
 	return builder
 }
 
-// 获取表单schema相关数据的url地址
+// 获取表单 schema 相关数据的 URL 地址。
 //
 // 示例值：https://#{your_domain}/api/form_detail
 func (builder *TrusteeshipUrlsBuilder) FormDetailUrl(formDetailUrl string) *TrusteeshipUrlsBuilder {
@@ -12576,7 +12735,7 @@ func (builder *TrusteeshipUrlsBuilder) FormDetailUrl(formDetailUrl string) *Trus
 	return builder
 }
 
-// 表示获取审批操作区数据的url地址
+// 表示获取审批操作区数据的 URL 地址。
 //
 // 示例值：https://#{your_domain}/api/action_definition
 func (builder *TrusteeshipUrlsBuilder) ActionDefinitionUrl(actionDefinitionUrl string) *TrusteeshipUrlsBuilder {
@@ -12585,7 +12744,7 @@ func (builder *TrusteeshipUrlsBuilder) ActionDefinitionUrl(actionDefinitionUrl s
 	return builder
 }
 
-// 获取审批记录相关数据的url地址
+// 获取审批记录相关数据的 URL 地址。
 //
 // 示例值：https://#{your_domain}/api/approval_node
 func (builder *TrusteeshipUrlsBuilder) ApprovalNodeUrl(approvalNodeUrl string) *TrusteeshipUrlsBuilder {
@@ -12594,16 +12753,16 @@ func (builder *TrusteeshipUrlsBuilder) ApprovalNodeUrl(approvalNodeUrl string) *
 	return builder
 }
 
-// 进行审批操作时回调的url地址
+// 进行审批操作时回调的 URL 地址。
 //
-// 示例值：https://#{your_domain}/api/approval_node
+// 示例值：https://#{your_domain}/api/action_callback
 func (builder *TrusteeshipUrlsBuilder) ActionCallbackUrl(actionCallbackUrl string) *TrusteeshipUrlsBuilder {
 	builder.actionCallbackUrl = actionCallbackUrl
 	builder.actionCallbackUrlSet = true
 	return builder
 }
 
-// 获取托管动态数据URL,使用该接口时必须要保证历史托管单据的数据中都同步了该接口地址,如果历史单据中没有该接口需要重新同步历史托管单据的数据来更新该URL
+// 获取托管动态数据 URL 地址。使用该接口时，必须要保证历史托管单据的数据中都同步了该接口地址。如果历史单据中没有该接口，需要重新同步历史托管单据的数据来更新该 URL。该接口用于飞书审批前端和业务进行交互使用，只有使用审批前端的特定组件（由飞书审批前端提供的组件，并且需要和业务进行接口交互的组件）才会需要。
 //
 // 示例值：https://#{your_domain}/api/pull_business_data
 func (builder *TrusteeshipUrlsBuilder) PullBusinessDataUrl(pullBusinessDataUrl string) *TrusteeshipUrlsBuilder {
@@ -12990,7 +13149,7 @@ type UatInstanceComment struct {
 
 	Comment *string `json:"comment,omitempty"` // 评论内容
 
-	CreateTime *string `json:"create_time,omitempty"` // 评论时间
+	CreateTime *string `json:"create_time,omitempty"` // 评论时间 （该接口中相关时间都为毫秒时间戳）
 
 	Files []*File `json:"files,omitempty"` // 评论附件
 }
@@ -13005,7 +13164,7 @@ type UatInstanceCommentBuilder struct {
 	comment    string // 评论内容
 	commentSet bool
 
-	createTime    string // 评论时间
+	createTime    string // 评论时间 （该接口中相关时间都为毫秒时间戳）
 	createTimeSet bool
 
 	files    []*File // 评论附件
@@ -13044,9 +13203,9 @@ func (builder *UatInstanceCommentBuilder) Comment(comment string) *UatInstanceCo
 	return builder
 }
 
-// 评论时间
+// 评论时间 （该接口中相关时间都为毫秒时间戳）
 //
-// 示例值：评论时间
+// 示例值：1564590532967
 func (builder *UatInstanceCommentBuilder) CreateTime(createTime string) *UatInstanceCommentBuilder {
 	builder.createTime = createTime
 	builder.createTimeSet = true
@@ -13501,7 +13660,7 @@ func NewUatTaskBuilder() *UatTaskBuilder {
 
 // 任务所属的任务分组，如「待办」、「已办」等
 //
-// 示例值：
+// 示例值：1
 func (builder *UatTaskBuilder) Topic(topic string) *UatTaskBuilder {
 	builder.topic = topic
 	builder.topicSet = true
@@ -13767,7 +13926,7 @@ func (builder *UatTaskUserBuilder) TaskId(taskId string) *UatTaskUserBuilder {
 
 // 任务对应的userID
 //
-// 示例值：
+// 示例值：ou_c186b6833e2d5fxxxxxx
 func (builder *UatTaskUserBuilder) UserId(userId string) *UatTaskUserBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -13946,8 +14105,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -13955,8 +14112,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -13964,8 +14119,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -14126,7 +14279,7 @@ func NewCreateApprovalReqBuilder() *CreateApprovalReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型
+// 此次调用中使用的部门 ID 的类型。关于部门 ID 详细介绍参见[部门 ID 介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#9c02ed7a)。
 //
 // 示例值：open_department_id
 func (builder *CreateApprovalReqBuilder) DepartmentIdType(departmentIdType string) *CreateApprovalReqBuilder {
@@ -14142,7 +14295,7 @@ func (builder *CreateApprovalReqBuilder) UserIdType(userIdType string) *CreateAp
 	return builder
 }
 
-// 用于通过接口创建简单的审批定义，可以灵活指定定义的基础信息、表单和流程等。创建成功后，不支持从审批管理后台删除该定义。不推荐企业自建应用使用，如有需要尽量联系管理员在审批管理后台创建定义。
+// 该接口用于创建审批定义，可以灵活指定审批定义的基础信息、表单和流程等。
 func (builder *CreateApprovalReqBuilder) ApprovalCreate(approvalCreate *ApprovalCreate) *CreateApprovalReqBuilder {
 	builder.approvalCreate = approvalCreate
 	return builder
@@ -14162,9 +14315,9 @@ type CreateApprovalReq struct {
 }
 
 type CreateApprovalRespData struct {
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code。建议妥善保管该 Code，后续[查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get)、[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)等场景需要使用审批定义 Code。
 
-	ApprovalId *string `json:"approval_id,omitempty"` // 审批定义 id
+	ApprovalId *string `json:"approval_id,omitempty"` // 审批定义 ID。
 }
 
 type CreateApprovalResp struct {
@@ -14190,7 +14343,7 @@ func NewGetApprovalReqBuilder() *GetApprovalReqBuilder {
 	return builder
 }
 
-// 审批定义 Code
+// 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *GetApprovalReqBuilder) ApprovalCode(approvalCode string) *GetApprovalReqBuilder {
@@ -14198,7 +14351,7 @@ func (builder *GetApprovalReqBuilder) ApprovalCode(approvalCode string) *GetAppr
 	return builder
 }
 
-// 语言可选值
+// 语言可选值，默认为审批定义配置的默认语言。
 //
 // 示例值：zh-CN
 func (builder *GetApprovalReqBuilder) Locale(locale string) *GetApprovalReqBuilder {
@@ -14206,7 +14359,7 @@ func (builder *GetApprovalReqBuilder) Locale(locale string) *GetApprovalReqBuild
 	return builder
 }
 
-// 可选是否返回有数据权限审批流程管理员ID列表
+// 是否返回有数据管理权限的审批流程管理员 ID 列表（即响应参数 approval_admin_ids）。;;**默认值**：false
 //
 // 示例值：false
 func (builder *GetApprovalReqBuilder) WithAdminId(withAdminId bool) *GetApprovalReqBuilder {
@@ -14263,13 +14416,13 @@ type GetApprovalRespData struct {
 
 	Status *string `json:"status,omitempty"` // 审批定义状态
 
-	Form *string `json:"form,omitempty"` // 控件信息，见下方form字段说明
+	Form *string `json:"form,omitempty"` // 控件参数信息，见下方 **form 字段说明** 章节。
 
 	NodeList []*ApprovalNodeInfo `json:"node_list,omitempty"` // 节点信息
 
-	Viewers []*ApprovalViewerInfo `json:"viewers,omitempty"` // 可见人列表
+	Viewers []*ApprovalViewerInfo `json:"viewers,omitempty"` // 审批定义的可见人列表
 
-	ApprovalAdminIds []string `json:"approval_admin_ids,omitempty"` // 有数据管理权限的审批流程管理员ID
+	ApprovalAdminIds []string `json:"approval_admin_ids,omitempty"` // 有数据管理权限的审批流程管理员的 open_id，由参数 with_admin_id 控制是否返回。
 
 	FormWidgetRelation *string `json:"form_widget_relation,omitempty"` // 组件之间值关联关系
 }
@@ -14297,7 +14450,7 @@ func NewSubscribeApprovalReqBuilder() *SubscribeApprovalReqBuilder {
 	return builder
 }
 
-// 审批定义唯一标识
+// 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *SubscribeApprovalReqBuilder) ApprovalCode(approvalCode string) *SubscribeApprovalReqBuilder {
@@ -14338,7 +14491,7 @@ func NewUnsubscribeApprovalReqBuilder() *UnsubscribeApprovalReqBuilder {
 	return builder
 }
 
-// 审批定义唯一标识
+// 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *UnsubscribeApprovalReqBuilder) ApprovalCode(approvalCode string) *UnsubscribeApprovalReqBuilder {
@@ -14386,7 +14539,7 @@ func (builder *ListDistrictReqBuilder) Limit(limit int) *ListDistrictReqBuilder 
 	return builder
 }
 
-// 分页大小，用于指定一次请求所返回的数据量上限，默认20
+// 分页大小，用于指定一次请求所返回的数据量上限，最大100，默认20
 //
 // 示例值：
 func (builder *ListDistrictReqBuilder) PageSize(pageSize int) *ListDistrictReqBuilder {
@@ -14402,7 +14555,7 @@ func (builder *ListDistrictReqBuilder) PageToken(pageToken string) *ListDistrict
 	return builder
 }
 
-// 指定根节点，仅遍历该节点下的数据，默认遍历根节点，返回值内容与list_type 参数有关
+// 指定节点进行遍历，仅返回该节点下的数据，默认遍历根节点，返回值内容可参考list_type参数描述
 //
 // 示例值：1816670
 func (builder *ListDistrictReqBuilder) RootDistrictId(rootDistrictId string) *ListDistrictReqBuilder {
@@ -14412,7 +14565,7 @@ func (builder *ListDistrictReqBuilder) RootDistrictId(rootDistrictId string) *Li
 
 // 遍历类型，不同的类型内容会有差异
 //
-// 示例值：
+// 示例值：sub_level
 func (builder *ListDistrictReqBuilder) ListType(listType string) *ListDistrictReqBuilder {
 	builder.apiReq.QueryParams.Set("list_type", fmt.Sprint(listType))
 	return builder
@@ -14420,7 +14573,7 @@ func (builder *ListDistrictReqBuilder) ListType(listType string) *ListDistrictRe
 
 // 返回指定语言的内容，默认返回英文数据
 //
-// 示例值：
+// 示例值：zh-CN
 func (builder *ListDistrictReqBuilder) Locale(locale string) *ListDistrictReqBuilder {
 	builder.apiReq.QueryParams.Set("locale", fmt.Sprint(locale))
 	return builder
@@ -14461,7 +14614,7 @@ func (resp *ListDistrictResp) Success() bool {
 }
 
 type SearchDistrictReqBodyBuilder struct {
-	districtIds    []string // 根据ID查询指定区域的信息
+	districtIds    []string // 根据ID查询指定区域的信息，ID即地理库数据的ID，如果传了该参数，则以该参数作为唯一筛选项
 	districtIdsSet bool
 
 	keyword    string // 关键字，用于模糊查询符合条件的地址信息
@@ -14473,9 +14626,9 @@ func NewSearchDistrictReqBodyBuilder() *SearchDistrictReqBodyBuilder {
 	return builder
 }
 
-// 根据ID查询指定区域的信息
+// 根据ID查询指定区域的信息，ID即地理库数据的ID，如果传了该参数，则以该参数作为唯一筛选项
 //
-//示例值：
+// 示例值：
 func (builder *SearchDistrictReqBodyBuilder) DistrictIds(districtIds []string) *SearchDistrictReqBodyBuilder {
 	builder.districtIds = districtIds
 	builder.districtIdsSet = true
@@ -14484,7 +14637,7 @@ func (builder *SearchDistrictReqBodyBuilder) DistrictIds(districtIds []string) *
 
 // 关键字，用于模糊查询符合条件的地址信息
 //
-//示例值：北京
+// 示例值：北京
 func (builder *SearchDistrictReqBodyBuilder) Keyword(keyword string) *SearchDistrictReqBodyBuilder {
 	builder.keyword = keyword
 	builder.keywordSet = true
@@ -14514,7 +14667,7 @@ func NewSearchDistrictPathReqBodyBuilder() *SearchDistrictPathReqBodyBuilder {
 	return builder
 }
 
-// 根据ID查询指定区域的信息
+// 根据ID查询指定区域的信息，ID即地理库数据的ID，如果传了该参数，则以该参数作为唯一筛选项
 //
 // 示例值：
 func (builder *SearchDistrictPathReqBodyBuilder) DistrictIds(districtIds []string) *SearchDistrictPathReqBodyBuilder {
@@ -14564,7 +14717,7 @@ func (builder *SearchDistrictReqBuilder) Limit(limit int) *SearchDistrictReqBuil
 	return builder
 }
 
-// 语言
+// 返回值的语言，目前仅部分数据支持中文，不支持中文的数据默认返回英文
 //
 // 示例值：zh-CN
 func (builder *SearchDistrictReqBuilder) Locale(locale string) *SearchDistrictReqBuilder {
@@ -14572,23 +14725,19 @@ func (builder *SearchDistrictReqBuilder) Locale(locale string) *SearchDistrictRe
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SearchDistrictReqBuilder) PageSize(pageSize int) *SearchDistrictReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SearchDistrictReqBuilder) PageToken(pageToken string) *SearchDistrictReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-//
+// 搜索审批的地理库数据，可用于在发起审批时填写地址控件的区域信息
 func (builder *SearchDistrictReqBuilder) Body(body *SearchDistrictReqBody) *SearchDistrictReqBuilder {
 	builder.body = body
 	return builder
@@ -14604,7 +14753,7 @@ func (builder *SearchDistrictReqBuilder) Build() *SearchDistrictReq {
 }
 
 type SearchDistrictReqBody struct {
-	DistrictIds []string `json:"district_ids,omitempty"` // 根据ID查询指定区域的信息
+	DistrictIds []string `json:"district_ids,omitempty"` // 根据ID查询指定区域的信息，ID即地理库数据的ID，如果传了该参数，则以该参数作为唯一筛选项
 
 	Keyword *string `json:"keyword,omitempty"` // 关键字，用于模糊查询符合条件的地址信息
 }
@@ -14650,7 +14799,7 @@ func NewCreateExternalApprovalReqBuilder() *CreateExternalApprovalReqBuilder {
 	return builder
 }
 
-// 此次调用中使用的部门ID的类型
+// 此次调用中的部门 ID 类型。关于部门 ID 的详细介绍，可参见[部门 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)。
 //
 // 示例值：open_department_id
 func (builder *CreateExternalApprovalReqBuilder) DepartmentIdType(departmentIdType string) *CreateExternalApprovalReqBuilder {
@@ -14666,7 +14815,7 @@ func (builder *CreateExternalApprovalReqBuilder) UserIdType(userIdType string) *
 	return builder
 }
 
-// 审批定义是审批的描述，包括审批名称、图标、描述等基础信息。创建好审批定义，用户就可以在审批应用的发起页中看到审批，如果用户点击发起，则会跳转到配置的发起三方系统地址去发起审批。;;另外，审批定义还配置了审批操作时的回调地址：审批人在待审批列表中进行【同意】【拒绝】操作时，审批中心会调用回调地址通知三方系统。
+// 该接口用于将其他系统的审批定义同步至飞书审批，配合[同步三方审批实例](https://open.feishu.cn/document%2FuAjLw4CM%2FukTMukTMukTM%2Freference%2Fapproval-v4%2Fexternal_instance%2Fcreate),[三方快捷审批回调](https://open.feishu.cn/document%2FukTMukTMukTM%2FukjNyYjL5YjM24SO2IjN%2Fquick-approval-callback)使用可将企业内所有审批流集中在飞书审批中统一处理。 方便企业员工在飞书审批内发起并操作三方审批。
 func (builder *CreateExternalApprovalReqBuilder) ExternalApproval(externalApproval *ExternalApproval) *CreateExternalApprovalReqBuilder {
 	builder.externalApproval = externalApproval
 	return builder
@@ -14686,7 +14835,7 @@ type CreateExternalApprovalReq struct {
 }
 
 type CreateExternalApprovalRespData struct {
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义code，审批生成的唯一标识，用于三方审批实例同步时使用
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code。;;**注意**：在传入已存在的审批定义 Code 进行更新操作的场景中，该参数返回的 Code 可能与传入的 Code 不同。如果不同，请继续使用你传入的 Code，而不是该参数返回的 Code。;;
 }
 
 type CreateExternalApprovalResp struct {
@@ -14712,7 +14861,7 @@ func NewGetExternalApprovalReqBuilder() *GetExternalApprovalReqBuilder {
 	return builder
 }
 
-// 审批定义code
+// 三方审批定义 Code。获取方式：;;- 调用[创建三方审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create)时，会返回审批定义 Code。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *GetExternalApprovalReqBuilder) ApprovalCode(approvalCode string) *GetExternalApprovalReqBuilder {
@@ -14741,23 +14890,23 @@ type GetExternalApprovalReq struct {
 }
 
 type GetExternalApprovalRespData struct {
-	ApprovalName *string `json:"approval_name,omitempty"` // 审批定义名称
+	ApprovalName *string `json:"approval_name,omitempty"` // 审批定义名称。当前参数返回的是 @i18n@ 开头的 key，需要通过 i18n_resources.texts 参数值查阅当前 key 对应的取值（value）。
 
-	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义code
+	ApprovalCode *string `json:"approval_code,omitempty"` // 创建三方审批定义时传入的 approval_code。;;**注意**：[创建三方审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create)接口的请求参数 approval_code 与响应参数 approval_code 不一定相同，当前参数所返回的是作为请求参数的 approval_code 的值。
 
 	GroupCode *string `json:"group_code,omitempty"` // 审批定义所属分组
 
-	GroupName *string `json:"group_name,omitempty"` // 分组名称
+	GroupName *string `json:"group_name,omitempty"` // 分组名称。当前参数返回的是 @i18n@ 开头的 key，需要通过 i18n_resources.texts 参数值查阅当前 key 对应的取值（value）。
 
-	Description *string `json:"description,omitempty"` // 审批定义的说明
+	Description *string `json:"description,omitempty"` // 审批定义的说明。当前参数返回的是 @i18n@ 开头的 key，需要通过 i18n_resources.texts 参数值查阅当前 key 对应的取值（value）。
 
-	External *ApprovalCreateExternal `json:"external,omitempty"` // 三方审批定义相关
+	External *ApprovalCreateExternal `json:"external,omitempty"` // 三方审批定义相关信息。
 
-	Viewers []*ApprovalCreateViewers `json:"viewers,omitempty"` // 可见人列表
+	Viewers []*ApprovalCreateViewers `json:"viewers,omitempty"` // 可见人列表，在可见范围内的用户可在审批发起页看到当前审批。
 
 	I18nResources []*I18nResource `json:"i18n_resources,omitempty"` // 国际化文案
 
-	Managers []string `json:"managers,omitempty"` // 流程管理员
+	Managers []string `json:"managers,omitempty"` // 审批流程管理员列表，列表内包含的是用户 ID，ID 类型与查询参数 user_id_type 取值一致。
 }
 
 type GetExternalApprovalResp struct {
@@ -14782,7 +14931,7 @@ func NewCheckExternalInstanceReqBodyBuilder() *CheckExternalInstanceReqBodyBuild
 
 // 校验的实例信息
 //
-//示例值：
+// 示例值：
 func (builder *CheckExternalInstanceReqBodyBuilder) Instances(instances []*ExteranlInstanceCheck) *CheckExternalInstanceReqBodyBuilder {
 	builder.instances = instances
 	builder.instancesSet = true
@@ -14838,7 +14987,7 @@ func NewCheckExternalInstanceReqBuilder() *CheckExternalInstanceReqBuilder {
 	return builder
 }
 
-// 校验三方审批实例数据，用于判断服务端数据是否为最新的。用户提交实例最新更新时间，如果服务端不存在该实例，或者服务端实例更新时间不是最新的，则返回对应实例 id。;;例如，用户可以每隔5分钟，将最近5分钟产生的实例使用该接口进行对比。
+// 调用该接口校验三方审批实例数据，用于判断服务端数据是否为最新的。请求时提交实例最新更新时间，如果服务端不存在该实例，或者服务端实例更新时间不是最新的，则返回对应实例 ID。;;例如，设置定时任务每隔 5 分钟，将最近 5 分钟产生的实例使用该接口进行对比。如果数据在服务端不存在或者不是最新，则可以根据本接口返回的实例 ID、任务 ID，前往[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)。
 func (builder *CheckExternalInstanceReqBuilder) Body(body *CheckExternalInstanceReqBody) *CheckExternalInstanceReqBuilder {
 	builder.body = body
 	return builder
@@ -14888,7 +15037,7 @@ func NewCreateExternalInstanceReqBuilder() *CreateExternalInstanceReqBuilder {
 	return builder
 }
 
-// 审批中心不负责审批的流转，审批的流转在三方系统，三方系统在审批流转后生成的审批实例、审批任务、审批抄送数据同步到审批中心。;;用户可以在审批中心中浏览三方系统同步过来的实例、任务、抄送信息，并且可以跳转回三方系统进行更详细的查看和操作，其中实例信息在【已发起】列表，任务信息在【待审批】和【已审批】列表，抄送信息在【抄送我】列表;;:::html;<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9dff4434afbeb0ef69de7f36b9a6e995_z5iwmTzEgg.png" alt="" style="zoom:17%;" />;;;<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ca6e0e984a7a6d64e1b16a0bac4bf868_tfqjCiaJQM.png" alt="" style="zoom:17%;" />;;;<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/529377e238df78d391bbd22e962ad195_T7eefLI1GA.png" alt="" style="zoom:17%;" />;:::;;对于审批任务，三方系统也可以配置审批任务的回调接口，这样审批人可以在审批中心中直接进行审批操作，审批中心会回调三方系统，三方系统收到回调后更新任务信息，并将新的任务信息同步回审批中心，形成闭环。;;:::html;<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/721c35428bc1187db3318c572f9979ad_je75QpElcg.png" alt=""  style="zoom:25%;" />;:::;<br>
+// 审批中心不负责审批的流转，审批的流转在三方系统。本接口用于把三方系统在审批流转后生成的审批实例、审批任务、审批抄送数据同步到审批中心。
 func (builder *CreateExternalInstanceReqBuilder) ExternalInstance(externalInstance *ExternalInstance) *CreateExternalInstanceReqBuilder {
 	builder.externalInstance = externalInstance
 	return builder
@@ -14923,16 +15072,16 @@ func (resp *CreateExternalInstanceResp) Success() bool {
 }
 
 type ListExternalTaskReqBodyBuilder struct {
-	approvalCodes    []string // 审批定义 Code，用于指定只获取这些定义下的数据
+	approvalCodes    []string // 三方审批定义 Code，用于指定只获取这些定义下的数据。获取方式：;;- 调用[创建三方审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create)时，会返回审批定义 Code。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 	approvalCodesSet bool
 
-	instanceIds    []string // 审批实例 ID, 用于指定只获取这些实例下的数据，最多支持 20 个
+	instanceIds    []string // 三方审批实例 ID，用于指定只获取这些实例下的数据，最多支持 20 个。;;**说明**：三方审批实例 ID 是调用[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)、[校验三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/check)时自定义的实例 ID（instance_id）。
 	instanceIdsSet bool
 
-	userIds    []string // 审批人 user_id，用于指定只获取这些用户的数据
+	userIds    []string // 审批人 user_id，用于指定只获取这些用户的数据。其为user_id_type=user_id的用户ID，获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
 	userIdsSet bool
 
-	status    string // 审批任务状态，用于指定获取该状态下的数据
+	status    string // 审批任务状态，用于指定获取该状态下的数据。
 	statusSet bool
 }
 
@@ -14941,36 +15090,36 @@ func NewListExternalTaskReqBodyBuilder() *ListExternalTaskReqBodyBuilder {
 	return builder
 }
 
-// 审批定义 Code，用于指定只获取这些定义下的数据
+// 三方审批定义 Code，用于指定只获取这些定义下的数据。获取方式：;;- 调用[创建三方审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create)时，会返回审批定义 Code。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 //
-//示例值：B7B65FFE-C2GC-452F-9F0F-9AA8352363D6
+// 示例值：B7B65FFE-C2GC-452F-9F0F-9AA8352363D6
 func (builder *ListExternalTaskReqBodyBuilder) ApprovalCodes(approvalCodes []string) *ListExternalTaskReqBodyBuilder {
 	builder.approvalCodes = approvalCodes
 	builder.approvalCodesSet = true
 	return builder
 }
 
-// 审批实例 ID, 用于指定只获取这些实例下的数据，最多支持 20 个
+// 三方审批实例 ID，用于指定只获取这些实例下的数据，最多支持 20 个。;;**说明**：三方审批实例 ID 是调用[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)、[校验三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/check)时自定义的实例 ID（instance_id）。
 //
-//示例值：oa_159160304
+// 示例值：oa_159160304
 func (builder *ListExternalTaskReqBodyBuilder) InstanceIds(instanceIds []string) *ListExternalTaskReqBodyBuilder {
 	builder.instanceIds = instanceIds
 	builder.instanceIdsSet = true
 	return builder
 }
 
-// 审批人 user_id，用于指定只获取这些用户的数据
+// 审批人 user_id，用于指定只获取这些用户的数据。其为user_id_type=user_id的用户ID，获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
 //
-//示例值：112321
+// 示例值：112321
 func (builder *ListExternalTaskReqBodyBuilder) UserIds(userIds []string) *ListExternalTaskReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsSet = true
 	return builder
 }
 
-// 审批任务状态，用于指定获取该状态下的数据
+// 审批任务状态，用于指定获取该状态下的数据。
 //
-//示例值：PENDING
+// 示例值：PENDING
 func (builder *ListExternalTaskReqBodyBuilder) Status(status string) *ListExternalTaskReqBodyBuilder {
 	builder.status = status
 	builder.statusSet = true
@@ -15010,7 +15159,7 @@ func NewListExternalTaskPathReqBodyBuilder() *ListExternalTaskPathReqBodyBuilder
 	return builder
 }
 
-// 审批定义 Code，用于指定只获取这些定义下的数据
+// 三方审批定义 Code，用于指定只获取这些定义下的数据。获取方式：;;- 调用[创建三方审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create)时，会返回审批定义 Code。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 //
 // 示例值：B7B65FFE-C2GC-452F-9F0F-9AA8352363D6
 func (builder *ListExternalTaskPathReqBodyBuilder) ApprovalCodes(approvalCodes []string) *ListExternalTaskPathReqBodyBuilder {
@@ -15019,7 +15168,7 @@ func (builder *ListExternalTaskPathReqBodyBuilder) ApprovalCodes(approvalCodes [
 	return builder
 }
 
-// 审批实例 ID, 用于指定只获取这些实例下的数据，最多支持 20 个
+// 三方审批实例 ID，用于指定只获取这些实例下的数据，最多支持 20 个。;;**说明**：三方审批实例 ID 是调用[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)、[校验三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/check)时自定义的实例 ID（instance_id）。
 //
 // 示例值：oa_159160304
 func (builder *ListExternalTaskPathReqBodyBuilder) InstanceIds(instanceIds []string) *ListExternalTaskPathReqBodyBuilder {
@@ -15028,7 +15177,7 @@ func (builder *ListExternalTaskPathReqBodyBuilder) InstanceIds(instanceIds []str
 	return builder
 }
 
-// 审批人 user_id，用于指定只获取这些用户的数据
+// 审批人 user_id，用于指定只获取这些用户的数据。其为user_id_type=user_id的用户ID，获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
 //
 // 示例值：112321
 func (builder *ListExternalTaskPathReqBodyBuilder) UserIds(userIds []string) *ListExternalTaskPathReqBodyBuilder {
@@ -15037,7 +15186,7 @@ func (builder *ListExternalTaskPathReqBodyBuilder) UserIds(userIds []string) *Li
 	return builder
 }
 
-// 审批任务状态，用于指定获取该状态下的数据
+// 审批任务状态，用于指定获取该状态下的数据。
 //
 // 示例值：PENDING
 func (builder *ListExternalTaskPathReqBodyBuilder) Status(status string) *ListExternalTaskPathReqBodyBuilder {
@@ -15100,7 +15249,7 @@ func (builder *ListExternalTaskReqBuilder) PageToken(pageToken string) *ListExte
 	return builder
 }
 
-// 该接口用于获取三方审批的状态。用户传入查询条件，接口返回满足条件的审批实例的状态。该接口支持多种参数的组合，包括如下组合：;;1.通过 instance_ids 获取指定实例的任务状态;;2.通过 user_ids 获取指定用户的任务状态;;3.通过 status 获取指定状态的所有任务;;4.通过page_token获取下一批数据
+// 该接口用于获取三方审批的状态。支持传入三方审批定义 Code、三方审批实例 ID、审批人 ID 或 审批任务状态查询条件，获取满足条件的三方审批任务状态。
 func (builder *ListExternalTaskReqBuilder) Body(body *ListExternalTaskReqBody) *ListExternalTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -15116,13 +15265,13 @@ func (builder *ListExternalTaskReqBuilder) Build() *ListExternalTaskReq {
 }
 
 type ListExternalTaskReqBody struct {
-	ApprovalCodes []string `json:"approval_codes,omitempty"` // 审批定义 Code，用于指定只获取这些定义下的数据
+	ApprovalCodes []string `json:"approval_codes,omitempty"` // 三方审批定义 Code，用于指定只获取这些定义下的数据。获取方式：;;- 调用[创建三方审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create)时，会返回审批定义 Code。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 
-	InstanceIds []string `json:"instance_ids,omitempty"` // 审批实例 ID, 用于指定只获取这些实例下的数据，最多支持 20 个
+	InstanceIds []string `json:"instance_ids,omitempty"` // 三方审批实例 ID，用于指定只获取这些实例下的数据，最多支持 20 个。;;**说明**：三方审批实例 ID 是调用[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)、[校验三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/check)时自定义的实例 ID（instance_id）。
 
-	UserIds []string `json:"user_ids,omitempty"` // 审批人 user_id，用于指定只获取这些用户的数据
+	UserIds []string `json:"user_ids,omitempty"` // 审批人 user_id，用于指定只获取这些用户的数据。其为user_id_type=user_id的用户ID，获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
 
-	Status *string `json:"status,omitempty"` // 审批任务状态，用于指定获取该状态下的数据
+	Status *string `json:"status,omitempty"` // 审批任务状态，用于指定获取该状态下的数据。
 }
 
 type ListExternalTaskReq struct {
@@ -15147,6 +15296,176 @@ type ListExternalTaskResp struct {
 }
 
 func (resp *ListExternalTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
+type AddCcInstanceReqBodyBuilder struct {
+	instanceCode    string // 审批实例 Code，可通过任务列表接口获取
+	instanceCodeSet bool
+
+	ccUserIds    []string // 抄送人的用户 ID 列表，cc_user_ids 的 ID 类型需与 user_id_type 的取值保持一致
+	ccUserIdsSet bool
+
+	comment    string // 抄送留言，不要超过500字
+	commentSet bool
+}
+
+func NewAddCcInstanceReqBodyBuilder() *AddCcInstanceReqBodyBuilder {
+	builder := &AddCcInstanceReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例 Code，可通过任务列表接口获取
+//
+// 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
+func (builder *AddCcInstanceReqBodyBuilder) InstanceCode(instanceCode string) *AddCcInstanceReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+// 抄送人的用户 ID 列表，cc_user_ids 的 ID 类型需与 user_id_type 的取值保持一致
+//
+// 示例值：
+func (builder *AddCcInstanceReqBodyBuilder) CcUserIds(ccUserIds []string) *AddCcInstanceReqBodyBuilder {
+	builder.ccUserIds = ccUserIds
+	builder.ccUserIdsSet = true
+	return builder
+}
+
+// 抄送留言，不要超过500字
+//
+// 示例值：同意
+func (builder *AddCcInstanceReqBodyBuilder) Comment(comment string) *AddCcInstanceReqBodyBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+func (builder *AddCcInstanceReqBodyBuilder) Build() *AddCcInstanceReqBody {
+	req := &AddCcInstanceReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	if builder.ccUserIdsSet {
+		req.CcUserIds = builder.ccUserIds
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+	}
+	return req
+}
+
+type AddCcInstancePathReqBodyBuilder struct {
+	instanceCode    string
+	instanceCodeSet bool
+	ccUserIds       []string
+	ccUserIdsSet    bool
+	comment         string
+	commentSet      bool
+}
+
+func NewAddCcInstancePathReqBodyBuilder() *AddCcInstancePathReqBodyBuilder {
+	builder := &AddCcInstancePathReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例 Code，可通过任务列表接口获取
+//
+// 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
+func (builder *AddCcInstancePathReqBodyBuilder) InstanceCode(instanceCode string) *AddCcInstancePathReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+// 抄送人的用户 ID 列表，cc_user_ids 的 ID 类型需与 user_id_type 的取值保持一致
+//
+// 示例值：
+func (builder *AddCcInstancePathReqBodyBuilder) CcUserIds(ccUserIds []string) *AddCcInstancePathReqBodyBuilder {
+	builder.ccUserIds = ccUserIds
+	builder.ccUserIdsSet = true
+	return builder
+}
+
+// 抄送留言，不要超过500字
+//
+// 示例值：同意
+func (builder *AddCcInstancePathReqBodyBuilder) Comment(comment string) *AddCcInstancePathReqBodyBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+func (builder *AddCcInstancePathReqBodyBuilder) Build() (*AddCcInstanceReqBody, error) {
+	req := &AddCcInstanceReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	if builder.ccUserIdsSet {
+		req.CcUserIds = builder.ccUserIds
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+	}
+	return req, nil
+}
+
+type AddCcInstanceReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *AddCcInstanceReqBody
+}
+
+func NewAddCcInstanceReqBuilder() *AddCcInstanceReqBuilder {
+	builder := &AddCcInstanceReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *AddCcInstanceReqBuilder) UserIdType(userIdType string) *AddCcInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 调用该接口将当前审批实例抄送给指定用户。被抄送的用户可以查看审批实例详情。例如，在飞书客户端的 **工作台 > 审批 > 审批中心 > 抄送我** 列表中查看到审批实例。
+func (builder *AddCcInstanceReqBuilder) Body(body *AddCcInstanceReqBody) *AddCcInstanceReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *AddCcInstanceReqBuilder) Build() *AddCcInstanceReq {
+	req := &AddCcInstanceReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type AddCcInstanceReqBody struct {
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code，可通过任务列表接口获取
+
+	CcUserIds []string `json:"cc_user_ids,omitempty"` // 抄送人的用户 ID 列表，cc_user_ids 的 ID 类型需与 user_id_type 的取值保持一致
+
+	Comment *string `json:"comment,omitempty"` // 抄送留言，不要超过500字
+}
+
+type AddCcInstanceReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *AddCcInstanceReqBody `body:""`
+}
+
+type AddCcInstanceResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *AddCcInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -15183,7 +15502,7 @@ func NewAddSignInstanceReqBodyBuilder() *AddSignInstanceReqBodyBuilder {
 
 // 操作用户id
 //
-//示例值：b16g66e3
+// 示例值：b16g66e3
 func (builder *AddSignInstanceReqBodyBuilder) UserId(userId string) *AddSignInstanceReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -15192,7 +15511,7 @@ func (builder *AddSignInstanceReqBodyBuilder) UserId(userId string) *AddSignInst
 
 // 审批定义code
 //
-//示例值：3B68E280-CF10-4198-B4CD-2E3BB97981D8
+// 示例值：3B68E280-CF10-4198-B4CD-2E3BB97981D8
 func (builder *AddSignInstanceReqBodyBuilder) ApprovalCode(approvalCode string) *AddSignInstanceReqBodyBuilder {
 	builder.approvalCode = approvalCode
 	builder.approvalCodeSet = true
@@ -15201,7 +15520,7 @@ func (builder *AddSignInstanceReqBodyBuilder) ApprovalCode(approvalCode string) 
 
 // 审批实例code
 //
-//示例值：289330DE-FBF1-4A47-91F9-9EFCCF11BCAE
+// 示例值：289330DE-FBF1-4A47-91F9-9EFCCF11BCAE
 func (builder *AddSignInstanceReqBodyBuilder) InstanceCode(instanceCode string) *AddSignInstanceReqBodyBuilder {
 	builder.instanceCode = instanceCode
 	builder.instanceCodeSet = true
@@ -15210,7 +15529,7 @@ func (builder *AddSignInstanceReqBodyBuilder) InstanceCode(instanceCode string) 
 
 // 任务id
 //
-//示例值：6955096766400167956
+// 示例值：6955096766400167956
 func (builder *AddSignInstanceReqBodyBuilder) TaskId(taskId string) *AddSignInstanceReqBodyBuilder {
 	builder.taskId = taskId
 	builder.taskIdSet = true
@@ -15219,7 +15538,7 @@ func (builder *AddSignInstanceReqBodyBuilder) TaskId(taskId string) *AddSignInst
 
 // 意见
 //
-//示例值：addSignComment
+// 示例值：addSignComment
 func (builder *AddSignInstanceReqBodyBuilder) Comment(comment string) *AddSignInstanceReqBodyBuilder {
 	builder.comment = comment
 	builder.commentSet = true
@@ -15228,7 +15547,7 @@ func (builder *AddSignInstanceReqBodyBuilder) Comment(comment string) *AddSignIn
 
 // 被加签人id
 //
-//示例值：
+// 示例值：
 func (builder *AddSignInstanceReqBodyBuilder) AddSignUserIds(addSignUserIds []string) *AddSignInstanceReqBodyBuilder {
 	builder.addSignUserIds = addSignUserIds
 	builder.addSignUserIdsSet = true
@@ -15237,7 +15556,7 @@ func (builder *AddSignInstanceReqBodyBuilder) AddSignUserIds(addSignUserIds []st
 
 // 1/2/3分别代表前加签/后加签/并加签
 //
-//示例值：1
+// 示例值：1
 func (builder *AddSignInstanceReqBodyBuilder) AddSignType(addSignType int) *AddSignInstanceReqBodyBuilder {
 	builder.addSignType = addSignType
 	builder.addSignTypeSet = true
@@ -15246,7 +15565,7 @@ func (builder *AddSignInstanceReqBodyBuilder) AddSignType(addSignType int) *AddS
 
 // 仅在前加签、后加签时需要填写，1/2 分别代表或签/会签
 //
-//示例值：1
+// 示例值：1
 func (builder *AddSignInstanceReqBodyBuilder) ApprovalMethod(approvalMethod int) *AddSignInstanceReqBodyBuilder {
 	builder.approvalMethod = approvalMethod
 	builder.approvalMethodSet = true
@@ -15421,7 +15740,6 @@ func NewAddSignInstanceReqBuilder() *AddSignInstanceReqBuilder {
 	return builder
 }
 
-//
 func (builder *AddSignInstanceReqBuilder) Body(body *AddSignInstanceReqBody) *AddSignInstanceReqBuilder {
 	builder.body = body
 	return builder
@@ -15488,7 +15806,7 @@ func (builder *CancelInstanceReqBuilder) UserIdType(userIdType string) *CancelIn
 	return builder
 }
 
-// 对于状态为“审批中”的单个审批实例进行撤销操作，撤销后审批流程结束
+// 如果企业管理员在审批后台的某一审批定义的 **更多设置** 中，勾选了 **允许撤销审批中的申请** 或者 **允许撤销 x 天内通过的审批**，则在符合撤销规则的情况下，你可以调用本接口将指定提交人的审批实例撤回。
 func (builder *CancelInstanceReqBuilder) InstanceCancel(instanceCancel *InstanceCancel) *CancelInstanceReqBuilder {
 	builder.instanceCancel = instanceCancel
 	return builder
@@ -15538,7 +15856,7 @@ func (builder *CcInstanceReqBuilder) UserIdType(userIdType string) *CcInstanceRe
 	return builder
 }
 
-// 通过接口可以将当前审批实例抄送给其他人。
+// 调用该接口将当前审批实例抄送给指定用户。被抄送的用户可以查看审批实例详情。例如，在飞书客户端的 **工作台 > 审批 > 审批中心 > 抄送我** 列表中查看到审批实例。
 func (builder *CcInstanceReqBuilder) InstanceCc(instanceCc *InstanceCc) *CcInstanceReqBuilder {
 	builder.instanceCc = instanceCc
 	return builder
@@ -15580,7 +15898,7 @@ func NewCreateInstanceReqBuilder() *CreateInstanceReqBuilder {
 	return builder
 }
 
-// 创建一个审批实例，调用方需对审批定义的表单有详细了解，将按照定义的表单结构，将表单 Value 通过接口传入
+// 调用本接口使用指定审批定义 Code 创建一个审批实例，接口调用者需对审批定义的表单有详细了解，按照定义的表单结构，将表单 Value 通过本接口传入。
 func (builder *CreateInstanceReqBuilder) InstanceCreate(instanceCreate *InstanceCreate) *CreateInstanceReqBuilder {
 	builder.instanceCreate = instanceCreate
 	return builder
@@ -15614,6 +15932,96 @@ func (resp *CreateInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
+type DetailInstanceReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDetailInstanceReqBuilder() *DetailInstanceReqBuilder {
+	builder := &DetailInstanceReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 审批实例 Code，通过审批任务列表获取得到
+//
+// 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
+func (builder *DetailInstanceReqBuilder) InstanceCode(instanceCode string) *DetailInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("instance_code", fmt.Sprint(instanceCode))
+	return builder
+}
+
+// 语言，默认zh-CN
+//
+// 示例值：zh-CN
+func (builder *DetailInstanceReqBuilder) Locale(locale string) *DetailInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("locale", fmt.Sprint(locale))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *DetailInstanceReqBuilder) UserIdType(userIdType string) *DetailInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *DetailInstanceReqBuilder) Build() *DetailInstanceReq {
+	req := &DetailInstanceReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type DetailInstanceReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DetailInstanceRespData struct {
+	DefinitionName *string `json:"definition_name,omitempty"` // 审批名称
+
+	StartTime *string `json:"start_time,omitempty"` // 审批创建时间
+
+	EndTime *string `json:"end_time,omitempty"` // 审批完成时间，未完成为 0
+
+	UserId *string `json:"user_id,omitempty"` // 发起审批用户
+
+	SerialNumber *string `json:"serial_number,omitempty"` // 审批单编号
+
+	DepartmentId *string `json:"department_id,omitempty"` // 发起审批用户所在部门
+
+	Status *string `json:"status,omitempty"` // 审批实例状态
+
+	Form *string `json:"form,omitempty"` // json字符串，控件值
+
+	Tasks []*UatInstanceTask `json:"tasks,omitempty"` // 审批任务列表
+
+	Comments []*UatInstanceComment `json:"comments,omitempty"` // 评论列表
+
+	OperationRecords []*UatInstanceTimeline `json:"operation_records,omitempty"` // 审批动态
+
+	DefinitionCode *string `json:"definition_code,omitempty"` // 审批定义 Code
+
+	Reverted *bool `json:"reverted,omitempty"` // 单据是否被撤销
+
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code
+
+	CurrentNodes []*UatCurrentNode `json:"current_nodes,omitempty"` // 当前审批节点
+}
+
+type DetailInstanceResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *DetailInstanceRespData `json:"data"` // 业务数据
+}
+
+func (resp *DetailInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
 type GetInstanceReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -15627,7 +16035,7 @@ func NewGetInstanceReqBuilder() *GetInstanceReqBuilder {
 	return builder
 }
 
-// 审批实例 Code, 若在创建的时候传了uuid, 也可以通过传uuid获取
+// 审批实例 Code。获取方式：;;- [创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create) 后，从返回结果中获取审批实例 Code。如果在创建的时候传了 uuid 参数，则本参数也可以通过传 uuid 获取指定审批实例详情。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)，获取指定审批定义内的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。;
 //
 // 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
 func (builder *GetInstanceReqBuilder) InstanceId(instanceId string) *GetInstanceReqBuilder {
@@ -15635,7 +16043,7 @@ func (builder *GetInstanceReqBuilder) InstanceId(instanceId string) *GetInstance
 	return builder
 }
 
-// 语言
+// 语言。默认值为[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)时在 i18n_resources 参数中配置的 is_default 取值为 true 的语言。
 //
 // 示例值：zh-CN
 func (builder *GetInstanceReqBuilder) Locale(locale string) *GetInstanceReqBuilder {
@@ -15643,7 +16051,7 @@ func (builder *GetInstanceReqBuilder) Locale(locale string) *GetInstanceReqBuild
 	return builder
 }
 
-// 发起审批用户id，仅自建应用可返回
+// 发起审批的用户 ID，ID 类型由 user_id_type 参数指定。
 //
 // 示例值：f7cb567e
 func (builder *GetInstanceReqBuilder) UserId(userId string) *GetInstanceReqBuilder {
@@ -15682,23 +16090,23 @@ type GetInstanceReq struct {
 type GetInstanceRespData struct {
 	ApprovalName *string `json:"approval_name,omitempty"` // 审批名称
 
-	StartTime *string `json:"start_time,omitempty"` // 审批创建时间
+	StartTime *string `json:"start_time,omitempty"` // 审批创建时间，毫秒级时间戳。
 
-	EndTime *string `json:"end_time,omitempty"` // 审批完成时间，未完成为 0
+	EndTime *string `json:"end_time,omitempty"` // 审批完成时间，毫秒级时间戳。审批未完成时该参数值为 0。
 
-	UserId *string `json:"user_id,omitempty"` // 发起审批用户
+	UserId *string `json:"user_id,omitempty"` // 发起审批的用户 user_id
 
-	OpenId *string `json:"open_id,omitempty"` // 发起审批用户 open id
+	OpenId *string `json:"open_id,omitempty"` // 发起审批的用户 open_id
 
 	SerialNumber *string `json:"serial_number,omitempty"` // 审批单编号
 
-	DepartmentId *string `json:"department_id,omitempty"` // 发起审批用户所在部门
+	DepartmentId *string `json:"department_id,omitempty"` // 发起审批用户所在部门的 ID
 
 	Status *string `json:"status,omitempty"` // 审批实例状态
 
-	Uuid *string `json:"uuid,omitempty"` // 用户的唯一标识id
+	Uuid *string `json:"uuid,omitempty"` // 审批实例的唯一标识 id
 
-	Form *string `json:"form,omitempty"` // json字符串，控件值详情见下方
+	Form *string `json:"form,omitempty"` // 审批表单控件 JSON 字符串，控件值详细说明参见本文下方 **控件值说明** 章节。
 
 	TaskList []*InstanceTask `json:"task_list,omitempty"` // 审批任务列表
 
@@ -15706,9 +16114,9 @@ type GetInstanceRespData struct {
 
 	Timeline []*InstanceTimeline `json:"timeline,omitempty"` // 审批动态
 
-	ModifiedInstanceCode *string `json:"modified_instance_code,omitempty"` // 修改的原实例 code,仅在查询修改实例时显示该字段
+	ModifiedInstanceCode *string `json:"modified_instance_code,omitempty"` // 修改的原实例 Code，仅在查询修改实例时显示该字段
 
-	RevertedInstanceCode *string `json:"reverted_instance_code,omitempty"` // 撤销的原实例 code,仅在查询撤销实例时显示该字段
+	RevertedInstanceCode *string `json:"reverted_instance_code,omitempty"` // 撤销的原实例 Code，仅在查询撤销实例时显示该字段
 
 	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code
 
@@ -15724,6 +16132,116 @@ type GetInstanceResp struct {
 }
 
 func (resp *GetInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
+type InitiatedInstanceReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewInitiatedInstanceReqBuilder() *InitiatedInstanceReqBuilder {
+	builder := &InitiatedInstanceReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *InitiatedInstanceReqBuilder) Limit(limit int) *InitiatedInstanceReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小，默认100，控制在1～100之间
+//
+// 示例值：
+func (builder *InitiatedInstanceReqBuilder) PageSize(pageSize int) *InitiatedInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：
+func (builder *InitiatedInstanceReqBuilder) PageToken(pageToken string) *InitiatedInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 语言，默认为zh-CN
+//
+// 示例值：zh-CN
+func (builder *InitiatedInstanceReqBuilder) Locale(locale string) *InitiatedInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("locale", fmt.Sprint(locale))
+	return builder
+}
+
+// 审批定义 Code，与返回值的definition_code对应，与其他接口中approval_code为同一概念，可使用返回值中内容（即从返回内容中获取到，用于做过滤）
+//
+// 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
+func (builder *InitiatedInstanceReqBuilder) DefinitionCode(definitionCode string) *InitiatedInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("definition_code", fmt.Sprint(definitionCode))
+	return builder
+}
+
+// 按发起时间查询单据，时间范围的开始区间时间戳，精确到秒
+//
+// 示例值：1783528081
+func (builder *InitiatedInstanceReqBuilder) StartTimestamp(startTimestamp string) *InitiatedInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("start_timestamp", fmt.Sprint(startTimestamp))
+	return builder
+}
+
+// 按发起时间查询单据，时间范围的结束区间时间戳，精确到秒
+//
+// 示例值：1783528081
+func (builder *InitiatedInstanceReqBuilder) EndTimestamp(endTimestamp string) *InitiatedInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("end_timestamp", fmt.Sprint(endTimestamp))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *InitiatedInstanceReqBuilder) UserIdType(userIdType string) *InitiatedInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *InitiatedInstanceReqBuilder) Build() *InitiatedInstanceReq {
+	req := &InitiatedInstanceReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type InitiatedInstanceReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type InitiatedInstanceRespData struct {
+	Instances []*UatInstance `json:"instances,omitempty"` // 任务列表
+
+	PageToken *string `json:"page_token,omitempty"` // 翻页 Token
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否有更多任务可供拉取
+
+	Count *int `json:"count,omitempty"` // 列表计数，只在分页第一页返回，大于等于 100 个任务时将返回 99
+}
+
+type InitiatedInstanceResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *InitiatedInstanceRespData `json:"data"` // 业务数据
+}
+
+func (resp *InitiatedInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -15747,7 +16265,7 @@ func (builder *ListInstanceReqBuilder) Limit(limit int) *ListInstanceReqBuilder 
 	return builder
 }
 
-// 分页大小
+// 分页大小，用于指定一次请求所返回的数据量上限。
 //
 // 示例值：100
 func (builder *ListInstanceReqBuilder) PageSize(pageSize int) *ListInstanceReqBuilder {
@@ -15763,7 +16281,7 @@ func (builder *ListInstanceReqBuilder) PageToken(pageToken string) *ListInstance
 	return builder
 }
 
-// 审批定义唯一标识
+// 审批定义 Code。获取方式：;;- 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后，从响应参数 approval_code 获取。;- 登录审批管理后台，在指定审批定义的 URL 中获取，具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
 //
 // 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
 func (builder *ListInstanceReqBuilder) ApprovalCode(approvalCode string) *ListInstanceReqBuilder {
@@ -15771,7 +16289,7 @@ func (builder *ListInstanceReqBuilder) ApprovalCode(approvalCode string) *ListIn
 	return builder
 }
 
-// 审批实例创建时间区间（毫秒）
+// 审批实例创建时间的开始区间，毫秒时间戳。;;**说明**：start_time 与 end_time 组成时间区间查询条件，接口会返回在该时间区间内创建的审批实例数据。;;<md-alert type="warn">;单次查询时间范围不要超过10小时;</md-alert>;
 //
 // 示例值：1567690398020
 func (builder *ListInstanceReqBuilder) StartTime(startTime string) *ListInstanceReqBuilder {
@@ -15779,7 +16297,7 @@ func (builder *ListInstanceReqBuilder) StartTime(startTime string) *ListInstance
 	return builder
 }
 
-// 审批实例创建时间区间（毫秒）
+// 审批实例创建时间的结束区间，毫秒时间戳。;;**说明**：start_time 与 end_time 组成时间区间查询条件，接口会返回在该时间区间内创建的审批实例的 Code。;;<md-alert type="warn">;单次查询时间范围不要超过10小时;</md-alert>;
 //
 // 示例值：1567690398020
 func (builder *ListInstanceReqBuilder) EndTime(endTime string) *ListInstanceReqBuilder {
@@ -15802,7 +16320,7 @@ type ListInstanceReq struct {
 }
 
 type ListInstanceRespData struct {
-	InstanceCodeList []string `json:"instance_code_list,omitempty"` // 审批实例 Code
+	InstanceCodeList []string `json:"instance_code_list,omitempty"` // 审批实例 Code 列表，默认以审批实例创建时间的先后顺序排列。
 
 	PageToken *string `json:"page_token,omitempty"` // 翻页 Token
 
@@ -15849,7 +16367,7 @@ func NewPreviewInstanceReqBodyBuilder() *PreviewInstanceReqBodyBuilder {
 
 // 用户id
 //
-//示例值：发起审批用户id，按照user_id_type类型填写
+// 示例值：发起审批用户id，按照user_id_type类型填写
 func (builder *PreviewInstanceReqBodyBuilder) UserId(userId string) *PreviewInstanceReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -15858,7 +16376,7 @@ func (builder *PreviewInstanceReqBodyBuilder) UserId(userId string) *PreviewInst
 
 // 审批定义code
 //
-//示例值：C2CAAA90-70D9-3214-906B-B6FFF947F00D
+// 示例值：C2CAAA90-70D9-3214-906B-B6FFF947F00D
 func (builder *PreviewInstanceReqBodyBuilder) ApprovalCode(approvalCode string) *PreviewInstanceReqBodyBuilder {
 	builder.approvalCode = approvalCode
 	builder.approvalCodeSet = true
@@ -15867,7 +16385,7 @@ func (builder *PreviewInstanceReqBodyBuilder) ApprovalCode(approvalCode string) 
 
 // 部门id
 //
-//示例值：6982332863116876308
+// 示例值：6982332863116876308
 func (builder *PreviewInstanceReqBodyBuilder) DepartmentId(departmentId string) *PreviewInstanceReqBodyBuilder {
 	builder.departmentId = departmentId
 	builder.departmentIdSet = true
@@ -15876,7 +16394,7 @@ func (builder *PreviewInstanceReqBodyBuilder) DepartmentId(departmentId string) 
 
 // 表单数据
 //
-//示例值：[{\"id\":\"widget16256287451710001\", \"type\": \"number\", \"value\":\"43\"}]
+// 示例值：[{\"id\":\"widget16256287451710001\", \"type\": \"number\", \"value\":\"43\"}]
 func (builder *PreviewInstanceReqBodyBuilder) Form(form string) *PreviewInstanceReqBodyBuilder {
 	builder.form = form
 	builder.formSet = true
@@ -15885,7 +16403,7 @@ func (builder *PreviewInstanceReqBodyBuilder) Form(form string) *PreviewInstance
 
 // 审批实例code
 //
-//示例值：12345CA6-97AC-32BB-8231-47C33FFFCCFD
+// 示例值：12345CA6-97AC-32BB-8231-47C33FFFCCFD
 func (builder *PreviewInstanceReqBodyBuilder) InstanceCode(instanceCode string) *PreviewInstanceReqBodyBuilder {
 	builder.instanceCode = instanceCode
 	builder.instanceCodeSet = true
@@ -15894,7 +16412,7 @@ func (builder *PreviewInstanceReqBodyBuilder) InstanceCode(instanceCode string) 
 
 // 语言类型
 //
-//示例值：zh-CN: 中文 en-US: 英文
+// 示例值：zh-CN: 中文 en-US: 英文
 func (builder *PreviewInstanceReqBodyBuilder) Locale(locale string) *PreviewInstanceReqBodyBuilder {
 	builder.locale = locale
 	builder.localeSet = true
@@ -15903,7 +16421,7 @@ func (builder *PreviewInstanceReqBodyBuilder) Locale(locale string) *PreviewInst
 
 // 任务id
 //
-//示例值：6982332863116876308
+// 示例值：6982332863116876308
 func (builder *PreviewInstanceReqBodyBuilder) TaskId(taskId string) *PreviewInstanceReqBodyBuilder {
 	builder.taskId = taskId
 	builder.taskIdSet = true
@@ -16069,7 +16587,6 @@ func (builder *PreviewInstanceReqBuilder) UserIdType(userIdType string) *Preview
 	return builder
 }
 
-//
 func (builder *PreviewInstanceReqBuilder) Body(body *PreviewInstanceReqBody) *PreviewInstanceReqBuilder {
 	builder.body = body
 	return builder
@@ -16139,7 +16656,7 @@ func (builder *QueryInstanceReqBuilder) Limit(limit int) *QueryInstanceReqBuilde
 	return builder
 }
 
-// 分页大小
+// 分页大小。如果当前页包含被撤销的审批实例，则查询结果中每页的数据条目数可能小于 page_size 值。例如，page_size 取值为 10，实际查询结果中当前页只显示 6 条数据，则表示有 4 条数据是被撤销的审批实例。
 //
 // 示例值：10
 func (builder *QueryInstanceReqBuilder) PageSize(pageSize int) *QueryInstanceReqBuilder {
@@ -16186,7 +16703,7 @@ type QueryInstanceReq struct {
 }
 
 type QueryInstanceRespData struct {
-	Count *int `json:"count,omitempty"` // 查询返回条数
+	Count *int `json:"count,omitempty"` // 查询结果中包含的审批实例总数
 
 	InstanceList []*InstanceSearchItem `json:"instance_list,omitempty"` // 审批实例列表
 
@@ -16202,6 +16719,266 @@ type QueryInstanceResp struct {
 }
 
 func (resp *QueryInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
+type RecallInstanceReqBodyBuilder struct {
+	instanceCode    string // 审批实例 Code，可通过查询任务列表接口获取到
+	instanceCodeSet bool
+}
+
+func NewRecallInstanceReqBodyBuilder() *RecallInstanceReqBodyBuilder {
+	builder := &RecallInstanceReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例 Code，可通过查询任务列表接口获取到
+//
+// 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
+func (builder *RecallInstanceReqBodyBuilder) InstanceCode(instanceCode string) *RecallInstanceReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+func (builder *RecallInstanceReqBodyBuilder) Build() *RecallInstanceReqBody {
+	req := &RecallInstanceReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	return req
+}
+
+type RecallInstancePathReqBodyBuilder struct {
+	instanceCode    string
+	instanceCodeSet bool
+}
+
+func NewRecallInstancePathReqBodyBuilder() *RecallInstancePathReqBodyBuilder {
+	builder := &RecallInstancePathReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例 Code，可通过查询任务列表接口获取到
+//
+// 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
+func (builder *RecallInstancePathReqBodyBuilder) InstanceCode(instanceCode string) *RecallInstancePathReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+func (builder *RecallInstancePathReqBodyBuilder) Build() (*RecallInstanceReqBody, error) {
+	req := &RecallInstanceReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	return req, nil
+}
+
+type RecallInstanceReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *RecallInstanceReqBody
+}
+
+func NewRecallInstanceReqBuilder() *RecallInstanceReqBuilder {
+	builder := &RecallInstanceReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 在符合撤销规则的情况下，你可以调用本接口将**当前用户身份提交的**的审批实例撤回。
+func (builder *RecallInstanceReqBuilder) Body(body *RecallInstanceReqBody) *RecallInstanceReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *RecallInstanceReqBuilder) Build() *RecallInstanceReq {
+	req := &RecallInstanceReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type RecallInstanceReqBody struct {
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code，可通过查询任务列表接口获取到
+}
+
+type RecallInstanceReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *RecallInstanceReqBody `body:""`
+}
+
+type RecallInstanceResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *RecallInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
+type RemindInstanceReqBodyBuilder struct {
+	instanceCode    string // 审批实例 Code，可通过「获取单个审批实例详情接口」得到，与其他系列接口中instance_code是同一概念
+	instanceCodeSet bool
+
+	taskIds    []string // 被催办的任务ID，通过「获取单个审批实例详情接口」得到
+	taskIdsSet bool
+
+	comment    string // 评论，请控制在500个字符内
+	commentSet bool
+}
+
+func NewRemindInstanceReqBodyBuilder() *RemindInstanceReqBodyBuilder {
+	builder := &RemindInstanceReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例 Code，可通过「获取单个审批实例详情接口」得到，与其他系列接口中instance_code是同一概念
+//
+// 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
+func (builder *RemindInstanceReqBodyBuilder) InstanceCode(instanceCode string) *RemindInstanceReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+// 被催办的任务ID，通过「获取单个审批实例详情接口」得到
+//
+// 示例值：
+func (builder *RemindInstanceReqBodyBuilder) TaskIds(taskIds []string) *RemindInstanceReqBodyBuilder {
+	builder.taskIds = taskIds
+	builder.taskIdsSet = true
+	return builder
+}
+
+// 评论，请控制在500个字符内
+//
+// 示例值：同意
+func (builder *RemindInstanceReqBodyBuilder) Comment(comment string) *RemindInstanceReqBodyBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+func (builder *RemindInstanceReqBodyBuilder) Build() *RemindInstanceReqBody {
+	req := &RemindInstanceReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	if builder.taskIdsSet {
+		req.TaskIds = builder.taskIds
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+	}
+	return req
+}
+
+type RemindInstancePathReqBodyBuilder struct {
+	instanceCode    string
+	instanceCodeSet bool
+	taskIds         []string
+	taskIdsSet      bool
+	comment         string
+	commentSet      bool
+}
+
+func NewRemindInstancePathReqBodyBuilder() *RemindInstancePathReqBodyBuilder {
+	builder := &RemindInstancePathReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例 Code，可通过「获取单个审批实例详情接口」得到，与其他系列接口中instance_code是同一概念
+//
+// 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
+func (builder *RemindInstancePathReqBodyBuilder) InstanceCode(instanceCode string) *RemindInstancePathReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+// 被催办的任务ID，通过「获取单个审批实例详情接口」得到
+//
+// 示例值：
+func (builder *RemindInstancePathReqBodyBuilder) TaskIds(taskIds []string) *RemindInstancePathReqBodyBuilder {
+	builder.taskIds = taskIds
+	builder.taskIdsSet = true
+	return builder
+}
+
+// 评论，请控制在500个字符内
+//
+// 示例值：同意
+func (builder *RemindInstancePathReqBodyBuilder) Comment(comment string) *RemindInstancePathReqBodyBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+func (builder *RemindInstancePathReqBodyBuilder) Build() (*RemindInstanceReqBody, error) {
+	req := &RemindInstanceReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	if builder.taskIdsSet {
+		req.TaskIds = builder.taskIds
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+	}
+	return req, nil
+}
+
+type RemindInstanceReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *RemindInstanceReqBody
+}
+
+func NewRemindInstanceReqBuilder() *RemindInstanceReqBuilder {
+	builder := &RemindInstanceReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 当需要催促审批人审批单据时，通过该接口给审批人发送催办消息
+func (builder *RemindInstanceReqBuilder) Body(body *RemindInstanceReqBody) *RemindInstanceReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *RemindInstanceReqBuilder) Build() *RemindInstanceReq {
+	req := &RemindInstanceReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type RemindInstanceReqBody struct {
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code，可通过「获取单个审批实例详情接口」得到，与其他系列接口中instance_code是同一概念
+
+	TaskIds []string `json:"task_ids,omitempty"` // 被催办的任务ID，通过「获取单个审批实例详情接口」得到
+
+	Comment *string `json:"comment,omitempty"` // 评论，请控制在500个字符内
+}
+
+type RemindInstanceReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *RemindInstanceReqBody `body:""`
+}
+
+type RemindInstanceResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *RemindInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -16263,13 +17040,13 @@ type SearchCcInstanceReq struct {
 }
 
 type SearchCcInstanceRespData struct {
-	Count *int `json:"count,omitempty"` // 查询返回条数
+	Count *int `json:"count,omitempty"` // 查询结果中包含的审批抄送总数
 
-	CcList []*CcSearchItem `json:"cc_list,omitempty"` // 审批实例列表
+	CcList []*CcSearchItem `json:"cc_list,omitempty"` // 审批抄送列表
 
-	PageToken *string `json:"page_token,omitempty"` // 翻页 Token
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有更多任务可供拉取
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 }
 
 type SearchCcInstanceResp struct {
@@ -16304,7 +17081,7 @@ func (builder *SpecifiedRollbackInstanceReqBuilder) UserIdType(userIdType string
 	return builder
 }
 
-// 从当前审批任务，退回到已审批的一个或多个任务节点。退回后，已审批节点重新生成审批任务
+// 从当前审批任务，退回到已审批的一个或多个任务节点。退回后，已审批节点重新生成审批任务。
 func (builder *SpecifiedRollbackInstanceReqBuilder) SpecifiedRollback(specifiedRollback *SpecifiedRollback) *SpecifiedRollbackInstanceReqBuilder {
 	builder.specifiedRollback = specifiedRollback
 	return builder
@@ -16332,6 +17109,146 @@ func (resp *SpecifiedRollbackInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
+type SubscriptionInstanceReqBodyBuilder struct {
+	subscriptionType    string // 订阅类型，用于指定需要接收的审批实例事件类型，取值需符合系统定义的订阅规则。
+	subscriptionTypeSet bool
+}
+
+func NewSubscriptionInstanceReqBodyBuilder() *SubscriptionInstanceReqBodyBuilder {
+	builder := &SubscriptionInstanceReqBodyBuilder{}
+	return builder
+}
+
+// 订阅类型，用于指定需要接收的审批实例事件类型，取值需符合系统定义的订阅规则。
+//
+// 示例值：INVOLVED_APPROVAL
+func (builder *SubscriptionInstanceReqBodyBuilder) SubscriptionType(subscriptionType string) *SubscriptionInstanceReqBodyBuilder {
+	builder.subscriptionType = subscriptionType
+	builder.subscriptionTypeSet = true
+	return builder
+}
+
+func (builder *SubscriptionInstanceReqBodyBuilder) Build() *SubscriptionInstanceReqBody {
+	req := &SubscriptionInstanceReqBody{}
+	if builder.subscriptionTypeSet {
+		req.SubscriptionType = &builder.subscriptionType
+	}
+	return req
+}
+
+type SubscriptionInstancePathReqBodyBuilder struct {
+	subscriptionType    string
+	subscriptionTypeSet bool
+}
+
+func NewSubscriptionInstancePathReqBodyBuilder() *SubscriptionInstancePathReqBodyBuilder {
+	builder := &SubscriptionInstancePathReqBodyBuilder{}
+	return builder
+}
+
+// 订阅类型，用于指定需要接收的审批实例事件类型，取值需符合系统定义的订阅规则。
+//
+// 示例值：INVOLVED_APPROVAL
+func (builder *SubscriptionInstancePathReqBodyBuilder) SubscriptionType(subscriptionType string) *SubscriptionInstancePathReqBodyBuilder {
+	builder.subscriptionType = subscriptionType
+	builder.subscriptionTypeSet = true
+	return builder
+}
+
+func (builder *SubscriptionInstancePathReqBodyBuilder) Build() (*SubscriptionInstanceReqBody, error) {
+	req := &SubscriptionInstanceReqBody{}
+	if builder.subscriptionTypeSet {
+		req.SubscriptionType = &builder.subscriptionType
+	}
+	return req, nil
+}
+
+type SubscriptionInstanceReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SubscriptionInstanceReqBody
+}
+
+func NewSubscriptionInstanceReqBuilder() *SubscriptionInstanceReqBuilder {
+	builder := &SubscriptionInstanceReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 当应用[订阅审批事件](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)后，对于事件type为[审批实例状态变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/events/status_changed)的事件;，需要调用该接口指定需要接收通知的审批任务范围，指定后才可以接收到对应范围内的事件。
+func (builder *SubscriptionInstanceReqBuilder) Body(body *SubscriptionInstanceReqBody) *SubscriptionInstanceReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SubscriptionInstanceReqBuilder) Build() *SubscriptionInstanceReq {
+	req := &SubscriptionInstanceReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SubscriptionInstanceReqBody struct {
+	SubscriptionType *string `json:"subscription_type,omitempty"` // 订阅类型，用于指定需要接收的审批实例事件类型，取值需符合系统定义的订阅规则。
+}
+
+type SubscriptionInstanceReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SubscriptionInstanceReqBody `body:""`
+}
+
+type SubscriptionInstanceResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *SubscriptionInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
+type UnsubscriptionInstanceReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewUnsubscriptionInstanceReqBuilder() *UnsubscriptionInstanceReqBuilder {
+	builder := &UnsubscriptionInstanceReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 需取消订阅的审批类型，支持指定取消参与审批或管理审批的订阅关系。未传入该字段时表示取消所有类别订阅
+//
+// 示例值：INVOLVED_APPROVAL
+func (builder *UnsubscriptionInstanceReqBuilder) SubscriptionType(subscriptionType string) *UnsubscriptionInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("subscription_type", fmt.Sprint(subscriptionType))
+	return builder
+}
+
+func (builder *UnsubscriptionInstanceReqBuilder) Build() *UnsubscriptionInstanceReq {
+	req := &UnsubscriptionInstanceReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type UnsubscriptionInstanceReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type UnsubscriptionInstanceResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UnsubscriptionInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateInstanceCommentReqBuilder struct {
 	apiReq         *larkcore.ApiReq
 	commentRequest *CommentRequest
@@ -16346,7 +17263,7 @@ func NewCreateInstanceCommentReqBuilder() *CreateInstanceCommentReqBuilder {
 	return builder
 }
 
-// 审批实例code（或租户自定义审批实例ID）
+// 审批实例 Code。获取方式：;;- [创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create) 后，从返回结果中获取审批实例 Code。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)，获取指定审批定义内的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。;;说明：支持传入自定义审批实例 ID。
 //
 // 示例值：6A123516-FB88-470D-A428-9AF58B71B3C0
 func (builder *CreateInstanceCommentReqBuilder) InstanceId(instanceId string) *CreateInstanceCommentReqBuilder {
@@ -16362,7 +17279,7 @@ func (builder *CreateInstanceCommentReqBuilder) UserIdType(userIdType string) *C
 	return builder
 }
 
-// 用户ID
+// 用户 ID，ID 类型与 user_id_type 取值一致。
 //
 // 示例值：e5286g26
 func (builder *CreateInstanceCommentReqBuilder) UserId(userId string) *CreateInstanceCommentReqBuilder {
@@ -16370,7 +17287,7 @@ func (builder *CreateInstanceCommentReqBuilder) UserId(userId string) *CreateIns
 	return builder
 }
 
-// 在某审批实例下创建、修改评论或评论回复（不包含审批同意、拒绝、转交等附加的理由或意见）。
+// 在指定审批实例下创建、修改评论或回复评论（不包含审批同意、拒绝、转交等附加的理由或意见）。;
 func (builder *CreateInstanceCommentReqBuilder) CommentRequest(commentRequest *CommentRequest) *CreateInstanceCommentReqBuilder {
 	builder.commentRequest = commentRequest
 	return builder
@@ -16391,7 +17308,7 @@ type CreateInstanceCommentReq struct {
 }
 
 type CreateInstanceCommentRespData struct {
-	CommentId *string `json:"comment_id,omitempty"` // 保存成功的comment_id
+	CommentId *string `json:"comment_id,omitempty"` // 评论 ID。
 }
 
 type CreateInstanceCommentResp struct {
@@ -16417,7 +17334,7 @@ func NewDeleteInstanceCommentReqBuilder() *DeleteInstanceCommentReqBuilder {
 	return builder
 }
 
-// 审批实例code（或者租户自定义审批实例ID）
+// 审批实例 Code。获取方式：;;- [创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create) 后，从返回结果中获取审批实例 Code。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)，获取指定审批定义内的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。;;说明：支持传入自定义审批实例 ID。
 //
 // 示例值：6A123516-FB88-470D-A428-9AF58B71B3C0
 func (builder *DeleteInstanceCommentReqBuilder) InstanceId(instanceId string) *DeleteInstanceCommentReqBuilder {
@@ -16425,7 +17342,7 @@ func (builder *DeleteInstanceCommentReqBuilder) InstanceId(instanceId string) *D
 	return builder
 }
 
-// 评论ID
+// 评论 ID。获取方式：;;- 调用[创建评论](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/create)成功会返回评论 ID。;- 调用[获取评论](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/list)接口，获取评论 ID。
 //
 // 示例值：7081516627711606803
 func (builder *DeleteInstanceCommentReqBuilder) CommentId(commentId string) *DeleteInstanceCommentReqBuilder {
@@ -16441,7 +17358,7 @@ func (builder *DeleteInstanceCommentReqBuilder) UserIdType(userIdType string) *D
 	return builder
 }
 
-// 根据user_id_type填写用户ID
+// 用户 ID，ID 类型与 user_id_type 取值一致。
 //
 // 示例值：ou_806a18fb5bdf525e38ba219733bdbd73
 func (builder *DeleteInstanceCommentReqBuilder) UserId(userId string) *DeleteInstanceCommentReqBuilder {
@@ -16462,7 +17379,7 @@ type DeleteInstanceCommentReq struct {
 }
 
 type DeleteInstanceCommentRespData struct {
-	CommentId *string `json:"comment_id,omitempty"` // 删除的评论ID
+	CommentId *string `json:"comment_id,omitempty"` // 被删除的评论 ID。
 }
 
 type DeleteInstanceCommentResp struct {
@@ -16488,7 +17405,7 @@ func NewListInstanceCommentReqBuilder() *ListInstanceCommentReqBuilder {
 	return builder
 }
 
-// 审批实例code（或者租户自定义审批实例ID）
+// 审批实例 Code。获取方式：;;- [创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create) 后，从返回结果中获取审批实例 Code。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)，获取指定审批定义内的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。;;**说明**：支持传入自定义审批实例 ID。
 //
 // 示例值：6A123516-FB88-470D-A428-9AF58B71B3C0
 func (builder *ListInstanceCommentReqBuilder) InstanceId(instanceId string) *ListInstanceCommentReqBuilder {
@@ -16504,7 +17421,7 @@ func (builder *ListInstanceCommentReqBuilder) UserIdType(userIdType string) *Lis
 	return builder
 }
 
-// 用户ID
+// 用户 ID，ID 类型与 user_id_type 取值一致。
 //
 // 示例值：e5286g26
 func (builder *ListInstanceCommentReqBuilder) UserId(userId string) *ListInstanceCommentReqBuilder {
@@ -16520,7 +17437,7 @@ func (builder *ListInstanceCommentReqBuilder) PageToken(pageToken string) *ListI
 	return builder
 }
 
-// 分页大小
+// 分页大小，用于限制一次请求返回的数据量上限。
 //
 // 示例值：10
 func (builder *ListInstanceCommentReqBuilder) PageSize(pageSize int) *ListInstanceCommentReqBuilder {
@@ -16567,7 +17484,7 @@ func NewRemoveInstanceCommentReqBuilder() *RemoveInstanceCommentReqBuilder {
 	return builder
 }
 
-// 审批实例code（或者租户自定义审批实例ID）
+// 审批实例 Code。获取方式：;;- [创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create) 后，从返回结果中获取审批实例 Code。;- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)，获取指定审批定义内的审批实例 Code。;- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)，设置过滤条件查询指定的审批实例 Code。;;**说明**：支持传入自定义审批实例 ID。
 //
 // 示例值：6A123516-FB88-470D-A428-9AF58B71B3C0
 func (builder *RemoveInstanceCommentReqBuilder) InstanceId(instanceId string) *RemoveInstanceCommentReqBuilder {
@@ -16583,7 +17500,7 @@ func (builder *RemoveInstanceCommentReqBuilder) UserIdType(userIdType string) *R
 	return builder
 }
 
-// 根据user_id_type填写用户ID
+// 用户 ID，ID 类型与 user_id_type 取值一致。
 //
 // 示例值：ou_806a18fb5bdf525e38ba219733bdbd73
 func (builder *RemoveInstanceCommentReqBuilder) UserId(userId string) *RemoveInstanceCommentReqBuilder {
@@ -16604,9 +17521,9 @@ type RemoveInstanceCommentReq struct {
 }
 
 type RemoveInstanceCommentRespData struct {
-	InstanceId *string `json:"instance_id,omitempty"` // 审批实例code
+	InstanceId *string `json:"instance_id,omitempty"` // 审批实例 Code
 
-	ExternalId *string `json:"external_id,omitempty"` // 租户自定义审批实例ID
+	ExternalId *string `json:"external_id,omitempty"` // 自定义审批实例 ID
 }
 
 type RemoveInstanceCommentResp struct {
@@ -16616,6 +17533,269 @@ type RemoveInstanceCommentResp struct {
 }
 
 func (resp *RemoveInstanceCommentResp) Success() bool {
+	return resp.Code == 0
+}
+
+type AddSignTaskReqBodyBuilder struct {
+	instanceCode    string // 审批实例code，通过审批任务列表获取得到
+	instanceCodeSet bool
+
+	taskId    string // 任务id，通过审批任务列表获取得到
+	taskIdSet bool
+
+	comment    string // 审批意见，控制在500个字符内
+	commentSet bool
+
+	addSignUserIds    []string // 被加签人id，需保持与user_id_type类型一致，该值通过用户相关接口获取
+	addSignUserIdsSet bool
+
+	addSignType    int // 1/2/3分别代表前加签/后加签/并加签
+	addSignTypeSet bool
+
+	approvalMethod    int // 仅在前加签、后加签时需要填写，1/2 分别代表或签/会签
+	approvalMethodSet bool
+}
+
+func NewAddSignTaskReqBodyBuilder() *AddSignTaskReqBodyBuilder {
+	builder := &AddSignTaskReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例code，通过审批任务列表获取得到
+//
+// 示例值：289330DE-FBF1-4A47-91F9-9EFCCF11BCAE
+func (builder *AddSignTaskReqBodyBuilder) InstanceCode(instanceCode string) *AddSignTaskReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+// 任务id，通过审批任务列表获取得到
+//
+// 示例值：6955096766400167956
+func (builder *AddSignTaskReqBodyBuilder) TaskId(taskId string) *AddSignTaskReqBodyBuilder {
+	builder.taskId = taskId
+	builder.taskIdSet = true
+	return builder
+}
+
+// 审批意见，控制在500个字符内
+//
+// 示例值：因制度要求，增加业务审批
+func (builder *AddSignTaskReqBodyBuilder) Comment(comment string) *AddSignTaskReqBodyBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+// 被加签人id，需保持与user_id_type类型一致，该值通过用户相关接口获取
+//
+// 示例值：
+func (builder *AddSignTaskReqBodyBuilder) AddSignUserIds(addSignUserIds []string) *AddSignTaskReqBodyBuilder {
+	builder.addSignUserIds = addSignUserIds
+	builder.addSignUserIdsSet = true
+	return builder
+}
+
+// 1/2/3分别代表前加签/后加签/并加签
+//
+// 示例值：1
+func (builder *AddSignTaskReqBodyBuilder) AddSignType(addSignType int) *AddSignTaskReqBodyBuilder {
+	builder.addSignType = addSignType
+	builder.addSignTypeSet = true
+	return builder
+}
+
+// 仅在前加签、后加签时需要填写，1/2 分别代表或签/会签
+//
+// 示例值：1
+func (builder *AddSignTaskReqBodyBuilder) ApprovalMethod(approvalMethod int) *AddSignTaskReqBodyBuilder {
+	builder.approvalMethod = approvalMethod
+	builder.approvalMethodSet = true
+	return builder
+}
+
+func (builder *AddSignTaskReqBodyBuilder) Build() *AddSignTaskReqBody {
+	req := &AddSignTaskReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	if builder.taskIdSet {
+		req.TaskId = &builder.taskId
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+	}
+	if builder.addSignUserIdsSet {
+		req.AddSignUserIds = builder.addSignUserIds
+	}
+	if builder.addSignTypeSet {
+		req.AddSignType = &builder.addSignType
+	}
+	if builder.approvalMethodSet {
+		req.ApprovalMethod = &builder.approvalMethod
+	}
+	return req
+}
+
+type AddSignTaskPathReqBodyBuilder struct {
+	instanceCode      string
+	instanceCodeSet   bool
+	taskId            string
+	taskIdSet         bool
+	comment           string
+	commentSet        bool
+	addSignUserIds    []string
+	addSignUserIdsSet bool
+	addSignType       int
+	addSignTypeSet    bool
+	approvalMethod    int
+	approvalMethodSet bool
+}
+
+func NewAddSignTaskPathReqBodyBuilder() *AddSignTaskPathReqBodyBuilder {
+	builder := &AddSignTaskPathReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例code，通过审批任务列表获取得到
+//
+// 示例值：289330DE-FBF1-4A47-91F9-9EFCCF11BCAE
+func (builder *AddSignTaskPathReqBodyBuilder) InstanceCode(instanceCode string) *AddSignTaskPathReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+// 任务id，通过审批任务列表获取得到
+//
+// 示例值：6955096766400167956
+func (builder *AddSignTaskPathReqBodyBuilder) TaskId(taskId string) *AddSignTaskPathReqBodyBuilder {
+	builder.taskId = taskId
+	builder.taskIdSet = true
+	return builder
+}
+
+// 审批意见，控制在500个字符内
+//
+// 示例值：因制度要求，增加业务审批
+func (builder *AddSignTaskPathReqBodyBuilder) Comment(comment string) *AddSignTaskPathReqBodyBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+// 被加签人id，需保持与user_id_type类型一致，该值通过用户相关接口获取
+//
+// 示例值：
+func (builder *AddSignTaskPathReqBodyBuilder) AddSignUserIds(addSignUserIds []string) *AddSignTaskPathReqBodyBuilder {
+	builder.addSignUserIds = addSignUserIds
+	builder.addSignUserIdsSet = true
+	return builder
+}
+
+// 1/2/3分别代表前加签/后加签/并加签
+//
+// 示例值：1
+func (builder *AddSignTaskPathReqBodyBuilder) AddSignType(addSignType int) *AddSignTaskPathReqBodyBuilder {
+	builder.addSignType = addSignType
+	builder.addSignTypeSet = true
+	return builder
+}
+
+// 仅在前加签、后加签时需要填写，1/2 分别代表或签/会签
+//
+// 示例值：1
+func (builder *AddSignTaskPathReqBodyBuilder) ApprovalMethod(approvalMethod int) *AddSignTaskPathReqBodyBuilder {
+	builder.approvalMethod = approvalMethod
+	builder.approvalMethodSet = true
+	return builder
+}
+
+func (builder *AddSignTaskPathReqBodyBuilder) Build() (*AddSignTaskReqBody, error) {
+	req := &AddSignTaskReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	if builder.taskIdSet {
+		req.TaskId = &builder.taskId
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+	}
+	if builder.addSignUserIdsSet {
+		req.AddSignUserIds = builder.addSignUserIds
+	}
+	if builder.addSignTypeSet {
+		req.AddSignType = &builder.addSignType
+	}
+	if builder.approvalMethodSet {
+		req.ApprovalMethod = &builder.approvalMethod
+	}
+	return req, nil
+}
+
+type AddSignTaskReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *AddSignTaskReqBody
+}
+
+func NewAddSignTaskReqBuilder() *AddSignTaskReqBuilder {
+	builder := &AddSignTaskReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *AddSignTaskReqBuilder) UserIdType(userIdType string) *AddSignTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 通过调用该接口在当前节点增加审批人
+func (builder *AddSignTaskReqBuilder) Body(body *AddSignTaskReqBody) *AddSignTaskReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *AddSignTaskReqBuilder) Build() *AddSignTaskReq {
+	req := &AddSignTaskReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type AddSignTaskReqBody struct {
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例code，通过审批任务列表获取得到
+
+	TaskId *string `json:"task_id,omitempty"` // 任务id，通过审批任务列表获取得到
+
+	Comment *string `json:"comment,omitempty"` // 审批意见，控制在500个字符内
+
+	AddSignUserIds []string `json:"add_sign_user_ids,omitempty"` // 被加签人id，需保持与user_id_type类型一致，该值通过用户相关接口获取
+
+	AddSignType *int `json:"add_sign_type,omitempty"` // 1/2/3分别代表前加签/后加签/并加签
+
+	ApprovalMethod *int `json:"approval_method,omitempty"` // 仅在前加签、后加签时需要填写，1/2 分别代表或签/会签
+}
+
+type AddSignTaskReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *AddSignTaskReqBody `body:""`
+}
+
+type AddSignTaskResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *AddSignTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -16669,6 +17849,517 @@ func (resp *ApproveTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ForwardTaskReqBodyBuilder struct {
+	instanceCode    string // 审批实例 Code，可通过查询审批列表接口获取
+	instanceCodeSet bool
+
+	taskId    string // 审批任务 ID，可通过查询审批列表接口获取
+	taskIdSet bool
+
+	transferUserId    string // 被转交人的用户 ID，与user_id_type类型一致
+	transferUserIdSet bool
+
+	comment    string // 审批意见，不超过500个字符
+	commentSet bool
+}
+
+func NewForwardTaskReqBodyBuilder() *ForwardTaskReqBodyBuilder {
+	builder := &ForwardTaskReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例 Code，可通过查询审批列表接口获取
+//
+// 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
+func (builder *ForwardTaskReqBodyBuilder) InstanceCode(instanceCode string) *ForwardTaskReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+// 审批任务 ID，可通过查询审批列表接口获取
+//
+// 示例值：123456789
+func (builder *ForwardTaskReqBodyBuilder) TaskId(taskId string) *ForwardTaskReqBodyBuilder {
+	builder.taskId = taskId
+	builder.taskIdSet = true
+	return builder
+}
+
+// 被转交人的用户 ID，与user_id_type类型一致
+//
+// 示例值：ou_abacc112aa
+func (builder *ForwardTaskReqBodyBuilder) TransferUserId(transferUserId string) *ForwardTaskReqBodyBuilder {
+	builder.transferUserId = transferUserId
+	builder.transferUserIdSet = true
+	return builder
+}
+
+// 审批意见，不超过500个字符
+//
+// 示例值：转交给产品专员处理
+func (builder *ForwardTaskReqBodyBuilder) Comment(comment string) *ForwardTaskReqBodyBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+func (builder *ForwardTaskReqBodyBuilder) Build() *ForwardTaskReqBody {
+	req := &ForwardTaskReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	if builder.taskIdSet {
+		req.TaskId = &builder.taskId
+	}
+	if builder.transferUserIdSet {
+		req.TransferUserId = &builder.transferUserId
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+	}
+	return req
+}
+
+type ForwardTaskPathReqBodyBuilder struct {
+	instanceCode      string
+	instanceCodeSet   bool
+	taskId            string
+	taskIdSet         bool
+	transferUserId    string
+	transferUserIdSet bool
+	comment           string
+	commentSet        bool
+}
+
+func NewForwardTaskPathReqBodyBuilder() *ForwardTaskPathReqBodyBuilder {
+	builder := &ForwardTaskPathReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例 Code，可通过查询审批列表接口获取
+//
+// 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
+func (builder *ForwardTaskPathReqBodyBuilder) InstanceCode(instanceCode string) *ForwardTaskPathReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+// 审批任务 ID，可通过查询审批列表接口获取
+//
+// 示例值：123456789
+func (builder *ForwardTaskPathReqBodyBuilder) TaskId(taskId string) *ForwardTaskPathReqBodyBuilder {
+	builder.taskId = taskId
+	builder.taskIdSet = true
+	return builder
+}
+
+// 被转交人的用户 ID，与user_id_type类型一致
+//
+// 示例值：ou_abacc112aa
+func (builder *ForwardTaskPathReqBodyBuilder) TransferUserId(transferUserId string) *ForwardTaskPathReqBodyBuilder {
+	builder.transferUserId = transferUserId
+	builder.transferUserIdSet = true
+	return builder
+}
+
+// 审批意见，不超过500个字符
+//
+// 示例值：转交给产品专员处理
+func (builder *ForwardTaskPathReqBodyBuilder) Comment(comment string) *ForwardTaskPathReqBodyBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+func (builder *ForwardTaskPathReqBodyBuilder) Build() (*ForwardTaskReqBody, error) {
+	req := &ForwardTaskReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	if builder.taskIdSet {
+		req.TaskId = &builder.taskId
+	}
+	if builder.transferUserIdSet {
+		req.TransferUserId = &builder.transferUserId
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+	}
+	return req, nil
+}
+
+type ForwardTaskReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *ForwardTaskReqBody
+}
+
+func NewForwardTaskReqBuilder() *ForwardTaskReqBuilder {
+	builder := &ForwardTaskReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *ForwardTaskReqBuilder) UserIdType(userIdType string) *ForwardTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 对于单个审批任务进行转交操作。转交后审批流程流转给被转交人。;
+func (builder *ForwardTaskReqBuilder) Body(body *ForwardTaskReqBody) *ForwardTaskReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *ForwardTaskReqBuilder) Build() *ForwardTaskReq {
+	req := &ForwardTaskReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type ForwardTaskReqBody struct {
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code，可通过查询审批列表接口获取
+
+	TaskId *string `json:"task_id,omitempty"` // 审批任务 ID，可通过查询审批列表接口获取
+
+	TransferUserId *string `json:"transfer_user_id,omitempty"` // 被转交人的用户 ID，与user_id_type类型一致
+
+	Comment *string `json:"comment,omitempty"` // 审批意见，不超过500个字符
+}
+
+type ForwardTaskReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *ForwardTaskReqBody `body:""`
+}
+
+type ForwardTaskResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *ForwardTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListTaskReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListTaskReqBuilder() *ListTaskReqBuilder {
+	builder := &ListTaskReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListTaskReqBuilder) Limit(limit int) *ListTaskReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小，默认值100，限制为1～100之间
+//
+// 示例值：10
+func (builder *ListTaskReqBuilder) PageSize(pageSize int) *ListTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：abcdefg
+func (builder *ListTaskReqBuilder) PageToken(pageToken string) *ListTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 需要查询的任务分组主题，如「待办」、「已办」等
+//
+// 示例值：1
+func (builder *ListTaskReqBuilder) Topic(topic string) *ListTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("topic", fmt.Sprint(topic))
+	return builder
+}
+
+// 语言，默认为zh-CN
+//
+// 示例值：zh-CN
+func (builder *ListTaskReqBuilder) Locale(locale string) *ListTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("locale", fmt.Sprint(locale))
+	return builder
+}
+
+// 审批定义 Code （与approval_code是同一概念，与响应值中definition_code对应）
+//
+// 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
+func (builder *ListTaskReqBuilder) DefinitionCode(definitionCode string) *ListTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("definition_code", fmt.Sprint(definitionCode))
+	return builder
+}
+
+// 按时间查询任务，时间范围的开始区间时间戳，精确到秒
+//
+// 示例值：1783528081
+func (builder *ListTaskReqBuilder) StartTimestamp(startTimestamp string) *ListTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("start_timestamp", fmt.Sprint(startTimestamp))
+	return builder
+}
+
+// 按时间查询任务，时间范围的结束区间时间戳，精确到秒
+//
+// 示例值：1783528081
+func (builder *ListTaskReqBuilder) EndTimestamp(endTimestamp string) *ListTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("end_timestamp", fmt.Sprint(endTimestamp))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *ListTaskReqBuilder) UserIdType(userIdType string) *ListTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *ListTaskReqBuilder) Build() *ListTaskReq {
+	req := &ListTaskReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListTaskReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListTaskRespData struct {
+	Tasks []*UatTask `json:"tasks,omitempty"` // 任务列表
+
+	PageToken *string `json:"page_token,omitempty"` // 翻页 Token
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否有更多任务可供拉取
+
+	Count *int `json:"count,omitempty"` // 列表计数，只在分页第一页返回，大于等于 100 个任务时将返回 99
+}
+
+type ListTaskResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListTaskRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PassTaskReqBodyBuilder struct {
+	instanceCode    string // 审批实例 Code，可通过审批列表相关接口获取
+	instanceCodeSet bool
+
+	taskId    string // 审批任务 ID，可通过审批列表相关接口获取
+	taskIdSet bool
+
+	form    string // 表单数据，默认不需要传，仅有该节点需要录入的表单字段才需要传入
+	formSet bool
+
+	comment    string // 审批意见
+	commentSet bool
+}
+
+func NewPassTaskReqBodyBuilder() *PassTaskReqBodyBuilder {
+	builder := &PassTaskReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例 Code，可通过审批列表相关接口获取
+//
+// 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
+func (builder *PassTaskReqBodyBuilder) InstanceCode(instanceCode string) *PassTaskReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+// 审批任务 ID，可通过审批列表相关接口获取
+//
+// 示例值：123456789
+func (builder *PassTaskReqBodyBuilder) TaskId(taskId string) *PassTaskReqBodyBuilder {
+	builder.taskId = taskId
+	builder.taskIdSet = true
+	return builder
+}
+
+// 表单数据，默认不需要传，仅有该节点需要录入的表单字段才需要传入
+//
+// 示例值：[{"id":"user_name", "type": "input", "value":"ou_123avcssa111"}]
+func (builder *PassTaskReqBodyBuilder) Form(form string) *PassTaskReqBodyBuilder {
+	builder.form = form
+	builder.formSet = true
+	return builder
+}
+
+// 审批意见
+//
+// 示例值：同意
+func (builder *PassTaskReqBodyBuilder) Comment(comment string) *PassTaskReqBodyBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+func (builder *PassTaskReqBodyBuilder) Build() *PassTaskReqBody {
+	req := &PassTaskReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	if builder.taskIdSet {
+		req.TaskId = &builder.taskId
+	}
+	if builder.formSet {
+		req.Form = &builder.form
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+	}
+	return req
+}
+
+type PassTaskPathReqBodyBuilder struct {
+	instanceCode    string
+	instanceCodeSet bool
+	taskId          string
+	taskIdSet       bool
+	form            string
+	formSet         bool
+	comment         string
+	commentSet      bool
+}
+
+func NewPassTaskPathReqBodyBuilder() *PassTaskPathReqBodyBuilder {
+	builder := &PassTaskPathReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例 Code，可通过审批列表相关接口获取
+//
+// 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
+func (builder *PassTaskPathReqBodyBuilder) InstanceCode(instanceCode string) *PassTaskPathReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+// 审批任务 ID，可通过审批列表相关接口获取
+//
+// 示例值：123456789
+func (builder *PassTaskPathReqBodyBuilder) TaskId(taskId string) *PassTaskPathReqBodyBuilder {
+	builder.taskId = taskId
+	builder.taskIdSet = true
+	return builder
+}
+
+// 表单数据，默认不需要传，仅有该节点需要录入的表单字段才需要传入
+//
+// 示例值：[{"id":"user_name", "type": "input", "value":"ou_123avcssa111"}]
+func (builder *PassTaskPathReqBodyBuilder) Form(form string) *PassTaskPathReqBodyBuilder {
+	builder.form = form
+	builder.formSet = true
+	return builder
+}
+
+// 审批意见
+//
+// 示例值：同意
+func (builder *PassTaskPathReqBodyBuilder) Comment(comment string) *PassTaskPathReqBodyBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+func (builder *PassTaskPathReqBodyBuilder) Build() (*PassTaskReqBody, error) {
+	req := &PassTaskReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	if builder.taskIdSet {
+		req.TaskId = &builder.taskId
+	}
+	if builder.formSet {
+		req.Form = &builder.form
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+	}
+	return req, nil
+}
+
+type PassTaskReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *PassTaskReqBody
+}
+
+func NewPassTaskReqBuilder() *PassTaskReqBuilder {
+	builder := &PassTaskReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 对于单个审批任务进行同意操作。同意后审批流程会流转到下一个审批人。
+func (builder *PassTaskReqBuilder) Body(body *PassTaskReqBody) *PassTaskReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *PassTaskReqBuilder) Build() *PassTaskReq {
+	req := &PassTaskReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type PassTaskReqBody struct {
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code，可通过审批列表相关接口获取
+
+	TaskId *string `json:"task_id,omitempty"` // 审批任务 ID，可通过审批列表相关接口获取
+
+	Form *string `json:"form,omitempty"` // 表单数据，默认不需要传，仅有该节点需要录入的表单字段才需要传入
+
+	Comment *string `json:"comment,omitempty"` // 审批意见
+}
+
+type PassTaskReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *PassTaskReqBody `body:""`
+}
+
+type PassTaskResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *PassTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
 type QueryTaskReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
@@ -16705,7 +18396,7 @@ func (builder *QueryTaskReqBuilder) PageToken(pageToken string) *QueryTaskReqBui
 	return builder
 }
 
-// 需要查询的 User ID
+// 需要查询的用户 ID，ID 类型与 user_id_type 参数取值一致。
 //
 // 示例值：example_user_id
 func (builder *QueryTaskReqBuilder) UserId(userId string) *QueryTaskReqBuilder {
@@ -16713,7 +18404,7 @@ func (builder *QueryTaskReqBuilder) UserId(userId string) *QueryTaskReqBuilder {
 	return builder
 }
 
-// 需要查询的任务分组主题，如「待办」、「已办」等
+// 需要查询的任务分组。例如，待处理、已完成等。
 //
 // 示例值：1
 func (builder *QueryTaskReqBuilder) Topic(topic string) *QueryTaskReqBuilder {
@@ -16748,9 +18439,9 @@ type QueryTaskRespData struct {
 
 	PageToken *string `json:"page_token,omitempty"` // 翻页 Token
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有更多任务可供拉取
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	Count *Count `json:"count,omitempty"` // 列表计数，只在分页第一页返回
+	Count *Count `json:"count,omitempty"` // 任务列表计数信息，只在分页的第一页返回
 }
 
 type QueryTaskResp struct {
@@ -16760,6 +18451,167 @@ type QueryTaskResp struct {
 }
 
 func (resp *QueryTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
+type RefuseTaskReqBodyBuilder struct {
+	instanceCode    string // 审批实例 Code，可通过查询任务列表接口获取
+	instanceCodeSet bool
+
+	taskId    string // 审批任务 ID，可通过查询任务列表接口获取
+	taskIdSet bool
+
+	comment    string // 审批意见，请控制在500个字符以内
+	commentSet bool
+}
+
+func NewRefuseTaskReqBodyBuilder() *RefuseTaskReqBodyBuilder {
+	builder := &RefuseTaskReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例 Code，可通过查询任务列表接口获取
+//
+// 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
+func (builder *RefuseTaskReqBodyBuilder) InstanceCode(instanceCode string) *RefuseTaskReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+// 审批任务 ID，可通过查询任务列表接口获取
+//
+// 示例值：123456789
+func (builder *RefuseTaskReqBodyBuilder) TaskId(taskId string) *RefuseTaskReqBodyBuilder {
+	builder.taskId = taskId
+	builder.taskIdSet = true
+	return builder
+}
+
+// 审批意见，请控制在500个字符以内
+//
+// 示例值：拒绝
+func (builder *RefuseTaskReqBodyBuilder) Comment(comment string) *RefuseTaskReqBodyBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+func (builder *RefuseTaskReqBodyBuilder) Build() *RefuseTaskReqBody {
+	req := &RefuseTaskReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	if builder.taskIdSet {
+		req.TaskId = &builder.taskId
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+	}
+	return req
+}
+
+type RefuseTaskPathReqBodyBuilder struct {
+	instanceCode    string
+	instanceCodeSet bool
+	taskId          string
+	taskIdSet       bool
+	comment         string
+	commentSet      bool
+}
+
+func NewRefuseTaskPathReqBodyBuilder() *RefuseTaskPathReqBodyBuilder {
+	builder := &RefuseTaskPathReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例 Code，可通过查询任务列表接口获取
+//
+// 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
+func (builder *RefuseTaskPathReqBodyBuilder) InstanceCode(instanceCode string) *RefuseTaskPathReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+// 审批任务 ID，可通过查询任务列表接口获取
+//
+// 示例值：123456789
+func (builder *RefuseTaskPathReqBodyBuilder) TaskId(taskId string) *RefuseTaskPathReqBodyBuilder {
+	builder.taskId = taskId
+	builder.taskIdSet = true
+	return builder
+}
+
+// 审批意见，请控制在500个字符以内
+//
+// 示例值：拒绝
+func (builder *RefuseTaskPathReqBodyBuilder) Comment(comment string) *RefuseTaskPathReqBodyBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+func (builder *RefuseTaskPathReqBodyBuilder) Build() (*RefuseTaskReqBody, error) {
+	req := &RefuseTaskReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	if builder.taskIdSet {
+		req.TaskId = &builder.taskId
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+	}
+	return req, nil
+}
+
+type RefuseTaskReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *RefuseTaskReqBody
+}
+
+func NewRefuseTaskReqBuilder() *RefuseTaskReqBuilder {
+	builder := &RefuseTaskReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 对于单个审批任务进行拒绝操作。拒绝后审批流程结束。
+func (builder *RefuseTaskReqBuilder) Body(body *RefuseTaskReqBody) *RefuseTaskReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *RefuseTaskReqBuilder) Build() *RefuseTaskReq {
+	req := &RefuseTaskReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type RefuseTaskReqBody struct {
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code，可通过查询任务列表接口获取
+
+	TaskId *string `json:"task_id,omitempty"` // 审批任务 ID，可通过查询任务列表接口获取
+
+	Comment *string `json:"comment,omitempty"` // 审批意见，请控制在500个字符以内
+}
+
+type RefuseTaskReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *RefuseTaskReqBody `body:""`
+}
+
+type RefuseTaskResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *RefuseTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -16835,7 +18687,7 @@ func (builder *ResubmitTaskReqBuilder) UserIdType(userIdType string) *ResubmitTa
 	return builder
 }
 
-// 对于单个退回到发起人的审批任务进行重新发起操作。发起后审批流程会流转到下一个审批人。
+// 对于退回到发起人的审批任务进行重新发起操作。发起后审批流程会流转到下一个审批人。
 func (builder *ResubmitTaskReqBuilder) TaskResubmit(taskResubmit *TaskResubmit) *ResubmitTaskReqBuilder {
 	builder.taskResubmit = taskResubmit
 	return builder
@@ -16863,6 +18715,198 @@ func (resp *ResubmitTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
+type RollbackTaskReqBodyBuilder struct {
+	instanceCode    string // 审批实例code，通过审批任务列表获取得到
+	instanceCodeSet bool
+
+	taskId    string // 任务id，通过审批任务列表获取得到
+	taskIdSet bool
+
+	comment    string // 审批意见，控制在500个字符以内
+	commentSet bool
+
+	nodeIds    []string // 节点id，发起节点id为START
+	nodeIdsSet bool
+}
+
+func NewRollbackTaskReqBodyBuilder() *RollbackTaskReqBodyBuilder {
+	builder := &RollbackTaskReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例code，通过审批任务列表获取得到
+//
+// 示例值：289330DE-FBF1-4A47-91F9-9EFCCF11BCAE
+func (builder *RollbackTaskReqBodyBuilder) InstanceCode(instanceCode string) *RollbackTaskReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+// 任务id，通过审批任务列表获取得到
+//
+// 示例值：6955096766400168956
+func (builder *RollbackTaskReqBodyBuilder) TaskId(taskId string) *RollbackTaskReqBodyBuilder {
+	builder.taskId = taskId
+	builder.taskIdSet = true
+	return builder
+}
+
+// 审批意见，控制在500个字符以内
+//
+// 示例值：不符合要求，退回重新审批
+func (builder *RollbackTaskReqBodyBuilder) Comment(comment string) *RollbackTaskReqBodyBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+// 节点id，发起节点id为START
+//
+// 示例值：
+func (builder *RollbackTaskReqBodyBuilder) NodeIds(nodeIds []string) *RollbackTaskReqBodyBuilder {
+	builder.nodeIds = nodeIds
+	builder.nodeIdsSet = true
+	return builder
+}
+
+func (builder *RollbackTaskReqBodyBuilder) Build() *RollbackTaskReqBody {
+	req := &RollbackTaskReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	if builder.taskIdSet {
+		req.TaskId = &builder.taskId
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+	}
+	if builder.nodeIdsSet {
+		req.NodeIds = builder.nodeIds
+	}
+	return req
+}
+
+type RollbackTaskPathReqBodyBuilder struct {
+	instanceCode    string
+	instanceCodeSet bool
+	taskId          string
+	taskIdSet       bool
+	comment         string
+	commentSet      bool
+	nodeIds         []string
+	nodeIdsSet      bool
+}
+
+func NewRollbackTaskPathReqBodyBuilder() *RollbackTaskPathReqBodyBuilder {
+	builder := &RollbackTaskPathReqBodyBuilder{}
+	return builder
+}
+
+// 审批实例code，通过审批任务列表获取得到
+//
+// 示例值：289330DE-FBF1-4A47-91F9-9EFCCF11BCAE
+func (builder *RollbackTaskPathReqBodyBuilder) InstanceCode(instanceCode string) *RollbackTaskPathReqBodyBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeSet = true
+	return builder
+}
+
+// 任务id，通过审批任务列表获取得到
+//
+// 示例值：6955096766400168956
+func (builder *RollbackTaskPathReqBodyBuilder) TaskId(taskId string) *RollbackTaskPathReqBodyBuilder {
+	builder.taskId = taskId
+	builder.taskIdSet = true
+	return builder
+}
+
+// 审批意见，控制在500个字符以内
+//
+// 示例值：不符合要求，退回重新审批
+func (builder *RollbackTaskPathReqBodyBuilder) Comment(comment string) *RollbackTaskPathReqBodyBuilder {
+	builder.comment = comment
+	builder.commentSet = true
+	return builder
+}
+
+// 节点id，发起节点id为START
+//
+// 示例值：
+func (builder *RollbackTaskPathReqBodyBuilder) NodeIds(nodeIds []string) *RollbackTaskPathReqBodyBuilder {
+	builder.nodeIds = nodeIds
+	builder.nodeIdsSet = true
+	return builder
+}
+
+func (builder *RollbackTaskPathReqBodyBuilder) Build() (*RollbackTaskReqBody, error) {
+	req := &RollbackTaskReqBody{}
+	if builder.instanceCodeSet {
+		req.InstanceCode = &builder.instanceCode
+	}
+	if builder.taskIdSet {
+		req.TaskId = &builder.taskId
+	}
+	if builder.commentSet {
+		req.Comment = &builder.comment
+	}
+	if builder.nodeIdsSet {
+		req.NodeIds = builder.nodeIds
+	}
+	return req, nil
+}
+
+type RollbackTaskReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *RollbackTaskReqBody
+}
+
+func NewRollbackTaskReqBuilder() *RollbackTaskReqBuilder {
+	builder := &RollbackTaskReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 从当前审批任务，退回到已审批的一个或多个任务节点。退回后，已审批节点重新生成审批任务。
+func (builder *RollbackTaskReqBuilder) Body(body *RollbackTaskReqBody) *RollbackTaskReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *RollbackTaskReqBuilder) Build() *RollbackTaskReq {
+	req := &RollbackTaskReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type RollbackTaskReqBody struct {
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例code，通过审批任务列表获取得到
+
+	TaskId *string `json:"task_id,omitempty"` // 任务id，通过审批任务列表获取得到
+
+	Comment *string `json:"comment,omitempty"` // 审批意见，控制在500个字符以内
+
+	NodeIds []string `json:"node_ids,omitempty"` // 节点id，发起节点id为START
+}
+
+type RollbackTaskReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *RollbackTaskReqBody `body:""`
+}
+
+type RollbackTaskResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *RollbackTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
 type SearchTaskReqBuilder struct {
 	apiReq     *larkcore.ApiReq
 	taskSearch *TaskSearch
@@ -16877,7 +18921,7 @@ func NewSearchTaskReqBuilder() *SearchTaskReqBuilder {
 	return builder
 }
 
-// 分页大小
+// 分页大小。如果当前页包含被撤销实例内的任务，则查询结果中每页的数据条目数可能小于 page_size 值。例如，page_size 取值为 10，实际查询结果中当前页只显示 6 条数据，则表示有 4 条数据是被撤销实例内的任务。
 //
 // 示例值：10
 func (builder *SearchTaskReqBuilder) PageSize(pageSize int) *SearchTaskReqBuilder {
@@ -16901,7 +18945,7 @@ func (builder *SearchTaskReqBuilder) UserIdType(userIdType string) *SearchTaskRe
 	return builder
 }
 
-// 该接口通过不同条件查询审批系统中符合条件的审批任务列表
+// 该接口通过不同条件查询审批系统中符合条件的审批任务列表。
 func (builder *SearchTaskReqBuilder) TaskSearch(taskSearch *TaskSearch) *SearchTaskReqBuilder {
 	builder.taskSearch = taskSearch
 	return builder
@@ -16921,13 +18965,13 @@ type SearchTaskReq struct {
 }
 
 type SearchTaskRespData struct {
-	Count *int `json:"count,omitempty"` // 查询返回条数
+	Count *int `json:"count,omitempty"` // 查询结果中包含的审批任务总数
 
 	TaskList []*TaskSearchItem `json:"task_list,omitempty"` // 审批任务列表
 
-	PageToken *string `json:"page_token,omitempty"` // 翻页 Token
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有更多任务可供拉取
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 }
 
 type SearchTaskResp struct {
@@ -16937,6 +18981,105 @@ type SearchTaskResp struct {
 }
 
 func (resp *SearchTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SubscriptionTaskReqBodyBuilder struct {
+	subscriptionType    string // 订阅类型，用于指定需要接收通知的审批任务范围。;
+	subscriptionTypeSet bool
+}
+
+func NewSubscriptionTaskReqBodyBuilder() *SubscriptionTaskReqBodyBuilder {
+	builder := &SubscriptionTaskReqBodyBuilder{}
+	return builder
+}
+
+// 订阅类型，用于指定需要接收通知的审批任务范围。;
+//
+// 示例值：INVOLVED_APPROVAL
+func (builder *SubscriptionTaskReqBodyBuilder) SubscriptionType(subscriptionType string) *SubscriptionTaskReqBodyBuilder {
+	builder.subscriptionType = subscriptionType
+	builder.subscriptionTypeSet = true
+	return builder
+}
+
+func (builder *SubscriptionTaskReqBodyBuilder) Build() *SubscriptionTaskReqBody {
+	req := &SubscriptionTaskReqBody{}
+	if builder.subscriptionTypeSet {
+		req.SubscriptionType = &builder.subscriptionType
+	}
+	return req
+}
+
+type SubscriptionTaskPathReqBodyBuilder struct {
+	subscriptionType    string
+	subscriptionTypeSet bool
+}
+
+func NewSubscriptionTaskPathReqBodyBuilder() *SubscriptionTaskPathReqBodyBuilder {
+	builder := &SubscriptionTaskPathReqBodyBuilder{}
+	return builder
+}
+
+// 订阅类型，用于指定需要接收通知的审批任务范围。;
+//
+// 示例值：INVOLVED_APPROVAL
+func (builder *SubscriptionTaskPathReqBodyBuilder) SubscriptionType(subscriptionType string) *SubscriptionTaskPathReqBodyBuilder {
+	builder.subscriptionType = subscriptionType
+	builder.subscriptionTypeSet = true
+	return builder
+}
+
+func (builder *SubscriptionTaskPathReqBodyBuilder) Build() (*SubscriptionTaskReqBody, error) {
+	req := &SubscriptionTaskReqBody{}
+	if builder.subscriptionTypeSet {
+		req.SubscriptionType = &builder.subscriptionType
+	}
+	return req, nil
+}
+
+type SubscriptionTaskReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SubscriptionTaskReqBody
+}
+
+func NewSubscriptionTaskReqBuilder() *SubscriptionTaskReqBuilder {
+	builder := &SubscriptionTaskReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 当应用[订阅审批事件](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)后，对于事件type为[审批任务状态变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/events/status_changed)的事件;，需要调用该接口指定需要接收通知的审批任务范围，指定后才可以接收到对应范围内的事件。
+func (builder *SubscriptionTaskReqBuilder) Body(body *SubscriptionTaskReqBody) *SubscriptionTaskReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SubscriptionTaskReqBuilder) Build() *SubscriptionTaskReq {
+	req := &SubscriptionTaskReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SubscriptionTaskReqBody struct {
+	SubscriptionType *string `json:"subscription_type,omitempty"` // 订阅类型，用于指定需要接收通知的审批任务范围。;
+}
+
+type SubscriptionTaskReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SubscriptionTaskReqBody `body:""`
+}
+
+type SubscriptionTaskResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *SubscriptionTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -16990,6 +19133,47 @@ func (resp *TransferTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
+type UnsubscriptionTaskReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewUnsubscriptionTaskReqBuilder() *UnsubscriptionTaskReqBuilder {
+	builder := &UnsubscriptionTaskReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 需取消订阅的审批类型，支持指定取消参与审批或管理审批的订阅关系。未传入该字段时表示取消所有类别订阅
+//
+// 示例值：INVOLVED_APPROVAL
+func (builder *UnsubscriptionTaskReqBuilder) SubscriptionType(subscriptionType string) *UnsubscriptionTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("subscription_type", fmt.Sprint(subscriptionType))
+	return builder
+}
+
+func (builder *UnsubscriptionTaskReqBuilder) Build() *UnsubscriptionTaskReq {
+	req := &UnsubscriptionTaskReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type UnsubscriptionTaskReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type UnsubscriptionTaskResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UnsubscriptionTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
 type P2ApprovalUpdatedV4Data struct {
 	Object *ApprovalEvent `json:"object,omitempty"` // 事件详情数据
 }
@@ -17001,6 +19185,56 @@ type P2ApprovalUpdatedV4 struct {
 }
 
 func (m *P2ApprovalUpdatedV4) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2InstanceStatusChangedV4Data struct {
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义code
+
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例code
+
+	ExternalId *string `json:"external_id,omitempty"` // 审批实例三方id（仅为三方审批时有值）
+
+	Status *string `json:"status,omitempty"` // 审批实例状态
+
+	OperateTime *string `json:"operate_time,omitempty"` // 事件发生事件，毫秒时间戳
+
+	StartUser *UserId `json:"start_user,omitempty"` // 审批实例发起人
+}
+
+type P2InstanceStatusChangedV4 struct {
+	*larkevent.EventV2Base                                // 事件基础数据
+	*larkevent.EventReq                                   // 请求原生数据
+	Event                  *P2InstanceStatusChangedV4Data `json:"event"` // 事件内容
+}
+
+func (m *P2InstanceStatusChangedV4) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2TaskStatusChangedV4Data struct {
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义code
+
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例code
+
+	TaskId *string `json:"task_id,omitempty"` // 审批任务id
+
+	TaskExternalId *string `json:"task_external_id,omitempty"` // 三方审批任务id（仅为三方审批时有值）
+
+	AssignedUser *UserId `json:"assigned_user,omitempty"` // 任务分配人
+
+	Status *string `json:"status,omitempty"` // 任务状态
+
+	OperateTime *string `json:"operate_time,omitempty"` // 事件触发时间
+}
+
+type P2TaskStatusChangedV4 struct {
+	*larkevent.EventV2Base                            // 事件基础数据
+	*larkevent.EventReq                               // 请求原生数据
+	Event                  *P2TaskStatusChangedV4Data `json:"event"` // 事件内容
+}
+
+func (m *P2TaskStatusChangedV4) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
@@ -17166,6 +19400,60 @@ func (iterator *ListExternalTaskIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 
+type InitiatedInstanceIterator struct {
+	nextPageToken *string
+	items         []*UatInstance
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *InitiatedInstanceReq
+	listFunc      func(ctx context.Context, req *InitiatedInstanceReq, options ...larkcore.RequestOptionFunc) (*InitiatedInstanceResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *InitiatedInstanceIterator) Next() (bool, *UatInstance, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Instances) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Instances
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *InitiatedInstanceIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
 type ListInstanceIterator struct {
 	nextPageToken *string
 	items         []string
@@ -17271,6 +19559,60 @@ func (iterator *QueryInstanceIterator) Next() (bool, *InstanceSearchItem, error)
 }
 
 func (iterator *QueryInstanceIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListTaskIterator struct {
+	nextPageToken *string
+	items         []*UatTask
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListTaskReq
+	listFunc      func(ctx context.Context, req *ListTaskReq, options ...larkcore.RequestOptionFunc) (*ListTaskResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListTaskIterator) Next() (bool, *UatTask, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Tasks) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Tasks
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListTaskIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 

@@ -9,7 +9,7 @@ import (
 )
 
 type V2 struct {
-	Tenant                  *tenant                  // 企业信息
+	Tenant                  *tenant                  // tenant
 	TenantProductAssignInfo *tenantProductAssignInfo // tenant.product_assign_info
 }
 
@@ -31,9 +31,7 @@ type tenantProductAssignInfo struct {
 //
 // - 获取企业名称、企业编号等企业信息
 //
-// - 如果ISV应用是企业创建时默认安装，并且180天内企业未打开或使用过此应用，则无法通过此接口获取到企业信息。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant/query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=tenant&resource=tenant&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/tenantv2/query_tenant.go
 func (t *tenant) Query(ctx context.Context, options ...larkcore.RequestOptionFunc) (*QueryTenantResp, error) {
@@ -58,9 +56,9 @@ func (t *tenant) Query(ctx context.Context, options ...larkcore.RequestOptionFun
 	return resp, err
 }
 
-// Query
+// Query 获取企业席位信息
 //
-// -
+// - 获取租户下待分配的席位列表（仅返回未满的席位），包含席位名称、席位ID、数量及对应有效期。;返回的待分配席位范围为：​;1. 客户当前已订阅且处于生效状态的席位（注：不包含增购的、尚未生效的未来席位）；​;2. 客户已订阅且未来生效的全新订阅席位。​;;即增购的未来席位不在本接口返回的待分配席位列表范围内。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=tenant&resource=tenant.product_assign_info&version=v2
 //

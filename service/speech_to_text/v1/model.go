@@ -36,8 +36,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -45,8 +43,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -190,7 +186,7 @@ type StreamConfig struct {
 
 	SequenceId *int `json:"sequence_id,omitempty"` // 数据流分片的序号，序号从 0 开始，每次请求递增 1
 
-	Action *int `json:"action,omitempty"` // 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果
+	Action *int `json:"action,omitempty"` // 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果，0 传输语音中间的数据包
 
 	Format *string `json:"format,omitempty"` // 语音格式，目前仅支持：pcm
 
@@ -204,7 +200,7 @@ type StreamConfigBuilder struct {
 	sequenceId    int // 数据流分片的序号，序号从 0 开始，每次请求递增 1
 	sequenceIdSet bool
 
-	action    int // 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果
+	action    int // 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果，0 传输语音中间的数据包
 	actionSet bool
 
 	format    string // 语音格式，目前仅支持：pcm
@@ -237,7 +233,7 @@ func (builder *StreamConfigBuilder) SequenceId(sequenceId int) *StreamConfigBuil
 	return builder
 }
 
-// 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果
+// 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果，0 传输语音中间的数据包
 //
 // 示例值：1
 func (builder *StreamConfigBuilder) Action(action int) *StreamConfigBuilder {
@@ -304,7 +300,7 @@ func NewFileRecognizeSpeechReqBodyBuilder() *FileRecognizeSpeechReqBodyBuilder {
 
 // 语音资源
 //
-//示例值：
+// 示例值：
 func (builder *FileRecognizeSpeechReqBodyBuilder) Speech(speech *Speech) *FileRecognizeSpeechReqBodyBuilder {
 	builder.speech = speech
 	builder.speechSet = true
@@ -313,7 +309,7 @@ func (builder *FileRecognizeSpeechReqBodyBuilder) Speech(speech *Speech) *FileRe
 
 // 配置属性
 //
-//示例值：
+// 示例值：
 func (builder *FileRecognizeSpeechReqBodyBuilder) Config(config *FileConfig) *FileRecognizeSpeechReqBodyBuilder {
 	builder.config = config
 	builder.configSet = true
@@ -386,7 +382,7 @@ func NewFileRecognizeSpeechReqBuilder() *FileRecognizeSpeechReqBuilder {
 	return builder
 }
 
-// 语音文件识别接口，上传整段语音文件进行一次性识别。接口适合 60 秒以内音频识别
+// 语音文件识别接口，上传整段语音文件进行一次性识别。接口适合 60 秒以内音频识别。
 func (builder *FileRecognizeSpeechReqBuilder) Body(body *FileRecognizeSpeechReqBody) *FileRecognizeSpeechReqBuilder {
 	builder.body = body
 	return builder
@@ -439,7 +435,7 @@ func NewStreamRecognizeSpeechReqBodyBuilder() *StreamRecognizeSpeechReqBodyBuild
 
 // 语音资源
 //
-//示例值：
+// 示例值：
 func (builder *StreamRecognizeSpeechReqBodyBuilder) Speech(speech *Speech) *StreamRecognizeSpeechReqBodyBuilder {
 	builder.speech = speech
 	builder.speechSet = true
@@ -448,7 +444,7 @@ func (builder *StreamRecognizeSpeechReqBodyBuilder) Speech(speech *Speech) *Stre
 
 // 配置属性
 //
-//示例值：
+// 示例值：
 func (builder *StreamRecognizeSpeechReqBodyBuilder) Config(config *StreamConfig) *StreamRecognizeSpeechReqBodyBuilder {
 	builder.config = config
 	builder.configSet = true
@@ -521,7 +517,7 @@ func NewStreamRecognizeSpeechReqBuilder() *StreamRecognizeSpeechReqBuilder {
 	return builder
 }
 
-// 语音流式接口，将整个音频文件分片进行传入模型。能够实时返回数据。建议每个音频分片的大小为 100-200ms
+// 语音流式接口，将整个音频文件分片进行传入模型。能够实时返回数据。建议每个音频分片的大小为 100-200ms。
 func (builder *StreamRecognizeSpeechReqBuilder) Body(body *StreamRecognizeSpeechReqBody) *StreamRecognizeSpeechReqBuilder {
 	builder.body = body
 	return builder

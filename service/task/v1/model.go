@@ -25,69 +25,69 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	BatchDeleteCollaboratorUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	BatchDeleteCollaboratorUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	BatchDeleteCollaboratorUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeBatchDeleteFollowerTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeBatchDeleteFollowerTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeBatchDeleteFollowerTaskOpenId  = "open_id"  // 以open_id来识别用户
+	BatchDeleteFollowerUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	BatchDeleteFollowerUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	BatchDeleteFollowerUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateTaskOpenId  = "open_id"  // 以open_id来识别用户
+	CreateTaskUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateTaskUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateTaskUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetTaskOpenId  = "open_id"  // 以open_id来识别用户
+	GetTaskUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetTaskUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetTaskUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeListTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListTaskOpenId  = "open_id"  // 以open_id来识别用户
+	ListTaskUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListTaskUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListTaskUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypePatchTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchTaskOpenId  = "open_id"  // 以open_id来识别用户
+	PatchTaskUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	PatchTaskUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	PatchTaskUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateTaskCollaboratorUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateTaskCollaboratorUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateTaskCollaboratorOpenId  = "open_id"  // 以open_id来识别用户
+	CreateTaskCollaboratorUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateTaskCollaboratorUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateTaskCollaboratorUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeDeleteTaskCollaboratorUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDeleteTaskCollaboratorUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDeleteTaskCollaboratorOpenId  = "open_id"  // 以open_id来识别用户
+	DeleteTaskCollaboratorUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	DeleteTaskCollaboratorUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	DeleteTaskCollaboratorUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeListTaskCollaboratorUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListTaskCollaboratorUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListTaskCollaboratorOpenId  = "open_id"  // 以open_id来识别用户
+	ListTaskCollaboratorUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListTaskCollaboratorUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListTaskCollaboratorUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateTaskCommentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateTaskCommentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateTaskCommentOpenId  = "open_id"  // 以open_id来识别用户
+	CreateTaskCommentUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateTaskCommentUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateTaskCommentUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetTaskCommentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetTaskCommentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetTaskCommentOpenId  = "open_id"  // 以open_id来识别用户
+	GetTaskCommentUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetTaskCommentUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetTaskCommentUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -97,62 +97,46 @@ const (
 )
 
 const (
-	UserIdTypeListTaskCommentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListTaskCommentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListTaskCommentOpenId  = "open_id"  // 以open_id来识别用户
+	ListTaskCommentUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListTaskCommentUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListTaskCommentUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeUpdateTaskCommentUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateTaskCommentUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateTaskCommentOpenId  = "open_id"  // 以open_id来识别用户
+	UpdateTaskCommentUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	UpdateTaskCommentUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	UpdateTaskCommentUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateTaskFollowerUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateTaskFollowerUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateTaskFollowerOpenId  = "open_id"  // 以open_id来识别用户
+	CreateTaskFollowerUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateTaskFollowerUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateTaskFollowerUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeDeleteTaskFollowerUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeDeleteTaskFollowerUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeDeleteTaskFollowerOpenId  = "open_id"  // 以open_id来识别用户
+	DeleteTaskFollowerUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	DeleteTaskFollowerUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	DeleteTaskFollowerUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeListTaskFollowerUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListTaskFollowerUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListTaskFollowerOpenId  = "open_id"  // 以open_id来识别用户
+	ListTaskFollowerUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListTaskFollowerUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListTaskFollowerUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
-
-type Attachment struct {
-}
-
-type AttachmentBuilder struct {
-}
-
-func NewAttachmentBuilder() *AttachmentBuilder {
-	builder := &AttachmentBuilder{}
-	return builder
-}
-
-func (builder *AttachmentBuilder) Build() *Attachment {
-	req := &Attachment{}
-	return req
-}
 
 type Collaborator struct {
-	Id *string `json:"id,omitempty"` // 任务执行者的 ID。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用id_list字段;</md-alert>
+	Id *string `json:"id,omitempty"` // 任务执行者的 ID。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用id_list字段;</md-alert>
 
-	IdList []string `json:"id_list,omitempty"` // 执行者的用户ID列表。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	IdList []string `json:"id_list,omitempty"` // 执行者的用户ID列表。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 }
 
 type CollaboratorBuilder struct {
-	id    string // 任务执行者的 ID。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用id_list字段;</md-alert>
+	id    string // 任务执行者的 ID。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用id_list字段;</md-alert>
 	idSet bool
 
-	idList    []string // 执行者的用户ID列表。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	idList    []string // 执行者的用户ID列表。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 	idListSet bool
 }
 
@@ -161,7 +145,7 @@ func NewCollaboratorBuilder() *CollaboratorBuilder {
 	return builder
 }
 
-// 任务执行者的 ID。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用id_list字段;</md-alert>
+// 任务执行者的 ID。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。;<md-alert>;已经废弃，为了向前兼容早期只支持单次添加一个人的情况而保留，但不再推荐使用，建议使用id_list字段;</md-alert>
 //
 // 示例值：ou_99e1a581b36ecc4862cbfbce473f1234
 func (builder *CollaboratorBuilder) Id(id string) *CollaboratorBuilder {
@@ -170,9 +154,9 @@ func (builder *CollaboratorBuilder) Id(id string) *CollaboratorBuilder {
 	return builder
 }
 
-// 执行者的用户ID列表。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+// 执行者的用户ID列表。;传入的值为 user_id 或 open_id，由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 //
-// 示例值：["ou_550cc75233d8b7b9fcbdad65f34433f4", "ou_d1e9d27cf3235b40ca9a67c67ef088b0"]
+// 示例值：
 func (builder *CollaboratorBuilder) IdList(idList []string) *CollaboratorBuilder {
 	builder.idList = idList
 	builder.idListSet = true
@@ -332,8 +316,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -341,8 +323,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -461,7 +441,7 @@ func (builder *FollowerBuilder) Id(id string) *FollowerBuilder {
 
 // 要删除的关注人ID列表
 //
-// 示例值：[;  "ou_550cc75233d8b7b9fcbdad65f34433f4", "ou_d1e9d27cf3235b40ca9a67c67ef088b0";]
+// 示例值：
 func (builder *FollowerBuilder) IdList(idList []string) *FollowerBuilder {
 	builder.idList = idList
 	builder.idListSet = true
@@ -629,22 +609,6 @@ func (builder *ReminderBuilder) Build() *Reminder {
 	return req
 }
 
-type Section struct {
-}
-
-type SectionBuilder struct {
-}
-
-func NewSectionBuilder() *SectionBuilder {
-	builder := &SectionBuilder{}
-	return builder
-}
-
-func (builder *SectionBuilder) Build() *Section {
-	req := &Section{}
-	return req
-}
-
 type Task struct {
 	Id *string `json:"id,omitempty"` // 任务的唯一ID，例如"83912691-2e43-47fc-94a4-d512e03984fa"
 
@@ -676,9 +640,9 @@ type Task struct {
 
 	Collaborators []*Collaborator `json:"collaborators,omitempty"` // 任务的执行者
 
-	CollaboratorIds []string `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	CollaboratorIds []string `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 
-	FollowerIds []string `json:"follower_ids,omitempty"` // 创建任务时添加的关注者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	FollowerIds []string `json:"follower_ids,omitempty"` // 创建任务时添加的关注者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 
 	RepeatRule *string `json:"repeat_rule,omitempty"` // 重复任务的规则表达式。;语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
 
@@ -733,10 +697,10 @@ type TaskBuilder struct {
 	collaborators    []*Collaborator // 任务的执行者
 	collaboratorsSet bool
 
-	collaboratorIds    []string // 创建任务时添加的执行者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	collaboratorIds    []string // 创建任务时添加的执行者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 	collaboratorIdsSet bool
 
-	followerIds    []string // 创建任务时添加的关注者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	followerIds    []string // 创建任务时添加的关注者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 	followerIdsSet bool
 
 	repeatRule    string // 重复任务的规则表达式。;语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
@@ -889,7 +853,7 @@ func (builder *TaskBuilder) Collaborators(collaborators []*Collaborator) *TaskBu
 	return builder
 }
 
-// 创建任务时添加的执行者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+// 创建任务时添加的执行者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 //
 // 示例值：["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"]
 func (builder *TaskBuilder) CollaboratorIds(collaboratorIds []string) *TaskBuilder {
@@ -898,7 +862,7 @@ func (builder *TaskBuilder) CollaboratorIds(collaboratorIds []string) *TaskBuild
 	return builder
 }
 
-// 创建任务时添加的关注者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+// 创建任务时添加的关注者用户id列表。;传入的值为 user_id 或 open_id ，由user_id_type 决定。user_id和open_id的获取可见文档：[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 //
 // 示例值：["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"]
 func (builder *TaskBuilder) FollowerIds(followerIds []string) *TaskBuilder {
@@ -1013,22 +977,6 @@ func (builder *TaskBuilder) Build() *Task {
 	return req
 }
 
-type Tasklist struct {
-}
-
-type TasklistBuilder struct {
-}
-
-func NewTasklistBuilder() *TasklistBuilder {
-	builder := &TasklistBuilder{}
-	return builder
-}
-
-func (builder *TasklistBuilder) Build() *Tasklist {
-	req := &Tasklist{}
-	return req
-}
-
 type UserId struct {
 	UserId *string `json:"user_id,omitempty"` //
 
@@ -1053,8 +1001,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -1062,8 +1008,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -1071,8 +1015,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -1158,7 +1100,7 @@ func (builder *BatchDeleteCollaboratorTaskReqBuilder) UserIdType(userIdType stri
 	return builder
 }
 
-// 该接口用于批量删除执行者
+// 该接口用于批量删除执行者。
 func (builder *BatchDeleteCollaboratorTaskReqBuilder) Collaborator(collaborator *Collaborator) *BatchDeleteCollaboratorTaskReqBuilder {
 	builder.collaborator = collaborator
 	return builder
@@ -1222,7 +1164,7 @@ func (builder *BatchDeleteFollowerTaskReqBuilder) UserIdType(userIdType string) 
 	return builder
 }
 
-// 该接口用于批量删除关注人
+// 该接口用于批量删除关注人。
 func (builder *BatchDeleteFollowerTaskReqBuilder) Follower(follower *Follower) *BatchDeleteFollowerTaskReqBuilder {
 	builder.follower = follower
 	return builder
@@ -1470,7 +1412,7 @@ func (builder *ListTaskReqBuilder) Limit(limit int) *ListTaskReqBuilder {
 
 // 分页大小
 //
-// 示例值：10
+// 示例值：
 func (builder *ListTaskReqBuilder) PageSize(pageSize int) *ListTaskReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -1552,7 +1494,7 @@ type PatchTaskReqBodyBuilder struct {
 	task    *Task // 被更新的任务实体基础信息
 	taskSet bool
 
-	updateFields    []string // 指定需要更新的任务字段，否则服务端将不知道更新哪些字段
+	updateFields    []string // 指定需要更新的任务字段。可以更新的字段包括：;<md-enum>;<md-enum-item key="summary" >任务标题（普通文本）</md-enum-item>;<md-enum-item key="rich_summary" >任务标题（富文本）</md-enum-item>;<md-enum-item key="description" >任务描述（普通文本）</md-enum-item>;<md-enum-item key="rich_description" >任务描述（富文本）</md-enum-item>;<md-enum-item key="due" >任务截止时间</md-enum-item>;<md-enum-item key="extra" >任务附属信息</md-enum-item>;<md-enum-item key="custom" >任务自定义完成规则</md-enum-item>;<md-enum-item key="follower_ids" >任务关注人ID列表</md-enum-item>;<md-enum-item key="collaborator_ids" >任务执行者ID列表</md-enum-item>;<md-enum-item key="repeat_rule" >任务重复规则</md-enum-item>;</md-enum>
 	updateFieldsSet bool
 }
 
@@ -1563,16 +1505,16 @@ func NewPatchTaskReqBodyBuilder() *PatchTaskReqBodyBuilder {
 
 // 被更新的任务实体基础信息
 //
-//示例值：
+// 示例值：
 func (builder *PatchTaskReqBodyBuilder) Task(task *Task) *PatchTaskReqBodyBuilder {
 	builder.task = task
 	builder.taskSet = true
 	return builder
 }
 
-// 指定需要更新的任务字段，否则服务端将不知道更新哪些字段
+// 指定需要更新的任务字段。可以更新的字段包括：;<md-enum>;<md-enum-item key="summary" >任务标题（普通文本）</md-enum-item>;<md-enum-item key="rich_summary" >任务标题（富文本）</md-enum-item>;<md-enum-item key="description" >任务描述（普通文本）</md-enum-item>;<md-enum-item key="rich_description" >任务描述（富文本）</md-enum-item>;<md-enum-item key="due" >任务截止时间</md-enum-item>;<md-enum-item key="extra" >任务附属信息</md-enum-item>;<md-enum-item key="custom" >任务自定义完成规则</md-enum-item>;<md-enum-item key="follower_ids" >任务关注人ID列表</md-enum-item>;<md-enum-item key="collaborator_ids" >任务执行者ID列表</md-enum-item>;<md-enum-item key="repeat_rule" >任务重复规则</md-enum-item>;</md-enum>
 //
-//示例值：["summary"]
+// 示例值：["summary"]
 func (builder *PatchTaskReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskReqBodyBuilder {
 	builder.updateFields = updateFields
 	builder.updateFieldsSet = true
@@ -1611,7 +1553,7 @@ func (builder *PatchTaskPathReqBodyBuilder) Task(task *Task) *PatchTaskPathReqBo
 	return builder
 }
 
-// 指定需要更新的任务字段，否则服务端将不知道更新哪些字段
+// 指定需要更新的任务字段。可以更新的字段包括：;<md-enum>;<md-enum-item key="summary" >任务标题（普通文本）</md-enum-item>;<md-enum-item key="rich_summary" >任务标题（富文本）</md-enum-item>;<md-enum-item key="description" >任务描述（普通文本）</md-enum-item>;<md-enum-item key="rich_description" >任务描述（富文本）</md-enum-item>;<md-enum-item key="due" >任务截止时间</md-enum-item>;<md-enum-item key="extra" >任务附属信息</md-enum-item>;<md-enum-item key="custom" >任务自定义完成规则</md-enum-item>;<md-enum-item key="follower_ids" >任务关注人ID列表</md-enum-item>;<md-enum-item key="collaborator_ids" >任务执行者ID列表</md-enum-item>;<md-enum-item key="repeat_rule" >任务重复规则</md-enum-item>;</md-enum>
 //
 // 示例值：["summary"]
 func (builder *PatchTaskPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskPathReqBodyBuilder {
@@ -1661,7 +1603,7 @@ func (builder *PatchTaskReqBuilder) UserIdType(userIdType string) *PatchTaskReqB
 	return builder
 }
 
-// 该接口用于修改任务的标题、描述、时间、来源等相关信息
+// 该接口用于修改任务的标题、描述、时间、来源等相关信息。
 func (builder *PatchTaskReqBuilder) Body(body *PatchTaskReqBody) *PatchTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -1679,7 +1621,7 @@ func (builder *PatchTaskReqBuilder) Build() *PatchTaskReq {
 type PatchTaskReqBody struct {
 	Task *Task `json:"task,omitempty"` // 被更新的任务实体基础信息
 
-	UpdateFields []string `json:"update_fields,omitempty"` // 指定需要更新的任务字段，否则服务端将不知道更新哪些字段
+	UpdateFields []string `json:"update_fields,omitempty"` // 指定需要更新的任务字段。可以更新的字段包括：;<md-enum>;<md-enum-item key="summary" >任务标题（普通文本）</md-enum-item>;<md-enum-item key="rich_summary" >任务标题（富文本）</md-enum-item>;<md-enum-item key="description" >任务描述（普通文本）</md-enum-item>;<md-enum-item key="rich_description" >任务描述（富文本）</md-enum-item>;<md-enum-item key="due" >任务截止时间</md-enum-item>;<md-enum-item key="extra" >任务附属信息</md-enum-item>;<md-enum-item key="custom" >任务自定义完成规则</md-enum-item>;<md-enum-item key="follower_ids" >任务关注人ID列表</md-enum-item>;<md-enum-item key="collaborator_ids" >任务执行者ID列表</md-enum-item>;<md-enum-item key="repeat_rule" >任务重复规则</md-enum-item>;</md-enum>
 }
 
 type PatchTaskReq struct {
@@ -1979,7 +1921,7 @@ func (builder *CreateTaskCommentReqBuilder) UserIdType(userIdType string) *Creat
 	return builder
 }
 
-// 该接口用于创建和回复任务的评论。当parent_id字段为0时，为创建评论；当parent_id不为0时，为回复某条评论
+// 该接口用于创建和回复任务的评论。当parent_id字段为0时，为创建评论；当parent_id不为0时，为回复某条评论。
 func (builder *CreateTaskCommentReqBuilder) Comment(comment *Comment) *CreateTaskCommentReqBuilder {
 	builder.comment = comment
 	return builder
@@ -2233,7 +2175,7 @@ func NewUpdateTaskCommentReqBodyBuilder() *UpdateTaskCommentReqBodyBuilder {
 
 // 新的评论内容
 //
-//示例值：飞流直下三千尺，疑是银河落九天
+// 示例值：飞流直下三千尺，疑是银河落九天
 func (builder *UpdateTaskCommentReqBodyBuilder) Content(content string) *UpdateTaskCommentReqBodyBuilder {
 	builder.content = content
 	builder.contentSet = true
@@ -2242,7 +2184,7 @@ func (builder *UpdateTaskCommentReqBodyBuilder) Content(content string) *UpdateT
 
 // 新的富文本评论内容（优先使用）
 //
-//示例值：飞流直下三千尺，疑是银河落九天<at id=7058204817822318612></at>
+// 示例值：飞流直下三千尺，疑是银河落九天<at id=7058204817822318612></at>
 func (builder *UpdateTaskCommentReqBodyBuilder) RichContent(richContent string) *UpdateTaskCommentReqBodyBuilder {
 	builder.richContent = richContent
 	builder.richContentSet = true
@@ -2339,7 +2281,7 @@ func (builder *UpdateTaskCommentReqBuilder) UserIdType(userIdType string) *Updat
 	return builder
 }
 
-// 该接口用于更新评论内容
+// 该接口用于更新评论内容。
 func (builder *UpdateTaskCommentReqBuilder) Body(body *UpdateTaskCommentReqBody) *UpdateTaskCommentReqBuilder {
 	builder.body = body
 	return builder
@@ -2409,7 +2351,7 @@ func (builder *CreateTaskFollowerReqBuilder) UserIdType(userIdType string) *Crea
 	return builder
 }
 
-// 该接口用于创建任务关注人。可以一次性添加多位关注人。关注人ID要使用表示用户的ID。
+// 该接口用于新增任务关注人。可以一次性添加多位关注人。关注人ID要使用表示用户的ID。
 func (builder *CreateTaskFollowerReqBuilder) Follower(follower *Follower) *CreateTaskFollowerReqBuilder {
 	builder.follower = follower
 	return builder

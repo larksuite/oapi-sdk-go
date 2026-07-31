@@ -18,9 +18,9 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/vc/v1"
 )
 
+// 企业会议结束
 //
-//
-// -
+// - 发生在会议结束时，包含企业内所有会议结束事件。
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingAllMeetingEndedV1(handler func(ctx context.Context, event *larkvc.P2MeetingAllMeetingEndedV1) error) *EventDispatcher {
@@ -32,9 +32,9 @@ func (dispatcher *EventDispatcher) OnP2MeetingAllMeetingEndedV1(handler func(ctx
 	return dispatcher
 }
 
+// 企业会议开始
 //
-//
-// -
+// - 发生在会议开始时，包含企业内所有会议开始事件。
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingAllMeetingStartedV1(handler func(ctx context.Context, event *larkvc.P2MeetingAllMeetingStartedV1) error) *EventDispatcher {
@@ -48,9 +48,9 @@ func (dispatcher *EventDispatcher) OnP2MeetingAllMeetingStartedV1(handler func(c
 
 // 加入会议
 //
-// - 发生在有人加入会议时
+// - 发生在有人加入会议时【仅通过Open API预约的会议会产生此类事件】
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/join_meeting
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingJoinMeetingV1(handler func(ctx context.Context, event *larkvc.P2MeetingJoinMeetingV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.join_meeting_v1"]
 	if existed {
@@ -62,9 +62,9 @@ func (dispatcher *EventDispatcher) OnP2MeetingJoinMeetingV1(handler func(ctx con
 
 // 离开会议
 //
-// - 发生在有人离开会议时
+// - 发生在有人离开会议时【仅通过Open API预约的会议会产生此类事件】
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/leave_meeting
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingLeaveMeetingV1(handler func(ctx context.Context, event *larkvc.P2MeetingLeaveMeetingV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.leave_meeting_v1"]
 	if existed {
@@ -76,9 +76,9 @@ func (dispatcher *EventDispatcher) OnP2MeetingLeaveMeetingV1(handler func(ctx co
 
 // 会议结束
 //
-// - 发生在会议结束时
+// - 发生在会议结束时【仅通过Open API预约的会议会产生此类事件】
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/meeting_ended
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingEndedV1(handler func(ctx context.Context, event *larkvc.P2MeetingEndedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.meeting_ended_v1"]
 	if existed {
@@ -90,9 +90,9 @@ func (dispatcher *EventDispatcher) OnP2MeetingEndedV1(handler func(ctx context.C
 
 // 会议开始
 //
-// - 发生在会议开始时，目前仅提供预约会议的相关事件。
+// - 发生在会议开始时【仅通过Open API预约的会议会产生此类事件】
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/meeting_started
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingStartedV1(handler func(ctx context.Context, event *larkvc.P2MeetingStartedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.meeting_started_v1"]
 	if existed {
@@ -102,9 +102,9 @@ func (dispatcher *EventDispatcher) OnP2MeetingStartedV1(handler func(ctx context
 	return dispatcher
 }
 
+// 参与的会议结束
 //
-//
-// -
+// - 当用户加入过的会议结束后，将会触发该事件。
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingParticipantMeetingEndedV1(handler func(ctx context.Context, event *larkvc.P2MeetingParticipantMeetingEndedV1) error) *EventDispatcher {
@@ -116,11 +116,11 @@ func (dispatcher *EventDispatcher) OnP2MeetingParticipantMeetingEndedV1(handler 
 	return dispatcher
 }
 
-// 录制停止
+// 停止录制
 //
-// - 发生在录制结束时
+// - 发生在录制结束时【仅通过Open API预约的会议会产生此类事件】
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_ended
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingRecordingEndedV1(handler func(ctx context.Context, event *larkvc.P2MeetingRecordingEndedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.recording_ended_v1"]
 	if existed {
@@ -130,13 +130,11 @@ func (dispatcher *EventDispatcher) OnP2MeetingRecordingEndedV1(handler func(ctx 
 	return dispatcher
 }
 
-// 录制完成
+// 完成录制
 //
-// - 发生在录制文件上传完毕时
+// - 发生在录制文件上传完毕时【仅通过Open API预约的会议会产生此类事件】
 //
-// - 收到该事件后，方可进行录制文件获取、授权等操作
-//
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_ready
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingRecordingReadyV1(handler func(ctx context.Context, event *larkvc.P2MeetingRecordingReadyV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.recording_ready_v1"]
 	if existed {
@@ -146,11 +144,11 @@ func (dispatcher *EventDispatcher) OnP2MeetingRecordingReadyV1(handler func(ctx 
 	return dispatcher
 }
 
-// 录制开始
+// 开始录制
 //
-// - 发生在开始录制时
+// - 发生在开始录制时【仅通过Open API预约的会议会产生此类事件】
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_started
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingRecordingStartedV1(handler func(ctx context.Context, event *larkvc.P2MeetingRecordingStartedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.recording_started_v1"]
 	if existed {
@@ -160,11 +158,11 @@ func (dispatcher *EventDispatcher) OnP2MeetingRecordingStartedV1(handler func(ct
 	return dispatcher
 }
 
-// 屏幕共享结束
+// 结束屏幕共享
 //
-// - 发生在屏幕共享结束时
+// - 发生在屏幕共享结束时【仅通过Open API预约的会议会产生此类事件】
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/share_ended
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingShareEndedV1(handler func(ctx context.Context, event *larkvc.P2MeetingShareEndedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.share_ended_v1"]
 	if existed {
@@ -174,11 +172,11 @@ func (dispatcher *EventDispatcher) OnP2MeetingShareEndedV1(handler func(ctx cont
 	return dispatcher
 }
 
-// 屏幕共享开始
+// 开始屏幕共享
 //
-// - 发生在屏幕共享开始时
+// - 发生在屏幕共享开始时【仅通过Open API预约的会议会产生此类事件】
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/share_started
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2MeetingShareStartedV1(handler func(ctx context.Context, event *larkvc.P2MeetingShareStartedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.meeting.share_started_v1"]
 	if existed {
@@ -188,9 +186,23 @@ func (dispatcher *EventDispatcher) OnP2MeetingShareStartedV1(handler func(ctx co
 	return dispatcher
 }
 
+// 纪要生成
 //
+// - 当与用户有关联的纪要生成后，将会触发该事件。;;用户关联的纪要包括：;- 参与的会议所生成的纪要;- 录音或者上传音视频文件所生成的纪要
 //
-// -
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2NoteGeneratedV1(handler func(ctx context.Context, event *larkvc.P2NoteGeneratedV1) error) *EventDispatcher {
+	_, existed := dispatcher.eventType2EventHandler["vc.note.generated_v1"]
+	if existed {
+		panic("event: multiple handler registrations for " + "vc.note.generated_v1")
+	}
+	dispatcher.eventType2EventHandler["vc.note.generated_v1"] = larkvc.NewP2NoteGeneratedV1Handler(handler)
+	return dispatcher
+}
+
+// 更新会议室预定限制
+//
+// - 当更新会议室预定限制时，会触发该事件。
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2ReserveConfigUpdatedV1(handler func(ctx context.Context, event *larkvc.P2ReserveConfigUpdatedV1) error) *EventDispatcher {
@@ -204,9 +216,9 @@ func (dispatcher *EventDispatcher) OnP2ReserveConfigUpdatedV1(handler func(ctx c
 
 // 创建会议室
 //
-// - 当创建会议室时，会触发该事件
+// - 当创建会议室时，会触发该事件。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/events/created
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2RoomCreatedV1(handler func(ctx context.Context, event *larkvc.P2RoomCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.room.created_v1"]
 	if existed {
@@ -218,9 +230,9 @@ func (dispatcher *EventDispatcher) OnP2RoomCreatedV1(handler func(ctx context.Co
 
 // 删除会议室
 //
-// - 当删除会议室时，会触发该事件
+// - 当删除会议室时，会触发该事件。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/events/deleted
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2RoomDeletedV1(handler func(ctx context.Context, event *larkvc.P2RoomDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.room.deleted_v1"]
 	if existed {
@@ -232,9 +244,9 @@ func (dispatcher *EventDispatcher) OnP2RoomDeletedV1(handler func(ctx context.Co
 
 // 更新会议室
 //
-// - 当更新会议室时，会触发该事件
+// - 当更新会议室时，会触发该事件。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/events/updated
+// - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2RoomUpdatedV1(handler func(ctx context.Context, event *larkvc.P2RoomUpdatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["vc.room.updated_v1"]
 	if existed {
@@ -244,9 +256,9 @@ func (dispatcher *EventDispatcher) OnP2RoomUpdatedV1(handler func(ctx context.Co
 	return dispatcher
 }
 
+// 创建会议室层级
 //
-//
-// -
+// - 当创建会议室层级时，会触发该事件。
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2RoomLevelCreatedV1(handler func(ctx context.Context, event *larkvc.P2RoomLevelCreatedV1) error) *EventDispatcher {
@@ -258,9 +270,9 @@ func (dispatcher *EventDispatcher) OnP2RoomLevelCreatedV1(handler func(ctx conte
 	return dispatcher
 }
 
+// 删除会议室层级
 //
-//
-// -
+// - 当删除会议室层级时，会触发该事件。
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2RoomLevelDeletedV1(handler func(ctx context.Context, event *larkvc.P2RoomLevelDeletedV1) error) *EventDispatcher {
@@ -272,9 +284,9 @@ func (dispatcher *EventDispatcher) OnP2RoomLevelDeletedV1(handler func(ctx conte
 	return dispatcher
 }
 
+// 更新会议室层级
 //
-//
-// -
+// - 当更新会议室层级时，会触发该事件。
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2RoomLevelUpdatedV1(handler func(ctx context.Context, event *larkvc.P2RoomLevelUpdatedV1) error) *EventDispatcher {

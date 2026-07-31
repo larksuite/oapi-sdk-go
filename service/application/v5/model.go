@@ -40,7 +40,7 @@ const (
 )
 
 type Application struct {
-	AppId *string `json:"app_id,omitempty"` // 应用id
+	AppId *string `json:"app_id,omitempty"` // 应用ID
 
 	AppName *string `json:"app_name,omitempty"` // 应用名
 
@@ -54,7 +54,7 @@ type Application struct {
 }
 
 type ApplicationBuilder struct {
-	appId    string // 应用id
+	appId    string // 应用ID
 	appIdSet bool
 
 	appName    string // 应用名
@@ -78,9 +78,9 @@ func NewApplicationBuilder() *ApplicationBuilder {
 	return builder
 }
 
-// 应用id
+// 应用ID
 //
-// 示例值：cli_9ea69ba8026xxxx
+// 示例值：cli_***
 func (builder *ApplicationBuilder) AppId(appId string) *ApplicationBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
@@ -89,7 +89,7 @@ func (builder *ApplicationBuilder) AppId(appId string) *ApplicationBuilder {
 
 // 应用名
 //
-// 示例值：SMB同学圈
+// 示例值：效率工具
 func (builder *ApplicationBuilder) AppName(appName string) *ApplicationBuilder {
 	builder.appName = appName
 	builder.appNameSet = true
@@ -116,7 +116,7 @@ func (builder *ApplicationBuilder) AppType(appType string) *ApplicationBuilder {
 
 // 应用图标
 //
-// 示例值：https://sf1-ttcdn-xxx/xxx/da710014fc4c975xxx
+// 示例值：https://s1-xxxxxx/static-resource/v1/ca597e6e-28c1-4178-961a-1xxxxx
 func (builder *ApplicationBuilder) AvatarUrl(avatarUrl string) *ApplicationBuilder {
 	builder.avatarUrl = avatarUrl
 	builder.avatarUrlSet = true
@@ -179,8 +179,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -188,8 +186,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -240,7 +236,7 @@ func (builder *OpenMethodBuilder) Type(type_ string) *OpenMethodBuilder {
 
 // applink链接
 //
-// 示例值：https://applink.feishu.cn/client/web_app/open?appId=cli_xxxxxx
+// 示例值：https://applink.feishu.cn/client/web_app/open
 func (builder *OpenMethodBuilder) Applink(applink string) *OpenMethodBuilder {
 	builder.applink = applink
 	builder.applinkSet = true
@@ -290,13 +286,13 @@ func (builder *FavouriteApplicationReqBuilder) Language(language string) *Favour
 
 // 分页标记,不填表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：7153511712153412356
+// 示例值：new-e11ee058b4a8ed2881da11ac7e37c4fc
 func (builder *FavouriteApplicationReqBuilder) PageToken(pageToken string) *FavouriteApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 单页需求最大个数（最大 100），不传默认10个
+// 分页大小
 //
 // 示例值：10
 func (builder *FavouriteApplicationReqBuilder) PageSize(pageSize int) *FavouriteApplicationReqBuilder {
@@ -374,15 +370,15 @@ func (builder *RecommendApplicationReqBuilder) RecommendType(recommendType strin
 	return builder
 }
 
-// 分页标记,不填表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：7153511712153412356
+// 示例值：new-e11ee058b4a8ed2881da11ac7e37c4fc
 func (builder *RecommendApplicationReqBuilder) PageToken(pageToken string) *RecommendApplicationReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 单页需求最大个数（最大 100），不传默认10个
+// 分页大小
 //
 // 示例值：10
 func (builder *RecommendApplicationReqBuilder) PageSize(pageSize int) *RecommendApplicationReqBuilder {

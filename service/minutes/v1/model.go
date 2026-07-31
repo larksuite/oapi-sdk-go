@@ -69,8 +69,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -78,8 +76,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -101,16 +97,16 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 }
 
 type GeneratedSource struct {
-	SourceType *string `json:"source_type,omitempty"` // 来源类型
+	SourceType *string `json:"source_type,omitempty"` // 来源类型。;;**可选值有：**;;-`meeting`: 会议来源
 
-	SourceEntityId *string `json:"source_entity_id,omitempty"` // 来源实体id，如果是会议的话，就是meeting id
+	SourceEntityId *string `json:"source_entity_id,omitempty"` // 来源实体id。;;-`meeting`: 对应的是会议ID（meeting id）
 }
 
 type GeneratedSourceBuilder struct {
-	sourceType    string // 来源类型
+	sourceType    string // 来源类型。;;**可选值有：**;;-`meeting`: 会议来源
 	sourceTypeSet bool
 
-	sourceEntityId    string // 来源实体id，如果是会议的话，就是meeting id
+	sourceEntityId    string // 来源实体id。;;-`meeting`: 对应的是会议ID（meeting id）
 	sourceEntityIdSet bool
 }
 
@@ -119,7 +115,7 @@ func NewGeneratedSourceBuilder() *GeneratedSourceBuilder {
 	return builder
 }
 
-// 来源类型
+// 来源类型。;;**可选值有：**;;-`meeting`: 会议来源
 //
 // 示例值：meeting
 func (builder *GeneratedSourceBuilder) SourceType(sourceType string) *GeneratedSourceBuilder {
@@ -128,7 +124,7 @@ func (builder *GeneratedSourceBuilder) SourceType(sourceType string) *GeneratedS
 	return builder
 }
 
-// 来源实体id，如果是会议的话，就是meeting id
+// 来源实体id。;;-`meeting`: 对应的是会议ID（meeting id）
 //
 // 示例值：6911188411934433028
 func (builder *GeneratedSourceBuilder) SourceEntityId(sourceEntityId string) *GeneratedSourceBuilder {
@@ -201,7 +197,7 @@ func NewMinuteBuilder() *MinuteBuilder {
 
 // 妙记token
 //
-// 示例值：obcnq3b9jl72l83w4f149w9c
+// 示例值：obcnq3b9jl72l83w4f14xxxx
 func (builder *MinuteBuilder) Token(token string) *MinuteBuilder {
 	builder.token = token
 	builder.tokenSet = true
@@ -210,7 +206,7 @@ func (builder *MinuteBuilder) Token(token string) *MinuteBuilder {
 
 // 所有者ID
 //
-// 示例值：ou_612b787ccd3259fb3c816b3f678d0426
+// 示例值：ou_612b787ccd3259fb3c816b3f678dxxxx
 func (builder *MinuteBuilder) OwnerId(ownerId string) *MinuteBuilder {
 	builder.ownerId = ownerId
 	builder.ownerIdSet = true
@@ -228,7 +224,7 @@ func (builder *MinuteBuilder) CreateTime(createTime string) *MinuteBuilder {
 
 // 妙记标题
 //
-// 示例值：xxx的视频会议
+// 示例值：产品周会的视频会议
 func (builder *MinuteBuilder) Title(title string) *MinuteBuilder {
 	builder.title = title
 	builder.titleSet = true
@@ -237,7 +233,7 @@ func (builder *MinuteBuilder) Title(title string) *MinuteBuilder {
 
 // 妙记封面链接
 //
-// 示例值：https://internal-api-drive-stream.feishu-pre.cn/space/api/box/stream/download/all/boxcncsI4EIhCSA1RLDsXDpCoQd
+// 示例值：https://internal-api-drive-stream.feishu-pre.cn/space/api/box/stream/download/all/boxcncsI4EIhCSA1RLDsXDpxxxx
 func (builder *MinuteBuilder) Cover(cover string) *MinuteBuilder {
 	builder.cover = cover
 	builder.coverSet = true
@@ -255,7 +251,7 @@ func (builder *MinuteBuilder) Duration(duration string) *MinuteBuilder {
 
 // 妙记链接
 //
-// 示例值：https://bytedance.feishu-pre.cn/minutes/obcnq3b9jl72l83w4f149w9c
+// 示例值：https://bytedance.feishu-pre.cn/minutes/obcnq3b9jl72l83w4f14xxxx
 func (builder *MinuteBuilder) Url(url string) *MinuteBuilder {
 	builder.url = url
 	builder.urlSet = true
@@ -394,10 +390,66 @@ func (builder *MinuteChapterBuilder) Build() *MinuteChapter {
 	return req
 }
 
+type MinuteSpeakerInfo struct {
+	SpeakerId *string `json:"speaker_id,omitempty"` // 说话人id
+
+	Name *string `json:"name,omitempty"` // 说话人姓名
+}
+
+type MinuteSpeakerInfoBuilder struct {
+	speakerId    string // 说话人id
+	speakerIdSet bool
+
+	name    string // 说话人姓名
+	nameSet bool
+}
+
+func NewMinuteSpeakerInfoBuilder() *MinuteSpeakerInfoBuilder {
+	builder := &MinuteSpeakerInfoBuilder{}
+	return builder
+}
+
+// 说话人id
+//
+// 示例值：<string>
+func (builder *MinuteSpeakerInfoBuilder) SpeakerId(speakerId string) *MinuteSpeakerInfoBuilder {
+	builder.speakerId = speakerId
+	builder.speakerIdSet = true
+	return builder
+}
+
+// 说话人姓名
+//
+// 示例值：<string>
+func (builder *MinuteSpeakerInfoBuilder) Name(name string) *MinuteSpeakerInfoBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+func (builder *MinuteSpeakerInfoBuilder) Build() *MinuteSpeakerInfo {
+	req := &MinuteSpeakerInfo{}
+	if builder.speakerIdSet {
+		req.SpeakerId = &builder.speakerId
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
 type MinuteTodo struct {
 	Content *string `json:"content,omitempty"` // 待办内容
 
 	Assignees []string `json:"assignees,omitempty"` // 负责人
+
+	IsDone *bool `json:"is_done,omitempty"` // 待办是否完成
+
+	TodoId *string `json:"todo_id,omitempty"` // 待办id
+
+	Operation *string `json:"operation,omitempty"` // 待办操作符
 }
 
 type MinuteTodoBuilder struct {
@@ -406,6 +458,15 @@ type MinuteTodoBuilder struct {
 
 	assignees    []string // 负责人
 	assigneesSet bool
+
+	isDone    bool // 待办是否完成
+	isDoneSet bool
+
+	todoId    string // 待办id
+	todoIdSet bool
+
+	operation    string // 待办操作符
+	operationSet bool
 }
 
 func NewMinuteTodoBuilder() *MinuteTodoBuilder {
@@ -415,7 +476,7 @@ func NewMinuteTodoBuilder() *MinuteTodoBuilder {
 
 // 待办内容
 //
-// 示例值：待办项1
+// 示例值：提交资源保障方案
 func (builder *MinuteTodoBuilder) Content(content string) *MinuteTodoBuilder {
 	builder.content = content
 	builder.contentSet = true
@@ -431,6 +492,33 @@ func (builder *MinuteTodoBuilder) Assignees(assignees []string) *MinuteTodoBuild
 	return builder
 }
 
+// 待办是否完成
+//
+// 示例值：true
+func (builder *MinuteTodoBuilder) IsDone(isDone bool) *MinuteTodoBuilder {
+	builder.isDone = isDone
+	builder.isDoneSet = true
+	return builder
+}
+
+// 待办id
+//
+// 示例值：<string>
+func (builder *MinuteTodoBuilder) TodoId(todoId string) *MinuteTodoBuilder {
+	builder.todoId = todoId
+	builder.todoIdSet = true
+	return builder
+}
+
+// 待办操作符
+//
+// 示例值：<string>
+func (builder *MinuteTodoBuilder) Operation(operation string) *MinuteTodoBuilder {
+	builder.operation = operation
+	builder.operationSet = true
+	return builder
+}
+
 func (builder *MinuteTodoBuilder) Build() *MinuteTodo {
 	req := &MinuteTodo{}
 	if builder.contentSet {
@@ -440,25 +528,37 @@ func (builder *MinuteTodoBuilder) Build() *MinuteTodo {
 	if builder.assigneesSet {
 		req.Assignees = builder.assignees
 	}
+	if builder.isDoneSet {
+		req.IsDone = &builder.isDone
+
+	}
+	if builder.todoIdSet {
+		req.TodoId = &builder.todoId
+
+	}
+	if builder.operationSet {
+		req.Operation = &builder.operation
+
+	}
 	return req
 }
 
 type MinutesFilter struct {
-	OwnerIds []string `json:"owner_ids,omitempty"` // 创建者用户 ID 列表
+	OwnerIds []string `json:"owner_ids,omitempty"` // 按妙记创建者过滤，传入用户 open_id 列表，可通过用户查询接口获取。默认值为空数组，不设置时不过滤该条件。
 
-	ParticipantIds []string `json:"participant_ids,omitempty"` // 参与者用户 ID 列表
+	ParticipantIds []string `json:"participant_ids,omitempty"` // 按妙记参与者过滤，传入用户 open_id 列表，可通过用户查询接口获取。默认值为空数组，不设置时不过滤该条件。
 
-	CreateTime *TimeRange `json:"create_time,omitempty"` // 创建时间范围
+	CreateTime *TimeRange `json:"create_time,omitempty"` // 按妙记创建时间过滤，传入时间范围对象。其中 start_time 必须小于等于 end_time
 }
 
 type MinutesFilterBuilder struct {
-	ownerIds    []string // 创建者用户 ID 列表
+	ownerIds    []string // 按妙记创建者过滤，传入用户 open_id 列表，可通过用户查询接口获取。默认值为空数组，不设置时不过滤该条件。
 	ownerIdsSet bool
 
-	participantIds    []string // 参与者用户 ID 列表
+	participantIds    []string // 按妙记参与者过滤，传入用户 open_id 列表，可通过用户查询接口获取。默认值为空数组，不设置时不过滤该条件。
 	participantIdsSet bool
 
-	createTime    *TimeRange // 创建时间范围
+	createTime    *TimeRange // 按妙记创建时间过滤，传入时间范围对象。其中 start_time 必须小于等于 end_time
 	createTimeSet bool
 }
 
@@ -467,7 +567,7 @@ func NewMinutesFilterBuilder() *MinutesFilterBuilder {
 	return builder
 }
 
-// 创建者用户 ID 列表
+// 按妙记创建者过滤，传入用户 open_id 列表，可通过用户查询接口获取。默认值为空数组，不设置时不过滤该条件。
 //
 // 示例值：
 func (builder *MinutesFilterBuilder) OwnerIds(ownerIds []string) *MinutesFilterBuilder {
@@ -476,7 +576,7 @@ func (builder *MinutesFilterBuilder) OwnerIds(ownerIds []string) *MinutesFilterB
 	return builder
 }
 
-// 参与者用户 ID 列表
+// 按妙记参与者过滤，传入用户 open_id 列表，可通过用户查询接口获取。默认值为空数组，不设置时不过滤该条件。
 //
 // 示例值：
 func (builder *MinutesFilterBuilder) ParticipantIds(participantIds []string) *MinutesFilterBuilder {
@@ -485,7 +585,7 @@ func (builder *MinutesFilterBuilder) ParticipantIds(participantIds []string) *Mi
 	return builder
 }
 
-// 创建时间范围
+// 按妙记创建时间过滤，传入时间范围对象。其中 start_time 必须小于等于 end_time
 //
 // 示例值：
 func (builder *MinutesFilterBuilder) CreateTime(createTime *TimeRange) *MinutesFilterBuilder {
@@ -577,7 +677,7 @@ func (builder *MinutesMetaBuilder) Build() *MinutesMeta {
 }
 
 type MinutesSearchItem struct {
-	Token *string `json:"token,omitempty"` // 妙记 Token
+	Token *string `json:"token,omitempty"` // 妙记 Token（标识妙记唯一身份的凭证）
 
 	DisplayInfo *string `json:"display_info,omitempty"` // 包含妙记基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
 
@@ -585,7 +685,7 @@ type MinutesSearchItem struct {
 }
 
 type MinutesSearchItemBuilder struct {
-	token    string // 妙记 Token
+	token    string // 妙记 Token（标识妙记唯一身份的凭证）
 	tokenSet bool
 
 	displayInfo    string // 包含妙记基本信息的卡片，用户搜索关键词命中的文本片段，使用<h></h>标签包裹标注
@@ -600,7 +700,7 @@ func NewMinutesSearchItemBuilder() *MinutesSearchItemBuilder {
 	return builder
 }
 
-// 妙记 Token
+// 妙记 Token（标识妙记唯一身份的凭证）
 //
 // 示例值：obbcwkkdw885tetaf82pu184
 func (builder *MinutesSearchItemBuilder) Token(token string) *MinutesSearchItemBuilder {
@@ -711,16 +811,16 @@ func (builder *StaticticsBuilder) Build() *Statictics {
 }
 
 type TimeRange struct {
-	StartTime *string `json:"start_time,omitempty"` // 起始时间（iso8601，精确到秒）
+	StartTime *string `json:"start_time,omitempty"` // 起始时间，需符合 ISO 8601 标准并携带时区信息（create_time 的子参数
 
-	EndTime *string `json:"end_time,omitempty"` // 截止时间（iso8601，精确到秒）
+	EndTime *string `json:"end_time,omitempty"` // 结束时间，需符合 ISO 8601 标准并携带时区信息（create_time 的子参数
 }
 
 type TimeRangeBuilder struct {
-	startTime    string // 起始时间（iso8601，精确到秒）
+	startTime    string // 起始时间，需符合 ISO 8601 标准并携带时区信息（create_time 的子参数
 	startTimeSet bool
 
-	endTime    string // 截止时间（iso8601，精确到秒）
+	endTime    string // 结束时间，需符合 ISO 8601 标准并携带时区信息（create_time 的子参数
 	endTimeSet bool
 }
 
@@ -729,7 +829,7 @@ func NewTimeRangeBuilder() *TimeRangeBuilder {
 	return builder
 }
 
-// 起始时间（iso8601，精确到秒）
+// 起始时间，需符合 ISO 8601 标准并携带时区信息（create_time 的子参数
 //
 // 示例值：2026-03-21T16:15:30+08:00
 func (builder *TimeRangeBuilder) StartTime(startTime string) *TimeRangeBuilder {
@@ -738,7 +838,7 @@ func (builder *TimeRangeBuilder) StartTime(startTime string) *TimeRangeBuilder {
 	return builder
 }
 
-// 截止时间（iso8601，精确到秒）
+// 结束时间，需符合 ISO 8601 标准并携带时区信息（create_time 的子参数
 //
 // 示例值：2026-03-21T16:15:30+08:00
 func (builder *TimeRangeBuilder) EndTime(endTime string) *TimeRangeBuilder {
@@ -755,6 +855,56 @@ func (builder *TimeRangeBuilder) Build() *TimeRange {
 	}
 	if builder.endTimeSet {
 		req.EndTime = &builder.endTime
+
+	}
+	return req
+}
+
+type TranscriptWord struct {
+	SourceWord *string `json:"source_word,omitempty"` // 源关键词
+
+	TargetWord *string `json:"target_word,omitempty"` // 目标关键词
+}
+
+type TranscriptWordBuilder struct {
+	sourceWord    string // 源关键词
+	sourceWordSet bool
+
+	targetWord    string // 目标关键词
+	targetWordSet bool
+}
+
+func NewTranscriptWordBuilder() *TranscriptWordBuilder {
+	builder := &TranscriptWordBuilder{}
+	return builder
+}
+
+// 源关键词
+//
+// 示例值：<string>
+func (builder *TranscriptWordBuilder) SourceWord(sourceWord string) *TranscriptWordBuilder {
+	builder.sourceWord = sourceWord
+	builder.sourceWordSet = true
+	return builder
+}
+
+// 目标关键词
+//
+// 示例值：<string>
+func (builder *TranscriptWordBuilder) TargetWord(targetWord string) *TranscriptWordBuilder {
+	builder.targetWord = targetWord
+	builder.targetWordSet = true
+	return builder
+}
+
+func (builder *TranscriptWordBuilder) Build() *TranscriptWord {
+	req := &TranscriptWord{}
+	if builder.sourceWordSet {
+		req.SourceWord = &builder.sourceWord
+
+	}
+	if builder.targetWordSet {
+		req.TargetWord = &builder.targetWord
 
 	}
 	return req
@@ -784,8 +934,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -793,8 +941,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -802,8 +948,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -849,7 +993,7 @@ func NewUserViewDetailBuilder() *UserViewDetailBuilder {
 
 // 用户ID
 //
-// 示例值：ou_612b787ccd3259fb3c816b3f678d0426
+// 示例值：ou_612b787ccd3259fb3c816b3f678dxxxx
 func (builder *UserViewDetailBuilder) UserId(userId string) *UserViewDetailBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -891,7 +1035,7 @@ func NewArtifactsMinuteReqBuilder() *ArtifactsMinuteReqBuilder {
 	return builder
 }
 
-// 妙记的唯一标识
+// 妙记唯一标识。可从妙记的 URL 链接中获取，一般为最后一串字符：https://sample.feishu.cn/minutes/obcnq3b9jl72l83w4f14xxxx
 //
 // 示例值：obcnq3b9jl72l83w4f149w9c
 func (builder *ArtifactsMinuteReqBuilder) MinuteToken(minuteToken string) *ArtifactsMinuteReqBuilder {
@@ -945,9 +1089,9 @@ func NewGetMinuteReqBuilder() *GetMinuteReqBuilder {
 	return builder
 }
 
-// 妙记的唯一标识
+// 妙记唯一标识。可从妙记的 URL 链接中获取，一般为最后一串字符：https://sample.feishu.cn/minutes/==obcnq3b9jl72l83w4f14xxxx==;
 //
-// 示例值：obcnq3b9jl72l83w4f149w9c
+// 示例值：obcnq3b9jl72l83w4f14xxxx
 func (builder *GetMinuteReqBuilder) MinuteToken(minuteToken string) *GetMinuteReqBuilder {
 	builder.apiReq.PathParams.Set("minute_token", fmt.Sprint(minuteToken))
 	return builder
@@ -988,10 +1132,10 @@ func (resp *GetMinuteResp) Success() bool {
 }
 
 type SearchMinuteReqBodyBuilder struct {
-	query    string // 搜索关键词
+	query    string // 搜索关键词（长度范围： 0~50 字符）
 	querySet bool
 
-	filter    *MinutesFilter // 过滤条件
+	filter    *MinutesFilter // 妙记搜索的过滤条件
 	filterSet bool
 
 	sorter    string // sorter
@@ -1003,21 +1147,30 @@ func NewSearchMinuteReqBodyBuilder() *SearchMinuteReqBodyBuilder {
 	return builder
 }
 
-// 搜索关键词
+// 搜索关键词（长度范围： 0~50 字符）
 //
-//示例值：周会
+// 示例值：周会
 func (builder *SearchMinuteReqBodyBuilder) Query(query string) *SearchMinuteReqBodyBuilder {
 	builder.query = query
 	builder.querySet = true
 	return builder
 }
 
-// 过滤条件
+// 妙记搜索的过滤条件
 //
-//示例值：
+// 示例值：
 func (builder *SearchMinuteReqBodyBuilder) Filter(filter *MinutesFilter) *SearchMinuteReqBodyBuilder {
 	builder.filter = filter
 	builder.filterSet = true
+	return builder
+}
+
+// sorter
+//
+// 示例值：
+func (builder *SearchMinuteReqBodyBuilder) Sorter(sorter string) *SearchMinuteReqBodyBuilder {
+	builder.sorter = sorter
+	builder.sorterSet = true
 	return builder
 }
 
@@ -1028,6 +1181,9 @@ func (builder *SearchMinuteReqBodyBuilder) Build() *SearchMinuteReqBody {
 	}
 	if builder.filterSet {
 		req.Filter = builder.filter
+	}
+	if builder.sorterSet {
+		req.Sorter = &builder.sorter
 	}
 	return req
 }
@@ -1046,7 +1202,7 @@ func NewSearchMinutePathReqBodyBuilder() *SearchMinutePathReqBodyBuilder {
 	return builder
 }
 
-// 搜索关键词
+// 搜索关键词（长度范围： 0~50 字符）
 //
 // 示例值：周会
 func (builder *SearchMinutePathReqBodyBuilder) Query(query string) *SearchMinutePathReqBodyBuilder {
@@ -1055,12 +1211,21 @@ func (builder *SearchMinutePathReqBodyBuilder) Query(query string) *SearchMinute
 	return builder
 }
 
-// 过滤条件
+// 妙记搜索的过滤条件
 //
 // 示例值：
 func (builder *SearchMinutePathReqBodyBuilder) Filter(filter *MinutesFilter) *SearchMinutePathReqBodyBuilder {
 	builder.filter = filter
 	builder.filterSet = true
+	return builder
+}
+
+// sorter
+//
+// 示例值：
+func (builder *SearchMinutePathReqBodyBuilder) Sorter(sorter string) *SearchMinutePathReqBodyBuilder {
+	builder.sorter = sorter
+	builder.sorterSet = true
 	return builder
 }
 
@@ -1071,6 +1236,9 @@ func (builder *SearchMinutePathReqBodyBuilder) Build() (*SearchMinuteReqBody, er
 	}
 	if builder.filterSet {
 		req.Filter = builder.filter
+	}
+	if builder.sorterSet {
+		req.Sorter = &builder.sorter
 	}
 	return req, nil
 }
@@ -1096,16 +1264,12 @@ func (builder *SearchMinuteReqBuilder) Limit(limit int) *SearchMinuteReqBuilder 
 	return builder
 }
 
-//
-//
-// 示例值：
+// 示例值：10
 func (builder *SearchMinuteReqBuilder) PageSize(pageSize int) *SearchMinuteReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *SearchMinuteReqBuilder) PageToken(pageToken string) *SearchMinuteReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
@@ -1120,7 +1284,7 @@ func (builder *SearchMinuteReqBuilder) UserIdType(userIdType string) *SearchMinu
 	return builder
 }
 
-// 搜索妙记
+// 根据关键词、时间范围等条件搜索妙记，返回符合条件的妙记列表，包含妙记 token（用于标识妙记的唯一身份）、标题、开始时间等信息。
 func (builder *SearchMinuteReqBuilder) Body(body *SearchMinuteReqBody) *SearchMinuteReqBuilder {
 	builder.body = body
 	return builder
@@ -1136,9 +1300,9 @@ func (builder *SearchMinuteReqBuilder) Build() *SearchMinuteReq {
 }
 
 type SearchMinuteReqBody struct {
-	Query *string `json:"query,omitempty"` // 搜索关键词
+	Query *string `json:"query,omitempty"` // 搜索关键词（长度范围： 0~50 字符）
 
-	Filter *MinutesFilter `json:"filter,omitempty"` // 过滤条件
+	Filter *MinutesFilter `json:"filter,omitempty"` // 妙记搜索的过滤条件
 
 	Sorter *string `json:"sorter,omitempty"` // sorter
 }
@@ -1158,6 +1322,8 @@ type SearchMinuteRespData struct {
 	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多
 
 	PageToken *string `json:"page_token,omitempty"` // 翻页 token
+
+	Notice *string `json:"notice,omitempty"` // 搜索补充提示信息，返回本次搜索的额外说明，例如：query被截断；搜索结果不全等
 }
 
 type SearchMinuteResp struct {
@@ -1171,7 +1337,7 @@ func (resp *SearchMinuteResp) Success() bool {
 }
 
 type SubscriptionMinuteReqBodyBuilder struct {
-	eventType    string // 事件类型
+	eventType    string // 事件类型;;**可选值有:**;- `minutes.minute.generated_v1`: 妙记生成事件
 	eventTypeSet bool
 }
 
@@ -1180,9 +1346,9 @@ func NewSubscriptionMinuteReqBodyBuilder() *SubscriptionMinuteReqBodyBuilder {
 	return builder
 }
 
-// 事件类型
+// 事件类型;;**可选值有:**;- `minutes.minute.generated_v1`: 妙记生成事件
 //
-//示例值：minutes.minute.generated_v1
+// 示例值：minutes.minute.generated_v1
 func (builder *SubscriptionMinuteReqBodyBuilder) EventType(eventType string) *SubscriptionMinuteReqBodyBuilder {
 	builder.eventType = eventType
 	builder.eventTypeSet = true
@@ -1207,7 +1373,7 @@ func NewSubscriptionMinutePathReqBodyBuilder() *SubscriptionMinutePathReqBodyBui
 	return builder
 }
 
-// 事件类型
+// 事件类型;;**可选值有:**;- `minutes.minute.generated_v1`: 妙记生成事件
 //
 // 示例值：minutes.minute.generated_v1
 func (builder *SubscriptionMinutePathReqBodyBuilder) EventType(eventType string) *SubscriptionMinutePathReqBodyBuilder {
@@ -1238,7 +1404,7 @@ func NewSubscriptionMinuteReqBuilder() *SubscriptionMinuteReqBuilder {
 	return builder
 }
 
-// 订阅妙记变更事件
+// 订阅当前用户身份相关的妙记资源变更事件。通过指定事件类型，来订阅妙记资源不同的事件变更。
 func (builder *SubscriptionMinuteReqBuilder) Body(body *SubscriptionMinuteReqBody) *SubscriptionMinuteReqBuilder {
 	builder.body = body
 	return builder
@@ -1252,7 +1418,7 @@ func (builder *SubscriptionMinuteReqBuilder) Build() *SubscriptionMinuteReq {
 }
 
 type SubscriptionMinuteReqBody struct {
-	EventType *string `json:"event_type,omitempty"` // 事件类型
+	EventType *string `json:"event_type,omitempty"` // 事件类型;;**可选值有:**;- `minutes.minute.generated_v1`: 妙记生成事件
 }
 
 type SubscriptionMinuteReq struct {
@@ -1270,7 +1436,7 @@ func (resp *SubscriptionMinuteResp) Success() bool {
 }
 
 type UnsubscriptionMinuteReqBodyBuilder struct {
-	eventType    string // 事件类型
+	eventType    string // 事件类型;;**可选值有:**;- `minutes.minute.generated_v1`: 妙记生成事件
 	eventTypeSet bool
 }
 
@@ -1279,9 +1445,9 @@ func NewUnsubscriptionMinuteReqBodyBuilder() *UnsubscriptionMinuteReqBodyBuilder
 	return builder
 }
 
-// 事件类型
+// 事件类型;;**可选值有:**;- `minutes.minute.generated_v1`: 妙记生成事件
 //
-//示例值：minutes.minute.generated_v1
+// 示例值：minutes.minute.generated_v1
 func (builder *UnsubscriptionMinuteReqBodyBuilder) EventType(eventType string) *UnsubscriptionMinuteReqBodyBuilder {
 	builder.eventType = eventType
 	builder.eventTypeSet = true
@@ -1306,7 +1472,7 @@ func NewUnsubscriptionMinutePathReqBodyBuilder() *UnsubscriptionMinutePathReqBod
 	return builder
 }
 
-// 事件类型
+// 事件类型;;**可选值有:**;- `minutes.minute.generated_v1`: 妙记生成事件
 //
 // 示例值：minutes.minute.generated_v1
 func (builder *UnsubscriptionMinutePathReqBodyBuilder) EventType(eventType string) *UnsubscriptionMinutePathReqBodyBuilder {
@@ -1337,7 +1503,7 @@ func NewUnsubscriptionMinuteReqBuilder() *UnsubscriptionMinuteReqBuilder {
 	return builder
 }
 
-// 取消订阅妙记变更事件
+// 取消订阅当前用户身份相关的妙记资源变更事件。通过指定事件类型，来取消订阅妙记资源对应的事件变更。
 func (builder *UnsubscriptionMinuteReqBuilder) Body(body *UnsubscriptionMinuteReqBody) *UnsubscriptionMinuteReqBuilder {
 	builder.body = body
 	return builder
@@ -1351,7 +1517,7 @@ func (builder *UnsubscriptionMinuteReqBuilder) Build() *UnsubscriptionMinuteReq 
 }
 
 type UnsubscriptionMinuteReqBody struct {
-	EventType *string `json:"event_type,omitempty"` // 事件类型
+	EventType *string `json:"event_type,omitempty"` // 事件类型;;**可选值有:**;- `minutes.minute.generated_v1`: 妙记生成事件
 }
 
 type UnsubscriptionMinuteReq struct {
@@ -1381,7 +1547,7 @@ func NewGetMinuteMediaReqBuilder() *GetMinuteMediaReqBuilder {
 	return builder
 }
 
-// 妙记唯一标识
+// 妙记唯一标识。可从妙记的 URL 链接中获取，一般为最后一串字符：https://sample.feishu.cn/minutes/==obcnq3b9jl72l83w4f14xxxx==;
 //
 // 示例值：obcnq3b9jl72l83w4f149w9c
 func (builder *GetMinuteMediaReqBuilder) MinuteToken(minuteToken string) *GetMinuteMediaReqBuilder {
@@ -1427,9 +1593,9 @@ func NewGetMinuteStatisticsReqBuilder() *GetMinuteStatisticsReqBuilder {
 	return builder
 }
 
-// 妙记唯一标识
+// 妙记唯一标识。可从妙记的 URL 链接中获取，一般为最后一串字符：https://sample.feishu.cn/minutes/==obcnq3b9jl72l83w4f14xxxx==
 //
-// 示例值：obcnq3b9jl72l83w4f149w9c
+// 示例值：obcnq3b9jl72l83w4f14xxxx
 func (builder *GetMinuteStatisticsReqBuilder) MinuteToken(minuteToken string) *GetMinuteStatisticsReqBuilder {
 	builder.apiReq.PathParams.Set("minute_token", fmt.Sprint(minuteToken))
 	return builder
@@ -1482,7 +1648,7 @@ func NewGetMinuteTranscriptReqBuilder() *GetMinuteTranscriptReqBuilder {
 	return builder
 }
 
-// 妙记唯一标识
+// 妙记唯一标识。可从妙记的 URL 链接中获取，一般为最后一串字符：https://sample.feishu.cn/minutes/==obcnq3b9jl72l83w4f14xxxx==;
 //
 // 示例值：obcnq3b9jl72l83w4f149w9c
 func (builder *GetMinuteTranscriptReqBuilder) MinuteToken(minuteToken string) *GetMinuteTranscriptReqBuilder {
@@ -1553,7 +1719,7 @@ func (resp *GetMinuteTranscriptResp) WriteFile(fileName string) error {
 type P2MinuteGeneratedV1Data struct {
 	MinuteToken *string `json:"minute_token,omitempty"` // 妙记唯一标识
 
-	MinuteSource *GeneratedSource `json:"minute_source,omitempty"` // 妙记来源
+	MinuteSource *GeneratedSource `json:"minute_source,omitempty"` // 妙记来源。目前只有**会议来源**的会返回数据。
 
 	SubscriberIds []*UserId `json:"subscriber_ids,omitempty"` // 需要推送事件的用户列表
 }

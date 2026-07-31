@@ -28,9 +28,9 @@ type whiteboardNode struct {
 	config *larkcore.Config
 }
 
-// DownloadAsImage
+// DownloadAsImage 下载画板为图片
 //
-// - 下载画板为图片
+// - 获取画板的缩略图片，响应数据为图片的二进制图片流。根据 Content-Type 值区图片格式：image/png、image/jpeg、image/gif、image/svg+xml。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download_as_image&project=board&resource=whiteboard&version=v1
 //
@@ -60,9 +60,9 @@ func (w *whiteboard) DownloadAsImage(ctx context.Context, req *DownloadAsImageWh
 	return resp, err
 }
 
-// Theme
+// Theme 获取画板主题
 //
-// - 获取画板的主题
+// - 获取画板主题，不同主题下有不同的默认配色，具体主题介绍可以参考[主题简介](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/theme-introduction) 。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=theme&project=board&resource=whiteboard&version=v1
 //
@@ -86,9 +86,9 @@ func (w *whiteboard) Theme(ctx context.Context, req *ThemeWhiteboardReq, options
 	return resp, err
 }
 
-// UpdateTheme
+// UpdateTheme 更新主题
 //
-// - 更新画板主题
+// - 更新画板主题，具体主题介绍可以参考[主题简介](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/theme-introduction) 。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_theme&project=board&resource=whiteboard&version=v1
 //
@@ -112,9 +112,9 @@ func (w *whiteboard) UpdateTheme(ctx context.Context, req *UpdateThemeWhiteboard
 	return resp, err
 }
 
-// BatchDelete
+// BatchDelete 批量删除节点
 //
-// - 批量删除画板内的节点，存在子节点时子节点也被删除
+// - 画板批量删除节点，子节点会被递归删除。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=board&resource=whiteboard.node&version=v1
 //
@@ -138,9 +138,9 @@ func (w *whiteboardNode) BatchDelete(ctx context.Context, req *BatchDeleteWhiteb
 	return resp, err
 }
 
-// Create
+// Create 创建画板节点
 //
-// - 在画板中创建节点
+// - 创建画板节点，支持批量创建、创建含父子关系的节点等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=board&resource=whiteboard.node&version=v1
 //
@@ -164,9 +164,9 @@ func (w *whiteboardNode) Create(ctx context.Context, req *CreateWhiteboardNodeRe
 	return resp, err
 }
 
-// CreatePlantuml
+// CreatePlantuml 解析画板语法
 //
-// - 创建 plant uml 图形
+// - 用户可以将PlantUml/Mermaid图表导入画板进行协同编辑
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create_plantuml&project=board&resource=whiteboard.node&version=v1
 //
@@ -190,9 +190,9 @@ func (w *whiteboardNode) CreatePlantuml(ctx context.Context, req *CreatePlantuml
 	return resp, err
 }
 
-// List
+// List 获取所有节点
 //
-// - 列出画板内的节点数据
+// - 获取画板内所有的节点，节点以数组方式返回，可通过 parent_id（父节点）、children（子节点） 关系组装成画板内容。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=board&resource=whiteboard.node&version=v1
 //

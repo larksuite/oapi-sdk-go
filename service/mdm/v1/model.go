@@ -20,15 +20,15 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	BindUserAuthDataRelationUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	BindUserAuthDataRelationUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	BindUserAuthDataRelationUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeUnbindUserAuthDataRelationUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnbindUserAuthDataRelationUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUnbindUserAuthDataRelationOpenId  = "open_id"  // 以open_id来识别用户
+	UnbindUserAuthDataRelationUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	UnbindUserAuthDataRelationUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	UnbindUserAuthDataRelationUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type Appendix struct {
@@ -817,7 +817,7 @@ func (builder *ConfigBuilder) Sys(sys int) *ConfigBuilder {
 
 // 字段类型
 //
-// 示例值：
+// 示例值：0
 func (builder *ConfigBuilder) FieldType(fieldType int) *ConfigBuilder {
 	builder.fieldType = fieldType
 	builder.fieldTypeSet = true
@@ -903,7 +903,7 @@ type CostCenter struct {
 
 	CoAreaCode *string `json:"co_area_code,omitempty"` // 控制范围编码
 
-	CompanyCode *string `json:"company_code,omitempty"` // 公司唯一ID
+	CompanyCode *string `json:"company_code,omitempty"` // 公司编码
 
 	ProfitCenterCode *string `json:"profit_center_code,omitempty"` // 利润中心编码
 
@@ -934,7 +934,7 @@ type CostCenterBuilder struct {
 	coAreaCode    string // 控制范围编码
 	coAreaCodeSet bool
 
-	companyCode    string // 公司唯一ID
+	companyCode    string // 公司编码
 	companyCodeSet bool
 
 	profitCenterCode    string // 利润中心编码
@@ -1006,9 +1006,9 @@ func (builder *CostCenterBuilder) CoAreaCode(coAreaCode string) *CostCenterBuild
 	return builder
 }
 
-// 公司唯一ID
+// 公司编码
 //
-// 示例值：U1404700185187065856
+// 示例值：1001
 func (builder *CostCenterBuilder) CompanyCode(companyCode string) *CostCenterBuilder {
 	builder.companyCode = companyCode
 	builder.companyCodeSet = true
@@ -1243,8 +1243,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1252,8 +1250,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -1285,7 +1281,7 @@ type ExtendField struct {
 
 	Date *string `json:"date,omitempty"` // 字段类型是 日期(7)时候的值
 
-	RangeDate []string `json:"range_date,omitempty"` // 字段类型是 日期区间(8) 时候的值	数组长度为2	  0-startTime   1-endTime
+	RangeDate []string `json:"range_date,omitempty"` // 字段类型是 日期区间(8) 时候的值 数组长度为2 0-startTime 1-endTime
 
 	FieldCode *string `json:"field_code,omitempty"` // 字段编码
 
@@ -1308,7 +1304,7 @@ type ExtendFieldBuilder struct {
 	date    string // 字段类型是 日期(7)时候的值
 	dateSet bool
 
-	rangeDate    []string // 字段类型是 日期区间(8) 时候的值	数组长度为2	  0-startTime   1-endTime
+	rangeDate    []string // 字段类型是 日期区间(8) 时候的值 数组长度为2 0-startTime 1-endTime
 	rangeDateSet bool
 
 	fieldCode    string // 字段编码
@@ -1368,7 +1364,7 @@ func (builder *ExtendFieldBuilder) Date(date string) *ExtendFieldBuilder {
 	return builder
 }
 
-// 字段类型是 日期区间(8) 时候的值	数组长度为2	  0-startTime   1-endTime
+// 字段类型是 日期区间(8) 时候的值 数组长度为2 0-startTime 1-endTime
 //
 // 示例值：2021-10-14
 func (builder *ExtendFieldBuilder) RangeDate(rangeDate []string) *ExtendFieldBuilder {
@@ -3127,7 +3123,7 @@ func (builder *UserAuthDataRelationBuilder) RootDimensionType(rootDimensionType 
 
 // 数据编码列表
 //
-// 示例值：zijie
+// 示例值：gscs
 func (builder *UserAuthDataRelationBuilder) SubDimensionTypes(subDimensionTypes []string) *UserAuthDataRelationBuilder {
 	builder.subDimensionTypes = subDimensionTypes
 	builder.subDimensionTypesSet = true
@@ -3668,7 +3664,7 @@ func (builder *VendorBuilder) Appendix(appendix []*Appendix) *VendorBuilder {
 
 // 是否标记风险
 //
-// 示例值：false
+// 示例值：
 func (builder *VendorBuilder) IsRisked(isRisked bool) *VendorBuilder {
 	builder.isRisked = isRisked
 	builder.isRiskedSet = true
@@ -3677,7 +3673,7 @@ func (builder *VendorBuilder) IsRisked(isRisked bool) *VendorBuilder {
 
 // 所属部门
 //
-// 示例值：["7098978978848833836"]
+// 示例值：
 func (builder *VendorBuilder) OwnerDepts(ownerDepts []string) *VendorBuilder {
 	builder.ownerDepts = ownerDepts
 	builder.ownerDeptsSet = true

@@ -9,17 +9,17 @@ import (
 )
 
 type V4 struct {
-	Calendar                        *calendar                        // 日历管理
-	CalendarAcl                     *calendarAcl                     // 日历访问控制
-	CalendarEvent                   *calendarEvent                   // 日程
-	CalendarEventAttendee           *calendarEventAttendee           // 日程参与人
-	CalendarEventAttendeeChatMember *calendarEventAttendeeChatMember // 日程参与人群成员
+	Calendar                        *calendar                        // calendar
+	CalendarAcl                     *calendarAcl                     // calendar.acl
+	CalendarEvent                   *calendarEvent                   // calendar.event
+	CalendarEventAttendee           *calendarEventAttendee           // calendar.event.attendee
+	CalendarEventAttendeeChatMember *calendarEventAttendeeChatMember // calendar.event.attendee.chat_member
 	CalendarEventMeetingChat        *calendarEventMeetingChat        // calendar.event.meeting_chat
 	CalendarEventMeetingMinute      *calendarEventMeetingMinute      // calendar.event.meeting_minute
-	ExchangeBinding                 *exchangeBinding                 // Exchange绑定
+	ExchangeBinding                 *exchangeBinding                 // exchange_binding
 	Freebusy                        *freebusy                        // freebusy
-	Setting                         *setting                         // 日历设置
-	TimeoffEvent                    *timeoffEvent                    // 请假
+	Setting                         *setting                         // setting
+	TimeoffEvent                    *timeoffEvent                    // timeoff_event
 }
 
 func New(config *larkcore.Config) *V4 {
@@ -74,9 +74,11 @@ type timeoffEvent struct {
 
 // Create 创建共享日历
 //
-// - 该接口用于为当前身份（应用 / 用户）创建一个共享日历。;;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口为当前身份（应用或用户）创建一个共享日历。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/create
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用该接口创建共享日历时，当前身份会自动订阅该日历。单个身份可订阅的日历数量上限为 1000。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=calendar&resource=calendar&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/create_calendar.go
 func (c *calendar) Create(ctx context.Context, req *CreateCalendarReq, options ...larkcore.RequestOptionFunc) (*CreateCalendarResp, error) {
@@ -100,11 +102,11 @@ func (c *calendar) Create(ctx context.Context, req *CreateCalendarReq, options .
 
 // Delete 删除共享日历
 //
-// - 该接口用于以当前身份（应用 / 用户）删除一个共享日历。;;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口以当前身份（应用或用户）删除某一指定的共享日历。
 //
-// - 当前身份必须对日历具有 owner 权限。
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 当前身份必须对日历有 owner 权限才可以删除。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，通过响应字段 role 查看当前身份对日历的权限。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=calendar&resource=calendar&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/delete_calendar.go
 func (c *calendar) Delete(ctx context.Context, req *DeleteCalendarReq, options ...larkcore.RequestOptionFunc) (*DeleteCalendarResp, error) {
@@ -128,11 +130,11 @@ func (c *calendar) Delete(ctx context.Context, req *DeleteCalendarReq, options .
 
 // Get 查询日历信息
 //
-// - 该接口用于以当前身份（应用 / 用户）根据日历 ID 获取日历信息。;;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口以当前身份（应用或用户）查询指定日历的信息。
 //
-// - 当前身份必须对日历有访问权限。
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 使用应用身份调用该接口前，需要确保该应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 当前身份必须对日历有访问权限。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=calendar&resource=calendar&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/get_calendar.go
 func (c *calendar) Get(ctx context.Context, req *GetCalendarReq, options ...larkcore.RequestOptionFunc) (*GetCalendarResp, error) {
@@ -156,11 +158,11 @@ func (c *calendar) Get(ctx context.Context, req *GetCalendarReq, options ...lark
 
 // List 查询日历列表
 //
-// - 该接口用于分页获得当前身份（应用 / 用户）的日历列表。;;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口分页查询当前身份（应用或用户）的日历列表。
 //
-// - 调用时首先使用 page_token 分页拉取存量数据，之后使用 sync_token 增量同步变更数据。
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用该接口时，首先需要使用 page_token 分页查询存量的日历列表，然后再使用 sync_token 增量同步日历的变更数据。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=calendar&resource=calendar&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/list_calendar.go
 func (c *calendar) List(ctx context.Context, req *ListCalendarReq, options ...larkcore.RequestOptionFunc) (*ListCalendarResp, error) {
@@ -182,9 +184,11 @@ func (c *calendar) List(ctx context.Context, req *ListCalendarReq, options ...la
 	return resp, err
 }
 
-// Mget
+// Mget 批量查询日历信息
 //
-// -
+// - 调用该接口批量查询指定日历的标题、描述、公开范围等信息。
+//
+// - - 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 当前身份必须对日历有访问权限。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=mget&project=calendar&resource=calendar&version=v4
 //
@@ -210,11 +214,11 @@ func (c *calendar) Mget(ctx context.Context, req *MgetCalendarReq, options ...la
 
 // Patch 更新日历信息
 //
-// - 该接口用于以当前身份（应用 / 用户）修改日历信息。;;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口以当前身份（应用或用户）修改指定日历的标题、描述、公开范围等信息。
 //
-// - 当前身份对日历有 owner 权限时，可修改全局字段：summary, description, permission。;;当前身份对日历不具有 owner 权限时，仅可修改对自己生效的字段：color, summary_alias。
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 如果当前身份具有日历的 owner 访问权限，则可以更新日历的所有属性（包括全局生效的 summary、description、permission 和仅对当前身份生效的 color、summary_alias）。;- 如果当前身份不具有日历的 owner 访问权限，则只能更新对当前身份生效的 color、summary_alias。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，查看当前身份对日历的访问权限。;- 会议室日历不支持设置备注。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=calendar&resource=calendar&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/patch_calendar.go
 func (c *calendar) Patch(ctx context.Context, req *PatchCalendarReq, options ...larkcore.RequestOptionFunc) (*PatchCalendarResp, error) {
@@ -238,9 +242,11 @@ func (c *calendar) Patch(ctx context.Context, req *PatchCalendarReq, options ...
 
 // Primary 查询主日历信息
 //
-// - 获取当前身份的主日历信息。
+// - 调用该接口获取当前身份（应用或用户）的主日历信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary
+// - **说明**;;- 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 使用应用身份调用该接口前，需要确保该应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 使用应用身份调用该接口时，查询参数 user_id_type 不能设置为 user_id。你可以选择 open_id 或者 union_id，在返回结果中，user_id 参数值会包含应用机器人对应的 open_id 或 union_id。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=primary&project=calendar&resource=calendar&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/primary_calendar.go
 func (c *calendar) Primary(ctx context.Context, req *PrimaryCalendarReq, options ...larkcore.RequestOptionFunc) (*PrimaryCalendarResp, error) {
@@ -262,9 +268,9 @@ func (c *calendar) Primary(ctx context.Context, req *PrimaryCalendarReq, options
 	return resp, err
 }
 
-// Primarys
+// Primarys 批量获取主日历信息
 //
-// -
+// - 根据user id列表批量查询指定用户的主日历信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=primarys&project=calendar&resource=calendar&version=v4
 //
@@ -290,9 +296,11 @@ func (c *calendar) Primarys(ctx context.Context, req *PrimarysCalendarReq, optio
 
 // Search 搜索日历
 //
-// - 该接口用于通过关键字查询公共日历或用户主日历。
+// - 调用该接口通过关键字搜索日历，搜索结果为标题或描述包含关键字的公共日历或用户主日历。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search
+// - - 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 应用身份不支持搜索用户主日历。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=calendar&resource=calendar&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/search_calendar.go
 func (c *calendar) Search(ctx context.Context, req *SearchCalendarReq, options ...larkcore.RequestOptionFunc) (*SearchCalendarResp, error) {
@@ -324,11 +332,11 @@ func (c *calendar) SearchByIterator(ctx context.Context, req *SearchCalendarReq,
 
 // Subscribe 订阅日历
 //
-// - 该接口用于以当前身份（应用 / 用户）订阅某个日历。;;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口以当前身份（应用或用户）订阅指定的日历。
 //
-// - - 仅可订阅类型为 primary 或 shared 的公开日历。;- 可订阅日历数量上限为1000。
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 仅可订阅以下属性的日历，你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，查看指定日历的属性。; - 日历类型（type）为 shared 或者 primary。; - 日历公开范围（permissions）为 public 或者 show_only_free_busy。;- 不允许订阅机器人的主日历。;- 当前身份可订阅的日历数量上限为 1000。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscribe
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscribe&project=calendar&resource=calendar&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/subscribe_calendar.go
 func (c *calendar) Subscribe(ctx context.Context, req *SubscribeCalendarReq, options ...larkcore.RequestOptionFunc) (*SubscribeCalendarResp, error) {
@@ -352,9 +360,9 @@ func (c *calendar) Subscribe(ctx context.Context, req *SubscribeCalendarReq, opt
 
 // Subscription 订阅日历变更事件
 //
-// - 该接口用于以用户身份订阅当前身份下日历列表中的所有日历变更。
+// - 调用该接口为当前用户身份订阅[日历变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/events/changed)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscription
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscription&project=calendar&resource=calendar&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/subscription_calendar.go
 func (c *calendar) Subscription(ctx context.Context, options ...larkcore.RequestOptionFunc) (*SubscriptionCalendarResp, error) {
@@ -381,11 +389,11 @@ func (c *calendar) Subscription(ctx context.Context, options ...larkcore.Request
 
 // Unsubscribe 取消订阅日历
 //
-// - 该接口用于以当前身份（应用 / 用户）取消对某日历的订阅状态。;;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口以当前身份（应用或用户）取消指定日历的订阅状态。
 //
-// - 仅可操作已经被当前身份订阅的日历。
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 仅可操作已经被当前身份订阅的日历。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscribe
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=unsubscribe&project=calendar&resource=calendar&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/unsubscribe_calendar.go
 func (c *calendar) Unsubscribe(ctx context.Context, req *UnsubscribeCalendarReq, options ...larkcore.RequestOptionFunc) (*UnsubscribeCalendarResp, error) {
@@ -409,9 +417,9 @@ func (c *calendar) Unsubscribe(ctx context.Context, req *UnsubscribeCalendarReq,
 
 // Unsubscription 取消订阅日历变更事件
 //
-// - 该接口用于以用户身份取消订阅当前身份下日历列表中的日历变更事件。
+// - 调用该接口为当前用户身份取消订阅[日历变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/events/changed)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscription
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=unsubscription&project=calendar&resource=calendar&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/unsubscription_calendar.go
 func (c *calendar) Unsubscription(ctx context.Context, options ...larkcore.RequestOptionFunc) (*UnsubscriptionCalendarResp, error) {
@@ -438,11 +446,11 @@ func (c *calendar) Unsubscription(ctx context.Context, options ...larkcore.Reque
 
 // Create 创建访问控制
 //
-// - 该接口用于以当前身份（应用 / 用户）给日历添加访问控制权限，即日历成员。;;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口以当前身份（应用或用户）为指定日历添加访问控制，即日历成员权限。
 //
-// - 当前身份需要有日历的 owner 权限，并且日历的类型只能为 primary 或 shared。
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 当前身份需要有日历的 owner 权限，并且日历的类型只能为 primary 或 shared。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，获取日历类型以及当前身份对该日历的访问权限。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=calendar&resource=calendar.acl&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/create_calendarAcl.go
 func (c *calendarAcl) Create(ctx context.Context, req *CreateCalendarAclReq, options ...larkcore.RequestOptionFunc) (*CreateCalendarAclResp, error) {
@@ -466,11 +474,11 @@ func (c *calendarAcl) Create(ctx context.Context, req *CreateCalendarAclReq, opt
 
 // Delete 删除访问控制
 //
-// - 该接口用于以当前身份（应用 / 用户）删除日历的控制权限，即日历成员。;;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口以当前身份（应用或用户）删除指定日历内的某一访问控制，即成员权限。
 //
-// - 当前身份需要有日历的 owner 权限，并且日历的类型只能为 primary 或 shared。
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 当前身份需要有日历的 owner 权限，并且日历的类型只能为 primary 或 shared。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，获取日历类型以及当前身份对该日历的访问权限。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=calendar&resource=calendar.acl&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/delete_calendarAcl.go
 func (c *calendarAcl) Delete(ctx context.Context, req *DeleteCalendarAclReq, options ...larkcore.RequestOptionFunc) (*DeleteCalendarAclResp, error) {
@@ -494,11 +502,11 @@ func (c *calendarAcl) Delete(ctx context.Context, req *DeleteCalendarAclReq, opt
 
 // List 获取访问控制列表
 //
-// - 该接口用于以当前身份（应用 / 用户）获取日历的控制权限列表。;;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口以当前身份（应用或用户）获取指定日历的访问控制列表。
 //
-// - 当前身份需要有日历的 owner 权限，并且日历的类型只能为 primary 或 shared。
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 当前身份需要有日历的 owner 权限，并且日历的类型只能为 primary 或 shared。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，获取日历类型以及当前身份对该日历的访问权限。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=calendar&resource=calendar.acl&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/list_calendarAcl.go
 func (c *calendarAcl) List(ctx context.Context, req *ListCalendarAclReq, options ...larkcore.RequestOptionFunc) (*ListCalendarAclResp, error) {
@@ -530,11 +538,11 @@ func (c *calendarAcl) ListByIterator(ctx context.Context, req *ListCalendarAclRe
 
 // Subscription 订阅日历访问控制变更事件;
 //
-// - 该接口用于以用户身份订阅指定日历下的日历成员变更事件。
+// - 调用该接口以用户身份订阅指定日历下的访问控制变更事件。
 //
-// - 用户必须对日历有访问权限。
+// - 当前用户身份必须对日历有访问权限。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/subscription
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscription&project=calendar&resource=calendar.acl&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/subscription_calendarAcl.go
 func (c *calendarAcl) Subscription(ctx context.Context, req *SubscriptionCalendarAclReq, options ...larkcore.RequestOptionFunc) (*SubscriptionCalendarAclResp, error) {
@@ -558,11 +566,11 @@ func (c *calendarAcl) Subscription(ctx context.Context, req *SubscriptionCalenda
 
 // Unsubscription 取消订阅日历访问控制变更事件
 //
-// - 该接口用于以用户身份取消订阅指定日历下的日历成员变更事件。
+// - 调用该接口以用户身份取消订阅指定日历下的访问控制变更事件。
 //
 // - 用户必须对日历有访问权限。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/unsubscription
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=unsubscription&project=calendar&resource=calendar.acl&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/unsubscription_calendarAcl.go
 func (c *calendarAcl) Unsubscription(ctx context.Context, req *UnsubscriptionCalendarAclReq, options ...larkcore.RequestOptionFunc) (*UnsubscriptionCalendarAclResp, error) {
@@ -586,11 +594,11 @@ func (c *calendarAcl) Unsubscription(ctx context.Context, req *UnsubscriptionCal
 
 // Create 创建日程
 //
-// - 该接口用于以当前身份（应用 / 用户）在日历上创建一个日程。;;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口以当前身份（应用或用户）在指定日历上创建一个日程。
 //
-// - 当前身份必须对日历有 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 当前身份必须对日历有 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，获取日历类型以及当前身份对该日历的访问权限。;- 该接口仅用于创建日程，如需为日程添加参与人或预约会议室，则需调用[添加日程参与人](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/create)接口。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=calendar&resource=calendar.event&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/create_calendarEvent.go
 func (c *calendarEvent) Create(ctx context.Context, req *CreateCalendarEventReq, options ...larkcore.RequestOptionFunc) (*CreateCalendarEventResp, error) {
@@ -614,11 +622,11 @@ func (c *calendarEvent) Create(ctx context.Context, req *CreateCalendarEventReq,
 
 // Delete 删除日程
 //
-// - 该接口用于以当前身份（应用 / 用户）删除日历上的一个日程。;;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口以当前身份（应用或用户）删除指定日历上的一个日程。
 //
-// - 当前身份必须对日历有 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。;;当前身份必须是日程的组织者。
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 当前身份必须对日历有 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，获取日历类型以及当前身份对该日历的访问权限。;- 当前身份必须是日程的组织者。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=calendar&resource=calendar.event&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/delete_calendarEvent.go
 func (c *calendarEvent) Delete(ctx context.Context, req *DeleteCalendarEventReq, options ...larkcore.RequestOptionFunc) (*DeleteCalendarEventResp, error) {
@@ -642,11 +650,11 @@ func (c *calendarEvent) Delete(ctx context.Context, req *DeleteCalendarEventReq,
 
 // Get 获取日程
 //
-// - 该接口用于以当前身份（应用 / 用户）获取日历上的一个日程。;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口以当前身份（应用或用户）获取指定日历内的某一日程信息，包括日程的标题、时间段、视频会议信息、公开范围以及参与人权限等。
 //
-// - - 当前身份必须对日历有reader、writer或owner权限才会返回日程详细信息（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。;- [例外日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction#71c5ec78)可通过event_id的非0时间戳后缀，来获取修改的重复性日程的哪一天日程的时间信息。
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 当前身份必须对日历有 reader、writer 或 owner 权限。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，获取当前身份对该日历的访问权限。;- 你可以通过 event_id 的时间戳后缀来获取例外日程的时间信息。例如，event_id 为 `xxxxxxxxx_1602504000` 的例外日程时间戳为 160250400。关于例外日程说明可参见[日程资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=calendar&resource=calendar.event&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/get_calendarEvent.go
 func (c *calendarEvent) Get(ctx context.Context, req *GetCalendarEventReq, options ...larkcore.RequestOptionFunc) (*GetCalendarEventResp, error) {
@@ -668,9 +676,9 @@ func (c *calendarEvent) Get(ctx context.Context, req *GetCalendarEventReq, optio
 	return resp, err
 }
 
-// InstanceView
+// InstanceView 查询日程视图
 //
-// -
+// - 调用该接口以用户身份查询指定日历下的日程视图。与[获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list)不同的是，当前接口会按照重复日程的重复性规则展开成多个日程实例（instance），并根据查询的时间区间返回相应的日程实例信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=instance_view&project=calendar&resource=calendar.event&version=v4
 //
@@ -694,9 +702,11 @@ func (c *calendarEvent) InstanceView(ctx context.Context, req *InstanceViewCalen
 	return resp, err
 }
 
-// Instances
+// Instances 获取重复日程实例
 //
-// -
+// - 调用该接口以当前身份（应用或用户）获取指定日历中的某一重复日程信息。
+//
+// - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=instances&project=calendar&resource=calendar.event&version=v4
 //
@@ -722,11 +732,9 @@ func (c *calendarEvent) Instances(ctx context.Context, req *InstancesCalendarEve
 
 // List 获取日程列表
 //
-// - 该接口用于以当前身份（应用 / 用户）获取日历下的日程列表。;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口以当前身份（应用或用户）获取指定日历下的日程列表。
 //
-// - - 当前身份必须对日历有reader、writer或owner权限才会返回日程详细信息（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。;;- 仅支持primary、shared和resource类型的日历获取日程列表。;;- page_token 分页拉取存量数据，sync_token 增量同步变更数据；目前仅传anchor_time时，会返回page_token。;;- 为了确保调用方日程同步数据的一致性，在使用sync_token时，不能同时使用start_time和end_time，否则可能造成日程数据缺失。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=calendar&resource=calendar.event&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/list_calendarEvent.go
 func (c *calendarEvent) List(ctx context.Context, req *ListCalendarEventReq, options ...larkcore.RequestOptionFunc) (*ListCalendarEventResp, error) {
@@ -750,11 +758,11 @@ func (c *calendarEvent) List(ctx context.Context, req *ListCalendarEventReq, opt
 
 // Patch 更新日程
 //
-// - 该接口用于以当前身份（应用 / 用户）更新日历上的一个日程。;;身份由 Header Authorization 的 Token 类型决定。
+// - 以当前身份（应用或用户）更新指定日历上的一个日程，包括日程标题、描述、开始与结束时间、视频会议以及日程地点等信息。
 //
-// - 当前身份必须对日历有 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。;;当前身份为日程组织者时，可修改所有可编辑字段。;;当前身份为日程参与者时，仅可编辑部分字段。（如：visibility, free_busy_status, color, reminders）
+// - ## 前提条件;;- 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 当前身份必须对日历有 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，获取日历类型以及当前身份对该日历的访问权限。;;## 使用限制;;- 当前身份为日程组织者时，可修改该接口内的所有可编辑字段。;- 当前身份为日程参与者时，仅可编辑部分字段（包括 visibility、free_busy_status、color、reminders）。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=calendar&resource=calendar.event&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/patch_calendarEvent.go
 func (c *calendarEvent) Patch(ctx context.Context, req *PatchCalendarEventReq, options ...larkcore.RequestOptionFunc) (*PatchCalendarEventResp, error) {
@@ -776,9 +784,11 @@ func (c *calendarEvent) Patch(ctx context.Context, req *PatchCalendarEventReq, o
 	return resp, err
 }
 
-// Reply
+// Reply 回复日程
 //
-// -
+// - 调用该接口以当前身份（应用或用户）回复日程。
+//
+// - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=reply&project=calendar&resource=calendar.event&version=v4
 //
@@ -804,11 +814,11 @@ func (c *calendarEvent) Reply(ctx context.Context, req *ReplyCalendarEventReq, o
 
 // Search 搜索日程
 //
-// - 该接口用于以用户身份搜索某日历下的相关日程。;;身份由 Header Authorization 的 Token 类型决定。
+// - 调用该接口搜索指定日历下的相关日程，支持关键词搜索、过滤条件搜索。
 //
-// - 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
+// - ## 注意事项;;适用于主日历和共享日历，且当前身份必须对日历有 reader、writer 或 owner 权限。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，获取当前身份对日历的访问权限。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=calendar&resource=calendar.event&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/search_calendarEvent.go
 func (c *calendarEvent) Search(ctx context.Context, req *SearchCalendarEventReq, options ...larkcore.RequestOptionFunc) (*SearchCalendarEventResp, error) {
@@ -840,11 +850,11 @@ func (c *calendarEvent) SearchByIterator(ctx context.Context, req *SearchCalenda
 
 // Subscription 订阅日程变更事件
 //
-// - 该接口用于以用户身份订阅指定日历下的日程变更事件。
+// - 调用该接口以用户身份订阅指定日历下的日程变更事件。
 //
-// - 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
+// - 当前身份必须对日历有 reader、writer 或 owner 权限。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，获取当前身份对该日历的访问权限。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscription&project=calendar&resource=calendar.event&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/subscription_calendarEvent.go
 func (c *calendarEvent) Subscription(ctx context.Context, req *SubscriptionCalendarEventReq, options ...larkcore.RequestOptionFunc) (*SubscriptionCalendarEventResp, error) {
@@ -868,11 +878,11 @@ func (c *calendarEvent) Subscription(ctx context.Context, req *SubscriptionCalen
 
 // Unsubscription 取消订阅日程变更事件
 //
-// - 该接口用于以用户身份取消订阅指定日历下的日程变更事件。
+// - 调用该接口以用户身份取消订阅指定日历下的日程变更事件。
 //
-// - 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
+// - 当前身份必须对日历有 reader、writer 或 owner 权限。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，获取当前身份对该日历的访问权限。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/unsubscription
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=unsubscription&project=calendar&resource=calendar.event&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/unsubscription_calendarEvent.go
 func (c *calendarEvent) Unsubscription(ctx context.Context, req *UnsubscriptionCalendarEventReq, options ...larkcore.RequestOptionFunc) (*UnsubscriptionCalendarEventResp, error) {
@@ -896,11 +906,9 @@ func (c *calendarEvent) Unsubscription(ctx context.Context, req *UnsubscriptionC
 
 // BatchDelete 删除日程参与人
 //
-// - 批量删除日程的参与人。
+// - 调用该接口以当前身份（应用或用户）删除指定日程的一个或多个参与人。
 //
-// - - 当前身份需要有日历的 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。;;- 当前身份需要是日程的组织者。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/batch_delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=calendar&resource=calendar.event.attendee&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/batchDelete_calendarEventAttendee.go
 func (c *calendarEventAttendee) BatchDelete(ctx context.Context, req *BatchDeleteCalendarEventAttendeeReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteCalendarEventAttendeeResp, error) {
@@ -922,13 +930,13 @@ func (c *calendarEventAttendee) BatchDelete(ctx context.Context, req *BatchDelet
 	return resp, err
 }
 
-// Create 创建日程参与人;
+// Create 添加日程参与人
 //
-// - 批量给日程添加参与人。
+// - 调用该接口以当前身份（应用或用户）为指定日程添加一个或多个参与人，参与人类型包括用户、群组、会议室以及邮箱。
 //
-// - - 当前身份需要有日历的 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。;;- 当前身份需要是日程的组织者，或日程设置了「参与人可邀请其它参与人」权限。;;- 新添加的日程参与人必须与日程组织者在同一个企业内。;;- 使用该接口添加会议室后，会议室会进入异步的预约流程，请求结束不代表会议室预约成功，需后续再查询预约状态。;;- 每个日程最多只能有 3000 名参与人。;;- 开启管理员能力后预约会议室可不受会议室预约范围的限制（当前不支持用管理员身份给其他人的日程预约会议室）
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 当前身份需要有日历的 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，获取日历类型以及当前身份对该日历的访问权限。;- 当前身份需要是日程的组织者，或者是日程参与人且确保日程设置了**参与人可邀请其它参与人**权限。你可以调用[获取日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get)接口，获取日程的参与人权限（attendee_ability）。;- 新添加的日程参与人必须与日程组织者在同一个企业内。;- 每个日程最多只能有 3000 名参与人。;- 使用该接口添加会议室后，会议室会进入异步的预约流程，即请求结束不代表会议室预约成功，需后续再查询会议室的预约状态。;- 开启会议室管理员能力后，管理员预约会议室可不受会议室预约范围的限制（当前不支持用管理员身份给其他成员的日程预约会议室）。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=calendar&resource=calendar.event.attendee&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/create_calendarEventAttendee.go
 func (c *calendarEventAttendee) Create(ctx context.Context, req *CreateCalendarEventAttendeeReq, options ...larkcore.RequestOptionFunc) (*CreateCalendarEventAttendeeResp, error) {
@@ -952,11 +960,9 @@ func (c *calendarEventAttendee) Create(ctx context.Context, req *CreateCalendarE
 
 // List 获取日程参与人列表
 //
-// - 获取日程的参与人列表，若参与者列表中有群组，请使用 [获取参与人群成员列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list) 。
+// - 调用该接口以当前身份（应用或用户）获取日程的参与人列表。
 //
-// - - 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。;;- 当前身份必须有权限查看日程的参与人列表。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=calendar&resource=calendar.event.attendee&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/list_calendarEventAttendee.go
 func (c *calendarEventAttendee) List(ctx context.Context, req *ListCalendarEventAttendeeReq, options ...larkcore.RequestOptionFunc) (*ListCalendarEventAttendeeResp, error) {
@@ -988,11 +994,9 @@ func (c *calendarEventAttendee) ListByIterator(ctx context.Context, req *ListCal
 
 // List 获取日程参与群成员列表
 //
-// - 获取日程的群参与人的群成员列表。
+// - 调用该接口以当前身份（应用或用户）获取日程的群组类型参与人的群成员列表。
 //
-// - - 当前身份必须有权限查看日程的参与人列表。;;- 当前身份必须在群聊中，或有权限查看群成员列表。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=calendar&resource=calendar.event.attendee.chat_member&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/list_calendarEventAttendeeChatMember.go
 func (c *calendarEventAttendeeChatMember) List(ctx context.Context, req *ListCalendarEventAttendeeChatMemberReq, options ...larkcore.RequestOptionFunc) (*ListCalendarEventAttendeeChatMemberResp, error) {
@@ -1022,9 +1026,9 @@ func (c *calendarEventAttendeeChatMember) ListByIterator(ctx context.Context, re
 		limit:    req.Limit}, nil
 }
 
-// Create
+// Create 创建会议群
 //
-// -
+// - 调用该接口以当前身份（应用或用户）为指定日程创建一个会议群。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=calendar&resource=calendar.event.meeting_chat&version=v4
 //
@@ -1048,9 +1052,11 @@ func (c *calendarEventMeetingChat) Create(ctx context.Context, req *CreateCalend
 	return resp, err
 }
 
-// Delete
+// Delete 解绑会议群
 //
-// -
+// - 调用该接口以当前身份（应用或用户）为日程解绑已创建的会议群。
+//
+// - - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份，user_access_token 指用户身份。;- 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 日程所在的日历需要是当前身份的主日历，且具有日历的 writer 权限。你可以调用[查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary)接口，获取当前身份的主日历信息。;- 当前的操作人需要是会议群的群主。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=calendar&resource=calendar.event.meeting_chat&version=v4
 //
@@ -1074,9 +1080,11 @@ func (c *calendarEventMeetingChat) Delete(ctx context.Context, req *DeleteCalend
 	return resp, err
 }
 
-// Create
+// Create 创建会议纪要
 //
-// -
+// - 调用该接口为指定的日程创建会议纪要。纪要以文档形式展示，成功创建后会返回纪要文档 URL。
+//
+// - ## 注意事项;;- 所操作的日历需要是当前身份（身份由 Header Authorization 的 Token 类型决定）的主日历，且当前身份具有日历的 writer 权限（即编辑权限）。;- 所操作的日程内至少需要有 1 个参与人，且参与人权限不能为 none（即无法查看参与人列表）。;;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=calendar&resource=calendar.event.meeting_minute&version=v4
 //
@@ -1100,13 +1108,13 @@ func (c *calendarEventMeetingMinute) Create(ctx context.Context, req *CreateCale
 	return resp, err
 }
 
-// Create 创建Exchange绑定关系
+// Create 将 Exchange 账户绑定到飞书账户
 //
-// - 本接口将Exchange账户绑定到飞书账户，进而支持Exchange日历的导入
+// - 调用该接口将 Exchange 账户绑定到飞书账户，进而支持 Exchange 日历的导入。
 //
-// - 操作用户需要是企业超级管理员
+// - 当前身份需要是企业超级管理员。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=calendar&resource=exchange_binding&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/create_exchangeBinding.go
 func (e *exchangeBinding) Create(ctx context.Context, req *CreateExchangeBindingReq, options ...larkcore.RequestOptionFunc) (*CreateExchangeBindingResp, error) {
@@ -1128,13 +1136,11 @@ func (e *exchangeBinding) Create(ctx context.Context, req *CreateExchangeBinding
 	return resp, err
 }
 
-// Delete 解除Exchange绑定关系
+// Delete 解除 Exchange 账户绑定
 //
-// - 本接口解除Exchange账户和飞书账户的绑定关系，Exchange账户解除绑定后才能绑定其他飞书账户
+// - 调用该接口解除 Exchange 账户和飞书账户的绑定关系，Exchange 账户解除绑定后才能和其他飞书账户继续绑定。
 //
-// - 操作用户需要是企业超级管理员
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=calendar&resource=exchange_binding&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/delete_exchangeBinding.go
 func (e *exchangeBinding) Delete(ctx context.Context, req *DeleteExchangeBindingReq, options ...larkcore.RequestOptionFunc) (*DeleteExchangeBindingResp, error) {
@@ -1156,13 +1162,13 @@ func (e *exchangeBinding) Delete(ctx context.Context, req *DeleteExchangeBinding
 	return resp, err
 }
 
-// Get 获取绑定状态
+// Get 查询 Exchange 账户的绑定状态
 //
-// - 本接口获取Exchange账户的绑定状态，包括exchange日历是否同步完成。
+// - 调用该接口获取 Exchange 账户的绑定状态，包括 Exchange 日历的同步状态。
 //
-// - 操作用户需要是企业超级管理员
+// - 当前身份需要是企业超级管理员。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=calendar&resource=exchange_binding&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/get_exchangeBinding.go
 func (e *exchangeBinding) Get(ctx context.Context, req *GetExchangeBindingReq, options ...larkcore.RequestOptionFunc) (*GetExchangeBindingResp, error) {
@@ -1184,9 +1190,11 @@ func (e *exchangeBinding) Get(ctx context.Context, req *GetExchangeBindingReq, o
 	return resp, err
 }
 
-// Batch
+// Batch 批量查询主日历日程忙闲信息
 //
-// -
+// - 根据user id列表，批量查询指定用户的主日历在指定时间段内的忙碌时间段信息，适用于团队协作中，快速了解成员忙闲状态以安排会议或任务的场景。
+//
+// - 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch&project=calendar&resource=freebusy&version=v4
 //
@@ -1210,11 +1218,13 @@ func (f *freebusy) Batch(ctx context.Context, req *BatchFreebusyReq, options ...
 	return resp, err
 }
 
-// List 查询主日历忙闲信息
+// List 查询主日历日程忙闲信息
 //
-// - 查询用户主日历或会议室的忙闲信息。
+// - 调用该接口查询指定用户的主日历忙闲信息，或者查询指定会议室的忙闲信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/freebusy/list
+// - 如果使用应用身份调用该接口，则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=calendar&resource=freebusy&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/list_freebusy.go
 func (f *freebusy) List(ctx context.Context, req *ListFreebusyReq, options ...larkcore.RequestOptionFunc) (*ListFreebusyResp, error) {
@@ -1236,11 +1246,11 @@ func (f *freebusy) List(ctx context.Context, req *ListFreebusyReq, options ...la
 	return resp, err
 }
 
-// GenerateCaldavConf 生成CalDAV配置
+// GenerateCaldavConf 生成 CalDAV 配置
 //
-// - 用于为当前用户生成一个CalDAV账号密码，用于将飞书日历信息同步到本地设备日历。
+// - 调用该接口为当前用户生成一个 CalDAV 账号密码，用于将飞书日历信息同步到本地设备日历。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/setting/generate_caldav_conf
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=generate_caldav_conf&project=calendar&resource=setting&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/generateCaldavConf_setting.go
 func (s *setting) GenerateCaldavConf(ctx context.Context, req *GenerateCaldavConfSettingReq, options ...larkcore.RequestOptionFunc) (*GenerateCaldavConfSettingResp, error) {
@@ -1264,9 +1274,9 @@ func (s *setting) GenerateCaldavConf(ctx context.Context, req *GenerateCaldavCon
 
 // Create 创建请假日程
 //
-// - 为指定用户创建一个请假日程，可以是一个普通请假日程，也可以是一个全天日程。;创建请假日程后，会在相应时间内，在用户个人签名页展示请假信息。
+// - 调用该接口为指定用户创建一个请假日程。请假日程分为普通日程和全天日程。创建请假日程后，在请假时间内，用户个人签名页会展示请假信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=calendar&resource=timeoff_event&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/create_timeoffEvent.go
 func (t *timeoffEvent) Create(ctx context.Context, req *CreateTimeoffEventReq, options ...larkcore.RequestOptionFunc) (*CreateTimeoffEventResp, error) {
@@ -1290,9 +1300,11 @@ func (t *timeoffEvent) Create(ctx context.Context, req *CreateTimeoffEventReq, o
 
 // Delete 删除请假日程
 //
-// - 删除一个指定的请假日程，请假日程删除，用户个人签名页的请假信息也会消失。;一个应用只能删除自己创建的请假日程。
+// - 调用该接口删除一个指定的请假日程。请假日程删除后，用户个人签名页的请假信息也会消失。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/delete
+// - - 使用应用身份调用该接口，需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 当前应用身份只能删除自己创建的请假日程。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=calendar&resource=timeoff_event&version=v4
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/calendarv4/delete_timeoffEvent.go
 func (t *timeoffEvent) Delete(ctx context.Context, req *DeleteTimeoffEventReq, options ...larkcore.RequestOptionFunc) (*DeleteTimeoffEventResp, error) {

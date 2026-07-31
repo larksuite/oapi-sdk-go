@@ -35,7 +35,7 @@ type App struct {
 
 	DefaultTableId *string `json:"default_table_id,omitempty"` // 默认的表格id
 
-	TimeZone *string `json:"time_zone,omitempty"` // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+	TimeZone *string `json:"time_zone,omitempty"` // 文档时区，说明见：
 }
 
 type AppBuilder struct {
@@ -57,7 +57,7 @@ type AppBuilder struct {
 	defaultTableId    string // 默认的表格id
 	defaultTableIdSet bool
 
-	timeZone    string // 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+	timeZone    string // 文档时区，说明见：
 	timeZoneSet bool
 }
 
@@ -120,7 +120,7 @@ func (builder *AppBuilder) DefaultTableId(defaultTableId string) *AppBuilder {
 	return builder
 }
 
-// 文档时区，说明见：https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf
+// 文档时区，说明见：
 //
 // 示例值：Asia/Beijing
 func (builder *AppBuilder) TimeZone(timeZone string) *AppBuilder {
@@ -163,21 +163,21 @@ func (builder *AppBuilder) Build() *App {
 }
 
 type BlockRole struct {
-	BlockId *string `json:"block_id,omitempty"` // Block ID
+	BlockId *string `json:"block_id,omitempty"` // 多维表格仪表盘的唯一标识
 
-	BlockPerm *int `json:"block_perm,omitempty"` // Block权限
+	BlockPerm *int `json:"block_perm,omitempty"` // 仪表盘的权限
 
-	BlockType *string `json:"block_type,omitempty"` // Block类型
+	BlockType *string `json:"block_type,omitempty"` // 仪表盘类型
 }
 
 type BlockRoleBuilder struct {
-	blockId    string // Block ID
+	blockId    string // 多维表格仪表盘的唯一标识
 	blockIdSet bool
 
-	blockPerm    int // Block权限
+	blockPerm    int // 仪表盘的权限
 	blockPermSet bool
 
-	blockType    string // Block类型
+	blockType    string // 仪表盘类型
 	blockTypeSet bool
 }
 
@@ -186,7 +186,7 @@ func NewBlockRoleBuilder() *BlockRoleBuilder {
 	return builder
 }
 
-// Block ID
+// 多维表格仪表盘的唯一标识
 //
 // 示例值：blknkqrP3RqUkcAW
 func (builder *BlockRoleBuilder) BlockId(blockId string) *BlockRoleBuilder {
@@ -195,7 +195,7 @@ func (builder *BlockRoleBuilder) BlockId(blockId string) *BlockRoleBuilder {
 	return builder
 }
 
-// Block权限
+// 仪表盘的权限
 //
 // 示例值：0
 func (builder *BlockRoleBuilder) BlockPerm(blockPerm int) *BlockRoleBuilder {
@@ -204,7 +204,7 @@ func (builder *BlockRoleBuilder) BlockPerm(blockPerm int) *BlockRoleBuilder {
 	return builder
 }
 
-// Block类型
+// 仪表盘类型
 //
 // 示例值：dashboard
 func (builder *BlockRoleBuilder) BlockType(blockType string) *BlockRoleBuilder {
@@ -316,8 +316,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -325,8 +323,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -840,8 +836,6 @@ func (builder *MetaBuilder) TenantId(tenantId string) *MetaBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *MetaBuilder) MixState(mixState int) *MetaBuilder {
 	builder.mixState = mixState
@@ -999,7 +993,7 @@ func (builder *MetaBuilder) Build() *Meta {
 }
 
 type OtherRecRule struct {
-	Conditions []*RecRuleCondition `json:"conditions,omitempty"` // 记录筛选条件
+	Conditions []*RecRuleCondition `json:"conditions,omitempty"` // 记录筛选条件，用于指定可阅读的记录。
 
 	Conjunction *string `json:"conjunction,omitempty"` // 多个筛选条件的关系
 
@@ -1007,7 +1001,7 @@ type OtherRecRule struct {
 }
 
 type OtherRecRuleBuilder struct {
-	conditions    []*RecRuleCondition // 记录筛选条件
+	conditions    []*RecRuleCondition // 记录筛选条件，用于指定可阅读的记录。
 	conditionsSet bool
 
 	conjunction    string // 多个筛选条件的关系
@@ -1022,7 +1016,7 @@ func NewOtherRecRuleBuilder() *OtherRecRuleBuilder {
 	return builder
 }
 
-// 记录筛选条件
+// 记录筛选条件，用于指定可阅读的记录。
 //
 // 示例值：
 func (builder *OtherRecRuleBuilder) Conditions(conditions []*RecRuleCondition) *OtherRecRuleBuilder {
@@ -1066,13 +1060,13 @@ func (builder *OtherRecRuleBuilder) Build() *OtherRecRule {
 }
 
 type RecRule struct {
-	Conditions []*RecRuleCondition `json:"conditions,omitempty"` // 记录筛选条件
+	Conditions []*RecRuleCondition `json:"conditions,omitempty"` // 记录筛选条件，用于指定可编辑或可阅读的记录。
 
 	Conjunction *string `json:"conjunction,omitempty"` // 多个筛选条件的关系
 
-	Perm *int `json:"perm,omitempty"` // 规则筛选记录对应的权限
+	Perm *int `json:"perm,omitempty"` // 命中 rec_rule 的记录对应的权限，可不设置，理论上应该与 table_perm 保持一致
 
-	OtherPerm *int `json:"other_perm,omitempty"` // 其他记录权限，仅在table_perm为2时有效
+	OtherPerm *int `json:"other_perm,omitempty"` // 其他记录权限，仅在 `table_perm` 为 2 （数据表权限为可编辑）时生效。;- 当 `other_perm` 为 1 时，表示未命中 `rec_rule` 的记录仅可阅读，不可编辑;- 当 `other_perm` 为 0 时，表示既未命中 `rec_rule`、也未命中 `other_rec_rule` 的记录会被禁止阅读。即你可以通过 `other_rec_rule` 进一步指定可阅读的记录范围。
 
 	ConditionGroups []*ConditionGroup `json:"condition_groups,omitempty"` // 条件组
 
@@ -1080,16 +1074,16 @@ type RecRule struct {
 }
 
 type RecRuleBuilder struct {
-	conditions    []*RecRuleCondition // 记录筛选条件
+	conditions    []*RecRuleCondition // 记录筛选条件，用于指定可编辑或可阅读的记录。
 	conditionsSet bool
 
 	conjunction    string // 多个筛选条件的关系
 	conjunctionSet bool
 
-	perm    int // 规则筛选记录对应的权限
+	perm    int // 命中 rec_rule 的记录对应的权限，可不设置，理论上应该与 table_perm 保持一致
 	permSet bool
 
-	otherPerm    int // 其他记录权限，仅在table_perm为2时有效
+	otherPerm    int // 其他记录权限，仅在 `table_perm` 为 2 （数据表权限为可编辑）时生效。;- 当 `other_perm` 为 1 时，表示未命中 `rec_rule` 的记录仅可阅读，不可编辑;- 当 `other_perm` 为 0 时，表示既未命中 `rec_rule`、也未命中 `other_rec_rule` 的记录会被禁止阅读。即你可以通过 `other_rec_rule` 进一步指定可阅读的记录范围。
 	otherPermSet bool
 
 	conditionGroups    []*ConditionGroup // 条件组
@@ -1104,7 +1098,7 @@ func NewRecRuleBuilder() *RecRuleBuilder {
 	return builder
 }
 
-// 记录筛选条件
+// 记录筛选条件，用于指定可编辑或可阅读的记录。
 //
 // 示例值：
 func (builder *RecRuleBuilder) Conditions(conditions []*RecRuleCondition) *RecRuleBuilder {
@@ -1122,7 +1116,7 @@ func (builder *RecRuleBuilder) Conjunction(conjunction string) *RecRuleBuilder {
 	return builder
 }
 
-// 规则筛选记录对应的权限
+// 命中 rec_rule 的记录对应的权限，可不设置，理论上应该与 table_perm 保持一致
 //
 // 示例值：1
 func (builder *RecRuleBuilder) Perm(perm int) *RecRuleBuilder {
@@ -1131,7 +1125,7 @@ func (builder *RecRuleBuilder) Perm(perm int) *RecRuleBuilder {
 	return builder
 }
 
-// 其他记录权限，仅在table_perm为2时有效
+// 其他记录权限，仅在 `table_perm` 为 2 （数据表权限为可编辑）时生效。;- 当 `other_perm` 为 1 时，表示未命中 `rec_rule` 的记录仅可阅读，不可编辑;- 当 `other_perm` 为 0 时，表示既未命中 `rec_rule`、也未命中 `other_rec_rule` 的记录会被禁止阅读。即你可以通过 `other_rec_rule` 进一步指定可阅读的记录范围。
 //
 // 示例值：1
 func (builder *RecRuleBuilder) OtherPerm(otherPerm int) *RecRuleBuilder {
@@ -1186,23 +1180,23 @@ func (builder *RecRuleBuilder) Build() *RecRule {
 }
 
 type RecRuleCondition struct {
-	FieldName *string `json:"field_name,omitempty"` // 字段名
+	FieldName *string `json:"field_name,omitempty"` // 条件字段的名称。
 
-	Operator *string `json:"operator,omitempty"` // 运算符
+	Operator *string `json:"operator,omitempty"` // 条件运算符
 
-	Value []string `json:"value,omitempty"` // 单选或多选字段的选项id
+	Value []string `json:"value,omitempty"` // 条件的值，可以是单个值或多个值的数组。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。
 
 	FieldType *int `json:"field_type,omitempty"` // 字段类型
 }
 
 type RecRuleConditionBuilder struct {
-	fieldName    string // 字段名
+	fieldName    string // 条件字段的名称。
 	fieldNameSet bool
 
-	operator    string // 运算符
+	operator    string // 条件运算符
 	operatorSet bool
 
-	value    []string // 单选或多选字段的选项id
+	value    []string // 条件的值，可以是单个值或多个值的数组。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。
 	valueSet bool
 
 	fieldType    int // 字段类型
@@ -1214,7 +1208,7 @@ func NewRecRuleConditionBuilder() *RecRuleConditionBuilder {
 	return builder
 }
 
-// 字段名
+// 条件字段的名称。
 //
 // 示例值：单选
 func (builder *RecRuleConditionBuilder) FieldName(fieldName string) *RecRuleConditionBuilder {
@@ -1223,7 +1217,7 @@ func (builder *RecRuleConditionBuilder) FieldName(fieldName string) *RecRuleCond
 	return builder
 }
 
-// 运算符
+// 条件运算符
 //
 // 示例值：is
 func (builder *RecRuleConditionBuilder) Operator(operator string) *RecRuleConditionBuilder {
@@ -1232,7 +1226,7 @@ func (builder *RecRuleConditionBuilder) Operator(operator string) *RecRuleCondit
 	return builder
 }
 
-// 单选或多选字段的选项id
+// 条件的值，可以是单个值或多个值的数组。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。
 //
 // 示例值：["optbdVHf4q", "optrpd3eIJ"]
 func (builder *RecRuleConditionBuilder) Value(value []string) *RecRuleConditionBuilder {
@@ -1271,28 +1265,28 @@ func (builder *RecRuleConditionBuilder) Build() *RecRuleCondition {
 }
 
 type Role struct {
-	RoleName *string `json:"role_name,omitempty"` // 自定义权限的名字
+	RoleName *string `json:"role_name,omitempty"` // 自定义角色名称
 
 	TableRoles []*TableRole `json:"table_roles,omitempty"` // 数据表权限
 
-	RoleId *string `json:"role_id,omitempty"` // 自定义权限的id
+	RoleId *string `json:"role_id,omitempty"` // 自定义权限的 ID
 
-	BlockRoles []*BlockRole `json:"block_roles,omitempty"` // block权限
+	BlockRoles []*BlockRole `json:"block_roles,omitempty"` // 针对仪表盘的权限设置
 
 	BaseRule map[string]int `json:"base_rule,omitempty"` // base权限
 }
 
 type RoleBuilder struct {
-	roleName    string // 自定义权限的名字
+	roleName    string // 自定义角色名称
 	roleNameSet bool
 
 	tableRoles    []*TableRole // 数据表权限
 	tableRolesSet bool
 
-	roleId    string // 自定义权限的id
+	roleId    string // 自定义权限的 ID
 	roleIdSet bool
 
-	blockRoles    []*BlockRole // block权限
+	blockRoles    []*BlockRole // 针对仪表盘的权限设置
 	blockRolesSet bool
 
 	baseRule    map[string]int // base权限
@@ -1304,9 +1298,9 @@ func NewRoleBuilder() *RoleBuilder {
 	return builder
 }
 
-// 自定义权限的名字
+// 自定义角色名称
 //
-// 示例值：自定义权限1
+// 示例值：自定义角色1
 func (builder *RoleBuilder) RoleName(roleName string) *RoleBuilder {
 	builder.roleName = roleName
 	builder.roleNameSet = true
@@ -1322,7 +1316,7 @@ func (builder *RoleBuilder) TableRoles(tableRoles []*TableRole) *RoleBuilder {
 	return builder
 }
 
-// 自定义权限的id
+// 自定义权限的 ID
 //
 // 示例值：roljRpwIUt
 func (builder *RoleBuilder) RoleId(roleId string) *RoleBuilder {
@@ -1331,7 +1325,7 @@ func (builder *RoleBuilder) RoleId(roleId string) *RoleBuilder {
 	return builder
 }
 
-// block权限
+// 针对仪表盘的权限设置
 //
 // 示例值：
 func (builder *RoleBuilder) BlockRoles(blockRoles []*BlockRole) *RoleBuilder {
@@ -1342,7 +1336,7 @@ func (builder *RoleBuilder) BlockRoles(blockRoles []*BlockRole) *RoleBuilder {
 
 // base权限
 //
-// 示例值：{"duplicate": 1, "copy": 2}
+// 示例值：{"base_complex_edit": 1, "copy": 0}
 func (builder *RoleBuilder) BaseRule(baseRule map[string]int) *RoleBuilder {
 	builder.baseRule = baseRule
 	builder.baseRuleSet = true
@@ -1372,61 +1366,61 @@ func (builder *RoleBuilder) Build() *Role {
 }
 
 type TableRole struct {
-	TablePerm *int `json:"table_perm,omitempty"` // 数据表权限
+	TablePerm *int `json:"table_perm,omitempty"` // 数据表权限。;;**提示**：**协作者可编辑自己的记录** 和 **可编辑指定字段** 是 **可编辑记录** 的特殊情况，可通过指定 `rec_rule` 或 `field_perm` 参数实现相同的效果。
 
-	TableName *string `json:"table_name,omitempty"` // 数据表名
+	TableName *string `json:"table_name,omitempty"` // 数据表名称
 
-	TableId *string `json:"table_id,omitempty"` // 数据表ID
+	TableId *string `json:"table_id,omitempty"` // 数据表 ID
 
-	RecRule *RecRule `json:"rec_rule,omitempty"` // 记录筛选条件，在table_perm为1或2时有意义，用于指定可编辑或可阅读某些记录
+	RecRule *RecRule `json:"rec_rule,omitempty"` // 记录筛选条件，当 `table_perm` 为 1 或 2 时生效。用于指定可编辑或可阅读的记录。
 
-	OtherRecRule *OtherRecRule `json:"other_rec_rule,omitempty"` // 记录筛选条件，在rec_rule.Perm为2时有意义，用于指定剩余可阅读的记录
+	OtherRecRule *OtherRecRule `json:"other_rec_rule,omitempty"` // 记录筛选条件，在 `rec_rule.other_perm` 为 0 时生效。对于未命中 `rec_rule` 的记录，通过 `other_rec_rule` 指定可阅读记录范围；此时，既未命中 `rec_rule`、也未命中 `other_rec_rule` 的记录会被禁止阅读。
 
-	FieldPerm map[string]int `json:"field_perm,omitempty"` // 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读
+	FieldPerm map[string]int `json:"field_perm,omitempty"` // 字段权限，仅在 `table_perm` 为 1 和 2 时生效。用于设置字段的可编辑或可阅读权限。类型为 map，key 是字段名称，value 是字段权限。value 枚举值有：;- `1`：可阅读;- `2`：可添加;- `3`：可编辑
 
-	AllowAddRecord *bool `json:"allow_add_record,omitempty"` // 新增记录权限，仅在table_perm为2时有意义，用于设置记录是否可以新增
+	AllowAddRecord *bool `json:"allow_add_record,omitempty"` // 新增记录权限，仅在 `table_perm` 为 2 时生效，用于设置记录是否可以新增。
 
-	AllowDeleteRecord *bool `json:"allow_delete_record,omitempty"` // 删除记录权限，仅在table_perm为2时有意义，用于设置记录是否可以删除
+	AllowDeleteRecord *bool `json:"allow_delete_record,omitempty"` // 删除记录权限，仅在 `table_perm` 为 2 时生效，用于设置记录是否可以删除。
 
 	ViewPerm *int `json:"view_perm,omitempty"` // 视图权限
 
-	ViewRules map[string]int `json:"view_rules,omitempty"` // 可读的视图集合，仅在view_perm为1时有意义，未设置表示所有视图可读
+	ViewRules map[string]int `json:"view_rules,omitempty"` // 可读的视图集合，仅在 view_perm 为 1 （视图为可阅读）时生效。;- 未设置时，表示所有视图可读。;- 设置后，表示设置的视图可读，未设置的视图无权限。;;该参数类型为 map，其中 key 是视图 ID，value 是视图对应的权限。value 枚举值有：;- `0`：无权限;- `1`：可阅读
 
-	FieldActionRules map[string]map[string]int `json:"field_action_rules,omitempty"` // 可读的视图集合，仅在view_perm为1时有意义，未设置表示所有视图可读
+	FieldActionRules map[string]map[string]int `json:"field_action_rules,omitempty"` // 字段点位的权限配置，仅可配置单多选字段、附件字段。点位的枚举值有：;;- `select_option_edit` : 选项配置点位，配置是否可增删改单、多选选项，未设置表示无权限。;;- `attachment_export`: 附件操作权限点位，配置是否可导出附件，未设置表示可导出。;;该参数类型为两层 map 结构，其中 key 是字段点位权限，value 是字段权限集合。字段权限集合也是一个 map 结构，其中 key 是字段名称，value 是字段点位权限：;- `0`：无权限;- `1`：有权限
 }
 
 type TableRoleBuilder struct {
-	tablePerm    int // 数据表权限
+	tablePerm    int // 数据表权限。;;**提示**：**协作者可编辑自己的记录** 和 **可编辑指定字段** 是 **可编辑记录** 的特殊情况，可通过指定 `rec_rule` 或 `field_perm` 参数实现相同的效果。
 	tablePermSet bool
 
-	tableName    string // 数据表名
+	tableName    string // 数据表名称
 	tableNameSet bool
 
-	tableId    string // 数据表ID
+	tableId    string // 数据表 ID
 	tableIdSet bool
 
-	recRule    *RecRule // 记录筛选条件，在table_perm为1或2时有意义，用于指定可编辑或可阅读某些记录
+	recRule    *RecRule // 记录筛选条件，当 `table_perm` 为 1 或 2 时生效。用于指定可编辑或可阅读的记录。
 	recRuleSet bool
 
-	otherRecRule    *OtherRecRule // 记录筛选条件，在rec_rule.Perm为2时有意义，用于指定剩余可阅读的记录
+	otherRecRule    *OtherRecRule // 记录筛选条件，在 `rec_rule.other_perm` 为 0 时生效。对于未命中 `rec_rule` 的记录，通过 `other_rec_rule` 指定可阅读记录范围；此时，既未命中 `rec_rule`、也未命中 `other_rec_rule` 的记录会被禁止阅读。
 	otherRecRuleSet bool
 
-	fieldPerm    map[string]int // 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读
+	fieldPerm    map[string]int // 字段权限，仅在 `table_perm` 为 1 和 2 时生效。用于设置字段的可编辑或可阅读权限。类型为 map，key 是字段名称，value 是字段权限。value 枚举值有：;- `1`：可阅读;- `2`：可添加;- `3`：可编辑
 	fieldPermSet bool
 
-	allowAddRecord    bool // 新增记录权限，仅在table_perm为2时有意义，用于设置记录是否可以新增
+	allowAddRecord    bool // 新增记录权限，仅在 `table_perm` 为 2 时生效，用于设置记录是否可以新增。
 	allowAddRecordSet bool
 
-	allowDeleteRecord    bool // 删除记录权限，仅在table_perm为2时有意义，用于设置记录是否可以删除
+	allowDeleteRecord    bool // 删除记录权限，仅在 `table_perm` 为 2 时生效，用于设置记录是否可以删除。
 	allowDeleteRecordSet bool
 
 	viewPerm    int // 视图权限
 	viewPermSet bool
 
-	viewRules    map[string]int // 可读的视图集合，仅在view_perm为1时有意义，未设置表示所有视图可读
+	viewRules    map[string]int // 可读的视图集合，仅在 view_perm 为 1 （视图为可阅读）时生效。;- 未设置时，表示所有视图可读。;- 设置后，表示设置的视图可读，未设置的视图无权限。;;该参数类型为 map，其中 key 是视图 ID，value 是视图对应的权限。value 枚举值有：;- `0`：无权限;- `1`：可阅读
 	viewRulesSet bool
 
-	fieldActionRules    map[string]map[string]int // 可读的视图集合，仅在view_perm为1时有意义，未设置表示所有视图可读
+	fieldActionRules    map[string]map[string]int // 字段点位的权限配置，仅可配置单多选字段、附件字段。点位的枚举值有：;;- `select_option_edit` : 选项配置点位，配置是否可增删改单、多选选项，未设置表示无权限。;;- `attachment_export`: 附件操作权限点位，配置是否可导出附件，未设置表示可导出。;;该参数类型为两层 map 结构，其中 key 是字段点位权限，value 是字段权限集合。字段权限集合也是一个 map 结构，其中 key 是字段名称，value 是字段点位权限：;- `0`：无权限;- `1`：有权限
 	fieldActionRulesSet bool
 }
 
@@ -1435,7 +1429,7 @@ func NewTableRoleBuilder() *TableRoleBuilder {
 	return builder
 }
 
-// 数据表权限
+// 数据表权限。;;**提示**：**协作者可编辑自己的记录** 和 **可编辑指定字段** 是 **可编辑记录** 的特殊情况，可通过指定 `rec_rule` 或 `field_perm` 参数实现相同的效果。
 //
 // 示例值：0
 func (builder *TableRoleBuilder) TablePerm(tablePerm int) *TableRoleBuilder {
@@ -1444,7 +1438,7 @@ func (builder *TableRoleBuilder) TablePerm(tablePerm int) *TableRoleBuilder {
 	return builder
 }
 
-// 数据表名
+// 数据表名称
 //
 // 示例值：数据表1
 func (builder *TableRoleBuilder) TableName(tableName string) *TableRoleBuilder {
@@ -1453,7 +1447,7 @@ func (builder *TableRoleBuilder) TableName(tableName string) *TableRoleBuilder {
 	return builder
 }
 
-// 数据表ID
+// 数据表 ID
 //
 // 示例值：tblKz5D60T4JlfcT
 func (builder *TableRoleBuilder) TableId(tableId string) *TableRoleBuilder {
@@ -1462,7 +1456,7 @@ func (builder *TableRoleBuilder) TableId(tableId string) *TableRoleBuilder {
 	return builder
 }
 
-// 记录筛选条件，在table_perm为1或2时有意义，用于指定可编辑或可阅读某些记录
+// 记录筛选条件，当 `table_perm` 为 1 或 2 时生效。用于指定可编辑或可阅读的记录。
 //
 // 示例值：
 func (builder *TableRoleBuilder) RecRule(recRule *RecRule) *TableRoleBuilder {
@@ -1471,7 +1465,7 @@ func (builder *TableRoleBuilder) RecRule(recRule *RecRule) *TableRoleBuilder {
 	return builder
 }
 
-// 记录筛选条件，在rec_rule.Perm为2时有意义，用于指定剩余可阅读的记录
+// 记录筛选条件，在 `rec_rule.other_perm` 为 0 时生效。对于未命中 `rec_rule` 的记录，通过 `other_rec_rule` 指定可阅读记录范围；此时，既未命中 `rec_rule`、也未命中 `other_rec_rule` 的记录会被禁止阅读。
 //
 // 示例值：
 func (builder *TableRoleBuilder) OtherRecRule(otherRecRule *OtherRecRule) *TableRoleBuilder {
@@ -1480,7 +1474,7 @@ func (builder *TableRoleBuilder) OtherRecRule(otherRecRule *OtherRecRule) *Table
 	return builder
 }
 
-// 字段权限，仅在table_perm为2时有意义，设置字段可编辑或可阅读
+// 字段权限，仅在 `table_perm` 为 1 和 2 时生效。用于设置字段的可编辑或可阅读权限。类型为 map，key 是字段名称，value 是字段权限。value 枚举值有：;- `1`：可阅读;- `2`：可添加;- `3`：可编辑
 //
 // 示例值：{"姓名": 1, "年龄": 2}
 func (builder *TableRoleBuilder) FieldPerm(fieldPerm map[string]int) *TableRoleBuilder {
@@ -1489,7 +1483,7 @@ func (builder *TableRoleBuilder) FieldPerm(fieldPerm map[string]int) *TableRoleB
 	return builder
 }
 
-// 新增记录权限，仅在table_perm为2时有意义，用于设置记录是否可以新增
+// 新增记录权限，仅在 `table_perm` 为 2 时生效，用于设置记录是否可以新增。
 //
 // 示例值：true
 func (builder *TableRoleBuilder) AllowAddRecord(allowAddRecord bool) *TableRoleBuilder {
@@ -1498,7 +1492,7 @@ func (builder *TableRoleBuilder) AllowAddRecord(allowAddRecord bool) *TableRoleB
 	return builder
 }
 
-// 删除记录权限，仅在table_perm为2时有意义，用于设置记录是否可以删除
+// 删除记录权限，仅在 `table_perm` 为 2 时生效，用于设置记录是否可以删除。
 //
 // 示例值：true
 func (builder *TableRoleBuilder) AllowDeleteRecord(allowDeleteRecord bool) *TableRoleBuilder {
@@ -1516,7 +1510,7 @@ func (builder *TableRoleBuilder) ViewPerm(viewPerm int) *TableRoleBuilder {
 	return builder
 }
 
-// 可读的视图集合，仅在view_perm为1时有意义，未设置表示所有视图可读
+// 可读的视图集合，仅在 view_perm 为 1 （视图为可阅读）时生效。;- 未设置时，表示所有视图可读。;- 设置后，表示设置的视图可读，未设置的视图无权限。;;该参数类型为 map，其中 key 是视图 ID，value 是视图对应的权限。value 枚举值有：;- `0`：无权限;- `1`：可阅读
 //
 // 示例值：{"vewEYknYcC": 0}
 func (builder *TableRoleBuilder) ViewRules(viewRules map[string]int) *TableRoleBuilder {
@@ -1525,9 +1519,9 @@ func (builder *TableRoleBuilder) ViewRules(viewRules map[string]int) *TableRoleB
 	return builder
 }
 
-// 可读的视图集合，仅在view_perm为1时有意义，未设置表示所有视图可读
+// 字段点位的权限配置，仅可配置单多选字段、附件字段。点位的枚举值有：;;- `select_option_edit` : 选项配置点位，配置是否可增删改单、多选选项，未设置表示无权限。;;- `attachment_export`: 附件操作权限点位，配置是否可导出附件，未设置表示可导出。;;该参数类型为两层 map 结构，其中 key 是字段点位权限，value 是字段权限集合。字段权限集合也是一个 map 结构，其中 key 是字段名称，value 是字段点位权限：;- `0`：无权限;- `1`：有权限
 //
-// 示例值：{"select_option_edit": {"字段1"：0}}
+// 示例值：{"select_option_edit": {"单选1":0}}
 func (builder *TableRoleBuilder) FieldActionRules(fieldActionRules map[string]map[string]int) *TableRoleBuilder {
 	builder.fieldActionRules = fieldActionRules
 	builder.fieldActionRulesSet = true
@@ -1606,8 +1600,6 @@ func (builder *TemplateInfoBuilder) TemplateType(templateType int) *TemplateInfo
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *TemplateInfoBuilder) PublishFlag(publishFlag int) *TemplateInfoBuilder {
 	builder.publishFlag = publishFlag
@@ -1642,7 +1634,7 @@ func NewCreateAppRoleReqBuilder() *CreateAppRoleReqBuilder {
 	return builder
 }
 
-// 多维表格的唯一标识符
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *CreateAppRoleReqBuilder) AppToken(appToken string) *CreateAppRoleReqBuilder {
@@ -1650,7 +1642,7 @@ func (builder *CreateAppRoleReqBuilder) AppToken(appToken string) *CreateAppRole
 	return builder
 }
 
-// 新增自定义角色
+// 新增多维表格高级权限中自定义的角色。
 func (builder *CreateAppRoleReqBuilder) Role(role *Role) *CreateAppRoleReqBuilder {
 	builder.role = role
 	return builder
@@ -1670,7 +1662,7 @@ type CreateAppRoleReq struct {
 }
 
 type CreateAppRoleRespData struct {
-	Role *Role `json:"role,omitempty"` // 自定义权限
+	Role *Role `json:"role,omitempty"` // 自定义角色
 }
 
 type CreateAppRoleResp struct {
@@ -1703,7 +1695,7 @@ func (builder *ListAppRoleReqBuilder) Limit(limit int) *ListAppRoleReqBuilder {
 	return builder
 }
 
-// 多维表格的唯一标识符
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *ListAppRoleReqBuilder) AppToken(appToken string) *ListAppRoleReqBuilder {
@@ -1711,7 +1703,7 @@ func (builder *ListAppRoleReqBuilder) AppToken(appToken string) *ListAppRoleReqB
 	return builder
 }
 
-//
+// 分页大小
 //
 // 示例值：
 func (builder *ListAppRoleReqBuilder) PageSize(pageSize int) *ListAppRoleReqBuilder {
@@ -1719,9 +1711,7 @@ func (builder *ListAppRoleReqBuilder) PageSize(pageSize int) *ListAppRoleReqBuil
 	return builder
 }
 
-//
-//
-// 示例值：
+// 示例值：roljRpwIUt
 func (builder *ListAppRoleReqBuilder) PageToken(pageToken string) *ListAppRoleReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -1776,7 +1766,7 @@ func NewUpdateAppRoleReqBuilder() *UpdateAppRoleReqBuilder {
 	return builder
 }
 
-// 多维表格的唯一标识符
+// 多维表格 App 的唯一标识。不同形态的多维表格，其 `app_token` 的获取方式不同：;- 如果多维表格的 URL 以 ==**feishu.cn/base**== 开头，该多维表格的 `app_token` 是下图高亮部分：; ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004);;- 如果多维表格的 URL 以 ==**feishu.cn/wiki**== 开头，你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时，`obj_token` 字段的值才是多维表格的 `app_token`。;;了解更多，参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。
 //
 // 示例值：appbcbWCzen6D8dezhoCH2RpMAh
 func (builder *UpdateAppRoleReqBuilder) AppToken(appToken string) *UpdateAppRoleReqBuilder {
@@ -1784,7 +1774,7 @@ func (builder *UpdateAppRoleReqBuilder) AppToken(appToken string) *UpdateAppRole
 	return builder
 }
 
-// 自定义角色的id;
+// 多维表格高级权限中自定义角色的唯一标识，以 rol 开头。获取方式：通过[列出自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/list)接口获取。
 //
 // 示例值：roljRpwIUt
 func (builder *UpdateAppRoleReqBuilder) RoleId(roleId string) *UpdateAppRoleReqBuilder {
@@ -1792,7 +1782,7 @@ func (builder *UpdateAppRoleReqBuilder) RoleId(roleId string) *UpdateAppRoleReqB
 	return builder
 }
 
-// 更新自定义角色
+// 更新多维表格高级权限中自定义的角色。
 func (builder *UpdateAppRoleReqBuilder) Role(role *Role) *UpdateAppRoleReqBuilder {
 	builder.role = role
 	return builder

@@ -20,24 +20,24 @@ import (
 )
 
 const (
-	DepartmentIdTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	GetVisibleOrganizationCollaborationTenantDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	GetVisibleOrganizationCollaborationTenantDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	GroupIdTypeGroupId     = "group_id"      // group_id
-	GroupIdTypeOpenGroupId = "open_group_id" // 以open_group_id来标识部门
+	GetVisibleOrganizationCollaborationTenantGroupIDTypeGroupId     = "group_id"      // group_id
+	GetVisibleOrganizationCollaborationTenantGroupIDTypeOpenGroupId = "open_group_id" // 以open_group_id来标识用户组
 )
 
 const (
-	TargetDepartmentIdTypeDepartmentId     = "department_id"      // 部门ID
-	TargetDepartmentIdTypeOpenDepartmentId = "open_department_id" // 部门open ID
+	GetCollaborationTenantCollaborationDepartmentTargetDepartmentIDTypeDepartmentId     = "department_id"      // 部门ID
+	GetCollaborationTenantCollaborationDepartmentTargetDepartmentIDTypeOpenDepartmentId = "open_department_id" // 部门open ID
 )
 
 const (
-	TargetUserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	TargetUserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	TargetUserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	GetCollaborationTenantCollaborationUserTargetUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetCollaborationTenantCollaborationUserTargetUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetCollaborationTenantCollaborationUserTargetUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type AvatarInfo struct {
@@ -354,13 +354,13 @@ type CollaborationDepartment struct {
 
 	Name *string `json:"name,omitempty"` // 关联组织的部门名称
 
-	I18nName *I18nName `json:"i18n_name,omitempty"` // 关联组织的的国际化部门名称
+	I18nName *I18nName `json:"i18n_name,omitempty"` // 目标组织的i18n名称
 
 	Order *string `json:"order,omitempty"` // 关联组织的部门排序
 
-	Leaders []*CollaborationDepartmentLeader `json:"leaders,omitempty"` // 部门负责人
+	Leaders []*CollaborationDepartmentLeader `json:"leaders,omitempty"` // 部门负责人，必须对负责人有可见性权限才会返回
 
-	ParentDepartmentId *CollaborationDepartmentId `json:"parent_department_id,omitempty"` // 父部门ID
+	ParentDepartmentId *CollaborationDepartmentId `json:"parent_department_id,omitempty"` // 父部门ID，必须对父部门有可见性权限才会返回
 }
 
 type CollaborationDepartmentBuilder struct {
@@ -373,16 +373,16 @@ type CollaborationDepartmentBuilder struct {
 	name    string // 关联组织的部门名称
 	nameSet bool
 
-	i18nName    *I18nName // 关联组织的的国际化部门名称
+	i18nName    *I18nName // 目标组织的i18n名称
 	i18nNameSet bool
 
 	order    string // 关联组织的部门排序
 	orderSet bool
 
-	leaders    []*CollaborationDepartmentLeader // 部门负责人
+	leaders    []*CollaborationDepartmentLeader // 部门负责人，必须对负责人有可见性权限才会返回
 	leadersSet bool
 
-	parentDepartmentId    *CollaborationDepartmentId // 父部门ID
+	parentDepartmentId    *CollaborationDepartmentId // 父部门ID，必须对父部门有可见性权限才会返回
 	parentDepartmentIdSet bool
 }
 
@@ -418,7 +418,7 @@ func (builder *CollaborationDepartmentBuilder) Name(name string) *CollaborationD
 	return builder
 }
 
-// 关联组织的的国际化部门名称
+// 目标组织的i18n名称
 //
 // 示例值：
 func (builder *CollaborationDepartmentBuilder) I18nName(i18nName *I18nName) *CollaborationDepartmentBuilder {
@@ -436,7 +436,7 @@ func (builder *CollaborationDepartmentBuilder) Order(order string) *Collaboratio
 	return builder
 }
 
-// 部门负责人
+// 部门负责人，必须对负责人有可见性权限才会返回
 //
 // 示例值：
 func (builder *CollaborationDepartmentBuilder) Leaders(leaders []*CollaborationDepartmentLeader) *CollaborationDepartmentBuilder {
@@ -445,7 +445,7 @@ func (builder *CollaborationDepartmentBuilder) Leaders(leaders []*CollaborationD
 	return builder
 }
 
-// 父部门ID
+// 父部门ID，必须对父部门有可见性权限才会返回
 //
 // 示例值：
 func (builder *CollaborationDepartmentBuilder) ParentDepartmentId(parentDepartmentId *CollaborationDepartmentId) *CollaborationDepartmentBuilder {
@@ -537,14 +537,14 @@ func (builder *CollaborationDepartmentIdBuilder) Build() *CollaborationDepartmen
 type CollaborationDepartmentLeader struct {
 	LeaderType *int `json:"leader_type,omitempty"` // 负责人类型
 
-	Id *CollaborationUserId `json:"id,omitempty"` // 负责人ID
+	Id *CollaborationUserId `json:"id,omitempty"` // 用户的leader，必须对leader有权限才会返回
 }
 
 type CollaborationDepartmentLeaderBuilder struct {
 	leaderType    int // 负责人类型
 	leaderTypeSet bool
 
-	id    *CollaborationUserId // 负责人ID
+	id    *CollaborationUserId // 用户的leader，必须对leader有权限才会返回
 	idSet bool
 }
 
@@ -555,14 +555,14 @@ func NewCollaborationDepartmentLeaderBuilder() *CollaborationDepartmentLeaderBui
 
 // 负责人类型
 //
-// 示例值：
+// 示例值：1
 func (builder *CollaborationDepartmentLeaderBuilder) LeaderType(leaderType int) *CollaborationDepartmentLeaderBuilder {
 	builder.leaderType = leaderType
 	builder.leaderTypeSet = true
 	return builder
 }
 
-// 负责人ID
+// 用户的leader，必须对leader有权限才会返回
 //
 // 示例值：
 func (builder *CollaborationDepartmentLeaderBuilder) Id(id *CollaborationUserId) *CollaborationDepartmentLeaderBuilder {
@@ -598,15 +598,15 @@ type CollaborationEntity struct {
 
 	DepartmentName *string `json:"department_name,omitempty"` // 部门名称
 
-	I18nDepartmentName *I18nName `json:"i18n_department_name,omitempty"` // 部门的国际化名称
+	I18nDepartmentName *I18nName `json:"i18n_department_name,omitempty"` // 目标组织的i18n名称
 
 	DepartmentOrder *string `json:"department_order,omitempty"` // 部门顺序
 
 	UserName *string `json:"user_name,omitempty"` // 对方成员名称
 
-	I18nUserName *I18nName `json:"i18n_user_name,omitempty"` // 对方成员i18n名称
+	I18nUserName *I18nName `json:"i18n_user_name,omitempty"` // 目标组织的i18n名称
 
-	UserAvatar *AvatarInfo `json:"user_avatar,omitempty"` // 对方租户的成员头像
+	UserAvatar *AvatarInfo `json:"user_avatar,omitempty"` // 组织icon信息
 
 	GroupId *string `json:"group_id,omitempty"` // 用户组ID
 
@@ -614,7 +614,7 @@ type CollaborationEntity struct {
 
 	GroupName *string `json:"group_name,omitempty"` // 对方用户组名称
 
-	I18nGroupName *I18nName `json:"i18n_group_name,omitempty"` // 对方用户组i18n名称
+	I18nGroupName *I18nName `json:"i18n_group_name,omitempty"` // 目标组织的i18n名称
 }
 
 type CollaborationEntityBuilder struct {
@@ -639,7 +639,7 @@ type CollaborationEntityBuilder struct {
 	departmentName    string // 部门名称
 	departmentNameSet bool
 
-	i18nDepartmentName    *I18nName // 部门的国际化名称
+	i18nDepartmentName    *I18nName // 目标组织的i18n名称
 	i18nDepartmentNameSet bool
 
 	departmentOrder    string // 部门顺序
@@ -648,10 +648,10 @@ type CollaborationEntityBuilder struct {
 	userName    string // 对方成员名称
 	userNameSet bool
 
-	i18nUserName    *I18nName // 对方成员i18n名称
+	i18nUserName    *I18nName // 目标组织的i18n名称
 	i18nUserNameSet bool
 
-	userAvatar    *AvatarInfo // 对方租户的成员头像
+	userAvatar    *AvatarInfo // 组织icon信息
 	userAvatarSet bool
 
 	groupId    string // 用户组ID
@@ -663,7 +663,7 @@ type CollaborationEntityBuilder struct {
 	groupName    string // 对方用户组名称
 	groupNameSet bool
 
-	i18nGroupName    *I18nName // 对方用户组i18n名称
+	i18nGroupName    *I18nName // 目标组织的i18n名称
 	i18nGroupNameSet bool
 }
 
@@ -735,7 +735,7 @@ func (builder *CollaborationEntityBuilder) DepartmentName(departmentName string)
 	return builder
 }
 
-// 部门的国际化名称
+// 目标组织的i18n名称
 //
 // 示例值：
 func (builder *CollaborationEntityBuilder) I18nDepartmentName(i18nDepartmentName *I18nName) *CollaborationEntityBuilder {
@@ -762,7 +762,7 @@ func (builder *CollaborationEntityBuilder) UserName(userName string) *Collaborat
 	return builder
 }
 
-// 对方成员i18n名称
+// 目标组织的i18n名称
 //
 // 示例值：
 func (builder *CollaborationEntityBuilder) I18nUserName(i18nUserName *I18nName) *CollaborationEntityBuilder {
@@ -771,7 +771,7 @@ func (builder *CollaborationEntityBuilder) I18nUserName(i18nUserName *I18nName) 
 	return builder
 }
 
-// 对方租户的成员头像
+// 组织icon信息
 //
 // 示例值：
 func (builder *CollaborationEntityBuilder) UserAvatar(userAvatar *AvatarInfo) *CollaborationEntityBuilder {
@@ -807,7 +807,7 @@ func (builder *CollaborationEntityBuilder) GroupName(groupName string) *Collabor
 	return builder
 }
 
-// 对方用户组i18n名称
+// 目标组织的i18n名称
 //
 // 示例值：
 func (builder *CollaborationEntityBuilder) I18nGroupName(i18nGroupName *I18nName) *CollaborationEntityBuilder {
@@ -884,39 +884,39 @@ func (builder *CollaborationEntityBuilder) Build() *CollaborationEntity {
 type CollaborationTenant struct {
 	TenantKey *string `json:"tenant_key,omitempty"` // 关联租户ID
 
-	TenantName *string `json:"tenant_name,omitempty"` // 目标租户的租户名称
+	TenantName *string `json:"tenant_name,omitempty"` // 目标组织的名称
 
-	I18nTenantName *I18nName `json:"i18n_tenant_name,omitempty"` // 目标租户的租户i18n名称
+	I18nTenantName *I18nName `json:"i18n_tenant_name,omitempty"` // 目标组织的i18n名称
 
-	TenantShortName *string `json:"tenant_short_name,omitempty"` // 目标租户的租户简称
+	TenantShortName *string `json:"tenant_short_name,omitempty"` // 目标组织的简称
 
-	I18nTenantShortName *I18nName `json:"i18n_tenant_short_name,omitempty"` // 目标租户的租户i18n简称
+	I18nTenantShortName *I18nName `json:"i18n_tenant_short_name,omitempty"` // 目标组织的i18n名称
 
 	ConnectTime *int `json:"connect_time,omitempty"` // 关联时间
 
 	TenantTag *string `json:"tenant_tag,omitempty"` // 标签
 
-	I18nTenantTag *I18nName `json:"i18n_tenant_tag,omitempty"` // i18n标签
+	I18nTenantTag *I18nName `json:"i18n_tenant_tag,omitempty"` // 目标组织的i18n名称
 
-	Avatar *AvatarInfo `json:"avatar,omitempty"` // 租户icon信息
+	Avatar *AvatarInfo `json:"avatar,omitempty"` // 组织icon信息
 
-	Brand *string `json:"brand,omitempty"` // 租户品牌
+	Brand *string `json:"brand,omitempty"` // 组织品牌
 }
 
 type CollaborationTenantBuilder struct {
 	tenantKey    string // 关联租户ID
 	tenantKeySet bool
 
-	tenantName    string // 目标租户的租户名称
+	tenantName    string // 目标组织的名称
 	tenantNameSet bool
 
-	i18nTenantName    *I18nName // 目标租户的租户i18n名称
+	i18nTenantName    *I18nName // 目标组织的i18n名称
 	i18nTenantNameSet bool
 
-	tenantShortName    string // 目标租户的租户简称
+	tenantShortName    string // 目标组织的简称
 	tenantShortNameSet bool
 
-	i18nTenantShortName    *I18nName // 目标租户的租户i18n简称
+	i18nTenantShortName    *I18nName // 目标组织的i18n名称
 	i18nTenantShortNameSet bool
 
 	connectTime    int // 关联时间
@@ -925,13 +925,13 @@ type CollaborationTenantBuilder struct {
 	tenantTag    string // 标签
 	tenantTagSet bool
 
-	i18nTenantTag    *I18nName // i18n标签
+	i18nTenantTag    *I18nName // 目标组织的i18n名称
 	i18nTenantTagSet bool
 
-	avatar    *AvatarInfo // 租户icon信息
+	avatar    *AvatarInfo // 组织icon信息
 	avatarSet bool
 
-	brand    string // 租户品牌
+	brand    string // 组织品牌
 	brandSet bool
 }
 
@@ -949,7 +949,7 @@ func (builder *CollaborationTenantBuilder) TenantKey(tenantKey string) *Collabor
 	return builder
 }
 
-// 目标租户的租户名称
+// 目标组织的名称
 //
 // 示例值：name
 func (builder *CollaborationTenantBuilder) TenantName(tenantName string) *CollaborationTenantBuilder {
@@ -958,7 +958,7 @@ func (builder *CollaborationTenantBuilder) TenantName(tenantName string) *Collab
 	return builder
 }
 
-// 目标租户的租户i18n名称
+// 目标组织的i18n名称
 //
 // 示例值：
 func (builder *CollaborationTenantBuilder) I18nTenantName(i18nTenantName *I18nName) *CollaborationTenantBuilder {
@@ -967,7 +967,7 @@ func (builder *CollaborationTenantBuilder) I18nTenantName(i18nTenantName *I18nNa
 	return builder
 }
 
-// 目标租户的租户简称
+// 目标组织的简称
 //
 // 示例值：tenant_short_name
 func (builder *CollaborationTenantBuilder) TenantShortName(tenantShortName string) *CollaborationTenantBuilder {
@@ -976,7 +976,7 @@ func (builder *CollaborationTenantBuilder) TenantShortName(tenantShortName strin
 	return builder
 }
 
-// 目标租户的租户i18n简称
+// 目标组织的i18n名称
 //
 // 示例值：
 func (builder *CollaborationTenantBuilder) I18nTenantShortName(i18nTenantShortName *I18nName) *CollaborationTenantBuilder {
@@ -1003,7 +1003,7 @@ func (builder *CollaborationTenantBuilder) TenantTag(tenantTag string) *Collabor
 	return builder
 }
 
-// i18n标签
+// 目标组织的i18n名称
 //
 // 示例值：
 func (builder *CollaborationTenantBuilder) I18nTenantTag(i18nTenantTag *I18nName) *CollaborationTenantBuilder {
@@ -1012,7 +1012,7 @@ func (builder *CollaborationTenantBuilder) I18nTenantTag(i18nTenantTag *I18nName
 	return builder
 }
 
-// 租户icon信息
+// 组织icon信息
 //
 // 示例值：
 func (builder *CollaborationTenantBuilder) Avatar(avatar *AvatarInfo) *CollaborationTenantBuilder {
@@ -1021,7 +1021,7 @@ func (builder *CollaborationTenantBuilder) Avatar(avatar *AvatarInfo) *Collabora
 	return builder
 }
 
-// 租户品牌
+// 组织品牌
 //
 // 示例值：飞书
 func (builder *CollaborationTenantBuilder) Brand(brand string) *CollaborationTenantBuilder {
@@ -1080,27 +1080,27 @@ type CollaborationUser struct {
 
 	Name *string `json:"name,omitempty"` // 用户的名称
 
-	I18nName *I18nName `json:"i18n_name,omitempty"` // 关联组织的的国际化用户名称
+	I18nName *I18nName `json:"i18n_name,omitempty"` // 目标组织的i18n名称
 
-	Avatar *AvatarInfo `json:"avatar,omitempty"` // 用户头像信息
+	Avatar *AvatarInfo `json:"avatar,omitempty"` // 组织icon信息
 
-	Mobile *string `json:"mobile,omitempty"` // 手机号
+	Mobile *string `json:"mobile,omitempty"` // 手机号,需要对方租户授权展示.
 
 	Status *UserStatus `json:"status,omitempty"` // 用户状态
 
-	DepartmentIds []string `json:"department_ids,omitempty"` // 用户所属部门的ID列表,deprecate
+	DepartmentIds []string `json:"department_ids,omitempty"` // 用户所属部门的ID列表,已废弃
 
-	LeaderUserId *string `json:"leader_user_id,omitempty"` // 用户的直接主管的用户ID,deprecate
+	LeaderUserId *string `json:"leader_user_id,omitempty"` // 用户的直接主管的用户ID,已废弃
 
-	JobTitle *string `json:"job_title,omitempty"` // 职务
+	JobTitle *string `json:"job_title,omitempty"` // 职务,需要对方租户授权展示.
 
-	CustomAttrs []*UserCustomAttr `json:"custom_attrs,omitempty"` // 自定义属性
+	CustomAttrs []*UserCustomAttr `json:"custom_attrs,omitempty"` // 自定义属性,需要对方租户授权展示.
 
-	EmployeeNo *string `json:"employee_no,omitempty"` // 工号
+	EmployeeNo *string `json:"employee_no,omitempty"` // 工号,需要对方租户授权展示
 
-	ParentDepartmentIds []*CollaborationDepartmentId `json:"parent_department_ids,omitempty"` // 父部门ID
+	ParentDepartmentIds []*CollaborationDepartmentId `json:"parent_department_ids,omitempty"` // 父部门ID，必须对父部门有权限才会返回
 
-	LeaderId *CollaborationUserId `json:"leader_id,omitempty"` // 用户的leader
+	LeaderId *CollaborationUserId `json:"leader_id,omitempty"` // 用户的leader，必须对leader有权限才会返回
 }
 
 type CollaborationUserBuilder struct {
@@ -1116,37 +1116,37 @@ type CollaborationUserBuilder struct {
 	name    string // 用户的名称
 	nameSet bool
 
-	i18nName    *I18nName // 关联组织的的国际化用户名称
+	i18nName    *I18nName // 目标组织的i18n名称
 	i18nNameSet bool
 
-	avatar    *AvatarInfo // 用户头像信息
+	avatar    *AvatarInfo // 组织icon信息
 	avatarSet bool
 
-	mobile    string // 手机号
+	mobile    string // 手机号,需要对方租户授权展示.
 	mobileSet bool
 
 	status    *UserStatus // 用户状态
 	statusSet bool
 
-	departmentIds    []string // 用户所属部门的ID列表,deprecate
+	departmentIds    []string // 用户所属部门的ID列表,已废弃
 	departmentIdsSet bool
 
-	leaderUserId    string // 用户的直接主管的用户ID,deprecate
+	leaderUserId    string // 用户的直接主管的用户ID,已废弃
 	leaderUserIdSet bool
 
-	jobTitle    string // 职务
+	jobTitle    string // 职务,需要对方租户授权展示.
 	jobTitleSet bool
 
-	customAttrs    []*UserCustomAttr // 自定义属性
+	customAttrs    []*UserCustomAttr // 自定义属性,需要对方租户授权展示.
 	customAttrsSet bool
 
-	employeeNo    string // 工号
+	employeeNo    string // 工号,需要对方租户授权展示
 	employeeNoSet bool
 
-	parentDepartmentIds    []*CollaborationDepartmentId // 父部门ID
+	parentDepartmentIds    []*CollaborationDepartmentId // 父部门ID，必须对父部门有权限才会返回
 	parentDepartmentIdsSet bool
 
-	leaderId    *CollaborationUserId // 用户的leader
+	leaderId    *CollaborationUserId // 用户的leader，必须对leader有权限才会返回
 	leaderIdSet bool
 }
 
@@ -1191,7 +1191,7 @@ func (builder *CollaborationUserBuilder) Name(name string) *CollaborationUserBui
 	return builder
 }
 
-// 关联组织的的国际化用户名称
+// 目标组织的i18n名称
 //
 // 示例值：
 func (builder *CollaborationUserBuilder) I18nName(i18nName *I18nName) *CollaborationUserBuilder {
@@ -1200,7 +1200,7 @@ func (builder *CollaborationUserBuilder) I18nName(i18nName *I18nName) *Collabora
 	return builder
 }
 
-// 用户头像信息
+// 组织icon信息
 //
 // 示例值：
 func (builder *CollaborationUserBuilder) Avatar(avatar *AvatarInfo) *CollaborationUserBuilder {
@@ -1209,7 +1209,7 @@ func (builder *CollaborationUserBuilder) Avatar(avatar *AvatarInfo) *Collaborati
 	return builder
 }
 
-// 手机号
+// 手机号,需要对方租户授权展示.
 //
 // 示例值：+41446681800
 func (builder *CollaborationUserBuilder) Mobile(mobile string) *CollaborationUserBuilder {
@@ -1227,7 +1227,7 @@ func (builder *CollaborationUserBuilder) Status(status *UserStatus) *Collaborati
 	return builder
 }
 
-// 用户所属部门的ID列表,deprecate
+// 用户所属部门的ID列表,已废弃
 //
 // 示例值：
 func (builder *CollaborationUserBuilder) DepartmentIds(departmentIds []string) *CollaborationUserBuilder {
@@ -1236,7 +1236,7 @@ func (builder *CollaborationUserBuilder) DepartmentIds(departmentIds []string) *
 	return builder
 }
 
-// 用户的直接主管的用户ID,deprecate
+// 用户的直接主管的用户ID,已废弃
 //
 // 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *CollaborationUserBuilder) LeaderUserId(leaderUserId string) *CollaborationUserBuilder {
@@ -1245,7 +1245,7 @@ func (builder *CollaborationUserBuilder) LeaderUserId(leaderUserId string) *Coll
 	return builder
 }
 
-// 职务
+// 职务,需要对方租户授权展示.
 //
 // 示例值：顾问
 func (builder *CollaborationUserBuilder) JobTitle(jobTitle string) *CollaborationUserBuilder {
@@ -1254,7 +1254,7 @@ func (builder *CollaborationUserBuilder) JobTitle(jobTitle string) *Collaboratio
 	return builder
 }
 
-// 自定义属性
+// 自定义属性,需要对方租户授权展示.
 //
 // 示例值：
 func (builder *CollaborationUserBuilder) CustomAttrs(customAttrs []*UserCustomAttr) *CollaborationUserBuilder {
@@ -1263,7 +1263,7 @@ func (builder *CollaborationUserBuilder) CustomAttrs(customAttrs []*UserCustomAt
 	return builder
 }
 
-// 工号
+// 工号,需要对方租户授权展示
 //
 // 示例值：121212
 func (builder *CollaborationUserBuilder) EmployeeNo(employeeNo string) *CollaborationUserBuilder {
@@ -1272,7 +1272,7 @@ func (builder *CollaborationUserBuilder) EmployeeNo(employeeNo string) *Collabor
 	return builder
 }
 
-// 父部门ID
+// 父部门ID，必须对父部门有权限才会返回
 //
 // 示例值：
 func (builder *CollaborationUserBuilder) ParentDepartmentIds(parentDepartmentIds []*CollaborationDepartmentId) *CollaborationUserBuilder {
@@ -1281,7 +1281,7 @@ func (builder *CollaborationUserBuilder) ParentDepartmentIds(parentDepartmentIds
 	return builder
 }
 
-// 用户的leader
+// 用户的leader，必须对leader有权限才会返回
 //
 // 示例值：
 func (builder *CollaborationUserBuilder) LeaderId(leaderId *CollaborationUserId) *CollaborationUserBuilder {
@@ -1419,14 +1419,14 @@ func (builder *CollaborationUserIdBuilder) Build() *CollaborationUserId {
 type CustomAttrGenericUser struct {
 	Id *string `json:"id,omitempty"` // 用户id
 
-	Type *int `json:"type,omitempty"` // 用户类型 1 User 2 Bot 11 Mail
+	Type *int `json:"type,omitempty"` // 用户类型，枚举值：;- 1: 用户 ;- 2: 机器人;- 11: Mail
 }
 
 type CustomAttrGenericUserBuilder struct {
 	id    string // 用户id
 	idSet bool
 
-	type_    int // 用户类型 1 User 2 Bot 11 Mail
+	type_    int // 用户类型，枚举值：;- 1: 用户 ;- 2: 机器人;- 11: Mail
 	type_Set bool
 }
 
@@ -1444,7 +1444,7 @@ func (builder *CustomAttrGenericUserBuilder) Id(id string) *CustomAttrGenericUse
 	return builder
 }
 
-// 用户类型 1 User 2 Bot 11 Mail
+// 用户类型，枚举值：;- 1: 用户 ;- 2: 机器人;- 11: Mail
 //
 // 示例值：1
 func (builder *CustomAttrGenericUserBuilder) Type(type_ int) *CustomAttrGenericUserBuilder {
@@ -1492,7 +1492,7 @@ func NewDepartmentI18nNameBuilder() *DepartmentI18nNameBuilder {
 
 // 部门的中文名
 //
-// 示例值：Demo名称
+// 示例值：技术部
 func (builder *DepartmentI18nNameBuilder) ZhCn(zhCn string) *DepartmentI18nNameBuilder {
 	builder.zhCn = zhCn
 	builder.zhCnSet = true
@@ -1501,7 +1501,7 @@ func (builder *DepartmentI18nNameBuilder) ZhCn(zhCn string) *DepartmentI18nNameB
 
 // 部门的日文名
 //
-// 示例值：デモ名
+// 示例值：技術部
 func (builder *DepartmentI18nNameBuilder) JaJp(jaJp string) *DepartmentI18nNameBuilder {
 	builder.jaJp = jaJp
 	builder.jaJpSet = true
@@ -1510,7 +1510,7 @@ func (builder *DepartmentI18nNameBuilder) JaJp(jaJp string) *DepartmentI18nNameB
 
 // 部门的英文名
 //
-// 示例值：Demo Name
+// 示例值：Technology Department
 func (builder *DepartmentI18nNameBuilder) EnUs(enUs string) *DepartmentI18nNameBuilder {
 	builder.enUs = enUs
 	builder.enUsSet = true
@@ -1553,8 +1553,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1562,8 +1560,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -1589,7 +1585,7 @@ type DepartmentLeader struct {
 
 	LeaderId *string `json:"leader_id,omitempty"` // 负责人ID deprecate
 
-	Id *CollaborationUserId `json:"id,omitempty"` // 负责人ID
+	Id *CollaborationUserId `json:"id,omitempty"` // 用户的leader，必须对leader有权限才会返回
 }
 
 type DepartmentLeaderBuilder struct {
@@ -1599,7 +1595,7 @@ type DepartmentLeaderBuilder struct {
 	leaderId    string // 负责人ID deprecate
 	leaderIdSet bool
 
-	id    *CollaborationUserId // 负责人ID
+	id    *CollaborationUserId // 用户的leader，必须对leader有权限才会返回
 	idSet bool
 }
 
@@ -1626,7 +1622,7 @@ func (builder *DepartmentLeaderBuilder) LeaderId(leaderId string) *DepartmentLea
 	return builder
 }
 
-// 负责人ID
+// 用户的leader，必须对leader有权限才会返回
 //
 // 示例值：
 func (builder *DepartmentLeaderBuilder) Id(id *CollaborationUserId) *DepartmentLeaderBuilder {
@@ -2779,7 +2775,7 @@ func NewShareDepartmentBuilder() *ShareDepartmentBuilder {
 
 // 共享部门的open id
 //
-// 示例值：od-b025f41e599bf3d3fb5dc56b7f86142b
+// 示例值：
 func (builder *ShareDepartmentBuilder) OpenId(openId string) *ShareDepartmentBuilder {
 	builder.openId = openId
 	builder.openIdSet = true
@@ -2806,7 +2802,7 @@ func (builder *ShareDepartmentBuilder) I18nName(i18nName *DepartmentI18nName) *S
 
 // 部门的排序
 //
-// 示例值：6000
+// 示例值：
 func (builder *ShareDepartmentBuilder) Order(order string) *ShareDepartmentBuilder {
 	builder.order = order
 	builder.orderSet = true
@@ -2840,7 +2836,7 @@ type ShareUser struct {
 
 	EnName *string `json:"en_name,omitempty"` // 英文名
 
-	Avatar *AvatarInfo `json:"avatar,omitempty"` // 用户头像信息
+	Avatar *AvatarInfo `json:"avatar,omitempty"` // 组织icon信息
 }
 
 type ShareUserBuilder struct {
@@ -2853,7 +2849,7 @@ type ShareUserBuilder struct {
 	enName    string // 英文名
 	enNameSet bool
 
-	avatar    *AvatarInfo // 用户头像信息
+	avatar    *AvatarInfo // 组织icon信息
 	avatarSet bool
 }
 
@@ -2864,7 +2860,7 @@ func NewShareUserBuilder() *ShareUserBuilder {
 
 // 用户的open_id
 //
-// 示例值：ou_496670738e90fb26f899088a125226c5
+// 示例值：
 func (builder *ShareUserBuilder) OpenId(openId string) *ShareUserBuilder {
 	builder.openId = openId
 	builder.openIdSet = true
@@ -2873,7 +2869,7 @@ func (builder *ShareUserBuilder) OpenId(openId string) *ShareUserBuilder {
 
 // 用户的名称
 //
-// 示例值：测试用户
+// 示例值：
 func (builder *ShareUserBuilder) Name(name string) *ShareUserBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -2882,14 +2878,14 @@ func (builder *ShareUserBuilder) Name(name string) *ShareUserBuilder {
 
 // 英文名
 //
-// 示例值：testUser
+// 示例值：
 func (builder *ShareUserBuilder) EnName(enName string) *ShareUserBuilder {
 	builder.enName = enName
 	builder.enNameSet = true
 	return builder
 }
 
-// 用户头像信息
+// 组织icon信息
 //
 // 示例值：
 func (builder *ShareUserBuilder) Avatar(avatar *AvatarInfo) *ShareUserBuilder {
@@ -2915,22 +2911,6 @@ func (builder *ShareUserBuilder) Build() *ShareUser {
 	if builder.avatarSet {
 		req.Avatar = builder.avatar
 	}
-	return req
-}
-
-type TrustPartyAppToTenants struct {
-}
-
-type TrustPartyAppToTenantsBuilder struct {
-}
-
-func NewTrustPartyAppToTenantsBuilder() *TrustPartyAppToTenantsBuilder {
-	builder := &TrustPartyAppToTenantsBuilder{}
-	return builder
-}
-
-func (builder *TrustPartyAppToTenantsBuilder) Build() *TrustPartyAppToTenants {
-	req := &TrustPartyAppToTenants{}
 	return req
 }
 
@@ -3182,8 +3162,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -3191,8 +3169,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -3200,8 +3176,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -3262,7 +3236,7 @@ func NewUserStatusBuilder() *UserStatusBuilder {
 
 // 是否冻结
 //
-// 示例值：
+// 示例值：false
 func (builder *UserStatusBuilder) IsFrozen(isFrozen bool) *UserStatusBuilder {
 	builder.isFrozen = isFrozen
 	builder.isFrozenSet = true
@@ -3271,7 +3245,7 @@ func (builder *UserStatusBuilder) IsFrozen(isFrozen bool) *UserStatusBuilder {
 
 // 是否离职
 //
-// 示例值：
+// 示例值：false
 func (builder *UserStatusBuilder) IsResigned(isResigned bool) *UserStatusBuilder {
 	builder.isResigned = isResigned
 	builder.isResignedSet = true
@@ -3280,7 +3254,7 @@ func (builder *UserStatusBuilder) IsResigned(isResigned bool) *UserStatusBuilder
 
 // 是否激活
 //
-// 示例值：
+// 示例值：true
 func (builder *UserStatusBuilder) IsActivated(isActivated bool) *UserStatusBuilder {
 	builder.isActivated = isActivated
 	builder.isActivatedSet = true
@@ -3289,7 +3263,7 @@ func (builder *UserStatusBuilder) IsActivated(isActivated bool) *UserStatusBuild
 
 // 是否主动退出，主动退出一段时间后用户会自动转为已离职
 //
-// 示例值：
+// 示例值：true
 func (builder *UserStatusBuilder) IsExited(isExited bool) *UserStatusBuilder {
 	builder.isExited = isExited
 	builder.isExitedSet = true
@@ -3298,7 +3272,7 @@ func (builder *UserStatusBuilder) IsExited(isExited bool) *UserStatusBuilder {
 
 // 是否未加入，需要用户自主确认才能加入团队
 //
-// 示例值：
+// 示例值：false
 func (builder *UserStatusBuilder) IsUnjoin(isUnjoin bool) *UserStatusBuilder {
 	builder.isUnjoin = isUnjoin
 	builder.isUnjoinSet = true
@@ -3343,7 +3317,7 @@ func NewGetCollaborationTenantReqBuilder() *GetCollaborationTenantReqBuilder {
 	return builder
 }
 
-// 对方关联组织的租户key
+// 对方关联组织的tenant key，可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取
 //
 // 示例值：4e6ac4d14bcd5071a37a39de902c7141
 func (builder *GetCollaborationTenantReqBuilder) TargetTenantKey(targetTenantKey string) *GetCollaborationTenantReqBuilder {
@@ -3363,7 +3337,7 @@ type GetCollaborationTenantReq struct {
 }
 
 type GetCollaborationTenantRespData struct {
-	TargetTenant *CollaborationTenant `json:"target_tenant,omitempty"` // 对方关联组织详情
+	TargetTenant *CollaborationTenant `json:"target_tenant,omitempty"` //
 }
 
 type GetCollaborationTenantResp struct {
@@ -3389,7 +3363,7 @@ func NewListCollaborationTenantReqBuilder() *ListCollaborationTenantReqBuilder {
 	return builder
 }
 
-// 下一页分页的token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：xxxx
 func (builder *ListCollaborationTenantReqBuilder) PageToken(pageToken string) *ListCollaborationTenantReqBuilder {
@@ -3419,9 +3393,9 @@ type ListCollaborationTenantReq struct {
 type ListCollaborationTenantRespData struct {
 	TargetTenantList []*CollaborationTenant `json:"target_tenant_list,omitempty"` // 关联组织列表
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多的关联组织
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页分页的token
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListCollaborationTenantResp struct {
@@ -3447,7 +3421,7 @@ func NewVisibleOrganizationCollaborationTenantReqBuilder() *VisibleOrganizationC
 	return builder
 }
 
-// 对方关联组织的租户key
+// 对方关联组织的 tenant key。可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取
 //
 // 示例值：4e6ac4d14bcd5071a37a39de902c7141
 func (builder *VisibleOrganizationCollaborationTenantReqBuilder) TargetTenantKey(targetTenantKey string) *VisibleOrganizationCollaborationTenantReqBuilder {
@@ -3463,7 +3437,7 @@ func (builder *VisibleOrganizationCollaborationTenantReqBuilder) DepartmentIdTyp
 	return builder
 }
 
-// 请求关联组织的部门ID，0代表根部门，与target_group_id二选一
+// 请求关联组织的部门ID，0代表根部门，与target_group_id二选一；可以从[获取关联组织的部门和成员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/collaboration_tenant/visible_organization)中获得
 //
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *VisibleOrganizationCollaborationTenantReqBuilder) TargetDepartmentId(targetDepartmentId string) *VisibleOrganizationCollaborationTenantReqBuilder {
@@ -3471,7 +3445,7 @@ func (builder *VisibleOrganizationCollaborationTenantReqBuilder) TargetDepartmen
 	return builder
 }
 
-// 下一页分页的token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：AQD9/Rn9eij9Pm39ED40/TIx6jupqdAcfLY%2B51xMvNU=
 func (builder *VisibleOrganizationCollaborationTenantReqBuilder) PageToken(pageToken string) *VisibleOrganizationCollaborationTenantReqBuilder {
@@ -3495,7 +3469,7 @@ func (builder *VisibleOrganizationCollaborationTenantReqBuilder) GroupIdType(gro
 	return builder
 }
 
-// 请求关联组织的用户组ID，与target_department_id二选一
+// 请求关联组织的用户组ID，与target_department_id二选一；可以从[获取关联组织的部门和成员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/collaboration_tenant/visible_organization)中获得
 //
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *VisibleOrganizationCollaborationTenantReqBuilder) TargetGroupId(targetGroupId string) *VisibleOrganizationCollaborationTenantReqBuilder {
@@ -3518,9 +3492,9 @@ type VisibleOrganizationCollaborationTenantReq struct {
 type VisibleOrganizationCollaborationTenantRespData struct {
 	CollaborationEntityList []*CollaborationEntity `json:"collaboration_entity_list,omitempty"` // 该部门下可见的部门、用户、用户组列表
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有更多可见的实体
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页分页的token，如果是首次调用本 API，不用携带
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type VisibleOrganizationCollaborationTenantResp struct {
@@ -3546,7 +3520,7 @@ func NewGetCollaborationTenantCollaborationDepartmentReqBuilder() *GetCollaborat
 	return builder
 }
 
-// 对方关联组织的租户key
+// 对方关联组织的tenant key，可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取
 //
 // 示例值：4e6ac4d14bcd5071a37a39de902c7141
 func (builder *GetCollaborationTenantCollaborationDepartmentReqBuilder) TargetTenantKey(targetTenantKey string) *GetCollaborationTenantCollaborationDepartmentReqBuilder {
@@ -3554,7 +3528,7 @@ func (builder *GetCollaborationTenantCollaborationDepartmentReqBuilder) TargetTe
 	return builder
 }
 
-// 对方关联组织的部门
+// 对方关联组织的部门，需要与target_department_id_type中填写的值保持一致
 //
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *GetCollaborationTenantCollaborationDepartmentReqBuilder) TargetDepartmentId(targetDepartmentId string) *GetCollaborationTenantCollaborationDepartmentReqBuilder {
@@ -3583,7 +3557,7 @@ type GetCollaborationTenantCollaborationDepartmentReq struct {
 }
 
 type GetCollaborationTenantCollaborationDepartmentRespData struct {
-	TargetDepartment *CollaborationDepartment `json:"target_department,omitempty"` // 对方关联组织的部门
+	TargetDepartment *CollaborationDepartment `json:"target_department,omitempty"` //
 }
 
 type GetCollaborationTenantCollaborationDepartmentResp struct {
@@ -3609,7 +3583,7 @@ func NewGetCollaborationTenantCollaborationUserReqBuilder() *GetCollaborationTen
 	return builder
 }
 
-// 对方关联组织的租户key
+// 对方关联组织的tenant key，可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取
 //
 // 示例值：4e6ac4d14bcd5071a37a39de902c7141
 func (builder *GetCollaborationTenantCollaborationUserReqBuilder) TargetTenantKey(targetTenantKey string) *GetCollaborationTenantCollaborationUserReqBuilder {
@@ -3617,7 +3591,7 @@ func (builder *GetCollaborationTenantCollaborationUserReqBuilder) TargetTenantKe
 	return builder
 }
 
-// 请求的关联组织用户ID
+// 请求的关联组织用户ID，需要与target_user_id_type中填写的类型保持一致
 //
 // 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 func (builder *GetCollaborationTenantCollaborationUserReqBuilder) TargetUserId(targetUserId string) *GetCollaborationTenantCollaborationUserReqBuilder {
@@ -3625,7 +3599,7 @@ func (builder *GetCollaborationTenantCollaborationUserReqBuilder) TargetUserId(t
 	return builder
 }
 
-// 用户ID类型
+// 用户ID类型，可以在[获取关联组织的部门和成员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/collaboration_tenant/visible_organization)中获取对应的用户ID
 //
 // 示例值：user_id
 func (builder *GetCollaborationTenantCollaborationUserReqBuilder) TargetUserIdType(targetUserIdType string) *GetCollaborationTenantCollaborationUserReqBuilder {
@@ -3646,7 +3620,7 @@ type GetCollaborationTenantCollaborationUserReq struct {
 }
 
 type GetCollaborationTenantCollaborationUserRespData struct {
-	TargetUser *CollaborationUser `json:"target_user,omitempty"` // 关联组织用户
+	TargetUser *CollaborationUser `json:"target_user,omitempty"` //
 }
 
 type GetCollaborationTenantCollaborationUserResp struct {

@@ -9,11 +9,11 @@ import (
 )
 
 type V1 struct {
-	Task             *task             // 任务
-	TaskCollaborator *taskCollaborator // 执行者
-	TaskComment      *taskComment      // 评论
-	TaskFollower     *taskFollower     // 关注人
-	TaskReminder     *taskReminder     // 提醒
+	Task             *task             // task
+	TaskCollaborator *taskCollaborator // task.collaborator
+	TaskComment      *taskComment      // task.comment
+	TaskFollower     *taskFollower     // task.follower
+	TaskReminder     *taskReminder     // task.reminder
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -44,9 +44,9 @@ type taskReminder struct {
 
 // BatchDeleteCollaborator 批量删除执行者
 //
-// - 该接口用于批量删除执行者
+// - 该接口用于批量删除执行者。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/batch_delete_collaborator
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete_collaborator&project=task&resource=task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/batchDeleteCollaborator_task.go
 func (t *task) BatchDeleteCollaborator(ctx context.Context, req *BatchDeleteCollaboratorTaskReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteCollaboratorTaskResp, error) {
@@ -70,9 +70,9 @@ func (t *task) BatchDeleteCollaborator(ctx context.Context, req *BatchDeleteColl
 
 // BatchDeleteFollower 批量删除关注人
 //
-// - 该接口用于批量删除关注人
+// - 该接口用于批量删除关注人。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/batch_delete_follower
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete_follower&project=task&resource=task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/batchDeleteFollower_task.go
 func (t *task) BatchDeleteFollower(ctx context.Context, req *BatchDeleteFollowerTaskReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteFollowerTaskResp, error) {
@@ -98,7 +98,7 @@ func (t *task) BatchDeleteFollower(ctx context.Context, req *BatchDeleteFollower
 //
 // - 该接口用于将任务状态修改为“已完成”。;完成任务是指整个任务全部完成，而不支持执行者分别完成任务，执行成功后，任务对所有关联用户都变为完成状态。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/complete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=complete&project=task&resource=task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/complete_task.go
 func (t *task) Complete(ctx context.Context, req *CompleteTaskReq, options ...larkcore.RequestOptionFunc) (*CompleteTaskResp, error) {
@@ -124,7 +124,7 @@ func (t *task) Complete(ctx context.Context, req *CompleteTaskReq, options ...la
 //
 // - 该接口可以创建一个任务，支持填写任务的基本信息，包括任务的标题，描述及协作者等。;在此基础上，创建任务时可以设置截止时间和重复规则，将任务设置为定期执行的重复任务。通过添加协作者，则可以让其他用户协同完成该任务。;此外，接口也提供了一些支持自定义内容的字段，调用方可以实现定制化效果，如完成任务后跳转到指定结束界面。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=task&resource=task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/create_task.go
 func (t *task) Create(ctx context.Context, req *CreateTaskReq, options ...larkcore.RequestOptionFunc) (*CreateTaskResp, error) {
@@ -148,9 +148,9 @@ func (t *task) Create(ctx context.Context, req *CreateTaskReq, options ...larkco
 
 // Delete 删除任务
 //
-// - 该接口用于删除任务
+// - 该接口用于删除任务。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=task&resource=task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/delete_task.go
 func (t *task) Delete(ctx context.Context, req *DeleteTaskReq, options ...larkcore.RequestOptionFunc) (*DeleteTaskResp, error) {
@@ -172,11 +172,11 @@ func (t *task) Delete(ctx context.Context, req *DeleteTaskReq, options ...larkco
 	return resp, err
 }
 
-// Get 获取任务详情
+// Get 查询指定任务
 //
-// - 该接口用于获取任务详情，包括任务标题、描述、时间、来源等信息
+// - 该接口用于获取任务详情，包括任务标题、描述、时间、来源等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=task&resource=task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/get_task.go
 func (t *task) Get(ctx context.Context, req *GetTaskReq, options ...larkcore.RequestOptionFunc) (*GetTaskResp, error) {
@@ -198,11 +198,11 @@ func (t *task) Get(ctx context.Context, req *GetTaskReq, options ...larkcore.Req
 	return resp, err
 }
 
-// List 获取任务列表
+// List 查询所有任务
 //
 // - 以分页的方式获取任务列表。当使用user_access_token时，获取与该用户身份相关的所有任务。当使用tenant_access_token时，获取以该应用身份通过“创建任务“接口创建的所有任务（并非获取该应用所在租户下所有用户创建的任务）。;本接口支持通过任务创建时间以及任务的完成状态对任务进行过滤。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=task&resource=task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/list_task.go
 func (t *task) List(ctx context.Context, req *ListTaskReq, options ...larkcore.RequestOptionFunc) (*ListTaskResp, error) {
@@ -234,9 +234,9 @@ func (t *task) ListByIterator(ctx context.Context, req *ListTaskReq, options ...
 
 // Patch 更新任务
 //
-// - 该接口用于修改任务的标题、描述、时间、来源等相关信息
+// - 该接口用于修改任务的标题、描述、时间、来源等相关信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=task&resource=task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/patch_task.go
 func (t *task) Patch(ctx context.Context, req *PatchTaskReq, options ...larkcore.RequestOptionFunc) (*PatchTaskResp, error) {
@@ -260,9 +260,9 @@ func (t *task) Patch(ctx context.Context, req *PatchTaskReq, options ...larkcore
 
 // Uncomplete 取消完成任务
 //
-// - 该接口用于取消任务的已完成状态
+// - 该接口用于取消任务的已完成状态。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/uncomplete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=uncomplete&project=task&resource=task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/uncomplete_task.go
 func (t *task) Uncomplete(ctx context.Context, req *UncompleteTaskReq, options ...larkcore.RequestOptionFunc) (*UncompleteTaskResp, error) {
@@ -288,7 +288,7 @@ func (t *task) Uncomplete(ctx context.Context, req *UncompleteTaskReq, options .
 //
 // - 该接口用于新增任务执行者，一次性可以添加多个执行者。;只有任务的创建者和执行者才能添加执行者，关注人无权限添加。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-collaborator/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=task&resource=task.collaborator&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/create_taskCollaborator.go
 func (t *taskCollaborator) Create(ctx context.Context, req *CreateTaskCollaboratorReq, options ...larkcore.RequestOptionFunc) (*CreateTaskCollaboratorResp, error) {
@@ -310,11 +310,11 @@ func (t *taskCollaborator) Create(ctx context.Context, req *CreateTaskCollaborat
 	return resp, err
 }
 
-// Delete 删除执行者
+// Delete 删除指定执行者
 //
-// - 该接口用于删除任务执行者
+// - 该接口用于删除任务执行者。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-collaborator/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=task&resource=task.collaborator&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/delete_taskCollaborator.go
 func (t *taskCollaborator) Delete(ctx context.Context, req *DeleteTaskCollaboratorReq, options ...larkcore.RequestOptionFunc) (*DeleteTaskCollaboratorResp, error) {
@@ -336,11 +336,11 @@ func (t *taskCollaborator) Delete(ctx context.Context, req *DeleteTaskCollaborat
 	return resp, err
 }
 
-// List 获取一个任务的执行者列表
+// List 获取执行者列表
 //
-// - 该接口用于查询任务执行者列表，支持分页，最大值为50
+// - 该接口用于查询任务执行者列表，支持分页，最大值为50。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-collaborator/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=task&resource=task.collaborator&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/list_taskCollaborator.go
 func (t *taskCollaborator) List(ctx context.Context, req *ListTaskCollaboratorReq, options ...larkcore.RequestOptionFunc) (*ListTaskCollaboratorResp, error) {
@@ -372,9 +372,9 @@ func (t *taskCollaborator) ListByIterator(ctx context.Context, req *ListTaskColl
 
 // Create 创建评论
 //
-// - 该接口用于创建和回复任务的评论。当parent_id字段为0时，为创建评论；当parent_id不为0时，为回复某条评论
+// - 该接口用于创建和回复任务的评论。当parent_id字段为0时，为创建评论；当parent_id不为0时，为回复某条评论。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=task&resource=task.comment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/create_taskComment.go
 func (t *taskComment) Create(ctx context.Context, req *CreateTaskCommentReq, options ...larkcore.RequestOptionFunc) (*CreateTaskCommentResp, error) {
@@ -398,9 +398,9 @@ func (t *taskComment) Create(ctx context.Context, req *CreateTaskCommentReq, opt
 
 // Delete 删除评论
 //
-// - 该接口用于通过评论ID删除评论
+// - 该接口用于通过评论ID删除评论。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=task&resource=task.comment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/delete_taskComment.go
 func (t *taskComment) Delete(ctx context.Context, req *DeleteTaskCommentReq, options ...larkcore.RequestOptionFunc) (*DeleteTaskCommentResp, error) {
@@ -424,9 +424,9 @@ func (t *taskComment) Delete(ctx context.Context, req *DeleteTaskCommentReq, opt
 
 // Get 获取评论详情
 //
-// - 该接口用于通过评论ID获取评论详情
+// - 该接口用于通过评论ID获取评论详情。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=task&resource=task.comment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/get_taskComment.go
 func (t *taskComment) Get(ctx context.Context, req *GetTaskCommentReq, options ...larkcore.RequestOptionFunc) (*GetTaskCommentResp, error) {
@@ -450,9 +450,9 @@ func (t *taskComment) Get(ctx context.Context, req *GetTaskCommentReq, options .
 
 // List 获取评论列表
 //
-// - 该接口用于查询任务评论列表，支持分页，最大值为100
+// - 该接口用于查询任务评论列表，支持分页，最大值为100。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=task&resource=task.comment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/list_taskComment.go
 func (t *taskComment) List(ctx context.Context, req *ListTaskCommentReq, options ...larkcore.RequestOptionFunc) (*ListTaskCommentResp, error) {
@@ -484,9 +484,9 @@ func (t *taskComment) ListByIterator(ctx context.Context, req *ListTaskCommentRe
 
 // Update 更新评论
 //
-// - 该接口用于更新评论内容
+// - 该接口用于更新评论内容。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=task&resource=task.comment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/update_taskComment.go
 func (t *taskComment) Update(ctx context.Context, req *UpdateTaskCommentReq, options ...larkcore.RequestOptionFunc) (*UpdateTaskCommentResp, error) {
@@ -510,9 +510,9 @@ func (t *taskComment) Update(ctx context.Context, req *UpdateTaskCommentReq, opt
 
 // Create 新增关注人
 //
-// - 该接口用于创建任务关注人。可以一次性添加多位关注人。关注人ID要使用表示用户的ID。
+// - 该接口用于新增任务关注人。可以一次性添加多位关注人。关注人ID要使用表示用户的ID。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-follower/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=task&resource=task.follower&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/create_taskFollower.go
 func (t *taskFollower) Create(ctx context.Context, req *CreateTaskFollowerReq, options ...larkcore.RequestOptionFunc) (*CreateTaskFollowerResp, error) {
@@ -534,11 +534,11 @@ func (t *taskFollower) Create(ctx context.Context, req *CreateTaskFollowerReq, o
 	return resp, err
 }
 
-// Delete 删除关注人
+// Delete 删除指定关注人
 //
-// - 该接口用于删除任务关注人
+// - 该接口用于删除任务关注人。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-follower/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=task&resource=task.follower&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/delete_taskFollower.go
 func (t *taskFollower) Delete(ctx context.Context, req *DeleteTaskFollowerReq, options ...larkcore.RequestOptionFunc) (*DeleteTaskFollowerResp, error) {
@@ -560,11 +560,11 @@ func (t *taskFollower) Delete(ctx context.Context, req *DeleteTaskFollowerReq, o
 	return resp, err
 }
 
-// List 获取任务关注人列表
+// List 获取关注人列表
 //
-// - 该接口用于查询任务关注人列表，支持分页，最大值为50
+// - 该接口用于查询任务关注人列表，支持分页，最大值为50。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-follower/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=task&resource=task.follower&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/list_taskFollower.go
 func (t *taskFollower) List(ctx context.Context, req *ListTaskFollowerReq, options ...larkcore.RequestOptionFunc) (*ListTaskFollowerResp, error) {
@@ -598,7 +598,7 @@ func (t *taskFollower) ListByIterator(ctx context.Context, req *ListTaskFollower
 //
 // - 该接口用于创建任务的提醒时间。提醒时间在截止时间基础上做偏移，但是偏移后的结果不能早于当前时间。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-reminder/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=task&resource=task.reminder&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/create_taskReminder.go
 func (t *taskReminder) Create(ctx context.Context, req *CreateTaskReminderReq, options ...larkcore.RequestOptionFunc) (*CreateTaskReminderResp, error) {
@@ -622,9 +622,9 @@ func (t *taskReminder) Create(ctx context.Context, req *CreateTaskReminderReq, o
 
 // Delete 删除提醒时间
 //
-// - 删除提醒时间，返回结果状态
+// - 删除提醒时间，返回结果状态。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-reminder/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=task&resource=task.reminder&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/delete_taskReminder.go
 func (t *taskReminder) Delete(ctx context.Context, req *DeleteTaskReminderReq, options ...larkcore.RequestOptionFunc) (*DeleteTaskReminderResp, error) {
@@ -648,9 +648,9 @@ func (t *taskReminder) Delete(ctx context.Context, req *DeleteTaskReminderReq, o
 
 // List 查询提醒时间列表
 //
-// - 返回提醒时间列表，支持分页，最大值为50
+// - 返回提醒时间列表，支持分页，最大值为50。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-reminder/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=task&resource=task.reminder&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/taskv1/list_taskReminder.go
 func (t *taskReminder) List(ctx context.Context, req *ListTaskReminderReq, options ...larkcore.RequestOptionFunc) (*ListTaskReminderResp, error) {

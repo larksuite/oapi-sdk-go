@@ -10,20 +10,20 @@ import (
 )
 
 type V1 struct {
-	ExportTask               *exportTask               // 导出
-	File                     *file                     // 分片上传
-	FileComment              *fileComment              // 评论
-	FileCommentReply         *fileCommentReply         // 评论
+	ExportTask               *exportTask               // export_task
+	File                     *file                     // file
+	FileComment              *fileComment              // file.comment
+	FileCommentReply         *fileCommentReply         // file.comment.reply
 	FileStatistics           *fileStatistics           // file.statistics
-	FileSubscription         *fileSubscription         // 订阅
-	FileVersion              *fileVersion              // 文档版本
+	FileSubscription         *fileSubscription         // file.subscription
+	FileVersion              *fileVersion              // file.version
 	FileViewRecord           *fileViewRecord           // file.view_record
-	ImportTask               *importTask               // 导入
-	Media                    *media                    // 分片上传
+	ImportTask               *importTask               // import_task
+	Media                    *media                    // media
 	Meta                     *meta                     // meta
 	Notice                   *notice                   // notice
-	PermissionMember         *permissionMember         // 成员
-	PermissionPublic         *permissionPublic         // 设置
+	PermissionMember         *permissionMember         // permission.member
+	PermissionPublic         *permissionPublic         // permission.public
 	PermissionPublicPassword *permissionPublicPassword // permission.public.password
 	User                     *user                     // user
 }
@@ -100,9 +100,9 @@ type user struct {
 
 // Create 创建导出任务
 //
-// - 创建导出任务，将云文件导出为指定格式的本地文件。该接口为异步接口，需要通过轮询 [查询导出任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get) 接口获取任务结果。
+// - 该接口用于创建导出文件的任务，并返回导出任务 ID。导出文件指将飞书文档、电子表格、多维表格导出为本地文件，包括 Word、Excel、PDF、CSV 格式。该接口为异步接口，需要继续调用[查询导出任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get)接口获取导出结果。了解完整的导出步骤，参考[导出云文档概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/export-user-guide)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=drive&resource=export_task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/create_exportTask.go
 func (e *exportTask) Create(ctx context.Context, req *CreateExportTaskReq, options ...larkcore.RequestOptionFunc) (*CreateExportTaskResp, error) {
@@ -126,9 +126,9 @@ func (e *exportTask) Create(ctx context.Context, req *CreateExportTaskReq, optio
 
 // Download 下载导出文件
 //
-// - 根据任务导出结果的token，下载导出文件
+// - 根据[查询导出任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get)返回的导出文件的 token，下载导出产物到本地。了解完整的导出文件步骤，参考[导出云文档概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/export-user-guide)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/download
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download&project=drive&resource=export_task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/download_exportTask.go
 func (e *exportTask) Download(ctx context.Context, req *DownloadExportTaskReq, options ...larkcore.RequestOptionFunc) (*DownloadExportTaskResp, error) {
@@ -158,9 +158,11 @@ func (e *exportTask) Download(ctx context.Context, req *DownloadExportTaskReq, o
 
 // Get 查询导出任务结果
 //
-// - 根据[创建导出任务](/ssl::ttdoc//uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create)的ticket查询导出任务的结果，前提条件需要先调用创建导出任务接口。;;通过该接口获取到下载文件的 token 后调用[下载导出文件接口](/ssl::ttdoc//uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/download)将文件进行下载
+// - 根据[创建导出任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create)返回的导出任务 ID（ticket）轮询导出任务结果，并返回导出文件的 token。你可使用该 token 继续调用[下载导出文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/download)接口将导出的产物下载到本地。了解完整的导出文件步骤，参考[导出飞书云文档概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/export-user-guide)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get
+// - ## 注意事项;;调用该接口的用户或应用需与调用创建导出任务接口的用户或应用保持一致。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=drive&resource=export_task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/get_exportTask.go
 func (e *exportTask) Get(ctx context.Context, req *GetExportTaskReq, options ...larkcore.RequestOptionFunc) (*GetExportTaskResp, error) {
@@ -184,11 +186,9 @@ func (e *exportTask) Get(ctx context.Context, req *GetExportTaskReq, options ...
 
 // Copy 复制文件
 //
-// - 将文件复制到用户云空间的其他文件夹中。不支持复制文件夹。;;如果目标文件夹是我的空间，则复制的文件会在「**我的空间**」的「**归我所有**」列表里。
+// - 将用户云空间中的文件复制至其它文件夹下。该接口为异步接口。
 //
-// - 该接口不支持并发拷贝多个文件，且调用频率上限为 5QPS 且 10000次/天
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/copy
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=copy&project=drive&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/copy_file.go
 func (f *file) Copy(ctx context.Context, req *CopyFileReq, options ...larkcore.RequestOptionFunc) (*CopyFileResp, error) {
@@ -212,11 +212,9 @@ func (f *file) Copy(ctx context.Context, req *CopyFileReq, options ...larkcore.R
 
 // CreateFolder 新建文件夹
 //
-// - 在用户云空间的指定文件夹中创建一个新的空文件夹。
+// - 该接口用于在用户云空间指定文件夹中创建一个空文件夹。
 //
-// - 该接口不支持并发创建，且调用频率上限为 5QPS 以及 10000次/天
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/create_folder
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create_folder&project=drive&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/createFolder_file.go
 func (f *file) CreateFolder(ctx context.Context, req *CreateFolderFileReq, options ...larkcore.RequestOptionFunc) (*CreateFolderFileResp, error) {
@@ -238,9 +236,11 @@ func (f *file) CreateFolder(ctx context.Context, req *CreateFolderFileReq, optio
 	return resp, err
 }
 
-// CreateShortcut
+// CreateShortcut 创建文件快捷方式
 //
-// -
+// - 创建指定文件的快捷方式到云空间的其它文件夹中。
+//
+// - ## 使用限制;;该接口不支持并发调用，且调用频率上限为 5 QPS，10000 次/天。否则会返回 1061045 错误码，可通过稍后重试解决。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create_shortcut&project=drive&resource=file&version=v1
 //
@@ -264,15 +264,11 @@ func (f *file) CreateShortcut(ctx context.Context, req *CreateShortcutFileReq, o
 	return resp, err
 }
 
-// Delete 删除文件
+// Delete 删除文件或文件夹
 //
-// - 删除用户在云空间内的文件或者文件夹。文件或者文件夹被删除后，会进入用户回收站里。
+// - 删除用户在云空间内的文件或者文件夹。文件或文件夹被删除后，会进入回收站中。
 //
-// - 要删除文件需要确保应用具有下述两种权限之一：;1. 该应用是文件所有者并且具有该文件所在父文件夹的编辑权限。;2. 该应用并非文件所有者，但是是该文件所在父文件夹的所有者或者拥有该父文件夹的所有权限（full access）。
-//
-// - 该接口不支持并发调用，且调用频率上限为5QPS。删除文件夹会异步执行并返回一个task_id，可以使用[task_check](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/task_check)接口查询任务执行状态。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=drive&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/delete_file.go
 func (f *file) Delete(ctx context.Context, req *DeleteFileReq, options ...larkcore.RequestOptionFunc) (*DeleteFileResp, error) {
@@ -294,11 +290,13 @@ func (f *file) Delete(ctx context.Context, req *DeleteFileReq, options ...larkco
 	return resp, err
 }
 
-// DeleteSubscribe 取消云文档事件订阅情况
+// DeleteSubscribe 取消云文档事件订阅
 //
-// - 该接口**仅支持文档拥有者**取消订阅自己文档的通知事件，可订阅的文档类型为**旧版文档**、**新版文档**、**电子表格**和**多维表格**。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a)，事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+// - 该接口用于取消订阅云文档的通知事件。了解事件订阅的配置流程和使用场景，参考[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。了解云文档支持的事件类型，参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/delete_subscribe
+// - ## 注意事项;目前只支持取消订阅事件列表中所有文档事件，暂不支持指定取消的事件。;## 前提条件;- 调用接口前，请确保应用或用户为文档所有者或文档管理者。;- 调用接口前，请确保正确配置订阅方式并添加了事件。详情参考[配置订阅方式](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/request-url-configuration-case)和[添加事件](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/subscription-event-case)。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete_subscribe&project=drive&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/deleteSubscribe_file.go
 func (f *file) DeleteSubscribe(ctx context.Context, req *DeleteSubscribeFileReq, options ...larkcore.RequestOptionFunc) (*DeleteSubscribeFileResp, error) {
@@ -322,11 +320,9 @@ func (f *file) DeleteSubscribe(ctx context.Context, req *DeleteSubscribeFileReq,
 
 // Download 下载文件
 //
-// - 使用该接口可以下载在云空间目录下的文件（不含飞书文档/表格/思维导图等在线文档）。支持range下载。
+// - 下载云空间中的文件，如 PDF 文件。不包含飞书文档、电子表格以及多维表格等在线文档。该接口支持通过在请求头添加 `Range` 参数分片下载部分文件。
 //
-// - 该接口支持调用频率上限为5QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/download
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download&project=drive&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/download_file.go
 func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...larkcore.RequestOptionFunc) (*DownloadFileResp, error) {
@@ -356,9 +352,11 @@ func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...la
 
 // GetSubscribe 查询云文档事件订阅状态
 //
-// - 该接口**仅支持文档拥有者**查询自己文档的订阅状态，可订阅的文档类型为**旧版文档**、**新版文档**、**电子表格**和**多维表格**。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a)，事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+// - 该接口用于查询云文档事件的订阅状态。了解事件订阅的配置流程和使用场景，参考[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。了解云文档支持的事件类型，参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/get_subscribe
+// - ## 前提条件;- 调用接口前，请确保应用或用户为文档所有者或文档管理者。文档的通知事件仅支持文档拥有者和文档管理者订阅。;- 调用接口前，请确保正确配置订阅方式并添加了事件。详情参考[配置订阅方式](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/request-url-configuration-case)和[添加事件](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/subscription-event-case)。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get_subscribe&project=drive&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/getSubscribe_file.go
 func (f *file) GetSubscribe(ctx context.Context, req *GetSubscribeFileReq, options ...larkcore.RequestOptionFunc) (*GetSubscribeFileResp, error) {
@@ -380,11 +378,13 @@ func (f *file) GetSubscribe(ctx context.Context, req *GetSubscribeFileReq, optio
 	return resp, err
 }
 
-// List 获取文件夹下的清单
+// List 获取文件夹中的文件清单
 //
-// - 获取用户云空间中指定文件夹下的文件清单。清单类型包括文件、各种在线文档（文档、电子表格、多维表格、思维笔记）、文件夹和快捷方式。该接口支持分页，但是不会递归的获取子文件夹的清单。
+// - 该接口用于获取用户云空间指定文件夹中文件信息清单。文件的信息包括名称、类型、token、创建时间、所有者 ID 等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list
+// - ## 使用限制;;本接口仅支持获取当前层级的文件信息，不支持递归获取子文件夹中的文件信息清单。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=drive&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/list_file.go
 func (f *file) List(ctx context.Context, req *ListFileReq, options ...larkcore.RequestOptionFunc) (*ListFileResp, error) {
@@ -406,11 +406,13 @@ func (f *file) List(ctx context.Context, req *ListFileReq, options ...larkcore.R
 	return resp, err
 }
 
-// Move 移动文件
+// Move 移动文件或文件夹
 //
 // - 将文件或者文件夹移动到用户云空间的其他位置。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/move
+// - ## 使用限制;;该接口不支持并发调用，且调用频率上限为 5 QPS 且 10000次/天。否则会返回 1061045 错误码，可通过稍后重试解决。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=move&project=drive&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/move_file.go
 func (f *file) Move(ctx context.Context, req *MoveFileReq, options ...larkcore.RequestOptionFunc) (*MoveFileResp, error) {
@@ -434,9 +436,9 @@ func (f *file) Move(ctx context.Context, req *MoveFileReq, options ...larkcore.R
 
 // Subscribe 订阅云文档事件
 //
-// - 该接口仅支持**文档拥有者**订阅自己文档的通知事件，可订阅的文档类型为**旧版文档**、**新版文档**、**电子表格**和**多维表格**。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a)(暂不支持单独订阅文档维度的某类事件)，事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+// - 订阅云文档的各类通知事件。调用该接口并在开发者后台添加事件后，当云文档发生指定事件时，系统会向配置的地址发送事件。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscribe&project=drive&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/subscribe_file.go
 func (f *file) Subscribe(ctx context.Context, req *SubscribeFileReq, options ...larkcore.RequestOptionFunc) (*SubscribeFileResp, error) {
@@ -460,9 +462,9 @@ func (f *file) Subscribe(ctx context.Context, req *SubscribeFileReq, options ...
 
 // TaskCheck 查询异步任务状态
 //
-// - 查询删除文件夹等异步任务的状态信息。
+// - 查询异步任务的状态信息。目前支持查询删除文件夹和移动文件夹的异步任务。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/task_check
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=task_check&project=drive&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/taskCheck_file.go
 func (f *file) TaskCheck(ctx context.Context, req *TaskCheckFileReq, options ...larkcore.RequestOptionFunc) (*TaskCheckFileResp, error) {
@@ -486,13 +488,9 @@ func (f *file) TaskCheck(ctx context.Context, req *TaskCheckFileReq, options ...
 
 // UploadAll 上传文件
 //
-// - 向云空间指定目录下上传一个小文件。
+// - 将指定文件上传至云空间指定目录中。
 //
-// - 请不要使用这个接口上传大于20MB的文件，如果有这个需求可以尝试使用[分片上传接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/multipart-upload-file-/introduction)。
-//
-// - 该接口支持调用频率上限为5QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_all
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload_all&project=drive&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/uploadAll_file.go
 func (f *file) UploadAll(ctx context.Context, req *UploadAllFileReq, options ...larkcore.RequestOptionFunc) (*UploadAllFileResp, error) {
@@ -515,13 +513,11 @@ func (f *file) UploadAll(ctx context.Context, req *UploadAllFileReq, options ...
 	return resp, err
 }
 
-// UploadFinish 分片上传文件（完成上传）
+// UploadFinish 分片上传文件-完成上传
 //
-// - 触发完成上传。
+// - 调用[上传分片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_part)接口将分片全部上传完毕后，你需调用本接口触发完成上传。否则将上传失败。了解完整的上传文件流程，参考[上传文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/multipart-upload-file-/introduction)。
 //
-// - 该接口不支持太高的并发，且调用频率上限为5QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_finish
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload_finish&project=drive&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/uploadFinish_file.go
 func (f *file) UploadFinish(ctx context.Context, req *UploadFinishFileReq, options ...larkcore.RequestOptionFunc) (*UploadFinishFileResp, error) {
@@ -543,13 +539,11 @@ func (f *file) UploadFinish(ctx context.Context, req *UploadFinishFileReq, optio
 	return resp, err
 }
 
-// UploadPart 分片上传文件（上传分片）
+// UploadPart 分片上传文件-上传分片
 //
-// - 上传对应的文件块。
+// - 根据 [预上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_prepare)接口返回的上传事务 ID 和分片策略上传对应的文件分片。上传完成后，你需调用[分片上传文件（完成上传）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_finish)触发完成上传。了解完整的上传文件流程，参考[分片上传文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/multipart-upload-file-/introduction)。
 //
-// - 该接口不支持太高的并发，且调用频率上限为5QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_part
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload_part&project=drive&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/uploadPart_file.go
 func (f *file) UploadPart(ctx context.Context, req *UploadPartFileReq, options ...larkcore.RequestOptionFunc) (*UploadPartFileResp, error) {
@@ -572,15 +566,11 @@ func (f *file) UploadPart(ctx context.Context, req *UploadPartFileReq, options .
 	return resp, err
 }
 
-// UploadPrepare 分片上传文件（预上传）
+// UploadPrepare 分片上传文件-预上传
 //
-// - 发送初始化请求获取上传事务ID和分块策略，目前是以4MB大小进行定长分片。
+// - 发送初始化请求，以获取上传事务 ID 和分片策略，为[上传分片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_part)做准备。平台固定以 4MB 的大小对文件进行分片。了解完整的上传文件流程，参考[上传文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/multipart-upload-file-/introduction)。
 //
-// - 你在24小时内可保存上传事务ID和上传进度，以便可以恢复上传
-//
-// - 该接口不支持太高的并发，且调用频率上限为5QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_prepare
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload_prepare&project=drive&resource=file&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/uploadPrepare_file.go
 func (f *file) UploadPrepare(ctx context.Context, req *UploadPrepareFileReq, options ...larkcore.RequestOptionFunc) (*UploadPrepareFileResp, error) {
@@ -604,9 +594,9 @@ func (f *file) UploadPrepare(ctx context.Context, req *UploadPrepareFileReq, opt
 
 // BatchQuery 批量获取评论
 //
-// - 该接口用于根据评论 ID 列表批量获取评论。
+// - 该接口用于根据评论 ID 列表批量获取云文档评论信息，包括评论和回复 ID、回复的内容、评论人和回复人的用户 ID 等。支持返回全局评论以及局部评论，可通过 is_whole （是否为全局评论标识）字段区分。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/batch_query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=drive&resource=file.comment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/batchQuery_fileComment.go
 func (f *fileComment) BatchQuery(ctx context.Context, req *BatchQueryFileCommentReq, options ...larkcore.RequestOptionFunc) (*BatchQueryFileCommentResp, error) {
@@ -628,11 +618,11 @@ func (f *fileComment) BatchQuery(ctx context.Context, req *BatchQueryFileComment
 	return resp, err
 }
 
-// Create 添加评论
+// Create 添加全文评论
 //
-// - 往云文档添加一条全局评论。
+// - 在文档中添加一条全局评论，不支持局部评论。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=drive&resource=file.comment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/create_fileComment.go
 func (f *fileComment) Create(ctx context.Context, req *CreateFileCommentReq, options ...larkcore.RequestOptionFunc) (*CreateFileCommentResp, error) {
@@ -654,11 +644,11 @@ func (f *fileComment) Create(ctx context.Context, req *CreateFileCommentReq, opt
 	return resp, err
 }
 
-// Get 获取评论
+// Get 获取全文评论
 //
-// - 获取云文档中的某条评论。
+// - 获取云文档中的某条全文评论，不支持局部评论。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=drive&resource=file.comment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/get_fileComment.go
 func (f *fileComment) Get(ctx context.Context, req *GetFileCommentReq, options ...larkcore.RequestOptionFunc) (*GetFileCommentResp, error) {
@@ -680,11 +670,11 @@ func (f *fileComment) Get(ctx context.Context, req *GetFileCommentReq, options .
 	return resp, err
 }
 
-// List 分页获取文档评论
+// List 获取云文档所有评论
 //
-// - 该接口用于根据文档 token 分页获取文档评论。
+// - 该接口用于根据云文档 Token 分页获取文档所有评论信息，包括评论和回复 ID、回复的内容、评论人和回复人的用户 ID 等。该接口支持返回全局评论以及局部评论，可通过 is_whole（是否为全局评论）字段区分。默认每页返回 50 个评论。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=drive&resource=file.comment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/list_fileComment.go
 func (f *fileComment) List(ctx context.Context, req *ListFileCommentReq, options ...larkcore.RequestOptionFunc) (*ListFileCommentResp, error) {
@@ -714,11 +704,11 @@ func (f *fileComment) ListByIterator(ctx context.Context, req *ListFileCommentRe
 		limit:    req.Limit}, nil
 }
 
-// Patch 解决/恢复 评论
+// Patch 解决/恢复评论
 //
 // - 解决或恢复云文档中的评论。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=drive&resource=file.comment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/patch_fileComment.go
 func (f *fileComment) Patch(ctx context.Context, req *PatchFileCommentReq, options ...larkcore.RequestOptionFunc) (*PatchFileCommentResp, error) {
@@ -740,9 +730,9 @@ func (f *fileComment) Patch(ctx context.Context, req *PatchFileCommentReq, optio
 	return resp, err
 }
 
-// Create
+// Create 添加回复
 //
-// -
+// - 使用该接口可对云文档中的某条评论进行回复，回复内容支持普通文本、云文档链接等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=drive&resource=file.comment.reply&version=v1
 //
@@ -770,7 +760,7 @@ func (f *fileCommentReply) Create(ctx context.Context, req *CreateFileCommentRep
 //
 // - 删除云文档中的某条回复。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=drive&resource=file.comment.reply&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/delete_fileCommentReply.go
 func (f *fileCommentReply) Delete(ctx context.Context, req *DeleteFileCommentReplyReq, options ...larkcore.RequestOptionFunc) (*DeleteFileCommentReplyResp, error) {
@@ -792,11 +782,11 @@ func (f *fileCommentReply) Delete(ctx context.Context, req *DeleteFileCommentRep
 	return resp, err
 }
 
-// List 获取回复
+// List 获取回复信息
 //
-// - 该接口用于根据评论 ID 以及分页参数，获取回复。
+// - 该接口用于根据评论 ID，获取该条评论对应的回复信息，包括回复 ID、回复内容、回复人的用户 ID 等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=drive&resource=file.comment.reply&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/list_fileCommentReply.go
 func (f *fileCommentReply) List(ctx context.Context, req *ListFileCommentReplyReq, options ...larkcore.RequestOptionFunc) (*ListFileCommentReplyResp, error) {
@@ -826,11 +816,11 @@ func (f *fileCommentReply) ListByIterator(ctx context.Context, req *ListFileComm
 		limit:    req.Limit}, nil
 }
 
-// Update 更新回复
+// Update 更新回复的内容
 //
-// - 更新云文档中的某条回复。
+// - 更新云文档中的某条回复的内容。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=drive&resource=file.comment.reply&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/update_fileCommentReply.go
 func (f *fileCommentReply) Update(ctx context.Context, req *UpdateFileCommentReplyReq, options ...larkcore.RequestOptionFunc) (*UpdateFileCommentReplyResp, error) {
@@ -854,9 +844,9 @@ func (f *fileCommentReply) Update(ctx context.Context, req *UpdateFileCommentRep
 
 // Get 获取文件统计信息
 //
-// - 此接口用于获取文件统计信息，包括文档阅读人数、次数和点赞数。
+// - 此接口用于获取各类文件的流量统计信息和互动信息，包括阅读人数、阅读次数和点赞数。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-statistics/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=drive&resource=file.statistics&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/get_fileStatistics.go
 func (f *fileStatistics) Get(ctx context.Context, req *GetFileStatisticsReq, options ...larkcore.RequestOptionFunc) (*GetFileStatisticsResp, error) {
@@ -882,7 +872,7 @@ func (f *fileStatistics) Get(ctx context.Context, req *GetFileStatisticsReq, opt
 //
 // - 订阅文档中的变更事件，当前支持文档评论订阅，订阅后文档评论更新会有“云文档助手”推送给订阅的用户
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-subscription/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=drive&resource=file.subscription&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/create_fileSubscription.go
 func (f *fileSubscription) Create(ctx context.Context, req *CreateFileSubscriptionReq, options ...larkcore.RequestOptionFunc) (*CreateFileSubscriptionResp, error) {
@@ -908,7 +898,7 @@ func (f *fileSubscription) Create(ctx context.Context, req *CreateFileSubscripti
 //
 // - 根据订阅ID获取该订阅的状态
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-subscription/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=drive&resource=file.subscription&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/get_fileSubscription.go
 func (f *fileSubscription) Get(ctx context.Context, req *GetFileSubscriptionReq, options ...larkcore.RequestOptionFunc) (*GetFileSubscriptionResp, error) {
@@ -934,7 +924,7 @@ func (f *fileSubscription) Get(ctx context.Context, req *GetFileSubscriptionReq,
 //
 // - 根据订阅ID更新订阅状态
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-subscription/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=drive&resource=file.subscription&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/patch_fileSubscription.go
 func (f *fileSubscription) Patch(ctx context.Context, req *PatchFileSubscriptionReq, options ...larkcore.RequestOptionFunc) (*PatchFileSubscriptionResp, error) {
@@ -958,9 +948,9 @@ func (f *fileSubscription) Patch(ctx context.Context, req *PatchFileSubscription
 
 // Create 创建文档版本
 //
-// - 创建文档版本。
+// - 创建文档版本。文档支持在线文档或电子表格。该接口为异步接口。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-version/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=drive&resource=file.version&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/create_fileVersion.go
 func (f *fileVersion) Create(ctx context.Context, req *CreateFileVersionReq, options ...larkcore.RequestOptionFunc) (*CreateFileVersionResp, error) {
@@ -984,9 +974,9 @@ func (f *fileVersion) Create(ctx context.Context, req *CreateFileVersionReq, opt
 
 // Delete 删除文档版本
 //
-// - 删除文档版本。
+// - 删除基于在线文档或电子表格创建的版本。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-version/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=drive&resource=file.version&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/delete_fileVersion.go
 func (f *fileVersion) Delete(ctx context.Context, req *DeleteFileVersionReq, options ...larkcore.RequestOptionFunc) (*DeleteFileVersionResp, error) {
@@ -1008,11 +998,11 @@ func (f *fileVersion) Delete(ctx context.Context, req *DeleteFileVersionReq, opt
 	return resp, err
 }
 
-// Get 获取文档版本
+// Get 获取文档版本信息
 //
-// - 获取文档版本。
+// - 该接口用于获取文档或电子表格指定版本的信息，包括标题、标识、创建者、创建时间等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-version/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=drive&resource=file.version&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/get_fileVersion.go
 func (f *fileVersion) Get(ctx context.Context, req *GetFileVersionReq, options ...larkcore.RequestOptionFunc) (*GetFileVersionResp, error) {
@@ -1036,9 +1026,9 @@ func (f *fileVersion) Get(ctx context.Context, req *GetFileVersionReq, options .
 
 // List 获取文档版本列表
 //
-// - 获取文档所有版本。
+// - 获取文档或电子表格的版本列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-version/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=drive&resource=file.version&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/list_fileVersion.go
 func (f *fileVersion) List(ctx context.Context, req *ListFileVersionReq, options ...larkcore.RequestOptionFunc) (*ListFileVersionResp, error) {
@@ -1068,9 +1058,9 @@ func (f *fileVersion) ListByIterator(ctx context.Context, req *ListFileVersionRe
 		limit:    req.Limit}, nil
 }
 
-// List
+// List 获取文件访问记录
 //
-// -
+// - 获取文档、电子表格、多维表格等文件的历史访问记录，包括访问者的 ID、姓名、头像和最近访问时间。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=drive&resource=file.view_record&version=v1
 //
@@ -1104,9 +1094,11 @@ func (f *fileViewRecord) ListByIterator(ctx context.Context, req *ListFileViewRe
 
 // Create 创建导入任务
 //
-// - 创建导入任务。支持导入为 doc、docx、sheet、bitable，参考[导入用户指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)
+// - 该接口用于创建导入文件的任务，并返回导入任务 ID。导入文件指将本地文件如 Word、TXT、Markdown、Excel 等格式的文件导入为某种格式的飞书在线云文档。该接口为异步接口，需要继续调用[查询导入任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/get)接口获取导入结果。了解完整的导入文件步骤，参考[导入文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/create
+// - ## 前提条件;创建导入任务前，你需先调用[上传素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)或[上传文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_all)接口获取源文件的 token。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=drive&resource=import_task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/create_importTask.go
 func (i *importTask) Create(ctx context.Context, req *CreateImportTaskReq, options ...larkcore.RequestOptionFunc) (*CreateImportTaskResp, error) {
@@ -1130,9 +1122,9 @@ func (i *importTask) Create(ctx context.Context, req *CreateImportTaskReq, optio
 
 // Get 查询导入结果
 //
-// - 根据创建导入任务返回的 ticket 查询导入结果。
+// - 根据[创建导入任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/create)返回的导入任务 ID（ticket）轮询导入结果。了解完整的导入文件步骤，参考[导入文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=drive&resource=import_task&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/get_importTask.go
 func (i *importTask) Get(ctx context.Context, req *GetImportTaskReq, options ...larkcore.RequestOptionFunc) (*GetImportTaskResp, error) {
@@ -1156,11 +1148,9 @@ func (i *importTask) Get(ctx context.Context, req *GetImportTaskReq, options ...
 
 // BatchGetTmpDownloadUrl 获取素材临时下载链接
 //
-// - 通过file_token获取素材临时下载链接，链接时效性是24小时，过期失效。
+// - 该接口用于获取云文档中素材的临时下载链接。链接的有效期为 24 小时，过期失效。
 //
-// - 该接口不支持太高的并发，且调用频率上限为5QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/batch_get_tmp_download_url
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get_tmp_download_url&project=drive&resource=media&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/batchGetTmpDownloadUrl_media.go
 func (m *media) BatchGetTmpDownloadUrl(ctx context.Context, req *BatchGetTmpDownloadUrlMediaReq, options ...larkcore.RequestOptionFunc) (*BatchGetTmpDownloadUrlMediaResp, error) {
@@ -1184,11 +1174,9 @@ func (m *media) BatchGetTmpDownloadUrl(ctx context.Context, req *BatchGetTmpDown
 
 // Download 下载素材
 //
-// - 使用该接口可以下载素材。素材表示在各种创作容器里的文件，如Doc文档内的图片，文件均属于素材。支持range下载。
+// - 下载各类云文档中的素材，例如电子表格中的图片。该接口支持通过在请求头添加`Range` 参数分片下载素材。
 //
-// - 该接口不支持太高的并发，且调用频率上限为5QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/download
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download&project=drive&resource=media&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/download_media.go
 func (m *media) Download(ctx context.Context, req *DownloadMediaReq, options ...larkcore.RequestOptionFunc) (*DownloadMediaResp, error) {
@@ -1218,13 +1206,9 @@ func (m *media) Download(ctx context.Context, req *DownloadMediaReq, options ...
 
 // UploadAll 上传素材
 //
-// - 将文件、图片、视频等素材文件上传到指定云文档中。素材文件在云空间中不会显示，只会显示在对应云文档中。
+// - 将文件、图片、视频等素材上传到指定云文档中。素材将显示在对应云文档中，在云空间中不会显示。
 //
-// - 请不要使用这个接口上传大于20MB的文件，如果有这个需求可以尝试使用[分片上传接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/multipart-upload-media/introduction)。
-//
-// - 该接口支持调用频率上限为5QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload_all&project=drive&resource=media&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/uploadAll_media.go
 func (m *media) UploadAll(ctx context.Context, req *UploadAllMediaReq, options ...larkcore.RequestOptionFunc) (*UploadAllMediaResp, error) {
@@ -1247,13 +1231,13 @@ func (m *media) UploadAll(ctx context.Context, req *UploadAllMediaReq, options .
 	return resp, err
 }
 
-// UploadFinish 分片上传素材（完成上传）
+// UploadFinish 分片上传素材-完成上传
 //
-// - 触发完成上传。
+// - 调用[上传分片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_part)接口将分片全部上传完毕后，你需调用本接口触发完成上传。了解完整的分片上传素材流程，参考[素材概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)。
 //
-// - 该接口不支持太高的并发，且调用频率上限为5QPS
+// - ## 使用限制;;该接口调用频率上限为 5 QPS。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_finish
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload_finish&project=drive&resource=media&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/uploadFinish_media.go
 func (m *media) UploadFinish(ctx context.Context, req *UploadFinishMediaReq, options ...larkcore.RequestOptionFunc) (*UploadFinishMediaResp, error) {
@@ -1275,13 +1259,13 @@ func (m *media) UploadFinish(ctx context.Context, req *UploadFinishMediaReq, opt
 	return resp, err
 }
 
-// UploadPart 分片上传素材（上传分片）
+// UploadPart 分片上传素材-上传分片
 //
-// - 上传对应的文件块。
+// - 根据 [预上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare)接口返回的上传事务 ID 和分片策略上传对应的素材分片。上传完成后，你可调用 [分片上传素材（完成上传）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_finish)触发完成上传。
 //
-// - 该接口不支持太高的并发，且调用频率上限为5QPS
+// - ## 使用限制;;该接口调用频率上限为 5 QPS。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_part
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload_part&project=drive&resource=media&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/uploadPart_media.go
 func (m *media) UploadPart(ctx context.Context, req *UploadPartMediaReq, options ...larkcore.RequestOptionFunc) (*UploadPartMediaResp, error) {
@@ -1304,15 +1288,11 @@ func (m *media) UploadPart(ctx context.Context, req *UploadPartMediaReq, options
 	return resp, err
 }
 
-// UploadPrepare 分片上传素材（预上传）
+// UploadPrepare 分片上传素材-预上传
 //
-// - 发送初始化请求获取上传事务ID和分块策略，目前是以4MB大小进行定长分片。
+// - 发送初始化请求，以获取上传事务 ID 和分片策略，为[上传素材分片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_part)做准备。平台固定以 4MB 的大小对素材进行分片。了解完整的分片上传素材流程，参考[素材概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)。
 //
-// - 您在24小时内可保存上传事务ID和上传进度，以便可以恢复上传
-//
-// - 该接口不支持太高的并发，且调用频率上限为5QPS
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload_prepare&project=drive&resource=media&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/uploadPrepare_media.go
 func (m *media) UploadPrepare(ctx context.Context, req *UploadPrepareMediaReq, options ...larkcore.RequestOptionFunc) (*UploadPrepareMediaResp, error) {
@@ -1334,11 +1314,11 @@ func (m *media) UploadPrepare(ctx context.Context, req *UploadPrepareMediaReq, o
 	return resp, err
 }
 
-// BatchQuery 获取文档元数据
+// BatchQuery 获取文件元数据
 //
-// - 该接口用于根据 token 获取各类文件的元数据
+// - 该接口用于根据文件 token （文件的唯一标识）获取其元数据，包括标题、所有者、创建时间、密级、访问链接等数据。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/meta/batch_query
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=drive&resource=meta&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/batchQuery_meta.go
 func (m *meta) BatchQuery(ctx context.Context, req *BatchQueryMetaReq, options ...larkcore.RequestOptionFunc) (*BatchQueryMetaResp, error) {
@@ -1360,9 +1340,9 @@ func (m *meta) BatchQuery(ctx context.Context, req *BatchQueryMetaReq, options .
 	return resp, err
 }
 
-// Auth
+// Auth 判断用户权限
 //
-// -
+// - 判断当前请求的应用或用户是否具有指定云文档的指定权限，权限包括阅读、编辑、分享、评论、导出等权限。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=auth&project=drive&resource=permission.member&version=v1
 //
@@ -1386,9 +1366,9 @@ func (p *permissionMember) Auth(ctx context.Context, req *AuthPermissionMemberRe
 	return resp, err
 }
 
-// BatchCreate
+// BatchCreate 批量增加协作者权限
 //
-// -
+// - 为指定云文档批量添加多个协作者，协作者可以是用户、群组、部门、用户组等。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=drive&resource=permission.member&version=v1
 //
@@ -1414,9 +1394,11 @@ func (p *permissionMember) BatchCreate(ctx context.Context, req *BatchCreatePerm
 
 // Create 增加协作者权限
 //
-// - 该接口用于根据 filetoken 给用户增加文档的权限。
+// - 为指定云文档添加协作者，协作者可以是用户、群组、部门、用户组等。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/create
+// - ## 前提条件;;- 调用该接口需要调用身份有该云文档添加协作者的权限。添加协作者的权限可通过云文档设置中的 **谁可以查看、添加、移除协作者** 等选项进行控制。;- 调用该接口时，需要调用身份与被授权对象 **互相可见**，例如：; - **添加用户协作者**：需要调用身份与被授权对象为联系人或同组织内可搜索，且互相未屏蔽。; - **添加群协作者**：需要调用身份在群内。要使用 `tenant_access_token` 身份添加群协作者，则需要将该应用作为机器人添加至群组中，使应用对群可见。详细步骤参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。; - **添加部门协作者**：需要调用身份对部门可见。由于应用对企业内的组织架构都不可见，所以暂不支持通过 `tenant_access_token` 添加部门协作者。;;## 注意事项;;不支持将应用直接添加到文件夹作为协作者（添加成功后实际仍然没有权限）。如果希望给应用授予文件夹的权限，请将应用作为群机器人添加到群组内，然后授予该群组可管理权限。详细步骤参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=drive&resource=permission.member&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/create_permissionMember.go
 func (p *permissionMember) Create(ctx context.Context, req *CreatePermissionMemberReq, options ...larkcore.RequestOptionFunc) (*CreatePermissionMemberResp, error) {
@@ -1440,9 +1422,9 @@ func (p *permissionMember) Create(ctx context.Context, req *CreatePermissionMemb
 
 // Delete 移除协作者权限
 //
-// - 该接口用于根据 filetoken 移除文档协作者的权限。
+// - 通过云文档 token 和协作者 ID 移除指定云文档协作者的权限。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=drive&resource=permission.member&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/delete_permissionMember.go
 func (p *permissionMember) Delete(ctx context.Context, req *DeletePermissionMemberReq, options ...larkcore.RequestOptionFunc) (*DeletePermissionMemberResp, error) {
@@ -1464,13 +1446,13 @@ func (p *permissionMember) Delete(ctx context.Context, req *DeletePermissionMemb
 	return resp, err
 }
 
-// List 获取协作者列表
+// List 获取云文档协作者
 //
-// - 该接口用于根据 filetoken 查询协作者
+// - 获取指定云文档的协作者，支持查询人、群、组织架构、用户组、知识库成员五种类型的协作者。
 //
-// - - 你能获取到协作者列表的前提是你对该文档有分享权限;- 目前仅支持人、群、组织架构三种类型的协作者
+// - ## 前提条件;;调用该接口前，你需确保当前应用或用户具有查看协作者的权限。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=drive&resource=permission.member&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/list_permissionMember.go
 func (p *permissionMember) List(ctx context.Context, req *ListPermissionMemberReq, options ...larkcore.RequestOptionFunc) (*ListPermissionMemberResp, error) {
@@ -1492,9 +1474,9 @@ func (p *permissionMember) List(ctx context.Context, req *ListPermissionMemberRe
 	return resp, err
 }
 
-// TransferOwner
+// TransferOwner 转移云文档所有者
 //
-// -
+// - 转移指定云文档的所有者。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=transfer_owner&project=drive&resource=permission.member&version=v1
 //
@@ -1520,11 +1502,9 @@ func (p *permissionMember) TransferOwner(ctx context.Context, req *TransferOwner
 
 // Update 更新协作者权限
 //
-// - 该接口用于根据 filetoken 更新文档协作者的权限。
+// - 更新指定云文档中指定协作者的权限，包括可阅读、可编辑、可管理权限。
 //
-// - 该接口要求文档协作者已存在，如还未对文档协作者授权请先调用[「增加权限」 ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/create)接口进行授权。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=drive&resource=permission.member&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/update_permissionMember.go
 func (p *permissionMember) Update(ctx context.Context, req *UpdatePermissionMemberReq, options ...larkcore.RequestOptionFunc) (*UpdatePermissionMemberResp, error) {
@@ -1548,9 +1528,11 @@ func (p *permissionMember) Update(ctx context.Context, req *UpdatePermissionMemb
 
 // Get 获取云文档权限设置
 //
-// - 该接口用于根据 filetoken 获取云文档的权限设置。
+// - 获取指定云文档的权限设置，包括是否允许内容被分享到组织外、谁可以查看、添加、移除协作者等设置。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-public/get
+// - 本接口为历史版本接口。推荐使用新版接口[获取云文档权限设置](https://open.feishu.cn/document/ukTMukTMukTM/uIzNzUjLyczM14iM3MTN/drive-v2/permission-public/get)。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=drive&resource=permission.public&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/get_permissionPublic.go
 func (p *permissionPublic) Get(ctx context.Context, req *GetPermissionPublicReq, options ...larkcore.RequestOptionFunc) (*GetPermissionPublicResp, error) {
@@ -1574,9 +1556,11 @@ func (p *permissionPublic) Get(ctx context.Context, req *GetPermissionPublicReq,
 
 // Patch 更新云文档权限设置
 //
-// - 该接口用于根据 filetoken 更新云文档的权限设置。
+// - 更新指定云文档的权限设置，包括是否允许内容被分享到组织外、谁可以查看、添加、移除协作者、谁可以复制内容等设置。;
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-public/patch
+// - 本接口为历史版本接口。推荐使用新版接口[更新云文档权限设置](https://open.feishu.cn/document/ukTMukTMukTM/uIzNzUjLyczM14iM3MTN/drive-v2/permission-public/patch)。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=drive&resource=permission.public&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/drivev1/patch_permissionPublic.go
 func (p *permissionPublic) Patch(ctx context.Context, req *PatchPermissionPublicReq, options ...larkcore.RequestOptionFunc) (*PatchPermissionPublicResp, error) {
@@ -1598,9 +1582,9 @@ func (p *permissionPublic) Patch(ctx context.Context, req *PatchPermissionPublic
 	return resp, err
 }
 
-// Create
+// Create 启用云文档密码
 //
-// -
+// - 启用指定云文档的密码。密码启用后，组织外用户需要密码访问，组织内用户无需密码可直接访问。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=drive&resource=permission.public.password&version=v1
 //
@@ -1624,9 +1608,9 @@ func (p *permissionPublicPassword) Create(ctx context.Context, req *CreatePermis
 	return resp, err
 }
 
-// Delete
+// Delete 停用云文档密码
 //
-// -
+// - 停用指定云文档的密码。密码停用后，组织外用户访问文档将无需输入密码。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=drive&resource=permission.public.password&version=v1
 //
@@ -1650,9 +1634,11 @@ func (p *permissionPublicPassword) Delete(ctx context.Context, req *DeletePermis
 	return resp, err
 }
 
-// Update
+// Update 刷新云文档密码
 //
-// -
+// - 刷新指定云文档的密码。密码刷新后，旧密码将失效，并生成新密码。
+//
+// - ## 注意事项;;要刷新密码，必须先确保指定云文档已有密码。你可通过[启用云文档密码](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-public-password/create)接口启用密码。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=drive&resource=permission.public.password&version=v1
 //
@@ -1676,9 +1662,9 @@ func (p *permissionPublicPassword) Update(ctx context.Context, req *UpdatePermis
 	return resp, err
 }
 
-// RemoveSubscription
+// RemoveSubscription 取消用户云文档事件订阅
 //
-// -
+// - 该接口用于取消订阅用户云文档的通知事件。取消订阅后，用户将不再收到云文档评论、回复添加事件。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=remove_subscription&project=drive&resource=user&version=v1
 //
@@ -1702,9 +1688,11 @@ func (u *user) RemoveSubscription(ctx context.Context, req *RemoveSubscriptionUs
 	return resp, err
 }
 
-// Subscription
+// Subscription 订阅用户云文档事件
 //
-// -
+// - 订阅用户云文档的各类通知事件，调用后目前可获取接收者视角的云文档评论、回复添加事件。
+//
+// - ## 注意事项;仅用户身份订阅“用户云文档事件”时，需要调用该接口，应用身份无需调用。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscription&project=drive&resource=user&version=v1
 //
@@ -1728,9 +1716,9 @@ func (u *user) Subscription(ctx context.Context, req *SubscriptionUserReq, optio
 	return resp, err
 }
 
-// SubscriptionStatus
+// SubscriptionStatus 查询用户云文档事件订阅状态
 //
-// -
+// - 该接口用于查询用户云文档事件的订阅状态。仅当is_subscribe（订阅状态）为 true，应用才可收到 “用户云文档事件”下的各类通知事件。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=subscription_status&project=drive&resource=user&version=v1
 //

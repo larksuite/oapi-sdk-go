@@ -158,7 +158,7 @@ type Comment struct {
 
 	IsHot *bool `json:"is_hot,omitempty"` // 是否热评
 
-	ReactionSet *ReactionSet `json:"reaction_set,omitempty"` // 评论 reactions
+	ReactionSet *ReactionSet `json:"reaction_set,omitempty"` // 帖子的 reaction及其数量
 
 	Id *string `json:"id,omitempty"` // 评论 ID
 
@@ -188,7 +188,7 @@ type CommentBuilder struct {
 	isHot    bool // 是否热评
 	isHotSet bool
 
-	reactionSet    *ReactionSet // 评论 reactions
+	reactionSet    *ReactionSet // 帖子的 reaction及其数量
 	reactionSetSet bool
 
 	id    string // 评论 ID
@@ -254,7 +254,7 @@ func (builder *CommentBuilder) IsHot(isHot bool) *CommentBuilder {
 	return builder
 }
 
-// 评论 reactions
+// 帖子的 reaction及其数量
 //
 // 示例值：
 func (builder *CommentBuilder) ReactionSet(reactionSet *ReactionSet) *CommentBuilder {
@@ -397,8 +397,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -406,8 +404,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -533,23 +529,23 @@ func (builder *DislikeBuilder) Build() *Dislike {
 }
 
 type Post struct {
-	UserId *string `json:"user_id,omitempty"` // 发帖用户ID
+	UserId *string `json:"user_id,omitempty"` // 发帖用户ID（类型为请求中传入的类型，仅实名下有值）
 
 	Content *string `json:"content,omitempty"` // 帖子内容
 
-	ImageKeyList []string `json:"image_key_list,omitempty"` // 图片的key 列表
+	ImageKeyList []string `json:"image_key_list,omitempty"` // 图片的 key列表（暂不支持下载）
 
-	MediaFileToken *string `json:"media_file_token,omitempty"` // 媒体文件的 token
+	MediaFileToken *string `json:"media_file_token,omitempty"` // 媒体文件的 token（暂未使用）
 
 	CommentCount *int `json:"comment_count,omitempty"` // 评论数
 
-	ReactionSet *ReactionSet `json:"reaction_set,omitempty"` // 帖子的reaction及其数量
+	ReactionSet *ReactionSet `json:"reaction_set,omitempty"` // 帖子的 reaction及其数量
 
 	Id *string `json:"id,omitempty"` // 帖子ID
 
-	CreateTime *string `json:"create_time,omitempty"` // 帖子创建时间
+	CreateTime *string `json:"create_time,omitempty"` // 帖子创建时间，格式 rfc3339，;e.g. "2006-01-02T15:04:05Z07:00"
 
-	MediaCoverImageKey *string `json:"media_cover_image_key,omitempty"` // 视频封面图片
+	MediaCoverImageKey *string `json:"media_cover_image_key,omitempty"` // 视频封面图片（暂未使用）
 
 	Cid *string `json:"cid,omitempty"` // 创建帖子时去重用
 
@@ -563,31 +559,31 @@ type Post struct {
 }
 
 type PostBuilder struct {
-	userId    string // 发帖用户ID
+	userId    string // 发帖用户ID（类型为请求中传入的类型，仅实名下有值）
 	userIdSet bool
 
 	content    string // 帖子内容
 	contentSet bool
 
-	imageKeyList    []string // 图片的key 列表
+	imageKeyList    []string // 图片的 key列表（暂不支持下载）
 	imageKeyListSet bool
 
-	mediaFileToken    string // 媒体文件的 token
+	mediaFileToken    string // 媒体文件的 token（暂未使用）
 	mediaFileTokenSet bool
 
 	commentCount    int // 评论数
 	commentCountSet bool
 
-	reactionSet    *ReactionSet // 帖子的reaction及其数量
+	reactionSet    *ReactionSet // 帖子的 reaction及其数量
 	reactionSetSet bool
 
 	id    string // 帖子ID
 	idSet bool
 
-	createTime    string // 帖子创建时间
+	createTime    string // 帖子创建时间，格式 rfc3339，;e.g. "2006-01-02T15:04:05Z07:00"
 	createTimeSet bool
 
-	mediaCoverImageKey    string // 视频封面图片
+	mediaCoverImageKey    string // 视频封面图片（暂未使用）
 	mediaCoverImageKeySet bool
 
 	cid    string // 创建帖子时去重用
@@ -611,9 +607,9 @@ func NewPostBuilder() *PostBuilder {
 	return builder
 }
 
-// 发帖用户ID
+// 发帖用户ID（类型为请求中传入的类型，仅实名下有值）
 //
-// 示例值："ou_xxxxx"
+// 示例值：ou_xxxxx
 func (builder *PostBuilder) UserId(userId string) *PostBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -622,14 +618,14 @@ func (builder *PostBuilder) UserId(userId string) *PostBuilder {
 
 // 帖子内容
 //
-// 示例值："[[{\"tag\":\"text\",\"text\":\"豪华中型车…………\"},{\"tag\":\"a\",\"text\":\"查看原文\",\"href\":\"https://www.autohome.com.cn/advice/202204/1244455.html\"}]]"
+// 示例值：[[{\"tag\":\"text\",\"text\":\"豪华中型车…………\"},{\"tag\":\"a\",\"text\":\"查看原文\",\"href\":\"https://www.autohome.com.cn/advice/202204/1244455.html\"}]]
 func (builder *PostBuilder) Content(content string) *PostBuilder {
 	builder.content = content
 	builder.contentSet = true
 	return builder
 }
 
-// 图片的key 列表
+// 图片的 key列表（暂不支持下载）
 //
 // 示例值：
 func (builder *PostBuilder) ImageKeyList(imageKeyList []string) *PostBuilder {
@@ -638,9 +634,9 @@ func (builder *PostBuilder) ImageKeyList(imageKeyList []string) *PostBuilder {
 	return builder
 }
 
-// 媒体文件的 token
+// 媒体文件的 token（暂未使用）
 //
-// 示例值：""
+// 示例值：该字段暂不支持使用
 func (builder *PostBuilder) MediaFileToken(mediaFileToken string) *PostBuilder {
 	builder.mediaFileToken = mediaFileToken
 	builder.mediaFileTokenSet = true
@@ -656,7 +652,7 @@ func (builder *PostBuilder) CommentCount(commentCount int) *PostBuilder {
 	return builder
 }
 
-// 帖子的reaction及其数量
+// 帖子的 reaction及其数量
 //
 // 示例值：
 func (builder *PostBuilder) ReactionSet(reactionSet *ReactionSet) *PostBuilder {
@@ -667,25 +663,25 @@ func (builder *PostBuilder) ReactionSet(reactionSet *ReactionSet) *PostBuilder {
 
 // 帖子ID
 //
-// 示例值："248381241"
+// 示例值：6934510454161014804
 func (builder *PostBuilder) Id(id string) *PostBuilder {
 	builder.id = id
 	builder.idSet = true
 	return builder
 }
 
-// 帖子创建时间
+// 帖子创建时间，格式 rfc3339，;e.g. "2006-01-02T15:04:05Z07:00"
 //
-// 示例值："2022-05-23T00:00:00+08:00"
+// 示例值：2022-05-23T00:00:00+08:00
 func (builder *PostBuilder) CreateTime(createTime string) *PostBuilder {
 	builder.createTime = createTime
 	builder.createTimeSet = true
 	return builder
 }
 
-// 视频封面图片
+// 视频封面图片（暂未使用）
 //
-// 示例值：""
+// 示例值：该字段暂不支持使用
 func (builder *PostBuilder) MediaCoverImageKey(mediaCoverImageKey string) *PostBuilder {
 	builder.mediaCoverImageKey = mediaCoverImageKey
 	builder.mediaCoverImageKeySet = true
@@ -712,7 +708,7 @@ func (builder *PostBuilder) CategoryIds(categoryIds []string) *PostBuilder {
 
 // 帖子链接
 //
-// 示例值："https://applink.feishu.cn/client/moments/detail?postId=7254"
+// 示例值：https://applink.feishu.cn/client/moments/detail?postId=6934510454161014804
 func (builder *PostBuilder) Link(link string) *PostBuilder {
 	builder.link = link
 	builder.linkSet = true
@@ -811,7 +807,7 @@ func NewPostStatisticsBuilder() *PostStatisticsBuilder {
 
 // 分享次数
 //
-// 示例值：1
+// 示例值：10
 func (builder *PostStatisticsBuilder) ShareCount(shareCount int) *PostStatisticsBuilder {
 	builder.shareCount = shareCount
 	builder.shareCountSet = true
@@ -968,16 +964,16 @@ func (builder *ReactionBuilder) Build() *Reaction {
 }
 
 type ReactionList struct {
-	Type *string `json:"type,omitempty"` // 表情类型
+	Type *string `json:"type,omitempty"` // reaction的类型
 
-	Count *int `json:"count,omitempty"` // 回复该表情的人数
+	Count *int `json:"count,omitempty"` // 该类型 reaction的数量
 }
 
 type ReactionListBuilder struct {
-	type_    string // 表情类型
+	type_    string // reaction的类型
 	type_Set bool
 
-	count    int // 回复该表情的人数
+	count    int // 该类型 reaction的数量
 	countSet bool
 }
 
@@ -986,7 +982,7 @@ func NewReactionListBuilder() *ReactionListBuilder {
 	return builder
 }
 
-// 表情类型
+// reaction的类型
 //
 // 示例值：OK
 func (builder *ReactionListBuilder) Type(type_ string) *ReactionListBuilder {
@@ -995,9 +991,9 @@ func (builder *ReactionListBuilder) Type(type_ string) *ReactionListBuilder {
 	return builder
 }
 
-// 回复该表情的人数
+// 该类型 reaction的数量
 //
-// 示例值：3
+// 示例值：12
 func (builder *ReactionListBuilder) Count(count int) *ReactionListBuilder {
 	builder.count = count
 	builder.countSet = true
@@ -1018,16 +1014,16 @@ func (builder *ReactionListBuilder) Build() *ReactionList {
 }
 
 type ReactionSet struct {
-	Reactions []*ReactionList `json:"reactions,omitempty"` // 表情列表
+	Reactions []*ReactionList `json:"reactions,omitempty"` // reaction列表
 
-	TotalCount *int `json:"total_count,omitempty"` // 全部表情计数
+	TotalCount *int `json:"total_count,omitempty"` // 所有 reaction的数量
 }
 
 type ReactionSetBuilder struct {
-	reactions    []*ReactionList // 表情列表
+	reactions    []*ReactionList // reaction列表
 	reactionsSet bool
 
-	totalCount    int // 全部表情计数
+	totalCount    int // 所有 reaction的数量
 	totalCountSet bool
 }
 
@@ -1036,7 +1032,7 @@ func NewReactionSetBuilder() *ReactionSetBuilder {
 	return builder
 }
 
-// 表情列表
+// reaction列表
 //
 // 示例值：
 func (builder *ReactionSetBuilder) Reactions(reactions []*ReactionList) *ReactionSetBuilder {
@@ -1045,9 +1041,9 @@ func (builder *ReactionSetBuilder) Reactions(reactions []*ReactionList) *Reactio
 	return builder
 }
 
-// 全部表情计数
+// 所有 reaction的数量
 //
-// 示例值：20
+// 示例值：12
 func (builder *ReactionSetBuilder) TotalCount(totalCount int) *ReactionSetBuilder {
 	builder.totalCount = totalCount
 	builder.totalCountSet = true
@@ -1090,8 +1086,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -1099,8 +1093,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -1108,8 +1100,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -1147,7 +1137,7 @@ func NewGetPostReqBuilder() *GetPostReqBuilder {
 	return builder
 }
 
-// post的id
+// 帖子的ID，可从发布帖子接口返回数据或发布帖子事件中获取
 //
 // 示例值：6934510454161014804
 func (builder *GetPostReqBuilder) PostId(postId string) *GetPostReqBuilder {
@@ -1176,7 +1166,7 @@ type GetPostReq struct {
 }
 
 type GetPostRespData struct {
-	Post *Post `json:"post,omitempty"` // 帖子实体
+	Post *Post `json:"post,omitempty"` //
 }
 
 type GetPostResp struct {
@@ -1190,7 +1180,7 @@ func (resp *GetPostResp) Success() bool {
 }
 
 type P2CommentCreatedV1Data struct {
-	UserId *UserId `json:"user_id,omitempty"` // 评论所属用户ID
+	UserId *UserId `json:"user_id,omitempty"` // 用户 ID（仅实名下有值）
 
 	Id *string `json:"id,omitempty"` // 评论 ID
 
@@ -1202,7 +1192,7 @@ type P2CommentCreatedV1Data struct {
 
 	RootCommentId *string `json:"root_comment_id,omitempty"` // 根评论ID
 
-	UserType *int `json:"user_type,omitempty"` // 表情回复人类型
+	UserType *int `json:"user_type,omitempty"` // 评论人类型
 }
 
 type P2CommentCreatedV1 struct {
@@ -1234,7 +1224,7 @@ func (m *P2CommentDeletedV1) RawReq(req *larkevent.EventReq) {
 type P2PostCreatedV1Data struct {
 	Id *string `json:"id,omitempty"` // 帖子ID
 
-	UserId *UserId `json:"user_id,omitempty"` // 发帖用户ID
+	UserId *UserId `json:"user_id,omitempty"` // 用户 ID（仅实名下有值）
 
 	CreateTime *string `json:"create_time,omitempty"` // 帖子创建时间
 
@@ -1256,7 +1246,7 @@ func (m *P2PostCreatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2PostDeletedV1Data struct {
-	Id *string `json:"id,omitempty"` // 帖子ID
+	Id *string `json:"id,omitempty"` // 帖子 ID
 }
 
 type P2PostDeletedV1 struct {
@@ -1272,7 +1262,7 @@ func (m *P2PostDeletedV1) RawReq(req *larkevent.EventReq) {
 type P2PostStatisticsUpdatedV1Data struct {
 	PostId *string `json:"post_id,omitempty"` // 帖子ID
 
-	StatisticsType *int `json:"statistics_type,omitempty"` // 变更统计数据类型
+	StatisticsType *int `json:"statistics_type,omitempty"` // 变更的统计数据类型（对应 statistics 内字段）
 
 	Statistics *PostStatistics `json:"statistics,omitempty"` // 帖子统计数据
 }
@@ -1288,19 +1278,19 @@ func (m *P2PostStatisticsUpdatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ReactionCreatedV1Data struct {
-	Type *string `json:"type,omitempty"` // reaction 类型
+	Type *string `json:"type,omitempty"` // 表情互动类型
 
-	UserId *UserId `json:"user_id,omitempty"` // reaction 所属用户ID
+	UserId *UserId `json:"user_id,omitempty"` // 用户 ID（仅实名下有值）
 
-	EntityId *string `json:"entity_id,omitempty"` // reaction 所属实体ID
+	EntityId *string `json:"entity_id,omitempty"` // 表情互动所属实体ID
 
-	Id *string `json:"id,omitempty"` // Reaction的ID
+	Id *string `json:"id,omitempty"` // 表情互动的ID
 
 	EntityType *int `json:"entity_type,omitempty"` // 表情回复所属实体类型
 
 	UserType *int `json:"user_type,omitempty"` // 表情回复人类型
 
-	CreateTime *string `json:"create_time,omitempty"` // reaction创建时间
+	CreateTime *string `json:"create_time,omitempty"` // 表情互动创建时间
 }
 
 type P2ReactionCreatedV1 struct {
@@ -1316,7 +1306,7 @@ func (m *P2ReactionCreatedV1) RawReq(req *larkevent.EventReq) {
 type P2ReactionDeletedV1Data struct {
 	Type *string `json:"type,omitempty"` // reaction 类型
 
-	UserId *UserId `json:"user_id,omitempty"` // reaction 所属用户ID
+	UserId *UserId `json:"user_id,omitempty"` // 用户 ID（仅实名下有值）
 
 	EntityId *string `json:"entity_id,omitempty"` // reaction 所属实体ID
 

@@ -18,9 +18,9 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/auth/v4"
 )
 
+// 撤销用户授权事件
 //
-//
-// -
+// - 当用户 user_access_token 或 refresh_token 被撤销后，会触发此事件。
 //
 // - 事件描述文档链接:
 func (dispatcher *EventDispatcher) OnP2UserAccessTokenRevokedV4(handler func(ctx context.Context, event *larkauth.P2UserAccessTokenRevokedV4) error) *EventDispatcher {

@@ -9,18 +9,18 @@ import (
 )
 
 type V6 struct {
-	AppBadge                 *appBadge                 // 应用红点
-	AppRecommendRule         *appRecommendRule         // 我的常用推荐规则
-	Application              *application              // 应用
-	ApplicationAppUsage      *applicationAppUsage      // 应用使用情况
-	ApplicationAppVersion    *applicationAppVersion    // 事件
+	AppBadge                 *appBadge                 // app_badge
+	AppRecommendRule         *appRecommendRule         // app_recommend_rule
+	Application              *application              // application
+	ApplicationAppUsage      *applicationAppUsage      // application.app_usage
+	ApplicationAppVersion    *applicationAppVersion    // application.app_version
 	ApplicationCollaborators *applicationCollaborators // application.collaborators
 	ApplicationContactsRange *applicationContactsRange // application.contacts_range
-	ApplicationFeedback      *applicationFeedback      // 应用反馈
+	ApplicationFeedback      *applicationFeedback      // application.feedback
 	ApplicationManagement    *applicationManagement    // application.management
 	ApplicationOwner         *applicationOwner         // application.owner
-	ApplicationVisibility    *applicationVisibility    // 事件
-	Bot                      *bot                      // 事件
+	ApplicationVisibility    *applicationVisibility    // application.visibility
+	Bot                      *bot                      // bot
 	Scope                    *scope                    // scope
 }
 
@@ -86,7 +86,7 @@ type scope struct {
 //
 // - 更新应用红点信息，用于工作台场景
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/app_badge/set
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=set&project=application&resource=app_badge&version=v6
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/set_appBadge.go
 func (a *appBadge) Set(ctx context.Context, req *SetAppBadgeReq, options ...larkcore.RequestOptionFunc) (*SetAppBadgeResp, error) {
@@ -112,7 +112,7 @@ func (a *appBadge) Set(ctx context.Context, req *SetAppBadgeReq, options ...lark
 //
 // - 获取当前设置的推荐规则列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/app_recommend_rule/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=application&resource=app_recommend_rule&version=v6
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/list_appRecommendRule.go
 func (a *appRecommendRule) List(ctx context.Context, req *ListAppRecommendRuleReq, options ...larkcore.RequestOptionFunc) (*ListAppRecommendRuleResp, error) {
@@ -142,9 +142,9 @@ func (a *appRecommendRule) ListByIterator(ctx context.Context, req *ListAppRecom
 		limit:    req.Limit}, nil
 }
 
-// ContactsRangeConfiguration
+// ContactsRangeConfiguration 获取应用通讯录权限范围配置
 //
-// -
+// - 获取当前企业内某个自建应用线上实际生效的通讯录权限范围配置。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=contacts_range_configuration&project=application&resource=application&version=v6
 //
@@ -172,7 +172,9 @@ func (a *application) ContactsRangeConfiguration(ctx context.Context, req *Conta
 //
 // - 根据app_id获取应用的基础信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get
+// - 商店应用必须正式发布版本后，才可以调用该接口获取应用信息。如果灰度发布应用，调用该接口将会报错 210504 错误码。
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=application&resource=application&version=v6
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/get_application.go
 func (a *application) Get(ctx context.Context, req *GetApplicationReq, options ...larkcore.RequestOptionFunc) (*GetApplicationResp, error) {
@@ -198,7 +200,7 @@ func (a *application) Get(ctx context.Context, req *GetApplicationReq, options .
 //
 // - 该接口用于查询企业安装的应用列表，只能被企业自建应用调用。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=application&resource=application&version=v6
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/list_application.go
 func (a *application) List(ctx context.Context, req *ListApplicationReq, options ...larkcore.RequestOptionFunc) (*ListApplicationResp, error) {
@@ -232,7 +234,7 @@ func (a *application) ListByIterator(ctx context.Context, req *ListApplicationRe
 //
 // - 更新应用的分组信息（分组会影响应用在工作台中的分类情况，请谨慎更新）
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=application&resource=application&version=v6
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/patch_application.go
 func (a *application) Patch(ctx context.Context, req *PatchApplicationReq, options ...larkcore.RequestOptionFunc) (*PatchApplicationResp, error) {
@@ -258,7 +260,7 @@ func (a *application) Patch(ctx context.Context, req *PatchApplicationReq, optio
 //
 // - 查看本企业下所有待审核的自建应用列表
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/underauditlist
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=underauditlist&project=application&resource=application&version=v6
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/underauditlist_application.go
 func (a *application) Underauditlist(ctx context.Context, req *UnderauditlistApplicationReq, options ...larkcore.RequestOptionFunc) (*UnderauditlistApplicationResp, error) {
@@ -288,13 +290,13 @@ func (a *application) UnderauditlistByIterator(ctx context.Context, req *Underau
 		limit:    req.Limit}, nil
 }
 
-// DepartmentOverview 获取多部门应用使用概览（灰度租户可见）
+// DepartmentOverview 获取多部门应用使用概览
 //
 // - 查看应用在某一天/某一周/某一个月的使用数据，可以根据部门做多层子部门的筛选
 //
 // - 1. 仅支持企业版/旗舰版租户使用;2. 一般每天早上10点产出前一天的数据;3. 已经支持的指标包括：应用的活跃用户数、累计用户数、新增用户数、访问页面数、打开次数;4. 按照部门查看数据时，可以分别展示当前部门以及其子部门的使用情况;5. 如果查询的部门在查询日期没有使用过应用，只返回指标：应用的活跃用户数指标;6. 数据从飞书4.10版本开始统计，使用飞书版本4.10及以下版本的用户数据不会被统计到;7. 调用频控为100次/分
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_usage/department_overview
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=department_overview&project=application&resource=application.app_usage&version=v6
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/departmentOverview_applicationAppUsage.go
 func (a *applicationAppUsage) DepartmentOverview(ctx context.Context, req *DepartmentOverviewApplicationAppUsageReq, options ...larkcore.RequestOptionFunc) (*DepartmentOverviewApplicationAppUsageResp, error) {
@@ -316,13 +318,13 @@ func (a *applicationAppUsage) DepartmentOverview(ctx context.Context, req *Depar
 	return resp, err
 }
 
-// MessagePushOverview 获取消息推送概览（灰度租户可见）
+// MessagePushOverview 获取消息推送概览
 //
 // - 目标：查看应用在某一天/某一周/某一个月的机器人消息推送数据，可以根据部门做筛选
 //
 // - 1. 仅支持企业版/旗舰版租户使用;2. 一般每天早上10点产出两天前的数据。;3. 已经支持的指标包括：消息推送给用户的次数、消息触达的人数、消息1小时阅读量、消息12小时阅读量;4. 按照部门查看数据时，会展示当前部门以及其子部门的整体使用情况;5. 调用频控为100次/分
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_usage/message_push_overview
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=message_push_overview&project=application&resource=application.app_usage&version=v6
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/messagePushOverview_applicationAppUsage.go
 func (a *applicationAppUsage) MessagePushOverview(ctx context.Context, req *MessagePushOverviewApplicationAppUsageReq, options ...larkcore.RequestOptionFunc) (*MessagePushOverviewApplicationAppUsageResp, error) {
@@ -350,7 +352,7 @@ func (a *applicationAppUsage) MessagePushOverview(ctx context.Context, req *Mess
 //
 // - 1. 仅支持企业版/旗舰版租户使用;2. 一般每天早上10点产出前一天的数据;3. 已经支持的指标包括：应用的活跃用户数、累计用户数、新增用户数、访问页面数、打开次数;4. 数据从飞书4.10版本开始统计，使用飞书版本4.10及以下版本的用户数据不会被统计到;5. 按照部门查看数据时，会展示当前部门以及其子部门的整体使用情况;6. 调用频控为100次/分
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_usage/overview
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=overview&project=application&resource=application.app_usage&version=v6
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/overview_applicationAppUsage.go
 func (a *applicationAppUsage) Overview(ctx context.Context, req *OverviewApplicationAppUsageReq, options ...larkcore.RequestOptionFunc) (*OverviewApplicationAppUsageResp, error) {
@@ -372,9 +374,11 @@ func (a *applicationAppUsage) Overview(ctx context.Context, req *OverviewApplica
 	return resp, err
 }
 
-// ContactsRangeSuggest
+// ContactsRangeSuggest 获取应用版本中开发者申请的通讯录权限范围
 //
-// - 获取应用版本通讯录权限范围建议
+// - 该接口用于根据应用的 App ID 和版本 ID 获取企业自建应用某个版本的通讯录权限范围。
+//
+// - 由于通讯录权限范围需要提交发布新的应用版本，并且企业管理员审核通过后才会生效，因此该权限范围可能与实际生效的权限范围有差别，如需获取线上实际生效的通讯录权限范围，可通过[获取应用通讯录权限范围配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/contacts_range_configuration) 获取。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=contacts_range_suggest&project=application&resource=application.app_version&version=v6
 //
@@ -402,7 +406,7 @@ func (a *applicationAppVersion) ContactsRangeSuggest(ctx context.Context, req *C
 //
 // - 根据应用 ID 和应用版本 ID 来获取同租户下的应用版本的信息
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=application&resource=application.app_version&version=v6
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/get_applicationAppVersion.go
 func (a *applicationAppVersion) Get(ctx context.Context, req *GetApplicationAppVersionReq, options ...larkcore.RequestOptionFunc) (*GetApplicationAppVersionResp, error) {
@@ -428,7 +432,7 @@ func (a *applicationAppVersion) Get(ctx context.Context, req *GetApplicationAppV
 //
 // - 根据 app_id 获取对应应用版本列表。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=application&resource=application.app_version&version=v6
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/list_applicationAppVersion.go
 func (a *applicationAppVersion) List(ctx context.Context, req *ListApplicationAppVersionReq, options ...larkcore.RequestOptionFunc) (*ListApplicationAppVersionResp, error) {
@@ -462,7 +466,7 @@ func (a *applicationAppVersion) ListByIterator(ctx context.Context, req *ListApp
 //
 // - 通过接口来更新应用版本的审核结果：通过后应用可以直接上架；拒绝后则开发者可以看到拒绝理由，并在修改后再次申请发布。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=application&resource=application.app_version&version=v6
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/patch_applicationAppVersion.go
 func (a *applicationAppVersion) Patch(ctx context.Context, req *PatchApplicationAppVersionReq, options ...larkcore.RequestOptionFunc) (*PatchApplicationAppVersionResp, error) {
@@ -484,9 +488,9 @@ func (a *applicationAppVersion) Patch(ctx context.Context, req *PatchApplication
 	return resp, err
 }
 
-// Get
+// Get 获取应用协作者列表
 //
-// -
+// - 根据 app_id 获取应用（包括自建应用和商店应用）的协作者信息，包括应用的所有者、管理员、开发者、运营人员
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=application&resource=application.collaborators&version=v6
 //
@@ -510,9 +514,11 @@ func (a *applicationCollaborators) Get(ctx context.Context, req *GetApplicationC
 	return resp, err
 }
 
-// Update
+// Update 更新应用协作者
 //
-// -
+// - 某个应用（包括自建应用和商店应用）中添加/移除应用协作者，添加后协作者将会收到添加通知。
+//
+// - 若用 user_access_token 代表某个终端用户操作API，则需确保该用户为应用的所有者或管理员，否则无法操作成功。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=application&resource=application.collaborators&version=v6
 //
@@ -536,9 +542,9 @@ func (a *applicationCollaborators) Update(ctx context.Context, req *UpdateApplic
 	return resp, err
 }
 
-// Patch
+// Patch 更新应用通讯录权限范围配置
 //
-// -
+// - 该接口用于更新当前企业内自建应用或已安装的商店应用的通讯录权限范围配置。更新后线上立即生效。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=application&resource=application.contacts_range&version=v6
 //
@@ -566,7 +572,7 @@ func (a *applicationContactsRange) Patch(ctx context.Context, req *PatchApplicat
 //
 // - 查询应用的反馈数据
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=application&resource=application.feedback&version=v6
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/list_applicationFeedback.go
 func (a *applicationFeedback) List(ctx context.Context, req *ListApplicationFeedbackReq, options ...larkcore.RequestOptionFunc) (*ListApplicationFeedbackResp, error) {
@@ -592,7 +598,7 @@ func (a *applicationFeedback) List(ctx context.Context, req *ListApplicationFeed
 //
 // - 更新应用的反馈数据
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=application&resource=application.feedback&version=v6
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/applicationv6/patch_applicationFeedback.go
 func (a *applicationFeedback) Patch(ctx context.Context, req *PatchApplicationFeedbackReq, options ...larkcore.RequestOptionFunc) (*PatchApplicationFeedbackResp, error) {
@@ -614,9 +620,9 @@ func (a *applicationFeedback) Patch(ctx context.Context, req *PatchApplicationFe
 	return resp, err
 }
 
-// Update
+// Update 启停用应用
 //
-// -
+// - 可停用或启用企业内已安装的自建应用与商店应用。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=application&resource=application.management&version=v6
 //
@@ -640,9 +646,11 @@ func (a *applicationManagement) Update(ctx context.Context, req *UpdateApplicati
 	return resp, err
 }
 
-// Update
+// Update 转移应用所有者
 //
-// -
+// - 将某个自建应用的所有者转移给另外一个人。
+//
+// - 若用 user_access_token 代表某个终端用户操作API，则需确保该用户为应用当前的所有者，否则无法操作成功。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=application&resource=application.owner&version=v6
 //
@@ -666,9 +674,9 @@ func (a *applicationOwner) Update(ctx context.Context, req *UpdateApplicationOwn
 	return resp, err
 }
 
-// CheckWhiteBlackList
+// CheckWhiteBlackList 查询用户或部门是否在应用的可用或禁用名单
 //
-// -
+// - 该接口用于查询用户、部门、用户组是否在应用的可用或禁用名单中
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=check_white_black_list&project=application&resource=application.visibility&version=v6
 //
@@ -692,9 +700,9 @@ func (a *applicationVisibility) CheckWhiteBlackList(ctx context.Context, req *Ch
 	return resp, err
 }
 
-// Patch
+// Patch 更新应用可用范围
 //
-// -
+// - 调用该接口更新指定应用的可用范围，支持更新当前企业内自建应用的可用范围，或者已安装的商店应用的可用范围，包括可用人员与禁用人员。更新可用范围后对线上立即生效。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=application&resource=application.visibility&version=v6
 //
@@ -718,9 +726,11 @@ func (a *applicationVisibility) Patch(ctx context.Context, req *PatchApplication
 	return resp, err
 }
 
-// Apply
+// Apply 向管理员申请授权
 //
-// -
+// - 调用该接口以应用身份向租户管理员申请应用内需要审核的 API 权限。
+//
+// - **注意**：同一租户下，其他员工在一个应用的同一个版本向管理员申请授权的次数不能超过 10 次。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=apply&project=application&resource=scope&version=v6
 //
@@ -747,9 +757,9 @@ func (s *scope) Apply(ctx context.Context, options ...larkcore.RequestOptionFunc
 	return resp, err
 }
 
-// List
+// List 查询租户授权状态
 //
-// -
+// - 调用该接口查询当前应用向租户申请授权的状态。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=application&resource=scope&version=v6
 //

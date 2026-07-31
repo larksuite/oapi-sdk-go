@@ -142,6 +142,107 @@ func (builder *AclBuilder) Build() *Acl {
 	return req
 }
 
+type Annotation struct {
+	Type *int `json:"type,omitempty"` // 标注类型，用于指定当前标注的具体形态。;;可选值：;- `1`（QaImage）：内联图片，直接嵌入图片内容的标注;- `2`（QaRef）：引用链接，关联外部资源的标注;- `3`（QaBoard）：内联画板，包含可视化图表的标注
+
+	Key *string `json:"key,omitempty"` // 标注的唯一标识键，用于在同一上下文内区分不同标注，支持自定义业务标识
+
+	Image *QaImageProperty `json:"image,omitempty"` // 内联图片标注的详细属性，仅当 `type=QaImage` 时生效，包含图片元数据、访问链接等信息
+
+	Ref *QaRefProperty `json:"ref,omitempty"` // 引用链接标注的详细属性，仅当 `type=QaRef` 时生效，支持企业内部知识和外部网络资源两种引用类型
+
+	Board *QaBoardProperty `json:"board,omitempty"` // 内联画板标注的详细属性，仅当 `type=QaBoard` 时生效，包含画板类型、状态、渲染代码等可视化相关信息
+}
+
+type AnnotationBuilder struct {
+	type_    int // 标注类型，用于指定当前标注的具体形态。;;可选值：;- `1`（QaImage）：内联图片，直接嵌入图片内容的标注;- `2`（QaRef）：引用链接，关联外部资源的标注;- `3`（QaBoard）：内联画板，包含可视化图表的标注
+	type_Set bool
+
+	key    string // 标注的唯一标识键，用于在同一上下文内区分不同标注，支持自定义业务标识
+	keySet bool
+
+	image    *QaImageProperty // 内联图片标注的详细属性，仅当 `type=QaImage` 时生效，包含图片元数据、访问链接等信息
+	imageSet bool
+
+	ref    *QaRefProperty // 引用链接标注的详细属性，仅当 `type=QaRef` 时生效，支持企业内部知识和外部网络资源两种引用类型
+	refSet bool
+
+	board    *QaBoardProperty // 内联画板标注的详细属性，仅当 `type=QaBoard` 时生效，包含画板类型、状态、渲染代码等可视化相关信息
+	boardSet bool
+}
+
+func NewAnnotationBuilder() *AnnotationBuilder {
+	builder := &AnnotationBuilder{}
+	return builder
+}
+
+// 标注类型，用于指定当前标注的具体形态。;;可选值：;- `1`（QaImage）：内联图片，直接嵌入图片内容的标注;- `2`（QaRef）：引用链接，关联外部资源的标注;- `3`（QaBoard）：内联画板，包含可视化图表的标注
+//
+// 示例值：
+func (builder *AnnotationBuilder) Type(type_ int) *AnnotationBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 标注的唯一标识键，用于在同一上下文内区分不同标注，支持自定义业务标识
+//
+// 示例值：product_spec_img_001
+func (builder *AnnotationBuilder) Key(key string) *AnnotationBuilder {
+	builder.key = key
+	builder.keySet = true
+	return builder
+}
+
+// 内联图片标注的详细属性，仅当 `type=QaImage` 时生效，包含图片元数据、访问链接等信息
+//
+// 示例值：
+func (builder *AnnotationBuilder) Image(image *QaImageProperty) *AnnotationBuilder {
+	builder.image = image
+	builder.imageSet = true
+	return builder
+}
+
+// 引用链接标注的详细属性，仅当 `type=QaRef` 时生效，支持企业内部知识和外部网络资源两种引用类型
+//
+// 示例值：
+func (builder *AnnotationBuilder) Ref(ref *QaRefProperty) *AnnotationBuilder {
+	builder.ref = ref
+	builder.refSet = true
+	return builder
+}
+
+// 内联画板标注的详细属性，仅当 `type=QaBoard` 时生效，包含画板类型、状态、渲染代码等可视化相关信息
+//
+// 示例值：
+func (builder *AnnotationBuilder) Board(board *QaBoardProperty) *AnnotationBuilder {
+	builder.board = board
+	builder.boardSet = true
+	return builder
+}
+
+func (builder *AnnotationBuilder) Build() *Annotation {
+	req := &Annotation{}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.keySet {
+		req.Key = &builder.key
+
+	}
+	if builder.imageSet {
+		req.Image = builder.image
+	}
+	if builder.refSet {
+		req.Ref = builder.ref
+	}
+	if builder.boardSet {
+		req.Board = builder.board
+	}
+	return req
+}
+
 type BatchItemResult struct {
 	ItemId *string `json:"item_id,omitempty"` // 数据项ID，对应一条索引数据的ID
 
@@ -449,7 +550,7 @@ func (builder *CardCallbackRequestBuilder) Build() *CardCallbackRequest {
 }
 
 type ChatFilter struct {
-	SearchType *string `json:"search_type,omitempty"` //	   DEFAULT = 0;	   PRIVATE = 1;		   // 私有群	   CROSS_TENANT = 2;	  // 外部群	   PUBLIC_JOINED = 3;	 // 已加入的公开群	   PUBLIC_NOT_JOINED = 4; // 未加入的公开群
+	SearchType *string `json:"search_type,omitempty"` // DEFAULT = 0; PRIVATE = 1; // 私有群 CROSS_TENANT = 2; // 外部群 PUBLIC_JOINED = 3; // 已加入的公开群 PUBLIC_NOT_JOINED = 4; // 未加入的公开群
 
 	MemberIds []string `json:"member_ids,omitempty"` // 群成员ID
 
@@ -459,7 +560,7 @@ type ChatFilter struct {
 }
 
 type ChatFilterBuilder struct {
-	searchType    string //	   DEFAULT = 0;	   PRIVATE = 1;		   // 私有群	   CROSS_TENANT = 2;	  // 外部群	   PUBLIC_JOINED = 3;	 // 已加入的公开群	   PUBLIC_NOT_JOINED = 4; // 未加入的公开群
+	searchType    string // DEFAULT = 0; PRIVATE = 1; // 私有群 CROSS_TENANT = 2; // 外部群 PUBLIC_JOINED = 3; // 已加入的公开群 PUBLIC_NOT_JOINED = 4; // 未加入的公开群
 	searchTypeSet bool
 
 	memberIds    []string // 群成员ID
@@ -477,7 +578,7 @@ func NewChatFilterBuilder() *ChatFilterBuilder {
 	return builder
 }
 
-//	   DEFAULT = 0;	   PRIVATE = 1;		   // 私有群	   CROSS_TENANT = 2;	  // 外部群	   PUBLIC_JOINED = 3;	 // 已加入的公开群	   PUBLIC_NOT_JOINED = 4; // 未加入的公开群
+// DEFAULT = 0; PRIVATE = 1; // 私有群 CROSS_TENANT = 2; // 外部群 PUBLIC_JOINED = 3; // 已加入的公开群 PUBLIC_NOT_JOINED = 4; // 未加入的公开群
 //
 // 示例值：1
 func (builder *ChatFilterBuilder) SearchType(searchType string) *ChatFilterBuilder {
@@ -601,7 +702,7 @@ func (builder *ChatItemBuilder) Build() *ChatItem {
 }
 
 type ChatMeta struct {
-	ChatId *string `json:"chat_id,omitempty"` // 	 群组 ID
+	ChatId *string `json:"chat_id,omitempty"` // 群组 ID
 
 	CreateTime *string `json:"create_time,omitempty"` // 创建时间(iso8601)
 
@@ -617,7 +718,7 @@ type ChatMeta struct {
 }
 
 type ChatMetaBuilder struct {
-	chatId    string // 	 群组 ID
+	chatId    string // 群组 ID
 	chatIdSet bool
 
 	createTime    string // 创建时间(iso8601)
@@ -644,7 +745,7 @@ func NewChatMetaBuilder() *ChatMetaBuilder {
 	return builder
 }
 
-// 	 群组 ID
+// 群组 ID
 //
 // 示例值：ou-7890123456abcdef
 func (builder *ChatMetaBuilder) ChatId(chatId string) *ChatMetaBuilder {
@@ -823,7 +924,7 @@ func (builder *ChunkBuilder) DatasetId(datasetId string) *ChunkBuilder {
 
 // 更新时间，精确到秒级
 //
-// 示例值：1990-12-31T23:59:60Z
+// 示例值：1991-01-01T00:00:00.000Z
 func (builder *ChunkBuilder) UpdateTime(updateTime string) *ChunkBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeSet = true
@@ -1242,7 +1343,7 @@ type DataSource struct {
 
 	IsExceedQuota *bool `json:"is_exceed_quota,omitempty"` // 是否超限
 
-	IconUrl *string `json:"icon_url,omitempty"` // 数据源在 search tab 上的展示图标路径
+	IconUrl *string `json:"icon_url,omitempty"` // 数据源在 search tab 上的展示图标路径，建议使用png或jpeg格式，否则可能无法在客户端正常展示
 
 	Template *string `json:"template,omitempty"` // 数据源采用的展示模版名称
 
@@ -1250,7 +1351,7 @@ type DataSource struct {
 
 	I18nName *I18nMeta `json:"i18n_name,omitempty"` // 数据源的国际化展示名称
 
-	I18nDescription *I18nMeta `json:"i18n_description,omitempty"` // 数据源的国际化描述
+	I18nDescription *I18nMeta `json:"i18n_description,omitempty"` // 数据源的国际化展示名称
 
 	SchemaId *string `json:"schema_id,omitempty"` // 数据源关联的 schema 标识
 
@@ -1285,7 +1386,7 @@ type DataSourceBuilder struct {
 	isExceedQuota    bool // 是否超限
 	isExceedQuotaSet bool
 
-	iconUrl    string // 数据源在 search tab 上的展示图标路径
+	iconUrl    string // 数据源在 search tab 上的展示图标路径，建议使用png或jpeg格式，否则可能无法在客户端正常展示
 	iconUrlSet bool
 
 	template    string // 数据源采用的展示模版名称
@@ -1297,7 +1398,7 @@ type DataSourceBuilder struct {
 	i18nName    *I18nMeta // 数据源的国际化展示名称
 	i18nNameSet bool
 
-	i18nDescription    *I18nMeta // 数据源的国际化描述
+	i18nDescription    *I18nMeta // 数据源的国际化展示名称
 	i18nDescriptionSet bool
 
 	schemaId    string // 数据源关联的 schema 标识
@@ -1323,7 +1424,7 @@ func NewDataSourceBuilder() *DataSourceBuilder {
 
 // 数据源的唯一标识
 //
-// 示例值：5577006791947779410
+// 示例值：6953903108179099667
 func (builder *DataSourceBuilder) Id(id string) *DataSourceBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -1359,7 +1460,7 @@ func (builder *DataSourceBuilder) Description(description string) *DataSourceBui
 
 // 创建时间，使用Unix时间戳，单位为“秒”
 //
-// 示例值：1674309260
+// 示例值：1618829192
 func (builder *DataSourceBuilder) CreateTime(createTime string) *DataSourceBuilder {
 	builder.createTime = createTime
 	builder.createTimeSet = true
@@ -1368,7 +1469,7 @@ func (builder *DataSourceBuilder) CreateTime(createTime string) *DataSourceBuild
 
 // 更新时间，使用Unix时间戳，单位为“秒”
 //
-// 示例值：1674309260
+// 示例值：1618829192
 func (builder *DataSourceBuilder) UpdateTime(updateTime string) *DataSourceBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeSet = true
@@ -1377,14 +1478,14 @@ func (builder *DataSourceBuilder) UpdateTime(updateTime string) *DataSourceBuild
 
 // 是否超限
 //
-// 示例值：false
+// 示例值：true
 func (builder *DataSourceBuilder) IsExceedQuota(isExceedQuota bool) *DataSourceBuilder {
 	builder.isExceedQuota = isExceedQuota
 	builder.isExceedQuotaSet = true
 	return builder
 }
 
-// 数据源在 search tab 上的展示图标路径
+// 数据源在 search tab 上的展示图标路径，建议使用png或jpeg格式，否则可能无法在客户端正常展示
 //
 // 示例值：https://www.xxx.com/open.jpg
 func (builder *DataSourceBuilder) IconUrl(iconUrl string) *DataSourceBuilder {
@@ -1404,7 +1505,7 @@ func (builder *DataSourceBuilder) Template(template string) *DataSourceBuilder {
 
 // 【已废弃，如有定制需要请使用“数据范式”接口】描述哪些字段可以被搜索
 //
-// 示例值：【已废弃，如有定制需要请使用“数据范式”接口】["field1", "field2"]
+// 示例值：["field1", "field2"]
 func (builder *DataSourceBuilder) SearchableFields(searchableFields []string) *DataSourceBuilder {
 	builder.searchableFields = searchableFields
 	builder.searchableFieldsSet = true
@@ -1420,7 +1521,7 @@ func (builder *DataSourceBuilder) I18nName(i18nName *I18nMeta) *DataSourceBuilde
 	return builder
 }
 
-// 数据源的国际化描述
+// 数据源的国际化展示名称
 //
 // 示例值：
 func (builder *DataSourceBuilder) I18nDescription(i18nDescription *I18nMeta) *DataSourceBuilder {
@@ -1440,7 +1541,7 @@ func (builder *DataSourceBuilder) SchemaId(schemaId string) *DataSourceBuilder {
 
 // datasource对应的开放平台应用id
 //
-// 示例值：cli_a1306bed4738d01b
+// 示例值：cli_***
 func (builder *DataSourceBuilder) AppId(appId string) *DataSourceBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
@@ -1618,7 +1719,7 @@ func (builder *DatasetBuilder) DatasetId(datasetId string) *DatasetBuilder {
 
 // 该数据集对应的开放平台应用id
 //
-// 示例值：cli_a1306bed4738d01b
+// 示例值：cli_***
 func (builder *DatasetBuilder) AppId(appId string) *DatasetBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
@@ -1627,7 +1728,7 @@ func (builder *DatasetBuilder) AppId(appId string) *DatasetBuilder {
 
 // 创建时间，精确到秒级
 //
-// 示例值：1990-12-31T23:59:60Z
+// 示例值：1991-01-01T00:00:00.000Z
 func (builder *DatasetBuilder) CreateTime(createTime string) *DatasetBuilder {
 	builder.createTime = createTime
 	builder.createTimeSet = true
@@ -1636,7 +1737,7 @@ func (builder *DatasetBuilder) CreateTime(createTime string) *DatasetBuilder {
 
 // 更新时间
 //
-// 示例值：1990-12-31T23:59:60Z
+// 示例值：1991-01-01T00:00:00.000Z
 func (builder *DatasetBuilder) UpdateTime(updateTime string) *DatasetBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeSet = true
@@ -1771,8 +1872,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1780,8 +1879,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -1994,7 +2091,7 @@ type DocFilter struct {
 
 	DocTypes []string `json:"doc_types,omitempty"` // 文档类型
 
-	FolderTokens []string `json:"folder_tokens,omitempty"` // 搜索文件夹内的文档（文件夹token列表）
+	FolderTokens []string `json:"folder_tokens,omitempty"` // 搜索文件夹内的文档（文件夹token列表）;注：如果存在该字段则wiki筛选器失效
 
 	OnlyTitle *bool `json:"only_title,omitempty"` // 仅搜文档标题
 
@@ -2024,7 +2121,7 @@ type DocFilterBuilder struct {
 	docTypes    []string // 文档类型
 	docTypesSet bool
 
-	folderTokens    []string // 搜索文件夹内的文档（文件夹token列表）
+	folderTokens    []string // 搜索文件夹内的文档（文件夹token列表）;注：如果存在该字段则wiki筛选器失效
 	folderTokensSet bool
 
 	onlyTitle    bool // 仅搜文档标题
@@ -2081,7 +2178,7 @@ func (builder *DocFilterBuilder) DocTypes(docTypes []string) *DocFilterBuilder {
 	return builder
 }
 
-// 搜索文件夹内的文档（文件夹token列表）
+// 搜索文件夹内的文档（文件夹token列表）;注：如果存在该字段则wiki筛选器失效
 //
 // 示例值：
 func (builder *DocFilterBuilder) FolderTokens(folderTokens []string) *DocFilterBuilder {
@@ -2110,7 +2207,7 @@ func (builder *DocFilterBuilder) OpenTime(openTime *TimeRange) *DocFilterBuilder
 
 // 排序方式
 //
-// 示例值：CREATE_TIME_ASC
+// 示例值：CREATE_TIME
 func (builder *DocFilterBuilder) SortType(sortType string) *DocFilterBuilder {
 	builder.sortType = sortType
 	builder.sortTypeSet = true
@@ -2411,7 +2508,7 @@ func (builder *DocMetaBuilder) FileType(fileType string) *DocMetaBuilder {
 
 // 文档icon
 //
-// 示例值：{"type":0,"key":"","obj_type":22,"file_type":null,"token":"FM78ddvYPo11I1xN7gjcSo1Ynuh","version":10191}
+// 示例值：{\"type\":0,\"key\":\"\",\"obj_type\":22,\"file_type\":null,\"token\":\"FM78ddvYPo11I1xN7gjcSo1Ynuh\",\"version\":10191}
 func (builder *DocMetaBuilder) IconInfo(iconInfo string) *DocMetaBuilder {
 	builder.iconInfo = iconInfo
 	builder.iconInfoSet = true
@@ -2670,9 +2767,9 @@ type DocRequest struct {
 
 	PaginationToken *string `json:"pagination_token,omitempty"` // 翻页标记（需保存上次response中的内容）
 
-	DocsFilter *DocFilter `json:"docs_filter,omitempty"` // 文档过滤参数
+	DocsFilter *DocFilter `json:"docs_filter,omitempty"` // 文档过滤参数（doc_filter与wiki_filter至少传一个）
 
-	WikiFilter *WikiFilter `json:"wiki_filter,omitempty"` // Wiki过滤参数
+	WikiFilter *WikiFilter `json:"wiki_filter,omitempty"` // Wiki过滤参数（doc_filter与wiki_filter至少传一个）
 }
 
 type DocRequestBuilder struct {
@@ -2685,10 +2782,10 @@ type DocRequestBuilder struct {
 	paginationToken    string // 翻页标记（需保存上次response中的内容）
 	paginationTokenSet bool
 
-	docsFilter    *DocFilter // 文档过滤参数
+	docsFilter    *DocFilter // 文档过滤参数（doc_filter与wiki_filter至少传一个）
 	docsFilterSet bool
 
-	wikiFilter    *WikiFilter // Wiki过滤参数
+	wikiFilter    *WikiFilter // Wiki过滤参数（doc_filter与wiki_filter至少传一个）
 	wikiFilterSet bool
 }
 
@@ -2724,7 +2821,7 @@ func (builder *DocRequestBuilder) PaginationToken(paginationToken string) *DocRe
 	return builder
 }
 
-// 文档过滤参数
+// 文档过滤参数（doc_filter与wiki_filter至少传一个）
 //
 // 示例值：{"types": [1], "folder_tokens": ["fld_123456"]}
 func (builder *DocRequestBuilder) DocsFilter(docsFilter *DocFilter) *DocRequestBuilder {
@@ -2733,7 +2830,7 @@ func (builder *DocRequestBuilder) DocsFilter(docsFilter *DocFilter) *DocRequestB
 	return builder
 }
 
-// Wiki过滤参数
+// Wiki过滤参数（doc_filter与wiki_filter至少传一个）
 //
 // 示例值：{"space_ids": ["space_789012"], "is_public": false}
 func (builder *DocRequestBuilder) WikiFilter(wikiFilter *WikiFilter) *DocRequestBuilder {
@@ -2985,6 +3082,38 @@ func (builder *DocWikiTokenFilterBuilder) Build() *DocWikiTokenFilter {
 	return req
 }
 
+type EnterpriseKnowledgeSourceApprovalParam struct {
+	Searchable *bool `json:"searchable,omitempty"` // 控制该知识源内容是否可被全局搜索检索。设为true时，知识源内的文档将纳入搜索范围；设为false时，知识源内容将被排除在搜索结果之外。
+}
+
+type EnterpriseKnowledgeSourceApprovalParamBuilder struct {
+	searchable    bool // 控制该知识源内容是否可被全局搜索检索。设为true时，知识源内的文档将纳入搜索范围；设为false时，知识源内容将被排除在搜索结果之外。
+	searchableSet bool
+}
+
+func NewEnterpriseKnowledgeSourceApprovalParamBuilder() *EnterpriseKnowledgeSourceApprovalParamBuilder {
+	builder := &EnterpriseKnowledgeSourceApprovalParamBuilder{}
+	return builder
+}
+
+// 控制该知识源内容是否可被全局搜索检索。设为true时，知识源内的文档将纳入搜索范围；设为false时，知识源内容将被排除在搜索结果之外。
+//
+// 示例值：true
+func (builder *EnterpriseKnowledgeSourceApprovalParamBuilder) Searchable(searchable bool) *EnterpriseKnowledgeSourceApprovalParamBuilder {
+	builder.searchable = searchable
+	builder.searchableSet = true
+	return builder
+}
+
+func (builder *EnterpriseKnowledgeSourceApprovalParamBuilder) Build() *EnterpriseKnowledgeSourceApprovalParam {
+	req := &EnterpriseKnowledgeSourceApprovalParam{}
+	if builder.searchableSet {
+		req.Searchable = &builder.searchable
+
+	}
+	return req
+}
+
 type EnterpriseKnowledgeSourceCommentParam struct {
 	WikiSearchable *bool `json:"wiki_searchable,omitempty"` // 是否搜索知识库文档的评论。默认为 `false`。
 
@@ -3035,17 +3164,49 @@ func (builder *EnterpriseKnowledgeSourceCommentParamBuilder) Build() *Enterprise
 	return req
 }
 
-type EnterpriseKnowledgeSourceHelpdeskParam struct {
-	Searchable *bool `json:"searchable,omitempty"` // searchable
+type EnterpriseKnowledgeSourceDoubaoImFileParam struct {
+	Searchable *bool `json:"searchable,omitempty"` // 控制该文件是否可被搜索。设为true时，文件内容将被纳入企业知识库检索范围；设为false时，文件将不会出现在搜索结果中。
+}
 
-	Filter *KnowledgeSourceHelpdeskFilter `json:"filter,omitempty"` // filter
+type EnterpriseKnowledgeSourceDoubaoImFileParamBuilder struct {
+	searchable    bool // 控制该文件是否可被搜索。设为true时，文件内容将被纳入企业知识库检索范围；设为false时，文件将不会出现在搜索结果中。
+	searchableSet bool
+}
+
+func NewEnterpriseKnowledgeSourceDoubaoImFileParamBuilder() *EnterpriseKnowledgeSourceDoubaoImFileParamBuilder {
+	builder := &EnterpriseKnowledgeSourceDoubaoImFileParamBuilder{}
+	return builder
+}
+
+// 控制该文件是否可被搜索。设为true时，文件内容将被纳入企业知识库检索范围；设为false时，文件将不会出现在搜索结果中。
+//
+// 示例值：true
+func (builder *EnterpriseKnowledgeSourceDoubaoImFileParamBuilder) Searchable(searchable bool) *EnterpriseKnowledgeSourceDoubaoImFileParamBuilder {
+	builder.searchable = searchable
+	builder.searchableSet = true
+	return builder
+}
+
+func (builder *EnterpriseKnowledgeSourceDoubaoImFileParamBuilder) Build() *EnterpriseKnowledgeSourceDoubaoImFileParam {
+	req := &EnterpriseKnowledgeSourceDoubaoImFileParam{}
+	if builder.searchableSet {
+		req.Searchable = &builder.searchable
+
+	}
+	return req
+}
+
+type EnterpriseKnowledgeSourceHelpdeskParam struct {
+	Searchable *bool `json:"searchable,omitempty"` // 是否搜索服务台 FAQ。默认为**否**。
+
+	Filter *KnowledgeSourceHelpdeskFilter `json:"filter,omitempty"` // 圈选条件。不填写时，默认搜索**权限范围内所有**的服务台 FAQ。
 }
 
 type EnterpriseKnowledgeSourceHelpdeskParamBuilder struct {
-	searchable    bool // searchable
+	searchable    bool // 是否搜索服务台 FAQ。默认为**否**。
 	searchableSet bool
 
-	filter    *KnowledgeSourceHelpdeskFilter // filter
+	filter    *KnowledgeSourceHelpdeskFilter // 圈选条件。不填写时，默认搜索**权限范围内所有**的服务台 FAQ。
 	filterSet bool
 }
 
@@ -3054,16 +3215,16 @@ func NewEnterpriseKnowledgeSourceHelpdeskParamBuilder() *EnterpriseKnowledgeSour
 	return builder
 }
 
-// searchable
+// 是否搜索服务台 FAQ。默认为**否**。
 //
-// 示例值：false
+// 示例值：true
 func (builder *EnterpriseKnowledgeSourceHelpdeskParamBuilder) Searchable(searchable bool) *EnterpriseKnowledgeSourceHelpdeskParamBuilder {
 	builder.searchable = searchable
 	builder.searchableSet = true
 	return builder
 }
 
-// filter
+// 圈选条件。不填写时，默认搜索**权限范围内所有**的服务台 FAQ。
 //
 // 示例值：
 func (builder *EnterpriseKnowledgeSourceHelpdeskParamBuilder) Filter(filter *KnowledgeSourceHelpdeskFilter) *EnterpriseKnowledgeSourceHelpdeskParamBuilder {
@@ -3085,11 +3246,11 @@ func (builder *EnterpriseKnowledgeSourceHelpdeskParamBuilder) Build() *Enterpris
 }
 
 type EnterpriseKnowledgeSourceLingoParam struct {
-	Searchable *bool `json:"searchable,omitempty"` // searchable
+	Searchable *bool `json:"searchable,omitempty"` // 是否搜索 Lingo 企业词典。默认为**否**。
 }
 
 type EnterpriseKnowledgeSourceLingoParamBuilder struct {
-	searchable    bool // searchable
+	searchable    bool // 是否搜索 Lingo 企业词典。默认为**否**。
 	searchableSet bool
 }
 
@@ -3098,9 +3259,9 @@ func NewEnterpriseKnowledgeSourceLingoParamBuilder() *EnterpriseKnowledgeSourceL
 	return builder
 }
 
-// searchable
+// 是否搜索 Lingo 企业词典。默认为**否**。
 //
-// 示例值：false
+// 示例值：true
 func (builder *EnterpriseKnowledgeSourceLingoParamBuilder) Searchable(searchable bool) *EnterpriseKnowledgeSourceLingoParamBuilder {
 	builder.searchable = searchable
 	builder.searchableSet = true
@@ -3149,21 +3310,21 @@ func (builder *EnterpriseKnowledgeSourceMailParamBuilder) Build() *EnterpriseKno
 }
 
 type EnterpriseKnowledgeSourceMessageParam struct {
-	Searchable *bool `json:"searchable,omitempty"` // searchable
+	Searchable *bool `json:"searchable,omitempty"` // 是否搜索消息。默认为**否**。
 
-	Filter *KnowledgeSourceMessageFilter `json:"filter,omitempty"` // filter
+	Filter *KnowledgeSourceMessageFilter `json:"filter,omitempty"` // 圈选条件。不填写时，默认搜索**权限范围内 1 年内**的用户消息。
 
-	Reject *KnowledgeSourceMessageReject `json:"reject,omitempty"` // reject
+	Reject *KnowledgeSourceMessageReject `json:"reject,omitempty"` // 排除条件。不填写时，默认搜索**权限范围内 1 年内**的用户消息。
 }
 
 type EnterpriseKnowledgeSourceMessageParamBuilder struct {
-	searchable    bool // searchable
+	searchable    bool // 是否搜索消息。默认为**否**。
 	searchableSet bool
 
-	filter    *KnowledgeSourceMessageFilter // filter
+	filter    *KnowledgeSourceMessageFilter // 圈选条件。不填写时，默认搜索**权限范围内 1 年内**的用户消息。
 	filterSet bool
 
-	reject    *KnowledgeSourceMessageReject // reject
+	reject    *KnowledgeSourceMessageReject // 排除条件。不填写时，默认搜索**权限范围内 1 年内**的用户消息。
 	rejectSet bool
 }
 
@@ -3172,16 +3333,16 @@ func NewEnterpriseKnowledgeSourceMessageParamBuilder() *EnterpriseKnowledgeSourc
 	return builder
 }
 
-// searchable
+// 是否搜索消息。默认为**否**。
 //
-// 示例值：false
+// 示例值：true
 func (builder *EnterpriseKnowledgeSourceMessageParamBuilder) Searchable(searchable bool) *EnterpriseKnowledgeSourceMessageParamBuilder {
 	builder.searchable = searchable
 	builder.searchableSet = true
 	return builder
 }
 
-// filter
+// 圈选条件。不填写时，默认搜索**权限范围内 1 年内**的用户消息。
 //
 // 示例值：
 func (builder *EnterpriseKnowledgeSourceMessageParamBuilder) Filter(filter *KnowledgeSourceMessageFilter) *EnterpriseKnowledgeSourceMessageParamBuilder {
@@ -3190,7 +3351,7 @@ func (builder *EnterpriseKnowledgeSourceMessageParamBuilder) Filter(filter *Know
 	return builder
 }
 
-// reject
+// 排除条件。不填写时，默认搜索**权限范围内 1 年内**的用户消息。
 //
 // 示例值：
 func (builder *EnterpriseKnowledgeSourceMessageParamBuilder) Reject(reject *KnowledgeSourceMessageReject) *EnterpriseKnowledgeSourceMessageParamBuilder {
@@ -3255,13 +3416,15 @@ type EnterpriseKnowledgeSourceParam struct {
 
 	HelpdeskFaq *EnterpriseKnowledgeSourceHelpdeskParam `json:"helpdesk_faq,omitempty"` // 服务台 FAQ
 
-	Lingo *EnterpriseKnowledgeSourceLingoParam `json:"lingo,omitempty"` // Lingo企业词典
+	Lingo *EnterpriseKnowledgeSourceLingoParam `json:"lingo,omitempty"` // Lingo 企业词典
 
 	Comment *EnterpriseKnowledgeSourceCommentParam `json:"comment,omitempty"` // 文档评论
 
 	Minutes *EnterpriseKnowledgeSourceMinutesParam `json:"minutes,omitempty"` // 飞书妙记
 
 	Mail *EnterpriseKnowledgeSourceMailParam `json:"mail,omitempty"` // 邮件
+
+	Approval *EnterpriseKnowledgeSourceApprovalParam `json:"approval,omitempty"` // 审批流程搜索配置，用于控制是否在企业知识搜索范围内包含审批流程相关内容
 }
 
 type EnterpriseKnowledgeSourceParamBuilder struct {
@@ -3277,7 +3440,7 @@ type EnterpriseKnowledgeSourceParamBuilder struct {
 	helpdeskFaq    *EnterpriseKnowledgeSourceHelpdeskParam // 服务台 FAQ
 	helpdeskFaqSet bool
 
-	lingo    *EnterpriseKnowledgeSourceLingoParam // Lingo企业词典
+	lingo    *EnterpriseKnowledgeSourceLingoParam // Lingo 企业词典
 	lingoSet bool
 
 	comment    *EnterpriseKnowledgeSourceCommentParam // 文档评论
@@ -3288,6 +3451,9 @@ type EnterpriseKnowledgeSourceParamBuilder struct {
 
 	mail    *EnterpriseKnowledgeSourceMailParam // 邮件
 	mailSet bool
+
+	approval    *EnterpriseKnowledgeSourceApprovalParam // 审批流程搜索配置，用于控制是否在企业知识搜索范围内包含审批流程相关内容
+	approvalSet bool
 }
 
 func NewEnterpriseKnowledgeSourceParamBuilder() *EnterpriseKnowledgeSourceParamBuilder {
@@ -3331,7 +3497,7 @@ func (builder *EnterpriseKnowledgeSourceParamBuilder) HelpdeskFaq(helpdeskFaq *E
 	return builder
 }
 
-// Lingo企业词典
+// Lingo 企业词典
 //
 // 示例值：
 func (builder *EnterpriseKnowledgeSourceParamBuilder) Lingo(lingo *EnterpriseKnowledgeSourceLingoParam) *EnterpriseKnowledgeSourceParamBuilder {
@@ -3367,6 +3533,15 @@ func (builder *EnterpriseKnowledgeSourceParamBuilder) Mail(mail *EnterpriseKnowl
 	return builder
 }
 
+// 审批流程搜索配置，用于控制是否在企业知识搜索范围内包含审批流程相关内容
+//
+// 示例值：
+func (builder *EnterpriseKnowledgeSourceParamBuilder) Approval(approval *EnterpriseKnowledgeSourceApprovalParam) *EnterpriseKnowledgeSourceParamBuilder {
+	builder.approval = approval
+	builder.approvalSet = true
+	return builder
+}
+
 func (builder *EnterpriseKnowledgeSourceParamBuilder) Build() *EnterpriseKnowledgeSourceParam {
 	req := &EnterpriseKnowledgeSourceParam{}
 	if builder.spaceSet {
@@ -3393,25 +3568,28 @@ func (builder *EnterpriseKnowledgeSourceParamBuilder) Build() *EnterpriseKnowled
 	if builder.mailSet {
 		req.Mail = builder.mail
 	}
+	if builder.approvalSet {
+		req.Approval = builder.approval
+	}
 	return req
 }
 
 type EnterpriseKnowledgeSourceSpaceParam struct {
-	Searchable *bool `json:"searchable,omitempty"` // searchable
+	Searchable *bool `json:"searchable,omitempty"` // 是否搜索云空间文档。默认为**否**。
 
-	Filter *KnowledgeSourceSpaceFilter `json:"filter,omitempty"` // filter
+	Filter *KnowledgeSourceSpaceFilter `json:"filter,omitempty"` // 圈选条件。不填写时，默认搜索**权限范围内所有**云空间文档。
 
-	Reject *KnowledgeSourceSpaceReject `json:"reject,omitempty"` // reject
+	Reject *KnowledgeSourceSpaceReject `json:"reject,omitempty"` // 排除条件。不填写时，默认搜索**权限范围内所有**云空间文档。
 }
 
 type EnterpriseKnowledgeSourceSpaceParamBuilder struct {
-	searchable    bool // searchable
+	searchable    bool // 是否搜索云空间文档。默认为**否**。
 	searchableSet bool
 
-	filter    *KnowledgeSourceSpaceFilter // filter
+	filter    *KnowledgeSourceSpaceFilter // 圈选条件。不填写时，默认搜索**权限范围内所有**云空间文档。
 	filterSet bool
 
-	reject    *KnowledgeSourceSpaceReject // reject
+	reject    *KnowledgeSourceSpaceReject // 排除条件。不填写时，默认搜索**权限范围内所有**云空间文档。
 	rejectSet bool
 }
 
@@ -3420,16 +3598,16 @@ func NewEnterpriseKnowledgeSourceSpaceParamBuilder() *EnterpriseKnowledgeSourceS
 	return builder
 }
 
-// searchable
+// 是否搜索云空间文档。默认为**否**。
 //
-// 示例值：false
+// 示例值：true
 func (builder *EnterpriseKnowledgeSourceSpaceParamBuilder) Searchable(searchable bool) *EnterpriseKnowledgeSourceSpaceParamBuilder {
 	builder.searchable = searchable
 	builder.searchableSet = true
 	return builder
 }
 
-// filter
+// 圈选条件。不填写时，默认搜索**权限范围内所有**云空间文档。
 //
 // 示例值：
 func (builder *EnterpriseKnowledgeSourceSpaceParamBuilder) Filter(filter *KnowledgeSourceSpaceFilter) *EnterpriseKnowledgeSourceSpaceParamBuilder {
@@ -3438,7 +3616,7 @@ func (builder *EnterpriseKnowledgeSourceSpaceParamBuilder) Filter(filter *Knowle
 	return builder
 }
 
-// reject
+// 排除条件。不填写时，默认搜索**权限范围内所有**云空间文档。
 //
 // 示例值：
 func (builder *EnterpriseKnowledgeSourceSpaceParamBuilder) Reject(reject *KnowledgeSourceSpaceReject) *EnterpriseKnowledgeSourceSpaceParamBuilder {
@@ -3463,21 +3641,21 @@ func (builder *EnterpriseKnowledgeSourceSpaceParamBuilder) Build() *EnterpriseKn
 }
 
 type EnterpriseKnowledgeSourceWikiParam struct {
-	Searchable *bool `json:"searchable,omitempty"` // searchable
+	Searchable *bool `json:"searchable,omitempty"` // 是否搜索知识库文档。默认为**否**。
 
-	Filter *KnowledgeSourceWikiFilter `json:"filter,omitempty"` // filter
+	Filter *KnowledgeSourceWikiFilter `json:"filter,omitempty"` // 圈选条件。不填写时，默认搜索**权限范围内所有**知识库文档。
 
-	Reject *KnowledgeSourceWikiReject `json:"reject,omitempty"` // reject
+	Reject *KnowledgeSourceWikiReject `json:"reject,omitempty"` // 排除条件。不填写时，默认搜索**权限范围内所有**知识库文档。
 }
 
 type EnterpriseKnowledgeSourceWikiParamBuilder struct {
-	searchable    bool // searchable
+	searchable    bool // 是否搜索知识库文档。默认为**否**。
 	searchableSet bool
 
-	filter    *KnowledgeSourceWikiFilter // filter
+	filter    *KnowledgeSourceWikiFilter // 圈选条件。不填写时，默认搜索**权限范围内所有**知识库文档。
 	filterSet bool
 
-	reject    *KnowledgeSourceWikiReject // reject
+	reject    *KnowledgeSourceWikiReject // 排除条件。不填写时，默认搜索**权限范围内所有**知识库文档。
 	rejectSet bool
 }
 
@@ -3486,16 +3664,16 @@ func NewEnterpriseKnowledgeSourceWikiParamBuilder() *EnterpriseKnowledgeSourceWi
 	return builder
 }
 
-// searchable
+// 是否搜索知识库文档。默认为**否**。
 //
-// 示例值：false
+// 示例值：true
 func (builder *EnterpriseKnowledgeSourceWikiParamBuilder) Searchable(searchable bool) *EnterpriseKnowledgeSourceWikiParamBuilder {
 	builder.searchable = searchable
 	builder.searchableSet = true
 	return builder
 }
 
-// filter
+// 圈选条件。不填写时，默认搜索**权限范围内所有**知识库文档。
 //
 // 示例值：
 func (builder *EnterpriseKnowledgeSourceWikiParamBuilder) Filter(filter *KnowledgeSourceWikiFilter) *EnterpriseKnowledgeSourceWikiParamBuilder {
@@ -3504,7 +3682,7 @@ func (builder *EnterpriseKnowledgeSourceWikiParamBuilder) Filter(filter *Knowled
 	return builder
 }
 
-// reject
+// 排除条件。不填写时，默认搜索**权限范围内所有**知识库文档。
 //
 // 示例值：
 func (builder *EnterpriseKnowledgeSourceWikiParamBuilder) Reject(reject *KnowledgeSourceWikiReject) *EnterpriseKnowledgeSourceWikiParamBuilder {
@@ -3731,20 +3909,70 @@ func (builder *I18nMetaBuilder) Build() *I18nMeta {
 	return req
 }
 
+type ImageConfig struct {
+	ImageExpireTime *string `json:"image_expire_time,omitempty"` // 图片资源的过期时间戳（秒级），用于标识图片在存储系统中的有效期，过期后将被自动清理。
+
+	CompressionSize *int `json:"compression_size,omitempty"` // 图片压缩后的尺寸信息，包含压缩后的宽、高及文件大小等核心指标，用于描述图片压缩后的存储特征。
+}
+
+type ImageConfigBuilder struct {
+	imageExpireTime    string // 图片资源的过期时间戳（秒级），用于标识图片在存储系统中的有效期，过期后将被自动清理。
+	imageExpireTimeSet bool
+
+	compressionSize    int // 图片压缩后的尺寸信息，包含压缩后的宽、高及文件大小等核心指标，用于描述图片压缩后的存储特征。
+	compressionSizeSet bool
+}
+
+func NewImageConfigBuilder() *ImageConfigBuilder {
+	builder := &ImageConfigBuilder{}
+	return builder
+}
+
+// 图片资源的过期时间戳（秒级），用于标识图片在存储系统中的有效期，过期后将被自动清理。
+//
+// 示例值：1717286400
+func (builder *ImageConfigBuilder) ImageExpireTime(imageExpireTime string) *ImageConfigBuilder {
+	builder.imageExpireTime = imageExpireTime
+	builder.imageExpireTimeSet = true
+	return builder
+}
+
+// 图片压缩后的尺寸信息，包含压缩后的宽、高及文件大小等核心指标，用于描述图片压缩后的存储特征。
+//
+// 示例值：
+func (builder *ImageConfigBuilder) CompressionSize(compressionSize int) *ImageConfigBuilder {
+	builder.compressionSize = compressionSize
+	builder.compressionSizeSet = true
+	return builder
+}
+
+func (builder *ImageConfigBuilder) Build() *ImageConfig {
+	req := &ImageConfig{}
+	if builder.imageExpireTimeSet {
+		req.ImageExpireTime = &builder.imageExpireTime
+
+	}
+	if builder.compressionSizeSet {
+		req.CompressionSize = &builder.compressionSize
+
+	}
+	return req
+}
+
 type Item struct {
-	Id *string `json:"id,omitempty"` // item 在 datasource 中的唯一标识
+	Id *string `json:"id,omitempty"` // item 在 datasource 中的唯一标识，只允许英文字母、数字和下划线
 
 	Acl []*Acl `json:"acl,omitempty"` // item 的访问权限控制。 acl 字段为空数组，则默认数据不可见。如果数据是全员可见，需要设置 access="allow"; type="user"; value="everyone"
 
 	Metadata *ItemMetadata `json:"metadata,omitempty"` // item 的元信息
 
-	StructuredData *string `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段(特殊字段无须在此另外指定);具体格式可参参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) **请求创建数据项**部分
+	StructuredData *string `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段(特殊字段无须在此另外指定);具体格式可参参考 [接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) **请求创建数据项**部分。这里的示例遵循了”创建数据范式“部分中的数据范式示例，请按自己定义的数据范式填写数据
 
 	Content *ItemContent `json:"content,omitempty"` // 非结构化数据，如文档文本，飞书搜索会用来做召回
 }
 
 type ItemBuilder struct {
-	id    string // item 在 datasource 中的唯一标识
+	id    string // item 在 datasource 中的唯一标识，只允许英文字母、数字和下划线
 	idSet bool
 
 	acl    []*Acl // item 的访问权限控制。 acl 字段为空数组，则默认数据不可见。如果数据是全员可见，需要设置 access="allow"; type="user"; value="everyone"
@@ -3753,7 +3981,7 @@ type ItemBuilder struct {
 	metadata    *ItemMetadata // item 的元信息
 	metadataSet bool
 
-	structuredData    string // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段(特殊字段无须在此另外指定);具体格式可参参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) **请求创建数据项**部分
+	structuredData    string // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段(特殊字段无须在此另外指定);具体格式可参参考 [接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) **请求创建数据项**部分。这里的示例遵循了”创建数据范式“部分中的数据范式示例，请按自己定义的数据范式填写数据
 	structuredDataSet bool
 
 	content    *ItemContent // 非结构化数据，如文档文本，飞书搜索会用来做召回
@@ -3765,9 +3993,9 @@ func NewItemBuilder() *ItemBuilder {
 	return builder
 }
 
-// item 在 datasource 中的唯一标识
+// item 在 datasource 中的唯一标识，只允许英文字母、数字和下划线
 //
-// 示例值：01010111
+// 示例值：my_item_01010111
 func (builder *ItemBuilder) Id(id string) *ItemBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -3792,9 +4020,9 @@ func (builder *ItemBuilder) Metadata(metadata *ItemMetadata) *ItemBuilder {
 	return builder
 }
 
-// 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段(特殊字段无须在此另外指定);具体格式可参参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) **请求创建数据项**部分
+// 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段(特殊字段无须在此另外指定);具体格式可参参考 [接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) **请求创建数据项**部分。这里的示例遵循了”创建数据范式“部分中的数据范式示例，请按自己定义的数据范式填写数据
 //
-// 示例值：{\"key\":\"value\"}
+// 示例值：{"description":"问题出现的环境和复现方法描述……", "priority":"HIGH"}
 func (builder *ItemBuilder) StructuredData(structuredData string) *ItemBuilder {
 	builder.structuredData = structuredData
 	builder.structuredDataSet = true
@@ -4091,38 +4319,38 @@ func (builder *ItemRecordBuilder) Build() *ItemRecord {
 }
 
 type KnowledgeQaAnswerRequest struct {
-	Query *string `json:"query,omitempty"` // 用户问题
+	Query *string `json:"query,omitempty"` //
 
-	EnableImage *bool `json:"enable_image,omitempty"` // 启用图片理解与展示
+	EnableImage *bool `json:"enable_image,omitempty"` // 是否启用图片理解与展示。默认为**否**。
 
-	KnowledgeScope *string `json:"knowledge_scope,omitempty"` // 指定答案生成的知识范围
+	KnowledgeScope *string `json:"knowledge_scope,omitempty"` //
 
-	EnterpriseKnowledgeSource *EnterpriseKnowledgeSourceParam `json:"enterprise_knowledge_source,omitempty"` // 企业内知识的检索范围，选择企业内知识时必填
+	EnterpriseKnowledgeSource *EnterpriseKnowledgeSourceParam `json:"enterprise_knowledge_source,omitempty"` // 企业知识获取的范围，当==knowledge_scope==选择`enterprise`或`hybrid`时为必填项。
 
 	Extra *KnowledgeSourceRequestExtra `json:"extra,omitempty"` // 额外信息
 
-	ModelType *string `json:"model_type,omitempty"` // 大模型种类
+	ModelType *string `json:"model_type,omitempty"` //
 
 	HistoryMessages []*KnowledgeQaMessage `json:"history_messages,omitempty"` // 用户在同一会话内的历史对话
 }
 
 type KnowledgeQaAnswerRequestBuilder struct {
-	query    string // 用户问题
+	query    string //
 	querySet bool
 
-	enableImage    bool // 启用图片理解与展示
+	enableImage    bool // 是否启用图片理解与展示。默认为**否**。
 	enableImageSet bool
 
-	knowledgeScope    string // 指定答案生成的知识范围
+	knowledgeScope    string //
 	knowledgeScopeSet bool
 
-	enterpriseKnowledgeSource    *EnterpriseKnowledgeSourceParam // 企业内知识的检索范围，选择企业内知识时必填
+	enterpriseKnowledgeSource    *EnterpriseKnowledgeSourceParam // 企业知识获取的范围，当==knowledge_scope==选择`enterprise`或`hybrid`时为必填项。
 	enterpriseKnowledgeSourceSet bool
 
 	extra    *KnowledgeSourceRequestExtra // 额外信息
 	extraSet bool
 
-	modelType    string // 大模型种类
+	modelType    string //
 	modelTypeSet bool
 
 	historyMessages    []*KnowledgeQaMessage // 用户在同一会话内的历史对话
@@ -4134,16 +4362,14 @@ func NewKnowledgeQaAnswerRequestBuilder() *KnowledgeQaAnswerRequestBuilder {
 	return builder
 }
 
-// 用户问题
-//
-// 示例值：如何申请显示器
+// 示例值：
 func (builder *KnowledgeQaAnswerRequestBuilder) Query(query string) *KnowledgeQaAnswerRequestBuilder {
 	builder.query = query
 	builder.querySet = true
 	return builder
 }
 
-// 启用图片理解与展示
+// 是否启用图片理解与展示。默认为**否**。
 //
 // 示例值：false
 func (builder *KnowledgeQaAnswerRequestBuilder) EnableImage(enableImage bool) *KnowledgeQaAnswerRequestBuilder {
@@ -4152,8 +4378,6 @@ func (builder *KnowledgeQaAnswerRequestBuilder) EnableImage(enableImage bool) *K
 	return builder
 }
 
-// 指定答案生成的知识范围
-//
 // 示例值：enterprise
 func (builder *KnowledgeQaAnswerRequestBuilder) KnowledgeScope(knowledgeScope string) *KnowledgeQaAnswerRequestBuilder {
 	builder.knowledgeScope = knowledgeScope
@@ -4161,7 +4385,7 @@ func (builder *KnowledgeQaAnswerRequestBuilder) KnowledgeScope(knowledgeScope st
 	return builder
 }
 
-// 企业内知识的检索范围，选择企业内知识时必填
+// 企业知识获取的范围，当==knowledge_scope==选择`enterprise`或`hybrid`时为必填项。
 //
 // 示例值：
 func (builder *KnowledgeQaAnswerRequestBuilder) EnterpriseKnowledgeSource(enterpriseKnowledgeSource *EnterpriseKnowledgeSourceParam) *KnowledgeQaAnswerRequestBuilder {
@@ -4179,8 +4403,6 @@ func (builder *KnowledgeQaAnswerRequestBuilder) Extra(extra *KnowledgeSourceRequ
 	return builder
 }
 
-// 大模型种类
-//
 // 示例值：doubao
 func (builder *KnowledgeQaAnswerRequestBuilder) ModelType(modelType string) *KnowledgeQaAnswerRequestBuilder {
 	builder.modelType = modelType
@@ -4228,9 +4450,9 @@ func (builder *KnowledgeQaAnswerRequestBuilder) Build() *KnowledgeQaAnswerReques
 }
 
 type KnowledgeQaAnswerResponse struct {
-	Answer *string `json:"answer,omitempty"` // answer
+	Answer *string `json:"answer,omitempty"` // 答案;- 答案采用 markdown 语法；;- 答案中的引用注记格式为：`[[referenceIndex]](URL)`;- 答案中的图片格式为：`<qa_image>image_token</qa_image>`
 
-	ReasoningContent *string `json:"reasoning_content,omitempty"` // reasoning_content
+	ReasoningContent *string `json:"reasoning_content,omitempty"` // 思考过程
 
 	StatusCode *int `json:"status_code,omitempty"` // 业务状态码
 
@@ -4240,10 +4462,10 @@ type KnowledgeQaAnswerResponse struct {
 }
 
 type KnowledgeQaAnswerResponseBuilder struct {
-	answer    string // answer
+	answer    string // 答案;- 答案采用 markdown 语法；;- 答案中的引用注记格式为：`[[referenceIndex]](URL)`;- 答案中的图片格式为：`<qa_image>image_token</qa_image>`
 	answerSet bool
 
-	reasoningContent    string // reasoning_content
+	reasoningContent    string // 思考过程
 	reasoningContentSet bool
 
 	statusCode    int // 业务状态码
@@ -4261,18 +4483,18 @@ func NewKnowledgeQaAnswerResponseBuilder() *KnowledgeQaAnswerResponseBuilder {
 	return builder
 }
 
-// answer
+// 答案;- 答案采用 markdown 语法；;- 答案中的引用注记格式为：`[[referenceIndex]](URL)`;- 答案中的图片格式为：`<qa_image>image_token</qa_image>`
 //
-// 示例值：xxxxx
+// 示例值：**步骤指引**[[1]](https://xxxx)\n1. 点击“[设备申请](https://xxxx)” > 领用设备 > 个人办公使用……
 func (builder *KnowledgeQaAnswerResponseBuilder) Answer(answer string) *KnowledgeQaAnswerResponseBuilder {
 	builder.answer = answer
 	builder.answerSet = true
 	return builder
 }
 
-// reasoning_content
+// 思考过程
 //
-// 示例值：xxxxxx
+// 示例值：好的，我将回答“如何申请显示器”。\n首先……
 func (builder *KnowledgeQaAnswerResponseBuilder) ReasoningContent(reasoningContent string) *KnowledgeQaAnswerResponseBuilder {
 	builder.reasoningContent = reasoningContent
 	builder.reasoningContentSet = true
@@ -4331,31 +4553,31 @@ func (builder *KnowledgeQaAnswerResponseBuilder) Build() *KnowledgeQaAnswerRespo
 }
 
 type KnowledgeQaEnterpriseReference struct {
-	Id *string `json:"id,omitempty"` // passage_id
+	Id *string `json:"id,omitempty"` // 知识片段 ID
 
-	SourceType *int `json:"source_type,omitempty"` // source_type
+	SourceType *int `json:"source_type,omitempty"` // 知识来源
 
-	Title *string `json:"title,omitempty"` // title
+	Title *string `json:"title,omitempty"` // 内容标题;- 如果是云空间或知识库文档，则是文档标题；;- 如果是消息，则是会话名称；;- 如果是FAQ，则是服务台-问题；;- 如果是Lingo词典，则是词条名称；;- 如果是文档评论，则是所在文档的标题；;- 如果是飞书妙记，则是音视频标题或视频会议的名称；;- 如果是邮件，则是邮件主题。
 
-	Content *string `json:"content,omitempty"` // content
+	Content *string `json:"content,omitempty"` // 内容正文
 
-	Url *string `json:"url,omitempty"` // url
+	Url *string `json:"url,omitempty"` // 跳转链接
 }
 
 type KnowledgeQaEnterpriseReferenceBuilder struct {
-	id    string // passage_id
+	id    string // 知识片段 ID
 	idSet bool
 
-	sourceType    int // source_type
+	sourceType    int // 知识来源
 	sourceTypeSet bool
 
-	title    string // title
+	title    string // 内容标题;- 如果是云空间或知识库文档，则是文档标题；;- 如果是消息，则是会话名称；;- 如果是FAQ，则是服务台-问题；;- 如果是Lingo词典，则是词条名称；;- 如果是文档评论，则是所在文档的标题；;- 如果是飞书妙记，则是音视频标题或视频会议的名称；;- 如果是邮件，则是邮件主题。
 	titleSet bool
 
-	content    string // content
+	content    string // 内容正文
 	contentSet bool
 
-	url    string // url
+	url    string // 跳转链接
 	urlSet bool
 }
 
@@ -4364,16 +4586,16 @@ func NewKnowledgeQaEnterpriseReferenceBuilder() *KnowledgeQaEnterpriseReferenceB
 	return builder
 }
 
-// passage_id
+// 知识片段 ID
 //
-// 示例值：123456
+// 示例值：6946843325487912356
 func (builder *KnowledgeQaEnterpriseReferenceBuilder) Id(id string) *KnowledgeQaEnterpriseReferenceBuilder {
 	builder.id = id
 	builder.idSet = true
 	return builder
 }
 
-// source_type
+// 知识来源
 //
 // 示例值：1
 func (builder *KnowledgeQaEnterpriseReferenceBuilder) SourceType(sourceType int) *KnowledgeQaEnterpriseReferenceBuilder {
@@ -4382,27 +4604,27 @@ func (builder *KnowledgeQaEnterpriseReferenceBuilder) SourceType(sourceType int)
 	return builder
 }
 
-// title
+// 内容标题;- 如果是云空间或知识库文档，则是文档标题；;- 如果是消息，则是会话名称；;- 如果是FAQ，则是服务台-问题；;- 如果是Lingo词典，则是词条名称；;- 如果是文档评论，则是所在文档的标题；;- 如果是飞书妙记，则是音视频标题或视频会议的名称；;- 如果是邮件，则是邮件主题。
 //
-// 示例值：xxxxx
+// 示例值：IT 服务台-申请显示器
 func (builder *KnowledgeQaEnterpriseReferenceBuilder) Title(title string) *KnowledgeQaEnterpriseReferenceBuilder {
 	builder.title = title
 	builder.titleSet = true
 	return builder
 }
 
-// content
+// 内容正文
 //
-// 示例值：xxxxxx
+// 示例值：申请显示器的详细步骤为……
 func (builder *KnowledgeQaEnterpriseReferenceBuilder) Content(content string) *KnowledgeQaEnterpriseReferenceBuilder {
 	builder.content = content
 	builder.contentSet = true
 	return builder
 }
 
-// url
+// 跳转链接
 //
-// 示例值：xxxxx
+// 示例值：https://example.passage.link
 func (builder *KnowledgeQaEnterpriseReferenceBuilder) Url(url string) *KnowledgeQaEnterpriseReferenceBuilder {
 	builder.url = url
 	builder.urlSet = true
@@ -4435,21 +4657,21 @@ func (builder *KnowledgeQaEnterpriseReferenceBuilder) Build() *KnowledgeQaEnterp
 }
 
 type KnowledgeQaInternetReference struct {
-	Title *string `json:"title,omitempty"` // title
+	Title *string `json:"title,omitempty"` // 网页标题
 
-	Summary *string `json:"summary,omitempty"` // summary
+	Summary *string `json:"summary,omitempty"` // 网页内容
 
-	Url *string `json:"url,omitempty"` // url
+	Url *string `json:"url,omitempty"` // 网页链接
 }
 
 type KnowledgeQaInternetReferenceBuilder struct {
-	title    string // title
+	title    string // 网页标题
 	titleSet bool
 
-	summary    string // summary
+	summary    string // 网页内容
 	summarySet bool
 
-	url    string // url
+	url    string // 网页链接
 	urlSet bool
 }
 
@@ -4458,27 +4680,27 @@ func NewKnowledgeQaInternetReferenceBuilder() *KnowledgeQaInternetReferenceBuild
 	return builder
 }
 
-// title
+// 网页标题
 //
-// 示例值：xxxxxx
+// 示例值：显示器列表
 func (builder *KnowledgeQaInternetReferenceBuilder) Title(title string) *KnowledgeQaInternetReferenceBuilder {
 	builder.title = title
 	builder.titleSet = true
 	return builder
 }
 
-// summary
+// 网页内容
 //
-// 示例值：xxxxx
+// 示例值：热门的显示器型号有……
 func (builder *KnowledgeQaInternetReferenceBuilder) Summary(summary string) *KnowledgeQaInternetReferenceBuilder {
 	builder.summary = summary
 	builder.summarySet = true
 	return builder
 }
 
-// url
+// 网页链接
 //
-// 示例值：xxxxxx
+// 示例值：https://example.web.link
 func (builder *KnowledgeQaInternetReferenceBuilder) Url(url string) *KnowledgeQaInternetReferenceBuilder {
 	builder.url = url
 	builder.urlSet = true
@@ -4601,33 +4823,33 @@ func (builder *KnowledgeQaReferenceBuilder) Build() *KnowledgeQaReference {
 }
 
 type KnowledgeQaSearchEnterprisePassage struct {
-	Id *string `json:"id,omitempty"` // passage_id
+	Id *string `json:"id,omitempty"` // 知识片段 ID
 
-	SourceType *int `json:"source_type,omitempty"` // source_type
+	SourceType *int `json:"source_type,omitempty"` // 知识来源
 
-	Title *string `json:"title,omitempty"` // title
+	Title *string `json:"title,omitempty"` // 内容标题;- 如果是云空间或知识库文档，则是文档标题；;- 如果是消息，则是会话名称；;- 如果是FAQ，则是服务台-问题；;- 如果是Lingo词典，则是词条名称。
 
-	Content *string `json:"content,omitempty"` // content
+	Content *string `json:"content,omitempty"` // 内容正文
 
-	Url *string `json:"url,omitempty"` // url
+	Url *string `json:"url,omitempty"` // 跳转链接
 
 	Score *float64 `json:"score,omitempty"` // 相关性打分
 }
 
 type KnowledgeQaSearchEnterprisePassageBuilder struct {
-	id    string // passage_id
+	id    string // 知识片段 ID
 	idSet bool
 
-	sourceType    int // source_type
+	sourceType    int // 知识来源
 	sourceTypeSet bool
 
-	title    string // title
+	title    string // 内容标题;- 如果是云空间或知识库文档，则是文档标题；;- 如果是消息，则是会话名称；;- 如果是FAQ，则是服务台-问题；;- 如果是Lingo词典，则是词条名称。
 	titleSet bool
 
-	content    string // content
+	content    string // 内容正文
 	contentSet bool
 
-	url    string // url
+	url    string // 跳转链接
 	urlSet bool
 
 	score    float64 // 相关性打分
@@ -4639,16 +4861,16 @@ func NewKnowledgeQaSearchEnterprisePassageBuilder() *KnowledgeQaSearchEnterprise
 	return builder
 }
 
-// passage_id
+// 知识片段 ID
 //
-// 示例值：123456
+// 示例值：6946843325487912356
 func (builder *KnowledgeQaSearchEnterprisePassageBuilder) Id(id string) *KnowledgeQaSearchEnterprisePassageBuilder {
 	builder.id = id
 	builder.idSet = true
 	return builder
 }
 
-// source_type
+// 知识来源
 //
 // 示例值：1
 func (builder *KnowledgeQaSearchEnterprisePassageBuilder) SourceType(sourceType int) *KnowledgeQaSearchEnterprisePassageBuilder {
@@ -4657,27 +4879,27 @@ func (builder *KnowledgeQaSearchEnterprisePassageBuilder) SourceType(sourceType 
 	return builder
 }
 
-// title
+// 内容标题;- 如果是云空间或知识库文档，则是文档标题；;- 如果是消息，则是会话名称；;- 如果是FAQ，则是服务台-问题；;- 如果是Lingo词典，则是词条名称。
 //
-// 示例值：xxxxx
+// 示例值：IT 服务台-申请显示器
 func (builder *KnowledgeQaSearchEnterprisePassageBuilder) Title(title string) *KnowledgeQaSearchEnterprisePassageBuilder {
 	builder.title = title
 	builder.titleSet = true
 	return builder
 }
 
-// content
+// 内容正文
 //
-// 示例值：xxxxxx
+// 示例值：申请显示器的详细步骤为……
 func (builder *KnowledgeQaSearchEnterprisePassageBuilder) Content(content string) *KnowledgeQaSearchEnterprisePassageBuilder {
 	builder.content = content
 	builder.contentSet = true
 	return builder
 }
 
-// url
+// 跳转链接
 //
-// 示例值：xxxxx
+// 示例值：https://xxxx
 func (builder *KnowledgeQaSearchEnterprisePassageBuilder) Url(url string) *KnowledgeQaSearchEnterprisePassageBuilder {
 	builder.url = url
 	builder.urlSet = true
@@ -4723,16 +4945,16 @@ func (builder *KnowledgeQaSearchEnterprisePassageBuilder) Build() *KnowledgeQaSe
 }
 
 type KnowledgeQaSearchRequest struct {
-	Query *string `json:"query,omitempty"` // query
+	Query *string `json:"query,omitempty"` // 用户问题
 
-	EnterpriseKnowledgeSource *EnterpriseKnowledgeSourceParam `json:"enterprise_knowledge_source,omitempty"` // enterprise_knowledge_source
+	EnterpriseKnowledgeSource *EnterpriseKnowledgeSourceParam `json:"enterprise_knowledge_source,omitempty"` // 企业知识获取的范围，当==knowledge_scope==选择`enterprise`或`hybrid`时为必填项。
 }
 
 type KnowledgeQaSearchRequestBuilder struct {
-	query    string // query
+	query    string // 用户问题
 	querySet bool
 
-	enterpriseKnowledgeSource    *EnterpriseKnowledgeSourceParam // enterprise_knowledge_source
+	enterpriseKnowledgeSource    *EnterpriseKnowledgeSourceParam // 企业知识获取的范围，当==knowledge_scope==选择`enterprise`或`hybrid`时为必填项。
 	enterpriseKnowledgeSourceSet bool
 }
 
@@ -4741,16 +4963,16 @@ func NewKnowledgeQaSearchRequestBuilder() *KnowledgeQaSearchRequestBuilder {
 	return builder
 }
 
-// query
+// 用户问题
 //
-// 示例值：hello
+// 示例值：如何申请显示器
 func (builder *KnowledgeQaSearchRequestBuilder) Query(query string) *KnowledgeQaSearchRequestBuilder {
 	builder.query = query
 	builder.querySet = true
 	return builder
 }
 
-// enterprise_knowledge_source
+// 企业知识获取的范围，当==knowledge_scope==选择`enterprise`或`hybrid`时为必填项。
 //
 // 示例值：
 func (builder *KnowledgeQaSearchRequestBuilder) EnterpriseKnowledgeSource(enterpriseKnowledgeSource *EnterpriseKnowledgeSourceParam) *KnowledgeQaSearchRequestBuilder {
@@ -4772,11 +4994,11 @@ func (builder *KnowledgeQaSearchRequestBuilder) Build() *KnowledgeQaSearchReques
 }
 
 type KnowledgeSourceHelpdeskFilter struct {
-	HelpdeskIds []string `json:"helpdesk_ids,omitempty"` // 服务台 ID 列表
+	HelpdeskIds []string `json:"helpdesk_ids,omitempty"` // 服务台 ID 列表。参考[服务台接入指南](https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN#%E6%9C%8D%E5%8A%A1%E5%8F%B0token)获取。
 }
 
 type KnowledgeSourceHelpdeskFilterBuilder struct {
-	helpdeskIds    []string // 服务台 ID 列表
+	helpdeskIds    []string // 服务台 ID 列表。参考[服务台接入指南](https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN#%E6%9C%8D%E5%8A%A1%E5%8F%B0token)获取。
 	helpdeskIdsSet bool
 }
 
@@ -4785,7 +5007,7 @@ func NewKnowledgeSourceHelpdeskFilterBuilder() *KnowledgeSourceHelpdeskFilterBui
 	return builder
 }
 
-// 服务台 ID 列表
+// 服务台 ID 列表。参考[服务台接入指南](https://open.feishu.cn/document/ukTMukTMukTM/ugDOyYjL4gjM24CO4IjN#%E6%9C%8D%E5%8A%A1%E5%8F%B0token)获取。
 //
 // 示例值：
 func (builder *KnowledgeSourceHelpdeskFilterBuilder) HelpdeskIds(helpdeskIds []string) *KnowledgeSourceHelpdeskFilterBuilder {
@@ -4803,13 +5025,13 @@ func (builder *KnowledgeSourceHelpdeskFilterBuilder) Build() *KnowledgeSourceHel
 }
 
 type KnowledgeSourceMessageFilter struct {
-	ChatIds []string `json:"chat_ids,omitempty"` // 会话 ID 列表
+	ChatIds []string `json:"chat_ids,omitempty"` // 群 ID 列表。包括单聊和群组的 ID。群 ID 获取方式：;- [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)，从返回结果中获取该群的 chat_id。;- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口，可以查询用户或机器人所在群的 chat_id。;- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search)，可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。
 
 	TimeRange *TimeRange `json:"time_range,omitempty"` // 时间范围
 }
 
 type KnowledgeSourceMessageFilterBuilder struct {
-	chatIds    []string // 会话 ID 列表
+	chatIds    []string // 群 ID 列表。包括单聊和群组的 ID。群 ID 获取方式：;- [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)，从返回结果中获取该群的 chat_id。;- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口，可以查询用户或机器人所在群的 chat_id。;- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search)，可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。
 	chatIdsSet bool
 
 	timeRange    *TimeRange // 时间范围
@@ -4821,7 +5043,7 @@ func NewKnowledgeSourceMessageFilterBuilder() *KnowledgeSourceMessageFilterBuild
 	return builder
 }
 
-// 会话 ID 列表
+// 群 ID 列表。包括单聊和群组的 ID。群 ID 获取方式：;- [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)，从返回结果中获取该群的 chat_id。;- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口，可以查询用户或机器人所在群的 chat_id。;- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search)，可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。
 //
 // 示例值：
 func (builder *KnowledgeSourceMessageFilterBuilder) ChatIds(chatIds []string) *KnowledgeSourceMessageFilterBuilder {
@@ -4851,16 +5073,16 @@ func (builder *KnowledgeSourceMessageFilterBuilder) Build() *KnowledgeSourceMess
 }
 
 type KnowledgeSourceMessageReject struct {
-	MessageIds []string `json:"message_ids,omitempty"` // 消息 ID 列表
+	MessageIds []string `json:"message_ids,omitempty"` // 消息 ID 列表。消息 ID 获取方式：;- 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后，从响应结果的 message_id 参数获取。;- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件，当触发该事件后可以从事件体内获取消息的 message_id。;- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口，从响应结果的 message_id 参数获取。
 
-	ChatIds []string `json:"chat_ids,omitempty"` // 会话 ID 列表
+	ChatIds []string `json:"chat_ids,omitempty"` // 群 ID 列表。包括单聊和群组 ID。群 ID 获取方式：;- [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)，从返回结果中获取该群的 chat_id。;- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口，可以查询用户或机器人所在群的 chat_id。;- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search)，可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。
 }
 
 type KnowledgeSourceMessageRejectBuilder struct {
-	messageIds    []string // 消息 ID 列表
+	messageIds    []string // 消息 ID 列表。消息 ID 获取方式：;- 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后，从响应结果的 message_id 参数获取。;- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件，当触发该事件后可以从事件体内获取消息的 message_id。;- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口，从响应结果的 message_id 参数获取。
 	messageIdsSet bool
 
-	chatIds    []string // 会话 ID 列表
+	chatIds    []string // 群 ID 列表。包括单聊和群组 ID。群 ID 获取方式：;- [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)，从返回结果中获取该群的 chat_id。;- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口，可以查询用户或机器人所在群的 chat_id。;- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search)，可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。
 	chatIdsSet bool
 }
 
@@ -4869,7 +5091,7 @@ func NewKnowledgeSourceMessageRejectBuilder() *KnowledgeSourceMessageRejectBuild
 	return builder
 }
 
-// 消息 ID 列表
+// 消息 ID 列表。消息 ID 获取方式：;- 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后，从响应结果的 message_id 参数获取。;- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件，当触发该事件后可以从事件体内获取消息的 message_id。;- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口，从响应结果的 message_id 参数获取。
 //
 // 示例值：
 func (builder *KnowledgeSourceMessageRejectBuilder) MessageIds(messageIds []string) *KnowledgeSourceMessageRejectBuilder {
@@ -4878,7 +5100,7 @@ func (builder *KnowledgeSourceMessageRejectBuilder) MessageIds(messageIds []stri
 	return builder
 }
 
-// 会话 ID 列表
+// 群 ID 列表。包括单聊和群组 ID。群 ID 获取方式：;- [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)，从返回结果中获取该群的 chat_id。;- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口，可以查询用户或机器人所在群的 chat_id。;- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search)，可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。
 //
 // 示例值：
 func (builder *KnowledgeSourceMessageRejectBuilder) ChatIds(chatIds []string) *KnowledgeSourceMessageRejectBuilder {
@@ -4899,16 +5121,16 @@ func (builder *KnowledgeSourceMessageRejectBuilder) Build() *KnowledgeSourceMess
 }
 
 type KnowledgeSourceRequestExtra struct {
-	Locale *string `json:"locale,omitempty"` // locale
+	Locale *string `json:"locale,omitempty"` // 语言环境
 
-	Timezone *string `json:"timezone,omitempty"` // timezone
+	Timezone *string `json:"timezone,omitempty"` // 时区
 }
 
 type KnowledgeSourceRequestExtraBuilder struct {
-	locale    string // locale
+	locale    string // 语言环境
 	localeSet bool
 
-	timezone    string // timezone
+	timezone    string // 时区
 	timezoneSet bool
 }
 
@@ -4917,7 +5139,7 @@ func NewKnowledgeSourceRequestExtraBuilder() *KnowledgeSourceRequestExtraBuilder
 	return builder
 }
 
-// locale
+// 语言环境
 //
 // 示例值：zh-CN
 func (builder *KnowledgeSourceRequestExtraBuilder) Locale(locale string) *KnowledgeSourceRequestExtraBuilder {
@@ -4926,7 +5148,7 @@ func (builder *KnowledgeSourceRequestExtraBuilder) Locale(locale string) *Knowle
 	return builder
 }
 
-// timezone
+// 时区
 //
 // 示例值：Asia/Tokyo
 func (builder *KnowledgeSourceRequestExtraBuilder) Timezone(timezone string) *KnowledgeSourceRequestExtraBuilder {
@@ -4949,16 +5171,16 @@ func (builder *KnowledgeSourceRequestExtraBuilder) Build() *KnowledgeSourceReque
 }
 
 type KnowledgeSourceSpaceFilter struct {
-	DocTokens []string `json:"doc_tokens,omitempty"` // 云空间文档 token 列表
+	DocTokens []string `json:"doc_tokens,omitempty"` // 云空间文档 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 
-	FolderTokens []string `json:"folder_tokens,omitempty"` // 云空间文件夹 token 列表
+	FolderTokens []string `json:"folder_tokens,omitempty"` // 云空间文件夹 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 }
 
 type KnowledgeSourceSpaceFilterBuilder struct {
-	docTokens    []string // 云空间文档 token 列表
+	docTokens    []string // 云空间文档 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 	docTokensSet bool
 
-	folderTokens    []string // 云空间文件夹 token 列表
+	folderTokens    []string // 云空间文件夹 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 	folderTokensSet bool
 }
 
@@ -4967,7 +5189,7 @@ func NewKnowledgeSourceSpaceFilterBuilder() *KnowledgeSourceSpaceFilterBuilder {
 	return builder
 }
 
-// 云空间文档 token 列表
+// 云空间文档 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 //
 // 示例值：
 func (builder *KnowledgeSourceSpaceFilterBuilder) DocTokens(docTokens []string) *KnowledgeSourceSpaceFilterBuilder {
@@ -4976,7 +5198,7 @@ func (builder *KnowledgeSourceSpaceFilterBuilder) DocTokens(docTokens []string) 
 	return builder
 }
 
-// 云空间文件夹 token 列表
+// 云空间文件夹 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 //
 // 示例值：
 func (builder *KnowledgeSourceSpaceFilterBuilder) FolderTokens(folderTokens []string) *KnowledgeSourceSpaceFilterBuilder {
@@ -4997,16 +5219,16 @@ func (builder *KnowledgeSourceSpaceFilterBuilder) Build() *KnowledgeSourceSpaceF
 }
 
 type KnowledgeSourceSpaceReject struct {
-	DocTokens []string `json:"doc_tokens,omitempty"` // 云空间文档 token 列表
+	DocTokens []string `json:"doc_tokens,omitempty"` // 云空间文档 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 
-	FolderTokens []string `json:"folder_tokens,omitempty"` // 云空间文件夹 token 列表
+	FolderTokens []string `json:"folder_tokens,omitempty"` // 云空间文件夹 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 }
 
 type KnowledgeSourceSpaceRejectBuilder struct {
-	docTokens    []string // 云空间文档 token 列表
+	docTokens    []string // 云空间文档 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 	docTokensSet bool
 
-	folderTokens    []string // 云空间文件夹 token 列表
+	folderTokens    []string // 云空间文件夹 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 	folderTokensSet bool
 }
 
@@ -5015,7 +5237,7 @@ func NewKnowledgeSourceSpaceRejectBuilder() *KnowledgeSourceSpaceRejectBuilder {
 	return builder
 }
 
-// 云空间文档 token 列表
+// 云空间文档 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 //
 // 示例值：
 func (builder *KnowledgeSourceSpaceRejectBuilder) DocTokens(docTokens []string) *KnowledgeSourceSpaceRejectBuilder {
@@ -5024,7 +5246,7 @@ func (builder *KnowledgeSourceSpaceRejectBuilder) DocTokens(docTokens []string) 
 	return builder
 }
 
-// 云空间文件夹 token 列表
+// 云空间文件夹 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 //
 // 示例值：
 func (builder *KnowledgeSourceSpaceRejectBuilder) FolderTokens(folderTokens []string) *KnowledgeSourceSpaceRejectBuilder {
@@ -5045,21 +5267,21 @@ func (builder *KnowledgeSourceSpaceRejectBuilder) Build() *KnowledgeSourceSpaceR
 }
 
 type KnowledgeSourceWikiFilter struct {
-	WikiTokens []string `json:"wiki_tokens,omitempty"` // 知识库文档 token 列表
+	WikiTokens []string `json:"wiki_tokens,omitempty"` // 知识库文档 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 
-	NodeTokens []string `json:"node_tokens,omitempty"` // 知识库节点 token 列表
+	NodeTokens []string `json:"node_tokens,omitempty"` // 知识库节点 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 
-	SpaceIds []string `json:"space_ids,omitempty"` // 知识库空间 ID 列表
+	SpaceIds []string `json:"space_ids,omitempty"` // 知识库空间 ID 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 }
 
 type KnowledgeSourceWikiFilterBuilder struct {
-	wikiTokens    []string // 知识库文档 token 列表
+	wikiTokens    []string // 知识库文档 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 	wikiTokensSet bool
 
-	nodeTokens    []string // 知识库节点 token 列表
+	nodeTokens    []string // 知识库节点 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 	nodeTokensSet bool
 
-	spaceIds    []string // 知识库空间 ID 列表
+	spaceIds    []string // 知识库空间 ID 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 	spaceIdsSet bool
 }
 
@@ -5068,7 +5290,7 @@ func NewKnowledgeSourceWikiFilterBuilder() *KnowledgeSourceWikiFilterBuilder {
 	return builder
 }
 
-// 知识库文档 token 列表
+// 知识库文档 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 //
 // 示例值：
 func (builder *KnowledgeSourceWikiFilterBuilder) WikiTokens(wikiTokens []string) *KnowledgeSourceWikiFilterBuilder {
@@ -5077,7 +5299,7 @@ func (builder *KnowledgeSourceWikiFilterBuilder) WikiTokens(wikiTokens []string)
 	return builder
 }
 
-// 知识库节点 token 列表
+// 知识库节点 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 //
 // 示例值：
 func (builder *KnowledgeSourceWikiFilterBuilder) NodeTokens(nodeTokens []string) *KnowledgeSourceWikiFilterBuilder {
@@ -5086,7 +5308,7 @@ func (builder *KnowledgeSourceWikiFilterBuilder) NodeTokens(nodeTokens []string)
 	return builder
 }
 
-// 知识库空间 ID 列表
+// 知识库空间 ID 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 //
 // 示例值：
 func (builder *KnowledgeSourceWikiFilterBuilder) SpaceIds(spaceIds []string) *KnowledgeSourceWikiFilterBuilder {
@@ -5110,21 +5332,21 @@ func (builder *KnowledgeSourceWikiFilterBuilder) Build() *KnowledgeSourceWikiFil
 }
 
 type KnowledgeSourceWikiReject struct {
-	WikiTokens []string `json:"wiki_tokens,omitempty"` // 知识库文档 token 列表
+	WikiTokens []string `json:"wiki_tokens,omitempty"` // 知识库文档 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 
-	NodeTokens []string `json:"node_tokens,omitempty"` // 知识库节点 token 列表
+	NodeTokens []string `json:"node_tokens,omitempty"` // 知识库节点 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 
-	SpaceIds []string `json:"space_ids,omitempty"` // 知识库空间 ID 列表
+	SpaceIds []string `json:"space_ids,omitempty"` // 知识库空间 ID 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 }
 
 type KnowledgeSourceWikiRejectBuilder struct {
-	wikiTokens    []string // 知识库文档 token 列表
+	wikiTokens    []string // 知识库文档 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 	wikiTokensSet bool
 
-	nodeTokens    []string // 知识库节点 token 列表
+	nodeTokens    []string // 知识库节点 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 	nodeTokensSet bool
 
-	spaceIds    []string // 知识库空间 ID 列表
+	spaceIds    []string // 知识库空间 ID 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 	spaceIdsSet bool
 }
 
@@ -5133,7 +5355,7 @@ func NewKnowledgeSourceWikiRejectBuilder() *KnowledgeSourceWikiRejectBuilder {
 	return builder
 }
 
-// 知识库文档 token 列表
+// 知识库文档 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 //
 // 示例值：
 func (builder *KnowledgeSourceWikiRejectBuilder) WikiTokens(wikiTokens []string) *KnowledgeSourceWikiRejectBuilder {
@@ -5142,7 +5364,7 @@ func (builder *KnowledgeSourceWikiRejectBuilder) WikiTokens(wikiTokens []string)
 	return builder
 }
 
-// 知识库节点 token 列表
+// 知识库节点 token 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 //
 // 示例值：
 func (builder *KnowledgeSourceWikiRejectBuilder) NodeTokens(nodeTokens []string) *KnowledgeSourceWikiRejectBuilder {
@@ -5151,7 +5373,7 @@ func (builder *KnowledgeSourceWikiRejectBuilder) NodeTokens(nodeTokens []string)
 	return builder
 }
 
-// 知识库空间 ID 列表
+// 知识库空间 ID 列表。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 //
 // 示例值：
 func (builder *KnowledgeSourceWikiRejectBuilder) SpaceIds(spaceIds []string) *KnowledgeSourceWikiRejectBuilder {
@@ -5287,6 +5509,419 @@ func (builder *LlmModelConfigBuilder) Build() *LlmModelConfig {
 	}
 	if builder.temperatureSet {
 		req.Temperature = &builder.temperature
+
+	}
+	return req
+}
+
+type MemoryHubGetData struct {
+	MemoryKey *string `json:"memory_key,omitempty"` // 记忆标识
+
+	VariantKey *string `json:"variant_key,omitempty"` // 记忆变体标识
+
+	Status *string `json:"status,omitempty"` // 记忆状态
+
+	Metadata map[string]string `json:"metadata,omitempty"` // 元信息
+
+	DetailEntry *string `json:"detail_entry,omitempty"` // 详情入口标识
+
+	PayloadType *string `json:"payload_type,omitempty"` // payload 类型
+
+	Payload *string `json:"payload,omitempty"` // 记忆内容 JSON 字符串，具体结构由 payload_type 决定
+}
+
+type MemoryHubGetDataBuilder struct {
+	memoryKey    string // 记忆标识
+	memoryKeySet bool
+
+	variantKey    string // 记忆变体标识
+	variantKeySet bool
+
+	status    string // 记忆状态
+	statusSet bool
+
+	metadata    map[string]string // 元信息
+	metadataSet bool
+
+	detailEntry    string // 详情入口标识
+	detailEntrySet bool
+
+	payloadType    string // payload 类型
+	payloadTypeSet bool
+
+	payload    string // 记忆内容 JSON 字符串，具体结构由 payload_type 决定
+	payloadSet bool
+}
+
+func NewMemoryHubGetDataBuilder() *MemoryHubGetDataBuilder {
+	builder := &MemoryHubGetDataBuilder{}
+	return builder
+}
+
+// 记忆标识
+//
+// 示例值：personal_memory_snapshot
+func (builder *MemoryHubGetDataBuilder) MemoryKey(memoryKey string) *MemoryHubGetDataBuilder {
+	builder.memoryKey = memoryKey
+	builder.memoryKeySet = true
+	return builder
+}
+
+// 记忆变体标识
+//
+// 示例值：default
+func (builder *MemoryHubGetDataBuilder) VariantKey(variantKey string) *MemoryHubGetDataBuilder {
+	builder.variantKey = variantKey
+	builder.variantKeySet = true
+	return builder
+}
+
+// 记忆状态
+//
+// 示例值：ready
+func (builder *MemoryHubGetDataBuilder) Status(status string) *MemoryHubGetDataBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// 元信息
+//
+// 示例值：
+func (builder *MemoryHubGetDataBuilder) Metadata(metadata map[string]string) *MemoryHubGetDataBuilder {
+	builder.metadata = metadata
+	builder.metadataSet = true
+	return builder
+}
+
+// 详情入口标识
+//
+// 示例值：personal_memory_snapshot
+func (builder *MemoryHubGetDataBuilder) DetailEntry(detailEntry string) *MemoryHubGetDataBuilder {
+	builder.detailEntry = detailEntry
+	builder.detailEntrySet = true
+	return builder
+}
+
+// payload 类型
+//
+// 示例值：personal_memory_snapshot
+func (builder *MemoryHubGetDataBuilder) PayloadType(payloadType string) *MemoryHubGetDataBuilder {
+	builder.payloadType = payloadType
+	builder.payloadTypeSet = true
+	return builder
+}
+
+// 记忆内容 JSON 字符串，具体结构由 payload_type 决定
+//
+// 示例值：{"summary":"..."}
+func (builder *MemoryHubGetDataBuilder) Payload(payload string) *MemoryHubGetDataBuilder {
+	builder.payload = payload
+	builder.payloadSet = true
+	return builder
+}
+
+func (builder *MemoryHubGetDataBuilder) Build() *MemoryHubGetData {
+	req := &MemoryHubGetData{}
+	if builder.memoryKeySet {
+		req.MemoryKey = &builder.memoryKey
+
+	}
+	if builder.variantKeySet {
+		req.VariantKey = &builder.variantKey
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.metadataSet {
+		req.Metadata = builder.metadata
+	}
+	if builder.detailEntrySet {
+		req.DetailEntry = &builder.detailEntry
+
+	}
+	if builder.payloadTypeSet {
+		req.PayloadType = &builder.payloadType
+
+	}
+	if builder.payloadSet {
+		req.Payload = &builder.payload
+
+	}
+	return req
+}
+
+type MemoryHubListData struct {
+	Memories []*MemoryHubListItem `json:"memories,omitempty"` // 当前用户可见的 Memory 列表
+}
+
+type MemoryHubListDataBuilder struct {
+	memories    []*MemoryHubListItem // 当前用户可见的 Memory 列表
+	memoriesSet bool
+}
+
+func NewMemoryHubListDataBuilder() *MemoryHubListDataBuilder {
+	builder := &MemoryHubListDataBuilder{}
+	return builder
+}
+
+// 当前用户可见的 Memory 列表
+//
+// 示例值：
+func (builder *MemoryHubListDataBuilder) Memories(memories []*MemoryHubListItem) *MemoryHubListDataBuilder {
+	builder.memories = memories
+	builder.memoriesSet = true
+	return builder
+}
+
+func (builder *MemoryHubListDataBuilder) Build() *MemoryHubListData {
+	req := &MemoryHubListData{}
+	if builder.memoriesSet {
+		req.Memories = builder.memories
+	}
+	return req
+}
+
+type MemoryHubListItem struct {
+	MemoryKey *string `json:"memory_key,omitempty"` // 记忆标识
+
+	DefaultVariantKey *string `json:"default_variant_key,omitempty"` // 默认变体标识
+
+	Name *string `json:"name,omitempty"` // 记忆名称
+
+	Description *string `json:"description,omitempty"` // 记忆说明
+
+	Showcase *string `json:"showcase,omitempty"` // 展示摘要
+
+	Status *string `json:"status,omitempty"` // 记忆状态
+
+	Variants []*MemoryHubVariant `json:"variants,omitempty"` // 记忆变体列表
+
+	DetailEntry *string `json:"detail_entry,omitempty"` // 详情入口标识
+}
+
+type MemoryHubListItemBuilder struct {
+	memoryKey    string // 记忆标识
+	memoryKeySet bool
+
+	defaultVariantKey    string // 默认变体标识
+	defaultVariantKeySet bool
+
+	name    string // 记忆名称
+	nameSet bool
+
+	description    string // 记忆说明
+	descriptionSet bool
+
+	showcase    string // 展示摘要
+	showcaseSet bool
+
+	status    string // 记忆状态
+	statusSet bool
+
+	variants    []*MemoryHubVariant // 记忆变体列表
+	variantsSet bool
+
+	detailEntry    string // 详情入口标识
+	detailEntrySet bool
+}
+
+func NewMemoryHubListItemBuilder() *MemoryHubListItemBuilder {
+	builder := &MemoryHubListItemBuilder{}
+	return builder
+}
+
+// 记忆标识
+//
+// 示例值：personal_memory_snapshot
+func (builder *MemoryHubListItemBuilder) MemoryKey(memoryKey string) *MemoryHubListItemBuilder {
+	builder.memoryKey = memoryKey
+	builder.memoryKeySet = true
+	return builder
+}
+
+// 默认变体标识
+//
+// 示例值：default
+func (builder *MemoryHubListItemBuilder) DefaultVariantKey(defaultVariantKey string) *MemoryHubListItemBuilder {
+	builder.defaultVariantKey = defaultVariantKey
+	builder.defaultVariantKeySet = true
+	return builder
+}
+
+// 记忆名称
+//
+// 示例值：Personal Memory Snapshot
+func (builder *MemoryHubListItemBuilder) Name(name string) *MemoryHubListItemBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 记忆说明
+//
+// 示例值：用户长期记忆快照
+func (builder *MemoryHubListItemBuilder) Description(description string) *MemoryHubListItemBuilder {
+	builder.description = description
+	builder.descriptionSet = true
+	return builder
+}
+
+// 展示摘要
+//
+// 示例值：11111
+func (builder *MemoryHubListItemBuilder) Showcase(showcase string) *MemoryHubListItemBuilder {
+	builder.showcase = showcase
+	builder.showcaseSet = true
+	return builder
+}
+
+// 记忆状态
+//
+// 示例值：ready
+func (builder *MemoryHubListItemBuilder) Status(status string) *MemoryHubListItemBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// 记忆变体列表
+//
+// 示例值：
+func (builder *MemoryHubListItemBuilder) Variants(variants []*MemoryHubVariant) *MemoryHubListItemBuilder {
+	builder.variants = variants
+	builder.variantsSet = true
+	return builder
+}
+
+// 详情入口标识
+//
+// 示例值：personal_memory_snapshot
+func (builder *MemoryHubListItemBuilder) DetailEntry(detailEntry string) *MemoryHubListItemBuilder {
+	builder.detailEntry = detailEntry
+	builder.detailEntrySet = true
+	return builder
+}
+
+func (builder *MemoryHubListItemBuilder) Build() *MemoryHubListItem {
+	req := &MemoryHubListItem{}
+	if builder.memoryKeySet {
+		req.MemoryKey = &builder.memoryKey
+
+	}
+	if builder.defaultVariantKeySet {
+		req.DefaultVariantKey = &builder.defaultVariantKey
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionSet {
+		req.Description = &builder.description
+
+	}
+	if builder.showcaseSet {
+		req.Showcase = &builder.showcase
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.variantsSet {
+		req.Variants = builder.variants
+	}
+	if builder.detailEntrySet {
+		req.DetailEntry = &builder.detailEntry
+
+	}
+	return req
+}
+
+type MemoryHubVariant struct {
+	VariantKey *string `json:"variant_key,omitempty"` // 记忆变体标识
+
+	Name *string `json:"name,omitempty"` // 变体名称
+
+	Description *string `json:"description,omitempty"` // 变体说明
+
+	Status *string `json:"status,omitempty"` // 变体状态
+}
+
+type MemoryHubVariantBuilder struct {
+	variantKey    string // 记忆变体标识
+	variantKeySet bool
+
+	name    string // 变体名称
+	nameSet bool
+
+	description    string // 变体说明
+	descriptionSet bool
+
+	status    string // 变体状态
+	statusSet bool
+}
+
+func NewMemoryHubVariantBuilder() *MemoryHubVariantBuilder {
+	builder := &MemoryHubVariantBuilder{}
+	return builder
+}
+
+// 记忆变体标识
+//
+// 示例值：default
+func (builder *MemoryHubVariantBuilder) VariantKey(variantKey string) *MemoryHubVariantBuilder {
+	builder.variantKey = variantKey
+	builder.variantKeySet = true
+	return builder
+}
+
+// 变体名称
+//
+// 示例值：默认版本
+func (builder *MemoryHubVariantBuilder) Name(name string) *MemoryHubVariantBuilder {
+	builder.name = name
+	builder.nameSet = true
+	return builder
+}
+
+// 变体说明
+//
+// 示例值：1111
+func (builder *MemoryHubVariantBuilder) Description(description string) *MemoryHubVariantBuilder {
+	builder.description = description
+	builder.descriptionSet = true
+	return builder
+}
+
+// 变体状态
+//
+// 示例值：ready
+func (builder *MemoryHubVariantBuilder) Status(status string) *MemoryHubVariantBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+func (builder *MemoryHubVariantBuilder) Build() *MemoryHubVariant {
+	req := &MemoryHubVariant{}
+	if builder.variantKeySet {
+		req.VariantKey = &builder.variantKey
+
+	}
+	if builder.nameSet {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionSet {
+		req.Description = &builder.description
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
 
 	}
 	return req
@@ -5606,6 +6241,197 @@ func (builder *NlsModelConfigBuilder) Build() *NlsModelConfig {
 	if builder.modelNameSet {
 		req.ModelName = &builder.modelName
 
+	}
+	return req
+}
+
+type OutputItem struct {
+	ItemId *int `json:"item_id,omitempty"` // 输出项唯一标识，用于流式输出场景中追踪和匹配更新项，客户端可通过该ID定位需要替换的内容
+
+	Event *int `json:"event,omitempty"` // 输出项生命周期事件标识，用于流式输出场景中通知客户端当前项的状态变化，取值对应 output_item_event 枚举定义
+
+	Type *int `json:"type,omitempty"` // 输出项类型标识，用于区分不同类型的搜索结果内容，取值对应 output_item_type 枚举定义
+
+	Status *int `json:"status,omitempty"` // 输出项处理状态标识，用于标记当前项的执行进度，取值对应 output_item_status 枚举定义
+
+	Text *string `json:"text,omitempty"` // 输出项的文本内容，支持富文本格式。当 type=Message 时为回答文本；type=Reasoning 时为思考过程文本；type=ToolCall 时为空
+
+	Annotations []*Annotation `json:"annotations,omitempty"` // 输出项的附加标注信息列表，包含内联图片、引用链接、画板等富媒体内容，每个元素遵循 annotation 结构定义
+
+	ErrorMessage *string `json:"error_message,omitempty"` // 错误描述信息，仅当 status=Failed 时填充，用于说明输出项处理失败的具体原因
+
+	ErrorCode *int `json:"error_code,omitempty"` // 错误码，仅当 status=Failed 时填充，用于标识具体的错误类型，取值对应系统统一错误码规范
+
+	ToolCall *ToolCallContent `json:"tool_call,omitempty"` // 工具调用详情，仅当 type=ToolCall 时填充，包含调用的工具类型及对应参数，结构遵循 tool_call_content 定义
+
+	References []*SearchCallContent `json:"references,omitempty"` // 仅 Reference item 使用：聚合多轮搜索结果，每个元素对应一轮 search（queries + 去重后的 references）。TOOL_CALL item 不填充该字段
+}
+
+type OutputItemBuilder struct {
+	itemId    int // 输出项唯一标识，用于流式输出场景中追踪和匹配更新项，客户端可通过该ID定位需要替换的内容
+	itemIdSet bool
+
+	event    int // 输出项生命周期事件标识，用于流式输出场景中通知客户端当前项的状态变化，取值对应 output_item_event 枚举定义
+	eventSet bool
+
+	type_    int // 输出项类型标识，用于区分不同类型的搜索结果内容，取值对应 output_item_type 枚举定义
+	type_Set bool
+
+	status    int // 输出项处理状态标识，用于标记当前项的执行进度，取值对应 output_item_status 枚举定义
+	statusSet bool
+
+	text    string // 输出项的文本内容，支持富文本格式。当 type=Message 时为回答文本；type=Reasoning 时为思考过程文本；type=ToolCall 时为空
+	textSet bool
+
+	annotations    []*Annotation // 输出项的附加标注信息列表，包含内联图片、引用链接、画板等富媒体内容，每个元素遵循 annotation 结构定义
+	annotationsSet bool
+
+	errorMessage    string // 错误描述信息，仅当 status=Failed 时填充，用于说明输出项处理失败的具体原因
+	errorMessageSet bool
+
+	errorCode    int // 错误码，仅当 status=Failed 时填充，用于标识具体的错误类型，取值对应系统统一错误码规范
+	errorCodeSet bool
+
+	toolCall    *ToolCallContent // 工具调用详情，仅当 type=ToolCall 时填充，包含调用的工具类型及对应参数，结构遵循 tool_call_content 定义
+	toolCallSet bool
+
+	references    []*SearchCallContent // 仅 Reference item 使用：聚合多轮搜索结果，每个元素对应一轮 search（queries + 去重后的 references）。TOOL_CALL item 不填充该字段
+	referencesSet bool
+}
+
+func NewOutputItemBuilder() *OutputItemBuilder {
+	builder := &OutputItemBuilder{}
+	return builder
+}
+
+// 输出项唯一标识，用于流式输出场景中追踪和匹配更新项，客户端可通过该ID定位需要替换的内容
+//
+// 示例值：1001
+func (builder *OutputItemBuilder) ItemId(itemId int) *OutputItemBuilder {
+	builder.itemId = itemId
+	builder.itemIdSet = true
+	return builder
+}
+
+// 输出项生命周期事件标识，用于流式输出场景中通知客户端当前项的状态变化，取值对应 output_item_event 枚举定义
+//
+// 示例值：
+func (builder *OutputItemBuilder) Event(event int) *OutputItemBuilder {
+	builder.event = event
+	builder.eventSet = true
+	return builder
+}
+
+// 输出项类型标识，用于区分不同类型的搜索结果内容，取值对应 output_item_type 枚举定义
+//
+// 示例值：
+func (builder *OutputItemBuilder) Type(type_ int) *OutputItemBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 输出项处理状态标识，用于标记当前项的执行进度，取值对应 output_item_status 枚举定义
+//
+// 示例值：
+func (builder *OutputItemBuilder) Status(status int) *OutputItemBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// 输出项的文本内容，支持富文本格式。当 type=Message 时为回答文本；type=Reasoning 时为思考过程文本；type=ToolCall 时为空
+//
+// 示例值：根据您的查询，企业差旅报销标准为：国内一线城市每日住宿限额500元，交通费用凭票实报实销
+func (builder *OutputItemBuilder) Text(text string) *OutputItemBuilder {
+	builder.text = text
+	builder.textSet = true
+	return builder
+}
+
+// 输出项的附加标注信息列表，包含内联图片、引用链接、画板等富媒体内容，每个元素遵循 annotation 结构定义
+//
+// 示例值：
+func (builder *OutputItemBuilder) Annotations(annotations []*Annotation) *OutputItemBuilder {
+	builder.annotations = annotations
+	builder.annotationsSet = true
+	return builder
+}
+
+// 错误描述信息，仅当 status=Failed 时填充，用于说明输出项处理失败的具体原因
+//
+// 示例值：搜索超时，无法获取相关结果，请稍后重试
+func (builder *OutputItemBuilder) ErrorMessage(errorMessage string) *OutputItemBuilder {
+	builder.errorMessage = errorMessage
+	builder.errorMessageSet = true
+	return builder
+}
+
+// 错误码，仅当 status=Failed 时填充，用于标识具体的错误类型，取值对应系统统一错误码规范
+//
+// 示例值：50001
+func (builder *OutputItemBuilder) ErrorCode(errorCode int) *OutputItemBuilder {
+	builder.errorCode = errorCode
+	builder.errorCodeSet = true
+	return builder
+}
+
+// 工具调用详情，仅当 type=ToolCall 时填充，包含调用的工具类型及对应参数，结构遵循 tool_call_content 定义
+//
+// 示例值：
+func (builder *OutputItemBuilder) ToolCall(toolCall *ToolCallContent) *OutputItemBuilder {
+	builder.toolCall = toolCall
+	builder.toolCallSet = true
+	return builder
+}
+
+// 仅 Reference item 使用：聚合多轮搜索结果，每个元素对应一轮 search（queries + 去重后的 references）。TOOL_CALL item 不填充该字段
+//
+// 示例值：
+func (builder *OutputItemBuilder) References(references []*SearchCallContent) *OutputItemBuilder {
+	builder.references = references
+	builder.referencesSet = true
+	return builder
+}
+
+func (builder *OutputItemBuilder) Build() *OutputItem {
+	req := &OutputItem{}
+	if builder.itemIdSet {
+		req.ItemId = &builder.itemId
+
+	}
+	if builder.eventSet {
+		req.Event = &builder.event
+
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.textSet {
+		req.Text = &builder.text
+
+	}
+	if builder.annotationsSet {
+		req.Annotations = builder.annotations
+	}
+	if builder.errorMessageSet {
+		req.ErrorMessage = &builder.errorMessage
+
+	}
+	if builder.errorCodeSet {
+		req.ErrorCode = &builder.errorCode
+
+	}
+	if builder.toolCallSet {
+		req.ToolCall = builder.toolCall
+	}
+	if builder.referencesSet {
+		req.References = builder.references
 	}
 	return req
 }
@@ -6243,6 +7069,238 @@ func (builder *PresentDataCallbackDialogRequestBuilder) Build() *PresentDataCall
 	return req
 }
 
+type QaBoardProperty struct {
+	Image *QaImageProperty `json:"image,omitempty"` // 问答看板关联的图片属性集合，包含图片元信息、访问地址等完整资源描述，用于展示看板的可视化内容。
+
+	BoardId *string `json:"board_id,omitempty"` // 问答看板的唯一标识，用于在系统中定位和区分不同看板资源。可通过看板创建或查询接口获取。
+
+	BoardType *int `json:"board_type,omitempty"` // 问答看板的类型枚举，用于标识看板的可视化展示形式，不同类型对应不同的渲染逻辑与交互方式。可选值包括流程图、思维导图、XY图表等。
+
+	RawCode *string `json:"raw_code,omitempty"` // 问答看板的原始编码，用于关联看板生成前的原始输入数据，支持回溯看板的生成来源与历史版本。
+
+	BoardStatus *int `json:"board_status,omitempty"` // 问答看板的状态枚举，用于标识看板的生成进度与可用性。可选值包括生成中、完成、错误。
+}
+
+type QaBoardPropertyBuilder struct {
+	image    *QaImageProperty // 问答看板关联的图片属性集合，包含图片元信息、访问地址等完整资源描述，用于展示看板的可视化内容。
+	imageSet bool
+
+	boardId    string // 问答看板的唯一标识，用于在系统中定位和区分不同看板资源。可通过看板创建或查询接口获取。
+	boardIdSet bool
+
+	boardType    int // 问答看板的类型枚举，用于标识看板的可视化展示形式，不同类型对应不同的渲染逻辑与交互方式。可选值包括流程图、思维导图、XY图表等。
+	boardTypeSet bool
+
+	rawCode    string // 问答看板的原始编码，用于关联看板生成前的原始输入数据，支持回溯看板的生成来源与历史版本。
+	rawCodeSet bool
+
+	boardStatus    int // 问答看板的状态枚举，用于标识看板的生成进度与可用性。可选值包括生成中、完成、错误。
+	boardStatusSet bool
+}
+
+func NewQaBoardPropertyBuilder() *QaBoardPropertyBuilder {
+	builder := &QaBoardPropertyBuilder{}
+	return builder
+}
+
+// 问答看板关联的图片属性集合，包含图片元信息、访问地址等完整资源描述，用于展示看板的可视化内容。
+//
+// 示例值：
+func (builder *QaBoardPropertyBuilder) Image(image *QaImageProperty) *QaBoardPropertyBuilder {
+	builder.image = image
+	builder.imageSet = true
+	return builder
+}
+
+// 问答看板的唯一标识，用于在系统中定位和区分不同看板资源。可通过看板创建或查询接口获取。
+//
+// 示例值：board_7890abcdef123456
+func (builder *QaBoardPropertyBuilder) BoardId(boardId string) *QaBoardPropertyBuilder {
+	builder.boardId = boardId
+	builder.boardIdSet = true
+	return builder
+}
+
+// 问答看板的类型枚举，用于标识看板的可视化展示形式，不同类型对应不同的渲染逻辑与交互方式。可选值包括流程图、思维导图、XY图表等。
+//
+// 示例值：
+func (builder *QaBoardPropertyBuilder) BoardType(boardType int) *QaBoardPropertyBuilder {
+	builder.boardType = boardType
+	builder.boardTypeSet = true
+	return builder
+}
+
+// 问答看板的原始编码，用于关联看板生成前的原始输入数据，支持回溯看板的生成来源与历史版本。
+//
+// 示例值：raw_code_20240520_1030_abc
+func (builder *QaBoardPropertyBuilder) RawCode(rawCode string) *QaBoardPropertyBuilder {
+	builder.rawCode = rawCode
+	builder.rawCodeSet = true
+	return builder
+}
+
+// 问答看板的状态枚举，用于标识看板的生成进度与可用性。可选值包括生成中、完成、错误。
+//
+// 示例值：
+func (builder *QaBoardPropertyBuilder) BoardStatus(boardStatus int) *QaBoardPropertyBuilder {
+	builder.boardStatus = boardStatus
+	builder.boardStatusSet = true
+	return builder
+}
+
+func (builder *QaBoardPropertyBuilder) Build() *QaBoardProperty {
+	req := &QaBoardProperty{}
+	if builder.imageSet {
+		req.Image = builder.image
+	}
+	if builder.boardIdSet {
+		req.BoardId = &builder.boardId
+
+	}
+	if builder.boardTypeSet {
+		req.BoardType = &builder.boardType
+
+	}
+	if builder.rawCodeSet {
+		req.RawCode = &builder.rawCode
+
+	}
+	if builder.boardStatusSet {
+		req.BoardStatus = &builder.boardStatus
+
+	}
+	return req
+}
+
+type QaImageMeta struct {
+	ImageKey *string `json:"image_key,omitempty"` // 图片在存储系统中的唯一标识，用于定位和获取图片资源。可通过图片上传接口获取
+}
+
+type QaImageMetaBuilder struct {
+	imageKey    string // 图片在存储系统中的唯一标识，用于定位和获取图片资源。可通过图片上传接口获取
+	imageKeySet bool
+}
+
+func NewQaImageMetaBuilder() *QaImageMetaBuilder {
+	builder := &QaImageMetaBuilder{}
+	return builder
+}
+
+// 图片在存储系统中的唯一标识，用于定位和获取图片资源。可通过图片上传接口获取
+//
+// 示例值：img_1234567890abcdef
+func (builder *QaImageMetaBuilder) ImageKey(imageKey string) *QaImageMetaBuilder {
+	builder.imageKey = imageKey
+	builder.imageKeySet = true
+	return builder
+}
+
+func (builder *QaImageMetaBuilder) Build() *QaImageMeta {
+	req := &QaImageMeta{}
+	if builder.imageKeySet {
+		req.ImageKey = &builder.imageKey
+
+	}
+	return req
+}
+
+type QaImageProperty struct {
+	ImageMeta *QaImageMeta `json:"image_meta,omitempty"` // 图片元信息集合，包含图片的存储标识、访问凭证、尺寸信息及各类访问地址，用于完整描述图片资源的属性与访问方式。
+}
+
+type QaImagePropertyBuilder struct {
+	imageMeta    *QaImageMeta // 图片元信息集合，包含图片的存储标识、访问凭证、尺寸信息及各类访问地址，用于完整描述图片资源的属性与访问方式。
+	imageMetaSet bool
+}
+
+func NewQaImagePropertyBuilder() *QaImagePropertyBuilder {
+	builder := &QaImagePropertyBuilder{}
+	return builder
+}
+
+// 图片元信息集合，包含图片的存储标识、访问凭证、尺寸信息及各类访问地址，用于完整描述图片资源的属性与访问方式。
+//
+// 示例值：
+func (builder *QaImagePropertyBuilder) ImageMeta(imageMeta *QaImageMeta) *QaImagePropertyBuilder {
+	builder.imageMeta = imageMeta
+	builder.imageMetaSet = true
+	return builder
+}
+
+func (builder *QaImagePropertyBuilder) Build() *QaImageProperty {
+	req := &QaImageProperty{}
+	if builder.imageMetaSet {
+		req.ImageMeta = builder.imageMeta
+	}
+	return req
+}
+
+type QaRefProperty struct {
+	RefType *int `json:"ref_type,omitempty"` // 引用类型标识，用于区分当前引用来源为企业知识或网络搜索。取值对应 qa_ref_type 枚举：1 表示企业知识引用，2 表示网络搜索引用。
+
+	Enterprise *KnowledgeQaEnterpriseReference `json:"enterprise,omitempty"` // 企业知识引用详情，仅当 ref_type=1（企业知识引用）时生效。包含引用内容的ID、来源类型、标题、正文及访问链接等信息，来源类型支持服务台、wiki、文档、飞书妙记等企业内部资源。
+
+	Internet *KnowledgeQaInternetReference `json:"internet,omitempty"` // 网络搜索引用详情，仅当 ref_type=2（网络搜索引用）时生效。包含引用内容的标题、摘要及外部访问链接，用于展示公开网络资源的参考信息。
+}
+
+type QaRefPropertyBuilder struct {
+	refType    int // 引用类型标识，用于区分当前引用来源为企业知识或网络搜索。取值对应 qa_ref_type 枚举：1 表示企业知识引用，2 表示网络搜索引用。
+	refTypeSet bool
+
+	enterprise    *KnowledgeQaEnterpriseReference // 企业知识引用详情，仅当 ref_type=1（企业知识引用）时生效。包含引用内容的ID、来源类型、标题、正文及访问链接等信息，来源类型支持服务台、wiki、文档、飞书妙记等企业内部资源。
+	enterpriseSet bool
+
+	internet    *KnowledgeQaInternetReference // 网络搜索引用详情，仅当 ref_type=2（网络搜索引用）时生效。包含引用内容的标题、摘要及外部访问链接，用于展示公开网络资源的参考信息。
+	internetSet bool
+}
+
+func NewQaRefPropertyBuilder() *QaRefPropertyBuilder {
+	builder := &QaRefPropertyBuilder{}
+	return builder
+}
+
+// 引用类型标识，用于区分当前引用来源为企业知识或网络搜索。取值对应 qa_ref_type 枚举：1 表示企业知识引用，2 表示网络搜索引用。
+//
+// 示例值：
+func (builder *QaRefPropertyBuilder) RefType(refType int) *QaRefPropertyBuilder {
+	builder.refType = refType
+	builder.refTypeSet = true
+	return builder
+}
+
+// 企业知识引用详情，仅当 ref_type=1（企业知识引用）时生效。包含引用内容的ID、来源类型、标题、正文及访问链接等信息，来源类型支持服务台、wiki、文档、飞书妙记等企业内部资源。
+//
+// 示例值：
+func (builder *QaRefPropertyBuilder) Enterprise(enterprise *KnowledgeQaEnterpriseReference) *QaRefPropertyBuilder {
+	builder.enterprise = enterprise
+	builder.enterpriseSet = true
+	return builder
+}
+
+// 网络搜索引用详情，仅当 ref_type=2（网络搜索引用）时生效。包含引用内容的标题、摘要及外部访问链接，用于展示公开网络资源的参考信息。
+//
+// 示例值：
+func (builder *QaRefPropertyBuilder) Internet(internet *KnowledgeQaInternetReference) *QaRefPropertyBuilder {
+	builder.internet = internet
+	builder.internetSet = true
+	return builder
+}
+
+func (builder *QaRefPropertyBuilder) Build() *QaRefProperty {
+	req := &QaRefProperty{}
+	if builder.refTypeSet {
+		req.RefType = &builder.refType
+
+	}
+	if builder.enterpriseSet {
+		req.Enterprise = builder.enterprise
+	}
+	if builder.internetSet {
+		req.Internet = builder.internet
+	}
+	return req
+}
+
 type RagAnswer struct {
 	Answer *string `json:"answer,omitempty"` // 提问query的答案
 
@@ -6770,13 +7828,13 @@ func (builder *SchemaBuilder) Build() *Schema {
 }
 
 type SchemaDisplay struct {
-	CardKey *string `json:"card_key,omitempty"` // 搜索数据的展示卡片;;;卡片详细信息请参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook)  "请求创建数据范式"部分
+	CardKey *string `json:"card_key,omitempty"` // 搜索数据的展示卡片;;;卡片详细信息请参考 [通用模块接入指南](/document/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) "请求创建数据范式"部分
 
 	FieldsMapping []*SchemaDisplayFieldMapping `json:"fields_mapping,omitempty"` // 数据字段名称和展示字段名称的映射关系。如果没有设置，则只会展示 与展示字段名称同名的 数据字段
 }
 
 type SchemaDisplayBuilder struct {
-	cardKey    string // 搜索数据的展示卡片;;;卡片详细信息请参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook)  "请求创建数据范式"部分
+	cardKey    string // 搜索数据的展示卡片;;;卡片详细信息请参考 [通用模块接入指南](/document/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) "请求创建数据范式"部分
 	cardKeySet bool
 
 	fieldsMapping    []*SchemaDisplayFieldMapping // 数据字段名称和展示字段名称的映射关系。如果没有设置，则只会展示 与展示字段名称同名的 数据字段
@@ -6788,7 +7846,7 @@ func NewSchemaDisplayBuilder() *SchemaDisplayBuilder {
 	return builder
 }
 
-// 搜索数据的展示卡片;;;卡片详细信息请参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook)  "请求创建数据范式"部分
+// 搜索数据的展示卡片;;;卡片详细信息请参考 [通用模块接入指南](/document/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) "请求创建数据范式"部分
 //
 // 示例值：search_common_card
 func (builder *SchemaDisplayBuilder) CardKey(cardKey string) *SchemaDisplayBuilder {
@@ -6952,7 +8010,7 @@ func (builder *SchemaFieldAnswerOptionBuilder) Build() *SchemaFieldAnswerOption 
 type SchemaFilterOptions struct {
 	DisplayName *string `json:"display_name,omitempty"` // 筛选器展示名称
 
-	I18nDisplayName *I18nMeta `json:"i18n_display_name,omitempty"` // 筛选器展示名称国际化字段
+	I18nDisplayName *I18nMeta `json:"i18n_display_name,omitempty"` // 数据源的国际化展示名称
 
 	OptionMode *string `json:"option_mode,omitempty"` // 指明该筛选器支持单选或多选，默认单选
 
@@ -6971,7 +8029,7 @@ type SchemaFilterOptionsBuilder struct {
 	displayName    string // 筛选器展示名称
 	displayNameSet bool
 
-	i18nDisplayName    *I18nMeta // 筛选器展示名称国际化字段
+	i18nDisplayName    *I18nMeta // 数据源的国际化展示名称
 	i18nDisplayNameSet bool
 
 	optionMode    string // 指明该筛选器支持单选或多选，默认单选
@@ -7007,7 +8065,7 @@ func (builder *SchemaFilterOptionsBuilder) DisplayName(displayName string) *Sche
 	return builder
 }
 
-// 筛选器展示名称国际化字段
+// 数据源的国际化展示名称
 //
 // 示例值：
 func (builder *SchemaFilterOptionsBuilder) I18nDisplayName(i18nDisplayName *I18nMeta) *SchemaFilterOptionsBuilder {
@@ -7682,10 +8740,58 @@ func (builder *SchemaUserIdsOptionBuilder) Build() *SchemaUserIdsOption {
 	return req
 }
 
-type SeperatePassage struct {
-	PassageId *string `json:"passage_id,omitempty"` // passage_id
+type SearchCallContent struct {
+	Queries []string `json:"queries,omitempty"` // 用户发起的搜索查询语句列表，支持批量查询场景。每个元素为独立的搜索关键词或完整问句，用于触发对应的检索和问答处理。
 
-	ObjId *string `json:"obj_id,omitempty"` // obj_id
+	References []*QaRefProperty `json:"references,omitempty"` // 搜索结果关联的引用资源列表，包含企业知识或网络搜索的来源信息。每个元素对应一条引用详情，结构遵循 qa_ref_property 类型定义，用于展示搜索结果的参考依据。
+}
+
+type SearchCallContentBuilder struct {
+	queries    []string // 用户发起的搜索查询语句列表，支持批量查询场景。每个元素为独立的搜索关键词或完整问句，用于触发对应的检索和问答处理。
+	queriesSet bool
+
+	references    []*QaRefProperty // 搜索结果关联的引用资源列表，包含企业知识或网络搜索的来源信息。每个元素对应一条引用详情，结构遵循 qa_ref_property 类型定义，用于展示搜索结果的参考依据。
+	referencesSet bool
+}
+
+func NewSearchCallContentBuilder() *SearchCallContentBuilder {
+	builder := &SearchCallContentBuilder{}
+	return builder
+}
+
+// 用户发起的搜索查询语句列表，支持批量查询场景。每个元素为独立的搜索关键词或完整问句，用于触发对应的检索和问答处理。
+//
+// 示例值：
+func (builder *SearchCallContentBuilder) Queries(queries []string) *SearchCallContentBuilder {
+	builder.queries = queries
+	builder.queriesSet = true
+	return builder
+}
+
+// 搜索结果关联的引用资源列表，包含企业知识或网络搜索的来源信息。每个元素对应一条引用详情，结构遵循 qa_ref_property 类型定义，用于展示搜索结果的参考依据。
+//
+// 示例值：
+func (builder *SearchCallContentBuilder) References(references []*QaRefProperty) *SearchCallContentBuilder {
+	builder.references = references
+	builder.referencesSet = true
+	return builder
+}
+
+func (builder *SearchCallContentBuilder) Build() *SearchCallContent {
+	req := &SearchCallContent{}
+	if builder.queriesSet {
+		req.Queries = builder.queries
+	}
+	if builder.referencesSet {
+		req.References = builder.references
+	}
+	return req
+}
+
+type SeperatePassage struct {
+	PassageId *string `json:"passage_id,omitempty"` // 文本片段id
+
+	ObjId *string `json:"obj_id,omitempty"` // objectID
 
 	Content *string `json:"content,omitempty"` // 内容
 
@@ -7693,10 +8799,10 @@ type SeperatePassage struct {
 }
 
 type SeperatePassageBuilder struct {
-	passageId    string // passage_id
+	passageId    string // 文本片段id
 	passageIdSet bool
 
-	objId    string // obj_id
+	objId    string // objectID
 	objIdSet bool
 
 	content    string // 内容
@@ -7711,7 +8817,7 @@ func NewSeperatePassageBuilder() *SeperatePassageBuilder {
 	return builder
 }
 
-// passage_id
+// 文本片段id
 //
 // 示例值：6953165194634772508
 func (builder *SeperatePassageBuilder) PassageId(passageId string) *SeperatePassageBuilder {
@@ -7720,7 +8826,7 @@ func (builder *SeperatePassageBuilder) PassageId(passageId string) *SeperatePass
 	return builder
 }
 
-// obj_id
+// objectID
 //
 // 示例值：6953165194634772508
 func (builder *SeperatePassageBuilder) ObjId(objId string) *SeperatePassageBuilder {
@@ -7769,26 +8875,26 @@ func (builder *SeperatePassageBuilder) Build() *SeperatePassage {
 }
 
 type SimpleGetRelatedUsersRequest struct {
-	UserId *string `json:"user_id,omitempty"` // 用户id
+	UserId *string `json:"user_id,omitempty"` // 用户ID，根据 user_id_type 选择传入用户 ID 类型
 
-	TopK *int `json:"top_k,omitempty"` // 获取相关用户的最大人数
+	TopK *int `json:"top_k,omitempty"` // 获取相关用户的最大人数，默认为100
 
-	StartTimeFilter *string `json:"start_time_filter,omitempty"` // 方式一：传入时间范围枚举值，“1”代表近一个月，“2”代表近两个月，“3”代表近三个月，“4”代表近六个月，“5”代表近一年，推荐采取该方式。若采用方式一，则end_time_filter无需传入。若start_time_filter和end_time_filter都不传入，则默认搜索范围为半年。 方式二：传入最早的交互时间，毫秒级时间戳。若采用方式二，建议start_time_filter和end_time_filter都传入，若不传入，则默认搜索范围为半年。
+	StartTimeFilter *string `json:"start_time_filter,omitempty"` // 传入时间范围枚举值，“1”代表近一个月，“2”代表近两个月，“3”代表近三个月，“4”代表近六个月，“5”代表近一年。默认搜索范围为近六个月。
 
-	EndTimeFilter *string `json:"end_time_filter,omitempty"` // 最晚交互时间，毫秒级时间戳。
+	EndTimeFilter *string `json:"end_time_filter,omitempty"` // 废弃字段，不用传入
 }
 
 type SimpleGetRelatedUsersRequestBuilder struct {
-	userId    string // 用户id
+	userId    string // 用户ID，根据 user_id_type 选择传入用户 ID 类型
 	userIdSet bool
 
-	topK    int // 获取相关用户的最大人数
+	topK    int // 获取相关用户的最大人数，默认为100
 	topKSet bool
 
-	startTimeFilter    string // 方式一：传入时间范围枚举值，“1”代表近一个月，“2”代表近两个月，“3”代表近三个月，“4”代表近六个月，“5”代表近一年，推荐采取该方式。若采用方式一，则end_time_filter无需传入。若start_time_filter和end_time_filter都不传入，则默认搜索范围为半年。 方式二：传入最早的交互时间，毫秒级时间戳。若采用方式二，建议start_time_filter和end_time_filter都传入，若不传入，则默认搜索范围为半年。
+	startTimeFilter    string // 传入时间范围枚举值，“1”代表近一个月，“2”代表近两个月，“3”代表近三个月，“4”代表近六个月，“5”代表近一年。默认搜索范围为近六个月。
 	startTimeFilterSet bool
 
-	endTimeFilter    string // 最晚交互时间，毫秒级时间戳。
+	endTimeFilter    string // 废弃字段，不用传入
 	endTimeFilterSet bool
 }
 
@@ -7797,7 +8903,7 @@ func NewSimpleGetRelatedUsersRequestBuilder() *SimpleGetRelatedUsersRequestBuild
 	return builder
 }
 
-// 用户id
+// 用户ID，根据 user_id_type 选择传入用户 ID 类型
 //
 // 示例值：fdsfds2
 func (builder *SimpleGetRelatedUsersRequestBuilder) UserId(userId string) *SimpleGetRelatedUsersRequestBuilder {
@@ -7806,7 +8912,7 @@ func (builder *SimpleGetRelatedUsersRequestBuilder) UserId(userId string) *Simpl
 	return builder
 }
 
-// 获取相关用户的最大人数
+// 获取相关用户的最大人数，默认为100
 //
 // 示例值：100
 func (builder *SimpleGetRelatedUsersRequestBuilder) TopK(topK int) *SimpleGetRelatedUsersRequestBuilder {
@@ -7815,7 +8921,7 @@ func (builder *SimpleGetRelatedUsersRequestBuilder) TopK(topK int) *SimpleGetRel
 	return builder
 }
 
-// 方式一：传入时间范围枚举值，“1”代表近一个月，“2”代表近两个月，“3”代表近三个月，“4”代表近六个月，“5”代表近一年，推荐采取该方式。若采用方式一，则end_time_filter无需传入。若start_time_filter和end_time_filter都不传入，则默认搜索范围为半年。 方式二：传入最早的交互时间，毫秒级时间戳。若采用方式二，建议start_time_filter和end_time_filter都传入，若不传入，则默认搜索范围为半年。
+// 传入时间范围枚举值，“1”代表近一个月，“2”代表近两个月，“3”代表近三个月，“4”代表近六个月，“5”代表近一年。默认搜索范围为近六个月。
 //
 // 示例值：5
 func (builder *SimpleGetRelatedUsersRequestBuilder) StartTimeFilter(startTimeFilter string) *SimpleGetRelatedUsersRequestBuilder {
@@ -7824,9 +8930,9 @@ func (builder *SimpleGetRelatedUsersRequestBuilder) StartTimeFilter(startTimeFil
 	return builder
 }
 
-// 最晚交互时间，毫秒级时间戳。
+// 废弃字段，不用传入
 //
-// 示例值：1736390718000
+// 示例值：
 func (builder *SimpleGetRelatedUsersRequestBuilder) EndTimeFilter(endTimeFilter string) *SimpleGetRelatedUsersRequestBuilder {
 	builder.endTimeFilter = endTimeFilter
 	builder.endTimeFilterSet = true
@@ -7855,16 +8961,16 @@ func (builder *SimpleGetRelatedUsersRequestBuilder) Build() *SimpleGetRelatedUse
 }
 
 type SimpleRelatedUser struct {
-	UserId *string `json:"user_id,omitempty"` // 用户id
+	UserId *string `json:"user_id,omitempty"` // 用户ID，根据 user_id_type 选择返回的用户 ID 类型
 
-	Score *float64 `json:"score,omitempty"` // ci分数
+	Score *float64 `json:"score,omitempty"` // 协作分数，根据消息沟通频率、文档协作频率、邮件往来频率、日程会议协作频率等加权计算得出
 }
 
 type SimpleRelatedUserBuilder struct {
-	userId    string // 用户id
+	userId    string // 用户ID，根据 user_id_type 选择返回的用户 ID 类型
 	userIdSet bool
 
-	score    float64 // ci分数
+	score    float64 // 协作分数，根据消息沟通频率、文档协作频率、邮件往来频率、日程会议协作频率等加权计算得出
 	scoreSet bool
 }
 
@@ -7873,16 +8979,16 @@ func NewSimpleRelatedUserBuilder() *SimpleRelatedUserBuilder {
 	return builder
 }
 
-// 用户id
+// 用户ID，根据 user_id_type 选择返回的用户 ID 类型
 //
-// 示例值：
+// 示例值：fdsfds2
 func (builder *SimpleRelatedUserBuilder) UserId(userId string) *SimpleRelatedUserBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
 	return builder
 }
 
-// ci分数
+// 协作分数，根据消息沟通频率、文档协作频率、邮件往来频率、日程会议协作频率等加权计算得出
 //
 // 示例值：0.9
 func (builder *SimpleRelatedUserBuilder) Score(score float64) *SimpleRelatedUserBuilder {
@@ -8233,16 +9339,16 @@ func (builder *TemplateCardVariablesBuilder) Build() *TemplateCardVariables {
 }
 
 type TimeRange struct {
-	Start *int `json:"start,omitempty"` // 时间范围的起始时间戳
+	Start *int `json:"start,omitempty"` // 时间范围的起始时间戳。不填写时，起始时间默认为**请求时间的 1 年以前**。
 
-	End *int `json:"end,omitempty"` // 时间范围的截止时间戳
+	End *int `json:"end,omitempty"` // 时间范围的截止时间戳。不填写时，截止时间默认为**请求时间**。
 }
 
 type TimeRangeBuilder struct {
-	start    int // 时间范围的起始时间戳
+	start    int // 时间范围的起始时间戳。不填写时，起始时间默认为**请求时间的 1 年以前**。
 	startSet bool
 
-	end    int // 时间范围的截止时间戳
+	end    int // 时间范围的截止时间戳。不填写时，截止时间默认为**请求时间**。
 	endSet bool
 }
 
@@ -8251,7 +9357,7 @@ func NewTimeRangeBuilder() *TimeRangeBuilder {
 	return builder
 }
 
-// 时间范围的起始时间戳
+// 时间范围的起始时间戳。不填写时，起始时间默认为**请求时间的 1 年以前**。
 //
 // 示例值：1742348544
 func (builder *TimeRangeBuilder) Start(start int) *TimeRangeBuilder {
@@ -8260,7 +9366,7 @@ func (builder *TimeRangeBuilder) Start(start int) *TimeRangeBuilder {
 	return builder
 }
 
-// 时间范围的截止时间戳
+// 时间范围的截止时间戳。不填写时，截止时间默认为**请求时间**。
 //
 // 示例值：1742348544
 func (builder *TimeRangeBuilder) End(end int) *TimeRangeBuilder {
@@ -8278,6 +9384,55 @@ func (builder *TimeRangeBuilder) Build() *TimeRange {
 	if builder.endSet {
 		req.End = &builder.end
 
+	}
+	return req
+}
+
+type ToolCallContent struct {
+	ToolType *int `json:"tool_type,omitempty"` // 工具调用类型标识，用于指定当前调用的工具类型。取值对应 tool_type 枚举：1 表示知识搜索（含企业知识和网络搜索），2 表示固定的RAG检索工作流。
+
+	Search *SearchCallContent `json:"search,omitempty"` // 知识搜索调用的具体内容，包含用户搜索查询语句列表及搜索结果关联的引用资源列表。结构遵循 search_call_content 类型定义，仅当 tool_type=1（知识搜索）时生效。
+}
+
+type ToolCallContentBuilder struct {
+	toolType    int // 工具调用类型标识，用于指定当前调用的工具类型。取值对应 tool_type 枚举：1 表示知识搜索（含企业知识和网络搜索），2 表示固定的RAG检索工作流。
+	toolTypeSet bool
+
+	search    *SearchCallContent // 知识搜索调用的具体内容，包含用户搜索查询语句列表及搜索结果关联的引用资源列表。结构遵循 search_call_content 类型定义，仅当 tool_type=1（知识搜索）时生效。
+	searchSet bool
+}
+
+func NewToolCallContentBuilder() *ToolCallContentBuilder {
+	builder := &ToolCallContentBuilder{}
+	return builder
+}
+
+// 工具调用类型标识，用于指定当前调用的工具类型。取值对应 tool_type 枚举：1 表示知识搜索（含企业知识和网络搜索），2 表示固定的RAG检索工作流。
+//
+// 示例值：
+func (builder *ToolCallContentBuilder) ToolType(toolType int) *ToolCallContentBuilder {
+	builder.toolType = toolType
+	builder.toolTypeSet = true
+	return builder
+}
+
+// 知识搜索调用的具体内容，包含用户搜索查询语句列表及搜索结果关联的引用资源列表。结构遵循 search_call_content 类型定义，仅当 tool_type=1（知识搜索）时生效。
+//
+// 示例值：
+func (builder *ToolCallContentBuilder) Search(search *SearchCallContent) *ToolCallContentBuilder {
+	builder.search = search
+	builder.searchSet = true
+	return builder
+}
+
+func (builder *ToolCallContentBuilder) Build() *ToolCallContent {
+	req := &ToolCallContent{}
+	if builder.toolTypeSet {
+		req.ToolType = &builder.toolType
+
+	}
+	if builder.searchSet {
+		req.Search = builder.search
 	}
 	return req
 }
@@ -8574,7 +9729,7 @@ func (builder *WikiFilterBuilder) OpenTime(openTime *TimeRange) *WikiFilterBuild
 
 // 排序方式
 //
-// 示例值：CREATE_TIME_ASC
+// 示例值：CREATE_TIME
 func (builder *WikiFilterBuilder) SortType(sortType string) *WikiFilterBuilder {
 	builder.sortType = sortType
 	builder.sortTypeSet = true
@@ -8907,7 +10062,7 @@ func NewCreateAppReqBodyBuilder() *CreateAppReqBodyBuilder {
 
 // 搜索关键词
 //
-//示例值：测试应用
+// 示例值：测试应用
 func (builder *CreateAppReqBodyBuilder) Query(query string) *CreateAppReqBodyBuilder {
 	builder.query = query
 	builder.querySet = true
@@ -8973,21 +10128,21 @@ func (builder *CreateAppReqBuilder) UserIdType(userIdType string) *CreateAppReqB
 
 // 分页大小
 //
-// 示例值：
+// 示例值：20
 func (builder *CreateAppReqBuilder) PageSize(pageSize int) *CreateAppReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-// 分页token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：
+// 示例值：9e91187f9107ef4d43cd71c3722cd97665e6cec51bf30a06328839bc9867
 func (builder *CreateAppReqBuilder) PageToken(pageToken string) *CreateAppReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-//
+// 用户可以通过关键字搜索到可见应用，应用可见性与套件内搜索一致。
 func (builder *CreateAppReqBuilder) Body(body *CreateAppReqBody) *CreateAppReqBuilder {
 	builder.body = body
 	return builder
@@ -9013,9 +10168,9 @@ type CreateAppReq struct {
 type CreateAppRespData struct {
 	Items []string `json:"items,omitempty"` // app_id列表
 
-	PageToken *string `json:"page_token,omitempty"` // 翻页 token，传入返回下一页，首页不需要传入
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否还有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 }
 
 type CreateAppResp struct {
@@ -9042,7 +10197,7 @@ func NewCreateDataSourceReqBuilder() *CreateDataSourceReqBuilder {
 	return builder
 }
 
-// 创建一个数据源
+// 创建一个数据源。
 func (builder *CreateDataSourceReqBuilder) DataSource(dataSource *DataSource) *CreateDataSourceReqBuilder {
 	builder.dataSource = dataSource
 	return builder
@@ -9130,7 +10285,7 @@ func NewGetDataSourceReqBuilder() *GetDataSourceReqBuilder {
 
 // 数据源的唯一标识
 //
-// 示例值：service_ticket
+// 示例值：6953903108179099667
 func (builder *GetDataSourceReqBuilder) DataSourceId(dataSourceId string) *GetDataSourceReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
@@ -9250,10 +10405,10 @@ type PatchDataSourceReqBodyBuilder struct {
 	iconUrl    string // 数据源在 search tab 上的展示图标路径
 	iconUrlSet bool
 
-	i18nName    *I18nMeta // 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
+	i18nName    *I18nMeta // 数据源的国际化展示名称
 	i18nNameSet bool
 
-	i18nDescription    *I18nMeta // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
+	i18nDescription    *I18nMeta // 数据源的国际化展示名称
 	i18nDescriptionSet bool
 
 	connectorParam    *ConnectorParam // 修改connector的相关配置
@@ -9270,7 +10425,7 @@ func NewPatchDataSourceReqBodyBuilder() *PatchDataSourceReqBodyBuilder {
 
 // 数据源的展示名称
 //
-//示例值：客服工单
+// 示例值：客服工单
 func (builder *PatchDataSourceReqBodyBuilder) Name(name string) *PatchDataSourceReqBodyBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -9279,7 +10434,7 @@ func (builder *PatchDataSourceReqBodyBuilder) Name(name string) *PatchDataSource
 
 // 数据源状态，0-已上线，1-未上线
 //
-//示例值：0
+// 示例值：0
 func (builder *PatchDataSourceReqBodyBuilder) State(state int) *PatchDataSourceReqBodyBuilder {
 	builder.state = state
 	builder.stateSet = true
@@ -9288,7 +10443,7 @@ func (builder *PatchDataSourceReqBodyBuilder) State(state int) *PatchDataSourceR
 
 // 对于数据源的描述
 //
-//示例值：搜索客服工单
+// 示例值：搜索客服工单
 func (builder *PatchDataSourceReqBodyBuilder) Description(description string) *PatchDataSourceReqBodyBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -9297,25 +10452,25 @@ func (builder *PatchDataSourceReqBodyBuilder) Description(description string) *P
 
 // 数据源在 search tab 上的展示图标路径
 //
-//示例值：https://www.xxx.com/open.jpg
+// 示例值：https://www.xxx.com/open.jpg
 func (builder *PatchDataSourceReqBodyBuilder) IconUrl(iconUrl string) *PatchDataSourceReqBodyBuilder {
 	builder.iconUrl = iconUrl
 	builder.iconUrlSet = true
 	return builder
 }
 
-// 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
+// 数据源的国际化展示名称
 //
-//示例值：
+// 示例值：
 func (builder *PatchDataSourceReqBodyBuilder) I18nName(i18nName *I18nMeta) *PatchDataSourceReqBodyBuilder {
 	builder.i18nName = i18nName
 	builder.i18nNameSet = true
 	return builder
 }
 
-// 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
+// 数据源的国际化展示名称
 //
-//示例值：
+// 示例值：
 func (builder *PatchDataSourceReqBodyBuilder) I18nDescription(i18nDescription *I18nMeta) *PatchDataSourceReqBodyBuilder {
 	builder.i18nDescription = i18nDescription
 	builder.i18nDescriptionSet = true
@@ -9324,7 +10479,7 @@ func (builder *PatchDataSourceReqBodyBuilder) I18nDescription(i18nDescription *I
 
 // 修改connector的相关配置
 //
-//示例值：
+// 示例值：
 func (builder *PatchDataSourceReqBodyBuilder) ConnectorParam(connectorParam *ConnectorParam) *PatchDataSourceReqBodyBuilder {
 	builder.connectorParam = connectorParam
 	builder.connectorParamSet = true
@@ -9333,7 +10488,7 @@ func (builder *PatchDataSourceReqBodyBuilder) ConnectorParam(connectorParam *Con
 
 // 是否使用问答服务
 //
-//示例值：false
+// 示例值：false
 func (builder *PatchDataSourceReqBodyBuilder) EnableAnswer(enableAnswer bool) *PatchDataSourceReqBodyBuilder {
 	builder.enableAnswer = enableAnswer
 	builder.enableAnswerSet = true
@@ -9429,7 +10584,7 @@ func (builder *PatchDataSourcePathReqBodyBuilder) IconUrl(iconUrl string) *Patch
 	return builder
 }
 
-// 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
+// 数据源的国际化展示名称
 //
 // 示例值：
 func (builder *PatchDataSourcePathReqBodyBuilder) I18nName(i18nName *I18nMeta) *PatchDataSourcePathReqBodyBuilder {
@@ -9438,7 +10593,7 @@ func (builder *PatchDataSourcePathReqBodyBuilder) I18nName(i18nName *I18nMeta) *
 	return builder
 }
 
-// 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
+// 数据源的国际化展示名称
 //
 // 示例值：
 func (builder *PatchDataSourcePathReqBodyBuilder) I18nDescription(i18nDescription *I18nMeta) *PatchDataSourcePathReqBodyBuilder {
@@ -9510,13 +10665,13 @@ func NewPatchDataSourceReqBuilder() *PatchDataSourceReqBuilder {
 
 // 数据源的唯一标识
 //
-// 示例值：service_ticket
+// 示例值：6953903108179099667
 func (builder *PatchDataSourceReqBuilder) DataSourceId(dataSourceId string) *PatchDataSourceReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
 }
 
-// 更新一个已经存在的数据源
+// 更新一个已经存在的数据源。
 func (builder *PatchDataSourceReqBuilder) Body(body *PatchDataSourceReqBody) *PatchDataSourceReqBuilder {
 	builder.body = body
 	return builder
@@ -9539,9 +10694,9 @@ type PatchDataSourceReqBody struct {
 
 	IconUrl *string `json:"icon_url,omitempty"` // 数据源在 search tab 上的展示图标路径
 
-	I18nName *I18nMeta `json:"i18n_name,omitempty"` // 数据源名称多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"测试数据源", "en_us":"Test DataSource"}
+	I18nName *I18nMeta `json:"i18n_name,omitempty"` // 数据源的国际化展示名称
 
-	I18nDescription *I18nMeta `json:"i18n_description,omitempty"` // 数据源描述多语言配置，json格式，key为语言locale，value为对应文案，例如{"zh_cn":"搜索测试数据源相关数据", "en_us":"Search data from Test DataSource"}
+	I18nDescription *I18nMeta `json:"i18n_description,omitempty"` // 数据源的国际化展示名称
 
 	ConnectorParam *ConnectorParam `json:"connector_param,omitempty"` // 修改connector的相关配置
 
@@ -9583,13 +10738,13 @@ func NewCreateDataSourceItemReqBuilder() *CreateDataSourceItemReqBuilder {
 
 // 数据源的ID
 //
-// 示例值：service_ticket
+// 示例值：6953903108179099667
 func (builder *CreateDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *CreateDataSourceItemReqBuilder {
 	builder.apiReq.PathParams.Set("data_source_id", fmt.Sprint(dataSourceId))
 	return builder
 }
 
-// 索引一条数据记录
+// 索引一条数据记录。
 func (builder *CreateDataSourceItemReqBuilder) Item(item *Item) *CreateDataSourceItemReqBuilder {
 	builder.item = item
 	return builder
@@ -9687,7 +10842,7 @@ func (builder *GetDataSourceItemReqBuilder) DataSourceId(dataSourceId string) *G
 	return builder
 }
 
-// 数据记录的唯一标识
+// 数据记录的唯一标识;;**注意**：;;- 该字段大小写敏感。;- 如果调用成功但返回结果为空数据，请检查该字段传值是否正确。
 //
 // 示例值：01010111
 func (builder *GetDataSourceItemReqBuilder) ItemId(itemId string) *GetDataSourceItemReqBuilder {
@@ -9721,13 +10876,13 @@ func (resp *GetDataSourceItemResp) Success() bool {
 }
 
 type SearchDocWikiReqBodyBuilder struct {
-	query    string // 搜索关键词
+	query    string // 搜索关键词（query至少搭配一种doc/wiki筛选器）
 	querySet bool
 
-	docFilter    *DocFilter // 文档过滤参数
+	docFilter    *DocFilter // 文档过滤参数（doc_filter与wiki_filter至少传一个）
 	docFilterSet bool
 
-	wikiFilter    *WikiFilter // Wiki过滤参数
+	wikiFilter    *WikiFilter // Wiki过滤参数（doc_filter与wiki_filter至少传一个）
 	wikiFilterSet bool
 
 	pageToken    string // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token获取查询结果
@@ -9742,27 +10897,27 @@ func NewSearchDocWikiReqBodyBuilder() *SearchDocWikiReqBodyBuilder {
 	return builder
 }
 
-// 搜索关键词
+// 搜索关键词（query至少搭配一种doc/wiki筛选器）
 //
-//示例值：飞书文档使用指南
+// 示例值：飞书文档使用指南
 func (builder *SearchDocWikiReqBodyBuilder) Query(query string) *SearchDocWikiReqBodyBuilder {
 	builder.query = query
 	builder.querySet = true
 	return builder
 }
 
-// 文档过滤参数
+// 文档过滤参数（doc_filter与wiki_filter至少传一个）
 //
-//示例值：{"folder_tokens": ["fld_123456"]}
+// 示例值：{"folder_tokens": ["fld_123456"]}
 func (builder *SearchDocWikiReqBodyBuilder) DocFilter(docFilter *DocFilter) *SearchDocWikiReqBodyBuilder {
 	builder.docFilter = docFilter
 	builder.docFilterSet = true
 	return builder
 }
 
-// Wiki过滤参数
+// Wiki过滤参数（doc_filter与wiki_filter至少传一个）
 //
-//示例值：{"creator_ids": ["ou_789012"], "space_ids": ["space_123456"]}
+// 示例值：{"creator_ids": ["ou_789012"], "space_ids": ["space_123456"]}
 func (builder *SearchDocWikiReqBodyBuilder) WikiFilter(wikiFilter *WikiFilter) *SearchDocWikiReqBodyBuilder {
 	builder.wikiFilter = wikiFilter
 	builder.wikiFilterSet = true
@@ -9771,7 +10926,7 @@ func (builder *SearchDocWikiReqBodyBuilder) WikiFilter(wikiFilter *WikiFilter) *
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token获取查询结果
 //
-//示例值：token_1234567890fedcba
+// 示例值：token_1234567890fedcba
 func (builder *SearchDocWikiReqBodyBuilder) PageToken(pageToken string) *SearchDocWikiReqBodyBuilder {
 	builder.pageToken = pageToken
 	builder.pageTokenSet = true
@@ -9780,7 +10935,7 @@ func (builder *SearchDocWikiReqBodyBuilder) PageToken(pageToken string) *SearchD
 
 // 分页大小
 //
-//示例值：15
+// 示例值：15
 func (builder *SearchDocWikiReqBodyBuilder) PageSize(pageSize int) *SearchDocWikiReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeSet = true
@@ -9825,7 +10980,7 @@ func NewSearchDocWikiPathReqBodyBuilder() *SearchDocWikiPathReqBodyBuilder {
 	return builder
 }
 
-// 搜索关键词
+// 搜索关键词（query至少搭配一种doc/wiki筛选器）
 //
 // 示例值：飞书文档使用指南
 func (builder *SearchDocWikiPathReqBodyBuilder) Query(query string) *SearchDocWikiPathReqBodyBuilder {
@@ -9834,7 +10989,7 @@ func (builder *SearchDocWikiPathReqBodyBuilder) Query(query string) *SearchDocWi
 	return builder
 }
 
-// 文档过滤参数
+// 文档过滤参数（doc_filter与wiki_filter至少传一个）
 //
 // 示例值：{"folder_tokens": ["fld_123456"]}
 func (builder *SearchDocWikiPathReqBodyBuilder) DocFilter(docFilter *DocFilter) *SearchDocWikiPathReqBodyBuilder {
@@ -9843,7 +10998,7 @@ func (builder *SearchDocWikiPathReqBodyBuilder) DocFilter(docFilter *DocFilter) 
 	return builder
 }
 
-// Wiki过滤参数
+// Wiki过滤参数（doc_filter与wiki_filter至少传一个）
 //
 // 示例值：{"creator_ids": ["ou_789012"], "space_ids": ["space_123456"]}
 func (builder *SearchDocWikiPathReqBodyBuilder) WikiFilter(wikiFilter *WikiFilter) *SearchDocWikiPathReqBodyBuilder {
@@ -9911,7 +11066,7 @@ func (builder *SearchDocWikiReqBuilder) Limit(limit int) *SearchDocWikiReqBuilde
 	return builder
 }
 
-// 搜索文档和Wiki
+// 该接口用于根据搜索关键词（query）对当前用户可见的云文档进行搜索
 func (builder *SearchDocWikiReqBuilder) Body(body *SearchDocWikiReqBody) *SearchDocWikiReqBuilder {
 	builder.body = body
 	return builder
@@ -9926,11 +11081,11 @@ func (builder *SearchDocWikiReqBuilder) Build() *SearchDocWikiReq {
 }
 
 type SearchDocWikiReqBody struct {
-	Query *string `json:"query,omitempty"` // 搜索关键词
+	Query *string `json:"query,omitempty"` // 搜索关键词（query至少搭配一种doc/wiki筛选器）
 
-	DocFilter *DocFilter `json:"doc_filter,omitempty"` // 文档过滤参数
+	DocFilter *DocFilter `json:"doc_filter,omitempty"` // 文档过滤参数（doc_filter与wiki_filter至少传一个）
 
-	WikiFilter *WikiFilter `json:"wiki_filter,omitempty"` // Wiki过滤参数
+	WikiFilter *WikiFilter `json:"wiki_filter,omitempty"` // Wiki过滤参数（doc_filter与wiki_filter至少传一个）
 
 	PageToken *string `json:"page_token,omitempty"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token获取查询结果
 
@@ -9952,6 +11107,8 @@ type SearchDocWikiRespData struct {
 	ResUnits []*DocResUnit `json:"res_units,omitempty"` // 搜索结果列表
 
 	PageToken *string `json:"page_token,omitempty"` // 下一页分页标记，无更多结果时为空
+
+	Notice *string `json:"notice,omitempty"` // 搜索补充提示信息，返回本次搜索的额外说明，例如：query被截断；搜索结果不全
 }
 
 type SearchDocWikiResp struct {
@@ -10000,7 +11157,7 @@ func NewCreateMessageReqBodyBuilder() *CreateMessageReqBodyBuilder {
 
 // 搜索关键词
 //
-//示例值：测试消息
+// 示例值：测试消息
 func (builder *CreateMessageReqBodyBuilder) Query(query string) *CreateMessageReqBodyBuilder {
 	builder.query = query
 	builder.querySet = true
@@ -10009,7 +11166,7 @@ func (builder *CreateMessageReqBodyBuilder) Query(query string) *CreateMessageRe
 
 // 消息来自user_id列表
 //
-//示例值：
+// 示例值：
 func (builder *CreateMessageReqBodyBuilder) FromIds(fromIds []string) *CreateMessageReqBodyBuilder {
 	builder.fromIds = fromIds
 	builder.fromIdsSet = true
@@ -10018,7 +11175,7 @@ func (builder *CreateMessageReqBodyBuilder) FromIds(fromIds []string) *CreateMes
 
 // 消息所在chat_id列表
 //
-//示例值：
+// 示例值：
 func (builder *CreateMessageReqBodyBuilder) ChatIds(chatIds []string) *CreateMessageReqBodyBuilder {
 	builder.chatIds = chatIds
 	builder.chatIdsSet = true
@@ -10027,7 +11184,7 @@ func (builder *CreateMessageReqBodyBuilder) ChatIds(chatIds []string) *CreateMes
 
 // 消息类型(file/image/media)
 //
-//示例值：
+// 示例值：image
 func (builder *CreateMessageReqBodyBuilder) MessageType(messageType string) *CreateMessageReqBodyBuilder {
 	builder.messageType = messageType
 	builder.messageTypeSet = true
@@ -10036,7 +11193,7 @@ func (builder *CreateMessageReqBodyBuilder) MessageType(messageType string) *Cre
 
 // at用户user_id列表
 //
-//示例值：
+// 示例值：
 func (builder *CreateMessageReqBodyBuilder) AtChatterIds(atChatterIds []string) *CreateMessageReqBodyBuilder {
 	builder.atChatterIds = atChatterIds
 	builder.atChatterIdsSet = true
@@ -10045,7 +11202,7 @@ func (builder *CreateMessageReqBodyBuilder) AtChatterIds(atChatterIds []string) 
 
 // 消息来自类型(bot/user)
 //
-//示例值：
+// 示例值：user
 func (builder *CreateMessageReqBodyBuilder) FromType(fromType string) *CreateMessageReqBodyBuilder {
 	builder.fromType = fromType
 	builder.fromTypeSet = true
@@ -10054,7 +11211,7 @@ func (builder *CreateMessageReqBodyBuilder) FromType(fromType string) *CreateMes
 
 // 会话类型(group_chat/p2p_chat)
 //
-//示例值：
+// 示例值：group_chat
 func (builder *CreateMessageReqBodyBuilder) ChatType(chatType string) *CreateMessageReqBodyBuilder {
 	builder.chatType = chatType
 	builder.chatTypeSet = true
@@ -10063,7 +11220,7 @@ func (builder *CreateMessageReqBodyBuilder) ChatType(chatType string) *CreateMes
 
 // 消息发送起始时间
 //
-//示例值：1609296809
+// 示例值：1609296809
 func (builder *CreateMessageReqBodyBuilder) StartTime(startTime string) *CreateMessageReqBodyBuilder {
 	builder.startTime = startTime
 	builder.startTimeSet = true
@@ -10072,7 +11229,7 @@ func (builder *CreateMessageReqBodyBuilder) StartTime(startTime string) *CreateM
 
 // 消息发送结束时间
 //
-//示例值：1609296809
+// 示例值：1609296809
 func (builder *CreateMessageReqBodyBuilder) EndTime(endTime string) *CreateMessageReqBodyBuilder {
 	builder.endTime = endTime
 	builder.endTimeSet = true
@@ -10166,7 +11323,7 @@ func (builder *CreateMessagePathReqBodyBuilder) ChatIds(chatIds []string) *Creat
 
 // 消息类型(file/image/media)
 //
-// 示例值：
+// 示例值：image
 func (builder *CreateMessagePathReqBodyBuilder) MessageType(messageType string) *CreateMessagePathReqBodyBuilder {
 	builder.messageType = messageType
 	builder.messageTypeSet = true
@@ -10184,7 +11341,7 @@ func (builder *CreateMessagePathReqBodyBuilder) AtChatterIds(atChatterIds []stri
 
 // 消息来自类型(bot/user)
 //
-// 示例值：
+// 示例值：user
 func (builder *CreateMessagePathReqBodyBuilder) FromType(fromType string) *CreateMessagePathReqBodyBuilder {
 	builder.fromType = fromType
 	builder.fromTypeSet = true
@@ -10193,7 +11350,7 @@ func (builder *CreateMessagePathReqBodyBuilder) FromType(fromType string) *Creat
 
 // 会话类型(group_chat/p2p_chat)
 //
-// 示例值：
+// 示例值：group_chat
 func (builder *CreateMessagePathReqBodyBuilder) ChatType(chatType string) *CreateMessagePathReqBodyBuilder {
 	builder.chatType = chatType
 	builder.chatTypeSet = true
@@ -10274,21 +11431,21 @@ func (builder *CreateMessageReqBuilder) UserIdType(userIdType string) *CreateMes
 
 // 分页大小
 //
-// 示例值：
+// 示例值：20
 func (builder *CreateMessageReqBuilder) PageSize(pageSize int) *CreateMessageReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-// 分页token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：
+// 示例值：9e91187f9107ef4d43cd71c3722cd97665e6cec51bf30a06328839bc9867
 func (builder *CreateMessageReqBuilder) PageToken(pageToken string) *CreateMessageReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-//
+// 用户可以通过关键字搜索可见消息，可见性和套件内搜索一致。
 func (builder *CreateMessageReqBuilder) Body(body *CreateMessageReqBody) *CreateMessageReqBuilder {
 	builder.body = body
 	return builder
@@ -10330,9 +11487,9 @@ type CreateMessageReq struct {
 type CreateMessageRespData struct {
 	Items []string `json:"items,omitempty"` // 消息id列表
 
-	PageToken *string `json:"page_token,omitempty"` // 翻页 token，传入返回下一页，首页不需要传入
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否还有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 }
 
 type CreateMessageResp struct {
@@ -10367,7 +11524,7 @@ func (builder *CreateSchemaReqBuilder) ValidateOnly(validateOnly bool) *CreateSc
 	return builder
 }
 
-// 创建一个数据范式
+// 创建一个数据范式。
 func (builder *CreateSchemaReqBuilder) Schema(schema *Schema) *CreateSchemaReqBuilder {
 	builder.schema = schema
 	return builder
@@ -10502,7 +11659,7 @@ func NewPatchSchemaReqBodyBuilder() *PatchSchemaReqBodyBuilder {
 
 // 数据展示相关配置
 //
-//示例值：
+// 示例值：
 func (builder *PatchSchemaReqBodyBuilder) Display(display *SchemaDisplay) *PatchSchemaReqBodyBuilder {
 	builder.display = display
 	builder.displaySet = true
@@ -10511,7 +11668,7 @@ func (builder *PatchSchemaReqBodyBuilder) Display(display *SchemaDisplay) *Patch
 
 // 数据范式的属性定义
 //
-//示例值：
+// 示例值：
 func (builder *PatchSchemaReqBodyBuilder) Properties(properties []*PatchSchemaProperty) *PatchSchemaReqBodyBuilder {
 	builder.properties = properties
 	builder.propertiesSet = true
@@ -10592,7 +11749,7 @@ func (builder *PatchSchemaReqBuilder) SchemaId(schemaId string) *PatchSchemaReqB
 	return builder
 }
 
-// 修改数据范式
+// 修改数据范式。
 func (builder *PatchSchemaReqBuilder) Body(body *PatchSchemaReqBody) *PatchSchemaReqBuilder {
 	builder.body = body
 	return builder

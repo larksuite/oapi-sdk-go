@@ -36,8 +36,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -45,8 +43,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -68,28 +64,28 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 }
 
 type RevokeTokenEvent struct {
-	RevokeTokenType *string `json:"revoke_token_type,omitempty"` // 撤销token的类型
+	RevokeTokenType *string `json:"revoke_token_type,omitempty"` // 撤销 token 的类型。可能值有：;;- `user_access_token `：仅撤销 user_access_token;- `refresh_token `：仅撤销 refresh_token;- `user_access_token refresh_token`：	user_access_token 和 refresh_token 都被撤销
 
-	RevokeReason *string `json:"revoke_reason,omitempty"` // 撤销token的原因
+	RevokeReason *string `json:"revoke_reason,omitempty"` // 撤销 token 的原因。可能值有：;;- `Revoked by unknown action.`：未知动作，缺省值;- `Revoked by user action.`：被用户撤销;- `Revoked by administrator action.`：被管理员撤销;- `Revoked by security and risk control action.`：因风控和安全被撤销;- `Revoked by restriction action.`：因限制动作被撤销，包括用户账号冻结、离职、应用不可用、用户对应用无权限等
 
-	OpenId *string `json:"open_id,omitempty"` // 用户open_id
+	OpenId *string `json:"open_id,omitempty"` // 用户 open_id
 
-	UnionId *string `json:"union_id,omitempty"` // 用户union_id
+	UnionId *string `json:"union_id,omitempty"` // 用户 union_id
 
 	UserId *string `json:"user_id,omitempty"` // 租户内用户的唯一标识
 }
 
 type RevokeTokenEventBuilder struct {
-	revokeTokenType    string // 撤销token的类型
+	revokeTokenType    string // 撤销 token 的类型。可能值有：;;- `user_access_token `：仅撤销 user_access_token;- `refresh_token `：仅撤销 refresh_token;- `user_access_token refresh_token`：	user_access_token 和 refresh_token 都被撤销
 	revokeTokenTypeSet bool
 
-	revokeReason    string // 撤销token的原因
+	revokeReason    string // 撤销 token 的原因。可能值有：;;- `Revoked by unknown action.`：未知动作，缺省值;- `Revoked by user action.`：被用户撤销;- `Revoked by administrator action.`：被管理员撤销;- `Revoked by security and risk control action.`：因风控和安全被撤销;- `Revoked by restriction action.`：因限制动作被撤销，包括用户账号冻结、离职、应用不可用、用户对应用无权限等
 	revokeReasonSet bool
 
-	openId    string // 用户open_id
+	openId    string // 用户 open_id
 	openIdSet bool
 
-	unionId    string // 用户union_id
+	unionId    string // 用户 union_id
 	unionIdSet bool
 
 	userId    string // 租户内用户的唯一标识
@@ -101,7 +97,7 @@ func NewRevokeTokenEventBuilder() *RevokeTokenEventBuilder {
 	return builder
 }
 
-// 撤销token的类型
+// 撤销 token 的类型。可能值有：;;- `user_access_token `：仅撤销 user_access_token;- `refresh_token `：仅撤销 refresh_token;- `user_access_token refresh_token`：	user_access_token 和 refresh_token 都被撤销
 //
 // 示例值：user_access_token refresh_token
 func (builder *RevokeTokenEventBuilder) RevokeTokenType(revokeTokenType string) *RevokeTokenEventBuilder {
@@ -110,7 +106,7 @@ func (builder *RevokeTokenEventBuilder) RevokeTokenType(revokeTokenType string) 
 	return builder
 }
 
-// 撤销token的原因
+// 撤销 token 的原因。可能值有：;;- `Revoked by unknown action.`：未知动作，缺省值;- `Revoked by user action.`：被用户撤销;- `Revoked by administrator action.`：被管理员撤销;- `Revoked by security and risk control action.`：因风控和安全被撤销;- `Revoked by restriction action.`：因限制动作被撤销，包括用户账号冻结、离职、应用不可用、用户对应用无权限等
 //
 // 示例值：Revoked by security and risk control action.
 func (builder *RevokeTokenEventBuilder) RevokeReason(revokeReason string) *RevokeTokenEventBuilder {
@@ -119,7 +115,7 @@ func (builder *RevokeTokenEventBuilder) RevokeReason(revokeReason string) *Revok
 	return builder
 }
 
-// 用户open_id
+// 用户 open_id
 //
 // 示例值：ou_c99c5f35d542efc7ee492afe11af19ef
 func (builder *RevokeTokenEventBuilder) OpenId(openId string) *RevokeTokenEventBuilder {
@@ -128,7 +124,7 @@ func (builder *RevokeTokenEventBuilder) OpenId(openId string) *RevokeTokenEventB
 	return builder
 }
 
-// 用户union_id
+// 用户 union_id
 //
 // 示例值：on_cad4860e7af114fb4ff6c5d496d1dd76
 func (builder *RevokeTokenEventBuilder) UnionId(unionId string) *RevokeTokenEventBuilder {

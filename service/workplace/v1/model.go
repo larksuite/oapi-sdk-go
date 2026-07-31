@@ -72,19 +72,19 @@ func (builder *AccessDataBuilder) Build() *AccessData {
 type BlockAccessData struct {
 	Date *string `json:"date,omitempty"` // 时间,精确到天,格式yyyy-MM-dd
 
-	BlockId *string `json:"block_id,omitempty"` // 小组件id
+	BlockId *string `json:"block_id,omitempty"` // 小组件id（BlockID）。可前往 飞书管理后台 > 工作台 > 定制工作台，选择指定的工作台并进入工作台编辑器，点击某个小组件，即可查看页面右侧面板中该小组件名称下方的“BlockID”
 
-	AccessData *AccessData `json:"access_data,omitempty"` // block访问数据信息。
+	AccessData *AccessData `json:"access_data,omitempty"` // 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 }
 
 type BlockAccessDataBuilder struct {
 	date    string // 时间,精确到天,格式yyyy-MM-dd
 	dateSet bool
 
-	blockId    string // 小组件id
+	blockId    string // 小组件id（BlockID）。可前往 飞书管理后台 > 工作台 > 定制工作台，选择指定的工作台并进入工作台编辑器，点击某个小组件，即可查看页面右侧面板中该小组件名称下方的“BlockID”
 	blockIdSet bool
 
-	accessData    *AccessData // block访问数据信息。
+	accessData    *AccessData // 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 	accessDataSet bool
 }
 
@@ -102,7 +102,7 @@ func (builder *BlockAccessDataBuilder) Date(date string) *BlockAccessDataBuilder
 	return builder
 }
 
-// 小组件id
+// 小组件id（BlockID）。可前往 飞书管理后台 > 工作台 > 定制工作台，选择指定的工作台并进入工作台编辑器，点击某个小组件，即可查看页面右侧面板中该小组件名称下方的“BlockID”
 //
 // 示例值：283438293839422334
 func (builder *BlockAccessDataBuilder) BlockId(blockId string) *BlockAccessDataBuilder {
@@ -111,7 +111,7 @@ func (builder *BlockAccessDataBuilder) BlockId(blockId string) *BlockAccessDataB
 	return builder
 }
 
-// block访问数据信息。
+// 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 //
 // 示例值：
 func (builder *BlockAccessDataBuilder) AccessData(accessData *AccessData) *BlockAccessDataBuilder {
@@ -139,7 +139,7 @@ func (builder *BlockAccessDataBuilder) Build() *BlockAccessData {
 type CustomWorkplaceAccessData struct {
 	CustomWorkplaceId *string `json:"custom_workplace_id,omitempty"` // 定制工作台ID
 
-	AccessData *AccessData `json:"access_data,omitempty"` // 访问数据
+	AccessData *AccessData `json:"access_data,omitempty"` // 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 
 	Date *string `json:"date,omitempty"` // 时间,精确到天,格式yyyy-MM-dd
 
@@ -150,7 +150,7 @@ type CustomWorkplaceAccessDataBuilder struct {
 	customWorkplaceId    string // 定制工作台ID
 	customWorkplaceIdSet bool
 
-	accessData    *AccessData // 访问数据
+	accessData    *AccessData // 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 	accessDataSet bool
 
 	date    string // 时间,精确到天,格式yyyy-MM-dd
@@ -174,7 +174,7 @@ func (builder *CustomWorkplaceAccessDataBuilder) CustomWorkplaceId(customWorkpla
 	return builder
 }
 
-// 访问数据
+// 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 //
 // 示例值：
 func (builder *CustomWorkplaceAccessDataBuilder) AccessData(accessData *AccessData) *CustomWorkplaceAccessDataBuilder {
@@ -239,8 +239,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -248,8 +246,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -372,14 +368,14 @@ func (builder *RuleBuilder) Build() *Rule {
 type TemplateWorkplaceAccessData struct {
 	TplId *string `json:"tpl_id,omitempty"` // 定制工作台ID
 
-	AccessData *AccessData `json:"access_data,omitempty"` // 访问数据
+	AccessData *AccessData `json:"access_data,omitempty"` // 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 }
 
 type TemplateWorkplaceAccessDataBuilder struct {
 	tplId    string // 定制工作台ID
 	tplIdSet bool
 
-	accessData    *AccessData // 访问数据
+	accessData    *AccessData // 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 	accessDataSet bool
 }
 
@@ -397,7 +393,7 @@ func (builder *TemplateWorkplaceAccessDataBuilder) TplId(tplId string) *Template
 	return builder
 }
 
-// 访问数据
+// 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 //
 // 示例值：
 func (builder *TemplateWorkplaceAccessDataBuilder) AccessData(accessData *AccessData) *TemplateWorkplaceAccessDataBuilder {
@@ -421,19 +417,19 @@ func (builder *TemplateWorkplaceAccessDataBuilder) Build() *TemplateWorkplaceAcc
 type WorkplaceAccessData struct {
 	Date *string `json:"date,omitempty"` // 时间,精确到天,格式yyyy-MM-dd
 
-	AllWorkplace *AccessData `json:"all_workplace,omitempty"` // 全部工作台的访问数据
+	AllWorkplace *AccessData `json:"all_workplace,omitempty"` // 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 
-	DefaultWorkplace *AccessData `json:"default_workplace,omitempty"` // 默认工作台的访问数据
+	DefaultWorkplace *AccessData `json:"default_workplace,omitempty"` // 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 }
 
 type WorkplaceAccessDataBuilder struct {
 	date    string // 时间,精确到天,格式yyyy-MM-dd
 	dateSet bool
 
-	allWorkplace    *AccessData // 全部工作台的访问数据
+	allWorkplace    *AccessData // 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 	allWorkplaceSet bool
 
-	defaultWorkplace    *AccessData // 默认工作台的访问数据
+	defaultWorkplace    *AccessData // 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 	defaultWorkplaceSet bool
 }
 
@@ -451,7 +447,7 @@ func (builder *WorkplaceAccessDataBuilder) Date(date string) *WorkplaceAccessDat
 	return builder
 }
 
-// 全部工作台的访问数据
+// 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 //
 // 示例值：20
 func (builder *WorkplaceAccessDataBuilder) AllWorkplace(allWorkplace *AccessData) *WorkplaceAccessDataBuilder {
@@ -460,7 +456,7 @@ func (builder *WorkplaceAccessDataBuilder) AllWorkplace(allWorkplace *AccessData
 	return builder
 }
 
-// 默认工作台的访问数据
+// 全部工作台的访问数据。包含默认工作台和定制工作台。由于历史原因，部分情况下这这两个数据的和加起来不等于全部工作台的访问数据。如有疑问，可联系飞书技术支持。
 //
 // 示例值：10
 func (builder *WorkplaceAccessDataBuilder) DefaultWorkplace(defaultWorkplace *AccessData) *WorkplaceAccessDataBuilder {
@@ -524,7 +520,7 @@ func (builder *WorkplaceTenantNotificationBuilder) NotificationId(notificationId
 
 // 通知内容 json 格式
 //
-// 示例值：{\"pc_notification\":{\"config\":{\"width\":500,\"height\":500},\"i18n_elements\":{\"zh_cn\":[{\"tag\":\"img\",\"url\":\"https://www.feishu.cn\",\"img_key\":\"test\"}]}}}
+// 示例值：{\"pc_notification\":{\"config\":{\"width\":500,\"height\":500},\"i18n_elements\":{\"default\":[{\"tag\":\"img\",\"url\":\"https://www.feishu.cn\",\"img_key\":\"test\"}],\"zh_cn\":[{\"tag\":\"img\",\"url\":\"https://www.feishu.cn\",\"img_key\":\"test\"}]}}}
 func (builder *WorkplaceTenantNotificationBuilder) Content(content string) *WorkplaceTenantNotificationBuilder {
 	builder.content = content
 	builder.contentSet = true
@@ -604,7 +600,7 @@ func (builder *WorkplaceUserNotificationBuilder) NotificationId(notificationId s
 
 // 通知内容 json 格式
 //
-// 示例值：{\"pc_notification\":{\"config\":{\"width\":500,\"height\":500},\"i18n_elements\":{\"zh_cn\":[{\"tag\":\"img\",\"url\":\"https://www.feishu.cn\",\"img_key\":\"test\"}]}}}
+// 示例值：{\"pc_notification\":{\"config\":{\"width\":500,\"height\":500},\"i18n_elements\":{\"default\":[{\"tag\":\"img\",\"url\":\"https://www.feishu.cn\",\"img_key\":\"test\"}],\"zh_cn\":[{\"tag\":\"img\",\"url\":\"https://www.feishu.cn\",\"img_key\":\"test\"}]}}}
 func (builder *WorkplaceUserNotificationBuilder) Content(content string) *WorkplaceUserNotificationBuilder {
 	builder.content = content
 	builder.contentSet = true
@@ -682,7 +678,7 @@ func (builder *SearchCustomWorkplaceAccessDataReqBuilder) PageToken(pageToken st
 	return builder
 }
 
-// 定制化工作台id.非必填,不填的时候,返回所有定制化工作台数据。
+// 定制工作台id，非必填。不填时，返回所有定制工作台数据。;;如何获取定制工作台ID：可前往 飞书管理后台 > 工作台 > 定制工作台，点击指定工作台的 设置 进入设置页面；鼠标连续点击三次顶部的 设置 字样即可出现 ID，复制 ID 即可
 //
 // 示例值：tpl_647184b585400013254c4ea6
 func (builder *SearchCustomWorkplaceAccessDataReqBuilder) CustomWorkplaceId(customWorkplaceId string) *SearchCustomWorkplaceAccessDataReqBuilder {
@@ -838,7 +834,7 @@ func (builder *SearchWorkplaceBlockAccessDataReqBuilder) PageToken(pageToken str
 	return builder
 }
 
-// 小组件id
+// 小组件id（BlockID）。;;可前往 飞书管理后台 > 工作台 > 定制工作台，选择指定的工作台并进入工作台编辑器，点击某个小组件，即可查看页面右侧面板中该小组件名称下方的“BlockID”
 //
 // 示例值：283438293839422334
 func (builder *SearchWorkplaceBlockAccessDataReqBuilder) BlockId(blockId string) *SearchWorkplaceBlockAccessDataReqBuilder {

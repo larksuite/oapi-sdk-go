@@ -17,12 +17,13 @@ import (
 	"context"
 	"github.com/larksuite/oapi-sdk-go/v3/service/payroll/v1"
 )
-// 
+
+// 发薪活动封存
 //
-// - 
+// - 当发薪活动封存后，订阅这个事件的应用会收到事件。;;;一个发薪活动封存后，可能会向事件监听方发送多条 `activity_id` 相同的事件通知，事件监听方需要针对 `activity_id` 做好幂等处理。;
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2PaymentActivityApprovedV1(handler func(ctx context.Context, event *larkpayroll.P2PaymentActivityApprovedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2PaymentActivityApprovedV1(handler func(ctx context.Context, event *larkpayroll.P2PaymentActivityApprovedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["payroll.payment_activity.approved_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "payroll.payment_activity.approved_v1")
@@ -30,12 +31,13 @@ func ( dispatcher * EventDispatcher ) OnP2PaymentActivityApprovedV1(handler func
 	dispatcher.eventType2EventHandler["payroll.payment_activity.approved_v1"] = larkpayroll.NewP2PaymentActivityApprovedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 发薪活动变更事件
 //
-// - 
+// - 当发薪活动发生变更后，订阅这个事件的应用会收到事件。当前仅审批通过、审批撤销、跳过审批、封存、取消封存，会发送该事件。
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2PaymentActivityStatusChangedV1(handler func(ctx context.Context, event *larkpayroll.P2PaymentActivityStatusChangedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2PaymentActivityStatusChangedV1(handler func(ctx context.Context, event *larkpayroll.P2PaymentActivityStatusChangedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["payroll.payment_activity.status_changed_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "payroll.payment_activity.status_changed_v1")

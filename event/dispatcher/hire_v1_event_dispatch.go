@@ -17,12 +17,13 @@ import (
 	"context"
 	"github.com/larksuite/oapi-sdk-go/v3/service/hire/v1"
 )
-// 删除投递
+
+// 投递删除
 //
-// - 删除投递
+// - 当投递被删除时，触发该事件的推送。;;
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/events/deleted
-func ( dispatcher * EventDispatcher ) OnP2ApplicationDeletedV1(handler func(ctx context.Context, event *larkhire.P2ApplicationDeletedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2ApplicationDeletedV1(handler func(ctx context.Context, event *larkhire.P2ApplicationDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["hire.application.deleted_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "hire.application.deleted_v1")
@@ -30,12 +31,13 @@ func ( dispatcher * EventDispatcher ) OnP2ApplicationDeletedV1(handler func(ctx 
 	dispatcher.eventType2EventHandler["hire.application.deleted_v1"] = larkhire.NewP2ApplicationDeletedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 投递阶段变更
 //
-// - 
+// - 当投递阶段发生变更时，会触发此事件。了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/event/application-stage-changed
-func ( dispatcher * EventDispatcher ) OnP2ApplicationStageChangedV1(handler func(ctx context.Context, event *larkhire.P2ApplicationStageChangedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2ApplicationStageChangedV1(handler func(ctx context.Context, event *larkhire.P2ApplicationStageChangedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["hire.application.stage_changed_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "hire.application.stage_changed_v1")
@@ -43,12 +45,13 @@ func ( dispatcher * EventDispatcher ) OnP2ApplicationStageChangedV1(handler func
 	dispatcher.eventType2EventHandler["hire.application.stage_changed_v1"] = larkhire.NewP2ApplicationStageChangedV1Handler(handler)
 	return dispatcher
 }
-// 帐号绑定
+
+// 账号绑定
 //
-// - 招聘管理员添加三方服务商帐号时，系统会推送事件给应用开发者，开发者可根据事件获取用户添加的帐号类型（背调 或 笔试）和 帐号自定义字段信息，并根据这些信息识别用户在服务商处的身份，完成三方服务商帐号 和 招聘帐号之间的绑定，并根据用户服务商身份推送对应的背调套餐或试卷列表。
+// - 飞书招聘客户在「飞书招聘」-「设置」-「生态对接」-「笔试/背景调查」添加三方服务商账号时，系统会推送「账号绑定」事件给服务商。服务商可通过本事件获取客户添加的**账号类型**、**飞书招聘账号 ID** 和 **账号自定义字段信息**，并根据这些信息识别出客户在服务商处的身份，从而完成客户的服务商账号和飞书招聘账号之间的绑定。之后服务商可依据账号绑定关系向客户推送对应的背调套餐或试卷列表。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created
-func ( dispatcher * EventDispatcher ) OnP2EcoAccountCreatedV1(handler func(ctx context.Context, event *larkhire.P2EcoAccountCreatedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2EcoAccountCreatedV1(handler func(ctx context.Context, event *larkhire.P2EcoAccountCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["hire.eco_account.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "hire.eco_account.created_v1")
@@ -56,12 +59,13 @@ func ( dispatcher * EventDispatcher ) OnP2EcoAccountCreatedV1(handler func(ctx c
 	dispatcher.eventType2EventHandler["hire.eco_account.created_v1"] = larkhire.NewP2EcoAccountCreatedV1Handler(handler)
 	return dispatcher
 }
+
 // 终止背调
 //
-// - 用户在招聘系统终止背调后，系统会推送事件给对应的应用开发者。开发者可根据事件获取背调 ID，完成在三方服务商处的订单取消等后续操作。
+// - 飞书招聘客户在招聘系统内终止背调后，系统会推送「终止背调」事件给对应的背调服务商，服务商可根据此事件获取背调 ID，完成服务商内部的订单取消等后续操作。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/events/canceled
-func ( dispatcher * EventDispatcher ) OnP2EcoBackgroundCheckCanceledV1(handler func(ctx context.Context, event *larkhire.P2EcoBackgroundCheckCanceledV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2EcoBackgroundCheckCanceledV1(handler func(ctx context.Context, event *larkhire.P2EcoBackgroundCheckCanceledV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["hire.eco_background_check.canceled_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "hire.eco_background_check.canceled_v1")
@@ -69,12 +73,13 @@ func ( dispatcher * EventDispatcher ) OnP2EcoBackgroundCheckCanceledV1(handler f
 	dispatcher.eventType2EventHandler["hire.eco_background_check.canceled_v1"] = larkhire.NewP2EcoBackgroundCheckCanceledV1Handler(handler)
 	return dispatcher
 }
+
 // 创建背调
 //
-// - 用户在招聘系统安排背调后，系统会推送事件给对应的应用开发者。开发者可根据事件获取候选人信息、委托人信息和自定义字段信息，并根据这些信息完成在三方服务商处的背调订单创建。
+// - 飞书招聘客户在招聘系统给候选人安排背调后，系统会推送「创建背调」事件给对应的背调服务商。服务商可根据此事件获取该背调的候选人、委托人和自定义字段等信息，并根据这些信息完成内部的背调订单的创建和绑定，之后可通过[更新背调订单进度](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_progress)、[回传背调订单的最终结果](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_result)将背调信息回传给招聘系统。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/events/created
-func ( dispatcher * EventDispatcher ) OnP2EcoBackgroundCheckCreatedV1(handler func(ctx context.Context, event *larkhire.P2EcoBackgroundCheckCreatedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2EcoBackgroundCheckCreatedV1(handler func(ctx context.Context, event *larkhire.P2EcoBackgroundCheckCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["hire.eco_background_check.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "hire.eco_background_check.created_v1")
@@ -82,12 +87,13 @@ func ( dispatcher * EventDispatcher ) OnP2EcoBackgroundCheckCreatedV1(handler fu
 	dispatcher.eventType2EventHandler["hire.eco_background_check.created_v1"] = larkhire.NewP2EcoBackgroundCheckCreatedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 创建笔试
 //
-// - 
+// - 飞书招聘客户在招聘系统安排笔试后，系统会推送「创建笔试」事件给对应的笔试服务商应用。服务商可根据此事件获取该场笔试的候选人信息和试卷信息，并根据这些信息为候选人安排笔试，之后可通过[回传笔试安排结果](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam/login_info)将笔试安排结果回传给招聘系统。
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2EcoExamCreatedV1(handler func(ctx context.Context, event *larkhire.P2EcoExamCreatedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2EcoExamCreatedV1(handler func(ctx context.Context, event *larkhire.P2EcoExamCreatedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["hire.eco_exam.created_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "hire.eco_exam.created_v1")
@@ -95,12 +101,13 @@ func ( dispatcher * EventDispatcher ) OnP2EcoExamCreatedV1(handler func(ctx cont
 	dispatcher.eventType2EventHandler["hire.eco_exam.created_v1"] = larkhire.NewP2EcoExamCreatedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 导入 e-HR
 //
-// - 
+// - 当用户在招聘系统中对候选人的投递操作「导入 e-HR」后，将会触发该事件，推送候选人信息至订阅系统。如需接收到该事件，则需先配置事件订阅。详情参考 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/event/import-ehr
-func ( dispatcher * EventDispatcher ) OnP2EhrImportTaskImportedV1(handler func(ctx context.Context, event *larkhire.P2EhrImportTaskImportedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2EhrImportTaskImportedV1(handler func(ctx context.Context, event *larkhire.P2EhrImportTaskImportedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["hire.ehr_import_task.imported_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "hire.ehr_import_task.imported_v1")
@@ -108,12 +115,13 @@ func ( dispatcher * EventDispatcher ) OnP2EhrImportTaskImportedV1(handler func(c
 	dispatcher.eventType2EventHandler["hire.ehr_import_task.imported_v1"] = larkhire.NewP2EhrImportTaskImportedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 导入 e-HR（实习 Offer）
 //
-// - 
+// - 飞书招聘系统内用户选择实习 Offer 导入 e-HR 系统之后，将通过该事件推送候选人信息。
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2EhrImportTaskForInternshipOfferImportedV1(handler func(ctx context.Context, event *larkhire.P2EhrImportTaskForInternshipOfferImportedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2EhrImportTaskForInternshipOfferImportedV1(handler func(ctx context.Context, event *larkhire.P2EhrImportTaskForInternshipOfferImportedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["hire.ehr_import_task_for_internship_offer.imported_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "hire.ehr_import_task_for_internship_offer.imported_v1")
@@ -121,12 +129,13 @@ func ( dispatcher * EventDispatcher ) OnP2EhrImportTaskForInternshipOfferImporte
 	dispatcher.eventType2EventHandler["hire.ehr_import_task_for_internship_offer.imported_v1"] = larkhire.NewP2EhrImportTaskForInternshipOfferImportedV1Handler(handler)
 	return dispatcher
 }
+
 // Offer 状态变更
 //
-// - 当 Offer 状态发生变更时将触发该事件。
+// - 当 Offer 状态发生变更时发送该事件。除 Offer 创建时不会发送以外，其它 Offer 状态变更均会发送事件，Offer 状态变更场景可参考「Offer 状态流转图」。注意：仅推送正式 Offer 的状态变更信息，实习 Offer 相关状态不推送。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/events/status_changed
-func ( dispatcher * EventDispatcher ) OnP2OfferStatusChangedV1(handler func(ctx context.Context, event *larkhire.P2OfferStatusChangedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2OfferStatusChangedV1(handler func(ctx context.Context, event *larkhire.P2OfferStatusChangedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["hire.offer.status_changed_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "hire.offer.status_changed_v1")
@@ -134,12 +143,13 @@ func ( dispatcher * EventDispatcher ) OnP2OfferStatusChangedV1(handler func(ctx 
 	dispatcher.eventType2EventHandler["hire.offer.status_changed_v1"] = larkhire.NewP2OfferStatusChangedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 内推账户余额变更事件
 //
-// - 
+// - 当内推账户余额发生变更（增加或者减少）时，触发该事件。该事件将推送变更后的账户余额信息。收到事件后，如需将余额提现到三方平台发放给用户，请使用接口 [全额提取内推账户余额](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw)。
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2ReferralAccountAssetsUpdateV1(handler func(ctx context.Context, event *larkhire.P2ReferralAccountAssetsUpdateV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2ReferralAccountAssetsUpdateV1(handler func(ctx context.Context, event *larkhire.P2ReferralAccountAssetsUpdateV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["hire.referral_account.assets_update_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "hire.referral_account.assets_update_v1")
@@ -147,12 +157,13 @@ func ( dispatcher * EventDispatcher ) OnP2ReferralAccountAssetsUpdateV1(handler 
 	dispatcher.eventType2EventHandler["hire.referral_account.assets_update_v1"] = larkhire.NewP2ReferralAccountAssetsUpdateV1Handler(handler)
 	return dispatcher
 }
+
 // 删除人才
 //
-// - 删除人才
+// - 当人才被删除时，触发该事件。
 //
-// - 事件描述文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/events/deleted
-func ( dispatcher * EventDispatcher ) OnP2TalentDeletedV1(handler func(ctx context.Context, event *larkhire.P2TalentDeletedV1) error) * EventDispatcher{
+// - 事件描述文档链接:
+func (dispatcher *EventDispatcher) OnP2TalentDeletedV1(handler func(ctx context.Context, event *larkhire.P2TalentDeletedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["hire.talent.deleted_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "hire.talent.deleted_v1")
@@ -160,12 +171,13 @@ func ( dispatcher * EventDispatcher ) OnP2TalentDeletedV1(handler func(ctx conte
 	dispatcher.eventType2EventHandler["hire.talent.deleted_v1"] = larkhire.NewP2TalentDeletedV1Handler(handler)
 	return dispatcher
 }
-// 
+
+// 人才进展变更事件
 //
-// - 
+// - 支持单独订阅有指定标签的人才进展，人才进展包括阶段变更、锁定、解锁，需要提前在「飞书招聘」-「设置」- 「候选人标签管理」里对指定标签勾选支持事件订阅
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2TalentTagSubscriptionV1(handler func(ctx context.Context, event *larkhire.P2TalentTagSubscriptionV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2TalentTagSubscriptionV1(handler func(ctx context.Context, event *larkhire.P2TalentTagSubscriptionV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["hire.talent.tag_subscription_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "hire.talent.tag_subscription_v1")

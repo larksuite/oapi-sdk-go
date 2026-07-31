@@ -9,7 +9,7 @@ import (
 )
 
 type V1 struct {
-	Node *node // 知识库
+	Node *node // node
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -26,7 +26,7 @@ type node struct {
 //
 // -
 //
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uEzN0YjLxcDN24SM3QjN/search_wiki
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=wiki&resource=node&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/wikiv1/search_node.go
 func (n *node) Search(ctx context.Context, req *SearchNodeReq, options ...larkcore.RequestOptionFunc) (*SearchNodeResp, error) {

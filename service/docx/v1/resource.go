@@ -12,8 +12,8 @@ type V1 struct {
 	ChatAnnouncement              *chatAnnouncement              // chat.announcement
 	ChatAnnouncementBlock         *chatAnnouncementBlock         // chat.announcement.block
 	ChatAnnouncementBlockChildren *chatAnnouncementBlockChildren // chat.announcement.block.children
-	Document                      *document                      // 文档
-	DocumentBlock                 *documentBlock                 // 块
+	Document                      *document                      // document
+	DocumentBlock                 *documentBlock                 // document.block
 	DocumentBlockChildren         *documentBlockChildren         // document.block.children
 	DocumentBlockDescendant       *documentBlockDescendant       // document.block.descendant
 }
@@ -52,9 +52,9 @@ type documentBlockDescendant struct {
 	config *larkcore.Config
 }
 
-// Get
+// Get 获取群公告基本信息;
 //
-// -
+// - 获取指定群组中的群公告基本信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=docx&resource=chat.announcement&version=v1
 //
@@ -78,9 +78,11 @@ func (c *chatAnnouncement) Get(ctx context.Context, req *GetChatAnnouncementReq,
 	return resp, err
 }
 
-// BatchUpdate
+// BatchUpdate 批量更新群公告块的内容
 //
-// -
+// - 批量更新块的富文本内容。;
+//
+// - **应用频率限制**：单个应用调用频率上限为每秒 5 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">400</font> 及错误码 <font color="blue">99991400</font>；;;**群公告频率限制**：单篇群公告并发编辑上限为每秒 3 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">429</font>，编辑操作包括：;- 创建块;- 批量更新块;- 删除块;;当请求被限频，应用需要处理限频状态码，并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。;;## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的用户或者机器人必须在对应的群组内，且需要拥有群公告的编辑权限。;- 操作内部群的群公告时，请确保当前调用身份（tenant_access_token 或 user_access_token）与对应群组在同一租户下。;;## 使用限制;;- 如果群组配置了 **仅群主和群管理员可编辑群信息**，则仅有群主、群管理员，或者是创建群组且具有 **更新应用所创建群的群信息（im:chat:operate_as_owner）** 权限的机器人，可以更新群公告信息。;- 如果群组没有配置 **仅群主和群管理员可编辑群信息**，则所有群成员可以更新群公告信息。;;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=docx&resource=chat.announcement.block&version=v1
 //
@@ -104,9 +106,11 @@ func (c *chatAnnouncementBlock) BatchUpdate(ctx context.Context, req *BatchUpdat
 	return resp, err
 }
 
-// Get
+// Get 获取群公告块的内容;
 //
-// -
+// - 获取指定块的富文本内容。
+//
+// - **应用频率限制**：单个应用调用频率上限为每秒 10 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">400</font> 及错误码 <font color="blue">99991400</font>。当请求被限频，应用需要处理限频状态码，并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。;;## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的用户或者机器人必须在对应的群组内。;- 获取内部群信息时，调用当前接口的用户或者机器人必须与对应群组在同一租户下。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=docx&resource=chat.announcement.block&version=v1
 //
@@ -130,9 +134,11 @@ func (c *chatAnnouncementBlock) Get(ctx context.Context, req *GetChatAnnouncemen
 	return resp, err
 }
 
-// List
+// List 获取群公告所有块;
 //
-// -
+// - 获取群公告所有块的富文本内容并分页返回。;
+//
+// - **应用频率限制**：单个应用调用频率上限为每秒 10 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">400</font> 及错误码 <font color="blue">99991400</font>。当请求被限频，应用需要处理限频状态码，并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。;;## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的用户或者机器人必须在对应的群组内。;- 获取内部群信息时，调用当前接口的用户或者机器人必须与对应群组在同一租户下。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=docx&resource=chat.announcement.block&version=v1
 //
@@ -164,9 +170,11 @@ func (c *chatAnnouncementBlock) ListByIterator(ctx context.Context, req *ListCha
 		limit:    req.Limit}, nil
 }
 
-// BatchDelete
+// BatchDelete 删除群公告中的块;
 //
-// -
+// - 指定需要操作的块，删除其指定范围的子块。如果操作成功，接口将返回应用删除操作后的群公告版本号。;
+//
+// - ## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的用户或者机器人必须在对应的群组内。;- 操作内部群的群公告时，请确保当前调用身份（tenant_access_token 或 user_access_token）与对应群组在同一租户下。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=docx&resource=chat.announcement.block.children&version=v1
 //
@@ -190,9 +198,11 @@ func (c *chatAnnouncementBlockChildren) BatchDelete(ctx context.Context, req *Ba
 	return resp, err
 }
 
-// Create
+// Create 在群公告中创建块
 //
-// -
+// - 在指定块的子块列表中，新创建一批子块，并放置到指定位置。如果操作成功，接口将返回新创建子块的富文本内容。调用该接口前，你可参考[群公告概述-基本概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/upgraded-group-announcement/group-announcement-overview)了解块的父子关系规则。
+//
+// - **应用频率限制**：单个应用调用频率上限为每秒 5 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">400</font> 及错误码 <font color="blue">99991400</font>；;;**群公告频率限制**：单篇群公告并发编辑上限为每秒 3 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">429</font>，编辑操作包括：;- 创建块;- 批量更新块;- 删除块;;当请求被限频，应用需要处理限频状态码，并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。;;## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的用户或者机器人必须在对应的群组内，且需要拥有群公告的编辑权限。;- 操作内部群的群公告时，请确保当前调用身份（tenant_access_token 或 user_access_token）与对应群组在同一租户下。;;## 使用限制;;- 如果群组配置了 **仅群主和群管理员可编辑群信息**，则仅有群主、群管理员，或者是创建群组且具有 **更新应用所创建群的群信息（im:chat:operate_as_owner）** 权限的机器人，可以更新群公告信息。;- 如果群组没有配置 **仅群主和群管理员可编辑群信息**，则所有群成员可以更新群公告信息。;;
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=docx&resource=chat.announcement.block.children&version=v1
 //
@@ -216,9 +226,11 @@ func (c *chatAnnouncementBlockChildren) Create(ctx context.Context, req *CreateC
 	return resp, err
 }
 
-// Get
+// Get 获取所有子块;
 //
-// -
+// - 获取群公告中指定块的所有子块的富文本内容并分页返回。;
+//
+// - **应用频率限制**：单个应用调用频率上限为每秒 10 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">400</font> 及错误码 <font color="blue">99991400</font>。当请求被限频，应用需要处理限频状态码，并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。;;## 前提条件;;- 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。;- 调用当前接口的用户或者机器人必须在对应的群组内。;- 获取内部群信息时，调用当前接口的用户或者机器人必须与对应群组在同一租户下。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=docx&resource=chat.announcement.block.children&version=v1
 //
@@ -242,9 +254,11 @@ func (c *chatAnnouncementBlockChildren) Get(ctx context.Context, req *GetChatAnn
 	return resp, err
 }
 
-// Convert
+// Convert Markdown/HTML 内容转换为文档块
 //
-// -
+// - 将 Markdown/HTML 格式的内容转换为文档块，以便于将 Markdown/HTML 格式的内容插入到文档中。目前支持转换为的块类型包含文本、一到九级标题、无序列表、有序列表、代码块、引用、待办事项、图片、表格、表格单元格。
+//
+// - **若要将 Markdown/HTML 格式的内容插入到文档，需依次执行以下操作：**;;1. 调用[创建文档](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/create)接口创建一篇类型为 docx 的文档（若目标文档已存在，则无需此步骤）。;2. 调用当前接口将 Markdown/HTML 格式的内容转换为文档块。;3. 调用[创建嵌套块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-descendant/create)接口将步骤二中返回的块批量插入到目标文档中。;;;;**在上述接口调用过程中需注意以下事项：**;;- 将带表格的 Markdown/HTML 格式的内容转换为文档块后，在调用[创建嵌套块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-descendant/create)接口批量插入块到文档前，需先去除表格（Table）块中的 `merge_info` 字段。由于当前 `merge_info` 为只读属性，传入该字段会引发报错。;;- 将包含图片的 Markdown/HTML 格式的内容转换为文档块，并调用[创建嵌套块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-descendant/create)接口将图片（Image）块插入到文档后，需调用[上传图片素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)接口，以 Image BlockID 作为 `parent_node` 上传素材，接着调用[更新块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/patch)或[批量更新块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/batch_update)接口，指定 `replace_image` 操作，将图片素材 ID 设置到对应的 Image Block。;;- 当转换后的块数量过多时，需分批调用[创建嵌套块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-descendant/create)接口，单次调用[创建嵌套块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-descendant/create)接口最多可插入 1000 个块。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=convert&project=docx&resource=document&version=v1
 //
@@ -270,13 +284,9 @@ func (d *document) Convert(ctx context.Context, req *ConvertDocumentReq, options
 
 // Create 创建文档
 //
-// - 创建新版文档，文档标题和目录可选。
+// - 创建文档类型为 docx 的文档。你可选择传入文档标题和文件夹。
 //
-// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnyoyCgwS8ywWwMtQr9yjZ2f)，了解相关规则及约束。
-//
-// - 频率限制：单个应用调用频率上限为每秒 3 次。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=docx&resource=document&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/create_document.go
 func (d *document) Create(ctx context.Context, req *CreateDocumentReq, options ...larkcore.RequestOptionFunc) (*CreateDocumentResp, error) {
@@ -300,13 +310,9 @@ func (d *document) Create(ctx context.Context, req *CreateDocumentReq, options .
 
 // Get 获取文档基本信息
 //
-// - 获取文档最新版本号、标题等
+// - 获取文档标题和最新版本 ID。
 //
-// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnWKAE4aSaIU4GcdLInSaVde)，了解相关规则及约束。
-//
-// - 频率限制：单个应用调用频率上限为每秒 5 次。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=docx&resource=document&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/get_document.go
 func (d *document) Get(ctx context.Context, req *GetDocumentReq, options ...larkcore.RequestOptionFunc) (*GetDocumentResp, error) {
@@ -332,11 +338,7 @@ func (d *document) Get(ctx context.Context, req *GetDocumentReq, options ...lark
 //
 // - 获取文档的纯文本内容。
 //
-// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnQeqI4wiKIMis6GNvCOBuqg)，了解相关规则及约束。
-//
-// - 频率限制：单个应用调用频率上限为每秒 5 次。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/raw_content
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=raw_content&project=docx&resource=document&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/rawContent_document.go
 func (d *document) RawContent(ctx context.Context, req *RawContentDocumentReq, options ...larkcore.RequestOptionFunc) (*RawContentDocumentResp, error) {
@@ -358,15 +360,13 @@ func (d *document) RawContent(ctx context.Context, req *RawContentDocumentReq, o
 	return resp, err
 }
 
-// BatchUpdate 批量更新块
+// BatchUpdate 批量更新块的内容
 //
 // - 批量更新块的富文本内容。
 //
-// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnMiwAKCiE6oQEkPyhvmmQEe)，了解相关规则及约束。
+// - **应用频率限制**：单个应用调用频率上限为每秒 3 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">400</font> 及错误码 <font color="blue">99991400</font>；;;**文档频率限制**：单篇文档并发编辑上限为每秒 3 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">429</font>，编辑操作包括：;- 创建块;- 创建嵌套块;- 删除块;- 更新块;- 批量更新块;;当请求被限频，应用需要处理限频状态码，并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。;;## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有云文档的阅读、编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
-// - 频率限制：单个应用调用频率上限为每秒 3 次。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/batch_update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=docx&resource=document.block&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/batchUpdate_documentBlock.go
 func (d *documentBlock) BatchUpdate(ctx context.Context, req *BatchUpdateDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateDocumentBlockResp, error) {
@@ -388,15 +388,13 @@ func (d *documentBlock) BatchUpdate(ctx context.Context, req *BatchUpdateDocumen
 	return resp, err
 }
 
-// Get 获取块
+// Get 获取块的内容
 //
-// - 获取指定块的富文本内容。
+// - 指定块的 block id 获取指定块的富文本内容数据。
 //
-// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnamKaccZKqIMopnREJCZUMe#doxcnWEMWYAg2YMkEq0SZXHzaih)，了解相关规则及约束。
+// - **应用频率限制**：单个应用调用频率上限为每秒 5 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">400</font> 及错误码 <font color="blue">99991400</font>。当请求被限频，应用需要处理限频状态码，并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。;;## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有云文档的阅读、编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
-// - 频率限制：单个应用调用频率上限为每秒 5 次。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=docx&resource=document.block&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/get_documentBlock.go
 func (d *documentBlock) Get(ctx context.Context, req *GetDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*GetDocumentBlockResp, error) {
@@ -422,11 +420,9 @@ func (d *documentBlock) Get(ctx context.Context, req *GetDocumentBlockReq, optio
 //
 // - 获取文档所有块的富文本内容并分页返回。
 //
-// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnamKaccZKqIMopnREJCZUMe#doxcn6AkCE2AUUm2WwxID7lS7Xc)，了解相关规则及约束。
+// - **应用频率限制**：单个应用调用频率上限为每秒 5 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">400</font> 及错误码 <font color="blue">99991400</font>。当请求被限频，应用需要处理限频状态码，并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。;;## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有云文档的阅读、编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
-// - 频率限制：单个应用调用频率上限为每秒 5 次。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=docx&resource=document.block&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/list_documentBlock.go
 func (d *documentBlock) List(ctx context.Context, req *ListDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*ListDocumentBlockResp, error) {
@@ -456,15 +452,13 @@ func (d *documentBlock) ListByIterator(ctx context.Context, req *ListDocumentBlo
 		limit:    req.Limit}, nil
 }
 
-// Patch 更新块
+// Patch 更新块的内容
 //
-// - 更新指定的块。
+// - 更新指定块的内容。如果操作成功，接口将返回更新后的块的富文本内容。
 //
-// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnEeyS0I8MMqoieIMpK7jm8g)，了解相关规则及约束。
+// - **应用频率限制**：单个应用调用频率上限为每秒 3 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">400</font> 及错误码 <font color="blue">99991400</font>；;;**文档频率限制**：单篇文档并发编辑上限为每秒 3 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">429</font>，编辑操作包括：;- 创建块;- 创建嵌套块;- 删除块;- 更新块;- 批量更新块;;当请求被限频，应用需要处理限频状态码，并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。;;## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有云文档的阅读、编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
-// - 频率限制：单个应用调用频率上限为每秒 3 次。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/patch
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=docx&resource=document.block&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/patch_documentBlock.go
 func (d *documentBlock) Patch(ctx context.Context, req *PatchDocumentBlockReq, options ...larkcore.RequestOptionFunc) (*PatchDocumentBlockResp, error) {
@@ -490,11 +484,9 @@ func (d *documentBlock) Patch(ctx context.Context, req *PatchDocumentBlockReq, o
 //
 // - 指定需要操作的块，删除其指定范围的子块。如果操作成功，接口将返回应用删除操作后的文档版本号。
 //
-// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcngCsscGk0WacO258mYDgM6b)，了解相关规则及约束。
+// - **应用频率限制**：单个应用调用频率上限为每秒 3 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">400</font> 及错误码 <font color="blue">99991400</font>；;;**文档频率限制**：单篇文档并发编辑上限为每秒 3 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">429</font>，编辑操作包括：;- 创建块;- 创建嵌套块;- 删除块;- 更新块;- 批量更新块;;当请求被限频，应用需要处理限频状态码，并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。;;## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有云文档的阅读、编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
-// - 频率限制：单个应用调用频率上限为每秒 3 次。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/batch_delete
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_delete&project=docx&resource=document.block.children&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/batchDelete_documentBlockChildren.go
 func (d *documentBlockChildren) BatchDelete(ctx context.Context, req *BatchDeleteDocumentBlockChildrenReq, options ...larkcore.RequestOptionFunc) (*BatchDeleteDocumentBlockChildrenResp, error) {
@@ -518,13 +510,11 @@ func (d *documentBlockChildren) BatchDelete(ctx context.Context, req *BatchDelet
 
 // Create 创建块
 //
-// - 指定需要操作的块，为其创建一批子块，并插入到指定位置。如果操作成功，接口将返回新创建子块的富文本内容。
+// - 在指定块的子块列表中，新创建一批子块，并放置到指定位置。如果操作成功，接口将返回新创建子块的富文本内容。
 //
-// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnm0ooUe0s20GwwVB3a05rtb)，了解相关规则及约束。
+// - **应用频率限制**：单个应用调用频率上限为每秒 3 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">400</font> 及错误码 <font color="blue">99991400</font>；;;**文档频率限制**：单篇文档并发编辑上限为每秒 3 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">429</font>，编辑操作包括：;- 创建块;- 创建嵌套块;- 删除块;- 更新块;- 批量更新块;;当请求被限频，应用需要处理限频状态码，并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。;;:::html;<md-alert type="tip">;要高效创建一批带有层级结构的子块或者创建带内容的表格等，推荐使用[创建嵌套块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-descendant/create)接口。;</md-alert>;:::;;## 前提条件;- 调用该接口前，请参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解块的父子关系规则。;- 调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有云文档的阅读、编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
-// - 频率限制：单个应用调用频率上限为每秒 3 次。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=docx&resource=document.block.children&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/create_documentBlockChildren.go
 func (d *documentBlockChildren) Create(ctx context.Context, req *CreateDocumentBlockChildrenReq, options ...larkcore.RequestOptionFunc) (*CreateDocumentBlockChildrenResp, error) {
@@ -548,13 +538,11 @@ func (d *documentBlockChildren) Create(ctx context.Context, req *CreateDocumentB
 
 // Get 获取所有子块
 //
-// - 给定一个指定版本的文档，并指定需要操作的块，分页遍历其所有子块富文本内容 。如果不指定版本，则会默认查询最新版本。
+// - 获取文档中指定块的所有子块的富文本内容并分页返回。文档版本号可选。
 //
-// - 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnE2UK2yY0gEGK8nBMPtB0vd)，了解相关规则及约束。
+// - **应用频率限制**：单个应用调用频率上限为每秒 5 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">400</font> 及错误码 <font color="blue">99991400</font>。当请求被限频，应用需要处理限频状态码，并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。;;## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有云文档的阅读、编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
-// - 频率限制：单个应用调用频率上限为每秒 5 次。
-//
-// - 官网API文档链接:https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=docx&resource=document.block.children&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/docxv1/get_documentBlockChildren.go
 func (d *documentBlockChildren) Get(ctx context.Context, req *GetDocumentBlockChildrenReq, options ...larkcore.RequestOptionFunc) (*GetDocumentBlockChildrenResp, error) {
@@ -584,9 +572,11 @@ func (d *documentBlockChildren) GetByIterator(ctx context.Context, req *GetDocum
 		limit:    req.Limit}, nil
 }
 
-// Create
+// Create 创建嵌套块
 //
-// -
+// - 在指定块的子块列表中，新创建一批有父子关系的子块，并放置到指定位置。如果操作成功，接口将返回新创建子块的富文本内容。调用该接口前，你可参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解块的父子关系规则。当创建的子块中含有 GridColumn、TableCell、Callout 时其中至少需要包含一个子块 ，即内容为空时也需要填入一个空 Text Block 作为子块。
+//
+// - **应用频率限制**：单个应用调用频率上限为每秒 3 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">400</font> 及错误码 <font color="blue">99991400</font>；;;**文档频率限制**：单篇文档并发编辑上限为每秒 3 次，超过该频率限制，接口将返回 HTTP 状态码 <font color="blue">429</font>，编辑操作包括：;- 创建块;- 创建嵌套块;- 删除块;- 更新块;- 批量更新块;;当请求被限频，应用需要处理限频状态码，并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。;;## 前提条件;;调用此接口前，请确保当前调用身份（tenant_access_token 或 user_access_token）已有云文档的阅读、编辑等文档权限，否则接口将返回 HTTP 403 或 400 状态码。了解更多，参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=docx&resource=document.block.descendant&version=v1
 //

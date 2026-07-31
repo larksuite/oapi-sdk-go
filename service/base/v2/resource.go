@@ -22,9 +22,11 @@ type appRole struct {
 	config *larkcore.Config
 }
 
-// Create
+// Create 新增自定义角色(新版)
 //
-// - 新增自定义角色
+// - 新增多维表格高级权限中自定义的角色。
+//
+// - ## 前提条件;;要调用自定义角色相关接口，你需确保多维表格已开启高级权限。你可通过[更新多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update)接口开启高级权限。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=base&resource=app.role&version=v2
 //
@@ -48,9 +50,11 @@ func (a *appRole) Create(ctx context.Context, req *CreateAppRoleReq, options ...
 	return resp, err
 }
 
-// List
+// List 列出自定义角色(新版)
 //
-// - 列出自定义角色
+// - 列出多维表格高级权限中用户自定义的角色。
+//
+// - ## 前提条件;;要调用自定义角色相关接口，你需确保多维表格已开启高级权限。你可通过[更新多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update)接口开启高级权限。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=base&resource=app.role&version=v2
 //
@@ -82,9 +86,11 @@ func (a *appRole) ListByIterator(ctx context.Context, req *ListAppRoleReq, optio
 		limit:    req.Limit}, nil
 }
 
-// Update
+// Update 更新自定义角色(新版)
 //
-// - 更新自定义角色
+// - 更新多维表格高级权限中自定义的角色。
+//
+// - 更新自定义角色为增量更新，仅对传值的字段进行更新，不传值则不更新。;;## 前提条件;;要调用自定义角色相关接口，你需确保多维表格已开启高级权限。你可通过[更新多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update)接口开启高级权限。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=base&resource=app.role&version=v2
 //

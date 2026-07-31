@@ -71,6 +71,12 @@ const (
 )
 
 const (
+	UserIdTypeSearchTaskUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeSearchTaskUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeSearchTaskOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	UserIdTypeListRelatedTaskTaskV2UserId  = "user_id"  // user_id
 	UserIdTypeListRelatedTaskTaskV2UnionId = "union_id" // union_id
 	UserIdTypeListRelatedTaskTaskV2OpenId  = "open_id"  // open_id
@@ -83,9 +89,15 @@ const (
 )
 
 const (
-	OriginOwnerToRoleEditor = "editor" // 原负责人变为可编辑角色的协作人
-	OriginOwnerToRoleViewer = "viewer" // 原负责人变为可阅读角色的协作人
-	OriginOwnerToRoleNone   = "none"   // 原负责人直接退出清单
+	OriginOwnerToRoleEditor = "editor" // 原所有者变为可编辑角色
+	OriginOwnerToRoleViewer = "viewer" // 原所有者变为可阅读角色
+	OriginOwnerToRoleNone   = "none"   // 原所有者直接退出清单
+)
+
+const (
+	UserIdTypeSearchTasklistUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeSearchTasklistUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeSearchTasklistOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -119,7 +131,7 @@ type ActivityRecord struct {
 
 	CreatedAt *string `json:"created_at,omitempty"` // 动态的发生的时间戳(ms)
 
-	OpUser *Member `json:"op_user,omitempty"` // 动态发起者
+	OpUser *Member `json:"op_user,omitempty"` // 清单所有者
 
 	KeyName *string `json:"key_name,omitempty"` // key对应的名称
 
@@ -138,7 +150,7 @@ type ActivityRecordBuilder struct {
 	createdAt    string // 动态的发生的时间戳(ms)
 	createdAtSet bool
 
-	opUser    *Member // 动态发起者
+	opUser    *Member // 清单所有者
 	opUserSet bool
 
 	keyName    string // key对应的名称
@@ -183,7 +195,7 @@ func (builder *ActivityRecordBuilder) CreatedAt(createdAt string) *ActivityRecor
 	return builder
 }
 
-// 动态发起者
+// 清单所有者
 //
 // 示例值：
 func (builder *ActivityRecordBuilder) OpUser(opUser *Member) *ActivityRecordBuilder {
@@ -272,7 +284,7 @@ func NewAgentBuilder() *AgentBuilder {
 
 // 应用唯一标识，用于区分不同应用主体。可通过开放平台应用管理页面获取
 //
-// 示例值：cli_a1b2c3d4e5f6g7h8
+// 示例值：cli_***
 func (builder *AgentBuilder) AppId(appId string) *AgentBuilder {
 	builder.appId = appId
 	builder.appIdSet = true
@@ -380,13 +392,13 @@ type Attachment struct {
 
 	Resource *Resource `json:"resource,omitempty"` // 附件归属的资源
 
-	Uploader *Member `json:"uploader,omitempty"` // 附件上传者
+	Uploader *Member `json:"uploader,omitempty"` // 清单所有者
 
 	IsCover *bool `json:"is_cover,omitempty"` // 是否是封面图
 
 	UploadedAt *string `json:"uploaded_at,omitempty"` // 上传时间戳(ms)
 
-	Url *string `json:"url,omitempty"` // 附件的临时下载url，有效时间3分钟，且只允许调用3次进行附件下载。只有在获取附件时会动态生成。
+	Url *string `json:"url,omitempty"` // 附件的临时下载url，有效时间3分钟，且只允许调用3次进行附件下载。
 }
 
 type AttachmentBuilder struct {
@@ -405,7 +417,7 @@ type AttachmentBuilder struct {
 	resource    *Resource // 附件归属的资源
 	resourceSet bool
 
-	uploader    *Member // 附件上传者
+	uploader    *Member // 清单所有者
 	uploaderSet bool
 
 	isCover    bool // 是否是封面图
@@ -414,7 +426,7 @@ type AttachmentBuilder struct {
 	uploadedAt    string // 上传时间戳(ms)
 	uploadedAtSet bool
 
-	url    string // 附件的临时下载url，有效时间3分钟，且只允许调用3次进行附件下载。只有在获取附件时会动态生成。
+	url    string // 附件的临时下载url，有效时间3分钟，且只允许调用3次进行附件下载。
 	urlSet bool
 }
 
@@ -468,7 +480,7 @@ func (builder *AttachmentBuilder) Resource(resource *Resource) *AttachmentBuilde
 	return builder
 }
 
-// 附件上传者
+// 清单所有者
 //
 // 示例值：
 func (builder *AttachmentBuilder) Uploader(uploader *Member) *AttachmentBuilder {
@@ -495,7 +507,7 @@ func (builder *AttachmentBuilder) UploadedAt(uploadedAt string) *AttachmentBuild
 	return builder
 }
 
-// 附件的临时下载url，有效时间3分钟，且只允许调用3次进行附件下载。只有在获取附件时会动态生成。
+// 附件的临时下载url，有效时间3分钟，且只允许调用3次进行附件下载。
 //
 // 示例值：https://example.com/download/authcode/?code=OWMzNDlmMjJmZThkYzZkZGJlMjYwZTI0OTUxZTE2MDJfMDZmZmMwOWVj
 func (builder *AttachmentBuilder) Url(url string) *AttachmentBuilder {
@@ -544,11 +556,11 @@ func (builder *AttachmentBuilder) Build() *Attachment {
 }
 
 type Comment struct {
-	Id *string `json:"id,omitempty"` // 评论id
+	Id *string `json:"id,omitempty"` // 评论ID
 
-	Content *string `json:"content,omitempty"` // 评论内容
+	Content *string `json:"content,omitempty"` // 要更新的评论内容。如果更新该字段，不允许设为空，最大支持3000个UTF-8字符。
 
-	Creator *Member `json:"creator,omitempty"` // 评论创建人
+	Creator *Member `json:"creator,omitempty"` // 清单所有者
 
 	ReplyToCommentId *string `json:"reply_to_comment_id,omitempty"` // 被回复评论的id。如果不是回复评论，则为空。
 
@@ -562,13 +574,13 @@ type Comment struct {
 }
 
 type CommentBuilder struct {
-	id    string // 评论id
+	id    string // 评论ID
 	idSet bool
 
-	content    string // 评论内容
+	content    string // 要更新的评论内容。如果更新该字段，不允许设为空，最大支持3000个UTF-8字符。
 	contentSet bool
 
-	creator    *Member // 评论创建人
+	creator    *Member // 清单所有者
 	creatorSet bool
 
 	replyToCommentId    string // 被回复评论的id。如果不是回复评论，则为空。
@@ -592,7 +604,7 @@ func NewCommentBuilder() *CommentBuilder {
 	return builder
 }
 
-// 评论id
+// 评论ID
 //
 // 示例值：7197020628442939411
 func (builder *CommentBuilder) Id(id string) *CommentBuilder {
@@ -601,7 +613,7 @@ func (builder *CommentBuilder) Id(id string) *CommentBuilder {
 	return builder
 }
 
-// 评论内容
+// 要更新的评论内容。如果更新该字段，不允许设为空，最大支持3000个UTF-8字符。
 //
 // 示例值：这是一条评论
 func (builder *CommentBuilder) Content(content string) *CommentBuilder {
@@ -610,7 +622,7 @@ func (builder *CommentBuilder) Content(content string) *CommentBuilder {
 	return builder
 }
 
-// 评论创建人
+// 清单所有者
 //
 // 示例值：
 func (builder *CommentBuilder) Creator(creator *Member) *CommentBuilder {
@@ -701,21 +713,21 @@ func (builder *CommentBuilder) Build() *Comment {
 }
 
 type CustomComplete struct {
-	Pc *CustomCompleteItem `json:"pc,omitempty"` // pc客户端自定义完成配置（含mac和windows）
+	Pc *CustomCompleteItem `json:"pc,omitempty"` // PC客户端自定义完成配置（含Mac和Windows）
 
-	Ios *CustomCompleteItem `json:"ios,omitempty"` // ios端的自定义完成配置
+	Ios *CustomCompleteItem `json:"ios,omitempty"` // PC客户端自定义完成配置（含Mac和Windows）
 
-	Android *CustomCompleteItem `json:"android,omitempty"` // android端的自定义完成配置
+	Android *CustomCompleteItem `json:"android,omitempty"` // PC客户端自定义完成配置（含Mac和Windows）
 }
 
 type CustomCompleteBuilder struct {
-	pc    *CustomCompleteItem // pc客户端自定义完成配置（含mac和windows）
+	pc    *CustomCompleteItem // PC客户端自定义完成配置（含Mac和Windows）
 	pcSet bool
 
-	ios    *CustomCompleteItem // ios端的自定义完成配置
+	ios    *CustomCompleteItem // PC客户端自定义完成配置（含Mac和Windows）
 	iosSet bool
 
-	android    *CustomCompleteItem // android端的自定义完成配置
+	android    *CustomCompleteItem // PC客户端自定义完成配置（含Mac和Windows）
 	androidSet bool
 }
 
@@ -724,7 +736,7 @@ func NewCustomCompleteBuilder() *CustomCompleteBuilder {
 	return builder
 }
 
-// pc客户端自定义完成配置（含mac和windows）
+// PC客户端自定义完成配置（含Mac和Windows）
 //
 // 示例值：
 func (builder *CustomCompleteBuilder) Pc(pc *CustomCompleteItem) *CustomCompleteBuilder {
@@ -733,7 +745,7 @@ func (builder *CustomCompleteBuilder) Pc(pc *CustomCompleteItem) *CustomComplete
 	return builder
 }
 
-// ios端的自定义完成配置
+// PC客户端自定义完成配置（含Mac和Windows）
 //
 // 示例值：
 func (builder *CustomCompleteBuilder) Ios(ios *CustomCompleteItem) *CustomCompleteBuilder {
@@ -742,7 +754,7 @@ func (builder *CustomCompleteBuilder) Ios(ios *CustomCompleteItem) *CustomComple
 	return builder
 }
 
-// android端的自定义完成配置
+// PC客户端自定义完成配置（含Mac和Windows）
 //
 // 示例值：
 func (builder *CustomCompleteBuilder) Android(android *CustomCompleteItem) *CustomCompleteBuilder {
@@ -768,14 +780,14 @@ func (builder *CustomCompleteBuilder) Build() *CustomComplete {
 type CustomCompleteItem struct {
 	Href *string `json:"href,omitempty"` // 自定义完成的跳转url
 
-	Tip *I18nText `json:"tip,omitempty"` // 自定义完成的弹出提示为
+	Tip *I18nText `json:"tip,omitempty"` // 自定义完成的弹出提示
 }
 
 type CustomCompleteItemBuilder struct {
 	href    string // 自定义完成的跳转url
 	hrefSet bool
 
-	tip    *I18nText // 自定义完成的弹出提示为
+	tip    *I18nText // 自定义完成的弹出提示
 	tipSet bool
 }
 
@@ -793,7 +805,7 @@ func (builder *CustomCompleteItemBuilder) Href(href string) *CustomCompleteItemB
 	return builder
 }
 
-// 自定义完成的弹出提示为
+// 自定义完成的弹出提示
 //
 // 示例值：
 func (builder *CustomCompleteItemBuilder) Tip(tip *I18nText) *CustomCompleteItemBuilder {
@@ -817,7 +829,7 @@ func (builder *CustomCompleteItemBuilder) Build() *CustomCompleteItem {
 type CustomField struct {
 	Guid *string `json:"guid,omitempty"` // 自定义字段的GUID
 
-	Name *string `json:"name,omitempty"` // 自定义字段名称
+	Name *string `json:"name,omitempty"` // 字段名称，支持最大50个字符。
 
 	Type *string `json:"type,omitempty"` // 自定义字段类型
 
@@ -831,20 +843,20 @@ type CustomField struct {
 
 	MultiSelectSetting *SelectSetting `json:"multi_select_setting,omitempty"` // 多选类型的字段设置
 
-	Creator *Member `json:"creator,omitempty"` // 创建人
+	Creator *Member `json:"creator,omitempty"` // 清单所有者
 
 	CreatedAt *string `json:"created_at,omitempty"` // 自定义字段创建的时间戳(ms)
 
 	UpdatedAt *string `json:"updated_at,omitempty"` // 自定义字段的更新时间戳(ms)
 
-	TextSetting *TextSetting `json:"text_setting,omitempty"` // 文本字段配置
+	TextSetting *TextSetting `json:"text_setting,omitempty"` // 文本类型设置（目前文本类型没有可设置项）
 }
 
 type CustomFieldBuilder struct {
 	guid    string // 自定义字段的GUID
 	guidSet bool
 
-	name    string // 自定义字段名称
+	name    string // 字段名称，支持最大50个字符。
 	nameSet bool
 
 	type_    string // 自定义字段类型
@@ -865,7 +877,7 @@ type CustomFieldBuilder struct {
 	multiSelectSetting    *SelectSetting // 多选类型的字段设置
 	multiSelectSettingSet bool
 
-	creator    *Member // 创建人
+	creator    *Member // 清单所有者
 	creatorSet bool
 
 	createdAt    string // 自定义字段创建的时间戳(ms)
@@ -874,7 +886,7 @@ type CustomFieldBuilder struct {
 	updatedAt    string // 自定义字段的更新时间戳(ms)
 	updatedAtSet bool
 
-	textSetting    *TextSetting // 文本字段配置
+	textSetting    *TextSetting // 文本类型设置（目前文本类型没有可设置项）
 	textSettingSet bool
 }
 
@@ -892,7 +904,7 @@ func (builder *CustomFieldBuilder) Guid(guid string) *CustomFieldBuilder {
 	return builder
 }
 
-// 自定义字段名称
+// 字段名称，支持最大50个字符。
 //
 // 示例值：优先级
 func (builder *CustomFieldBuilder) Name(name string) *CustomFieldBuilder {
@@ -955,7 +967,7 @@ func (builder *CustomFieldBuilder) MultiSelectSetting(multiSelectSetting *Select
 	return builder
 }
 
-// 创建人
+// 清单所有者
 //
 // 示例值：
 func (builder *CustomFieldBuilder) Creator(creator *Member) *CustomFieldBuilder {
@@ -982,7 +994,7 @@ func (builder *CustomFieldBuilder) UpdatedAt(updatedAt string) *CustomFieldBuild
 	return builder
 }
 
-// 文本字段配置
+// 文本类型设置（目前文本类型没有可设置项）
 //
 // 示例值：
 func (builder *CustomFieldBuilder) TextSetting(textSetting *TextSetting) *CustomFieldBuilder {
@@ -1212,11 +1224,11 @@ func (builder *CustomFieldValueBuilder) Build() *CustomFieldValue {
 }
 
 type DatetimeSetting struct {
-	Format *string `json:"format,omitempty"` // 日期显示格式
+	Format *string `json:"format,omitempty"` // 日期时间格式，支持;<md-enum>;<md-enum-item key="yyyy-mm-dd" >以短横分隔的年月日，例如2023-08-24</md-enum-item>;<md-enum-item key="yyyy/mm/dd" >以斜杠分隔的年月日，例如2023/08/04</md-enum-item>;<md-enum-item key="mm/dd/yyyy" >以斜杠分隔的月日年，例如08/24/2023</md-enum-item>;<md-enum-item key="dd/mm/yyyy" >以斜杠分隔的日月年，例如24/08/2023</md-enum-item>;</md-enum>;;默认为"yyyy-mm-dd"。;;注意本设置仅影响App中的时间日期类型字段的字段值的显示格式，并不会影响openAPI输入/输出的字段值的格式。
 }
 
 type DatetimeSettingBuilder struct {
-	format    string // 日期显示格式
+	format    string // 日期时间格式，支持;<md-enum>;<md-enum-item key="yyyy-mm-dd" >以短横分隔的年月日，例如2023-08-24</md-enum-item>;<md-enum-item key="yyyy/mm/dd" >以斜杠分隔的年月日，例如2023/08/04</md-enum-item>;<md-enum-item key="mm/dd/yyyy" >以斜杠分隔的月日年，例如08/24/2023</md-enum-item>;<md-enum-item key="dd/mm/yyyy" >以斜杠分隔的日月年，例如24/08/2023</md-enum-item>;</md-enum>;;默认为"yyyy-mm-dd"。;;注意本设置仅影响App中的时间日期类型字段的字段值的显示格式，并不会影响openAPI输入/输出的字段值的格式。
 	formatSet bool
 }
 
@@ -1225,7 +1237,7 @@ func NewDatetimeSettingBuilder() *DatetimeSettingBuilder {
 	return builder
 }
 
-// 日期显示格式
+// 日期时间格式，支持;<md-enum>;<md-enum-item key="yyyy-mm-dd" >以短横分隔的年月日，例如2023-08-24</md-enum-item>;<md-enum-item key="yyyy/mm/dd" >以斜杠分隔的年月日，例如2023/08/04</md-enum-item>;<md-enum-item key="mm/dd/yyyy" >以斜杠分隔的月日年，例如08/24/2023</md-enum-item>;<md-enum-item key="dd/mm/yyyy" >以斜杠分隔的日月年，例如24/08/2023</md-enum-item>;</md-enum>;;默认为"yyyy-mm-dd"。;;注意本设置仅影响App中的时间日期类型字段的字段值的显示格式，并不会影响openAPI输入/输出的字段值的格式。
 //
 // 示例值：yyyy/mm/dd
 func (builder *DatetimeSettingBuilder) Format(format string) *DatetimeSettingBuilder {
@@ -1262,8 +1274,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1271,8 +1281,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -1314,7 +1322,7 @@ func NewDocxSourceBuilder() *DocxSourceBuilder {
 
 // 任务关联的文档token，要求：如果使用tenant_access_token请求，则请求机器人有文档编辑权限；如果使用user_access_token，则请求用户有文档的编辑权限
 //
-// 示例值：SFZHdZLo2oXprexhDSrbtvmScHm
+// 示例值：OvZCdFYVHo5ArFxJKHjcnRbtnKd
 func (builder *DocxSourceBuilder) Token(token string) *DocxSourceBuilder {
 	builder.token = token
 	builder.tokenSet = true
@@ -1344,13 +1352,13 @@ func (builder *DocxSourceBuilder) Build() *DocxSource {
 }
 
 type Due struct {
-	Timestamp *string `json:"timestamp,omitempty"` // 截止时间/日期的时间戳，距1970-01-01 00:00:00的毫秒数。如果截止时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true
+	Timestamp *string `json:"timestamp,omitempty"` // 截止时间/日期的时间戳，距1970-01-01 00:00:00 UTC的毫秒数。如果截止时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true
 
 	IsAllDay *bool `json:"is_all_day,omitempty"` // 是否截止到一个日期。如果设为true，timestamp中只有日期的部分会被解析和存储。
 }
 
 type DueBuilder struct {
-	timestamp    string // 截止时间/日期的时间戳，距1970-01-01 00:00:00的毫秒数。如果截止时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true
+	timestamp    string // 截止时间/日期的时间戳，距1970-01-01 00:00:00 UTC的毫秒数。如果截止时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true
 	timestampSet bool
 
 	isAllDay    bool // 是否截止到一个日期。如果设为true，timestamp中只有日期的部分会被解析和存储。
@@ -1362,7 +1370,7 @@ func NewDueBuilder() *DueBuilder {
 	return builder
 }
 
-// 截止时间/日期的时间戳，距1970-01-01 00:00:00的毫秒数。如果截止时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true
+// 截止时间/日期的时间戳，距1970-01-01 00:00:00 UTC的毫秒数。如果截止时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true
 //
 // 示例值：1675454764000
 func (builder *DueBuilder) Timestamp(timestamp string) *DueBuilder {
@@ -1706,21 +1714,21 @@ func (builder *I18nTextBuilder) Build() *I18nText {
 }
 
 type InputAttachment struct {
-	ResourceType *string `json:"resource_type,omitempty"` // 附件归属资源的类型
+	ResourceType *string `json:"resource_type,omitempty"` //
 
-	ResourceId *string `json:"resource_id,omitempty"` // 附件要归属资源的id。例如，要给任务添加附件，这里要填入任务的全局唯一ID
+	ResourceId *string `json:"resource_id,omitempty"` // 附件要归属资源的id。例如，要给任务添加附件，这里要填入任务GUID。任务GUID可以通过[任务相关接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)获得。
 
-	File io.Reader `json:"file,omitempty"` // 要上传的文件
+	File io.Reader `json:"file,omitempty"` // 要上传的文件，单请求支持最多5个文件。上传结果的顺序将和请求中文件的顺序保持一致。
 }
 
 type InputAttachmentBuilder struct {
-	resourceType    string // 附件归属资源的类型
+	resourceType    string //
 	resourceTypeSet bool
 
-	resourceId    string // 附件要归属资源的id。例如，要给任务添加附件，这里要填入任务的全局唯一ID
+	resourceId    string // 附件要归属资源的id。例如，要给任务添加附件，这里要填入任务GUID。任务GUID可以通过[任务相关接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)获得。
 	resourceIdSet bool
 
-	file    io.Reader // 要上传的文件
+	file    io.Reader // 要上传的文件，单请求支持最多5个文件。上传结果的顺序将和请求中文件的顺序保持一致。
 	fileSet bool
 }
 
@@ -1729,25 +1737,23 @@ func NewInputAttachmentBuilder() *InputAttachmentBuilder {
 	return builder
 }
 
-// 附件归属资源的类型
-//
-// 示例值：task
+// 示例值：
 func (builder *InputAttachmentBuilder) ResourceType(resourceType string) *InputAttachmentBuilder {
 	builder.resourceType = resourceType
 	builder.resourceTypeSet = true
 	return builder
 }
 
-// 附件要归属资源的id。例如，要给任务添加附件，这里要填入任务的全局唯一ID
+// 附件要归属资源的id。例如，要给任务添加附件，这里要填入任务GUID。任务GUID可以通过[任务相关接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)获得。
 //
-// 示例值：fe96108d-b004-4a47-b2f8-6886e758b3a5
+// 示例值：
 func (builder *InputAttachmentBuilder) ResourceId(resourceId string) *InputAttachmentBuilder {
 	builder.resourceId = resourceId
 	builder.resourceIdSet = true
 	return builder
 }
 
-// 要上传的文件
+// 要上传的文件，单请求支持最多5个文件。上传结果的顺序将和请求中文件的顺序保持一致。
 //
 // 示例值：
 func (builder *InputAttachmentBuilder) File(file io.Reader) *InputAttachmentBuilder {
@@ -1773,7 +1779,7 @@ func (builder *InputAttachmentBuilder) Build() *InputAttachment {
 }
 
 type InputComment struct {
-	Content *string `json:"content,omitempty"` // 评论内容
+	Content *string `json:"content,omitempty"` // 评论内容。不允许为空，最长3000个UTF-8字符。
 
 	ReplyToCommentId *string `json:"reply_to_comment_id,omitempty"` // 回复给评论的id
 
@@ -1783,7 +1789,7 @@ type InputComment struct {
 }
 
 type InputCommentBuilder struct {
-	content    string // 评论内容
+	content    string // 评论内容。不允许为空，最长3000个UTF-8字符。
 	contentSet bool
 
 	replyToCommentId    string // 回复给评论的id
@@ -1801,7 +1807,7 @@ func NewInputCommentBuilder() *InputCommentBuilder {
 	return builder
 }
 
-// 评论内容
+// 评论内容。不允许为空，最长3000个UTF-8字符。
 //
 // 示例值：举杯邀明月，对影成三人
 func (builder *InputCommentBuilder) Content(content string) *InputCommentBuilder {
@@ -1859,13 +1865,13 @@ func (builder *InputCommentBuilder) Build() *InputComment {
 }
 
 type InputCustomField struct {
-	ResourceType *string `json:"resource_type,omitempty"` // 自定义字段归属的资源类型
+	ResourceType *string `json:"resource_type,omitempty"` // 自定义字段要归属的资源类型，支持"tasklist"
 
-	ResourceId *string `json:"resource_id,omitempty"` // 自定义字段归属的资源id，目前必然是tasklist_guid
+	ResourceId *string `json:"resource_id,omitempty"` // 自定义字段要归属的资源ID，当`resource_type`为"tasklist"时必须填写清单的GUID。
 
-	Name *string `json:"name,omitempty"` // 字段名称
+	Name *string `json:"name,omitempty"` // 字段名称，最大50个字符。
 
-	Type *string `json:"type,omitempty"` // 字段类型
+	Type *string `json:"type,omitempty"` // 自定义字段类型。
 
 	NumberSetting *NumberSetting `json:"number_setting,omitempty"` // 数字类型的字段设置
 
@@ -1877,20 +1883,20 @@ type InputCustomField struct {
 
 	MultiSelectSetting *SelectSetting `json:"multi_select_setting,omitempty"` // 多选类型的字段设置
 
-	TextSetting *TextSetting `json:"text_setting,omitempty"` // 文本类型
+	TextSetting *TextSetting `json:"text_setting,omitempty"` // 文本类型设置（目前文本类型没有可设置项）
 }
 
 type InputCustomFieldBuilder struct {
-	resourceType    string // 自定义字段归属的资源类型
+	resourceType    string // 自定义字段要归属的资源类型，支持"tasklist"
 	resourceTypeSet bool
 
-	resourceId    string // 自定义字段归属的资源id，目前必然是tasklist_guid
+	resourceId    string // 自定义字段要归属的资源ID，当`resource_type`为"tasklist"时必须填写清单的GUID。
 	resourceIdSet bool
 
-	name    string // 字段名称
+	name    string // 字段名称，最大50个字符。
 	nameSet bool
 
-	type_    string // 字段类型
+	type_    string // 自定义字段类型。
 	type_Set bool
 
 	numberSetting    *NumberSetting // 数字类型的字段设置
@@ -1908,7 +1914,7 @@ type InputCustomFieldBuilder struct {
 	multiSelectSetting    *SelectSetting // 多选类型的字段设置
 	multiSelectSettingSet bool
 
-	textSetting    *TextSetting // 文本类型
+	textSetting    *TextSetting // 文本类型设置（目前文本类型没有可设置项）
 	textSettingSet bool
 }
 
@@ -1917,7 +1923,7 @@ func NewInputCustomFieldBuilder() *InputCustomFieldBuilder {
 	return builder
 }
 
-// 自定义字段归属的资源类型
+// 自定义字段要归属的资源类型，支持"tasklist"
 //
 // 示例值：tasklist
 func (builder *InputCustomFieldBuilder) ResourceType(resourceType string) *InputCustomFieldBuilder {
@@ -1926,7 +1932,7 @@ func (builder *InputCustomFieldBuilder) ResourceType(resourceType string) *Input
 	return builder
 }
 
-// 自定义字段归属的资源id，目前必然是tasklist_guid
+// 自定义字段要归属的资源ID，当`resource_type`为"tasklist"时必须填写清单的GUID。
 //
 // 示例值：5ffbe0ca-6600-41e0-a634-2b38cbcf13b8
 func (builder *InputCustomFieldBuilder) ResourceId(resourceId string) *InputCustomFieldBuilder {
@@ -1935,7 +1941,7 @@ func (builder *InputCustomFieldBuilder) ResourceId(resourceId string) *InputCust
 	return builder
 }
 
-// 字段名称
+// 字段名称，最大50个字符。
 //
 // 示例值：优先级
 func (builder *InputCustomFieldBuilder) Name(name string) *InputCustomFieldBuilder {
@@ -1944,7 +1950,7 @@ func (builder *InputCustomFieldBuilder) Name(name string) *InputCustomFieldBuild
 	return builder
 }
 
-// 字段类型
+// 自定义字段类型。
 //
 // 示例值：number
 func (builder *InputCustomFieldBuilder) Type(type_ string) *InputCustomFieldBuilder {
@@ -1998,7 +2004,7 @@ func (builder *InputCustomFieldBuilder) MultiSelectSetting(multiSelectSetting *S
 	return builder
 }
 
-// 文本类型
+// 文本类型设置（目前文本类型没有可设置项）
 //
 // 示例值：
 func (builder *InputCustomFieldBuilder) TextSetting(textSetting *TextSetting) *InputCustomFieldBuilder {
@@ -2187,7 +2193,7 @@ func (builder *InputCustomFieldValueBuilder) Build() *InputCustomFieldValue {
 type InputOption struct {
 	Name *string `json:"name,omitempty"` // 选项名称
 
-	ColorIndex *int `json:"color_index,omitempty"` // 颜色索引值，支持0～54中的一个数字。如果不填写，则会随机选一个。
+	ColorIndex *int `json:"color_index,omitempty"` // 颜色索引值，支持0～54中的一个数字。
 
 	InsertBefore *string `json:"insert_before,omitempty"` // 要放到某个option之前的option_guid
 
@@ -2200,7 +2206,7 @@ type InputOptionBuilder struct {
 	name    string // 选项名称
 	nameSet bool
 
-	colorIndex    int // 颜色索引值，支持0～54中的一个数字。如果不填写，则会随机选一个。
+	colorIndex    int // 颜色索引值，支持0～54中的一个数字。
 	colorIndexSet bool
 
 	insertBefore    string // 要放到某个option之前的option_guid
@@ -2227,7 +2233,7 @@ func (builder *InputOptionBuilder) Name(name string) *InputOptionBuilder {
 	return builder
 }
 
-// 颜色索引值，支持0～54中的一个数字。如果不填写，则会随机选一个。
+// 颜色索引值，支持0～54中的一个数字。
 //
 // 示例值：10
 func (builder *InputOptionBuilder) ColorIndex(colorIndex int) *InputOptionBuilder {
@@ -2289,9 +2295,9 @@ func (builder *InputOptionBuilder) Build() *InputOption {
 }
 
 type InputSection struct {
-	Name *string `json:"name,omitempty"` // 自定义分组名
+	Name *string `json:"name,omitempty"` // 自定义分组名。不允许为空，最大100个UTF-8字符。
 
-	ResourceType *string `json:"resource_type,omitempty"` // 自定义分组的资源类型
+	ResourceType *string `json:"resource_type,omitempty"` // 自定义分组的资源类型，支持"tasklist"（清单）或者"my_tasks"（我负责的）。
 
 	ResourceId *string `json:"resource_id,omitempty"` // 自定义分组要归属的资源id
 
@@ -2301,10 +2307,10 @@ type InputSection struct {
 }
 
 type InputSectionBuilder struct {
-	name    string // 自定义分组名
+	name    string // 自定义分组名。不允许为空，最大100个UTF-8字符。
 	nameSet bool
 
-	resourceType    string // 自定义分组的资源类型
+	resourceType    string // 自定义分组的资源类型，支持"tasklist"（清单）或者"my_tasks"（我负责的）。
 	resourceTypeSet bool
 
 	resourceId    string // 自定义分组要归属的资源id
@@ -2322,7 +2328,7 @@ func NewInputSectionBuilder() *InputSectionBuilder {
 	return builder
 }
 
-// 自定义分组名
+// 自定义分组名。不允许为空，最大100个UTF-8字符。
 //
 // 示例值：已经审核过的任务
 func (builder *InputSectionBuilder) Name(name string) *InputSectionBuilder {
@@ -2331,7 +2337,7 @@ func (builder *InputSectionBuilder) Name(name string) *InputSectionBuilder {
 	return builder
 }
 
-// 自定义分组的资源类型
+// 自定义分组的资源类型，支持"tasklist"（清单）或者"my_tasks"（我负责的）。
 //
 // 示例值：tasklist
 func (builder *InputSectionBuilder) ResourceType(resourceType string) *InputSectionBuilder {
@@ -2399,7 +2405,7 @@ type InputTask struct {
 
 	Due *Due `json:"due,omitempty"` // 任务截止时间戳(ms)，截止时间戳和截止日期选择一个填写。
 
-	Origin *Origin `json:"origin,omitempty"` // 任务关联的第三方平台来源信息
+	Origin *Origin `json:"origin,omitempty"` // 任务关联的第三方平台来源信息。创建时设置后就不可更改。
 
 	Extra *string `json:"extra,omitempty"` // 调用者可以传入的任意附带到任务上的数据。在获取任务详情时会原样返回。
 
@@ -2446,7 +2452,7 @@ type InputTaskBuilder struct {
 	due    *Due // 任务截止时间戳(ms)，截止时间戳和截止日期选择一个填写。
 	dueSet bool
 
-	origin    *Origin // 任务关联的第三方平台来源信息
+	origin    *Origin // 任务关联的第三方平台来源信息。创建时设置后就不可更改。
 	originSet bool
 
 	extra    string // 调用者可以传入的任意附带到任务上的数据。在获取任务详情时会原样返回。
@@ -2533,7 +2539,7 @@ func (builder *InputTaskBuilder) Due(due *Due) *InputTaskBuilder {
 	return builder
 }
 
-// 任务关联的第三方平台来源信息
+// 任务关联的第三方平台来源信息。创建时设置后就不可更改。
 //
 // 示例值：
 func (builder *InputTaskBuilder) Origin(origin *Origin) *InputTaskBuilder {
@@ -2774,7 +2780,7 @@ func (builder *InputTaskBuilder) Build() *InputTask {
 }
 
 type InputTasklist struct {
-	Name *string `json:"name,omitempty"` // 清单名称
+	Name *string `json:"name,omitempty"` // 清单名称，必填。最多100个字符。
 
 	ClientToken *string `json:"client_token,omitempty"` // 幂等token，如果提供则实现幂等行为
 
@@ -2786,7 +2792,7 @@ type InputTasklist struct {
 }
 
 type InputTasklistBuilder struct {
-	name    string // 清单名称
+	name    string // 清单名称，必填。最多100个字符。
 	nameSet bool
 
 	clientToken    string // 幂等token，如果提供则实现幂等行为
@@ -2807,7 +2813,7 @@ func NewInputTasklistBuilder() *InputTasklistBuilder {
 	return builder
 }
 
-// 清单名称
+// 清单名称，必填。最多100个字符。
 //
 // 示例值：年会工作任务清单
 func (builder *InputTasklistBuilder) Name(name string) *InputTasklistBuilder {
@@ -2906,7 +2912,7 @@ func NewMemberBuilder() *MemberBuilder {
 
 // 表示member的id
 //
-// 示例值：ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f
+// 示例值：oc_2cefb2f014f8d0c6c2d2eb7bafb0e54f
 func (builder *MemberBuilder) Id(id string) *MemberBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -2915,7 +2921,7 @@ func (builder *MemberBuilder) Id(id string) *MemberBuilder {
 
 // 成员的类型
 //
-// 示例值：user
+// 示例值：chat
 func (builder *MemberBuilder) Type(type_ string) *MemberBuilder {
 	builder.type_ = type_
 	builder.type_Set = true
@@ -2962,11 +2968,11 @@ func (builder *MemberBuilder) Build() *Member {
 }
 
 type MemberSetting struct {
-	Multi *bool `json:"multi,omitempty"` // 是否支持多选
+	Multi *bool `json:"multi,omitempty"` // 是否支持多选。;;默认为false。
 }
 
 type MemberSettingBuilder struct {
-	multi    bool // 是否支持多选
+	multi    bool // 是否支持多选。;;默认为false。
 	multiSet bool
 }
 
@@ -2975,7 +2981,7 @@ func NewMemberSettingBuilder() *MemberSettingBuilder {
 	return builder
 }
 
-// 是否支持多选
+// 是否支持多选。;;默认为false。
 //
 // 示例值：true
 func (builder *MemberSettingBuilder) Multi(multi bool) *MemberSettingBuilder {
@@ -2994,31 +3000,31 @@ func (builder *MemberSettingBuilder) Build() *MemberSetting {
 }
 
 type NumberSetting struct {
-	Format *string `json:"format,omitempty"` // 数字展示的格式
+	Format *string `json:"format,omitempty"` // 数字类型的自定义字段的值在App展示的格式。;;注意本设置仅影响App中的数字类型字段的字段值的显示格式，并不会影响openAPI中输入/输出的字段值的格式。
 
-	CustomSymbol *string `json:"custom_symbol,omitempty"` // 自定义符号。只有`format`设为custom时才会生效。
+	CustomSymbol *string `json:"custom_symbol,omitempty"` // 当`format`设为"custom"时，设置具体的自定义符号。;;注意本设置仅影响App中的数字类型字段的字段值的显示格式，并不会影响openAPI输入/输出的字段值的格式。
 
-	CustomSymbolPosition *string `json:"custom_symbol_position,omitempty"` // 自定义符号显示的位置。
+	CustomSymbolPosition *string `json:"custom_symbol_position,omitempty"` // 当`format`设为"custom"时，自定义符号相对于数字的显示位置。;;注意本设置仅影响App中的数字类型字段的字段值的显示格式，并不会影响openAPI输入/输出的字段值的格式。
 
-	Separator *string `json:"separator,omitempty"` // 分隔符样式
+	Separator *string `json:"separator,omitempty"` // 数字类型自定义字段整数部分的分隔符样式。;;注意本设置仅影响App中的数字类型字段的字段值的显示格式，并不会影响openAPI输入/输出的字段值的格式。
 
-	DecimalCount *int `json:"decimal_count,omitempty"` // 保留小数位数。输入的数字值的小数位数如果比该设置多，多余的位数将被四舍五入后舍弃。如果`format`为"percentage"，表示变为百分数之后的小数位数。
+	DecimalCount *int `json:"decimal_count,omitempty"` // 数字类型自定义字段的值保留的小数位数。多余的位数将被四舍五入。;;默认为0。
 }
 
 type NumberSettingBuilder struct {
-	format    string // 数字展示的格式
+	format    string // 数字类型的自定义字段的值在App展示的格式。;;注意本设置仅影响App中的数字类型字段的字段值的显示格式，并不会影响openAPI中输入/输出的字段值的格式。
 	formatSet bool
 
-	customSymbol    string // 自定义符号。只有`format`设为custom时才会生效。
+	customSymbol    string // 当`format`设为"custom"时，设置具体的自定义符号。;;注意本设置仅影响App中的数字类型字段的字段值的显示格式，并不会影响openAPI输入/输出的字段值的格式。
 	customSymbolSet bool
 
-	customSymbolPosition    string // 自定义符号显示的位置。
+	customSymbolPosition    string // 当`format`设为"custom"时，自定义符号相对于数字的显示位置。;;注意本设置仅影响App中的数字类型字段的字段值的显示格式，并不会影响openAPI输入/输出的字段值的格式。
 	customSymbolPositionSet bool
 
-	separator    string // 分隔符样式
+	separator    string // 数字类型自定义字段整数部分的分隔符样式。;;注意本设置仅影响App中的数字类型字段的字段值的显示格式，并不会影响openAPI输入/输出的字段值的格式。
 	separatorSet bool
 
-	decimalCount    int // 保留小数位数。输入的数字值的小数位数如果比该设置多，多余的位数将被四舍五入后舍弃。如果`format`为"percentage"，表示变为百分数之后的小数位数。
+	decimalCount    int // 数字类型自定义字段的值保留的小数位数。多余的位数将被四舍五入。;;默认为0。
 	decimalCountSet bool
 }
 
@@ -3027,7 +3033,7 @@ func NewNumberSettingBuilder() *NumberSettingBuilder {
 	return builder
 }
 
-// 数字展示的格式
+// 数字类型的自定义字段的值在App展示的格式。;;注意本设置仅影响App中的数字类型字段的字段值的显示格式，并不会影响openAPI中输入/输出的字段值的格式。
 //
 // 示例值：normal
 func (builder *NumberSettingBuilder) Format(format string) *NumberSettingBuilder {
@@ -3036,7 +3042,7 @@ func (builder *NumberSettingBuilder) Format(format string) *NumberSettingBuilder
 	return builder
 }
 
-// 自定义符号。只有`format`设为custom时才会生效。
+// 当`format`设为"custom"时，设置具体的自定义符号。;;注意本设置仅影响App中的数字类型字段的字段值的显示格式，并不会影响openAPI输入/输出的字段值的格式。
 //
 // 示例值：自定义符号
 func (builder *NumberSettingBuilder) CustomSymbol(customSymbol string) *NumberSettingBuilder {
@@ -3045,7 +3051,7 @@ func (builder *NumberSettingBuilder) CustomSymbol(customSymbol string) *NumberSe
 	return builder
 }
 
-// 自定义符号显示的位置。
+// 当`format`设为"custom"时，自定义符号相对于数字的显示位置。;;注意本设置仅影响App中的数字类型字段的字段值的显示格式，并不会影响openAPI输入/输出的字段值的格式。
 //
 // 示例值：left
 func (builder *NumberSettingBuilder) CustomSymbolPosition(customSymbolPosition string) *NumberSettingBuilder {
@@ -3054,7 +3060,7 @@ func (builder *NumberSettingBuilder) CustomSymbolPosition(customSymbolPosition s
 	return builder
 }
 
-// 分隔符样式
+// 数字类型自定义字段整数部分的分隔符样式。;;注意本设置仅影响App中的数字类型字段的字段值的显示格式，并不会影响openAPI输入/输出的字段值的格式。
 //
 // 示例值：thousand
 func (builder *NumberSettingBuilder) Separator(separator string) *NumberSettingBuilder {
@@ -3063,7 +3069,7 @@ func (builder *NumberSettingBuilder) Separator(separator string) *NumberSettingB
 	return builder
 }
 
-// 保留小数位数。输入的数字值的小数位数如果比该设置多，多余的位数将被四舍五入后舍弃。如果`format`为"percentage"，表示变为百分数之后的小数位数。
+// 数字类型自定义字段的值保留的小数位数。多余的位数将被四舍五入。;;默认为0。
 //
 // 示例值：2
 func (builder *NumberSettingBuilder) DecimalCount(decimalCount int) *NumberSettingBuilder {
@@ -3098,17 +3104,17 @@ func (builder *NumberSettingBuilder) Build() *NumberSetting {
 }
 
 type Option struct {
-	Guid *string `json:"guid,omitempty"` // 选项的GUID
+	Guid *string `json:"guid,omitempty"` // 选项的GUID。
 
 	Name *string `json:"name,omitempty"` // 选项名称，不能为空，最大50个字符
 
 	ColorIndex *int `json:"color_index,omitempty"` // 选项的颜色索引值，可以是0～54中的一个数字。如果不填写则会随机选一个。
 
-	IsHidden *bool `json:"is_hidden,omitempty"` // 选项是否隐藏。隐藏后的选项在界面不可见，也不可以再通过openapi将字段值设为该选项。
+	IsHidden *bool `json:"is_hidden,omitempty"` // 选项是否隐藏。隐藏后的选项在界面不可见，也不可以再通过openAPI将字段值设为该选项。
 }
 
 type OptionBuilder struct {
-	guid    string // 选项的GUID
+	guid    string // 选项的GUID。
 	guidSet bool
 
 	name    string // 选项名称，不能为空，最大50个字符
@@ -3117,7 +3123,7 @@ type OptionBuilder struct {
 	colorIndex    int // 选项的颜色索引值，可以是0～54中的一个数字。如果不填写则会随机选一个。
 	colorIndexSet bool
 
-	isHidden    bool // 选项是否隐藏。隐藏后的选项在界面不可见，也不可以再通过openapi将字段值设为该选项。
+	isHidden    bool // 选项是否隐藏。隐藏后的选项在界面不可见，也不可以再通过openAPI将字段值设为该选项。
 	isHiddenSet bool
 }
 
@@ -3126,7 +3132,7 @@ func NewOptionBuilder() *OptionBuilder {
 	return builder
 }
 
-// 选项的GUID
+// 选项的GUID。
 //
 // 示例值：4216f79b-3fda-4dc6-a0c4-a16022e47152
 func (builder *OptionBuilder) Guid(guid string) *OptionBuilder {
@@ -3153,7 +3159,7 @@ func (builder *OptionBuilder) ColorIndex(colorIndex int) *OptionBuilder {
 	return builder
 }
 
-// 选项是否隐藏。隐藏后的选项在界面不可见，也不可以再通过openapi将字段值设为该选项。
+// 选项是否隐藏。隐藏后的选项在界面不可见，也不可以再通过openAPI将字段值设为该选项。
 //
 // 示例值：false
 func (builder *OptionBuilder) IsHidden(isHidden bool) *OptionBuilder {
@@ -3184,17 +3190,22 @@ func (builder *OptionBuilder) Build() *Option {
 }
 
 type Origin struct {
-	PlatformI18nName *I18nText `json:"platform_i18n_name,omitempty"` // 任务导入来源的名称，用于在任务中心详情页展示。需提供多语言版本。
+	PlatformI18nName *I18nText `json:"platform_i18n_name,omitempty"` // 自定义完成的弹出提示
 
 	Href *Href `json:"href,omitempty"` // 任务关联的来源平台详情页链接
+
+	ReferResources []*OriginReferResource `json:"refer_resources,omitempty"` // 任务来源关联资源。群聊消息创建任务时，这里返回消息资源上下文。
 }
 
 type OriginBuilder struct {
-	platformI18nName    *I18nText // 任务导入来源的名称，用于在任务中心详情页展示。需提供多语言版本。
+	platformI18nName    *I18nText // 自定义完成的弹出提示
 	platformI18nNameSet bool
 
 	href    *Href // 任务关联的来源平台详情页链接
 	hrefSet bool
+
+	referResources    []*OriginReferResource // 任务来源关联资源。群聊消息创建任务时，这里返回消息资源上下文。
+	referResourcesSet bool
 }
 
 func NewOriginBuilder() *OriginBuilder {
@@ -3202,7 +3213,7 @@ func NewOriginBuilder() *OriginBuilder {
 	return builder
 }
 
-// 任务导入来源的名称，用于在任务中心详情页展示。需提供多语言版本。
+// 自定义完成的弹出提示
 //
 // 示例值：
 func (builder *OriginBuilder) PlatformI18nName(platformI18nName *I18nText) *OriginBuilder {
@@ -3220,6 +3231,15 @@ func (builder *OriginBuilder) Href(href *Href) *OriginBuilder {
 	return builder
 }
 
+// 任务来源关联资源。群聊消息创建任务时，这里返回消息资源上下文。
+//
+// 示例值：
+func (builder *OriginBuilder) ReferResources(referResources []*OriginReferResource) *OriginBuilder {
+	builder.referResources = referResources
+	builder.referResourcesSet = true
+	return builder
+}
+
 func (builder *OriginBuilder) Build() *Origin {
 	req := &Origin{}
 	if builder.platformI18nNameSet {
@@ -3227,6 +3247,144 @@ func (builder *OriginBuilder) Build() *Origin {
 	}
 	if builder.hrefSet {
 		req.Href = builder.href
+	}
+	if builder.referResourcesSet {
+		req.ReferResources = builder.referResources
+	}
+	return req
+}
+
+type OriginReferResource struct {
+	ResourceId *string `json:"resource_id,omitempty"` // refer resource id，对应任务上的 refer_resource_ids。
+
+	Type *string `json:"type,omitempty"` // 资源类型。当前群聊消息资源为 message，若底层仍是枚举值，也可以先透出 string(enum_value)。
+
+	SourceMessage *OriginSourceMessage `json:"source_message,omitempty"` // 底层字段名虽然叫 msg_payload_bytes，但对 OAPI 返回的是已解码后的消息 payload。\ncontent 和 decoded_messages 都需要透出。
+
+	UnavailableReason *string `json:"unavailable_reason,omitempty"` // 解码失败时返回原因；成功时为空。
+}
+
+type OriginReferResourceBuilder struct {
+	resourceId    string // refer resource id，对应任务上的 refer_resource_ids。
+	resourceIdSet bool
+
+	type_    string // 资源类型。当前群聊消息资源为 message，若底层仍是枚举值，也可以先透出 string(enum_value)。
+	type_Set bool
+
+	sourceMessage    *OriginSourceMessage // 底层字段名虽然叫 msg_payload_bytes，但对 OAPI 返回的是已解码后的消息 payload。\ncontent 和 decoded_messages 都需要透出。
+	sourceMessageSet bool
+
+	unavailableReason    string // 解码失败时返回原因；成功时为空。
+	unavailableReasonSet bool
+}
+
+func NewOriginReferResourceBuilder() *OriginReferResourceBuilder {
+	builder := &OriginReferResourceBuilder{}
+	return builder
+}
+
+// refer resource id，对应任务上的 refer_resource_ids。
+//
+// 示例值：7657833389273124377
+func (builder *OriginReferResourceBuilder) ResourceId(resourceId string) *OriginReferResourceBuilder {
+	builder.resourceId = resourceId
+	builder.resourceIdSet = true
+	return builder
+}
+
+// 资源类型。当前群聊消息资源为 message，若底层仍是枚举值，也可以先透出 string(enum_value)。
+//
+// 示例值：1
+func (builder *OriginReferResourceBuilder) Type(type_ string) *OriginReferResourceBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 底层字段名虽然叫 msg_payload_bytes，但对 OAPI 返回的是已解码后的消息 payload。\ncontent 和 decoded_messages 都需要透出。
+//
+// 示例值：
+func (builder *OriginReferResourceBuilder) SourceMessage(sourceMessage *OriginSourceMessage) *OriginReferResourceBuilder {
+	builder.sourceMessage = sourceMessage
+	builder.sourceMessageSet = true
+	return builder
+}
+
+// 解码失败时返回原因；成功时为空。
+//
+// 示例值：failed
+func (builder *OriginReferResourceBuilder) UnavailableReason(unavailableReason string) *OriginReferResourceBuilder {
+	builder.unavailableReason = unavailableReason
+	builder.unavailableReasonSet = true
+	return builder
+}
+
+func (builder *OriginReferResourceBuilder) Build() *OriginReferResource {
+	req := &OriginReferResource{}
+	if builder.resourceIdSet {
+		req.ResourceId = &builder.resourceId
+
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.sourceMessageSet {
+		req.SourceMessage = builder.sourceMessage
+	}
+	if builder.unavailableReasonSet {
+		req.UnavailableReason = &builder.unavailableReason
+
+	}
+	return req
+}
+
+type OriginSourceMessage struct {
+	MessageId *string `json:"message_id,omitempty"` // IM message id。
+
+	Content *string `json:"content,omitempty"` // 解码后的纯文本内容。merge-forward 时为子消息 content 聚合。
+}
+
+type OriginSourceMessageBuilder struct {
+	messageId    string // IM message id。
+	messageIdSet bool
+
+	content    string // 解码后的纯文本内容。merge-forward 时为子消息 content 聚合。
+	contentSet bool
+}
+
+func NewOriginSourceMessageBuilder() *OriginSourceMessageBuilder {
+	builder := &OriginSourceMessageBuilder{}
+	return builder
+}
+
+// IM message id。
+//
+// 示例值：7657833388933385753
+func (builder *OriginSourceMessageBuilder) MessageId(messageId string) *OriginSourceMessageBuilder {
+	builder.messageId = messageId
+	builder.messageIdSet = true
+	return builder
+}
+
+// 解码后的纯文本内容。merge-forward 时为子消息 content 聚合。
+//
+// 示例值：hi
+func (builder *OriginSourceMessageBuilder) Content(content string) *OriginSourceMessageBuilder {
+	builder.content = content
+	builder.contentSet = true
+	return builder
+}
+
+func (builder *OriginSourceMessageBuilder) Build() *OriginSourceMessage {
+	req := &OriginSourceMessage{}
+	if builder.messageIdSet {
+		req.MessageId = &builder.messageId
+
+	}
+	if builder.contentSet {
+		req.Content = &builder.content
+
 	}
 	return req
 }
@@ -3332,15 +3490,15 @@ func (builder *ResourceBuilder) Build() *Resource {
 }
 
 type Section struct {
-	Guid *string `json:"guid,omitempty"` // 自定义分组的guid
+	Guid *string `json:"guid,omitempty"` // 自定义分组的GUID
 
-	Name *string `json:"name,omitempty"` // 自定义分组的名字
+	Name *string `json:"name,omitempty"` // 自定义分组名。如更新，不允许设为空，支持最大100个UTF-8字符。
 
 	ResourceType *string `json:"resource_type,omitempty"` // 资源类型
 
 	IsDefault *bool `json:"is_default,omitempty"` // 分组是否为默认自定义分组
 
-	Creator *Member `json:"creator,omitempty"` // 自定义分组的创建者
+	Creator *Member `json:"creator,omitempty"` // 清单所有者
 
 	Tasklist *TasklistSummary `json:"tasklist,omitempty"` // 如果该分组归属于清单，展示清单的简要信息
 
@@ -3350,10 +3508,10 @@ type Section struct {
 }
 
 type SectionBuilder struct {
-	guid    string // 自定义分组的guid
+	guid    string // 自定义分组的GUID
 	guidSet bool
 
-	name    string // 自定义分组的名字
+	name    string // 自定义分组名。如更新，不允许设为空，支持最大100个UTF-8字符。
 	nameSet bool
 
 	resourceType    string // 资源类型
@@ -3362,7 +3520,7 @@ type SectionBuilder struct {
 	isDefault    bool // 分组是否为默认自定义分组
 	isDefaultSet bool
 
-	creator    *Member // 自定义分组的创建者
+	creator    *Member // 清单所有者
 	creatorSet bool
 
 	tasklist    *TasklistSummary // 如果该分组归属于清单，展示清单的简要信息
@@ -3380,7 +3538,7 @@ func NewSectionBuilder() *SectionBuilder {
 	return builder
 }
 
-// 自定义分组的guid
+// 自定义分组的GUID
 //
 // 示例值：e6e37dcc-f75a-5936-f589-12fb4b5c80c2
 func (builder *SectionBuilder) Guid(guid string) *SectionBuilder {
@@ -3389,7 +3547,7 @@ func (builder *SectionBuilder) Guid(guid string) *SectionBuilder {
 	return builder
 }
 
-// 自定义分组的名字
+// 自定义分组名。如更新，不允许设为空，支持最大100个UTF-8字符。
 //
 // 示例值：已经评审过的任务
 func (builder *SectionBuilder) Name(name string) *SectionBuilder {
@@ -3416,7 +3574,7 @@ func (builder *SectionBuilder) IsDefault(isDefault bool) *SectionBuilder {
 	return builder
 }
 
-// 自定义分组的创建者
+// 清单所有者
 //
 // 示例值：
 func (builder *SectionBuilder) Creator(creator *Member) *SectionBuilder {
@@ -3556,11 +3714,11 @@ func (builder *SectionSummaryBuilder) Build() *SectionSummary {
 }
 
 type SelectSetting struct {
-	Options []*Option `json:"options,omitempty"` // 选项
+	Options []*Option `json:"options,omitempty"` // 单选选项
 }
 
 type SelectSettingBuilder struct {
-	options    []*Option // 选项
+	options    []*Option // 单选选项
 	optionsSet bool
 }
 
@@ -3569,7 +3727,7 @@ func NewSelectSettingBuilder() *SelectSettingBuilder {
 	return builder
 }
 
-// 选项
+// 单选选项
 //
 // 示例值：
 func (builder *SelectSettingBuilder) Options(options []*Option) *SelectSettingBuilder {
@@ -3587,13 +3745,13 @@ func (builder *SelectSettingBuilder) Build() *SelectSetting {
 }
 
 type Start struct {
-	Timestamp *string `json:"timestamp,omitempty"` // 开始时间/日期的时间戳，距1970-01-01 00:00:00的毫秒数。如果开始时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true
+	Timestamp *string `json:"timestamp,omitempty"` // 开始时间/日期的时间戳，距1970-01-01 00:00:00的毫秒数。如果开始时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true。;;如果同时设置任务的开始时间和截止时间，开始时间必须<=截止时间，并且开始/截止时间的is_all_day设置必须相同。
 
 	IsAllDay *bool `json:"is_all_day,omitempty"` // 是否开始于一个日期。如果设为true，timestamp中只有日期的部分会被解析和存储。
 }
 
 type StartBuilder struct {
-	timestamp    string // 开始时间/日期的时间戳，距1970-01-01 00:00:00的毫秒数。如果开始时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true
+	timestamp    string // 开始时间/日期的时间戳，距1970-01-01 00:00:00的毫秒数。如果开始时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true。;;如果同时设置任务的开始时间和截止时间，开始时间必须<=截止时间，并且开始/截止时间的is_all_day设置必须相同。
 	timestampSet bool
 
 	isAllDay    bool // 是否开始于一个日期。如果设为true，timestamp中只有日期的部分会被解析和存储。
@@ -3605,7 +3763,7 @@ func NewStartBuilder() *StartBuilder {
 	return builder
 }
 
-// 开始时间/日期的时间戳，距1970-01-01 00:00:00的毫秒数。如果开始时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true
+// 开始时间/日期的时间戳，距1970-01-01 00:00:00的毫秒数。如果开始时间是一个日期，需要把日期转换成时间戳，并设置 is_all_day=true。;;如果同时设置任务的开始时间和截止时间，开始时间必须<=截止时间，并且开始/截止时间的is_all_day设置必须相同。
 //
 // 示例值：1675454764000
 func (builder *StartBuilder) Timestamp(timestamp string) *StartBuilder {
@@ -3639,15 +3797,15 @@ func (builder *StartBuilder) Build() *Start {
 type Task struct {
 	Guid *string `json:"guid,omitempty"` // 任务guid，任务的唯一ID
 
-	Summary *string `json:"summary,omitempty"` // 任务标题
+	Summary *string `json:"summary,omitempty"` // 任务标题。如更新标题，不可将任务标题设为空。标题最大支持3000个UTF-8 字符。
 
-	Description *string `json:"description,omitempty"` // 任务描述
+	Description *string `json:"description,omitempty"` // 任务描述。描述最大支持3000个UTF-8字符。
 
-	Due *Due `json:"due,omitempty"` // 任务截止时间
+	Due *Due `json:"due,omitempty"` // 任务截止时间。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何使用开始时间和截止时间？”章节。
 
 	Reminders []*Reminder `json:"reminders,omitempty"` // 任务的提醒配置列表。目前每个任务最多有1个。
 
-	Creator *Member `json:"creator,omitempty"` // 任务创建者
+	Creator *Member `json:"creator,omitempty"` // 清单所有者
 
 	Members []*Member `json:"members,omitempty"` // 任务成员列表
 
@@ -3655,13 +3813,13 @@ type Task struct {
 
 	Attachments []*Attachment `json:"attachments,omitempty"` // 任务的附件列表
 
-	Origin *Origin `json:"origin,omitempty"` // 任务关联的第三方平台来源信息。创建是设置后就不可更改。
+	Origin *Origin `json:"origin,omitempty"` // 任务关联的第三方平台来源信息。创建时设置后就不可更改。
 
 	Extra *string `json:"extra,omitempty"` // 任务附带的自定义数据。
 
 	Tasklists []*TaskInTasklistInfo `json:"tasklists,omitempty"` // 任务所属清单的名字。调用者只能看到有权限访问的清单的列表。
 
-	RepeatRule *string `json:"repeat_rule,omitempty"` // 如果任务为重复任务，返回重复任务的配置
+	RepeatRule *string `json:"repeat_rule,omitempty"` // 如果设置，则该任务为“重复任务”。详见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“如何使用重复任务？”章节。
 
 	ParentTaskGuid *string `json:"parent_task_guid,omitempty"` // 如果当前任务为某个任务的子任务，返回父任务的guid
 
@@ -3669,7 +3827,7 @@ type Task struct {
 
 	Source *int `json:"source,omitempty"` // 任务创建的来源
 
-	CustomComplete *CustomComplete `json:"custom_complete,omitempty"` // 任务的自定义完成配置
+	CustomComplete *CustomComplete `json:"custom_complete,omitempty"` // 任务自定义完成配置。详见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“ 如何使用任务自定义完成？”章节。
 
 	TaskId *string `json:"task_id,omitempty"` // 任务界面上的代码
 
@@ -3681,7 +3839,7 @@ type Task struct {
 
 	Url *string `json:"url,omitempty"` // 任务的分享链接
 
-	Start *Start `json:"start,omitempty"` // 任务的开始时间
+	Start *Start `json:"start,omitempty"` // 任务的开始时间(ms)。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何使用开始时间和截止时间？”章节。
 
 	SubtaskCount *int `json:"subtask_count,omitempty"` // 该任务的子任务的个数。
 
@@ -3695,9 +3853,9 @@ type Task struct {
 
 	PositiveReminders []*Reminder `json:"positive_reminders,omitempty"` // 正数协议任务提醒
 
-	AgentTaskStatus *int `json:"agent_task_status,omitempty"` // 智能体任务状态
+	AgentTaskStatus *int `json:"agent_task_status,omitempty"` // Agent task status
 
-	AgentTaskProgress *string `json:"agent_task_progress,omitempty"` // 智能体任务进度
+	AgentTaskProgress *string `json:"agent_task_progress,omitempty"` // 智能体任务执行情况
 
 	TextDeliveries []string `json:"text_deliveries,omitempty"` // 智能体文本类交付物
 
@@ -3710,19 +3868,19 @@ type TaskBuilder struct {
 	guid    string // 任务guid，任务的唯一ID
 	guidSet bool
 
-	summary    string // 任务标题
+	summary    string // 任务标题。如更新标题，不可将任务标题设为空。标题最大支持3000个UTF-8 字符。
 	summarySet bool
 
-	description    string // 任务描述
+	description    string // 任务描述。描述最大支持3000个UTF-8字符。
 	descriptionSet bool
 
-	due    *Due // 任务截止时间
+	due    *Due // 任务截止时间。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何使用开始时间和截止时间？”章节。
 	dueSet bool
 
 	reminders    []*Reminder // 任务的提醒配置列表。目前每个任务最多有1个。
 	remindersSet bool
 
-	creator    *Member // 任务创建者
+	creator    *Member // 清单所有者
 	creatorSet bool
 
 	members    []*Member // 任务成员列表
@@ -3734,7 +3892,7 @@ type TaskBuilder struct {
 	attachments    []*Attachment // 任务的附件列表
 	attachmentsSet bool
 
-	origin    *Origin // 任务关联的第三方平台来源信息。创建是设置后就不可更改。
+	origin    *Origin // 任务关联的第三方平台来源信息。创建时设置后就不可更改。
 	originSet bool
 
 	extra    string // 任务附带的自定义数据。
@@ -3743,7 +3901,7 @@ type TaskBuilder struct {
 	tasklists    []*TaskInTasklistInfo // 任务所属清单的名字。调用者只能看到有权限访问的清单的列表。
 	tasklistsSet bool
 
-	repeatRule    string // 如果任务为重复任务，返回重复任务的配置
+	repeatRule    string // 如果设置，则该任务为“重复任务”。详见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“如何使用重复任务？”章节。
 	repeatRuleSet bool
 
 	parentTaskGuid    string // 如果当前任务为某个任务的子任务，返回父任务的guid
@@ -3755,7 +3913,7 @@ type TaskBuilder struct {
 	source    int // 任务创建的来源
 	sourceSet bool
 
-	customComplete    *CustomComplete // 任务的自定义完成配置
+	customComplete    *CustomComplete // 任务自定义完成配置。详见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“ 如何使用任务自定义完成？”章节。
 	customCompleteSet bool
 
 	taskId    string // 任务界面上的代码
@@ -3773,7 +3931,7 @@ type TaskBuilder struct {
 	url    string // 任务的分享链接
 	urlSet bool
 
-	start    *Start // 任务的开始时间
+	start    *Start // 任务的开始时间(ms)。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何使用开始时间和截止时间？”章节。
 	startSet bool
 
 	subtaskCount    int // 该任务的子任务的个数。
@@ -3794,10 +3952,10 @@ type TaskBuilder struct {
 	positiveReminders    []*Reminder // 正数协议任务提醒
 	positiveRemindersSet bool
 
-	agentTaskStatus    int // 智能体任务状态
+	agentTaskStatus    int // Agent task status
 	agentTaskStatusSet bool
 
-	agentTaskProgress    string // 智能体任务进度
+	agentTaskProgress    string // 智能体任务执行情况
 	agentTaskProgressSet bool
 
 	textDeliveries    []string // 智能体文本类交付物
@@ -3824,7 +3982,7 @@ func (builder *TaskBuilder) Guid(guid string) *TaskBuilder {
 	return builder
 }
 
-// 任务标题
+// 任务标题。如更新标题，不可将任务标题设为空。标题最大支持3000个UTF-8 字符。
 //
 // 示例值：进行销售年中总结
 func (builder *TaskBuilder) Summary(summary string) *TaskBuilder {
@@ -3833,7 +3991,7 @@ func (builder *TaskBuilder) Summary(summary string) *TaskBuilder {
 	return builder
 }
 
-// 任务描述
+// 任务描述。描述最大支持3000个UTF-8字符。
 //
 // 示例值：进行销售年中总结
 func (builder *TaskBuilder) Description(description string) *TaskBuilder {
@@ -3842,7 +4000,7 @@ func (builder *TaskBuilder) Description(description string) *TaskBuilder {
 	return builder
 }
 
-// 任务截止时间
+// 任务截止时间。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何使用开始时间和截止时间？”章节。
 //
 // 示例值：1675742789470
 func (builder *TaskBuilder) Due(due *Due) *TaskBuilder {
@@ -3860,7 +4018,7 @@ func (builder *TaskBuilder) Reminders(reminders []*Reminder) *TaskBuilder {
 	return builder
 }
 
-// 任务创建者
+// 清单所有者
 //
 // 示例值：
 func (builder *TaskBuilder) Creator(creator *Member) *TaskBuilder {
@@ -3896,7 +4054,7 @@ func (builder *TaskBuilder) Attachments(attachments []*Attachment) *TaskBuilder 
 	return builder
 }
 
-// 任务关联的第三方平台来源信息。创建是设置后就不可更改。
+// 任务关联的第三方平台来源信息。创建时设置后就不可更改。
 //
 // 示例值：
 func (builder *TaskBuilder) Origin(origin *Origin) *TaskBuilder {
@@ -3923,7 +4081,7 @@ func (builder *TaskBuilder) Tasklists(tasklists []*TaskInTasklistInfo) *TaskBuil
 	return builder
 }
 
-// 如果任务为重复任务，返回重复任务的配置
+// 如果设置，则该任务为“重复任务”。详见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“如何使用重复任务？”章节。
 //
 // 示例值：FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR
 func (builder *TaskBuilder) RepeatRule(repeatRule string) *TaskBuilder {
@@ -3959,7 +4117,7 @@ func (builder *TaskBuilder) Source(source int) *TaskBuilder {
 	return builder
 }
 
-// 任务的自定义完成配置
+// 任务自定义完成配置。详见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“ 如何使用任务自定义完成？”章节。
 //
 // 示例值：
 func (builder *TaskBuilder) CustomComplete(customComplete *CustomComplete) *TaskBuilder {
@@ -4013,7 +4171,7 @@ func (builder *TaskBuilder) Url(url string) *TaskBuilder {
 	return builder
 }
 
-// 任务的开始时间
+// 任务的开始时间(ms)。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何使用开始时间和截止时间？”章节。
 //
 // 示例值：
 func (builder *TaskBuilder) Start(start *Start) *TaskBuilder {
@@ -4076,7 +4234,7 @@ func (builder *TaskBuilder) PositiveReminders(positiveReminders []*Reminder) *Ta
 	return builder
 }
 
-// 智能体任务状态
+// Agent task status
 //
 // 示例值：1
 func (builder *TaskBuilder) AgentTaskStatus(agentTaskStatus int) *TaskBuilder {
@@ -4085,7 +4243,7 @@ func (builder *TaskBuilder) AgentTaskStatus(agentTaskStatus int) *TaskBuilder {
 	return builder
 }
 
-// 智能体任务进度
+// 智能体任务执行情况
 //
 // 示例值：1/4
 func (builder *TaskBuilder) AgentTaskProgress(agentTaskProgress string) *TaskBuilder {
@@ -4247,22 +4405,6 @@ func (builder *TaskBuilder) Build() *Task {
 	return req
 }
 
-type TaskSubtask struct {
-}
-
-type TaskSubtaskBuilder struct {
-}
-
-func NewTaskSubtaskBuilder() *TaskSubtaskBuilder {
-	builder := &TaskSubtaskBuilder{}
-	return builder
-}
-
-func (builder *TaskSubtaskBuilder) Build() *TaskSubtask {
-	req := &TaskSubtask{}
-	return req
-}
-
 type TaskAssignee struct {
 	Id *string `json:"id,omitempty"` // 任务执行者的id
 
@@ -4418,9 +4560,9 @@ type TaskSearchFilter struct {
 
 	AssigneeIds []string `json:"assignee_ids,omitempty"` // 负责人 IDs
 
-	IsCompleted *bool `json:"is_completed,omitempty"` // 完成状态
+	IsCompleted *bool `json:"is_completed,omitempty"` // 完成状态，设置为true只返回已完成任务，设置为false只返回未完成任务，未设置时不筛选
 
-	DueTime *TimeRange `json:"due_time,omitempty"` // 截止时间
+	DueTime *TimeRange `json:"due_time,omitempty"` // 截止时间，无需同时设置，但开始时间需要小于结束时间
 
 	FollowerIds []string `json:"follower_ids,omitempty"` // 关注人 IDs
 }
@@ -4432,10 +4574,10 @@ type TaskSearchFilterBuilder struct {
 	assigneeIds    []string // 负责人 IDs
 	assigneeIdsSet bool
 
-	isCompleted    bool // 完成状态
+	isCompleted    bool // 完成状态，设置为true只返回已完成任务，设置为false只返回未完成任务，未设置时不筛选
 	isCompletedSet bool
 
-	dueTime    *TimeRange // 截止时间
+	dueTime    *TimeRange // 截止时间，无需同时设置，但开始时间需要小于结束时间
 	dueTimeSet bool
 
 	followerIds    []string // 关注人 IDs
@@ -4465,16 +4607,16 @@ func (builder *TaskSearchFilterBuilder) AssigneeIds(assigneeIds []string) *TaskS
 	return builder
 }
 
-// 完成状态
+// 完成状态，设置为true只返回已完成任务，设置为false只返回未完成任务，未设置时不筛选
 //
-// 示例值：
+// 示例值：false
 func (builder *TaskSearchFilterBuilder) IsCompleted(isCompleted bool) *TaskSearchFilterBuilder {
 	builder.isCompleted = isCompleted
 	builder.isCompletedSet = true
 	return builder
 }
 
-// 截止时间
+// 截止时间，无需同时设置，但开始时间需要小于结束时间
 //
 // 示例值：
 func (builder *TaskSearchFilterBuilder) DueTime(dueTime *TimeRange) *TaskSearchFilterBuilder {
@@ -4719,7 +4861,7 @@ func (builder *TaskStatisticsBuilder) Build() *TaskStatistics {
 type TaskSummary struct {
 	Guid *string `json:"guid,omitempty"` // 任务GUID
 
-	Summary *string `json:"summary,omitempty"` // 任务的标题
+	Summary *string `json:"summary,omitempty"` // 任务标题
 
 	CompletedAt *string `json:"completed_at,omitempty"` // 任务完成的时间戳(ms)，为0表示未完成
 
@@ -4736,7 +4878,7 @@ type TaskSummaryBuilder struct {
 	guid    string // 任务GUID
 	guidSet bool
 
-	summary    string // 任务的标题
+	summary    string // 任务标题
 	summarySet bool
 
 	completedAt    string // 任务完成的时间戳(ms)，为0表示未完成
@@ -4769,7 +4911,7 @@ func (builder *TaskSummaryBuilder) Guid(guid string) *TaskSummaryBuilder {
 	return builder
 }
 
-// 任务的标题
+// 任务标题
 //
 // 示例值：年终总结
 func (builder *TaskSummaryBuilder) Summary(summary string) *TaskSummaryBuilder {
@@ -4856,11 +4998,11 @@ func (builder *TaskSummaryBuilder) Build() *TaskSummary {
 type Tasklist struct {
 	Guid *string `json:"guid,omitempty"` // 清单的全局唯一ID
 
-	Name *string `json:"name,omitempty"` // 清单名
+	Name *string `json:"name,omitempty"` // 清单名称。如要更新，不能设为空。最大100个字符。
 
-	Creator *Member `json:"creator,omitempty"` // 清单创建者
+	Creator *Member `json:"creator,omitempty"` // 清单所有者
 
-	Owner *Member `json:"owner,omitempty"` // 清单负责人
+	Owner *Member `json:"owner,omitempty"` // 清单所有者
 
 	Members []*Member `json:"members,omitempty"` // 清单协作人
 
@@ -4877,13 +5019,13 @@ type TasklistBuilder struct {
 	guid    string // 清单的全局唯一ID
 	guidSet bool
 
-	name    string // 清单名
+	name    string // 清单名称。如要更新，不能设为空。最大100个字符。
 	nameSet bool
 
-	creator    *Member // 清单创建者
+	creator    *Member // 清单所有者
 	creatorSet bool
 
-	owner    *Member // 清单负责人
+	owner    *Member // 清单所有者
 	ownerSet bool
 
 	members    []*Member // 清单协作人
@@ -4916,7 +5058,7 @@ func (builder *TasklistBuilder) Guid(guid string) *TasklistBuilder {
 	return builder
 }
 
-// 清单名
+// 清单名称。如要更新，不能设为空。最大100个字符。
 //
 // 示例值：年会总结工作任务清单
 func (builder *TasklistBuilder) Name(name string) *TasklistBuilder {
@@ -4925,7 +5067,7 @@ func (builder *TasklistBuilder) Name(name string) *TasklistBuilder {
 	return builder
 }
 
-// 清单创建者
+// 清单所有者
 //
 // 示例值：
 func (builder *TasklistBuilder) Creator(creator *Member) *TasklistBuilder {
@@ -4934,7 +5076,7 @@ func (builder *TasklistBuilder) Creator(creator *Member) *TasklistBuilder {
 	return builder
 }
 
-// 清单负责人
+// 清单所有者
 //
 // 示例值：
 func (builder *TasklistBuilder) Owner(owner *Member) *TasklistBuilder {
@@ -5029,29 +5171,29 @@ func (builder *TasklistBuilder) Build() *Tasklist {
 type TasklistActivitySubscription struct {
 	Guid *string `json:"guid,omitempty"` // 订阅guid
 
-	Name *string `json:"name,omitempty"` // 订阅名称
+	Name *string `json:"name,omitempty"` // 订阅名称，如更新，不能为空，最大支持50个字符。
 
-	Subscribers []*Member `json:"subscribers,omitempty"` // 订阅者
+	Subscribers []*Member `json:"subscribers,omitempty"` // 订阅者列表。如更新，最大支持50个订阅者。
 
-	IncludeKeys []int `json:"include_keys,omitempty"` // 要订阅的清单动态类型
+	IncludeKeys []int `json:"include_keys,omitempty"` // 要订阅的清单动态event keys列表。每个event key用一个数字表示。目前支持下列event key：;- 100: 任务添加入清单;- 101: 任务从清单被移除;- 103: 任务被完成;- 104: 任务恢复为未完成;- 109: 任务添加了负责人;- 110: 任务更新了负责人;- 111: 任务移除了负责人;- 119: 任务添加了附件;- 121: 任务中添加了新评论;- 122: 任务中对评论进行回复;- 129: 任务设置了新的开始时间;- 130: 任务设置了新的截止时间;- 131: 任务同时设置了新的开始/截止时间;- 132: 任务同时移除了开始/截止时间;;该字段可以设置为空数组（即不对任何event进行通知）；输入的`include_keys`的元素不能重复。
 
-	Disabled *bool `json:"disabled,omitempty"` // 该订阅是否为停用
+	Disabled *bool `json:"disabled,omitempty"` // 该订阅是否停用
 }
 
 type TasklistActivitySubscriptionBuilder struct {
 	guid    string // 订阅guid
 	guidSet bool
 
-	name    string // 订阅名称
+	name    string // 订阅名称，如更新，不能为空，最大支持50个字符。
 	nameSet bool
 
-	subscribers    []*Member // 订阅者
+	subscribers    []*Member // 订阅者列表。如更新，最大支持50个订阅者。
 	subscribersSet bool
 
-	includeKeys    []int // 要订阅的清单动态类型
+	includeKeys    []int // 要订阅的清单动态event keys列表。每个event key用一个数字表示。目前支持下列event key：;- 100: 任务添加入清单;- 101: 任务从清单被移除;- 103: 任务被完成;- 104: 任务恢复为未完成;- 109: 任务添加了负责人;- 110: 任务更新了负责人;- 111: 任务移除了负责人;- 119: 任务添加了附件;- 121: 任务中添加了新评论;- 122: 任务中对评论进行回复;- 129: 任务设置了新的开始时间;- 130: 任务设置了新的截止时间;- 131: 任务同时设置了新的开始/截止时间;- 132: 任务同时移除了开始/截止时间;;该字段可以设置为空数组（即不对任何event进行通知）；输入的`include_keys`的元素不能重复。
 	includeKeysSet bool
 
-	disabled    bool // 该订阅是否为停用
+	disabled    bool // 该订阅是否停用
 	disabledSet bool
 }
 
@@ -5069,7 +5211,7 @@ func (builder *TasklistActivitySubscriptionBuilder) Guid(guid string) *TasklistA
 	return builder
 }
 
-// 订阅名称
+// 订阅名称，如更新，不能为空，最大支持50个字符。
 //
 // 示例值：Roadmap订阅
 func (builder *TasklistActivitySubscriptionBuilder) Name(name string) *TasklistActivitySubscriptionBuilder {
@@ -5078,7 +5220,7 @@ func (builder *TasklistActivitySubscriptionBuilder) Name(name string) *TasklistA
 	return builder
 }
 
-// 订阅者
+// 订阅者列表。如更新，最大支持50个订阅者。
 //
 // 示例值：
 func (builder *TasklistActivitySubscriptionBuilder) Subscribers(subscribers []*Member) *TasklistActivitySubscriptionBuilder {
@@ -5087,7 +5229,7 @@ func (builder *TasklistActivitySubscriptionBuilder) Subscribers(subscribers []*M
 	return builder
 }
 
-// 要订阅的清单动态类型
+// 要订阅的清单动态event keys列表。每个event key用一个数字表示。目前支持下列event key：;- 100: 任务添加入清单;- 101: 任务从清单被移除;- 103: 任务被完成;- 104: 任务恢复为未完成;- 109: 任务添加了负责人;- 110: 任务更新了负责人;- 111: 任务移除了负责人;- 119: 任务添加了附件;- 121: 任务中添加了新评论;- 122: 任务中对评论进行回复;- 129: 任务设置了新的开始时间;- 130: 任务设置了新的截止时间;- 131: 任务同时设置了新的开始/截止时间;- 132: 任务同时移除了开始/截止时间;;该字段可以设置为空数组（即不对任何event进行通知）；输入的`include_keys`的元素不能重复。
 //
 // 示例值：
 func (builder *TasklistActivitySubscriptionBuilder) IncludeKeys(includeKeys []int) *TasklistActivitySubscriptionBuilder {
@@ -5096,7 +5238,7 @@ func (builder *TasklistActivitySubscriptionBuilder) IncludeKeys(includeKeys []in
 	return builder
 }
 
-// 该订阅是否为停用
+// 该订阅是否停用
 //
 // 示例值：false
 func (builder *TasklistActivitySubscriptionBuilder) Disabled(disabled bool) *TasklistActivitySubscriptionBuilder {
@@ -5129,16 +5271,16 @@ func (builder *TasklistActivitySubscriptionBuilder) Build() *TasklistActivitySub
 }
 
 type TasklistSearchFilter struct {
-	CreateTime *TimeRange `json:"create_time,omitempty"` // 创建时间
+	CreateTime *TimeRange `json:"create_time,omitempty"` // 截止时间，无需同时设置，但开始时间需要小于结束时间
 
-	UserId []string `json:"user_id,omitempty"` // 创建人 IDs
+	UserId []string `json:"user_id,omitempty"` // 创建人 IDs，与 user_id_type 类型一致
 }
 
 type TasklistSearchFilterBuilder struct {
-	createTime    *TimeRange // 创建时间
+	createTime    *TimeRange // 截止时间，无需同时设置，但开始时间需要小于结束时间
 	createTimeSet bool
 
-	userId    []string // 创建人 IDs
+	userId    []string // 创建人 IDs，与 user_id_type 类型一致
 	userIdSet bool
 }
 
@@ -5147,7 +5289,7 @@ func NewTasklistSearchFilterBuilder() *TasklistSearchFilterBuilder {
 	return builder
 }
 
-// 创建时间
+// 截止时间，无需同时设置，但开始时间需要小于结束时间
 //
 // 示例值：
 func (builder *TasklistSearchFilterBuilder) CreateTime(createTime *TimeRange) *TasklistSearchFilterBuilder {
@@ -5156,7 +5298,7 @@ func (builder *TasklistSearchFilterBuilder) CreateTime(createTime *TimeRange) *T
 	return builder
 }
 
-// 创建人 IDs
+// 创建人 IDs，与 user_id_type 类型一致
 //
 // 示例值：
 func (builder *TasklistSearchFilterBuilder) UserId(userId []string) *TasklistSearchFilterBuilder {
@@ -5312,13 +5454,13 @@ func (builder *TasklistSearchMetaBuilder) Build() *TasklistSearchMeta {
 }
 
 type TasklistSummary struct {
-	Guid *string `json:"guid,omitempty"` // 清单的全局唯一ID
+	Guid *string `json:"guid,omitempty"` // 清单GUID
 
 	Name *string `json:"name,omitempty"` // 清单名字
 }
 
 type TasklistSummaryBuilder struct {
-	guid    string // 清单的全局唯一ID
+	guid    string // 清单GUID
 	guidSet bool
 
 	name    string // 清单名字
@@ -5330,7 +5472,7 @@ func NewTasklistSummaryBuilder() *TasklistSummaryBuilder {
 	return builder
 }
 
-// 清单的全局唯一ID
+// 清单GUID
 //
 // 示例值：cc371766-6584-cf50-a222-c22cd9055004
 func (builder *TasklistSummaryBuilder) Guid(guid string) *TasklistSummaryBuilder {
@@ -5440,7 +5582,7 @@ func NewDeleteAttachmentReqBuilder() *DeleteAttachmentReqBuilder {
 	return builder
 }
 
-// 要删除附件的GUID
+// 要删除附件的GUID。可以通过创建[上传附件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/upload)接口创建, 或者通过[列取附件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/list)接口查询得到。
 //
 // 示例值：b59aa7a3-e98c-4830-8273-cbb29f89b837
 func (builder *DeleteAttachmentReqBuilder) AttachmentGuid(attachmentGuid string) *DeleteAttachmentReqBuilder {
@@ -5481,7 +5623,7 @@ func NewGetAttachmentReqBuilder() *GetAttachmentReqBuilder {
 	return builder
 }
 
-// 要获取附件详情的guid
+// 获取详情的附件GUID。可以通过创建[上传附件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/upload)接口创建, 或者通过[列取附件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/list)接口查询得到。
 //
 // 示例值：b59aa7a3-e98c-4830-8273-cbb29f89b837
 func (builder *GetAttachmentReqBuilder) AttachmentGuid(attachmentGuid string) *GetAttachmentReqBuilder {
@@ -5510,7 +5652,7 @@ type GetAttachmentReq struct {
 }
 
 type GetAttachmentRespData struct {
-	Attachment *Attachment `json:"attachment,omitempty"` // 附件详情
+	Attachment *Attachment `json:"attachment,omitempty"` //
 }
 
 type GetAttachmentResp struct {
@@ -5559,7 +5701,7 @@ func (builder *ListAttachmentReqBuilder) PageToken(pageToken string) *ListAttach
 	return builder
 }
 
-// 附件归属的资源类型
+// 附件归属的资源类型。目前只支持"task"。
 //
 // 示例值：task
 func (builder *ListAttachmentReqBuilder) ResourceType(resourceType string) *ListAttachmentReqBuilder {
@@ -5567,7 +5709,7 @@ func (builder *ListAttachmentReqBuilder) ResourceType(resourceType string) *List
 	return builder
 }
 
-// 附件归属资源的id，配合resource_type使用。例如希望获取任务的附件，需要设置 resource_type为task， resource_id为任务的全局唯一ID
+// 附件归属资源的id，配合resource_type使用。例如希望获取任务的附件，需要设置 resource_type为task， resource_id为任务GUID。任务GUID的获取方式可以参考[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)。
 //
 // 示例值：9842501a-9f47-4ff5-a622-d319eeecb97f
 func (builder *ListAttachmentReqBuilder) ResourceId(resourceId string) *ListAttachmentReqBuilder {
@@ -5583,7 +5725,7 @@ func (builder *ListAttachmentReqBuilder) UserIdType(userIdType string) *ListAtta
 	return builder
 }
 
-//	附件的最早上传时间
+// 附件的最早上传时间
 //
 // 示例值：123
 func (builder *ListAttachmentReqBuilder) UpdatedMesc(updatedMesc string) *ListAttachmentReqBuilder {
@@ -5645,7 +5787,7 @@ func (builder *UploadAttachmentReqBuilder) UserIdType(userIdType string) *Upload
 	return builder
 }
 
-//
+// 为特定资源上传附件。本接口可以支持一次上传多个附件，最多5个。每个附件尺寸不超过50MB，格式不限。;;上传请求体的格式为"form-data"。若希望上传多个附件，则提供多个"file"字段即可。返回的附件顺序将会与输入的file顺序保持一致。;;目前资源类型仅支持"task", `resource_id`需要填写任务的GUID。;
 func (builder *UploadAttachmentReqBuilder) InputAttachment(inputAttachment *InputAttachment) *UploadAttachmentReqBuilder {
 	builder.inputAttachment = inputAttachment
 	return builder
@@ -5700,7 +5842,7 @@ func (builder *CreateCommentReqBuilder) UserIdType(userIdType string) *CreateCom
 	return builder
 }
 
-//
+// 为一个任务创建评论，或者回复该任务的某个评论。;;若要创建一个回复评论，需要在创建时设置`reply_to_comment_id`字段。被回复的评论和新建的评论必须属于同一个任务。
 func (builder *CreateCommentReqBuilder) InputComment(inputComment *InputComment) *CreateCommentReqBuilder {
 	builder.inputComment = inputComment
 	return builder
@@ -5746,7 +5888,7 @@ func NewDeleteCommentReqBuilder() *DeleteCommentReqBuilder {
 	return builder
 }
 
-// 要删除的评论id
+// 要删除的评论ID
 //
 // 示例值：7198104824246747156
 func (builder *DeleteCommentReqBuilder) CommentId(commentId string) *DeleteCommentReqBuilder {
@@ -5787,7 +5929,7 @@ func NewGetCommentReqBuilder() *GetCommentReqBuilder {
 	return builder
 }
 
-// 评论ID
+// 要获取评论详情的评论ID
 //
 // 示例值：7198104824246747156
 func (builder *GetCommentReqBuilder) CommentId(commentId string) *GetCommentReqBuilder {
@@ -5849,7 +5991,7 @@ func (builder *ListCommentReqBuilder) Limit(limit int) *ListCommentReqBuilder {
 	return builder
 }
 
-// 分页大小
+// 分页大小，默认为50。
 //
 // 示例值：50
 func (builder *ListCommentReqBuilder) PageSize(pageSize int) *ListCommentReqBuilder {
@@ -5865,7 +6007,7 @@ func (builder *ListCommentReqBuilder) PageToken(pageToken string) *ListCommentRe
 	return builder
 }
 
-// 要获取评论列表的资源类型
+// 要获取评论列表的资源类型，目前只支持"task"，默认为"task"。
 //
 // 示例值：task
 func (builder *ListCommentReqBuilder) ResourceType(resourceType string) *ListCommentReqBuilder {
@@ -5881,7 +6023,7 @@ func (builder *ListCommentReqBuilder) ResourceId(resourceId string) *ListComment
 	return builder
 }
 
-// 返回数据的排序方式
+// 返回数据的排序方式。"asc"表示从最老到最新顺序返回；"desc"表示从最新到最老顺序返回。默认为"asc"。
 //
 // 示例值：asc
 func (builder *ListCommentReqBuilder) Direction(direction string) *ListCommentReqBuilder {
@@ -5930,10 +6072,10 @@ func (resp *ListCommentResp) Success() bool {
 }
 
 type PatchCommentReqBodyBuilder struct {
-	comment    *InputComment // 要更新的评论数据，支持更新content, md_content
+	comment    *InputComment // 要更新的评论数据。
 	commentSet bool
 
-	updateFields    []string // 要更新的字段
+	updateFields    []string // 要更新的字段，支持;<md-enum>;<md-enum-item key="content" >评论内容</md-enum-item>;</md-enum>
 	updateFieldsSet bool
 }
 
@@ -5942,18 +6084,18 @@ func NewPatchCommentReqBodyBuilder() *PatchCommentReqBodyBuilder {
 	return builder
 }
 
-// 要更新的评论数据，支持更新content, md_content
+// 要更新的评论数据。
 //
-//示例值：
+// 示例值：
 func (builder *PatchCommentReqBodyBuilder) Comment(comment *InputComment) *PatchCommentReqBodyBuilder {
 	builder.comment = comment
 	builder.commentSet = true
 	return builder
 }
 
-// 要更新的字段
+// 要更新的字段，支持;<md-enum>;<md-enum-item key="content" >评论内容</md-enum-item>;</md-enum>
 //
-//示例值：
+// 示例值：
 func (builder *PatchCommentReqBodyBuilder) UpdateFields(updateFields []string) *PatchCommentReqBodyBuilder {
 	builder.updateFields = updateFields
 	builder.updateFieldsSet = true
@@ -5983,7 +6125,7 @@ func NewPatchCommentPathReqBodyBuilder() *PatchCommentPathReqBodyBuilder {
 	return builder
 }
 
-// 要更新的评论数据，支持更新content, md_content
+// 要更新的评论数据。
 //
 // 示例值：
 func (builder *PatchCommentPathReqBodyBuilder) Comment(comment *InputComment) *PatchCommentPathReqBodyBuilder {
@@ -5992,7 +6134,7 @@ func (builder *PatchCommentPathReqBodyBuilder) Comment(comment *InputComment) *P
 	return builder
 }
 
-// 要更新的字段
+// 要更新的字段，支持;<md-enum>;<md-enum-item key="content" >评论内容</md-enum-item>;</md-enum>
 //
 // 示例值：
 func (builder *PatchCommentPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchCommentPathReqBodyBuilder {
@@ -6042,7 +6184,7 @@ func (builder *PatchCommentReqBuilder) UserIdType(userIdType string) *PatchComme
 	return builder
 }
 
-//
+// 更新一条评论。;;更新时，将`update_fields`字段中填写所有要修改的评论的字段名，同时在`comment`字段中填写要修改的字段的新值即可。更新接口规范详情见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 关于资源的更新”章节。;;目前只支持更新评论的"content"字段。
 func (builder *PatchCommentReqBuilder) Body(body *PatchCommentReqBody) *PatchCommentReqBuilder {
 	builder.body = body
 	return builder
@@ -6058,9 +6200,9 @@ func (builder *PatchCommentReqBuilder) Build() *PatchCommentReq {
 }
 
 type PatchCommentReqBody struct {
-	Comment *InputComment `json:"comment,omitempty"` // 要更新的评论数据，支持更新content, md_content
+	Comment *InputComment `json:"comment,omitempty"` // 要更新的评论数据。
 
-	UpdateFields []string `json:"update_fields,omitempty"` // 要更新的字段
+	UpdateFields []string `json:"update_fields,omitempty"` // 要更新的字段，支持;<md-enum>;<md-enum-item key="content" >评论内容</md-enum-item>;</md-enum>
 }
 
 type PatchCommentReq struct {
@@ -6097,7 +6239,7 @@ func NewAddCustomFieldReqBodyBuilder() *AddCustomFieldReqBodyBuilder {
 
 // 要将自定义字段添加到一个资源的资源类型。目前只支持tasklist
 //
-//示例值：tasklist
+// 示例值：tasklist
 func (builder *AddCustomFieldReqBodyBuilder) ResourceType(resourceType string) *AddCustomFieldReqBodyBuilder {
 	builder.resourceType = resourceType
 	builder.resourceTypeSet = true
@@ -6106,7 +6248,7 @@ func (builder *AddCustomFieldReqBodyBuilder) ResourceType(resourceType string) *
 
 // 要将自定义字段添加到的资源id，目前只支持tasklist_guid
 //
-//示例值：0110a4bd-f24b-4a93-8c1a-1732b94f9593
+// 示例值：0110a4bd-f24b-4a93-8c1a-1732b94f9593
 func (builder *AddCustomFieldReqBodyBuilder) ResourceId(resourceId string) *AddCustomFieldReqBodyBuilder {
 	builder.resourceId = resourceId
 	builder.resourceIdSet = true
@@ -6179,7 +6321,7 @@ func NewAddCustomFieldReqBuilder() *AddCustomFieldReqBuilder {
 	return builder
 }
 
-// 自定义字段GUID
+// 自定义字段GUID。自定义字段GUID。可以通过[创建自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/create)接口创建, 或者通过[列取自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/list)接口查询得到。
 //
 // 示例值：0110a4bd-f24b-4a93-8c1a-1732b94f9593
 func (builder *AddCustomFieldReqBuilder) CustomFieldGuid(customFieldGuid string) *AddCustomFieldReqBuilder {
@@ -6187,7 +6329,7 @@ func (builder *AddCustomFieldReqBuilder) CustomFieldGuid(customFieldGuid string)
 	return builder
 }
 
-//
+// 将自定义字段加入一个资源。目前资源类型支持清单tasklist。一个自定义字段可以加入多个清单中。加入后，该清单可以展示任务的该字段的值，同时基于该字段实现筛选，分组等功能。;;如果自定义字段的设置被更新，字段加入的所有资源都能收到这个更新，并进行相应的展示。
 func (builder *AddCustomFieldReqBuilder) Body(body *AddCustomFieldReqBody) *AddCustomFieldReqBuilder {
 	builder.body = body
 	return builder
@@ -6243,7 +6385,7 @@ func (builder *CreateCustomFieldReqBuilder) UserIdType(userIdType string) *Creat
 	return builder
 }
 
-//
+// 创建一个自定义字段，并将其加入一个资源上（目前资源只支持清单）。创建自定义字段必须提供字段名称，类型和相应类型的设置。;;目前任务自定义字段支持数字(number)，成员(member)，日期(datetime)，单选(single_select),多选(multi_select), 文本(text)几种类型。分别使用"number_setting", "member_setting", "datetime_setting", "single_select_setting", "multi_select_setting","text_setting"来设置。;;例如创建一个数字类型的自定义字段，并添加到guid为"ec5ed63d-a4a9-44de-a935-7ba243471c0a"的清单，可以这样发请求。;;```;POST /task/v2/custom_fields;{; "name": "价格",; "type": "number",; "resource_type": "tasklist",; "resource_id": "ec5ed63d-a4a9-44de-a935-7ba243471c0a",; "number_setting": {; "format": "cny",; "decimal_count": 2,; "separator": "thousand"; };};```;表示创建一个叫做“价格”的自定义字段，保留两位小数。在界面上显示时采用人民币的格式，并显示千分位分隔符。;;类似的，创建一个单选字段，可以这样调用接口：;```;POST /task/v2/custom_fields;{; "name": "优先级",; "type": "single_select",; "resource_type": "tasklist",; "resource_id": "ec5ed63d-a4a9-44de-a935-7ba243471c0a",; "single_select_setting": {; "options": [; {; "name": "高",; "color_index": 1; },; {; "name": "中",; "color_index": 11; },; {; "name": "低",; "color_index": 16; }; ]; };};```;表示创建一个叫“优先级”的单选，包含“高”，“中”，“低”三个选项，每个选项设置一个颜色值。
 func (builder *CreateCustomFieldReqBuilder) InputCustomField(inputCustomField *InputCustomField) *CreateCustomFieldReqBuilder {
 	builder.inputCustomField = inputCustomField
 	return builder
@@ -6289,7 +6431,7 @@ func NewGetCustomFieldReqBuilder() *GetCustomFieldReqBuilder {
 	return builder
 }
 
-// 自定义字段GUID
+// 自定义字段GUID。可以通过[创建自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/create)接口创建, 或者通过[列取自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/list)接口查询得到。
 //
 // 示例值：5ffbe0ca-6600-41e0-a634-2b38cbcf13b8
 func (builder *GetCustomFieldReqBuilder) CustomFieldGuid(customFieldGuid string) *GetCustomFieldReqBuilder {
@@ -6375,7 +6517,7 @@ func (builder *ListCustomFieldReqBuilder) UserIdType(userIdType string) *ListCus
 	return builder
 }
 
-// 资源类型，如提供表示仅查询特定资源下的自定义字段。目前只支持tasklist。
+// 资源类型，如提供则表示仅查询特定资源下的自定义字段。目前只支持tasklist。
 //
 // 示例值：tasklist
 func (builder *ListCustomFieldReqBuilder) ResourceType(resourceType string) *ListCustomFieldReqBuilder {
@@ -6435,7 +6577,7 @@ type PatchCustomFieldReqBodyBuilder struct {
 	customField    *InputCustomField // 要修改的自定义字段数据
 	customFieldSet bool
 
-	updateFields    []string // 要修改的自定义字段类型，支持name, member_setting, number_setting, datetime_setting, single_select_setting, multi_select_setting
+	updateFields    []string // 要修改的自定义字段类型，支持：;* `name`：自定义字段名称。;* `number_setting` ：数字类型设置（当且仅当要更新的自定义字段类型是数字时);* `member_setting` ：人员类型设置（当且仅当要更新的自定义字段类型是人员时);* `datetime_setting` ：日期类型设置 (当且仅当要更新的自定义字段类型是日期时);* `single_select_setting`：单选类型设置 (当且仅当要更新的自定义字段类型是单选时);* `multi_select_setting`：多选类型设置 (当且仅当要更新的自定义字段类型是多选时);* `text_setting`: 文本类型设置（当前无可设置项）
 	updateFieldsSet bool
 }
 
@@ -6446,16 +6588,16 @@ func NewPatchCustomFieldReqBodyBuilder() *PatchCustomFieldReqBodyBuilder {
 
 // 要修改的自定义字段数据
 //
-//示例值：
+// 示例值：
 func (builder *PatchCustomFieldReqBodyBuilder) CustomField(customField *InputCustomField) *PatchCustomFieldReqBodyBuilder {
 	builder.customField = customField
 	builder.customFieldSet = true
 	return builder
 }
 
-// 要修改的自定义字段类型，支持name, member_setting, number_setting, datetime_setting, single_select_setting, multi_select_setting
+// 要修改的自定义字段类型，支持：;* `name`：自定义字段名称。;* `number_setting` ：数字类型设置（当且仅当要更新的自定义字段类型是数字时);* `member_setting` ：人员类型设置（当且仅当要更新的自定义字段类型是人员时);* `datetime_setting` ：日期类型设置 (当且仅当要更新的自定义字段类型是日期时);* `single_select_setting`：单选类型设置 (当且仅当要更新的自定义字段类型是单选时);* `multi_select_setting`：多选类型设置 (当且仅当要更新的自定义字段类型是多选时);* `text_setting`: 文本类型设置（当前无可设置项）
 //
-//示例值：
+// 示例值：
 func (builder *PatchCustomFieldReqBodyBuilder) UpdateFields(updateFields []string) *PatchCustomFieldReqBodyBuilder {
 	builder.updateFields = updateFields
 	builder.updateFieldsSet = true
@@ -6494,7 +6636,7 @@ func (builder *PatchCustomFieldPathReqBodyBuilder) CustomField(customField *Inpu
 	return builder
 }
 
-// 要修改的自定义字段类型，支持name, member_setting, number_setting, datetime_setting, single_select_setting, multi_select_setting
+// 要修改的自定义字段类型，支持：;* `name`：自定义字段名称。;* `number_setting` ：数字类型设置（当且仅当要更新的自定义字段类型是数字时);* `member_setting` ：人员类型设置（当且仅当要更新的自定义字段类型是人员时);* `datetime_setting` ：日期类型设置 (当且仅当要更新的自定义字段类型是日期时);* `single_select_setting`：单选类型设置 (当且仅当要更新的自定义字段类型是单选时);* `multi_select_setting`：多选类型设置 (当且仅当要更新的自定义字段类型是多选时);* `text_setting`: 文本类型设置（当前无可设置项）
 //
 // 示例值：
 func (builder *PatchCustomFieldPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchCustomFieldPathReqBodyBuilder {
@@ -6528,7 +6670,7 @@ func NewPatchCustomFieldReqBuilder() *PatchCustomFieldReqBuilder {
 	return builder
 }
 
-// 自定义字段GUID
+// 自定义字段GUID。自定义字段GUID。可以通过[创建自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/create)接口创建, 或者通过[列取自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/list)接口查询得到。
 //
 // 示例值：5ffbe0ca-6600-41e0-a634-2b38cbcf13b8
 func (builder *PatchCustomFieldReqBuilder) CustomFieldGuid(customFieldGuid string) *PatchCustomFieldReqBuilder {
@@ -6544,7 +6686,7 @@ func (builder *PatchCustomFieldReqBuilder) UserIdType(userIdType string) *PatchC
 	return builder
 }
 
-//
+// 更新一个自定义字段的名称和设定。更新时，将`update_fields`字段中填写所有要修改的任务字段名，同时在`custom_field`字段中填写要修改的字段的新值即可。自定义字段不允许修改类型，只能根据类型修改其设置。;;`update_fields`支持更新的字段包括：;;* `name`：自定义字段名称;* `number_setting` ：数字类型设置（当且仅当要更新的自定义字段类型是数字时);* `member_setting` ：人员类型设置（当且仅当要更新的自定义字段类型是人员时);* `datetime_setting` ：日期类型设置 (当且仅当要更新的自定义字段类型是日期时);* `single_select_setting`：单选类型设置 (当且仅当要更新的自定义字段类型是单选时);* `multi_select_setting`：多选类型设置 (当且仅当要更新的自定义字段类型是多选时);* `text_setting`: 文本类型设置（目前文本类型没有可设置项）;;当更改某个设置时，如果不填写一个字段，表示不覆盖原有的设定。比如，对于一个数字，原有的setting是:;```json;"number_setting": {; "format": "normal",; "decimal_count": 2,; "separator": "none",; "custom_symbol": "L",; "custom_symbol_position": "right";};```;;使用如下参数调用接口：;```;PATCH /task/v2/custom_fields/:custom_field_guid;{; "custom_field": {; "number_setting": {; "decimal_count": 4; }; },; "update_fields": ["number_setting"];};```;;表示仅仅将小数位数从2改为4，其余的设置`format`, `separator`, `custom_field`等都不变。;;对于单选/多选类型的自定义字段，其设定是一个选项列表。更新时，使用方式接近使用App的界面。使用者不必传入字段的所有选项，而是只需要提供最终希望界面可见（is_hidden=false) 的选项。原有字段中的选项如果没有出现在输入中，则被置为`is_hidden=true`并放到所有可见选项之后。;;对于某一个更新的选项，如果提供了option_guid，将视作更新该选项（此时option_guid必须存在于当前字段，否则会返回错误）；如果不提供，将视作新建一个选项（新的选项的option_guid会在response中被返回)。;;例如，一个单选字段原来有3个选项A，B，C，D。其中C是隐藏的。用户可以这样更新选项：;;```;PATCH /task/v2/custom_fields/:custom_field_guid;{; "custom_field": {; "single_select_setting": {; "options": [; {; "name": "E",; "color_index": 25; },; {; "guid": "<option_guid of A>"; "name": "A2"; },; {; "guid": "<option_guid of C>",; },; ]; }; },; "update_fields": ["single_select_setting"];};```;;调用后最终得到了新的选项列表E, A, C, B, D。其中：;;* 选项E被新建出来，其`color_index`被设为了25。;* 选项A被更新，其名称被改为了"A2"。但其color_index因为没有设置而保持不变；;* 选项整体顺序遵循用户的输入顺序，即E，A，C。同时E，A，C作为直接的输入，其is_hidden均被设为了false，其中，C原本是is_hidden=true，也会被设置为is_hidden=false。;* 选项B和D因为用户没有输入，其`is_hidden`被置为了true，并且被放到了所有用户输入的选项之后。;;如果只是单纯的希望修改用户可见的选项的顺序，比如从原本的选项A,B,C修改为C,B,A，可以这样调用接口：;```;PATCH /task/v2/custom_fields/:custom_field_guid;{; "custom_field": {; "single_select_setting": {; "optoins": [; {; "guid": "<option_guid_of_C>"; },; {; "guid": "<option_guid of B>"; },; {; "guid": "<option_guid of A>",; },; ]; }; },; "update_fields": ["single_select_setting"];};```;;如果希望直接将字段里的所有选项都标记为不可见，可以这样调用接口：;```;PATCH /task/v2/custom_fields/:custom_field_guid;{; "custom_field": {; "single_select_setting": {; "optoins": []; }; },; "update_fields": ["single_select_setting"];};```;;更新单选/多选字段的选项必须满足“可见选项名字不能重复”的约束。否则会返回错误。开发者需要自行保证输入的选项名不可以重复。;;如希望只更新单个选项，或者希望单独设置某个选项的is_hidden，本接口无法支持，但可以使用[更新自定义字段选项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field-option/patch)接口实现。
 func (builder *PatchCustomFieldReqBuilder) Body(body *PatchCustomFieldReqBody) *PatchCustomFieldReqBuilder {
 	builder.body = body
 	return builder
@@ -6562,7 +6704,7 @@ func (builder *PatchCustomFieldReqBuilder) Build() *PatchCustomFieldReq {
 type PatchCustomFieldReqBody struct {
 	CustomField *InputCustomField `json:"custom_field,omitempty"` // 要修改的自定义字段数据
 
-	UpdateFields []string `json:"update_fields,omitempty"` // 要修改的自定义字段类型，支持name, member_setting, number_setting, datetime_setting, single_select_setting, multi_select_setting
+	UpdateFields []string `json:"update_fields,omitempty"` // 要修改的自定义字段类型，支持：;* `name`：自定义字段名称。;* `number_setting` ：数字类型设置（当且仅当要更新的自定义字段类型是数字时);* `member_setting` ：人员类型设置（当且仅当要更新的自定义字段类型是人员时);* `datetime_setting` ：日期类型设置 (当且仅当要更新的自定义字段类型是日期时);* `single_select_setting`：单选类型设置 (当且仅当要更新的自定义字段类型是单选时);* `multi_select_setting`：多选类型设置 (当且仅当要更新的自定义字段类型是多选时);* `text_setting`: 文本类型设置（当前无可设置项）
 }
 
 type PatchCustomFieldReq struct {
@@ -6585,10 +6727,10 @@ func (resp *PatchCustomFieldResp) Success() bool {
 }
 
 type RemoveCustomFieldReqBodyBuilder struct {
-	resourceType    string // 要从某个资源移除自定义字段的资源类型，目前只支持清单"tasklist"。
+	resourceType    string // 要从某个资源移除自定义字段的资源类型，目前只支持清单。
 	resourceTypeSet bool
 
-	resourceId    string // 要从某个资源移除自定义字段的资源id，`resource_type`为"tasklist"时，需填写清单的GUID
+	resourceId    string // 要从某个资源移除自定义字段的资源id，`resource_type`为"tasklist"时，需填写清单的GUID。
 	resourceIdSet bool
 }
 
@@ -6597,18 +6739,18 @@ func NewRemoveCustomFieldReqBodyBuilder() *RemoveCustomFieldReqBodyBuilder {
 	return builder
 }
 
-// 要从某个资源移除自定义字段的资源类型，目前只支持清单"tasklist"。
+// 要从某个资源移除自定义字段的资源类型，目前只支持清单。
 //
-//示例值：tasklist
+// 示例值：tasklist
 func (builder *RemoveCustomFieldReqBodyBuilder) ResourceType(resourceType string) *RemoveCustomFieldReqBodyBuilder {
 	builder.resourceType = resourceType
 	builder.resourceTypeSet = true
 	return builder
 }
 
-// 要从某个资源移除自定义字段的资源id，`resource_type`为"tasklist"时，需填写清单的GUID
+// 要从某个资源移除自定义字段的资源id，`resource_type`为"tasklist"时，需填写清单的GUID。
 //
-//示例值：0110a4bd-f24b-4a93-8c1a-1732b94f9593
+// 示例值：0110a4bd-f24b-4a93-8c1a-1732b94f9593
 func (builder *RemoveCustomFieldReqBodyBuilder) ResourceId(resourceId string) *RemoveCustomFieldReqBodyBuilder {
 	builder.resourceId = resourceId
 	builder.resourceIdSet = true
@@ -6638,7 +6780,7 @@ func NewRemoveCustomFieldPathReqBodyBuilder() *RemoveCustomFieldPathReqBodyBuild
 	return builder
 }
 
-// 要从某个资源移除自定义字段的资源类型，目前只支持清单"tasklist"。
+// 要从某个资源移除自定义字段的资源类型，目前只支持清单。
 //
 // 示例值：tasklist
 func (builder *RemoveCustomFieldPathReqBodyBuilder) ResourceType(resourceType string) *RemoveCustomFieldPathReqBodyBuilder {
@@ -6647,7 +6789,7 @@ func (builder *RemoveCustomFieldPathReqBodyBuilder) ResourceType(resourceType st
 	return builder
 }
 
-// 要从某个资源移除自定义字段的资源id，`resource_type`为"tasklist"时，需填写清单的GUID
+// 要从某个资源移除自定义字段的资源id，`resource_type`为"tasklist"时，需填写清单的GUID。
 //
 // 示例值：0110a4bd-f24b-4a93-8c1a-1732b94f9593
 func (builder *RemoveCustomFieldPathReqBodyBuilder) ResourceId(resourceId string) *RemoveCustomFieldPathReqBodyBuilder {
@@ -6681,7 +6823,7 @@ func NewRemoveCustomFieldReqBuilder() *RemoveCustomFieldReqBuilder {
 	return builder
 }
 
-// 自定义字段GUID
+// 自定义字段GUID。自定义字段GUID。可以通过[创建自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/create)接口创建, 或者通过[列取自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/list)接口查询得到。
 //
 // 示例值：0110a4bd-f24b-4a93-8c1a-1732b94f9593
 func (builder *RemoveCustomFieldReqBuilder) CustomFieldGuid(customFieldGuid string) *RemoveCustomFieldReqBuilder {
@@ -6689,7 +6831,7 @@ func (builder *RemoveCustomFieldReqBuilder) CustomFieldGuid(customFieldGuid stri
 	return builder
 }
 
-//
+// 将自定义字段从资源中移出。移除后，该资源将无法再使用该字段。目前资源的类型支持"tasklist"。;;如果要移除的自定义字段本来就不存在于资源中，本接口将正常返回。;;注意自定义字段是通过清单来实现授权的，如果将自定义字段从所有关联的清单中移除，就意味着任何调用身份都无法再访问改自定义字段。
 func (builder *RemoveCustomFieldReqBuilder) Body(body *RemoveCustomFieldReqBody) *RemoveCustomFieldReqBuilder {
 	builder.body = body
 	return builder
@@ -6704,9 +6846,9 @@ func (builder *RemoveCustomFieldReqBuilder) Build() *RemoveCustomFieldReq {
 }
 
 type RemoveCustomFieldReqBody struct {
-	ResourceType *string `json:"resource_type,omitempty"` // 要从某个资源移除自定义字段的资源类型，目前只支持清单"tasklist"。
+	ResourceType *string `json:"resource_type,omitempty"` // 要从某个资源移除自定义字段的资源类型，目前只支持清单。
 
-	ResourceId *string `json:"resource_id,omitempty"` // 要从某个资源移除自定义字段的资源id，`resource_type`为"tasklist"时，需填写清单的GUID
+	ResourceId *string `json:"resource_id,omitempty"` // 要从某个资源移除自定义字段的资源id，`resource_type`为"tasklist"时，需填写清单的GUID。
 }
 
 type RemoveCustomFieldReq struct {
@@ -6745,7 +6887,7 @@ func (builder *CreateCustomFieldOptionReqBuilder) CustomFieldGuid(customFieldGui
 	return builder
 }
 
-//
+// 为单选或多选字段添加一个自定义选项。一个单选/多选字段最大支持100个选项。;;新添加的选项如果不隐藏，其名字不能和已存在的不隐藏选项的名字重复。
 func (builder *CreateCustomFieldOptionReqBuilder) InputOption(inputOption *InputOption) *CreateCustomFieldOptionReqBuilder {
 	builder.inputOption = inputOption
 	return builder
@@ -6779,10 +6921,10 @@ func (resp *CreateCustomFieldOptionResp) Success() bool {
 }
 
 type PatchCustomFieldOptionReqBodyBuilder struct {
-	option    *InputOption // 要更新的option数据
+	option    *InputOption //
 	optionSet bool
 
-	updateFields    []string // 要更新的字段名，支持name,color,is_hidden,insert_before,insert_after
+	updateFields    []string // 要更新的字段名，支持;* `name`: 选项名称;* `color_index`: 选项的颜色索引值;* `is_hidden`: 是否从界面上隐藏;* `insert_before`: 将当前option放到同字段某个option之前。;* `insert_after`: 将当前option放到同字段某个option之后。
 	updateFieldsSet bool
 }
 
@@ -6791,18 +6933,16 @@ func NewPatchCustomFieldOptionReqBodyBuilder() *PatchCustomFieldOptionReqBodyBui
 	return builder
 }
 
-// 要更新的option数据
-//
-//示例值：
+// 示例值：
 func (builder *PatchCustomFieldOptionReqBodyBuilder) Option(option *InputOption) *PatchCustomFieldOptionReqBodyBuilder {
 	builder.option = option
 	builder.optionSet = true
 	return builder
 }
 
-// 要更新的字段名，支持name,color,is_hidden,insert_before,insert_after
+// 要更新的字段名，支持;* `name`: 选项名称;* `color_index`: 选项的颜色索引值;* `is_hidden`: 是否从界面上隐藏;* `insert_before`: 将当前option放到同字段某个option之前。;* `insert_after`: 将当前option放到同字段某个option之后。
 //
-//示例值：
+// 示例值：
 func (builder *PatchCustomFieldOptionReqBodyBuilder) UpdateFields(updateFields []string) *PatchCustomFieldOptionReqBodyBuilder {
 	builder.updateFields = updateFields
 	builder.updateFieldsSet = true
@@ -6832,8 +6972,6 @@ func NewPatchCustomFieldOptionPathReqBodyBuilder() *PatchCustomFieldOptionPathRe
 	return builder
 }
 
-// 要更新的option数据
-//
 // 示例值：
 func (builder *PatchCustomFieldOptionPathReqBodyBuilder) Option(option *InputOption) *PatchCustomFieldOptionPathReqBodyBuilder {
 	builder.option = option
@@ -6841,7 +6979,7 @@ func (builder *PatchCustomFieldOptionPathReqBodyBuilder) Option(option *InputOpt
 	return builder
 }
 
-// 要更新的字段名，支持name,color,is_hidden,insert_before,insert_after
+// 要更新的字段名，支持;* `name`: 选项名称;* `color_index`: 选项的颜色索引值;* `is_hidden`: 是否从界面上隐藏;* `insert_before`: 将当前option放到同字段某个option之前。;* `insert_after`: 将当前option放到同字段某个option之后。
 //
 // 示例值：
 func (builder *PatchCustomFieldOptionPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchCustomFieldOptionPathReqBodyBuilder {
@@ -6877,7 +7015,7 @@ func NewPatchCustomFieldOptionReqBuilder() *PatchCustomFieldOptionReqBuilder {
 
 // 要更新的选项的自定义字段GUID
 //
-// 示例值：b13adf3c-cad6-4e02-8929-550c112b5633
+// 示例值：ec5ed63d-a4a9-44de-a935-7ba243471c0a
 func (builder *PatchCustomFieldOptionReqBuilder) CustomFieldGuid(customFieldGuid string) *PatchCustomFieldOptionReqBuilder {
 	builder.apiReq.PathParams.Set("custom_field_guid", fmt.Sprint(customFieldGuid))
 	return builder
@@ -6891,7 +7029,7 @@ func (builder *PatchCustomFieldOptionReqBuilder) OptionGuid(optionGuid string) *
 	return builder
 }
 
-//
+// 根据一个自定义字段的GUID和其选项的GUID，更新该选项的数据。要更新的字段必须是单选或者多选类型，且要更新的字段必须归属于该字段。;;更新时，将`update_fields`字段中填写所有要修改的任务字段名，同时在`option`字段中填写要修改的字段的新值即可。`update_fields`支持的字段包括：;;* `name`: 选项名称;* `color_index`: 选项的颜色索引值;* `is_hidden`: 是否从界面上隐藏;* `insert_before`: 将当前option放到同字段某个option之前的那个option_guid。;* `insert_after`: 将当前option放到同字段某个option之后的那个option_guid。
 func (builder *PatchCustomFieldOptionReqBuilder) Body(body *PatchCustomFieldOptionReqBody) *PatchCustomFieldOptionReqBuilder {
 	builder.body = body
 	return builder
@@ -6906,9 +7044,9 @@ func (builder *PatchCustomFieldOptionReqBuilder) Build() *PatchCustomFieldOption
 }
 
 type PatchCustomFieldOptionReqBody struct {
-	Option *InputOption `json:"option,omitempty"` // 要更新的option数据
+	Option *InputOption `json:"option,omitempty"` //
 
-	UpdateFields []string `json:"update_fields,omitempty"` // 要更新的字段名，支持name,color,is_hidden,insert_before,insert_after
+	UpdateFields []string `json:"update_fields,omitempty"` // 要更新的字段名，支持;* `name`: 选项名称;* `color_index`: 选项的颜色索引值;* `is_hidden`: 是否从界面上隐藏;* `insert_before`: 将当前option放到同字段某个option之前。;* `insert_after`: 将当前option放到同字段某个option之后。
 }
 
 type PatchCustomFieldOptionReq struct {
@@ -6952,7 +7090,7 @@ func (builder *CreateSectionReqBuilder) UserIdType(userIdType string) *CreateSec
 	return builder
 }
 
-//
+// 为清单或我负责的任务列表创建一个自定义分组。创建时可以需要提供名称和可选的配置。如果不指定位置，新分组会放到指定resource的自定义分组列表的最后。;;当在清单中创建自定义分组时，需要设置`resource_type`为"tasklist", `resource_id`设为清单的GUID。;;当为我负责任务列表中创建自定义分组时，需要设置`resource_type`为"my_tasks"，不需要设置`resource_id`。调用身份只能为自己的我负责的任务列表创建自定义分组。
 func (builder *CreateSectionReqBuilder) InputSection(inputSection *InputSection) *CreateSectionReqBuilder {
 	builder.inputSection = inputSection
 	return builder
@@ -7117,7 +7255,7 @@ func (builder *ListSectionReqBuilder) PageToken(pageToken string) *ListSectionRe
 	return builder
 }
 
-// 自定义分组所属的资源类型。支持"my_tasks"(我负责的）和"tasklist"（清单）。当使用"tasklist"时，需要用resource_id提供清单GUID。
+// 自定义分组所属的资源类型。支持my_tasks(我负责的）和tasklist（清单）。当使用tasklist时，需要用resource_id提供清单的全局唯一ID。
 //
 // 示例值：tasklist
 func (builder *ListSectionReqBuilder) ResourceType(resourceType string) *ListSectionReqBuilder {
@@ -7182,10 +7320,10 @@ func (resp *ListSectionResp) Success() bool {
 }
 
 type PatchSectionReqBodyBuilder struct {
-	section    *InputSection // 要更新的自定义分组的数据，仅支持name, insert_after, insert_before
+	section    *InputSection // 要更新的自定义分组的数据。
 	sectionSet bool
 
-	updateFields    []string // 要更新的字段名
+	updateFields    []string // 要更新的字段名，支持：;* `name` - 自定义字段名字;* `insert_before` - 要让当前自定义分组放到某个自定义分组前面的section_guid，用于改变当前自定义分组的位置。;* `insert_after` - 要让当前自定义分组放到某个自定义分组后面的secion_guid，用于改变当前自定义分组的位置。
 	updateFieldsSet bool
 }
 
@@ -7194,18 +7332,18 @@ func NewPatchSectionReqBodyBuilder() *PatchSectionReqBodyBuilder {
 	return builder
 }
 
-// 要更新的自定义分组的数据，仅支持name, insert_after, insert_before
+// 要更新的自定义分组的数据。
 //
-//示例值：
+// 示例值：
 func (builder *PatchSectionReqBodyBuilder) Section(section *InputSection) *PatchSectionReqBodyBuilder {
 	builder.section = section
 	builder.sectionSet = true
 	return builder
 }
 
-// 要更新的字段名
+// 要更新的字段名，支持：;* `name` - 自定义字段名字;* `insert_before` - 要让当前自定义分组放到某个自定义分组前面的section_guid，用于改变当前自定义分组的位置。;* `insert_after` - 要让当前自定义分组放到某个自定义分组后面的secion_guid，用于改变当前自定义分组的位置。
 //
-//示例值：
+// 示例值：
 func (builder *PatchSectionReqBodyBuilder) UpdateFields(updateFields []string) *PatchSectionReqBodyBuilder {
 	builder.updateFields = updateFields
 	builder.updateFieldsSet = true
@@ -7235,7 +7373,7 @@ func NewPatchSectionPathReqBodyBuilder() *PatchSectionPathReqBodyBuilder {
 	return builder
 }
 
-// 要更新的自定义分组的数据，仅支持name, insert_after, insert_before
+// 要更新的自定义分组的数据。
 //
 // 示例值：
 func (builder *PatchSectionPathReqBodyBuilder) Section(section *InputSection) *PatchSectionPathReqBodyBuilder {
@@ -7244,7 +7382,7 @@ func (builder *PatchSectionPathReqBodyBuilder) Section(section *InputSection) *P
 	return builder
 }
 
-// 要更新的字段名
+// 要更新的字段名，支持：;* `name` - 自定义字段名字;* `insert_before` - 要让当前自定义分组放到某个自定义分组前面的section_guid，用于改变当前自定义分组的位置。;* `insert_after` - 要让当前自定义分组放到某个自定义分组后面的secion_guid，用于改变当前自定义分组的位置。
 //
 // 示例值：
 func (builder *PatchSectionPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchSectionPathReqBodyBuilder {
@@ -7294,7 +7432,7 @@ func (builder *PatchSectionReqBuilder) UserIdType(userIdType string) *PatchSecti
 	return builder
 }
 
-//
+// 更新自定义分组，可以更新自定义分组的名称和位置。;;更新时，将`update_fields`字段中填写所有要修改的字段名，同时在`section`字段中填写要修改的字段的新值即可。调用约定详情见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 关于资源的更新”章节。;;目前支持更新的字段包括：;* `name` - 自定义字段名字;;* `insert_before` - 要让当前自定义分组放到某个自定义分组前面的section_guid，用于改变当前自定义分组的位置;;* `insert_after` - 要让当前自定义分组放到某个自定义分组后面的secion_guid，用于改变当前自定义分组的位置。;;`insert_before`和`insert_after`如果填写，必须是同一个资源的合法section_guid。注意不能同时设置`insert_before`和`insert_after`。
 func (builder *PatchSectionReqBuilder) Body(body *PatchSectionReqBody) *PatchSectionReqBuilder {
 	builder.body = body
 	return builder
@@ -7310,9 +7448,9 @@ func (builder *PatchSectionReqBuilder) Build() *PatchSectionReq {
 }
 
 type PatchSectionReqBody struct {
-	Section *InputSection `json:"section,omitempty"` // 要更新的自定义分组的数据，仅支持name, insert_after, insert_before
+	Section *InputSection `json:"section,omitempty"` // 要更新的自定义分组的数据。
 
-	UpdateFields []string `json:"update_fields,omitempty"` // 要更新的字段名
+	UpdateFields []string `json:"update_fields,omitempty"` // 要更新的字段名，支持：;* `name` - 自定义字段名字;* `insert_before` - 要让当前自定义分组放到某个自定义分组前面的section_guid，用于改变当前自定义分组的位置。;* `insert_after` - 要让当前自定义分组放到某个自定义分组后面的secion_guid，用于改变当前自定义分组的位置。
 }
 
 type PatchSectionReq struct {
@@ -7455,7 +7593,7 @@ func NewAddDependenciesTaskReqBodyBuilder() *AddDependenciesTaskReqBodyBuilder {
 
 // 要添加的依赖
 //
-//示例值：
+// 示例值：
 func (builder *AddDependenciesTaskReqBodyBuilder) Dependencies(dependencies []*TaskDependency) *AddDependenciesTaskReqBodyBuilder {
 	builder.dependencies = dependencies
 	builder.dependenciesSet = true
@@ -7519,7 +7657,7 @@ func (builder *AddDependenciesTaskReqBuilder) TaskGuid(taskGuid string) *AddDepe
 	return builder
 }
 
-//
+// 为一个任务添加一个或多个依赖。可以添加任务的前置依赖和后置依赖。存在依赖关系的任务如果在同一个清单，可以通过清单的甘特图来展示其依赖关系。;;本接口也可以用于修改一个现有依赖的类型（前置改为后置或者后置改为前置）。;;注意：添加的依赖的`task_guid`不能重复，也不能添加当前任务为自己的依赖。尝试添加一个已经存在的依赖会被自动忽略。
 func (builder *AddDependenciesTaskReqBuilder) Body(body *AddDependenciesTaskReqBody) *AddDependenciesTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -7557,10 +7695,10 @@ func (resp *AddDependenciesTaskResp) Success() bool {
 }
 
 type AddMembersTaskReqBodyBuilder struct {
-	members    []*Member // 要添加的members列表
+	members    []*Member // 要添加的members列表，单请求支持最大50个成员（去重后)。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
 	membersSet bool
 
-	clientToken    string // 幂等token，如果提供则实现幂等行为
+	clientToken    string // 幂等token，如果提供则实现幂等行为。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 幂等调用 ”章节。
 	clientTokenSet bool
 }
 
@@ -7569,18 +7707,18 @@ func NewAddMembersTaskReqBodyBuilder() *AddMembersTaskReqBodyBuilder {
 	return builder
 }
 
-// 要添加的members列表
+// 要添加的members列表，单请求支持最大50个成员（去重后)。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
 //
-//示例值：
+// 示例值：
 func (builder *AddMembersTaskReqBodyBuilder) Members(members []*Member) *AddMembersTaskReqBodyBuilder {
 	builder.members = members
 	builder.membersSet = true
 	return builder
 }
 
-// 幂等token，如果提供则实现幂等行为
+// 幂等token，如果提供则实现幂等行为。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 幂等调用 ”章节。
 //
-//示例值：6d99f59c-4d7d-4452-98d6-3d0556393cf6
+// 示例值：6d99f59c-4d7d-4452-98d6-3d0556393cf6
 func (builder *AddMembersTaskReqBodyBuilder) ClientToken(clientToken string) *AddMembersTaskReqBodyBuilder {
 	builder.clientToken = clientToken
 	builder.clientTokenSet = true
@@ -7610,7 +7748,7 @@ func NewAddMembersTaskPathReqBodyBuilder() *AddMembersTaskPathReqBodyBuilder {
 	return builder
 }
 
-// 要添加的members列表
+// 要添加的members列表，单请求支持最大50个成员（去重后)。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
 //
 // 示例值：
 func (builder *AddMembersTaskPathReqBodyBuilder) Members(members []*Member) *AddMembersTaskPathReqBodyBuilder {
@@ -7619,7 +7757,7 @@ func (builder *AddMembersTaskPathReqBodyBuilder) Members(members []*Member) *Add
 	return builder
 }
 
-// 幂等token，如果提供则实现幂等行为
+// 幂等token，如果提供则实现幂等行为。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 幂等调用 ”章节。
 //
 // 示例值：6d99f59c-4d7d-4452-98d6-3d0556393cf6
 func (builder *AddMembersTaskPathReqBodyBuilder) ClientToken(clientToken string) *AddMembersTaskPathReqBodyBuilder {
@@ -7669,7 +7807,7 @@ func (builder *AddMembersTaskReqBuilder) UserIdType(userIdType string) *AddMembe
 	return builder
 }
 
-//
+// 添加任务的负责人或者关注人。一次性可以添加多个成员。返回任务的实体中会返回最终任务成员的列表。;;* 关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。;* 成员的角色支持"assignee"和"follower"。;* 成员类型支持"user"和"app"。;* 如果要添加的成员已经在任务中，则自动被忽略。
 func (builder *AddMembersTaskReqBuilder) Body(body *AddMembersTaskReqBody) *AddMembersTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -7685,9 +7823,9 @@ func (builder *AddMembersTaskReqBuilder) Build() *AddMembersTaskReq {
 }
 
 type AddMembersTaskReqBody struct {
-	Members []*Member `json:"members,omitempty"` // 要添加的members列表
+	Members []*Member `json:"members,omitempty"` // 要添加的members列表，单请求支持最大50个成员（去重后)。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
 
-	ClientToken *string `json:"client_token,omitempty"` // 幂等token，如果提供则实现幂等行为
+	ClientToken *string `json:"client_token,omitempty"` // 幂等token，如果提供则实现幂等行为。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 幂等调用 ”章节。
 }
 
 type AddMembersTaskReq struct {
@@ -7710,7 +7848,7 @@ func (resp *AddMembersTaskResp) Success() bool {
 }
 
 type AddRemindersTaskReqBodyBuilder struct {
-	reminders    []*Reminder // 要添加的reminder的列表
+	reminders    []*Reminder // 要添加的reminder的列表，目前1个任务只支持一个提醒。
 	remindersSet bool
 }
 
@@ -7719,9 +7857,9 @@ func NewAddRemindersTaskReqBodyBuilder() *AddRemindersTaskReqBodyBuilder {
 	return builder
 }
 
-// 要添加的reminder的列表
+// 要添加的reminder的列表，目前1个任务只支持一个提醒。
 //
-//示例值：
+// 示例值：
 func (builder *AddRemindersTaskReqBodyBuilder) Reminders(reminders []*Reminder) *AddRemindersTaskReqBodyBuilder {
 	builder.reminders = reminders
 	builder.remindersSet = true
@@ -7746,7 +7884,7 @@ func NewAddRemindersTaskPathReqBodyBuilder() *AddRemindersTaskPathReqBodyBuilder
 	return builder
 }
 
-// 要添加的reminder的列表
+// 要添加的reminder的列表，目前1个任务只支持一个提醒。
 //
 // 示例值：
 func (builder *AddRemindersTaskPathReqBodyBuilder) Reminders(reminders []*Reminder) *AddRemindersTaskPathReqBodyBuilder {
@@ -7793,7 +7931,7 @@ func (builder *AddRemindersTaskReqBuilder) UserIdType(userIdType string) *AddRem
 	return builder
 }
 
-//
+// 为一个任务添加提醒。提醒是基于任务的截止时间计算得到的一个时刻。为了设置提醒，任务必须首先拥有截止时间(due)。可以在[创建任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/create)时设置截止时间，或者通过[更新任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/patch)设置一个截止时间。;;目前一个任务只能设置1个提醒。但接口的形式可以在未来扩充为一个任务支持多个提醒。;;如果当前任务已经有提醒了，要更新提醒的设置，需要先调用[移除任务提醒](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/remove_reminders)接口移除原有提醒。再调用本接口添加提醒。
 func (builder *AddRemindersTaskReqBuilder) Body(body *AddRemindersTaskReqBody) *AddRemindersTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -7809,7 +7947,7 @@ func (builder *AddRemindersTaskReqBuilder) Build() *AddRemindersTaskReq {
 }
 
 type AddRemindersTaskReqBody struct {
-	Reminders []*Reminder `json:"reminders,omitempty"` // 要添加的reminder的列表
+	Reminders []*Reminder `json:"reminders,omitempty"` // 要添加的reminder的列表，目前1个任务只支持一个提醒。
 }
 
 type AddRemindersTaskReq struct {
@@ -7846,7 +7984,7 @@ func NewAddTasklistTaskReqBodyBuilder() *AddTasklistTaskReqBodyBuilder {
 
 // 要添加到的清单的全局唯一ID
 //
-//示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
+// 示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
 func (builder *AddTasklistTaskReqBodyBuilder) TasklistGuid(tasklistGuid string) *AddTasklistTaskReqBodyBuilder {
 	builder.tasklistGuid = tasklistGuid
 	builder.tasklistGuidSet = true
@@ -7855,7 +7993,7 @@ func (builder *AddTasklistTaskReqBodyBuilder) TasklistGuid(tasklistGuid string) 
 
 // 要添加到清单的自定义分组全局唯一ID，如不填写表示添加到默认分组
 //
-//示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
+// 示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
 func (builder *AddTasklistTaskReqBodyBuilder) SectionGuid(sectionGuid string) *AddTasklistTaskReqBodyBuilder {
 	builder.sectionGuid = sectionGuid
 	builder.sectionGuidSet = true
@@ -7944,7 +8082,7 @@ func (builder *AddTasklistTaskReqBuilder) UserIdType(userIdType string) *AddTask
 	return builder
 }
 
-//
+// 将一个任务加入清单。返回任务的详细信息，包括任务所在的所有清单信息。;;如果任务已经在该清单，接口将返回成功。
 func (builder *AddTasklistTaskReqBuilder) Body(body *AddTasklistTaskReqBody) *AddTasklistTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -8006,7 +8144,7 @@ func (builder *CreateTaskReqBuilder) UserIdType(userIdType string) *CreateTaskRe
 	return builder
 }
 
-//
+// 该接口可以创建一个任务，在创建任务时，支持填写任务的基本信息（如标题、描述、负责人等），此外，还可以设置任务的开始时间、截止时间提醒等条件，此外，还可以通过传入 tasklists 字段将新任务加到多个清单中。;;创建任务时，可以通过设置`members`字段来设置任务的负责人和关注人。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？ ”章节。;;如果要设置任务的开始时间和截止时间，需要遵守任务时间的格式和约束。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何使用开始时间和截止时间？”章节。;;如要设置自定义字段值，可以设置`custom_fields`字段。但因为自定义字段归属于清单，因此要填写的自定义字段的guid必须归属于要添加的清单(通过`tasklists`设置）。详见[自定义字段概览](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/custom-field-overview)。;;通过设置`client_token`实现幂等调用。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 幂等调用 ”章节。;;如要创建一个任务的子任务，需要使用[创建子任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task-subtask/create)接口。;;创建任务时可以一并设置自定义字段值。但根据自定义字段的权限关系，任务只能添加`tasklists`字段设置的清单中关联的自定义字段的值。详见[自定义字段功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/custom-field-overview)中的介绍。
 func (builder *CreateTaskReqBuilder) InputTask(inputTask *InputTask) *CreateTaskReqBuilder {
 	builder.inputTask = inputTask
 	return builder
@@ -8171,7 +8309,7 @@ func (builder *ListTaskReqBuilder) PageToken(pageToken string) *ListTaskReqBuild
 	return builder
 }
 
-// 是否按任务完成进行过滤。不填写表示不过滤。
+// 是否按任务完成进行过滤。填写true表示只列出已完成任务；填写false表示只列出未完成任务。不填写表示不过滤。
 //
 // 示例值：true
 func (builder *ListTaskReqBuilder) Completed(completed bool) *ListTaskReqBuilder {
@@ -8179,7 +8317,7 @@ func (builder *ListTaskReqBuilder) Completed(completed bool) *ListTaskReqBuilder
 	return builder
 }
 
-// 查询任务的范围
+// 列取任务的类型，目前只支持"my_tasks"，即“我负责的”。
 //
 // 示例值：my_tasks
 func (builder *ListTaskReqBuilder) Type(type_ string) *ListTaskReqBuilder {
@@ -8220,9 +8358,9 @@ type ListTaskReq struct {
 type ListTaskRespData struct {
 	Items []*Task `json:"items,omitempty"` // 返回的任务列表
 
-	PageToken *string `json:"page_token,omitempty"` // 获取下一次分页的分页标记
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有更多数据
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 }
 
 type ListTaskResp struct {
@@ -8236,10 +8374,10 @@ func (resp *ListTaskResp) Success() bool {
 }
 
 type PatchTaskReqBodyBuilder struct {
-	task    *InputTask // 要更新的任务数据，只需要写明要更新的字段
+	task    *InputTask // 要更新的任务数据，只需要设置出现在`update_fields`中的字段即可。如果`update_fields`设置了要变更一个字段名，但是`task`里没设置新的值，则表示将该字段清空。
 	taskSet bool
 
-	updateFields    []string // 要更新的字段名称。支持summary, description, due, start, completed_at, extra, repeat_rule, custom_complete, mode, is_milestone, custom_fields。
+	updateFields    []string // 设置需要修改的字段;<md-enum>;<md-enum-item key="summary" >任务标题</md-enum-item>;<md-enum-item key="description" >任务描述</md-enum-item>;<md-enum-item key="start" >任务开始时间</md-enum-item>;<md-enum-item key="due" >任务截止时间</md-enum-item>;<md-enum-item key="completed_at" >任务完成时间</md-enum-item>;<md-enum-item key="extra" >任务附属自定义数据</md-enum-item>;<md-enum-item key="custom_complete" >任务自定义完成规则</md-enum-item>;<md-enum-item key="repeat_rule" >任务重复规则</md-enum-item>;<md-enum-item key="mode" >任务完成模式</md-enum-item>;<md-enum-item key="is_milestone" >是否是里程碑任务;</md-enum-item>;<md-enum-item key=custom_fields" >自定义字段值;</md-enum-item>;</md-enum>
 	updateFieldsSet bool
 }
 
@@ -8248,18 +8386,18 @@ func NewPatchTaskReqBodyBuilder() *PatchTaskReqBodyBuilder {
 	return builder
 }
 
-// 要更新的任务数据，只需要写明要更新的字段
+// 要更新的任务数据，只需要设置出现在`update_fields`中的字段即可。如果`update_fields`设置了要变更一个字段名，但是`task`里没设置新的值，则表示将该字段清空。
 //
-//示例值：
+// 示例值：
 func (builder *PatchTaskReqBodyBuilder) Task(task *InputTask) *PatchTaskReqBodyBuilder {
 	builder.task = task
 	builder.taskSet = true
 	return builder
 }
 
-// 要更新的字段名称。支持summary, description, due, start, completed_at, extra, repeat_rule, custom_complete, mode, is_milestone, custom_fields。
+// 设置需要修改的字段;<md-enum>;<md-enum-item key="summary" >任务标题</md-enum-item>;<md-enum-item key="description" >任务描述</md-enum-item>;<md-enum-item key="start" >任务开始时间</md-enum-item>;<md-enum-item key="due" >任务截止时间</md-enum-item>;<md-enum-item key="completed_at" >任务完成时间</md-enum-item>;<md-enum-item key="extra" >任务附属自定义数据</md-enum-item>;<md-enum-item key="custom_complete" >任务自定义完成规则</md-enum-item>;<md-enum-item key="repeat_rule" >任务重复规则</md-enum-item>;<md-enum-item key="mode" >任务完成模式</md-enum-item>;<md-enum-item key="is_milestone" >是否是里程碑任务;</md-enum-item>;<md-enum-item key=custom_fields" >自定义字段值;</md-enum-item>;</md-enum>
 //
-//示例值：
+// 示例值：
 func (builder *PatchTaskReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskReqBodyBuilder {
 	builder.updateFields = updateFields
 	builder.updateFieldsSet = true
@@ -8289,7 +8427,7 @@ func NewPatchTaskPathReqBodyBuilder() *PatchTaskPathReqBodyBuilder {
 	return builder
 }
 
-// 要更新的任务数据，只需要写明要更新的字段
+// 要更新的任务数据，只需要设置出现在`update_fields`中的字段即可。如果`update_fields`设置了要变更一个字段名，但是`task`里没设置新的值，则表示将该字段清空。
 //
 // 示例值：
 func (builder *PatchTaskPathReqBodyBuilder) Task(task *InputTask) *PatchTaskPathReqBodyBuilder {
@@ -8298,7 +8436,7 @@ func (builder *PatchTaskPathReqBodyBuilder) Task(task *InputTask) *PatchTaskPath
 	return builder
 }
 
-// 要更新的字段名称。支持summary, description, due, start, completed_at, extra, repeat_rule, custom_complete, mode, is_milestone, custom_fields。
+// 设置需要修改的字段;<md-enum>;<md-enum-item key="summary" >任务标题</md-enum-item>;<md-enum-item key="description" >任务描述</md-enum-item>;<md-enum-item key="start" >任务开始时间</md-enum-item>;<md-enum-item key="due" >任务截止时间</md-enum-item>;<md-enum-item key="completed_at" >任务完成时间</md-enum-item>;<md-enum-item key="extra" >任务附属自定义数据</md-enum-item>;<md-enum-item key="custom_complete" >任务自定义完成规则</md-enum-item>;<md-enum-item key="repeat_rule" >任务重复规则</md-enum-item>;<md-enum-item key="mode" >任务完成模式</md-enum-item>;<md-enum-item key="is_milestone" >是否是里程碑任务;</md-enum-item>;<md-enum-item key=custom_fields" >自定义字段值;</md-enum-item>;</md-enum>
 //
 // 示例值：
 func (builder *PatchTaskPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchTaskPathReqBodyBuilder {
@@ -8348,7 +8486,7 @@ func (builder *PatchTaskReqBuilder) UserIdType(userIdType string) *PatchTaskReqB
 	return builder
 }
 
-//
+// 该接口用于修改任务的标题、描述、截止时间等信息。;;更新时，将`update_fields`字段中填写所有要修改的任务字段名，同时在`task`字段中填写要修改的字段的新值即可。如果`update_fields`中设置了要变更一个字段的名字，但是task里没设置新的值，则表示将该字段清空。调用约定详情见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 关于资源的更新”章节。;;该接口可以用于完成任务和将任务恢复至未完成，只需要修改`completed_at`字段即可。但留意，目前不管任务本身是会签任务还是或签任务，OpenAPI对任务进行完成只能实现“整体完成”，不支持个人单独完成。此外，不能对已经完成的任务再次完成，但可以将其恢复到未完成的状态(设置`completed_at`为"0")。;;如更新自定义字段的值，需要调用身份同时拥有任务的编辑权限和自定义字段的编辑权限。详情见[自定义字段功能概览](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/custom-field-overview)。更新时，只有填写在`task.custom_fields`的自定义字段值会被更新，不填写的不会被改变。;;任务成员/提醒/清单数据不能使用本接口进行更新。;* 如要修改任务成员，需要使用[添加任务成员](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/add_members);和[移除任务成员](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/remove_members)接口。;* 如要修改任务提醒，需要使用[添加任务提醒](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/add_reminders)和[移除任务提醒](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/remove_reminders)接口。;* 如要变更任务所在的清单，需要使用[任务加入清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/add_tasklist)和[任务移出清单]( https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/remove_tasklist)接口。
 func (builder *PatchTaskReqBuilder) Body(body *PatchTaskReqBody) *PatchTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -8364,9 +8502,9 @@ func (builder *PatchTaskReqBuilder) Build() *PatchTaskReq {
 }
 
 type PatchTaskReqBody struct {
-	Task *InputTask `json:"task,omitempty"` // 要更新的任务数据，只需要写明要更新的字段
+	Task *InputTask `json:"task,omitempty"` // 要更新的任务数据，只需要设置出现在`update_fields`中的字段即可。如果`update_fields`设置了要变更一个字段名，但是`task`里没设置新的值，则表示将该字段清空。
 
-	UpdateFields []string `json:"update_fields,omitempty"` // 要更新的字段名称。支持summary, description, due, start, completed_at, extra, repeat_rule, custom_complete, mode, is_milestone, custom_fields。
+	UpdateFields []string `json:"update_fields,omitempty"` // 设置需要修改的字段;<md-enum>;<md-enum-item key="summary" >任务标题</md-enum-item>;<md-enum-item key="description" >任务描述</md-enum-item>;<md-enum-item key="start" >任务开始时间</md-enum-item>;<md-enum-item key="due" >任务截止时间</md-enum-item>;<md-enum-item key="completed_at" >任务完成时间</md-enum-item>;<md-enum-item key="extra" >任务附属自定义数据</md-enum-item>;<md-enum-item key="custom_complete" >任务自定义完成规则</md-enum-item>;<md-enum-item key="repeat_rule" >任务重复规则</md-enum-item>;<md-enum-item key="mode" >任务完成模式</md-enum-item>;<md-enum-item key="is_milestone" >是否是里程碑任务;</md-enum-item>;<md-enum-item key=custom_fields" >自定义字段值;</md-enum-item>;</md-enum>
 }
 
 type PatchTaskReq struct {
@@ -8400,7 +8538,7 @@ func NewRemoveDependenciesTaskReqBodyBuilder() *RemoveDependenciesTaskReqBodyBui
 
 // 要移除的依赖
 //
-//示例值：
+// 示例值：
 func (builder *RemoveDependenciesTaskReqBodyBuilder) Dependencies(dependencies []*TaskDependency) *RemoveDependenciesTaskReqBodyBuilder {
 	builder.dependencies = dependencies
 	builder.dependenciesSet = true
@@ -8464,7 +8602,7 @@ func (builder *RemoveDependenciesTaskReqBuilder) TaskGuid(taskGuid string) *Remo
 	return builder
 }
 
-//
+// 从一个任务移除一个或者多个依赖。移除时只需要输入要移除的`task_guid`即可。;;注意，如果要移除的依赖非当前任务的依赖，会被自动忽略。接口会返回成功。
 func (builder *RemoveDependenciesTaskReqBuilder) Body(body *RemoveDependenciesTaskReqBody) *RemoveDependenciesTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -8513,7 +8651,7 @@ func NewRemoveMembersTaskReqBodyBuilder() *RemoveMembersTaskReqBodyBuilder {
 
 // 要移除的member列表
 //
-//示例值：
+// 示例值：
 func (builder *RemoveMembersTaskReqBodyBuilder) Members(members []*Member) *RemoveMembersTaskReqBodyBuilder {
 	builder.members = members
 	builder.membersSet = true
@@ -8569,7 +8707,7 @@ func NewRemoveMembersTaskReqBuilder() *RemoveMembersTaskReqBuilder {
 	return builder
 }
 
-// 要添加负责人的任务全局唯一ID
+// 要移除成员的任务全局唯一ID
 //
 // 示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
 func (builder *RemoveMembersTaskReqBuilder) TaskGuid(taskGuid string) *RemoveMembersTaskReqBuilder {
@@ -8585,7 +8723,7 @@ func (builder *RemoveMembersTaskReqBuilder) UserIdType(userIdType string) *Remov
 	return builder
 }
 
-//
+// 移除任务成员。一次性可以移除多个成员。可以移除任务的负责人或者关注人。移除时，如果要移除的成员不是任务成员，会被自动忽略。本接口返回移除成员后的任务数据，包含移除后的任务成员列表。
 func (builder *RemoveMembersTaskReqBuilder) Body(body *RemoveMembersTaskReqBody) *RemoveMembersTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -8635,7 +8773,7 @@ func NewRemoveRemindersTaskReqBodyBuilder() *RemoveRemindersTaskReqBodyBuilder {
 
 // 要移除的reminder的id列表
 //
-//示例值：
+// 示例值：
 func (builder *RemoveRemindersTaskReqBodyBuilder) ReminderIds(reminderIds []string) *RemoveRemindersTaskReqBodyBuilder {
 	builder.reminderIds = reminderIds
 	builder.reminderIdsSet = true
@@ -8691,7 +8829,7 @@ func NewRemoveRemindersTaskReqBuilder() *RemoveRemindersTaskReqBuilder {
 	return builder
 }
 
-// 要添加负责人的任务全局唯一ID
+// 要移除提醒的任务全局唯一ID
 //
 // 示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
 func (builder *RemoveRemindersTaskReqBuilder) TaskGuid(taskGuid string) *RemoveRemindersTaskReqBuilder {
@@ -8707,7 +8845,7 @@ func (builder *RemoveRemindersTaskReqBuilder) UserIdType(userIdType string) *Rem
 	return builder
 }
 
-//
+// 将一个提醒从任务中移除。;;如果要移除的提醒本来就不存在，本接口将直接返回成功。
 func (builder *RemoveRemindersTaskReqBuilder) Body(body *RemoveRemindersTaskReqBody) *RemoveRemindersTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -8757,7 +8895,7 @@ func NewRemoveTasklistTaskReqBodyBuilder() *RemoveTasklistTaskReqBodyBuilder {
 
 // 要移除的清单的全局唯一ID
 //
-//示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
+// 示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
 func (builder *RemoveTasklistTaskReqBodyBuilder) TasklistGuid(tasklistGuid string) *RemoveTasklistTaskReqBodyBuilder {
 	builder.tasklistGuid = tasklistGuid
 	builder.tasklistGuidSet = true
@@ -8829,7 +8967,7 @@ func (builder *RemoveTasklistTaskReqBuilder) UserIdType(userIdType string) *Remo
 	return builder
 }
 
-//
+// 将任务从一个清单中移出。返回任务详情。;;如果任务不在清单中，接口将返回成功。
 func (builder *RemoveTasklistTaskReqBuilder) Body(body *RemoveTasklistTaskReqBody) *RemoveTasklistTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -8867,8 +9005,184 @@ func (resp *RemoveTasklistTaskResp) Success() bool {
 	return resp.Code == 0
 }
 
+type SearchTaskReqBodyBuilder struct {
+	query    string // 搜索关键字
+	querySet bool
+
+	filter    *TaskSearchFilter // 搜索过滤器，包括 任务创建人、负责人、完成状态、截止时间范围、关注人。默认为空，不做过滤
+	filterSet bool
+}
+
+func NewSearchTaskReqBodyBuilder() *SearchTaskReqBodyBuilder {
+	builder := &SearchTaskReqBodyBuilder{}
+	return builder
+}
+
+// 搜索关键字
+//
+// 示例值：测试任务
+func (builder *SearchTaskReqBodyBuilder) Query(query string) *SearchTaskReqBodyBuilder {
+	builder.query = query
+	builder.querySet = true
+	return builder
+}
+
+// 搜索过滤器，包括 任务创建人、负责人、完成状态、截止时间范围、关注人。默认为空，不做过滤
+//
+// 示例值：
+func (builder *SearchTaskReqBodyBuilder) Filter(filter *TaskSearchFilter) *SearchTaskReqBodyBuilder {
+	builder.filter = filter
+	builder.filterSet = true
+	return builder
+}
+
+func (builder *SearchTaskReqBodyBuilder) Build() *SearchTaskReqBody {
+	req := &SearchTaskReqBody{}
+	if builder.querySet {
+		req.Query = &builder.query
+	}
+	if builder.filterSet {
+		req.Filter = builder.filter
+	}
+	return req
+}
+
+type SearchTaskPathReqBodyBuilder struct {
+	query     string
+	querySet  bool
+	filter    *TaskSearchFilter
+	filterSet bool
+}
+
+func NewSearchTaskPathReqBodyBuilder() *SearchTaskPathReqBodyBuilder {
+	builder := &SearchTaskPathReqBodyBuilder{}
+	return builder
+}
+
+// 搜索关键字
+//
+// 示例值：测试任务
+func (builder *SearchTaskPathReqBodyBuilder) Query(query string) *SearchTaskPathReqBodyBuilder {
+	builder.query = query
+	builder.querySet = true
+	return builder
+}
+
+// 搜索过滤器，包括 任务创建人、负责人、完成状态、截止时间范围、关注人。默认为空，不做过滤
+//
+// 示例值：
+func (builder *SearchTaskPathReqBodyBuilder) Filter(filter *TaskSearchFilter) *SearchTaskPathReqBodyBuilder {
+	builder.filter = filter
+	builder.filterSet = true
+	return builder
+}
+
+func (builder *SearchTaskPathReqBodyBuilder) Build() (*SearchTaskReqBody, error) {
+	req := &SearchTaskReqBody{}
+	if builder.querySet {
+		req.Query = &builder.query
+	}
+	if builder.filterSet {
+		req.Filter = builder.filter
+	}
+	return req, nil
+}
+
+type SearchTaskReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchTaskReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewSearchTaskReqBuilder() *SearchTaskReqBuilder {
+	builder := &SearchTaskReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *SearchTaskReqBuilder) Limit(limit int) *SearchTaskReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 一次搜索获取的任务数量，默认值15，最大30
+//
+// 示例值：
+func (builder *SearchTaskReqBuilder) PageSize(pageSize int) *SearchTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 示例值：
+func (builder *SearchTaskReqBuilder) PageToken(pageToken string) *SearchTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *SearchTaskReqBuilder) UserIdType(userIdType string) *SearchTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 通过任务关键词搜索任务的信息，包括任务名称、任务链接、任务ID、任务描述
+func (builder *SearchTaskReqBuilder) Body(body *SearchTaskReqBody) *SearchTaskReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchTaskReqBuilder) Build() *SearchTaskReq {
+	req := &SearchTaskReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchTaskReqBody struct {
+	Query *string `json:"query,omitempty"` // 搜索关键字
+
+	Filter *TaskSearchFilter `json:"filter,omitempty"` // 搜索过滤器，包括 任务创建人、负责人、完成状态、截止时间范围、关注人。默认为空，不做过滤
+}
+
+type SearchTaskReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchTaskReqBody `body:""`
+	Limit  int                // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type SearchTaskRespData struct {
+	Items []*TaskSearchItem `json:"items,omitempty"` // items
+
+	Total *int `json:"total,omitempty"` // total
+
+	HasMore *bool `json:"has_more,omitempty"` // has_more
+
+	PageToken *string `json:"page_token,omitempty"` // page_token
+
+	Notice *string `json:"notice,omitempty"` // 搜索补充提示信息，返回本次搜索的额外说明，例如：query被截断；搜索结果不全等
+}
+
+type SearchTaskResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchTaskRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
 type SetAncestorTaskTaskReqBodyBuilder struct {
-	ancestorGuid    string // 父任务的guid
+	ancestorGuid    string // 父任务的guid，可从任务详情字段获取， 未设置时作用为转独立任务
 	ancestorGuidSet bool
 
 	userIdType    string //
@@ -8883,21 +9197,12 @@ func NewSetAncestorTaskTaskReqBodyBuilder() *SetAncestorTaskTaskReqBodyBuilder {
 	return builder
 }
 
-// 父任务的guid
+// 父任务的guid，可从任务详情字段获取， 未设置时作用为转独立任务
 //
-//示例值：123
+// 示例值：e297ddff-06ca-4166-b917-4ce57cd3a7a0
 func (builder *SetAncestorTaskTaskReqBodyBuilder) AncestorGuid(ancestorGuid string) *SetAncestorTaskTaskReqBodyBuilder {
 	builder.ancestorGuid = ancestorGuid
 	builder.ancestorGuidSet = true
-	return builder
-}
-
-//
-//
-//示例值：
-func (builder *SetAncestorTaskTaskReqBodyBuilder) UserIdType(userIdType string) *SetAncestorTaskTaskReqBodyBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeSet = true
 	return builder
 }
 
@@ -8905,9 +9210,6 @@ func (builder *SetAncestorTaskTaskReqBodyBuilder) Build() *SetAncestorTaskTaskRe
 	req := &SetAncestorTaskTaskReqBody{}
 	if builder.ancestorGuidSet {
 		req.AncestorGuid = &builder.ancestorGuid
-	}
-	if builder.userIdTypeSet {
-		req.UserIdType = &builder.userIdType
 	}
 	return req
 }
@@ -8926,21 +9228,12 @@ func NewSetAncestorTaskTaskPathReqBodyBuilder() *SetAncestorTaskTaskPathReqBodyB
 	return builder
 }
 
-// 父任务的guid
+// 父任务的guid，可从任务详情字段获取， 未设置时作用为转独立任务
 //
-// 示例值：123
+// 示例值：e297ddff-06ca-4166-b917-4ce57cd3a7a0
 func (builder *SetAncestorTaskTaskPathReqBodyBuilder) AncestorGuid(ancestorGuid string) *SetAncestorTaskTaskPathReqBodyBuilder {
 	builder.ancestorGuid = ancestorGuid
 	builder.ancestorGuidSet = true
-	return builder
-}
-
-//
-//
-// 示例值：
-func (builder *SetAncestorTaskTaskPathReqBodyBuilder) UserIdType(userIdType string) *SetAncestorTaskTaskPathReqBodyBuilder {
-	builder.userIdType = userIdType
-	builder.userIdTypeSet = true
 	return builder
 }
 
@@ -8948,9 +9241,6 @@ func (builder *SetAncestorTaskTaskPathReqBodyBuilder) Build() (*SetAncestorTaskT
 	req := &SetAncestorTaskTaskReqBody{}
 	if builder.ancestorGuidSet {
 		req.AncestorGuid = &builder.ancestorGuid
-	}
-	if builder.userIdTypeSet {
-		req.UserIdType = &builder.userIdType
 	}
 	return req, nil
 }
@@ -8969,15 +9259,15 @@ func NewSetAncestorTaskTaskReqBuilder() *SetAncestorTaskTaskReqBuilder {
 	return builder
 }
 
-// 任务的guid
+// 任务的GUID，可从任务详情字段获取
 //
-// 示例值：1234
+// 示例值：e297ddff-06ca-4166-b917-4ce57cd3a7a0
 func (builder *SetAncestorTaskTaskReqBuilder) TaskGuid(taskGuid string) *SetAncestorTaskTaskReqBuilder {
 	builder.apiReq.PathParams.Set("task_guid", fmt.Sprint(taskGuid))
 	return builder
 }
 
-//
+// 管理任务的父子关系，支持设置任务的父任务，或者将任务转为独立任务。
 func (builder *SetAncestorTaskTaskReqBuilder) Body(body *SetAncestorTaskTaskReqBody) *SetAncestorTaskTaskReqBuilder {
 	builder.body = body
 	return builder
@@ -8992,7 +9282,7 @@ func (builder *SetAncestorTaskTaskReqBuilder) Build() *SetAncestorTaskTaskReq {
 }
 
 type SetAncestorTaskTaskReqBody struct {
-	AncestorGuid *string `json:"ancestor_guid,omitempty"` // 父任务的guid
+	AncestorGuid *string `json:"ancestor_guid,omitempty"` // 父任务的guid，可从任务详情字段获取， 未设置时作用为转独立任务
 
 	UserIdType *string `json:"user_id_type,omitempty"` //
 
@@ -9089,7 +9379,7 @@ func (builder *CreateTaskSubtaskReqBuilder) UserIdType(userIdType string) *Creat
 	return builder
 }
 
-//
+// 给一个任务创建一个子任务。;;接口功能除了额外需要输入父任务的GUID之外，和[创建任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/create)接口功能完全一致。
 func (builder *CreateTaskSubtaskReqBuilder) InputTask(inputTask *InputTask) *CreateTaskSubtaskReqBuilder {
 	builder.inputTask = inputTask
 	return builder
@@ -9195,7 +9485,7 @@ type ListTaskSubtaskRespData struct {
 
 	PageToken *string `json:"page_token,omitempty"` // 用于返回下一个分页的token
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否还有下一页数据。
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 }
 
 type ListTaskSubtaskResp struct {
@@ -9228,23 +9518,19 @@ func (builder *ListRelatedTaskTaskV2ReqBuilder) Limit(limit int) *ListRelatedTas
 	return builder
 }
 
-//
-//
-// 示例值：
+// 示例值：10
 func (builder *ListRelatedTaskTaskV2ReqBuilder) PageSize(pageSize int) *ListRelatedTaskTaskV2ReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ListRelatedTaskTaskV2ReqBuilder) PageToken(pageToken string) *ListRelatedTaskTaskV2ReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 是否按任务完成进行过滤。不填写表示不过滤。
+// 是否按任务完成进行过滤。不填写表示不过滤。true返回已完成任务，false返回未完成任务
 //
 // 示例值：
 func (builder *ListRelatedTaskTaskV2ReqBuilder) Completed(completed bool) *ListRelatedTaskTaskV2ReqBuilder {
@@ -9252,8 +9538,6 @@ func (builder *ListRelatedTaskTaskV2ReqBuilder) Completed(completed bool) *ListR
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ListRelatedTaskTaskV2ReqBuilder) UserIdType(userIdType string) *ListRelatedTaskTaskV2ReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -9313,8 +9597,6 @@ func NewTaskSubscriptionTaskV2ReqBuilder() *TaskSubscriptionTaskV2ReqBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *TaskSubscriptionTaskV2ReqBuilder) UserIdType(userIdType string) *TaskSubscriptionTaskV2ReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -9349,7 +9631,7 @@ func (resp *TaskSubscriptionTaskV2Resp) Success() bool {
 }
 
 type AddMembersTasklistReqBodyBuilder struct {
-	members    []*Member // 要添加的成员列表
+	members    []*Member // 要添加的成员列表。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
 	membersSet bool
 }
 
@@ -9358,9 +9640,9 @@ func NewAddMembersTasklistReqBodyBuilder() *AddMembersTasklistReqBodyBuilder {
 	return builder
 }
 
-// 要添加的成员列表
+// 要添加的成员列表。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
 //
-//示例值：
+// 示例值：
 func (builder *AddMembersTasklistReqBodyBuilder) Members(members []*Member) *AddMembersTasklistReqBodyBuilder {
 	builder.members = members
 	builder.membersSet = true
@@ -9385,7 +9667,7 @@ func NewAddMembersTasklistPathReqBodyBuilder() *AddMembersTasklistPathReqBodyBui
 	return builder
 }
 
-// 要添加的成员列表
+// 要添加的成员列表。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
 //
 // 示例值：
 func (builder *AddMembersTasklistPathReqBodyBuilder) Members(members []*Member) *AddMembersTasklistPathReqBodyBuilder {
@@ -9416,7 +9698,7 @@ func NewAddMembersTasklistReqBuilder() *AddMembersTasklistReqBuilder {
 	return builder
 }
 
-// 要添加协作人的清单的全局唯一ID
+// 要添加成员的清单的全局唯一ID
 //
 // 示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
 func (builder *AddMembersTasklistReqBuilder) TasklistGuid(tasklistGuid string) *AddMembersTasklistReqBuilder {
@@ -9432,7 +9714,7 @@ func (builder *AddMembersTasklistReqBuilder) UserIdType(userIdType string) *AddM
 	return builder
 }
 
-//
+// 向一个清单添加1个或多个协作成员。成员信息通过设置`members`字段实现。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。;;一个清单协作成员可以是一个用户，应用或者群组。每个成员可以设置“可编辑”或者“可阅读”的角色。群组作为协作成员表示该群里所有群成员都自动拥有群组协作成员的角色。;;如果要添加的成员已经是清单成员，且角色和请求中设置是一样的，则会被自动忽略，接口返回成功。;;如果要添加的成员已经是清单成员，且角色和请求中设置是不一样的（比如原来的角色是可阅读，请求中设为可编辑），则相当于更新其角色。;;如果要添加的成员已经是清单的所有者，则会被自动忽略。接口返回成功。其所有者的角色不会改变。;;本接口不能用来设置清单所有者，如要设置，可以使用[更新清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/patch)接口。
 func (builder *AddMembersTasklistReqBuilder) Body(body *AddMembersTasklistReqBody) *AddMembersTasklistReqBuilder {
 	builder.body = body
 	return builder
@@ -9448,7 +9730,7 @@ func (builder *AddMembersTasklistReqBuilder) Build() *AddMembersTasklistReq {
 }
 
 type AddMembersTasklistReqBody struct {
-	Members []*Member `json:"members,omitempty"` // 要添加的成员列表
+	Members []*Member `json:"members,omitempty"` // 要添加的成员列表。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
 }
 
 type AddMembersTasklistReq struct {
@@ -9492,7 +9774,7 @@ func (builder *CreateTasklistReqBuilder) UserIdType(userIdType string) *CreateTa
 	return builder
 }
 
-//
+// 创建一个清单。清单可以用于组织和管理属于同一个项目的多个任务。;;创建时，必须填写清单的名字。同时，可以设置通过`members`字段设置清单的协作成员。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。;;创建清单后，创建人自动成为清单的所有者。如果请求同时将创建人设置为可编辑/可阅读角色，则最终该用户成为清单所有者，并自动从清单成员列表中消失。因为同一个用户在同一个清单只能拥有一个角色。
 func (builder *CreateTasklistReqBuilder) InputTasklist(inputTasklist *InputTasklist) *CreateTasklistReqBuilder {
 	builder.inputTasklist = inputTasklist
 	return builder
@@ -9538,7 +9820,7 @@ func NewDeleteTasklistReqBuilder() *DeleteTasklistReqBuilder {
 	return builder
 }
 
-// 要删除的任务GUID
+// 要删除的清单GUID
 //
 // 示例值：d300a75f-c56a-4be9-80d1-e47653028ceb
 func (builder *DeleteTasklistReqBuilder) TasklistGuid(tasklistGuid string) *DeleteTasklistReqBuilder {
@@ -9649,7 +9931,7 @@ func (builder *ListTasklistReqBuilder) PageSize(pageSize int) *ListTasklistReqBu
 	return builder
 }
 
-// 分页标记。第一次请求不填该参数，表示从头开始查询；查询结果若还有更多数据时会同时返回新的 page_token。使用page_token重新调用本接口可以获取下一页数据。
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：aWQ9NzEwMjMzMjMxMDE=
 func (builder *ListTasklistReqBuilder) PageToken(pageToken string) *ListTasklistReqBuilder {
@@ -9684,7 +9966,7 @@ type ListTasklistRespData struct {
 
 	PageToken *string `json:"page_token,omitempty"` // 用于获取下一页的分页标记
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有更多数据
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 }
 
 type ListTasklistResp struct {
@@ -9698,13 +9980,13 @@ func (resp *ListTasklistResp) Success() bool {
 }
 
 type PatchTasklistReqBodyBuilder struct {
-	tasklist    *InputTasklist // 要更新清单的数据
+	tasklist    *InputTasklist //
 	tasklistSet bool
 
-	updateFields    []string // 要更新的字段名，只支持更新"owner", "name"两个字段
+	updateFields    []string // 要更新的字段名，支持;<md-enum>;<md-enum-item key="name" >更新清单名</md-enum-item>;<md-enum-item key="owner" >更新清单所有者</md-enum-item>;</md-enum>
 	updateFieldsSet bool
 
-	originOwnerToRole    string // 该字段表示如果更新了新的负责人，则将原负责人设为指定的协作人角色。仅在update_fields包含owner字段时生效。根据清单的角色设计方式，不允许提前为清单的负责人添加其他角色，但负责人更新后，原有负责人会无法访问该清单。该字段可以帮助避免原负责人彻底退出清单。
+	originOwnerToRole    string // 该字段表示如果更新了新的所有者，则将原所有者设为指定的新的角色。仅在更新清单所有者时生效。支持"editor", "viewer"和"none"。默认为"none"。;;如果不设置或设为"none"，原清单所有者将不具有任何清单的角色。如果没有通过其他渠道（比如通过协作群组间接授权），原清单所有者将失去对清单的所有权限。
 	originOwnerToRoleSet bool
 }
 
@@ -9713,27 +9995,25 @@ func NewPatchTasklistReqBodyBuilder() *PatchTasklistReqBodyBuilder {
 	return builder
 }
 
-// 要更新清单的数据
-//
-//示例值：
+// 示例值：
 func (builder *PatchTasklistReqBodyBuilder) Tasklist(tasklist *InputTasklist) *PatchTasklistReqBodyBuilder {
 	builder.tasklist = tasklist
 	builder.tasklistSet = true
 	return builder
 }
 
-// 要更新的字段名，只支持更新"owner", "name"两个字段
+// 要更新的字段名，支持;<md-enum>;<md-enum-item key="name" >更新清单名</md-enum-item>;<md-enum-item key="owner" >更新清单所有者</md-enum-item>;</md-enum>
 //
-//示例值：
+// 示例值：
 func (builder *PatchTasklistReqBodyBuilder) UpdateFields(updateFields []string) *PatchTasklistReqBodyBuilder {
 	builder.updateFields = updateFields
 	builder.updateFieldsSet = true
 	return builder
 }
 
-// 该字段表示如果更新了新的负责人，则将原负责人设为指定的协作人角色。仅在update_fields包含owner字段时生效。根据清单的角色设计方式，不允许提前为清单的负责人添加其他角色，但负责人更新后，原有负责人会无法访问该清单。该字段可以帮助避免原负责人彻底退出清单。
+// 该字段表示如果更新了新的所有者，则将原所有者设为指定的新的角色。仅在更新清单所有者时生效。支持"editor", "viewer"和"none"。默认为"none"。;;如果不设置或设为"none"，原清单所有者将不具有任何清单的角色。如果没有通过其他渠道（比如通过协作群组间接授权），原清单所有者将失去对清单的所有权限。
 //
-//示例值：editor
+// 示例值：editor
 func (builder *PatchTasklistReqBodyBuilder) OriginOwnerToRole(originOwnerToRole string) *PatchTasklistReqBodyBuilder {
 	builder.originOwnerToRole = originOwnerToRole
 	builder.originOwnerToRoleSet = true
@@ -9768,8 +10048,6 @@ func NewPatchTasklistPathReqBodyBuilder() *PatchTasklistPathReqBodyBuilder {
 	return builder
 }
 
-// 要更新清单的数据
-//
 // 示例值：
 func (builder *PatchTasklistPathReqBodyBuilder) Tasklist(tasklist *InputTasklist) *PatchTasklistPathReqBodyBuilder {
 	builder.tasklist = tasklist
@@ -9777,7 +10055,7 @@ func (builder *PatchTasklistPathReqBodyBuilder) Tasklist(tasklist *InputTasklist
 	return builder
 }
 
-// 要更新的字段名，只支持更新"owner", "name"两个字段
+// 要更新的字段名，支持;<md-enum>;<md-enum-item key="name" >更新清单名</md-enum-item>;<md-enum-item key="owner" >更新清单所有者</md-enum-item>;</md-enum>
 //
 // 示例值：
 func (builder *PatchTasklistPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchTasklistPathReqBodyBuilder {
@@ -9786,7 +10064,7 @@ func (builder *PatchTasklistPathReqBodyBuilder) UpdateFields(updateFields []stri
 	return builder
 }
 
-// 该字段表示如果更新了新的负责人，则将原负责人设为指定的协作人角色。仅在update_fields包含owner字段时生效。根据清单的角色设计方式，不允许提前为清单的负责人添加其他角色，但负责人更新后，原有负责人会无法访问该清单。该字段可以帮助避免原负责人彻底退出清单。
+// 该字段表示如果更新了新的所有者，则将原所有者设为指定的新的角色。仅在更新清单所有者时生效。支持"editor", "viewer"和"none"。默认为"none"。;;如果不设置或设为"none"，原清单所有者将不具有任何清单的角色。如果没有通过其他渠道（比如通过协作群组间接授权），原清单所有者将失去对清单的所有权限。
 //
 // 示例值：editor
 func (builder *PatchTasklistPathReqBodyBuilder) OriginOwnerToRole(originOwnerToRole string) *PatchTasklistPathReqBodyBuilder {
@@ -9839,7 +10117,7 @@ func (builder *PatchTasklistReqBuilder) UserIdType(userIdType string) *PatchTask
 	return builder
 }
 
-//
+// 更新清单，可以更新清单的名字和所有者。;;更新清单时，将`update_fields`字段中填写所有要修改的清单字段名，同时在`tasklist`字段中填写要修改的字段的新值即可。更新调用规范详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 关于资源的更新”章节。;;支持更新的字段包括:;;* `name` - 清单名字;* `owner` - 清单所有者;;更新清单所有者（owner）时，如果该成员已经是清单的“可编辑”或者“可阅读”角色，则该成员将直接升级为所有者角色，自动从清单的成员列表中消失。这是因为同一个用户在同一个清单中只能有一个角色。同时，支持使用`origin_owner_to_role`字段将原有所有者变为可编辑/可阅读角色或者直接退出清单。;;该接口不能用于更新清单的成员和增删清单中的任务。;* 如要增删清单中的成员，可以使用[添加清单成员](https://open.feishu.cn/document:/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/add_members)和[移除清单成员](https://open.feishu.cn/document:/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/remove_members)接口。;* 如要增删清单中的任务，可以使用[任务加入清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/add_tasklist)和[任务移出清单]( https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/remove_tasklist)接口。
 func (builder *PatchTasklistReqBuilder) Body(body *PatchTasklistReqBody) *PatchTasklistReqBuilder {
 	builder.body = body
 	return builder
@@ -9855,11 +10133,11 @@ func (builder *PatchTasklistReqBuilder) Build() *PatchTasklistReq {
 }
 
 type PatchTasklistReqBody struct {
-	Tasklist *InputTasklist `json:"tasklist,omitempty"` // 要更新清单的数据
+	Tasklist *InputTasklist `json:"tasklist,omitempty"` //
 
-	UpdateFields []string `json:"update_fields,omitempty"` // 要更新的字段名，只支持更新"owner", "name"两个字段
+	UpdateFields []string `json:"update_fields,omitempty"` // 要更新的字段名，支持;<md-enum>;<md-enum-item key="name" >更新清单名</md-enum-item>;<md-enum-item key="owner" >更新清单所有者</md-enum-item>;</md-enum>
 
-	OriginOwnerToRole *string `json:"origin_owner_to_role,omitempty"` // 该字段表示如果更新了新的负责人，则将原负责人设为指定的协作人角色。仅在update_fields包含owner字段时生效。根据清单的角色设计方式，不允许提前为清单的负责人添加其他角色，但负责人更新后，原有负责人会无法访问该清单。该字段可以帮助避免原负责人彻底退出清单。
+	OriginOwnerToRole *string `json:"origin_owner_to_role,omitempty"` // 该字段表示如果更新了新的所有者，则将原所有者设为指定的新的角色。仅在更新清单所有者时生效。支持"editor", "viewer"和"none"。默认为"none"。;;如果不设置或设为"none"，原清单所有者将不具有任何清单的角色。如果没有通过其他渠道（比如通过协作群组间接授权），原清单所有者将失去对清单的所有权限。
 }
 
 type PatchTasklistReq struct {
@@ -9882,7 +10160,7 @@ func (resp *PatchTasklistResp) Success() bool {
 }
 
 type RemoveMembersTasklistReqBodyBuilder struct {
-	members    []*Member // 要移除的member列表
+	members    []*Member // 要移除的member列表。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
 	membersSet bool
 }
 
@@ -9891,9 +10169,9 @@ func NewRemoveMembersTasklistReqBodyBuilder() *RemoveMembersTasklistReqBodyBuild
 	return builder
 }
 
-// 要移除的member列表
+// 要移除的member列表。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
 //
-//示例值：
+// 示例值：
 func (builder *RemoveMembersTasklistReqBodyBuilder) Members(members []*Member) *RemoveMembersTasklistReqBodyBuilder {
 	builder.members = members
 	builder.membersSet = true
@@ -9918,7 +10196,7 @@ func NewRemoveMembersTasklistPathReqBodyBuilder() *RemoveMembersTasklistPathReqB
 	return builder
 }
 
-// 要移除的member列表
+// 要移除的member列表。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
 //
 // 示例值：
 func (builder *RemoveMembersTasklistPathReqBodyBuilder) Members(members []*Member) *RemoveMembersTasklistPathReqBodyBuilder {
@@ -9965,7 +10243,7 @@ func (builder *RemoveMembersTasklistReqBuilder) UserIdType(userIdType string) *R
 	return builder
 }
 
-//
+// 移除清单的一个或多个协作成员。通过设置`members`字段表示要移除的成员信息。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。;;清单中同一个成员只能有一个角色，通过的member的id和type可以唯一确定一个成员，因此请求参数中对于要删除的成员，不需要填写"role"字段。;;如果要移除的成员不在清单中，则被自动忽略，接口返回成功。;;该接口不能用于移除清单所有者。如果要移除的成员是清单所有者，则会被自动忽略。如要设置清单所有者，需要调用[更新清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/patch)接口。
 func (builder *RemoveMembersTasklistReqBuilder) Body(body *RemoveMembersTasklistReqBody) *RemoveMembersTasklistReqBuilder {
 	builder.body = body
 	return builder
@@ -9981,7 +10259,7 @@ func (builder *RemoveMembersTasklistReqBuilder) Build() *RemoveMembersTasklistRe
 }
 
 type RemoveMembersTasklistReqBody struct {
-	Members []*Member `json:"members,omitempty"` // 要移除的member列表
+	Members []*Member `json:"members,omitempty"` // 要移除的member列表。关于member的格式，详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
 }
 
 type RemoveMembersTasklistReq struct {
@@ -10000,6 +10278,182 @@ type RemoveMembersTasklistResp struct {
 }
 
 func (resp *RemoveMembersTasklistResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SearchTasklistReqBodyBuilder struct {
+	query    string // query (长度范围：0 ～ 50 字符)
+	querySet bool
+
+	filter    *TasklistSearchFilter // 过滤参数，包括创建时间，创建人，不设置时不过滤
+	filterSet bool
+}
+
+func NewSearchTasklistReqBodyBuilder() *SearchTasklistReqBodyBuilder {
+	builder := &SearchTasklistReqBodyBuilder{}
+	return builder
+}
+
+// query (长度范围：0 ～ 50 字符)
+//
+// 示例值：测试任务清单
+func (builder *SearchTasklistReqBodyBuilder) Query(query string) *SearchTasklistReqBodyBuilder {
+	builder.query = query
+	builder.querySet = true
+	return builder
+}
+
+// 过滤参数，包括创建时间，创建人，不设置时不过滤
+//
+// 示例值：
+func (builder *SearchTasklistReqBodyBuilder) Filter(filter *TasklistSearchFilter) *SearchTasklistReqBodyBuilder {
+	builder.filter = filter
+	builder.filterSet = true
+	return builder
+}
+
+func (builder *SearchTasklistReqBodyBuilder) Build() *SearchTasklistReqBody {
+	req := &SearchTasklistReqBody{}
+	if builder.querySet {
+		req.Query = &builder.query
+	}
+	if builder.filterSet {
+		req.Filter = builder.filter
+	}
+	return req
+}
+
+type SearchTasklistPathReqBodyBuilder struct {
+	query     string
+	querySet  bool
+	filter    *TasklistSearchFilter
+	filterSet bool
+}
+
+func NewSearchTasklistPathReqBodyBuilder() *SearchTasklistPathReqBodyBuilder {
+	builder := &SearchTasklistPathReqBodyBuilder{}
+	return builder
+}
+
+// query (长度范围：0 ～ 50 字符)
+//
+// 示例值：测试任务清单
+func (builder *SearchTasklistPathReqBodyBuilder) Query(query string) *SearchTasklistPathReqBodyBuilder {
+	builder.query = query
+	builder.querySet = true
+	return builder
+}
+
+// 过滤参数，包括创建时间，创建人，不设置时不过滤
+//
+// 示例值：
+func (builder *SearchTasklistPathReqBodyBuilder) Filter(filter *TasklistSearchFilter) *SearchTasklistPathReqBodyBuilder {
+	builder.filter = filter
+	builder.filterSet = true
+	return builder
+}
+
+func (builder *SearchTasklistPathReqBodyBuilder) Build() (*SearchTasklistReqBody, error) {
+	req := &SearchTasklistReqBody{}
+	if builder.querySet {
+		req.Query = &builder.query
+	}
+	if builder.filterSet {
+		req.Filter = builder.filter
+	}
+	return req, nil
+}
+
+type SearchTasklistReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchTasklistReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewSearchTasklistReqBuilder() *SearchTasklistReqBuilder {
+	builder := &SearchTasklistReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *SearchTasklistReqBuilder) Limit(limit int) *SearchTasklistReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 一页获取的清单个数，最小值1，默认值15，最大值30
+//
+// 示例值：
+func (builder *SearchTasklistReqBuilder) PageSize(pageSize int) *SearchTasklistReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 示例值：
+func (builder *SearchTasklistReqBuilder) PageToken(pageToken string) *SearchTasklistReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *SearchTasklistReqBuilder) UserIdType(userIdType string) *SearchTasklistReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 通过清单关键词搜索清单的信息，包括清单名称、清单ID、清单链接、清单描述
+func (builder *SearchTasklistReqBuilder) Body(body *SearchTasklistReqBody) *SearchTasklistReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchTasklistReqBuilder) Build() *SearchTasklistReq {
+	req := &SearchTasklistReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchTasklistReqBody struct {
+	Query *string `json:"query,omitempty"` // query (长度范围：0 ～ 50 字符)
+
+	Filter *TasklistSearchFilter `json:"filter,omitempty"` // 过滤参数，包括创建时间，创建人，不设置时不过滤
+}
+
+type SearchTasklistReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchTasklistReqBody `body:""`
+	Limit  int                    // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type SearchTasklistRespData struct {
+	Items []*TasklistSearchItem `json:"items,omitempty"` // items
+
+	Total *int `json:"total,omitempty"` // total
+
+	HasMore *bool `json:"has_more,omitempty"` // has_more
+
+	PageToken *string `json:"page_token,omitempty"` // page_token
+
+	Notice *string `json:"notice,omitempty"` // 搜索补充提示信息，返回本次搜索的额外说明，例如：query被截断；搜索结果不全等
+}
+
+type SearchTasklistResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchTasklistRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchTasklistResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -10032,7 +10486,7 @@ func (builder *TasksTasklistReqBuilder) PageSize(pageSize int) *TasksTasklistReq
 	return builder
 }
 
-// 分页标记。第一次请求不填该参数，表示从头开始查询；查询结果若还有更多数据时会同时返回新的 page_token。使用page_token重新调用本接口可以获取下一页数据。
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：aWQ9NzEwMjMzMjMxMDE=
 func (builder *TasksTasklistReqBuilder) PageToken(pageToken string) *TasksTasklistReqBuilder {
@@ -10040,7 +10494,7 @@ func (builder *TasksTasklistReqBuilder) PageToken(pageToken string) *TasksTaskli
 	return builder
 }
 
-// 只查看特定完成状态的任务，不填写表示不按完成状态过滤
+// 只查看特定完成状态的任务，填写“true”表示返回已经完成的任务；“false”表示只返回未完成的任务；不填写表示不按完成状态过滤。
 //
 // 示例值：true
 func (builder *TasksTasklistReqBuilder) Completed(completed bool) *TasksTasklistReqBuilder {
@@ -10089,7 +10543,7 @@ type TasksTasklistRespData struct {
 
 	PageToken *string `json:"page_token,omitempty"` // 用于获取下一页的分页标记，最后一页时发返回空
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有更多数据
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 }
 
 type TasksTasklistResp struct {
@@ -10132,7 +10586,7 @@ func (builder *CreateTasklistActivitySubscriptionReqBuilder) UserIdType(userIdTy
 	return builder
 }
 
-//
+// 为一个清单创建一个订阅。每个订阅可以包含1个或多个订阅者（目前只支持普通群组）。订阅创建后，如清单发生相应的事件，则会向订阅里的订阅者发送通知消息。一个清单最多可以创建50个订阅。每个订阅最大支持50个订阅者。订阅者目前仅支持"chat"类型。;;每个订阅可以通过设置`include_keys`可以针对哪些事件(event_key)做通知。如果`include_keys`为空，则不对任何事件进行通知。;;如有需要，创建时也可以直接将`disabled`设为true，创建一个禁止发送订阅通知的订阅。
 func (builder *CreateTasklistActivitySubscriptionReqBuilder) TasklistActivitySubscription(tasklistActivitySubscription *TasklistActivitySubscription) *CreateTasklistActivitySubscriptionReqBuilder {
 	builder.tasklistActivitySubscription = tasklistActivitySubscription
 	return builder
@@ -10179,7 +10633,7 @@ func NewDeleteTasklistActivitySubscriptionReqBuilder() *DeleteTasklistActivitySu
 	return builder
 }
 
-// 清单GUID
+// 清单GUID。可以通过[创建清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/create)，或者通过[获取清单列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/list)接口查询得到。
 //
 // 示例值：f5ca6747-5ac3-422e-a97e-972c1b2c24f3
 func (builder *DeleteTasklistActivitySubscriptionReqBuilder) TasklistGuid(tasklistGuid string) *DeleteTasklistActivitySubscriptionReqBuilder {
@@ -10187,7 +10641,7 @@ func (builder *DeleteTasklistActivitySubscriptionReqBuilder) TasklistGuid(taskli
 	return builder
 }
 
-// 要删除的订阅GUID
+// 要删除的订阅GUID。可以通过[创建动态订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/create)接口创建，或者通过[列取动态订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/list)查询得到。
 //
 // 示例值：d19e3a2a-edc0-4e4e-b7cc-950e162b53ae
 func (builder *DeleteTasklistActivitySubscriptionReqBuilder) ActivitySubscriptionGuid(activitySubscriptionGuid string) *DeleteTasklistActivitySubscriptionReqBuilder {
@@ -10228,7 +10682,7 @@ func NewGetTasklistActivitySubscriptionReqBuilder() *GetTasklistActivitySubscrip
 	return builder
 }
 
-// 清单GUID
+// 清单GUID。可以通过[创建清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/create)，或者通过[获取清单列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/list)接口查询得到。
 //
 // 示例值：33991879-704f-444f-81d7-55a6aa7be80c
 func (builder *GetTasklistActivitySubscriptionReqBuilder) TasklistGuid(tasklistGuid string) *GetTasklistActivitySubscriptionReqBuilder {
@@ -10236,7 +10690,7 @@ func (builder *GetTasklistActivitySubscriptionReqBuilder) TasklistGuid(tasklistG
 	return builder
 }
 
-// 订阅GUID
+// 订阅GUID。可以通过[创建动态订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/create)接口创建，或者通过[列取动态订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/list)查询得到。
 //
 // 示例值：33991879-704f-444f-81d7-55a6aa7be80c
 func (builder *GetTasklistActivitySubscriptionReqBuilder) ActivitySubscriptionGuid(activitySubscriptionGuid string) *GetTasklistActivitySubscriptionReqBuilder {
@@ -10291,7 +10745,7 @@ func NewListTasklistActivitySubscriptionReqBuilder() *ListTasklistActivitySubscr
 	return builder
 }
 
-// 清单GUID
+// 清单GUID。可以通过[创建清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/create)，或者通过[获取清单列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/list)接口查询得到。
 //
 // 示例值：d19e3a2a-edc0-4e4e-b7cc-950e162b53ae
 func (builder *ListTasklistActivitySubscriptionReqBuilder) TasklistGuid(tasklistGuid string) *ListTasklistActivitySubscriptionReqBuilder {
@@ -10345,7 +10799,7 @@ type PatchTasklistActivitySubscriptionReqBodyBuilder struct {
 	activitySubscription    *TasklistActivitySubscription // 要更新的订阅数据
 	activitySubscriptionSet bool
 
-	updateFields    []string // 要更新的字段
+	updateFields    []string // 要更新的字段列表。
 	updateFieldsSet bool
 }
 
@@ -10356,16 +10810,16 @@ func NewPatchTasklistActivitySubscriptionReqBodyBuilder() *PatchTasklistActivity
 
 // 要更新的订阅数据
 //
-//示例值：
+// 示例值：
 func (builder *PatchTasklistActivitySubscriptionReqBodyBuilder) ActivitySubscription(activitySubscription *TasklistActivitySubscription) *PatchTasklistActivitySubscriptionReqBodyBuilder {
 	builder.activitySubscription = activitySubscription
 	builder.activitySubscriptionSet = true
 	return builder
 }
 
-// 要更新的字段
+// 要更新的字段列表。
 //
-//示例值：
+// 示例值：
 func (builder *PatchTasklistActivitySubscriptionReqBodyBuilder) UpdateFields(updateFields []string) *PatchTasklistActivitySubscriptionReqBodyBuilder {
 	builder.updateFields = updateFields
 	builder.updateFieldsSet = true
@@ -10404,7 +10858,7 @@ func (builder *PatchTasklistActivitySubscriptionPathReqBodyBuilder) ActivitySubs
 	return builder
 }
 
-// 要更新的字段
+// 要更新的字段列表。
 //
 // 示例值：
 func (builder *PatchTasklistActivitySubscriptionPathReqBodyBuilder) UpdateFields(updateFields []string) *PatchTasklistActivitySubscriptionPathReqBodyBuilder {
@@ -10438,7 +10892,7 @@ func NewPatchTasklistActivitySubscriptionReqBuilder() *PatchTasklistActivitySubs
 	return builder
 }
 
-// 清单GUID
+// 清单GUID。可以通过[创建清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/create)，或者通过[获取清单列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/list)接口查询得到。
 //
 // 示例值：33991879-704f-444f-81d7-55a6aa7be80c
 func (builder *PatchTasklistActivitySubscriptionReqBuilder) TasklistGuid(tasklistGuid string) *PatchTasklistActivitySubscriptionReqBuilder {
@@ -10446,7 +10900,7 @@ func (builder *PatchTasklistActivitySubscriptionReqBuilder) TasklistGuid(tasklis
 	return builder
 }
 
-// 要更新的动态订阅GUID
+// 要更新的动态订阅GUID。可以通过[创建动态订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/create)接口创建，或者通过[列取动态订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/list)查询得到。
 //
 // 示例值：f5ca6747-5ac3-422e-a97e-972c1b2c24f3
 func (builder *PatchTasklistActivitySubscriptionReqBuilder) ActivitySubscriptionGuid(activitySubscriptionGuid string) *PatchTasklistActivitySubscriptionReqBuilder {
@@ -10462,7 +10916,7 @@ func (builder *PatchTasklistActivitySubscriptionReqBuilder) UserIdType(userIdTyp
 	return builder
 }
 
-//
+// 提供一个清单的GUID和一个动态订阅的GUID，对其进行更新。更新时，将`update_fields`字段中填写所有要修改的字段名，同时在`activity_subscription`字段中填写要修改的字段的新值即可。;;`update_fields`支持更新的字段包括：;* name：订阅的名称;* subscribers: 订阅者列表。如更新，会将旧的订阅者列表完全替换为新的订阅者列表。支持最大50个订阅者。并且订阅者必须是chat类型。;* include_keys ：订阅需要发送通知的key。如更新，会将旧的列表完全替换为新的include_keys列表。只能设置支持的event keys (见字段描述）。;* disabled：修改订阅的开启/禁用状态。
 func (builder *PatchTasklistActivitySubscriptionReqBuilder) Body(body *PatchTasklistActivitySubscriptionReqBody) *PatchTasklistActivitySubscriptionReqBuilder {
 	builder.body = body
 	return builder
@@ -10480,7 +10934,7 @@ func (builder *PatchTasklistActivitySubscriptionReqBuilder) Build() *PatchTaskli
 type PatchTasklistActivitySubscriptionReqBody struct {
 	ActivitySubscription *TasklistActivitySubscription `json:"activity_subscription,omitempty"` // 要更新的订阅数据
 
-	UpdateFields []string `json:"update_fields,omitempty"` // 要更新的字段
+	UpdateFields []string `json:"update_fields,omitempty"` // 要更新的字段列表。
 }
 
 type PatchTasklistActivitySubscriptionReq struct {
@@ -10503,7 +10957,7 @@ func (resp *PatchTasklistActivitySubscriptionResp) Success() bool {
 }
 
 type P2TaskUpdateUserAccessV2Data struct {
-	EventTypes []string `json:"event_types,omitempty"` // 事件类型
+	EventTypes []string `json:"event_types,omitempty"` // 事件类型;```text;task_assignees_update // 任务负责人变更;task_completed_update // 任务完整状态变更;task_create // 任务创建;task_deleted // 任务删除;task_desc_update // 任务描述变更;task_followers_update // 任务关注人变更;task_reminders_update // 任务提醒事件变更;task_start_due_update // 任务开始和截止时间变更;task_summary_update // 任务标题变更;```
 
 	TaskGuid *string `json:"task_guid,omitempty"` // 任务GUID
 }
@@ -10842,6 +11296,60 @@ func (iterator *ListTaskIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 
+type SearchTaskIterator struct {
+	nextPageToken *string
+	items         []*TaskSearchItem
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchTaskReq
+	listFunc      func(ctx context.Context, req *SearchTaskReq, options ...larkcore.RequestOptionFunc) (*SearchTaskResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchTaskIterator) Next() (bool, *TaskSearchItem, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *SearchTaskIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
 type ListTaskSubtaskIterator struct {
 	nextPageToken *string
 	items         []*Task
@@ -11001,5 +11509,59 @@ func (iterator *ListTasklistIterator) Next() (bool, *Tasklist, error) {
 }
 
 func (iterator *ListTasklistIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type SearchTasklistIterator struct {
+	nextPageToken *string
+	items         []*TasklistSearchItem
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchTasklistReq
+	listFunc      func(ctx context.Context, req *SearchTasklistReq, options ...larkcore.RequestOptionFunc) (*SearchTasklistResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchTasklistIterator) Next() (bool, *TasklistSearchItem, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *SearchTasklistIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }

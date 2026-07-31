@@ -10,8 +10,8 @@ import (
 )
 
 type V1 struct {
-	Attachment *attachment // 飞书人事（标准版)
-	Employee   *employee   // 飞书人事（标准版)
+	Attachment *attachment // attachment
+	Employee   *employee   // employee
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -28,13 +28,13 @@ type employee struct {
 	config *larkcore.Config
 }
 
-// Get 下载附件
+// Get 下载人员的附件
 //
 // - 根据文件 token 下载文件。;;调用 「批量获取员工花名册信息」接口的返回值中，「文件」类型的字段 id，即是文件 token
 //
 // - ![image.png](//sf1-ttcdn-tos.pstatp.com/obj/open-platform-opendoc/bed391d2a8ce6ed2d5985ea69bf92850_9GY1mnuDXP.png)
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/attachment/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=ehr&resource=attachment&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ehrv1/get_attachment.go
 func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...larkcore.RequestOptionFunc) (*GetAttachmentResp, error) {
@@ -64,9 +64,9 @@ func (a *attachment) Get(ctx context.Context, req *GetAttachmentReq, options ...
 
 // List 批量获取员工花名册信息
 //
-// - 根据员工飞书用户 ID / 员工状态 / 雇员类型等搜索条件 ，批量获取员工花名册字段信息。字段包括「系统标准字段 / system_fields」和「自定义字段 / custom_fields」
+// - 根据员工飞书用户 ID / 员工状态 / 雇员类型等搜索条件 ，批量获取员工花名册字段信息。字段包括「系统标准字段 / system_fields」和「自定义字段 / custom_fields」。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/employee/list
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=ehr&resource=employee&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/ehrv1/list_employee.go
 func (e *employee) List(ctx context.Context, req *ListEmployeeReq, options ...larkcore.RequestOptionFunc) (*ListEmployeeResp, error) {

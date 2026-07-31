@@ -75,8 +75,8 @@ const (
 const (
 	ConvertCommonDataIdIDTransformTypeCoreHR2Feishu = 1 // 飞书人事 -> 飞书通讯录
 	ConvertCommonDataIdIDTransformTypeFeishu2CoreHR = 2 // 飞书通讯录 -> 飞书人事
-	ConvertCommonDataIdIDTransformTypeAdmin2Feishu  = 3 // people admin -> 飞书人事
-	ConvertCommonDataIdIDTransformTypeAdmin2CoreHR  = 4 // people admin -> 飞书通讯录
+	ConvertCommonDataIdIDTransformTypeAdmin2Feishu  = 3 // people admin -> 飞书通讯录
+	ConvertCommonDataIdIDTransformTypeAdmin2CoreHR  = 4 // people admin -> 飞书人事
 
 )
 
@@ -85,7 +85,7 @@ const (
 	ConvertCommonDataIdIDTypeDepartmentID   = "department_id"    // 部门ID，当选择 department_id 且 id_transform_type 为 1、2、4 时，feishu_department_id_type 必填
 	ConvertCommonDataIdIDTypeJobLevelID     = "job_level_id"     // 职级ID
 	ConvertCommonDataIdIDTypeJobFamilyID    = "job_family_id"    // 序列ID
-	ConvertCommonDataIdIDTypeEmployeeTypeID = "employee_type_id" // 人员类型ID
+	ConvertCommonDataIdIDTypeEmployeeTypeID = "employee_type_id" // 人员类型ID，people admin 的人员类型ID 即为飞书通讯录人员类型的 enum_value，因此id_transform_type 为 3 时无须转换
 )
 
 const (
@@ -107,9 +107,9 @@ const (
 )
 
 const (
-	MatchCompensationStandardDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	MatchCompensationStandardDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	MatchCompensationStandardDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+	MatchCompensationStandardDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 【飞书】用来在具体某个应用中标识一个部门，同一个department_id 在不同应用中的 open_department_id 相同。
+	MatchCompensationStandardDepartmentIDTypeDepartmentId             = "department_id"               // 【飞书】用来标识租户内一个唯一的部门。
+	MatchCompensationStandardDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 【飞书人事】用来标识「飞书人事」中的部门。
 )
 
 const (
@@ -131,9 +131,9 @@ const (
 )
 
 const (
-	CreateDepartmentDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	CreateDepartmentDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	CreateDepartmentDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+	CreateDepartmentDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 【飞书】用来在具体某个应用中标识一个部门，同一个department_id 在不同应用中的 open_department_id 相同。
+	CreateDepartmentDepartmentIDTypeDepartmentId             = "department_id"               // 【飞书】用来标识租户内一个唯一的部门。
+	CreateDepartmentDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 【飞书人事】用来标识「飞书人事」中的部门。
 )
 
 const (
@@ -196,8 +196,8 @@ const (
 )
 
 const (
-	CreateJobChangeTransferMode1 = 1 // 直接异动
-	CreateJobChangeTransferMode2 = 2 // 发起异动
+	CreateJobChangeTransferMode1 = 1 // 直接异动（无审批）
+	CreateJobChangeTransferMode2 = 2 // 正常异动（完整流程）
 
 )
 
@@ -223,9 +223,9 @@ const (
 )
 
 const (
-	CreateJobDataDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	CreateJobDataDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	CreateJobDataDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+	CreateJobDataDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 【飞书】用来在具体某个应用中标识一个部门，同一个 department_id 在不同应用中的 open_department_id 相同。
+	CreateJobDataDepartmentIDTypeDepartmentId             = "department_id"               // 【飞书】用来标识租户内一个唯一的部门。
+	CreateJobDataDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 【飞书人事】用来标识「飞书人事」中的部门。
 )
 
 const (
@@ -262,9 +262,9 @@ const (
 )
 
 const (
-	PatchJobDataDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	PatchJobDataDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	PatchJobDataDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+	PatchJobDataDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 【飞书】用来在具体某个应用中标识一个部门，同一个 department_id 在不同应用中的 open_department_id 相同。
+	PatchJobDataDepartmentIDTypeDepartmentId             = "department_id"               // 【飞书】用来标识租户内一个唯一的部门。
+	PatchJobDataDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 【飞书人事】用来标识「飞书人事」中的部门。
 )
 
 const (
@@ -1024,7 +1024,7 @@ func (builder *ApplicationInfoBuilder) Build() *ApplicationInfo {
 type AssignedOrganization struct {
 	OrgKey *string `json:"org_key,omitempty"` // 管理对象key
 
-	OrgName *Name `json:"org_name,omitempty"` // 管理对象名称
+	OrgName *Name `json:"org_name,omitempty"` // 字段名称
 
 	OrgIdList []string `json:"org_id_list,omitempty"` // 管理对象id列表
 }
@@ -1033,7 +1033,7 @@ type AssignedOrganizationBuilder struct {
 	orgKey    string // 管理对象key
 	orgKeySet bool
 
-	orgName    *Name // 管理对象名称
+	orgName    *Name // 字段名称
 	orgNameSet bool
 
 	orgIdList    []string // 管理对象id列表
@@ -1054,7 +1054,7 @@ func (builder *AssignedOrganizationBuilder) OrgKey(orgKey string) *AssignedOrgan
 	return builder
 }
 
-// 管理对象名称
+// 字段名称
 //
 // 示例值：
 func (builder *AssignedOrganizationBuilder) OrgName(orgName *Name) *AssignedOrganizationBuilder {
@@ -1156,14 +1156,14 @@ func (builder *AssignedOrganizationWithCodeBuilder) Build() *AssignedOrganizatio
 type AttachmentFieldSetting struct {
 	IsMultiple *bool `json:"is_multiple,omitempty"` // 是否支持多个文件
 
-	FileType *int `json:"file_type,omitempty"` // 文件类型枚举，具体如下：;1. jpeg ;2. png ;3. gif ;4. pdf ;5. docx ;6. doc ;7. csv;8. xls ;9. txt ;10. xlsx;11. mp4 ;12. pptx;13. ppt;14. json;15. zip;16. rar
+	FileType *int `json:"file_type,omitempty"` // 废弃属性，不建议使用，通常为空值
 }
 
 type AttachmentFieldSettingBuilder struct {
 	isMultiple    bool // 是否支持多个文件
 	isMultipleSet bool
 
-	fileType    int // 文件类型枚举，具体如下：;1. jpeg ;2. png ;3. gif ;4. pdf ;5. docx ;6. doc ;7. csv;8. xls ;9. txt ;10. xlsx;11. mp4 ;12. pptx;13. ppt;14. json;15. zip;16. rar
+	fileType    int // 废弃属性，不建议使用，通常为空值
 	fileTypeSet bool
 }
 
@@ -1181,7 +1181,7 @@ func (builder *AttachmentFieldSettingBuilder) IsMultiple(isMultiple bool) *Attac
 	return builder
 }
 
-// 文件类型枚举，具体如下：;1. jpeg ;2. png ;3. gif ;4. pdf ;5. docx ;6. doc ;7. csv;8. xls ;9. txt ;10. xlsx;11. mp4 ;12. pptx;13. ppt;14. json;15. zip;16. rar
+// 废弃属性，不建议使用，通常为空值
 //
 // 示例值：1
 func (builder *AttachmentFieldSettingBuilder) FileType(fileType int) *AttachmentFieldSettingBuilder {
@@ -1254,7 +1254,7 @@ func NewBackgroundCheckBuilder() *BackgroundCheckBuilder {
 
 // 背调ID
 //
-// 示例值：
+// 示例值：11
 func (builder *BackgroundCheckBuilder) Id(id string) *BackgroundCheckBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -1263,7 +1263,7 @@ func (builder *BackgroundCheckBuilder) Id(id string) *BackgroundCheckBuilder {
 
 // 套餐
 //
-// 示例值：
+// 示例值：1
 func (builder *BackgroundCheckBuilder) Package(package_ int) *BackgroundCheckBuilder {
 	builder.package_ = package_
 	builder.package_Set = true
@@ -1272,7 +1272,7 @@ func (builder *BackgroundCheckBuilder) Package(package_ int) *BackgroundCheckBui
 
 // 状态
 //
-// 示例值：
+// 示例值：2
 func (builder *BackgroundCheckBuilder) Status(status int) *BackgroundCheckBuilder {
 	builder.status = status
 	builder.statusSet = true
@@ -1281,7 +1281,7 @@ func (builder *BackgroundCheckBuilder) Status(status int) *BackgroundCheckBuilde
 
 // 创建时间
 //
-// 示例值：
+// 示例值：2021-01-01
 func (builder *BackgroundCheckBuilder) CreatedTime(createdTime string) *BackgroundCheckBuilder {
 	builder.createdTime = createdTime
 	builder.createdTimeSet = true
@@ -1290,7 +1290,7 @@ func (builder *BackgroundCheckBuilder) CreatedTime(createdTime string) *Backgrou
 
 // 修改时间
 //
-// 示例值：
+// 示例值：2021-01-01
 func (builder *BackgroundCheckBuilder) ModifiedTime(modifiedTime string) *BackgroundCheckBuilder {
 	builder.modifiedTime = modifiedTime
 	builder.modifiedTimeSet = true
@@ -1299,7 +1299,7 @@ func (builder *BackgroundCheckBuilder) ModifiedTime(modifiedTime string) *Backgr
 
 // 背调对象ID
 //
-// 示例值：
+// 示例值：1
 func (builder *BackgroundCheckBuilder) TargetId(targetId string) *BackgroundCheckBuilder {
 	builder.targetId = targetId
 	builder.targetIdSet = true
@@ -1308,7 +1308,7 @@ func (builder *BackgroundCheckBuilder) TargetId(targetId string) *BackgroundChec
 
 // 结果
 //
-// 示例值：
+// 示例值：1
 func (builder *BackgroundCheckBuilder) Outcome(outcome int) *BackgroundCheckBuilder {
 	builder.outcome = outcome
 	builder.outcomeSet = true
@@ -1381,7 +1381,7 @@ func NewBackgroundCheckCityBuilder() *BackgroundCheckCityBuilder {
 
 // 中文描述
 //
-// 示例值：
+// 示例值：北京
 func (builder *BackgroundCheckCityBuilder) ZhCn(zhCn string) *BackgroundCheckCityBuilder {
 	builder.zhCn = zhCn
 	builder.zhCnSet = true
@@ -1390,7 +1390,7 @@ func (builder *BackgroundCheckCityBuilder) ZhCn(zhCn string) *BackgroundCheckCit
 
 // 英文描述
 //
-// 示例值：
+// 示例值：Beijing
 func (builder *BackgroundCheckCityBuilder) EnUs(enUs string) *BackgroundCheckCityBuilder {
 	builder.enUs = enUs
 	builder.enUsSet = true
@@ -1431,7 +1431,7 @@ func NewBackgroundCheckCountryBuilder() *BackgroundCheckCountryBuilder {
 
 // 中文描述
 //
-// 示例值：
+// 示例值：中国
 func (builder *BackgroundCheckCountryBuilder) ZhCn(zhCn string) *BackgroundCheckCountryBuilder {
 	builder.zhCn = zhCn
 	builder.zhCnSet = true
@@ -1440,7 +1440,7 @@ func (builder *BackgroundCheckCountryBuilder) ZhCn(zhCn string) *BackgroundCheck
 
 // 英文描述
 //
-// 示例值：
+// 示例值：China
 func (builder *BackgroundCheckCountryBuilder) EnUs(enUs string) *BackgroundCheckCountryBuilder {
 	builder.enUs = enUs
 	builder.enUsSet = true
@@ -1476,7 +1476,7 @@ func NewBackgroundCheckReportObjectBuilder() *BackgroundCheckReportObjectBuilder
 
 // 链接
 //
-// 示例值：
+// 示例值：http://xxx.test
 func (builder *BackgroundCheckReportObjectBuilder) Url(url string) *BackgroundCheckReportObjectBuilder {
 	builder.url = url
 	builder.urlSet = true
@@ -1553,7 +1553,7 @@ func NewBackgroundCheckTargetBuilder() *BackgroundCheckTargetBuilder {
 
 // 背调对象ID
 //
-// 示例值：
+// 示例值：11
 func (builder *BackgroundCheckTargetBuilder) Id(id string) *BackgroundCheckTargetBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -1562,7 +1562,7 @@ func (builder *BackgroundCheckTargetBuilder) Id(id string) *BackgroundCheckTarge
 
 // 姓
 //
-// 示例值：
+// 示例值：张
 func (builder *BackgroundCheckTargetBuilder) FirstName(firstName string) *BackgroundCheckTargetBuilder {
 	builder.firstName = firstName
 	builder.firstNameSet = true
@@ -1571,7 +1571,7 @@ func (builder *BackgroundCheckTargetBuilder) FirstName(firstName string) *Backgr
 
 // 名
 //
-// 示例值：
+// 示例值：三
 func (builder *BackgroundCheckTargetBuilder) LastName(lastName string) *BackgroundCheckTargetBuilder {
 	builder.lastName = lastName
 	builder.lastNameSet = true
@@ -1580,7 +1580,7 @@ func (builder *BackgroundCheckTargetBuilder) LastName(lastName string) *Backgrou
 
 // 邮箱
 //
-// 示例值：
+// 示例值：xxxx@test.com
 func (builder *BackgroundCheckTargetBuilder) Email(email string) *BackgroundCheckTargetBuilder {
 	builder.email = email
 	builder.emailSet = true
@@ -1607,7 +1607,7 @@ func (builder *BackgroundCheckTargetBuilder) WorkCity(workCity *BackgroundCheckC
 
 // 职称
 //
-// 示例值：
+// 示例值：xx
 func (builder *BackgroundCheckTargetBuilder) JobTitle(jobTitle string) *BackgroundCheckTargetBuilder {
 	builder.jobTitle = jobTitle
 	builder.jobTitleSet = true
@@ -1616,7 +1616,7 @@ func (builder *BackgroundCheckTargetBuilder) JobTitle(jobTitle string) *Backgrou
 
 // offer HR的电子邮件
 //
-// 示例值：
+// 示例值：xx
 func (builder *BackgroundCheckTargetBuilder) OfferHrEmail(offerHrEmail string) *BackgroundCheckTargetBuilder {
 	builder.offerHrEmail = offerHrEmail
 	builder.offerHrEmailSet = true
@@ -1625,7 +1625,7 @@ func (builder *BackgroundCheckTargetBuilder) OfferHrEmail(offerHrEmail string) *
 
 // 业务单元
 //
-// 示例值：
+// 示例值：xx
 func (builder *BackgroundCheckTargetBuilder) BizUnit(bizUnit string) *BackgroundCheckTargetBuilder {
 	builder.bizUnit = bizUnit
 	builder.bizUnitSet = true
@@ -1634,7 +1634,7 @@ func (builder *BackgroundCheckTargetBuilder) BizUnit(bizUnit string) *Background
 
 // offer HR的部门ID
 //
-// 示例值：
+// 示例值：xx
 func (builder *BackgroundCheckTargetBuilder) OfferHrDepartmentId(offerHrDepartmentId string) *BackgroundCheckTargetBuilder {
 	builder.offerHrDepartmentId = offerHrDepartmentId
 	builder.offerHrDepartmentIdSet = true
@@ -1685,21 +1685,21 @@ func (builder *BackgroundCheckTargetBuilder) Build() *BackgroundCheckTarget {
 }
 
 type BankAccount struct {
-	BankName *string `json:"bank_name,omitempty"` // 银行名称，如果已经填入银行枚举，该字段可为空。如果要填写数据不在系统提供的枚举范围内，该字段存储自定义银行名称
+	BankName *string `json:"bank_name,omitempty"` // 银行名称
 
 	BankAccountNumber *string `json:"bank_account_number,omitempty"` // 银行账号
 
 	AccountHolder *string `json:"account_holder,omitempty"` // 开户人姓名
 
-	Bank *Enum `json:"bank,omitempty"` // 银行枚举，常见的银行枚举如：bank-5（交通银行）、bank-6（中国银行）、bank-7（中国建设银行）、bank-8（中国农业银行）、bank-9（中国工商银行）、bank-10（中国邮政储蓄银行）、bank-11（中国光大银行）、bank-12（中国民生银行）、bank-13（招商银行）、bank-14（中信银行）、bank-15（华夏银行）
+	Bank *Enum `json:"bank,omitempty"` // 银行名称（该字段待作废，请勿使用）
 
-	BankIdentificationCode *string `json:"bank_identification_code,omitempty"` // 银行识别码
+	BankIdentificationCode *string `json:"bank_identification_code,omitempty"` // 银行识别码（该字段待作废，请勿使用）
 
 	BranchName *string `json:"branch_name,omitempty"` // 支行名称
 
-	BankId *string `json:"bank_id,omitempty"` // 银行 ID
+	BankId *string `json:"bank_id,omitempty"` // 银行 ID，该字段已作废，请使用 bank_id_v2
 
-	BranchId *string `json:"branch_id,omitempty"` // 支行 ID
+	BranchId *string `json:"branch_id,omitempty"` // 支行 ID，该字段已作废，请使用 branch_id_v2
 
 	BankIdV2 *string `json:"bank_id_v2,omitempty"` // 银行 ID，详细信息可通过【查询银行信息】接口查询获得
 
@@ -1709,15 +1709,15 @@ type BankAccount struct {
 
 	CountryRegionId *string `json:"country_region_id,omitempty"` // 国家/地区id，详细信息可通过【查询国家/地区信息】接口查询获得
 
-	BankAccountUsage []*Enum `json:"bank_account_usage,omitempty"` // 银行卡用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡用途（bank_account_usage）枚举定义部分获得
+	BankAccountUsage []*Enum `json:"bank_account_usage,omitempty"` // 银行卡用途，枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
 
-	BankAccountType *Enum `json:"bank_account_type,omitempty"` // 银行卡类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡类型（bank_account_type）枚举定义部分获得
+	BankAccountType *Enum `json:"bank_account_type,omitempty"` // 银行卡类型，枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
 
 	CurrencyId *string `json:"currency_id,omitempty"` // 货币id
 }
 
 type BankAccountBuilder struct {
-	bankName    string // 银行名称，如果已经填入银行枚举，该字段可为空。如果要填写数据不在系统提供的枚举范围内，该字段存储自定义银行名称
+	bankName    string // 银行名称
 	bankNameSet bool
 
 	bankAccountNumber    string // 银行账号
@@ -1726,19 +1726,19 @@ type BankAccountBuilder struct {
 	accountHolder    string // 开户人姓名
 	accountHolderSet bool
 
-	bank    *Enum // 银行枚举，常见的银行枚举如：bank-5（交通银行）、bank-6（中国银行）、bank-7（中国建设银行）、bank-8（中国农业银行）、bank-9（中国工商银行）、bank-10（中国邮政储蓄银行）、bank-11（中国光大银行）、bank-12（中国民生银行）、bank-13（招商银行）、bank-14（中信银行）、bank-15（华夏银行）
+	bank    *Enum // 银行名称（该字段待作废，请勿使用）
 	bankSet bool
 
-	bankIdentificationCode    string // 银行识别码
+	bankIdentificationCode    string // 银行识别码（该字段待作废，请勿使用）
 	bankIdentificationCodeSet bool
 
 	branchName    string // 支行名称
 	branchNameSet bool
 
-	bankId    string // 银行 ID
+	bankId    string // 银行 ID，该字段已作废，请使用 bank_id_v2
 	bankIdSet bool
 
-	branchId    string // 支行 ID
+	branchId    string // 支行 ID，该字段已作废，请使用 branch_id_v2
 	branchIdSet bool
 
 	bankIdV2    string // 银行 ID，详细信息可通过【查询银行信息】接口查询获得
@@ -1753,10 +1753,10 @@ type BankAccountBuilder struct {
 	countryRegionId    string // 国家/地区id，详细信息可通过【查询国家/地区信息】接口查询获得
 	countryRegionIdSet bool
 
-	bankAccountUsage    []*Enum // 银行卡用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡用途（bank_account_usage）枚举定义部分获得
+	bankAccountUsage    []*Enum // 银行卡用途，枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
 	bankAccountUsageSet bool
 
-	bankAccountType    *Enum // 银行卡类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡类型（bank_account_type）枚举定义部分获得
+	bankAccountType    *Enum // 银行卡类型，枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
 	bankAccountTypeSet bool
 
 	currencyId    string // 货币id
@@ -1768,7 +1768,7 @@ func NewBankAccountBuilder() *BankAccountBuilder {
 	return builder
 }
 
-// 银行名称，如果已经填入银行枚举，该字段可为空。如果要填写数据不在系统提供的枚举范围内，该字段存储自定义银行名称
+// 银行名称
 //
 // 示例值：中国农业银行
 func (builder *BankAccountBuilder) BankName(bankName string) *BankAccountBuilder {
@@ -1795,7 +1795,7 @@ func (builder *BankAccountBuilder) AccountHolder(accountHolder string) *BankAcco
 	return builder
 }
 
-// 银行枚举，常见的银行枚举如：bank-5（交通银行）、bank-6（中国银行）、bank-7（中国建设银行）、bank-8（中国农业银行）、bank-9（中国工商银行）、bank-10（中国邮政储蓄银行）、bank-11（中国光大银行）、bank-12（中国民生银行）、bank-13（招商银行）、bank-14（中信银行）、bank-15（华夏银行）
+// 银行名称（该字段待作废，请勿使用）
 //
 // 示例值：
 func (builder *BankAccountBuilder) Bank(bank *Enum) *BankAccountBuilder {
@@ -1804,7 +1804,7 @@ func (builder *BankAccountBuilder) Bank(bank *Enum) *BankAccountBuilder {
 	return builder
 }
 
-// 银行识别码
+// 银行识别码（该字段待作废，请勿使用）
 //
 // 示例值：1234
 func (builder *BankAccountBuilder) BankIdentificationCode(bankIdentificationCode string) *BankAccountBuilder {
@@ -1822,7 +1822,7 @@ func (builder *BankAccountBuilder) BranchName(branchName string) *BankAccountBui
 	return builder
 }
 
-// 银行 ID
+// 银行 ID，该字段已作废，请使用 bank_id_v2
 //
 // 示例值：8
 func (builder *BankAccountBuilder) BankId(bankId string) *BankAccountBuilder {
@@ -1831,7 +1831,7 @@ func (builder *BankAccountBuilder) BankId(bankId string) *BankAccountBuilder {
 	return builder
 }
 
-// 支行 ID
+// 支行 ID，该字段已作废，请使用 branch_id_v2
 //
 // 示例值：12
 func (builder *BankAccountBuilder) BranchId(branchId string) *BankAccountBuilder {
@@ -1876,7 +1876,7 @@ func (builder *BankAccountBuilder) CountryRegionId(countryRegionId string) *Bank
 	return builder
 }
 
-// 银行卡用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡用途（bank_account_usage）枚举定义部分获得
+// 银行卡用途，枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
 //
 // 示例值：
 func (builder *BankAccountBuilder) BankAccountUsage(bankAccountUsage []*Enum) *BankAccountBuilder {
@@ -1885,7 +1885,7 @@ func (builder *BankAccountBuilder) BankAccountUsage(bankAccountUsage []*Enum) *B
 	return builder
 }
 
-// 银行卡类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡类型（bank_account_type）枚举定义部分获得
+// 银行卡类型，枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
 //
 // 示例值：
 func (builder *BankAccountBuilder) BankAccountType(bankAccountType *Enum) *BankAccountBuilder {
@@ -2103,19 +2103,19 @@ func (builder *BatchCheckFormInstanceI18nResultBuilder) Build() *BatchCheckFormI
 type BpRoleOrganization struct {
 	RoleKey *string `json:"role_key,omitempty"` // 角色类型的唯一标识;- HRBP：与部门有关，role_key 固定为 「hrbp」;- 属地 BP：与部门、工作地点有关，role_key 固定为 「location_bp」
 
-	DepartmentId *string `json:"department_id,omitempty"` // 部门 ID，查询 HRBP 需输入部门 ID
+	DepartmentId *string `json:"department_id,omitempty"` // 部门 ID，查询 HRBP 需输入部门 ID，ID类型与department_id_type的取值意义一致。; > ;可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)换取 ==department_id==; > ;部门id也可通过[搜索部门信息](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/department/search)接口获取。
 
-	WorkLocationId *string `json:"work_location_id,omitempty"` // 工作地点 ID，查询属地 BP 需要输入部门 ID 与 工作地点 ID
+	WorkLocationId *string `json:"work_location_id,omitempty"` // 工作地点 ID，查询属地 BP 需要输入部门 ID 与 工作地点 ID;>;可从[批量查询地点](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list)接口获取，或者在「[飞书人事](https://people.feishu.cn/people/)-组织管理-地点」中查看。
 }
 
 type BpRoleOrganizationBuilder struct {
 	roleKey    string // 角色类型的唯一标识;- HRBP：与部门有关，role_key 固定为 「hrbp」;- 属地 BP：与部门、工作地点有关，role_key 固定为 「location_bp」
 	roleKeySet bool
 
-	departmentId    string // 部门 ID，查询 HRBP 需输入部门 ID
+	departmentId    string // 部门 ID，查询 HRBP 需输入部门 ID，ID类型与department_id_type的取值意义一致。; > ;可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)换取 ==department_id==; > ;部门id也可通过[搜索部门信息](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/department/search)接口获取。
 	departmentIdSet bool
 
-	workLocationId    string // 工作地点 ID，查询属地 BP 需要输入部门 ID 与 工作地点 ID
+	workLocationId    string // 工作地点 ID，查询属地 BP 需要输入部门 ID 与 工作地点 ID;>;可从[批量查询地点](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list)接口获取，或者在「[飞书人事](https://people.feishu.cn/people/)-组织管理-地点」中查看。
 	workLocationIdSet bool
 }
 
@@ -2133,7 +2133,7 @@ func (builder *BpRoleOrganizationBuilder) RoleKey(roleKey string) *BpRoleOrganiz
 	return builder
 }
 
-// 部门 ID，查询 HRBP 需输入部门 ID
+// 部门 ID，查询 HRBP 需输入部门 ID，ID类型与department_id_type的取值意义一致。; > ;可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)换取 ==department_id==; > ;部门id也可通过[搜索部门信息](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/department/search)接口获取。
 //
 // 示例值：7063072995761456670
 func (builder *BpRoleOrganizationBuilder) DepartmentId(departmentId string) *BpRoleOrganizationBuilder {
@@ -2142,7 +2142,7 @@ func (builder *BpRoleOrganizationBuilder) DepartmentId(departmentId string) *BpR
 	return builder
 }
 
-// 工作地点 ID，查询属地 BP 需要输入部门 ID 与 工作地点 ID
+// 工作地点 ID，查询属地 BP 需要输入部门 ID 与 工作地点 ID;>;可从[批量查询地点](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list)接口获取，或者在「[飞书人事](https://people.feishu.cn/people/)-组织管理-地点」中查看。
 //
 // 示例值：6892687221355185677
 func (builder *BpRoleOrganizationBuilder) WorkLocationId(workLocationId string) *BpRoleOrganizationBuilder {
@@ -2169,16 +2169,16 @@ func (builder *BpRoleOrganizationBuilder) Build() *BpRoleOrganization {
 }
 
 type BpmDataengineI18n struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // i18n类型字段，中文值
+	ZhCn *string `json:"zh_cn,omitempty"` // （基于系统兼容性，该参数名称在文档中展示为zh_cn，但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段，中文值
 
-	EnUs *string `json:"en_us,omitempty"` // i18n类型字段，英文值
+	EnUs *string `json:"en_us,omitempty"` // （基于系统兼容性，该参数名称在文档中展示为en_us，但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段，英文值
 }
 
 type BpmDataengineI18nBuilder struct {
-	zhCn    string // i18n类型字段，中文值
+	zhCn    string // （基于系统兼容性，该参数名称在文档中展示为zh_cn，但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段，中文值
 	zhCnSet bool
 
-	enUs    string // i18n类型字段，英文值
+	enUs    string // （基于系统兼容性，该参数名称在文档中展示为en_us，但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段，英文值
 	enUsSet bool
 }
 
@@ -2187,18 +2187,18 @@ func NewBpmDataengineI18nBuilder() *BpmDataengineI18nBuilder {
 	return builder
 }
 
-// i18n类型字段，中文值
+// （基于系统兼容性，该参数名称在文档中展示为zh_cn，但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段，中文值
 //
-// 示例值：北京
+// 示例值：申请人为空
 func (builder *BpmDataengineI18nBuilder) ZhCn(zhCn string) *BpmDataengineI18nBuilder {
 	builder.zhCn = zhCn
 	builder.zhCnSet = true
 	return builder
 }
 
-// i18n类型字段，英文值
+// （基于系统兼容性，该参数名称在文档中展示为en_us，但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段，英文值
 //
-// 示例值：Beijing
+// 示例值：Applicant Is empty
 func (builder *BpmDataengineI18nBuilder) EnUs(enUs string) *BpmDataengineI18nBuilder {
 	builder.enUs = enUs
 	builder.enUsSet = true
@@ -2301,41 +2301,41 @@ func (builder *CalculatedFieldSettingBuilder) Build() *CalculatedFieldSetting {
 }
 
 type CalendarDateByDateFilter struct {
-	WkCalendarIds []string `json:"wk_calendar_ids,omitempty"` // 工作日历WKID列表，最多100
+	WkCalendarIds []string `json:"wk_calendar_ids,omitempty"` // 工作日历ID列表，最多100；可以通过[获取工作日历;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar) 获取工作日历ID
 
-	Dates []string `json:"dates,omitempty"` // 日期，格式："2006-01-02"，最多50个
+	Dates []string `json:"dates,omitempty"` // 日期，格式："2006-01-02"，最多50个；;;**注意**：;- 如果不传 ids 参数，则必须传 dates 参数或 [begin_date，end_date]参数;- 如果传 ids 参数，则仅生效 ids 参数，无需传 dates 参数或 [begin_date，end_date]参数
 
-	BeginDate *string `json:"begin_date,omitempty"` // 日期范围-开始日期，格式："2006-01-02"
+	BeginDate *string `json:"begin_date,omitempty"` // 日期范围-开始日期，格式："2006-01-02"；需要和end_date一起使用；;;**注意**：;- 如果不传 ids 参数，则必须传 dates 参数或 [begin_date，end_date]参数;- 如果传 ids 参数，则仅生效 ids 参数，无需传 dates 参数或 [begin_date，end_date]参数
 
-	EndDate *string `json:"end_date,omitempty"` // 日期范围-结束日期(含)，格式："2006-01-02"
+	EndDate *string `json:"end_date,omitempty"` // 日期范围-结束日期(含)，格式："2006-01-02"；需要和begin_date一起使用
 
 	Offset *int `json:"offset,omitempty"` // 分页
 
-	Limit *int `json:"limit,omitempty"` // 分页大小
+	Limit *int `json:"limit,omitempty"` // 分页大小，无默认值需手动设置
 
-	Ids []string `json:"ids,omitempty"` // 日期id，与其他筛选参数互斥，传了该参数，其他筛选参数不起效
+	Ids []string `json:"ids,omitempty"` // 日期id，可使用响应体中的data.calendar_dates.id;;**注意**：;- 如果不传 ids 参数，则必须传 dates 参数或 [begin_date，end_date]参数;- 如果传 ids 参数，则仅生效 ids 参数，无需传 dates 参数或 [begin_date，end_date]参数
 }
 
 type CalendarDateByDateFilterBuilder struct {
-	wkCalendarIds    []string // 工作日历WKID列表，最多100
+	wkCalendarIds    []string // 工作日历ID列表，最多100；可以通过[获取工作日历;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar) 获取工作日历ID
 	wkCalendarIdsSet bool
 
-	dates    []string // 日期，格式："2006-01-02"，最多50个
+	dates    []string // 日期，格式："2006-01-02"，最多50个；;;**注意**：;- 如果不传 ids 参数，则必须传 dates 参数或 [begin_date，end_date]参数;- 如果传 ids 参数，则仅生效 ids 参数，无需传 dates 参数或 [begin_date，end_date]参数
 	datesSet bool
 
-	beginDate    string // 日期范围-开始日期，格式："2006-01-02"
+	beginDate    string // 日期范围-开始日期，格式："2006-01-02"；需要和end_date一起使用；;;**注意**：;- 如果不传 ids 参数，则必须传 dates 参数或 [begin_date，end_date]参数;- 如果传 ids 参数，则仅生效 ids 参数，无需传 dates 参数或 [begin_date，end_date]参数
 	beginDateSet bool
 
-	endDate    string // 日期范围-结束日期(含)，格式："2006-01-02"
+	endDate    string // 日期范围-结束日期(含)，格式："2006-01-02"；需要和begin_date一起使用
 	endDateSet bool
 
 	offset    int // 分页
 	offsetSet bool
 
-	limit    int // 分页大小
+	limit    int // 分页大小，无默认值需手动设置
 	limitSet bool
 
-	ids    []string // 日期id，与其他筛选参数互斥，传了该参数，其他筛选参数不起效
+	ids    []string // 日期id，可使用响应体中的data.calendar_dates.id;;**注意**：;- 如果不传 ids 参数，则必须传 dates 参数或 [begin_date，end_date]参数;- 如果传 ids 参数，则仅生效 ids 参数，无需传 dates 参数或 [begin_date，end_date]参数
 	idsSet bool
 }
 
@@ -2344,7 +2344,7 @@ func NewCalendarDateByDateFilterBuilder() *CalendarDateByDateFilterBuilder {
 	return builder
 }
 
-// 工作日历WKID列表，最多100
+// 工作日历ID列表，最多100；可以通过[获取工作日历;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar) 获取工作日历ID
 //
 // 示例值："7390282135276635692"
 func (builder *CalendarDateByDateFilterBuilder) WkCalendarIds(wkCalendarIds []string) *CalendarDateByDateFilterBuilder {
@@ -2353,7 +2353,7 @@ func (builder *CalendarDateByDateFilterBuilder) WkCalendarIds(wkCalendarIds []st
 	return builder
 }
 
-// 日期，格式："2006-01-02"，最多50个
+// 日期，格式："2006-01-02"，最多50个；;;**注意**：;- 如果不传 ids 参数，则必须传 dates 参数或 [begin_date，end_date]参数;- 如果传 ids 参数，则仅生效 ids 参数，无需传 dates 参数或 [begin_date，end_date]参数
 //
 // 示例值：
 func (builder *CalendarDateByDateFilterBuilder) Dates(dates []string) *CalendarDateByDateFilterBuilder {
@@ -2362,18 +2362,18 @@ func (builder *CalendarDateByDateFilterBuilder) Dates(dates []string) *CalendarD
 	return builder
 }
 
-// 日期范围-开始日期，格式："2006-01-02"
+// 日期范围-开始日期，格式："2006-01-02"；需要和end_date一起使用；;;**注意**：;- 如果不传 ids 参数，则必须传 dates 参数或 [begin_date，end_date]参数;- 如果传 ids 参数，则仅生效 ids 参数，无需传 dates 参数或 [begin_date，end_date]参数
 //
-// 示例值："2006-01-02"
+// 示例值：2006-01-02
 func (builder *CalendarDateByDateFilterBuilder) BeginDate(beginDate string) *CalendarDateByDateFilterBuilder {
 	builder.beginDate = beginDate
 	builder.beginDateSet = true
 	return builder
 }
 
-// 日期范围-结束日期(含)，格式："2006-01-02"
+// 日期范围-结束日期(含)，格式："2006-01-02"；需要和begin_date一起使用
 //
-// 示例值："2006-01-02"
+// 示例值：2006-01-02
 func (builder *CalendarDateByDateFilterBuilder) EndDate(endDate string) *CalendarDateByDateFilterBuilder {
 	builder.endDate = endDate
 	builder.endDateSet = true
@@ -2389,7 +2389,7 @@ func (builder *CalendarDateByDateFilterBuilder) Offset(offset int) *CalendarDate
 	return builder
 }
 
-// 分页大小
+// 分页大小，无默认值需手动设置
 //
 // 示例值：10
 func (builder *CalendarDateByDateFilterBuilder) Limit(limit int) *CalendarDateByDateFilterBuilder {
@@ -2398,7 +2398,7 @@ func (builder *CalendarDateByDateFilterBuilder) Limit(limit int) *CalendarDateBy
 	return builder
 }
 
-// 日期id，与其他筛选参数互斥，传了该参数，其他筛选参数不起效
+// 日期id，可使用响应体中的data.calendar_dates.id;;**注意**：;- 如果不传 ids 参数，则必须传 dates 参数或 [begin_date，end_date]参数;- 如果传 ids 参数，则仅生效 ids 参数，无需传 dates 参数或 [begin_date，end_date]参数
 //
 // 示例值：
 func (builder *CalendarDateByDateFilterBuilder) Ids(ids []string) *CalendarDateByDateFilterBuilder {
@@ -2588,23 +2588,23 @@ func (builder *CommonSchemaConfigBuilder) Build() *CommonSchemaConfig {
 }
 
 type CommonSchemaOption struct {
-	ApiName *string `json:"api_name,omitempty"` // 选项 api_name，即选项的唯一标识
+	ApiName *string `json:"api_name,omitempty"` // 枚举常量集 API name，即一组选项集合的唯一标识。系统预置的枚举常量集可在[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)文档中查询到
 
-	Name *Name `json:"name,omitempty"` // 选项名称
+	Name *Name `json:"name,omitempty"` // 字段名称
 
-	Description *Name `json:"description,omitempty"` // 选项描述
+	Description *Name `json:"description,omitempty"` // 字段名称
 
 	IsOpen *bool `json:"is_open,omitempty"` // 是否启用
 }
 
 type CommonSchemaOptionBuilder struct {
-	apiName    string // 选项 api_name，即选项的唯一标识
+	apiName    string // 枚举常量集 API name，即一组选项集合的唯一标识。系统预置的枚举常量集可在[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)文档中查询到
 	apiNameSet bool
 
-	name    *Name // 选项名称
+	name    *Name // 字段名称
 	nameSet bool
 
-	description    *Name // 选项描述
+	description    *Name // 字段名称
 	descriptionSet bool
 
 	isOpen    bool // 是否启用
@@ -2616,16 +2616,16 @@ func NewCommonSchemaOptionBuilder() *CommonSchemaOptionBuilder {
 	return builder
 }
 
-// 选项 api_name，即选项的唯一标识
+// 枚举常量集 API name，即一组选项集合的唯一标识。系统预置的枚举常量集可在[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)文档中查询到
 //
-// 示例值：custom_field_33
+// 示例值：custom_enum_option_33
 func (builder *CommonSchemaOptionBuilder) ApiName(apiName string) *CommonSchemaOptionBuilder {
 	builder.apiName = apiName
 	builder.apiNameSet = true
 	return builder
 }
 
-// 选项名称
+// 字段名称
 //
 // 示例值：
 func (builder *CommonSchemaOptionBuilder) Name(name *Name) *CommonSchemaOptionBuilder {
@@ -2634,7 +2634,7 @@ func (builder *CommonSchemaOptionBuilder) Name(name *Name) *CommonSchemaOptionBu
 	return builder
 }
 
-// 选项描述
+// 字段名称
 //
 // 示例值：
 func (builder *CommonSchemaOptionBuilder) Description(description *Name) *CommonSchemaOptionBuilder {
@@ -2672,37 +2672,37 @@ func (builder *CommonSchemaOptionBuilder) Build() *CommonSchemaOption {
 }
 
 type Company struct {
-	Id *string `json:"id,omitempty"` // 公司 ID
+	Id *string `json:"id,omitempty"` // 实体在CoreHR内部的唯一键
 
 	HiberarchyCommon *HiberarchyCommon `json:"hiberarchy_common,omitempty"` // 层级关系，内层字段见实体
 
-	Type *Enum `json:"type,omitempty"` // 性质，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
+	Type *Enum `json:"type,omitempty"` // 性质
 
-	IndustryList []*Enum `json:"industry_list,omitempty"` // 行业，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
+	IndustryList []*Enum `json:"industry_list,omitempty"` // 所在行业，通过[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数：object_api_name=company；custom_api_name=industry。
 
 	LegalRepresentative []*I18n `json:"legal_representative,omitempty"` // 法定代表人
 
-	PostCode *string `json:"post_code,omitempty"` // 邮编
+	PostCode *string `json:"post_code,omitempty"` // 邮编（该字段已废弃，可忽略）
 
 	TaxPayerId *string `json:"tax_payer_id,omitempty"` // 纳税人识别号
 
-	Confidential *bool `json:"confidential,omitempty"` // 是否保密
+	Confidential *bool `json:"confidential,omitempty"` // 是否保密（该字段暂不支持，可忽略）
 
-	SubTypeList []*Enum `json:"sub_type_list,omitempty"` // 主体类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
+	SubTypeList []*Enum `json:"sub_type_list,omitempty"` // 公司主体类型，通过[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数：object_api_name=company；custom_api_name=subtype。
 
-	BranchCompany *bool `json:"branch_company,omitempty"` // 是否为分公司
+	BranchCompany *bool `json:"branch_company,omitempty"` // 是否为分公司;- 是分公司时，主要负责人生效。;- 不是分公司时，法定代表人生效。
 
-	PrimaryManager []*I18n `json:"primary_manager,omitempty"` // 主要负责人
+	PrimaryManager []*I18n `json:"primary_manager,omitempty"` // 主要负责人;- 是分公司时，该字段填入才有效。;- 不是分公司时，填入该字段无效。
 
 	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 
-	Currency *Currency `json:"currency,omitempty"` // 默认币种
+	Currency *Currency `json:"currency,omitempty"` // 货币信息
 
 	Phone *PhoneNumberAndAreaCode `json:"phone,omitempty"` // 电话
 
 	Fax *PhoneNumberAndAreaCode `json:"fax,omitempty"` // 传真
 
-	RegisteredOfficeAddress []*I18n `json:"registered_office_address,omitempty"` // 完整注册地址
+	RegisteredOfficeAddress []*I18n `json:"registered_office_address,omitempty"` // 完整注册地址（该字段暂不返回，可忽略）;- 调用[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)等接口可以返回完整注册地址
 
 	OfficeAddress []*I18n `json:"office_address,omitempty"` // 完整办公地址
 
@@ -2712,43 +2712,43 @@ type Company struct {
 }
 
 type CompanyBuilder struct {
-	id    string // 公司 ID
+	id    string // 实体在CoreHR内部的唯一键
 	idSet bool
 
 	hiberarchyCommon    *HiberarchyCommon // 层级关系，内层字段见实体
 	hiberarchyCommonSet bool
 
-	type_    *Enum // 性质，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
+	type_    *Enum // 性质
 	type_Set bool
 
-	industryList    []*Enum // 行业，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
+	industryList    []*Enum // 所在行业，通过[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数：object_api_name=company；custom_api_name=industry。
 	industryListSet bool
 
 	legalRepresentative    []*I18n // 法定代表人
 	legalRepresentativeSet bool
 
-	postCode    string // 邮编
+	postCode    string // 邮编（该字段已废弃，可忽略）
 	postCodeSet bool
 
 	taxPayerId    string // 纳税人识别号
 	taxPayerIdSet bool
 
-	confidential    bool // 是否保密
+	confidential    bool // 是否保密（该字段暂不支持，可忽略）
 	confidentialSet bool
 
-	subTypeList    []*Enum // 主体类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
+	subTypeList    []*Enum // 公司主体类型，通过[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数：object_api_name=company；custom_api_name=subtype。
 	subTypeListSet bool
 
-	branchCompany    bool // 是否为分公司
+	branchCompany    bool // 是否为分公司;- 是分公司时，主要负责人生效。;- 不是分公司时，法定代表人生效。
 	branchCompanySet bool
 
-	primaryManager    []*I18n // 主要负责人
+	primaryManager    []*I18n // 主要负责人;- 是分公司时，该字段填入才有效。;- 不是分公司时，填入该字段无效。
 	primaryManagerSet bool
 
 	customFields    []*ObjectFieldData // 自定义字段
 	customFieldsSet bool
 
-	currency    *Currency // 默认币种
+	currency    *Currency // 货币信息
 	currencySet bool
 
 	phone    *PhoneNumberAndAreaCode // 电话
@@ -2757,7 +2757,7 @@ type CompanyBuilder struct {
 	fax    *PhoneNumberAndAreaCode // 传真
 	faxSet bool
 
-	registeredOfficeAddress    []*I18n // 完整注册地址
+	registeredOfficeAddress    []*I18n // 完整注册地址（该字段暂不返回，可忽略）;- 调用[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)等接口可以返回完整注册地址
 	registeredOfficeAddressSet bool
 
 	officeAddress    []*I18n // 完整办公地址
@@ -2775,7 +2775,7 @@ func NewCompanyBuilder() *CompanyBuilder {
 	return builder
 }
 
-// 公司 ID
+// 实体在CoreHR内部的唯一键
 //
 // 示例值：4692472714243080020
 func (builder *CompanyBuilder) Id(id string) *CompanyBuilder {
@@ -2793,7 +2793,7 @@ func (builder *CompanyBuilder) HiberarchyCommon(hiberarchyCommon *HiberarchyComm
 	return builder
 }
 
-// 性质，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
+// 性质
 //
 // 示例值：
 func (builder *CompanyBuilder) Type(type_ *Enum) *CompanyBuilder {
@@ -2802,7 +2802,7 @@ func (builder *CompanyBuilder) Type(type_ *Enum) *CompanyBuilder {
 	return builder
 }
 
-// 行业，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
+// 所在行业，通过[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数：object_api_name=company；custom_api_name=industry。
 //
 // 示例值：
 func (builder *CompanyBuilder) IndustryList(industryList []*Enum) *CompanyBuilder {
@@ -2820,9 +2820,9 @@ func (builder *CompanyBuilder) LegalRepresentative(legalRepresentative []*I18n) 
 	return builder
 }
 
-// 邮编
+// 邮编（该字段已废弃，可忽略）
 //
-// 示例值：邮编
+// 示例值：100000
 func (builder *CompanyBuilder) PostCode(postCode string) *CompanyBuilder {
 	builder.postCode = postCode
 	builder.postCodeSet = true
@@ -2838,7 +2838,7 @@ func (builder *CompanyBuilder) TaxPayerId(taxPayerId string) *CompanyBuilder {
 	return builder
 }
 
-// 是否保密
+// 是否保密（该字段暂不支持，可忽略）
 //
 // 示例值：true
 func (builder *CompanyBuilder) Confidential(confidential bool) *CompanyBuilder {
@@ -2847,7 +2847,7 @@ func (builder *CompanyBuilder) Confidential(confidential bool) *CompanyBuilder {
 	return builder
 }
 
-// 主体类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
+// 公司主体类型，通过[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数：object_api_name=company；custom_api_name=subtype。
 //
 // 示例值：
 func (builder *CompanyBuilder) SubTypeList(subTypeList []*Enum) *CompanyBuilder {
@@ -2856,7 +2856,7 @@ func (builder *CompanyBuilder) SubTypeList(subTypeList []*Enum) *CompanyBuilder 
 	return builder
 }
 
-// 是否为分公司
+// 是否为分公司;- 是分公司时，主要负责人生效。;- 不是分公司时，法定代表人生效。
 //
 // 示例值：true
 func (builder *CompanyBuilder) BranchCompany(branchCompany bool) *CompanyBuilder {
@@ -2865,7 +2865,7 @@ func (builder *CompanyBuilder) BranchCompany(branchCompany bool) *CompanyBuilder
 	return builder
 }
 
-// 主要负责人
+// 主要负责人;- 是分公司时，该字段填入才有效。;- 不是分公司时，填入该字段无效。
 //
 // 示例值：
 func (builder *CompanyBuilder) PrimaryManager(primaryManager []*I18n) *CompanyBuilder {
@@ -2883,7 +2883,7 @@ func (builder *CompanyBuilder) CustomFields(customFields []*ObjectFieldData) *Co
 	return builder
 }
 
-// 默认币种
+// 货币信息
 //
 // 示例值：
 func (builder *CompanyBuilder) Currency(currency *Currency) *CompanyBuilder {
@@ -2910,7 +2910,7 @@ func (builder *CompanyBuilder) Fax(fax *PhoneNumberAndAreaCode) *CompanyBuilder 
 	return builder
 }
 
-// 完整注册地址
+// 完整注册地址（该字段暂不返回，可忽略）;- 调用[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)等接口可以返回完整注册地址
 //
 // 示例值：
 func (builder *CompanyBuilder) RegisteredOfficeAddress(registeredOfficeAddress []*I18n) *CompanyBuilder {
@@ -3020,23 +3020,23 @@ type Contract struct {
 
 	ExpirationTime *string `json:"expiration_time,omitempty"` // 实际结束日期
 
-	EmploymentId *string `json:"employment_id,omitempty"` // 雇员 ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
+	EmploymentId *string `json:"employment_id,omitempty"` // 雇员ID
 
-	ContractType *Enum `json:"contract_type,omitempty"` // 合同类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)合同类型（contract_type）枚举定义部分获得
+	ContractType *Enum `json:"contract_type,omitempty"` // 合同类型
 
-	FirstPartyCompanyId *string `json:"first_party_company_id,omitempty"` // 甲方, 引用Company的ID，枚举值及详细信息可通过【批量查询公司】接口查询获得
+	FirstPartyCompanyId *string `json:"first_party_company_id,omitempty"` // 甲方, 引用Company的ID
 
-	PersonId *string `json:"person_id,omitempty"` // Person ID，枚举值及详细信息可通过【批量查询个人信息】接口查询获得
+	PersonId *string `json:"person_id,omitempty"` // Person ID
 
 	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 
-	DurationType *Enum `json:"duration_type,omitempty"` // 期限类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)合同期限类型（duration_type）枚举定义部分获得
+	DurationType *Enum `json:"duration_type,omitempty"` // 期限类型
 
 	ContractEndDate *string `json:"contract_end_date,omitempty"` // 合同结束日期
 
 	ContractNumber *string `json:"contract_number,omitempty"` // 合同编号
 
-	SigningType *Enum `json:"signing_type,omitempty"` // 签订类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)签订类型（signing_type）枚举定义部分获得
+	SigningType *Enum `json:"signing_type,omitempty"` // 签订类型，枚举值可通过文档【飞书人事枚举常量】合同期限类型（signing_type）枚举定义部分获得
 
 	ContractStatus *Enum `json:"contract_status,omitempty"` // 合同协议状态，枚举值可通过文档【飞书人事枚举常量】合同协议状态（contract_status）枚举定义部分获得
 
@@ -3055,22 +3055,22 @@ type ContractBuilder struct {
 	expirationTime    string // 实际结束日期
 	expirationTimeSet bool
 
-	employmentId    string // 雇员 ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
+	employmentId    string // 雇员ID
 	employmentIdSet bool
 
-	contractType    *Enum // 合同类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)合同类型（contract_type）枚举定义部分获得
+	contractType    *Enum // 合同类型
 	contractTypeSet bool
 
-	firstPartyCompanyId    string // 甲方, 引用Company的ID，枚举值及详细信息可通过【批量查询公司】接口查询获得
+	firstPartyCompanyId    string // 甲方, 引用Company的ID
 	firstPartyCompanyIdSet bool
 
-	personId    string // Person ID，枚举值及详细信息可通过【批量查询个人信息】接口查询获得
+	personId    string // Person ID
 	personIdSet bool
 
 	customFields    []*ObjectFieldData // 自定义字段
 	customFieldsSet bool
 
-	durationType    *Enum // 期限类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)合同期限类型（duration_type）枚举定义部分获得
+	durationType    *Enum // 期限类型
 	durationTypeSet bool
 
 	contractEndDate    string // 合同结束日期
@@ -3079,7 +3079,7 @@ type ContractBuilder struct {
 	contractNumber    string // 合同编号
 	contractNumberSet bool
 
-	signingType    *Enum // 签订类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)签订类型（signing_type）枚举定义部分获得
+	signingType    *Enum // 签订类型，枚举值可通过文档【飞书人事枚举常量】合同期限类型（signing_type）枚举定义部分获得
 	signingTypeSet bool
 
 	contractStatus    *Enum // 合同协议状态，枚举值可通过文档【飞书人事枚举常量】合同协议状态（contract_status）枚举定义部分获得
@@ -3124,7 +3124,7 @@ func (builder *ContractBuilder) ExpirationTime(expirationTime string) *ContractB
 	return builder
 }
 
-// 雇员 ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
+// 雇员ID
 //
 // 示例值：6893013238632416776
 func (builder *ContractBuilder) EmploymentId(employmentId string) *ContractBuilder {
@@ -3133,7 +3133,7 @@ func (builder *ContractBuilder) EmploymentId(employmentId string) *ContractBuild
 	return builder
 }
 
-// 合同类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)合同类型（contract_type）枚举定义部分获得
+// 合同类型
 //
 // 示例值：
 func (builder *ContractBuilder) ContractType(contractType *Enum) *ContractBuilder {
@@ -3142,7 +3142,7 @@ func (builder *ContractBuilder) ContractType(contractType *Enum) *ContractBuilde
 	return builder
 }
 
-// 甲方, 引用Company的ID，枚举值及详细信息可通过【批量查询公司】接口查询获得
+// 甲方, 引用Company的ID
 //
 // 示例值：6892686614112241165
 func (builder *ContractBuilder) FirstPartyCompanyId(firstPartyCompanyId string) *ContractBuilder {
@@ -3151,7 +3151,7 @@ func (builder *ContractBuilder) FirstPartyCompanyId(firstPartyCompanyId string) 
 	return builder
 }
 
-// Person ID，枚举值及详细信息可通过【批量查询个人信息】接口查询获得
+// Person ID
 //
 // 示例值：151515151
 func (builder *ContractBuilder) PersonId(personId string) *ContractBuilder {
@@ -3169,7 +3169,7 @@ func (builder *ContractBuilder) CustomFields(customFields []*ObjectFieldData) *C
 	return builder
 }
 
-// 期限类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)合同期限类型（duration_type）枚举定义部分获得
+// 期限类型
 //
 // 示例值：fixed_term
 func (builder *ContractBuilder) DurationType(durationType *Enum) *ContractBuilder {
@@ -3196,7 +3196,7 @@ func (builder *ContractBuilder) ContractNumber(contractNumber string) *ContractB
 	return builder
 }
 
-// 签订类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)签订类型（signing_type）枚举定义部分获得
+// 签订类型，枚举值可通过文档【飞书人事枚举常量】合同期限类型（signing_type）枚举定义部分获得
 //
 // 示例值：
 func (builder *ContractBuilder) SigningType(signingType *Enum) *ContractBuilder {
@@ -3294,9 +3294,9 @@ func (builder *ContractBuilder) Build() *Contract {
 type CostCenter struct {
 	IsAutogenerate *bool `json:"is_autogenerate,omitempty"` // 是否自动生成
 
-	Id *string `json:"id,omitempty"` // 实体在CoreHR内部的唯一键
+	Id *string `json:"id,omitempty"` // 成本中心 ID
 
-	Name []*I18n `json:"name,omitempty"` // 实体名称
+	Name []*I18n `json:"name,omitempty"` // 成本中心名称
 
 	Active *bool `json:"active,omitempty"` // 当前实体是否启用
 
@@ -3308,7 +3308,7 @@ type CostCenter struct {
 
 	ExpirationTime *string `json:"expiration_time,omitempty"` // 成本中心失效时间
 
-	Managers []string `json:"managers,omitempty"` // 成本中心管理员，lookup 到 Employment 的ID
+	Managers []string `json:"managers,omitempty"` // 成本中心负责人ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
 
 	Parent *string `json:"parent,omitempty"` // 上级成本中心
 
@@ -3325,10 +3325,10 @@ type CostCenterBuilder struct {
 	isAutogenerate    bool // 是否自动生成
 	isAutogenerateSet bool
 
-	id    string // 实体在CoreHR内部的唯一键
+	id    string // 成本中心 ID
 	idSet bool
 
-	name    []*I18n // 实体名称
+	name    []*I18n // 成本中心名称
 	nameSet bool
 
 	active    bool // 当前实体是否启用
@@ -3346,7 +3346,7 @@ type CostCenterBuilder struct {
 	expirationTime    string // 成本中心失效时间
 	expirationTimeSet bool
 
-	managers    []string // 成本中心管理员，lookup 到 Employment 的ID
+	managers    []string // 成本中心负责人ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
 	managersSet bool
 
 	parent    string // 上级成本中心
@@ -3379,7 +3379,7 @@ func (builder *CostCenterBuilder) IsAutogenerate(isAutogenerate bool) *CostCente
 	return builder
 }
 
-// 实体在CoreHR内部的唯一键
+// 成本中心 ID
 //
 // 示例值：6950635856373745165
 func (builder *CostCenterBuilder) Id(id string) *CostCenterBuilder {
@@ -3388,7 +3388,7 @@ func (builder *CostCenterBuilder) Id(id string) *CostCenterBuilder {
 	return builder
 }
 
-// 实体名称
+// 成本中心名称
 //
 // 示例值：
 func (builder *CostCenterBuilder) Name(name []*I18n) *CostCenterBuilder {
@@ -3408,7 +3408,7 @@ func (builder *CostCenterBuilder) Active(active bool) *CostCenterBuilder {
 
 // 成本中心的编码
 //
-// 示例值：CC-000001
+// 示例值：MDPD00000023
 func (builder *CostCenterBuilder) Code(code string) *CostCenterBuilder {
 	builder.code = code
 	builder.codeSet = true
@@ -3442,9 +3442,9 @@ func (builder *CostCenterBuilder) ExpirationTime(expirationTime string) *CostCen
 	return builder
 }
 
-// 成本中心管理员，lookup 到 Employment 的ID
+// 成本中心负责人ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
 //
-// 示例值：
+// 示例值：xx
 func (builder *CostCenterBuilder) Managers(managers []string) *CostCenterBuilder {
 	builder.managers = managers
 	builder.managersSet = true
@@ -3453,7 +3453,7 @@ func (builder *CostCenterBuilder) Managers(managers []string) *CostCenterBuilder
 
 // 上级成本中心
 //
-// 示例值：CC-00001
+// 示例值：MDPD00000023
 func (builder *CostCenterBuilder) Parent(parent string) *CostCenterBuilder {
 	builder.parent = parent
 	builder.parentSet = true
@@ -3949,7 +3949,7 @@ func (builder *CpstBandWidthBuilder) Build() *CpstBandWidth {
 }
 
 type CpstCurrency struct {
-	CurrencyId *string `json:"currency_id,omitempty"` // 币种ID
+	CurrencyId *string `json:"currency_id,omitempty"` // 币种ID，可通过接口[【查询货币信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)获取
 
 	Code *string `json:"code,omitempty"` // 币种code
 
@@ -3957,7 +3957,7 @@ type CpstCurrency struct {
 }
 
 type CpstCurrencyBuilder struct {
-	currencyId    string // 币种ID
+	currencyId    string // 币种ID，可通过接口[【查询货币信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)获取
 	currencyIdSet bool
 
 	code    string // 币种code
@@ -3972,7 +3972,7 @@ func NewCpstCurrencyBuilder() *CpstCurrencyBuilder {
 	return builder
 }
 
-// 币种ID
+// 币种ID，可通过接口[【查询货币信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)获取
 //
 // 示例值：6863329932261459464
 func (builder *CpstCurrencyBuilder) CurrencyId(currencyId string) *CpstCurrencyBuilder {
@@ -4024,7 +4024,7 @@ type CpstGrade struct {
 
 	Currency *CpstCurrency `json:"currency,omitempty"` // 币种
 
-	Description *CpstI18n `json:"description,omitempty"` // 薪资标准描述
+	Description *CpstI18n `json:"description,omitempty"` // 币种名称
 }
 
 type CpstGradeBuilder struct {
@@ -4040,7 +4040,7 @@ type CpstGradeBuilder struct {
 	currency    *CpstCurrency // 币种
 	currencySet bool
 
-	description    *CpstI18n // 薪资标准描述
+	description    *CpstI18n // 币种名称
 	descriptionSet bool
 }
 
@@ -4085,7 +4085,7 @@ func (builder *CpstGradeBuilder) Currency(currency *CpstCurrency) *CpstGradeBuil
 	return builder
 }
 
-// 薪资标准描述
+// 币种名称
 //
 // 示例值：
 func (builder *CpstGradeBuilder) Description(description *CpstI18n) *CpstGradeBuilder {
@@ -4254,7 +4254,7 @@ type CpstMatchItem struct {
 
 	Grade *CpstGrade `json:"grade,omitempty"` // 薪资等级
 
-	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间
+	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间（毫秒级时间戳）
 }
 
 type CpstMatchItemBuilder struct {
@@ -4264,7 +4264,7 @@ type CpstMatchItemBuilder struct {
 	grade    *CpstGrade // 薪资等级
 	gradeSet bool
 
-	effectiveTime    string // 生效时间
+	effectiveTime    string // 生效时间（毫秒级时间戳）
 	effectiveTimeSet bool
 }
 
@@ -4291,7 +4291,7 @@ func (builder *CpstMatchItemBuilder) Grade(grade *CpstGrade) *CpstMatchItemBuild
 	return builder
 }
 
-// 生效时间
+// 生效时间（毫秒级时间戳）
 //
 // 示例值：1660924800000
 func (builder *CpstMatchItemBuilder) EffectiveTime(effectiveTime string) *CpstMatchItemBuilder {
@@ -4351,13 +4351,13 @@ func (builder *CpstStandardTypeBuilder) Build() *CpstStandardType {
 type Currency struct {
 	Id *string `json:"id,omitempty"` // 货币id
 
-	CountryRegionId *string `json:"country_region_id,omitempty"` // 货币所属国家/地区id，详细信息可通过【查询国家/地区信息】接口查询获得
+	CountryRegionId *string `json:"country_region_id,omitempty"` // 货币所属国家/地区id，详细信息可通过[【查询国家/地区信息】](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list)接口查询获得
 
 	CurrencyName []*I18n `json:"currency_name,omitempty"` // 货币名称
 
-	NumericCode *int `json:"numeric_code,omitempty"` // 数字代码
+	NumericCode *int `json:"numeric_code,omitempty"` // 对应币种的指代代码，通过系统内部查找，通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询获取。
 
-	CurrencyAlpha3Code *string `json:"currency_alpha_3_code,omitempty"` // 三位字母代码
+	CurrencyAlpha3Code *string `json:"currency_alpha_3_code,omitempty"` // 法定货币对应代码，如CNY	、USD等.通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询获取。
 
 	CountryRegionIdList []string `json:"country_region_id_list,omitempty"` // 货币所属国家/地区 ID 列表，详细信息可通过[查询国家/地区信息]接口查询获得
 }
@@ -4366,16 +4366,16 @@ type CurrencyBuilder struct {
 	id    string // 货币id
 	idSet bool
 
-	countryRegionId    string // 货币所属国家/地区id，详细信息可通过【查询国家/地区信息】接口查询获得
+	countryRegionId    string // 货币所属国家/地区id，详细信息可通过[【查询国家/地区信息】](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list)接口查询获得
 	countryRegionIdSet bool
 
 	currencyName    []*I18n // 货币名称
 	currencyNameSet bool
 
-	numericCode    int // 数字代码
+	numericCode    int // 对应币种的指代代码，通过系统内部查找，通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询获取。
 	numericCodeSet bool
 
-	currencyAlpha3Code    string // 三位字母代码
+	currencyAlpha3Code    string // 法定货币对应代码，如CNY	、USD等.通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询获取。
 	currencyAlpha3CodeSet bool
 
 	countryRegionIdList    []string // 货币所属国家/地区 ID 列表，详细信息可通过[查询国家/地区信息]接口查询获得
@@ -4396,7 +4396,7 @@ func (builder *CurrencyBuilder) Id(id string) *CurrencyBuilder {
 	return builder
 }
 
-// 货币所属国家/地区id，详细信息可通过【查询国家/地区信息】接口查询获得
+// 货币所属国家/地区id，详细信息可通过[【查询国家/地区信息】](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list)接口查询获得
 //
 // 示例值：12
 func (builder *CurrencyBuilder) CountryRegionId(countryRegionId string) *CurrencyBuilder {
@@ -4414,18 +4414,18 @@ func (builder *CurrencyBuilder) CurrencyName(currencyName []*I18n) *CurrencyBuil
 	return builder
 }
 
-// 数字代码
+// 对应币种的指代代码，通过系统内部查找，通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询获取。
 //
-// 示例值：12
+// 示例值：156
 func (builder *CurrencyBuilder) NumericCode(numericCode int) *CurrencyBuilder {
 	builder.numericCode = numericCode
 	builder.numericCodeSet = true
 	return builder
 }
 
-// 三位字母代码
+// 法定货币对应代码，如CNY	、USD等.通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询获取。
 //
-// 示例值：12
+// 示例值：CNY
 func (builder *CurrencyBuilder) CurrencyAlpha3Code(currencyAlpha3Code string) *CurrencyBuilder {
 	builder.currencyAlpha3Code = currencyAlpha3Code
 	builder.currencyAlpha3CodeSet = true
@@ -4469,11 +4469,11 @@ func (builder *CurrencyBuilder) Build() *Currency {
 }
 
 type CustomField struct {
-	CustomApiName *string `json:"custom_api_name,omitempty"` // 自定义字段 apiname，即自定义字段的唯一标识
+	CustomApiName *string `json:"custom_api_name,omitempty"` // 自定义字段 API name
 
-	Name *Name `json:"name,omitempty"` // 自定义字段名称
+	Name *Name `json:"name,omitempty"` // 字段名称
 
-	Description *Name `json:"description,omitempty"` // 描述
+	Description *Name `json:"description,omitempty"` // 字段名称
 
 	IsOpen *bool `json:"is_open,omitempty"` // 是否启用
 
@@ -4483,9 +4483,9 @@ type CustomField struct {
 
 	ObjectApiName *string `json:"object_api_name,omitempty"` // 所属对象 apiname
 
-	Type *int `json:"type,omitempty"` // 自定义字段类型;;可选值有：;- 1：文本 Text;- 2：布尔 Boolean;- 3：数字 Number;- 4：枚举 Option;- 5：查找 Lookup;- 6：反向查找 BackLookup;- 7：自动编号 AutoNumber;- 8：日期时间 Date time;- 9：附件 Attachment;- 10：图片 Image;- 11：计算字段 Calculated
+	Type *int `json:"type,omitempty"` // 自定义字段类型
 
-	CommonSchemaConfig *CommonSchemaConfig `json:"common_schema_config,omitempty"` // 配置信息，当前仅字段类型为「文本」、「布尔」、「数字」、「枚举」、「日期时间」、「附件」、「图片」时返回具体的配置信息，其余类型的自定义字段暂不返回
+	CommonSchemaConfig *CommonSchemaConfig `json:"common_schema_config,omitempty"` // 字段类型配置信息，可以用来区分同一字段类型下的不同子类型。当前仅字段类型为「文本」「布尔」「数字」「枚举」「日期时间」「附件」「图片」时返回相应的配置信息，其余类型暂不返回
 
 	CreateTime *string `json:"create_time,omitempty"` // 创建时间，秒级时间戳
 
@@ -4493,13 +4493,13 @@ type CustomField struct {
 }
 
 type CustomFieldBuilder struct {
-	customApiName    string // 自定义字段 apiname，即自定义字段的唯一标识
+	customApiName    string // 自定义字段 API name
 	customApiNameSet bool
 
-	name    *Name // 自定义字段名称
+	name    *Name // 字段名称
 	nameSet bool
 
-	description    *Name // 描述
+	description    *Name // 字段名称
 	descriptionSet bool
 
 	isOpen    bool // 是否启用
@@ -4514,10 +4514,10 @@ type CustomFieldBuilder struct {
 	objectApiName    string // 所属对象 apiname
 	objectApiNameSet bool
 
-	type_    int // 自定义字段类型;;可选值有：;- 1：文本 Text;- 2：布尔 Boolean;- 3：数字 Number;- 4：枚举 Option;- 5：查找 Lookup;- 6：反向查找 BackLookup;- 7：自动编号 AutoNumber;- 8：日期时间 Date time;- 9：附件 Attachment;- 10：图片 Image;- 11：计算字段 Calculated
+	type_    int // 自定义字段类型
 	type_Set bool
 
-	commonSchemaConfig    *CommonSchemaConfig // 配置信息，当前仅字段类型为「文本」、「布尔」、「数字」、「枚举」、「日期时间」、「附件」、「图片」时返回具体的配置信息，其余类型的自定义字段暂不返回
+	commonSchemaConfig    *CommonSchemaConfig // 字段类型配置信息，可以用来区分同一字段类型下的不同子类型。当前仅字段类型为「文本」「布尔」「数字」「枚举」「日期时间」「附件」「图片」时返回相应的配置信息，其余类型暂不返回
 	commonSchemaConfigSet bool
 
 	createTime    string // 创建时间，秒级时间戳
@@ -4532,16 +4532,16 @@ func NewCustomFieldBuilder() *CustomFieldBuilder {
 	return builder
 }
 
-// 自定义字段 apiname，即自定义字段的唯一标识
+// 自定义字段 API name
 //
-// 示例值：custom_field_33
+// 示例值：custom_field_33__c
 func (builder *CustomFieldBuilder) CustomApiName(customApiName string) *CustomFieldBuilder {
 	builder.customApiName = customApiName
 	builder.customApiNameSet = true
 	return builder
 }
 
-// 自定义字段名称
+// 字段名称
 //
 // 示例值：
 func (builder *CustomFieldBuilder) Name(name *Name) *CustomFieldBuilder {
@@ -4550,7 +4550,7 @@ func (builder *CustomFieldBuilder) Name(name *Name) *CustomFieldBuilder {
 	return builder
 }
 
-// 描述
+// 字段名称
 //
 // 示例值：
 func (builder *CustomFieldBuilder) Description(description *Name) *CustomFieldBuilder {
@@ -4595,7 +4595,7 @@ func (builder *CustomFieldBuilder) ObjectApiName(objectApiName string) *CustomFi
 	return builder
 }
 
-// 自定义字段类型;;可选值有：;- 1：文本 Text;- 2：布尔 Boolean;- 3：数字 Number;- 4：枚举 Option;- 5：查找 Lookup;- 6：反向查找 BackLookup;- 7：自动编号 AutoNumber;- 8：日期时间 Date time;- 9：附件 Attachment;- 10：图片 Image;- 11：计算字段 Calculated
+// 自定义字段类型
 //
 // 示例值：1
 func (builder *CustomFieldBuilder) Type(type_ int) *CustomFieldBuilder {
@@ -4604,7 +4604,7 @@ func (builder *CustomFieldBuilder) Type(type_ int) *CustomFieldBuilder {
 	return builder
 }
 
-// 配置信息，当前仅字段类型为「文本」、「布尔」、「数字」、「枚举」、「日期时间」、「附件」、「图片」时返回具体的配置信息，其余类型的自定义字段暂不返回
+// 字段类型配置信息，可以用来区分同一字段类型下的不同子类型。当前仅字段类型为「文本」「布尔」「数字」「枚举」「日期时间」「附件」「图片」时返回相应的配置信息，其余类型暂不返回
 //
 // 示例值：
 func (builder *CustomFieldBuilder) CommonSchemaConfig(commonSchemaConfig *CommonSchemaConfig) *CustomFieldBuilder {
@@ -4678,17 +4678,17 @@ func (builder *CustomFieldBuilder) Build() *CustomField {
 }
 
 type CustomFieldData struct {
-	CustomApiName *string `json:"custom_api_name,omitempty"` // 自定义字段 apiname，即自定义字段的唯一标识
+	CustomApiName *string `json:"custom_api_name,omitempty"` // 自定义字段 apiname，即自定义字段的唯一标识。可以通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)获取
 
 	Name *CustomName `json:"name,omitempty"` // 自定义字段名称
 
 	Type *int `json:"type,omitempty"` // 自定义字段类型
 
-	Value *string `json:"value,omitempty"` // 字段值，是 json 转义后的字符串，根据元数据定义不同，字段格式不同（如 123, 123.23, "true", ["id1","id2"], "2006-01-02 15:04:05"）
+	Value *string `json:"value,omitempty"` // 字段值，是 json 转义后的字符串，根据元数据定义不同，字段格式不同（如 123, 123.23, "true", ["id1","id2"], "2006-01-02 15:04:05"）;;注意：;;1.枚举字段值可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)获取，参考接口返回的 字段详情 > 字段类型配置信息 > 选项配置信息 > 选项信息 > 枚举常量集 API name
 }
 
 type CustomFieldDataBuilder struct {
-	customApiName    string // 自定义字段 apiname，即自定义字段的唯一标识
+	customApiName    string // 自定义字段 apiname，即自定义字段的唯一标识。可以通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)获取
 	customApiNameSet bool
 
 	name    *CustomName // 自定义字段名称
@@ -4697,7 +4697,7 @@ type CustomFieldDataBuilder struct {
 	type_    int // 自定义字段类型
 	type_Set bool
 
-	value    string // 字段值，是 json 转义后的字符串，根据元数据定义不同，字段格式不同（如 123, 123.23, "true", ["id1","id2"], "2006-01-02 15:04:05"）
+	value    string // 字段值，是 json 转义后的字符串，根据元数据定义不同，字段格式不同（如 123, 123.23, "true", ["id1","id2"], "2006-01-02 15:04:05"）;;注意：;;1.枚举字段值可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)获取，参考接口返回的 字段详情 > 字段类型配置信息 > 选项配置信息 > 选项信息 > 枚举常量集 API name
 	valueSet bool
 }
 
@@ -4706,7 +4706,7 @@ func NewCustomFieldDataBuilder() *CustomFieldDataBuilder {
 	return builder
 }
 
-// 自定义字段 apiname，即自定义字段的唯一标识
+// 自定义字段 apiname，即自定义字段的唯一标识。可以通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)获取
 //
 // 示例值：name
 func (builder *CustomFieldDataBuilder) CustomApiName(customApiName string) *CustomFieldDataBuilder {
@@ -4733,9 +4733,9 @@ func (builder *CustomFieldDataBuilder) Type(type_ int) *CustomFieldDataBuilder {
 	return builder
 }
 
-// 字段值，是 json 转义后的字符串，根据元数据定义不同，字段格式不同（如 123, 123.23, "true", ["id1","id2"], "2006-01-02 15:04:05"）
+// 字段值，是 json 转义后的字符串，根据元数据定义不同，字段格式不同（如 123, 123.23, "true", ["id1","id2"], "2006-01-02 15:04:05"）;;注意：;;1.枚举字段值可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)获取，参考接口返回的 字段详情 > 字段类型配置信息 > 选项配置信息 > 选项信息 > 枚举常量集 API name
 //
-// 示例值："231"
+// 示例值：231
 func (builder *CustomFieldDataBuilder) Value(value string) *CustomFieldDataBuilder {
 	builder.value = value
 	builder.valueSet = true
@@ -4813,11 +4813,11 @@ func (builder *CustomNameBuilder) Build() *CustomName {
 }
 
 type DateTimeFieldSetting struct {
-	DateTimeType *int `json:"date_time_type,omitempty"` // 时间类型枚举，枚举值如下：;1. Date 日期，如 2020-01-01;2. Time  时间，如 11:52:00;3. Datetime 日期时间，如 2020-01-01 11:52:00;4. CusDatetime // timestamp 时间戳
+	DateTimeType *int `json:"date_time_type,omitempty"` // 时间类型枚举;;**可选值有：**;- `1`：Date 日期，如 2020-01-01;- `2`：Time 时间，如 11:52:00;- `3`：DateTime 日期时间，如 2020-01-01 11:52:00;- `4`：CusDateTime 时间戳
 }
 
 type DateTimeFieldSettingBuilder struct {
-	dateTimeType    int // 时间类型枚举，枚举值如下：;1. Date 日期，如 2020-01-01;2. Time  时间，如 11:52:00;3. Datetime 日期时间，如 2020-01-01 11:52:00;4. CusDatetime // timestamp 时间戳
+	dateTimeType    int // 时间类型枚举;;**可选值有：**;- `1`：Date 日期，如 2020-01-01;- `2`：Time 时间，如 11:52:00;- `3`：DateTime 日期时间，如 2020-01-01 11:52:00;- `4`：CusDateTime 时间戳
 	dateTimeTypeSet bool
 }
 
@@ -4826,7 +4826,7 @@ func NewDateTimeFieldSettingBuilder() *DateTimeFieldSettingBuilder {
 	return builder
 }
 
-// 时间类型枚举，枚举值如下：;1. Date 日期，如 2020-01-01;2. Time  时间，如 11:52:00;3. Datetime 日期时间，如 2020-01-01 11:52:00;4. CusDatetime // timestamp 时间戳
+// 时间类型枚举;;**可选值有：**;- `1`：Date 日期，如 2020-01-01;- `2`：Time 时间，如 11:52:00;- `3`：DateTime 日期时间，如 2020-01-01 11:52:00;- `4`：CusDateTime 时间戳
 //
 // 示例值：1
 func (builder *DateTimeFieldSettingBuilder) DateTimeType(dateTimeType int) *DateTimeFieldSettingBuilder {
@@ -4845,11 +4845,11 @@ func (builder *DateTimeFieldSettingBuilder) Build() *DateTimeFieldSetting {
 }
 
 type Department struct {
-	Id *string `json:"id,omitempty"` // 部门 ID
+	Id *string `json:"id,omitempty"` // 实体在CoreHR内部的唯一键
 
-	SubType *Enum `json:"sub_type,omitempty"` // 部门子类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)部门子类型（department_sub_type）枚举定义部分获得
+	SubType *Enum `json:"sub_type,omitempty"` // 子类型
 
-	Manager *string `json:"manager,omitempty"` // 部门负责人 ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
+	Manager *string `json:"manager,omitempty"` // 部门负责人
 
 	IsConfidential *bool `json:"is_confidential,omitempty"` // 是否保密
 
@@ -4867,13 +4867,13 @@ type Department struct {
 }
 
 type DepartmentBuilder struct {
-	id    string // 部门 ID
+	id    string // 实体在CoreHR内部的唯一键
 	idSet bool
 
-	subType    *Enum // 部门子类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)部门子类型（department_sub_type）枚举定义部分获得
+	subType    *Enum // 子类型
 	subTypeSet bool
 
-	manager    string // 部门负责人 ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
+	manager    string // 部门负责人
 	managerSet bool
 
 	isConfidential    bool // 是否保密
@@ -4903,16 +4903,16 @@ func NewDepartmentBuilder() *DepartmentBuilder {
 	return builder
 }
 
-// 部门 ID
+// 实体在CoreHR内部的唯一键
 //
-// 示例值：6969828847121885087
+// 示例值：4719456877659520852
 func (builder *DepartmentBuilder) Id(id string) *DepartmentBuilder {
 	builder.id = id
 	builder.idSet = true
 	return builder
 }
 
-// 部门子类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)部门子类型（department_sub_type）枚举定义部分获得
+// 子类型
 //
 // 示例值：
 func (builder *DepartmentBuilder) SubType(subType *Enum) *DepartmentBuilder {
@@ -4921,7 +4921,7 @@ func (builder *DepartmentBuilder) SubType(subType *Enum) *DepartmentBuilder {
 	return builder
 }
 
-// 部门负责人 ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
+// 部门负责人
 //
 // 示例值：6893013238632416776
 func (builder *DepartmentBuilder) Manager(manager string) *DepartmentBuilder {
@@ -5055,7 +5055,7 @@ type DepartmentCreate struct {
 
 	StaffingModel *Enum `json:"staffing_model,omitempty"` // 是否使用职务
 
-	IsPreferManualEncoding *bool `json:"is_prefer_manual_encoding,omitempty"` // 是否优先使用手动编码。设置为 true 时，即使开启了自动编码功能，系统也会优先采用请求中传入的手动编码值；仅当未传入手动编码时，才回退至自动编码。设置为 false 或未传入时，遵循系统默认的编码策略。
+	IsPreferManualEncoding *bool `json:"is_prefer_manual_encoding,omitempty"` // 是否优先使用手动编码;;- 设为 true：优先使用传入的 code。即使系统开启了自动编码，只要传了 code，以传入值为准；; 未传code时，会回退到自动生成编码。;- 设为 false：遵循系统默认策略。此时若系统开启了自动编码，传入的 code 不会生效，以系统自动生成的编码为准
 }
 
 type DepartmentCreateBuilder struct {
@@ -5089,7 +5089,7 @@ type DepartmentCreateBuilder struct {
 	staffingModel    *Enum // 是否使用职务
 	staffingModelSet bool
 
-	isPreferManualEncoding    bool // 是否优先使用手动编码。设置为 true 时，即使开启了自动编码功能，系统也会优先采用请求中传入的手动编码值；仅当未传入手动编码时，才回退至自动编码。设置为 false 或未传入时，遵循系统默认的编码策略。
+	isPreferManualEncoding    bool // 是否优先使用手动编码;;- 设为 true：优先使用传入的 code。即使系统开启了自动编码，只要传了 code，以传入值为准；; 未传code时，会回退到自动生成编码。;- 设为 false：遵循系统默认策略。此时若系统开启了自动编码，传入的 code 不会生效，以系统自动生成的编码为准
 	isPreferManualEncodingSet bool
 }
 
@@ -5188,7 +5188,7 @@ func (builder *DepartmentCreateBuilder) StaffingModel(staffingModel *Enum) *Depa
 	return builder
 }
 
-// 是否优先使用手动编码。设置为 true 时，即使开启了自动编码功能，系统也会优先采用请求中传入的手动编码值；仅当未传入手动编码时，才回退至自动编码。设置为 false 或未传入时，遵循系统默认的编码策略。
+// 是否优先使用手动编码;;- 设为 true：优先使用传入的 code。即使系统开启了自动编码，只要传了 code，以传入值为准；; 未传code时，会回退到自动生成编码。;- 设为 false：遵循系统默认策略。此时若系统开启了自动编码，传入的 code 不会生效，以系统自动生成的编码为准
 //
 // 示例值：
 func (builder *DepartmentCreateBuilder) IsPreferManualEncoding(isPreferManualEncoding bool) *DepartmentCreateBuilder {
@@ -5261,8 +5261,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -5270,8 +5268,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -5293,21 +5289,21 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 }
 
 type Dependent struct {
-	Name *PersonName `json:"name,omitempty"` // 亲属姓名
+	Name *PersonName `json:"name,omitempty"` // 紧急联系人姓名
 
-	Relationship *Enum `json:"relationship,omitempty"` // 亲属关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
+	Relationship *Enum `json:"relationship,omitempty"` // 关系
 
-	Gender *Enum `json:"gender,omitempty"` // 亲属性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
+	Gender *Enum `json:"gender,omitempty"` // 性别
 
 	DateOfBirth *string `json:"date_of_birth,omitempty"` // 生日
 
-	NationalityId *string `json:"nationality_id,omitempty"` // 国籍
+	NationalityId *string `json:"nationality_id,omitempty"` // 国籍 ID ，该字段已作废，请使用 nationality_id_v2 字段
 
 	NationalityIdV2 *string `json:"nationality_id_v2,omitempty"` // 国籍 ID，可通过【查询国籍信息】接口查询
 
 	NationalIdList []*NationalId `json:"national_id_list,omitempty"` // 证件号码
 
-	SpousesWorkingStatus *Enum `json:"spouses_working_status,omitempty"` // 配偶工作状态，比如working（在岗）、not_working（不在岗）
+	SpousesWorkingStatus *Enum `json:"spouses_working_status,omitempty"` // 配偶工作状态
 
 	IsThisPersonCoveredByHealthInsurance *bool `json:"is_this_person_covered_by_health_insurance,omitempty"` // 包含家属医疗保险
 
@@ -5329,19 +5325,19 @@ type Dependent struct {
 }
 
 type DependentBuilder struct {
-	name    *PersonName // 亲属姓名
+	name    *PersonName // 紧急联系人姓名
 	nameSet bool
 
-	relationship    *Enum // 亲属关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
+	relationship    *Enum // 关系
 	relationshipSet bool
 
-	gender    *Enum // 亲属性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
+	gender    *Enum // 性别
 	genderSet bool
 
 	dateOfBirth    string // 生日
 	dateOfBirthSet bool
 
-	nationalityId    string // 国籍
+	nationalityId    string // 国籍 ID ，该字段已作废，请使用 nationality_id_v2 字段
 	nationalityIdSet bool
 
 	nationalityIdV2    string // 国籍 ID，可通过【查询国籍信息】接口查询
@@ -5350,7 +5346,7 @@ type DependentBuilder struct {
 	nationalIdList    []*NationalId // 证件号码
 	nationalIdListSet bool
 
-	spousesWorkingStatus    *Enum // 配偶工作状态，比如working（在岗）、not_working（不在岗）
+	spousesWorkingStatus    *Enum // 配偶工作状态
 	spousesWorkingStatusSet bool
 
 	isThisPersonCoveredByHealthInsurance    bool // 包含家属医疗保险
@@ -5386,7 +5382,7 @@ func NewDependentBuilder() *DependentBuilder {
 	return builder
 }
 
-// 亲属姓名
+// 紧急联系人姓名
 //
 // 示例值：
 func (builder *DependentBuilder) Name(name *PersonName) *DependentBuilder {
@@ -5395,7 +5391,7 @@ func (builder *DependentBuilder) Name(name *PersonName) *DependentBuilder {
 	return builder
 }
 
-// 亲属关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
+// 关系
 //
 // 示例值：
 func (builder *DependentBuilder) Relationship(relationship *Enum) *DependentBuilder {
@@ -5404,7 +5400,7 @@ func (builder *DependentBuilder) Relationship(relationship *Enum) *DependentBuil
 	return builder
 }
 
-// 亲属性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
+// 性别
 //
 // 示例值：
 func (builder *DependentBuilder) Gender(gender *Enum) *DependentBuilder {
@@ -5422,9 +5418,9 @@ func (builder *DependentBuilder) DateOfBirth(dateOfBirth string) *DependentBuild
 	return builder
 }
 
-// 国籍
+// 国籍 ID ，该字段已作废，请使用 nationality_id_v2 字段
 //
-// 示例值：123456
+// 示例值：7075702734054164011
 func (builder *DependentBuilder) NationalityId(nationalityId string) *DependentBuilder {
 	builder.nationalityId = nationalityId
 	builder.nationalityIdSet = true
@@ -5449,7 +5445,7 @@ func (builder *DependentBuilder) NationalIdList(nationalIdList []*NationalId) *D
 	return builder
 }
 
-// 配偶工作状态，比如working（在岗）、not_working（不在岗）
+// 配偶工作状态
 //
 // 示例值：
 func (builder *DependentBuilder) SpousesWorkingStatus(spousesWorkingStatus *Enum) *DependentBuilder {
@@ -5655,7 +5651,7 @@ func (builder *DimensionValueBuilder) Build() *DimensionValue {
 type Education struct {
 	School []*I18n `json:"school,omitempty"` // 学校
 
-	LevelOfEducation *Enum `json:"level_of_education,omitempty"` // 学历，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)学历（level_of_education）枚举定义获得
+	LevelOfEducation *Enum `json:"level_of_education,omitempty"` // 学历
 
 	StartDate *string `json:"start_date,omitempty"` // 开始日期
 
@@ -5663,7 +5659,7 @@ type Education struct {
 
 	FieldOfStudy []*I18n `json:"field_of_study,omitempty"` // 专业
 
-	Degree *Enum `json:"degree,omitempty"` // 学位，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)学位（degree）枚举定义获得
+	Degree *Enum `json:"degree,omitempty"` // 学位
 
 	SchoolName *Enum `json:"school_name,omitempty"` // 学校名称
 
@@ -5680,7 +5676,7 @@ type EducationBuilder struct {
 	school    []*I18n // 学校
 	schoolSet bool
 
-	levelOfEducation    *Enum // 学历，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)学历（level_of_education）枚举定义获得
+	levelOfEducation    *Enum // 学历
 	levelOfEducationSet bool
 
 	startDate    string // 开始日期
@@ -5692,7 +5688,7 @@ type EducationBuilder struct {
 	fieldOfStudy    []*I18n // 专业
 	fieldOfStudySet bool
 
-	degree    *Enum // 学位，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)学位（degree）枚举定义获得
+	degree    *Enum // 学位
 	degreeSet bool
 
 	schoolName    *Enum // 学校名称
@@ -5725,7 +5721,7 @@ func (builder *EducationBuilder) School(school []*I18n) *EducationBuilder {
 	return builder
 }
 
-// 学历，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)学历（level_of_education）枚举定义获得
+// 学历
 //
 // 示例值：
 func (builder *EducationBuilder) LevelOfEducation(levelOfEducation *Enum) *EducationBuilder {
@@ -5761,7 +5757,7 @@ func (builder *EducationBuilder) FieldOfStudy(fieldOfStudy []*I18n) *EducationBu
 	return builder
 }
 
-// 学位，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)学位（degree）枚举定义获得
+// 学位
 //
 // 示例值：
 func (builder *EducationBuilder) Degree(degree *Enum) *EducationBuilder {
@@ -5864,7 +5860,7 @@ type Email struct {
 
 	IsPublic *bool `json:"is_public,omitempty"` // 是否为公开邮箱
 
-	EmailUsage *Enum `json:"email_usage,omitempty"` // 邮箱用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
+	EmailUsage *Enum `json:"email_usage,omitempty"` // 邮箱用途
 
 	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 }
@@ -5879,7 +5875,7 @@ type EmailBuilder struct {
 	isPublic    bool // 是否为公开邮箱
 	isPublicSet bool
 
-	emailUsage    *Enum // 邮箱用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
+	emailUsage    *Enum // 邮箱用途
 	emailUsageSet bool
 
 	customFields    []*ObjectFieldData // 自定义字段
@@ -5918,7 +5914,7 @@ func (builder *EmailBuilder) IsPublic(isPublic bool) *EmailBuilder {
 	return builder
 }
 
-// 邮箱用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
+// 邮箱用途
 //
 // 示例值：
 func (builder *EmailBuilder) EmailUsage(emailUsage *Enum) *EmailBuilder {
@@ -5962,7 +5958,7 @@ func (builder *EmailBuilder) Build() *Email {
 type EmergencyContact struct {
 	Name *PersonName `json:"name,omitempty"` // 紧急联系人姓名
 
-	Relationship *Enum `json:"relationship,omitempty"` // 紧急联系人与本人亲属关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
+	Relationship *Enum `json:"relationship,omitempty"` // 关系
 
 	PhoneIst []*Phone `json:"phone_ist,omitempty"` // 紧急联系人电话
 
@@ -5975,7 +5971,7 @@ type EmergencyContactBuilder struct {
 	name    *PersonName // 紧急联系人姓名
 	nameSet bool
 
-	relationship    *Enum // 紧急联系人与本人亲属关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
+	relationship    *Enum // 关系
 	relationshipSet bool
 
 	phoneIst    []*Phone // 紧急联系人电话
@@ -6002,7 +5998,7 @@ func (builder *EmergencyContactBuilder) Name(name *PersonName) *EmergencyContact
 	return builder
 }
 
-// 紧急联系人与本人亲属关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
+// 关系
 //
 // 示例值：
 func (builder *EmergencyContactBuilder) Relationship(relationship *Enum) *EmergencyContactBuilder {
@@ -6120,7 +6116,7 @@ type EmployeeType struct {
 
 	Code *string `json:"code,omitempty"` // 编码
 
-	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段;- 具体支持的对象请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 }
 
 type EmployeeTypeBuilder struct {
@@ -6139,7 +6135,7 @@ type EmployeeTypeBuilder struct {
 	code    string // 编码
 	codeSet bool
 
-	customFields    []*ObjectFieldData // 自定义字段
+	customFields    []*ObjectFieldData // 自定义字段;- 具体支持的对象请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 	customFieldsSet bool
 }
 
@@ -6193,7 +6189,7 @@ func (builder *EmployeeTypeBuilder) Code(code string) *EmployeeTypeBuilder {
 	return builder
 }
 
-// 自定义字段
+// 自定义字段;- 具体支持的对象请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 //
 // 示例值：
 func (builder *EmployeeTypeBuilder) CustomFields(customFields []*ObjectFieldData) *EmployeeTypeBuilder {
@@ -6260,13 +6256,13 @@ type Employment struct {
 
 	ExpirationTime *string `json:"expiration_time,omitempty"` // 离职日期，即员工的最后一个工作日，最后一个工作日时员工的雇佣状态仍为“在职”，次日凌晨将更改为“离职”
 
-	EmploymentType *Enum `json:"employment_type,omitempty"` // 雇佣类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)雇佣类型（employment_type）枚举定义获得
+	EmploymentType *Enum `json:"employment_type,omitempty"` // 雇佣类型
 
-	PersonId *string `json:"person_id,omitempty"` // 个人信息 ID，详细信息可通过【查询单个个人信息】接口获得
+	PersonId *string `json:"person_id,omitempty"` // 人员信息，引用Person的ID
 
 	ProbationPeriod *int `json:"probation_period,omitempty"` // 试用期时长（月份）
 
-	OnProbation *string `json:"on_probation,omitempty"` // 是否在试用期中;- 满足以下任一条件时，该字段值为`"true"`：;  - 预计试用结束日期非空，且实际结束日期为空;  - 预计试用结束日期非空，实际结束日期非空，且当日日期小于等于实际结束日期;- 其余情况下，该字段值为`"false"`；
+	OnProbation *string `json:"on_probation,omitempty"` // 是否在试用期中;- 满足以下任一条件时，该字段值为`"true"`：; - 预计试用结束日期非空，且实际结束日期为空; - 预计试用结束日期非空，实际结束日期非空，且当日日期小于等于实际结束日期;- 其余情况下，该字段值为`"false"`；
 
 	ProbationEndDate *string `json:"probation_end_date,omitempty"` // 试用期结束日期（实际结束日期）
 
@@ -6274,19 +6270,19 @@ type Employment struct {
 
 	ConditionWorker *bool `json:"condition_worker,omitempty"` // 是否是外部人员
 
-	EmploymentStatus *Enum `json:"employment_status,omitempty"` // 雇员状态，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)雇员状态（employment_status）枚举定义获得
+	EmploymentStatus *Enum `json:"employment_status,omitempty"` // 雇员状态
 
 	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 
-	WorkEmailList []*Email `json:"work_email_list,omitempty"` // 工作邮箱列表，只有当邮箱下面所有条件时，才在个人信息页面可见： ;- is_primary = "true";- is_public = "true";- email_usage = "work"
+	WorkEmailList []*Email `json:"work_email_list,omitempty"` // 工作邮箱列表
 
 	EmailAddress *string `json:"email_address,omitempty"` // 邮箱
 
-	ReasonForOffboarding *Enum `json:"reason_for_offboarding,omitempty"` // 离职原因，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)离职原因（reason_for_offboarding）枚举定义部分获得
+	ReasonForOffboarding *Enum `json:"reason_for_offboarding,omitempty"` // 离职原因
 
 	CostCenterList []*JobDataCostCenter `json:"cost_center_list,omitempty"` // 成本中心id列表
 
-	AtsApplicationId *string `json:"ats_application_id,omitempty"` // 招聘应用 ID
+	AtsApplicationId *string `json:"ats_application_id,omitempty"` // 招聘投递 ID ，详细信息可以通过[【获取投递信息】](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)接口查询获得
 
 	Rehire *Enum `json:"rehire,omitempty"` // 是否离职重聘
 
@@ -6345,16 +6341,16 @@ type EmploymentBuilder struct {
 	expirationTime    string // 离职日期，即员工的最后一个工作日，最后一个工作日时员工的雇佣状态仍为“在职”，次日凌晨将更改为“离职”
 	expirationTimeSet bool
 
-	employmentType    *Enum // 雇佣类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)雇佣类型（employment_type）枚举定义获得
+	employmentType    *Enum // 雇佣类型
 	employmentTypeSet bool
 
-	personId    string // 个人信息 ID，详细信息可通过【查询单个个人信息】接口获得
+	personId    string // 人员信息，引用Person的ID
 	personIdSet bool
 
 	probationPeriod    int // 试用期时长（月份）
 	probationPeriodSet bool
 
-	onProbation    string // 是否在试用期中;- 满足以下任一条件时，该字段值为`"true"`：;  - 预计试用结束日期非空，且实际结束日期为空;  - 预计试用结束日期非空，实际结束日期非空，且当日日期小于等于实际结束日期;- 其余情况下，该字段值为`"false"`；
+	onProbation    string // 是否在试用期中;- 满足以下任一条件时，该字段值为`"true"`：; - 预计试用结束日期非空，且实际结束日期为空; - 预计试用结束日期非空，实际结束日期非空，且当日日期小于等于实际结束日期;- 其余情况下，该字段值为`"false"`；
 	onProbationSet bool
 
 	probationEndDate    string // 试用期结束日期（实际结束日期）
@@ -6366,25 +6362,25 @@ type EmploymentBuilder struct {
 	conditionWorker    bool // 是否是外部人员
 	conditionWorkerSet bool
 
-	employmentStatus    *Enum // 雇员状态，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)雇员状态（employment_status）枚举定义获得
+	employmentStatus    *Enum // 雇员状态
 	employmentStatusSet bool
 
 	customFields    []*ObjectFieldData // 自定义字段
 	customFieldsSet bool
 
-	workEmailList    []*Email // 工作邮箱列表，只有当邮箱下面所有条件时，才在个人信息页面可见： ;- is_primary = "true";- is_public = "true";- email_usage = "work"
+	workEmailList    []*Email // 工作邮箱列表
 	workEmailListSet bool
 
 	emailAddress    string // 邮箱
 	emailAddressSet bool
 
-	reasonForOffboarding    *Enum // 离职原因，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)离职原因（reason_for_offboarding）枚举定义部分获得
+	reasonForOffboarding    *Enum // 离职原因
 	reasonForOffboardingSet bool
 
 	costCenterList    []*JobDataCostCenter // 成本中心id列表
 	costCenterListSet bool
 
-	atsApplicationId    string // 招聘应用 ID
+	atsApplicationId    string // 招聘投递 ID ，详细信息可以通过[【获取投递信息】](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)接口查询获得
 	atsApplicationIdSet bool
 
 	rehire    *Enum // 是否离职重聘
@@ -6543,7 +6539,7 @@ func (builder *EmploymentBuilder) ExpirationTime(expirationTime string) *Employm
 	return builder
 }
 
-// 雇佣类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)雇佣类型（employment_type）枚举定义获得
+// 雇佣类型
 //
 // 示例值：
 func (builder *EmploymentBuilder) EmploymentType(employmentType *Enum) *EmploymentBuilder {
@@ -6552,7 +6548,7 @@ func (builder *EmploymentBuilder) EmploymentType(employmentType *Enum) *Employme
 	return builder
 }
 
-// 个人信息 ID，详细信息可通过【查询单个个人信息】接口获得
+// 人员信息，引用Person的ID
 //
 // 示例值：6919733936050406926
 func (builder *EmploymentBuilder) PersonId(personId string) *EmploymentBuilder {
@@ -6570,7 +6566,7 @@ func (builder *EmploymentBuilder) ProbationPeriod(probationPeriod int) *Employme
 	return builder
 }
 
-// 是否在试用期中;- 满足以下任一条件时，该字段值为`"true"`：;  - 预计试用结束日期非空，且实际结束日期为空;  - 预计试用结束日期非空，实际结束日期非空，且当日日期小于等于实际结束日期;- 其余情况下，该字段值为`"false"`；
+// 是否在试用期中;- 满足以下任一条件时，该字段值为`"true"`：; - 预计试用结束日期非空，且实际结束日期为空; - 预计试用结束日期非空，实际结束日期非空，且当日日期小于等于实际结束日期;- 其余情况下，该字段值为`"false"`；
 //
 // 示例值：true
 func (builder *EmploymentBuilder) OnProbation(onProbation string) *EmploymentBuilder {
@@ -6606,7 +6602,7 @@ func (builder *EmploymentBuilder) ConditionWorker(conditionWorker bool) *Employm
 	return builder
 }
 
-// 雇员状态，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)雇员状态（employment_status）枚举定义获得
+// 雇员状态
 //
 // 示例值：
 func (builder *EmploymentBuilder) EmploymentStatus(employmentStatus *Enum) *EmploymentBuilder {
@@ -6624,7 +6620,7 @@ func (builder *EmploymentBuilder) CustomFields(customFields []*ObjectFieldData) 
 	return builder
 }
 
-// 工作邮箱列表，只有当邮箱下面所有条件时，才在个人信息页面可见： ;- is_primary = "true";- is_public = "true";- email_usage = "work"
+// 工作邮箱列表
 //
 // 示例值：
 func (builder *EmploymentBuilder) WorkEmailList(workEmailList []*Email) *EmploymentBuilder {
@@ -6642,7 +6638,7 @@ func (builder *EmploymentBuilder) EmailAddress(emailAddress string) *EmploymentB
 	return builder
 }
 
-// 离职原因，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)离职原因（reason_for_offboarding）枚举定义部分获得
+// 离职原因
 //
 // 示例值：
 func (builder *EmploymentBuilder) ReasonForOffboarding(reasonForOffboarding *Enum) *EmploymentBuilder {
@@ -6660,7 +6656,7 @@ func (builder *EmploymentBuilder) CostCenterList(costCenterList []*JobDataCostCe
 	return builder
 }
 
-// 招聘应用 ID
+// 招聘投递 ID ，详细信息可以通过[【获取投递信息】](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)接口查询获得
 //
 // 示例值：6838119494196871234
 func (builder *EmploymentBuilder) AtsApplicationId(atsApplicationId string) *EmploymentBuilder {
@@ -6896,27 +6892,27 @@ func (builder *EmploymentCostCenterBuilder) Build() *EmploymentCostCenter {
 }
 
 type EmploymentCreate struct {
-	PrehireId *string `json:"prehire_id,omitempty"` // 待入职ID
+	PrehireId *string `json:"prehire_id,omitempty"` // 待入职ID，可通过[【查询单个待入职】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/get)获取详细信息
 
-	EmployeeTypeId *string `json:"employee_type_id,omitempty"` // 人员类型
+	EmployeeTypeId *string `json:"employee_type_id,omitempty"` // 人员类型，可通过[【查询单个人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)获取详细信息
 
 	Tenure *string `json:"tenure,omitempty"` // 司龄
 
-	DepartmentId *string `json:"department_id,omitempty"` // 部门 ID，枚举值及详细信息可通过【批量查询部门】接口查询获得
+	DepartmentId *string `json:"department_id,omitempty"` // 部门 ID，可通过[【查询单个部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)获取详细信息；类型不跟随department_id_type
 
-	JobLevelId *string `json:"job_level_id,omitempty"` // 职级 ID，枚举值及详细信息可通过【批量查询职务级别】接口查询获得
+	JobLevelId *string `json:"job_level_id,omitempty"` // 职级 ID，可通过[【查询单个职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)获取详细信息
 
-	WorkLocationId *string `json:"work_location_id,omitempty"` // 工作地点 ID，枚举值及详细信息可通过【批量查询地点】接口查询获得
+	WorkLocationId *string `json:"work_location_id,omitempty"` // 工作地点 ID，可通过[【查询单个地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)获取详细信息
 
-	JobFamilyId *string `json:"job_family_id,omitempty"` // 职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
+	JobFamilyId *string `json:"job_family_id,omitempty"` // 职务序列 ID，可通过[【查询单个序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)获取详细信息
 
-	JobId *string `json:"job_id,omitempty"` // 职务 ID，枚举值及详细信息可通过【批量查询职务】接口查询获得
+	JobId *string `json:"job_id,omitempty"` // 职务 ID，可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详细信息
 
-	CompanyId *string `json:"company_id,omitempty"` // 法人主体 ID，枚举值及详细信息可通过【批量查询公司】接口查询获得
+	CompanyId *string `json:"company_id,omitempty"` // 法人主体 ID，可通过[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)获取详细信息
 
-	WorkingHoursTypeId *string `json:"working_hours_type_id,omitempty"` // 工时制度 ID，枚举值及详细信息可通过【批量查询工时制度】接口查询获得
+	WorkingHoursTypeId *string `json:"working_hours_type_id,omitempty"` // 工时制度 ID，可通过[【查询单个工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get)获取详细信息
 
-	Id *string `json:"id,omitempty"` // 实体在CoreHR内部的唯一键
+	Id *string `json:"id,omitempty"` // 雇佣ID，实体在CoreHR内部的唯一键；可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取更多信息
 
 	SeniorityDate *string `json:"seniority_date,omitempty"` // 资历起算日期
 
@@ -6928,7 +6924,7 @@ type EmploymentCreate struct {
 
 	EmploymentType *Enum `json:"employment_type,omitempty"` // 雇佣类型
 
-	PersonId *string `json:"person_id,omitempty"` // 人员信息，引用Person的ID
+	PersonId *string `json:"person_id,omitempty"` // 个人信息ID，可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息
 
 	ProbationPeriod *int `json:"probation_period,omitempty"` // 试用期时长
 
@@ -6940,9 +6936,9 @@ type EmploymentCreate struct {
 
 	EmploymentStatus *Enum `json:"employment_status,omitempty"` // 雇员状态
 
-	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段;- 请参考[【自定义字段说明】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 
-	WorkEmailList []*Email `json:"work_email_list,omitempty"` // 工作邮箱列表，只有当邮箱下面所有条件时，才在个人信息页面可见： ;- is_primary = "true";- is_public = "true";- email_usage = "work"
+	WorkEmailList []*Email `json:"work_email_list,omitempty"` // 工作邮箱列表;- 只有当满足下面所有条件时，才在工作信息页面可见： ; - is_primary = "true"; - is_public = "true"; - email_usage = "work"
 
 	EmailAddress *string `json:"email_address,omitempty"` // 邮箱
 
@@ -6950,45 +6946,45 @@ type EmploymentCreate struct {
 
 	CostCenterList []*JobDataCostCenter `json:"cost_center_list,omitempty"` // 成本中心id列表
 
-	AtsApplicationId *string `json:"ats_application_id,omitempty"` // 招聘应用 ID
+	AtsApplicationId *string `json:"ats_application_id,omitempty"` // 招聘投递 ID ，详细信息可以通过[【获取投递信息】](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)接口查询获得
 
 	Rehire *Enum `json:"rehire,omitempty"` // 是否离职重聘
 
-	RehireEmploymentId *string `json:"rehire_employment_id,omitempty"` // 历史雇佣信息 ID
+	RehireEmploymentId *string `json:"rehire_employment_id,omitempty"` // 历史雇佣信息 ID，可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)、;[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取详细信息
 }
 
 type EmploymentCreateBuilder struct {
-	prehireId    string // 待入职ID
+	prehireId    string // 待入职ID，可通过[【查询单个待入职】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/get)获取详细信息
 	prehireIdSet bool
 
-	employeeTypeId    string // 人员类型
+	employeeTypeId    string // 人员类型，可通过[【查询单个人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)获取详细信息
 	employeeTypeIdSet bool
 
 	tenure    string // 司龄
 	tenureSet bool
 
-	departmentId    string // 部门 ID，枚举值及详细信息可通过【批量查询部门】接口查询获得
+	departmentId    string // 部门 ID，可通过[【查询单个部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)获取详细信息；类型不跟随department_id_type
 	departmentIdSet bool
 
-	jobLevelId    string // 职级 ID，枚举值及详细信息可通过【批量查询职务级别】接口查询获得
+	jobLevelId    string // 职级 ID，可通过[【查询单个职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)获取详细信息
 	jobLevelIdSet bool
 
-	workLocationId    string // 工作地点 ID，枚举值及详细信息可通过【批量查询地点】接口查询获得
+	workLocationId    string // 工作地点 ID，可通过[【查询单个地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)获取详细信息
 	workLocationIdSet bool
 
-	jobFamilyId    string // 职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
+	jobFamilyId    string // 职务序列 ID，可通过[【查询单个序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)获取详细信息
 	jobFamilyIdSet bool
 
-	jobId    string // 职务 ID，枚举值及详细信息可通过【批量查询职务】接口查询获得
+	jobId    string // 职务 ID，可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详细信息
 	jobIdSet bool
 
-	companyId    string // 法人主体 ID，枚举值及详细信息可通过【批量查询公司】接口查询获得
+	companyId    string // 法人主体 ID，可通过[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)获取详细信息
 	companyIdSet bool
 
-	workingHoursTypeId    string // 工时制度 ID，枚举值及详细信息可通过【批量查询工时制度】接口查询获得
+	workingHoursTypeId    string // 工时制度 ID，可通过[【查询单个工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get)获取详细信息
 	workingHoursTypeIdSet bool
 
-	id    string // 实体在CoreHR内部的唯一键
+	id    string // 雇佣ID，实体在CoreHR内部的唯一键；可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取更多信息
 	idSet bool
 
 	seniorityDate    string // 资历起算日期
@@ -7006,7 +7002,7 @@ type EmploymentCreateBuilder struct {
 	employmentType    *Enum // 雇佣类型
 	employmentTypeSet bool
 
-	personId    string // 人员信息，引用Person的ID
+	personId    string // 个人信息ID，可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息
 	personIdSet bool
 
 	probationPeriod    int // 试用期时长
@@ -7024,10 +7020,10 @@ type EmploymentCreateBuilder struct {
 	employmentStatus    *Enum // 雇员状态
 	employmentStatusSet bool
 
-	customFields    []*ObjectFieldData // 自定义字段
+	customFields    []*ObjectFieldData // 自定义字段;- 请参考[【自定义字段说明】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 	customFieldsSet bool
 
-	workEmailList    []*Email // 工作邮箱列表，只有当邮箱下面所有条件时，才在个人信息页面可见： ;- is_primary = "true";- is_public = "true";- email_usage = "work"
+	workEmailList    []*Email // 工作邮箱列表;- 只有当满足下面所有条件时，才在工作信息页面可见： ; - is_primary = "true"; - is_public = "true"; - email_usage = "work"
 	workEmailListSet bool
 
 	emailAddress    string // 邮箱
@@ -7039,13 +7035,13 @@ type EmploymentCreateBuilder struct {
 	costCenterList    []*JobDataCostCenter // 成本中心id列表
 	costCenterListSet bool
 
-	atsApplicationId    string // 招聘应用 ID
+	atsApplicationId    string // 招聘投递 ID ，详细信息可以通过[【获取投递信息】](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)接口查询获得
 	atsApplicationIdSet bool
 
 	rehire    *Enum // 是否离职重聘
 	rehireSet bool
 
-	rehireEmploymentId    string // 历史雇佣信息 ID
+	rehireEmploymentId    string // 历史雇佣信息 ID，可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)、;[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取详细信息
 	rehireEmploymentIdSet bool
 }
 
@@ -7054,7 +7050,7 @@ func NewEmploymentCreateBuilder() *EmploymentCreateBuilder {
 	return builder
 }
 
-// 待入职ID
+// 待入职ID，可通过[【查询单个待入职】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/get)获取详细信息
 //
 // 示例值：1
 func (builder *EmploymentCreateBuilder) PrehireId(prehireId string) *EmploymentCreateBuilder {
@@ -7063,7 +7059,7 @@ func (builder *EmploymentCreateBuilder) PrehireId(prehireId string) *EmploymentC
 	return builder
 }
 
-// 人员类型
+// 人员类型，可通过[【查询单个人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)获取详细信息
 //
 // 示例值：1
 func (builder *EmploymentCreateBuilder) EmployeeTypeId(employeeTypeId string) *EmploymentCreateBuilder {
@@ -7081,7 +7077,7 @@ func (builder *EmploymentCreateBuilder) Tenure(tenure string) *EmploymentCreateB
 	return builder
 }
 
-// 部门 ID，枚举值及详细信息可通过【批量查询部门】接口查询获得
+// 部门 ID，可通过[【查询单个部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)获取详细信息；类型不跟随department_id_type
 //
 // 示例值：6893014062142064135
 func (builder *EmploymentCreateBuilder) DepartmentId(departmentId string) *EmploymentCreateBuilder {
@@ -7090,7 +7086,7 @@ func (builder *EmploymentCreateBuilder) DepartmentId(departmentId string) *Emplo
 	return builder
 }
 
-// 职级 ID，枚举值及详细信息可通过【批量查询职务级别】接口查询获得
+// 职级 ID，可通过[【查询单个职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)获取详细信息
 //
 // 示例值：6893014062142064135
 func (builder *EmploymentCreateBuilder) JobLevelId(jobLevelId string) *EmploymentCreateBuilder {
@@ -7099,7 +7095,7 @@ func (builder *EmploymentCreateBuilder) JobLevelId(jobLevelId string) *Employmen
 	return builder
 }
 
-// 工作地点 ID，枚举值及详细信息可通过【批量查询地点】接口查询获得
+// 工作地点 ID，可通过[【查询单个地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)获取详细信息
 //
 // 示例值：6893014062142064135
 func (builder *EmploymentCreateBuilder) WorkLocationId(workLocationId string) *EmploymentCreateBuilder {
@@ -7108,7 +7104,7 @@ func (builder *EmploymentCreateBuilder) WorkLocationId(workLocationId string) *E
 	return builder
 }
 
-// 职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
+// 职务序列 ID，可通过[【查询单个序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)获取详细信息
 //
 // 示例值：6893014062142064135
 func (builder *EmploymentCreateBuilder) JobFamilyId(jobFamilyId string) *EmploymentCreateBuilder {
@@ -7117,7 +7113,7 @@ func (builder *EmploymentCreateBuilder) JobFamilyId(jobFamilyId string) *Employm
 	return builder
 }
 
-// 职务 ID，枚举值及详细信息可通过【批量查询职务】接口查询获得
+// 职务 ID，可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详细信息
 //
 // 示例值：6893014062142064135
 func (builder *EmploymentCreateBuilder) JobId(jobId string) *EmploymentCreateBuilder {
@@ -7126,7 +7122,7 @@ func (builder *EmploymentCreateBuilder) JobId(jobId string) *EmploymentCreateBui
 	return builder
 }
 
-// 法人主体 ID，枚举值及详细信息可通过【批量查询公司】接口查询获得
+// 法人主体 ID，可通过[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)获取详细信息
 //
 // 示例值：6893014062142064135
 func (builder *EmploymentCreateBuilder) CompanyId(companyId string) *EmploymentCreateBuilder {
@@ -7135,7 +7131,7 @@ func (builder *EmploymentCreateBuilder) CompanyId(companyId string) *EmploymentC
 	return builder
 }
 
-// 工时制度 ID，枚举值及详细信息可通过【批量查询工时制度】接口查询获得
+// 工时制度 ID，可通过[【查询单个工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get)获取详细信息
 //
 // 示例值：6893014062142064135
 func (builder *EmploymentCreateBuilder) WorkingHoursTypeId(workingHoursTypeId string) *EmploymentCreateBuilder {
@@ -7144,7 +7140,7 @@ func (builder *EmploymentCreateBuilder) WorkingHoursTypeId(workingHoursTypeId st
 	return builder
 }
 
-// 实体在CoreHR内部的唯一键
+// 雇佣ID，实体在CoreHR内部的唯一键；可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取更多信息
 //
 // 示例值：6893014062142064135
 func (builder *EmploymentCreateBuilder) Id(id string) *EmploymentCreateBuilder {
@@ -7173,7 +7169,7 @@ func (builder *EmploymentCreateBuilder) EmployeeNumber(employeeNumber string) *E
 
 // 入职日期
 //
-// 示例值：2020-01-01
+// 示例值：2020-01-01 00:00:00
 func (builder *EmploymentCreateBuilder) EffectiveTime(effectiveTime string) *EmploymentCreateBuilder {
 	builder.effectiveTime = effectiveTime
 	builder.effectiveTimeSet = true
@@ -7182,7 +7178,7 @@ func (builder *EmploymentCreateBuilder) EffectiveTime(effectiveTime string) *Emp
 
 // 离职日期
 //
-// 示例值：2021-01-01
+// 示例值：2020-01-01 00:00:00
 func (builder *EmploymentCreateBuilder) ExpirationTime(expirationTime string) *EmploymentCreateBuilder {
 	builder.expirationTime = expirationTime
 	builder.expirationTimeSet = true
@@ -7198,7 +7194,7 @@ func (builder *EmploymentCreateBuilder) EmploymentType(employmentType *Enum) *Em
 	return builder
 }
 
-// 人员信息，引用Person的ID
+// 个人信息ID，可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息
 //
 // 示例值：6919733936050406926
 func (builder *EmploymentCreateBuilder) PersonId(personId string) *EmploymentCreateBuilder {
@@ -7252,7 +7248,7 @@ func (builder *EmploymentCreateBuilder) EmploymentStatus(employmentStatus *Enum)
 	return builder
 }
 
-// 自定义字段
+// 自定义字段;- 请参考[【自定义字段说明】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 //
 // 示例值：
 func (builder *EmploymentCreateBuilder) CustomFields(customFields []*ObjectFieldData) *EmploymentCreateBuilder {
@@ -7261,7 +7257,7 @@ func (builder *EmploymentCreateBuilder) CustomFields(customFields []*ObjectField
 	return builder
 }
 
-// 工作邮箱列表，只有当邮箱下面所有条件时，才在个人信息页面可见： ;- is_primary = "true";- is_public = "true";- email_usage = "work"
+// 工作邮箱列表;- 只有当满足下面所有条件时，才在工作信息页面可见： ; - is_primary = "true"; - is_public = "true"; - email_usage = "work"
 //
 // 示例值：
 func (builder *EmploymentCreateBuilder) WorkEmailList(workEmailList []*Email) *EmploymentCreateBuilder {
@@ -7297,7 +7293,7 @@ func (builder *EmploymentCreateBuilder) CostCenterList(costCenterList []*JobData
 	return builder
 }
 
-// 招聘应用 ID
+// 招聘投递 ID ，详细信息可以通过[【获取投递信息】](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)接口查询获得
 //
 // 示例值：6838119494196871234
 func (builder *EmploymentCreateBuilder) AtsApplicationId(atsApplicationId string) *EmploymentCreateBuilder {
@@ -7315,7 +7311,7 @@ func (builder *EmploymentCreateBuilder) Rehire(rehire *Enum) *EmploymentCreateBu
 	return builder
 }
 
-// 历史雇佣信息 ID
+// 历史雇佣信息 ID，可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)、;[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取详细信息
 //
 // 示例值：7051837122449425964
 func (builder *EmploymentCreateBuilder) RehireEmploymentId(rehireEmploymentId string) *EmploymentCreateBuilder {
@@ -7443,23 +7439,23 @@ func (builder *EmploymentCreateBuilder) Build() *EmploymentCreate {
 }
 
 type EmploymentLeaveBalance struct {
-	EmploymentId *string `json:"employment_id,omitempty"` // 雇佣信息ID
+	EmploymentId *string `json:"employment_id,omitempty"` // 雇佣信息ID，对应user_id_type
 
 	EmploymentName []*I18n `json:"employment_name,omitempty"` // 员工姓名
 
-	AsOfDate *string `json:"as_of_date,omitempty"` // 截止日期，即查询截止到某天余额数据的日期
+	AsOfDate *string `json:"as_of_date,omitempty"` // 截止日期，即查询截止到某天余额数据的日期。格式为yyyy-MM-dd
 
 	LeaveBalanceList []*LeaveBalance `json:"leave_balance_list,omitempty"` // 假期余额列表
 }
 
 type EmploymentLeaveBalanceBuilder struct {
-	employmentId    string // 雇佣信息ID
+	employmentId    string // 雇佣信息ID，对应user_id_type
 	employmentIdSet bool
 
 	employmentName    []*I18n // 员工姓名
 	employmentNameSet bool
 
-	asOfDate    string // 截止日期，即查询截止到某天余额数据的日期
+	asOfDate    string // 截止日期，即查询截止到某天余额数据的日期。格式为yyyy-MM-dd
 	asOfDateSet bool
 
 	leaveBalanceList    []*LeaveBalance // 假期余额列表
@@ -7471,7 +7467,7 @@ func NewEmploymentLeaveBalanceBuilder() *EmploymentLeaveBalanceBuilder {
 	return builder
 }
 
-// 雇佣信息ID
+// 雇佣信息ID，对应user_id_type
 //
 // 示例值：4718803945687580505
 func (builder *EmploymentLeaveBalanceBuilder) EmploymentId(employmentId string) *EmploymentLeaveBalanceBuilder {
@@ -7489,7 +7485,7 @@ func (builder *EmploymentLeaveBalanceBuilder) EmploymentName(employmentName []*I
 	return builder
 }
 
-// 截止日期，即查询截止到某天余额数据的日期
+// 截止日期，即查询截止到某天余额数据的日期。格式为yyyy-MM-dd
 //
 // 示例值：2022-07-29
 func (builder *EmploymentLeaveBalanceBuilder) AsOfDate(asOfDate string) *EmploymentLeaveBalanceBuilder {
@@ -7581,7 +7577,7 @@ type EntityFieldResult struct {
 
 	FieldKey *string `json:"field_key,omitempty"` // 实体的字段Key
 
-	FieldName *Name `json:"field_name,omitempty"` // 名称信息
+	FieldName *Name `json:"field_name,omitempty"` // 字段名称
 }
 
 type EntityFieldResultBuilder struct {
@@ -7591,7 +7587,7 @@ type EntityFieldResultBuilder struct {
 	fieldKey    string // 实体的字段Key
 	fieldKeySet bool
 
-	fieldName    *Name // 名称信息
+	fieldName    *Name // 字段名称
 	fieldNameSet bool
 }
 
@@ -7618,7 +7614,7 @@ func (builder *EntityFieldResultBuilder) FieldKey(fieldKey string) *EntityFieldR
 	return builder
 }
 
-// 名称信息
+// 字段名称
 //
 // 示例值：
 func (builder *EntityFieldResultBuilder) FieldName(fieldName *Name) *EntityFieldResultBuilder {
@@ -7697,7 +7693,7 @@ type EnumFieldOption struct {
 
 	Active *bool `json:"active,omitempty"` // 是否启用
 
-	Name *Name `json:"name,omitempty"` // 选项名称（需填写至少一个语种）
+	Name *Name `json:"name,omitempty"` // 字段名称
 }
 
 type EnumFieldOptionBuilder struct {
@@ -7707,7 +7703,7 @@ type EnumFieldOptionBuilder struct {
 	active    bool // 是否启用
 	activeSet bool
 
-	name    *Name // 选项名称（需填写至少一个语种）
+	name    *Name // 字段名称
 	nameSet bool
 }
 
@@ -7734,7 +7730,7 @@ func (builder *EnumFieldOptionBuilder) Active(active bool) *EnumFieldOptionBuild
 	return builder
 }
 
-// 选项名称（需填写至少一个语种）
+// 字段名称
 //
 // 示例值：
 func (builder *EnumFieldOptionBuilder) Name(name *Name) *EnumFieldOptionBuilder {
@@ -7803,6 +7799,211 @@ func (builder *EnumFieldSettingBuilder) Build() *EnumFieldSetting {
 	}
 	if builder.isMultipleSet {
 		req.IsMultiple = &builder.isMultiple
+
+	}
+	return req
+}
+
+type FieldColumn struct {
+	FieldApiName *string `json:"field_api_name,omitempty"` // Field字段API Name
+
+	Names []*I18n `json:"names,omitempty"` // Field字段名称
+
+	Type *string `json:"type,omitempty"` // Field字段类型
+
+	IsCustomField *bool `json:"is_custom_field,omitempty"` // 是否是自定义Field
+}
+
+type FieldColumnBuilder struct {
+	fieldApiName    string // Field字段API Name
+	fieldApiNameSet bool
+
+	names    []*I18n // Field字段名称
+	namesSet bool
+
+	type_    string // Field字段类型
+	type_Set bool
+
+	isCustomField    bool // 是否是自定义Field
+	isCustomFieldSet bool
+}
+
+func NewFieldColumnBuilder() *FieldColumnBuilder {
+	builder := &FieldColumnBuilder{}
+	return builder
+}
+
+// Field字段API Name
+//
+// 示例值：abb
+func (builder *FieldColumnBuilder) FieldApiName(fieldApiName string) *FieldColumnBuilder {
+	builder.fieldApiName = fieldApiName
+	builder.fieldApiNameSet = true
+	return builder
+}
+
+// Field字段名称
+//
+// 示例值：
+func (builder *FieldColumnBuilder) Names(names []*I18n) *FieldColumnBuilder {
+	builder.names = names
+	builder.namesSet = true
+	return builder
+}
+
+// Field字段类型
+//
+// 示例值：abb
+func (builder *FieldColumnBuilder) Type(type_ string) *FieldColumnBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 是否是自定义Field
+//
+// 示例值：
+func (builder *FieldColumnBuilder) IsCustomField(isCustomField bool) *FieldColumnBuilder {
+	builder.isCustomField = isCustomField
+	builder.isCustomFieldSet = true
+	return builder
+}
+
+func (builder *FieldColumnBuilder) Build() *FieldColumn {
+	req := &FieldColumn{}
+	if builder.fieldApiNameSet {
+		req.FieldApiName = &builder.fieldApiName
+
+	}
+	if builder.namesSet {
+		req.Names = builder.names
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.isCustomFieldSet {
+		req.IsCustomField = &builder.isCustomField
+
+	}
+	return req
+}
+
+type FieldFilter struct {
+	ApiName *string `json:"api_name,omitempty"` // 筛选项API Name
+
+	Names []*I18n `json:"names,omitempty"` // 筛选项语言内容
+
+	Enums []*FilterEnum `json:"enums,omitempty"` // 筛选项枚举
+
+	IsCustomField *bool `json:"is_custom_field,omitempty"` // 是否为自定义筛选项
+
+	Type *string `json:"type,omitempty"` // 筛选项类型
+
+	Field *string `json:"field,omitempty"` // 筛选项列名
+}
+
+type FieldFilterBuilder struct {
+	apiName    string // 筛选项API Name
+	apiNameSet bool
+
+	names    []*I18n // 筛选项语言内容
+	namesSet bool
+
+	enums    []*FilterEnum // 筛选项枚举
+	enumsSet bool
+
+	isCustomField    bool // 是否为自定义筛选项
+	isCustomFieldSet bool
+
+	type_    string // 筛选项类型
+	type_Set bool
+
+	field    string // 筛选项列名
+	fieldSet bool
+}
+
+func NewFieldFilterBuilder() *FieldFilterBuilder {
+	builder := &FieldFilterBuilder{}
+	return builder
+}
+
+// 筛选项API Name
+//
+// 示例值：api_name
+func (builder *FieldFilterBuilder) ApiName(apiName string) *FieldFilterBuilder {
+	builder.apiName = apiName
+	builder.apiNameSet = true
+	return builder
+}
+
+// 筛选项语言内容
+//
+// 示例值：
+func (builder *FieldFilterBuilder) Names(names []*I18n) *FieldFilterBuilder {
+	builder.names = names
+	builder.namesSet = true
+	return builder
+}
+
+// 筛选项枚举
+//
+// 示例值：
+func (builder *FieldFilterBuilder) Enums(enums []*FilterEnum) *FieldFilterBuilder {
+	builder.enums = enums
+	builder.enumsSet = true
+	return builder
+}
+
+// 是否为自定义筛选项
+//
+// 示例值：
+func (builder *FieldFilterBuilder) IsCustomField(isCustomField bool) *FieldFilterBuilder {
+	builder.isCustomField = isCustomField
+	builder.isCustomFieldSet = true
+	return builder
+}
+
+// 筛选项类型
+//
+// 示例值：type
+func (builder *FieldFilterBuilder) Type(type_ string) *FieldFilterBuilder {
+	builder.type_ = type_
+	builder.type_Set = true
+	return builder
+}
+
+// 筛选项列名
+//
+// 示例值：field
+func (builder *FieldFilterBuilder) Field(field string) *FieldFilterBuilder {
+	builder.field = field
+	builder.fieldSet = true
+	return builder
+}
+
+func (builder *FieldFilterBuilder) Build() *FieldFilter {
+	req := &FieldFilter{}
+	if builder.apiNameSet {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.namesSet {
+		req.Names = builder.names
+	}
+	if builder.enumsSet {
+		req.Enums = builder.enums
+	}
+	if builder.isCustomFieldSet {
+		req.IsCustomField = &builder.isCustomField
+
+	}
+	if builder.type_Set {
+		req.Type = &builder.type_
+
+	}
+	if builder.fieldSet {
+		req.Field = &builder.field
 
 	}
 	return req
@@ -7919,6 +8120,92 @@ func (builder *FilterConditionBuilder) Build() *FilterCondition {
 	}
 	if builder.rightValueTypeSet {
 		req.RightValueType = &builder.rightValueType
+
+	}
+	return req
+}
+
+type FilterEnum struct {
+	Label *string `json:"label,omitempty"` // 枚举标签值
+
+	Value *string `json:"value,omitempty"` // 枚举展示值
+
+	Status *string `json:"status,omitempty"` // 枚举状态
+
+	Description *string `json:"description,omitempty"` // 枚举描述
+}
+
+type FilterEnumBuilder struct {
+	label    string // 枚举标签值
+	labelSet bool
+
+	value    string // 枚举展示值
+	valueSet bool
+
+	status    string // 枚举状态
+	statusSet bool
+
+	description    string // 枚举描述
+	descriptionSet bool
+}
+
+func NewFilterEnumBuilder() *FilterEnumBuilder {
+	builder := &FilterEnumBuilder{}
+	return builder
+}
+
+// 枚举标签值
+//
+// 示例值：aab
+func (builder *FilterEnumBuilder) Label(label string) *FilterEnumBuilder {
+	builder.label = label
+	builder.labelSet = true
+	return builder
+}
+
+// 枚举展示值
+//
+// 示例值：aab
+func (builder *FilterEnumBuilder) Value(value string) *FilterEnumBuilder {
+	builder.value = value
+	builder.valueSet = true
+	return builder
+}
+
+// 枚举状态
+//
+// 示例值：aab
+func (builder *FilterEnumBuilder) Status(status string) *FilterEnumBuilder {
+	builder.status = status
+	builder.statusSet = true
+	return builder
+}
+
+// 枚举描述
+//
+// 示例值：aab
+func (builder *FilterEnumBuilder) Description(description string) *FilterEnumBuilder {
+	builder.description = description
+	builder.descriptionSet = true
+	return builder
+}
+
+func (builder *FilterEnumBuilder) Build() *FilterEnum {
+	req := &FilterEnum{}
+	if builder.labelSet {
+		req.Label = &builder.label
+
+	}
+	if builder.valueSet {
+		req.Value = &builder.value
+
+	}
+	if builder.statusSet {
+		req.Status = &builder.status
+
+	}
+	if builder.descriptionSet {
+		req.Description = &builder.description
 
 	}
 	return req
@@ -8103,7 +8390,7 @@ func NewFormFieldVariableBuilder() *FormFieldVariableBuilder {
 
 // 变量api名称
 //
-// 示例值：
+// 示例值：reason
 func (builder *FormFieldVariableBuilder) VariableApiName(variableApiName string) *FormFieldVariableBuilder {
 	builder.variableApiName = variableApiName
 	builder.variableApiNameSet = true
@@ -8208,16 +8495,16 @@ func (builder *FormFieldVariableDateValueBuilder) Build() *FormFieldVariableDate
 }
 
 type FormFieldVariableDatetimeValue struct {
-	Value *int `json:"value,omitempty"` // 毫秒的时间戳
+	Value *int `json:"value,omitempty"` // 毫秒的时间戳。注：此字段数据类型为 int64
 
-	Zone *string `json:"zone,omitempty"` // 时区
+	Zone *string `json:"zone,omitempty"` // 时区，+08:00
 }
 
 type FormFieldVariableDatetimeValueBuilder struct {
-	value    int // 毫秒的时间戳
+	value    int // 毫秒的时间戳。注：此字段数据类型为 int64
 	valueSet bool
 
-	zone    string // 时区
+	zone    string // 时区，+08:00
 	zoneSet bool
 }
 
@@ -8226,7 +8513,7 @@ func NewFormFieldVariableDatetimeValueBuilder() *FormFieldVariableDatetimeValueB
 	return builder
 }
 
-// 毫秒的时间戳
+// 毫秒的时间戳。注：此字段数据类型为 int64
 //
 // 示例值：1670227428803
 func (builder *FormFieldVariableDatetimeValueBuilder) Value(value int) *FormFieldVariableDatetimeValueBuilder {
@@ -8235,7 +8522,7 @@ func (builder *FormFieldVariableDatetimeValueBuilder) Value(value int) *FormFiel
 	return builder
 }
 
-// 时区
+// 时区，+08:00
 //
 // 示例值：+08:00
 func (builder *FormFieldVariableDatetimeValueBuilder) Zone(zone string) *FormFieldVariableDatetimeValueBuilder {
@@ -8310,7 +8597,7 @@ func NewFormFieldVariableEmploymentValueBuilder() *FormFieldVariableEmploymentVa
 
 // employmentID
 //
-// 示例值：
+// 示例值：6893014062142064134
 func (builder *FormFieldVariableEmploymentValueBuilder) Value(value string) *FormFieldVariableEmploymentValueBuilder {
 	builder.value = value
 	builder.valueSet = true
@@ -8319,7 +8606,7 @@ func (builder *FormFieldVariableEmploymentValueBuilder) Value(value string) *For
 
 // 员工ID 如3158117
 //
-// 示例值：
+// 示例值：3158117
 func (builder *FormFieldVariableEmploymentValueBuilder) UserId(userId string) *FormFieldVariableEmploymentValueBuilder {
 	builder.userId = userId
 	builder.userIdSet = true
@@ -8342,19 +8629,19 @@ func (builder *FormFieldVariableEmploymentValueBuilder) Build() *FormFieldVariab
 type FormFieldVariableEnumValue struct {
 	Value *string `json:"value,omitempty"` // 枚举值
 
-	Name *BpmDataengineI18n `json:"name,omitempty"` // 枚举的名称
+	Name *BpmDataengineI18n `json:"name,omitempty"` // 变量名称的i18n描述
 
-	Desc *BpmDataengineI18n `json:"desc,omitempty"` // 枚举的描述
+	Desc *BpmDataengineI18n `json:"desc,omitempty"` // 变量名称的i18n描述
 }
 
 type FormFieldVariableEnumValueBuilder struct {
 	value    string // 枚举值
 	valueSet bool
 
-	name    *BpmDataengineI18n // 枚举的名称
+	name    *BpmDataengineI18n // 变量名称的i18n描述
 	nameSet bool
 
-	desc    *BpmDataengineI18n // 枚举的描述
+	desc    *BpmDataengineI18n // 变量名称的i18n描述
 	descSet bool
 }
 
@@ -8372,7 +8659,7 @@ func (builder *FormFieldVariableEnumValueBuilder) Value(value string) *FormField
 	return builder
 }
 
-// 枚举的名称
+// 变量名称的i18n描述
 //
 // 示例值：
 func (builder *FormFieldVariableEnumValueBuilder) Name(name *BpmDataengineI18n) *FormFieldVariableEnumValueBuilder {
@@ -8381,7 +8668,7 @@ func (builder *FormFieldVariableEnumValueBuilder) Name(name *BpmDataengineI18n) 
 	return builder
 }
 
-// 枚举的描述
+// 变量名称的i18n描述
 //
 // 示例值：
 func (builder *FormFieldVariableEnumValueBuilder) Desc(desc *BpmDataengineI18n) *FormFieldVariableEnumValueBuilder {
@@ -8414,7 +8701,7 @@ type FormFieldVariableFileValue struct {
 
 	Length *int `json:"length,omitempty"` // 文件长度
 
-	MimeType *string `json:"mime_type,omitempty"` // mime type
+	MimeType *string `json:"mime_type,omitempty"` // 扩展类型
 }
 
 type FormFieldVariableFileValueBuilder struct {
@@ -8430,7 +8717,7 @@ type FormFieldVariableFileValueBuilder struct {
 	length    int // 文件长度
 	lengthSet bool
 
-	mimeType    string // mime type
+	mimeType    string // 扩展类型
 	mimeTypeSet bool
 }
 
@@ -8475,7 +8762,7 @@ func (builder *FormFieldVariableFileValueBuilder) Length(length int) *FormFieldV
 	return builder
 }
 
-// mime type
+// 扩展类型
 //
 // 示例值：text/plain
 func (builder *FormFieldVariableFileValueBuilder) MimeType(mimeType string) *FormFieldVariableFileValueBuilder {
@@ -8510,11 +8797,11 @@ func (builder *FormFieldVariableFileValueBuilder) Build() *FormFieldVariableFile
 }
 
 type FormFieldVariableI18nValue struct {
-	Value *BpmDataengineI18n `json:"value,omitempty"` // i18n值
+	Value *BpmDataengineI18n `json:"value,omitempty"` // 变量名称的i18n描述
 }
 
 type FormFieldVariableI18nValueBuilder struct {
-	value    *BpmDataengineI18n // i18n值
+	value    *BpmDataengineI18n // 变量名称的i18n描述
 	valueSet bool
 }
 
@@ -8523,7 +8810,7 @@ func NewFormFieldVariableI18nValueBuilder() *FormFieldVariableI18nValueBuilder {
 	return builder
 }
 
-// i18n值
+// 变量名称的i18n描述
 //
 // 示例值：
 func (builder *FormFieldVariableI18nValueBuilder) Value(value *BpmDataengineI18n) *FormFieldVariableI18nValueBuilder {
@@ -8838,7 +9125,7 @@ func NewFormFieldVariableNumberValueBuilder() *FormFieldVariableNumberValueBuild
 
 // 数值类型变量的值
 //
-// 示例值：
+// 示例值：1
 func (builder *FormFieldVariableNumberValueBuilder) Value(value string) *FormFieldVariableNumberValueBuilder {
 	builder.value = value
 	builder.valueSet = true
@@ -8905,11 +9192,11 @@ func (builder *FormFieldVariableObjectValueBuilder) Build() *FormFieldVariableOb
 }
 
 type FormFieldVariableRecordValue struct {
-	Values *FormFieldVariableRecordValueExample `json:"values,omitempty"` // 注意：这个值是一个map，key是变量唯一标识，value是变量值（平台限制，没法录入Map类型，这里用object示意一下）
+	Values *FormFieldVariableRecordValueExample `json:"values,omitempty"` // 注：该参数实际为 Map 数据类型，Key 是变量唯一标识，Value 是变量值。
 }
 
 type FormFieldVariableRecordValueBuilder struct {
-	values    *FormFieldVariableRecordValueExample // 注意：这个值是一个map，key是变量唯一标识，value是变量值（平台限制，没法录入Map类型，这里用object示意一下）
+	values    *FormFieldVariableRecordValueExample // 注：该参数实际为 Map 数据类型，Key 是变量唯一标识，Value 是变量值。
 	valuesSet bool
 }
 
@@ -8918,7 +9205,7 @@ func NewFormFieldVariableRecordValueBuilder() *FormFieldVariableRecordValueBuild
 	return builder
 }
 
-// 注意：这个值是一个map，key是变量唯一标识，value是变量值（平台限制，没法录入Map类型，这里用object示意一下）
+// 注：该参数实际为 Map 数据类型，Key 是变量唯一标识，Value 是变量值。
 //
 // 示例值：
 func (builder *FormFieldVariableRecordValueBuilder) Values(values *FormFieldVariableRecordValueExample) *FormFieldVariableRecordValueBuilder {
@@ -8982,7 +9269,7 @@ func NewFormFieldVariableTextValueBuilder() *FormFieldVariableTextValueBuilder {
 
 // 文本类型变量的值
 //
-// 示例值：
+// 示例值：文本
 func (builder *FormFieldVariableTextValueBuilder) Value(value string) *FormFieldVariableTextValueBuilder {
 	builder.value = value
 	builder.valueSet = true
@@ -9282,11 +9569,11 @@ func (builder *FormVariableValueInfoBuilder) Build() *FormVariableValueInfo {
 }
 
 type FormVariableValueInfoExample struct {
-	ObjectValue *FormFieldVariableObjectValue `json:"object_value,omitempty"` // 示例的国家地区变量对象
+	ObjectValue *FormFieldVariableObjectValue `json:"object_value,omitempty"` // 对象变量
 }
 
 type FormVariableValueInfoExampleBuilder struct {
-	objectValue    *FormFieldVariableObjectValue // 示例的国家地区变量对象
+	objectValue    *FormFieldVariableObjectValue // 对象变量
 	objectValueSet bool
 }
 
@@ -9295,7 +9582,7 @@ func NewFormVariableValueInfoExampleBuilder() *FormVariableValueInfoExampleBuild
 	return builder
 }
 
-// 示例的国家地区变量对象
+// 对象变量
 //
 // 示例值：
 func (builder *FormVariableValueInfoExampleBuilder) ObjectValue(objectValue *FormFieldVariableObjectValue) *FormVariableValueInfoExampleBuilder {
@@ -9313,19 +9600,19 @@ func (builder *FormVariableValueInfoExampleBuilder) Build() *FormVariableValueIn
 }
 
 type HiberarchyCommon struct {
-	ParentId *string `json:"parent_id,omitempty"` // 上级组织 ID
+	ParentId *string `json:"parent_id,omitempty"` // 上级地点ID。ID获取方式：;- 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点ID;- 当地点用途是“办公地点”时，上级地点必填，仅可选择用途为「工作地点」或「办公地点」的上级地点
 
-	Name []*I18n `json:"name,omitempty"` // 名称
+	Name []*I18n `json:"name,omitempty"` // 地点名称;- 名称不能包含「/」「；」「;」「\」「'」字符。;- 地点中英文名称会有全局唯一校验
 
-	Type *Enum `json:"type,omitempty"` // 组织类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
+	Type *Enum `json:"type,omitempty"` // 组织类型
 
-	Active *bool `json:"active,omitempty"` // 是否启用
+	Active *bool `json:"active,omitempty"` // 启用状态，true为启用，false为停用
 
-	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间
+	EffectiveTime *string `json:"effective_time,omitempty"` // 版本生效日期;- 填写格式：YYYY-MM-DD 00:00:00（系统会自动将时分秒改为00:00:00）;- 系统默认为填写日期当天的 00:00:00 生效 ;- 该接口只支持到最小单位为日;- 日期范围要求:1900-01-01 00:00:00～9999-12-31 23:59:59
 
 	ExpirationTime *string `json:"expiration_time,omitempty"` // 失效时间
 
-	Code *string `json:"code,omitempty"` // 编码
+	Code *string `json:"code,omitempty"` // 地点编码 (不能与其他记录的编码重复);- 开启自动编码时，以自动生成的编码值为准，传入值不生效;- 未开启自动编码时，编码字段值以传入值为准
 
 	Description []*I18n `json:"description,omitempty"` // 描述
 
@@ -9333,29 +9620,29 @@ type HiberarchyCommon struct {
 
 	ListOrder *string `json:"list_order,omitempty"` // 列表排序，代表所有部门的混排序号
 
-	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段(该功能暂不支持)
 }
 
 type HiberarchyCommonBuilder struct {
-	parentId    string // 上级组织 ID
+	parentId    string // 上级地点ID。ID获取方式：;- 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点ID;- 当地点用途是“办公地点”时，上级地点必填，仅可选择用途为「工作地点」或「办公地点」的上级地点
 	parentIdSet bool
 
-	name    []*I18n // 名称
+	name    []*I18n // 地点名称;- 名称不能包含「/」「；」「;」「\」「'」字符。;- 地点中英文名称会有全局唯一校验
 	nameSet bool
 
-	type_    *Enum // 组织类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
+	type_    *Enum // 组织类型
 	type_Set bool
 
-	active    bool // 是否启用
+	active    bool // 启用状态，true为启用，false为停用
 	activeSet bool
 
-	effectiveTime    string // 生效时间
+	effectiveTime    string // 版本生效日期;- 填写格式：YYYY-MM-DD 00:00:00（系统会自动将时分秒改为00:00:00）;- 系统默认为填写日期当天的 00:00:00 生效 ;- 该接口只支持到最小单位为日;- 日期范围要求:1900-01-01 00:00:00～9999-12-31 23:59:59
 	effectiveTimeSet bool
 
 	expirationTime    string // 失效时间
 	expirationTimeSet bool
 
-	code    string // 编码
+	code    string // 地点编码 (不能与其他记录的编码重复);- 开启自动编码时，以自动生成的编码值为准，传入值不生效;- 未开启自动编码时，编码字段值以传入值为准
 	codeSet bool
 
 	description    []*I18n // 描述
@@ -9367,7 +9654,7 @@ type HiberarchyCommonBuilder struct {
 	listOrder    string // 列表排序，代表所有部门的混排序号
 	listOrderSet bool
 
-	customFields    []*ObjectFieldData // 自定义字段
+	customFields    []*ObjectFieldData // 自定义字段(该功能暂不支持)
 	customFieldsSet bool
 }
 
@@ -9376,7 +9663,7 @@ func NewHiberarchyCommonBuilder() *HiberarchyCommonBuilder {
 	return builder
 }
 
-// 上级组织 ID
+// 上级地点ID。ID获取方式：;- 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点ID;- 当地点用途是“办公地点”时，上级地点必填，仅可选择用途为「工作地点」或「办公地点」的上级地点
 //
 // 示例值：4719168654814483759
 func (builder *HiberarchyCommonBuilder) ParentId(parentId string) *HiberarchyCommonBuilder {
@@ -9385,7 +9672,7 @@ func (builder *HiberarchyCommonBuilder) ParentId(parentId string) *HiberarchyCom
 	return builder
 }
 
-// 名称
+// 地点名称;- 名称不能包含「/」「；」「;」「\」「'」字符。;- 地点中英文名称会有全局唯一校验
 //
 // 示例值：
 func (builder *HiberarchyCommonBuilder) Name(name []*I18n) *HiberarchyCommonBuilder {
@@ -9394,7 +9681,7 @@ func (builder *HiberarchyCommonBuilder) Name(name []*I18n) *HiberarchyCommonBuil
 	return builder
 }
 
-// 组织类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
+// 组织类型
 //
 // 示例值：
 func (builder *HiberarchyCommonBuilder) Type(type_ *Enum) *HiberarchyCommonBuilder {
@@ -9403,7 +9690,7 @@ func (builder *HiberarchyCommonBuilder) Type(type_ *Enum) *HiberarchyCommonBuild
 	return builder
 }
 
-// 是否启用
+// 启用状态，true为启用，false为停用
 //
 // 示例值：true
 func (builder *HiberarchyCommonBuilder) Active(active bool) *HiberarchyCommonBuilder {
@@ -9412,7 +9699,7 @@ func (builder *HiberarchyCommonBuilder) Active(active bool) *HiberarchyCommonBui
 	return builder
 }
 
-// 生效时间
+// 版本生效日期;- 填写格式：YYYY-MM-DD 00:00:00（系统会自动将时分秒改为00:00:00）;- 系统默认为填写日期当天的 00:00:00 生效 ;- 该接口只支持到最小单位为日;- 日期范围要求:1900-01-01 00:00:00～9999-12-31 23:59:59
 //
 // 示例值：2020-05-01 00:00:00
 func (builder *HiberarchyCommonBuilder) EffectiveTime(effectiveTime string) *HiberarchyCommonBuilder {
@@ -9430,7 +9717,7 @@ func (builder *HiberarchyCommonBuilder) ExpirationTime(expirationTime string) *H
 	return builder
 }
 
-// 编码
+// 地点编码 (不能与其他记录的编码重复);- 开启自动编码时，以自动生成的编码值为准，传入值不生效;- 未开启自动编码时，编码字段值以传入值为准
 //
 // 示例值：12456
 func (builder *HiberarchyCommonBuilder) Code(code string) *HiberarchyCommonBuilder {
@@ -9466,7 +9753,7 @@ func (builder *HiberarchyCommonBuilder) ListOrder(listOrder string) *HiberarchyC
 	return builder
 }
 
-// 自定义字段
+// 自定义字段(该功能暂不支持)
 //
 // 示例值：
 func (builder *HiberarchyCommonBuilder) CustomFields(customFields []*ObjectFieldData) *HiberarchyCommonBuilder {
@@ -9521,18 +9808,18 @@ func (builder *HiberarchyCommonBuilder) Build() *HiberarchyCommon {
 }
 
 type Hrbp struct {
-	EmploymentIdList []string `json:"employment_id_list,omitempty"` // HRBP/属地 BP 的雇员ID ：;;对于 HRBP 而言，若入参的部门没有找到对应的 HRBP，将向上找寻，即向其上级部门取对应的 HRBP，且同一部门可能有多个 HRBP；;;对于 属地 BP 而言，若入参的部门和地点没有找到对应的属地 BP，将优先拿地点向上找寻，即向其上级地点取对应的属地 BP
+	EmploymentIdList []string `json:"employment_id_list,omitempty"` // HRBP/属地 BP 的雇员ID ：;;对于 HRBP 而言，若入参的部门没有找到对应的 HRBP，将向上找寻，即向其上级部门取对应的 HRBP，且同一部门可能有多个 HRBP；;;对于 属地 BP 而言，若入参的部门和地点没有找到对应的属地 BP，将优先拿地点向上找寻，即向其上级地点取对应的属地 BP; > ;如想获取BP的详细信息，可通过[搜索员工信息](https://open.larkoffice.com/document/server-docs/corehr-v1/employee/search)接口获取。
 
-	DepartmentId *string `json:"department_id,omitempty"` // 部门 ID
+	DepartmentId *string `json:"department_id,omitempty"` // 部门 ID; > ;如想获取部门详细信息，可通过[搜索部门信息](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/department/search)接口获取。
 
 	WorkLocationId *string `json:"work_location_id,omitempty"` // 工作地点 ID
 }
 
 type HrbpBuilder struct {
-	employmentIdList    []string // HRBP/属地 BP 的雇员ID ：;;对于 HRBP 而言，若入参的部门没有找到对应的 HRBP，将向上找寻，即向其上级部门取对应的 HRBP，且同一部门可能有多个 HRBP；;;对于 属地 BP 而言，若入参的部门和地点没有找到对应的属地 BP，将优先拿地点向上找寻，即向其上级地点取对应的属地 BP
+	employmentIdList    []string // HRBP/属地 BP 的雇员ID ：;;对于 HRBP 而言，若入参的部门没有找到对应的 HRBP，将向上找寻，即向其上级部门取对应的 HRBP，且同一部门可能有多个 HRBP；;;对于 属地 BP 而言，若入参的部门和地点没有找到对应的属地 BP，将优先拿地点向上找寻，即向其上级地点取对应的属地 BP; > ;如想获取BP的详细信息，可通过[搜索员工信息](https://open.larkoffice.com/document/server-docs/corehr-v1/employee/search)接口获取。
 	employmentIdListSet bool
 
-	departmentId    string // 部门 ID
+	departmentId    string // 部门 ID; > ;如想获取部门详细信息，可通过[搜索部门信息](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/department/search)接口获取。
 	departmentIdSet bool
 
 	workLocationId    string // 工作地点 ID
@@ -9544,7 +9831,7 @@ func NewHrbpBuilder() *HrbpBuilder {
 	return builder
 }
 
-// HRBP/属地 BP 的雇员ID ：;;对于 HRBP 而言，若入参的部门没有找到对应的 HRBP，将向上找寻，即向其上级部门取对应的 HRBP，且同一部门可能有多个 HRBP；;;对于 属地 BP 而言，若入参的部门和地点没有找到对应的属地 BP，将优先拿地点向上找寻，即向其上级地点取对应的属地 BP
+// HRBP/属地 BP 的雇员ID ：;;对于 HRBP 而言，若入参的部门没有找到对应的 HRBP，将向上找寻，即向其上级部门取对应的 HRBP，且同一部门可能有多个 HRBP；;;对于 属地 BP 而言，若入参的部门和地点没有找到对应的属地 BP，将优先拿地点向上找寻，即向其上级地点取对应的属地 BP; > ;如想获取BP的详细信息，可通过[搜索员工信息](https://open.larkoffice.com/document/server-docs/corehr-v1/employee/search)接口获取。
 //
 // 示例值：
 func (builder *HrbpBuilder) EmploymentIdList(employmentIdList []string) *HrbpBuilder {
@@ -9553,7 +9840,7 @@ func (builder *HrbpBuilder) EmploymentIdList(employmentIdList []string) *HrbpBui
 	return builder
 }
 
-// 部门 ID
+// 部门 ID; > ;如想获取部门详细信息，可通过[搜索部门信息](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/department/search)接口获取。
 //
 // 示例值：7063072995761456670
 func (builder *HrbpBuilder) DepartmentId(departmentId string) *HrbpBuilder {
@@ -9640,14 +9927,14 @@ func (builder *I18nBuilder) Build() *I18n {
 type IdInfo struct {
 	Id *string `json:"id,omitempty"` // 传入的 ID
 
-	TargetId *string `json:"target_id,omitempty"` // 目标 ID 值
+	TargetId *string `json:"target_id,omitempty"` // 目标 ID 值，转换失败不返回该字段
 }
 
 type IdInfoBuilder struct {
 	id    string // 传入的 ID
 	idSet bool
 
-	targetId    string // 目标 ID 值
+	targetId    string // 目标 ID 值，转换失败不返回该字段
 	targetIdSet bool
 }
 
@@ -9665,7 +9952,7 @@ func (builder *IdInfoBuilder) Id(id string) *IdInfoBuilder {
 	return builder
 }
 
-// 目标 ID 值
+// 目标 ID 值，转换失败不返回该字段
 //
 // 示例值：7224321696097404461
 func (builder *IdInfoBuilder) TargetId(targetId string) *IdInfoBuilder {
@@ -9688,16 +9975,16 @@ func (builder *IdInfoBuilder) Build() *IdInfo {
 }
 
 type ImageFieldSetting struct {
-	ImageType *int `json:"image_type,omitempty"` // 图片类型枚举，具体如下：;1. Avatar 头像;2. BadgePhoto 工卡照片;3. Logo 标志
+	ImageType *int `json:"image_type,omitempty"` // 图片类型枚举;;**可选值有：**;- `1`：Avatar 头像;- `2`：BadgePhoto 工卡照片;- `3`：Logo 标志
 
-	DisplayStyle *int `json:"display_style,omitempty"` // 显示样式枚举，具体如下：;1. SquareImage 方形;2. RoundImage  圆形
+	DisplayStyle *int `json:"display_style,omitempty"` // 显示样式枚举;;**可选值有：**;- `1`：SquareImage 方形;- `2`：RoundImage 圆形
 }
 
 type ImageFieldSettingBuilder struct {
-	imageType    int // 图片类型枚举，具体如下：;1. Avatar 头像;2. BadgePhoto 工卡照片;3. Logo 标志
+	imageType    int // 图片类型枚举;;**可选值有：**;- `1`：Avatar 头像;- `2`：BadgePhoto 工卡照片;- `3`：Logo 标志
 	imageTypeSet bool
 
-	displayStyle    int // 显示样式枚举，具体如下：;1. SquareImage 方形;2. RoundImage  圆形
+	displayStyle    int // 显示样式枚举;;**可选值有：**;- `1`：SquareImage 方形;- `2`：RoundImage 圆形
 	displayStyleSet bool
 }
 
@@ -9706,7 +9993,7 @@ func NewImageFieldSettingBuilder() *ImageFieldSettingBuilder {
 	return builder
 }
 
-// 图片类型枚举，具体如下：;1. Avatar 头像;2. BadgePhoto 工卡照片;3. Logo 标志
+// 图片类型枚举;;**可选值有：**;- `1`：Avatar 头像;- `2`：BadgePhoto 工卡照片;- `3`：Logo 标志
 //
 // 示例值：1
 func (builder *ImageFieldSettingBuilder) ImageType(imageType int) *ImageFieldSettingBuilder {
@@ -9715,7 +10002,7 @@ func (builder *ImageFieldSettingBuilder) ImageType(imageType int) *ImageFieldSet
 	return builder
 }
 
-// 显示样式枚举，具体如下：;1. SquareImage 方形;2. RoundImage  圆形
+// 显示样式枚举;;**可选值有：**;- `1`：SquareImage 方形;- `2`：RoundImage 圆形
 //
 // 示例值：1
 func (builder *ImageFieldSettingBuilder) DisplayStyle(displayStyle int) *ImageFieldSettingBuilder {
@@ -9738,27 +10025,27 @@ func (builder *ImageFieldSettingBuilder) Build() *ImageFieldSetting {
 }
 
 type Job struct {
-	Id *string `json:"id,omitempty"` // 职务 ID
+	Id *string `json:"id,omitempty"` // 实体在CoreHR内部的唯一键
 
 	Code *string `json:"code,omitempty"` // 编码
 
-	Name []*I18n `json:"name,omitempty"` // 名称
+	Name []*I18n `json:"name,omitempty"` // 职务名称。注意事项：;- 名称不能包含「/」「；」「;」「\」「'」字符;- xx中英文名称会有全局唯一校验（已停用职务也会校验）;- 不传值时默认不更新此字段，保持原值;- 包含lang（语言）和value（序列名称）两个子参数，更新时需同时提供
 
 	Description []*I18n `json:"description,omitempty"` // 描述
 
-	Active *bool `json:"active,omitempty"` // 是否启用
+	Active *bool `json:"active,omitempty"` // 是否启用，true为启用，fasle为停用。不传值时默认不更新此字段，保持原值
 
 	JobTitle []*I18n `json:"job_title,omitempty"` // 职务头衔
 
 	PathwayId *string `json:"pathway_id,omitempty"` // 通道ID
 
-	JobFamilyIdList []string `json:"job_family_id_list,omitempty"` // 职务序列 ID 列表，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
+	JobFamilyIdList []string `json:"job_family_id_list,omitempty"` // 序列
 
-	JobLevelIdList []string `json:"job_level_id_list,omitempty"` // 职务级别 ID 列表，枚举值及详细信息可通过【批量查询职务级别】接口查询获得
+	JobLevelIdList []string `json:"job_level_id_list,omitempty"` // 职级
 
-	WorkingHoursTypeId *string `json:"working_hours_type_id,omitempty"` // 工时制度 ID，枚举值及详细信息可通过【批量查询工时制度】接口查询获得
+	WorkingHoursTypeId *string `json:"working_hours_type_id,omitempty"` // 工时制度，引用WorkingHoursType的ID
 
-	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间
+	EffectiveTime *string `json:"effective_time,omitempty"` // 版本生效日期;- 填写格式：YYYY-MM-DD 00:00:00（系统会自动将时分秒改为00:00:00）;- 系统默认为填写日期当天的 00:00:00 生效 ;- 该接口只支持到最小单位为日;- 日期范围要求:1900-01-01 00:00:00～9999-12-31 23:59:59;- 不传值时默认不更新此字段，保持原值
 
 	ExpirationTime *string `json:"expiration_time,omitempty"` // 失效时间
 
@@ -9768,19 +10055,19 @@ type Job struct {
 }
 
 type JobBuilder struct {
-	id    string // 职务 ID
+	id    string // 实体在CoreHR内部的唯一键
 	idSet bool
 
 	code    string // 编码
 	codeSet bool
 
-	name    []*I18n // 名称
+	name    []*I18n // 职务名称。注意事项：;- 名称不能包含「/」「；」「;」「\」「'」字符;- xx中英文名称会有全局唯一校验（已停用职务也会校验）;- 不传值时默认不更新此字段，保持原值;- 包含lang（语言）和value（序列名称）两个子参数，更新时需同时提供
 	nameSet bool
 
 	description    []*I18n // 描述
 	descriptionSet bool
 
-	active    bool // 是否启用
+	active    bool // 是否启用，true为启用，fasle为停用。不传值时默认不更新此字段，保持原值
 	activeSet bool
 
 	jobTitle    []*I18n // 职务头衔
@@ -9789,16 +10076,16 @@ type JobBuilder struct {
 	pathwayId    string // 通道ID
 	pathwayIdSet bool
 
-	jobFamilyIdList    []string // 职务序列 ID 列表，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
+	jobFamilyIdList    []string // 序列
 	jobFamilyIdListSet bool
 
-	jobLevelIdList    []string // 职务级别 ID 列表，枚举值及详细信息可通过【批量查询职务级别】接口查询获得
+	jobLevelIdList    []string // 职级
 	jobLevelIdListSet bool
 
-	workingHoursTypeId    string // 工时制度 ID，枚举值及详细信息可通过【批量查询工时制度】接口查询获得
+	workingHoursTypeId    string // 工时制度，引用WorkingHoursType的ID
 	workingHoursTypeIdSet bool
 
-	effectiveTime    string // 生效时间
+	effectiveTime    string // 版本生效日期;- 填写格式：YYYY-MM-DD 00:00:00（系统会自动将时分秒改为00:00:00）;- 系统默认为填写日期当天的 00:00:00 生效 ;- 该接口只支持到最小单位为日;- 日期范围要求:1900-01-01 00:00:00～9999-12-31 23:59:59;- 不传值时默认不更新此字段，保持原值
 	effectiveTimeSet bool
 
 	expirationTime    string // 失效时间
@@ -9816,7 +10103,7 @@ func NewJobBuilder() *JobBuilder {
 	return builder
 }
 
-// 职务 ID
+// 实体在CoreHR内部的唯一键
 //
 // 示例值：4698040628992333549
 func (builder *JobBuilder) Id(id string) *JobBuilder {
@@ -9834,7 +10121,7 @@ func (builder *JobBuilder) Code(code string) *JobBuilder {
 	return builder
 }
 
-// 名称
+// 职务名称。注意事项：;- 名称不能包含「/」「；」「;」「\」「'」字符;- xx中英文名称会有全局唯一校验（已停用职务也会校验）;- 不传值时默认不更新此字段，保持原值;- 包含lang（语言）和value（序列名称）两个子参数，更新时需同时提供
 //
 // 示例值：
 func (builder *JobBuilder) Name(name []*I18n) *JobBuilder {
@@ -9852,7 +10139,7 @@ func (builder *JobBuilder) Description(description []*I18n) *JobBuilder {
 	return builder
 }
 
-// 是否启用
+// 是否启用，true为启用，fasle为停用。不传值时默认不更新此字段，保持原值
 //
 // 示例值：true
 func (builder *JobBuilder) Active(active bool) *JobBuilder {
@@ -9879,25 +10166,25 @@ func (builder *JobBuilder) PathwayId(pathwayId string) *JobBuilder {
 	return builder
 }
 
-// 职务序列 ID 列表，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
+// 序列
 //
-// 示例值：7373183781
+// 示例值：
 func (builder *JobBuilder) JobFamilyIdList(jobFamilyIdList []string) *JobBuilder {
 	builder.jobFamilyIdList = jobFamilyIdList
 	builder.jobFamilyIdListSet = true
 	return builder
 }
 
-// 职务级别 ID 列表，枚举值及详细信息可通过【批量查询职务级别】接口查询获得
+// 职级
 //
-// 示例值：316316317
+// 示例值：
 func (builder *JobBuilder) JobLevelIdList(jobLevelIdList []string) *JobBuilder {
 	builder.jobLevelIdList = jobLevelIdList
 	builder.jobLevelIdListSet = true
 	return builder
 }
 
-// 工时制度 ID，枚举值及详细信息可通过【批量查询工时制度】接口查询获得
+// 工时制度，引用WorkingHoursType的ID
 //
 // 示例值：6890452208593372679
 func (builder *JobBuilder) WorkingHoursTypeId(workingHoursTypeId string) *JobBuilder {
@@ -9906,7 +10193,7 @@ func (builder *JobBuilder) WorkingHoursTypeId(workingHoursTypeId string) *JobBui
 	return builder
 }
 
-// 生效时间
+// 版本生效日期;- 填写格式：YYYY-MM-DD 00:00:00（系统会自动将时分秒改为00:00:00）;- 系统默认为填写日期当天的 00:00:00 生效 ;- 该接口只支持到最小单位为日;- 日期范围要求:1900-01-01 00:00:00～9999-12-31 23:59:59;- 不传值时默认不更新此字段，保持原值
 //
 // 示例值：2020-01-01 00:00:00
 func (builder *JobBuilder) EffectiveTime(effectiveTime string) *JobBuilder {
@@ -10048,7 +10335,7 @@ type JobChange struct {
 
 	UpdatedTime *string `json:"updated_time,omitempty"` // 更新时间
 
-	TransferInfo *TransferInfo `json:"transfer_info,omitempty"` // 异动详细信息
+	TransferInfo *TransferInfo `json:"transfer_info,omitempty"` // 异动详细信息，以下参数如不传，无默认值，代表对应数据无异动
 }
 
 type JobChangeBuilder struct {
@@ -10079,7 +10366,7 @@ type JobChangeBuilder struct {
 	updatedTime    string // 更新时间
 	updatedTimeSet bool
 
-	transferInfo    *TransferInfo // 异动详细信息
+	transferInfo    *TransferInfo // 异动详细信息，以下参数如不传，无默认值，代表对应数据无异动
 	transferInfoSet bool
 }
 
@@ -10169,7 +10456,7 @@ func (builder *JobChangeBuilder) UpdatedTime(updatedTime string) *JobChangeBuild
 	return builder
 }
 
-// 异动详细信息
+// 异动详细信息，以下参数如不传，无默认值，代表对应数据无异动
 //
 // 示例值：
 func (builder *JobChangeBuilder) TransferInfo(transferInfo *TransferInfo) *JobChangeBuilder {
@@ -10227,47 +10514,47 @@ type JobData struct {
 
 	VersionId *string `json:"version_id,omitempty"` // 任职记录版本 ID
 
-	JobLevelId *string `json:"job_level_id,omitempty"` // 职务级别 ID，枚举值及详细信息可通过【批量查询职务级别】接口查询获得
+	JobLevelId *string `json:"job_level_id,omitempty"` // 职务级别 ID，可通过[【查询单个职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get);获取详细信息
 
-	JobGradeId *string `json:"job_grade_id,omitempty"` // 职等ID
+	JobGradeId *string `json:"job_grade_id,omitempty"` // 职等 ID，可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query);获取详细信息
 
-	EmployeeTypeId *string `json:"employee_type_id,omitempty"` // 人员类型 ID，枚举值及详细信息可通过【批量查询人员类型】接口查询获得
+	EmployeeTypeId *string `json:"employee_type_id,omitempty"` // 雇员类型
 
-	WorkingHoursTypeId *string `json:"working_hours_type_id,omitempty"` // 工时制度 ID，枚举值及详细信息可通过【批量查询工时制度】接口查询获得
+	WorkingHoursTypeId *string `json:"working_hours_type_id,omitempty"` // 工时制度 ID，可通过[【查询单个工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get);获取详细信息
 
-	WorkLocationId *string `json:"work_location_id,omitempty"` // 工作地点 ID，枚举值及详细信息可通过【批量查询地点】接口查询获得
+	WorkLocationId *string `json:"work_location_id,omitempty"` // 工作地点 ID，可通过[【查询单个地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get);获取详细信息
 
-	DepartmentId *string `json:"department_id,omitempty"` // 部门 ID，枚举值及详细信息可通过【批量查询部门】接口查询获得
+	DepartmentId *string `json:"department_id,omitempty"` // 部门
 
-	JobId *string `json:"job_id,omitempty"` // 职务 ID，枚举值及详细信息可通过【批量查询职务】接口查询获得
+	JobId *string `json:"job_id,omitempty"` // 职务 ID，可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get);获取详细信息
 
 	ProbationStartDate *string `json:"probation_start_date,omitempty"` // 试用期开始日期
 
 	ProbationEndDate *string `json:"probation_end_date,omitempty"` // 试用期结束日期（实际结束日期）
 
-	PrimaryJobData *bool `json:"primary_job_data,omitempty"` // 是否为主任职
+	PrimaryJobData *bool `json:"primary_job_data,omitempty"` // 主任职
 
-	EmploymentId *string `json:"employment_id,omitempty"` // 雇佣 ID
+	EmploymentId *string `json:"employment_id,omitempty"` // 雇佣 ID，可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息;- 与 user_id_type 类型一致
 
 	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间
 
-	ExpirationTime *string `json:"expiration_time,omitempty"` // 失效时间
+	ExpirationTime *string `json:"expiration_time,omitempty"` // 任职记录版本的失效时间
 
-	JobFamilyId *string `json:"job_family_id,omitempty"` // 职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
+	JobFamilyId *string `json:"job_family_id,omitempty"` // 序列 ID，可通过;[【查询单个序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get);获取详细信息
 
-	AssignmentStartReason *Enum `json:"assignment_start_reason,omitempty"` // 任职原因，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
+	AssignmentStartReason *Enum `json:"assignment_start_reason,omitempty"` // 业务类型（原：任职原因）;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：; - object_api_name：job_data; - custom_api_name：assignment_start_reason;- 这里只支持填写"onboarding"
 
 	ProbationExpectedEndDate *string `json:"probation_expected_end_date,omitempty"` // 预计试用期结束日期
 
-	ProbationOutcome *Enum `json:"probation_outcome,omitempty"` // 试用期结果，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)试用期结果（probation_outcome）枚举定义部分获得
+	ProbationOutcome *Enum `json:"probation_outcome,omitempty"` // 试用期结果
 
 	WeeklyWorkingHours *int `json:"weekly_working_hours,omitempty"` // 周工作时长
 
-	DirectManagerId *string `json:"direct_manager_id,omitempty"` // 实线主管的任职记录ID
+	DirectManagerId *string `json:"direct_manager_id,omitempty"` // 实线主管的任职记录ID，可通过[【查询单个任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get);获取详细信息
 
-	DottedLineManagerIdList []string `json:"dotted_line_manager_id_list,omitempty"` // 虚线主管的任职记录ID
+	DottedLineManagerIdList []string `json:"dotted_line_manager_id_list,omitempty"` // 虚线主管的任职记录ID，可通过[【查询单个任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get);获取详细信息
 
-	SecondDirectManagerId *string `json:"second_direct_manager_id,omitempty"` // 第二实线主管的任职记录ID
+	SecondDirectManagerId *string `json:"second_direct_manager_id,omitempty"` // 第二实线主管的任职记录ID，可通过[【查询单个任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get);获取详细信息
 
 	CostCenterRate []*SupportCostCenterItem `json:"cost_center_rate,omitempty"` // 成本中心分摊信息
 
@@ -10279,15 +10566,17 @@ type JobData struct {
 
 	CompensationType *Enum `json:"compensation_type,omitempty"` // 薪资类型
 
-	ServiceCompany *string `json:"service_company,omitempty"` // 任职公司
+	ServiceCompany *string `json:"service_company,omitempty"` // 任职公司，枚举值及详细信息可通过[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)接口查询获得
 
-	EmployeeSubtypeId *string `json:"employee_subtype_id,omitempty"` // 人员子类型 ID
+	EmployeeSubtypeId *string `json:"employee_subtype_id,omitempty"` // 人员子类型 ID;- 功能灰度中，如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
 
-	PositionId *string `json:"position_id,omitempty"` // 岗位 ID，枚举值及详细信息可通过【查询单个岗位】接口查询获得
+	PositionId *string `json:"position_id,omitempty"` // 岗位 ID;- 功能灰度中，如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
 
 	PathwayId *string `json:"pathway_id,omitempty"` // 通道 ID
 
-	JobDataReason *Enum `json:"job_data_reason,omitempty"` // 任职原因;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：;  - object_api_name = "job_data";  - custom_api_name = "job_data_reason"
+	JobDataReason *Enum `json:"job_data_reason,omitempty"` // 任职原因;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：; - object_api_name = "job_data"; - custom_api_name = "job_data_reason"
+
+	WorkCalendarId *string `json:"work_calendar_id,omitempty"` // 工作日历 ID
 }
 
 type JobDataBuilder struct {
@@ -10297,25 +10586,25 @@ type JobDataBuilder struct {
 	versionId    string // 任职记录版本 ID
 	versionIdSet bool
 
-	jobLevelId    string // 职务级别 ID，枚举值及详细信息可通过【批量查询职务级别】接口查询获得
+	jobLevelId    string // 职务级别 ID，可通过[【查询单个职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get);获取详细信息
 	jobLevelIdSet bool
 
-	jobGradeId    string // 职等ID
+	jobGradeId    string // 职等 ID，可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query);获取详细信息
 	jobGradeIdSet bool
 
-	employeeTypeId    string // 人员类型 ID，枚举值及详细信息可通过【批量查询人员类型】接口查询获得
+	employeeTypeId    string // 雇员类型
 	employeeTypeIdSet bool
 
-	workingHoursTypeId    string // 工时制度 ID，枚举值及详细信息可通过【批量查询工时制度】接口查询获得
+	workingHoursTypeId    string // 工时制度 ID，可通过[【查询单个工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get);获取详细信息
 	workingHoursTypeIdSet bool
 
-	workLocationId    string // 工作地点 ID，枚举值及详细信息可通过【批量查询地点】接口查询获得
+	workLocationId    string // 工作地点 ID，可通过[【查询单个地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get);获取详细信息
 	workLocationIdSet bool
 
-	departmentId    string // 部门 ID，枚举值及详细信息可通过【批量查询部门】接口查询获得
+	departmentId    string // 部门
 	departmentIdSet bool
 
-	jobId    string // 职务 ID，枚举值及详细信息可通过【批量查询职务】接口查询获得
+	jobId    string // 职务 ID，可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get);获取详细信息
 	jobIdSet bool
 
 	probationStartDate    string // 试用期开始日期
@@ -10324,40 +10613,40 @@ type JobDataBuilder struct {
 	probationEndDate    string // 试用期结束日期（实际结束日期）
 	probationEndDateSet bool
 
-	primaryJobData    bool // 是否为主任职
+	primaryJobData    bool // 主任职
 	primaryJobDataSet bool
 
-	employmentId    string // 雇佣 ID
+	employmentId    string // 雇佣 ID，可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息;- 与 user_id_type 类型一致
 	employmentIdSet bool
 
 	effectiveTime    string // 生效时间
 	effectiveTimeSet bool
 
-	expirationTime    string // 失效时间
+	expirationTime    string // 任职记录版本的失效时间
 	expirationTimeSet bool
 
-	jobFamilyId    string // 职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
+	jobFamilyId    string // 序列 ID，可通过;[【查询单个序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get);获取详细信息
 	jobFamilyIdSet bool
 
-	assignmentStartReason    *Enum // 任职原因，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
+	assignmentStartReason    *Enum // 业务类型（原：任职原因）;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：; - object_api_name：job_data; - custom_api_name：assignment_start_reason;- 这里只支持填写"onboarding"
 	assignmentStartReasonSet bool
 
 	probationExpectedEndDate    string // 预计试用期结束日期
 	probationExpectedEndDateSet bool
 
-	probationOutcome    *Enum // 试用期结果，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)试用期结果（probation_outcome）枚举定义部分获得
+	probationOutcome    *Enum // 试用期结果
 	probationOutcomeSet bool
 
 	weeklyWorkingHours    int // 周工作时长
 	weeklyWorkingHoursSet bool
 
-	directManagerId    string // 实线主管的任职记录ID
+	directManagerId    string // 实线主管的任职记录ID，可通过[【查询单个任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get);获取详细信息
 	directManagerIdSet bool
 
-	dottedLineManagerIdList    []string // 虚线主管的任职记录ID
+	dottedLineManagerIdList    []string // 虚线主管的任职记录ID，可通过[【查询单个任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get);获取详细信息
 	dottedLineManagerIdListSet bool
 
-	secondDirectManagerId    string // 第二实线主管的任职记录ID
+	secondDirectManagerId    string // 第二实线主管的任职记录ID，可通过[【查询单个任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get);获取详细信息
 	secondDirectManagerIdSet bool
 
 	costCenterRate    []*SupportCostCenterItem // 成本中心分摊信息
@@ -10375,20 +10664,23 @@ type JobDataBuilder struct {
 	compensationType    *Enum // 薪资类型
 	compensationTypeSet bool
 
-	serviceCompany    string // 任职公司
+	serviceCompany    string // 任职公司，枚举值及详细信息可通过[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)接口查询获得
 	serviceCompanySet bool
 
-	employeeSubtypeId    string // 人员子类型 ID
+	employeeSubtypeId    string // 人员子类型 ID;- 功能灰度中，如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
 	employeeSubtypeIdSet bool
 
-	positionId    string // 岗位 ID，枚举值及详细信息可通过【查询单个岗位】接口查询获得
+	positionId    string // 岗位 ID;- 功能灰度中，如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
 	positionIdSet bool
 
 	pathwayId    string // 通道 ID
 	pathwayIdSet bool
 
-	jobDataReason    *Enum // 任职原因;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：;  - object_api_name = "job_data";  - custom_api_name = "job_data_reason"
+	jobDataReason    *Enum // 任职原因;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：; - object_api_name = "job_data"; - custom_api_name = "job_data_reason"
 	jobDataReasonSet bool
+
+	workCalendarId    string // 工作日历 ID
+	workCalendarIdSet bool
 }
 
 func NewJobDataBuilder() *JobDataBuilder {
@@ -10414,7 +10706,7 @@ func (builder *JobDataBuilder) VersionId(versionId string) *JobDataBuilder {
 	return builder
 }
 
-// 职务级别 ID，枚举值及详细信息可通过【批量查询职务级别】接口查询获得
+// 职务级别 ID，可通过[【查询单个职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get);获取详细信息
 //
 // 示例值：6890452208593372679
 func (builder *JobDataBuilder) JobLevelId(jobLevelId string) *JobDataBuilder {
@@ -10423,7 +10715,7 @@ func (builder *JobDataBuilder) JobLevelId(jobLevelId string) *JobDataBuilder {
 	return builder
 }
 
-// 职等ID
+// 职等 ID，可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query);获取详细信息
 //
 // 示例值：6890452208593372679
 func (builder *JobDataBuilder) JobGradeId(jobGradeId string) *JobDataBuilder {
@@ -10432,7 +10724,7 @@ func (builder *JobDataBuilder) JobGradeId(jobGradeId string) *JobDataBuilder {
 	return builder
 }
 
-// 人员类型 ID，枚举值及详细信息可通过【批量查询人员类型】接口查询获得
+// 雇员类型
 //
 // 示例值：6890452208593372679
 func (builder *JobDataBuilder) EmployeeTypeId(employeeTypeId string) *JobDataBuilder {
@@ -10441,7 +10733,7 @@ func (builder *JobDataBuilder) EmployeeTypeId(employeeTypeId string) *JobDataBui
 	return builder
 }
 
-// 工时制度 ID，枚举值及详细信息可通过【批量查询工时制度】接口查询获得
+// 工时制度 ID，可通过[【查询单个工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get);获取详细信息
 //
 // 示例值：6890452208593372679
 func (builder *JobDataBuilder) WorkingHoursTypeId(workingHoursTypeId string) *JobDataBuilder {
@@ -10450,7 +10742,7 @@ func (builder *JobDataBuilder) WorkingHoursTypeId(workingHoursTypeId string) *Jo
 	return builder
 }
 
-// 工作地点 ID，枚举值及详细信息可通过【批量查询地点】接口查询获得
+// 工作地点 ID，可通过[【查询单个地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get);获取详细信息
 //
 // 示例值：6890452208593372679
 func (builder *JobDataBuilder) WorkLocationId(workLocationId string) *JobDataBuilder {
@@ -10459,7 +10751,7 @@ func (builder *JobDataBuilder) WorkLocationId(workLocationId string) *JobDataBui
 	return builder
 }
 
-// 部门 ID，枚举值及详细信息可通过【批量查询部门】接口查询获得
+// 部门
 //
 // 示例值：6890452208593372679
 func (builder *JobDataBuilder) DepartmentId(departmentId string) *JobDataBuilder {
@@ -10468,7 +10760,7 @@ func (builder *JobDataBuilder) DepartmentId(departmentId string) *JobDataBuilder
 	return builder
 }
 
-// 职务 ID，枚举值及详细信息可通过【批量查询职务】接口查询获得
+// 职务 ID，可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get);获取详细信息
 //
 // 示例值：6890452208593372679
 func (builder *JobDataBuilder) JobId(jobId string) *JobDataBuilder {
@@ -10495,7 +10787,7 @@ func (builder *JobDataBuilder) ProbationEndDate(probationEndDate string) *JobDat
 	return builder
 }
 
-// 是否为主任职
+// 主任职
 //
 // 示例值：true
 func (builder *JobDataBuilder) PrimaryJobData(primaryJobData bool) *JobDataBuilder {
@@ -10504,7 +10796,7 @@ func (builder *JobDataBuilder) PrimaryJobData(primaryJobData bool) *JobDataBuild
 	return builder
 }
 
-// 雇佣 ID
+// 雇佣 ID，可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息;- 与 user_id_type 类型一致
 //
 // 示例值：6893014062142064135
 func (builder *JobDataBuilder) EmploymentId(employmentId string) *JobDataBuilder {
@@ -10522,7 +10814,7 @@ func (builder *JobDataBuilder) EffectiveTime(effectiveTime string) *JobDataBuild
 	return builder
 }
 
-// 失效时间
+// 任职记录版本的失效时间
 //
 // 示例值：2020-05-02 00:00:00
 func (builder *JobDataBuilder) ExpirationTime(expirationTime string) *JobDataBuilder {
@@ -10531,7 +10823,7 @@ func (builder *JobDataBuilder) ExpirationTime(expirationTime string) *JobDataBui
 	return builder
 }
 
-// 职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
+// 序列 ID，可通过;[【查询单个序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get);获取详细信息
 //
 // 示例值：1245678
 func (builder *JobDataBuilder) JobFamilyId(jobFamilyId string) *JobDataBuilder {
@@ -10540,7 +10832,7 @@ func (builder *JobDataBuilder) JobFamilyId(jobFamilyId string) *JobDataBuilder {
 	return builder
 }
 
-// 任职原因，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
+// 业务类型（原：任职原因）;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：; - object_api_name：job_data; - custom_api_name：assignment_start_reason;- 这里只支持填写"onboarding"
 //
 // 示例值：onboarding
 func (builder *JobDataBuilder) AssignmentStartReason(assignmentStartReason *Enum) *JobDataBuilder {
@@ -10558,7 +10850,7 @@ func (builder *JobDataBuilder) ProbationExpectedEndDate(probationExpectedEndDate
 	return builder
 }
 
-// 试用期结果，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)试用期结果（probation_outcome）枚举定义部分获得
+// 试用期结果
 //
 // 示例值：passed
 func (builder *JobDataBuilder) ProbationOutcome(probationOutcome *Enum) *JobDataBuilder {
@@ -10576,7 +10868,7 @@ func (builder *JobDataBuilder) WeeklyWorkingHours(weeklyWorkingHours int) *JobDa
 	return builder
 }
 
-// 实线主管的任职记录ID
+// 实线主管的任职记录ID，可通过[【查询单个任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get);获取详细信息
 //
 // 示例值：6890452208593372679
 func (builder *JobDataBuilder) DirectManagerId(directManagerId string) *JobDataBuilder {
@@ -10585,16 +10877,16 @@ func (builder *JobDataBuilder) DirectManagerId(directManagerId string) *JobDataB
 	return builder
 }
 
-// 虚线主管的任职记录ID
+// 虚线主管的任职记录ID，可通过[【查询单个任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get);获取详细信息
 //
-// 示例值：["6971723901730686501"]
+// 示例值：
 func (builder *JobDataBuilder) DottedLineManagerIdList(dottedLineManagerIdList []string) *JobDataBuilder {
 	builder.dottedLineManagerIdList = dottedLineManagerIdList
 	builder.dottedLineManagerIdListSet = true
 	return builder
 }
 
-// 第二实线主管的任职记录ID
+// 第二实线主管的任职记录ID，可通过[【查询单个任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get);获取详细信息
 //
 // 示例值：6890452208593372679
 func (builder *JobDataBuilder) SecondDirectManagerId(secondDirectManagerId string) *JobDataBuilder {
@@ -10648,7 +10940,7 @@ func (builder *JobDataBuilder) CompensationType(compensationType *Enum) *JobData
 	return builder
 }
 
-// 任职公司
+// 任职公司，枚举值及详细信息可通过[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)接口查询获得
 //
 // 示例值：6890452208593372680
 func (builder *JobDataBuilder) ServiceCompany(serviceCompany string) *JobDataBuilder {
@@ -10657,7 +10949,7 @@ func (builder *JobDataBuilder) ServiceCompany(serviceCompany string) *JobDataBui
 	return builder
 }
 
-// 人员子类型 ID
+// 人员子类型 ID;- 功能灰度中，如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
 //
 // 示例值：6890452208593372680
 func (builder *JobDataBuilder) EmployeeSubtypeId(employeeSubtypeId string) *JobDataBuilder {
@@ -10666,7 +10958,7 @@ func (builder *JobDataBuilder) EmployeeSubtypeId(employeeSubtypeId string) *JobD
 	return builder
 }
 
-// 岗位 ID，枚举值及详细信息可通过【查询单个岗位】接口查询获得
+// 岗位 ID;- 功能灰度中，如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
 //
 // 示例值：6890452208593372679
 func (builder *JobDataBuilder) PositionId(positionId string) *JobDataBuilder {
@@ -10684,12 +10976,21 @@ func (builder *JobDataBuilder) PathwayId(pathwayId string) *JobDataBuilder {
 	return builder
 }
 
-// 任职原因;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：;  - object_api_name = "job_data";  - custom_api_name = "job_data_reason"
+// 任职原因;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：; - object_api_name = "job_data"; - custom_api_name = "job_data_reason"
 //
 // 示例值：
 func (builder *JobDataBuilder) JobDataReason(jobDataReason *Enum) *JobDataBuilder {
 	builder.jobDataReason = jobDataReason
 	builder.jobDataReasonSet = true
+	return builder
+}
+
+// 工作日历 ID
+//
+// 示例值：6969087376740236087
+func (builder *JobDataBuilder) WorkCalendarId(workCalendarId string) *JobDataBuilder {
+	builder.workCalendarId = workCalendarId
+	builder.workCalendarIdSet = true
 	return builder
 }
 
@@ -10819,25 +11120,29 @@ func (builder *JobDataBuilder) Build() *JobData {
 	if builder.jobDataReasonSet {
 		req.JobDataReason = builder.jobDataReason
 	}
+	if builder.workCalendarIdSet {
+		req.WorkCalendarId = &builder.workCalendarId
+
+	}
 	return req
 }
 
 type JobDataCostCenter struct {
-	CostCenterId *string `json:"cost_center_id,omitempty"` // 成本中心id，可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
+	CostCenterId *string `json:"cost_center_id,omitempty"` // 成本中心id，可以通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)获取详细信息
 
 	Rate *int `json:"rate,omitempty"` // 分摊比例
 
-	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段;- 请参考[【自定义字段说明】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 }
 
 type JobDataCostCenterBuilder struct {
-	costCenterId    string // 成本中心id，可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
+	costCenterId    string // 成本中心id，可以通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)获取详细信息
 	costCenterIdSet bool
 
 	rate    int // 分摊比例
 	rateSet bool
 
-	customFields    []*ObjectFieldData // 自定义字段
+	customFields    []*ObjectFieldData // 自定义字段;- 请参考[【自定义字段说明】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 	customFieldsSet bool
 }
 
@@ -10846,7 +11151,7 @@ func NewJobDataCostCenterBuilder() *JobDataCostCenterBuilder {
 	return builder
 }
 
-// 成本中心id，可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
+// 成本中心id，可以通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)获取详细信息
 //
 // 示例值：6950635856373745165
 func (builder *JobDataCostCenterBuilder) CostCenterId(costCenterId string) *JobDataCostCenterBuilder {
@@ -10864,7 +11169,7 @@ func (builder *JobDataCostCenterBuilder) Rate(rate int) *JobDataCostCenterBuilde
 	return builder
 }
 
-// 自定义字段
+// 自定义字段;- 请参考[【自定义字段说明】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 //
 // 示例值：
 func (builder *JobDataCostCenterBuilder) CustomFields(customFields []*ObjectFieldData) *JobDataCostCenterBuilder {
@@ -10890,15 +11195,15 @@ func (builder *JobDataCostCenterBuilder) Build() *JobDataCostCenter {
 }
 
 type JobFamily struct {
-	Id *string `json:"id,omitempty"` // 职务序列 ID
+	Id *string `json:"id,omitempty"` // 序列 ID
 
 	Name []*I18n `json:"name,omitempty"` // 名称
 
-	Active *bool `json:"active,omitempty"` // 是否启用
+	Active *bool `json:"active,omitempty"` // 启用
 
-	Selectable *bool `json:"selectable,omitempty"` // 可选
+	Selectable *bool `json:"selectable,omitempty"` // 是否可被使用，true为可被使用，false为不可被使用;
 
-	ParentId *string `json:"parent_id,omitempty"` // 上级职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
+	ParentId *string `json:"parent_id,omitempty"` // 上级序列
 
 	PathwayIds []string `json:"pathway_ids,omitempty"` // 通道ID
 
@@ -10914,19 +11219,19 @@ type JobFamily struct {
 }
 
 type JobFamilyBuilder struct {
-	id    string // 职务序列 ID
+	id    string // 序列 ID
 	idSet bool
 
 	name    []*I18n // 名称
 	nameSet bool
 
-	active    bool // 是否启用
+	active    bool // 启用
 	activeSet bool
 
-	selectable    bool // 可选
+	selectable    bool // 是否可被使用，true为可被使用，false为不可被使用;
 	selectableSet bool
 
-	parentId    string // 上级职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
+	parentId    string // 上级序列
 	parentIdSet bool
 
 	pathwayIds    []string // 通道ID
@@ -10953,7 +11258,7 @@ func NewJobFamilyBuilder() *JobFamilyBuilder {
 	return builder
 }
 
-// 职务序列 ID
+// 序列 ID
 //
 // 示例值：4698019107896524633
 func (builder *JobFamilyBuilder) Id(id string) *JobFamilyBuilder {
@@ -10971,7 +11276,7 @@ func (builder *JobFamilyBuilder) Name(name []*I18n) *JobFamilyBuilder {
 	return builder
 }
 
-// 是否启用
+// 启用
 //
 // 示例值：true
 func (builder *JobFamilyBuilder) Active(active bool) *JobFamilyBuilder {
@@ -10980,7 +11285,7 @@ func (builder *JobFamilyBuilder) Active(active bool) *JobFamilyBuilder {
 	return builder
 }
 
-// 可选
+// 是否可被使用，true为可被使用，false为不可被使用;
 //
 // 示例值：true
 func (builder *JobFamilyBuilder) Selectable(selectable bool) *JobFamilyBuilder {
@@ -10989,7 +11294,7 @@ func (builder *JobFamilyBuilder) Selectable(selectable bool) *JobFamilyBuilder {
 	return builder
 }
 
-// 上级职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
+// 上级序列
 //
 // 示例值：4698020757495316313
 func (builder *JobFamilyBuilder) ParentId(parentId string) *JobFamilyBuilder {
@@ -11098,7 +11403,7 @@ func (builder *JobFamilyBuilder) Build() *JobFamily {
 }
 
 type JobLevel struct {
-	Id *string `json:"id,omitempty"` // 职务级别 ID
+	Id *string `json:"id,omitempty"` // 职级 ID
 
 	LevelOrder *int `json:"level_order,omitempty"` // 职级数值
 
@@ -11108,19 +11413,19 @@ type JobLevel struct {
 
 	Description []*I18n `json:"description,omitempty"` // 描述
 
-	Active *bool `json:"active,omitempty"` // 是否启用
+	Active *bool `json:"active,omitempty"` // 启用
 
 	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 
 	JobGrade []string `json:"job_grade,omitempty"` // 职等 ID 列表
 
-	PathwayIds []string `json:"pathway_ids,omitempty"` // 通道 ID 列表
+	PathwayIds []string `json:"pathway_ids,omitempty"` // 通道ID，详情可以参考[【获取通道信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get)
 
 	ViewOrder *int `json:"view_order,omitempty"` // 排序
 }
 
 type JobLevelBuilder struct {
-	id    string // 职务级别 ID
+	id    string // 职级 ID
 	idSet bool
 
 	levelOrder    int // 职级数值
@@ -11135,7 +11440,7 @@ type JobLevelBuilder struct {
 	description    []*I18n // 描述
 	descriptionSet bool
 
-	active    bool // 是否启用
+	active    bool // 启用
 	activeSet bool
 
 	customFields    []*ObjectFieldData // 自定义字段
@@ -11144,7 +11449,7 @@ type JobLevelBuilder struct {
 	jobGrade    []string // 职等 ID 列表
 	jobGradeSet bool
 
-	pathwayIds    []string // 通道 ID 列表
+	pathwayIds    []string // 通道ID，详情可以参考[【获取通道信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get)
 	pathwayIdsSet bool
 
 	viewOrder    int // 排序
@@ -11156,7 +11461,7 @@ func NewJobLevelBuilder() *JobLevelBuilder {
 	return builder
 }
 
-// 职务级别 ID
+// 职级 ID
 //
 // 示例值：4692446793125560154
 func (builder *JobLevelBuilder) Id(id string) *JobLevelBuilder {
@@ -11201,7 +11506,7 @@ func (builder *JobLevelBuilder) Description(description []*I18n) *JobLevelBuilde
 	return builder
 }
 
-// 是否启用
+// 启用
 //
 // 示例值：true
 func (builder *JobLevelBuilder) Active(active bool) *JobLevelBuilder {
@@ -11228,7 +11533,7 @@ func (builder *JobLevelBuilder) JobGrade(jobGrade []string) *JobLevelBuilder {
 	return builder
 }
 
-// 通道 ID 列表
+// 通道ID，详情可以参考[【获取通道信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get)
 //
 // 示例值：
 func (builder *JobLevelBuilder) PathwayIds(pathwayIds []string) *JobLevelBuilder {
@@ -11287,33 +11592,33 @@ func (builder *JobLevelBuilder) Build() *JobLevel {
 }
 
 type LeaveBalance struct {
-	LeaveTypeId *string `json:"leave_type_id,omitempty"` // 假期类型ID
+	LeaveTypeId *string `json:"leave_type_id,omitempty"` // 假期类型ID，可用于;* [创建假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/create);* [批量查询员工请假记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_request_history);* [通过过期时间获取发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_employ_expire_record/get);* [修改发放记录;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch)
 
 	LeaveTypeName []*I18n `json:"leave_type_name,omitempty"` // 假期类型名称
 
-	HistoricalCyclesLeft *string `json:"historical_cycles_left,omitempty"` // 结转的历史周期授予时长
+	HistoricalCyclesLeft *string `json:"historical_cycles_left,omitempty"` // 历史结转余额
 
-	ThisCycleTotal *string `json:"this_cycle_total,omitempty"` // 本周期授予时长
+	ThisCycleTotal *string `json:"this_cycle_total,omitempty"` // 当前周期发放
 
-	ThisCycleTaken *string `json:"this_cycle_taken,omitempty"` // 本周期已休时长
+	ThisCycleTaken *string `json:"this_cycle_taken,omitempty"` // 已休（归属当前周期）
 
 	LeaveBalance *string `json:"leave_balance,omitempty"` // 假期余额
 
 	LeaveDurationUnit *int `json:"leave_duration_unit,omitempty"` // 假期时长单位;;可选值有：;;- 1: 天;;- 2: 小时
 
-	HistoryCycleAccrual *string `json:"history_cycle_accrual,omitempty"` // 历史结转发放
+	HistoryCycleAccrual *string `json:"history_cycle_accrual,omitempty"` // 历史结转发放，当入参include_offboard为true时返回
 
 	BalanceInCurrentCycle *string `json:"balance_in_current_cycle,omitempty"` // 当前周期余额
 
-	Taken *string `json:"taken,omitempty"` // 已休时长
+	Taken *string `json:"taken,omitempty"` // 已休时长，当入参include_offboard为true时返回
 
 	TakenHistoryCycle *string `json:"taken_history_cycle,omitempty"` // 历史周期已休时长
 
-	OffboardingBalance *string `json:"offboarding_balance,omitempty"` // 余额（离职折算）
+	OffboardingBalance *string `json:"offboarding_balance,omitempty"` // 余额（离职折算），当入参include_offboard为true时返回
 
-	TakenCurrentDate *string `json:"taken_current_date,omitempty"` // 已休时长（截止当日）
+	TakenCurrentDate *string `json:"taken_current_date,omitempty"` // 已休时长（截止当日），当入参include_offboard为true时返回
 
-	OffboardingGranted *string `json:"offboarding_granted,omitempty"` // 本周期授予时长（离职折算）
+	OffboardingGranted *string `json:"offboarding_granted,omitempty"` // 本周期授予时长（离职折算），当入参include_offboard为true时返回
 
 	LeaveBalanceExcludingUnderApproval *string `json:"leave_balance_excluding_under_approval,omitempty"` // 假期余额（不包含审批中）
 
@@ -11321,19 +11626,19 @@ type LeaveBalance struct {
 }
 
 type LeaveBalanceBuilder struct {
-	leaveTypeId    string // 假期类型ID
+	leaveTypeId    string // 假期类型ID，可用于;* [创建假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/create);* [批量查询员工请假记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_request_history);* [通过过期时间获取发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_employ_expire_record/get);* [修改发放记录;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch)
 	leaveTypeIdSet bool
 
 	leaveTypeName    []*I18n // 假期类型名称
 	leaveTypeNameSet bool
 
-	historicalCyclesLeft    string // 结转的历史周期授予时长
+	historicalCyclesLeft    string // 历史结转余额
 	historicalCyclesLeftSet bool
 
-	thisCycleTotal    string // 本周期授予时长
+	thisCycleTotal    string // 当前周期发放
 	thisCycleTotalSet bool
 
-	thisCycleTaken    string // 本周期已休时长
+	thisCycleTaken    string // 已休（归属当前周期）
 	thisCycleTakenSet bool
 
 	leaveBalance    string // 假期余额
@@ -11342,25 +11647,25 @@ type LeaveBalanceBuilder struct {
 	leaveDurationUnit    int // 假期时长单位;;可选值有：;;- 1: 天;;- 2: 小时
 	leaveDurationUnitSet bool
 
-	historyCycleAccrual    string // 历史结转发放
+	historyCycleAccrual    string // 历史结转发放，当入参include_offboard为true时返回
 	historyCycleAccrualSet bool
 
 	balanceInCurrentCycle    string // 当前周期余额
 	balanceInCurrentCycleSet bool
 
-	taken    string // 已休时长
+	taken    string // 已休时长，当入参include_offboard为true时返回
 	takenSet bool
 
 	takenHistoryCycle    string // 历史周期已休时长
 	takenHistoryCycleSet bool
 
-	offboardingBalance    string // 余额（离职折算）
+	offboardingBalance    string // 余额（离职折算），当入参include_offboard为true时返回
 	offboardingBalanceSet bool
 
-	takenCurrentDate    string // 已休时长（截止当日）
+	takenCurrentDate    string // 已休时长（截止当日），当入参include_offboard为true时返回
 	takenCurrentDateSet bool
 
-	offboardingGranted    string // 本周期授予时长（离职折算）
+	offboardingGranted    string // 本周期授予时长（离职折算），当入参include_offboard为true时返回
 	offboardingGrantedSet bool
 
 	leaveBalanceExcludingUnderApproval    string // 假期余额（不包含审批中）
@@ -11375,7 +11680,7 @@ func NewLeaveBalanceBuilder() *LeaveBalanceBuilder {
 	return builder
 }
 
-// 假期类型ID
+// 假期类型ID，可用于;* [创建假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/create);* [批量查询员工请假记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_request_history);* [通过过期时间获取发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_employ_expire_record/get);* [修改发放记录;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch)
 //
 // 示例值：4718803945687580505
 func (builder *LeaveBalanceBuilder) LeaveTypeId(leaveTypeId string) *LeaveBalanceBuilder {
@@ -11393,7 +11698,7 @@ func (builder *LeaveBalanceBuilder) LeaveTypeName(leaveTypeName []*I18n) *LeaveB
 	return builder
 }
 
-// 结转的历史周期授予时长
+// 历史结转余额
 //
 // 示例值：0
 func (builder *LeaveBalanceBuilder) HistoricalCyclesLeft(historicalCyclesLeft string) *LeaveBalanceBuilder {
@@ -11402,7 +11707,7 @@ func (builder *LeaveBalanceBuilder) HistoricalCyclesLeft(historicalCyclesLeft st
 	return builder
 }
 
-// 本周期授予时长
+// 当前周期发放
 //
 // 示例值：0
 func (builder *LeaveBalanceBuilder) ThisCycleTotal(thisCycleTotal string) *LeaveBalanceBuilder {
@@ -11411,7 +11716,7 @@ func (builder *LeaveBalanceBuilder) ThisCycleTotal(thisCycleTotal string) *Leave
 	return builder
 }
 
-// 本周期已休时长
+// 已休（归属当前周期）
 //
 // 示例值：0
 func (builder *LeaveBalanceBuilder) ThisCycleTaken(thisCycleTaken string) *LeaveBalanceBuilder {
@@ -11438,7 +11743,7 @@ func (builder *LeaveBalanceBuilder) LeaveDurationUnit(leaveDurationUnit int) *Le
 	return builder
 }
 
-// 历史结转发放
+// 历史结转发放，当入参include_offboard为true时返回
 //
 // 示例值：0
 func (builder *LeaveBalanceBuilder) HistoryCycleAccrual(historyCycleAccrual string) *LeaveBalanceBuilder {
@@ -11456,7 +11761,7 @@ func (builder *LeaveBalanceBuilder) BalanceInCurrentCycle(balanceInCurrentCycle 
 	return builder
 }
 
-// 已休时长
+// 已休时长，当入参include_offboard为true时返回
 //
 // 示例值：0
 func (builder *LeaveBalanceBuilder) Taken(taken string) *LeaveBalanceBuilder {
@@ -11474,7 +11779,7 @@ func (builder *LeaveBalanceBuilder) TakenHistoryCycle(takenHistoryCycle string) 
 	return builder
 }
 
-// 余额（离职折算）
+// 余额（离职折算），当入参include_offboard为true时返回
 //
 // 示例值：0
 func (builder *LeaveBalanceBuilder) OffboardingBalance(offboardingBalance string) *LeaveBalanceBuilder {
@@ -11483,7 +11788,7 @@ func (builder *LeaveBalanceBuilder) OffboardingBalance(offboardingBalance string
 	return builder
 }
 
-// 已休时长（截止当日）
+// 已休时长（截止当日），当入参include_offboard为true时返回
 //
 // 示例值：0
 func (builder *LeaveBalanceBuilder) TakenCurrentDate(takenCurrentDate string) *LeaveBalanceBuilder {
@@ -11492,7 +11797,7 @@ func (builder *LeaveBalanceBuilder) TakenCurrentDate(takenCurrentDate string) *L
 	return builder
 }
 
-// 本周期授予时长（离职折算）
+// 本周期授予时长（离职折算），当入参include_offboard为true时返回
 //
 // 示例值：0
 func (builder *LeaveBalanceBuilder) OffboardingGranted(offboardingGranted string) *LeaveBalanceBuilder {
@@ -11706,76 +12011,76 @@ func (builder *LeaveExtendItemBuilder) Build() *LeaveExtendItem {
 }
 
 type LeaveGrantingRecord struct {
-	Id *string `json:"id,omitempty"` // 假期授予记录 ID
+	Id *string `json:"id,omitempty"` // 假期发放记录 ID，可用与[删除假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/delete)和[修改发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch)
 
-	EmploymentId *string `json:"employment_id,omitempty"` // 员工 ID
+	EmploymentId *string `json:"employment_id,omitempty"` // 员工 ID，对应user_id_type
 
 	LeaveTypeId *string `json:"leave_type_id,omitempty"` // 假期类型 ID
 
-	GrantingQuantity *string `json:"granting_quantity,omitempty"` // 授予数量
+	GrantingQuantity *string `json:"granting_quantity,omitempty"` // 发放数量
 
-	GrantingUnit *int `json:"granting_unit,omitempty"` // 授予时长单位;;可选值有：;- 1: 天;- 2: 小时
+	GrantingUnit *int `json:"granting_unit,omitempty"` // 发放时长单位;;可选值有：;- 1: 天;- 2: 小时
 
-	EffectiveDate *string `json:"effective_date,omitempty"` // 生效时间
+	EffectiveDate *string `json:"effective_date,omitempty"` // 生效时间，格式为yyyy-MM-dd
 
-	ExpirationDate *string `json:"expiration_date,omitempty"` // 失效时间（根据休假规则自动计算）
+	ExpirationDate *string `json:"expiration_date,omitempty"` // 失效时间（根据休假规则自动计算），格式为yyyy-MM-dd
 
-	GrantedBy *int `json:"granted_by,omitempty"` // 授予来源;;可选值有：;- 1: 系统授予;- 2: 手动授予;- 3: 外部系统授予
+	GrantedBy *int `json:"granted_by,omitempty"` // 发放来源;;可选值有：;- 1: 系统发放;- 2: 手动发放;- 3: 外部系统发放
 
-	Reason []*I18n `json:"reason,omitempty"` // 授予原因
+	Reason []*I18n `json:"reason,omitempty"` // 发放原因
 
-	CreatedAt *string `json:"created_at,omitempty"` // 授予记录的创建时间
+	CreatedAt *string `json:"created_at,omitempty"` // 发放记录的创建时间，格式为毫秒级时间戳
 
-	CreatedBy *string `json:"created_by,omitempty"` // 授予记录的创建人，值为创建人的员工 ID
+	CreatedBy *string `json:"created_by,omitempty"` // 发放记录的创建人，值为创建人的员工 ID，对应user_id_type
 
-	UpdatedAt *string `json:"updated_at,omitempty"` // 授予记录的更新时间
+	UpdatedAt *string `json:"updated_at,omitempty"` // 发放记录的更新时间，格式为毫秒级时间戳
 
-	UpdatedBy *string `json:"updated_by,omitempty"` // 授予记录的更新人，值为更新人的员工 ID
+	UpdatedBy *string `json:"updated_by,omitempty"` // 发放记录的更新人，值为更新人的员工 ID，对应user_id_type
 
-	SectionType *int `json:"section_type,omitempty"` // 是否参与折算
+	SectionType *int `json:"section_type,omitempty"` // 是否参与折算（1不参与折算，2参与折算）
 }
 
 type LeaveGrantingRecordBuilder struct {
-	id    string // 假期授予记录 ID
+	id    string // 假期发放记录 ID，可用与[删除假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/delete)和[修改发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch)
 	idSet bool
 
-	employmentId    string // 员工 ID
+	employmentId    string // 员工 ID，对应user_id_type
 	employmentIdSet bool
 
 	leaveTypeId    string // 假期类型 ID
 	leaveTypeIdSet bool
 
-	grantingQuantity    string // 授予数量
+	grantingQuantity    string // 发放数量
 	grantingQuantitySet bool
 
-	grantingUnit    int // 授予时长单位;;可选值有：;- 1: 天;- 2: 小时
+	grantingUnit    int // 发放时长单位;;可选值有：;- 1: 天;- 2: 小时
 	grantingUnitSet bool
 
-	effectiveDate    string // 生效时间
+	effectiveDate    string // 生效时间，格式为yyyy-MM-dd
 	effectiveDateSet bool
 
-	expirationDate    string // 失效时间（根据休假规则自动计算）
+	expirationDate    string // 失效时间（根据休假规则自动计算），格式为yyyy-MM-dd
 	expirationDateSet bool
 
-	grantedBy    int // 授予来源;;可选值有：;- 1: 系统授予;- 2: 手动授予;- 3: 外部系统授予
+	grantedBy    int // 发放来源;;可选值有：;- 1: 系统发放;- 2: 手动发放;- 3: 外部系统发放
 	grantedBySet bool
 
-	reason    []*I18n // 授予原因
+	reason    []*I18n // 发放原因
 	reasonSet bool
 
-	createdAt    string // 授予记录的创建时间
+	createdAt    string // 发放记录的创建时间，格式为毫秒级时间戳
 	createdAtSet bool
 
-	createdBy    string // 授予记录的创建人，值为创建人的员工 ID
+	createdBy    string // 发放记录的创建人，值为创建人的员工 ID，对应user_id_type
 	createdBySet bool
 
-	updatedAt    string // 授予记录的更新时间
+	updatedAt    string // 发放记录的更新时间，格式为毫秒级时间戳
 	updatedAtSet bool
 
-	updatedBy    string // 授予记录的更新人，值为更新人的员工 ID
+	updatedBy    string // 发放记录的更新人，值为更新人的员工 ID，对应user_id_type
 	updatedBySet bool
 
-	sectionType    int // 是否参与折算
+	sectionType    int // 是否参与折算（1不参与折算，2参与折算）
 	sectionTypeSet bool
 }
 
@@ -11784,7 +12089,7 @@ func NewLeaveGrantingRecordBuilder() *LeaveGrantingRecordBuilder {
 	return builder
 }
 
-// 假期授予记录 ID
+// 假期发放记录 ID，可用与[删除假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/delete)和[修改发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch)
 //
 // 示例值：6893014062142064135
 func (builder *LeaveGrantingRecordBuilder) Id(id string) *LeaveGrantingRecordBuilder {
@@ -11793,7 +12098,7 @@ func (builder *LeaveGrantingRecordBuilder) Id(id string) *LeaveGrantingRecordBui
 	return builder
 }
 
-// 员工 ID
+// 员工 ID，对应user_id_type
 //
 // 示例值：6893014062142064135
 func (builder *LeaveGrantingRecordBuilder) EmploymentId(employmentId string) *LeaveGrantingRecordBuilder {
@@ -11811,7 +12116,7 @@ func (builder *LeaveGrantingRecordBuilder) LeaveTypeId(leaveTypeId string) *Leav
 	return builder
 }
 
-// 授予数量
+// 发放数量
 //
 // 示例值：0.5
 func (builder *LeaveGrantingRecordBuilder) GrantingQuantity(grantingQuantity string) *LeaveGrantingRecordBuilder {
@@ -11820,7 +12125,7 @@ func (builder *LeaveGrantingRecordBuilder) GrantingQuantity(grantingQuantity str
 	return builder
 }
 
-// 授予时长单位;;可选值有：;- 1: 天;- 2: 小时
+// 发放时长单位;;可选值有：;- 1: 天;- 2: 小时
 //
 // 示例值：1
 func (builder *LeaveGrantingRecordBuilder) GrantingUnit(grantingUnit int) *LeaveGrantingRecordBuilder {
@@ -11829,7 +12134,7 @@ func (builder *LeaveGrantingRecordBuilder) GrantingUnit(grantingUnit int) *Leave
 	return builder
 }
 
-// 生效时间
+// 生效时间，格式为yyyy-MM-dd
 //
 // 示例值：2022-01-01
 func (builder *LeaveGrantingRecordBuilder) EffectiveDate(effectiveDate string) *LeaveGrantingRecordBuilder {
@@ -11838,7 +12143,7 @@ func (builder *LeaveGrantingRecordBuilder) EffectiveDate(effectiveDate string) *
 	return builder
 }
 
-// 失效时间（根据休假规则自动计算）
+// 失效时间（根据休假规则自动计算），格式为yyyy-MM-dd
 //
 // 示例值：2022-01-01
 func (builder *LeaveGrantingRecordBuilder) ExpirationDate(expirationDate string) *LeaveGrantingRecordBuilder {
@@ -11847,7 +12152,7 @@ func (builder *LeaveGrantingRecordBuilder) ExpirationDate(expirationDate string)
 	return builder
 }
 
-// 授予来源;;可选值有：;- 1: 系统授予;- 2: 手动授予;- 3: 外部系统授予
+// 发放来源;;可选值有：;- 1: 系统发放;- 2: 手动发放;- 3: 外部系统发放
 //
 // 示例值：3
 func (builder *LeaveGrantingRecordBuilder) GrantedBy(grantedBy int) *LeaveGrantingRecordBuilder {
@@ -11856,7 +12161,7 @@ func (builder *LeaveGrantingRecordBuilder) GrantedBy(grantedBy int) *LeaveGranti
 	return builder
 }
 
-// 授予原因
+// 发放原因
 //
 // 示例值：
 func (builder *LeaveGrantingRecordBuilder) Reason(reason []*I18n) *LeaveGrantingRecordBuilder {
@@ -11865,7 +12170,7 @@ func (builder *LeaveGrantingRecordBuilder) Reason(reason []*I18n) *LeaveGranting
 	return builder
 }
 
-// 授予记录的创建时间
+// 发放记录的创建时间，格式为毫秒级时间戳
 //
 // 示例值：1608725989000
 func (builder *LeaveGrantingRecordBuilder) CreatedAt(createdAt string) *LeaveGrantingRecordBuilder {
@@ -11874,7 +12179,7 @@ func (builder *LeaveGrantingRecordBuilder) CreatedAt(createdAt string) *LeaveGra
 	return builder
 }
 
-// 授予记录的创建人，值为创建人的员工 ID
+// 发放记录的创建人，值为创建人的员工 ID，对应user_id_type
 //
 // 示例值：646465654545
 func (builder *LeaveGrantingRecordBuilder) CreatedBy(createdBy string) *LeaveGrantingRecordBuilder {
@@ -11883,7 +12188,7 @@ func (builder *LeaveGrantingRecordBuilder) CreatedBy(createdBy string) *LeaveGra
 	return builder
 }
 
-// 授予记录的更新时间
+// 发放记录的更新时间，格式为毫秒级时间戳
 //
 // 示例值：1608725989000
 func (builder *LeaveGrantingRecordBuilder) UpdatedAt(updatedAt string) *LeaveGrantingRecordBuilder {
@@ -11892,7 +12197,7 @@ func (builder *LeaveGrantingRecordBuilder) UpdatedAt(updatedAt string) *LeaveGra
 	return builder
 }
 
-// 授予记录的更新人，值为更新人的员工 ID
+// 发放记录的更新人，值为更新人的员工 ID，对应user_id_type
 //
 // 示例值：646465654545
 func (builder *LeaveGrantingRecordBuilder) UpdatedBy(updatedBy string) *LeaveGrantingRecordBuilder {
@@ -11901,7 +12206,7 @@ func (builder *LeaveGrantingRecordBuilder) UpdatedBy(updatedBy string) *LeaveGra
 	return builder
 }
 
-// 是否参与折算
+// 是否参与折算（1不参与折算，2参与折算）
 //
 // 示例值：1
 func (builder *LeaveGrantingRecordBuilder) SectionType(sectionType int) *LeaveGrantingRecordBuilder {
@@ -11971,18 +12276,18 @@ func (builder *LeaveGrantingRecordBuilder) Build() *LeaveGrantingRecord {
 }
 
 type LeaveProcessInfo struct {
-	ProcessId *string `json:"process_id,omitempty"` // 流程id
+	ProcessId *string `json:"process_id,omitempty"` // 流程id。注意：导入的请假不会返回leave_process_id。详情可查看[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 
-	ProcessStatus *string `json:"process_status,omitempty"` // 流程状态
+	ProcessStatus *string `json:"process_status,omitempty"` // 流程状态;可选值有;- "inProgress"：审批中;;- "rejected"：已拒绝;;- "withdrawn"：已撤回;;- "passed"：已通过;;- "revoked"：已撤销;;- "toStart"：待发起
 
 	ProcessApplyTime *string `json:"process_apply_time,omitempty"` // 流程发起时间
 }
 
 type LeaveProcessInfoBuilder struct {
-	processId    string // 流程id
+	processId    string // 流程id。注意：导入的请假不会返回leave_process_id。详情可查看[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 	processIdSet bool
 
-	processStatus    string // 流程状态
+	processStatus    string // 流程状态;可选值有;- "inProgress"：审批中;;- "rejected"：已拒绝;;- "withdrawn"：已撤回;;- "passed"：已通过;;- "revoked"：已撤销;;- "toStart"：待发起
 	processStatusSet bool
 
 	processApplyTime    string // 流程发起时间
@@ -11994,7 +12299,7 @@ func NewLeaveProcessInfoBuilder() *LeaveProcessInfoBuilder {
 	return builder
 }
 
-// 流程id
+// 流程id。注意：导入的请假不会返回leave_process_id。详情可查看[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 //
 // 示例值：4718803945687580505
 func (builder *LeaveProcessInfoBuilder) ProcessId(processId string) *LeaveProcessInfoBuilder {
@@ -12003,7 +12308,7 @@ func (builder *LeaveProcessInfoBuilder) ProcessId(processId string) *LeaveProces
 	return builder
 }
 
-// 流程状态
+// 流程状态;可选值有;- "inProgress"：审批中;;- "rejected"：已拒绝;;- "withdrawn"：已撤回;;- "passed"：已通过;;- "revoked"：已撤销;;- "toStart"：待发起
 //
 // 示例值：passed
 func (builder *LeaveProcessInfoBuilder) ProcessStatus(processStatus string) *LeaveProcessInfoBuilder {
@@ -12041,7 +12346,7 @@ func (builder *LeaveProcessInfoBuilder) Build() *LeaveProcessInfo {
 type LeaveRequest struct {
 	LeaveRequestId *string `json:"leave_request_id,omitempty"` // 请假记录ID
 
-	EmploymentId *string `json:"employment_id,omitempty"` // 雇佣信息ID
+	EmploymentId *string `json:"employment_id,omitempty"` // 员工ID，ID 类型与 user_id_type 一致
 
 	EmploymentName []*I18n `json:"employment_name,omitempty"` // 员工姓名
 
@@ -12049,9 +12354,9 @@ type LeaveRequest struct {
 
 	LeaveTypeName []*I18n `json:"leave_type_name,omitempty"` // 假期类型名称
 
-	StartTime *string `json:"start_time,omitempty"` // 假期开始时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""
+	StartTime *string `json:"start_time,omitempty"` // 假期开始时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""; - 小时假如需返回精准到小时的时间格式，请联系[技术支持](https://applink.feishu.cn/TLJpeNdW) 开通
 
-	EndTime *string `json:"end_time,omitempty"` // 假期结束时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""
+	EndTime *string `json:"end_time,omitempty"` // 假期结束时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""; - 小时假如需返回精准到小时的时间格式，请联系[技术支持](https://applink.feishu.cn/TLJpeNdW) 开通
 
 	LeaveDuration *string `json:"leave_duration,omitempty"` // 假期时长
 
@@ -12061,52 +12366,52 @@ type LeaveRequest struct {
 
 	GrantSource *string `json:"grant_source,omitempty"` // 数据来源;;可选值有：;;- "manual"：手动创建;;- "system"：系统创建"
 
-	ReturnTime *string `json:"return_time,omitempty"` // 返岗时间
+	ReturnTime *string `json:"return_time,omitempty"` // 返岗时间，格式为秒级时间戳
 
-	SubmittedAt *string `json:"submitted_at,omitempty"` // 发起时间
+	SubmittedAt *string `json:"submitted_at,omitempty"` // 发起时间，格式为秒级时间戳
 
-	SubmittedBy *string `json:"submitted_by,omitempty"` // 发起人
+	SubmittedBy *string `json:"submitted_by,omitempty"` // 发起人，ID 类型与 user_id_type 一致
 
 	Notes *string `json:"notes,omitempty"` // 备注
 
-	ApprovalDate *string `json:"approval_date,omitempty"` // 审批通过日期
+	ApprovalDate *string `json:"approval_date,omitempty"` // （暂未开放）审批通过日期，格式为yyyy-MM-dd
 
-	IsDeducted *bool `json:"is_deducted,omitempty"` // 是否带薪
+	IsDeducted *bool `json:"is_deducted,omitempty"` // （暂未开放）是否带薪
 
 	Details []*LeaveRequestDetail `json:"details,omitempty"` // 请假详情
 
-	LeaveTypeCode *string `json:"leave_type_code,omitempty"` // 假期类型枚举
+	LeaveTypeCode *string `json:"leave_type_code,omitempty"` // （暂未开放）假期类型枚举
 
-	ActualEndDate *string `json:"actual_end_date,omitempty"` // 实际结束日期
+	ActualEndDate *string `json:"actual_end_date,omitempty"` // （暂未开放）实际结束日期，格式为yyyy-MM-dd
 
-	EstimatedEndDate *string `json:"estimated_end_date,omitempty"` // 预估结束日期
+	EstimatedEndDate *string `json:"estimated_end_date,omitempty"` // （暂未开放）预估结束日期，格式为yyyy-MM-dd
 
 	TimeZone *string `json:"time_zone,omitempty"` // 时区
 
-	DataSource *int `json:"data_source,omitempty"` // 请假记录数据来源
+	DataSource *int `json:"data_source,omitempty"` // （暂未开放）请假记录数据来源
 
-	LeaveProcessId []string `json:"leave_process_id,omitempty"` // 请假申请流程ID
+	LeaveProcessId []string `json:"leave_process_id,omitempty"` // 请假申请流程ID。注意：导入的请假不会返回leave_process_id。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 
-	LeaveCorrectProcessId []string `json:"leave_correct_process_id,omitempty"` // 请假更正流程ID
+	LeaveCorrectProcessId []string `json:"leave_correct_process_id,omitempty"` // 请假更正流程ID。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 
-	LeaveCancelProcessId []string `json:"leave_cancel_process_id,omitempty"` // 请假取消流程ID
+	LeaveCancelProcessId []string `json:"leave_cancel_process_id,omitempty"` // 请假取消流程ID。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 
-	LeaveReturnProcessId []string `json:"leave_return_process_id,omitempty"` // 请假返岗流程ID
+	LeaveReturnProcessId []string `json:"leave_return_process_id,omitempty"` // 请假返岗流程ID。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 
-	WdPaidType *int `json:"wd_paid_type,omitempty"` // workDay算薪类型
+	WdPaidType *int `json:"wd_paid_type,omitempty"` // WorkDay专用 扣薪类型, 1不参与算薪 2影响算薪 3不影响算薪
 
 	LeaveCorrectProcessInfo []*LeaveProcessInfo `json:"leave_correct_process_info,omitempty"` // 请假更正流程信息
 
 	WorkdayExtendInfos []*LeaveExtendItem `json:"workday_extend_infos,omitempty"` // workday扩展字段信息
 
-	LeaveTagConf *LeaveTagConf `json:"leave_tag_conf,omitempty"` // 请假标签配置
+	LeaveTagConf *LeaveTagConf `json:"leave_tag_conf,omitempty"` // （暂未开放）请假标签配置
 }
 
 type LeaveRequestBuilder struct {
 	leaveRequestId    string // 请假记录ID
 	leaveRequestIdSet bool
 
-	employmentId    string // 雇佣信息ID
+	employmentId    string // 员工ID，ID 类型与 user_id_type 一致
 	employmentIdSet bool
 
 	employmentName    []*I18n // 员工姓名
@@ -12118,10 +12423,10 @@ type LeaveRequestBuilder struct {
 	leaveTypeName    []*I18n // 假期类型名称
 	leaveTypeNameSet bool
 
-	startTime    string // 假期开始时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""
+	startTime    string // 假期开始时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""; - 小时假如需返回精准到小时的时间格式，请联系[技术支持](https://applink.feishu.cn/TLJpeNdW) 开通
 	startTimeSet bool
 
-	endTime    string // 假期结束时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""
+	endTime    string // 假期结束时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""; - 小时假如需返回精准到小时的时间格式，请联系[技术支持](https://applink.feishu.cn/TLJpeNdW) 开通
 	endTimeSet bool
 
 	leaveDuration    string // 假期时长
@@ -12136,55 +12441,55 @@ type LeaveRequestBuilder struct {
 	grantSource    string // 数据来源;;可选值有：;;- "manual"：手动创建;;- "system"：系统创建"
 	grantSourceSet bool
 
-	returnTime    string // 返岗时间
+	returnTime    string // 返岗时间，格式为秒级时间戳
 	returnTimeSet bool
 
-	submittedAt    string // 发起时间
+	submittedAt    string // 发起时间，格式为秒级时间戳
 	submittedAtSet bool
 
-	submittedBy    string // 发起人
+	submittedBy    string // 发起人，ID 类型与 user_id_type 一致
 	submittedBySet bool
 
 	notes    string // 备注
 	notesSet bool
 
-	approvalDate    string // 审批通过日期
+	approvalDate    string // （暂未开放）审批通过日期，格式为yyyy-MM-dd
 	approvalDateSet bool
 
-	isDeducted    bool // 是否带薪
+	isDeducted    bool // （暂未开放）是否带薪
 	isDeductedSet bool
 
 	details    []*LeaveRequestDetail // 请假详情
 	detailsSet bool
 
-	leaveTypeCode    string // 假期类型枚举
+	leaveTypeCode    string // （暂未开放）假期类型枚举
 	leaveTypeCodeSet bool
 
-	actualEndDate    string // 实际结束日期
+	actualEndDate    string // （暂未开放）实际结束日期，格式为yyyy-MM-dd
 	actualEndDateSet bool
 
-	estimatedEndDate    string // 预估结束日期
+	estimatedEndDate    string // （暂未开放）预估结束日期，格式为yyyy-MM-dd
 	estimatedEndDateSet bool
 
 	timeZone    string // 时区
 	timeZoneSet bool
 
-	dataSource    int // 请假记录数据来源
+	dataSource    int // （暂未开放）请假记录数据来源
 	dataSourceSet bool
 
-	leaveProcessId    []string // 请假申请流程ID
+	leaveProcessId    []string // 请假申请流程ID。注意：导入的请假不会返回leave_process_id。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 	leaveProcessIdSet bool
 
-	leaveCorrectProcessId    []string // 请假更正流程ID
+	leaveCorrectProcessId    []string // 请假更正流程ID。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 	leaveCorrectProcessIdSet bool
 
-	leaveCancelProcessId    []string // 请假取消流程ID
+	leaveCancelProcessId    []string // 请假取消流程ID。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 	leaveCancelProcessIdSet bool
 
-	leaveReturnProcessId    []string // 请假返岗流程ID
+	leaveReturnProcessId    []string // 请假返岗流程ID。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 	leaveReturnProcessIdSet bool
 
-	wdPaidType    int // workDay算薪类型
+	wdPaidType    int // WorkDay专用 扣薪类型, 1不参与算薪 2影响算薪 3不影响算薪
 	wdPaidTypeSet bool
 
 	leaveCorrectProcessInfo    []*LeaveProcessInfo // 请假更正流程信息
@@ -12193,7 +12498,7 @@ type LeaveRequestBuilder struct {
 	workdayExtendInfos    []*LeaveExtendItem // workday扩展字段信息
 	workdayExtendInfosSet bool
 
-	leaveTagConf    *LeaveTagConf // 请假标签配置
+	leaveTagConf    *LeaveTagConf // （暂未开放）请假标签配置
 	leaveTagConfSet bool
 }
 
@@ -12204,16 +12509,16 @@ func NewLeaveRequestBuilder() *LeaveRequestBuilder {
 
 // 请假记录ID
 //
-// 示例值：4718803945687580505
+// 示例值：7536864851379078665
 func (builder *LeaveRequestBuilder) LeaveRequestId(leaveRequestId string) *LeaveRequestBuilder {
 	builder.leaveRequestId = leaveRequestId
 	builder.leaveRequestIdSet = true
 	return builder
 }
 
-// 雇佣信息ID
+// 员工ID，ID 类型与 user_id_type 一致
 //
-// 示例值：4718803945687580505
+// 示例值：7360983350600173082
 func (builder *LeaveRequestBuilder) EmploymentId(employmentId string) *LeaveRequestBuilder {
 	builder.employmentId = employmentId
 	builder.employmentIdSet = true
@@ -12231,7 +12536,7 @@ func (builder *LeaveRequestBuilder) EmploymentName(employmentName []*I18n) *Leav
 
 // 假期类型ID
 //
-// 示例值：0
+// 示例值：7452717067026138635
 func (builder *LeaveRequestBuilder) LeaveTypeId(leaveTypeId string) *LeaveRequestBuilder {
 	builder.leaveTypeId = leaveTypeId
 	builder.leaveTypeIdSet = true
@@ -12247,18 +12552,18 @@ func (builder *LeaveRequestBuilder) LeaveTypeName(leaveTypeName []*I18n) *LeaveR
 	return builder
 }
 
-// 假期开始时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""
+// 假期开始时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""; - 小时假如需返回精准到小时的时间格式，请联系[技术支持](https://applink.feishu.cn/TLJpeNdW) 开通
 //
-// 示例值：2022-07-06 morning
+// 示例值：2024-11-28
 func (builder *LeaveRequestBuilder) StartTime(startTime string) *LeaveRequestBuilder {
 	builder.startTime = startTime
 	builder.startTimeSet = true
 	return builder
 }
 
-// 假期结束时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""
+// 假期结束时间，格式可能为：;; - 字符串日期：如 "2022-09-09";; - 字符串日期加 morning/afternoon：如 "2022-09-09 morning""; - 小时假如需返回精准到小时的时间格式，请联系[技术支持](https://applink.feishu.cn/TLJpeNdW) 开通
 //
-// 示例值：2023-01-05
+// 示例值：2024-11-28
 func (builder *LeaveRequestBuilder) EndTime(endTime string) *LeaveRequestBuilder {
 	builder.endTime = endTime
 	builder.endTimeSet = true
@@ -12267,7 +12572,7 @@ func (builder *LeaveRequestBuilder) EndTime(endTime string) *LeaveRequestBuilder
 
 // 假期时长
 //
-// 示例值：2
+// 示例值：1
 func (builder *LeaveRequestBuilder) LeaveDuration(leaveDuration string) *LeaveRequestBuilder {
 	builder.leaveDuration = leaveDuration
 	builder.leaveDurationSet = true
@@ -12301,7 +12606,7 @@ func (builder *LeaveRequestBuilder) GrantSource(grantSource string) *LeaveReques
 	return builder
 }
 
-// 返岗时间
+// 返岗时间，格式为秒级时间戳
 //
 // 示例值：1662134400
 func (builder *LeaveRequestBuilder) ReturnTime(returnTime string) *LeaveRequestBuilder {
@@ -12310,7 +12615,7 @@ func (builder *LeaveRequestBuilder) ReturnTime(returnTime string) *LeaveRequestB
 	return builder
 }
 
-// 发起时间
+// 发起时间，格式为秒级时间戳
 //
 // 示例值：1659080476
 func (builder *LeaveRequestBuilder) SubmittedAt(submittedAt string) *LeaveRequestBuilder {
@@ -12319,7 +12624,7 @@ func (builder *LeaveRequestBuilder) SubmittedAt(submittedAt string) *LeaveReques
 	return builder
 }
 
-// 发起人
+// 发起人，ID 类型与 user_id_type 一致
 //
 // 示例值：7109664941775241244
 func (builder *LeaveRequestBuilder) SubmittedBy(submittedBy string) *LeaveRequestBuilder {
@@ -12337,7 +12642,7 @@ func (builder *LeaveRequestBuilder) Notes(notes string) *LeaveRequestBuilder {
 	return builder
 }
 
-// 审批通过日期
+// （暂未开放）审批通过日期，格式为yyyy-MM-dd
 //
 // 示例值：2022-09-09
 func (builder *LeaveRequestBuilder) ApprovalDate(approvalDate string) *LeaveRequestBuilder {
@@ -12346,7 +12651,7 @@ func (builder *LeaveRequestBuilder) ApprovalDate(approvalDate string) *LeaveRequ
 	return builder
 }
 
-// 是否带薪
+// （暂未开放）是否带薪
 //
 // 示例值：false
 func (builder *LeaveRequestBuilder) IsDeducted(isDeducted bool) *LeaveRequestBuilder {
@@ -12364,7 +12669,7 @@ func (builder *LeaveRequestBuilder) Details(details []*LeaveRequestDetail) *Leav
 	return builder
 }
 
-// 假期类型枚举
+// （暂未开放）假期类型枚举
 //
 // 示例值：Annual Leave
 func (builder *LeaveRequestBuilder) LeaveTypeCode(leaveTypeCode string) *LeaveRequestBuilder {
@@ -12373,7 +12678,7 @@ func (builder *LeaveRequestBuilder) LeaveTypeCode(leaveTypeCode string) *LeaveRe
 	return builder
 }
 
-// 实际结束日期
+// （暂未开放）实际结束日期，格式为yyyy-MM-dd
 //
 // 示例值：2022-08-02
 func (builder *LeaveRequestBuilder) ActualEndDate(actualEndDate string) *LeaveRequestBuilder {
@@ -12382,7 +12687,7 @@ func (builder *LeaveRequestBuilder) ActualEndDate(actualEndDate string) *LeaveRe
 	return builder
 }
 
-// 预估结束日期
+// （暂未开放）预估结束日期，格式为yyyy-MM-dd
 //
 // 示例值：2022-08-02
 func (builder *LeaveRequestBuilder) EstimatedEndDate(estimatedEndDate string) *LeaveRequestBuilder {
@@ -12400,7 +12705,7 @@ func (builder *LeaveRequestBuilder) TimeZone(timeZone string) *LeaveRequestBuild
 	return builder
 }
 
-// 请假记录数据来源
+// （暂未开放）请假记录数据来源
 //
 // 示例值：1
 func (builder *LeaveRequestBuilder) DataSource(dataSource int) *LeaveRequestBuilder {
@@ -12409,7 +12714,7 @@ func (builder *LeaveRequestBuilder) DataSource(dataSource int) *LeaveRequestBuil
 	return builder
 }
 
-// 请假申请流程ID
+// 请假申请流程ID。注意：导入的请假不会返回leave_process_id。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 //
 // 示例值：
 func (builder *LeaveRequestBuilder) LeaveProcessId(leaveProcessId []string) *LeaveRequestBuilder {
@@ -12418,7 +12723,7 @@ func (builder *LeaveRequestBuilder) LeaveProcessId(leaveProcessId []string) *Lea
 	return builder
 }
 
-// 请假更正流程ID
+// 请假更正流程ID。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 //
 // 示例值：
 func (builder *LeaveRequestBuilder) LeaveCorrectProcessId(leaveCorrectProcessId []string) *LeaveRequestBuilder {
@@ -12427,7 +12732,7 @@ func (builder *LeaveRequestBuilder) LeaveCorrectProcessId(leaveCorrectProcessId 
 	return builder
 }
 
-// 请假取消流程ID
+// 请假取消流程ID。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 //
 // 示例值：
 func (builder *LeaveRequestBuilder) LeaveCancelProcessId(leaveCancelProcessId []string) *LeaveRequestBuilder {
@@ -12436,7 +12741,7 @@ func (builder *LeaveRequestBuilder) LeaveCancelProcessId(leaveCancelProcessId []
 	return builder
 }
 
-// 请假返岗流程ID
+// 请假返岗流程ID。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
 //
 // 示例值：
 func (builder *LeaveRequestBuilder) LeaveReturnProcessId(leaveReturnProcessId []string) *LeaveRequestBuilder {
@@ -12445,7 +12750,7 @@ func (builder *LeaveRequestBuilder) LeaveReturnProcessId(leaveReturnProcessId []
 	return builder
 }
 
-// workDay算薪类型
+// WorkDay专用 扣薪类型, 1不参与算薪 2影响算薪 3不影响算薪
 //
 // 示例值：1
 func (builder *LeaveRequestBuilder) WdPaidType(wdPaidType int) *LeaveRequestBuilder {
@@ -12472,7 +12777,7 @@ func (builder *LeaveRequestBuilder) WorkdayExtendInfos(workdayExtendInfos []*Lea
 	return builder
 }
 
-// 请假标签配置
+// （暂未开放）请假标签配置
 //
 // 示例值：{"tag_list":[{"key":"leave_type","values":["Annual Leave"]},{"key":"leave_term","values":["Short Leave"]}]}
 func (builder *LeaveRequestBuilder) LeaveTagConf(leaveTagConf *LeaveTagConf) *LeaveRequestBuilder {
@@ -12601,9 +12906,9 @@ func (builder *LeaveRequestBuilder) Build() *LeaveRequest {
 }
 
 type LeaveRequestCreated struct {
-	EmploymentId *string `json:"employment_id,omitempty"` // 员工ID
+	EmploymentId *string `json:"employment_id,omitempty"` // 员工ID（与 user_id_type 保持一致）
 
-	LeaveTypeId *string `json:"leave_type_id,omitempty"` // 假期类型ID
+	LeaveTypeId *string `json:"leave_type_id,omitempty"` // 假期类型ID（可以通过接口 https://open.larkoffice.com/document/server-docs/corehr-v1/leave/leave_types 来获取假期类型ID）
 
 	StartTime *LeaveTime `json:"start_time,omitempty"` // 请假开始时间
 
@@ -12611,7 +12916,7 @@ type LeaveRequestCreated struct {
 
 	TimeZone *string `json:"time_zone,omitempty"` // 时区
 
-	DailyLeaveMode *string `json:"daily_leave_mode,omitempty"` // 每日休假方式
+	DailyLeaveMode *string `json:"daily_leave_mode,omitempty"` // 每日休假方式（arrive_late:上班晚到, leave_early:上班晚到, arrive_late_and_leave_early:上班晚到 + 下班早走）
 
 	ArriveLateMinutes *int `json:"arrive_late_minutes,omitempty"` // 上班晚到时长（分钟）
 
@@ -12635,14 +12940,14 @@ type LeaveRequestCreated struct {
 
 	NumberOfNewborns *int `json:"number_of_newborns,omitempty"` // 新生儿数量
 
-	ApplicableScenarios *string `json:"applicable_scenarios,omitempty"` // 申请场景
+	ApplicableScenarios *string `json:"applicable_scenarios,omitempty"` // 申请场景（parent_accompany:父母/配偶父母患病需陪护, spouse_accompany:配偶患病需陪护, child_accompany:子女患病需陪护）
 }
 
 type LeaveRequestCreatedBuilder struct {
-	employmentId    string // 员工ID
+	employmentId    string // 员工ID（与 user_id_type 保持一致）
 	employmentIdSet bool
 
-	leaveTypeId    string // 假期类型ID
+	leaveTypeId    string // 假期类型ID（可以通过接口 https://open.larkoffice.com/document/server-docs/corehr-v1/leave/leave_types 来获取假期类型ID）
 	leaveTypeIdSet bool
 
 	startTime    *LeaveTime // 请假开始时间
@@ -12654,7 +12959,7 @@ type LeaveRequestCreatedBuilder struct {
 	timeZone    string // 时区
 	timeZoneSet bool
 
-	dailyLeaveMode    string // 每日休假方式
+	dailyLeaveMode    string // 每日休假方式（arrive_late:上班晚到, leave_early:上班晚到, arrive_late_and_leave_early:上班晚到 + 下班早走）
 	dailyLeaveModeSet bool
 
 	arriveLateMinutes    int // 上班晚到时长（分钟）
@@ -12690,7 +12995,7 @@ type LeaveRequestCreatedBuilder struct {
 	numberOfNewborns    int // 新生儿数量
 	numberOfNewbornsSet bool
 
-	applicableScenarios    string // 申请场景
+	applicableScenarios    string // 申请场景（parent_accompany:父母/配偶父母患病需陪护, spouse_accompany:配偶患病需陪护, child_accompany:子女患病需陪护）
 	applicableScenariosSet bool
 }
 
@@ -12699,18 +13004,18 @@ func NewLeaveRequestCreatedBuilder() *LeaveRequestCreatedBuilder {
 	return builder
 }
 
-// 员工ID
+// 员工ID（与 user_id_type 保持一致）
 //
-// 示例值：7442604019808519724
+// 示例值：7360983350600173082
 func (builder *LeaveRequestCreatedBuilder) EmploymentId(employmentId string) *LeaveRequestCreatedBuilder {
 	builder.employmentId = employmentId
 	builder.employmentIdSet = true
 	return builder
 }
 
-// 假期类型ID
+// 假期类型ID（可以通过接口 https://open.larkoffice.com/document/server-docs/corehr-v1/leave/leave_types 来获取假期类型ID）
 //
-// 示例值：7444819921379313196
+// 示例值：7452717067026138635
 func (builder *LeaveRequestCreatedBuilder) LeaveTypeId(leaveTypeId string) *LeaveRequestCreatedBuilder {
 	builder.leaveTypeId = leaveTypeId
 	builder.leaveTypeIdSet = true
@@ -12744,9 +13049,9 @@ func (builder *LeaveRequestCreatedBuilder) TimeZone(timeZone string) *LeaveReque
 	return builder
 }
 
-// 每日休假方式
+// 每日休假方式（arrive_late:上班晚到, leave_early:上班晚到, arrive_late_and_leave_early:上班晚到 + 下班早走）
 //
-// 示例值：arrive_late:上班晚到, leave_early:上班晚到, arrive_late_and_leave_early:上班晚到 + 下班早走
+// 示例值：arrive_late
 func (builder *LeaveRequestCreatedBuilder) DailyLeaveMode(dailyLeaveMode string) *LeaveRequestCreatedBuilder {
 	builder.dailyLeaveMode = dailyLeaveMode
 	builder.dailyLeaveModeSet = true
@@ -12791,7 +13096,7 @@ func (builder *LeaveRequestCreatedBuilder) DateOfMarriageCertificate(dateOfMarri
 
 // 是否可提供婚前检查材料
 //
-// 示例值：fasle
+// 示例值：false
 func (builder *LeaveRequestCreatedBuilder) ProvidePremaritalExaminationMaterials(providePremaritalExaminationMaterials bool) *LeaveRequestCreatedBuilder {
 	builder.providePremaritalExaminationMaterials = providePremaritalExaminationMaterials
 	builder.providePremaritalExaminationMaterialsSet = true
@@ -12852,9 +13157,9 @@ func (builder *LeaveRequestCreatedBuilder) NumberOfNewborns(numberOfNewborns int
 	return builder
 }
 
-// 申请场景
+// 申请场景（parent_accompany:父母/配偶父母患病需陪护, spouse_accompany:配偶患病需陪护, child_accompany:子女患病需陪护）
 //
-// 示例值：父母/配偶父母患病需陪护:parent_accompany, 配偶患病需陪护:spouse_accompany, 子女患病需陪护:child_accompany
+// 示例值：parent_accompany
 func (builder *LeaveRequestCreatedBuilder) ApplicableScenarios(applicableScenarios string) *LeaveRequestCreatedBuilder {
 	builder.applicableScenarios = applicableScenarios
 	builder.applicableScenariosSet = true
@@ -12977,7 +13282,7 @@ func NewLeaveRequestCreatedErrorMessageBuilder() *LeaveRequestCreatedErrorMessag
 
 // 员工ID
 //
-// 示例值：7402162852704831020
+// 示例值：7360983350600173082
 func (builder *LeaveRequestCreatedErrorMessageBuilder) EmploymentId(employmentId string) *LeaveRequestCreatedErrorMessageBuilder {
 	builder.employmentId = employmentId
 	builder.employmentIdSet = true
@@ -12986,7 +13291,7 @@ func (builder *LeaveRequestCreatedErrorMessageBuilder) EmploymentId(employmentId
 
 // 假期类型ID
 //
-// 示例值：7437402643576571436
+// 示例值：7452717067026138635
 func (builder *LeaveRequestCreatedErrorMessageBuilder) LeaveTypeId(leaveTypeId string) *LeaveRequestCreatedErrorMessageBuilder {
 	builder.leaveTypeId = leaveTypeId
 	builder.leaveTypeIdSet = true
@@ -12995,7 +13300,7 @@ func (builder *LeaveRequestCreatedErrorMessageBuilder) LeaveTypeId(leaveTypeId s
 
 // 请假开始时间
 //
-// 示例值：2024-11-01
+// 示例值：2024-11-28
 func (builder *LeaveRequestCreatedErrorMessageBuilder) StartTime(startTime string) *LeaveRequestCreatedErrorMessageBuilder {
 	builder.startTime = startTime
 	builder.startTimeSet = true
@@ -13004,7 +13309,7 @@ func (builder *LeaveRequestCreatedErrorMessageBuilder) StartTime(startTime strin
 
 // 请假结束时间
 //
-// 示例值：2024-11-01
+// 示例值：2024-11-28
 func (builder *LeaveRequestCreatedErrorMessageBuilder) EndTime(endTime string) *LeaveRequestCreatedErrorMessageBuilder {
 	builder.endTime = endTime
 	builder.endTimeSet = true
@@ -13293,19 +13598,19 @@ func (builder *LeaveTagConfBuilder) Build() *LeaveTagConf {
 type LeaveTime struct {
 	Date *string `json:"date,omitempty"` // 日期
 
-	Time *string `json:"time,omitempty"` // 时间
+	Time *string `json:"time,omitempty"` // 时间（小时假时需要填写，如：12:00）
 
-	HalfDay *string `json:"half_day,omitempty"` // morning:上午, afternoon:下午
+	HalfDay *string `json:"half_day,omitempty"` // morning:上午, afternoon:下午（半天假时需要填写）
 }
 
 type LeaveTimeBuilder struct {
 	date    string // 日期
 	dateSet bool
 
-	time    string // 时间
+	time    string // 时间（小时假时需要填写，如：12:00）
 	timeSet bool
 
-	halfDay    string // morning:上午, afternoon:下午
+	halfDay    string // morning:上午, afternoon:下午（半天假时需要填写）
 	halfDaySet bool
 }
 
@@ -13316,25 +13621,25 @@ func NewLeaveTimeBuilder() *LeaveTimeBuilder {
 
 // 日期
 //
-// 示例值：2006-01-02
+// 示例值：2024-11-28
 func (builder *LeaveTimeBuilder) Date(date string) *LeaveTimeBuilder {
 	builder.date = date
 	builder.dateSet = true
 	return builder
 }
 
-// 时间
+// 时间（小时假时需要填写，如：12:00）
 //
-// 示例值：12:00
+// 示例值：
 func (builder *LeaveTimeBuilder) Time(time string) *LeaveTimeBuilder {
 	builder.time = time
 	builder.timeSet = true
 	return builder
 }
 
-// morning:上午, afternoon:下午
+// morning:上午, afternoon:下午（半天假时需要填写）
 //
-// 示例值：morning
+// 示例值：afternoon
 func (builder *LeaveTimeBuilder) HalfDay(halfDay string) *LeaveTimeBuilder {
 	builder.halfDay = halfDay
 	builder.halfDaySet = true
@@ -13359,7 +13664,7 @@ func (builder *LeaveTimeBuilder) Build() *LeaveTime {
 }
 
 type LeaveType struct {
-	LeaveTypeId *string `json:"leave_type_id,omitempty"` // 假期类型ID
+	LeaveTypeId *string `json:"leave_type_id,omitempty"` // 假期类型ID，可用于;* [创建假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/create);* [批量查询员工请假记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_request_history);* [通过过期时间获取发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_employ_expire_record/get);* [修改发放记录;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch)
 
 	LeaveTypeName []*I18n `json:"leave_type_name,omitempty"` // 假期类型名称
 
@@ -13367,17 +13672,17 @@ type LeaveType struct {
 
 	LeaveSubtypeList []*LeaveSubtype `json:"leave_subtype_list,omitempty"` // 假期子类列表
 
-	CreatedAt *string `json:"created_at,omitempty"` // 假期类型的创建时间
+	CreatedAt *string `json:"created_at,omitempty"` // 假期类型的创建时间，格式为秒级时间戳
 
-	CreatedBy *string `json:"created_by,omitempty"` // 假期类型的创建人，值为创建人的员工 ID
+	CreatedBy *string `json:"created_by,omitempty"` // 假期类型的创建人，值为创建人的员工 ID。与入参 user_id_type 类型一致
 
-	UpdatedAt *string `json:"updated_at,omitempty"` // 假期类型的更新时间
+	UpdatedAt *string `json:"updated_at,omitempty"` // 假期类型的更新时间，格式为秒级时间戳
 
-	UpdatedBy *string `json:"updated_by,omitempty"` // 假期类型的更新人，值为更新人的员工 ID
+	UpdatedBy *string `json:"updated_by,omitempty"` // 假期类型的更新人，值为更新人的员工 ID。与入参 user_id_type 类型一致
 }
 
 type LeaveTypeBuilder struct {
-	leaveTypeId    string // 假期类型ID
+	leaveTypeId    string // 假期类型ID，可用于;* [创建假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/create);* [批量查询员工请假记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_request_history);* [通过过期时间获取发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_employ_expire_record/get);* [修改发放记录;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch)
 	leaveTypeIdSet bool
 
 	leaveTypeName    []*I18n // 假期类型名称
@@ -13389,16 +13694,16 @@ type LeaveTypeBuilder struct {
 	leaveSubtypeList    []*LeaveSubtype // 假期子类列表
 	leaveSubtypeListSet bool
 
-	createdAt    string // 假期类型的创建时间
+	createdAt    string // 假期类型的创建时间，格式为秒级时间戳
 	createdAtSet bool
 
-	createdBy    string // 假期类型的创建人，值为创建人的员工 ID
+	createdBy    string // 假期类型的创建人，值为创建人的员工 ID。与入参 user_id_type 类型一致
 	createdBySet bool
 
-	updatedAt    string // 假期类型的更新时间
+	updatedAt    string // 假期类型的更新时间，格式为秒级时间戳
 	updatedAtSet bool
 
-	updatedBy    string // 假期类型的更新人，值为更新人的员工 ID
+	updatedBy    string // 假期类型的更新人，值为更新人的员工 ID。与入参 user_id_type 类型一致
 	updatedBySet bool
 }
 
@@ -13407,7 +13712,7 @@ func NewLeaveTypeBuilder() *LeaveTypeBuilder {
 	return builder
 }
 
-// 假期类型ID
+// 假期类型ID，可用于;* [创建假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/create);* [批量查询员工请假记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_request_history);* [通过过期时间获取发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_employ_expire_record/get);* [修改发放记录;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch)
 //
 // 示例值：4718803945687580505
 func (builder *LeaveTypeBuilder) LeaveTypeId(leaveTypeId string) *LeaveTypeBuilder {
@@ -13443,7 +13748,7 @@ func (builder *LeaveTypeBuilder) LeaveSubtypeList(leaveSubtypeList []*LeaveSubty
 	return builder
 }
 
-// 假期类型的创建时间
+// 假期类型的创建时间，格式为秒级时间戳
 //
 // 示例值：1658730384
 func (builder *LeaveTypeBuilder) CreatedAt(createdAt string) *LeaveTypeBuilder {
@@ -13452,7 +13757,7 @@ func (builder *LeaveTypeBuilder) CreatedAt(createdAt string) *LeaveTypeBuilder {
 	return builder
 }
 
-// 假期类型的创建人，值为创建人的员工 ID
+// 假期类型的创建人，值为创建人的员工 ID。与入参 user_id_type 类型一致
 //
 // 示例值：7104164629974646786
 func (builder *LeaveTypeBuilder) CreatedBy(createdBy string) *LeaveTypeBuilder {
@@ -13461,7 +13766,7 @@ func (builder *LeaveTypeBuilder) CreatedBy(createdBy string) *LeaveTypeBuilder {
 	return builder
 }
 
-// 假期类型的更新时间
+// 假期类型的更新时间，格式为秒级时间戳
 //
 // 示例值：1658996995
 func (builder *LeaveTypeBuilder) UpdatedAt(updatedAt string) *LeaveTypeBuilder {
@@ -13470,7 +13775,7 @@ func (builder *LeaveTypeBuilder) UpdatedAt(updatedAt string) *LeaveTypeBuilder {
 	return builder
 }
 
-// 假期类型的更新人，值为更新人的员工 ID
+// 假期类型的更新人，值为更新人的员工 ID。与入参 user_id_type 类型一致
 //
 // 示例值：7112112899636854812
 func (builder *LeaveTypeBuilder) UpdatedBy(updatedBy string) *LeaveTypeBuilder {
@@ -13515,15 +13820,15 @@ func (builder *LeaveTypeBuilder) Build() *LeaveType {
 }
 
 type Location struct {
-	Id *string `json:"id,omitempty"` // 地点 ID
+	Id *string `json:"id,omitempty"` // 实体在CoreHR内部的唯一键
 
 	HiberarchyCommon *HiberarchyCommon `json:"hiberarchy_common,omitempty"` // 层级关系，内层字段见实体
 
-	LocationUsageList []*Enum `json:"location_usage_list,omitempty"` // 地点用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地点用途（location_usage）枚举定义部分获得
+	LocationUsageList []*Enum `json:"location_usage_list,omitempty"` // 地点用途;- 当地点用途是"工作地点"时，地址必填;- 当地点用途是“办公地点”时，上级地点必填，仅可选择用途为「工作地点」或「办公地点」的上级地点
 
-	Address []*Address `json:"address,omitempty"` // 地址
+	Address []*Address `json:"address,omitempty"` // 地址;- 当地点用途是"工作地点"时，地址必填
 
-	WorkingHoursTypeId *string `json:"working_hours_type_id,omitempty"` // 工时制度 ID，枚举值可通过【批量查询工时制度】接口获取
+	WorkingHoursTypeId *string `json:"working_hours_type_id,omitempty"` // 工时制度
 
 	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间
 
@@ -13531,7 +13836,7 @@ type Location struct {
 
 	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 
-	Locale *Enum `json:"locale,omitempty"` // 区域设置，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)区域设置（locale）枚举定义部分获得
+	Locale *Enum `json:"locale,omitempty"` // 区域设置
 
 	TimeZoneId *string `json:"time_zone_id,omitempty"` // 时区
 
@@ -13541,19 +13846,19 @@ type Location struct {
 }
 
 type LocationBuilder struct {
-	id    string // 地点 ID
+	id    string // 实体在CoreHR内部的唯一键
 	idSet bool
 
 	hiberarchyCommon    *HiberarchyCommon // 层级关系，内层字段见实体
 	hiberarchyCommonSet bool
 
-	locationUsageList    []*Enum // 地点用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地点用途（location_usage）枚举定义部分获得
+	locationUsageList    []*Enum // 地点用途;- 当地点用途是"工作地点"时，地址必填;- 当地点用途是“办公地点”时，上级地点必填，仅可选择用途为「工作地点」或「办公地点」的上级地点
 	locationUsageListSet bool
 
-	address    []*Address // 地址
+	address    []*Address // 地址;- 当地点用途是"工作地点"时，地址必填
 	addressSet bool
 
-	workingHoursTypeId    string // 工时制度 ID，枚举值可通过【批量查询工时制度】接口获取
+	workingHoursTypeId    string // 工时制度
 	workingHoursTypeIdSet bool
 
 	effectiveTime    string // 生效时间
@@ -13565,7 +13870,7 @@ type LocationBuilder struct {
 	customFields    []*ObjectFieldData // 自定义字段
 	customFieldsSet bool
 
-	locale    *Enum // 区域设置，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)区域设置（locale）枚举定义部分获得
+	locale    *Enum // 区域设置
 	localeSet bool
 
 	timeZoneId    string // 时区
@@ -13583,7 +13888,7 @@ func NewLocationBuilder() *LocationBuilder {
 	return builder
 }
 
-// 地点 ID
+// 实体在CoreHR内部的唯一键
 //
 // 示例值：4718803945687580505
 func (builder *LocationBuilder) Id(id string) *LocationBuilder {
@@ -13601,7 +13906,7 @@ func (builder *LocationBuilder) HiberarchyCommon(hiberarchyCommon *HiberarchyCom
 	return builder
 }
 
-// 地点用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地点用途（location_usage）枚举定义部分获得
+// 地点用途;- 当地点用途是"工作地点"时，地址必填;- 当地点用途是“办公地点”时，上级地点必填，仅可选择用途为「工作地点」或「办公地点」的上级地点
 //
 // 示例值：
 func (builder *LocationBuilder) LocationUsageList(locationUsageList []*Enum) *LocationBuilder {
@@ -13610,7 +13915,7 @@ func (builder *LocationBuilder) LocationUsageList(locationUsageList []*Enum) *Lo
 	return builder
 }
 
-// 地址
+// 地址;- 当地点用途是"工作地点"时，地址必填
 //
 // 示例值：
 func (builder *LocationBuilder) Address(address []*Address) *LocationBuilder {
@@ -13619,7 +13924,7 @@ func (builder *LocationBuilder) Address(address []*Address) *LocationBuilder {
 	return builder
 }
 
-// 工时制度 ID，枚举值可通过【批量查询工时制度】接口获取
+// 工时制度
 //
 // 示例值：4690238309151997779
 func (builder *LocationBuilder) WorkingHoursTypeId(workingHoursTypeId string) *LocationBuilder {
@@ -13655,7 +13960,7 @@ func (builder *LocationBuilder) CustomFields(customFields []*ObjectFieldData) *L
 	return builder
 }
 
-// 区域设置，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)区域设置（locale）枚举定义部分获得
+// 区域设置
 //
 // 示例值：zh_cn
 func (builder *LocationBuilder) Locale(locale *Enum) *LocationBuilder {
@@ -13740,16 +14045,16 @@ func (builder *LocationBuilder) Build() *Location {
 }
 
 type LookupFieldSetting struct {
-	LookupObjApiName *string `json:"lookup_obj_api_name,omitempty"` // 查找字段指向对象的 API name。例如人员单选、人员多选字段均指向 employment 系统对象，而自定义分组字段指向用户创建的自定义对象。可通过[获取自定义字段列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query)接口传入此属性，以获取自定义分组中的字段。
+	LookupObjApiName *string `json:"lookup_obj_api_name,omitempty"` // 查找字段所引用对象的 API name。对于“人员（单选）”和“人员（多选）”，其值为 `employment`。可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口传入此参数的值来查询自定义分组中定义的自定义字段
 
-	IsMultiple *bool `json:"is_multiple,omitempty"` // 是否为多值。例如人员单选字段此属性为 false，而人员多选字段此属性为 true。
+	IsMultiple *bool `json:"is_multiple,omitempty"` // 是否为多值。例如“人员（单选）字段”此属性为 false，而“人员（多选）”字段此属性为 true。
 }
 
 type LookupFieldSettingBuilder struct {
-	lookupObjApiName    string // 查找字段指向对象的 API name。例如人员单选、人员多选字段均指向 employment 系统对象，而自定义分组字段指向用户创建的自定义对象。可通过[获取自定义字段列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query)接口传入此属性，以获取自定义分组中的字段。
+	lookupObjApiName    string // 查找字段所引用对象的 API name。对于“人员（单选）”和“人员（多选）”，其值为 `employment`。可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口传入此参数的值来查询自定义分组中定义的自定义字段
 	lookupObjApiNameSet bool
 
-	isMultiple    bool // 是否为多值。例如人员单选字段此属性为 false，而人员多选字段此属性为 true。
+	isMultiple    bool // 是否为多值。例如“人员（单选）字段”此属性为 false，而“人员（多选）”字段此属性为 true。
 	isMultipleSet bool
 }
 
@@ -13758,7 +14063,7 @@ func NewLookupFieldSettingBuilder() *LookupFieldSettingBuilder {
 	return builder
 }
 
-// 查找字段指向对象的 API name。例如人员单选、人员多选字段均指向 employment 系统对象，而自定义分组字段指向用户创建的自定义对象。可通过[获取自定义字段列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query)接口传入此属性，以获取自定义分组中的字段。
+// 查找字段所引用对象的 API name。对于“人员（单选）”和“人员（多选）”，其值为 `employment`。可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口传入此参数的值来查询自定义分组中定义的自定义字段
 //
 // 示例值：employment
 func (builder *LookupFieldSettingBuilder) LookupObjApiName(lookupObjApiName string) *LookupFieldSettingBuilder {
@@ -13767,7 +14072,7 @@ func (builder *LookupFieldSettingBuilder) LookupObjApiName(lookupObjApiName stri
 	return builder
 }
 
-// 是否为多值。例如人员单选字段此属性为 false，而人员多选字段此属性为 true。
+// 是否为多值。例如“人员（单选）字段”此属性为 false，而“人员（多选）”字段此属性为 true。
 //
 // 示例值：false
 func (builder *LookupFieldSettingBuilder) IsMultiple(isMultiple bool) *LookupFieldSettingBuilder {
@@ -13790,33 +14095,33 @@ func (builder *LookupFieldSettingBuilder) Build() *LookupFieldSetting {
 }
 
 type ManageRelation struct {
-	SubordinateDepartmentId *string `json:"subordinate_department_id,omitempty"` // 下级所在部门
+	SubordinateDepartmentId *string `json:"subordinate_department_id,omitempty"` // 下级所在部门 ID，枚举值及详细信息可通过【批量查询部门】接口查询获得
 
-	SubordinateEmployeeId *string `json:"subordinate_employee_id,omitempty"` // 下级员工
+	SubordinateEmployeeId *string `json:"subordinate_employee_id,omitempty"` // 下级员工 ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
 
-	ManagerType *Enum `json:"manager_type,omitempty"` // 汇报关系（实现汇报，虚线汇报，第二汇报线...）
+	ManagerType *Enum `json:"manager_type,omitempty"` // 汇报关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)汇报关系（manager_type）枚举定义部分获得
 
-	ReportModeType *Enum `json:"report_mode_type,omitempty"` // 汇报线类型 (按人汇报，按部门汇报...)
+	ReportModeType *Enum `json:"report_mode_type,omitempty"` // 汇报线类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)汇报线类型（report_mode_type）枚举定义部分获得
 
-	SuperiorEmployeeId *string `json:"superior_employee_id,omitempty"` // 上级员工
+	SuperiorEmployeeId *string `json:"superior_employee_id,omitempty"` // 上级员工 ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
 
 	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间
 }
 
 type ManageRelationBuilder struct {
-	subordinateDepartmentId    string // 下级所在部门
+	subordinateDepartmentId    string // 下级所在部门 ID，枚举值及详细信息可通过【批量查询部门】接口查询获得
 	subordinateDepartmentIdSet bool
 
-	subordinateEmployeeId    string // 下级员工
+	subordinateEmployeeId    string // 下级员工 ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
 	subordinateEmployeeIdSet bool
 
-	managerType    *Enum // 汇报关系（实现汇报，虚线汇报，第二汇报线...）
+	managerType    *Enum // 汇报关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)汇报关系（manager_type）枚举定义部分获得
 	managerTypeSet bool
 
-	reportModeType    *Enum // 汇报线类型 (按人汇报，按部门汇报...)
+	reportModeType    *Enum // 汇报线类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)汇报线类型（report_mode_type）枚举定义部分获得
 	reportModeTypeSet bool
 
-	superiorEmployeeId    string // 上级员工
+	superiorEmployeeId    string // 上级员工 ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
 	superiorEmployeeIdSet bool
 
 	effectiveTime    string // 生效时间
@@ -13828,7 +14133,7 @@ func NewManageRelationBuilder() *ManageRelationBuilder {
 	return builder
 }
 
-// 下级所在部门
+// 下级所在部门 ID，枚举值及详细信息可通过【批量查询部门】接口查询获得
 //
 // 示例值：4719456877659520852
 func (builder *ManageRelationBuilder) SubordinateDepartmentId(subordinateDepartmentId string) *ManageRelationBuilder {
@@ -13837,7 +14142,7 @@ func (builder *ManageRelationBuilder) SubordinateDepartmentId(subordinateDepartm
 	return builder
 }
 
-// 下级员工
+// 下级员工 ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
 //
 // 示例值：6893010737371809287
 func (builder *ManageRelationBuilder) SubordinateEmployeeId(subordinateEmployeeId string) *ManageRelationBuilder {
@@ -13846,7 +14151,7 @@ func (builder *ManageRelationBuilder) SubordinateEmployeeId(subordinateEmployeeI
 	return builder
 }
 
-// 汇报关系（实现汇报，虚线汇报，第二汇报线...）
+// 汇报关系，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)汇报关系（manager_type）枚举定义部分获得
 //
 // 示例值：
 func (builder *ManageRelationBuilder) ManagerType(managerType *Enum) *ManageRelationBuilder {
@@ -13855,7 +14160,7 @@ func (builder *ManageRelationBuilder) ManagerType(managerType *Enum) *ManageRela
 	return builder
 }
 
-// 汇报线类型 (按人汇报，按部门汇报...)
+// 汇报线类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)汇报线类型（report_mode_type）枚举定义部分获得
 //
 // 示例值：
 func (builder *ManageRelationBuilder) ReportModeType(reportModeType *Enum) *ManageRelationBuilder {
@@ -13864,7 +14169,7 @@ func (builder *ManageRelationBuilder) ReportModeType(reportModeType *Enum) *Mana
 	return builder
 }
 
-// 上级员工
+// 上级员工 ID，枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
 //
 // 示例值：6893013626584565256
 func (builder *ManageRelationBuilder) SuperiorEmployeeId(superiorEmployeeId string) *ManageRelationBuilder {
@@ -13980,7 +14285,7 @@ func NewNameBuilder() *NameBuilder {
 
 // 中文
 //
-// 示例值：cn
+// 示例值：部门经理
 func (builder *NameBuilder) ZhCn(zhCn string) *NameBuilder {
 	builder.zhCn = zhCn
 	builder.zhCnSet = true
@@ -13989,7 +14294,7 @@ func (builder *NameBuilder) ZhCn(zhCn string) *NameBuilder {
 
 // 英文
 //
-// 示例值：en
+// 示例值：department manager
 func (builder *NameBuilder) EnUs(enUs string) *NameBuilder {
 	builder.enUs = enUs
 	builder.enUsSet = true
@@ -14010,7 +14315,7 @@ func (builder *NameBuilder) Build() *Name {
 }
 
 type NationalId struct {
-	NationalIdTypeId *string `json:"national_id_type_id,omitempty"` // 国家证件类型，枚举值可通过【批量查询国家证件类型】接口获取
+	NationalIdTypeId *string `json:"national_id_type_id,omitempty"` // 国家证件类型
 
 	NationalIdNumber *string `json:"national_id_number,omitempty"` // 证件号码
 
@@ -14026,7 +14331,7 @@ type NationalId struct {
 }
 
 type NationalIdBuilder struct {
-	nationalIdTypeId    string // 国家证件类型，枚举值可通过【批量查询国家证件类型】接口获取
+	nationalIdTypeId    string // 国家证件类型
 	nationalIdTypeIdSet bool
 
 	nationalIdNumber    string // 证件号码
@@ -14053,7 +14358,7 @@ func NewNationalIdBuilder() *NationalIdBuilder {
 	return builder
 }
 
-// 国家证件类型，枚举值可通过【批量查询国家证件类型】接口获取
+// 国家证件类型
 //
 // 示例值：6863330041896371725
 func (builder *NationalIdBuilder) NationalIdTypeId(nationalIdTypeId string) *NationalIdBuilder {
@@ -14165,7 +14470,7 @@ type NationalIdType struct {
 
 	IdentificationType *Enum `json:"identification_type,omitempty"` // 证件类型
 
-	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段（暂不支持）
 }
 
 type NationalIdTypeBuilder struct {
@@ -14193,7 +14498,7 @@ type NationalIdTypeBuilder struct {
 	identificationType    *Enum // 证件类型
 	identificationTypeSet bool
 
-	customFields    []*ObjectFieldData // 自定义字段
+	customFields    []*ObjectFieldData // 自定义字段（暂不支持）
 	customFieldsSet bool
 }
 
@@ -14274,7 +14579,7 @@ func (builder *NationalIdTypeBuilder) IdentificationType(identificationType *Enu
 	return builder
 }
 
-// 自定义字段
+// 自定义字段（暂不支持）
 //
 // 示例值：
 func (builder *NationalIdTypeBuilder) CustomFields(customFields []*ObjectFieldData) *NationalIdTypeBuilder {
@@ -14321,26 +14626,26 @@ func (builder *NationalIdTypeBuilder) Build() *NationalIdType {
 }
 
 type NumberFieldSetting struct {
-	NumberFieldType *int `json:"number_field_type,omitempty"` // 数字类型，含以下枚举值：;1. Percent 百分比;2. Integer 整数;3. Value 数值（浮点数）;4. Money 金额（浮点数）
+	NumberFieldType *int `json:"number_field_type,omitempty"` // 数字类型;;**可选值有：**;- `1`：Percent 百分比（定点小数）;- `2`：Integer 整数;- `3`：Value 数值（定点小数）;- `4`：Money 金额（定点小数）
 
-	DecimalPlaces *int `json:"decimal_places,omitempty"` // 小数部分位数（浮点数整数部分和小数部分分别最大30位）
+	DecimalPlaces *int `json:"decimal_places,omitempty"` // 小数点后的位数
 
-	RoundType *int `json:"round_type,omitempty"` // 四舍五入规则，含以下枚举值：;;0. Round 四舍五入;1. Ceil 向上舍入;2. Floor 向下舍入
+	RoundType *int `json:"round_type,omitempty"` // 四舍五入规则;;**可选值有：**;- `0`：Round 四舍五入;- `1`：Ceil 向上舍入;- `2`：Floor 向下舍入
 
-	DecimalTotalPlaces *int `json:"decimal_total_places,omitempty"` // 整数+小数总位数
+	DecimalTotalPlaces *int `json:"decimal_total_places,omitempty"` // 整数+小数的最大总位数
 }
 
 type NumberFieldSettingBuilder struct {
-	numberFieldType    int // 数字类型，含以下枚举值：;1. Percent 百分比;2. Integer 整数;3. Value 数值（浮点数）;4. Money 金额（浮点数）
+	numberFieldType    int // 数字类型;;**可选值有：**;- `1`：Percent 百分比（定点小数）;- `2`：Integer 整数;- `3`：Value 数值（定点小数）;- `4`：Money 金额（定点小数）
 	numberFieldTypeSet bool
 
-	decimalPlaces    int // 小数部分位数（浮点数整数部分和小数部分分别最大30位）
+	decimalPlaces    int // 小数点后的位数
 	decimalPlacesSet bool
 
-	roundType    int // 四舍五入规则，含以下枚举值：;;0. Round 四舍五入;1. Ceil 向上舍入;2. Floor 向下舍入
+	roundType    int // 四舍五入规则;;**可选值有：**;- `0`：Round 四舍五入;- `1`：Ceil 向上舍入;- `2`：Floor 向下舍入
 	roundTypeSet bool
 
-	decimalTotalPlaces    int // 整数+小数总位数
+	decimalTotalPlaces    int // 整数+小数的最大总位数
 	decimalTotalPlacesSet bool
 }
 
@@ -14349,7 +14654,7 @@ func NewNumberFieldSettingBuilder() *NumberFieldSettingBuilder {
 	return builder
 }
 
-// 数字类型，含以下枚举值：;1. Percent 百分比;2. Integer 整数;3. Value 数值（浮点数）;4. Money 金额（浮点数）
+// 数字类型;;**可选值有：**;- `1`：Percent 百分比（定点小数）;- `2`：Integer 整数;- `3`：Value 数值（定点小数）;- `4`：Money 金额（定点小数）
 //
 // 示例值：1
 func (builder *NumberFieldSettingBuilder) NumberFieldType(numberFieldType int) *NumberFieldSettingBuilder {
@@ -14358,7 +14663,7 @@ func (builder *NumberFieldSettingBuilder) NumberFieldType(numberFieldType int) *
 	return builder
 }
 
-// 小数部分位数（浮点数整数部分和小数部分分别最大30位）
+// 小数点后的位数
 //
 // 示例值：1
 func (builder *NumberFieldSettingBuilder) DecimalPlaces(decimalPlaces int) *NumberFieldSettingBuilder {
@@ -14367,7 +14672,7 @@ func (builder *NumberFieldSettingBuilder) DecimalPlaces(decimalPlaces int) *Numb
 	return builder
 }
 
-// 四舍五入规则，含以下枚举值：;;0. Round 四舍五入;1. Ceil 向上舍入;2. Floor 向下舍入
+// 四舍五入规则;;**可选值有：**;- `0`：Round 四舍五入;- `1`：Ceil 向上舍入;- `2`：Floor 向下舍入
 //
 // 示例值：1
 func (builder *NumberFieldSettingBuilder) RoundType(roundType int) *NumberFieldSettingBuilder {
@@ -14376,7 +14681,7 @@ func (builder *NumberFieldSettingBuilder) RoundType(roundType int) *NumberFieldS
 	return builder
 }
 
-// 整数+小数总位数
+// 整数+小数的最大总位数
 //
 // 示例值：1
 func (builder *NumberFieldSettingBuilder) DecimalTotalPlaces(decimalTotalPlaces int) *NumberFieldSettingBuilder {
@@ -14409,9 +14714,9 @@ func (builder *NumberFieldSettingBuilder) Build() *NumberFieldSetting {
 type Object struct {
 	ObjectApiName *string `json:"object_api_name,omitempty"` // 对象的唯一标识
 
-	Name *Name `json:"name,omitempty"` // 对象名称
+	Name *Name `json:"name,omitempty"` // 字段名称
 
-	IsOpen *bool `json:"is_open,omitempty"` // 是否启用;;True 为已启用;;False 为未启用
+	IsOpen *bool `json:"is_open,omitempty"` // 是否启用
 
 	CreateTime *string `json:"create_time,omitempty"` // 创建时间，秒级时间戳
 
@@ -14422,10 +14727,10 @@ type ObjectBuilder struct {
 	objectApiName    string // 对象的唯一标识
 	objectApiNameSet bool
 
-	name    *Name // 对象名称
+	name    *Name // 字段名称
 	nameSet bool
 
-	isOpen    bool // 是否启用;;True 为已启用;;False 为未启用
+	isOpen    bool // 是否启用
 	isOpenSet bool
 
 	createTime    string // 创建时间，秒级时间戳
@@ -14449,7 +14754,7 @@ func (builder *ObjectBuilder) ObjectApiName(objectApiName string) *ObjectBuilder
 	return builder
 }
 
-// 对象名称
+// 字段名称
 //
 // 示例值：
 func (builder *ObjectBuilder) Name(name *Name) *ObjectBuilder {
@@ -14458,7 +14763,7 @@ func (builder *ObjectBuilder) Name(name *Name) *ObjectBuilder {
 	return builder
 }
 
-// 是否启用;;True 为已启用;;False 为未启用
+// 是否启用
 //
 // 示例值：false
 func (builder *ObjectBuilder) IsOpen(isOpen bool) *ObjectBuilder {
@@ -14629,7 +14934,7 @@ func (builder *ObjectFieldDataBuilder) Build() *ObjectFieldData {
 type Offboarding struct {
 	InitiatingType *string `json:"initiating_type,omitempty"` // 离职发起类型，包括：
 
-	Status *string `json:"status,omitempty"` // 离职状态
+	Status *string `json:"status,omitempty"` // 离职状态，包括：
 
 	ApplicationInfo *ApplicationInfo `json:"application_info,omitempty"` // 离职审批信息
 
@@ -14637,14 +14942,14 @@ type Offboarding struct {
 
 	OffboardingChecklist *OffboardingChecklist `json:"offboarding_checklist,omitempty"` // 离职办理流程信息
 
-	OffboardingId *string `json:"offboarding_id,omitempty"` // 离职单据ID
+	OffboardingId *string `json:"offboarding_id,omitempty"` // 离职唯一标识
 }
 
 type OffboardingBuilder struct {
 	initiatingType    string // 离职发起类型，包括：
 	initiatingTypeSet bool
 
-	status    string // 离职状态
+	status    string // 离职状态，包括：
 	statusSet bool
 
 	applicationInfo    *ApplicationInfo // 离职审批信息
@@ -14656,7 +14961,7 @@ type OffboardingBuilder struct {
 	offboardingChecklist    *OffboardingChecklist // 离职办理流程信息
 	offboardingChecklistSet bool
 
-	offboardingId    string // 离职单据ID
+	offboardingId    string // 离职唯一标识
 	offboardingIdSet bool
 }
 
@@ -14674,7 +14979,7 @@ func (builder *OffboardingBuilder) InitiatingType(initiatingType string) *Offboa
 	return builder
 }
 
-// 离职状态
+// 离职状态，包括：
 //
 // 示例值：Approving
 func (builder *OffboardingBuilder) Status(status string) *OffboardingBuilder {
@@ -14710,7 +15015,7 @@ func (builder *OffboardingBuilder) OffboardingChecklist(offboardingChecklist *Of
 	return builder
 }
 
-// 离职单据ID
+// 离职唯一标识
 //
 // 示例值：7298499290417251879
 func (builder *OffboardingBuilder) OffboardingId(offboardingId string) *OffboardingBuilder {
@@ -14970,7 +15275,7 @@ type OffboardingInfo struct {
 
 	EmployeeReasonExplanation *string `json:"employee_reason_explanation,omitempty"` // 离职原因说明（员工）
 
-	AddBlockList *string `json:"add_block_list,omitempty"` // 是否加入离职屏蔽名单
+	AddBlockList *string `json:"add_block_list,omitempty"` // 是否加入离职屏蔽名单。注意：该字段为字符类型。可选值有：;;-true：是;;-false：否
 
 	BlockReason *Enum `json:"block_reason,omitempty"` // 屏蔽原因
 
@@ -14980,15 +15285,15 @@ type OffboardingInfo struct {
 
 	RetainAccount *bool `json:"retain_account,omitempty"` // 离职是否保留飞书账号
 
-	SocialInsuranceEndDate *string `json:"social_insurance_end_date,omitempty"` // 社保停保年月
+	SocialInsuranceEndDate *string `json:"social_insurance_end_date,omitempty"` // 社保停保年月，按YYYY-MM的日期格式返回
 
-	ProvidentFundEndDate *string `json:"provident_fund_end_date,omitempty"` // 公积金截止年月
+	ProvidentFundEndDate *string `json:"provident_fund_end_date,omitempty"` // 公积金截止年月，按YYYY-MM的日期格式返回
 
 	EnforceNoncompeteAgreement *bool `json:"enforce_noncompete_agreement,omitempty"` // 是否启动竞业
 
-	NoncompeteAgreementId *string `json:"noncompete_agreement_id,omitempty"` // 竞业合同ID
+	NoncompeteAgreementId *string `json:"noncompete_agreement_id,omitempty"` // 竞业合同ID，可以通过[查询单个合同](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/get)获取详细的合同信息
 
-	NoncompeteAgreementCompany *string `json:"noncompete_agreement_company,omitempty"` // 竞业公司ID
+	NoncompeteAgreementCompany *string `json:"noncompete_agreement_company,omitempty"` // 竞业公司ID，可以通过[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)获取详细的公司信息
 
 	NoncompeteAgreementStartDate *string `json:"noncompete_agreement_start_date,omitempty"` // 竞业开始日期
 
@@ -15005,6 +15310,8 @@ type OffboardingInfo struct {
 	Employment *ViewEmploymentInfo `json:"employment,omitempty"` // 离职员工的雇佣信息
 
 	NoPermissionFields []string `json:"no_permission_fields,omitempty"` // 无权限的字段列表
+
+	MinorReason *Enum `json:"minor_reason,omitempty"` // 次要离职原因
 }
 
 type OffboardingInfoBuilder struct {
@@ -15032,7 +15339,7 @@ type OffboardingInfoBuilder struct {
 	employeeReasonExplanation    string // 离职原因说明（员工）
 	employeeReasonExplanationSet bool
 
-	addBlockList    string // 是否加入离职屏蔽名单
+	addBlockList    string // 是否加入离职屏蔽名单。注意：该字段为字符类型。可选值有：;;-true：是;;-false：否
 	addBlockListSet bool
 
 	blockReason    *Enum // 屏蔽原因
@@ -15047,19 +15354,19 @@ type OffboardingInfoBuilder struct {
 	retainAccount    bool // 离职是否保留飞书账号
 	retainAccountSet bool
 
-	socialInsuranceEndDate    string // 社保停保年月
+	socialInsuranceEndDate    string // 社保停保年月，按YYYY-MM的日期格式返回
 	socialInsuranceEndDateSet bool
 
-	providentFundEndDate    string // 公积金截止年月
+	providentFundEndDate    string // 公积金截止年月，按YYYY-MM的日期格式返回
 	providentFundEndDateSet bool
 
 	enforceNoncompeteAgreement    bool // 是否启动竞业
 	enforceNoncompeteAgreementSet bool
 
-	noncompeteAgreementId    string // 竞业合同ID
+	noncompeteAgreementId    string // 竞业合同ID，可以通过[查询单个合同](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/get)获取详细的合同信息
 	noncompeteAgreementIdSet bool
 
-	noncompeteAgreementCompany    string // 竞业公司ID
+	noncompeteAgreementCompany    string // 竞业公司ID，可以通过[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)获取详细的公司信息
 	noncompeteAgreementCompanySet bool
 
 	noncompeteAgreementStartDate    string // 竞业开始日期
@@ -15085,6 +15392,9 @@ type OffboardingInfoBuilder struct {
 
 	noPermissionFields    []string // 无权限的字段列表
 	noPermissionFieldsSet bool
+
+	minorReason    *Enum // 次要离职原因
+	minorReasonSet bool
 }
 
 func NewOffboardingInfoBuilder() *OffboardingInfoBuilder {
@@ -15164,7 +15474,7 @@ func (builder *OffboardingInfoBuilder) EmployeeReasonExplanation(employeeReasonE
 	return builder
 }
 
-// 是否加入离职屏蔽名单
+// 是否加入离职屏蔽名单。注意：该字段为字符类型。可选值有：;;-true：是;;-false：否
 //
 // 示例值：false
 func (builder *OffboardingInfoBuilder) AddBlockList(addBlockList string) *OffboardingInfoBuilder {
@@ -15209,7 +15519,7 @@ func (builder *OffboardingInfoBuilder) RetainAccount(retainAccount bool) *Offboa
 	return builder
 }
 
-// 社保停保年月
+// 社保停保年月，按YYYY-MM的日期格式返回
 //
 // 示例值：2022-02
 func (builder *OffboardingInfoBuilder) SocialInsuranceEndDate(socialInsuranceEndDate string) *OffboardingInfoBuilder {
@@ -15218,7 +15528,7 @@ func (builder *OffboardingInfoBuilder) SocialInsuranceEndDate(socialInsuranceEnd
 	return builder
 }
 
-// 公积金截止年月
+// 公积金截止年月，按YYYY-MM的日期格式返回
 //
 // 示例值：2022-02
 func (builder *OffboardingInfoBuilder) ProvidentFundEndDate(providentFundEndDate string) *OffboardingInfoBuilder {
@@ -15236,7 +15546,7 @@ func (builder *OffboardingInfoBuilder) EnforceNoncompeteAgreement(enforceNoncomp
 	return builder
 }
 
-// 竞业合同ID
+// 竞业合同ID，可以通过[查询单个合同](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/get)获取详细的合同信息
 //
 // 示例值：123
 func (builder *OffboardingInfoBuilder) NoncompeteAgreementId(noncompeteAgreementId string) *OffboardingInfoBuilder {
@@ -15245,7 +15555,7 @@ func (builder *OffboardingInfoBuilder) NoncompeteAgreementId(noncompeteAgreement
 	return builder
 }
 
-// 竞业公司ID
+// 竞业公司ID，可以通过[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)获取详细的公司信息
 //
 // 示例值：123
 func (builder *OffboardingInfoBuilder) NoncompeteAgreementCompany(noncompeteAgreementCompany string) *OffboardingInfoBuilder {
@@ -15323,6 +15633,15 @@ func (builder *OffboardingInfoBuilder) Employment(employment *ViewEmploymentInfo
 func (builder *OffboardingInfoBuilder) NoPermissionFields(noPermissionFields []string) *OffboardingInfoBuilder {
 	builder.noPermissionFields = noPermissionFields
 	builder.noPermissionFieldsSet = true
+	return builder
+}
+
+// 次要离职原因
+//
+// 示例值：
+func (builder *OffboardingInfoBuilder) MinorReason(minorReason *Enum) *OffboardingInfoBuilder {
+	builder.minorReason = minorReason
+	builder.minorReasonSet = true
 	return builder
 }
 
@@ -15424,40 +15743,43 @@ func (builder *OffboardingInfoBuilder) Build() *OffboardingInfo {
 	if builder.noPermissionFieldsSet {
 		req.NoPermissionFields = builder.noPermissionFields
 	}
+	if builder.minorReasonSet {
+		req.MinorReason = builder.minorReason
+	}
 	return req
 }
 
 type OffboardingReason struct {
-	OffboardingReasonUniqueIdentifier *string `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因唯一标识
+	OffboardingReasonUniqueIdentifier *string `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因唯一标识，可用于开放平台[操作员工离职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/submit)、[搜索离职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/search)等接口入参中的离职原因。
 
 	Name []*I18n `json:"name,omitempty"` // 名称
 
-	Active *bool `json:"active,omitempty"` // 是否启用，true为启用
+	Active *bool `json:"active,omitempty"` // 是否启用，可选项有：;;- true;- false
 
 	ParentOffboardingReasonUniqueIdentifier *string `json:"parent_offboarding_reason_unique_identifier,omitempty"` // 当前离职原因的父级原因唯一标识
 
-	CreatedTime *string `json:"created_time,omitempty"` // 创建时间
+	CreatedTime *string `json:"created_time,omitempty"` // 创建时间，格式："YYYY-MM-DD HH-mm-ss"
 
-	UpdatedTime *string `json:"updated_time,omitempty"` // 更新时间
+	UpdatedTime *string `json:"updated_time,omitempty"` // 更新时间，格式："YYYY-MM-DD HH-mm-ss"
 }
 
 type OffboardingReasonBuilder struct {
-	offboardingReasonUniqueIdentifier    string // 离职原因唯一标识
+	offboardingReasonUniqueIdentifier    string // 离职原因唯一标识，可用于开放平台[操作员工离职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/submit)、[搜索离职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/search)等接口入参中的离职原因。
 	offboardingReasonUniqueIdentifierSet bool
 
 	name    []*I18n // 名称
 	nameSet bool
 
-	active    bool // 是否启用，true为启用
+	active    bool // 是否启用，可选项有：;;- true;- false
 	activeSet bool
 
 	parentOffboardingReasonUniqueIdentifier    string // 当前离职原因的父级原因唯一标识
 	parentOffboardingReasonUniqueIdentifierSet bool
 
-	createdTime    string // 创建时间
+	createdTime    string // 创建时间，格式："YYYY-MM-DD HH-mm-ss"
 	createdTimeSet bool
 
-	updatedTime    string // 更新时间
+	updatedTime    string // 更新时间，格式："YYYY-MM-DD HH-mm-ss"
 	updatedTimeSet bool
 }
 
@@ -15466,7 +15788,7 @@ func NewOffboardingReasonBuilder() *OffboardingReasonBuilder {
 	return builder
 }
 
-// 离职原因唯一标识
+// 离职原因唯一标识，可用于开放平台[操作员工离职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/submit)、[搜索离职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/search)等接口入参中的离职原因。
 //
 // 示例值：reason_for_offboarding_option8
 func (builder *OffboardingReasonBuilder) OffboardingReasonUniqueIdentifier(offboardingReasonUniqueIdentifier string) *OffboardingReasonBuilder {
@@ -15484,7 +15806,7 @@ func (builder *OffboardingReasonBuilder) Name(name []*I18n) *OffboardingReasonBu
 	return builder
 }
 
-// 是否启用，true为启用
+// 是否启用，可选项有：;;- true;- false
 //
 // 示例值：true
 func (builder *OffboardingReasonBuilder) Active(active bool) *OffboardingReasonBuilder {
@@ -15502,7 +15824,7 @@ func (builder *OffboardingReasonBuilder) ParentOffboardingReasonUniqueIdentifier
 	return builder
 }
 
-// 创建时间
+// 创建时间，格式："YYYY-MM-DD HH-mm-ss"
 //
 // 示例值：2021-08-20 20:28:23
 func (builder *OffboardingReasonBuilder) CreatedTime(createdTime string) *OffboardingReasonBuilder {
@@ -15511,7 +15833,7 @@ func (builder *OffboardingReasonBuilder) CreatedTime(createdTime string) *Offboa
 	return builder
 }
 
-// 更新时间
+// 更新时间，格式："YYYY-MM-DD HH-mm-ss"
 //
 // 示例值：2022-01-07 17:21:06
 func (builder *OffboardingReasonBuilder) UpdatedTime(updatedTime string) *OffboardingReasonBuilder {
@@ -15853,21 +16175,21 @@ func (builder *OperationLogListRespItemBuilder) Build() *OperationLogListRespIte
 }
 
 type OrgTruncation struct {
-	OrgKey *string `json:"org_key,omitempty"` // 组织名称
+	OrgKey *string `json:"org_key,omitempty"` // 组织管理维度名称
 
-	Type *int `json:"type,omitempty"` // 下钻类型
+	Type *int `json:"type,omitempty"` // 下钻类型;- 0 = 对当前管理维度及下级管理维度均有权限;- 1 = 只对当前管理维度有权限，不包含其下级管理维度
 
-	Depth *int `json:"depth,omitempty"` // 下钻深度
+	Depth *int `json:"depth,omitempty"` // 下钻深度（单位：层）
 }
 
 type OrgTruncationBuilder struct {
-	orgKey    string // 组织名称
+	orgKey    string // 组织管理维度名称
 	orgKeySet bool
 
-	type_    int // 下钻类型
+	type_    int // 下钻类型;- 0 = 对当前管理维度及下级管理维度均有权限;- 1 = 只对当前管理维度有权限，不包含其下级管理维度
 	type_Set bool
 
-	depth    int // 下钻深度
+	depth    int // 下钻深度（单位：层）
 	depthSet bool
 }
 
@@ -15876,7 +16198,7 @@ func NewOrgTruncationBuilder() *OrgTruncationBuilder {
 	return builder
 }
 
-// 组织名称
+// 组织管理维度名称
 //
 // 示例值：department
 func (builder *OrgTruncationBuilder) OrgKey(orgKey string) *OrgTruncationBuilder {
@@ -15885,7 +16207,7 @@ func (builder *OrgTruncationBuilder) OrgKey(orgKey string) *OrgTruncationBuilder
 	return builder
 }
 
-// 下钻类型
+// 下钻类型;- 0 = 对当前管理维度及下级管理维度均有权限;- 1 = 只对当前管理维度有权限，不包含其下级管理维度
 //
 // 示例值：0
 func (builder *OrgTruncationBuilder) Type(type_ int) *OrgTruncationBuilder {
@@ -15894,7 +16216,7 @@ func (builder *OrgTruncationBuilder) Type(type_ int) *OrgTruncationBuilder {
 	return builder
 }
 
-// 下钻深度
+// 下钻深度（单位：层）
 //
 // 示例值：0
 func (builder *OrgTruncationBuilder) Depth(depth int) *OrgTruncationBuilder {
@@ -16076,21 +16398,21 @@ type Person struct {
 
 	PreferredName *string `json:"preferred_name,omitempty"` // 常用名
 
-	Id *string `json:"id,omitempty"` // Person ID
+	Id *string `json:"id,omitempty"` // 实体在CoreHR内部的唯一键
 
 	NameList []*PersonName `json:"name_list,omitempty"` // 姓名
 
-	Gender *Enum `json:"gender,omitempty"` // 性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
+	Gender *Enum `json:"gender,omitempty"` // 性别
 
 	DateOfBirth *string `json:"date_of_birth,omitempty"` // 出生日期
 
-	NationalityId *string `json:"nationality_id,omitempty"` // 国籍id
+	NationalityId *string `json:"nationality_id,omitempty"` // 国籍 ID，该字段已作废，请使用 nationality_id_v2 字段
 
 	NationalityIdV2 *string `json:"nationality_id_v2,omitempty"` // 国籍 ID，可通过【查询国籍信息】接口查询
 
-	Race *Enum `json:"race,omitempty"` // 民族 / 种族，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)民族（race）枚举定义部分获得
+	Race *Enum `json:"race,omitempty"` // 民族 / 种族
 
-	MaritalStatus *Enum `json:"marital_status,omitempty"` // 婚姻状况，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)婚姻状况（marital_status）枚举定义部分获得
+	MaritalStatus *Enum `json:"marital_status,omitempty"` // 婚姻状况
 
 	PhoneList []*Phone `json:"phone_list,omitempty"` // 电话列表，只有当满足下面所有条件时，电话在个人信息页才可见:;- 电话号码不为空;- is_primary = "true" ;- phone_usage = "home"
 
@@ -16110,9 +16432,9 @@ type Person struct {
 
 	EmergencyContactList []*EmergencyContact `json:"emergency_contact_list,omitempty"` // 紧急联系人列表
 
-	DateEnteredWorkforce *string `json:"date_entered_workforce,omitempty"` // 参加工作日期
+	DateEnteredWorkforce *string `json:"date_entered_workforce,omitempty"` // 进入工作地的日期
 
-	ProfileImageId *string `json:"profile_image_id,omitempty"` // 头像资源的 ID
+	ProfileImageId *string `json:"profile_image_id,omitempty"` // 头像资源的id
 
 	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 
@@ -16139,28 +16461,28 @@ type PersonBuilder struct {
 	preferredName    string // 常用名
 	preferredNameSet bool
 
-	id    string // Person ID
+	id    string // 实体在CoreHR内部的唯一键
 	idSet bool
 
 	nameList    []*PersonName // 姓名
 	nameListSet bool
 
-	gender    *Enum // 性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
+	gender    *Enum // 性别
 	genderSet bool
 
 	dateOfBirth    string // 出生日期
 	dateOfBirthSet bool
 
-	nationalityId    string // 国籍id
+	nationalityId    string // 国籍 ID，该字段已作废，请使用 nationality_id_v2 字段
 	nationalityIdSet bool
 
 	nationalityIdV2    string // 国籍 ID，可通过【查询国籍信息】接口查询
 	nationalityIdV2Set bool
 
-	race    *Enum // 民族 / 种族，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)民族（race）枚举定义部分获得
+	race    *Enum // 民族 / 种族
 	raceSet bool
 
-	maritalStatus    *Enum // 婚姻状况，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)婚姻状况（marital_status）枚举定义部分获得
+	maritalStatus    *Enum // 婚姻状况
 	maritalStatusSet bool
 
 	phoneList    []*Phone // 电话列表，只有当满足下面所有条件时，电话在个人信息页才可见:;- 电话号码不为空;- is_primary = "true" ;- phone_usage = "home"
@@ -16190,10 +16512,10 @@ type PersonBuilder struct {
 	emergencyContactList    []*EmergencyContact // 紧急联系人列表
 	emergencyContactListSet bool
 
-	dateEnteredWorkforce    string // 参加工作日期
+	dateEnteredWorkforce    string // 进入工作地的日期
 	dateEnteredWorkforceSet bool
 
-	profileImageId    string // 头像资源的 ID
+	profileImageId    string // 头像资源的id
 	profileImageIdSet bool
 
 	customFields    []*ObjectFieldData // 自定义字段
@@ -16250,7 +16572,7 @@ func (builder *PersonBuilder) PreferredName(preferredName string) *PersonBuilder
 	return builder
 }
 
-// Person ID
+// 实体在CoreHR内部的唯一键
 //
 // 示例值：646465654545
 func (builder *PersonBuilder) Id(id string) *PersonBuilder {
@@ -16268,7 +16590,7 @@ func (builder *PersonBuilder) NameList(nameList []*PersonName) *PersonBuilder {
 	return builder
 }
 
-// 性别，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gender）枚举定义部分获得
+// 性别
 //
 // 示例值：
 func (builder *PersonBuilder) Gender(gender *Enum) *PersonBuilder {
@@ -16286,9 +16608,9 @@ func (builder *PersonBuilder) DateOfBirth(dateOfBirth string) *PersonBuilder {
 	return builder
 }
 
-// 国籍id
+// 国籍 ID，该字段已作废，请使用 nationality_id_v2 字段
 //
-// 示例值：123456789
+// 示例值：7075702732803278381
 func (builder *PersonBuilder) NationalityId(nationalityId string) *PersonBuilder {
 	builder.nationalityId = nationalityId
 	builder.nationalityIdSet = true
@@ -16304,7 +16626,7 @@ func (builder *PersonBuilder) NationalityIdV2(nationalityIdV2 string) *PersonBui
 	return builder
 }
 
-// 民族 / 种族，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)民族（race）枚举定义部分获得
+// 民族 / 种族
 //
 // 示例值：
 func (builder *PersonBuilder) Race(race *Enum) *PersonBuilder {
@@ -16313,7 +16635,7 @@ func (builder *PersonBuilder) Race(race *Enum) *PersonBuilder {
 	return builder
 }
 
-// 婚姻状况，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)婚姻状况（marital_status）枚举定义部分获得
+// 婚姻状况
 //
 // 示例值：
 func (builder *PersonBuilder) MaritalStatus(maritalStatus *Enum) *PersonBuilder {
@@ -16403,7 +16725,7 @@ func (builder *PersonBuilder) EmergencyContactList(emergencyContactList []*Emerg
 	return builder
 }
 
-// 参加工作日期
+// 进入工作地的日期
 //
 // 示例值：2020-10-01
 func (builder *PersonBuilder) DateEnteredWorkforce(dateEnteredWorkforce string) *PersonBuilder {
@@ -16412,7 +16734,7 @@ func (builder *PersonBuilder) DateEnteredWorkforce(dateEnteredWorkforce string) 
 	return builder
 }
 
-// 头像资源的 ID
+// 头像资源的id
 //
 // 示例值：dfysuc8x76dsfsw
 func (builder *PersonBuilder) ProfileImageId(profileImageId string) *PersonBuilder {
@@ -16441,7 +16763,7 @@ func (builder *PersonBuilder) EmailAddress(emailAddress string) *PersonBuilder {
 
 // 纳税身份信息
 //
-// 示例值：["1", "2"]
+// 示例值：
 func (builder *PersonBuilder) ResidentTaxIdList(residentTaxIdList []string) *PersonBuilder {
 	builder.residentTaxIdList = residentTaxIdList
 	builder.residentTaxIdListSet = true
@@ -16450,7 +16772,7 @@ func (builder *PersonBuilder) ResidentTaxIdList(residentTaxIdList []string) *Per
 
 // 年龄
 //
-// 示例值：25
+// 示例值：22
 func (builder *PersonBuilder) Age(age int) *PersonBuilder {
 	builder.age = age
 	builder.ageSet = true
@@ -16590,11 +16912,11 @@ func (builder *PersonBuilder) Build() *Person {
 type PersonInfoChn struct {
 	Id *string `json:"id,omitempty"` // 个人附加信息 ID
 
-	NativeRegion *string `json:"native_region,omitempty"` // 籍贯 ID;- 枚举值可通过「查询单条省份/行政区信息」接口获取
+	NativeRegion *string `json:"native_region,omitempty"` // 籍贯
 
 	PoliticalAffiliationList []*Enum `json:"political_affiliation_list,omitempty"` // 政治面貌，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)政治面貌（political_affiliation）枚举定义部分获得
 
-	HukouType *Enum `json:"hukou_type,omitempty"` // 户口类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)户口类型（hukou_type）枚举定义部分获得
+	HukouType *Enum `json:"hukou_type,omitempty"` // 户口类型
 
 	HukouLocation *string `json:"hukou_location,omitempty"` // 户口所在地
 
@@ -16609,13 +16931,13 @@ type PersonInfoChnBuilder struct {
 	id    string // 个人附加信息 ID
 	idSet bool
 
-	nativeRegion    string // 籍贯 ID;- 枚举值可通过「查询单条省份/行政区信息」接口获取
+	nativeRegion    string // 籍贯
 	nativeRegionSet bool
 
 	politicalAffiliationList    []*Enum // 政治面貌，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)政治面貌（political_affiliation）枚举定义部分获得
 	politicalAffiliationListSet bool
 
-	hukouType    *Enum // 户口类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)户口类型（hukou_type）枚举定义部分获得
+	hukouType    *Enum // 户口类型
 	hukouTypeSet bool
 
 	hukouLocation    string // 户口所在地
@@ -16645,7 +16967,7 @@ func (builder *PersonInfoChnBuilder) Id(id string) *PersonInfoChnBuilder {
 	return builder
 }
 
-// 籍贯 ID;- 枚举值可通过「查询单条省份/行政区信息」接口获取
+// 籍贯
 //
 // 示例值：6863326263973512712
 func (builder *PersonInfoChnBuilder) NativeRegion(nativeRegion string) *PersonInfoChnBuilder {
@@ -16663,7 +16985,7 @@ func (builder *PersonInfoChnBuilder) PoliticalAffiliationList(politicalAffiliati
 	return builder
 }
 
-// 户口类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)户口类型（hukou_type）枚举定义部分获得
+// 户口类型
 //
 // 示例值：
 func (builder *PersonInfoChnBuilder) HukouType(hukouType *Enum) *PersonInfoChnBuilder {
@@ -16743,11 +17065,11 @@ func (builder *PersonInfoChnBuilder) Build() *PersonInfoChn {
 }
 
 type PersonInfoMys struct {
-	Id *string `json:"id,omitempty"` // 实体在CoreHR内部的唯一键
+	Id *string `json:"id,omitempty"` // 马来西亚个人信息ID
 
 	PersonId *string `json:"person_id,omitempty"` // 关联人员ID
 
-	PreviousIncomeInTheCurrentYear *bool `json:"previous_income_in_the_current_year,omitempty"` // 是否本年度在前雇主已有工作收入
+	PreviousIncomeInTheCurrentYear *bool `json:"previous_income_in_the_current_year,omitempty"` // 本年度在马来西亚已有工作收入
 
 	FreshGraduate *bool `json:"fresh_graduate,omitempty"` // 是否应届毕业生
 
@@ -16775,13 +17097,13 @@ type PersonInfoMys struct {
 }
 
 type PersonInfoMysBuilder struct {
-	id    string // 实体在CoreHR内部的唯一键
+	id    string // 马来西亚个人信息ID
 	idSet bool
 
 	personId    string // 关联人员ID
 	personIdSet bool
 
-	previousIncomeInTheCurrentYear    bool // 是否本年度在前雇主已有工作收入
+	previousIncomeInTheCurrentYear    bool // 本年度在马来西亚已有工作收入
 	previousIncomeInTheCurrentYearSet bool
 
 	freshGraduate    bool // 是否应届毕业生
@@ -16826,7 +17148,7 @@ func NewPersonInfoMysBuilder() *PersonInfoMysBuilder {
 	return builder
 }
 
-// 实体在CoreHR内部的唯一键
+// 马来西亚个人信息ID
 //
 // 示例值：6950635856373745165
 func (builder *PersonInfoMysBuilder) Id(id string) *PersonInfoMysBuilder {
@@ -16844,7 +17166,7 @@ func (builder *PersonInfoMysBuilder) PersonId(personId string) *PersonInfoMysBui
 	return builder
 }
 
-// 是否本年度在前雇主已有工作收入
+// 本年度在马来西亚已有工作收入
 //
 // 示例值：true
 func (builder *PersonInfoMysBuilder) PreviousIncomeInTheCurrentYear(previousIncomeInTheCurrentYear bool) *PersonInfoMysBuilder {
@@ -17031,13 +17353,13 @@ type PersonName struct {
 
 	CountryRegionId *string `json:"country_region_id,omitempty"` // 国家 / 地区
 
-	NameType *Enum `json:"name_type,omitempty"` // 姓名类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)姓名类型（name_type）枚举定义部分获得
+	NameType *Enum `json:"name_type,omitempty"` // 姓名类型
 
 	LocalFirstName2 *string `json:"local_first_name_2,omitempty"` // 名 - 第二本地文字
 
 	LocalPrimary2 *string `json:"local_primary_2,omitempty"` // 姓 - 第二本地文字
 
-	AdditionalNameType *Enum `json:"additional_name_type,omitempty"` // 补充姓名类型，比如emergency_contact_name（紧急联系人姓名）
+	AdditionalNameType *Enum `json:"additional_name_type,omitempty"` // 补充姓名类型
 
 	FirstName *string `json:"first_name,omitempty"` // 名
 
@@ -17059,7 +17381,7 @@ type PersonName struct {
 
 	Tertiary *string `json:"tertiary,omitempty"` // 婚后姓氏
 
-	Title *Enum `json:"title,omitempty"` // 头衔，比如;;Mr.;;Miss.;;Mrs.;;Prof.;;Dr.
+	Title *Enum `json:"title,omitempty"` // 头衔
 
 	LocalMiddleName *string `json:"local_middle_name,omitempty"` // 本地中间名
 
@@ -17084,7 +17406,7 @@ type PersonNameBuilder struct {
 	countryRegionId    string // 国家 / 地区
 	countryRegionIdSet bool
 
-	nameType    *Enum // 姓名类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)姓名类型（name_type）枚举定义部分获得
+	nameType    *Enum // 姓名类型
 	nameTypeSet bool
 
 	localFirstName2    string // 名 - 第二本地文字
@@ -17093,7 +17415,7 @@ type PersonNameBuilder struct {
 	localPrimary2    string // 姓 - 第二本地文字
 	localPrimary2Set bool
 
-	additionalNameType    *Enum // 补充姓名类型，比如emergency_contact_name（紧急联系人姓名）
+	additionalNameType    *Enum // 补充姓名类型
 	additionalNameTypeSet bool
 
 	firstName    string // 名
@@ -17126,7 +17448,7 @@ type PersonNameBuilder struct {
 	tertiary    string // 婚后姓氏
 	tertiarySet bool
 
-	title    *Enum // 头衔，比如;;Mr.;;Miss.;;Mrs.;;Prof.;;Dr.
+	title    *Enum // 头衔
 	titleSet bool
 
 	localMiddleName    string // 本地中间名
@@ -17180,7 +17502,7 @@ func (builder *PersonNameBuilder) CountryRegionId(countryRegionId string) *Perso
 	return builder
 }
 
-// 姓名类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)姓名类型（name_type）枚举定义部分获得
+// 姓名类型
 //
 // 示例值：
 func (builder *PersonNameBuilder) NameType(nameType *Enum) *PersonNameBuilder {
@@ -17207,7 +17529,7 @@ func (builder *PersonNameBuilder) LocalPrimary2(localPrimary2 string) *PersonNam
 	return builder
 }
 
-// 补充姓名类型，比如emergency_contact_name（紧急联系人姓名）
+// 补充姓名类型
 //
 // 示例值：
 func (builder *PersonNameBuilder) AdditionalNameType(additionalNameType *Enum) *PersonNameBuilder {
@@ -17227,7 +17549,7 @@ func (builder *PersonNameBuilder) FirstName(firstName string) *PersonNameBuilder
 
 // 全名
 //
-// 示例值：王大帅
+// 示例值：刘梓新
 func (builder *PersonNameBuilder) FullName(fullName string) *PersonNameBuilder {
 	builder.fullName = fullName
 	builder.fullNameSet = true
@@ -17245,7 +17567,7 @@ func (builder *PersonNameBuilder) Hereditary(hereditary string) *PersonNameBuild
 
 // 自定义姓名（未传入时，姓名将默认根据所属国家 / 地区规则对相关姓、名字段拼接）
 //
-// 示例值：王大帅
+// 示例值：刘梓新
 func (builder *PersonNameBuilder) CustomName(customName string) *PersonNameBuilder {
 	builder.customName = customName
 	builder.customNameSet = true
@@ -17254,7 +17576,7 @@ func (builder *PersonNameBuilder) CustomName(customName string) *PersonNameBuild
 
 // 本地文字的自定义姓名（未传入时，本地文字的姓名将默认根据所属国家 / 地区规则对本地文字的相关姓、名字段拼接）
 //
-// 示例值：王大帅
+// 示例值：刘梓新
 func (builder *PersonNameBuilder) CustomLocalName(customLocalName string) *PersonNameBuilder {
 	builder.customLocalName = customLocalName
 	builder.customLocalNameSet = true
@@ -17306,7 +17628,7 @@ func (builder *PersonNameBuilder) Tertiary(tertiary string) *PersonNameBuilder {
 	return builder
 }
 
-// 头衔，比如;;Mr.;;Miss.;;Mrs.;;Prof.;;Dr.
+// 头衔
 //
 // 示例值：王
 func (builder *PersonNameBuilder) Title(title *Enum) *PersonNameBuilder {
@@ -17335,7 +17657,7 @@ func (builder *PersonNameBuilder) LocalSecondary(localSecondary string) *PersonN
 
 // 展示姓名（本地和西方文字）
 //
-// 示例值：王大帅
+// 示例值：刘梓新
 func (builder *PersonNameBuilder) DisplayNameLocalAndWesternScript(displayNameLocalAndWesternScript string) *PersonNameBuilder {
 	builder.displayNameLocalAndWesternScript = displayNameLocalAndWesternScript
 	builder.displayNameLocalAndWesternScriptSet = true
@@ -17344,7 +17666,7 @@ func (builder *PersonNameBuilder) DisplayNameLocalAndWesternScript(displayNameLo
 
 // 展示姓名（本地文字）
 //
-// 示例值：王大帅
+// 示例值：刘梓新
 func (builder *PersonNameBuilder) DisplayNameLocalScript(displayNameLocalScript string) *PersonNameBuilder {
 	builder.displayNameLocalScript = displayNameLocalScript
 	builder.displayNameLocalScriptSet = true
@@ -17353,7 +17675,7 @@ func (builder *PersonNameBuilder) DisplayNameLocalScript(displayNameLocalScript 
 
 // 展示姓名（西方文字）
 //
-// 示例值：王大帅
+// 示例值：刘梓新
 func (builder *PersonNameBuilder) DisplayNameWesternScript(displayNameWesternScript string) *PersonNameBuilder {
 	builder.displayNameWesternScript = displayNameWesternScript
 	builder.displayNameWesternScriptSet = true
@@ -17468,7 +17790,7 @@ func (builder *PersonNameBuilder) Build() *PersonName {
 type PersonalProfile struct {
 	PersonalProfileId *string `json:"personal_profile_id,omitempty"` // 个人资料 ID
 
-	PersonalProfileType *Enum `json:"personal_profile_type,omitempty"` // 个人资料类型，比如;银行储蓄卡复印件、证件照、个人信息采集表、生活照
+	PersonalProfileType *Enum `json:"personal_profile_type,omitempty"` // 资料类型
 
 	Files []*File `json:"files,omitempty"` // 上传文件列表
 }
@@ -17477,7 +17799,7 @@ type PersonalProfileBuilder struct {
 	personalProfileId    string // 个人资料 ID
 	personalProfileIdSet bool
 
-	personalProfileType    *Enum // 个人资料类型，比如;银行储蓄卡复印件、证件照、个人信息采集表、生活照
+	personalProfileType    *Enum // 资料类型
 	personalProfileTypeSet bool
 
 	files    []*File // 上传文件列表
@@ -17498,7 +17820,7 @@ func (builder *PersonalProfileBuilder) PersonalProfileId(personalProfileId strin
 	return builder
 }
 
-// 个人资料类型，比如;银行储蓄卡复印件、证件照、个人信息采集表、生活照
+// 资料类型
 //
 // 示例值：
 func (builder *PersonalProfileBuilder) PersonalProfileType(personalProfileType *Enum) *PersonalProfileBuilder {
@@ -17532,25 +17854,25 @@ func (builder *PersonalProfileBuilder) Build() *PersonalProfile {
 }
 
 type Phone struct {
-	InternationalAreaCode *Enum `json:"international_area_code,omitempty"` // 国家区号;;常见如：86_china（中国）、852_hong_kong（中国香港）、886_taiwan（中国台湾）、853_macao（中国澳门）、1_united_states_of_america（美利坚合众国）、7_russian_federation（俄罗斯联邦）、44_united_kingdom（英国）、81_japan（日本）、82_korea_republic_of（大韩民国）、91_india（印度）
+	InternationalAreaCode *Enum `json:"international_area_code,omitempty"` // 国家区号
 
 	PhoneNumber *string `json:"phone_number,omitempty"` // 电话号码
 
 	FormattedPhoneNumber *string `json:"formatted_phone_number,omitempty"` // 完整电话号码
 
-	DeviceType *Enum `json:"device_type,omitempty"` // 设备类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)设备类型（device_type）枚举定义部分获得
+	DeviceType *Enum `json:"device_type,omitempty"` // 设备类型
 
-	PhoneUsage *Enum `json:"phone_usage,omitempty"` // 电话用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电话用途（phone_usage）枚举定义部分获得
+	PhoneUsage *Enum `json:"phone_usage,omitempty"` // 电话用途
 
-	IsPrimary *bool `json:"is_primary,omitempty"` // 是否为主要电话
+	IsPrimary *bool `json:"is_primary,omitempty"` // 主要电话
 
-	IsPublic *bool `json:"is_public,omitempty"` // 是否为公开电话
+	IsPublic *bool `json:"is_public,omitempty"` // 公开电话
 
 	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 }
 
 type PhoneBuilder struct {
-	internationalAreaCode    *Enum // 国家区号;;常见如：86_china（中国）、852_hong_kong（中国香港）、886_taiwan（中国台湾）、853_macao（中国澳门）、1_united_states_of_america（美利坚合众国）、7_russian_federation（俄罗斯联邦）、44_united_kingdom（英国）、81_japan（日本）、82_korea_republic_of（大韩民国）、91_india（印度）
+	internationalAreaCode    *Enum // 国家区号
 	internationalAreaCodeSet bool
 
 	phoneNumber    string // 电话号码
@@ -17559,16 +17881,16 @@ type PhoneBuilder struct {
 	formattedPhoneNumber    string // 完整电话号码
 	formattedPhoneNumberSet bool
 
-	deviceType    *Enum // 设备类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)设备类型（device_type）枚举定义部分获得
+	deviceType    *Enum // 设备类型
 	deviceTypeSet bool
 
-	phoneUsage    *Enum // 电话用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电话用途（phone_usage）枚举定义部分获得
+	phoneUsage    *Enum // 电话用途
 	phoneUsageSet bool
 
-	isPrimary    bool // 是否为主要电话
+	isPrimary    bool // 主要电话
 	isPrimarySet bool
 
-	isPublic    bool // 是否为公开电话
+	isPublic    bool // 公开电话
 	isPublicSet bool
 
 	customFields    []*ObjectFieldData // 自定义字段
@@ -17580,7 +17902,7 @@ func NewPhoneBuilder() *PhoneBuilder {
 	return builder
 }
 
-// 国家区号;;常见如：86_china（中国）、852_hong_kong（中国香港）、886_taiwan（中国台湾）、853_macao（中国澳门）、1_united_states_of_america（美利坚合众国）、7_russian_federation（俄罗斯联邦）、44_united_kingdom（英国）、81_japan（日本）、82_korea_republic_of（大韩民国）、91_india（印度）
+// 国家区号
 //
 // 示例值：
 func (builder *PhoneBuilder) InternationalAreaCode(internationalAreaCode *Enum) *PhoneBuilder {
@@ -17591,7 +17913,7 @@ func (builder *PhoneBuilder) InternationalAreaCode(internationalAreaCode *Enum) 
 
 // 电话号码
 //
-// 示例值：010-12345678
+// 示例值：18812341234
 func (builder *PhoneBuilder) PhoneNumber(phoneNumber string) *PhoneBuilder {
 	builder.phoneNumber = phoneNumber
 	builder.phoneNumberSet = true
@@ -17607,7 +17929,7 @@ func (builder *PhoneBuilder) FormattedPhoneNumber(formattedPhoneNumber string) *
 	return builder
 }
 
-// 设备类型，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)设备类型（device_type）枚举定义部分获得
+// 设备类型
 //
 // 示例值：
 func (builder *PhoneBuilder) DeviceType(deviceType *Enum) *PhoneBuilder {
@@ -17616,7 +17938,7 @@ func (builder *PhoneBuilder) DeviceType(deviceType *Enum) *PhoneBuilder {
 	return builder
 }
 
-// 电话用途，枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电话用途（phone_usage）枚举定义部分获得
+// 电话用途
 //
 // 示例值：
 func (builder *PhoneBuilder) PhoneUsage(phoneUsage *Enum) *PhoneBuilder {
@@ -17625,7 +17947,7 @@ func (builder *PhoneBuilder) PhoneUsage(phoneUsage *Enum) *PhoneBuilder {
 	return builder
 }
 
-// 是否为主要电话
+// 主要电话
 //
 // 示例值：true
 func (builder *PhoneBuilder) IsPrimary(isPrimary bool) *PhoneBuilder {
@@ -17634,7 +17956,7 @@ func (builder *PhoneBuilder) IsPrimary(isPrimary bool) *PhoneBuilder {
 	return builder
 }
 
-// 是否为公开电话
+// 公开电话
 //
 // 示例值：true
 func (builder *PhoneBuilder) IsPublic(isPublic bool) *PhoneBuilder {
@@ -17715,7 +18037,7 @@ func (builder *PhoneNumberAndAreaCodeBuilder) AreaCode(areaCode *Enum) *PhoneNum
 
 // 号码
 //
-// 示例值：213213
+// 示例值：18812341234
 func (builder *PhoneNumberAndAreaCodeBuilder) PhoneNumber(phoneNumber string) *PhoneNumberAndAreaCodeBuilder {
 	builder.phoneNumber = phoneNumber
 	builder.phoneNumberSet = true
@@ -17735,7 +18057,7 @@ func (builder *PhoneNumberAndAreaCodeBuilder) Build() *PhoneNumberAndAreaCode {
 }
 
 type PreHire struct {
-	AtsApplicationId *string `json:"ats_application_id,omitempty"` // 招聘系统的候选人 ID
+	AtsApplicationId *string `json:"ats_application_id,omitempty"` // 招聘投递 ID ，详细信息可以通过招聘的【获取投递信息】接口查询获得
 
 	Id *string `json:"id,omitempty"` // 待入职ID
 
@@ -17757,7 +18079,7 @@ type PreHire struct {
 }
 
 type PreHireBuilder struct {
-	atsApplicationId    string // 招聘系统的候选人 ID
+	atsApplicationId    string // 招聘投递 ID ，详细信息可以通过招聘的【获取投递信息】接口查询获得
 	atsApplicationIdSet bool
 
 	id    string // 待入职ID
@@ -17793,7 +18115,7 @@ func NewPreHireBuilder() *PreHireBuilder {
 	return builder
 }
 
-// 招聘系统的候选人 ID
+// 招聘投递 ID ，详细信息可以通过招聘的【获取投递信息】接口查询获得
 //
 // 示例值：4719168654814483759
 func (builder *PreHireBuilder) AtsApplicationId(atsApplicationId string) *PreHireBuilder {
@@ -17925,19 +18247,19 @@ func (builder *PreHireBuilder) Build() *PreHire {
 }
 
 type PreHireQuery struct {
-	AtsApplicationId *string `json:"ats_application_id,omitempty"` // 招聘系统的候选人 ID
+	AtsApplicationId *string `json:"ats_application_id,omitempty"` // 招聘投递 ID ，可以通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取
 
-	Id *string `json:"id,omitempty"` // 实体在CoreHR内部的唯一键
+	Id *string `json:"id,omitempty"` // 待入职ID，可从[待入职列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取
 
-	HireDate *string `json:"hire_date,omitempty"` // 入职日期
+	HireDate *string `json:"hire_date,omitempty"` // 入职日期，格式："YYYY-MM-DD"
 
 	EmployeeType *Enum `json:"employee_type,omitempty"` // 雇佣类型
 
 	WorkerId *string `json:"worker_id,omitempty"` // 人员编号
 
-	EmployeeTypeId *string `json:"employee_type_id,omitempty"` // 雇佣类型
+	EmployeeTypeId *string `json:"employee_type_id,omitempty"` // 人员类型，可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取
 
-	PersonId *string `json:"person_id,omitempty"` // 引用Person ID
+	PersonId *string `json:"person_id,omitempty"` // 个人信息 ID
 
 	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 
@@ -17947,17 +18269,17 @@ type PreHireQuery struct {
 
 	WorkEmailList []*Email `json:"work_email_list,omitempty"` // 工作邮箱
 
-	DepartmentId *string `json:"department_id,omitempty"` // 部门ID
+	DepartmentId *string `json:"department_id,omitempty"` // 部门ID，可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取
 }
 
 type PreHireQueryBuilder struct {
-	atsApplicationId    string // 招聘系统的候选人 ID
+	atsApplicationId    string // 招聘投递 ID ，可以通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取
 	atsApplicationIdSet bool
 
-	id    string // 实体在CoreHR内部的唯一键
+	id    string // 待入职ID，可从[待入职列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取
 	idSet bool
 
-	hireDate    string // 入职日期
+	hireDate    string // 入职日期，格式："YYYY-MM-DD"
 	hireDateSet bool
 
 	employeeType    *Enum // 雇佣类型
@@ -17966,10 +18288,10 @@ type PreHireQueryBuilder struct {
 	workerId    string // 人员编号
 	workerIdSet bool
 
-	employeeTypeId    string // 雇佣类型
+	employeeTypeId    string // 人员类型，可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取
 	employeeTypeIdSet bool
 
-	personId    string // 引用Person ID
+	personId    string // 个人信息 ID
 	personIdSet bool
 
 	customFields    []*ObjectFieldData // 自定义字段
@@ -17984,7 +18306,7 @@ type PreHireQueryBuilder struct {
 	workEmailList    []*Email // 工作邮箱
 	workEmailListSet bool
 
-	departmentId    string // 部门ID
+	departmentId    string // 部门ID，可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取
 	departmentIdSet bool
 }
 
@@ -17993,7 +18315,7 @@ func NewPreHireQueryBuilder() *PreHireQueryBuilder {
 	return builder
 }
 
-// 招聘系统的候选人 ID
+// 招聘投递 ID ，可以通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取
 //
 // 示例值：4719168654814483759
 func (builder *PreHireQueryBuilder) AtsApplicationId(atsApplicationId string) *PreHireQueryBuilder {
@@ -18002,7 +18324,7 @@ func (builder *PreHireQueryBuilder) AtsApplicationId(atsApplicationId string) *P
 	return builder
 }
 
-// 实体在CoreHR内部的唯一键
+// 待入职ID，可从[待入职列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取
 //
 // 示例值：154545454
 func (builder *PreHireQueryBuilder) Id(id string) *PreHireQueryBuilder {
@@ -18011,7 +18333,7 @@ func (builder *PreHireQueryBuilder) Id(id string) *PreHireQueryBuilder {
 	return builder
 }
 
-// 入职日期
+// 入职日期，格式："YYYY-MM-DD"
 //
 // 示例值：2020-01-01
 func (builder *PreHireQueryBuilder) HireDate(hireDate string) *PreHireQueryBuilder {
@@ -18038,7 +18360,7 @@ func (builder *PreHireQueryBuilder) WorkerId(workerId string) *PreHireQueryBuild
 	return builder
 }
 
-// 雇佣类型
+// 人员类型，可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取
 //
 // 示例值：正式
 func (builder *PreHireQueryBuilder) EmployeeTypeId(employeeTypeId string) *PreHireQueryBuilder {
@@ -18047,7 +18369,7 @@ func (builder *PreHireQueryBuilder) EmployeeTypeId(employeeTypeId string) *PreHi
 	return builder
 }
 
-// 引用Person ID
+// 个人信息 ID
 //
 // 示例值：656464648662
 func (builder *PreHireQueryBuilder) PersonId(personId string) *PreHireQueryBuilder {
@@ -18092,7 +18414,7 @@ func (builder *PreHireQueryBuilder) WorkEmailList(workEmailList []*Email) *PreHi
 	return builder
 }
 
-// 部门ID
+// 部门ID，可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取
 //
 // 示例值：656464648662
 func (builder *PreHireQueryBuilder) DepartmentId(departmentId string) *PreHireQueryBuilder {
@@ -18150,7 +18472,7 @@ func (builder *PreHireQueryBuilder) Build() *PreHireQuery {
 }
 
 type PreviousEmployer struct {
-	Id *string `json:"id,omitempty"` // 实体在CoreHR内部的唯一键
+	Id *string `json:"id,omitempty"` // 雇主信息ID
 
 	EmployerName *string `json:"employer_name,omitempty"` // 雇主名称
 
@@ -18162,7 +18484,7 @@ type PreviousEmployer struct {
 }
 
 type PreviousEmployerBuilder struct {
-	id    string // 实体在CoreHR内部的唯一键
+	id    string // 雇主信息ID
 	idSet bool
 
 	employerName    string // 雇主名称
@@ -18183,7 +18505,7 @@ func NewPreviousEmployerBuilder() *PreviousEmployerBuilder {
 	return builder
 }
 
-// 实体在CoreHR内部的唯一键
+// 雇主信息ID
 //
 // 示例值：6950635856373745165
 func (builder *PreviousEmployerBuilder) Id(id string) *PreviousEmployerBuilder {
@@ -18287,14 +18609,14 @@ func (builder *ProcessBuilder) Build() *Process {
 type ReferenceObject struct {
 	ApiName *string `json:"api_name,omitempty"` // cpst_item(项目)、 cpst_indicator(指标)
 
-	Id *string `json:"id,omitempty"` // 值列表 例如部门ID
+	Id *string `json:"id,omitempty"` // 值列表 例如薪资项和薪资统计指标ID
 }
 
 type ReferenceObjectBuilder struct {
 	apiName    string // cpst_item(项目)、 cpst_indicator(指标)
 	apiNameSet bool
 
-	id    string // 值列表 例如部门ID
+	id    string // 值列表 例如薪资项和薪资统计指标ID
 	idSet bool
 }
 
@@ -18312,7 +18634,7 @@ func (builder *ReferenceObjectBuilder) ApiName(apiName string) *ReferenceObjectB
 	return builder
 }
 
-// 值列表 例如部门ID
+// 值列表 例如薪资项和薪资统计指标ID
 //
 // 示例值：7156853394442044972
 func (builder *ReferenceObjectBuilder) Id(id string) *ReferenceObjectBuilder {
@@ -18335,7 +18657,7 @@ func (builder *ReferenceObjectBuilder) Build() *ReferenceObject {
 }
 
 type ResidentTax struct {
-	Id *string `json:"id,omitempty"` // 实体在CoreHR内部的唯一键
+	Id *string `json:"id,omitempty"` // 居民税信息ID
 
 	YearResidentTax *string `json:"year_resident_tax,omitempty"` // 年度
 
@@ -18351,7 +18673,7 @@ type ResidentTax struct {
 }
 
 type ResidentTaxBuilder struct {
-	id    string // 实体在CoreHR内部的唯一键
+	id    string // 居民税信息ID
 	idSet bool
 
 	yearResidentTax    string // 年度
@@ -18378,7 +18700,7 @@ func NewResidentTaxBuilder() *ResidentTaxBuilder {
 	return builder
 }
 
-// 实体在CoreHR内部的唯一键
+// 居民税信息ID
 //
 // 示例值：6950635856373745165
 func (builder *ResidentTaxBuilder) Id(id string) *ResidentTaxBuilder {
@@ -18472,18 +18794,18 @@ func (builder *ResidentTaxBuilder) Build() *ResidentTax {
 }
 
 type RoleAuthorization struct {
-	EmploymentId *string `json:"employment_id,omitempty"` // 员工 ID
+	EmploymentId *string `json:"employment_id,omitempty"` // 雇员 ID
 
-	PermissionDetailList []*PermissionDetail `json:"permission_detail_list,omitempty"` // 授权列表
+	PermissionDetailList []*PermissionDetail `json:"permission_detail_list,omitempty"` // 授权列表。;;“按组织架构管理”的角色保留assigned_organization_list;;“不按组织架构管理” 角色保留grantor_rule_list
 
 	ManagementScopeList []*ManagementScope `json:"management_scope_list,omitempty"` // 实际授权管理范围
 }
 
 type RoleAuthorizationBuilder struct {
-	employmentId    string // 员工 ID
+	employmentId    string // 雇员 ID
 	employmentIdSet bool
 
-	permissionDetailList    []*PermissionDetail // 授权列表
+	permissionDetailList    []*PermissionDetail // 授权列表。;;“按组织架构管理”的角色保留assigned_organization_list;;“不按组织架构管理” 角色保留grantor_rule_list
 	permissionDetailListSet bool
 
 	managementScopeList    []*ManagementScope // 实际授权管理范围
@@ -18495,7 +18817,7 @@ func NewRoleAuthorizationBuilder() *RoleAuthorizationBuilder {
 	return builder
 }
 
-// 员工 ID
+// 雇员 ID
 //
 // 示例值：6967639606963471902
 func (builder *RoleAuthorizationBuilder) EmploymentId(employmentId string) *RoleAuthorizationBuilder {
@@ -18504,7 +18826,7 @@ func (builder *RoleAuthorizationBuilder) EmploymentId(employmentId string) *Role
 	return builder
 }
 
-// 授权列表
+// 授权列表。;;“按组织架构管理”的角色保留assigned_organization_list;;“不按组织架构管理” 角色保留grantor_rule_list
 //
 // 示例值：
 func (builder *RoleAuthorizationBuilder) PermissionDetailList(permissionDetailList []*PermissionDetail) *RoleAuthorizationBuilder {
@@ -18540,14 +18862,14 @@ func (builder *RoleAuthorizationBuilder) Build() *RoleAuthorization {
 type RuleDimension struct {
 	EntityKey *string `json:"entity_key,omitempty"` // 维度的key
 
-	EntityName *Name `json:"entity_name,omitempty"` // 维度名称
+	EntityName *Name `json:"entity_name,omitempty"` // 字段名称
 }
 
 type RuleDimensionBuilder struct {
 	entityKey    string // 维度的key
 	entityKeySet bool
 
-	entityName    *Name // 维度名称
+	entityName    *Name // 字段名称
 	entityNameSet bool
 }
 
@@ -18565,7 +18887,7 @@ func (builder *RuleDimensionBuilder) EntityKey(entityKey string) *RuleDimensionB
 	return builder
 }
 
-// 维度名称
+// 字段名称
 //
 // 示例值：
 func (builder *RuleDimensionBuilder) EntityName(entityName *Name) *RuleDimensionBuilder {
@@ -18591,15 +18913,15 @@ type SecurityGroup struct {
 
 	Code *string `json:"code,omitempty"` // 角色code，通常用于与其他系统进行交互
 
-	Name *Name `json:"name,omitempty"` // 角色名称
+	Name *Name `json:"name,omitempty"` // 字段名称
 
-	ActiveStatus *int `json:"active_status,omitempty"` // 状态，1 = Inactive / 停用，;2 = Active / 启用，3 = TobeActivated / 待启用
+	ActiveStatus *int `json:"active_status,omitempty"` // 状态
 
-	Description *Name `json:"description,omitempty"` // 角色描述
+	Description *Name `json:"description,omitempty"` // 字段名称
 
 	GroupType *int `json:"group_type,omitempty"` // 角色类型
 
-	CreatedBy *string `json:"created_by,omitempty"` // 创建人
+	CreatedBy *string `json:"created_by,omitempty"` // 创建人;- 返回"sys"时，表示角色是系统创建角色;- 返回用户ID时，表示是角色是用户自定义角色，可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert) 换取 飞书人事的employment_id
 
 	UpdateTime *string `json:"update_time,omitempty"` // 更新时间
 
@@ -18613,19 +18935,19 @@ type SecurityGroupBuilder struct {
 	code    string // 角色code，通常用于与其他系统进行交互
 	codeSet bool
 
-	name    *Name // 角色名称
+	name    *Name // 字段名称
 	nameSet bool
 
-	activeStatus    int // 状态，1 = Inactive / 停用，;2 = Active / 启用，3 = TobeActivated / 待启用
+	activeStatus    int // 状态
 	activeStatusSet bool
 
-	description    *Name // 角色描述
+	description    *Name // 字段名称
 	descriptionSet bool
 
 	groupType    int // 角色类型
 	groupTypeSet bool
 
-	createdBy    string // 创建人
+	createdBy    string // 创建人;- 返回"sys"时，表示角色是系统创建角色;- 返回用户ID时，表示是角色是用户自定义角色，可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert) 换取 飞书人事的employment_id
 	createdBySet bool
 
 	updateTime    string // 更新时间
@@ -18658,7 +18980,7 @@ func (builder *SecurityGroupBuilder) Code(code string) *SecurityGroupBuilder {
 	return builder
 }
 
-// 角色名称
+// 字段名称
 //
 // 示例值：
 func (builder *SecurityGroupBuilder) Name(name *Name) *SecurityGroupBuilder {
@@ -18667,7 +18989,7 @@ func (builder *SecurityGroupBuilder) Name(name *Name) *SecurityGroupBuilder {
 	return builder
 }
 
-// 状态，1 = Inactive / 停用，;2 = Active / 启用，3 = TobeActivated / 待启用
+// 状态
 //
 // 示例值：1
 func (builder *SecurityGroupBuilder) ActiveStatus(activeStatus int) *SecurityGroupBuilder {
@@ -18676,7 +18998,7 @@ func (builder *SecurityGroupBuilder) ActiveStatus(activeStatus int) *SecurityGro
 	return builder
 }
 
-// 角色描述
+// 字段名称
 //
 // 示例值：
 func (builder *SecurityGroupBuilder) Description(description *Name) *SecurityGroupBuilder {
@@ -18694,7 +19016,7 @@ func (builder *SecurityGroupBuilder) GroupType(groupType int) *SecurityGroupBuil
 	return builder
 }
 
-// 创建人
+// 创建人;- 返回"sys"时，表示角色是系统创建角色;- 返回用户ID时，表示是角色是用户自定义角色，可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert) 换取 飞书人事的employment_id
 //
 // 示例值：6967639606963471902
 func (builder *SecurityGroupBuilder) CreatedBy(createdBy string) *SecurityGroupBuilder {
@@ -18705,7 +19027,7 @@ func (builder *SecurityGroupBuilder) CreatedBy(createdBy string) *SecurityGroupB
 
 // 更新时间
 //
-// 示例值：1
+// 示例值：1720584039
 func (builder *SecurityGroupBuilder) UpdateTime(updateTime string) *SecurityGroupBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeSet = true
@@ -18760,36 +19082,36 @@ func (builder *SecurityGroupBuilder) Build() *SecurityGroup {
 }
 
 type SortOption struct {
-	SortField *string `json:"sort_field,omitempty"` // 排序字段
+	SortField *string `json:"sort_field,omitempty"` //
 
-	SortOrder *int `json:"sort_order,omitempty"` // 排序顺序
+	SortOrder *int `json:"sort_order,omitempty"` //
 
-	SortI18n *int `json:"sort_i18n,omitempty"` // 0=中文关键字;1=英文关键字;2=拼音
+	SortI18n *int `json:"sort_i18n,omitempty"` //
 
-	SortByStrandLength *bool `json:"sort_by_strand_length,omitempty"` // 按某个字段的层级深度排序
+	SortByStrandLength *bool `json:"sort_by_strand_length,omitempty"` //
 
-	SortByPinyin *bool `json:"sort_by_pinyin,omitempty"` // 是否按照拼音排序
+	SortByPinyin *bool `json:"sort_by_pinyin,omitempty"` //
 
-	SortByEnumValueOrder *bool `json:"sort_by_enum_value_order,omitempty"` // 是否按照枚举类型 value_order 排序
+	SortByEnumValueOrder *bool `json:"sort_by_enum_value_order,omitempty"` //
 }
 
 type SortOptionBuilder struct {
-	sortField    string // 排序字段
+	sortField    string //
 	sortFieldSet bool
 
-	sortOrder    int // 排序顺序
+	sortOrder    int //
 	sortOrderSet bool
 
-	sortI18n    int // 0=中文关键字;1=英文关键字;2=拼音
+	sortI18n    int //
 	sortI18nSet bool
 
-	sortByStrandLength    bool // 按某个字段的层级深度排序
+	sortByStrandLength    bool //
 	sortByStrandLengthSet bool
 
-	sortByPinyin    bool // 是否按照拼音排序
+	sortByPinyin    bool //
 	sortByPinyinSet bool
 
-	sortByEnumValueOrder    bool // 是否按照枚举类型 value_order 排序
+	sortByEnumValueOrder    bool //
 	sortByEnumValueOrderSet bool
 }
 
@@ -18798,8 +19120,6 @@ func NewSortOptionBuilder() *SortOptionBuilder {
 	return builder
 }
 
-// 排序字段
-//
 // 示例值：wk_id
 func (builder *SortOptionBuilder) SortField(sortField string) *SortOptionBuilder {
 	builder.sortField = sortField
@@ -18807,8 +19127,6 @@ func (builder *SortOptionBuilder) SortField(sortField string) *SortOptionBuilder
 	return builder
 }
 
-// 排序顺序
-//
 // 示例值：0
 func (builder *SortOptionBuilder) SortOrder(sortOrder int) *SortOptionBuilder {
 	builder.sortOrder = sortOrder
@@ -18816,8 +19134,6 @@ func (builder *SortOptionBuilder) SortOrder(sortOrder int) *SortOptionBuilder {
 	return builder
 }
 
-// 0=中文关键字;1=英文关键字;2=拼音
-//
 // 示例值：1
 func (builder *SortOptionBuilder) SortI18n(sortI18n int) *SortOptionBuilder {
 	builder.sortI18n = sortI18n
@@ -18825,8 +19141,6 @@ func (builder *SortOptionBuilder) SortI18n(sortI18n int) *SortOptionBuilder {
 	return builder
 }
 
-// 按某个字段的层级深度排序
-//
 // 示例值：false
 func (builder *SortOptionBuilder) SortByStrandLength(sortByStrandLength bool) *SortOptionBuilder {
 	builder.sortByStrandLength = sortByStrandLength
@@ -18834,8 +19148,6 @@ func (builder *SortOptionBuilder) SortByStrandLength(sortByStrandLength bool) *S
 	return builder
 }
 
-// 是否按照拼音排序
-//
 // 示例值：false
 func (builder *SortOptionBuilder) SortByPinyin(sortByPinyin bool) *SortOptionBuilder {
 	builder.sortByPinyin = sortByPinyin
@@ -18843,9 +19155,7 @@ func (builder *SortOptionBuilder) SortByPinyin(sortByPinyin bool) *SortOptionBui
 	return builder
 }
 
-// 是否按照枚举类型 value_order 排序
-//
-// 示例值：false
+// 示例值：true
 func (builder *SortOptionBuilder) SortByEnumValueOrder(sortByEnumValueOrder bool) *SortOptionBuilder {
 	builder.sortByEnumValueOrder = sortByEnumValueOrder
 	builder.sortByEnumValueOrderSet = true
@@ -19188,7 +19498,7 @@ type TextFieldSetting struct {
 
 	MaxLength *int `json:"max_length,omitempty"` // 最大长度
 
-	IsUrlType *bool `json:"is_url_type,omitempty"` // 是否是URL类型
+	IsUrlType *bool `json:"is_url_type,omitempty"` // 是否是“超链接”类型
 }
 
 type TextFieldSettingBuilder struct {
@@ -19201,7 +19511,7 @@ type TextFieldSettingBuilder struct {
 	maxLength    int // 最大长度
 	maxLengthSet bool
 
-	isUrlType    bool // 是否是URL类型
+	isUrlType    bool // 是否是“超链接”类型
 	isUrlTypeSet bool
 }
 
@@ -19237,7 +19547,7 @@ func (builder *TextFieldSettingBuilder) MaxLength(maxLength int) *TextFieldSetti
 	return builder
 }
 
-// 是否是URL类型
+// 是否是“超链接”类型
 //
 // 示例值：true
 func (builder *TextFieldSettingBuilder) IsUrlType(isUrlType bool) *TextFieldSettingBuilder {
@@ -19268,23 +19578,23 @@ func (builder *TextFieldSettingBuilder) Build() *TextFieldSetting {
 }
 
 type TranferEmploymentInfo struct {
-	RegularEmployeeStartDate *string `json:"regular_employee_start_date,omitempty"` // 转正式员工日期
+	RegularEmployeeStartDate *string `json:"regular_employee_start_date,omitempty"` // 转正式员工日期，格式："YYYY-MM-DD"
 
-	SeniorityDate *string `json:"seniority_date,omitempty"` // 司龄起算日期
+	SeniorityDate *string `json:"seniority_date,omitempty"` // 司龄起算日期，格式："YYYY-MM-DD"
 
-	EmployeeNumber *string `json:"employee_number,omitempty"` // 员工编号
+	EmployeeNumber *string `json:"employee_number,omitempty"` // 员工编号，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 
 	CustomFields []*CustomFieldData `json:"custom_fields,omitempty"` // 自定义字段
 }
 
 type TranferEmploymentInfoBuilder struct {
-	regularEmployeeStartDate    string // 转正式员工日期
+	regularEmployeeStartDate    string // 转正式员工日期，格式："YYYY-MM-DD"
 	regularEmployeeStartDateSet bool
 
-	seniorityDate    string // 司龄起算日期
+	seniorityDate    string // 司龄起算日期，格式："YYYY-MM-DD"
 	seniorityDateSet bool
 
-	employeeNumber    string // 员工编号
+	employeeNumber    string // 员工编号，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 	employeeNumberSet bool
 
 	customFields    []*CustomFieldData // 自定义字段
@@ -19296,7 +19606,7 @@ func NewTranferEmploymentInfoBuilder() *TranferEmploymentInfoBuilder {
 	return builder
 }
 
-// 转正式员工日期
+// 转正式员工日期，格式："YYYY-MM-DD"
 //
 // 示例值：2023-01-01
 func (builder *TranferEmploymentInfoBuilder) RegularEmployeeStartDate(regularEmployeeStartDate string) *TranferEmploymentInfoBuilder {
@@ -19305,7 +19615,7 @@ func (builder *TranferEmploymentInfoBuilder) RegularEmployeeStartDate(regularEmp
 	return builder
 }
 
-// 司龄起算日期
+// 司龄起算日期，格式："YYYY-MM-DD"
 //
 // 示例值：2023-01-01
 func (builder *TranferEmploymentInfoBuilder) SeniorityDate(seniorityDate string) *TranferEmploymentInfoBuilder {
@@ -19314,7 +19624,7 @@ func (builder *TranferEmploymentInfoBuilder) SeniorityDate(seniorityDate string)
 	return builder
 }
 
-// 员工编号
+// 员工编号，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 //
 // 示例值：1111111
 func (builder *TranferEmploymentInfoBuilder) EmployeeNumber(employeeNumber string) *TranferEmploymentInfoBuilder {
@@ -19355,87 +19665,87 @@ func (builder *TranferEmploymentInfoBuilder) Build() *TranferEmploymentInfo {
 type TransferInfo struct {
 	Remark *string `json:"remark,omitempty"` // 备注
 
-	OfferInfo *string `json:"offer_info,omitempty"` // offer信息
+	OfferInfo *string `json:"offer_info,omitempty"` // offer信息;;注：本字段仅会存储到数据库，前端表单不支持直接显示。
 
 	TargetDottedManagerClean *bool `json:"target_dotted_manager_clean,omitempty"` // 是否撤销虚线上级
 
 	ProbationExist *bool `json:"probation_exist,omitempty"` // 是否有试用期
 
-	OriginalDepartment *string `json:"original_department,omitempty"` // 原部门
+	OriginalDepartment *string `json:"original_department,omitempty"` // 原部门ID，可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取
 
-	TargetDepartment *string `json:"target_department,omitempty"` // 新部门
+	TargetDepartment *string `json:"target_department,omitempty"` // 新部门ID，可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取
 
-	OriginalWorkLocation *string `json:"original_work_location,omitempty"` // 原工作地点
+	OriginalWorkLocation *string `json:"original_work_location,omitempty"` // 原工作地点，可通过[【批量查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口获取
 
-	TargetWorkLocation *string `json:"target_work_location,omitempty"` // 新工作地点
+	TargetWorkLocation *string `json:"target_work_location,omitempty"` // 新工作地点，可通过[【批量查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口获取
 
-	OriginalDirectManager *string `json:"original_direct_manager,omitempty"` // 原直属上级
+	OriginalDirectManager *string `json:"original_direct_manager,omitempty"` // 原直属上级，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 
-	TargetDirectManager *string `json:"target_direct_manager,omitempty"` // 新直属上级
+	TargetDirectManager *string `json:"target_direct_manager,omitempty"` // 新直属上级，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 
-	OriginalDottedManager *string `json:"original_dotted_manager,omitempty"` // 原虚线上级
+	OriginalDottedManager *string `json:"original_dotted_manager,omitempty"` // 原虚线上级，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 
-	TargetDottedManager *string `json:"target_dotted_manager,omitempty"` // 新虚线上级
+	TargetDottedManager *string `json:"target_dotted_manager,omitempty"` // 新虚线上级，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 
-	OriginalJob *string `json:"original_job,omitempty"` // 原职务
+	OriginalJob *string `json:"original_job,omitempty"` // 原职务，;可通过[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口获取
 
-	TargetJob *string `json:"target_job,omitempty"` // 新职务
+	TargetJob *string `json:"target_job,omitempty"` // 新职务，;可通过[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口获取
 
-	OriginalJobFamily *string `json:"original_job_family,omitempty"` // 原序列
+	OriginalJobFamily *string `json:"original_job_family,omitempty"` // 原序列ID，可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口获取
 
-	TargetJobFamily *string `json:"target_job_family,omitempty"` // 新序列
+	TargetJobFamily *string `json:"target_job_family,omitempty"` // 新序列ID，可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口获取
 
-	OriginalJobLevel *string `json:"original_job_level,omitempty"` // 原级别
+	OriginalJobLevel *string `json:"original_job_level,omitempty"` // 原职级ID，;可通过[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口获取
 
-	TargetJobLevel *string `json:"target_job_level,omitempty"` // 新级别
+	TargetJobLevel *string `json:"target_job_level,omitempty"` // 新职级ID，;可通过[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口获取
 
-	OriginalWorkforceType *string `json:"original_workforce_type,omitempty"` // 原人员类型
+	OriginalWorkforceType *string `json:"original_workforce_type,omitempty"` // 原人员类型，可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取
 
-	TargetWorkforceType *string `json:"target_workforce_type,omitempty"` // 新人员类型
+	TargetWorkforceType *string `json:"target_workforce_type,omitempty"` // 新人员类型，可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取
 
 	OriginalEmployeeSubtype *string `json:"original_employee_subtype,omitempty"` // 原人员子类型
 
 	TargetEmployeeSubtype *string `json:"target_employee_subtype,omitempty"` // 新人员子类型
 
-	OriginalCompany *string `json:"original_company,omitempty"` // 原公司
+	OriginalCompany *string `json:"original_company,omitempty"` // 原公司，详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得
 
-	TargetCompany *string `json:"target_company,omitempty"` // 新公司
+	TargetCompany *string `json:"target_company,omitempty"` // 新公司，详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得
 
-	OriginalContractNumber *string `json:"original_contract_number,omitempty"` // 原合同编号
+	OriginalContractNumber *string `json:"original_contract_number,omitempty"` // 原合同编号，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 
-	TargetContractNumber *string `json:"target_contract_number,omitempty"` // 新合同编号
+	TargetContractNumber *string `json:"target_contract_number,omitempty"` // 新合同编号，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 
-	OriginalContractType *string `json:"original_contract_type,omitempty"` // 原合同类型
+	OriginalContractType *string `json:"original_contract_type,omitempty"` // 原合同类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 
-	TargetContractType *string `json:"target_contract_type,omitempty"` // 新合同类型
+	TargetContractType *string `json:"target_contract_type,omitempty"` // 新合同类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 
-	OriginalDurationType *string `json:"original_duration_type,omitempty"` // 原期限类型
+	OriginalDurationType *string `json:"original_duration_type,omitempty"` // 原期限类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 
-	TargetDurationType *string `json:"target_duration_type,omitempty"` // 新期限类型
+	TargetDurationType *string `json:"target_duration_type,omitempty"` // 新期限类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 
-	OriginalSigningType *string `json:"original_signing_type,omitempty"` // 原签订类型
+	OriginalSigningType *string `json:"original_signing_type,omitempty"` // 原签订类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 
-	TargetSigningType *string `json:"target_signing_type,omitempty"` // 新签订类型
+	TargetSigningType *string `json:"target_signing_type,omitempty"` // 新签订类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 
-	OriginalContractStartDate *string `json:"original_contract_start_date,omitempty"` // 原合同开始日期
+	OriginalContractStartDate *string `json:"original_contract_start_date,omitempty"` // 原合同开始日期，格式："YYYY-MM-DD"
 
-	TargetContractStartDate *string `json:"target_contract_start_date,omitempty"` // 新合同开始日期
+	TargetContractStartDate *string `json:"target_contract_start_date,omitempty"` // 新合同开始日期，格式："YYYY-MM-DD"
 
-	OriginalContractEndDate *string `json:"original_contract_end_date,omitempty"` // 原合同结束日期
+	OriginalContractEndDate *string `json:"original_contract_end_date,omitempty"` // 原合同结束日期，格式："YYYY-MM-DD"
 
-	TargetContractEndDate *string `json:"target_contract_end_date,omitempty"` // 新合同结束日期
+	TargetContractEndDate *string `json:"target_contract_end_date,omitempty"` // 新合同结束日期，格式："YYYY-MM-DD"
 
-	OriginalWorkingHoursType *string `json:"original_working_hours_type,omitempty"` // 原工时制度
+	OriginalWorkingHoursType *string `json:"original_working_hours_type,omitempty"` // 原工时制度，可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口获取
 
-	TargetWorkingHoursType *string `json:"target_working_hours_type,omitempty"` // 新工时制度
+	TargetWorkingHoursType *string `json:"target_working_hours_type,omitempty"` // 新工时制度，可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口获取
 
-	OriginalWorkingCalendar *string `json:"original_working_calendar,omitempty"` // 原工作日历
+	OriginalWorkingCalendar *string `json:"original_working_calendar,omitempty"` // 原工作日历，请开通休假服务后联系管理员获取工作日历数据
 
-	TargetWorkingCalendar *string `json:"target_working_calendar,omitempty"` // 新工作日历
+	TargetWorkingCalendar *string `json:"target_working_calendar,omitempty"` // 新工作日历，请开通休假服务后联系管理员获取工作日历数据
 
-	OriginalProbationEndDate *string `json:"original_probation_end_date,omitempty"` // 原试用期预计结束日期
+	OriginalProbationEndDate *string `json:"original_probation_end_date,omitempty"` // 原试用期预计结束日期，格式："YYYY-MM-DD"
 
-	TargetProbationEndDate *string `json:"target_probation_end_date,omitempty"` // 新试用期预计结束日期
+	TargetProbationEndDate *string `json:"target_probation_end_date,omitempty"` // 新试用期预计结束日期，格式："YYYY-MM-DD"
 
 	OriginalWeeklyWorkingHours *string `json:"original_weekly_working_hours,omitempty"` // 原周工作时长
 
@@ -19453,17 +19763,17 @@ type TransferInfo struct {
 
 	TargetEmploymentChange *TranferEmploymentInfo `json:"target_employment_change,omitempty"` // 新工作信息
 
-	OriginalJobGrade *string `json:"original_job_grade,omitempty"` // 原职等
+	OriginalJobGrade *string `json:"original_job_grade,omitempty"` // 原职等，可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口获取
 
-	TargetJobGrade *string `json:"target_job_grade,omitempty"` // 新职等
+	TargetJobGrade *string `json:"target_job_grade,omitempty"` // 新职等，可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口获取
 
 	OriginalCompensationType *string `json:"original_compensation_type,omitempty"` // 原薪资类型
 
 	TargetCompensationType *string `json:"target_compensation_type,omitempty"` // 新薪资类型
 
-	OriginalServiceCompany *string `json:"original_service_company,omitempty"` // 原任职公司
+	OriginalServiceCompany *string `json:"original_service_company,omitempty"` // 原任职公司，详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得
 
-	TargetServiceCompany *string `json:"target_service_company,omitempty"` // 新任职公司
+	TargetServiceCompany *string `json:"target_service_company,omitempty"` // 新任职公司，详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得
 
 	OriginalPosition *string `json:"original_position,omitempty"` // 原岗位
 
@@ -19478,7 +19788,7 @@ type TransferInfoBuilder struct {
 	remark    string // 备注
 	remarkSet bool
 
-	offerInfo    string // offer信息
+	offerInfo    string // offer信息;;注：本字段仅会存储到数据库，前端表单不支持直接显示。
 	offerInfoSet bool
 
 	targetDottedManagerClean    bool // 是否撤销虚线上级
@@ -19487,52 +19797,52 @@ type TransferInfoBuilder struct {
 	probationExist    bool // 是否有试用期
 	probationExistSet bool
 
-	originalDepartment    string // 原部门
+	originalDepartment    string // 原部门ID，可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取
 	originalDepartmentSet bool
 
-	targetDepartment    string // 新部门
+	targetDepartment    string // 新部门ID，可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取
 	targetDepartmentSet bool
 
-	originalWorkLocation    string // 原工作地点
+	originalWorkLocation    string // 原工作地点，可通过[【批量查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口获取
 	originalWorkLocationSet bool
 
-	targetWorkLocation    string // 新工作地点
+	targetWorkLocation    string // 新工作地点，可通过[【批量查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口获取
 	targetWorkLocationSet bool
 
-	originalDirectManager    string // 原直属上级
+	originalDirectManager    string // 原直属上级，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 	originalDirectManagerSet bool
 
-	targetDirectManager    string // 新直属上级
+	targetDirectManager    string // 新直属上级，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 	targetDirectManagerSet bool
 
-	originalDottedManager    string // 原虚线上级
+	originalDottedManager    string // 原虚线上级，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 	originalDottedManagerSet bool
 
-	targetDottedManager    string // 新虚线上级
+	targetDottedManager    string // 新虚线上级，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 	targetDottedManagerSet bool
 
-	originalJob    string // 原职务
+	originalJob    string // 原职务，;可通过[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口获取
 	originalJobSet bool
 
-	targetJob    string // 新职务
+	targetJob    string // 新职务，;可通过[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口获取
 	targetJobSet bool
 
-	originalJobFamily    string // 原序列
+	originalJobFamily    string // 原序列ID，可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口获取
 	originalJobFamilySet bool
 
-	targetJobFamily    string // 新序列
+	targetJobFamily    string // 新序列ID，可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口获取
 	targetJobFamilySet bool
 
-	originalJobLevel    string // 原级别
+	originalJobLevel    string // 原职级ID，;可通过[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口获取
 	originalJobLevelSet bool
 
-	targetJobLevel    string // 新级别
+	targetJobLevel    string // 新职级ID，;可通过[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口获取
 	targetJobLevelSet bool
 
-	originalWorkforceType    string // 原人员类型
+	originalWorkforceType    string // 原人员类型，可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取
 	originalWorkforceTypeSet bool
 
-	targetWorkforceType    string // 新人员类型
+	targetWorkforceType    string // 新人员类型，可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取
 	targetWorkforceTypeSet bool
 
 	originalEmployeeSubtype    string // 原人员子类型
@@ -19541,64 +19851,64 @@ type TransferInfoBuilder struct {
 	targetEmployeeSubtype    string // 新人员子类型
 	targetEmployeeSubtypeSet bool
 
-	originalCompany    string // 原公司
+	originalCompany    string // 原公司，详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得
 	originalCompanySet bool
 
-	targetCompany    string // 新公司
+	targetCompany    string // 新公司，详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得
 	targetCompanySet bool
 
-	originalContractNumber    string // 原合同编号
+	originalContractNumber    string // 原合同编号，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 	originalContractNumberSet bool
 
-	targetContractNumber    string // 新合同编号
+	targetContractNumber    string // 新合同编号，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 	targetContractNumberSet bool
 
-	originalContractType    string // 原合同类型
+	originalContractType    string // 原合同类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 	originalContractTypeSet bool
 
-	targetContractType    string // 新合同类型
+	targetContractType    string // 新合同类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 	targetContractTypeSet bool
 
-	originalDurationType    string // 原期限类型
+	originalDurationType    string // 原期限类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 	originalDurationTypeSet bool
 
-	targetDurationType    string // 新期限类型
+	targetDurationType    string // 新期限类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 	targetDurationTypeSet bool
 
-	originalSigningType    string // 原签订类型
+	originalSigningType    string // 原签订类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 	originalSigningTypeSet bool
 
-	targetSigningType    string // 新签订类型
+	targetSigningType    string // 新签订类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 	targetSigningTypeSet bool
 
-	originalContractStartDate    string // 原合同开始日期
+	originalContractStartDate    string // 原合同开始日期，格式："YYYY-MM-DD"
 	originalContractStartDateSet bool
 
-	targetContractStartDate    string // 新合同开始日期
+	targetContractStartDate    string // 新合同开始日期，格式："YYYY-MM-DD"
 	targetContractStartDateSet bool
 
-	originalContractEndDate    string // 原合同结束日期
+	originalContractEndDate    string // 原合同结束日期，格式："YYYY-MM-DD"
 	originalContractEndDateSet bool
 
-	targetContractEndDate    string // 新合同结束日期
+	targetContractEndDate    string // 新合同结束日期，格式："YYYY-MM-DD"
 	targetContractEndDateSet bool
 
-	originalWorkingHoursType    string // 原工时制度
+	originalWorkingHoursType    string // 原工时制度，可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口获取
 	originalWorkingHoursTypeSet bool
 
-	targetWorkingHoursType    string // 新工时制度
+	targetWorkingHoursType    string // 新工时制度，可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口获取
 	targetWorkingHoursTypeSet bool
 
-	originalWorkingCalendar    string // 原工作日历
+	originalWorkingCalendar    string // 原工作日历，请开通休假服务后联系管理员获取工作日历数据
 	originalWorkingCalendarSet bool
 
-	targetWorkingCalendar    string // 新工作日历
+	targetWorkingCalendar    string // 新工作日历，请开通休假服务后联系管理员获取工作日历数据
 	targetWorkingCalendarSet bool
 
-	originalProbationEndDate    string // 原试用期预计结束日期
+	originalProbationEndDate    string // 原试用期预计结束日期，格式："YYYY-MM-DD"
 	originalProbationEndDateSet bool
 
-	targetProbationEndDate    string // 新试用期预计结束日期
+	targetProbationEndDate    string // 新试用期预计结束日期，格式："YYYY-MM-DD"
 	targetProbationEndDateSet bool
 
 	originalWeeklyWorkingHours    string // 原周工作时长
@@ -19625,10 +19935,10 @@ type TransferInfoBuilder struct {
 	targetEmploymentChange    *TranferEmploymentInfo // 新工作信息
 	targetEmploymentChangeSet bool
 
-	originalJobGrade    string // 原职等
+	originalJobGrade    string // 原职等，可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口获取
 	originalJobGradeSet bool
 
-	targetJobGrade    string // 新职等
+	targetJobGrade    string // 新职等，可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口获取
 	targetJobGradeSet bool
 
 	originalCompensationType    string // 原薪资类型
@@ -19637,10 +19947,10 @@ type TransferInfoBuilder struct {
 	targetCompensationType    string // 新薪资类型
 	targetCompensationTypeSet bool
 
-	originalServiceCompany    string // 原任职公司
+	originalServiceCompany    string // 原任职公司，详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得
 	originalServiceCompanySet bool
 
-	targetServiceCompany    string // 新任职公司
+	targetServiceCompany    string // 新任职公司，详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得
 	targetServiceCompanySet bool
 
 	originalPosition    string // 原岗位
@@ -19670,9 +19980,9 @@ func (builder *TransferInfoBuilder) Remark(remark string) *TransferInfoBuilder {
 	return builder
 }
 
-// offer信息
+// offer信息;;注：本字段仅会存储到数据库，前端表单不支持直接显示。
 //
-// 示例值：优质人才，加急处理
+// 示例值：offer info
 func (builder *TransferInfoBuilder) OfferInfo(offerInfo string) *TransferInfoBuilder {
 	builder.offerInfo = offerInfo
 	builder.offerInfoSet = true
@@ -19697,7 +20007,7 @@ func (builder *TransferInfoBuilder) ProbationExist(probationExist bool) *Transfe
 	return builder
 }
 
-// 原部门
+// 原部门ID，可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取
 //
 // 示例值：6966236933198579208
 func (builder *TransferInfoBuilder) OriginalDepartment(originalDepartment string) *TransferInfoBuilder {
@@ -19706,7 +20016,7 @@ func (builder *TransferInfoBuilder) OriginalDepartment(originalDepartment string
 	return builder
 }
 
-// 新部门
+// 新部门ID，可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取
 //
 // 示例值：6966236933198579208
 func (builder *TransferInfoBuilder) TargetDepartment(targetDepartment string) *TransferInfoBuilder {
@@ -19715,7 +20025,7 @@ func (builder *TransferInfoBuilder) TargetDepartment(targetDepartment string) *T
 	return builder
 }
 
-// 原工作地点
+// 原工作地点，可通过[【批量查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口获取
 //
 // 示例值：6967271100992587295
 func (builder *TransferInfoBuilder) OriginalWorkLocation(originalWorkLocation string) *TransferInfoBuilder {
@@ -19724,7 +20034,7 @@ func (builder *TransferInfoBuilder) OriginalWorkLocation(originalWorkLocation st
 	return builder
 }
 
-// 新工作地点
+// 新工作地点，可通过[【批量查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口获取
 //
 // 示例值：6967271100992587295
 func (builder *TransferInfoBuilder) TargetWorkLocation(targetWorkLocation string) *TransferInfoBuilder {
@@ -19733,7 +20043,7 @@ func (builder *TransferInfoBuilder) TargetWorkLocation(targetWorkLocation string
 	return builder
 }
 
-// 原直属上级
+// 原直属上级，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 //
 // 示例值：6974641477444060708
 func (builder *TransferInfoBuilder) OriginalDirectManager(originalDirectManager string) *TransferInfoBuilder {
@@ -19742,7 +20052,7 @@ func (builder *TransferInfoBuilder) OriginalDirectManager(originalDirectManager 
 	return builder
 }
 
-// 新直属上级
+// 新直属上级，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 //
 // 示例值：7013619729281713671
 func (builder *TransferInfoBuilder) TargetDirectManager(targetDirectManager string) *TransferInfoBuilder {
@@ -19751,7 +20061,7 @@ func (builder *TransferInfoBuilder) TargetDirectManager(targetDirectManager stri
 	return builder
 }
 
-// 原虚线上级
+// 原虚线上级，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 //
 // 示例值：6974648866876573198
 func (builder *TransferInfoBuilder) OriginalDottedManager(originalDottedManager string) *TransferInfoBuilder {
@@ -19760,7 +20070,7 @@ func (builder *TransferInfoBuilder) OriginalDottedManager(originalDottedManager 
 	return builder
 }
 
-// 新虚线上级
+// 新虚线上级，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 //
 // 示例值：7013328578351842852
 func (builder *TransferInfoBuilder) TargetDottedManager(targetDottedManager string) *TransferInfoBuilder {
@@ -19769,7 +20079,7 @@ func (builder *TransferInfoBuilder) TargetDottedManager(targetDottedManager stri
 	return builder
 }
 
-// 原职务
+// 原职务，;可通过[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口获取
 //
 // 示例值：6969469398088287751
 func (builder *TransferInfoBuilder) OriginalJob(originalJob string) *TransferInfoBuilder {
@@ -19778,7 +20088,7 @@ func (builder *TransferInfoBuilder) OriginalJob(originalJob string) *TransferInf
 	return builder
 }
 
-// 新职务
+// 新职务，;可通过[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口获取
 //
 // 示例值：6969469557836760606
 func (builder *TransferInfoBuilder) TargetJob(targetJob string) *TransferInfoBuilder {
@@ -19787,7 +20097,7 @@ func (builder *TransferInfoBuilder) TargetJob(targetJob string) *TransferInfoBui
 	return builder
 }
 
-// 原序列
+// 原序列ID，可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口获取
 //
 // 示例值：6967287547462419975
 func (builder *TransferInfoBuilder) OriginalJobFamily(originalJobFamily string) *TransferInfoBuilder {
@@ -19796,7 +20106,7 @@ func (builder *TransferInfoBuilder) OriginalJobFamily(originalJobFamily string) 
 	return builder
 }
 
-// 新序列
+// 新序列ID，可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口获取
 //
 // 示例值：6967287547462419975
 func (builder *TransferInfoBuilder) TargetJobFamily(targetJobFamily string) *TransferInfoBuilder {
@@ -19805,7 +20115,7 @@ func (builder *TransferInfoBuilder) TargetJobFamily(targetJobFamily string) *Tra
 	return builder
 }
 
-// 原级别
+// 原职级ID，;可通过[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口获取
 //
 // 示例值：6972085707674355214
 func (builder *TransferInfoBuilder) OriginalJobLevel(originalJobLevel string) *TransferInfoBuilder {
@@ -19814,7 +20124,7 @@ func (builder *TransferInfoBuilder) OriginalJobLevel(originalJobLevel string) *T
 	return builder
 }
 
-// 新级别
+// 新职级ID，;可通过[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口获取
 //
 // 示例值：6972085707674355214
 func (builder *TransferInfoBuilder) TargetJobLevel(targetJobLevel string) *TransferInfoBuilder {
@@ -19823,7 +20133,7 @@ func (builder *TransferInfoBuilder) TargetJobLevel(targetJobLevel string) *Trans
 	return builder
 }
 
-// 原人员类型
+// 原人员类型，可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取
 //
 // 示例值：6968386026792289828
 func (builder *TransferInfoBuilder) OriginalWorkforceType(originalWorkforceType string) *TransferInfoBuilder {
@@ -19832,7 +20142,7 @@ func (builder *TransferInfoBuilder) OriginalWorkforceType(originalWorkforceType 
 	return builder
 }
 
-// 新人员类型
+// 新人员类型，可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取
 //
 // 示例值：7036268995372303885
 func (builder *TransferInfoBuilder) TargetWorkforceType(targetWorkforceType string) *TransferInfoBuilder {
@@ -19859,7 +20169,7 @@ func (builder *TransferInfoBuilder) TargetEmployeeSubtype(targetEmployeeSubtype 
 	return builder
 }
 
-// 原公司
+// 原公司，详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得
 //
 // 示例值：6974659700705068581
 func (builder *TransferInfoBuilder) OriginalCompany(originalCompany string) *TransferInfoBuilder {
@@ -19868,7 +20178,7 @@ func (builder *TransferInfoBuilder) OriginalCompany(originalCompany string) *Tra
 	return builder
 }
 
-// 新公司
+// 新公司，详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得
 //
 // 示例值：6974659700705068581
 func (builder *TransferInfoBuilder) TargetCompany(targetCompany string) *TransferInfoBuilder {
@@ -19877,7 +20187,7 @@ func (builder *TransferInfoBuilder) TargetCompany(targetCompany string) *Transfe
 	return builder
 }
 
-// 原合同编号
+// 原合同编号，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 //
 // 示例值：55332
 func (builder *TransferInfoBuilder) OriginalContractNumber(originalContractNumber string) *TransferInfoBuilder {
@@ -19886,7 +20196,7 @@ func (builder *TransferInfoBuilder) OriginalContractNumber(originalContractNumbe
 	return builder
 }
 
-// 新合同编号
+// 新合同编号，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 //
 // 示例值：55333
 func (builder *TransferInfoBuilder) TargetContractNumber(targetContractNumber string) *TransferInfoBuilder {
@@ -19895,7 +20205,7 @@ func (builder *TransferInfoBuilder) TargetContractNumber(targetContractNumber st
 	return builder
 }
 
-// 原合同类型
+// 原合同类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 //
 // 示例值：labor_contract
 func (builder *TransferInfoBuilder) OriginalContractType(originalContractType string) *TransferInfoBuilder {
@@ -19904,7 +20214,7 @@ func (builder *TransferInfoBuilder) OriginalContractType(originalContractType st
 	return builder
 }
 
-// 新合同类型
+// 新合同类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 //
 // 示例值：labor_contract
 func (builder *TransferInfoBuilder) TargetContractType(targetContractType string) *TransferInfoBuilder {
@@ -19913,7 +20223,7 @@ func (builder *TransferInfoBuilder) TargetContractType(targetContractType string
 	return builder
 }
 
-// 原期限类型
+// 原期限类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 //
 // 示例值：fixed_term
 func (builder *TransferInfoBuilder) OriginalDurationType(originalDurationType string) *TransferInfoBuilder {
@@ -19922,7 +20232,7 @@ func (builder *TransferInfoBuilder) OriginalDurationType(originalDurationType st
 	return builder
 }
 
-// 新期限类型
+// 新期限类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 //
 // 示例值：fixed_term
 func (builder *TransferInfoBuilder) TargetDurationType(targetDurationType string) *TransferInfoBuilder {
@@ -19931,7 +20241,7 @@ func (builder *TransferInfoBuilder) TargetDurationType(targetDurationType string
 	return builder
 }
 
-// 原签订类型
+// 原签订类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 //
 // 示例值：new
 func (builder *TransferInfoBuilder) OriginalSigningType(originalSigningType string) *TransferInfoBuilder {
@@ -19940,7 +20250,7 @@ func (builder *TransferInfoBuilder) OriginalSigningType(originalSigningType stri
 	return builder
 }
 
-// 新签订类型
+// 新签订类型，可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 //
 // 示例值：new
 func (builder *TransferInfoBuilder) TargetSigningType(targetSigningType string) *TransferInfoBuilder {
@@ -19949,7 +20259,7 @@ func (builder *TransferInfoBuilder) TargetSigningType(targetSigningType string) 
 	return builder
 }
 
-// 原合同开始日期
+// 原合同开始日期，格式："YYYY-MM-DD"
 //
 // 示例值：2021-07-01
 func (builder *TransferInfoBuilder) OriginalContractStartDate(originalContractStartDate string) *TransferInfoBuilder {
@@ -19958,7 +20268,7 @@ func (builder *TransferInfoBuilder) OriginalContractStartDate(originalContractSt
 	return builder
 }
 
-// 新合同开始日期
+// 新合同开始日期，格式："YYYY-MM-DD"
 //
 // 示例值：2021-07-01
 func (builder *TransferInfoBuilder) TargetContractStartDate(targetContractStartDate string) *TransferInfoBuilder {
@@ -19967,7 +20277,7 @@ func (builder *TransferInfoBuilder) TargetContractStartDate(targetContractStartD
 	return builder
 }
 
-// 原合同结束日期
+// 原合同结束日期，格式："YYYY-MM-DD"
 //
 // 示例值：2024-07-01
 func (builder *TransferInfoBuilder) OriginalContractEndDate(originalContractEndDate string) *TransferInfoBuilder {
@@ -19976,7 +20286,7 @@ func (builder *TransferInfoBuilder) OriginalContractEndDate(originalContractEndD
 	return builder
 }
 
-// 新合同结束日期
+// 新合同结束日期，格式："YYYY-MM-DD"
 //
 // 示例值：2024-07-01
 func (builder *TransferInfoBuilder) TargetContractEndDate(targetContractEndDate string) *TransferInfoBuilder {
@@ -19985,7 +20295,7 @@ func (builder *TransferInfoBuilder) TargetContractEndDate(targetContractEndDate 
 	return builder
 }
 
-// 原工时制度
+// 原工时制度，可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口获取
 //
 // 示例值：6969087376740206087
 func (builder *TransferInfoBuilder) OriginalWorkingHoursType(originalWorkingHoursType string) *TransferInfoBuilder {
@@ -19994,7 +20304,7 @@ func (builder *TransferInfoBuilder) OriginalWorkingHoursType(originalWorkingHour
 	return builder
 }
 
-// 新工时制度
+// 新工时制度，可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口获取
 //
 // 示例值：6969087376740206087
 func (builder *TransferInfoBuilder) TargetWorkingHoursType(targetWorkingHoursType string) *TransferInfoBuilder {
@@ -20003,7 +20313,7 @@ func (builder *TransferInfoBuilder) TargetWorkingHoursType(targetWorkingHoursTyp
 	return builder
 }
 
-// 原工作日历
+// 原工作日历，请开通休假服务后联系管理员获取工作日历数据
 //
 // 示例值：6969087376740236087
 func (builder *TransferInfoBuilder) OriginalWorkingCalendar(originalWorkingCalendar string) *TransferInfoBuilder {
@@ -20012,7 +20322,7 @@ func (builder *TransferInfoBuilder) OriginalWorkingCalendar(originalWorkingCalen
 	return builder
 }
 
-// 新工作日历
+// 新工作日历，请开通休假服务后联系管理员获取工作日历数据
 //
 // 示例值：6969087376740236087
 func (builder *TransferInfoBuilder) TargetWorkingCalendar(targetWorkingCalendar string) *TransferInfoBuilder {
@@ -20021,7 +20331,7 @@ func (builder *TransferInfoBuilder) TargetWorkingCalendar(targetWorkingCalendar 
 	return builder
 }
 
-// 原试用期预计结束日期
+// 原试用期预计结束日期，格式："YYYY-MM-DD"
 //
 // 示例值：2021-11-17
 func (builder *TransferInfoBuilder) OriginalProbationEndDate(originalProbationEndDate string) *TransferInfoBuilder {
@@ -20030,7 +20340,7 @@ func (builder *TransferInfoBuilder) OriginalProbationEndDate(originalProbationEn
 	return builder
 }
 
-// 新试用期预计结束日期
+// 新试用期预计结束日期，格式："YYYY-MM-DD"
 //
 // 示例值：2021-11-17
 func (builder *TransferInfoBuilder) TargetProbationEndDate(targetProbationEndDate string) *TransferInfoBuilder {
@@ -20111,7 +20421,7 @@ func (builder *TransferInfoBuilder) TargetEmploymentChange(targetEmploymentChang
 	return builder
 }
 
-// 原职等
+// 原职等，可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口获取
 //
 // 示例值：7289005963599693366
 func (builder *TransferInfoBuilder) OriginalJobGrade(originalJobGrade string) *TransferInfoBuilder {
@@ -20120,7 +20430,7 @@ func (builder *TransferInfoBuilder) OriginalJobGrade(originalJobGrade string) *T
 	return builder
 }
 
-// 新职等
+// 新职等，可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口获取
 //
 // 示例值：7289005963599693366
 func (builder *TransferInfoBuilder) TargetJobGrade(targetJobGrade string) *TransferInfoBuilder {
@@ -20147,7 +20457,7 @@ func (builder *TransferInfoBuilder) TargetCompensationType(targetCompensationTyp
 	return builder
 }
 
-// 原任职公司
+// 原任职公司，详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得
 //
 // 示例值：7289005963599693367
 func (builder *TransferInfoBuilder) OriginalServiceCompany(originalServiceCompany string) *TransferInfoBuilder {
@@ -20156,7 +20466,7 @@ func (builder *TransferInfoBuilder) OriginalServiceCompany(originalServiceCompan
 	return builder
 }
 
-// 新任职公司
+// 新任职公司，详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得
 //
 // 示例值：7289005963599693367
 func (builder *TransferInfoBuilder) TargetServiceCompany(targetServiceCompany string) *TransferInfoBuilder {
@@ -20443,11 +20753,11 @@ func (builder *TransferInfoBuilder) Build() *TransferInfo {
 }
 
 type TransferReason struct {
-	TransferReasonUniqueIdentifier *string `json:"transfer_reason_unique_identifier,omitempty"` // 异动原因唯一标识
+	TransferReasonUniqueIdentifier *string `json:"transfer_reason_unique_identifier,omitempty"` // 异动原因唯一标识，可用于开放平台[发起员工异动](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/create)、[搜索员工异动信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search)等接口入参中的异动原因。
 
 	Name []*I18n `json:"name,omitempty"` // 异动原因的名称信息
 
-	Active *bool `json:"active,omitempty"` // 异动原因状态
+	Active *bool `json:"active,omitempty"` // 异动原因状态，可选项有:;;-true: 启用;;-false: 停用
 
 	ParentTransferReasonUniqueIdentifier *string `json:"parent_transfer_reason_unique_identifier,omitempty"` // 上级异动原因唯一标识
 
@@ -20457,13 +20767,13 @@ type TransferReason struct {
 }
 
 type TransferReasonBuilder struct {
-	transferReasonUniqueIdentifier    string // 异动原因唯一标识
+	transferReasonUniqueIdentifier    string // 异动原因唯一标识，可用于开放平台[发起员工异动](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/create)、[搜索员工异动信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search)等接口入参中的异动原因。
 	transferReasonUniqueIdentifierSet bool
 
 	name    []*I18n // 异动原因的名称信息
 	nameSet bool
 
-	active    bool // 异动原因状态
+	active    bool // 异动原因状态，可选项有:;;-true: 启用;;-false: 停用
 	activeSet bool
 
 	parentTransferReasonUniqueIdentifier    string // 上级异动原因唯一标识
@@ -20481,7 +20791,7 @@ func NewTransferReasonBuilder() *TransferReasonBuilder {
 	return builder
 }
 
-// 异动原因唯一标识
+// 异动原因唯一标识，可用于开放平台[发起员工异动](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/create)、[搜索员工异动信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search)等接口入参中的异动原因。
 //
 // 示例值：voluntary_transfer
 func (builder *TransferReasonBuilder) TransferReasonUniqueIdentifier(transferReasonUniqueIdentifier string) *TransferReasonBuilder {
@@ -20499,7 +20809,7 @@ func (builder *TransferReasonBuilder) Name(name []*I18n) *TransferReasonBuilder 
 	return builder
 }
 
-// 异动原因状态
+// 异动原因状态，可选项有:;;-true: 启用;;-false: 停用
 //
 // 示例值：true
 func (builder *TransferReasonBuilder) Active(active bool) *TransferReasonBuilder {
@@ -20564,11 +20874,11 @@ func (builder *TransferReasonBuilder) Build() *TransferReason {
 }
 
 type TransferType struct {
-	TransferTypeUniqueIdentifier *string `json:"transfer_type_unique_identifier,omitempty"` // 异动类型唯一标识
+	TransferTypeUniqueIdentifier *string `json:"transfer_type_unique_identifier,omitempty"` // 异动类型唯一标识,可用于开放平台[发起员工异动](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/create)、[搜索员工异动信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search)等接口入参中的异类型。
 
 	Name []*I18n `json:"name,omitempty"` // 异动类型名称
 
-	Active *bool `json:"active,omitempty"` // 异动类型状态
+	Active *bool `json:"active,omitempty"` // 异动类型状态，可选项有:;;-true: 启用;;-false: 停用
 
 	FlowId *string `json:"flow_id,omitempty"` // 关联流程唯一标识符
 
@@ -20580,13 +20890,13 @@ type TransferType struct {
 }
 
 type TransferTypeBuilder struct {
-	transferTypeUniqueIdentifier    string // 异动类型唯一标识
+	transferTypeUniqueIdentifier    string // 异动类型唯一标识,可用于开放平台[发起员工异动](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/create)、[搜索员工异动信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search)等接口入参中的异类型。
 	transferTypeUniqueIdentifierSet bool
 
 	name    []*I18n // 异动类型名称
 	nameSet bool
 
-	active    bool // 异动类型状态
+	active    bool // 异动类型状态，可选项有:;;-true: 启用;;-false: 停用
 	activeSet bool
 
 	flowId    string // 关联流程唯一标识符
@@ -20607,7 +20917,7 @@ func NewTransferTypeBuilder() *TransferTypeBuilder {
 	return builder
 }
 
-// 异动类型唯一标识
+// 异动类型唯一标识,可用于开放平台[发起员工异动](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/create)、[搜索员工异动信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search)等接口入参中的异类型。
 //
 // 示例值：internal_transfer
 func (builder *TransferTypeBuilder) TransferTypeUniqueIdentifier(transferTypeUniqueIdentifier string) *TransferTypeBuilder {
@@ -20625,7 +20935,7 @@ func (builder *TransferTypeBuilder) Name(name []*I18n) *TransferTypeBuilder {
 	return builder
 }
 
-// 异动类型状态
+// 异动类型状态，可选项有:;;-true: 启用;;-false: 停用
 //
 // 示例值：true
 func (builder *TransferTypeBuilder) Active(active bool) *TransferTypeBuilder {
@@ -20725,8 +21035,6 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -20734,8 +21042,6 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -20743,8 +21049,6 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -20819,7 +21123,7 @@ func (builder *ViewEmploymentInfoBuilder) Build() *ViewEmploymentInfo {
 }
 
 type WkCalendarDate struct {
-	CalendarId *string `json:"calendar_id,omitempty"` // 工作日历WKID
+	CalendarId *string `json:"calendar_id,omitempty"` // 工作日历ID
 
 	Date *string `json:"date,omitempty"` // 日期，格式："2006-01-02"
 
@@ -20829,7 +21133,7 @@ type WkCalendarDate struct {
 }
 
 type WkCalendarDateBuilder struct {
-	calendarId    string // 工作日历WKID
+	calendarId    string // 工作日历ID
 	calendarIdSet bool
 
 	date    string // 日期，格式："2006-01-02"
@@ -20847,9 +21151,9 @@ func NewWkCalendarDateBuilder() *WkCalendarDateBuilder {
 	return builder
 }
 
-// 工作日历WKID
+// 工作日历ID
 //
-// 示例值："7390282135276635692"
+// 示例值：7390282135276635692
 func (builder *WkCalendarDateBuilder) CalendarId(calendarId string) *WkCalendarDateBuilder {
 	builder.calendarId = calendarId
 	builder.calendarIdSet = true
@@ -20858,7 +21162,7 @@ func (builder *WkCalendarDateBuilder) CalendarId(calendarId string) *WkCalendarD
 
 // 日期，格式："2006-01-02"
 //
-// 示例值："2006-01-02"
+// 示例值：2006-01-02
 func (builder *WkCalendarDateBuilder) Date(date string) *WkCalendarDateBuilder {
 	builder.date = date
 	builder.dateSet = true
@@ -20867,7 +21171,7 @@ func (builder *WkCalendarDateBuilder) Date(date string) *WkCalendarDateBuilder {
 
 // 日期类型
 //
-// 示例值："day_off"
+// 示例值：day_off
 func (builder *WkCalendarDateBuilder) DateType(dateType string) *WkCalendarDateBuilder {
 	builder.dateType = dateType
 	builder.dateTypeSet = true
@@ -20876,7 +21180,7 @@ func (builder *WkCalendarDateBuilder) DateType(dateType string) *WkCalendarDateB
 
 // 日期id
 //
-// 示例值："7390282135276635692"
+// 示例值：7390282135276635692
 func (builder *WkCalendarDateBuilder) Id(id string) *WkCalendarDateBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -20955,26 +21259,26 @@ func (builder *WkCalendarI18nBuilder) Build() *WkCalendarI18n {
 }
 
 type WkOption struct {
-	Count *bool `json:"count,omitempty"` // 是否返回符合条件的工作日历总数
+	Count *bool `json:"count,omitempty"` // 是否返回符合条件的工作日历总数，默认值为true
 
-	Offset *int `json:"offset,omitempty"` // 分页查询的位移，从0开始
+	Offset *int `json:"offset,omitempty"` // 分页查询的位移，从0开始，默认值为0
 
-	Limit *int `json:"limit,omitempty"` // 分页查询 单次查询数量
+	Limit *int `json:"limit,omitempty"` // 分页查询单次查询数量，默认值为2000
 
-	SortOptions []*SortOption `json:"sort_options,omitempty"` // 排序
+	SortOptions []*SortOption `json:"sort_options,omitempty"` //
 }
 
 type WkOptionBuilder struct {
-	count    bool // 是否返回符合条件的工作日历总数
+	count    bool // 是否返回符合条件的工作日历总数，默认值为true
 	countSet bool
 
-	offset    int // 分页查询的位移，从0开始
+	offset    int // 分页查询的位移，从0开始，默认值为0
 	offsetSet bool
 
-	limit    int // 分页查询 单次查询数量
+	limit    int // 分页查询单次查询数量，默认值为2000
 	limitSet bool
 
-	sortOptions    []*SortOption // 排序
+	sortOptions    []*SortOption //
 	sortOptionsSet bool
 }
 
@@ -20983,7 +21287,7 @@ func NewWkOptionBuilder() *WkOptionBuilder {
 	return builder
 }
 
-// 是否返回符合条件的工作日历总数
+// 是否返回符合条件的工作日历总数，默认值为true
 //
 // 示例值：false
 func (builder *WkOptionBuilder) Count(count bool) *WkOptionBuilder {
@@ -20992,7 +21296,7 @@ func (builder *WkOptionBuilder) Count(count bool) *WkOptionBuilder {
 	return builder
 }
 
-// 分页查询的位移，从0开始
+// 分页查询的位移，从0开始，默认值为0
 //
 // 示例值：0
 func (builder *WkOptionBuilder) Offset(offset int) *WkOptionBuilder {
@@ -21001,7 +21305,7 @@ func (builder *WkOptionBuilder) Offset(offset int) *WkOptionBuilder {
 	return builder
 }
 
-// 分页查询 单次查询数量
+// 分页查询单次查询数量，默认值为2000
 //
 // 示例值：20
 func (builder *WkOptionBuilder) Limit(limit int) *WkOptionBuilder {
@@ -21010,8 +21314,6 @@ func (builder *WkOptionBuilder) Limit(limit int) *WkOptionBuilder {
 	return builder
 }
 
-// 排序
-//
 // 示例值：
 func (builder *WkOptionBuilder) SortOptions(sortOptions []*SortOption) *WkOptionBuilder {
 	builder.sortOptions = sortOptions
@@ -21065,7 +21367,7 @@ func NewWorkCalendarDetailBuilder() *WorkCalendarDetailBuilder {
 
 // 工作日历ID
 //
-// 示例值：123456
+// 示例值：7136914415957591596
 func (builder *WorkCalendarDetailBuilder) CalendarId(calendarId string) *WorkCalendarDetailBuilder {
 	builder.calendarId = calendarId
 	builder.calendarIdSet = true
@@ -21107,26 +21409,26 @@ func (builder *WorkCalendarDetailBuilder) Build() *WorkCalendarDetail {
 }
 
 type WorkCalendarFilter struct {
-	WkCalendarIds []string `json:"wk_calendar_ids,omitempty"` // 工作日历ID列表
+	WkCalendarIds []string `json:"wk_calendar_ids,omitempty"` // 工作日历ID列表，第一次传入时可以传入空数组，形如[]
 
-	WkCalendarIdGt *string `json:"wk_calendar_id_gt,omitempty"` // 工作日历ID大于
+	WkCalendarIdGt *string `json:"wk_calendar_id_gt,omitempty"` //
 
-	WkOption *WkOption `json:"wk_option,omitempty"` // 分页、排序等选项
+	WkOption *WkOption `json:"wk_option,omitempty"` // 分页、排序等选项，如未填写将赋默认值
 
-	OnlyEnable *bool `json:"only_enable,omitempty"` // 是否只返回启用的工作日历，不填默认true
+	OnlyEnable *bool `json:"only_enable,omitempty"` // 是否只返回启用的工作日历。（暂不支持，目前只返回启用状态的工作日历）
 }
 
 type WorkCalendarFilterBuilder struct {
-	wkCalendarIds    []string // 工作日历ID列表
+	wkCalendarIds    []string // 工作日历ID列表，第一次传入时可以传入空数组，形如[]
 	wkCalendarIdsSet bool
 
-	wkCalendarIdGt    string // 工作日历ID大于
+	wkCalendarIdGt    string //
 	wkCalendarIdGtSet bool
 
-	wkOption    *WkOption // 分页、排序等选项
+	wkOption    *WkOption // 分页、排序等选项，如未填写将赋默认值
 	wkOptionSet bool
 
-	onlyEnable    bool // 是否只返回启用的工作日历，不填默认true
+	onlyEnable    bool // 是否只返回启用的工作日历。（暂不支持，目前只返回启用状态的工作日历）
 	onlyEnableSet bool
 }
 
@@ -21135,7 +21437,7 @@ func NewWorkCalendarFilterBuilder() *WorkCalendarFilterBuilder {
 	return builder
 }
 
-// 工作日历ID列表
+// 工作日历ID列表，第一次传入时可以传入空数组，形如[]
 //
 // 示例值：
 func (builder *WorkCalendarFilterBuilder) WkCalendarIds(wkCalendarIds []string) *WorkCalendarFilterBuilder {
@@ -21144,16 +21446,14 @@ func (builder *WorkCalendarFilterBuilder) WkCalendarIds(wkCalendarIds []string) 
 	return builder
 }
 
-// 工作日历ID大于
-//
-// 示例值：12344
+// 示例值：7136914415957591596
 func (builder *WorkCalendarFilterBuilder) WkCalendarIdGt(wkCalendarIdGt string) *WorkCalendarFilterBuilder {
 	builder.wkCalendarIdGt = wkCalendarIdGt
 	builder.wkCalendarIdGtSet = true
 	return builder
 }
 
-// 分页、排序等选项
+// 分页、排序等选项，如未填写将赋默认值
 //
 // 示例值：
 func (builder *WorkCalendarFilterBuilder) WkOption(wkOption *WkOption) *WorkCalendarFilterBuilder {
@@ -21162,7 +21462,7 @@ func (builder *WorkCalendarFilterBuilder) WkOption(wkOption *WkOption) *WorkCale
 	return builder
 }
 
-// 是否只返回启用的工作日历，不填默认true
+// 是否只返回启用的工作日历。（暂不支持，目前只返回启用状态的工作日历）
 //
 // 示例值：true
 func (builder *WorkCalendarFilterBuilder) OnlyEnable(onlyEnable bool) *WorkCalendarFilterBuilder {
@@ -21332,13 +21632,13 @@ type WorkingHoursType struct {
 
 	Name []*I18n `json:"name,omitempty"` // 名称
 
-	CountryRegionIdList []string `json:"country_region_id_list,omitempty"` // 国家/地区 ID 列表
+	CountryRegionIdList []string `json:"country_region_id_list,omitempty"` // 国家/地区 ID 列表;- 可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获取
 
 	DefaultForJob *bool `json:"default_for_job,omitempty"` // 职务默认值
 
 	Active *bool `json:"active,omitempty"` // 是否启用
 
-	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段;- 具体支持的对象请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 }
 
 type WorkingHoursTypeBuilder struct {
@@ -21351,7 +21651,7 @@ type WorkingHoursTypeBuilder struct {
 	name    []*I18n // 名称
 	nameSet bool
 
-	countryRegionIdList    []string // 国家/地区 ID 列表
+	countryRegionIdList    []string // 国家/地区 ID 列表;- 可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获取
 	countryRegionIdListSet bool
 
 	defaultForJob    bool // 职务默认值
@@ -21360,7 +21660,7 @@ type WorkingHoursTypeBuilder struct {
 	active    bool // 是否启用
 	activeSet bool
 
-	customFields    []*ObjectFieldData // 自定义字段
+	customFields    []*ObjectFieldData // 自定义字段;- 具体支持的对象请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 	customFieldsSet bool
 }
 
@@ -21396,9 +21696,9 @@ func (builder *WorkingHoursTypeBuilder) Name(name []*I18n) *WorkingHoursTypeBuil
 	return builder
 }
 
-// 国家/地区 ID 列表
+// 国家/地区 ID 列表;- 可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获取
 //
-// 示例值：创建成功的工时制度信息
+// 示例值：
 func (builder *WorkingHoursTypeBuilder) CountryRegionIdList(countryRegionIdList []string) *WorkingHoursTypeBuilder {
 	builder.countryRegionIdList = countryRegionIdList
 	builder.countryRegionIdListSet = true
@@ -21423,7 +21723,7 @@ func (builder *WorkingHoursTypeBuilder) Active(active bool) *WorkingHoursTypeBui
 	return builder
 }
 
-// 自定义字段
+// 自定义字段;- 具体支持的对象请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 //
 // 示例值：
 func (builder *WorkingHoursTypeBuilder) CustomFields(customFields []*ObjectFieldData) *WorkingHoursTypeBuilder {
@@ -21463,19 +21763,19 @@ func (builder *WorkingHoursTypeBuilder) Build() *WorkingHoursType {
 }
 
 type SearchAssignedUserReqBodyBuilder struct {
-	roleId    string // 角色 ID，仅支持组织类角色， 角色 ID 可通过【批量获取角色列表】接口获取
+	roleId    string // 角色 ID，仅支持组织类角色， 角色 ID 可通过[批量获取角色列表](https://open.larkoffice.com/document/server-docs/corehr-v1/authorization/list)接口获取
 	roleIdSet bool
 
-	managementScopeList    []*ManagementScope // 管理范围信息
+	managementScopeList    []*ManagementScope // 管理范围信息，支持多个维度同时查，但同一维度只支持传一个 obj_id。具体例子：;- 支持：[{"management_dimension":"department","obj_id":"7023318326176777742"},{"management_dimension":"location","obj_id":"7023318326176771234"}];- 不支持：[{"management_dimension":"department","obj_id":"7023318326176777742"},{"management_dimension":"department","obj_id":"7023318326176775678"}]
 	managementScopeListSet bool
 
 	searchMethod    string // 查找方式;;可选值有：;- 1：只查找指定 部门/工作地点/公司/社保城市，如无授权信息则返回为空;- 2：当指定的 部门/工作地点/公司/社保城市 无授权信息，向上查找第一个授权记录并直接返回
 	searchMethodSet bool
 
-	pageToken    string // 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+	pageToken    string // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 	pageTokenSet bool
 
-	pageSize    string // 每页获取记录数量，最大100
+	pageSize    string // 分页大小，最大100
 	pageSizeSet bool
 }
 
@@ -21484,18 +21784,18 @@ func NewSearchAssignedUserReqBodyBuilder() *SearchAssignedUserReqBodyBuilder {
 	return builder
 }
 
-// 角色 ID，仅支持组织类角色， 角色 ID 可通过【批量获取角色列表】接口获取
+// 角色 ID，仅支持组织类角色， 角色 ID 可通过[批量获取角色列表](https://open.larkoffice.com/document/server-docs/corehr-v1/authorization/list)接口获取
 //
-//示例值：100
+// 示例值：100
 func (builder *SearchAssignedUserReqBodyBuilder) RoleId(roleId string) *SearchAssignedUserReqBodyBuilder {
 	builder.roleId = roleId
 	builder.roleIdSet = true
 	return builder
 }
 
-// 管理范围信息
+// 管理范围信息，支持多个维度同时查，但同一维度只支持传一个 obj_id。具体例子：;- 支持：[{"management_dimension":"department","obj_id":"7023318326176777742"},{"management_dimension":"location","obj_id":"7023318326176771234"}];- 不支持：[{"management_dimension":"department","obj_id":"7023318326176777742"},{"management_dimension":"department","obj_id":"7023318326176775678"}]
 //
-//示例值：
+// 示例值：
 func (builder *SearchAssignedUserReqBodyBuilder) ManagementScopeList(managementScopeList []*ManagementScope) *SearchAssignedUserReqBodyBuilder {
 	builder.managementScopeList = managementScopeList
 	builder.managementScopeListSet = true
@@ -21504,25 +21804,25 @@ func (builder *SearchAssignedUserReqBodyBuilder) ManagementScopeList(managementS
 
 // 查找方式;;可选值有：;- 1：只查找指定 部门/工作地点/公司/社保城市，如无授权信息则返回为空;- 2：当指定的 部门/工作地点/公司/社保城市 无授权信息，向上查找第一个授权记录并直接返回
 //
-//示例值：1
+// 示例值：1
 func (builder *SearchAssignedUserReqBodyBuilder) SearchMethod(searchMethod string) *SearchAssignedUserReqBodyBuilder {
 	builder.searchMethod = searchMethod
 	builder.searchMethodSet = true
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-//示例值：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+// 示例值：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 func (builder *SearchAssignedUserReqBodyBuilder) PageToken(pageToken string) *SearchAssignedUserReqBodyBuilder {
 	builder.pageToken = pageToken
 	builder.pageTokenSet = true
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小，最大100
 //
-//示例值：100
+// 示例值：100
 func (builder *SearchAssignedUserReqBodyBuilder) PageSize(pageSize string) *SearchAssignedUserReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeSet = true
@@ -21567,7 +21867,7 @@ func NewSearchAssignedUserPathReqBodyBuilder() *SearchAssignedUserPathReqBodyBui
 	return builder
 }
 
-// 角色 ID，仅支持组织类角色， 角色 ID 可通过【批量获取角色列表】接口获取
+// 角色 ID，仅支持组织类角色， 角色 ID 可通过[批量获取角色列表](https://open.larkoffice.com/document/server-docs/corehr-v1/authorization/list)接口获取
 //
 // 示例值：100
 func (builder *SearchAssignedUserPathReqBodyBuilder) RoleId(roleId string) *SearchAssignedUserPathReqBodyBuilder {
@@ -21576,7 +21876,7 @@ func (builder *SearchAssignedUserPathReqBodyBuilder) RoleId(roleId string) *Sear
 	return builder
 }
 
-// 管理范围信息
+// 管理范围信息，支持多个维度同时查，但同一维度只支持传一个 obj_id。具体例子：;- 支持：[{"management_dimension":"department","obj_id":"7023318326176777742"},{"management_dimension":"location","obj_id":"7023318326176771234"}];- 不支持：[{"management_dimension":"department","obj_id":"7023318326176777742"},{"management_dimension":"department","obj_id":"7023318326176775678"}]
 //
 // 示例值：
 func (builder *SearchAssignedUserPathReqBodyBuilder) ManagementScopeList(managementScopeList []*ManagementScope) *SearchAssignedUserPathReqBodyBuilder {
@@ -21594,7 +21894,7 @@ func (builder *SearchAssignedUserPathReqBodyBuilder) SearchMethod(searchMethod s
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 func (builder *SearchAssignedUserPathReqBodyBuilder) PageToken(pageToken string) *SearchAssignedUserPathReqBodyBuilder {
@@ -21603,7 +21903,7 @@ func (builder *SearchAssignedUserPathReqBodyBuilder) PageToken(pageToken string)
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小，最大100
 //
 // 示例值：100
 func (builder *SearchAssignedUserPathReqBodyBuilder) PageSize(pageSize string) *SearchAssignedUserPathReqBodyBuilder {
@@ -21654,7 +21954,7 @@ func (builder *SearchAssignedUserReqBuilder) UserIdType(userIdType string) *Sear
 	return builder
 }
 
-// 查询组织类角色的授权信息
+// 查询组织类角色的授权信息，返回的授权列表中包含被授权的用户ID和被授权的管理维度等信息。
 func (builder *SearchAssignedUserReqBuilder) Body(body *SearchAssignedUserReqBody) *SearchAssignedUserReqBuilder {
 	builder.body = body
 	return builder
@@ -21669,15 +21969,15 @@ func (builder *SearchAssignedUserReqBuilder) Build() *SearchAssignedUserReq {
 }
 
 type SearchAssignedUserReqBody struct {
-	RoleId *string `json:"role_id,omitempty"` // 角色 ID，仅支持组织类角色， 角色 ID 可通过【批量获取角色列表】接口获取
+	RoleId *string `json:"role_id,omitempty"` // 角色 ID，仅支持组织类角色， 角色 ID 可通过[批量获取角色列表](https://open.larkoffice.com/document/server-docs/corehr-v1/authorization/list)接口获取
 
-	ManagementScopeList []*ManagementScope `json:"management_scope_list,omitempty"` // 管理范围信息
+	ManagementScopeList []*ManagementScope `json:"management_scope_list,omitempty"` // 管理范围信息，支持多个维度同时查，但同一维度只支持传一个 obj_id。具体例子：;- 支持：[{"management_dimension":"department","obj_id":"7023318326176777742"},{"management_dimension":"location","obj_id":"7023318326176771234"}];- 不支持：[{"management_dimension":"department","obj_id":"7023318326176777742"},{"management_dimension":"department","obj_id":"7023318326176775678"}]
 
 	SearchMethod *string `json:"search_method,omitempty"` // 查找方式;;可选值有：;- 1：只查找指定 部门/工作地点/公司/社保城市，如无授权信息则返回为空;- 2：当指定的 部门/工作地点/公司/社保城市 无授权信息，向上查找第一个授权记录并直接返回
 
-	PageToken *string `json:"page_token,omitempty"` // 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 
-	PageSize *string `json:"page_size,omitempty"` // 每页获取记录数量，最大100
+	PageSize *string `json:"page_size,omitempty"` // 分页大小，最大100
 }
 
 type SearchAssignedUserReq struct {
@@ -21688,9 +21988,9 @@ type SearchAssignedUserReq struct {
 type SearchAssignedUserRespData struct {
 	Items []*RoleAuthorization `json:"items,omitempty"` // 用户授权信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type SearchAssignedUserResp struct {
@@ -21704,7 +22004,7 @@ func (resp *SearchAssignedUserResp) Success() bool {
 }
 
 type AddRoleAssignAuthorizationReqBodyBuilder struct {
-	assignedOrganizationItems    [][]*AssignedOrganizationWithCode // 授权
+	assignedOrganizationItems    [][]*AssignedOrganizationWithCode // 被授权角色的授权范围。你需要按照请求体示例构造结构体。 ;它是一个二维数组，你可以使用它来授权具有多个管理维度的角色，例如属地 HRBP。 ;- ==org_key==：管理维度。可选项有; - 部门：==department==; - 工作地点：==work_location==; - 公司：==company==; - 成本中心：==organization_id_strand==; - 社保城市：==social_security_location==; - 入职地点：==onboarding_location==; - 薪资组：==pay_group==; - 人才池：==talent_pool==; - 自定义组织：可在「[飞书人事](https://people.feishu.cn/people/)-设置-组织设置」中相应的自定义组织目录下查看对应的组织类型编码，例如==custom_org_01==、==custom_org_02==、==custom_org_03==、==custom_org_04==、==custom_org_05==;- ==org_ids==：组织 ID。组织 ID 和组织编码只需要填写一个;- ==org_codes==：组织编码。组织 ID 和组织编码只需要填写一个
 	assignedOrganizationItemsSet bool
 }
 
@@ -21713,9 +22013,9 @@ func NewAddRoleAssignAuthorizationReqBodyBuilder() *AddRoleAssignAuthorizationRe
 	return builder
 }
 
-// 授权
+// 被授权角色的授权范围。你需要按照请求体示例构造结构体。 ;它是一个二维数组，你可以使用它来授权具有多个管理维度的角色，例如属地 HRBP。 ;- ==org_key==：管理维度。可选项有; - 部门：==department==; - 工作地点：==work_location==; - 公司：==company==; - 成本中心：==organization_id_strand==; - 社保城市：==social_security_location==; - 入职地点：==onboarding_location==; - 薪资组：==pay_group==; - 人才池：==talent_pool==; - 自定义组织：可在「[飞书人事](https://people.feishu.cn/people/)-设置-组织设置」中相应的自定义组织目录下查看对应的组织类型编码，例如==custom_org_01==、==custom_org_02==、==custom_org_03==、==custom_org_04==、==custom_org_05==;- ==org_ids==：组织 ID。组织 ID 和组织编码只需要填写一个;- ==org_codes==：组织编码。组织 ID 和组织编码只需要填写一个
 //
-//示例值：67489937334909845
+// 示例值：67489937334909845
 func (builder *AddRoleAssignAuthorizationReqBodyBuilder) AssignedOrganizationItems(assignedOrganizationItems [][]*AssignedOrganizationWithCode) *AddRoleAssignAuthorizationReqBodyBuilder {
 	builder.assignedOrganizationItems = assignedOrganizationItems
 	builder.assignedOrganizationItemsSet = true
@@ -21740,7 +22040,7 @@ func NewAddRoleAssignAuthorizationPathReqBodyBuilder() *AddRoleAssignAuthorizati
 	return builder
 }
 
-// 授权
+// 被授权角色的授权范围。你需要按照请求体示例构造结构体。 ;它是一个二维数组，你可以使用它来授权具有多个管理维度的角色，例如属地 HRBP。 ;- ==org_key==：管理维度。可选项有; - 部门：==department==; - 工作地点：==work_location==; - 公司：==company==; - 成本中心：==organization_id_strand==; - 社保城市：==social_security_location==; - 入职地点：==onboarding_location==; - 薪资组：==pay_group==; - 人才池：==talent_pool==; - 自定义组织：可在「[飞书人事](https://people.feishu.cn/people/)-设置-组织设置」中相应的自定义组织目录下查看对应的组织类型编码，例如==custom_org_01==、==custom_org_02==、==custom_org_03==、==custom_org_04==、==custom_org_05==;- ==org_ids==：组织 ID。组织 ID 和组织编码只需要填写一个;- ==org_codes==：组织编码。组织 ID 和组织编码只需要填写一个
 //
 // 示例值：67489937334909845
 func (builder *AddRoleAssignAuthorizationPathReqBodyBuilder) AssignedOrganizationItems(assignedOrganizationItems [][]*AssignedOrganizationWithCode) *AddRoleAssignAuthorizationPathReqBodyBuilder {
@@ -21771,9 +22071,9 @@ func NewAddRoleAssignAuthorizationReqBuilder() *AddRoleAssignAuthorizationReqBui
 	return builder
 }
 
-// 雇员 ID
+// 被授权用户的 ID，ID类型与user_id_type的取值意义一致。默认为飞书人事中的 ==employment_id==。; > ;如果你需要不同类型的ID进行转换，可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert) 换取 ==employment_id==
 //
-// 示例值：67489937334909845
+// 示例值：7303877149017292801
 func (builder *AddRoleAssignAuthorizationReqBuilder) EmploymentId(employmentId string) *AddRoleAssignAuthorizationReqBuilder {
 	builder.apiReq.QueryParams.Set("employment_id", fmt.Sprint(employmentId))
 	return builder
@@ -21787,15 +22087,15 @@ func (builder *AddRoleAssignAuthorizationReqBuilder) UserIdType(userIdType strin
 	return builder
 }
 
-// 角色 ID
+// 被授权角色的 ID，一次仅可授权一个角色。你可以使用 [批量获取角色列表](https://open.larkoffice.com/document/server-docs/corehr-v1/authorization/list) 获取，或者在角色详情中获取（URL 末的数字）
 //
-// 示例值：67489937334909845
+// 示例值：7358732070333613619
 func (builder *AddRoleAssignAuthorizationReqBuilder) RoleId(roleId string) *AddRoleAssignAuthorizationReqBuilder {
 	builder.apiReq.QueryParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
 
-// 追加更新组织类授权
+// 为用户授权角色及管理范围 ;对已被授权某个角色的用户继续授权，将在原授权的数据范围基础上追加数据范围。
 func (builder *AddRoleAssignAuthorizationReqBuilder) Body(body *AddRoleAssignAuthorizationReqBody) *AddRoleAssignAuthorizationReqBuilder {
 	builder.body = body
 	return builder
@@ -21810,7 +22110,7 @@ func (builder *AddRoleAssignAuthorizationReqBuilder) Build() *AddRoleAssignAutho
 }
 
 type AddRoleAssignAuthorizationReqBody struct {
-	AssignedOrganizationItems [][]*AssignedOrganizationWithCode `json:"assigned_organization_items,omitempty"` // 授权
+	AssignedOrganizationItems [][]*AssignedOrganizationWithCode `json:"assigned_organization_items,omitempty"` // 被授权角色的授权范围。你需要按照请求体示例构造结构体。 ;它是一个二维数组，你可以使用它来授权具有多个管理维度的角色，例如属地 HRBP。 ;- ==org_key==：管理维度。可选项有; - 部门：==department==; - 工作地点：==work_location==; - 公司：==company==; - 成本中心：==organization_id_strand==; - 社保城市：==social_security_location==; - 入职地点：==onboarding_location==; - 薪资组：==pay_group==; - 人才池：==talent_pool==; - 自定义组织：可在「[飞书人事](https://people.feishu.cn/people/)-设置-组织设置」中相应的自定义组织目录下查看对应的组织类型编码，例如==custom_org_01==、==custom_org_02==、==custom_org_03==、==custom_org_04==、==custom_org_05==;- ==org_ids==：组织 ID。组织 ID 和组织编码只需要填写一个;- ==org_codes==：组织编码。组织 ID 和组织编码只需要填写一个
 }
 
 type AddRoleAssignAuthorizationReq struct {
@@ -21845,7 +22145,7 @@ func NewGetByParamAuthorizationReqBuilder() *GetByParamAuthorizationReqBuilder {
 	return builder
 }
 
-// 雇员 ID
+// 被授权用户的 ID，ID类型与user_id_type的取值意义一致。默认为飞书人事中的 ==employment_id==。; > ;如果你需要不同类型的ID进行转换，可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert) 换取 ==employment_id==
 //
 // 示例值：67489937334909845
 func (builder *GetByParamAuthorizationReqBuilder) EmploymentId(employmentId string) *GetByParamAuthorizationReqBuilder {
@@ -21873,7 +22173,7 @@ type GetByParamAuthorizationReq struct {
 }
 
 type GetByParamAuthorizationRespData struct {
-	RoleAuthorization *RoleAuthorization `json:"role_authorization,omitempty"` // 角色授权信息
+	RoleAuthorization *RoleAuthorization `json:"role_authorization,omitempty"` //
 }
 
 type GetByParamAuthorizationResp struct {
@@ -21899,7 +22199,7 @@ func NewQueryAuthorizationReqBuilder() *QueryAuthorizationReqBuilder {
 	return builder
 }
 
-// 员工ID列表，最大100个（不传则默认查询全部员工）
+// 员工ID列表，最大100个（不传则默认查询全部员工）。ID类型与user_id_type的取值意义一致。默认为飞书人事中的 ==employment_id==。;>;「**注意事项**」：;- 如果你需要不同类型的ID进行转换，可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert) 换取 ==employment_id==;- 如果需要一次查询多个员工ID，需通过 "employment_id_list=empId1&employment_id_list=empId2" 的方式传递，且调试台暂不支持多员工ID调试。
 //
 // 示例值：
 func (builder *QueryAuthorizationReqBuilder) EmploymentIdList(employmentIdList []string) *QueryAuthorizationReqBuilder {
@@ -21909,7 +22209,7 @@ func (builder *QueryAuthorizationReqBuilder) EmploymentIdList(employmentIdList [
 	return builder
 }
 
-// 角色 ID 列表，最大 100 个
+// 角色 ID 列表，最大 100 个。当传该参数时，会根据rold_id过滤，只返回包含该角色的授权信息。;>;「**注意事项**」：;- 你可以使用 [批量获取角色列表](https://open.larkoffice.com/document/server-docs/corehr-v1/authorization/list) 获取角色ID，或者在角色详情中获取（URL 末的数字）。;;- 如果需要一次查询多个角色ID，需通过需通过“rold_id_list=rold_id1&rold_id_list=rold_id2” 的方式传递，且调试台暂不支持多角色ID查询。
 //
 // 示例值：
 func (builder *QueryAuthorizationReqBuilder) RoleIdList(roleIdList []string) *QueryAuthorizationReqBuilder {
@@ -21919,7 +22219,7 @@ func (builder *QueryAuthorizationReqBuilder) RoleIdList(roleIdList []string) *Qu
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：6969864184272078374
 func (builder *QueryAuthorizationReqBuilder) PageToken(pageToken string) *QueryAuthorizationReqBuilder {
@@ -21927,7 +22227,7 @@ func (builder *QueryAuthorizationReqBuilder) PageToken(pageToken string) *QueryA
 	return builder
 }
 
-// 每页获取记录数量，最大20
+// 每页获取记录数量，最大20(不传该参数，默认为20)
 //
 // 示例值：20
 func (builder *QueryAuthorizationReqBuilder) PageSize(pageSize string) *QueryAuthorizationReqBuilder {
@@ -21943,7 +22243,7 @@ func (builder *QueryAuthorizationReqBuilder) UserIdType(userIdType string) *Quer
 	return builder
 }
 
-// 授权时间大于
+// 授权时间大于，单位为秒（Unix时间戳）
 //
 // 示例值：1729773628
 func (builder *QueryAuthorizationReqBuilder) UpdatedAtGte(updatedAtGte string) *QueryAuthorizationReqBuilder {
@@ -21951,7 +22251,7 @@ func (builder *QueryAuthorizationReqBuilder) UpdatedAtGte(updatedAtGte string) *
 	return builder
 }
 
-// 授权时间小于
+// 授权时间小于，单位为秒（Unix时间戳）
 //
 // 示例值：1729773628
 func (builder *QueryAuthorizationReqBuilder) UpdatedAtLte(updatedAtLte string) *QueryAuthorizationReqBuilder {
@@ -22001,9 +22301,9 @@ func NewRemoveRoleAssignAuthorizationReqBuilder() *RemoveRoleAssignAuthorization
 	return builder
 }
 
-// 雇员 ID
+// 用户的 ID，ID类型与user_id_type的取值意义一致。默认为飞书人事中的 ==employment_id==。; > ;如果你需要不同类型的ID进行转换，可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert) 换取 ==employment_id==
 //
-// 示例值：67489937334909845
+// 示例值：7303877149017292801
 func (builder *RemoveRoleAssignAuthorizationReqBuilder) EmploymentId(employmentId string) *RemoveRoleAssignAuthorizationReqBuilder {
 	builder.apiReq.QueryParams.Set("employment_id", fmt.Sprint(employmentId))
 	return builder
@@ -22017,9 +22317,9 @@ func (builder *RemoveRoleAssignAuthorizationReqBuilder) UserIdType(userIdType st
 	return builder
 }
 
-// 角色 ID
+// 移除的角色的 ID，一次仅可移除一个角色。;>;你可以使用 [批量获取角色列表](https://open.larkoffice.com/document/server-docs/corehr-v1/authorization/list) 获取，或者在飞书人事角色详情页的url中获取（URL 末的数字）role_id。
 //
-// 示例值：67489937334909845
+// 示例值：7358732070333613619
 func (builder *RemoveRoleAssignAuthorizationReqBuilder) RoleId(roleId string) *RemoveRoleAssignAuthorizationReqBuilder {
 	builder.apiReq.QueryParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
@@ -22051,7 +22351,7 @@ func (resp *RemoveRoleAssignAuthorizationResp) Success() bool {
 }
 
 type UpdateRoleAssignAuthorizationReqBodyBuilder struct {
-	assignedOrganizationItems    [][]*AssignedOrganizationWithCode // 授权
+	assignedOrganizationItems    [][]*AssignedOrganizationWithCode // 被授权角色的授权范围。你需要按照请求体示例构造结构体。 ;它是一个二维数组，其代表的含义是：;==[[公司A、部门B的授权]，[公司A、部门C的授权]]==;;你可以使用它来授权具有多个管理维度的角色，例如属地 HRBP。 ;;需要注意的是，如果授权的是单一管理维度的角色，不支持 ==[[公司A]、[公司B]]== 样式的传参。;;参数解释：;- ==org_key==：管理维度。可选项有; - 部门：==department==; - 工作地点：==work_location==; - 公司：==company==; - 成本中心：==organization_id_strand==; - 社保城市：==social_security_location==; - 入职地点：==onboarding_location==; - 薪资组：==pay_group==; - 人才池：==talent_pool==; - 自定义组织：可在「[飞书人事](https://people.feishu.cn/people/)-设置-组织设置」中相应的自定义组织目录下查看对应的组织类型编码，例如==custom_org_01==、==custom_org_02==、==custom_org_03==、==custom_org_04==、==custom_org_05==;- ==org_ids==：组织 ID。组织 ID 和组织编码只需要填写一个;- ==org_codes==：组织编码。组织 ID 和组织编码只需要填写一个
 	assignedOrganizationItemsSet bool
 }
 
@@ -22060,9 +22360,9 @@ func NewUpdateRoleAssignAuthorizationReqBodyBuilder() *UpdateRoleAssignAuthoriza
 	return builder
 }
 
-// 授权
+// 被授权角色的授权范围。你需要按照请求体示例构造结构体。 ;它是一个二维数组，其代表的含义是：;==[[公司A、部门B的授权]，[公司A、部门C的授权]]==;;你可以使用它来授权具有多个管理维度的角色，例如属地 HRBP。 ;;需要注意的是，如果授权的是单一管理维度的角色，不支持 ==[[公司A]、[公司B]]== 样式的传参。;;参数解释：;- ==org_key==：管理维度。可选项有; - 部门：==department==; - 工作地点：==work_location==; - 公司：==company==; - 成本中心：==organization_id_strand==; - 社保城市：==social_security_location==; - 入职地点：==onboarding_location==; - 薪资组：==pay_group==; - 人才池：==talent_pool==; - 自定义组织：可在「[飞书人事](https://people.feishu.cn/people/)-设置-组织设置」中相应的自定义组织目录下查看对应的组织类型编码，例如==custom_org_01==、==custom_org_02==、==custom_org_03==、==custom_org_04==、==custom_org_05==;- ==org_ids==：组织 ID。组织 ID 和组织编码只需要填写一个;- ==org_codes==：组织编码。组织 ID 和组织编码只需要填写一个
 //
-//示例值：67489937334909845
+// 示例值：67489937334909845
 func (builder *UpdateRoleAssignAuthorizationReqBodyBuilder) AssignedOrganizationItems(assignedOrganizationItems [][]*AssignedOrganizationWithCode) *UpdateRoleAssignAuthorizationReqBodyBuilder {
 	builder.assignedOrganizationItems = assignedOrganizationItems
 	builder.assignedOrganizationItemsSet = true
@@ -22087,7 +22387,7 @@ func NewUpdateRoleAssignAuthorizationPathReqBodyBuilder() *UpdateRoleAssignAutho
 	return builder
 }
 
-// 授权
+// 被授权角色的授权范围。你需要按照请求体示例构造结构体。 ;它是一个二维数组，其代表的含义是：;==[[公司A、部门B的授权]，[公司A、部门C的授权]]==;;你可以使用它来授权具有多个管理维度的角色，例如属地 HRBP。 ;;需要注意的是，如果授权的是单一管理维度的角色，不支持 ==[[公司A]、[公司B]]== 样式的传参。;;参数解释：;- ==org_key==：管理维度。可选项有; - 部门：==department==; - 工作地点：==work_location==; - 公司：==company==; - 成本中心：==organization_id_strand==; - 社保城市：==social_security_location==; - 入职地点：==onboarding_location==; - 薪资组：==pay_group==; - 人才池：==talent_pool==; - 自定义组织：可在「[飞书人事](https://people.feishu.cn/people/)-设置-组织设置」中相应的自定义组织目录下查看对应的组织类型编码，例如==custom_org_01==、==custom_org_02==、==custom_org_03==、==custom_org_04==、==custom_org_05==;- ==org_ids==：组织 ID。组织 ID 和组织编码只需要填写一个;- ==org_codes==：组织编码。组织 ID 和组织编码只需要填写一个
 //
 // 示例值：67489937334909845
 func (builder *UpdateRoleAssignAuthorizationPathReqBodyBuilder) AssignedOrganizationItems(assignedOrganizationItems [][]*AssignedOrganizationWithCode) *UpdateRoleAssignAuthorizationPathReqBodyBuilder {
@@ -22118,9 +22418,9 @@ func NewUpdateRoleAssignAuthorizationReqBuilder() *UpdateRoleAssignAuthorization
 	return builder
 }
 
-// 雇员 ID
+// 被授权用户的 ID，ID类型与user_id_type的取值意义一致。默认为飞书人事中的 ==employment_id==。; > ;如果你需要不同类型的ID进行转换，可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert) 换取 ==employment_id==
 //
-// 示例值：67489937334909845
+// 示例值：7303877149017292801
 func (builder *UpdateRoleAssignAuthorizationReqBuilder) EmploymentId(employmentId string) *UpdateRoleAssignAuthorizationReqBuilder {
 	builder.apiReq.QueryParams.Set("employment_id", fmt.Sprint(employmentId))
 	return builder
@@ -22134,15 +22434,15 @@ func (builder *UpdateRoleAssignAuthorizationReqBuilder) UserIdType(userIdType st
 	return builder
 }
 
-// 角色 ID
+// 被授权角色的 ID，一次仅可授权一个角色。你可以使用 [批量获取角色列表](https://open.larkoffice.com/document/server-docs/corehr-v1/authorization/list) 获取，或者在角色详情中获取（URL 末的数字）
 //
-// 示例值：67489937334909845
+// 示例值：7358732070333613619
 func (builder *UpdateRoleAssignAuthorizationReqBuilder) RoleId(roleId string) *UpdateRoleAssignAuthorizationReqBuilder {
 	builder.apiReq.QueryParams.Set("role_id", fmt.Sprint(roleId))
 	return builder
 }
 
-// 覆盖更新组织类授权
+// 更新角色被授权的管理范围 ;更新后的数据范围，以本次提交的数据范围为准，本次未提交的部分将被移除。
 func (builder *UpdateRoleAssignAuthorizationReqBuilder) Body(body *UpdateRoleAssignAuthorizationReqBody) *UpdateRoleAssignAuthorizationReqBuilder {
 	builder.body = body
 	return builder
@@ -22157,7 +22457,7 @@ func (builder *UpdateRoleAssignAuthorizationReqBuilder) Build() *UpdateRoleAssig
 }
 
 type UpdateRoleAssignAuthorizationReqBody struct {
-	AssignedOrganizationItems [][]*AssignedOrganizationWithCode `json:"assigned_organization_items,omitempty"` // 授权
+	AssignedOrganizationItems [][]*AssignedOrganizationWithCode `json:"assigned_organization_items,omitempty"` // 被授权角色的授权范围。你需要按照请求体示例构造结构体。 ;它是一个二维数组，其代表的含义是：;==[[公司A、部门B的授权]，[公司A、部门C的授权]]==;;你可以使用它来授权具有多个管理维度的角色，例如属地 HRBP。 ;;需要注意的是，如果授权的是单一管理维度的角色，不支持 ==[[公司A]、[公司B]]== 样式的传参。;;参数解释：;- ==org_key==：管理维度。可选项有; - 部门：==department==; - 工作地点：==work_location==; - 公司：==company==; - 成本中心：==organization_id_strand==; - 社保城市：==social_security_location==; - 入职地点：==onboarding_location==; - 薪资组：==pay_group==; - 人才池：==talent_pool==; - 自定义组织：可在「[飞书人事](https://people.feishu.cn/people/)-设置-组织设置」中相应的自定义组织目录下查看对应的组织类型编码，例如==custom_org_01==、==custom_org_02==、==custom_org_03==、==custom_org_04==、==custom_org_05==;- ==org_ids==：组织 ID。组织 ID 和组织编码只需要填写一个;- ==org_codes==：组织编码。组织 ID 和组织编码只需要填写一个
 }
 
 type UpdateRoleAssignAuthorizationReq struct {
@@ -22191,7 +22491,7 @@ func NewConvertCommonDataIdReqBodyBuilder() *ConvertCommonDataIdReqBodyBuilder {
 
 // ID 列表（最多传入 100 个 ID，ID 长度限制 50 个字符）
 //
-//示例值：
+// 示例值：
 func (builder *ConvertCommonDataIdReqBodyBuilder) Ids(ids []string) *ConvertCommonDataIdReqBodyBuilder {
 	builder.ids = ids
 	builder.idsSet = true
@@ -22257,7 +22557,7 @@ func (builder *ConvertCommonDataIdReqBuilder) IdTransformType(idTransformType in
 
 // 要转换的ID类型
 //
-// 示例值：employment_id
+// 示例值：user_id
 func (builder *ConvertCommonDataIdReqBuilder) IdType(idType string) *ConvertCommonDataIdReqBuilder {
 	builder.apiReq.QueryParams.Set("id_type", fmt.Sprint(idType))
 	return builder
@@ -22279,7 +22579,7 @@ func (builder *ConvertCommonDataIdReqBuilder) FeishuDepartmentIdType(feishuDepar
 	return builder
 }
 
-//
+// 该接口用来进行飞书人事和飞书通讯录、people admin 的各种 ID 转换（仅适用于飞书人事新链路租户）
 func (builder *ConvertCommonDataIdReqBuilder) Body(body *ConvertCommonDataIdReqBody) *ConvertCommonDataIdReqBuilder {
 	builder.body = body
 	return builder
@@ -22317,10 +22617,10 @@ func (resp *ConvertCommonDataIdResp) Success() bool {
 }
 
 type AddEnumOptionCommonDataMetaDataReqBodyBuilder struct {
-	objectApiName    string // 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
+	objectApiName    string // 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
 	objectApiNameSet bool
 
-	enumFieldApiName    string // 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query)接口中返回的 `custom_api_name` 字段获取
+	enumFieldApiName    string // 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口中返回的 `custom_api_name` 字段获取
 	enumFieldApiNameSet bool
 
 	enumFieldOptions    []*EnumFieldOption // 新增枚举选项列表
@@ -22332,18 +22632,18 @@ func NewAddEnumOptionCommonDataMetaDataReqBodyBuilder() *AddEnumOptionCommonData
 	return builder
 }
 
-// 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
+// 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
 //
-//示例值：probation_management
+// 示例值：probation_management
 func (builder *AddEnumOptionCommonDataMetaDataReqBodyBuilder) ObjectApiName(objectApiName string) *AddEnumOptionCommonDataMetaDataReqBodyBuilder {
 	builder.objectApiName = objectApiName
 	builder.objectApiNameSet = true
 	return builder
 }
 
-// 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query)接口中返回的 `custom_api_name` 字段获取
+// 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口中返回的 `custom_api_name` 字段获取
 //
-//示例值：final_assessment_grade
+// 示例值：final_assessment_grade
 func (builder *AddEnumOptionCommonDataMetaDataReqBodyBuilder) EnumFieldApiName(enumFieldApiName string) *AddEnumOptionCommonDataMetaDataReqBodyBuilder {
 	builder.enumFieldApiName = enumFieldApiName
 	builder.enumFieldApiNameSet = true
@@ -22352,7 +22652,7 @@ func (builder *AddEnumOptionCommonDataMetaDataReqBodyBuilder) EnumFieldApiName(e
 
 // 新增枚举选项列表
 //
-//示例值：
+// 示例值：
 func (builder *AddEnumOptionCommonDataMetaDataReqBodyBuilder) EnumFieldOptions(enumFieldOptions []*EnumFieldOption) *AddEnumOptionCommonDataMetaDataReqBodyBuilder {
 	builder.enumFieldOptions = enumFieldOptions
 	builder.enumFieldOptionsSet = true
@@ -22387,7 +22687,7 @@ func NewAddEnumOptionCommonDataMetaDataPathReqBodyBuilder() *AddEnumOptionCommon
 	return builder
 }
 
-// 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
+// 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
 //
 // 示例值：probation_management
 func (builder *AddEnumOptionCommonDataMetaDataPathReqBodyBuilder) ObjectApiName(objectApiName string) *AddEnumOptionCommonDataMetaDataPathReqBodyBuilder {
@@ -22396,7 +22696,7 @@ func (builder *AddEnumOptionCommonDataMetaDataPathReqBodyBuilder) ObjectApiName(
 	return builder
 }
 
-// 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query)接口中返回的 `custom_api_name` 字段获取
+// 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口中返回的 `custom_api_name` 字段获取
 //
 // 示例值：final_assessment_grade
 func (builder *AddEnumOptionCommonDataMetaDataPathReqBodyBuilder) EnumFieldApiName(enumFieldApiName string) *AddEnumOptionCommonDataMetaDataPathReqBodyBuilder {
@@ -22442,7 +22742,7 @@ func NewAddEnumOptionCommonDataMetaDataReqBuilder() *AddEnumOptionCommonDataMeta
 	return builder
 }
 
-// 根据 client_token 是否一致来判断是否为同一请求
+// 用户若希望避免重试导致多次重复请求，可填写随机字符串，系统根据 client_token 是否一致来判断是否为同一请求
 //
 // 示例值：6727817538283013641
 func (builder *AddEnumOptionCommonDataMetaDataReqBuilder) ClientToken(clientToken string) *AddEnumOptionCommonDataMetaDataReqBuilder {
@@ -22450,7 +22750,7 @@ func (builder *AddEnumOptionCommonDataMetaDataReqBuilder) ClientToken(clientToke
 	return builder
 }
 
-//
+// 对于当前已有的所有自定义枚举字段，以及部分系统预置枚举字段，通过本接口可在字段中批量新增可选项
 func (builder *AddEnumOptionCommonDataMetaDataReqBuilder) Body(body *AddEnumOptionCommonDataMetaDataReqBody) *AddEnumOptionCommonDataMetaDataReqBuilder {
 	builder.body = body
 	return builder
@@ -22465,9 +22765,9 @@ func (builder *AddEnumOptionCommonDataMetaDataReqBuilder) Build() *AddEnumOption
 }
 
 type AddEnumOptionCommonDataMetaDataReqBody struct {
-	ObjectApiName *string `json:"object_api_name,omitempty"` // 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
+	ObjectApiName *string `json:"object_api_name,omitempty"` // 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
 
-	EnumFieldApiName *string `json:"enum_field_api_name,omitempty"` // 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query)接口中返回的 `custom_api_name` 字段获取
+	EnumFieldApiName *string `json:"enum_field_api_name,omitempty"` // 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口中返回的 `custom_api_name` 字段获取
 
 	EnumFieldOptions []*EnumFieldOption `json:"enum_field_options,omitempty"` // 新增枚举选项列表
 }
@@ -22494,13 +22794,13 @@ func (resp *AddEnumOptionCommonDataMetaDataResp) Success() bool {
 }
 
 type EditEnumOptionCommonDataMetaDataReqBodyBuilder struct {
-	objectApiName    string // 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
+	objectApiName    string // 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
 	objectApiNameSet bool
 
-	enumFieldApiName    string // 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query)接口中返回的 `custom_api_name` 字段获取
+	enumFieldApiName    string // 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口中返回的 `custom_api_name` 字段获取
 	enumFieldApiNameSet bool
 
-	enumFieldOption    *EnumFieldOption // 枚举选项
+	enumFieldOption    *EnumFieldOption //
 	enumFieldOptionSet bool
 }
 
@@ -22509,27 +22809,25 @@ func NewEditEnumOptionCommonDataMetaDataReqBodyBuilder() *EditEnumOptionCommonDa
 	return builder
 }
 
-// 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
+// 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
 //
-//示例值：probation_management
+// 示例值：probation_management
 func (builder *EditEnumOptionCommonDataMetaDataReqBodyBuilder) ObjectApiName(objectApiName string) *EditEnumOptionCommonDataMetaDataReqBodyBuilder {
 	builder.objectApiName = objectApiName
 	builder.objectApiNameSet = true
 	return builder
 }
 
-// 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query)接口中返回的 `custom_api_name` 字段获取
+// 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口中返回的 `custom_api_name` 字段获取
 //
-//示例值：final_assessment_grade
+// 示例值：final_assessment_grade
 func (builder *EditEnumOptionCommonDataMetaDataReqBodyBuilder) EnumFieldApiName(enumFieldApiName string) *EditEnumOptionCommonDataMetaDataReqBodyBuilder {
 	builder.enumFieldApiName = enumFieldApiName
 	builder.enumFieldApiNameSet = true
 	return builder
 }
 
-// 枚举选项
-//
-//示例值：
+// 示例值：
 func (builder *EditEnumOptionCommonDataMetaDataReqBodyBuilder) EnumFieldOption(enumFieldOption *EnumFieldOption) *EditEnumOptionCommonDataMetaDataReqBodyBuilder {
 	builder.enumFieldOption = enumFieldOption
 	builder.enumFieldOptionSet = true
@@ -22564,7 +22862,7 @@ func NewEditEnumOptionCommonDataMetaDataPathReqBodyBuilder() *EditEnumOptionComm
 	return builder
 }
 
-// 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
+// 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
 //
 // 示例值：probation_management
 func (builder *EditEnumOptionCommonDataMetaDataPathReqBodyBuilder) ObjectApiName(objectApiName string) *EditEnumOptionCommonDataMetaDataPathReqBodyBuilder {
@@ -22573,7 +22871,7 @@ func (builder *EditEnumOptionCommonDataMetaDataPathReqBodyBuilder) ObjectApiName
 	return builder
 }
 
-// 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query)接口中返回的 `custom_api_name` 字段获取
+// 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口中返回的 `custom_api_name` 字段获取
 //
 // 示例值：final_assessment_grade
 func (builder *EditEnumOptionCommonDataMetaDataPathReqBodyBuilder) EnumFieldApiName(enumFieldApiName string) *EditEnumOptionCommonDataMetaDataPathReqBodyBuilder {
@@ -22582,8 +22880,6 @@ func (builder *EditEnumOptionCommonDataMetaDataPathReqBodyBuilder) EnumFieldApiN
 	return builder
 }
 
-// 枚举选项
-//
 // 示例值：
 func (builder *EditEnumOptionCommonDataMetaDataPathReqBodyBuilder) EnumFieldOption(enumFieldOption *EnumFieldOption) *EditEnumOptionCommonDataMetaDataPathReqBodyBuilder {
 	builder.enumFieldOption = enumFieldOption
@@ -22619,7 +22915,7 @@ func NewEditEnumOptionCommonDataMetaDataReqBuilder() *EditEnumOptionCommonDataMe
 	return builder
 }
 
-// 根据 client_token 是否一致来判断是否为同一请求
+// 用户若希望避免重试导致多次重复请求，可填写随机字符串，系统根据 client_token 是否一致来判断是否为同一请求
 //
 // 示例值：6727817538283013641
 func (builder *EditEnumOptionCommonDataMetaDataReqBuilder) ClientToken(clientToken string) *EditEnumOptionCommonDataMetaDataReqBuilder {
@@ -22627,7 +22923,7 @@ func (builder *EditEnumOptionCommonDataMetaDataReqBuilder) ClientToken(clientTok
 	return builder
 }
 
-//
+// 对于当前已有的所有自定义枚举字段，以及部分系统预置枚举字段，通过本接口可修改字段中已有可选项的展示名称、停启用状态
 func (builder *EditEnumOptionCommonDataMetaDataReqBuilder) Body(body *EditEnumOptionCommonDataMetaDataReqBody) *EditEnumOptionCommonDataMetaDataReqBuilder {
 	builder.body = body
 	return builder
@@ -22642,11 +22938,11 @@ func (builder *EditEnumOptionCommonDataMetaDataReqBuilder) Build() *EditEnumOpti
 }
 
 type EditEnumOptionCommonDataMetaDataReqBody struct {
-	ObjectApiName *string `json:"object_api_name,omitempty"` // 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
+	ObjectApiName *string `json:"object_api_name,omitempty"` // 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
 
-	EnumFieldApiName *string `json:"enum_field_api_name,omitempty"` // 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query)接口中返回的 `custom_api_name` 字段获取
+	EnumFieldApiName *string `json:"enum_field_api_name,omitempty"` // 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口中返回的 `custom_api_name` 字段获取
 
-	EnumFieldOption *EnumFieldOption `json:"enum_field_option,omitempty"` // 枚举选项
+	EnumFieldOption *EnumFieldOption `json:"enum_field_option,omitempty"` //
 }
 
 type EditEnumOptionCommonDataMetaDataReq struct {
@@ -22684,15 +22980,15 @@ func NewCreateCompanyReqBuilder() *CreateCompanyReqBuilder {
 	return builder
 }
 
-// 根据client_token是否一致来判断是否为同一请求
+// 操作的唯一标识，用于幂等的进行更新操作，根据client_token是否一致来判断是否为同一请求。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
 //
-// 示例值：12454646
+// 示例值："22ff85f7-5938-4579-9b57-d52cfeb05d52"
 func (builder *CreateCompanyReqBuilder) ClientToken(clientToken string) *CreateCompanyReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
 
-// 创建公司
+// 支持在单个接口中进行公司信息添加，包括公司基本信息、注册地址信息、工作地址信息等
 func (builder *CreateCompanyReqBuilder) Company(company *Company) *CreateCompanyReqBuilder {
 	builder.company = company
 	return builder
@@ -22738,7 +23034,7 @@ func NewDeleteCompanyReqBuilder() *DeleteCompanyReqBuilder {
 	return builder
 }
 
-// 需要删除的公司ID
+// 需要删除的公司ID。ID获取方式：;- 调用[【创建公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/create)[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)等接口可以返回部门ID
 //
 // 示例值：341432424
 func (builder *DeleteCompanyReqBuilder) CompanyId(companyId string) *DeleteCompanyReqBuilder {
@@ -22779,7 +23075,7 @@ func NewGetCompanyReqBuilder() *GetCompanyReqBuilder {
 	return builder
 }
 
-// 公司 ID
+// 需要查询的公司ID。ID获取方式：;- 调用[【创建公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/create)[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)等接口可以返回公司ID
 //
 // 示例值：151515
 func (builder *GetCompanyReqBuilder) CompanyId(companyId string) *GetCompanyReqBuilder {
@@ -22825,7 +23121,7 @@ func NewListCompanyReqBuilder() *ListCompanyReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：1231231987
 func (builder *ListCompanyReqBuilder) PageToken(pageToken string) *ListCompanyReqBuilder {
@@ -22833,11 +23129,19 @@ func (builder *ListCompanyReqBuilder) PageToken(pageToken string) *ListCompanyRe
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小
 //
 // 示例值：100
 func (builder *ListCompanyReqBuilder) PageSize(pageSize string) *ListCompanyReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 生效日期，格式为 yyyy-MM-dd;;传入后，接口按该日期对应时间点查询公司数据，仅返回在该时间点有效的公司；晚于该日期生效的公司不会被查询到。;
+//
+// 示例值：2022-01-01
+func (builder *ListCompanyReqBuilder) EffectiveDate(effectiveDate string) *ListCompanyReqBuilder {
+	builder.apiReq.QueryParams.Set("effective_date", fmt.Sprint(effectiveDate))
 	return builder
 }
 
@@ -22855,9 +23159,9 @@ type ListCompanyReq struct {
 type ListCompanyRespData struct {
 	Items []*Company `json:"items,omitempty"` // 查询的公司信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListCompanyResp struct {
@@ -22884,9 +23188,9 @@ func NewPatchCompanyReqBuilder() *PatchCompanyReqBuilder {
 	return builder
 }
 
-// 需要更新的公司 ID
+// 需要更新的公司 ID。ID获取方式：;- 调用[【创建公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/create)[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)等接口可以返回部门ID
 //
-// 示例值：1616161616
+// 示例值：6863333352603125255
 func (builder *PatchCompanyReqBuilder) CompanyId(companyId string) *PatchCompanyReqBuilder {
 	builder.apiReq.PathParams.Set("company_id", fmt.Sprint(companyId))
 	return builder
@@ -22894,13 +23198,13 @@ func (builder *PatchCompanyReqBuilder) CompanyId(companyId string) *PatchCompany
 
 // 根据client_token是否一致来判断是否为同一请求
 //
-// 示例值：12454646
+// 示例值：fe599b60-450f-46ff-b2ef-9f6675625b97
 func (builder *PatchCompanyReqBuilder) ClientToken(clientToken string) *PatchCompanyReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
 
-// 更新公司数据
+// 更新公司信息，包括基本信息、注册地址、办公地址等
 func (builder *PatchCompanyReqBuilder) Company(company *Company) *PatchCompanyReqBuilder {
 	builder.company = company
 	return builder
@@ -22921,7 +23225,7 @@ type PatchCompanyReq struct {
 }
 
 type PatchCompanyRespData struct {
-	Company *Company `json:"company,omitempty"` //
+	Company *Company `json:"company,omitempty"` // 公司
 }
 
 type PatchCompanyResp struct {
@@ -22955,15 +23259,15 @@ func (builder *MatchCompensationStandardReqBuilder) UserIdType(userIdType string
 	return builder
 }
 
-// 此次调用中使用的部门 ID 类型
+// 此次调用中使用的部门 ID 类型，传入部门ID时传入
 //
-// 示例值：
+// 示例值：open_department_id
 func (builder *MatchCompensationStandardReqBuilder) DepartmentIdType(departmentIdType string) *MatchCompensationStandardReqBuilder {
 	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
 	return builder
 }
 
-// 雇员ID
+// 雇员ID，可通过接口[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取
 //
 // 示例值：7124293751317038636
 func (builder *MatchCompensationStandardReqBuilder) EmploymentId(employmentId string) *MatchCompensationStandardReqBuilder {
@@ -22973,13 +23277,13 @@ func (builder *MatchCompensationStandardReqBuilder) EmploymentId(employmentId st
 
 // 薪资标准的关联对象，项目或者指标
 //
-// 示例值：
+// 示例值：cpst_item
 func (builder *MatchCompensationStandardReqBuilder) ReferenceObjectApi(referenceObjectApi string) *MatchCompensationStandardReqBuilder {
 	builder.apiReq.QueryParams.Set("reference_object_api", fmt.Sprint(referenceObjectApi))
 	return builder
 }
 
-// 薪资标准关联对象ID
+// 薪资标准表关联对象ID，即薪资项目/统计指标ID，可通过接口[【批量查询薪资项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)、[【批量查询薪资统计指标】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)获取
 //
 // 示例值：7156853394442044972
 func (builder *MatchCompensationStandardReqBuilder) ReferenceObjectId(referenceObjectId string) *MatchCompensationStandardReqBuilder {
@@ -22987,7 +23291,7 @@ func (builder *MatchCompensationStandardReqBuilder) ReferenceObjectId(referenceO
 	return builder
 }
 
-// 部门ID
+// 部门ID，可通过接口[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/list)获取
 //
 // 示例值：od-53899868dd0da32292a2d809f0518c8f
 func (builder *MatchCompensationStandardReqBuilder) DepartmentId(departmentId string) *MatchCompensationStandardReqBuilder {
@@ -22995,7 +23299,7 @@ func (builder *MatchCompensationStandardReqBuilder) DepartmentId(departmentId st
 	return builder
 }
 
-// 工作地点ID
+// 工作地点ID，可通过接口[【批量查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)获取
 //
 // 示例值：7094869485965870636
 func (builder *MatchCompensationStandardReqBuilder) WorkLocationId(workLocationId string) *MatchCompensationStandardReqBuilder {
@@ -23003,7 +23307,7 @@ func (builder *MatchCompensationStandardReqBuilder) WorkLocationId(workLocationI
 	return builder
 }
 
-// 公司ID
+// 公司ID，可通过接口[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)获取
 //
 // 示例值：7091599096804394540
 func (builder *MatchCompensationStandardReqBuilder) CompanyId(companyId string) *MatchCompensationStandardReqBuilder {
@@ -23011,7 +23315,7 @@ func (builder *MatchCompensationStandardReqBuilder) CompanyId(companyId string) 
 	return builder
 }
 
-// 职务序列ID
+// 职务序列ID，可通过接口[【批量查询职务序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)获取
 //
 // 示例值：7039313681989502508
 func (builder *MatchCompensationStandardReqBuilder) JobFamilyId(jobFamilyId string) *MatchCompensationStandardReqBuilder {
@@ -23019,7 +23323,7 @@ func (builder *MatchCompensationStandardReqBuilder) JobFamilyId(jobFamilyId stri
 	return builder
 }
 
-// 职务ID
+// 职务ID，可通过接口[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)
 //
 // 示例值：7342883436321097257
 func (builder *MatchCompensationStandardReqBuilder) JobId(jobId string) *MatchCompensationStandardReqBuilder {
@@ -23027,7 +23331,7 @@ func (builder *MatchCompensationStandardReqBuilder) JobId(jobId string) *MatchCo
 	return builder
 }
 
-// 职级ID
+// 职级ID，可通过接口[【批量查询职务级别】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)获取
 //
 // 示例值：7086415175263258156
 func (builder *MatchCompensationStandardReqBuilder) JobLevelId(jobLevelId string) *MatchCompensationStandardReqBuilder {
@@ -23035,7 +23339,7 @@ func (builder *MatchCompensationStandardReqBuilder) JobLevelId(jobLevelId string
 	return builder
 }
 
-// 人员类型ID
+// 人员类型ID，可通过接口[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)获取
 //
 // 示例值：7039310401359775276
 func (builder *MatchCompensationStandardReqBuilder) EmployeeTypeId(employeeTypeId string) *MatchCompensationStandardReqBuilder {
@@ -23051,7 +23355,7 @@ func (builder *MatchCompensationStandardReqBuilder) RecruitmentType(recruitmentT
 	return builder
 }
 
-// 定调薪原因ID
+// 定调薪原因ID，可通过接口[【批量查询定调薪原因】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)获取
 //
 // 示例值：6967639606963471117
 func (builder *MatchCompensationStandardReqBuilder) CpstChangeReasonId(cpstChangeReasonId string) *MatchCompensationStandardReqBuilder {
@@ -23059,7 +23363,7 @@ func (builder *MatchCompensationStandardReqBuilder) CpstChangeReasonId(cpstChang
 	return builder
 }
 
-// 薪资方案ID
+// 薪资方案ID，可通过接口[【批量查询薪资方案】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)获取
 //
 // 示例值：6967639606963471118
 func (builder *MatchCompensationStandardReqBuilder) CpstPlanId(cpstPlanId string) *MatchCompensationStandardReqBuilder {
@@ -23075,7 +23379,7 @@ func (builder *MatchCompensationStandardReqBuilder) CpstSalaryLevelId(cpstSalary
 	return builder
 }
 
-// 生效时间
+// 生效时间（毫秒级时间戳）
 //
 // 示例值：1660924800000
 func (builder *MatchCompensationStandardReqBuilder) EffectiveTime(effectiveTime string) *MatchCompensationStandardReqBuilder {
@@ -23139,6 +23443,46 @@ func (builder *MatchCompensationStandardReqBuilder) CustomOrg5Ids(customOrg5Ids 
 	return builder
 }
 
+// 自定义组织6 IDs
+//
+// 示例值：7530538330711508524
+func (builder *MatchCompensationStandardReqBuilder) CustomOrg6Ids(customOrg6Ids string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("custom_org_6_ids", fmt.Sprint(customOrg6Ids))
+	return builder
+}
+
+// 自定义组织7 IDs
+//
+// 示例值：7530538330711508524
+func (builder *MatchCompensationStandardReqBuilder) CustomOrg7Ids(customOrg7Ids string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("custom_org_7_ids", fmt.Sprint(customOrg7Ids))
+	return builder
+}
+
+// 自定义组织8 IDs
+//
+// 示例值：7530538330711508524
+func (builder *MatchCompensationStandardReqBuilder) CustomOrg8Ids(customOrg8Ids string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("custom_org_8_ids", fmt.Sprint(customOrg8Ids))
+	return builder
+}
+
+// 自定义组织9 IDs
+//
+// 示例值：7530538330711508524
+func (builder *MatchCompensationStandardReqBuilder) CustomOrg9Ids(customOrg9Ids string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("custom_org_9_ids", fmt.Sprint(customOrg9Ids))
+	return builder
+}
+
+// 自定义组织10 IDs
+//
+// 示例值：7530538330711508524
+func (builder *MatchCompensationStandardReqBuilder) CustomOrg10Ids(customOrg10Ids string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("custom_org_10_ids", fmt.Sprint(customOrg10Ids))
+	return builder
+}
+
 func (builder *MatchCompensationStandardReqBuilder) Build() *MatchCompensationStandardReq {
 	req := &MatchCompensationStandardReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -23155,7 +23499,7 @@ type MatchCompensationStandardRespData struct {
 
 	Grade *CpstGrade `json:"grade,omitempty"` // 薪资等级
 
-	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间
+	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间（毫秒级时间戳）
 }
 
 type MatchCompensationStandardResp struct {
@@ -23182,15 +23526,15 @@ func NewCreateContractReqBuilder() *CreateContractReqBuilder {
 	return builder
 }
 
-// 根据client_token是否一致来判断是否为同一请求
+// 自定义值，根据client_token是否一致来判断是否为同一请求
 //
-// 示例值：12454646
+// 示例值：22ff85f7-5938-4579-9b57-d52cfeb05d52
 func (builder *CreateContractReqBuilder) ClientToken(clientToken string) *CreateContractReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
 
-// 创建合同
+// 通过本接口可以为员工创建一份新合同
 func (builder *CreateContractReqBuilder) Contract(contract *Contract) *CreateContractReqBuilder {
 	builder.contract = contract
 	return builder
@@ -23236,9 +23580,9 @@ func NewDeleteContractReqBuilder() *DeleteContractReqBuilder {
 	return builder
 }
 
-// 需要删除的合同 ID
+// 需要删除的合同 ID，该ID可以通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取
 //
-// 示例值：4137834332
+// 示例值：7091849027838838316
 func (builder *DeleteContractReqBuilder) ContractId(contractId string) *DeleteContractReqBuilder {
 	builder.apiReq.PathParams.Set("contract_id", fmt.Sprint(contractId))
 	return builder
@@ -23277,9 +23621,9 @@ func NewGetContractReqBuilder() *GetContractReqBuilder {
 	return builder
 }
 
-// 合同ID
+// 合同ID，该ID可以通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取
 //
-// 示例值：151515
+// 示例值：7091849027838838316
 func (builder *GetContractReqBuilder) ContractId(contractId string) *GetContractReqBuilder {
 	builder.apiReq.PathParams.Set("contract_id", fmt.Sprint(contractId))
 	return builder
@@ -23323,17 +23667,17 @@ func NewListContractReqBuilder() *ListContractReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：1231231987
+// 示例值：10
 func (builder *ListContractReqBuilder) PageToken(pageToken string) *ListContractReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小；范围：0～50
 //
-// 示例值：100
+// 示例值：10
 func (builder *ListContractReqBuilder) PageSize(pageSize string) *ListContractReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -23353,9 +23697,9 @@ type ListContractReq struct {
 type ListContractRespData struct {
 	Items []*Contract `json:"items,omitempty"` // 查询的合同信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListContractResp struct {
@@ -23382,23 +23726,23 @@ func NewPatchContractReqBuilder() *PatchContractReqBuilder {
 	return builder
 }
 
-// 合同ID
+// 合同ID，该ID可以通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取
 //
-// 示例值：1616161616
+// 示例值：7091849027838838316
 func (builder *PatchContractReqBuilder) ContractId(contractId string) *PatchContractReqBuilder {
 	builder.apiReq.PathParams.Set("contract_id", fmt.Sprint(contractId))
 	return builder
 }
 
-// 根据client_token是否一致来判断是否为同一请求
+// 自定义值，根据client_token是否一致来判断是否为同一请求
 //
-// 示例值：12454646
+// 示例值：227988d7-66da-4afb-9943-32e73d5cda8b
 func (builder *PatchContractReqBuilder) ClientToken(clientToken string) *PatchContractReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
 
-// 更新合同
+// 通过该接口可以更新员工合同相关信息，没有修改的参数会保留原值
 func (builder *PatchContractReqBuilder) Contract(contract *Contract) *PatchContractReqBuilder {
 	builder.contract = contract
 	return builder
@@ -23491,7 +23835,7 @@ func NewListCountryRegionReqBuilder() *ListCountryRegionReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：1231231987
 func (builder *ListCountryRegionReqBuilder) PageToken(pageToken string) *ListCountryRegionReqBuilder {
@@ -23499,7 +23843,7 @@ func (builder *ListCountryRegionReqBuilder) PageToken(pageToken string) *ListCou
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小
 //
 // 示例值：100
 func (builder *ListCountryRegionReqBuilder) PageSize(pageSize string) *ListCountryRegionReqBuilder {
@@ -23521,9 +23865,9 @@ type ListCountryRegionReq struct {
 type ListCountryRegionRespData struct {
 	Items []*CountryRegion `json:"items,omitempty"` // 国家/地区信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListCountryRegionResp struct {
@@ -23595,7 +23939,7 @@ func NewListCurrencyReqBuilder() *ListCurrencyReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：1231231987
 func (builder *ListCurrencyReqBuilder) PageToken(pageToken string) *ListCurrencyReqBuilder {
@@ -23603,7 +23947,7 @@ func (builder *ListCurrencyReqBuilder) PageToken(pageToken string) *ListCurrency
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小
 //
 // 示例值：100
 func (builder *ListCurrencyReqBuilder) PageSize(pageSize string) *ListCurrencyReqBuilder {
@@ -23625,9 +23969,9 @@ type ListCurrencyReq struct {
 type ListCurrencyRespData struct {
 	Items []*Currency `json:"items,omitempty"` // 货币信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListCurrencyResp struct {
@@ -23653,7 +23997,7 @@ func NewGetByParamCustomFieldReqBuilder() *GetByParamCustomFieldReqBuilder {
 	return builder
 }
 
-// 所属对象 apiname
+// 所属对象 API name，可从[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)接口列举所有对象及其 API name
 //
 // 示例值：offboarding_info
 func (builder *GetByParamCustomFieldReqBuilder) ObjectApiName(objectApiName string) *GetByParamCustomFieldReqBuilder {
@@ -23661,9 +24005,9 @@ func (builder *GetByParamCustomFieldReqBuilder) ObjectApiName(objectApiName stri
 	return builder
 }
 
-// 自定义字段 apiname
+// 字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口中返回的 `custom_api_name` 字段获取
 //
-// 示例值：custom_field_33
+// 示例值：custom_field_33__c
 func (builder *GetByParamCustomFieldReqBuilder) CustomApiName(customApiName string) *GetByParamCustomFieldReqBuilder {
 	builder.apiReq.QueryParams.Set("custom_api_name", fmt.Sprint(customApiName))
 	return builder
@@ -23681,7 +24025,7 @@ type GetByParamCustomFieldReq struct {
 }
 
 type GetByParamCustomFieldRespData struct {
-	Data *CustomField `json:"data,omitempty"` // 自定义字段详情
+	Data *CustomField `json:"data,omitempty"` // 字段详情
 }
 
 type GetByParamCustomFieldResp struct {
@@ -23707,7 +24051,7 @@ func NewListObjectApiNameCustomFieldReqBuilder() *ListObjectApiNameCustomFieldRe
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：11
 func (builder *ListObjectApiNameCustomFieldReqBuilder) PageToken(pageToken string) *ListObjectApiNameCustomFieldReqBuilder {
@@ -23715,7 +24059,7 @@ func (builder *ListObjectApiNameCustomFieldReqBuilder) PageToken(pageToken strin
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小
 //
 // 示例值：100
 func (builder *ListObjectApiNameCustomFieldReqBuilder) PageSize(pageSize string) *ListObjectApiNameCustomFieldReqBuilder {
@@ -23737,9 +24081,9 @@ type ListObjectApiNameCustomFieldReq struct {
 type ListObjectApiNameCustomFieldRespData struct {
 	Items []*Object `json:"items,omitempty"` // 对象列表
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListObjectApiNameCustomFieldResp struct {
@@ -23765,9 +24109,9 @@ func NewQueryCustomFieldReqBuilder() *QueryCustomFieldReqBuilder {
 	return builder
 }
 
-// 所属对象 apiname，支持一个或多个;;当前数量限制为 20 个
+// 所属对象 API name，支持一个或多个，当前数量限制为 20 个。可从[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)接口列举所有对象及其 API name
 //
-// 示例值：["offboarding_info"]
+// 示例值：
 func (builder *QueryCustomFieldReqBuilder) ObjectApiNameList(objectApiNameList []string) *QueryCustomFieldReqBuilder {
 	for _, v := range objectApiNameList {
 		builder.apiReq.QueryParams.Add("object_api_name_list", fmt.Sprint(v))
@@ -23838,7 +24182,7 @@ func (builder *CreateDepartmentReqBuilder) DepartmentIdType(departmentIdType str
 	return builder
 }
 
-// 创建部门
+// 支持在单个接口中进行部门信息添加，包括部门基本信息、部门负责人、部门自定义字段信息等
 func (builder *CreateDepartmentReqBuilder) DepartmentCreate(departmentCreate *DepartmentCreate) *CreateDepartmentReqBuilder {
 	builder.departmentCreate = departmentCreate
 	return builder
@@ -23884,7 +24228,7 @@ func NewDeleteDepartmentReqBuilder() *DeleteDepartmentReqBuilder {
 	return builder
 }
 
-// 需要删除的部门 ID
+// 需要删除的部门 ID，可通过[【搜索部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)接口查询获得
 //
 // 示例值：341143141
 func (builder *DeleteDepartmentReqBuilder) DepartmentId(departmentId string) *DeleteDepartmentReqBuilder {
@@ -23925,7 +24269,7 @@ func NewGetDepartmentReqBuilder() *GetDepartmentReqBuilder {
 	return builder
 }
 
-// 部门 ID
+// 部门ID。ID获取方式：;- 调用[【创建部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/create)[【搜索部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)等接口可以返回部门ID;- 也可以通过[【事件】创建部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/created)[【事件】更新部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/updated) 获取部门ID信息
 //
 // 示例值：45456564
 func (builder *GetDepartmentReqBuilder) DepartmentId(departmentId string) *GetDepartmentReqBuilder {
@@ -23988,7 +24332,7 @@ func NewListDepartmentReqBuilder() *ListDepartmentReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值："6966234786251671053"
 func (builder *ListDepartmentReqBuilder) PageToken(pageToken string) *ListDepartmentReqBuilder {
@@ -23996,7 +24340,7 @@ func (builder *ListDepartmentReqBuilder) PageToken(pageToken string) *ListDepart
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小
 //
 // 示例值：100
 func (builder *ListDepartmentReqBuilder) PageSize(pageSize string) *ListDepartmentReqBuilder {
@@ -24006,7 +24350,7 @@ func (builder *ListDepartmentReqBuilder) PageSize(pageSize string) *ListDepartme
 
 // 部门ID列表
 //
-// 示例值：["6966234786251671053"]
+// 示例值：
 func (builder *ListDepartmentReqBuilder) DepartmentIdList(departmentIdList []string) *ListDepartmentReqBuilder {
 	for _, v := range departmentIdList {
 		builder.apiReq.QueryParams.Add("department_id_list", fmt.Sprint(v))
@@ -24016,7 +24360,7 @@ func (builder *ListDepartmentReqBuilder) DepartmentIdList(departmentIdList []str
 
 // 部门名称列表，需精确匹配
 //
-// 示例值：["校验部门"]
+// 示例值：
 func (builder *ListDepartmentReqBuilder) NameList(nameList []string) *ListDepartmentReqBuilder {
 	for _, v := range nameList {
 		builder.apiReq.QueryParams.Add("name_list", fmt.Sprint(v))
@@ -24054,9 +24398,9 @@ type ListDepartmentReq struct {
 type ListDepartmentRespData struct {
 	Items []*Department `json:"items,omitempty"` // 查询的部门信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListDepartmentResp struct {
@@ -24115,7 +24459,7 @@ func (builder *PatchDepartmentReqBuilder) DepartmentIdType(departmentIdType stri
 	return builder
 }
 
-// 更新部门
+// 更新部门信息，包括基础信息、自定义字段信息。
 func (builder *PatchDepartmentReqBuilder) Department(department *Department) *PatchDepartmentReqBuilder {
 	builder.department = department
 	return builder
@@ -24171,7 +24515,7 @@ func (builder *CreateEmployeeTypeReqBuilder) ClientToken(clientToken string) *Cr
 	return builder
 }
 
-// 创建人员类型
+// 创建人员类型。
 func (builder *CreateEmployeeTypeReqBuilder) EmployeeType(employeeType *EmployeeType) *CreateEmployeeTypeReqBuilder {
 	builder.employeeType = employeeType
 	return builder
@@ -24217,7 +24561,7 @@ func NewDeleteEmployeeTypeReqBuilder() *DeleteEmployeeTypeReqBuilder {
 	return builder
 }
 
-// 需要删除的人员类型ID
+// 需要删除的人员类型ID;- 可通过[批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)获取
 //
 // 示例值：434343434
 func (builder *DeleteEmployeeTypeReqBuilder) EmployeeTypeId(employeeTypeId string) *DeleteEmployeeTypeReqBuilder {
@@ -24258,7 +24602,7 @@ func NewGetEmployeeTypeReqBuilder() *GetEmployeeTypeReqBuilder {
 	return builder
 }
 
-// 雇员类型ID
+// 雇员类型ID;- 可通过[批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)获取
 //
 // 示例值：1
 func (builder *GetEmployeeTypeReqBuilder) EmployeeTypeId(employeeTypeId string) *GetEmployeeTypeReqBuilder {
@@ -24304,7 +24648,7 @@ func NewListEmployeeTypeReqBuilder() *ListEmployeeTypeReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：1231231987
 func (builder *ListEmployeeTypeReqBuilder) PageToken(pageToken string) *ListEmployeeTypeReqBuilder {
@@ -24312,7 +24656,7 @@ func (builder *ListEmployeeTypeReqBuilder) PageToken(pageToken string) *ListEmpl
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小;- 格式：整数;- 范围：（0, 2000）
 //
 // 示例值：100
 func (builder *ListEmployeeTypeReqBuilder) PageSize(pageSize string) *ListEmployeeTypeReqBuilder {
@@ -24334,9 +24678,9 @@ type ListEmployeeTypeReq struct {
 type ListEmployeeTypeRespData struct {
 	Items []*EmployeeType `json:"items,omitempty"` // 查询的雇员类型信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListEmployeeTypeResp struct {
@@ -24363,7 +24707,7 @@ func NewPatchEmployeeTypeReqBuilder() *PatchEmployeeTypeReqBuilder {
 	return builder
 }
 
-// 雇员类型 ID
+// 雇员类型 ID;- 可通过[批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)获取
 //
 // 示例值：6969828847931885087
 func (builder *PatchEmployeeTypeReqBuilder) EmployeeTypeId(employeeTypeId string) *PatchEmployeeTypeReqBuilder {
@@ -24379,7 +24723,7 @@ func (builder *PatchEmployeeTypeReqBuilder) ClientToken(clientToken string) *Pat
 	return builder
 }
 
-// 更新人员类型数据
+// 更新人员类型。
 func (builder *PatchEmployeeTypeReqBuilder) EmployeeType(employeeType *EmployeeType) *PatchEmployeeTypeReqBuilder {
 	builder.employeeType = employeeType
 	return builder
@@ -24435,7 +24779,7 @@ func (builder *CreateEmploymentReqBuilder) ClientToken(clientToken string) *Crea
 	return builder
 }
 
-// 创建人员的雇佣信息
+// 创建人员的雇佣信息，需要先[创建个人信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/create)。
 func (builder *CreateEmploymentReqBuilder) EmploymentCreate(employmentCreate *EmploymentCreate) *CreateEmploymentReqBuilder {
 	builder.employmentCreate = employmentCreate
 	return builder
@@ -24532,7 +24876,7 @@ func NewPatchEmploymentReqBuilder() *PatchEmploymentReqBuilder {
 	return builder
 }
 
-// 雇员ID
+// 雇佣 ID;- 类型应与 user_id_type 一致
 //
 // 示例值：1616161616
 func (builder *PatchEmploymentReqBuilder) EmploymentId(employmentId string) *PatchEmploymentReqBuilder {
@@ -24564,7 +24908,7 @@ func (builder *PatchEmploymentReqBuilder) DepartmentIdType(departmentIdType stri
 	return builder
 }
 
-// 更新雇佣信息
+// 更新人事工作信息下的字段，如：工号、工作邮箱、雇佣类型、自定义字段等
 func (builder *PatchEmploymentReqBuilder) Employment(employment *Employment) *PatchEmploymentReqBuilder {
 	builder.employment = employment
 	return builder
@@ -24676,7 +25020,7 @@ func (builder *CreateJobReqBuilder) ClientToken(clientToken string) *CreateJobRe
 	return builder
 }
 
-// 创建职务
+// 该接口用于创建职务信息，创建后系统中新增一条包含职务编码、名称、描述等信息的职务记录，适用于企业新增职务类型时，HR需要创建职务信息以便分配给员工的场景
 func (builder *CreateJobReqBuilder) Job(job *Job) *CreateJobReqBuilder {
 	builder.job = job
 	return builder
@@ -24722,7 +25066,7 @@ func NewDeleteJobReqBuilder() *DeleteJobReqBuilder {
 	return builder
 }
 
-// 需要删除的职务 ID
+// 需要删除的职务 ID。ID获取方式：;- 调用[【创建职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/create)[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)等可以返回职务ID;- 也可以通过[【事件】创建职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/events/created) [【事件】更新职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/events/updated) 获取ID
 //
 // 示例值：67163716371
 func (builder *DeleteJobReqBuilder) JobId(jobId string) *DeleteJobReqBuilder {
@@ -24809,7 +25153,7 @@ func NewListJobReqBuilder() *ListJobReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：1231231987
 func (builder *ListJobReqBuilder) PageToken(pageToken string) *ListJobReqBuilder {
@@ -24817,7 +25161,7 @@ func (builder *ListJobReqBuilder) PageToken(pageToken string) *ListJobReqBuilder
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小
 //
 // 示例值：100
 func (builder *ListJobReqBuilder) PageSize(pageSize string) *ListJobReqBuilder {
@@ -24855,9 +25199,9 @@ type ListJobReq struct {
 type ListJobRespData struct {
 	Items []*Job `json:"items,omitempty"` // 查询的职务信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListJobResp struct {
@@ -24884,7 +25228,7 @@ func NewPatchJobReqBuilder() *PatchJobReqBuilder {
 	return builder
 }
 
-// 职务ID
+// 职务ID。ID获取方式：;- 调用[【创建职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/create)[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)等可以返回职务ID;- 也可以通过[【事件】创建职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/events/created) [【事件】更新职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/events/updated) 获取ID
 //
 // 示例值：1616161616
 func (builder *PatchJobReqBuilder) JobId(jobId string) *PatchJobReqBuilder {
@@ -24900,7 +25244,7 @@ func (builder *PatchJobReqBuilder) ClientToken(clientToken string) *PatchJobReqB
 	return builder
 }
 
-// 更新职务
+// 可以通过职务ID更新单个职务详情信息，例如职务名称、描述等。
 func (builder *PatchJobReqBuilder) Job(job *Job) *PatchJobReqBuilder {
 	builder.job = job
 	return builder
@@ -24938,25 +25282,25 @@ type CreateJobChangeReqBodyBuilder struct {
 	transferMode    int // 异动方式
 	transferModeSet bool
 
-	employmentId    string // 雇员id
+	employmentId    string // 雇员ID，ID 类型与查询参数 user_id_type 的取值一致。;- 当user_id_type=user_id时，该字段取员工的user_id，取值参考user_id_type部分。;- 当user_id_type=people_corehr_id时，则取该员工的人事雇佣ID，可从[雇佣ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取。
 	employmentIdSet bool
 
-	transferTypeUniqueIdentifier    string // 异动类型唯一标识
+	transferTypeUniqueIdentifier    string // 异动类型唯一标识，不支持仅在特殊场景使用的异动类型，如组织架构调整、职责转交和试用期转正。可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取
 	transferTypeUniqueIdentifierSet bool
 
-	flowId    string // 异动流程ID
+	flowId    string // 关联流程唯一标识符，可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取;;注意：当异动方式为2时，该字段为必填
 	flowIdSet bool
 
-	effectiveDate    string // 生效日期
+	effectiveDate    string // 生效日期，格式："YYYY-MM-DD"
 	effectiveDateSet bool
 
-	transferInfo    *TransferInfo // 异动详细信息
+	transferInfo    *TransferInfo // 异动详细信息，以下参数如不传，无默认值，代表对应数据无异动
 	transferInfoSet bool
 
-	transferKey    string // 异动记录标识符
+	transferKey    string // 发起异动幂等标志，发起失败可以重新用此标志继续请求
 	transferKeySet bool
 
-	initiatorId    string // 异动发起人 ID
+	initiatorId    string // 异动发起人 ID，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 	initiatorIdSet bool
 }
 
@@ -24967,70 +25311,70 @@ func NewCreateJobChangeReqBodyBuilder() *CreateJobChangeReqBodyBuilder {
 
 // 异动方式
 //
-//示例值：2
+// 示例值：2
 func (builder *CreateJobChangeReqBodyBuilder) TransferMode(transferMode int) *CreateJobChangeReqBodyBuilder {
 	builder.transferMode = transferMode
 	builder.transferModeSet = true
 	return builder
 }
 
-// 雇员id
+// 雇员ID，ID 类型与查询参数 user_id_type 的取值一致。;- 当user_id_type=user_id时，该字段取员工的user_id，取值参考user_id_type部分。;- 当user_id_type=people_corehr_id时，则取该员工的人事雇佣ID，可从[雇佣ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取。
 //
-//示例值：ou_a294793e8fa21529f2a60e3e9de45520
+// 示例值：ou_a294793e8fa21529f2a60e3e9de45520
 func (builder *CreateJobChangeReqBodyBuilder) EmploymentId(employmentId string) *CreateJobChangeReqBodyBuilder {
 	builder.employmentId = employmentId
 	builder.employmentIdSet = true
 	return builder
 }
 
-// 异动类型唯一标识
+// 异动类型唯一标识，不支持仅在特殊场景使用的异动类型，如组织架构调整、职责转交和试用期转正。可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取
 //
-//示例值：internal_transfer
+// 示例值：internal_transfer
 func (builder *CreateJobChangeReqBodyBuilder) TransferTypeUniqueIdentifier(transferTypeUniqueIdentifier string) *CreateJobChangeReqBodyBuilder {
 	builder.transferTypeUniqueIdentifier = transferTypeUniqueIdentifier
 	builder.transferTypeUniqueIdentifierSet = true
 	return builder
 }
 
-// 异动流程ID
+// 关联流程唯一标识符，可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取;;注意：当异动方式为2时，该字段为必填
 //
-//示例值：people_6963913041981490725_6983885526583627531
+// 示例值：people_6963913041981490725_6983885526583627531
 func (builder *CreateJobChangeReqBodyBuilder) FlowId(flowId string) *CreateJobChangeReqBodyBuilder {
 	builder.flowId = flowId
 	builder.flowIdSet = true
 	return builder
 }
 
-// 生效日期
+// 生效日期，格式："YYYY-MM-DD"
 //
-//示例值：2022-03-01
+// 示例值：2022-03-01
 func (builder *CreateJobChangeReqBodyBuilder) EffectiveDate(effectiveDate string) *CreateJobChangeReqBodyBuilder {
 	builder.effectiveDate = effectiveDate
 	builder.effectiveDateSet = true
 	return builder
 }
 
-// 异动详细信息
+// 异动详细信息，以下参数如不传，无默认值，代表对应数据无异动
 //
-//示例值：
+// 示例值：
 func (builder *CreateJobChangeReqBodyBuilder) TransferInfo(transferInfo *TransferInfo) *CreateJobChangeReqBodyBuilder {
 	builder.transferInfo = transferInfo
 	builder.transferInfoSet = true
 	return builder
 }
 
-// 异动记录标识符
+// 发起异动幂等标志，发起失败可以重新用此标志继续请求
 //
-//示例值：transfer_3627531
+// 示例值：transfer_3627531
 func (builder *CreateJobChangeReqBodyBuilder) TransferKey(transferKey string) *CreateJobChangeReqBodyBuilder {
 	builder.transferKey = transferKey
 	builder.transferKeySet = true
 	return builder
 }
 
-// 异动发起人 ID
+// 异动发起人 ID，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 //
-//示例值：ou_a294793e8fa21529f2a60e3e9de45520
+// 示例值：ou_a294793e8fa21529f2a60e3e9de45520
 func (builder *CreateJobChangeReqBodyBuilder) InitiatorId(initiatorId string) *CreateJobChangeReqBodyBuilder {
 	builder.initiatorId = initiatorId
 	builder.initiatorIdSet = true
@@ -25099,7 +25443,7 @@ func (builder *CreateJobChangePathReqBodyBuilder) TransferMode(transferMode int)
 	return builder
 }
 
-// 雇员id
+// 雇员ID，ID 类型与查询参数 user_id_type 的取值一致。;- 当user_id_type=user_id时，该字段取员工的user_id，取值参考user_id_type部分。;- 当user_id_type=people_corehr_id时，则取该员工的人事雇佣ID，可从[雇佣ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取。
 //
 // 示例值：ou_a294793e8fa21529f2a60e3e9de45520
 func (builder *CreateJobChangePathReqBodyBuilder) EmploymentId(employmentId string) *CreateJobChangePathReqBodyBuilder {
@@ -25108,7 +25452,7 @@ func (builder *CreateJobChangePathReqBodyBuilder) EmploymentId(employmentId stri
 	return builder
 }
 
-// 异动类型唯一标识
+// 异动类型唯一标识，不支持仅在特殊场景使用的异动类型，如组织架构调整、职责转交和试用期转正。可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取
 //
 // 示例值：internal_transfer
 func (builder *CreateJobChangePathReqBodyBuilder) TransferTypeUniqueIdentifier(transferTypeUniqueIdentifier string) *CreateJobChangePathReqBodyBuilder {
@@ -25117,7 +25461,7 @@ func (builder *CreateJobChangePathReqBodyBuilder) TransferTypeUniqueIdentifier(t
 	return builder
 }
 
-// 异动流程ID
+// 关联流程唯一标识符，可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取;;注意：当异动方式为2时，该字段为必填
 //
 // 示例值：people_6963913041981490725_6983885526583627531
 func (builder *CreateJobChangePathReqBodyBuilder) FlowId(flowId string) *CreateJobChangePathReqBodyBuilder {
@@ -25126,7 +25470,7 @@ func (builder *CreateJobChangePathReqBodyBuilder) FlowId(flowId string) *CreateJ
 	return builder
 }
 
-// 生效日期
+// 生效日期，格式："YYYY-MM-DD"
 //
 // 示例值：2022-03-01
 func (builder *CreateJobChangePathReqBodyBuilder) EffectiveDate(effectiveDate string) *CreateJobChangePathReqBodyBuilder {
@@ -25135,7 +25479,7 @@ func (builder *CreateJobChangePathReqBodyBuilder) EffectiveDate(effectiveDate st
 	return builder
 }
 
-// 异动详细信息
+// 异动详细信息，以下参数如不传，无默认值，代表对应数据无异动
 //
 // 示例值：
 func (builder *CreateJobChangePathReqBodyBuilder) TransferInfo(transferInfo *TransferInfo) *CreateJobChangePathReqBodyBuilder {
@@ -25144,7 +25488,7 @@ func (builder *CreateJobChangePathReqBodyBuilder) TransferInfo(transferInfo *Tra
 	return builder
 }
 
-// 异动记录标识符
+// 发起异动幂等标志，发起失败可以重新用此标志继续请求
 //
 // 示例值：transfer_3627531
 func (builder *CreateJobChangePathReqBodyBuilder) TransferKey(transferKey string) *CreateJobChangePathReqBodyBuilder {
@@ -25153,7 +25497,7 @@ func (builder *CreateJobChangePathReqBodyBuilder) TransferKey(transferKey string
 	return builder
 }
 
-// 异动发起人 ID
+// 异动发起人 ID，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 //
 // 示例值：ou_a294793e8fa21529f2a60e3e9de45520
 func (builder *CreateJobChangePathReqBodyBuilder) InitiatorId(initiatorId string) *CreateJobChangePathReqBodyBuilder {
@@ -25221,7 +25565,7 @@ func (builder *CreateJobChangeReqBuilder) DepartmentIdType(departmentIdType stri
 	return builder
 }
 
-// 创建员工异动信息
+// 该接口用于发起员工异动（变更员工雇佣信息），若发起成功，会生成一条员工的异动数据，同时产生相应的事件：[异动状态变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/events/updated)
 func (builder *CreateJobChangeReqBuilder) Body(body *CreateJobChangeReqBody) *CreateJobChangeReqBuilder {
 	builder.body = body
 	return builder
@@ -25238,19 +25582,19 @@ func (builder *CreateJobChangeReqBuilder) Build() *CreateJobChangeReq {
 type CreateJobChangeReqBody struct {
 	TransferMode *int `json:"transfer_mode,omitempty"` // 异动方式
 
-	EmploymentId *string `json:"employment_id,omitempty"` // 雇员id
+	EmploymentId *string `json:"employment_id,omitempty"` // 雇员ID，ID 类型与查询参数 user_id_type 的取值一致。;- 当user_id_type=user_id时，该字段取员工的user_id，取值参考user_id_type部分。;- 当user_id_type=people_corehr_id时，则取该员工的人事雇佣ID，可从[雇佣ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取。
 
-	TransferTypeUniqueIdentifier *string `json:"transfer_type_unique_identifier,omitempty"` // 异动类型唯一标识
+	TransferTypeUniqueIdentifier *string `json:"transfer_type_unique_identifier,omitempty"` // 异动类型唯一标识，不支持仅在特殊场景使用的异动类型，如组织架构调整、职责转交和试用期转正。可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取
 
-	FlowId *string `json:"flow_id,omitempty"` // 异动流程ID
+	FlowId *string `json:"flow_id,omitempty"` // 关联流程唯一标识符，可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取;;注意：当异动方式为2时，该字段为必填
 
-	EffectiveDate *string `json:"effective_date,omitempty"` // 生效日期
+	EffectiveDate *string `json:"effective_date,omitempty"` // 生效日期，格式："YYYY-MM-DD"
 
-	TransferInfo *TransferInfo `json:"transfer_info,omitempty"` // 异动详细信息
+	TransferInfo *TransferInfo `json:"transfer_info,omitempty"` // 异动详细信息，以下参数如不传，无默认值，代表对应数据无异动
 
-	TransferKey *string `json:"transfer_key,omitempty"` // 异动记录标识符
+	TransferKey *string `json:"transfer_key,omitempty"` // 发起异动幂等标志，发起失败可以重新用此标志继续请求
 
-	InitiatorId *string `json:"initiator_id,omitempty"` // 异动发起人 ID
+	InitiatorId *string `json:"initiator_id,omitempty"` // 异动发起人 ID，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 }
 
 type CreateJobChangeReq struct {
@@ -25265,17 +25609,17 @@ type CreateJobChangeRespData struct {
 
 	Status *int `json:"status,omitempty"` // 异动状态
 
-	TransferTypeUniqueIdentifier *string `json:"transfer_type_unique_identifier,omitempty"` // 异动类型
+	TransferTypeUniqueIdentifier *string `json:"transfer_type_unique_identifier,omitempty"` // 异动类型唯一标识
 
-	TransferReasonUniqueIdentifier *string `json:"transfer_reason_unique_identifier,omitempty"` // 异动原因
+	TransferReasonUniqueIdentifier *string `json:"transfer_reason_unique_identifier,omitempty"` // 异动原因唯一标识
 
-	ProcessId *string `json:"process_id,omitempty"` // 异动流程 id
+	ProcessId *string `json:"process_id,omitempty"` // 异动发起后审批流程 id
 
-	EffectiveDate *string `json:"effective_date,omitempty"` // 生效时间
+	EffectiveDate *string `json:"effective_date,omitempty"` // 异动生效日期
 
 	CreatedTime *string `json:"created_time,omitempty"` // 创建时间
 
-	TransferInfo *TransferInfo `json:"transfer_info,omitempty"` // 异动详细信息
+	TransferInfo *TransferInfo `json:"transfer_info,omitempty"` // 异动详细信息，以下参数如不传，无默认值，代表对应数据无异动
 }
 
 type CreateJobChangeResp struct {
@@ -25302,9 +25646,9 @@ func NewCreateJobDataReqBuilder() *CreateJobDataReqBuilder {
 	return builder
 }
 
-// 根据client_token是否一致来判断是否为同一请求
+// 操作的唯一标识，用于幂等的进行更新操作，格式为标准的 UUIDV4。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
 //
-// 示例值：12454646
+// 示例值："fe599b60-450f-46ff-b2ef-9f6675625b97"
 func (builder *CreateJobDataReqBuilder) ClientToken(clientToken string) *CreateJobDataReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
@@ -25326,7 +25670,7 @@ func (builder *CreateJobDataReqBuilder) DepartmentIdType(departmentIdType string
 	return builder
 }
 
-// 在系统中第一次创建员工任职数据，通常在员工入职或者做数据批量导入的时候使用，【任职原因】只支持填写“入职”
+// 在系统中第一次创建员工任职数据，通常在员工入职或者做数据批量导入的时候使用，【任职原因】只支持填写“onboarding”。
 func (builder *CreateJobDataReqBuilder) JobData(jobData *JobData) *CreateJobDataReqBuilder {
 	builder.jobData = jobData
 	return builder
@@ -25372,7 +25716,7 @@ func NewDeleteJobDataReqBuilder() *DeleteJobDataReqBuilder {
 	return builder
 }
 
-// 需要删除的任职信息 ID
+// 需要删除的任职信息 ID;- 通过[【批量查询员工任职】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-job_data/batch_get)可以获得
 //
 // 示例值：467642764726472
 func (builder *DeleteJobDataReqBuilder) JobDataId(jobDataId string) *DeleteJobDataReqBuilder {
@@ -25413,7 +25757,7 @@ func NewGetJobDataReqBuilder() *GetJobDataReqBuilder {
 	return builder
 }
 
-// 任职信息 ID
+// 任职信息 ID，可通过[【创建任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/create)、[【批量查询员工任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-job_data/batch_get)等接口获取
 //
 // 示例值：151515
 func (builder *GetJobDataReqBuilder) JobDataId(jobDataId string) *GetJobDataReqBuilder {
@@ -25476,7 +25820,7 @@ func NewListJobDataReqBuilder() *ListJobDataReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：6994718879515739656
 func (builder *ListJobDataReqBuilder) PageToken(pageToken string) *ListJobDataReqBuilder {
@@ -25484,7 +25828,7 @@ func (builder *ListJobDataReqBuilder) PageToken(pageToken string) *ListJobDataRe
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小
 //
 // 示例值：100
 func (builder *ListJobDataReqBuilder) PageSize(pageSize string) *ListJobDataReqBuilder {
@@ -25492,7 +25836,7 @@ func (builder *ListJobDataReqBuilder) PageSize(pageSize string) *ListJobDataReqB
 	return builder
 }
 
-// 雇佣 ID
+// 雇佣 ID，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取;- 应与 user_id_type 类型一致
 //
 // 示例值：7072306364927985196
 func (builder *ListJobDataReqBuilder) EmploymentId(employmentId string) *ListJobDataReqBuilder {
@@ -25500,7 +25844,7 @@ func (builder *ListJobDataReqBuilder) EmploymentId(employmentId string) *ListJob
 	return builder
 }
 
-// 任职信息 ID 列表，最大 100 个（不传则默认查询全部任职信息）
+// 任职信息 ID 列表;- 默认查询全部任职信息
 //
 // 示例值：["6919733291281024526", "6919733291281024527"]
 func (builder *ListJobDataReqBuilder) JobDataIdList(jobDataIdList []string) *ListJobDataReqBuilder {
@@ -25510,7 +25854,7 @@ func (builder *ListJobDataReqBuilder) JobDataIdList(jobDataIdList []string) *Lis
 	return builder
 }
 
-// 部门 ID
+// 部门 ID;- 应与 department_id_type 类型一致;- 默认为空
 //
 // 示例值：6887868781834536462
 func (builder *ListJobDataReqBuilder) DepartmentId(departmentId string) *ListJobDataReqBuilder {
@@ -25518,7 +25862,7 @@ func (builder *ListJobDataReqBuilder) DepartmentId(departmentId string) *ListJob
 	return builder
 }
 
-// 职务 ID
+// 职务 ID;- 默认为空
 //
 // 示例值：6893014062142064135
 func (builder *ListJobDataReqBuilder) JobId(jobId string) *ListJobDataReqBuilder {
@@ -25526,7 +25870,7 @@ func (builder *ListJobDataReqBuilder) JobId(jobId string) *ListJobDataReqBuilder
 	return builder
 }
 
-// 是否获取所有任职记录，true 为获取员工所有版本的任职记录，false 为仅获取当前生效的任职记录，默认为 false
+// 是否获取所有版本的任职记录;- true 为获取员工所有版本的任职记录;- false 为仅获取当前生效的任职记录;- 默认为 false
 //
 // 示例值：false
 func (builder *ListJobDataReqBuilder) GetAllVersion(getAllVersion bool) *ListJobDataReqBuilder {
@@ -25564,9 +25908,9 @@ type ListJobDataReq struct {
 type ListJobDataRespData struct {
 	Items []*JobData `json:"items,omitempty"` // 查询的任职信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListJobDataResp struct {
@@ -25601,9 +25945,9 @@ func (builder *PatchJobDataReqBuilder) JobDataId(jobDataId string) *PatchJobData
 	return builder
 }
 
-// 根据client_token是否一致来判断是否为同一请求
+// 操作的唯一标识，用于幂等的进行更新操作，格式为标准的 UUIDV4。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
 //
-// 示例值：12454646
+// 示例值："fe599b60-450f-46ff-b2ef-9f6675625b97"
 func (builder *PatchJobDataReqBuilder) ClientToken(clientToken string) *PatchJobDataReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
@@ -25625,7 +25969,7 @@ func (builder *PatchJobDataReqBuilder) DepartmentIdType(departmentIdType string)
 	return builder
 }
 
-// 是否强校验。值为 true 时，会对入参进行业务校验，并产生异动记录、发送异动事件。;- 默认值：false;- 仅在新增任职版本时生效，当 version_id 不为空时该字段不生效
+// 是否强校验。值为 true 时，会对入参进行业务校验，并产生异动记录、发送异动事件。;- 默认值：true ;- 仅在新增任职版本时生效，即当 version_id 有值时该字段不生效;- 使用此功能时，试用期相关字段不支持;- 当响应返回的任职数据无变化时，请检查人事系统-异动管理
 //
 // 示例值：false
 func (builder *PatchJobDataReqBuilder) StrictVerify(strictVerify string) *PatchJobDataReqBuilder {
@@ -25633,7 +25977,7 @@ func (builder *PatchJobDataReqBuilder) StrictVerify(strictVerify string) *PatchJ
 	return builder
 }
 
-// 更新任职信息
+// 默认为新增一条任职记录，包括职务、职级、序列、部门等信息。
 func (builder *PatchJobDataReqBuilder) JobData(jobData *JobData) *PatchJobDataReqBuilder {
 	builder.jobData = jobData
 	return builder
@@ -25689,7 +26033,7 @@ func (builder *CreateJobFamilyReqBuilder) ClientToken(clientToken string) *Creat
 	return builder
 }
 
-// 创建职务序列
+// 该接口用于创建单个序列，创建后系统中新增一条包含序列编码、名称、描述等信息的序列记录;
 func (builder *CreateJobFamilyReqBuilder) JobFamily(jobFamily *JobFamily) *CreateJobFamilyReqBuilder {
 	builder.jobFamily = jobFamily
 	return builder
@@ -25709,7 +26053,7 @@ type CreateJobFamilyReq struct {
 }
 
 type CreateJobFamilyRespData struct {
-	JobFamily *JobFamily `json:"job_family,omitempty"` // 创建成功的职务序列信息
+	JobFamily *JobFamily `json:"job_family,omitempty"` // 创建成功的序列信息
 }
 
 type CreateJobFamilyResp struct {
@@ -25735,7 +26079,7 @@ func NewDeleteJobFamilyReqBuilder() *DeleteJobFamilyReqBuilder {
 	return builder
 }
 
-// 需要删除的职务序列 ID
+// 需要删除的序列 ID。ID获取方式：;- 调用[【新建序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/create)[【查询租户的序列信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)等接口可以返回序列ID
 //
 // 示例值：5425424525
 func (builder *DeleteJobFamilyReqBuilder) JobFamilyId(jobFamilyId string) *DeleteJobFamilyReqBuilder {
@@ -25776,7 +26120,7 @@ func NewGetJobFamilyReqBuilder() *GetJobFamilyReqBuilder {
 	return builder
 }
 
-// 职务序列 ID
+// 序列ID。ID获取方式：;- 调用[【新建序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/create)[【查询租户的序列信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)等接口可以返回序列ID
 //
 // 示例值：1554548
 func (builder *GetJobFamilyReqBuilder) JobFamilyId(jobFamilyId string) *GetJobFamilyReqBuilder {
@@ -25796,7 +26140,7 @@ type GetJobFamilyReq struct {
 }
 
 type GetJobFamilyRespData struct {
-	JobFamily *JobFamily `json:"job_family,omitempty"` // 职务序列信息
+	JobFamily *JobFamily `json:"job_family,omitempty"` // 序列信息
 }
 
 type GetJobFamilyResp struct {
@@ -25822,7 +26166,7 @@ func NewListJobFamilyReqBuilder() *ListJobFamilyReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：1231231987
 func (builder *ListJobFamilyReqBuilder) PageToken(pageToken string) *ListJobFamilyReqBuilder {
@@ -25830,7 +26174,7 @@ func (builder *ListJobFamilyReqBuilder) PageToken(pageToken string) *ListJobFami
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小，最大值支持传100;- 最少1个字符，最多200个字符
 //
 // 示例值：100
 func (builder *ListJobFamilyReqBuilder) PageSize(pageSize string) *ListJobFamilyReqBuilder {
@@ -25850,11 +26194,11 @@ type ListJobFamilyReq struct {
 }
 
 type ListJobFamilyRespData struct {
-	Items []*JobFamily `json:"items,omitempty"` // 查询的职务序列信息
+	Items []*JobFamily `json:"items,omitempty"` // 查询的序列信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListJobFamilyResp struct {
@@ -25881,7 +26225,7 @@ func NewPatchJobFamilyReqBuilder() *PatchJobFamilyReqBuilder {
 	return builder
 }
 
-// 序列ID
+// 序列ID。ID获取方式：;- 调用[【新建序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/create)[【查询租户的序列信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)等接口可以返回序列ID
 //
 // 示例值：1616161616
 func (builder *PatchJobFamilyReqBuilder) JobFamilyId(jobFamilyId string) *PatchJobFamilyReqBuilder {
@@ -25897,7 +26241,7 @@ func (builder *PatchJobFamilyReqBuilder) ClientToken(clientToken string) *PatchJ
 	return builder
 }
 
-// 更新职务序列
+// 可以通过序列ID更新单个序列详情信息，例如序列名称、上级序列ID等。
 func (builder *PatchJobFamilyReqBuilder) JobFamily(jobFamily *JobFamily) *PatchJobFamilyReqBuilder {
 	builder.jobFamily = jobFamily
 	return builder
@@ -25918,7 +26262,7 @@ type PatchJobFamilyReq struct {
 }
 
 type PatchJobFamilyRespData struct {
-	JobFamily *JobFamily `json:"job_family,omitempty"` // 职务序列
+	JobFamily *JobFamily `json:"job_family,omitempty"` // 序列
 }
 
 type PatchJobFamilyResp struct {
@@ -25953,7 +26297,7 @@ func (builder *CreateJobLevelReqBuilder) ClientToken(clientToken string) *Create
 	return builder
 }
 
-// 创建职务级别
+// 该接口通过传入职级名称、职级数值等参数，创建单个职级对象;适用场景：;- 适用于HR系统中新增职级的场景
 func (builder *CreateJobLevelReqBuilder) JobLevel(jobLevel *JobLevel) *CreateJobLevelReqBuilder {
 	builder.jobLevel = jobLevel
 	return builder
@@ -25973,7 +26317,7 @@ type CreateJobLevelReq struct {
 }
 
 type CreateJobLevelRespData struct {
-	JobLevel *JobLevel `json:"job_level,omitempty"` // 创建成功的职务级别信息
+	JobLevel *JobLevel `json:"job_level,omitempty"` // 创建成功的职级信息
 }
 
 type CreateJobLevelResp struct {
@@ -25999,7 +26343,7 @@ func NewDeleteJobLevelReqBuilder() *DeleteJobLevelReqBuilder {
 	return builder
 }
 
-// 需要删除的职务级别 ID
+// 需要删除的职级 ID。ID获取方式：;- 调用[【新建职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/create)[【查询租户的职级信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)等接口可以返回职级ID
 //
 // 示例值：5423452542
 func (builder *DeleteJobLevelReqBuilder) JobLevelId(jobLevelId string) *DeleteJobLevelReqBuilder {
@@ -26040,7 +26384,7 @@ func NewGetJobLevelReqBuilder() *GetJobLevelReqBuilder {
 	return builder
 }
 
-// 职务级别 ID
+// 职级ID。ID获取方式：;- 调用[【新建职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/create)[【查询租户的职级信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)等接口可以返回职级ID
 //
 // 示例值：1515
 func (builder *GetJobLevelReqBuilder) JobLevelId(jobLevelId string) *GetJobLevelReqBuilder {
@@ -26060,7 +26404,7 @@ type GetJobLevelReq struct {
 }
 
 type GetJobLevelRespData struct {
-	JobLevel *JobLevel `json:"job_level,omitempty"` // 职务级别信息
+	JobLevel *JobLevel `json:"job_level,omitempty"` // 职级信息
 }
 
 type GetJobLevelResp struct {
@@ -26086,7 +26430,7 @@ func NewListJobLevelReqBuilder() *ListJobLevelReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：1231231987
 func (builder *ListJobLevelReqBuilder) PageToken(pageToken string) *ListJobLevelReqBuilder {
@@ -26094,7 +26438,7 @@ func (builder *ListJobLevelReqBuilder) PageToken(pageToken string) *ListJobLevel
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小，最小支持传1，最大支持传100;- 最小长度为 1 字符，最大长度为100字符
 //
 // 示例值：100
 func (builder *ListJobLevelReqBuilder) PageSize(pageSize string) *ListJobLevelReqBuilder {
@@ -26114,11 +26458,11 @@ type ListJobLevelReq struct {
 }
 
 type ListJobLevelRespData struct {
-	Items []*JobLevel `json:"items,omitempty"` // 查询的职务级别信息
+	Items []*JobLevel `json:"items,omitempty"` // 查询的职级信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListJobLevelResp struct {
@@ -26145,7 +26489,7 @@ func NewPatchJobLevelReqBuilder() *PatchJobLevelReqBuilder {
 	return builder
 }
 
-// 级别ID
+// 职级ID。ID获取方式：;- 调用[【新建职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/create)[【查询租户的职级信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)等接口可以返回职级ID
 //
 // 示例值：1616161616
 func (builder *PatchJobLevelReqBuilder) JobLevelId(jobLevelId string) *PatchJobLevelReqBuilder {
@@ -26161,7 +26505,7 @@ func (builder *PatchJobLevelReqBuilder) ClientToken(clientToken string) *PatchJo
 	return builder
 }
 
-// 更新职务级别
+// 该接口通过职级ID更新单个职级信息，包括职级数值、名称等信息。
 func (builder *PatchJobLevelReqBuilder) JobLevel(jobLevel *JobLevel) *PatchJobLevelReqBuilder {
 	builder.jobLevel = jobLevel
 	return builder
@@ -26182,7 +26526,7 @@ type PatchJobLevelReq struct {
 }
 
 type PatchJobLevelRespData struct {
-	JobLevel *JobLevel `json:"job_level,omitempty"` // 职务级别
+	JobLevel *JobLevel `json:"job_level,omitempty"` // 职级
 }
 
 type PatchJobLevelResp struct {
@@ -26208,57 +26552,57 @@ func NewCalendarByScopeLeaveReqBuilder() *CalendarByScopeLeaveReqBuilder {
 	return builder
 }
 
-// 用户所属部门的ID列表
+// 用户所属部门的ID列表。;可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list)获取所属部门的 ID
 //
-// 示例值："6722331851580982798"
+// 示例值："6722331851580982798";;
 func (builder *CalendarByScopeLeaveReqBuilder) WkDepartmentId(wkDepartmentId string) *CalendarByScopeLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("wk_department_id", fmt.Sprint(wkDepartmentId))
 	return builder
 }
 
-// 国家/地区 ID
+// 国家/地区 ID。;可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取所属国家/地区 ID
 //
-// 示例值："6722331851580982798"
+// 示例值："6722331851580982798";;
 func (builder *CalendarByScopeLeaveReqBuilder) WkCountryRegionId(wkCountryRegionId string) *CalendarByScopeLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("wk_country_region_id", fmt.Sprint(wkCountryRegionId))
 	return builder
 }
 
-// 人员类型
+// 人员类型ID。;可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取所属人员类型ID
 //
-// 示例值："6722331851580982798"
+// 示例值："6722331851580982798";;
 func (builder *CalendarByScopeLeaveReqBuilder) WkEmployeeTypeId(wkEmployeeTypeId string) *CalendarByScopeLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("wk_employee_type_id", fmt.Sprint(wkEmployeeTypeId))
 	return builder
 }
 
-// 工作地点
+// 工作地点ID。;可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取工作地点ID
 //
-// 示例值："6722331851580982798"
+// 示例值："6722331851580982798";
 func (builder *CalendarByScopeLeaveReqBuilder) WkWorkLocationId(wkWorkLocationId string) *CalendarByScopeLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("wk_work_location_id", fmt.Sprint(wkWorkLocationId))
 	return builder
 }
 
-// 工时制度
+// 工时制度ID。;可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取工时制度ID
 //
-// 示例值："11344254"
+// 示例值："6722331851124982728";;
 func (builder *CalendarByScopeLeaveReqBuilder) WkWorkingHoursTypeId(wkWorkingHoursTypeId string) *CalendarByScopeLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("wk_working_hours_type_id", fmt.Sprint(wkWorkingHoursTypeId))
 	return builder
 }
 
-// 职务序列
+// 职务序列ID。;可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取职务序列ID。
 //
-// 示例值："12345"
+// 示例值："8234534456354534546";
 func (builder *CalendarByScopeLeaveReqBuilder) WkJobFamilyId(wkJobFamilyId string) *CalendarByScopeLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("wk_job_family_id", fmt.Sprint(wkJobFamilyId))
 	return builder
 }
 
-// 公司 ID
+// 公司 ID。;可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list)获取公司 ID
 //
-// 示例值："24465434"
+// 示例值："6235435355464465434";
 func (builder *CalendarByScopeLeaveReqBuilder) WkCompanyId(wkCompanyId string) *CalendarByScopeLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("wk_company_id", fmt.Sprint(wkCompanyId))
 	return builder
@@ -26302,15 +26646,15 @@ func NewLeaveBalancesLeaveReqBuilder() *LeaveBalancesLeaveReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+// 示例值：`{"eu_nc":"[\"6994333322503669260\"]"}`
 func (builder *LeaveBalancesLeaveReqBuilder) PageToken(pageToken string) *LeaveBalancesLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 每页获取记录数量，最大20
+// 分页大小
 //
 // 示例值：20
 func (builder *LeaveBalancesLeaveReqBuilder) PageSize(pageSize string) *LeaveBalancesLeaveReqBuilder {
@@ -26318,7 +26662,7 @@ func (builder *LeaveBalancesLeaveReqBuilder) PageSize(pageSize string) *LeaveBal
 	return builder
 }
 
-// 查询截止日期，即截止到某天余额数据的日期（不传则默认为当天）
+// 查询截止日期，即截止到某天余额数据的日期（不传则默认为当天）。格式为yyyy-MM-dd
 //
 // 示例值：2022-07-29
 func (builder *LeaveBalancesLeaveReqBuilder) AsOfDate(asOfDate string) *LeaveBalancesLeaveReqBuilder {
@@ -26326,9 +26670,9 @@ func (builder *LeaveBalancesLeaveReqBuilder) AsOfDate(asOfDate string) *LeaveBal
 	return builder
 }
 
-// 员工 ID 列表，最大 100 个（不传则默认查询全部员工）
+// 员工 ID 列表，最大 100 个（不传则默认查询全部员工），对应user_id_type。请注意：此接口为get请求，所以传入数组时需要满足get请求传入数组的规范，例如employment_id_list=6919733291281024522&employment_id_list=6919733291281024523;;
 //
-// 示例值：["6919733291281024526"]
+// 示例值：
 func (builder *LeaveBalancesLeaveReqBuilder) EmploymentIdList(employmentIdList []string) *LeaveBalancesLeaveReqBuilder {
 	for _, v := range employmentIdList {
 		builder.apiReq.QueryParams.Add("employment_id_list", fmt.Sprint(v))
@@ -26352,7 +26696,7 @@ func (builder *LeaveBalancesLeaveReqBuilder) TimeZone(timeZone string) *LeaveBal
 	return builder
 }
 
-// 是否获取离职折算字段
+// 是否获取离职折算字段，默认值为false
 //
 // 示例值：true
 func (builder *LeaveBalancesLeaveReqBuilder) IncludeOffboard(includeOffboard bool) *LeaveBalancesLeaveReqBuilder {
@@ -26374,9 +26718,9 @@ type LeaveBalancesLeaveReq struct {
 type LeaveBalancesLeaveRespData struct {
 	EmploymentLeaveBalanceList []*EmploymentLeaveBalance `json:"employment_leave_balance_list,omitempty"` // 员工假期余额信息列表
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type LeaveBalancesLeaveResp struct {
@@ -26402,15 +26746,15 @@ func NewLeaveRequestHistoryLeaveReqBuilder() *LeaveRequestHistoryLeaveReqBuilder
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+// 示例值："7356863257632491046"
 func (builder *LeaveRequestHistoryLeaveReqBuilder) PageToken(pageToken string) *LeaveRequestHistoryLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小，最小10，最大1000
 //
 // 示例值：100
 func (builder *LeaveRequestHistoryLeaveReqBuilder) PageSize(pageSize string) *LeaveRequestHistoryLeaveReqBuilder {
@@ -26418,9 +26762,9 @@ func (builder *LeaveRequestHistoryLeaveReqBuilder) PageSize(pageSize string) *Le
 	return builder
 }
 
-// 员工 ID 列表，最大 100 个（不传则默认查询全部员工）
+// 员工 ID 列表，最大 100 个（不传则默认查询全部员工），ID 类型与 user_id_type 一致。请注意：此接口为get请求，所以传入数组时需要满足get请求传入数组的规范，例如employment_id_list=6919733291281024522&employment_id_list=6919733291281024523
 //
-// 示例值：["6919733291281024526"]
+// 示例值：
 func (builder *LeaveRequestHistoryLeaveReqBuilder) EmploymentIdList(employmentIdList []string) *LeaveRequestHistoryLeaveReqBuilder {
 	for _, v := range employmentIdList {
 		builder.apiReq.QueryParams.Add("employment_id_list", fmt.Sprint(v))
@@ -26428,9 +26772,9 @@ func (builder *LeaveRequestHistoryLeaveReqBuilder) EmploymentIdList(employmentId
 	return builder
 }
 
-// 休假发起人 ID 列表，最大 100 个
+// 休假发起人 ID 列表，最大 100 个，ID 类型与 user_id_type 一致。请注意：此接口为get请求，所以传入数组时需要满足get请求传入数组的规范，例如initiator_id_list=6919733291281024522&initiator_id_list=6919733291281024523
 //
-// 示例值：["6919733291281024526"]
+// 示例值：
 func (builder *LeaveRequestHistoryLeaveReqBuilder) InitiatorIdList(initiatorIdList []string) *LeaveRequestHistoryLeaveReqBuilder {
 	for _, v := range initiatorIdList {
 		builder.apiReq.QueryParams.Add("initiator_id_list", fmt.Sprint(v))
@@ -26438,9 +26782,9 @@ func (builder *LeaveRequestHistoryLeaveReqBuilder) InitiatorIdList(initiatorIdLi
 	return builder
 }
 
-// 请假记录的状态;;可选值有：;;- 1：已通过;;- 2：审批中;;- 3：审批中（更正）;;- 4：审批中（取消休假）;;- 5：审批中（返岗）;;- 6：已返岗;;- 7：已拒绝;;- 8：已取消;;- 9：已撤回
+// 请假记录的状态，不填为不过滤状态。请注意：此接口为get请求，所以传入数组时需要满足get请求传入数组的规范，例如leave_request_status =1&leave_request_status=2;;可选值有：;;- 1：已通过;;- 2：审批中;;- 3：审批中（更正）;;- 4：审批中（取消休假）;;- 5：审批中（返岗）;;- 6：已返岗;;- 7：已拒绝;;- 8：已取消;;- 9：已撤回
 //
-// 示例值：["1", "2"]
+// 示例值：
 func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveRequestStatus(leaveRequestStatus []string) *LeaveRequestHistoryLeaveReqBuilder {
 	for _, v := range leaveRequestStatus {
 		builder.apiReq.QueryParams.Add("leave_request_status", fmt.Sprint(v))
@@ -26448,9 +26792,9 @@ func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveRequestStatus(leaveReque
 	return builder
 }
 
-// 假期类型 ID 列表，枚举值可通过【获取假期类型列表】接口获取
+// 假期类型 ID 列表，枚举值可通过[获取假期类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_types)接口获取。请注意：此接口为get请求，所以传入数组时需要满足get请求传入数组的规范，例如leave_type_id_list =4718803945687580501&leave_type_id_list=4718803945687580500
 //
-// 示例值：["1"]
+// 示例值：
 func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveTypeIdList(leaveTypeIdList []string) *LeaveRequestHistoryLeaveReqBuilder {
 	for _, v := range leaveTypeIdList {
 		builder.apiReq.QueryParams.Add("leave_type_id_list", fmt.Sprint(v))
@@ -26458,49 +26802,49 @@ func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveTypeIdList(leaveTypeIdLi
 	return builder
 }
 
-// 休假开始时间晚于等于的日期
+// 休假开始时间晚于等于的日期，格式为yyyy-MM-dd
 //
-// 示例值：2022-07-20 morning
+// 示例值：2022-07-20
 func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveStartDateMin(leaveStartDateMin string) *LeaveRequestHistoryLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("leave_start_date_min", fmt.Sprint(leaveStartDateMin))
 	return builder
 }
 
-// 休假开始时间早于等于的日期
+// 休假开始时间早于等于的日期，格式为yyyy-MM-dd
 //
-// 示例值：2022-07-20 morning
+// 示例值：2022-07-20
 func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveStartDateMax(leaveStartDateMax string) *LeaveRequestHistoryLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("leave_start_date_max", fmt.Sprint(leaveStartDateMax))
 	return builder
 }
 
-// 休假结束时间晚于等于的日期
+// 休假结束时间晚于等于的日期，格式为yyyy-MM-dd
 //
-// 示例值：2022-07-20 morning
+// 示例值：2022-07-20
 func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveEndDateMin(leaveEndDateMin string) *LeaveRequestHistoryLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("leave_end_date_min", fmt.Sprint(leaveEndDateMin))
 	return builder
 }
 
-// 休假结束时间早于等于的日期
+// 休假结束时间早于等于的日期，格式为yyyy-MM-dd
 //
-// 示例值：2022-07-20 morning
+// 示例值：2022-07-20
 func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveEndDateMax(leaveEndDateMax string) *LeaveRequestHistoryLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("leave_end_date_max", fmt.Sprint(leaveEndDateMax))
 	return builder
 }
 
-// 休假发起时间晚于等于的日期
+// 休假发起时间晚于等于的日期，格式为yyyy-MM-dd
 //
-// 示例值：2022-07-20 morning
+// 示例值：2022-07-20
 func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveSubmitDateMin(leaveSubmitDateMin string) *LeaveRequestHistoryLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("leave_submit_date_min", fmt.Sprint(leaveSubmitDateMin))
 	return builder
 }
 
-// 休假发起时间早于等于的日期
+// 休假发起时间早于等于的日期，格式为yyyy-MM-dd
 //
-// 示例值：2022-07-20 morning
+// 示例值：2022-07-20
 func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveSubmitDateMax(leaveSubmitDateMax string) *LeaveRequestHistoryLeaveReqBuilder {
 	builder.apiReq.QueryParams.Set("leave_submit_date_max", fmt.Sprint(leaveSubmitDateMax))
 	return builder
@@ -26514,7 +26858,7 @@ func (builder *LeaveRequestHistoryLeaveReqBuilder) UserIdType(userIdType string)
 	return builder
 }
 
-// 请假记录更新时间晚于等于的时间
+// 请假记录更新时间晚于等于的时间，格式为yyyy-MM-dd HH:mm:ss
 //
 // 示例值：2022-10-24 10:00:00
 func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveUpdateTimeMin(leaveUpdateTimeMin string) *LeaveRequestHistoryLeaveReqBuilder {
@@ -26522,7 +26866,7 @@ func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveUpdateTimeMin(leaveUpdat
 	return builder
 }
 
-// 请假记录更新时间早于等于的时间
+// 请假记录更新时间早于等于的时间，格式为yyyy-MM-dd HH:mm:ss
 //
 // 示例值：2022-10-24 10:00:00
 func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveUpdateTimeMax(leaveUpdateTimeMax string) *LeaveRequestHistoryLeaveReqBuilder {
@@ -26530,7 +26874,7 @@ func (builder *LeaveRequestHistoryLeaveReqBuilder) LeaveUpdateTimeMax(leaveUpdat
 	return builder
 }
 
-// 是否返回请假详情，若为true，将在每条请假记录的details字段返回请假详情
+// （暂未开放）是否返回请假详情，若为true，将在每条请假记录的details字段返回请假详情
 //
 // 示例值：false
 func (builder *LeaveRequestHistoryLeaveReqBuilder) ReturnDetail(returnDetail bool) *LeaveRequestHistoryLeaveReqBuilder {
@@ -26554,7 +26898,7 @@ func (builder *LeaveRequestHistoryLeaveReqBuilder) TimeZone(timeZone string) *Le
 	return builder
 }
 
-// 请假记录数据源，1表示中国大陆休假，2表示海外休假，不传或0表示不过滤
+// （暂未开放）请假记录数据源，1表示中国大陆休假，2表示海外休假，不传或0表示不过滤
 //
 // 示例值：1
 func (builder *LeaveRequestHistoryLeaveReqBuilder) DataSource(dataSource int) *LeaveRequestHistoryLeaveReqBuilder {
@@ -26562,7 +26906,7 @@ func (builder *LeaveRequestHistoryLeaveReqBuilder) DataSource(dataSource int) *L
 	return builder
 }
 
-// 请假记录DB更新时间晚于等于的时间
+// （暂未开放）请假记录DB更新时间晚于等于的时间，格式为yyyy-MM-dd HH:mm:ss
 //
 // 示例值：2022-10-24 10:00:00
 func (builder *LeaveRequestHistoryLeaveReqBuilder) DbUpdateTimeMin(dbUpdateTimeMin string) *LeaveRequestHistoryLeaveReqBuilder {
@@ -26570,7 +26914,7 @@ func (builder *LeaveRequestHistoryLeaveReqBuilder) DbUpdateTimeMin(dbUpdateTimeM
 	return builder
 }
 
-// 请假记录DB更新时间早于等于的时间
+// （暂未开放）请假记录DB更新时间早于等于的时间，格式为yyyy-MM-dd HH:mm:ss
 //
 // 示例值：2022-10-24 10:00:00
 func (builder *LeaveRequestHistoryLeaveReqBuilder) DbUpdateTimeMax(dbUpdateTimeMax string) *LeaveRequestHistoryLeaveReqBuilder {
@@ -26616,9 +26960,9 @@ type LeaveRequestHistoryLeaveReq struct {
 type LeaveRequestHistoryLeaveRespData struct {
 	LeaveRequestList []*LeaveRequest `json:"leave_request_list,omitempty"` // 请假记录信息列表
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type LeaveRequestHistoryLeaveResp struct {
@@ -26644,7 +26988,7 @@ func NewLeaveTypesLeaveReqBuilder() *LeaveTypesLeaveReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 func (builder *LeaveTypesLeaveReqBuilder) PageToken(pageToken string) *LeaveTypesLeaveReqBuilder {
@@ -26652,7 +26996,7 @@ func (builder *LeaveTypesLeaveReqBuilder) PageToken(pageToken string) *LeaveType
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小
 //
 // 示例值：100
 func (builder *LeaveTypesLeaveReqBuilder) PageSize(pageSize string) *LeaveTypesLeaveReqBuilder {
@@ -26690,9 +27034,9 @@ type LeaveTypesLeaveReq struct {
 type LeaveTypesLeaveRespData struct {
 	LeaveTypeList []*LeaveType `json:"leave_type_list,omitempty"` // 假期类型列表
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type LeaveTypesLeaveResp struct {
@@ -26719,7 +27063,7 @@ func NewWorkCalendarLeaveReqBuilder() *WorkCalendarLeaveReqBuilder {
 	return builder
 }
 
-//
+// 获取工作日历信息，如名称，状态等
 func (builder *WorkCalendarLeaveReqBuilder) WorkCalendarFilter(workCalendarFilter *WorkCalendarFilter) *WorkCalendarLeaveReqBuilder {
 	builder.workCalendarFilter = workCalendarFilter
 	return builder
@@ -26738,7 +27082,7 @@ type WorkCalendarLeaveReq struct {
 }
 
 type WorkCalendarLeaveRespData struct {
-	WorkCalendars []*WorkCalendarDetail `json:"work_calendars,omitempty"` // 工作日历列表
+	WorkCalendars []*WorkCalendarDetail `json:"work_calendars,omitempty"` // 工作日历列表，对应入参的wk_calendar_ids
 
 	Count *int `json:"count,omitempty"` // 入参count=true，则返回符合条件的工作日历总数
 }
@@ -26767,7 +27111,7 @@ func NewWorkCalendarDateLeaveReqBuilder() *WorkCalendarDateLeaveReqBuilder {
 	return builder
 }
 
-//
+// 获取工作日历每一天的日期详情，如日期、日期类型等
 func (builder *WorkCalendarDateLeaveReqBuilder) CalendarDateByDateFilter(calendarDateByDateFilter *CalendarDateByDateFilter) *WorkCalendarDateLeaveReqBuilder {
 	builder.calendarDateByDateFilter = calendarDateByDateFilter
 	return builder
@@ -26786,7 +27130,7 @@ type WorkCalendarDateLeaveReq struct {
 }
 
 type WorkCalendarDateLeaveRespData struct {
-	CalendarDates []*WkCalendarDate `json:"calendar_dates,omitempty"` // 日期类型列表
+	CalendarDates []*WkCalendarDate `json:"calendar_dates,omitempty"` // 日期列表
 }
 
 type WorkCalendarDateLeaveResp struct {
@@ -26800,31 +27144,31 @@ func (resp *WorkCalendarDateLeaveResp) Success() bool {
 }
 
 type CreateLeaveGrantingRecordReqBodyBuilder struct {
-	leaveTypeId    string // 假期类型 ID，枚举值可通过【获取假期类型列表】接口获取（若假期类型下存在假期子类，此处仅支持传入假期子类的 ID）
+	leaveTypeId    string // 假期类型 ID，枚举值可通过[获取假期类型列表](https://open.larkoffice.com/document/server-docs/corehr-v1/leave/leave_types)接口获取（若假期类型下存在假期子类，此处仅支持传入假期子类的 ID）
 	leaveTypeIdSet bool
 
-	employmentId    string // 员工 ID
+	employmentId    string // 员工 ID，飞书人事的雇员id。对应user_id_type
 	employmentIdSet bool
 
-	grantingQuantity    string // 授予数量
+	grantingQuantity    string // 发放数量（小数位数不能超过6位，授予数量范围为-9999~9999）
 	grantingQuantitySet bool
 
-	grantingUnit    int // 授予时长单位;;可选值有：;;- 1: 天;- 2: 小时
+	grantingUnit    int // 发放时长单位;;可选值有：;;- 1: 天;- 2: 小时
 	grantingUnitSet bool
 
-	effectiveDate    string // 生效时间
+	effectiveDate    string // 生效时间，格式为yyyy-MM-dd
 	effectiveDateSet bool
 
-	expirationDate    string // 失效时间
+	expirationDate    string // 失效时间，格式为yyyy-MM-dd
 	expirationDateSet bool
 
-	sectionType    int // 是否参与折算
+	sectionType    int // 是否参与折算（1不参与折算，2参与折算）。默认不折算
 	sectionTypeSet bool
 
-	reason    []*I18n // 授予原因
+	reason    []*I18n // 发放原因
 	reasonSet bool
 
-	externalId    string // 自定义外部 ID，可用于避免数据重复写入（不能超过 64 字符）
+	externalId    string // 自定义外部 ID，可用于避免数据重复写入（不能超过 64 字符）。如果重复录入，不会创建新纪录、也不会更新原始记录
 	externalIdSet bool
 }
 
@@ -26833,81 +27177,81 @@ func NewCreateLeaveGrantingRecordReqBodyBuilder() *CreateLeaveGrantingRecordReqB
 	return builder
 }
 
-// 假期类型 ID，枚举值可通过【获取假期类型列表】接口获取（若假期类型下存在假期子类，此处仅支持传入假期子类的 ID）
+// 假期类型 ID，枚举值可通过[获取假期类型列表](https://open.larkoffice.com/document/server-docs/corehr-v1/leave/leave_types)接口获取（若假期类型下存在假期子类，此处仅支持传入假期子类的 ID）
 //
-//示例值：7111688079785723436
+// 示例值：7111688079785723436
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) LeaveTypeId(leaveTypeId string) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.leaveTypeId = leaveTypeId
 	builder.leaveTypeIdSet = true
 	return builder
 }
 
-// 员工 ID
+// 员工 ID，飞书人事的雇员id。对应user_id_type
 //
-//示例值：6982509313466189342
+// 示例值：6982509313466189342
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) EmploymentId(employmentId string) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.employmentId = employmentId
 	builder.employmentIdSet = true
 	return builder
 }
 
-// 授予数量
+// 发放数量（小数位数不能超过6位，授予数量范围为-9999~9999）
 //
-//示例值：0.5
+// 示例值：0.5
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) GrantingQuantity(grantingQuantity string) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.grantingQuantity = grantingQuantity
 	builder.grantingQuantitySet = true
 	return builder
 }
 
-// 授予时长单位;;可选值有：;;- 1: 天;- 2: 小时
+// 发放时长单位;;可选值有：;;- 1: 天;- 2: 小时
 //
-//示例值：1
+// 示例值：1
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) GrantingUnit(grantingUnit int) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.grantingUnit = grantingUnit
 	builder.grantingUnitSet = true
 	return builder
 }
 
-// 生效时间
+// 生效时间，格式为yyyy-MM-dd
 //
-//示例值：2022-01-01
+// 示例值：2022-01-01
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) EffectiveDate(effectiveDate string) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.effectiveDate = effectiveDate
 	builder.effectiveDateSet = true
 	return builder
 }
 
-// 失效时间
+// 失效时间，格式为yyyy-MM-dd
 //
-//示例值：2022-01-01
+// 示例值：2022-01-01
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) ExpirationDate(expirationDate string) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.expirationDate = expirationDate
 	builder.expirationDateSet = true
 	return builder
 }
 
-// 是否参与折算
+// 是否参与折算（1不参与折算，2参与折算）。默认不折算
 //
-//示例值：1
+// 示例值：1
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) SectionType(sectionType int) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.sectionType = sectionType
 	builder.sectionTypeSet = true
 	return builder
 }
 
-// 授予原因
+// 发放原因
 //
-//示例值：
+// 示例值：
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) Reason(reason []*I18n) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.reason = reason
 	builder.reasonSet = true
 	return builder
 }
 
-// 自定义外部 ID，可用于避免数据重复写入（不能超过 64 字符）
+// 自定义外部 ID，可用于避免数据重复写入（不能超过 64 字符）。如果重复录入，不会创建新纪录、也不会更新原始记录
 //
-//示例值：111
+// 示例值：111
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) ExternalId(externalId string) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.externalId = externalId
 	builder.externalIdSet = true
@@ -26972,7 +27316,7 @@ func NewCreateLeaveGrantingRecordPathReqBodyBuilder() *CreateLeaveGrantingRecord
 	return builder
 }
 
-// 假期类型 ID，枚举值可通过【获取假期类型列表】接口获取（若假期类型下存在假期子类，此处仅支持传入假期子类的 ID）
+// 假期类型 ID，枚举值可通过[获取假期类型列表](https://open.larkoffice.com/document/server-docs/corehr-v1/leave/leave_types)接口获取（若假期类型下存在假期子类，此处仅支持传入假期子类的 ID）
 //
 // 示例值：7111688079785723436
 func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) LeaveTypeId(leaveTypeId string) *CreateLeaveGrantingRecordPathReqBodyBuilder {
@@ -26981,7 +27325,7 @@ func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) LeaveTypeId(leaveTyp
 	return builder
 }
 
-// 员工 ID
+// 员工 ID，飞书人事的雇员id。对应user_id_type
 //
 // 示例值：6982509313466189342
 func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) EmploymentId(employmentId string) *CreateLeaveGrantingRecordPathReqBodyBuilder {
@@ -26990,7 +27334,7 @@ func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) EmploymentId(employm
 	return builder
 }
 
-// 授予数量
+// 发放数量（小数位数不能超过6位，授予数量范围为-9999~9999）
 //
 // 示例值：0.5
 func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) GrantingQuantity(grantingQuantity string) *CreateLeaveGrantingRecordPathReqBodyBuilder {
@@ -26999,7 +27343,7 @@ func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) GrantingQuantity(gra
 	return builder
 }
 
-// 授予时长单位;;可选值有：;;- 1: 天;- 2: 小时
+// 发放时长单位;;可选值有：;;- 1: 天;- 2: 小时
 //
 // 示例值：1
 func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) GrantingUnit(grantingUnit int) *CreateLeaveGrantingRecordPathReqBodyBuilder {
@@ -27008,7 +27352,7 @@ func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) GrantingUnit(grantin
 	return builder
 }
 
-// 生效时间
+// 生效时间，格式为yyyy-MM-dd
 //
 // 示例值：2022-01-01
 func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) EffectiveDate(effectiveDate string) *CreateLeaveGrantingRecordPathReqBodyBuilder {
@@ -27017,7 +27361,7 @@ func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) EffectiveDate(effect
 	return builder
 }
 
-// 失效时间
+// 失效时间，格式为yyyy-MM-dd
 //
 // 示例值：2022-01-01
 func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) ExpirationDate(expirationDate string) *CreateLeaveGrantingRecordPathReqBodyBuilder {
@@ -27026,7 +27370,7 @@ func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) ExpirationDate(expir
 	return builder
 }
 
-// 是否参与折算
+// 是否参与折算（1不参与折算，2参与折算）。默认不折算
 //
 // 示例值：1
 func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) SectionType(sectionType int) *CreateLeaveGrantingRecordPathReqBodyBuilder {
@@ -27035,7 +27379,7 @@ func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) SectionType(sectionT
 	return builder
 }
 
-// 授予原因
+// 发放原因
 //
 // 示例值：
 func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) Reason(reason []*I18n) *CreateLeaveGrantingRecordPathReqBodyBuilder {
@@ -27044,7 +27388,7 @@ func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) Reason(reason []*I18
 	return builder
 }
 
-// 自定义外部 ID，可用于避免数据重复写入（不能超过 64 字符）
+// 自定义外部 ID，可用于避免数据重复写入（不能超过 64 字符）。如果重复录入，不会创建新纪录、也不会更新原始记录
 //
 // 示例值：111
 func (builder *CreateLeaveGrantingRecordPathReqBodyBuilder) ExternalId(externalId string) *CreateLeaveGrantingRecordPathReqBodyBuilder {
@@ -27107,7 +27451,7 @@ func (builder *CreateLeaveGrantingRecordReqBuilder) UserIdType(userIdType string
 	return builder
 }
 
-// 向飞书人事休假系统写入假期授予记录
+// 向飞书人事休假系统写入假期发放记录。对应假勤管理-休假管理-[发放记录](https://example.feishu.cn/people/workforce-management/manage/leave/leave_admin/granting_record)的创建或者导入功能
 func (builder *CreateLeaveGrantingRecordReqBuilder) Body(body *CreateLeaveGrantingRecordReqBody) *CreateLeaveGrantingRecordReqBuilder {
 	builder.body = body
 	return builder
@@ -27122,23 +27466,23 @@ func (builder *CreateLeaveGrantingRecordReqBuilder) Build() *CreateLeaveGranting
 }
 
 type CreateLeaveGrantingRecordReqBody struct {
-	LeaveTypeId *string `json:"leave_type_id,omitempty"` // 假期类型 ID，枚举值可通过【获取假期类型列表】接口获取（若假期类型下存在假期子类，此处仅支持传入假期子类的 ID）
+	LeaveTypeId *string `json:"leave_type_id,omitempty"` // 假期类型 ID，枚举值可通过[获取假期类型列表](https://open.larkoffice.com/document/server-docs/corehr-v1/leave/leave_types)接口获取（若假期类型下存在假期子类，此处仅支持传入假期子类的 ID）
 
-	EmploymentId *string `json:"employment_id,omitempty"` // 员工 ID
+	EmploymentId *string `json:"employment_id,omitempty"` // 员工 ID，飞书人事的雇员id。对应user_id_type
 
-	GrantingQuantity *string `json:"granting_quantity,omitempty"` // 授予数量
+	GrantingQuantity *string `json:"granting_quantity,omitempty"` // 发放数量（小数位数不能超过6位，授予数量范围为-9999~9999）
 
-	GrantingUnit *int `json:"granting_unit,omitempty"` // 授予时长单位;;可选值有：;;- 1: 天;- 2: 小时
+	GrantingUnit *int `json:"granting_unit,omitempty"` // 发放时长单位;;可选值有：;;- 1: 天;- 2: 小时
 
-	EffectiveDate *string `json:"effective_date,omitempty"` // 生效时间
+	EffectiveDate *string `json:"effective_date,omitempty"` // 生效时间，格式为yyyy-MM-dd
 
-	ExpirationDate *string `json:"expiration_date,omitempty"` // 失效时间
+	ExpirationDate *string `json:"expiration_date,omitempty"` // 失效时间，格式为yyyy-MM-dd
 
-	SectionType *int `json:"section_type,omitempty"` // 是否参与折算
+	SectionType *int `json:"section_type,omitempty"` // 是否参与折算（1不参与折算，2参与折算）。默认不折算
 
-	Reason []*I18n `json:"reason,omitempty"` // 授予原因
+	Reason []*I18n `json:"reason,omitempty"` // 发放原因
 
-	ExternalId *string `json:"external_id,omitempty"` // 自定义外部 ID，可用于避免数据重复写入（不能超过 64 字符）
+	ExternalId *string `json:"external_id,omitempty"` // 自定义外部 ID，可用于避免数据重复写入（不能超过 64 字符）。如果重复录入，不会创建新纪录、也不会更新原始记录
 }
 
 type CreateLeaveGrantingRecordReq struct {
@@ -27147,7 +27491,7 @@ type CreateLeaveGrantingRecordReq struct {
 }
 
 type CreateLeaveGrantingRecordRespData struct {
-	LeaveGrantingRecord *LeaveGrantingRecord `json:"leave_granting_record,omitempty"` // 假期授予记录
+	LeaveGrantingRecord *LeaveGrantingRecord `json:"leave_granting_record,omitempty"` // 假期发放记录
 }
 
 type CreateLeaveGrantingRecordResp struct {
@@ -27173,7 +27517,7 @@ func NewDeleteLeaveGrantingRecordReqBuilder() *DeleteLeaveGrantingRecordReqBuild
 	return builder
 }
 
-// 假期授予记录 ID
+// 假期发放记录 ID，从[创建假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/create)中可以获得
 //
 // 示例值：6893014062142064135
 func (builder *DeleteLeaveGrantingRecordReqBuilder) LeaveGrantingRecordId(leaveGrantingRecordId string) *DeleteLeaveGrantingRecordReqBuilder {
@@ -27215,15 +27559,15 @@ func NewCreateLocationReqBuilder() *CreateLocationReqBuilder {
 	return builder
 }
 
-// 根据client_token是否一致来判断是否为同一请求
+// 操作的唯一标识，用于幂等的进行更新操作，格式为标准的 UUIDV4。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。
 //
-// 示例值：12454646
+// 示例值："fe599b60-450f-46ff-b2ef-9f6675625b97"
 func (builder *CreateLocationReqBuilder) ClientToken(clientToken string) *CreateLocationReqBuilder {
 	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
 	return builder
 }
 
-// 创建地点
+// 在系统中第一次创建地点数据
 func (builder *CreateLocationReqBuilder) Location(location *Location) *CreateLocationReqBuilder {
 	builder.location = location
 	return builder
@@ -27243,7 +27587,7 @@ type CreateLocationReq struct {
 }
 
 type CreateLocationRespData struct {
-	Location *Location `json:"location,omitempty"` // 创建成功的地点信息
+	Location *Location `json:"location,omitempty"` // 4718803945687580505
 }
 
 type CreateLocationResp struct {
@@ -27269,7 +27613,7 @@ func NewDeleteLocationReqBuilder() *DeleteLocationReqBuilder {
 	return builder
 }
 
-// 需要删除的地点 ID
+// 需要删除的地点 ID。ID获取方式：;- 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点ID
 //
 // 示例值：4312443243
 func (builder *DeleteLocationReqBuilder) LocationId(locationId string) *DeleteLocationReqBuilder {
@@ -27310,7 +27654,7 @@ func NewGetLocationReqBuilder() *GetLocationReqBuilder {
 	return builder
 }
 
-// 地点 ID
+// 地点维护管理员在 飞书人事系统，组织管理模块维护的地点记录 ID。ID获取方式：;- 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点ID
 //
 // 示例值：1215
 func (builder *GetLocationReqBuilder) LocationId(locationId string) *GetLocationReqBuilder {
@@ -27330,7 +27674,7 @@ type GetLocationReq struct {
 }
 
 type GetLocationRespData struct {
-	Location *Location `json:"location,omitempty"` // 地点信息
+	Location *Location `json:"location,omitempty"` // 4718803945687580505
 }
 
 type GetLocationResp struct {
@@ -27356,7 +27700,7 @@ func NewListLocationReqBuilder() *ListLocationReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：1231231987
 func (builder *ListLocationReqBuilder) PageToken(pageToken string) *ListLocationReqBuilder {
@@ -27364,7 +27708,7 @@ func (builder *ListLocationReqBuilder) PageToken(pageToken string) *ListLocation
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小，最大支持100
 //
 // 示例值：100
 func (builder *ListLocationReqBuilder) PageSize(pageSize string) *ListLocationReqBuilder {
@@ -27423,7 +27767,7 @@ func (builder *CreateNationalIdTypeReqBuilder) ClientToken(clientToken string) *
 	return builder
 }
 
-// 创建国家证件类型
+// 创建国家证件类型。
 func (builder *CreateNationalIdTypeReqBuilder) NationalIdType(nationalIdType *NationalIdType) *CreateNationalIdTypeReqBuilder {
 	builder.nationalIdType = nationalIdType
 	return builder
@@ -27556,7 +27900,7 @@ func NewListNationalIdTypeReqBuilder() *ListNationalIdTypeReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：1231231987
 func (builder *ListNationalIdTypeReqBuilder) PageToken(pageToken string) *ListNationalIdTypeReqBuilder {
@@ -27564,7 +27908,7 @@ func (builder *ListNationalIdTypeReqBuilder) PageToken(pageToken string) *ListNa
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小
 //
 // 示例值：100
 func (builder *ListNationalIdTypeReqBuilder) PageSize(pageSize string) *ListNationalIdTypeReqBuilder {
@@ -27610,9 +27954,9 @@ type ListNationalIdTypeReq struct {
 type ListNationalIdTypeRespData struct {
 	Items []*NationalIdType `json:"items,omitempty"` // 查询的国家证件类型信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListNationalIdTypeResp struct {
@@ -27655,7 +27999,7 @@ func (builder *PatchNationalIdTypeReqBuilder) ClientToken(clientToken string) *P
 	return builder
 }
 
-// 更新国家证件类型
+// 更新国家证件类型。
 func (builder *PatchNationalIdTypeReqBuilder) NationalIdType(nationalIdType *NationalIdType) *PatchNationalIdTypeReqBuilder {
 	builder.nationalIdType = nationalIdType
 	return builder
@@ -27690,10 +28034,10 @@ func (resp *PatchNationalIdTypeResp) Success() bool {
 }
 
 type QueryOffboardingReqBodyBuilder struct {
-	active    bool // 是否启用
+	active    bool // 离职原因状态，为空时默认搜索所有状态的离职原因。可选项有:;;-true: 启用;;-false: 停用
 	activeSet bool
 
-	offboardingReasonUniqueIdentifier    []string // 离职原因唯一标识列表，用于过滤，最大20个
+	offboardingReasonUniqueIdentifier    []string // 离职原因唯一标识列表，用于过滤离职原因，为空时默认搜索所有离职原因，最多支持20个
 	offboardingReasonUniqueIdentifierSet bool
 }
 
@@ -27702,18 +28046,18 @@ func NewQueryOffboardingReqBodyBuilder() *QueryOffboardingReqBodyBuilder {
 	return builder
 }
 
-// 是否启用
+// 离职原因状态，为空时默认搜索所有状态的离职原因。可选项有:;;-true: 启用;;-false: 停用
 //
-//示例值：true
+// 示例值：true
 func (builder *QueryOffboardingReqBodyBuilder) Active(active bool) *QueryOffboardingReqBodyBuilder {
 	builder.active = active
 	builder.activeSet = true
 	return builder
 }
 
-// 离职原因唯一标识列表，用于过滤，最大20个
+// 离职原因唯一标识列表，用于过滤离职原因，为空时默认搜索所有离职原因，最多支持20个
 //
-//示例值：["reason_for_offboarding_option"]
+// 示例值：
 func (builder *QueryOffboardingReqBodyBuilder) OffboardingReasonUniqueIdentifier(offboardingReasonUniqueIdentifier []string) *QueryOffboardingReqBodyBuilder {
 	builder.offboardingReasonUniqueIdentifier = offboardingReasonUniqueIdentifier
 	builder.offboardingReasonUniqueIdentifierSet = true
@@ -27743,7 +28087,7 @@ func NewQueryOffboardingPathReqBodyBuilder() *QueryOffboardingPathReqBodyBuilder
 	return builder
 }
 
-// 是否启用
+// 离职原因状态，为空时默认搜索所有状态的离职原因。可选项有:;;-true: 启用;;-false: 停用
 //
 // 示例值：true
 func (builder *QueryOffboardingPathReqBodyBuilder) Active(active bool) *QueryOffboardingPathReqBodyBuilder {
@@ -27752,9 +28096,9 @@ func (builder *QueryOffboardingPathReqBodyBuilder) Active(active bool) *QueryOff
 	return builder
 }
 
-// 离职原因唯一标识列表，用于过滤，最大20个
+// 离职原因唯一标识列表，用于过滤离职原因，为空时默认搜索所有离职原因，最多支持20个
 //
-// 示例值：["reason_for_offboarding_option"]
+// 示例值：
 func (builder *QueryOffboardingPathReqBodyBuilder) OffboardingReasonUniqueIdentifier(offboardingReasonUniqueIdentifier []string) *QueryOffboardingPathReqBodyBuilder {
 	builder.offboardingReasonUniqueIdentifier = offboardingReasonUniqueIdentifier
 	builder.offboardingReasonUniqueIdentifierSet = true
@@ -27786,7 +28130,7 @@ func NewQueryOffboardingReqBuilder() *QueryOffboardingReqBuilder {
 	return builder
 }
 
-// 查询「飞书人事」-「离职设置」中的离职原因
+// 该接口用于查询[离职配置](https://people.feishu.cn/people/hr-settings/dimission/setting)> 离职原因的选项信息，包括离职原因选项的唯一标识、名称和启用状态等信息。
 func (builder *QueryOffboardingReqBuilder) Body(body *QueryOffboardingReqBody) *QueryOffboardingReqBuilder {
 	builder.body = body
 	return builder
@@ -27800,9 +28144,9 @@ func (builder *QueryOffboardingReqBuilder) Build() *QueryOffboardingReq {
 }
 
 type QueryOffboardingReqBody struct {
-	Active *bool `json:"active,omitempty"` // 是否启用
+	Active *bool `json:"active,omitempty"` // 离职原因状态，为空时默认搜索所有状态的离职原因。可选项有:;;-true: 启用;;-false: 停用
 
-	OffboardingReasonUniqueIdentifier []string `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因唯一标识列表，用于过滤，最大20个
+	OffboardingReasonUniqueIdentifier []string `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因唯一标识列表，用于过滤离职原因，为空时默认搜索所有离职原因，最多支持20个
 }
 
 type QueryOffboardingReq struct {
@@ -27825,40 +28169,40 @@ func (resp *QueryOffboardingResp) Success() bool {
 }
 
 type SearchOffboardingReqBodyBuilder struct {
-	employmentIds    []string // 雇佣 ID 列表，为空默认查询所有离职人员
+	employmentIds    []string // 雇佣 ID 列表，ID类型与查询参数 user_id_type取值一致：;;- 当user_id_type取值为open_id时，ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。;;- 当user_id_type取值为user_id时，ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。;;- 当user_id_type取值为union_id时，ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。;;- 当user_id_type取值为people_corehr_id时，先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。
 	employmentIdsSet bool
 
-	applyInitiatingTimeStart    string // 离职审批发起时间-搜索范围开始，需要与搜索范围结束一同使用
+	applyInitiatingTimeStart    string // 离职审批发起时间（搜索的起始范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批发起时间（搜索的结束范围）一同使用。
 	applyInitiatingTimeStartSet bool
 
-	applyInitiatingTimeEnd    string // 离职审批发起时间 - 搜索范围结束
+	applyInitiatingTimeEnd    string // 离职审批发起时间（搜索的结束范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批发起时间（搜索的起始范围）一同使用。
 	applyInitiatingTimeEndSet bool
 
-	applyFinishedTimeStart    string // 离职审批结束时间 - 搜索范围开始，需要与搜索范围结束一同使用
+	applyFinishedTimeStart    string // 离职审批结束时间（搜索的起始范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批结束时间（搜索的结束范围）一同使用。
 	applyFinishedTimeStartSet bool
 
-	applyFinishedTimeEnd    string // 离职审批结束时间 - 搜索范围结束
+	applyFinishedTimeEnd    string // 离职审批结束时间 （搜索的结束范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批结束时间（搜索的起始范围）一同使用。
 	applyFinishedTimeEndSet bool
 
-	expectedOffboardingDateStart    string // 期望离职日期-搜索范围开始，需要与搜索范围结束一同使用
+	expectedOffboardingDateStart    string // 期望离职日期（搜索的起始范围），请按日期格式传入。该字段非必填，需要与期望离职日期（搜索的结束范围）一同使用
 	expectedOffboardingDateStartSet bool
 
-	expectedOffboardingDateEnd    string // 期望离职日期 - 搜索范围结束
+	expectedOffboardingDateEnd    string // 期望离职日期（搜索的结束范围），请按日期格式传入。该字段非必填，需要与期望离职日期（搜索的起始范围）一同使用。
 	expectedOffboardingDateEndSet bool
 
-	offboardingDateStart    string // 离职日期-搜索范围开始，需要与搜索范围结束一同使用
+	offboardingDateStart    string // 离职日期（搜索的起始范围），请按日期格式传入。该字段非必填，需要与离职日期（搜索的结束范围）一同使用。
 	offboardingDateStartSet bool
 
-	offboardingDateEnd    string // 离职日期 - 搜索范围结束
+	offboardingDateEnd    string // 离职日期（搜索的结束范围），该字段非必填，需要与离职日期（搜索的起始范围）一同使用。
 	offboardingDateEndSet bool
 
-	statuses    []string // 离职状态，多个状态之间为「或」的关系
+	statuses    []string // 离职状态，多个状态之间为「或」的关系。为空时默认搜索所有状态的离职信息。
 	statusesSet bool
 
-	reasons    []string // 离职原因列表 , 可以通过【查询员工离职原因列表】接口获取 ，查询时不返回下级原因相关的离职信息
+	reasons    []string // 离职原因列表 , 可以通过[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)接口获取 ，查询时不返回下级原因相关的离职信息。为空时默认搜索所有离职数据。;;<br><b>字段权限要求：</b>;<md-perm name="corehr:employment.offboarding_reason.search:read" desc="按照离职原因搜索" support_app_types="custom,isv" tags="">按照离职原因搜索</md-perm>corehr:employment.offboarding_reason.search:read，确认已开通该权限。
 	reasonsSet bool
 
-	employeeReasons    []string // 离职原因（员工）列表 , 可以通过【查询员工离职原因列表】接口获取，查询时不返回下级原因相关的离职信息
+	employeeReasons    []string // 离职原因（员工）列表 , 可以通过[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)接口获取，查询时不返回下级原因相关的离职信息。为空时默认搜索所有离职数据。;;<br><b>字段权限要求：</b>;<md-perm name="corehr:employment.offboarding_reason.search:read" desc="按照离职原因搜索" support_app_types="custom,isv" tags="">按照离职原因搜索</md-perm>
 	employeeReasonsSet bool
 
 	departmentIds    []string // 离职人员部门，多个部门之间为「或」的关系
@@ -27866,6 +28210,9 @@ type SearchOffboardingReqBodyBuilder struct {
 
 	selectFields    []string // 返回数据的字段列表
 	selectFieldsSet bool
+
+	filterStr    string // 筛选项json
+	filterStrSet bool
 }
 
 func NewSearchOffboardingReqBodyBuilder() *SearchOffboardingReqBodyBuilder {
@@ -27873,108 +28220,108 @@ func NewSearchOffboardingReqBodyBuilder() *SearchOffboardingReqBodyBuilder {
 	return builder
 }
 
-// 雇佣 ID 列表，为空默认查询所有离职人员
+// 雇佣 ID 列表，ID类型与查询参数 user_id_type取值一致：;;- 当user_id_type取值为open_id时，ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。;;- 当user_id_type取值为user_id时，ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。;;- 当user_id_type取值为union_id时，ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。;;- 当user_id_type取值为people_corehr_id时，先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。
 //
-//示例值：
+// 示例值：
 func (builder *SearchOffboardingReqBodyBuilder) EmploymentIds(employmentIds []string) *SearchOffboardingReqBodyBuilder {
 	builder.employmentIds = employmentIds
 	builder.employmentIdsSet = true
 	return builder
 }
 
-// 离职审批发起时间-搜索范围开始，需要与搜索范围结束一同使用
+// 离职审批发起时间（搜索的起始范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批发起时间（搜索的结束范围）一同使用。
 //
-//示例值：2022-01-01 11:22:33
+// 示例值：1672578336
 func (builder *SearchOffboardingReqBodyBuilder) ApplyInitiatingTimeStart(applyInitiatingTimeStart string) *SearchOffboardingReqBodyBuilder {
 	builder.applyInitiatingTimeStart = applyInitiatingTimeStart
 	builder.applyInitiatingTimeStartSet = true
 	return builder
 }
 
-// 离职审批发起时间 - 搜索范围结束
+// 离职审批发起时间（搜索的结束范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批发起时间（搜索的起始范围）一同使用。
 //
-//示例值：2022-01-01 11:22:33
+// 示例值：1674133537
 func (builder *SearchOffboardingReqBodyBuilder) ApplyInitiatingTimeEnd(applyInitiatingTimeEnd string) *SearchOffboardingReqBodyBuilder {
 	builder.applyInitiatingTimeEnd = applyInitiatingTimeEnd
 	builder.applyInitiatingTimeEndSet = true
 	return builder
 }
 
-// 离职审批结束时间 - 搜索范围开始，需要与搜索范围结束一同使用
+// 离职审批结束时间（搜索的起始范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批结束时间（搜索的结束范围）一同使用。
 //
-//示例值：1641007353
+// 示例值：1641007353
 func (builder *SearchOffboardingReqBodyBuilder) ApplyFinishedTimeStart(applyFinishedTimeStart string) *SearchOffboardingReqBodyBuilder {
 	builder.applyFinishedTimeStart = applyFinishedTimeStart
 	builder.applyFinishedTimeStartSet = true
 	return builder
 }
 
-// 离职审批结束时间 - 搜索范围结束
+// 离职审批结束时间 （搜索的结束范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批结束时间（搜索的起始范围）一同使用。
 //
-//示例值：1641007353
+// 示例值：1641007353
 func (builder *SearchOffboardingReqBodyBuilder) ApplyFinishedTimeEnd(applyFinishedTimeEnd string) *SearchOffboardingReqBodyBuilder {
 	builder.applyFinishedTimeEnd = applyFinishedTimeEnd
 	builder.applyFinishedTimeEndSet = true
 	return builder
 }
 
-// 期望离职日期-搜索范围开始，需要与搜索范围结束一同使用
+// 期望离职日期（搜索的起始范围），请按日期格式传入。该字段非必填，需要与期望离职日期（搜索的结束范围）一同使用
 //
-//示例值：2022-01-01
+// 示例值：2022-01-01
 func (builder *SearchOffboardingReqBodyBuilder) ExpectedOffboardingDateStart(expectedOffboardingDateStart string) *SearchOffboardingReqBodyBuilder {
 	builder.expectedOffboardingDateStart = expectedOffboardingDateStart
 	builder.expectedOffboardingDateStartSet = true
 	return builder
 }
 
-// 期望离职日期 - 搜索范围结束
+// 期望离职日期（搜索的结束范围），请按日期格式传入。该字段非必填，需要与期望离职日期（搜索的起始范围）一同使用。
 //
-//示例值：2022-01-01
+// 示例值：2022-01-01
 func (builder *SearchOffboardingReqBodyBuilder) ExpectedOffboardingDateEnd(expectedOffboardingDateEnd string) *SearchOffboardingReqBodyBuilder {
 	builder.expectedOffboardingDateEnd = expectedOffboardingDateEnd
 	builder.expectedOffboardingDateEndSet = true
 	return builder
 }
 
-// 离职日期-搜索范围开始，需要与搜索范围结束一同使用
+// 离职日期（搜索的起始范围），请按日期格式传入。该字段非必填，需要与离职日期（搜索的结束范围）一同使用。
 //
-//示例值：2022-01-01
+// 示例值：2022-01-01
 func (builder *SearchOffboardingReqBodyBuilder) OffboardingDateStart(offboardingDateStart string) *SearchOffboardingReqBodyBuilder {
 	builder.offboardingDateStart = offboardingDateStart
 	builder.offboardingDateStartSet = true
 	return builder
 }
 
-// 离职日期 - 搜索范围结束
+// 离职日期（搜索的结束范围），该字段非必填，需要与离职日期（搜索的起始范围）一同使用。
 //
-//示例值：2022-01-01
+// 示例值：2022-01-01
 func (builder *SearchOffboardingReqBodyBuilder) OffboardingDateEnd(offboardingDateEnd string) *SearchOffboardingReqBodyBuilder {
 	builder.offboardingDateEnd = offboardingDateEnd
 	builder.offboardingDateEndSet = true
 	return builder
 }
 
-// 离职状态，多个状态之间为「或」的关系
+// 离职状态，多个状态之间为「或」的关系。为空时默认搜索所有状态的离职信息。
 //
-//示例值：
+// 示例值：
 func (builder *SearchOffboardingReqBodyBuilder) Statuses(statuses []string) *SearchOffboardingReqBodyBuilder {
 	builder.statuses = statuses
 	builder.statusesSet = true
 	return builder
 }
 
-// 离职原因列表 , 可以通过【查询员工离职原因列表】接口获取 ，查询时不返回下级原因相关的离职信息
+// 离职原因列表 , 可以通过[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)接口获取 ，查询时不返回下级原因相关的离职信息。为空时默认搜索所有离职数据。;;<br><b>字段权限要求：</b>;<md-perm name="corehr:employment.offboarding_reason.search:read" desc="按照离职原因搜索" support_app_types="custom,isv" tags="">按照离职原因搜索</md-perm>corehr:employment.offboarding_reason.search:read，确认已开通该权限。
 //
-//示例值：
+// 示例值：
 func (builder *SearchOffboardingReqBodyBuilder) Reasons(reasons []string) *SearchOffboardingReqBodyBuilder {
 	builder.reasons = reasons
 	builder.reasonsSet = true
 	return builder
 }
 
-// 离职原因（员工）列表 , 可以通过【查询员工离职原因列表】接口获取，查询时不返回下级原因相关的离职信息
+// 离职原因（员工）列表 , 可以通过[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)接口获取，查询时不返回下级原因相关的离职信息。为空时默认搜索所有离职数据。;;<br><b>字段权限要求：</b>;<md-perm name="corehr:employment.offboarding_reason.search:read" desc="按照离职原因搜索" support_app_types="custom,isv" tags="">按照离职原因搜索</md-perm>
 //
-//示例值：
+// 示例值：
 func (builder *SearchOffboardingReqBodyBuilder) EmployeeReasons(employeeReasons []string) *SearchOffboardingReqBodyBuilder {
 	builder.employeeReasons = employeeReasons
 	builder.employeeReasonsSet = true
@@ -27983,7 +28330,7 @@ func (builder *SearchOffboardingReqBodyBuilder) EmployeeReasons(employeeReasons 
 
 // 离职人员部门，多个部门之间为「或」的关系
 //
-//示例值：
+// 示例值：
 func (builder *SearchOffboardingReqBodyBuilder) DepartmentIds(departmentIds []string) *SearchOffboardingReqBodyBuilder {
 	builder.departmentIds = departmentIds
 	builder.departmentIdsSet = true
@@ -27992,10 +28339,19 @@ func (builder *SearchOffboardingReqBodyBuilder) DepartmentIds(departmentIds []st
 
 // 返回数据的字段列表
 //
-//示例值：
+// 示例值：
 func (builder *SearchOffboardingReqBodyBuilder) SelectFields(selectFields []string) *SearchOffboardingReqBodyBuilder {
 	builder.selectFields = selectFields
 	builder.selectFieldsSet = true
+	return builder
+}
+
+// 筛选项json
+//
+// 示例值：abb
+func (builder *SearchOffboardingReqBodyBuilder) FilterStr(filterStr string) *SearchOffboardingReqBodyBuilder {
+	builder.filterStr = filterStr
+	builder.filterStrSet = true
 	return builder
 }
 
@@ -28043,6 +28399,9 @@ func (builder *SearchOffboardingReqBodyBuilder) Build() *SearchOffboardingReqBod
 	if builder.selectFieldsSet {
 		req.SelectFields = builder.selectFields
 	}
+	if builder.filterStrSet {
+		req.FilterStr = &builder.filterStr
+	}
 	return req
 }
 
@@ -28075,6 +28434,8 @@ type SearchOffboardingPathReqBodyBuilder struct {
 	departmentIdsSet                bool
 	selectFields                    []string
 	selectFieldsSet                 bool
+	filterStr                       string
+	filterStrSet                    bool
 }
 
 func NewSearchOffboardingPathReqBodyBuilder() *SearchOffboardingPathReqBodyBuilder {
@@ -28082,7 +28443,7 @@ func NewSearchOffboardingPathReqBodyBuilder() *SearchOffboardingPathReqBodyBuild
 	return builder
 }
 
-// 雇佣 ID 列表，为空默认查询所有离职人员
+// 雇佣 ID 列表，ID类型与查询参数 user_id_type取值一致：;;- 当user_id_type取值为open_id时，ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。;;- 当user_id_type取值为user_id时，ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。;;- 当user_id_type取值为union_id时，ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。;;- 当user_id_type取值为people_corehr_id时，先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。
 //
 // 示例值：
 func (builder *SearchOffboardingPathReqBodyBuilder) EmploymentIds(employmentIds []string) *SearchOffboardingPathReqBodyBuilder {
@@ -28091,25 +28452,25 @@ func (builder *SearchOffboardingPathReqBodyBuilder) EmploymentIds(employmentIds 
 	return builder
 }
 
-// 离职审批发起时间-搜索范围开始，需要与搜索范围结束一同使用
+// 离职审批发起时间（搜索的起始范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批发起时间（搜索的结束范围）一同使用。
 //
-// 示例值：2022-01-01 11:22:33
+// 示例值：1672578336
 func (builder *SearchOffboardingPathReqBodyBuilder) ApplyInitiatingTimeStart(applyInitiatingTimeStart string) *SearchOffboardingPathReqBodyBuilder {
 	builder.applyInitiatingTimeStart = applyInitiatingTimeStart
 	builder.applyInitiatingTimeStartSet = true
 	return builder
 }
 
-// 离职审批发起时间 - 搜索范围结束
+// 离职审批发起时间（搜索的结束范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批发起时间（搜索的起始范围）一同使用。
 //
-// 示例值：2022-01-01 11:22:33
+// 示例值：1674133537
 func (builder *SearchOffboardingPathReqBodyBuilder) ApplyInitiatingTimeEnd(applyInitiatingTimeEnd string) *SearchOffboardingPathReqBodyBuilder {
 	builder.applyInitiatingTimeEnd = applyInitiatingTimeEnd
 	builder.applyInitiatingTimeEndSet = true
 	return builder
 }
 
-// 离职审批结束时间 - 搜索范围开始，需要与搜索范围结束一同使用
+// 离职审批结束时间（搜索的起始范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批结束时间（搜索的结束范围）一同使用。
 //
 // 示例值：1641007353
 func (builder *SearchOffboardingPathReqBodyBuilder) ApplyFinishedTimeStart(applyFinishedTimeStart string) *SearchOffboardingPathReqBodyBuilder {
@@ -28118,7 +28479,7 @@ func (builder *SearchOffboardingPathReqBodyBuilder) ApplyFinishedTimeStart(apply
 	return builder
 }
 
-// 离职审批结束时间 - 搜索范围结束
+// 离职审批结束时间 （搜索的结束范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批结束时间（搜索的起始范围）一同使用。
 //
 // 示例值：1641007353
 func (builder *SearchOffboardingPathReqBodyBuilder) ApplyFinishedTimeEnd(applyFinishedTimeEnd string) *SearchOffboardingPathReqBodyBuilder {
@@ -28127,7 +28488,7 @@ func (builder *SearchOffboardingPathReqBodyBuilder) ApplyFinishedTimeEnd(applyFi
 	return builder
 }
 
-// 期望离职日期-搜索范围开始，需要与搜索范围结束一同使用
+// 期望离职日期（搜索的起始范围），请按日期格式传入。该字段非必填，需要与期望离职日期（搜索的结束范围）一同使用
 //
 // 示例值：2022-01-01
 func (builder *SearchOffboardingPathReqBodyBuilder) ExpectedOffboardingDateStart(expectedOffboardingDateStart string) *SearchOffboardingPathReqBodyBuilder {
@@ -28136,7 +28497,7 @@ func (builder *SearchOffboardingPathReqBodyBuilder) ExpectedOffboardingDateStart
 	return builder
 }
 
-// 期望离职日期 - 搜索范围结束
+// 期望离职日期（搜索的结束范围），请按日期格式传入。该字段非必填，需要与期望离职日期（搜索的起始范围）一同使用。
 //
 // 示例值：2022-01-01
 func (builder *SearchOffboardingPathReqBodyBuilder) ExpectedOffboardingDateEnd(expectedOffboardingDateEnd string) *SearchOffboardingPathReqBodyBuilder {
@@ -28145,7 +28506,7 @@ func (builder *SearchOffboardingPathReqBodyBuilder) ExpectedOffboardingDateEnd(e
 	return builder
 }
 
-// 离职日期-搜索范围开始，需要与搜索范围结束一同使用
+// 离职日期（搜索的起始范围），请按日期格式传入。该字段非必填，需要与离职日期（搜索的结束范围）一同使用。
 //
 // 示例值：2022-01-01
 func (builder *SearchOffboardingPathReqBodyBuilder) OffboardingDateStart(offboardingDateStart string) *SearchOffboardingPathReqBodyBuilder {
@@ -28154,7 +28515,7 @@ func (builder *SearchOffboardingPathReqBodyBuilder) OffboardingDateStart(offboar
 	return builder
 }
 
-// 离职日期 - 搜索范围结束
+// 离职日期（搜索的结束范围），该字段非必填，需要与离职日期（搜索的起始范围）一同使用。
 //
 // 示例值：2022-01-01
 func (builder *SearchOffboardingPathReqBodyBuilder) OffboardingDateEnd(offboardingDateEnd string) *SearchOffboardingPathReqBodyBuilder {
@@ -28163,7 +28524,7 @@ func (builder *SearchOffboardingPathReqBodyBuilder) OffboardingDateEnd(offboardi
 	return builder
 }
 
-// 离职状态，多个状态之间为「或」的关系
+// 离职状态，多个状态之间为「或」的关系。为空时默认搜索所有状态的离职信息。
 //
 // 示例值：
 func (builder *SearchOffboardingPathReqBodyBuilder) Statuses(statuses []string) *SearchOffboardingPathReqBodyBuilder {
@@ -28172,7 +28533,7 @@ func (builder *SearchOffboardingPathReqBodyBuilder) Statuses(statuses []string) 
 	return builder
 }
 
-// 离职原因列表 , 可以通过【查询员工离职原因列表】接口获取 ，查询时不返回下级原因相关的离职信息
+// 离职原因列表 , 可以通过[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)接口获取 ，查询时不返回下级原因相关的离职信息。为空时默认搜索所有离职数据。;;<br><b>字段权限要求：</b>;<md-perm name="corehr:employment.offboarding_reason.search:read" desc="按照离职原因搜索" support_app_types="custom,isv" tags="">按照离职原因搜索</md-perm>corehr:employment.offboarding_reason.search:read，确认已开通该权限。
 //
 // 示例值：
 func (builder *SearchOffboardingPathReqBodyBuilder) Reasons(reasons []string) *SearchOffboardingPathReqBodyBuilder {
@@ -28181,7 +28542,7 @@ func (builder *SearchOffboardingPathReqBodyBuilder) Reasons(reasons []string) *S
 	return builder
 }
 
-// 离职原因（员工）列表 , 可以通过【查询员工离职原因列表】接口获取，查询时不返回下级原因相关的离职信息
+// 离职原因（员工）列表 , 可以通过[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)接口获取，查询时不返回下级原因相关的离职信息。为空时默认搜索所有离职数据。;;<br><b>字段权限要求：</b>;<md-perm name="corehr:employment.offboarding_reason.search:read" desc="按照离职原因搜索" support_app_types="custom,isv" tags="">按照离职原因搜索</md-perm>
 //
 // 示例值：
 func (builder *SearchOffboardingPathReqBodyBuilder) EmployeeReasons(employeeReasons []string) *SearchOffboardingPathReqBodyBuilder {
@@ -28205,6 +28566,15 @@ func (builder *SearchOffboardingPathReqBodyBuilder) DepartmentIds(departmentIds 
 func (builder *SearchOffboardingPathReqBodyBuilder) SelectFields(selectFields []string) *SearchOffboardingPathReqBodyBuilder {
 	builder.selectFields = selectFields
 	builder.selectFieldsSet = true
+	return builder
+}
+
+// 筛选项json
+//
+// 示例值：abb
+func (builder *SearchOffboardingPathReqBodyBuilder) FilterStr(filterStr string) *SearchOffboardingPathReqBodyBuilder {
+	builder.filterStr = filterStr
+	builder.filterStrSet = true
 	return builder
 }
 
@@ -28251,6 +28621,9 @@ func (builder *SearchOffboardingPathReqBodyBuilder) Build() (*SearchOffboardingR
 	}
 	if builder.selectFieldsSet {
 		req.SelectFields = builder.selectFields
+	}
+	if builder.filterStrSet {
+		req.FilterStr = &builder.filterStr
 	}
 	return req, nil
 }
@@ -28308,7 +28681,7 @@ func (builder *SearchOffboardingReqBuilder) DepartmentIdType(departmentIdType st
 	return builder
 }
 
-// 根据 雇佣 ID 查询员工离职信息
+// 该接口支持根据员工ID、离职审批发起时间和离职日期等字段搜索离职信息，可获取包括离职日期、离职原因、离职状态和流程审批状态等信息。
 func (builder *SearchOffboardingReqBuilder) Body(body *SearchOffboardingReqBody) *SearchOffboardingReqBuilder {
 	builder.body = body
 	return builder
@@ -28324,33 +28697,35 @@ func (builder *SearchOffboardingReqBuilder) Build() *SearchOffboardingReq {
 }
 
 type SearchOffboardingReqBody struct {
-	EmploymentIds []string `json:"employment_ids,omitempty"` // 雇佣 ID 列表，为空默认查询所有离职人员
+	EmploymentIds []string `json:"employment_ids,omitempty"` // 雇佣 ID 列表，ID类型与查询参数 user_id_type取值一致：;;- 当user_id_type取值为open_id时，ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。;;- 当user_id_type取值为user_id时，ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。;;- 当user_id_type取值为union_id时，ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。;;- 当user_id_type取值为people_corehr_id时，先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。
 
-	ApplyInitiatingTimeStart *string `json:"apply_initiating_time_start,omitempty"` // 离职审批发起时间-搜索范围开始，需要与搜索范围结束一同使用
+	ApplyInitiatingTimeStart *string `json:"apply_initiating_time_start,omitempty"` // 离职审批发起时间（搜索的起始范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批发起时间（搜索的结束范围）一同使用。
 
-	ApplyInitiatingTimeEnd *string `json:"apply_initiating_time_end,omitempty"` // 离职审批发起时间 - 搜索范围结束
+	ApplyInitiatingTimeEnd *string `json:"apply_initiating_time_end,omitempty"` // 离职审批发起时间（搜索的结束范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批发起时间（搜索的起始范围）一同使用。
 
-	ApplyFinishedTimeStart *string `json:"apply_finished_time_start,omitempty"` // 离职审批结束时间 - 搜索范围开始，需要与搜索范围结束一同使用
+	ApplyFinishedTimeStart *string `json:"apply_finished_time_start,omitempty"` // 离职审批结束时间（搜索的起始范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批结束时间（搜索的结束范围）一同使用。
 
-	ApplyFinishedTimeEnd *string `json:"apply_finished_time_end,omitempty"` // 离职审批结束时间 - 搜索范围结束
+	ApplyFinishedTimeEnd *string `json:"apply_finished_time_end,omitempty"` // 离职审批结束时间 （搜索的结束范围），请按照秒级时间戳格式传入。该字段非必填，需要与离职审批结束时间（搜索的起始范围）一同使用。
 
-	ExpectedOffboardingDateStart *string `json:"expected_offboarding_date_start,omitempty"` // 期望离职日期-搜索范围开始，需要与搜索范围结束一同使用
+	ExpectedOffboardingDateStart *string `json:"expected_offboarding_date_start,omitempty"` // 期望离职日期（搜索的起始范围），请按日期格式传入。该字段非必填，需要与期望离职日期（搜索的结束范围）一同使用
 
-	ExpectedOffboardingDateEnd *string `json:"expected_offboarding_date_end,omitempty"` // 期望离职日期 - 搜索范围结束
+	ExpectedOffboardingDateEnd *string `json:"expected_offboarding_date_end,omitempty"` // 期望离职日期（搜索的结束范围），请按日期格式传入。该字段非必填，需要与期望离职日期（搜索的起始范围）一同使用。
 
-	OffboardingDateStart *string `json:"offboarding_date_start,omitempty"` // 离职日期-搜索范围开始，需要与搜索范围结束一同使用
+	OffboardingDateStart *string `json:"offboarding_date_start,omitempty"` // 离职日期（搜索的起始范围），请按日期格式传入。该字段非必填，需要与离职日期（搜索的结束范围）一同使用。
 
-	OffboardingDateEnd *string `json:"offboarding_date_end,omitempty"` // 离职日期 - 搜索范围结束
+	OffboardingDateEnd *string `json:"offboarding_date_end,omitempty"` // 离职日期（搜索的结束范围），该字段非必填，需要与离职日期（搜索的起始范围）一同使用。
 
-	Statuses []string `json:"statuses,omitempty"` // 离职状态，多个状态之间为「或」的关系
+	Statuses []string `json:"statuses,omitempty"` // 离职状态，多个状态之间为「或」的关系。为空时默认搜索所有状态的离职信息。
 
-	Reasons []string `json:"reasons,omitempty"` // 离职原因列表 , 可以通过【查询员工离职原因列表】接口获取 ，查询时不返回下级原因相关的离职信息
+	Reasons []string `json:"reasons,omitempty"` // 离职原因列表 , 可以通过[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)接口获取 ，查询时不返回下级原因相关的离职信息。为空时默认搜索所有离职数据。;;<br><b>字段权限要求：</b>;<md-perm name="corehr:employment.offboarding_reason.search:read" desc="按照离职原因搜索" support_app_types="custom,isv" tags="">按照离职原因搜索</md-perm>corehr:employment.offboarding_reason.search:read，确认已开通该权限。
 
-	EmployeeReasons []string `json:"employee_reasons,omitempty"` // 离职原因（员工）列表 , 可以通过【查询员工离职原因列表】接口获取，查询时不返回下级原因相关的离职信息
+	EmployeeReasons []string `json:"employee_reasons,omitempty"` // 离职原因（员工）列表 , 可以通过[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)接口获取，查询时不返回下级原因相关的离职信息。为空时默认搜索所有离职数据。;;<br><b>字段权限要求：</b>;<md-perm name="corehr:employment.offboarding_reason.search:read" desc="按照离职原因搜索" support_app_types="custom,isv" tags="">按照离职原因搜索</md-perm>
 
 	DepartmentIds []string `json:"department_ids,omitempty"` // 离职人员部门，多个部门之间为「或」的关系
 
 	SelectFields []string `json:"select_fields,omitempty"` // 返回数据的字段列表
+
+	FilterStr *string `json:"filter_str,omitempty"` // 筛选项json
 }
 
 type SearchOffboardingReq struct {
@@ -28366,6 +28741,10 @@ type SearchOffboardingRespData struct {
 	PageToken *string `json:"page_token,omitempty"` // 下一页页码
 
 	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+
+	Total *int `json:"total,omitempty"` // 总数
+
+	RejectExport *bool `json:"reject_export,omitempty"` // 是否禁止导出
 }
 
 type SearchOffboardingResp struct {
@@ -28379,34 +28758,34 @@ func (resp *SearchOffboardingResp) Success() bool {
 }
 
 type SubmitOffboardingReqBodyBuilder struct {
-	offboardingMode    int // 离职方式
+	offboardingMode    int // 离职方式，目前只支持直接离职
 	offboardingModeSet bool
 
-	employmentId    string // 雇员 id
+	employmentId    string // 离职员工 ID。ID类型与查询参数 user_id_type取值一致：;;1、当user_id_type取值为open_id时，ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。;;2、当user_id_type取值为user_id时，ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。;;3、当user_id_type取值为union_id时，ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。;;4、当user_id_type取值为people_corehr_id时，先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。v1/common_data-id/convert)获取
 	employmentIdSet bool
 
-	offboardingDate    string // 离职日期
+	offboardingDate    string // 离职日期，入参格式应为YYYY-MM-DD
 	offboardingDateSet bool
 
 	offboardingReasonUniqueIdentifier    string // 离职原因，可通过接口;[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)获取
 	offboardingReasonUniqueIdentifierSet bool
 
-	offboardingReasonExplanation    string // 离职原因说明，长度限制6000
+	offboardingReasonExplanation    string // 离职原因说明，长度限制6000个字符，该字段允许为空
 	offboardingReasonExplanationSet bool
 
-	initiatorId    string // 操作发起人 ID（employment_id），为空默认为系统发起。注意：只有操作发起人可以撤销流程
+	initiatorId    string // 操作发起人 ID。ID类型与查询参数 user_id_type取值一致：;;1、当user_id_type取值为open_id时，ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。;;2、当user_id_type取值为user_id时，ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。;;3、当user_id_type取值为union_id时，ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。;;4、当user_id_type取值为people_corehr_id时，先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。;;注意：;;1.只有操作发起人可以撤销流程;;2.为空时，默认系统发起人
 	initiatorIdSet bool
 
-	addBlockList    bool // 是否加入离职屏蔽名单
+	addBlockList    bool // 是否加入离职屏蔽名单;;注意：;;1.取值为true时，屏蔽原因（block_reason）为必填。;;2.取值为false时，不允许填写屏蔽原因（block_reason）和屏蔽原因说明（block_reason_explanation）。;;3.取值为空时，不允许填写屏蔽原因（block_reason）和屏蔽原因说明（block_reason_explanation）。;;4.操作离职时如果选择加入屏蔽名单，只有当员工离职生效后才会进入到屏蔽名单。
 	addBlockListSet bool
 
-	blockReason    string // 屏蔽原因
+	blockReason    string // 屏蔽原因;;注意：;;1.该字段取值于 [人员档案配置](https://people.feishu.cn/people/hr-settings/profile) > 信息配置 > 离职信息 的屏蔽原因字段选项集。;;2.枚举字段值也可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)获取，参考接口返回的 字段详情 > 字段类型配置信息 > 选项配置信息 > 选项信息 > 枚举常量集 API name;;3.该字段是否必填取决于是否加入离职屏蔽名单(add_block_list)
 	blockReasonSet bool
 
-	blockReasonExplanation    string // 屏蔽原因说明
+	blockReasonExplanation    string // 屏蔽原因说明，该字段允许为空
 	blockReasonExplanationSet bool
 
-	customFields    []*ObjectFieldData // 自定义字段
+	customFields    []*ObjectFieldData // 离职自定义字段。;;注意：可填写的字段范围参考[人员档案配置](https://people.feishu.cn/people/hr-settings/profile) > 信息配置 > 离职信息 中的自定义字段
 	customFieldsSet bool
 }
 
@@ -28415,27 +28794,27 @@ func NewSubmitOffboardingReqBodyBuilder() *SubmitOffboardingReqBodyBuilder {
 	return builder
 }
 
-// 离职方式
+// 离职方式，目前只支持直接离职
 //
-//示例值：1
+// 示例值：1
 func (builder *SubmitOffboardingReqBodyBuilder) OffboardingMode(offboardingMode int) *SubmitOffboardingReqBodyBuilder {
 	builder.offboardingMode = offboardingMode
 	builder.offboardingModeSet = true
 	return builder
 }
 
-// 雇员 id
+// 离职员工 ID。ID类型与查询参数 user_id_type取值一致：;;1、当user_id_type取值为open_id时，ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。;;2、当user_id_type取值为user_id时，ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。;;3、当user_id_type取值为union_id时，ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。;;4、当user_id_type取值为people_corehr_id时，先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。v1/common_data-id/convert)获取
 //
-//示例值：6982509313466189342
+// 示例值：6982509313466189342
 func (builder *SubmitOffboardingReqBodyBuilder) EmploymentId(employmentId string) *SubmitOffboardingReqBodyBuilder {
 	builder.employmentId = employmentId
 	builder.employmentIdSet = true
 	return builder
 }
 
-// 离职日期
+// 离职日期，入参格式应为YYYY-MM-DD
 //
-//示例值：2022-05-18
+// 示例值：2022-05-18
 func (builder *SubmitOffboardingReqBodyBuilder) OffboardingDate(offboardingDate string) *SubmitOffboardingReqBodyBuilder {
 	builder.offboardingDate = offboardingDate
 	builder.offboardingDateSet = true
@@ -28444,61 +28823,61 @@ func (builder *SubmitOffboardingReqBodyBuilder) OffboardingDate(offboardingDate 
 
 // 离职原因，可通过接口;[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)获取
 //
-//示例值：reason_for_offboarding_option8
+// 示例值：reason_for_offboarding_option8
 func (builder *SubmitOffboardingReqBodyBuilder) OffboardingReasonUniqueIdentifier(offboardingReasonUniqueIdentifier string) *SubmitOffboardingReqBodyBuilder {
 	builder.offboardingReasonUniqueIdentifier = offboardingReasonUniqueIdentifier
 	builder.offboardingReasonUniqueIdentifierSet = true
 	return builder
 }
 
-// 离职原因说明，长度限制6000
+// 离职原因说明，长度限制6000个字符，该字段允许为空
 //
-//示例值：离职原因说明
+// 示例值：离职原因说明
 func (builder *SubmitOffboardingReqBodyBuilder) OffboardingReasonExplanation(offboardingReasonExplanation string) *SubmitOffboardingReqBodyBuilder {
 	builder.offboardingReasonExplanation = offboardingReasonExplanation
 	builder.offboardingReasonExplanationSet = true
 	return builder
 }
 
-// 操作发起人 ID（employment_id），为空默认为系统发起。注意：只有操作发起人可以撤销流程
+// 操作发起人 ID。ID类型与查询参数 user_id_type取值一致：;;1、当user_id_type取值为open_id时，ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。;;2、当user_id_type取值为user_id时，ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。;;3、当user_id_type取值为union_id时，ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。;;4、当user_id_type取值为people_corehr_id时，先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。;;注意：;;1.只有操作发起人可以撤销流程;;2.为空时，默认系统发起人
 //
-//示例值：6982509313466189341
+// 示例值：6982509313466189341
 func (builder *SubmitOffboardingReqBodyBuilder) InitiatorId(initiatorId string) *SubmitOffboardingReqBodyBuilder {
 	builder.initiatorId = initiatorId
 	builder.initiatorIdSet = true
 	return builder
 }
 
-// 是否加入离职屏蔽名单
+// 是否加入离职屏蔽名单;;注意：;;1.取值为true时，屏蔽原因（block_reason）为必填。;;2.取值为false时，不允许填写屏蔽原因（block_reason）和屏蔽原因说明（block_reason_explanation）。;;3.取值为空时，不允许填写屏蔽原因（block_reason）和屏蔽原因说明（block_reason_explanation）。;;4.操作离职时如果选择加入屏蔽名单，只有当员工离职生效后才会进入到屏蔽名单。
 //
-//示例值：false
+// 示例值：false
 func (builder *SubmitOffboardingReqBodyBuilder) AddBlockList(addBlockList bool) *SubmitOffboardingReqBodyBuilder {
 	builder.addBlockList = addBlockList
 	builder.addBlockListSet = true
 	return builder
 }
 
-// 屏蔽原因
+// 屏蔽原因;;注意：;;1.该字段取值于 [人员档案配置](https://people.feishu.cn/people/hr-settings/profile) > 信息配置 > 离职信息 的屏蔽原因字段选项集。;;2.枚举字段值也可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)获取，参考接口返回的 字段详情 > 字段类型配置信息 > 选项配置信息 > 选项信息 > 枚举常量集 API name;;3.该字段是否必填取决于是否加入离职屏蔽名单(add_block_list)
 //
-//示例值：红线
+// 示例值：红线
 func (builder *SubmitOffboardingReqBodyBuilder) BlockReason(blockReason string) *SubmitOffboardingReqBodyBuilder {
 	builder.blockReason = blockReason
 	builder.blockReasonSet = true
 	return builder
 }
 
-// 屏蔽原因说明
+// 屏蔽原因说明，该字段允许为空
 //
-//示例值：xx 年 xx 月 xx 日因 xx 原因红线
+// 示例值：xx 年 xx 月 xx 日因 xx 原因红线
 func (builder *SubmitOffboardingReqBodyBuilder) BlockReasonExplanation(blockReasonExplanation string) *SubmitOffboardingReqBodyBuilder {
 	builder.blockReasonExplanation = blockReasonExplanation
 	builder.blockReasonExplanationSet = true
 	return builder
 }
 
-// 自定义字段
+// 离职自定义字段。;;注意：可填写的字段范围参考[人员档案配置](https://people.feishu.cn/people/hr-settings/profile) > 信息配置 > 离职信息 中的自定义字段
 //
-//示例值：
+// 示例值：
 func (builder *SubmitOffboardingReqBodyBuilder) CustomFields(customFields []*ObjectFieldData) *SubmitOffboardingReqBodyBuilder {
 	builder.customFields = customFields
 	builder.customFieldsSet = true
@@ -28568,7 +28947,7 @@ func NewSubmitOffboardingPathReqBodyBuilder() *SubmitOffboardingPathReqBodyBuild
 	return builder
 }
 
-// 离职方式
+// 离职方式，目前只支持直接离职
 //
 // 示例值：1
 func (builder *SubmitOffboardingPathReqBodyBuilder) OffboardingMode(offboardingMode int) *SubmitOffboardingPathReqBodyBuilder {
@@ -28577,7 +28956,7 @@ func (builder *SubmitOffboardingPathReqBodyBuilder) OffboardingMode(offboardingM
 	return builder
 }
 
-// 雇员 id
+// 离职员工 ID。ID类型与查询参数 user_id_type取值一致：;;1、当user_id_type取值为open_id时，ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。;;2、当user_id_type取值为user_id时，ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。;;3、当user_id_type取值为union_id时，ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。;;4、当user_id_type取值为people_corehr_id时，先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。v1/common_data-id/convert)获取
 //
 // 示例值：6982509313466189342
 func (builder *SubmitOffboardingPathReqBodyBuilder) EmploymentId(employmentId string) *SubmitOffboardingPathReqBodyBuilder {
@@ -28586,7 +28965,7 @@ func (builder *SubmitOffboardingPathReqBodyBuilder) EmploymentId(employmentId st
 	return builder
 }
 
-// 离职日期
+// 离职日期，入参格式应为YYYY-MM-DD
 //
 // 示例值：2022-05-18
 func (builder *SubmitOffboardingPathReqBodyBuilder) OffboardingDate(offboardingDate string) *SubmitOffboardingPathReqBodyBuilder {
@@ -28604,7 +28983,7 @@ func (builder *SubmitOffboardingPathReqBodyBuilder) OffboardingReasonUniqueIdent
 	return builder
 }
 
-// 离职原因说明，长度限制6000
+// 离职原因说明，长度限制6000个字符，该字段允许为空
 //
 // 示例值：离职原因说明
 func (builder *SubmitOffboardingPathReqBodyBuilder) OffboardingReasonExplanation(offboardingReasonExplanation string) *SubmitOffboardingPathReqBodyBuilder {
@@ -28613,7 +28992,7 @@ func (builder *SubmitOffboardingPathReqBodyBuilder) OffboardingReasonExplanation
 	return builder
 }
 
-// 操作发起人 ID（employment_id），为空默认为系统发起。注意：只有操作发起人可以撤销流程
+// 操作发起人 ID。ID类型与查询参数 user_id_type取值一致：;;1、当user_id_type取值为open_id时，ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。;;2、当user_id_type取值为user_id时，ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。;;3、当user_id_type取值为union_id时，ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。;;4、当user_id_type取值为people_corehr_id时，先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。;;注意：;;1.只有操作发起人可以撤销流程;;2.为空时，默认系统发起人
 //
 // 示例值：6982509313466189341
 func (builder *SubmitOffboardingPathReqBodyBuilder) InitiatorId(initiatorId string) *SubmitOffboardingPathReqBodyBuilder {
@@ -28622,7 +29001,7 @@ func (builder *SubmitOffboardingPathReqBodyBuilder) InitiatorId(initiatorId stri
 	return builder
 }
 
-// 是否加入离职屏蔽名单
+// 是否加入离职屏蔽名单;;注意：;;1.取值为true时，屏蔽原因（block_reason）为必填。;;2.取值为false时，不允许填写屏蔽原因（block_reason）和屏蔽原因说明（block_reason_explanation）。;;3.取值为空时，不允许填写屏蔽原因（block_reason）和屏蔽原因说明（block_reason_explanation）。;;4.操作离职时如果选择加入屏蔽名单，只有当员工离职生效后才会进入到屏蔽名单。
 //
 // 示例值：false
 func (builder *SubmitOffboardingPathReqBodyBuilder) AddBlockList(addBlockList bool) *SubmitOffboardingPathReqBodyBuilder {
@@ -28631,7 +29010,7 @@ func (builder *SubmitOffboardingPathReqBodyBuilder) AddBlockList(addBlockList bo
 	return builder
 }
 
-// 屏蔽原因
+// 屏蔽原因;;注意：;;1.该字段取值于 [人员档案配置](https://people.feishu.cn/people/hr-settings/profile) > 信息配置 > 离职信息 的屏蔽原因字段选项集。;;2.枚举字段值也可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)获取，参考接口返回的 字段详情 > 字段类型配置信息 > 选项配置信息 > 选项信息 > 枚举常量集 API name;;3.该字段是否必填取决于是否加入离职屏蔽名单(add_block_list)
 //
 // 示例值：红线
 func (builder *SubmitOffboardingPathReqBodyBuilder) BlockReason(blockReason string) *SubmitOffboardingPathReqBodyBuilder {
@@ -28640,7 +29019,7 @@ func (builder *SubmitOffboardingPathReqBodyBuilder) BlockReason(blockReason stri
 	return builder
 }
 
-// 屏蔽原因说明
+// 屏蔽原因说明，该字段允许为空
 //
 // 示例值：xx 年 xx 月 xx 日因 xx 原因红线
 func (builder *SubmitOffboardingPathReqBodyBuilder) BlockReasonExplanation(blockReasonExplanation string) *SubmitOffboardingPathReqBodyBuilder {
@@ -28649,7 +29028,7 @@ func (builder *SubmitOffboardingPathReqBodyBuilder) BlockReasonExplanation(block
 	return builder
 }
 
-// 自定义字段
+// 离职自定义字段。;;注意：可填写的字段范围参考[人员档案配置](https://people.feishu.cn/people/hr-settings/profile) > 信息配置 > 离职信息 中的自定义字段
 //
 // 示例值：
 func (builder *SubmitOffboardingPathReqBodyBuilder) CustomFields(customFields []*ObjectFieldData) *SubmitOffboardingPathReqBodyBuilder {
@@ -28715,7 +29094,7 @@ func (builder *SubmitOffboardingReqBuilder) UserIdType(userIdType string) *Submi
 	return builder
 }
 
-// 操作员工直接离职
+// 该接口用于发起员工离职。若发起成功，会生成一条员工的离职数据，同时产生相应的事件。参考[离职申请状态变更](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/offboarding/events/status_updated)
 func (builder *SubmitOffboardingReqBuilder) Body(body *SubmitOffboardingReqBody) *SubmitOffboardingReqBuilder {
 	builder.body = body
 	return builder
@@ -28730,25 +29109,25 @@ func (builder *SubmitOffboardingReqBuilder) Build() *SubmitOffboardingReq {
 }
 
 type SubmitOffboardingReqBody struct {
-	OffboardingMode *int `json:"offboarding_mode,omitempty"` // 离职方式
+	OffboardingMode *int `json:"offboarding_mode,omitempty"` // 离职方式，目前只支持直接离职
 
-	EmploymentId *string `json:"employment_id,omitempty"` // 雇员 id
+	EmploymentId *string `json:"employment_id,omitempty"` // 离职员工 ID。ID类型与查询参数 user_id_type取值一致：;;1、当user_id_type取值为open_id时，ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。;;2、当user_id_type取值为user_id时，ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。;;3、当user_id_type取值为union_id时，ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。;;4、当user_id_type取值为people_corehr_id时，先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。v1/common_data-id/convert)获取
 
-	OffboardingDate *string `json:"offboarding_date,omitempty"` // 离职日期
+	OffboardingDate *string `json:"offboarding_date,omitempty"` // 离职日期，入参格式应为YYYY-MM-DD
 
 	OffboardingReasonUniqueIdentifier *string `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因，可通过接口;[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)获取
 
-	OffboardingReasonExplanation *string `json:"offboarding_reason_explanation,omitempty"` // 离职原因说明，长度限制6000
+	OffboardingReasonExplanation *string `json:"offboarding_reason_explanation,omitempty"` // 离职原因说明，长度限制6000个字符，该字段允许为空
 
-	InitiatorId *string `json:"initiator_id,omitempty"` // 操作发起人 ID（employment_id），为空默认为系统发起。注意：只有操作发起人可以撤销流程
+	InitiatorId *string `json:"initiator_id,omitempty"` // 操作发起人 ID。ID类型与查询参数 user_id_type取值一致：;;1、当user_id_type取值为open_id时，ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。;;2、当user_id_type取值为user_id时，ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。;;3、当user_id_type取值为union_id时，ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。;;4、当user_id_type取值为people_corehr_id时，先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。;;注意：;;1.只有操作发起人可以撤销流程;;2.为空时，默认系统发起人
 
-	AddBlockList *bool `json:"add_block_list,omitempty"` // 是否加入离职屏蔽名单
+	AddBlockList *bool `json:"add_block_list,omitempty"` // 是否加入离职屏蔽名单;;注意：;;1.取值为true时，屏蔽原因（block_reason）为必填。;;2.取值为false时，不允许填写屏蔽原因（block_reason）和屏蔽原因说明（block_reason_explanation）。;;3.取值为空时，不允许填写屏蔽原因（block_reason）和屏蔽原因说明（block_reason_explanation）。;;4.操作离职时如果选择加入屏蔽名单，只有当员工离职生效后才会进入到屏蔽名单。
 
-	BlockReason *string `json:"block_reason,omitempty"` // 屏蔽原因
+	BlockReason *string `json:"block_reason,omitempty"` // 屏蔽原因;;注意：;;1.该字段取值于 [人员档案配置](https://people.feishu.cn/people/hr-settings/profile) > 信息配置 > 离职信息 的屏蔽原因字段选项集。;;2.枚举字段值也可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)获取，参考接口返回的 字段详情 > 字段类型配置信息 > 选项配置信息 > 选项信息 > 枚举常量集 API name;;3.该字段是否必填取决于是否加入离职屏蔽名单(add_block_list)
 
-	BlockReasonExplanation *string `json:"block_reason_explanation,omitempty"` // 屏蔽原因说明
+	BlockReasonExplanation *string `json:"block_reason_explanation,omitempty"` // 屏蔽原因说明，该字段允许为空
 
-	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 离职自定义字段。;;注意：可填写的字段范围参考[人员档案配置](https://people.feishu.cn/people/hr-settings/profile) > 信息配置 > 离职信息 中的自定义字段
 }
 
 type SubmitOffboardingReq struct {
@@ -28761,7 +29140,7 @@ type SubmitOffboardingRespData struct {
 
 	EmploymentId *string `json:"employment_id,omitempty"` // 雇员 id
 
-	OffboardingReasonUniqueIdentifier *string `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因
+	OffboardingReasonUniqueIdentifier *string `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因，可通过接口;[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)获取
 
 	OffboardingDate *string `json:"offboarding_date,omitempty"` // 离职日期
 
@@ -28808,7 +29187,7 @@ func (builder *CreatePersonReqBuilder) ClientToken(clientToken string) *CreatePe
 	return builder
 }
 
-// 创建人员的个人信息
+// 创建人员的个人信息。
 func (builder *CreatePersonReqBuilder) Person(person *Person) *CreatePersonReqBuilder {
 	builder.person = person
 	return builder
@@ -28967,7 +29346,7 @@ func (builder *PatchPersonReqBuilder) ClientToken(clientToken string) *PatchPers
 	return builder
 }
 
-// 更新个人信息
+// 更新个人信息。
 func (builder *PatchPersonReqBuilder) Person(person *Person) *PatchPersonReqBuilder {
 	builder.person = person
 	return builder
@@ -29002,10 +29381,10 @@ func (resp *PatchPersonResp) Success() bool {
 }
 
 type UploadPersonReqBodyBuilder struct {
-	fileContent    io.Reader // 文件二进制内容
+	fileContent    io.Reader // 文件二进制内容，大小不超过50M
 	fileContentSet bool
 
-	fileName    string // 文件名称
+	fileName    string // 文件名称（需带有文件后缀）
 	fileNameSet bool
 }
 
@@ -29014,18 +29393,18 @@ func NewUploadPersonReqBodyBuilder() *UploadPersonReqBodyBuilder {
 	return builder
 }
 
-// 文件二进制内容
+// 文件二进制内容，大小不超过50M
 //
-//示例值：file binary
+// 示例值：
 func (builder *UploadPersonReqBodyBuilder) FileContent(fileContent io.Reader) *UploadPersonReqBodyBuilder {
 	builder.fileContent = fileContent
 	builder.fileContentSet = true
 	return builder
 }
 
-// 文件名称
+// 文件名称（需带有文件后缀）
 //
-//示例值：个人信息
+// 示例值：个人信息.xlsx
 func (builder *UploadPersonReqBodyBuilder) FileName(fileName string) *UploadPersonReqBodyBuilder {
 	builder.fileName = fileName
 	builder.fileNameSet = true
@@ -29044,7 +29423,7 @@ func (builder *UploadPersonReqBodyBuilder) Build() *UploadPersonReqBody {
 }
 
 type UploadPersonPathReqBodyBuilder struct {
-	fileContentPath     string // 文件二进制内容
+	fileContentPath     string // 文件二进制内容，大小不超过50M
 	fileContentPathFlag bool
 	fileName            string
 	fileNameSet         bool
@@ -29055,18 +29434,18 @@ func NewUploadPersonPathReqBodyBuilder() *UploadPersonPathReqBodyBuilder {
 	return builder
 }
 
-// 文件二进制内容
+// 文件二进制内容，大小不超过50M
 //
-// 示例值：file binary
+// 示例值：
 func (builder *UploadPersonPathReqBodyBuilder) FileContentPath(fileContentPath string) *UploadPersonPathReqBodyBuilder {
 	builder.fileContentPath = fileContentPath
 	builder.fileContentPathFlag = true
 	return builder
 }
 
-// 文件名称
+// 文件名称（需带有文件后缀）
 //
-// 示例值：个人信息
+// 示例值：个人信息.xlsx
 func (builder *UploadPersonPathReqBodyBuilder) FileName(fileName string) *UploadPersonPathReqBodyBuilder {
 	builder.fileName = fileName
 	builder.fileNameSet = true
@@ -29102,7 +29481,7 @@ func NewUploadPersonReqBuilder() *UploadPersonReqBuilder {
 	return builder
 }
 
-// 上传文件
+// 上传文件。
 func (builder *UploadPersonReqBuilder) Body(body *UploadPersonReqBody) *UploadPersonReqBuilder {
 	builder.body = body
 	return builder
@@ -29116,9 +29495,9 @@ func (builder *UploadPersonReqBuilder) Build() *UploadPersonReq {
 }
 
 type UploadPersonReqBody struct {
-	FileContent io.Reader `json:"file_content,omitempty"` // 文件二进制内容
+	FileContent io.Reader `json:"file_content,omitempty"` // 文件二进制内容，大小不超过50M
 
-	FileName *string `json:"file_name,omitempty"` // 文件名称
+	FileName *string `json:"file_name,omitempty"` // 文件名称（需带有文件后缀）
 }
 
 type UploadPersonReq struct {
@@ -29194,7 +29573,7 @@ func NewGetPreHireReqBuilder() *GetPreHireReqBuilder {
 	return builder
 }
 
-// 待入职ID
+// 待入职ID，可从[搜索待入职人员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取
 //
 // 示例值：121215
 func (builder *GetPreHireReqBuilder) PreHireId(preHireId string) *GetPreHireReqBuilder {
@@ -29240,7 +29619,7 @@ func NewListPreHireReqBuilder() *ListPreHireReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：1231231987
 func (builder *ListPreHireReqBuilder) PageToken(pageToken string) *ListPreHireReqBuilder {
@@ -29248,7 +29627,7 @@ func (builder *ListPreHireReqBuilder) PageToken(pageToken string) *ListPreHireRe
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小，最大值100，最小值 1
 //
 // 示例值：100
 func (builder *ListPreHireReqBuilder) PageSize(pageSize string) *ListPreHireReqBuilder {
@@ -29256,7 +29635,7 @@ func (builder *ListPreHireReqBuilder) PageSize(pageSize string) *ListPreHireReqB
 	return builder
 }
 
-// 待入职ID列表
+// 待入职ID列表，可通过[搜索待入职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取
 //
 // 示例值：
 func (builder *ListPreHireReqBuilder) PreHireIds(preHireIds []string) *ListPreHireReqBuilder {
@@ -29280,9 +29659,9 @@ type ListPreHireReq struct {
 type ListPreHireRespData struct {
 	Items []*PreHireQuery `json:"items,omitempty"` // 查询的待入职信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListPreHireResp struct {
@@ -29325,7 +29704,7 @@ func (builder *PatchPreHireReqBuilder) ClientToken(clientToken string) *PatchPre
 	return builder
 }
 
-// 更新待入职数据
+// 更新待入职信息接口，本接口只是会更新待入职数据，不会校验数据规则，推荐使用新接口[【更新待入职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/patch)。
 func (builder *PatchPreHireReqBuilder) PreHire(preHire *PreHire) *PatchPreHireReqBuilder {
 	builder.preHire = preHire
 	return builder
@@ -29372,7 +29751,7 @@ func NewGetProcessFormVariableDataReqBuilder() *GetProcessFormVariableDataReqBui
 	return builder
 }
 
-// 流程ID
+// 流程实例 ID
 //
 // 示例值：123456987
 func (builder *GetProcessFormVariableDataReqBuilder) ProcessId(processId string) *GetProcessFormVariableDataReqBuilder {
@@ -29418,7 +29797,7 @@ func NewListSecurityGroupReqBuilder() *ListSecurityGroupReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：10
 func (builder *ListSecurityGroupReqBuilder) PageToken(pageToken string) *ListSecurityGroupReqBuilder {
@@ -29426,7 +29805,7 @@ func (builder *ListSecurityGroupReqBuilder) PageToken(pageToken string) *ListSec
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小
 //
 // 示例值：100
 func (builder *ListSecurityGroupReqBuilder) PageSize(pageSize string) *ListSecurityGroupReqBuilder {
@@ -29448,9 +29827,9 @@ type ListSecurityGroupReq struct {
 type ListSecurityGroupRespData struct {
 	Items []*SecurityGroup `json:"items,omitempty"` // 查询的用户角色信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListSecurityGroupResp struct {
@@ -29481,7 +29860,7 @@ func NewQuerySecurityGroupReqBodyBuilder() *QuerySecurityGroupReqBodyBuilder {
 
 // 角色列表，一次最多支持查询 50 个
 //
-//示例值：
+// 示例值：
 func (builder *QuerySecurityGroupReqBodyBuilder) ItemList(itemList []*BpRoleOrganization) *QuerySecurityGroupReqBodyBuilder {
 	builder.itemList = itemList
 	builder.itemListSet = true
@@ -29490,7 +29869,7 @@ func (builder *QuerySecurityGroupReqBodyBuilder) ItemList(itemList []*BpRoleOrga
 
 // 授权时间大于
 //
-//示例值：1729773628
+// 示例值：1729773628
 func (builder *QuerySecurityGroupReqBodyBuilder) UpdatedAtGte(updatedAtGte string) *QuerySecurityGroupReqBodyBuilder {
 	builder.updatedAtGte = updatedAtGte
 	builder.updatedAtGteSet = true
@@ -29499,7 +29878,7 @@ func (builder *QuerySecurityGroupReqBodyBuilder) UpdatedAtGte(updatedAtGte strin
 
 // 授权时间小于
 //
-//示例值：1729773628
+// 示例值：1729773628
 func (builder *QuerySecurityGroupReqBodyBuilder) UpdatedAtLte(updatedAtLte string) *QuerySecurityGroupReqBodyBuilder {
 	builder.updatedAtLte = updatedAtLte
 	builder.updatedAtLteSet = true
@@ -29597,7 +29976,7 @@ func (builder *QuerySecurityGroupReqBuilder) DepartmentIdType(departmentIdType s
 	return builder
 }
 
-// 通过部门或工作地点，查询对应的 HRBP/属地 BP
+// 通过部门或工作地点，查询对应的 HRBP / 属地 BP，返回的信息中包含BP的员工ID、部门ID、属地ID等信息。
 func (builder *QuerySecurityGroupReqBuilder) Body(body *QuerySecurityGroupReqBody) *QuerySecurityGroupReqBuilder {
 	builder.body = body
 	return builder
@@ -29697,7 +30076,7 @@ func NewListSubdivisionReqBuilder() *ListSubdivisionReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：1231231987
 func (builder *ListSubdivisionReqBuilder) PageToken(pageToken string) *ListSubdivisionReqBuilder {
@@ -29705,7 +30084,7 @@ func (builder *ListSubdivisionReqBuilder) PageToken(pageToken string) *ListSubdi
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小
 //
 // 示例值：100
 func (builder *ListSubdivisionReqBuilder) PageSize(pageSize string) *ListSubdivisionReqBuilder {
@@ -29735,9 +30114,9 @@ type ListSubdivisionReq struct {
 type ListSubdivisionRespData struct {
 	Items []*Subdivision `json:"items,omitempty"` // 省份/行政区信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListSubdivisionResp struct {
@@ -29809,7 +30188,7 @@ func NewListSubregionReqBuilder() *ListSubregionReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：1231231987
 func (builder *ListSubregionReqBuilder) PageToken(pageToken string) *ListSubregionReqBuilder {
@@ -29817,7 +30196,7 @@ func (builder *ListSubregionReqBuilder) PageToken(pageToken string) *ListSubregi
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小
 //
 // 示例值：100
 func (builder *ListSubregionReqBuilder) PageSize(pageSize string) *ListSubregionReqBuilder {
@@ -29847,9 +30226,9 @@ type ListSubregionReq struct {
 type ListSubregionRespData struct {
 	Items []*Subregion `json:"items,omitempty"` // 城市/区域信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListSubregionResp struct {
@@ -29875,7 +30254,7 @@ func NewQueryTransferReasonReqBuilder() *QueryTransferReasonReqBuilder {
 	return builder
 }
 
-// 异动原因状态
+// 异动原因状态，为空时默认搜索所有状态的异动原因。可选项有:;;-true: 启用;;-false: 停用
 //
 // 示例值：true
 func (builder *QueryTransferReasonReqBuilder) Active(active bool) *QueryTransferReasonReqBuilder {
@@ -29883,7 +30262,7 @@ func (builder *QueryTransferReasonReqBuilder) Active(active bool) *QueryTransfer
 	return builder
 }
 
-// 异动原因唯一标识，多条时最多数量为10
+// 异动原因唯一标识，用于过滤异动原因，为空时默认搜索所有异动原因，多条时最多数量为10
 //
 // 示例值：voluntary_transfer
 func (builder *QueryTransferReasonReqBuilder) TransferReasonUniqueIdentifier(transferReasonUniqueIdentifier []string) *QueryTransferReasonReqBuilder {
@@ -29931,7 +30310,7 @@ func NewQueryTransferTypeReqBuilder() *QueryTransferTypeReqBuilder {
 	return builder
 }
 
-// 异动类型状态
+// 异动类型状态，为空时默认搜索所有状态的异动类型。可选项有:;;-true: 启用;;-false: 停用
 //
 // 示例值：true
 func (builder *QueryTransferTypeReqBuilder) Active(active bool) *QueryTransferTypeReqBuilder {
@@ -29939,7 +30318,7 @@ func (builder *QueryTransferTypeReqBuilder) Active(active bool) *QueryTransferTy
 	return builder
 }
 
-// 异动类型唯一标识，多条时最多数量为10
+// 异动类型唯一标识，用于过滤异动类型，为空时默认搜索所有异动类型，多条时最多数量为10
 //
 // 示例值：job_status_change
 func (builder *QueryTransferTypeReqBuilder) TransferTypeUniqueIdentifier(transferTypeUniqueIdentifier []string) *QueryTransferTypeReqBuilder {
@@ -29996,7 +30375,7 @@ func (builder *CreateWorkingHoursTypeReqBuilder) ClientToken(clientToken string)
 	return builder
 }
 
-// 创建工时制度
+// 创建工时制度。
 func (builder *CreateWorkingHoursTypeReqBuilder) WorkingHoursType(workingHoursType *WorkingHoursType) *CreateWorkingHoursTypeReqBuilder {
 	builder.workingHoursType = workingHoursType
 	return builder
@@ -30042,7 +30421,7 @@ func NewDeleteWorkingHoursTypeReqBuilder() *DeleteWorkingHoursTypeReqBuilder {
 	return builder
 }
 
-// 需要删除的工时制度 ID
+// 需要删除的工时制度 ID;- 可通过[批量查询工时制度](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)获取
 //
 // 示例值：325325254
 func (builder *DeleteWorkingHoursTypeReqBuilder) WorkingHoursTypeId(workingHoursTypeId string) *DeleteWorkingHoursTypeReqBuilder {
@@ -30083,7 +30462,7 @@ func NewGetWorkingHoursTypeReqBuilder() *GetWorkingHoursTypeReqBuilder {
 	return builder
 }
 
-// 工时制度 ID
+// 工时制度 ID;- 可通过[批量查询工时制度](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)获取
 //
 // 示例值：1212
 func (builder *GetWorkingHoursTypeReqBuilder) WorkingHoursTypeId(workingHoursTypeId string) *GetWorkingHoursTypeReqBuilder {
@@ -30129,7 +30508,7 @@ func NewListWorkingHoursTypeReqBuilder() *ListWorkingHoursTypeReqBuilder {
 	return builder
 }
 
-// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
 // 示例值：1231231987
 func (builder *ListWorkingHoursTypeReqBuilder) PageToken(pageToken string) *ListWorkingHoursTypeReqBuilder {
@@ -30137,7 +30516,7 @@ func (builder *ListWorkingHoursTypeReqBuilder) PageToken(pageToken string) *List
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 分页大小;- 格式：整数;- 范围：（0, 2000）
 //
 // 示例值：100
 func (builder *ListWorkingHoursTypeReqBuilder) PageSize(pageSize string) *ListWorkingHoursTypeReqBuilder {
@@ -30159,9 +30538,9 @@ type ListWorkingHoursTypeReq struct {
 type ListWorkingHoursTypeRespData struct {
 	Items []*WorkingHoursType `json:"items,omitempty"` // 查询的工时制度信息
 
-	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
 
-	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
 type ListWorkingHoursTypeResp struct {
@@ -30188,7 +30567,7 @@ func NewPatchWorkingHoursTypeReqBuilder() *PatchWorkingHoursTypeReqBuilder {
 	return builder
 }
 
-// 工时制度ID
+// 工时制度ID;- 可通过[批量查询工时制度](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)获取
 //
 // 示例值：1616161616
 func (builder *PatchWorkingHoursTypeReqBuilder) WorkingHoursTypeId(workingHoursTypeId string) *PatchWorkingHoursTypeReqBuilder {
@@ -30204,7 +30583,7 @@ func (builder *PatchWorkingHoursTypeReqBuilder) ClientToken(clientToken string) 
 	return builder
 }
 
-// 更新工时制度
+// 更新工时制度。
 func (builder *PatchWorkingHoursTypeReqBuilder) WorkingHoursType(workingHoursType *WorkingHoursType) *PatchWorkingHoursTypeReqBuilder {
 	builder.workingHoursType = workingHoursType
 	return builder
@@ -30239,15 +30618,15 @@ func (resp *PatchWorkingHoursTypeResp) Success() bool {
 }
 
 type P2CommonDataIdUserMappingChangedV1Data struct {
-	ChangeType *string `json:"change_type,omitempty"` // 变更类型，取值范围：insert、delete
+	ChangeType *string `json:"change_type,omitempty"` // 变更类型。insert：创建用户ID映射，delete：删除用户ID映射。
 
-	IdTransformType *int `json:"id_transform_type,omitempty"` // ID转换类型。1:飞书人事<->飞书，2:飞书人事<->PeopleAdmin，3:PeopleAdmin<->飞书
+	IdTransformType *int `json:"id_transform_type,omitempty"` // ID转换类型。1:飞书人事<->飞书，2:飞书人事<->PeopleAdmin，3:PeopleAdmin<->飞书。
 
-	CorehrId *string `json:"corehr_id,omitempty"` // 飞书人事ID，仅id_transform_type等于1、2时有值
+	CorehrId *string `json:"corehr_id,omitempty"` // 飞书人事ID，仅id_transform_type等于1、2时有值。
 
-	PeopleAdminId *string `json:"people_admin_id,omitempty"` // PeopleAdmin ID，仅id_transform_type等于2、3时有值
+	PeopleAdminId *string `json:"people_admin_id,omitempty"` // PeopleAdmin ID，仅id_transform_type等于2、3时有值。
 
-	FeishuId *UserId `json:"feishu_id,omitempty"` // 飞书ID，仅id_transform_type等于1、3时有值
+	FeishuId *UserId `json:"feishu_id,omitempty"` // 飞书用户ID，仅id_transform_type等于1、3时有值。
 }
 
 type P2CommonDataIdUserMappingChangedV1 struct {
@@ -30261,11 +30640,11 @@ func (m *P2CommonDataIdUserMappingChangedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2CommonDataMetaDataUpdatedV1Data struct {
-	ApiName *string `json:"api_name,omitempty"` // 对象 API Name
+	ApiName *string `json:"api_name,omitempty"` // 发生变更的对象 API Name，可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)查询字段详情
 
 	FieldChanges []string `json:"field_changes,omitempty"` // 变更的字段
 
-	MetadataType *string `json:"metadata_type,omitempty"` // 变更的元数据类型
+	MetadataType *string `json:"metadata_type,omitempty"` // 变更的元数据类型（包括对象和枚举）
 
 	EnumValueChanges []string `json:"enum_value_changes,omitempty"` // 变更的枚举
 }
@@ -30281,7 +30660,7 @@ func (m *P2CommonDataMetaDataUpdatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ContractCreatedV1Data struct {
-	ContractId *string `json:"contract_id,omitempty"` // ID
+	ContractId *string `json:"contract_id,omitempty"` // 合同ID，该合同详细信息可通过[【合同信息查询接口】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/get)获取
 }
 
 type P2ContractCreatedV1 struct {
@@ -30295,7 +30674,7 @@ func (m *P2ContractCreatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ContractDeletedV1Data struct {
-	ContractId *string `json:"contract_id,omitempty"` // ID
+	ContractId *string `json:"contract_id,omitempty"` // 合同ID，删除后无法通过接口查询到数据
 }
 
 type P2ContractDeletedV1 struct {
@@ -30309,7 +30688,7 @@ func (m *P2ContractDeletedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2ContractUpdatedV1Data struct {
-	ContractId *string `json:"contract_id,omitempty"` // ID
+	ContractId *string `json:"contract_id,omitempty"` // 合同ID，该合同详细信息可通过[【合同信息查询接口】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/get)获取
 }
 
 type P2ContractUpdatedV1 struct {
@@ -30369,7 +30748,7 @@ func (m *P2DepartmentUpdatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2EmploymentConvertedV1Data struct {
-	EmploymentId *string `json:"employment_id,omitempty"` // 主对象ID
+	EmploymentId *string `json:"employment_id,omitempty"` // 雇佣ID，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 }
 
 type P2EmploymentConvertedV1 struct {
@@ -30385,7 +30764,7 @@ func (m *P2EmploymentConvertedV1) RawReq(req *larkevent.EventReq) {
 type P2EmploymentCreatedV1Data struct {
 	EmploymentId *string `json:"employment_id,omitempty"` // 被创建的雇佣信息的 ID
 
-	TargetUserId *UserId `json:"target_user_id,omitempty"` // 用户 ID
+	TargetUserId *UserId `json:"target_user_id,omitempty"` // 员工的飞书用户 ID
 }
 
 type P2EmploymentCreatedV1 struct {
@@ -30401,7 +30780,7 @@ func (m *P2EmploymentCreatedV1) RawReq(req *larkevent.EventReq) {
 type P2EmploymentDeletedV1Data struct {
 	EmploymentId *string `json:"employment_id,omitempty"` // 被删除的雇佣信息的 ID
 
-	TargetUserId *UserId `json:"target_user_id,omitempty"` // 用户 ID
+	TargetUserId *UserId `json:"target_user_id,omitempty"` // 员工的飞书用户 ID
 }
 
 type P2EmploymentDeletedV1 struct {
@@ -30415,7 +30794,7 @@ func (m *P2EmploymentDeletedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2EmploymentResignedV1Data struct {
-	EmploymentId *string `json:"employment_id,omitempty"` // 主对象ID
+	EmploymentId *string `json:"employment_id,omitempty"` // 离职员工雇佣ID，可通过[批量查询员工信息;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取员工信息。
 }
 
 type P2EmploymentResignedV1 struct {
@@ -30431,7 +30810,7 @@ func (m *P2EmploymentResignedV1) RawReq(req *larkevent.EventReq) {
 type P2EmploymentUpdatedV1Data struct {
 	EmploymentId *string `json:"employment_id,omitempty"` // 被更新的雇佣信息 ID
 
-	TargetUserId *UserId `json:"target_user_id,omitempty"` // 用户 ID
+	TargetUserId *UserId `json:"target_user_id,omitempty"` // 员工的飞书用户 ID
 
 	FieldChanges []string `json:"field_changes,omitempty"` // 发生变更的字段
 }
@@ -30447,7 +30826,7 @@ func (m *P2EmploymentUpdatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2JobCreatedV1Data struct {
-	JobId *string `json:"job_id,omitempty"` // Job ID
+	JobId *string `json:"job_id,omitempty"` // 职务 ID，可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详细信息
 }
 
 type P2JobCreatedV1 struct {
@@ -30461,7 +30840,7 @@ func (m *P2JobCreatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2JobDeletedV1Data struct {
-	JobId *string `json:"job_id,omitempty"` // Job ID
+	JobId *string `json:"job_id,omitempty"` // 职务 ID
 }
 
 type P2JobDeletedV1 struct {
@@ -30475,7 +30854,7 @@ func (m *P2JobDeletedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2JobUpdatedV1Data struct {
-	JobId *string `json:"job_id,omitempty"` // Job ID
+	JobId *string `json:"job_id,omitempty"` // 职务 ID，可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详细信息
 }
 
 type P2JobUpdatedV1 struct {
@@ -30489,21 +30868,21 @@ func (m *P2JobUpdatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2JobChangeUpdatedV1Data struct {
-	EmploymentId *string `json:"employment_id,omitempty"` // 雇员ID
+	EmploymentId *string `json:"employment_id,omitempty"` // 雇员ID，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 
-	TargetUserId *UserId `json:"target_user_id,omitempty"` // 用户 ID
+	TargetUserId *UserId `json:"target_user_id,omitempty"` // 用户 ID，飞书相关ID，;可通过[【通讯录接口】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview)接口获取
 
-	JobChangeId *string `json:"job_change_id,omitempty"` // 异动记录 id
+	JobChangeId *string `json:"job_change_id,omitempty"` // 异动记录 id，可通过接口;[搜索异动信息;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search)获取详细信息
 
 	TransferMode *int `json:"transfer_mode,omitempty"` // 异动属性/方式
 
-	TransferTypeUniqueIdentifier *string `json:"transfer_type_unique_identifier,omitempty"` // 异动类型唯一标识
+	TransferTypeUniqueIdentifier *string `json:"transfer_type_unique_identifier,omitempty"` // 异动类型唯一标识，可通过接口;[获取异动类型列表;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取
 
-	TransferReasonUniqueIdentifier *string `json:"transfer_reason_unique_identifier,omitempty"` // 异动原因唯一标识
+	TransferReasonUniqueIdentifier *string `json:"transfer_reason_unique_identifier,omitempty"` // 异动原因唯一标识，可通过接口;[获取异动原因列表;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_reason/query)获取详细信息
 
 	ProcessId *string `json:"process_id,omitempty"` // 异动发起后的审批流程 id，如果是直接异动，则无需要审批流程id
 
-	EffectiveDate *string `json:"effective_date,omitempty"` // 异动生效日期
+	EffectiveDate *string `json:"effective_date,omitempty"` // 异动生效日期，格式："YYYY-MM-DD";- 示例：2022-04-03
 
 	Status *int `json:"status,omitempty"` // 异动状态
 
@@ -30521,13 +30900,13 @@ func (m *P2JobChangeUpdatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2JobDataChangedV1Data struct {
-	JobDataId *string `json:"job_data_id,omitempty"` // 主对象ID
+	JobDataId *string `json:"job_data_id,omitempty"` // 任职信息 ID，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 
-	EmploymentId *string `json:"employment_id,omitempty"` // 员工雇佣 ID
+	EmploymentId *string `json:"employment_id,omitempty"` // 雇佣信息 ID，可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 
-	TargetUserId *UserId `json:"target_user_id,omitempty"` // 用户 ID
+	TargetUserId *UserId `json:"target_user_id,omitempty"` // 用户 ID，飞书相关ID，;可通过[【通讯录接口】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview)接口获取
 
-	JobChangeId *string `json:"job_change_id,omitempty"` // 员工异动 ID
+	JobChangeId *string `json:"job_change_id,omitempty"` // 员工异动 ID，可通过[【搜索异动信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search)接口获取
 }
 
 type P2JobDataChangedV1 struct {
@@ -30569,11 +30948,11 @@ func (m *P2JobDataDeletedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2JobDataEmployedV1Data struct {
-	JobDataId *string `json:"job_data_id,omitempty"` // 主对象ID
+	JobDataId *string `json:"job_data_id,omitempty"` // 任职记录 ID，详细信息可通过[【获取任职记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get)接口查询
 
-	EmploymentId *string `json:"employment_id,omitempty"` // 员工雇佣 ID
+	EmploymentId *string `json:"employment_id,omitempty"` // 雇佣记录 ID，详细信息可通过[【查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)接口查询
 
-	TargetUserId *UserId `json:"target_user_id,omitempty"` // 用户 ID
+	TargetUserId *UserId `json:"target_user_id,omitempty"` // 用户 ID（备注：入职后开通飞书账号成功，会生成飞书通讯录相关ID，但由于开通过程是异步，本事件不保证一定返回，如未返回，说明飞书账号开通失败，业务需兼容处理）
 }
 
 type P2JobDataEmployedV1 struct {
@@ -30601,13 +30980,13 @@ func (m *P2JobDataUpdatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2OffboardingUpdatedV1Data struct {
-	EmploymentId *string `json:"employment_id,omitempty"` // 员工 ID
+	EmploymentId *string `json:"employment_id,omitempty"` // 离职员工雇佣ID，可通过[批量查询员工信息;](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取员工信息。
 
-	TargetUserId *UserId `json:"target_user_id,omitempty"` // 用户 ID
+	TargetUserId *UserId `json:"target_user_id,omitempty"` // 离职员工的用户 ID
 
-	OffboardingId *string `json:"offboarding_id,omitempty"` // 离职记录 ID
+	OffboardingId *string `json:"offboarding_id,omitempty"` // 离职记录ID，每条离职记录的唯一标识。
 
-	ProcessId *string `json:"process_id,omitempty"` // 离职发起后的审批流程实例 ID
+	ProcessId *string `json:"process_id,omitempty"` // 离职申请流程的实例 ID，可用于[查询流程相关信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list)，例如：作为[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list)的process_id查询流程详情。
 
 	Status *int `json:"status,omitempty"` // 离职状态
 }
@@ -30671,7 +31050,7 @@ func (m *P2PersonDeletedV1) RawReq(req *larkevent.EventReq) {
 type P2PersonUpdatedV1Data struct {
 	PersonId *string `json:"person_id,omitempty"` // 被更新个人信息的 ID
 
-	FieldChanges []string `json:"field_changes,omitempty"` // 发生变更的字段
+	FieldChanges []string `json:"field_changes,omitempty"` // 发生变更的字段，若部分字段变更无需接受事件消息，可根据该字段进行事件消息过滤
 }
 
 type P2PersonUpdatedV1 struct {
@@ -30685,9 +31064,9 @@ func (m *P2PersonUpdatedV1) RawReq(req *larkevent.EventReq) {
 }
 
 type P2PreHireUpdatedV1Data struct {
-	PreHireId *string `json:"pre_hire_id,omitempty"` // 待入职 ID
+	PreHireId *string `json:"pre_hire_id,omitempty"` // 待入职 ID，可通过[【搜索待入职人员】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)获取更详细信息
 
-	FieldChanges []string `json:"field_changes,omitempty"` // 变更的字段
+	FieldChanges []string `json:"field_changes,omitempty"` // 变更的字段。;由于历史原因，部分字段（例如个人信息）变更会发送为‘wk_updated_at’字段，不会显示真实变更字段，需要通过[【搜索待入职人员】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)获取更详细信息。
 }
 
 type P2PreHireUpdatedV1 struct {

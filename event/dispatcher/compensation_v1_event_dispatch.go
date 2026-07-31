@@ -17,12 +17,13 @@ import (
 	"context"
 	"github.com/larksuite/oapi-sdk-go/v3/service/compensation/v1"
 )
-// 
+
+// 薪资档案变更
 //
-// - 
+// - 当应用订阅该事件后，如果员工薪资档案发生变更（例如，通过管理后台对员工定薪、调薪、更正或删除），则会触发该事件。
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2ArchiveChangedV1(handler func(ctx context.Context, event *larkcompensation.P2ArchiveChangedV1) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2ArchiveChangedV1(handler func(ctx context.Context, event *larkcompensation.P2ArchiveChangedV1) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["compensation.archive.changed_v1"]
 	if existed {
 		panic("event: multiple handler registrations for " + "compensation.archive.changed_v1")

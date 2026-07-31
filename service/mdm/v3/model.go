@@ -96,13 +96,13 @@ type CountryRegion struct {
 
 	CreateTime *string `json:"create_time,omitempty"` // 创建时间
 
-	Alpha3Code *string `json:"alpha_3_code,omitempty"` // 三位字母代码
+	Alpha3Code *string `json:"alpha_3_code,omitempty"` // 三位字母代码。与ISO国家代码的三位代码一致。
 
-	Alpha2Code *string `json:"alpha_2_code,omitempty"` // 两位字母代码
+	Alpha2Code *string `json:"alpha_2_code,omitempty"` // 两位字母代码。与ISO国家代码的二位代码一致。
 
-	NumericCode *string `json:"numeric_code,omitempty"` // 数字代码
+	NumericCode *string `json:"numeric_code,omitempty"` // 数字代码。与ISO国家代码的Numeric代码一致
 
-	Name *I18nString `json:"name,omitempty"` // 名称
+	Name *I18nString `json:"name,omitempty"` // 国家/地区名称
 
 	LocalScript *string `json:"local_script,omitempty"` // 本地文字通常为mdmCode
 
@@ -110,9 +110,9 @@ type CountryRegion struct {
 
 	MdmCode *string `json:"mdm_code,omitempty"` // 主数据编码（系统生成的唯一永久代码，格式为“MDCT+8位数字”）
 
-	FullName *I18nString `json:"full_name,omitempty"` // 国家/地区全称（国家/地区行政全称，对应EA的full_name，多语行级数据映射到多语map，wukong模型新增字段）
+	FullName *I18nString `json:"full_name,omitempty"` // 国家/地区名称
 
-	GlobalCode *string `json:"global_code,omitempty"` // 国际电话区号（国际电话区号，对应EA模型中的globalCode，wukong模型新增字段）
+	GlobalCode *string `json:"global_code,omitempty"` // 国际电话区号
 
 	TimeZone []string `json:"time_zone,omitempty"` // 时区（lookup对象time_zone，行级数据映射关系须人工整理）通常为mdmCode
 
@@ -124,9 +124,9 @@ type CountryRegion struct {
 
 	UpdateReason *string `json:"update_reason,omitempty"` // 更新原因
 
-	Status *string `json:"status,omitempty"` // 是否生效
+	Status *string `json:"status,omitempty"` // 是否生效。0代表否，1代表是
 
-	Continents *Enum `json:"continents,omitempty"` // 所属大洲（EA系统中用数字枚举，升级为常量集，常量的API Name对应以下数字：1-亚洲，2-欧洲，3-非洲，4-北美洲，5-南美洲，6-大洋洲，7-南极洲）
+	Continents *Enum `json:"continents,omitempty"` // 所属大洲。可选值如下<br>1-亚洲，2-欧洲，3-非洲，4-北美洲，5-南美洲，6-大洋洲，7-南极洲）
 
 	MdLocalScript *Language `json:"md_local_script,omitempty"` // 语言
 
@@ -151,16 +151,16 @@ type CountryRegionBuilder struct {
 	createTime    string // 创建时间
 	createTimeSet bool
 
-	alpha3Code    string // 三位字母代码
+	alpha3Code    string // 三位字母代码。与ISO国家代码的三位代码一致。
 	alpha3CodeSet bool
 
-	alpha2Code    string // 两位字母代码
+	alpha2Code    string // 两位字母代码。与ISO国家代码的二位代码一致。
 	alpha2CodeSet bool
 
-	numericCode    string // 数字代码
+	numericCode    string // 数字代码。与ISO国家代码的Numeric代码一致
 	numericCodeSet bool
 
-	name    *I18nString // 名称
+	name    *I18nString // 国家/地区名称
 	nameSet bool
 
 	localScript    string // 本地文字通常为mdmCode
@@ -172,10 +172,10 @@ type CountryRegionBuilder struct {
 	mdmCode    string // 主数据编码（系统生成的唯一永久代码，格式为“MDCT+8位数字”）
 	mdmCodeSet bool
 
-	fullName    *I18nString // 国家/地区全称（国家/地区行政全称，对应EA的full_name，多语行级数据映射到多语map，wukong模型新增字段）
+	fullName    *I18nString // 国家/地区名称
 	fullNameSet bool
 
-	globalCode    string // 国际电话区号（国际电话区号，对应EA模型中的globalCode，wukong模型新增字段）
+	globalCode    string // 国际电话区号
 	globalCodeSet bool
 
 	timeZone    []string // 时区（lookup对象time_zone，行级数据映射关系须人工整理）通常为mdmCode
@@ -193,10 +193,10 @@ type CountryRegionBuilder struct {
 	updateReason    string // 更新原因
 	updateReasonSet bool
 
-	status    string // 是否生效
+	status    string // 是否生效。0代表否，1代表是
 	statusSet bool
 
-	continents    *Enum // 所属大洲（EA系统中用数字枚举，升级为常量集，常量的API Name对应以下数字：1-亚洲，2-欧洲，3-非洲，4-北美洲，5-南美洲，6-大洋洲，7-南极洲）
+	continents    *Enum // 所属大洲。可选值如下<br>1-亚洲，2-欧洲，3-非洲，4-北美洲，5-南美洲，6-大洋洲，7-南极洲）
 	continentsSet bool
 
 	mdLocalScript    *Language // 语言
@@ -259,34 +259,34 @@ func (builder *CountryRegionBuilder) CreateTime(createTime string) *CountryRegio
 	return builder
 }
 
-// 三位字母代码
+// 三位字母代码。与ISO国家代码的三位代码一致。
 //
-// 示例值：-
+// 示例值：AND
 func (builder *CountryRegionBuilder) Alpha3Code(alpha3Code string) *CountryRegionBuilder {
 	builder.alpha3Code = alpha3Code
 	builder.alpha3CodeSet = true
 	return builder
 }
 
-// 两位字母代码
+// 两位字母代码。与ISO国家代码的二位代码一致。
 //
-// 示例值：-
+// 示例值：AD
 func (builder *CountryRegionBuilder) Alpha2Code(alpha2Code string) *CountryRegionBuilder {
 	builder.alpha2Code = alpha2Code
 	builder.alpha2CodeSet = true
 	return builder
 }
 
-// 数字代码
+// 数字代码。与ISO国家代码的Numeric代码一致
 //
-// 示例值：-
+// 示例值：20
 func (builder *CountryRegionBuilder) NumericCode(numericCode string) *CountryRegionBuilder {
 	builder.numericCode = numericCode
 	builder.numericCodeSet = true
 	return builder
 }
 
-// 名称
+// 国家/地区名称
 //
 // 示例值：
 func (builder *CountryRegionBuilder) Name(name *I18nString) *CountryRegionBuilder {
@@ -315,14 +315,14 @@ func (builder *CountryRegionBuilder) WesternScript(westernScript string) *Countr
 
 // 主数据编码（系统生成的唯一永久代码，格式为“MDCT+8位数字”）
 //
-// 示例值：-
+// 示例值：MDCT00000001
 func (builder *CountryRegionBuilder) MdmCode(mdmCode string) *CountryRegionBuilder {
 	builder.mdmCode = mdmCode
 	builder.mdmCodeSet = true
 	return builder
 }
 
-// 国家/地区全称（国家/地区行政全称，对应EA的full_name，多语行级数据映射到多语map，wukong模型新增字段）
+// 国家/地区名称
 //
 // 示例值：
 func (builder *CountryRegionBuilder) FullName(fullName *I18nString) *CountryRegionBuilder {
@@ -331,9 +331,9 @@ func (builder *CountryRegionBuilder) FullName(fullName *I18nString) *CountryRegi
 	return builder
 }
 
-// 国际电话区号（国际电话区号，对应EA模型中的globalCode，wukong模型新增字段）
+// 国际电话区号
 //
-// 示例值：-
+// 示例值：+376
 func (builder *CountryRegionBuilder) GlobalCode(globalCode string) *CountryRegionBuilder {
 	builder.globalCode = globalCode
 	builder.globalCodeSet = true
@@ -385,16 +385,16 @@ func (builder *CountryRegionBuilder) UpdateReason(updateReason string) *CountryR
 	return builder
 }
 
-// 是否生效
+// 是否生效。0代表否，1代表是
 //
-// 示例值：-
+// 示例值：1
 func (builder *CountryRegionBuilder) Status(status string) *CountryRegionBuilder {
 	builder.status = status
 	builder.statusSet = true
 	return builder
 }
 
-// 所属大洲（EA系统中用数字枚举，升级为常量集，常量的API Name对应以下数字：1-亚洲，2-欧洲，3-非洲，4-北美洲，5-南美洲，6-大洋洲，7-南极洲）
+// 所属大洲。可选值如下<br>1-亚洲，2-欧洲，3-非洲，4-北美洲，5-南美洲，6-大洋洲，7-南极洲）
 //
 // 示例值：
 func (builder *CountryRegionBuilder) Continents(continents *Enum) *CountryRegionBuilder {
@@ -543,8 +543,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -552,8 +550,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -575,16 +571,16 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 }
 
 type Enum struct {
-	Value *string `json:"value,omitempty"` // 枚举值
+	Value *string `json:"value,omitempty"` // 入参languages中排序第一的语言对应的值。
 
-	MultilingualName map[string]string `json:"multilingual_name,omitempty"` // 多语言枚举名，结构：{"zh-CN":"中文", "en-US": "english"}
+	MultilingualName map[string]string `json:"multilingual_name,omitempty"` // 入参languages中所有语言对应的值。
 }
 
 type EnumBuilder struct {
-	value    string // 枚举值
+	value    string // 入参languages中排序第一的语言对应的值。
 	valueSet bool
 
-	multilingualName    map[string]string // 多语言枚举名，结构：{"zh-CN":"中文", "en-US": "english"}
+	multilingualName    map[string]string // 入参languages中所有语言对应的值。
 	multilingualNameSet bool
 }
 
@@ -593,18 +589,18 @@ func NewEnumBuilder() *EnumBuilder {
 	return builder
 }
 
-// 枚举值
+// 入参languages中排序第一的语言对应的值。
 //
-// 示例值：-
+// 示例值：2
 func (builder *EnumBuilder) Value(value string) *EnumBuilder {
 	builder.value = value
 	builder.valueSet = true
 	return builder
 }
 
-// 多语言枚举名，结构：{"zh-CN":"中文", "en-US": "english"}
+// 入参languages中所有语言对应的值。
 //
-// 示例值：
+// 示例值：{"zh-CN":"欧洲"}
 func (builder *EnumBuilder) MultilingualName(multilingualName map[string]string) *EnumBuilder {
 	builder.multilingualName = multilingualName
 	builder.multilingualNameSet = true
@@ -649,7 +645,7 @@ func NewExpressionBuilder() *ExpressionBuilder {
 
 // 字段名
 //
-// 示例值：
+// 示例值：name
 func (builder *ExpressionBuilder) Field(field string) *ExpressionBuilder {
 	builder.field = field
 	builder.fieldSet = true
@@ -658,7 +654,7 @@ func (builder *ExpressionBuilder) Field(field string) *ExpressionBuilder {
 
 // 运算符
 //
-// 示例值：
+// 示例值：0
 func (builder *ExpressionBuilder) Operator(operator string) *ExpressionBuilder {
 	builder.operator = operator
 	builder.operatorSet = true
@@ -711,7 +707,7 @@ func NewFilterBuilder() *FilterBuilder {
 
 // 与、或条件
 //
-// 示例值：
+// 示例值：0
 func (builder *FilterBuilder) Logic(logic string) *FilterBuilder {
 	builder.logic = logic
 	builder.logicSet = true
@@ -740,21 +736,21 @@ func (builder *FilterBuilder) Build() *Filter {
 }
 
 type I18nString struct {
-	Value *string `json:"value,omitempty"` // 字符串值
+	Value *string `json:"value,omitempty"` // 入参languages中排序第一的语言对应的值。
 
-	MultilingualValue map[string]string `json:"multilingual_value,omitempty"` // 多语言字符串
+	MultilingualValue map[string]string `json:"multilingual_value,omitempty"` // 入参languages中所有语言对应的值。
 
-	ReturnLanguage *string `json:"return_language,omitempty"` // 语言
+	ReturnLanguage *string `json:"return_language,omitempty"` // value实际返回的值对应的语言，如"zh-CN"
 }
 
 type I18nStringBuilder struct {
-	value    string // 字符串值
+	value    string // 入参languages中排序第一的语言对应的值。
 	valueSet bool
 
-	multilingualValue    map[string]string // 多语言字符串
+	multilingualValue    map[string]string // 入参languages中所有语言对应的值。
 	multilingualValueSet bool
 
-	returnLanguage    string // 语言
+	returnLanguage    string // value实际返回的值对应的语言，如"zh-CN"
 	returnLanguageSet bool
 }
 
@@ -763,25 +759,25 @@ func NewI18nStringBuilder() *I18nStringBuilder {
 	return builder
 }
 
-// 字符串值
+// 入参languages中排序第一的语言对应的值。
 //
-// 示例值：zh-name
+// 示例值：安道尔
 func (builder *I18nStringBuilder) Value(value string) *I18nStringBuilder {
 	builder.value = value
 	builder.valueSet = true
 	return builder
 }
 
-// 多语言字符串
+// 入参languages中所有语言对应的值。
 //
-// 示例值：
+// 示例值：{"zh-CN":"安道尔"}
 func (builder *I18nStringBuilder) MultilingualValue(multilingualValue map[string]string) *I18nStringBuilder {
 	builder.multilingualValue = multilingualValue
 	builder.multilingualValueSet = true
 	return builder
 }
 
-// 语言
+// value实际返回的值对应的语言，如"zh-CN"
 //
 // 示例值：zh-CN
 func (builder *I18nStringBuilder) ReturnLanguage(returnLanguage string) *I18nStringBuilder {
@@ -819,7 +815,7 @@ type Language struct {
 
 	IetfLanguageTag *string `json:"ietf_language_tag,omitempty"` // IETF 编码
 
-	Name *I18nString `json:"name,omitempty"` // 名称
+	Name *I18nString `json:"name,omitempty"` // 国家/地区名称
 
 	Enable *bool `json:"enable,omitempty"` // 启用
 
@@ -853,7 +849,7 @@ type LanguageBuilder struct {
 	ietfLanguageTag    string // IETF 编码
 	ietfLanguageTagSet bool
 
-	name    *I18nString // 名称
+	name    *I18nString // 国家/地区名称
 	nameSet bool
 
 	enable    bool // 启用
@@ -934,7 +930,7 @@ func (builder *LanguageBuilder) IetfLanguageTag(ietfLanguageTag string) *Languag
 	return builder
 }
 
-// 名称
+// 国家/地区名称
 //
 // 示例值：
 func (builder *LanguageBuilder) Name(name *I18nString) *LanguageBuilder {
@@ -1056,7 +1052,7 @@ func (builder *LanguageBuilder) Build() *Language {
 type Major struct {
 	MdmCode *string `json:"mdm_code,omitempty"` // 主数据编码
 
-	Name *I18nString `json:"name,omitempty"` // 名称
+	Name *I18nString `json:"name,omitempty"` // 国家/地区名称
 
 	SuperiorMajor *string `json:"superior_major,omitempty"` // 父级专业
 
@@ -1075,7 +1071,7 @@ type MajorBuilder struct {
 	mdmCode    string // 主数据编码
 	mdmCodeSet bool
 
-	name    *I18nString // 名称
+	name    *I18nString // 国家/地区名称
 	nameSet bool
 
 	superiorMajor    string // 父级专业
@@ -1111,7 +1107,7 @@ func (builder *MajorBuilder) MdmCode(mdmCode string) *MajorBuilder {
 	return builder
 }
 
-// 名称
+// 国家/地区名称
 //
 // 示例值：name
 func (builder *MajorBuilder) Name(name *I18nString) *MajorBuilder {
@@ -1476,11 +1472,11 @@ type Value struct {
 
 	BoolValue *bool `json:"bool_value,omitempty"` // 布尔值
 
-	IntValue *string `json:"int_value,omitempty"` // 整形值
+	IntValue *string `json:"int_value,omitempty"` // 整型值
 
 	StringListValue []string `json:"string_list_value,omitempty"` // 字符串列表值
 
-	IntListValue []string `json:"int_list_value,omitempty"` // 整形列表值
+	IntListValue []string `json:"int_list_value,omitempty"` // 整型列表值
 }
 
 type ValueBuilder struct {
@@ -1490,13 +1486,13 @@ type ValueBuilder struct {
 	boolValue    bool // 布尔值
 	boolValueSet bool
 
-	intValue    string // 整形值
+	intValue    string // 整型值
 	intValueSet bool
 
 	stringListValue    []string // 字符串列表值
 	stringListValueSet bool
 
-	intListValue    []string // 整形列表值
+	intListValue    []string // 整型列表值
 	intListValueSet bool
 }
 
@@ -1507,7 +1503,7 @@ func NewValueBuilder() *ValueBuilder {
 
 // 字符串值
 //
-// 示例值：
+// 示例值：安道尔
 func (builder *ValueBuilder) StringValue(stringValue string) *ValueBuilder {
 	builder.stringValue = stringValue
 	builder.stringValueSet = true
@@ -1516,16 +1512,16 @@ func (builder *ValueBuilder) StringValue(stringValue string) *ValueBuilder {
 
 // 布尔值
 //
-// 示例值：
+// 示例值：true
 func (builder *ValueBuilder) BoolValue(boolValue bool) *ValueBuilder {
 	builder.boolValue = boolValue
 	builder.boolValueSet = true
 	return builder
 }
 
-// 整形值
+// 整型值
 //
-// 示例值：
+// 示例值：111
 func (builder *ValueBuilder) IntValue(intValue string) *ValueBuilder {
 	builder.intValue = intValue
 	builder.intValueSet = true
@@ -1541,7 +1537,7 @@ func (builder *ValueBuilder) StringListValue(stringListValue []string) *ValueBui
 	return builder
 }
 
-// 整形列表值
+// 整型列表值
 //
 // 示例值：
 func (builder *ValueBuilder) IntListValue(intListValue []string) *ValueBuilder {
@@ -1637,7 +1633,7 @@ func (builder *GetBatchCountryRegionReqBuilder) Ids(ids []string) *GetBatchCount
 	return builder
 }
 
-// 语言集
+// 希望返回的语言种类，支持格式如下：;- 中文：zh-CN;- 英文：en-US;- 日文：ja-JP;<br>对于多语文本字段，传入特定语言，将会返回对应语言文本
 //
 // 示例值：
 func (builder *GetBatchCountryRegionReqBuilder) Languages(languages []string) *GetBatchCountryRegionReqBuilder {
@@ -1647,7 +1643,7 @@ func (builder *GetBatchCountryRegionReqBuilder) Languages(languages []string) *G
 	return builder
 }
 
-// 查询国家 / 地区
+// 通过mdmcode批量查询国家/地区信息。资源介绍请参考[概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/country_region/resource-definition)。
 func (builder *GetBatchCountryRegionReqBuilder) Body(body *GetBatchCountryRegionReqBody) *GetBatchCountryRegionReqBuilder {
 	builder.body = body
 	return builder
@@ -1685,10 +1681,10 @@ func (resp *GetBatchCountryRegionResp) Success() bool {
 }
 
 type ListCountryRegionReqBodyBuilder struct {
-	filter    *Filter // filter
+	filter    *Filter // 过滤参数
 	filterSet bool
 
-	common    *Common // common
+	common    *Common // 此参数可忽略
 	commonSet bool
 }
 
@@ -1697,9 +1693,9 @@ func NewListCountryRegionReqBodyBuilder() *ListCountryRegionReqBodyBuilder {
 	return builder
 }
 
-// filter
+// 过滤参数
 //
-//示例值：
+// 示例值：
 func (builder *ListCountryRegionReqBodyBuilder) Filter(filter *Filter) *ListCountryRegionReqBodyBuilder {
 	builder.filter = filter
 	builder.filterSet = true
@@ -1726,7 +1722,7 @@ func NewListCountryRegionPathReqBodyBuilder() *ListCountryRegionPathReqBodyBuild
 	return builder
 }
 
-// filter
+// 过滤参数
 //
 // 示例值：
 func (builder *ListCountryRegionPathReqBodyBuilder) Filter(filter *Filter) *ListCountryRegionPathReqBodyBuilder {
@@ -1757,7 +1753,7 @@ func NewListCountryRegionReqBuilder() *ListCountryRegionReqBuilder {
 	return builder
 }
 
-// 语言集
+// 希望返回的语言种类，支持格式如下：;- 中文：zh-CN;- 英文：en-US;- 日文：ja-JP;<br>对于多语文本字段，传入特定语言，将会返回对应语言文本
 //
 // 示例值：
 func (builder *ListCountryRegionReqBuilder) Languages(languages []string) *ListCountryRegionReqBuilder {
@@ -1795,21 +1791,19 @@ func (builder *ListCountryRegionReqBuilder) Offset(offset int) *ListCountryRegio
 
 // 是否返回总数
 //
-// 示例值：
+// 示例值：true
 func (builder *ListCountryRegionReqBuilder) ReturnCount(returnCount bool) *ListCountryRegionReqBuilder {
 	builder.apiReq.QueryParams.Set("return_count", fmt.Sprint(returnCount))
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *ListCountryRegionReqBuilder) PageToken(pageToken string) *ListCountryRegionReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
 }
 
-// 搜索国家 / 地区
+// 分页批量查询国家/地区。资源介绍请参考[概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/country_region/resource-definition)。
 func (builder *ListCountryRegionReqBuilder) Body(body *ListCountryRegionReqBody) *ListCountryRegionReqBuilder {
 	builder.body = body
 	return builder
@@ -1824,9 +1818,9 @@ func (builder *ListCountryRegionReqBuilder) Build() *ListCountryRegionReq {
 }
 
 type ListCountryRegionReqBody struct {
-	Filter *Filter `json:"filter,omitempty"` // filter
+	Filter *Filter `json:"filter,omitempty"` // 过滤参数
 
-	Common *Common `json:"common,omitempty"` // common
+	Common *Common `json:"common,omitempty"` // 此参数可忽略
 }
 
 type ListCountryRegionReq struct {

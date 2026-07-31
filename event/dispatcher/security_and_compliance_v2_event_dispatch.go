@@ -17,12 +17,13 @@ import (
 	"context"
 	"github.com/larksuite/oapi-sdk-go/v3/service/security_and_compliance/v2"
 )
-// 
+
+// 设备申报事件
 //
-// - 
+// - 订阅此事件后，成员提交设备自主申报后会收到通知，通知包含申报设备的参数以及申报人等信息
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2DeviceApplyRecordDeviceApplyEventV2(handler func(ctx context.Context, event *larksecurity_and_compliance.P2DeviceApplyRecordDeviceApplyEventV2) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2DeviceApplyRecordDeviceApplyEventV2(handler func(ctx context.Context, event *larksecurity_and_compliance.P2DeviceApplyRecordDeviceApplyEventV2) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["security_and_compliance.device_apply_record.device_apply_event_v2"]
 	if existed {
 		panic("event: multiple handler registrations for " + "security_and_compliance.device_apply_record.device_apply_event_v2")
@@ -30,12 +31,13 @@ func ( dispatcher * EventDispatcher ) OnP2DeviceApplyRecordDeviceApplyEventV2(ha
 	dispatcher.eventType2EventHandler["security_and_compliance.device_apply_record.device_apply_event_v2"] = larksecurity_and_compliance.NewP2DeviceApplyRecordDeviceApplyEventV2Handler(handler)
 	return dispatcher
 }
-// 
+
+// 设备信息变更事件
 //
-// - 
+// - 使用该接口，可以订阅接收设备管理变更记录通知，包含设备新增、设备删除、设备归属变更、可信状态变更、设备特征如生产序列号、硬盘序列号等相关信息发生变化时事件通知
 //
 // - 事件描述文档链接:
-func ( dispatcher * EventDispatcher ) OnP2DeviceRecordDeviceChangeEventV2(handler func(ctx context.Context, event *larksecurity_and_compliance.P2DeviceRecordDeviceChangeEventV2) error) * EventDispatcher{
+func (dispatcher *EventDispatcher) OnP2DeviceRecordDeviceChangeEventV2(handler func(ctx context.Context, event *larksecurity_and_compliance.P2DeviceRecordDeviceChangeEventV2) error) *EventDispatcher {
 	_, existed := dispatcher.eventType2EventHandler["security_and_compliance.device_record.device_change_event_v2"]
 	if existed {
 		panic("event: multiple handler registrations for " + "security_and_compliance.device_record.device_change_event_v2")

@@ -173,7 +173,7 @@ func (builder *BankEntityBuilder) AccountName(accountName string) *BankEntityBui
 
 // 银行名称
 //
-// 示例值：中国农业银行北京和平里支行
+// 示例值：中国A银行B支行
 func (builder *BankEntityBuilder) BankName(bankName string) *BankEntityBuilder {
 	builder.bankName = bankName
 	builder.bankNameSet = true
@@ -182,7 +182,7 @@ func (builder *BankEntityBuilder) BankName(bankName string) *BankEntityBuilder {
 
 // 账户ID
 //
-// 示例值：1123012345004701
+// 示例值：11230xxxxx004701
 func (builder *BankEntityBuilder) AccountNumber(accountNumber string) *BankEntityBuilder {
 	builder.accountNumber = accountNumber
 	builder.accountNumberSet = true
@@ -191,7 +191,7 @@ func (builder *BankEntityBuilder) AccountNumber(accountNumber string) *BankEntit
 
 // 电话
 //
-// 示例值：010-81234688
+// 示例值：010-8xxxx688
 func (builder *BankEntityBuilder) Phone(phone string) *BankEntityBuilder {
 	builder.phone = phone
 	builder.phoneSet = true
@@ -209,7 +209,7 @@ func (builder *BankEntityBuilder) Contacts(contacts string) *BankEntityBuilder {
 
 // 传真号码
 //
-// 示例值：91110112345684235
+// 示例值：911101xxxxx684235
 func (builder *BankEntityBuilder) TaxNumber(taxNumber string) *BankEntityBuilder {
 	builder.taxNumber = taxNumber
 	builder.taxNumberSet = true
@@ -227,7 +227,7 @@ func (builder *BankEntityBuilder) Address(address string) *BankEntityBuilder {
 
 // id号
 //
-// 示例值：1123012345004701
+// 示例值：11230xxxxx004701
 func (builder *BankEntityBuilder) IdNumber(idNumber string) *BankEntityBuilder {
 	builder.idNumber = idNumber
 	builder.idNumberSet = true
@@ -379,7 +379,7 @@ func NewBodyEntityBuilder() *BodyEntityBuilder {
 
 // 地址
 //
-// 示例值：北京市海淀区紫金数码园4号楼
+// 示例值：北京市A区B园4号楼
 func (builder *BodyEntityBuilder) Address(address string) *BodyEntityBuilder {
 	builder.address = address
 	builder.addressSet = true
@@ -728,7 +728,7 @@ func (builder *CodeDetailBuilder) LanguageName(languageName string) *CodeDetailB
 
 // 代码块内容
 //
-// 示例值：//引用中代码块\npackage main\n\nimport "fmt"\n\nfunc main() {\n	fmt.Println("Hello, World!")\n}\n
+// 示例值：//引用中代码块\npackage main\n\nimport "fmt"\n\nfunc main() {\n fmt.Println("Hello, World!")\n}\n
 func (builder *CodeDetailBuilder) Content(content string) *CodeDetailBuilder {
 	builder.content = content
 	builder.contentSet = true
@@ -821,8 +821,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -830,8 +828,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -950,7 +946,7 @@ type DocChunkResult struct {
 
 	BlockId *string `json:"block_id,omitempty"` // 飞书文档的block_id字段
 
-	TableDetail *DocChunkTableDetail `json:"table_detail,omitempty"` // 如chunk=table，则此字段包含表格信息
+	TableDetail *DocChunkTableDetail `json:"table_detail,omitempty"` // 如type=table，则此字段包含表格信息
 
 	LlmDetail *LlmDetail `json:"llm_detail,omitempty"` // 多模态返回的详细信息
 
@@ -995,7 +991,7 @@ type DocChunkResultBuilder struct {
 	blockId    string // 飞书文档的block_id字段
 	blockIdSet bool
 
-	tableDetail    *DocChunkTableDetail // 如chunk=table，则此字段包含表格信息
+	tableDetail    *DocChunkTableDetail // 如type=table，则此字段包含表格信息
 	tableDetailSet bool
 
 	llmDetail    *LlmDetail // 多模态返回的详细信息
@@ -1106,7 +1102,7 @@ func (builder *DocChunkResultBuilder) BlockId(blockId string) *DocChunkResultBui
 	return builder
 }
 
-// 如chunk=table，则此字段包含表格信息
+// 如type=table，则此字段包含表格信息
 //
 // 示例值：
 func (builder *DocChunkResultBuilder) TableDetail(tableDetail *DocChunkTableDetail) *DocChunkResultBuilder {
@@ -1144,7 +1140,7 @@ func (builder *DocChunkResultBuilder) SlideIndex(slideIndex int) *DocChunkResult
 
 // 若to_md设置为true, md_collapsed设置为false, 各chunk转成markdown的结果；若chunk为表格，不管开启与否返回的都是表格的markdown结果
 //
-// 示例值：本项目旨在提供一个简洁高效的视频处理服务，支持以下功能：  - 视频分段切片 - 精准帧抽取 - 帧图重命名与排序 - 多线程并发处理 - 抽帧结果打包上传
+// 示例值：本项目旨在提供一个简洁高效的视频处理服务，支持以下功能： - 视频分段切片 - 精准帧抽取 - 帧图重命名与排序 - 多线程并发处理 - 抽帧结果打包上传
 func (builder *DocChunkResultBuilder) MdText(mdText string) *DocChunkResultBuilder {
 	builder.mdText = mdText
 	builder.mdTextSet = true
@@ -1153,7 +1149,7 @@ func (builder *DocChunkResultBuilder) MdText(mdText string) *DocChunkResultBuild
 
 // 当chunk为表格的情况下，返回html的结果
 //
-// 示例值：<table border="1">   <thead>	 <tr>	   <th>用户名</th>	   <th>年龄</th>	   <th>邮箱</th>	   <th>状态</th>	 </tr>   </thead>   <tbody>	 <tr>	   <td>Alice</td>	   <td>24</td>	   <td>alice@example.com</td>	   <td>启用</td>	 </tr>	 <tr>	   <td>Bob</td>	   <td>30</td>	   <td>bob@example.com</td>	   <td>禁用</td>	 </tr>	 <tr>	   <td>Charlie</td>	   <td>28</td>	   <td>charlie@example.com</td>	   <td>启用</td>	 </tr>   </tbody> </table>
+// 示例值：<table border="1"> <thead> <tr> <th>用户名</th> <th>年龄</th> <th>邮箱</th> <th>状态</th> </tr> </thead> <tbody> <tr> <td>Alice</td> <td>24</td> <td>alice@example.com</td> <td>启用</td> </tr> <tr> <td>Bob</td> <td>30</td> <td>bob@example.com</td> <td>禁用</td> </tr> <tr> <td>Charlie</td> <td>28</td> <td>charlie@example.com</td> <td>启用</td> </tr> </tbody> </table>
 func (builder *DocChunkResultBuilder) HtmlText(htmlText string) *DocChunkResultBuilder {
 	builder.htmlText = htmlText
 	builder.htmlTextSet = true
@@ -1588,7 +1584,7 @@ func (builder *DocChunkTableDetailBuilder) TableIdx(tableIdx int) *DocChunkTable
 
 // 表格的所有文字内容，'\t\n'代表换行，'\t'代表新单元格
 //
-// 示例值：Code\tExecutable\tAST Matching\...
+// 示例值：Code\tExecutable\tAST Matching\t...
 func (builder *DocChunkTableDetailBuilder) Text(text string) *DocChunkTableDetailBuilder {
 	builder.text = text
 	builder.textSet = true
@@ -1624,7 +1620,7 @@ func (builder *DocChunkTableDetailBuilder) Caption(caption string) *DocChunkTabl
 
 // 表格的markdown结果
 //
-// 示例值：| 用户名   | 年龄 | 邮箱					| 状态   | |----------|------|-------------------------|--------| | Alice	| 24   | alice@example.com	   | 启用   | | Bob	  | 30   | bob@example.com		 | 禁用   | | Charlie  | 28   | charlie@example.com	 | 启用   |
+// 示例值：| 用户名 | 年龄 | 邮箱 | 状态 | |----------|------|-------------------------|--------| | Alice | 24 | alice@example.com | 启用 | | Bob | 30 | bob@example.com | 禁用 | | Charlie | 28 | charlie@example.com | 启用 |
 func (builder *DocChunkTableDetailBuilder) MdText(mdText string) *DocChunkTableDetailBuilder {
 	builder.mdText = mdText
 	builder.mdTextSet = true
@@ -1633,7 +1629,7 @@ func (builder *DocChunkTableDetailBuilder) MdText(mdText string) *DocChunkTableD
 
 // 表格的html结果
 //
-// 示例值：<table border="1">   <thead>	 <tr>	   <th>用户名</th>	   <th>年龄</th>	   <th>邮箱</th>	   <th>状态</th>	 </tr>   </thead>   <tbody>	 <tr>	   <td>Alice</td>	   <td>24</td>	   <td>alice@example.com</td>	   <td>启用</td>	 </tr>	 <tr>	   <td>Bob</td>	   <td>30</td>	   <td>bob@example.com</td>	   <td>禁用</td>	 </tr>	 <tr>	   <td>Charlie</td>	   <td>28</td>	   <td>charlie@example.com</td>	   <td>启用</td>	 </tr>   </tbody> </table>
+// 示例值：<table border="1"> <thead> <tr> <th>用户名</th> <th>年龄</th> <th>邮箱</th> <th>状态</th> </tr> </thead> <tbody> <tr> <td>Alice</td> <td>24</td> <td>alice@example.com</td> <td>启用</td> </tr> <tr> <td>Bob</td> <td>30</td> <td>bob@example.com</td> <td>禁用</td> </tr> <tr> <td>Charlie</td> <td>28</td> <td>charlie@example.com</td> <td>启用</td> </tr> </tbody> </table>
 func (builder *DocChunkTableDetailBuilder) HtmlText(htmlText string) *DocChunkTableDetailBuilder {
 	builder.htmlText = htmlText
 	builder.htmlTextSet = true
@@ -3641,7 +3637,7 @@ func (builder *ResumeBuilder) Name(name string) *ResumeBuilder {
 
 // 邮箱
 //
-// 示例值：zhangsan.1111@bytedance.com
+// 示例值：zhangsan.1111@company.com
 func (builder *ResumeBuilder) Email(email string) *ResumeBuilder {
 	builder.email = email
 	builder.emailSet = true
@@ -4445,7 +4441,7 @@ func NewResumeLanguageBuilder() *ResumeLanguageBuilder {
 
 // 语言等级
 //
-// 示例值：6
+// 示例值：2
 func (builder *ResumeLanguageBuilder) Level(level int) *ResumeLanguageBuilder {
 	builder.level = level
 	builder.levelSet = true
@@ -4454,7 +4450,7 @@ func (builder *ResumeLanguageBuilder) Level(level int) *ResumeLanguageBuilder {
 
 // 语言描述
 //
-// 示例值：英语
+// 示例值：英语四级:600
 func (builder *ResumeLanguageBuilder) Description(description string) *ResumeLanguageBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -5247,7 +5243,7 @@ func NewRecognizeBankCardReqBodyBuilder() *RecognizeBankCardReqBodyBuilder {
 
 // 识别的银行卡源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeBankCardReqBodyBuilder) File(file io.Reader) *RecognizeBankCardReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -5307,7 +5303,7 @@ func NewRecognizeBankCardReqBuilder() *RecognizeBankCardReqBuilder {
 	return builder
 }
 
-//
+// 银行卡识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。;文件大小需要小于10M。
 func (builder *RecognizeBankCardReqBuilder) Body(body *RecognizeBankCardReqBody) *RecognizeBankCardReqBuilder {
 	builder.body = body
 	return builder
@@ -5330,7 +5326,7 @@ type RecognizeBankCardReq struct {
 }
 
 type RecognizeBankCardRespData struct {
-	BankCard *BankCard `json:"bank_card,omitempty"` // 银行卡信息
+	BankCard *BankCard `json:"bank_card,omitempty"` //
 }
 
 type RecognizeBankCardResp struct {
@@ -5355,7 +5351,7 @@ func NewRecognizeBusinessCardReqBodyBuilder() *RecognizeBusinessCardReqBodyBuild
 
 // 识别名片的源文件（支持 JPG / PNG / PDF）
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeBusinessCardReqBodyBuilder) File(file io.Reader) *RecognizeBusinessCardReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -5415,7 +5411,7 @@ func NewRecognizeBusinessCardReqBuilder() *RecognizeBusinessCardReqBuilder {
 	return builder
 }
 
-//
+// 名片识别接口，通过上传 JPG / PNG / PDF 等文件类型进行一次性的名片识别。接口适用于20MB以下的文件，适用于英文、日语的名片。
 func (builder *RecognizeBusinessCardReqBuilder) Body(body *RecognizeBusinessCardReqBody) *RecognizeBusinessCardReqBuilder {
 	builder.body = body
 	return builder
@@ -5463,7 +5459,7 @@ func NewRecognizeBusinessLicenseReqBodyBuilder() *RecognizeBusinessLicenseReqBod
 
 // 识别的营业执照源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeBusinessLicenseReqBodyBuilder) File(file io.Reader) *RecognizeBusinessLicenseReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -5523,7 +5519,7 @@ func NewRecognizeBusinessLicenseReqBuilder() *RecognizeBusinessLicenseReqBuilder
 	return builder
 }
 
-//
+// 营业执照识别接口，支持JPG/JPEG/PNG/BMP/PDF五种文件类型的一次性的识别。;文件大小需要小于10M。
 func (builder *RecognizeBusinessLicenseReqBuilder) Body(body *RecognizeBusinessLicenseReqBody) *RecognizeBusinessLicenseReqBuilder {
 	builder.body = body
 	return builder
@@ -5546,7 +5542,7 @@ type RecognizeBusinessLicenseReq struct {
 }
 
 type RecognizeBusinessLicenseRespData struct {
-	BusinessLicense *BusinessLicense `json:"business_license,omitempty"` // 营业执照信息
+	BusinessLicense *BusinessLicense `json:"business_license,omitempty"` //
 }
 
 type RecognizeBusinessLicenseResp struct {
@@ -5571,7 +5567,7 @@ func NewRecognizeChinesePassportReqBodyBuilder() *RecognizeChinesePassportReqBod
 
 // 识别的中国护照源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeChinesePassportReqBodyBuilder) File(file io.Reader) *RecognizeChinesePassportReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -5631,7 +5627,7 @@ func NewRecognizeChinesePassportReqBuilder() *RecognizeChinesePassportReqBuilder
 	return builder
 }
 
-//
+// 中国护照识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。;文件大小需要小于10M。
 func (builder *RecognizeChinesePassportReqBuilder) Body(body *RecognizeChinesePassportReqBody) *RecognizeChinesePassportReqBuilder {
 	builder.body = body
 	return builder
@@ -5654,7 +5650,7 @@ type RecognizeChinesePassportReq struct {
 }
 
 type RecognizeChinesePassportRespData struct {
-	ChinesePassport *ChinesePassport `json:"chinese_passport,omitempty"` // 中国护照信息
+	ChinesePassport *ChinesePassport `json:"chinese_passport,omitempty"` //
 }
 
 type RecognizeChinesePassportResp struct {
@@ -5685,7 +5681,7 @@ func NewFieldExtractionContractReqBodyBuilder() *FieldExtractionContractReqBodyB
 
 // 合同字段解析的源文件，当前只支持pdf, doc, docx三种类型的文件
 //
-//示例值：
+// 示例值：
 func (builder *FieldExtractionContractReqBodyBuilder) File(file io.Reader) *FieldExtractionContractReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -5694,7 +5690,7 @@ func (builder *FieldExtractionContractReqBodyBuilder) File(file io.Reader) *Fiel
 
 // pdf页数限制，太长会导致latency增加，最大允许100页
 //
-//示例值：15
+// 示例值：15
 func (builder *FieldExtractionContractReqBodyBuilder) PdfPageLimit(pdfPageLimit int) *FieldExtractionContractReqBodyBuilder {
 	builder.pdfPageLimit = pdfPageLimit
 	builder.pdfPageLimitSet = true
@@ -5703,7 +5699,7 @@ func (builder *FieldExtractionContractReqBodyBuilder) PdfPageLimit(pdfPageLimit 
 
 // ocr 参数，当前支持force, pdf, unused三种格式
 //
-//示例值：auto
+// 示例值：auto
 func (builder *FieldExtractionContractReqBodyBuilder) OcrMode(ocrMode string) *FieldExtractionContractReqBodyBuilder {
 	builder.ocrMode = ocrMode
 	builder.ocrModeSet = true
@@ -5797,7 +5793,7 @@ func NewFieldExtractionContractReqBuilder() *FieldExtractionContractReqBuilder {
 	return builder
 }
 
-//
+// 支持从doc、docx和pdf文件类型中提取合同字段。;文件大小需要小于10M。
 func (builder *FieldExtractionContractReqBuilder) Body(body *FieldExtractionContractReqBody) *FieldExtractionContractReqBuilder {
 	builder.body = body
 	return builder
@@ -5826,13 +5822,13 @@ type FieldExtractionContractReq struct {
 type FieldExtractionContractRespData struct {
 	FileId *string `json:"file_id,omitempty"` // 文件的唯一id
 
-	Price *ExtractPrice `json:"price,omitempty"` // 总交易金额
+	Price *ExtractPrice `json:"price,omitempty"` //
 
-	Time *ExtractTime `json:"time,omitempty"` // 期限相关信息，包括开始日期、结束日期、有效时长
+	Time *ExtractTime `json:"time,omitempty"` //
 
-	Copy *ExtractCopy `json:"copy,omitempty"` // 盖章份数
+	Copy *ExtractCopy `json:"copy,omitempty"` //
 
-	Currency *ExtractCurrency `json:"currency,omitempty"` // 币种
+	Currency *ExtractCurrency `json:"currency,omitempty"` //
 
 	Header *string `json:"header,omitempty"` // 合同标题
 
@@ -5863,7 +5859,7 @@ func NewRecognizeDrivingLicenseReqBodyBuilder() *RecognizeDrivingLicenseReqBodyB
 
 // 识别的驾驶证源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeDrivingLicenseReqBodyBuilder) File(file io.Reader) *RecognizeDrivingLicenseReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -5923,7 +5919,7 @@ func NewRecognizeDrivingLicenseReqBuilder() *RecognizeDrivingLicenseReqBuilder {
 	return builder
 }
 
-//
+// 驾驶证识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。;文件大小需要小于10M。
 func (builder *RecognizeDrivingLicenseReqBuilder) Body(body *RecognizeDrivingLicenseReqBody) *RecognizeDrivingLicenseReqBuilder {
 	builder.body = body
 	return builder
@@ -5946,7 +5942,7 @@ type RecognizeDrivingLicenseReq struct {
 }
 
 type RecognizeDrivingLicenseRespData struct {
-	DrivingLicense *DrvingLicense `json:"driving_license,omitempty"` // 驾驶证信息
+	DrivingLicense *DrvingLicense `json:"driving_license,omitempty"` //
 }
 
 type RecognizeDrivingLicenseResp struct {
@@ -5971,7 +5967,7 @@ func NewRecognizeFoodManageLicenseReqBodyBuilder() *RecognizeFoodManageLicenseRe
 
 // 识别的食品经营许可证源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeFoodManageLicenseReqBodyBuilder) File(file io.Reader) *RecognizeFoodManageLicenseReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -6031,7 +6027,7 @@ func NewRecognizeFoodManageLicenseReqBuilder() *RecognizeFoodManageLicenseReqBui
 	return builder
 }
 
-//
+// 食品经营许可证识别接口，支持JPG/JPEG/PNG/BMP/PDF五种文件类型的一次性的识别。;文件大小需要小于10M。
 func (builder *RecognizeFoodManageLicenseReqBuilder) Body(body *RecognizeFoodManageLicenseReqBody) *RecognizeFoodManageLicenseReqBuilder {
 	builder.body = body
 	return builder
@@ -6054,7 +6050,7 @@ type RecognizeFoodManageLicenseReq struct {
 }
 
 type RecognizeFoodManageLicenseRespData struct {
-	FoodManageLicense *FoodManageLicense `json:"food_manage_license,omitempty"` // 食品经营许可证信息
+	FoodManageLicense *FoodManageLicense `json:"food_manage_license,omitempty"` //
 }
 
 type RecognizeFoodManageLicenseResp struct {
@@ -6079,7 +6075,7 @@ func NewRecognizeFoodProduceLicenseReqBodyBuilder() *RecognizeFoodProduceLicense
 
 // 识别的食品生产许可证源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeFoodProduceLicenseReqBodyBuilder) File(file io.Reader) *RecognizeFoodProduceLicenseReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -6139,7 +6135,7 @@ func NewRecognizeFoodProduceLicenseReqBuilder() *RecognizeFoodProduceLicenseReqB
 	return builder
 }
 
-//
+// 食品生产许可证识别接口，支持JPG/JPEG/PNG/BMP/PDF五种文件类型的一次性的识别。;文件大小需要小于10M。
 func (builder *RecognizeFoodProduceLicenseReqBuilder) Body(body *RecognizeFoodProduceLicenseReqBody) *RecognizeFoodProduceLicenseReqBuilder {
 	builder.body = body
 	return builder
@@ -6162,7 +6158,7 @@ type RecognizeFoodProduceLicenseReq struct {
 }
 
 type RecognizeFoodProduceLicenseRespData struct {
-	FoodProduceLicense *FoodProduceLicense `json:"food_produce_license,omitempty"` // 食品生产许可证信息
+	FoodProduceLicense *FoodProduceLicense `json:"food_produce_license,omitempty"` //
 }
 
 type RecognizeFoodProduceLicenseResp struct {
@@ -6187,7 +6183,7 @@ func NewRecognizeHealthCertificateReqBodyBuilder() *RecognizeHealthCertificateRe
 
 // 识别的健康证源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeHealthCertificateReqBodyBuilder) File(file io.Reader) *RecognizeHealthCertificateReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -6247,7 +6243,7 @@ func NewRecognizeHealthCertificateReqBuilder() *RecognizeHealthCertificateReqBui
 	return builder
 }
 
-//
+// 健康证识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。文件大小需要小于10M。
 func (builder *RecognizeHealthCertificateReqBuilder) Body(body *RecognizeHealthCertificateReqBody) *RecognizeHealthCertificateReqBuilder {
 	builder.body = body
 	return builder
@@ -6295,7 +6291,7 @@ func NewRecognizeHkmMainlandTravelPermitReqBodyBuilder() *RecognizeHkmMainlandTr
 
 // 识别的港澳居民来往内地通行证源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeHkmMainlandTravelPermitReqBodyBuilder) File(file io.Reader) *RecognizeHkmMainlandTravelPermitReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -6355,7 +6351,7 @@ func NewRecognizeHkmMainlandTravelPermitReqBuilder() *RecognizeHkmMainlandTravel
 	return builder
 }
 
-//
+// 港澳居民来往内地通行证识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。;文件大小需要小于10M。
 func (builder *RecognizeHkmMainlandTravelPermitReqBuilder) Body(body *RecognizeHkmMainlandTravelPermitReqBody) *RecognizeHkmMainlandTravelPermitReqBuilder {
 	builder.body = body
 	return builder
@@ -6378,7 +6374,7 @@ type RecognizeHkmMainlandTravelPermitReq struct {
 }
 
 type RecognizeHkmMainlandTravelPermitRespData struct {
-	HkmMainlandTravelPermit *HkmMainlandTravelPermit `json:"hkm_mainland_travel_permit,omitempty"` // 港澳居民来往内地通行证信息
+	HkmMainlandTravelPermit *HkmMainlandTravelPermit `json:"hkm_mainland_travel_permit,omitempty"` //
 }
 
 type RecognizeHkmMainlandTravelPermitResp struct {
@@ -6403,7 +6399,7 @@ func NewRecognizeIdCardReqBodyBuilder() *RecognizeIdCardReqBodyBuilder {
 
 // 识别身份证的源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeIdCardReqBodyBuilder) File(file io.Reader) *RecognizeIdCardReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -6463,7 +6459,7 @@ func NewRecognizeIdCardReqBuilder() *RecognizeIdCardReqBuilder {
 	return builder
 }
 
-//
+// 身份证识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。;文件大小需要小于10M。
 func (builder *RecognizeIdCardReqBuilder) Body(body *RecognizeIdCardReqBody) *RecognizeIdCardReqBuilder {
 	builder.body = body
 	return builder
@@ -6486,7 +6482,7 @@ type RecognizeIdCardReq struct {
 }
 
 type RecognizeIdCardRespData struct {
-	IdCard *IdCard `json:"id_card,omitempty"` // 身份证信息
+	IdCard *IdCard `json:"id_card,omitempty"` //
 }
 
 type RecognizeIdCardResp struct {
@@ -6511,7 +6507,7 @@ func NewParseResumeReqBodyBuilder() *ParseResumeReqBodyBuilder {
 
 // 简历文件，支持 PDF / DOCX / PNG / JPG
 //
-//示例值：
+// 示例值：
 func (builder *ParseResumeReqBodyBuilder) File(file io.Reader) *ParseResumeReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -6571,7 +6567,7 @@ func NewParseResumeReqBuilder() *ParseResumeReqBuilder {
 	return builder
 }
 
-//
+// 简历信息解析接口，支持PDF/DOCX/PNG/JPG四种文件类型的一次性的识别。文件大小需要小于30M。
 func (builder *ParseResumeReqBuilder) Body(body *ParseResumeReqBody) *ParseResumeReqBuilder {
 	builder.body = body
 	return builder
@@ -6619,7 +6615,7 @@ func NewRecognizeTaxiInvoiceReqBodyBuilder() *RecognizeTaxiInvoiceReqBodyBuilder
 
 // 识别的出租车票源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeTaxiInvoiceReqBodyBuilder) File(file io.Reader) *RecognizeTaxiInvoiceReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -6679,7 +6675,7 @@ func NewRecognizeTaxiInvoiceReqBuilder() *RecognizeTaxiInvoiceReqBuilder {
 	return builder
 }
 
-//
+// 出租车发票识别接口，支持JPG/JPEG/PNG/PDF/OFD五种文件类型的一次性的识别。;文件大小需要小于10M。
 func (builder *RecognizeTaxiInvoiceReqBuilder) Body(body *RecognizeTaxiInvoiceReqBody) *RecognizeTaxiInvoiceReqBuilder {
 	builder.body = body
 	return builder
@@ -6727,7 +6723,7 @@ func NewRecognizeTrainInvoiceReqBodyBuilder() *RecognizeTrainInvoiceReqBodyBuild
 
 // 识别的火车票源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeTrainInvoiceReqBodyBuilder) File(file io.Reader) *RecognizeTrainInvoiceReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -6787,7 +6783,7 @@ func NewRecognizeTrainInvoiceReqBuilder() *RecognizeTrainInvoiceReqBuilder {
 	return builder
 }
 
-//
+// 火车票识别接口，支持JPG/JPEG/PNG/PDF/OFD五种文件类型的一次性的识别。;文件大小需要小于10M。
 func (builder *RecognizeTrainInvoiceReqBuilder) Body(body *RecognizeTrainInvoiceReqBody) *RecognizeTrainInvoiceReqBuilder {
 	builder.body = body
 	return builder
@@ -6835,7 +6831,7 @@ func NewRecognizeTwMainlandTravelPermitReqBodyBuilder() *RecognizeTwMainlandTrav
 
 // 识别的台湾居民来往大陆通行证源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeTwMainlandTravelPermitReqBodyBuilder) File(file io.Reader) *RecognizeTwMainlandTravelPermitReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -6895,7 +6891,7 @@ func NewRecognizeTwMainlandTravelPermitReqBuilder() *RecognizeTwMainlandTravelPe
 	return builder
 }
 
-//
+// 台湾居民来往大陆通行证识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。;文件大小需要小于10M。
 func (builder *RecognizeTwMainlandTravelPermitReqBuilder) Body(body *RecognizeTwMainlandTravelPermitReqBody) *RecognizeTwMainlandTravelPermitReqBuilder {
 	builder.body = body
 	return builder
@@ -6918,7 +6914,7 @@ type RecognizeTwMainlandTravelPermitReq struct {
 }
 
 type RecognizeTwMainlandTravelPermitRespData struct {
-	TwMainlandTravelPermit *TwMainlandTravelPermit `json:"tw_mainland_travel_permit,omitempty"` // 台湾居民来往大陆通行证信息
+	TwMainlandTravelPermit *TwMainlandTravelPermit `json:"tw_mainland_travel_permit,omitempty"` //
 }
 
 type RecognizeTwMainlandTravelPermitResp struct {
@@ -6932,7 +6928,7 @@ func (resp *RecognizeTwMainlandTravelPermitResp) Success() bool {
 }
 
 type RecognizeVatInvoiceReqBodyBuilder struct {
-	file    io.Reader // 识别的增值税发票文件
+	file    io.Reader // 识别的增值税发票文件（支持JPG/JPEG/PNG/PDF/BMP/OFD）
 	fileSet bool
 }
 
@@ -6941,9 +6937,9 @@ func NewRecognizeVatInvoiceReqBodyBuilder() *RecognizeVatInvoiceReqBodyBuilder {
 	return builder
 }
 
-// 识别的增值税发票文件
+// 识别的增值税发票文件（支持JPG/JPEG/PNG/PDF/BMP/OFD）
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeVatInvoiceReqBodyBuilder) File(file io.Reader) *RecognizeVatInvoiceReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -6959,7 +6955,7 @@ func (builder *RecognizeVatInvoiceReqBodyBuilder) Build() *RecognizeVatInvoiceRe
 }
 
 type RecognizeVatInvoicePathReqBodyBuilder struct {
-	filePath     string // 识别的增值税发票文件
+	filePath     string // 识别的增值税发票文件（支持JPG/JPEG/PNG/PDF/BMP/OFD）
 	filePathFlag bool
 }
 
@@ -6968,7 +6964,7 @@ func NewRecognizeVatInvoicePathReqBodyBuilder() *RecognizeVatInvoicePathReqBodyB
 	return builder
 }
 
-// 识别的增值税发票文件
+// 识别的增值税发票文件（支持JPG/JPEG/PNG/PDF/BMP/OFD）
 //
 // 示例值：
 func (builder *RecognizeVatInvoicePathReqBodyBuilder) FilePath(filePath string) *RecognizeVatInvoicePathReqBodyBuilder {
@@ -7003,7 +6999,7 @@ func NewRecognizeVatInvoiceReqBuilder() *RecognizeVatInvoiceReqBuilder {
 	return builder
 }
 
-//
+// 增值税发票识别接口，支持JPG/JPEG/PNG/PDF/BMP/OFD六种文件类型的一次性的识别。;文件大小需要小于10M。
 func (builder *RecognizeVatInvoiceReqBuilder) Body(body *RecognizeVatInvoiceReqBody) *RecognizeVatInvoiceReqBuilder {
 	builder.body = body
 	return builder
@@ -7017,7 +7013,7 @@ func (builder *RecognizeVatInvoiceReqBuilder) Build() *RecognizeVatInvoiceReq {
 }
 
 type RecognizeVatInvoiceReqBody struct {
-	File io.Reader `json:"file,omitempty"` // 识别的增值税发票文件
+	File io.Reader `json:"file,omitempty"` // 识别的增值税发票文件（支持JPG/JPEG/PNG/PDF/BMP/OFD）
 }
 
 type RecognizeVatInvoiceReq struct {
@@ -7051,7 +7047,7 @@ func NewRecognizeVehicleInvoiceReqBodyBuilder() *RecognizeVehicleInvoiceReqBodyB
 
 // 识别的机动车发票源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeVehicleInvoiceReqBodyBuilder) File(file io.Reader) *RecognizeVehicleInvoiceReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -7111,7 +7107,7 @@ func NewRecognizeVehicleInvoiceReqBuilder() *RecognizeVehicleInvoiceReqBuilder {
 	return builder
 }
 
-//
+// 机动车发票识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。文件大小需要小于10M。
 func (builder *RecognizeVehicleInvoiceReqBuilder) Body(body *RecognizeVehicleInvoiceReqBody) *RecognizeVehicleInvoiceReqBuilder {
 	builder.body = body
 	return builder
@@ -7134,7 +7130,7 @@ type RecognizeVehicleInvoiceReq struct {
 }
 
 type RecognizeVehicleInvoiceRespData struct {
-	VehicleInvoice *VehicleInvoice `json:"vehicle_invoice,omitempty"` // 机动车发票信息
+	VehicleInvoice *VehicleInvoice `json:"vehicle_invoice,omitempty"` //
 }
 
 type RecognizeVehicleInvoiceResp struct {
@@ -7159,7 +7155,7 @@ func NewRecognizeVehicleLicenseReqBodyBuilder() *RecognizeVehicleLicenseReqBodyB
 
 // 识别的行驶证源文件
 //
-//示例值：
+// 示例值：
 func (builder *RecognizeVehicleLicenseReqBodyBuilder) File(file io.Reader) *RecognizeVehicleLicenseReqBodyBuilder {
 	builder.file = file
 	builder.fileSet = true
@@ -7219,7 +7215,7 @@ func NewRecognizeVehicleLicenseReqBuilder() *RecognizeVehicleLicenseReqBuilder {
 	return builder
 }
 
-//
+// 行驶证识别接口，支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。;文件大小需要小于10M。
 func (builder *RecognizeVehicleLicenseReqBuilder) Body(body *RecognizeVehicleLicenseReqBody) *RecognizeVehicleLicenseReqBuilder {
 	builder.body = body
 	return builder
@@ -7242,7 +7238,7 @@ type RecognizeVehicleLicenseReq struct {
 }
 
 type RecognizeVehicleLicenseRespData struct {
-	VehicleLicense *VehicleLicense `json:"vehicle_license,omitempty"` // 行驶证信息
+	VehicleLicense *VehicleLicense `json:"vehicle_license,omitempty"` //
 }
 
 type RecognizeVehicleLicenseResp struct {

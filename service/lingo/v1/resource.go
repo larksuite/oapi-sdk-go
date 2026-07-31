@@ -43,9 +43,9 @@ type repo struct {
 	config *larkcore.Config
 }
 
-// List
+// List 获取词典分类
 //
-// -
+// - 获取飞书词典当前分类。;飞书词典目前为二级分类体系，每个词条可添加多个二级分类，但选择的二级分类必须从属于不同的一级分类。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=lingo&resource=classification&version=v1
 //
@@ -77,9 +77,11 @@ func (c *classification) ListByIterator(ctx context.Context, req *ListClassifica
 		limit:    req.Limit}, nil
 }
 
-// Create
+// Create 创建草稿
 //
-// -
+// - 草稿并非词条，而是指通过 API 发起创建新词条或更新现有词条的申请。;词典管理员审核通过后，草稿将变为新的词条或覆盖已有词条。
+//
+// - 以用户身份创建草稿（即 Authorization 使用 user_access_token），对应用户将收到由飞书词典 Bot 发送的审核结果；以应用身份创建草稿（即 Authorization 使用 tenant_access_toke），不会收到任何通知。;;- 创建新的词条时，无需传入 entity_id 字段;- 更新已有词条时，请传入对应词条的 entity_id 或 outer_info
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=lingo&resource=draft&version=v1
 //
@@ -103,9 +105,9 @@ func (d *draft) Create(ctx context.Context, req *CreateDraftReq, options ...lark
 	return resp, err
 }
 
-// Update
+// Update 更新草稿
 //
-// -
+// - 根据 draft_id 更新草稿内容，已审批的草稿无法编辑。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=lingo&resource=draft&version=v1
 //
@@ -129,9 +131,9 @@ func (d *draft) Update(ctx context.Context, req *UpdateDraftReq, options ...lark
 	return resp, err
 }
 
-// Create
+// Create 创建免审词条
 //
-// -
+// - 通过此接口创建的词条，无需经过词典管理员审核，直接写入词库。因此，调用此接口时，应当慎重操作。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=lingo&resource=entity&version=v1
 //
@@ -155,9 +157,11 @@ func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...la
 	return resp, err
 }
 
-// Delete
+// Delete 删除免审词条
 //
-// -
+// - 通过 entity_id 删除已有的词条，无需经过词典管理员审核。因此，调用该接口时应当慎重操作。
+//
+// - 也支持通过 provider 和 outer_id 删除对应的词条。此时路径中的 entity_id 为固定的 enterprise_0
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=lingo&resource=entity&version=v1
 //
@@ -181,9 +185,9 @@ func (e *entity) Delete(ctx context.Context, req *DeleteEntityReq, options ...la
 	return resp, err
 }
 
-// Get
+// Get 获取词条详情
 //
-// -
+// - 通过词条 id 拉取对应的词条详情信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=lingo&resource=entity&version=v1
 //
@@ -207,9 +211,9 @@ func (e *entity) Get(ctx context.Context, req *GetEntityReq, options ...larkcore
 	return resp, err
 }
 
-// Highlight
+// Highlight 词条高亮
 //
-// -
+// - 传入一句话，智能识别句中对应的词条，并返回词条位置和 entity_id，可在外部系统中快速实现词条智能高亮。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=highlight&project=lingo&resource=entity&version=v1
 //
@@ -233,9 +237,9 @@ func (e *entity) Highlight(ctx context.Context, req *HighlightEntityReq, options
 	return resp, err
 }
 
-// List
+// List 获取词条列表
 //
-// -
+// - 分页拉取词条列表数据，支持拉取租户内(或指定词库内)的全部词条。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=lingo&resource=entity&version=v1
 //
@@ -267,9 +271,9 @@ func (e *entity) ListByIterator(ctx context.Context, req *ListEntityReq, options
 		limit:    req.Limit}, nil
 }
 
-// Match
+// Match 精准搜索词条
 //
-// -
+// - 将关键词与词条名、别名精准匹配，并返回对应的 词条 ID。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=match&project=lingo&resource=entity&version=v1
 //
@@ -293,9 +297,9 @@ func (e *entity) Match(ctx context.Context, req *MatchEntityReq, options ...lark
 	return resp, err
 }
 
-// Search
+// Search 模糊搜索词条
 //
-// -
+// - 传入关键词，与词条名、别名、释义等信息进行模糊匹配，返回搜到的词条信息。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=lingo&resource=entity&version=v1
 //
@@ -327,9 +331,9 @@ func (e *entity) SearchByIterator(ctx context.Context, req *SearchEntityReq, opt
 		limit:    req.Limit}, nil
 }
 
-// Update
+// Update 更新免审词条
 //
-// -
+// - 通过此接口更新已有的词条，无需经过词典管理员审核，直接写入词库。因此，调用该接口时应当慎重操作。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=lingo&resource=entity&version=v1
 //
@@ -353,9 +357,9 @@ func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...la
 	return resp, err
 }
 
-// Download
+// Download 下载图片
 //
-// -
+// - 通过 file_token 下载原图片。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=download&project=lingo&resource=file&version=v1
 //
@@ -385,9 +389,9 @@ func (f *file) Download(ctx context.Context, req *DownloadFileReq, options ...la
 	return resp, err
 }
 
-// Upload
+// Upload 上传图片
 //
-// -
+// - 词条图片资源上传。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=upload&project=lingo&resource=file&version=v1
 //
@@ -412,9 +416,9 @@ func (f *file) Upload(ctx context.Context, req *UploadFileReq, options ...larkco
 	return resp, err
 }
 
-// List
+// List 获取词库列表
 //
-// -
+// - 获取有权限访问的飞书词典词库列表。;;如以应用身份获取，需要在“词库设置”页面添加应用；若以用户身份获取，该用户需要拥有对应词库的可见权限。
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=lingo&resource=repo&version=v1
 //

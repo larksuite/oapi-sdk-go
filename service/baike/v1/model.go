@@ -27,45 +27,45 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	CreateDraftUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateDraftUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateDraftUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeUpdateDraftUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateDraftUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateDraftOpenId  = "open_id"  // 以open_id来识别用户
+	UpdateDraftUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	UpdateDraftUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	UpdateDraftUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateEntityOpenId  = "open_id"  // 以open_id来识别用户
+	CreateEntityUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateEntityUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateEntityUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetEntityOpenId  = "open_id"  // 以open_id来识别用户
+	GetEntityUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetEntityUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetEntityUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeListEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListEntityOpenId  = "open_id"  // 以open_id来识别用户
+	ListEntityUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListEntityUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListEntityUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeSearchEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeSearchEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeSearchEntityOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPISearchEntityUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPISearchEntityUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPISearchEntityUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeUpdateEntityUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateEntityUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateEntityOpenId  = "open_id"  // 以open_id来识别用户
+	UpdateEntityUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	UpdateEntityUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	UpdateEntityUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type Abbreviation struct {
@@ -84,7 +84,7 @@ func NewAbbreviationBuilder() *AbbreviationBuilder {
 
 // 相关词条 ID
 //
-// 示例值：enterprise_51587960
+// 示例值：enterprise_51527260
 func (builder *AbbreviationBuilder) Id(id string) *AbbreviationBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -116,7 +116,7 @@ func NewBaikeImageBuilder() *BaikeImageBuilder {
 
 // 通过文件接口上传图片后，获得的图片 token
 //
-// 示例值：boxbcEcmKiD3SGHvgqWTpvdc7jc
+// 示例值：boxbcEcmKiDia3evgqWTpvdc7jc
 func (builder *BaikeImageBuilder) Token(token string) *BaikeImageBuilder {
 	builder.token = token
 	builder.tokenSet = true
@@ -158,7 +158,7 @@ func NewClassificationBuilder() *ClassificationBuilder {
 
 // 二级分类 ID
 //
-// 示例值：7049606926702837761
+// 示例值：7049606926****37761
 func (builder *ClassificationBuilder) Id(id string) *ClassificationBuilder {
 	builder.id = id
 	builder.idSet = true
@@ -176,7 +176,7 @@ func (builder *ClassificationBuilder) Name(name string) *ClassificationBuilder {
 
 // 对应一级分类 ID
 //
-// 示例值：7049606926702837777
+// 示例值：7049606926****37777
 func (builder *ClassificationBuilder) FatherId(fatherId string) *ClassificationBuilder {
 	builder.fatherId = fatherId
 	builder.fatherIdSet = true
@@ -272,8 +272,6 @@ func NewCorrectErrorBuilder() *CorrectErrorBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *CorrectErrorBuilder) Type(type_ int) *CorrectErrorBuilder {
 	builder.type_ = type_
@@ -519,8 +517,6 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -528,8 +524,6 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
-//
-//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -603,14 +597,14 @@ func (builder *DisplayStatusBuilder) Build() *DisplayStatus {
 type Draft struct {
 	DraftId *string `json:"draft_id,omitempty"` // 草稿 ID
 
-	Entity *Entity `json:"entity,omitempty"` // 词条信息
+	Entity *Entity `json:"entity,omitempty"` // 实体词
 }
 
 type DraftBuilder struct {
 	draftId    string // 草稿 ID
 	draftIdSet bool
 
-	entity    *Entity // 词条信息
+	entity    *Entity // 实体词
 	entitySet bool
 }
 
@@ -628,7 +622,7 @@ func (builder *DraftBuilder) DraftId(draftId string) *DraftBuilder {
 	return builder
 }
 
-// 词条信息
+// 实体词
 //
 // 示例值：
 func (builder *DraftBuilder) Entity(entity *Entity) *DraftBuilder {
@@ -658,7 +652,7 @@ type Entity struct {
 
 	Aliases []*Term `json:"aliases,omitempty"` // 别名
 
-	Description *string `json:"description,omitempty"` // 词条释义（纯文本格式）
+	Description *string `json:"description,omitempty"` // 纯文本格式词条释义。注：description 和 rich_text 至少有一个，否则会报错：1540001
 
 	Creator *string `json:"creator,omitempty"` // 创建者
 
@@ -666,15 +660,15 @@ type Entity struct {
 
 	Updater *string `json:"updater,omitempty"` // 最近一次更新者
 
-	UpdateTime *string `json:"update_time,omitempty"` // 词条最近更新时间
+	UpdateTime *string `json:"update_time,omitempty"` // 最近一次更新实体词时间（秒级时间戳）
 
-	RelatedMeta *RelatedMeta `json:"related_meta,omitempty"` // 更多相关信息
+	RelatedMeta *RelatedMeta `json:"related_meta,omitempty"` // 外部系统关联数据
 
-	Statistics *Statistics `json:"statistics,omitempty"` // 当前词条收到的反馈数据
+	Statistics *Statistics `json:"statistics,omitempty"` // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 
 	OuterInfo *OuterInfo `json:"outer_info,omitempty"` // 外部系统关联数据
 
-	RichText *string `json:"rich_text,omitempty"` // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+	RichText *string `json:"rich_text,omitempty"` // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 
 	Source *int `json:"source,omitempty"` // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
 }
@@ -692,7 +686,7 @@ type EntityBuilder struct {
 	aliases    []*Term // 别名
 	aliasesSet bool
 
-	description    string // 词条释义（纯文本格式）
+	description    string // 纯文本格式词条释义。注：description 和 rich_text 至少有一个，否则会报错：1540001
 	descriptionSet bool
 
 	creator    string // 创建者
@@ -704,19 +698,19 @@ type EntityBuilder struct {
 	updater    string // 最近一次更新者
 	updaterSet bool
 
-	updateTime    string // 词条最近更新时间
+	updateTime    string // 最近一次更新实体词时间（秒级时间戳）
 	updateTimeSet bool
 
-	relatedMeta    *RelatedMeta // 更多相关信息
+	relatedMeta    *RelatedMeta // 外部系统关联数据
 	relatedMetaSet bool
 
-	statistics    *Statistics // 当前词条收到的反馈数据
+	statistics    *Statistics // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 	statisticsSet bool
 
 	outerInfo    *OuterInfo // 外部系统关联数据
 	outerInfoSet bool
 
-	richText    string // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+	richText    string // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 	richTextSet bool
 
 	source    int // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
@@ -764,9 +758,9 @@ func (builder *EntityBuilder) Aliases(aliases []*Term) *EntityBuilder {
 	return builder
 }
 
-// 词条释义（纯文本格式）
+// 纯文本格式词条释义。注：description 和 rich_text 至少有一个，否则会报错：1540001
 //
-// 示例值：企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通
+// 示例值：词典是飞书提供的一款知识管理工具，通过飞书词典可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通
 func (builder *EntityBuilder) Description(description string) *EntityBuilder {
 	builder.description = description
 	builder.descriptionSet = true
@@ -800,7 +794,7 @@ func (builder *EntityBuilder) Updater(updater string) *EntityBuilder {
 	return builder
 }
 
-// 词条最近更新时间
+// 最近一次更新实体词时间（秒级时间戳）
 //
 // 示例值：1649318125
 func (builder *EntityBuilder) UpdateTime(updateTime string) *EntityBuilder {
@@ -809,7 +803,7 @@ func (builder *EntityBuilder) UpdateTime(updateTime string) *EntityBuilder {
 	return builder
 }
 
-// 更多相关信息
+// 外部系统关联数据
 //
 // 示例值：
 func (builder *EntityBuilder) RelatedMeta(relatedMeta *RelatedMeta) *EntityBuilder {
@@ -818,7 +812,7 @@ func (builder *EntityBuilder) RelatedMeta(relatedMeta *RelatedMeta) *EntityBuild
 	return builder
 }
 
-// 当前词条收到的反馈数据
+// 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 //
 // 示例值：
 func (builder *EntityBuilder) Statistics(statistics *Statistics) *EntityBuilder {
@@ -836,9 +830,9 @@ func (builder *EntityBuilder) OuterInfo(outerInfo *OuterInfo) *EntityBuilder {
 	return builder
 }
 
-// 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+// 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 //
-// 示例值：&lt;b&gt;加粗&lt;/b&gt;&lt;i&gt;斜体&lt;/i&gt;&lt;p&gt;&lt;a href=\"https://feishu.cn\"&gt;链接&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span&gt;企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通&lt;/span&gt;&lt;/p&gt;
+// 示例值：&lt;b&gt;加粗&lt;/b&gt;&lt;i&gt;斜体&lt;/i&gt;&lt;p&gt;&lt;a href="https://feishu.cn"&gt;l链接&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span&gt;企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通&lt;/span&gt;&lt;/p&gt;
 func (builder *EntityBuilder) RichText(richText string) *EntityBuilder {
 	builder.richText = richText
 	builder.richTextSet = true
@@ -930,7 +924,7 @@ func NewEntityWordBuilder() *EntityWordBuilder {
 
 // 抽取出的词条名
 //
-// 示例值：企业百科
+// 示例值：飞书词典
 func (builder *EntityWordBuilder) Name(name string) *EntityWordBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -1028,7 +1022,7 @@ func NewMatchInfoBuilder() *MatchInfoBuilder {
 
 // 词条 ID
 //
-// 示例值：enterprise_34809584
+// 示例值：enterprise_34***584
 func (builder *MatchInfoBuilder) EntityId(entityId string) *MatchInfoBuilder {
 	builder.entityId = entityId
 	builder.entityIdSet = true
@@ -1087,7 +1081,7 @@ func (builder *OuterInfoBuilder) Provider(provider string) *OuterInfoBuilder {
 
 // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
 //
-// 示例值：client_6539i3498d
+// 示例值：client_653267498d
 func (builder *OuterInfoBuilder) OuterId(outerId string) *OuterInfoBuilder {
 	builder.outerId = outerId
 	builder.outerIdSet = true
@@ -1133,7 +1127,7 @@ func NewPhraseBuilder() *PhraseBuilder {
 
 // 识别到的关键词
 //
-// 示例值：企业百科
+// 示例值：词典
 func (builder *PhraseBuilder) Name(name string) *PhraseBuilder {
 	builder.name = name
 	builder.nameSet = true
@@ -1208,7 +1202,7 @@ func (builder *RefererBuilder) Id(id string) *RefererBuilder {
 
 // 对应相关信息的描述，如相关联系人的描述、相关链接的标题
 //
-// 示例值：企业百科帮助中心
+// 示例值：飞书词典帮助中心
 func (builder *RefererBuilder) Title(title string) *RefererBuilder {
 	builder.title = title
 	builder.titleSet = true
@@ -1242,9 +1236,9 @@ func (builder *RefererBuilder) Build() *Referer {
 }
 
 type RelatedMeta struct {
-	Users []*Referer `json:"users,omitempty"` // 相关联系人
+	Users []*Referer `json:"users,omitempty"` // 外部系统（不能包含中横线 "-"）
 
-	Chats []*Referer `json:"chats,omitempty"` // 相关服务中的相关公开群
+	Chats []*Referer `json:"chats,omitempty"` // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
 
 	Docs []*Referer `json:"docs,omitempty"` // 相关云文档
 
@@ -1260,10 +1254,10 @@ type RelatedMeta struct {
 }
 
 type RelatedMetaBuilder struct {
-	users    []*Referer // 相关联系人
+	users    []*Referer // 外部系统（不能包含中横线 "-"）
 	usersSet bool
 
-	chats    []*Referer // 相关服务中的相关公开群
+	chats    []*Referer // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
 	chatsSet bool
 
 	docs    []*Referer // 相关云文档
@@ -1290,7 +1284,7 @@ func NewRelatedMetaBuilder() *RelatedMetaBuilder {
 	return builder
 }
 
-// 相关联系人
+// 外部系统（不能包含中横线 "-"）
 //
 // 示例值：
 func (builder *RelatedMetaBuilder) Users(users []*Referer) *RelatedMetaBuilder {
@@ -1299,7 +1293,7 @@ func (builder *RelatedMetaBuilder) Users(users []*Referer) *RelatedMetaBuilder {
 	return builder
 }
 
-// 相关服务中的相关公开群
+// 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
 //
 // 示例值：
 func (builder *RelatedMetaBuilder) Chats(chats []*Referer) *RelatedMetaBuilder {
@@ -1421,7 +1415,7 @@ func (builder *SpanBuilder) Start(start int) *SpanBuilder {
 
 // 关键词结束位置，从 0 开始计数（编码格式采用 utf-8）
 //
-// 示例值：4
+// 示例值：2
 func (builder *SpanBuilder) End(end int) *SpanBuilder {
 	builder.end = end
 	builder.endSet = true
@@ -1596,7 +1590,7 @@ func NewTermBuilder() *TermBuilder {
 
 // 名称的值
 //
-// 示例值：企业百科
+// 示例值：飞书词典
 func (builder *TermBuilder) Key(key string) *TermBuilder {
 	builder.key = key
 	builder.keySet = true
@@ -1950,7 +1944,7 @@ func (builder *ListClassificationReqBuilder) PageSize(pageSize int) *ListClassif
 
 // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
 //
-// 示例值：408ecac018b2e3518db37275e812aad7bb8ad3e755fc886f322ac6c430ba
+// 示例值：408ecac018b2e3518db37275e812****bb8ad3e755fc886f322ac6c430ba
 func (builder *ListClassificationReqBuilder) PageToken(pageToken string) *ListClassificationReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
 	return builder
@@ -2008,7 +2002,7 @@ func (builder *CreateDraftReqBuilder) UserIdType(userIdType string) *CreateDraft
 	return builder
 }
 
-// 草稿并非百科词条，而是指通过 API 发起创建新词条或更新现有词条的申请。百科管理员审核通过后，草稿将变为新的词条或覆盖已有词条。
+// 草稿并非词条，而是指通过 API 发起创建新词条或更新现有词条的申请。;词典管理员审核通过后，草稿将变为新的词条或覆盖已有词条。
 func (builder *CreateDraftReqBuilder) Entity(entity *Entity) *CreateDraftReqBuilder {
 	builder.entity = entity
 	return builder
@@ -2071,7 +2065,7 @@ func (builder *UpdateDraftReqBuilder) UserIdType(userIdType string) *UpdateDraft
 	return builder
 }
 
-// 根据 draft_id 更新草稿内容，已审批的草稿无法编辑
+// 根据 draft_id 更新草稿内容，已审批的草稿无法编辑。
 func (builder *UpdateDraftReqBuilder) Entity(entity *Entity) *UpdateDraftReqBuilder {
 	builder.entity = entity
 	return builder
@@ -2127,7 +2121,7 @@ func (builder *CreateEntityReqBuilder) UserIdType(userIdType string) *CreateEnti
 	return builder
 }
 
-// 通过此接口创建的词条，不需要百科管理员审核可直接写入词库，请慎重使用【租户管理员请慎重审批】。
+// 通过此接口创建的词条，无需经过词典管理员审核，直接写入词库。因此，调用此接口时，应当慎重操作。
 func (builder *CreateEntityReqBuilder) Entity(entity *Entity) *CreateEntityReqBuilder {
 	builder.entity = entity
 	return builder
@@ -2161,7 +2155,7 @@ func (resp *CreateEntityResp) Success() bool {
 }
 
 type ExtractEntityReqBodyBuilder struct {
-	text    string // 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）
+	text    string // 需要被提取词条的文本（不会过滤租户中已成为词条的内容）
 	textSet bool
 }
 
@@ -2170,9 +2164,9 @@ func NewExtractEntityReqBodyBuilder() *ExtractEntityReqBodyBuilder {
 	return builder
 }
 
-// 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）
+// 需要被提取词条的文本（不会过滤租户中已成为词条的内容）
 //
-//示例值：企业百科是一部高效汇聚企业内各类信息，并可由企业成员参与编辑的在线百科全书
+// 示例值：飞书词典是一部高效汇聚企业内各类信息，并可由企业成员参与编辑的在线词典
 func (builder *ExtractEntityReqBodyBuilder) Text(text string) *ExtractEntityReqBodyBuilder {
 	builder.text = text
 	builder.textSet = true
@@ -2197,9 +2191,9 @@ func NewExtractEntityPathReqBodyBuilder() *ExtractEntityPathReqBodyBuilder {
 	return builder
 }
 
-// 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）
+// 需要被提取词条的文本（不会过滤租户中已成为词条的内容）
 //
-// 示例值：企业百科是一部高效汇聚企业内各类信息，并可由企业成员参与编辑的在线百科全书
+// 示例值：飞书词典是一部高效汇聚企业内各类信息，并可由企业成员参与编辑的在线词典
 func (builder *ExtractEntityPathReqBodyBuilder) Text(text string) *ExtractEntityPathReqBodyBuilder {
 	builder.text = text
 	builder.textSet = true
@@ -2228,7 +2222,7 @@ func NewExtractEntityReqBuilder() *ExtractEntityReqBuilder {
 	return builder
 }
 
-// 提取文本中可能成为百科词条的词语，且不会过滤已经成为百科词条的词语。同时，会返回推荐的别名。
+// 提取文本中可能成为词条的词语，且不会过滤已经成为词条的词语。同时返回推荐的别名。
 func (builder *ExtractEntityReqBuilder) Body(body *ExtractEntityReqBody) *ExtractEntityReqBuilder {
 	builder.body = body
 	return builder
@@ -2242,7 +2236,7 @@ func (builder *ExtractEntityReqBuilder) Build() *ExtractEntityReq {
 }
 
 type ExtractEntityReqBody struct {
-	Text *string `json:"text,omitempty"` // 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）
+	Text *string `json:"text,omitempty"` // 需要被提取词条的文本（不会过滤租户中已成为词条的内容）
 }
 
 type ExtractEntityReq struct {
@@ -2251,7 +2245,7 @@ type ExtractEntityReq struct {
 }
 
 type ExtractEntityRespData struct {
-	EntityWord []*EntityWord `json:"entity_word,omitempty"` // 文本中可能的成为百科词条的词汇
+	EntityWord []*EntityWord `json:"entity_word,omitempty"` // 文本中可能的成为词条的词汇
 }
 
 type ExtractEntityResp struct {
@@ -2322,7 +2316,7 @@ type GetEntityReq struct {
 }
 
 type GetEntityRespData struct {
-	Entity *Entity `json:"entity,omitempty"` // 百科词条
+	Entity *Entity `json:"entity,omitempty"` // 词条
 }
 
 type GetEntityResp struct {
@@ -2336,7 +2330,7 @@ func (resp *GetEntityResp) Success() bool {
 }
 
 type HighlightEntityReqBodyBuilder struct {
-	text    string // 需要识别百科词条的内容（不超过1000字）
+	text    string // 需要识别词条的内容（不超过1000字）
 	textSet bool
 }
 
@@ -2345,9 +2339,9 @@ func NewHighlightEntityReqBodyBuilder() *HighlightEntityReqBodyBuilder {
 	return builder
 }
 
-// 需要识别百科词条的内容（不超过1000字）
+// 需要识别词条的内容（不超过1000字）
 //
-//示例值：企业百科是飞书提供的一款知识管理工具
+// 示例值：词典是飞书提供的一款知识管理工具
 func (builder *HighlightEntityReqBodyBuilder) Text(text string) *HighlightEntityReqBodyBuilder {
 	builder.text = text
 	builder.textSet = true
@@ -2372,9 +2366,9 @@ func NewHighlightEntityPathReqBodyBuilder() *HighlightEntityPathReqBodyBuilder {
 	return builder
 }
 
-// 需要识别百科词条的内容（不超过1000字）
+// 需要识别词条的内容（不超过1000字）
 //
-// 示例值：企业百科是飞书提供的一款知识管理工具
+// 示例值：词典是飞书提供的一款知识管理工具
 func (builder *HighlightEntityPathReqBodyBuilder) Text(text string) *HighlightEntityPathReqBodyBuilder {
 	builder.text = text
 	builder.textSet = true
@@ -2403,7 +2397,7 @@ func NewHighlightEntityReqBuilder() *HighlightEntityReqBuilder {
 	return builder
 }
 
-// 传入一句话，智能识别句中对应的词条，并返回词条位置和 entity_id，可在外部系统中快速实现百科词条智能高亮。
+// 传入一句话，智能识别句中对应的词条，并返回词条位置和 entity_id，可在外部系统中快速实现词条智能高亮。
 func (builder *HighlightEntityReqBuilder) Body(body *HighlightEntityReqBody) *HighlightEntityReqBuilder {
 	builder.body = body
 	return builder
@@ -2417,7 +2411,7 @@ func (builder *HighlightEntityReqBuilder) Build() *HighlightEntityReq {
 }
 
 type HighlightEntityReqBody struct {
-	Text *string `json:"text,omitempty"` // 需要识别百科词条的内容（不超过1000字）
+	Text *string `json:"text,omitempty"` // 需要识别词条的内容（不超过1000字）
 }
 
 type HighlightEntityReq struct {
@@ -2533,7 +2527,7 @@ func NewMatchEntityReqBodyBuilder() *MatchEntityReqBodyBuilder {
 
 // 搜索关键词，将与词条名、别名进行精准匹配
 //
-//示例值：企业百科
+// 示例值：飞书词典
 func (builder *MatchEntityReqBodyBuilder) Word(word string) *MatchEntityReqBodyBuilder {
 	builder.word = word
 	builder.wordSet = true
@@ -2560,7 +2554,7 @@ func NewMatchEntityPathReqBodyBuilder() *MatchEntityPathReqBodyBuilder {
 
 // 搜索关键词，将与词条名、别名进行精准匹配
 //
-// 示例值：企业百科
+// 示例值：飞书词典
 func (builder *MatchEntityPathReqBodyBuilder) Word(word string) *MatchEntityPathReqBodyBuilder {
 	builder.word = word
 	builder.wordSet = true
@@ -2629,7 +2623,7 @@ type SearchEntityReqBodyBuilder struct {
 	query    string // 搜索关键词
 	querySet bool
 
-	classificationFilter    *ClassificationFilter // 分类筛选
+	classificationFilter    *ClassificationFilter //
 	classificationFilterSet bool
 
 	sources    []int // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
@@ -2646,16 +2640,14 @@ func NewSearchEntityReqBodyBuilder() *SearchEntityReqBodyBuilder {
 
 // 搜索关键词
 //
-//示例值：百科
+// 示例值：词典
 func (builder *SearchEntityReqBodyBuilder) Query(query string) *SearchEntityReqBodyBuilder {
 	builder.query = query
 	builder.querySet = true
 	return builder
 }
 
-// 分类筛选
-//
-//示例值：
+// 示例值：
 func (builder *SearchEntityReqBodyBuilder) ClassificationFilter(classificationFilter *ClassificationFilter) *SearchEntityReqBodyBuilder {
 	builder.classificationFilter = classificationFilter
 	builder.classificationFilterSet = true
@@ -2664,7 +2656,7 @@ func (builder *SearchEntityReqBodyBuilder) ClassificationFilter(classificationFi
 
 // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
 //
-//示例值：
+// 示例值：
 func (builder *SearchEntityReqBodyBuilder) Sources(sources []int) *SearchEntityReqBodyBuilder {
 	builder.sources = sources
 	builder.sourcesSet = true
@@ -2673,7 +2665,7 @@ func (builder *SearchEntityReqBodyBuilder) Sources(sources []int) *SearchEntityR
 
 // 创建者
 //
-//示例值：ou_30b07b63089ea46518789914dac63d36
+// 示例值：ou_30b07b63089ea46518789914dac63d36
 func (builder *SearchEntityReqBodyBuilder) Creators(creators []string) *SearchEntityReqBodyBuilder {
 	builder.creators = creators
 	builder.creatorsSet = true
@@ -2715,15 +2707,13 @@ func NewSearchEntityPathReqBodyBuilder() *SearchEntityPathReqBodyBuilder {
 
 // 搜索关键词
 //
-// 示例值：百科
+// 示例值：词典
 func (builder *SearchEntityPathReqBodyBuilder) Query(query string) *SearchEntityPathReqBodyBuilder {
 	builder.query = query
 	builder.querySet = true
 	return builder
 }
 
-// 分类筛选
-//
 // 示例值：
 func (builder *SearchEntityPathReqBodyBuilder) ClassificationFilter(classificationFilter *ClassificationFilter) *SearchEntityPathReqBodyBuilder {
 	builder.classificationFilter = classificationFilter
@@ -2789,7 +2779,7 @@ func (builder *SearchEntityReqBuilder) Limit(limit int) *SearchEntityReqBuilder 
 
 // 每页返回的词条量
 //
-// 示例值：10
+// 示例值：b152fa6e6f62a291019a04c3a93f365f8ac641910506ff15ff4cad6534e087cb4ed8fa2c
 func (builder *SearchEntityReqBuilder) PageSize(pageSize int) *SearchEntityReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
@@ -2829,7 +2819,7 @@ func (builder *SearchEntityReqBuilder) Build() *SearchEntityReq {
 type SearchEntityReqBody struct {
 	Query *string `json:"query,omitempty"` // 搜索关键词
 
-	ClassificationFilter *ClassificationFilter `json:"classification_filter,omitempty"` // 分类筛选
+	ClassificationFilter *ClassificationFilter `json:"classification_filter,omitempty"` //
 
 	Sources []int `json:"sources,omitempty"` // 词条的创建来源，1：用户主动创建，2：批量导入，3：官方词，4：OpenAPI 创建
 
@@ -2889,7 +2879,7 @@ func (builder *UpdateEntityReqBuilder) UserIdType(userIdType string) *UpdateEnti
 	return builder
 }
 
-// 通过此接口更新已有的词条，不需要百科管理员审核可直接写入词库，请慎重使用【租户管理员请慎重审批】。
+// 通过此接口更新已有的词条，无需经过词典管理员审核，直接写入词库。;因此，调用该接口时应当慎重操作。
 func (builder *UpdateEntityReqBuilder) Entity(entity *Entity) *UpdateEntityReqBuilder {
 	builder.entity = entity
 	return builder
@@ -2938,7 +2928,7 @@ func NewDownloadFileReqBuilder() *DownloadFileReqBuilder {
 
 // 需要下载的文件 token
 //
-// 示例值：boxbcEcmKiD3SGHvgqWTpvdc7jc
+// 示例值：boxbcEcmKiD3***vgqWTpvdc7jc
 func (builder *DownloadFileReqBuilder) FileToken(fileToken string) *DownloadFileReqBuilder {
 	builder.apiReq.PathParams.Set("file_token", fmt.Sprint(fileToken))
 	return builder
@@ -2993,7 +2983,7 @@ func NewUploadFileReqBuilder() *UploadFileReqBuilder {
 	return builder
 }
 
-// 百科词条图片资源上传。
+// 词条图片资源上传。
 func (builder *UploadFileReqBuilder) File(file *File) *UploadFileReqBuilder {
 	builder.file = file
 	return builder

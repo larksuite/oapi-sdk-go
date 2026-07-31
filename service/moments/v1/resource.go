@@ -37,9 +37,9 @@ type reaction struct {
 	config *larkcore.Config
 }
 
-// Get
+// Get 查询帖子信息
 //
-// -
+// - 通过 ID 查询帖子实体数据信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=moments&resource=post&version=v1
 //

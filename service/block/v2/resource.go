@@ -9,8 +9,8 @@ import (
 )
 
 type V2 struct {
-	Entity  *entity  // 服务端 API
-	Message *message // 服务端 API
+	Entity  *entity  // entity
+	Message *message // message
 }
 
 func New(config *larkcore.Config) *V2 {
@@ -31,7 +31,7 @@ type message struct {
 //
 // - 开发者可以通过该接口将部分或全部数据存放于 BlockEntity。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=block&resource=entity&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2/create_entity.go
 func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...larkcore.RequestOptionFunc) (*CreateEntityResp, error) {
@@ -57,7 +57,7 @@ func (e *entity) Create(ctx context.Context, req *CreateEntityReq, options ...la
 //
 // - 开发者通过该接口可以更新存储在BlockEntity中的数据，并实时推送到端侧。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/update
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update&project=block&resource=entity&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2/update_entity.go
 func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...larkcore.RequestOptionFunc) (*UpdateEntityResp, error) {
@@ -83,7 +83,7 @@ func (e *entity) Update(ctx context.Context, req *UpdateEntityReq, options ...la
 //
 // - 根据BlockID向指定用户列表推送协同数据。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/message/create
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=block&resource=message&version=v2
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/blockv2/create_message.go
 func (m *message) Create(ctx context.Context, req *CreateMessageReq, options ...larkcore.RequestOptionFunc) (*CreateMessageResp, error) {

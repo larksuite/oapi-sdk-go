@@ -9,7 +9,7 @@ import (
 )
 
 type V1 struct {
-	Verification *verification // 认证信息
+	Verification *verification // verification
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -26,7 +26,7 @@ type verification struct {
 //
 // - 获取企业主体名称、是否认证等信息。
 //
-// - 官网API文档链接:https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/verification-v1/verification/get
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=get&project=verification&resource=verification&version=v1
 //
 // - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/verificationv1/get_verification.go
 func (v *verification) Get(ctx context.Context, options ...larkcore.RequestOptionFunc) (*GetVerificationResp, error) {
