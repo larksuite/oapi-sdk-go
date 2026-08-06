@@ -38,18 +38,20 @@ type Client struct {
 	connUrl                 *url.URL
 	serviceID               string
 	connID                  string
-	autoReconnect           bool          // 是否自动重连，默认开启
-	reconnectNonce          int           // 首次重连抖动，单位秒
-	reconnectCount          int           // 重连次数，负数无限次
-	reconnectInterval       time.Duration // 重连间隔
-	pingInterval            time.Duration // Ping间隔
-	cache                   *larkcache.Cache
-	mu                      sync.Mutex
-	onReady                 func()
-	onError                 func(err error)
-	onReconnecting          func()
-	onReconnected           func()
-	onDisconnected          func()
+	// connIDMu guards connID: fmtLog reads it from goroutines that do not hold c.mu.
+	connIDMu          sync.RWMutex
+	autoReconnect     bool          // 是否自动重连，默认开启
+	reconnectNonce    int           // 首次重连抖动，单位秒
+	reconnectCount    int           // 重连次数，负数无限次
+	reconnectInterval time.Duration // 重连间隔
+	pingInterval      time.Duration // Ping间隔
+	cache             *larkcache.Cache
+	mu                sync.Mutex
+	onReady           func()
+	onError           func(err error)
+	onReconnecting    func()
+	onReconnected     func()
+	onDisconnected    func()
 }
 
 var bootstrapHTTPClient = http.DefaultClient
@@ -263,7 +265,7 @@ func (c *Client) connect(ctx context.Context) (err error) {
 
 	c.conn = conn
 	c.connUrl = u
-	c.connID = connID
+	c.setConnID(connID)
 	c.serviceID = serviceID
 
 	c.logger.Info(ctx, c.fmtLog("connected to %s", u)...)
@@ -358,7 +360,7 @@ func (c *Client) disconnect(ctx context.Context) {
 	defer func() {
 		c.conn = nil
 		c.connUrl = nil
-		c.connID = ""
+		c.setConnID("")
 		c.serviceID = ""
 	}()
 }
@@ -698,11 +700,24 @@ func (c *Client) writeMessage(messageType int, data []byte) error {
 
 func (c *Client) fmtLog(format string, i ...interface{}) []interface{} {
 	log := []interface{}{fmt.Sprintf(format, i...)}
-	if c.connID != "" {
-		log = append(log, fmt.Sprintf("[conn_id=%s]", c.connID))
+	if connID := c.connIDSnapshot(); connID != "" {
+		log = append(log, fmt.Sprintf("[conn_id=%s]", connID))
 	}
 
 	return log
+}
+
+// Leaf lock, not c.mu: connect and disconnect already hold c.mu when they call fmtLog.
+func (c *Client) setConnID(id string) {
+	c.connIDMu.Lock()
+	c.connID = id
+	c.connIDMu.Unlock()
+}
+
+func (c *Client) connIDSnapshot() string {
+	c.connIDMu.RLock()
+	defer c.connIDMu.RUnlock()
+	return c.connID
 }
 
 // configure applies a server-pushed config. It is the entry point for callers
