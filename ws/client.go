@@ -44,12 +44,58 @@ type Client struct {
 	reconnectInterval       time.Duration // 重连间隔
 	pingInterval            time.Duration // Ping间隔
 	cache                   *larkcache.Cache
+	lifecycleMu             sync.Mutex
+	run                     *clientRun
 	mu                      sync.Mutex
+	writeMu                 sync.Mutex
+	connRun                 *clientRun
 	onReady                 func()
 	onError                 func(err error)
 	onReconnecting          func()
 	onReconnected           func()
 	onDisconnected          func()
+}
+
+type clientRun struct {
+	ctx    context.Context
+	cancel context.CancelFunc
+	done   chan struct{}
+	once   sync.Once
+	err    error
+	wg     sync.WaitGroup
+
+	eventsMu                 sync.Mutex
+	connectionCallbackActive bool
+	pendingDisconnected      func()
+}
+
+type clientCallbacks struct {
+	onReady        func()
+	onError        func(error)
+	onReconnecting func()
+	onReconnected  func()
+}
+
+func newClientRun(ctx context.Context) *clientRun {
+	runCtx, cancel := context.WithCancel(ctx)
+	return &clientRun{
+		ctx:    runCtx,
+		cancel: cancel,
+		done:   make(chan struct{}),
+	}
+}
+
+func (r *clientRun) finish(err error) {
+	r.once.Do(func() {
+		r.err = err
+		r.cancel()
+		close(r.done)
+	})
+}
+
+func (r *clientRun) result() error {
+	<-r.done
+	return r.err
 }
 
 var bootstrapHTTPClient = http.DefaultClient
@@ -175,8 +221,12 @@ func (c *Client) SetOnDisconnected(f func()) {
 }
 
 func (c *Client) Close() {
-	c.autoReconnect = false
-	c.disconnect(context.Background())
+	run := c.currentRun()
+	if run == nil {
+		return
+	}
+	run.finish(context.Canceled)
+	c.disconnectRun(context.Background(), run, nil)
 }
 
 func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
@@ -203,39 +253,113 @@ func NewClient(appId, appSecret string, opts ...ClientOption) *Client {
 	return cli
 }
 
-func (c *Client) Start(ctx context.Context) (err error) {
-	err = c.connect(ctx)
-	if err != nil {
-		c.logger.Error(ctx, c.fmtLog("connect failed, err: %v", err)...)
-		if c.onError != nil {
-			c.onError(err)
-		}
-		if _, ok := err.(*ClientError); ok {
-			return
-		}
-		c.disconnect(ctx)
-		if c.autoReconnect {
-			if err = c.reconnect(ctx); err != nil {
-				return err
-			}
-		} else {
-			return err
-		}
-	} else {
-		if c.onReady != nil {
-			c.onReady()
-		}
+func (c *Client) beginRun(ctx context.Context) (*clientRun, error) {
+	c.lifecycleMu.Lock()
+	defer c.lifecycleMu.Unlock()
+	if c.run != nil {
+		return nil, ErrClientAlreadyStarted
 	}
-	go c.pingLoop(ctx)
-	select {}
+	run := newClientRun(ctx)
+	c.run = run
+	return run, nil
 }
 
-func (c *Client) connect(ctx context.Context) (err error) {
-	c.mu.Lock()
-	defer c.mu.Unlock()
-	if c.conn != nil {
-		return
+func (c *Client) currentRun() *clientRun {
+	c.lifecycleMu.Lock()
+	defer c.lifecycleMu.Unlock()
+	return c.run
+}
+
+func (c *Client) endRun(run *clientRun) {
+	c.lifecycleMu.Lock()
+	defer c.lifecycleMu.Unlock()
+	if c.run == run {
+		c.run = nil
 	}
+}
+
+func (c *Client) Start(ctx context.Context) (err error) {
+	run, err := c.beginRun(ctx)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		run.cancel()
+		c.disconnectRun(context.Background(), run, nil)
+		run.wg.Wait()
+		c.endRun(run)
+	}()
+
+	if err = run.ctx.Err(); err != nil {
+		run.finish(err)
+		return run.result()
+	}
+
+	err = c.connect(run)
+	if err != nil {
+		if ctxErr := run.ctx.Err(); ctxErr != nil {
+			run.finish(ctxErr)
+			return run.result()
+		}
+		c.logger.Error(run.ctx, c.fmtLog("connect failed, err: %v", err)...)
+		c.callOnError(err)
+		if _, ok := err.(*ClientError); ok {
+			run.finish(err)
+			return run.result()
+		}
+		if c.autoReconnectEnabled() {
+			if err = c.reconnect(run); err != nil {
+				if ctxErr := run.ctx.Err(); ctxErr != nil {
+					run.finish(ctxErr)
+				} else {
+					run.finish(err)
+				}
+				return run.result()
+			}
+		} else {
+			run.finish(err)
+			return run.result()
+		}
+	} else {
+		c.callConnectionCallback(run, c.callbacksSnapshot().onReady)
+	}
+
+	if ctxErr := run.ctx.Err(); ctxErr != nil {
+		run.finish(ctxErr)
+		return run.result()
+	}
+
+	run.wg.Add(2)
+	go func() {
+		defer run.wg.Done()
+		c.pingLoop(run)
+	}()
+	go func() {
+		defer run.wg.Done()
+		c.receiveMessageLoop(run)
+	}()
+
+	select {
+	case <-run.done:
+	case <-run.ctx.Done():
+		run.finish(run.ctx.Err())
+	}
+	return run.result()
+}
+
+func (c *Client) connect(run *clientRun) (err error) {
+	ctx := run.ctx
+
+	c.mu.Lock()
+	if c.conn != nil {
+		ownedByRun := c.connRun == run
+		c.mu.Unlock()
+		if ownedByRun {
+			return nil
+		}
+		return ErrClientAlreadyStarted
+	}
+	c.mu.Unlock()
 
 	// 获取建连URL
 	connUrl, err := c.getConnURL(ctx)
@@ -252,29 +376,59 @@ func (c *Client) connect(ctx context.Context) (err error) {
 	connID := u.Query().Get(DeviceID)
 	serviceID := u.Query().Get(ServiceID)
 
-	conn, resp, err := ws.DefaultDialer.Dial(connUrl, nil)
-	if err != nil && resp == nil {
-		return
+	conn, resp, err := ws.DefaultDialer.DialContext(ctx, connUrl, nil)
+	if err != nil {
+		if resp == nil {
+			return err
+		}
+		defer resp.Body.Close()
+		return parseErr(resp)
 	}
-	if resp.StatusCode != http.StatusSwitchingProtocols {
+	if resp == nil || resp.StatusCode != http.StatusSwitchingProtocols {
+		if conn != nil {
+			_ = conn.Close()
+		}
+		if resp == nil {
+			return fmt.Errorf("websocket handshake returned no response")
+		}
+		defer resp.Body.Close()
 		// 连接失败
 		return parseErr(resp)
 	}
 
+	c.mu.Lock()
+	if err = ctx.Err(); err != nil {
+		c.mu.Unlock()
+		_ = conn.Close()
+		return err
+	}
+	if c.conn != nil {
+		ownedByRun := c.connRun == run
+		c.mu.Unlock()
+		_ = conn.Close()
+		if ownedByRun {
+			return nil
+		}
+		return ErrClientAlreadyStarted
+	}
 	c.conn = conn
+	c.connRun = run
 	c.connUrl = u
 	c.connID = connID
 	c.serviceID = serviceID
+	c.mu.Unlock()
 
 	c.logger.Info(ctx, c.fmtLog("connected to %s", u)...)
-
-	go c.receiveMessageLoop(ctx)
 	return
 }
 
-func (c *Client) reconnect(ctx context.Context) (err error) {
-	if c.onReconnecting != nil {
-		c.onReconnecting()
+func (c *Client) reconnect(run *clientRun) (err error) {
+	ctx := run.ctx
+	if err = ctx.Err(); err != nil {
+		return err
+	}
+	if onReconnecting := c.callbacksSnapshot().onReconnecting; onReconnecting != nil {
+		onReconnecting()
 	}
 
 	reconnectCount, _, reconnectNonce, _ := c.configSnapshot()
@@ -283,84 +437,113 @@ func (c *Client) reconnect(ctx context.Context) (err error) {
 	if reconnectNonce > 0 {
 		rand.Seed(time.Now().UnixNano())
 		num := rand.Intn(reconnectNonce * 1000)
-		time.Sleep(time.Duration(num) * time.Millisecond)
+		if err = sleepWithContext(ctx, time.Duration(num)*time.Millisecond); err != nil {
+			return err
+		}
 	}
 
 	if reconnectCount >= 0 {
 		for i := 0; i < reconnectCount; i++ {
-			success, err := c.tryConnect(ctx, i)
+			if err = ctx.Err(); err != nil {
+				return err
+			}
+			success, err := c.tryConnect(run, i)
 			if success {
-				if c.onReconnected != nil {
-					c.onReconnected()
+				if err = ctx.Err(); err != nil {
+					return err
 				}
+				c.callConnectionCallback(run, c.callbacksSnapshot().onReconnected)
 				return nil
 			}
 			if err != nil {
 				return err
 			}
 			_, reconnectInterval, _, _ := c.configSnapshot()
-			time.Sleep(reconnectInterval)
+			if err = sleepWithContext(ctx, reconnectInterval); err != nil {
+				return err
+			}
 		}
 		return fmt.Errorf("unable to connect to server after %d retries", reconnectCount)
 	} else {
 		i := 0
 		for {
-			success, err := c.tryConnect(ctx, i)
+			if err = ctx.Err(); err != nil {
+				return err
+			}
+			success, err := c.tryConnect(run, i)
 			if success {
-				if c.onReconnected != nil {
-					c.onReconnected()
+				if err = ctx.Err(); err != nil {
+					return err
 				}
+				c.callConnectionCallback(run, c.callbacksSnapshot().onReconnected)
 				return nil
 			}
 			if err != nil {
 				return err
 			}
 			_, reconnectInterval, _, _ := c.configSnapshot()
-			time.Sleep(reconnectInterval)
+			if err = sleepWithContext(ctx, reconnectInterval); err != nil {
+				return err
+			}
 			i += 1
 		}
 	}
 }
 
-func (c *Client) tryConnect(ctx context.Context, cnt int) (bool, error) {
+func (c *Client) tryConnect(run *clientRun, cnt int) (bool, error) {
+	ctx := run.ctx
 	c.logger.Info(ctx, c.fmtLog("trying to reconnect: %d", cnt+1)...)
-	err := c.connect(ctx)
+	err := c.connect(run)
 	if err == nil {
 		return true, nil
+	} else if ctx.Err() != nil {
+		return false, ctx.Err()
 	} else if _, ok := err.(*ClientError); ok {
-		if c.onError != nil {
-			c.onError(err)
-		}
+		c.callOnError(err)
 		return false, err
 	} else {
 		c.logger.Error(ctx, c.fmtLog("connect failed, err: %v", err)...)
-		if c.onError != nil {
-			c.onError(err)
-		}
+		c.callOnError(err)
 		return false, nil
 	}
 }
 
-func (c *Client) disconnect(ctx context.Context) {
+func (c *Client) disconnectRun(ctx context.Context, run *clientRun, expected *ws.Conn) {
+	run.eventsMu.Lock()
+
 	c.mu.Lock()
-	defer c.mu.Unlock()
-	if c.conn == nil {
+	if c.conn == nil || c.connRun != run || (expected != nil && c.conn != expected) {
+		c.mu.Unlock()
+		run.eventsMu.Unlock()
 		return
 	}
 
-	_ = c.conn.Close()
-	c.logger.Info(ctx, c.fmtLog("disconnected to %s", c.connUrl)...)
-
-	if c.onDisconnected != nil {
-		c.onDisconnected()
+	conn := c.conn
+	connURL := c.connUrl
+	connID := c.connID
+	onDisconnected := c.onDisconnected
+	c.conn = nil
+	c.connRun = nil
+	c.connUrl = nil
+	c.connID = ""
+	c.serviceID = ""
+	c.mu.Unlock()
+	if run.connectionCallbackActive {
+		run.pendingDisconnected = onDisconnected
+		onDisconnected = nil
 	}
+	run.eventsMu.Unlock()
 
-	defer func() {
-		c.conn = nil
-		c.connUrl = nil
-		c.connID = ""
-		c.serviceID = ""
-	}()
+	_ = conn.Close()
+	log := []interface{}{fmt.Sprintf("disconnected to %s", connURL)}
+	if connID != "" {
+		log = append(log, fmt.Sprintf("[conn_id=%s]", connID))
+	}
+	c.logger.Info(ctx, log...)
+
+	if onDisconnected != nil {
+		onDisconnected()
+	}
 }
 
 func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
@@ -464,9 +647,7 @@ func (c *Client) getConnURL(ctx context.Context) (url string, err error) {
 
 	url = endpoint.Url
 	if endpoint.ClientConfig != nil {
-		// getConnURL is only ever called from connect, which already holds c.mu;
-		// use the locked variant to avoid self-deadlocking on the non-reentrant mutex.
-		c.configureLocked(endpoint.ClientConfig)
+		c.configure(endpoint.ClientConfig)
 	}
 
 	return
@@ -493,22 +674,28 @@ func buildWSProxyURL(targetService, targetPrefix, apiPath string) string {
 	return targetService + targetPrefix + apiPath
 }
 
-func (c *Client) pingLoop(ctx context.Context) {
+func (c *Client) pingLoop(run *clientRun) {
+	ctx := run.ctx
 	defer func() {
 		if err := recover(); err != nil {
 			c.logger.Warn(ctx, c.fmtLog("ping loop panic, err: %v, stack: %s", err, string(debug.Stack()))...)
+			if ctx.Err() == nil {
+				run.finish(fmt.Errorf("ping loop panic: %v", err))
+			}
 		}
-		go c.pingLoop(ctx)
 	}()
 
 	for {
-		conn, serviceID := c.connState()
+		if err := ctx.Err(); err != nil {
+			return
+		}
+		conn, serviceID := c.connStateForRun(run)
 		if conn != nil {
 			i, _ := strconv.ParseInt(serviceID, 10, 32)
 			frame := NewPingFrame(int32(i))
 			bs, _ := frame.Marshal()
 
-			err := c.writeMessage(ws.BinaryMessage, bs)
+			err := c.writeMessageForRun(run, conn, ws.BinaryMessage, bs)
 			if err != nil {
 				c.logger.Warn(ctx, c.fmtLog("ping failed, err: %v", err)...)
 			} else {
@@ -516,34 +703,54 @@ func (c *Client) pingLoop(ctx context.Context) {
 			}
 		}
 		_, _, _, pingInterval := c.configSnapshot()
-		time.Sleep(pingInterval)
+		if err := sleepWithContext(ctx, pingInterval); err != nil {
+			return
+		}
 	}
 }
 
-func (c *Client) receiveMessageLoop(ctx context.Context) {
+func (c *Client) receiveMessageLoop(run *clientRun) {
+	ctx := run.ctx
 	defer func() {
 		if err := recover(); err != nil {
 			c.logger.Error(ctx, c.fmtLog("receive message loop panic, err: %v, stack: %s", err, string(debug.Stack()))...)
-		}
-		c.disconnect(ctx)
-		if c.autoReconnect {
-			if err := c.reconnect(ctx); err != nil {
-				c.logger.Error(ctx, err)
+			c.disconnectRun(ctx, run, nil)
+			if ctx.Err() == nil {
+				run.finish(fmt.Errorf("receive message loop panic: %v", err))
 			}
 		}
 	}()
-
 	for {
-		conn, _ := c.connState()
+		conn, _ := c.connStateForRun(run)
 		if conn == nil {
+			if ctx.Err() != nil {
+				return
+			}
 			c.logger.Error(ctx, c.fmtLog("connection is closed, receive message loop exit")...)
+			run.finish(fmt.Errorf("connection is closed"))
 			return
 		}
 
 		mt, msg, err := conn.ReadMessage()
 		if err != nil {
 			c.logger.Error(ctx, c.fmtLog("receive message failed, err: %v", err)...)
-			return
+			c.disconnectRun(ctx, run, conn)
+			if ctx.Err() != nil {
+				return
+			}
+			if !c.autoReconnectEnabled() {
+				run.finish(err)
+				return
+			}
+			if err = c.reconnect(run); err != nil {
+				if ctx.Err() != nil {
+					return
+				}
+				c.logger.Error(ctx, err)
+				run.finish(err)
+				return
+			}
+			continue
 		}
 
 		if mt != ws.BinaryMessage {
@@ -551,11 +758,16 @@ func (c *Client) receiveMessageLoop(ctx context.Context) {
 			continue
 		}
 
-		go c.handleMessage(ctx, msg)
+		run.wg.Add(1)
+		go func() {
+			defer run.wg.Done()
+			c.handleMessage(run, conn, msg)
+		}()
 	}
 }
 
-func (c *Client) handleMessage(ctx context.Context, msg []byte) {
+func (c *Client) handleMessage(run *clientRun, conn *ws.Conn, msg []byte) {
+	ctx := run.ctx
 	defer func() {
 		if err := recover(); err != nil {
 			c.logger.Error(ctx, c.fmtLog("handle message panic, err: %v, stack: %s", err, string(debug.Stack()))...)
@@ -570,14 +782,15 @@ func (c *Client) handleMessage(ctx context.Context, msg []byte) {
 
 	switch FrameType(frame.Method) {
 	case FrameTypeControl:
-		c.handleControlFrame(ctx, frame)
+		c.handleControlFrame(run, conn, frame)
 	case FrameTypeData:
-		c.handleDataFrame(ctx, frame)
+		c.handleDataFrame(run, conn, frame)
 	default:
 	}
 }
 
-func (c *Client) handleControlFrame(ctx context.Context, frame Frame) {
+func (c *Client) handleControlFrame(run *clientRun, conn *ws.Conn, frame Frame) {
+	ctx := run.ctx
 	hs := Headers(frame.Headers)
 	t := hs.GetString(HeaderType)
 
@@ -592,12 +805,13 @@ func (c *Client) handleControlFrame(ctx context.Context, frame Frame) {
 			c.logger.Warn(ctx, c.fmtLog("unmarshal client config failed, err: %v", err)...)
 			return
 		}
-		c.configure(conf)
+		c.configureForRun(run, conn, conf)
 	default:
 	}
 }
 
-func (c *Client) handleDataFrame(ctx context.Context, frame Frame) {
+func (c *Client) handleDataFrame(run *clientRun, conn *ws.Conn, frame Frame) {
+	ctx := run.ctx
 	hs := Headers(frame.Headers)
 	sum := hs.GetInt(HeaderSum)
 	seq := hs.GetInt(HeaderSeq)
@@ -652,7 +866,7 @@ func (c *Client) handleDataFrame(ctx context.Context, frame Frame) {
 	frame.Headers = hs
 	bs, _ := frame.Marshal()
 
-	err = c.writeMessage(ws.BinaryMessage, bs)
+	err = c.writeMessageForRun(run, conn, ws.BinaryMessage, bs)
 	if err != nil {
 		c.logger.Error(ctx, c.fmtLog("response message failed, type: %s, message_id: %s, trace_id: %s, err: %v", type_, msgID, traceID, err)...)
 		return
@@ -687,32 +901,116 @@ func (c *Client) combine(msgID string, sum, seq int, bs []byte) []byte {
 	return pl
 }
 
-func (c *Client) writeMessage(messageType int, data []byte) error {
+func (c *Client) writeMessageForRun(run *clientRun, conn *ws.Conn, messageType int, data []byte) error {
+	c.writeMu.Lock()
+	defer c.writeMu.Unlock()
+
 	c.mu.Lock()
-	defer c.mu.Unlock()
-	if c.conn == nil {
+	active := c.conn == conn && c.connRun == run
+	c.mu.Unlock()
+	if !active {
 		return fmt.Errorf("connection is closed")
 	}
-	return c.conn.WriteMessage(messageType, data)
+	return conn.WriteMessage(messageType, data)
 }
 
 func (c *Client) fmtLog(format string, i ...interface{}) []interface{} {
 	log := []interface{}{fmt.Sprintf(format, i...)}
-	if c.connID != "" {
-		log = append(log, fmt.Sprintf("[conn_id=%s]", c.connID))
+	if connID := c.connIDSnapshot(); connID != "" {
+		log = append(log, fmt.Sprintf("[conn_id=%s]", connID))
 	}
 
 	return log
 }
 
-// configure applies a server-pushed config. It is the entry point for callers
-// that do NOT already hold c.mu (the pong control-frame handler runs in its own
-// goroutine). The connect path holds c.mu while building the URL, so it calls
-// configureLocked directly to avoid re-entering the non-reentrant mutex.
+func (c *Client) callbacksSnapshot() clientCallbacks {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return clientCallbacks{
+		onReady:        c.onReady,
+		onError:        c.onError,
+		onReconnecting: c.onReconnecting,
+		onReconnected:  c.onReconnected,
+	}
+}
+
+func (c *Client) callOnError(err error) {
+	if onError := c.callbacksSnapshot().onError; onError != nil {
+		onError(err)
+	}
+}
+
+func (c *Client) callConnectionCallback(run *clientRun, callback func()) bool {
+	run.eventsMu.Lock()
+	c.mu.Lock()
+	active := run.ctx.Err() == nil && c.conn != nil && c.connRun == run
+	if active {
+		run.connectionCallbackActive = true
+	}
+	c.mu.Unlock()
+	run.eventsMu.Unlock()
+	if !active {
+		return false
+	}
+
+	func() {
+		defer c.finishConnectionCallback(run)
+		if callback != nil {
+			callback()
+		}
+	}()
+	return true
+}
+
+func (c *Client) finishConnectionCallback(run *clientRun) {
+	run.eventsMu.Lock()
+	run.connectionCallbackActive = false
+	pendingDisconnected := run.pendingDisconnected
+	run.pendingDisconnected = nil
+	run.eventsMu.Unlock()
+	if pendingDisconnected != nil {
+		pendingDisconnected()
+	}
+}
+
+func (c *Client) autoReconnectEnabled() bool {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.autoReconnect
+}
+
+func (c *Client) connIDSnapshot() string {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.connID
+}
+
+func sleepWithContext(ctx context.Context, duration time.Duration) error {
+	timer := time.NewTimer(duration)
+	defer timer.Stop()
+	select {
+	case <-ctx.Done():
+		return ctx.Err()
+	case <-timer.C:
+		return nil
+	}
+}
+
+// configure applies a server-pushed connection config.
 func (c *Client) configure(conf *ClientConfig) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	c.configureLocked(conf)
+}
+
+func (c *Client) configureForRun(run *clientRun, conn *ws.Conn, conf *ClientConfig) bool {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if c.connRun != run || c.conn != conn {
+		return false
+	}
+	c.configureLocked(conf)
+	return true
 }
 
 // configureLocked writes the connection-control fields. The caller must hold c.mu.
@@ -737,6 +1035,15 @@ func (c *Client) configSnapshot() (reconnectCount int, reconnectInterval time.Du
 func (c *Client) connState() (conn *ws.Conn, serviceID string) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
+	return c.conn, c.serviceID
+}
+
+func (c *Client) connStateForRun(run *clientRun) (conn *ws.Conn, serviceID string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if c.connRun != run {
+		return nil, ""
+	}
 	return c.conn, c.serviceID
 }
 
