@@ -1,6 +1,12 @@
 package ws
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
+
+// ErrClientAlreadyStarted is returned when Start is called while the client is running.
+var ErrClientAlreadyStarted = errors.New("ws client is already started")
 
 type ClientError struct {
 	Code int
